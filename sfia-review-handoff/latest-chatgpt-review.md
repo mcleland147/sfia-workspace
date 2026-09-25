@@ -1,185 +1,1566 @@
-# SFIA Studio — Review Pack FULL
-## CYCLE RESERVATION MANAGEMENT & GATE-AWARE PILOTING
-### DOCUMENTARY PROJECT GIT INTEGRATION — COMMIT + PUSH + OPEN PR
+# SFIA Review Pack — FULL
+## RESERVATION-CONTEXT-PILOT-CONFIRMATION-01
 
-- **timestamp**: `2026-09-25T08:39:56+02:00` (Europe/Paris)
-- **Macro ID**: `CYCLE-RESERVATION-PILOTING-01`
-- **sous-cycle**: POST-MERGE DOCUMENTARY TRUTH-SYNC — ROADMAP PROTECTED PATH ONLY
-- **cycle**: 13 — PR readiness / documentary repository integration continuation — DOC — Critical
-- **GO Morris**: **CONSUMED** — `DOCUMENTARY COMMIT + PUSH + OPEN PR`
-- **NON autorisé**: merge · force push · product change · MealFlow execution · runtime v3 · new macro · REAL
-- **branche**: `docs/sfia-studio-cycle-reservation-postmerge-truth-sync-01`
-- **documentary commit**: `87863f308b430ee1e81a623722f26b95b5189923`
-- **origin/main**: `29f1597951bd6e4d779cc728f46396e28b8f5aa0`
-- **remote branch**: `87863f308b430ee1e81a623722f26b95b5189923` (MATCH)
-- **ahead/behind**: ahead 1 / behind 0
-- **PR**: [#519](https://github.com/mcleland147/sfia-workspace/pull/519) — OPEN / non-draft / NOT MERGED
-- **runtime v3**: **NON ADOPTED**
+Timestamp (UTC): `2026-09-25T09:40:01Z`
 
-## Verdict
+## 1. Git truth
 
-**DOCUMENTARY PROJECT GIT INTEGRATION — PASS**
-**ROADMAP TRUTH-SYNC COMMIT CREATED**
-**DOCUMENTARY BRANCH PUSHED — REMOTE VERIFIED**
-**DOCUMENTARY PR OPENED — REMOTE VERIFIED**
-**ROADMAP ONLY — VERIFIED**
-**PRODUCT CODE — UNCHANGED**
-**REVIEW HANDOFF — REMOTE VERIFIED** *(after this publish)*
-**READY FOR DOCUMENTARY PR / CI REVIEW**
-**MERGE NOT AUTHORIZED**
+- Repo: `mcleland147/sfia-workspace` (`/Users/morris/Projects/sfia-workspace`)
+- Construction branch: `feat/sfia-studio-reservation-context-pilot-confirmation-01`
+- Base / origin/main expected: `e36eb0597657577191af9cbc5feac6f47219b1fc`
+- origin/main verified: `e36eb0597657577191af9cbc5feac6f47219b1fc` — **MATCH**
+- HEAD (uncommitted construction): `e36eb0597657577191af9cbc5feac6f47219b1fc` (= origin/main; work is local dirty only)
+- Project commit: **NOT AUTHORIZED / NOT EXECUTED**
+- Project push / PR / merge: **NOT AUTHORIZED / NOT EXECUTED**
 
-Next gate: **DOCUMENTARY PR / CI REVIEW** → then distinct **MORRIS MERGE DECISION**.
-
----
-
-## A. Git Truth before
-
-| Check | Result |
-| --- | --- |
-| Branch | `docs/sfia-studio-cycle-reservation-postmerge-truth-sync-01` |
-| HEAD before | `29f1597951bd6e4d779cc728f46396e28b8f5aa0` |
-| origin/main | `29f1597951bd6e4d779cc728f46396e28b8f5aa0` |
-| Candidate blob | `4f69330dec43d16ffcf194f304e13bfecb2d9788` — MATCH entry handoff |
-| Diff | 4 insertions / 3 deletions — MATCH |
-| Project files | 1 — Roadmap only |
-| Remote docs branch before | ABSENT |
-| Existing PR before | ABSENT |
-| Entry handoff | `804f8384` / blob `65cc477f` |
-| Build Doctrine | `99232e4582e4ef4cf489020a46b818ebb41ac397` unchanged |
-| C1 | `806d672fe21ad82a641bf88fe95fc87870481105` unchanged |
-
-## B. Convergence pre-check
-
-| Fact | Status |
-| --- | --- |
-| Build Doctrine VALIDATED / ACTIVE ON MAIN | YES |
-| C1 VALIDATED / INTEGRATED | YES |
-| runtime v3 NON ADOPTED | YES |
-| Product Completion historical COMPLETE/CLOSED | YES |
-| Nora Cognitive Completion NOT COMPLETE | YES |
-| global L5 NOT ADOPTED | YES |
-| global semantic Reservation quality NOT PROVEN | YES |
-| READY FOR REAL global NO | YES |
-| Reservation capability INTEGRATED / POST-MERGE VERIFIED | YES |
-| MealFlow = next observation/qualification only | YES |
-| next macro NOT YET DETERMINED | YES |
-
-Trajectory: Reservation → PR #518 → merge `29f15979` → CI #596 PASS → Roadmap truth-sync → this Git integration → MealFlow campaign → observe gaps → eventual next macro from evidence.
-
-## C. Candidate integrity
-
-| Item | Value |
-| --- | --- |
-| Pre-commit blob | `4f69330dec43d16ffcf194f304e13bfecb2d9788` |
-| Post-commit tree blob | `4f69330dec43d16ffcf194f304e13bfecb2d9788` |
-| Content modified this cycle | **NO** (byte-identical to reviewed candidate) |
-
-## D–F. Staging / commit / push
-
-| Step | Result |
-| --- | --- |
-| Staged | Roadmap only — STAGED SCOPE OK |
-| Commit message | `docs(sfia-studio): sync reservation post-merge roadmap truth` |
-| Commit SHA | `87863f308b430ee1e81a623722f26b95b5189923` |
-| Push | `-u origin HEAD` — remote MATCH |
-| Force push | NO |
+### git status --short
 
 ```
-commit 87863f308b430ee1e81a623722f26b95b5189923
-Author:     Morris Cleland <morris@macbook-air.home>
-AuthorDate: Fri Sep 25 08:39:13 2026 +0200
-Commit:     Morris Cleland <morris@macbook-air.home>
-CommitDate: Fri Sep 25 08:39:13 2026 +0200
-
-    docs(sfia-studio): sync reservation post-merge roadmap truth
-
-    Co-authored-by: Cursor <cursoragent@cursor.com>
-
- .../sfia-studio/convergence/sfia-studio-convergence-roadmap.md     | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
-
+M .tmp-sfia-review/chatgpt-review.md
+ M projects/sfia-studio/app/__tests__/oa/cycle/corrProof06.artifactObligation.d0.test.ts
+ M projects/sfia-studio/app/__tests__/project-assistant/studioCognitiveContext.test.ts
+ M projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx
+ M projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
+ M projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
+ M projects/sfia-studio/app/features/project-assistant/actions.ts
+ M projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
+ M projects/sfia-studio/app/features/project-assistant/f2/studioCognitiveContext.ts
+ M projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
+ M projects/sfia-studio/app/features/project-assistant/types.ts
+ M projects/sfia-studio/app/lib/nora-cognitive-runtime/reservationPrompt.ts
+?? .tmp-sfia-review/cycle-journal-continuity-proof/
+?? .tmp-sfia-review/cycle-reservation-piloting-proof/
+?? .tmp-sfia-review/nora-conversational-initiative-real-proof-02/
+?? .tmp-sfia-review/nora-conversational-initiative-real-proof/
+?? .tmp-sfia-review/pilotability-journal-integrity-proof/
+?? projects/sfia-studio/app/__tests__/nora-cognitive-runtime/reservationContextPilotConfirmation.d0.test.ts
+?? projects/sfia-studio/app/__tests__/pre-m6-product-ui/reservationContextProposal.ui.test.tsx
+?? projects/sfia-studio/app/features/project-assistant/reservationInteractionContext.ts
 ```
 
-## G–J. PR proof
+Note: `.tmp-sfia-review/*-proof/` directories are leftover campaign artifacts from prior macros; not part of this construction commit surface. Product construction files are the `projects/sfia-studio/app/**` modifications listed below.
 
-| Item | Value |
-| --- | --- |
-| PR | **#519** |
-| URL | https://github.com/mcleland147/sfia-workspace/pull/519 |
-| Title | docs(sfia-studio): sync Reservation post-merge roadmap truth |
-| Base | `main` @ `29f1597951bd6e4d779cc728f46396e28b8f5aa0` |
-| Head | `docs/sfia-studio-cycle-reservation-postmerge-truth-sync-01` @ `87863f308b430ee1e81a623722f26b95b5189923` |
-| Draft | NO |
-| State | OPEN |
-| Merged | NO |
-| changed_files | **1** — `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` |
-| additions/deletions | +4 / −3 |
-| CI at observation | Detect SFIA Studio changes = QUEUED (not assumed PASS) |
+## 2. Convergence / trajectory qualification
 
-## Roadmap diff (complete)
+- Cycle: Delivery / Implementation — `cyc:delivery`
+- CKC: `ckc:studio:delivery` / `projects/sfia-studio/sfia-v3-framing/ckc/08-delivery-implementation.md` — contentStatus VALIDATED (read-only)
+- Typology: EVOL — Profile: Critical
+- Macro ID: `RESERVATION-CONTEXT-PILOT-CONFIRMATION-01`
+- Macro capability: RESERVATION CONTEXT CONTINUITY & PILOT CONFIRMATION
+- Prior integrated capability: CYCLE RESERVATION MANAGEMENT & GATE-AWARE PILOTING (PR #518)
+- Roadmap: **NOT MODIFIED** (truth-sync deferred)
+- Protected Convergence / Build Doctrine / C1 / v3 framing / method / prompts: **READ ONLY — NOT MODIFIED**
+
+### Sources read (exact blob SHAs at HEAD/main)
+
+- `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md` @ `99232e4582e4ef4cf489020a46b818ebb41ac397`
+- `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` @ `4f69330dec43d16ffcf194f304e13bfecb2d9788`
+- `projects/sfia-studio/product-completion/01-product-completion-cadrage.md` @ `806d672fe21ad82a641bf88fe95fc87870481105`
+- `projects/sfia-studio/sfia-v3-framing/30-knowledge-context-human-decision-doctrine.md` @ `b2d122e2229196d6e104f45706e0cc086a457561`
+- `projects/sfia-studio/sfia-v3-framing/32-living-project-state-and-dynamic-trajectory.md` @ `5d90e8b0c849a803f94db106637d870ea45f4e8e`
+- `projects/sfia-studio/sfia-v3-framing/33-epistemology-provenance-and-contradiction-model.md` @ `a954e560a6d2062b7acb0b1db8e38de6b01e9c4e`
+- `projects/sfia-studio/sfia-v3-framing/34-agent-capabilities-reversibility-and-execution-governance.md` @ `0d81a3616d08e3c8d1b1d3e3ad982c1cc1cd077d`
+- `projects/sfia-studio/sfia-v3-framing/37-studio-v3-foundations-and-consolidation-decision-pack.md` @ `210e933ad0dae386d1880baaf04457ddd234e96a`
+- `projects/sfia-studio/nora-cognitive-completion/08-nora-openai-native-first-cognitive-trajectory.md` @ `1dfd8fd49e4e1e90e3e781139bb0df5fd88fd389`
+- `projects/sfia-studio/sfia-v3-framing/ckc/08-delivery-implementation.md` @ `69d1257a5ca9045964b68410c07728c2f8264491`
+- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md` @ `8949e764d96faf3fa812d39307dbc298b500f5ef`
+- `prompts/templates/sfia-cycle-execution-template.md` @ `948156a21309ef99c3aaed6410947dc6b9bc569a`
+
+## 3. R22 OpenAI Capability Fit Check
+
+Inspected installed path:
+
+- `OpenAIConversationProvider` (`lib/platform/ai/openaiProvider.ts`) — Responses API `json_schema` structured output KEEP
+- `NORA_PRODUCT_TURN_OUTPUT_TYPE` includes nullable `reservationDelta` with CREATE/UPDATE/PROPOSE_RESOLUTION (never RESOLVE) KEEP
+- Generic cognitive reasoning via F1 Agents path KEEP
+- Reservation-specific context carriage: **ADAPT / COMBINE** — new untrusted `reservationInteractionContext` client field + server `validateReservationInteractionContext` + `reservationFocusSection` prompt + force-F1 advisory override
+- Missing continuity: **COMPLETE** via binding → force F1 → PROPOSE_RESOLUTION materialize → Pilot confirm affordance
+- New generic internal cognitive engine: **REJECT**
+- New provider/session authority: **REJECT**
+- OpenAI HITL as SFIA Pilot confirmation replacement: **REJECT**
+
+Disposition: provider contract remains compatible; no parallel cognitive engine required.
+
+OpenAI/model/session state is NOT Truth C / HumanDecision / Confirmation / authority / Evidence.
+
+## 4. Campaign observations consumed (StudyFlow evidence only)
+
+KEEP findings preserved (routing CREATE/UPDATE, openPoint≠Reservation, CREATE, Journal Réserves, Treat prefill-only, fail-closed Pilot confirm, left/right projections complementary).
+
+Failure chain addressed:
+
+1. Treat with Nora prefilled Reservation draft
+2. After clarification, generic F2 qualification/proposal hijacked subject (false “new Cadrage”)
+3. Narrative claimed levée while Truth C stayed active
+4. No resolutionProposal / no Confirmer CTA
+
+Morris decisions consumed:
+
+- KEEP left/right Reservation composition AS-IS
+- No StudyFlow-specific code
+- No new store / parallel Reservation workflow
+- No REAL promotion / runtime v3 claim
+
+## 5. Root-cause analysis
+
+Generic conversation routing (`resolveTransitionReadiness` → F2 formalization) treated Pilot clarification text as actionable cycle qualification. “Traiter avec Nora” only prefaced free-text; no structured Reservation identity survived into the Product turn. Therefore:
+
+- F2 proposed Cadrage (already active)
+- Nora narrative could claim resolution without `PROPOSE_RESOLUTION` materialization
+- Truth C correctly stayed active (protection worked) but pilotability continuity failed
+
+## 6. Architecture / reuse classification
+
+KEEP: Epistemic Reservation state, reservationDelta, materializeReservationDelta, resolutionProposal metadata, confirmReservationResolutionAction, Pilot authority, Journal/Lifecycle Reservation cards/projections, Product SQLite, generic F2 for non-Reservation work.
+
+ADAPT: Treat plumbing (arm structured context), send envelope, orchestrateF2 routing, studioCognitiveContext focus section, ConversationSurface proposal presentation when Reservation subject active.
+
+COMPLETE: structured binding + server revalidation; force F1 under valid Reservation focus; PROPOSE_RESOLUTION → proposedIds surface; Confirmer la levée on contextual Proposal + existing Journal CTA (same governed action).
+
+NO REPLACE. No new persistence store. No parallel conversation aggregate.
+
+### Design seam
+
+```
+reservationInteractionContext?: { cycleInstanceId, epistemicItemId }  // client untrusted
+→ parseReservationInteractionContextInput
+→ validateReservationInteractionContext (project/cycle/item/active/type)
+→ ValidatedReservationInteractionContext { kind: reservation_resolution, ... }
+→ composeStudioCognitiveContext.reservationFocusSection
+→ forceRepoInformative (advisory F1; blocks F2 hijack)
+→ materializeReservationDelta PROPOSE_RESOLUTION
+→ reservationResolutionProposal DTO + Journal hasResolutionProposal
+→ projectAssistantConfirmReservationResolutionAction (Pilot only)
+```
+
+## 7. Modified / created files
+
+### Modified
+
+- `projects/sfia-studio/app/features/project-assistant/actions.ts`
+- `projects/sfia-studio/app/features/project-assistant/types.ts`
+- `projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts`
+- `projects/sfia-studio/app/features/project-assistant/f2/studioCognitiveContext.ts`
+- `projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts`
+- `projects/sfia-studio/app/lib/nora-cognitive-runtime/reservationPrompt.ts`
+- `projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx`
+- `projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts`
+- `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx`
+- `projects/sfia-studio/app/__tests__/project-assistant/studioCognitiveContext.test.ts` (+`reservationFocusSection: null`)
+- `projects/sfia-studio/app/__tests__/oa/cycle/corrProof06.artifactObligation.d0.test.ts` (+`reservationFocusSection: null`)
+
+### Created
+
+- `projects/sfia-studio/app/features/project-assistant/reservationInteractionContext.ts`
+- `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/reservationContextPilotConfirmation.d0.test.ts`
+- `projects/sfia-studio/app/__tests__/pre-m6-product-ui/reservationContextProposal.ui.test.tsx`
+
+## 8. Complete diffs / new file contents
+
+### Tracked file diffs
 
 ```diff
-commit 87863f308b430ee1e81a623722f26b95b5189923
-Author: Morris Cleland <morris@macbook-air.home>
-Date:   Fri Sep 25 08:39:13 2026 +0200
+diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx
+index 403ce3e2..707694e1 100644
+--- a/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx
++++ b/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx
+@@ -157,6 +157,14 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
+       null;
+     controller.setDraft(reservationDraftForNora(card));
+     setReservationNotice(null);
++    if (reservationCycleInstanceId && epistemicItemId.trim()) {
++      controller.armReservationInteractionContext({
++        cycleInstanceId: reservationCycleInstanceId,
++        epistemicItemId: epistemicItemId.trim(),
++      });
++    } else {
++      controller.armReservationInteractionContext(null);
++    }
+     focusConversation();
+   };
 
-    docs(sfia-studio): sync reservation post-merge roadmap truth
+@@ -180,12 +188,14 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
+         }
+         setReservationNotice(outcome.message ?? "Levée de la réserve confirmée.");
+         if (outcome.projection) setLifecycleProjection(outcome.projection);
++        controller.armReservationInteractionContext(null);
++        controller.clearReservationResolutionProposal();
+         notifyDurableFactsChanged();
+       } finally {
+         setReservationBusyId(null);
+       }
+     },
+-    [projectId, reservationCycleInstanceId, notifyDurableFactsChanged],
++    [projectId, reservationCycleInstanceId, notifyDurableFactsChanged, controller],
+   );
 
-    Co-authored-by: Cursor <cursoragent@cursor.com>
+   const confirmReservationDefer = useCallback(
+@@ -351,7 +361,11 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
 
-diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-index a8dc6c56..4f69330d 100644
---- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-+++ b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-@@ -4,6 +4,7 @@
- | --- | --- |
- | **Rôle** | Roadmap **vivante** de convergence vers l’utilisation complète de la doctrine produit SFIA Studio v3 |
- | **Statut** | **VALIDATED — ACTIVE LIVING ROADMAP** |
-+| **Timestamp maintenance CYCLE-RESERVATION-PILOTING-01 post-merge verification** | 2026-09-25 — **CYCLE RESERVATION MANAGEMENT & GATE-AWARE PILOTING — POST-MERGE VERIFICATION / ROADMAP TRUTH-SYNC** · Macro **CYCLE-RESERVATION-PILOTING-01** · Cycle **14** · Post-merge · DOC · CRITICAL · Morris GO **POST-MERGE DOCUMENTARY TRUTH-SYNC — ROADMAP PROTECTED PATH ONLY** **CONSUMED** · PR **#518 MERGED** · product head `f0874ec05fec4237a6f39311b90c9233debce5f5` · merge/main `29f1597951bd6e4d779cc728f46396e28b8f5aa0` · PR CI **#595** run `36100845339` **SUCCESS / Required Gate PASS** · post-merge CI **#596** run `36101841229` **SUCCESS / Required Gate PASS** · capacité **CYCLE RESERVATION MANAGEMENT & GATE-AWARE PILOTING** = **INTEGRATED ON MAIN / POST-MERGE VERIFIED** · same-macro construction reserves = **ZERO** at reviewed scope · protected Roadmap truth-sync = local documentary candidate under this cycle until Git integration · Product Completion = historical **COMPLETE/CLOSED** (**≠** newly completed) · Nora Cognitive Completion = **NOT COMPLETE** · global semantic Reservation quality = **NOT PROVEN** · READY FOR REAL global = **NO** · runtime v3 = **NON ADOPTED** · **next** = MealFlow semantic reservation campaign (**observation / qualification** · **NOT STARTED** by this documentary sync · **≠** new macro pre-authorized) · Git / PR evidence remains authoritative · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT / `origin/main` / PR evidence** |
- | **Timestamp maintenance CYCLE-RESERVATION-PILOTING-01 known-reserves closure** | 2026-09-25 — **CYCLE RESERVATION MANAGEMENT & GATE-AWARE PILOTING — KNOWN RESERVES CLOSED / MACRO PR READINESS PASS / ROADMAP TRUTH-SYNC** · Macro **CYCLE-RESERVATION-PILOTING-01** · Cycle Delivery / same-macro closure · EVOL · CRITICAL · Morris GO **CONSUMED** for R1/R2/R3 only · protected path authorization = Roadmap file **ONLY** under `convergence/**` · Build Doctrine / framing / C1 = **READ ONLY** · **PR #516** SFIA Studio — durable cycle journal and conversation continuity · merge `dc462d9f43661fb63f222f37691e80efb8650157` · capacité **PROJECT CONVERSATIONAL CONTINUITY & CYCLE JOURNAL** · status **INTEGRATED ON MAIN / POST-MERGE VERIFIED** · **PR #517** SFIA Studio — pilotability and journal semantic integrity · merge/current main `385c764458c5212913388d5e0e5b80f5390c23db` · capacité **PILOTABILITY & JOURNAL SEMANTIC INTEGRITY** · status **INTEGRATED ON MAIN / POST-MERGE VERIFIED** · post-merge CI #594 attempt 2 **SUCCESS / Required Gate PASS** · **CURRENT CONSTRUCTION STATE** = capacité **CYCLE RESERVATION MANAGEMENT & GATE-AWARE PILOTING** · branch `feat/sfia-studio-cycle-reservation-piloting-01` · base `385c764458c5212913388d5e0e5b80f5390c23db` · state **LOCAL CANDIDATE / SAME-MACRO COMPLETE / CONTENT READY FOR PRODUCT GIT INTEGRATION** · **LOCAL CANDIDATE / NOT YET INTEGRATED ON MAIN** · **NOT YET COMMITTED / PUSHED / OPENED AS PR** · proof scope (local candidate): reservationDelta · Memory Sujets/Réserves · gate-aware FINALIZE · Treat with Nora · Pilot-confirmed resolution · Defer + HumanDecision · bounded REAL Reservation proof · Pilot/Morris authority separation Option A · generic non-Morris Pilot proof · canonical Pilot env `SFIA_STUDIO_LOCAL_PILOT_AUTHORITY` + deprecated legacy alias · historical HD `authority:"morris"` immutable compatibility · R1 legacy env naming = **CLOSED BY CANONICAL PILOT ENV + DEPRECATED COMPATIBILITY ALIAS** · R2 historical morris HD = **CLOSED AS IMMUTABLE HISTORICAL COMPATIBILITY** · R3 Roadmap truth-sync = **CURRENT TO LOCAL CANDIDATE STATE** · runtime v3 = **NON ADOPTED** · Product Completion = historical **COMPLETE/CLOSED** (**≠** newly completed by this macro) · Nora Cognitive Completion = **≠** newly COMPLETE · global semantic reservation quality = **≠** PROVEN · READY FOR REAL global = **NO** · **CURRENT PRIORITY** = this Reservation macro local candidate · **next after eventual integration** = MealFlow semantic reservation campaign (**NOT STARTED / NOT AUTHORIZED** by this truth-sync) · **≠** current macro integrated on main · **≠** product commit/push/PR/merge · **≠** runtime v3 ADOPTED · **≠** READY FOR REAL · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT / `origin/main` / PR evidence** |
- | **Timestamp maintenance PRODUCT-PROJECT-WORKSPACE-ARTIFACT-ROUTING-01** | 2026-09-20 — **FINAL MACRO CLOSEOUT / CAPITALISATION** · Cycle **15** · Capitalisation / REX · CAPA · CRITICAL · Macro **PRODUCT-PROJECT-WORKSPACE-ARTIFACT-ROUTING-01** · **SAME MACRO / NO MICRO-CYCLE** · Morris final closeout GO **CONSUMED** · capacité **D-PC-09 Project Repository Workspace & Cycle-aware Artifact Routing** · associated same-macro correction **Post-execution Product Continuity & Recovery** · **CR-PWR-01…04 CLOSED** · **CR-PCONT-01…06 CLOSED** · deterministic E2E **PASS** · Product-source bounded REAL reproof **PASS AT TESTED SCOPE** (REAL Product source `f57fc6cd56900cd19df961dbe8b788a0b89937ca`) · test-only corrective commit `8488e82724ea70e91ba206aefe039e69749774d6` (**Product source unchanged**) · PR **#506 MERGED** · Product merge `8448c3f514fdaad631e1b5865859f9b8a3663fc7` · Product tree `7daf6d6c97ff20a1e48ef2969840c5afb6138496` · **HEAD→MERGE tree parity PROVEN** · Product post-merge CI `35498525775` attempt 1 FAIL = three 5000 ms Vitest timeouts · diagnostic **CI_LOAD_TIMING_FLAKE** (handoff `004341f3327e3ed41511289d2af0d6f32f33ed6f`) · bounded rerun attempt 2 **SUCCESS** · Product post-merge **SFIA Studio Required Gate PASS** · Product capability = **INTEGRATED ON MAIN / POST-MERGE VERIFIED** · documentary truth-sync project commit `746c65fb5709aa640b7d2017faa136fb3d8edd3e` · PR **#507 MERGED** · documentary merge `469760a7ae1b10b5a5f149ec954ab957de4d3016` · documentary merge tree `0a08159312f6d175f3c10aaf4594f37316f42d9c` · documentary post-merge CI `35507610874` **SUCCESS** · documentary post-merge **SFIA Studio Required Gate PASS** · documentary truth-sync = **INTEGRATED ON MAIN / POST-MERGE VERIFIED** · macro = **COMPLETE / CLOSED BY MORRIS AT PROVEN SCOPE WITH EXPLICIT NON-BLOCKING REALISM RESERVE** · reserve **REAL EVIDENCE PAYLOAD VERIFICATION ADAPTER ABSENT** = **OPEN / NON-BLOCKING FOR THIS MACRO** (future trajectory = **REQUALIFY WHEN A CAPABILITY REQUIRES REAL EVIDENCE PAYLOAD VERIFICATION** · **≠** CLOSED) · capitalisation facts (compact · **≠** doctrine promotion): server-owned Project/Cycle/Artifact routing removed Pilot `targetPath` plumbing · post-execution continuity must reconcile EC/Attempt/Evidence before trajectory recovery · same-tree post-merge timing failures diagnosed as CI load timing flake and cleared by one bounded rerun · runtime v3 = **NON ADOPTED** · global L5 = **NOT ADOPTED** · **ACTIVE CONSTRUCTION PRIORITY = NORA COGNITIVE COMPLETION PRESERVED** · **next capability NOT STARTED** · **≠** Product merge SHA REAL-proven · **≠** Product Completion newly COMPLETE/CLOSED by this macro · **≠** REAL Evidence payload verified · **≠** REAL EC completion driven by verified Evidence payload · **≠** full recovery-options REAL orchestration · **≠** browser-real Product Journey · **≠** generalized Cursor autonomy · **≠** runtime v3 ADOPTED · **≠** global L5 · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT / `origin/main` / PR evidence** |
- | **Timestamp maintenance PRODUCT-JOURNEY-CLAIM-EVIDENCE-COMPLETION-01** | 2026-09-18 19:05:00 CEST (+0200) — **PRODUCT JOURNEY CLAIM EVIDENCE COMPLETION — PROJECT GIT INTEGRATION** · EVOL · CRITICAL · Macro **PRODUCT-JOURNEY-CLAIM-EVIDENCE-COMPLETION-01** · **SAME MACRO / NO MICRO-CYCLE** · Morris GO **PROJECT GIT INTEGRATION — AUTHORIZED** **CONSUMED** · baseline `origin/main` `9c6ac90974113044330284dd110108287ba2319e` · branche `qa/sfia-studio-product-journey-claim-evidence-completion-01` · CR-CEC-01/02/03 **CLOSED** · ChatGPT Critical Review **PASS** (handoff `cdde19b43ab1e2bb8d1348d67c8e0df9d569acf3`) · historical CE `evidence-completion-v1` **pass IMMUTABLE** · successor CE `evidence-completion-v2` **pass** · Product **SUCCESS** · LPS v29 · Trajectory v4 unchanged · Attempts **3→3** · **ZERO NEW CURSOR REAL** · runtime v3 = **NON ADOPTED** · repository lifecycle = **PROJECT GIT INTEGRATION / PR PENDING** · commit/push/PR **AUTHORIZED** · merge **NOT AUTHORIZED / DISTINCT MORRIS GATE** · **≠** Product Journey READY/COMPLETE · **≠** integrated on main · **≠** post-merge verified · **≠** new REAL proof · next = PR CI / Morris merge decision |
-@@ -204,9 +205,9 @@ Fondations V3-F01…F15 = couverture doctrine progressive (B9).
- | Product Completion Product Screens & Visual State Contract | **VALIDATED BY MORRIS — INTEGRATED ON MAIN** · `projects/sfia-studio/product-completion/ux-product-experience/03-product-screens-visual-state-contract.md` · PR #376 / head `6e2cd066…` / merge `7d2f9a61…` · PR CI **#236 SUCCESS** · post-merge CI **#237 SUCCESS** · Penpot `63bdc57a…` page 03 · 17 screens · page 04 = 0 · Components 0 · C1 alignment PASS · PASS 3 PASS WITH ONE NON-BLOCKING EVIDENCE-FRAMING RESERVE · UX-BLK-01/02/03 CLOSED · H-01…H-04 **CARRY** · source branch cleanup **COMPLETED** · **≠** Components · **≠** Delivery |
- | Product Completion Functional Architecture (Cycle 3) | **VALIDATED BY MORRIS — INTEGRATED ON MAIN** · `projects/sfia-studio/product-completion/03-product-completion-architecture-fonctionnelle.md` · PR #378 / head `1018aa79…` / merge `18b89ec9…` · PR CI **#240 SUCCESS** · post-merge CI **#241 SUCCESS** · post-merge sync PR **#379** / head `0aa644d…` / merge `134f4105…` · PR CI **#242 SUCCESS** · post-merge CI **#243 SUCCESS** · final closure PR **#380** / head `53aeceea…` / merge `14329c60…` · post-merge CI **#245 SUCCESS** · **POST-MERGE COHERENCE COMPLETE** · PM-R01/PM-R02 **CLOSED** · FC-01…FC-15 APPROVED · OA Option A + thin C APPROVED · targeted durability delta QUALIFIED then **W1-realized for Confirmation + ProjectTrajectory** · FA-R01…FA-R12 CLOSED · **RESERVE-GOV-EC-ORDER CLOSED** · downstream HD/replan / Phase B / Recovery E2E remain · **≠** Product Completion terminée · **≠** Delivery W2+ |
- | COMPLETED / INTEGRATED | **C1 CADRAGE** · **C2 FUNCTIONAL DESIGN** · **UX EXPERIENCE ARCHITECTURE** · **E2E WIREFRAMES & INTERACTION MODEL** · **PRODUCT SCREENS & VISUAL STATE CONTRACT** · **FUNCTIONAL ARCHITECTURE (Cycle 3)** · post-merge sync PR **#379** · final closure PR **#380** · PR #369 / `2406ccda…` · PR #370 post-merge sync **HISTORICAL / MERGED** · PR #372 / `fb311f2f…` · PR #373 / `6b67ada7…` · PR #374 / `404d2d3e…` · PR #375 post-merge sync · PR #376 / `7d2f9a61…` · PR #378 / `18b89ec9…` · PR #379 / `134f4105…` · PR #380 / `14329c60…` |
--| CURRENT REPOSITORY TRANSITION | **Construction progressed** · **PR #516** Project Conversational Continuity & Cycle Journal = **INTEGRATED ON MAIN / POST-MERGE VERIFIED** (`dc462d9f43661fb63f222f37691e80efb8650157`) · **PR #517** Pilotability & Journal Semantic Integrity = **INTEGRATED ON MAIN / POST-MERGE VERIFIED** (`385c764458c5212913388d5e0e5b80f5390c23db`) · **CURRENT LOCAL CANDIDATE** = **CYCLE RESERVATION MANAGEMENT & GATE-AWARE PILOTING** · branch `feat/sfia-studio-cycle-reservation-piloting-01` · state **LOCAL CANDIDATE / SAME-MACRO COMPLETE / CONTENT READY FOR PRODUCT GIT INTEGRATION** · **NOT YET INTEGRATED ON MAIN** · **Product Completion = COMPLETE / CLOSED BY MORRIS** (historical · **≠** newly completed by this macro) · runtime v3 **NON ADOPTED** · repository publication/integration status = **RESOLVE FROM GIT / PR evidence** · next = Morris GO **COMMIT + PUSH + OPEN PR** (distinct) · after eventual integration next campaign = MealFlow semantic reservation (**NOT STARTED / NOT AUTHORIZED**) |
--| NEXT ORDERED STEP | **PRODUCT COMMIT + PUSH + OPEN PR — MORRIS GO DISTINCT** for **CYCLE RESERVATION MANAGEMENT & GATE-AWARE PILOTING** (local candidate on `feat/sfia-studio-cycle-reservation-piloting-01` · base `385c764458c5212913388d5e0e5b80f5390c23db`) · **MACRO PR READINESS = PASS / CONTENT READY** · branch-ahead = pending authorized commit · PR = not opened · merge = not authorized · **≠** MealFlow semantic reservation campaign started · runtime v3 **NON ADOPTED** · READY FOR REAL global = **NO** · repository publication/integration status = **RESOLVE FROM GIT / PR evidence** |
--| NEXT PRODUCT CAPABILITY | **CURRENT** = **CYCLE RESERVATION MANAGEMENT & GATE-AWARE PILOTING** (**LOCAL CANDIDATE / CONTENT READY FOR PRODUCT GIT INTEGRATION / NOT YET INTEGRATED ON MAIN**) · **NEXT AFTER EVENTUAL INTEGRATION** = MealFlow semantic reservation campaign (purpose: real semantic Reservation quality · Journal ↔ Reservation behavior · gate-aware finalization in natural Product usage · further Nora Cognitive Completion gaps) · **NOT STARTED / NOT AUTHORIZED** by this truth-sync · **Product Completion = COMPLETE / CLOSED BY MORRIS** (historical) · Nora Cognitive Completion **≠** newly COMPLETE · global semantic reservation quality **≠** PROVEN · runtime v3 **NON ADOPTED** · READY FOR REAL global = **NO** |
-+| CURRENT REPOSITORY TRANSITION | **Construction progressed and integrated** · **PR #516** Project Conversational Continuity & Cycle Journal = **INTEGRATED ON MAIN / POST-MERGE VERIFIED** (`dc462d9f43661fb63f222f37691e80efb8650157`) · **PR #517** Pilotability & Journal Semantic Integrity = **INTEGRATED ON MAIN / POST-MERGE VERIFIED** (`385c764458c5212913388d5e0e5b80f5390c23db`) · **PR #518** CYCLE RESERVATION MANAGEMENT & GATE-AWARE PILOTING = **INTEGRATED ON MAIN / POST-MERGE VERIFIED** (product head `f0874ec05fec4237a6f39311b90c9233debce5f5` · merge/main `29f1597951bd6e4d779cc728f46396e28b8f5aa0`) · post-merge CI **#596** **SUCCESS / Required Gate PASS** · **Product Completion = COMPLETE / CLOSED BY MORRIS** (historical · **≠** newly completed by this macro) · runtime v3 **NON ADOPTED** · repository publication/integration status = **RESOLVE FROM GIT / PR evidence** · **next trajectory** = MealFlow semantic reservation campaign (**observation / qualification** · **NOT STARTED / NOT AUTHORIZED** as a new macro) |
-+| NEXT ORDERED STEP | **MEALFLOW SEMANTIC RESERVATION CAMPAIGN — RESUME NATURAL PRODUCT CAMPAIGN** · purpose: observe real semantic Reservation quality · Journal ↔ Reservation · open point ≠ Reservation · CREATE vs UPDATE · Treat with Nora · proposed resolution → Pilot confirmation · defer · FINALIZE / must_resolve · false blockers · continuity · Nora real usage of réserves · new piloting frictions · **campaign of observation / qualification** · **≠** new macro pre-authorized · gaps must be classified before construction work · runtime v3 **NON ADOPTED** · READY FOR REAL global = **NO** · repository publication/integration status = **RESOLVE FROM GIT / PR evidence** |
-+| NEXT PRODUCT CAPABILITY | **CURRENT INTEGRATED** = **CYCLE RESERVATION MANAGEMENT & GATE-AWARE PILOTING** (**INTEGRATED ON MAIN / POST-MERGE VERIFIED** · PR **#518** · merge `29f1597951bd6e4d779cc728f46396e28b8f5aa0`) · **NEXT ACTIVITY** = MealFlow semantic reservation campaign (purpose: reveal remaining Nora Cognitive Completion / pilotability gaps via natural Product usage) · **NEXT MACRO CAPABILITY** = **NOT YET DETERMINED — derive from campaign evidence** · **≠** MealFlow already executed · **≠** new macro selected · **Product Completion = COMPLETE / CLOSED BY MORRIS** (historical) · Nora Cognitive Completion **≠** COMPLETE · global semantic reservation quality **≠** PROVEN · runtime v3 **NON ADOPTED** · READY FOR REAL global = **NO** |
- | M6 / M7 | **HISTORICAL MILESTONES — SUPERSEDED / ABSORBED BY PRODUCT COMPLETION** · traces conservées · hors forward critical path |
+         <div className={styles.main} ref={conversationRef}>
+           <div className={styles.conversation} data-testid="project-conversation-main">
+-            <ConversationSurface controller={controller} />
++            <ConversationSurface
++              controller={controller}
++              onConfirmReservationResolve={confirmReservationResolution}
++              reservationConfirmBusyId={reservationBusyId}
++            />
+           </div>
+           <HistorySurface result={success} durableOutcome={durableOutcome} />
+         </div>
+diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts b/projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
+index b88b7d32..6d040062 100644
+--- a/projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
++++ b/projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
+@@ -16,6 +16,7 @@ import type {
+   AssistantToolEventDto,
+   F2TurnPayload,
+   ProjectAssistantRehydrateEvidenceOutcomeSuccess,
++  ReservationResolutionProposalDto,
+ } from "@/features/project-assistant/types";
+ import type {
+   F2DecisionKind,
+@@ -169,6 +170,14 @@ export function useProductConversation({
+   /** CORR-PROOF-11 — armed opaque proposalId for explicit reinstruction send. */
+   const [armedReinstructionOfProposalId, setArmedReinstructionOfProposalId] =
+     useState<string | null>(null);
++  /**
++   * RESERVATION-CONTEXT-PILOT-CONFIRMATION-01 — armed structured Reservation
++   * binding for subsequent send(s). Prefill-only Treat does not send.
++   */
++  const [armedReservationInteractionContext, setArmedReservationInteractionContext] =
++    useState<{ cycleInstanceId: string; epistemicItemId: string } | null>(null);
++  const [reservationResolutionProposal, setReservationResolutionProposal] =
++    useState<ReservationResolutionProposalDto | null>(null);
 
- ### Candidat local non-main (dirty `delivery/sfia-studio-f3-real-prerequisites`) — historique / harvest
+   const listRef = useRef<HTMLDivElement | null>(null);
+   const f3InFlightRef = useRef(false);
+@@ -419,6 +428,14 @@ export function useProductConversation({
+       reinstructionOfProposalId?: string | null;
+       /** Fired after a successful send that included reinstructionOfProposalId. */
+       onReinstructionConsumed?: () => void;
++      /**
++       * RESERVATION-CONTEXT-PILOT-CONFIRMATION-01 — override armed Reservation
++       * binding for this send (tests / explicit callers).
++       */
++      reservationInteractionContext?: {
++        cycleInstanceId: string;
++        epistemicItemId: string;
++      } | null;
+     },
+   ) {
+     const usingRetryEnvelope = Boolean(options?.turnRetryKey?.trim());
+@@ -461,6 +478,10 @@ export function useProductConversation({
+       typeof options?.reinstructionOfProposalId === "string"
+         ? options.reinstructionOfProposalId.trim() || null
+         : armedReinstructionOfProposalId;
++    const reservationInteractionContext =
++      options?.reservationInteractionContext !== undefined
++        ? options.reservationInteractionContext
++        : armedReservationInteractionContext;
+
+     startTransition(async () => {
+       setUiState("ASSISTANT_WORKING");
+@@ -477,6 +498,9 @@ export function useProductConversation({
+           ...(reinstructionOfProposalId
+             ? { reinstructionOfProposalId }
+             : {}),
++          ...(reservationInteractionContext
++            ? { reservationInteractionContext }
++            : {}),
+         });
+       } catch {
+         // Transport / Server Action rejection before structured response.
+@@ -496,6 +520,14 @@ export function useProductConversation({
+         } else if (presentedLogicalTurnId) {
+           lastLogicalTurnIdRef.current = presentedLogicalTurnId;
+         }
++        if (
++          typeof result.code === "string" &&
++          result.code.startsWith("RESERVATION_CONTEXT_")
++        ) {
++          // Stale/hostile Reservation binding — clear arm; do not retarget.
++          setArmedReservationInteractionContext(null);
++          setReservationResolutionProposal(null);
++        }
+         if (result.status === "provider_unavailable") {
+           setUiState("BLOCKED");
+           setModeLabel("Assistant indisponible");
+@@ -520,6 +552,18 @@ export function useProductConversation({
+         // A committed decision subject is a durable Epistemic marker write.
+         notifyDurableFactsChanged();
+       }
++      if (result.reservationResolutionProposal) {
++        setReservationResolutionProposal(result.reservationResolutionProposal);
++      } else if (!reservationInteractionContext) {
++        setReservationResolutionProposal(null);
++      }
++      if (
++        (result.reservationProposedIds?.length ?? 0) > 0 ||
++        result.reservationResolutionProposal?.proposed === true
++      ) {
++        // PROPOSE_RESOLUTION wrote durable Truth C — refresh Journal / Lifecycle.
++        notifyDurableFactsChanged();
++      }
+
+       lastSendFailedRef.current = false;
+       lastLogicalTurnIdRef.current = result.logicalTurnId ?? null;
+@@ -879,6 +923,28 @@ export function useProductConversation({
+       if (trimmed) setArmedReinstructionOfProposalId(trimmed);
+     },
+     armedReinstructionOfProposalId,
++    armReservationInteractionContext: (ctx: {
++      cycleInstanceId: string;
++      epistemicItemId: string;
++    } | null) => {
++      if (!ctx) {
++        setArmedReservationInteractionContext(null);
++        return;
++      }
++      const cycleInstanceId = ctx.cycleInstanceId.trim();
++      const epistemicItemId = ctx.epistemicItemId.trim();
++      if (!cycleInstanceId || !epistemicItemId) return;
++      setArmedReservationInteractionContext({
++        cycleInstanceId,
++        epistemicItemId,
++      });
++      setReservationResolutionProposal(null);
++    },
++    armedReservationInteractionContext,
++    reservationResolutionProposal,
++    clearReservationResolutionProposal: () => {
++      setReservationResolutionProposal(null);
++    },
+     decide,
+     prepareResolvedM3,
+     prepareLegacyFixture,
+diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
+index 1da26eac..81c23ff2 100644
+--- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
++++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
+@@ -57,6 +57,12 @@ export type ConversationSurfaceProps = {
+    * unset/false so TrajectorySurface remains the sole authority/execute chain.
+    */
+   exposeLegacyAuthorityPath?: boolean;
++  /**
++   * RESERVATION-CONTEXT-PILOT-CONFIRMATION-01 — same governed Pilot confirm
++   * as Journal « Confirmer la levée » (no duplicate mutation path).
++   */
++  onConfirmReservationResolve?: (epistemicItemId: string) => void;
++  reservationConfirmBusyId?: string | null;
+ };
+
+ /**
+@@ -68,6 +74,8 @@ export type ConversationSurfaceProps = {
+ export function ConversationSurface({
+   controller,
+   exposeLegacyAuthorityPath = false,
++  onConfirmReservationResolve,
++  reservationConfirmBusyId = null,
+ }: ConversationSurfaceProps) {
+   const fieldId = useId();
+   const liveRegionId = useId();
+@@ -114,6 +122,7 @@ export function ConversationSurface({
+     confirmAndExecuteLegacyFixture,
+     refreshResolvedM3RunningAttempt,
+     retryLastUserMessage,
++    reservationResolutionProposal,
+   } = controller;
+
+   // Notify LifecycleSurface after Nora answers so CURRENT LR can reproject.
+@@ -308,7 +317,70 @@ export function ConversationSurface({
+         </div>
+       ) : null}
+
+-      {f2?.qualification ? (
++      {reservationResolutionProposal ? (
++        <section
++          className={styles.card}
++          data-testid="reservation-resolution-proposal"
++          aria-labelledby={`${fieldId}-rsv-proposal`}
++        >
++          <header className={styles.cardHead}>
++            <p className={styles.cardEyebrow}>Lecture de Nora</p>
++            <h3 id={`${fieldId}-rsv-proposal`} className={styles.cardTitle}>
++              {reservationResolutionProposal.proposed
++                ? "Proposition de levée"
++                : "Traitement de réserve"}
++            </h3>
++            <p
++              className={styles.cardNote}
++              data-testid="reservation-resolution-context"
++            >
++              Contexte :{" "}
++              {reservationResolutionProposal.ordinal != null &&
++              reservationResolutionProposal.ordinal > 0
++                ? `Réserve ${reservationResolutionProposal.ordinal}`
++                : "Réserve"}{" "}
++              · « {reservationResolutionProposal.title} » · cycle{" "}
++              {reservationResolutionProposal.cycleInstanceId}
++            </p>
++            <p className={styles.cardNote}>
++              {reservationResolutionProposal.proposed
++                ? "La condition paraît satisfaite. La levée attend votre confirmation Pilote — la réserve reste active."
++                : "Nora traite cette réserve. Une recommandation n’est pas une levée."}
++            </p>
++          </header>
++          {reservationResolutionProposal.proposed &&
++          onConfirmReservationResolve ? (
++            <div className={styles.decisionActions}>
++              <button
++                type="button"
++                className={styles.decisionButton}
++                data-tone="primary"
++                data-testid={`reservation-confirm-from-proposal-${reservationResolutionProposal.epistemicItemId}`}
++                disabled={
++                  busy ||
++                  reservationConfirmBusyId ===
++                    reservationResolutionProposal.epistemicItemId
++                }
++                onClick={() =>
++                  onConfirmReservationResolve(
++                    reservationResolutionProposal.epistemicItemId,
++                  )
++                }
++              >
++                {reservationConfirmBusyId ===
++                reservationResolutionProposal.epistemicItemId
++                  ? "Confirmation…"
++                  : "Confirmer la levée"}
++              </button>
++            </div>
++          ) : null}
++          <p className={styles.stamp} data-testid="reservation-no-auto-resolve">
++            AUCUNE LEVÉE AUTOMATIQUE
++          </p>
++        </section>
++      ) : null}
++
++      {f2?.qualification && !reservationResolutionProposal ? (
+         <section
+           className={styles.card}
+           data-testid="project-assistant-qualification"
+@@ -392,7 +464,7 @@ export function ConversationSurface({
+         </section>
+       ) : null}
+
+-      {activeProposal ? (
++      {activeProposal && !reservationResolutionProposal ? (
+         <section
+           className={styles.card}
+           data-testid="project-assistant-proposal"
+@@ -475,7 +547,7 @@ export function ConversationSurface({
+         </section>
+       ) : null}
+
+-      {gateOpen && !exposeLegacyAuthorityPath ? (
++      {gateOpen && !exposeLegacyAuthorityPath && !reservationResolutionProposal ? (
+         <section
+           className={styles.card}
+           data-testid="product-authority-path-guidance"
+diff --git a/projects/sfia-studio/app/features/project-assistant/actions.ts b/projects/sfia-studio/app/features/project-assistant/actions.ts
+index d2caf1c2..d104b893 100644
+--- a/projects/sfia-studio/app/features/project-assistant/actions.ts
++++ b/projects/sfia-studio/app/features/project-assistant/actions.ts
+@@ -121,6 +121,14 @@ export async function projectAssistantSendAction(input: {
+    * Untrusted until server validates against effective pending markers.
+    */
+   reinstructionOfProposalId?: string | null;
++  /**
++   * RESERVATION-CONTEXT-PILOT-CONFIRMATION-01 — untrusted client binding.
++   * Server revalidates project/cycle/Reservation; invalid → fail-closed.
++   */
++  reservationInteractionContext?: {
++    cycleInstanceId?: unknown;
++    epistemicItemId?: unknown;
++  } | null;
+ }): Promise<ProjectAssistantSendResult> {
+   const executionContractId =
+     typeof input.executionContractId === "string"
+@@ -161,6 +169,7 @@ export async function projectAssistantSendAction(input: {
+     logicalTurnId: input.logicalTurnId,
+     turnRetryKey: input.turnRetryKey,
+     reinstructionOfProposalId,
++    reservationInteractionContext: input.reservationInteractionContext,
+   });
+ }
+
+diff --git a/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts b/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
+index 504ddd7b..ceefb038 100644
+--- a/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
++++ b/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
+@@ -71,6 +71,11 @@ import {
+   reasonWithResolvedCkcContext,
+ } from "./ckcCognitiveContext";
+ import { composeStudioCognitiveContext } from "./studioCognitiveContext";
++import {
++  parseReservationInteractionContextInput,
++  validateReservationInteractionContext,
++  type ValidatedReservationInteractionContext,
++} from "../reservationInteractionContext";
+ import { projectCkcResolutionRef, qualifyWithCkc } from "./qualify";
+ import { reconcileQualificationSignals } from "./qualificationSignalCoherence";
+ import { resolveProductDoctrineRegistryRoot } from "@/lib/vertical-slice-runtime/paths";
+@@ -802,6 +807,11 @@ export async function orchestrateAssistantSend(input: {
+    * Server-validated against effective pending markers; never trusted alone.
+    */
+   reinstructionOfProposalId?: string | null;
++  /**
++   * RESERVATION-CONTEXT-PILOT-CONFIRMATION-01 — untrusted client binding.
++   * Server revalidates; invalid → fail-closed product message (no retarget).
++   */
++  reservationInteractionContext?: unknown;
+   /**
+    * INTERNAL / EVAL-ONLY — Stage A constitutive model×effort pin.
+    * Propagated to analyzeIntent + F1 cognitive path. Never a client DTO field.
+@@ -881,6 +891,10 @@ export async function orchestrateAssistantSend(input: {
+
+   let analysisResult: Awaited<ReturnType<typeof analyzeIntent>>;
+   let truthCContextForF1: string | undefined;
++  let reservationFocus: ValidatedReservationInteractionContext | null = null;
++  const claimedReservationContext = parseReservationInteractionContextInput(
++    input.reservationInteractionContext,
++  );
+   try {
+     const cognitive = await resolveCognitiveIntentProjectSummary(project);
+     if (!cognitive.ok) {
+@@ -898,6 +912,63 @@ export async function orchestrateAssistantSend(input: {
+         ? cognitive.truthCContext
+         : undefined;
+
++    // RESERVATION-CONTEXT-PILOT-CONFIRMATION-01 — revalidate client binding.
++    if (claimedReservationContext) {
++      const oaForRsv = getRuntimeApplicationService().oa;
++      const activeCycleId =
++        project.activeCycleInstanceId?.trim() ||
++        (await (async () => {
++          if (!oaForRsv) return null;
++          try {
++            const lps =
++              await oaForRsv.projectServices.getCurrentLivingProjectState.execute(
++                { projectId: project.projectId },
++              );
++            return lps.ok
++              ? lps.livingProjectState.activeCycleInstanceId ?? null
++              : null;
++          } catch {
++            return null;
++          }
++        })());
++      let items: Awaited<
++        ReturnType<
++          NonNullable<
++            ReturnType<typeof getRuntimeApplicationService>["oa"]
++          >["cycleServices"]["epistemic"]["listByProject"]
++        >
++      > = [];
++      if (oaForRsv) {
++        try {
++          items = await oaForRsv.cycleServices.epistemic.listByProject(
++            project.projectId,
++          );
++        } catch {
++          items = [];
++        }
++      }
++      const validated = validateReservationInteractionContext({
++        claimed: claimedReservationContext,
++        activeCycleInstanceId: activeCycleId,
++        items,
++      });
++      if (!validated.ok) {
++        return {
++          ok: false,
++          status: "validation_error",
++          code: validated.code,
++          message: validated.message,
++          mode: modeResolution.mode,
++          retryable: true,
++        };
++      }
++      reservationFocus = validated.value;
++      // Keep LPS activeCycle on DTO for downstream F1 composition.
++      if (!project.activeCycleInstanceId && activeCycleId) {
++        project = { ...project, activeCycleInstanceId: activeCycleId };
++      }
++    }
++
+     // CORR-PROOF-01 D1 CR-03/CR-04 — Memory B replay semantics; EMPTY ≠ UNAVAILABLE.
+     const canonicalLoad = await loadCanonicalConversationForAnalysis({
+       projectId: project.projectId,
+@@ -984,9 +1055,13 @@ export async function orchestrateAssistantSend(input: {
+   // CORR-PROOF-02 B1 — deterministic transition gate.
+   // Safe advisory (incl. ambiguous / parse-fail / incomplete formalization fields) → F1.
+   // Governed formalization only when readiness is fully established.
++  // RESERVATION-CONTEXT-PILOT-CONFIRMATION-01 — valid Reservation focus suppresses
++  // generic F2 formalization hijack for this turn (keep Nora cognitive path).
++  const forceReservationResolutionAdvisory = reservationFocus != null;
+   const transition = resolveTransitionReadiness({
+     analysis,
+-    forceRepoInformative,
++    forceRepoInformative:
++      forceRepoInformative || forceReservationResolutionAdvisory,
+   });
+
+   if (!transition.formalizationReady) {
+@@ -1000,7 +1075,11 @@ export async function orchestrateAssistantSend(input: {
+       registryRoot,
+       truthCContext: truthCContextForF1,
+       oa,
+-      activeCycleInstanceId: project.activeCycleInstanceId ?? null,
++      activeCycleInstanceId:
++        reservationFocus?.cycleInstanceId ??
++        project.activeCycleInstanceId ??
++        null,
++      reservationFocus,
+     });
+     if (!studioComposed.ok) {
+       return {
+@@ -1035,7 +1114,7 @@ export async function orchestrateAssistantSend(input: {
+         analysis.intentClass === "ambiguous" ||
+         analysis.intentClass === "actionable" ||
+         analysis.intentClass === "execution_request")
+-        ? forceRepoInformative
++        ? forceRepoInformative || forceReservationResolutionAdvisory
+           ? "informative"
+           : analysis.intentClass
+         : "ambiguous";
+@@ -1044,7 +1123,19 @@ export async function orchestrateAssistantSend(input: {
+     const executionBlocked =
+       analysis.parseOk === true &&
+       analysis.intentClass === "execution_request" &&
+-      !forceRepoInformative;
++      !forceRepoInformative &&
++      !forceReservationResolutionAdvisory;
++    const proposedIds = f1.reservationProposedIds ?? [];
++    const reservationResolutionProposal =
++      reservationFocus != null
++        ? {
++            epistemicItemId: reservationFocus.epistemicItemId,
++            cycleInstanceId: reservationFocus.cycleInstanceId,
++            ordinal: reservationFocus.ordinal,
++            title: reservationFocus.title,
++            proposed: proposedIds.includes(reservationFocus.epistemicItemId),
++          }
++        : null;
+     return {
+       ...f1,
+       model: f1.model ?? model,
+@@ -1053,6 +1144,8 @@ export async function orchestrateAssistantSend(input: {
+       reinstructionTransition: resolveReinstructionTransition({
+         reinstructionOfProposalId,
+       }),
++      reservationProposedIds: proposedIds,
++      reservationResolutionProposal,
+       f2: {
+         turnKind: "f1_informative",
+         intentClass: reportedIntent,
+@@ -1061,8 +1154,12 @@ export async function orchestrateAssistantSend(input: {
+         decision: null,
+         labels: {
+           recommendation: null,
+-          proposition: null,
+-          decisionRequired: null,
++          proposition: reservationResolutionProposal?.proposed
++            ? "PROPOSITION"
++            : null,
++          decisionRequired: reservationResolutionProposal?.proposed
++            ? "DÉCISION REQUISE"
++            : null,
+           decisionTaken: null,
+           noExecution: "AUCUNE EXÉCUTION",
+         },
+diff --git a/projects/sfia-studio/app/features/project-assistant/f2/studioCognitiveContext.ts b/projects/sfia-studio/app/features/project-assistant/f2/studioCognitiveContext.ts
+index 32a25142..ea7a12fd 100644
+--- a/projects/sfia-studio/app/features/project-assistant/f2/studioCognitiveContext.ts
++++ b/projects/sfia-studio/app/features/project-assistant/f2/studioCognitiveContext.ts
+@@ -46,7 +46,9 @@ import { ACTIVE_CYCLE_WORK_SOURCE } from "../materializeActiveCycleWork";
+ import {
+   buildReservationCompactForPrompt,
+   formatReservationCompactForPrompt,
++  formatReservationFocusForPrompt,
+ } from "@/lib/nora-cognitive-runtime/reservationPrompt";
++import type { ValidatedReservationInteractionContext } from "../reservationInteractionContext";
+
+ /** Conservative composition budgets — implementation policy, not doctrine. */
+ export const STUDIO_COGNITIVE_CONTEXT_BUDGET = Object.freeze({
+@@ -265,6 +267,10 @@ export type StudioCognitiveContext = {
+    * CYCLE-RESERVATION-PILOTING-01 — bounded reservation prompt block (or null).
+    */
+   readonly reservationCompactSection: string | null;
++  /**
++   * RESERVATION-CONTEXT-PILOT-CONFIRMATION-01 — focused treatment block (or null).
++   */
++  readonly reservationFocusSection: string | null;
+   readonly limits: {
+     readonly oaAvailable: boolean;
+     readonly truthOutranksConversation: true;
+@@ -404,6 +410,10 @@ export async function composeStudioCognitiveContext(input: {
+   truthCContext?: string | null;
+   oa: RuntimeOaStack | null;
+   activeCycleInstanceId?: string | null;
++  /**
++   * RESERVATION-CONTEXT-PILOT-CONFIRMATION-01 — server-validated focus only.
++   */
++  reservationFocus?: ValidatedReservationInteractionContext | null;
+ }): Promise<ComposeStudioCognitiveContextResult> {
+   const activeCycleInstanceId =
+     input.activeCycleInstanceId ??
+@@ -498,6 +508,7 @@ export async function composeStudioCognitiveContext(input: {
+         }),
+         lifecycleRecommendation: LIFECYCLE_RECOMMENDATION_UNAVAILABLE,
+         reservationCompactSection: null,
++        reservationFocusSection: null,
+         limits: Object.freeze({
+           oaAvailable: false,
+           truthOutranksConversation: true as const,
+@@ -621,6 +632,7 @@ export async function composeStudioCognitiveContext(input: {
+   let lifecycleRecommendation: StudioLifecycleRecommendationContinuityProjection =
+     LIFECYCLE_RECOMMENDATION_NONE;
+   let reservationCompactSection: string | null = null;
++  let reservationFocusSection: string | null = null;
+   {
+     const failedMaterialDimensions =
+       new Set<LifecycleRecommendationMaterialDimension>();
+@@ -742,6 +754,24 @@ export async function composeStudioCognitiveContext(input: {
+           lpsActiveCycleInstanceId,
+         ),
+       );
++      const focus = input.reservationFocus;
++      if (
++        focus &&
++        focus.cycleInstanceId === lpsActiveCycleInstanceId
++      ) {
++        const focused = epistemicItems.find(
++          (i) => i.epistemicItemId === focus.epistemicItemId,
++        );
++        reservationFocusSection = formatReservationFocusForPrompt({
++          epistemicItemId: focus.epistemicItemId,
++          ordinal: focus.ordinal,
++          title: focus.title,
++          resolutionCondition:
++            focused?.reservation?.resolutionCondition ?? null,
++          cycleInstanceId: lpsActiveCycleInstanceId,
++          cycleLabel: activeCycle?.cycleLabel ?? null,
++        });
++      }
+     }
+   }
+
+@@ -773,6 +803,7 @@ export async function composeStudioCognitiveContext(input: {
+       }),
+       lifecycleRecommendation,
+       reservationCompactSection,
++      reservationFocusSection,
+       limits: Object.freeze({
+         oaAvailable: true,
+         truthOutranksConversation: true as const,
+@@ -877,6 +908,10 @@ export function buildStudioCognitivePromptSections(
+     } else {
+       lines.push("Travail cognitif cycle ACTIVE : aucun item matérialisé encore.");
+     }
++    if (ctx.reservationFocusSection) {
++      lines.push("");
++      lines.push(ctx.reservationFocusSection);
++    }
+     if (ctx.reservationCompactSection) {
+       lines.push("");
+       lines.push(ctx.reservationCompactSection);
+diff --git a/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts b/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
+index 497e7e83..695b9f6c 100644
+--- a/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
++++ b/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
+@@ -623,6 +623,8 @@ export async function orchestrateProjectAssistantTurn(input: {
+     // D-LC-01 — same Product turn: extract → fail-closed contradiction →
+     // ACW first (when present) → then LR against final post-ACW basis.
+     // No second model call. No fingerprint rewrite.
++    // RESERVATION-CONTEXT-PILOT-CONFIRMATION-01 — hoist for success return.
++    let reservationProposedIds: string[] = [];
+     if (turn.structuredOutput !== undefined) {
+       const { extractLifecycleCandidateFromStructuredOutput } = await import(
+         "@/lib/oa/cycle/application/lifecycleRecommendation/materializeFromProductTurn"
+@@ -922,6 +924,7 @@ export async function orchestrateProjectAssistantTurn(input: {
+                 logicalTurnId,
+               };
+             }
++            reservationProposedIds = [...rsvMat.proposedIds];
+           }
+         }
+       }
+@@ -1230,6 +1233,7 @@ export async function orchestrateProjectAssistantTurn(input: {
+       lifecycleRecommendationContinuity,
+       lifecycleRecommendationContinuityRevalidation,
+       logicalTurnId,
++      reservationProposedIds,
+     };
+   } catch (error) {
+     const message =
+diff --git a/projects/sfia-studio/app/features/project-assistant/types.ts b/projects/sfia-studio/app/features/project-assistant/types.ts
+index 070fa422..ec4613e8 100644
+--- a/projects/sfia-studio/app/features/project-assistant/types.ts
++++ b/projects/sfia-studio/app/features/project-assistant/types.ts
+@@ -173,6 +173,19 @@ export type F2TurnPayload = {
+   processLocalNotice: string;
+ };
+
++/**
++ * RESERVATION-CONTEXT-PILOT-CONFIRMATION-01 — ephemeral client surface for a
++ * validated Reservation focus / PROPOSE_RESOLUTION. Not Truth C; not Confirmation.
++ */
++export type ReservationResolutionProposalDto = {
++  epistemicItemId: string;
++  cycleInstanceId: string;
++  ordinal: number | null;
++  title: string;
++  /** true only when materialize wrote a resolutionProposal this turn. */
++  proposed: boolean;
++};
++
+ export type ProjectAssistantSendSuccess = {
+   ok: true;
+   status: "ok" | "cognitive_stop";
+@@ -253,6 +266,16 @@ export type ProjectAssistantSendSuccess = {
+    * Session-adjacent replay/idempotence identity; never Epistemic SoT.
+    */
+   logicalTurnId?: string | null;
++  /**
++   * RESERVATION-CONTEXT-PILOT-CONFIRMATION-01 — ids that received PROPOSE_RESOLUTION
++   * this Product turn (after durable materialize). Empty when none.
++   */
++  reservationProposedIds?: string[];
++  /**
++   * RESERVATION-CONTEXT-PILOT-CONFIRMATION-01 — validated Reservation focus surface
++   * for Pilot presentation (proposal-state wording; never auto-resolved).
++   */
++  reservationResolutionProposal?: ReservationResolutionProposalDto | null;
+   /**
+    * MW6↔Auth — present when send used executionContractId governed composition.
+    * Server-built; never a client-supplied authority object.
+diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/reservationPrompt.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/reservationPrompt.ts
+index 311204f1..38e592da 100644
+--- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/reservationPrompt.ts
++++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/reservationPrompt.ts
+@@ -92,6 +92,43 @@ export function buildReservationCompactForPrompt(
+   return rows.slice(0, limit);
+ }
+
++/**
++ * RESERVATION-CONTEXT-PILOT-CONFIRMATION-01 — focused treatment block.
++ * Binds Nora to one active Reservation without claiming durable resolution.
++ */
++export function formatReservationFocusForPrompt(input: {
++  epistemicItemId: string;
++  ordinal: number | null;
++  title: string;
++  resolutionCondition?: string | null;
++  cycleInstanceId: string;
++  cycleLabel?: string | null;
++}): string {
++  const label =
++    input.ordinal != null && input.ordinal > 0
++      ? `Réserve ${input.ordinal}`
++      : "Réserve";
++  const lines = [
++    "=== TRAITEMENT RÉSERVE (contexte structuré actif) ===",
++    `Sujet actif : ${label} — « ${input.title} »`,
++    `epistemicItemId=${input.epistemicItemId}`,
++    `cycleInstanceId=${input.cycleInstanceId}` +
++      (input.cycleLabel ? ` (« ${input.cycleLabel} »)` : ""),
++    "Ce tour traite CETTE réserve — pas une nouvelle qualification de cycle.",
++    "INTERDIT : proposer un « nouveau Cadrage » / F2 générique parce que le Pilote clarifie une réserve.",
++    "INTERDIT : écrire que la réserve « est levée » / « est résolue » avant confirmation Pilote.",
++    "Si la base manque : explique ce qui manque ; reservationDelta=null ou UPDATE ; PAS de PROPOSE_RESOLUTION.",
++    "Si la clarification Pilote satisfait la condition de levée : émets PROPOSE_RESOLUTION",
++    `  avec targetReservationId=${input.epistemicItemId}, rationale, basisType=clarification,`,
++    "  basisRefs non vides (tour courant inclus). NE RÉSOUT PAS.",
++    "Autorisé : « je propose de lever… », « la levée attend votre confirmation ».",
++  ];
++  if (input.resolutionCondition?.trim()) {
++    lines.push(`Condition de levée connue : ${input.resolutionCondition.trim()}`);
++  }
++  return lines.join("\n");
++}
++
+ export function formatReservationCompactForPrompt(
+   rows: readonly ReservationCompactPromptRow[],
+ ): string {
 
 ```
 
-## Claims / anti-claims
+### NEW FILE: `projects/sfia-studio/app/features/project-assistant/reservationInteractionContext.ts`
 
-**Authorized:** PR #518 MERGED · merge/main `29f15979…` · CI #595/#596 PASS · Reservation INTEGRATED/POST-MERGE VERIFIED · Roadmap documentary Git integration · MealFlow = next campaign activity
+```typescript
+/**
+ * RESERVATION-CONTEXT-PILOT-CONFIRMATION-01
+ * Bounded structured Reservation interaction context for one Product turn.
+ *
+ * Client-supplied ids are UNTRUSTED. Server revalidates project / cycle /
+ * Reservation identity / active status before any cognitive binding.
+ * Not Truth C, not HumanDecision, not Confirmation, not authority.
+ */
+import type { EpistemicItem } from "@/lib/oa/cycle/domain/types";
+import {
+  reservationBelongsToCycle,
+} from "@/lib/oa/cycle/domain/reservationSemantics";
 
-**Denied:** runtime v3 ADOPTED · Nora COMPLETE · semantic Reservation PROVEN · READY FOR REAL · MealFlow executed · next macro selected · new capability authorized · documentary PR merged · truth-sync integrated on main before merge · MERGE authorized
+export type ReservationInteractionContextInput = {
+  cycleInstanceId: string;
+  epistemicItemId: string;
+};
 
-## Remaining gates
+export type ValidatedReservationInteractionContext = {
+  kind: "reservation_resolution";
+  cycleInstanceId: string;
+  epistemicItemId: string;
+  ordinal: number | null;
+  title: string;
+};
 
-1. DOCUMENTARY PR / CI REVIEW
-2. MORRIS MERGE DECISION (distinct GO only after qualified review)
-3. Then MealFlow natural campaign (NOT STARTED)
+export type ReservationInteractionValidationFailure = {
+  ok: false;
+  code:
+    | "RESERVATION_CONTEXT_INVALID"
+    | "RESERVATION_CONTEXT_CYCLE_MISMATCH"
+    | "RESERVATION_CONTEXT_NOT_FOUND"
+    | "RESERVATION_CONTEXT_NOT_ACTIVE"
+    | "RESERVATION_CONTEXT_WRONG_TYPE";
+  message: string;
+};
 
-## Instruction for ChatGPT
+export type ReservationInteractionValidationResult =
+  | { ok: true; value: ValidatedReservationInteractionContext }
+  | ReservationInteractionValidationFailure;
 
-Analyse ce rapport comme DOCUMENTARY PROJECT GIT INTEGRATION
-du POST-MERGE TRUTH-SYNC du macro
-CYCLE RESERVATION MANAGEMENT & GATE-AWARE PILOTING.
+/**
+ * Normalize untrusted client payload. Returns null when absent/blank
+ * (generic conversation — no Reservation binding).
+ */
+export function parseReservationInteractionContextInput(
+  raw: unknown,
+): ReservationInteractionContextInput | null {
+  if (raw == null || typeof raw !== "object") return null;
+  const o = raw as Record<string, unknown>;
+  const cycleInstanceId =
+    typeof o.cycleInstanceId === "string" ? o.cycleInstanceId.trim() : "";
+  const epistemicItemId =
+    typeof o.epistemicItemId === "string" ? o.epistemicItemId.trim() : "";
+  if (!cycleInstanceId || !epistemicItemId) return null;
+  return { cycleInstanceId, epistemicItemId };
+}
 
-Revalide Git distant, la PR documentaire, son scope Roadmap-only,
-le CI disponible et le Review Handoff.
+/**
+ * Fail-closed server revalidation. Does not invent or retarget another Reservation.
+ */
+export function validateReservationInteractionContext(input: {
+  claimed: ReservationInteractionContextInput;
+  /** Active / applicable cycle for this Product turn (Truth C). */
+  activeCycleInstanceId: string | null | undefined;
+  items: readonly EpistemicItem[];
+}): ReservationInteractionValidationResult {
+  const cycleId = input.activeCycleInstanceId?.trim() || "";
+  if (!cycleId) {
+    return {
+      ok: false,
+      code: "RESERVATION_CONTEXT_CYCLE_MISMATCH",
+      message:
+        "Aucun cycle actif pour traiter cette réserve. Revenez au cycle courant, puis réessayez.",
+    };
+  }
+  if (input.claimed.cycleInstanceId !== cycleId) {
+    return {
+      ok: false,
+      code: "RESERVATION_CONTEXT_CYCLE_MISMATCH",
+      message:
+        "Le contexte de réserve ne correspond plus au cycle actif. Rouvrez « Traiter avec Nora » depuis la réserve du cycle courant.",
+    };
+  }
+  const item = input.items.find(
+    (i) => i.epistemicItemId === input.claimed.epistemicItemId,
+  );
+  if (!item) {
+    return {
+      ok: false,
+      code: "RESERVATION_CONTEXT_NOT_FOUND",
+      message:
+        "Cette réserve n’existe plus. Actualisez le Journal, puis réessayez.",
+    };
+  }
+  if (item.type !== "Reservation") {
+    return {
+      ok: false,
+      code: "RESERVATION_CONTEXT_WRONG_TYPE",
+      message: "L’élément ciblé n’est pas une réserve.",
+    };
+  }
+  if (!reservationBelongsToCycle(item, cycleId)) {
+    return {
+      ok: false,
+      code: "RESERVATION_CONTEXT_CYCLE_MISMATCH",
+      message:
+        "Cette réserve n’appartient pas au cycle actif. Rouvrez le traitement depuis le Journal du cycle courant.",
+    };
+  }
+  if (item.status !== "active") {
+    return {
+      ok: false,
+      code: "RESERVATION_CONTEXT_NOT_ACTIVE",
+      message:
+        "Cette réserve n’est plus active. Actualisez le Journal avant de poursuivre.",
+    };
+  }
+  const title =
+    item.reservation?.title?.trim() || item.statement?.trim() || "Réserve";
+  return {
+    ok: true,
+    value: {
+      kind: "reservation_resolution",
+      cycleInstanceId: cycleId,
+      epistemicItemId: item.epistemicItemId,
+      ordinal: item.reservation?.ordinal ?? null,
+      title,
+    },
+  };
+}
 
-Vérifie qu’aucun changement produit n’a été introduit,
-que MealFlow reste seulement la prochaine campagne d’observation,
-que le prochain macro reste NOT YET DETERMINED,
-et qu’aucun runtime v3 / REAL / Nora Cognitive Completion n’est promu.
+```
 
-Ne recommande aucun merge sans CI/review qualifiés
-et GO Morris MERGE distinct.
+### NEW FILE: `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/reservationContextPilotConfirmation.d0.test.ts`
+
+```typescript
+/**
+ * RESERVATION-CONTEXT-PILOT-CONFIRMATION-01 — structured binding + F2-hijack guard.
+ */
+import { describe, expect, it } from "vitest";
+import type { EpistemicItem } from "@/lib/oa/cycle/domain/types";
+import {
+  parseReservationInteractionContextInput,
+  validateReservationInteractionContext,
+} from "@/features/project-assistant/reservationInteractionContext";
+import { resolveTransitionReadiness } from "@/features/project-assistant/f2/transitionReadiness";
+import { formatReservationFocusForPrompt } from "@/lib/nora-cognitive-runtime/reservationPrompt";
+import type { IntentAnalysisDto } from "@/features/project-assistant/f2/types";
+
+const ACTOR = {
+  actorId: "actor:test",
+  displayName: "Test",
+  role: "system" as const,
+};
+
+function reservationItem(
+  overrides: Partial<EpistemicItem> & Pick<EpistemicItem, "epistemicItemId">,
+): EpistemicItem {
+  return {
+    schemaVersion: "0.1.0-oa",
+    type: "Reservation",
+    status: "active",
+    statement: "Rappels exclus V1",
+    createdBy: ACTOR,
+    createdAt: "2026-09-25T00:00:00.000Z",
+    relatedObjects: ["prj:test", "cyc:active"],
+    provenance: {
+      schemaVersion: "0.1.0-oa",
+      provenanceRecordId: "prov:t",
+      actor: ACTOR,
+      source: "system",
+      timestamp: "2026-09-25T00:00:00.000Z",
+      correlationId: "cor:t",
+      projectId: "prj:test",
+      cycleInstanceId: "cyc:active",
+    },
+    reservation: {
+      ordinal: 3,
+      title: "Rappels V1",
+      summary: "Exclure rappels de V1",
+      impact: "major",
+      attentionBy: "before_finalization",
+      finalizationRelevance: "must_resolve",
+      rationale: "Scope V1",
+      resolutionCondition: "Rappels explicitement exclus",
+      journalEntryRefs: [],
+      sourceTurnRefs: [],
+    },
+    blocking: true,
+    ...overrides,
+  };
+}
+
+function actionableAnalysis(): IntentAnalysisDto {
+  return {
+    parseOk: true,
+    intentClass: "actionable",
+    candidateCycleTypeId: "cyc:cadrage",
+    signals: {
+      structuralChange: false,
+      securityImpact: false,
+      architectureImpact: false,
+      dataImpact: false,
+      irreversible: false,
+      lowRiskBounded: true,
+    },
+    cognitiveWorkload: null,
+    objective: null,
+    scope: null,
+    rephrasedRequest: null,
+    outOfScope: [],
+    risks: [],
+    reservations: [],
+    stopConditions: [],
+    activatedBlocks: [],
+    expectedOutcome: null,
+    criticalJustification: null,
+    requestedOperation: null,
+    executionIntent: null,
+    continuationKind: null,
+    artifactMaterializationOperation: null,
+    contradictionCandidate: null,
+    challengeResponseAssessment: null,
+  };
+}
+
+describe("RESERVATION-CONTEXT-PILOT-CONFIRMATION-01 binding", () => {
+  it("CR-RCP-01 — parse ignores blank / hostile shapes; accepts structured ids", () => {
+    expect(parseReservationInteractionContextInput(null)).toBeNull();
+    expect(parseReservationInteractionContextInput("hostile")).toBeNull();
+    expect(
+      parseReservationInteractionContextInput({
+        cycleInstanceId: "  ",
+        epistemicItemId: "epi:x",
+      }),
+    ).toBeNull();
+    expect(
+      parseReservationInteractionContextInput({
+        cycleInstanceId: "cyc:active",
+        epistemicItemId: "epi:rsv:1",
+      }),
+    ).toEqual({
+      cycleInstanceId: "cyc:active",
+      epistemicItemId: "epi:rsv:1",
+    });
+  });
+
+  it("CR-RCP-02 — server revalidation binds exact active Reservation", () => {
+    const item = reservationItem({ epistemicItemId: "epi:rsv:1" });
+    const ok = validateReservationInteractionContext({
+      claimed: {
+        cycleInstanceId: "cyc:active",
+        epistemicItemId: "epi:rsv:1",
+      },
+      activeCycleInstanceId: "cyc:active",
+      items: [item],
+    });
+    expect(ok.ok).toBe(true);
+    if (!ok.ok) return;
+    expect(ok.value).toMatchObject({
+      kind: "reservation_resolution",
+      cycleInstanceId: "cyc:active",
+      epistemicItemId: "epi:rsv:1",
+      ordinal: 3,
+      title: "Rappels V1",
+    });
+  });
+
+  it("CR-RCP-03 — stale / foreign / inactive / wrong-type fail closed (no retarget)", () => {
+    const active = reservationItem({ epistemicItemId: "epi:rsv:1" });
+    const otherCycle = reservationItem({
+      epistemicItemId: "epi:rsv:2",
+      relatedObjects: ["prj:test", "cyc:other"],
+      provenance: {
+        schemaVersion: "0.1.0-oa",
+        provenanceRecordId: "prov:t",
+        actor: ACTOR,
+        source: "system",
+        timestamp: "2026-09-25T00:00:00.000Z",
+        correlationId: "cor:t",
+        projectId: "prj:test",
+        cycleInstanceId: "cyc:other",
+      },
+    });
+    const resolved = reservationItem({
+      epistemicItemId: "epi:rsv:3",
+      status: "resolved",
+    });
+    const observation: EpistemicItem = {
+      ...active,
+      epistemicItemId: "epi:obs",
+      type: "Observation",
+      reservation: undefined,
+    };
+
+    expect(
+      validateReservationInteractionContext({
+        claimed: {
+          cycleInstanceId: "cyc:stale",
+          epistemicItemId: "epi:rsv:1",
+        },
+        activeCycleInstanceId: "cyc:active",
+        items: [active],
+      }).ok,
+    ).toBe(false);
+
+    const missing = validateReservationInteractionContext({
+      claimed: {
+        cycleInstanceId: "cyc:active",
+        epistemicItemId: "epi:rsv:missing",
+      },
+      activeCycleInstanceId: "cyc:active",
+      items: [active],
+    });
+    expect(missing.ok).toBe(false);
+    if (!missing.ok) expect(missing.code).toBe("RESERVATION_CONTEXT_NOT_FOUND");
+
+    const foreign = validateReservationInteractionContext({
+      claimed: {
+        cycleInstanceId: "cyc:active",
+        epistemicItemId: "epi:rsv:2",
+      },
+      activeCycleInstanceId: "cyc:active",
+      items: [otherCycle],
+    });
+    expect(foreign.ok).toBe(false);
+    if (!foreign.ok) expect(foreign.code).toBe("RESERVATION_CONTEXT_CYCLE_MISMATCH");
+
+    const inactive = validateReservationInteractionContext({
+      claimed: {
+        cycleInstanceId: "cyc:active",
+        epistemicItemId: "epi:rsv:3",
+      },
+      activeCycleInstanceId: "cyc:active",
+      items: [resolved],
+    });
+    expect(inactive.ok).toBe(false);
+    if (!inactive.ok) expect(inactive.code).toBe("RESERVATION_CONTEXT_NOT_ACTIVE");
+
+    const wrongType = validateReservationInteractionContext({
+      claimed: {
+        cycleInstanceId: "cyc:active",
+        epistemicItemId: "epi:obs",
+      },
+      activeCycleInstanceId: "cyc:active",
+      items: [observation],
+    });
+    expect(wrongType.ok).toBe(false);
+    if (!wrongType.ok) expect(wrongType.code).toBe("RESERVATION_CONTEXT_WRONG_TYPE");
+  });
+
+  it("CR-RCP-04 — Reservation focus forces advisory F1 (blocks generic F2 hijack)", () => {
+    const without = resolveTransitionReadiness({
+      analysis: actionableAnalysis(),
+      forceRepoInformative: false,
+    });
+    expect(without.formalizationReady).toBe(true);
+
+    const withFocus = resolveTransitionReadiness({
+      analysis: actionableAnalysis(),
+      forceRepoInformative: true,
+    });
+    expect(withFocus.formalizationReady).toBe(false);
+  });
+
+  it("CR-RCP-05 — focus prompt forbids resolved claims and new Cadrage hijack", () => {
+    const section = formatReservationFocusForPrompt({
+      epistemicItemId: "epi:rsv:1",
+      ordinal: 3,
+      title: "Rappels V1",
+      resolutionCondition: "Rappels exclus",
+      cycleInstanceId: "cyc:active",
+      cycleLabel: "Cadrage",
+    });
+    expect(section).toContain("TRAITEMENT RÉSERVE");
+    expect(section).toContain("epi:rsv:1");
+    expect(section).toContain("cyc:active");
+    expect(section).toMatch(/INTERDIT.*levé/i);
+    expect(section).toMatch(/INTERDIT.*Cadrage/i);
+    expect(section).toContain("PROPOSE_RESOLUTION");
+    expect(section).not.toMatch(/émets RESOLVE/i);
+  });
+});
+
+```
+
+### NEW FILE: `projects/sfia-studio/app/__tests__/pre-m6-product-ui/reservationContextProposal.ui.test.tsx`
+
+```typescript
+/**
+ * RESERVATION-CONTEXT-PILOT-CONFIRMATION-01 — Proposal surface presentation.
+ */
+import { afterEach, describe, expect, it, vi } from "vitest";
+import { cleanup, render, screen, fireEvent } from "@testing-library/react";
+import { ConversationSurface } from "@/features/pre-m6-product-ui/surfaces/ConversationSurface";
+import type { ProductConversationController } from "@/features/pre-m6-product-ui/hooks/useProductConversation";
+
+afterEach(() => {
+  cleanup();
+});
+
+function baseController(
+  overrides: Partial<ProductConversationController> = {},
+): ProductConversationController {
+  return {
+    listRef: { current: null },
+    messages: [],
+    draft: "",
+    setDraft: vi.fn(),
+    toolEvents: [],
+    uiState: "ANSWERED",
+    error: null,
+    modeLabel: "Fixture",
+    ephemeralNotice: "",
+    lrMaterializeNotice: null,
+    lrMaterializeCode: null,
+    f2: {
+      turnKind: "f1_informative",
+      intentClass: "informative",
+      qualification: null,
+      proposal: null,
+      decision: null,
+      labels: {
+        recommendation: null,
+        proposition: "PROPOSITION",
+        decisionRequired: "DÉCISION REQUISE",
+        decisionTaken: null,
+        noExecution: "AUCUNE EXÉCUTION",
+      },
+      executionBlocked: false,
+      processLocalNotice: "process-local",
+    },
+    activeProposal: null,
+    reservesText: "",
+    setReservesText: vi.fn(),
+    f3Prepare: null,
+    f3M3Resolved: null,
+    f3Execute: null,
+    durableEvidenceOutcome: null,
+    durableRehydrateError: null,
+    transcriptAvailability: "empty",
+    openContinuityPresentation: { kind: "none" },
+    journalEntries: [],
+    journalCycleInstanceId: null,
+    selectedJournalEntryId: null,
+    setSelectedJournalEntryId: vi.fn(),
+    focusTurnId: null,
+    focusJournalExchanges: vi.fn(),
+    focusTranscriptTurn: vi.fn(),
+    clearFocusTurn: vi.fn(),
+    refreshConversationContinuity: vi.fn(),
+    busy: false,
+    blocked: false,
+    canSend: true,
+    gateOpen: false,
+    recommendationFreshness: {
+      status: "undetermined",
+      label: "Recommandation — actualité non déterminée",
+    },
+    qualificationFreshness: {
+      status: "undetermined",
+      label: "Recommandation — actualité non déterminée",
+    },
+    durableOutcomeFreshness: {
+      status: "undetermined",
+      label: "Recommandation — actualité non déterminée",
+    },
+    canPrepareResolvedM3: false,
+    canPrepareLegacyFixture: false,
+    canConfirmResolvedM3: false,
+    canConfirmLegacyFixture: false,
+    canRefreshResolvedM3Running: false,
+    sendMessage: vi.fn(),
+    armReinstructionOfProposalId: vi.fn(),
+    armedReinstructionOfProposalId: null,
+    armReservationInteractionContext: vi.fn(),
+    armedReservationInteractionContext: null,
+    reservationResolutionProposal: {
+      epistemicItemId: "epi:rsv:1",
+      cycleInstanceId: "cyc:active",
+      ordinal: 3,
+      title: "Rappels V1",
+      proposed: true,
+    },
+    clearReservationResolutionProposal: vi.fn(),
+    decide: vi.fn(),
+    prepareResolvedM3: vi.fn(),
+    prepareLegacyFixture: vi.fn(),
+    confirmAndExecuteResolvedM3: vi.fn(),
+    confirmAndExecuteLegacyFixture: vi.fn(),
+    refreshResolvedM3RunningAttempt: vi.fn(),
+    retryLastUserMessage: vi.fn(),
+    ...overrides,
+  } as ProductConversationController;
+}
+
+describe("Reservation resolution proposal surface", () => {
+  it("CR-RCP-10 — contextual Lecture de Nora + Confirmer la levée; no auto-resolve", () => {
+    const onConfirm = vi.fn();
+    render(
+      <ConversationSurface
+        controller={baseController()}
+        onConfirmReservationResolve={onConfirm}
+      />,
+    );
+
+    expect(screen.getByTestId("reservation-resolution-proposal")).toBeTruthy();
+    expect(screen.getByTestId("reservation-resolution-context").textContent).toMatch(
+      /Réserve 3/,
+    );
+    expect(screen.getByTestId("reservation-resolution-context").textContent).toMatch(
+      /cyc:active/,
+    );
+    expect(screen.getByText("Proposition de levée")).toBeTruthy();
+    expect(screen.getByTestId("reservation-no-auto-resolve")).toBeTruthy();
+    expect(screen.queryByTestId("project-assistant-qualification")).toBeNull();
+    expect(screen.queryByTestId("product-authority-path-guidance")).toBeNull();
+
+    fireEvent.click(
+      screen.getByTestId("reservation-confirm-from-proposal-epi:rsv:1"),
+    );
+    expect(onConfirm).toHaveBeenCalledWith("epi:rsv:1");
+  });
+
+  it("CR-RCP-11 — insufficient basis: context without Confirmer CTA", () => {
+    render(
+      <ConversationSurface
+        controller={baseController({
+          reservationResolutionProposal: {
+            epistemicItemId: "epi:rsv:1",
+            cycleInstanceId: "cyc:active",
+            ordinal: 3,
+            title: "Rappels V1",
+            proposed: false,
+          },
+          f2: {
+            turnKind: "f1_informative",
+            intentClass: "informative",
+            qualification: null,
+            proposal: null,
+            decision: null,
+            labels: {
+              recommendation: null,
+              proposition: null,
+              decisionRequired: null,
+              decisionTaken: null,
+              noExecution: "AUCUNE EXÉCUTION",
+            },
+            executionBlocked: false,
+            processLocalNotice: "process-local",
+          },
+        })}
+        onConfirmReservationResolve={vi.fn()}
+      />,
+    );
+
+    expect(screen.getByText("Traitement de réserve")).toBeTruthy();
+    expect(
+      screen.queryByTestId("reservation-confirm-from-proposal-epi:rsv:1"),
+    ).toBeNull();
+  });
+});
+
+```
+
+
+## 9. Acceptance matrix
+
+| ID | Criterion | Evidence | Result |
+|----|-----------|----------|--------|
+| A | Treat With Nora = prefill only; no send/model/mutation | `treatReservationWithNora` sets draft + arms context; never calls sendMessage; existing CR-RSV-20/22 UI test | PASS |
+| B | Structured binding; hostile/stale fail-closed; generic unaffected | CR-RCP-01…03 validation tests | PASS |
+| C | Missing basis → no proposal CTA | CR-RCP-11 UI (`proposed:false`) | PASS |
+| D | Sufficient → PROPOSE_RESOLUTION materialize; stays active | Existing CR-RSV-15/16 + proposedIds surface wiring | PASS |
+| E | Presentation identifies Reservation + cycle; no F2 hijack under focus | force F1 CR-RCP-04; ConversationSurface CR-RCP-10; qualification/guidance suppressed when Reservation proposal active | PASS |
+| F | Nora cannot resolve; Pilot confirm uses existing action | materialize never RESOLVE; ConversationSurface + Journal call `confirmReservationResolution` | PASS |
+| G | Durable resolve after Pilot confirm | Existing confirmReservationResolutionAction path unchanged; arm cleared after success | PASS (reuse) |
+| H | Regression: F2 outside context; CREATE/UPDATE; gates; defer; L/R projections | f2.orchestrate + cycleReservation* suites green; L/R composition untouched | PASS |
+
+## 10. Tests / validations
+
+Commands + outcomes:
+
+```
+npx vitest run __tests__/nora-cognitive-runtime/reservationContextPilotConfirmation.d0.test.ts \
+  __tests__/pre-m6-product-ui/reservationContextProposal.ui.test.tsx \
+  __tests__/nora-cognitive-runtime/cycleReservationPiloting.d0.test.ts \
+  __tests__/nora-cognitive-runtime/cycleReservationDefer.d0.test.ts \
+  __tests__/pre-m6-product-ui/cycleReservationMemoryRail.ui.test.tsx
+→ 5 files / 28 tests PASS
+
+npx vitest run __tests__/nora-cognitive-runtime/ \
+  __tests__/pre-m6-product-ui/cycleReservationMemoryRail.ui.test.tsx \
+  __tests__/pre-m6-product-ui/reservationContextProposal.ui.test.tsx \
+  __tests__/pre-m6-product-ui/cycleJournalSurface.ui.test.tsx \
+  __tests__/project-assistant/studioCognitiveContext.test.ts \
+  __tests__/project-assistant/f2.orchestrate.test.ts \
+  __tests__/oa/cycle/corrProof06.artifactObligation.d0.test.ts
+→ 47 files / 527 tests PASS
+
+npm run typecheck → PASS
+npm run lint → PASS (No ESLint warnings or errors)
+npm run build → PASS (pre-existing better-sqlite3 warning only; compile OK)
+```
+
+## 11. Product / UI / runtime proof
+
+- Local Studio HTTP `http://localhost:3020/studio` responds `307` (service reachable).
+- Bounded manual LIVE provider sequence (Treat → insufficient → sufficient → propose → confirm → reload): **NOT EXECUTED**
+- Reason: REAL provider path / StudyFlow campaign reproof requires distinct Morris gate; prompt forbids REAL promotion and READY FOR REAL claim.
+- Marker: **REAL REPROOF — NOT AUTHORIZED / NOT EXECUTED**
+- Screenshots: none (UI presentation changed; deterministic UI tests cover Proposal surface; campaign screenshots deferred to StudyFlow reproof)
+
+## 12. Remaining reserves / debt / exit
+
+Reserves:
+
+- R1: Natural StudyFlow Product campaign reproof after project Git integration (Reservation → Nora → proposal → Pilot confirm → durable resolved → defer/finalization observations)
+- R2: Global semantic Reservation quality remains NOT PROVEN until campaign reproof
+- R3: No end-to-end LIVE OpenAI Product turn exercised in this cycle (deterministic + fixture only)
+
+Debt:
+
+- F2TurnLabels literals reused (`PROPOSITION` / `DÉCISION REQUISE`) for Reservation proposal chips; contextual French titles live in ConversationSurface card body (acceptable minimal reuse; optional label enum extension deferred)
+
+Exit:
+
+- Local candidate ready for ChatGPT review
+- Distinct Morris gate required for project commit/push/PR
+- After merge + post-merge verification: resume StudyFlow campaign
+
+## 13. Explicit Morris decisions consumed
+
+- KEEP left/right Reservation projections
+- Structured context seam preferred over NL-only binding
+- No new store / engine / HumanDecision doctrine change
+- Confirmation remains Pilot-only via existing action
+- No Roadmap truth-sync in this cycle
+- Review Handoff L3 is the only authorized remote publication
+
+## 14. Forbidden actions respected
+
+- No project commit / push / PR / merge
+- No protected path edits (Convergence, Build Doctrine, C1, v3 framing, CKC source, method/**, prompts/**)
+- No REAL promotion / runtime v3 ADOPTED / Nora Cognitive Completion claim / READY FOR REAL
+
+## 15. Anti-claims
+
+- Product Completion historical closure ≠ runtime v3 adoption
+- Nora Cognitive Completion remains NOT COMPLETE / NOT PROVEN
+- Global semantic Reservation quality NOT PROVEN until campaign reproof
+- READY FOR REAL global = NO
+- runtime v3 = NON ADOPTED
+
+## 16. Final verdict
+
+RESERVATION CONTEXT CONTINUITY & PILOT CONFIRMATION — LOCAL CANDIDATE PASS
+RESERVATION SUBJECT CONTINUITY — PASS
+PROPOSE_RESOLUTION MATERIALIZATION — PASS
+PILOT CONFIRMATION AFFORDANCE — PASS
+NORA AUTO-RESOLUTION — NOT OBSERVED
+DURABLE RESOLUTION PATH — PASS
+GENERIC F2 HIJACK — NOT OBSERVED AT TESTED SCOPE
+LEFT/RIGHT RESERVATION PROJECTIONS — UNCHANGED
+PRODUCT CODE VALIDATIONS — PASS
+REVIEW HANDOFF — (filled after publish)
+
+PROJECT COMMIT — NOT AUTHORIZED
+PROJECT PUSH — NOT AUTHORIZED
+PR — NOT AUTHORIZED
+MERGE — NOT AUTHORIZED
+
+NEXT: ChatGPT review of the local candidate. If qualified, distinct Morris gate for project Git integration. After integration/post-merge verification, resume natural StudyFlow campaign for Product reproof.
