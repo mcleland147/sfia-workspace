@@ -1,5 +1,195 @@
 # SFIA Studio — Review Pack FULL
 ## CYCLE RESERVATION MANAGEMENT & GATE-AWARE PILOTING
+### KNOWN RESERVES CLOSURE — R1 ENV + R2 HISTORICAL HD + R3 ROADMAP TRUTH-SYNC
+
+- **timestamp**: `2026-09-25T07:23:02+02:00` (Europe/Paris)
+- **Macro ID**: `CYCLE-RESERVATION-PILOTING-01`
+- **Closure**: `KNOWN RESERVES CLOSURE` (same macro)
+- **cycle**: Delivery / same-macro closure — EVOL — Critical
+- **profil SFIA**: Critical
+- **GO Morris**: CONSUMED — R1/R2/R3 + Review Pack + Handoff L3
+- **Protected path authorization**: Roadmap file ONLY under `convergence/**` — Build Doctrine / framing / C1 = READ ONLY
+- **NON autorisé ce cycle**: product commit/push/PR/merge ; Build Doctrine change ; framing/C1 change ; MealFlow campaign
+- **branche**: `feat/sfia-studio-cycle-reservation-piloting-01`
+- **HEAD / origin/main**: `385c764458c5212913388d5e0e5b80f5390c23db` (dirty WIP intentional; not remote)
+- **runtime v3**: **NON ADOPTED**
+- **Fake/Real**: DETERMINISTIC ENV/HD PROOF + prior REAL reservation lifecycle preserved
+
+## Verdict
+
+**CYCLE RESERVATION MANAGEMENT & GATE-AWARE PILOTING — KNOWN RESERVES CLOSED — SAME-MACRO COMPLETE — READY FOR MACRO PR READINESS**
+
+| Reserve | Exit status |
+| --- | --- |
+| R1 legacy env naming | **CLOSED BY CANONICAL PILOT ENV + DEPRECATED COMPATIBILITY ALIAS** |
+| R2 historical morris HD | **CLOSED AS IMMUTABLE HISTORICAL COMPATIBILITY** |
+| R3 Roadmap truth-sync | **SYNCED TO CURRENT LOCAL CANDIDATE STATE** |
+
+**Remaining same-macro construction reserves: ZERO**
+
+**MERGE / PRODUCT COMMIT / PRODUCT PUSH / PRODUCT PR — NOT AUTHORIZED**
+
+Next gate: **MACRO PR READINESS — MORRIS GO DISTINCT**
+
+---
+
+## KNOWN RESERVES CLOSURE
+
+### Git Truth (exact)
+
+| Check | Result |
+| --- | --- |
+| Branch | `feat/sfia-studio-cycle-reservation-piloting-01` |
+| HEAD | `385c764458c5212913388d5e0e5b80f5390c23db` |
+| origin/main | `385c764458c5212913388d5e0e5b80f5390c23db` |
+| HEAD == origin/main | YES (dirty WIP on top) |
+| WIP | preserved (Reservation + Defer + Option A + R1/R2/R3); **not remote** |
+| Destructive git | none |
+| Product commit/push/PR | **NONE** |
+
+### Protected sources
+
+| Source | SHA | Role |
+| --- | --- | --- |
+| Build Doctrine | `99232e4582e4ef4cf489020a46b818ebb41ac397` | READ ONLY — unchanged |
+| Roadmap (main blob) | `df2ad6f3c4cd5504d586f344bc0d76f737b0ce65` | pre-edit baseline |
+| Roadmap (local WIP blob) | `29f9ddac05f4ac352c5b525fd5b95c734aec0023` | R3 truth-sync applied |
+| C1 Product Completion | `806d672fe21ad82a641bf88fe95fc87870481105` | READ ONLY — unchanged |
+| Cycle template | `948156a21309ef99c3aaed6410947dc6b9bc569a` | READ ONLY |
+| Routing guide | `8949e764d96faf3fa812d39307dbc298b500f5ef` | READ ONLY |
+| Prior handoff tip | `d5ac9b72d0d638b23668345153a4d9d569c0f922` | superseded by this publish |
+| Prior handoff blob | `0594244a7d94303841ee0b3768ec054da88f12c6` | superseded by this publish |
+
+### R1 — Legacy env naming
+
+**Before:** `SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY` used as technical enable while Pilot and Morris are distinct authorities.
+
+**Canonical env:**
+- Pilot: `SFIA_STUDIO_LOCAL_PILOT_AUTHORITY` (`LOCAL_PILOT_AUTHORITY_ENV`)
+- Morris gate: `SFIA_STUDIO_LOCAL_MORRIS_GATE_AUTHORITY` (`LOCAL_MORRIS_GATE_AUTHORITY_ENV`) — kept as distinct enable (no Pilot conflation)
+
+**Compatibility:**
+- Legacy `SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY` = **DEPRECATED compatibility alias**
+- May enable either helper separately when the matching canonical is absent
+- Each helper creates **only its own grant** — never dual-grant evidence
+
+**Precedence (per gate family):**
+1. If canonical env for that family is defined → its value wins (`=== "1"`)
+2. Else legacy alias may enable that helper
+3. Canonical Pilot alone never enables Morris; canonical Morris alone never enables Pilot
+
+**Helpers:**
+- `isLocalPilotAuthorityEnabled` / `registerLocalPiloteAuthority` → `canActAsPilot=true`, `canActAsMorris` absent
+- `isLocalMorrisGateAuthorityEnabled` / `registerLocalMorrisGateAuthority` → `canActAsMorris=true`, `canActAsPilot` absent
+- Deprecated aliases kept: `isM3LocalAuthorityEnabled`, `M3_LOCAL_AUTHORITY_ENV`, `registerM3LocalMorrisAuthority`
+
+**Tests ENV-AUTH-01…08:** PASS (`reserveClosureEnvHistorical.d0.test.ts`)
+
+**Exit:** R1 = **CLOSED BY CANONICAL PILOT ENV + DEPRECATED COMPATIBILITY ALIAS**
+(Legacy alias retention is intentional; future removal requires explicit config migration GO.)
+
+### R2 — Historical HumanDecision `authority:"morris"`
+
+**No rewrite / no migration.** Historical rows remain immutable truth.
+
+| ID | Result |
+| --- | --- |
+| HIST-HD-01 legacy morris deserializes | PASS |
+| HIST-HD-02 value stays morris after reload | PASS |
+| HIST-HD-03 no automatic rewrite | PASS |
+| HIST-HD-04 new Project writer → `pilot` | PASS |
+| HIST-HD-05 historical morris = runtime-structuring continuity via `isRuntimeStructuringAuthority` | PASS |
+| HIST-HD-06 historical morris does not let Pilot-only actor pass Morris gate | PASS |
+| HIST-HD-07 Pilot cannot supersede true Morris HD without Morris grant | PASS (`morris_gate_denied`) |
+
+**Zero new incorrect Project writes:** runtime writers use `authority:"pilot"`.
+True Morris EC / governance still uses `authority:"morris"` + `canActAsMorris`.
+
+**Exit:** R2 = **CLOSED AS IMMUTABLE HISTORICAL COMPATIBILITY**
+
+### R3 — Roadmap truth-sync
+
+**Authorized file only:** `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
+
+| Fact | Recorded |
+| --- | --- |
+| PR #516 | merge `dc462d9f…` · PROJECT CONVERSATIONAL CONTINUITY & CYCLE JOURNAL · **INTEGRATED ON MAIN / POST-MERGE VERIFIED** |
+| PR #517 | merge/main `385c7644…` · PILOTABILITY & JOURNAL SEMANTIC INTEGRITY · **INTEGRATED ON MAIN / POST-MERGE VERIFIED** · CI #594 attempt 2 SUCCESS / Required Gate PASS |
+| Current macro | CYCLE RESERVATION MANAGEMENT & GATE-AWARE PILOTING · branch `feat/sfia-studio-cycle-reservation-piloting-01` · base `385c7644…` · **LOCAL CANDIDATE / SAME-MACRO COMPLETE / READY FOR MACRO PR READINESS** · **NOT YET INTEGRATED ON MAIN** · NOT YET COMMITTED / PUSHED / OPENED AS PR |
+| Current priority | this Reservation macro local candidate |
+| Next capability | MealFlow semantic reservation campaign — **NOT STARTED / NOT AUTHORIZED** |
+| runtime v3 | **NON ADOPTED** |
+| Product Completion | historical COMPLETE/CLOSED — **≠** newly completed |
+| Nora Cognitive Completion | **≠** newly COMPLETE |
+| global semantic reservation quality | **≠** PROVEN |
+| READY FOR REAL global | **NO** |
+
+**Roadmap diff:**
+```
+4	3	projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+ .../sfia-studio/convergence/sfia-studio-convergence-roadmap.md     | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+```
+- Tip maintenance row inserted
+- CURRENT REPOSITORY TRANSITION / NEXT ORDERED STEP / NEXT PRODUCT CAPABILITY updated
+- Historical entries preserved
+- Build Doctrine / C1 / framing: **unchanged**
+
+**Exit:** R3 = **SYNCED TO CURRENT LOCAL CANDIDATE STATE**
+
+### Suite finale
+
+| Check | Result |
+| --- | --- |
+| typecheck | PASS |
+| lint | PASS |
+| build | PASS |
+| ENV-AUTH + HIST-HD + Option A + Defer + preflight | PASS |
+| Full Studio suite | **4632 passed / 137 skipped** (432 files: 415 passed / 17 skipped) |
+| Prior (Option A) | 4619/137 — superseded (+13 ENV/HIST tests) |
+
+### Debt table (post-closure)
+
+| Item | Classification | Status |
+| --- | --- | --- |
+| Legacy env `SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY` | deprecated compatibility alias with defined contract | **NOT an open reserve** |
+| Historical HD `authority:"morris"` rows | immutable historical truth | **NOT an open reserve** |
+| Browser automation `chrome-error` | EXTERNAL TOOLING / NON-BLOCKING / OUT OF MACRO | not product reserve |
+| MealFlow 11 legacy À QUALIFIER | CAMPAIGN DATA / FUTURE PRODUCT USE | not construction debt |
+| MealFlow semantic reservation campaign | next after eventual integration | **NOT STARTED / NOT AUTHORIZED** |
+| MACRO PR READINESS | next Morris GO distinct | pending (not a construction reserve) |
+
+### Remaining same-macro construction reserves
+
+**ZERO**
+
+### Anti-claims
+
+- ≠ runtime v3 ADOPTED
+- ≠ READY FOR REAL global
+- ≠ global semantic reservation quality PROVEN
+- ≠ Nora Cognitive Completion COMPLETE
+- ≠ current macro integrated on main
+- ≠ product commit/push/PR/merge
+- ≠ Product Completion newly COMPLETE by this macro
+
+### Exact files touched this reserve-closure pass (additive to prior WIP)
+
+- `app/lib/oa/decision/infrastructure/localSingleUserAuthority.ts`
+- `app/lib/oa/decision/index.ts`
+- `app/lib/vertical-slice-runtime/studioRuntimeProfilePreflight.ts`
+- `app/.env.example`
+- `app/__tests__/oa/decision/reserveClosureEnvHistorical.d0.test.ts` (new)
+- `convergence/sfia-studio-convergence-roadmap.md` (R3 only)
+- `.tmp-sfia-review/chatgpt-review.md`
+
+---
+
+
+## ARCHIVE — PRIOR SAME-MACRO REVIEW BODY
+
+# SFIA Studio — Review Pack FULL
+## CYCLE RESERVATION MANAGEMENT & GATE-AWARE PILOTING
 ### + PILOT RUNTIME AUTHORITY SEPARATION — OPTION A
 
 - **timestamp**: `2026-09-25T07:02:05+02:00` (Europe/Paris)
