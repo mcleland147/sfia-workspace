@@ -1,70 +1,52 @@
 # SFIA Review Pack — FULL
-## RESERVATION-CONTEXT-PILOT-CONFIRMATION-01 — PROJECT GIT INTEGRATION + OPEN PR
+## RESERVATION-CONTEXT-PILOT-CONFIRMATION-01 — MERGE + POST-MERGE VERIFICATION
 
-Timestamp (UTC): `2026-09-25T11:31:09Z`
+Timestamp (UTC): `2026-09-25T11:50:12Z`
 
-## 1. Cycle / qualification
+## 1. Cycle / Morris GO
 
-- Macro: `RESERVATION-CONTEXT-PILOT-CONFIRMATION-01`
-- Cycle: PR readiness / repository integration
-- Profile: Critical
-- Typology: EVOL
-- Studio cycleType: `cyc:delivery`
-- Morris GO consumed: **PROJECT COMMIT + PUSH + OPEN PR**
-- MERGE: **NOT AUTHORIZED**
-- Roadmap truth-sync: **NOT AUTHORIZED**
-- Product code correction during integration: **NONE**
+- Macro / capability: `RESERVATION-CONTEXT-PILOT-CONFIRMATION-01` — RESERVATION CONTEXT CONTINUITY & PILOT CONFIRMATION
+- Morris GO consumed: **MERGE** (merge commit; preserve source branch)
+- NOT AUTHORIZED / NOT EXECUTED: squash/rebase; branch deletion; Product corrections; Roadmap truth-sync; StudyFlow restart; runtime v3 / READY FOR REAL / Nora Cognitive Completion promotion
 
-## 2. Git truth
+## 2. Pre-merge qualified truth (verified immediately before merge)
 
-- Repo: `mcleland147/sfia-workspace`
-- Root: `/Users/morris/Projects/sfia-workspace`
-- Branch: `feat/sfia-studio-reservation-context-pilot-confirmation-01`
-- Base / origin/main: `e36eb0597657577191af9cbc5feac6f47219b1fc` (= `e36eb0597657577191af9cbc5feac6f47219b1fc`)
-- Pre-commit HEAD was: `e36eb0597657577191af9cbc5feac6f47219b1fc`
-- Project commit SHA: `6c7b2120fd0e2760a0b69cfd870c895663a8ccc3`
-- Remote branch SHA: `6c7b2120fd0e2760a0b69cfd870c895663a8ccc3`
-- HEAD == remote branch: **YES**
+- PR: **#520** — https://github.com/mcleland147/sfia-workspace/pull/520
+- State: OPEN → then MERGED
+- Draft: false
+- Mergeable: MERGEABLE / CLEAN
+- Base: `main` @ `e36eb0597657577191af9cbc5feac6f47219b1fc`
+- Head: `feat/sfia-studio-reservation-context-pilot-confirmation-01` @ `6c7b2120fd0e2760a0b69cfd870c895663a8ccc3`
+- Commits: 1
+- Changed files: 14
+- Open reviews / review comments / issue comments: **0**
+- PR CI run **#599** / `36129766895`: completed / **success**
+  - Detect SFIA Studio changes — SUCCESS
+  - Build and validate SFIA Studio — SUCCESS
+  - SFIA Studio Required Gate — SUCCESS
+- Pre-merge Review Handoff: commit `10a09d68805ed39fd5984a9cc7e192395794a137` / blob `34d91d34f6514e3e81c15f777244b5f64e0a4450`
 
-### Residual local status (expected .tmp only)
+## 3. Merge
 
-```
-M .tmp-sfia-review/chatgpt-review.md
-?? .tmp-sfia-review/cycle-journal-continuity-proof/
-?? .tmp-sfia-review/cycle-reservation-piloting-proof/
-?? .tmp-sfia-review/nora-conversational-initiative-real-proof-02/
-?? .tmp-sfia-review/nora-conversational-initiative-real-proof/
-?? .tmp-sfia-review/pilotability-journal-integrity-proof/
-```
+- Method: **GitHub MERGE COMMIT** (`gh pr merge 520 --merge --match-head-commit 6c7b2120…`)
+- `--delete-branch`: **NOT used**
+- mergedAt: `2026-09-25T11:42:58Z`
+- Merge SHA / new origin/main: `6ac7eafb1f9177d3ccb9a129de7cfbc51195de7f`
+- Merge tree: `b975cb231f1a3393fe72c9008a60d274e2fbb796`
 
-## 3. Project commit surface
-
-### Commit message
-
-`feat(sfia-studio): preserve reservation context through pilot confirmation`
-
-### `git show --stat --oneline HEAD`
+## 4. Merge topology
 
 ```
-6c7b2120 feat(sfia-studio): preserve reservation context through pilot confirmation
- .../reservationContextPilotConfirmation.d0.test.ts | 280 +++++++++++++++++++++
- .../corrProof06.artifactObligation.d0.test.ts      |   1 +
- .../reservationContextProposal.ui.test.tsx         | 215 ++++++++++++++++
- .../studioCognitiveContext.test.ts                 |   1 +
- .../pre-m6-product-ui/ProjectWorkspacePage.tsx     |  18 +-
- .../hooks/useProductConversation.ts                |  66 +++++
- .../surfaces/ConversationSurface.tsx               | 110 +++++++-
- .../app/features/project-assistant/actions.ts      |   9 +
- .../features/project-assistant/f2/orchestrateF2.ts | 125 ++++++++-
- .../project-assistant/f2/studioCognitiveContext.ts |  35 +++
- .../features/project-assistant/orchestrateTurn.ts  |   4 +
- .../reservationInteractionContext.ts               | 205 +++++++++++++++
- .../app/features/project-assistant/types.ts        |  29 +++
- .../nora-cognitive-runtime/reservationPrompt.ts    |  37 +++
- 14 files changed, 1124 insertions(+), 11 deletions(-)
+commit 6ac7eafb1f9177d3ccb9a129de7cfbc51195de7f
+parent 1 = e36eb0597657577191af9cbc5feac6f47219b1fc
+parent 2 = 6c7b2120fd0e2760a0b69cfd870c895663a8ccc3
 ```
 
-### Exact commit tree (14 Product/test paths)
+Topology: **PASS** (two-parent merge as expected)
+
+## 5. Integrated surface (old main → merge)
+
+Exact 14 reviewed Product/test paths:
 
 ```
 projects/sfia-studio/app/__tests__/nora-cognitive-runtime/reservationContextPilotConfirmation.d0.test.ts
@@ -83,96 +65,112 @@ projects/sfia-studio/app/features/project-assistant/types.ts
 projects/sfia-studio/app/lib/nora-cognitive-runtime/reservationPrompt.ts
 ```
 
-Verified exclusions:
-- no `.tmp-sfia-review/**`
-- no `convergence/**`
-- no `product-completion/**`
-- no `sfia-v3-framing/**`
-- no `method/**`
-- no `prompts/**`
+Protected-path leak check (`.tmp-sfia-review/**`, `convergence/**`, `product-completion/**`, `sfia-v3-framing/**`, `method/**`, `prompts/**`): **NONE**
 
-## 4. PR
+## 6. Source branch retained
 
-- Number: **#520**
-- URL: https://github.com/mcleland147/sfia-workspace/pull/520
-- Title: SFIA Studio — preserve Reservation context through Pilot confirmation
-- Base: `main` @ `e36eb0597657577191af9cbc5feac6f47219b1fc`
-- Head: `feat/sfia-studio-reservation-context-pilot-confirmation-01` @ `6c7b2120fd0e2760a0b69cfd870c895663a8ccc3`
-- State: OPEN
-- MERGE: **NOT AUTHORIZED**
+- `origin/feat/sfia-studio-reservation-context-pilot-confirmation-01` = `6c7b2120fd0e2760a0b69cfd870c895663a8ccc3`
+- Branch deletion: **NOT EXECUTED**
 
-## 5. PR CI / checks (read-only at pack time)
+## 7. Post-merge CI (distinct from PR CI 36129766895)
 
-Workflow run: https://github.com/mcleland147/sfia-workspace/actions/runs/36129766895
+- Workflow: SFIA Studio CI
+- Run number: **#600**
+- Run ID: **36130906057**
+- URL: https://github.com/mcleland147/sfia-workspace/actions/runs/36130906057
+- Event: `push`
+- Head branch: `main`
+- Head SHA: `6ac7eafb1f9177d3ccb9a129de7cfbc51195de7f`
+- Status: completed
+- Conclusion: **success**
 
-| Check | Status | Job URL |
-|-------|--------|---------|
-| Detect SFIA Studio changes | SUCCESS | https://github.com/mcleland147/sfia-workspace/actions/runs/36129766895/job/108054088019 |
-| Build and validate SFIA Studio | PENDING / QUEUED | https://github.com/mcleland147/sfia-workspace/actions/runs/36129766895/job/108054140282 |
+### Jobs
 
-Overall CI at pack time: **PENDING**
+| Job | Conclusion | Job ID |
+|-----|------------|--------|
+| Detect SFIA Studio changes | SUCCESS | 108057690284 |
+| Build and validate SFIA Studio | SUCCESS | 108057733290 |
+| SFIA Studio Required Gate | SUCCESS | 108059514185 |
 
-## 6. Prior local candidate + RC closure
+### Build and validate steps
 
-- Local candidate SAME-MACRO CORRECTION PASS (RC-01 / RC-02)
-- Pre-integration Review Handoff:
-  - commit `c655fd70dcdb13e386d7040cf83abd5e6f47a7e7`
-  - blob `87acb671269d8f3f692e7eb709f0b2b6289205fc`
-- RC-01 malformed context fail-closed: **CLOSED**
-- RC-02 Reservation Pilot semantics: **CLOSED**
-- No Product corrections during this integration gate
+| Step | Conclusion |
+|------|------------|
+| Typecheck | SUCCESS |
+| Lint | SUCCESS |
+| Build | SUCCESS |
+| Unit tests (Vitest) | SUCCESS |
+| FinOps/T7 freeze notice | SUCCESS |
+| Modeled governance tests | SUCCESS |
+| Secret pattern scan (targeted) | SUCCESS |
+| Trailing whitespace check | SUCCESS |
 
-## 7. Validations re-run before commit
+### Required Gate
+
+`Required gate PASS: current SFIA Studio core validation succeeded; FinOps/T7 remains frozen and excluded from this gate.`
+
+**POST-MERGE REQUIRED GATE — PASS**
+
+## 8. Capability status (after green post-merge)
+
+- Capability: RESERVATION CONTEXT CONTINUITY & PILOT CONFIRMATION
+- Status: **INTEGRATED ON MAIN / POST-MERGE VERIFIED** (deterministic/reviewed scope)
+- RC-01: **CLOSED AT TESTED SCOPE**
+- RC-02: **CLOSED AT TESTED SCOPE**
+
+NOT claimed:
+- global semantic Reservation quality proven
+- StudyFlow Product reproof passed
+- Nora Cognitive Completion complete
+- runtime v3 adopted
+- READY FOR REAL
+
+## 9. Roadmap
+
+`projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` — **NOT MODIFIED**
+Roadmap truth-sync — **NOT EXECUTED**
+
+## 10. Local state after merge
+
+- Branch: `feat/sfia-studio-reservation-context-pilot-confirmation-01`
+- Local HEAD: `6c7b2120fd0e2760a0b69cfd870c895663a8ccc3` (= Product head; expected divergence from main)
+- origin/main: `6ac7eafb1f9177d3ccb9a129de7cfbc51195de7f`
+- Residual:
 
 ```
-targeted Reservation/context suites → 5 files / 30 tests PASS
-npm run typecheck → PASS
-npm run lint → PASS
-git diff --check / git diff --cached --check → clean
-prior reviewed candidate build → PASS (not re-required; sources unchanged)
-broader adjacent suite (prior review) → 47 files / 529 PASS
+M .tmp-sfia-review/chatgpt-review.md
+?? .tmp-sfia-review/cycle-journal-continuity-proof/
+?? .tmp-sfia-review/cycle-reservation-piloting-proof/
+?? .tmp-sfia-review/nora-conversational-initiative-real-proof-02/
+?? .tmp-sfia-review/nora-conversational-initiative-real-proof/
+?? .tmp-sfia-review/pilotability-journal-integrity-proof/
 ```
 
-## 8. Capability summary (reviewed)
+No Product source/test dirty. No branch deletion. No corrective commit.
 
-- Traiter avec Nora arms structured reservationInteractionContext (prefill only)
-- Server revalidates; absent vs malformed (RC-01) fail-closed
-- Force-F1 + reservationFocusSection prevent F2/Cadrage hijack
-- PROPOSE_RESOLUTION materialization without auto-RESOLVE
-- Human-facing « Réserve N · Cadrage actif » + Confirmation Pilote requise
-- Confirmer la levée reuses existing governed confirm action
-- Left Journal / right Lifecycle Reservation projections unchanged
-
-## 9. Remaining reserves
-
-- StudyFlow natural Product campaign reproof — **NOT STARTED** (after merge + post-merge verification)
-- Global semantic Reservation quality — NOT PROVEN
-- Nora Cognitive Completion — NOT COMPLETE / NOT PROVEN
-- CI Build and validate — PENDING at pack time
-
-## 10. Anti-claims
+## 11. Anti-claims
 
 - runtime v3 = NON ADOPTED
 - READY FOR REAL global = NO
 - Nora Cognitive Completion = NOT COMPLETE / NOT PROVEN
-- global semantic Reservation quality = NOT PROVEN
-- Product Completion historical closure ≠ runtime v3 adoption
+- global semantic Reservation quality = NOT PROVEN until StudyFlow natural Product reproof
 
-## 11. Final verdict
+## 12. Final verdict
 
-RESERVATION CONTEXT CONTINUITY & PILOT CONFIRMATION — PROJECT GIT INTEGRATION PASS
-PROJECT COMMIT — PASS
-PROJECT PUSH — PASS
-OPEN PR — PASS (#520)
-COMMIT SURFACE — REVIEWED CANDIDATE ONLY
-RC-01 — CLOSED
-RC-02 — CLOSED
-PRODUCT VALIDATIONS — PASS
-PR CI — PENDING
+RESERVATION CONTEXT CONTINUITY & PILOT CONFIRMATION — MERGE PASS
+PR #520 — MERGED
+MERGE METHOD — MERGE COMMIT
+MERGE TOPOLOGY — PASS
+INTEGRATED SURFACE — REVIEWED 14 FILES ONLY
+SOURCE BRANCH — RETAINED
+POST-MERGE SFIA STUDIO CI — SUCCESS (#600 / 36130906057)
+SFIA STUDIO REQUIRED GATE — PASS
+RC-01 — CLOSED AT TESTED SCOPE
+RC-02 — CLOSED AT TESTED SCOPE
+CAPABILITY — INTEGRATED ON MAIN / POST-MERGE VERIFIED
 REVIEW HANDOFF — (verify actual remote SHA/blob after publish)
 
-MERGE — NOT AUTHORIZED
-ROADMAP TRUTH-SYNC — NOT AUTHORIZED
+ROADMAP TRUTH-SYNC — NOT EXECUTED
 STUDYFLOW REPROOF — NOT STARTED
 
-NEXT: ChatGPT PR/CI review. If PR checks and review qualify, Morris must issue a distinct MERGE GO. After merge + post-merge verification, resume the natural StudyFlow campaign.
+NEXT: return to ChatGPT; then qualify the natural StudyFlow Product reproof / next trajectory step.
