@@ -89,6 +89,10 @@ import {
 } from "@/features/project-assistant/w2/proposalSubjectOptions";
 import { filterProductReservationsForDisplay } from "@/features/project-assistant/w2/w3cProductPresentation";
 import type { ExecutionContractStatus } from "@/lib/oa/execution-contract/domain/types";
+import {
+  presentPilotContract,
+  type PilotContractPresentation,
+} from "./pilotContractPresentation";
 import styles from "./TrajectorySurface.module.css";
 
 /**
@@ -138,6 +142,7 @@ function toInspectionDisclosureView(
     | undefined,
 ): InspectionDisclosureView | null {
   if (!disclosure) return null;
+  const evidence = disclosure.evidenceRequirements;
   return {
     action: disclosure.action,
     technicalTarget: disclosure.technicalTarget,
@@ -151,7 +156,7 @@ function toInspectionDisclosureView(
     contentRequirements: disclosure.contentRequirements,
     validationExpectations: disclosure.validationExpectations,
     expectedOutputs: disclosure.expectedOutputs,
-    evidenceRequirements: [...disclosure.evidenceRequirements],
+    evidenceRequirements: Array.isArray(evidence) ? [...evidence] : [],
     disclosureComplete: disclosure.disclosureComplete,
   };
 }
@@ -360,6 +365,8 @@ export function TrajectorySurface({
    */
   const continuityPassRef = useRef(0);
   const prevDurableRefreshSignalRef = useRef(durableRefreshSignal);
+  /** FR-01 — auto-materialize options once for a sole recoverable pending subject. */
+  const autoInstructedPendingRef = useRef<string | null>(null);
 
   /**
    * ONE fail-closed gate for the full W2 mutating seam (subject + execution).
@@ -437,6 +444,19 @@ export function TrajectorySurface({
       }),
   );
 
+  const pilotContractView: PilotContractPresentation | null = contract
+    ? presentPilotContract({
+        action: contract.action,
+        target: contract.target,
+        scope: contract.scope,
+        requiredAuthority: contract.requiredAuthority,
+        reversibility: contract.reversibility,
+        targetPath: contract.inspectionDisclosure?.targetPath ?? null,
+        targetRepositoryRef:
+          contract.inspectionDisclosure?.targetRepositoryRef ?? null,
+      })
+    : null;
+
   function paintAttemptPhase(
     phase: GovernedExecutePhaseSuccess["phase"],
     nextAttempt: GovernedExecuteAttemptProjection | null,
@@ -452,45 +472,78 @@ export function TrajectorySurface({
     });
   }
 
-  const proposeOptions = useCallback(async () => {
-    if (continuityMutationBlocked) return;
-    setBusy("options");
-    setError(null);
-    const recoverableSole =
-      pendingReinstruction?.proposalIds.length === 1 &&
-      pendingReinstruction.recoverableProposalIds.length === 1
-        ? pendingReinstruction.recoverableProposalIds[0]!
-        : null;
-    const proposalIdForPropose = activeProposalId ?? recoverableSole;
-    setPendingReinstruction(null);
-    const result = await w2ProposeTrajectoryOptionsAction({
+  const proposeOptions = useCallback(
+    async (opts?: { ignoreActiveProposalId?: boolean }) => {
+      if (continuityMutationBlocked) return;
+      setBusy("options");
+      setError(null);
+      const recoverableSole =
+        pendingReinstruction?.proposalIds.length === 1 &&
+        pendingReinstruction.recoverableProposalIds.length === 1
+          ? pendingReinstruction.recoverableProposalIds[0]!
+          : null;
+      // RC-04 — structural post-terminal recovery must not re-send a closed Proposal id.
+      const proposalIdForPropose = opts?.ignoreActiveProposalId
+        ? recoverableSole
+        : (activeProposalId ?? recoverableSole);
+      const result = await w2ProposeTrajectoryOptionsAction({
+        projectId,
+        proposalId: proposalIdForPropose,
+      });
+      setBusy(null);
+      if (!result || typeof result !== "object") {
+        setError("Instruction des options indisponible.");
+        return;
+      }
+      if (!result.ok) {
+        setError(result.message);
+        return;
+      }
+      setPendingReinstruction(null);
+      const { ok: _ok, ...set } = result;
+      setOptionSet(set);
+      setDecision(null);
+      setDecided(null);
+      setContract(null);
+      setInspection(null);
+      setAuthorization(null);
+      setAmendmentDraft("");
+      setAmendmentNotice(null);
+      // D-MORRIS-PCONT — recovery OptionSet is additive: keep durable Attempt /
+      // ProductOutcome / postEvidence projection (rehydrate, do not wipe).
+      // Only clear EC/authorization which belong to a fresh framing subject.
+      onDurableFactsChanged?.();
+    },
+    [
+      continuityMutationBlocked,
       projectId,
-      proposalId: proposalIdForPropose,
-    });
-    setBusy(null);
-    if (!result.ok) {
-      setError(result.message);
+      activeProposalId,
+      pendingReinstruction,
+      onDurableFactsChanged,
+    ],
+  );
+
+  // FR-01 — sole recoverable pending Proposal: materialize options without a free click.
+  useEffect(() => {
+    if (continuityMutationBlocked) return;
+    if (!pendingReinstruction) return;
+    if (optionSet != null || decision != null) return;
+    if (
+      pendingReinstruction.proposalIds.length !== 1 ||
+      pendingReinstruction.recoverableProposalIds.length !== 1
+    ) {
       return;
     }
-    const { ok: _ok, ...set } = result;
-    setOptionSet(set);
-    setDecision(null);
-    setDecided(null);
-    setContract(null);
-    setInspection(null);
-    setAuthorization(null);
-    setAmendmentDraft("");
-    setAmendmentNotice(null);
-    // D-MORRIS-PCONT — recovery OptionSet is additive: keep durable Attempt /
-    // ProductOutcome / postEvidence projection (rehydrate, do not wipe).
-    // Only clear EC/authorization which belong to a fresh framing subject.
-    onDurableFactsChanged?.();
+    const sole = pendingReinstruction.recoverableProposalIds[0]!;
+    if (autoInstructedPendingRef.current === sole) return;
+    autoInstructedPendingRef.current = sole;
+    void proposeOptions();
   }, [
     continuityMutationBlocked,
-    projectId,
-    activeProposalId,
     pendingReinstruction,
-    onDurableFactsChanged,
+    optionSet,
+    decision,
+    proposeOptions,
   ]);
 
   /** CORR-PROOF-10 — rehydrate bound Proposal OptionSet from durable Epistemic. */
@@ -574,12 +627,28 @@ export function TrajectorySurface({
       return;
     }
     if (result.kind === "none") {
-      // Server durable truth wins — clear any stale client EC projection.
-      setContract(null);
-      setInspection(null);
-      setAuthorization(null);
-      setAmendmentDraft("");
-      setAmendmentNotice(null);
+      // Server durable truth wins for stale client EC — BUT RC-01 / RC-06
+      // auto-PREPARE (and manual same-intention PREPARE) may have just
+      // projected a contract before durable continuity catches up.
+      const refuseOrAmend =
+        decision?.selectedOptionRef === PROPOSAL_SUBJECT_REFUSE_REF ||
+        decision?.selectedOptionRef === PROPOSAL_SUBJECT_AMEND_REF;
+      const keepFreshPursuePrepare =
+        decision != null &&
+        Boolean(decision.proposalId) &&
+        decision.selectedOptionRef === PROPOSAL_SUBJECT_PURSUE_REF &&
+        decision.decisionBasisLinked === true;
+      const keepFreshProjectPrepare =
+        decision != null &&
+        !decision.proposalId &&
+        !refuseOrAmend;
+      if (!keepFreshPursuePrepare && !keepFreshProjectPrepare) {
+        setContract(null);
+        setInspection(null);
+        setAuthorization(null);
+        setAmendmentDraft("");
+        setAmendmentNotice(null);
+      }
       setContinuityDecisionRef(null);
       setExecutionContinuityReadStatus("ready");
       return;
@@ -823,6 +892,28 @@ export function TrajectorySurface({
     void rehydrateGovernedExecutionContinuity();
   }, [subjectReadStatus, rehydrateGovernedExecutionContinuity]);
 
+  /** FR-04 — inspect a freshly prepared contract without waiting for another Pilot click. */
+  const inspectPreparedContractId = useCallback(
+    async (executionContractId: string) => {
+      const result = await w2InspectExecutionContractAction({
+        projectId,
+        executionContractId,
+      });
+      if (!result || typeof result !== "object") {
+        return false;
+      }
+      if (!result.ok) {
+        setError(result.message);
+        return false;
+      }
+      const { ok: _ok, ...state } = result;
+      setInspection(state);
+      setAuthorization(null);
+      return state.inspectionSufficient === true;
+    },
+    [projectId],
+  );
+
   const decide = useCallback(
     async (selectedOptionRef: string) => {
       if (continuityMutationBlocked) return;
@@ -865,12 +956,143 @@ export function TrajectorySurface({
       setDecision(result.decision);
       setDecided(result.trajectory ?? null);
       onDurableFactsChanged?.();
+
+      // RC-01 — Proposal Pursue → auto PREPARE + inspect (same intention).
+      // RC-06 — structural recovery / Project GOVERNED → same chain via W2 prepare.
+      // Never auto-Execute.
+      const next = result.decision;
+      const shouldAutoPrepareProposal =
+        isProposalSubject &&
+        selectedOptionRef === PROPOSAL_SUBJECT_PURSUE_REF &&
+        Boolean(next.proposalId) &&
+        next.decisionBasisLinked === true;
+      const shouldAutoPrepareGoverned =
+        !isProposalSubject &&
+        selectedOptionRef === GOVERNED_OPTION_REF &&
+        !next.proposalId;
+
+      if (shouldAutoPrepareProposal) {
+        setBusy("contract");
+        setError(null);
+        const preparedResult = await projectAssistantPrepareResolvedM3Action({
+          projectId,
+          decisionId: next.decisionId,
+        });
+        setBusy(null);
+        if (!preparedResult || typeof preparedResult !== "object") {
+          // Harness / transient — keep secondary PREPARE fallback CTA.
+          return;
+        }
+        if (!preparedResult.ok) {
+          setError(preparedResult.message);
+          return;
+        }
+        const prepared = preparedResult.f3?.successor;
+        if (!prepared) {
+          setError("Contrat préparé indisponible.");
+          return;
+        }
+        setContract({
+          executionContractId: prepared.executionContractId,
+          version: prepared.version,
+          status: prepared.status,
+          action: prepared.action,
+          target: prepared.target,
+          scope: prepared.scope,
+          requiredAuthority: prepared.requiredAuthority,
+          constraints: [...prepared.constraints],
+          stopConditions: [...prepared.stopConditions],
+          requiredCapabilities: [...prepared.requiredCapabilities],
+          reversibility: prepared.reversibility,
+          semanticFingerprint: prepared.semanticFingerprint,
+          inspectionDisclosure: toInspectionDisclosureView(
+            prepared.inspectionDisclosure,
+          ),
+        });
+        setInspection(null);
+        setAuthorization(null);
+        setAmendmentDraft("");
+        setAmendmentNotice(null);
+        setAttempt(null);
+        setAttemptPhase(null);
+        setAttemptStatusLabel(null);
+        onDurableFactsChanged?.();
+        await inspectPreparedContractId(prepared.executionContractId);
+        return;
+      }
+
+      if (shouldAutoPrepareGoverned) {
+        // Same-scope Relancer owns when RecoveryExecutionBinding is present —
+        // do not W2-PREPARE (R8). Structural recovery (no binding) → RC-06.
+        const bindingResult = await w2ReadRecoveryExecutionBindingAction({
+          projectId,
+          decisionId: next.decisionId,
+        });
+        if (
+          bindingResult &&
+          typeof bindingResult === "object" &&
+          bindingResult.ok &&
+          bindingResult.binding?.kind === "post_evidence_recovery_execution"
+        ) {
+          setRecoveryBinding(bindingResult.binding);
+          return;
+        }
+        setBusy("contract");
+        setError(null);
+        const preparedResult = await w2PrepareExecutionContractAction({
+          projectId,
+          decisionId: next.decisionId,
+        });
+        setBusy(null);
+        if (!preparedResult || typeof preparedResult !== "object") {
+          // Harness / transient — keep secondary PREPARE fallback CTA.
+          return;
+        }
+        if (!preparedResult.ok) {
+          setError(
+            preparedResult.code === "PREPARE_NOT_APPLICABLE"
+              ? pilotPrepareNotApplicableMessage()
+              : preparedResult.message,
+          );
+          return;
+        }
+        const prepared = preparedResult.contract;
+        setContract({
+          executionContractId: prepared.executionContractId,
+          version: prepared.version,
+          status: prepared.status,
+          action: prepared.action,
+          target: prepared.target,
+          scope: prepared.scope,
+          requiredAuthority: prepared.requiredAuthority,
+          constraints: [...prepared.constraints],
+          stopConditions: [...prepared.stopConditions],
+          requiredCapabilities: [...prepared.requiredCapabilities],
+          reversibility: prepared.reversibility,
+          semanticFingerprint: prepared.semanticFingerprint,
+          effectConfirmationRequired: prepared.effectConfirmationRequired,
+          effectConfirmationLevel: prepared.effectConfirmationLevel ?? null,
+          inspectionDisclosure: toInspectionDisclosureView(
+            prepared.inspectionDisclosure,
+          ),
+        });
+        setInspection(null);
+        setAuthorization(null);
+        setAmendmentDraft("");
+        setAmendmentNotice(null);
+        setAttempt(null);
+        setAttemptPhase(null);
+        setAttemptStatusLabel(null);
+        onDurableFactsChanged?.();
+        await inspectPreparedContractId(prepared.executionContractId);
+      }
     },
     [
       continuityMutationBlocked,
       optionSet,
       projectId,
       onDurableFactsChanged,
+      inspectPreparedContractId,
     ],
   );
 
@@ -965,11 +1187,14 @@ export function TrajectorySurface({
     setAttemptPhase(null);
     setAttemptStatusLabel(null);
     onDurableFactsChanged?.();
+    // FR-04 — auto-inspect after prepare; never auto-execute.
+    await inspectPreparedContractId(prepared.executionContractId);
   }, [
     continuityMutationBlocked,
     decision,
     projectId,
     onDurableFactsChanged,
+    inspectPreparedContractId,
   ]);
 
   /**
@@ -1016,12 +1241,14 @@ export function TrajectorySurface({
     setAttemptPhase(null);
     setAttemptStatusLabel(null);
     onDurableFactsChanged?.();
+    await inspectPreparedContractId(prepared.executionContractId);
   }, [
     continuityMutationBlocked,
     recoveryDecisionId,
     projectId,
     showRecoveryDocsWritePrepare,
     onDurableFactsChanged,
+    inspectPreparedContractId,
   ]);
 
   /**
@@ -1075,12 +1302,14 @@ export function TrajectorySurface({
     setAttemptPhase(null);
     setAttemptStatusLabel(null);
     onDurableFactsChanged?.();
+    await inspectPreparedContractId(prepared.executionContractId);
   }, [
     continuityMutationBlocked,
     decision,
     decisionDefersExecution,
     projectId,
     onDurableFactsChanged,
+    inspectPreparedContractId,
   ]);
 
   const rematerializeLegacyDocsWriteContract = useCallback(async () => {
@@ -1342,6 +1571,188 @@ export function TrajectorySurface({
     setAuthorization(outcome);
     setInspection(outcome.inspection);
   }, [continuityMutationBlocked, contract, projectId]);
+
+  /**
+   * FR-09 / FR-10 — one Pilot CTA for N1/N2 local-write:
+   * orchestrate confirm (if required) + authorize + Attempt.
+   * Never auto for N3 / Morris gates. Never Recommendation→HD.
+   */
+  const executeAsPilot = useCallback(async () => {
+    if (continuityMutationBlocked) return;
+    if (!contract) return;
+    if (
+      contract.requiredAuthority !== "N1" &&
+      contract.requiredAuthority !== "N2"
+    ) {
+      return;
+    }
+    setBusy("execute");
+    setError(null);
+
+    if (!inspection?.inspectionSufficient) {
+      const ok = await inspectPreparedContractId(contract.executionContractId);
+      if (!ok) {
+        setBusy(null);
+        return;
+      }
+    }
+
+    let status = contract.status;
+    if (status === "confirmation_required") {
+      const confirmed = await w2ConfirmExecutionContractAction({
+        projectId,
+        executionContractId: contract.executionContractId,
+      });
+      if (!confirmed.ok) {
+        setBusy(null);
+        setError(confirmed.message);
+        return;
+      }
+      status = "confirmed";
+      setContract({ ...contract, status: "confirmed" });
+    }
+
+    const authResult = await w2AuthorizeExecutionContractAction({
+      projectId,
+      executionContractId: contract.executionContractId,
+    });
+    if (!authResult.ok) {
+      setBusy(null);
+      setError(authResult.message);
+      return;
+    }
+    const { ok: _ok, ...outcome } = authResult;
+    setAuthorization(outcome);
+    setInspection(outcome.inspection);
+
+    if (outcome.outcome !== "AUTHORIZED" || outcome.executionEligible !== true) {
+      setBusy(null);
+      return;
+    }
+
+    flushSync(() => {
+      setAttempt(null);
+      setAttemptPhase(null);
+      setAttemptPhaseHistory([]);
+      setAttemptStatusLabel(null);
+      setProductOutcome(null);
+      setProductEvidencePending(false);
+    });
+
+    const selected = await w2GovernedExecuteSelectAction({
+      projectId,
+      executionContractId: contract.executionContractId,
+    });
+    if (!selected.ok) {
+      setBusy(null);
+      setError(selected.message);
+      if (selected.attempt) {
+        paintAttemptPhase("accepted", selected.attempt, null);
+      }
+      return;
+    }
+    paintAttemptPhase(selected.phase, selected.attempt, selected.statusLabel);
+    await yieldBrowserPaint();
+
+    if (selected.phase === "terminal") {
+      setBusy(null);
+      paintAttemptPhase("terminal", selected.attempt, selected.statusLabel);
+      onDurableFactsChanged?.();
+      return;
+    }
+
+    const started = await w2GovernedExecuteStartAction({
+      projectId,
+      executionContractId: contract.executionContractId,
+      attemptId: selected.attemptId,
+    });
+    if (!started.ok) {
+      setBusy(null);
+      setError(started.message);
+      if (started.attempt) {
+        flushSync(() => {
+          setAttempt(started.attempt!);
+        });
+      }
+      return;
+    }
+
+    if (started.phase === "terminal") {
+      paintAttemptPhase(started.phase, started.attempt, started.statusLabel);
+      flushSync(() => {
+        setProductEvidencePending(true);
+      });
+      await yieldBrowserPaint();
+      const materializedEarly = await w2MaterializeProductOutcomeAction({
+        projectId,
+        attemptId: started.attemptId,
+      });
+      setBusy(null);
+      if (!materializedEarly.ok) {
+        setError(materializedEarly.message);
+        if (materializedEarly.product) setProductOutcome(materializedEarly.product);
+        if (materializedEarly.postEvidence)
+          setPostEvidence(materializedEarly.postEvidence);
+        return;
+      }
+      flushSync(() => {
+        setProductEvidencePending(false);
+        setProductOutcome(materializedEarly.product);
+        setPostEvidence(materializedEarly.postEvidence ?? null);
+      });
+      onDurableFactsChanged?.();
+      return;
+    }
+
+    paintAttemptPhase(started.phase, started.attempt, started.statusLabel);
+    await yieldBrowserPaint();
+
+    const completed = await w2GovernedExecuteCompleteAction({
+      projectId,
+      executionContractId: contract.executionContractId,
+      attemptId: started.attemptId,
+    });
+    if (!completed.ok) {
+      setBusy(null);
+      setError(completed.message);
+      if (completed.attempt) {
+        flushSync(() => {
+          setAttempt(completed.attempt!);
+        });
+      }
+      return;
+    }
+    paintAttemptPhase(completed.phase, completed.attempt, completed.statusLabel);
+    flushSync(() => {
+      setProductEvidencePending(true);
+    });
+    await yieldBrowserPaint();
+
+    const materialized = await w2MaterializeProductOutcomeAction({
+      projectId,
+      attemptId: completed.attemptId,
+    });
+    setBusy(null);
+    if (!materialized.ok) {
+      setError(materialized.message);
+      if (materialized.product) setProductOutcome(materialized.product);
+      if (materialized.postEvidence) setPostEvidence(materialized.postEvidence);
+      return;
+    }
+    flushSync(() => {
+      setProductEvidencePending(false);
+      setProductOutcome(materialized.product);
+      setPostEvidence(materialized.postEvidence ?? null);
+    });
+    onDurableFactsChanged?.();
+  }, [
+    continuityMutationBlocked,
+    contract,
+    inspection,
+    projectId,
+    inspectPreparedContractId,
+    onDurableFactsChanged,
+  ]);
 
   const governedExecute = useCallback(async () => {
     if (continuityMutationBlocked) return;
@@ -1926,7 +2337,9 @@ export function TrajectorySurface({
         </p>
       ) : null}
 
-      {optionSet ? (
+      {/* RC-05 — before decision: options + recommendation primary.
+          After decision: collapse history; show present next step. */}
+      {optionSet && !decision ? (
         <>
           <section
             className={styles.block}
@@ -2113,55 +2526,36 @@ export function TrajectorySurface({
             <span className={styles.sectionKind} data-kind="decision">
               Décision humaine
             </span>
+            Décision prise
+          </h3>
+          <p className={styles.blockBody} data-testid="w2-decided-option">
             {optionSet?.decisionSubjectMode === "proposal" ||
             decision.proposalId
-              ? `Votre décision — ${decision.statusLabel}`
-              : `Décision de trajectoire — ${decision.statusLabel}`}
-          </h3>
-          <dl className={styles.facts}>
-            <div>
-              <dt>Option retenue</dt>
-              <dd data-testid="w2-decided-option">
-                {optionSet?.decisionSubjectMode === "proposal" ||
-                decision.proposalId
-                  ? pilotProposalOptionLabel(decision.selectedOptionRef)
-                  : pilotPresentedOptionLabel({
-                      optionRef: decision.selectedOptionRef,
-                      options: optionSet?.options,
-                    })}
-              </dd>
-            </div>
-            <div>
-              <dt>Décideur</dt>
-              <dd>{decision.actorRole}</dd>
-            </div>
-            <div>
-              <dt>Base de décision</dt>
-              <dd data-testid="w2-decision-basis">
-                {decision.decisionBasisLinked ? "Reliée" : "Absente"}
-              </dd>
-            </div>
-            <div>
-              <dt>Trajectoire</dt>
-              <dd data-testid="w2-decided-trajectory">
-                {decided
-                  ? `${decided.statusLabel} · version ${decided.version}`
-                  : "Aucune promotion ProjectTrajectory"}
-              </dd>
-            </div>
-          </dl>
-          <details data-testid="w2-technical-details">
-            <summary>Détails techniques</summary>
-            <p className={styles.blockNote}>
-              Réf. option : <code>{decision.selectedOptionRef}</code>
-              {decision.proposalId ? (
-                <>
-                  {" "}
-                  · Proposal <code>{decision.proposalId}</code>
-                </>
-              ) : null}
+              ? pilotProposalOptionLabel(decision.selectedOptionRef)
+              : pilotPresentedOptionLabel({
+                  optionRef: decision.selectedOptionRef,
+                  options: optionSet?.options,
+                })}
+          </p>
+          <p className={styles.blockNote} data-testid="w2-decision-recorded">
+            ✓ Décision du Pilote enregistrée
+            {decision.decisionBasisLinked ? " · base reliée" : ""}
+          </p>
+          {!decisionDefersExecution && !contract ? (
+            <p className={styles.blockNote} data-testid="w2-decision-next-step">
+              {busy === "contract"
+                ? "Studio prépare l'exécution…"
+                : "Prochaine étape — préparation du contrat d'exécution"}
             </p>
-          </details>
+          ) : null}
+          {!decisionDefersExecution && contract ? (
+            <p className={styles.blockNote} data-testid="w2-decision-prepared-step">
+              ✓ Contrat préparé
+              {inspection?.inspectionSufficient
+                ? " · vérifications effectuées"
+                : ""}
+            </p>
+          ) : null}
           {decision.selectedOptionRef === PROPOSAL_SUBJECT_AMEND_REF ? (
             <p
               className={styles.blockBody}
@@ -2182,12 +2576,85 @@ export function TrajectorySurface({
               préparation d&apos;exécution ici.
             </p>
           ) : null}
+
+          {optionSet ? (
+            <details data-testid="w2-decision-history">
+              <summary>Historique de cette décision</summary>
+              <p className={styles.blockNote} data-testid="w2-decision-basis">
+                Base : {decision.decisionBasisLinked ? "Reliée" : "Absente"} ·
+                décideur {decision.actorRole}
+              </p>
+              <p
+                className={styles.blockNote}
+                data-testid="w2-decided-trajectory"
+              >
+                {decided
+                  ? `${decided.statusLabel} · version ${decided.version}`
+                  : "Aucune promotion ProjectTrajectory"}
+              </p>
+              <p className={styles.blockNote}>
+                Option retenue (réf.) :{" "}
+                <code>{decision.selectedOptionRef}</code>
+                {decision.proposalId ? (
+                  <>
+                    {" "}
+                    · Proposal <code>{decision.proposalId}</code>
+                  </>
+                ) : null}
+              </p>
+              <p className={styles.blockNote} data-testid="w2-recommendation-rationale">
+                Recommandation ayant servi :{" "}
+                {scrubPiloteRecommendationProse(
+                  formatNoraAssistantDisplayText(
+                    optionSet.recommendation.rationale,
+                  ),
+                )}
+              </p>
+              <ul
+                className={styles.optionList}
+                data-testid="w2-options-history"
+              >
+                {optionSet.options.map((option) => (
+                  <li
+                    key={option.optionRef}
+                    className={styles.option}
+                    data-testid={`w2-option-history-${option.optionRef}`}
+                  >
+                    <span className={styles.optionLabel}>{option.label}</span>
+                    <p className={styles.optionIntent}>{option.intent}</p>
+                  </li>
+                ))}
+              </ul>
+              <div data-testid="w2-recommendation-history" hidden />
+            </details>
+          ) : (
+            <details data-testid="w2-technical-details">
+              <summary>Détails techniques</summary>
+              <p className={styles.blockNote}>
+                Réf. option : <code>{decision.selectedOptionRef}</code>
+                {decision.proposalId ? (
+                  <>
+                    {" "}
+                    · Proposal <code>{decision.proposalId}</code>
+                  </>
+                ) : null}
+              </p>
+              <p className={styles.blockNote} data-testid="w2-decision-basis">
+                Base : {decision.decisionBasisLinked ? "Reliée" : "Absente"}
+              </p>
+              <p className={styles.blockNote} data-testid="w2-decided-trajectory">
+                {decided
+                  ? `${decided.statusLabel} · version ${decided.version}`
+                  : "Aucune promotion ProjectTrajectory"}
+              </p>
+            </details>
+          )}
+
           {/*
             JOURNEY-INTEGRITY Lot A-B fail-closed:
             · Proposal pursue + linked DecisionBasis → M3 PREPARE (no selector).
             · Proposal pursue + missing DecisionBasis → fail-closed requalify
-              (NEVER sandbox fallback — subject still owns the journey).
-            · Non-Proposal only → W2 sandbox selector remains.
+            · Non-Proposal GOVERNED → RC-06 auto-PREPARE; CTA = resume only.
             Contract prepared → Inspect owns next action; no re-PREPARE.
           */}
           {!decisionDefersExecution &&
@@ -2198,9 +2665,9 @@ export function TrajectorySurface({
             data-testid="w2-proposal-backed-prepare"
           >
             <p className={styles.blockNote} data-testid="w2-proposal-backed-prepare-note">
-              La décision porte déjà l&apos;opération scellée. Préparez le
-              contrat d&apos;exécution à partir de cette décision — sans
-              resélection technique.
+              Reprise secondaire : la préparation automatique n&apos;a pas abouti
+              ou le contrat n&apos;est plus disponible. Vous pouvez reprendre la
+              préparation sans resélection technique.
             </p>
             <button
               type="button"
@@ -2209,7 +2676,7 @@ export function TrajectorySurface({
               onClick={() => void prepareProposalBackedContract()}
               disabled={busy !== null || continuityMutationBlocked}
             >
-              Préparer le contrat d&apos;exécution
+              Reprendre la préparation
             </button>
           </div>
           ) : null}
@@ -2237,9 +2704,8 @@ export function TrajectorySurface({
             data-testid="w3a-prepare-execution-from-decision"
           >
             <p className={styles.blockNote}>
-              Studio prépare le contrat d&apos;exécution à partir de la
-              décision et du contexte produit durable — sans choix technique
-              (lecture, simulation, artefact…).
+              Reprise secondaire : la préparation automatique après décision
+              n&apos;a pas abouti. Vous pouvez reprendre sans nouvel arbitrage.
             </p>
             <button
               type="button"
@@ -2248,7 +2714,7 @@ export function TrajectorySurface({
               onClick={() => void prepareContract()}
               disabled={busy !== null || continuityMutationBlocked}
             >
-              Préparer le contrat d&apos;exécution
+              Reprendre la préparation
             </button>
           </div>
           ) : null}
@@ -2315,67 +2781,103 @@ export function TrajectorySurface({
           data-testid="w2-contract"
         >
           <h3 id="w2-contract-title" className={styles.blockTitle}>
-            Contrat d&apos;exécution — résumé
+            À faire maintenant
           </h3>
-          <p className={styles.blockNote}>
-            {wrongGenericReplaceableByRecoveryPrepare
-              ? "Contrat générique pré-exécution visible pour cette décision. La prochaine action utile est de préparer le contrat recovery docs_write — pas d'inspection de ce dead-end."
-              : "Relisez d'abord ce qui sera tenté. Inspectez le détail avant toute confirmation. Confirmer n'exécute pas."}
-          </p>
-          <dl className={styles.facts} data-testid="w2-contract-facts">
-            <div>
-              <dt>Ce qui sera fait</dt>
-              <dd data-testid="w2-contract-action">{contract.action}</dd>
-            </div>
-            <div>
-              <dt>Cible technique</dt>
-              <dd data-testid="w2-contract-target">{contract.target}</dd>
-            </div>
-            {contract.inspectionDisclosure?.targetPath ? (
-              <div>
-                <dt>Cible exacte</dt>
-                <dd data-testid="w2-contract-exact-target">
-                  {contract.inspectionDisclosure.targetPath}
-                </dd>
-              </div>
-            ) : null}
-            {contract.inspectionDisclosure?.targetRepositoryRef ? (
-              <div>
-                <dt>Repository</dt>
-                <dd data-testid="w2-contract-repository">
-                  {contract.inspectionDisclosure.targetRepositoryRef}
-                </dd>
-              </div>
-            ) : null}
-            <div>
-              <dt>Périmètre</dt>
-              <dd data-testid="w2-contract-scope">{contract.scope}</dd>
-            </div>
-            <div>
-              <dt>État du contrat</dt>
-              <dd
+          {pilotContractView ? (
+            <>
+              <p
+                className={styles.blockBody}
+                data-testid="w2-contract-now-title"
+              >
+                {pilotContractView.nowTitle}
+              </p>
+              <p
+                className={styles.blockNote}
+                data-testid="w2-contract-effect-summary"
+              >
+                {pilotContractView.effectSummary}
+              </p>
+              <p
+                className={styles.blockNote}
+                data-testid="w2-contract-authority-label"
+              >
+                Autorité : {pilotContractView.authorityLabel}
+              </p>
+              <p
+                className={styles.blockNote}
                 data-testid="w2-contract-status"
                 data-status={contract.status}
               >
-                {executionContractStatusLabel(contract.status)}
-              </dd>
-            </div>
-            <div>
-              <dt>Prochaine action utile</dt>
-              <dd data-testid="w2-contract-next-action">
+                État :{" "}
+                {inspection?.inspectionSufficient
+                  ? pilotContractView.simplifiedExecutePath
+                    ? "Prêt à exécuter"
+                    : executionContractStatusLabel(contract.status)
+                  : executionContractStatusLabel(contract.status)}
+              </p>
+              <p
+                className={styles.blockNote}
+                data-testid="w2-contract-next-action"
+              >
+                Prochaine action :{" "}
                 {wrongGenericReplaceableByRecoveryPrepare
                   ? "Préparer le contrat recovery docs_write (explicite)"
-                  : inspection?.inspectionSufficient
-                    ? contract.status === "confirmation_required"
-                      ? "Confirmer si requis, puis statuer sur l'autorisation"
-                      : "Statuer sur l'autorisation"
-                    : "Inspecter le détail du contrat"}
-              </dd>
-            </div>
-          </dl>
-          <details className={styles.contractLevel2}>
-            <summary>Détails métier du contrat</summary>
+                  : pilotContractView.simplifiedExecutePath &&
+                      inspection?.inspectionSufficient
+                    ? "Exécuter"
+                    : inspection?.inspectionSufficient
+                      ? contract.status === "confirmation_required"
+                        ? "Confirmer si requis, puis statuer sur l'autorisation"
+                        : "Statuer sur l'autorisation"
+                      : "Inspecter le détail du contrat"}
+              </p>
+            </>
+          ) : null}
+          <p className={styles.blockNote}>
+            {wrongGenericReplaceableByRecoveryPrepare
+              ? "Contrat générique pré-exécution visible pour cette décision. La prochaine action utile est de préparer le contrat recovery docs_write — pas d'inspection de ce dead-end."
+              : pilotContractView?.simplifiedExecutePath
+                ? "Le contrat est préparé et inspecté. Un clic Exécuter lance la gouvernance interne (confirmation si requise, autorisation, tentative) — sans micro-étapes visibles."
+                : "Relisez d'abord ce qui sera tenté. Inspectez le détail avant toute confirmation. Confirmer n'exécute pas."}
+          </p>
+          {/* RC-02 — primary surface is business-only; raw codes live under details. */}
+          <details className={styles.contractLevel2} data-testid="w2-contract-facts">
+            <summary>Détails techniques</summary>
             <dl className={styles.facts}>
+              <div>
+                <dt>Action code</dt>
+                <dd data-testid="w2-contract-action">{contract.action}</dd>
+              </div>
+              <div>
+                <dt>Cible technique</dt>
+                <dd data-testid="w2-contract-target">{contract.target}</dd>
+              </div>
+              {contract.inspectionDisclosure?.targetPath ? (
+                <div>
+                  <dt>Cible exacte</dt>
+                  <dd data-testid="w2-contract-exact-target">
+                    {contract.inspectionDisclosure.targetPath}
+                  </dd>
+                </div>
+              ) : null}
+              {contract.inspectionDisclosure?.targetRepositoryRef ? (
+                <div>
+                  <dt>Repository</dt>
+                  <dd data-testid="w2-contract-repository">
+                    {contract.inspectionDisclosure.targetRepositoryRef}
+                  </dd>
+                </div>
+              ) : null}
+              <div>
+                <dt>Périmètre</dt>
+                <dd data-testid="w2-contract-scope">{contract.scope}</dd>
+              </div>
+              <div>
+                <dt>État technique</dt>
+                <dd data-testid="w2-contract-status-label">
+                  {executionContractStatusLabel(contract.status)}
+                </dd>
+              </div>
               <div>
                 <dt>Version</dt>
                 <dd data-testid="w2-contract-version">v{contract.version}</dd>
@@ -2397,7 +2899,8 @@ export function TrajectorySurface({
               <div>
                 <dt>Réversibilité</dt>
                 <dd data-testid="w2-contract-reversibility">
-                  {contract.reversibility}
+                  {pilotContractView?.reversibilityLabel ??
+                    contract.reversibility}
                 </dd>
               </div>
               {contract.inspectionDisclosure?.scopeIn ? (
@@ -2620,11 +3123,45 @@ export function TrajectorySurface({
             </div>
           ) : null}
 
-          <div className={styles.actions}>
+          {pilotContractView?.simplifiedExecutePath &&
+          !wrongGenericReplaceableByRecoveryPrepare &&
+          inspection?.inspectionSufficient &&
+          !attempt &&
+          authorization?.outcome !== "AUTHORIZED" ? (
+            <div className={styles.actions} data-testid="w2-pilot-execute-zone">
+              <button
+                type="button"
+                className={styles.primaryAction}
+                data-testid="w2-pilot-execute"
+                onClick={() => void executeAsPilot()}
+                disabled={busy !== null || governedContinuationBlocked}
+              >
+                Exécuter
+              </button>
+              <p className={styles.blockNote} data-testid="w2-pilot-execute-hint">
+                Confirmation et autorisation sont orchestrées dans ce clic —
+                aucune décision structurelle n&apos;est automatisée.
+              </p>
+            </div>
+          ) : null}
+
+          <div
+            className={styles.actions}
+            data-testid="w2-contract-governance-steps"
+            hidden={
+              Boolean(
+                pilotContractView?.simplifiedExecutePath &&
+                  inspection?.inspectionSufficient &&
+                  !attempt &&
+                  authorization?.outcome !== "AUTHORIZED",
+              )
+            }
+          >
             <button
               type="button"
               className={
-                wrongGenericReplaceableByRecoveryPrepare
+                wrongGenericReplaceableByRecoveryPrepare ||
+                pilotContractView?.simplifiedExecutePath
                   ? styles.secondaryAction
                   : styles.primaryAction
               }
@@ -3009,14 +3546,37 @@ export function TrajectorySurface({
                   </div>
                 </dl>
               </details>
-              {postEvidence.recommendation.kind === "recover" ||
-              postEvidence.recommendation.kind === "replan" ||
-              postEvidence.recommendation.requiresHumanDecision ? (
+              {postEvidence.recommendation.kind === "recover" &&
+              !postEvidence.recommendation.requiresHumanDecision ? (
+                showRecoveryDocsWritePrepare ? (
+                  <button
+                    type="button"
+                    className={styles.primaryAction}
+                    data-testid="w3c-relancer-same-scope"
+                    onClick={() => void prepareRecoveryDocsWriteContract()}
+                    disabled={busy !== null || continuityMutationBlocked}
+                  >
+                    Relancer
+                  </button>
+                ) : (
+                  <p
+                    className={styles.blockNote}
+                    data-testid="w3c-same-scope-recovery-note"
+                    role="status"
+                  >
+                    Reprise technique same-scope — aucune nouvelle trajectoire
+                    ni décision structurelle requise.
+                  </p>
+                )
+              ) : postEvidence.recommendation.kind === "replan" ||
+                postEvidence.recommendation.requiresHumanDecision ? (
                 <button
                   type="button"
                   className={styles.secondaryAction}
                   data-testid="w3c-propose-trajectory"
-                  onClick={() => void proposeOptions()}
+                  onClick={() =>
+                    void proposeOptions({ ignoreActiveProposalId: true })
+                  }
                   disabled={busy !== null || continuityMutationBlocked}
                 >
                   Proposer des options de trajectoire

@@ -72,6 +72,7 @@ const SAMPLE_RECOVERY: PostEvidenceRecoveryContext = {
   reviewBundleId: "rb:w3b:0b7609835db72e9a",
   productOutcome: "FAIL",
   recommendationKind: "recover",
+  requiresHumanDecision: false,
   headline: "Échec technique — recovery requise",
   rationale: "Attempt failed; Evidence disponible; aucun succès métier.",
   nextStep: "recovery_diagnose_or_replan",

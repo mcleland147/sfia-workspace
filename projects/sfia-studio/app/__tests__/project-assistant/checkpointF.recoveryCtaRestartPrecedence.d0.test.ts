@@ -29,6 +29,7 @@ const SAMPLE_BINDING: RecoveryExecutionBinding = {
     reviewBundleId: "rb:w3b:seed",
     productOutcome: "FAIL",
     recommendationKind: "recover",
+    requiresHumanDecision: false,
     headline: "Échec",
     rationale: "r",
     nextStep: "recovery_diagnose_or_replan",

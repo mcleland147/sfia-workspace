@@ -1,9 +1,12 @@
 import { defineConfig, devices } from "@playwright/test";
 
 const playwrightPort = process.env.PLAYWRIGHT_PORT?.trim() || "3020";
+// Align with Better Auth local origin (BETTER_AUTH_URL default = localhost:3020).
+// Authenticated visual QA must not default to 127.0.0.1 (cookie host mismatch).
 const baseURL =
   process.env.PLAYWRIGHT_BASE_URL?.trim() ||
-  `http://127.0.0.1:${playwrightPort}`;
+  `http://localhost:${playwrightPort}`;
+const baseHost = new URL(baseURL).hostname;
 
 export default defineConfig({
   testDir: "./e2e",
@@ -19,10 +22,10 @@ export default defineConfig({
     viewport: { width: 1440, height: 1024 },
   },
   webServer: {
-    command: `npm run dev -- --hostname 127.0.0.1 --port ${playwrightPort}`,
+    command: `npm run dev -- --hostname ${baseHost} --port ${playwrightPort}`,
     url: baseURL,
     reuseExistingServer:
-      process.env.PLAYWRIGHT_FORCE_WEBSERVER === "1" ? false : !process.env.CI,
+      process.env.PLAYWRIGHT_FORCE_WEBSERVER === "1" ? false : true,
     timeout: 180_000,
     env: {
       ...process.env,
@@ -31,6 +34,10 @@ export default defineConfig({
       // Local Pilote authority TEMPORARY WITH EXIT — required for /studio HD path.
       SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY: "1",
       D1_INTAKE_PROVIDER: process.env.D1_INTAKE_PROVIDER || "fake",
+      // Deterministic E2E must never inherit a parent CURSOR_REAL=1 gate
+      // (disables W3-B boundary arming / recovery FAIL fixtures).
+      SFIA_STUDIO_CURSOR_REAL: "",
+      OPS1_CURSOR_REAL: "",
       // Default E2E: fake provider. Real live capture/smoke: OPS1_ALLOW_LIVE_SMOKE=1
       // without forcing fake (secrets must already be in the environment).
       ...(process.env.OPS1_ALLOW_LIVE_SMOKE === "1"

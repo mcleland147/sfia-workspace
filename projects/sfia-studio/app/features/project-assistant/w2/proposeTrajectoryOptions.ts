@@ -268,13 +268,37 @@ export async function proposeTrajectoryOptions(
     }
     return { ok: true, ...activeSubject.optionSet };
   }
-  if (activeSubject.kind === "pursue_prepare_ready") {
+
+  // RC-04 — after terminal Attempt + structural post-Evidence recovery,
+  // RecoveryContext owns the next instruct. Pre-terminal Proposal subjects
+  // (bound / pending / pursue_prepare_ready) still win above/below.
+  const recoveredEarly = await resolvePostEvidenceRecoveryContext({
+    oa,
+    projectId: input.projectId,
+  });
+  if (!recoveredEarly.ok) {
     return {
       ok: false,
-      code: "PREPARE_CONTINUATION_OWNS_NEXT_ACTION",
-      message:
-        "Une décision pursue durable attend la préparation du contrat d'exécution — aucune nouvelle instruction d'options.",
+      code: recoveredEarly.code,
+      message: recoveredEarly.message,
     };
+  }
+  const structuralRecoveryOwnsNext =
+    recoveredEarly.context != null &&
+    (recoveredEarly.context.recommendationKind === "replan" ||
+      recoveredEarly.context.requiresHumanDecision === true);
+
+  if (activeSubject.kind === "pursue_prepare_ready") {
+    // Same-scope Relancer / PREPARE continuation owns next UNLESS a structural
+    // post-Evidence recovery already exists for a terminal chain (RC-04).
+    if (!structuralRecoveryOwnsNext) {
+      return {
+        ok: false,
+        code: "PREPARE_CONTINUATION_OWNS_NEXT_ACTION",
+        message:
+          "Une décision pursue durable attend la préparation du contrat d'exécution — aucune nouvelle instruction d'options.",
+      };
+    }
   }
   if (
     activeSubject.kind === "pending_reinstruction_required" &&
@@ -287,21 +311,31 @@ export async function proposeTrajectoryOptions(
     };
   }
 
+  // When structural recovery owns next, ignore opaque/stale Proposal ids so
+  // PROPOSAL_STALE cannot hijack post-terminal replan options.
+  const effectiveOpaqueProposalId = structuralRecoveryOwnsNext
+    ? ""
+    : opaqueProposalIdEarly;
+
   const activeGate = await assertProposalSubjectGateOrFail({
     oa,
     projectId: input.projectId,
-    proposalId: input.proposalId,
+    proposalId: effectiveOpaqueProposalId || null,
   });
   if (!activeGate.ok) {
-    return {
-      ok: false,
-      code: activeGate.code,
-      message: activeGate.message,
-    };
+    // Structural recovery still proceeds even if a closed Proposal residual
+    // would otherwise gate generic trajectory — but only when recovery owns.
+    if (!structuralRecoveryOwnsNext) {
+      return {
+        ok: false,
+        code: activeGate.code,
+        message: activeGate.message,
+      };
+    }
   }
 
   let proposalSubject: ResolvedProposalDecisionSubject | null = null;
-  const opaqueProposalId = opaqueProposalIdEarly;
+  const opaqueProposalId = effectiveOpaqueProposalId;
   if (opaqueProposalId) {
     // Pre-binding only: process-local Proposal required to create OptionSet.
     // After binding, we already returned via rehydration above.
@@ -351,22 +385,12 @@ export async function proposeTrajectoryOptions(
     };
   }
 
-  // R7 — durable RecoveryContext for ProjectTrajectory path only.
-  // Proposal subject path keeps sealed Proposal as subject (no recovery inject).
+  // R7 — durable RecoveryContext for ProjectTrajectory / post-terminal structural.
+  // Proposal subject path keeps sealed Proposal as subject (no recovery inject)
+  // EXCEPT RC-04 structural terminal recovery ownership above.
   let recoveryContext: PostEvidenceRecoveryContext | null = null;
   if (!proposalSubject) {
-    const recovered = await resolvePostEvidenceRecoveryContext({
-      oa,
-      projectId: input.projectId,
-    });
-    if (!recovered.ok) {
-      return {
-        ok: false,
-        code: recovered.code,
-        message: recovered.message,
-      };
-    }
-    recoveryContext = recovered.context;
+    recoveryContext = recoveredEarly.context;
   }
 
   const ckcPromptSection = buildCkcCognitivePromptSection(ckcContent);

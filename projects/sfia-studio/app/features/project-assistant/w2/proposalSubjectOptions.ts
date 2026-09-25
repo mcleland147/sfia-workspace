@@ -206,14 +206,33 @@ export function deriveProposalSubjectRecommendation(
         sealed.targetPath?.startsWith("projects/")) &&
       sealed.artifactWriteMode == null)
   ) {
+    // FR-03 — AMEND must cite a material delta, never a generic prudence loop.
+    const materialGaps: string[] = [];
+    if (sealed.artifactWriteMode === "ASK") {
+      materialGaps.push(
+        "mode d'écriture encore ASK (choisir CREATE ou UPDATE)",
+      );
+    } else if (sealed.artifactWriteMode == null) {
+      materialGaps.push(
+        "mode d'écriture non résolu (CREATE/UPDATE + Evidence si UPDATE)",
+      );
+    }
+    if (sealed.reservations.length > 0) {
+      materialGaps.push(
+        `réserves matérielles ouvertes: ${sealed.reservations.join(", ")}`,
+      );
+    }
+    if (!sealed.targetPath) {
+      materialGaps.push("chemin cible absent");
+    }
+    const delta =
+      materialGaps.length > 0
+        ? materialGaps.join(" ; ")
+        : "écart matériel non qualifié — ne pas recommander AMEND générique";
     return {
       label: "RECOMMANDATION — PAS UNE DÉCISION",
       recommendedOptionRef: PROPOSAL_SUBJECT_AMEND_REF,
-      rationale:
-        sealed.artifactWriteMode === "ASK" ||
-        sealed.artifactWriteMode == null
-          ? `Effet fichier ASK/non résolu sur la Proposal ${proposalId} — clarifier CREATE ou UPDATE (Evidence durable requise pour UPDATE) avant de poursuivre « ${summary} ».`
-          : `Réserves explicites sur la Proposal ${proposalId} (${sealed.reservations.length}) — amender ou clarifier avant de poursuivre « ${summary} ».`,
+      rationale: `Amender encore « ${summary} » (Proposal ${proposalId}) — delta matériel restant: ${delta}.`,
       isHumanDecision: false,
       promotesTrajectory: false,
       ckcAttribution: null,

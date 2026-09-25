@@ -478,6 +478,7 @@ describe("R8 — prepare recovery docs_write successor (durable)", () => {
 
     expect(prepared.successor.action).toBe(M4_BOUNDED_DOCS_WRITE_ACTION);
     expect(prepared.successor.target).toBe(M4_BOUNDED_DOCS_WRITE_TARGET);
+    expect(prepared.successor.requiredAuthority).toBe("N2");
     expect(prepared.successor.requiredCapabilities).toContain(
       M4_BOUNDED_DOCS_WRITE_CAPABILITY,
     );

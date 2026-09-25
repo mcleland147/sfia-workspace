@@ -10,6 +10,7 @@ import type {
 } from "@/lib/oa/decision";
 import {
   LOCAL_PILOTE_ACTOR,
+  registerLocalAuthorityForExecutionClass,
   registerLocalMorrisGateAuthority,
 } from "@/lib/oa/decision";
 /** W2: Pilote is the product decision-maker; Morris remains a distinct EC gate class. */
@@ -165,6 +166,13 @@ export type PrepareM3Deps = {
   executionContractServices: ExecutionContractServices;
   nowIso: () => string;
   forceM3Authority?: boolean;
+  /**
+   * Product runtime authority for this PREPARE.
+   * - `"N2"` — local Product docs_write / Pilot runtime (default for Product UI path)
+   * - `"MORRIS"` — legacy M3 construction/gate path (tests + historical)
+   * Default: `"MORRIS"` so legacy callers stay unchanged.
+   */
+  productRuntimeAuthority?: "N2" | "MORRIS";
 };
 
 export type F3M3PreparePayload = {
@@ -485,14 +493,26 @@ export async function prepareM3FromDecision(input: {
 
   const fields = fieldsFromBasis(basis, decision.decisionId);
   const issuedAt = input.deps.nowIso();
-  // True Morris EC gate — separate from Pilot HD grant (Option A).
-  const authority = registerLocalMorrisGateAuthority({
-    authorityResolver: input.deps.authorityResolver,
-    scope: fields.scope,
-    issuedAt,
-    evidenceId: `evd:m3-prep:${decision.decisionId}`,
-    forceEnable: input.deps.forceM3Authority === true,
-  });
+  const requiredAuthority =
+    input.deps.productRuntimeAuthority === "N2" ? "N2" : "MORRIS";
+  // Product Pilot path → Pilote evidence; legacy M3 → explicit Morris gate.
+  const authority =
+    requiredAuthority === "MORRIS"
+      ? registerLocalMorrisGateAuthority({
+          authorityResolver: input.deps.authorityResolver,
+          scope: fields.scope,
+          issuedAt,
+          evidenceId: `evd:m3-prep:${decision.decisionId}`,
+          forceEnable: input.deps.forceM3Authority === true,
+        })
+      : registerLocalAuthorityForExecutionClass({
+          authorityResolver: input.deps.authorityResolver,
+          scope: fields.scope,
+          issuedAt,
+          requiredAuthority,
+          evidenceId: `evd:m3-prep-pilote:${decision.decisionId}`,
+          forceEnable: input.deps.forceM3Authority === true,
+        });
   if (!authority.ok) {
     return {
       ok: false,
@@ -517,7 +537,7 @@ export async function prepareM3FromDecision(input: {
       inputs: fields.inputs,
       expectedOutputs: fields.expectedOutputs,
       requiredCapabilities: fields.requiredCapabilities,
-      requiredAuthority: "MORRIS",
+      requiredAuthority,
       constraints: fields.constraints,
       stopConditions: fields.stopConditions,
       evidenceRequirements:

@@ -25,6 +25,8 @@ import type {
 } from "@/lib/oa/decision";
 import {
   LOCAL_MORRIS_M3_ACTOR,
+  LOCAL_PILOTE_ACTOR,
+  registerLocalAuthorityForExecutionClass,
   registerM3LocalMorrisAuthority,
 } from "@/lib/oa/decision";
 import type {
@@ -74,6 +76,14 @@ const POST_VALIDATION_OK = new Set([
 const PRE_VALIDATION = new Set(["draft", "proposed"]);
 
 const CANONICAL_M3_AUTHORITY = "MORRIS";
+/** Product Pilot local-write path — distinct from construction Morris gate. */
+const PRODUCT_PILOT_AUTHORITY = "N2";
+
+function isCanonicalPrepareAuthority(authority: string): boolean {
+  return (
+    authority === CANONICAL_M3_AUTHORITY || authority === PRODUCT_PILOT_AUTHORITY
+  );
+}
 
 export type ResolveM3Deps = {
   decisionServices: DecisionServices;
@@ -438,10 +448,10 @@ function assertCanonicalOriginalIdentity(input: {
       "Loaded contract idempotencyKey is not the canonical M3 PREPARE identity.",
     );
   }
-  if (input.loaded.requiredAuthority !== CANONICAL_M3_AUTHORITY) {
+  if (!isCanonicalPrepareAuthority(input.loaded.requiredAuthority)) {
     return fail(
       "CANONICAL_M3_CONTRACT_MISMATCH",
-      "Canonical M3 PREPARE contract must require MORRIS authority.",
+      "Canonical M3 PREPARE contract must require MORRIS (legacy) or N2 (Product Pilot) authority.",
     );
   }
   return null;
@@ -465,16 +475,16 @@ function assertSuccessorGovernanceIdentity(input: {
       "Successor lineage does not supersede the original M3 contract.",
     );
   }
-  if (original.requiredAuthority !== CANONICAL_M3_AUTHORITY) {
+  if (!isCanonicalPrepareAuthority(original.requiredAuthority)) {
     return fail(
       "SUCCESSOR_GOVERNANCE_MISMATCH",
-      "Original M3 contract requiredAuthority is not MORRIS.",
+      "Original M3 contract requiredAuthority must be MORRIS (legacy) or N2 (Product Pilot).",
     );
   }
   if (successor.requiredAuthority !== original.requiredAuthority) {
     return fail(
       "SUCCESSOR_GOVERNANCE_MISMATCH",
-      "Successor requiredAuthority does not match original MORRIS authority.",
+      "Successor requiredAuthority does not match original prepare authority.",
     );
   }
   if (!decisionRefsEqualExact(successor.decisionRefs, decisionId)) {
@@ -506,26 +516,41 @@ async function validateExistingSuccessor(input: {
   decisionId: string;
   scope: string;
   successorId: string;
+  requiredAuthority: string;
   deps: ResolveM3Deps;
 }): Promise<
   | { ok: true; contract: ExecutionContract }
   | ResolveM3Failure
 > {
-  const authority = registerM3LocalMorrisAuthority({
-    authorityResolver: input.deps.authorityResolver,
-    scope: input.scope,
-    issuedAt: input.deps.nowIso(),
-    evidenceId: `evd:m3-resolve:${input.decisionId}`,
-    forceEnable: input.deps.forceM3Authority === true,
-  });
+  const authority =
+    input.requiredAuthority === PRODUCT_PILOT_AUTHORITY
+      ? registerLocalAuthorityForExecutionClass({
+          authorityResolver: input.deps.authorityResolver,
+          scope: input.scope,
+          issuedAt: input.deps.nowIso(),
+          requiredAuthority: PRODUCT_PILOT_AUTHORITY,
+          evidenceId: `evd:m3-resolve-pilote:${input.decisionId}`,
+          forceEnable: input.deps.forceM3Authority === true,
+        })
+      : registerM3LocalMorrisAuthority({
+          authorityResolver: input.deps.authorityResolver,
+          scope: input.scope,
+          issuedAt: input.deps.nowIso(),
+          evidenceId: `evd:m3-resolve:${input.decisionId}`,
+          forceEnable: input.deps.forceM3Authority === true,
+        });
   if (!authority.ok) {
     return fail(authority.code, authority.message);
   }
+  const actor =
+    input.requiredAuthority === PRODUCT_PILOT_AUTHORITY
+      ? LOCAL_PILOTE_ACTOR
+      : LOCAL_MORRIS_M3_ACTOR;
   const validated =
     await input.deps.executionContractServices.validateExecutionContract.execute(
       {
         executionContractId: input.successorId,
-        actor: LOCAL_MORRIS_M3_ACTOR,
+        actor,
         authorityEvidenceId: authority.evidenceId,
       },
     );
@@ -703,6 +728,7 @@ export async function resolveM3ExecutionContract(
         decisionId: input.decisionId,
         scope,
         successorId,
+        requiredAuthority: original.requiredAuthority,
         deps: input.deps,
       });
       if (!validated.ok) return validated;
@@ -716,10 +742,11 @@ export async function resolveM3ExecutionContract(
       });
       if (govAfter) return govAfter;
     } else if (successor.status === "validated") {
-      // MORRIS path: validated alone is not a completed pre-confirmation result.
+      // Pre-confirmation: validated alone is not a completed resolution result
+      // (MORRIS legacy and Product Pilot N2 both require confirmation_required).
       return fail(
         "STATE_CONFLICT",
-        "MORRIS successor in validated status is not a legitimate completed resolution; confirmation_required is required.",
+        "Successor in validated status is not a legitimate completed resolution; confirmation_required is required.",
       );
     } else if (!POST_VALIDATION_OK.has(successor.status)) {
       return fail(
@@ -779,16 +806,31 @@ export async function resolveM3ExecutionContract(
     );
   }
 
-  const authority = registerM3LocalMorrisAuthority({
-    authorityResolver: input.deps.authorityResolver,
-    scope,
-    issuedAt: input.deps.nowIso(),
-    evidenceId: `evd:m3-resolve:${input.decisionId}`,
-    forceEnable: input.deps.forceM3Authority === true,
-  });
+  const authority =
+    original.requiredAuthority === PRODUCT_PILOT_AUTHORITY
+      ? registerLocalAuthorityForExecutionClass({
+          authorityResolver: input.deps.authorityResolver,
+          scope,
+          issuedAt: input.deps.nowIso(),
+          requiredAuthority: PRODUCT_PILOT_AUTHORITY,
+          evidenceId: `evd:m3-resolve-pilote:${input.decisionId}`,
+          forceEnable: input.deps.forceM3Authority === true,
+        })
+      : registerM3LocalMorrisAuthority({
+          authorityResolver: input.deps.authorityResolver,
+          scope,
+          issuedAt: input.deps.nowIso(),
+          evidenceId: `evd:m3-resolve:${input.decisionId}`,
+          forceEnable: input.deps.forceM3Authority === true,
+        });
   if (!authority.ok) {
     return fail(authority.code, authority.message);
   }
+
+  const resolveActor =
+    original.requiredAuthority === PRODUCT_PILOT_AUTHORITY
+      ? LOCAL_PILOTE_ACTOR
+      : LOCAL_MORRIS_M3_ACTOR;
 
   const superseded =
     await input.deps.executionContractServices.supersedeExecutionContract.execute(
@@ -796,7 +838,7 @@ export async function resolveM3ExecutionContract(
         newExecutionContractId: successorId,
         supersedesExecutionContractId: original.executionContractId,
         supersessionReason: reason,
-        actor: LOCAL_MORRIS_M3_ACTOR,
+        actor: resolveActor,
         authorityEvidenceId: authority.evidenceId,
         expectedVersion: input.expectedOriginalVersion,
         action: input.resolution.action.trim(),
@@ -839,7 +881,7 @@ export async function resolveM3ExecutionContract(
     await input.deps.executionContractServices.validateExecutionContract.execute(
       {
         executionContractId: successorId,
-        actor: LOCAL_MORRIS_M3_ACTOR,
+        actor: resolveActor,
         authorityEvidenceId: authority.evidenceId,
       },
     );

@@ -32,6 +32,8 @@ export type PostEvidenceRecoveryContext = {
     W3cRecommendationKind,
     "recover" | "replan"
   >;
+  /** RC-04 — structural recovery requires Pilot options / HumanDecision. */
+  readonly requiresHumanDecision: boolean;
   readonly headline: string;
   readonly rationale: string;
   readonly nextStep: string;
@@ -289,6 +291,8 @@ export async function resolvePostEvidenceRecoveryContext(input: {
       reviewBundleId: payload.reviewBundleId,
       productOutcome: payload.productOutcome,
       recommendationKind: payload.kind,
+      requiresHumanDecision:
+        payload.kind === "replan" || payload.requiresHumanDecision === true,
       headline: payload.headline,
       rationale: payload.rationale,
       nextStep: payload.nextStep,

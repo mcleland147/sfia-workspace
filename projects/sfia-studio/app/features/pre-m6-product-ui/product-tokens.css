@@ -62,9 +62,9 @@
   --pm6-space-6: 32px;
   --pm6-space-7: 48px;
 
-  --pm6-lps-width: 380px;
-  --pm6-lps-width-wide: 400px;
+  --pm6-lps-width: 520px;
+  --pm6-lps-width-wide: 550px;
   --pm6-journal-width: 280px;
   --pm6-content-max: 1180px;
-  --pm6-content-max-workspace: 1680px;
+  --pm6-content-max-workspace: 1800px;
 }
