@@ -1,6 +1,511 @@
 # SFIA Studio — Review Pack FULL
 ## CYCLE RESERVATION MANAGEMENT & GATE-AWARE PILOTING
-### KNOWN RESERVES CLOSURE — R1 ENV + R2 HISTORICAL HD + R3 ROADMAP TRUTH-SYNC
+### MACRO PR READINESS
+
+- **timestamp**: `2026-09-25T07:32:42+02:00` (Europe/Paris)
+- **Macro ID**: `CYCLE-RESERVATION-PILOTING-01`
+- **cycle**: PR readiness — EVOL — Critical
+- **GO Morris**: CONSUMED — MACRO PR READINESS + Review Pack + Handoff L3
+- **NON autorisé ce cycle**: product commit / push / open PR / merge / branch delete
+- **branche**: `feat/sfia-studio-cycle-reservation-piloting-01`
+- **HEAD / origin/main**: `385c764458c5212913388d5e0e5b80f5390c23db` (ahead/behind `0/0`)
+- **branch-ahead**: pending authorized commit
+- **PR**: not opened
+- **merge**: not authorized
+- **runtime v3**: **NON ADOPTED**
+
+## Verdict
+
+**MACRO PR READINESS — PASS**
+**CYCLE RESERVATION MANAGEMENT & GATE-AWARE PILOTING**
+— **CONTENT READY FOR PRODUCT GIT INTEGRATION**
+— **READY FOR MORRIS GO: COMMIT + PUSH + OPEN PR**
+
+| Gate | Status |
+| --- | --- |
+| Candidate content readiness | PASS |
+| Git integration readiness | PENDING authorized product commit |
+| branch-ahead | pending authorized commit |
+| PR | not opened |
+| merge | not authorized |
+
+Remaining same-macro construction reserves: **ZERO**
+
+---
+
+## 1. Git Truth (final)
+
+| Check | Result |
+| --- | --- |
+| Branch | `feat/sfia-studio-cycle-reservation-piloting-01` |
+| HEAD | `385c764458c5212913388d5e0e5b80f5390c23db` |
+| origin/main | `385c764458c5212913388d5e0e5b80f5390c23db` |
+| left-right origin/main...HEAD | `0	0` (0 ahead / 0 behind before commit) |
+| Cached/staged | **empty** |
+| diff --check | PASS (no whitespace errors on product) |
+| Destructive git | none |
+| Product commit/push/PR | **NONE this pass** |
+| Entry handoff | `88f5979b` / blob `d52ed963` |
+
+## 2. Convergence pre-check
+
+| Source | SHA | Status |
+| --- | --- | --- |
+| Build Doctrine | `99232e4582e4ef4cf489020a46b818ebb41ac397` | READ ONLY / unchanged |
+| Roadmap main baseline | `df2ad6f3c4cd5504d586f344bc0d76f737b0ce65` | pre-WIP |
+| Roadmap local WIP | `a8dc6c56361ce215e3d24b7b693a265e2d8d19aa` | authorized truth-sync (R3 + PR-readiness tip refresh) |
+| C1 | `806d672fe21ad82a641bf88fe95fc87870481105` | READ ONLY / unchanged |
+| CKC Delivery | `69d1257a5ca9045964b68410c07728c2f8264491` | READ ONLY |
+| Cycle template | `948156a21309ef99c3aaed6410947dc6b9bc569a` | READ ONLY |
+| Routing guide | `8949e764d96faf3fa812d39307dbc298b500f5ef` | READ ONLY |
+| framing / method / prompts dirty | **NO** | |
+
+Roadmap `git diff --numstat`: `4	3	projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
+
+Same-macro Roadmap correction this pass: tip/priority wording refreshed from "READY FOR MACRO PR READINESS" → **CONTENT READY FOR PRODUCT GIT INTEGRATION**; next ordered step → **PRODUCT COMMIT + PUSH + OPEN PR — MORRIS GO DISTINCT**. Still **LOCAL CANDIDATE / NOT YET INTEGRATED ON MAIN**.
+
+## 3. Exact candidate scope
+
+### KEEP IN PR (product) — tracked modified (66)
+
+```
+projects/sfia-studio/app/.env.example
+projects/sfia-studio/app/__tests__/oa/cycle/corrProof05.pilotLifecycle.d0.test.ts
+projects/sfia-studio/app/__tests__/oa/cycle/corrProof06.artifactObligation.d0.test.ts
+projects/sfia-studio/app/__tests__/oa/cycle/gcecCr23StartExecution.d0.test.ts
+projects/sfia-studio/app/__tests__/oa/cycle/gcecCursorRealDocsWrite.real.d0.test.ts
+projects/sfia-studio/app/__tests__/oa/cycle/gcecCursorRealSameEcCommit.real.d0.test.ts
+projects/sfia-studio/app/__tests__/oa/cycle/gcecOneLotDelivery.d0.test.ts
+projects/sfia-studio/app/__tests__/oa/cycle/gcecProductMonolithicE2e.d0.test.ts
+projects/sfia-studio/app/__tests__/oa/cycle/lifecycleClosure.criticalReviewFollowUp.d0.test.ts
+projects/sfia-studio/app/__tests__/oa/cycle/lifecycleClosure.phaseB.d0.test.ts
+projects/sfia-studio/app/__tests__/oa/cycle/lifecycleRecommendation.delivery.d0.test.ts
+projects/sfia-studio/app/__tests__/oa/cycle/lifecycleRecommendation.finalCorr.d0.test.ts
+projects/sfia-studio/app/__tests__/oa/execution-contract/checkpointE.docsWriteEvidenceRematerialize.d0.test.ts
+projects/sfia-studio/app/__tests__/project-assistant/candidateTrajectoryHumanDecision.d0.test.ts
+projects/sfia-studio/app/__tests__/project-assistant/checkpointF.recoveryDocsWriteSuccessor.d0.test.ts
+projects/sfia-studio/app/__tests__/project-assistant/corrProof07.artifactMaterialization.d0.test.ts
+projects/sfia-studio/app/__tests__/project-assistant/corrProof11.reinstructionPilotLanguage.d0.test.ts
+projects/sfia-studio/app/__tests__/project-assistant/naturalMaterialization.applicationPath.d0.test.ts
+projects/sfia-studio/app/__tests__/project-assistant/postExecutionProductContinuity.d0.test.ts
+projects/sfia-studio/app/__tests__/project-assistant/productJourneyPostExecutionReplan.d0.test.ts
+projects/sfia-studio/app/__tests__/project-assistant/productProofJourneyIntegrity.applicationPath.d0.test.ts
+projects/sfia-studio/app/__tests__/project-assistant/productWorkspaceArtifactRouting.applicationPath.d0.test.ts
+projects/sfia-studio/app/__tests__/project-assistant/studioCognitiveContext.test.ts
+projects/sfia-studio/app/__tests__/project-assistant/w2EabcDelivery.test.ts
+projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx
+projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/JournalSurface.module.css
+projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/JournalSurface.tsx
+projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.tsx
+projects/sfia-studio/app/features/project-assistant/actions.ts
+projects/sfia-studio/app/features/project-assistant/approveCandidateTrajectory.ts
+projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts
+projects/sfia-studio/app/features/project-assistant/candidateTrajectoryPromotionGuard.ts
+projects/sfia-studio/app/features/project-assistant/f2/pilotLifecycleActions.ts
+projects/sfia-studio/app/features/project-assistant/f2/recordDecision.ts
+projects/sfia-studio/app/features/project-assistant/f2/studioCognitiveContext.ts
+projects/sfia-studio/app/features/project-assistant/f3/prepareM3FromDecision.ts
+projects/sfia-studio/app/features/project-assistant/f3/rematerializeDocsWriteEvidenceRequirements.ts
+projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
+projects/sfia-studio/app/features/project-assistant/w2/amendExecutionContract.ts
+projects/sfia-studio/app/features/project-assistant/w2/authorizeExecutionContract.ts
+projects/sfia-studio/app/features/project-assistant/w2/confirmForAuthorization.ts
+projects/sfia-studio/app/features/project-assistant/w2/decideTrajectory.ts
+projects/sfia-studio/app/features/project-assistant/w2/governedExecuteAuthorizedContract.ts
+projects/sfia-studio/app/features/project-assistant/w2/prepareDocsWriteRecoverySuccessor.ts
+projects/sfia-studio/app/features/project-assistant/w2/prepareExecutionContractFromW2Decision.ts
+projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts
+projects/sfia-studio/app/lib/oa/cycle/application/deriveLifecycleBlockers.ts
+projects/sfia-studio/app/lib/oa/cycle/application/lifecycleProjection.ts
+projects/sfia-studio/app/lib/oa/cycle/application/pilotLifecycleTransitions.ts
+projects/sfia-studio/app/lib/oa/cycle/application/updateEpistemicState.ts
+projects/sfia-studio/app/lib/oa/cycle/domain/types.ts
+projects/sfia-studio/app/lib/oa/cycle/index.ts
+projects/sfia-studio/app/lib/oa/decision/application/recordHumanDecision.ts
+projects/sfia-studio/app/lib/oa/decision/application/supersedeHumanDecision.ts
+projects/sfia-studio/app/lib/oa/decision/application/verifyAuthority.ts
+projects/sfia-studio/app/lib/oa/decision/domain/invariants.ts
+projects/sfia-studio/app/lib/oa/decision/domain/types.ts
+projects/sfia-studio/app/lib/oa/decision/index.ts
+projects/sfia-studio/app/lib/oa/decision/infrastructure/localSingleUserAuthority.ts
+projects/sfia-studio/app/lib/oa/decision/infrastructure/memoryAuthorityResolver.ts
+projects/sfia-studio/app/lib/oa/decision/ports/authorityResolver.ts
+projects/sfia-studio/app/lib/oa/decision/ports/decisionAudit.ts
+projects/sfia-studio/app/lib/oa/project/application/materializeFromMemoryB.ts
+projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
+projects/sfia-studio/app/lib/vertical-slice-runtime/studioRuntimeProfilePreflight.ts
+projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+```
+
+### KEEP IN PR (product) — untracked new (10)
+
+```
+projects/sfia-studio/app/__tests__/nora-cognitive-runtime/cycleReservationDefer.d0.test.ts
+projects/sfia-studio/app/__tests__/nora-cognitive-runtime/cycleReservationPiloting.d0.test.ts
+projects/sfia-studio/app/__tests__/oa/decision/pilotMorrisAuthoritySeparation.d0.test.ts
+projects/sfia-studio/app/__tests__/oa/decision/reserveClosureEnvHistorical.d0.test.ts
+projects/sfia-studio/app/__tests__/pre-m6-product-ui/cycleReservationMemoryRail.ui.test.tsx
+projects/sfia-studio/app/features/project-assistant/materializeReservationDelta.ts
+projects/sfia-studio/app/lib/nora-cognitive-runtime/reservationDelta.ts
+projects/sfia-studio/app/lib/nora-cognitive-runtime/reservationPrompt.ts
+projects/sfia-studio/app/lib/oa/cycle/domain/reservationSemantics.ts
+projects/sfia-studio/app/lib/oa/decision/application/authorityRequirements.ts
+```
+
+### REMOVE FROM PR
+
+- `.tmp-sfia-review/**` (Review Pack, screenshots, sqlite proof DBs, REAL ledgers, prior macro proofs)
+- Including `.tmp-sfia-review/chatgpt-review.md` (handoff-only; not product tree)
+
+### REQUIRES REVIEW
+
+**none**
+
+### Diff quality (product only, excludes `.tmp-sfia-review`)
+
+```
+ projects/sfia-studio/app/.env.example              |  15 +-
+ .../oa/cycle/corrProof05.pilotLifecycle.d0.test.ts |  14 +-
+ .../corrProof06.artifactObligation.d0.test.ts      |   5 +-
+ .../oa/cycle/gcecCr23StartExecution.d0.test.ts     |   3 +-
+ .../cycle/gcecCursorRealDocsWrite.real.d0.test.ts  |   1 +
+ .../gcecCursorRealSameEcCommit.real.d0.test.ts     |   1 +
+ .../oa/cycle/gcecOneLotDelivery.d0.test.ts         |   2 +-
+ .../oa/cycle/gcecProductMonolithicE2e.d0.test.ts   |   3 +-
+ ...ecycleClosure.criticalReviewFollowUp.d0.test.ts |   4 +-
+ .../oa/cycle/lifecycleClosure.phaseB.d0.test.ts    |   6 +-
+ .../lifecycleRecommendation.delivery.d0.test.ts    |   6 +-
+ .../lifecycleRecommendation.finalCorr.d0.test.ts   |   2 +-
+ ...ointE.docsWriteEvidenceRematerialize.d0.test.ts |   3 +-
+ .../candidateTrajectoryHumanDecision.d0.test.ts    |   2 +-
+ ...eckpointF.recoveryDocsWriteSuccessor.d0.test.ts |   5 +-
+ .../corrProof07.artifactMaterialization.d0.test.ts |   1 +
+ ...rrProof11.reinstructionPilotLanguage.d0.test.ts |   1 +
+ ...turalMaterialization.applicationPath.d0.test.ts |   1 +
+ .../postExecutionProductContinuity.d0.test.ts      |   3 +-
+ .../productJourneyPostExecutionReplan.d0.test.ts   |   5 +-
+ ...roofJourneyIntegrity.applicationPath.d0.test.ts |   1 +
+ ...spaceArtifactRouting.applicationPath.d0.test.ts |   1 +
+ .../studioCognitiveContext.test.ts                 |   1 +
+ .../project-assistant/w2EabcDelivery.test.ts       |   9 +-
+ .../pre-m6-product-ui/ProjectWorkspacePage.tsx     | 174 +++++++-
+ .../surfaces/JournalSurface.module.css             | 174 ++++++++
+ .../pre-m6-product-ui/surfaces/JournalSurface.tsx  | 398 +++++++++++++++++-
+ .../surfaces/LifecycleSurface.tsx                  | 128 ++++--
+ .../app/features/project-assistant/actions.ts      | 319 ++++++++++++++-
+ .../approveCandidateTrajectory.ts                  |   2 +-
+ .../project-assistant/buildProjectSystemPrompt.ts  |  38 +-
+ .../candidateTrajectoryPromotionGuard.ts           |   7 +-
+ .../project-assistant/f2/pilotLifecycleActions.ts  | 445 ++++++++++++++++++++-
+ .../project-assistant/f2/recordDecision.ts         |   4 +-
+ .../project-assistant/f2/studioCognitiveContext.ts |  24 ++
+ .../project-assistant/f3/prepareM3FromDecision.ts  |   7 +-
+ .../rematerializeDocsWriteEvidenceRequirements.ts  |   8 +-
+ .../features/project-assistant/orchestrateTurn.ts  |  85 +++-
+ .../project-assistant/w2/amendExecutionContract.ts |   8 +-
+ .../w2/authorizeExecutionContract.ts               |   8 +-
+ .../w2/confirmForAuthorization.ts                  |   8 +-
+ .../project-assistant/w2/decideTrajectory.ts       |   5 +-
+ .../w2/governedExecuteAuthorizedContract.ts        |   9 +-
+ .../w2/prepareDocsWriteRecoverySuccessor.ts        |   9 +-
+ .../w2/prepareExecutionContractFromW2Decision.ts   |   5 +-
+ .../noraProductTurnOutputType.ts                   |  48 +++
+ .../cycle/application/deriveLifecycleBlockers.ts   |  28 +-
+ .../oa/cycle/application/lifecycleProjection.ts    |  53 ++-
+ .../cycle/application/pilotLifecycleTransitions.ts |   3 +-
+ .../oa/cycle/application/updateEpistemicState.ts   |   3 +
+ .../sfia-studio/app/lib/oa/cycle/domain/types.ts   |  11 +
+ projects/sfia-studio/app/lib/oa/cycle/index.ts     |   4 +
+ .../oa/decision/application/recordHumanDecision.ts |  25 +-
+ .../decision/application/supersedeHumanDecision.ts |  19 +-
+ .../lib/oa/decision/application/verifyAuthority.ts |   1 +
+ .../app/lib/oa/decision/domain/invariants.ts       |   1 +
+ .../app/lib/oa/decision/domain/types.ts            |  27 +-
+ projects/sfia-studio/app/lib/oa/decision/index.ts  |  11 +
+ .../infrastructure/localSingleUserAuthority.ts     | 162 +++++++-
+ .../infrastructure/memoryAuthorityResolver.ts      |  68 +++-
+ .../app/lib/oa/decision/ports/authorityResolver.ts |  11 +-
+ .../app/lib/oa/decision/ports/decisionAudit.ts     |   1 +
+ .../project/application/materializeFromMemoryB.ts  |   8 +-
+ .../app/lib/vertical-slice-runtime/service.ts      |   5 +-
+ .../studioRuntimeProfilePreflight.ts               |  10 +-
+ .../convergence/sfia-studio-convergence-roadmap.md |   7 +-
+ 66 files changed, 2243 insertions(+), 223 deletions(-)
+```
+
+- Tracked modified: **66** files · **+2243 / −223**
+- Untracked new product: **10** files (~3.1k LOC)
+- Protected in candidate: Roadmap only
+- Staged: **none**
+
+## 4. Protected path review
+
+| Path | Verdict |
+| --- | --- |
+| `convergence/sfia-studio-convergence-roadmap.md` | KEEP — authorized truth-sync |
+| Build Doctrine | unchanged |
+| C1 | unchanged |
+| framing/** | unchanged |
+| method/** | unchanged |
+| prompts/** | unchanged |
+
+## 5. Architecture review
+
+**KEEP**: EpistemicItem store · HumanDecision · AuthorityResolver · Product SQLite UoW · Journal · LPS · ProjectTrajectory · Agents Runner · same Product model turn · Lifecycle assessment.
+
+**ABSENT (verified)**: parallel ReservationStore · blocker ledger · PilotDecision store · second AuthorityResolver · second Nora runtime · second model call · NLP/regex semantic engine · destructive migration · hidden parallel architecture.
+
+## 6. Reservation contract
+
+| Rule | Status |
+| --- | --- |
+| Journal point open ≠ auto Reservation | PASS |
+| Reservation ≠ automatic blocker | PASS |
+| Blocker = gate consequence | PASS |
+| must_resolve active → blocks FINALIZE | PASS |
+| may_affect alone → does not block | PASS |
+| impact alone never blocks | PASS |
+| resolved → does not block | PASS |
+| legacy active+blocking → fail-closed | PASS |
+| metadata fields present | PASS |
+
+## 7. Nora contract
+
+| Rule | Status |
+| --- | --- |
+| ONE Product model turn | PASS |
+| reservationDelta CREATE/UPDATE/PROPOSE_RESOLUTION | PASS |
+| Nora cannot durable RESOLVE alone | PASS |
+| Nora cannot DEFER alone | PASS |
+| Nora does not create HD implicitly | PASS |
+| JournalDelta + ReservationDelta coexist | PASS |
+| Treat with Nora = draft/focus only | PASS (`setDraft` + `focusConversation`; never `sendMessage`) |
+
+## 8. UX review
+
+| Rule | Status |
+| --- | --- |
+| Memory Sujets \| Réserves | PASS |
+| Progressive disclosure cards | PASS |
+| Lifecycle compact | PASS |
+| Traiter avec Nora no mutation/model/auto-send | PASS |
+| Permanent generic « Marquer comme résolue » absent | PASS (only « Confirmer la levée » when proposal exists) |
+| Figma | N/A — reuses Journal language |
+
+## 9. Authority / env / historical / Defer
+
+| Area | Status |
+| --- | --- |
+| DecisionAuthority enum pilot/morris/delegated/system_non_structuring | PASS |
+| Pilot = N3 + canActAsPilot; Morris = N3 + canActAsMorris | PASS |
+| Cross-gate denial | PASS (ENV-AUTH + AUTH suites) |
+| Runtime Project HD → pilot | PASS |
+| Historical morris readable immutable | PASS (HIST-HD) |
+| Canonical Pilot/Morris env + legacy alias precedence | PASS |
+| No accidental dual-grant evidence | PASS (ENV-AUTH-08) |
+| `.env.example` documents canonical + deprecated; no secrets | PASS |
+| Defer HD pilot + UoW + cancel zero writes + must_resolve cannot defer | PASS |
+
+## 10. Hygiene
+
+| Check | Result |
+| --- | --- |
+| `.tmp-sfia-review/**` excluded from product candidate | YES |
+| sqlite proof DBs excluded | YES |
+| screenshots/logs/coverage/node_modules excluded | YES |
+| secret patterns in candidate product paths | none found |
+| staged unexpected | none |
+| TODO/FIXME introduced as debt | none material (status-label strings only in unrelated fixture text) |
+
+## 11. Tests / suite finale
+
+| Check | Result |
+| --- | --- |
+| Targeted Reservation/Defer/Authority/UI/preflight | **61 passed** |
+| typecheck | PASS |
+| lint | PASS |
+| build | PASS |
+| Full Studio suite | **4632 passed / 137 skipped** (432 files: 415 passed / 17 skipped) |
+| Entry suite | 4632/137 — confirmed on exact WIP after Roadmap tip refresh |
+
+## 12. REAL / Fake qualification
+
+| Claim | Status |
+| --- | --- |
+| DETERMINISTIC PRODUCT PROOF | YES |
+| LOCAL USER-FLOW PROOF | YES |
+| BOUNDED REAL RESERVATION LIFECYCLE PROOF | YES (prior same-macro; cognitive seams unchanged this pass) |
+| GENERIC NON-MORRIS PILOT PROOF | YES |
+| BOUNDED DEFER REPROOF | YES |
+| READY FOR REAL global | **NO** |
+| global semantic reservation quality PROVEN | **NO** |
+| runtime v3 ADOPTED | **NO** |
+
+## 13. Same-macro correction this pass
+
+Roadmap tip/priority wording only — temporal honesty for PR readiness PASS. No product code change. No new architecture. Revalidated suite unchanged **4632/137**.
+
+## 14. Commit recommendation (DO NOT EXECUTE)
+
+Preference: **ONE macro commit** (R18 / anti-micro-cycle).
+
+```
+feat(sfia-studio): add gate-aware cycle reservation management
+```
+
+Include: product capability · authority Option A · env compatibility · tests · Roadmap truth-sync.
+Exclude: `.tmp-sfia-review/**`.
+
+## 15. PR draft (DO NOT OPEN)
+
+**Title:** `SFIA Studio — gate-aware cycle reservation management and Pilot authority`
+
+**Body:**
+
+## Context
+
+Macro **CYCLE-RESERVATION-PILOTING-01** delivers gate-aware Cycle Reservation management on the Product workspace, with Pilot/Morris authority separation (Option A), canonical Pilot/Morris local env separation, historical HumanDecision compatibility, and an authorized Convergence Roadmap truth-sync.
+
+Base: `origin/main` `385c764458c5212913388d5e0e5b80f5390c23db`
+Branch (pending authorized commit): `feat/sfia-studio-cycle-reservation-piloting-01`
+Previous integrated capability: **PILOTABILITY & JOURNAL SEMANTIC INTEGRITY** (PR #517).
+Next campaign after eventual integration: MealFlow semantic reservation — **NOT STARTED / NOT AUTHORIZED**.
+
+## Capability delivered
+
+**CYCLE RESERVATION MANAGEMENT & GATE-AWARE PILOTING**
+
+- Reservation metadata on EpistemicItem (additive JSON; no parallel ReservationStore)
+- `reservationDelta` ops: CREATE / UPDATE / PROPOSE_RESOLUTION (same Product model turn)
+- Journal ↔ Reservations (Memory rail Sujets | Réserves)
+- Treat with Nora (composer draft/focus only — no durable mutation, no model call on click)
+- Resolution proposal + Pilot confirmation (`Confirmer la levée`)
+- FINALIZE gate-aware blockers (`must_resolve` active blocks; `may_affect` alone does not; impact alone never blocks; legacy active+blocking fail-closed)
+- Defer + HumanDecision (`authority:"pilot"`, atomic UoW, cancel = zero writes)
+- Pilot / Morris authority separation Option A (`canActAsPilot` vs `canActAsMorris`)
+- Canonical env: `SFIA_STUDIO_LOCAL_PILOT_AUTHORITY` + `SFIA_STUDIO_LOCAL_MORRIS_GATE_AUTHORITY`; legacy `SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY` deprecated alias
+- Historical HD `authority:"morris"` immutable readable compatibility
+- Roadmap truth-sync (authorized protected path only)
+
+## Reservation lifecycle
+
+CREATE → UPDATE → PROPOSE_RESOLUTION → Pilot confirm resolve
+OR nonblocking path → Defer (HD + deferred metadata) with honest trajectory target
+FINALIZE blocked only when active Reservation requires `must_resolve` (or legacy fail-closed)
+
+## Journal / Memory integration
+
+Memory tabs: **Sujets | Réserves**. Progressive disclosure cards. Journal subject links. No auto-Reservation from Journal "point open".
+
+## Gate-aware finalization
+
+Blocker = gate consequence, not Reservation existence. `deriveLifecycleBlockers` + Lifecycle compact surface; actionable only when gate-relevant.
+
+## Resolution / Defer
+
+- Nora proposes; Pilot confirms resolve
+- Defer: nonblocking + target required + explicit confirmation + HD `pilot` + same UoW
+- `must_resolve` cannot defer; deferred ≠ resolved; cancel = zero writes
+
+## Pilot vs Morris authority separation
+
+- `DecisionAuthority`: pilot | morris | delegated | system_non_structuring
+- Runtime Project HD writers → `authority:"pilot"` + Pilot gate
+- True Morris EC / governance → `authority:"morris"` / EC `MORRIS` + Morris gate
+- No identity/displayName inference
+- No dual-grant evidence from a single helper
+
+## Legacy / backcompat
+
+- Historical `authority:"morris"` rows: readable, no rewrite
+- Legacy env alias: deprecated compatibility with canonical-over-legacy precedence
+- SQLite EpistemicItem / HumanDecision: additive only; no DDL / DROP / reset
+
+## Roadmap truth-sync
+
+Local WIP blob `a8dc6c56361ce215e3d24b7b693a265e2d8d19aa` (main baseline `df2ad6f3c4cd5504d586f344bc0d76f737b0ce65`)
+Facts: PR #516 / #517 INTEGRATED; current macro **LOCAL CANDIDATE / CONTENT READY / NOT YET INTEGRATED ON MAIN**; MealFlow next **NOT STARTED**; runtime v3 **NON ADOPTED**.
+Build Doctrine / C1 / framing / method / prompts: unchanged.
+
+## Evidence
+
+- DETERMINISTIC PRODUCT PROOF
+- LOCAL USER-FLOW PROOF (Memory rail + Defer UI)
+- BOUNDED REAL RESERVATION LIFECYCLE PROOF (prior same-macro)
+- GENERIC NON-MORRIS PILOT PROOF
+- BOUNDED DEFER REPROOF
+
+## Tests
+
+Full Studio suite: **4632 passed / 137 skipped**
+typecheck PASS · lint PASS · build PASS
+Targeted Reservation / Authority / Defer / UI / preflight: PASS
+
+## Known compatibility (not open reserves)
+
+- Deprecated legacy env alias (defined contract)
+- Historical HD `authority:"morris"` immutable rows
+- Browser automation `chrome-error` = external tooling / non-blocking / out of macro
+- MealFlow 11 legacy À QUALIFIER = campaign data / future use
+
+## Anti-claims
+
+- runtime v3 ADOPTED = NO
+- READY FOR REAL global = NO
+- global Reservation semantic quality PROVEN = NO
+- Nora Cognitive Completion COMPLETE = NO
+- Product Completion newly COMPLETE = NO
+- current macro integrated on main = NO
+- PR opened = NO
+- merge authorized = NO
+
+## Review notes
+
+- No unresolved same-macro construction reserve
+- Preferred single macro commit (R18)
+- Recommended commit title: `feat(sfia-studio): add gate-aware cycle reservation management`
+- Recommended PR title: `SFIA Studio — gate-aware cycle reservation management and Pilot authority`
+- Product commit/push/open PR require distinct Morris GO after this readiness
+
+
+## 16. Base / merge risk
+
+| Check | Result |
+| --- | --- |
+| Base unchanged vs origin/main | YES (`385c764458c5212913388d5e0e5b80f5390c23db`) |
+| Likely merge conflicts | LOW (clean fast-forward candidate after commit) |
+| Overlapping protected conflicts | none observed |
+| Rebase | not performed / not authorized |
+
+## 17. Remaining reserves
+
+**Same-macro construction reserves: ZERO**
+
+Non-reserves (classified):
+- legacy env alias (deprecated contract)
+- historical morris HD rows (immutable truth)
+- chrome-error browser tooling (external / non-blocking / out of macro)
+- MealFlow 11 À QUALIFIER (campaign data)
+- MealFlow semantic campaign (NOT STARTED / NOT AUTHORIZED)
+
+## 18. Anti-claims
+
+- runtime v3 ADOPTED = NO
+- READY FOR REAL global = NO
+- global Reservation semantic quality PROVEN = NO
+- Nora Cognitive Completion COMPLETE = NO
+- Product Completion newly COMPLETE = NO
+- current macro integrated on main = NO
+- PR opened = NO
+- merge authorized = NO
+- product commit/push this pass = NO
+
+---
+
+
+## ARCHIVE — PRIOR SAME-MACRO REVIEW BODY
+
+## KNOWN RESERVES CLOSURE — R1 ENV + R2 HISTORICAL HD + R3 ROADMAP TRUTH-SYNC
 
 - **timestamp**: `2026-09-25T07:23:02+02:00` (Europe/Paris)
 - **Macro ID**: `CYCLE-RESERVATION-PILOTING-01`
