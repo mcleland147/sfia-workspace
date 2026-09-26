@@ -1,187 +1,167 @@
-# NATIVE-EXECUTION-LOOP-AUTH-S1-CORR-01 — FULL Review Pack
+# NATIVE-EXECUTION-LOOP-AUTH-S1-CORR-01 — FULL Review Pack (Critical Review Closure)
 
 ## 1. Date / heure
 
-- Local: 2026-09-26 21:32:29 CEST
-- UTC: 2026-09-26T19:32:29Z
-- Pack generated after full Studio validation.
+- Local: 2026-09-26 21:44:31 UTC+02:00
+- UTC: 2026-09-26T19:44:31Z
+- Pack generated after closure of ChatGPT review gaps + full Studio validation.
 
 ## 2. Macro
 
 NATIVE-EXECUTION-LOOP-AUTH-S1-CORR-01
 
-Authenticated Pilote S1 AuthorityEvidence binding correction for the canonical generic Product ExecutionContract (`studio.cursor.generalist.execute`) introduced by PR #527.
+Same cycle continuation — NOT a new cycle / micro-cycle / architecture / capacity.
 
-## 3. Cycle
+## 3. Cycle / Profil
 
-8 — Delivery / implémentation
+- Cycle: 8 — Delivery / implémentation
+- Profil: CRITICAL
+- Typologie: EVOL corrective
 
-## 4. Profil
+## 4. Morris GO continuation consumed
 
-CRITICAL
+Previous Morris GO for AUTH-S1-CORR-01 already authorized this corrective scope.
 
-Justification: touches Authenticated Pilote S1, AuthorityEvidence, ExecutionContract semantic binding, Product WHAT vs internal enforcement effects separation. Incorrect relaxation could widen authority or reintroduce effect-class Product contracts.
+Continuation authorized without new GO for closing three ChatGPT review gaps.
 
-## 5. Morris GO consommé
+Still NOT authorized: project commit / push / PR / merge / Cursor REAL / StudyFlow mutation / Roadmap / Doctrine / C1 / framing / method / prompts / workflows / runtime v3.
 
-Morris authorized:
+## 5. Previous ChatGPT review
 
-- local analysis of the affected path
-- local corrective branch creation
-- bounded application modifications
-- deterministic unit / integration tests
-- full Studio test suite if needed
-- FULL review pack
-- canonical L3 Review Handoff publication
+Previous handoff tip: `2aadb2075e4bf42bac664a0af026fa2064404acf`
+Previous blob: `7d0d915576904fcc34cde3338c39926167f2d80a`
+ChatGPT verdict on prior candidate: **NOT READY — AUTH-S1 CORRECTION INCOMPLETE**
+Design principal: ACCEPTED.
+Gaps remaining (now closed):
+1. exact generic requiredCapabilities
+2. sealed inputs.effectClass coherence
+3. true post-Evidence governed retry authenticated PREPARE
 
-Morris did NOT authorize in this cycle:
-
-- project commit
-- project branch push
-- PR create
-- merge
-- branch delete
-- force push
-- Cursor REAL
-- real Cursor subprocess
-- new StudyFlow execution
-- Roadmap / Build Doctrine / C1 / framing v3 / method / prompts / CI workflow changes
-- runtime v3 promotion
-- parallel architecture
-- replacement of generic ExecutionContract by specialized read/write contracts
-
-Max authorized verdict: READY FOR COMMIT — AUTH-S1 BINDING CORRECTION
-
-## 6. Git Truth initial
-
-```
-pwd: /Users/morris/Projects/sfia-workspace
-branch (initial): (was main / then created fix branch)
-origin/main: 7d62e09eaadba4919091f94d82b5e648c98826d1
-HEAD after branch create: 7d62e09eaadba4919091f94d82b5e648c98826d1
-staged: none (project)
-working tree: clean for project paths; `.tmp-sfia-review/**` local artifacts present (never staged)
-```
-
-Target branch created from EXACT origin/main:
-
-`fix/sfia-studio-native-execution-loop-auth-s1-binding-01`
-
-Current (post-implementation, no project commit):
+## 6. Git Truth
 
 ```
 branch: fix/sfia-studio-native-execution-loop-auth-s1-binding-01
-HEAD:   7d62e09eaadba4919091f94d82b5e648c98826d1
+HEAD: 7d62e09eaadba4919091f94d82b5e648c98826d1
 origin/main: 7d62e09eaadba4919091f94d82b5e648c98826d1
+staged: none
+BASE unchanged
 ```
 
-BASE unchanged — no STOP — BASE CHANGED.
+Candidate before continuation:
+- M piloteS1AuthorityPolicy.ts (generic/legacy split with `.includes` capability check)
+- ?? nativeExecutionLoopAuthS1BindingCorr01.d0.test.ts (clarify PREPARE only)
 
-## 7. Sources lues (READ ONLY)
+Candidate after continuation (same two project files):
+- M piloteS1AuthorityPolicy.ts (exact capability + sealed effectClass)
+- ?? nativeExecutionLoopAuthS1BindingCorr01.d0.test.ts (expanded: capability/effectClass negatives + post-Evidence recovery PREPARE)
 
-1. `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md`
-2. `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
-3. `projects/sfia-studio/product-completion/01-product-completion-cadrage.md`
-4. `projects/sfia-studio/sfia-v3-framing/34-agent-capabilities-reversibility-and-execution-governance.md`
-5. `projects/sfia-studio/sfia-v3-framing/35-artifact-evidence-debt-and-controlled-learning.md`
-6. `projects/sfia-studio/sfia-v3-framing/36-sfia-v2.6-inheritance-and-adaptation-matrix.md`
-7. `projects/sfia-studio/convergence/sfia-studio-native-execution-loop-convergence-01-capitalisation.md`
-8. `prompts/templates/sfia-cycle-execution-template.md`
-9. `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
-10. `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
-11. `method/sfia-fast-track/core/sfia-rules-update.md`
-12. `projects/sfia-studio/app/lib/oa/doctrine/product/packages/pkg-sfia-studio-doctrine-v3-1.0.0/ckc/08-delivery-implementation.md`
+## 7. Sources re-read (READ ONLY)
 
-Diagnostic sources (code):
+Build Doctrine / Roadmap / C1 framing 34–36 / NELC capitalisation / cycle template / CKC Delivery 08 / policy + prepare + semantics + derive + generalist surface / recovery harnesses (checkpointF, recoveryOwnership integration, prestartFailure).
 
-- `projects/sfia-studio/app/features/project-assistant/w2/w3aProductExecutionSemantics.ts`
-- `projects/sfia-studio/app/features/project-assistant/w2/deriveActualExecutionWorkFromProductContext.ts`
-- `projects/sfia-studio/app/features/project-assistant/w2/prepareExecutionContractFromW2Decision.ts`
+## 8. Design principal preserved
+
+- generic Product EC quartet unchanged
+- internal effectClass / internalEffectAction enforcement-only
+- authority from `projectRequiredAuthorityFromEffects(governedEffects…)`
+- semantic fingerprint unchanged
+- legacy effect-scoped path retained
+- NO rollback to `contract.action = product:read` on Product generic path
+
+## 9. Gap #1 — Generic capability exactness
+
+### Implementation
+
+`isCanonicalGenericProductSurface` now requires:
+
+```
+requiredCapabilities.length === 1
+&& requiredCapabilities[0] === STUDIO_CURSOR_GENERALIST_CAPABILITY
+```
+
+(not `.includes`)
+
+### Positives / negatives
+
+- A exact generic capability only → PASS
+- B generic + additional (`cap:product-merge`) → CONTRACT_BINDING_MISMATCH
+- C missing / hostile → FAIL CLOSED
+- D replaced → FAIL CLOSED
+
+## 10. Gap #2 — Sealed effectClass
+
+### Implementation
+
+For exact generic surface:
+
+1. sealed `inputs.effectClass` required
+2. sealed `inputs.internalEffectAction` required
+3. `sealedEffectClass === governedEffects.effectClass`
+4. `sealedInternal === actionForEffectClass(governedEffects.effectClass)`
+
+Authority source remains **governedEffects.effectClass** — sealed effectClass is binding control only, never authority selector.
+
+### Negatives
+
+1. effectClass=push + internalEffectAction=product:read + governed=read → FAIL
+2. effectClass absent → FAIL
+3. internalEffectAction absent → FAIL
+4. effectClass=read + internalEffectAction=product:local-write → FAIL
+
+## 11. Gap #3 — Post-Evidence governed retry
+
+### Seed chain (deterministic local harness; ≠ Cursor REAL)
+
+EC prepare (forceLocalAuthority seed) → inspect/confirm/authorize → select/start → settleDeterministicProductCursorFailure → materializeProductOutcomeFromAttempt (Evidence+RB+recover) → resolvePostEvidenceRecoveryContext
+
+### Then Product path
+
+Recovery OptionSet (nouvelle tentative) → GOVERNED HumanDecision (distinct, DecisionBasis trajectory_option) → prepareExecutionContractFromW2Decision with authenticatedPilote **without** forceLocalAuthority
+
+### Proven
+
+- prepared.ok = true
+- generic quartet exact (capabilities `=== [cap:studio.cursor.generalist]`)
+- inputs.effectClass=read / internalEffectAction=product:read
+- recoveryAttemptId / Evidence / ReviewBundle / ExecutionContractId sealed
+- S1 Evidence source = BETTER_AUTH_GITHUB_MULTI_USER_S1; actor = authenticated pilote
+- `evd:w3a-prep:<decision>` absent
+- source Attempt count unchanged; new EC Attempt count = 0
+- attemptCreated=false; executionPerformed=false
+
+Clarify authenticated PREPARE retained as complementary proof (not alone named StudyFlow-equivalent recovery).
+
+## 12. Legacy compatibility
+
+- product:read + effectClass=read → PASS
+- product:read + effectClass=push → FAIL CLOSED
+- non-exact generic does NOT become implicitly valid; falls to legacy exact match or fail-closed
+
+## 13. Security / fail-closed
+
+- exact action/target/scope/capability
+- sealed effectClass + internalEffectAction mandatory on generic
+- governed effectClass remains authority source
+- no "if generic action then allow"
+- no client selection of effectClass/action/authority
+- MORRIS / login-only / adversarial suites still PASS
+- semantic fingerprint not weakened
+
+## 14. Files modified / created
+
+Production:
 - `projects/sfia-studio/app/lib/auth/piloteS1AuthorityPolicy.ts`
-- `projects/sfia-studio/app/lib/auth/s1Authority.ts`
-- `projects/sfia-studio/app/lib/oa/execution-contract/domain/generalistExecutionSurface.ts`
 
-Build Doctrine / Roadmap / C1 / framing / method / prompts: **unchanged** (READ ONLY).
+Tests:
+- `projects/sfia-studio/app/__tests__/auth/nativeExecutionLoopAuthS1BindingCorr01.d0.test.ts` (new; all proofs in this file)
 
-## 8. Root cause — CONFIRMÉE
+NOT modified: generalistExecutionSurface / w3aProductExecutionSemantics / prepareExecutionContractFromW2Decision / s1Authority / recovery production / Roadmap / Doctrine / C1 / framing / method / prompts / CI.
 
-StudyFlow authenticated path:
-
-HumanDecision → PREPARE ExecutionContract → Authenticated Pilote S1 AuthorityEvidence
-
-Runtime error:
-
-```
-Effect class action (product:read) does not match contract.action (studio.cursor.generalist.execute).
-```
-
-Confirmed in code:
-
-1. **Generic Product EC (PR #527)** — `PRODUCT_CANONICAL_EXECUTION_ACTION` = `studio.cursor.generalist.execute`. Envelope also seals `inputs.internalEffectAction` / `inputs.effectClass` from governed effects.
-
-2. **Non-mutating recovery/clarify missions** derive internal `operationKind = read` → `effectClass = read` → `internalEffectAction = product:read`.
-
-3. **Old S1 policy** in `resolvePiloteS1AuthorityFromGovernedContract`:
-
-```ts
-const expectedAction = actionForEffectClass(governedEffects.effectClass);
-if (expectedAction !== action) { FAIL CONTRACT_BINDING_MISMATCH }
-```
-
-This was coherent with legacy effect-scoped contracts (`product:read` === `product:read`) but **false** for the generic Product EC (`product:read` ≠ `studio.cursor.generalist.execute`).
-
-4. Historical tests missed it because `nativeExecutionLoopConvergence01.prepareSourceGrounding.d0.test.ts` uses `forceLocalAuthority: true` and never exercises authenticated Pilote S1 against the generic EC.
-
-Classification: APPLICATION DEFECT / CONVERGENCE GAP — not StudyFlow migration debt, not historical-data-only, not Cursor executor failure.
-
-**No root-cause divergence.** Proceeded.
-
-## 9. Architecture invariants (preserved)
-
-| Invariant | Status |
-|-----------|--------|
-| A — generic Product EC quartet unchanged | KEPT |
-| B — internal effectClass / internalEffectAction enforcement-only | KEPT |
-| C — requiredAuthority from server-owned effects projection | KEPT |
-| D — S1 distinguishes Product surface vs internal effect facts | FIXED |
-| E — legacy `product:<effect>` surface still supported | KEPT |
-| Fail-closed default | KEPT |
-| No parallel architecture / no Product read-write EC catalogue | KEPT |
-| No forceLocalAuthority production fallback | KEPT |
-| Cursor REAL / Attempt at PREPARE | ZERO |
-
-Canonical quartet (unchanged, imported from domain):
-
-- action = `studio.cursor.generalist.execute`
-- target = `studio.cursor.generalist.workspace`
-- scope = `studio.cursor.generalist.authorized_contract`
-- capability = `cap:studio.cursor.generalist`
-
-## 10. Fichiers modifiés / créés
-
-### Modified (production)
-
-- `projects/sfia-studio/app/lib/auth/piloteS1AuthorityPolicy.ts`
-
-### Created (tests)
-
-- `projects/sfia-studio/app/__tests__/auth/nativeExecutionLoopAuthS1BindingCorr01.d0.test.ts`
-
-### Explicitly NOT modified
-
-- `w3aProductExecutionSemantics.ts` (already correct)
-- `generalistExecutionSurface.ts` (already correct)
-- `prepareExecutionContractFromW2Decision.ts` (data-flow already seals internal effects; no caller change required)
-- `s1Authority.ts` (issuance path already calls resolve; no change required)
-- Roadmap / Build Doctrine / C1 / framing / method / prompts / CI / UI / DB
-
-Design selected: **Form A** — policy reads sealed `contract.inputs.internalEffectAction` and validates coherence with `governedEffects.effectClass`, while validating the generic quartet separately. No client-trusted selection. No new ActionPolicy engine.
-
-## 11. Diff utile complet — `piloteS1AuthorityPolicy.ts`
+## 15. Diff utile complet — piloteS1AuthorityPolicy.ts
 
 ```diff
 diff --git a/projects/sfia-studio/app/lib/auth/piloteS1AuthorityPolicy.ts b/projects/sfia-studio/app/lib/auth/piloteS1AuthorityPolicy.ts
-index 7b12c609..3060c3ce 100644
+index 7b12c609..7620393c 100644
 --- a/projects/sfia-studio/app/lib/auth/piloteS1AuthorityPolicy.ts
 +++ b/projects/sfia-studio/app/lib/auth/piloteS1AuthorityPolicy.ts
 @@ -11,6 +11,12 @@
@@ -197,13 +177,15 @@ index 7b12c609..3060c3ce 100644
  import { computeInspectionFingerprint } from "@/lib/oa/execution-contract/domain/inspectionAttestation";
  import {
    actionForEffectClass,
-@@ -130,6 +136,36 @@ function isExecutionContractId(value: unknown): value is string {
+@@ -130,6 +136,40 @@ function isExecutionContractId(value: unknown): value is string {
    return typeof value === "string" && /^xct:[A-Za-z0-9][A-Za-z0-9:_\-.]*$/.test(value);
  }
 
 +/**
 + * Canonical generic Product EC surface (NELC / PR #527).
 + * Distinct from internal effect-class ActionPolicy facts (product:read, …).
++ * requiredCapabilities must be EXACTLY the single generalist capability —
++ * `.includes` alone would accept hostile capability widening.
 + */
 +function isCanonicalGenericProductSurface(contract: {
 +  readonly action: string;
@@ -215,17 +197,19 @@ index 7b12c609..3060c3ce 100644
 +    contract.action === STUDIO_CURSOR_GENERALIST_ACTION &&
 +    contract.target === STUDIO_CURSOR_GENERALIST_TARGET &&
 +    contract.scope === STUDIO_CURSOR_GENERALIST_SCOPE &&
-+    contract.requiredCapabilities.includes(STUDIO_CURSOR_GENERALIST_CAPABILITY)
++    contract.requiredCapabilities.length === 1 &&
++    contract.requiredCapabilities[0] === STUDIO_CURSOR_GENERALIST_CAPABILITY
 +  );
 +}
 +
-+function sealedInternalEffectAction(
++function sealedInputString(
 +  inputs: AuthS1GovernedContractContext["inputs"],
++  key: "internalEffectAction" | "effectClass",
 +): string | null {
 +  if (inputs == null || typeof inputs !== "object" || Array.isArray(inputs)) {
 +    return null;
 +  }
-+  const value = (inputs as Record<string, unknown>).internalEffectAction;
++  const value = (inputs as Record<string, unknown>)[key];
 +  if (typeof value !== "string") return null;
 +  const trimmed = value.trim();
 +  return trimmed.length > 0 ? trimmed : null;
@@ -234,16 +218,18 @@ index 7b12c609..3060c3ce 100644
  /**
   * Login / session-only — ALWAYS fail-closed.
   */
-@@ -282,13 +318,44 @@ export function resolvePiloteS1AuthorityFromGovernedContract(input: {
+@@ -282,13 +322,68 @@ export function resolvePiloteS1AuthorityFromGovernedContract(input: {
      };
    }
 
 -  const expectedAction = actionForEffectClass(governedEffects.effectClass);
 -  if (expectedAction !== action) {
 +  // Product semantic WHAT vs internal enforcement HOW:
-+  // - canonical generic EC: contract.action is the generalist quartet;
-+  //   sealed inputs.internalEffectAction must match effectClass.
++  // - exact generic EC: validate sealed inputs.effectClass + internalEffectAction
++  //   against governedEffects.effectClass (authority source remains governed).
 +  // - legacy effect-scoped EC: contract.action === actionForEffectClass(…).
++  // - anything else: fail-closed.
++  // Authority projection always uses governedEffects.effectClass — never inputs.
 +  const expectedInternalAction = actionForEffectClass(
 +    governedEffects.effectClass,
 +  );
@@ -253,7 +239,20 @@ index 7b12c609..3060c3ce 100644
 +    scope: contractScope,
 +    requiredCapabilities: contract.requiredCapabilities,
 +  })) {
-+    const sealedInternal = sealedInternalEffectAction(contract.inputs);
++    const sealedEffectClass = sealedInputString(contract.inputs, "effectClass");
++    const sealedInternal = sealedInputString(
++      contract.inputs,
++      "internalEffectAction",
++    );
++    if (sealedEffectClass == null) {
++      return {
++        ok: false,
++        code: CONTRACT_BINDING_MISMATCH,
++        message:
++          "Generic ExecutionContract requires sealed inputs.effectClass " +
++          "coherent with governed effectClass for Auth S1 binding.",
++      };
++    }
 +    if (sealedInternal == null) {
 +      return {
 +        ok: false,
@@ -261,6 +260,15 @@ index 7b12c609..3060c3ce 100644
 +        message:
 +          "Generic ExecutionContract requires sealed inputs.internalEffectAction " +
 +          "coherent with governed effectClass for Auth S1 binding.",
++      };
++    }
++    if (sealedEffectClass !== governedEffects.effectClass) {
++      return {
++        ok: false,
++        code: CONTRACT_BINDING_MISMATCH,
++        message:
++          `Sealed inputs.effectClass (${sealedEffectClass}) does not match ` +
++          `governed effectClass (${governedEffects.effectClass}).`,
 +      };
 +    }
 +    if (sealedInternal !== expectedInternalAction) {
@@ -283,9 +291,7 @@ index 7b12c609..3060c3ce 100644
    }
 ```
 
-## 12. Contenu complet — nouveau fichier de test
-
-Path: `projects/sfia-studio/app/__tests__/auth/nativeExecutionLoopAuthS1BindingCorr01.d0.test.ts`
+## 16. Contenu complet — nativeExecutionLoopAuthS1BindingCorr01.d0.test.ts
 
 ```ts
 // @vitest-environment node
@@ -294,7 +300,7 @@ Path: `projects/sfia-studio/app/__tests__/auth/nativeExecutionLoopAuthS1BindingC
  *
  * Authenticated Pilote S1 must bind the canonical generic Product EC
  * (studio.cursor.generalist.execute) while validating sealed internal
- * effect facts (product:read, …) separately.
+ * effect facts (effectClass + product:read, …) separately.
  *
  * Deterministic only — no Cursor REAL, no StudyFlow mutation.
  */
@@ -314,18 +320,32 @@ import {
   STUDIO_CURSOR_GENERALIST_SCOPE,
   STUDIO_CURSOR_GENERALIST_TARGET,
 } from "@/lib/oa/execution-contract/domain/generalistExecutionSurface";
+import { evaluateExecutionAuthorization } from "@/features/project-assistant/w2/authorizeExecutionContract";
+import { confirmExecutionContractForAuthorization } from "@/features/project-assistant/w2/confirmForAuthorization";
+import {
+  governedExecuteSelectAgent,
+  governedExecuteStart,
+} from "@/features/project-assistant/w2/governedExecuteAuthorizedContract";
+import { inspectExecutionContract } from "@/features/project-assistant/w2/inspectExecutionContract";
+import { materializeProductOutcomeFromAttempt } from "@/features/project-assistant/w2/materializeW3bProductTerminal";
 import { prepareExecutionContractFromW2Decision } from "@/features/project-assistant/w2/prepareExecutionContractFromW2Decision";
 import { decideTrajectory } from "@/features/project-assistant/w2/decideTrajectory";
 import { proposeTrajectoryOptions } from "@/features/project-assistant/w2/proposeTrajectoryOptions";
 import { resolveW2QualificationInputs } from "@/features/project-assistant/w2/qualificationInputs";
-import { CLARIFY_OPTION_REF } from "@/features/project-assistant/w2/trajectoryOptions";
+import { resolvePostEvidenceRecoveryContext } from "@/features/project-assistant/w2/resolvePostEvidenceRecoveryContext";
+import {
+  CLARIFY_OPTION_REF,
+  GOVERNED_OPTION_REF,
+} from "@/features/project-assistant/w2/trajectoryOptions";
 import { assertStudioCursorRealOffForTests } from "@/lib/oa/execution-attempt";
 import { setConversationProviderForTests } from "@/lib/platform/ai";
+import { clearW3bBoundaryArm } from "@/lib/vertical-slice-runtime/w3bE2eBoundaryControl";
 import {
   bootW2Runtime,
   cleanupW2TempDirs,
   currentF2Context,
   seedQualifiedProject,
+  settleDeterministicProductCursorFailure,
   tempProductDbPath,
   W2_FIXED_NOW,
   W2_TEST_PINNED_BASE_HEAD_SHA,
@@ -360,8 +380,7 @@ function makeGenericContract(
     stopConditions: overrides.stopConditions ?? ["stop:demo"],
     evidenceRequirements: overrides.evidenceRequirements ?? ["evreq:demo"],
     reversibility: overrides.reversibility ?? "partially_reversible",
-    idempotencyKey:
-      overrides.idempotencyKey ?? "idem:nelc-s1-generic",
+    idempotencyKey: overrides.idempotencyKey ?? "idem:nelc-s1-generic",
     inputs:
       overrides.inputs ??
       ({
@@ -380,19 +399,23 @@ function makeGenericContract(
   };
 }
 
+function resolveRead(contract: AuthS1GovernedContractContext) {
+  return resolvePiloteS1AuthorityFromGovernedContract({
+    contract,
+    governedEffects: {
+      effectClass: "read",
+      rollbackAvailable: true,
+      protectedBoundaries: [],
+      scopeIn: contract.scope,
+      target: contract.target,
+    },
+  });
+}
+
 describe("AUTH-S1-CORR-01 — generic EC + internal effect binding", () => {
-  it("generic quartet + sealed product:read / effectClass=read → S1 PASS", () => {
+  it("A — exact generic capability only → S1 PASS + Evidence", () => {
     const contract = makeGenericContract();
-    const resolved = resolvePiloteS1AuthorityFromGovernedContract({
-      contract,
-      governedEffects: {
-        effectClass: "read",
-        rollbackAvailable: true,
-        protectedBoundaries: [],
-        scopeIn: contract.scope,
-        target: contract.target,
-      },
-    });
+    const resolved = resolveRead(contract);
     expect(resolved.ok).toBe(true);
     if (!resolved.ok) return;
     expect(resolved.level).toBe("N1");
@@ -421,57 +444,14 @@ describe("AUTH-S1-CORR-01 — generic EC + internal effect binding", () => {
     expect(issued.evidence.canActAsMorris).toBe(false);
   });
 
-  it("generic quartet + sealed internalEffectAction mismatch → FAIL CLOSED", () => {
+  it("B — generic capability + additional capability → FAIL CLOSED", () => {
     const contract = makeGenericContract({
-      inputs: {
-        internalEffectAction: "product:local-write",
-        effectClass: "read",
-      },
+      requiredCapabilities: [
+        STUDIO_CURSOR_GENERALIST_CAPABILITY,
+        "cap:product-merge",
+      ],
     });
-    const resolved = resolvePiloteS1AuthorityFromGovernedContract({
-      contract,
-      governedEffects: {
-        effectClass: "read",
-        rollbackAvailable: true,
-        scopeIn: contract.scope,
-        target: contract.target,
-      },
-    });
-    expect(resolved.ok).toBe(false);
-    if (!resolved.ok) {
-      expect(resolved.code).toBe(CONTRACT_BINDING_MISMATCH);
-      expect(resolved.message).toContain("Internal effect action");
-    }
-  });
-
-  it("generic action without sealed internalEffectAction → FAIL CLOSED", () => {
-    const contract = makeGenericContract({ inputs: {} });
-    const resolved = resolvePiloteS1AuthorityFromGovernedContract({
-      contract,
-      governedEffects: {
-        effectClass: "read",
-        rollbackAvailable: true,
-        scopeIn: contract.scope,
-        target: contract.target,
-      },
-    });
-    expect(resolved.ok).toBe(false);
-    if (!resolved.ok) expect(resolved.code).toBe(CONTRACT_BINDING_MISMATCH);
-  });
-
-  it("generic action + tampered target → FAIL CLOSED (not legacy-accepted)", () => {
-    const contract = makeGenericContract({
-      target: "tgt:hostile",
-    });
-    const resolved = resolvePiloteS1AuthorityFromGovernedContract({
-      contract,
-      governedEffects: {
-        effectClass: "read",
-        rollbackAvailable: true,
-        scopeIn: contract.scope,
-        target: "tgt:hostile",
-      },
-    });
+    const resolved = resolveRead(contract);
     expect(resolved.ok).toBe(false);
     if (!resolved.ok) {
       expect(resolved.code).toBe(CONTRACT_BINDING_MISMATCH);
@@ -479,35 +459,102 @@ describe("AUTH-S1-CORR-01 — generic EC + internal effect binding", () => {
     }
   });
 
-  it("generic action + missing generalist capability → FAIL CLOSED", () => {
+  it("C — generic capability missing → FAIL CLOSED", () => {
     const contract = makeGenericContract({
       requiredCapabilities: ["cap:hostile"],
     });
-    const resolved = resolvePiloteS1AuthorityFromGovernedContract({
-      contract,
-      governedEffects: {
-        effectClass: "read",
-        rollbackAvailable: true,
-        scopeIn: contract.scope,
-        target: contract.target,
-      },
-    });
+    const resolved = resolveRead(contract);
     expect(resolved.ok).toBe(false);
     if (!resolved.ok) expect(resolved.code).toBe(CONTRACT_BINDING_MISMATCH);
   });
 
-  it("legacy product:read + effectClass=read still PASS", () => {
+  it("D — generic capability replaced → FAIL CLOSED", () => {
     const contract = makeGenericContract({
+      requiredCapabilities: ["cap:product-read"],
+    });
+    const resolved = resolveRead(contract);
+    expect(resolved.ok).toBe(false);
+    if (!resolved.ok) expect(resolved.code).toBe(CONTRACT_BINDING_MISMATCH);
+  });
+
+  it("generic action + tampered target → FAIL CLOSED (not legacy-accepted)", () => {
+    const contract = makeGenericContract({ target: "tgt:hostile" });
+    const resolved = resolveRead(contract);
+    expect(resolved.ok).toBe(false);
+    if (!resolved.ok) {
+      expect(resolved.code).toBe(CONTRACT_BINDING_MISMATCH);
+      expect(resolved.message).toContain("does not match contract.action");
+    }
+  });
+
+  it("sealed effectClass mismatch + coherent internalEffectAction → FAIL CLOSED", () => {
+    const contract = makeGenericContract({
+      inputs: {
+        internalEffectAction: "product:read",
+        effectClass: "push",
+      },
+    });
+    const resolved = resolveRead(contract);
+    expect(resolved.ok).toBe(false);
+    if (!resolved.ok) {
+      expect(resolved.code).toBe(CONTRACT_BINDING_MISMATCH);
+      expect(resolved.message).toContain("Sealed inputs.effectClass");
+    }
+  });
+
+  it("sealed effectClass absent → FAIL CLOSED", () => {
+    const contract = makeGenericContract({
+      inputs: { internalEffectAction: "product:read" },
+    });
+    const resolved = resolveRead(contract);
+    expect(resolved.ok).toBe(false);
+    if (!resolved.ok) {
+      expect(resolved.code).toBe(CONTRACT_BINDING_MISMATCH);
+      expect(resolved.message).toContain("inputs.effectClass");
+    }
+  });
+
+  it("sealed internalEffectAction absent → FAIL CLOSED", () => {
+    const contract = makeGenericContract({
+      inputs: { effectClass: "read" },
+    });
+    const resolved = resolveRead(contract);
+    expect(resolved.ok).toBe(false);
+    if (!resolved.ok) {
+      expect(resolved.code).toBe(CONTRACT_BINDING_MISMATCH);
+      expect(resolved.message).toContain("internalEffectAction");
+    }
+  });
+
+  it("sealed effectClass=read + internalEffectAction=product:local-write → FAIL CLOSED", () => {
+    const contract = makeGenericContract({
+      inputs: {
+        internalEffectAction: "product:local-write",
+        effectClass: "read",
+      },
+    });
+    const resolved = resolveRead(contract);
+    expect(resolved.ok).toBe(false);
+    if (!resolved.ok) {
+      expect(resolved.code).toBe(CONTRACT_BINDING_MISMATCH);
+      expect(resolved.message).toContain("Internal effect action");
+    }
+  });
+
+  it("legacy product:read + effectClass=read still PASS", () => {
+    const legacy: AuthS1GovernedContractContext = {
+      executionContractId: "xct:legacy-ok",
+      projectId: "prj:demo",
       action: "product:read",
       target: "tgt:legacy",
       scope: "biz:legacy",
+      requiredAuthority: "N1",
       requiredCapabilities: ["cap:product-read"],
-      inputs: undefined,
-    });
-    // strip inputs for pure legacy surface
-    const legacy: AuthS1GovernedContractContext = {
-      ...contract,
-      inputs: undefined,
+      constraints: ["c"],
+      stopConditions: ["s"],
+      evidenceRequirements: ["e"],
+      reversibility: "partially_reversible",
+      idempotencyKey: "idem:legacy-ok",
     };
     const resolved = resolvePiloteS1AuthorityFromGovernedContract({
       contract: legacy,
@@ -550,13 +597,11 @@ describe("AUTH-S1-CORR-01 — generic EC + internal effect binding", () => {
   });
 });
 
-describe("AUTH-S1-CORR-01 — authenticated Product PREPARE (StudyFlow-equivalent)", () => {
+describe("AUTH-S1-CORR-01 — authenticated Product PREPARE (clarify)", () => {
   beforeEach(() => {
     process.env.OPS1_CONVERSATION_PROVIDER = "fake";
     setConversationProviderForTests(null);
     assertStudioCursorRealOffForTests();
-    // Auth S1 evidence TTL is absolute; harness clock is fixed — align wall clock
-    // so MemoryAuthorityResolver.verify does not treat S1 as expired.
     vi.useFakeTimers({ toFake: ["Date"] });
     vi.setSystemTime(new Date(W2_FIXED_NOW));
   });
@@ -567,7 +612,7 @@ describe("AUTH-S1-CORR-01 — authenticated Product PREPARE (StudyFlow-equivalen
     assertStudioCursorRealOffForTests();
   });
 
-  it("clarify/recovery-style PREPARE via authenticatedPilote without forceLocalAuthority", async () => {
+  it("clarify PREPARE via authenticatedPilote without forceLocalAuthority", async () => {
     const db = tempProductDbPath("nelc-auth-s1-prep.sqlite");
     const runtime = bootW2Runtime({
       productDbPath: db,
@@ -610,7 +655,7 @@ describe("AUTH-S1-CORR-01 — authenticated Product PREPARE (StudyFlow-equivalen
       decisionId: decided.decision.decisionId,
       currentContext: await currentF2Context(runtime, seeded.projectId),
       authenticatedPilote: piloteA,
-      // intentionally NO forceLocalAuthority — this is the StudyFlow blocker path
+      // intentionally NO forceLocalAuthority — StudyFlow blocker path
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
     });
 
@@ -621,9 +666,9 @@ describe("AUTH-S1-CORR-01 — authenticated Product PREPARE (StudyFlow-equivalen
     expect(prepared.contract.action).toBe(STUDIO_CURSOR_GENERALIST_ACTION);
     expect(prepared.contract.target).toBe(STUDIO_CURSOR_GENERALIST_TARGET);
     expect(prepared.contract.scope).toBe(STUDIO_CURSOR_GENERALIST_SCOPE);
-    expect(prepared.contract.requiredCapabilities).toContain(
+    expect(prepared.contract.requiredCapabilities).toEqual([
       STUDIO_CURSOR_GENERALIST_CAPABILITY,
-    );
+    ]);
     expect(prepared.attemptCreated).toBe(false);
     expect(prepared.executionPerformed).toBe(false);
 
@@ -650,53 +695,278 @@ describe("AUTH-S1-CORR-01 — authenticated Product PREPARE (StudyFlow-equivalen
     ).toBeNull();
   });
 });
+
+describe("AUTH-S1-CORR-01 — post-Evidence governed retry authenticated PREPARE", () => {
+  beforeEach(() => {
+    process.env.OPS1_CONVERSATION_PROVIDER = "fake";
+    process.env.OPS1_E2E_ALLOW_DIRTY_PRINCIPAL = "1";
+    setConversationProviderForTests(null);
+    clearW3bBoundaryArm();
+    assertStudioCursorRealOffForTests();
+    vi.useFakeTimers({ toFake: ["Date"] });
+    vi.setSystemTime(new Date(W2_FIXED_NOW));
+  });
+
+  afterEach(() => {
+    vi.useRealTimers();
+    clearW3bBoundaryArm();
+    cleanupW2TempDirs();
+    setConversationProviderForTests(null);
+    assertStudioCursorRealOffForTests();
+  });
+
+  it("FAIL→Evidence→RB→Recovery→GOVERNED HD→authenticated PREPARE (ZERO NEW Attempt)", async () => {
+    // ---- Seed: EC → Attempt FAIL → Evidence/RB (deterministic local; ≠ Cursor REAL)
+    const db = tempProductDbPath("nelc-auth-s1-recovery.sqlite");
+    const runtime = bootW2Runtime({
+      productDbPath: db,
+      idPrefix: "nelcAuthS1Rec",
+    });
+    const seeded = await seedQualifiedProject(runtime, {
+      suffix: "nelc-auth-s1-rec",
+    });
+    const oa = runtime.oa!;
+
+    const qualification = await resolveW2QualificationInputs({
+      oa,
+      projectId: seeded.projectId,
+    });
+    if (!qualification.ok) throw new Error("qual");
+    const proposedSeed = await proposeTrajectoryOptions({
+      oa,
+      projectId: seeded.projectId,
+      ...qualification.qualification.inputs,
+      packagePin: qualification.qualification.packagePin,
+      objective: qualification.qualification.objective,
+      projectTitle: qualification.qualification.projectTitle,
+    });
+    if (!proposedSeed.ok) throw new Error("propose-seed");
+    const decidedSeed = await decideTrajectory({
+      oa,
+      projectId: seeded.projectId,
+      optionSetRef: proposedSeed.optionSetRef,
+      options: proposedSeed.options,
+      recommendedOptionRef: proposedSeed.recommendation.recommendedOptionRef,
+      selectedOptionRef: GOVERNED_OPTION_REF,
+      trajectoryId: proposedSeed.proposedTrajectory!.trajectoryId,
+      candidateVersion: proposedSeed.proposedTrajectory!.version,
+      forceLocalAuthority: true,
+    });
+    if (!decidedSeed.ok) throw new Error("decide-seed");
+
+    const preparedSeed = await prepareExecutionContractFromW2Decision({
+      oa,
+      projectId: seeded.projectId,
+      decisionId: decidedSeed.decision.decisionId,
+      currentContext: await currentF2Context(runtime, seeded.projectId),
+      forceLocalAuthority: true,
+      qualifiedOperationKind: "generate-temporary-artifact",
+      pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+    });
+    if (!preparedSeed.ok) throw new Error(preparedSeed.code);
+    const sourceEcId = preparedSeed.contract.executionContractId;
+
+    await inspectExecutionContract({
+      oa,
+      projectId: seeded.projectId,
+      executionContractId: sourceEcId,
+    });
+    const confirmed = await confirmExecutionContractForAuthorization({
+      oa,
+      projectId: seeded.projectId,
+      executionContractId: sourceEcId,
+      forceLocalAuthority: true,
+    });
+    if (!confirmed.ok) throw new Error(confirmed.code);
+    const authorized = await evaluateExecutionAuthorization({
+      oa,
+      projectId: seeded.projectId,
+      executionContractId: sourceEcId,
+      forceLocalAuthority: true,
+    });
+    if (!(authorized.ok && authorized.outcome === "AUTHORIZED")) {
+      throw new Error("authorize");
+    }
+
+    const selected = await governedExecuteSelectAgent({
+      oa,
+      projectId: seeded.projectId,
+      executionContractId: sourceEcId,
+      forceLocalAuthority: true,
+    });
+    if (!selected.ok) throw new Error(selected.code);
+    const started = await governedExecuteStart({
+      oa,
+      projectId: seeded.projectId,
+      executionContractId: sourceEcId,
+      attemptId: selected.attemptId,
+      forceLocalAuthority: true,
+    });
+    if (!started.ok) throw new Error(started.code);
+    const failed = await settleDeterministicProductCursorFailure({
+      oa,
+      attemptId: started.attemptId,
+    });
+    if (!failed.ok) throw new Error(failed.code);
+    expect(failed.attempt.status).toBe("failed");
+
+    const materialized = await materializeProductOutcomeFromAttempt({
+      oa,
+      projectId: seeded.projectId,
+      attemptId: started.attemptId,
+    });
+    if (!materialized.ok) throw new Error(materialized.code);
+    expect(materialized.product.outcome).toBe("FAIL");
+    expect(materialized.postEvidence?.ok).toBe(true);
+    if (!materialized.postEvidence || !materialized.postEvidence.ok) {
+      throw new Error("postEvidence");
+    }
+    expect(materialized.postEvidence.recommendation.kind).toBe("recover");
+
+    const recovery = await resolvePostEvidenceRecoveryContext({
+      oa,
+      projectId: seeded.projectId,
+    });
+    if (!recovery.ok || recovery.context == null) {
+      throw new Error("recovery-context");
+    }
+    expect(recovery.context.attemptId).toBe(started.attemptId);
+    expect(recovery.context.evidenceId).toBe(materialized.product.evidenceId);
+    expect(recovery.context.reviewBundleId).toBe(
+      materialized.product.reviewBundleId,
+    );
+    expect(recovery.context.executionContractId).toBe(sourceEcId);
+
+    // ---- Recovery OptionSet + GOVERNED HumanDecision (distinct from seed)
+    const qualRecovery = await resolveW2QualificationInputs({
+      oa,
+      projectId: seeded.projectId,
+    });
+    if (!qualRecovery.ok) throw new Error("qual-recovery");
+    const proposedRecovery = await proposeTrajectoryOptions({
+      oa,
+      projectId: seeded.projectId,
+      ...qualRecovery.qualification.inputs,
+      packagePin: qualRecovery.qualification.packagePin,
+      objective: qualRecovery.qualification.objective,
+      projectTitle: qualRecovery.qualification.projectTitle,
+    });
+    if (!proposedRecovery.ok) throw new Error("propose-recovery");
+    expect(proposedRecovery.options[0]!.label).toMatch(/nouvelle tentative/i);
+    expect(proposedRecovery.options.map((o) => o.optionRef)).toContain(
+      GOVERNED_OPTION_REF,
+    );
+
+    const decidedRecovery = await decideTrajectory({
+      oa,
+      projectId: seeded.projectId,
+      optionSetRef: proposedRecovery.optionSetRef,
+      options: proposedRecovery.options,
+      recommendedOptionRef: proposedRecovery.recommendation.recommendedOptionRef,
+      selectedOptionRef: GOVERNED_OPTION_REF,
+      trajectoryId: proposedRecovery.proposedTrajectory!.trajectoryId,
+      candidateVersion: proposedRecovery.proposedTrajectory!.version,
+      forceLocalAuthority: true, // decision seeding only
+    });
+    if (!decidedRecovery.ok) throw new Error("decide-recovery");
+    expect(decidedRecovery.decision.decisionId).not.toBe(
+      decidedSeed.decision.decisionId,
+    );
+    expect(decidedRecovery.decision.selectedOptionRef).toBe(GOVERNED_OPTION_REF);
+    expect(decidedRecovery.decision.decisionBasisLinked).toBe(true);
+    const durableHd = await oa.decisionServices.getHumanDecision.execute({
+      decisionId: decidedRecovery.decision.decisionId,
+    });
+    if (!durableHd.ok) throw new Error("load-hd");
+    expect(durableHd.decision.decisionBasis).toBeTruthy();
+    expect(durableHd.decision.decisionBasis?.sourceType).toBe(
+      "trajectory_option",
+    );
+    expect(
+      durableHd.decision.decisionBasis?.trajectoryContext?.selectedOptionRef,
+    ).toBe(GOVERNED_OPTION_REF);
+
+    // ---- Attempt count BEFORE authenticated retry PREPARE
+    const attemptsBefore =
+      await oa.executionAttemptServices!.listExecutionAttempts.execute({
+        executionContractId: sourceEcId,
+      });
+    if (!attemptsBefore.ok) throw new Error("list-before");
+    const countBefore = attemptsBefore.attempts.length;
+    expect(countBefore).toBeGreaterThanOrEqual(1);
+
+    // ---- Authenticated PREPARE (StudyFlow-equivalent blocker path)
+    const prepared = await prepareExecutionContractFromW2Decision({
+      oa,
+      projectId: seeded.projectId,
+      decisionId: decidedRecovery.decision.decisionId,
+      currentContext: await currentF2Context(runtime, seeded.projectId),
+      authenticatedPilote: piloteA,
+      // intentionally NO forceLocalAuthority
+      pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+    });
+    if (!prepared.ok) {
+      throw new Error(`${prepared.code}: ${prepared.message}`);
+    }
+
+    expect(prepared.ok).toBe(true);
+    expect(prepared.contract.action).toBe(STUDIO_CURSOR_GENERALIST_ACTION);
+    expect(prepared.contract.target).toBe(STUDIO_CURSOR_GENERALIST_TARGET);
+    expect(prepared.contract.scope).toBe(STUDIO_CURSOR_GENERALIST_SCOPE);
+    expect(prepared.contract.requiredCapabilities).toEqual([
+      STUDIO_CURSOR_GENERALIST_CAPABILITY,
+    ]);
+    expect(prepared.attemptCreated).toBe(false);
+    expect(prepared.executionPerformed).toBe(false);
+    expect(prepared.contract.executionContractId).not.toBe(sourceEcId);
+
+    const loaded = await oa.executionContractServices.getExecutionContract.execute(
+      { executionContractId: prepared.contract.executionContractId },
+    );
+    if (!loaded.ok) throw new Error("load-retry");
+    expect(loaded.contract.inputs?.effectClass).toBe("read");
+    expect(loaded.contract.inputs?.internalEffectAction).toBe("product:read");
+    expect(loaded.contract.inputs?.recoveryAttemptId).toBe(started.attemptId);
+    expect(loaded.contract.inputs?.recoveryEvidenceId).toBe(
+      materialized.product.evidenceId,
+    );
+    expect(loaded.contract.inputs?.recoveryReviewBundleId).toBe(
+      materialized.product.reviewBundleId,
+    );
+    expect(loaded.contract.inputs?.recoveryExecutionContractId).toBe(sourceEcId);
+
+    const authEvidence = oa.authorityResolver.getEvidence(
+      `evd:w3a-auth-s1:${decidedRecovery.decision.decisionId}`,
+    );
+    expect(authEvidence).not.toBeNull();
+    expect(authEvidence?.source).toBe(BETTER_AUTH_GITHUB_MULTI_USER_S1);
+    expect(authEvidence?.actorId).toBe(piloteA.actor.actorId);
+    expect(authEvidence?.canActAsMorris).toBe(false);
+    expect(
+      oa.authorityResolver.getEvidence(
+        `evd:w3a-prep:${decidedRecovery.decision.decisionId}`,
+      ),
+    ).toBeNull();
+
+    // ---- ZERO NEW Attempt from retry PREPARE
+    const attemptsAfterSource =
+      await oa.executionAttemptServices!.listExecutionAttempts.execute({
+        executionContractId: sourceEcId,
+      });
+    if (!attemptsAfterSource.ok) throw new Error("list-after-source");
+    expect(attemptsAfterSource.attempts.length).toBe(countBefore);
+
+    const attemptsAfterRetry =
+      await oa.executionAttemptServices!.listExecutionAttempts.execute({
+        executionContractId: prepared.contract.executionContractId,
+      });
+    if (!attemptsAfterRetry.ok) throw new Error("list-after-retry");
+    expect(attemptsAfterRetry.attempts.length).toBe(0);
+  });
+});
 ```
 
-## 13. Nouveau comportement S1 binding (exact)
-
-`resolvePiloteS1AuthorityFromGovernedContract`:
-
-1. Existing fail-closed gates unchanged (contract id/project/idempotency/semantic arrays, scope/target coherence between contract and governedEffects, requiredAuthority trust, MORRIS refusal, unknown effectClass).
-
-2. **NEW split:**
-   - If contract matches the **exact** canonical generic quartet (action + target + scope + capability):
-     - require sealed `inputs.internalEffectAction` (server-owned / contract-sealed)
-     - require `sealedInternal === actionForEffectClass(effectClass)`
-     - do **NOT** require `contract.action === actionForEffectClass(...)`
-   - Else (legacy effect-scoped surface):
-     - retain historical `actionForEffectClass(effectClass) === contract.action`
-   - Else / mismatch → `CONTRACT_BINDING_MISMATCH` fail-closed
-
-3. Authority projection from effects continues unchanged (`projectRequiredAuthorityFromEffects`).
-4. Semantic fingerprint binding continues unchanged (covers concrete contract, not weakened).
-5. No "if generic then allow" shortcut — quartet must be exact; sealed internal must match.
-
-## 14. Legacy compatibility
-
-- `contract.action = product:read` + `effectClass = read` → still PASS (legacy path).
-- `contract.action = product:read` + `effectClass = push` → still FAIL CLOSED.
-- Partial/tampered generic (wrong target or missing capability) falls through to legacy check and fails (not silently accepted as generic).
-
-## 15. Security / fail-closed analysis
-
-| Control | Result |
-|---------|--------|
-| No client-trusted authority selection | OK |
-| No implicit N2/N3 downgrade | OK |
-| No session/login alone issues S1 | OK (existing `resolvePiloteS1AuthorityLevel` + adversarial suite) |
-| No arbitrary contract.action accepted | OK (exact quartet OR legacy effect-scoped match) |
-| No "if generic then allow" | OK |
-| Generic quartet exact | OK |
-| Internal effect mismatch fail-closed | OK (`product:local-write` vs `read`) |
-| Missing sealed internal on generic → fail-closed | OK |
-| Morris gate distinct (MORRIS not satisfiable via Auth S1) | OK |
-| Semantic fingerprint not weakened | OK |
-| forceLocalAuthority not used as production fallback | OK (only decision seeding in test harness) |
-| Authority still projected from effects | OK |
-
-No security control was relaxed; layers were separated.
-
-## 16. Tests ciblés
+## 17. Tests ciblés
 
 ```
 npm test -- \
@@ -706,162 +976,84 @@ npm test -- \
   __tests__/project-assistant/nativeExecutionLoopConvergence01.prepareSourceGrounding.d0.test.ts
 ```
 
-Result:
+Result: **89 passed / 89** (4 files)
+
+## 18. Recovery complementary (harness non modifié; non-régression)
 
 ```
-Test Files  4 passed (4)
-Tests       84 passed (84)
+checkpointF.recoveryOptionsContext.d0.test.ts
+pilotExecutionExperience.recoveryOwnership.integration.d0.test.ts
+recoveryOwnership.prestartFailure.integration.d0.test.ts
 ```
 
-Coverage closed:
+Result: **26 passed / 26** (3 files) — executed because the new regression reuses their patterns; files not modified.
 
-- A generic S1 happy path
-- B internal effect mismatch
-- C generic surface tampering (target / capability)
-- D legacy non-regression (pass + mismatch)
-- E authenticated Product PREPARE without forceLocalAuthority
-- F StudyFlow-equivalent clarify/recovery PREPARE regression
-- G negatives retained via policy-action-scoped-s1 + binding-s1-adversarial (login-only, MORRIS, unknown effect, authority mismatch, adversarial binding)
+## 19. Typecheck / Lint / Build
 
-`prepareSourceGrounding` (forceLocalAuthority path) retained and still PASS — not deleted.
+- typecheck: PASS (`tsc --noEmit`)
+- lint: PASS (No ESLint warnings or errors)
+- build: PASS (Next.js production build)
 
-## 17. Typecheck
+## 20. Full npm test
 
 ```
-npm run typecheck
-> tsc --noEmit
-PASS (exit 0)
-```
-
-## 18. Lint
-
-```
-npm run lint
-✔ No ESLint warnings or errors
-PASS (exit 0)
-```
-
-## 19. Build
-
-```
-npm run build
-PASS (exit 0) — Next.js production build completed
-```
-
-## 20. Full tests
-
-```
-npm test
 Test Files  439 passed | 17 skipped (456)
-Tests       4867 passed | 137 skipped (5004)
-Duration    50.28s
-PASS (exit 0)
+Tests       4872 passed | 137 skipped (5009)
 ```
 
-FinOps/T7 PostgreSQL `test:db` NOT run (frozen / hors required core validation) — not claimed as PASS FinOps.
+FinOps/T7 test:db NOT run — not claimed as FinOps PASS.
 
 ## 21. Fake / Real qualification
 
-- Entry evidence: REAL user-observed StudyFlow authenticated PREPARE blocker.
-- Correction proof level: **DETERMINISTIC CORRECTION PROVEN**
-- No Cursor REAL in this cycle.
-- No StudyFlow mutation.
-- No new Attempt / Execute.
-- Bounded REAL proof: out of scope.
-- Morris REAL gate: NOT consumed.
+- Entry: REAL StudyFlow authenticated PREPARE blocker observation
+- Cycle proof: DETERMINISTIC ONLY
+- Deterministic failed Attempt/Evidence/RB: TEST / LOCAL DETERMINISTIC SEED ≠ Cursor REAL ≠ StudyFlow mutation
+- ZERO new Cursor REAL
+- ZERO StudyFlow mutation
+- ZERO NEW ATTEMPT from retry PREPARE
+- ZERO auto Execute
 
-Allowed claims:
+Allowed claim:
+AUTHENTICATED S1 GENERIC EC BINDING CORRECTION DETERMINISTICALLY PROVEN INCLUDING POST-EVIDENCE GOVERNED RETRY PREPARE.
 
-- authenticated S1 generic EC binding deterministic correction proven
-- PREPARE path deterministic regression covered
+Forbidden claims NOT made: generic loop REAL proven / READY FOR REAL / Product READY / runtime v3 ADOPTED / StudyFlow production-reproven.
 
-Forbidden claims (not made):
+## 22. Diff check / staging / commit
 
-- generic loop REAL proven
-- READY FOR REAL global
-- Product READY
-- runtime v3 ADOPTED
+```
+git diff --check → PASS
+staged → none
+project commit → NO
+project push → NO
+PR → NO
+merge → NO
+```
 
-## 22. Zéro Cursor REAL
+Project-scope status:
+```
+M  projects/sfia-studio/app/lib/auth/piloteS1AuthorityPolicy.ts (+98/−3)
+?? projects/sfia-studio/app/__tests__/auth/nativeExecutionLoopAuthS1BindingCorr01.d0.test.ts
+```
 
-Confirmed: `assertStudioCursorRealOffForTests()` in PREPARE regression; no REAL launch; `attemptCreated = false`; `executionPerformed = false`.
-
-## 23. Zéro StudyFlow mutation
-
-Confirmed: deterministic harness only (`seedQualifiedProject` + clarify option). No StudyFlow project data touched.
-
-## 24. Réserves
+## 23. Réserves
 
 ### Blocking
 
-None for the authorized verdict ceiling of this cycle.
+None for READY FOR COMMIT — AUTH-S1 BINDING CORRECTION.
 
-### Minor / residual
+### Residual
 
-1. Manual StudyFlow / clean-project Product reproof remains a **post-integration** validation before any Execute — not required to claim deterministic correction.
-2. Documentary trajectory (Roadmap) requalification deferred until after commit/integration — explicitly out of this cycle.
-3. Existing `forceLocalAuthority` prepareSourceGrounding coverage remains useful but is not the authenticated path; authenticated path is now covered separately.
+1. Post-integration manual StudyFlow / clean-project PREPARE observation remains optional Product validation (not required for deterministic claim).
+2. Roadmap documentary truth-sync deferred until after commit/integration.
+3. Seed Attempt exists in harness as post-Evidence history — claim is ZERO NEW Attempt from retry PREPARE (proven), not "zero Attempt ever".
 
-### Residual risk
+## 24. Morris Decisions Required
 
-None identified that would reopen authority surface under this design.
+1. GO COMMIT on `fix/sfia-studio-native-execution-loop-auth-s1-binding-01`
+2. later GO PUSH + PR
+3. optional post-merge Product PREPARE observation
+4. separate Roadmap documentary cycle after integration
 
-## 25. Décisions Morris nécessaires
-
-1. **GO COMMIT** projet sur `fix/sfia-studio-native-execution-loop-auth-s1-binding-01` (authorized next step; not consumed this cycle).
-2. After commit: **GO PUSH + PR** (separate Morris GO).
-3. After merge: optional manual StudyFlow / clean-project PREPARE verification (Product observation; not REAL Execute).
-4. Documentary Roadmap truth-sync / capitalisation: separate cycle after integration.
-5. No REAL Cursor / no runtime v3 adoption from this correction alone.
-
-## 26. git diff --check
-
-```
-git diff --check
-exit=0 (PASS)
-```
-
-## 27. Absence de commit projet
-
-Confirmed:
-
-- project branch HEAD still = `7d62e09eaadba4919091f94d82b5e648c98826d1` (= origin/main)
-- no project commit created
-- no project push
-- no PR
-- no merge
-- no branch delete
-- no force push
-
-Uncommitted project changes (candidate only):
-
-```
-M  projects/sfia-studio/app/lib/auth/piloteS1AuthorityPolicy.ts
-?? projects/sfia-studio/app/__tests__/auth/nativeExecutionLoopAuthS1BindingCorr01.d0.test.ts
-```
-
-Plus local `.tmp-sfia-review/**` (never staged / never committed to project).
-
-## 28. Verdict
+## 25. Verdict
 
 **READY FOR COMMIT — AUTH-S1 BINDING CORRECTION**
-
----
-
-## Diff inventory (post-validation)
-
-```
-git diff --name-status
-M  .tmp-sfia-review/chatgpt-review.md
-M  projects/sfia-studio/app/lib/auth/piloteS1AuthorityPolicy.ts
-
-git status --short (project-relevant)
-M  projects/sfia-studio/app/lib/auth/piloteS1AuthorityPolicy.ts
-?? projects/sfia-studio/app/__tests__/auth/nativeExecutionLoopAuthS1BindingCorr01.d0.test.ts
-
-git diff --stat (project file)
- projects/sfia-studio/app/lib/auth/piloteS1AuthorityPolicy.ts | 73 ++++++++++-
-```
-
-Anti-stub: FULL pack includes complete modified sections + complete new test file contents.
-)
