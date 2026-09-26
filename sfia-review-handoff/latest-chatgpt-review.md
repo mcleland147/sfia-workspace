@@ -212,10 +212,10 @@ Message: `docs(review-handoff): publish recovery ownership repository delivery`
 
 | Field | Value |
 |-------|-------|
-| Handoff commit | `22645e408ec64f1820b4e6fac5952fbb2290835a` (initial delivery publish; may be superseded by CI-final republish) |
+| Handoff commit | `78f04ed84bab164f8be2efab7df8b692f0d8e581` |
+| Canonical blob | `c526320a40cc3d41a76f8f0b586693581853bac0` |
 | Canonical path | `sfia-review-handoff/latest-chatgpt-review.md` |
-
-Final handoff commit/blob after CI-green pack refresh recorded in §12.
+| Verdict | HANDOFF UPDATED — REMOTE VERIFIED |
 
 ---
 
