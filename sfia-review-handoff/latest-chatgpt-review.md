@@ -742,8 +742,9 @@ M .tmp-sfia-review/chatgpt-review.md
 - **Publisher :** `scripts/sfia/publish-review-handoff.sh`
 - **Worktree :** `/private/tmp/sfia-review-handoff-wt`
 - **Before :** tip `020c0aff` (CRM 1.1 BPMN integration review)
-- **After / remote tip :** `4dca5bcb23058569b06c79f68b34cb3126716b86`
-- **Blob :** `388a0df1ca0c1d838398c83e67d707ac8ecb6f01`
+- **After / remote tip :** `b58e3efac2617af674fd78da76864380484ae63f`
+- **Blob :** `cda670556f00a511c3fb3a7aca14d4ade0877fc5`
+- **Note :** publication en deux commits handoff (contenu + section vérification) ; tip final ci-dessus
 - **Push handoff :** autorisé L3 borné — DONE
 - **Push projet :** NOT DONE — NOT AUTHORIZED
 - **Verdict handoff :** HANDOFF UPDATED — REMOTE VERIFIED
