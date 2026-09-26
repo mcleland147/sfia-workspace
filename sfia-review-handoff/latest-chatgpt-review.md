@@ -7,7 +7,7 @@ Correction: CORR-01 — PRE-START SAFETY QUALIFICATION HARDENING
 Cycle: 8 — Delivery / implémentation
 Profile: CRITICAL
 Morris GO: CORR-01 SAFETY HARDENING AUTHORIZED — consumed for local Product source/test only
-Project commit/push/PR/merge: **NOT performed / NOT authorized**
+Project commit/push/PR: AUTHORIZED and performed — Merge: NOT AUTHORIZED
 StudyFlow Product mutation: **NONE**
 Managed clone mutation: **NONE**
 Cursor REAL / Execute / Confirm / Attempt: **NONE**
@@ -2590,3 +2590,74 @@ index 00000000..4b736d8a
 +  });
 +});
 ```
+
+---
+
+## ADDENDUM — GIT PUBLICATION / PR READINESS
+
+Generated: 2026-09-26T14:16:00Z
+
+Morris GO consumed: **commit + push + PR creation** (merge NOT authorized)
+
+| Field | Value |
+|-------|-------|
+| Branch | `fix/sfia-studio-recovery-docs-write-mode-sealing-01` |
+| Base / parent SHA | `cf1fa4ca139fdbdbf825e134e732f4e25b4c0aa0` (= origin/main at publish) |
+| Project commit SHA | `280bb041b53a8dd1836f991b4d6cbf4e9191c077` |
+| Commit parent SHA | `cf1fa4ca139fdbdbf825e134e732f4e25b4c0aa0` |
+| Commit message | `fix(studio): seal recovery docs-write mode before retry` |
+| Remote branch tip | `280bb041b53a8dd1836f991b4d6cbf4e9191c077` (matches local HEAD) |
+| Push | PASS (new remote branch; no force) |
+
+### Exact committed files (7)
+
+1. `projects/sfia-studio/app/features/project-assistant/w2/prepareDocsWriteRecoverySuccessor.ts` (M)
+2. `projects/sfia-studio/app/features/project-assistant/w2/repairIncompleteRecoveryDocsWriteSuccessor.ts` (A)
+3. `projects/sfia-studio/app/features/project-assistant/f3/resolveM3ExecutionContract.ts` (M)
+4. `projects/sfia-studio/app/__tests__/project-assistant/recoveryDocsWriteModeSealing.d0.test.ts` (A)
+5. `projects/sfia-studio/app/__tests__/project-assistant/w2Harness.ts` (M)
+6. `projects/sfia-studio/app/__tests__/project-assistant/pjReproof05.executionEligibility.d0.test.ts` (M)
+7. `projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts` (M)
+
+`.tmp-sfia-review/**` was **not** staged into the project commit.
+
+### PR
+
+| Field | Value |
+|-------|-------|
+| Number | **#525** |
+| Title | `fix(studio): seal recovery docs-write mode before retry` |
+| URL | https://github.com/mcleland147/sfia-workspace/pull/525 |
+| State | OPEN |
+| Draft | false |
+| Head | `fix/sfia-studio-recovery-docs-write-mode-sealing-01` |
+| Base | `main` |
+| headRefOid | `280bb041b53a8dd1836f991b4d6cbf4e9191c077` |
+| mergeable | MERGEABLE (GitHub report at creation) |
+
+### Immediate CI / checks
+
+At publication inspect:
+
+- `Detect SFIA Studio changes` — **PENDING**
+
+Full CI not yet complete. No merge performed.
+
+### Validation inherited (unchanged Product source since final reviewed handoff)
+
+- typecheck: PASS
+- lint: PASS
+- build: PASS
+- Vitest: 431 files / 4780 tests passed / 0 failed / 17 files skipped / 137 tests skipped
+- modeled governance: 73 / 0
+
+### Anti-claims / reserves
+
+- StudyFlow: **NOT MUTATED**
+- Cursor REAL: **NOT RUN**
+- Merge: **NOT AUTHORIZED / NOT PERFORMED**
+- Nora `recommended_option_ref_only_on_recommendation`: OPEN / NON-BLOCKING / OUT OF SCOPE
+
+### Next gate
+
+**Morris merge decision after CI + review.**
