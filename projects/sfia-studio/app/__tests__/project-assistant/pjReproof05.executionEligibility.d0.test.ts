@@ -288,7 +288,12 @@ describe("PJ-REPROOF-05 — VITEST env ≠ trusted launch authority", () => {
     });
     expect(unpinned.ok).toBe(false);
     if (unpinned.ok) throw new Error("expected fail-closed without pin");
-    expect(unpinned.code).toBe("MANAGED_REPO_UNAVAILABLE");
+    // Fail-closed without server pin: either managed clone absent, or clone
+    // skeleton present but HEAD unreadable. Both refuse auto-pin from VITEST.
+    expect([
+      "MANAGED_REPO_UNAVAILABLE",
+      "BASE_HEAD_SHA_UNRESOLVED",
+    ]).toContain(unpinned.code);
 
     const eligibilityWithoutPin = resolveProductExecutionEligibility({
       constraints: ["PRODUCT_GOVERNED"],

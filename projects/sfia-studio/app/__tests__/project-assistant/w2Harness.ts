@@ -257,6 +257,11 @@ export async function seedQualifiedProject(
     });
     expect(bound.ok).toBe(true);
     if (!bound.ok) throw new Error("seed: setProjectRepositoryBinding failed");
+    // Existence probes require the managed clone directory to exist (UNKNOWN ≠ ABSENT).
+    ensureManagedRepoCloneSkeleton({
+      managedRepoRootBase: process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV]!,
+      identity: `acme/w2-harness-${suffix}`,
+    });
   }
 
   return {
