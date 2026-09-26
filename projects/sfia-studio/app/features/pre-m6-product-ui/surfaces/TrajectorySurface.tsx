@@ -40,6 +40,7 @@ import {
   w2ReadActiveDecisionSubjectAction,
   w2ReadCurrentGovernedExecutionContinuityAction,
   w2ReadRecoveryExecutionBindingAction,
+  w2ReadRecoveryOwnedDecisionContinuityAction,
   w2RehydrateProductOutcomeAction,
   w2RematerializeDocsWriteEvidenceAction,
 } from "@/features/project-assistant/w2/actions";
@@ -704,6 +705,43 @@ export function TrajectorySurface({
     setExecutionContinuityReadStatus("ready");
   }, [projectId, pendingReinstruction, optionSet, decision]);
 
+  /**
+   * CORR-01 / C2 + CORR-02 / C3 — after hard reload, recover recovery-owned
+   * GOVERNED HD + RecoveryExecutionBinding from durable ProjectTrajectory tip.
+   * ONE-WAY restoration: once `decision` is present in this mount, do not
+   * rewrite it (avoids Server-Action fresh-object → setDecision → effect loop).
+   */
+  const rehydrateRecoveryOwnedDecisionContinuity = useCallback(async () => {
+    // CORR-02 / C3 — restart seam owns restoration only while decision is absent.
+    if (decision != null) {
+      return;
+    }
+    const result = await w2ReadRecoveryOwnedDecisionContinuityAction({
+      projectId,
+    });
+    if (!result || typeof result !== "object") {
+      setError(
+        "Continuité recovery indisponible après restart — fail-closed (UNKNOWN ≠ absent).",
+      );
+      return;
+    }
+    if (!result.ok) {
+      setError(result.message);
+      return;
+    }
+    if (result.kind === "none") {
+      return;
+    }
+    // Recovery-owned: restore HD + binding once; do not re-present OptionSet / auto-PREPARE.
+    setContinuityDecisionRef(result.decision.decisionId);
+    setDecision(result.decision);
+    setDecided(result.trajectory);
+    setRecoveryBinding(result.binding);
+    setOptionSet(null);
+    setPendingReinstruction(null);
+    setError(null);
+  }, [projectId, decision]);
+
   const refreshPreCycleCandidate = useCallback(async () => {
     const result = await projectAssistantReadPreCycleCandidateTrajectoryAction({
       projectId,
@@ -889,8 +927,17 @@ export function TrajectorySurface({
       setExecutionContinuityReadStatus("error");
       return;
     }
-    void rehydrateGovernedExecutionContinuity();
-  }, [subjectReadStatus, rehydrateGovernedExecutionContinuity]);
+    // CORR-01 / C2 — run recovery-owned continuity AFTER EC continuity so a
+    // kind=none clear of continuityDecisionRef cannot race-erase the tip HD.
+    void (async () => {
+      await rehydrateGovernedExecutionContinuity();
+      await rehydrateRecoveryOwnedDecisionContinuity();
+    })();
+  }, [
+    subjectReadStatus,
+    rehydrateGovernedExecutionContinuity,
+    rehydrateRecoveryOwnedDecisionContinuity,
+  ]);
 
   /** FR-04 — inspect a freshly prepared contract without waiting for another Pilot click. */
   const inspectPreparedContractId = useCallback(
@@ -1022,19 +1069,47 @@ export function TrajectorySurface({
       }
 
       if (shouldAutoPrepareGoverned) {
-        // Same-scope Relancer owns when RecoveryExecutionBinding is present —
-        // do not W2-PREPARE (R8). Structural recovery (no binding) → RC-06.
+        // CORR-01 — absolute fail-closed. Generic RC-06 PREPARE is authorized
+        // ONLY when: ok=true AND binding=null AND recoveryContextPresent=false.
+        // UNKNOWN ≠ ABSENT — every other read outcome STOPs before PREPARE.
         const bindingResult = await w2ReadRecoveryExecutionBindingAction({
           projectId,
           decisionId: next.decisionId,
         });
+        if (!bindingResult || typeof bindingResult !== "object") {
+          setBusy(null);
+          setError(
+            "Lecture binding recovery indisponible — préparation générique refusée (UNKNOWN ≠ absent).",
+          );
+          return;
+        }
+        if (bindingResult.ok === false) {
+          setBusy(null);
+          setError(bindingResult.message);
+          return;
+        }
         if (
-          bindingResult &&
-          typeof bindingResult === "object" &&
-          bindingResult.ok &&
           bindingResult.binding?.kind === "post_evidence_recovery_execution"
         ) {
           setRecoveryBinding(bindingResult.binding);
+          return;
+        }
+        if (bindingResult.recoveryContextPresent === true) {
+          setBusy(null);
+          setError(
+            "Binding recovery indisponible pour ce sujet post-Evidence — préparation générique refusée. Action Pilote requise (ne pas PREPARE générique).",
+          );
+          return;
+        }
+        const explicitNoRecovery =
+          bindingResult.ok === true &&
+          bindingResult.binding === null &&
+          bindingResult.recoveryContextPresent === false;
+        if (!explicitNoRecovery) {
+          setBusy(null);
+          setError(
+            "État binding recovery non autoritatif — préparation générique refusée (UNKNOWN ≠ absent).",
+          );
           return;
         }
         setBusy("contract");
@@ -1122,6 +1197,10 @@ export function TrajectorySurface({
         decisionId,
       });
       if (cancelled) return;
+      if (!result || typeof result !== "object") {
+        setRecoveryBinding(null);
+        return;
+      }
       if (result.ok) {
         setRecoveryBinding(result.binding);
       } else {

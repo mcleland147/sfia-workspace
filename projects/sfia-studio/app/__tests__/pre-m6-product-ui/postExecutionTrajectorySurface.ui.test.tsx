@@ -23,6 +23,7 @@ const {
   readActiveDecisionSubjectMock,
   readGovernedExecutionContinuityMock,
   readRecoveryExecutionBindingMock,
+  readRecoveryOwnedDecisionContinuityMock,
   readPreCycleMock,
   readApprovalMock,
   readPreparedCycleMock,
@@ -40,6 +41,7 @@ const {
   readActiveDecisionSubjectMock: vi.fn(),
   readGovernedExecutionContinuityMock: vi.fn(),
   readRecoveryExecutionBindingMock: vi.fn(),
+  readRecoveryOwnedDecisionContinuityMock: vi.fn(),
   readPreCycleMock: vi.fn(),
   readApprovalMock: vi.fn(),
   readPreparedCycleMock: vi.fn(),
@@ -83,6 +85,8 @@ vi.mock("@/features/project-assistant/w2/actions", () => ({
     readGovernedExecutionContinuityMock(...args),
   w2ReadRecoveryExecutionBindingAction: (...args: unknown[]) =>
     readRecoveryExecutionBindingMock(...args),
+  w2ReadRecoveryOwnedDecisionContinuityAction: (...args: unknown[]) =>
+    readRecoveryOwnedDecisionContinuityMock(...args),
   w2PrepareRecoveryDocsWriteAction: vi.fn(),
   w2ReadProjectHistoryAction: vi.fn().mockResolvedValue({
     ok: false,
@@ -186,6 +190,7 @@ beforeEach(() => {
     readActiveDecisionSubjectMock,
     readGovernedExecutionContinuityMock,
     readRecoveryExecutionBindingMock,
+    readRecoveryOwnedDecisionContinuityMock,
     readPreCycleMock,
     readApprovalMock,
     readPreparedCycleMock,
@@ -200,6 +205,11 @@ beforeEach(() => {
   readRecoveryExecutionBindingMock.mockResolvedValue({
     ok: true,
     binding: null,
+    recoveryContextPresent: false,
+  });
+  readRecoveryOwnedDecisionContinuityMock.mockResolvedValue({
+    ok: true,
+    kind: "none",
   });
   readPreCycleMock.mockResolvedValue({
     ok: true,
