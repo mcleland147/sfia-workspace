@@ -1,12 +1,12 @@
-# RECOVERY-DOCS-WRITE-MODE-SEALING-01 / CORR-01 — FULL Review Pack
-## Cycle 8 — Delivery / implémentation · CRITICAL
+# RECOVERY-DOCS-WRITE-MODE-SEALING-01 / CORR-01 — PRE-START SAFETY QUALIFICATION HARDENING
+## Cycle 8 — Delivery / implémentation · CRITICAL · FULL Review Pack
 
-Generated: 2026-09-26T13:55:00Z
+Generated: 2026-09-26T14:05:00Z
 Macro: RECOVERY-DOCS-WRITE-MODE-SEALING-01
-Correction: CORR-01 — EXISTING SUCCESSOR RESEAL / IMMUTABLE SUPERSESSION
+Correction: CORR-01 — PRE-START SAFETY QUALIFICATION HARDENING
 Cycle: 8 — Delivery / implémentation
 Profile: CRITICAL
-Morris GO: CORR-01 AUTHORIZED inside the existing macro — consumed for local Product source/test work only
+Morris GO: CORR-01 SAFETY HARDENING AUTHORIZED — consumed for local Product source/test only
 Project commit/push/PR/merge: **NOT performed / NOT authorized**
 StudyFlow Product mutation: **NONE**
 Managed clone mutation: **NONE**
@@ -22,190 +22,155 @@ Cursor REAL / Execute / Confirm / Attempt: **NONE**
 | HEAD | `cf1fa4ca139fdbdbf825e134e732f4e25b4c0aa0` |
 | origin/main | `cf1fa4ca139fdbdbf825e134e732f4e25b4c0aa0` |
 | Main moved | NO |
-| Prior CORR-00 macro changes | RETAINED |
-| Unrelated Product dirt | NONE (only `.tmp-sfia-review/**` local artifacts) |
+| Prior CORR-00 / CORR-01 macro changes | RETAINED |
+| Unrelated Product dirt | NONE |
 | Project commit | **NONE** — LOCAL / NOT COMMITTED / NOT PUSHED |
 
-Product paths touched (CORR-00 + CORR-01):
+Touched for this hardening:
 
-- `M` `projects/sfia-studio/app/features/project-assistant/w2/prepareDocsWriteRecoverySuccessor.ts`
-- `A` `projects/sfia-studio/app/features/project-assistant/w2/repairIncompleteRecoveryDocsWriteSuccessor.ts`
-- `A` `projects/sfia-studio/app/__tests__/project-assistant/recoveryDocsWriteModeSealing.d0.test.ts`
-- `M` `projects/sfia-studio/app/features/project-assistant/f3/resolveM3ExecutionContract.ts` (bounded write-mode match)
-- `M` `projects/sfia-studio/app/__tests__/project-assistant/w2Harness.ts`
-- `M` `projects/sfia-studio/app/__tests__/project-assistant/pjReproof05.executionEligibility.d0.test.ts`
-- `M` `projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts`
+- `M` `projects/sfia-studio/app/features/project-assistant/w2/repairIncompleteRecoveryDocsWriteSuccessor.ts`
+- `M` `projects/sfia-studio/app/__tests__/project-assistant/recoveryDocsWriteModeSealing.d0.test.ts`
+
+Lifecycle / sealing / resolveM3 write-mode match / prepare orchestration: **UNCHANGED** in this hardening.
 
 ---
 
-## 2. REVIEW FINDING (CORR-01 ROOT CAUSE)
+## 2. CHATGPT SAFETY FINDING
 
-CORR-00 correctly seals CREATE|UPDATE for a **fresh** recovery successor.
+`hasDeterministicPreStartWriteModeFailure()` was too permissive for authorizing T-A4 supersession of a confirmed incomplete recovery successor.
 
-It did **not** safely repair the natural StudyFlow class:
-
-1. canonical M3 PREPARE already `superseded`
-2. recovery successor already exists, durable, `confirmed`
-3. `inputs.artifactWriteMode` **absent**
-4. Attempt failed pre-start with `ARTIFACT_WRITE_MODE_UNRESOLVED`
-5. replaying recovery PREPARE must **not** silently reuse that incomplete successor
-
-CORR-00 fall-through called `resolveM3ExecutionContract()`. With prepare already superseded, resolve entered the idempotent existing-successor path. `successorMatchesResolution()` compared action/target/scope/… but **not** `resolution.inputs` — so absent mode matched a sealed CREATE|UPDATE resolution and the incomplete successor was reused → Execute could fail again with `ARTIFACT_WRITE_MODE_UNRESOLVED`.
-
----
-
-## 3. CANONICAL LIFECYCLE (SOURCE-VERIFIED)
-
-Preserved / used:
-
-- `projects/sfia-studio/app/lib/oa/execution-contract/application/supersedeExecutionContract.ts`
-- `projects/sfia-studio/app/lib/oa/execution-contract/application/cancelExecutionContract.ts`
-- `projects/sfia-studio/app/lib/oa/execution-contract/domain/types.ts`
-
-Invariant: **confirmed ExecutionContract is immutable except supersession (T-A4).**
-
-`SupersedeExecutionContract`:
-
-- creates a **NEW** EC
-- keeps old EC immutable and marks it `superseded`
-- accepts prior confirmed/pre-exec EC
-- refuses T-A5 prior statuses: `executing` | `completed` | `failed`
-- requires explicit authority
-- supports fresh inputs
-- creates successor draft/proposed; existing validate → `confirmation_required` governance remains
-
-**No in-place mutation of confirmed EC inputs.**
-
----
-
-## 4. REPAIR CLASSIFICATION (A–E)
-
-| Class | Condition | Behavior |
-|-------|-----------|----------|
-| A | no current successor | fresh seal + normal resolveM3 (CORR-00) |
-| B | successor already CREATE\|UPDATE | idempotent reuse |
-| C | confirmed/pre-exec tip, mode absent, deterministic pre-start UNRESOLVED proof | **CORR-01 repair** — fresh seal then T-A4 supersede |
-| D | tip T-A5 (`executing`\|`completed`\|`failed`) | fail closed — no T-A4 |
-| E | lineage / Attempt / failure class ambiguous | fail closed (`RECOVERY_WRITE_MODE_REPAIR_AMBIGUOUS`) |
-
-UNKNOWN ≠ REPAIRABLE.
-
-Coherence gates for CLASS C: same project, same HD, docs_write action/target exact, recovery binding coherent, prior Attempt terminal failed pre-start with no irreversible REAL process, EC supersedable, mode absent, targetPath coherent, current repo truth sealable.
-
----
-
-## 5. IMPLEMENTATION
-
-### New module
-
-`repairIncompleteRecoveryDocsWriteSuccessor.ts`
-
-- `classifyCurrentRecoveryDocsWriteSuccessor()` — continuity path + tip-scan (natural StudyFlow: continuity `none` after terminal Attempt)
-- `hasDeterministicPreStartWriteModeFailure()` — failed Attempt, stopReason includes `ARTIFACT_WRITE_MODE_UNRESOLVED`, no REAL process invoked when irreversible flagged
-- `repairIncompleteRecoveryDocsWriteSuccessor()` — **after** fresh seal only
-- Repair id: `xct:m3-rwm-reseal:{safeDecisionSegment(decisionId)}`
-- Idempotency key: `idem:m3-rwm-reseal:{decisionId}`
-- Supersession reason: `w2_recovery_docs_write_mode_reseal — incomplete successor lacked sealed artifactWriteMode; supersede with current managed-repo CREATE|UPDATE`
-- Validate → `confirmation_required`
-- `executionPerformed: false`, `attemptCreated: false` — **NO Confirm / Execute / Attempt**
-
-### Wire in prepare
-
-`prepareDocsWriteRecoverySuccessorFromDecision()`:
-
-1. classify first
-2. CLASS B → reuse
-3. CLASS D/E → fail closed
-4. resolve trusted launch + **seal** (existing `sealRecoveryDocsWriteArtifactWriteMode`)
-5. CLASS C → repair via supersession (**never** call resolveM3 on incomplete tip)
-6. else → resolveM3 fresh path (CORR-00)
-
-Critical: **do not supersede before fresh mode is safely resolved.** ASK / UNAVAILABLE leave incomplete `confirmed`.
-
-### Bounded M3 match strengthen (§10)
-
-`successorMatchesResolution()` now requires: when resolution seals `CREATE|UPDATE`, successor must carry the **same** mode (absent ≠ sealed). No unstable JSON stringify. Broader input comparison left as **explicit reserve**.
-
----
-
-## 6. LINEAGE BEFORE / AFTER
-
-Natural / StudyFlow-equivalent:
+Previous predicate (approx):
 
 ```
-canonical M3 PREPARE (superseded)
-  → incomplete recovery successor (confirmed, artifactWriteMode ABSENT, Attempt failed UNRESOLVED)
+attempts.some(
+  status=failed
+  AND stopReason includes ARTIFACT_WRITE_MODE_UNRESOLVED
+  AND (irreversibleEffectsPossible !== true
+       OR realProcessInvoked !== true)
+)
 ```
 
-After CORR-01 prepare:
+Gaps:
 
-```
-canonical M3 PREPARE (superseded)
-  → incomplete recovery successor (superseded, artifactWriteMode still ABSENT — immutable)
-    → repaired resealed successor (confirmation_required, CREATE|UPDATE, supersedes incomplete)
-```
+1. Did **not** require `startedAt` ABSENT
+2. Did **not** require `launchedAt` ABSENT
+3. Did **not** require `irreversibleEffectsPossible !== true` unconditionally
+4. Did **not** require `realProcessInvoked !== true` unconditionally
+5. Used `some()` — one historical "safe" Attempt could qualify even if another Attempt on the same EC showed launch / start / irreversible / REAL process
 
-Repeated CORR-01 PREPARE → **same** repair id reused; no successor-of-successor chain growth.
+UNKNOWN ≠ SAFE for immutable supersession of a confirmed EC.
 
 ---
 
-## 7. CREATE / UPDATE / ASK / UNKNOWN
+## 3. NEW STRICT RULE
+
+AUTO-REPAIR via T-A4 allowed ONLY when the **complete** Attempt set for the EC proves:
+
+1. at least one Attempt is terminal `failed` with stopReason containing `ARTIFACT_WRITE_MODE_UNRESOLVED`
+2. that Attempt has `startedAt` ABSENT (null/undefined/blank)
+3. that Attempt has `launchedAt` ABSENT
+4. that Attempt has `irreversibleEffectsPossible !== true`
+5. that Attempt has `processDiagnostic.realProcessInvoked !== true`
+6. **AND** no Attempt on the same EC has contradictory evidence:
+   - `startedAt` present OR
+   - `launchedAt` present OR
+   - `irreversibleEffectsPossible === true` OR
+   - `realProcessInvoked === true`
+
+No Attempts → false
+Wrong stopReason → false
+Non-failed only → false
+Safe + contradictory → false
+
+Natural StudyFlow-equivalent class (preserved):
+
+```
+failed
++ ARTIFACT_WRITE_MODE_UNRESOLVED
++ startedAt absent
++ launchedAt absent
++ irreversibleEffectsPossible=false
++ realProcessInvoked=false
+→ repairable
+```
+
+---
+
+## 4. BEFORE / AFTER PREDICATE
+
+### BEFORE
+
+```typescript
+return listed.attempts.some((attempt) => {
+  if (attempt.status !== "failed") return false;
+  if (!stop.includes("ARTIFACT_WRITE_MODE_UNRESOLVED")) return false;
+  if (irreversible === true) {
+    if (diag?.realProcessInvoked === true) return false;
+  }
+  return true; // startedAt / launchedAt / irreversible alone not checked
+});
+```
+
+### AFTER
+
+```typescript
+const hasSafeUnresolved = attempts.some(isStrictPreStartUnresolvedFailure);
+if (!hasSafeUnresolved) return false;
+if (attempts.some(hasContradictoryLaunchOrEffectEvidence)) return false;
+return true;
+```
+
+Where strict safe requires failed + UNRESOLVED + startedAt/launchedAt absent + irreversible≠true + realProcessInvoked≠true.
+
+---
+
+## 5. COMPLETE ATTEMPT SAFETY MATRIX
 
 | Case | Result |
 |------|--------|
-| CORR01-R1 absent target | repair CREATE; old superseded; mode absent on old |
-| CORR01-R2 exists + same-artifact Evidence | repair UPDATE |
-| CORR01-R3 exists without proof | ASK fail-closed; incomplete **NOT** superseded |
-| CORR01-R4 existence UNAVAILABLE | fail-closed; incomplete **NOT** superseded |
+| S1 strict pre-start UNRESOLVED | repair ALLOWED |
+| S2 startedAt present | REFUSED |
+| S3 launchedAt present (domain also requires startedAt) | REFUSED |
+| S4 irreversibleEffectsPossible=true | REFUSED |
+| S5 realProcessInvoked=true | REFUSED |
+| S6 safe + contradictory started/launched Attempt | REFUSED |
+| S7 safe + contradictory realProcessInvoked Attempt | REFUSED |
+| S8 other stopReason | REFUSED |
+| S9 no Attempt | REFUSED |
+| S10 non-failed Attempt (cancelled) | REFUSED |
+
+Contradictory-history rule: **complete set**; one safe Attempt never overrides a contradictory peer.
 
 ---
 
-## 8. T-A5 / LINEAGE NEGATIVES
+## 6. LIFECYCLE / SEALING / GUARD
 
-| Case | Result |
-|------|--------|
-| R5 status=failed | `TA5_STATUS_REFUSED` — no supersession |
-| R6 status=executing | fail-closed (`TA5_STATUS_REFUSED` or `EXECUTION_CONTINUITY_UNSUPPORTED`) — no supersession |
-| R7 different decisionRef | no repair; incomplete unchanged |
-| R8 different project | `RECOVERY_SUCCESSOR_PROJECT_MISMATCH` |
-| R9 non docs_write action | no repair |
-| R10 ambiguous non-prestart Attempt | `RECOVERY_WRITE_MODE_REPAIR_AMBIGUOUS` |
-
----
-
-## 9. IDEMPOTENCY / RESTART
-
-- R11: first repair creates exactly one `xct:m3-rwm-reseal:*`; second prepare reuses same id (`reusedFromIdempotency`); history length 1
-- Restart: durable re-read preserves `artifactWriteMode=CREATE`, `confirmation_required`, supersedes incomplete; no Execute / no Attempt
+| Surface | Status |
+|---------|--------|
+| Immutable T-A4 supersession repair | UNCHANGED |
+| Repair ID `xct:m3-rwm-reseal:*` | UNCHANGED |
+| CREATE/UPDATE sealing | UNCHANGED |
+| ASK / UNAVAILABLE no-supersede | UNCHANGED |
+| `successorMatchesResolution` write-mode | UNCHANGED |
+| `assertArtifactWriteModeAtExecution` | UNCHANGED |
+| Restart / idempotency | UNCHANGED |
 
 ---
 
-## 10. EXECUTION GUARD
+## 7. STUDYFLOW-EQUIVALENT PROOF
 
-`assertArtifactWriteModeAtExecution()` **UNCHANGED**.
-
-Repaired CREATE + target absent → `ok: true` (not UNRESOLVED).
-
-Retained: UNRESOLVED / ASK / existence unavailable / STALE_CREATE / STALE_UPDATE fail closed.
+Retained: confirmed incomplete + mode absent + strict pre-start UNRESOLVED Attempt → reseal CREATE → confirmation_required → no Execute → no new Attempt.
 
 ---
 
-## 11. FRESH-PATH REGRESSION
-
-All RWM-01…RWM-11 + StudyFlow-equivalent fresh sealing retained (14 RWM tests + 12 CORR-01 = 26 in file).
-
-Also green: Checkpoint F, #524 recovery ownership suites, pjReproof05, importBoundaries.
-
----
-
-## 12. VALIDATION
+## 8. VALIDATION
 
 ### Targeted
 
 | Suite | Result |
 |-------|--------|
-| `recoveryDocsWriteModeSealing.d0.test.ts` | 26 / 26 pass |
-| Checkpoint F + #524 ownership + corr02/03 + pjReproof05 + importBoundaries | 82 / 82 pass |
+| `recoveryDocsWriteModeSealing.d0.test.ts` | **36 / 36** pass (RWM + CORR01-R* + CORR01-S* + SF-eq) |
+| Checkpoint F + #524 ownership + corr02/03 + pjReproof05 + importBoundaries | **92 / 92** pass |
 
 ### Full
 
@@ -214,394 +179,59 @@ Also green: Checkpoint F, #524 recovery ownership suites, pjReproof05, importBou
 | typecheck | PASS |
 | lint | PASS |
 | build | PASS |
-| Vitest | **431 files passed** · **17 skipped** · **4770 tests passed** · **137 skipped** · **0 failed** |
-| modeled governance (`node --test` sfia-v3-modeled) | **73 / 0** |
+| Vitest | **431 files passed** · **17 skipped** · **4780 tests passed** · **137 skipped** · **0 failed** |
+| modeled governance | **73 / 0** |
 
-Baseline before CORR-01: 4758 tests → +12 CORR-01 cases (4770).
-
----
-
-## 13. FAKE / REAL
-
-Natural StudyFlow evidence (prior read-only):
-
-**REAL BOUNDARY REACHED / BUSINESS EFFECT FAILED / ARTIFACT_WRITE_MODE_UNRESOLVED**
-
-This correction:
-
-**EXISTING RECOVERY SUCCESSOR RESEAL / IMMUTABLE SUPERSESSION / DETERMINISTICALLY PROVEN**
-
-NOT claimed:
-
-- StudyFlow REAL success
-- Cursor REAL success
-- artifact written
-- artifact Evidence REAL
-- ReviewBundle REAL success
-- E2E REAL
-- Product READY
-- runtime v3 ADOPTED
+Baseline before this hardening: 4770 tests → +10 CORR01-S* (4780).
 
 ---
 
-## 14. NORA GAP
+## 9. FAKE / REAL
 
-`recommended_option_ref_only_on_recommendation`
+Natural input: REAL BOUNDARY REACHED / BUSINESS EFFECT FAILED / ARTIFACT_WRITE_MODE_UNRESOLVED
 
-**OPEN / NON-BLOCKING RESERVE / OUT OF SCOPE** — no Nora changes in CORR-01.
+This correction: **DETERMINISTIC ONLY**
 
----
+Proof level: **STRICT PRE-START REPAIR QUALIFICATION / DETERMINISTICALLY PROVEN**
 
-## 15. ANTI-CLAIMS
-
-- StudyFlow SQLite: **NOT MUTATED**
-- Managed clone: **NOT MUTATED**
-- Project git: **LOCAL / NOT COMMITTED / NOT PUSHED**
-- No HumanDecision / PREPARE against natural StudyFlow / Confirm / Execute / Attempt
-- No doctrine / roadmap / C1 / architecture pivot
-- No weakening of execution-time write-mode guard
+NOT claimed: StudyFlow REAL success · Cursor REAL · artifact written · Evidence REAL · ReviewBundle REAL · E2E REAL · Product READY · runtime v3 ADOPTED
 
 ---
 
-## 16. FINAL VERDICT
+## 10. NORA RESERVE
 
-**RECOVERY DOCS_WRITE MODE SEALING CORR-01 — EXISTING SUCCESSOR RESEAL VIA IMMUTABLE SUPERSESSION / DETERMINISTICALLY PROVEN / READY FOR CHATGPT RE-REVIEW**
+`recommended_option_ref_only_on_recommendation` — OPEN / NON-BLOCKING / OUT OF SCOPE
 
 ---
 
-## 17. EXACT SOURCE DIFFS (FULL)
+## 11. ANTI-CLAIMS
 
-### 17.1 prepareDocsWriteRecoverySuccessor.ts
-```diff
-diff --git a/projects/sfia-studio/app/features/project-assistant/w2/prepareDocsWriteRecoverySuccessor.ts b/projects/sfia-studio/app/features/project-assistant/w2/prepareDocsWriteRecoverySuccessor.ts
-index e3d7535b..7274ce40 100644
---- a/projects/sfia-studio/app/features/project-assistant/w2/prepareDocsWriteRecoverySuccessor.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/w2/prepareDocsWriteRecoverySuccessor.ts
-@@ -2,9 +2,14 @@
-  * Checkpoint F / R8 — prepare + resolve a bounded docs_write successor EC from
-  * a coherent RecoveryExecutionBinding after recovery trajectory HD.
-  *
-+ * RECOVERY-DOCS-WRITE-MODE-SEALING-01 — seals artifactWriteMode from CURRENT
-+ * trusted managed-repo existence + durable same-deliverable Evidence before
-+ * the successor becomes executable. Does NOT weaken execution-time TOCTOU.
-+ *
-  * Does NOT mutate HumanDecision. Does NOT Execute. Does NOT create Attempts.
-  * Clears wrong pre-exec generic EC via Cancel (existing pre-exec lifecycle).
-  */
-+import path from "node:path";
- import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
- import type { F2ContextSnapshot } from "@/features/project-assistant/f2/types";
- import {
-@@ -16,6 +21,12 @@ import {
-   M4_BOUNDED_DOCS_WRITE_CAPABILITY,
-   M4_BOUNDED_DOCS_WRITE_TARGET,
- } from "@/lib/oa/execution-attempt";
-+import {
-+  classifyArtifactWriteMode,
-+  hasDurableSameArtifactEvidence,
-+} from "@/lib/oa/project/domain/artifactTargetRouting";
-+import { probeManagedRepoRelativePathExists } from "@/lib/oa/project/infrastructure/managedRepoPathFacts";
-+import { projectExecutionContractInspectionDisclosure } from "@/lib/oa/execution-contract";
- import {
-   launchContextAsContractInputs,
-   resolveTrustedProductLaunchContext,
-@@ -35,8 +46,128 @@ import {
-   resolveRecoveryExecutionBinding,
-   type RecoveryExecutionBinding,
- } from "./resolveRecoveryExecutionBinding";
-+import {
-+  classifyCurrentRecoveryDocsWriteSuccessor,
-+  repairIncompleteRecoveryDocsWriteSuccessor,
-+} from "./repairIncompleteRecoveryDocsWriteSuccessor";
- import type { AmendedExecutionContractDto } from "./types";
+- StudyFlow SQLite: NOT MUTATED
+- Managed clone: NOT MUTATED
+- Project git: LOCAL / NOT COMMITTED / NOT PUSHED
+- No HD / PREPARE / Confirm / Execute / REAL against natural StudyFlow
+- No doctrine / architecture pivot
+- No execution-guard weakening
 
-+export type SealRecoveryDocsWriteArtifactWriteModeResult =
-+  | {
-+      readonly ok: true;
-+      readonly artifactWriteMode: "CREATE" | "UPDATE";
-+      readonly targetExists: boolean;
-+    }
-+  | { readonly ok: false; readonly code: string; readonly message: string };
-+
-+/**
-+ * Seal CREATE|UPDATE for a recovery docs_write successor from CURRENT
-+ * managed-repo truth + durable Evidence. Historical source EC mode is ignored.
-+ */
-+export async function sealRecoveryDocsWriteArtifactWriteMode(input: {
-+  readonly oa: RuntimeOaStack;
-+  readonly projectId: string;
-+  readonly targetPath: string;
-+  readonly repositoryBindingIdentity: string;
-+  readonly managedRepoRoot: string | null;
-+}): Promise<SealRecoveryDocsWriteArtifactWriteModeResult> {
-+  const targetPath = input.targetPath.trim();
-+  if (!targetPath) {
-+    return {
-+      ok: false,
-+      code: "TARGET_PATH_REQUIRED",
-+      message:
-+        "targetPath absent — mode écriture recovery impossible à sceller.",
-+    };
-+  }
-+  const identity = input.repositoryBindingIdentity.trim();
-+  if (!identity) {
-+    return {
-+      ok: false,
-+      code: "REPOSITORY_BINDING_REQUIRED",
-+      message:
-+        "Identité dépôt projet absente — mode écriture recovery fail-closed.",
-+    };
-+  }
-+  const managedRepoRoot = input.managedRepoRoot?.trim() || null;
-+  if (!managedRepoRoot) {
-+    return {
-+      ok: false,
-+      code: "ARTIFACT_WRITE_MODE_EXISTENCE_UNAVAILABLE",
-+      message:
-+        "Clone géré indisponible — fait d'existence UNKNOWN ≠ ABSENT; mode non scellable.",
-+    };
-+  }
-+
-+  const managedRepoRootBase = path.dirname(managedRepoRoot);
-+  const targetExists = probeManagedRepoRelativePathExists({
-+    identity,
-+    repoRelativePath: targetPath,
-+    managedRepoRootBase,
-+  });
-+  if (targetExists === null) {
-+    return {
-+      ok: false,
-+      code: "ARTIFACT_WRITE_MODE_EXISTENCE_UNAVAILABLE",
-+      message:
-+        "Fait d'existence cible indisponible — mode écriture recovery fail-closed.",
-+    };
-+  }
-+
-+  let intentClearlySameDeliverable: boolean | undefined;
-+  if (targetExists === true) {
-+    if (!input.oa.evidenceReviewServices) {
-+      return {
-+        ok: false,
-+        code: "EVIDENCE_SERVICES_UNAVAILABLE",
-+        message:
-+          "Services Evidence indisponibles — same-deliverable non prouvable; UPDATE refusé.",
-+      };
-+    }
-+    let evidenceList: Awaited<
-+      ReturnType<
-+        typeof input.oa.evidenceReviewServices.repository.listByProject
-+      >
-+    >;
-+    try {
-+      evidenceList =
-+        await input.oa.evidenceReviewServices.repository.listByProject(
-+          input.projectId,
-+        );
-+    } catch {
-+      return {
-+        ok: false,
-+        code: "EVIDENCE_READ_FAILED",
-+        message:
-+          "Lecture Evidence échouée — same-deliverable non prouvable; UPDATE refusé.",
-+      };
-+    }
-+    intentClearlySameDeliverable = hasDurableSameArtifactEvidence({
-+      projectId: input.projectId,
-+      targetPath,
-+      evidence: evidenceList,
-+    });
-+  }
-+
-+  const artifactWriteMode = classifyArtifactWriteMode({
-+    targetExists,
-+    intentClearlySameDeliverable,
-+  });
-+  if (artifactWriteMode !== "CREATE" && artifactWriteMode !== "UPDATE") {
-+    return {
-+      ok: false,
-+      code: "ARTIFACT_WRITE_MODE_ASK",
-+      message:
-+        "Mode écriture ASK — successor recovery non exécutable (preuve same-deliverable insuffisante).",
-+    };
-+  }
-+
-+  return {
-+    ok: true,
-+    artifactWriteMode,
-+    targetExists,
-+  };
-+}
- export const RECOVERY_WRONG_GENERIC_CANCEL_REASON =
-   "w2_recovery_docs_write_reprepare — clear unconsumed generic fixture EC before docs_write successor" as const;
+---
 
-@@ -52,6 +183,8 @@ export type PrepareDocsWriteRecoverySuccessorResult =
-       readonly executionPerformed: false;
-       readonly attemptCreated: false;
-       readonly confirmationRequired: true;
-+      /** CORR-01 — set when an incomplete successor was superseded. */
-+      readonly repairedFromExecutionContractId?: string;
-     }
-   | { readonly ok: false; readonly code: string; readonly message: string };
+## 12. FINAL VERDICT
 
-@@ -226,19 +359,36 @@ export async function prepareDocsWriteRecoverySuccessorFromDecision(input: {
+**RECOVERY DOCS_WRITE MODE SEALING CORR-01 — STRICT PRE-START SAFETY QUALIFICATION PROVEN / READY FOR CHATGPT FINAL REVIEW**
 
-   const prepareId = canonicalM3PrepareContractId(input.decisionId);
+---
 
--  // Idempotent reuse: current docs_write already linked to this recovery HD.
-+  // Classify current recovery docs_write successor before any resolve/reuse.
-   const continuityBefore = await readCurrentGovernedExecutionContinuity({
-     oa,
-     projectId: input.projectId,
-   });
--  if (
--    continuityBefore.ok &&
--    continuityBefore.kind === "active" &&
--    continuityBefore.decisionRef === input.decisionId &&
--    continuityBefore.contract.action === M4_BOUNDED_DOCS_WRITE_ACTION &&
--    continuityBefore.contract.target === M4_BOUNDED_DOCS_WRITE_TARGET
--  ) {
--    const c = continuityBefore.contract;
-+  if (!continuityBefore.ok) {
-+    return {
-+      ok: false,
-+      code: continuityBefore.code,
-+      message: continuityBefore.message,
-+    };
-+  }
-+  const classified = await classifyCurrentRecoveryDocsWriteSuccessor({
-+    oa,
-+    projectId: input.projectId,
-+    decisionId: input.decisionId,
-+    continuityDecisionRef:
-+      continuityBefore.kind === "active" ? continuityBefore.decisionRef : null,
-+    continuityContract:
-+      continuityBefore.kind === "active" ? continuityBefore.contract : null,
-+  });
-+  if (classified.kind === "ta5_refused" || classified.kind === "refused") {
-+    return {
-+      ok: false,
-+      code: classified.code,
-+      message: classified.message,
-+    };
-+  }
-+  if (classified.kind === "sealed_reuse") {
-+    const c = classified.contract;
-     return {
-       ok: true,
-       decisionId: input.decisionId,
-@@ -256,10 +406,11 @@ export async function prepareDocsWriteRecoverySuccessorFromDecision(input: {
-         stopConditions: [...c.stopConditions],
-         requiredCapabilities: [...c.requiredCapabilities],
-         reversibility: c.reversibility,
--        semanticFingerprint: c.semanticFingerprint,
--        supersedesExecutionContractId: null,
--        supersessionReason: null,
--        inspectionDisclosure: c.inspectionDisclosure,
-+        semanticFingerprint: c.semanticFingerprint ?? "",
-+        supersedesExecutionContractId: c.supersedesExecutionContractId ?? null,
-+        supersessionReason: c.supersessionReason ?? null,
-+        inspectionDisclosure:
-+          projectExecutionContractInspectionDisclosure(c).disclosure,
-       },
-       cancelledWrongGenericContractId: null,
-       reusedFromIdempotency: true,
-@@ -268,6 +419,8 @@ export async function prepareDocsWriteRecoverySuccessorFromDecision(input: {
-       confirmationRequired: true,
-     };
-   }
-+  const incompleteRepairable =
-+    classified.kind === "incomplete_repairable" ? classified.contract : null;
+## 13. EXACT SOURCE DIFFS (FULL)
 
-   const cleared = await cancelWrongGenericCurrentIfNeeded({
-     oa,
-@@ -294,8 +447,12 @@ export async function prepareDocsWriteRecoverySuccessorFromDecision(input: {
-     });
+### 13.1 repairIncompleteRecoveryDocsWriteSuccessor.ts (full file as delivered)
 
-   const profile = boundedDocsWriteM3ResolutionProfile();
--  const inputs = {
--    ...binding.inputs,
-+  // Historical source artifactWriteMode is never authoritative for a retry.
-+  const { artifactWriteMode: _staleSourceMode, ...clonedBusinessInputs } =
-+    binding.inputs;
-+  void _staleSourceMode;
-+  const inputs: Record<string, unknown> = {
-+    ...clonedBusinessInputs,
-     targetPath: binding.targetPath,
-   };
-
-@@ -431,18 +588,53 @@ export async function prepareDocsWriteRecoverySuccessorFromDecision(input: {
-     };
-   }
-
-+  const sealedMode = await sealRecoveryDocsWriteArtifactWriteMode({
-+    oa,
-+    projectId: input.projectId,
-+    targetPath: binding.targetPath,
-+    repositoryBindingIdentity: launch.context.repositoryBindingIdentity,
-+    managedRepoRoot: launch.context.managedRepoRoot,
-+  });
-+  if (!sealedMode.ok) {
-+    return {
-+      ok: false,
-+      code: sealedMode.code,
-+      message: sealedMode.message,
-+    };
-+  }
-+
-+  const sealedInputs: Record<string, unknown> = {
-+    ...(profile.inputs ?? {}),
-+    ...inputs,
-+    ...trustedInputs,
-+    baseHeadSha: sha,
-+    artifactWriteMode: sealedMode.artifactWriteMode,
-+    ...(trustedLaunchPinned
-+      ? { trustedLaunchContextPinnedAtPrepare: "true" }
-+      : {}),
-+  };
-+
-+  // CORR-01 CLASS C — incomplete confirmed/pre-exec successor: reseal via
-+  // immutable supersession. Do NOT call resolveM3 (would silently reuse).
-+  if (incompleteRepairable) {
-+    return repairIncompleteRecoveryDocsWriteSuccessor({
-+      oa,
-+      projectId: input.projectId,
-+      decisionId: input.decisionId,
-+      incomplete: incompleteRepairable,
-+      binding,
-+      sealedMode: sealedMode.artifactWriteMode,
-+      sealedInputs,
-+      evidenceRequirements: evidenceFromSource,
-+      authorityEvidenceId: authority.evidenceId,
-+      cancelledWrongGenericContractId: cleared.cancelledId,
-+    });
-+  }
-+
-   const resolution = {
-     ...profile,
-     evidenceRequirements: evidenceFromSource,
--    inputs: {
--      ...(profile.inputs ?? {}),
--      ...inputs,
--      ...trustedInputs,
--      baseHeadSha: sha,
--      ...(trustedLaunchPinned
--        ? { trustedLaunchContextPinnedAtPrepare: "true" }
--        : {}),
--    },
-+    inputs: sealedInputs,
-   };
-
-   const resolved = await resolveM3ExecutionContract({
-```
-
-### 17.2 repairIncompleteRecoveryDocsWriteSuccessor.ts (NEW)
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/repairIncompleteRecoveryDocsWriteSuccessor.ts b/projects/sfia-studio/app/features/project-assistant/w2/repairIncompleteRecoveryDocsWriteSuccessor.ts
 new file mode 100644
-index 00000000..6217c243
+index 00000000..d3a72fd7
 --- /dev/null
 +++ b/projects/sfia-studio/app/features/project-assistant/w2/repairIncompleteRecoveryDocsWriteSuccessor.ts
-@@ -0,0 +1,601 @@
+@@ -0,0 +1,638 @@
 +/**
 + * CORR-01 — reseal an incomplete recovery docs_write successor via immutable
 + * ExecutionContract supersession (never mutate confirmed EC inputs in place).
@@ -655,6 +285,53 @@ index 00000000..6217c243
 +  return mode === "CREATE" || mode === "UPDATE";
 +}
 +
++type AttemptSafetyFields = {
++  readonly status?: unknown;
++  readonly stopReason?: unknown;
++  readonly startedAt?: unknown;
++  readonly launchedAt?: unknown;
++  readonly irreversibleEffectsPossible?: unknown;
++  readonly processDiagnostic?: { readonly realProcessInvoked?: unknown };
++};
++
++/**
++ * CORR-01 safety hardening — auto-repair via T-A4 is allowed ONLY when the
++ * complete Attempt set for the EC proves a strict pre-start UNRESOLVED failure
++ * with no launch, no start, no irreversible-effect flag, and no REAL process.
++ *
++ * UNKNOWN ≠ SAFE. One "safe" Attempt never overrides a contradictory Attempt.
++ */
++function isStrictPreStartUnresolvedFailure(
++  attempt: AttemptSafetyFields,
++): boolean {
++  if (attempt.status !== "failed") return false;
++  const stop = String(attempt.stopReason ?? "");
++  if (!stop.includes("ARTIFACT_WRITE_MODE_UNRESOLVED")) return false;
++  if (attempt.startedAt != null && String(attempt.startedAt).trim() !== "") {
++    return false;
++  }
++  if (attempt.launchedAt != null && String(attempt.launchedAt).trim() !== "") {
++    return false;
++  }
++  if (attempt.irreversibleEffectsPossible === true) return false;
++  if (attempt.processDiagnostic?.realProcessInvoked === true) return false;
++  return true;
++}
++
++function hasContradictoryLaunchOrEffectEvidence(
++  attempt: AttemptSafetyFields,
++): boolean {
++  if (attempt.startedAt != null && String(attempt.startedAt).trim() !== "") {
++    return true;
++  }
++  if (attempt.launchedAt != null && String(attempt.launchedAt).trim() !== "") {
++    return true;
++  }
++  if (attempt.irreversibleEffectsPossible === true) return true;
++  if (attempt.processDiagnostic?.realProcessInvoked === true) return true;
++  return false;
++}
++
 +export async function hasDeterministicPreStartWriteModeFailure(input: {
 +  readonly oa: RuntimeOaStack;
 +  readonly executionContractId: string;
@@ -665,25 +342,15 @@ index 00000000..6217c243
 +      executionContractId: input.executionContractId,
 +    });
 +  if (!listed.ok || listed.attempts.length === 0) return false;
-+  return listed.attempts.some((attempt) => {
-+    if (attempt.status !== "failed") return false;
-+    const stop = String(
-+      (attempt as { stopReason?: unknown }).stopReason ?? "",
-+    );
-+    if (!stop.includes("ARTIFACT_WRITE_MODE_UNRESOLVED")) return false;
-+    const irreversible = (attempt as { irreversibleEffectsPossible?: unknown })
-+      .irreversibleEffectsPossible;
-+    if (irreversible === true) {
-+      const diag = (
-+        attempt as {
-+          processDiagnostic?: { realProcessInvoked?: unknown };
-+        }
-+      ).processDiagnostic;
-+      // Pre-start UNRESOLVED rejects before REAL process; allow when not invoked.
-+      if (diag?.realProcessInvoked === true) return false;
-+    }
-+    return true;
-+  });
++
++  const attempts = listed.attempts as readonly AttemptSafetyFields[];
++  const hasSafeUnresolved = attempts.some(isStrictPreStartUnresolvedFailure);
++  if (!hasSafeUnresolved) return false;
++
++  // Complete history: any contradictory launch/effect evidence fails closed.
++  if (attempts.some(hasContradictoryLaunchOrEffectEvidence)) return false;
++
++  return true;
 +}
 +
 +export type CurrentRecoverySuccessorClass =
@@ -1205,45 +872,14 @@ index 00000000..6217c243
 +}
 ```
 
-### 17.3 resolveM3ExecutionContract.ts (bounded write-mode match)
-```diff
-diff --git a/projects/sfia-studio/app/features/project-assistant/f3/resolveM3ExecutionContract.ts b/projects/sfia-studio/app/features/project-assistant/f3/resolveM3ExecutionContract.ts
-index 3b2b5955..52165161 100644
---- a/projects/sfia-studio/app/features/project-assistant/f3/resolveM3ExecutionContract.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/f3/resolveM3ExecutionContract.ts
-@@ -377,6 +377,14 @@ function successorMatchesResolution(
-     resolution.evidenceRequirements === undefined ||
-     [...contract.evidenceRequirements].join("\0") ===
-       [...resolution.evidenceRequirements].join("\0");
-+  // CORR-01 — execution-significant write mode must not drift silently.
-+  // When resolution seals CREATE|UPDATE, an absent/ASK/other mode is NOT equivalent.
-+  const wantMode = resolution.inputs?.artifactWriteMode;
-+  const haveMode = contract.inputs?.artifactWriteMode;
-+  const writeModeOk =
-+    wantMode !== "CREATE" && wantMode !== "UPDATE"
-+      ? true
-+      : haveMode === wantMode;
-   return (
-     contract.action === resolution.action.trim() &&
-     contract.target === resolution.target.trim() &&
-@@ -386,6 +394,7 @@ function successorMatchesResolution(
-     [...contract.constraints].join("\0") === constraints.join("\0") &&
-     [...contract.stopConditions].join("\0") === stopConditions.join("\0") &&
-     evidenceOk &&
-+    writeModeOk &&
-     (resolution.executionWindowClass === undefined ||
-       contract.executionWindowClass === resolution.executionWindowClass)
-   );
-```
-
-### 17.4 recoveryDocsWriteModeSealing.d0.test.ts (NEW — RWM + CORR-01)
+### 13.2 recoveryDocsWriteModeSealing.d0.test.ts (full file as delivered)
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/recoveryDocsWriteModeSealing.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/recoveryDocsWriteModeSealing.d0.test.ts
 new file mode 100644
-index 00000000..8c8e3431
+index 00000000..4b736d8a
 --- /dev/null
 +++ b/projects/sfia-studio/app/__tests__/project-assistant/recoveryDocsWriteModeSealing.d0.test.ts
-@@ -0,0 +1,1332 @@
+@@ -0,0 +1,1709 @@
 +/**
 + * RECOVERY-DOCS-WRITE-MODE-SEALING-01 — RWM-01…11 + StudyFlow-equivalent.
 + * ZERO REAL / ZERO StudyFlow Product mutation.
@@ -1950,6 +1586,8 @@ index 00000000..8c8e3431
 +    decisionId: string;
 +    targetPath: string;
 +    identity: string;
++    /** When true, leave the confirmed incomplete tip without any Attempt. */
++    omitAttempt?: boolean;
 +  }) {
 +    const { oa, projectId, decisionId, targetPath } = input;
 +    const { canonicalM3PrepareContractId } = await import(
@@ -2082,37 +1720,39 @@ index 00000000..8c8e3431
 +
 +    const now = oa.clock.nowIso();
 +    const attemptId = `xat:w3a:corr01-${Math.random().toString(16).slice(2, 10)}`;
-+    await oa.executionAttemptServices!.attempts.create({
-+      schemaVersion: "0.2.0-oa" as const,
-+      attemptId,
-+      executionContractId: incompleteId,
-+      executionContractVersion: validatedInc.contract.version + 1,
-+      selectedAgentRef: "agt:m4.cursor.bounded_docs_write",
-+      status: "failed" as const,
-+      idempotencyKey: `idem:att:${attemptId}`,
-+      correlationId: `cor:att:${attemptId}`,
-+      version: 1,
-+      createdAt: now,
-+      failedAt: now,
-+      stopReason: "REAL_LAUNCH_FAILED: ARTIFACT_WRITE_MODE_UNRESOLVED",
-+      irreversibleEffectsPossible: false,
-+      processDiagnostic: {
-+        kind: "process_failure_diagnostic" as const,
-+        realProcessInvoked: false,
-+        boundaryProofMode: "cursor_real" as const,
-+        exitCode: null,
-+        stderrExcerpt: "ARTIFACT_WRITE_MODE_UNRESOLVED",
-+        authoritativeBusinessEvidence: false,
-+      },
-+      provenance: {
-+        schemaVersion: "0.1.0-oa" as const,
-+        provenanceRecordId: `prv:${attemptId}`,
-+        actor: LOCAL_PILOTE_ACTOR,
-+        source: "system" as const,
-+        timestamp: now,
++    if (!input.omitAttempt) {
++      await oa.executionAttemptServices!.attempts.create({
++        schemaVersion: "0.2.0-oa" as const,
++        attemptId,
++        executionContractId: incompleteId,
++        executionContractVersion: validatedInc.contract.version + 1,
++        selectedAgentRef: "agt:m4.cursor.bounded_docs_write",
++        status: "failed" as const,
++        idempotencyKey: `idem:att:${attemptId}`,
 +        correlationId: `cor:att:${attemptId}`,
-+      },
-+    } as never);
++        version: 1,
++        createdAt: now,
++        failedAt: now,
++        stopReason: "REAL_LAUNCH_FAILED: ARTIFACT_WRITE_MODE_UNRESOLVED",
++        irreversibleEffectsPossible: false,
++        processDiagnostic: {
++          kind: "process_failure_diagnostic" as const,
++          realProcessInvoked: false,
++          boundaryProofMode: "cursor_real" as const,
++          exitCode: null,
++          stderrExcerpt: "ARTIFACT_WRITE_MODE_UNRESOLVED",
++          authoritativeBusinessEvidence: false,
++        },
++        provenance: {
++          schemaVersion: "0.1.0-oa" as const,
++          provenanceRecordId: `prv:${attemptId}`,
++          actor: LOCAL_PILOTE_ACTOR,
++          source: "system" as const,
++          timestamp: now,
++          correlationId: `cor:att:${attemptId}`,
++        },
++      } as never);
++    }
 +
 +    const incomplete =
 +      await oa.executionContractServices!.getExecutionContract.execute({
@@ -2122,7 +1762,13 @@ index 00000000..8c8e3431
 +    expect(incomplete.contract.inputs?.artifactWriteMode).toBeUndefined();
 +    expect(incomplete.contract.status).toBe("confirmed");
 +
-+    return { incompleteId, prepareId, repairId, attemptId, n2EvidenceId: n2.evidenceId };
++    return {
++      incompleteId,
++      prepareId,
++      repairId,
++      attemptId: input.omitAttempt ? null : attemptId,
++      n2EvidenceId: n2.evidenceId,
++    };
 +  }
 +
 +  async function bootCorr01(suffix: string) {
@@ -2547,6 +2193,373 @@ index 00000000..8c8e3431
 +    expect(resealed).toHaveLength(1);
 +  });
 +
++  async function loadPrimaryAttempt(ctx: {
++    oa: RuntimeOaStack;
++    incompleteId: string;
++  }) {
++    const listed =
++      await ctx.oa.executionAttemptServices!.listExecutionAttempts.execute({
++        executionContractId: ctx.incompleteId,
++      });
++    if (!listed.ok || listed.attempts.length === 0) {
++      throw new Error("primary attempt missing");
++    }
++    return listed.attempts[0]!;
++  }
++
++  async function expectRepairRefused(ctx: {
++    oa: RuntimeOaStack;
++    runtime: Awaited<ReturnType<typeof bootCorr01>>["runtime"];
++    seeded: { projectId: string };
++    decisionId: string;
++    incompleteId: string;
++    identity: string;
++  }) {
++    removeManagedTarget(ctx.identity, STUDYFLOW_TARGET);
++    const context = await currentF2Context(ctx.runtime, ctx.seeded.projectId);
++    const prepared = await prepareDocsWriteRecoverySuccessorFromDecision({
++      oa: ctx.oa,
++      projectId: ctx.seeded.projectId,
++      decisionId: ctx.decisionId,
++      currentContext: context,
++      forceLocalAuthority: true,
++      boundedDocsWriteBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
++    });
++    expect(prepared.ok).toBe(false);
++    const old = await ctx.oa.executionContractServices!.getExecutionContract.execute({
++      executionContractId: ctx.incompleteId,
++    });
++    expect(old.ok && old.contract.status).toBe("confirmed");
++    expect(old.ok && old.contract.inputs?.artifactWriteMode).toBeUndefined();
++    return prepared;
++  }
++
++  it("CORR01-S1 — strict pre-start UNRESOLVED → repair allowed", async () => {
++    const ctx = await bootCorr01("c01s1");
++    const att = await loadPrimaryAttempt(ctx);
++    expect(att.status).toBe("failed");
++    expect(String((att as { stopReason?: string }).stopReason ?? "")).toContain(
++      "ARTIFACT_WRITE_MODE_UNRESOLVED",
++    );
++    expect((att as { startedAt?: string }).startedAt).toBeUndefined();
++    expect((att as { launchedAt?: string }).launchedAt).toBeUndefined();
++    expect((att as { irreversibleEffectsPossible?: boolean }).irreversibleEffectsPossible).toBe(
++      false,
++    );
++    expect(
++      (att as { processDiagnostic?: { realProcessInvoked?: boolean } })
++        .processDiagnostic?.realProcessInvoked,
++    ).toBe(false);
++
++    const {
++      hasDeterministicPreStartWriteModeFailure,
++    } = await import(
++      "@/features/project-assistant/w2/repairIncompleteRecoveryDocsWriteSuccessor"
++    );
++    expect(
++      await hasDeterministicPreStartWriteModeFailure({
++        oa: ctx.oa,
++        executionContractId: ctx.incompleteId,
++      }),
++    ).toBe(true);
++
++    removeManagedTarget(ctx.identity, STUDYFLOW_TARGET);
++    const context = await currentF2Context(ctx.runtime, ctx.seeded.projectId);
++    const prepared = await prepareDocsWriteRecoverySuccessorFromDecision({
++      oa: ctx.oa,
++      projectId: ctx.seeded.projectId,
++      decisionId: ctx.decisionId,
++      currentContext: context,
++      forceLocalAuthority: true,
++      boundedDocsWriteBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
++    });
++    expect(prepared.ok).toBe(true);
++    if (!prepared.ok) throw new Error(prepared.code);
++    expect(prepared.successor.status).toBe("confirmation_required");
++  });
++
++  it("CORR01-S2 — startedAt present → repair REFUSED", async () => {
++    const ctx = await bootCorr01("c01s2");
++    const att = await loadPrimaryAttempt(ctx);
++    const now = ctx.oa.clock.nowIso();
++    await ctx.oa.executionAttemptServices!.attempts.update(
++      { ...att, startedAt: now, version: att.version + 1 } as never,
++      att.version,
++    );
++    const prepared = await expectRepairRefused(ctx);
++    if (!prepared.ok) {
++      expect(prepared.code).toBe("RECOVERY_WRITE_MODE_REPAIR_AMBIGUOUS");
++    }
++  });
++
++  it("CORR01-S3 — launchedAt present → repair REFUSED", async () => {
++    const ctx = await bootCorr01("c01s3");
++    const att = await loadPrimaryAttempt(ctx);
++    const now = ctx.oa.clock.nowIso();
++    // Domain: post-launch failed requires startedAt when launchedAt is set.
++    await ctx.oa.executionAttemptServices!.attempts.update(
++      {
++        ...att,
++        launchedAt: now,
++        startedAt: now,
++        version: att.version + 1,
++      } as never,
++      att.version,
++    );
++    const prepared = await expectRepairRefused(ctx);
++    if (!prepared.ok) {
++      expect(prepared.code).toBe("RECOVERY_WRITE_MODE_REPAIR_AMBIGUOUS");
++    }
++  });
++
++  it("CORR01-S4 — irreversibleEffectsPossible=true → repair REFUSED", async () => {
++    const ctx = await bootCorr01("c01s4");
++    const att = await loadPrimaryAttempt(ctx);
++    await ctx.oa.executionAttemptServices!.attempts.update(
++      {
++        ...att,
++        irreversibleEffectsPossible: true,
++        version: att.version + 1,
++      } as never,
++      att.version,
++    );
++    const prepared = await expectRepairRefused(ctx);
++    if (!prepared.ok) {
++      expect(prepared.code).toBe("RECOVERY_WRITE_MODE_REPAIR_AMBIGUOUS");
++    }
++  });
++
++  it("CORR01-S5 — realProcessInvoked=true → repair REFUSED", async () => {
++    const ctx = await bootCorr01("c01s5");
++    const att = await loadPrimaryAttempt(ctx);
++    await ctx.oa.executionAttemptServices!.attempts.update(
++      {
++        ...att,
++        processDiagnostic: {
++          kind: "process_failure_diagnostic" as const,
++          realProcessInvoked: true,
++          boundaryProofMode: "cursor_real" as const,
++          exitCode: null,
++          stderrExcerpt: "ARTIFACT_WRITE_MODE_UNRESOLVED",
++          authoritativeBusinessEvidence: false,
++        },
++        version: att.version + 1,
++      } as never,
++      att.version,
++    );
++    const prepared = await expectRepairRefused(ctx);
++    if (!prepared.ok) {
++      expect(prepared.code).toBe("RECOVERY_WRITE_MODE_REPAIR_AMBIGUOUS");
++    }
++  });
++
++  it("CORR01-S6 — safe Attempt + contradictory started/launched Attempt → REFUSED", async () => {
++    const ctx = await bootCorr01("c01s6");
++    const now = ctx.oa.clock.nowIso();
++    const extraId = `xat:w3a:corr01-s6-${Math.random().toString(16).slice(2, 8)}`;
++    await ctx.oa.executionAttemptServices!.attempts.create({
++      schemaVersion: "0.2.0-oa" as const,
++      attemptId: extraId,
++      executionContractId: ctx.incompleteId,
++      executionContractVersion: 2,
++      selectedAgentRef: "agt:m4.cursor.bounded_docs_write",
++      status: "failed" as const,
++      idempotencyKey: `idem:att:${extraId}`,
++      correlationId: `cor:att:${extraId}`,
++      version: 1,
++      createdAt: now,
++      failedAt: now,
++      startedAt: now,
++      launchedAt: now,
++      stopReason: "REAL_LAUNCH_FAILED: OTHER",
++      irreversibleEffectsPossible: false,
++      processDiagnostic: {
++        kind: "process_failure_diagnostic" as const,
++        realProcessInvoked: false,
++        boundaryProofMode: "cursor_real" as const,
++        exitCode: 1,
++        stderrExcerpt: "contradictory launch",
++        authoritativeBusinessEvidence: false,
++      },
++      provenance: {
++        schemaVersion: "0.1.0-oa" as const,
++        provenanceRecordId: `prv:${extraId}`,
++        actor: LOCAL_PILOTE_ACTOR,
++        source: "system" as const,
++        timestamp: now,
++        correlationId: `cor:att:${extraId}`,
++      },
++    } as never);
++    const {
++      hasDeterministicPreStartWriteModeFailure,
++    } = await import(
++      "@/features/project-assistant/w2/repairIncompleteRecoveryDocsWriteSuccessor"
++    );
++    expect(
++      await hasDeterministicPreStartWriteModeFailure({
++        oa: ctx.oa,
++        executionContractId: ctx.incompleteId,
++      }),
++    ).toBe(false);
++    const prepared = await expectRepairRefused(ctx);
++    if (!prepared.ok) {
++      expect(prepared.code).toBe("RECOVERY_WRITE_MODE_REPAIR_AMBIGUOUS");
++    }
++  });
++
++  it("CORR01-S7 — safe Attempt + contradictory realProcessInvoked Attempt → REFUSED", async () => {
++    const ctx = await bootCorr01("c01s7");
++    const now = ctx.oa.clock.nowIso();
++    const extraId = `xat:w3a:corr01-s7-${Math.random().toString(16).slice(2, 8)}`;
++    await ctx.oa.executionAttemptServices!.attempts.create({
++      schemaVersion: "0.2.0-oa" as const,
++      attemptId: extraId,
++      executionContractId: ctx.incompleteId,
++      executionContractVersion: 2,
++      selectedAgentRef: "agt:m4.cursor.bounded_docs_write",
++      status: "failed" as const,
++      idempotencyKey: `idem:att:${extraId}`,
++      correlationId: `cor:att:${extraId}`,
++      version: 1,
++      createdAt: now,
++      failedAt: now,
++      stopReason: "REAL_LAUNCH_FAILED: OTHER",
++      irreversibleEffectsPossible: false,
++      processDiagnostic: {
++        kind: "process_failure_diagnostic" as const,
++        realProcessInvoked: true,
++        boundaryProofMode: "cursor_real" as const,
++        exitCode: 1,
++        stderrExcerpt: "REAL invoked",
++        authoritativeBusinessEvidence: false,
++      },
++      provenance: {
++        schemaVersion: "0.1.0-oa" as const,
++        provenanceRecordId: `prv:${extraId}`,
++        actor: LOCAL_PILOTE_ACTOR,
++        source: "system" as const,
++        timestamp: now,
++        correlationId: `cor:att:${extraId}`,
++      },
++    } as never);
++    const prepared = await expectRepairRefused(ctx);
++    if (!prepared.ok) {
++      expect(prepared.code).toBe("RECOVERY_WRITE_MODE_REPAIR_AMBIGUOUS");
++    }
++  });
++
++  it("CORR01-S8 — failed Attempt with other stopReason → repair REFUSED", async () => {
++    const ctx = await bootCorr01("c01s8");
++    const att = await loadPrimaryAttempt(ctx);
++    await ctx.oa.executionAttemptServices!.attempts.update(
++      {
++        ...att,
++        stopReason: "REAL_LAUNCH_FAILED: NETWORK_TIMEOUT",
++        version: att.version + 1,
++      } as never,
++      att.version,
++    );
++    const prepared = await expectRepairRefused(ctx);
++    if (!prepared.ok) {
++      expect(prepared.code).toBe("RECOVERY_WRITE_MODE_REPAIR_AMBIGUOUS");
++    }
++  });
++
++  it("CORR01-S9 — no Attempt → repair REFUSED", async () => {
++    const boot = await bootRecoveryFixture("c01s9");
++    await seedFailedDocsWriteEpisode({
++      oa: boot.oa,
++      projectId: boot.seeded.projectId,
++      cycleInstanceId: boot.seeded.cycleInstanceId,
++      decisionId: boot.seedDecisionId,
++      targetPath: STUDYFLOW_TARGET,
++      sourceArtifactWriteMode: null,
++    });
++    const recoveryDecide = await proposeAndDecideGoverned(
++      boot.oa,
++      boot.seeded.projectId,
++    );
++    const seededInc = await seedIncompleteConfirmedSuccessor({
++      oa: boot.oa,
++      projectId: boot.seeded.projectId,
++      cycleInstanceId: boot.seeded.cycleInstanceId,
++      decisionId: recoveryDecide.decisionId,
++      targetPath: STUDYFLOW_TARGET,
++      identity: boot.identity,
++      omitAttempt: true,
++    });
++    const {
++      hasDeterministicPreStartWriteModeFailure,
++    } = await import(
++      "@/features/project-assistant/w2/repairIncompleteRecoveryDocsWriteSuccessor"
++    );
++    expect(
++      await hasDeterministicPreStartWriteModeFailure({
++        oa: boot.oa,
++        executionContractId: seededInc.incompleteId,
++      }),
++    ).toBe(false);
++    removeManagedTarget(boot.identity, STUDYFLOW_TARGET);
++    const context = await currentF2Context(boot.runtime, boot.seeded.projectId);
++    const prepared = await prepareDocsWriteRecoverySuccessorFromDecision({
++      oa: boot.oa,
++      projectId: boot.seeded.projectId,
++      decisionId: recoveryDecide.decisionId,
++      currentContext: context,
++      forceLocalAuthority: true,
++      boundedDocsWriteBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
++    });
++    expect(prepared.ok).toBe(false);
++    if (!prepared.ok) {
++      expect(prepared.code).toBe("RECOVERY_WRITE_MODE_REPAIR_AMBIGUOUS");
++    }
++    const old = await boot.oa.executionContractServices!.getExecutionContract.execute({
++      executionContractId: seededInc.incompleteId,
++    });
++    expect(old.ok && old.contract.status).toBe("confirmed");
++  });
++
++  it("CORR01-S10 — non-failed Attempt → repair REFUSED", async () => {
++    const ctx = await bootCorr01("c01s10");
++    const att = await loadPrimaryAttempt(ctx);
++    const now = ctx.oa.clock.nowIso();
++    await ctx.oa.executionAttemptServices!.attempts.update(
++      {
++        ...att,
++        status: "cancelled",
++        cancelledAt: now,
++        stopReason: undefined,
++        failedAt: undefined,
++        irreversibleEffectsPossible: false,
++        processDiagnostic: {
++          kind: "process_failure_diagnostic" as const,
++          realProcessInvoked: false,
++          boundaryProofMode: "cursor_real" as const,
++          exitCode: null,
++          stderrExcerpt: "cancelled pre-start",
++          authoritativeBusinessEvidence: false,
++        },
++        version: att.version + 1,
++      } as never,
++      att.version,
++    );
++    const {
++      hasDeterministicPreStartWriteModeFailure,
++    } = await import(
++      "@/features/project-assistant/w2/repairIncompleteRecoveryDocsWriteSuccessor"
++    );
++    expect(
++      await hasDeterministicPreStartWriteModeFailure({
++        oa: ctx.oa,
++        executionContractId: ctx.incompleteId,
++      }),
++    ).toBe(false);
++    const prepared = await expectRepairRefused(ctx);
++    if (!prepared.ok) {
++      expect(prepared.code).toBe("RECOVERY_WRITE_MODE_REPAIR_AMBIGUOUS");
++    }
++  });
++
 +  it("StudyFlow-equivalent existing incomplete state — reseal CREATE", async () => {
 +    const ctx = await bootCorr01("c01sf");
 +    removeManagedTarget(ctx.identity, STUDYFLOW_TARGET);
@@ -2576,62 +2589,4 @@ index 00000000..8c8e3431
 +    expect(prep.ok && prep.contract.status).toBe("superseded");
 +  });
 +});
-```
-
-### 17.5 w2Harness.ts
-```diff
-diff --git a/projects/sfia-studio/app/__tests__/project-assistant/w2Harness.ts b/projects/sfia-studio/app/__tests__/project-assistant/w2Harness.ts
-index 7645ee5e..f1e88ca3 100644
---- a/projects/sfia-studio/app/__tests__/project-assistant/w2Harness.ts
-+++ b/projects/sfia-studio/app/__tests__/project-assistant/w2Harness.ts
-@@ -257,6 +257,11 @@ export async function seedQualifiedProject(
-     });
-     expect(bound.ok).toBe(true);
-     if (!bound.ok) throw new Error("seed: setProjectRepositoryBinding failed");
-+    // Existence probes require the managed clone directory to exist (UNKNOWN ≠ ABSENT).
-+    ensureManagedRepoCloneSkeleton({
-+      managedRepoRootBase: process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV]!,
-+      identity: `acme/w2-harness-${suffix}`,
-+    });
-   }
-
-   return {
-```
-
-### 17.6 pjReproof05.executionEligibility.d0.test.ts
-```diff
-diff --git a/projects/sfia-studio/app/__tests__/project-assistant/pjReproof05.executionEligibility.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/pjReproof05.executionEligibility.d0.test.ts
-index 09096464..4f7bdd2f 100644
---- a/projects/sfia-studio/app/__tests__/project-assistant/pjReproof05.executionEligibility.d0.test.ts
-+++ b/projects/sfia-studio/app/__tests__/project-assistant/pjReproof05.executionEligibility.d0.test.ts
-@@ -288,7 +288,12 @@ describe("PJ-REPROOF-05 — VITEST env ≠ trusted launch authority", () => {
-     });
-     expect(unpinned.ok).toBe(false);
-     if (unpinned.ok) throw new Error("expected fail-closed without pin");
--    expect(unpinned.code).toBe("MANAGED_REPO_UNAVAILABLE");
-+    // Fail-closed without server pin: either managed clone absent, or clone
-+    // skeleton present but HEAD unreadable. Both refuse auto-pin from VITEST.
-+    expect([
-+      "MANAGED_REPO_UNAVAILABLE",
-+      "BASE_HEAD_SHA_UNRESOLVED",
-+    ]).toContain(unpinned.code);
-
-     const eligibilityWithoutPin = resolveProductExecutionEligibility({
-       constraints: ["PRODUCT_GOVERNED"],
-```
-
-### 17.7 importBoundaries.test.ts
-```diff
-diff --git a/projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts b/projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
-index d4a81c02..5a1ab2d7 100644
---- a/projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
-+++ b/projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
-@@ -124,6 +124,7 @@ describe("V2-A1 vertical-slice-runtime import boundaries", () => {
-       "features/project-assistant/w2/qualificationInputs.ts:@/lib/vertical-slice-runtime",
-       "features/project-assistant/w2/readCurrentGovernedExecutionContinuity.ts:@/lib/vertical-slice-runtime",
-       "features/project-assistant/w2/readRecoveryOwnedDecisionContinuity.ts:@/lib/vertical-slice-runtime",
-+      "features/project-assistant/w2/repairIncompleteRecoveryDocsWriteSuccessor.ts:@/lib/vertical-slice-runtime",
-       "features/project-assistant/w2/resolveCurrentNoraTrajectoryRecommendation.ts:@/lib/vertical-slice-runtime",
-       "features/project-assistant/w2/resolveDocsWriteArtifactAbsolutePath.ts:@/lib/vertical-slice-runtime/managedRepoRootBaseConfig",
-       "features/project-assistant/w2/resolvePostEvidenceRecoveryContext.ts:@/lib/vertical-slice-runtime",
 ```
