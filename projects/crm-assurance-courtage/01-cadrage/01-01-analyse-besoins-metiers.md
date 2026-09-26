@@ -7,8 +7,8 @@
 | **Source principale** | Brief pédagogique CRM (`PBNC_Fiche_projet_CRM_courtage_assurance`) — hors Git |
 | **Sources méthodologiques** | Guide Bloc 1 PBNC + maquette `PBNC_100_Maquette_presentation_bloc_1` — hors Git |
 | **Doctrine projet** | [`../00-intake/crm-assurance-courtage-operating-doctrine.md`](../00-intake/crm-assurance-courtage-operating-doctrine.md) |
-| **Cadre 1.1 retenu** | Business Model Canvas + portrait synthétique du cabinet (**ADOPTED** — décision Morris) |
-| **BPMN 1.1** | Processus cible pédagogique « prise de contact → souscription » (**ADOPTED** — décision Morris) |
+| **Cadre 1.1 retenu** | Business Model Canvas + portrait synthétique du cabinet (**ADOPTED** — matérialisé dans Miro) |
+| **BPMN 1.1** | Processus cible pédagogique « prise de contact → souscription » (**ADOPTED** — matérialisé dans Miro) |
 | **Architecture** | NOT DECIDED |
 | **Stack** | NOT DECIDED |
 
@@ -246,6 +246,10 @@ Le Business Model Canvas est le cadre méthodologique retenu pour synthétiser l
 | **8. Partenaires clés** | Non renseigné dans les sources fournies. Les assureurs en ligne cités comme **concurrence** ne sont pas traités comme partenaires |
 | **9. Structure de coûts** | Non renseignée dans les sources fournies |
 
+**Support visuel Miro :** [https://miro.com/app/board/uXjVHiWX64c=/?moveToWidget=3458764685039847893](https://miro.com/app/board/uXjVHiWX64c=/?moveToWidget=3458764685039847893)
+
+**Frame :** 1.1 — Business Model Canvas
+
 ---
 
 ## 10. BPMN — processus cible de la prise de contact à la souscription
@@ -322,13 +326,17 @@ Aucun gateway du type « devis accepté ? », « client éligible ? » ou « doc
 
 Ces formulations décrivent le **processus cible pédagogique** — elles n’affirment pas une organisation réelle non fournie.
 
-### 10.7 Représentation graphique future
+### 10.7 Représentation Miro
 
 La définition ci-dessus constitue la **source de contenu** du BPMN du livrable 1.1.
 
-Le support graphique final sera produit lors de la préparation PPTX / Miro. Il devra utiliser les conventions BPMN usuelles (Start Event, Tasks, Sequence Flows, End Event ; lanes uniquement si elles améliorent réellement la lisibilité).
+**Nature :** PROCESSUS CIBLE PÉDAGOGIQUE — **NON AS-IS OBSERVÉ**.
 
-Un flowchart Mermaid ne doit **pas** être présenté comme BPMN. Aucun faux BPMN décoratif n’est produit dans ce cycle : la source documentaire du modèle suffit ici.
+**Représentation Miro :** [https://miro.com/app/board/uXjVHiWX64c=/?moveToWidget=3458764685039847894](https://miro.com/app/board/uXjVHiWX64c=/?moveToWidget=3458764685039847894)
+
+**Frame :** 1.1 — BPMN — Prise de contact → souscription
+
+Le diagramme Miro est éditable (formes et connecteurs natifs). Il reprend exactement : 1 Start Event, 6 tâches, 1 End Event, flux linéaire, deux lanes (Prospect / futur client ; Courtier), sans gateway ni automatisme technique.
 
 ---
 
@@ -343,8 +351,8 @@ Un flowchart Mermaid ne doit **pas** être présenté comme BPMN. Aucun faux BPM
 | Objectifs métier | Explicités et justifiés à partir du brief |
 | Valeurs / différenciation | Proximité, personnalisation, transparence explicitées |
 | No-code | Pertinence préliminaire — **pas** un choix d’architecture |
-| BMC | Méthodologie **retenue** (ADOPTED) |
-| BPMN | **Retenu** (ADOPTED) — processus cible pédagogique « prise de contact → souscription » |
+| BMC | **ADOPTED** — matérialisé dans Miro |
+| BPMN | **ADOPTED** — matérialisé dans Miro (processus cible pédagogique « prise de contact → souscription ») |
 | Architecture | NOT DECIDED |
 | Stack | NOT DECIDED |
 
