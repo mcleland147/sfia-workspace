@@ -2,9 +2,14 @@
  * Checkpoint F / R8 — prepare + resolve a bounded docs_write successor EC from
  * a coherent RecoveryExecutionBinding after recovery trajectory HD.
  *
+ * RECOVERY-DOCS-WRITE-MODE-SEALING-01 — seals artifactWriteMode from CURRENT
+ * trusted managed-repo existence + durable same-deliverable Evidence before
+ * the successor becomes executable. Does NOT weaken execution-time TOCTOU.
+ *
  * Does NOT mutate HumanDecision. Does NOT Execute. Does NOT create Attempts.
  * Clears wrong pre-exec generic EC via Cancel (existing pre-exec lifecycle).
  */
+import path from "node:path";
 import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
 import type { F2ContextSnapshot } from "@/features/project-assistant/f2/types";
 import {
@@ -16,6 +21,12 @@ import {
   M4_BOUNDED_DOCS_WRITE_CAPABILITY,
   M4_BOUNDED_DOCS_WRITE_TARGET,
 } from "@/lib/oa/execution-attempt";
+import {
+  classifyArtifactWriteMode,
+  hasDurableSameArtifactEvidence,
+} from "@/lib/oa/project/domain/artifactTargetRouting";
+import { probeManagedRepoRelativePathExists } from "@/lib/oa/project/infrastructure/managedRepoPathFacts";
+import { projectExecutionContractInspectionDisclosure } from "@/lib/oa/execution-contract";
 import {
   launchContextAsContractInputs,
   resolveTrustedProductLaunchContext,
@@ -35,8 +46,128 @@ import {
   resolveRecoveryExecutionBinding,
   type RecoveryExecutionBinding,
 } from "./resolveRecoveryExecutionBinding";
+import {
+  classifyCurrentRecoveryDocsWriteSuccessor,
+  repairIncompleteRecoveryDocsWriteSuccessor,
+} from "./repairIncompleteRecoveryDocsWriteSuccessor";
 import type { AmendedExecutionContractDto } from "./types";
 
+export type SealRecoveryDocsWriteArtifactWriteModeResult =
+  | {
+      readonly ok: true;
+      readonly artifactWriteMode: "CREATE" | "UPDATE";
+      readonly targetExists: boolean;
+    }
+  | { readonly ok: false; readonly code: string; readonly message: string };
+
+/**
+ * Seal CREATE|UPDATE for a recovery docs_write successor from CURRENT
+ * managed-repo truth + durable Evidence. Historical source EC mode is ignored.
+ */
+export async function sealRecoveryDocsWriteArtifactWriteMode(input: {
+  readonly oa: RuntimeOaStack;
+  readonly projectId: string;
+  readonly targetPath: string;
+  readonly repositoryBindingIdentity: string;
+  readonly managedRepoRoot: string | null;
+}): Promise<SealRecoveryDocsWriteArtifactWriteModeResult> {
+  const targetPath = input.targetPath.trim();
+  if (!targetPath) {
+    return {
+      ok: false,
+      code: "TARGET_PATH_REQUIRED",
+      message:
+        "targetPath absent — mode écriture recovery impossible à sceller.",
+    };
+  }
+  const identity = input.repositoryBindingIdentity.trim();
+  if (!identity) {
+    return {
+      ok: false,
+      code: "REPOSITORY_BINDING_REQUIRED",
+      message:
+        "Identité dépôt projet absente — mode écriture recovery fail-closed.",
+    };
+  }
+  const managedRepoRoot = input.managedRepoRoot?.trim() || null;
+  if (!managedRepoRoot) {
+    return {
+      ok: false,
+      code: "ARTIFACT_WRITE_MODE_EXISTENCE_UNAVAILABLE",
+      message:
+        "Clone géré indisponible — fait d'existence UNKNOWN ≠ ABSENT; mode non scellable.",
+    };
+  }
+
+  const managedRepoRootBase = path.dirname(managedRepoRoot);
+  const targetExists = probeManagedRepoRelativePathExists({
+    identity,
+    repoRelativePath: targetPath,
+    managedRepoRootBase,
+  });
+  if (targetExists === null) {
+    return {
+      ok: false,
+      code: "ARTIFACT_WRITE_MODE_EXISTENCE_UNAVAILABLE",
+      message:
+        "Fait d'existence cible indisponible — mode écriture recovery fail-closed.",
+    };
+  }
+
+  let intentClearlySameDeliverable: boolean | undefined;
+  if (targetExists === true) {
+    if (!input.oa.evidenceReviewServices) {
+      return {
+        ok: false,
+        code: "EVIDENCE_SERVICES_UNAVAILABLE",
+        message:
+          "Services Evidence indisponibles — same-deliverable non prouvable; UPDATE refusé.",
+      };
+    }
+    let evidenceList: Awaited<
+      ReturnType<
+        typeof input.oa.evidenceReviewServices.repository.listByProject
+      >
+    >;
+    try {
+      evidenceList =
+        await input.oa.evidenceReviewServices.repository.listByProject(
+          input.projectId,
+        );
+    } catch {
+      return {
+        ok: false,
+        code: "EVIDENCE_READ_FAILED",
+        message:
+          "Lecture Evidence échouée — same-deliverable non prouvable; UPDATE refusé.",
+      };
+    }
+    intentClearlySameDeliverable = hasDurableSameArtifactEvidence({
+      projectId: input.projectId,
+      targetPath,
+      evidence: evidenceList,
+    });
+  }
+
+  const artifactWriteMode = classifyArtifactWriteMode({
+    targetExists,
+    intentClearlySameDeliverable,
+  });
+  if (artifactWriteMode !== "CREATE" && artifactWriteMode !== "UPDATE") {
+    return {
+      ok: false,
+      code: "ARTIFACT_WRITE_MODE_ASK",
+      message:
+        "Mode écriture ASK — successor recovery non exécutable (preuve same-deliverable insuffisante).",
+    };
+  }
+
+  return {
+    ok: true,
+    artifactWriteMode,
+    targetExists,
+  };
+}
 export const RECOVERY_WRONG_GENERIC_CANCEL_REASON =
   "w2_recovery_docs_write_reprepare — clear unconsumed generic fixture EC before docs_write successor" as const;
 
@@ -52,6 +183,8 @@ export type PrepareDocsWriteRecoverySuccessorResult =
       readonly executionPerformed: false;
       readonly attemptCreated: false;
       readonly confirmationRequired: true;
+      /** CORR-01 — set when an incomplete successor was superseded. */
+      readonly repairedFromExecutionContractId?: string;
     }
   | { readonly ok: false; readonly code: string; readonly message: string };
 
@@ -226,19 +359,36 @@ export async function prepareDocsWriteRecoverySuccessorFromDecision(input: {
 
   const prepareId = canonicalM3PrepareContractId(input.decisionId);
 
-  // Idempotent reuse: current docs_write already linked to this recovery HD.
+  // Classify current recovery docs_write successor before any resolve/reuse.
   const continuityBefore = await readCurrentGovernedExecutionContinuity({
     oa,
     projectId: input.projectId,
   });
-  if (
-    continuityBefore.ok &&
-    continuityBefore.kind === "active" &&
-    continuityBefore.decisionRef === input.decisionId &&
-    continuityBefore.contract.action === M4_BOUNDED_DOCS_WRITE_ACTION &&
-    continuityBefore.contract.target === M4_BOUNDED_DOCS_WRITE_TARGET
-  ) {
-    const c = continuityBefore.contract;
+  if (!continuityBefore.ok) {
+    return {
+      ok: false,
+      code: continuityBefore.code,
+      message: continuityBefore.message,
+    };
+  }
+  const classified = await classifyCurrentRecoveryDocsWriteSuccessor({
+    oa,
+    projectId: input.projectId,
+    decisionId: input.decisionId,
+    continuityDecisionRef:
+      continuityBefore.kind === "active" ? continuityBefore.decisionRef : null,
+    continuityContract:
+      continuityBefore.kind === "active" ? continuityBefore.contract : null,
+  });
+  if (classified.kind === "ta5_refused" || classified.kind === "refused") {
+    return {
+      ok: false,
+      code: classified.code,
+      message: classified.message,
+    };
+  }
+  if (classified.kind === "sealed_reuse") {
+    const c = classified.contract;
     return {
       ok: true,
       decisionId: input.decisionId,
@@ -256,10 +406,11 @@ export async function prepareDocsWriteRecoverySuccessorFromDecision(input: {
         stopConditions: [...c.stopConditions],
         requiredCapabilities: [...c.requiredCapabilities],
         reversibility: c.reversibility,
-        semanticFingerprint: c.semanticFingerprint,
-        supersedesExecutionContractId: null,
-        supersessionReason: null,
-        inspectionDisclosure: c.inspectionDisclosure,
+        semanticFingerprint: c.semanticFingerprint ?? "",
+        supersedesExecutionContractId: c.supersedesExecutionContractId ?? null,
+        supersessionReason: c.supersessionReason ?? null,
+        inspectionDisclosure:
+          projectExecutionContractInspectionDisclosure(c).disclosure,
       },
       cancelledWrongGenericContractId: null,
       reusedFromIdempotency: true,
@@ -268,6 +419,8 @@ export async function prepareDocsWriteRecoverySuccessorFromDecision(input: {
       confirmationRequired: true,
     };
   }
+  const incompleteRepairable =
+    classified.kind === "incomplete_repairable" ? classified.contract : null;
 
   const cleared = await cancelWrongGenericCurrentIfNeeded({
     oa,
@@ -294,8 +447,12 @@ export async function prepareDocsWriteRecoverySuccessorFromDecision(input: {
     });
 
   const profile = boundedDocsWriteM3ResolutionProfile();
-  const inputs = {
-    ...binding.inputs,
+  // Historical source artifactWriteMode is never authoritative for a retry.
+  const { artifactWriteMode: _staleSourceMode, ...clonedBusinessInputs } =
+    binding.inputs;
+  void _staleSourceMode;
+  const inputs: Record<string, unknown> = {
+    ...clonedBusinessInputs,
     targetPath: binding.targetPath,
   };
 
@@ -431,18 +588,53 @@ export async function prepareDocsWriteRecoverySuccessorFromDecision(input: {
     };
   }
 
+  const sealedMode = await sealRecoveryDocsWriteArtifactWriteMode({
+    oa,
+    projectId: input.projectId,
+    targetPath: binding.targetPath,
+    repositoryBindingIdentity: launch.context.repositoryBindingIdentity,
+    managedRepoRoot: launch.context.managedRepoRoot,
+  });
+  if (!sealedMode.ok) {
+    return {
+      ok: false,
+      code: sealedMode.code,
+      message: sealedMode.message,
+    };
+  }
+
+  const sealedInputs: Record<string, unknown> = {
+    ...(profile.inputs ?? {}),
+    ...inputs,
+    ...trustedInputs,
+    baseHeadSha: sha,
+    artifactWriteMode: sealedMode.artifactWriteMode,
+    ...(trustedLaunchPinned
+      ? { trustedLaunchContextPinnedAtPrepare: "true" }
+      : {}),
+  };
+
+  // CORR-01 CLASS C — incomplete confirmed/pre-exec successor: reseal via
+  // immutable supersession. Do NOT call resolveM3 (would silently reuse).
+  if (incompleteRepairable) {
+    return repairIncompleteRecoveryDocsWriteSuccessor({
+      oa,
+      projectId: input.projectId,
+      decisionId: input.decisionId,
+      incomplete: incompleteRepairable,
+      binding,
+      sealedMode: sealedMode.artifactWriteMode,
+      sealedInputs,
+      evidenceRequirements: evidenceFromSource,
+      authorityEvidenceId: authority.evidenceId,
+      cancelledWrongGenericContractId: cleared.cancelledId,
+    });
+  }
+
   const resolution = {
     ...profile,
     evidenceRequirements: evidenceFromSource,
-    inputs: {
-      ...(profile.inputs ?? {}),
-      ...inputs,
-      ...trustedInputs,
-      baseHeadSha: sha,
-      ...(trustedLaunchPinned
-        ? { trustedLaunchContextPinnedAtPrepare: "true" }
-        : {}),
-    },
+    inputs: sealedInputs,
   };
 
   const resolved = await resolveM3ExecutionContract({

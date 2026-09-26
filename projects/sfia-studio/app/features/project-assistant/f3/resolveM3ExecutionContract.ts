@@ -377,6 +377,14 @@ function successorMatchesResolution(
     resolution.evidenceRequirements === undefined ||
     [...contract.evidenceRequirements].join("\0") ===
       [...resolution.evidenceRequirements].join("\0");
+  // CORR-01 — execution-significant write mode must not drift silently.
+  // When resolution seals CREATE|UPDATE, an absent/ASK/other mode is NOT equivalent.
+  const wantMode = resolution.inputs?.artifactWriteMode;
+  const haveMode = contract.inputs?.artifactWriteMode;
+  const writeModeOk =
+    wantMode !== "CREATE" && wantMode !== "UPDATE"
+      ? true
+      : haveMode === wantMode;
   return (
     contract.action === resolution.action.trim() &&
     contract.target === resolution.target.trim() &&
@@ -386,6 +394,7 @@ function successorMatchesResolution(
     [...contract.constraints].join("\0") === constraints.join("\0") &&
     [...contract.stopConditions].join("\0") === stopConditions.join("\0") &&
     evidenceOk &&
+    writeModeOk &&
     (resolution.executionWindowClass === undefined ||
       contract.executionWindowClass === resolution.executionWindowClass)
   );
