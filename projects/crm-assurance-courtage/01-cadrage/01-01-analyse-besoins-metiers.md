@@ -8,6 +8,7 @@
 | **Sources méthodologiques** | Guide Bloc 1 PBNC + maquette `PBNC_100_Maquette_presentation_bloc_1` — hors Git |
 | **Doctrine projet** | [`../00-intake/crm-assurance-courtage-operating-doctrine.md`](../00-intake/crm-assurance-courtage-operating-doctrine.md) |
 | **Cadre 1.1 retenu** | Business Model Canvas + portrait synthétique du cabinet (**ADOPTED** — décision Morris) |
+| **BPMN 1.1** | Processus cible pédagogique « prise de contact → souscription » (**ADOPTED** — décision Morris) |
 | **Architecture** | NOT DECIDED |
 | **Stack** | NOT DECIDED |
 
@@ -247,11 +248,87 @@ Le Business Model Canvas est le cadre méthodologique retenu pour synthétiser l
 
 ---
 
-## 10. Processus / BPMN
+## 10. BPMN — processus cible de la prise de contact à la souscription
 
-Le scénario permet de représenter un **processus cible pédagogique de haut niveau** (§4).
+Le BPMN ci-dessous formalise un **processus cible pédagogique** construit exclusivement à partir des étapes fournies par le brief. Il ne prétend **pas** représenter un processus AS-IS observé dans un cabinet réel.
 
-Le BPMN reste **facultatif**. Aucun BPMN n’est créé dans ce cycle. Un focus sur un processus cible pédagogique (ex. prospect → devis → RDV → proposition → souscription) pourra être ajouté ultérieurement s’il apporte de la valeur au rapport / support.
+**Statut :** ADOPTED (décision Morris) — composante du livrable 1.1.
+
+La vue globale du cycle métier (y compris gestion du contrat, renouvellement, résiliation, documents, sinistres, pilotage) reste en **§4**. Le §10 détaille uniquement le focus BPMN choisi.
+
+### 10.1 Finalité du processus
+
+Le processus illustre le **parcours commercial principal** qui transforme une première prise de contact en souscription d’un contrat, tout en conservant les principes de **proximité** et de **personnalisation** décrits dans le brief. Cette finalité reste métier / pédagogique — elle ne constitue pas une architecture CRM.
+
+### 10.2 Périmètre
+
+| Borne | Contenu |
+|-------|---------|
+| **Début** | Première prise de contact du prospect |
+| **Fin** | Souscription du contrat |
+| **Inclus** | Prise de contact ; devis ; relance ; rendez-vous ; compréhension du besoin ; proposition personnalisée ; souscription |
+| **Hors focus de CE BPMN** | Gestion du contrat après souscription ; renouvellement ; résiliation ; sinistre ; pilotage commercial |
+
+Ces éléments hors focus restent dans le **périmètre global** du CRM (§4) ; ils ne sont pas intégrés ici pour conserver un schéma lisible.
+
+### 10.3 Participants
+
+Acteurs strictement supportés par le brief pour ce processus opérationnel :
+
+| Participant | Rôle dans le processus cible |
+|-------------|------------------------------|
+| Prospect / futur client | Entre en relation ; participe au RDV ; exprime ses besoins ; reçoit une proposition ; aboutit à la souscription |
+| Courtier | Conduit le parcours commercial ; gère devis / relance / RDV ; prend en compte le besoin ; prépare une proposition personnalisée ; accompagne la souscription |
+
+Aucun autre rôle (back-office, manager, assureur partenaire, conformité, équipe sinistre, etc.) n’est inventé. Le directeur n’est pas représenté dans ce processus opérationnel.
+
+### 10.4 Éléments BPMN
+
+| Type BPMN | Libellé | Participant | Justification |
+|-----------|---------|-------------|---------------|
+| Start Event | Première prise de contact | Prospect / futur client | Étape explicite du brief |
+| Task | Préparer / transmettre un devis | Courtier | Étape « devis » du brief |
+| Task | Effectuer une relance | Courtier | Étape « relances » du brief |
+| Task | Réaliser le rendez-vous | Courtier + Prospect | Étape « rendez-vous » ; proximité |
+| Task | Comprendre le besoin du prospect | Courtier + Prospect | Besoin discuté en RDV (personnalisation) |
+| Task | Préparer une proposition personnalisée | Courtier | Offres selon profil / besoins discutés |
+| Task | Souscrire le contrat | Courtier + Prospect / futur client | Étape « souscription » du brief |
+| End Event | Contrat souscrit | — | Fin du focus BPMN |
+
+Aucun mécanisme technique n’est introduit (envoi automatique, notification système, API, signature électronique, paiement, contrôle réglementaire automatisé).
+
+### 10.5 Séquence du processus
+
+Enchaînement **linéaire** — le brief ne justifie aucun gateway métier :
+
+```text
+Start Event — Première prise de contact
+  → Préparer / transmettre un devis
+  → Effectuer une relance
+  → Réaliser le rendez-vous
+  → Comprendre le besoin du prospect
+  → Préparer une proposition personnalisée
+  → Souscrire le contrat
+  → End Event — Contrat souscrit
+```
+
+Aucun gateway du type « devis accepté ? », « client éligible ? » ou « documents complets ? » n’est inventé.
+
+### 10.6 Lecture par participant
+
+**Prospect / futur client :** entre en relation avec le cabinet ; participe au rendez-vous ; exprime ses besoins ; reçoit une proposition ; arrive à la souscription dans le processus cible.
+
+**Courtier :** conduit le parcours commercial décrit dans le brief ; gère le devis / la relance / le rendez-vous ; prend en compte le besoin ; prépare une proposition personnalisée ; accompagne la souscription.
+
+Ces formulations décrivent le **processus cible pédagogique** — elles n’affirment pas une organisation réelle non fournie.
+
+### 10.7 Représentation graphique future
+
+La définition ci-dessus constitue la **source de contenu** du BPMN du livrable 1.1.
+
+Le support graphique final sera produit lors de la préparation PPTX / Miro. Il devra utiliser les conventions BPMN usuelles (Start Event, Tasks, Sequence Flows, End Event ; lanes uniquement si elles améliorent réellement la lisibilité).
+
+Un flowchart Mermaid ne doit **pas** être présenté comme BPMN. Aucun faux BPMN décoratif n’est produit dans ce cycle : la source documentaire du modèle suffit ici.
 
 ---
 
@@ -261,13 +338,13 @@ Le BPMN reste **facultatif**. Aucun BPMN n’est créé dans ce cycle. Un focus 
 |-------|------|
 | Contexte | Compris à partir du brief |
 | Portrait synthétique | Établi (§3) |
-| Processus | Cible pédagogique identifiée |
+| Processus globaux | Vue métier cible (§4) |
 | Enjeux | Identifiés (déduits du brief) |
 | Objectifs métier | Explicités et justifiés à partir du brief |
 | Valeurs / différenciation | Proximité, personnalisation, transparence explicitées |
 | No-code | Pertinence préliminaire — **pas** un choix d’architecture |
 | BMC | Méthodologie **retenue** (ADOPTED) |
-| BPMN | Facultatif |
+| BPMN | **Retenu** (ADOPTED) — processus cible pédagogique « prise de contact → souscription » |
 | Architecture | NOT DECIDED |
 | Stack | NOT DECIDED |
 
