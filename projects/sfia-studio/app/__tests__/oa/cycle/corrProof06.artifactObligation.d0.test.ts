@@ -709,6 +709,13 @@ describe("CORR-PROOF-06 — Artifact obligation selection & recovery", () => {
           }
         : null,
       activeCycleWorkItems: { state: "NONE" as const, items: [] },
+      trajectoryDecisionSupport: {
+        state: "NONE" as const,
+        optionRefs: [],
+        optionLabels: [],
+        currentNoraRecommendedOptionRef: null,
+        currentRecommendationSource: null,
+      },
       decisions: {
         state: "PRESENT" as const,
         items: input.decisions,

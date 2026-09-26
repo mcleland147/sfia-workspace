@@ -90,7 +90,13 @@ export const PRE_CYCLE_ROUTING_ASSESSMENT_READY_TO_EMIT: PreCycleRoutingAssessme
 export const NORA_ACTIVE_CYCLE_WORK_ITEM_SCHEMA = {
   type: "object" as const,
   additionalProperties: false as const,
-  required: ["type", "statement", "confidence", "blocking"],
+  required: [
+    "type",
+    "statement",
+    "confidence",
+    "blocking",
+    "recommendedOptionRef",
+  ],
   properties: {
     type: {
       type: "string" as const,
@@ -114,6 +120,15 @@ export const NORA_ACTIVE_CYCLE_WORK_ITEM_SCHEMA = {
       ],
     },
     blocking: { anyOf: [{ type: "boolean" as const }, { type: "null" as const }] },
+    /**
+     * PILOT-NORA-STUDIO-SEMANTIC-CONTINUITY-01 — canonical Option identity when
+     * type=Recommendation targets a server-derived trajectory/proposal Option.
+     * Structured field only (never parsed from statement). Null for non-option
+     * recommendations. Recommendation ≠ HumanDecision; never promotes trajectory.
+     */
+    recommendedOptionRef: {
+      anyOf: [{ type: "string" as const }, { type: "null" as const }],
+    },
   },
 } as const;
 
@@ -140,6 +155,11 @@ export type NoraActiveCycleWorkItem = {
   statement: string;
   confidence: "high" | "medium" | "low" | "none" | null;
   blocking: boolean | null;
+  /**
+   * Canonical Option ref when this Recommendation targets a server-derived Option.
+   * Null / omitted for non-trajectory Recommendations. Never authority Alone.
+   */
+  recommendedOptionRef?: string | null;
 };
 
 export type NoraActiveCycleWorkOutput = {
@@ -431,6 +451,19 @@ const ACTIVE_CYCLE_WORK_CONFIDENCES = new Set([
   "none",
 ]);
 
+/** Normalize structured recommendedOptionRef (never from statement prose). */
+export function normalizeActiveCycleRecommendedOptionRef(
+  value: unknown,
+): string | null {
+  if (value === null || value === undefined) return null;
+  if (typeof value !== "string") return null;
+  const trimmed = value.trim();
+  if (!trimmed) return null;
+  // Fail-closed shape: SFIA option refs only (no free-form labels).
+  if (!/^opt:[a-z0-9][a-z0-9:_-]*$/i.test(trimmed)) return null;
+  return trimmed;
+}
+
 export function isNoraActiveCycleWorkItem(
   value: unknown,
 ): value is NoraActiveCycleWorkItem {
@@ -448,6 +481,17 @@ export function isNoraActiveCycleWorkItem(
     return false;
   }
   if (o.blocking !== null && typeof o.blocking !== "boolean") return false;
+  // recommendedOptionRef: absent (legacy) OR null OR valid opt: ref.
+  // Invalid non-null strings fail closed (reject item).
+  if (
+    "recommendedOptionRef" in o &&
+    o.recommendedOptionRef !== null &&
+    o.recommendedOptionRef !== undefined
+  ) {
+    if (normalizeActiveCycleRecommendedOptionRef(o.recommendedOptionRef) === null) {
+      return false;
+    }
+  }
   return true;
 }
 
@@ -764,14 +808,28 @@ export function applyConversationGuidanceCoherence(input: {
 export function composePilotFacingAssistantText(
   narrative: string,
   guidance: ConversationGuidance | null | undefined,
+  structuredRecommendation?: {
+    readonly optionLabel: string;
+    readonly recommendedOptionRef: string;
+  } | null,
 ): string {
   const n = narrative.trim();
-  if (!guidance) return n;
-  const statement = guidance.statement.trim();
-  if (!statement) return n;
-  if (n.includes(statement)) return n;
-  if (!n) return statement;
-  return `${n}\n\n${statement}`;
+  let out = n;
+  if (guidance) {
+    const statement = guidance.statement.trim();
+    if (statement) {
+      if (!out) out = statement;
+      else if (!out.includes(statement)) out = `${out}\n\n${statement}`;
+    }
+  }
+  if (structuredRecommendation?.optionLabel?.trim()) {
+    const label = structuredRecommendation.optionLabel.trim();
+    const block = `Recommandation structurée (pas une décision) : « ${label} ».`;
+    if (!out.includes(label) && !out.includes(block)) {
+      out = out ? `${out}\n\n${block}` : block;
+    }
+  }
+  return out;
 }
 
 /**

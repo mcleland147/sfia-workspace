@@ -457,6 +457,13 @@ describe("CORR-PROOF-04 studioCognitiveContext composer", () => {
         state: "NONE" as const,
         items: [],
       },
+      trajectoryDecisionSupport: {
+        state: "NONE" as const,
+        optionRefs: [],
+        optionLabels: [],
+        currentNoraRecommendedOptionRef: null,
+        currentRecommendationSource: null,
+      },
       decisions: {
         state: "PRESENT" as const,
         items: [
