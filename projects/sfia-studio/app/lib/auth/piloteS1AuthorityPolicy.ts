@@ -11,6 +11,12 @@
 
 import type { AuthorityLevel } from "@/lib/oa/decision";
 import type { AuthorityClass } from "@/lib/oa/execution-contract";
+import {
+  STUDIO_CURSOR_GENERALIST_ACTION,
+  STUDIO_CURSOR_GENERALIST_CAPABILITY,
+  STUDIO_CURSOR_GENERALIST_SCOPE,
+  STUDIO_CURSOR_GENERALIST_TARGET,
+} from "@/lib/oa/execution-contract/domain/generalistExecutionSurface";
 import { computeInspectionFingerprint } from "@/lib/oa/execution-contract/domain/inspectionAttestation";
 import {
   actionForEffectClass,
@@ -128,6 +134,40 @@ function isAuthorityClass(value: unknown): value is AuthorityClass {
 
 function isExecutionContractId(value: unknown): value is string {
   return typeof value === "string" && /^xct:[A-Za-z0-9][A-Za-z0-9:_\-.]*$/.test(value);
+}
+
+/**
+ * Canonical generic Product EC surface (NELC / PR #527).
+ * Distinct from internal effect-class ActionPolicy facts (product:read, …).
+ * requiredCapabilities must be EXACTLY the single generalist capability —
+ * `.includes` alone would accept hostile capability widening.
+ */
+function isCanonicalGenericProductSurface(contract: {
+  readonly action: string;
+  readonly target: string;
+  readonly scope: string;
+  readonly requiredCapabilities: readonly string[];
+}): boolean {
+  return (
+    contract.action === STUDIO_CURSOR_GENERALIST_ACTION &&
+    contract.target === STUDIO_CURSOR_GENERALIST_TARGET &&
+    contract.scope === STUDIO_CURSOR_GENERALIST_SCOPE &&
+    contract.requiredCapabilities.length === 1 &&
+    contract.requiredCapabilities[0] === STUDIO_CURSOR_GENERALIST_CAPABILITY
+  );
+}
+
+function sealedInputString(
+  inputs: AuthS1GovernedContractContext["inputs"],
+  key: "internalEffectAction" | "effectClass",
+): string | null {
+  if (inputs == null || typeof inputs !== "object" || Array.isArray(inputs)) {
+    return null;
+  }
+  const value = (inputs as Record<string, unknown>)[key];
+  if (typeof value !== "string") return null;
+  const trimmed = value.trim();
+  return trimmed.length > 0 ? trimmed : null;
 }
 
 /**
@@ -282,13 +322,68 @@ export function resolvePiloteS1AuthorityFromGovernedContract(input: {
     };
   }
 
-  const expectedAction = actionForEffectClass(governedEffects.effectClass);
-  if (expectedAction !== action) {
+  // Product semantic WHAT vs internal enforcement HOW:
+  // - exact generic EC: validate sealed inputs.effectClass + internalEffectAction
+  //   against governedEffects.effectClass (authority source remains governed).
+  // - legacy effect-scoped EC: contract.action === actionForEffectClass(…).
+  // - anything else: fail-closed.
+  // Authority projection always uses governedEffects.effectClass — never inputs.
+  const expectedInternalAction = actionForEffectClass(
+    governedEffects.effectClass,
+  );
+  if (isCanonicalGenericProductSurface({
+    action,
+    target: contractTarget,
+    scope: contractScope,
+    requiredCapabilities: contract.requiredCapabilities,
+  })) {
+    const sealedEffectClass = sealedInputString(contract.inputs, "effectClass");
+    const sealedInternal = sealedInputString(
+      contract.inputs,
+      "internalEffectAction",
+    );
+    if (sealedEffectClass == null) {
+      return {
+        ok: false,
+        code: CONTRACT_BINDING_MISMATCH,
+        message:
+          "Generic ExecutionContract requires sealed inputs.effectClass " +
+          "coherent with governed effectClass for Auth S1 binding.",
+      };
+    }
+    if (sealedInternal == null) {
+      return {
+        ok: false,
+        code: CONTRACT_BINDING_MISMATCH,
+        message:
+          "Generic ExecutionContract requires sealed inputs.internalEffectAction " +
+          "coherent with governed effectClass for Auth S1 binding.",
+      };
+    }
+    if (sealedEffectClass !== governedEffects.effectClass) {
+      return {
+        ok: false,
+        code: CONTRACT_BINDING_MISMATCH,
+        message:
+          `Sealed inputs.effectClass (${sealedEffectClass}) does not match ` +
+          `governed effectClass (${governedEffects.effectClass}).`,
+      };
+    }
+    if (sealedInternal !== expectedInternalAction) {
+      return {
+        ok: false,
+        code: CONTRACT_BINDING_MISMATCH,
+        message:
+          `Internal effect action (${sealedInternal}) does not match ` +
+          `effect class action (${expectedInternalAction}).`,
+      };
+    }
+  } else if (expectedInternalAction !== action) {
     return {
       ok: false,
       code: CONTRACT_BINDING_MISMATCH,
       message:
-        `Effect class action (${expectedAction}) does not match contract.action (${action}).`,
+        `Effect class action (${expectedInternalAction}) does not match contract.action (${action}).`,
     };
   }
 
