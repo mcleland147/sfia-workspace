@@ -1,13 +1,13 @@
-# RECOVERY-OWNERSHIP-PRESTART-FAILURE-01 — CORR-01 FULL Review Pack
-## Absolute fail-closed + restart continuity
+# RECOVERY-OWNERSHIP-PRESTART-FAILURE-01 — CORR-02 FULL Review Pack
+## Rehydration stability + durable Decision lineage integrity
 ## Cycle 8 — Delivery / implémentation · CRITICAL
 
-Generated: 2026-09-26T11:27:15Z
+Generated: 2026-09-26T11:36:08Z
 Macro: RECOVERY-OWNERSHIP-PRESTART-FAILURE-01
-Correction: CORR-01 — ABSOLUTE FAIL-CLOSED + RESTART CONTINUITY
+Correction: CORR-02 — REHYDRATION STABILITY + DURABLE DECISION LINEAGE INTEGRITY
 Cycle: 8 — Delivery / implémentation
 Profile: CRITICAL
-Morris GO: construction GO remains consumed; CORR-01 in authorized scope.
+Morris GO: construction GO remains consumed; CORR-02 bounded inside macro.
 Project commit/push/PR/merge: **NOT performed / NOT authorized**
 
 ---
@@ -20,237 +20,215 @@ Project commit/push/PR/merge: **NOT performed / NOT authorized**
 | HEAD / origin/main | `7c184b9444d0b3f2dadc62e7ae9e9178e2c5c17d` |
 | Main moved | NO |
 | Unrelated Product dirt | NONE |
+| Retained | macro + CORR-01 local changes |
 | Project commit | **NONE** — LOCAL / NOT COMMITTED / NOT PUSHED |
 
-Prior handoff (pre-CORR): commit `e250fc37…` / blob `8c816980…`
+Prior CORR-01 handoff tip: `112a6a3e…` / blob `2d79ed8a…`
 
 ---
 
-## 2. C1 ROOT CAUSE
+## 2. C3 LOOP ANALYSIS
 
-Post-macro routing blocked generic PREPARE only for:
-- binding present, OR
-- `recoveryContextPresent===true`, OR
-- `ok===false` **and** code === `DURABLE_EXECUTION_BINDING_INSUFFICIENT`
+Risk: `rehydrateRecoveryOwnedDecisionContinuity` depended on `decision` and called `setDecision(new DTO)` on every owned result. A real Server Action returns a freshly serialized object each call → identity change → callback recreate → effect re-fire → continuous recovery reads / setDecision cycle.
 
-All other `ok===false` codes (EPISTEMIC_READ_FAILED, OA_STACK_UNAVAILABLE, …) and malformed/undefined results **fell through to generic RC-06 PREPARE**.
-
-Principle violated: **UNKNOWN ≠ ABSENT**.
+Invariant required: **RECOVERY REHYDRATION IS ONE-WAY RESTORATION, NOT CONTINUOUS SYNC.**
 
 ---
 
-## 3. C1 ABSOLUTE FAIL-CLOSED ROUTING
+## 3. C3 LOOP-PREVENTION MECHANISM
 
-Generic `w2PrepareExecutionContractAction` is authorized **ONLY** when:
+Minimal preferred behavior implemented:
 
 ```
-bindingResult is object
-AND bindingResult.ok === true
-AND bindingResult.binding === null
-AND bindingResult.recoveryContextPresent === false
+if (decision != null) {
+  return; // restart seam no longer owns state
+}
 ```
 
-Ordered stops before PREPARE:
+Rationale:
+- post-click path already sets decision;
+- hard reload starts with `decision == null` → restore once;
+- after restore, restart seam exits without rewrite;
+- no polling / no new sync infrastructure.
 
-1. invalid / missing / non-object result → bounded error → return
-2. `ok === false` (any code) → `result.message` → return
-3. `binding.kind === post_evidence_recovery_execution` → setRecoveryBinding → return
-4. `recoveryContextPresent === true && binding === null` → fail-closed → return
-5. ONLY explicit no-recovery triple → RC-06 generic PREPARE
-
-Removed code-specific exception for `DURABLE_EXECUTION_BINDING_INSUFFICIENT`.
-
-Also hardened the restart `loadBinding` effect against malformed results (no unhandled rejection).
+Effect may re-run once after restore (callback identity), then early-returns — finite/stable.
 
 ---
 
-## 4. C1 TESTS PROVING READ-ERROR PATHS BLOCK PREPARE
+## 4. C3 CLONE-PER-CALL UI PROOF
 
-| ID | Mock result | Assertion |
-|----|-------------|-----------|
-| C1-A | `ok:false` / `EPISTEMIC_READ_FAILED` / context=false | HD visible · error · **prepareContractMock NOT called** · no EC |
-| C1-B | `ok:false` / `OA_STACK_UNAVAILABLE` / context=false | same |
-| C1-C | `undefined` malformed | same · UNKNOWN≠absent copy |
-| PRESTART-01 | `ok:true` / binding=null / context=true | fail-closed · no PREPARE |
-| R8 | binding present | recovery path · no generic PREPARE |
-| RC-06 | `ok:true` / binding=null / context=false | **generic PREPARE still works** |
+Test: `CORR-02 C3 — clone-per-call restart is one-way / finite`
+
+- `mockImplementation(async () => structuredClone(ownedTemplate))`
+- binding load also clone-per-call (durable loadBinding after setDecision)
+- Asserts: decision + binding + CTA · no prepareContract · no prepareRecovery · call count ≤ 3 · **stable after settle**
 
 ---
 
-## 5. C2 RESTART ANALYSIS
+## 5. C4 DURABLE LINEAGE INVARIANTS
 
-Gap: after recovery GOVERNED HumanDecision and **before** successor PREPARE, there is no pre-execution EC. `readCurrentGovernedExecutionContinuity` returns `kind=none` → `continuityDecisionRef=null` → remount lost the recovery HD and could not show recovery CTA.
+`assertGovernedRecoveryLineage` + `readRecoveryOwnedDecisionContinuity` enforce:
 
-### Durable source (no new store)
+| # | Invariant |
+|---|-----------|
+| A | `trajectory.decidedByDecisionRef === decision.decisionId` |
+| B | `trajectory.decidedOptionRef === GOVERNED_OPTION_REF` |
+| C | `decision.selectedOptionId === GOVERNED_OPTION_REF` |
+| D/E | DecisionBasis exists · `sourceType === trajectory_option` |
+| F | `basis.projectId === projectId` |
+| G | `basis.trajectoryContext` exists |
+| H | `ctx.trajectoryId === trajectory.trajectoryId` |
+| I | `ctx.selectedOptionRef === GOVERNED` |
+| J | `ctx.optionRefs` contains GOVERNED |
+| K | trajectory status `validated\|active` |
+| + | `ctx.selectedOptionRef === selectedOptionId` |
+| + | candidate row same trajectoryId |
 
-```
-current ProjectTrajectory
-  → decidedByDecisionRef
-  → HumanDecision (accepted)
-  → DecisionBasis sourceType=trajectory_option
-  → selectedOptionId = GOVERNED_OPTION_REF
-  → resolveRecoveryExecutionBinding(decisionId)
-```
+### Version-coherence rule
 
-New helper: `readRecoveryOwnedDecisionContinuity.ts`
-Action: `w2ReadRecoveryOwnedDecisionContinuityAction` (projectId only; client no authority)
+Derived from `promoteDecidedTrajectory`: promotion mutates the candidate **in place** (same version, status → validated/active). Therefore:
 
-| Outcome | Meaning |
-|---------|---------|
-| `kind=none` | tip absent / not GOVERNED / no recovery subject |
-| `kind=owned` | decision + trajectory + binding restored |
-| `ok=false` | tip claims recovery ownership but cannot reconstruct → **FAIL CLOSED** |
+`basis.trajectoryContext.candidateVersion === trajectory.version`
 
-TrajectorySurface: after EC continuity, sequentially awaits recovery-owned continuity so `kind=none` cannot race-erase the tip HD.
+Do **not** invent a later tip version. Cross-check via `getTrajectoryVersion(candidateVersion)` same `trajectoryId`.
 
-Do **not** use historical source EC `decisionRefs` as the recovery HD authority.
+Mismatch / corrupted authority → `ok=false` / `RECOVERY_DECISION_CONTINUITY_FAILED` (never `kind=none`, never synthetic HD, never PREPARE).
 
----
-
-## 6. C2 HARD-RELOAD PROOF
-
-### Durable Product integration
-
-`CORR-01 C2 — HD then hard reload recovers recovery tip + binding; no successor EC`
-
-Sequence:
-1. CLASS 2 confirmed EC + failed pre-start Attempt + Evidence/RB/W3C
-2. recovery OptionSet → GOVERNED HD
-3. EC count unchanged; no draft/proposed/confirmation_required successor
-4. `readRecoveryOwnedDecisionContinuity` → `kind=owned`
-5. decisionId = recovery tip · `sourceStatus=confirmed` · binding present
-
-### UI remount
-
-`CORR-01 C2 — hard remount recovers recovery HD + binding; no OptionSet / no auto-PREPARE`
-
-- recovery CTA visible
-- decision restored
-- no OptionSet re-decide
-- prepareContractMock / prepareRecoveryDocsWriteMock **NOT** called
+Non-GOVERNED tip with trajectory_option basis → `kind=none` (not recovery-owned path). Missing HD → fail-closed preserved.
 
 ---
 
-## 7. NO SEMANTIC REGRESSION
+## 6. C4 NEGATIVE TESTS
 
-| Class | Status |
-|-------|--------|
-| CLASS 1 EC failed | preserved |
-| CLASS 2 EC confirmed + pre-start failed Attempt | preserved |
-| `sourceStatus` honest confirmed/failed | preserved |
-| StartExecution / StatusWriter | **untouched** |
-| StudyFlow data / managed clone | **NOT MUTATED** |
+File: `recoveryOwnership.corr02.lineage.d0.test.ts` (9 tests)
 
-Optional REAL_WORKSPACE_INVALID StartExecution via RealExecutionLaunchPort: **deferred** (existing TestExecutionAdapter reject + StudyFlow-equiv stopReason already cover semantics; M4 REAL harness not cheap without widening).
-
----
-
-## 8. FILES MODIFIED (CORR-01 delta + retained macro)
-
-### Runtime NEW
-- `w2/isConfirmedPreStartRejectionRecoverySource.ts` (macro)
-- `w2/readRecoveryOwnedDecisionContinuity.ts` (**CORR-01 C2**)
-
-### Runtime ADAPT
-- `w2/resolveRecoveryExecutionBinding.ts` (macro CLASS 2 + recoveryContextPresent)
-- `w2/actions.ts` (binding action + recovery-owned continuity action)
-- `TrajectorySurface.tsx` (absolute fail-closed + C2 rehydrate)
-
-### Tests
-- `recoveryOwnership.prestartFailure.d0.test.ts`
-- `recoveryOwnership.prestartFailure.integration.d0.test.ts` (+ C2 durable)
-- `trajectorySurface.ui.test.tsx` (PRESTART-01 + C1 A/B/C + C2 remount)
-- UI mock seams for new action (postExecution / automaticResume / preCycle / productJourney)
-- `importBoundaries.test.ts` allowlist entry
+1. decidedOptionRef ≠ GOVERNED → fail
+2. selectedOptionId ≠ decidedOptionRef / ≠ GOVERNED → fail
+3. trajectoryContext missing → fail
+4. trajectoryId mismatch → fail
+5. selectedOptionRef mismatch → fail
+6. optionRefs without GOVERNED → fail
+7. (+ candidateVersion ≠ tip · status not validated|active)
+8. positive coherent lineage → null
+9. missing HD covered by integration reader path
 
 ---
 
-## 9. TARGETED VALIDATION
+## 7. C1 REGRESSION — STILL CLOSED
 
-5 files · **77 passed** (unit 11 + integration 5 + R8 6 + UI incl. CORR-01)
+Generic PREPARE ONLY when:
 
-Covers: CLASS 1 · CLASS 2 · StudyFlow-equiv · known recovery ± binding · read ERROR · OA unavailable · malformed · RC-06 no-recovery · HD hard reload · binding after reload · zero auto successor PREPARE.
+`ok===true && binding===null && recoveryContextPresent===false`
+
+Retained UI proofs: EPISTEMIC_READ_FAILED · OA_STACK_UNAVAILABLE · undefined · known recovery null · binding present · RC-06 no-recovery.
 
 ---
 
-## 10. FULL VALIDATION
+## 8. POSITIVE RESTART + CLASS COMPAT
+
+- CLASS 1 / CLASS 2 / StudyFlow-equiv binding preserved
+- CORR-01 C2 durable: HD → no successor EC → reload → owned + `sourceStatus=confirmed`
+- CORR-02 C3 clone-per-call finite restart
+
+---
+
+## 9. AUTHORITY DTO RESERVE
+
+**PRE-EXISTING DOCTRINAL PRESENTATION DEBT — RUNTIME PILOT HD DTO AUTHORITY LABEL**
+
+`TrajectoryDecisionRecordDto.authorityClass = "morris"` unchanged.
+Not the durable HumanDecision authority truth. No redesign this cycle.
+
+---
+
+## 10. FILES MODIFIED
+
+| Path | Change |
+|------|--------|
+| `w2/readRecoveryOwnedDecisionContinuity.ts` | C4 lineage + export assert |
+| `TrajectorySurface.tsx` | C3 one-way `if (decision != null) return` |
+| `recoveryOwnership.corr02.lineage.d0.test.ts` | **NEW** C4 negatives |
+| `trajectorySurface.ui.test.tsx` | C3 clone-per-call stability |
+
+Forbidden paths untouched. No new dependency/store.
+
+---
+
+## 11. TARGETED VALIDATION
+
+5 files · **84 passed** (lineage 9 + prestart unit 11 + integration 5 + R8 6 + UI incl. C1/C3)
+
+---
+
+## 12. FULL VALIDATION
 
 | Gate | Result |
 |------|--------|
 | typecheck | PASS |
 | lint | PASS |
 | build | PASS |
-| Vitest | **428 files passed \| 17 skipped · 4728 tests passed \| 137 skipped · 0 failed** |
-| Modeled governance | **73 pass / 0 fail** |
+| Vitest | **429 files passed \| 17 skipped · 4737 tests passed \| 137 skipped · 0 failed** |
+| Modeled governance | **73 / 0** |
 
-Pre-CORR baseline: 428 / 4723. Delta ≈ +5 tests.
-
----
-
-## 11. FAKE / REAL
-
-| Boundary | Mode |
-|----------|------|
-| Launch adapter reject / seeded Attempt facts | DETERMINISTIC FAKE |
-| StartExecution / Recovery binding / Continuity / UI routing | REAL Product logic |
-
-NOT claimed: Cursor REAL · docs_write REAL · StudyFlow natural HD · E2E REAL · managed clone · runtime v3 ADOPTED · GO REAL.
+Pre-CORR-02 baseline: 428 / 4728. Delta: +1 file · +9 tests.
 
 ---
 
-## 12. RESERVES / DEBT / EXIT
+## 13. FAKE / REAL
 
-1. Natural StudyFlow HD triangle — post ChatGPT + Morris commit/push/PR/merge only
-2. Managed clone / `base_head_sha_missing` root cause — out of scope
-3. Optional RealExecutionLaunchPort REAL_WORKSPACE_INVALID StartExecution proof — deferred
-4. Successor recovery PREPARE remains explicit separate action
+Deterministic Product proof. Fake only at fixtures/mocks. No Cursor REAL / StudyFlow natural HD / managed clone / GO REAL / runtime v3 ADOPTED.
 
 ---
 
-## 13. ANTI-CLAIMS
+## 14. ANTI-CLAIMS
 
-Do NOT claim: StudyFlow natural HD completed · StudyFlow E2E REAL · Cursor REAL proven · docs_write REAL proven · managed clone fixed · runtime v3 ADOPTED · Product globally READY · PR ready · merge ready.
+Do NOT claim: StudyFlow natural HD completed · E2E REAL · Cursor REAL · docs_write REAL · managed clone fixed · runtime v3 ADOPTED · Product globally READY · PR/merge ready.
 
 ---
 
-## 14. FINAL VERDICT
+## 15. FINAL VERDICT
 
-**RECOVERY OWNERSHIP PRE-START FAILURE CORR-01 —
-ABSOLUTE FAIL-CLOSED + RESTART CONTINUITY DETERMINISTICALLY PROVEN /
-READY FOR CHATGPT RE-REVIEW**
+**RECOVERY OWNERSHIP PRE-START FAILURE CORR-02 —
+REHYDRATION STABLE / DECISION LINEAGE FAIL-CLOSED /
+DETERMINISTICALLY PROVEN / READY FOR CHATGPT FINAL REVIEW**
 
 Project Git: LOCAL / NOT COMMITTED / NOT PUSHED
 
 ---
 
-## 15. EXPLOITABLE DIFFS
+## 16. EXPLOITABLE DIFFS
 
-### 15.1 NEW — readRecoveryOwnedDecisionContinuity.ts
+### 16.1 FULL — readRecoveryOwnedDecisionContinuity.ts
 
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/readRecoveryOwnedDecisionContinuity.ts b/projects/sfia-studio/app/features/project-assistant/w2/readRecoveryOwnedDecisionContinuity.ts
 new file mode 100644
-index 00000000..301b580e
+index 00000000..22bfa6b5
 --- /dev/null
 +++ b/projects/sfia-studio/app/features/project-assistant/w2/readRecoveryOwnedDecisionContinuity.ts
-@@ -0,0 +1,193 @@
+@@ -0,0 +1,323 @@
 +/**
-+ * CORR-01 / C2 — recover recovery-owned HumanDecision after hard UI restart.
++ * CORR-01 / C2 + CORR-02 / C4 — recover recovery-owned HumanDecision after hard
++ * UI restart, with durable Decision ↔ ProjectTrajectory lineage integrity.
 + *
 + * Durable source (no new store):
 + *   current ProjectTrajectory
 + *   → decidedByDecisionRef
 + *   → HumanDecision (accepted)
-+ *   → DecisionBasis trajectory_option
++ *   → DecisionBasis trajectory_option + trajectoryContext
 + *   → selectedOptionId = GOVERNED_OPTION_REF
 + *   → RecoveryExecutionBinding
 + *
 + * The recovery HD (trajectory tip) is the authority — never the historical
 + * source EC decisionRefs. Client must not invent decision authority.
 + *
++ * CORRUPTED / MISMATCHED DURABLE AUTHORITY ≠ NO RECOVERY DECISION.
++ *
 + * READ-ONLY. Never PREPARE / Inspect / Execute.
 + */
 +
 +import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
++import type { DecisionBasis } from "@/lib/oa/decision/domain/types";
++import type { ProjectTrajectory } from "@/lib/oa/cycle/domain/types";
 +import { GOVERNED_OPTION_REF } from "./trajectoryOptions";
 +import {
 +  resolveRecoveryExecutionBinding,
@@ -280,6 +258,10 @@ index 00000000..301b580e
 +  return { ok: false, code, message };
 +}
 +
++function continuityFailed(message: string): W2Failure {
++  return fail("RECOVERY_DECISION_CONTINUITY_FAILED", message);
++}
++
 +function toDecisionDto(input: {
 +  readonly decisionId: string;
 +  readonly selectedOptionRef: string;
@@ -290,6 +272,8 @@ index 00000000..301b580e
 +    decisionId: input.decisionId,
 +    selectedOptionRef: input.selectedOptionRef,
 +    actorRole: "Pilote",
++    // PRE-EXISTING DOCTRINAL PRESENTATION DEBT — RUNTIME PILOT HD DTO
++    // AUTHORITY LABEL. Not corrected in this macro (separate qualification).
 +    authorityClass: "morris",
 +    statusLabel: "DÉCISION HUMAINE PRISE",
 +    capturedAt: input.capturedAt,
@@ -297,6 +281,104 @@ index 00000000..301b580e
 +    reservesText: input.reservesText,
 +    proposalId: null,
 +  };
++}
++
++/**
++ * CORR-02 / C4 — prove the durable HD is the exact authority that produced
++ * the current ProjectTrajectory tip.
++ *
++ * Version rule (from promoteDecidedTrajectory): promotion mutates the candidate
++ * in place (same version, status candidate → validated/active). Therefore
++ * `basis.trajectoryContext.candidateVersion === trajectory.version`.
++ */
++export function assertGovernedRecoveryLineage(input: {
++  readonly projectId: string;
++  readonly trajectory: ProjectTrajectory;
++  readonly decisionId: string;
++  readonly selectedOptionId: string;
++  readonly basis: DecisionBasis;
++}): W2Failure | null {
++  const { projectId, trajectory, decisionId, selectedOptionId, basis } = input;
++
++  if (trajectory.decidedByDecisionRef !== decisionId) {
++    return continuityFailed(
++      "decidedByDecisionRef ≠ HumanDecision tip — lignée recovery incohérente.",
++    );
++  }
++
++  if (trajectory.decidedOptionRef !== GOVERNED_OPTION_REF) {
++    return continuityFailed(
++      "Trajectoire tip decidedOptionRef ≠ GOVERNED — lignée recovery fail-closed.",
++    );
++  }
++
++  if (selectedOptionId !== GOVERNED_OPTION_REF) {
++    return continuityFailed(
++      "HumanDecision selectedOptionId ≠ GOVERNED — lignée recovery fail-closed.",
++    );
++  }
++
++  if (selectedOptionId !== trajectory.decidedOptionRef) {
++    return continuityFailed(
++      "HumanDecision selectedOptionId ≠ trajectory.decidedOptionRef — lignée recovery fail-closed.",
++    );
++  }
++
++  if (basis.projectId !== projectId) {
++    return continuityFailed(
++      "DecisionBasis.projectId hors projet — lignée recovery fail-closed.",
++    );
++  }
++
++  const ctx = basis.trajectoryContext;
++  if (!ctx) {
++    return continuityFailed(
++      "DecisionBasis.trajectoryContext absent — lignée recovery fail-closed.",
++    );
++  }
++
++  if (ctx.trajectoryId !== trajectory.trajectoryId) {
++    return continuityFailed(
++      "trajectoryContext.trajectoryId ≠ trajectoire tip — lignée recovery fail-closed.",
++    );
++  }
++
++  if (ctx.selectedOptionRef !== GOVERNED_OPTION_REF) {
++    return continuityFailed(
++      "trajectoryContext.selectedOptionRef ≠ GOVERNED — lignée recovery fail-closed.",
++    );
++  }
++
++  if (!ctx.optionRefs.includes(GOVERNED_OPTION_REF)) {
++    return continuityFailed(
++      "trajectoryContext.optionRefs n'inclut pas GOVERNED — lignée recovery fail-closed.",
++    );
++  }
++
++  if (ctx.selectedOptionRef !== selectedOptionId) {
++    return continuityFailed(
++      "trajectoryContext.selectedOptionRef ≠ décision — lignée recovery fail-closed.",
++    );
++  }
++
++  // promoteDecidedTrajectory keeps candidate version identity on the tip.
++  if (
++    typeof ctx.candidateVersion !== "number" ||
++    ctx.candidateVersion < 1 ||
++    ctx.candidateVersion !== trajectory.version
++  ) {
++    return continuityFailed(
++      "trajectoryContext.candidateVersion ≠ version tip promue — lignée recovery fail-closed.",
++    );
++  }
++
++  if (trajectory.status !== "validated" && trajectory.status !== "active") {
++    return continuityFailed(
++      "Trajectoire tip recovery hors statut décidé/courant — continuité refusée.",
++    );
++  }
++
++  return null;
 +}
 +
 +/**
@@ -336,32 +418,63 @@ index 00000000..301b580e
 +    decisionId: decisionRef,
 +  });
 +  if (!loaded.ok) {
-+    return fail(
-+      "RECOVERY_DECISION_CONTINUITY_FAILED",
++    return continuityFailed(
 +      "HumanDecision recovery tip introuvable — fail-closed (pas de PREPARE générique, pas de nouvelle décision).",
 +    );
 +  }
 +  const decision = loaded.decision;
 +  if (decision.projectId !== projectId) {
-+    return fail(
-+      "RECOVERY_DECISION_CONTINUITY_FAILED",
++    return continuityFailed(
 +      "HumanDecision tip hors projet — continuité recovery refusée.",
 +    );
 +  }
 +  if (decision.status !== "accepted") {
-+    return fail(
-+      "RECOVERY_DECISION_CONTINUITY_FAILED",
++    return continuityFailed(
 +      "HumanDecision tip non effective — continuité recovery refusée.",
 +    );
 +  }
++
 +  const basis = decision.decisionBasis;
-+  if (!basis || basis.sourceType !== "trajectory_option") {
-+    // Tip exists but is not a ProjectTrajectory option decision — not recovery-owned.
++  if (!basis) {
++    // Tip exists without DecisionBasis — cannot prove trajectory_option authority.
++    // Not a recovery-owned GOVERNED claim we can safely restore.
 +    return { ok: true, kind: "none" };
 +  }
-+  if (decision.selectedOptionId !== GOVERNED_OPTION_REF) {
-+    // Tip is a non-GOVERNED trajectory decision — not recovery-owned restart path.
++  if (basis.sourceType !== "trajectory_option") {
++    // Tip is not a ProjectTrajectory option decision — not recovery-owned path.
 +    return { ok: true, kind: "none" };
++  }
++
++  // Entering recovery-owned GOVERNED claim: any lineage mismatch is fail-closed
++  // (CORRUPTED ≠ ABSENT). Non-GOVERNED trajectory tips stay kind=none only when
++  // the selected option itself is not GOVERNED.
++  if (decision.selectedOptionId !== GOVERNED_OPTION_REF) {
++    return { ok: true, kind: "none" };
++  }
++
++  const lineage = assertGovernedRecoveryLineage({
++    projectId,
++    trajectory,
++    decisionId: decision.decisionId,
++    selectedOptionId: decision.selectedOptionId,
++    basis,
++  });
++  if (lineage) return lineage;
++
++  // Optional durable cross-check: candidate version row belongs to same aggregate.
++  const candidateRow = await oa.cycleServices.getTrajectoryVersion.execute({
++    projectId,
++    version: basis.trajectoryContext!.candidateVersion,
++  });
++  if (!candidateRow.ok) {
++    return continuityFailed(
++      "Version candidate DecisionBasis illisible — lignée recovery fail-closed.",
++    );
++  }
++  if (candidateRow.trajectory.trajectoryId !== trajectory.trajectoryId) {
++    return continuityFailed(
++      "Version candidate DecisionBasis hors trajectoire tip — lignée recovery fail-closed.",
++    );
 +  }
 +
 +  const bound = await resolveRecoveryExecutionBinding({
@@ -385,22 +498,12 @@ index 00000000..301b580e
 +    !bound.binding ||
 +    bound.binding.kind !== "post_evidence_recovery_execution"
 +  ) {
-+    return fail(
-+      "RECOVERY_DECISION_CONTINUITY_FAILED",
++    return continuityFailed(
 +      "Sujet recovery connu mais binding non résolu après restart — fail-closed (pas de PREPARE générique).",
 +    );
 +  }
 +
-+  const status =
-+    trajectory.status === "active" || trajectory.status === "validated"
-+      ? trajectory.status
-+      : null;
-+  if (!status) {
-+    return fail(
-+      "RECOVERY_DECISION_CONTINUITY_FAILED",
-+      "Trajectoire tip recovery hors statut décidé/courant — continuité refusée.",
-+    );
-+  }
++  const status = trajectory.status as "validated" | "active";
 +
 +  return {
 +    ok: true,
@@ -427,297 +530,249 @@ index 00000000..301b580e
 +  };
 +}
 
-### 15.2 MODIFIED — TrajectorySurface + actions (absolute fail-closed + C2 wire + action)
+### 16.2 C3 — one-way rehydration snippet (TrajectorySurface)
 
-diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
-index a6163704..3bcfa889 100644
---- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
-+++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
-@@ -40,6 +40,7 @@ import {
-   w2ReadActiveDecisionSubjectAction,
-   w2ReadCurrentGovernedExecutionContinuityAction,
-   w2ReadRecoveryExecutionBindingAction,
-+  w2ReadRecoveryOwnedDecisionContinuityAction,
-   w2RehydrateProductOutcomeAction,
-   w2RematerializeDocsWriteEvidenceAction,
- } from "@/features/project-assistant/w2/actions";
-@@ -704,6 +705,45 @@ export function TrajectorySurface({
-     setExecutionContinuityReadStatus("ready");
-   }, [projectId, pendingReinstruction, optionSet, decision]);
+/**
+   * CORR-01 / C2 + CORR-02 / C3 — after hard reload, recover recovery-owned
+   * GOVERNED HD + RecoveryExecutionBinding from durable ProjectTrajectory tip.
+   * ONE-WAY restoration: once `decision` is present in this mount, do not
+   * rewrite it (avoids Server-Action fresh-object → setDecision → effect loop).
+   */
+  const rehydrateRecoveryOwnedDecisionContinuity = useCallback(async () => {
+    // CORR-02 / C3 — restart seam owns restoration only while decision is absent.
+    if (decision != null) {
+      return;
+    }
+    const result = await w2ReadRecoveryOwnedDecisionContinuityAction({
+      projectId,
+    });
+    if (!result || typeof result !== "object") {
+      setError(
+        "Continuité recovery indisponible après restart — fail-closed (UNKNOWN ≠ absent).",
+      );
+      return;
+    }
+    if (!result.ok) {
+      setError(result.message);
+      return;
+    }
+    if (result.kind === "none") {
+      return;
+    }
+    // Recovery-owned: restore HD + binding once; do not re-present OptionSet / auto-PREPARE.
+    setContinuityDecisionRef(result.decision.decisionId);
+    setDecision(result.decision);
+    setDecided(result.trajectory);
+    setRecoveryBinding(result.binding);
+    setOptionSet(null);
+    setPendingReinstruction(null);
+    setError(null);
+  }, [projectId, decision]);
 
-+  /**
-+   * CORR-01 / C2 — after hard reload, recover recovery-owned GOVERNED HD +
-+   * RecoveryExecutionBinding from durable ProjectTrajectory tip. No new store.
-+   * Fail-closed when tip claims recovery ownership but cannot be reconstructed.
-+   */
-+  const rehydrateRecoveryOwnedDecisionContinuity = useCallback(async () => {
-+    // In-session non-GOVERNED decision owns the surface — do not overwrite.
-+    if (
-+      decision != null &&
-+      decision.selectedOptionRef !== GOVERNED_OPTION_REF
-+    ) {
-+      return;
-+    }
-+    const result = await w2ReadRecoveryOwnedDecisionContinuityAction({
-+      projectId,
-+    });
-+    if (!result || typeof result !== "object") {
-+      setError(
-+        "Continuité recovery indisponible après restart — fail-closed (UNKNOWN ≠ absent).",
-+      );
-+      return;
-+    }
-+    if (!result.ok) {
-+      setError(result.message);
-+      return;
-+    }
-+    if (result.kind === "none") {
-+      return;
-+    }
-+    // Recovery-owned: restore HD + binding; do not re-present OptionSet / auto-PREPARE.
-+    setContinuityDecisionRef(result.decision.decisionId);
-+    setDecision(result.decision);
-+    setDecided(result.trajectory);
-+    setRecoveryBinding(result.binding);
-+    setOptionSet(null);
-+    setPendingReinstruction(null);
-+    setError(null);
-+  }, [projectId, decision]);
-+
-   const refreshPreCycleCandidate = useCallback(async () => {
-     const result = await projectAssistantReadPreCycleCandidateTrajectoryAction({
-       projectId,
-@@ -889,8 +929,17 @@ export function TrajectorySurface({
-       setExecutionContinuityReadStatus("error");
-       return;
-     }
--    void rehydrateGovernedExecutionContinuity();
--  }, [subjectReadStatus, rehydrateGovernedExecutionContinuity]);
-+    // CORR-01 / C2 — run recovery-owned continuity AFTER EC continuity so a
-+    // kind=none clear of continuityDecisionRef cannot race-erase the tip HD.
-+    void (async () => {
-+      await rehydrateGovernedExecutionContinuity();
-+      await rehydrateRecoveryOwnedDecisionContinuity();
-+    })();
-+  }, [
-+    subjectReadStatus,
-+    rehydrateGovernedExecutionContinuity,
-+    rehydrateRecoveryOwnedDecisionContinuity,
-+  ]);
+### 16.3 NEW — recoveryOwnership.corr02.lineage.d0.test.ts
 
-   /** FR-04 — inspect a freshly prepared contract without waiting for another Pilot click. */
-   const inspectPreparedContractId = useCallback(
-@@ -1022,21 +1071,49 @@ export function TrajectorySurface({
-       }
-
-       if (shouldAutoPrepareGoverned) {
--        // Same-scope Relancer owns when RecoveryExecutionBinding is present —
--        // do not W2-PREPARE (R8). Structural recovery (no binding) → RC-06.
-+        // CORR-01 — absolute fail-closed. Generic RC-06 PREPARE is authorized
-+        // ONLY when: ok=true AND binding=null AND recoveryContextPresent=false.
-+        // UNKNOWN ≠ ABSENT — every other read outcome STOPs before PREPARE.
-         const bindingResult = await w2ReadRecoveryExecutionBindingAction({
-           projectId,
-           decisionId: next.decisionId,
-         });
-+        if (!bindingResult || typeof bindingResult !== "object") {
-+          setBusy(null);
-+          setError(
-+            "Lecture binding recovery indisponible — préparation générique refusée (UNKNOWN ≠ absent).",
-+          );
-+          return;
-+        }
-+        if (bindingResult.ok === false) {
-+          setBusy(null);
-+          setError(bindingResult.message);
-+          return;
-+        }
-         if (
--          bindingResult &&
--          typeof bindingResult === "object" &&
--          bindingResult.ok &&
-           bindingResult.binding?.kind === "post_evidence_recovery_execution"
-         ) {
-           setRecoveryBinding(bindingResult.binding);
-           return;
-         }
-+        if (bindingResult.recoveryContextPresent === true) {
-+          setBusy(null);
-+          setError(
-+            "Binding recovery indisponible pour ce sujet post-Evidence — préparation générique refusée. Action Pilote requise (ne pas PREPARE générique).",
-+          );
-+          return;
-+        }
-+        const explicitNoRecovery =
-+          bindingResult.ok === true &&
-+          bindingResult.binding === null &&
-+          bindingResult.recoveryContextPresent === false;
-+        if (!explicitNoRecovery) {
-+          setBusy(null);
-+          setError(
-+            "État binding recovery non autoritatif — préparation générique refusée (UNKNOWN ≠ absent).",
-+          );
-+          return;
-+        }
-         setBusy("contract");
-         setError(null);
-         const preparedResult = await w2PrepareExecutionContractAction({
-@@ -1122,6 +1199,10 @@ export function TrajectorySurface({
-         decisionId,
-       });
-       if (cancelled) return;
-+      if (!result || typeof result !== "object") {
-+        setRecoveryBinding(null);
-+        return;
-+      }
-       if (result.ok) {
-         setRecoveryBinding(result.binding);
-       } else {
-diff --git a/projects/sfia-studio/app/features/project-assistant/w2/actions.ts b/projects/sfia-studio/app/features/project-assistant/w2/actions.ts
-index ff92d001..dcb6acc8 100644
---- a/projects/sfia-studio/app/features/project-assistant/w2/actions.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/w2/actions.ts
-@@ -42,6 +42,10 @@ import { readCurrentGovernedExecutionContinuity } from "./readCurrentGovernedExe
- import { prepareExecutionContractFromW2Decision } from "./prepareExecutionContractFromW2Decision";
- import { prepareDocsWriteRecoverySuccessorFromDecision } from "./prepareDocsWriteRecoverySuccessor";
- import { resolveRecoveryExecutionBinding } from "./resolveRecoveryExecutionBinding";
-+import {
-+  readRecoveryOwnedDecisionContinuity,
-+  type RecoveryOwnedDecisionContinuityResult,
-+} from "./readRecoveryOwnedDecisionContinuity";
- import { proposeTrajectoryOptions } from "./proposeTrajectoryOptions";
- import { readW2ProjectHistory } from "./projectHistory";
- import { resolveW2QualificationInputs } from "./qualificationInputs";
-@@ -172,6 +176,23 @@ export async function w2ReadCurrentGovernedExecutionContinuityAction(input: {
-   });
- }
-
-+/**
-+ * CORR-01 / C2 — restart continuity for recovery-owned GOVERNED HumanDecision.
-+ * Reconstructs decision + RecoveryExecutionBinding from durable trajectory tip.
-+ * READ-ONLY. Client sends projectId only.
-+ */
-+export async function w2ReadRecoveryOwnedDecisionContinuityAction(input: {
-+  projectId: string;
-+}): Promise<RecoveryOwnedDecisionContinuityResult> {
-+  const runtime = getRuntimeApplicationService();
-+  if (!runtime.oa) return OA_UNAVAILABLE;
-+
-+  return readRecoveryOwnedDecisionContinuity({
-+    oa: runtime.oa,
-+    projectId: input.projectId,
-+  });
-+}
-+
- export async function w2DecideTrajectoryAction(input: {
-   projectId: string;
-   optionSetRef: string;
-@@ -406,16 +427,29 @@ export async function w2PrepareExecutionContractAction(input: {
- /**
-  * R8 — read RecoveryExecutionBinding for UI (docs_write recovery CTA).
-  * Client sends only projectId + optional decisionId. No path/op injection.
-+ * Also reports recoveryContextPresent so UI can fail-closed when a known
-+ * recovery subject exists but binding cannot be constructed (no generic PREPARE).
-  */
- export async function w2ReadRecoveryExecutionBindingAction(input: {
-   projectId: string;
-   decisionId?: string | null;
- }): Promise<
--  | { readonly ok: true; readonly binding: RecoveryExecutionBinding | null }
--  | { readonly ok: false; readonly code: string; readonly message: string }
-+  | {
-+      readonly ok: true;
-+      readonly binding: RecoveryExecutionBinding | null;
-+      readonly recoveryContextPresent: boolean;
-+    }
-+  | {
-+      readonly ok: false;
-+      readonly code: string;
-+      readonly message: string;
-+      readonly recoveryContextPresent: boolean;
-+    }
- > {
-   const runtime = getRuntimeApplicationService();
--  if (!runtime.oa) return OA_UNAVAILABLE;
-+  if (!runtime.oa) {
-+    return { ...OA_UNAVAILABLE, recoveryContextPresent: false };
-+  }
-   return resolveRecoveryExecutionBinding({
-     oa: runtime.oa,
-     projectId: input.projectId,
-
-### 15.3 NEW — isConfirmedPreStartRejectionRecoverySource.ts (macro retained)
-
-diff --git a/projects/sfia-studio/app/features/project-assistant/w2/isConfirmedPreStartRejectionRecoverySource.ts b/projects/sfia-studio/app/features/project-assistant/w2/isConfirmedPreStartRejectionRecoverySource.ts
+diff --git a/projects/sfia-studio/app/__tests__/project-assistant/recoveryOwnership.corr02.lineage.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/recoveryOwnership.corr02.lineage.d0.test.ts
 new file mode 100644
-index 00000000..95c0637f
+index 00000000..2d00c9b4
 --- /dev/null
-+++ b/projects/sfia-studio/app/features/project-assistant/w2/isConfirmedPreStartRejectionRecoverySource.ts
-@@ -0,0 +1,67 @@
++++ b/projects/sfia-studio/app/__tests__/project-assistant/recoveryOwnership.corr02.lineage.d0.test.ts
+@@ -0,0 +1,199 @@
 +/**
-+ * CLASS 2 recovery source — confirmed EC + deterministic pre-start Attempt failure.
-+ *
-+ * StartExecution intentionally keeps EC `confirmed` on deterministic launch
-+ * rejection (retry-eligible) while marking Attempt `failed`. Recovery ownership
-+ * must recognize this without rewriting EC → failed.
-+ *
-+ * Narrow: does NOT treat every confirmed EC as recoverable.
++ * CORR-02 / C4 — durable GOVERNED recovery lineage fail-closed (pure).
++ * @vitest-environment node
 + */
-+import type { ExecutionContract } from "@/lib/oa/execution-contract";
-+import type { ExecutionAttempt } from "@/lib/oa/execution-attempt";
++import { describe, expect, it } from "vitest";
++import { assertGovernedRecoveryLineage } from "@/features/project-assistant/w2/readRecoveryOwnedDecisionContinuity";
++import { GOVERNED_OPTION_REF } from "@/features/project-assistant/w2/trajectoryOptions";
++import type { DecisionBasis } from "@/lib/oa/decision/domain/types";
++import type { ProjectTrajectory } from "@/lib/oa/cycle/domain/types";
 +
-+/**
-+ * StopReason families produced by StartExecution when a launch is refused
-+ * before acknowledgement / running, while EC remains confirmed.
-+ */
-+export function isDeterministicPreStartLaunchRejectionStopReason(
-+  stopReason: string | null | undefined,
-+): boolean {
-+  if (typeof stopReason !== "string") return false;
-+  const s = stopReason.trim();
-+  if (s.length === 0) return false;
-+  // Non-REAL adapter reject path (failLaunch cause=reject).
-+  if (/^EXECUTION_LAUNCH_FAILED:\s*reject:/i.test(s)) return true;
-+  // REAL pre-start deterministic rejects (failRealLaunch with non-indeterminate
-+  // detailCode → EC stays confirmed). stopReason is always prefixed
-+  // REAL_LAUNCH_FAILED: even when detailCode is REAL_WORKSPACE_INVALID etc.
-+  if (/^REAL_LAUNCH_FAILED:\s*REAL_WORKSPACE_INVALID\b/i.test(s)) return true;
-+  if (/^REAL_LAUNCH_FAILED:\s*REAL_BOUNDARY_DISABLED\b/i.test(s)) return true;
-+  if (/^REAL_LAUNCH_FAILED:\s*REAL_AGENT_PROFILE_INVALID\b/i.test(s)) return true;
-+  return false;
++const PROJECT = "prj:corr02-lineage";
++const TRAJ = "trj:corr02";
++const DEC = "dec:corr02-gov";
++
++function baseTrajectory(
++  overrides: Partial<ProjectTrajectory> = {},
++): ProjectTrajectory {
++  return {
++    schemaVersion: "0.1.0-oa",
++    trajectoryId: TRAJ,
++    projectId: PROJECT,
++    version: 2,
++    status: "validated",
++    steps: [],
++    decidedByDecisionRef: DEC,
++    decidedOptionRef: GOVERNED_OPTION_REF,
++    ...overrides,
++  };
 +}
 +
-+/**
-+ * Whether a confirmed EC + failed Attempt is an admissible CLASS 2 recovery source.
-+ */
-+export function isConfirmedPreStartRejectionRecoverySource(input: {
-+  readonly contract: ExecutionContract;
-+  readonly attempt: ExecutionAttempt;
-+}): boolean {
-+  const { contract, attempt } = input;
-+  if (contract.status !== "confirmed") return false;
-+  if (attempt.status !== "failed") return false;
-+  if (attempt.executionContractId !== contract.executionContractId) return false;
-+
-+  // Attempt must cohere with a version of this contract (not a future OCC tip).
-+  if (
-+    typeof attempt.executionContractVersion !== "number" ||
-+    attempt.executionContractVersion < 1 ||
-+    attempt.executionContractVersion > contract.version
-+  ) {
-+    return false;
-+  }
-+
-+  // Did not reach running / acknowledged business execution.
-+  if (typeof attempt.startedAt === "string" && attempt.startedAt.trim()) {
-+    return false;
-+  }
-+  if (typeof attempt.launchedAt === "string" && attempt.launchedAt.trim()) {
-+    return false;
-+  }
-+
-+  if (attempt.irreversibleEffectsPossible === true) return false;
-+  if (attempt.processDiagnostic?.realProcessInvoked === true) return false;
-+
-+  return isDeterministicPreStartLaunchRejectionStopReason(attempt.stopReason);
++function baseBasis(
++  overrides: Partial<DecisionBasis> = {},
++  ctxOverrides: Partial<NonNullable<DecisionBasis["trajectoryContext"]>> = {},
++): DecisionBasis {
++  return {
++    sourceType: "trajectory_option",
++    sourceRef: "optset:corr02",
++    sourceDigest: "digest",
++    projectId: PROJECT,
++    proposalContext: {
++      lpsId: "lps:1",
++      lpsVersion: 1,
++    },
++    trajectoryContext: {
++      trajectoryId: TRAJ,
++      candidateVersion: 2,
++      optionRefs: [
++        "opt:trajectory:bounded-direct",
++        GOVERNED_OPTION_REF,
++      ],
++      selectedOptionRef: GOVERNED_OPTION_REF,
++      ...ctxOverrides,
++    },
++    executionBasis: {},
++    ...overrides,
++  };
 +}
++
++describe("CORR-02 C4 — assertGovernedRecoveryLineage", () => {
++  it("positive — coherent tip + GOVERNED basis", () => {
++    expect(
++      assertGovernedRecoveryLineage({
++        projectId: PROJECT,
++        trajectory: baseTrajectory(),
++        decisionId: DEC,
++        selectedOptionId: GOVERNED_OPTION_REF,
++        basis: baseBasis(),
++      }),
++    ).toBeNull();
++  });
++
++  it("1 — decidedOptionRef != GOVERNED → fail closed", () => {
++    const r = assertGovernedRecoveryLineage({
++      projectId: PROJECT,
++      trajectory: baseTrajectory({
++        decidedOptionRef: "opt:trajectory:bounded-direct",
++      }),
++      decisionId: DEC,
++      selectedOptionId: GOVERNED_OPTION_REF,
++      basis: baseBasis(),
++    });
++    expect(r?.ok).toBe(false);
++    expect(r && !r.ok ? r.code : null).toBe(
++      "RECOVERY_DECISION_CONTINUITY_FAILED",
++    );
++  });
++
++  it("2 — selectedOptionId != decidedOptionRef → fail closed", () => {
++    const r = assertGovernedRecoveryLineage({
++      projectId: PROJECT,
++      trajectory: baseTrajectory(),
++      decisionId: DEC,
++      selectedOptionId: "opt:trajectory:bounded-direct",
++      basis: baseBasis(),
++    });
++    expect(r?.ok).toBe(false);
++    expect(r && !r.ok ? r.code : null).toBe(
++      "RECOVERY_DECISION_CONTINUITY_FAILED",
++    );
++  });
++
++  it("3 — trajectoryContext missing → fail closed", () => {
++    const basis = baseBasis();
++    delete (basis as { trajectoryContext?: unknown }).trajectoryContext;
++    const r = assertGovernedRecoveryLineage({
++      projectId: PROJECT,
++      trajectory: baseTrajectory(),
++      decisionId: DEC,
++      selectedOptionId: GOVERNED_OPTION_REF,
++      basis,
++    });
++    expect(r?.ok).toBe(false);
++    expect(r && !r.ok ? r.code : null).toBe(
++      "RECOVERY_DECISION_CONTINUITY_FAILED",
++    );
++  });
++
++  it("4 — trajectoryContext.trajectoryId mismatch → fail closed", () => {
++    const r = assertGovernedRecoveryLineage({
++      projectId: PROJECT,
++      trajectory: baseTrajectory(),
++      decisionId: DEC,
++      selectedOptionId: GOVERNED_OPTION_REF,
++      basis: baseBasis({}, { trajectoryId: "trj:other" }),
++    });
++    expect(r?.ok).toBe(false);
++    expect(r && !r.ok ? r.code : null).toBe(
++      "RECOVERY_DECISION_CONTINUITY_FAILED",
++    );
++  });
++
++  it("5 — trajectoryContext.selectedOptionRef mismatch → fail closed", () => {
++    const r = assertGovernedRecoveryLineage({
++      projectId: PROJECT,
++      trajectory: baseTrajectory(),
++      decisionId: DEC,
++      selectedOptionId: GOVERNED_OPTION_REF,
++      basis: baseBasis(
++        {},
++        {
++          selectedOptionRef: "opt:trajectory:bounded-direct",
++          optionRefs: [
++            "opt:trajectory:bounded-direct",
++            GOVERNED_OPTION_REF,
++          ],
++        },
++      ),
++    });
++    expect(r?.ok).toBe(false);
++    expect(r && !r.ok ? r.code : null).toBe(
++      "RECOVERY_DECISION_CONTINUITY_FAILED",
++    );
++  });
++
++  it("6 — optionRefs missing GOVERNED → fail closed", () => {
++    const r = assertGovernedRecoveryLineage({
++      projectId: PROJECT,
++      trajectory: baseTrajectory(),
++      decisionId: DEC,
++      selectedOptionId: GOVERNED_OPTION_REF,
++      basis: baseBasis(
++        {},
++        { optionRefs: ["opt:trajectory:bounded-direct"] },
++      ),
++    });
++    expect(r?.ok).toBe(false);
++    expect(r && !r.ok ? r.code : null).toBe(
++      "RECOVERY_DECISION_CONTINUITY_FAILED",
++    );
++  });
++
++  it("candidateVersion ≠ tip version → fail closed", () => {
++    const r = assertGovernedRecoveryLineage({
++      projectId: PROJECT,
++      trajectory: baseTrajectory({ version: 3 }),
++      decisionId: DEC,
++      selectedOptionId: GOVERNED_OPTION_REF,
++      basis: baseBasis({}, { candidateVersion: 2 }),
++    });
++    expect(r?.ok).toBe(false);
++    expect(r && !r.ok ? r.code : null).toBe(
++      "RECOVERY_DECISION_CONTINUITY_FAILED",
++    );
++  });
++
++  it("status not validated|active → fail closed", () => {
++    const r = assertGovernedRecoveryLineage({
++      projectId: PROJECT,
++      trajectory: baseTrajectory({ status: "candidate" }),
++      decisionId: DEC,
++      selectedOptionId: GOVERNED_OPTION_REF,
++      basis: baseBasis(),
++    });
++    expect(r?.ok).toBe(false);
++    expect(r && !r.ok ? r.code : null).toBe(
++      "RECOVERY_DECISION_CONTINUITY_FAILED",
++    );
++  });
++});
