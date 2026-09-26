@@ -710,7 +710,7 @@ M .tmp-sfia-review/chatgpt-review.md
 | Stack NOT DECIDED | PASS |
 | Un seul fichier projet versionné modifié | PASS |
 | git diff --check | PASS |
-| Review Handoff distant | (voir section suivante après publication) |
+| Review Handoff distant | PASS — HANDOFF UPDATED — REMOTE VERIFIED |
 
 ---
 
@@ -732,6 +732,22 @@ M .tmp-sfia-review/chatgpt-review.md
 - 1.2 non ouvert automatiquement
 
 ---
+
+
+## Review Handoff
+
+- **Mode :** publish-in-cycle
+- **Branche :** `sfia/review-handoff`
+- **Path canonique :** `sfia-review-handoff/latest-chatgpt-review.md`
+- **Publisher :** `scripts/sfia/publish-review-handoff.sh`
+- **Worktree :** `/private/tmp/sfia-review-handoff-wt`
+- **Before :** tip `020c0aff` (CRM 1.1 BPMN integration review)
+- **After / remote tip :** `4dca5bcb23058569b06c79f68b34cb3126716b86`
+- **Blob :** `388a0df1ca0c1d838398c83e67d707ac8ecb6f01`
+- **Push handoff :** autorisé L3 borné — DONE
+- **Push projet :** NOT DONE — NOT AUTHORIZED
+- **Verdict handoff :** HANDOFF UPDATED — REMOTE VERIFIED
+
 
 ## Verdict
 
