@@ -1,210 +1,206 @@
-# PILOT-NORA-STUDIO-SEMANTIC-CONTINUITY-01 — POST-MERGE
-## Cycle 8 — Delivery / implémentation
-## FULL Review Pack — Cursor → ChatGPT (MERGE + POST-MERGE VERIFICATION)
+# STUDYFLOW RECOVERY BINDING PREFLIGHT — READ-ONLY
+## Cycle 9 — QA / validation
+## LIGHT Review Pack — Cursor → ChatGPT
 
-Generated: 2026-09-26T10:08:00Z
-Macro: PILOT-NORA-STUDIO-SEMANTIC-CONTINUITY-01
-Operation: MERGE PR #523 + POST-MERGE VERIFICATION
-Cycle: 8 — Delivery / implémentation
+Generated: 2026-09-26T10:32:00Z
+Operation: STUDYFLOW RECOVERY BINDING PREFLIGHT — READ-ONLY
+Campaign: STUDYFLOW NATURAL POST-#523 REPROOF
+Cycle: 9 — QA / validation
 Profile: CRITICAL
-Morris GO consumed: **GO MERGE**
-Prior repository-delivery handoff: commit 92c527de38c429850516147b0010ae05eb0d4183 / blob e5e96c781ad2d6904b3e237e8e28dcae9517c03c
-Prior CORR-02 product proof handoff: commit ad6f2fbd4bb141136031b10393dd4497d7fd01ce / blob 4b3708653bb00765e2a527f250f5fdefc59710ed
+Morris GO consumed: **READ-ONLY STUDYFLOW RECOVERY BINDING PREFLIGHT**
 
-Project source changes during this lot: **NONE**
-Branch deletion: **NOT PERFORMED**
-StudyFlow / REAL / PREPARE / Execute: **NOT STARTED**
+Studio clicks / HumanDecision / PREPARE / Execute / REAL / Product mutation / managed clone sync / code change: **NONE**
 
 ---
 
-## 1. PRE-MERGE STATE (verified before merge)
+## 1. GIT TRUTH
 
 | Field | Value |
 |-------|-------|
-| PR | **#523** OPEN / not draft |
-| Title | feat(studio): preserve Pilot–Nora–Studio semantic continuity |
-| URL | https://github.com/mcleland147/sfia-workspace/pull/523 |
-| Base | `main` @ `49249101bab1bd1e3a1d91b469fe7b41341c5a01` |
-| Head branch | `feat/sfia-studio-pilot-nora-studio-semantic-continuity-01` |
-| Head SHA | `71c31a8eb110ed1ac072f5c8d9d004def9b7eaa6` |
-| Commits | 1 |
-| Changed files | 18 |
-| Stats | +2325 / −20 |
-| mergeable | MERGEABLE |
-| mergeStateStatus | CLEAN |
-| Local branch | `feat/sfia-studio-pilot-nora-studio-semantic-continuity-01` @ `71c31a8e…` |
-| origin/main pre-merge | `49249101bab1bd1e3a1d91b469fe7b41341c5a01` |
-| Base moved | NO |
-| Head moved | NO |
-
-### Pre-merge PR CI (run `36231469146`) — GREEN
-
-| Check | Conclusion | Job id |
-|-------|------------|--------|
-| Detect SFIA Studio changes | SUCCESS | 108375314420 |
-| Build and validate SFIA Studio | SUCCESS | 108375334881 |
-| SFIA Studio Required Gate | SUCCESS | 108376145175 |
+| Local | detached HEAD @ `7c184b9444d0b3f2dadc62e7ae9e9178e2c5c17d` |
+| origin/main | `7c184b9444d0b3f2dadc62e7ae9e9178e2c5c17d` |
+| Main moved | NO |
+| Dirty | `.tmp-sfia-review/**` only (expected) |
 
 ---
 
-## 2. MERGE EXECUTION
-
-Command:
-`gh pr merge 523 --repo mcleland147/sfia-workspace --merge`
-
-Strategy: **normal merge commit** (not squash, not rebase)
-`--delete-branch`: **NOT used**
+## 2. PRODUCT DB
 
 | Field | Value |
 |-------|-------|
-| PR state after | MERGED |
-| mergedAt | `2026-09-26T09:59:39Z` |
-| MERGE_COMMIT_SHA | `7c184b9444d0b3f2dadc62e7ae9e9178e2c5c17d` |
+| Source | `SFIA_STUDIO_PRODUCT_DB_PATH` (.env.local) |
+| Path class | campaign Product SQLite under `.sfia-exec/new-project-campaign-01/product/` |
+| Project | `prj:34e7351c-770c-474a-8edc-9c82a07be41d` (StudyFlow) |
+
+Secrets not printed.
 
 ---
 
-## 3. MERGE PARENTS
+## 3. READ-ONLY GUARANTEE
 
-`git show --no-patch --pretty=raw 7c184b9444d0b3f2dadc62e7ae9e9178e2c5c17d`
+Open: `sqlite3 file:<db>?mode=ro`
+Then: `PRAGMA query_only=ON`
 
-| Parent | SHA | Role |
-|--------|-----|------|
-| parent 1 | `49249101bab1bd1e3a1d91b469fe7b41341c5a01` | pre-merge main |
-| parent 2 | `71c31a8eb110ed1ac072f5c8d9d004def9b7eaa6` | feature head |
+| Check | Result |
+|-------|--------|
+| PRAGMA query_only | `1` |
+| PRAGMA integrity_check | `ok` |
 
-Topology: **matches expected merge-commit shape**
+Did **not** call `openProductSqlite` / RuntimeOaStack (migrations write-capable).
+
+Invocation mode for RecoveryExecutionBinding:
+**STATIC+DB RESOLVER EQUIVALENCE**
+(not DIRECT RUNTIME INVOCATION)
 
 ---
 
-## 4. MAIN VERIFICATION
+## 4. PRE-STATE
+
+| Fact | Value |
+|------|-------|
+| LPS | `lps:bca43c2f67dec2c9` · version **36** · active |
+| Active cycle | `cyc:trj-2ee956d99383359aadd408d1` · framing · **active** |
+| Also present | `cyc:f2-539d66d7d03aaff6` · acknowledged |
+| Trajectory | `trj:lr-bridge-039d11e6fe6b` · version **3** · status validated · occ `…@3` |
+| HD count | **6** |
+| EC count (project) | **2** |
+| Attempt count (project) | **1** |
+
+---
+
+## 5. EXECUTIONCONTRACT CURRENT TRUTH
 
 | Field | Value |
 |-------|-------|
-| origin/main after fetch | `7c184b9444d0b3f2dadc62e7ae9e9178e2c5c17d` |
-| equals MERGE_COMMIT_SHA | YES |
-| feature head ancestor of main | YES (`git merge-base --is-ancestor 71c31a8e… origin/main`) |
-| tip log | `Merge pull request #523 from mcleland147/feat/sfia-studio-pilot-nora-studio-semantic-continuity-01` |
+| executionContractId | `xct:m3-res:dec:w2-prop:0d65e1cd-b259-4222-860b-a783a01bf4c0` |
+| version | **3** |
+| **status** | **`confirmed`** |
+| projectId | `prj:34e7351c-770c-474a-8edc-9c82a07be41d` |
+| cycleInstanceId | `cyc:trj-2ee956d99383359aadd408d1` |
+| action | `cursor.docs_write.apply` |
+| target | `workspace.isolated.docs_write` |
+| scope | `studio.gcec.docs_write` |
+| requiredCapabilities | `["cap:cursor.docs_write"]` |
+| inputs.targetPath | `projects/studyflow/01-cadrage/note-de-cadrage.md` |
+| semanticFingerprint | `bd43c1aa1b3b4a51b6fd0a10a2cd682fde18c1834d9f7efc05a1e01b9f2b1bb6` |
+
+Sibling EC `xct:m3:dec:w2-prop:0d65e1cd-…` status=`superseded` (not the Attempt source).
+
+Attempt status is **failed** — must NOT be substituted for EC status.
+Historical Phase B `confirmed` remains the **current** durable EC status.
 
 ---
 
-## 5. SOURCE BRANCH PRESERVATION
+## 6. POST-EVIDENCE RECOVERY CONTEXT
+
+RECOVERY_CONTEXT = **PRESENT** (STATIC+DB equivalence of `resolvePostEvidenceRecoveryContext`)
 
 | Field | Value |
 |-------|-------|
-| Remote branch | `feat/sfia-studio-pilot-nora-studio-semantic-continuity-01` |
-| Remote SHA | `71c31a8eb110ed1ac072f5c8d9d004def9b7eaa6` |
-| Deleted | **NO** |
+| attemptId | `xat:w3a:0a9d88215cf8f884` |
+| attemptStatus | `failed` |
+| executionContractId | `xct:m3-res:dec:w2-prop:0d65e1cd-b259-4222-860b-a783a01bf4c0` |
+| evidenceId | `ev:w3b:7b9022c9c4221122` |
+| reviewBundleId | `rb:w3b:7b9022c9c4221122` |
+| productOutcome | `FAIL` |
+| recommendationKind | `recover` |
+| stopReason | `REAL_LAUNCH_FAILED: REAL_WORKSPACE_INVALID:base_head_sha_missing` |
+| W3C epistemic | `epi:w3c-rec:8b8aa750bdc51ff8` active · source `w3c-post-evidence:ev:w3b:7b9022c9c4221122` |
+| Evidence bindings | attempt/EC/project match |
+| RB evidenceRefs | includes Evidence id |
 
 ---
 
-## 6. POST-MERGE CI (main push — NOT the PR run)
-
-Distinct from pre-merge PR run `36231469146`.
+## 7. RECOVERY EXECUTION BINDING
 
 | Field | Value |
 |-------|-------|
-| Workflow | SFIA Studio CI |
-| Event | push |
-| Branch | main |
-| head_sha | `7c184b9444d0b3f2dadc62e7ae9e9178e2c5c17d` |
-| POST_MERGE_RUN_ID | `36234422289` |
-| URL | https://github.com/mcleland147/sfia-workspace/actions/runs/36234422289 |
-| Run status | completed |
-| Run conclusion | **success** |
+| invocation mode | **STATIC+DB EQUIVALENCE** |
+| ok | **true** (resolver returns ok with null binding) |
+| binding | **NULL** |
 
-| Job | Conclusion | Job id |
-|-----|------------|--------|
-| Detect SFIA Studio changes | SUCCESS | 108383509420 |
-| Build and validate SFIA Studio | SUCCESS | 108383609667 |
-| SFIA Studio Required Gate | SUCCESS | 108384474011 |
+Exact failing condition in `resolveRecoveryExecutionBinding.ts`:
 
-**POST-MERGE CI — GREEN**
+```
+if (contract.status !== "failed") {
+  return { ok: true, binding: null };
+}
+```
 
----
+Observed: `contract.status === "confirmed"` ⇒ binding null.
 
-## 7. PROOF LEVEL (unchanged by merge)
+All prior conditions that WOULD pass if status were failed:
 
-Retained:
-**DETERMINISTIC PRODUCT SEMANTIC CONTINUITY PROVEN**
+| Condition | Result |
+|-----------|--------|
+| PostEvidenceRecoveryContext present | PASS |
+| executionContractServices load EC | PASS (row exists) |
+| contract.projectId matches | PASS |
+| contract.executionContractId matches recovery | PASS |
+| **contract.status === "failed"** | **FAIL (confirmed)** |
+| isBoundedDocsWriteContract | PASS (action/target/capability) |
+| inputs.targetPath non-empty | PASS |
 
-Including:
-- Nora → Studio Recommendation continuity
-- fail-closed invalid/mixed Recommendation
-- PresentedOptionSet freshness / OPTION_SET_STALE
-- HumanDecision cutoff/currentness
-- Product-turn C2 integration proof
-- post-HD deterministic reload proof
-
-NOT proven:
-- OpenAI LIVE correction
-- natural StudyFlow E2E after integration
-- Cursor REAL
-- docs_write REAL
-- runtime v3 ADOPTED
+PASS criteria for SAFE click (all required) — **NOT MET** because binding NULL / sourceStatus would not be `failed`.
 
 ---
 
-## 8. RESERVES (still open after merge)
+## 8. UI IMPLICATION
 
-1. StudyFlow natural/OpenAI-live reproof pending
-2. Visual runtime proof deferred
-3. StudyFlow managed clone freshness remains separate
-4. GAP-15 remains OPEN / NON-BLOCKING
-5. Roadmap documentary drift remains
-6. Currentness subject model = trajectory_option + active cycle
-7. runtime v3 remains NON ADOPTED
+`TrajectorySurface` GOVERNED_OPTION_REF after HumanDecision:
 
-None closed by merge of PR #523.
+1. `w2ReadRecoveryExecutionBindingAction`
+2. if binding.kind === `post_evidence_recovery_execution` → setRecoveryBinding · **return** (no PREPARE)
+3. else → **`w2PrepareExecutionContractAction`** fallback
+
+With binding NULL: **AUTO-PREPARE FALLBACK RISK PRESENT**
 
 ---
 
-## 9. NEXT TRAJECTORY
+## 9. POST-STATE IMMUTABILITY
 
-Intended next Product action (NOT started in this lot):
+| Fact | PRE | POST |
+|------|-----|------|
+| LPS version | 36 / `lps:bca43c2f67dec2c9` | identical |
+| HD count | 6 | 6 |
+| EC count | 2 | 2 |
+| EC version/status | 3 / confirmed | 3 / confirmed |
+| Attempt count | 1 | 1 |
+| Trajectory | trj…@3 | identical |
 
-Resume the **SAME** durable StudyFlow Project at the existing recovery trajectory and naturally reproduce:
-
-diagnostic clarified → Nora recovery re-optioning → Studio Recommendation coherence → Pilot HumanDecision → Nora/Studio post-decision coherence
-
-This is natural reproof, not a new Project.
-
-NOT performed here: managed clone sync · PREPARE · Execute · GO REAL · StudyFlow mutation
-
----
-
-## 10. ANTI-CLAIMS
-
-Not claimed: OpenAI LIVE · StudyFlow natural E2E after fix · Cursor REAL · docs_write REAL · Product globally READY · runtime v3 ADOPTED · GAP-15 closed · Roadmap synced · branch deleted · StudyFlow resumed
+**IMMUTABLE — no Product mutation detected**
 
 ---
 
-## 11. REPOSITORY-DELIVERY ANCHORS (retained)
+## 10. CLICK SAFETY VERDICT
 
-| Field | Value |
-|-------|-------|
-| Project commit | `71c31a8eb110ed1ac072f5c8d9d004def9b7eaa6` |
-| Message | `feat(studio): preserve pilot nora semantic continuity` |
-| Files / stats | 18 · +2325 / −20 |
-| Pre-commit validation | typecheck/lint/build PASS · 426 files / 4707 tests / 0 failed |
-| Pre-merge PR CI | `36231469146` GREEN |
+HumanDecision Click Safety: **BLOCKED**
 
-Themes delivered (unchanged): structured recommendedOptionRef · ACW persistence · Nora Recommendation current resolver · TDS projection · W2 Nora-first · deterministic fallback · PresentedOptionSet basis seal · OPTION_SET_STALE · HD cutoff · StudioCognitiveContext · Nora prompt continuity · Pilot structured Recommendation · continuity + CORR-01 + CORR-02 tests
+Auto-PREPARE Fallback Risk: **PRESENT**
+
+Final: **STUDYFLOW HD CLICK PREFLIGHT — BLOCKED / RECOVERY BINDING ABSENT**
+
+Do not click GOVERNED option until a separate authorized lot addresses EC recovery-owned status (this lot forbids EC repair / PREPARE / status mutation).
 
 ---
 
-## 12. PRIOR TECHNICAL SUBSTANCE (CORR-02 retained)
+## 11. RESERVES
 
-Key closed findings remain the product proof basis:
-C1 fail-closed mixed refs · C2 Product-turn orchestrator proof · C3 HD cutoff · C4 UNAVAILABLE · stale OPTION_SET_STALE · post-HD reload
+- Managed clone freshness separate
+- OpenAI LIVE / StudyFlow E2E / Cursor REAL / docs_write REAL not claimed
+- EC remains `confirmed` while Attempt is `failed` — Product continuity gap for R8 binding
+- Visual / natural reproof still pending after a safe recovery-owned path exists
 
-Prior CORR-02 handoff blob: `4b3708653bb00765e2a527f250f5fdefc59710ed`
+---
+
+## 12. ANTI-CLAIMS
+
+Not claimed: SAFE click · recovery-owned path · no-auto-PREPARE · PREPARE authorized · Execute · REAL · EC status repaired · HumanDecision created · StudyFlow E2E proven · runtime v3 ADOPTED
 
 ---
 
 ## 13. FINAL VERDICT
 
-**PR #523 — MERGED / POST-MERGE GIT VERIFIED / CI GREEN**
+**STUDYFLOW HD CLICK PREFLIGHT — BLOCKED / RECOVERY BINDING ABSENT**
 
-**PILOT-NORA-STUDIO SEMANTIC CONTINUITY — INTEGRATED ON MAIN / NATURAL STUDYFLOW REPROOF NEXT**
-
-runtime v3: **NOT ADOPTED**
+**AUTO-PREPARE FALLBACK RISK PRESENT**
