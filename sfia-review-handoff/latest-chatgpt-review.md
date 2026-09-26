@@ -1,190 +1,233 @@
-# RECOVERY-OWNERSHIP-PRESTART-FAILURE-01 — Post-Merge FULL Review Pack
-## MERGE PR #524 + POST-MERGE VERIFICATION — ONE LOT · CRITICAL
+# RECOVERY-DOCS-WRITE-MODE-SEALING-01 — FULL Review Pack
+## Cycle 8 — Delivery / implémentation · CRITICAL
 
-Generated: 2026-09-26T12:15:00Z
-Macro: RECOVERY-OWNERSHIP-PRESTART-FAILURE-01
-Operation: MERGE + POST-MERGE VERIFICATION
-Cycle Type: Post-merge / repository integration
+Generated: 2026-09-26T13:18:00Z
+Macro: RECOVERY-DOCS-WRITE-MODE-SEALING-01
+Cycle: 8 — Delivery / implémentation
 Profile: CRITICAL
-GO Morris: **GO MERGE — CONSUMED**
+Morris GO: CORRECTION AUTHORIZED — consumed for local Product source/test work only
+Project commit/push/PR/merge: **NOT performed / NOT authorized**
 
 ---
 
-## 1. OPERATION
+## 1. GIT TRUTH
 
 | Field | Value |
 |-------|-------|
-| Timestamp (UTC) | 2026-09-26T12:15:00Z |
-| Macro | RECOVERY-OWNERSHIP-PRESTART-FAILURE-01 |
-| PR | #524 |
-| Merge strategy | NORMAL MERGE COMMIT (`gh pr merge --merge`) |
-| Squash / rebase | NOT used |
-| Source branch deletion | NOT performed |
-| Product code changes in this lot | NONE |
-| StudyFlow | NOT RESUMED / NOT MUTATED |
-| Managed clone | NOT MUTATED |
-| HumanDecision / PREPARE / Inspect / Confirm / Authorize / Execute / REAL | NOT performed |
+| Branch | `fix/sfia-studio-recovery-docs-write-mode-sealing-01` |
+| HEAD / origin/main | `cf1fa4ca139fdbdbf825e134e732f4e25b4c0aa0` |
+| Main moved | NO |
+| Unrelated Product dirt | NONE (only `.tmp-sfia-review/**` local artifacts) |
+| Project commit | **NONE** — LOCAL / NOT COMMITTED / NOT PUSHED |
 
 ---
 
-## 2. PRE-MERGE TRUTH (VERIFIED)
+## 2. NATURAL STUDYFLOW REAL FAILURE (READ-ONLY)
 
-| Field | Expected | Actual |
-|-------|----------|--------|
-| PR state | OPEN | OPEN |
-| baseRefName | main | main |
-| baseRefOid / origin/main | `7c184b9444d0b3f2dadc62e7ae9e9178e2c5c17d` | MATCH |
-| headRefName | `feat/sfia-studio-recovery-ownership-prestart-failure-01` | MATCH |
-| headRefOid | `c295e40617e17f45ece08898e01f0d4e0ec495b1` | MATCH |
-| Pre-merge CI run | `36240230413` SUCCESS | MATCH |
+Campaign Product DB (read-only / query_only):
 
-Pre-merge jobs (run `36240230413`):
+`projects/sfia-studio/.sfia-exec/new-project-campaign-01/product/oa-product.sqlite`
 
-- Detect SFIA Studio changes — SUCCESS
-- Build and validate SFIA Studio — SUCCESS
-- SFIA Studio Required Gate — SUCCESS
+| Field | Observed |
+|-------|----------|
+| Attempt | `xat:w3a:d6df3f9e31e8b84b` |
+| Status | `failed` |
+| stopReason | `REAL_LAUNCH_FAILED: ARTIFACT_WRITE_MODE_UNRESOLVED` |
+| Successor EC | `xct:m3-res:dec:w2-trj:408666c3-2c87-4967-a683-87bfe2b0d74e` |
+| EC status | `confirmed` |
+| action | `cursor.docs_write.apply` |
+| target | `workspace.isolated.docs_write` |
+| inputs.targetPath | `projects/studyflow/01-cadrage/note-de-cadrage.md` |
+| inputs.artifactWriteMode | **ABSENT** |
+| Evidence for Attempt | diagnostic `log_ref` only — **no artifact success** |
 
----
+StudyFlow Product: **NOT MUTATED** in this cycle.
+Managed clone: **NOT MUTATED**.
 
-## 3. MERGE
+Proof level of natural evidence:
 
-| Field | Value |
-|-------|-------|
-| Command | `gh pr merge 524 --repo mcleland147/sfia-workspace --merge` |
-| Merged At | `2026-09-26T12:08:45Z` |
-| MERGE_SHA | `cf1fa4ca139fdbdbf825e134e732f4e25b4c0aa0` |
-| PR state after | MERGED |
-| Message | Merge pull request #524 from mcleland147/feat/sfia-studio-recovery-ownership-prestart-failure-01 |
-
-### Merge parents (topology)
-
-| Parent | SHA |
-|--------|-----|
-| parent 1 (main tip) | `7c184b9444d0b3f2dadc62e7ae9e9178e2c5c17d` |
-| parent 2 (feature head) | `c295e40617e17f45ece08898e01f0d4e0ec495b1` |
-
-### Post-merge main
-
-| Field | Value |
-|-------|-------|
-| origin/main | `cf1fa4ca139fdbdbf825e134e732f4e25b4c0aa0` |
-| Equals MERGE_SHA | YES |
-| Feature ancestor of main | YES (`merge-base --is-ancestor` exit 0) |
-
-### Source branch
-
-| Field | Value |
-|-------|-------|
-| Remote branch | `feat/sfia-studio-recovery-ownership-prestart-failure-01` |
-| Remote SHA | `c295e40617e17f45ece08898e01f0d4e0ec495b1` |
-| Status | **PRESERVED** (not deleted) |
+**REAL BOUNDARY REACHED / BUSINESS EFFECT FAILED**
 
 ---
 
-## 4. POST-MERGE CI (main push — NOT pre-merge PR CI)
+## 3. ROOT CAUSE (VERIFIED AGAINST SOURCE)
 
-| Field | Value |
-|-------|-------|
-| Workflow | SFIA Studio CI |
-| Run ID | `36241006320` |
-| head_branch | `main` |
-| head_sha | `cf1fa4ca139fdbdbf825e134e732f4e25b4c0aa0` (= MERGE_SHA) |
-| Event | push |
-| Conclusion | **success** |
-| URL | https://github.com/mcleland147/sfia-workspace/actions/runs/36241006320 |
+Recovery path:
 
-| Job | Conclusion | Job ID |
-|-----|------------|--------|
-| Detect SFIA Studio changes | success | `108401368138` |
-| Build and validate SFIA Studio | success | `108401389802` |
-| SFIA Studio Required Gate | success | `108402153493` |
+`resolveRecoveryExecutionBinding()`
+→ `cloneDocsWriteInputsForRecoverySuccessor()` (keepKeys **omit** `artifactWriteMode`)
+→ `prepareDocsWriteRecoverySuccessorFromDecision()` spread binding inputs into resolve
+→ Execute / Cursor REAL
+→ `assertArtifactWriteModeAtExecution({ requireResolvedWriteMode: true })`
+→ **`ARTIFACT_WRITE_MODE_UNRESOLVED`**
 
-**POST-MERGE CI GREEN**
+Normal docs_write PREPARE already seals CREATE/UPDATE via
+`classifyArtifactWriteMode` + `hasDurableSameArtifactEvidence` (activeCycleGovernedContinuation).
+Recovery prepare did **not** reseal from current managed-repo truth.
+
+Root cause matches current `origin/main`.
 
 ---
 
-## 5. INTEGRATION SCOPE
+## 4. HARD DESIGN RULES APPLIED
 
-Integrated feature commit `c295e406…` (15 files, +2637/−29) covering:
-
-- `isConfirmedPreStartRejectionRecoverySource.ts`
-- `resolveRecoveryExecutionBinding.ts`
-- `readRecoveryOwnedDecisionContinuity.ts`
-- `actions.ts` (+ recoveryContextPresent / continuity action)
-- `TrajectorySurface.tsx` (absolute fail-closed + one-way rehydrate)
-- recoveryOwnership prestart / corr02 / corr03 tests
-- trajectorySurface UI + importBoundaries adaptations
-
-No Product source edits during this merge lot.
+- Do **not** add `artifactWriteMode` to clone keepKeys as authority
+- Do **not** copy historical CREATE/UPDATE from failed source EC
+- Do **not** default CREATE or UPDATE
+- Do **not** weaken `assertArtifactWriteModeAtExecution` / `requireResolvedWriteMode`
+- Historical mode is ignored; current trusted facts win
+- ASK / UNKNOWN → fail closed (no executable successor)
 
 ---
 
-## 6. PROOF / INTEGRATION CLAIM
+## 5. IMPLEMENTATION
 
-Proof level retained:
+Primary file:
 
-**DETERMINISTIC RECOVERY OWNERSHIP FOR PRE-START FAILURE PROVEN**
+`projects/sfia-studio/app/features/project-assistant/w2/prepareDocsWriteRecoverySuccessor.ts`
 
-Allowed integration claim:
+### New helper — `sealRecoveryDocsWriteArtifactWriteMode`
 
-**RECOVERY OWNERSHIP PRE-START FAILURE — INTEGRATED ON MAIN / DETERMINISTIC PRODUCT PROOF RETAINED**
+A. Trusted launch context already resolved (reused — no second launch resolve for SHA).
+B. Require `managedRepoRoot` non-null (UNKNOWN ≠ ABSENT).
+C. `probeManagedRepoRelativePathExists` on binding.targetPath under managed clone.
+D. If exists: `evidenceReviewServices.repository.listByProject` + `hasDurableSameArtifactEvidence`.
+E. `classifyArtifactWriteMode({ targetExists, intentClearlySameDeliverable })`.
+F. Require CREATE|UPDATE; ASK → `ARTIFACT_WRITE_MODE_ASK`.
+G. Seal into resolveM3 `inputs.artifactWriteMode`.
+H. Explicitly drop any residual source `artifactWriteMode` from cloned inputs before seal.
 
-Proof retained on main:
+### Idempotent reuse
 
-- CLASS 1 failed EC recovery
-- CLASS 2 confirmed EC + deterministic pre-start failed Attempt
-- absolute recovery fail-closed
-- no generic PREPARE from known/unknown recovery
-- restart-safe HD recovery ownership
-- Decision ↔ ProjectTrajectory lineage fail-closed
+Reuse current recovery docs_write successor only when durable EC inputs already carry
+CREATE|UPDATE; otherwise fall through and re-seal.
 
----
+### Execution safety retained
 
-## 7. RESERVES / ANTI-CLAIMS
+`assertArtifactWriteModeAtExecution` unchanged. Still fails:
 
-NOT claimed:
+- ARTIFACT_WRITE_MODE_UNRESOLVED
+- ARTIFACT_WRITE_MODE_ASK
+- ARTIFACT_WRITE_MODE_EXECUTION_REVALIDATION_UNAVAILABLE
+- ARTIFACT_WRITE_MODE_STALE_CREATE_AT_EXECUTION
+- ARTIFACT_WRITE_MODE_STALE_UPDATE_AT_EXECUTION
 
-- StudyFlow natural HumanDecision proof completed
-- StudyFlow E2E REAL
-- Cursor REAL
-- docs_write REAL
-- managed clone fixed
-- Product globally READY
-- runtime v3 ADOPTED
+### Test harness adaptations (non-Product runtime)
 
-StudyFlow NOT resumed in this lot.
-Managed clone NOT mutated.
-
----
-
-## 8. NEXT TRAJECTORY (NOT STARTED)
-
-Same durable StudyFlow project:
-
-1. natural Pilot HumanDecision
-2. verify Studio decision
-3. verify Nora consumes same HumanDecision
-4. verify no auto-PREPARE
-5. hard reload continuity
-
-This work is **NOT STARTED** in this contract.
+- `w2Harness.seedQualifiedProject`: ensure managed clone skeleton for per-suffix
+  repository binding identity so existence probes are EMPTY≠UNKNOWN.
+- `pjReproof05`: unpinned prepare still fail-closed; accept
+  `MANAGED_REPO_UNAVAILABLE` **or** `BASE_HEAD_SHA_UNRESOLVED` when skeleton exists
+  but HEAD is unreadable (VITEST still does not auto-pin).
 
 ---
 
-## 9. REVIEW HANDOFF
+## 6. SEMANTICS PROVEN
 
-Mode: publish-in-cycle
-Branch: `sfia/review-handoff`
-Canonical: `sfia-review-handoff/latest-chatgpt-review.md`
-Publisher: `scripts/sfia/publish-review-handoff.sh` only
-Message: `docs(review-handoff): publish recovery ownership post-merge review`
-
-Handoff commit/blob reported from publisher output after publication (actual remote tip — not pre-embedded).
+| Case | Result |
+|------|--------|
+| A — target absent | CREATE sealed |
+| B — exists + same-artifact Evidence | UPDATE sealed |
+| C — exists without proof | ASK fail-closed |
+| D — existence unavailable | EXISTENCE_UNAVAILABLE fail-closed |
+| E — stale source CREATE, current UPDATE truth | fresh UPDATE wins |
+| F — stale source UPDATE, target absent | fresh CREATE wins |
+| Contradictory Evidence | ASK fail-closed |
+| Sealed CREATE/UPDATE at guard | no UNRESOLVED |
+| TOCTOU CREATE→appears / UPDATE→disappears | STALE_* retained |
 
 ---
 
-## 10. FINAL VERDICT
+## 7. FILES CHANGED
 
-**PR #524 — MERGED / POST-MERGE GIT VERIFIED / CI GREEN**
+```
+M  projects/sfia-studio/app/features/project-assistant/w2/prepareDocsWriteRecoverySuccessor.ts
+A  projects/sfia-studio/app/__tests__/project-assistant/recoveryDocsWriteModeSealing.d0.test.ts
+M  projects/sfia-studio/app/__tests__/project-assistant/w2Harness.ts
+M  projects/sfia-studio/app/__tests__/project-assistant/pjReproof05.executionEligibility.d0.test.ts
+```
 
-**RECOVERY OWNERSHIP PRE-START FAILURE — INTEGRATED ON MAIN / NATURAL STUDYFLOW PILOT→STUDIO→NORA REPROOF NEXT**
+Forbidden paths: NONE.
+
+### Meaningful prepare sealing excerpt
+
+After trusted launch succeeds:
+
+1. strip residual `artifactWriteMode` from cloned business inputs
+2. `sealRecoveryDocsWriteArtifactWriteMode({ identity, managedRepoRoot, targetPath })`
+3. inject `artifactWriteMode: CREATE|UPDATE` into `resolveM3ExecutionContract` inputs
+4. preserve `assertArtifactWriteModeAtExecution` at Fake/REAL launch boundaries unchanged
+
+---
+
+## 8. TARGETED VALIDATION
+
+Files / suites:
+
+- `recoveryDocsWriteModeSealing.d0.test.ts` (RWM-01…11 + StudyFlow-equivalent)
+- `checkpointF.recoveryDocsWriteSuccessor.d0.test.ts`
+- `recoveryOwnership.*` (no regression)
+- `pjReproof05.executionEligibility.d0.test.ts`
+- `projectWorkspaceArtifactRouting.d0.test.ts`
+
+Result: **PASS** (34/34 on last focused batch including RWM+checkpointF+pjReproof05).
+
+---
+
+## 9. FULL VALIDATION
+
+| Gate | Result |
+|------|--------|
+| typecheck | PASS |
+| lint | PASS |
+| build | PASS |
+| Vitest | **431 files passed** / 17 skipped · **4758 tests passed** / 137 skipped · **0 failed** |
+| modeled governance | **73 pass / 0 fail** |
+
+Delta vs prior integrated macro (~430 files / 4744 tests): +1 file / +14 tests (RWM suite).
+
+---
+
+## 10. FAKE / REAL QUALIFICATION
+
+| Claim | Status |
+|-------|--------|
+| Deterministic recovery write-mode sealing | **PROVEN** |
+| Natural StudyFlow docs_write REAL success | **NOT claimed** |
+| Artifact written / artifact Evidence REAL | **NOT claimed** |
+| Cursor REAL launched from this cycle | **NO** |
+| Fake boundary used only as external substitute in tests | YES (where applicable) |
+
+Proof level this cycle:
+
+**DETERMINISTIC RECOVERY WRITE-MODE SEALING PROVEN**
+
+---
+
+## 11. RESERVES / ANTI-CLAIMS / OUT OF SCOPE
+
+- Nora `recommended_option_ref_only_on_recommendation`: OPEN / NON-BLOCKING / OUT OF SCOPE
+- StudyFlow natural Pilot→Studio→Nora REAL reproof: **NEXT AFTER integration**
+- no Product-global READY
+- runtime v3 NON ADOPTED
+- no PR / merge readiness claim
+- StudyFlow NOT resumed / NOT mutated
+- managed clone NOT mutated
+- #524 recovery ownership behavior retained (CLASS 1 / CLASS 2)
+
+---
+
+## 12. DEBT / EXIT
+
+Exit proof of this Cursor cycle: deterministic sealing + guard acceptance.
+
+Next after ChatGPT review + repository delivery + merge:
+
+same StudyFlow project → recovery PREPARE → Inspect/Confirm/Authorize/Execute →
+expect no `ARTIFACT_WRITE_MODE_UNRESOLVED` when current repo truth supports CREATE/UPDATE.
+
+---
+
+## 13. FINAL VERDICT
+
+**RECOVERY DOCS_WRITE MODE SEALING — DETERMINISTICALLY PROVEN / READY FOR CHATGPT REVIEW**
