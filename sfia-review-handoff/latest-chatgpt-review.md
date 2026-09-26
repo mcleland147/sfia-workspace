@@ -1,346 +1,414 @@
-# STUDYFLOW NATURAL POST-INTEGRATION REPROOF
-## Phase B — FAILURE DIAGNOSIS & POST-#522 RETRY ELIGIBILITY
-## FULL Review Pack — Cursor → ChatGPT
+# ChatGPT Review Pack — CRM Assurance Courtage 1.1 Pedagogical Alignment
 
-Generated: 2026-09-25T21:35:27Z
-Campaign: STUDYFLOW NATURAL POST-INTEGRATION REPROOF
-Phase: B — FAILURE DIAGNOSIS & POST-#522 RETRY ELIGIBILITY
-Cycle: 9 — QA / validation
-Profile: CRITICAL
-Morris GO consumed: **GO STUDYFLOW PHASE B — READ-ONLY FAILURE DIAGNOSIS**
-Cursor REAL: NOT RUN
-Product mutations: NONE
-Retry / StartExecution / Confirmation / HD / trajectory mutation: NONE
+**Niveau :** FULL
+**Date / heure :** 2026-09-26 02:43:26 CEST (+0200)
+**Cycle :** Cadrage — réalignement documentaire 1.1
+**Profil SFIA :** Standard
+**Typologie :** DOC
+**CKC :** pilots/01-cadrage.md — candidate · aucune autorité d'exécution
+**Studio Convergence :** N/A
+**Fake/Real :** N/A
+**Mono-cycle :** oui
 
 ---
 
-## 1. GO MORRIS CONSUMED
+## 1. Objectif
 
-GO STUDYFLOW PHASE B — READ-ONLY FAILURE DIAGNOSIS.
-
-Authorized: Git Truth · code/config non-secret read · Product SQLite RO · Nora Session RO if needed · Evidence/RB/Attempt/Claim inspect · managed repo Git RO · historical vs post-#522 comparison · FULL Review Pack · L3 handoff.
-
-Not authorized / not performed: Cursor REAL · Retry · Select/StartExecution · EC prepare/amend · Confirmation · HD · trajectory/LPS/Evidence mutation · Reservation resolve · durable Nora · fresh StudyFlow · .env.local edit · managed fetch/pull/checkout/worktree · code change · project push/PR/merge · Roadmap · GAP-15.
+Réaligner et simplifier
+`projects/crm-assurance-courtage/01-cadrage/01-01-analyse-besoins-metiers.md`
+sur la fiche CRM, le guide Bloc 1, la maquette de présentation, la doctrine CRM et SFIA v2.6 (processus uniquement).
 
 ---
 
-## 2. GIT TRUTH
+## 2. Local Git Truth Check
 
-| Field | Value |
-|-------|-------|
-| Local branch | `feat/sfia-studio-pilot-execution-experience-recovery-simplification-01` |
-| HEAD | `49249101bab1bd1e3a1d91b469fe7b41341c5a01` |
-| `origin/main` | `49249101bab1bd1e3a1d91b469fe7b41341c5a01` |
-| Match expected post-#522 | **YES** |
-| Product dirty | none outside `.tmp-sfia-review/**` |
-| Reset/rebase/merge this pass | NONE |
+| Contrôle | Résultat |
+|----------|----------|
+| Workspace | `/Users/l/Projects/sfia-worktree-crm-assurance` |
+| Branche | `docs/crm-assurance-courtage-1-1-business-needs-01` |
+| HEAD avant | `0f12530cf22cb38418b8d434e6d5782bf96b3e32` |
+| HEAD après | `f9527aadb40a0bda81bd7885980099f8d5659a70` |
+| origin/main | `49249101bab1bd1e3a1d91b469fe7b41341c5a01` (= attendu 49249101…) |
+| staged | aucun |
+| tracked dirty toléré | `.tmp-sfia-review/chatgpt-review.md` — réinitialisé |
+| Rebase/merge main | **non** — trajectoire CRM locale conservée |
 
----
+### Worktrees
 
-## 3. PHASE A ANCHOR
+```
+worktree /Users/l/Projects/sfia-workspace
+HEAD 139f45fd019aa0561bfb5c6b7a7bd1c748f570b4
+branch refs/heads/project/sfia-task-manager-cycle-4-ux-ui
 
-| Field | Value |
-|-------|-------|
-| Handoff branch | `sfia/review-handoff` |
-| Commit | `f1cc8c01a3c44704bc283bada56cab463ddb2f1f` |
-| Canonical blob | `3609545c0efbcf8f92df1c66ccf2145ac2a5748a` |
-| Match expected | **YES** |
+worktree /private/tmp/sfia-review-handoff-wt
+HEAD b3606b84554ff5bb9f56cd43f2c2b2da089a237b
+branch refs/heads/sfia/review-handoff
 
-Project: `prj:34e7351c-770c-474a-8edc-9c82a07be41d` · LPS v32 · cycle `cyc:trj-2ee956d99383359aadd408d1` · trajectory v3 **clarify-first** · Phase B = steps 1–2 only.
+worktree /Users/l/Projects/sfia-worktree-crm-assurance
+HEAD f9527aadb40a0bda81bd7885980099f8d5659a70
+branch refs/heads/docs/crm-assurance-courtage-1-1-business-needs-01
 
----
 
-## 4. SOURCES READ
-
-Process templates/checklists/operating model/validation + doctrine v3 32/34/35 + CKC QA + convergence/build/roadmap/product-completion (read-only).
-
-Diagnostic code: `resolveTrustedProductLaunchContext.ts` · `prepareDocsWriteRecoverySuccessor.ts` · `prepareAndResolveM3ProductPath.ts` · `processFailureDiagnostic.ts` · `resolvePostEvidenceRecoveryContext.ts` · `managedProjectRepositoryResolver.ts` · `studioGitWorktreeWorkspace.ts` · `studioCursorRealLaunchGateway.ts` · `startExecution.ts` · `resolveBoundedReadOnlyBaseHeadSha.ts` · `managedRepoRootBaseConfig.ts`.
-
-Remote Phase A handoff canonical file verified before conclusion.
+```
 
 ---
 
-## 5. PRODUCT SQLITE
+## 3. Sources Git lues
 
-| Field | Value |
-|-------|-------|
-| Path | `…/.sfia-exec/new-project-campaign-01/product/oa-product.sqlite` (from `SFIA_STUDIO_PRODUCT_DB_PATH` only) |
-| Method | `file:…?mode=ro` + `PRAGMA query_only=ON` |
-| integrity_check | **ok** |
-| schema | `m8-0.1.0` |
-| Same StudyFlow truth as Phase A | **YES** |
+1. prompts/templates/sfia-cycle-execution-template.md
+2. method/sfia-fast-track/core/sfia-cycle-routing-guide.md
+3. method/.../sfia-v2.5-project-cycles-method-candidate.md
+4. method/.../pilots/01-cadrage.md
+5. method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md
+6. method/sfia-fast-track/core/sfia-rules-and-guardrails.md
+7. projects/crm-assurance-courtage/00-intake/crm-assurance-courtage-operating-doctrine.md
+8. projects/crm-assurance-courtage/01-cadrage/01-01-analyse-besoins-metiers.md (avant/après)
+9. scripts/sfia/README.md
 
 ---
 
-## 6. HISTORICAL EPISODE (DURABLE)
+## 4. Sources pédagogiques externes appliquées
 
-### ExecutionContract
-| Field | Value |
-|-------|-------|
-| executionContractId | `xct:m3-res:dec:w2-prop:0d65e1cd-b259-4222-860b-a783a01bf4c0` |
-| Version at Attempt | **3** |
-| Status | confirmed |
-| semanticFingerprint | `bd43c1aa1b3b4a51b6fd0a10a2cd682fde18c1834d9f7efc05a1e01b9f2b1bb6` |
-| action | `cursor.docs_write.apply` |
-| target | `workspace.isolated.docs_write` |
-| scope | `studio.gcec.docs_write` |
-| requiredAuthority | MORRIS |
-| requiredCapabilities | `cap:cursor.docs_write` |
-| evidenceRequirements | `evreq:docs_write_artifact` |
-
-### Inputs (diagnostic-relevant)
-| Field | Status | Value |
-|-------|--------|-------|
-| baseHeadSha | **PRESENT** | `df6721edb4ce4e71166fe26ca0d369aebd278870` |
-| repositoryRef / repositoryBindingIdentity / repositoryIdentity | PRESENT | `mcleland147/sfia-workspace` |
-| remoteUrl | PRESENT | `https://github.com/mcleland147/sfia-workspace.git` |
-| defaultBranch | PRESENT | `main` |
-| pathRoot (EC inputs) | PRESENT | `projects/studyflow/01-cadrage` |
-| Project.repositoryBinding.pathRoot | PRESENT | `projects/studyflow` |
-| managedRepoRoot | **ABSENT** | — |
-| trustedLaunchContextPinnedAtPrepare | **ABSENT** | — |
-| targetPath | PRESENT | `projects/studyflow/01-cadrage/note-de-cadrage.md` |
-| pathAllowlist / scopeIn | PRESENT | `projects/studyflow/01-cadrage` |
-
-### Attempt
-| Field | Value |
-|-------|-------|
-| attemptId | `xat:w3a:0a9d88215cf8f884` |
-| status | failed |
-| createdAt | 2026-09-25T15:14:47.224Z |
-| failedAt | 2026-09-25T15:14:47.279Z (~55 ms) |
-| stopReason | `REAL_LAUNCH_FAILED: REAL_WORKSPACE_INVALID:base_head_sha_missing` |
-| selectedAgentRef | `agt:m4.cursor.bounded_docs_write` |
-| processDiagnostic | **ABSENT** (failure before Cursor process observation) |
-| realProcessInvoked / boundaryProofMode / executable basename / stdout/stderr | **ABSENT** on Attempt payload |
-
-### Evidence / ReviewBundle / Claim
-| Object | Status |
+| Source | Usage |
 |--------|--------|
-| `ev:w3b:7b9022c9c4221122` | available · metadata_only · log_ref diagnostic |
-| `rb:w3b:7b9022c9c4221122` | ready_for_review · frozen Evidence |
-| `clm:w3b:7b9022c9c4221122` | **fail** · EO assessments FAIL |
-| Business success | **NOT PROVEN** |
+| PBNC_Fiche_projet_CRM_courtage_assurance | Faits métier |
+| PBNC_Bloc1_Methodologie (guide) | Structure 1.1 / questions de cadrage |
+| PBNC_100_Maquette_presentation_bloc_1 | BMC/EDF, BPMN facultatif |
+
+**Non lus depuis Git** — guidance fournie au contrat Cursor.
 
 ---
 
-## 7. HISTORICAL FAILURE MECHANICS — `base_head_sha_missing`
+## 5. Résumé des changements
 
-Code (`StudioGitWorktreeWorkspace.prepareWorkspace`):
+**Supprimé / simplifié :** questions de découverte ; hypothèse fragmentation ; matrice objets lourde ; maturité PARTIEL artificielle ; formulations AS-IS.
 
-1. Validate `baseHeadSha` is full 40-hex (else `base_head_sha_invalid`).
-2. Choose `repoRoot` = `request.managedRepoRoot` if provided, else constructor ambient `repoRoot`.
-3. Run `git rev-parse --verify <baseHeadSha>^{commit}` in that `repoRoot`.
-4. Non-zero exit → throw `REAL_WORKSPACE_INVALID:base_head_sha_missing`.
+**Corrigé :** courtiers explicites ; pièces admin. fidèles au brief ; BMC branches ≠ segments clients ; limites du scénario.
 
-`StartExecution` for docs_write (current and historically for managed composition):
-- Rejects EC-supplied absolute `managedRepoRoot`.
-- Resolves managed clone via `ManagedProjectRepositoryResolver` under `SFIA_STUDIO_MANAGED_REPO_ROOT_BASE`.
-- Passes that path into workspace prepare.
+**Ajouté :** pertinence préliminaire no-code (bornée) ; structure guide/maquette.
 
-### A. Historical baseHeadSha requested
-`df6721edb4ce4e71166fe26ca0d369aebd278870` — **PRESENT** on EC + bound Attempt material. Studio checkout: **exists** (`df6721ed` = finalization-readiness commit). Managed clone: **absent**.
+**Conservé :** besoin ≠ solution ; NOT DECIDED archi/stack ; BMC/EDF/BPMN NOT ADOPTED ; KPI sans cibles.
 
-### B. Historical repoRoot
-Not stored as durable field (`managedRepoRoot` ABSENT on EC). **Reconstructible by composition**: docs_write StartExecution resolves managed identity `mcleland147/sfia-workspace` → `…/managed-repos/mcleland147__sfia-workspace` when base configured. That clone still exists today and **does not** contain the historical SHA.
+**Lignes :** 358 → 244.
 
-### C. Meaning of the failure
-| Hypothesis | Classification |
+---
+
+## 6. Git Review Index
+
+| Élément | Valeur |
+|---------|--------|
+| Branche | `docs/crm-assurance-courtage-1-1-business-needs-01` |
+| HEAD avant | `0f12530cf22cb38418b8d434e6d5782bf96b3e32` |
+| HEAD après | `f9527aadb40a0bda81bd7885980099f8d5659a70` |
+| Commit local | `f9527aadb40a0bda81bd7885980099f8d5659a70` — docs(crm-assurance-courtage): align 1.1 with pedagogical framework |
+| Push projet | NOT DONE — NOT AUTHORIZED |
+| Diff | M projects/crm-assurance-courtage/01-cadrage/01-01-analyse-besoins-metiers.md |
+
+---
+
+## 7. CONTENU COMPLET FINAL DU FICHIER MODIFIÉ
+
+````markdown
+# CRM Assurance Courtage — 1.1 Analyse des besoins métiers
+
+| Champ | Valeur |
+|-------|--------|
+| **Statut** | Working analysis / à valider |
+| **Étape** | 1.1 |
+| **Source principale** | Brief pédagogique CRM (`PBNC_Fiche_projet_CRM_courtage_assurance`) — hors Git |
+| **Sources méthodologiques** | Guide Bloc 1 PBNC + maquette `PBNC_100_Maquette_presentation_bloc_1` — hors Git |
+| **Doctrine projet** | [`../00-intake/crm-assurance-courtage-operating-doctrine.md`](../00-intake/crm-assurance-courtage-operating-doctrine.md) |
+| **Architecture** | NOT DECIDED |
+| **Stack** | NOT DECIDED |
+
+**Sourcing :** seuls les éléments du brief (et de la doctrine pour la conduite) sont traités comme faits. Les absences du scénario = « non précisé dans le scénario pédagogique » — ni inventées, ni transformées en enquête obligatoire.
+
+---
+
+## 1. Objectif du 1.1
+
+Comprendre le **contexte métier** du cabinet de courtage, identifier les **processus**, **enjeux** et **valeur** attendus, et préparer le livrable pédagogique 1.1 — **sans** sélectionner encore de solution, d’outil ou d’architecture.
+
+Ce projet est un **cas pédagogique fictif** (Product Builder No-code & IA). Le brief constitue la base d’analyse. Les informations absentes ne seront pas inventées.
+
+Hors 1.1 : user discovery (1.2), veille (1.3), organisation, budget, support PPTX/Miro final, architecture, stack.
+
+---
+
+## 2. Contexte de l’organisation et environnement
+
+| Élément | Contenu sourcé |
+|---------|----------------|
+| Organisation | Cabinet de courtage en assurance |
+| Intention | Digitaliser la relation client pour gagner en réactivité et en fidélisation |
+| Périmètre relationnel | Centraliser prospects, clients et contrats |
+| Types de contrats cités | Automobile, habitation, santé, prévoyance, etc. |
+| Environnement concurrentiel | Assureurs en ligne cités comme contexte |
+| Axes de différenciation | Proximité (prise de RDV directe ; comparaison illustrative Doctolib) ; personnalisation (offres selon profil et besoins discutés en RDV) ; transparence (accès temps réel à l’historique des échanges et des contrats) |
+| Porteur d’objectifs | Directeur du cabinet |
+
+**Non précisé dans le scénario pédagogique :** taille, CA, organisation interne détaillée, partenaires, volumes, outils existants.
+
+**Besoin ≠ solution :** le besoin porte sur le pilotage et la traçabilité du cycle relationnel / administratif ; ce n’est pas « choisir une plateforme CRM / no-code ».
+
+---
+
+## 3. Processus métiers concernés
+
+**Qualification :** processus **cible dérivé du scénario pédagogique** — **pas** un AS-IS observé.
+
+```text
+Prospect
+  → prise de contact
+  → devis
+  → relance / rendez-vous
+  → compréhension du besoin / proposition
+  → souscription
+  → gestion du contrat
+  → renouvellement ou résiliation
+```
+
+**Capacités / processus transverses (brief) :**
+
+| Transverse | Éléments cités |
 |------------|----------------|
-| SHA formally valid 40-hex but absent from repoRoot used | **PROVEN** (object missing in managed clone; present in Studio) |
-| repoRoot = managed clone (not Studio cwd) | **STRONGLY SUPPORTED** (if Studio cwd had been repoRoot, `rev-parse` would have succeeded) |
-| Managed clone not synchronized to the SHA that was pinned | **STRONGLY SUPPORTED** |
-| Legacy pin from ambient Studio checkout / non-trusted prepare | **STRONGLY SUPPORTED** (`trustedLaunchContextPinnedAtPrepare` ABSENT; pin equals Studio-lineage SHA) |
-
-Cause class: **LEGACY PRE-#522 LAUNCH CONTEXT** (SHA↔repoRoot mismatch) with **ENVIRONMENT / MANAGED REPO PRECONDITION** as the concrete mismatch surface. Not a proven current Product path defect.
-
----
-
-## 8. CURRENT MANAGED REPOSITORY
-
-| Field | Value |
-|-------|-------|
-| `SFIA_STUDIO_MANAGED_REPO_ROOT_BASE` | `…/projects/sfia-studio/.sfia-exec/managed-repos` (**PRESENT**, directory exists) |
-| Canonical managedRepoRoot | `…/managed-repos/mcleland147__sfia-workspace` |
-| Exists / `.git` | YES |
-| `rev-parse --is-inside-work-tree` | true |
-| toplevel | same canonical path |
-| HEAD | `66ffc0d2370d9ed7014348fd25994ce1cda3b3ad` |
-| Branch | **detached HEAD** |
-| status --short | clean (0 lines) |
-| origin URL (diagnostic only) | `/Users/morris/Projects/sfia-workspace` (local path; **not** treated by code as workspace validity invariant) |
-| Historical SHA in managed clone | **NO** |
-| Current HEAD `rev-parse --verify <HEAD>^{commit}` in same clone | **YES** |
-| Managed HEAD vs `origin/main` Studio | Managed at #513-era merge; Studio main at #522 — **stale relative to main** (observation only; no fetch authorized) |
+| Administratif | Collecte de pièces administratives prévue par le brief |
+| Documents | Édition / envoi automatiques ; attestations ; avenants ; conditions générales |
+| Sinistres | Déclaration ; suivi ; indemnisation |
+| Relation | Historique des échanges |
+| Pilotage | Tableau de bord commercial |
 
 ---
 
-## 9. POST-#522 TRUSTED LAUNCH PATH (STATIC + FS/GIT FACTS)
+## 4. Problèmes / limites auxquels le projet doit répondre
 
-Conceptual replay (not executed):
+Aucun AS-IS terrain n’a été observé. Les enjeux ci-dessous sont **déduits des objectifs du brief** :
 
-`Project.repositoryBinding` → `resolveTrustedProductLaunchContext` → `ManagedProjectRepositoryResolver` → managedRepoRoot → `resolveBoundedReadOnlyBaseHeadSha(managedRepoRoot)` → current managed HEAD → `launchContextAsContractInputs` → EC successor → Confirmation → future StartExecution.
-
-Checklist:
-
-| # | Check | Result |
-|---|-------|--------|
-| 1 | repositoryBinding.identity present | YES `mcleland147/sfia-workspace` |
-| 2 | managed root base present | YES |
-| 3 | canonical managed clone exists | YES |
-| 4 | managed clone readable Git repo | YES |
-| 5 | current HEAD full 40-hex | YES `66ffc0d2…` |
-| 6 | that HEAD verifiable in **this** clone | YES |
-| 7 | Project pathRoot StudyFlow | YES `projects/studyflow` |
-| 8 | no silent fallback to process.cwd / Studio checkout in trusted resolver | YES — fail-closed `MANAGED_REPO_UNAVAILABLE` if clone missing |
-| 9 | post-#522 pins baseHeadSha from managed clone itself | YES |
-| 10 | `trustedLaunchContextPinnedAtPrepare` only after successful resolve | YES (`prepareAndResolveM3ProductPath` / recovery successor) |
-| 11 | recovery successor uses same resolver | YES (`prepareDocsWriteRecoverySuccessor`) |
-| 12 | client-supplied baseHeadSha cannot widen authority | YES — server resolve; StartExecution rejects EC absolute managedRepoRoot |
-
-Note: `launchContextAsContractInputs` does **not** persist `managedRepoRoot` into EC inputs (by design); StartExecution re-resolves server-side.
+| Enjeu déduit du brief |
+|-----------------------|
+| Charge administrative à réduire |
+| Traçabilité à améliorer |
+| Réactivité à renforcer |
+| Informations et suivi à centraliser |
+| Transparence à améliorer |
+| Relation client à personnaliser |
+| Confiance, fidélisation et rétention à renforcer |
 
 ---
 
-## 10. HISTORICAL vs POST-#522
+## 5. Objectifs et valeur attendue
 
-| Dimension | HISTORICAL ATTEMPT | CURRENT POST-#522 PATH |
-|-----------|--------------------|------------------------|
-| Source of baseHeadSha | Studio-lineage SHA `df6721ed…` without trusted pin marker | Managed clone HEAD via `resolveBoundedReadOnlyBaseHeadSha(startDir=managedRepoRoot)` |
-| Repository identity | Present on EC | From durable `Project.repositoryBinding` |
-| repoRoot at prepare | Managed clone (strongly supported) | Managed clone re-resolved at StartExecution |
-| Pin timing | Before #522 trusted pack | Before inspection/authorize when trusted resolve succeeds |
-| trusted launch context | ABSENT | Marker set only on success |
-| Validation before Confirm/Start | SHA present on EC but not proven in managed objects | Trusted resolve fail-closed before prepare; Start re-resolves managed root |
-| If managed repo absent | Historical episode still launched with mismatched pin | Fail-closed (`MANAGED_REPO_UNAVAILABLE` / `docs_write_managed_repo_unresolved`) |
-| Ambient Studio checkout fallback | Effective pin source (legacy) | Explicitly forbidden in trusted path comments + fail-closed |
-| Recovery successor | N/A for this episode | Same trusted resolver; fail-closed; no auto Execute |
-| SHA ↔ repoRoot mismatch | **Occurred** | **Guarded**: SHA derived from same clone used at prepare |
+| Objectif / valeur | Indicateur dans le brief |
+|-------------------|--------------------------|
+| Réduction des tâches administratives | — |
+| Amélioration de la traçabilité | — |
+| Réactivité | — |
+| Proximité | — |
+| Personnalisation | — |
+| Transparence | — |
+| Confiance | — |
+| Fidélisation / rétention | — |
+| Pilotage commercial | Taux de conversion ; panier moyen ; satisfaction client |
 
-Three notions:
-- **A. Historical cause explained** — YES (STRONGLY SUPPORTED / PROVEN mismatch class)
-- **B. Current path guards same failure class** — YES
-- **C. REAL retry actually proven** — **NOT PROVEN** (out of scope)
+**Aucune cible numérique** n’est fournie dans le brief. Aucune n’est inventée ici.
 
 ---
 
-## 11. CAUSE CLASSIFICATION
+## 6. Pertinence préliminaire de l’approche no-code
 
-**Primary:** LEGACY PRE-#522 LAUNCH CONTEXT
+### Pertinence préliminaire — pas un choix d’architecture
 
-**Secondary surface:** ENVIRONMENT / MANAGED REPO PRECONDITION (managed object store lacked the pinned SHA)
+Le cas implique, d’après le brief : gestion structurée d’informations ; saisies / formulaires ; suivi de dossiers ; enchaînements (devis → RDV → souscription) ; automatisations documentaires ; rendez-vous ; reporting ; interfaces métier / client.
 
-**Not used:** CURRENT PRODUCT PATH DEFECT SUSPECTED (no evidence the post-#522 trusted path still admits the same silent SHA↔repoRoot mismatch before REAL)
+Ces caractéristiques rendent une approche **no-code plausible** dans le cadre de l’exercice pédagogique.
 
-Acceptable formulation: failure class is now guarded by the current trusted resolver; current non-REAL trusted-launch preconditions are satisfied; historical root cause reconstructed as SHA pinned outside managed object identity vs repoRoot = managed clone.
+**Bornes explicites :**
 
-Forbidden formulations avoided: fixed in production · retry will succeed · Cursor REAL proven · docs_write works · StudyFlow REAL validated.
-
----
-
-## 12. CURRENT RETRY PRECONDITION QUALIFICATION
-
-| Precondition | Status |
-|--------------|--------|
-| StudyFlow Project durable coherent | YES |
-| Trajectory = clarify-first | YES |
-| No active blocking Reservation | YES (0 active) |
-| Repository binding coherent | YES |
-| Managed repository root configured | YES |
-| Managed clone available | YES |
-| Managed clone current HEAD valid | YES |
-| Trusted launch resolver can derive full launch context in principle | YES (would pin `66ffc0d2…`) |
-| No known structural Product contradiction before REAL | YES |
-| Existing failure Evidence correctly FAIL | YES |
-
-**PRECONDITIONS SATISFIED**
-
-(Meaning: sufficient facts to ask for the next governed decision — **≠ READY FOR REAL ≠ authorization to execute**.)
-
-Operational observation (non-blocking for this eligibility definition): managed clone HEAD is stale vs Studio `origin/main` and detached; any future REAL would pin that current managed HEAD until an **authorized** operational sync (not this GO).
+- aucune plateforme n’est choisie ;
+- l’adéquation des outils sera étudiée plus tard ;
+- la veille 1.3 contribuera à la confrontation technologique / réglementaire ;
+- l’opportunité globale sera consolidée dans le Bloc 1 ;
+- l’architecture concrète appartient au Bloc 2 ;
+- **architecture = NOT DECIDED** · **stack = NOT DECIDED**.
 
 ---
 
-## 13. FINDINGS
+## 7. Périmètre métier synthétique
 
-| ID | Finding | Class | Diagnostic tag |
-|----|---------|-------|----------------|
-| B1 | `base_head_sha_missing` = managed `rev-parse` miss on historical SHA | EXPECTED | LEGACY PRE-#522 FAILURE |
-| B2 | Historical SHA in Studio, absent in managed clone | EXPECTED | ENVIRONMENTAL PRECONDITION |
-| B3 | No trusted pin marker on historical EC | EXPECTED | LEGACY PRE-#522 FAILURE |
-| B4 | Post-#522 trusted path derives SHA from managed clone | EXPECTED | CURRENT PATH GUARD |
-| B5 | Managed clone present, HEAD self-verifiable | EXPECTED | — |
-| B6 | Managed clone stale / detached vs main #522 | NON-BLOCKING RESERVE | ENVIRONMENTAL PRECONDITION |
-| B7 | origin URL is local filesystem path | NON-BLOCKING RESERVE | (diagnostic only; not code invariant) |
-| B8 | EC pathRoot `…/01-cadrage` vs Project pathRoot `projects/studyflow` | LEGACY | (historical EC inputs; Project binding remains StudyFlow root) |
-| B9 | processDiagnostic absent (fail before process) | EXPECTED | — |
-| B10 | REAL retry / docs_write success | NOT PROVEN | — |
+### Acteurs (brief)
 
----
+| Acteur | Affirmable |
+|--------|------------|
+| Directeur | Objectifs : réduction admin., traçabilité, confiance, rétention |
+| Courtiers | Acteurs métier du cabinet explicitement concernés par le scénario (proximité, personnalisation en RDV) |
+| Prospects | Entrée du cycle |
+| Clients | Contrats ; transparence / historique |
 
-## 14. GAP-15
+Assureurs en ligne : contexte concurrentiel cité — pas des partenaires détaillés.
 
-OPEN RESERVE · OUT OF CURRENT MACRO · NON-BLOCKING · not reopened · not reproduced.
+### Objets utiles à la compréhension (pas un modèle de données)
+
+Prospect · client · devis · rendez-vous · contrat · document / pièce · sinistre · historique · KPI.
 
 ---
 
-## 15. ROADMAP
+## 8. Choix méthodologique 1.1 — BMC vs EDF
 
-MealFlow wording = DOCUMENTARY DRIFT — NON-BLOCKING RESERVE. Not modified.
+| Option | Lecture du scénario |
+|--------|---------------------|
+| **BMC + portrait** | Le scénario décrit le **cabinet dans son ensemble** ; aucune entité interne bornée n’est définie ; le BMC offre une vue globale utile pour l’exercice |
+| **EDF + portrait** | Pertinent si une entité interne spécifique était délimitée — ce n’est **pas** le cas ici |
 
----
+**RECOMMANDATION :** BMC + portrait synthétique de l’organisation
+**STATUT : NOT ADOPTED** — décision Morris requise.
 
-## 16. FAKE / REAL QUALIFICATION
-
-| Item | Status |
-|------|--------|
-| Historical | REAL PROCESS ATTEMPTED · business FAIL / NOT PROVEN · fail at workspace prepare |
-| #522 deterministic | PROVEN at declared scope |
-| Phase B | READ-ONLY DIAGNOSIS ONLY |
-| Fixtures | NONE |
-| REAL BOUNDARY / E2E REAL | OUT OF SCOPE · NOT PROVEN |
-| Gate Morris REAL | **REQUIRED BEFORE ANY RETRY** |
-
-Hard rule preserved: DETERMINISTIC PROVEN ≠ CURRENT PRECONDITIONS SATISFIED ≠ READY FOR REAL ≠ REAL BOUNDARY PROVEN ≠ E2E REAL PROVEN.
+Aucun EDF complet n’est produit dans ce document.
 
 ---
 
-## 17. CLAIMS
+## 9. Préparation BMC — éléments disponibles
 
-**Authorized:** historical failure explained · current trusted launch preconditions satisfied · failure class guarded by current path · retry remains gated and unproven.
+*Aide à la décision — ne présuppose pas l’adoption du BMC.*
 
-**Forbidden (not claimed):** READY FOR REAL · Cursor REAL fixed · docs_write REAL proven · StudyFlow E2E proven · #522 fixes every recovery failure · runtime v3 ADOPTED · global L5 · Product READY · Nora Cognitive Completion complete · GAP-15 closed · Roadmap synced · next macro selected.
+| Bloc BMC | Éléments disponibles | Si absent |
+|----------|----------------------|-----------|
+| Segments clients | Populations du cycle : prospects, clients. Les branches (auto, habitation, santé, prévoyance, etc.) sont des **catégories de contrats**, pas une segmentation client démontrée | Segmentation détaillée : non précisé dans le scénario pédagogique |
+| Proposition de valeur | Proximité ; personnalisation ; transparence ; centralisation relation + contrats | — |
+| Canaux | Prise de RDV directe (proximité) | Canaux complets : non précisé dans le scénario pédagogique |
+| Relations clients | RDV ; historique ; personnalisation | — |
+| Sources de revenus | — | Non précisé dans le scénario pédagogique |
+| Ressources clés | Courtiers ; données clients / contrats (attendues par le scénario) | Effectifs / outils : non précisé dans le scénario pédagogique |
+| Activités clés | Cycle devis → souscription ; documents ; sinistres ; pilotage | — |
+| Partenaires clés | — | Non précisé dans le scénario pédagogique (assureurs en ligne = concurrence citée) |
+| Structure de coûts | — | Non précisé dans le scénario pédagogique |
 
----
-
-## 18. NEXT NATURAL ACTION CANDIDATE
-
-Return this diagnosis to ChatGPT for **trajectory step 3 requalification** (réinstruire options recovery — Pilot HumanDecision). Do **not** retry, do **not** REAL, do **not** create the HD in this cycle.
-
-Optional operational note for ChatGPT (not executed): managed clone freshness vs main may matter before any future REAL pin — requires separate authorized ops, not Phase B.
-
----
-
-## 19. REQUIRED AUTHORITY / GATE
-
-- Now: none beyond ChatGPT/Morris requalification of next contract.
-- Trajectory step 3: **PILOT ACTION REQUIRED** (HumanDecision).
-- Any docs_write REAL retry: **GO REAL MORRIS DISTINCT** (after next natural action qualification).
+Ces absences **ne rendent pas** le 1.1 immature pour l’exercice demandé.
 
 ---
 
-## 20. FINAL VERDICT
+## 10. Portrait synthétique du cabinet
 
-**LEGACY PRE-#522 LAUNCH CONTEXT FAILURE — CURRENT TRUSTED PATH PRECONDITIONS SATISFIED**
+| Dimension | Contenu |
+|-----------|---------|
+| Activité | Courtage d’assurance (multi-branches citées) |
+| Populations | Prospects et clients |
+| Transformation | Digitaliser la relation client ; réactivité ; fidélisation |
+| Processus | Chaîne §3 (cible pédagogique) |
+| Valeur | Proximité, personnalisation, transparence ; objectifs §5 |
+| Capacités principales | Centralisation ; documents ; sinistres ; pilotage commercial |
 
-This does **not** mean READY FOR REAL or REAL PROVEN.
+Le scénario ne précise pas la taille, l’organisation interne détaillée, les volumes, les outils existants ou les données financières. Ces éléments ne sont pas inventés et ne sont pas nécessaires pour répondre au niveau de cadrage demandé ici.
 
 ---
 
-## 21. INSTRUCTION TO CHATGPT
+## 11. Processus / BPMN
 
-NE PAS continuer automatiquement StudyFlow.
-NE PAS lancer Cursor REAL.
-NE PAS retry l’Attempt.
-NE PAS créer de HumanDecision.
-Retourner ce rapport pour requalification de la trajectoire.
+Le scénario permet de représenter un **processus cible pédagogique de haut niveau** (§3).
+
+Le BPMN est **facultatif** selon la formation. S’il est produit plus tard, le limiter à un focus utile et le qualifier clairement comme **cible pédagogique** (ex. prospect → devis → RDV → proposition → souscription).
+
+**Aucun BPMN n’est créé dans ce cycle.**
+
+**RECOMMANDATION :** à évaluer selon la valeur pour le support —
+**STATUT : NOT ADOPTED**.
+
+---
+
+## 12. Limites du scénario pédagogique
+
+| Information non précisée | Traitement |
+|--------------------------|------------|
+| Taille du cabinet | Ne pas inventer |
+| Organisation interne détaillée | Ne pas inventer |
+| Outils existants | Ne pas inventer |
+| Volumes | Ne pas quantifier |
+| Partenaires précis | Ne pas inventer |
+| Chiffre d’affaires | Non requis ici |
+| Coûts | Traités plus tard (1.5) sur hypothèses explicites |
+| AS-IS détaillé | Non disponible — ne pas prétendre l’avoir observé |
+| Cibles chiffrées des KPI | Non fournies — ne pas inventer |
+
+---
+
+## 13. Synthèse 1.1
+
+| Point | État |
+|-------|------|
+| Contexte | Compris à partir du brief |
+| Processus | Identifiés (cible pédagogique) |
+| Enjeux | Identifiés (déduits du brief) |
+| Objectifs / valeur | Identifiés ; KPI cités sans cibles |
+| No-code | Pertinence préliminaire — **pas** un choix d’architecture |
+| Format BMC / EDF | Décision Morris encore requise |
+| Architecture | NOT DECIDED |
+| Stack | NOT DECIDED |
+
+---
+
+## 14. Gate Morris
+
+| Gate | Options | Recommandation |
+|------|---------|----------------|
+| **A — Format 1.1** | BMC + portrait **OU** EDF + portrait | BMC + portrait — **NOT ADOPTED** |
+| **B — BPMN facultatif** | Produire un BPMN cible pédagogique **OU** ne pas en produire | À évaluer selon valeur pour le support — **NOT ADOPTED** |
+
+Le 1.2 n’est **pas** ouvert automatiquement.
+````
+
+---
+
+## 8. Validations contenu
+
+| Contrôle | Résultat |
+|----------|----------|
+| Contexte organisation/environnement | PASS |
+| Processus métier | PASS |
+| Problèmes/limites fidèles au brief | PASS |
+| Aucun AS-IS inventé | PASS |
+| Objectifs/valeur | PASS |
+| Pertinence no-code bornée | PASS |
+| Aucun choix plateforme | PASS |
+| Acteurs corrigés (courtiers explicites) | PASS |
+| Pièces administratives corrigées | PASS |
+| Segmentation BMC corrigée | PASS |
+| Questions fictives supprimées | PASS |
+| Limites du scénario explicites | PASS |
+| BMC/EDF NOT ADOPTED | PASS |
+| BPMN NOT ADOPTED | PASS |
+| Architecture NOT DECIDED | PASS |
+| Stack NOT DECIDED | PASS |
+| Document simplifié | PASS |
+| Cohérence guide Bloc 1 | PASS |
+| Cohérence maquette | PASS |
+
+---
+
+## 9. Garde-fous
+
+- Un seul fichier versionné modifié
+- Aucune stack/architecture
+- Aucun PPTX/Miro/BPMN créé
+- Doctrine / method / prompts non modifiés
+- Pas de push/PR/merge projet
+
+---
+
+## 10. Recommandations NOT ADOPTED / Gates Morris
+
+- Gate A : BMC + portrait — NOT ADOPTED
+- Gate B : BPMN facultatif — NOT ADOPTED
+- 1.2 non ouvert
+
+---
+
+## 11. Réserves
+
+- Sources pédagogiques externes non versionnées dans Git
+- Branche CRM non alignée sur main (volontaire)
+- Support de présentation final hors cycle
+
+---
+
+## 12. Verdict review pack
+
+**complete** — FULL · mono-cycle · contenu complet = yes · synthesis-only = no
