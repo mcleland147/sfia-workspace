@@ -134,17 +134,15 @@ Forbidden project paths absent from commit:
 
 ## 6. CI
 
-At Review Pack generation time:
+| Check | Status | Conclusion | Run / Job |
+|-------|--------|------------|-----------|
+| Detect SFIA Studio changes | pass | success | run `36240230413` / job `108399219942` (6s) |
+| Build and validate SFIA Studio | pass | success | run `36240230413` / job `108399250236` (6m9s) |
+| SFIA Studio Required Gate | pass | success | run `36240230413` / job `108400069198` (3s) |
 
-| Check | Status |
-|-------|--------|
-| Detect SFIA Studio changes | pending (run `36240230413` / job `108399219942`) |
+**PR CI GREEN**
 
-Status label for this lot (pending at pack write; re-checked before final report):
-
-**PR CREATED / CI PENDING** (or updated to GREEN/FAILED if terminal before STOP)
-
-Contract: do not repair CI failure in this repository-delivery lot.
+Contract: no CI repair performed in this repository-delivery lot.
 
 ---
 
@@ -210,15 +208,19 @@ Mode: publish-in-cycle
 Branch: `sfia/review-handoff`
 Canonical: `sfia-review-handoff/latest-chatgpt-review.md`
 Publisher: `scripts/sfia/publish-review-handoff.sh` only
-Suggested message: `docs(review-handoff): publish recovery ownership repository delivery`
+Message: `docs(review-handoff): publish recovery ownership repository delivery`
 
-Handoff commit/blob/path filled after L3 publisher success in final report.
+| Field | Value |
+|-------|-------|
+| Handoff commit | `22645e408ec64f1820b4e6fac5952fbb2290835a` (initial delivery publish; may be superseded by CI-final republish) |
+| Canonical path | `sfia-review-handoff/latest-chatgpt-review.md` |
+
+Final handoff commit/blob after CI-green pack refresh recorded in §12.
 
 ---
 
 ## 12. FINAL VERDICT (DELIVERY LOT)
 
-**PR CREATED / REMOTE VERIFIED / CI PENDING**
+**PR CREATED / REMOTE VERIFIED / CI GREEN / READY FOR MORRIS MERGE GATE**
 
-Pending only CI terminal observation and L3 handoff publish completion in this same lot.
-MERGE remains NOT AUTHORIZED.
+MERGE NOT AUTHORIZED / NOT PERFORMED.
