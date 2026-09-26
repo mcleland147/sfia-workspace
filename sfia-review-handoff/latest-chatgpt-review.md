@@ -1,13 +1,13 @@
-# RECOVERY-OWNERSHIP-PRESTART-FAILURE-01 — CORR-02 FULL Review Pack
-## Rehydration stability + durable Decision lineage integrity
+# RECOVERY-OWNERSHIP-PRESTART-FAILURE-01 — CORR-03 FULL Review Pack
+## GOVERNED recovery claim must fail-closed on lineage corruption
 ## Cycle 8 — Delivery / implémentation · CRITICAL
 
-Generated: 2026-09-26T11:36:08Z
+Generated: 2026-09-26T11:46:20Z
 Macro: RECOVERY-OWNERSHIP-PRESTART-FAILURE-01
-Correction: CORR-02 — REHYDRATION STABILITY + DURABLE DECISION LINEAGE INTEGRITY
+Correction: CORR-03 — GOVERNED RECOVERY CLAIM MUST FAIL-CLOSED ON LINEAGE CORRUPTION
 Cycle: 8 — Delivery / implémentation
 Profile: CRITICAL
-Morris GO: construction GO remains consumed; CORR-02 bounded inside macro.
+Morris GO: construction GO remains consumed; CORR-03 bounded inside macro.
 Project commit/push/PR/merge: **NOT performed / NOT authorized**
 
 ---
@@ -19,196 +19,252 @@ Project commit/push/PR/merge: **NOT performed / NOT authorized**
 | Branch | `feat/sfia-studio-recovery-ownership-prestart-failure-01` |
 | HEAD / origin/main | `7c184b9444d0b3f2dadc62e7ae9e9178e2c5c17d` |
 | Main moved | NO |
+| Retained | macro + CORR-01 + CORR-02 local changes |
 | Unrelated Product dirt | NONE |
-| Retained | macro + CORR-01 local changes |
 | Project commit | **NONE** — LOCAL / NOT COMMITTED / NOT PUSHED |
 
-Prior CORR-01 handoff tip: `112a6a3e…` / blob `2d79ed8a…`
+Prior CORR-02 handoff tip: `c9bcbeec…` / blob `509bfc6e…`
 
 ---
 
-## 2. C3 LOOP ANALYSIS
+## 2. C5 ROOT CAUSE
 
-Risk: `rehydrateRecoveryOwnedDecisionContinuity` depended on `decision` and called `setDecision(new DTO)` on every owned result. A real Server Action returns a freshly serialized object each call → identity change → callback recreate → effect re-fire → continuous recovery reads / setDecision cycle.
+CORR-02 added `assertGovernedRecoveryLineage()`, but the reader could bypass it via early `kind=none` returns:
 
-Invariant required: **RECOVERY REHYDRATION IS ONE-WAY RESTORATION, NOT CONTINUOUS SYNC.**
+- missing DecisionBasis → kind=none
+- `sourceType != trajectory_option` → kind=none
+- `selectedOptionId != GOVERNED` → kind=none
+
+Valid only when durable truth coherently describes a **non-recovery** tip.
+
+Invalid when either trajectory or decision **claims GOVERNED**.
+
+Principle: **CORRUPTED / CONTRADICTORY GOVERNED AUTHORITY ≠ NO RECOVERY SUBJECT**.
 
 ---
 
-## 3. C3 LOOP-PREVENTION MECHANISM
+## 3. ABSENT vs CORRUPTED GOVERNED CLAIM
 
-Minimal preferred behavior implemented:
+After loading current trajectory + decidedBy HumanDecision:
 
 ```
-if (decision != null) {
-  return; // restart seam no longer owns state
-}
+trajectoryClaimsGoverned = decidedOptionRef === GOVERNED
+decisionClaimsGoverned   = selectedOptionId === GOVERNED
 ```
 
-Rationale:
-- post-click path already sets decision;
-- hard reload starts with `decision == null` → restore once;
-- after restore, restart seam exits without rewrite;
-- no polling / no new sync infrastructure.
+| Case | Condition | Result |
+|------|-----------|--------|
+| A — ABSENT | neither claims GOVERNED | `kind=none` allowed |
+| B — CLAIMED | either claims GOVERNED | full lineage mandatory; mismatch → `ok=false` / `RECOVERY_DECISION_CONTINUITY_FAILED` |
 
-Effect may re-run once after restore (callback identity), then early-returns — finite/stable.
-
----
-
-## 4. C3 CLONE-PER-CALL UI PROOF
-
-Test: `CORR-02 C3 — clone-per-call restart is one-way / finite`
-
-- `mockImplementation(async () => structuredClone(ownedTemplate))`
-- binding load also clone-per-call (durable loadBinding after setDecision)
-- Asserts: decision + binding + CTA · no prepareContract · no prepareRecovery · call count ≤ 3 · **stable after settle**
+Never collapse Case B to `kind=none`.
 
 ---
 
-## 5. C4 DURABLE LINEAGE INVARIANTS
+## 4. EXACT READER ROUTING
 
-`assertGovernedRecoveryLineage` + `readRecoveryOwnedDecisionContinuity` enforce:
-
-| # | Invariant |
-|---|-----------|
-| A | `trajectory.decidedByDecisionRef === decision.decisionId` |
-| B | `trajectory.decidedOptionRef === GOVERNED_OPTION_REF` |
-| C | `decision.selectedOptionId === GOVERNED_OPTION_REF` |
-| D/E | DecisionBasis exists · `sourceType === trajectory_option` |
-| F | `basis.projectId === projectId` |
-| G | `basis.trajectoryContext` exists |
-| H | `ctx.trajectoryId === trajectory.trajectoryId` |
-| I | `ctx.selectedOptionRef === GOVERNED` |
-| J | `ctx.optionRefs` contains GOVERNED |
-| K | trajectory status `validated\|active` |
-| + | `ctx.selectedOptionRef === selectedOptionId` |
-| + | candidate row same trajectoryId |
-
-### Version-coherence rule
-
-Derived from `promoteDecidedTrajectory`: promotion mutates the candidate **in place** (same version, status → validated/active). Therefore:
-
-`basis.trajectoryContext.candidateVersion === trajectory.version`
-
-Do **not** invent a later tip version. Cross-check via `getTrajectoryVersion(candidateVersion)` same `trajectoryId`.
-
-Mismatch / corrupted authority → `ok=false` / `RECOVERY_DECISION_CONTINUITY_FAILED` (never `kind=none`, never synthetic HD, never PREPARE).
-
-Non-GOVERNED tip with trajectory_option basis → `kind=none` (not recovery-owned path). Missing HD → fail-closed preserved.
+1. load current trajectory
+2. no `decidedByDecisionRef` → kind=none
+3. load HD → failure = fail closed
+4. validate project/status
+5. compute claim flags
+6. neither claims GOVERNED → kind=none
+7. **GOVERNED claimed from here**
+8. basis absent → FAIL
+9. `sourceType != trajectory_option` → FAIL
+10. `assertGovernedRecoveryLineage()`
+11. candidate-row cross-check
+12. resolve RecoveryExecutionBinding
+13. recovery context absent (coherent GOVERNED without post-Evidence) → kind=none (RC-06)
+14. recovery context present + binding unresolved → FAIL
+15. owned only if all proof coherent
 
 ---
 
-## 6. C4 NEGATIVE TESTS
+## 5. READER-LEVEL NEGATIVE / POSITIVE TESTS
 
-File: `recoveryOwnership.corr02.lineage.d0.test.ts` (9 tests)
+File: `recoveryOwnership.corr03.governedClaim.d0.test.ts`
 
-1. decidedOptionRef ≠ GOVERNED → fail
-2. selectedOptionId ≠ decidedOptionRef / ≠ GOVERNED → fail
-3. trajectoryContext missing → fail
-4. trajectoryId mismatch → fail
-5. selectedOptionRef mismatch → fail
-6. optionRefs without GOVERNED → fail
-7. (+ candidateVersion ≠ tip · status not validated|active)
-8. positive coherent lineage → null
-9. missing HD covered by integration reader path
+| ID | Scenario | Expected |
+|----|----------|----------|
+| A | traj GOVERNED + decision non-GOVERNED | `ok=false` RECOVERY_DECISION_CONTINUITY_FAILED |
+| B | traj non-GOVERNED + decision GOVERNED | fail closed |
+| C | both GOVERNED + DecisionBasis missing | fail closed |
+| D | both GOVERNED + sourceType≠trajectory_option | fail closed |
+| E | both coherently non-GOVERNED (BOUNDED) | `kind=none` |
+| F | coherent GOVERNED recovery CLASS 2 | `kind=owned` · sourceStatus=confirmed |
 
----
-
-## 7. C1 REGRESSION — STILL CLOSED
-
-Generic PREPARE ONLY when:
-
-`ok===true && binding===null && recoveryContextPresent===false`
-
-Retained UI proofs: EPISTEMIC_READ_FAILED · OA_STACK_UNAVAILABLE · undefined · known recovery null · binding present · RC-06 no-recovery.
+UI: `CORR-03 C5 — corrupted GOVERNED continuity fail-closed` → error visible · no generic PREPARE · no successor PREPARE · no synthetic HD.
 
 ---
 
-## 8. POSITIVE RESTART + CLASS COMPAT
+## 6. PRIOR PROOFS RETAINED
 
-- CLASS 1 / CLASS 2 / StudyFlow-equiv binding preserved
-- CORR-01 C2 durable: HD → no successor EC → reload → owned + `sourceStatus=confirmed`
-- CORR-02 C3 clone-per-call finite restart
+| Gate | Status |
+|------|--------|
+| C1 absolute fail-closed | retained |
+| C3 one-way finite rehydration | retained |
+| C4 pure lineage assert | retained |
+| CLASS 1 / CLASS 2 / StudyFlow-equiv | retained |
+| RC-06 no-recovery generic | retained |
 
 ---
 
-## 9. AUTHORITY DTO RESERVE
+## 7. AUTHORITY DTO RESERVE
 
 **PRE-EXISTING DOCTRINAL PRESENTATION DEBT — RUNTIME PILOT HD DTO AUTHORITY LABEL**
 
-`TrajectoryDecisionRecordDto.authorityClass = "morris"` unchanged.
-Not the durable HumanDecision authority truth. No redesign this cycle.
+`TrajectoryDecisionRecordDto.authorityClass = "morris"` unchanged. Not widened.
 
 ---
 
-## 10. FILES MODIFIED
+## 8. FILES MODIFIED
 
 | Path | Change |
 |------|--------|
-| `w2/readRecoveryOwnedDecisionContinuity.ts` | C4 lineage + export assert |
-| `TrajectorySurface.tsx` | C3 one-way `if (decision != null) return` |
-| `recoveryOwnership.corr02.lineage.d0.test.ts` | **NEW** C4 negatives |
-| `trajectorySurface.ui.test.tsx` | C3 clone-per-call stability |
+| `w2/readRecoveryOwnedDecisionContinuity.ts` | C5 GOVERNED-claim routing |
+| `recoveryOwnership.corr03.governedClaim.d0.test.ts` | **NEW** reader A–F |
+| `trajectorySurface.ui.test.tsx` | corrupted GOVERNED UI proof |
 
-Forbidden paths untouched. No new dependency/store.
-
----
-
-## 11. TARGETED VALIDATION
-
-5 files · **84 passed** (lineage 9 + prestart unit 11 + integration 5 + R8 6 + UI incl. C1/C3)
+No new store/dependency. Forbidden paths untouched.
 
 ---
 
-## 12. FULL VALIDATION
+## 9. TARGETED VALIDATION
+
+6 files · **91 passed**
+
+---
+
+## 10. FULL VALIDATION
 
 | Gate | Result |
 |------|--------|
 | typecheck | PASS |
 | lint | PASS |
 | build | PASS |
-| Vitest | **429 files passed \| 17 skipped · 4737 tests passed \| 137 skipped · 0 failed** |
+| Vitest | **430 files passed \| 17 skipped · 4744 tests passed \| 137 skipped · 0 failed** |
 | Modeled governance | **73 / 0** |
 
-Pre-CORR-02 baseline: 428 / 4728. Delta: +1 file · +9 tests.
+Pre-CORR-03 baseline: 429 / 4737. Delta: +1 file · +7 tests.
 
 ---
 
-## 13. FAKE / REAL
+## 11. FAKE / REAL
 
-Deterministic Product proof. Fake only at fixtures/mocks. No Cursor REAL / StudyFlow natural HD / managed clone / GO REAL / runtime v3 ADOPTED.
+Deterministic Product proof. No Cursor REAL / StudyFlow natural HD / managed clone / GO REAL / runtime v3 ADOPTED.
 
 ---
 
-## 14. ANTI-CLAIMS
+## 12. ANTI-CLAIMS
 
 Do NOT claim: StudyFlow natural HD completed · E2E REAL · Cursor REAL · docs_write REAL · managed clone fixed · runtime v3 ADOPTED · Product globally READY · PR/merge ready.
 
 ---
 
-## 15. FINAL VERDICT
+## 13. FINAL VERDICT
 
-**RECOVERY OWNERSHIP PRE-START FAILURE CORR-02 —
-REHYDRATION STABLE / DECISION LINEAGE FAIL-CLOSED /
-DETERMINISTICALLY PROVEN / READY FOR CHATGPT FINAL REVIEW**
+**RECOVERY OWNERSHIP PRE-START FAILURE CORR-03 —
+GOVERNED CLAIM ROUTING FAIL-CLOSED /
+DETERMINISTICALLY PROVEN /
+READY FOR CHATGPT FINAL REVIEW**
 
 Project Git: LOCAL / NOT COMMITTED / NOT PUSHED
 
 ---
 
-## 16. EXPLOITABLE DIFFS
+## 14. EXPLOITABLE DIFFS
 
-### 16.1 FULL — readRecoveryOwnedDecisionContinuity.ts
+### 14.1 C5 routing snippet
+
+// CORR-03 / C5 — ABSENT vs CORRUPTED GOVERNED CLAIM.
+  const trajectoryClaimsGoverned =
+    trajectory.decidedOptionRef === GOVERNED_OPTION_REF;
+  const decisionClaimsGoverned =
+    decision.selectedOptionId === GOVERNED_OPTION_REF;
+
+  if (!trajectoryClaimsGoverned && !decisionClaimsGoverned) {
+    // Coherent non-GOVERNED tip — not recovery-owned restart path.
+    return { ok: true, kind: "none" };
+  }
+
+  // From here: durable truth claims GOVERNED on at least one side.
+  // CORRUPTED / CONTRADICTORY GOVERNED AUTHORITY ≠ NO RECOVERY SUBJECT.
+  const basis = decision.decisionBasis;
+  if (!basis) {
+    return continuityFailed(
+      "Claim GOVERNED durable sans DecisionBasis — lignée recovery fail-closed.",
+    );
+  }
+  if (basis.sourceType !== "trajectory_option") {
+    return continuityFailed(
+      "Claim GOVERNED durable avec DecisionBasis hors trajectory_option — lignée recovery fail-closed.",
+    );
+  }
+
+  const lineage = assertGovernedRecoveryLineage({
+    projectId,
+    trajectory,
+    decisionId: decision.decisionId,
+    selectedOptionId: decision.selectedOptionId,
+    basis,
+  });
+  if (lineage) return lineage;
+
+  // Durable cross-check: candidate version row belongs to same aggregate.
+  const candidateRow = await oa.cycleServices.getTrajectoryVersion.execute({
+    projectId,
+    version: basis.trajectoryContext!.candidateVersion,
+  });
+  if (!candidateRow.ok) {
+    return continuityFailed(
+      "Version candidate DecisionBasis illisible — lignée recovery fail-closed.",
+    );
+  }
+  if (candidateRow.trajectory.trajectoryId !== trajectory.trajectoryId) {
+    return continuityFailed(
+      "Version candidate DecisionBasis hors trajectoire tip — lignée recovery fail-closed.",
+    );
+  }
+
+  const bound = await resolveRecoveryExecutionBinding({
+    oa,
+    projectId,
+    decisionId: decision.decisionId,
+  });
+  if (!bound.ok) {
+    return fail(
+      bound.code,
+      bound.message ||
+        "Binding recovery illisible pour la HumanDecision tip — fail-closed.",
+    );
+  }
+  if (bound.recoveryContextPresent !== true) {
+    // Coherent GOVERNED tip without post-Evidence recovery subject —
+    // not the recovery-owned restart path (RC-06 / other GOVERNED contexts).
+    return { ok: true, kind: "none" };
+  }
+  if (
+    !bound.binding ||
+    bound.binding.kind !== "post_evidence_recovery_execution"
+  ) {
+    return continuityFailed(
+      "Sujet recovery connu mais binding non résolu après restart — fail-closed (pas de PREPARE générique).",
+    );
+  }
+
+### 14.2 FULL — readRecoveryOwnedDecisionContinuity.ts
 
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/readRecoveryOwnedDecisionContinuity.ts b/projects/sfia-studio/app/features/project-assistant/w2/readRecoveryOwnedDecisionContinuity.ts
 new file mode 100644
-index 00000000..22bfa6b5
+index 00000000..79474a2d
 --- /dev/null
 +++ b/projects/sfia-studio/app/features/project-assistant/w2/readRecoveryOwnedDecisionContinuity.ts
-@@ -0,0 +1,323 @@
+@@ -0,0 +1,329 @@
 +/**
-+ * CORR-01 / C2 + CORR-02 / C4 — recover recovery-owned HumanDecision after hard
-+ * UI restart, with durable Decision ↔ ProjectTrajectory lineage integrity.
++ * CORR-01 / C2 + CORR-02 / C4 + CORR-03 / C5 — recover recovery-owned
++ * HumanDecision after hard UI restart, with durable Decision ↔ ProjectTrajectory
++ * lineage integrity and GOVERNED-claim fail-closed routing.
 + *
 + * Durable source (no new store):
 + *   current ProjectTrajectory
@@ -218,10 +274,8 @@ index 00000000..22bfa6b5
 + *   → selectedOptionId = GOVERNED_OPTION_REF
 + *   → RecoveryExecutionBinding
 + *
-+ * The recovery HD (trajectory tip) is the authority — never the historical
-+ * source EC decisionRefs. Client must not invent decision authority.
-+ *
-+ * CORRUPTED / MISMATCHED DURABLE AUTHORITY ≠ NO RECOVERY DECISION.
++ * CORR-03: CORRUPTED / CONTRADICTORY GOVERNED AUTHORITY ≠ NO RECOVERY SUBJECT.
++ * kind=none only when neither trajectory nor decision claims GOVERNED.
 + *
 + * READ-ONLY. Never PREPARE / Inspect / Execute.
 + */
@@ -434,22 +488,29 @@ index 00000000..22bfa6b5
 +    );
 +  }
 +
-+  const basis = decision.decisionBasis;
-+  if (!basis) {
-+    // Tip exists without DecisionBasis — cannot prove trajectory_option authority.
-+    // Not a recovery-owned GOVERNED claim we can safely restore.
-+    return { ok: true, kind: "none" };
-+  }
-+  if (basis.sourceType !== "trajectory_option") {
-+    // Tip is not a ProjectTrajectory option decision — not recovery-owned path.
++  // CORR-03 / C5 — ABSENT vs CORRUPTED GOVERNED CLAIM.
++  const trajectoryClaimsGoverned =
++    trajectory.decidedOptionRef === GOVERNED_OPTION_REF;
++  const decisionClaimsGoverned =
++    decision.selectedOptionId === GOVERNED_OPTION_REF;
++
++  if (!trajectoryClaimsGoverned && !decisionClaimsGoverned) {
++    // Coherent non-GOVERNED tip — not recovery-owned restart path.
 +    return { ok: true, kind: "none" };
 +  }
 +
-+  // Entering recovery-owned GOVERNED claim: any lineage mismatch is fail-closed
-+  // (CORRUPTED ≠ ABSENT). Non-GOVERNED trajectory tips stay kind=none only when
-+  // the selected option itself is not GOVERNED.
-+  if (decision.selectedOptionId !== GOVERNED_OPTION_REF) {
-+    return { ok: true, kind: "none" };
++  // From here: durable truth claims GOVERNED on at least one side.
++  // CORRUPTED / CONTRADICTORY GOVERNED AUTHORITY ≠ NO RECOVERY SUBJECT.
++  const basis = decision.decisionBasis;
++  if (!basis) {
++    return continuityFailed(
++      "Claim GOVERNED durable sans DecisionBasis — lignée recovery fail-closed.",
++    );
++  }
++  if (basis.sourceType !== "trajectory_option") {
++    return continuityFailed(
++      "Claim GOVERNED durable avec DecisionBasis hors trajectory_option — lignée recovery fail-closed.",
++    );
 +  }
 +
 +  const lineage = assertGovernedRecoveryLineage({
@@ -461,7 +522,7 @@ index 00000000..22bfa6b5
 +  });
 +  if (lineage) return lineage;
 +
-+  // Optional durable cross-check: candidate version row belongs to same aggregate.
++  // Durable cross-check: candidate version row belongs to same aggregate.
 +  const candidateRow = await oa.cycleServices.getTrajectoryVersion.execute({
 +    projectId,
 +    version: basis.trajectoryContext!.candidateVersion,
@@ -490,7 +551,7 @@ index 00000000..22bfa6b5
 +    );
 +  }
 +  if (bound.recoveryContextPresent !== true) {
-+    // GOVERNED tip without a coherent post-Evidence recovery subject —
++    // Coherent GOVERNED tip without post-Evidence recovery subject —
 +    // not the recovery-owned restart path (RC-06 / other GOVERNED contexts).
 +    return { ok: true, kind: "none" };
 +  }
@@ -530,249 +591,505 @@ index 00000000..22bfa6b5
 +  };
 +}
 
-### 16.2 C3 — one-way rehydration snippet (TrajectorySurface)
+### 14.3 NEW — recoveryOwnership.corr03.governedClaim.d0.test.ts
 
-/**
-   * CORR-01 / C2 + CORR-02 / C3 — after hard reload, recover recovery-owned
-   * GOVERNED HD + RecoveryExecutionBinding from durable ProjectTrajectory tip.
-   * ONE-WAY restoration: once `decision` is present in this mount, do not
-   * rewrite it (avoids Server-Action fresh-object → setDecision → effect loop).
-   */
-  const rehydrateRecoveryOwnedDecisionContinuity = useCallback(async () => {
-    // CORR-02 / C3 — restart seam owns restoration only while decision is absent.
-    if (decision != null) {
-      return;
-    }
-    const result = await w2ReadRecoveryOwnedDecisionContinuityAction({
-      projectId,
-    });
-    if (!result || typeof result !== "object") {
-      setError(
-        "Continuité recovery indisponible après restart — fail-closed (UNKNOWN ≠ absent).",
-      );
-      return;
-    }
-    if (!result.ok) {
-      setError(result.message);
-      return;
-    }
-    if (result.kind === "none") {
-      return;
-    }
-    // Recovery-owned: restore HD + binding once; do not re-present OptionSet / auto-PREPARE.
-    setContinuityDecisionRef(result.decision.decisionId);
-    setDecision(result.decision);
-    setDecided(result.trajectory);
-    setRecoveryBinding(result.binding);
-    setOptionSet(null);
-    setPendingReinstruction(null);
-    setError(null);
-  }, [projectId, decision]);
-
-### 16.3 NEW — recoveryOwnership.corr02.lineage.d0.test.ts
-
-diff --git a/projects/sfia-studio/app/__tests__/project-assistant/recoveryOwnership.corr02.lineage.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/recoveryOwnership.corr02.lineage.d0.test.ts
+diff --git a/projects/sfia-studio/app/__tests__/project-assistant/recoveryOwnership.corr03.governedClaim.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/recoveryOwnership.corr03.governedClaim.d0.test.ts
 new file mode 100644
-index 00000000..2d00c9b4
+index 00000000..52e56ed9
 --- /dev/null
-+++ b/projects/sfia-studio/app/__tests__/project-assistant/recoveryOwnership.corr02.lineage.d0.test.ts
-@@ -0,0 +1,199 @@
++++ b/projects/sfia-studio/app/__tests__/project-assistant/recoveryOwnership.corr03.governedClaim.d0.test.ts
+@@ -0,0 +1,494 @@
 +/**
-+ * CORR-02 / C4 — durable GOVERNED recovery lineage fail-closed (pure).
++ * CORR-03 / C5 — reader-routing: GOVERNED claim vs absence.
++ * Exercises readRecoveryOwnedDecisionContinuity (not only pure assert).
++ * ZERO REAL. ZERO StudyFlow mutation.
 + * @vitest-environment node
 + */
-+import { describe, expect, it } from "vitest";
-+import { assertGovernedRecoveryLineage } from "@/features/project-assistant/w2/readRecoveryOwnedDecisionContinuity";
-+import { GOVERNED_OPTION_REF } from "@/features/project-assistant/w2/trajectoryOptions";
-+import type { DecisionBasis } from "@/lib/oa/decision/domain/types";
-+import type { ProjectTrajectory } from "@/lib/oa/cycle/domain/types";
++import { afterEach, beforeEach, describe, expect, it } from "vitest";
++import { setConversationProviderForTests } from "@/lib/platform/ai";
++import { resetF2ProposalStoreForTests } from "@/features/project-assistant/f2/proposalStore";
++import { LOCAL_PILOTE_ACTOR, registerLocalMorrisGateAuthority } from "@/lib/oa/decision";
++import { decideTrajectory } from "@/features/project-assistant/w2/decideTrajectory";
++import { proposeTrajectoryOptions } from "@/features/project-assistant/w2/proposeTrajectoryOptions";
++import { resolveW2QualificationInputs } from "@/features/project-assistant/w2/qualificationInputs";
++import {
++  BOUNDED_OPTION_REF,
++  GOVERNED_OPTION_REF,
++} from "@/features/project-assistant/w2/trajectoryOptions";
++import { readRecoveryOwnedDecisionContinuity } from "@/features/project-assistant/w2/readRecoveryOwnedDecisionContinuity";
++import {
++  materializeProductOutcomeFromAttempt,
++  w3bEvidenceIdentity,
++} from "@/features/project-assistant/w2/materializeW3bProductTerminal";
++import { resolvePostEvidenceRecoveryContext } from "@/features/project-assistant/w2/resolvePostEvidenceRecoveryContext";
++import {
++  serializeW3cRecommendationPayload,
++  w3cRecommendationEpistemicId,
++  type W3cRecommendationPayload,
++} from "@/features/project-assistant/w2/w3cPostEvidenceLoop";
++import { SFIA_STUDIO_SYSTEM_FACTUAL_WRITER } from "@/features/project-assistant/f3/systemFactualWriter";
++import { BOUNDED_DOCS_WRITE_LOCAL_EVIDENCE_REQUIREMENTS } from "@/features/project-assistant/f3/boundedDocsWriteM3ResolutionProfile";
++import { clearW3bBoundaryArm } from "@/lib/vertical-slice-runtime/w3bE2eBoundaryControl";
++import {
++  M4_BOUNDED_DOCS_WRITE_ACTION,
++  M4_BOUNDED_DOCS_WRITE_CAPABILITY,
++  M4_BOUNDED_DOCS_WRITE_TARGET,
++} from "@/lib/oa/execution-attempt";
++import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
++import {
++  bootW2Runtime,
++  cleanupW2TempDirs,
++  seedQualifiedProject,
++  tempProductDbPath,
++} from "./w2Harness";
 +
-+const PROJECT = "prj:corr02-lineage";
-+const TRAJ = "trj:corr02";
-+const DEC = "dec:corr02-gov";
++const TARGET_PATH =
++  "projects/sfia-studio/.sandbox/prestart-corr03-c5.md";
 +
-+function baseTrajectory(
-+  overrides: Partial<ProjectTrajectory> = {},
-+): ProjectTrajectory {
-+  return {
-+    schemaVersion: "0.1.0-oa",
-+    trajectoryId: TRAJ,
-+    projectId: PROJECT,
-+    version: 2,
-+    status: "validated",
-+    steps: [],
-+    decidedByDecisionRef: DEC,
-+    decidedOptionRef: GOVERNED_OPTION_REF,
-+    ...overrides,
-+  };
++async function proposeAndDecide(
++  oa: RuntimeOaStack,
++  projectId: string,
++  selectedOptionRef: string,
++) {
++  const qualification = await resolveW2QualificationInputs({ oa, projectId });
++  if (!qualification.ok) throw new Error("qual");
++  const proposed = await proposeTrajectoryOptions({
++    oa,
++    projectId,
++    ...qualification.qualification.inputs,
++    packagePin: qualification.qualification.packagePin,
++    objective: qualification.qualification.objective,
++    projectTitle: qualification.qualification.projectTitle,
++  });
++  if (!proposed.ok) throw new Error(`propose: ${proposed.code}`);
++  const decided = await decideTrajectory({
++    oa,
++    projectId,
++    optionSetRef: proposed.optionSetRef,
++    options: proposed.options,
++    recommendedOptionRef: proposed.recommendation.recommendedOptionRef,
++    selectedOptionRef,
++    trajectoryId: proposed.proposedTrajectory!.trajectoryId,
++    candidateVersion: proposed.proposedTrajectory!.version,
++    forceLocalAuthority: true,
++  });
++  if (!decided.ok) throw new Error(`decide: ${decided.code}`);
++  return { proposed, decisionId: decided.decision.decisionId };
 +}
 +
-+function baseBasis(
-+  overrides: Partial<DecisionBasis> = {},
-+  ctxOverrides: Partial<NonNullable<DecisionBasis["trajectoryContext"]>> = {},
-+): DecisionBasis {
-+  return {
-+    sourceType: "trajectory_option",
-+    sourceRef: "optset:corr02",
-+    sourceDigest: "digest",
-+    projectId: PROJECT,
-+    proposalContext: {
-+      lpsId: "lps:1",
-+      lpsVersion: 1,
-+    },
-+    trajectoryContext: {
-+      trajectoryId: TRAJ,
-+      candidateVersion: 2,
-+      optionRefs: [
-+        "opt:trajectory:bounded-direct",
-+        GOVERNED_OPTION_REF,
++async function sealW3cRecover(input: {
++  oa: RuntimeOaStack;
++  projectId: string;
++  attemptId: string;
++  ecId: string;
++  evidenceId: string;
++  reviewBundleId: string;
++}) {
++  const epistemicId = w3cRecommendationEpistemicId(input.evidenceId);
++  const payload: W3cRecommendationPayload = {
++    kind: "recover",
++    headline: "Échec docs_write — recovery",
++    rationale: "Attempt failed; Evidence available; no business success.",
++    nextStep: "recovery_diagnose_or_replan",
++    requiresHumanDecision: true,
++    authority: "none",
++    gateConsumed: false,
++    decisionCreated: false,
++    attemptAutoLaunchNextCycle: false,
++    recommendNextGateStatus: null,
++    nextActionCode: null,
++    evidenceId: input.evidenceId,
++    attemptId: input.attemptId,
++    reviewBundleId: input.reviewBundleId,
++    claimEvaluationId: null,
++    productOutcome: "FAIL",
++    analysisText: null,
++    analysisUnavailableReason: "test_seed",
++    analysisProviderId: null,
++    noraInvoked: false,
++    lpsVersion: null,
++  };
++  await input.oa.cycleServices!.updateEpistemicState.execute({
++    projectId: input.projectId,
++    items: [
++      {
++        epistemicItemId: epistemicId,
++        type: "Recommendation",
++        statement: serializeW3cRecommendationPayload(payload),
++        status: "active",
++        source: `w3c-post-evidence:${input.evidenceId}`,
++        relatedObjects: [
++          input.projectId,
++          input.attemptId,
++          input.evidenceId,
++          input.reviewBundleId,
++          input.ecId,
++        ],
++      },
++    ],
++    createdBy: SFIA_STUDIO_SYSTEM_FACTUAL_WRITER,
++    correlationId: `cor:w3c-seed:${input.attemptId}`,
++  });
++}
++
++async function buildDocsWriteContract(input: {
++  oa: RuntimeOaStack;
++  projectId: string;
++  cycleInstanceId?: string | null;
++  decisionId: string;
++  ecId: string;
++  targetPath?: string;
++}) {
++  const authority = registerLocalMorrisGateAuthority({
++    authorityResolver: input.oa.authorityResolver,
++    scope: "studio.gcec.docs_write",
++    issuedAt: input.oa.clock.nowIso(),
++    evidenceId: `evd:corr03:${input.ecId}`,
++    forceEnable: true,
++  });
++  if (!authority.ok) throw new Error(`authority: ${authority.code}`);
++  const built =
++    await input.oa.executionContractServices!.buildExecutionContract.execute({
++      executionContractId: input.ecId,
++      projectId: input.projectId,
++      cycleInstanceId: input.cycleInstanceId ?? undefined,
++      decisionRefs: [input.decisionId],
++      action: M4_BOUNDED_DOCS_WRITE_ACTION,
++      target: M4_BOUNDED_DOCS_WRITE_TARGET,
++      scope: "studio.gcec.docs_write",
++      inputs: {
++        targetPath: input.targetPath ?? TARGET_PATH,
++        targetRepositoryRef: "mcleland147/sfia-workspace",
++        repositoryRef: "mcleland147/sfia-workspace",
++        pathAllowlist: ["projects/sfia-studio/.sandbox/", "projects/studyflow/"],
++        contentRequirements: ["markdown heading", "acceptance criteria"],
++        baseHeadSha: "a".repeat(40),
++        artifactBrief: "Note de cadrage — CORR-03 C5 proof",
++        artifactType: "functional_design",
++        artifactWriteMode: "CREATE",
++      },
++      requiredCapabilities: [M4_BOUNDED_DOCS_WRITE_CAPABILITY],
++      requiredAuthority: "MORRIS",
++      constraints: [
++        "BOUNDED DOCS-WRITE",
++        "PATH_ALLOWLIST_ONLY",
++        "TEXT_DOCS_ONLY",
++        "NO_DELETE",
++        "NO_COMMIT",
++        "NO_GIT_REMOTE",
++        "NO_PUSH",
++        "NO_PR",
++        "NO_MERGE",
++        "GATE D REQUIRED",
++        "NO WILDCARD",
++        "PREPARE_ONLY",
 +      ],
-+      selectedOptionRef: GOVERNED_OPTION_REF,
-+      ...ctxOverrides,
-+    },
-+    executionBasis: {},
-+    ...overrides,
-+  };
++      stopConditions: [
++        "AUTHORITY_DENIED",
++        "CONTEXT_STALE",
++        "DECISION_NOT_CURRENT",
++      ],
++      evidenceRequirements: [...BOUNDED_DOCS_WRITE_LOCAL_EVIDENCE_REQUIREMENTS],
++      reversibility: "reversible",
++      idempotencyKey: `idem:corr03-${input.ecId}`,
++      correlationId: `cor:corr03-${input.ecId}`,
++      actor: LOCAL_PILOTE_ACTOR,
++      authorityEvidenceId: authority.evidenceId,
++    });
++  if (!built.ok) {
++    throw new Error(
++      `build failed: ${built.error.detailCode} ${built.error.message ?? ""}`,
++    );
++  }
++  return built.contract;
 +}
 +
-+describe("CORR-02 C4 — assertGovernedRecoveryLineage", () => {
-+  it("positive — coherent tip + GOVERNED basis", () => {
-+    expect(
-+      assertGovernedRecoveryLineage({
-+        projectId: PROJECT,
-+        trajectory: baseTrajectory(),
-+        decisionId: DEC,
-+        selectedOptionId: GOVERNED_OPTION_REF,
-+        basis: baseBasis(),
-+      }),
-+    ).toBeNull();
++async function materializeAndEnsureRecovery(input: {
++  oa: RuntimeOaStack;
++  projectId: string;
++  attemptId: string;
++  ecId: string;
++}) {
++  const ids = w3bEvidenceIdentity(input.attemptId);
++  const materialized = await materializeProductOutcomeFromAttempt({
++    oa: input.oa,
++    projectId: input.projectId,
++    attemptId: input.attemptId,
++  });
++  let recovered = await resolvePostEvidenceRecoveryContext({
++    oa: input.oa,
++    projectId: input.projectId,
++  });
++  if (!recovered.ok || !recovered.context) {
++    await sealW3cRecover({
++      oa: input.oa,
++      projectId: input.projectId,
++      attemptId: input.attemptId,
++      ecId: input.ecId,
++      evidenceId: ids.evidenceId,
++      reviewBundleId: ids.reviewBundleId,
++    });
++    if (!materialized.ok) {
++      await materializeProductOutcomeFromAttempt({
++        oa: input.oa,
++        projectId: input.projectId,
++        attemptId: input.attemptId,
++      });
++    }
++    recovered = await resolvePostEvidenceRecoveryContext({
++      oa: input.oa,
++      projectId: input.projectId,
++    });
++  }
++  if (!recovered.ok || !recovered.context) {
++    if (
++      materialized.ok &&
++      typeof materialized.product.evidenceId === "string" &&
++      typeof materialized.product.reviewBundleId === "string"
++    ) {
++      await sealW3cRecover({
++        oa: input.oa,
++        projectId: input.projectId,
++        attemptId: input.attemptId,
++        ecId: input.ecId,
++        evidenceId: materialized.product.evidenceId,
++        reviewBundleId: materialized.product.reviewBundleId,
++      });
++      recovered = await resolvePostEvidenceRecoveryContext({
++        oa: input.oa,
++        projectId: input.projectId,
++      });
++    }
++  }
++  if (!recovered.ok || !recovered.context) {
++    throw new Error("RecoveryContext unavailable after seal");
++  }
++  return recovered.context;
++}
++
++describe("CORR-03 C5 — readRecoveryOwnedDecisionContinuity GOVERNED claim routing", () => {
++  beforeEach(() => {
++    process.env.OPS1_CONVERSATION_PROVIDER = "fake";
++    process.env.OPS1_E2E_ALLOW_DIRTY_PRINCIPAL = "1";
++    delete process.env.SFIA_STUDIO_CURSOR_REAL_AUTHORIZED;
++    setConversationProviderForTests(null);
++    resetF2ProposalStoreForTests();
++    clearW3bBoundaryArm();
 +  });
 +
-+  it("1 — decidedOptionRef != GOVERNED → fail closed", () => {
-+    const r = assertGovernedRecoveryLineage({
-+      projectId: PROJECT,
-+      trajectory: baseTrajectory({
-+        decidedOptionRef: "opt:trajectory:bounded-direct",
-+      }),
-+      decisionId: DEC,
-+      selectedOptionId: GOVERNED_OPTION_REF,
-+      basis: baseBasis(),
-+    });
-+    expect(r?.ok).toBe(false);
-+    expect(r && !r.ok ? r.code : null).toBe(
-+      "RECOVERY_DECISION_CONTINUITY_FAILED",
-+    );
++  afterEach(() => {
++    clearW3bBoundaryArm();
++    resetF2ProposalStoreForTests();
++    setConversationProviderForTests(null);
++    cleanupW2TempDirs();
 +  });
 +
-+  it("2 — selectedOptionId != decidedOptionRef → fail closed", () => {
-+    const r = assertGovernedRecoveryLineage({
-+      projectId: PROJECT,
-+      trajectory: baseTrajectory(),
-+      decisionId: DEC,
-+      selectedOptionId: "opt:trajectory:bounded-direct",
-+      basis: baseBasis(),
-+    });
-+    expect(r?.ok).toBe(false);
-+    expect(r && !r.ok ? r.code : null).toBe(
-+      "RECOVERY_DECISION_CONTINUITY_FAILED",
++  it("A — traj GOVERNED + decision non-GOVERNED → fail closed", async () => {
++    const db = tempProductDbPath("corr03-a.sqlite");
++    const runtime = bootW2Runtime({ productDbPath: db, idPrefix: "c3a" });
++    const seeded = await seedQualifiedProject(runtime, { suffix: "a" });
++    const oa = runtime.oa!;
++    const { decisionId } = await proposeAndDecide(
++      oa,
++      seeded.projectId,
++      GOVERNED_OPTION_REF,
 +    );
++    const hd = await oa.decisionServices.getHumanDecision.execute({
++      decisionId,
++    });
++    expect(hd.ok).toBe(true);
++    if (!hd.ok) return;
++    const corrupted = structuredClone(hd.decision);
++    corrupted.selectedOptionId = BOUNDED_OPTION_REF;
++    await oa.decisionServices.decisions.save(corrupted);
++
++    const result = await readRecoveryOwnedDecisionContinuity({
++      oa,
++      projectId: seeded.projectId,
++    });
++    expect(result.ok).toBe(false);
++    if (result.ok) return;
++    expect(result.code).toBe("RECOVERY_DECISION_CONTINUITY_FAILED");
 +  });
 +
-+  it("3 — trajectoryContext missing → fail closed", () => {
-+    const basis = baseBasis();
-+    delete (basis as { trajectoryContext?: unknown }).trajectoryContext;
-+    const r = assertGovernedRecoveryLineage({
-+      projectId: PROJECT,
-+      trajectory: baseTrajectory(),
-+      decisionId: DEC,
-+      selectedOptionId: GOVERNED_OPTION_REF,
-+      basis,
-+    });
-+    expect(r?.ok).toBe(false);
-+    expect(r && !r.ok ? r.code : null).toBe(
-+      "RECOVERY_DECISION_CONTINUITY_FAILED",
++  it("B — traj non-GOVERNED + decision GOVERNED → fail closed", async () => {
++    const db = tempProductDbPath("corr03-b.sqlite");
++    const runtime = bootW2Runtime({ productDbPath: db, idPrefix: "c3b" });
++    const seeded = await seedQualifiedProject(runtime, { suffix: "b" });
++    const oa = runtime.oa!;
++    await proposeAndDecide(oa, seeded.projectId, GOVERNED_OPTION_REF);
++    const traj = await oa.cycleServices.trajectories.findCurrentByProjectId(
++      seeded.projectId,
 +    );
++    expect(traj).toBeTruthy();
++    const corrupted = structuredClone(traj!);
++    corrupted.decidedOptionRef = BOUNDED_OPTION_REF;
++    await oa.cycleServices.trajectories.save(corrupted);
++
++    const result = await readRecoveryOwnedDecisionContinuity({
++      oa,
++      projectId: seeded.projectId,
++    });
++    expect(result.ok).toBe(false);
++    if (result.ok) return;
++    expect(result.code).toBe("RECOVERY_DECISION_CONTINUITY_FAILED");
 +  });
 +
-+  it("4 — trajectoryContext.trajectoryId mismatch → fail closed", () => {
-+    const r = assertGovernedRecoveryLineage({
-+      projectId: PROJECT,
-+      trajectory: baseTrajectory(),
-+      decisionId: DEC,
-+      selectedOptionId: GOVERNED_OPTION_REF,
-+      basis: baseBasis({}, { trajectoryId: "trj:other" }),
-+    });
-+    expect(r?.ok).toBe(false);
-+    expect(r && !r.ok ? r.code : null).toBe(
-+      "RECOVERY_DECISION_CONTINUITY_FAILED",
++  it("C — both GOVERNED + DecisionBasis missing → fail closed", async () => {
++    const db = tempProductDbPath("corr03-c.sqlite");
++    const runtime = bootW2Runtime({ productDbPath: db, idPrefix: "c3c" });
++    const seeded = await seedQualifiedProject(runtime, { suffix: "c" });
++    const oa = runtime.oa!;
++    const { decisionId } = await proposeAndDecide(
++      oa,
++      seeded.projectId,
++      GOVERNED_OPTION_REF,
 +    );
++    const hd = await oa.decisionServices.getHumanDecision.execute({
++      decisionId,
++    });
++    expect(hd.ok).toBe(true);
++    if (!hd.ok) return;
++    const stripped = structuredClone(hd.decision);
++    delete stripped.decisionBasis;
++    await oa.decisionServices.decisions.save(stripped);
++
++    const result = await readRecoveryOwnedDecisionContinuity({
++      oa,
++      projectId: seeded.projectId,
++    });
++    expect(result.ok).toBe(false);
++    if (result.ok) return;
++    expect(result.code).toBe("RECOVERY_DECISION_CONTINUITY_FAILED");
 +  });
 +
-+  it("5 — trajectoryContext.selectedOptionRef mismatch → fail closed", () => {
-+    const r = assertGovernedRecoveryLineage({
-+      projectId: PROJECT,
-+      trajectory: baseTrajectory(),
-+      decisionId: DEC,
-+      selectedOptionId: GOVERNED_OPTION_REF,
-+      basis: baseBasis(
-+        {},
-+        {
-+          selectedOptionRef: "opt:trajectory:bounded-direct",
-+          optionRefs: [
-+            "opt:trajectory:bounded-direct",
-+            GOVERNED_OPTION_REF,
-+          ],
-+        },
-+      ),
-+    });
-+    expect(r?.ok).toBe(false);
-+    expect(r && !r.ok ? r.code : null).toBe(
-+      "RECOVERY_DECISION_CONTINUITY_FAILED",
++  it("D — both GOVERNED + basis.sourceType != trajectory_option → fail closed", async () => {
++    const db = tempProductDbPath("corr03-d.sqlite");
++    const runtime = bootW2Runtime({ productDbPath: db, idPrefix: "c3d" });
++    const seeded = await seedQualifiedProject(runtime, { suffix: "d" });
++    const oa = runtime.oa!;
++    const { decisionId } = await proposeAndDecide(
++      oa,
++      seeded.projectId,
++      GOVERNED_OPTION_REF,
 +    );
++    const hd = await oa.decisionServices.getHumanDecision.execute({
++      decisionId,
++    });
++    expect(hd.ok).toBe(true);
++    if (!hd.ok) return;
++    const drifted = structuredClone(hd.decision);
++    drifted.decisionBasis = {
++      ...drifted.decisionBasis!,
++      sourceType: "proposal",
++    };
++    await oa.decisionServices.decisions.save(drifted);
++
++    const result = await readRecoveryOwnedDecisionContinuity({
++      oa,
++      projectId: seeded.projectId,
++    });
++    expect(result.ok).toBe(false);
++    if (result.ok) return;
++    expect(result.code).toBe("RECOVERY_DECISION_CONTINUITY_FAILED");
 +  });
 +
-+  it("6 — optionRefs missing GOVERNED → fail closed", () => {
-+    const r = assertGovernedRecoveryLineage({
-+      projectId: PROJECT,
-+      trajectory: baseTrajectory(),
-+      decisionId: DEC,
-+      selectedOptionId: GOVERNED_OPTION_REF,
-+      basis: baseBasis(
-+        {},
-+        { optionRefs: ["opt:trajectory:bounded-direct"] },
-+      ),
++  it("E — both coherently non-GOVERNED → kind=none", async () => {
++    const db = tempProductDbPath("corr03-e.sqlite");
++    const runtime = bootW2Runtime({ productDbPath: db, idPrefix: "c3e" });
++    const seeded = await seedQualifiedProject(runtime, { suffix: "e" });
++    const oa = runtime.oa!;
++    await proposeAndDecide(oa, seeded.projectId, BOUNDED_OPTION_REF);
++
++    const result = await readRecoveryOwnedDecisionContinuity({
++      oa,
++      projectId: seeded.projectId,
 +    });
-+    expect(r?.ok).toBe(false);
-+    expect(r && !r.ok ? r.code : null).toBe(
-+      "RECOVERY_DECISION_CONTINUITY_FAILED",
-+    );
++    expect(result.ok).toBe(true);
++    if (!result.ok) return;
++    expect(result.kind).toBe("none");
 +  });
 +
-+  it("candidateVersion ≠ tip version → fail closed", () => {
-+    const r = assertGovernedRecoveryLineage({
-+      projectId: PROJECT,
-+      trajectory: baseTrajectory({ version: 3 }),
-+      decisionId: DEC,
-+      selectedOptionId: GOVERNED_OPTION_REF,
-+      basis: baseBasis({}, { candidateVersion: 2 }),
-+    });
-+    expect(r?.ok).toBe(false);
-+    expect(r && !r.ok ? r.code : null).toBe(
-+      "RECOVERY_DECISION_CONTINUITY_FAILED",
++  it("F — coherent GOVERNED recovery → kind=owned", async () => {
++    const db = tempProductDbPath("corr03-f.sqlite");
++    const runtime = bootW2Runtime({ productDbPath: db, idPrefix: "c3f" });
++    const seeded = await seedQualifiedProject(runtime, { suffix: "f" });
++    const oa = runtime.oa!;
++    const { decisionId: seedDecisionId } = await proposeAndDecide(
++      oa,
++      seeded.projectId,
++      GOVERNED_OPTION_REF,
 +    );
-+  });
++    const attemptId = `xat:w3a:c3f-${Math.random().toString(16).slice(2, 10)}`;
++    const ecId = `xct:m3-res:c3f-${Math.random().toString(16).slice(2, 10)}`;
++    const built = await buildDocsWriteContract({
++      oa,
++      projectId: seeded.projectId,
++      cycleInstanceId: seeded.cycleInstanceId,
++      decisionId: seedDecisionId,
++      ecId,
++    });
++    const confirmed = {
++      ...built,
++      status: "confirmed" as const,
++      version: built.version + (built.status === "confirmed" ? 0 : 1),
++    };
++    if (
++      confirmed.version !== built.version ||
++      confirmed.status !== built.status
++    ) {
++      await oa.executionContractServices!.contracts.save(confirmed);
++    }
++    const live =
++      (await oa.executionContractServices!.contracts.findById(ecId)) ??
++      confirmed;
++    const now = oa.clock.nowIso();
++    await oa.executionAttemptServices!.attempts.create({
++      schemaVersion: "0.2.0-oa",
++      attemptId,
++      executionContractId: ecId,
++      executionContractVersion: live.version,
++      selectedAgentRef: "agt:m4.cursor.bounded_docs_write",
++      status: "failed",
++      idempotencyKey: `idem:att:${attemptId}`,
++      correlationId: `cor:att:${attemptId}`,
++      version: 1,
++      createdAt: now,
++      failedAt: now,
++      stopReason:
++        "REAL_LAUNCH_FAILED: REAL_WORKSPACE_INVALID:base_head_sha_missing",
++      irreversibleEffectsPossible: false,
++      provenance: {
++        schemaVersion: "0.1.0-oa",
++        provenanceRecordId: `prv:${attemptId}`,
++        actor: LOCAL_PILOTE_ACTOR,
++        source: "system",
++        timestamp: now,
++        correlationId: `cor:att:${attemptId}`,
++      },
++    } as never);
++    await materializeAndEnsureRecovery({
++      oa,
++      projectId: seeded.projectId,
++      attemptId,
++      ecId,
++    });
++    const recovery = await proposeAndDecide(
++      oa,
++      seeded.projectId,
++      GOVERNED_OPTION_REF,
++    );
 +
-+  it("status not validated|active → fail closed", () => {
-+    const r = assertGovernedRecoveryLineage({
-+      projectId: PROJECT,
-+      trajectory: baseTrajectory({ status: "candidate" }),
-+      decisionId: DEC,
-+      selectedOptionId: GOVERNED_OPTION_REF,
-+      basis: baseBasis(),
++    const result = await readRecoveryOwnedDecisionContinuity({
++      oa,
++      projectId: seeded.projectId,
 +    });
-+    expect(r?.ok).toBe(false);
-+    expect(r && !r.ok ? r.code : null).toBe(
-+      "RECOVERY_DECISION_CONTINUITY_FAILED",
-+    );
++    expect(result.ok).toBe(true);
++    if (!result.ok) return;
++    expect(result.kind).toBe("owned");
++    if (result.kind !== "owned") return;
++    expect(result.decision.decisionId).toBe(recovery.decisionId);
++    expect(result.binding.sourceStatus).toBe("confirmed");
++    expect(result.binding.sourceExecutionContractId).toBe(ecId);
 +  });
 +});
