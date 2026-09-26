@@ -28,6 +28,13 @@ export function isDeterministicPreStartLaunchRejectionStopReason(
   if (/^REAL_LAUNCH_FAILED:\s*REAL_WORKSPACE_INVALID\b/i.test(s)) return true;
   if (/^REAL_LAUNCH_FAILED:\s*REAL_BOUNDARY_DISABLED\b/i.test(s)) return true;
   if (/^REAL_LAUNCH_FAILED:\s*REAL_AGENT_PROFILE_INVALID\b/i.test(s)) return true;
+  // Docs-write execution-time write-mode guard rejects BEFORE Cursor process
+  // invocation (REAL gateway boundary reached ≠ process invoked).
+  if (
+    /^REAL_LAUNCH_FAILED:\s*ARTIFACT_WRITE_MODE_UNRESOLVED\b/i.test(s)
+  ) {
+    return true;
+  }
   return false;
 }
 

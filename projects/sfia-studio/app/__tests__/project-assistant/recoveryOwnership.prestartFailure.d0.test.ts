@@ -182,3 +182,103 @@ describe("CLASS 2 — confirmed pre-start rejection qualification", () => {
     ).toBe(false);
   });
 });
+
+const WRITE_MODE_UNRESOLVED =
+  "REAL_LAUNCH_FAILED: ARTIFACT_WRITE_MODE_UNRESOLVED";
+
+describe("RB-WM — ARTIFACT_WRITE_MODE_UNRESOLVED pre-start recovery source", () => {
+  it("RB-WM-01 — strict UNRESOLVED pre-start → CLASS 2 true", () => {
+    expect(
+      isDeterministicPreStartLaunchRejectionStopReason(WRITE_MODE_UNRESOLVED),
+    ).toBe(true);
+    expect(
+      isConfirmedPreStartRejectionRecoverySource({
+        contract: baseContract(),
+        attempt: baseAttempt({
+          stopReason: WRITE_MODE_UNRESOLVED,
+          irreversibleEffectsPossible: false,
+          processDiagnostic: {
+            kind: "process_failure_diagnostic",
+            realProcessInvoked: false,
+            boundaryProofMode: "cursor_real",
+            exitCode: null,
+            stderrExcerpt: "ARTIFACT_WRITE_MODE_UNRESOLVED",
+            authoritativeBusinessEvidence: false,
+          } as never,
+        }),
+      }),
+    ).toBe(true);
+  });
+
+  it("RB-WM-02 — startedAt present → false", () => {
+    expect(
+      isConfirmedPreStartRejectionRecoverySource({
+        contract: baseContract(),
+        attempt: baseAttempt({
+          stopReason: WRITE_MODE_UNRESOLVED,
+          startedAt: "2026-09-25T00:00:00.500Z",
+        }),
+      }),
+    ).toBe(false);
+  });
+
+  it("RB-WM-03 — launchedAt present → false", () => {
+    expect(
+      isConfirmedPreStartRejectionRecoverySource({
+        contract: baseContract(),
+        attempt: baseAttempt({
+          stopReason: WRITE_MODE_UNRESOLVED,
+          launchedAt: "2026-09-25T00:00:00.400Z",
+          startedAt: "2026-09-25T00:00:00.500Z",
+        }),
+      }),
+    ).toBe(false);
+  });
+
+  it("RB-WM-04 — irreversibleEffectsPossible=true → false", () => {
+    expect(
+      isConfirmedPreStartRejectionRecoverySource({
+        contract: baseContract(),
+        attempt: baseAttempt({
+          stopReason: WRITE_MODE_UNRESOLVED,
+          irreversibleEffectsPossible: true,
+        }),
+      }),
+    ).toBe(false);
+  });
+
+  it("RB-WM-05 — realProcessInvoked=true → false", () => {
+    expect(
+      isConfirmedPreStartRejectionRecoverySource({
+        contract: baseContract(),
+        attempt: baseAttempt({
+          stopReason: WRITE_MODE_UNRESOLVED,
+          processDiagnostic: {
+            kind: "process_failure_diagnostic",
+            realProcessInvoked: true,
+            boundaryProofMode: "cursor_real",
+            exitCode: null,
+            stderrExcerpt: "invoked",
+            authoritativeBusinessEvidence: false,
+          } as never,
+        }),
+      }),
+    ).toBe(false);
+  });
+
+  it("RB-WM-06 — unknown REAL_LAUNCH_FAILED reason → false", () => {
+    expect(
+      isDeterministicPreStartLaunchRejectionStopReason(
+        "REAL_LAUNCH_FAILED: SOME_UNKNOWN_REASON",
+      ),
+    ).toBe(false);
+    expect(
+      isConfirmedPreStartRejectionRecoverySource({
+        contract: baseContract(),
+        attempt: baseAttempt({
+          stopReason: "REAL_LAUNCH_FAILED: SOME_UNKNOWN_REASON",
+        }),
+      }),
+    ).toBe(false);
+  });
+});
