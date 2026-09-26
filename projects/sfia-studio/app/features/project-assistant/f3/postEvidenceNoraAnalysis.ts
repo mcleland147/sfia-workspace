@@ -32,6 +32,8 @@ export type PostEvidenceAnalysisFacts = {
   executionContractId: string;
   executionContractStatus: string;
   executionContractAction: string;
+  /** Contract objective / WHAT when available (server-owned). */
+  contractObjective?: string;
   attemptId: string;
   attemptStatus: string;
   selectedAgentRef: string;
@@ -56,6 +58,14 @@ export type PostEvidenceAnalysisFacts = {
   businessReason?: string;
   expectedOutputAssessmentSummary?: string;
   evidenceRequirementAssessmentSummary?: string;
+  /** Sealed acceptance criteria statements (contract-first). */
+  acceptanceCriteriaSummary?: string;
+  expectedOutputsSummary?: string;
+  validationPlanSummary?: string;
+  workPerformedSummary?: string;
+  stopReason?: string;
+  blockersSummary?: string;
+  outcomeKind?: string;
 };
 
 export type PostEvidenceAnalysisResult =
@@ -72,6 +82,14 @@ export type PostEvidenceAnalysisResult =
     };
 
 const ANALYSIS_SYSTEM = `Tu es Nora, analyste post-exécution SFIA Studio.
+Ordre cognitif imposé (contract-first):
+1) CONTRAT (objectif, expected outputs, critères d'acceptation, validations)
+2) RÉSULTAT OBSERVÉ (travail réel, effets, stop/blocker)
+3) PREUVE (Evidence / ReviewBundle / ClaimEvaluation)
+4) CONFORMITÉ (PASS / FAIL / NOT_PROVEN — jamais inventé)
+5) IMPACT PROJET
+6) RECOMMANDATION (jamais une HumanDecision, jamais une relance automatique)
+
 Tu produis UNIQUEMENT une recommandation non autoritaire à partir des faits durables fournis.
 Interdit:
 - créer une HumanDecision;
@@ -79,10 +97,13 @@ Interdit:
 - lancer un ExecutionContract / Attempt;
 - demander des secrets;
 - inventer une preuve REAL;
-- convertir not_proven / UNCLAIMED en succès produit.
+- convertir not_proven / UNCLAIMED en succès produit;
+- commenter le rapport Cursor sans d'abord confronter le contrat.
 Si productOutcome=UNCLAIMED et claimEvaluationStatus=not_proven :
 l'exécution technique a pu réussir et un Artifact peut exister, mais le résultat
 contractuel n'est pas prouvé faute d'Evidence suffisante sur les expectedOutputs.
+Si stopReason / blockers sont présents: expliquer l'action tentée, la condition
+bloquante, les effets non réalisés, l'impact, et le déblocage proposé.
 Réponds en français, court, factuel.
 
 ${buildPostEvidenceNarrativePolicyDisclosure()}`;
@@ -93,6 +114,7 @@ function boundedFactsJson(facts: PostEvidenceAnalysisFacts): string {
     executionContractId: facts.executionContractId,
     executionContractStatus: facts.executionContractStatus,
     executionContractAction: facts.executionContractAction,
+    contractObjective: facts.contractObjective,
     attemptId: facts.attemptId,
     attemptStatus: facts.attemptStatus,
     selectedAgentRef: facts.selectedAgentRef,
@@ -117,6 +139,13 @@ function boundedFactsJson(facts: PostEvidenceAnalysisFacts): string {
     expectedOutputAssessmentSummary: facts.expectedOutputAssessmentSummary,
     evidenceRequirementAssessmentSummary:
       facts.evidenceRequirementAssessmentSummary,
+    acceptanceCriteriaSummary: facts.acceptanceCriteriaSummary,
+    expectedOutputsSummary: facts.expectedOutputsSummary,
+    validationPlanSummary: facts.validationPlanSummary,
+    workPerformedSummary: facts.workPerformedSummary,
+    stopReason: facts.stopReason,
+    blockersSummary: facts.blockersSummary,
+    outcomeKind: facts.outcomeKind,
   });
 }
 

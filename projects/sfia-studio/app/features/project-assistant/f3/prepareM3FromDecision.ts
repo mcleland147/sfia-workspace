@@ -20,6 +20,10 @@ import type {
   ExecutionContractServices,
 } from "@/lib/oa/execution-contract";
 import {
+  CONTRACT_ACCEPTANCE_CRITERIA_INPUT_KEY,
+  CONTRACT_REPORT_REQUIREMENTS_INPUT_KEY,
+  CONTRACT_VALIDATION_PLAN_INPUT_KEY,
+  isRepositorySourceRef,
   projectCursorPrepareOnly,
   projectExecutionContractInspectionDisclosure,
 } from "@/lib/oa/execution-contract";
@@ -29,6 +33,11 @@ import {
   isProposalSubjectOptionRef,
   PROPOSAL_SUBJECT_PURSUE_REF,
 } from "../w2/proposalSubjectOptions";
+import {
+  deriveDocsWriteAcceptanceCriteria,
+  deriveDocsWriteValidationPlan,
+  deriveMissionReportRequirements,
+} from "../w2/missionContractSemanticInputs";
 import { BOUNDED_DOCS_WRITE_LOCAL_EVIDENCE_REQUIREMENTS } from "./boundedDocsWriteM3ResolutionProfile";
 import { probeManagedRepoRelativePathExists } from "@/lib/oa/project/infrastructure/managedRepoPathFacts";
 import {
@@ -358,6 +367,32 @@ function fieldsFromBasis(basis: DecisionBasis, decisionId: string) {
         ? [...eb.evidenceRequirements]
         : undefined,
   });
+
+  // NELC-01 — docs_write uses the same structured acceptanceCriteria model
+  // as the generic mission path (no second criterion format).
+  if (docsWriteIntent && expectedOutputs && expectedOutputs.length > 0) {
+    const targetPath =
+      typeof inputs.targetPath === "string" ? inputs.targetPath : null;
+    inputs[CONTRACT_ACCEPTANCE_CRITERIA_INPUT_KEY] =
+      deriveDocsWriteAcceptanceCriteria({
+        expectedOutputs,
+        targetPath,
+      });
+    inputs[CONTRACT_VALIDATION_PLAN_INPUT_KEY] = deriveDocsWriteValidationPlan({
+      validationExpectations: eb.validationExpectations,
+    });
+    inputs[CONTRACT_REPORT_REQUIREMENTS_INPUT_KEY] =
+      deriveMissionReportRequirements();
+    if (targetPath && isRepositorySourceRef(targetPath)) {
+      const declared = Array.isArray(inputs.sourcesToRead)
+        ? (inputs.sourcesToRead as unknown[]).filter(
+            (s): s is string => typeof s === "string",
+          )
+        : [];
+      inputs.sourcesToRead = [...new Set([...declared, targetPath])];
+    }
+  }
+
   return {
     action,
     target,

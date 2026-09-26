@@ -7,6 +7,19 @@
  */
 
 import type { ExecutionContract } from "../domain/types";
+import {
+  CONTRACT_ACCEPTANCE_CRITERIA_INPUT_KEY,
+  CONTRACT_REPORT_REQUIREMENTS_INPUT_KEY,
+  CONTRACT_VALIDATION_PLAN_INPUT_KEY,
+  parseContractAcceptanceCriteria,
+  parseContractStringListInput,
+  type ContractAcceptanceCriterion,
+} from "../domain/contractMissionSemantics";
+import {
+  CONTRACT_SOURCE_GROUNDING_INPUT_KEY,
+  parseContractSourceGrounding,
+  type ContractSourceGrounding,
+} from "../domain/contractSourceGrounding";
 
 export const DOCS_WRITE_ACTION = "cursor.docs_write.apply" as const;
 export const DOCS_WRITE_TECHNICAL_TARGET = "workspace.isolated.docs_write" as const;
@@ -27,6 +40,12 @@ export type ExecutionContractInspectionDisclosure = {
   readonly contentRequirements: readonly string[] | null;
   readonly validationExpectations: readonly string[] | null;
   readonly expectedOutputs: readonly string[] | null;
+  /** Durable proof of which repository sources were actually read in-cycle. */
+  readonly sourceGrounding: ContractSourceGrounding | null;
+  /** Structured, deterministically-evaluable acceptance criteria. */
+  readonly acceptanceCriteria: readonly ContractAcceptanceCriterion[] | null;
+  readonly validationPlan: readonly string[] | null;
+  readonly reportRequirements: readonly string[] | null;
   readonly evidenceRequirements: readonly string[];
   readonly requiredAuthority: string;
   readonly requiredCapabilities: readonly string[];
@@ -108,6 +127,23 @@ export function projectExecutionContractInspectionDisclosure(
   const artifactBrief = asNonEmptyString(inputs.artifactBrief);
   const createOrModify = asBoolean(inputs.createOrModify);
   const noDelete = asBoolean(inputs.noDelete);
+  const sourceGrounding = parseContractSourceGrounding(
+    inputs[CONTRACT_SOURCE_GROUNDING_INPUT_KEY],
+  );
+  const parsedCriteria = parseContractAcceptanceCriteria(
+    inputs[CONTRACT_ACCEPTANCE_CRITERIA_INPUT_KEY],
+  );
+  const acceptanceCriteria = parsedCriteria.length > 0 ? parsedCriteria : null;
+  const parsedValidationPlan = parseContractStringListInput(
+    inputs[CONTRACT_VALIDATION_PLAN_INPUT_KEY],
+  );
+  const validationPlan =
+    parsedValidationPlan.length > 0 ? parsedValidationPlan : null;
+  const parsedReportRequirements = parseContractStringListInput(
+    inputs[CONTRACT_REPORT_REQUIREMENTS_INPUT_KEY],
+  );
+  const reportRequirements =
+    parsedReportRequirements.length > 0 ? parsedReportRequirements : null;
 
   const docsWrite = isDocsWriteExecutionContract(contract);
   const disclosureComplete =
@@ -129,6 +165,10 @@ export function projectExecutionContractInspectionDisclosure(
     contentRequirements,
     validationExpectations,
     expectedOutputs,
+    sourceGrounding,
+    acceptanceCriteria,
+    validationPlan,
+    reportRequirements,
     evidenceRequirements: [...contract.evidenceRequirements],
     requiredAuthority: contract.requiredAuthority,
     requiredCapabilities: [...contract.requiredCapabilities],
@@ -197,6 +237,20 @@ export function requiredInspectedFactsForContract(
 
   if (d.expectedOutputs && d.expectedOutputs.length > 0) {
     facts.push("expectedOutputs");
+  }
+
+  // Mission semantics are inspectable facts as soon as the contract carries them.
+  if (d.sourceGrounding) {
+    facts.push(`inputs.${CONTRACT_SOURCE_GROUNDING_INPUT_KEY}`);
+  }
+  if (d.acceptanceCriteria) {
+    facts.push(`inputs.${CONTRACT_ACCEPTANCE_CRITERIA_INPUT_KEY}`);
+  }
+  if (d.validationPlan) {
+    facts.push(`inputs.${CONTRACT_VALIDATION_PLAN_INPUT_KEY}`);
+  }
+  if (d.reportRequirements) {
+    facts.push(`inputs.${CONTRACT_REPORT_REQUIREMENTS_INPUT_KEY}`);
   }
 
   return Object.freeze([...facts]);

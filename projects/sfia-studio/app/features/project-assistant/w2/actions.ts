@@ -40,6 +40,7 @@ import { loadPresentedOptionSet } from "./presentedOptionSet";
 import { readActiveProposalDecisionSubject } from "./activeProposalDecisionSubject";
 import { readCurrentGovernedExecutionContinuity } from "./readCurrentGovernedExecutionContinuity";
 import { prepareExecutionContractFromW2Decision } from "./prepareExecutionContractFromW2Decision";
+import { createNoraSessionContractSourceGroundingReader } from "./resolveContractSourceGrounding";
 import { prepareDocsWriteRecoverySuccessorFromDecision } from "./prepareDocsWriteRecoverySuccessor";
 import { resolveRecoveryExecutionBinding } from "./resolveRecoveryExecutionBinding";
 import {
@@ -408,6 +409,7 @@ export async function w2PrepareExecutionContractAction(input: {
     currentContext: context,
     qualifiedOperationKind: input.qualifiedOperationKind,
     authenticatedPilote: pilote,
+    sourceGroundingReader: createNoraSessionContractSourceGroundingReader(),
   });
 
   if (!prepared.ok) {

@@ -6,9 +6,20 @@
  *   reportId (independent)
  *   executionContractId (exact contract executed)
  *   attemptId (exact attempt producing report)
+ *
+ * NELC-01 — additive optional fields remain under schema
+ * `oa.cursor-execution-report.1` (compat, no parallel report type).
+ * Assessments and narrative fields are CLAIMS until Studio requalifies them.
  */
+
 export const OA_CURSOR_EXECUTION_REPORT_SCHEMA =
   "oa.cursor-execution-report.1" as const;
+
+export type CursorExecutionReportStatus =
+  | "succeeded"
+  | "failed"
+  | "stopped"
+  | "timeout";
 
 export type CursorFileEffectClaim = {
   created: string[];
@@ -69,15 +80,35 @@ export type CursorAuthorizedEffectId =
   | "github.pr.update"
   | "github.pr.merge";
 
+export type CursorClaimAssessmentResult =
+  | "pass"
+  | "fail"
+  | "not_proven"
+  | "skipped";
+
+export type CursorClaimAssessment = {
+  readonly id: string;
+  readonly statement: string;
+  readonly result: CursorClaimAssessmentResult;
+  readonly notes?: string;
+};
+
 export type CursorExecutionReport = {
   schemaVersion: typeof OA_CURSOR_EXECUTION_REPORT_SCHEMA;
   /** Independent report identity — distinct from attemptId / executionContractId. */
   reportId: string;
   attemptId: string;
   executionContractId: string;
+  /** Optional EC version when known — claim, verified at bind when expected. */
+  executionContractVersion?: number;
+  /** Optional semantic fingerprint — claim, verified at bind when expected. */
+  contractFingerprint?: string;
   repositoryRef: string;
   baseSha: string;
-  status: "succeeded" | "failed" | "stopped" | "timeout";
+  branch?: string;
+  status: CursorExecutionReportStatus;
+  /** Bounded claim of work performed (never Evidence by itself). */
+  workPerformed?: string[];
   fileEffects?: CursorFileEffectClaim;
   validationEffects?: CursorValidationEffectClaim[];
   gitEffects?: CursorGitEffectClaims;
@@ -85,6 +116,14 @@ export type CursorExecutionReport = {
   authorizedEffectsExecuted: CursorAuthorizedEffectId[];
   /** Protected effects not yet authorized — Cursor stopped. */
   stoppedBeforeEffects?: CursorAuthorizedEffectId[];
+  expectedOutputAssessments?: CursorClaimAssessment[];
+  acceptanceCriteriaAssessments?: CursorClaimAssessment[];
+  validationsPerformed?: string[];
+  deviations?: string[];
+  blockers?: string[];
+  stopConditionTriggered?: string | null;
+  reservations?: string[];
+  evidenceClaims?: string[];
   /**
    * Optional structured mission/diagnostic claim (additive).
    * NOT Evidence — must be validated and persisted as MissionResultPayload.
@@ -94,6 +133,9 @@ export type CursorExecutionReport = {
     recommendedNextProductStep: string;
     inspectedDurableTrace?: string;
   };
+  /** Top-level narrative claim aliases (optional; prefer missionResult). */
+  diagnosticSummary?: string;
+  recommendedNextProductStep?: string;
 };
 
 export function mintCursorExecutionReportId(input: {
@@ -106,6 +148,13 @@ export function mintCursorExecutionReportId(input: {
     .slice(-24);
   return `rpt:cursor:${safeContract}:${safeAttempt}`;
 }
+
+const REPORT_STATUSES: readonly CursorExecutionReportStatus[] = [
+  "succeeded",
+  "failed",
+  "stopped",
+  "timeout",
+];
 
 export function isCursorExecutionReport(
   value: unknown,
@@ -121,6 +170,7 @@ export function isCursorExecutionReport(
     typeof v.repositoryRef === "string" &&
     typeof v.baseSha === "string" &&
     typeof v.status === "string" &&
+    (REPORT_STATUSES as readonly string[]).includes(v.status as string) &&
     Array.isArray(v.authorizedEffectsExecuted)
   );
 }
@@ -149,6 +199,8 @@ export function bindCursorExecutionReportToAttempt(input: {
   /** Optional trusted launch correspondence (generic Product REAL). */
   readonly expectedRepositoryRef?: string | null;
   readonly expectedBaseSha?: string | null;
+  readonly expectedContractVersion?: number | null;
+  readonly expectedContractFingerprint?: string | null;
 }):
   | { readonly ok: true }
   | { readonly ok: false; readonly code: string; readonly message: string } {
@@ -206,6 +258,29 @@ export function bindCursorExecutionReportToAttempt(input: {
       ok: false,
       code: "REPORT_BASE_SHA_MISMATCH",
       message: "report.baseSha ≠ pinned baseHeadSha.",
+    };
+  }
+  if (
+    input.expectedContractVersion != null &&
+    report.executionContractVersion != null &&
+    report.executionContractVersion !== input.expectedContractVersion
+  ) {
+    return {
+      ok: false,
+      code: "REPORT_CONTRACT_VERSION_MISMATCH",
+      message: "report.executionContractVersion ≠ ExecutionContract.version.",
+    };
+  }
+  if (
+    input.expectedContractFingerprint != null &&
+    input.expectedContractFingerprint.trim() !== "" &&
+    report.contractFingerprint != null &&
+    report.contractFingerprint !== input.expectedContractFingerprint
+  ) {
+    return {
+      ok: false,
+      code: "REPORT_FINGERPRINT_MISMATCH",
+      message: "report.contractFingerprint ≠ ExecutionContract.semanticFingerprint.",
     };
   }
   return { ok: true };

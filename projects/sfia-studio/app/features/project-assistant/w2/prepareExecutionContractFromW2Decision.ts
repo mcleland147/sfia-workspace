@@ -17,6 +17,12 @@ import { S1_MAX_TTL_SECONDS } from "@/lib/auth/constants";
 import { issueS1AuthorityEvidence } from "@/lib/auth/s1Authority";
 import type { ResolveCurrentPiloteResult } from "@/lib/auth/resolveCurrentPilote";
 import {
+  assertContractSourceGroundingHonest,
+  CONTRACT_ACCEPTANCE_CRITERIA_INPUT_KEY,
+  CONTRACT_REPORT_REQUIREMENTS_INPUT_KEY,
+  CONTRACT_SOURCE_GROUNDING_INPUT_KEY,
+  CONTRACT_VALIDATION_PLAN_INPUT_KEY,
+  isCurrentFullRepositoryRead,
   projectExecutionContractInspectionDisclosure,
   type ExecutionContractInspectionDisclosure,
 } from "@/lib/oa/execution-contract";
@@ -34,6 +40,15 @@ import {
   launchContextAsContractInputs,
   resolveTrustedProductLaunchContext,
 } from "./resolveTrustedProductLaunchContext";
+import {
+  resolveContractSourceGroundingForPrepare,
+  type ContractSourceGroundingReader,
+} from "./resolveContractSourceGrounding";
+import {
+  deriveMissionAcceptanceCriteria,
+  deriveMissionReportRequirements,
+  deriveMissionValidationPlan,
+} from "./missionContractSemanticInputs";
 
 export type PreparedExecutionContractDto = {
   readonly executionContractId: string;
@@ -165,6 +180,11 @@ export async function prepareExecutionContractFromW2Decision(input: {
    */
   readonly pinnedBaseHeadSha?: string | null;
   readonly managedRepoRootBase?: string | null;
+  /**
+   * Durable cycle read facts for contract source grounding.
+   * Absent reader ⇒ grounding honesty UNAVAILABLE (never a silent claim).
+   */
+  readonly sourceGroundingReader?: ContractSourceGroundingReader | null;
 }): Promise<PrepareExecutionContractFromW2DecisionResult> {
   const { oa } = input;
 
@@ -440,11 +460,66 @@ export async function prepareExecutionContractFromW2Decision(input: {
       message: launch.message,
     };
   }
+  // Contract source grounding — reconstructed from durable cycle read facts.
+  // Search ≠ read: a declared repository source without a full durable read
+  // blocks contract readiness instead of being silently claimed as grounded.
+  const sourceGrounding = await resolveContractSourceGroundingForPrepare({
+    projectId: input.projectId,
+    cycleInstanceId: cycleBinding.cycleInstanceId,
+    declaredSources: [
+      ...(mission?.sourcesToRead ?? []),
+      ...(mission?.scopeIn ?? []),
+    ],
+    repositoryIdentity: launch.context.repositoryBindingIdentity,
+    repositoryHeadSha: launch.context.baseHeadSha,
+    reader: input.sourceGroundingReader ?? null,
+  });
+  const groundingHonest = assertContractSourceGroundingHonest(sourceGrounding);
+  if (!groundingHonest.ok) {
+    return {
+      ok: false,
+      code: groundingHonest.code,
+      message: groundingHonest.message,
+    };
+  }
+
   const envelopeInputs: Record<string, unknown> = {
     ...envelope.inputs,
     ...launchContextAsContractInputs(launch.context),
     trustedLaunchContextPinnedAtPrepare: true,
+    [CONTRACT_SOURCE_GROUNDING_INPUT_KEY]: sourceGrounding,
+    ...(mission
+      ? {
+          [CONTRACT_ACCEPTANCE_CRITERIA_INPUT_KEY]:
+            deriveMissionAcceptanceCriteria(mission),
+          [CONTRACT_VALIDATION_PLAN_INPUT_KEY]:
+            deriveMissionValidationPlan(mission),
+          [CONTRACT_REPORT_REQUIREMENTS_INPUT_KEY]:
+            deriveMissionReportRequirements(),
+        }
+      : {}),
   };
+
+  // Materially read *current* repository sources become declared EC inputs (refs only).
+  const groundedSourceRefs = sourceGrounding.readRefs
+    .filter((ref) =>
+      isCurrentFullRepositoryRead({
+        ref,
+        expectedRepositoryHeadSha: sourceGrounding.repositoryHeadSha,
+        expectedCycleInstanceId: sourceGrounding.cycleInstanceId,
+      }),
+    )
+    .map((ref) => ref.pathOrRef);
+  if (groundedSourceRefs.length > 0) {
+    const declared = Array.isArray(envelopeInputs.sourcesToRead)
+      ? (envelopeInputs.sourcesToRead as unknown[]).filter(
+          (s): s is string => typeof s === "string",
+        )
+      : [];
+    envelopeInputs.sourcesToRead = [
+      ...new Set([...declared, ...groundedSourceRefs]),
+    ];
+  }
 
   const safeId = safeIdSegment(decision.decisionId);
   const executionContractId = `xct:w3a:${safeId}`;

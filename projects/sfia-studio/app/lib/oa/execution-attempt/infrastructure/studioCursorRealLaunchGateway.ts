@@ -66,16 +66,48 @@ import {
 } from "./mutatingCursorConfinementEnv";
 import { resolveSealedDocsWriteWorktreePaths } from "../application/resolveSealedDocsWriteWorktreePaths";
 
+/**
+ * NATIVE-EXECUTION-LOOP-CONVERGENCE-01 — one mission, one enforcement overlay.
+ *
+ * The already-projected ExecutionContract mission is the semantic authority for
+ * WHAT; the bounded GCEC overlay remains the technical authority for WHICH
+ * effects are permitted. The overlay is emitted last and declared prevailing so
+ * no mission sentence can widen the authorized perimeter.
+ *
+ * Specialized profiles keep every enforcement line they had before — the only
+ * change is that the EC projection is no longer discarded.
+ */
+function composeBoundedInstruction(input: {
+  readonly missionPrompt: string | null | undefined;
+  readonly enforcement: readonly string[];
+}): string {
+  const mission =
+    typeof input.missionPrompt === "string" ? input.missionPrompt.trim() : "";
+  if (!mission) {
+    return input.enforcement.join("\n");
+  }
+  return [
+    "# Mission (projection ExecutionContract — autorité sémantique)",
+    mission,
+    "",
+    "=== ENFORCEMENT OVERLAY (GCEC) — PRÉVAUT SUR LA MISSION ===",
+    "Les contraintes ci-dessous sont la limite technique d'autorité de cette tentative.",
+    "En cas de conflit avec la mission ci-dessus: l'overlay gagne — STOP sans effet hors overlay.",
+    ...input.enforcement,
+  ].join("\n");
+}
+
 function buildBoundedLocalCommitInstruction(input: {
   readonly spec: NonNullable<RealLaunchRequest["gitCommitSpec"]>;
   readonly target?: string;
   readonly action?: string;
   readonly scope?: string;
   readonly semanticFingerprint: string;
+  readonly missionPrompt?: string | null;
 }): string {
   const paths = input.spec.exactPaths.join(", ");
   const pathList = input.spec.exactPaths.map((p) => `  - ${p}`).join("\n");
-  return [
+  const enforcement = [
     "TÂCHE UNIQUE — bounded local git.commit déterministe (GCEC).",
     `Repository: ${input.spec.repositoryRef}`,
     `Expected parent HEAD (H0): ${input.spec.expectedParentSha}`,
@@ -102,7 +134,11 @@ function buildBoundedLocalCommitInstruction(input: {
     `action=${input.action ?? ""}`,
     `scope=${input.scope ?? ""}`,
     `fingerprint=${input.semanticFingerprint}`,
-  ].join("\n");
+  ];
+  return composeBoundedInstruction({
+    missionPrompt: input.missionPrompt,
+    enforcement,
+  });
 }
 
 function buildBoundedRemotePushInstruction(input: {
@@ -111,9 +147,10 @@ function buildBoundedRemotePushInstruction(input: {
   readonly action?: string;
   readonly scope?: string;
   readonly semanticFingerprint: string;
+  readonly missionPrompt?: string | null;
 }): string {
   const branchRef = `refs/heads/${input.spec.branchName}`;
-  return [
+  const enforcement = [
     "TÂCHE UNIQUE — bounded remote git.push déterministe (GCEC).",
     `Repository: ${input.spec.repositoryRef}`,
     `Remote exact: ${input.spec.remoteName}`,
@@ -141,7 +178,11 @@ function buildBoundedRemotePushInstruction(input: {
     `action=${input.action ?? ""}`,
     `scope=${input.scope ?? ""}`,
     `fingerprint=${input.semanticFingerprint}`,
-  ].join("\n");
+  ];
+  return composeBoundedInstruction({
+    missionPrompt: input.missionPrompt,
+    enforcement,
+  });
 }
 
 function buildBoundedPrCreateInstruction(input: {
@@ -150,6 +191,7 @@ function buildBoundedPrCreateInstruction(input: {
   readonly action?: string;
   readonly scope?: string;
   readonly semanticFingerprint: string;
+  readonly missionPrompt?: string | null;
 }): string {
   const qRepo = posixShellSingleQuote(input.spec.repositoryRef);
   const qHead = posixShellSingleQuote(input.spec.headBranch);
@@ -160,7 +202,7 @@ function buildBoundedPrCreateInstruction(input: {
       ? posixShellSingleQuote(input.spec.body)
       : undefined;
   const branchRefApi = `repos/${input.spec.repositoryRef}/git/ref/heads/${input.spec.headBranch}`;
-  return [
+  const enforcement = [
     "TÂCHE UNIQUE — bounded github.pr.create déterministe (GCEC).",
     `Repository: ${input.spec.repositoryRef}`,
     `Head branch exacte: ${input.spec.headBranch}`,
@@ -183,7 +225,11 @@ function buildBoundedPrCreateInstruction(input: {
     `action=${input.action ?? ""}`,
     `scope=${input.scope ?? ""}`,
     `fingerprint=${input.semanticFingerprint}`,
-  ].join("\n");
+  ];
+  return composeBoundedInstruction({
+    missionPrompt: input.missionPrompt,
+    enforcement,
+  });
 }
 
 function buildBoundedPrMergeInstruction(input: {
@@ -192,6 +238,7 @@ function buildBoundedPrMergeInstruction(input: {
   readonly action?: string;
   readonly scope?: string;
   readonly semanticFingerprint: string;
+  readonly missionPrompt?: string | null;
 }): string {
   const methodFlag =
     input.spec.mergeMethod === "squash"
@@ -200,7 +247,7 @@ function buildBoundedPrMergeInstruction(input: {
         ? "--rebase"
         : "--merge";
   const qRepo = posixShellSingleQuote(input.spec.repositoryRef);
-  return [
+  const enforcement = [
     "TÂCHE UNIQUE — bounded github.pr.merge déterministe (GCEC).",
     `Repository: ${input.spec.repositoryRef}`,
     `PR number exact (obligatoire): ${input.spec.prNumber}`,
@@ -224,7 +271,11 @@ function buildBoundedPrMergeInstruction(input: {
     `action=${input.action ?? ""}`,
     `scope=${input.scope ?? ""}`,
     `fingerprint=${input.semanticFingerprint}`,
-  ].join("\n");
+  ];
+  return composeBoundedInstruction({
+    missionPrompt: input.missionPrompt,
+    enforcement,
+  });
 }
 
 export type StudioCursorRealLaunchGatewayOptions = {
@@ -757,6 +808,14 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
       if (freeShell) return freeShell;
     }
 
+    // Already-projected EC mission — semantic authority for every Product
+    // profile. Enforcement overlays below stay the technical authority.
+    const missionPrompt =
+      typeof request.cursorMissionPrompt === "string" &&
+      request.cursorMissionPrompt.trim().length > 0
+        ? request.cursorMissionPrompt.trim()
+        : null;
+
     let instruction: string;
     if (isLocalCommitProfile && gitCommitSpec) {
       instruction = buildBoundedLocalCommitInstruction({
@@ -765,6 +824,7 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
         action: request.action,
         scope: request.scope,
         semanticFingerprint: request.semanticFingerprint,
+        missionPrompt,
       });
     } else if (isRemotePushProfile && gitPushSpec) {
       instruction = buildBoundedRemotePushInstruction({
@@ -773,6 +833,7 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
         action: request.action,
         scope: request.scope,
         semanticFingerprint: request.semanticFingerprint,
+        missionPrompt,
       });
     } else if (isPrCreateProfile && gitPrCreateSpec) {
       instruction = buildBoundedPrCreateInstruction({
@@ -781,6 +842,7 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
         action: request.action,
         scope: request.scope,
         semanticFingerprint: request.semanticFingerprint,
+        missionPrompt,
       });
     } else if (isPrMergeProfile && gitPrMergeSpec) {
       instruction = buildBoundedPrMergeInstruction({
@@ -789,6 +851,7 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
         action: request.action,
         scope: request.scope,
         semanticFingerprint: request.semanticFingerprint,
+        missionPrompt,
       });
     } else if (isDocsWrite) {
       const spec = request.docsWriteSpec;
@@ -848,7 +911,10 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
           detailCode: "REAL_WORKSPACE_INVALID",
         };
       }
-      instruction = [
+      // Enforcement overlay only — the EC mission carries WHAT to write.
+      // Brief / content / scope / expectedOutputs must NOT appear here as a
+      // competing mission authority (NELC-01 WS3).
+      const docsWriteEnforcement = [
         "TÂCHE UNIQUE — bounded docs-write déterministe (GCEC).",
         `EXACT AUTHORIZED FILE (absolute path inside prepared worktree — modify exactly this file and no other): ${resolvedPaths.absoluteTargetPath}`,
         `Canonical sealed targetPath (repo-relative, do not reinterpret): ${resolvedPaths.sealedTargetPath}`,
@@ -856,13 +922,7 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
         `Canonical sealed pathAllowlist (repo-relative): ${resolvedPaths.sealedPathAllowlist.join(", ")}`,
         "Do not reinterpret relative paths against a nested subproject or editor root.",
         `Repository: ${spec.repositoryRef}`,
-        `Type d'artifact: ${spec.artifactType}`,
-        `Brief: ${spec.artifactBrief}`,
-        `Exigences de contenu: ${spec.contentRequirements.join("; ")}`,
-        `Scope IN: ${spec.scopeIn.join(", ") || "(none)"}`,
-        `Scope OUT (interdit): ${spec.scopeOut.join(", ") || "(none)"}`,
-        `Sorties attendues: ${spec.expectedOutputs.join(", ")}`,
-        `Validations: ${spec.validationExpectations.join(", ") || "path_allowlist; no_delete"}`,
+        `Validations techniques: ${spec.validationExpectations.join(", ") || "path_allowlist; no_delete"}`,
         "Ne créer/modifier AUCUN autre fichier.",
         "Ne supprimer AUCUN fichier (noDelete=true).",
         "Ne pas commit, push, PR, merge, ni remote git.",
@@ -874,7 +934,11 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
         `action=${request.action ?? ""}`,
         `scope=${request.scope ?? ""}`,
         `fingerprint=${request.semanticFingerprint}`,
-      ].join("\n");
+      ];
+      instruction = composeBoundedInstruction({
+        missionPrompt,
+        enforcement: docsWriteEnforcement,
+      });
     } else if (
       request.action === M4_BOUNDED_RO_ACTION ||
       request.selectedAgentRef === M4_BOUNDED_RO_CURSOR_AGENT_ID
@@ -898,15 +962,12 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
         `fingerprint=${request.semanticFingerprint}`,
         "Aucune mutation, aucun git remote/commit/push/PR/merge.",
       ].join("\n");
-    } else if (
-      typeof request.cursorMissionPrompt === "string" &&
-      request.cursorMissionPrompt.trim().length > 0
-    ) {
+    } else if (missionPrompt) {
       // PJ-REPROOF-04 — generalist Cursor mission = authorized EC projection.
       // Cursor determines HOW inside the contract; no mandatory step sequence.
       // Product StartExecution always supplies this prompt for non-specialized agents.
       instruction = [
-        request.cursorMissionPrompt.trim(),
+        missionPrompt,
         "",
         `attemptId=${request.attemptId}`,
         `executionContractId=${request.executionContractId}`,
@@ -932,9 +993,7 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
 
     // Full-capability native mode: --sandbox disabled --force (parity with Cursor CLI).
     // Docs-write + git mutation profiles + generalist mission prompt: agent mode.
-    const hasMissionPrompt =
-      typeof request.cursorMissionPrompt === "string" &&
-      request.cursorMissionPrompt.trim().length > 0;
+    const hasMissionPrompt = missionPrompt !== null;
     const usesAgentMode =
       isDocsWrite ||
       isLocalCommitProfile ||

@@ -1122,6 +1122,9 @@ export async function orchestrateProjectAssistantTurn(input: {
             readCoverage.facts.map((f) => ({
               pathOrRef: f.pathOrRef,
               coverage: f.coverage,
+              cycleInstanceId:
+                input.studioCognitiveContext?.activeCycle?.cycleInstanceId ??
+                null,
             })),
           );
         } finally {
