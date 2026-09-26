@@ -19,11 +19,85 @@ import type { GetCurrentLivingProjectState } from "@/lib/oa/project/application/
 import type { CyclePersistenceUnitOfWorkPort } from "@/lib/oa/cycle/ports/cyclePersistenceUnitOfWorkPort";
 import type { GetCycle } from "@/lib/oa/cycle/application/getCycle";
 import type { NoraActiveCycleWorkItem } from "@/lib/nora-cognitive-runtime/noraProductTurnOutputType";
+import { normalizeActiveCycleRecommendedOptionRef } from "@/lib/nora-cognitive-runtime/noraProductTurnOutputType";
 import { NORA_LIFECYCLE_RECOMMENDATION_ACTOR } from "@/lib/oa/cycle/application/lifecycleRecommendation/noraActor";
 import type { ActiveCycleWorkContextSeal } from "./f2/activeCycleCognitiveContext";
 
 /** Stable Product source for Nora active-cycle cognitive work. */
 export const ACTIVE_CYCLE_WORK_SOURCE = "active-cycle-work:nora" as const;
+
+/**
+ * Extract canonical recommendedOptionRef from ACW EpistemicItem.relatedObjects.
+ * Prefers opt:trajectory:* then any opt:* (W2-compatible relatedObjects pattern).
+ */
+export function extractAcwRecommendedOptionRef(
+  relatedObjects: readonly string[] | null | undefined,
+): string | null {
+  if (!relatedObjects || relatedObjects.length === 0) return null;
+  const optionRefs = relatedObjects.filter((r) => r.startsWith("opt:"));
+  const trajectory = optionRefs.find((r) => r.startsWith("opt:trajectory:"));
+  return trajectory ?? optionRefs[0] ?? null;
+}
+
+/**
+ * CORR-01 C2 — validate structured ACW Recommendation option identity against
+ * server trajectory decision-support BEFORE persistence / Pilot display.
+ * Non-trajectory Recommendations (recommendedOptionRef=null) remain allowed.
+ */
+export function validateActiveCycleRecommendationAgainstDecisionSupport(input: {
+  readonly items: readonly {
+    readonly type: string;
+    readonly recommendedOptionRef?: string | null;
+  }[];
+  readonly decisionSupportState:
+    | "PRESENT"
+    | "NONE"
+    | "UNAVAILABLE"
+    | null
+    | undefined;
+  readonly optionRefs: readonly string[] | null | undefined;
+}):
+  | { readonly ok: true }
+  | {
+      readonly ok: false;
+      readonly code: "ACTIVE_CYCLE_RECOMMENDATION_OPTION_INVALID";
+      readonly reason: string;
+    } {
+  for (const item of input.items) {
+    if (item.type !== "Recommendation") continue;
+    if (
+      item.recommendedOptionRef == null ||
+      String(item.recommendedOptionRef).trim() === ""
+    ) {
+      continue;
+    }
+    const normalized = normalizeActiveCycleRecommendedOptionRef(
+      item.recommendedOptionRef,
+    );
+    if (normalized === null) {
+      return {
+        ok: false,
+        code: "ACTIVE_CYCLE_RECOMMENDATION_OPTION_INVALID",
+        reason: "recommended_option_ref_invalid_shape",
+      };
+    }
+    if (input.decisionSupportState !== "PRESENT") {
+      return {
+        ok: false,
+        code: "ACTIVE_CYCLE_RECOMMENDATION_OPTION_INVALID",
+        reason: "decision_support_not_present_for_trajectory_recommendation",
+      };
+    }
+    if (!input.optionRefs || !input.optionRefs.includes(normalized)) {
+      return {
+        ok: false,
+        code: "ACTIVE_CYCLE_RECOMMENDATION_OPTION_INVALID",
+        reason: `recommended_option_ref_not_in_decision_support:${normalized}`,
+      };
+    }
+  }
+  return { ok: true };
+}
 
 /** Same Nora agent actor as LR — authority remains none on items. */
 export const NORA_ACTIVE_CYCLE_WORK_ACTOR: ActorReference =
@@ -91,6 +165,8 @@ export function activeCycleWorkEpistemicItemId(input: {
   index: number;
   type: string;
   statement: string;
+  /** Semantic continuity — part of identity when Recommendation binds an Option. */
+  recommendedOptionRef?: string | null;
 }): string {
   const raw = [
     input.projectId,
@@ -99,6 +175,7 @@ export function activeCycleWorkEpistemicItemId(input: {
     String(input.index),
     input.type,
     statementDigest(input.statement),
+    input.recommendedOptionRef?.trim() || "",
   ].join("|");
   const digest = createHash("sha256")
     .update(raw, "utf8")
@@ -139,6 +216,7 @@ function materialParity(
     statement: string;
     confidence?: EpistemicConfidence;
     blocking?: boolean;
+    recommendedOptionRef?: string | null;
   },
 ): boolean {
   if (existing.type !== next.type) return false;
@@ -150,6 +228,9 @@ function materialParity(
     return false;
   }
   if (existing.source !== ACTIVE_CYCLE_WORK_SOURCE) return false;
+  const existingRef = extractAcwRecommendedOptionRef(existing.relatedObjects);
+  const nextRef = next.recommendedOptionRef?.trim() || null;
+  if ((existingRef ?? null) !== (nextRef ?? null)) return false;
   return true;
 }
 
@@ -280,6 +361,11 @@ export async function materializeActiveCycleWork(input: {
   runInTransaction: CyclePersistenceUnitOfWorkPort["runInTransaction"];
   producedAt: string;
   createdBy?: ActorReference;
+  /**
+   * CORR-01 C2 — when provided, every structured recommendedOptionRef must be an
+   * exact member. Omit only for legacy callers without decision-support context.
+   */
+  allowedOptionRefs?: readonly string[];
 }): Promise<MaterializeActiveCycleWorkResult> {
   if (!input.items || input.items.length === 0) {
     return {
@@ -299,6 +385,52 @@ export async function materializeActiveCycleWork(input: {
         code: "ACTIVE_CYCLE_WORK_FORBIDDEN_TYPE",
         reason: `forbidden_epistemic_type:${item.type}`,
       };
+    }
+    // Recommendation may carry structured option identity; other types must not.
+    if (
+      item.type !== "Recommendation" &&
+      item.recommendedOptionRef != null &&
+      String(item.recommendedOptionRef).trim() !== ""
+    ) {
+      return {
+        ok: false,
+        code: "ACTIVE_CYCLE_WORK_INVALID",
+        reason: "recommended_option_ref_only_on_recommendation",
+      };
+    }
+    if (
+      item.type === "Recommendation" &&
+      item.recommendedOptionRef != null &&
+      normalizeActiveCycleRecommendedOptionRef(item.recommendedOptionRef) ===
+        null
+    ) {
+      return {
+        ok: false,
+        code: "ACTIVE_CYCLE_WORK_INVALID",
+        reason: "recommended_option_ref_invalid",
+      };
+    }
+    // CORR-01 C2 defense-in-depth — when allowedOptionRefs is supplied, every
+    // structured Recommendation ref must be an exact member.
+    if (
+      item.type === "Recommendation" &&
+      item.recommendedOptionRef != null &&
+      String(item.recommendedOptionRef).trim() !== ""
+    ) {
+      const normalized = normalizeActiveCycleRecommendedOptionRef(
+        item.recommendedOptionRef,
+      );
+      if (
+        input.allowedOptionRefs !== undefined &&
+        (normalized === null ||
+          !input.allowedOptionRefs.includes(normalized))
+      ) {
+        return {
+          ok: false,
+          code: "ACTIVE_CYCLE_RECOMMENDATION_OPTION_INVALID",
+          reason: "recommended_option_ref_not_in_decision_support",
+        };
+      }
     }
   }
 
@@ -401,6 +533,12 @@ export async function materializeActiveCycleWork(input: {
             "empty_statement",
           );
         }
+        const recommendedOptionRef =
+          type === "Recommendation"
+            ? normalizeActiveCycleRecommendedOptionRef(
+                raw.recommendedOptionRef,
+              )
+            : null;
         const epistemicItemId = activeCycleWorkEpistemicItemId({
           projectId: facts.projectId,
           cycleInstanceId: facts.activeCycleInstanceId,
@@ -408,6 +546,7 @@ export async function materializeActiveCycleWork(input: {
           index,
           type,
           statement,
+          recommendedOptionRef,
         });
         const existing = existingById.get(epistemicItemId);
         const confidence =
@@ -423,6 +562,7 @@ export async function materializeActiveCycleWork(input: {
               statement,
               confidence,
               blocking,
+              recommendedOptionRef,
             })
           ) {
             throw new ActiveCycleWorkAtomicFailure(
@@ -458,6 +598,7 @@ export async function materializeActiveCycleWork(input: {
           facts.activeCycleInstanceId,
           ...(cycle.trajectoryId ? [cycle.trajectoryId] : []),
           ...(cycle.trajectoryStepId ? [cycle.trajectoryStepId] : []),
+          ...(recommendedOptionRef ? [recommendedOptionRef] : []),
         ];
 
         planned.push({

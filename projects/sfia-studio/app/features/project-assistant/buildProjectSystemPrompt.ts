@@ -313,6 +313,15 @@ function buildActiveCycleWorkOutputSection(
       "ExecutionContract ; jamais d'ids, d'authority, ni de provenance (le serveur les mints).",
     );
     lines.push(
+      "=== Recommendation structurée (continuité Pilote/Nora/Studio) ===",
+      "Quand tu recommandes une Option trajectoire serveur (voir decision-support dans le contexte) :",
+      "émets type=Recommendation avec recommendedOptionRef = EXACTEMENT une des refs serveur",
+      "(ex. opt:trajectory:governed-gated | opt:trajectory:bounded-direct | opt:trajectory:clarify-first).",
+      "recommendedOptionRef est un champ structuré — JAMAIS déduit du texte statement.",
+      "Pour Recommendation hors Option trajectoire : recommendedOptionRef = null.",
+      "Recommendation ≠ HumanDecision ; n'exécute rien ; ne promeut pas de trajectoire.",
+    );
+    lines.push(
       "=== INTÉGRITÉ ÉPISTÉMIQUE — Reservation ===",
       "Voie nominale : reservationDelta (pas activeCycleWork.Reservation).",
       "Si tu émets encore une Reservation via activeCycleWork (legacy) :",

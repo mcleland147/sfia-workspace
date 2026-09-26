@@ -47,6 +47,18 @@ export type PresentedOptionSetBinding = {
   readonly optionSetRef: string;
   readonly optionSetDigest: string;
   readonly qualificationDigest: string;
+  /**
+   * PILOT-NORA-STUDIO-SEMANTIC-CONTINUITY-01 — seals the Recommendation semantic
+   * basis (Nora ACW identity or deterministic fallback digest). At decide time,
+   * a material change of this basis → OPTION_SET_STALE.
+   * Optional for legacy bindings loaded before this macro.
+   */
+  readonly recommendationBasisDigest?: string | null;
+  readonly recommendationSource?:
+    | "nora_active_cycle"
+    | "deterministic_fallback"
+    | null;
+  readonly noraRecommendationEpistemicItemId?: string | null;
   /** Required for project_trajectory mode; null for proposal subject mode. */
   readonly trajectoryId: string | null;
   /** Required for project_trajectory mode; null for proposal subject mode. */

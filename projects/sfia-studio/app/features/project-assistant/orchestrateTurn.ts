@@ -48,7 +48,11 @@ import {
   LIFECYCLE_RECOMMENDATION_MATERIALIZE_FAILURE_PILOTE_NOTICE,
   lifecycleRecommendationMaterializeFailurePiloteNotice,
 } from "./lifecycleRecommendationPiloteNotice";
-import { materializeActiveCycleWork } from "./materializeActiveCycleWork";
+import { pilotTrajectoryOptionLabel } from "./presentationLabels";
+import {
+  materializeActiveCycleWork,
+  validateActiveCycleRecommendationAgainstDecisionSupport,
+} from "./materializeActiveCycleWork";
 import {
   materializeReservationDelta,
   stripActiveCycleWorkReservationsWhenDeltaPresent,
@@ -677,6 +681,29 @@ export async function orchestrateProjectAssistantTurn(input: {
       });
       const acwItems = strippedAcw?.items ?? [];
       if (acwItems.length > 0) {
+        // CORR-01 C2 — validate structured recommendedOptionRef against server
+        // decision-support BEFORE any ACW write or Pilot structured display.
+        const studioForRec = input.studioCognitiveContext ?? null;
+        const tds = studioForRec?.trajectoryDecisionSupport;
+        const acwRecValidation =
+          validateActiveCycleRecommendationAgainstDecisionSupport({
+            items: acwItems,
+            decisionSupportState: tds?.state,
+            optionRefs: tds?.optionRefs,
+          });
+        if (!acwRecValidation.ok) {
+          return {
+            ok: false,
+            status: "validation_error",
+            code: acwRecValidation.code,
+            message:
+              "Recommendation trajectoire structurée invalide face au decision-support serveur — aucune matérialisation ni affichage structuré.",
+            mode: modeResolution.mode,
+            retryable: false,
+            logicalTurnId,
+          };
+        }
+
         const assessment = coherent?.preCycleRoutingAssessment;
         const disposition = coherent?.disposition;
         const eligibleDefer =
@@ -837,6 +864,12 @@ export async function orchestrateProjectAssistantTurn(input: {
             ),
             producedAt,
             createdBy: NORA_LIFECYCLE_RECOMMENDATION_ACTOR,
+            ...(studio.trajectoryDecisionSupport?.state === "PRESENT"
+              ? {
+                  allowedOptionRefs:
+                    studio.trajectoryDecisionSupport.optionRefs,
+                }
+              : {}),
           });
           if (!mat.ok) {
             return {
@@ -1134,10 +1167,36 @@ export async function orchestrateProjectAssistantTurn(input: {
     );
     // NORA-CONVERSATIONAL-INITIATIVE-01 / CR-NCI-03 — compose from the same
     // coherent guidance already normalized with Cognitive Stop (no second pass).
-    if (coherentEarly?.conversationGuidance) {
+    // CORR-01 C2 — structured Recommendation line only when validated vs TDS.
+    if (coherentEarly?.conversationGuidance || coherentEarly?.activeCycleWork) {
+      const tdsForDisplay =
+        input.studioCognitiveContext?.trajectoryDecisionSupport;
+      const structuredRecItem = coherentEarly.activeCycleWork?.items?.find(
+        (i) =>
+          i.type === "Recommendation" &&
+          typeof i.recommendedOptionRef === "string" &&
+          i.recommendedOptionRef.trim().length > 0,
+      );
+      const displayValidation = structuredRecItem
+        ? validateActiveCycleRecommendationAgainstDecisionSupport({
+            items: [structuredRecItem],
+            decisionSupportState: tdsForDisplay?.state,
+            optionRefs: tdsForDisplay?.optionRefs,
+          })
+        : { ok: true as const };
+      const structuredRecommendation =
+        displayValidation.ok && structuredRecItem?.recommendedOptionRef
+          ? {
+              recommendedOptionRef: structuredRecItem.recommendedOptionRef.trim(),
+              optionLabel: pilotTrajectoryOptionLabel(
+                structuredRecItem.recommendedOptionRef,
+              ),
+            }
+          : null;
       assistantText = composePilotFacingAssistantText(
         assistantText,
-        coherentEarly.conversationGuidance,
+        coherentEarly.conversationGuidance ?? null,
+        structuredRecommendation,
       );
     }
 

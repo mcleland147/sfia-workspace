@@ -60,9 +60,9 @@ import {
 } from "./resolveProposalDecisionSubject";
 import {
   deriveTrajectoryOptions,
-  deriveTrajectoryRecommendation,
   type TrajectoryOptionInputs,
 } from "./trajectoryOptions";
+import { resolveCurrentNoraTrajectoryRecommendation } from "./resolveCurrentNoraTrajectoryRecommendation";
 import {
   assertRecommendedOptionInPresentedSet,
   buildConstrainedRecommendationCognitionAsk,
@@ -639,7 +639,26 @@ export async function proposeTrajectoryOptions(
   };
 
   const options = deriveTrajectoryOptions(inputs);
-  const baseRecommendation = deriveTrajectoryRecommendation(inputs);
+  const noraResolution = await resolveCurrentNoraTrajectoryRecommendation({
+    oa,
+    projectId: input.projectId,
+    cycleInstanceId: live.context.activeCycleInstanceId ?? null,
+    optionRefs: options.map((o) => o.optionRef),
+    optionInputs: inputs,
+  });
+  if (!noraResolution.ok) {
+    return {
+      ok: false,
+      code: noraResolution.code,
+      message: noraResolution.message,
+    };
+  }
+  const baseRecommendation = noraResolution.resolved.recommendation;
+  const recommendationBasisDigest =
+    noraResolution.resolved.recommendationBasisDigest;
+  const recommendationSource = noraResolution.resolved.recommendationSource;
+  const noraRecommendationEpistemicItemId =
+    noraResolution.resolved.noraRecommendationEpistemicItemId;
   const integrity = assertRecommendedOptionInPresentedSet({
     options,
     recommendedOptionRef: baseRecommendation.recommendedOptionRef,
@@ -657,8 +676,8 @@ export async function proposeTrajectoryOptions(
         recoveryContext.attemptStatus === "succeeded"
           ? "succès technique / résultat produit non prouvé"
           : `${recoveryContext.productOutcome} durable`
-      } (${recoveryContext.attemptId}, attempt=${recoveryContext.attemptStatus}) — sujet courant = recovery du même cycle, PAS un nouveau cadrage fonctionnel.`
-    : `Expliquer la recommandation canonique pour le cycle ${input.cycleTypeId}.`;
+      } (${recoveryContext.attemptId}, attempt=${recoveryContext.attemptStatus}) — sujet courant = recovery du même cycle, PAS un nouveau cadrage fonctionnel. Source Recommendation: ${recommendationSource}.`
+    : `Expliquer la recommandation canonique pour le cycle ${input.cycleTypeId}. Source Recommendation: ${recommendationSource}.`;
   const cognition = await reasonCanonicalRecommendationCognition({
     ckcPromptSection,
     recoveryCognitionSection,
@@ -865,6 +884,9 @@ export async function proposeTrajectoryOptions(
     optionSetRef,
     optionSetDigest,
     qualificationDigest,
+    recommendationBasisDigest,
+    recommendationSource,
+    noraRecommendationEpistemicItemId,
     trajectoryId: proposedTrajectoryId,
     candidateVersion: proposedVersion,
     optionRefs: options.map((o) => o.optionRef),

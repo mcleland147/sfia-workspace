@@ -42,7 +42,12 @@ import {
   resolveActiveCycleCognitiveContext,
   type ActiveCycleCognitiveProjection,
 } from "./activeCycleCognitiveContext";
-import { ACTIVE_CYCLE_WORK_SOURCE } from "../materializeActiveCycleWork";
+import { ACTIVE_CYCLE_WORK_SOURCE, extractAcwRecommendedOptionRef } from "../materializeActiveCycleWork";
+import {
+  classifyAcwRecommendationCurrentness,
+  resolveTrajectoryRecommendationCutoffFromDecisions,
+} from "../trajectoryRecommendationCurrentness";
+import { pilotTrajectoryOptionLabel } from "../presentationLabels";
 import {
   buildReservationCompactForPrompt,
   formatReservationCompactForPrompt,
@@ -218,6 +223,28 @@ export type StudioActiveCycleWorkProjection = {
   readonly confidence?: string;
   readonly blocking?: boolean;
   readonly status: EpistemicItemStatus;
+  /** Structured Option identity when Recommendation binds a server Option. */
+  readonly recommendedOptionRef?: string | null;
+  /**
+   * CORR-01 C3 — CURRENT vs HISTORICAL relative to accepted trajectory HD cutoff.
+   * Only set for Recommendations that carry a structured option ref.
+   */
+  readonly recommendationCurrentness?: "CURRENT" | "HISTORICAL" | null;
+};
+
+/**
+ * Server-derived trajectory decision-support OptionRefs for Nora (read-only).
+ * Never authority; Nora may recommend only among these refs when present.
+ */
+export type StudioTrajectoryDecisionSupportProjection = {
+  readonly state: "PRESENT" | "NONE" | "UNAVAILABLE";
+  readonly optionRefs: readonly string[];
+  readonly optionLabels: readonly string[];
+  readonly currentNoraRecommendedOptionRef: string | null;
+  readonly currentRecommendationSource:
+    | "nora_active_cycle"
+    | "deterministic_fallback"
+    | null;
 };
 
 /**
@@ -242,6 +269,7 @@ export type StudioCognitiveContext = {
     readonly state: PresenceState;
     readonly items: readonly StudioActiveCycleWorkProjection[];
   };
+  readonly trajectoryDecisionSupport: StudioTrajectoryDecisionSupportProjection;
   readonly decisions: {
     readonly state: PresenceState;
     readonly items: readonly StudioDecisionProjection[];
@@ -378,7 +406,19 @@ function projectTrajectory(t: ProjectTrajectory): StudioTrajectoryProjection {
 
 function projectActiveCycleWorkItem(
   item: EpistemicItem,
+  ignoreCreatedAtOnOrBefore: string | null,
 ): StudioActiveCycleWorkProjection {
+  const recommendedOptionRef =
+    item.type === "Recommendation"
+      ? extractAcwRecommendedOptionRef(item.relatedObjects)
+      : null;
+  const recommendationCurrentness =
+    item.type === "Recommendation" && recommendedOptionRef
+      ? classifyAcwRecommendationCurrentness({
+          createdAt: item.createdAt,
+          ignoreCreatedAtOnOrBefore,
+        })
+      : null;
   return Object.freeze({
     type: item.type,
     statement: clip(
@@ -388,6 +428,8 @@ function projectActiveCycleWorkItem(
     ...(item.confidence !== undefined ? { confidence: item.confidence } : {}),
     ...(item.blocking !== undefined ? { blocking: item.blocking } : {}),
     status: item.status,
+    recommendedOptionRef,
+    recommendationCurrentness,
   });
 }
 
@@ -414,6 +456,12 @@ export async function composeStudioCognitiveContext(input: {
    * RESERVATION-CONTEXT-PILOT-CONFIRMATION-01 — server-validated focus only.
    */
   reservationFocus?: ValidatedReservationInteractionContext | null;
+  /**
+   * Optional server-precomputed decision-support (from
+   * resolveTrajectoryDecisionSupportProjection). Avoids pulling W2/server-only
+   * imports into this composer module.
+   */
+  trajectoryDecisionSupport?: StudioTrajectoryDecisionSupportProjection | null;
 }): Promise<ComposeStudioCognitiveContextResult> {
   const activeCycleInstanceId =
     input.activeCycleInstanceId ??
@@ -489,6 +537,13 @@ export async function composeStudioCognitiveContext(input: {
         activeCycleWorkItems: Object.freeze({
           state: "UNAVAILABLE" as const,
           items: Object.freeze([]),
+        }),
+        trajectoryDecisionSupport: Object.freeze({
+          state: "UNAVAILABLE" as const,
+          optionRefs: Object.freeze([]),
+          optionLabels: Object.freeze([]),
+          currentNoraRecommendedOptionRef: null,
+          currentRecommendationSource: null,
         }),
         decisions: Object.freeze({
           state: "UNAVAILABLE" as const,
@@ -601,6 +656,18 @@ export async function composeStudioCognitiveContext(input: {
   if (activeCycle) {
     try {
       const epistemic = await oa.cycleServices.epistemic.listByProject(projectId);
+      let hdCutoff: string | null = null;
+      try {
+        const decisionsForCutoff =
+          await oa.decisionServices.decisions.listByProject(projectId);
+        hdCutoff = resolveTrajectoryRecommendationCutoffFromDecisions({
+          decisions: decisionsForCutoff,
+          cycleInstanceId: activeCycle.cycleInstanceId,
+        });
+      } catch {
+        // Decision unreadability → do not claim ACW Recommendation as CURRENT.
+        hdCutoff = "9999-12-31T23:59:59.999Z";
+      }
       const filtered = epistemic.filter(
         (item) =>
           item.source === ACTIVE_CYCLE_WORK_SOURCE &&
@@ -620,7 +687,7 @@ export async function composeStudioCognitiveContext(input: {
         // Chronological ASC for prompt display.
         acwItems = newestN
           .reverse()
-          .map(projectActiveCycleWorkItem);
+          .map((item) => projectActiveCycleWorkItem(item, hdCutoff));
       }
     } catch {
       acwState = "UNAVAILABLE";
@@ -775,6 +842,16 @@ export async function composeStudioCognitiveContext(input: {
     }
   }
 
+  let trajectoryDecisionSupport: StudioTrajectoryDecisionSupportProjection =
+    input.trajectoryDecisionSupport ??
+    Object.freeze({
+      state: "NONE" as const,
+      optionRefs: Object.freeze([] as string[]),
+      optionLabels: Object.freeze([] as string[]),
+      currentNoraRecommendedOptionRef: null,
+      currentRecommendationSource: null,
+    });
+
   return {
     ok: true,
     context: Object.freeze({
@@ -785,6 +862,7 @@ export async function composeStudioCognitiveContext(input: {
         state: acwState,
         items: Object.freeze(acwItems),
       }),
+      trajectoryDecisionSupport,
       decisions: Object.freeze({
         state: decisionsState,
         items: Object.freeze(decisionItems),
@@ -894,10 +972,26 @@ export function buildStudioCognitivePromptSections(
     if (ctx.activeCycleWorkItems.state === "PRESENT") {
       lines.push("Travail cognitif déjà matérialisé pour ce cycle ACTIVE :");
       for (const w of ctx.activeCycleWorkItems.items) {
+        const recCurrentness =
+          w.recommendationCurrentness === "HISTORICAL"
+            ? " recommendationCurrentness=HISTORICAL (pré-décision — PAS CURRENT)"
+            : w.recommendationCurrentness === "CURRENT"
+              ? " recommendationCurrentness=CURRENT"
+              : "";
+        const showOptionRef =
+          w.recommendedOptionRef &&
+          w.recommendationCurrentness !== "HISTORICAL"
+            ? ` recommendedOptionRef=${w.recommendedOptionRef}`
+            : w.recommendedOptionRef &&
+                w.recommendationCurrentness === "HISTORICAL"
+              ? ` recommendedOptionRef=${w.recommendedOptionRef} (historique)`
+              : "";
         lines.push(
           `• [${w.type}${w.status !== "active" ? `/${w.status}` : ""}]` +
             (w.confidence ? ` conf=${w.confidence}` : "") +
             (w.blocking === true ? " blocking" : "") +
+            showOptionRef +
+            recCurrentness +
             ` — ${w.statement}`,
         );
       }
@@ -907,6 +1001,32 @@ export function buildStudioCognitivePromptSections(
       );
     } else {
       lines.push("Travail cognitif cycle ACTIVE : aucun item matérialisé encore.");
+    }
+    const tds = ctx.trajectoryDecisionSupport;
+    if (tds.state === "PRESENT" && tds.optionRefs.length > 0) {
+      lines.push("");
+      lines.push(
+        "Options trajectoire serveur (decision-support — Nora ne peut recommander QUE parmi ces refs) :",
+      );
+      for (let i = 0; i < tds.optionRefs.length; i += 1) {
+        const ref = tds.optionRefs[i]!;
+        const label =
+          tds.optionLabels[i] ?? pilotTrajectoryOptionLabel(ref);
+        lines.push(`• ${ref} — ${label}`);
+      }
+      if (tds.currentNoraRecommendedOptionRef) {
+        lines.push(
+          `Recommendation Nora courante (structurée) : ${tds.currentNoraRecommendedOptionRef} (${pilotTrajectoryOptionLabel(tds.currentNoraRecommendedOptionRef)}) — PAS une HumanDecision.`,
+        );
+      } else {
+        lines.push(
+          "Aucune Recommendation Nora structurée courante pour ces Options — le fallback déterministe Studio s'applique jusqu'à émission Nora.",
+        );
+      }
+    } else if (tds.state === "UNAVAILABLE") {
+      lines.push(
+        "Decision-support trajectoire : UNAVAILABLE — ne pas inventer d'optionRefs.",
+      );
     }
     if (ctx.reservationFocusSection) {
       lines.push("");

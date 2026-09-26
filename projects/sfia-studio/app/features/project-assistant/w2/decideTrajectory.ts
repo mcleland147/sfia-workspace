@@ -46,6 +46,8 @@ import {
   PROPOSAL_SUBJECT_REFUSE_REF,
 } from "./proposalSubjectOptions";
 import { resolveW2QualificationInputs } from "./qualificationInputs";
+import { resolvePostEvidenceRecoveryContext } from "./resolvePostEvidenceRecoveryContext";
+import { resolveCurrentNoraTrajectoryRecommendation } from "./resolveCurrentNoraTrajectoryRecommendation";
 import type { DecideTrajectoryResult, TrajectoryOptionDto } from "./types";
 import type { F2ProposalStatus } from "../f2/types";
 import {
@@ -354,6 +356,70 @@ export async function decideTrajectory(
       message:
         "Le contexte de qualification a changé depuis la présentation — réinstruction requise. Aucune décision enregistrée.",
     };
+  }
+
+  // PILOT-NORA-STUDIO-SEMANTIC-CONTINUITY-01 — Recommendation semantic basis seal.
+  // Legacy bindings without recommendationBasisDigest skip this check.
+  if (
+    typeof presented.recommendationBasisDigest === "string" &&
+    presented.recommendationBasisDigest.trim().length > 0 &&
+    presented.decisionSubjectMode !== "proposal"
+  ) {
+    const liveForBasis = await readLiveProjectContext(oa, input.projectId);
+    if (!liveForBasis.ok) {
+      return {
+        ok: false,
+        code: "OPTION_SET_STALE",
+        message:
+          "Contexte Project illisible pour re-résoudre la Recommendation — réinstruction requise.",
+      };
+    }
+    const recoveryLive = await resolvePostEvidenceRecoveryContext({
+      oa,
+      projectId: input.projectId,
+    });
+    if (!recoveryLive.ok) {
+      return {
+        ok: false,
+        code: "OPTION_SET_STALE",
+        message:
+          "Contexte recovery illisible pour re-résoudre la Recommendation — réinstruction requise.",
+      };
+    }
+    const liveRecommendation = await resolveCurrentNoraTrajectoryRecommendation({
+      oa,
+      projectId: input.projectId,
+      cycleInstanceId: liveForBasis.context.activeCycleInstanceId ?? null,
+      optionRefs: presented.optionRefs,
+      optionInputs: {
+        cycleTypeId: currentQual.inputs.cycleTypeId,
+        recommendedProfile: currentQual.inputs.recommendedProfile,
+        criticalSignalsPresent: currentQual.inputs.criticalSignalsPresent,
+        irreversible: currentQual.inputs.irreversible,
+        reservations: currentQual.inputs.reservations,
+        ckcAttribution: currentQual.inputs.ckcAttribution,
+        recoveryContext: recoveryLive.context,
+      },
+    });
+    if (!liveRecommendation.ok) {
+      return {
+        ok: false,
+        code: "OPTION_SET_STALE",
+        message:
+          "Impossible de re-résoudre la Recommendation courante — réinstruction requise. Aucune décision enregistrée.",
+      };
+    }
+    if (
+      liveRecommendation.resolved.recommendationBasisDigest !==
+      presented.recommendationBasisDigest
+    ) {
+      return {
+        ok: false,
+        code: "OPTION_SET_STALE",
+        message:
+          "La Recommendation sémantique a changé depuis la présentation — réinstruction requise. Aucune décision enregistrée.",
+      };
+    }
   }
 
   const options = presented.options;

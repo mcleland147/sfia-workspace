@@ -71,6 +71,7 @@ import {
   reasonWithResolvedCkcContext,
 } from "./ckcCognitiveContext";
 import { composeStudioCognitiveContext } from "./studioCognitiveContext";
+import { resolveTrajectoryDecisionSupportProjection } from "../w2/resolveTrajectoryDecisionSupportProjection";
 import {
   parseReservationInteractionContextInput,
   validateReservationInteractionContext,
@@ -1081,17 +1082,32 @@ export async function orchestrateAssistantSend(input: {
     // Pure read-only composition; NO reasonWithResolvedCkcContext; NO third model call.
     const registryRoot = resolveProductDoctrineRegistryRoot();
     const oa = getRuntimeApplicationService().oa;
+    const cycleForSupport =
+      reservationFocus?.cycleInstanceId ??
+      project.activeCycleInstanceId ??
+      null;
+    const trajectoryDecisionSupport = oa
+      ? await resolveTrajectoryDecisionSupportProjection({
+          oa,
+          projectId: project.projectId,
+          cycleInstanceId: cycleForSupport,
+        })
+      : Object.freeze({
+          state: "UNAVAILABLE" as const,
+          optionRefs: Object.freeze([] as string[]),
+          optionLabels: Object.freeze([] as string[]),
+          currentNoraRecommendedOptionRef: null,
+          currentRecommendationSource: null,
+        });
     const studioComposed = await composeStudioCognitiveContext({
       analysis,
       project,
       registryRoot,
       truthCContext: truthCContextForF1,
       oa,
-      activeCycleInstanceId:
-        reservationFocus?.cycleInstanceId ??
-        project.activeCycleInstanceId ??
-        null,
+      activeCycleInstanceId: cycleForSupport,
       reservationFocus,
+      trajectoryDecisionSupport,
     });
     if (!studioComposed.ok) {
       return {
