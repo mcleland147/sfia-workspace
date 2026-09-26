@@ -18,6 +18,7 @@ import {
   type W3cRecommendationPayload,
 } from "./w3cPostEvidenceLoop";
 import { resolveDurableBoundaryProofMode } from "@/features/project-assistant/f3/resolveDurableBoundaryProofMode";
+import { isDeterministicPreStartLaunchRejectionStopReason } from "./isConfirmedPreStartRejectionRecoverySource";
 
 export type PostEvidenceRecoveryContext = {
   readonly kind: "post_evidence_recovery";
@@ -57,8 +58,31 @@ function statementToJsonString(statement: unknown): string | null {
 }
 
 function resolveRealProcessInvoked(attempt: ExecutionAttempt): boolean {
+  // A — explicit TRUE diagnostic is authoritative.
   if (attempt.processDiagnostic?.realProcessInvoked === true) return true;
+  // B — irreversible-effect flag is fail-safe TRUE (incl. contradicting false).
   if (attempt.irreversibleEffectsPossible === true) return true;
+  // C — explicit FALSE diagnostic wins over generic REAL_* stopReason naming.
+  // Boundary reached (REAL_LAUNCH_FAILED:…) ≠ Cursor process invoked.
+  if (attempt.processDiagnostic?.realProcessInvoked === false) return false;
+
+  const started =
+    typeof attempt.startedAt === "string" && attempt.startedAt.trim().length > 0;
+  const launched =
+    typeof attempt.launchedAt === "string" &&
+    attempt.launchedAt.trim().length > 0;
+
+  // D' — known deterministic pre-start rejection families with no launch/start:
+  // gateway refuse before Cursor process. Stronger than bare REAL_* prefix.
+  if (
+    !started &&
+    !launched &&
+    isDeterministicPreStartLaunchRejectionStopReason(attempt.stopReason)
+  ) {
+    return false;
+  }
+
+  // D — no explicit process diagnostic: conservative inference from REAL_* prefix.
   if (
     typeof attempt.stopReason === "string" &&
     attempt.stopReason.startsWith("REAL_")

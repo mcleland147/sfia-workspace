@@ -292,6 +292,111 @@ describe("R7 — pure derivation / cognition (T2–T5 unit)", () => {
       }),
     ).toBe(true);
   });
+
+  it("PI-01 — explicit false + UNRESOLVED + cursor_real + no launch → false", () => {
+    expect(
+      inferDurableRealProcessInvoked({
+        attempt: {
+          stopReason: "REAL_LAUNCH_FAILED: ARTIFACT_WRITE_MODE_UNRESOLVED",
+          irreversibleEffectsPossible: false,
+          processDiagnostic: {
+            kind: "process_failure_diagnostic",
+            realProcessInvoked: false,
+            boundaryProofMode: "cursor_real",
+            exitCode: null,
+            stderrExcerpt: "ARTIFACT_WRITE_MODE_UNRESOLVED",
+            authoritativeBusinessEvidence: false,
+          },
+        } as ExecutionAttempt,
+        boundaryProofMode: "cursor_real",
+      }),
+    ).toBe(false);
+  });
+
+  it("PI-02 — explicit realProcessInvoked=true → true", () => {
+    expect(
+      inferDurableRealProcessInvoked({
+        attempt: {
+          stopReason: "REAL_LAUNCH_FAILED: ARTIFACT_WRITE_MODE_UNRESOLVED",
+          irreversibleEffectsPossible: false,
+          processDiagnostic: {
+            realProcessInvoked: true,
+            boundaryProofMode: "cursor_real",
+          },
+        } as ExecutionAttempt,
+        boundaryProofMode: "cursor_real",
+      }),
+    ).toBe(true);
+  });
+
+  it("PI-03 — explicit false + irreversibleEffectsPossible=true → true", () => {
+    expect(
+      inferDurableRealProcessInvoked({
+        attempt: {
+          stopReason: "REAL_LAUNCH_FAILED: ARTIFACT_WRITE_MODE_UNRESOLVED",
+          irreversibleEffectsPossible: true,
+          processDiagnostic: {
+            realProcessInvoked: false,
+            boundaryProofMode: "cursor_real",
+          },
+        } as ExecutionAttempt,
+        boundaryProofMode: "cursor_real",
+      }),
+    ).toBe(true);
+  });
+
+  it("PI-04 — explicit false + launchedAt absent → false despite REAL_LAUNCH_FAILED", () => {
+    expect(
+      inferDurableRealProcessInvoked({
+        attempt: {
+          stopReason: "REAL_LAUNCH_FAILED: ARTIFACT_WRITE_MODE_UNRESOLVED",
+          irreversibleEffectsPossible: false,
+          processDiagnostic: { realProcessInvoked: false },
+        } as ExecutionAttempt,
+        boundaryProofMode: "cursor_real",
+      }),
+    ).toBe(false);
+  });
+
+  it("PI-05 — diagnostic absent + launchedAt + cursor_real → true", () => {
+    expect(
+      inferDurableRealProcessInvoked({
+        attempt: {
+          stopReason: "OTHER",
+          processDiagnostic: undefined,
+          irreversibleEffectsPossible: undefined,
+          launchedAt: "2026-09-17T20:00:00.000Z",
+        } as ExecutionAttempt,
+        boundaryProofMode: "cursor_real",
+      }),
+    ).toBe(true);
+  });
+
+  it("PI-06 — diagnostic absent + ambiguous REAL stopReason → conservative true", () => {
+    expect(
+      inferDurableRealProcessInvoked({
+        attempt: {
+          stopReason: "REAL_LAUNCH_FAILED: SOME_UNKNOWN_REASON",
+          processDiagnostic: undefined,
+          irreversibleEffectsPossible: false,
+        } as ExecutionAttempt,
+        boundaryProofMode: "cursor_real",
+      }),
+    ).toBe(true);
+  });
+
+  it("PI-natural — diagnostic absent + known UNRESOLVED pre-start → false", () => {
+    expect(
+      inferDurableRealProcessInvoked({
+        attempt: {
+          stopReason: "REAL_LAUNCH_FAILED: ARTIFACT_WRITE_MODE_UNRESOLVED",
+          irreversibleEffectsPossible: false,
+          processDiagnostic: undefined,
+        } as ExecutionAttempt,
+        boundaryProofMode: "cursor_real",
+      }),
+    ).toBe(false);
+  });
 });
 
 describe("R7 — durable RecoveryContext integration", () => {
