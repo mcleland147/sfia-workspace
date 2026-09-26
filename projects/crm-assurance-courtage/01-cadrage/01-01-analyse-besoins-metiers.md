@@ -7,10 +7,11 @@
 | **Source principale** | Brief pédagogique CRM (`PBNC_Fiche_projet_CRM_courtage_assurance`) — hors Git |
 | **Sources méthodologiques** | Guide Bloc 1 PBNC + maquette `PBNC_100_Maquette_presentation_bloc_1` — hors Git |
 | **Doctrine projet** | [`../00-intake/crm-assurance-courtage-operating-doctrine.md`](../00-intake/crm-assurance-courtage-operating-doctrine.md) |
+| **Cadre 1.1 retenu** | Business Model Canvas + portrait synthétique du cabinet (**ADOPTED** — décision Morris) |
 | **Architecture** | NOT DECIDED |
 | **Stack** | NOT DECIDED |
 
-**Sourcing :** seuls les éléments du brief (et de la doctrine pour la conduite) sont traités comme faits. Les absences du scénario = « non précisé dans le scénario pédagogique » — ni inventées, ni transformées en enquête obligatoire.
+**Sourcing :** le document utilise les informations effectivement disponibles dans le brief (et la doctrine pour la conduite). Les éléments non fournis ne sont pas inventés.
 
 ---
 
@@ -18,7 +19,7 @@
 
 Comprendre le **contexte métier** du cabinet de courtage, identifier les **processus**, **enjeux** et **valeur** attendus, et préparer le livrable pédagogique 1.1 — **sans** sélectionner encore de solution, d’outil ou d’architecture.
 
-Ce projet est un **cas pédagogique fictif** (Product Builder No-code & IA). Le brief constitue la base d’analyse. Les informations absentes ne seront pas inventées.
+Ce projet est un **cas pédagogique fictif** (Product Builder No-code & IA). Le brief constitue la base d’analyse.
 
 Hors 1.1 : user discovery (1.2), veille (1.3), organisation, budget, support PPTX/Miro final, architecture, stack.
 
@@ -33,16 +34,29 @@ Hors 1.1 : user discovery (1.2), veille (1.3), organisation, budget, support PPT
 | Périmètre relationnel | Centraliser prospects, clients et contrats |
 | Types de contrats cités | Automobile, habitation, santé, prévoyance, etc. |
 | Environnement concurrentiel | Assureurs en ligne cités comme contexte |
-| Axes de différenciation | Proximité (prise de RDV directe ; comparaison illustrative Doctolib) ; personnalisation (offres selon profil et besoins discutés en RDV) ; transparence (accès temps réel à l’historique des échanges et des contrats) |
+| Axes de différenciation | Proximité ; personnalisation ; transparence |
 | Porteur d’objectifs | Directeur du cabinet |
-
-**Non précisé dans le scénario pédagogique :** taille, CA, organisation interne détaillée, partenaires, volumes, outils existants.
 
 **Besoin ≠ solution :** le besoin porte sur le pilotage et la traçabilité du cycle relationnel / administratif ; ce n’est pas « choisir une plateforme CRM / no-code ».
 
 ---
 
-## 3. Processus métiers concernés
+## 3. Portrait synthétique du cabinet
+
+Ce portrait reprend exclusivement les éléments fournis par le brief pédagogique.
+
+| Dimension | Contenu |
+|-----------|---------|
+| Activité | Courtage d’assurance (multi-branches citées : automobile, habitation, santé, prévoyance, etc.) |
+| Populations concernées | Prospects et clients |
+| Transformation recherchée | Digitaliser la relation client ; réactivité ; fidélisation |
+| Processus concernés | Cycle cible pédagogique (§4) |
+| Valeur recherchée | Proximité, personnalisation, transparence ; objectifs métier (§6) |
+| Capacités métier principales | Centralisation ; documents ; sinistres ; pilotage commercial |
+
+---
+
+## 4. Processus métiers concernés
 
 **Qualification :** processus **cible dérivé du scénario pédagogique** — **pas** un AS-IS observé.
 
@@ -69,7 +83,7 @@ Prospect
 
 ---
 
-## 4. Problèmes / limites auxquels le projet doit répondre
+## 5. Problèmes / enjeux auxquels le projet doit répondre
 
 Aucun AS-IS terrain n’a été observé. Les enjeux ci-dessous sont **déduits des objectifs du brief** :
 
@@ -85,25 +99,99 @@ Aucun AS-IS terrain n’a été observé. Les enjeux ci-dessous sont **déduits 
 
 ---
 
-## 5. Objectifs et valeur attendue
+## 6. Objectifs et valeurs attendus
 
-| Objectif / valeur | Indicateur dans le brief |
-|-------------------|--------------------------|
-| Réduction des tâches administratives | — |
-| Amélioration de la traçabilité | — |
-| Réactivité | — |
-| Proximité | — |
-| Personnalisation | — |
-| Transparence | — |
-| Confiance | — |
-| Fidélisation / rétention | — |
-| Pilotage commercial | Taux de conversion ; panier moyen ; satisfaction client |
+### 6.1 Objectifs métier
 
-**Aucune cible numérique** n’est fournie dans le brief. Aucune n’est inventée ici.
+#### Réduire les tâches administratives
+
+| Élément | Contenu |
+|---------|---------|
+| **Objectif** | Réduire les tâches administratives |
+| **Justification (brief)** | Objectif explicite du directeur |
+| **Lien avec le projet CRM** | Cohérent avec la collecte de pièces, l’édition / envoi de documents, les relances et le suivi du cycle client prévus par le scénario |
+| **Indicateur dans le brief** | Aucun indicateur dédié cité |
+
+Aucun temps gagné ni volume n’est inventé.
+
+#### Améliorer la traçabilité
+
+| Élément | Contenu |
+|---------|---------|
+| **Objectif** | Améliorer la traçabilité |
+| **Justification (brief)** | Objectif explicite du directeur |
+| **Lien avec le projet CRM** | Cohérent avec la centralisation prospects / clients / contrats et l’historique des échanges et des contrats |
+| **Indicateur dans le brief** | Aucun KPI de traçabilité nommé |
+
+#### Gagner en réactivité
+
+| Élément | Contenu |
+|---------|---------|
+| **Objectif** | Gagner en réactivité |
+| **Justification (brief)** | Le cabinet souhaite digitaliser sa relation client pour gagner en réactivité |
+| **Lien avec le projet CRM** | Le suivi centralisé du cycle et des étapes (contact → devis → RDV → souscription) constitue le lien fonctionnel avec cet objectif |
+| **Indicateur dans le brief** | Aucun délai / SLA cité |
+
+Aucun SLA ou délai cible n’est annoncé.
+
+#### Renforcer la confiance
+
+| Élément | Contenu |
+|---------|---------|
+| **Objectif** | Renforcer la confiance |
+| **Justification (brief)** | Objectif explicite du directeur |
+| **Lien avec le projet CRM** | Cohérence analytique possible avec la transparence (historique accessible) et une meilleure traçabilité — **pas** une causalité démontrée |
+| **Indicateur dans le brief** | Satisfaction client (KPI commercial cité ; non exclusivement dédié à la confiance) |
+
+#### Augmenter la fidélisation / rétention
+
+| Élément | Contenu |
+|---------|---------|
+| **Objectif** | Augmenter la fidélisation / rétention |
+| **Justification (brief)** | Fidélisation citée dans l’intention initiale ; augmentation de la rétention = objectif explicite du directeur |
+| **Lien avec le projet CRM** | Continuité du suivi client, personnalisation et transparence sont les dimensions du scénario liées à cet objectif |
+| **Indicateur dans le brief** | Satisfaction client (cité) ; aucun pourcentage de rétention |
+
+#### Améliorer le pilotage commercial
+
+| Élément | Contenu |
+|---------|---------|
+| **Objectif** | Améliorer le pilotage commercial |
+| **Justification (brief)** | Tableau de bord commercial explicitement demandé |
+| **Lien avec le projet CRM** | Centralisation des données du cycle relationnel / contrats pour alimenter le suivi commercial |
+| **Indicateurs dans le brief** | Taux de conversion ; panier moyen ; satisfaction client |
+
+Aucune formule ni cible chiffrée n’est inventée pour ces KPI.
+
+### 6.2 Valeurs / axes de différenciation
+
+Ces trois axes sont distincts des objectifs opérationnels ci-dessus : ils structurent la **proposition de valeur** du futur CRM.
+
+#### Proximité
+
+Prise de rendez-vous directe ; comparaison illustrative avec Doctolib dans le brief. Traduit la volonté de conserver une relation accessible et directe. Le CRM doit soutenir une entrée en contact / prise de RDV simple, sans remplacer le métier de courtier.
+
+#### Personnalisation
+
+Offres selon le profil et les besoins discutés en rendez-vous. Traduit l’adaptation de la relation commerciale au besoin du client. Le CRM doit permettre de rattacher propositions et contrats au contexte de l’échange.
+
+#### Transparence
+
+Accès en temps réel à l’historique des échanges et des contrats. Soutient la lisibilité du suivi pour le client. Le CRM doit rendre cet historique consultable de façon continue.
+
+### 6.3 Indicateurs disponibles
+
+| KPI cité dans le brief | Cible chiffrée |
+|------------------------|----------------|
+| Taux de conversion | Non fournie |
+| Panier moyen | Non fournie |
+| Satisfaction client | Non fournie |
+
+**Aucune cible chiffrée n’est fournie. Aucune n’est inventée.**
 
 ---
 
-## 6. Pertinence préliminaire de l’approche no-code
+## 7. Pertinence préliminaire de l’approche no-code
 
 ### Pertinence préliminaire — pas un choix d’architecture
 
@@ -122,7 +210,7 @@ Ces caractéristiques rendent une approche **no-code plausible** dans le cadre d
 
 ---
 
-## 7. Périmètre métier synthétique
+## 8. Périmètre métier synthétique
 
 ### Acteurs (brief)
 
@@ -141,104 +229,46 @@ Prospect · client · devis · rendez-vous · contrat · document / pièce · si
 
 ---
 
-## 8. Choix méthodologique 1.1 — BMC vs EDF
+## 9. Business Model Canvas — éléments à intégrer
 
-| Option | Lecture du scénario |
-|--------|---------------------|
-| **BMC + portrait** | Le scénario décrit le **cabinet dans son ensemble** ; aucune entité interne bornée n’est définie ; le BMC offre une vue globale utile pour l’exercice |
-| **EDF + portrait** | Pertinent si une entité interne spécifique était délimitée — ce n’est **pas** le cas ici |
+Le Business Model Canvas est le cadre méthodologique retenu pour synthétiser le modèle d’activité du cabinet à partir des informations disponibles dans le scénario pédagogique.
 
-**RECOMMANDATION :** BMC + portrait synthétique de l’organisation
-**STATUT : NOT ADOPTED** — décision Morris requise.
-
-Aucun EDF complet n’est produit dans ce document.
-
----
-
-## 9. Préparation BMC — éléments disponibles
-
-*Aide à la décision — ne présuppose pas l’adoption du BMC.*
-
-| Bloc BMC | Éléments disponibles | Si absent |
-|----------|----------------------|-----------|
-| Segments clients | Populations du cycle : prospects, clients. Les branches (auto, habitation, santé, prévoyance, etc.) sont des **catégories de contrats**, pas une segmentation client démontrée | Segmentation détaillée : non précisé dans le scénario pédagogique |
-| Proposition de valeur | Proximité ; personnalisation ; transparence ; centralisation relation + contrats | — |
-| Canaux | Prise de RDV directe (proximité) | Canaux complets : non précisé dans le scénario pédagogique |
-| Relations clients | RDV ; historique ; personnalisation | — |
-| Sources de revenus | — | Non précisé dans le scénario pédagogique |
-| Ressources clés | Courtiers ; données clients / contrats (attendues par le scénario) | Effectifs / outils : non précisé dans le scénario pédagogique |
-| Activités clés | Cycle devis → souscription ; documents ; sinistres ; pilotage | — |
-| Partenaires clés | — | Non précisé dans le scénario pédagogique (assureurs en ligne = concurrence citée) |
-| Structure de coûts | — | Non précisé dans le scénario pédagogique |
-
-Ces absences **ne rendent pas** le 1.1 immature pour l’exercice demandé.
+| Bloc BMC | Éléments à intégrer |
+|----------|---------------------|
+| **1. Segments clients** | Populations identifiées : prospects et clients. Automobile, habitation, santé, prévoyance = **catégories de contrats**, non une segmentation client démontrée |
+| **2. Proposition de valeur** | Proximité ; personnalisation ; transparence ; centralisation du suivi relationnel / contrats |
+| **3. Canaux** | Prise de rendez-vous directe explicitement citée. Autres canaux : non renseigné dans les sources fournies |
+| **4. Relations clients** | Rendez-vous ; personnalisation ; historique des échanges / contrats |
+| **5. Sources de revenus** | Non renseigné dans les sources fournies |
+| **6. Ressources clés** | Courtiers ; informations prospects / clients / contrats nécessaires au scénario. Effectifs / systèmes : non renseigné dans les sources fournies |
+| **7. Activités clés** | Devis ; rendez-vous ; souscription ; gestion des contrats ; documents ; sinistres ; suivi / pilotage |
+| **8. Partenaires clés** | Non renseigné dans les sources fournies. Les assureurs en ligne cités comme **concurrence** ne sont pas traités comme partenaires |
+| **9. Structure de coûts** | Non renseignée dans les sources fournies |
 
 ---
 
-## 10. Portrait synthétique du cabinet
+## 10. Processus / BPMN
 
-| Dimension | Contenu |
-|-----------|---------|
-| Activité | Courtage d’assurance (multi-branches citées) |
-| Populations | Prospects et clients |
-| Transformation | Digitaliser la relation client ; réactivité ; fidélisation |
-| Processus | Chaîne §3 (cible pédagogique) |
-| Valeur | Proximité, personnalisation, transparence ; objectifs §5 |
-| Capacités principales | Centralisation ; documents ; sinistres ; pilotage commercial |
+Le scénario permet de représenter un **processus cible pédagogique de haut niveau** (§4).
 
-Le scénario ne précise pas la taille, l’organisation interne détaillée, les volumes, les outils existants ou les données financières. Ces éléments ne sont pas inventés et ne sont pas nécessaires pour répondre au niveau de cadrage demandé ici.
+Le BPMN reste **facultatif**. Aucun BPMN n’est créé dans ce cycle. Un focus sur un processus cible pédagogique (ex. prospect → devis → RDV → proposition → souscription) pourra être ajouté ultérieurement s’il apporte de la valeur au rapport / support.
 
 ---
 
-## 11. Processus / BPMN
-
-Le scénario permet de représenter un **processus cible pédagogique de haut niveau** (§3).
-
-Le BPMN est **facultatif** selon la formation. S’il est produit plus tard, le limiter à un focus utile et le qualifier clairement comme **cible pédagogique** (ex. prospect → devis → RDV → proposition → souscription).
-
-**Aucun BPMN n’est créé dans ce cycle.**
-
-**RECOMMANDATION :** à évaluer selon la valeur pour le support —
-**STATUT : NOT ADOPTED**.
-
----
-
-## 12. Limites du scénario pédagogique
-
-| Information non précisée | Traitement |
-|--------------------------|------------|
-| Taille du cabinet | Ne pas inventer |
-| Organisation interne détaillée | Ne pas inventer |
-| Outils existants | Ne pas inventer |
-| Volumes | Ne pas quantifier |
-| Partenaires précis | Ne pas inventer |
-| Chiffre d’affaires | Non requis ici |
-| Coûts | Traités plus tard (1.5) sur hypothèses explicites |
-| AS-IS détaillé | Non disponible — ne pas prétendre l’avoir observé |
-| Cibles chiffrées des KPI | Non fournies — ne pas inventer |
-
----
-
-## 13. Synthèse 1.1
+## 11. Synthèse 1.1
 
 | Point | État |
 |-------|------|
 | Contexte | Compris à partir du brief |
-| Processus | Identifiés (cible pédagogique) |
+| Portrait synthétique | Établi (§3) |
+| Processus | Cible pédagogique identifiée |
 | Enjeux | Identifiés (déduits du brief) |
-| Objectifs / valeur | Identifiés ; KPI cités sans cibles |
+| Objectifs métier | Explicités et justifiés à partir du brief |
+| Valeurs / différenciation | Proximité, personnalisation, transparence explicitées |
 | No-code | Pertinence préliminaire — **pas** un choix d’architecture |
-| Format BMC / EDF | Décision Morris encore requise |
+| BMC | Méthodologie **retenue** (ADOPTED) |
+| BPMN | Facultatif |
 | Architecture | NOT DECIDED |
 | Stack | NOT DECIDED |
-
----
-
-## 14. Gate Morris
-
-| Gate | Options | Recommandation |
-|------|---------|----------------|
-| **A — Format 1.1** | BMC + portrait **OU** EDF + portrait | BMC + portrait — **NOT ADOPTED** |
-| **B — BPMN facultatif** | Produire un BPMN cible pédagogique **OU** ne pas en produire | À évaluer selon valeur pour le support — **NOT ADOPTED** |
 
 Le 1.2 n’est **pas** ouvert automatiquement.
