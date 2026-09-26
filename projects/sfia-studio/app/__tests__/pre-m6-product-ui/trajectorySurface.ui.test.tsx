@@ -22,6 +22,7 @@ const {
   readActiveDecisionSubjectMock,
   readGovernedExecutionContinuityMock,
   readRecoveryExecutionBindingMock,
+  readRecoveryOwnedDecisionContinuityMock,
   prepareRecoveryDocsWriteMock,
   readPreCycleMock,
   readApprovalMock,
@@ -43,6 +44,7 @@ const {
   readActiveDecisionSubjectMock: vi.fn(),
   readGovernedExecutionContinuityMock: vi.fn(),
   readRecoveryExecutionBindingMock: vi.fn(),
+  readRecoveryOwnedDecisionContinuityMock: vi.fn(),
   prepareRecoveryDocsWriteMock: vi.fn(),
   readPreCycleMock: vi.fn(),
   readApprovalMock: vi.fn(),
@@ -90,6 +92,8 @@ vi.mock("@/features/project-assistant/w2/actions", () => ({
     readGovernedExecutionContinuityMock(...args),
   w2ReadRecoveryExecutionBindingAction: (...args: unknown[]) =>
     readRecoveryExecutionBindingMock(...args),
+  w2ReadRecoveryOwnedDecisionContinuityAction: (...args: unknown[]) =>
+    readRecoveryOwnedDecisionContinuityMock(...args),
   w2PrepareRecoveryDocsWriteAction: (...args: unknown[]) =>
     prepareRecoveryDocsWriteMock(...args),
   w2ReadProjectHistoryAction: vi.fn().mockResolvedValue({
@@ -134,6 +138,7 @@ beforeEach(() => {
   readActiveDecisionSubjectMock.mockReset();
   readGovernedExecutionContinuityMock.mockReset();
   readRecoveryExecutionBindingMock.mockReset();
+  readRecoveryOwnedDecisionContinuityMock.mockReset();
   prepareRecoveryDocsWriteMock.mockReset();
   readPreCycleMock.mockReset();
   readApprovalMock.mockReset();
@@ -151,6 +156,11 @@ beforeEach(() => {
   readRecoveryExecutionBindingMock.mockResolvedValue({
     ok: true,
     binding: null,
+    recoveryContextPresent: false,
+  });
+  readRecoveryOwnedDecisionContinuityMock.mockResolvedValue({
+    ok: true,
+    kind: "none",
   });
   prepareRecoveryDocsWriteMock.mockResolvedValue({
     ok: false,
@@ -482,6 +492,7 @@ describe("W2 TrajectorySurface", () => {
         sourceSemanticFingerprint: null,
         sourceStatus: "failed",
       },
+      recoveryContextPresent: true,
     });
 
     render(<TrajectorySurface projectId="prj:w2-ui" />);
@@ -502,6 +513,442 @@ describe("W2 TrajectorySurface", () => {
     expect(screen.getByTestId("w2-prepare-recovery-docs-write")).toBeEnabled();
     expect(prepareRecoveryDocsWriteMock).not.toHaveBeenCalled();
     expect(prepareContractMock).not.toHaveBeenCalled();
+  });
+
+  it("PRESTART-01 — known recovery + binding unresolved → fail-closed (no generic PREPARE)", async () => {
+    proposeMock.mockResolvedValue({
+      ok: true,
+      optionSetRef: "optset:w2-prestart-unresolved",
+      cycleTypeId: "cyc:delivery",
+      recommendedProfile: "Standard",
+      decisionSubjectMode: "project_trajectory",
+      proposalId: null,
+      promotesProjectTrajectory: true,
+      options: [
+        {
+          kind: "OPTION",
+          optionRef: "opt:trajectory:governed-gated",
+          label: "Préparer une nouvelle tentative gouvernée",
+          intent: "Recovery",
+          impacts: [],
+          reservations: [],
+          steps: [],
+        },
+      ],
+      recommendation: {
+        label: "RECOMMANDATION — PAS UNE DÉCISION",
+        recommendedOptionRef: "opt:trajectory:governed-gated",
+        rationale: "Retry gouverné.",
+        isHumanDecision: false,
+        ckcAttribution: false,
+      },
+      epistemicRefs: [],
+      proposedTrajectory: {
+        trajectoryId: "trj:w2-prestart",
+        version: 1,
+        status: "proposed",
+      },
+      phase: "OPTIONS_PROPOSED",
+      autoDecisionPerformed: false,
+      executionPerformed: false,
+      ckcCognitionCompletedBeforeMutation: true,
+    });
+    decideMock.mockResolvedValue({
+      ok: true,
+      decision: {
+        decisionId: "dec:w2-trj:prestart-unresolved",
+        selectedOptionRef: "opt:trajectory:governed-gated",
+        actorRole: "Pilote",
+        authorityClass: "morris",
+        statusLabel: "DÉCISION HUMAINE PRISE",
+        capturedAt: "2026-09-26T12:00:00.000Z",
+        decisionBasisLinked: true,
+        reservesText: null,
+        proposalId: null,
+      },
+      trajectory: { trajectoryId: "trj:w2-prestart", version: 2 },
+      livingProjectStateVersion: 5,
+      executionPerformed: false,
+      promotesProjectTrajectory: true,
+      decisionSubjectMode: "project_trajectory",
+    });
+    readRecoveryExecutionBindingMock.mockResolvedValue({
+      ok: true,
+      binding: null,
+      recoveryContextPresent: true,
+    });
+
+    render(<TrajectorySurface projectId="prj:w2-ui" />);
+    fireEvent.click(await screen.findByTestId("w2-propose-options"));
+    await screen.findByTestId("w2-options");
+    fireEvent.click(
+      screen.getByTestId("w2-decide-opt:trajectory:governed-gated"),
+    );
+    expect(await screen.findByTestId("w2-decision")).toBeVisible();
+    expect(
+      await screen.findByText(/Binding recovery indisponible|préparation générique refusée/i),
+    ).toBeVisible();
+    expect(prepareContractMock).not.toHaveBeenCalled();
+    expect(prepareRecoveryDocsWriteMock).not.toHaveBeenCalled();
+    expect(screen.queryByTestId("w2-recovery-docs-write-prepare")).toBeNull();
+  });
+
+  it("CORR-01 C1-A — EPISTEMIC_READ_FAILED blocks generic PREPARE", async () => {
+    proposeMock.mockResolvedValue({
+      ok: true,
+      optionSetRef: "optset:corr01-ep",
+      cycleTypeId: "cyc:delivery",
+      recommendedProfile: "Standard",
+      decisionSubjectMode: "project_trajectory",
+      proposalId: null,
+      promotesProjectTrajectory: true,
+      options: [
+        {
+          kind: "OPTION",
+          optionRef: "opt:trajectory:governed-gated",
+          label: "Préparer une nouvelle tentative gouvernée",
+          intent: "Recovery",
+          impacts: [],
+          reservations: [],
+          steps: [],
+        },
+      ],
+      recommendation: {
+        label: "RECOMMANDATION — PAS UNE DÉCISION",
+        recommendedOptionRef: "opt:trajectory:governed-gated",
+        rationale: "Retry.",
+        isHumanDecision: false,
+        ckcAttribution: false,
+      },
+      epistemicRefs: [],
+      proposedTrajectory: {
+        trajectoryId: "trj:corr01-ep",
+        version: 1,
+        status: "proposed",
+      },
+      phase: "OPTIONS_PROPOSED",
+      autoDecisionPerformed: false,
+      executionPerformed: false,
+      ckcCognitionCompletedBeforeMutation: true,
+    });
+    decideMock.mockResolvedValue({
+      ok: true,
+      decision: {
+        decisionId: "dec:corr01-ep",
+        selectedOptionRef: "opt:trajectory:governed-gated",
+        actorRole: "Pilote",
+        authorityClass: "morris",
+        statusLabel: "DÉCISION HUMAINE PRISE",
+        capturedAt: "2026-09-26T12:00:00.000Z",
+        decisionBasisLinked: true,
+        reservesText: null,
+        proposalId: null,
+      },
+      trajectory: { trajectoryId: "trj:corr01-ep", version: 2 },
+      livingProjectStateVersion: 5,
+      executionPerformed: false,
+      promotesProjectTrajectory: true,
+      decisionSubjectMode: "project_trajectory",
+    });
+    readRecoveryExecutionBindingMock.mockResolvedValue({
+      ok: false,
+      code: "EPISTEMIC_READ_FAILED",
+      message: "Lecture épistémique recovery impossible — fail-closed.",
+      recoveryContextPresent: false,
+    });
+
+    render(<TrajectorySurface projectId="prj:w2-ui" />);
+    fireEvent.click(await screen.findByTestId("w2-propose-options"));
+    await screen.findByTestId("w2-options");
+    fireEvent.click(
+      screen.getByTestId("w2-decide-opt:trajectory:governed-gated"),
+    );
+    expect(await screen.findByTestId("w2-decision")).toBeVisible();
+    expect(
+      await screen.findByText(/Lecture épistémique recovery impossible/i),
+    ).toBeVisible();
+    expect(prepareContractMock).not.toHaveBeenCalled();
+    expect(screen.queryByTestId("w2-contract")).toBeNull();
+  });
+
+  it("CORR-01 C1-B — OA_STACK_UNAVAILABLE blocks generic PREPARE", async () => {
+    proposeMock.mockResolvedValue({
+      ok: true,
+      optionSetRef: "optset:corr01-oa",
+      cycleTypeId: "cyc:delivery",
+      recommendedProfile: "Standard",
+      decisionSubjectMode: "project_trajectory",
+      proposalId: null,
+      promotesProjectTrajectory: true,
+      options: [
+        {
+          kind: "OPTION",
+          optionRef: "opt:trajectory:governed-gated",
+          label: "Préparer une nouvelle tentative gouvernée",
+          intent: "Recovery",
+          impacts: [],
+          reservations: [],
+          steps: [],
+        },
+      ],
+      recommendation: {
+        label: "RECOMMANDATION — PAS UNE DÉCISION",
+        recommendedOptionRef: "opt:trajectory:governed-gated",
+        rationale: "Retry.",
+        isHumanDecision: false,
+        ckcAttribution: false,
+      },
+      epistemicRefs: [],
+      proposedTrajectory: {
+        trajectoryId: "trj:corr01-oa",
+        version: 1,
+        status: "proposed",
+      },
+      phase: "OPTIONS_PROPOSED",
+      autoDecisionPerformed: false,
+      executionPerformed: false,
+      ckcCognitionCompletedBeforeMutation: true,
+    });
+    decideMock.mockResolvedValue({
+      ok: true,
+      decision: {
+        decisionId: "dec:corr01-oa",
+        selectedOptionRef: "opt:trajectory:governed-gated",
+        actorRole: "Pilote",
+        authorityClass: "morris",
+        statusLabel: "DÉCISION HUMAINE PRISE",
+        capturedAt: "2026-09-26T12:00:00.000Z",
+        decisionBasisLinked: true,
+        reservesText: null,
+        proposalId: null,
+      },
+      trajectory: { trajectoryId: "trj:corr01-oa", version: 2 },
+      livingProjectStateVersion: 5,
+      executionPerformed: false,
+      promotesProjectTrajectory: true,
+      decisionSubjectMode: "project_trajectory",
+    });
+    readRecoveryExecutionBindingMock.mockResolvedValue({
+      ok: false,
+      code: "OA_STACK_UNAVAILABLE",
+      message: "Services OA indisponibles — aucune action W2 possible.",
+      recoveryContextPresent: false,
+    });
+
+    render(<TrajectorySurface projectId="prj:w2-ui" />);
+    fireEvent.click(await screen.findByTestId("w2-propose-options"));
+    await screen.findByTestId("w2-options");
+    fireEvent.click(
+      screen.getByTestId("w2-decide-opt:trajectory:governed-gated"),
+    );
+    expect(await screen.findByTestId("w2-decision")).toBeVisible();
+    expect(
+      await screen.findByText(/Services OA indisponibles/i),
+    ).toBeVisible();
+    expect(prepareContractMock).not.toHaveBeenCalled();
+    expect(screen.queryByTestId("w2-contract")).toBeNull();
+  });
+
+  it("CORR-01 C1-C — malformed/undefined binding read blocks generic PREPARE", async () => {
+    proposeMock.mockResolvedValue({
+      ok: true,
+      optionSetRef: "optset:corr01-mal",
+      cycleTypeId: "cyc:delivery",
+      recommendedProfile: "Standard",
+      decisionSubjectMode: "project_trajectory",
+      proposalId: null,
+      promotesProjectTrajectory: true,
+      options: [
+        {
+          kind: "OPTION",
+          optionRef: "opt:trajectory:governed-gated",
+          label: "Préparer une nouvelle tentative gouvernée",
+          intent: "Recovery",
+          impacts: [],
+          reservations: [],
+          steps: [],
+        },
+      ],
+      recommendation: {
+        label: "RECOMMANDATION — PAS UNE DÉCISION",
+        recommendedOptionRef: "opt:trajectory:governed-gated",
+        rationale: "Retry.",
+        isHumanDecision: false,
+        ckcAttribution: false,
+      },
+      epistemicRefs: [],
+      proposedTrajectory: {
+        trajectoryId: "trj:corr01-mal",
+        version: 1,
+        status: "proposed",
+      },
+      phase: "OPTIONS_PROPOSED",
+      autoDecisionPerformed: false,
+      executionPerformed: false,
+      ckcCognitionCompletedBeforeMutation: true,
+    });
+    decideMock.mockResolvedValue({
+      ok: true,
+      decision: {
+        decisionId: "dec:corr01-mal",
+        selectedOptionRef: "opt:trajectory:governed-gated",
+        actorRole: "Pilote",
+        authorityClass: "morris",
+        statusLabel: "DÉCISION HUMAINE PRISE",
+        capturedAt: "2026-09-26T12:00:00.000Z",
+        decisionBasisLinked: true,
+        reservesText: null,
+        proposalId: null,
+      },
+      trajectory: { trajectoryId: "trj:corr01-mal", version: 2 },
+      livingProjectStateVersion: 5,
+      executionPerformed: false,
+      promotesProjectTrajectory: true,
+      decisionSubjectMode: "project_trajectory",
+    });
+    readRecoveryExecutionBindingMock.mockResolvedValue(undefined);
+
+    render(<TrajectorySurface projectId="prj:w2-ui" />);
+    fireEvent.click(await screen.findByTestId("w2-propose-options"));
+    await screen.findByTestId("w2-options");
+    fireEvent.click(
+      screen.getByTestId("w2-decide-opt:trajectory:governed-gated"),
+    );
+    expect(await screen.findByTestId("w2-decision")).toBeVisible();
+    expect(
+      await screen.findByText(/UNKNOWN ≠ absent|Lecture binding recovery indisponible/i),
+    ).toBeVisible();
+    expect(prepareContractMock).not.toHaveBeenCalled();
+    expect(screen.queryByTestId("w2-contract")).toBeNull();
+  });
+
+  it("CORR-02 C3 — clone-per-call restart is one-way / finite (no setDecision loop)", async () => {
+    const TARGET =
+      "projects/sfia-studio/.sandbox/prestart-recovery-ownership.md";
+    const recoveryHd = "dec:w2-trj:corr02-stable";
+    const binding = {
+      kind: "post_evidence_recovery_execution" as const,
+      recovery: {
+        kind: "post_evidence_recovery" as const,
+        attemptId: "xat:w3a:corr02",
+        attemptStatus: "failed" as const,
+        stopReason:
+          "REAL_LAUNCH_FAILED: REAL_WORKSPACE_INVALID:base_head_sha_missing",
+        executionContractId: "xct:m3-res:corr02",
+        evidenceId: "ev:w3b:corr02",
+        reviewBundleId: "rb:w3b:corr02",
+        productOutcome: "FAIL" as const,
+        recommendationKind: "recover" as const,
+        requiresHumanDecision: true,
+        headline: "Échec",
+        rationale: "r",
+        nextStep: "recovery_diagnose_or_replan" as const,
+        realProcessInvoked: false,
+        businessEffectProven: false,
+        w3cEpistemicItemId: "epi:w3c-rec:corr02",
+      },
+      sourceExecutionContractId: "xct:m3-res:corr02",
+      sourceAttemptId: "xat:w3a:corr02",
+      action: "cursor.docs_write.apply",
+      target: "workspace.isolated.docs_write",
+      targetPath: TARGET,
+      scope: "studio.gcec.docs_write",
+      requiredCapabilities: ["cap:cursor.docs_write"],
+      evidenceRequirements: ["evreq:docs_write_artifact"],
+      constraints: ["NO_COMMIT", "NO_PUSH"],
+      stopConditions: [],
+      expectedOutputs: [],
+      inputs: { targetPath: TARGET },
+      projectId: "prj:w2-ui",
+      cycleInstanceId: null,
+      sourceSemanticFingerprint: null,
+      sourceStatus: "confirmed" as const,
+    };
+    const ownedTemplate = {
+      ok: true as const,
+      kind: "owned" as const,
+      decision: {
+        decisionId: recoveryHd,
+        selectedOptionRef: "opt:trajectory:governed-gated",
+        actorRole: "Pilote" as const,
+        authorityClass: "morris" as const,
+        statusLabel: "DÉCISION HUMAINE PRISE" as const,
+        capturedAt: "2026-09-26T12:00:00.000Z",
+        decisionBasisLinked: true as const,
+        reservesText: null,
+        proposalId: null,
+      },
+      trajectory: {
+        trajectoryId: "trj:corr02-stable",
+        version: 4,
+        status: "validated" as const,
+        statusLabel: "TRAJECTOIRE DÉCIDÉE / COURANTE" as const,
+        isCurrent: true as const,
+        decidedByDecisionRef: recoveryHd,
+        decidedOptionRef: "opt:trajectory:governed-gated",
+      },
+      binding,
+    };
+    // Runtime-like: every Server Action call returns a freshly cloned object.
+    readRecoveryOwnedDecisionContinuityMock.mockImplementation(async () =>
+      structuredClone(ownedTemplate),
+    );
+    // loadBinding after setDecision must also resolve the same durable binding.
+    readRecoveryExecutionBindingMock.mockImplementation(async () =>
+      structuredClone({
+        ok: true as const,
+        binding,
+        recoveryContextPresent: true,
+      }),
+    );
+
+    render(<TrajectorySurface projectId="prj:w2-ui" />);
+    expect(
+      await screen.findByTestId("w2-recovery-docs-write-prepare"),
+    ).toBeVisible();
+    expect(await screen.findByTestId("w2-decision")).toBeVisible();
+    expect(screen.queryByTestId("w2-options")).toBeNull();
+    expect(prepareContractMock).not.toHaveBeenCalled();
+    expect(prepareRecoveryDocsWriteMock).not.toHaveBeenCalled();
+    expect(screen.queryByTestId("w2-contract")).toBeNull();
+
+    await waitFor(() => {
+      expect(
+        readRecoveryOwnedDecisionContinuityMock.mock.calls.length,
+      ).toBeGreaterThanOrEqual(1);
+    });
+    const callsAfterRestore =
+      readRecoveryOwnedDecisionContinuityMock.mock.calls.length;
+    expect(callsAfterRestore).toBeLessThanOrEqual(3);
+
+    // Additional React settle — call count must remain stable (no loop).
+    await waitFor(() => {
+      expect(screen.getByTestId("w2-recovery-docs-write-prepare")).toBeVisible();
+    });
+    await new Promise((r) => setTimeout(r, 0));
+    await new Promise((r) => setTimeout(r, 0));
+    expect(readRecoveryOwnedDecisionContinuityMock.mock.calls.length).toBe(
+      callsAfterRestore,
+    );
+  });
+
+  it("CORR-03 C5 — corrupted GOVERNED continuity fail-closed (no PREPARE / no synthetic HD)", async () => {
+    readRecoveryOwnedDecisionContinuityMock.mockResolvedValue({
+      ok: false,
+      code: "RECOVERY_DECISION_CONTINUITY_FAILED",
+      message:
+        "Claim GOVERNED durable incohérent — lignée recovery fail-closed.",
+    });
+
+    render(<TrajectorySurface projectId="prj:w2-ui" />);
+    expect(
+      await screen.findByText(/lignée recovery fail-closed|Claim GOVERNED/i),
+    ).toBeVisible();
+    expect(prepareContractMock).not.toHaveBeenCalled();
+    expect(prepareRecoveryDocsWriteMock).not.toHaveBeenCalled();
+    expect(screen.queryByTestId("w2-decision")).toBeNull();
+    expect(screen.queryByTestId("w2-recovery-docs-write-prepare")).toBeNull();
+    expect(screen.queryByTestId("w2-contract")).toBeNull();
   });
 
   it("RC-05 — before decision options+recommendation primary; after decision history collapsed", async () => {
@@ -822,6 +1269,7 @@ describe("W2 TrajectorySurface", () => {
         sourceSemanticFingerprint: null,
         sourceStatus: "failed",
       },
+      recoveryContextPresent: true,
     });
 
     render(<TrajectorySurface projectId="prj:w2-ui" />);

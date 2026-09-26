@@ -42,6 +42,10 @@ import { readCurrentGovernedExecutionContinuity } from "./readCurrentGovernedExe
 import { prepareExecutionContractFromW2Decision } from "./prepareExecutionContractFromW2Decision";
 import { prepareDocsWriteRecoverySuccessorFromDecision } from "./prepareDocsWriteRecoverySuccessor";
 import { resolveRecoveryExecutionBinding } from "./resolveRecoveryExecutionBinding";
+import {
+  readRecoveryOwnedDecisionContinuity,
+  type RecoveryOwnedDecisionContinuityResult,
+} from "./readRecoveryOwnedDecisionContinuity";
 import { proposeTrajectoryOptions } from "./proposeTrajectoryOptions";
 import { readW2ProjectHistory } from "./projectHistory";
 import { resolveW2QualificationInputs } from "./qualificationInputs";
@@ -167,6 +171,23 @@ export async function w2ReadCurrentGovernedExecutionContinuityAction(input: {
   if (!runtime.oa) return OA_UNAVAILABLE;
 
   return readCurrentGovernedExecutionContinuity({
+    oa: runtime.oa,
+    projectId: input.projectId,
+  });
+}
+
+/**
+ * CORR-01 / C2 — restart continuity for recovery-owned GOVERNED HumanDecision.
+ * Reconstructs decision + RecoveryExecutionBinding from durable trajectory tip.
+ * READ-ONLY. Client sends projectId only.
+ */
+export async function w2ReadRecoveryOwnedDecisionContinuityAction(input: {
+  projectId: string;
+}): Promise<RecoveryOwnedDecisionContinuityResult> {
+  const runtime = getRuntimeApplicationService();
+  if (!runtime.oa) return OA_UNAVAILABLE;
+
+  return readRecoveryOwnedDecisionContinuity({
     oa: runtime.oa,
     projectId: input.projectId,
   });
@@ -406,16 +427,29 @@ export async function w2PrepareExecutionContractAction(input: {
 /**
  * R8 — read RecoveryExecutionBinding for UI (docs_write recovery CTA).
  * Client sends only projectId + optional decisionId. No path/op injection.
+ * Also reports recoveryContextPresent so UI can fail-closed when a known
+ * recovery subject exists but binding cannot be constructed (no generic PREPARE).
  */
 export async function w2ReadRecoveryExecutionBindingAction(input: {
   projectId: string;
   decisionId?: string | null;
 }): Promise<
-  | { readonly ok: true; readonly binding: RecoveryExecutionBinding | null }
-  | { readonly ok: false; readonly code: string; readonly message: string }
+  | {
+      readonly ok: true;
+      readonly binding: RecoveryExecutionBinding | null;
+      readonly recoveryContextPresent: boolean;
+    }
+  | {
+      readonly ok: false;
+      readonly code: string;
+      readonly message: string;
+      readonly recoveryContextPresent: boolean;
+    }
 > {
   const runtime = getRuntimeApplicationService();
-  if (!runtime.oa) return OA_UNAVAILABLE;
+  if (!runtime.oa) {
+    return { ...OA_UNAVAILABLE, recoveryContextPresent: false };
+  }
   return resolveRecoveryExecutionBinding({
     oa: runtime.oa,
     projectId: input.projectId,

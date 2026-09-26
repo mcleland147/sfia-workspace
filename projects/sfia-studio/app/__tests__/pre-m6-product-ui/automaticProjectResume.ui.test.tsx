@@ -100,6 +100,15 @@ vi.mock("@/features/project-assistant/w2/actions", () => ({
     ok: true,
     kind: "none",
   }),
+  w2ReadRecoveryExecutionBindingAction: vi.fn().mockResolvedValue({
+    ok: true,
+    binding: null,
+    recoveryContextPresent: false,
+  }),
+  w2ReadRecoveryOwnedDecisionContinuityAction: vi.fn().mockResolvedValue({
+    ok: true,
+    kind: "none",
+  }),
   w2ReadProjectHistoryAction: vi.fn().mockResolvedValue({
     ok: false,
     code: "UNUSED",
