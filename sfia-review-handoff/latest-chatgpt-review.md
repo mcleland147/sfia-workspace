@@ -6,7 +6,7 @@ Macro: RECOVERY-BINDING-WRITE-MODE-PRESTART-CONTINUITY-01
 Cycle: 8 — Delivery / implémentation
 Profile: CRITICAL
 Morris GO: CORRECTION AUTHORIZED — consumed for local Product source/test only
-Project commit/push/PR/merge: **NOT performed / NOT authorized**
+Project commit/push/PR: AUTHORIZED and performed — Merge: NOT AUTHORIZED
 StudyFlow Product mutation: **NONE**
 Managed clone mutation: **NONE**
 Cursor REAL / PREPARE / Confirm / Execute: **NONE**
@@ -892,3 +892,67 @@ index 00000000..fbe6f124
 +  });
 +});
 ```
+
+---
+
+## ADDENDUM — GIT PUBLICATION / PR READINESS
+
+Generated: 2026-09-26T14:58:00Z
+
+Morris GO consumed: **commit + push + PR creation** (merge NOT authorized)
+
+| Field | Value |
+|-------|-------|
+| Branch | `fix/sfia-studio-recovery-binding-write-mode-prestart-continuity-01` |
+| Base / parent SHA | `16af8fba308ecba24698a8dfe5521a7d2e7aa177` |
+| Project commit SHA | `1c8bbe4d5281fff6f3be77caa365cb2c94c7ca14` |
+| Commit parent SHA | `16af8fba308ecba24698a8dfe5521a7d2e7aa177` |
+| Commit message | `fix(studio): restore recovery binding after write-mode prestart rejection` |
+| Remote branch tip | `1c8bbe4d5281fff6f3be77caa365cb2c94c7ca14` |
+| Push | PASS (new remote branch; no force) |
+
+### Exact committed files (5)
+
+1. `projects/sfia-studio/app/features/project-assistant/w2/isConfirmedPreStartRejectionRecoverySource.ts` (M)
+2. `projects/sfia-studio/app/features/project-assistant/w2/resolvePostEvidenceRecoveryContext.ts` (M)
+3. `projects/sfia-studio/app/__tests__/project-assistant/recoveryOwnership.prestartFailure.d0.test.ts` (M)
+4. `projects/sfia-studio/app/__tests__/project-assistant/checkpointF.recoveryOptionsContext.d0.test.ts` (M)
+5. `projects/sfia-studio/app/__tests__/project-assistant/recoveryBindingWriteModePrestartContinuity.d0.test.ts` (A)
+
+`.tmp-sfia-review/**` was **not** staged into the project commit.
+
+### PR
+
+| Field | Value |
+|-------|-------|
+| Number | **#526** |
+| Title | `fix(studio): restore recovery binding after write-mode prestart rejection` |
+| URL | https://github.com/mcleland147/sfia-workspace/pull/526 |
+| State | OPEN |
+| Draft | false |
+| Head | `fix/sfia-studio-recovery-binding-write-mode-prestart-continuity-01` |
+| Base | `main` |
+| headRefOid | `1c8bbe4d5281fff6f3be77caa365cb2c94c7ca14` |
+
+### Immediate CI / checks
+
+Reported at publication (may still be starting): see live `gh pr checks 526`.
+
+### Validation inherited
+
+- targeted: **113 / 113 PASS**
+- typecheck / lint / build: PASS
+- Vitest: **432 files / 4794 tests / 0 failed**
+- modeled: **73 / 0**
+
+### Anti-claims / reserves
+
+- StudyFlow: **NOT MUTATED**
+- Trajectory v6: **UNDECIDED / NOT PROMOTED**
+- Cursor REAL: **NOT RUN**
+- Merge: **NOT AUTHORIZED / NOT PERFORMED**
+- Nora `recommended_option_ref_only_on_recommendation`: OPEN / NON-BLOCKING / OUT OF SCOPE
+
+### Next gate
+
+**CI success → Morris merge decision.**
