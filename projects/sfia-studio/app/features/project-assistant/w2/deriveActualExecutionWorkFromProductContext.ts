@@ -22,6 +22,7 @@
  */
 
 import type { DecisionBasis } from "@/lib/oa/decision";
+import { isRepositorySourceRef } from "@/lib/oa/execution-contract";
 import {
   buildActualExecutionWork,
   isActualExecutionOperationKind,
@@ -36,6 +37,29 @@ import {
   CLARIFY_OPTION_REF,
   GOVERNED_OPTION_REF,
 } from "./trajectoryOptions";
+
+/**
+ * Repository document paths known from durable DecisionBasis / cycle facts.
+ * Pseudo-refs (`attempt:…`, `product:…`) are excluded — they are not files.
+ */
+export function repositorySourcesFromProductFacts(input: {
+  readonly basis: DecisionBasis;
+  readonly additionalSources?: readonly string[] | null;
+}): readonly string[] {
+  const eb = input.basis.executionBasis;
+  const candidates = [
+    ...(typeof eb.targetPath === "string" ? [eb.targetPath] : []),
+    ...(eb.scopeIn ?? []),
+    ...(input.additionalSources ?? []),
+  ];
+  return Object.freeze([
+    ...new Set(
+      candidates
+        .map((s) => (typeof s === "string" ? s.trim() : ""))
+        .filter(isRepositorySourceRef),
+    ),
+  ]);
+}
 
 /** Mission WHAT fields folded into ExecutionContract.inputs / envelope. */
 export type ProductMissionFields = {
@@ -86,6 +110,7 @@ export function isNonExecutableTrajectoryRequestedOperation(
 function missionFromRecovery(
   recovery: PostEvidenceRecoveryContext,
   projectObjective: string | null,
+  repositorySources: readonly string[],
 ): ProductMissionFields {
   const outcomeLabel =
     recovery.productOutcome === "UNCLAIMED"
@@ -110,6 +135,7 @@ function missionFromRecovery(
       `reviewBundle:${recovery.reviewBundleId}`,
       `executionContract:${recovery.executionContractId}`,
       "product:durable-facts-required-for-mission",
+      ...repositorySources,
     ],
     scopeOut: [
       "unrelated-project-mutation",
@@ -138,6 +164,7 @@ function missionFromRecovery(
       `evidence:${recovery.evidenceId}`,
       `reviewBundle:${recovery.reviewBundleId}`,
       `executionContract:${recovery.executionContractId}`,
+      ...repositorySources,
     ],
     contextNotes: [
       `productOutcome=${recovery.productOutcome}`,
@@ -160,6 +187,7 @@ function missionFromRecovery(
 function missionFromClarifyWithoutRecovery(
   projectObjective: string | null,
   basis: DecisionBasis,
+  repositorySources: readonly string[],
 ): ProductMissionFields {
   const reserves = basis.executionBasis.reservations ?? [];
   return {
@@ -174,6 +202,7 @@ function missionFromClarifyWithoutRecovery(
       "product:current-project-facts",
       "product:decision-basis-and-lps",
       ...reserves.map((r) => `reservation:${r}`),
+      ...repositorySources,
     ],
     scopeOut: [
       "unrelated-project-mutation",
@@ -190,7 +219,11 @@ function missionFromClarifyWithoutRecovery(
       "NO_AUTOMATIC_EXECUTE",
     ],
     evidenceRequirements: ["evreq:mission-result-for-nora-reevaluation"],
-    sourcesToRead: ["product:current-project-facts", "product:decision-basis-and-lps"],
+    sourcesToRead: [
+      "product:current-project-facts",
+      "product:decision-basis-and-lps",
+      ...repositorySources,
+    ],
     contextNotes: ["pre_engagement_clarify", ...reserves.slice(0, 5)],
     authorizesMutatingEffects: false,
     recoveryAttemptId: null,
@@ -255,6 +288,11 @@ export function deriveActualExecutionWorkFromProductContext(input: {
   readonly recoveryContext: PostEvidenceRecoveryContext | null;
   /** Hostile / optional — never overrides durable mission derivation. */
   readonly clientOperationKind?: unknown;
+  /**
+   * Optional repository paths already known from cycle cognition
+   * (durable DecisionBasis / prior full reads). Never invents a catalogue.
+   */
+  readonly cycleRepositorySources?: readonly string[] | null;
 }): DeriveProductMissionResult {
   const { selectedOptionRef, recoveryContext, basis } = input;
 
@@ -272,6 +310,11 @@ export function deriveActualExecutionWorkFromProductContext(input: {
       ? input.clientOperationKind
       : null;
 
+  const repositorySources = repositorySourcesFromProductFacts({
+    basis,
+    additionalSources: input.cycleRepositorySources,
+  });
+
   // Durable mission from Product facts (recovery and/or clarify intent).
   // Option ref is provenance — never the operation selector.
   const canPrepareDurableMission =
@@ -279,8 +322,16 @@ export function deriveActualExecutionWorkFromProductContext(input: {
 
   if (canPrepareDurableMission) {
     const mission = recoveryContext
-      ? missionFromRecovery(recoveryContext, input.projectObjective)
-      : missionFromClarifyWithoutRecovery(input.projectObjective, basis);
+      ? missionFromRecovery(
+          recoveryContext,
+          input.projectObjective,
+          repositorySources,
+        )
+      : missionFromClarifyWithoutRecovery(
+          input.projectObjective,
+          basis,
+          repositorySources,
+        );
 
     const work = buildInternalWorkFromMissionPerimeter({
       projectId: input.projectId,

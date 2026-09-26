@@ -998,6 +998,7 @@ export async function runNoraCognitiveTurn(
           coverageFacts.map((f) => ({
             pathOrRef: f.documentPath ?? f.pathOrRef,
             coverage: f.coverage,
+            cycleInstanceId: input.cycleJournalCycleInstanceId ?? null,
           })),
           input.groundingNowIso,
         );

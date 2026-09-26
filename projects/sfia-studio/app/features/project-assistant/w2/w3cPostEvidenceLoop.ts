@@ -32,6 +32,13 @@ import {
 } from "@/features/project-assistant/f2/ckcCognitiveContext";
 import type { NextActionCode } from "@/lib/oa/evidence-review/domain/coordinationTypes";
 import { resolveCurrentContractResultClaimEvaluation } from "@/lib/oa/evidence-review";
+import {
+  CONTRACT_ACCEPTANCE_CRITERIA_INPUT_KEY,
+  CONTRACT_VALIDATION_PLAN_INPUT_KEY,
+  describeContractAcceptanceCriteria,
+  parseContractAcceptanceCriteria,
+  parseContractStringListInput,
+} from "@/lib/oa/execution-contract";
 import type { W3BProductTerminalProjection } from "./w3bProductTerminalProjection";
 import { resolveW2QualificationInputs } from "./qualificationInputs";
 
@@ -1220,6 +1227,10 @@ export async function runW3cPostEvidenceLoop(input: {
       }
     }
   }
+  let contractObjective: string | undefined;
+  let acceptanceCriteriaSummary: string | undefined;
+  let expectedOutputsSummary: string | undefined;
+  let validationPlanSummary: string | undefined;
   if (oa.executionContractServices) {
     const loaded =
       await oa.executionContractServices.getExecutionContract.execute({
@@ -1228,6 +1239,33 @@ export async function runW3cPostEvidenceLoop(input: {
     if (loaded.ok) {
       contractStatus = loaded.contract.status;
       contractAction = loaded.contract.action;
+      const objective = loaded.contract.inputs?.objective;
+      if (typeof objective === "string" && objective.trim()) {
+        contractObjective = objective.trim().slice(0, 500);
+      }
+      const criteria = parseContractAcceptanceCriteria(
+        loaded.contract.inputs?.[CONTRACT_ACCEPTANCE_CRITERIA_INPUT_KEY],
+      );
+      if (criteria.length > 0) {
+        acceptanceCriteriaSummary = describeContractAcceptanceCriteria(criteria)
+          .join("; ")
+          .slice(0, 1500);
+      }
+      if (
+        Array.isArray(loaded.contract.expectedOutputs) &&
+        loaded.contract.expectedOutputs.length > 0
+      ) {
+        expectedOutputsSummary = loaded.contract.expectedOutputs
+          .map((s) => String(s))
+          .join("; ")
+          .slice(0, 800);
+      }
+      const plan = parseContractStringListInput(
+        loaded.contract.inputs?.[CONTRACT_VALIDATION_PLAN_INPUT_KEY],
+      );
+      if (plan.length > 0) {
+        validationPlanSummary = plan.join("; ").slice(0, 800);
+      }
     }
   }
 
@@ -1286,6 +1324,10 @@ export async function runW3cPostEvidenceLoop(input: {
       businessReason: product.businessReason,
       ...(eoSummary ? { expectedOutputAssessmentSummary: eoSummary } : {}),
       ...(erSummary ? { evidenceRequirementAssessmentSummary: erSummary } : {}),
+      ...(contractObjective ? { contractObjective } : {}),
+      ...(acceptanceCriteriaSummary ? { acceptanceCriteriaSummary } : {}),
+      ...(expectedOutputsSummary ? { expectedOutputsSummary } : {}),
+      ...(validationPlanSummary ? { validationPlanSummary } : {}),
       ...(processRef ? { processRef } : {}),
       ...(processExitCode !== undefined ? { exitCode: processExitCode } : {}),
       ...(processTimedOut !== undefined ? { timedOut: processTimedOut } : {}),

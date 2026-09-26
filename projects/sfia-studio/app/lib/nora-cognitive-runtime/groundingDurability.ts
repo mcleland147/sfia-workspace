@@ -31,6 +31,16 @@ export type GroundingReadCoverageRef = {
   pathOrRef: string;
   coverage: GroundingReadCoverageKind;
   rememberedAtIso: string;
+  /**
+   * NELC-01 — optional cycle attribution on the same MW4 marker (no new store).
+   * Absent = legacy project-scoped continuity; prepare must not invent a cycle.
+   */
+  cycleInstanceId?: string;
+  /**
+   * NELC-01 — optional repository HEAD observed when the read was remembered.
+   * Absent = currentness unproven; prepare must not treat as current FULL.
+   */
+  repositoryHeadSha?: string;
 };
 
 /** Non-cognitive Session marker — never Truth C / Evidence authority. */
@@ -142,14 +152,27 @@ export function parseStoredGroundingRefsRecord(
             typeof (r as GroundingReadCoverageRef).pathOrRef === "string" &&
             (r as GroundingReadCoverageRef).pathOrRef.trim().length > 0,
         )
-        .map((r) => ({
-          pathOrRef: r.pathOrRef.trim(),
-          coverage: r.coverage,
-          rememberedAtIso:
-            typeof r.rememberedAtIso === "string" && r.rememberedAtIso.trim()
-              ? r.rememberedAtIso
-              : new Date(0).toISOString(),
-        }))
+        .map((r) => {
+          const cycleInstanceId =
+            typeof r.cycleInstanceId === "string" && r.cycleInstanceId.trim()
+              ? r.cycleInstanceId.trim()
+              : undefined;
+          const repositoryHeadSha =
+            typeof r.repositoryHeadSha === "string" &&
+            r.repositoryHeadSha.trim()
+              ? r.repositoryHeadSha.trim()
+              : undefined;
+          return {
+            pathOrRef: r.pathOrRef.trim(),
+            coverage: r.coverage,
+            rememberedAtIso:
+              typeof r.rememberedAtIso === "string" && r.rememberedAtIso.trim()
+                ? r.rememberedAtIso
+                : new Date(0).toISOString(),
+            ...(cycleInstanceId ? { cycleInstanceId } : {}),
+            ...(repositoryHeadSha ? { repositoryHeadSha } : {}),
+          };
+        })
     : undefined;
   return {
     type: GROUNDING_REFS_TYPE,
@@ -278,7 +301,12 @@ export async function rememberEvidenceIds(
 export async function rememberReadCoverage(
   session: ProductSqliteSession,
   projectId: string,
-  coverage: Array<{ pathOrRef: string; coverage: GroundingReadCoverageKind }>,
+  coverage: Array<{
+    pathOrRef: string;
+    coverage: GroundingReadCoverageKind;
+    cycleInstanceId?: string | null;
+    repositoryHeadSha?: string | null;
+  }>,
   nowIso?: string,
 ): Promise<GroundingRefsRecord> {
   const project = projectId.trim();
@@ -298,10 +326,21 @@ export async function rememberReadCoverage(
   for (const item of coverage) {
     const pathOrRef = item.pathOrRef.trim();
     if (!pathOrRef) continue;
+    const cycleInstanceId =
+      typeof item.cycleInstanceId === "string" && item.cycleInstanceId.trim()
+        ? item.cycleInstanceId.trim()
+        : undefined;
+    const repositoryHeadSha =
+      typeof item.repositoryHeadSha === "string" &&
+      item.repositoryHeadSha.trim()
+        ? item.repositoryHeadSha.trim()
+        : undefined;
     byPath.set(pathOrRef, {
       pathOrRef,
       coverage: item.coverage,
       rememberedAtIso: iso,
+      ...(cycleInstanceId ? { cycleInstanceId } : {}),
+      ...(repositoryHeadSha ? { repositoryHeadSha } : {}),
     });
   }
   const record: GroundingRefsRecord = {

@@ -7,6 +7,9 @@
  * Attempt succeeded alone is NOT enough — verified Mission Evidence payload required.
  */
 import {
+  CONTRACT_ACCEPTANCE_CRITERIA_INPUT_KEY,
+  parseContractAcceptanceCriteria,
+  resolveAcceptanceCriterionForExpectedOutput,
   STUDIO_CURSOR_GENERALIST_ACTION,
   STUDIO_CURSOR_GENERALIST_CAPABILITY,
   STUDIO_CURSOR_GENERALIST_SCOPE,
@@ -170,6 +173,8 @@ export function assessMissionResultExpectedOutput(input: {
   ordinal: number;
   attempt: ExecutionAttemptSnapshot;
   evidence: Evidence;
+  /** Sealed contract inputs — structured acceptance criteria when present. */
+  contractInputs?: Record<string, unknown>;
 }): "PASS" | "NOT_PROVEN" | "FAIL" {
   if (input.attempt.status === "failed" || input.attempt.status === "timeout") {
     return "FAIL";
@@ -177,6 +182,50 @@ export function assessMissionResultExpectedOutput(input: {
   if (!missionResultEvidenceFactsHold(input)) return "NOT_PROVEN";
   const payload = loadMissionPayload(input.evidence);
   if (!payload) return "NOT_PROVEN";
+
+  // Sealed structured acceptance criteria outrank the fixed EO templates.
+  // NONE ≠ AMBIGUOUS: ambiguity is fail-closed (no legacy PASS).
+  const resolution = resolveAcceptanceCriterionForExpectedOutput(
+    parseContractAcceptanceCriteria(
+      input.contractInputs?.[CONTRACT_ACCEPTANCE_CRITERIA_INPUT_KEY],
+    ),
+    input.expectation,
+  );
+  if (resolution.kind === "ambiguous") {
+    return "NOT_PROVEN";
+  }
+  if (resolution.kind === "unique") {
+    const criterion = resolution.criterion;
+    if (criterion.kind === "manual_review") {
+      return "NOT_PROVEN";
+    }
+    if (
+      criterion.kind === "mission_diagnostic" &&
+      payload.diagnosticSummary.trim().length > 0
+    ) {
+      return "PASS";
+    }
+    if (
+      criterion.kind === "mission_next_step" &&
+      payload.recommendedNextProductStep.trim().length > 0
+    ) {
+      return "PASS";
+    }
+    if (criterion.kind === "mission_trace") {
+      const trace = payload.inspectedDurableTrace?.trim() ?? "";
+      if (
+        trace.startsWith(MISSION_TRACE_EO_PREFIX) ||
+        trace.includes(input.attempt.attemptId)
+      ) {
+        return "PASS";
+      }
+      return "NOT_PROVEN";
+    }
+    // Unique structured criterion present but not satisfied (or unknown
+    // deterministic kind) — do not fall through to legacy templates.
+    return "NOT_PROVEN";
+  }
+
   if (
     (MISSION_DIAGNOSTIC_EO_TEMPLATES as readonly string[]).includes(
       input.expectation,
@@ -274,6 +323,9 @@ export const missionResultContractResultSemantic: ContractResultSemantic = {
       ordinal: input.ordinal,
       attempt: input.attempt,
       evidence,
+      ...(input.material.inputs
+        ? { contractInputs: input.material.inputs }
+        : {}),
     });
   },
   assessEvidenceRequirement(input) {

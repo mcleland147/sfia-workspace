@@ -13,6 +13,8 @@
 
 import { createHash } from "node:crypto";
 import type { ExecutionContract } from "../domain/types";
+import { describeContractAcceptanceCriteria } from "../domain/contractMissionSemantics";
+import { describeContractSourceGrounding } from "../domain/contractSourceGrounding";
 import {
   projectExecutionContractInspectionDisclosure,
   type ExecutionContractInspectionDisclosure,
@@ -143,6 +145,18 @@ export function projectExecutionContractToCursorPrompt(input: {
   const filesModify = asStringList(inputs.filesToModify);
   const filesForbidden = asStringList(inputs.filesForbidden);
 
+  // Parity with inspection disclosure — same durable mission semantics.
+  const groundingLines = d.sourceGrounding
+    ? [...describeContractSourceGrounding(d.sourceGrounding)]
+    : [];
+  const acceptanceLines = d.acceptanceCriteria
+    ? [...describeContractAcceptanceCriteria(d.acceptanceCriteria)]
+    : [];
+  const validationPlan = d.validationPlan ? [...d.validationPlan] : [];
+  const reportRequirements = d.reportRequirements
+    ? [...d.reportRequirements]
+    : [];
+
   // Significant body — excludes volatile reportIdHint for digest stability
   // when hint is only a suggestion. attemptId included when bound.
   const significantBody = [
@@ -156,6 +170,14 @@ export function projectExecutionContractToCursorPrompt(input: {
     ...contextLines,
     `Sources à lire :`,
     ...uniqueSources,
+    `Grounding des sources (lecture durable) :`,
+    ...groundingLines,
+    `Critères d'acceptation :`,
+    ...acceptanceLines,
+    `Plan de validation :`,
+    ...validationPlan,
+    `Exigences de rapport :`,
+    ...reportRequirements,
     `Périmètre autorisé :`,
     ...scopeIn,
     `Hors périmètre :`,
@@ -210,6 +232,25 @@ export function projectExecutionContractToCursorPrompt(input: {
     ``,
     `## Sources à lire`,
     bullet(uniqueSources, "(découvrir localement dans le périmètre)"),
+    ``,
+    `## Grounding des sources (lecture durable in-cycle)`,
+    groundingLines.length > 0
+      ? bullet(groundingLines)
+      : "(aucun grounding durable attaché — recherche ≠ lecture ; ne revendique aucune source comme lue)",
+    ``,
+    `## Critères d'acceptation`,
+    acceptanceLines.length > 0
+      ? bullet(acceptanceLines)
+      : "(aucun critère structuré — s'en tenir aux expected outputs ci-dessous)",
+    ``,
+    `## Plan de validation`,
+    bullet(validationPlan, "(selon mission — tests/lints/diff si pertinents)"),
+    ``,
+    `## Exigences de rapport`,
+    bullet(
+      reportRequirements,
+      "(rapport final standard — voir section Rapport final attendu)",
+    ),
     ``,
     `## Périmètre autorisé (scope IN)`,
     bullet([...new Set(scopeIn)], "(périmètre contractuel — ne pas élargir)"),
@@ -321,6 +362,44 @@ export function assertCursorPromptParityWithInspection(input: {
         ok: false,
         code: "PROMPT_STOP_MISSING",
         message: `Stop condition absent from prompt: ${stop}`,
+      };
+    }
+  }
+  if (d.sourceGrounding) {
+    for (const line of describeContractSourceGrounding(d.sourceGrounding)) {
+      if (!text.includes(line)) {
+        return {
+          ok: false,
+          code: "PROMPT_SOURCE_GROUNDING_MISSING",
+          message: `Source grounding fact absent from prompt: ${line}`,
+        };
+      }
+    }
+  }
+  for (const criterion of d.acceptanceCriteria ?? []) {
+    if (!text.includes(criterion.criterionId)) {
+      return {
+        ok: false,
+        code: "PROMPT_ACCEPTANCE_CRITERION_MISSING",
+        message: `Acceptance criterion absent from prompt: ${criterion.criterionId}`,
+      };
+    }
+  }
+  for (const step of d.validationPlan ?? []) {
+    if (!text.includes(step)) {
+      return {
+        ok: false,
+        code: "PROMPT_VALIDATION_PLAN_MISSING",
+        message: `Validation plan step absent from prompt: ${step}`,
+      };
+    }
+  }
+  for (const requirement of d.reportRequirements ?? []) {
+    if (!text.includes(requirement)) {
+      return {
+        ok: false,
+        code: "PROMPT_REPORT_REQUIREMENT_MISSING",
+        message: `Report requirement absent from prompt: ${requirement}`,
       };
     }
   }

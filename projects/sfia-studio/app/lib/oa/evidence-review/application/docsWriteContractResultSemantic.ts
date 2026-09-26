@@ -5,6 +5,11 @@ import {
   M4_BOUNDED_DOCS_WRITE_ACTION,
   M4_BOUNDED_DOCS_WRITE_CAPABILITY,
 } from "@/lib/oa/execution-attempt/infrastructure/m4BoundedDocsWriteCursorAgent";
+import {
+  CONTRACT_ACCEPTANCE_CRITERIA_INPUT_KEY,
+  parseContractAcceptanceCriteria,
+  resolveAcceptanceCriterionForExpectedOutput,
+} from "@/lib/oa/execution-contract";
 import type { Evidence, EvidenceStatus, ExecutionAttemptSnapshot } from "../domain/types";
 import type { ReviewBundleEvidenceSnapshot } from "../domain/reviewBundleTypes";
 import type {
@@ -287,6 +292,42 @@ export function assessDocsWriteExpectedOutput(input: {
   const location = input.evidence.location?.trim() ?? "";
   const expectation = input.expectation.trim();
   if (!expectation) return "NOT_PROVEN";
+
+  // Sealed structured acceptance criteria outrank the fixed EO grammars.
+  // NONE ≠ AMBIGUOUS: ambiguity is fail-closed (no legacy PASS).
+  const resolution = resolveAcceptanceCriterionForExpectedOutput(
+    parseContractAcceptanceCriteria(
+      input.material.inputs?.[CONTRACT_ACCEPTANCE_CRITERIA_INPUT_KEY],
+    ),
+    expectation,
+  );
+  if (resolution.kind === "ambiguous") {
+    return "NOT_PROVEN";
+  }
+  if (resolution.kind === "unique") {
+    const criterion = resolution.criterion;
+    if (criterion.kind === "manual_review") {
+      return "NOT_PROVEN";
+    }
+    if (criterion.kind === "artifact_at_path") {
+      const target =
+        criterion.targetPath ?? boundTargetPath(input.material.inputs);
+      if (target && location.length > 0 && location === target) return "PASS";
+      return "NOT_PROVEN";
+    }
+    if (criterion.kind === "artifact_conformity_attested") {
+      const conformity = pickDocsWriteConformityEvidence(
+        input.evidences ?? [input.evidence],
+        input.attempt,
+        input.evidence,
+        input.material,
+      );
+      if (conformity) return "PASS";
+      return "NOT_PROVEN";
+    }
+    return "NOT_PROVEN";
+  }
+
   if (expectation === BOUNDED_DOCS_WRITE_EO_TEMPLATE) {
     return "PASS";
   }
