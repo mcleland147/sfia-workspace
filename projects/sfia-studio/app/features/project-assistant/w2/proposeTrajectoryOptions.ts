@@ -536,6 +536,10 @@ export async function proposeTrajectoryOptions(
         recommendation.ckcProvenance?.ckcId ?? "ckc:none",
         ...(input.ckcAttribution ? [input.ckcAttribution] : []),
         proposalSubject.proposalId,
+        // Work Recommendation ↔ cycle binding (Journal / finalization scope).
+        ...(live.context.activeCycleInstanceId
+          ? [live.context.activeCycleInstanceId]
+          : []),
       ],
     };
 
@@ -866,6 +870,9 @@ export async function proposeTrajectoryOptions(
         optionSetRef,
         recommendation.ckcProvenance?.ckcId ?? "ckc:none",
         ...(input.ckcAttribution ? [input.ckcAttribution] : []),
+        ...(live.context.activeCycleInstanceId
+          ? [live.context.activeCycleInstanceId]
+          : []),
       ],
     },
     priorBinding

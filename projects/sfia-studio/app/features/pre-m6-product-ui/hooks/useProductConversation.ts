@@ -552,6 +552,14 @@ export function useProductConversation({
         // A committed decision subject is a durable Epistemic marker write.
         notifyDurableFactsChanged();
       }
+      if (result.f2?.decision) {
+        // CHAT-FIRST-GOVERNED-DECISION-LOOP-01 — the conversational turn wrote
+        // a durable HumanDecision. Refresh lifecycle/subject reads so the next
+        // governed step (PREPARE) appears without any decide button, and drop a
+        // stale reinstruction arm the server no longer needs.
+        setArmedReinstructionOfProposalId(null);
+        notifyDurableFactsChanged();
+      }
       if (result.reservationResolutionProposal) {
         setReservationResolutionProposal(result.reservationResolutionProposal);
       } else if (!reservationInteractionContext) {

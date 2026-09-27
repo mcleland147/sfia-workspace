@@ -241,11 +241,20 @@ export function TrajectorySurface({
   activeProposalId = null,
   onRequestReformulateWithNora,
   onProposalSubjectOwnershipChange,
+  decisionWorkflowMode = "chat_first",
 }: {
   projectId: string;
   onDurableFactsChanged?: () => void;
   /** Increment after Lifecycle bridge / durable mutations to rehydrate candidate. */
   durableRefreshSignal?: number;
+  /**
+   * CHAT-FIRST-GOVERNED-DECISION-LOOP-01 — nominal product path is chat_first:
+   * the governed disposition happens in the conversation and this surface stays
+   * state / inspection / audit only. `legacy_cta` re-exposes the historical
+   * « Instruire les options » / per-option « Décider » affordances for harvest
+   * and RETIRE LATER proofs. The server actions themselves are unchanged.
+   */
+  decisionWorkflowMode?: "chat_first" | "legacy_cta";
   /**
    * H-01 Option A: embed visually in the LPS piloting region.
    * Presentation-only — does not change ProjectTrajectory domain identity.
@@ -2056,6 +2065,14 @@ export function TrajectorySurface({
   /** Alias — same single fail-closed gate for EC and subject mutations. */
   const governedContinuationBlocked = continuityMutationBlocked;
 
+  /**
+   * CHAT-FIRST-GOVERNED-DECISION-LOOP-01 — on the nominal product path the
+   * Pilot disposes of a governed subject in the conversation, so this surface
+   * exposes state / inspection / audit only. The underlying server actions stay
+   * available; they are simply no longer a required UX step.
+   */
+  const legacyDecisionCtaVisible = decisionWorkflowMode === "legacy_cta";
+
   useEffect(() => {
     if (!onProposalSubjectOwnershipChange) return;
     if (continuityReadsUnresolved) {
@@ -2086,13 +2103,14 @@ export function TrajectorySurface({
       <header className={styles.head}>
         <p className={styles.eyebrow}>Trajectoire du projet</p>
         <h2 id="w2-trajectory-title" className={styles.title}>
-          Options, recommandation, puis votre décision
+          {legacyDecisionCtaVisible
+            ? "Options, recommandation, puis votre décision"
+            : "État, options instruites et recommandation"}
         </h2>
         <p className={styles.note}>
-          Nora instruit des options et recommande. La décision vous appartient :
-          une recommandation ne décide jamais et ne rend jamais une trajectoire
-          courante. L&apos;exécution n&apos;est possible qu&apos;après une
-          autorisation vérifiée, via une action Exécuter explicite et distincte.
+          {legacyDecisionCtaVisible
+            ? "Nora instruit des options et recommande. La décision vous appartient : une recommandation ne décide jamais et ne rend jamais une trajectoire courante. L'exécution n'est possible qu'après une autorisation vérifiée, via une action Exécuter explicite et distincte."
+            : "Nora instruit des options et recommande ; vous décidez dans la conversation. Cette section montre l'état gouverné et sert d'inspection/audit : elle ne décide pas et ne rend jamais une trajectoire courante. L'exécution reste une action explicite et distincte, après autorisation vérifiée."}
         </p>
       </header>
 
@@ -2138,25 +2156,35 @@ export function TrajectorySurface({
               >
                 {pendingReinstruction.message}
               </p>
-              <div className={styles.actions}>
-                <button
-                  type="button"
-                  className={styles.primaryAction}
-                  data-testid="w2-instruct-recoverable-options"
-                  onClick={() => {
-                    if (
-                      pendingReinstruction.proposalIds.length !== 1 ||
-                      pendingReinstruction.recoverableProposalIds.length !== 1
-                    ) {
-                      return;
-                    }
-                    void proposeOptions();
-                  }}
-                  disabled={busy !== null || continuityMutationBlocked}
+              {legacyDecisionCtaVisible ? (
+                <div className={styles.actions}>
+                  <button
+                    type="button"
+                    className={styles.primaryAction}
+                    data-testid="w2-instruct-recoverable-options"
+                    onClick={() => {
+                      if (
+                        pendingReinstruction.proposalIds.length !== 1 ||
+                        pendingReinstruction.recoverableProposalIds.length !== 1
+                      ) {
+                        return;
+                      }
+                      void proposeOptions();
+                    }}
+                    disabled={busy !== null || continuityMutationBlocked}
+                  >
+                    Instruire les options
+                  </button>
+                </div>
+              ) : (
+                <p
+                  className={styles.blockNote}
+                  data-testid="w2-chat-first-pending-hint"
                 >
-                  Instruire les options
-                </button>
-              </div>
+                  Répondez dans la conversation pour poursuivre, amender ou
+                  refuser ce sujet. Cette section reste en lecture.
+                </p>
+              )}
             </>
           ) : pendingReinstruction.proposalIds.length === 1 &&
             pendingReinstruction.recoverableProposalIds.length === 0 ? (
@@ -2381,7 +2409,8 @@ export function TrajectorySurface({
         decision subjects can never compete for the same primary action.
         Continuity reads must both resolve; pending/error/conflict stay fail-closed.
       */}
-      {activeCycleInstanceId &&
+      {legacyDecisionCtaVisible &&
+      activeCycleInstanceId &&
       !proposalSubjectOwnsNextAction &&
       !continuityReadsUnresolved ? (
       <div className={styles.actions}>
@@ -2513,24 +2542,36 @@ export function TrajectorySurface({
                         </p>
                       </details>
                     )}
-                    <button
-                      type="button"
-                      className={styles.decideAction}
-                      data-testid={`w2-decide-${option.optionRef}`}
-                      onClick={() => void decide(option.optionRef)}
-                      disabled={
-                        busy !== null ||
-                        decision !== null ||
-                        continuityMutationBlocked
-                      }
-                      aria-label={`Décider: ${option.label}`}
-                    >
-                      Décider cette option
-                    </button>
+                    {legacyDecisionCtaVisible ? (
+                      <button
+                        type="button"
+                        className={styles.decideAction}
+                        data-testid={`w2-decide-${option.optionRef}`}
+                        onClick={() => void decide(option.optionRef)}
+                        disabled={
+                          busy !== null ||
+                          decision !== null ||
+                          continuityMutationBlocked
+                        }
+                        aria-label={`Décider: ${option.label}`}
+                      >
+                        Décider cette option
+                      </button>
+                    ) : null}
                   </li>
                 );
               })}
             </ul>
+            {!legacyDecisionCtaVisible ? (
+              <p
+                className={styles.blockNote}
+                data-testid="w2-chat-first-decision-hint"
+              >
+                Votre décision se prend dans la conversation. Cette section
+                présente l&apos;état, les options instruites et la
+                recommandation — elle ne décide pas.
+              </p>
+            ) : null}
           </section>
 
           <section

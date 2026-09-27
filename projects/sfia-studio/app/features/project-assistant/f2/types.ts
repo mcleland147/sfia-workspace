@@ -20,6 +20,28 @@ export type IntentClass =
   | "ambiguous"
   | "execution_request";
 
+/**
+ * CHAT-FIRST-GOVERNED-DECISION-LOOP-01 — NON-AUTHORITATIVE reading of how the
+ * Pilot disposed of an already-presented governed decision subject.
+ *
+ * NEVER a HumanDecision, a GO, a confirmation or an authority act. The server
+ * re-resolves the durable subject and records the HumanDecision through the
+ * existing decideTrajectory writer, or records nothing at all.
+ */
+export type PilotDecisionDisposition =
+  | "accept"
+  | "refuse"
+  | "amend"
+  | "defer"
+  | "none"
+  | "ambiguous";
+
+export type PilotDecisionCandidate = {
+  disposition: PilotDecisionDisposition;
+  /** optional non-authoritative hint; never trusted alone */
+  rationale?: string | null;
+};
+
 export type F2ProposalStatus =
   | "PROPOSED"
   | "DECISION_REQUIRED"
@@ -214,6 +236,12 @@ export type IntentAnalysisDto = {
   artifactMaterializationOperation?:
     | "cursor.docs_write.apply"
     | null;
+  /**
+   * CHAT-FIRST-GOVERNED-DECISION-LOOP-01 — NON-AUTHORITATIVE candidate reading
+   * of the Pilot's disposition on an already-presented decision subject.
+   * Never a HumanDecision. Absent/undefined is treated as null (fail-closed).
+   */
+  pilotDecisionCandidate?: PilotDecisionCandidate | null;
   parseOk: boolean;
 };
 

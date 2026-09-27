@@ -163,6 +163,12 @@ export type AssessFinalizationInput = {
   }>;
   finalizeDecisionId?: string | null;
   blockingReservationStatements?: readonly string[];
+  /**
+   * CHAT-FIRST-GOVERNED-DECISION-LOOP-01 — refs of active Recommendations on a
+   * presented governed decision subject that the Pilot has not disposed of.
+   * Empty/absent = nothing to dispose. Never a Recommendation→Decision promotion.
+   */
+  undisposedRecommendationRefs?: readonly string[];
 };
 
 function findFinalizeDecision(
@@ -780,9 +786,10 @@ export function assessFinalizationObligations(
     }
   }
 
-  // 8) Blockers / reservations
+  // 8) Blockers / reservations / undisposed Recommendations
   {
     const blockingReservations = input.blockingReservationStatements ?? [];
+    const undisposedRecommendations = input.undisposedRecommendationRefs ?? [];
     const applicability = resolveApplicability("blockers", "APPLICABLE", rules);
     if (applicability === "NOT_APPLICABLE") {
       pushNa(
@@ -798,15 +805,32 @@ export function assessFinalizationObligations(
         "blockers",
         "blockers_applicability_unknown",
       );
-    } else if (blockingReservations.length > 0) {
+    } else if (
+      blockingReservations.length > 0 ||
+      undisposedRecommendations.length > 0
+    ) {
       obligations.push({
         family: "blockers",
         applicability: "APPLICABLE",
         status: "BLOCKING",
-        detail: blockingReservations.join("|"),
+        detail: [
+          ...blockingReservations,
+          ...(undisposedRecommendations.length > 0
+            ? [
+                `undisposed_recommendations:${undisposedRecommendations.join(
+                  ",",
+                )}`,
+              ]
+            : []),
+        ].join("|"),
         blocking: true,
       });
-      blockers.push("blocking_reservations");
+      if (blockingReservations.length > 0) {
+        blockers.push("blocking_reservations");
+      }
+      if (undisposedRecommendations.length > 0) {
+        blockers.push("undisposed_recommendations");
+      }
     } else {
       obligations.push({
         family: "blockers",

@@ -589,12 +589,12 @@ export function ConversationSurface({
               id={`${fieldId}-authority-guidance`}
               className={styles.cardTitle}
             >
-              Décidez la trajectoire ci-dessous
+              Votre décision se prend ici, dans la conversation
             </h3>
             <p className={styles.cardNote}>
-              La qualification est enregistrée. La décision de trajectoire, le
-              contrat, la confirmation et l&apos;exécution se font dans la
-              section « Trajectoire et décision ».
+              La qualification est enregistrée. Répondez pour poursuivre,
+              amender ou refuser cette proposition. Le panneau « Trajectoire »
+              reste disponible en lecture pour l&apos;état et l&apos;audit.
             </p>
           </header>
         </section>

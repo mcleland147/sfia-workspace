@@ -166,7 +166,7 @@ describe("BAR-TRJ-27/28 — pre-cycle W2 CTA honesty", () => {
     );
 
     cleanup();
-    render(<TrajectorySurface projectId="prj:trj-27" />);
+    render(<TrajectorySurface decisionWorkflowMode="legacy_cta" projectId="prj:trj-27" />);
     await waitFor(() => {
       expect(readPreCycleMock).toHaveBeenCalled();
     });
@@ -200,7 +200,7 @@ describe("BAR-TRJ-27/28 — pre-cycle W2 CTA honesty", () => {
       hasCurrentNextCycleRecommendation: false,
     });
 
-    render(<TrajectorySurface projectId="prj:trj-28" />);
+    render(<TrajectorySurface decisionWorkflowMode="legacy_cta" projectId="prj:trj-28" />);
     await waitFor(() => {
       expect(screen.getByTestId("pre-cycle-candidate-trajectory")).toBeTruthy();
     });
@@ -217,7 +217,7 @@ describe("BAR-TRJ-27/28 — pre-cycle W2 CTA honesty", () => {
       hasCurrentNextCycleRecommendation: false,
     });
 
-    render(<TrajectorySurface projectId="prj:trj-29" />);
+    render(<TrajectorySurface decisionWorkflowMode="legacy_cta" projectId="prj:trj-29" />);
     await waitFor(() => {
       expect(screen.getByTestId("w2-propose-options")).toBeTruthy();
     });
