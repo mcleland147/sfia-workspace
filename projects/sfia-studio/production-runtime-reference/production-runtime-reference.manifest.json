@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "kind": "SFIA_STUDIO_LIVING_PRODUCTION_RUNTIME_REFERENCE",
   "lastReviewedCommit": "6beb8cc369bd9b82eebee97b70309838373b3dfa",
-  "lastReviewedAt": "2026-09-27T15:40:00+0200",
+  "lastReviewedAt": "2026-09-27T18:42:24.911Z",
   "canonicalReadme": "projects/sfia-studio/production-runtime-reference/README.md",
   "volumes": [
     {
@@ -19,7 +19,7 @@
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md",
-      "sha256_16": "c462b6d33c7625f3"
+      "sha256_16": "32de55f8eef8f66f"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md",
@@ -43,7 +43,7 @@
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md",
-      "sha256_16": "3b136f115de2236f"
+      "sha256_16": "aef228b1eb2405b6"
     }
   ],
   "components": [
@@ -578,7 +578,7 @@
   "trackedSources": [
     {
       "path": "projects/sfia-studio/app/features/project-assistant/actions.ts",
-      "sha256_16": "95eb520bec78561f"
+      "sha256_16": "9da1c52195e39dc1"
     },
     {
       "path": "projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts",
@@ -586,11 +586,11 @@
     },
     {
       "path": "projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts",
-      "sha256_16": "712b4200736f186e"
+      "sha256_16": "2f94963886255d2a"
     },
     {
       "path": "projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts",
-      "sha256_16": "a478be993184e78a"
+      "sha256_16": "eb13a379525867dd"
     },
     {
       "path": "projects/sfia-studio/app/features/project-assistant/f2/activeCycleGovernedContinuation.ts",
@@ -654,7 +654,7 @@
     },
     {
       "path": "projects/sfia-studio/app/lib/oa/cycle/application/assessFinalization.ts",
-      "sha256_16": "8a6cf2210f14e672"
+      "sha256_16": "bd13da2b572cf65f"
     },
     {
       "path": "projects/sfia-studio/app/lib/vertical-slice-runtime/singleton.ts",
@@ -666,7 +666,7 @@
     },
     {
       "path": "projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts",
-      "sha256_16": "2941b56cd2caa60f"
+      "sha256_16": "c9b1570800033f8a"
     },
     {
       "path": "projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.tsx",
@@ -678,7 +678,7 @@
     },
     {
       "path": "projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts",
-      "sha256_16": "4fede1ca3c195356"
+      "sha256_16": "eccf91d5637a87c5"
     },
     {
       "path": "projects/sfia-studio/app/.env.example",
