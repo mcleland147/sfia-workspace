@@ -1,6 +1,7 @@
 /**
  * CORR-01 / C2 + CORR-02 / C4 + CORR-03 / C5 +
- * NATIVE-EXECUTION-LOOP-POST-EVIDENCE-RECOVERY-CORR-01 —
+ * NATIVE-EXECUTION-LOOP-POST-EVIDENCE-RECOVERY-CORR-01 +
+ * NATIVE-EXECUTION-LOOP-GREENFIELD-CONTINUITY-CORR-01 —
  * recover recovery-owned HumanDecision after hard UI restart.
  *
  * Durable source (no new store):
@@ -19,12 +20,19 @@
  * kind=none only when neither trajectory nor decision claims GOVERNED,
  * OR when GOVERNED tip has no post-Evidence recovery subject.
  *
+ * GREENFIELD-CONTINUITY: absence of CURRENT is multi-semantic —
+ *   never / legitimate undecided candidate → kind=none
+ *   broken GOVERNED / LPS orphan / unknown reader → fail-closed
+ * NEVER blind-map TRAJECTORY_NOT_FOUND → kind=none.
+ * NEVER map missing Project → kind=none.
+ *
  * READ-ONLY. Never PREPARE / Inspect / Execute.
  */
 
 import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
 import type { DecisionBasis } from "@/lib/oa/decision/domain/types";
 import type { ProjectTrajectory } from "@/lib/oa/cycle/domain/types";
+import { resolveTrajectoryBootstrapPresence } from "@/lib/oa/cycle/application/lifecycleRecommendation/greenfieldLifecycleBootstrap";
 import { GOVERNED_OPTION_REF } from "./trajectoryOptions";
 import {
   resolvePostEvidenceRecoveryContext,
@@ -189,6 +197,121 @@ export function assertGovernedRecoveryLineage(input: {
 }
 
 /**
+ * Qualify TRAJECTORY_NOT_FOUND without collapsing UNKNOWN / broken GOVERNED
+ * continuity into greenfield absence.
+ *
+ * Reuses resolveTrajectoryBootstrapPresence (KEEP) — no parallel engine.
+ */
+async function qualifyAbsenceOfCurrentTrajectory(input: {
+  readonly oa: RuntimeOaStack;
+  readonly projectId: string;
+}): Promise<RecoveryOwnedDecisionContinuityResult> {
+  const { oa, projectId } = input;
+
+  let presence;
+  try {
+    presence = await resolveTrajectoryBootstrapPresence(
+      oa.cycleServices.trajectories,
+      projectId,
+    );
+  } catch (error) {
+    return continuityFailed(
+      `Présence trajectoire illisible — UNKNOWN ≠ absence (${
+        error instanceof Error ? error.message : "trajectory_presence_unresolved"
+      }).`,
+    );
+  }
+
+  if (presence.kind === "unknown") {
+    return continuityFailed(
+      "Présence trajectoire UNKNOWN — fail-closed (pas de kind=none).",
+    );
+  }
+
+  if (presence.kind === "current") {
+    return continuityFailed(
+      "Contradiction: current absente via getCurrent mais présence current — fail-closed.",
+    );
+  }
+
+  const lpsResult =
+    await oa.projectServices.getCurrentLivingProjectState.execute({
+      projectId,
+    });
+  if (!lpsResult.ok) {
+    return fail(
+      lpsResult.error.detailCode,
+      lpsResult.error.message ??
+        "LPS illisible — continuité recovery refusée (UNKNOWN ≠ absence).",
+    );
+  }
+  const lps = lpsResult.livingProjectState;
+  const lpsTrajectoryId = lps.trajectoryId?.trim() || null;
+
+  if (lpsTrajectoryId) {
+    let linked: ProjectTrajectory | null;
+    try {
+      linked = await oa.cycleServices.trajectories.findById(lpsTrajectoryId);
+    } catch (error) {
+      return continuityFailed(
+        `Lecture trajectoire LPS impossible — UNKNOWN ≠ absence (${
+          error instanceof Error ? error.message : "trajectory_read_failed"
+        }).`,
+      );
+    }
+    if (!linked) {
+      return continuityFailed(
+        "LPS trajectory ref orpheline — lignée recovery fail-closed.",
+      );
+    }
+    if (linked.projectId !== projectId) {
+      return continuityFailed(
+        "LPS trajectory hors projet — lignée recovery fail-closed.",
+      );
+    }
+    // Decided/current statuses without CURRENT pointer = broken continuity.
+    if (linked.status === "validated" || linked.status === "active") {
+      return continuityFailed(
+        "Trajectoire décidée/active sans pointeur current — lignée recovery fail-closed.",
+      );
+    }
+    if (linked.decidedByDecisionRef || linked.decidedOptionRef) {
+      return continuityFailed(
+        "Candidate portant décision durable sans current — lignée recovery fail-closed.",
+      );
+    }
+    // else: coherent undecided candidate linked from LPS — fall through.
+  }
+
+  const history = await oa.decisionServices.listDecisionHistory.execute({
+    projectId,
+  });
+  if (!history.ok) {
+    return fail(
+      history.error.detailCode,
+      history.error.message ??
+        "Historique décisions illisible — continuité recovery refusée (UNKNOWN ≠ absence).",
+    );
+  }
+
+  const governedTrajectoryClaim = history.decisions.find(
+    (decision) =>
+      decision.status === "accepted" &&
+      decision.selectedOptionId === GOVERNED_OPTION_REF &&
+      decision.decisionBasis?.sourceType === "trajectory_option",
+  );
+  if (governedTrajectoryClaim) {
+    return continuityFailed(
+      "HumanDecision GOVERNED trajectory_option sans current — lignée recovery fail-closed.",
+    );
+  }
+
+  // presence: never | history_without_current without GOVERNED claim
+  // = genuine greenfield OR legitimate pre-decision candidate.
+  return { ok: true, kind: "none" };
+}
+
+/**
  * Resolve whether the current ProjectTrajectory tip is a recovery-owned
  * GOVERNED HumanDecision with a coherent PostEvidenceRecoveryContext.
  */
@@ -204,10 +327,23 @@ export async function readRecoveryOwnedDecisionContinuity(input: {
     );
   }
 
+  // Durable Project must exist before any kind=none greenfield claim.
+  const project = await oa.projectServices.getProject.execute({ projectId });
+  if (!project.ok) {
+    return fail(
+      project.error.detailCode,
+      project.error.message ??
+        "Projet introuvable — continuité recovery refusée.",
+    );
+  }
+
   const current = await oa.cycleServices.getCurrentTrajectory.execute({
     projectId,
   });
   if (!current.ok) {
+    if (current.error.detailCode === "TRAJECTORY_NOT_FOUND") {
+      return qualifyAbsenceOfCurrentTrajectory({ oa, projectId });
+    }
     return fail(
       current.error.detailCode,
       current.error.message ??
