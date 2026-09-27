@@ -17,6 +17,8 @@ import type {
   F2QualificationSignals,
   IntentAnalysisDto,
   IntentClass,
+  PilotDecisionCandidate,
+  PilotDecisionDisposition,
   SemanticCognitiveWorkloadAssessment,
   SemanticCognitiveWorkloadLevel,
 } from "./types";
@@ -60,6 +62,15 @@ const CWP_LEVELS: readonly SemanticCognitiveWorkloadLevel[] = [
   "medium",
   "high",
   "unknown",
+] as const;
+
+const PILOT_DECISION_DISPOSITIONS: readonly PilotDecisionDisposition[] = [
+  "accept",
+  "refuse",
+  "amend",
+  "defer",
+  "none",
+  "ambiguous",
 ] as const;
 
 const CWP_DIMENSION_KEYS = [
@@ -118,6 +129,19 @@ const SIGNALS_OBJECT_SCHEMA = {
     lowRiskBounded: { type: "boolean" },
   },
   required: [...SIGNAL_KEYS],
+} as const;
+
+const PILOT_DECISION_CANDIDATE_OBJECT_SCHEMA = {
+  type: "object",
+  additionalProperties: false,
+  properties: {
+    disposition: {
+      type: "string",
+      enum: [...PILOT_DECISION_DISPOSITIONS],
+    },
+    rationale: NULLABLE_STRING,
+  },
+  required: ["disposition", "rationale"],
 } as const;
 
 const CWP_LEVEL_SCHEMA = {
@@ -210,6 +234,9 @@ export const F2_INTENT_JSON_SCHEMA: Record<string, unknown> = {
         { type: "null" },
       ],
     },
+    pilotDecisionCandidate: {
+      anyOf: [PILOT_DECISION_CANDIDATE_OBJECT_SCHEMA, { type: "null" }],
+    },
   },
   required: [
     "intentClass",
@@ -232,6 +259,7 @@ export const F2_INTENT_JSON_SCHEMA: Record<string, unknown> = {
     "executionIntent",
     "continuationKind",
     "artifactMaterializationOperation",
+    "pilotDecisionCandidate",
   ],
 };
 
@@ -278,7 +306,34 @@ function ambiguousFallback(partial?: Partial<IntentAnalysisDto>): IntentAnalysis
     contradictionCandidate: null,
     challengeResponseAssessment:
       partial?.challengeResponseAssessment ?? null,
+    // Fail-closed: an unparseable turn never carries a Pilot disposition.
+    pilotDecisionCandidate: null,
     parseOk: false,
+  };
+}
+
+/**
+ * CHAT-FIRST-GOVERNED-DECISION-LOOP-01 — validate the NON-AUTHORITATIVE
+ * disposition candidate. Absent / null / malformed → null. An unrecognised
+ * disposition never becomes accept: it degrades to "ambiguous".
+ */
+export function parsePilotDecisionCandidate(
+  raw: unknown,
+): PilotDecisionCandidate | null {
+  if (raw == null) return null;
+  if (typeof raw !== "object" || Array.isArray(raw)) return null;
+  const obj = raw as Record<string, unknown>;
+  const disposition = obj.disposition;
+  if (typeof disposition !== "string") return null;
+  const normalized = disposition.trim().toLowerCase();
+  if (!normalized) return null;
+  return {
+    disposition: PILOT_DECISION_DISPOSITIONS.includes(
+      normalized as PilotDecisionDisposition,
+    )
+      ? (normalized as PilotDecisionDisposition)
+      : "ambiguous",
+    rationale: clip(obj.rationale, 500),
   };
 }
 
@@ -458,6 +513,9 @@ export function validateIntentAnalysisPayload(raw: unknown): IntentAnalysisDto {
     executionIntent,
     continuationKind: continuationParsed.value,
     artifactMaterializationOperation,
+    pilotDecisionCandidate: parsePilotDecisionCandidate(
+      "pilotDecisionCandidate" in obj ? obj.pilotDecisionCandidate : null,
+    ),
     parseOk: true,
   };
 }
@@ -483,6 +541,7 @@ expectedOutcome, criticalJustification, requestedOperation (string libre / legac
 executionIntent (objet structuré docs_write/read_only/other NON-AUTORITAIRE OU null — intention d'exécution proposée, JAMAIS une grant REAL / HumanDecision / autorité ; executionIntent.requestedOperation reste générique/nullable ; champs incluant artifactBrief, contentRequirements, targetPath, evidenceRequirements).
 continuationKind (active_cycle_artifact_materialization OU null — hint NON-AUTORITAIRE de continuation du cycle actif ; JAMAIS une permission createCycle/skip ; le serveur valide contre activeCycle + REQUIRE_ARTIFACT).
 artifactMaterializationOperation (cursor.docs_write.apply OU null — discriminateur TECHNIQUE dédié à la matérialisation Artifact active-cycle ; JAMAIS du texte libre ; JAMAIS une autorité d'exécution).
+pilotDecisionCandidate ({disposition, rationale} OU null — lecture NON-AUTORITAIRE de la disposition du Pilote sur un sujet de décision DÉJÀ présenté ; JAMAIS une HumanDecision).
 
 === DISTINCTION FONDAMENTALE ===
 intentClass = EFFET demandé à Studio (quoi faire sur le produit).
@@ -610,6 +669,23 @@ Règles dures :
 - informative reste informative ; ne pas inventer de signals juste pour orienter ;
 - le seul mot « SFIA » ne force aucun cycle ; aucune phrase magique exacte ;
 - candidateCycleTypeId N'EST PAS une porte de formalisation et N'EST PAS un workflow planner.
+
+=== pilotDecisionCandidate (CHAT-FIRST — non autoritaire) ===
+Lecture CANDIDATE de la disposition exprimée par le Pilote sur un sujet de décision gouverné DÉJÀ présenté dans le contexte.
+disposition ∈ accept | refuse | amend | defer | none | ambiguous.
+- accept — le Pilote engage explicitement le sujet présenté (« oui, poursuis cette proposition », « valide ce livrable »).
+- refuse — le Pilote refuse explicitement le sujet présenté.
+- amend — le Pilote demande de modifier le sujet avant d'engager.
+- defer — le Pilote demande explicitement de reporter la disposition du sujet.
+- none — le tour ne dispose d'aucun sujet gouverné (cas nominal : conversation, question, autre sujet).
+- ambiguous — une disposition semble présente mais la cible ou la portée reste indéterminée.
+Règles dures :
+- ce champ N'EST PAS une HumanDecision, un GO, une confirmation ni une autorité ; le serveur re-résout le sujet durable et refuse tout ce qui n'est pas unique et éligible ;
+- un « oui / ok / d'accord » isolé sans sujet gouverné présenté ⇒ none (JAMAIS accept) ;
+- si plusieurs sujets gouvernés sont plausibles ⇒ ambiguous (JAMAIS accept) ;
+- ne JAMAIS inventer un sujet, un proposalId, un optionRef ou un optionSetRef ; ne JAMAIS les citer ici ;
+- en l'absence de preuve ⇒ none ; none et ambiguous n'enregistrent jamais rien.
+rationale : justification courte NON-AUTORITAIRE ou null.
 
 === AUTORITÉ ===
 - Ne décide jamais un GO Morris ; ne propose jamais d'exécution ; n'invente jamais un cycle (ex. delivery) par défaut.

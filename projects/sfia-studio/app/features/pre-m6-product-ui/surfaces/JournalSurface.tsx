@@ -1,12 +1,29 @@
 "use client";
 
 import { useState } from "react";
-import type { CycleReservationProjectionCard } from "@/lib/oa/cycle/application/lifecycleProjection";
+import type {
+  CycleDecisionProjectionCard,
+  CycleReservationProjectionCard,
+} from "@/lib/oa/cycle/application/lifecycleProjection";
+import type { WorkRecommendationProjectionCard } from "@/lib/oa/cycle/application/deriveWorkRecommendations";
 import styles from "./JournalSurface.module.css";
 
 export type JournalReservationCard = CycleReservationProjectionCard;
+export type JournalDecisionCard = CycleDecisionProjectionCard;
+/** Work Recommendations only — never Lifecycle NEXT_CYCLE / FINALIZE. */
+export type JournalRecommendationCard = WorkRecommendationProjectionCard;
 
-export type JournalMemoryTab = "sujets" | "reserves";
+/**
+ * CHAT-FIRST-GOVERNED-DECISION-LOOP-01 — four read rails over the same durable
+ * projection: Sujets | Réserves | Recommandations | Décisions.
+ * Recommandations = Work Recommendations of the cycle (not Lifecycle).
+ * Décisions = HumanDecision history. Read-only (no accept/refuse CTA).
+ */
+export type JournalMemoryTab =
+  | "sujets"
+  | "reserves"
+  | "recommandations"
+  | "decisions";
 
 export type JournalSurfaceEntry = {
   journalEntryId: string;
@@ -68,6 +85,18 @@ export type JournalSurfaceProps = {
   onViewJournalSubject?: (journalEntryId: string) => void;
   /** Epistemic id currently being confirmed (disables its CTA). */
   reservationBusyId?: string | null;
+  /**
+   * CHAT-FIRST-GOVERNED-DECISION-LOOP-01 — CURRENT lifecycle Recommendations
+   * from the durable projection. Read-only: a Recommendation never decides.
+   */
+  recommendations?: JournalRecommendationCard[];
+  /** Durable HumanDecisions from the same projection. Read-only audit cards. */
+  decisions?: JournalDecisionCard[];
+  /**
+   * Non-mutating handoff: prefill the composer to resume a Recommendation in
+   * the conversation. MUST NOT send and MUST NOT record anything.
+   */
+  onResumeRecommendationInChat?: (recommendationId: string) => void;
 };
 
 function isOpenReservation(card: JournalReservationCard): boolean {
@@ -76,6 +105,37 @@ function isOpenReservation(card: JournalReservationCard): boolean {
     card.presentationState !== "rejected" &&
     card.presentationState !== "deferred"
   );
+}
+
+/** Pilot-facing label for a Work Recommendation disposition state. */
+function recommendationCurrentnessLabel(card: JournalRecommendationCard): string {
+  if (card.status === "resolved") return "Traitée";
+  if (card.status === "rejected") return "Écartée";
+  if (card.status === "superseded") return "Remplacée";
+  if (card.dispositionDecisionId) return "Dispositionnée";
+  return "En attente de votre réponse";
+}
+
+/** A Work Recommendation still awaiting an explicit Pilot disposition. */
+function isOpenRecommendation(card: JournalRecommendationCard): boolean {
+  return card.status === "active" && !card.dispositionDecisionId;
+}
+
+function decisionStatusLabel(status: string): string {
+  switch (status) {
+    case "accepted":
+      return "Acceptée";
+    case "refused":
+      return "Refusée";
+    case "amended":
+      return "Amendée";
+    case "superseded":
+      return "Remplacée";
+    case "revoked":
+      return "Révoquée";
+    default:
+      return status;
+  }
 }
 
 function statusLabel(status: string): string {
@@ -146,11 +206,22 @@ export function JournalSurface({
   onConfirmDefer,
   onViewJournalSubject,
   reservationBusyId = null,
+  recommendations = [],
+  decisions = [],
+  onResumeRecommendationInChat,
 }: JournalSurfaceProps) {
   const safeEntries = Array.isArray(entries) ? entries : [];
   const safeReservations = Array.isArray(reservations) ? reservations : [];
+  const safeRecommendations = Array.isArray(recommendations)
+    ? recommendations
+    : [];
+  const safeDecisions = Array.isArray(decisions) ? decisions : [];
   const activeCount = safeEntries.filter((e) => e.status === "active").length;
   const openReservationCount = safeReservations.filter(isOpenReservation).length;
+  const openRecommendationCount = safeRecommendations.filter(
+    isOpenRecommendation,
+  ).length;
+  const decisionCount = safeDecisions.length;
   const [expandedEntryId, setExpandedEntryId] = useState<string | null>(null);
   const [pointsOpenId, setPointsOpenId] = useState<string | null>(null);
   const [internalTab, setInternalTab] = useState<JournalMemoryTab>("sujets");
@@ -167,8 +238,35 @@ export function JournalSurface({
   const subjectOrdinalById = new Map(
     safeEntries.map((e) => [e.journalEntryId, e.topicOrdinal] as const),
   );
-  const paneId = tab === "sujets" ? "cycle-journal-list" : "cycle-reservations-list";
+  const paneId =
+    tab === "sujets"
+      ? "cycle-journal-list"
+      : tab === "reserves"
+        ? "cycle-reservations-list"
+        : tab === "recommandations"
+          ? "cycle-recommendations-list"
+          : "cycle-decisions-list";
   const reservationCycleId = reservationsCycleInstanceId ?? cycleInstanceId;
+  const railTitle =
+    tab === "sujets"
+      ? "Journal du cycle"
+      : tab === "reserves"
+        ? "Réserves du cycle"
+        : tab === "recommandations"
+          ? "Recommandations"
+          : "Décisions";
+  const railMeta =
+    tab === "sujets"
+      ? cycleInstanceId
+        ? `${activeCount} sujet${activeCount === 1 ? "" : "s"}`
+        : "Aucun cycle actif"
+      : tab === "reserves"
+        ? reservationCycleId
+          ? `${openReservationCount} réserve${openReservationCount === 1 ? "" : "s"} ouverte${openReservationCount === 1 ? "" : "s"}`
+          : "Aucun cycle sélectionné"
+        : tab === "recommandations"
+          ? `${openRecommendationCount} en attente de votre réponse`
+          : `${decisionCount} décision${decisionCount === 1 ? "" : "s"} enregistrée${decisionCount === 1 ? "" : "s"}`;
 
   return (
     <aside
@@ -181,17 +279,9 @@ export function JournalSurface({
         <div className={styles.headerText}>
           <p className={styles.eyebrow}>Mémoire de cycle</p>
           <h2 className={styles.title} id="cycle-journal-heading">
-            {tab === "sujets" ? "Journal du cycle" : "Réserves du cycle"}
+            {railTitle}
           </h2>
-          <p className={styles.meta}>
-            {tab === "sujets"
-              ? cycleInstanceId
-                ? `${activeCount} sujet${activeCount === 1 ? "" : "s"}`
-                : "Aucun cycle actif"
-              : reservationCycleId
-                ? `${openReservationCount} réserve${openReservationCount === 1 ? "" : "s"} ouverte${openReservationCount === 1 ? "" : "s"}`
-                : "Aucun cycle sélectionné"}
-          </p>
+          <p className={styles.meta}>{railMeta}</p>
         </div>
         {onToggleCollapsed ? (
           <button
@@ -242,6 +332,165 @@ export function JournalSurface({
           >
             Réserves ({openReservationCount})
           </button>
+          <button
+            type="button"
+            role="tab"
+            id="memory-rail-tab-recommandations"
+            className={[
+              styles.tab,
+              tab === "recommandations" ? styles.tabActive : "",
+            ]
+              .filter(Boolean)
+              .join(" ")}
+            data-testid="memory-rail-tab-recommandations"
+            aria-selected={tab === "recommandations"}
+            aria-controls="cycle-recommendations-list"
+            onClick={() => setTab("recommandations")}
+          >
+            Recommandations ({openRecommendationCount})
+          </button>
+          <button
+            type="button"
+            role="tab"
+            id="memory-rail-tab-decisions"
+            className={[styles.tab, tab === "decisions" ? styles.tabActive : ""]
+              .filter(Boolean)
+              .join(" ")}
+            data-testid="memory-rail-tab-decisions"
+            aria-selected={tab === "decisions"}
+            aria-controls="cycle-decisions-list"
+            onClick={() => setTab("decisions")}
+          >
+            Décisions ({decisionCount})
+          </button>
+        </div>
+      ) : null}
+
+      {!collapsed && tab === "recommandations" ? (
+        <div
+          id="cycle-recommendations-list"
+          className={styles.list}
+          role="tabpanel"
+          aria-labelledby="memory-rail-tab-recommandations"
+          data-testid="cycle-recommendations-list"
+        >
+          {safeRecommendations.length === 0 ? (
+            <p className={styles.empty} data-testid="cycle-recommendations-empty">
+              Aucune recommandation de travail pour ce cycle. Nora en formulera
+              pendant le travail — une recommandation ne décide jamais.
+            </p>
+          ) : (
+            safeRecommendations.map((card) => {
+              const open = isOpenRecommendation(card);
+              return (
+                <article
+                  key={card.epistemicItemId}
+                  className={[styles.card, !open ? styles.cardMuted : ""]
+                    .filter(Boolean)
+                    .join(" ")}
+                  data-testid={`cycle-recommendation-card-${card.epistemicItemId}`}
+                  data-state={card.status}
+                  data-family="work"
+                >
+                  <div className={styles.cardHeading}>
+                    <span
+                      className={styles.stateBadge}
+                      data-state={card.status}
+                      data-testid={`cycle-recommendation-state-${card.epistemicItemId}`}
+                    >
+                      {recommendationCurrentnessLabel(card)}
+                    </span>
+                  </div>
+                  <p className={styles.cardTitle}>{card.statement}</p>
+                  <p className={styles.cardMeta}>
+                    <span>Recommandation de travail</span>
+                    <span>Nora · recommandation</span>
+                  </p>
+                  <p
+                    className={styles.finalizationHint}
+                    data-testid={`cycle-recommendation-authority-${card.epistemicItemId}`}
+                  >
+                    RECOMMANDATION — PAS UNE DÉCISION HUMAINE. Disposez-en dans
+                    le chat (poursuivre, amender, refuser ou reporter).
+                  </p>
+                  {open && onResumeRecommendationInChat ? (
+                    <div className={styles.cardActions}>
+                      <button
+                        type="button"
+                        className={styles.actionSecondary}
+                        data-testid={`cycle-recommendation-resume-${card.epistemicItemId}`}
+                        onClick={() =>
+                          onResumeRecommendationInChat(card.epistemicItemId)
+                        }
+                      >
+                        Reprendre dans le chat
+                      </button>
+                    </div>
+                  ) : null}
+                </article>
+              );
+            })
+          )}
+        </div>
+      ) : null}
+
+      {!collapsed && tab === "decisions" ? (
+        <div
+          id="cycle-decisions-list"
+          className={styles.list}
+          role="tabpanel"
+          aria-labelledby="memory-rail-tab-decisions"
+          data-testid="cycle-decisions-list"
+        >
+          {safeDecisions.length === 0 ? (
+            <p className={styles.empty} data-testid="cycle-decisions-empty">
+              Aucune décision enregistrée. Vos décisions apparaîtront ici après
+              avoir été prises dans la conversation.
+            </p>
+          ) : (
+            safeDecisions.map((card) => (
+              <article
+                key={card.decisionId}
+                className={styles.card}
+                data-testid={`cycle-decision-card-${card.decisionId}`}
+                data-status={card.status}
+              >
+                <div className={styles.cardHeading}>
+                  <span
+                    className={styles.stateBadge}
+                    data-state={card.status}
+                    data-testid={`cycle-decision-state-${card.decisionId}`}
+                  >
+                    {decisionStatusLabel(card.status)}
+                  </span>
+                </div>
+                <p className={styles.cardTitle}>{card.selectedOptionLabel}</p>
+                <p className={styles.cardSummary}>{card.subject}</p>
+                <p className={styles.cardMeta}>
+                  <span>{card.actorDisplayName}</span>
+                  <span>{card.effectiveAt}</span>
+                </p>
+                {card.reservations.length > 0 ? (
+                  <ul
+                    className={styles.pointsList}
+                    data-testid={`cycle-decision-reserves-${card.decisionId}`}
+                  >
+                    {card.reservations.map((r, i) => (
+                      <li key={`r-${i}`}>{r}</li>
+                    ))}
+                  </ul>
+                ) : null}
+                <details data-testid={`cycle-decision-tech-${card.decisionId}`}>
+                  <summary>Détails techniques</summary>
+                  <p className={styles.detailText}>
+                    <code>{card.decisionId}</code>
+                    {card.cycleInstanceId ? ` · cycle ${card.cycleInstanceId}` : ""}
+                    {` · base de décision ${card.decisionBasisLinked ? "reliée" : "absente"}`}
+                  </p>
+                </details>
+              </article>
+            ))
+          )}
         </div>
       ) : null}
 

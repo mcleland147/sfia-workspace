@@ -8,7 +8,9 @@ import { useProductConversation } from "./hooks/useProductConversation";
 import { ConversationSurface } from "./surfaces/ConversationSurface";
 import {
   JournalSurface,
+  type JournalDecisionCard,
   type JournalMemoryTab,
+  type JournalRecommendationCard,
   type JournalReservationCard,
 } from "./surfaces/JournalSurface";
 import { HistorySurface } from "./surfaces/HistorySurface";
@@ -140,6 +142,16 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
       : [];
   const reservationCycleInstanceId =
     lifecycleProjection?.selectedCycleInstanceId ?? null;
+  /** Same durable projection as Réserves — no second fetch, no parallel store.
+   * Work Recommendations only (never Lifecycle NEXT_CYCLE / FINALIZE). */
+  const cycleRecommendations: JournalRecommendationCard[] =
+    lifecycleProjection?.cycleWorkRecommendations
+      ? [...lifecycleProjection.cycleWorkRecommendations]
+      : [];
+  const cycleDecisions: JournalDecisionCard[] =
+    lifecycleProjection?.cycleDecisions
+      ? [...lifecycleProjection.cycleDecisions]
+      : [];
 
   const openReservationsTab = useCallback(() => {
     setMemoryTab("reserves");
@@ -233,6 +245,25 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
     },
     [projectId, reservationCycleInstanceId, notifyDurableFactsChanged],
   );
+
+  /**
+   * CHAT-FIRST-GOVERNED-DECISION-LOOP-01 — prefill only. Resuming a
+   * Recommendation in the chat writes nothing and decides nothing; the Pilot
+   * reads, edits and sends.
+   */
+  const resumeRecommendationInChat = (recommendationId: string) => {
+    const card = cycleRecommendations.find(
+      (r) => r.epistemicItemId === recommendationId,
+    );
+    if (!card) return;
+    controller.setDraft(
+      [
+        `Nora, reprenons cette recommandation : « ${card.statement} »`,
+        "Dis-moi ce qu'elle implique et ce qui manque pour que je tranche. Je décide.",
+      ].join("\n"),
+    );
+    focusConversation();
+  };
 
   const viewJournalSubject = (journalEntryId: string) => {
     setMemoryTab("sujets");
@@ -347,6 +378,9 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
             onConfirmDefer={confirmReservationDefer}
             onViewJournalSubject={viewJournalSubject}
             reservationBusyId={reservationBusyId}
+            recommendations={cycleRecommendations}
+            decisions={cycleDecisions}
+            onResumeRecommendationInChat={resumeRecommendationInChat}
           />
           {reservationNotice ? (
             <p

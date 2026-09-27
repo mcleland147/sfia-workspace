@@ -89,7 +89,9 @@ import {
   saveProposal,
 } from "./proposalStore";
 import type {
+  DecisionDto,
   F2ContextSnapshot,
+  F2DecisionKind,
   IntentAnalysisDto,
   ProposalDto,
   QualificationDto,
@@ -98,6 +100,12 @@ import type { ExecutionIntentPayload } from "./executionIntentSchema";
 import {
   assertExplicitReinstructionGate,
 } from "../w2/activeProposalDecisionSubject";
+import { assessChatFirstWorkEligibility } from "../w2/assessChatFirstWorkEligibility";
+import {
+  resolveChatFirstPilotDecision,
+  toEffectiveDisposition,
+  type ChatFirstEffectiveDisposition,
+} from "../w2/resolveChatFirstPilotDecision";
 import {
   replacePendingDecisionSubjectForExplicitReinstruction,
   writePendingDecisionSubjectMarker,
@@ -190,6 +198,33 @@ async function commitPendingDecisionSubjectForDecisionRequired(input: {
     };
   }
   return { ok: true };
+}
+
+/**
+ * CHAT-FIRST-GOVERNED-DECISION-LOOP-01 — codes where the pending subject must
+ * be disposed of in the conversation instead of locking the composer.
+ *
+ * The gate itself stays fail-closed (no competing DECISION_REQUIRED is minted);
+ * only the Pilot-facing shape changes from a transport error to a clarification
+ * turn, so an unrelated topic can never dead-end the chat.
+ */
+function isChatFirstDisposableGateCode(code: string | undefined): boolean {
+  return (
+    code === "EXPLICIT_REINSTRUCTION_REQUIRED" ||
+    code === "AMBIGUOUS_PENDING_REINSTRUCTION"
+  );
+}
+
+function pendingDispositionClarificationText(input: {
+  readonly presentation: "test_provider" | "openai_live";
+  readonly gateMessage: string;
+}): string {
+  return [
+    input.presentation === "test_provider" ? "[Mode test]" : "[Mode réel]",
+    input.gateMessage,
+    "Aucune nouvelle proposition n'a été ouverte et aucune décision n'a été enregistrée.",
+    "Répondez ici pour poursuivre, amender ou refuser le sujet en attente — la conversation reste ouverte sur les autres sujets.",
+  ].join(" ");
 }
 
 async function resolveExplicitReinstructionGate(input: {
@@ -659,6 +694,64 @@ function qualificationFromActiveCycle(input: {
 }
 
 /**
+ * CHAT-FIRST-GOVERNED-DECISION-LOOP-01 — presentation mapping for a durable
+ * HumanDecision recorded from a conversational disposition. The kinds reuse
+ * the existing F2 decision vocabulary; no new decision semantics are invented.
+ */
+const CHAT_FIRST_DECISION_KIND: Record<
+  ChatFirstEffectiveDisposition,
+  F2DecisionKind
+> = {
+  accept: "GO",
+  refuse: "NO_GO",
+  amend: "AMEND",
+  defer: "GO_WITH_RESERVES",
+};
+
+const CHAT_FIRST_HUMAN_STATUS: Record<
+  ChatFirstEffectiveDisposition,
+  "accepted" | "refused" | "amended"
+> = {
+  accept: "accepted",
+  refuse: "refused",
+  amend: "amended",
+  defer: "accepted",
+};
+
+function chatFirstDecisionText(input: {
+  readonly presentation: "test_provider" | "openai_live";
+  readonly disposition: ChatFirstEffectiveDisposition;
+}): string {
+  const head =
+    input.presentation === "test_provider" ? "[Mode test]" : "[Mode réel]";
+  const body =
+    input.disposition === "accept"
+      ? [
+          "Votre décision est enregistrée : vous poursuivez le sujet proposé.",
+          "La préparation de l'action est maintenant disponible. Rien n'a encore été exécuté.",
+        ]
+      : input.disposition === "refuse"
+        ? [
+            "Votre décision est enregistrée : vous ne poursuivez pas ce sujet.",
+            "Aucun contrat d'exécution n'est préparé. Aucune trajectoire projet n'est promue.",
+          ]
+        : input.disposition === "defer"
+          ? [
+              "Votre report est enregistré : la recommandation de travail est reportée vers un cycle aval honnête.",
+              "Une réserve non bloquante trace le report. Le sujet proposé est clos.",
+            ]
+          : [
+              "Votre décision est enregistrée : le sujet doit être amendé avant d'être engagé.",
+              "Le sujet précédent est clos ; reformulez ce que vous voulez changer et je réinstruirai.",
+            ];
+  return [
+    head,
+    ...body,
+    "Nora recommande ; le Pilote décide. AUCUNE EXÉCUTION.",
+  ].join(" ");
+}
+
+/**
  * JOURNEY-INTEGRITY — the reinstruction arm is a server verdict, never a
  * client inference. "superseded" is reserved for a committed supersession of
  * the prior pending subject; an armed turn that ends any other way reports
@@ -681,9 +774,19 @@ function f2Success(base: {
   intentClass: IntentAnalysisDto["intentClass"];
   qualification?: QualificationDto;
   proposal?: ProposalDto;
+  /**
+   * CHAT-FIRST-GOVERNED-DECISION-LOOP-01 — durable HumanDecision recorded by
+   * this conversational turn (chat-first disposition). Never synthesised.
+   */
+  decision?: DecisionDto | null;
   executionBlocked?: boolean;
   mw5?: Mw5TurnSurface | null;
-  turnKind?: "f1_informative" | "f2_clarification" | "f2_proposal" | "f2_blocked";
+  turnKind?:
+    | "f1_informative"
+    | "f2_clarification"
+    | "f2_proposal"
+    | "f2_blocked"
+    | "f2_decision";
   reinstructionTransition?: "superseded" | "not_consumed" | "not_applicable";
   /**
    * JOURNEY-INTEGRITY — armed reinstruction carried by this turn. Only the
@@ -693,11 +796,14 @@ function f2Success(base: {
 }): ProjectAssistantSendResult {
   const turnKind =
     base.turnKind ??
-    (base.qualification && base.proposal
-      ? "f2_proposal"
-      : base.mw5?.disposition === "CLARIFY" || base.intentClass === "ambiguous"
-        ? "f2_clarification"
-        : "f2_blocked");
+    (base.decision
+      ? "f2_decision"
+      : base.qualification && base.proposal
+        ? "f2_proposal"
+        : base.mw5?.disposition === "CLARIFY" ||
+            base.intentClass === "ambiguous"
+          ? "f2_clarification"
+          : "f2_blocked");
   return {
     ok: true,
     status: "ok",
@@ -738,7 +844,7 @@ function f2Success(base: {
       intentClass: base.intentClass,
       qualification: base.qualification ?? null,
       proposal: base.proposal ?? null,
-      decision: null,
+      decision: base.decision ?? null,
       labels: {
         recommendation:
           base.proposal && base.qualification ? "RECOMMANDATION" : null,
@@ -746,7 +852,7 @@ function f2Success(base: {
         decisionRequired: base.proposal?.morrisGateRequired
           ? "DÉCISION REQUISE"
           : null,
-        decisionTaken: null,
+        decisionTaken: base.decision ? "DÉCISION PRISE" : null,
         noExecution: "AUCUNE EXÉCUTION",
       },
       executionBlocked: base.executionBlocked === true,
@@ -770,9 +876,15 @@ async function f2ConversationalSuccess(input: {
   intentClass: IntentAnalysisDto["intentClass"];
   qualification?: QualificationDto;
   proposal?: ProposalDto;
+  decision?: DecisionDto | null;
   executionBlocked?: boolean;
   mw5?: Mw5TurnSurface | null;
-  turnKind?: "f1_informative" | "f2_clarification" | "f2_proposal" | "f2_blocked";
+  turnKind?:
+    | "f1_informative"
+    | "f2_clarification"
+    | "f2_proposal"
+    | "f2_blocked"
+    | "f2_decision";
   reinstructionTransition?: "superseded" | "not_consumed" | "not_applicable";
   reinstructionOfProposalId?: string | null;
 }): Promise<ProjectAssistantSendResult> {
@@ -1065,6 +1177,169 @@ export async function orchestrateAssistantSend(input: {
     analysis,
     project.projectId,
   );
+
+  // ── CHAT-FIRST-GOVERNED-DECISION-LOOP-01 (Work Recommendations ONLY) ───
+  // A NON-AUTHORITATIVE disposition candidate is resolved against durable
+  // Work / Proposal decision subjects BEFORE any new DECISION_REQUIRED mint.
+  // Lifecycle NEXT_CYCLE / FINALIZE_CURRENT_CYCLE are NEVER triggered here —
+  // they stay on explicit Studio lifecycle actions (prepare / start / finalize).
+  {
+    const candidateDisposition = toEffectiveDisposition(
+      analysis.pilotDecisionCandidate?.disposition,
+    );
+    const oaForChatFirst = getRuntimeApplicationService().oa;
+    if (candidateDisposition != null && oaForChatFirst) {
+      const workGate = await assessChatFirstWorkEligibility({
+        oa: oaForChatFirst,
+        projectId: project.projectId,
+      });
+
+      if (
+        workGate.eligible === false &&
+        workGate.kind === "ambiguous_subjects"
+      ) {
+        return f2ConversationalSuccess({
+          userText: content,
+          sessionDbPath: input.sessionDbPath,
+          text: [
+            presentation === "test_provider" ? "[Mode test]" : "[Mode réel]",
+            workGate.message ??
+              "Plusieurs sujets de décision gouvernés sont ouverts.",
+            "Aucune décision n'a été enregistrée. Précisez lequel vous voulez traiter — la conversation reste ouverte.",
+          ].join(" "),
+          mode: modeResolution.mode as "fixture" | "live",
+          presentation,
+          model,
+          project,
+          intentClass: analysis.intentClass,
+          turnKind: "f2_clarification",
+          reinstructionOfProposalId,
+        });
+      }
+
+      if (workGate.eligible === true) {
+        const resolved = await resolveChatFirstPilotDecision({
+          oa: oaForChatFirst,
+          projectId: project.projectId,
+          disposition: analysis.pilotDecisionCandidate?.disposition ?? null,
+          rationale: analysis.pilotDecisionCandidate?.rationale ?? null,
+        });
+
+        if (resolved.kind === "decision_recorded") {
+          const decision: DecisionDto = {
+            decisionId: resolved.decisionId,
+            proposalId: resolved.proposalId ?? resolved.optionSetRef,
+            kind: CHAT_FIRST_DECISION_KIND[resolved.disposition],
+            statusLabel: "DÉCISION PRISE",
+            humanDecisionStatus:
+              CHAT_FIRST_HUMAN_STATUS[resolved.disposition],
+            scope: resolved.scope,
+            reservesText: null,
+            capturedAt: resolved.capturedAt,
+            readyForNextGatedStep: resolved.readyForNextGatedStep,
+            executionPerformed: false,
+          };
+          return f2ConversationalSuccess({
+            userText: content,
+            sessionDbPath: input.sessionDbPath,
+            text: chatFirstDecisionText({
+              presentation,
+              disposition: resolved.disposition,
+            }),
+            mode: modeResolution.mode as "fixture" | "live",
+            presentation,
+            model,
+            project,
+            intentClass: analysis.intentClass,
+            decision,
+            turnKind: "f2_decision",
+            executionBlocked: false,
+            reinstructionOfProposalId: null,
+          });
+        }
+
+        if (resolved.kind === "ambiguous_subjects") {
+          return f2ConversationalSuccess({
+            userText: content,
+            sessionDbPath: input.sessionDbPath,
+            text: [
+              presentation === "test_provider" ? "[Mode test]" : "[Mode réel]",
+              resolved.message,
+              "Aucune décision n'a été enregistrée. Précisez lequel vous voulez traiter — la conversation reste ouverte.",
+            ].join(" "),
+            mode: modeResolution.mode as "fixture" | "live",
+            presentation,
+            model,
+            project,
+            intentClass: analysis.intentClass,
+            turnKind: "f2_clarification",
+            reinstructionOfProposalId,
+          });
+        }
+
+        if (resolved.kind === "defer_target_unresolved") {
+          return f2ConversationalSuccess({
+            userText: content,
+            sessionDbPath: input.sessionDbPath,
+            text: [
+              presentation === "test_provider" ? "[Mode test]" : "[Mode réel]",
+              resolved.message,
+            ].join(" "),
+            mode: modeResolution.mode as "fixture" | "live",
+            presentation,
+            model,
+            project,
+            intentClass: analysis.intentClass,
+            turnKind: "f2_clarification",
+            reinstructionOfProposalId,
+          });
+        }
+
+        if (
+          resolved.kind === "subject_read_failed" ||
+          resolved.kind === "decision_refused"
+        ) {
+          return f2ConversationalSuccess({
+            userText: content,
+            sessionDbPath: input.sessionDbPath,
+            text: [
+              presentation === "test_provider" ? "[Mode test]" : "[Mode réel]",
+              resolved.message,
+              "Aucune décision n'a été enregistrée.",
+            ].join(" "),
+            mode: modeResolution.mode as "fixture" | "live",
+            presentation,
+            model,
+            project,
+            intentClass: analysis.intentClass,
+            turnKind: "f2_blocked",
+            executionBlocked: true,
+            reinstructionOfProposalId,
+          });
+        }
+        // no_eligible_subject / no_decision → fall through
+      } else if (candidateDisposition === "defer") {
+        return f2ConversationalSuccess({
+          userText: content,
+          sessionDbPath: input.sessionDbPath,
+          text: [
+            presentation === "test_provider" ? "[Mode test]" : "[Mode réel]",
+            "Aucun sujet de travail ouvert à reporter — précisez de quoi vous parlez.",
+            "Les transitions de cycle (démarrer / finaliser) se pilotent via les actions Studio du panneau d'état.",
+          ].join(" "),
+          mode: modeResolution.mode as "fixture" | "live",
+          presentation,
+          model,
+          project,
+          intentClass: analysis.intentClass,
+          turnKind: "f2_clarification",
+          reinstructionOfProposalId,
+        });
+      }
+      // No eligible Work subject: ordinary orchestration. Lifecycle CURRENT
+      // never receives START/FINALIZE from this conversational path.
+    }
+  }
 
   // Repository read/search/Git-truth without mutation → F1 (no Cycle/LPS mutation).
   // Deterministic override when the classifier drifts to ambiguous/actionable for pure reads.
@@ -1397,6 +1672,24 @@ export async function orchestrateAssistantSend(input: {
       mode: modeResolution.mode,
     });
     if (!reinstructionGate.ok) {
+      if (isChatFirstDisposableGateCode(reinstructionGate.code)) {
+        return f2ConversationalSuccess({
+          userText: content,
+          sessionDbPath: input.sessionDbPath,
+          text: pendingDispositionClarificationText({
+            presentation,
+            gateMessage: reinstructionGate.message,
+          }),
+          mode: modeResolution.mode as "fixture" | "live",
+          presentation,
+          model,
+          project,
+          intentClass: analysis.intentClass,
+          qualification,
+          turnKind: "f2_clarification",
+          reinstructionOfProposalId,
+        });
+      }
       return {
         ok: false,
         status: "validation_error",
@@ -1694,6 +1987,24 @@ export async function orchestrateAssistantSend(input: {
       mode: modeResolution.mode,
     });
     if (!reinstructionGate.ok) {
+      if (isChatFirstDisposableGateCode(reinstructionGate.code)) {
+        return f2ConversationalSuccess({
+          userText: content,
+          sessionDbPath: input.sessionDbPath,
+          text: pendingDispositionClarificationText({
+            presentation,
+            gateMessage: reinstructionGate.message,
+          }),
+          mode: modeResolution.mode as "fixture" | "live",
+          presentation,
+          model,
+          project,
+          intentClass: analysis.intentClass,
+          qualification,
+          turnKind: "f2_clarification",
+          reinstructionOfProposalId,
+        });
+      }
       return {
         ok: false,
         status: "validation_error",

@@ -42,6 +42,36 @@ function normalizeNaturalMaterializationProbe(raw: string): string {
     .replace(/ç/g, "c");
 }
 
+/**
+ * CHAT-FIRST-GOVERNED-DECISION-LOOP-01 — deterministic NON-AUTHORITATIVE
+ * disposition candidate, emitted on the SAME structured intent payload a live
+ * provider would use. There is no parallel Fake decision writer: the server
+ * still re-resolves the durable subject and owns every HumanDecision.
+ */
+function matchPilotDecisionCandidate(
+  probe: string,
+): { disposition: string; rationale: string | null } | null {
+  if (probe.includes("__F2_DECIDE_ACCEPT__")) {
+    return { disposition: "accept", rationale: "Pilote engage le sujet présenté." };
+  }
+  if (probe.includes("__F2_DECIDE_REFUSE__")) {
+    return { disposition: "refuse", rationale: "Pilote refuse le sujet présenté." };
+  }
+  if (probe.includes("__F2_DECIDE_AMEND__")) {
+    return { disposition: "amend", rationale: "Pilote demande un amendement." };
+  }
+  if (probe.includes("__F2_DECIDE_DEFER__")) {
+    return { disposition: "defer", rationale: "Pilote demande un report." };
+  }
+  if (probe.includes("__F2_DECIDE_AMBIGUOUS__")) {
+    return { disposition: "ambiguous", rationale: "Cible du « oui » indéterminée." };
+  }
+  if (probe.includes("__F2_DECIDE_NONE__")) {
+    return { disposition: "none", rationale: null };
+  }
+  return null;
+}
+
 /** Exactly one repository-relative `.md` path from CURRENT demand; else null. */
 function extractSingleRepoRelativeMdPath(probe: string): string | null {
   const re =
@@ -490,6 +520,38 @@ export class FakeConversationProvider implements ConversationProvider {
     const naturalProbe = markerProbe
       .replace(/__MW5_[A-Z0-9_]+__/g, " ")
       .replace(/__F2_[A-Z0-9_]+__/g, " ");
+
+    // CHAT-FIRST-GOVERNED-DECISION-LOOP-01 — the disposition candidate rides on
+    // an otherwise ordinary informative analysis. It never carries a subject id:
+    // the server re-resolves the durable subject or records nothing.
+    if (isF2IntentAnalysisContext(messages)) {
+      const pilotDecisionCandidate = matchPilotDecisionCandidate(markerProbe);
+      if (pilotDecisionCandidate) {
+        return fakeF2JsonResult(this.callCount, {
+          intentClass: "informative",
+          candidateCycleTypeId: null,
+          signals: null,
+          cognitiveWorkload: null,
+          contradictionCandidate: null,
+          challengeResponseAssessment: null,
+          continuationKind: null,
+          artifactMaterializationOperation: null,
+          objective: null,
+          scope: null,
+          rephrasedRequest: naturalProbe.trim().slice(0, 200),
+          outOfScope: [],
+          risks: [],
+          reservations: [],
+          stopConditions: [],
+          activatedBlocks: [],
+          expectedOutcome: null,
+          criticalJustification: null,
+          requestedOperation: null,
+          executionIntent: null,
+          pilotDecisionCandidate,
+        });
+      }
+    }
 
     if (markerProbe.includes("__MW5_HIGH_ASSURANCE__")) {
       // Prefer natural materialization + HA CWP on the product continuation path

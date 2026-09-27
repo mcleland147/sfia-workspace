@@ -28,9 +28,12 @@ import {
   canDeferReservation,
   resolveHonestReservationDeferTarget,
   presentDeferredTargetLabel,
+  type CycleDecisionProjectionCard,
   type CycleReservationProjectionCard,
   type CycleReservationSummary,
+  projectCycleWorkRecommendations,
 } from "@/lib/oa/cycle";
+import type { HumanDecision } from "@/lib/oa/decision";
 import type {
   EpistemicItem,
   ProjectTrajectory,
@@ -1348,6 +1351,32 @@ function projectCycleReservations(input: {
   return { cards, summary };
 }
 
+/**
+ * CHAT-FIRST-GOVERNED-DECISION-LOOP-01 — project durable HumanDecisions into
+ * read-only Journal cards. Newest first. Never an authority surface: the cards
+ * carry no accept/refuse affordance and no Recommendation→Decision promotion.
+ */
+function projectCycleDecisionCards(
+  decisions: readonly HumanDecision[],
+): CycleDecisionProjectionCard[] {
+  return [...decisions]
+    .sort((a, b) => (a.effectiveAt < b.effectiveAt ? 1 : a.effectiveAt > b.effectiveAt ? -1 : 0))
+    .map((d) => ({
+      decisionId: d.decisionId,
+      subject: d.subject,
+      status: d.status,
+      selectedOptionLabel:
+        d.options.find((o) => o.optionId === d.selectedOptionId)?.label ??
+        d.selectedOptionId,
+      actorDisplayName: d.actor.displayName ?? d.actor.actorId,
+      authority: d.authority,
+      effectiveAt: d.effectiveAt,
+      cycleInstanceId: d.cycleInstanceId ?? null,
+      decisionBasisLinked: Boolean(d.decisionBasis),
+      reservations: (d.reservations ?? []).map((r) => r.statement),
+    }));
+}
+
 async function buildAssistantPilotLifecycleProjection(
   projectId: string,
 ): Promise<PilotLifecycleProjection | null> {
@@ -1506,6 +1535,19 @@ async function buildAssistantPilotLifecycleProjection(
     projection.cycleReservations = scoped.cards;
     projection.reservationSummary = scoped.summary;
   }
+
+  // CHAT-FIRST — Décisions Journal tab (HumanDecision history).
+  projection.cycleDecisions = projectCycleDecisionCards(decisions);
+
+  // Morris correction — Work Recommendations for Journal > Recommandations.
+  // Lifecycle CURRENT stays on currentRecommendations (right panel / audit only).
+  const workCycleId =
+    projection.selectedCycleInstanceId ?? projection.activeCycleInstanceId;
+  projection.cycleWorkRecommendations = projectCycleWorkRecommendations({
+    items: epistemicItems,
+    cycleInstanceId: workCycleId,
+    fallbackCycleInstanceId: workCycleId,
+  });
 
   if (
     projection.selectedStatus &&

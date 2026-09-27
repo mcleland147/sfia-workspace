@@ -64,6 +64,7 @@ export {
   type PilotLifecycleProjection,
   type CycleReservationProjectionCard,
   type CycleReservationSummary,
+  type CycleDecisionProjectionCard,
 } from "./application/lifecycleProjection";
 export * from "./application/lifecycleRecommendation";
 export {
@@ -72,6 +73,18 @@ export {
   listFinalizationBlockingReservations,
   type LifecycleBlockerSnapshot,
 } from "./application/deriveLifecycleBlockers";
+export {
+  deriveUndisposedRecommendations,
+  type UndisposedRecommendation,
+} from "./application/deriveUndisposedRecommendations";
+export {
+  isLifecycleRecommendationItem,
+  isWorkRecommendationItem,
+  projectCycleWorkRecommendations,
+  workRecommendationBelongsToCycle,
+  workRecommendationOptionSetRef,
+  type WorkRecommendationProjectionCard,
+} from "./application/deriveWorkRecommendations";
 export {
   deriveFinalizationApplicability,
   obligationPolicySubjectFor,

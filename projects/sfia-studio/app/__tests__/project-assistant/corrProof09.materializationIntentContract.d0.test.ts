@@ -186,6 +186,7 @@ describe("CORR-PROOF-09 remediation — CR-09-01 / CR-09-02", () => {
       requestedOperation: null,
       executionIntent: ei(),
       continuationKind: "active_cycle_artifact_materialization",
+      pilotDecisionCandidate: null,
     };
     expect(
       validateIntent({
@@ -402,6 +403,7 @@ describe("CORR-PROOF-09 remediation — CR-09-01 / CR-09-02", () => {
         executionIntent: ei({ requestedOperation: "create pr" }),
         continuationKind: null,
         artifactMaterializationOperation: null,
+        pilotDecisionCandidate: null,
       }),
     ).toBe(true);
   });

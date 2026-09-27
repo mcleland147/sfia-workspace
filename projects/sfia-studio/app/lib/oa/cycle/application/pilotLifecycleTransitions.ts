@@ -40,6 +40,7 @@ import {
   isAcceptedStartTrajectoryDecision,
   type AssessFinalizationInput,
 } from "./assessFinalization";
+import { deriveUndisposedRecommendations } from "./deriveUndisposedRecommendations";
 import {
   assessResumeReconciliation,
   buildPauseReconciliationSnapshot,
@@ -1558,6 +1559,12 @@ export class PilotLifecycleTransitions {
       ? blockersSnap.statements
       : ["blocker_source_unreadable"];
 
+    const undisposedRecommendationRefs =
+      await this.loadUndisposedRecommendationRefs(
+        input.projectId,
+        input.cycle.cycleInstanceId,
+      );
+
     const snapshot: AssessFinalizationInput = {
       cycle: input.cycle,
       projectId: input.projectId,
@@ -1571,8 +1578,30 @@ export class PilotLifecycleTransitions {
       executionAttempts,
       applicability,
       blockingReservationStatements,
+      undisposedRecommendationRefs,
     };
     return assessFinalizationObligations(snapshot);
+  }
+
+  /**
+   * CHAT-FIRST-GOVERNED-DECISION-LOOP-01 — Work Recommendations only for the
+   * cycle under assessment. Lifecycle NEXT_CYCLE / FINALIZE_CURRENT_CYCLE never
+   * appear here. An unreadable Epistemic source must not silently mean
+   * "nothing to dispose".
+   */
+  private async loadUndisposedRecommendationRefs(
+    projectId: string,
+    cycleInstanceId: string,
+  ): Promise<readonly string[]> {
+    if (!this.deps.epistemic) return ["recommendation_source_unreadable"];
+    try {
+      const items = await this.deps.epistemic.listByProject(projectId);
+      return deriveUndisposedRecommendations(items, cycleInstanceId).map(
+        (r) => r.epistemicItemId,
+      );
+    } catch {
+      return ["recommendation_source_unreadable"];
+    }
   }
 
   private async loadBlockers(

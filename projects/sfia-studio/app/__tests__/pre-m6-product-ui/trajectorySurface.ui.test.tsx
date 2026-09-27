@@ -1,4 +1,12 @@
-/** @vitest-environment jsdom */
+/**
+ * @vitest-environment jsdom
+ *
+ * CHAT-FIRST-GOVERNED-DECISION-LOOP-01 — these historical W2 authority-path
+ * proofs exercise the « Instruire les options » / per-option « Décider »
+ * affordances, which are RETIRED from the nominal product path. They now render
+ * with `decisionWorkflowMode="legacy_cta"` so the server actions and their
+ * fail-closed behaviour stay proven while the nominal surface stays read-only.
+ */
 import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { TrajectorySurface } from "@/features/pre-m6-product-ui/surfaces/TrajectorySurface";
@@ -246,7 +254,7 @@ describe("W2 TrajectorySurface", () => {
       decisionSubjectMode: "proposal",
     });
 
-    render(<TrajectorySurface projectId="prj:w2-ui" />);
+    render(<TrajectorySurface decisionWorkflowMode="legacy_cta" projectId="prj:w2-ui" />);
     fireEvent.click(await screen.findByTestId("w2-propose-options"));
     await screen.findByTestId("w2-options");
     fireEvent.click(screen.getByTestId("w2-decide-opt:proposal-subject:amend"));
@@ -316,7 +324,7 @@ describe("W2 TrajectorySurface", () => {
       decisionSubjectMode: "proposal",
     });
     // Without prepare mock → soft fail keeps resume PREPARE CTA (fallback).
-    render(<TrajectorySurface projectId="prj:w2-ui" />);
+    render(<TrajectorySurface decisionWorkflowMode="legacy_cta" projectId="prj:w2-ui" />);
     fireEvent.click(await screen.findByTestId("w2-propose-options"));
     await screen.findByTestId("w2-options");
     fireEvent.click(screen.getByTestId("w2-decide-opt:proposal-subject:pursue"));
@@ -347,7 +355,7 @@ describe("W2 TrajectorySurface", () => {
       kind: "none",
     });
 
-    render(<TrajectorySurface projectId="prj:w2-ui" />);
+    render(<TrajectorySurface decisionWorkflowMode="legacy_cta" projectId="prj:w2-ui" />);
 
     expect(await screen.findByTestId("w2-decision")).toBeVisible();
     expect(screen.getByTestId("w2-proposal-backed-prepare")).toBeVisible();
@@ -495,7 +503,7 @@ describe("W2 TrajectorySurface", () => {
       recoveryContextPresent: true,
     });
 
-    render(<TrajectorySurface projectId="prj:w2-ui" />);
+    render(<TrajectorySurface decisionWorkflowMode="legacy_cta" projectId="prj:w2-ui" />);
     fireEvent.click(await screen.findByTestId("w2-propose-options"));
     await screen.findByTestId("w2-options");
     fireEvent.click(
@@ -600,7 +608,7 @@ describe("W2 TrajectorySurface", () => {
       executionPerformed: false,
     });
 
-    render(<TrajectorySurface projectId="prj:w2-ui" />);
+    render(<TrajectorySurface decisionWorkflowMode="legacy_cta" projectId="prj:w2-ui" />);
     fireEvent.click(await screen.findByTestId("w2-propose-options"));
     await screen.findByTestId("w2-options");
     fireEvent.click(
@@ -681,7 +689,7 @@ describe("W2 TrajectorySurface", () => {
       recoveryContextPresent: false,
     });
 
-    render(<TrajectorySurface projectId="prj:w2-ui" />);
+    render(<TrajectorySurface decisionWorkflowMode="legacy_cta" projectId="prj:w2-ui" />);
     fireEvent.click(await screen.findByTestId("w2-propose-options"));
     await screen.findByTestId("w2-options");
     fireEvent.click(
@@ -759,7 +767,7 @@ describe("W2 TrajectorySurface", () => {
       recoveryContextPresent: false,
     });
 
-    render(<TrajectorySurface projectId="prj:w2-ui" />);
+    render(<TrajectorySurface decisionWorkflowMode="legacy_cta" projectId="prj:w2-ui" />);
     fireEvent.click(await screen.findByTestId("w2-propose-options"));
     await screen.findByTestId("w2-options");
     fireEvent.click(
@@ -832,7 +840,7 @@ describe("W2 TrajectorySurface", () => {
     });
     readRecoveryExecutionBindingMock.mockResolvedValue(undefined);
 
-    render(<TrajectorySurface projectId="prj:w2-ui" />);
+    render(<TrajectorySurface decisionWorkflowMode="legacy_cta" projectId="prj:w2-ui" />);
     fireEvent.click(await screen.findByTestId("w2-propose-options"));
     await screen.findByTestId("w2-options");
     fireEvent.click(
@@ -927,7 +935,7 @@ describe("W2 TrajectorySurface", () => {
       }),
     );
 
-    render(<TrajectorySurface projectId="prj:w2-ui" />);
+    render(<TrajectorySurface decisionWorkflowMode="legacy_cta" projectId="prj:w2-ui" />);
     expect(
       await screen.findByTestId("w2-recovery-docs-write-prepare"),
     ).toBeVisible();
@@ -965,7 +973,7 @@ describe("W2 TrajectorySurface", () => {
         "Claim GOVERNED durable incohérent — lignée recovery fail-closed.",
     });
 
-    render(<TrajectorySurface projectId="prj:w2-ui" />);
+    render(<TrajectorySurface decisionWorkflowMode="legacy_cta" projectId="prj:w2-ui" />);
     expect(
       await screen.findByText(/lignée recovery fail-closed|Claim GOVERNED/i),
     ).toBeVisible();
@@ -1047,7 +1055,7 @@ describe("W2 TrajectorySurface", () => {
       executionPerformed: false,
     });
 
-    render(<TrajectorySurface projectId="prj:w2-ui" />);
+    render(<TrajectorySurface decisionWorkflowMode="legacy_cta" projectId="prj:w2-ui" />);
 
     expect(await screen.findByTestId("w2-decision")).toBeVisible();
     expect(screen.queryByTestId("w2-propose-options")).toBeNull();
@@ -1154,7 +1162,7 @@ describe("W2 TrajectorySurface", () => {
       decisionSubjectMode: "project_trajectory",
     });
 
-    render(<TrajectorySurface projectId="prj:rc05" />);
+    render(<TrajectorySurface decisionWorkflowMode="legacy_cta" projectId="prj:rc05" />);
     fireEvent.click(await screen.findByTestId("w2-propose-options"));
     expect(await screen.findByTestId("w2-options")).toBeVisible();
     expect(screen.getByTestId("w2-recommendation")).toBeVisible();
@@ -1280,7 +1288,7 @@ describe("W2 TrajectorySurface", () => {
       grantsAuthority: false,
     });
 
-    render(<TrajectorySurface projectId="prj:rc06" />);
+    render(<TrajectorySurface decisionWorkflowMode="legacy_cta" projectId="prj:rc06" />);
     fireEvent.click(await screen.findByTestId("w2-propose-options"));
     await screen.findByTestId("w2-options");
     fireEvent.click(
@@ -1399,7 +1407,7 @@ describe("W2 TrajectorySurface", () => {
       recoveryContextPresent: true,
     });
 
-    render(<TrajectorySurface projectId="prj:w2-ui" />);
+    render(<TrajectorySurface decisionWorkflowMode="legacy_cta" projectId="prj:w2-ui" />);
 
     // T1 — binding loaded with continuity decisionRef (decision client null)
     await waitFor(() => {
@@ -1535,7 +1543,7 @@ describe("W2 TrajectorySurface", () => {
       executionPerformed: false,
     });
 
-    render(<TrajectorySurface projectId="prj:w2-ui" />);
+    render(<TrajectorySurface decisionWorkflowMode="legacy_cta" projectId="prj:w2-ui" />);
 
     expect(await screen.findByTestId("w2-propose-options")).toBeVisible();
     fireEvent.click(screen.getByTestId("w2-propose-options"));
@@ -1610,7 +1618,7 @@ describe("W2 TrajectorySurface", () => {
       executionPerformed: false,
     });
 
-    render(<TrajectorySurface projectId="prj:w2-ui-pj" />);
+    render(<TrajectorySurface decisionWorkflowMode="legacy_cta" projectId="prj:w2-ui-pj" />);
     fireEvent.click(await screen.findByTestId("w2-propose-options"));
     expect(await screen.findByTestId("w2-recommendation")).toBeVisible();
 
@@ -1709,7 +1717,7 @@ describe("W2 TrajectorySurface", () => {
       executionPerformed: false,
     });
 
-    render(<TrajectorySurface projectId="prj:w2-ui" />);
+    render(<TrajectorySurface decisionWorkflowMode="legacy_cta" projectId="prj:w2-ui" />);
     expect(await screen.findByTestId("w2-propose-options")).toBeVisible();
     fireEvent.click(screen.getByTestId("w2-propose-options"));
     await screen.findByTestId("w2-options");
@@ -2059,7 +2067,7 @@ describe("D-GF-START-01 TrajectorySurface prepare/start CTAs", () => {
     });
     readPreparedCycleMock.mockResolvedValue({ ok: true, prepared: null });
 
-    render(<TrajectorySurface projectId="prj:gf-prep" />);
+    render(<TrajectorySurface decisionWorkflowMode="legacy_cta" projectId="prj:gf-prep" />);
     expect(await screen.findByTestId("pre-cycle-decided-trajectory")).toBeVisible();
     expect(screen.getByTestId("pre-cycle-prepare-cycle")).toHaveTextContent(
       "Préparer le cycle",
@@ -2092,7 +2100,7 @@ describe("D-GF-START-01 TrajectorySurface prepare/start CTAs", () => {
     });
     readPreparedCycleMock.mockResolvedValue({ ok: true, prepared: null });
 
-    render(<TrajectorySurface projectId="prj:gf-prep-blocked" />);
+    render(<TrajectorySurface decisionWorkflowMode="legacy_cta" projectId="prj:gf-prep-blocked" />);
     expect(await screen.findByTestId("pre-cycle-decided-trajectory")).toBeVisible();
     expect(screen.getByTestId("pre-cycle-prepare-blocked")).toBeVisible();
     expect(screen.queryByTestId("pre-cycle-prepare-cycle")).toBeNull();
@@ -2136,7 +2144,7 @@ describe("D-GF-START-01 TrajectorySurface prepare/start CTAs", () => {
       },
     });
 
-    render(<TrajectorySurface projectId="prj:gf-start" />);
+    render(<TrajectorySurface decisionWorkflowMode="legacy_cta" projectId="prj:gf-start" />);
     expect(await screen.findByTestId("pre-cycle-prepared-cycle")).toHaveTextContent(
       "profil Light",
     );
@@ -2181,7 +2189,7 @@ describe("D-GF-START-01 TrajectorySurface prepare/start CTAs", () => {
 
     // Re-render via durableRefreshSignal path: remount
     cleanup();
-    render(<TrajectorySurface projectId="prj:gf-start" />);
+    render(<TrajectorySurface decisionWorkflowMode="legacy_cta" projectId="prj:gf-start" />);
     await waitFor(() => {
       expect(screen.queryByTestId("pre-cycle-prepare-cycle")).toBeNull();
       expect(screen.queryByTestId("pre-cycle-start-cycle")).toBeNull();
@@ -2204,7 +2212,7 @@ describe("CORR-PROOF-11 final — pending reinstruction UI states", () => {
     });
 
     render(
-      <TrajectorySurface
+      <TrajectorySurface decisionWorkflowMode="legacy_cta"
         projectId="prj:ambig"
         onRequestReformulateWithNora={reformulate}
       />,
@@ -2270,7 +2278,7 @@ describe("CORR-PROOF-11 final — pending reinstruction UI states", () => {
       ckcCognitionCompletedBeforeMutation: true,
     });
 
-    render(<TrajectorySurface projectId="prj:recoverable" />);
+    render(<TrajectorySurface decisionWorkflowMode="legacy_cta" projectId="prj:recoverable" />);
 
     expect(await screen.findByTestId("w2-options")).toBeVisible();
     expect(proposeMock).toHaveBeenCalled();
@@ -2290,7 +2298,7 @@ describe("CORR-PROOF-11 final — pending reinstruction UI states", () => {
     });
 
     render(
-      <TrajectorySurface
+      <TrajectorySurface decisionWorkflowMode="legacy_cta"
         projectId="prj:lost"
         onRequestReformulateWithNora={reformulate}
       />,
@@ -2321,7 +2329,7 @@ describe("CORR-PROOF-11 final — pending reinstruction UI states", () => {
       recoverableProposalIds: [],
     });
 
-    render(<TrajectorySurface projectId="prj:jargon" />);
+    render(<TrajectorySurface decisionWorkflowMode="legacy_cta" projectId="prj:jargon" />);
     const body = (await screen.findByTestId("w2-pending-reinstruction-body"))
       .textContent ?? "";
     expect(body).not.toMatch(/fallback/i);
@@ -2342,7 +2350,7 @@ describe("CORR-PROOF-11 final — pending reinstruction UI states", () => {
       recoverableProposalIds: [],
     });
 
-    render(<TrajectorySurface projectId="prj:pending-cta" />);
+    render(<TrajectorySurface decisionWorkflowMode="legacy_cta" projectId="prj:pending-cta" />);
     expect(await screen.findByTestId("w2-pending-reinstruction")).toBeVisible();
     expect(screen.queryByTestId("w2-propose-options")).toBeNull();
     expect(proposeMock).not.toHaveBeenCalled();
@@ -2360,7 +2368,7 @@ describe("CORR-PROOF-11 final — pending reinstruction UI states", () => {
     });
 
     render(
-      <TrajectorySurface
+      <TrajectorySurface decisionWorkflowMode="legacy_cta"
         projectId="prj:own-a"
         onProposalSubjectOwnershipChange={onOwnership}
         onRequestReformulateWithNora={vi.fn()}
@@ -2381,7 +2389,7 @@ describe("CORR-PROOF-11 final — pending reinstruction UI states", () => {
     });
 
     render(
-      <TrajectorySurface
+      <TrajectorySurface decisionWorkflowMode="legacy_cta"
         projectId="prj:own-none"
         onProposalSubjectOwnershipChange={onOwnership}
       />,
@@ -2400,7 +2408,7 @@ describe("CORR-PROOF-11 final — pending reinstruction UI states", () => {
     });
 
     render(
-      <TrajectorySurface
+      <TrajectorySurface decisionWorkflowMode="legacy_cta"
         projectId="prj:own-err"
         onProposalSubjectOwnershipChange={onOwnership}
       />,
@@ -2459,7 +2467,7 @@ describe("JOURNEY-INTEGRITY — CTA exclusivity on the mutating primary action",
   it("an OptionSet awaiting the decision hides the generic instruct CTA", async () => {
     proposeMock.mockResolvedValue(PROPOSAL_OPTION_SET);
 
-    render(<TrajectorySurface projectId="prj:cta-optionset" />);
+    render(<TrajectorySurface decisionWorkflowMode="legacy_cta" projectId="prj:cta-optionset" />);
     fireEvent.click(await screen.findByTestId("w2-propose-options"));
     await screen.findByTestId("w2-options");
 
@@ -2472,7 +2480,7 @@ describe("JOURNEY-INTEGRITY — CTA exclusivity on the mutating primary action",
   });
 
   it("no decision subject at all: the generic instruct CTA stays reachable", async () => {
-    render(<TrajectorySurface projectId="prj:cta-none" />);
+    render(<TrajectorySurface decisionWorkflowMode="legacy_cta" projectId="prj:cta-none" />);
 
     const cta = await screen.findByTestId("w2-propose-options");
     expect(cta).toBeVisible();
@@ -2693,7 +2701,7 @@ describe("JOURNEY-INTEGRITY — Proposal-backed PREPARE (sealed operation)", () 
       grantsAuthority: false,
     });
 
-    render(<TrajectorySurface projectId={projectId} />);
+    render(<TrajectorySurface decisionWorkflowMode="legacy_cta" projectId={projectId} />);
     fireEvent.click(await screen.findByTestId("w2-propose-options"));
     await screen.findByTestId("w2-options");
     fireEvent.click(screen.getByTestId(`w2-decide-${PROPOSAL_SUBJECT_PURSUE_REF}`));
@@ -2811,7 +2819,7 @@ describe("JOURNEY-INTEGRITY — Proposal-backed PREPARE (sealed operation)", () 
       }),
     );
 
-    render(<TrajectorySurface projectId="prj:sealed-refuse" />);
+    render(<TrajectorySurface decisionWorkflowMode="legacy_cta" projectId="prj:sealed-refuse" />);
     fireEvent.click(await screen.findByTestId("w2-propose-options"));
     await screen.findByTestId("w2-options");
     fireEvent.click(screen.getByTestId(`w2-decide-${PROPOSAL_SUBJECT_REFUSE_REF}`));
@@ -2839,7 +2847,7 @@ describe("JOURNEY-INTEGRITY — Proposal-backed PREPARE (sealed operation)", () 
       decision: { ...unlinked.decision, decisionBasisLinked: false },
     });
 
-    render(<TrajectorySurface projectId="prj:unlinked" />);
+    render(<TrajectorySurface decisionWorkflowMode="legacy_cta" projectId="prj:unlinked" />);
     fireEvent.click(await screen.findByTestId("w2-propose-options"));
     await screen.findByTestId("w2-options");
     fireEvent.click(screen.getByTestId(`w2-decide-${PROPOSAL_SUBJECT_PURSUE_REF}`));
@@ -2925,7 +2933,7 @@ describe("JOURNEY-INTEGRITY — Proposal-backed PREPARE (sealed operation)", () 
       },
     });
 
-    render(<TrajectorySurface projectId="prj:ae9bd0de-e24d-474f-880d-ff5ea56dbaf6" />);
+    render(<TrajectorySurface decisionWorkflowMode="legacy_cta" projectId="prj:ae9bd0de-e24d-474f-880d-ff5ea56dbaf6" />);
 
     expect(await screen.findByTestId("w2-contract")).toBeVisible();
     expect(screen.getByTestId("w2-contract-action").textContent).toBe(
@@ -3098,7 +3106,7 @@ describe("JOURNEY-INTEGRITY — Proposal-backed PREPARE (sealed operation)", () 
       },
     });
 
-    render(<TrajectorySurface projectId="prj:legacy-remat" />);
+    render(<TrajectorySurface decisionWorkflowMode="legacy_cta" projectId="prj:legacy-remat" />);
     expect(await screen.findByTestId("w2-contract")).toBeVisible();
     expect(screen.queryByTestId("w2-prepare-contract")).toBeNull();
     expect(screen.queryByTestId("w2-proposal-backed-prepare")).toBeNull();
@@ -3136,7 +3144,7 @@ describe("JOURNEY-INTEGRITY — Proposal-backed PREPARE (sealed operation)", () 
       }),
     );
 
-    render(<TrajectorySurface projectId="prj:pending-continuity" />);
+    render(<TrajectorySurface decisionWorkflowMode="legacy_cta" projectId="prj:pending-continuity" />);
     await waitFor(() => {
       expect(readActiveDecisionSubjectMock).toHaveBeenCalled();
     });
@@ -3154,7 +3162,7 @@ describe("JOURNEY-INTEGRITY — Proposal-backed PREPARE (sealed operation)", () 
         "Plusieurs contrats d'exécution courants non terminés — continuation refusée.",
     });
 
-    render(<TrajectorySurface projectId="prj:ambiguous-continuity" />);
+    render(<TrajectorySurface decisionWorkflowMode="legacy_cta" projectId="prj:ambiguous-continuity" />);
     expect(await screen.findByTestId("w2-error")).toBeVisible();
     expect(screen.getByTestId("w2-error").textContent).toMatch(/Plusieurs contrats/);
     expect(screen.queryByTestId("w2-propose-options")).toBeNull();
@@ -3162,7 +3170,7 @@ describe("JOURNEY-INTEGRITY — Proposal-backed PREPARE (sealed operation)", () 
   });
 
   it("EC rehydration — kind none + subject none still shows Instruire after both resolve", async () => {
-    render(<TrajectorySurface projectId="prj:none-none" />);
+    render(<TrajectorySurface decisionWorkflowMode="legacy_cta" projectId="prj:none-none" />);
     expect(await screen.findByTestId("w2-propose-options")).toBeVisible();
   });
 
@@ -3261,7 +3269,7 @@ describe("JOURNEY-INTEGRITY — Proposal-backed PREPARE (sealed operation)", () 
       },
     });
 
-    render(<TrajectorySurface projectId="prj:conflict" />);
+    render(<TrajectorySurface decisionWorkflowMode="legacy_cta" projectId="prj:conflict" />);
     expect(await screen.findByTestId("w2-error")).toBeVisible();
     expect(screen.getByTestId("w2-error").textContent).toMatch(/Contradiction/);
     expect(screen.queryByTestId("w2-propose-options")).toBeNull();
@@ -3278,7 +3286,7 @@ describe("JOURNEY-INTEGRITY — Proposal-backed PREPARE (sealed operation)", () 
       campaignActiveContinuityResult(),
     );
 
-    render(<TrajectorySurface projectId="prj:subject-error-blocks-ec" />);
+    render(<TrajectorySurface decisionWorkflowMode="legacy_cta" projectId="prj:subject-error-blocks-ec" />);
 
     expect(await screen.findByTestId("w2-error")).toBeVisible();
     expect(screen.getByTestId("w2-error").textContent).toMatch(
@@ -3300,7 +3308,7 @@ describe("JOURNEY-INTEGRITY — Proposal-backed PREPARE (sealed operation)", () 
     );
 
     const { rerender } = render(
-      <TrajectorySurface
+      <TrajectorySurface decisionWorkflowMode="legacy_cta"
         projectId="prj:subject-pending-blocks-ec"
         durableRefreshSignal={0}
       />,
@@ -3318,7 +3326,7 @@ describe("JOURNEY-INTEGRITY — Proposal-backed PREPARE (sealed operation)", () 
     );
 
     rerender(
-      <TrajectorySurface
+      <TrajectorySurface decisionWorkflowMode="legacy_cta"
         projectId="prj:subject-pending-blocks-ec"
         durableRefreshSignal={1}
       />,
@@ -3347,7 +3355,7 @@ describe("JOURNEY-INTEGRITY — Proposal-backed PREPARE (sealed operation)", () 
       .mockResolvedValue({ ok: true, kind: "none" });
 
     const { rerender } = render(
-      <TrajectorySurface
+      <TrajectorySurface decisionWorkflowMode="legacy_cta"
         projectId="prj:active-then-none"
         durableRefreshSignal={0}
       />,
@@ -3362,7 +3370,7 @@ describe("JOURNEY-INTEGRITY — Proposal-backed PREPARE (sealed operation)", () 
     );
 
     rerender(
-      <TrajectorySurface
+      <TrajectorySurface decisionWorkflowMode="legacy_cta"
         projectId="prj:active-then-none"
         durableRefreshSignal={1}
       />,
@@ -3394,7 +3402,7 @@ describe("JOURNEY-INTEGRITY — Proposal-backed PREPARE (sealed operation)", () 
     });
 
     const { rerender } = render(
-      <TrajectorySurface
+      <TrajectorySurface decisionWorkflowMode="legacy_cta"
         projectId="prj:stale-optionset-subject-error"
         durableRefreshSignal={0}
       />,
@@ -3420,7 +3428,7 @@ describe("JOURNEY-INTEGRITY — Proposal-backed PREPARE (sealed operation)", () 
     });
 
     rerender(
-      <TrajectorySurface
+      <TrajectorySurface decisionWorkflowMode="legacy_cta"
         projectId="prj:stale-optionset-subject-error"
         durableRefreshSignal={1}
       />,
@@ -3480,7 +3488,7 @@ describe("JOURNEY-INTEGRITY — Proposal-backed PREPARE (sealed operation)", () 
     });
 
     const { rerender } = render(
-      <TrajectorySurface
+      <TrajectorySurface decisionWorkflowMode="legacy_cta"
         projectId="prj:stale-decision-prepare-block"
         durableRefreshSignal={0}
       />,
@@ -3505,7 +3513,7 @@ describe("JOURNEY-INTEGRITY — Proposal-backed PREPARE (sealed operation)", () 
     });
 
     rerender(
-      <TrajectorySurface
+      <TrajectorySurface decisionWorkflowMode="legacy_cta"
         projectId="prj:stale-decision-prepare-block"
         durableRefreshSignal={1}
       />,
@@ -3535,7 +3543,7 @@ describe("JOURNEY-INTEGRITY — Proposal-backed PREPARE (sealed operation)", () 
       }),
     );
 
-    render(<TrajectorySurface projectId="prj:bound-ec-pending" />);
+    render(<TrajectorySurface decisionWorkflowMode="legacy_cta" projectId="prj:bound-ec-pending" />);
 
     const decideBtn = await screen.findByTestId(
       `w2-decide-${PROPOSAL_SUBJECT_PURSUE_REF}`,
@@ -3565,7 +3573,7 @@ describe("JOURNEY-INTEGRITY — Proposal-backed PREPARE (sealed operation)", () 
     );
 
     const { rerender } = render(
-      <TrajectorySurface
+      <TrajectorySurface decisionWorkflowMode="legacy_cta"
         projectId="prj:stale-ec-after-subject-error"
         durableRefreshSignal={0}
       />,
@@ -3584,7 +3592,7 @@ describe("JOURNEY-INTEGRITY — Proposal-backed PREPARE (sealed operation)", () 
     });
 
     rerender(
-      <TrajectorySurface
+      <TrajectorySurface decisionWorkflowMode="legacy_cta"
         projectId="prj:stale-ec-after-subject-error"
         durableRefreshSignal={1}
       />,
@@ -3623,7 +3631,7 @@ describe("JOURNEY-INTEGRITY — Proposal-backed PREPARE (sealed operation)", () 
     });
 
     const { rerender } = render(
-      <TrajectorySurface
+      <TrajectorySurface decisionWorkflowMode="legacy_cta"
         projectId="prj:recover-after-subject-error"
         durableRefreshSignal={0}
       />,
@@ -3641,7 +3649,7 @@ describe("JOURNEY-INTEGRITY — Proposal-backed PREPARE (sealed operation)", () 
     );
 
     rerender(
-      <TrajectorySurface
+      <TrajectorySurface decisionWorkflowMode="legacy_cta"
         projectId="prj:recover-after-subject-error"
         durableRefreshSignal={1}
       />,
@@ -3680,7 +3688,7 @@ describe("JOURNEY-INTEGRITY — Proposal-backed PREPARE (sealed operation)", () 
     });
 
     const { rerender } = render(
-      <TrajectorySurface
+      <TrajectorySurface decisionWorkflowMode="legacy_cta"
         projectId="prj:stale-reformulate-pending"
         durableRefreshSignal={0}
         onRequestReformulateWithNora={reformulate}
@@ -3701,7 +3709,7 @@ describe("JOURNEY-INTEGRITY — Proposal-backed PREPARE (sealed operation)", () 
     );
 
     rerender(
-      <TrajectorySurface
+      <TrajectorySurface decisionWorkflowMode="legacy_cta"
         projectId="prj:stale-reformulate-pending"
         durableRefreshSignal={1}
         onRequestReformulateWithNora={reformulate}
@@ -3747,7 +3755,7 @@ describe("JOURNEY-INTEGRITY — Proposal-backed PREPARE (sealed operation)", () 
     });
 
     const { rerender } = render(
-      <TrajectorySurface
+      <TrajectorySurface decisionWorkflowMode="legacy_cta"
         projectId="prj:stale-reformulate-error"
         durableRefreshSignal={0}
         onRequestReformulateWithNora={reformulate}
@@ -3767,7 +3775,7 @@ describe("JOURNEY-INTEGRITY — Proposal-backed PREPARE (sealed operation)", () 
     });
 
     rerender(
-      <TrajectorySurface
+      <TrajectorySurface decisionWorkflowMode="legacy_cta"
         projectId="prj:stale-reformulate-error"
         durableRefreshSignal={1}
         onRequestReformulateWithNora={reformulate}
@@ -3801,7 +3809,7 @@ describe("JOURNEY-INTEGRITY — Proposal-backed PREPARE (sealed operation)", () 
     });
 
     const { rerender } = render(
-      <TrajectorySurface
+      <TrajectorySurface decisionWorkflowMode="legacy_cta"
         projectId="prj:reformulate-recover"
         durableRefreshSignal={0}
         onRequestReformulateWithNora={reformulate}
@@ -3825,7 +3833,7 @@ describe("JOURNEY-INTEGRITY — Proposal-backed PREPARE (sealed operation)", () 
     });
 
     rerender(
-      <TrajectorySurface
+      <TrajectorySurface decisionWorkflowMode="legacy_cta"
         projectId="prj:reformulate-recover"
         durableRefreshSignal={1}
         onRequestReformulateWithNora={reformulate}
@@ -3853,7 +3861,7 @@ describe("JOURNEY-INTEGRITY — Proposal-backed PREPARE (sealed operation)", () 
     });
 
     const { rerender } = render(
-      <TrajectorySurface
+      <TrajectorySurface decisionWorkflowMode="legacy_cta"
         projectId="prj:subject-none-clears-proposal"
         durableRefreshSignal={0}
       />,
@@ -3873,7 +3881,7 @@ describe("JOURNEY-INTEGRITY — Proposal-backed PREPARE (sealed operation)", () 
     });
 
     rerender(
-      <TrajectorySurface
+      <TrajectorySurface decisionWorkflowMode="legacy_cta"
         projectId="prj:subject-none-clears-proposal"
         durableRefreshSignal={1}
       />,
@@ -3905,7 +3913,7 @@ describe("JOURNEY-INTEGRITY — Proposal-backed PREPARE (sealed operation)", () 
     });
 
     const { rerender } = render(
-      <TrajectorySurface
+      <TrajectorySurface decisionWorkflowMode="legacy_cta"
         projectId="prj:subject-none-keeps-generic"
         durableRefreshSignal={0}
       />,
@@ -3921,7 +3929,7 @@ describe("JOURNEY-INTEGRITY — Proposal-backed PREPARE (sealed operation)", () 
     });
 
     rerender(
-      <TrajectorySurface
+      <TrajectorySurface decisionWorkflowMode="legacy_cta"
         projectId="prj:subject-none-keeps-generic"
         durableRefreshSignal={1}
       />,
@@ -3967,7 +3975,7 @@ describe("JOURNEY-INTEGRITY — Proposal-backed PREPARE (sealed operation)", () 
     });
 
     const { rerender } = render(
-      <TrajectorySurface
+      <TrajectorySurface decisionWorkflowMode="legacy_cta"
         projectId="prj:subject-none-keeps-decision"
         durableRefreshSignal={0}
       />,
@@ -3991,7 +3999,7 @@ describe("JOURNEY-INTEGRITY — Proposal-backed PREPARE (sealed operation)", () 
     });
 
     rerender(
-      <TrajectorySurface
+      <TrajectorySurface decisionWorkflowMode="legacy_cta"
         projectId="prj:subject-none-keeps-decision"
         durableRefreshSignal={1}
       />,
@@ -4021,7 +4029,7 @@ describe("JOURNEY-INTEGRITY — Proposal-backed PREPARE (sealed operation)", () 
     });
 
     const { rerender } = render(
-      <TrajectorySurface
+      <TrajectorySurface decisionWorkflowMode="legacy_cta"
         projectId="prj:subject-none-clears-error"
         durableRefreshSignal={0}
       />,
@@ -4042,7 +4050,7 @@ describe("JOURNEY-INTEGRITY — Proposal-backed PREPARE (sealed operation)", () 
     });
 
     rerender(
-      <TrajectorySurface
+      <TrajectorySurface decisionWorkflowMode="legacy_cta"
         projectId="prj:subject-none-clears-error"
         durableRefreshSignal={1}
       />,

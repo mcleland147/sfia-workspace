@@ -54,6 +54,7 @@ import {
   finalizeProposalSubjectAfterDurableClosure,
   writeProposalDecisionRef,
 } from "./closeProposalDecisionSubject";
+import { disposeWorkRecommendationAfterDecision } from "./disposeWorkRecommendation";
 
 function shortId(): string {
   return randomBytes(6).toString("hex");
@@ -693,6 +694,23 @@ export async function decideTrajectory(
             closure.code,
             closure.message,
           );
+        }
+
+        const workDisposition =
+          markerReason === "refused"
+            ? ("refuse" as const)
+            : markerReason === "amended"
+              ? ("amend" as const)
+              : ("accept" as const);
+        const workDisposed = await disposeWorkRecommendationAfterDecision({
+          oa,
+          projectId: input.projectId,
+          optionSetRef: input.optionSetRef,
+          decisionId,
+          disposition: workDisposition,
+        });
+        if (!workDisposed.ok) {
+          throw new DecideAtomicFailure(workDisposed.code, workDisposed.message);
         }
 
         return {

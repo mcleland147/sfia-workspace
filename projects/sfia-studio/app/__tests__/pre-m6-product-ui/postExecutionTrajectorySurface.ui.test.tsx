@@ -503,7 +503,7 @@ describe("CR-PCONT-05 TrajectorySurface post-execution recovery", () => {
       },
     });
 
-    render(<TrajectorySurface projectId="prj:pcont-ui" />);
+    render(<TrajectorySurface decisionWorkflowMode="legacy_cta" projectId="prj:pcont-ui" />);
 
     fireEvent.click(await screen.findByTestId("w2-propose-options"));
     await screen.findByTestId("w2-options");
@@ -647,7 +647,7 @@ describe("CR-PCONT-05 TrajectorySurface post-execution recovery", () => {
       },
     });
 
-    render(<TrajectorySurface projectId="prj:true-proposal-conflict" />);
+    render(<TrajectorySurface decisionWorkflowMode="legacy_cta" projectId="prj:true-proposal-conflict" />);
     expect(await screen.findByTestId("w2-error")).toBeVisible();
     expect(screen.getByTestId("w2-error").textContent).toMatch(
       /Contradiction de continuité/,

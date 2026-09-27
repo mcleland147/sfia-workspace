@@ -51,6 +51,24 @@ export type CycleReservationProjectionCard = {
   deferredHumanDecisionLabel?: string | null;
 };
 
+/**
+ * CHAT-FIRST-GOVERNED-DECISION-LOOP-01 — read-only Journal card for one durable
+ * HumanDecision. Projection of `decisions.listByProject`; never a second store
+ * and never an actionable surface (no accept/refuse affordance).
+ */
+export type CycleDecisionProjectionCard = {
+  decisionId: string;
+  subject: string;
+  status: string;
+  selectedOptionLabel: string;
+  actorDisplayName: string;
+  authority: string;
+  effectiveAt: string;
+  cycleInstanceId: string | null;
+  decisionBasisLinked: boolean;
+  reservations: string[];
+};
+
 export type CycleReservationSummary = {
   activeCount: number;
   mayAffectCount: number;
@@ -104,6 +122,19 @@ export type PilotLifecycleProjection = {
   }>;
   /** CYCLE-RESERVATION-PILOTING-01 — all Reservations scoped to the selected cycle. */
   cycleReservations?: ReadonlyArray<CycleReservationProjectionCard>;
+  /**
+   * CHAT-FIRST-GOVERNED-DECISION-LOOP-01 — durable HumanDecisions for the
+   * « Décisions » Journal tab. Read-only projection; no CTA, no authority.
+   */
+  cycleDecisions?: ReadonlyArray<CycleDecisionProjectionCard>;
+  /**
+   * Morris correction — Work Recommendations for Journal > Recommandations.
+   * NEVER Lifecycle NEXT_CYCLE / FINALIZE_CURRENT_CYCLE (those stay on
+   * currentRecommendations for the right-panel lifecycle / audit surface).
+   */
+  cycleWorkRecommendations?: ReadonlyArray<
+    import("./deriveWorkRecommendations").WorkRecommendationProjectionCard
+  >;
   /** Counts over cycleReservations (active only for activeCount / relevance buckets). */
   reservationSummary?: CycleReservationSummary;
   /** Resume reconciliation when selected cycle is paused — never cleared by HD alone. */
