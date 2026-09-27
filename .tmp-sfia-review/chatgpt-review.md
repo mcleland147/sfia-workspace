@@ -4212,7 +4212,7 @@ Fake shares Work chat-first spine. REAL not exercised. NOT READY FOR REAL.
 
 ## Commit plan (max 2)
 
-**COMMIT 1** — Product implementation + tests  
+**COMMIT 1** — Product implementation + tests
 Message: `feat(studio): enable chat-first governed work decisions`
 
 Staged set (product + tests only):
@@ -4222,7 +4222,7 @@ Staged set (product + tests only):
 - `projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts`
 - `projects/sfia-studio/app/__tests__/**` (Hybrid + related)
 
-**COMMIT 2** — Living Runtime Reference + review pack truth-sync  
+**COMMIT 2** — Living Runtime Reference + review pack truth-sync
 Message: `docs(studio): align runtime reference with hybrid decision UX`
 
 Staged set:
@@ -4267,3 +4267,24 @@ Staged set:
 
 _(PR number/URL + CI terminal state filled after observation; republished via Review Handoff.)_
 
+## CI observation (terminal) — first run
+
+**Timestamp (UTC):** 2026-09-27T19:06:51Z
+**PR:** #537 — https://github.com/mcleland147/sfia-workspace/pull/537
+**Project HEAD observed:** `482c77e02a60f946d177e68a3eea1f4c6fad908c`
+**base SHA:** `955e86d2ea6eb0ed19dff1e66f578d61edeb3522`
+
+| Check | Result |
+|---|---|
+| Detect SFIA Studio changes | PASS |
+| Typecheck | PASS |
+| Lint | PASS |
+| Build | PASS |
+| Unit tests (Vitest) | PASS |
+| Modeled governance tests | PASS |
+| Trailing whitespace check | **FAIL** — `.tmp-sfia-review/chatgpt-review.md` lines 4215/4225 trailing spaces + blank line at EOF |
+| SFIA Studio Required Gate | FAIL (aggregate of validate) |
+
+**Classification:** purely mechanical review-pack whitespace introduced in the integration metadata section — **not** a Product/test/Bible failure.
+**Action under GO exception:** strip trailing whitespace / EOF blank in review pack only; no Product tree change; no silent Product correction.
+**Merge:** still NOT AUTHORIZED.
