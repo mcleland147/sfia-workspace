@@ -515,7 +515,7 @@ describe("W2 TrajectorySurface", () => {
     expect(prepareContractMock).not.toHaveBeenCalled();
   });
 
-  it("PRESTART-01 — known recovery + binding unresolved → fail-closed (no generic PREPARE)", async () => {
+  it("NELC — known recovery + no docs_write binding → generic PREPARE", async () => {
     proposeMock.mockResolvedValue({
       ok: true,
       optionSetRef: "optset:w2-prestart-unresolved",
@@ -577,6 +577,28 @@ describe("W2 TrajectorySurface", () => {
       binding: null,
       recoveryContextPresent: true,
     });
+    prepareContractMock.mockResolvedValue({
+      ok: true,
+      contract: {
+        executionContractId: "xct:w3a:nelc-generic",
+        version: 1,
+        status: "confirmation_required",
+        action: "studio.cursor.generalist.execute",
+        target: "studio.cursor.generalist.workspace",
+        scope: "studio.cursor.generalist.authorized_contract",
+        requiredAuthority: "N1",
+        constraints: [],
+        stopConditions: [],
+        requiredCapabilities: ["cap:studio.cursor.generalist"],
+        reversibility: "partially_reversible",
+        semanticFingerprint: "fp:nelc",
+        effectConfirmationRequired: false,
+        effectConfirmationLevel: null,
+        inspectionDisclosure: null,
+      },
+      attemptCreated: false,
+      executionPerformed: false,
+    });
 
     render(<TrajectorySurface projectId="prj:w2-ui" />);
     fireEvent.click(await screen.findByTestId("w2-propose-options"));
@@ -585,10 +607,12 @@ describe("W2 TrajectorySurface", () => {
       screen.getByTestId("w2-decide-opt:trajectory:governed-gated"),
     );
     expect(await screen.findByTestId("w2-decision")).toBeVisible();
-    expect(
-      await screen.findByText(/Binding recovery indisponible|préparation générique refusée/i),
-    ).toBeVisible();
-    expect(prepareContractMock).not.toHaveBeenCalled();
+    await waitFor(() => {
+      expect(prepareContractMock).toHaveBeenCalledWith({
+        projectId: "prj:w2-ui",
+        decisionId: "dec:w2-trj:prestart-unresolved",
+      });
+    });
     expect(prepareRecoveryDocsWriteMock).not.toHaveBeenCalled();
     expect(screen.queryByTestId("w2-recovery-docs-write-prepare")).toBeNull();
   });
@@ -887,6 +911,7 @@ describe("W2 TrajectorySurface", () => {
         decidedByDecisionRef: recoveryHd,
         decidedOptionRef: "opt:trajectory:governed-gated",
       },
+      recoveryContext: binding.recovery,
       binding,
     };
     // Runtime-like: every Server Action call returns a freshly cloned object.
@@ -949,6 +974,108 @@ describe("W2 TrajectorySurface", () => {
     expect(screen.queryByTestId("w2-decision")).toBeNull();
     expect(screen.queryByTestId("w2-recovery-docs-write-prepare")).toBeNull();
     expect(screen.queryByTestId("w2-contract")).toBeNull();
+    // StudyFlow bug class: continuity FAIL must not leave "Instruire les options".
+    expect(screen.queryByTestId("w2-propose-options")).toBeNull();
+  });
+
+  it("NELC — hard reload owned + binding=null → generic Reprendre la préparation (no docs_write CTA)", async () => {
+    const recoveryHd = "dec:w2-trj:nelc-owned-null-binding";
+    const recoveryContext = {
+      kind: "post_evidence_recovery" as const,
+      attemptId: "xat:w3a:nelc-owned",
+      attemptStatus: "succeeded" as const,
+      stopReason: null,
+      executionContractId: "xct:nelc-owned-source",
+      evidenceId: "ev:nelc-owned",
+      reviewBundleId: "rb:nelc-owned",
+      productOutcome: "UNCLAIMED" as const,
+      recommendationKind: "recover" as const,
+      requiresHumanDecision: true,
+      headline: "Résultat technique non encore prouvé",
+      rationale: "Attempt succeeded; ClaimEvaluation NOT_PROVEN.",
+      nextStep: "recovery_diagnose_or_replan",
+      realProcessInvoked: true,
+      businessEffectProven: false as const,
+      w3cEpistemicItemId: "epi:w3c-rec:nelc-owned",
+    };
+    readRecoveryOwnedDecisionContinuityMock.mockResolvedValue({
+      ok: true,
+      kind: "owned",
+      decision: {
+        decisionId: recoveryHd,
+        selectedOptionRef: "opt:trajectory:governed-gated",
+        actorRole: "Pilote",
+        authorityClass: "morris",
+        statusLabel: "DÉCISION HUMAINE PRISE",
+        capturedAt: "2026-09-26T12:00:00.000Z",
+        decisionBasisLinked: true,
+        reservesText: null,
+        proposalId: null,
+      },
+      trajectory: {
+        trajectoryId: "trj:nelc-owned",
+        version: 3,
+        status: "validated",
+        statusLabel: "TRAJECTOIRE DÉCIDÉE / COURANTE",
+        isCurrent: true,
+        decidedByDecisionRef: recoveryHd,
+        decidedOptionRef: "opt:trajectory:governed-gated",
+      },
+      recoveryContext,
+      binding: null,
+    });
+    prepareContractMock.mockResolvedValue({
+      ok: true,
+      contract: {
+        executionContractId: "xct:w3a:nelc-owned-generic",
+        version: 1,
+        status: "confirmation_required",
+        action: "studio.cursor.generalist.execute",
+        target: "studio.cursor.generalist.workspace",
+        scope: "studio.cursor.generalist.authorized_contract",
+        requiredAuthority: "N1",
+        constraints: [],
+        stopConditions: [],
+        requiredCapabilities: ["cap:studio.cursor.generalist"],
+        reversibility: "partially_reversible",
+        semanticFingerprint: "fp:nelc-owned",
+        effectConfirmationRequired: false,
+        effectConfirmationLevel: null,
+        inspectionDisclosure: null,
+      },
+      attemptCreated: false,
+      executionPerformed: false,
+    });
+
+    render(<TrajectorySurface projectId="prj:w2-ui" />);
+
+    expect(await screen.findByTestId("w2-decision")).toBeVisible();
+    expect(screen.queryByTestId("w2-propose-options")).toBeNull();
+    expect(screen.queryByTestId("w2-recovery-docs-write-prepare")).toBeNull();
+    expect(
+      await screen.findByTestId("w3a-prepare-execution-from-decision"),
+    ).toBeVisible();
+    expect(screen.getByTestId("w2-prepare-contract-sandbox")).toBeVisible();
+    expect(
+      screen.getByText(/Reprise secondaire|reprendre sans nouvel arbitrage/i),
+    ).toBeVisible();
+
+    fireEvent.click(screen.getByTestId("w2-prepare-contract-sandbox"));
+    await waitFor(() => {
+      expect(prepareContractMock).toHaveBeenCalledWith({
+        projectId: "prj:w2-ui",
+        decisionId: recoveryHd,
+      });
+    });
+    expect(prepareRecoveryDocsWriteMock).not.toHaveBeenCalled();
+    expect(proposeMock).not.toHaveBeenCalled();
+    expect(executeSelectMock).not.toHaveBeenCalled();
+    expect(executeStartMock).not.toHaveBeenCalled();
+    expect(executeCompleteMock).not.toHaveBeenCalled();
+    expect(await screen.findByTestId("w2-contract")).toBeVisible();
+    expect(screen.getByTestId("w2-contract-action")).toHaveTextContent(
+      "studio.cursor.generalist.execute",
+    );
   });
 
   it("RC-05 — before decision options+recommendation primary; after decision history collapsed", async () => {

@@ -276,6 +276,8 @@ export function TrajectorySurface({
   >("pending");
   const [executionContinuityReadStatus, setExecutionContinuityReadStatus] =
     useState<"pending" | "ready" | "error">("pending");
+  const [recoveryOwnedContinuityReadStatus, setRecoveryOwnedContinuityReadStatus] =
+    useState<"pending" | "ready" | "error">("pending");
   const [executionContinuityConflict, setExecutionContinuityConflict] =
     useState(false);
   const [continuityDecisionRef, setContinuityDecisionRef] = useState<
@@ -378,6 +380,8 @@ export function TrajectorySurface({
     subjectReadStatus === "error" ||
     executionContinuityReadStatus === "pending" ||
     executionContinuityReadStatus === "error" ||
+    recoveryOwnedContinuityReadStatus === "pending" ||
+    recoveryOwnedContinuityReadStatus === "error" ||
     executionContinuityConflict;
 
   const decidedOptionRef = decision?.selectedOptionRef ?? null;
@@ -706,33 +710,39 @@ export function TrajectorySurface({
   }, [projectId, pendingReinstruction, optionSet, decision]);
 
   /**
-   * CORR-01 / C2 + CORR-02 / C3 — after hard reload, recover recovery-owned
-   * GOVERNED HD + RecoveryExecutionBinding from durable ProjectTrajectory tip.
+   * CORR-01 / C2 + CORR-02 / C3 + NELC POST-EVIDENCE RECOVERY —
+   * after hard reload, recover recovery-owned GOVERNED HD from durable tip +
+   * PostEvidenceRecoveryContext. Legacy docs_write binding is optional.
    * ONE-WAY restoration: once `decision` is present in this mount, do not
    * rewrite it (avoids Server-Action fresh-object → setDecision → effect loop).
    */
   const rehydrateRecoveryOwnedDecisionContinuity = useCallback(async () => {
     // CORR-02 / C3 — restart seam owns restoration only while decision is absent.
     if (decision != null) {
+      setRecoveryOwnedContinuityReadStatus("ready");
       return;
     }
+    setRecoveryOwnedContinuityReadStatus("pending");
     const result = await w2ReadRecoveryOwnedDecisionContinuityAction({
       projectId,
     });
     if (!result || typeof result !== "object") {
+      setRecoveryOwnedContinuityReadStatus("error");
       setError(
         "Continuité recovery indisponible après restart — fail-closed (UNKNOWN ≠ absent).",
       );
       return;
     }
     if (!result.ok) {
+      setRecoveryOwnedContinuityReadStatus("error");
       setError(result.message);
       return;
     }
     if (result.kind === "none") {
+      setRecoveryOwnedContinuityReadStatus("ready");
       return;
     }
-    // Recovery-owned: restore HD + binding once; do not re-present OptionSet / auto-PREPARE.
+    // Recovery-owned: restore HD (+ optional legacy binding); no OptionSet / auto-PREPARE.
     setContinuityDecisionRef(result.decision.decisionId);
     setDecision(result.decision);
     setDecided(result.trajectory);
@@ -740,6 +750,7 @@ export function TrajectorySurface({
     setOptionSet(null);
     setPendingReinstruction(null);
     setError(null);
+    setRecoveryOwnedContinuityReadStatus("ready");
   }, [projectId, decision]);
 
   const refreshPreCycleCandidate = useCallback(async () => {
@@ -909,6 +920,7 @@ export function TrajectorySurface({
     continuityPassRef.current += 1;
     setSubjectReadStatus("pending");
     setExecutionContinuityReadStatus("pending");
+    setRecoveryOwnedContinuityReadStatus("pending");
     setExecutionContinuityConflict(false);
   }, [durableRefreshSignal]);
 
@@ -925,6 +937,7 @@ export function TrajectorySurface({
       setAmendmentNotice(null);
       setExecutionContinuityConflict(false);
       setExecutionContinuityReadStatus("error");
+      setRecoveryOwnedContinuityReadStatus("error");
       return;
     }
     // CORR-01 / C2 — run recovery-owned continuity AFTER EC continuity so a
@@ -1069,9 +1082,10 @@ export function TrajectorySurface({
       }
 
       if (shouldAutoPrepareGoverned) {
-        // CORR-01 — absolute fail-closed. Generic RC-06 PREPARE is authorized
-        // ONLY when: ok=true AND binding=null AND recoveryContextPresent=false.
-        // UNKNOWN ≠ ABSENT — every other read outcome STOPs before PREPARE.
+        // Legacy docs_write binding → CTA only (no auto PREPARE).
+        // Post-Evidence RecoveryContext without docs_write binding →
+        // canonical generic PREPARE (NELC). No recovery subject → RC-06 generic.
+        // UNKNOWN ≠ ABSENT — unreadable binding read STOPs before PREPARE.
         const bindingResult = await w2ReadRecoveryExecutionBindingAction({
           projectId,
           decisionId: next.decisionId,
@@ -1094,24 +1108,8 @@ export function TrajectorySurface({
           setRecoveryBinding(bindingResult.binding);
           return;
         }
-        if (bindingResult.recoveryContextPresent === true) {
-          setBusy(null);
-          setError(
-            "Binding recovery indisponible pour ce sujet post-Evidence — préparation générique refusée. Action Pilote requise (ne pas PREPARE générique).",
-          );
-          return;
-        }
-        const explicitNoRecovery =
-          bindingResult.ok === true &&
-          bindingResult.binding === null &&
-          bindingResult.recoveryContextPresent === false;
-        if (!explicitNoRecovery) {
-          setBusy(null);
-          setError(
-            "État binding recovery non autoritatif — préparation générique refusée (UNKNOWN ≠ absent).",
-          );
-          return;
-        }
+        // recoveryContextPresent with null docs_write binding is the NELC
+        // generic recovery path — PREPARE via prepareExecutionContractFromW2Decision.
         setBusy("contract");
         setError(null);
         const preparedResult = await w2PrepareExecutionContractAction({

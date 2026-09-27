@@ -343,13 +343,15 @@ describe("RECOVERY-BINDING-WRITE-MODE-PRESTART-CONTINUITY-01", () => {
     expect(reloaded.decision.decisionId).toBe(recoveryHd);
     expect(reloaded.decision.selectedOptionRef).toBe(GOVERNED_OPTION_REF);
     expect(reloaded.trajectory.decidedByDecisionRef).toBe(recoveryHd);
-    expect(reloaded.binding.kind).toBe("post_evidence_recovery_execution");
-    expect(reloaded.binding.action).toBe(M4_BOUNDED_DOCS_WRITE_ACTION);
-    expect(reloaded.binding.target).toBe(M4_BOUNDED_DOCS_WRITE_TARGET);
-    expect(reloaded.binding.targetPath).toBe(STUDYFLOW_TARGET);
-    expect(reloaded.binding.sourceExecutionContractId).toBe(ecId);
-    expect(reloaded.binding.sourceAttemptId).toBe(attemptId);
-    expect(reloaded.binding.sourceStatus).toBe("confirmed");
+    expect(reloaded.recoveryContext).toBeTruthy();
+    expect(reloaded.binding).not.toBeNull();
+    expect(reloaded.binding!.kind).toBe("post_evidence_recovery_execution");
+    expect(reloaded.binding!.action).toBe(M4_BOUNDED_DOCS_WRITE_ACTION);
+    expect(reloaded.binding!.target).toBe(M4_BOUNDED_DOCS_WRITE_TARGET);
+    expect(reloaded.binding!.targetPath).toBe(STUDYFLOW_TARGET);
+    expect(reloaded.binding!.sourceExecutionContractId).toBe(ecId);
+    expect(reloaded.binding!.sourceAttemptId).toBe(attemptId);
+    expect(reloaded.binding!.sourceStatus).toBe("confirmed");
 
     const bound = await resolveRecoveryExecutionBinding({
       oa,
