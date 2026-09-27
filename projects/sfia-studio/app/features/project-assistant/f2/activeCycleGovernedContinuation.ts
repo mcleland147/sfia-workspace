@@ -5,7 +5,11 @@
  *
  * Server-owned, fail-closed. No parallel planner / persistence.
  * continuationKind / executionIntent remain NON-AUTHORITATIVE hints —
- * durable active-cycle + CURRENT REQUIRE_ARTIFACT authorize the branch.
+ * durable active-cycle + (CURRENT REQUIRE_ARTIFACT OR canonical Artifact
+ * APPLICABLE & not SATISFIED) admit the Proposal/clarification branch.
+ * APPLICABILITY ≠ execution authority: Proposal HumanDecision remains
+ * required before any ExecutionContract (ACTIVE-CYCLE-ARTIFACT-
+ * APPLICABILITY-CONTINUATION-BRIDGE-CORR-01).
  *
  * CR-07-01..06 review fixes:
  * - pathRoot bounds effective scopeIn (never Nora-widened)
@@ -271,7 +275,9 @@ export function hasNaturalActiveCycleDeliverableMaterializationSignal(
 /**
  * Enter Artifact-continuation handling when either the explicit hint is set
  * OR a natural active-cycle deliverable materialization signal is present.
- * Durable active-cycle + REQUIRE_ARTIFACT remain the authority.
+ * Durable active-cycle + (REQUIRE_ARTIFACT policy OR canonical Artifact
+ * APPLICABLE unsatisfied) remain the Proposal-path admission truths —
+ * never execution authority.
  */
 export function shouldEnterActiveCycleArtifactContinuationHandling(
   analysis: IntentAnalysisDto,
@@ -405,6 +411,54 @@ function artifactObligationSatisfied(
   return art?.status === "SATISFIED";
 }
 
+/**
+ * CORR-BRIDGE-01 — canonical Artifact is already required (APPLICABLE) and not
+ * yet satisfied. Sufficient to open Proposal/clarification on the active cycle;
+ * NEVER grants ExecutionContract / HumanDecision authority by itself.
+ */
+export function hasCanonicalArtifactApplicableUnsatisfied(assessment: {
+  obligations: ReadonlyArray<{
+    family: string;
+    status: string;
+    applicability?: string;
+  }>;
+} | null): boolean {
+  if (!assessment) return false;
+  const art = assessment.obligations.find((o) => o.family === "artifact");
+  if (!art) return false;
+  if (art.applicability !== "APPLICABLE") return false;
+  return art.status !== "SATISFIED";
+}
+
+/**
+ * Admit active-cycle Artifact continuation into Proposal/clarification when
+ * either a CURRENT REQUIRE_ARTIFACT policy HD exists (historical path for
+ * UNKNOWN/NOT_APPLICABLE → required) OR the canonical assessment already
+ * marks Artifact APPLICABLE and not SATISFIED (F14 obligation snapshot).
+ * Does NOT invent HD; does NOT authorize EC.
+ */
+export function admitsActiveCycleArtifactMaterializationContinuation(input: {
+  activeCycleInstanceId: string;
+  decisions: readonly HumanDecision[];
+  assessment: {
+    obligations: ReadonlyArray<{
+      family: string;
+      status: string;
+      applicability?: string;
+    }>;
+  } | null;
+}): boolean {
+  if (
+    hasCurrentRequireArtifactObligation({
+      activeCycleInstanceId: input.activeCycleInstanceId,
+      decisions: input.decisions,
+    })
+  ) {
+    return true;
+  }
+  return hasCanonicalArtifactApplicableUnsatisfied(input.assessment);
+}
+
 export type ActiveCycleContinuationResolution =
   | {
       readonly mode: "ACTIVE_CYCLE_GOVERNED_CONTINUATION";
@@ -477,17 +531,11 @@ export async function resolveActiveCycleGovernedContinuation(input: {
   const decisions = await input.oa.decisionServices.decisions.listByProject(
     input.project.projectId,
   );
-  if (
-    !hasCurrentRequireArtifactObligation({
-      activeCycleInstanceId: activeId,
-      decisions,
-    })
-  ) {
-    return blocked("no_require_artifact", activeCycle);
-  }
 
   // CR-07-05 — assess failure is FAIL-CLOSED (not "probably missing").
   // Evidence repository throws during assess must not escape as an uncaught error.
+  // Assess BEFORE the obligation gate so canonical Artifact APPLICABLE (F14
+  // snapshot) can admit continuation without a redundant REQUIRE_ARTIFACT HD.
   let assessed: Awaited<
     ReturnType<typeof input.oa.cycleServices.pilotLifecycle.assess>
   >;
@@ -504,6 +552,19 @@ export async function resolveActiveCycleGovernedContinuation(input: {
   }
   if (artifactObligationSatisfied(assessed.assessment)) {
     return blocked("artifact_already_satisfied", activeCycle);
+  }
+
+  // CORR-BRIDGE-01 — CURRENT REQUIRE_ARTIFACT HD OR canonical APPLICABLE+missing.
+  // UNKNOWN / NOT_APPLICABLE without policy HD → fail-closed no_require_artifact.
+  // Applicability never invents HD and never authorizes EC.
+  if (
+    !admitsActiveCycleArtifactMaterializationContinuation({
+      activeCycleInstanceId: activeId,
+      decisions,
+      assessment: assessed.assessment,
+    })
+  ) {
+    return blocked("no_require_artifact", activeCycle);
   }
 
   // Authoritative Project.repositoryBinding — never invent a second SoT.

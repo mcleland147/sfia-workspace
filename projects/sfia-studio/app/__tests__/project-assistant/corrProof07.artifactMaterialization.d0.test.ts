@@ -631,7 +631,10 @@ describe("CORR-PROOF-07 — Active-cycle artifact materialization continuation",
     }
 
     // Contamination case: materialization intent + active id present, but ONLY
-    // old-cycle REQUIRE_ARTIFACT exists → BLOCKED (never silent NEW_CYCLE).
+    // old-cycle REQUIRE_ARTIFACT exists AND current Artifact is not canonically
+    // APPLICABLE → BLOCKED (never silent NEW_CYCLE; old HD does not contaminate).
+    // CORR-BRIDGE-01: if current assessment were APPLICABLE, continuation would
+    // be admitted without any REQUIRE_ARTIFACT HD — that is intentional.
     const contaminated = await resolveActiveCycleGovernedContinuation({
       project,
       analysis,
@@ -640,6 +643,24 @@ describe("CORR-PROOF-07 — Active-cycle artifact materialization continuation",
         decisionServices: {
           decisions: {
             listByProject: async () => oldOnlyDecisions,
+          },
+        },
+        cycleServices: {
+          ...oa.cycleServices,
+          pilotLifecycle: {
+            ...oa.cycleServices.pilotLifecycle,
+            assess: async () => ({
+              ok: true as const,
+              assessment: {
+                obligations: [
+                  {
+                    family: "artifact",
+                    status: "MISSING",
+                    applicability: "UNKNOWN",
+                  },
+                ],
+              },
+            }),
           },
         },
       },
@@ -1264,10 +1285,11 @@ describe("CORR-PROOF-07 — Active-cycle artifact materialization continuation",
     }
   });
 
-  it("CR05-B — contaminated old-only REQUIRE_ARTIFACT → BLOCKED no_require_artifact", async () => {
+  it("CR05-B — contaminated old-only REQUIRE_ARTIFACT + current UNKNOWN → BLOCKED no_require_artifact", async () => {
     const overview = await getRuntimeApplicationService().getProject(projectId);
     expect(overview.ok).toBe(true);
     if (!overview.ok) return;
+    const oa = getRuntimeApplicationService().oa!;
     const oldCycleId = `cyc:corr07-cr05b-${Date.now()}`;
     const oldOnlyDecisions: HumanDecision[] = [
       {
@@ -1287,10 +1309,28 @@ describe("CORR-PROOF-07 — Active-cycle artifact materialization continuation",
       }),
       analysis: materializationAnalysis(),
       oa: {
-        ...getRuntimeApplicationService().oa!,
+        ...oa,
         decisionServices: {
           decisions: {
             listByProject: async () => oldOnlyDecisions,
+          },
+        },
+        cycleServices: {
+          ...oa.cycleServices,
+          pilotLifecycle: {
+            ...oa.cycleServices.pilotLifecycle,
+            assess: async () => ({
+              ok: true as const,
+              assessment: {
+                obligations: [
+                  {
+                    family: "artifact",
+                    status: "MISSING",
+                    applicability: "UNKNOWN",
+                  },
+                ],
+              },
+            }),
           },
         },
       },
