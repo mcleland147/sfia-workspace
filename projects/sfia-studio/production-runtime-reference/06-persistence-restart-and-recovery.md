@@ -55,4 +55,3 @@
 | D1 sqlite | D1 projects/assignments | Isolated parallel surface |
 | ExecutionRun memory store | Parallel BC | Not Product SQLite |
 | MaturityAssessment memory | Out of minimal M5 product path | Memory-primary |
-

@@ -117,4 +117,3 @@ describe("Living Production Runtime Reference conformance", () => {
     expect(sha16(abs)).toBe(sample.sha256_16);
   });
 });
-

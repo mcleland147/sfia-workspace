@@ -96,4 +96,3 @@ LifecycleSurface / lifecyclePresentation
 | OBJ-PROPOSAL | F06, F07, F17 |
 | OBJ-EC | F08–F11, F18 |
 | OBJ-MEMORY-B | F02, F04, F19 |
-

@@ -208,4 +208,3 @@ Convention: each card lists **SoT**, **persistence**, **key paths**, **tests**. 
 | OPS1 ↔ OA unified session | **ABSENT by design** — separate DBs | `lib/ops1/db.ts` vs product OA |
 
 Source: repository harvest at `b4aa09bd` (architecture inventory agent).
-

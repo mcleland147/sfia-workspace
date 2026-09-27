@@ -7,43 +7,43 @@
   "volumes": [
     {
       "path": "projects/sfia-studio/production-runtime-reference/README.md",
-      "sha256_16": "f79377c4230d88cc"
+      "sha256_16": "615c8b13de8c1161"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/01-system-runtime-overview.md",
-      "sha256_16": "81d756f2c98406a1"
+      "sha256_16": "109183af7b0f167e"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/02-runtime-object-catalog.md",
-      "sha256_16": "6a97753f1b4d752a"
+      "sha256_16": "0899fb8fc72e30cc"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md",
-      "sha256_16": "e61ed4532f994bb3"
+      "sha256_16": "5ebba023d84a09f7"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md",
-      "sha256_16": "f2b7e49aa848ff3e"
+      "sha256_16": "0269b99d4d6c6c5f"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/05-environments-configuration-and-boundaries.md",
-      "sha256_16": "b9da8edd04cf4a65"
+      "sha256_16": "101ec96a6908db71"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md",
-      "sha256_16": "871428092cc0d8f8"
+      "sha256_16": "0fc09ae3105d36ed"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md",
-      "sha256_16": "11f08d040b886224"
+      "sha256_16": "90a3ea63bda274bd"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md",
-      "sha256_16": "d13b8c53ada6982e"
+      "sha256_16": "ac65dc664ef48adc"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md",
-      "sha256_16": "3eeb7173b51c370f"
+      "sha256_16": "35e9107fb39f5a53"
     }
   ],
   "components": [
@@ -707,7 +707,7 @@
     },
     {
       "path": "projects/sfia-studio/app/__tests__/architecture/productionRuntimeReference.conformance.d0.test.ts",
-      "sha256_16": "8b24387f96adfa3e"
+      "sha256_16": "9ed95e13d8f41f09"
     }
   ],
   "maintenance": {

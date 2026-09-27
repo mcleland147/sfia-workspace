@@ -54,4 +54,3 @@ Cursor / Git / GitHub adapters (execution-run, managed repos)
 ## Runtime v3
 
 **NON ADOPTED.** Doctrine v3 framing is destination guidance only.
-
