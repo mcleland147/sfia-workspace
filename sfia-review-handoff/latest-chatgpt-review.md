@@ -1,189 +1,162 @@
-# PRODUCT-CYCLE-E2E-STABILIZATION-01 — FULL Review Pack
+# PRODUCT-CYCLE-E2E-STABILIZATION-01 — FULL Review Pack (PR integration)
 
 ## 1. Timestamp
-2026-09-27T16:11:42+02:00
+2026-09-27T17:08:47+02:00
 
 ## 2. Macro / cycle / profil
-- **Macro:** PRODUCT-CYCLE-E2E-STABILIZATION-01 (SAME macro — ChatGPT review closure R1–R6; NOT a new cycle)
-- **Cycle:** Cycle 8 — Delivery / implémentation (`cyc:delivery`)
+- **Macro:** PRODUCT-CYCLE-E2E-STABILIZATION-01 (SAME macro — Git integration after ChatGPT PASS)
+- **Cycle:** Cycle 8 — Delivery / implémentation (`cyc:delivery`) — continuation Git, not a new micro-cycle
 - **Profil:** Critical
 - **Typologie:** EVOL corrective / regression stabilization
 - **Capacité v3:** V3-F05 (+ F02/F06/F09/F14)
 - **Runtime v3:** NON ADOPTED
 - **OpenAI Capability Fit (R22):** COMBINE
 
-## 3. Git truth final
+## 3. Git truth — integration
 - Worktree: `/Users/morris/Projects/sfia-workspace-e2e-stabilization-01`
 - Branche: `fix/sfia-studio-product-cycle-e2e-stabilization-01`
-- HEAD: `6beb8cc369bd9b82eebee97b70309838373b3dfa` (no project commit)
-- origin/main: `6beb8cc369bd9b82eebee97b70309838373b3dfa` — MATCH expected `6beb8cc369bd9b82eebee97b70309838373b3dfa`
-- Working tree: DIRTY (macro changes retained; no reset)
-- Commit projet: NON
-- Push projet / PR / merge: NON
+- **Commit projet:** `82148c0b7ab315b5311123df82278226ae53914a`
+- Message: `fix(studio): stabilize product cycle e2e journey`
+- origin/main (base): `6beb8cc369bd9b82eebee97b70309838373b3dfa` — MATCH `6beb8cc369bd9b82eebee97b70309838373b3dfa`
+- Remote branch SHA: `82148c0b7ab315b5311123df82278226ae53914a` (force-with-lease of reviewed tip after remote divergence)
+- Force-with-lease: YES (Morris option 1) — replaced divergent remote history with reviewed tip
+- Merge: NON
+- Branch delete: NON
 
-### git status --short
+### git status --short (post-commit)
 ```
 M .tmp-sfia-review/chatgpt-review.md
- M projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw5.s01-s04.disposition.d0.test.ts
- M projects/sfia-studio/app/__tests__/project-assistant/activeCycleArtifactMaterializationContinuityCorr01.d0.test.ts
- M projects/sfia-studio/app/features/project-assistant/f2/activeCycleGovernedContinuation.ts
- M projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
- M projects/sfia-studio/app/features/project-assistant/f3/confirmAndExecuteResolvedM3.ts
- M projects/sfia-studio/app/features/project-assistant/f3/executeConfirmedBoundedDocsWriteContract.ts
- M projects/sfia-studio/app/features/project-assistant/f3/index.ts
- M projects/sfia-studio/app/features/project-assistant/f3/resolveM3ExecutionContract.ts
- M projects/sfia-studio/app/features/project-assistant/f3/validateResolvedM3ExecutionBoundary.ts
- M projects/sfia-studio/app/lib/nora-cognitive-runtime/criticalChallengeClarification.ts
- M projects/sfia-studio/app/lib/nora-eval/mw5Observe.ts
- M projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
- M projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
- M projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
- M projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
- M projects/sfia-studio/production-runtime-reference/README.md
- M projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-?? projects/sfia-studio/app/__tests__/project-assistant/productCycleE2eStabilization.frontDoor.d0.test.ts
 ```
 
-### git diff --stat
+### git show --stat --oneline HEAD
 ```
-.tmp-sfia-review/chatgpt-review.md                 | 1784 ++++++++++++++++++--
- .../mw5.s01-s04.disposition.d0.test.ts             |   51 +
- ...ifactMaterializationContinuityCorr01.d0.test.ts |   86 +-
- .../f2/activeCycleGovernedContinuation.ts          |   25 +-
- .../features/project-assistant/f2/orchestrateF2.ts |   17 +
- .../f3/confirmAndExecuteResolvedM3.ts              |   46 +-
- .../f3/executeConfirmedBoundedDocsWriteContract.ts |   17 +
- .../app/features/project-assistant/f3/index.ts     |    3 +
- .../f3/resolveM3ExecutionContract.ts               |    7 +-
- .../f3/validateResolvedM3ExecutionBoundary.ts      |   19 +-
- .../criticalChallengeClarification.ts              |   35 +-
- .../sfia-studio/app/lib/nora-eval/mw5Observe.ts    |    1 +
- .../app/lib/platform/ai/fakeProvider.ts            |  141 +-
- .../03-end-to-end-flow-catalog.md                  |   49 +-
- .../08-test-proof-and-conformance-map.md           |   25 +-
- ...9-known-gaps-reserves-and-current-boundaries.md |   37 +-
- .../production-runtime-reference/README.md         |    5 +-
- .../production-runtime-reference.manifest.json     |   29 +-
- 18 files changed, 2125 insertions(+), 252 deletions(-)
+82148c0b fix(studio): stabilize product cycle e2e journey
+ .../mw5.s01-s04.disposition.d0.test.ts             |  51 ++
+ ...ifactMaterializationContinuityCorr01.d0.test.ts |  86 ++-
+ ...oductCycleE2eStabilization.frontDoor.d0.test.ts | 723 +++++++++++++++++++++
+ .../f2/activeCycleGovernedContinuation.ts          |  25 +-
+ .../features/project-assistant/f2/orchestrateF2.ts |  17 +
+ .../f3/confirmAndExecuteResolvedM3.ts              |  46 +-
+ .../f3/executeConfirmedBoundedDocsWriteContract.ts |  17 +
+ .../app/features/project-assistant/f3/index.ts     |   3 +
+ .../f3/resolveM3ExecutionContract.ts               |   7 +-
+ .../f3/validateResolvedM3ExecutionBoundary.ts      |  19 +-
+ .../criticalChallengeClarification.ts              |  35 +-
+ .../sfia-studio/app/lib/nora-eval/mw5Observe.ts    |   1 +
+ .../app/lib/platform/ai/fakeProvider.ts            | 141 ++--
+ .../03-end-to-end-flow-catalog.md                  |  49 +-
+ .../08-test-proof-and-conformance-map.md           |  25 +-
+ ...9-known-gaps-reserves-and-current-boundaries.md |  37 +-
+ .../production-runtime-reference/README.md         |   5 +-
+ .../production-runtime-reference.manifest.json     |  29 +-
+ 18 files changed, 1159 insertions(+), 157 deletions(-)
 ```
 
-## 4. Sources lues
-Gouvernance convergence + product-completion cadrage; doctrine framing 30–37 + CKC 08; Living Reference README/03/04/07/08/09+manifest; `actions.ts` + `useProductConversation.ts`; F2/F3/OA seams; front-door oracle; prior macro overlays G1/G2/G3/G6/G8.
+### Commit file list (exactly 18)
+```
+projects/sfia-studio/app/__tests__/nora-cognitive-runtime/mw5.s01-s04.disposition.d0.test.ts
+projects/sfia-studio/app/__tests__/project-assistant/activeCycleArtifactMaterializationContinuityCorr01.d0.test.ts
+projects/sfia-studio/app/__tests__/project-assistant/productCycleE2eStabilization.frontDoor.d0.test.ts
+projects/sfia-studio/app/features/project-assistant/f2/activeCycleGovernedContinuation.ts
+projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
+projects/sfia-studio/app/features/project-assistant/f3/confirmAndExecuteResolvedM3.ts
+projects/sfia-studio/app/features/project-assistant/f3/executeConfirmedBoundedDocsWriteContract.ts
+projects/sfia-studio/app/features/project-assistant/f3/index.ts
+projects/sfia-studio/app/features/project-assistant/f3/resolveM3ExecutionContract.ts
+projects/sfia-studio/app/features/project-assistant/f3/validateResolvedM3ExecutionBoundary.ts
+projects/sfia-studio/app/lib/nora-cognitive-runtime/criticalChallengeClarification.ts
+projects/sfia-studio/app/lib/nora-eval/mw5Observe.ts
+projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
+projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
+projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
+projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
+projects/sfia-studio/production-runtime-reference/README.md
+projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
+```
+
+`.tmp-sfia-review/**` ABSENT from commit.
+
+## 4. Prior review handoff consumed
+- Branche: `sfia/review-handoff`
+- Commit: `65c2f13728622a71a7be81b7b121a7ecc632b3d2`
+- Blob: `7d2a0e397f0d88387c94c2ebf549b5ec90f0ee3b`
+- Verdict consumed: READY FOR REVIEW / DETERMINISTIC PRODUCT E2E PROVEN AT TESTED SCOPE
+- ChatGPT: PASS — READY FOR COMMIT
 
 ## 5. OpenAI Capability Fit
 COMBINE — model for cognition/intent; server-owned Truth C / HD / EC / routing / structural resolution fact.
 
-## 6. Impact analysis (pre-change / this closure)
-### Surfaces touched this closure
-- Oracle: rewrite nominal lineage to Product UI server actions
-- F3: align Confirm/Validate with Product N2 prepare authority; LPS evidence outcome append on bounded docs-write
-- Living Ref: merge duplicate F05; fix vol 09 PocketTasks/MW5 hard boundary; proof level in 08/README/manifest digests
+## 6. Pull Request
+- **Number:** 536
+- **URL:** https://github.com/mcleland147/sfia-workspace/pull/536
+- **State:** OPEN
+- **Base:** main @ `6beb8cc369bd9b82eebee97b70309838373b3dfa`
+- **Head:** `fix/sfia-studio-product-cycle-e2e-stabilization-01` @ `82148c0b7ab315b5311123df82278226ae53914a`
+- **Changed files:** 18
+- **Additions / deletions:** +1159 / -157
+- **Mergeable:** MERGEABLE
+- **CI:** PENDING (Detect SFIA Studio changes QUEUED at pack time)
+- **Merge:** NOT executed / NOT authorized by this pack
 
-### KEEP
-OA backbone; #531/#532/#533; Artifact applicability bridge; Product SQLite Truth C; Nora Session Memory B; D-PC-09; F3/W3A fixtures; Proposal pending/reinstruction; execution-attempt Product Spine.
-
-### FORBIDDEN avoided
-Second E2E engine; second Proposal store; new persistence; fake Truth C/HD; global uncertainty-resolution flag; global MW5 off; CWP lowering; PocketTasks-specific branch; naming catalog policy; parallel architecture.
-
-## 7. Corrections précédentes conservées (G2/G3/G1/G8/G6 niveau 1)
-- G2: Nora leaf candidate + server-composed targetPath; no nominal filename micro-gate
-- G3: `structurallyResolvedActiveCycleContinuation` skips gratuitous MW5 structural re-challenge (≠ Truth C ≠ HD)
-- G1/G8: Fake provider materialization realism; assessment default null on materialization path
-- G6 (prior): front-door → HD → EC → Attempt → Evidence lineage (application seams)
-
-## 8. Fermeture R1–R6
-
+## 7. Fermeture R1–R6 (conservée)
 ### R1 — Oracle Product server actions
-Nominal lineage now:
-`projectAssistantSendAction` → `projectAssistantDecideAction` → `projectAssistantPrepareResolvedM3Action` → `projectAssistantConfirmAndExecuteResolvedM3Action` → `projectAssistantRehydrateEvidenceOutcomeAction`
-No `recordF2Decision` / `prepareAndResolveM3ProductPath` / `confirmAndExecuteResolvedM3` / `rehydrateEvidenceOutcomeFromLps` in nominal oracle (FS-13 source guard).
+Send → Decide → PrepareResolvedM3 → ConfirmAndExecuteResolvedM3 → RehydrateEvidenceOutcome
 
 ### R2 — Pending Proposal restart
-After process-local wipe: `w2ReadActiveDecisionSubjectAction` → pending_reinstruction_required (honest; no invented HD) → `projectAssistantSendAction` with `reinstructionOfProposalId` → Decide on superseded subject.
+Subject-read → reinstruction Send → Decide (no invented HD)
 
-### R3 — Proof level
-**DETERMINISTIC PRODUCT E2E PROVEN AT TESTED SCOPE** — Product UI server-action chain traversed at Fake docs-write scope. ZERO REAL.
+### R3 — Proof
+**DETERMINISTIC PRODUCT E2E PROVEN AT TESTED SCOPE** · ZERO REAL
 
-### R4 — F05 dedupe
-Single canonical `## F05 — Active-cycle Artifact materialization` in vol 03 (duplicate removed; CURRENT semantics merged).
+### R4 — F05 dedupe (vol 03)
+### R5 — Vol 09 PocketTasks/MW5 CURRENT mitigated at deterministic scope
+### R6 — Vol 08/README/manifest digests
 
-### R5 — Vol 09 PocketTasks/MW5
-Hard boundary replaced with CURRENT: mitigated at deterministic tested scope; REAL OpenAI/PocketTasks parity not re-proven; ZERO REAL; runtime v3 NON ADOPTED; Product global READY not claimed.
+### Product bugs closed (G6)
+1. Confirm/Validate accept N2 Product Pilot matching PREPARE
+2. Bounded docs-write appends LPS evidence/RB ids for Rehydrate
 
-### R6 — Vol 08 / README / manifest
-Proof ceiling reinforced; README overlay wording updated; digests refreshed after semantic review (`--write-digests`).
+## 8. G1/G2/G3/G6/G8 (conservés)
+G2 filename micro-gate · G3 MW5 structural skip · G1/G8 Fake realism · G6 Product E2E lineage
 
-### Product bugs closed en route (same macro, G6-related)
-1. `validateResolvedM3ExecutionBoundary` + `confirmAndExecuteResolvedM3` rejected Product N2 prepares that `PrepareResolvedM3Action` seals — now accept MORRIS|N2 matching PREPARE + register matching authority.
-2. Bounded docs-write Evidence/RB created without LPS `evidenceIds`/`reviewBundleIds` — now `appendEvidenceOutcomeToLps` so Rehydrate works.
-
-## 9. Product Spine testé / server actions traversées
-Pilote natural → Send → Proposal → Decide → HD durable → PrepareResolvedM3 → EC → ConfirmAndExecuteResolvedM3 → Attempt Fake docs-write / Evidence / ReviewBundle → RehydrateEvidenceOutcome → LPS readback.
-
-## 10. FS-01…FS-14 coverage (oracle)
-Covered in nominal + NEG its / source guard: same CycleInstance; vague no Proposal; no filename micro-gate; no gratuitous MW5; no PocketTasks/magic-only input; reinstruction supersede; Decide after explicit Pilot action; no Attempt before confirm; WHAT/targetPath sealed; SUCCESS≠READY; restart no invented HD; rehydrate no new HD/auto-finalize; front-door bypass forbidden in oracle source; fixture ≠ docs-write state machine where Product selects bounded docs-write.
-
-## 11. Restart matrix
-| Stage | Result |
-|---|---|
-| Process-local Proposal wipe | HD count unchanged; subject pending_reinstruction_required |
-| Product subject-read | Hydrates recoverable DECISION_REQUIRED |
-| Reinstruction Send | superseded; new Proposal same CycleInstance / targetPath |
-| Post-Evidence Rehydrate | Evidence/RB from LPS; Recommendation ≠ HD |
-
-## 12. WHAT continuity
-Asserted on Proposal executionIntent and HD DecisionBasis (statuts A/B/C, attributs P/D, persistance, règle Z hors périmètre).
-
-## 13. Fichiers créés / modifiés
-### Created
-- `projects/sfia-studio/app/__tests__/project-assistant/productCycleE2eStabilization.frontDoor.d0.test.ts` (FULL below)
-
-### Modified (this macro tree)
-See git status / diff stat above. Key F3 fixes + Living Ref + prior G1–G8 overlays.
-
-## 14. Validations
+## 9. Validations consommées
 | Gate | Result |
 |---|---|
-| Targeted front-door + MW5 + continuity + qa-pre-m6 + Living Ref conformance | PASS |
-| `npm run typecheck` | PASS |
-| `npm run lint` | PASS |
-| `npm run build` | PASS |
-| `npm test` | **4913 pass / 137 skip / 0 fail** |
-| Living Ref `check-production-runtime-reference.mjs` | PASS (digests written then verified) |
-| Modeled governance (3 files) | 73 pass |
-| `git diff --check` | PASS |
-| Secret pattern scan (CI) | PASS |
+| typecheck / lint / build | PASS (pre-commit review) |
+| npm test | **4913 pass / 137 skip / 0 fail** |
+| Living Ref conformance | PASS (re-checked at commit) |
+| modeled governance | 73 PASS |
+| git diff --check (18 project files) | PASS |
+| secret scan CI pattern | PASS |
+| Force-with-lease push | PASS → remote=`82148c0b7ab315b5311123df82278226ae53914a` |
 
-## 15. Fake / Real
-- Applicable: yes
-- Fake: conversation Fake provider; Fake docs-write launch port
-- REAL corresponding: OpenAI; Cursor REAL — **ZERO REAL this macro**
-- Claims forbidden avoided: READY FOR REAL / REAL BOUNDARY PROVEN / END-TO-END REAL PROVEN / PRODUCT GLOBAL READY / runtime v3 ADOPTED
+## 10. Fake / Real
+- Fake: conversation Fake + FakeDocsWriteLaunchPort
+- ZERO REAL this macro
+- Claims forbidden avoided
 
-## 16. Proof ceiling exact
+## 11. Proof ceiling exact
 **DETERMINISTIC PRODUCT E2E PROVEN AT TESTED SCOPE**
 
-## 17. Réserves
-- REAL OpenAI leaf candidacy / PocketTasks parity not re-proven
-- Cursor REAL not exercised
-- Proposal store remains process-local (durable pending + reinstruction)
-- Runtime v3 NON ADOPTED
+## 12. Réserves
+- REAL OpenAI / PocketTasks / Cursor REAL not re-proven
+- Proposal process-local + reinstruction
 - Product global READY not claimed
-- Browser/Playwright visual proof not claimed
+- Runtime v3 NON ADOPTED
+- CI not yet complete at this pack timestamp
 
-## 18. Décisions Morris requises
-Aucune pour cette fermeture (N2 confirm + LPS append were direct product-path bugs under existing mechanisms).
-
-## 19. Capacité suivante
+## 13. Capacité suivante
 **REQUALIFY AFTER EVIDENCE — NO AUTO-SELECTION.**
 
-## 20. Verdict
-**READY FOR REVIEW — PRODUCT CYCLE E2E STABILIZATION COMPLETE**
-Proof: **DETERMINISTIC PRODUCT E2E PROVEN AT TESTED SCOPE**
+## 14. Verdict intégration
+**PR OPEN — CI PENDING**
+PR #536 · head `82148c0b7ab315b5311123df82278226ae53914a` · NO MERGE · NO BRANCH DELETE
+
+Instruction ChatGPT: lire ce handoff avant toute readiness de merge.
 
 ---
 
-## 21. Fichier créé COMPLET — productCycleE2eStabilization.frontDoor.d0.test.ts
+## 15. Fichier créé COMPLET — productCycleE2eStabilization.frontDoor.d0.test.ts
 
 ```typescript
 /**
@@ -913,7 +886,7 @@ describe("PRODUCT-CYCLE-E2E-STABILIZATION-01 front-door oracle", () => {
 
 ---
 
-## 22. Living Reference — volumes modifiés (complets)
+## 16. Living Reference — volumes modifiés (complets)
 
 ### 03-end-to-end-flow-catalog.md
 ```markdown
@@ -1143,9 +1116,17 @@ No `retired-components-ledger.md` — zero components removed.
 
 ---
 
-## 23. Diffs utiles (F3 / closure)
+## 17. Diffs utiles (F3 from commit HEAD)
 
-```diff
+```
+commit 82148c0b7ab315b5311123df82278226ae53914a
+Author: Morris Cleland <morris@macbook-air.home>
+Date:   Sun Sep 27 17:04:23 2026 +0200
+
+    fix(studio): stabilize product cycle e2e journey
+    
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
 diff --git a/projects/sfia-studio/app/features/project-assistant/f3/validateResolvedM3ExecutionBoundary.ts b/projects/sfia-studio/app/features/project-assistant/f3/validateResolvedM3ExecutionBoundary.ts
 index 9ff8578a..ba3569a3 100644
 --- a/projects/sfia-studio/app/features/project-assistant/f3/validateResolvedM3ExecutionBoundary.ts
@@ -1198,7 +1179,15 @@ index 9ff8578a..ba3569a3 100644
    if (!decisionRefsExact(successor.decisionRefs, input.decisionId)) {
 ```
 
-```diff
+```
+commit 82148c0b7ab315b5311123df82278226ae53914a
+Author: Morris Cleland <morris@macbook-air.home>
+Date:   Sun Sep 27 17:04:23 2026 +0200
+
+    fix(studio): stabilize product cycle e2e journey
+    
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
 diff --git a/projects/sfia-studio/app/features/project-assistant/f3/confirmAndExecuteResolvedM3.ts b/projects/sfia-studio/app/features/project-assistant/f3/confirmAndExecuteResolvedM3.ts
 index 3a774700..cd720860 100644
 --- a/projects/sfia-studio/app/features/project-assistant/f3/confirmAndExecuteResolvedM3.ts
@@ -1319,7 +1308,15 @@ index 3a774700..cd720860 100644
        resultRef: `res:m3-fixture:${attemptId.replace(/[^a-zA-Z0-9:_-]/g, "")}`,
 ```
 
-```diff
+```
+commit 82148c0b7ab315b5311123df82278226ae53914a
+Author: Morris Cleland <morris@macbook-air.home>
+Date:   Sun Sep 27 17:04:23 2026 +0200
+
+    fix(studio): stabilize product cycle e2e journey
+    
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
 diff --git a/projects/sfia-studio/app/features/project-assistant/f3/executeConfirmedBoundedDocsWriteContract.ts b/projects/sfia-studio/app/features/project-assistant/f3/executeConfirmedBoundedDocsWriteContract.ts
 index da7b7f36..694dbf1a 100644
 --- a/projects/sfia-studio/app/features/project-assistant/f3/executeConfirmedBoundedDocsWriteContract.ts
@@ -1357,7 +1354,15 @@ index da7b7f36..694dbf1a 100644
        `target ${facts.targetPath} digest ${facts.digest.slice(0, 12)}…`,
 ```
 
-```diff
+```
+commit 82148c0b7ab315b5311123df82278226ae53914a
+Author: Morris Cleland <morris@macbook-air.home>
+Date:   Sun Sep 27 17:04:23 2026 +0200
+
+    fix(studio): stabilize product cycle e2e journey
+    
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
 diff --git a/projects/sfia-studio/app/features/project-assistant/f3/resolveM3ExecutionContract.ts b/projects/sfia-studio/app/features/project-assistant/f3/resolveM3ExecutionContract.ts
 index 52165161..2b467eba 100644
 --- a/projects/sfia-studio/app/features/project-assistant/f3/resolveM3ExecutionContract.ts
@@ -1380,245 +1385,7 @@ index 52165161..2b467eba 100644
    );
 ```
 
-```diff
-diff --git a/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md b/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
-index 52d2649d..1025f9b5 100644
---- a/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
-+++ b/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
-@@ -29,11 +29,16 @@ Status legend: COMPLETE | PARTIAL | NOT PROVEN | BREAK
- - **Status:** PARTIAL REAL linguistic; COMPLETE deterministic Fake scripts
- 
- ## F05 — Active-cycle Artifact materialization
--- **Trigger:** Natural “matérialise … livrable du cycle”
--- **Steps:** intentAnalysis → `resolveActiveCycleGovernedContinuation` → Proposal or in-cycle clarification
--- **Admission:** REQUIRE_ARTIFACT HD **OR** Artifact APPLICABLE∧¬SATISFIED (#532+#533)
--- **Paths:** `activeCycleGovernedContinuation.ts`, `artifactTargetRouting.ts`, Fake matcher
--- **Status:** DETERMINISTIC PROVEN for routing/bridge; REAL journey reserves remain (vol 09)
-+- **Trigger:** Natural Pilot request to materialize the active-cycle deliverable (conversation front door / `projectAssistantSendAction`) — pathless OK when semantic cues suffice
-+- **Admission:** REQUIRE_ARTIFACT HD **OR** Artifact APPLICABLE ∧ ¬SATISFIED (#532+#533)
-+- **Leaf / target:** Nora/Pilot leaf candidate is non-authoritative; server owns `targetPath` composition (D-PC-09); no normal filename micro-gate when cues suffice; clarification only when no coherent cue
-+- **Continuation fact:** `structurallyResolvedActiveCycleContinuation` is server-owned and local to this Recommendation/Proposal — ≠ Truth C, ≠ HumanDecision, ≠ universal uncertainty resolution; sealed continuation without impacting signals skips gratuitous structural MW5 re-challenge
-+- **Same CycleInstance:** no silent NEW_CYCLE / re-formalization
-+- **Exit:** Proposal `DECISION_REQUIRED`
-+- **Product spine (UI server actions):** Send → Decide → PrepareResolvedM3 → ConfirmAndExecuteResolvedM3 → RehydrateEvidenceOutcome
-+- **Paths:** `activeCycleGovernedContinuation.ts`, `artifactTargetRouting.ts`, Fake matcher, `actions.ts` Product actions
-+- **Oracle:** `productCycleE2eStabilization.frontDoor.d0.test.ts` (+ continuity/bridge CORR-01, corrProof07)
-+- **Status / proof:** **DETERMINISTIC PRODUCT E2E PROVEN AT TESTED SCOPE** (ZERO REAL this macro)
- - **Fail-closed:** UNKNOWN/N/A without policy; assess failure; no active cycle; satisfied artifact
- 
- ## F06 — Proposal / Decision Subject / options
-@@ -42,27 +47,28 @@ Status legend: COMPLETE | PARTIAL | NOT PROVEN | BREAK
- - **Status:** COMPLETE for in-process; PARTIAL across restart
- 
- ## F07 — HumanDecision on Proposal
--- **Trigger:** Pilot accept/refuse
--- **Paths:** `recordDecision.ts` → `oa_human_decisions`
-+- **Trigger:** Pilot accept/refuse via `projectAssistantDecideAction`
-+- **Paths:** `actions.ts` → `recordDecision.ts` → `oa_human_decisions`
- - **Status:** COMPLETE durable path
- 
- ## F08 — EC PREPARE
--- **Trigger:** After required HD / authority path
--- **Paths:** `lib/oa/execution-contract/**`
--- **Invariant:** cannot expand DecisionBasis WHAT
--- **Status:** COMPLETE domain; product journey integration PARTIAL/NOT PROVEN as single lineage
-+- **Trigger:** After required HD / authority path (`projectAssistantPrepareResolvedM3Action`)
-+- **Paths:** `prepareAndResolveM3ProductPath` → `lib/oa/execution-contract/**`
-+- **Invariant:** cannot expand DecisionBasis WHAT; Product UI seals N2 Pilot authority (legacy omit → MORRIS)
-+- **Status:** COMPLETE domain; Product E2E lineage proven at tested scope (front-door oracle)
- 
- ## F09 — EC inspect / Confirmation / authority
- - **Objects:** InspectionAttestation, Confirmation, AuthorityVerificationReceipt
--- **Status:** COMPLETE tables/services; journey continuity PARTIAL
-+- **Product path:** Confirm+execute folded in `projectAssistantConfirmAndExecuteResolvedM3Action` (boundary validates MORRIS legacy or N2 Product Pilot matching PREPARE)
-+- **Status:** COMPLETE tables/services; Product E2E at tested scope
- 
- ## F10 — Governed execution (docs_write / Cursor)
- - **Gate:** `SFIA_STUDIO_CURSOR_REAL` + managed repo base + EC/attempt
--- **Status:** BOUNDARY gated; REAL only under Morris GO (out of this macro)
-+- **Status:** BOUNDARY gated; REAL only under Morris GO (out of this macro); Fake docs-write proven in front-door oracle
- 
- ## F11 — Attempt terminal → Evidence → ReviewBundle
--- **Paths:** execution-attempt + evidence-review aggregates
--- **Status:** COMPLETE domain; E2E lineage re-proof deferred
-+- **Paths:** execution-attempt + evidence-review aggregates; docs-write appends LPS `evidenceIds`/`reviewBundleIds` for rehydrate
-+- **Status:** COMPLETE domain; Product E2E lineage proven at tested scope (Fake)
- 
- ## F12 — ContractResult / ClaimEvaluation
- - **Paths:** claim evaluation tables/services
-@@ -72,8 +78,8 @@ Status legend: COMPLETE | PARTIAL | NOT PROVEN | BREAK
- - **Status:** PARTIAL — product surfaces exist; campaign re-proof deferred
- 
- ## F14 — LPS / trajectory continuation or recovery
--- **Paths:** trajectory services; recovery ownership continuity
--- **Status:** PARTIAL (greenfield/recovery fixes integrated; broader matrix open)
-+- **Paths:** trajectory services; recovery ownership continuity; `projectAssistantRehydrateEvidenceOutcomeAction`
-+- **Status:** PARTIAL (greenfield/recovery fixes integrated; front-door rehydrate proven at tested scope)
- 
- ## F15 — Cycle finalization
- - **Paths:** `assessFinalization.ts`, lifecycle finalize decision path
-@@ -84,16 +90,17 @@ Status legend: COMPLETE | PARTIAL | NOT PROVEN | BREAK
- - **Status:** PARTIAL — explicit replan seams exist; silent replan forbidden
- 
- ## F17 — Restart at Proposal pending
--- **Expected:** process-local proposal may be absent → requalify; Truth C intact
--- **Status:** PARTIAL / known honesty notice in proposalStore
-+- **Expected:** process-local proposal may be absent → product subject-read (`w2ReadActiveDecisionSubjectAction`) hydrates recoverable snapshots / pending reinstruction; Truth C intact; no invented HD
-+- **Product resume:** explicit `reinstructionOfProposalId` on Send, then Decide
-+- **Status:** DETERMINISTIC proven at tested scope (front-door oracle); Proposal store remains process-local
- 
- ## F18 — Restart after HD / before execution
- - **Survives:** HD, LPS, cycle; EC if prepared
- - **Status:** PARTIAL proven by domain tests
- 
- ## F19 — Restart post-Evidence
--- **Survives:** Evidence/RB/claims in product DB; session transcript if session path stable
--- **Status:** PARTIAL
-+- **Survives:** Evidence/RB/claims in product DB; LPS evidence outcome refs; session transcript if session path stable
-+- **Status:** PARTIAL — front-door rehydrate assertions at tested scope
- 
- ## F20 — Legacy / historical compatibility
- - **Examples:** deprecated `SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY` alias; historical new-cycle formalization when no materialization intent
-```
-
-```diff
-diff --git a/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md b/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
-index 9eb40492..cf981abf 100644
---- a/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
-+++ b/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
-@@ -13,24 +13,29 @@
- 
- | Flow | Deterministic tests | Notes |
- |---|---|---|
--| F05 materialization | continuity CORR-01, bridge CORR-01, corrProof07, fakeProvider materialization | DETERMINISTIC PROVEN routing/bridge |
-+| F05 materialization | continuity CORR-01, bridge CORR-01, corrProof07, **productCycleE2eStabilization.frontDoor**, fakeProvider materialization | **DETERMINISTIC PRODUCT E2E PROVEN AT TESTED SCOPE** — oracle traverses Product UI server actions (Send→Decide→PrepareResolvedM3→ConfirmAndExecuteResolvedM3→Rehydrate) |
- | F03/F15 obligations | corrProof06.artifactObligation | policy HD + applicability |
- | F06/F07 integrity | recommendationDecisionIntegrity*, recommendation-vs-decision | Proposal≠HD |
- | F01 greenfield | greenfield continuity tests on main | #531 |
--| Architecture drift | productionRuntimeReference.conformance | this macro |
-+| F10–F11 attempt/evidence | productCycleE2eStabilization.frontDoor + PWR E2E | Fake adapter / Fake docs-write only |
-+| Architecture drift | productionRuntimeReference.conformance | living reference |
- 
--## Oracle weaknesses (do not fix here)
-+## Oracle weaknesses (updated after PRODUCT-CYCLE-E2E-STABILIZATION-01)
- 
- | Weakness | Classification | Evidence |
- |---|---|---|
--| Seam tests green while natural Product journey regresses | CONFIRMED pattern (campaign) | PocketTasks vs local suites |
--| Tests bypass conversation front door (direct resolver/AP seed) | CONFIRMED for many d0 tests | direct `resolveActiveCycleGovernedContinuation` calls |
--| Fake synthesizes `note-de-cadrage.md` where REAL may leave filename null | CONFIRMED in Fake code | `fakeProvider.ts` framing cue |
--| Local tests may pre-satisfy MW5 `challengeResponseAssessment` | PROBABLE | test fixtures set `sufficient` |
-+| Seam tests green while natural Product journey regresses | **MITIGATED** at tested scope by front-door oracle | `productCycleE2eStabilization.frontDoor.d0.test.ts` |
-+| Tests bypass conversation front door (direct resolver/AP seed) | Still true for many unit/seam tests; front-door oracle now exists | direct `resolveActiveCycleGovernedContinuation` calls |
-+| Fake-only note+cadrage magic as sole success path | **MITIGATED** — provider-neutral Nora leaf cues; materialization Fake default assessment null | `fakeProvider.ts` |
-+| Local tests may pre-satisfy MW5 `challengeResponseAssessment` | **MITIGATED** on materialization Fake path (default null); other fixtures may still set sufficient | fixtures |
- | Historical E2E uses QA/boundary routes | CONFIRMED | `app/api/e2e/**` |
--| Clarification accepted where product contract wants seamless continuation | OBSERVATION | PocketTasks filename ask vs D-PC-09 |
-+| Clarification accepted where product contract wants seamless continuation | **MITIGATED** for nominal pathless with semantic cues | continuity CORR-01 tightened |
-+| Product Prepare N2 vs Confirm MORRIS-only boundary | **MITIGATED** — confirm/validate accept N2 Product Pilot matching PREPARE | `validateResolvedM3ExecutionBoundary`, `confirmAndExecuteResolvedM3` |
-+| Docs-write Evidence without LPS outcome refs | **MITIGATED** — bounded docs-write appends LPS evidence/RB ids | `executeConfirmedBoundedDocsWriteContract` |
- 
- ## Proof levels
- 
--- DETERMINISTIC PROVEN
--- REAL BOUNDARY / E2E REAL — require distinct Morris GO; not claimed by this corpus
-+- **DETERMINISTIC PRODUCT E2E PROVEN AT TESTED SCOPE** — Product UI server-action lineage at Fake scope (this macro)
-+- DETERMINISTIC PROVEN (seam/unit)
-+- REAL BOUNDARY / E2E REAL — require distinct Morris GO; **not claimed**
-+- Runtime v3 **NON ADOPTED**; Product global READY **not claimed**
-```
-
-```diff
-diff --git a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
-index a80b176f..0dcab803 100644
---- a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
-+++ b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
-@@ -3,8 +3,9 @@
- ## Hard boundaries
- 
- - Runtime v3 **NON ADOPTED**
--- This corpus does not change product behavior
--- PocketTasks bugs / MW5 defects **not fixed** here
-+- This corpus does not change product behavior by itself (Living Reference is descriptive)
-+- PocketTasks-observed materialization / MW5 gaps are **mitigated at deterministic tested scope**; REAL OpenAI / PocketTasks parity is **not** re-proven
-+- ZERO REAL in PRODUCT-CYCLE-E2E-STABILIZATION-01 — no READY FOR REAL / E2E REAL / Product global READY claimed
- - No CI workflow changes
- 
- ## Current campaign findings (verified against repo where possible)
-@@ -15,30 +16,38 @@
- | Artifact applicability bridge corrected (#533) | CONFIRMED | bridge helpers on HEAD |
- | D-PC-09: filename candidate + server exact target; no micro-gate | CONFIRMED (doc) | product-completion cadrage amendment |
- | REAL PocketTasks asked Pilot for filename | OBSERVATION | campaign UX; REAL not re-run here |
--| Fake may derive `note-de-cadrage.md`; REAL may leave null | CONFIRMED Fake / PROBABLE REAL | Fake code path exists |
--| MW5 may re-challenge structurally resolved continuation | PROBABLE | seam exists; journey observation |
--| Local tests pre-satisfy challenge assessment | PROBABLE | fixtures |
--| E2E backbone can bypass natural conversation front door | CONFIRMED | e2e API routes |
-+| Fake may derive `note-de-cadrage.md`; REAL may leave null | MITIGATED Fake / REAL still provider-dependent | Fake now uses provider-neutral leaf cues; REAL not re-run |
-+| MW5 may re-challenge structurally resolved continuation | MITIGATED at tested scope | `structurallyResolvedActiveCycleContinuation` |
-+| Local tests pre-satisfy challenge assessment | MITIGATED on materialization Fake path | default assessment null |
-+| E2E backbone can bypass natural conversation front door | MITIGATED at tested scope — Product server-action oracle | `productCycleE2eStabilization.frontDoor.d0.test.ts` |
- | Pending Proposal / reinstruction continuity = downstream impact seam | CONFIRMED structural | process-local proposalStore |
--| EC→Attempt→Evidence→Recovery single lineage needs re-proof | NOT PROVEN as one journey | next macro |
--
--## Next macro
--
--`PRODUCT-CYCLE-E2E-STABILIZATION-01` must use this reference for impact analysis, then resume PocketTasks as acceptance journey.
-+| EC→Attempt→Evidence→Recovery single lineage needs re-proof | RE-PROVEN AT TESTED SCOPE (Fake) | front-door oracle |
- 
- ## Uncertainties
- 
- - Dependency graph is representative, not exhaustive of every file.
- - Failure-mode catalog is selected, not every string code in repo.
- - Some object cards mark PARTIAL where aggregate naming is distributed across DTOs.
-+- REAL OpenAI leaf candidacy parity not re-proven this macro (DETERMINISTIC only).
-+
-+## Next macro
-+
-+`PRODUCT-CYCLE-E2E-STABILIZATION-01` **executed** on branch `fix/sfia-studio-product-cycle-e2e-stabilization-01` (this tree). Capacité suivante: **requalifier après preuve** — ne pas auto-sélectionner.
- 
--## Harvest follow-up absorbed
-+## PRODUCT-CYCLE-E2E-STABILIZATION-01 overlay
- 
--Post-foundation repository harvest confirmed Product SQLite M1–M8 topology and clarified ABSENT/PARTIAL aggregates (ContractResult/LR tables absent; MaturityAssessment/ExecutionRun memory-primary; Hybrid Context composer-only). Volumes 02 and 06 updated accordingly. No product behavior change.
-+| Item | Status |
-+|---|---|
-+| G2 filename micro-gate nominal | MITIGATED — Nora leaf candidate + server compose; clarify when no cue |
-+| G3 MW5 gratuitous re-challenge | MITIGATED — `structurallyResolvedActiveCycleContinuation` (≠ Truth C ≠ HD) |
-+| G1/G8 front-door + Fake realism | MITIGATED — front-door oracle; Fake materialization assessment default null |
-+| G6 EC→Attempt→Evidence lineage | RE-PROVEN at tested scope via Product server-action front-door oracle (Fake docs-write + LPS outcome refs) |
-+| REAL / E2E REAL | NOT claimed — ZERO REAL this macro |
-+| Naming policy STOP | NOT required — leaf remains non-authoritative candidate (D-PC-09) |
- 
- ## Legacy architecture decommission audit (this tree)
- 
--**Macro:** `SFIA-STUDIO-LEGACY-ARCHITECTURE-DECOMMISSION-01` @ `1162b36b`
-+**Macro:** `SFIA-STUDIO-LEGACY-ARCHITECTURE-DECOMMISSION-01` @ `1162b36b` / merged `#535`
- **Verdict:** **AUDIT COMPLETE — NO SAFE REMOVAL PROVEN** (no product code deleted).
- 
- | Candidate | Classification | Exit / why not removed |
-```
-
-```diff
-diff --git a/projects/sfia-studio/production-runtime-reference/README.md b/projects/sfia-studio/production-runtime-reference/README.md
-index 1596a570..ace4d688 100644
---- a/projects/sfia-studio/production-runtime-reference/README.md
-+++ b/projects/sfia-studio/production-runtime-reference/README.md
-@@ -1,9 +1,10 @@
- # SFIA Studio — Living Production Runtime Reference
- 
- **Nature:** CURRENT AS-IMPLEMENTED / LIVING PRODUCTION RUNTIME REFERENCE
--**Reviewed commit:** `1162b36b14ca2f4f644dcd3da970b25113214b06`
--**Reviewed at:** 2026-09-27T14:40:00+0200
-+**Reviewed commit:** `6beb8cc369bd9b82eebee97b70309838373b3dfa`
-+**Reviewed at:** 2026-09-27T15:40:00+0200
- **Macro foundation:** SFIA-STUDIO-LIVING-PRODUCTION-RUNTIME-REFERENCE-01
-+**Stabilization overlay:** PRODUCT-CYCLE-E2E-STABILIZATION-01 (deterministic Product server-action E2E oracle)
- **Last audit overlay:** SFIA-STUDIO-LEGACY-ARCHITECTURE-DECOMMISSION-01 (no SAFE removal; CURRENT clarifications only)
- 
- ## What this corpus is
-```
-
-## 24. Handoff notes
-- Review pack reinitialized as single mono-macro FULL pack (no stacked headers)
-- Pack integrity: created test file is complete; generator refuses markers that would omit content.
-- L3 handoff: branch `sfia/review-handoff`, file `sfia-review-handoff/latest-chatgpt-review.md`; no project commit/push/PR
+## 18. Handoff notes
+- Mono-macro FULL pack for PR integration
+- Created test file embedded complete (byte-identical to tree)
+- Prior functional review = 65c2f137; this pack adds commit/PR/CI truths
