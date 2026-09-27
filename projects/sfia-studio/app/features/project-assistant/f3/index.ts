@@ -29,6 +29,9 @@ export type {
 } from "./resolveM3ExecutionContract";
 export {
   UNRESOLVED_STOP_SENTINELS,
+  CANONICAL_M3_AUTHORITY,
+  PRODUCT_PILOT_AUTHORITY,
+  isCanonicalPrepareAuthority,
   canonicalM3PrepareContractId,
   canonicalM3PrepareIdempotencyKey,
   canonicalM3ResolutionIdempotencyKey,

@@ -75,11 +75,12 @@ const POST_VALIDATION_OK = new Set([
 
 const PRE_VALIDATION = new Set(["draft", "proposed"]);
 
-const CANONICAL_M3_AUTHORITY = "MORRIS";
+export const CANONICAL_M3_AUTHORITY = "MORRIS";
 /** Product Pilot local-write path — distinct from construction Morris gate. */
-const PRODUCT_PILOT_AUTHORITY = "N2";
+export const PRODUCT_PILOT_AUTHORITY = "N2";
 
-function isCanonicalPrepareAuthority(authority: string): boolean {
+/** Canonical M3 PREPARE / resolved successor authorities (legacy Morris or Product Pilot). */
+export function isCanonicalPrepareAuthority(authority: string): boolean {
   return (
     authority === CANONICAL_M3_AUTHORITY || authority === PRODUCT_PILOT_AUTHORITY
   );

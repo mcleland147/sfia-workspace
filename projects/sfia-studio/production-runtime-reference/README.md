@@ -1,9 +1,10 @@
 # SFIA Studio — Living Production Runtime Reference
 
 **Nature:** CURRENT AS-IMPLEMENTED / LIVING PRODUCTION RUNTIME REFERENCE
-**Reviewed commit:** `1162b36b14ca2f4f644dcd3da970b25113214b06`
-**Reviewed at:** 2026-09-27T14:40:00+0200
+**Reviewed commit:** `6beb8cc369bd9b82eebee97b70309838373b3dfa`
+**Reviewed at:** 2026-09-27T15:40:00+0200
 **Macro foundation:** SFIA-STUDIO-LIVING-PRODUCTION-RUNTIME-REFERENCE-01
+**Stabilization overlay:** PRODUCT-CYCLE-E2E-STABILIZATION-01 (deterministic Product server-action E2E oracle)
 **Last audit overlay:** SFIA-STUDIO-LEGACY-ARCHITECTURE-DECOMMISSION-01 (no SAFE removal; CURRENT clarifications only)
 
 ## What this corpus is

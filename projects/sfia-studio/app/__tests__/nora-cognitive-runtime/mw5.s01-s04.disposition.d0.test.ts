@@ -22,6 +22,7 @@ function base(partial: Partial<Mw5PolicyInput>): Mw5PolicyInput {
     contextResolvesUncertainty: false,
     truthCEstablishedForClaim: false,
     consumedHumanDecisionWithoutNewContradiction: false,
+    structurallyResolvedActiveCycleContinuation: false,
     priorStructuralChallengeCount: 0,
     challengeSatisfied: false,
     criticalChallengeArmed: false,
@@ -98,6 +99,56 @@ describe("MW5-S01 — structural challenge ≤3, never questionnaire", () => {
     );
     expect(d.disposition).toBe("CONTINUE");
     expect(d.reasonCodes).toContain("skip_consumed_human_decision");
+  });
+
+  it("active-cycle structurally resolved continuation — no gratuitous HA re-challenge", () => {
+    const d = decideMw5Disposition(
+      base({
+        uncertaintyClass: "structural_premise",
+        recommendedProfile: "Critical",
+        recommendationWouldEmit: true,
+        criticalChallengeArmed: true,
+        challengeSatisfied: false,
+        truthCEstablishedForClaim: false,
+        consumedHumanDecisionWithoutNewContradiction: false,
+        structurallyResolvedActiveCycleContinuation: true,
+      }),
+    );
+    expect(d.disposition).toBe("CONTINUE");
+    expect(d.recommendationAllowed).toBe(true);
+    expect(d.reasonCodes).toContain(
+      "skip_structurally_resolved_active_cycle_continuation",
+    );
+    expect(d.disclosure).toMatch(/≠ Truth C ≠ HumanDecision/i);
+  });
+
+  it("negative — structurally resolved flag does NOT skip authority_boundary", () => {
+    const d = decideMw5Disposition(
+      base({
+        uncertaintyClass: "authority_boundary",
+        recommendedProfile: "Critical",
+        recommendationWouldEmit: true,
+        criticalChallengeArmed: true,
+        structurallyResolvedActiveCycleContinuation: true,
+        unresolvedAuthorityBoundary: true,
+      }),
+    );
+    expect(d.disposition).toBe("ESCALATE");
+  });
+
+  it("negative — without structural resolution, HA + Rec still CHALLENGE", () => {
+    const d = decideMw5Disposition(
+      base({
+        uncertaintyClass: "structural_premise",
+        recommendedProfile: "Critical",
+        recommendationWouldEmit: true,
+        criticalChallengeArmed: true,
+        challengeSatisfied: false,
+        structurallyResolvedActiveCycleContinuation: false,
+      }),
+    );
+    expect(d.disposition).toBe("CHALLENGE");
+    expect(d.recommendationAllowed).toBe(false);
   });
 });
 

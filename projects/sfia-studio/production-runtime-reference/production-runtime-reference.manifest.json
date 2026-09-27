@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
   "kind": "SFIA_STUDIO_LIVING_PRODUCTION_RUNTIME_REFERENCE",
-  "lastReviewedCommit": "1162b36b14ca2f4f644dcd3da970b25113214b06",
-  "lastReviewedAt": "2026-09-27T14:40:00+0200",
+  "lastReviewedCommit": "6beb8cc369bd9b82eebee97b70309838373b3dfa",
+  "lastReviewedAt": "2026-09-27T15:40:00+0200",
   "canonicalReadme": "projects/sfia-studio/production-runtime-reference/README.md",
   "volumes": [
     {
       "path": "projects/sfia-studio/production-runtime-reference/README.md",
-      "sha256_16": "8ca96a451e14a697"
+      "sha256_16": "0ba9591485795187"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/01-system-runtime-overview.md",
@@ -19,7 +19,7 @@
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md",
-      "sha256_16": "f1214758489baecf"
+      "sha256_16": "c462b6d33c7625f3"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md",
@@ -39,11 +39,11 @@
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md",
-      "sha256_16": "ac65dc664ef48adc"
+      "sha256_16": "8fc11fd081bb37dc"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md",
-      "sha256_16": "6e8b283c6e7a11d9"
+      "sha256_16": "3b136f115de2236f"
     }
   ],
   "components": [
@@ -71,7 +71,8 @@
       "testPaths": [
         "projects/sfia-studio/app/__tests__/project-assistant/activeCycleArtifactMaterializationContinuityCorr01.d0.test.ts",
         "projects/sfia-studio/app/__tests__/project-assistant/activeCycleArtifactApplicabilityContinuationBridgeCorr01.d0.test.ts",
-        "projects/sfia-studio/app/__tests__/project-assistant/corrProof07.artifactMaterialization.d0.test.ts"
+        "projects/sfia-studio/app/__tests__/project-assistant/corrProof07.artifactMaterialization.d0.test.ts",
+        "projects/sfia-studio/app/__tests__/project-assistant/productCycleE2eStabilization.frontDoor.d0.test.ts"
       ],
       "dependsOn": [
         "OBJ-FINALIZATION-ASSESS",
@@ -585,7 +586,7 @@
     },
     {
       "path": "projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts",
-      "sha256_16": "7810e4ae103ff7c5"
+      "sha256_16": "712b4200736f186e"
     },
     {
       "path": "projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts",
@@ -593,7 +594,7 @@
     },
     {
       "path": "projects/sfia-studio/app/features/project-assistant/f2/activeCycleGovernedContinuation.ts",
-      "sha256_16": "9f8c137569cc301f"
+      "sha256_16": "dabf1140dceaf91a"
     },
     {
       "path": "projects/sfia-studio/app/features/project-assistant/f2/proposalStore.ts",
@@ -617,7 +618,7 @@
     },
     {
       "path": "projects/sfia-studio/app/lib/nora-cognitive-runtime/criticalChallengeClarification.ts",
-      "sha256_16": "ab5707a7761399da"
+      "sha256_16": "01c0e604b1758454"
     },
     {
       "path": "projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts",
@@ -665,7 +666,7 @@
     },
     {
       "path": "projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts",
-      "sha256_16": "15850bc0103d5f23"
+      "sha256_16": "2941b56cd2caa60f"
     },
     {
       "path": "projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.tsx",
@@ -687,7 +688,7 @@
   "trackedTests": [
     {
       "path": "projects/sfia-studio/app/__tests__/project-assistant/activeCycleArtifactMaterializationContinuityCorr01.d0.test.ts",
-      "sha256_16": "942ee978958679cd"
+      "sha256_16": "aecf179ced91a076"
     },
     {
       "path": "projects/sfia-studio/app/__tests__/project-assistant/activeCycleArtifactApplicabilityContinuationBridgeCorr01.d0.test.ts",
@@ -708,6 +709,10 @@
     {
       "path": "projects/sfia-studio/app/__tests__/architecture/productionRuntimeReference.conformance.d0.test.ts",
       "sha256_16": "9ed95e13d8f41f09"
+    },
+    {
+      "path": "projects/sfia-studio/app/__tests__/project-assistant/productCycleE2eStabilization.frontDoor.d0.test.ts",
+      "sha256_16": "1af5e992db2ddc00"
     }
   ],
   "maintenance": {

@@ -3,8 +3,9 @@
 ## Hard boundaries
 
 - Runtime v3 **NON ADOPTED**
-- This corpus does not change product behavior
-- PocketTasks bugs / MW5 defects **not fixed** here
+- This corpus does not change product behavior by itself (Living Reference is descriptive)
+- PocketTasks-observed materialization / MW5 gaps are **mitigated at deterministic tested scope**; REAL OpenAI / PocketTasks parity is **not** re-proven
+- ZERO REAL in PRODUCT-CYCLE-E2E-STABILIZATION-01 — no READY FOR REAL / E2E REAL / Product global READY claimed
 - No CI workflow changes
 
 ## Current campaign findings (verified against repo where possible)
@@ -15,30 +16,38 @@
 | Artifact applicability bridge corrected (#533) | CONFIRMED | bridge helpers on HEAD |
 | D-PC-09: filename candidate + server exact target; no micro-gate | CONFIRMED (doc) | product-completion cadrage amendment |
 | REAL PocketTasks asked Pilot for filename | OBSERVATION | campaign UX; REAL not re-run here |
-| Fake may derive `note-de-cadrage.md`; REAL may leave null | CONFIRMED Fake / PROBABLE REAL | Fake code path exists |
-| MW5 may re-challenge structurally resolved continuation | PROBABLE | seam exists; journey observation |
-| Local tests pre-satisfy challenge assessment | PROBABLE | fixtures |
-| E2E backbone can bypass natural conversation front door | CONFIRMED | e2e API routes |
+| Fake may derive `note-de-cadrage.md`; REAL may leave null | MITIGATED Fake / REAL still provider-dependent | Fake now uses provider-neutral leaf cues; REAL not re-run |
+| MW5 may re-challenge structurally resolved continuation | MITIGATED at tested scope | `structurallyResolvedActiveCycleContinuation` |
+| Local tests pre-satisfy challenge assessment | MITIGATED on materialization Fake path | default assessment null |
+| E2E backbone can bypass natural conversation front door | MITIGATED at tested scope — Product server-action oracle | `productCycleE2eStabilization.frontDoor.d0.test.ts` |
 | Pending Proposal / reinstruction continuity = downstream impact seam | CONFIRMED structural | process-local proposalStore |
-| EC→Attempt→Evidence→Recovery single lineage needs re-proof | NOT PROVEN as one journey | next macro |
-
-## Next macro
-
-`PRODUCT-CYCLE-E2E-STABILIZATION-01` must use this reference for impact analysis, then resume PocketTasks as acceptance journey.
+| EC→Attempt→Evidence→Recovery single lineage needs re-proof | RE-PROVEN AT TESTED SCOPE (Fake) | front-door oracle |
 
 ## Uncertainties
 
 - Dependency graph is representative, not exhaustive of every file.
 - Failure-mode catalog is selected, not every string code in repo.
 - Some object cards mark PARTIAL where aggregate naming is distributed across DTOs.
+- REAL OpenAI leaf candidacy parity not re-proven this macro (DETERMINISTIC only).
 
-## Harvest follow-up absorbed
+## Next macro
 
-Post-foundation repository harvest confirmed Product SQLite M1–M8 topology and clarified ABSENT/PARTIAL aggregates (ContractResult/LR tables absent; MaturityAssessment/ExecutionRun memory-primary; Hybrid Context composer-only). Volumes 02 and 06 updated accordingly. No product behavior change.
+`PRODUCT-CYCLE-E2E-STABILIZATION-01` **executed** on branch `fix/sfia-studio-product-cycle-e2e-stabilization-01` (this tree). Capacité suivante: **requalifier après preuve** — ne pas auto-sélectionner.
+
+## PRODUCT-CYCLE-E2E-STABILIZATION-01 overlay
+
+| Item | Status |
+|---|---|
+| G2 filename micro-gate nominal | MITIGATED — Nora leaf candidate + server compose; clarify when no cue |
+| G3 MW5 gratuitous re-challenge | MITIGATED — `structurallyResolvedActiveCycleContinuation` (≠ Truth C ≠ HD) |
+| G1/G8 front-door + Fake realism | MITIGATED — front-door oracle; Fake materialization assessment default null |
+| G6 EC→Attempt→Evidence lineage | RE-PROVEN at tested scope via Product server-action front-door oracle (Fake docs-write + LPS outcome refs) |
+| REAL / E2E REAL | NOT claimed — ZERO REAL this macro |
+| Naming policy STOP | NOT required — leaf remains non-authoritative candidate (D-PC-09) |
 
 ## Legacy architecture decommission audit (this tree)
 
-**Macro:** `SFIA-STUDIO-LEGACY-ARCHITECTURE-DECOMMISSION-01` @ `1162b36b`
+**Macro:** `SFIA-STUDIO-LEGACY-ARCHITECTURE-DECOMMISSION-01` @ `1162b36b` / merged `#535`
 **Verdict:** **AUDIT COMPLETE — NO SAFE REMOVAL PROVEN** (no product code deleted).
 
 | Candidate | Classification | Exit / why not removed |

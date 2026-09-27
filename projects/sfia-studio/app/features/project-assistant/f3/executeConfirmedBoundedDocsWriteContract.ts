@@ -31,6 +31,7 @@ import {
   type DocsWriteCompletionFacts,
 } from "./completeBoundedDocsWriteLaunch";
 import { ingestDocsWriteArtifactEvidence } from "./ingestDocsWriteArtifactEvidence";
+import { appendEvidenceOutcomeToLps } from "./appendEvidenceOutcomeToLps";
 import { ingestEvidenceAndRecommend } from "./ingestEvidenceAndRecommend";
 import type { F3ExecutePayload } from "./types";
 
@@ -318,6 +319,22 @@ async function finishBoundedDocsWriteAttempt(input: {
       nowIso: input.deps.nowIso(),
     });
     if (!artifact.ok) return artifact;
+    // Product spine continuity — factual LPS refs so RehydrateEvidenceOutcome works.
+    if (input.deps.projectServices) {
+      const linked = await appendEvidenceOutcomeToLps({
+        projectId: input.projectId,
+        evidenceId: artifact.evidenceId,
+        reviewBundleId: artifact.reviewBundleId,
+        projectServices: input.deps.projectServices,
+      });
+      if (!linked.ok) {
+        return {
+          ok: false,
+          code: linked.code,
+          message: linked.message,
+        };
+      }
+    }
     extra.push(
       `Docs-write Evidence ${artifact.evidenceId} / ReviewBundle ${artifact.reviewBundleId}`,
       `target ${facts.targetPath} digest ${facts.digest.slice(0, 12)}…`,

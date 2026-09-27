@@ -45,6 +45,7 @@ function base(partial: Partial<Mw5PolicyInput>): Mw5PolicyInput {
     contextResolvesUncertainty: false,
     truthCEstablishedForClaim: false,
     consumedHumanDecisionWithoutNewContradiction: false,
+    structurallyResolvedActiveCycleContinuation: false,
     priorStructuralChallengeCount: 0,
     challengeSatisfied: false,
     criticalChallengeArmed: false,
