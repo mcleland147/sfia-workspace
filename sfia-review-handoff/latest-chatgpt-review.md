@@ -1,117 +1,144 @@
 # NATIVE-EXECUTION-LOOP-GREENFIELD-CONTINUITY-CORR-01 — FULL Review Pack
+# PROJECT GIT INTEGRATION
 
 ## 1. Date / heure
 
-- Local: 2026-09-27 07:21:45 UTC+0200
-- UTC: 2026-09-27T05:21:45Z
+- Local: 2026-09-27 07:35:33 UTC+0200
+- UTC: 2026-09-27T05:35:33Z
 
-## 2. Macro / Cycle / Profil
+## 2. Macro / Phase / Profil
 
 - Macro: NATIVE-EXECUTION-LOOP-GREENFIELD-CONTINUITY-CORR-01
 - Cycle: 8 — Delivery / implémentation
+- Phase: PROJECT GIT INTEGRATION
 - Typologie: EVOL corrective
 - Profil: CRITICAL
-- Capacité v3: Native Execution Loop → Greenfield entry → trajectory continuity → recovery ownership correctness
-- Milestone: post-#530 clean-room campaign PocketTasks — initial greenfield entry
 - Proof ceiling: DETERMINISTIC CORRECTION PROVEN
-- Runtime v3: NON ADOPTED
 
-## 3. Morris GO consommé
+## 3. Morris GO
 
-GO CORRECTION CONSUMED — NATIVE EXECUTION LOOP GREENFIELD CONTINUITY / CRITICAL / DETERMINISTIC ONLY / ZERO REAL / ZERO POCKETTASKS MUTATION / NO PROJECT COMMIT
+GO MORRIS CONSUMED: COMMIT + PUSH + PR
+MERGE: NOT AUTHORIZED
 
-Authorized: local corrective branch, scoped production+tests, FULL pack, L3 handoff.
-NOT authorized: project commit/push/PR/merge, PocketTasks mutation, Cursor REAL, Roadmap/Doctrine/C1/framing/method/prompts/workflows.
+Previous ChatGPT verdict:
+READY FOR COMMIT — GREENFIELD RECOVERY CONTINUITY CORRECTION — CONFIRMED
 
 ## 4. Git Truth
 
 ```
 worktree: /Users/morris/Projects/sfia-workspace-nel-greenfield-continuity-01
 branch: fix/sfia-studio-native-execution-loop-greenfield-continuity-01
-HEAD: 4ed91f24ed00942f314bacf84f23fe3863b67edf
+base / HEAD before commit: 4ed91f24ed00942f314bacf84f23fe3863b67edf
 origin/main: 4ed91f24ed00942f314bacf84f23fe3863b67edf
 base match: YES
-staged: none
-diff-check: PASS
-previous handoff tip: a8ceadc48378a9b6974b589275511bf80428e449
-previous handoff blob: ef7bc5b385e86e88a9755f28e71132ce6cfbb6f6
 ```
 
-Note: primary workspace held dirty #530 residue identical to main; clean worktree created from origin/main. Agent rooted on this worktree.
+Pre-commit candidate (exact):
+- M projects/sfia-studio/app/features/project-assistant/w2/readRecoveryOwnedDecisionContinuity.ts
+- ?? projects/sfia-studio/app/__tests__/project-assistant/greenfieldRecoveryContinuityCorr01.d0.test.ts
 
-### git status --short
+Also present but EXCLUDED from project commit:
+- M .tmp-sfia-review/chatgpt-review.md
 
-```
- M projects/sfia-studio/app/features/project-assistant/w2/readRecoveryOwnedDecisionContinuity.ts
-?? projects/sfia-studio/app/__tests__/project-assistant/greenfieldRecoveryContinuityCorr01.d0.test.ts
-
-```
-
-### git diff --name-status
+## 5. Previous handoff / candidate integrity
 
 ```
-M	projects/sfia-studio/app/features/project-assistant/w2/readRecoveryOwnedDecisionContinuity.ts
-
+previous tip: 9de0100227d91cdcea086f74865a5c431ab37909
+previous blob: 0907e1bd326c949a8c35d1982e7c9d0e751e6c35
 ```
 
-### git diff --stat
+Integrity check before commit:
+- TEST MATCH: YES (trailing newline only)
+- PROD MATCH: YES (patch apply exact)
+- no functional drift since ChatGPT review
+- git diff --check PASS
+
+## 6. Staging
+
+Exact staged set (2 files):
 
 ```
- .../w2/readRecoveryOwnedDecisionContinuity.ts      | 138 ++++++++++++++++++++-
- 1 file changed, 137 insertions(+), 1 deletion(-)
-
-?? projects/sfia-studio/app/__tests__/project-assistant/greenfieldRecoveryContinuityCorr01.d0.test.ts
+A projects/sfia-studio/app/__tests__/project-assistant/greenfieldRecoveryContinuityCorr01.d0.test.ts
+M projects/sfia-studio/app/features/project-assistant/w2/readRecoveryOwnedDecisionContinuity.ts
 ```
 
-## 5. Root cause / PocketTasks observation
+```
+2 files changed, 353 insertions(+), 1 deletion(-)
+```
 
-REAL PocketTasks clean-room UI showed: "Trajectory was not found."
+`.tmp-sfia-review/**` NOT staged.
+No Roadmap / Doctrine / C1 / framing / method / prompts / workflows.
 
-Structural cause on main (#530):
-readRecoveryOwnedDecisionContinuity → getCurrentTrajectory → TRAJECTORY_NOT_FOUND → W2Failure → recoveryOwnedContinuityReadStatus=error → continuityMutationBlocked → greenfield journey blocked.
+## 7. Commit
 
-## 6. Why blind TRAJECTORY_NOT_FOUND => kind=none is FORBIDDEN
+```
+SHA: 74e8ee461bc1e5153a53342d0452df4c084567c9
+parent: 4ed91f24ed00942f314bacf84f23fe3863b67edf
+message: fix(studio): handle greenfield recovery continuity
+files: exactly 2 (A test + M production)
+```
 
-| Case | Meaning | Required result |
-|------|---------|-----------------|
-| A fresh never | Project+LPS, no trajectory row, no GOVERNED HD | kind=none |
-| B candidate | history_without_current, status=candidate, undecided | kind=none |
-| C broken | validated/active or GOVERNED HD without current | fail-closed |
-| D unknown | reader throw / presence unknown | fail-closed |
-| E current | existing #530 recovery path | unchanged |
+diff-tree:
+```
+A projects/sfia-studio/app/__tests__/project-assistant/greenfieldRecoveryContinuityCorr01.d0.test.ts
+M projects/sfia-studio/app/features/project-assistant/w2/readRecoveryOwnedDecisionContinuity.ts
+```
 
-Blind mapping would mask PROJECT_NOT_FOUND, collapse UNKNOWN into absence, and hide broken GOVERNED continuity.
+## 8. Push
 
-## 7. Architecture retained
+```
+remote branch: origin/fix/sfia-studio-native-execution-loop-greenfield-continuity-01
+remote SHA: 74e8ee461bc1e5153a53342d0452df4c084567c9
+local SHA:  74e8ee461bc1e5153a53342d0452df4c084567c9
+new branch created (first push)
+force push: NO
+```
 
-KEEP / reuse: resolveTrajectoryBootstrapPresence, hasAnyByProjectId, assertGovernedRecoveryLineage, getProject, getCurrentLivingProjectState, listDecisionHistory.
+## 9. Pull Request
 
-NO second engine/store/aggregate/table. NO TrajectorySurface production change. NO Auth S1 / PREPARE changes.
+```
+number: 531
+url: https://github.com/mcleland147/sfia-workspace/pull/531
+state: OPEN
+draft: false
+mergeable: MERGEABLE
+base: main @ 4ed91f24ed00942f314bacf84f23fe3863b67edf
+head: fix/sfia-studio-native-execution-loop-greenfield-continuity-01 @ 74e8ee461bc1e5153a53342d0452df4c084567c9
+commits: 1
+changed_files: 2
+additions: 353
+deletions: 1
+```
 
-## 8. Semantics implemented
+Files:
+- ADDED greenfieldRecoveryContinuityCorr01.d0.test.ts (+216)
+- MODIFIED readRecoveryOwnedDecisionContinuity.ts (+137 / -1)
 
-On TRAJECTORY_NOT_FOUND after Project exists:
-1. resolveTrajectoryBootstrapPresence
-2. unknown / contradiction current → fail-closed
-3. LPS trajectoryId orphan / validated|active / decided refs → fail-closed
-4. accepted GOVERNED + DecisionBasis trajectory_option without current → fail-closed
-5. else never or legitimate undecided candidate → kind=none
+## 10. CI initial
 
-Current trajectory present → previous #530 path STRICTLY preserved.
+```
+workflow: SFIA Studio CI
+run: https://github.com/mcleland147/sfia-workspace/actions/runs/36297624091
+job Detect SFIA Studio changes: IN_PROGRESS / pending
+status overall: IN_PROGRESS (QUEUED → running)
+conclusion: not yet completed
+```
 
-## 9. Files
+Merge NOT performed.
 
-Production only:
-- projects/sfia-studio/app/features/project-assistant/w2/readRecoveryOwnedDecisionContinuity.ts
+## 11. FULL commit diffs (exploitable)
 
-Tests new:
-- projects/sfia-studio/app/__tests__/project-assistant/greenfieldRecoveryContinuityCorr01.d0.test.ts
-
-NOT modified: TrajectorySurface.tsx, greenfieldLifecycleBootstrap.ts, trajectory repos, prepareExecutionContractFromW2Decision, Auth S1, actions.ts
-
-## 10. FULL production diff
+### Production
 
 ```diff
+commit 74e8ee461bc1e5153a53342d0452df4c084567c9
+Author: Morris Cleland <morris@macbook-air.home>
+Date:   Sun Sep 27 07:34:47 2026 +0200
+
+    fix(studio): handle greenfield recovery continuity
+
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/readRecoveryOwnedDecisionContinuity.ts b/projects/sfia-studio/app/features/project-assistant/w2/readRecoveryOwnedDecisionContinuity.ts
 index 6fd458a0..553dd7fb 100644
 --- a/projects/sfia-studio/app/features/project-assistant/w2/readRecoveryOwnedDecisionContinuity.ts
@@ -294,282 +321,282 @@ index 6fd458a0..553dd7fb 100644
 
 ```
 
-## 11. FULL new test content
+### Test
 
-```typescript
-// @vitest-environment node
-/**
- * NATIVE-EXECUTION-LOOP-GREENFIELD-CONTINUITY-CORR-01
- *
- * Absence of CURRENT ProjectTrajectory is multi-semantic:
- *   A fresh / never          → kind=none
- *   B legitimate candidate   → kind=none
- *   C broken GOVERNED/current → fail-closed
- *   D unknown reader         → fail-closed
- *   E current recovery path  → unchanged (#530 non-regression suite)
- *
- * Deterministic only — ZERO Cursor REAL — ZERO PocketTasks mutation.
- */
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { setConversationProviderForTests } from "@/lib/platform/ai";
-import { clearW3bBoundaryArm } from "@/lib/vertical-slice-runtime/w3bE2eBoundaryControl";
-import { assertStudioCursorRealOffForTests } from "@/lib/oa/execution-attempt";
-import { SqliteProductStore } from "@/lib/oa/project";
-import { decideTrajectory } from "@/features/project-assistant/w2/decideTrajectory";
-import { readRecoveryOwnedDecisionContinuity } from "@/features/project-assistant/w2/readRecoveryOwnedDecisionContinuity";
-import { GOVERNED_OPTION_REF } from "@/features/project-assistant/w2/trajectoryOptions";
-import {
-  bootW2Runtime,
-  cleanupW2TempDirs,
-  proposeW2OptionsForProject,
-  seedQualifiedProject,
-  tempProductDbPath,
-  W2_FIXED_NOW,
-} from "./w2Harness";
+```diff
+commit 74e8ee461bc1e5153a53342d0452df4c084567c9
+Author: Morris Cleland <morris@macbook-air.home>
+Date:   Sun Sep 27 07:34:47 2026 +0200
 
-beforeEach(() => {
-  process.env.OPS1_CONVERSATION_PROVIDER = "fake";
-  process.env.OPS1_E2E_ALLOW_DIRTY_PRINCIPAL = "1";
-  delete process.env.SFIA_STUDIO_CURSOR_REAL_AUTHORIZED;
-  setConversationProviderForTests(null);
-  clearW3bBoundaryArm();
-  assertStudioCursorRealOffForTests();
-  vi.useFakeTimers({ toFake: ["Date"] });
-  vi.setSystemTime(new Date(W2_FIXED_NOW));
-});
+    fix(studio): handle greenfield recovery continuity
 
-afterEach(() => {
-  vi.useRealTimers();
-  vi.restoreAllMocks();
-  clearW3bBoundaryArm();
-  cleanupW2TempDirs();
-  setConversationProviderForTests(null);
-  assertStudioCursorRealOffForTests();
-});
+    Co-authored-by: Cursor <cursoragent@cursor.com>
 
-describe("GREENFIELD RECOVERY CONTINUITY — CORR-01", () => {
-  it("A — durable fresh Project (no trajectory) → kind=none (not TRAJECTORY_NOT_FOUND)", async () => {
-    const db = tempProductDbPath("gf-fresh.sqlite");
-    const runtime = bootW2Runtime({ productDbPath: db, idPrefix: "gfFresh" });
-    const created = await runtime.createProject({
-      name: "Greenfield fresh continuity",
-      objective: "Projet neuf sans trajectoire",
-      context: "CORR-01 Proof A",
-      criticality: "STANDARD",
-      constraints: ["AUCUNE EXÉCUTION"],
-      shortReference: "GFFRESH",
-      idempotencyKey: "gf-fresh-a",
-    });
-    expect(created.ok).toBe(true);
-    if (!created.ok) throw new Error("createProject");
-    const projectId = created.project.projectId;
-    const oa = runtime.oa!;
-
-    const project = await oa.projectServices.getProject.execute({ projectId });
-    expect(project.ok).toBe(true);
-    const lps = await oa.projectServices.getCurrentLivingProjectState.execute({
-      projectId,
-    });
-    expect(lps.ok).toBe(true);
-    if (lps.ok) {
-      expect(lps.livingProjectState.version).toBe(1);
-      expect(lps.livingProjectState.trajectoryId ?? null).toBeNull();
-    }
-
-    expect(await oa.cycleServices.trajectories.hasAnyByProjectId(projectId)).toBe(
-      false,
-    );
-
-    const result = await readRecoveryOwnedDecisionContinuity({ oa, projectId });
-    expect(result).toEqual({ ok: true, kind: "none" });
-  });
-
-  it("A2 — missing Project must NOT become kind=none", async () => {
-    const db = tempProductDbPath("gf-missing-prj.sqlite");
-    const runtime = bootW2Runtime({ productDbPath: db, idPrefix: "gfMiss" });
-    const oa = runtime.oa!;
-
-    const result = await readRecoveryOwnedDecisionContinuity({
-      oa,
-      projectId: "prj:does-not-exist-greenfield",
-    });
-    expect(result.ok).toBe(false);
-    if (result.ok) return;
-    expect(result.code).toBe("PROJECT_NOT_FOUND");
-  });
-
-  it("B — coherent candidate pre-decision → kind=none", async () => {
-    const db = tempProductDbPath("gf-candidate.sqlite");
-    const runtime = bootW2Runtime({ productDbPath: db, idPrefix: "gfCand" });
-    const seeded = await seedQualifiedProject(runtime, { suffix: "cand" });
-    const oa = runtime.oa!;
-
-    const proposed = await proposeW2OptionsForProject(runtime, seeded.projectId);
-    expect(proposed.ok).toBe(true);
-    if (!proposed.ok) throw new Error("propose");
-    expect(proposed.proposedTrajectory).toBeTruthy();
-    expect(proposed.proposedTrajectory!.status).toBe("candidate");
-
-    const current = await oa.cycleServices.getCurrentTrajectory.execute({
-      projectId: seeded.projectId,
-    });
-    expect(current.ok).toBe(false);
-    if (!current.ok) {
-      expect(current.error.detailCode).toBe("TRAJECTORY_NOT_FOUND");
-    }
-    expect(
-      await oa.cycleServices.trajectories.hasAnyByProjectId(seeded.projectId),
-    ).toBe(true);
-
-    const result = await readRecoveryOwnedDecisionContinuity({
-      oa,
-      projectId: seeded.projectId,
-    });
-    expect(result).toEqual({ ok: true, kind: "none" });
-
-    // No auto-HD created by the read.
-    const history = await oa.decisionServices.listDecisionHistory.execute({
-      projectId: seeded.projectId,
-    });
-    expect(history.ok).toBe(true);
-    if (history.ok) {
-      expect(history.decisions).toHaveLength(0);
-    }
-  });
-
-  it("C — GOVERNED decided trajectory without CURRENT pointer → fail-closed", async () => {
-    const db = tempProductDbPath("gf-broken-current.sqlite");
-    const runtime = bootW2Runtime({ productDbPath: db, idPrefix: "gfBrk" });
-    const seeded = await seedQualifiedProject(runtime, { suffix: "brk" });
-    const oa = runtime.oa!;
-
-    const proposed = await proposeW2OptionsForProject(runtime, seeded.projectId);
-    if (!proposed.ok) throw new Error("propose");
-    const decided = await decideTrajectory({
-      oa,
-      projectId: seeded.projectId,
-      optionSetRef: proposed.optionSetRef,
-      options: proposed.options,
-      recommendedOptionRef: proposed.recommendation.recommendedOptionRef,
-      selectedOptionRef: GOVERNED_OPTION_REF,
-      trajectoryId: proposed.proposedTrajectory!.trajectoryId,
-      candidateVersion: proposed.proposedTrajectory!.version,
-      forceLocalAuthority: true,
-    });
-    if (!decided.ok) throw new Error("decide");
-
-    const before = await oa.cycleServices.getCurrentTrajectory.execute({
-      projectId: seeded.projectId,
-    });
-    expect(before.ok).toBe(true);
-
-    const store = oa.projectServices.store;
-    expect(store).toBeInstanceOf(SqliteProductStore);
-    (store as SqliteProductStore).db
-      .prepare(`DELETE FROM oa_project_trajectory_current WHERE project_id = ?`)
-      .run(seeded.projectId);
-
-    const after = await oa.cycleServices.getCurrentTrajectory.execute({
-      projectId: seeded.projectId,
-    });
-    expect(after.ok).toBe(false);
-    if (!after.ok) {
-      expect(after.error.detailCode).toBe("TRAJECTORY_NOT_FOUND");
-    }
-
-    const result = await readRecoveryOwnedDecisionContinuity({
-      oa,
-      projectId: seeded.projectId,
-    });
-    expect(result.ok).toBe(false);
-    if (result.ok) return;
-    expect(result.code).toBe("RECOVERY_DECISION_CONTINUITY_FAILED");
-  });
-
-  it("D — unknown trajectory presence reader → fail-closed (UNKNOWN ≠ absence)", async () => {
-    const db = tempProductDbPath("gf-unknown-reader.sqlite");
-    const runtime = bootW2Runtime({ productDbPath: db, idPrefix: "gfUnk" });
-    const created = await runtime.createProject({
-      name: "Greenfield unknown reader",
-      objective: "Reader failure must not become none",
-      context: "CORR-01 Proof D",
-      criticality: "STANDARD",
-      constraints: ["AUCUNE EXÉCUTION"],
-      shortReference: "GFUNC",
-      idempotencyKey: "gf-unknown-d",
-    });
-    if (!created.ok) throw new Error("createProject");
-    const projectId = created.project.projectId;
-    const oa = runtime.oa!;
-
-    vi.spyOn(oa.cycleServices.trajectories, "hasAnyByProjectId").mockRejectedValue(
-      new Error("forced_trajectory_presence_read_failure"),
-    );
-
-    const result = await readRecoveryOwnedDecisionContinuity({ oa, projectId });
-    expect(result.ok).toBe(false);
-    if (result.ok) return;
-    expect(result.code).toBe("RECOVERY_DECISION_CONTINUITY_FAILED");
-    expect(result.message).toMatch(/UNKNOWN|illisible|fail-closed/i);
-  });
-});
+diff --git a/projects/sfia-studio/app/__tests__/project-assistant/greenfieldRecoveryContinuityCorr01.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/greenfieldRecoveryContinuityCorr01.d0.test.ts
+new file mode 100644
+index 00000000..ab4432fd
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/project-assistant/greenfieldRecoveryContinuityCorr01.d0.test.ts
+@@ -0,0 +1,216 @@
++// @vitest-environment node
++/**
++ * NATIVE-EXECUTION-LOOP-GREENFIELD-CONTINUITY-CORR-01
++ *
++ * Absence of CURRENT ProjectTrajectory is multi-semantic:
++ *   A fresh / never          → kind=none
++ *   B legitimate candidate   → kind=none
++ *   C broken GOVERNED/current → fail-closed
++ *   D unknown reader         → fail-closed
++ *   E current recovery path  → unchanged (#530 non-regression suite)
++ *
++ * Deterministic only — ZERO Cursor REAL — ZERO PocketTasks mutation.
++ */
++import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
++import { setConversationProviderForTests } from "@/lib/platform/ai";
++import { clearW3bBoundaryArm } from "@/lib/vertical-slice-runtime/w3bE2eBoundaryControl";
++import { assertStudioCursorRealOffForTests } from "@/lib/oa/execution-attempt";
++import { SqliteProductStore } from "@/lib/oa/project";
++import { decideTrajectory } from "@/features/project-assistant/w2/decideTrajectory";
++import { readRecoveryOwnedDecisionContinuity } from "@/features/project-assistant/w2/readRecoveryOwnedDecisionContinuity";
++import { GOVERNED_OPTION_REF } from "@/features/project-assistant/w2/trajectoryOptions";
++import {
++  bootW2Runtime,
++  cleanupW2TempDirs,
++  proposeW2OptionsForProject,
++  seedQualifiedProject,
++  tempProductDbPath,
++  W2_FIXED_NOW,
++} from "./w2Harness";
++
++beforeEach(() => {
++  process.env.OPS1_CONVERSATION_PROVIDER = "fake";
++  process.env.OPS1_E2E_ALLOW_DIRTY_PRINCIPAL = "1";
++  delete process.env.SFIA_STUDIO_CURSOR_REAL_AUTHORIZED;
++  setConversationProviderForTests(null);
++  clearW3bBoundaryArm();
++  assertStudioCursorRealOffForTests();
++  vi.useFakeTimers({ toFake: ["Date"] });
++  vi.setSystemTime(new Date(W2_FIXED_NOW));
++});
++
++afterEach(() => {
++  vi.useRealTimers();
++  vi.restoreAllMocks();
++  clearW3bBoundaryArm();
++  cleanupW2TempDirs();
++  setConversationProviderForTests(null);
++  assertStudioCursorRealOffForTests();
++});
++
++describe("GREENFIELD RECOVERY CONTINUITY — CORR-01", () => {
++  it("A — durable fresh Project (no trajectory) → kind=none (not TRAJECTORY_NOT_FOUND)", async () => {
++    const db = tempProductDbPath("gf-fresh.sqlite");
++    const runtime = bootW2Runtime({ productDbPath: db, idPrefix: "gfFresh" });
++    const created = await runtime.createProject({
++      name: "Greenfield fresh continuity",
++      objective: "Projet neuf sans trajectoire",
++      context: "CORR-01 Proof A",
++      criticality: "STANDARD",
++      constraints: ["AUCUNE EXÉCUTION"],
++      shortReference: "GFFRESH",
++      idempotencyKey: "gf-fresh-a",
++    });
++    expect(created.ok).toBe(true);
++    if (!created.ok) throw new Error("createProject");
++    const projectId = created.project.projectId;
++    const oa = runtime.oa!;
++
++    const project = await oa.projectServices.getProject.execute({ projectId });
++    expect(project.ok).toBe(true);
++    const lps = await oa.projectServices.getCurrentLivingProjectState.execute({
++      projectId,
++    });
++    expect(lps.ok).toBe(true);
++    if (lps.ok) {
++      expect(lps.livingProjectState.version).toBe(1);
++      expect(lps.livingProjectState.trajectoryId ?? null).toBeNull();
++    }
++
++    expect(await oa.cycleServices.trajectories.hasAnyByProjectId(projectId)).toBe(
++      false,
++    );
++
++    const result = await readRecoveryOwnedDecisionContinuity({ oa, projectId });
++    expect(result).toEqual({ ok: true, kind: "none" });
++  });
++
++  it("A2 — missing Project must NOT become kind=none", async () => {
++    const db = tempProductDbPath("gf-missing-prj.sqlite");
++    const runtime = bootW2Runtime({ productDbPath: db, idPrefix: "gfMiss" });
++    const oa = runtime.oa!;
++
++    const result = await readRecoveryOwnedDecisionContinuity({
++      oa,
++      projectId: "prj:does-not-exist-greenfield",
++    });
++    expect(result.ok).toBe(false);
++    if (result.ok) return;
++    expect(result.code).toBe("PROJECT_NOT_FOUND");
++  });
++
++  it("B — coherent candidate pre-decision → kind=none", async () => {
++    const db = tempProductDbPath("gf-candidate.sqlite");
++    const runtime = bootW2Runtime({ productDbPath: db, idPrefix: "gfCand" });
++    const seeded = await seedQualifiedProject(runtime, { suffix: "cand" });
++    const oa = runtime.oa!;
++
++    const proposed = await proposeW2OptionsForProject(runtime, seeded.projectId);
++    expect(proposed.ok).toBe(true);
++    if (!proposed.ok) throw new Error("propose");
++    expect(proposed.proposedTrajectory).toBeTruthy();
++    expect(proposed.proposedTrajectory!.status).toBe("candidate");
++
++    const current = await oa.cycleServices.getCurrentTrajectory.execute({
++      projectId: seeded.projectId,
++    });
++    expect(current.ok).toBe(false);
++    if (!current.ok) {
++      expect(current.error.detailCode).toBe("TRAJECTORY_NOT_FOUND");
++    }
++    expect(
++      await oa.cycleServices.trajectories.hasAnyByProjectId(seeded.projectId),
++    ).toBe(true);
++
++    const result = await readRecoveryOwnedDecisionContinuity({
++      oa,
++      projectId: seeded.projectId,
++    });
++    expect(result).toEqual({ ok: true, kind: "none" });
++
++    // No auto-HD created by the read.
++    const history = await oa.decisionServices.listDecisionHistory.execute({
++      projectId: seeded.projectId,
++    });
++    expect(history.ok).toBe(true);
++    if (history.ok) {
++      expect(history.decisions).toHaveLength(0);
++    }
++  });
++
++  it("C — GOVERNED decided trajectory without CURRENT pointer → fail-closed", async () => {
++    const db = tempProductDbPath("gf-broken-current.sqlite");
++    const runtime = bootW2Runtime({ productDbPath: db, idPrefix: "gfBrk" });
++    const seeded = await seedQualifiedProject(runtime, { suffix: "brk" });
++    const oa = runtime.oa!;
++
++    const proposed = await proposeW2OptionsForProject(runtime, seeded.projectId);
++    if (!proposed.ok) throw new Error("propose");
++    const decided = await decideTrajectory({
++      oa,
++      projectId: seeded.projectId,
++      optionSetRef: proposed.optionSetRef,
++      options: proposed.options,
++      recommendedOptionRef: proposed.recommendation.recommendedOptionRef,
++      selectedOptionRef: GOVERNED_OPTION_REF,
++      trajectoryId: proposed.proposedTrajectory!.trajectoryId,
++      candidateVersion: proposed.proposedTrajectory!.version,
++      forceLocalAuthority: true,
++    });
++    if (!decided.ok) throw new Error("decide");
++
++    const before = await oa.cycleServices.getCurrentTrajectory.execute({
++      projectId: seeded.projectId,
++    });
++    expect(before.ok).toBe(true);
++
++    const store = oa.projectServices.store;
++    expect(store).toBeInstanceOf(SqliteProductStore);
++    (store as SqliteProductStore).db
++      .prepare(`DELETE FROM oa_project_trajectory_current WHERE project_id = ?`)
++      .run(seeded.projectId);
++
++    const after = await oa.cycleServices.getCurrentTrajectory.execute({
++      projectId: seeded.projectId,
++    });
++    expect(after.ok).toBe(false);
++    if (!after.ok) {
++      expect(after.error.detailCode).toBe("TRAJECTORY_NOT_FOUND");
++    }
++
++    const result = await readRecoveryOwnedDecisionContinuity({
++      oa,
++      projectId: seeded.projectId,
++    });
++    expect(result.ok).toBe(false);
++    if (result.ok) return;
++    expect(result.code).toBe("RECOVERY_DECISION_CONTINUITY_FAILED");
++  });
++
++  it("D — unknown trajectory presence reader → fail-closed (UNKNOWN ≠ absence)", async () => {
++    const db = tempProductDbPath("gf-unknown-reader.sqlite");
++    const runtime = bootW2Runtime({ productDbPath: db, idPrefix: "gfUnk" });
++    const created = await runtime.createProject({
++      name: "Greenfield unknown reader",
++      objective: "Reader failure must not become none",
++      context: "CORR-01 Proof D",
++      criticality: "STANDARD",
++      constraints: ["AUCUNE EXÉCUTION"],
++      shortReference: "GFUNC",
++      idempotencyKey: "gf-unknown-d",
++    });
++    if (!created.ok) throw new Error("createProject");
++    const projectId = created.project.projectId;
++    const oa = runtime.oa!;
++
++    vi.spyOn(oa.cycleServices.trajectories, "hasAnyByProjectId").mockRejectedValue(
++      new Error("forced_trajectory_presence_read_failure"),
++    );
++
++    const result = await readRecoveryOwnedDecisionContinuity({ oa, projectId });
++    expect(result.ok).toBe(false);
++    if (result.ok) return;
++    expect(result.code).toBe("RECOVERY_DECISION_CONTINUITY_FAILED");
++    expect(result.message).toMatch(/UNKNOWN|illisible|fail-closed/i);
++  });
++});
 
 ```
 
-## 12. Proofs
+## 12. Pre-integration validation (from previous handoff; candidate unchanged)
 
-### A — Fresh Project
-createProject → Project + LPS v1; hasAny=false; read → kind=none.
-A2 missing Project → PROJECT_NOT_FOUND (not kind=none).
+- targeted: 6 files / 50 PASS
+- typecheck PASS
+- lint PASS
+- build PASS
+- full: 441 files / 4881 PASS, 137 skipped
+- diff-check PASS
+- FinOps NOT RUN ≠ FinOps PASS
 
-### B — Candidate pre-decision
-propose → candidate; getCurrent TRAJECTORY_NOT_FOUND; hasAny=true; read → kind=none; no auto HD.
+## 13. Fake / Real
 
-### C — Broken GOVERNED / missing current
-decide GOVERNED; DELETE oa_project_trajectory_current; read → RECOVERY_DECISION_CONTINUITY_FAILED.
+- deterministic correction only
+- ZERO Cursor REAL
+- ZERO PocketTasks mutation
+- runtime v3 NON ADOPTED
+- NO PocketTasks native loop claim
+- NO END-TO-END REAL claim
+- NO Product READY claim
 
-### D — Unknown reader
-spy hasAnyByProjectId rejects; read → fail-closed (UNKNOWN ≠ absence).
+## 14. Git actions
 
-### E — #530 non-regression
-nativeExecutionLoopPostEvidenceRecoveryContinuityCorr01.d0.test.ts PASS
-(runtime A→B / owned / binding=null / generic PREPARE / S1 / ZERO new Attempt).
+- project commit: YES
+- project push: YES
+- PR: YES (#531)
+- merge: NO
+- branch delete: NO
+- force push: NO
+- worktree delete: NO
 
-## 13. Tests
+## 15. Reserves
 
-### Targeted PASS
-Test Files 6 passed / Tests 50 passed
+### Blocking
+None for this Git integration phase.
 
-### typecheck PASS
-### lint PASS
-### build PASS
-### full npm test PASS
-Test Files 441 passed | 17 skipped (458)
-Tests 4881 passed | 137 skipped (5018)
+### Residual
+- CI PR not yet SUCCESS — do not claim READY FOR MERGE
+- FinOps not run
+- PocketTasks REAL re-observation remains next campaign step after merge authorization
 
-### git diff --check PASS
+## 16. Verdict
 
-### FinOps / test:db
-NOT launched — FinOps non lancé ≠ FinOps PASS.
-
-## 14. Fake / Real
-
-Entry: REAL PocketTasks observation + repository diagnosis.
-Proof: DETERMINISTIC only.
-ZERO Cursor REAL. ZERO PocketTasks mutation.
-NO claim: POCKETTASKS NATIVE LOOP PROVEN / END-TO-END REAL / PRODUCT READY / runtime v3 ADOPTED.
-
-## 15. Exit criteria
-1–27 PASS.
-
-## 16. Git actions
-project commit NO / push NO / PR NO / merge NO.
-
-## 17. Reserves
-
-Blocking: none.
-Residual: FinOps not run; candidate uncommitted; PocketTasks REAL re-observation after commit/merge out of scope (next: RESUME POCKETTASKS CLEAN-ROOM NATIVE LOOP CAMPAIGN).
-
-## 18. Verdict
-
-**READY FOR COMMIT — GREENFIELD RECOVERY CONTINUITY CORRECTION**
+**PR OPEN — GREENFIELD RECOVERY CONTINUITY CORRECTION — CI IN_PROGRESS**
