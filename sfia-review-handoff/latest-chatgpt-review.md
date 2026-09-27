@@ -93,7 +93,10 @@ Sujets | Réserves | Recommandations(Work) | Décisions — Lifecycle ABSENT fro
 
 Proved absent from base `955e86d2`; removed from local candidate:
 
-- `projects/sfia-studio/app/features/project-assistant/w2/resolveChatFirstLifecycleTransition.ts`\n- `projects/sfia-studio/app/features/project-assistant/w2/assessChatFirstLifecycleEligibility.ts`\n- `projects/sfia-studio/app/features/project-assistant/w2/loadChatFirstLifecycleMaterial.ts`\n- `projects/sfia-studio/app/__tests__/project-assistant/chatFirstLifecycleTransition.d0.test.ts`
+- `projects/sfia-studio/app/features/project-assistant/w2/resolveChatFirstLifecycleTransition.ts`
+- `projects/sfia-studio/app/features/project-assistant/w2/assessChatFirstLifecycleEligibility.ts`
+- `projects/sfia-studio/app/features/project-assistant/w2/loadChatFirstLifecycleMaterial.ts`
+- `projects/sfia-studio/app/__tests__/project-assistant/chatFirstLifecycleTransition.d0.test.ts`
 
 No historical main asset deleted.
 
