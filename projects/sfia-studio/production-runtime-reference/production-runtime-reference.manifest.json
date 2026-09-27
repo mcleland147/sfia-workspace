@@ -1,0 +1,719 @@
+{
+  "schemaVersion": 1,
+  "kind": "SFIA_STUDIO_LIVING_PRODUCTION_RUNTIME_REFERENCE",
+  "lastReviewedCommit": "b4aa09bdef29a635e624bb5c396711e75057df4d",
+  "lastReviewedAt": "2026-09-27T11:14:45Z",
+  "canonicalReadme": "projects/sfia-studio/production-runtime-reference/README.md",
+  "volumes": [
+    {
+      "path": "projects/sfia-studio/production-runtime-reference/README.md",
+      "sha256_16": "294d01863555a584"
+    },
+    {
+      "path": "projects/sfia-studio/production-runtime-reference/01-system-runtime-overview.md",
+      "sha256_16": "109183af7b0f167e"
+    },
+    {
+      "path": "projects/sfia-studio/production-runtime-reference/02-runtime-object-catalog.md",
+      "sha256_16": "0899fb8fc72e30cc"
+    },
+    {
+      "path": "projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md",
+      "sha256_16": "5ebba023d84a09f7"
+    },
+    {
+      "path": "projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md",
+      "sha256_16": "0269b99d4d6c6c5f"
+    },
+    {
+      "path": "projects/sfia-studio/production-runtime-reference/05-environments-configuration-and-boundaries.md",
+      "sha256_16": "101ec96a6908db71"
+    },
+    {
+      "path": "projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md",
+      "sha256_16": "0fc09ae3105d36ed"
+    },
+    {
+      "path": "projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md",
+      "sha256_16": "90a3ea63bda274bd"
+    },
+    {
+      "path": "projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md",
+      "sha256_16": "ac65dc664ef48adc"
+    },
+    {
+      "path": "projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md",
+      "sha256_16": "35e9107fb39f5a53"
+    }
+  ],
+  "components": [
+    {
+      "id": "OBJ-ARTIFACT-CONTINUATION",
+      "title": "Active-cycle Artifact governed continuation",
+      "docSection": "02-runtime-object-catalog.md",
+      "trackedSourcePaths": [
+        "projects/sfia-studio/app/features/project-assistant/f2/activeCycleGovernedContinuation.ts",
+        "projects/sfia-studio/app/lib/oa/project/domain/artifactTargetRouting.ts",
+        "projects/sfia-studio/app/lib/oa/cycle/application/deriveCycleObligationSnapshot.ts",
+        "projects/sfia-studio/app/lib/oa/cycle/application/assessFinalization.ts"
+      ],
+      "flowIds": [
+        "F05",
+        "F06",
+        "F17"
+      ],
+      "invariantIds": [
+        "INV-APPLICABILITY-NE-AUTHORITY",
+        "INV-UNKNOWN-NE-APPLICABLE",
+        "INV-NO-SILENT-HD",
+        "INV-OLD-CYCLE-HD"
+      ],
+      "testPaths": [
+        "projects/sfia-studio/app/__tests__/project-assistant/activeCycleArtifactMaterializationContinuityCorr01.d0.test.ts",
+        "projects/sfia-studio/app/__tests__/project-assistant/activeCycleArtifactApplicabilityContinuationBridgeCorr01.d0.test.ts",
+        "projects/sfia-studio/app/__tests__/project-assistant/corrProof07.artifactMaterialization.d0.test.ts"
+      ],
+      "dependsOn": [
+        "OBJ-FINALIZATION-ASSESS",
+        "OBJ-ARTIFACT-ROUTING",
+        "OBJ-PROPOSAL"
+      ],
+      "dependencyIds": [
+        "DEP-ACGC-ART",
+        "DEP-ACGC-ASSESS",
+        "DEP-ACGC-PROP"
+      ],
+      "authoritySensitive": true,
+      "persistence": "reads-product-db"
+    },
+    {
+      "id": "OBJ-MW5-CHALLENGE",
+      "title": "MW5 critical challenge clarification",
+      "docSection": "02-runtime-object-catalog.md",
+      "trackedSourcePaths": [
+        "projects/sfia-studio/app/lib/nora-cognitive-runtime/criticalChallengeClarification.ts",
+        "projects/sfia-studio/app/features/project-assistant/f2/mw5ChallengeSessionStore.ts"
+      ],
+      "flowIds": [
+        "F04",
+        "F05",
+        "F06"
+      ],
+      "invariantIds": [
+        "INV-COG-NE-AUTH",
+        "INV-NO-SILENT-HD"
+      ],
+      "testPaths": [],
+      "dependsOn": [
+        "OBJ-TURN-ORCH"
+      ],
+      "dependencyIds": [
+        "DEP-MW5-TURN"
+      ],
+      "authoritySensitive": false,
+      "persistence": "session-or-process"
+    },
+    {
+      "id": "OBJ-PROPOSAL",
+      "title": "F2 Proposal process-local store",
+      "docSection": "02-runtime-object-catalog.md",
+      "trackedSourcePaths": [
+        "projects/sfia-studio/app/features/project-assistant/f2/proposalStore.ts",
+        "projects/sfia-studio/app/features/project-assistant/f2/recordDecision.ts"
+      ],
+      "flowIds": [
+        "F06",
+        "F07",
+        "F17"
+      ],
+      "invariantIds": [
+        "INV-PROP-NE-HD",
+        "INV-PROP-NOT-SOLE-RESTART"
+      ],
+      "testPaths": [],
+      "dependsOn": [
+        "OBJ-HD"
+      ],
+      "dependencyIds": [
+        "DEP-PROP-HD"
+      ],
+      "authoritySensitive": true,
+      "persistence": "process-local"
+    },
+    {
+      "id": "OBJ-HD",
+      "title": "HumanDecision",
+      "docSection": "02-runtime-object-catalog.md",
+      "trackedSourcePaths": [
+        "projects/sfia-studio/app/features/project-assistant/f2/recordDecision.ts",
+        "projects/sfia-studio/app/features/project-assistant/f2/pilotLifecycleActions.ts"
+      ],
+      "flowIds": [
+        "F07",
+        "F08",
+        "F15"
+      ],
+      "invariantIds": [
+        "INV-REC-NE-HD",
+        "INV-NO-SILENT-HD"
+      ],
+      "testPaths": [],
+      "dependsOn": [],
+      "dependencyIds": [
+        "DEP-HD-EC"
+      ],
+      "authoritySensitive": true,
+      "persistence": "oa_human_decisions"
+    },
+    {
+      "id": "OBJ-ARTIFACT-ROUTING",
+      "title": "Artifact target routing",
+      "docSection": "02-runtime-object-catalog.md",
+      "trackedSourcePaths": [
+        "projects/sfia-studio/app/lib/oa/project/domain/artifactTargetRouting.ts"
+      ],
+      "flowIds": [
+        "F05",
+        "F08"
+      ],
+      "invariantIds": [
+        "INV-EC-NO-EXPAND-WHAT"
+      ],
+      "testPaths": [],
+      "dependsOn": [],
+      "dependencyIds": [],
+      "authoritySensitive": false,
+      "persistence": "none"
+    },
+    {
+      "id": "OBJ-FINALIZATION-ASSESS",
+      "title": "Finalization assessment / obligations",
+      "docSection": "02-runtime-object-catalog.md",
+      "trackedSourcePaths": [
+        "projects/sfia-studio/app/lib/oa/cycle/application/assessFinalization.ts",
+        "projects/sfia-studio/app/lib/oa/cycle/application/deriveFinalizationApplicability.ts",
+        "projects/sfia-studio/app/lib/oa/cycle/application/deriveCycleObligationSnapshot.ts"
+      ],
+      "flowIds": [
+        "F05",
+        "F15"
+      ],
+      "invariantIds": [
+        "INV-ARTIFACT-COND",
+        "INV-UNKNOWN-NE-APPLICABLE"
+      ],
+      "testPaths": [
+        "projects/sfia-studio/app/__tests__/oa/cycle/corrProof06.artifactObligation.d0.test.ts"
+      ],
+      "dependsOn": [],
+      "dependencyIds": [],
+      "authoritySensitive": false,
+      "persistence": "derived-read"
+    },
+    {
+      "id": "OBJ-TURN-ORCH",
+      "title": "Project assistant / Nora turn orchestration",
+      "docSection": "01-system-runtime-overview.md",
+      "trackedSourcePaths": [
+        "projects/sfia-studio/app/features/project-assistant/actions.ts",
+        "projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts",
+        "projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts",
+        "projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts"
+      ],
+      "flowIds": [
+        "F04",
+        "F05",
+        "F06"
+      ],
+      "invariantIds": [
+        "INV-COG-NE-AUTH"
+      ],
+      "testPaths": [],
+      "dependsOn": [
+        "OBJ-MEMORY-B",
+        "OBJ-MW5-CHALLENGE"
+      ],
+      "dependencyIds": [],
+      "authoritySensitive": false,
+      "persistence": "mixed"
+    },
+    {
+      "id": "OBJ-MEMORY-B",
+      "title": "ProductSqliteSession / transcript / journal",
+      "docSection": "02-runtime-object-catalog.md",
+      "trackedSourcePaths": [
+        "projects/sfia-studio/app/lib/nora-cognitive-runtime/productSqliteSession.ts",
+        "projects/sfia-studio/app/lib/nora-cognitive-runtime/sessionPaths.ts",
+        "projects/sfia-studio/app/lib/nora-cognitive-runtime/cycleJournalStore.ts",
+        "projects/sfia-studio/app/features/project-assistant/f2/canonicalConversationSession.ts"
+      ],
+      "flowIds": [
+        "F02",
+        "F04",
+        "F19"
+      ],
+      "invariantIds": [
+        "INV-MEMB-NE-TRUTHC"
+      ],
+      "testPaths": [],
+      "dependsOn": [],
+      "dependencyIds": [
+        "DEP-SESSION-TURN"
+      ],
+      "authoritySensitive": false,
+      "persistence": "nora-session.sqlite"
+    },
+    {
+      "id": "OBJ-FAKE-PROVIDER",
+      "title": "FakeConversationProvider",
+      "docSection": "05-environments-configuration-and-boundaries.md",
+      "trackedSourcePaths": [
+        "projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts",
+        "projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts"
+      ],
+      "flowIds": [
+        "F04",
+        "F05"
+      ],
+      "invariantIds": [
+        "INV-FAKE-REAL-SM"
+      ],
+      "testPaths": [
+        "projects/sfia-studio/app/__tests__/platform/fakeProvider.userValidArtifactMaterialization.d0.test.ts"
+      ],
+      "dependsOn": [],
+      "dependencyIds": [
+        "DEP-FAKE-INTENT"
+      ],
+      "authoritySensitive": false,
+      "persistence": "none"
+    },
+    {
+      "id": "OBJ-EC",
+      "title": "ExecutionContract aggregate",
+      "docSection": "02-runtime-object-catalog.md",
+      "trackedSourcePaths": [
+        "projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/db.ts"
+      ],
+      "flowIds": [
+        "F08",
+        "F09",
+        "F10",
+        "F18"
+      ],
+      "invariantIds": [
+        "INV-EC-NO-EXPAND-WHAT",
+        "INV-NO-EXEC-BEFORE-AUTH"
+      ],
+      "testPaths": [],
+      "dependsOn": [
+        "OBJ-HD"
+      ],
+      "dependencyIds": [
+        "DEP-EC-ATT"
+      ],
+      "authoritySensitive": true,
+      "persistence": "oa_execution_contracts"
+    },
+    {
+      "id": "OBJ-UI-LIFECYCLE",
+      "title": "Lifecycle UI presentation",
+      "docSection": "01-system-runtime-overview.md",
+      "trackedSourcePaths": [
+        "projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.tsx",
+        "projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/lifecyclePresentation.ts",
+        "projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts"
+      ],
+      "flowIds": [
+        "F02",
+        "F05",
+        "F15"
+      ],
+      "invariantIds": [
+        "INV-APPLICABILITY-NE-AUTHORITY"
+      ],
+      "testPaths": [],
+      "dependsOn": [
+        "OBJ-FINALIZATION-ASSESS"
+      ],
+      "dependencyIds": [],
+      "authoritySensitive": false,
+      "persistence": "none"
+    },
+    {
+      "id": "OBJ-RUNTIME-COMPOSITION",
+      "title": "Vertical-slice runtime composition",
+      "docSection": "01-system-runtime-overview.md",
+      "trackedSourcePaths": [
+        "projects/sfia-studio/app/lib/vertical-slice-runtime/singleton.ts",
+        "projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts",
+        "projects/sfia-studio/app/.env.example"
+      ],
+      "flowIds": [
+        "F01",
+        "F02"
+      ],
+      "invariantIds": [
+        "INV-NO-V3-ADOPT"
+      ],
+      "testPaths": [],
+      "dependsOn": [],
+      "dependencyIds": [],
+      "authoritySensitive": false,
+      "persistence": "product-db-path"
+    }
+  ],
+  "flows": [
+    {
+      "id": "F01",
+      "docSection": "03-end-to-end-flow-catalog.md"
+    },
+    {
+      "id": "F02",
+      "docSection": "03-end-to-end-flow-catalog.md"
+    },
+    {
+      "id": "F03",
+      "docSection": "03-end-to-end-flow-catalog.md"
+    },
+    {
+      "id": "F04",
+      "docSection": "03-end-to-end-flow-catalog.md"
+    },
+    {
+      "id": "F05",
+      "docSection": "03-end-to-end-flow-catalog.md"
+    },
+    {
+      "id": "F06",
+      "docSection": "03-end-to-end-flow-catalog.md"
+    },
+    {
+      "id": "F07",
+      "docSection": "03-end-to-end-flow-catalog.md"
+    },
+    {
+      "id": "F08",
+      "docSection": "03-end-to-end-flow-catalog.md"
+    },
+    {
+      "id": "F09",
+      "docSection": "03-end-to-end-flow-catalog.md"
+    },
+    {
+      "id": "F10",
+      "docSection": "03-end-to-end-flow-catalog.md"
+    },
+    {
+      "id": "F11",
+      "docSection": "03-end-to-end-flow-catalog.md"
+    },
+    {
+      "id": "F12",
+      "docSection": "03-end-to-end-flow-catalog.md"
+    },
+    {
+      "id": "F13",
+      "docSection": "03-end-to-end-flow-catalog.md"
+    },
+    {
+      "id": "F14",
+      "docSection": "03-end-to-end-flow-catalog.md"
+    },
+    {
+      "id": "F15",
+      "docSection": "03-end-to-end-flow-catalog.md"
+    },
+    {
+      "id": "F16",
+      "docSection": "03-end-to-end-flow-catalog.md"
+    },
+    {
+      "id": "F17",
+      "docSection": "03-end-to-end-flow-catalog.md"
+    },
+    {
+      "id": "F18",
+      "docSection": "03-end-to-end-flow-catalog.md"
+    },
+    {
+      "id": "F19",
+      "docSection": "03-end-to-end-flow-catalog.md"
+    },
+    {
+      "id": "F20",
+      "docSection": "03-end-to-end-flow-catalog.md"
+    }
+  ],
+  "invariants": [
+    {
+      "id": "INV-REC-NE-HD",
+      "docSection": "07-authority-invariants-and-failure-modes.md"
+    },
+    {
+      "id": "INV-HD-NE-CONF",
+      "docSection": "07-authority-invariants-and-failure-modes.md"
+    },
+    {
+      "id": "INV-CAP-NE-AUTH",
+      "docSection": "07-authority-invariants-and-failure-modes.md"
+    },
+    {
+      "id": "INV-PROJ-NE-CYCLE",
+      "docSection": "07-authority-invariants-and-failure-modes.md"
+    },
+    {
+      "id": "INV-MEMB-NE-TRUTHC",
+      "docSection": "07-authority-invariants-and-failure-modes.md"
+    },
+    {
+      "id": "INV-COG-NE-AUTH",
+      "docSection": "07-authority-invariants-and-failure-modes.md"
+    },
+    {
+      "id": "INV-PROP-NE-HD",
+      "docSection": "07-authority-invariants-and-failure-modes.md"
+    },
+    {
+      "id": "INV-EC-NO-EXPAND-WHAT",
+      "docSection": "07-authority-invariants-and-failure-modes.md"
+    },
+    {
+      "id": "INV-NO-EXEC-BEFORE-AUTH",
+      "docSection": "07-authority-invariants-and-failure-modes.md"
+    },
+    {
+      "id": "INV-ARTIFACT-COND",
+      "docSection": "07-authority-invariants-and-failure-modes.md"
+    },
+    {
+      "id": "INV-ATTEMPT-NE-PROVEN",
+      "docSection": "07-authority-invariants-and-failure-modes.md"
+    },
+    {
+      "id": "INV-SUCCESS-NE-READY",
+      "docSection": "07-authority-invariants-and-failure-modes.md"
+    },
+    {
+      "id": "INV-FAKE-REAL-SM",
+      "docSection": "07-authority-invariants-and-failure-modes.md"
+    },
+    {
+      "id": "INV-PROP-NOT-SOLE-RESTART",
+      "docSection": "07-authority-invariants-and-failure-modes.md"
+    },
+    {
+      "id": "INV-OLD-CYCLE-HD",
+      "docSection": "07-authority-invariants-and-failure-modes.md"
+    },
+    {
+      "id": "INV-UNKNOWN-NE-APPLICABLE",
+      "docSection": "07-authority-invariants-and-failure-modes.md"
+    },
+    {
+      "id": "INV-NO-SILENT-REPLAN",
+      "docSection": "07-authority-invariants-and-failure-modes.md"
+    },
+    {
+      "id": "INV-NO-SILENT-HD",
+      "docSection": "07-authority-invariants-and-failure-modes.md"
+    },
+    {
+      "id": "INV-NO-V3-ADOPT",
+      "docSection": "07-authority-invariants-and-failure-modes.md"
+    },
+    {
+      "id": "INV-APPLICABILITY-NE-AUTHORITY",
+      "docSection": "07-authority-invariants-and-failure-modes.md"
+    }
+  ],
+  "dependencies": [
+    {
+      "id": "DEP-ACGC-ART",
+      "from": "OBJ-ARTIFACT-CONTINUATION",
+      "to": "OBJ-ARTIFACT-ROUTING"
+    },
+    {
+      "id": "DEP-ACGC-ASSESS",
+      "from": "OBJ-ARTIFACT-CONTINUATION",
+      "to": "OBJ-FINALIZATION-ASSESS"
+    },
+    {
+      "id": "DEP-ACGC-PROP",
+      "from": "OBJ-ARTIFACT-CONTINUATION",
+      "to": "OBJ-PROPOSAL"
+    },
+    {
+      "id": "DEP-PROP-HD",
+      "from": "OBJ-PROPOSAL",
+      "to": "OBJ-HD"
+    },
+    {
+      "id": "DEP-HD-EC",
+      "from": "OBJ-HD",
+      "to": "OBJ-EC"
+    },
+    {
+      "id": "DEP-EC-ATT",
+      "from": "OBJ-EC",
+      "to": "OBJ-EC"
+    },
+    {
+      "id": "DEP-MW5-TURN",
+      "from": "OBJ-MW5-CHALLENGE",
+      "to": "OBJ-TURN-ORCH"
+    },
+    {
+      "id": "DEP-FAKE-INTENT",
+      "from": "OBJ-FAKE-PROVIDER",
+      "to": "OBJ-TURN-ORCH"
+    },
+    {
+      "id": "DEP-SESSION-TURN",
+      "from": "OBJ-MEMORY-B",
+      "to": "OBJ-TURN-ORCH"
+    }
+  ],
+  "trackedSources": [
+    {
+      "path": "projects/sfia-studio/app/features/project-assistant/actions.ts",
+      "sha256_16": "95eb520bec78561f"
+    },
+    {
+      "path": "projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts",
+      "sha256_16": "992416c411b262cc"
+    },
+    {
+      "path": "projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts",
+      "sha256_16": "7810e4ae103ff7c5"
+    },
+    {
+      "path": "projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts",
+      "sha256_16": "a478be993184e78a"
+    },
+    {
+      "path": "projects/sfia-studio/app/features/project-assistant/f2/activeCycleGovernedContinuation.ts",
+      "sha256_16": "9f8c137569cc301f"
+    },
+    {
+      "path": "projects/sfia-studio/app/features/project-assistant/f2/proposalStore.ts",
+      "sha256_16": "c4a5ff1ec041343b"
+    },
+    {
+      "path": "projects/sfia-studio/app/features/project-assistant/f2/recordDecision.ts",
+      "sha256_16": "4d6a43b0c2c9fe3e"
+    },
+    {
+      "path": "projects/sfia-studio/app/features/project-assistant/f2/pilotLifecycleActions.ts",
+      "sha256_16": "28d9f987998b6847"
+    },
+    {
+      "path": "projects/sfia-studio/app/features/project-assistant/f2/canonicalConversationSession.ts",
+      "sha256_16": "c4434a8c3447f926"
+    },
+    {
+      "path": "projects/sfia-studio/app/features/project-assistant/f2/mw5ChallengeSessionStore.ts",
+      "sha256_16": "3b2dbd8a49169860"
+    },
+    {
+      "path": "projects/sfia-studio/app/lib/nora-cognitive-runtime/criticalChallengeClarification.ts",
+      "sha256_16": "ab5707a7761399da"
+    },
+    {
+      "path": "projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts",
+      "sha256_16": "4e1da407cf383fd8"
+    },
+    {
+      "path": "projects/sfia-studio/app/lib/nora-cognitive-runtime/productSqliteSession.ts",
+      "sha256_16": "37d79b9db14322c3"
+    },
+    {
+      "path": "projects/sfia-studio/app/lib/nora-cognitive-runtime/sessionPaths.ts",
+      "sha256_16": "d76d75e72451048a"
+    },
+    {
+      "path": "projects/sfia-studio/app/lib/nora-cognitive-runtime/cycleJournalStore.ts",
+      "sha256_16": "f3780f7c36792984"
+    },
+    {
+      "path": "projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/db.ts",
+      "sha256_16": "67ed985474e4e22b"
+    },
+    {
+      "path": "projects/sfia-studio/app/lib/oa/project/domain/artifactTargetRouting.ts",
+      "sha256_16": "21dfef1c7b08764a"
+    },
+    {
+      "path": "projects/sfia-studio/app/lib/oa/cycle/application/deriveCycleObligationSnapshot.ts",
+      "sha256_16": "52e6055fa1013a3c"
+    },
+    {
+      "path": "projects/sfia-studio/app/lib/oa/cycle/application/deriveFinalizationApplicability.ts",
+      "sha256_16": "1963f097d0aa9328"
+    },
+    {
+      "path": "projects/sfia-studio/app/lib/oa/cycle/application/assessFinalization.ts",
+      "sha256_16": "8a6cf2210f14e672"
+    },
+    {
+      "path": "projects/sfia-studio/app/lib/vertical-slice-runtime/singleton.ts",
+      "sha256_16": "015b001efc49aedb"
+    },
+    {
+      "path": "projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts",
+      "sha256_16": "0b11238665e07712"
+    },
+    {
+      "path": "projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts",
+      "sha256_16": "15850bc0103d5f23"
+    },
+    {
+      "path": "projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.tsx",
+      "sha256_16": "32b7a2bb4be0f688"
+    },
+    {
+      "path": "projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/lifecyclePresentation.ts",
+      "sha256_16": "0b25b629a4a889d5"
+    },
+    {
+      "path": "projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts",
+      "sha256_16": "4fede1ca3c195356"
+    },
+    {
+      "path": "projects/sfia-studio/app/.env.example",
+      "sha256_16": "c14369cbe6ac4f42"
+    }
+  ],
+  "trackedTests": [
+    {
+      "path": "projects/sfia-studio/app/__tests__/project-assistant/activeCycleArtifactMaterializationContinuityCorr01.d0.test.ts",
+      "sha256_16": "942ee978958679cd"
+    },
+    {
+      "path": "projects/sfia-studio/app/__tests__/project-assistant/activeCycleArtifactApplicabilityContinuationBridgeCorr01.d0.test.ts",
+      "sha256_16": "866294bc20ff538e"
+    },
+    {
+      "path": "projects/sfia-studio/app/__tests__/project-assistant/corrProof07.artifactMaterialization.d0.test.ts",
+      "sha256_16": "29485cbfb95f7939"
+    },
+    {
+      "path": "projects/sfia-studio/app/__tests__/oa/cycle/corrProof06.artifactObligation.d0.test.ts",
+      "sha256_16": "80a56713fcbf1c40"
+    },
+    {
+      "path": "projects/sfia-studio/app/__tests__/platform/fakeProvider.userValidArtifactMaterialization.d0.test.ts",
+      "sha256_16": "8995d4d266fa3cd6"
+    },
+    {
+      "path": "projects/sfia-studio/app/__tests__/architecture/productionRuntimeReference.conformance.d0.test.ts",
+      "sha256_16": "9ed95e13d8f41f09"
+    }
+  ],
+  "maintenance": {
+    "digestMismatchMeans": "REFERENCE REVIEW REQUIRED",
+    "refreshDigestDoesNotValidateSemantics": true,
+    "automateDriftDetection": true,
+    "automateStructuralArbitration": false
+  }
+}
