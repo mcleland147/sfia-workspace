@@ -1,9 +1,10 @@
 # SFIA Studio — Living Production Runtime Reference
 
 **Nature:** CURRENT AS-IMPLEMENTED / LIVING PRODUCTION RUNTIME REFERENCE
-**Reviewed commit:** `b4aa09bdef29a635e624bb5c396711e75057df4d`
-**Reviewed at:** 2026-09-27T13:10:51+0200
+**Reviewed commit:** `1162b36b14ca2f4f644dcd3da970b25113214b06`
+**Reviewed at:** 2026-09-27T14:40:00+0200
 **Macro foundation:** SFIA-STUDIO-LIVING-PRODUCTION-RUNTIME-REFERENCE-01
+**Last audit overlay:** SFIA-STUDIO-LEGACY-ARCHITECTURE-DECOMMISSION-01 (no SAFE removal; CURRENT clarifications only)
 
 ## What this corpus is
 
