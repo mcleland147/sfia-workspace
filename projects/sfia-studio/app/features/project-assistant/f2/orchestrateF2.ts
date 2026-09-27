@@ -452,6 +452,11 @@ async function evaluateF2Mw5(input: {
   projectCriticality: string;
   projectId: string;
   oa: RuntimeOaStack | null | undefined;
+  /**
+   * ACTIVE_CYCLE_GOVERNED_CONTINUATION with sealed target and no high-impact /
+   * contradiction signals — honest structural skip for THIS Proposal only.
+   */
+  structurallyResolvedActiveCycleContinuation?: boolean;
 }): Promise<{ armed: boolean; surface: Mw5TurnSurface; text: string }> {
   const armed = resolveF2CriticalChallengeArmed({
     analysis: input.analysis,
@@ -485,6 +490,8 @@ async function evaluateF2Mw5(input: {
       truthCEstablishedForClaim: authority.truthCEstablishedForClaim,
       consumedHumanDecisionWithoutNewContradiction:
         authority.consumedHumanDecisionWithoutNewContradiction,
+      structurallyResolvedActiveCycleContinuation:
+        input.structurallyResolvedActiveCycleContinuation === true,
       challengeResponseAssessment:
         input.analysis.challengeResponseAssessment ?? null,
       openChallengePresent: session.latest != null,
@@ -1343,6 +1350,15 @@ export async function orchestrateAssistantSend(input: {
       });
     }
 
+    const signals = analysis.signals;
+    const structurallyResolvedActiveCycleContinuation =
+      !signals?.structuralChange &&
+      !signals?.securityImpact &&
+      !signals?.architectureImpact &&
+      !signals?.dataImpact &&
+      !signals?.irreversible &&
+      !Boolean(analysis.contradictionCandidate?.conflictPresent);
+
     const mw5 = await evaluateF2Mw5({
       content,
       history: input.history,
@@ -1352,6 +1368,7 @@ export async function orchestrateAssistantSend(input: {
       projectCriticality: project.criticality,
       projectId: project.projectId,
       oa,
+      structurallyResolvedActiveCycleContinuation,
     });
     if (!mw5.surface.recommendationAllowed) {
       return f2ConversationalSuccess({

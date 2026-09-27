@@ -92,9 +92,39 @@ function extractSingleMdFileNameLeaf(probe: string): string | null {
  * 1) materialize wording family
  * 2) livrable / spécification framed as the active cycle's reference deliverable
  * 3) NOT a question / pure talk-about-the-deliverable
- * → targetPath / artifactFileName may be null; server clarifies in-cycle.
+ * → may emit a non-authoritative Nora leaf candidate from semantic cues (D-PC-09);
+ *   server composes exact targetPath. Null leaf only when no coherent cue exists.
  * Must NOT match generic docs_write ("écris dans le README") without materialize+livrable+cycle framing.
  */
+/**
+ * Provider-neutral non-authoritative leaf candidate from Pilot wording.
+ * Mirrors intentAnalysis contract (Nora MAY propose a coherent Markdown leaf).
+ * NOT a catalog default naming policy — clarification remains when no cue exists.
+ */
+function deriveNonAuthoritativeArtifactLeafCandidate(
+  normalized: string,
+): string | null {
+  if (/\bnote\b/.test(normalized) && /\bcadrage\b/.test(normalized)) {
+    return "note-de-cadrage.md";
+  }
+  if (
+    /\bspecification\b/.test(normalized) &&
+    /\bfonctionnelle\b/.test(normalized)
+  ) {
+    return "specification-fonctionnelle.md";
+  }
+  if (/\bcahier\b/.test(normalized) && /\bcharges\b/.test(normalized)) {
+    return "cahier-des-charges.md";
+  }
+  if (/\bspecification\b/.test(normalized)) {
+    return "specification.md";
+  }
+  if (/\blivrable\b/.test(normalized) && /\breference\b/.test(normalized)) {
+    return "livrable-de-reference.md";
+  }
+  return null;
+}
+
 function matchNaturalArtifactMaterialization(probe: string): {
   targetPath: string | null;
   artifactFileName: string | null;
@@ -128,36 +158,32 @@ function matchNaturalArtifactMaterialization(probe: string): {
     ? targetPath.split("/").pop() || null
     : null;
   const bareLeaf = extractSingleMdFileNameLeaf(probe);
-  let artifactFileName: string | null = leafFromPath || bareLeaf || null;
-  // Framing note cue without explicit filename — Nora-like non-authoritative candidate
-  if (
-    !artifactFileName &&
-    /\bnote\b/.test(normalized) &&
-    /\bcadrage\b/.test(normalized)
-  ) {
-    artifactFileName = "note-de-cadrage.md";
-  }
+  const explicitLeaf = leafFromPath || bareLeaf || null;
+  const derivedLeaf = explicitLeaf
+    ? null
+    : deriveNonAuthoritativeArtifactLeafCandidate(normalized);
+  const artifactFileName: string | null = explicitLeaf || derivedLeaf;
 
   const brief = probe.replace(/\s+/g, " ").trim().slice(0, 480);
-  const hasPathOrLeaf = Boolean(artifactFileName);
 
   // Active-cycle reference deliverable framing (path not required).
   const hasCycleDeliverableFraming =
     /\blivrable\b/.test(normalized) ||
     /\bspecification\b/.test(normalized) ||
-    /\bcahier\b/.test(normalized);
+    /\bcahier\b/.test(normalized) ||
+    (/\bnote\b/.test(normalized) && /\bcadrage\b/.test(normalized));
   const hasActiveCycleReference =
     /\bcycle\b/.test(normalized) ||
     /\breference\b/.test(normalized) ||
     /\bconsolidee?\b/.test(normalized) ||
     /\battendu\b/.test(normalized);
 
-  if (hasPathOrLeaf) {
-    // Historical path-qualified contract — keep proposal + no-execution guards.
+  if (explicitLeaf) {
+    // Historical path-qualified / explicit-leaf contract — keep proposal + no-execution guards.
     if (!hasProposalOrDecision || !hasNoExecution) return null;
     return {
       targetPath,
-      artifactFileName,
+      artifactFileName: explicitLeaf,
       artifactBrief: brief,
       contentRequirement: brief,
     };
@@ -169,11 +195,14 @@ function matchNaturalArtifactMaterialization(probe: string): {
   // Still refuse bare "matérialise" without prepare/decision OR no-execution OR
   // explicit "livrable de référence / spécification … du cycle" prepare intent.
   const hasReferenceDeliverablePhrase =
-    /\blivrable\b/.test(normalized) &&
-    (/\breference\b/.test(normalized) ||
-      /\bdu cycle\b/.test(normalized) ||
-      /\bcycle actif\b/.test(normalized) ||
-      /\bconsolidee?\b/.test(normalized));
+    (/\blivrable\b/.test(normalized) &&
+      (/\breference\b/.test(normalized) ||
+        /\bdu cycle\b/.test(normalized) ||
+        /\bcycle actif\b/.test(normalized) ||
+        /\bconsolidee?\b/.test(normalized))) ||
+    (/\bnote\b/.test(normalized) &&
+      /\bcadrage\b/.test(normalized) &&
+      /\bcycle\b/.test(normalized));
   if (
     !hasProposalOrDecision &&
     !hasNoExecution &&
@@ -182,9 +211,10 @@ function matchNaturalArtifactMaterialization(probe: string): {
     return null;
   }
 
+  // Nora non-authoritative leaf when semantic cues exist (D-PC-09); else null → server clarify.
   return {
     targetPath: null,
-    artifactFileName: null,
+    artifactFileName,
     artifactBrief: brief,
     contentRequirement: brief,
   };
@@ -197,6 +227,7 @@ function buildArtifactMaterializationAnalysis(input: {
   challengeResponseAssessment?: FakeChallengeAssessment;
   artifactBrief?: string;
   contentRequirements?: string[];
+  cognitiveWorkload?: Record<string, string> | null;
 }): Record<string, unknown> {
   const targetPath = input.targetPath ?? null;
   const artifactFileName =
@@ -216,9 +247,10 @@ function buildArtifactMaterializationAnalysis(input: {
       irreversible: false,
       lowRiskBounded: true,
     },
-    cognitiveWorkload: null,
+    cognitiveWorkload: input.cognitiveWorkload ?? null,
     contradictionCandidate: null,
-    challengeResponseAssessment: input.challengeResponseAssessment ?? "sufficient",
+    // Do not pre-satisfy MW5 — product Fake must not mask structural challenge.
+    challengeResponseAssessment: input.challengeResponseAssessment ?? null,
     continuationKind: "active_cycle_artifact_materialization",
     artifactMaterializationOperation: "cursor.docs_write.apply",
     objective: "Matérialiser le livrable requis du cycle actif",
@@ -454,7 +486,37 @@ export class FakeConversationProvider implements ConversationProvider {
       const i = raw.indexOf(sep);
       return i >= 0 ? raw.slice(i + sep.length) : raw;
     })();
+    /** Strip test markers so natural contracts can co-exist with MW5 fixtures. */
+    const naturalProbe = markerProbe
+      .replace(/__MW5_[A-Z0-9_]+__/g, " ")
+      .replace(/__F2_[A-Z0-9_]+__/g, " ");
+
     if (markerProbe.includes("__MW5_HIGH_ASSURANCE__")) {
+      // Prefer natural materialization + HA CWP on the product continuation path
+      // over NEW_CYCLE High-Assurance fixture hijack.
+      if (isF2IntentAnalysisContext(messages)) {
+        const naturalHa = matchNaturalArtifactMaterialization(naturalProbe);
+        if (naturalHa) {
+          return fakeF2JsonResult(
+            this.callCount,
+            buildArtifactMaterializationAnalysis({
+              targetPath: naturalHa.targetPath,
+              artifactFileName: naturalHa.artifactFileName,
+              artifactBrief: naturalHa.artifactBrief,
+              contentRequirements: [naturalHa.contentRequirement],
+              challengeResponseAssessment: null,
+              cognitiveWorkload: {
+                ambiguity: "high",
+                reasoningDepth: "high",
+                sourceBreadth: "high",
+                toolDependency: "medium",
+                contradictionRisk: "high",
+                verificationNeed: "high",
+              },
+            }),
+          );
+        }
+      }
       return {
         text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
           intentClass: "actionable",
@@ -495,6 +557,24 @@ export class FakeConversationProvider implements ConversationProvider {
           providerResponseId: `fake-resp-${this.callCount}`,
         },
       };
+    }
+
+    // Natural active-cycle materialization (pathless / leaf candidate) — before other markers.
+    if (isF2IntentAnalysisContext(messages)) {
+      const naturalMaterialization =
+        matchNaturalArtifactMaterialization(naturalProbe);
+      if (naturalMaterialization) {
+        return fakeF2JsonResult(
+          this.callCount,
+          buildArtifactMaterializationAnalysis({
+            targetPath: naturalMaterialization.targetPath,
+            artifactFileName: naturalMaterialization.artifactFileName,
+            artifactBrief: naturalMaterialization.artifactBrief,
+            contentRequirements: [naturalMaterialization.contentRequirement],
+            challengeResponseAssessment: null,
+          }),
+        );
+      }
     }
     if (markerProbe.includes("__MW5_COSMETIC__")) {
       return {
@@ -1221,21 +1301,8 @@ export class FakeConversationProvider implements ConversationProvider {
     }
     // Natural Pilot artifact-materialization is F2 intent-analysis ONLY.
     // Ordering: HOSTILE_MERGE → ARTIFACT_MATERIALIZE sentinel → … remaining markers
-    // → F2-context natural matcher → F2 informative fallback → ordinary non-F2 fake.
+    // Remaining F2 intents: informative fallback (natural materialization handled above).
     if (isF2IntentAnalysisContext(messages)) {
-      const naturalMaterialization =
-        matchNaturalArtifactMaterialization(markerProbe);
-      if (naturalMaterialization) {
-        return fakeF2JsonResult(
-          this.callCount,
-          buildArtifactMaterializationAnalysis({
-            targetPath: naturalMaterialization.targetPath,
-            artifactFileName: naturalMaterialization.artifactFileName,
-            artifactBrief: naturalMaterialization.artifactBrief,
-            contentRequirements: [naturalMaterialization.contentRequirement],
-          }),
-        );
-      }
       return {
         text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
           intentClass: "informative",

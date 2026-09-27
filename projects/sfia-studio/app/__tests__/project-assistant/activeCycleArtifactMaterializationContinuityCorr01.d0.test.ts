@@ -326,7 +326,7 @@ describe("ACTIVE-CYCLE ARTIFACT MATERIALIZATION CONTINUITY CORR-01", () => {
     expect(await countCycles(projectId)).toBe(1);
   });
 
-  it("AP — pathless natural materialization → ZERO new CycleInstance; active cycle preserved; WHAT continuity", async () => {
+  it("AP — pathless natural materialization → ZERO new CycleInstance; Proposal DECISION_REQUIRED (no filename micro-gate)", async () => {
     const { projectId, cycleInstanceId } =
       await seedActiveCycleWithRequireArtifact("pathless");
     const cyclesBefore = await countCycles(projectId);
@@ -339,40 +339,58 @@ describe("ACTIVE-CYCLE ARTIFACT MATERIALIZATION CONTINUITY CORR-01", () => {
     if (!send.ok) throw new Error(JSON.stringify(send));
 
     expect(await countCycles(projectId)).toBe(cyclesBefore);
-    expect(send.text).toMatch(/cycle en cours est conservé|clarif/i);
+    expect(send.text).toMatch(/cycle en cours est conservé/i);
     expect(send.text).not.toMatch(/nouveau cycle est proposé/i);
+    // Nominal D-PC-09: Nora leaf candidate + server compose → Proposal, not filename ask.
+    expect(send.f2?.turnKind).toBe("f2_proposal");
+    expect(send.f2?.proposal?.status).toBe("DECISION_REQUIRED");
+    expect(send.f2?.qualification?.cycleInstanceId).toBe(cycleInstanceId);
+    expect(send.f2?.proposal?.contextSnapshot?.activeCycleInstanceId).toBe(
+      cycleInstanceId,
+    );
+    expect(send.f2?.proposal?.requestedOperation).toBe(
+      F2_ARTIFACT_MATERIALIZATION_OPERATION,
+    );
+    expect(send.f2?.decision).toBeNull();
+    expect(send.f2?.proposal?.executionIntent?.targetPath).toMatch(
+      /\.md$/i,
+    );
+    expect(send.f2?.proposal?.executionIntent?.artifactFileName).toMatch(
+      /\.md$/i,
+    );
+    expect(send.text).not.toMatch(/Indiquez un filename Markdown/i);
+    // No gratuitous MW5 questionnaire on structurally resolved continuation.
+    expect(send.text).not.toMatch(/\[MW5 CHALLENGE\]/);
+    const what =
+      [
+        send.f2?.proposal?.executionIntent?.artifactBrief,
+        ...(send.f2?.proposal?.executionIntent?.contentRequirements ?? []),
+      ]
+        .filter(Boolean)
+        .join("\n") || "";
+    expect(what).toMatch(/statuts A \/ B \/ C/i);
+    expect(what).toMatch(/attribut optionnel P/i);
+    expect(what).toMatch(/attribut optionnel D/i);
+    expect(what).toMatch(/persistance locale/i);
+    expect(what).toMatch(/règle Z explicitement hors périmètre/i);
+    // Must not invent contradictory exclusions of P/D.
+    expect(what).not.toMatch(/priorit[ée]s?\s+(retir|hors périmètre)/i);
+    expect(what).not.toMatch(/échéances?\s+(retir|hors périmètre)/i);
+  });
 
-    // Pathless → clarification in-cycle OR proposal on same active cycle.
-    if (send.f2?.turnKind === "f2_clarification") {
-      expect(send.f2.qualification?.cycleInstanceId).toBe(cycleInstanceId);
-      expect(send.f2.proposal ?? null).toBeNull();
-    } else {
-      expect(send.f2?.turnKind).toBe("f2_proposal");
-      expect(send.f2?.proposal?.status).toBe("DECISION_REQUIRED");
-      expect(send.f2?.qualification?.cycleInstanceId).toBe(cycleInstanceId);
-      expect(send.f2?.proposal?.contextSnapshot?.activeCycleInstanceId).toBe(
-        cycleInstanceId,
-      );
-      expect(send.f2?.proposal?.requestedOperation).toBe(
-        F2_ARTIFACT_MATERIALIZATION_OPERATION,
-      );
-      expect(send.f2?.decision).toBeNull();
-      const what =
-        [
-          send.f2?.proposal?.executionIntent?.artifactBrief,
-          ...(send.f2?.proposal?.executionIntent?.contentRequirements ?? []),
-        ]
-          .filter(Boolean)
-          .join("\n") || "";
-      expect(what).toMatch(/statuts A \/ B \/ C/i);
-      expect(what).toMatch(/attribut optionnel P/i);
-      expect(what).toMatch(/attribut optionnel D/i);
-      expect(what).toMatch(/persistance locale/i);
-      expect(what).toMatch(/règle Z explicitement hors périmètre/i);
-      // Must not invent contradictory exclusions of P/D.
-      expect(what).not.toMatch(/priorit[ée]s?\s+(retir|hors périmètre)/i);
-      expect(what).not.toMatch(/échéances?\s+(retir|hors périmètre)/i);
-    }
+  it("AP — HA armed + pathless resolved continuation → no gratuitous MW5 CHALLENGE", async () => {
+    const { projectId, cycleInstanceId } =
+      await seedActiveCycleWithRequireArtifact("mw5ha");
+    const send = await projectAssistantSendAction({
+      projectId,
+      content: `${PATHLESS_WITH_GUARD}\n__MW5_HIGH_ASSURANCE__`,
+    });
+    expect(send.ok).toBe(true);
+    if (!send.ok) throw new Error(JSON.stringify(send));
+    expect(send.f2?.turnKind).toBe("f2_proposal");
+    expect(send.f2?.proposal?.status).toBe("DECISION_REQUIRED");
+    expect(send.f2?.qualification?.cycleInstanceId).toBe(cycleInstanceId);
+    expect(send.text).not.toMatch(/\[MW5 CHALLENGE\]/);
   });
 
   it("AP — pathless with explicit guard → same active cycle; no Execute/HD inventée", async () => {

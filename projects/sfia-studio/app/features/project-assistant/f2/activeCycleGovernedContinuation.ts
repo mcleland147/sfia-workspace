@@ -33,6 +33,8 @@ import {
   classifyArtifactWriteMode,
   hasDurableSameArtifactEvidence,
   resolveArtifactTargetUnderCycleWorkspace,
+  isSafeArtifactFileNameLeaf,
+  extractArtifactFileNameCandidate,
 } from "@/lib/oa/project/domain/artifactTargetRouting";
 import { isValidProjectWorkspaceKey } from "@/lib/oa/project/domain/projectWorkspaceKey";
 import {
@@ -955,13 +957,29 @@ export function enrichExecutionIntentFromBinding(input: {
   }
 
   // Legacy binding (or cycle segment unavailable): pathRoot-only clamp.
+  // D-PC-09: Nora/Pilot leaf candidate is non-authoritative; server composes exact path.
   const effectiveScopeIn: string[] = [canonicalRoot];
   const proposedPath = base.targetPath?.trim() || "";
   let targetPath: string | null = null;
   let needsClarification = false;
+  let sealedLeaf: string | null = null;
 
   if (!proposedPath) {
-    needsClarification = true;
+    const leaf = extractArtifactFileNameCandidate({
+      artifactFileName: base.artifactFileName,
+      targetPath: null,
+    });
+    if (leaf && isSafeArtifactFileNameLeaf(leaf)) {
+      const composed = normalizeRepoRelativePath(`${canonicalRoot}/${leaf}`);
+      if (composed && isPathWithinRoot(composed, canonicalRoot)) {
+        targetPath = composed;
+        sealedLeaf = leaf;
+      } else {
+        needsClarification = true;
+      }
+    } else {
+      needsClarification = true;
+    }
   } else {
     const normalizedTarget = normalizeRepoRelativePath(proposedPath);
     if (!normalizedTarget || !isPathWithinRoot(proposedPath, canonicalRoot)) {
@@ -969,6 +987,10 @@ export function enrichExecutionIntentFromBinding(input: {
       targetPath = null;
     } else {
       targetPath = normalizedTarget;
+      sealedLeaf = extractArtifactFileNameCandidate({
+        artifactFileName: base.artifactFileName,
+        targetPath: normalizedTarget,
+      });
     }
   }
 
@@ -977,6 +999,7 @@ export function enrichExecutionIntentFromBinding(input: {
     intentKind: "docs_write",
     targetRepositoryRef: input.binding.identity,
     targetPath,
+    ...(sealedLeaf ? { artifactFileName: sealedLeaf } : {}),
     scopeIn: effectiveScopeIn,
     reversibilityExpectation,
   });

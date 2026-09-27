@@ -3,7 +3,7 @@
  *
  * Preconditions (NO Proposal validation):
  * - validateResolvedM3ExecutionBoundary (exact canonical PREPARE lineage)
- * - registerM3LocalMorrisAuthority
+ * - register authority matching successor requiredAuthority (N2 Product Pilot or MORRIS legacy)
  * Then SHARED confirm/select/start/evidence pipeline.
  */
 
@@ -13,6 +13,8 @@ import type {
 } from "@/lib/oa/decision";
 import {
   LOCAL_MORRIS_M3_ACTOR,
+  LOCAL_PILOTE_ACTOR,
+  registerLocalAuthorityForExecutionClass,
   registerM3LocalMorrisAuthority,
 } from "@/lib/oa/decision";
 import type { ExecutionContractServices } from "@/lib/oa/execution-contract";
@@ -26,6 +28,9 @@ import { F3_ADAPTER_ID } from "./constants";
 import { executeConfirmedBoundedReadOnlyContract } from "./executeConfirmedBoundedReadOnlyContract";
 import { executeConfirmedBoundedDocsWriteContract } from "./executeConfirmedBoundedDocsWriteContract";
 import { executeConfirmedFixtureSafeContract } from "./executeConfirmedFixtureSafeContract";
+import {
+  PRODUCT_PILOT_AUTHORITY,
+} from "./resolveM3ExecutionContract";
 import { authorizedM3ResolutionKind } from "./selectProductM3ResolutionProfile";
 import type { F3ExecutePayload } from "./types";
 import { validateResolvedM3ExecutionBoundary } from "./validateResolvedM3ExecutionBoundary";
@@ -81,13 +86,24 @@ export async function confirmAndExecuteResolvedM3(input: {
   }
 
   const contract = boundary.successor;
-  const auth = registerM3LocalMorrisAuthority({
-    authorityResolver: input.deps.authorityResolver,
-    scope: contract.scope,
-    issuedAt: input.deps.nowIso(),
-    evidenceId: `evd:m3-cfm:${contract.executionContractId}`,
-    forceEnable: input.deps.forceM3Authority === true,
-  });
+  const productPilotPath =
+    contract.requiredAuthority === PRODUCT_PILOT_AUTHORITY;
+  const auth = productPilotPath
+    ? registerLocalAuthorityForExecutionClass({
+        authorityResolver: input.deps.authorityResolver,
+        scope: contract.scope,
+        issuedAt: input.deps.nowIso(),
+        requiredAuthority: PRODUCT_PILOT_AUTHORITY,
+        evidenceId: `evd:m3-cfm-pilote:${contract.executionContractId}`,
+        forceEnable: input.deps.forceM3Authority === true,
+      })
+    : registerM3LocalMorrisAuthority({
+        authorityResolver: input.deps.authorityResolver,
+        scope: contract.scope,
+        issuedAt: input.deps.nowIso(),
+        evidenceId: `evd:m3-cfm:${contract.executionContractId}`,
+        forceEnable: input.deps.forceM3Authority === true,
+      });
   if (!auth.ok) {
     return {
       ok: false,
@@ -95,6 +111,8 @@ export async function confirmAndExecuteResolvedM3(input: {
       message: auth.message,
     };
   }
+  const actor = productPilotPath ? LOCAL_PILOTE_ACTOR : LOCAL_MORRIS_M3_ACTOR;
+  const confirmationLevel = productPilotPath ? ("N2" as const) : ("N3" as const);
 
   // E2E QA harness — armed terminal outcome (hard-gated; no-op when disabled).
   const { consumeArmedTerminalForConfirm } = await import(
@@ -129,12 +147,12 @@ export async function confirmAndExecuteResolvedM3(input: {
       proposal: null,
       contract,
       expectedContractVersion: input.expectedContractVersion,
-      actor: LOCAL_MORRIS_M3_ACTOR,
+      actor,
       authorityEvidenceId: auth.evidenceId,
       identities: {
         confirmationId: `cfm:m3:${contract.executionContractId}:v${contract.version}`,
         confirmationIdempotencyKey: `idem:m3-cfm:${contract.executionContractId}:v${contract.version}`,
-        confirmationLevel: "N3",
+        confirmationLevel,
         attemptId,
         attemptIdempotencyKey: `idem:m3-att:${contract.executionContractId}`,
         grantId: `gd:m3:${contract.executionContractId.replace(/^xct:/, "")}`,
@@ -163,12 +181,12 @@ export async function confirmAndExecuteResolvedM3(input: {
       proposal: null,
       contract,
       expectedContractVersion: input.expectedContractVersion,
-      actor: LOCAL_MORRIS_M3_ACTOR,
+      actor,
       authorityEvidenceId: auth.evidenceId,
       identities: {
         confirmationId: `cfm:m3:${contract.executionContractId}:v${contract.version}`,
         confirmationIdempotencyKey: `idem:m3-cfm:${contract.executionContractId}:v${contract.version}`,
-        confirmationLevel: "N3",
+        confirmationLevel,
         attemptId,
         attemptIdempotencyKey: `idem:m3-att:${contract.executionContractId}`,
         grantId: `gd:m3:${contract.executionContractId.replace(/^xct:/, "")}`,
@@ -220,12 +238,12 @@ export async function confirmAndExecuteResolvedM3(input: {
     proposal: null,
     contract,
     expectedContractVersion: input.expectedContractVersion,
-    actor: LOCAL_MORRIS_M3_ACTOR,
+    actor,
     authorityEvidenceId: auth.evidenceId,
     identities: {
       confirmationId: `cfm:m3:${contract.executionContractId}:v${contract.version}`,
       confirmationIdempotencyKey: `idem:m3-cfm:${contract.executionContractId}:v${contract.version}`,
-      confirmationLevel: "N3",
+      confirmationLevel,
       attemptId,
       attemptIdempotencyKey: `idem:m3-att:${contract.executionContractId}`,
       resultRef: `res:m3-fixture:${attemptId.replace(/[^a-zA-Z0-9:_-]/g, "")}`,

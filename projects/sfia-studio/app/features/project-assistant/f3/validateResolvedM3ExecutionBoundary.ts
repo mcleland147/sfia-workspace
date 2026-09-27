@@ -22,6 +22,7 @@ import {
   canonicalM3PrepareContractId,
   canonicalM3PrepareIdempotencyKey,
   canonicalM3ResolutionIdempotencyKey,
+  isCanonicalPrepareAuthority,
 } from "./resolveM3ExecutionContract";
 import { authorizedM3ResolutionKind } from "./selectProductM3ResolutionProfile";
 
@@ -142,11 +143,12 @@ export async function validateResolvedM3ExecutionBoundary(input: {
       message: "Canonical PREPARE does not belong to this project.",
     };
   }
-  if (original.requiredAuthority !== "MORRIS") {
+  if (!isCanonicalPrepareAuthority(original.requiredAuthority)) {
     return {
       ok: false,
       code: "CANONICAL_M3_PREPARE_AUTHORITY_MISMATCH",
-      message: "Canonical PREPARE must require MORRIS authority.",
+      message:
+        "Canonical PREPARE must require MORRIS (legacy) or N2 (Product Pilot) authority.",
     };
   }
   if (!decisionRefsExact(original.decisionRefs, input.decisionId)) {
@@ -185,11 +187,20 @@ export async function validateResolvedM3ExecutionBoundary(input: {
       message: "Le contrat n'appartient pas à ce projet.",
     };
   }
-  if (successor.requiredAuthority !== "MORRIS") {
+  if (!isCanonicalPrepareAuthority(successor.requiredAuthority)) {
     return {
       ok: false,
       code: "CONTRACT_AUTHORITY_MISMATCH",
-      message: "Resolved M3 successor must require MORRIS authority.",
+      message:
+        "Resolved M3 successor must require MORRIS (legacy) or N2 (Product Pilot) authority.",
+    };
+  }
+  if (successor.requiredAuthority !== original.requiredAuthority) {
+    return {
+      ok: false,
+      code: "CONTRACT_AUTHORITY_MISMATCH",
+      message:
+        "Resolved M3 successor requiredAuthority must match canonical PREPARE authority.",
     };
   }
   if (!decisionRefsExact(successor.decisionRefs, input.decisionId)) {

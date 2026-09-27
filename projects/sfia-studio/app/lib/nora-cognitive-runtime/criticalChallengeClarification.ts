@@ -62,6 +62,12 @@ export type Mw5PolicyInput = {
   contextResolvesUncertainty: boolean;
   truthCEstablishedForClaim: boolean;
   consumedHumanDecisionWithoutNewContradiction: boolean;
+  /**
+   * Server-owned: active-cycle Artifact continuation admitted and target sealed
+   * for THIS Recommendation/Proposal. Does NOT claim Truth C, HumanDecision,
+   * Confirmation, or general uncertainty resolution.
+   */
+  structurallyResolvedActiveCycleContinuation: boolean;
   priorStructuralChallengeCount: number;
   challengeSatisfied: boolean;
   /** MW2 hook — NOT S03 proof by itself. */
@@ -216,10 +222,14 @@ export function decideMw5Disposition(input: Mw5PolicyInput): Mw5PolicyResult {
 
   const skipReopen =
     input.truthCEstablishedForClaim ||
-    input.consumedHumanDecisionWithoutNewContradiction;
+    input.consumedHumanDecisionWithoutNewContradiction ||
+    input.structurallyResolvedActiveCycleContinuation;
   if (input.truthCEstablishedForClaim) reasons.push("skip_established_truth_c");
   if (input.consumedHumanDecisionWithoutNewContradiction) {
     reasons.push("skip_consumed_human_decision");
+  }
+  if (input.structurallyResolvedActiveCycleContinuation) {
+    reasons.push("skip_structurally_resolved_active_cycle_continuation");
   }
 
   const proposedLooksLikeQuestionnaire = looksLikeQuestionnaire(
@@ -256,6 +266,11 @@ export function decideMw5Disposition(input: Mw5PolicyInput): Mw5PolicyResult {
 
   if (skipReopen && input.uncertaintyClass !== "authority_boundary") {
     reasons.push("no_gratuitous_reopen");
+    const disclosure = input.structurallyResolvedActiveCycleContinuation &&
+      !input.truthCEstablishedForClaim &&
+      !input.consumedHumanDecisionWithoutNewContradiction
+      ? "Continuation cycle actif structurellement résolue (admission server-owned + cible scellée) — pas de re-challenge structurel gratuit. ≠ Truth C ≠ HumanDecision."
+      : "Prémisse déjà établie (Truth C ou HumanDecision consommée) — pas de re-challenge gratuit.";
     return finish({
       disposition: "CONTINUE",
       challenges: [],
@@ -267,8 +282,7 @@ export function decideMw5Disposition(input: Mw5PolicyInput): Mw5PolicyResult {
       bypassAttempted: false,
       bypassBlocked: false,
       reasonCodes: reasons,
-      disclosure:
-        "Prémisse déjà établie (Truth C ou HumanDecision consommée) — pas de re-challenge gratuit.",
+      disclosure,
     });
   }
 
@@ -568,6 +582,11 @@ export type DeriveMw5FactsInput = {
   truthCEstablishedForClaim?: boolean;
   consumedHumanDecisionWithoutNewContradiction?: boolean;
   /**
+   * Server-owned active-cycle continuation already structurally sealed for this
+   * Recommendation (admission + target). ≠ Truth C ≠ HD.
+   */
+  structurallyResolvedActiveCycleContinuation?: boolean;
+  /**
    * INTERNAL structured cognition assessment (CORR-MW5-02).
    * Not Truth C / Evidence / HumanDecision / authority.
    */
@@ -591,9 +610,13 @@ export function deriveMw5FactsFromF2Turn(input: DeriveMw5FactsInput): Mw5PolicyI
     content.includes(MW5_TEST_MARKERS.cosmetic) || COSMETIC_RE.test(content);
   // Test-only marker — prior Session CLARIFY alone MUST NOT resolve uncertainty.
   const contextResolves = content.includes(MW5_TEST_MARKERS.contextResolved);
+  const authorityMarker = content.includes(MW5_TEST_MARKERS.authority);
+  // execution_request alone is NOT an unresolved authority boundary when the
+  // caller already sealed an active-cycle continuation (Proposal is the HD path).
   const authority =
-    content.includes(MW5_TEST_MARKERS.authority) ||
-    (input.intentClass === "execution_request" &&
+    authorityMarker ||
+    (input.structurallyResolvedActiveCycleContinuation !== true &&
+      input.intentClass === "execution_request" &&
       content.includes(MW5_TEST_MARKERS.synthHd) === false &&
       content.includes("__F2_EXECUTION__") === false);
   const synthHd = content.includes(MW5_TEST_MARKERS.synthHd);
@@ -631,6 +654,8 @@ export function deriveMw5FactsFromF2Turn(input: DeriveMw5FactsInput): Mw5PolicyI
     truthCEstablishedForClaim: input.truthCEstablishedForClaim === true,
     consumedHumanDecisionWithoutNewContradiction:
       input.consumedHumanDecisionWithoutNewContradiction === true,
+    structurallyResolvedActiveCycleContinuation:
+      input.structurallyResolvedActiveCycleContinuation === true,
     priorStructuralChallengeCount: Math.max(
       0,
       input.priorStructuralChallengeCount ?? 0,
