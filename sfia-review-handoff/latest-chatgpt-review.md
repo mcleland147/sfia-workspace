@@ -1,11 +1,11 @@
-# ChatGPT Review Pack — ACTIVE-CYCLE-ARTIFACT-MATERIALIZATION-CONTINUITY-CORR-01
+# ChatGPT Review Pack — ACTIVE-CYCLE-ARTIFACT-APPLICABILITY-CONTINUATION-BRIDGE-CORR-01
 
-- **Date/heure:** 2026-09-27 10:12:37 CEST
-- **Macro:** ACTIVE-CYCLE-ARTIFACT-MATERIALIZATION-CONTINUITY-CORR-01
+- **Date/heure:** 2026-09-27 11:05:43 CEST
+- **Macro:** ACTIVE-CYCLE-ARTIFACT-APPLICABILITY-CONTINUATION-BRIDGE-CORR-01
 - **Profil:** Critical
 - **Typologie:** EVOL corrective
 - **Runtime v3:** NON ADOPTED
-- **Verdict Cursor proposé:** READY FOR COMMIT — ACTIVE-CYCLE ARTIFACT MATERIALIZATION CONTINUITY CORRECTION — CONFIRMED
+- **Verdict Cursor proposé:** READY FOR COMMIT — ARTIFACT APPLICABILITY CONTINUATION BRIDGE CORRECTION — CONFIRMED
 - **Commit projet:** INTERDIT sans nouveau GO Morris
 - **Push branche projet / PR / merge:** INTERDITS
 
@@ -13,198 +13,183 @@
 
 | Champ | Valeur |
 |---|---|
-| Workspace | `/Users/morris/Projects/sfia-workspace-active-cycle-artifact-mat-01` |
-| Branche corrective | `fix/sfia-studio-active-cycle-artifact-materialization-continuity-corr-01` |
-| HEAD | `3f790345a9f93bd944fc0bfc93bb206c6ff70da4` |
-| origin/main | `3f790345a9f93bd944fc0bfc93bb206c6ff70da4` |
-| Base attendue | `origin/main @ 3f790345a9f93bd944fc0bfc93bb206c6ff70da4` |
-| Alignement HEAD/base | OUI — HEAD == origin/main == base attendue |
+| Workspace | `/Users/morris/Projects/sfia-workspace-artifact-applicability-bridge-01` |
+| Branche corrective | `fix/sfia-studio-artifact-applicability-continuation-bridge-corr-01` |
+| HEAD | `ccf4e7f50f01c7d2941ba8a3ffd94e3f38b29d68` |
+| origin/main | `ccf4e7f50f01c7d2941ba8a3ffd94e3f38b29d68` |
+| Base attendue | `origin/main @ ccf4e7f50f01c7d2941ba8a3ffd94e3f38b29d68` |
+| Alignement HEAD/base | OUI — HEAD == origin/main == base attendue (PR #532 integrated) |
 | Fichiers staged | aucun |
-| Working tree | modifications non commitées attendues uniquement (voir status) |
 
 ### git status --short
 
 ```
 M .tmp-sfia-review/chatgpt-review.md
- M projects/sfia-studio/app/__tests__/platform/fakeProvider.userValidArtifactMaterialization.d0.test.ts
+ M projects/sfia-studio/app/__tests__/project-assistant/corrProof07.artifactMaterialization.d0.test.ts
  M projects/sfia-studio/app/features/project-assistant/f2/activeCycleGovernedContinuation.ts
- M projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts
- M projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
-?? projects/sfia-studio/app/__tests__/project-assistant/activeCycleArtifactMaterializationContinuityCorr01.d0.test.ts
+?? projects/sfia-studio/app/__tests__/project-assistant/activeCycleArtifactApplicabilityContinuationBridgeCorr01.d0.test.ts
 ```
 
 ### git diff --stat
 
 ```
-.tmp-sfia-review/chatgpt-review.md                 | 659 ++++++++++++++++++---
- ...der.userValidArtifactMaterialization.d0.test.ts |  30 +-
- .../f2/activeCycleGovernedContinuation.ts          |  80 ++-
- .../project-assistant/f2/intentAnalysis.ts         |   9 +-
- .../app/lib/platform/ai/fakeProvider.ts            |  82 ++-
- 5 files changed, 744 insertions(+), 116 deletions(-)
-?? projects/sfia-studio/app/__tests__/project-assistant/activeCycleArtifactMaterializationContinuityCorr01.d0.test.ts
+.tmp-sfia-review/chatgpt-review.md                 | 133 ---------------------
+ .../corrProof07.artifactMaterialization.d0.test.ts |  46 ++++++-
+ .../f2/activeCycleGovernedContinuation.ts          |  81 +++++++++++--
+ 3 files changed, 114 insertions(+), 146 deletions(-)
+?? projects/sfia-studio/app/__tests__/project-assistant/activeCycleArtifactApplicabilityContinuationBridgeCorr01.d0.test.ts
 ```
 
-### git diff --name-status (+ untracked)
+### git diff --name-status
 
 ```
 M	.tmp-sfia-review/chatgpt-review.md
-M	projects/sfia-studio/app/__tests__/platform/fakeProvider.userValidArtifactMaterialization.d0.test.ts
+M	projects/sfia-studio/app/__tests__/project-assistant/corrProof07.artifactMaterialization.d0.test.ts
 M	projects/sfia-studio/app/features/project-assistant/f2/activeCycleGovernedContinuation.ts
-M	projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts
-M	projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
-?? projects/sfia-studio/app/__tests__/project-assistant/activeCycleArtifactMaterializationContinuityCorr01.d0.test.ts
+?? projects/sfia-studio/app/__tests__/project-assistant/activeCycleArtifactApplicabilityContinuationBridgeCorr01.d0.test.ts
 ```
 
 ### Chemins protégés
 
-Aucun fichier modifié sous `convergence/`, `product-completion/`, `sfia-v3-framing/`, `method/`, `prompts/`, CI, package managers, secrets, migrations.
+Aucun sous `convergence/`, `product-completion/`, `sfia-v3-framing/`, `method/`, `prompts/`, CI, package managers, secrets, migrations.
 
 ---
 
 ## Root cause
 
-### Chaîne observée (PocketTasks clean-room)
+Après PR #532, la demande naturelle de matérialisation reste sur le CycleInstance actif.
+Mais `resolveActiveCycleGovernedContinuation` exigeait encore **uniquement**
+`hasCurrentRequireArtifactObligation(...)` avant d'admettre la continuation.
 
-1. CycleInstance actif + CURRENT REQUIRE_ARTIFACT ouverte.
-2. Pilote demande naturellement : « Matérialise cette spécification… comme livrable de référence du cycle » **sans** `continuationKind`, `docs_write`, `targetPath`, ni filename.
-3. **FakeConversationProvider** (et, en REAL, le modèle guidé par ANALYSIS_SYSTEM) exigeait historiquement un path/leaf pour reconnaître la matérialisation naturelle → analyse tombait en `informative` / sans hints de continuation.
-4. **`resolveActiveCycleGovernedContinuation`** gateait exclusivement sur `hasExplicitArtifactContinuationKind` ; sans `continuationKind` → **`NEW_CYCLE_FORMALIZATION`** immédiat (`reason: no_materialization_intent`), même avec cycle actif + obligation.
-5. Conséquence produit : message « Un nouveau cycle est proposé… » + Proposal/narratif pouvant diverger sémantiquement (WHAT parallèle).
+Or, depuis F14 Cycle Obligation Snapshot (`deriveCycleObligationSnapshot`), un
+`cyc:functional-design` repo-backed dérive déjà Artifact **MUST / APPLICABLE**.
+`LifecycleSurface` affiche correctement « Livrable requis » via
+`showsRequireArtifactContinuation` (APPLICABLE + non SATISFIED).
 
-### Pourquoi PocketTasks a pris NEW_CYCLE_FORMALIZATION
+Conséquence : vérité canonique Artifact APPLICABLE + UI « Livrable requis »,
+mais Nora bloque avec `no_require_artifact` faute de policy HD redondante
+`OBLIGATION_POLICY_REQUIRE_ARTIFACT`.
 
-Pas un défaut PocketTasks-spécifique : **faille générique de routage** —
-- absence de path technique ⇒ Fake ne posait pas `continuationKind` ;
-- serveur traitait l'absence de `continuationKind` comme « pas de continuation Artifact » ⇒ fallback new-cycle ;
-- alors que les vérités serveur (active cycle + REQUIRE_ARTIFACT) auraient dû garder le cycle et clarifier/résoudre la cible.
+La Proposal de matérialisation possède déjà son propre gate HumanDecision avant EC.
+Exiger REQUIRE_ARTIFACT en plus = micro-confirmation suspecte d'un MUST déjà établi.
 
-### Classification des actifs
+---
+
+## BEFORE (reproductible)
+
+Repo-backed functional-design + active cycle + Artifact APPLICABLE via snapshot
++ **aucune** CURRENT REQUIRE_ARTIFACT HD + demande naturelle de matérialisation
+→ `ACTIVE_CYCLE_CONTINUATION_BLOCKED` / `no_require_artifact`
+→ message « Continuation Artifact demandée, mais aucune décision CURRENT REQUIRE_ARTIFACT… »
+
+Preuve AFTER : T1 (PASS) — même setup → continuation ; texte sans `no_require_artifact`.
+
+---
+
+## Modèle d'autorité retenu
+
+| Vérité | Rôle |
+|---|---|
+| Artifact APPLICABLE + non SATISFIED (assessment canonique) | Admet Proposal/clarification sur le cycle actif |
+| CURRENT REQUIRE_ARTIFACT HD | Admet aussi (chemin historique UNKNOWN/N/A → required) |
+| Proposal | Action proposée, non autoritaire |
+| HumanDecision du Pilote sur la Proposal | Autorité pour préparer l'ExecutionContract |
+| ExecutionContract | Absent tant que Proposal HD absente |
+
+**Applicability ≠ execution authority.**
+**Aucune auto-HD REQUIRE_ARTIFACT.**
+**Aucune suppression du Proposal HD.**
+
+### Challenge obligatoire — pourquoi aucun HD supplémentaire
+
+Chemin suffisant :
+canonical Artifact APPLICABLE → Proposal → existing Proposal HumanDecision → EC.
+
+Une seconde HumanDecision uniquement pour répéter un MUST déjà établi serait
+redondante et hors cible. Aucune nouvelle catégorie HD. Aucune UI ajoutée.
+
+---
+
+## Preuve Applicability n'est pas Authority
+
+1. T1/T2 : continuation sans policy HD ; `decision` null ; count HD inchangé ; 0 EC.
+2. T3 : Proposal `DECISION_REQUIRED` ; EC = 0.
+3. T4/T5 : UNKNOWN / NOT_APPLICABLE sans policy → fail-closed (pas de Proposal exécutable).
+4. Helpers : `hasCanonicalArtifactApplicableUnsatisfied` n'écrit aucune décision.
+
+---
+
+## Classification des actifs
 
 | Actif | Classification |
 |---|---|
-| `activeCycleGovernedContinuation.ts` | **ADAPT** (KEEP seam ; entrée continuation élargie au signal naturel ; fail-closed BLOCKED si effet incomplet) |
-| `intentAnalysis.ts` ANALYSIS_SYSTEM | **ADAPT** (guidance path-less + continuité WHAT) |
-| `fakeProvider.ts` natural materialization matcher | **ADAPT** (parité déterministe path-less cycle-deliverable) |
-| ArtifactTargetRouting / Project workspace | KEEP |
-| F2 Proposal + HumanDecision path | KEEP |
-| CycleInstance / LPS current truth | KEEP |
-| `orchestrateF2.ts` | KEEP (non modifié — le resolver suffit) |
-| LifecycleSurface | KEEP |
-| Cycle Journal / active-cycle context | KEEP |
+| `activeCycleGovernedContinuation.ts` | **ADAPT** |
+| `deriveCycleObligationSnapshot` | KEEP |
+| `deriveFinalizationApplicability` | KEEP |
+| `assessFinalization` | KEEP |
+| Lifecycle UI / presentation | KEEP (non modifié) |
+| `recordObligationPolicyRequireArtifact` | KEEP (UNKNOWN/N/A path) |
+| Proposal → HD → EC chain | KEEP |
+| Tests corrProof07 contamination | **ADAPT** (alignés sur nouveau sémantique) |
 
 ---
 
-## État BEFORE (reproductible)
+## Fichiers lus
 
-Avant correction, sur Fake :
-
-- Message path-less « Matérialise le livrable attendu. N'exécute rien : prépare la proposition… » → `intentClass=informative`, `continuationKind=null` (ancien P4).
-- Message PocketTasks-like path-less → pas de match natural materialization → pas de `continuationKind` → `resolveActiveCycleGovernedContinuation` → `NEW_CYCLE_FORMALIZATION`.
-- Preuve AFTER : P4/P4b + `activeCycleArtifactMaterializationContinuityCorr01.d0.test.ts` (AP pathless).
-
----
-
-## Solution retenue
-
-**Point de correction minimal générique (2 seams + Fake parity) :**
-
-1. **Serveur** — `shouldEnterActiveCycleArtifactContinuationHandling` =
-   `hasExplicitArtifactContinuationKind` OR `hasNaturalActiveCycleDeliverableMaterializationSignal`.
-   Si signal naturel reconnu mais effet `docs_write`/opération incomplet → **`ACTIVE_CYCLE_CONTINUATION_BLOCKED`** (jamais new-cycle).
-   Autorité inchangée : active cycle durable + REQUIRE_ARTIFACT CURRENT.
-
-2. **Fake** — matcher path-less pour « matérialise + livrable/spécification + cadre cycle/référence », sans exiger path ; refuse questions / « parlons du… » ; conserve guards path-qualified historiques.
-
-3. **ANALYSIS_SYSTEM** — explicite : path/filename absents ≠ NEW_CYCLE ; continuité WHAT dans artifactBrief/contentRequirements.
-
-### Alternatives rejetées
-
-| Alternative | Motif de rejet |
-|---|---|
-| Second planner / store | Architecture parallèle interdite |
-| Keyword/sentinel utilisateur obligatoire | Pilote ne doit pas connaître internals |
-| Requalifier tout « matérialise » en exécution | Élargit l'autorité ; vague talk doit rester fail-closed |
-| Branche PocketTasks-spécifique | Non générique |
-| Modifier orchestrateF2 / UI | Non nécessaire — resolver + Fake + guidance suffisent |
-| Faire confiance au texte modèle pour l'autorité | Interdit — vérités serveur restent autoritaires |
-
----
-
-## Fichiers lus (sources obligatoires + code)
-
-Processus / routing / méthode (lecture guidance) :
-- `prompts/templates/sfia-cycle-execution-template.md`
-- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
-- `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2.5-project-cycles-method-candidate.md`
-- `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
-- `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
-- Convergence / C1 / framing 30–35 / pilot CKC 02 (guidance only)
-- Code : `intentAnalysis.ts`, `activeCycleGovernedContinuation.ts`, `orchestrateF2.ts`, `activeCycleCognitiveContext.ts`, `materializeActiveCycleWork.ts`, `LifecycleSurface.tsx`, `artifactTargetRouting.ts`
-- Tests existants : naturalMaterialization, fakeProvider userValid, corrProof09, activeCycleCognitiveWork, corrProof07, workspace routing, semantic continuity, recommendation integrity
+Processus / convergence / framing 30–35 (guidance) ; code obligatoire listé dans le brief ;
+tests corrProof06/07, continuity #532, lifecyclePresentation, GCEC.
 
 ---
 
 ## Fichiers créés (contenu complet)
 
-### `projects/sfia-studio/app/__tests__/project-assistant/activeCycleArtifactMaterializationContinuityCorr01.d0.test.ts`
+### `projects/sfia-studio/app/__tests__/project-assistant/activeCycleArtifactApplicabilityContinuationBridgeCorr01.d0.test.ts`
 
 ```typescript
 /**
- * ACTIVE-CYCLE-ARTIFACT-MATERIALIZATION-CONTINUITY-CORR-01
+ * ACTIVE-CYCLE-ARTIFACT-APPLICABILITY-CONTINUATION-BRIDGE-CORR-01
  *
- * Path-less natural Pilot materialization of the active cycle's required
- * deliverable must stay on ACTIVE_CYCLE_GOVERNED_CONTINUATION — never silent
- * NEW_CYCLE_FORMALIZATION. Semantic WHAT continuity of the stabilized brief
- * must be preserved into the Proposal.
+ * Canonical Artifact APPLICABLE (F14 obligation snapshot) + not SATISFIED must
+ * admit ACTIVE_CYCLE_GOVERNED_CONTINUATION without a redundant CURRENT
+ * REQUIRE_ARTIFACT HumanDecision. Applicability ≠ execution authority:
+ * Proposal HD remains required before any ExecutionContract.
  *
  * Deterministic Fake only — ZERO Cursor REAL — ZERO PocketTasks mutation.
  *
  * @vitest-environment node
  */
-import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { projectAssistantSendAction } from "@/features/project-assistant/actions";
 import {
-  hasNaturalActiveCycleDeliverableMaterializationSignal,
-  hasExplicitArtifactContinuationKind,
+  admitsActiveCycleArtifactMaterializationContinuation,
+  hasCanonicalArtifactApplicableUnsatisfied,
+  hasCurrentRequireArtifactObligation,
   resolveActiveCycleGovernedContinuation,
-  shouldEnterActiveCycleArtifactContinuationHandling,
 } from "@/features/project-assistant/f2/activeCycleGovernedContinuation";
 import { F2_ARTIFACT_MATERIALIZATION_OPERATION } from "@/features/project-assistant/f2/f2CanonicalOperations";
+import { validateIntentAnalysisPayload } from "@/features/project-assistant/f2/intentAnalysis";
+import {
+  recordObligationPolicyNoGovernedEffects,
+  recordObligationPolicyRequireArtifact,
+} from "@/features/project-assistant/f2/pilotLifecycleActions";
 import { resetF2ProposalStoreForTests } from "@/features/project-assistant/f2/proposalStore";
-import type { IntentAnalysisDto } from "@/features/project-assistant/f2/types";
-import { recordObligationPolicyRequireArtifact } from "@/features/project-assistant/f2/pilotLifecycleActions";
+import type { ProjectAssistantContextDto } from "@/features/project-assistant/types";
 import {
   LOCAL_PILOTE_ACTOR,
   registerLocalPiloteAuthority,
+  type HumanDecision,
 } from "@/lib/oa/decision";
+import {
+  obligationPolicySubjectFor,
+  OBLIGATION_POLICY_REQUIRE_ARTIFACT,
+} from "@/lib/oa/cycle";
 import { setConversationProviderForTests } from "@/lib/platform/ai";
+import type { RuntimeApplicationService } from "@/lib/vertical-slice-runtime";
 import {
   bootW2Runtime,
   cleanupW2TempDirs,
   tempProductDbPath,
 } from "./w2Harness";
-import type { RuntimeApplicationService } from "@/lib/vertical-slice-runtime";
-
-/** Synthetic WHAT — analogous to PocketTasks; not PocketTasks-hardcoded. */
-const STABILIZED_WHAT = [
-  "statuts A / B / C",
-  "attribut optionnel P avec valeurs basse / moyenne / haute",
-  "attribut optionnel D",
-  "filtres par statut et P",
-  "règle dérivée dépendant de D et du statut",
-  "persistance locale requise",
-  "règle Z explicitement hors périmètre",
-].join("; ");
-
-const PATHLESS_NATURAL_REQUEST = `Matérialise cette spécification fonctionnelle comme livrable de référence du cycle, sans élargir le périmètre ni ajouter de choix techniques.
-La spécification consolidée inclut : ${STABILIZED_WHAT}.`;
-
-const PATHLESS_WITH_GUARD = `Matérialise le livrable de référence du cycle actif.
-Contenu stabilisé : ${STABILIZED_WHAT}.
-N'exécute rien : prépare la proposition pour ma décision.`;
-
-const VAGUE_TALK = `Parlons du livrable attendu du cycle — qu'est-ce qui doit y figurer ?`;
 
 const SANDBOX_BINDING = {
   identity: "mcleland147/sfia-workspace",
@@ -213,25 +198,24 @@ const SANDBOX_BINDING = {
   pathRoot: "projects/sfia-studio/.sandbox/",
 } as const;
 
+const PATHLESS_NATURAL = `Matérialise cette spécification fonctionnelle comme livrable de référence du cycle, sans élargir le périmètre ni ajouter de choix techniques.
+La spécification consolidée inclut : statuts A / B / C ; attribut optionnel P ; attribut optionnel D ; persistance locale ; règle Z hors périmètre.`;
+
+const VAGUE_TALK = `Parlons du livrable attendu du cycle — qu'est-ce qui doit y figurer ?`;
+
 function restoreEnvVar(name: string, previous: string | undefined): void {
   if (previous === undefined) delete process.env[name];
   else process.env[name] = previous;
 }
 
-function baseAnalysis(
-  overrides: Partial<IntentAnalysisDto> = {},
-): IntentAnalysisDto {
-  const {
-    cognitiveWorkload,
-    contradictionCandidate,
-    challengeResponseAssessment,
-    continuationKind,
-    artifactMaterializationOperation,
-    executionIntent,
-    ...rest
-  } = overrides;
-  return {
-    parseOk: true,
+function materializationAnalysis(
+  overrides: {
+    continuationKind?: "active_cycle_artifact_materialization" | null;
+    rephrasedRequest?: string;
+    objective?: string;
+  } = {},
+) {
+  return validateIntentAnalysisPayload({
     intentClass: "execution_request",
     candidateCycleTypeId: "cyc:functional-design",
     signals: {
@@ -242,29 +226,85 @@ function baseAnalysis(
       irreversible: false,
       lowRiskBounded: true,
     },
-    cognitiveWorkload: cognitiveWorkload ?? null,
-    contradictionCandidate: contradictionCandidate ?? null,
-    challengeResponseAssessment: challengeResponseAssessment ?? "sufficient",
-    objective: "Matérialiser le livrable requis du cycle actif",
+    cognitiveWorkload: null,
+    contradictionCandidate: null,
+    challengeResponseAssessment: "sufficient",
+    continuationKind:
+      overrides.continuationKind === undefined
+        ? "active_cycle_artifact_materialization"
+        : overrides.continuationKind,
+    artifactMaterializationOperation: "cursor.docs_write.apply",
+    objective: overrides.objective ?? "Matérialiser le livrable requis du cycle actif",
     scope: "docs_write borné — cycle actif",
     rephrasedRequest:
-      "Matérialisation de la spécification fonctionnelle comme livrable de référence du cycle",
-    outOfScope: ["Nouveau CycleInstance"],
+      overrides.rephrasedRequest ??
+      "Matérialisation de la spécification comme livrable de référence du cycle",
+    outOfScope: [],
     risks: [],
     reservations: [],
-    stopConditions: ["AUCUNE EXÉCUTION"],
-    activatedBlocks: ["proposition"],
-    expectedOutcome: "Proposition de matérialisation",
+    stopConditions: [],
+    activatedBlocks: [],
+    expectedOutcome: null,
     criticalJustification: null,
     requestedOperation: null,
-    continuationKind: continuationKind ?? null,
-    artifactMaterializationOperation: artifactMaterializationOperation ?? null,
-    executionIntent: executionIntent ?? null,
-    ...rest,
+    executionIntent: {
+      intentKind: "docs_write",
+      artifactType: null,
+      targetRepositoryRef: null,
+      targetPath: null,
+      scopeIn: [],
+      scopeOut: [],
+      expectedOutputs: [],
+      requiredCapabilities: [],
+      validationExpectations: [],
+      evidenceRequirements: [],
+      requestedOperation: null,
+      reversibilityExpectation: null,
+      artifactBrief: PATHLESS_NATURAL.slice(0, 240),
+      contentRequirements: [PATHLESS_NATURAL.slice(0, 240)],
+      exitRequirementKinds: [],
+    },
+  });
+}
+
+function projectDtoFromOverview(input: {
+  projectId: string;
+  overview: {
+    project: { name: string; objective: string };
+    livingState: { id: string; version: number; createdAt: string };
+    doctrine: {
+      id: string;
+      version: string | number;
+      digest: string;
+      status: string;
+    };
+  };
+  activeCycleInstanceId: string | null;
+}): ProjectAssistantContextDto {
+  return {
+    projectId: input.projectId,
+    name: input.overview.project.name,
+    shortReference: null,
+    objective: input.overview.project.objective,
+    contextSummary: "bridge corr-01",
+    criticality: "STANDARD",
+    constraints: [],
+    lpsId: input.overview.livingState.id,
+    lpsVersion: input.overview.livingState.version,
+    lpsCreatedAt: input.overview.livingState.createdAt,
+    doctrineId: input.overview.doctrine.id,
+    doctrineVersion: String(input.overview.doctrine.version),
+    doctrineDigest: input.overview.doctrine.digest,
+    doctrineStatus: input.overview.doctrine.status,
+    runtimeMode: "local",
+    persistence: "product-sqlite",
+    readiness: "ready",
+    activeCycleInstanceId: input.activeCycleInstanceId,
+    ckcResolutionRef: null,
   };
 }
 
-describe("ACTIVE-CYCLE ARTIFACT MATERIALIZATION CONTINUITY CORR-01", () => {
+describe("ACTIVE-CYCLE ARTIFACT APPLICABILITY CONTINUATION BRIDGE CORR-01", () => {
   let runtime: RuntimeApplicationService;
   let dbPath: string;
   let previousProvider: string | undefined;
@@ -277,8 +317,8 @@ describe("ACTIVE-CYCLE ARTIFACT MATERIALIZATION CONTINUITY CORR-01", () => {
     process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY = "1";
     setConversationProviderForTests(null);
     resetF2ProposalStoreForTests();
-    dbPath = tempProductDbPath("ac-artifact-mat-corr01.sqlite");
-    runtime = bootW2Runtime({ productDbPath: dbPath, idPrefix: "acam" });
+    dbPath = tempProductDbPath("ac-artifact-bridge-corr01.sqlite");
+    runtime = bootW2Runtime({ productDbPath: dbPath, idPrefix: "acbr" });
   });
 
   afterEach(() => {
@@ -292,19 +332,22 @@ describe("ACTIVE-CYCLE ARTIFACT MATERIALIZATION CONTINUITY CORR-01", () => {
     );
   });
 
-  async function seedActiveCycleWithRequireArtifact(suffix: string): Promise<{
-    projectId: string;
-    cycleInstanceId: string;
-  }> {
+  async function seedActiveCycle(input: {
+    suffix: string;
+    cycleTypeId: string;
+    withRepoBinding: boolean;
+    withRequireArtifactPolicy: boolean;
+    withNoGovernedEffects?: boolean;
+  }): Promise<{ projectId: string; cycleInstanceId: string }> {
     const oa = runtime.oa!;
     const created = await runtime.createProject({
-      name: `AC artifact mat ${suffix}`,
-      objective: "Continuité matérialisation cycle actif",
-      context: "cycle actif + REQUIRE_ARTIFACT",
+      name: `AC bridge ${input.suffix}`,
+      objective: "Applicability continuation bridge",
+      context: "canonical Artifact APPLICABLE vs REQUIRE_ARTIFACT HD",
       criticality: "STANDARD",
       constraints: ["ZERO REAL"],
-      shortReference: `ACAM${suffix.toUpperCase()}`,
-      idempotencyKey: `idem:acam-${suffix}`,
+      shortReference: `ACBR${input.suffix.toUpperCase()}`,
+      idempotencyKey: `idem:acbr-${input.suffix}`,
     });
     expect(created.ok).toBe(true);
     if (!created.ok) throw new Error("createProject");
@@ -315,7 +358,7 @@ describe("ACTIVE-CYCLE ARTIFACT MATERIALIZATION CONTINUITY CORR-01", () => {
     });
     if (!lps0.ok) throw new Error("lps0");
 
-    const traj = await oa.cycleServices.createInitialTrajectory.execute({
+    await oa.cycleServices.createInitialTrajectory.execute({
       trajectoryId: `trj:${projectId}`,
       projectId,
       steps: [
@@ -331,12 +374,11 @@ describe("ACTIVE-CYCLE ARTIFACT MATERIALIZATION CONTINUITY CORR-01", () => {
         authorityLevel: "N3",
       },
     });
-    expect(traj.ok).toBe(true);
 
-    const cycleInstanceId = `cyc:acam-${suffix}`;
+    const cycleInstanceId = `cyc:acbr-${input.suffix}`;
     const candidate = await oa.cycleServices.createCycle.execute({
       cycleInstanceId,
-      cycleTypeId: "cyc:functional-design",
+      cycleTypeId: input.cycleTypeId,
       projectId,
       signals: { lowRiskBounded: true },
       createdBy: {
@@ -352,7 +394,7 @@ describe("ACTIVE-CYCLE ARTIFACT MATERIALIZATION CONTINUITY CORR-01", () => {
     const auth = registerLocalPiloteAuthority({
       authorityResolver: oa.authorityResolver,
       scope: `pilot-lifecycle:${cycleInstanceId}`,
-      issuedAt: "2026-09-27T08:00:00.000Z",
+      issuedAt: "2026-09-27T09:00:00.000Z",
       forceEnable: true,
     });
     expect(auth.ok).toBe(true);
@@ -377,187 +419,199 @@ describe("ACTIVE-CYCLE ARTIFACT MATERIALIZATION CONTINUITY CORR-01", () => {
     });
     expect(started.ok).toBe(true);
 
-    const obligation = await recordObligationPolicyRequireArtifact({
-      projectId,
-      cycleInstanceId,
-      cycleServices: oa.cycleServices,
-      decisionServices: oa.decisionServices,
-      authorityResolver: oa.authorityResolver,
-      nowIso: () => "2026-09-27T08:01:00.000Z",
-    });
-    expect(obligation.ok).toBe(true);
+    if (input.withRepoBinding) {
+      const bound = await runtime.setProjectRepositoryBinding({
+        projectId,
+        ...SANDBOX_BINDING,
+      });
+      expect(bound.ok).toBe(true);
+    }
 
-    const bound = await runtime.setProjectRepositoryBinding({
-      projectId,
-      ...SANDBOX_BINDING,
-    });
-    expect(bound.ok).toBe(true);
+    if (input.withNoGovernedEffects) {
+      const noFx = await recordObligationPolicyNoGovernedEffects({
+        projectId,
+        cycleInstanceId,
+        cycleServices: oa.cycleServices,
+        decisionServices: oa.decisionServices,
+        authorityResolver: oa.authorityResolver,
+        nowIso: () => "2026-09-27T09:01:00.000Z",
+      });
+      expect(noFx.ok).toBe(true);
+    }
+
+    if (input.withRequireArtifactPolicy) {
+      const obligation = await recordObligationPolicyRequireArtifact({
+        projectId,
+        cycleInstanceId,
+        cycleServices: oa.cycleServices,
+        decisionServices: oa.decisionServices,
+        authorityResolver: oa.authorityResolver,
+        nowIso: () => "2026-09-27T09:02:00.000Z",
+      });
+      expect(obligation.ok).toBe(true);
+    }
 
     return { projectId, cycleInstanceId };
   }
 
   async function countCycles(projectId: string): Promise<number> {
-    const cycles = await runtime.oa!.cycleServices.cycles.listByProject(
-      projectId,
-    );
-    return cycles.length;
+    return (await runtime.oa!.cycleServices.cycles.listByProject(projectId))
+      .length;
   }
 
-  it("unit — natural pathless signal enters continuation handling; vague talk does not", () => {
-    const natural = baseAnalysis({
-      continuationKind: null,
-      rephrasedRequest:
-        "Matérialiser la spécification comme livrable de référence du cycle",
-    });
-    expect(hasExplicitArtifactContinuationKind(natural)).toBe(false);
-    expect(hasNaturalActiveCycleDeliverableMaterializationSignal(natural)).toBe(
-      true,
-    );
-    expect(shouldEnterActiveCycleArtifactContinuationHandling(natural)).toBe(
-      true,
-    );
+  async function countRequireArtifactHd(
+    projectId: string,
+    cycleInstanceId: string,
+  ): Promise<number> {
+    const decisions =
+      await runtime.oa!.decisionServices.decisions.listByProject(projectId);
+    const subject = obligationPolicySubjectFor(cycleInstanceId);
+    return decisions.filter(
+      (d) =>
+        d.subject === subject &&
+        d.selectedOptionId === OBLIGATION_POLICY_REQUIRE_ARTIFACT,
+    ).length;
+  }
 
-    const vague = baseAnalysis({
-      intentClass: "informative",
-      objective: "Parlons du livrable",
-      rephrasedRequest: "Parlons du livrable attendu du cycle",
-      continuationKind: null,
-    });
-    expect(hasNaturalActiveCycleDeliverableMaterializationSignal(vague)).toBe(
-      false,
-    );
-    expect(shouldEnterActiveCycleArtifactContinuationHandling(vague)).toBe(
-      false,
-    );
+  it("unit helpers — APPLICABLE admits; UNKNOWN/N/A do not without policy", () => {
+    expect(
+      hasCanonicalArtifactApplicableUnsatisfied({
+        obligations: [
+          { family: "artifact", status: "MISSING", applicability: "APPLICABLE" },
+        ],
+      }),
+    ).toBe(true);
+    expect(
+      hasCanonicalArtifactApplicableUnsatisfied({
+        obligations: [
+          { family: "artifact", status: "SATISFIED", applicability: "APPLICABLE" },
+        ],
+      }),
+    ).toBe(false);
+    expect(
+      hasCanonicalArtifactApplicableUnsatisfied({
+        obligations: [
+          { family: "artifact", status: "MISSING", applicability: "UNKNOWN" },
+        ],
+      }),
+    ).toBe(false);
+
+    expect(
+      admitsActiveCycleArtifactMaterializationContinuation({
+        activeCycleInstanceId: "cyc:x",
+        decisions: [],
+        assessment: {
+          obligations: [
+            {
+              family: "artifact",
+              status: "MISSING",
+              applicability: "APPLICABLE",
+            },
+          ],
+        },
+      }),
+    ).toBe(true);
+
+    const policyHd = {
+      decisionId: "hd:req",
+      projectId: "p",
+      subject: obligationPolicySubjectFor("cyc:x"),
+      selectedOptionId: OBLIGATION_POLICY_REQUIRE_ARTIFACT,
+      status: "accepted",
+      createdAt: "2026-09-27T09:00:00.000Z",
+    } as unknown as HumanDecision;
+    expect(
+      hasCurrentRequireArtifactObligation({
+        activeCycleInstanceId: "cyc:x",
+        decisions: [policyHd],
+      }),
+    ).toBe(true);
+    expect(
+      admitsActiveCycleArtifactMaterializationContinuation({
+        activeCycleInstanceId: "cyc:x",
+        decisions: [policyHd],
+        assessment: {
+          obligations: [
+            {
+              family: "artifact",
+              status: "MISSING",
+              applicability: "UNKNOWN",
+            },
+          ],
+        },
+      }),
+    ).toBe(true);
   });
 
-  it("unit — natural signal without docs_write effect → BLOCKED not NEW_CYCLE", async () => {
-    const { projectId, cycleInstanceId } =
-      await seedActiveCycleWithRequireArtifact("blk");
-    const overview = await runtime.getProject(projectId);
-    expect(overview.ok).toBe(true);
-    if (!overview.ok) return;
-
-    const analysis = baseAnalysis({
-      continuationKind: null,
-      artifactMaterializationOperation: null,
-      executionIntent: null,
-      rephrasedRequest:
-        "Matérialiser la spécification comme livrable de référence du cycle",
+  it("T1 — APPLICABLE via snapshot + no policy HD → continuation; ZERO new cycle", async () => {
+    const { projectId, cycleInstanceId } = await seedActiveCycle({
+      suffix: "t1",
+      cycleTypeId: "cyc:functional-design",
+      withRepoBinding: true,
+      withRequireArtifactPolicy: false,
     });
+    expect(await countRequireArtifactHd(projectId, cycleInstanceId)).toBe(0);
 
-    const resolved = await resolveActiveCycleGovernedContinuation({
-      project: {
-        projectId,
-        name: overview.project.name,
-        shortReference: null,
-        objective: overview.project.objective,
-        contextSummary: "test",
-        criticality: "STANDARD",
-        constraints: [],
-        lpsId: overview.livingState.id,
-        lpsVersion: overview.livingState.version,
-        lpsCreatedAt: overview.livingState.createdAt,
-        doctrineId: overview.doctrine.id,
-        doctrineVersion: String(overview.doctrine.version),
-        doctrineDigest: overview.doctrine.digest,
-        doctrineStatus: overview.doctrine.status,
-        runtimeMode: "local",
-        persistence: "product-sqlite",
-        readiness: "ready",
-        activeCycleInstanceId: cycleInstanceId,
-        ckcResolutionRef: null,
-      },
-      analysis,
-      oa: runtime.oa!,
+    const assessed = await runtime.oa!.cycleServices.pilotLifecycle.assess({
+      cycleInstanceId,
+      projectId,
     });
-    expect(resolved.mode).toBe("ACTIVE_CYCLE_CONTINUATION_BLOCKED");
-    if (resolved.mode === "ACTIVE_CYCLE_CONTINUATION_BLOCKED") {
-      expect(resolved.reason).toBe("incompatible_execution_intent");
-    }
-    expect(await countCycles(projectId)).toBe(1);
-  });
+    expect(assessed.ok).toBe(true);
+    if (!assessed.ok) return;
+    const art = assessed.assessment.obligations.find(
+      (o) => o.family === "artifact",
+    );
+    expect(art?.applicability).toBe("APPLICABLE");
+    expect(art?.status).not.toBe("SATISFIED");
 
-  it("AP — pathless natural materialization → ZERO new CycleInstance; active cycle preserved; WHAT continuity", async () => {
-    const { projectId, cycleInstanceId } =
-      await seedActiveCycleWithRequireArtifact("pathless");
     const cyclesBefore = await countCycles(projectId);
-
     const send = await projectAssistantSendAction({
       projectId,
-      content: PATHLESS_NATURAL_REQUEST,
+      content: PATHLESS_NATURAL,
     });
     expect(send.ok).toBe(true);
     if (!send.ok) throw new Error(JSON.stringify(send));
 
     expect(await countCycles(projectId)).toBe(cyclesBefore);
-    expect(send.text).toMatch(/cycle en cours est conservé|clarif/i);
+    expect(await countRequireArtifactHd(projectId, cycleInstanceId)).toBe(0);
+    expect(send.text).not.toMatch(/aucune décision CURRENT REQUIRE_ARTIFACT/i);
     expect(send.text).not.toMatch(/nouveau cycle est proposé/i);
 
-    // Pathless → clarification in-cycle OR proposal on same active cycle.
     if (send.f2?.turnKind === "f2_clarification") {
       expect(send.f2.qualification?.cycleInstanceId).toBe(cycleInstanceId);
-      expect(send.f2.proposal ?? null).toBeNull();
     } else {
       expect(send.f2?.turnKind).toBe("f2_proposal");
       expect(send.f2?.proposal?.status).toBe("DECISION_REQUIRED");
       expect(send.f2?.qualification?.cycleInstanceId).toBe(cycleInstanceId);
-      expect(send.f2?.proposal?.contextSnapshot?.activeCycleInstanceId).toBe(
-        cycleInstanceId,
-      );
       expect(send.f2?.proposal?.requestedOperation).toBe(
         F2_ARTIFACT_MATERIALIZATION_OPERATION,
       );
-      expect(send.f2?.decision).toBeNull();
-      const what =
-        [
-          send.f2?.proposal?.executionIntent?.artifactBrief,
-          ...(send.f2?.proposal?.executionIntent?.contentRequirements ?? []),
-        ]
-          .filter(Boolean)
-          .join("\n") || "";
-      expect(what).toMatch(/statuts A \/ B \/ C/i);
-      expect(what).toMatch(/attribut optionnel P/i);
-      expect(what).toMatch(/attribut optionnel D/i);
-      expect(what).toMatch(/persistance locale/i);
-      expect(what).toMatch(/règle Z explicitement hors périmètre/i);
-      // Must not invent contradictory exclusions of P/D.
-      expect(what).not.toMatch(/priorit[ée]s?\s+(retir|hors périmètre)/i);
-      expect(what).not.toMatch(/échéances?\s+(retir|hors périmètre)/i);
     }
   });
 
-  it("AP — pathless with explicit guard → same active cycle; no Execute/HD inventée", async () => {
-    const { projectId, cycleInstanceId } =
-      await seedActiveCycleWithRequireArtifact("guard");
+  it("T2 — before Proposal HD: ZERO materialization HD inventée; ZERO EC", async () => {
+    const { projectId, cycleInstanceId } = await seedActiveCycle({
+      suffix: "t2",
+      cycleTypeId: "cyc:functional-design",
+      withRepoBinding: true,
+      withRequireArtifactPolicy: false,
+    });
     const oa = runtime.oa!;
     const hdBefore = (await oa.decisionServices.decisions.listByProject(projectId))
       .length;
 
     const send = await projectAssistantSendAction({
       projectId,
-      content: PATHLESS_WITH_GUARD,
+      content: PATHLESS_NATURAL,
     });
     expect(send.ok).toBe(true);
-    if (!send.ok) throw new Error(JSON.stringify(send));
-
-    expect(await countCycles(projectId)).toBe(1);
-    const active = await oa.cycleServices.getCurrentTrajectory.execute({
-      projectId,
-    }).catch(() => null);
-    void active;
-    const lps = await oa.projectServices.getCurrentLivingProjectState.execute({
-      projectId,
-    });
-    expect(lps.ok).toBe(true);
-    if (lps.ok) {
-      expect(lps.livingProjectState.activeCycleInstanceId).toBe(cycleInstanceId);
-    }
+    if (!send.ok) return;
 
     expect(send.f2?.decision).toBeNull();
     const hdAfter = (await oa.decisionServices.decisions.listByProject(projectId))
       .length;
     expect(hdAfter).toBe(hdBefore);
+    expect(await countRequireArtifactHd(projectId, cycleInstanceId)).toBe(0);
 
     if (typeof oa.executionContractServices.contracts.listByProject === "function") {
       const contracts =
@@ -566,22 +620,382 @@ describe("ACTIVE-CYCLE ARTIFACT MATERIALIZATION CONTINUITY CORR-01", () => {
     }
   });
 
-  it("AP — vague talk about deliverable does NOT open Artifact continuation / new cycle", async () => {
-    const { projectId } = await seedActiveCycleWithRequireArtifact("vague");
-    const cyclesBefore = await countCycles(projectId);
+  it("T3 — Proposal is DECISION_REQUIRED (Proposal ≠ Decision); EC still gated", async () => {
+    const { projectId, cycleInstanceId } = await seedActiveCycle({
+      suffix: "t3",
+      cycleTypeId: "cyc:functional-design",
+      withRepoBinding: true,
+      withRequireArtifactPolicy: false,
+    });
+    const overview = await runtime.getProject(projectId);
+    expect(overview.ok).toBe(true);
+    if (!overview.ok) return;
 
+    const resolved = await resolveActiveCycleGovernedContinuation({
+      project: projectDtoFromOverview({
+        projectId,
+        overview,
+        activeCycleInstanceId: cycleInstanceId,
+      }),
+      analysis: materializationAnalysis(),
+      oa: runtime.oa!,
+    });
+    expect(resolved.mode).toBe("ACTIVE_CYCLE_GOVERNED_CONTINUATION");
+
+    const send = await projectAssistantSendAction({
+      projectId,
+      content: `${PATHLESS_NATURAL}\nN'exécute rien : prépare la proposition pour ma décision.`,
+    });
+    expect(send.ok).toBe(true);
+    if (!send.ok) return;
+    // Clarification or Proposal — never an invented Decision / EC.
+    expect(send.f2?.decision).toBeNull();
+    if (send.f2?.turnKind === "f2_proposal") {
+      expect(send.f2.proposal?.status).toBe("DECISION_REQUIRED");
+    }
+    const contracts =
+      await runtime.oa!.executionContractServices.contracts.listByProject(
+        projectId,
+      );
+    expect(contracts.length).toBe(0);
+  });
+
+  it("T4 — UNKNOWN Artifact + no policy → fail-closed no_require_artifact", async () => {
+    const { projectId, cycleInstanceId } = await seedActiveCycle({
+      suffix: "t4",
+      cycleTypeId: "cyc:framing",
+      withRepoBinding: false,
+      withRequireArtifactPolicy: false,
+    });
+    const overview = await runtime.getProject(projectId);
+    expect(overview.ok).toBe(true);
+    if (!overview.ok) return;
+
+    const assessed = await runtime.oa!.cycleServices.pilotLifecycle.assess({
+      cycleInstanceId,
+      projectId,
+    });
+    expect(assessed.ok).toBe(true);
+    if (!assessed.ok) return;
+    const art = assessed.assessment.obligations.find(
+      (o) => o.family === "artifact",
+    );
+    expect(art?.applicability === "APPLICABLE").toBe(false);
+
+    const resolved = await resolveActiveCycleGovernedContinuation({
+      project: projectDtoFromOverview({
+        projectId,
+        overview,
+        activeCycleInstanceId: cycleInstanceId,
+      }),
+      analysis: materializationAnalysis(),
+      oa: runtime.oa!,
+    });
+    expect(resolved.mode).toBe("ACTIVE_CYCLE_CONTINUATION_BLOCKED");
+    if (resolved.mode === "ACTIVE_CYCLE_CONTINUATION_BLOCKED") {
+      expect(resolved.reason).toBe("no_require_artifact");
+    }
+    expect(await countCycles(projectId)).toBe(1);
+  });
+
+  it("T5 — NOT_APPLICABLE + no REQUIRE_ARTIFACT → fail-closed", async () => {
+    const { projectId, cycleInstanceId } = await seedActiveCycle({
+      suffix: "t5",
+      cycleTypeId: "cyc:framing",
+      withRepoBinding: false,
+      withRequireArtifactPolicy: false,
+      withNoGovernedEffects: true,
+    });
+    const overview = await runtime.getProject(projectId);
+    expect(overview.ok).toBe(true);
+    if (!overview.ok) return;
+
+    const assessed = await runtime.oa!.cycleServices.pilotLifecycle.assess({
+      cycleInstanceId,
+      projectId,
+    });
+    expect(assessed.ok).toBe(true);
+    if (!assessed.ok) return;
+    const art = assessed.assessment.obligations.find(
+      (o) => o.family === "artifact",
+    );
+    expect(art?.applicability).toBe("NOT_APPLICABLE");
+
+    const resolved = await resolveActiveCycleGovernedContinuation({
+      project: projectDtoFromOverview({
+        projectId,
+        overview,
+        activeCycleInstanceId: cycleInstanceId,
+      }),
+      analysis: materializationAnalysis(),
+      oa: runtime.oa!,
+    });
+    expect(resolved.mode).toBe("ACTIVE_CYCLE_CONTINUATION_BLOCKED");
+    if (resolved.mode === "ACTIVE_CYCLE_CONTINUATION_BLOCKED") {
+      expect(resolved.reason).toBe("no_require_artifact");
+    }
+  });
+
+  it("T6 — NOT_APPLICABLE then explicit REQUIRE_ARTIFACT → continuation (historical)", async () => {
+    const { projectId, cycleInstanceId } = await seedActiveCycle({
+      suffix: "t6",
+      cycleTypeId: "cyc:framing",
+      withRepoBinding: false,
+      withRequireArtifactPolicy: true,
+      withNoGovernedEffects: true,
+    });
+    // withNoGovernedEffects then withRequireArtifact — order in seed applies
+    // no-governed first then require. Require should re-open Artifact.
+    const assessed = await runtime.oa!.cycleServices.pilotLifecycle.assess({
+      cycleInstanceId,
+      projectId,
+    });
+    expect(assessed.ok).toBe(true);
+    if (!assessed.ok) return;
+    const art = assessed.assessment.obligations.find(
+      (o) => o.family === "artifact",
+    );
+    expect(art?.applicability).toBe("APPLICABLE");
+
+    const overview = await runtime.getProject(projectId);
+    expect(overview.ok).toBe(true);
+    if (!overview.ok) return;
+    const resolved = await resolveActiveCycleGovernedContinuation({
+      project: projectDtoFromOverview({
+        projectId,
+        overview,
+        activeCycleInstanceId: cycleInstanceId,
+      }),
+      analysis: materializationAnalysis(),
+      oa: runtime.oa!,
+    });
+    expect(resolved.mode).toBe("ACTIVE_CYCLE_GOVERNED_CONTINUATION");
+  });
+
+  it("T7 — APPLICABLE + SATISFIED → artifact_already_satisfied", async () => {
+    const { projectId, cycleInstanceId } = await seedActiveCycle({
+      suffix: "t7",
+      cycleTypeId: "cyc:functional-design",
+      withRepoBinding: true,
+      withRequireArtifactPolicy: false,
+    });
+    const overview = await runtime.getProject(projectId);
+    expect(overview.ok).toBe(true);
+    if (!overview.ok) return;
+    const oa = runtime.oa!;
+
+    const resolved = await resolveActiveCycleGovernedContinuation({
+      project: projectDtoFromOverview({
+        projectId,
+        overview,
+        activeCycleInstanceId: cycleInstanceId,
+      }),
+      analysis: materializationAnalysis(),
+      oa: {
+        ...oa,
+        cycleServices: {
+          ...oa.cycleServices,
+          pilotLifecycle: {
+            ...oa.cycleServices.pilotLifecycle,
+            assess: async () => ({
+              ok: true as const,
+              assessment: {
+                obligations: [
+                  {
+                    family: "artifact",
+                    status: "SATISFIED",
+                    applicability: "APPLICABLE",
+                  },
+                ],
+              },
+            }),
+          },
+        },
+      },
+    });
+    expect(resolved.mode).toBe("ACTIVE_CYCLE_CONTINUATION_BLOCKED");
+    if (resolved.mode === "ACTIVE_CYCLE_CONTINUATION_BLOCKED") {
+      expect(resolved.reason).toBe("artifact_already_satisfied");
+    }
+  });
+
+  it("T8 — assessment read failure → fail-closed; ZERO HD/EC/cycle", async () => {
+    const { projectId, cycleInstanceId } = await seedActiveCycle({
+      suffix: "t8",
+      cycleTypeId: "cyc:functional-design",
+      withRepoBinding: true,
+      withRequireArtifactPolicy: false,
+    });
+    const overview = await runtime.getProject(projectId);
+    expect(overview.ok).toBe(true);
+    if (!overview.ok) return;
+    const oa = runtime.oa!;
+    const cyclesBefore = await countCycles(projectId);
+    const hdBefore = (await oa.decisionServices.decisions.listByProject(projectId))
+      .length;
+
+    const resolved = await resolveActiveCycleGovernedContinuation({
+      project: projectDtoFromOverview({
+        projectId,
+        overview,
+        activeCycleInstanceId: cycleInstanceId,
+      }),
+      analysis: materializationAnalysis(),
+      oa: {
+        ...oa,
+        cycleServices: {
+          ...oa.cycleServices,
+          pilotLifecycle: {
+            ...oa.cycleServices.pilotLifecycle,
+            assess: async () => {
+              throw new Error("assess boom");
+            },
+          },
+        },
+      },
+    });
+    expect(resolved.mode).toBe("ACTIVE_CYCLE_CONTINUATION_BLOCKED");
+    if (resolved.mode === "ACTIVE_CYCLE_CONTINUATION_BLOCKED") {
+      expect(resolved.reason).toBe("lifecycle_assess_failed");
+    }
+    expect(await countCycles(projectId)).toBe(cyclesBefore);
+    expect(
+      (await oa.decisionServices.decisions.listByProject(projectId)).length,
+    ).toBe(hdBefore);
+  });
+
+  it("T9 — old-cycle REQUIRE_ARTIFACT only + current UNKNOWN → blocked", async () => {
+    const { projectId, cycleInstanceId } = await seedActiveCycle({
+      suffix: "t9",
+      cycleTypeId: "cyc:framing",
+      withRepoBinding: false,
+      withRequireArtifactPolicy: false,
+    });
+    const oa = runtime.oa!;
+    const oldCycleId = `cyc:acbr-old-t9`;
+    await oa.cycleServices.createCycle.execute({
+      cycleInstanceId: oldCycleId,
+      cycleTypeId: "cyc:framing",
+      projectId,
+      signals: { lowRiskBounded: true },
+      createdBy: {
+        actorId: "actor:nora-f2",
+        role: "agent",
+        displayName: "Nora F2",
+        authorityLevel: "N1",
+      },
+      linkAsActiveCycle: false,
+    });
+
+    const overview = await runtime.getProject(projectId);
+    expect(overview.ok).toBe(true);
+    if (!overview.ok) return;
+
+    const oldOnly: HumanDecision[] = [
+      {
+        decisionId: "hd:old-require",
+        projectId,
+        subject: obligationPolicySubjectFor(oldCycleId),
+        selectedOptionId: OBLIGATION_POLICY_REQUIRE_ARTIFACT,
+        status: "accepted",
+        createdAt: "2026-09-27T08:00:00.000Z",
+      } as unknown as HumanDecision,
+    ];
+
+    const resolved = await resolveActiveCycleGovernedContinuation({
+      project: projectDtoFromOverview({
+        projectId,
+        overview,
+        activeCycleInstanceId: cycleInstanceId,
+      }),
+      analysis: materializationAnalysis(),
+      oa: {
+        ...oa,
+        decisionServices: {
+          ...oa.decisionServices,
+          decisions: {
+            ...oa.decisionServices.decisions,
+            listByProject: async () => oldOnly,
+          },
+        },
+      },
+    });
+    expect(resolved.mode).toBe("ACTIVE_CYCLE_CONTINUATION_BLOCKED");
+    if (resolved.mode === "ACTIVE_CYCLE_CONTINUATION_BLOCKED") {
+      expect(resolved.reason).toBe("no_require_artifact");
+    }
+  });
+
+  it("T10 — #532 regression: pathless natural + APPLICABLE → never NEW_CYCLE", async () => {
+    const { projectId } = await seedActiveCycle({
+      suffix: "t10",
+      cycleTypeId: "cyc:functional-design",
+      withRepoBinding: true,
+      withRequireArtifactPolicy: false,
+    });
+    const send = await projectAssistantSendAction({
+      projectId,
+      content: PATHLESS_NATURAL,
+    });
+    expect(send.ok).toBe(true);
+    if (!send.ok) return;
+    expect(send.text).not.toMatch(/nouveau cycle est proposé/i);
+    expect(await countCycles(projectId)).toBe(1);
+  });
+
+  it("T11 — vague talk does not open materialization", async () => {
+    const { projectId } = await seedActiveCycle({
+      suffix: "t11",
+      cycleTypeId: "cyc:functional-design",
+      withRepoBinding: true,
+      withRequireArtifactPolicy: false,
+    });
     const send = await projectAssistantSendAction({
       projectId,
       content: VAGUE_TALK,
     });
     expect(send.ok).toBe(true);
-    if (!send.ok) throw new Error(JSON.stringify(send));
-
-    expect(await countCycles(projectId)).toBe(cyclesBefore);
+    if (!send.ok) return;
     expect(send.f2?.proposal ?? null).toBeNull();
     expect(send.f2?.turnKind === "f2_proposal").toBe(false);
   });
+
+  it("T12 — no active cycle → blocked; ZERO createCycle", async () => {
+    const created = await runtime.createProject({
+      name: "AC bridge t12",
+      objective: "no active cycle",
+      context: "bridge",
+      criticality: "STANDARD",
+      constraints: ["ZERO REAL"],
+      shortReference: "ACBRT12",
+      idempotencyKey: "idem:acbr-t12",
+    });
+    expect(created.ok).toBe(true);
+    if (!created.ok) return;
+    const projectId = created.project.projectId;
+    const overview = await runtime.getProject(projectId);
+    expect(overview.ok).toBe(true);
+    if (!overview.ok) return;
+
+    const createSpy = vi.spyOn(runtime.oa!.cycleServices.createCycle, "execute");
+    const resolved = await resolveActiveCycleGovernedContinuation({
+      project: projectDtoFromOverview({
+        projectId,
+        overview,
+        activeCycleInstanceId: null,
+      }),
+      analysis: materializationAnalysis(),
+      oa: runtime.oa!,
+    });
+    expect(resolved.mode).toBe("ACTIVE_CYCLE_CONTINUATION_BLOCKED");
+    if (resolved.mode === "ACTIVE_CYCLE_CONTINUATION_BLOCKED") {
+      expect(resolved.reason).toBe("no_active_cycle");
+    }
+    expect(createSpy).not.toHaveBeenCalled();
+    createSpy.mockRestore();
+  });
 });
+
 ```
 
 ---
@@ -592,530 +1006,415 @@ describe("ACTIVE-CYCLE ARTIFACT MATERIALIZATION CONTINUITY CORR-01", () => {
 
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/f2/activeCycleGovernedContinuation.ts b/projects/sfia-studio/app/features/project-assistant/f2/activeCycleGovernedContinuation.ts
-index a8cf1fe3..5a4901e2 100644
+index 5a4901e2..b1fc520a 100644
 --- a/projects/sfia-studio/app/features/project-assistant/f2/activeCycleGovernedContinuation.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/f2/activeCycleGovernedContinuation.ts
-@@ -212,6 +212,76 @@ export function hasExplicitArtifactContinuationKind(
-   return analysis.continuationKind === "active_cycle_artifact_materialization";
+@@ -5,7 +5,11 @@
+  *
+  * Server-owned, fail-closed. No parallel planner / persistence.
+  * continuationKind / executionIntent remain NON-AUTHORITATIVE hints —
+- * durable active-cycle + CURRENT REQUIRE_ARTIFACT authorize the branch.
++ * durable active-cycle + (CURRENT REQUIRE_ARTIFACT OR canonical Artifact
++ * APPLICABLE & not SATISFIED) admit the Proposal/clarification branch.
++ * APPLICABILITY ≠ execution authority: Proposal HumanDecision remains
++ * required before any ExecutionContract (ACTIVE-CYCLE-ARTIFACT-
++ * APPLICABILITY-CONTINUATION-BRIDGE-CORR-01).
+  *
+  * CR-07-01..06 review fixes:
+  * - pathRoot bounds effective scopeIn (never Nora-widened)
+@@ -271,7 +275,9 @@ export function hasNaturalActiveCycleDeliverableMaterializationSignal(
+ /**
+  * Enter Artifact-continuation handling when either the explicit hint is set
+  * OR a natural active-cycle deliverable materialization signal is present.
+- * Durable active-cycle + REQUIRE_ARTIFACT remain the authority.
++ * Durable active-cycle + (REQUIRE_ARTIFACT policy OR canonical Artifact
++ * APPLICABLE unsatisfied) remain the Proposal-path admission truths —
++ * never execution authority.
+  */
+ export function shouldEnterActiveCycleArtifactContinuationHandling(
+   analysis: IntentAnalysisDto,
+@@ -405,6 +411,54 @@ function artifactObligationSatisfied(
+   return art?.status === "SATISFIED";
  }
 
 +/**
-+ * CORR-01 — natural active-cycle deliverable materialization signal from
-+ * analysis text fields (NON-AUTHORITATIVE). Used so a missing continuationKind
-+ * does not silently fall to NEW_CYCLE_FORMALIZATION when the Pilote asked to
-+ * materialize the cycle's required deliverable without internals/path.
-+ *
-+ * Must NOT match generic docs_write / vague talk-about-deliverable alone.
++ * CORR-BRIDGE-01 — canonical Artifact is already required (APPLICABLE) and not
++ * yet satisfied. Sufficient to open Proposal/clarification on the active cycle;
++ * NEVER grants ExecutionContract / HumanDecision authority by itself.
 + */
-+export function hasNaturalActiveCycleDeliverableMaterializationSignal(
-+  analysis: IntentAnalysisDto,
-+): boolean {
-+  if (!analysis.parseOk) return false;
-+  if (
-+    analysis.intentClass !== "actionable" &&
-+    analysis.intentClass !== "execution_request"
-+  ) {
-+    return false;
-+  }
-+  const hay = [
-+    analysis.objective,
-+    analysis.rephrasedRequest,
-+    analysis.executionIntent?.artifactBrief,
-+    ...(analysis.executionIntent?.contentRequirements ?? []),
-+  ]
-+    .filter((s): s is string => typeof s === "string" && s.trim().length > 0)
-+    .join("\n")
-+    .normalize("NFC")
-+    .toLowerCase()
-+    .replace(/[àáâäã]/g, "a")
-+    .replace(/[èéêë]/g, "e")
-+    .replace(/[ìíîï]/g, "i")
-+    .replace(/[òóôöõ]/g, "o")
-+    .replace(/[ùúûü]/g, "u")
-+    .replace(/ç/g, "c");
-+
-+  if (!/\bmaterialis/.test(hay)) return false;
-+  const hasDeliverable =
-+    /\blivrable\b/.test(hay) ||
-+    /\bspecification\b/.test(hay) ||
-+    /\bcahier\b/.test(hay);
-+  const hasCycleFrame =
-+    /\bcycle\b/.test(hay) ||
-+    /\breference\b/.test(hay) ||
-+    /\bconsolide/.test(hay) ||
-+    /\battendu\b/.test(hay);
-+  if (!hasDeliverable || !hasCycleFrame) return false;
-+  // Refuse pure conversational / question framing.
-+  if (
-+    /\b(parlons|parler|qu'est[- ]ce|explique|expliquer)\b/.test(hay) ||
-+    /\?\s*$/.test(hay.trim())
-+  ) {
-+    return false;
-+  }
-+  return true;
++export function hasCanonicalArtifactApplicableUnsatisfied(assessment: {
++  obligations: ReadonlyArray<{
++    family: string;
++    status: string;
++    applicability?: string;
++  }>;
++} | null): boolean {
++  if (!assessment) return false;
++  const art = assessment.obligations.find((o) => o.family === "artifact");
++  if (!art) return false;
++  if (art.applicability !== "APPLICABLE") return false;
++  return art.status !== "SATISFIED";
 +}
 +
 +/**
-+ * Enter Artifact-continuation handling when either the explicit hint is set
-+ * OR a natural active-cycle deliverable materialization signal is present.
-+ * Durable active-cycle + REQUIRE_ARTIFACT remain the authority.
++ * Admit active-cycle Artifact continuation into Proposal/clarification when
++ * either a CURRENT REQUIRE_ARTIFACT policy HD exists (historical path for
++ * UNKNOWN/NOT_APPLICABLE → required) OR the canonical assessment already
++ * marks Artifact APPLICABLE and not SATISFIED (F14 obligation snapshot).
++ * Does NOT invent HD; does NOT authorize EC.
 + */
-+export function shouldEnterActiveCycleArtifactContinuationHandling(
-+  analysis: IntentAnalysisDto,
-+): boolean {
-+  return (
-+    hasExplicitArtifactContinuationKind(analysis) ||
-+    hasNaturalActiveCycleDeliverableMaterializationSignal(analysis)
-+  );
++export function admitsActiveCycleArtifactMaterializationContinuation(input: {
++  activeCycleInstanceId: string;
++  decisions: readonly HumanDecision[];
++  assessment: {
++    obligations: ReadonlyArray<{
++      family: string;
++      status: string;
++      applicability?: string;
++    }>;
++  } | null;
++}): boolean {
++  if (
++    hasCurrentRequireArtifactObligation({
++      activeCycleInstanceId: input.activeCycleInstanceId,
++      decisions: input.decisions,
++    })
++  ) {
++    return true;
++  }
++  return hasCanonicalArtifactApplicableUnsatisfied(input.assessment);
 +}
 +
- /**
-  * CR-07-06 — blank/null/undefined OR exact cursor.docs_write.apply after trim.
-  * Any other non-empty value is contradictory (never silently rewritten).
-@@ -372,13 +442,15 @@ export async function resolveActiveCycleGovernedContinuation(input: {
-   analysis: IntentAnalysisDto;
-   oa: ActiveCycleContinuationOa;
- }): Promise<ActiveCycleContinuationResolution> {
--  // CR-07-04 / CR-07-05 — explicit continuationKind starts Artifact-continuation
--  // handling. Without it, docs_write alone stays historical NEW_CYCLE.
--  if (!hasExplicitArtifactContinuationKind(input.analysis)) {
-+  // CR-07-04 / CR-07-05 / CORR-01 — enter Artifact-continuation handling when
-+  // explicit continuationKind OR natural active-cycle deliverable materialization
-+  // signal is present. Without either, docs_write alone stays historical NEW_CYCLE.
-+  // Recognized continuation + incomplete effect → BLOCKED (never silent createCycle).
-+  if (!shouldEnterActiveCycleArtifactContinuationHandling(input.analysis)) {
-     return { mode: "NEW_CYCLE_FORMALIZATION", reason: "no_materialization_intent" };
+ export type ActiveCycleContinuationResolution =
+   | {
+       readonly mode: "ACTIVE_CYCLE_GOVERNED_CONTINUATION";
+@@ -477,17 +531,11 @@ export async function resolveActiveCycleGovernedContinuation(input: {
+   const decisions = await input.oa.decisionServices.decisions.listByProject(
+     input.project.projectId,
+   );
+-  if (
+-    !hasCurrentRequireArtifactObligation({
+-      activeCycleInstanceId: activeId,
+-      decisions,
+-    })
+-  ) {
+-    return blocked("no_require_artifact", activeCycle);
+-  }
+
+   // CR-07-05 — assess failure is FAIL-CLOSED (not "probably missing").
+   // Evidence repository throws during assess must not escape as an uncaught error.
++  // Assess BEFORE the obligation gate so canonical Artifact APPLICABLE (F14
++  // snapshot) can admit continuation without a redundant REQUIRE_ARTIFACT HD.
+   let assessed: Awaited<
+     ReturnType<typeof input.oa.cycleServices.pilotLifecycle.assess>
+   >;
+@@ -506,6 +554,19 @@ export async function resolveActiveCycleGovernedContinuation(input: {
+     return blocked("artifact_already_satisfied", activeCycle);
    }
 
--  // Kind present but effect incompatible → BLOCK (never createCycle).
-+  // Kind/signal present but effect incompatible → BLOCK (never createCycle).
-   if (!hasCompatibleDocsWriteMaterializationEffect(input.analysis)) {
-     return blocked("incompatible_execution_intent");
-   }
++  // CORR-BRIDGE-01 — CURRENT REQUIRE_ARTIFACT HD OR canonical APPLICABLE+missing.
++  // UNKNOWN / NOT_APPLICABLE without policy HD → fail-closed no_require_artifact.
++  // Applicability never invents HD and never authorizes EC.
++  if (
++    !admitsActiveCycleArtifactMaterializationContinuation({
++      activeCycleInstanceId: activeId,
++      decisions,
++      assessment: assessed.assessment,
++    })
++  ) {
++    return blocked("no_require_artifact", activeCycle);
++  }
++
+   // Authoritative Project.repositoryBinding — never invent a second SoT.
+   let repositoryBinding: ProjectRepositoryBinding | null = null;
+   let projectWorkspaceKey: string | undefined;
+
 ```
 
-### Contenu exploitable — nouvelles fonctions (extrait post-correction)
+### Contenu exploitable — helpers (post-correction)
 
 ```typescript
-export function hasExplicitArtifactContinuationKind(
-  analysis: IntentAnalysisDto,
-): boolean {
-  return analysis.continuationKind === "active_cycle_artifact_materialization";
+  if (!assessment) return false;
+  const art = assessment.obligations.find((o) => o.family === "artifact");
+  return art?.status === "SATISFIED";
 }
 
 /**
- * CORR-01 — natural active-cycle deliverable materialization signal from
- * analysis text fields (NON-AUTHORITATIVE). Used so a missing continuationKind
- * does not silently fall to NEW_CYCLE_FORMALIZATION when the Pilote asked to
- * materialize the cycle's required deliverable without internals/path.
- *
- * Must NOT match generic docs_write / vague talk-about-deliverable alone.
+ * CORR-BRIDGE-01 — canonical Artifact is already required (APPLICABLE) and not
+ * yet satisfied. Sufficient to open Proposal/clarification on the active cycle;
+ * NEVER grants ExecutionContract / HumanDecision authority by itself.
  */
-export function hasNaturalActiveCycleDeliverableMaterializationSignal(
-  analysis: IntentAnalysisDto,
-): boolean {
-  if (!analysis.parseOk) return false;
-  if (
-    analysis.intentClass !== "actionable" &&
-    analysis.intentClass !== "execution_request"
-  ) {
-    return false;
-  }
-  const hay = [
-    analysis.objective,
-    analysis.rephrasedRequest,
-    analysis.executionIntent?.artifactBrief,
-    ...(analysis.executionIntent?.contentRequirements ?? []),
-  ]
-    .filter((s): s is string => typeof s === "string" && s.trim().length > 0)
-    .join("\n")
-    .normalize("NFC")
-    .toLowerCase()
-    .replace(/[àáâäã]/g, "a")
-    .replace(/[èéêë]/g, "e")
-    .replace(/[ìíîï]/g, "i")
-    .replace(/[òóôöõ]/g, "o")
-    .replace(/[ùúûü]/g, "u")
-    .replace(/ç/g, "c");
-
-  if (!/\bmaterialis/.test(hay)) return false;
-  const hasDeliverable =
-    /\blivrable\b/.test(hay) ||
-    /\bspecification\b/.test(hay) ||
-    /\bcahier\b/.test(hay);
-  const hasCycleFrame =
-    /\bcycle\b/.test(hay) ||
-    /\breference\b/.test(hay) ||
-    /\bconsolide/.test(hay) ||
-    /\battendu\b/.test(hay);
-  if (!hasDeliverable || !hasCycleFrame) return false;
-  // Refuse pure conversational / question framing.
-  if (
-    /\b(parlons|parler|qu'est[- ]ce|explique|expliquer)\b/.test(hay) ||
-    /\?\s*$/.test(hay.trim())
-  ) {
-    return false;
-  }
-  return true;
+export function hasCanonicalArtifactApplicableUnsatisfied(assessment: {
+  obligations: ReadonlyArray<{
+    family: string;
+    status: string;
+    applicability?: string;
+  }>;
+} | null): boolean {
+  if (!assessment) return false;
+  const art = assessment.obligations.find((o) => o.family === "artifact");
+  if (!art) return false;
+  if (art.applicability !== "APPLICABLE") return false;
+  return art.status !== "SATISFIED";
 }
 
 /**
- * Enter Artifact-continuation handling when either the explicit hint is set
- * OR a natural active-cycle deliverable materialization signal is present.
- * Durable active-cycle + REQUIRE_ARTIFACT remain the authority.
+ * Admit active-cycle Artifact continuation into Proposal/clarification when
+ * either a CURRENT REQUIRE_ARTIFACT policy HD exists (historical path for
+ * UNKNOWN/NOT_APPLICABLE → required) OR the canonical assessment already
+ * marks Artifact APPLICABLE and not SATISFIED (F14 obligation snapshot).
+ * Does NOT invent HD; does NOT authorize EC.
  */
-export function shouldEnterActiveCycleArtifactContinuationHandling(
-  analysis: IntentAnalysisDto,
-): boolean {
-  return (
-    hasExplicitArtifactContinuationKind(analysis) ||
-    hasNaturalActiveCycleDeliverableMaterializationSignal(analysis)
+export function admitsActiveCycleArtifactMaterializationContinuation(input: {
+  activeCycleInstanceId: string;
+  decisions: readonly HumanDecision[];
+  assessment: {
+    obligations: ReadonlyArray<{
+      family: string;
+      status: string;
+      applicability?: string;
+    }>;
+  } | null;
+}): boolean {
+  if (
+    hasCurrentRequireArtifactObligation({
+      activeCycleInstanceId: input.activeCycleInstanceId,
+      decisions: input.decisions,
+    })
+  ) {
+    return true;
+  }
+  return hasCanonicalArtifactApplicableUnsatisfied(input.assessment);
+}
+
+export type ActiveCycleContinuationResolution =
+  | {
+      readonly mode: "ACTIVE_CYCLE_GOVERNED_CONTINUATION";
+      readonly activeCycle: CycleInstance;
+```
+
+### Contenu exploitable — gate resolve (post-correction)
+
+```typescript
+  });
+  if (!cycleLoad.ok) {
+    return blocked("cycle_load_failed");
+  }
+  const activeCycle = cycleLoad.cycle;
+  if (activeCycle.projectId !== input.project.projectId) {
+    return blocked("cycle_load_failed", activeCycle);
+  }
+  if (activeCycle.status !== "active") {
+    return blocked("active_cycle_not_active", activeCycle);
+  }
+
+  const decisions = await input.oa.decisionServices.decisions.listByProject(
+    input.project.projectId,
   );
-}
-```
 
-### Contenu exploitable — gate resolve (extrait)
-
-```typescript
-  project: ProjectAssistantContextDto;
-  analysis: IntentAnalysisDto;
-  oa: ActiveCycleContinuationOa;
-}): Promise<ActiveCycleContinuationResolution> {
-  // CR-07-04 / CR-07-05 / CORR-01 — enter Artifact-continuation handling when
-  // explicit continuationKind OR natural active-cycle deliverable materialization
-  // signal is present. Without either, docs_write alone stays historical NEW_CYCLE.
-  // Recognized continuation + incomplete effect → BLOCKED (never silent createCycle).
-  if (!shouldEnterActiveCycleArtifactContinuationHandling(input.analysis)) {
-    return { mode: "NEW_CYCLE_FORMALIZATION", reason: "no_materialization_intent" };
+  // CR-07-05 — assess failure is FAIL-CLOSED (not "probably missing").
+  // Evidence repository throws during assess must not escape as an uncaught error.
+  // Assess BEFORE the obligation gate so canonical Artifact APPLICABLE (F14
+  // snapshot) can admit continuation without a redundant REQUIRE_ARTIFACT HD.
+  let assessed: Awaited<
+    ReturnType<typeof input.oa.cycleServices.pilotLifecycle.assess>
+  >;
+  try {
+    assessed = await input.oa.cycleServices.pilotLifecycle.assess({
+      cycleInstanceId: activeId,
+      projectId: input.project.projectId,
+    });
+  } catch {
+    return blocked("lifecycle_assess_failed", activeCycle);
+  }
+  if (!assessed.ok) {
+    return blocked("lifecycle_assess_failed", activeCycle);
+  }
+  if (artifactObligationSatisfied(assessed.assessment)) {
+    return blocked("artifact_already_satisfied", activeCycle);
   }
 
-  // Kind/signal present but effect incompatible → BLOCK (never createCycle).
-  if (!hasCompatibleDocsWriteMaterializationEffect(input.analysis)) {
-    return blocked("incompatible_execution_intent");
+  // CORR-BRIDGE-01 — CURRENT REQUIRE_ARTIFACT HD OR canonical APPLICABLE+missing.
+  // UNKNOWN / NOT_APPLICABLE without policy HD → fail-closed no_require_artifact.
+  // Applicability never invents HD and never authorizes EC.
+  if (
+    !admitsActiveCycleArtifactMaterializationContinuation({
+      activeCycleInstanceId: activeId,
+      decisions,
+      assessment: assessed.assessment,
+    })
+  ) {
+    return blocked("no_require_artifact", activeCycle);
   }
 
-  const activeId = input.project.activeCycleInstanceId ?? null;
-  if (!activeId) {
-    return blocked("no_active_cycle");
+  // Authoritative Project.repositoryBinding — never invent a second SoT.
+  let repositoryBinding: ProjectRepositoryBinding | null = null;
+  let projectWorkspaceKey: string | undefined;
+  const proj = await input.oa.projectServices.getProject.execute({
+    projectId: input.project.projectId,
+  });
 ```
 
-### Diff `intentAnalysis.ts` (ANALYSIS_SYSTEM)
+### Diff `corrProof07.artifactMaterialization.d0.test.ts`
 
 ```diff
-diff --git a/projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts b/projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts
-index b6de6112..a6973b4a 100644
---- a/projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts
-@@ -620,24 +620,27 @@ Règles dures :
- - Ne pas reclasser en ambiguous uniquement parce que la phrase courante est incomplète si le contexte canonique la rend compréhensible.
- - Ne pas créer de CycleInstance / actionable par défaut pour une simple conversation informative progressive.
+diff --git a/projects/sfia-studio/app/__tests__/project-assistant/corrProof07.artifactMaterialization.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/corrProof07.artifactMaterialization.d0.test.ts
+index 5ce00b06..2434330d 100644
+--- a/projects/sfia-studio/app/__tests__/project-assistant/corrProof07.artifactMaterialization.d0.test.ts
++++ b/projects/sfia-studio/app/__tests__/project-assistant/corrProof07.artifactMaterialization.d0.test.ts
+@@ -631,7 +631,10 @@ describe("CORR-PROOF-07 — Active-cycle artifact materialization continuation",
+     }
 
--=== CONTINUATION CYCLE ACTIF (CORR-PROOF-07 / CORR-PROOF-09) ===
-+=== CONTINUATION CYCLE ACTIF (CORR-PROOF-07 / CORR-PROOF-09 / ACTIVE-CYCLE-ARTIFACT-MATERIALIZATION-CONTINUITY-CORR-01) ===
- NEW_CYCLE_FORMALIZATION ≠ ACTIVE_CYCLE_GOVERNED_CONTINUATION ≠ ACTIVE_CYCLE_CONTINUATION_BLOCKED.
- Si le Project a déjà un cycle actif et que la demande porte sur la matérialisation gouvernée du livrable requis (REQUIRE_ARTIFACT) de CE cycle :
--- continuationKind=active_cycle_artifact_materialization EST REQUIS (hint NON-AUTORITAIRE) ;
-+- continuationKind=active_cycle_artifact_materialization EST REQUIS (hint NON-AUTORITAIRE) — MÊME sans targetPath / filename technique fourni par le Pilote ;
- - ET executionIntent.intentKind=docs_write EST REQUIS ;
- - ET artifactMaterializationOperation=cursor.docs_write.apply EST REQUIS (discriminateur technique dédié) ;
- - docs_write SEUL ne suffit JAMAIS à détourner vers la continuation Artifact ;
- - continuationKind SEUL ne suffit JAMAIS à ouvrir une proposition exécutable ;
- - NE PAS traiter cela comme création d'un nouveau CycleInstance / nouveau Cadrage ;
-+- NE PAS retomber en NEW_CYCLE_FORMALIZATION uniquement parce qu'un chemin / artifactFileName / hint technique est absent ;
-+- si la cible exacte n'est pas résolue : laisser targetPath=null (et éventuellement artifactFileName null ou leaf sûr) — le serveur clarifie DANS le cycle actif ;
- - CONTRAT TECHNIQUE (CORR-PROOF-09 CR-09-01/02) :
-   * artifactMaterializationOperation DOIT être EXACTEMENT « cursor.docs_write.apply » (pas d'alias « docs_write », pas de français, pas d'autre opération) ;
-   * hors de ce chemin Artifact, artifactMaterializationOperation=null ;
-   * requestedOperation (top-level) ET executionIntent.requestedOperation restent génériques ailleurs ; pour CETTE continuation Artifact, les laisser null (préféré) ou exactement cursor.docs_write.apply — JAMAIS une valeur contradictoire (ex. github.pr.merge) ;
-   * si des requiredCapabilities sont fournies pour ce chemin → « cap:cursor.docs_write » (le serveur reste autoritaire après acceptation) ;
-   * la description naturelle du livrable va dans objective / rephrasedRequest / artifactBrief / contentRequirements — JAMAIS dans artifactMaterializationOperation ;
-+  * CONTINUITÉ SÉMANTIQUE DU WHAT : reporter dans artifactBrief / contentRequirements les règles fonctionnelles déjà stabilisées dans le contexte (statuts, attributs, filtres, persistance, exclusions) — NE PAS inventer une seconde spécification contradictoire (ex. retirer des statuts/attributs déjà établis ou les déclarer hors périmètre) ;
-   * targetPath / targetRepositoryRef PEUVENT rester null (le serveur compose sous Project workspace + cycle segment) — ne PAS inventer de chemin repository complet ;
-   * si le Pilote a fourni un filename leaf sûr (ex. note-de-cadrage.md), le reporter dans artifactFileName ;
--  * si aucun filename n'est fourni, proposer un artifactFileName Markdown cohérent avec le livrable/cycle (NON-AUTORITAIRE) ;
-+  * si aucun filename n'est fourni, artifactFileName PEUT rester null (clarification serveur) OU proposer un leaf Markdown cohérent (NON-AUTORITAIRE) ;
-   * ne PAS demander au Pilote de construire un path technique repository complet lorsque workspace Project+cycle est déterminable ;
-   * reversibilityExpectation pour cette continuation : null ou unknown seulement — NE PAS affirmer reversible/irreversible sans provenance serveur ;
- - définition seule du livrable (sans effet de matérialisation) → informative, continuationKind=null, artifactMaterializationOperation=null.
-```
-
-### Diff `fakeProvider.ts`
-
-```diff
-diff --git a/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts b/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
-index 2c8f0097..6b1fe775 100644
---- a/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
-+++ b/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
-@@ -81,34 +81,54 @@ function extractSingleMdFileNameLeaf(probe: string): string | null {
-
- /**
-  * Narrow natural Pilot contract for artifact materialization (no synonym engine).
-- * Requires ALL of:
-+ *
-+ * Path-qualified form (historical):
-  * 1) materialize wording family
-  * 2) exactly one repo-relative .md path OR one safe .md leaf OR framing note cue
-  * 3) explicit proposal / decision preparation
-  * 4) explicit no-execution guard
-+ *
-+ * Active-cycle deliverable form (CORR-01 — path OPTIONAL):
-+ * 1) materialize wording family
-+ * 2) livrable / spécification framed as the active cycle's reference deliverable
-+ * 3) NOT a question / pure talk-about-the-deliverable
-+ * → targetPath / artifactFileName may be null; server clarifies in-cycle.
-+ * Must NOT match generic docs_write ("écris dans le README") without materialize+livrable+cycle framing.
-  */
- function matchNaturalArtifactMaterialization(probe: string): {
-   targetPath: string | null;
--  artifactFileName: string;
-+  artifactFileName: string | null;
-   artifactBrief: string;
-   contentRequirement: string;
- } | null {
-   const normalized = normalizeNaturalMaterializationProbe(probe);
-   if (!/\bmaterialis(?:e|er)\b/.test(normalized)) return null;
-
-+  // Question / reference-only — never promote to materialization continuation.
-+  if (
-+    /\?\s*$/.test(normalized.trim()) ||
-+    /\b(parlons|parler|qu'est[- ]ce|c'est quoi|explique|expliquer)\b/.test(
-+      normalized,
-+    )
-+  ) {
-+    return null;
-+  }
-+
-   const hasProposalOrDecision =
--    /\bproposition\b/.test(normalized) || /\bdecision\b/.test(normalized);
-+    /\bproposition\b/.test(normalized) ||
-+    /\bdecision\b/.test(normalized) ||
-+    /\bprepar(?:e|er)\b/.test(normalized);
-   const hasNoExecution =
-     /n'execute\s+rien/.test(normalized) ||
--    /ne\s+rien\s+executer/.test(normalized);
--  if (!hasProposalOrDecision || !hasNoExecution) return null;
-+    /ne\s+rien\s+executer/.test(normalized) ||
-+    /sans\s+executer/.test(normalized);
-
-   const targetPath = extractSingleRepoRelativeMdPath(probe);
-   const leafFromPath = targetPath
-     ? targetPath.split("/").pop() || null
-     : null;
-   const bareLeaf = extractSingleMdFileNameLeaf(probe);
--  let artifactFileName = leafFromPath || bareLeaf || null;
-+  let artifactFileName: string | null = leafFromPath || bareLeaf || null;
-   // Framing note cue without explicit filename — Nora-like non-authoritative candidate
-   if (
-     !artifactFileName &&
-@@ -117,12 +137,54 @@ function matchNaturalArtifactMaterialization(probe: string): {
-   ) {
-     artifactFileName = "note-de-cadrage.md";
-   }
--  if (!artifactFileName) return null;
-
--  const brief = probe.replace(/\s+/g, " ").trim().slice(0, 240);
-+  const brief = probe.replace(/\s+/g, " ").trim().slice(0, 480);
-+  const hasPathOrLeaf = Boolean(artifactFileName);
-+
-+  // Active-cycle reference deliverable framing (path not required).
-+  const hasCycleDeliverableFraming =
-+    /\blivrable\b/.test(normalized) ||
-+    /\bspecification\b/.test(normalized) ||
-+    /\bcahier\b/.test(normalized);
-+  const hasActiveCycleReference =
-+    /\bcycle\b/.test(normalized) ||
-+    /\breference\b/.test(normalized) ||
-+    /\bconsolidee?\b/.test(normalized) ||
-+    /\battendu\b/.test(normalized);
-+
-+  if (hasPathOrLeaf) {
-+    // Historical path-qualified contract — keep proposal + no-execution guards.
-+    if (!hasProposalOrDecision || !hasNoExecution) return null;
-+    return {
-+      targetPath,
-+      artifactFileName,
-+      artifactBrief: brief,
-+      contentRequirement: brief,
-+    };
-+  }
-+
-+  // Path-less: only when clearly materializing the cycle's required deliverable.
-+  // Do NOT require internals (continuationKind / docs_write / targetPath) from the Pilot.
-+  if (!hasCycleDeliverableFraming || !hasActiveCycleReference) return null;
-+  // Still refuse bare "matérialise" without prepare/decision OR no-execution OR
-+  // explicit "livrable de référence / spécification … du cycle" prepare intent.
-+  const hasReferenceDeliverablePhrase =
-+    /\blivrable\b/.test(normalized) &&
-+    (/\breference\b/.test(normalized) ||
-+      /\bdu cycle\b/.test(normalized) ||
-+      /\bcycle actif\b/.test(normalized) ||
-+      /\bconsolidee?\b/.test(normalized));
-+  if (
-+    !hasProposalOrDecision &&
-+    !hasNoExecution &&
-+    !hasReferenceDeliverablePhrase
-+  ) {
-+    return null;
-+  }
-+
-   return {
--    targetPath,
--    artifactFileName,
-+    targetPath: null,
-+    artifactFileName: null,
-     artifactBrief: brief,
-     contentRequirement: brief,
-   };
-```
-
-### Diff `fakeProvider.userValidArtifactMaterialization.d0.test.ts`
-
-```diff
-diff --git a/projects/sfia-studio/app/__tests__/platform/fakeProvider.userValidArtifactMaterialization.d0.test.ts b/projects/sfia-studio/app/__tests__/platform/fakeProvider.userValidArtifactMaterialization.d0.test.ts
-index d7380b5c..03585e2f 100644
---- a/projects/sfia-studio/app/__tests__/platform/fakeProvider.userValidArtifactMaterialization.d0.test.ts
-+++ b/projects/sfia-studio/app/__tests__/platform/fakeProvider.userValidArtifactMaterialization.d0.test.ts
-@@ -71,13 +71,35 @@ N'exécute rien : prépare la proposition pour ma décision.`;
-     expect(ei.targetPath).not.toBe("docs/livrable-cycle.md");
+     // Contamination case: materialization intent + active id present, but ONLY
+-    // old-cycle REQUIRE_ARTIFACT exists → BLOCKED (never silent NEW_CYCLE).
++    // old-cycle REQUIRE_ARTIFACT exists AND current Artifact is not canonically
++    // APPLICABLE → BLOCKED (never silent NEW_CYCLE; old HD does not contaminate).
++    // CORR-BRIDGE-01: if current assessment were APPLICABLE, continuation would
++    // be admitted without any REQUIRE_ARTIFACT HD — that is intentional.
+     const contaminated = await resolveActiveCycleGovernedContinuation({
+       project,
+       analysis,
+@@ -642,6 +645,24 @@ describe("CORR-PROOF-07 — Active-cycle artifact materialization continuation",
+             listByProject: async () => oldOnlyDecisions,
+           },
+         },
++        cycleServices: {
++          ...oa.cycleServices,
++          pilotLifecycle: {
++            ...oa.cycleServices.pilotLifecycle,
++            assess: async () => ({
++              ok: true as const,
++              assessment: {
++                obligations: [
++                  {
++                    family: "artifact",
++                    status: "MISSING",
++                    applicability: "UNKNOWN",
++                  },
++                ],
++              },
++            }),
++          },
++        },
+       },
+     });
+     expect(contaminated.mode).toBe("ACTIVE_CYCLE_CONTINUATION_BLOCKED");
+@@ -1264,10 +1285,11 @@ describe("CORR-PROOF-07 — Active-cycle artifact materialization continuation",
+     }
    });
 
--  it("P4 — missing explicit path does not enter natural materialization", async () => {
-+  it("P4 — missing explicit path still enters natural materialization (active-cycle deliverable; target clarified server-side)", async () => {
-     const obj = await analyze(
-       "Matérialise le livrable attendu. N'exécute rien : prépare la proposition pour ma décision.",
-     );
--    expect(obj.intentClass).toBe("informative");
--    expect(obj.continuationKind ?? null).toBeNull();
--    expect(obj.executionIntent ?? null).toBeNull();
-+    expect(obj.intentClass).toBe("execution_request");
-+    expect(obj.continuationKind).toBe("active_cycle_artifact_materialization");
-+    expect(obj.artifactMaterializationOperation).toBe(
-+      "cursor.docs_write.apply",
-+    );
-+    const ei = obj.executionIntent as Record<string, unknown>;
-+    expect(ei.intentKind).toBe("docs_write");
-+    expect(ei.targetPath ?? null).toBeNull();
-+  });
-+
-+  it("P4b — PocketTasks-like pathless cycle reference deliverable enters materialization", async () => {
-+    const obj = await analyze(
-+      "Matérialise cette spécification fonctionnelle comme livrable de référence du cycle, sans élargir le périmètre ni ajouter de choix techniques.",
-+    );
-+    expect(obj.intentClass).toBe("execution_request");
-+    expect(obj.continuationKind).toBe("active_cycle_artifact_materialization");
-+    expect(obj.artifactMaterializationOperation).toBe(
-+      "cursor.docs_write.apply",
-+    );
-+    const ei = obj.executionIntent as Record<string, unknown>;
-+    expect(ei.targetPath ?? null).toBeNull();
-+    expect(String(ei.artifactBrief ?? "")).toMatch(/spécification fonctionnelle/i);
-+    expect(String(ei.contentRequirements ?? "")).toMatch(
-+      /spécification fonctionnelle/i,
-+    );
-   });
+-  it("CR05-B — contaminated old-only REQUIRE_ARTIFACT → BLOCKED no_require_artifact", async () => {
++  it("CR05-B — contaminated old-only REQUIRE_ARTIFACT + current UNKNOWN → BLOCKED no_require_artifact", async () => {
+     const overview = await getRuntimeApplicationService().getProject(projectId);
+     expect(overview.ok).toBe(true);
+     if (!overview.ok) return;
++    const oa = getRuntimeApplicationService().oa!;
+     const oldCycleId = `cyc:corr07-cr05b-${Date.now()}`;
+     const oldOnlyDecisions: HumanDecision[] = [
+       {
+@@ -1287,12 +1309,30 @@ describe("CORR-PROOF-07 — Active-cycle artifact materialization continuation",
+       }),
+       analysis: materializationAnalysis(),
+       oa: {
+-        ...getRuntimeApplicationService().oa!,
++        ...oa,
+         decisionServices: {
+           decisions: {
+             listByProject: async () => oldOnlyDecisions,
+           },
+         },
++        cycleServices: {
++          ...oa.cycleServices,
++          pilotLifecycle: {
++            ...oa.cycleServices.pilotLifecycle,
++            assess: async () => ({
++              ok: true as const,
++              assessment: {
++                obligations: [
++                  {
++                    family: "artifact",
++                    status: "MISSING",
++                    applicability: "UNKNOWN",
++                  },
++                ],
++              },
++            }),
++          },
++        },
+       },
+     });
+     expect(contaminated.mode).toBe("ACTIVE_CYCLE_CONTINUATION_BLOCKED");
 
-   it("P5 — two target paths fails closed / falls through", async () => {
 ```
+
+Justification corrProof07 : les cas « old-only REQUIRE_ARTIFACT » montraient encore
+Artifact APPLICABLE via assessment réel (policy active du beforeEach). Sous CORR-BRIDGE-01,
+APPLICABLE canonique admet correctement la continuation sans policy dans la liste mockée.
+Les tests de contamination mockent désormais aussi `assess` → Artifact UNKNOWN pour
+prouver que l'ancien HD ne contamine pas lorsque le current n'est pas APPLICABLE (T9).
 
 ---
 
-## Tests / validations
+## Tests T1–T12
 
-### BEFORE (comportement historique encodé)
+| ID | Scénario | Résultat |
+|---|---|---|
+| T1 | APPLICABLE snapshot + no policy HD → continuation ; ZERO new cycle | PASS |
+| T2 | Avant Proposal HD : ZERO HD inventée ; ZERO EC | PASS |
+| T3 | Proposal DECISION_REQUIRED ; EC gated | PASS |
+| T4 | UNKNOWN + no policy → no_require_artifact | PASS |
+| T5 | NOT_APPLICABLE + no policy → blocked | PASS |
+| T6 | N/A puis explicit REQUIRE_ARTIFACT → continuation | PASS |
+| T7 | APPLICABLE + SATISFIED → artifact_already_satisfied | PASS |
+| T8 | assess failure → fail-closed ; ZERO HD/EC/cycle | PASS |
+| T9 | old-cycle REQUIRE_ARTIFACT only + current UNKNOWN → blocked | PASS |
+| T10 | #532 pathless + APPLICABLE → jamais NEW_CYCLE | PASS |
+| T11 | vague talk → pas de matérialisation | PASS |
+| T12 | no active cycle → blocked ; ZERO createCycle | PASS |
+| unit helpers | APPLICABLE admits ; UNKNOWN sans policy refuse | PASS |
 
-- Ancien P4 : path-less → informative (défaut Fake).
-- Gate serveur : sans `continuationKind` → NEW_CYCLE_FORMALIZATION.
-
-### AFTER (cette correction)
-
-| Preuve | Résultat |
-|---|---|
-| Unit natural signal → enter handling ; vague talk → non | PASS |
-| Natural signal sans docs_write effect → BLOCKED not NEW_CYCLE | PASS |
-| AP pathless natural → ZERO nouveau CycleInstance ; cycle actif conservé ; pas « nouveau cycle proposé » | PASS |
-| AP pathless + guard → same activeCycleInstanceId ; decision null ; 0 ExecutionContract | PASS |
-| AP vague talk → pas de proposal Artifact / pas new cycle | PASS |
-| P4 path-less → execution_request + continuationKind + targetPath null | PASS |
-| P4b PocketTasks-like path-less → materialization + WHAT brief | PASS |
-| naturalMaterialization.applicationPath | PASS |
-| corrProof07 / corrProof09 | PASS |
-| activeCycleCognitiveWork | PASS |
-| projectWorkspaceArtifactRouting | PASS |
-| pilotNoraStudioSemanticContinuity.corr01 | PASS |
-| corrProof10 decisionContextContinuity | PASS |
-| recommendation-vs-decision + recommendationDecisionIntegrity | PASS (suite complète) |
-
-### Commandes
+### Validations
 
 ```
-npm test -- (targeted materialization + continuity suites) → 123 + 76 PASS
+npm test -- bridge corr01 → 13 PASS
+npm test -- corrProof06/07 + continuity + lifecycle + GCEC → 116 PASS
 npm run typecheck → PASS
-npm run lint → PASS (No ESLint warnings or errors)
-npm test (suite complète SFIA Studio) → Test Files 442 passed | 17 skipped ; Tests 4887 passed | 137 skipped
+npm run lint → PASS
+npm test (suite complète) → Test Files 443 passed | 17 skipped ; Tests 4900 passed | 137 skipped
 git diff --check → clean
 ```
 
-Build Next non rejoué : changement logique serveur/Fake/tests uniquement ; typecheck+lint+suite complète critique suffisent (coût build disproportionné non requis pour ce delta).
-
-### Preuves d'invariants CORR-01
-
-1. **ZERO nouveau CycleInstance** sur pathless natural — AP test `countCycles` inchangé.
-2. **Same active CycleInstance** — `activeCycleInstanceId` LPS + qualification/proposal.
-3. **Pas NEW_CYCLE_FORMALIZATION** — texte sans « nouveau cycle est proposé » ; route continuation/clarification/BLOCKED.
-4. **Target unresolved → clarification in-cycle** — path null ; turnKind clarification OU proposal sur même cycle (pas createCycle).
-5. **WHAT continuity** — A/B/C, P, D, filtres, persistance, exclusion Z présents ; pas d'invention « P/D hors périmètre ».
-6. **Aucune HumanDecision inventée** — `decision` null ; count HD inchangé.
-7. **Aucune exécution avant décision** — 0 ExecutionContract.
+Build Next non rejoué : delta logique serveur + tests ; typecheck+lint+suite complète suffisent pour profil Critical.
 
 ---
 
 ## Fake / Real Qualification
 
 - **applicable :** oui
-- **trigger :** FakeConversationProvider / intent analysis boundary
-- **frontière externe :** provider OpenAI utilisé par Nora/F2 (runtime réel)
-- **fake/mock :** oui — Fake déterministe + tests d0
-- **parité attendue :** mêmes schemas d'analyse, mêmes décisions serveur post-analyse, même `resolveActiveCycleGovernedContinuation`, mêmes invariants Cycle/LPS/Proposal
-- **différences connues :** sortie sémantique modèle REAL non déterministe ; Fake scripté
-- **realism gaps :** robustesse absolue de classification linguistique REAL non prouvée ici ; ANALYSIS_SYSTEM renforcé mais non REAL-prouvé
-- **niveau de preuve ce cycle :** **DETERMINISTIC PROVEN**
+- **gap principal :** serveur/domain (obligation Artifact déjà APPLICABLE)
+- **Fake :** FakeConversationProvider + tests d0
+- **parité post-analyse :** mêmes truths serveur (active cycle, assessment, decisions, resolver, Proposal gating)
+- **niveau ce cycle :** **DETERMINISTIC PROVEN**
 - **hors scope :** REAL BOUNDARY PROVEN / END-TO-END REAL PROVEN / READY FOR REAL
-- **bounded REAL :** cycle suivant / GO Morris distinct si jugé nécessaire
-- **gate Morris REAL :** oui
-- **claims autorisés :** correction déterministe prouvée ; aucune création parasite dans scénarios testés
-- **claims interdits :** READY FOR REAL ; REAL BOUNDARY PROVEN ; END-TO-END REAL PROVEN ; Cognitive Completion ; Runtime v3 ADOPTED
-
-Règle dure : DETERMINISTIC PROVEN n'implique PAS READY FOR REAL.
+- **claims autorisés :** Artifact APPLICABLE peut ouvrir Proposal path sans policy HD redondante ; EC reste gated par Proposal HD
+- **claims interdits :** APPLICABLE = execution authorized ; READY FOR REAL ; Cognitive Completion ; Runtime v3 ADOPTED
 
 ---
 
 ## Risques / réserves
 
-1. **REAL linguistic robustness** — un modèle live peut encore omettre `continuationKind` / docs_write ; le serveur CORR-01 mitige via signal naturel textuel, mais la qualité des champs `objective`/`rephrasedRequest` dépend toujours du provider. Mitigé, non éliminé.
-2. **Signal naturel heuristique** — volontairement étroit (materialis + livrable/spec + cadre cycle ; refuse questions). Faux négatifs possibles sur formulations très atypiques → fail-closed (new-cycle historique seulement si aucun signal) ; faux positifs limités par intentClass + REQUIRE_ARTIFACT + docs_write effect.
-3. **Path-less → clarification fréquente** — UX attendue ; pas d'invention de path.
-4. **Branche temporairement remontée** — worktree avait dérivé sur la branche greenfield post-merge tip ; reswitch local vers `fix/sfia-studio-active-cycle-artifact-materialization-continuity-corr-01` @ `3f790345` avant finalisation (aucun commit projet).
+1. Message `no_require_artifact` reste orienté « policy HD » pour UNKNOWN/N/A — wording UI non modifié (KEEP) ; acceptable car fail-closed path seulement.
+2. Robustesse REAL linguistique hors scope (héritée #532).
+3. TEMP-GCEC-F14-BIND-01 : snapshot on-demand — non modifié ici ; correction consomme l'assessment canonique existant.
 
 ---
 
 ## Décisions Morris requises
 
-1. **GO commit** branche corrective (non consommé — ce cycle s'arrête READY FOR COMMIT).
-2. **GO push / PR** (interdit ici).
-3. **Bounded REAL proof** de la correction (optionnel, cycle distinct) avant reprise campaign PocketTasks live si Morris l'exige.
-4. Reprise campaign PocketTasks sur **le même Project / cycle** après intégration — ne pas reconstruire PocketTasks ici.
-
----
-
-## Gaps fermés
-
-| Gap | Statut |
-|---|---|
-| G1 — classification sans continuationKind → NEW_CYCLE | FERMÉ (signal naturel + Fake parity) |
-| G2 — absence targetPath → new cycle | FERMÉ (reste continuation ; clarification in-cycle) |
-| G3 — WHAT contradictoire Proposal/narratif | MITIGÉ (routing + brief depuis texte utilisateur ; test WHAT) — dérive REAL narrative hors scope |
-| G4 — Pilote doit connaître internals | FERMÉ |
-| G5 — nouveau CycleInstance parasite | FERMÉ (tests ZERO new cycle) |
+1. GO commit branche corrective (non consommé).
+2. GO push / PR (interdit ici).
+3. Reprise PocketTasks même Project / cycle après intégration → Proposal → HD → EC.
+4. Bounded REAL optionnel (cycle distinct).
 
 ---
 
@@ -1124,29 +1423,20 @@ Règle dure : DETERMINISTIC PROVEN n'implique PAS READY FOR REAL.
 - Mode : publish-in-cycle L3 borné
 - Branche : `sfia/review-handoff`
 - Canonique : `sfia-review-handoff/latest-chatgpt-review.md`
-- Commit attendu : `docs(review-handoff): publish active-cycle artifact materialization continuity correction review`
+- Commit attendu : `docs(review-handoff): publish artifact applicability continuation bridge review`
 - Source : `.tmp-sfia-review/chatgpt-review.md`
-- Push branche projet : NON
 
----
+## Instruction ChatGPT
 
-## Instruction ChatGPT (obligatoire)
-
-Avant de répondre à Morris, consulter :
-
-- branche `sfia/review-handoff`
-- fichier `sfia-review-handoff/latest-chatgpt-review.md`
-
-Vérifier cohérence avec ce rapport (macro, branche, HEAD/base, root cause, fichiers, BEFORE/AFTER, ZERO parasite cycle, WHAT, Fake/Real, réserves, verdict, remote handoff).
-
-Si handoff absent/incohérent/synthesis-only → `REVIEW HANDOFF INCOMPLETE — MODIFIED CONTENT MISSING`.
-Si Cursor annonce publication mais remote non à jour → `REVIEW HANDOFF INCOMPLETE — CANONICAL REMOTE NOT UPDATED`.
+Avant réponse à Morris, lire `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md`
+et vérifier macro, HEAD/base, root cause, fichiers, T1–T12, séparation Applicability/Authority,
+ZERO auto-HD, ZERO EC avant Proposal HD, UNKNOWN fail-closed, policy historique, verdict, remote.
 
 ---
 
 ## Verdict
 
-**READY FOR COMMIT — ACTIVE-CYCLE ARTIFACT MATERIALIZATION CONTINUITY CORRECTION — CONFIRMED**
+**READY FOR COMMIT — ARTIFACT APPLICABILITY CONTINUATION BRIDGE CORRECTION — CONFIRMED**
 
 - DETERMINISTIC PROVEN
 - Pas de commit projet dans ce cycle
