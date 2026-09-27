@@ -166,10 +166,11 @@ Décisions futures **séparées** — le GO du présent cycle documentaire **ne 
 | Élément | État |
 |---------|------|
 | Phase actuelle | Bloc / Phase 1 — cadrage |
-| Étape active | **1.1 Analyse des besoins métiers** |
+| Dernière étape validée | **1.1 Analyse des besoins métiers — VALIDATED (2026-09-27)** |
+| Étape suivante | **1.2 Analyse des besoins utilisateurs — NOT OPENED** |
 | Architecture | **NOT DECIDED** |
 | Stack runtime | **CANDIDATE TOOL ECOSYSTEM ONLY** |
-| Prochain objectif | Produire une compréhension métier suffisante avant user discovery **1.2** |
+| Prochain objectif | Attendre le **GO Morris** pour ouvrir le 1.2 |
 
 ---
 
