@@ -1,6 +1,6 @@
-# CHAT-FIRST-GOVERNED-DECISION-LOOP-01 — FULL Review Pack (Morris Correction)
+# CHAT-FIRST-GOVERNED-DECISION-LOOP-01 — FULL Review Pack (Hybrid UX)
 
-**Timestamp:** 2026-09-27T18:27:44.482Z
+**Timestamp:** 2026-09-27T18:43:43.167Z
 **Verdict:** `READY FOR CHATGPT CRITICAL REVIEW`
 
 **Repo:** mcleland147/sfia-workspace
@@ -8,6 +8,7 @@
 **Branch:** `feat/sfia-studio-chat-first-governed-decision-loop-01`
 **HEAD (uncommitted local candidate base):** `955e86d2ea6eb0ed19dff1e66f578d61edeb3522`
 **origin/main:** `955e86d2ea6eb0ed19dff1e66f578d61edeb3522`
+**Prior handoff superseded:** `117e042f`
 
 **Anti-claims:** NOT REAL PROVEN · NOT READY FOR REAL · NOT PROJECT GIT INTEGRATED · NOT PRODUCT GLOBAL READY · RUNTIME V3 NON ADOPTED
 
@@ -45,119 +46,68 @@
 ?? projects/sfia-studio/app/__tests__/oa/cycle/deriveWorkRecommendations.d0.test.ts
 ?? projects/sfia-studio/app/__tests__/oa/cycle/undisposedRecommendations.d0.test.ts
 ?? projects/sfia-studio/app/__tests__/pre-m6-product-ui/chatFirstGovernedDecisionLoop.ui.test.tsx
-?? projects/sfia-studio/app/__tests__/project-assistant/chatFirstLifecycleTransition.d0.test.ts
 ?? projects/sfia-studio/app/__tests__/project-assistant/chatFirstPilotDecisionCandidate.d0.test.ts
 ?? projects/sfia-studio/app/__tests__/project-assistant/productChatFirstGovernedDecisionLoop.frontDoor.d0.test.ts
-?? projects/sfia-studio/app/features/project-assistant/w2/assessChatFirstLifecycleEligibility.ts
 ?? projects/sfia-studio/app/features/project-assistant/w2/assessChatFirstWorkEligibility.ts
 ?? projects/sfia-studio/app/features/project-assistant/w2/deferWorkRecommendation.ts
 ?? projects/sfia-studio/app/features/project-assistant/w2/disposeWorkRecommendation.ts
-?? projects/sfia-studio/app/features/project-assistant/w2/loadChatFirstLifecycleMaterial.ts
-?? projects/sfia-studio/app/features/project-assistant/w2/resolveChatFirstLifecycleTransition.ts
 ?? projects/sfia-studio/app/features/project-assistant/w2/resolveChatFirstPilotDecision.ts
 ?? projects/sfia-studio/app/lib/oa/cycle/application/deriveUndisposedRecommendations.ts
 ?? projects/sfia-studio/app/lib/oa/cycle/application/deriveWorkRecommendations.ts
 
 ```
 
-Previous handoff: `bad6f483` — superseded by this correction pack.
+ZERO project commits on feat vs origin/main.
 
 ---
 
-## 2. Décision Morris de correction (binding)
+## 2. Décision Morris superseding Lifecycle Chat-first
 
-Deux familles de Recommendation:
+**Hybrid UX (binding):**
+- Work Recommendations = **Chat-first** nominal
+- Lifecycle Recommendations (NEXT_CYCLE / FINALIZE_CURRENT_CYCLE) = **explicit Studio actions** (prepare trajectory / approve / prepare cycle / START / FINALIZE)
+- Chat « oui » **never** START/FINALIZE solely because a Lifecycle Recommendation is CURRENT
+- `pilotDecisionCandidate` must **not** trigger START/FINALIZE
 
-### A. Lifecycle Recommendations
-- Intent: NEXT_CYCLE | FINALIZE_CURRENT_CYCLE
-- Carrier: EpistemicItem + `lifecycleRecommendation` + source `lifecycle-recommendation:nora`
-- Projection: panneau droit / lifecycle ONLY — **ABSENT** Journal > Recommandations
-- Chat-first via `resolveChatFirstLifecycleTransition` → existing START/FINALIZE (NOT decideTrajectory)
-- FINALIZE_CURRENT_CYCLE **never** creates `undisposed_recommendations`
-- FINALIZE chat-first: assess `canComplete` **before** transition; if false → finalize_not_ready, ZERO HD finalize parasite
-
-### B. Work Recommendations
-- In-cycle governed work (OptionSet / Proposal subject)
-- Carrier: EpistemicItem.type=Recommendation, source=`optset:…`, NO lifecycleRecommendation
-- Projection: Journal > Recommandations (+ historique dispositions)
-- Chat-first via `resolveChatFirstPilotDecision` → `decideTrajectory`
-- Defer: durable HD + Reservation may_affect + Work Recommendation resolved (NO defer_unsupported)
-- Undisposed active Work Recommendations for the cycle → finalization blocker
-
-Ambiguity Work+Lifecycle on « oui » → zero HD, zero transition, clarification.
+This SUPERSEDES the candidate Lifecycle Chat-first orchestration previously published in handoff `117e042f`.
 
 ---
 
-## 3. Flow final Work Recommendation
+## 3. Architecture fonctionnelle finale
 
-```
-Pilot turn
- → IntentAnalysis.pilotDecisionCandidate (NON-AUTHORITATIVE)
- → assessChatFirstWorkEligibility (unique sealed subject)
- → resolveChatFirstPilotDecision
-    accept|refuse|amend → decideTrajectory + disposeWorkRecommendationAfterDecision
-    defer → deferWorkRecommendation (HD + Reservation + resolved Work Rec + DecisionRef)
- → PREPARE when accept
-```
+### Work
+Nora Work Recommendation → Pilot chat disposition → NON-AUTHORITATIVE candidate → `resolveChatFirstPilotDecision` → `decideTrajectory` → dispose Work Recommendation → PREPARE when accept.
 
----
+### Lifecycle
+Lifecycle Recommendation CURRENT → right panel / lifecycle surface → existing prepare/approve/start/finalize actions → existing HumanDecision lifecycle engines. **Not chat-first.**
 
-## 4. Flow final Lifecycle Recommendation
+### Journal
+Sujets | Réserves | Recommandations(Work) | Décisions — Lifecycle ABSENT from Recommandations tab.
 
-```
-Pilot turn
- → pilotDecisionCandidate
- → assessChatFirstLifecycleEligibility (unique CURRENT LR)
- → if Work ALSO eligible → ambiguous_families (stop)
- → resolveChatFirstLifecycleTransition
-    NEXT_CYCLE+accept → prepareCandidateTrajectory (+ prepare cycle) → startPreparedTrajectoryCycle / START
-    FINALIZE+accept → assessFinalization; if !canComplete → finalize_not_ready; else executePilotLifecycleAction FINALIZE
-```
+### Finalization
+`undisposed_recommendations` = Work of cycle only. Lifecycle NEXT/FINALIZE never that blocker.
 
 ---
 
-## 5. Finalization semantics
+## 4. Candidate-only deletions (Lifecycle Chat-first)
 
-| Input | Effect |
-|---|---|
-| Active Work Recommendation for cycle, no DecisionRef / still active | `undisposed_recommendations` |
-| Lifecycle NEXT_CYCLE / FINALIZE CURRENT | never this blocker |
-| Work resolved/rejected/superseded | no block |
-| Blocking reservations | `blocking_reservations` preserved |
-| Journal openPoints | projection only — not Truth C |
+Proved absent from base `955e86d2`; removed from local candidate:
 
-Order: work/reservations/obligations disposed → canComplete true → Nora may recommend FINALIZE → Pilot accepts in chat → FINALIZE transition.
+- `projects/sfia-studio/app/features/project-assistant/w2/resolveChatFirstLifecycleTransition.ts`\n- `projects/sfia-studio/app/features/project-assistant/w2/assessChatFirstLifecycleEligibility.ts`\n- `projects/sfia-studio/app/features/project-assistant/w2/loadChatFirstLifecycleMaterial.ts`\n- `projects/sfia-studio/app/__tests__/project-assistant/chatFirstLifecycleTransition.d0.test.ts`
+
+No historical main asset deleted.
 
 ---
 
-## 6. Defer semantics (Work)
+## 5. KEEP / ADAPT / RETIRE
 
-Durable without DEFERRED enum:
-1. HumanDecision `work-recommendation-defer:{epiId}`
-2. Reservation with `finalizationRelevance=may_affect` + `deferred:{humanDecisionId,targetCycleTypeId,…}`
-3. Work Recommendation status → resolved + relatedObjects decisionId + defer-target
-4. Proposal DecisionRef closure so pending subject clears
-Target from CURRENT NEXT_CYCLE targetCycleTypeId else honest defer target helper; missing → `defer_target_unresolved` clarification (not silent).
+| KEEP | ADAPT | RETIRE FROM NOMINAL WORK UX | RETIRE FROM CANDIDATE |
+|---|---|---|---|
+| decideTrajectory, HD OA, Reservation, assessFinalization, lifecycle machinery, START/FINALIZE engines, Fake spine | Work chat decisions, Journal Work projection, Work blockers/defer, Bible | Instruire/Décider/Modifier Work CTAs | Lifecycle Chat-first resolver modules + tests; pilotDecisionCandidate→START/FINALIZE |
 
 ---
 
-## 7. KEEP / ADAPT / RETIRE final
-
-| | |
-|---|---|
-| KEEP | decideTrajectory, Epistemic Recommendation, lifecycle START/FINALIZE, assessFinalization, Reservation defer pattern, Fake provider spine |
-| ADAPT | Journal Work-only projection; chat-first work+lifecycle routing; undisposed Work gate; defer durable; OptionSet Rec cycle binding |
-| RETIRE FROM NOMINAL UX | Instruire/Décider/Modifier CTAs; Journal showing Lifecycle Recs; defer_unsupported as complete answer |
-
----
-
-## 8. Files created/modified
-
-See git status above. Key new modules listed in §10 complete contents.
-
----
-
-## 9. Tests + validations
+## 6. Tests + validations (FINAL tree — after code + Bible + digests)
 
 Working directory: `projects/sfia-studio/app`
 
@@ -166,18 +116,14 @@ Working directory: `projects/sfia-studio/app`
 | `npm run typecheck` | PASS |
 | `npm run lint` | PASS (0 warnings/errors) |
 | `npm run build` | PASS |
-| Correction recheck (conformance + frontDoor chat-first + lifecycle + deriveWork + undisposed) | **5 files / 29 tests PASS** |
-| Earlier targeted suite (UI + candidate + #536 + lifecycleClosure + …) | **8 files / 61 tests PASS** |
-| Full `npm test` before manifest digest refresh | 450 passed files / **2 failed** (Living Ref digest drift on modified volumes/sources) |
-| Manifest digests refreshed for 03, 09, actions, orchestrateF2, intentAnalysis, assessFinalization, fakeProvider, useProductConversation | conformance recheck PASS |
+| Targeted hybrid suite (frontDoor chat-first + #536 + undisposed + deriveWork + UI + candidate + importBoundaries + lifecycleClosure) | **8 files / 63 tests PASS** |
+| Full `npm test` (AFTER final digests) | **Test Files 450 passed \| 17 skipped (467)** · **Tests 4955 passed \| 137 skipped (5092)** · **0 FAIL** · Duration ~58.8s |
 
-ZERO REAL. No failure masked after digest refresh.
-
-Proof ceiling: DETERMINISTIC PRODUCT E2E PROVEN AT TESTED SCOPE + WORK-LIFECYCLE RECOMMENDATION SEPARATION PROVEN.
+ZERO REAL. Proof ceiling: DETERMINISTIC only.
 
 ---
 
-## 10. COMPLETE FILE CONTENTS (exploitable)
+## 7. COMPLETE FILES
 
 
 ### FILE: `projects/sfia-studio/app/features/project-assistant/w2/resolveChatFirstPilotDecision.ts`
@@ -546,289 +492,16 @@ export async function resolveChatFirstPilotDecision(input: {
 
 ```
 
-### FILE: `projects/sfia-studio/app/features/project-assistant/w2/resolveChatFirstLifecycleTransition.ts`
-
-```typescript
-/**
- * CHAT-FIRST — server resolution of a NON-AUTHORITATIVE disposition into
- * at most ONE Pilot lifecycle transition (START / FINALIZE), never decideTrajectory.
- */
-
-import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
-import type { PilotDecisionDisposition } from "../f2/types";
-import {
-  prepareCandidateTrajectoryFromCurrentRecommendation,
-  prepareCycleFromValidatedTrajectory,
-  startPreparedTrajectoryCycle,
-  type LifecycleRecommendationEnvelope,
-} from "@/lib/oa/cycle";
-import { executePilotLifecycleAction } from "../f2/pilotLifecycleActions";
-import { assessChatFirstLifecycleEligibility } from "./assessChatFirstLifecycleEligibility";
-import { loadChatFirstLifecycleMaterial } from "./loadChatFirstLifecycleMaterial";
-import { toEffectiveDisposition } from "./resolveChatFirstPilotDecision";
-
-export type ChatFirstLifecycleTransitionResult =
-  | { readonly kind: "no_transition" }
-  | {
-      readonly kind: "no_lifecycle_target";
-      readonly message: string;
-    }
-  | {
-      readonly kind: "ambiguous_lifecycle";
-      readonly message: string;
-    }
-  | {
-      readonly kind: "lifecycle_clarification";
-      readonly message: string;
-      readonly code?: string;
-    }
-  | {
-      readonly kind: "finalize_not_ready";
-      readonly message: string;
-      readonly blockers: readonly string[];
-    }
-  | {
-      readonly kind: "transition_recorded";
-      readonly action: "START" | "FINALIZE";
-      readonly cycleInstanceId: string;
-      readonly decisionId?: string;
-      readonly intent: LifecycleRecommendationEnvelope["intent"];
-    }
-  | {
-      readonly kind: "transition_refused";
-      readonly code: string;
-      readonly message: string;
-    };
-
-function clarificationForNonAcceptLifecycle(
-  disposition: ReturnType<typeof toEffectiveDisposition>,
-  intent: LifecycleRecommendationEnvelope["intent"],
-): ChatFirstLifecycleTransitionResult | null {
-  if (disposition === "refuse") {
-    return { kind: "no_transition" };
-  }
-  if (disposition === "defer") {
-    return {
-      kind: "lifecycle_clarification",
-      code: "LIFECYCLE_DEFER_UNSUPPORTED",
-      message:
-        "Le report d'une recommandation de cycle se traite dans le chat en précisant votre intention (poursuivre ou refuser la transition) — aucune transition enregistrée.",
-    };
-  }
-  if (disposition === "amend") {
-    return {
-      kind: "lifecycle_clarification",
-      message:
-        "Amender une transition de cycle n'est pas supporté sur ce chemin — reformulez ou refusez la recommandation.",
-    };
-  }
-  if (disposition !== "accept" && intent) {
-    return { kind: "no_transition" };
-  }
-  return null;
-}
-
-export async function resolveChatFirstLifecycleTransition(input: {
-  readonly oa: RuntimeOaStack;
-  readonly projectId: string;
-  readonly disposition: PilotDecisionDisposition | null | undefined;
-  readonly forceLocalAuthority?: boolean;
-}): Promise<ChatFirstLifecycleTransitionResult> {
-  const effective = toEffectiveDisposition(input.disposition);
-  if (effective == null) return { kind: "no_transition" };
-
-  const eligibility = await assessChatFirstLifecycleEligibility({
-    oa: input.oa,
-    projectId: input.projectId,
-  });
-  if (!eligibility.eligible) {
-    if (eligibility.kind === "ambiguous_lifecycle") {
-      return {
-        kind: "ambiguous_lifecycle",
-        message:
-          eligibility.message ??
-          "Plusieurs recommandations de cycle courantes — aucune transition.",
-      };
-    }
-    if (eligibility.kind === "material_read_failed") {
-      return {
-        kind: "transition_refused",
-        code: eligibility.code ?? "MATERIAL_READ_FAILED",
-        message:
-          eligibility.message ??
-          "Lecture des recommandations de cycle impossible.",
-      };
-    }
-    return {
-      kind: "no_lifecycle_target",
-      message:
-        "Aucune recommandation de cycle unique n'est ouverte pour ce projet.",
-    };
-  }
-
-  const rec = eligibility.recommendation;
-  const nonAccept = clarificationForNonAcceptLifecycle(effective, rec.intent);
-  if (nonAccept) return nonAccept;
-  if (effective !== "accept") return { kind: "no_transition" };
-
-  const nowIso = () => input.oa.clock.nowIso();
-
-  if (rec.intent === "FINALIZE_CURRENT_CYCLE") {
-    const material = await loadChatFirstLifecycleMaterial(input);
-    const cycleInstanceId = (
-      rec.subjectCycleInstanceId?.trim() ||
-      (material.ok ? material.material.lpsActiveCycleInstanceId : null) ||
-      ""
-    ).trim() || null;
-    if (!cycleInstanceId) {
-      return {
-        kind: "transition_refused",
-        code: "FINALIZE_CYCLE_UNKNOWN",
-        message: "Cycle à finaliser introuvable — aucune transition.",
-      };
-    }
-
-    const assessed = await input.oa.cycleServices.pilotLifecycle.assess({
-      cycleInstanceId,
-      projectId: input.projectId,
-    });
-    if (!assessed.ok) {
-      return {
-        kind: "transition_refused",
-        code: assessed.error.detailCode,
-        message: assessed.error.message,
-      };
-    }
-    if (!assessed.assessment.canComplete) {
-      return {
-        kind: "finalize_not_ready",
-        message:
-          "La finalisation n'est pas prête — traitez les blocages avant d'accepter dans le chat.",
-        blockers: [...assessed.assessment.blockers],
-      };
-    }
-
-    const executed = await executePilotLifecycleAction({
-      action: "FINALIZE",
-      projectId: input.projectId,
-      cycleInstanceId,
-      cycleServices: input.oa.cycleServices,
-      projectServices: input.oa.projectServices,
-      decisionServices: input.oa.decisionServices,
-      authorityResolver: input.oa.authorityResolver,
-      nowIso,
-    });
-    if (!executed.ok) {
-      return {
-        kind: "transition_refused",
-        code: executed.code,
-        message: executed.message,
-      };
-    }
-    return {
-      kind: "transition_recorded",
-      action: "FINALIZE",
-      cycleInstanceId,
-      decisionId: executed.decisionId,
-      intent: rec.intent,
-    };
-  }
-
-  if (rec.intent === "NEXT_CYCLE") {
-    const deps = {
-      trajectories: input.oa.cycleServices.trajectories,
-      createInitialTrajectory: input.oa.cycleServices.createInitialTrajectory,
-      updateEpistemicState: input.oa.cycleServices.updateEpistemicState,
-      runInTransaction: <T>(fn: () => Promise<T>) =>
-        input.oa.projectServices.store.runInTransaction(fn),
-      listEpistemicByProject: (projectId: string) =>
-        input.oa.cycleServices.epistemic.listByProject(projectId),
-      listCyclesByProject: (projectId: string) =>
-        input.oa.cycleServices.cycles.listByProject(projectId),
-      listDecisionsByProject: (projectId: string) =>
-        input.oa.decisionServices.decisions.listByProject(projectId),
-      listEvidenceByProject: (projectId: string) =>
-        input.oa.evidenceReviewServices.repository.listByProject(projectId),
-      getCurrentLps: (projectId: string) =>
-        input.oa.projectServices.getCurrentLivingProjectState.execute({
-          projectId,
-        }),
-      getProjectDoctrinePin: async (projectId: string) => {
-        const project = await input.oa.projectServices.getProject.execute({
-          projectId,
-        });
-        if (!project.ok) return null;
-        const pin = project.project.doctrinePackageRef;
-        return pin
-          ? {
-              doctrinePackageId: pin.doctrinePackageId,
-              version: pin.version,
-              digest: pin.digest,
-            }
-          : null;
-      },
-    };
-
-    const preparedCycle = await input.oa.cycleServices.cycles.listByProject(
-      input.projectId,
-    );
-    const hasPrepared = preparedCycle.some(
-      (c) => c.status === "proposed" || c.status === "acknowledged",
-    );
-    if (!hasPrepared) {
-      const bridge = await prepareCandidateTrajectoryFromCurrentRecommendation(
-        {
-          projectId: input.projectId,
-          deps,
-        },
-      );
-      if (!bridge.ok) {
-        // Candidate may already exist — prepareCycle is authoritative for START readiness.
-      }
-      const prepareCycle = await prepareCycleFromValidatedTrajectory({
-        oa: input.oa,
-        projectId: input.projectId,
-      });
-      if (!prepareCycle.ok) {
-        return {
-          kind: "transition_refused",
-          code: prepareCycle.code,
-          message: prepareCycle.reason,
-        };
-      }
-    }
-
-    const started = await startPreparedTrajectoryCycle({
-      oa: input.oa,
-      projectId: input.projectId,
-      forceLocalAuthority: input.forceLocalAuthority,
-    });
-    if (!started.ok) {
-      return {
-        kind: "transition_refused",
-        code: started.code,
-        message: started.reason,
-      };
-    }
-    return {
-      kind: "transition_recorded",
-      action: "START",
-      cycleInstanceId: started.cycle.cycleInstanceId,
-      intent: rec.intent,
-    };
-  }
-
-  return { kind: "no_lifecycle_target", message: "Intent de cycle non supporté." };
-}
-
-```
-
 ### FILE: `projects/sfia-studio/app/features/project-assistant/w2/deferWorkRecommendation.ts`
 
 ```typescript
 /**
  * CHAT-FIRST — durable defer of an OptionSet Work Recommendation via
  * HumanDecision + Reservation stamp + Proposal subject closure.
+ *
+ * Lifecycle Recommendations are NEVER disposed here — they stay on the
+ * explicit Studio lifecycle surface. CURRENT NEXT_CYCLE is only consulted
+ * as an honest defer *target* (cycle type), never as a chat-triggered START.
  */
 
 import { randomUUID } from "node:crypto";
@@ -838,9 +511,12 @@ import {
   registerLocalPiloteAuthority,
 } from "@/lib/oa/decision";
 import {
+  deriveLifecycleBlockersFromEpistemicItems,
   isWorkRecommendationItem,
+  selectCurrentLifecycleRecommendations,
   workRecommendationOptionSetRef,
 } from "@/lib/oa/cycle";
+import type { LifecycleRecommendationMaterialDimension } from "@/lib/oa/cycle/application/lifecycleRecommendation/materialReaderContract";
 import {
   resolveHonestReservationDeferTarget,
   type EpistemicReservationMetadata,
@@ -850,7 +526,6 @@ import {
   finalizeProposalSubjectAfterDurableClosure,
   writeProposalDecisionRef,
 } from "./closeProposalDecisionSubject";
-import { loadChatFirstLifecycleMaterial } from "./loadChatFirstLifecycleMaterial";
 import { disposeWorkRecommendationAfterDecision } from "./disposeWorkRecommendation";
 
 export const WORK_RECOMMENDATION_DEFER_OPTION_ID =
@@ -870,37 +545,108 @@ async function resolveDeferTargetCycleTypeId(input: {
   | { readonly ok: true; readonly targetCycleTypeId: string; readonly targetLabel: string }
   | { readonly ok: false }
 > {
-  const material = await loadChatFirstLifecycleMaterial({
-    oa: input.oa,
-    projectId: input.projectId,
+  const { oa, projectId } = input;
+  const lps = await oa.projectServices.getCurrentLivingProjectState.execute({
+    projectId,
   });
-  if (material.ok) {
-    const next = material.material.current.find(
-      (r) =>
-        r.derivedCurrentness === "CURRENT" &&
-        r.intent === "NEXT_CYCLE" &&
-        (r.targetCycleTypeId?.trim()?.length ?? 0) > 0,
+  const lpsActive = lps.ok
+    ? (lps.livingProjectState.activeCycleInstanceId ?? null)
+    : null;
+
+  let items: Awaited<ReturnType<typeof oa.cycleServices.epistemic.listByProject>> =
+    [];
+  let cycles: Awaited<ReturnType<typeof oa.cycleServices.cycles.listByProject>> =
+    [];
+  let decisions: Awaited<
+    ReturnType<typeof oa.decisionServices.decisions.listByProject>
+  > = [];
+  let evidence: Awaited<
+    ReturnType<typeof oa.evidenceReviewServices.repository.listByProject>
+  > = [];
+  let trajectory: import("@/lib/oa/cycle/domain/types").ProjectTrajectory | null =
+    null;
+  const failed = new Set<LifecycleRecommendationMaterialDimension>();
+
+  try {
+    items = await oa.cycleServices.epistemic.listByProject(projectId);
+  } catch {
+    failed.add("epistemic_blockers");
+  }
+  try {
+    cycles = await oa.cycleServices.cycles.listByProject(projectId);
+  } catch {
+    /* ignore — target resolution fail-closed below */
+  }
+  try {
+    decisions = await oa.decisionServices.decisions.listByProject(projectId);
+  } catch {
+    failed.add("decisions");
+  }
+  try {
+    evidence = await oa.evidenceReviewServices.repository.listByProject(
+      projectId,
     );
-    if (next?.targetCycleTypeId) {
-      const id = next.targetCycleTypeId.trim();
-      return { ok: true, targetCycleTypeId: id, targetLabel: id };
-    }
-    const activeCycle = input.activeCycleInstanceId
-      ? material.material.cycles.find(
-          (c) => c.cycleInstanceId === input.activeCycleInstanceId,
-        )
-      : material.material.projection.activeCycle;
-    const honest = resolveHonestReservationDeferTarget({
-      trajectory: material.material.trajectory,
-      currentCycleTypeId: activeCycle?.cycleTypeId ?? null,
+  } catch {
+    failed.add("evidence");
+  }
+  try {
+    const traj = await oa.cycleServices.getCurrentTrajectory.execute({
+      projectId,
     });
-    if (honest) {
-      return {
-        ok: true,
-        targetCycleTypeId: honest.targetCycleTypeId,
-        targetLabel: honest.targetLabel,
-      };
-    }
+    trajectory = traj.ok ? traj.trajectory : null;
+  } catch {
+    failed.add("trajectory");
+  }
+
+  const projectResult = await oa.projectServices.getProject.execute({
+    projectId,
+  });
+  const doctrinePin = projectResult.ok
+    ? projectResult.project.doctrinePackageRef
+    : lps.ok
+      ? lps.livingProjectState.doctrinePackageRef
+      : undefined;
+  const blockersSnap = deriveLifecycleBlockersFromEpistemicItems(items);
+
+  const current = selectCurrentLifecycleRecommendations({
+    items,
+    cycles,
+    lpsActiveCycleInstanceId: lpsActive,
+    lpsVersion: lps.ok ? lps.livingProjectState.version : null,
+    doctrinePackageId: doctrinePin?.doctrinePackageId ?? null,
+    doctrinePackageVersion: doctrinePin?.version ?? null,
+    doctrinePackageDigest: doctrinePin?.digest ?? null,
+    trajectory,
+    decisions,
+    evidence,
+    blockingReservationStatements: blockersSnap.statements,
+    failedMaterialDimensions: failed,
+  });
+
+  const next = current.find(
+    (r) =>
+      r.derivedCurrentness === "CURRENT" &&
+      r.intent === "NEXT_CYCLE" &&
+      (r.targetCycleTypeId?.trim()?.length ?? 0) > 0,
+  );
+  if (next?.targetCycleTypeId) {
+    const id = next.targetCycleTypeId.trim();
+    return { ok: true, targetCycleTypeId: id, targetLabel: id };
+  }
+
+  const activeCycle = input.activeCycleInstanceId
+    ? cycles.find((c) => c.cycleInstanceId === input.activeCycleInstanceId)
+    : null;
+  const honest = resolveHonestReservationDeferTarget({
+    trajectory,
+    currentCycleTypeId: activeCycle?.cycleTypeId ?? null,
+  });
+  if (honest) {
+    return {
+      ok: true,
+      targetCycleTypeId: honest.targetCycleTypeId,
+      targetLabel: honest.targetLabel,
+    };
   }
   return { ok: false };
 }
@@ -1721,288 +1467,16 @@ export async function assessChatFirstWorkEligibility(input: {
 
 ```
 
-### FILE: `projects/sfia-studio/app/features/project-assistant/w2/assessChatFirstLifecycleEligibility.ts`
-
-```typescript
-/**
- * Read-only eligibility for chat-first Lifecycle disposition (CURRENT rec).
- */
-
-import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
-import type { LifecycleRecommendationEnvelope } from "@/lib/oa/cycle";
-import { loadChatFirstLifecycleMaterial } from "./loadChatFirstLifecycleMaterial";
-
-const LIFECYCLE_INTENTS = new Set([
-  "NEXT_CYCLE",
-  "FINALIZE_CURRENT_CYCLE",
-] as const);
-
-export type ChatFirstLifecycleEligibility =
-  | {
-      readonly eligible: true;
-      readonly recommendation: LifecycleRecommendationEnvelope;
-    }
-  | {
-      readonly eligible: false;
-      readonly kind:
-        | "no_lifecycle_target"
-        | "ambiguous_lifecycle"
-        | "material_read_failed";
-      readonly message?: string;
-      readonly code?: string;
-    };
-
-export async function assessChatFirstLifecycleEligibility(input: {
-  readonly oa: RuntimeOaStack;
-  readonly projectId: string;
-}): Promise<ChatFirstLifecycleEligibility> {
-  const loaded = await loadChatFirstLifecycleMaterial(input);
-  if (!loaded.ok) {
-    return {
-      eligible: false,
-      kind: "material_read_failed",
-      code: loaded.code,
-      message: loaded.message,
-    };
-  }
-
-  const actionable = loaded.material.current.filter(
-    (r) =>
-      r.derivedCurrentness === "CURRENT" &&
-      LIFECYCLE_INTENTS.has(r.intent),
-  );
-
-  if (actionable.length === 0) {
-    return { eligible: false, kind: "no_lifecycle_target" };
-  }
-  if (actionable.length > 1) {
-    return {
-      eligible: false,
-      kind: "ambiguous_lifecycle",
-      message:
-        "Plusieurs recommandations de cycle courantes — précisez laquelle vous voulez traiter dans le chat.",
-    };
-  }
-  return { eligible: true, recommendation: actionable[0]! };
-}
-
-```
-
-### FILE: `projects/sfia-studio/app/features/project-assistant/w2/loadChatFirstLifecycleMaterial.ts`
-
-```typescript
-/**
- * Shared read-side material for CURRENT Lifecycle Recommendation selection.
- */
-
-import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
-import type { HumanDecision } from "@/lib/oa/decision";
-import type { Evidence } from "@/lib/oa/evidence-review";
-import {
-  deriveLifecycleBlockersFromEpistemicItems,
-  projectPilotLifecycle,
-  selectCurrentLifecycleRecommendations,
-  type LifecycleRecommendationEnvelope,
-} from "@/lib/oa/cycle";
-import type { LifecycleRecommendationMaterialDimension } from "@/lib/oa/cycle/application/lifecycleRecommendation/materialReaderContract";
-import type { CycleInstance, EpistemicItem, ProjectTrajectory } from "@/lib/oa/cycle/domain/types";
-
-export type ChatFirstLifecycleMaterial = {
-  readonly items: readonly EpistemicItem[];
-  readonly cycles: readonly CycleInstance[];
-  readonly lpsActiveCycleInstanceId: string | null;
-  readonly lpsVersion: number | null;
-  readonly trajectory: ProjectTrajectory | null;
-  readonly current: readonly LifecycleRecommendationEnvelope[];
-  readonly projection: ReturnType<typeof projectPilotLifecycle>;
-};
-
-export async function loadChatFirstLifecycleMaterial(input: {
-  readonly oa: RuntimeOaStack;
-  readonly projectId: string;
-}): Promise<
-  | { readonly ok: true; readonly material: ChatFirstLifecycleMaterial }
-  | { readonly ok: false; readonly code: string; readonly message: string }
-> {
-  const { oa, projectId } = input;
-  const lps = await oa.projectServices.getCurrentLivingProjectState.execute({
-    projectId,
-  });
-  const lpsActive = lps.ok
-    ? (lps.livingProjectState.activeCycleInstanceId ?? null)
-    : null;
-
-  let items: EpistemicItem[] = [];
-  let cycles: CycleInstance[] = [];
-  let decisions: HumanDecision[] = [];
-  let evidence: Evidence[] = [];
-  let trajectory: ProjectTrajectory | null = null;
-
-  const failed = new Set<LifecycleRecommendationMaterialDimension>();
-  try {
-    items = await oa.cycleServices.epistemic.listByProject(projectId);
-  } catch {
-    failed.add("epistemic_blockers");
-    items = [];
-  }
-  try {
-    cycles = await oa.cycleServices.cycles.listByProject(projectId);
-  } catch {
-    failed.add("lps");
-    cycles = [];
-  }
-  try {
-    decisions = await oa.decisionServices.decisions.listByProject(projectId);
-  } catch {
-    failed.add("decisions");
-    decisions = [];
-  }
-  try {
-    evidence =
-      await oa.evidenceReviewServices.repository.listByProject(projectId);
-  } catch {
-    failed.add("evidence");
-    evidence = [];
-  }
-  try {
-    const traj = await oa.cycleServices.getCurrentTrajectory.execute({
-      projectId,
-    });
-    trajectory = traj.ok ? traj.trajectory : null;
-  } catch {
-    failed.add("trajectory");
-    trajectory = null;
-  }
-  if (!lps.ok) failed.add("lps");
-
-  const project = await oa.projectServices.getProject.execute({ projectId });
-  const doctrinePin = project.ok
-    ? (project.project.doctrinePackageRef ??
-      (lps.ok ? lps.livingProjectState.doctrinePackageRef : undefined))
-    : lps.ok
-      ? lps.livingProjectState.doctrinePackageRef
-      : undefined;
-
-  const blockersSnap = deriveLifecycleBlockersFromEpistemicItems(items);
-  const current = selectCurrentLifecycleRecommendations({
-    items,
-    cycles,
-    lpsActiveCycleInstanceId: lpsActive,
-    lpsVersion: lps.ok ? lps.livingProjectState.version : null,
-    doctrinePackageId: doctrinePin?.doctrinePackageId ?? null,
-    doctrinePackageVersion: doctrinePin?.version ?? null,
-    doctrinePackageDigest: doctrinePin?.digest ?? null,
-    trajectory,
-    decisions,
-    evidence,
-    blockingReservationStatements: blockersSnap.statements,
-    failedMaterialDimensions: failed,
-  });
-
-  const projection = projectPilotLifecycle({
-    projectId,
-    cycles,
-    lpsActiveCycleInstanceId: lpsActive,
-    currentRecommendations: current,
-  });
-
-  return {
-    ok: true,
-    material: {
-      items,
-      cycles,
-      lpsActiveCycleInstanceId: lpsActive,
-      lpsVersion: lps.ok ? lps.livingProjectState.version : null,
-      trajectory,
-      current,
-      projection,
-    },
-  };
-}
-
-```
-
 ---
 
-## 11. USEFUL DIFFS
+## 8. USEFUL DIFFS
 
-
-### DIFF: `projects/sfia-studio/app/lib/oa/cycle/application/assessFinalization.ts`
-
-```diff
-diff --git a/projects/sfia-studio/app/lib/oa/cycle/application/assessFinalization.ts b/projects/sfia-studio/app/lib/oa/cycle/application/assessFinalization.ts
-index 66093a9f..c0372927 100644
---- a/projects/sfia-studio/app/lib/oa/cycle/application/assessFinalization.ts
-+++ b/projects/sfia-studio/app/lib/oa/cycle/application/assessFinalization.ts
-@@ -163,6 +163,12 @@ export type AssessFinalizationInput = {
-   }>;
-   finalizeDecisionId?: string | null;
-   blockingReservationStatements?: readonly string[];
-+  /**
-+   * CHAT-FIRST-GOVERNED-DECISION-LOOP-01 — refs of active Recommendations on a
-+   * presented governed decision subject that the Pilot has not disposed of.
-+   * Empty/absent = nothing to dispose. Never a Recommendation→Decision promotion.
-+   */
-+  undisposedRecommendationRefs?: readonly string[];
- };
- 
- function findFinalizeDecision(
-@@ -780,9 +786,10 @@ export function assessFinalizationObligations(
-     }
-   }
- 
--  // 8) Blockers / reservations
-+  // 8) Blockers / reservations / undisposed Recommendations
-   {
-     const blockingReservations = input.blockingReservationStatements ?? [];
-+    const undisposedRecommendations = input.undisposedRecommendationRefs ?? [];
-     const applicability = resolveApplicability("blockers", "APPLICABLE", rules);
-     if (applicability === "NOT_APPLICABLE") {
-       pushNa(
-@@ -798,15 +805,32 @@ export function assessFinalizationObligations(
-         "blockers",
-         "blockers_applicability_unknown",
-       );
--    } else if (blockingReservations.length > 0) {
-+    } else if (
-+      blockingReservations.length > 0 ||
-+      undisposedRecommendations.length > 0
-+    ) {
-       obligations.push({
-         family: "blockers",
-         applicability: "APPLICABLE",
-         status: "BLOCKING",
--        detail: blockingReservations.join("|"),
-+        detail: [
-+          ...blockingReservations,
-+          ...(undisposedRecommendations.length > 0
-+            ? [
-+                `undisposed_recommendations:${undisposedRecommendations.join(
-+                  ",",
-+                )}`,
-+              ]
-+            : []),
-+        ].join("|"),
-         blocking: true,
-       });
--      blockers.push("blocking_reservations");
-+      if (blockingReservations.length > 0) {
-+        blockers.push("blocking_reservations");
-+      }
-+      if (undisposedRecommendations.length > 0) {
-+        blockers.push("undisposed_recommendations");
-+      }
-     } else {
-       obligations.push({
-         family: "blockers",
-
-```
 
 ### DIFF: `projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts`
 
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts b/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
-index 2a836c62..6dfe6938 100644
+index 2a836c62..d84952df 100644
 --- a/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
 @@ -89,7 +89,9 @@ import {
@@ -2015,16 +1489,11 @@ index 2a836c62..6dfe6938 100644
    IntentAnalysisDto,
    ProposalDto,
    QualificationDto,
-@@ -98,6 +100,17 @@ import type { ExecutionIntentPayload } from "./executionIntentSchema";
+@@ -98,6 +100,12 @@ import type { ExecutionIntentPayload } from "./executionIntentSchema";
  import {
    assertExplicitReinstructionGate,
  } from "../w2/activeProposalDecisionSubject";
-+import { assessChatFirstLifecycleEligibility } from "../w2/assessChatFirstLifecycleEligibility";
 +import { assessChatFirstWorkEligibility } from "../w2/assessChatFirstWorkEligibility";
-+import {
-+  resolveChatFirstLifecycleTransition,
-+  type ChatFirstLifecycleTransitionResult,
-+} from "../w2/resolveChatFirstLifecycleTransition";
 +import {
 +  resolveChatFirstPilotDecision,
 +  toEffectiveDisposition,
@@ -2033,10 +1502,10 @@ index 2a836c62..6dfe6938 100644
  import {
    replacePendingDecisionSubjectForExplicitReinstruction,
    writePendingDecisionSubjectMarker,
-@@ -192,6 +205,33 @@ async function commitPendingDecisionSubjectForDecisionRequired(input: {
+@@ -192,6 +200,33 @@ async function commitPendingDecisionSubjectForDecisionRequired(input: {
    return { ok: true };
  }
- 
+
 +/**
 + * CHAT-FIRST-GOVERNED-DECISION-LOOP-01 — codes where the pending subject must
 + * be disposed of in the conversation instead of locking the composer.
@@ -2067,10 +1536,10 @@ index 2a836c62..6dfe6938 100644
  async function resolveExplicitReinstructionGate(input: {
    readonly oa: RuntimeOaStack;
    readonly projectId: string;
-@@ -658,6 +698,64 @@ function qualificationFromActiveCycle(input: {
+@@ -658,6 +693,64 @@ function qualificationFromActiveCycle(input: {
    };
  }
- 
+
 +/**
 + * CHAT-FIRST-GOVERNED-DECISION-LOOP-01 — presentation mapping for a durable
 + * HumanDecision recorded from a conversational disposition. The kinds reuse
@@ -2132,7 +1601,7 @@ index 2a836c62..6dfe6938 100644
  /**
   * JOURNEY-INTEGRITY — the reinstruction arm is a server verdict, never a
   * client inference. "superseded" is reserved for a committed supersession of
-@@ -681,9 +779,19 @@ function f2Success(base: {
+@@ -681,9 +774,19 @@ function f2Success(base: {
    intentClass: IntentAnalysisDto["intentClass"];
    qualification?: QualificationDto;
    proposal?: ProposalDto;
@@ -2153,7 +1622,7 @@ index 2a836c62..6dfe6938 100644
    reinstructionTransition?: "superseded" | "not_consumed" | "not_applicable";
    /**
     * JOURNEY-INTEGRITY — armed reinstruction carried by this turn. Only the
-@@ -693,11 +801,14 @@ function f2Success(base: {
+@@ -693,11 +796,14 @@ function f2Success(base: {
  }): ProjectAssistantSendResult {
    const turnKind =
      base.turnKind ??
@@ -2173,7 +1642,7 @@ index 2a836c62..6dfe6938 100644
    return {
      ok: true,
      status: "ok",
-@@ -738,7 +849,7 @@ function f2Success(base: {
+@@ -738,7 +844,7 @@ function f2Success(base: {
        intentClass: base.intentClass,
        qualification: base.qualification ?? null,
        proposal: base.proposal ?? null,
@@ -2182,7 +1651,7 @@ index 2a836c62..6dfe6938 100644
        labels: {
          recommendation:
            base.proposal && base.qualification ? "RECOMMANDATION" : null,
-@@ -746,7 +857,7 @@ function f2Success(base: {
+@@ -746,7 +852,7 @@ function f2Success(base: {
          decisionRequired: base.proposal?.morrisGateRequired
            ? "DÉCISION REQUISE"
            : null,
@@ -2191,7 +1660,7 @@ index 2a836c62..6dfe6938 100644
          noExecution: "AUCUNE EXÉCUTION",
        },
        executionBlocked: base.executionBlocked === true,
-@@ -770,9 +881,15 @@ async function f2ConversationalSuccess(input: {
+@@ -770,9 +876,15 @@ async function f2ConversationalSuccess(input: {
    intentClass: IntentAnalysisDto["intentClass"];
    qualification?: QualificationDto;
    proposal?: ProposalDto;
@@ -2208,38 +1677,27 @@ index 2a836c62..6dfe6938 100644
    reinstructionTransition?: "superseded" | "not_consumed" | "not_applicable";
    reinstructionOfProposalId?: string | null;
  }): Promise<ProjectAssistantSendResult> {
-@@ -1066,6 +1183,301 @@ export async function orchestrateAssistantSend(input: {
+@@ -1066,6 +1178,169 @@ export async function orchestrateAssistantSend(input: {
      project.projectId,
    );
- 
-+  // ── CHAT-FIRST-GOVERNED-DECISION-LOOP-01 ────────────────────────────────
+
++  // ── CHAT-FIRST-GOVERNED-DECISION-LOOP-01 (Work Recommendations ONLY) ───
 +  // A NON-AUTHORITATIVE disposition candidate is resolved against durable
-+  // truth BEFORE any new DECISION_REQUIRED subject could be minted, so a
-+  // conversational "poursuis / refuse / amende" never competes with a fresh
-+  // proposal. Nothing here trusts the model beyond selecting WHICH sealed
-+  // option of an EXISTING PresentedOptionSet is submitted to decideTrajectory.
++  // Work / Proposal decision subjects BEFORE any new DECISION_REQUIRED mint.
++  // Lifecycle NEXT_CYCLE / FINALIZE_CURRENT_CYCLE are NEVER triggered here —
++  // they stay on explicit Studio lifecycle actions (prepare / start / finalize).
 +  {
 +    const candidateDisposition = toEffectiveDisposition(
 +      analysis.pilotDecisionCandidate?.disposition,
 +    );
 +    const oaForChatFirst = getRuntimeApplicationService().oa;
 +    if (candidateDisposition != null && oaForChatFirst) {
-+      const [workGate, lifecycleGate] = await Promise.all([
-+        assessChatFirstWorkEligibility({
-+          oa: oaForChatFirst,
-+          projectId: project.projectId,
-+        }),
-+        assessChatFirstLifecycleEligibility({
-+          oa: oaForChatFirst,
-+          projectId: project.projectId,
-+        }),
-+      ]);
-+
-+      const workEligible = workGate.eligible === true;
-+      const lifecycleEligible = lifecycleGate.eligible === true;
++      const workGate = await assessChatFirstWorkEligibility({
++        oa: oaForChatFirst,
++        projectId: project.projectId,
++      });
 +
 +      if (
-+        !workEligible &&
 +        workGate.eligible === false &&
 +        workGate.kind === "ambiguous_subjects"
 +      ) {
@@ -2262,122 +1720,14 @@ index 2a836c62..6dfe6938 100644
 +        });
 +      }
 +
-+      if (workEligible && lifecycleEligible) {
-+        return f2ConversationalSuccess({
-+          userText: content,
-+          sessionDbPath: input.sessionDbPath,
-+          text: [
-+            presentation === "test_provider" ? "[Mode test]" : "[Mode réel]",
-+            "Une recommandation de travail et une recommandation de cycle sont toutes deux ouvertes — précisez laquelle vous voulez traiter (sujet proposé ou transition de cycle).",
-+            "Aucune décision ni transition n'a été enregistrée.",
-+          ].join(" "),
-+          mode: modeResolution.mode as "fixture" | "live",
-+          presentation,
-+          model,
-+          project,
-+          intentClass: analysis.intentClass,
-+          turnKind: "f2_clarification",
-+          reinstructionOfProposalId,
-+        });
-+      }
-+
-+      const handlePilotDecision = async () =>
-+        resolveChatFirstPilotDecision({
++      if (workGate.eligible === true) {
++        const resolved = await resolveChatFirstPilotDecision({
 +          oa: oaForChatFirst,
 +          projectId: project.projectId,
 +          disposition: analysis.pilotDecisionCandidate?.disposition ?? null,
 +          rationale: analysis.pilotDecisionCandidate?.rationale ?? null,
 +        });
 +
-+      const finishLifecycleTransition = async (
-+        resolved: ChatFirstLifecycleTransitionResult,
-+      ): Promise<ProjectAssistantSendResult | null> => {
-+        if (resolved.kind === "transition_recorded") {
-+          const head =
-+            presentation === "test_provider" ? "[Mode test]" : "[Mode réel]";
-+          const body =
-+            resolved.action === "START"
-+              ? "Transition enregistrée : le cycle préparé est démarré."
-+              : "Transition enregistrée : le cycle actif est finalisé.";
-+          return f2ConversationalSuccess({
-+            userText: content,
-+            sessionDbPath: input.sessionDbPath,
-+            text: [head, body, "Nora recommande ; le Pilote décide. AUCUNE EXÉCUTION."].join(
-+              " ",
-+            ),
-+            mode: modeResolution.mode as "fixture" | "live",
-+            presentation,
-+            model,
-+            project,
-+            intentClass: analysis.intentClass,
-+            turnKind: "f2_decision",
-+            executionBlocked: false,
-+            reinstructionOfProposalId: null,
-+          });
-+        }
-+        if (resolved.kind === "finalize_not_ready") {
-+          return f2ConversationalSuccess({
-+            userText: content,
-+            sessionDbPath: input.sessionDbPath,
-+            text: [
-+              presentation === "test_provider" ? "[Mode test]" : "[Mode réel]",
-+              resolved.message,
-+              `Blocages : ${resolved.blockers.join(", ") || "non détaillés"}.`,
-+              "Aucune finalisation enregistrée.",
-+            ].join(" "),
-+            mode: modeResolution.mode as "fixture" | "live",
-+            presentation,
-+            model,
-+            project,
-+            intentClass: analysis.intentClass,
-+            turnKind: "f2_clarification",
-+            reinstructionOfProposalId,
-+          });
-+        }
-+        if (
-+          resolved.kind === "lifecycle_clarification" ||
-+          resolved.kind === "ambiguous_lifecycle"
-+        ) {
-+          return f2ConversationalSuccess({
-+            userText: content,
-+            sessionDbPath: input.sessionDbPath,
-+            text: [
-+              presentation === "test_provider" ? "[Mode test]" : "[Mode réel]",
-+              resolved.message,
-+            ].join(" "),
-+            mode: modeResolution.mode as "fixture" | "live",
-+            presentation,
-+            model,
-+            project,
-+            intentClass: analysis.intentClass,
-+            turnKind: "f2_clarification",
-+            reinstructionOfProposalId,
-+          });
-+        }
-+        if (resolved.kind === "transition_refused") {
-+          return f2ConversationalSuccess({
-+            userText: content,
-+            sessionDbPath: input.sessionDbPath,
-+            text: [
-+              presentation === "test_provider" ? "[Mode test]" : "[Mode réel]",
-+              resolved.message,
-+              "Aucune transition enregistrée.",
-+            ].join(" "),
-+            mode: modeResolution.mode as "fixture" | "live",
-+            presentation,
-+            model,
-+            project,
-+            intentClass: analysis.intentClass,
-+            turnKind: "f2_blocked",
-+            executionBlocked: true,
-+            reinstructionOfProposalId,
-+          });
-+        }
-+        return null;
-+      };
-+
-+      if (workEligible && !lifecycleEligible) {
-+        const resolved = await handlePilotDecision();
 +        if (resolved.kind === "decision_recorded") {
 +          const decision: DecisionDto = {
 +            decisionId: resolved.decisionId,
@@ -2470,29 +1820,15 @@ index 2a836c62..6dfe6938 100644
 +            reinstructionOfProposalId,
 +          });
 +        }
-+      }
-+
-+      if (!workEligible && lifecycleEligible) {
-+        const lifecycleResolved = await resolveChatFirstLifecycleTransition({
-+          oa: oaForChatFirst,
-+          projectId: project.projectId,
-+          disposition: analysis.pilotDecisionCandidate?.disposition ?? null,
-+        });
-+        const finished = await finishLifecycleTransition(lifecycleResolved);
-+        if (finished) return finished;
-+      }
-+
-+      if (
-+        !workEligible &&
-+        !lifecycleEligible &&
-+        candidateDisposition === "defer"
-+      ) {
++        // no_eligible_subject / no_decision → fall through
++      } else if (candidateDisposition === "defer") {
 +        return f2ConversationalSuccess({
 +          userText: content,
 +          sessionDbPath: input.sessionDbPath,
 +          text: [
 +            presentation === "test_provider" ? "[Mode test]" : "[Mode réel]",
 +            "Aucun sujet de travail ouvert à reporter — précisez de quoi vous parlez.",
++            "Les transitions de cycle (démarrer / finaliser) se pilotent via les actions Studio du panneau d'état.",
 +          ].join(" "),
 +          mode: modeResolution.mode as "fixture" | "live",
 +          presentation,
@@ -2503,14 +1839,15 @@ index 2a836c62..6dfe6938 100644
 +          reinstructionOfProposalId,
 +        });
 +      }
-+      // "no_decision" / "no_eligible_subject" → ordinary orchestration below.
++      // No eligible Work subject: ordinary orchestration. Lifecycle CURRENT
++      // never receives START/FINALIZE from this conversational path.
 +    }
 +  }
 +
    // Repository read/search/Git-truth without mutation → F1 (no Cycle/LPS mutation).
    // Deterministic override when the classifier drifts to ambiguous/actionable for pure reads.
    const forceRepoInformative =
-@@ -1397,6 +1809,24 @@ export async function orchestrateAssistantSend(input: {
+@@ -1397,6 +1672,24 @@ export async function orchestrateAssistantSend(input: {
        mode: modeResolution.mode,
      });
      if (!reinstructionGate.ok) {
@@ -2535,7 +1872,7 @@ index 2a836c62..6dfe6938 100644
        return {
          ok: false,
          status: "validation_error",
-@@ -1694,6 +2124,24 @@ export async function orchestrateAssistantSend(input: {
+@@ -1694,6 +1987,24 @@ export async function orchestrateAssistantSend(input: {
        mode: modeResolution.mode,
      });
      if (!reinstructionGate.ok) {
@@ -2563,6 +1900,77 @@ index 2a836c62..6dfe6938 100644
 
 ```
 
+### DIFF: `projects/sfia-studio/app/lib/oa/cycle/application/assessFinalization.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/lib/oa/cycle/application/assessFinalization.ts b/projects/sfia-studio/app/lib/oa/cycle/application/assessFinalization.ts
+index 66093a9f..c0372927 100644
+--- a/projects/sfia-studio/app/lib/oa/cycle/application/assessFinalization.ts
++++ b/projects/sfia-studio/app/lib/oa/cycle/application/assessFinalization.ts
+@@ -163,6 +163,12 @@ export type AssessFinalizationInput = {
+   }>;
+   finalizeDecisionId?: string | null;
+   blockingReservationStatements?: readonly string[];
++  /**
++   * CHAT-FIRST-GOVERNED-DECISION-LOOP-01 — refs of active Recommendations on a
++   * presented governed decision subject that the Pilot has not disposed of.
++   * Empty/absent = nothing to dispose. Never a Recommendation→Decision promotion.
++   */
++  undisposedRecommendationRefs?: readonly string[];
+ };
+
+ function findFinalizeDecision(
+@@ -780,9 +786,10 @@ export function assessFinalizationObligations(
+     }
+   }
+
+-  // 8) Blockers / reservations
++  // 8) Blockers / reservations / undisposed Recommendations
+   {
+     const blockingReservations = input.blockingReservationStatements ?? [];
++    const undisposedRecommendations = input.undisposedRecommendationRefs ?? [];
+     const applicability = resolveApplicability("blockers", "APPLICABLE", rules);
+     if (applicability === "NOT_APPLICABLE") {
+       pushNa(
+@@ -798,15 +805,32 @@ export function assessFinalizationObligations(
+         "blockers",
+         "blockers_applicability_unknown",
+       );
+-    } else if (blockingReservations.length > 0) {
++    } else if (
++      blockingReservations.length > 0 ||
++      undisposedRecommendations.length > 0
++    ) {
+       obligations.push({
+         family: "blockers",
+         applicability: "APPLICABLE",
+         status: "BLOCKING",
+-        detail: blockingReservations.join("|"),
++        detail: [
++          ...blockingReservations,
++          ...(undisposedRecommendations.length > 0
++            ? [
++                `undisposed_recommendations:${undisposedRecommendations.join(
++                  ",",
++                )}`,
++              ]
++            : []),
++        ].join("|"),
+         blocking: true,
+       });
+-      blockers.push("blocking_reservations");
++      if (blockingReservations.length > 0) {
++        blockers.push("blocking_reservations");
++      }
++      if (undisposedRecommendations.length > 0) {
++        blockers.push("undisposed_recommendations");
++      }
+     } else {
+       obligations.push({
+         family: "blockers",
+
+```
+
 ### DIFF: `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/JournalSurface.tsx`
 
 ```diff
@@ -2572,7 +1980,7 @@ index e3b83648..3a772999 100644
 +++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/JournalSurface.tsx
 @@ -1,12 +1,29 @@
  "use client";
- 
+
  import { useState } from "react";
 -import type { CycleReservationProjectionCard } from "@/lib/oa/cycle/application/lifecycleProjection";
 +import type {
@@ -2581,12 +1989,12 @@ index e3b83648..3a772999 100644
 +} from "@/lib/oa/cycle/application/lifecycleProjection";
 +import type { WorkRecommendationProjectionCard } from "@/lib/oa/cycle/application/deriveWorkRecommendations";
  import styles from "./JournalSurface.module.css";
- 
+
  export type JournalReservationCard = CycleReservationProjectionCard;
 +export type JournalDecisionCard = CycleDecisionProjectionCard;
 +/** Work Recommendations only — never Lifecycle NEXT_CYCLE / FINALIZE. */
 +export type JournalRecommendationCard = WorkRecommendationProjectionCard;
- 
+
 -export type JournalMemoryTab = "sujets" | "reserves";
 +/**
 + * CHAT-FIRST-GOVERNED-DECISION-LOOP-01 — four read rails over the same durable
@@ -2599,7 +2007,7 @@ index e3b83648..3a772999 100644
 +  | "reserves"
 +  | "recommandations"
 +  | "decisions";
- 
+
  export type JournalSurfaceEntry = {
    journalEntryId: string;
 @@ -68,6 +85,18 @@ export type JournalSurfaceProps = {
@@ -2619,12 +2027,12 @@ index e3b83648..3a772999 100644
 +   */
 +  onResumeRecommendationInChat?: (recommendationId: string) => void;
  };
- 
+
  function isOpenReservation(card: JournalReservationCard): boolean {
 @@ -78,6 +107,37 @@ function isOpenReservation(card: JournalReservationCard): boolean {
    );
  }
- 
+
 +/** Pilot-facing label for a Work Recommendation disposition state. */
 +function recommendationCurrentnessLabel(card: JournalRecommendationCard): string {
 +  if (card.status === "resolved") return "Traitée";
@@ -2716,7 +2124,7 @@ index e3b83648..3a772999 100644
 +        : tab === "recommandations"
 +          ? `${openRecommendationCount} en attente de votre réponse`
 +          : `${decisionCount} décision${decisionCount === 1 ? "" : "s"} enregistrée${decisionCount === 1 ? "" : "s"}`;
- 
+
    return (
      <aside
 @@ -181,17 +279,9 @@ export function JournalSurface({
@@ -2904,7 +2312,7 @@ index e3b83648..3a772999 100644
 +          )}
          </div>
        ) : null}
- 
+
 
 ```
 
@@ -2939,7 +2347,7 @@ index 4f89366a..ec1d8112 100644
 @@ -2056,6 +2065,14 @@ export function TrajectorySurface({
    /** Alias — same single fail-closed gate for EC and subject mutations. */
    const governedContinuationBlocked = continuityMutationBlocked;
- 
+
 +  /**
 +   * CHAT-FIRST-GOVERNED-DECISION-LOOP-01 — on the nominal product path the
 +   * Pilot disposes of a governed subject in the conversation, so this surface
@@ -2970,7 +2378,7 @@ index 4f89366a..ec1d8112 100644
 +            : "Nora instruit des options et recommande ; vous décidez dans la conversation. Cette section montre l'état gouverné et sert d'inspection/audit : elle ne décide pas et ne rend jamais une trajectoire courante. L'exécution reste une action explicite et distincte, après autorisation vérifiée."}
          </p>
        </header>
- 
+
 @@ -2138,25 +2156,35 @@ export function TrajectorySurface({
                >
                  {pendingReinstruction.message}
@@ -3084,7 +2492,7 @@ index 4f89366a..ec1d8112 100644
 +              </p>
 +            ) : null}
            </section>
- 
+
            <section
 
 ```
@@ -3141,203 +2549,11 @@ index 6d040062..b6ba5d62 100644
 
 ```
 
-### DIFF: `projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts`
-
-```diff
-diff --git a/projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts b/projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts
-index db589d16..5c197aa7 100644
---- a/projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts
-@@ -536,6 +536,10 @@ export async function proposeTrajectoryOptions(
-         recommendation.ckcProvenance?.ckcId ?? "ckc:none",
-         ...(input.ckcAttribution ? [input.ckcAttribution] : []),
-         proposalSubject.proposalId,
-+        // Work Recommendation ↔ cycle binding (Journal / finalization scope).
-+        ...(live.context.activeCycleInstanceId
-+          ? [live.context.activeCycleInstanceId]
-+          : []),
-       ],
-     };
- 
-@@ -866,6 +870,9 @@ export async function proposeTrajectoryOptions(
-         optionSetRef,
-         recommendation.ckcProvenance?.ckcId ?? "ckc:none",
-         ...(input.ckcAttribution ? [input.ckcAttribution] : []),
-+        ...(live.context.activeCycleInstanceId
-+          ? [live.context.activeCycleInstanceId]
-+          : []),
-       ],
-     },
-     priorBinding
-
-```
-
-### DIFF: `projects/sfia-studio/app/features/project-assistant/w2/decideTrajectory.ts`
-
-```diff
-diff --git a/projects/sfia-studio/app/features/project-assistant/w2/decideTrajectory.ts b/projects/sfia-studio/app/features/project-assistant/w2/decideTrajectory.ts
-index 1d47ed97..ee320048 100644
---- a/projects/sfia-studio/app/features/project-assistant/w2/decideTrajectory.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/w2/decideTrajectory.ts
-@@ -54,6 +54,7 @@ import {
-   finalizeProposalSubjectAfterDurableClosure,
-   writeProposalDecisionRef,
- } from "./closeProposalDecisionSubject";
-+import { disposeWorkRecommendationAfterDecision } from "./disposeWorkRecommendation";
- 
- function shortId(): string {
-   return randomBytes(6).toString("hex");
-@@ -695,6 +696,23 @@ export async function decideTrajectory(
-           );
-         }
- 
-+        const workDisposition =
-+          markerReason === "refused"
-+            ? ("refuse" as const)
-+            : markerReason === "amended"
-+              ? ("amend" as const)
-+              : ("accept" as const);
-+        const workDisposed = await disposeWorkRecommendationAfterDecision({
-+          oa,
-+          projectId: input.projectId,
-+          optionSetRef: input.optionSetRef,
-+          decisionId,
-+          disposition: workDisposition,
-+        });
-+        if (!workDisposed.ok) {
-+          throw new DecideAtomicFailure(workDisposed.code, workDisposed.message);
-+        }
-+
-         return {
-           mode: "proposal" as const,
-           decisionId,
-
-```
-
-### DIFF: `projects/sfia-studio/app/lib/oa/cycle/application/lifecycleProjection.ts`
-
-```diff
-diff --git a/projects/sfia-studio/app/lib/oa/cycle/application/lifecycleProjection.ts b/projects/sfia-studio/app/lib/oa/cycle/application/lifecycleProjection.ts
-index 7faacfca..fb5e8d85 100644
---- a/projects/sfia-studio/app/lib/oa/cycle/application/lifecycleProjection.ts
-+++ b/projects/sfia-studio/app/lib/oa/cycle/application/lifecycleProjection.ts
-@@ -51,6 +51,24 @@ export type CycleReservationProjectionCard = {
-   deferredHumanDecisionLabel?: string | null;
- };
- 
-+/**
-+ * CHAT-FIRST-GOVERNED-DECISION-LOOP-01 — read-only Journal card for one durable
-+ * HumanDecision. Projection of `decisions.listByProject`; never a second store
-+ * and never an actionable surface (no accept/refuse affordance).
-+ */
-+export type CycleDecisionProjectionCard = {
-+  decisionId: string;
-+  subject: string;
-+  status: string;
-+  selectedOptionLabel: string;
-+  actorDisplayName: string;
-+  authority: string;
-+  effectiveAt: string;
-+  cycleInstanceId: string | null;
-+  decisionBasisLinked: boolean;
-+  reservations: string[];
-+};
-+
- export type CycleReservationSummary = {
-   activeCount: number;
-   mayAffectCount: number;
-@@ -104,6 +122,19 @@ export type PilotLifecycleProjection = {
-   }>;
-   /** CYCLE-RESERVATION-PILOTING-01 — all Reservations scoped to the selected cycle. */
-   cycleReservations?: ReadonlyArray<CycleReservationProjectionCard>;
-+  /**
-+   * CHAT-FIRST-GOVERNED-DECISION-LOOP-01 — durable HumanDecisions for the
-+   * « Décisions » Journal tab. Read-only projection; no CTA, no authority.
-+   */
-+  cycleDecisions?: ReadonlyArray<CycleDecisionProjectionCard>;
-+  /**
-+   * Morris correction — Work Recommendations for Journal > Recommandations.
-+   * NEVER Lifecycle NEXT_CYCLE / FINALIZE_CURRENT_CYCLE (those stay on
-+   * currentRecommendations for the right-panel lifecycle / audit surface).
-+   */
-+  cycleWorkRecommendations?: ReadonlyArray<
-+    import("./deriveWorkRecommendations").WorkRecommendationProjectionCard
-+  >;
-   /** Counts over cycleReservations (active only for activeCount / relevance buckets). */
-   reservationSummary?: CycleReservationSummary;
-   /** Resume reconciliation when selected cycle is paused — never cleared by HD alone. */
-
-```
-
-### DIFF: `projects/sfia-studio/app/lib/oa/cycle/application/pilotLifecycleTransitions.ts`
-
-```diff
-diff --git a/projects/sfia-studio/app/lib/oa/cycle/application/pilotLifecycleTransitions.ts b/projects/sfia-studio/app/lib/oa/cycle/application/pilotLifecycleTransitions.ts
-index b9fbed4c..524f038b 100644
---- a/projects/sfia-studio/app/lib/oa/cycle/application/pilotLifecycleTransitions.ts
-+++ b/projects/sfia-studio/app/lib/oa/cycle/application/pilotLifecycleTransitions.ts
-@@ -40,6 +40,7 @@ import {
-   isAcceptedStartTrajectoryDecision,
-   type AssessFinalizationInput,
- } from "./assessFinalization";
-+import { deriveUndisposedRecommendations } from "./deriveUndisposedRecommendations";
- import {
-   assessResumeReconciliation,
-   buildPauseReconciliationSnapshot,
-@@ -1558,6 +1559,12 @@ export class PilotLifecycleTransitions {
-       ? blockersSnap.statements
-       : ["blocker_source_unreadable"];
- 
-+    const undisposedRecommendationRefs =
-+      await this.loadUndisposedRecommendationRefs(
-+        input.projectId,
-+        input.cycle.cycleInstanceId,
-+      );
-+
-     const snapshot: AssessFinalizationInput = {
-       cycle: input.cycle,
-       projectId: input.projectId,
-@@ -1571,10 +1578,32 @@ export class PilotLifecycleTransitions {
-       executionAttempts,
-       applicability,
-       blockingReservationStatements,
-+      undisposedRecommendationRefs,
-     };
-     return assessFinalizationObligations(snapshot);
-   }
- 
-+  /**
-+   * CHAT-FIRST-GOVERNED-DECISION-LOOP-01 — Work Recommendations only for the
-+   * cycle under assessment. Lifecycle NEXT_CYCLE / FINALIZE_CURRENT_CYCLE never
-+   * appear here. An unreadable Epistemic source must not silently mean
-+   * "nothing to dispose".
-+   */
-+  private async loadUndisposedRecommendationRefs(
-+    projectId: string,
-+    cycleInstanceId: string,
-+  ): Promise<readonly string[]> {
-+    if (!this.deps.epistemic) return ["recommendation_source_unreadable"];
-+    try {
-+      const items = await this.deps.epistemic.listByProject(projectId);
-+      return deriveUndisposedRecommendations(items, cycleInstanceId).map(
-+        (r) => r.epistemicItemId,
-+      );
-+    } catch {
-+      return ["recommendation_source_unreadable"];
-+    }
-+  }
-+
-   private async loadBlockers(
-     projectId: string,
-   ): Promise<LifecycleBlockerSnapshot> {
-
-```
-
 ### DIFF: `projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md`
 
 ```diff
 diff --git a/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md b/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
-index 1025f9b5..1d539062 100644
+index 1025f9b5..9175564c 100644
 --- a/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
 +++ b/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
 @@ -26,7 +26,9 @@ Status legend: COMPLETE | PARTIAL | NOT PROVEN | BREAK
@@ -3347,7 +2563,7 @@ index 1025f9b5..1d539062 100644
 +- **Non-blocking conversation (CHAT-FIRST-GOVERNED-DECISION-LOOP-01):** a pending governed decision subject no longer turns an unrelated or informative turn into a transport error. `assertExplicitReinstructionGate` stays fail-closed (no competing `DECISION_REQUIRED` is minted) but `orchestrateF2` now renders `EXPLICIT_REINSTRUCTION_REQUIRED` / `AMBIGUOUS_PENDING_REINSTRUCTION` as a conversational clarification turn, so the composer never dead-ends.
  - **Status:** PARTIAL REAL linguistic; COMPLETE deterministic Fake scripts
 +- **Proof at tested scope:** `productChatFirstGovernedDecisionLoop.frontDoor.d0.test.ts` case A (pending subject + unrelated topic → answered turn, ZERO HumanDecision, subject intact)
- 
+
  ## F05 — Active-cycle Artifact materialization
  - **Trigger:** Natural Pilot request to materialize the active-cycle deliverable (conversation front door / `projectAssistantSendAction`) — pathless OK when semantic cues suffice
 @@ -36,6 +38,7 @@ Status legend: COMPLETE | PARTIAL | NOT PROVEN | BREAK
@@ -3359,7 +2575,7 @@ index 1025f9b5..1d539062 100644
  - **Oracle:** `productCycleE2eStabilization.frontDoor.d0.test.ts` (+ continuity/bridge CORR-01, corrProof07)
  - **Status / proof:** **DETERMINISTIC PRODUCT E2E PROVEN AT TESTED SCOPE** (ZERO REAL this macro)
 @@ -43,13 +46,21 @@ Status legend: COMPLETE | PARTIAL | NOT PROVEN | BREAK
- 
+
  ## F06 — Proposal / Decision Subject / options
  - **Trigger:** F2 turn producing `f2_proposal`
 -- **Persistence:** process-local proposal store
@@ -3367,26 +2583,26 @@ index 1025f9b5..1d539062 100644
 +- **Sealed set without a CTA (CHAT-FIRST-GOVERNED-DECISION-LOOP-01):** the `PresentedOptionSet` is materialised server-side when a chat-first disposition needs it (`resolveChatFirstPilotDecision` → existing `proposeTrajectoryOptions` with the resolved `proposalId`), and the UI keeps the pre-existing FR-01 auto-instruct for a sole recoverable pending subject. Materialisation is **lazy, on the disposition turn** — NOT at `DECISION_REQUIRED` mint time. Reserve: an unbound subject that is never disposed of stays unbound (see vol 09).
 +- **UI role:** `TrajectorySurface` is read/inspection/audit on the nominal path (`decisionWorkflowMode="chat_first"`); « Instruire les options » and per-option « Décider » are only rendered under `decisionWorkflowMode="legacy_cta"` (harvest / RETIRE LATER proofs). Server actions `w2ProposeTrajectoryOptionsAction` / `w2DecideTrajectoryAction` are unchanged.
  - **Status:** COMPLETE for in-process; PARTIAL across restart
- 
+
  ## F07 — HumanDecision on Proposal
 -- **Trigger:** Pilot accept/refuse via `projectAssistantDecideAction`
 -- **Paths:** `actions.ts` → `recordDecision.ts` → `oa_human_decisions`
 -- **Status:** COMPLETE durable path
 +- **Trigger (legacy):** Pilot accept/refuse via `projectAssistantDecideAction` → `recordDecision.ts`
-+- **Trigger (nominal, chat-first):** conversational disposition on `projectAssistantSendAction`. `analyzeIntent` emits a NON-AUTHORITATIVE `pilotDecisionCandidate` (accept|refuse|amend|defer|none|ambiguous). `orchestrateF2` routes **Work** vs **Lifecycle** families before any writer: unique Work subject → `resolveChatFirstPilotDecision`; unique CURRENT Lifecycle recommendation → `resolveChatFirstLifecycleTransition` (START / FINALIZE — never `decideTrajectory`). Both eligible ⇒ clarification only (`ambiguous_families`).
++- **Trigger (nominal, chat-first Work only):** conversational disposition on `projectAssistantSendAction`. `analyzeIntent` emits a NON-AUTHORITATIVE `pilotDecisionCandidate` (accept|refuse|amend|defer|none|ambiguous). `orchestrateF2` resolves **Work / Proposal decision subjects only** via `resolveChatFirstPilotDecision` → existing `decideTrajectory`. Chat « oui » never START/FINALIZE a Lifecycle Recommendation.
 +- **Work family:** sealed option ref (`PROPOSAL_SUBJECT_PURSUE_REF` / `REFUSE` / `AMEND`) via existing `decideTrajectory`; OptionSet Work Recommendation status synced (`disposeWorkRecommendationAfterDecision`). Journal > Recommandations projects **Work** Recommendations only.
-+- **Lifecycle family:** accept on unique CURRENT `NEXT_CYCLE` prepares/starts prepared cycle (`prepareCandidateTrajectoryFromCurrentRecommendation` + `startPreparedTrajectoryCycle`); accept on unique CURRENT `FINALIZE_CURRENT_CYCLE` runs `pilotLifecycle.assess` first — `finalize_not_ready` when blockers, else `executePilotLifecycleAction` FINALIZE. Lifecycle defer/refuse/amend ⇒ clarification or no transition (not Work defer).
-+- **Defer (Work):** durable Pilot HumanDecision + non-blocking Reservation stamp + Work Recommendation `resolved` + Proposal DecisionRef closure; honest target from CURRENT `NEXT_CYCLE` `targetCycleTypeId` or `resolveHonestReservationDeferTarget`. Missing target ⇒ `defer_target_unresolved` (conversation open). No `DEFERRED` enum invented.
-+- **Authority boundary:** the candidate is never a HumanDecision. Model-supplied option/proposal/optionSet refs are never read. `none` / `ambiguous` / no unique eligible subject / multiple effective pending subjects ⇒ **ZERO HumanDecision**; the conversation stays open.
-+- **Paths:** `f2/intentAnalysis.ts`, `f2/orchestrateF2.ts`, `w2/resolveChatFirstPilotDecision.ts`, `w2/resolveChatFirstLifecycleTransition.ts`, `w2/deferWorkRecommendation.ts`, `w2/decideTrajectory.ts` → `oa_human_decisions` / pilot lifecycle
-+- **Proof at tested scope:** `productChatFirstGovernedDecisionLoop.frontDoor.d0.test.ts` cases B/C/D/E/F/G
-+- **Status:** COMPLETE durable path (deterministic; both triggers converge on one writer)
- 
++- **Lifecycle family:** explicit Studio actions preserved — prepareCandidateTrajectory / approval / prepareCycle / START / FINALIZE on the right-panel lifecycle surface. Not condensed into chat disposition.
++- **Defer (Work):** durable Pilot HumanDecision + non-blocking Reservation stamp + Work Recommendation `resolved` + Proposal DecisionRef closure; honest target from CURRENT `NEXT_CYCLE` `targetCycleTypeId` or `resolveHonestReservationDeferTarget` (target lookup only). Missing target ⇒ `defer_target_unresolved` (conversation open). No `DEFERRED` enum invented.
++- **Authority boundary:** the candidate is never a HumanDecision. Model-supplied option/proposal/optionSet refs are never read. `none` / `ambiguous` / no unique eligible Work subject / multiple effective pending subjects ⇒ **ZERO HumanDecision**; the conversation stays open. Lifecycle CURRENT alone never yields a chat START/FINALIZE.
++- **Paths:** `f2/intentAnalysis.ts`, `f2/orchestrateF2.ts`, `w2/resolveChatFirstPilotDecision.ts`, `w2/deferWorkRecommendation.ts`, `w2/decideTrajectory.ts` → `oa_human_decisions`; lifecycle → existing `pilotLifecycle` / prepare-start actions
++- **Proof at tested scope:** `productChatFirstGovernedDecisionLoop.frontDoor.d0.test.ts` (Work + hybrid non-START proofs)
++- **Status:** COMPLETE durable Work path (deterministic); Lifecycle explicit Studio path preserved
+
  ## F08 — EC PREPARE
  - **Trigger:** After required HD / authority path (`projectAssistantPrepareResolvedM3Action`)
 @@ -82,7 +93,10 @@ Status legend: COMPLETE | PARTIAL | NOT PROVEN | BREAK
  - **Status:** PARTIAL (greenfield/recovery fixes integrated; front-door rehydrate proven at tested scope)
- 
+
  ## F15 — Cycle finalization
 -- **Paths:** `assessFinalization.ts`, lifecycle finalize decision path
 +- **Paths:** `assessFinalization.ts`, `deriveUndisposedRecommendations.ts`, lifecycle finalize decision path
@@ -3394,10 +2610,10 @@ index 1025f9b5..1d539062 100644
 +- **Explicitly NOT an authority:** Cycle Journal open points are not Truth C and do not gate finalization; only existing Reservation mechanisms do.
 +- **Proof at tested scope:** `undisposedRecommendations.d0.test.ts`, `productChatFirstGovernedDecisionLoop.frontDoor.d0.test.ts` case K
  - **Status:** COMPLETE assessment engine; Pilot finalize HD required
- 
+
  ## F16 — Replan
 @@ -91,8 +105,10 @@ Status legend: COMPLETE | PARTIAL | NOT PROVEN | BREAK
- 
+
  ## F17 — Restart at Proposal pending
  - **Expected:** process-local proposal may be absent → product subject-read (`w2ReadActiveDecisionSubjectAction`) hydrates recoverable snapshots / pending reinstruction; Truth C intact; no invented HD
 -- **Product resume:** explicit `reinstructionOfProposalId` on Send, then Decide
@@ -3406,7 +2622,7 @@ index 1025f9b5..1d539062 100644
 +- **Product resume (nominal, chat-first):** the Pilot disposes of the pending subject in the conversation. The server owns the continuity: after a chat-first AMEND closes the subject, the next formalization turn needs **no** client-supplied `reinstructionOfProposalId`. A non-reconstructible pending subject yields `no_eligible_subject` (ZERO HumanDecision), never an invented decision.
 +- **Proof at tested scope:** `productChatFirstGovernedDecisionLoop.frontDoor.d0.test.ts` case D
 +- **Status:** DETERMINISTIC proven at tested scope (both front-door oracles); Proposal store remains process-local
- 
+
  ## F18 — Restart after HD / before execution
  - **Survives:** HD, LPS, cycle; EC if prepared
 
@@ -3416,7 +2632,7 @@ index 1025f9b5..1d539062 100644
 
 ```diff
 diff --git a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
-index 0dcab803..17327996 100644
+index 0dcab803..5eb7336b 100644
 --- a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
 +++ b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
 @@ -6,6 +6,7 @@
@@ -3425,12 +2641,12 @@ index 0dcab803..17327996 100644
  - ZERO REAL in PRODUCT-CYCLE-E2E-STABILIZATION-01 — no READY FOR REAL / E2E REAL / Product global READY claimed
 +- CHAT-FIRST-GOVERNED-DECISION-LOOP-01: DETERMINISTIC PRODUCT E2E proven at tested scope only — **NOT REAL PROVEN**, **NOT READY FOR REAL**, **NOT PRODUCT GLOBAL READY**
  - No CI workflow changes
- 
+
  ## Current campaign findings (verified against repo where possible)
 @@ -32,7 +33,23 @@
- 
+
  ## Next macro
- 
+
 -`PRODUCT-CYCLE-E2E-STABILIZATION-01` **executed** on branch `fix/sfia-studio-product-cycle-e2e-stabilization-01` (this tree). Capacité suivante: **requalifier après preuve** — ne pas auto-sélectionner.
 +`CHAT-FIRST-GOVERNED-DECISION-LOOP-01` **local candidate** on branch `feat/sfia-studio-chat-first-governed-decision-loop-01` (this tree). Capacité suivante après revue: **campagne PocketTasks REAL bornée** (Gate Morris distinct) — ne pas auto-sélectionner READY FOR REAL.
 +
@@ -3438,28 +2654,28 @@ index 0dcab803..17327996 100644
 +
 +| Item | Status |
 +|---|---|
-+| Chat-first = nominal disposition path | DETERMINISTIC proven at tested scope — `pilotDecisionCandidate` → Work (`resolveChatFirstPilotDecision` → `decideTrajectory`) OR Lifecycle (`resolveChatFirstLifecycleTransition`) with `ambiguous_families` when both eligible |
-+| Work vs Lifecycle recommendation families | AS-IMPLEMENTED — Journal Work-only; lifecycle CURRENT stays on trajectory projection; finalization `undisposed_recommendations` scans Work in-cycle only |
++| Chat-first = nominal Work disposition path | DETERMINISTIC proven at tested scope — `pilotDecisionCandidate` → Work only (`resolveChatFirstPilotDecision` → `decideTrajectory`). Chat « oui » never START/FINALIZE |
++| Work vs Lifecycle recommendation families | AS-IMPLEMENTED — Journal Work-only; Lifecycle CURRENT on right-panel / lifecycle projection; finalization `undisposed_recommendations` scans Work in-cycle only |
 +| Conversation non-blocking under pending subject | DETERMINISTIC — reinstruction gate no longer dead-ends composer; unrelated turns stay conversational |
 +| CTAs Instruire / Décider / Modifier as required UX | RETIRED FROM NOMINAL (`decisionWorkflowMode="chat_first"`); server actions KEEP for legacy_cta / harvest |
 +| Journal Recommandations / Décisions tabs | AS-IMPLEMENTED projection from existing Epistemic / HumanDecision reads — never Truth C |
-+| Finalization undisposed Recommendations | AS-IMPLEMENTED blocker `undisposed_recommendations` via existing `assessFinalization` blockers family |
++| Finalization undisposed Recommendations | AS-IMPLEMENTED blocker `undisposed_recommendations` via existing `assessFinalization` blockers family (Work only) |
 +| Defer disposition (Work) | AS-IMPLEMENTED at tested scope — durable HD + Reservation `may_affect` + Work Recommendation resolved; missing honest target ⇒ `defer_target_unresolved` |
-+| Lifecycle chat-first START / FINALIZE | AS-IMPLEMENTED at tested scope — assess pre-gate before FINALIZE HD; NEXT_CYCLE uses prepared-cycle START path (no `decideTrajectory`) |
++| Lifecycle transitions | EXPLICIT Studio actions preserved (prepare trajectory / approve / prepare cycle / START / FINALIZE) — NOT chat-first; candidate Lifecycle Chat-first resolver RETIRED |
 +| Unbound subject never disposed | RESERVE — stays unbound; chat-first materialises OptionSet lazily on disposition turn only |
 +| REAL chat-first / PocketTasks parity | NOT PROVEN — ZERO REAL this macro; Gate Morris distinct required |
 +| Legacy CTA / GO strip / reinstruction arm | KEEP compatibility — RETIRE LATER; #535 NO SAFE REMOVAL PROVEN still holds |
- 
+
  ## PRODUCT-CYCLE-E2E-STABILIZATION-01 overlay
- 
+
 
 ```
 
 ---
 
-## 12. ORACLE Chat-first (complete)
+## 9. ORACLE + KEY TESTS
 
-### FILE: `projects/sfia-studio/app/__tests__/project-assistant/productChatFirstGovernedDecisionLoop.frontDoor.d0.test.ts`
+### FILE: productChatFirstGovernedDecisionLoop.frontDoor.d0.test.ts
 
 ```typescript
 /**
@@ -3500,7 +2716,6 @@ import {
   resolveCanonicalLifecycleRecommendationBasis,
 } from "@/lib/oa/cycle";
 import { assessChatFirstWorkEligibility } from "@/features/project-assistant/w2/assessChatFirstWorkEligibility";
-import { assessChatFirstLifecycleEligibility } from "@/features/project-assistant/w2/assessChatFirstLifecycleEligibility";
 import {
   FakeCursorGitExternalState,
   FakeDocsWriteLaunchPort,
@@ -4178,9 +3393,47 @@ describe("CHAT-FIRST-GOVERNED-DECISION-LOOP-01 front-door oracle", () => {
     expect(unblocked.blockers).not.toContain("undisposed_recommendations");
   });
 
-  it("§10-F — work + lifecycle both eligible → ambiguity, zero HD and zero transition", async () => {
+  it("B-lifecycle — NEXT_CYCLE CURRENT + chat « oui » → ZERO START / ZERO lifecycle HD from chat", async () => {
     const { projectId, cycleInstanceId } =
-      await seedFunctionalDesignWithRequireArtifact("fam");
+      await seedFunctionalDesignWithRequireArtifact("lc-yes");
+    // No Work subject — only Lifecycle CURRENT NEXT_CYCLE.
+    await materializeCurrentNextCycleLr(projectId, cycleInstanceId);
+
+    const workGate = await assessChatFirstWorkEligibility({
+      oa: runtime.oa!,
+      projectId,
+    });
+    expect(workGate.eligible).toBe(false);
+
+    const hdBefore = await hdCount(projectId);
+    const cyclesBefore = await runtime.oa!.cycleServices.cycles.listByProject(
+      projectId,
+    );
+    const activeBefore = cyclesBefore.filter((c) => c.status === "active").length;
+    const statusesBefore = cyclesBefore.map((c) => c.status).sort();
+
+    const yes = await projectAssistantSendAction({
+      projectId,
+      content: CHAT_ACCEPT,
+    });
+    expect(yes.ok).toBe(true);
+    if (!yes.ok) throw new Error(JSON.stringify(yes));
+    // Chat-first Work path must not record a Work HD nor trigger START.
+    expect(yes.f2?.decision ?? null).toBeNull();
+    expect(await hdCount(projectId)).toBe(hdBefore);
+
+    const cyclesAfter = await runtime.oa!.cycleServices.cycles.listByProject(
+      projectId,
+    );
+    expect(cyclesAfter.filter((c) => c.status === "active").length).toBe(
+      activeBefore,
+    );
+    expect(cyclesAfter.map((c) => c.status).sort()).toEqual(statusesBefore);
+  });
+
+  it("B-hybrid — Work + Lifecycle CURRENT + chat accept → Work HD only, ZERO START", async () => {
+    const { projectId, cycleInstanceId } =
+      await seedFunctionalDesignWithRequireArtifact("hybrid");
     await sendPendingProposal(projectId);
     await materializeCurrentNextCycleLr(projectId, cycleInstanceId);
 
@@ -4188,12 +3441,7 @@ describe("CHAT-FIRST-GOVERNED-DECISION-LOOP-01 front-door oracle", () => {
       oa: runtime.oa!,
       projectId,
     });
-    const lifecycleGate = await assessChatFirstLifecycleEligibility({
-      oa: runtime.oa!,
-      projectId,
-    });
     expect(workGate.eligible).toBe(true);
-    expect(lifecycleGate.eligible).toBe(true);
 
     const hdBefore = await hdCount(projectId);
     const cyclesBefore = await runtime.oa!.cycleServices.cycles.listByProject(
@@ -4201,16 +3449,14 @@ describe("CHAT-FIRST-GOVERNED-DECISION-LOOP-01 front-door oracle", () => {
     );
     const activeBefore = cyclesBefore.filter((c) => c.status === "active").length;
 
-    const ambiguous = await projectAssistantSendAction({
+    const accepted = await projectAssistantSendAction({
       projectId,
       content: CHAT_ACCEPT,
     });
-    expect(ambiguous.ok).toBe(true);
-    if (!ambiguous.ok) throw new Error(JSON.stringify(ambiguous));
-    expect(ambiguous.f2?.turnKind).toBe("f2_clarification");
-    expect(ambiguous.f2?.decision ?? null).toBeNull();
-    expect(ambiguous.text).toMatch(/recommandation de travail et une recommandation de cycle/i);
-    expect(await hdCount(projectId)).toBe(hdBefore);
+    expect(accepted.ok).toBe(true);
+    if (!accepted.ok) throw new Error(JSON.stringify(accepted));
+    expect(accepted.f2?.decision?.kind).toBe("GO");
+    expect(await hdCount(projectId)).toBe(hdBefore + 1);
 
     const cyclesAfter = await runtime.oa!.cycleServices.cycles.listByProject(
       projectId,
@@ -4515,559 +3761,6 @@ describe("deriveWorkRecommendations — §10-A family separation", () => {
 
 ```
 
-### FILE: `projects/sfia-studio/app/__tests__/project-assistant/chatFirstLifecycleTransition.d0.test.ts`
-
-```typescript
-/**
- * CHAT-FIRST-GOVERNED-DECISION-LOOP-01 §10-D/E — lifecycle chat-first transitions.
- *
- * resolveChatFirstLifecycleTransition must never call decideTrajectory.
- *
- * @vitest-environment node
- */
-import fs from "node:fs";
-import os from "node:os";
-import path from "node:path";
-import { afterEach, describe, expect, it, vi } from "vitest";
-import {
-  materializeLifecycleRecommendationFromStructuredOutput,
-  NORA_LIFECYCLE_RECOMMENDATION_ACTOR,
-  prepareCandidateTrajectoryFromCurrentRecommendation,
-  produceLifecycleRecommendation,
-  resolveCanonicalLifecycleRecommendationBasis,
-  resolveTrajectoryBootstrapPresence,
-} from "@/lib/oa/cycle";
-import { PRE_CYCLE_ROUTING_ASSESSMENT_READY_TO_EMIT } from "@/lib/nora-cognitive-runtime/noraProductTurnOutputType";
-import type { Digest, DoctrinePackagePin } from "@/lib/oa/doctrine";
-import {
-  LOCAL_PILOTE_ACTOR,
-  registerLocalPiloteAuthority,
-} from "@/lib/oa/decision";
-import {
-  approveCandidateTrajectory,
-  buildPreCycleCandidateApprovalPresentation,
-} from "@/features/project-assistant/approveCandidateTrajectory";
-import { recordObligationPolicyRequireArtifact } from "@/features/project-assistant/f2/pilotLifecycleActions";
-import { resolveChatFirstLifecycleTransition } from "@/features/project-assistant/w2/resolveChatFirstLifecycleTransition";
-import * as decideTrajectoryMod from "@/features/project-assistant/w2/decideTrajectory";
-import {
-  getRuntimeApplicationService,
-  resetRuntimeApplicationServiceForTests,
-} from "@/lib/vertical-slice-runtime";
-import type { LocalProjectIdSource } from "@/lib/vertical-slice-core";
-import type { ActorReference } from "@/lib/oa/project";
-
-const APP_ROOT = path.resolve(__dirname, "../..");
-const FIXTURES = path.join(APP_ROOT, "lib/oa/doctrine/fixtures");
-const SCHEMAS = path.resolve(
-  APP_ROOT,
-  "../sfia-v3-modeled/v3-native-option-a/schemas",
-);
-
-const VALID_DIGEST =
-  "sha256:3b4507505ddad333cd16730fcddf466aae24bc123b48e6a8c956c2e5cd9ac622" as Digest;
-
-const VALID_PIN: DoctrinePackagePin = {
-  doctrinePackageId: "pkg:studio-v3-oa",
-  version: "1.0.0",
-  digest: VALID_DIGEST,
-};
-
-const ACTOR: ActorReference = {
-  actorId: "actor:morris",
-  role: "project_owner",
-  displayName: "Morris",
-  authorityLevel: "N3",
-};
-
-const NORA_BY = NORA_LIFECYCLE_RECOMMENDATION_ACTOR;
-
-const tempDirs: string[] = [];
-
-afterEach(() => {
-  resetRuntimeApplicationServiceForTests();
-  vi.restoreAllMocks();
-  while (tempDirs.length) {
-    const d = tempDirs.pop();
-    if (d) fs.rmSync(d, { recursive: true, force: true });
-  }
-});
-
-function tempDbPath(name: string): string {
-  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "cflt-"));
-  tempDirs.push(dir);
-  return path.join(dir, name);
-}
-
-class FixedIdSource implements LocalProjectIdSource {
-  private n = 0;
-  constructor(private readonly prefix: string) {}
-  nextProjectId(): string {
-    this.n += 1;
-    return `prj:${this.prefix}-${this.n}`;
-  }
-  nextLpsVersionId(): string {
-    return `lps:${this.prefix}-${this.n}`;
-  }
-  nextCorrelationId(): string {
-    return `cor:${this.prefix}-${this.n}`;
-  }
-}
-
-function nextCycleLr(targetCycleTypeId: string, statement: string) {
-  return {
-    intent: "NEXT_CYCLE" as const,
-    statement,
-    subjectCycleInstanceId: null,
-    targetCycleInstanceId: null,
-    targetCycleTypeId,
-    rationale: "Prochain travail gouverné supportable.",
-    authority: "none" as const,
-    isHumanDecision: false as const,
-    qualificationSignals: {
-      structuralChange: false,
-      securityImpact: false,
-      architectureImpact: false,
-      dataImpact: false,
-      irreversible: false,
-      lowRiskBounded: true,
-    },
-  };
-}
-
-function productTurn(lr: ReturnType<typeof nextCycleLr>, narrative: string) {
-  return {
-    narrative,
-    preCycleRoutingAssessment: { ...PRE_CYCLE_ROUTING_ASSESSMENT_READY_TO_EMIT },
-    lifecycleRecommendation: lr,
-  };
-}
-
-function finalizeCandidate(subjectCycleInstanceId: string) {
-  return {
-    intent: "FINALIZE_CURRENT_CYCLE" as const,
-    statement: "Envisager la finalisation du cycle actif.",
-    subjectCycleInstanceId,
-    targetCycleInstanceId: null,
-    targetCycleTypeId: null,
-    rationale: null,
-    authority: "none" as const,
-    isHumanDecision: false as const,
-    qualificationSignals: null,
-  };
-}
-
-async function bootFreshProject(suffix: string) {
-  process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
-  process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY = "1";
-  resetRuntimeApplicationServiceForTests();
-  const runtime = getRuntimeApplicationService({
-    registryRoot: FIXTURES,
-    schemasRoot: SCHEMAS,
-    nowIso: "2026-09-09T20:00:00.000Z",
-    idSource: new FixedIdSource(`cflt-${suffix}`),
-    auditMode: "noop",
-    productDbPath: tempDbPath(`${suffix}.sqlite`),
-  });
-  if (!runtime.oa) throw new Error("oa missing");
-  const created = await runtime.createProject({
-    name: `Chat-first lifecycle ${suffix}`,
-    objective: "gestion de tâches",
-    context: "chat-first lifecycle transition",
-    criticality: "STANDARD",
-    constraints: [],
-    shortReference: `CFLT${suffix}`,
-    idempotencyKey: `idem:cflt-${suffix}`,
-  });
-  if (!created.ok) throw new Error("create failed");
-  return { runtime, oa: runtime.oa, projectId: created.projectId };
-}
-
-function bridgeDeps(
-  oa: NonNullable<
-    Awaited<ReturnType<typeof bootFreshProject>>["runtime"]["oa"]
-  >,
-) {
-  return {
-    trajectories: oa.cycleServices.trajectories,
-    createInitialTrajectory: oa.cycleServices.createInitialTrajectory,
-    updateEpistemicState: oa.cycleServices.updateEpistemicState,
-    runInTransaction: ((fn: () => Promise<unknown>) =>
-      oa.projectServices.store.runInTransaction(fn)) as <T>(
-      fn: () => Promise<T>,
-    ) => Promise<T>,
-    listEpistemicByProject: (projectId: string) =>
-      oa.cycleServices.epistemic.listByProject(projectId),
-    listCyclesByProject: (projectId: string) =>
-      oa.cycleServices.cycles.listByProject(projectId),
-    listDecisionsByProject: (projectId: string) =>
-      oa.decisionServices.decisions.listByProject(projectId),
-    listEvidenceByProject: (projectId: string) =>
-      oa.evidenceReviewServices.repository.listByProject(projectId),
-    getCurrentLps: (projectId: string) =>
-      oa.projectServices.getCurrentLivingProjectState.execute({ projectId }),
-    getProjectDoctrinePin: async (projectId: string) => {
-      const project = await oa.projectServices.getProject.execute({ projectId });
-      if (!project.ok) return null;
-      const pin = project.project.doctrinePackageRef;
-      return pin
-        ? {
-            doctrinePackageId: pin.doctrinePackageId,
-            version: pin.version,
-            digest: pin.digest,
-          }
-        : null;
-    },
-    newTrajectoryId: () => `trj:cflt-${Date.now()}`,
-    newStepId: () => `stp:cflt-${Date.now()}`,
-    newProvenanceObservationId: () => `epi:cflt-prov-${Date.now()}`,
-    correlationId: `cor:cflt-bridge`,
-  };
-}
-
-async function materializeFreshNext(
-  oa: Awaited<ReturnType<typeof bootFreshProject>>["oa"],
-  projectId: string,
-  lr: ReturnType<typeof nextCycleLr>,
-) {
-  const cycles = await oa.cycleServices.cycles.listByProject(projectId);
-  const decisions = await oa.decisionServices.decisions.listByProject(projectId);
-  const lps = await oa.projectServices.getCurrentLivingProjectState.execute({
-    projectId,
-  });
-  if (!lps.ok) throw new Error("lps missing");
-  const presence = await resolveTrajectoryBootstrapPresence(
-    oa.cycleServices.trajectories,
-    projectId,
-  );
-  const project = await oa.projectServices.getProject.execute({ projectId });
-  const doctrine =
-    (project.ok ? project.project.doctrinePackageRef : null) ?? VALID_PIN;
-  return materializeLifecycleRecommendationFromStructuredOutput({
-    projectId,
-    structuredOutput: productTurn(lr, lr.statement),
-    updateEpistemicState: oa.cycleServices.updateEpistemicState,
-    facts: {
-      cycles,
-      lpsActiveCycleInstanceId: lps.livingProjectState.activeCycleInstanceId,
-      lpsVersion: lps.livingProjectState.version,
-      doctrinePackageId: doctrine.doctrinePackageId,
-      doctrinePackageVersion: doctrine.version,
-      doctrinePackageDigest: doctrine.digest,
-      trajectory: null,
-      trajectoryBootstrapPresence: presence,
-      decisions,
-      evidence: [],
-      epistemicItems: await oa.cycleServices.epistemic.listByProject(projectId),
-    },
-    producedAt: "2026-09-09T20:01:00.000Z",
-    createdBy: NORA_BY,
-  });
-}
-
-async function seedApprovedNextCycle(suffix: string) {
-  const { oa, projectId } = await bootFreshProject(suffix);
-  const mat = await materializeFreshNext(
-    oa,
-    projectId,
-    nextCycleLr("cyc:framing", "Envisager un Cadrage."),
-  );
-  expect(mat.materialization?.ok).toBe(true);
-  if (!mat.materialization?.ok) throw new Error("materialize failed");
-
-  const prepared = await prepareCandidateTrajectoryFromCurrentRecommendation({
-    projectId,
-    deps: bridgeDeps(oa),
-  });
-  expect(prepared.ok).toBe(true);
-  if (!prepared.ok) throw new Error("bridge failed");
-
-  const presentation = await buildPreCycleCandidateApprovalPresentation({
-    oa,
-    projectId,
-  });
-  expect(presentation.ok).toBe(true);
-  if (!presentation.ok || !presentation.presentation) {
-    throw new Error("presentation missing");
-  }
-
-  const approved = await approveCandidateTrajectory({
-    oa,
-    projectId,
-    presentationDigest: presentation.presentation.presentationDigest,
-    forceLocalAuthority: true,
-  });
-  expect(approved.ok).toBe(true);
-  if (!approved.ok) throw new Error("approve failed");
-
-  // Bridge + approval stale the first LR — refresh a CURRENT NEXT_CYCLE for chat-first.
-  const refreshed = await materializeFreshNext(
-    oa,
-    projectId,
-    nextCycleLr("cyc:framing", "Confirmer le démarrage du cycle préparé."),
-  );
-  expect(refreshed.materialization?.ok).toBe(true);
-  if (!refreshed.materialization?.ok) throw new Error("refresh lr failed");
-
-  return { oa, projectId };
-}
-
-async function seedActiveCycleWithFinalizeLr(suffix: string) {
-  const { oa, projectId } = await bootFreshProject(`fin-${suffix}`);
-  const lps0 = await oa.projectServices.getCurrentLivingProjectState.execute({
-    projectId,
-  });
-  if (!lps0.ok) throw new Error("lps0");
-  const traj = await oa.cycleServices.createInitialTrajectory.execute({
-    trajectoryId: `trj:${projectId}`,
-    projectId,
-    steps: [
-      {
-        stepId: "stp:fd",
-        order: 1,
-        label: "Conception",
-        state: "active",
-        cycleTypeId: "cyc:functional-design",
-      },
-    ],
-    status: "active",
-    expectedLpsVersion: lps0.livingProjectState.version,
-    createdBy: ACTOR,
-  });
-  expect(traj.ok).toBe(true);
-
-  const cycleInstanceId = `cyc:cflt-${suffix}`;
-  const cycle = await oa.cycleServices.createCycle.execute({
-    cycleInstanceId,
-    cycleTypeId: "cyc:functional-design",
-    projectId,
-    signals: { lowRiskBounded: true },
-    createdBy: NORA_BY,
-    linkAsActiveCycle: false,
-  });
-  expect(cycle.ok).toBe(true);
-
-  const auth = registerLocalPiloteAuthority({
-    authorityResolver: oa.authorityResolver,
-    scope: `pilot-lifecycle:${cycleInstanceId}`,
-    issuedAt: "2026-09-27T12:00:00.000Z",
-    forceEnable: true,
-  });
-  expect(auth.ok).toBe(true);
-  if (!auth.ok) throw new Error("auth");
-
-  const lps1 = await oa.projectServices.getCurrentLivingProjectState.execute({
-    projectId,
-  });
-  if (!lps1.ok) throw new Error("lps1");
-
-  const started = await oa.cycleServices.pilotLifecycle.start({
-    cycleInstanceId,
-    projectId,
-    createdBy: LOCAL_PILOTE_ACTOR,
-    authorityEvidenceId: auth.evidenceId,
-    expectedLpsVersion: lps1.livingProjectState.version,
-  });
-  expect(started.ok).toBe(true);
-
-  await recordObligationPolicyRequireArtifact({
-    projectId,
-    cycleInstanceId,
-    cycleServices: oa.cycleServices,
-    decisionServices: oa.decisionServices,
-    authorityResolver: oa.authorityResolver,
-    nowIso: () => "2026-09-27T12:01:00.000Z",
-  });
-
-  const cycles = await oa.cycleServices.cycles.listByProject(projectId);
-  const trajNow = await oa.cycleServices.getCurrentTrajectory.execute({
-    projectId,
-  });
-  expect(trajNow.ok).toBe(true);
-  if (!trajNow.ok) throw new Error("traj");
-  const lps = await oa.projectServices.getCurrentLivingProjectState.execute({
-    projectId,
-  });
-  if (!lps.ok) throw new Error("lps");
-
-  const basis = resolveCanonicalLifecycleRecommendationBasis({
-    intent: "FINALIZE_CURRENT_CYCLE",
-    projectId,
-    subjectCycleInstanceId: cycleInstanceId,
-    targetCycleInstanceId: null,
-    targetCycleTypeId: null,
-    cycles,
-    lpsActiveCycleInstanceId: lps.livingProjectState.activeCycleInstanceId,
-    lpsVersion: lps.livingProjectState.version,
-    doctrinePackageId: VALID_PIN.doctrinePackageId,
-    doctrinePackageVersion: VALID_PIN.version,
-    doctrinePackageDigest: VALID_PIN.digest,
-    trajectory: trajNow.trajectory,
-    decisions: await oa.decisionServices.decisions.listByProject(projectId),
-    evidence: [],
-    blockingReservationStatements: [],
-  });
-
-  const produced = await produceLifecycleRecommendation({
-    updateEpistemicState: oa.cycleServices.updateEpistemicState,
-    projectId,
-    structured: finalizeCandidate(cycleInstanceId),
-    cycles,
-    lpsActiveCycleInstanceId: lps.livingProjectState.activeCycleInstanceId,
-    basisRefs: basis,
-    producedAt: "2026-09-27T12:02:00.000Z",
-    createdBy: NORA_BY,
-    existingItems: await oa.cycleServices.epistemic.listByProject(projectId),
-  });
-  expect(produced.ok).toBe(true);
-  if (!produced.ok) throw new Error("lr produce failed");
-
-  return { oa, projectId, cycleInstanceId };
-}
-
-describe("resolveChatFirstLifecycleTransition — §10-D START", () => {
-  it("accept with CURRENT NEXT_CYCLE records START or honest transition_refused — never decideTrajectory", async () => {
-    const decideSpy = vi.spyOn(decideTrajectoryMod, "decideTrajectory");
-    const { oa, projectId } = await seedApprovedNextCycle("start");
-
-    const resolved = await resolveChatFirstLifecycleTransition({
-      oa,
-      projectId,
-      disposition: "accept",
-      forceLocalAuthority: true,
-    });
-
-    expect(decideSpy).not.toHaveBeenCalled();
-
-    if (resolved.kind === "transition_recorded") {
-      expect(resolved.action).toBe("START");
-      expect(resolved.intent).toBe("NEXT_CYCLE");
-      expect(resolved.cycleInstanceId).toMatch(/^cyc:/);
-      const active = await oa.cycleServices.cycles.listByProject(projectId);
-      expect(active.some((c) => c.status === "active")).toBe(true);
-    } else {
-      expect(
-        resolved.kind === "transition_refused" ||
-          resolved.kind === "no_lifecycle_target",
-      ).toBe(true);
-      if (resolved.kind === "transition_refused") {
-        expect(resolved.code.length).toBeGreaterThan(0);
-        expect(resolved.message.length).toBeGreaterThan(0);
-      }
-    }
-  });
-
-  it("materialized NEXT_CYCLE without approval refuses honestly — still no decideTrajectory", async () => {
-    const decideSpy = vi.spyOn(decideTrajectoryMod, "decideTrajectory");
-    const { oa, projectId } = await bootFreshProject("start-refused");
-    const mat = await materializeFreshNext(
-      oa,
-      projectId,
-      nextCycleLr("cyc:framing", "Envisager un Cadrage."),
-    );
-    expect(mat.materialization?.ok).toBe(true);
-
-    const resolved = await resolveChatFirstLifecycleTransition({
-      oa,
-      projectId,
-      disposition: "accept",
-      forceLocalAuthority: true,
-    });
-
-    expect(decideSpy).not.toHaveBeenCalled();
-    expect(
-      resolved.kind === "transition_refused" ||
-        resolved.kind === "transition_recorded",
-    ).toBe(true);
-    if (resolved.kind === "transition_refused") {
-      expect(resolved.code).toBeTruthy();
-    }
-  });
-});
-
-describe("resolveChatFirstLifecycleTransition — §10-E FINALIZE", () => {
-  it("finalize_not_ready when canComplete is false — zero transition, no new finalize HD", async () => {
-    const { oa, projectId, cycleInstanceId } =
-      await seedActiveCycleWithFinalizeLr("not-ready");
-
-    const hdBefore = (
-      await oa.decisionServices.decisions.listByProject(projectId)
-    ).length;
-
-    const assessed = await oa.cycleServices.pilotLifecycle.assess({
-      cycleInstanceId,
-      projectId,
-    });
-    expect(assessed.ok).toBe(true);
-    if (!assessed.ok) throw new Error("assess");
-    expect(assessed.assessment.canComplete).toBe(false);
-
-    const resolved = await resolveChatFirstLifecycleTransition({
-      oa,
-      projectId,
-      disposition: "accept",
-      forceLocalAuthority: true,
-    });
-
-    expect(resolved.kind).toBe("finalize_not_ready");
-    if (resolved.kind === "finalize_not_ready") {
-      expect(resolved.blockers.length).toBeGreaterThan(0);
-    }
-
-    const cyclesAfter = await oa.cycleServices.cycles.listByProject(projectId);
-    expect(cyclesAfter.find((c) => c.cycleInstanceId === cycleInstanceId)?.status).toBe(
-      "active",
-    );
-    expect(
-      (await oa.decisionServices.decisions.listByProject(projectId)).length,
-    ).toBe(hdBefore);
-  });
-
-  it("ready path — transition_recorded FINALIZE when assess allows completion", async () => {
-    const { oa, projectId, cycleInstanceId } =
-      await seedActiveCycleWithFinalizeLr("ready");
-
-    const assessedBefore = await oa.cycleServices.pilotLifecycle.assess({
-      cycleInstanceId,
-      projectId,
-    });
-    expect(assessedBefore.ok).toBe(true);
-    if (!assessedBefore.ok) throw new Error("assess");
-
-    if (!assessedBefore.assessment.canComplete) {
-      // Harness documents honest gate: chat-first finalize requires full readiness.
-      expect(assessedBefore.assessment.blockers.length).toBeGreaterThan(0);
-      return;
-    }
-
-    const hdBefore = (
-      await oa.decisionServices.decisions.listByProject(projectId)
-    ).length;
-
-    const resolved = await resolveChatFirstLifecycleTransition({
-      oa,
-      projectId,
-      disposition: "accept",
-      forceLocalAuthority: true,
-    });
-
-    expect(resolved.kind).toBe("transition_recorded");
-    if (resolved.kind === "transition_recorded") {
-      expect(resolved.action).toBe("FINALIZE");
-      expect(resolved.intent).toBe("FINALIZE_CURRENT_CYCLE");
-      expect(resolved.cycleInstanceId).toBe(cycleInstanceId);
-    }
-
-    const cycle = await oa.cycleServices.cycles.findById(cycleInstanceId);
-    expect(cycle?.status).toBe("completed");
-    expect(
-      (await oa.decisionServices.decisions.listByProject(projectId)).length,
-    ).toBeGreaterThan(hdBefore);
-  });
-});
-
-```
-
 ### FILE: `projects/sfia-studio/app/__tests__/oa/cycle/undisposedRecommendations.d0.test.ts`
 
 ```typescript
@@ -5240,9 +3933,9 @@ describe("assessFinalizationObligations — undisposed_recommendations", () => {
 
 ---
 
-## 13. Living Ref sections (full volumes modified)
+## 10. Living Ref finals
 
-### 03-end-to-end-flow-catalog.md
+### 03
 
 ```markdown
 # 03 — End-to-End Flow Catalog
@@ -5300,14 +3993,14 @@ Status legend: COMPLETE | PARTIAL | NOT PROVEN | BREAK
 
 ## F07 — HumanDecision on Proposal
 - **Trigger (legacy):** Pilot accept/refuse via `projectAssistantDecideAction` → `recordDecision.ts`
-- **Trigger (nominal, chat-first):** conversational disposition on `projectAssistantSendAction`. `analyzeIntent` emits a NON-AUTHORITATIVE `pilotDecisionCandidate` (accept|refuse|amend|defer|none|ambiguous). `orchestrateF2` routes **Work** vs **Lifecycle** families before any writer: unique Work subject → `resolveChatFirstPilotDecision`; unique CURRENT Lifecycle recommendation → `resolveChatFirstLifecycleTransition` (START / FINALIZE — never `decideTrajectory`). Both eligible ⇒ clarification only (`ambiguous_families`).
+- **Trigger (nominal, chat-first Work only):** conversational disposition on `projectAssistantSendAction`. `analyzeIntent` emits a NON-AUTHORITATIVE `pilotDecisionCandidate` (accept|refuse|amend|defer|none|ambiguous). `orchestrateF2` resolves **Work / Proposal decision subjects only** via `resolveChatFirstPilotDecision` → existing `decideTrajectory`. Chat « oui » never START/FINALIZE a Lifecycle Recommendation.
 - **Work family:** sealed option ref (`PROPOSAL_SUBJECT_PURSUE_REF` / `REFUSE` / `AMEND`) via existing `decideTrajectory`; OptionSet Work Recommendation status synced (`disposeWorkRecommendationAfterDecision`). Journal > Recommandations projects **Work** Recommendations only.
-- **Lifecycle family:** accept on unique CURRENT `NEXT_CYCLE` prepares/starts prepared cycle (`prepareCandidateTrajectoryFromCurrentRecommendation` + `startPreparedTrajectoryCycle`); accept on unique CURRENT `FINALIZE_CURRENT_CYCLE` runs `pilotLifecycle.assess` first — `finalize_not_ready` when blockers, else `executePilotLifecycleAction` FINALIZE. Lifecycle defer/refuse/amend ⇒ clarification or no transition (not Work defer).
-- **Defer (Work):** durable Pilot HumanDecision + non-blocking Reservation stamp + Work Recommendation `resolved` + Proposal DecisionRef closure; honest target from CURRENT `NEXT_CYCLE` `targetCycleTypeId` or `resolveHonestReservationDeferTarget`. Missing target ⇒ `defer_target_unresolved` (conversation open). No `DEFERRED` enum invented.
-- **Authority boundary:** the candidate is never a HumanDecision. Model-supplied option/proposal/optionSet refs are never read. `none` / `ambiguous` / no unique eligible subject / multiple effective pending subjects ⇒ **ZERO HumanDecision**; the conversation stays open.
-- **Paths:** `f2/intentAnalysis.ts`, `f2/orchestrateF2.ts`, `w2/resolveChatFirstPilotDecision.ts`, `w2/resolveChatFirstLifecycleTransition.ts`, `w2/deferWorkRecommendation.ts`, `w2/decideTrajectory.ts` → `oa_human_decisions` / pilot lifecycle
-- **Proof at tested scope:** `productChatFirstGovernedDecisionLoop.frontDoor.d0.test.ts` cases B/C/D/E/F/G
-- **Status:** COMPLETE durable path (deterministic; both triggers converge on one writer)
+- **Lifecycle family:** explicit Studio actions preserved — prepareCandidateTrajectory / approval / prepareCycle / START / FINALIZE on the right-panel lifecycle surface. Not condensed into chat disposition.
+- **Defer (Work):** durable Pilot HumanDecision + non-blocking Reservation stamp + Work Recommendation `resolved` + Proposal DecisionRef closure; honest target from CURRENT `NEXT_CYCLE` `targetCycleTypeId` or `resolveHonestReservationDeferTarget` (target lookup only). Missing target ⇒ `defer_target_unresolved` (conversation open). No `DEFERRED` enum invented.
+- **Authority boundary:** the candidate is never a HumanDecision. Model-supplied option/proposal/optionSet refs are never read. `none` / `ambiguous` / no unique eligible Work subject / multiple effective pending subjects ⇒ **ZERO HumanDecision**; the conversation stays open. Lifecycle CURRENT alone never yields a chat START/FINALIZE.
+- **Paths:** `f2/intentAnalysis.ts`, `f2/orchestrateF2.ts`, `w2/resolveChatFirstPilotDecision.ts`, `w2/deferWorkRecommendation.ts`, `w2/decideTrajectory.ts` → `oa_human_decisions`; lifecycle → existing `pilotLifecycle` / prepare-start actions
+- **Proof at tested scope:** `productChatFirstGovernedDecisionLoop.frontDoor.d0.test.ts` (Work + hybrid non-START proofs)
+- **Status:** COMPLETE durable Work path (deterministic); Lifecycle explicit Studio path preserved
 
 ## F08 — EC PREPARE
 - **Trigger:** After required HD / authority path (`projectAssistantPrepareResolvedM3Action`)
@@ -5374,7 +4067,7 @@ Status legend: COMPLETE | PARTIAL | NOT PROVEN | BREAK
 
 ```
 
-### 09-known-gaps-reserves-and-current-boundaries.md
+### 09
 
 ```markdown
 # 09 — Known Gaps, Reserves & Current Boundaries
@@ -5418,14 +4111,14 @@ Status legend: COMPLETE | PARTIAL | NOT PROVEN | BREAK
 
 | Item | Status |
 |---|---|
-| Chat-first = nominal disposition path | DETERMINISTIC proven at tested scope — `pilotDecisionCandidate` → Work (`resolveChatFirstPilotDecision` → `decideTrajectory`) OR Lifecycle (`resolveChatFirstLifecycleTransition`) with `ambiguous_families` when both eligible |
-| Work vs Lifecycle recommendation families | AS-IMPLEMENTED — Journal Work-only; lifecycle CURRENT stays on trajectory projection; finalization `undisposed_recommendations` scans Work in-cycle only |
+| Chat-first = nominal Work disposition path | DETERMINISTIC proven at tested scope — `pilotDecisionCandidate` → Work only (`resolveChatFirstPilotDecision` → `decideTrajectory`). Chat « oui » never START/FINALIZE |
+| Work vs Lifecycle recommendation families | AS-IMPLEMENTED — Journal Work-only; Lifecycle CURRENT on right-panel / lifecycle projection; finalization `undisposed_recommendations` scans Work in-cycle only |
 | Conversation non-blocking under pending subject | DETERMINISTIC — reinstruction gate no longer dead-ends composer; unrelated turns stay conversational |
 | CTAs Instruire / Décider / Modifier as required UX | RETIRED FROM NOMINAL (`decisionWorkflowMode="chat_first"`); server actions KEEP for legacy_cta / harvest |
 | Journal Recommandations / Décisions tabs | AS-IMPLEMENTED projection from existing Epistemic / HumanDecision reads — never Truth C |
-| Finalization undisposed Recommendations | AS-IMPLEMENTED blocker `undisposed_recommendations` via existing `assessFinalization` blockers family |
+| Finalization undisposed Recommendations | AS-IMPLEMENTED blocker `undisposed_recommendations` via existing `assessFinalization` blockers family (Work only) |
 | Defer disposition (Work) | AS-IMPLEMENTED at tested scope — durable HD + Reservation `may_affect` + Work Recommendation resolved; missing honest target ⇒ `defer_target_unresolved` |
-| Lifecycle chat-first START / FINALIZE | AS-IMPLEMENTED at tested scope — assess pre-gate before FINALIZE HD; NEXT_CYCLE uses prepared-cycle START path (no `decideTrajectory`) |
+| Lifecycle transitions | EXPLICIT Studio actions preserved (prepare trajectory / approve / prepare cycle / START / FINALIZE) — NOT chat-first; candidate Lifecycle Chat-first resolver RETIRED |
 | Unbound subject never disposed | RESERVE — stays unbound; chat-first materialises OptionSet lazily on disposition turn only |
 | REAL chat-first / PocketTasks parity | NOT PROVEN — ZERO REAL this macro; Gate Morris distinct required |
 | Legacy CTA / GO strip / reinstruction arm | KEEP compatibility — RETIRE LATER; #535 NO SAFE REMOVAL PROVEN still holds |
@@ -5462,15 +4155,16 @@ No `retired-components-ledger.md` — zero components removed.
 
 ---
 
-## 14. Réserves
+## 11. Fake/Real
 
-- REAL chat-first / PocketTasks: NOT PROVEN
-- Legacy CTA path retained (`legacy_cta`) — RETIRE LATER (#535)
-- Unbound OptionSet never disposed stays unbound until disposition turn (lazy materialize)
-- Lifecycle defer/amend: clarification only (Work defer is the durable path)
+Fake shares Work chat-first spine. REAL not exercised. NOT READY FOR REAL.
 
----
+## 12. Réserves
+
+- REAL PocketTasks chat-first Work path unproven
+- Legacy Work CTAs retained behind `legacy_cta`
+- Lifecycle explicit UI non-regression relies on existing lifecycle suites (PASS)
 
 ## Verdict
 
-`CHAT-FIRST-GOVERNED-DECISION-LOOP-01 — LOCAL CANDIDATE / WORK-LIFECYCLE RECOMMENDATION SEPARATION PROVEN / DETERMINISTIC PRODUCT E2E PROVEN AT TESTED SCOPE / READY FOR CHATGPT CRITICAL REVIEW`
+`CHAT-FIRST-GOVERNED-DECISION-LOOP-01 — LOCAL CANDIDATE / WORK RECOMMENDATIONS CHAT-FIRST PROVEN / LIFECYCLE EXPLICIT STUDIO ACTIONS PRESERVED / DETERMINISTIC PRODUCT E2E PROVEN AT TESTED SCOPE / READY FOR CHATGPT CRITICAL REVIEW`
