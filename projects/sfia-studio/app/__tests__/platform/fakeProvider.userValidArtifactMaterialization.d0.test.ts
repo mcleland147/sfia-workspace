@@ -71,13 +71,35 @@ N'exécute rien : prépare la proposition pour ma décision.`;
     expect(ei.targetPath).not.toBe("docs/livrable-cycle.md");
   });
 
-  it("P4 — missing explicit path does not enter natural materialization", async () => {
+  it("P4 — missing explicit path still enters natural materialization (active-cycle deliverable; target clarified server-side)", async () => {
     const obj = await analyze(
       "Matérialise le livrable attendu. N'exécute rien : prépare la proposition pour ma décision.",
     );
-    expect(obj.intentClass).toBe("informative");
-    expect(obj.continuationKind ?? null).toBeNull();
-    expect(obj.executionIntent ?? null).toBeNull();
+    expect(obj.intentClass).toBe("execution_request");
+    expect(obj.continuationKind).toBe("active_cycle_artifact_materialization");
+    expect(obj.artifactMaterializationOperation).toBe(
+      "cursor.docs_write.apply",
+    );
+    const ei = obj.executionIntent as Record<string, unknown>;
+    expect(ei.intentKind).toBe("docs_write");
+    expect(ei.targetPath ?? null).toBeNull();
+  });
+
+  it("P4b — PocketTasks-like pathless cycle reference deliverable enters materialization", async () => {
+    const obj = await analyze(
+      "Matérialise cette spécification fonctionnelle comme livrable de référence du cycle, sans élargir le périmètre ni ajouter de choix techniques.",
+    );
+    expect(obj.intentClass).toBe("execution_request");
+    expect(obj.continuationKind).toBe("active_cycle_artifact_materialization");
+    expect(obj.artifactMaterializationOperation).toBe(
+      "cursor.docs_write.apply",
+    );
+    const ei = obj.executionIntent as Record<string, unknown>;
+    expect(ei.targetPath ?? null).toBeNull();
+    expect(String(ei.artifactBrief ?? "")).toMatch(/spécification fonctionnelle/i);
+    expect(String(ei.contentRequirements ?? "")).toMatch(
+      /spécification fonctionnelle/i,
+    );
   });
 
   it("P5 — two target paths fails closed / falls through", async () => {
