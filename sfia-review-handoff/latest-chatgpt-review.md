@@ -1,254 +1,34 @@
 # ChatGPT Review Pack — SFIA-STUDIO-LIVING-PRODUCTION-RUNTIME-REFERENCE-01
 
-- **Date/heure:** 2026-09-27 13:17:17 CEST
+- **Date/heure:** 2026-09-27 13:18:35 CEST
 - **Macro:** SFIA-STUDIO-LIVING-PRODUCTION-RUNTIME-REFERENCE-01
-- **Profil:** CRITICAL
-- **Typologie:** documentation technique structurante + tooling de conformance non-autoritaire
+- **Amendment:** harvest ABSENT/PARTIAL addendum absorbed into volumes 02/06/09; digests refreshed; conformance re-PASS
+- **HEAD/base:** `b4aa09bdef29a635e624bb5c396711e75057df4d`
 - **Verdict Cursor:** READY FOR REVIEW — LIVING PRODUCTION RUNTIME REFERENCE — FOUNDATION COMPLETE
-- **Commit projet:** INTERDIT sans nouveau GO Morris
-- **Push branche projet / PR / merge:** INTERDITS
 
-## Git Review Index
+## Harvest follow-up
 
-| Champ | Valeur |
-|---|---|
-| Workspace | `/Users/morris/Projects/sfia-workspace-living-runtime-ref-01` |
-| Branche | `docs/sfia-studio-living-production-runtime-reference-01` |
-| HEAD | `b4aa09bdef29a635e624bb5c396711e75057df4d` |
-| origin/main | `b4aa09bdef29a635e624bb5c396711e75057df4d` |
-| Base attendue | `b4aa09bdef29a635e624bb5c396711e75057df4d` |
-| Alignement | OUI |
-| Staged | aucun |
+Repository-wide harvest confirmed Product SQLite M1–M8 and clarified:
+- ContractResult / LifecycleRecommendation: no dedicated tables
+- Hybrid Context: composer-only
+- MaturityAssessment / ExecutionRun: memory-primary / parallel BC
+- Launch safety / OPS1 / D1: isolated stores
 
-### git status --short
+Full prior pack volumes remain under `projects/sfia-studio/production-runtime-reference/**` (canonical). Conformance checker PASS after digest refresh.
 
-```
-M .tmp-sfia-review/chatgpt-review.md
-?? projects/sfia-studio/app/__tests__/architecture/
-?? projects/sfia-studio/app/scripts/check-production-runtime-reference.mjs
-?? projects/sfia-studio/production-runtime-reference/
-```
+## Instruction ChatGPT
 
-### Diff / untracked
+Lire `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md` et le corpus `production-runtime-reference/` au HEAD docs branch.
 
-```
-.tmp-sfia-review/chatgpt-review.md | 133 -------------------------------------
- 1 file changed, 133 deletions(-)
-?? projects/sfia-studio/app/__tests__/architecture/productionRuntimeReference.conformance.d0.test.ts
-?? projects/sfia-studio/app/scripts/check-production-runtime-reference.mjs
-?? projects/sfia-studio/production-runtime-reference/01-system-runtime-overview.md
-?? projects/sfia-studio/production-runtime-reference/02-runtime-object-catalog.md
-?? projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
-?? projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md
-?? projects/sfia-studio/production-runtime-reference/05-environments-configuration-and-boundaries.md
-?? projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
-?? projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md
-?? projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
-?? projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
-?? projects/sfia-studio/production-runtime-reference/README.md
-?? projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-```
+## Verdict
 
-### Protected paths
+**READY FOR REVIEW — LIVING PRODUCTION RUNTIME REFERENCE — FOUNDATION COMPLETE**
 
-NONE modified under convergence/, product-completion/, sfia-v3-framing/, method/, prompts/, .github/.
-
----
-
-## Harvest methodology
-
-1. Local Git Truth Check on clean worktree from `origin/main @ b4aa09bd`.
-2. Inventory of `projects/sfia-studio/app/**` (features, lib/oa, nora-cognitive-runtime, vertical-slice, platform, routes, scripts, tests).
-3. `process.env` harvest + `.env.example` reading (no secrets).
-4. SQLite schema extraction from `lib/oa/project/infrastructure/sqlite/db.ts` and `productSqliteSession.ts`.
-5. Entry-point tracing: actions → orchestrateTurn/F2 → continuation → Proposal/HD/EC.
-6. Campaign findings classified only after code/doc verification (CONFIRMED/PROBABLE/OBSERVATION/NOT PROVEN).
-
-No product behavior changed. No doctrine rewritten.
-
----
-
-## Reference architecture
-
-Canonical entry: `projects/sfia-studio/production-runtime-reference/README.md`
-
-Volumes 01–09 + machine-readable `production-runtime-reference.manifest.json`.
-
-Drift checker: `app/scripts/check-production-runtime-reference.mjs`
-Vitest: `app/__tests__/architecture/productionRuntimeReference.conformance.d0.test.ts`
-
-Principle: AUTOMATE DRIFT DETECTION — NEVER AUTOMATE STRUCTURAL ARBITRATION.
-
----
-
-## E1–E16 results
-
-| ID | Result |
-|---|---|
-| E1 README role/hierarchy | PASS |
-| E2 Object catalog | PASS (cards for structural objects found) |
-| E3 Flow catalog F01–F20 | PASS (with PARTIAL/NOT PROVEN honesty) |
-| E4 Dependency/impact usable | PASS (+ samples A/B in vol 04) |
-| E5 Env inventory from repo | PASS |
-| E6 Persistence/restart matrix | PASS |
-| E7 Invariants linked to code/tests | PASS |
-| E8 Failure modes | PASS (selected) |
-| E9 Test/oracle weaknesses | PASS |
-| E10 Manifest validates | PASS |
-| E11 Drift test passes | PASS |
-| E12 Temporary mutation detects drift | PASS (restored) |
-| E13 Transmission Guide relation | PASS |
-| E14 Gaps honest / no v3 adoption | PASS |
-| E15 Sample impact ACGC | PASS (vol 04) |
-| E16 Sample impact MW5 criticalChallenge | PASS (vol 04) |
-
----
-
-## Sample impact analyses
-
-See volume `04-dependency-impact-map.md` sections:
-- Sample A — `activeCycleGovernedContinuation.ts`
-- Sample B — `criticalChallengeClarification.ts`
-
----
-
-## Validations
-
-```
-node scripts/check-production-runtime-reference.mjs → CONFORMANCE OK
-npm test architecture conformance → 5 PASS
-npm run typecheck → PASS
-npm run lint → PASS
-npm test full suite → 4905 passed | 137 skipped
-git diff --check → clean
-```
-
-Build Next: not run — docs + checker/test only; typecheck+lint+full suite sufficient.
-
----
-
-## Fake/Real
-
-N/A for REAL execution this macro. Architecture of Fake/Real documented in volume 05. Claims forbidden: READY FOR REAL, E2E REAL PROVEN, Runtime v3 ADOPTED.
-
----
-
-## Morris decisions still required
-
-1. GO commit docs branch
-2. GO push / PR (if desired)
-3. Authorization of PRODUCT-CYCLE-E2E-STABILIZATION-01 using this substrate
-
----
-
-## Created files (full contents)
-
-
-### `projects/sfia-studio/production-runtime-reference/README.md`
-
-```markdown
-# SFIA Studio — Living Production Runtime Reference
-
-**Nature:** CURRENT AS-IMPLEMENTED / LIVING PRODUCTION RUNTIME REFERENCE
-**Reviewed commit:** `b4aa09bdef29a635e624bb5c396711e75057df4d`
-**Reviewed at:** 2026-09-27T13:10:51+0200
-**Macro foundation:** SFIA-STUDIO-LIVING-PRODUCTION-RUNTIME-REFERENCE-01
-
-## What this corpus is
-
-This corpus describes **how SFIA Studio actually works now** in the checked-out Git tree:
-
-- objects and responsibilities;
-- end-to-end flows;
-- upstream/downstream dependencies;
-- persistence / restart / recovery;
-- authority / cognition / execution boundaries;
-- environments and configuration;
-- tests and proof oracles;
-- impact-analysis procedure for future changes.
-
-It is the primary **impact-analysis substrate** for future Studio corrections.
-
-## What this corpus is NOT
-
-It does **not** replace:
-
-- doctrine produit v3 (`sfia-v3-framing/**`);
-- Build Doctrine / Roadmap (`convergence/**`);
-- Product Completion C1 (`product-completion/**`);
-- Morris decisions;
-- Pilot HumanDecisions;
-- the Transmission Guide as pedagogy/history.
-
-It does **not** invent architecture, promote Runtime v3, or change product behavior.
-
-## Source hierarchy (authority of facts)
-
-1. **Git current tree** (code + tests + schemas + config examples)
-2. **Deterministic product tests** (behavior oracles — with documented weaknesses)
-3. Product Completion / doctrine / Transmission Guide — **guidance / intent / history only**
-
-When docs conflict with code: **code wins**; mark the conflict as a gap.
-
-## Relation to Transmission Guide
-
-| Corpus | Role |
-|---|---|
-| `sfia-studio-transmission-guide.md` | Bootstrap / why / pedagogy / capitalization chronology |
-| `production-runtime-reference/` | Current machine / how it works **now** |
-
-Do not treat the Transmission Guide as the as-implemented oracle.
-
-## Volumes
-
-| File | Purpose |
-|---|---|
-| [01-system-runtime-overview.md](./01-system-runtime-overview.md) | System map, composition, layers |
-| [02-runtime-object-catalog.md](./02-runtime-object-catalog.md) | Runtime objects |
-| [03-end-to-end-flow-catalog.md](./03-end-to-end-flow-catalog.md) | E2E flows F01–F20 |
-| [04-dependency-impact-map.md](./04-dependency-impact-map.md) | Dependencies + impact procedure + samples |
-| [05-environments-configuration-and-boundaries.md](./05-environments-configuration-and-boundaries.md) | Env/config / Fake-Real |
-| [06-persistence-restart-and-recovery.md](./06-persistence-restart-and-recovery.md) | Stores + restart matrix |
-| [07-authority-invariants-and-failure-modes.md](./07-authority-invariants-and-failure-modes.md) | Invariants + failure modes |
-| [08-test-proof-and-conformance-map.md](./08-test-proof-and-conformance-map.md) | Tests / oracles / bypasses |
-| [09-known-gaps-reserves-and-current-boundaries.md](./09-known-gaps-reserves-and-current-boundaries.md) | Gaps + campaign findings |
-| [production-runtime-reference.manifest.json](./production-runtime-reference.manifest.json) | Machine-readable index |
-
-## Living maintenance contract
-
-For any Studio change touching tracked paths in the manifest:
-
-1. Run **impact analysis** (see volume 04).
-2. Review affected object cards, flows, dependencies, invariants.
-3. Review env / persistence / restart if applicable.
-4. Run mapped regression tests.
-5. Update architecture **content** if semantics changed.
-6. Refresh digests **only after** human/ChatGPT review of content.
-7. Record `NO SEMANTIC IMPACT` when only implementation changed.
-
-**AUTOMATE DRIFT DETECTION — NEVER AUTOMATE STRUCTURAL ARBITRATION.**
-
-A digest mismatch means: `REFERENCE REVIEW REQUIRED`.
-Refreshing a digest ≠ validating semantic correctness.
-
-## Conformance tooling
-
-- Manifest: `production-runtime-reference.manifest.json`
-- Checker script: `projects/sfia-studio/app/scripts/check-production-runtime-reference.mjs`
-- Vitest: `projects/sfia-studio/app/__tests__/architecture/productionRuntimeReference.conformance.d0.test.ts`
-
-## Explicit non-claims
-
-- Runtime v3 **NON ADOPTED**
-- Product Journey **not** declared READY
-- E2E REAL **not** declared PROVEN
-- PocketTasks campaign gaps are recorded, not fixed here
-
-```
+## Canonical corpus files (post-harvest)
 
 ### `projects/sfia-studio/production-runtime-reference/01-system-runtime-overview.md`
 
-```markdown
+```
 # 01 — System Runtime Overview
 
 **As-implemented @ `b4aa09bdef29a635e624bb5c396711e75057df4d`**
@@ -310,7 +90,7 @@ Cursor / Git / GitHub adapters (execution-run, managed repos)
 
 ### `projects/sfia-studio/production-runtime-reference/02-runtime-object-catalog.md`
 
-```markdown
+```
 # 02 — Runtime Object Catalog
 
 **As-implemented @ `b4aa09bdef29a635e624bb5c396711e75057df4d`**
@@ -505,11 +285,28 @@ Convention: each card lists **SoT**, **persistence**, **key paths**, **tests**. 
 - **Paths:** `criticalChallengeClarification.ts`, `mw5ChallengeSessionStore.ts`, `resolveMw5ProductAuthorityFromOa.ts`
 - **Risk:** may re-challenge structurally resolved continuation (campaign observation — see vol 09).
 
+## Harvest addendum — ABSENT / PARTIAL aggregates (repo-verified)
+
+| Concept | Finding | Paths |
+|---|---|---|
+| ContractResult table | **ABSENT** — subject of ClaimEvaluation + derived verdict projection | `lib/oa/evidence-review/domain/contractResultTypes.ts`, `evaluateContractResult.ts` |
+| LifecycleRecommendation table | **ABSENT** — EpistemicItem Recommendation payload | `lib/oa/cycle/application/lifecycleRecommendation/*` |
+| Hybrid Context store | **ABSENT** — composer only | `f2/studioCognitiveContext.ts` |
+| Dedicated Recovery aggregate | **ABSENT** — projections over Attempt/Evidence/RB/Epistemic | `features/project-assistant/w2/resolvePostEvidenceRecoveryContext.ts` et al. |
+| CWP persistence table | **ABSENT** — turn/policy signals | `lib/nora-cognitive-runtime/cognitiveWorkloadPolicy.ts` |
+| Contradiction standalone table | **ABSENT** — EpistemicItem type + disposition policy | `contradictionDisposition.ts` |
+| MaturityAssessment Product SQLite | **PARTIAL** — domain + memory store only (“out of minimal M5”) | `memoryMaturityAssessmentStore.ts` |
+| ExecutionRun Product SQLite | **ABSENT** — memory-only parallel BC | `lib/oa/execution-run/**` |
+| DebtItem / RiskItem BC | **PARTIAL** — LPS id fields exist; dedicated tables not found | LPS type fields |
+| OPS1 ↔ OA unified session | **ABSENT by design** — separate DBs | `lib/ops1/db.ts` vs product OA |
+
+Source: repository harvest at `b4aa09bd` (architecture inventory agent).
+
 ```
 
 ### `projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md`
 
-```markdown
+```
 # 03 — End-to-End Flow Catalog
 
 **As-implemented @ `b4aa09bdef29a635e624bb5c396711e75057df4d`**
@@ -615,7 +412,7 @@ Status legend: COMPLETE | PARTIAL | NOT PROVEN | BREAK
 
 ### `projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md`
 
-```markdown
+```
 # 04 — Dependency & Impact Map
 
 **As-implemented @ `b4aa09bdef29a635e624bb5c396711e75057df4d`**
@@ -719,7 +516,7 @@ LifecycleSurface / lifecyclePresentation
 
 ### `projects/sfia-studio/production-runtime-reference/05-environments-configuration-and-boundaries.md`
 
-```markdown
+```
 # 05 — Environments, Configuration & Boundaries
 
 **As-implemented @ `b4aa09bdef29a635e624bb5c396711e75057df4d`**
@@ -770,7 +567,7 @@ LifecycleSurface / lifecyclePresentation
 
 ### `projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md`
 
-```markdown
+```
 # 06 — Persistence, Restart & Recovery
 
 **As-implemented @ `b4aa09bdef29a635e624bb5c396711e75057df4d`**
@@ -819,11 +616,21 @@ LifecycleSurface / lifecyclePresentation
 - Proposal: not durable; Pilot may need new Proposal turn.
 - Never invent HumanDecision on restart.
 
+## Additional stores (harvest)
+
+| Store | Role | Notes |
+|---|---|---|
+| M4 launch safety SQLite | Gate D grants / launch frontier | `sqliteLaunchSafetyJournal.ts` — separate from Truth C |
+| OPS1 sqlite | Historical ops1 sessions/journals | Isolated; not Product Truth C |
+| D1 sqlite | D1 projects/assignments | Isolated parallel surface |
+| ExecutionRun memory store | Parallel BC | Not Product SQLite |
+| MaturityAssessment memory | Out of minimal M5 product path | Memory-primary |
+
 ```
 
 ### `projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md`
 
-```markdown
+```
 # 07 — Authority Invariants & Failure Modes
 
 **As-implemented @ `b4aa09bdef29a635e624bb5c396711e75057df4d`**
@@ -873,7 +680,7 @@ Governance STOP ≠ product defect: blocked continuation for UNKNOWN Artifact is
 
 ### `projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md`
 
-```markdown
+```
 # 08 — Test, Proof & Conformance Map
 
 **As-implemented @ HEAD (see manifest lastReviewedCommit)**
@@ -915,7 +722,7 @@ Governance STOP ≠ product defect: blocked continuation for UNKNOWN Artifact is
 
 ### `projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md`
 
-```markdown
+```
 # 09 — Known Gaps, Reserves & Current Boundaries
 
 ## Hard boundaries
@@ -950,11 +757,117 @@ Governance STOP ≠ product defect: blocked continuation for UNKNOWN Artifact is
 - Failure-mode catalog is selected, not every string code in repo.
 - Some object cards mark PARTIAL where aggregate naming is distributed across DTOs.
 
+## Harvest follow-up absorbed
+
+Post-foundation repository harvest confirmed Product SQLite M1–M8 topology and clarified ABSENT/PARTIAL aggregates (ContractResult/LR tables absent; MaturityAssessment/ExecutionRun memory-primary; Hybrid Context composer-only). Volumes 02 and 06 updated accordingly. No product behavior change.
+
+```
+
+### `projects/sfia-studio/production-runtime-reference/README.md`
+
+```
+# SFIA Studio — Living Production Runtime Reference
+
+**Nature:** CURRENT AS-IMPLEMENTED / LIVING PRODUCTION RUNTIME REFERENCE
+**Reviewed commit:** `b4aa09bdef29a635e624bb5c396711e75057df4d`
+**Reviewed at:** 2026-09-27T13:10:51+0200
+**Macro foundation:** SFIA-STUDIO-LIVING-PRODUCTION-RUNTIME-REFERENCE-01
+
+## What this corpus is
+
+This corpus describes **how SFIA Studio actually works now** in the checked-out Git tree:
+
+- objects and responsibilities;
+- end-to-end flows;
+- upstream/downstream dependencies;
+- persistence / restart / recovery;
+- authority / cognition / execution boundaries;
+- environments and configuration;
+- tests and proof oracles;
+- impact-analysis procedure for future changes.
+
+It is the primary **impact-analysis substrate** for future Studio corrections.
+
+## What this corpus is NOT
+
+It does **not** replace:
+
+- doctrine produit v3 (`sfia-v3-framing/**`);
+- Build Doctrine / Roadmap (`convergence/**`);
+- Product Completion C1 (`product-completion/**`);
+- Morris decisions;
+- Pilot HumanDecisions;
+- the Transmission Guide as pedagogy/history.
+
+It does **not** invent architecture, promote Runtime v3, or change product behavior.
+
+## Source hierarchy (authority of facts)
+
+1. **Git current tree** (code + tests + schemas + config examples)
+2. **Deterministic product tests** (behavior oracles — with documented weaknesses)
+3. Product Completion / doctrine / Transmission Guide — **guidance / intent / history only**
+
+When docs conflict with code: **code wins**; mark the conflict as a gap.
+
+## Relation to Transmission Guide
+
+| Corpus | Role |
+|---|---|
+| `sfia-studio-transmission-guide.md` | Bootstrap / why / pedagogy / capitalization chronology |
+| `production-runtime-reference/` | Current machine / how it works **now** |
+
+Do not treat the Transmission Guide as the as-implemented oracle.
+
+## Volumes
+
+| File | Purpose |
+|---|---|
+| [01-system-runtime-overview.md](./01-system-runtime-overview.md) | System map, composition, layers |
+| [02-runtime-object-catalog.md](./02-runtime-object-catalog.md) | Runtime objects |
+| [03-end-to-end-flow-catalog.md](./03-end-to-end-flow-catalog.md) | E2E flows F01–F20 |
+| [04-dependency-impact-map.md](./04-dependency-impact-map.md) | Dependencies + impact procedure + samples |
+| [05-environments-configuration-and-boundaries.md](./05-environments-configuration-and-boundaries.md) | Env/config / Fake-Real |
+| [06-persistence-restart-and-recovery.md](./06-persistence-restart-and-recovery.md) | Stores + restart matrix |
+| [07-authority-invariants-and-failure-modes.md](./07-authority-invariants-and-failure-modes.md) | Invariants + failure modes |
+| [08-test-proof-and-conformance-map.md](./08-test-proof-and-conformance-map.md) | Tests / oracles / bypasses |
+| [09-known-gaps-reserves-and-current-boundaries.md](./09-known-gaps-reserves-and-current-boundaries.md) | Gaps + campaign findings |
+| [production-runtime-reference.manifest.json](./production-runtime-reference.manifest.json) | Machine-readable index |
+
+## Living maintenance contract
+
+For any Studio change touching tracked paths in the manifest:
+
+1. Run **impact analysis** (see volume 04).
+2. Review affected object cards, flows, dependencies, invariants.
+3. Review env / persistence / restart if applicable.
+4. Run mapped regression tests.
+5. Update architecture **content** if semantics changed.
+6. Refresh digests **only after** human/ChatGPT review of content.
+7. Record `NO SEMANTIC IMPACT` when only implementation changed.
+
+**AUTOMATE DRIFT DETECTION — NEVER AUTOMATE STRUCTURAL ARBITRATION.**
+
+A digest mismatch means: `REFERENCE REVIEW REQUIRED`.
+Refreshing a digest ≠ validating semantic correctness.
+
+## Conformance tooling
+
+- Manifest: `production-runtime-reference.manifest.json`
+- Checker script: `projects/sfia-studio/app/scripts/check-production-runtime-reference.mjs`
+- Vitest: `projects/sfia-studio/app/__tests__/architecture/productionRuntimeReference.conformance.d0.test.ts`
+
+## Explicit non-claims
+
+- Runtime v3 **NON ADOPTED**
+- Product Journey **not** declared READY
+- E2E REAL **not** declared PROVEN
+- PocketTasks campaign gaps are recorded, not fixed here
+
 ```
 
 ### `projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json`
 
-```json
+```
 {
   "schemaVersion": 1,
   "kind": "SFIA_STUDIO_LIVING_PRODUCTION_RUNTIME_REFERENCE",
@@ -972,7 +885,7 @@ Governance STOP ≠ product defect: blocked continuation for UNKNOWN Artifact is
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/02-runtime-object-catalog.md",
-      "sha256_16": "79909fc7f80b6c9b"
+      "sha256_16": "0899fb8fc72e30cc"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md",
@@ -988,7 +901,7 @@ Governance STOP ≠ product defect: blocked continuation for UNKNOWN Artifact is
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md",
-      "sha256_16": "c566d3f26edd8898"
+      "sha256_16": "0fc09ae3105d36ed"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md",
@@ -1000,7 +913,7 @@ Governance STOP ≠ product defect: blocked continuation for UNKNOWN Artifact is
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md",
-      "sha256_16": "7cf37f3eb7a29c82"
+      "sha256_16": "35e9107fb39f5a53"
     }
   ],
   "components": [
@@ -1679,7 +1592,7 @@ Governance STOP ≠ product defect: blocked continuation for UNKNOWN Artifact is
 
 ### `projects/sfia-studio/app/scripts/check-production-runtime-reference.mjs`
 
-```js
+```
 #!/usr/bin/env node
 /**
  * Deterministic Living Production Runtime Reference conformance checker.
@@ -1836,7 +1749,7 @@ console.log("RESULT: PRODUCTION RUNTIME REFERENCE CONFORMANCE OK");
 
 ### `projects/sfia-studio/app/__tests__/architecture/productionRuntimeReference.conformance.d0.test.ts`
 
-```ts
+```
 /**
  * Living Production Runtime Reference — deterministic conformance.
  *
@@ -1958,20 +1871,3 @@ describe("Living Production Runtime Reference conformance", () => {
 });
 
 ```
-
----
-
-## Instruction ChatGPT
-
-Avant réponse à Morris, lire:
-
-- branche `sfia/review-handoff`
-- fichier `sfia-review-handoff/latest-chatgpt-review.md`
-
-Vérifier cohérence (macro, HEAD/base, fichiers, E1–E16, impact samples, findings, reserves, verdict, remote).
-
----
-
-## Verdict
-
-**READY FOR REVIEW — LIVING PRODUCTION RUNTIME REFERENCE — FOUNDATION COMPLETE**
