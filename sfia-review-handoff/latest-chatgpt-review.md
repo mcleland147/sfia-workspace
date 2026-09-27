@@ -599,6 +599,8 @@ Le 1.2 n’est **pas** ouvert par cette clôture.
 
 **PR READINESS = READY**
 
+| Review Handoff distant | PASS — HANDOFF UPDATED — REMOTE VERIFIED |
+
 ---
 
 ## Push projet
@@ -653,6 +655,22 @@ M .tmp-sfia-review/chatgpt-review.md
 - Review pack local `.tmp-sfia-review/chatgpt-review.md` dirty attendu
 
 ---
+
+
+## Review Handoff
+
+- **Mode :** publish-in-cycle
+- **Branche :** `sfia/review-handoff`
+- **Path :** `sfia-review-handoff/latest-chatgpt-review.md`
+- **Publisher :** `scripts/sfia/publish-review-handoff.sh`
+- **Before tip (après FF) :** `b9cd3cbb`
+- **After / remote tip :** `ded27b6408c4946b0edbc1760fa165fb90c54ddd`
+- **Blob :** `d4cc90c13889e42731e9555706badcda049203b7`
+- **Verdict handoff :** HANDOFF UPDATED — REMOTE VERIFIED
+- **Push handoff L3 borné :** DONE
+- **Push projet :** DONE (branche CRM uniquement)
+- **Merge PR :** NOT DONE — NOT AUTHORIZED
+
 
 ## Verdict
 
