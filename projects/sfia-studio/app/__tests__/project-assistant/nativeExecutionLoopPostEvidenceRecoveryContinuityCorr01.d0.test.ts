@@ -506,4 +506,3 @@ describe("NELC POST-EVIDENCE RECOVERY — fail-closed continuity", () => {
     expect(result.kind).toBe("none");
   });
 });
-
