@@ -1,6 +1,6 @@
 # 01 — System Runtime Overview
 
-**As-implemented @ `b4aa09bdef29a635e624bb5c396711e75057df4d`**
+**As-implemented @ `1162b36b14ca2f4f644dcd3da970b25113214b06`**
 
 ## Layers (factual)
 
@@ -18,8 +18,12 @@ OA domain aggregates (lib/oa/{project,cycle,decision,execution-contract,
         ↓
 Product SQLite (oa-product.sqlite) + Nora Session SQLite (nora-session.sqlite)
         ↓ (REAL only, gated)
-Cursor / Git / GitHub adapters (execution-run, managed repos)
+Cursor / Git / GitHub adapters (execution-attempt composition /
+  composeStudioProductRealBoundary · StudioCursorRealLaunchGateway;
+  managed repos)
 ```
+
+**Parallel / not Product Spine:** `lib/oa/execution-run/**` is a memory-oriented BC (Product SQLite ABSENT) used by FinOps/T7 shadow and its own test suite — not the product REAL launch path.
 
 ## Composition entry
 
