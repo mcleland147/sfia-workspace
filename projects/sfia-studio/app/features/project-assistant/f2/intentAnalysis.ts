@@ -620,24 +620,27 @@ Règles dures :
 - Ne pas reclasser en ambiguous uniquement parce que la phrase courante est incomplète si le contexte canonique la rend compréhensible.
 - Ne pas créer de CycleInstance / actionable par défaut pour une simple conversation informative progressive.
 
-=== CONTINUATION CYCLE ACTIF (CORR-PROOF-07 / CORR-PROOF-09) ===
+=== CONTINUATION CYCLE ACTIF (CORR-PROOF-07 / CORR-PROOF-09 / ACTIVE-CYCLE-ARTIFACT-MATERIALIZATION-CONTINUITY-CORR-01) ===
 NEW_CYCLE_FORMALIZATION ≠ ACTIVE_CYCLE_GOVERNED_CONTINUATION ≠ ACTIVE_CYCLE_CONTINUATION_BLOCKED.
 Si le Project a déjà un cycle actif et que la demande porte sur la matérialisation gouvernée du livrable requis (REQUIRE_ARTIFACT) de CE cycle :
-- continuationKind=active_cycle_artifact_materialization EST REQUIS (hint NON-AUTORITAIRE) ;
+- continuationKind=active_cycle_artifact_materialization EST REQUIS (hint NON-AUTORITAIRE) — MÊME sans targetPath / filename technique fourni par le Pilote ;
 - ET executionIntent.intentKind=docs_write EST REQUIS ;
 - ET artifactMaterializationOperation=cursor.docs_write.apply EST REQUIS (discriminateur technique dédié) ;
 - docs_write SEUL ne suffit JAMAIS à détourner vers la continuation Artifact ;
 - continuationKind SEUL ne suffit JAMAIS à ouvrir une proposition exécutable ;
 - NE PAS traiter cela comme création d'un nouveau CycleInstance / nouveau Cadrage ;
+- NE PAS retomber en NEW_CYCLE_FORMALIZATION uniquement parce qu'un chemin / artifactFileName / hint technique est absent ;
+- si la cible exacte n'est pas résolue : laisser targetPath=null (et éventuellement artifactFileName null ou leaf sûr) — le serveur clarifie DANS le cycle actif ;
 - CONTRAT TECHNIQUE (CORR-PROOF-09 CR-09-01/02) :
   * artifactMaterializationOperation DOIT être EXACTEMENT « cursor.docs_write.apply » (pas d'alias « docs_write », pas de français, pas d'autre opération) ;
   * hors de ce chemin Artifact, artifactMaterializationOperation=null ;
   * requestedOperation (top-level) ET executionIntent.requestedOperation restent génériques ailleurs ; pour CETTE continuation Artifact, les laisser null (préféré) ou exactement cursor.docs_write.apply — JAMAIS une valeur contradictoire (ex. github.pr.merge) ;
   * si des requiredCapabilities sont fournies pour ce chemin → « cap:cursor.docs_write » (le serveur reste autoritaire après acceptation) ;
   * la description naturelle du livrable va dans objective / rephrasedRequest / artifactBrief / contentRequirements — JAMAIS dans artifactMaterializationOperation ;
+  * CONTINUITÉ SÉMANTIQUE DU WHAT : reporter dans artifactBrief / contentRequirements les règles fonctionnelles déjà stabilisées dans le contexte (statuts, attributs, filtres, persistance, exclusions) — NE PAS inventer une seconde spécification contradictoire (ex. retirer des statuts/attributs déjà établis ou les déclarer hors périmètre) ;
   * targetPath / targetRepositoryRef PEUVENT rester null (le serveur compose sous Project workspace + cycle segment) — ne PAS inventer de chemin repository complet ;
   * si le Pilote a fourni un filename leaf sûr (ex. note-de-cadrage.md), le reporter dans artifactFileName ;
-  * si aucun filename n'est fourni, proposer un artifactFileName Markdown cohérent avec le livrable/cycle (NON-AUTORITAIRE) ;
+  * si aucun filename n'est fourni, artifactFileName PEUT rester null (clarification serveur) OU proposer un leaf Markdown cohérent (NON-AUTORITAIRE) ;
   * ne PAS demander au Pilote de construire un path technique repository complet lorsque workspace Project+cycle est déterminable ;
   * reversibilityExpectation pour cette continuation : null ou unknown seulement — NE PAS affirmer reversible/irreversible sans provenance serveur ;
 - définition seule du livrable (sans effet de matérialisation) → informative, continuationKind=null, artifactMaterializationOperation=null.

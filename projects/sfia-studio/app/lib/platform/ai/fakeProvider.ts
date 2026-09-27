@@ -81,34 +81,54 @@ function extractSingleMdFileNameLeaf(probe: string): string | null {
 
 /**
  * Narrow natural Pilot contract for artifact materialization (no synonym engine).
- * Requires ALL of:
+ *
+ * Path-qualified form (historical):
  * 1) materialize wording family
  * 2) exactly one repo-relative .md path OR one safe .md leaf OR framing note cue
  * 3) explicit proposal / decision preparation
  * 4) explicit no-execution guard
+ *
+ * Active-cycle deliverable form (CORR-01 — path OPTIONAL):
+ * 1) materialize wording family
+ * 2) livrable / spécification framed as the active cycle's reference deliverable
+ * 3) NOT a question / pure talk-about-the-deliverable
+ * → targetPath / artifactFileName may be null; server clarifies in-cycle.
+ * Must NOT match generic docs_write ("écris dans le README") without materialize+livrable+cycle framing.
  */
 function matchNaturalArtifactMaterialization(probe: string): {
   targetPath: string | null;
-  artifactFileName: string;
+  artifactFileName: string | null;
   artifactBrief: string;
   contentRequirement: string;
 } | null {
   const normalized = normalizeNaturalMaterializationProbe(probe);
   if (!/\bmaterialis(?:e|er)\b/.test(normalized)) return null;
 
+  // Question / reference-only — never promote to materialization continuation.
+  if (
+    /\?\s*$/.test(normalized.trim()) ||
+    /\b(parlons|parler|qu'est[- ]ce|c'est quoi|explique|expliquer)\b/.test(
+      normalized,
+    )
+  ) {
+    return null;
+  }
+
   const hasProposalOrDecision =
-    /\bproposition\b/.test(normalized) || /\bdecision\b/.test(normalized);
+    /\bproposition\b/.test(normalized) ||
+    /\bdecision\b/.test(normalized) ||
+    /\bprepar(?:e|er)\b/.test(normalized);
   const hasNoExecution =
     /n'execute\s+rien/.test(normalized) ||
-    /ne\s+rien\s+executer/.test(normalized);
-  if (!hasProposalOrDecision || !hasNoExecution) return null;
+    /ne\s+rien\s+executer/.test(normalized) ||
+    /sans\s+executer/.test(normalized);
 
   const targetPath = extractSingleRepoRelativeMdPath(probe);
   const leafFromPath = targetPath
     ? targetPath.split("/").pop() || null
     : null;
   const bareLeaf = extractSingleMdFileNameLeaf(probe);
-  let artifactFileName = leafFromPath || bareLeaf || null;
+  let artifactFileName: string | null = leafFromPath || bareLeaf || null;
   // Framing note cue without explicit filename — Nora-like non-authoritative candidate
   if (
     !artifactFileName &&
@@ -117,12 +137,54 @@ function matchNaturalArtifactMaterialization(probe: string): {
   ) {
     artifactFileName = "note-de-cadrage.md";
   }
-  if (!artifactFileName) return null;
 
-  const brief = probe.replace(/\s+/g, " ").trim().slice(0, 240);
+  const brief = probe.replace(/\s+/g, " ").trim().slice(0, 480);
+  const hasPathOrLeaf = Boolean(artifactFileName);
+
+  // Active-cycle reference deliverable framing (path not required).
+  const hasCycleDeliverableFraming =
+    /\blivrable\b/.test(normalized) ||
+    /\bspecification\b/.test(normalized) ||
+    /\bcahier\b/.test(normalized);
+  const hasActiveCycleReference =
+    /\bcycle\b/.test(normalized) ||
+    /\breference\b/.test(normalized) ||
+    /\bconsolidee?\b/.test(normalized) ||
+    /\battendu\b/.test(normalized);
+
+  if (hasPathOrLeaf) {
+    // Historical path-qualified contract — keep proposal + no-execution guards.
+    if (!hasProposalOrDecision || !hasNoExecution) return null;
+    return {
+      targetPath,
+      artifactFileName,
+      artifactBrief: brief,
+      contentRequirement: brief,
+    };
+  }
+
+  // Path-less: only when clearly materializing the cycle's required deliverable.
+  // Do NOT require internals (continuationKind / docs_write / targetPath) from the Pilot.
+  if (!hasCycleDeliverableFraming || !hasActiveCycleReference) return null;
+  // Still refuse bare "matérialise" without prepare/decision OR no-execution OR
+  // explicit "livrable de référence / spécification … du cycle" prepare intent.
+  const hasReferenceDeliverablePhrase =
+    /\blivrable\b/.test(normalized) &&
+    (/\breference\b/.test(normalized) ||
+      /\bdu cycle\b/.test(normalized) ||
+      /\bcycle actif\b/.test(normalized) ||
+      /\bconsolidee?\b/.test(normalized));
+  if (
+    !hasProposalOrDecision &&
+    !hasNoExecution &&
+    !hasReferenceDeliverablePhrase
+  ) {
+    return null;
+  }
+
   return {
-    targetPath,
-    artifactFileName,
+    targetPath: null,
+    artifactFileName: null,
     artifactBrief: brief,
     contentRequirement: brief,
   };

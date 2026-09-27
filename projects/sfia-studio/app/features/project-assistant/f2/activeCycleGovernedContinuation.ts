@@ -213,6 +213,76 @@ export function hasExplicitArtifactContinuationKind(
 }
 
 /**
+ * CORR-01 — natural active-cycle deliverable materialization signal from
+ * analysis text fields (NON-AUTHORITATIVE). Used so a missing continuationKind
+ * does not silently fall to NEW_CYCLE_FORMALIZATION when the Pilote asked to
+ * materialize the cycle's required deliverable without internals/path.
+ *
+ * Must NOT match generic docs_write / vague talk-about-deliverable alone.
+ */
+export function hasNaturalActiveCycleDeliverableMaterializationSignal(
+  analysis: IntentAnalysisDto,
+): boolean {
+  if (!analysis.parseOk) return false;
+  if (
+    analysis.intentClass !== "actionable" &&
+    analysis.intentClass !== "execution_request"
+  ) {
+    return false;
+  }
+  const hay = [
+    analysis.objective,
+    analysis.rephrasedRequest,
+    analysis.executionIntent?.artifactBrief,
+    ...(analysis.executionIntent?.contentRequirements ?? []),
+  ]
+    .filter((s): s is string => typeof s === "string" && s.trim().length > 0)
+    .join("\n")
+    .normalize("NFC")
+    .toLowerCase()
+    .replace(/[àáâäã]/g, "a")
+    .replace(/[èéêë]/g, "e")
+    .replace(/[ìíîï]/g, "i")
+    .replace(/[òóôöõ]/g, "o")
+    .replace(/[ùúûü]/g, "u")
+    .replace(/ç/g, "c");
+
+  if (!/\bmaterialis/.test(hay)) return false;
+  const hasDeliverable =
+    /\blivrable\b/.test(hay) ||
+    /\bspecification\b/.test(hay) ||
+    /\bcahier\b/.test(hay);
+  const hasCycleFrame =
+    /\bcycle\b/.test(hay) ||
+    /\breference\b/.test(hay) ||
+    /\bconsolide/.test(hay) ||
+    /\battendu\b/.test(hay);
+  if (!hasDeliverable || !hasCycleFrame) return false;
+  // Refuse pure conversational / question framing.
+  if (
+    /\b(parlons|parler|qu'est[- ]ce|explique|expliquer)\b/.test(hay) ||
+    /\?\s*$/.test(hay.trim())
+  ) {
+    return false;
+  }
+  return true;
+}
+
+/**
+ * Enter Artifact-continuation handling when either the explicit hint is set
+ * OR a natural active-cycle deliverable materialization signal is present.
+ * Durable active-cycle + REQUIRE_ARTIFACT remain the authority.
+ */
+export function shouldEnterActiveCycleArtifactContinuationHandling(
+  analysis: IntentAnalysisDto,
+): boolean {
+  return (
+    hasExplicitArtifactContinuationKind(analysis) ||
+    hasNaturalActiveCycleDeliverableMaterializationSignal(analysis)
+  );
+}
+
+/**
  * CR-07-06 — blank/null/undefined OR exact cursor.docs_write.apply after trim.
  * Any other non-empty value is contradictory (never silently rewritten).
  */
@@ -372,13 +442,15 @@ export async function resolveActiveCycleGovernedContinuation(input: {
   analysis: IntentAnalysisDto;
   oa: ActiveCycleContinuationOa;
 }): Promise<ActiveCycleContinuationResolution> {
-  // CR-07-04 / CR-07-05 — explicit continuationKind starts Artifact-continuation
-  // handling. Without it, docs_write alone stays historical NEW_CYCLE.
-  if (!hasExplicitArtifactContinuationKind(input.analysis)) {
+  // CR-07-04 / CR-07-05 / CORR-01 — enter Artifact-continuation handling when
+  // explicit continuationKind OR natural active-cycle deliverable materialization
+  // signal is present. Without either, docs_write alone stays historical NEW_CYCLE.
+  // Recognized continuation + incomplete effect → BLOCKED (never silent createCycle).
+  if (!shouldEnterActiveCycleArtifactContinuationHandling(input.analysis)) {
     return { mode: "NEW_CYCLE_FORMALIZATION", reason: "no_materialization_intent" };
   }
 
-  // Kind present but effect incompatible → BLOCK (never createCycle).
+  // Kind/signal present but effect incompatible → BLOCK (never createCycle).
   if (!hasCompatibleDocsWriteMaterializationEffect(input.analysis)) {
     return blocked("incompatible_execution_intent");
   }
