@@ -94,3 +94,4 @@ Refreshing a digest ≠ validating semantic correctness.
 - Product Journey **not** declared READY
 - E2E REAL **not** declared PROVEN
 - PocketTasks campaign gaps are recorded, not fixed here
+

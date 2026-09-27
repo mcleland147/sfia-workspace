@@ -42,3 +42,4 @@
 | Session path orphan | Memory B | worktree cwd default | empty transcript UI | Truth C intact | operational |
 
 Governance STOP ≠ product defect: blocked continuation for UNKNOWN Artifact is **expected**.
+

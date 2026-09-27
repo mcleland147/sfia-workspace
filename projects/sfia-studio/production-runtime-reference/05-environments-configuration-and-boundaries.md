@@ -43,3 +43,4 @@
 
 - Product binding/authority envs are **server-only** (never `NEXT_PUBLIC_*`).
 - Browser must not supply repository binding or Pilot authority claims.
+

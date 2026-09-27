@@ -98,3 +98,4 @@ Status legend: COMPLETE | PARTIAL | NOT PROVEN | BREAK
 ## F20 — Legacy / historical compatibility
 - **Examples:** deprecated `SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY` alias; historical new-cycle formalization when no materialization intent
 - **Status:** ACTIVE compatibility paths remain
+

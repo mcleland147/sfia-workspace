@@ -149,3 +149,4 @@ if (process.exitCode) {
   process.exit(process.exitCode);
 }
 console.log("RESULT: PRODUCTION RUNTIME REFERENCE CONFORMANCE OK");
+
