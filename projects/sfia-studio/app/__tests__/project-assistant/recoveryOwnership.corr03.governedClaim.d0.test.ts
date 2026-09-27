@@ -488,7 +488,9 @@ describe("CORR-03 C5 — readRecoveryOwnedDecisionContinuity GOVERNED claim rout
     expect(result.kind).toBe("owned");
     if (result.kind !== "owned") return;
     expect(result.decision.decisionId).toBe(recovery.decisionId);
-    expect(result.binding.sourceStatus).toBe("confirmed");
-    expect(result.binding.sourceExecutionContractId).toBe(ecId);
+    expect(result.recoveryContext).toBeTruthy();
+    expect(result.binding).not.toBeNull();
+    expect(result.binding!.sourceStatus).toBe("confirmed");
+    expect(result.binding!.sourceExecutionContractId).toBe(ecId);
   });
 });

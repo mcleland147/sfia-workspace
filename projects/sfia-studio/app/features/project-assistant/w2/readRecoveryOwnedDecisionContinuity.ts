@@ -1,7 +1,7 @@
 /**
- * CORR-01 / C2 + CORR-02 / C4 + CORR-03 / C5 — recover recovery-owned
- * HumanDecision after hard UI restart, with durable Decision ↔ ProjectTrajectory
- * lineage integrity and GOVERNED-claim fail-closed routing.
+ * CORR-01 / C2 + CORR-02 / C4 + CORR-03 / C5 +
+ * NATIVE-EXECUTION-LOOP-POST-EVIDENCE-RECOVERY-CORR-01 —
+ * recover recovery-owned HumanDecision after hard UI restart.
  *
  * Durable source (no new store):
  *   current ProjectTrajectory
@@ -9,10 +9,15 @@
  *   → HumanDecision (accepted)
  *   → DecisionBasis trajectory_option + trajectoryContext
  *   → selectedOptionId = GOVERNED_OPTION_REF
- *   → RecoveryExecutionBinding
+ *   → coherent PostEvidenceRecoveryContext
+ *
+ * Legacy docs_write RecoveryExecutionBinding is OPTIONAL (legacy CTA only).
+ * Structural recovery ownership does NOT require it — generic NELC PREPARE
+ * re-resolves RecoveryContext server-side from durable truth.
  *
  * CORR-03: CORRUPTED / CONTRADICTORY GOVERNED AUTHORITY ≠ NO RECOVERY SUBJECT.
- * kind=none only when neither trajectory nor decision claims GOVERNED.
+ * kind=none only when neither trajectory nor decision claims GOVERNED,
+ * OR when GOVERNED tip has no post-Evidence recovery subject.
  *
  * READ-ONLY. Never PREPARE / Inspect / Execute.
  */
@@ -21,6 +26,10 @@ import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
 import type { DecisionBasis } from "@/lib/oa/decision/domain/types";
 import type { ProjectTrajectory } from "@/lib/oa/cycle/domain/types";
 import { GOVERNED_OPTION_REF } from "./trajectoryOptions";
+import {
+  resolvePostEvidenceRecoveryContext,
+  type PostEvidenceRecoveryContext,
+} from "./resolvePostEvidenceRecoveryContext";
 import {
   resolveRecoveryExecutionBinding,
   type RecoveryExecutionBinding,
@@ -41,7 +50,14 @@ export type RecoveryOwnedDecisionContinuityResult =
       readonly kind: "owned";
       readonly decision: TrajectoryDecisionRecordDto;
       readonly trajectory: DecidedTrajectoryDto;
-      readonly binding: RecoveryExecutionBinding;
+      /** Durable post-Evidence subject — sufficient for generic NELC PREPARE. */
+      readonly recoveryContext: PostEvidenceRecoveryContext;
+      /**
+       * Legacy docs_write successor binding when CLASS 1/2 source matches.
+       * Null for generic NELC / succeeded+NOT_PROVEN / UNCLAIMED shapes —
+       * not required for structural ownership.
+       */
+      readonly binding: RecoveryExecutionBinding | null;
     }
   | W2Failure;
 
@@ -174,7 +190,7 @@ export function assertGovernedRecoveryLineage(input: {
 
 /**
  * Resolve whether the current ProjectTrajectory tip is a recovery-owned
- * GOVERNED HumanDecision with a coherent RecoveryExecutionBinding.
+ * GOVERNED HumanDecision with a coherent PostEvidenceRecoveryContext.
  */
 export async function readRecoveryOwnedDecisionContinuity(input: {
   readonly oa: RuntimeOaStack;
@@ -275,30 +291,38 @@ export async function readRecoveryOwnedDecisionContinuity(input: {
     );
   }
 
+  // Structural oracle: PostEvidenceRecoveryContext (generic NELC).
+  // docs_write RecoveryExecutionBinding is legacy-only and never required here.
+  const recovered = await resolvePostEvidenceRecoveryContext({
+    oa,
+    projectId,
+  });
+  if (!recovered.ok) {
+    return fail(
+      recovered.code,
+      recovered.message ||
+        "Sujet recovery illisible après restart — fail-closed.",
+    );
+  }
+  if (recovered.context == null) {
+    // Coherent GOVERNED tip without post-Evidence recovery subject —
+    // not the recovery-owned restart path (RC-06 / other GOVERNED contexts).
+    return { ok: true, kind: "none" };
+  }
+
+  // Best-effort legacy docs_write binding — failure/null does not deny ownership.
+  let legacyBinding: RecoveryExecutionBinding | null = null;
   const bound = await resolveRecoveryExecutionBinding({
     oa,
     projectId,
     decisionId: decision.decisionId,
   });
-  if (!bound.ok) {
-    return fail(
-      bound.code,
-      bound.message ||
-        "Binding recovery illisible pour la HumanDecision tip — fail-closed.",
-    );
-  }
-  if (bound.recoveryContextPresent !== true) {
-    // Coherent GOVERNED tip without post-Evidence recovery subject —
-    // not the recovery-owned restart path (RC-06 / other GOVERNED contexts).
-    return { ok: true, kind: "none" };
-  }
   if (
-    !bound.binding ||
-    bound.binding.kind !== "post_evidence_recovery_execution"
+    bound.ok &&
+    bound.binding &&
+    bound.binding.kind === "post_evidence_recovery_execution"
   ) {
-    return continuityFailed(
-      "Sujet recovery connu mais binding non résolu après restart — fail-closed (pas de PREPARE générique).",
-    );
+    legacyBinding = bound.binding;
   }
 
   const status = trajectory.status as "validated" | "active";
@@ -324,6 +348,7 @@ export async function readRecoveryOwnedDecisionContinuity(input: {
       decidedByDecisionRef: decision.decisionId,
       decidedOptionRef: GOVERNED_OPTION_REF,
     },
-    binding: bound.binding,
+    recoveryContext: recovered.context,
+    binding: legacyBinding,
   };
 }

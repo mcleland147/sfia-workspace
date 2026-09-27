@@ -671,10 +671,12 @@ describe("RECOVERY-OWNERSHIP-PRESTART-FAILURE-01", () => {
     expect(reloaded.decision.decisionId).toBe(recoveryHd);
     expect(reloaded.decision.selectedOptionRef).toBe(GOVERNED_OPTION_REF);
     expect(reloaded.trajectory.decidedByDecisionRef).toBe(recoveryHd);
-    expect(reloaded.binding.kind).toBe("post_evidence_recovery_execution");
-    expect(reloaded.binding.sourceStatus).toBe("confirmed");
-    expect(reloaded.binding.sourceExecutionContractId).toBe(ecId);
-    expect(reloaded.binding.sourceAttemptId).toBe(attemptId);
+    expect(reloaded.recoveryContext).toBeTruthy();
+    expect(reloaded.binding).not.toBeNull();
+    expect(reloaded.binding!.kind).toBe("post_evidence_recovery_execution");
+    expect(reloaded.binding!.sourceStatus).toBe("confirmed");
+    expect(reloaded.binding!.sourceExecutionContractId).toBe(ecId);
+    expect(reloaded.binding!.sourceAttemptId).toBe(attemptId);
 
     const boundForHd = await resolveRecoveryExecutionBinding({
       oa,
