@@ -4171,3 +4171,152 @@ Fake shares Work chat-first spine. REAL not exercised. NOT READY FOR REAL.
 ## Verdict
 
 `CHAT-FIRST-GOVERNED-DECISION-LOOP-01 — LOCAL CANDIDATE / WORK RECOMMENDATIONS CHAT-FIRST PROVEN / LIFECYCLE EXPLICIT STUDIO ACTIONS PRESERVED / DETERMINISTIC PRODUCT E2E PROVEN AT TESTED SCOPE / READY FOR CHATGPT CRITICAL REVIEW`
+
+---
+
+# PROJECT GIT INTEGRATION — CYCLE 8
+
+**Timestamp (UTC):** 2026-09-27T18:58:57Z
+**Macro:** CHAT-FIRST-GOVERNED-DECISION-LOOP-01
+**Mode:** SAME MACRO — PROJECT GIT INTEGRATION + PR READINESS
+**Morris GO:** PROJECT GIT INTEGRATION consumed (merge NOT authorized)
+
+## Critical Review gate
+
+- ChatGPT Critical Review: **PASS**
+- Verdict consumed: CRITICAL REVIEW PASS / WORK RECOMMENDATIONS CHAT-FIRST PROVEN / LIFECYCLE EXPLICIT STUDIO ACTIONS PRESERVED / DETERMINISTIC PRODUCT E2E PROVEN AT TESTED SCOPE / READY FOR COMMIT
+- Expected Review Handoff SHA (pre-integration): `f6484354c0ce9e704dcf656fb519ea2ec111a025`
+- Product / test / Bible tree: **NOT modified after Critical Review** — only this review-pack integration metadata section appended
+
+## Git truth before commit
+
+| Fact | Value |
+|---|---|
+| Worktree | `/Users/morris/Projects/sfia-workspace-chat-first-governed-decision-loop-01` |
+| Branch | `feat/sfia-studio-chat-first-governed-decision-loop-01` |
+| Local HEAD / base | `955e86d2ea6eb0ed19dff1e66f578d61edeb3522` |
+| origin/main | `955e86d2ea6eb0ed19dff1e66f578d61edeb3522` |
+| origin/main^{tree} | `35de7d8582a873c59305a16eed807dff87e71cb7` |
+| Commits on branch ahead of main | **ZERO** (candidate was uncommitted) |
+| Lifecycle Chat-first candidate files present | **0** (must not stage) |
+
+## Reviewed candidate invariants (preserved AS-IS)
+
+- Work Recommendations: Chat-first nominal; `pilotDecisionCandidate` NON-AUTHORITATIVE; `resolveChatFirstPilotDecision` → `decideTrajectory`; accept/refuse/amend/defer; defer = HD + Reservation + Work Rec disposition; conversation fail-open; governed effect fail-closed
+- Lifecycle: NOT Chat-first; explicit Studio actions preserved (prepare / approve / prepare cycle / START / FINALIZE); chat "oui" alone cannot START/FINALIZE
+- Journal: Sujets | Réserves | Recommandations | Décisions — Recommandations = Work only; Lifecycle NEXT_CYCLE / FINALIZE_CURRENT_CYCLE excluded from Journal Work recommendations
+- Finalization: `undisposed_recommendations` = active applicable Work Recommendations without durable disposition only
+- UI: Work Instruire/Décider/Modifier removed from nominal path; legacy server path retained; Lifecycle explicit controls retained
+- Architecture: no new SQLite table; no parallel decision/lifecycle engine
+- Bible 03/09: already AS-IMPLEMENTED for Hybrid
+
+## Commit plan (max 2)
+
+**COMMIT 1** — Product implementation + tests
+Message: `feat(studio): enable chat-first governed work decisions`
+
+Staged set (product + tests only):
+- `projects/sfia-studio/app/features/project-assistant/**` (F2/W2 + actions)
+- `projects/sfia-studio/app/features/pre-m6-product-ui/**`
+- `projects/sfia-studio/app/lib/oa/cycle/**`
+- `projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts`
+- `projects/sfia-studio/app/__tests__/**` (Hybrid + related)
+
+**COMMIT 2** — Living Runtime Reference + review pack truth-sync
+Message: `docs(studio): align runtime reference with hybrid decision UX`
+
+Staged set:
+- `projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md`
+- `projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md`
+- `projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json`
+- `.tmp-sfia-review/chatgpt-review.md`
+
+## Forbidden / not staged
+
+- `resolveChatFirstLifecycleTransition.ts`
+- `assessChatFirstLifecycleEligibility.ts`
+- `loadChatFirstLifecycleMaterial.ts`
+- `chatFirstLifecycleTransition.d0.test.ts`
+- Build Doctrine / Roadmap / C1 / framing / convergence
+- No force push; no merge; no main mutation
+
+## Fake / Real
+
+- Fake: shares Product orchestration (deterministic)
+- REAL: **ZERO** this macro
+- Proof ceiling: **DETERMINISTIC PRODUCT E2E PROVEN AT TESTED SCOPE** (unchanged)
+- NOT READY FOR REAL / NOT REAL PROVEN / NOT PRODUCT GLOBAL READY / RUNTIME V3 NON ADOPTED
+
+## Anti-claims / gate
+
+- MERGE NOT AUTHORIZED — Morris decision required after PR/CI
+- No doctrine/baseline promotion
+- No REAL OpenAI / REAL Cursor execution
+
+## Post-commit / PR / CI
+
+| Fact | Value |
+|---|---|
+| COMMIT 1 | `d12272e822a481b868722dfd73a73825f63eff41` — feat(studio): enable chat-first governed work decisions |
+| COMMIT 2 | _(this docs/review-pack commit)_ |
+| Project HEAD | _(set after COMMIT 2)_ |
+| Push | pending |
+| PR | pending |
+| Required CI | pending |
+| Merge | **NOT AUTHORIZED** |
+
+_(PR number/URL + CI terminal state filled after observation; republished via Review Handoff.)_
+
+## CI observation (terminal) — first run
+
+**Timestamp (UTC):** 2026-09-27T19:06:51Z
+**PR:** #537 — https://github.com/mcleland147/sfia-workspace/pull/537
+**Project HEAD observed:** `482c77e02a60f946d177e68a3eea1f4c6fad908c`
+**base SHA:** `955e86d2ea6eb0ed19dff1e66f578d61edeb3522`
+
+| Check | Result |
+|---|---|
+| Detect SFIA Studio changes | PASS |
+| Typecheck | PASS |
+| Lint | PASS |
+| Build | PASS |
+| Unit tests (Vitest) | PASS |
+| Modeled governance tests | PASS |
+| Trailing whitespace check | **FAIL** — `.tmp-sfia-review/chatgpt-review.md` lines 4215/4225 trailing spaces + blank line at EOF |
+| SFIA Studio Required Gate | FAIL (aggregate of validate) |
+
+**Classification:** purely mechanical review-pack whitespace introduced in the integration metadata section — **not** a Product/test/Bible failure.
+**Action under GO exception:** strip trailing whitespace / EOF blank in review pack only; no Product tree change; no silent Product correction.
+**Merge:** still NOT AUTHORIZED.
+
+## CI observation (terminal) — second run (PASS)
+
+**Timestamp (UTC):** 2026-09-27T19:13:45Z
+**Morris GO PROJECT GIT INTEGRATION:** consumed
+**Merge:** NOT AUTHORIZED — next gate = Morris merge decision
+
+| Fact | Value |
+|---|---|
+| Worktree | `/Users/morris/Projects/sfia-workspace-chat-first-governed-decision-loop-01` |
+| Branch | `feat/sfia-studio-chat-first-governed-decision-loop-01` |
+| COMMIT 1 | `d12272e822a481b868722dfd73a73825f63eff41` — feat(studio): enable chat-first governed work decisions |
+| COMMIT 2 | `482c77e02a60f946d177e68a3eea1f4c6fad908c` — docs(studio): align runtime reference with hybrid decision UX |
+| COMMIT 3 (mechanical) | `7d5f794b81be9573691966996785ce1f4dbb4954` — docs(studio): strip review-pack trailing whitespace for CI |
+| Project HEAD | `7d5f794b81be9573691966996785ce1f4dbb4954` |
+| origin/main (unchanged) | `955e86d2ea6eb0ed19dff1e66f578d61edeb3522` |
+| Remote project branch SHA | `7d5f794b81be9573691966996785ce1f4dbb4954` (equals local HEAD) |
+| PR | #537 — https://github.com/mcleland147/sfia-workspace/pull/537 |
+| PR base | main @ `955e86d2ea6eb0ed19dff1e66f578d61edeb3522` |
+| PR head | `feat/sfia-studio-chat-first-governed-decision-loop-01` @ `7d5f794b81be9573691966996785ce1f4dbb4954` |
+| mergeable | MERGEABLE / mergeStateStatus CLEAN |
+| Detect SFIA Studio changes | PASS |
+| Build and validate SFIA Studio | PASS |
+| SFIA Studio Required Gate | **PASS** |
+| Product tree after Critical Review | unchanged (only review-pack metadata + mechanical WS) |
+| Proof ceiling | DETERMINISTIC PRODUCT E2E PROVEN AT TESTED SCOPE (unchanged) |
+| Fake/Real | ZERO REAL; NOT READY FOR REAL |
+| Anti-claims | NOT MERGED / NOT ON MAIN / NOT REAL PROVEN / NOT PRODUCT GLOBAL READY / RUNTIME V3 NON ADOPTED |
+
+## Verdict
+
+`CHAT-FIRST-GOVERNED-DECISION-LOOP-01 — PROJECT GIT INTEGRATED ON BRANCH / PR CI PASS / READY FOR MORRIS MERGE DECISION`
