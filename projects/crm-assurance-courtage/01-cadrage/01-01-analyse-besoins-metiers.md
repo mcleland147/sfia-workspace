@@ -2,7 +2,7 @@
 
 | Champ | Valeur |
 |-------|--------|
-| **Statut** | Working analysis / à valider |
+| **Statut** | **VALIDATED** — décision Morris du 2026-09-27 |
 | **Étape** | 1.1 |
 | **Source principale** | Brief pédagogique CRM (`PBNC_Fiche_projet_CRM_courtage_assurance`) — hors Git |
 | **Sources méthodologiques** | Guide Bloc 1 PBNC + maquette `PBNC_100_Maquette_presentation_bloc_1` — hors Git |
@@ -11,6 +11,18 @@
 | **BPMN 1.1** | Processus cible pédagogique « prise de contact → souscription » (**ADOPTED** — matérialisé dans Miro) |
 | **Architecture** | NOT DECIDED |
 | **Stack** | NOT DECIDED |
+| **1.2** | NOT OPENED |
+
+**Décision Morris :** 1.1 — Analyse des besoins métiers = **VALIDATED**
+**Date :** 2026-09-27
+**Éléments inclus :** contexte métier ; portrait synthétique ; processus métier global ; enjeux ; objectifs et valeurs ; pertinence préliminaire no-code ; périmètre métier ; BMC ; BPMN cible pédagogique « prise de contact → souscription » ; contenu analytique associé.
+
+### Source de vérité
+
+- Ce document Git constitue la **source canonique** du contenu métier validé du 1.1.
+- Les frames Miro BMC et BPMN sont les **représentations visuelles éditables** correspondantes.
+- Les URLs Miro présentes dans ce document restent les références vers ces représentations.
+- Une évolution future du fond nécessite une mise à jour contrôlée de Git et, si nécessaire, de Miro.
 
 **Sourcing :** le document utilise les informations effectivement disponibles dans le brief (et la doctrine pour la conduite). Les éléments non fournis ne sont pas inventés.
 
@@ -344,6 +356,7 @@ Le diagramme Miro est éditable (formes et connecteurs natifs). Il reprend exact
 
 | Point | État |
 |-------|------|
+| **1.1** | **VALIDATED** — décision Morris du 2026-09-27 |
 | Contexte | Compris à partir du brief |
 | Portrait synthétique | Établi (§3) |
 | Processus globaux | Vue métier cible (§4) |
@@ -355,5 +368,6 @@ Le diagramme Miro est éditable (formes et connecteurs natifs). Il reprend exact
 | BPMN | **ADOPTED** — matérialisé dans Miro (processus cible pédagogique « prise de contact → souscription ») |
 | Architecture | NOT DECIDED |
 | Stack | NOT DECIDED |
+| **1.2** | **NOT OPENED** |
 
-Le 1.2 n’est **pas** ouvert automatiquement.
+Le 1.2 n’est **pas** ouvert par cette clôture.
