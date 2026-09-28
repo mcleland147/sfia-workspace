@@ -20,10 +20,10 @@ import {
 } from "./memoryBCompaction";
 import { resolveNoraSessionSqlitePath } from "./sessionPaths";
 import {
-  runNoraAgentsTurn,
   shouldUseProviderAgentsModelAdapter,
   type RunNoraAgentsTurnHostedSearchObserve,
 } from "./runNoraAgentsTurn";
+import { runNoraCognitiveCore } from "./noraCognitiveCompletion";
 import type { NoraCognitiveTurnResult } from "./types";
 import {
   decideCognitiveStrategy,
@@ -217,6 +217,11 @@ export type RunNoraCognitiveTurnInput = {
    * Bound to ProductSqliteSession from Memory B probe when available.
    */
   cycleJournalCycleInstanceId?: string | null;
+  /**
+   * PRODUCT-CONTINUITY — optional READ-ONLY Product Execution tools.
+   * Bound by caller to projectId; never inject foreign OA handles via model args.
+   */
+  productExecutionTools?: import("./productExecutionAgentsTools").ProductExecutionToolContext | null;
 };
 
 /**
@@ -722,7 +727,8 @@ export async function runNoraCognitiveTurn(
       systemInstructions,
       readDisclosure,
     );
-    const turn = await runNoraAgentsTurn({
+    const turn = await runNoraCognitiveCore({
+      cognitiveMode: "conversation",
       correlationId: input.correlationId,
       projectId: input.projectId,
       systemInstructions,
@@ -889,7 +895,8 @@ export async function runNoraCognitiveTurn(
   }
 
   try {
-    const turn = await runNoraAgentsTurn({
+    const turn = await runNoraCognitiveCore({
+      cognitiveMode: "conversation",
       correlationId: input.correlationId,
       projectId: input.projectId,
       systemInstructions,
@@ -932,6 +939,7 @@ export async function runNoraCognitiveTurn(
               cycleInstanceId: input.cycleJournalCycleInstanceId.trim(),
             }
           : null,
+      productExecutionTools: input.productExecutionTools ?? null,
     });
     const observations = [
       ...(input.sourceObservationFacts ?? []),

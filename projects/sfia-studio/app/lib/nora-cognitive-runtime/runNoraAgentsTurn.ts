@@ -44,6 +44,10 @@ import {
   createCycleJournalAgentsTools,
   type CycleJournalToolContext,
 } from "./cycleJournalAgentsTools";
+import {
+  createProductExecutionAgentsTools,
+  type ProductExecutionToolContext,
+} from "./productExecutionAgentsTools";
 import type { MemoryBAvailability } from "./memoryBAvailability";
 import {
   createNoraTurnBudget,
@@ -159,6 +163,11 @@ export type RunNoraAgentsTurnInput = {
    * Never Truth C. Optional; omitted when no active cycle / session.
    */
   cycleJournalTools?: CycleJournalToolContext | null;
+  /**
+   * PRODUCT EXECUTION CONTEXT — same-turn READ-ONLY tools bound to projectId.
+   * Never authority / HD / Evidence. Optional.
+   */
+  productExecutionTools?: ProductExecutionToolContext | null;
 };
 
 export type RunNoraAgentsTurnHostedSearchObserve = {
@@ -500,9 +509,19 @@ export async function runNoraAgentsTurn(
           budget,
         })
       : [];
+  const productTools =
+    input.productExecutionTools &&
+    input.productExecutionTools.projectId.trim() &&
+    enableTools
+      ? createProductExecutionAgentsTools({
+          ...input.productExecutionTools,
+          budget,
+        })
+      : [];
   const tools = [
     ...sfiaTools,
     ...journalTools,
+    ...productTools,
     ...(hostedTool ? [hostedTool] : []),
   ];
 

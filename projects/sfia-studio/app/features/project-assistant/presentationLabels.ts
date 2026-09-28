@@ -12,7 +12,7 @@ import {
 import {
   POST_EVIDENCE_NORA_SENTINEL,
   POST_EVIDENCE_NORA_UNAVAILABLE_SENTINEL,
-} from "./f3/postEvidenceNoraAnalysis";
+} from "./f3/postEvidenceNoraSentinels";
 import type { F3Mode } from "./f3/types";
 
 export type RecommendationFreshness =

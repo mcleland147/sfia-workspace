@@ -404,3 +404,16 @@ export {
   createCycleJournalAgentsTools,
   type CycleJournalToolContext,
 } from "./cycleJournalAgentsTools";
+export {
+  createProductExecutionAgentsTools,
+  type ProductExecutionToolContext,
+} from "./productExecutionAgentsTools";
+export {
+  runNoraCognitiveCompletion,
+  runNoraCognitiveCore,
+  observeNoraCognitiveCore,
+  type NoraCognitiveCompletionMode,
+  type NoraCognitiveMode,
+  type NoraCognitiveCompletionResult,
+  type NoraCognitiveCoreInvocation,
+} from "./noraCognitiveCompletion";

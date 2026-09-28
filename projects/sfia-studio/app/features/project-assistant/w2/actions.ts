@@ -39,6 +39,13 @@ import { inspectExecutionContract } from "./inspectExecutionContract";
 import { loadPresentedOptionSet } from "./presentedOptionSet";
 import { readActiveProposalDecisionSubject } from "./activeProposalDecisionSubject";
 import { readCurrentGovernedExecutionContinuity } from "./readCurrentGovernedExecutionContinuity";
+import { deriveGovernedExecutionContinuityProjection } from "./deriveGovernedExecutionContinuityProjection";
+import {
+  reconcileGovernedExecution,
+  type ReconcileGovernedExecutionIntent,
+  type ReconcileGovernedExecutionResult,
+} from "./reconcileGovernedExecution";
+import { resolveProductExecutionContext } from "./resolveProductExecutionContext";
 import { prepareExecutionContractFromW2Decision } from "./prepareExecutionContractFromW2Decision";
 import { createNoraSessionContractSourceGroundingReader } from "./resolveContractSourceGrounding";
 import { prepareDocsWriteRecoverySuccessorFromDecision } from "./prepareDocsWriteRecoverySuccessor";
@@ -723,6 +730,98 @@ export async function w2GovernedExecuteAction(input: {
     authorityReceiptRef: input.authorityReceiptRef,
     real: input.real,
     adapterRef: input.adapterRef,
+  });
+}
+
+/**
+ * PRODUCT-CONTINUITY-SHARED-KNOWLEDGE-01 — server Reconciler entry.
+ * observe = read-only projection; execute = may initiate Attempt;
+ * continue = never creates Attempt, advances deterministic steps only.
+ */
+export async function w2ReconcileGovernedExecutionAction(input: {
+  projectId: string;
+  executionContractId: string;
+  intent: ReconcileGovernedExecutionIntent;
+  /** Hostile — ignored for authority widening. */
+  canActAsMorris?: unknown;
+  claimedAuthorityLevel?: unknown;
+  authorityReceiptRef?: unknown;
+  real?: unknown;
+}): Promise<ReconcileGovernedExecutionResult> {
+  void input.canActAsMorris;
+  void input.claimedAuthorityLevel;
+  void input.authorityReceiptRef;
+  void input.real;
+  const runtime = getRuntimeApplicationService();
+  if (!runtime.oa) {
+    return {
+      ok: false,
+      code: "OA_STACK_UNAVAILABLE",
+      message: "Services OA indisponibles — reconcile refusé.",
+    };
+  }
+  return reconcileGovernedExecution({
+    oa: runtime.oa,
+    projectId: input.projectId,
+    executionContractId: input.executionContractId,
+    intent: input.intent,
+  });
+}
+
+/** Canonical continuity projection (post-execution aware). */
+export async function w2DeriveGovernedExecutionContinuityAction(input: {
+  projectId: string;
+  executionContractId?: string;
+}): Promise<
+  | Awaited<ReturnType<typeof deriveGovernedExecutionContinuityProjection>>
+> {
+  const runtime = getRuntimeApplicationService();
+  if (!runtime.oa) {
+    return {
+      ok: false,
+      code: "OA_STACK_UNAVAILABLE",
+      message: "Services OA indisponibles.",
+    };
+  }
+  return deriveGovernedExecutionContinuityProjection({
+    oa: runtime.oa,
+    projectId: input.projectId,
+    query: input.executionContractId
+      ? {
+          kind: "byExecutionContractId",
+          executionContractId: input.executionContractId,
+        }
+      : { kind: "latest" },
+  });
+}
+
+/** Shared Product Resolution — READ-ONLY. */
+export async function w2ResolveProductExecutionContextAction(input: {
+  projectId: string;
+  executionContractId?: string;
+  attemptId?: string;
+}): Promise<Awaited<ReturnType<typeof resolveProductExecutionContext>>> {
+  const runtime = getRuntimeApplicationService();
+  if (!runtime.oa) {
+    return {
+      ok: false,
+      code: "OA_STACK_UNAVAILABLE",
+      message: "Services OA indisponibles.",
+    };
+  }
+  const query =
+    input.attemptId
+      ? ({ kind: "byAttemptId", attemptId: input.attemptId } as const)
+      : input.executionContractId
+        ? ({
+            kind: "byExecutionContractId",
+            executionContractId: input.executionContractId,
+          } as const)
+        : ({ kind: "latest" } as const);
+  return resolveProductExecutionContext({
+    oa: runtime.oa,
+    projectId: input.projectId,
+    query,
   });
 }
 

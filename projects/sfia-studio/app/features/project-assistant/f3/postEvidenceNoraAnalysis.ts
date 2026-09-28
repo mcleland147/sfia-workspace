@@ -1,6 +1,6 @@
 /**
  * GAP-4 — bounded post-Evidence Nora/provider analysis.
- * Uses resolveConversationProvider() only. Never instantiates OpenAI here.
+ * Uses shared runNoraCognitiveCompletion (mode=post_execution). Never instantiates OpenAI here.
  * Result is a Recommendation, never a HumanDecision / GO / new contract.
  *
  * W3-D / US-P1-14: when a resolved product-native CKC prompt section is supplied,
@@ -12,20 +12,23 @@
  * client presentation graph (presentationLabels → postEvidenceNoraAnalysis).
  */
 
-import { resolveConversationProvider } from "@/lib/platform/ai";
 import { buildPostEvidenceNarrativePolicyDisclosure } from "@/lib/nora-cognitive-runtime/postEvidenceNarrativePolicy";
+import { runNoraCognitiveCompletion } from "@/lib/nora-cognitive-runtime/noraCognitiveCompletion";
+import {
+  POST_EVIDENCE_NORA_SENTINEL,
+  POST_EVIDENCE_NORA_UNAVAILABLE_SENTINEL,
+  W3C_POST_EVIDENCE_RECOMMENDATION_SENTINEL,
+} from "./postEvidenceNoraSentinels";
+
+export {
+  POST_EVIDENCE_NORA_SENTINEL,
+  POST_EVIDENCE_NORA_UNAVAILABLE_SENTINEL,
+  W3C_POST_EVIDENCE_RECOMMENDATION_SENTINEL,
+} from "./postEvidenceNoraSentinels";
 
 /** Same marker string as f2/ckcCognitiveContext — keep in sync (string only). */
 const CKC_COGNITIVE_REASONING_SYSTEM_MARKER =
   "SFIA Studio CKC COGNITIVE REASONING" as const;
-
-export const POST_EVIDENCE_NORA_SENTINEL =
-  "[[SFIA_POST_EVIDENCE_NORA_ANALYSIS]]" as const;
-export const POST_EVIDENCE_NORA_UNAVAILABLE_SENTINEL =
-  "[[SFIA_POST_EVIDENCE_NORA_UNAVAILABLE]]" as const;
-/** Exact post-Evidence Recommendation payload — durable in existing LPS context. */
-export const W3C_POST_EVIDENCE_RECOMMENDATION_SENTINEL =
-  "[[W3C_POST_EVIDENCE_RECOMMENDATION_V1]]" as const;
 
 export type PostEvidenceAnalysisFacts = {
   projectId: string;
@@ -189,40 +192,31 @@ export async function analyzePostEvidenceWithProvider(
   facts: PostEvidenceAnalysisFacts,
   options?: AnalyzePostEvidenceOptions,
 ): Promise<PostEvidenceAnalysisResult> {
-  let providerId: string | null = null;
-  try {
-    const provider = resolveConversationProvider();
-    providerId = provider.providerId;
-    const completion = await provider.complete([
-      {
-        role: "system",
-        content: buildPostEvidenceSystemPrompt(options?.ckcPromptSection),
-      },
-      {
-        role: "user",
-        content: `Faits durables post-Evidence (bornés):\n${boundedFactsJson(facts)}`,
-      },
-    ]);
-    const text = completion.text.trim();
-    if (!text) {
-      return {
-        ok: false,
-        code: "POST_EVIDENCE_ANALYSIS_UNAVAILABLE",
-        message: "Provider post-Evidence a renvoyé un texte vide.",
-        providerId,
-      };
-    }
-    return { ok: true, text: text.slice(0, 4000), providerId };
-  } catch (err) {
-    const message =
-      err instanceof Error ? err.message : "provider_post_evidence_failed";
+  // Shared Nora cognitive CORE (Agents Runner) — mode=post_execution.
+  // Same seam as conversation (runNoraCognitiveTurn → runNoraCognitiveCore).
+  // No Memory B / MW5 / hosted search / tools — applied by core mode defaults.
+  // This module must NOT be imported by client presentation (use postEvidenceNoraSentinels).
+  const completion = await runNoraCognitiveCompletion({
+    mode: "post_execution",
+    system: buildPostEvidenceSystemPrompt(options?.ckcPromptSection),
+    user: `Faits durables post-Evidence (bornés):\n${boundedFactsJson(facts)}`,
+    maxChars: 4000,
+    projectId: facts.projectId,
+    correlationId: `cor:w3c-post-evidence:${facts.attemptId}`,
+  });
+  if (!completion.ok) {
     return {
       ok: false,
       code: "POST_EVIDENCE_ANALYSIS_UNAVAILABLE",
-      message,
-      providerId,
+      message: completion.message,
+      providerId: completion.providerId,
     };
   }
+  return {
+    ok: true,
+    text: completion.text,
+    providerId: completion.providerId ?? "unknown",
+  };
 }
 
 /** Evidence-scoped LPS marker — binds Nora text to a specific W3-B evidenceId. */

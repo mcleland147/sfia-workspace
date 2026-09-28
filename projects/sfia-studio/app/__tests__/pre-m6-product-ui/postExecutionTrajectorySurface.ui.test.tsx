@@ -20,6 +20,7 @@ const {
   executeStartMock,
   executeCompleteMock,
   materializeMock,
+  reconcileMock,
   readActiveDecisionSubjectMock,
   readGovernedExecutionContinuityMock,
   readRecoveryExecutionBindingMock,
@@ -38,6 +39,7 @@ const {
   executeStartMock: vi.fn(),
   executeCompleteMock: vi.fn(),
   materializeMock: vi.fn(),
+  reconcileMock: vi.fn(),
   readActiveDecisionSubjectMock: vi.fn(),
   readGovernedExecutionContinuityMock: vi.fn(),
   readRecoveryExecutionBindingMock: vi.fn(),
@@ -77,6 +79,8 @@ vi.mock("@/features/project-assistant/w2/actions", () => ({
   w2GovernedExecuteCancelAction: vi.fn(),
   w2MaterializeProductOutcomeAction: (...args: unknown[]) =>
     materializeMock(...args),
+  w2ReconcileGovernedExecutionAction: (...args: unknown[]) =>
+    reconcileMock(...args),
   w2RehydrateProductOutcomeAction: vi.fn(),
   w2RematerializeDocsWriteEvidenceAction: vi.fn(),
   w2ReadActiveDecisionSubjectAction: (...args: unknown[]) =>
@@ -187,6 +191,7 @@ beforeEach(() => {
     executeStartMock,
     executeCompleteMock,
     materializeMock,
+    reconcileMock,
     readActiveDecisionSubjectMock,
     readGovernedExecutionContinuityMock,
     readRecoveryExecutionBindingMock,
@@ -388,6 +393,100 @@ describe("CR-PCONT-05 TrajectorySurface post-execution recovery", () => {
       attemptCreated: false,
     });
 
+    reconcileMock.mockResolvedValue({
+      ok: true,
+      intent: "execute",
+      transitionsApplied: [
+        "governedExecuteAuthorizedContract",
+        "materializeW3bProductTerminal",
+      ],
+      stoppedReason: "stable",
+      projection: {
+        projectId: "proj-pcont-ui",
+        activeCycleInstanceId: null,
+        executionContractId: "xct:pcont-ui",
+        executionContractVersion: 1,
+        executionContractStatus: "confirmed",
+        attemptId: ATTEMPT_ID,
+        attemptStatus: "succeeded",
+        stage: "POST_EVIDENCE_COMPLETE",
+        productOutcome: "NOT_PROVEN",
+        evidenceId: "ev:docs-write:pcont-ui",
+        reviewBundleId: "rb:docs-write:pcont-ui",
+        claimEvaluationId: "ce:pcont-ui",
+        claimEvaluationStatus: "not_proven",
+        postEvidencePresent: true,
+        nextDeterministicAction: "HUMAN_DECISION_REQUIRED",
+        humanDecisionRequired: true,
+        recoveryRequired: false,
+        reason: "Post-Evidence complete",
+        blockingCode: null,
+        context: null,
+      },
+      product: {
+        outcome: "UNCLAIMED",
+        businessHeadline:
+          "Exécution technique réussie — résultat produit non prouvé",
+        businessReason: "ClaimEvaluation not_proven",
+        claimAllowed: false,
+        evidenceId: "ev:docs-write:pcont-ui",
+        reviewBundleId: "rb:docs-write:pcont-ui",
+        claimEvaluationId: "ce:pcont-ui",
+        claimEvaluationStatus: "not_proven",
+        contractResultVerdict: "NOT_PROVEN",
+        evidenceStatus: "available",
+        evidenceSummary: "Artifact available",
+        reviewBundleCompleteness: "partial",
+        governedBoundary: "Fake docs_write",
+        technicalDetail: {
+          attemptId: ATTEMPT_ID,
+          attemptStatus: "succeeded",
+          resultRef: "res:pcont-ui",
+          errorRef: null,
+          stopReason: null,
+          executionContractId: "xct:pcont-ui",
+          executionContractVersion: 1,
+        },
+        reservations: [],
+        antiClaims: {
+          ready: false,
+          w3Closed: false,
+          productCompletionComplete: false,
+          runtimeV3Adopted: false,
+          realProven: false,
+          cycleAutoClosed: false,
+          projectAutoArchived: false,
+        },
+        cycleInstanceClosed: false,
+        projectArchived: false,
+        noraInvoked: false,
+        replanInvoked: false,
+        realExecution: false,
+      },
+      postEvidence: {
+        ok: true,
+        recommendation: {
+          kind: "clarify",
+          headline: "Diagnostiquer le gap Evidence",
+          rationale: "NOT_PROVEN — diagnostiquer le gap Evidence.",
+          nextStep: "Revoir les expectedOutputs",
+          requiresHumanDecision: true,
+        },
+        analysisText: "Analyse post-Evidence",
+        noraInvoked: true,
+        lpsVersion: 3,
+        executionReport: {
+          cursorStatus: "succeeded",
+          workPerformedSummary: "Wrote functional design",
+          artifactsSummary: "créé:docs/x.md",
+          validationsSummary: null,
+          blockersSummary: null,
+          reservationsSummary: null,
+          artifactReviewCompleteness: "FULL",
+        },
+      },
+    });
+
     executeSelectMock.mockResolvedValue({
       ok: true,
       phase: "accepted",
@@ -583,7 +682,8 @@ describe("CR-PCONT-05 TrajectorySurface post-execution recovery", () => {
     expect(screen.getByTestId("w3c-post-evidence")).toBeVisible();
     expect(screen.queryByTestId("w2-error")).toBeNull();
     expect(screen.queryByText(/Contradiction de continuité/)).toBeNull();
-    expect(executeSelectMock).toHaveBeenCalledTimes(1);
+    expect(reconcileMock).toHaveBeenCalled();
+    expect(executeSelectMock).toHaveBeenCalledTimes(0);
     expect(proposeMock).toHaveBeenCalledTimes(2);
     expect(proposeMock.mock.calls[1]![0]).toEqual(
       expect.objectContaining({ projectId: "prj:pcont-ui" }),

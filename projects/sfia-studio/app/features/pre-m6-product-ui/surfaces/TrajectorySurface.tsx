@@ -29,11 +29,7 @@ import {
   w2ConfirmExecutionContractAction,
   w2DecideTrajectoryAction,
   w2GovernedExecuteCancelAction,
-  w2GovernedExecuteCompleteAction,
-  w2GovernedExecuteSelectAction,
-  w2GovernedExecuteStartAction,
   w2InspectExecutionContractAction,
-  w2MaterializeProductOutcomeAction,
   w2PrepareExecutionContractAction,
   w2PrepareRecoveryDocsWriteAction,
   w2ProposeTrajectoryOptionsAction,
@@ -41,6 +37,7 @@ import {
   w2ReadCurrentGovernedExecutionContinuityAction,
   w2ReadRecoveryExecutionBindingAction,
   w2ReadRecoveryOwnedDecisionContinuityAction,
+  w2ReconcileGovernedExecutionAction,
   w2RehydrateProductOutcomeAction,
   w2RematerializeDocsWriteEvidenceAction,
 } from "@/features/project-assistant/w2/actions";
@@ -1663,6 +1660,96 @@ export function TrajectorySurface({
    * orchestrate confirm (if required) + authorize + Attempt.
    * Never auto for N3 / Morris gates. Never Recommendation→HD.
    */
+
+  /** Apply server Reconciler result onto UI projection — UI is not workflow owner. */
+  const applyReconcileResult = useCallback(
+    (reconciled: Awaited<ReturnType<typeof w2ReconcileGovernedExecutionAction>>) => {
+      if (!reconciled.ok) {
+        setError(reconciled.message);
+        const proj = reconciled.projection;
+        if (proj?.attemptId) {
+          paintAttemptPhase(
+            proj.stage === "RUNNING"
+              ? "running"
+              : proj.stage === "ATTEMPT_ACCEPTED"
+                ? "accepted"
+                : "terminal",
+            {
+              attemptId: proj.attemptId,
+              attemptStatus: proj.attemptStatus ?? "unknown",
+              selectedAgentRef: "agt:reconciler-projection",
+              adapterId: "reconciler",
+            },
+            null,
+          );
+        }
+        return;
+      }
+      const proj = reconciled.projection;
+      if (proj.attemptId) {
+        const phase =
+          proj.stage === "RUNNING"
+            ? "running"
+            : proj.stage === "ATTEMPT_ACCEPTED"
+              ? "accepted"
+              : "terminal";
+        paintAttemptPhase(
+          phase,
+          {
+            attemptId: proj.attemptId,
+            attemptStatus: proj.attemptStatus ?? "unknown",
+            selectedAgentRef: "agt:reconciler-projection",
+            adapterId: "reconciler",
+          },
+          null,
+        );
+      }
+      const pending =
+        proj.stage === "PRODUCT_MATERIALIZATION_PENDING" ||
+        proj.stage === "POST_EVIDENCE_PENDING";
+      setProductEvidencePending(pending);
+      if (reconciled.product) {
+        setProductOutcome(reconciled.product as never);
+        setProductEvidencePending(false);
+      }
+      if (reconciled.postEvidence) {
+        setPostEvidence(reconciled.postEvidence as never);
+      }
+    },
+    [],
+  );
+
+  /**
+   * Server-owned execute/continue — TrajectorySurface does not sequence
+   * Select→Start→Complete→Materialize locally anymore.
+   */
+  const runServerReconcile = useCallback(
+    async (intent: "execute" | "continue") => {
+      if (!contract) return;
+      setProductEvidencePending(true);
+      let reconciled = await w2ReconcileGovernedExecutionAction({
+        projectId,
+        executionContractId: contract.executionContractId,
+        intent,
+      });
+      // Bounded poll while Attempt still running (async REAL / Fake pending).
+      for (let i = 0; i < 8; i++) {
+        if (!reconciled.ok) break;
+        if (reconciled.projection.stage !== "RUNNING") break;
+        await yieldBrowserPaint();
+        reconciled = await w2ReconcileGovernedExecutionAction({
+          projectId,
+          executionContractId: contract.executionContractId,
+          intent: "continue",
+        });
+      }
+      applyReconcileResult(reconciled);
+      onDurableFactsChanged?.();
+    },
+    [applyReconcileResult, contract, projectId, onDurableFactsChanged],
+  );
+
+
   const executeAsPilot = useCallback(async () => {
     if (continuityMutationBlocked) return;
     if (!contract) return;
@@ -1725,112 +1812,8 @@ export function TrajectorySurface({
       setProductEvidencePending(false);
     });
 
-    const selected = await w2GovernedExecuteSelectAction({
-      projectId,
-      executionContractId: contract.executionContractId,
-    });
-    if (!selected.ok) {
-      setBusy(null);
-      setError(selected.message);
-      if (selected.attempt) {
-        paintAttemptPhase("accepted", selected.attempt, null);
-      }
-      return;
-    }
-    paintAttemptPhase(selected.phase, selected.attempt, selected.statusLabel);
-    await yieldBrowserPaint();
-
-    if (selected.phase === "terminal") {
-      setBusy(null);
-      paintAttemptPhase("terminal", selected.attempt, selected.statusLabel);
-      onDurableFactsChanged?.();
-      return;
-    }
-
-    const started = await w2GovernedExecuteStartAction({
-      projectId,
-      executionContractId: contract.executionContractId,
-      attemptId: selected.attemptId,
-    });
-    if (!started.ok) {
-      setBusy(null);
-      setError(started.message);
-      if (started.attempt) {
-        flushSync(() => {
-          setAttempt(started.attempt!);
-        });
-      }
-      return;
-    }
-
-    if (started.phase === "terminal") {
-      paintAttemptPhase(started.phase, started.attempt, started.statusLabel);
-      flushSync(() => {
-        setProductEvidencePending(true);
-      });
-      await yieldBrowserPaint();
-      const materializedEarly = await w2MaterializeProductOutcomeAction({
-        projectId,
-        attemptId: started.attemptId,
-      });
-      setBusy(null);
-      if (!materializedEarly.ok) {
-        setError(materializedEarly.message);
-        if (materializedEarly.product) setProductOutcome(materializedEarly.product);
-        if (materializedEarly.postEvidence)
-          setPostEvidence(materializedEarly.postEvidence);
-        return;
-      }
-      flushSync(() => {
-        setProductEvidencePending(false);
-        setProductOutcome(materializedEarly.product);
-        setPostEvidence(materializedEarly.postEvidence ?? null);
-      });
-      onDurableFactsChanged?.();
-      return;
-    }
-
-    paintAttemptPhase(started.phase, started.attempt, started.statusLabel);
-    await yieldBrowserPaint();
-
-    const completed = await w2GovernedExecuteCompleteAction({
-      projectId,
-      executionContractId: contract.executionContractId,
-      attemptId: started.attemptId,
-    });
-    if (!completed.ok) {
-      setBusy(null);
-      setError(completed.message);
-      if (completed.attempt) {
-        flushSync(() => {
-          setAttempt(completed.attempt!);
-        });
-      }
-      return;
-    }
-    paintAttemptPhase(completed.phase, completed.attempt, completed.statusLabel);
-    flushSync(() => {
-      setProductEvidencePending(true);
-    });
-    await yieldBrowserPaint();
-
-    const materialized = await w2MaterializeProductOutcomeAction({
-      projectId,
-      attemptId: completed.attemptId,
-    });
+    await runServerReconcile("execute");
     setBusy(null);
-    if (!materialized.ok) {
-      setError(materialized.message);
-      if (materialized.product) setProductOutcome(materialized.product);
-      if (materialized.postEvidence) setPostEvidence(materialized.postEvidence);
-      return;
-    }
-    flushSync(() => {
-      setProductEvidencePending(false);
-      setProductOutcome(materialized.product);
-      setPostEvidence(materialized.postEvidence ?? null);
-    });
-    onDurableFactsChanged?.();
   }, [
     continuityMutationBlocked,
     contract,
@@ -1838,6 +1821,7 @@ export function TrajectorySurface({
     projectId,
     inspectPreparedContractId,
     onDurableFactsChanged,
+    runServerReconcile,
   ]);
 
   const governedExecute = useCallback(async () => {
@@ -1859,120 +1843,15 @@ export function TrajectorySurface({
       setProductOutcome(null);
       setProductEvidencePending(false);
     });
-
-    const selected = await w2GovernedExecuteSelectAction({
-      projectId,
-      executionContractId: contract.executionContractId,
-    });
-    if (!selected.ok) {
-      setBusy(null);
-      setError(selected.message);
-      if (selected.attempt) {
-        paintAttemptPhase("accepted", selected.attempt, null);
-      }
-      return;
-    }
-    paintAttemptPhase(selected.phase, selected.attempt, selected.statusLabel);
-    await yieldBrowserPaint();
-
-    if (selected.phase === "terminal") {
-      setBusy(null);
-      paintAttemptPhase("terminal", selected.attempt, selected.statusLabel);
-      onDurableFactsChanged?.();
-      return;
-    }
-
-    const started = await w2GovernedExecuteStartAction({
-      projectId,
-      executionContractId: contract.executionContractId,
-      attemptId: selected.attemptId,
-    });
-    if (!started.ok) {
-      setBusy(null);
-      setError(started.message);
-      if (started.attempt) {
-        flushSync(() => {
-          setAttempt(started.attempt!);
-        });
-      }
-      return;
-    }
-
-    // Adapter FAIL / governed STOP may terminate at Start — materialize without Complete.
-    if (started.phase === "terminal") {
-      paintAttemptPhase(started.phase, started.attempt, started.statusLabel);
-      flushSync(() => {
-        setProductEvidencePending(true);
-      });
-      await yieldBrowserPaint();
-      const materializedEarly = await w2MaterializeProductOutcomeAction({
-        projectId,
-        attemptId: started.attemptId,
-      });
-      setBusy(null);
-      if (!materializedEarly.ok) {
-        setError(materializedEarly.message);
-        if (materializedEarly.product) setProductOutcome(materializedEarly.product);
-        if (materializedEarly.postEvidence)
-          setPostEvidence(materializedEarly.postEvidence);
-        return;
-      }
-      flushSync(() => {
-        setProductEvidencePending(false);
-        setProductOutcome(materializedEarly.product);
-        setPostEvidence(materializedEarly.postEvidence ?? null);
-      });
-      onDurableFactsChanged?.();
-      return;
-    }
-
-    paintAttemptPhase(started.phase, started.attempt, started.statusLabel);
-    await yieldBrowserPaint();
-
-    const completed = await w2GovernedExecuteCompleteAction({
-      projectId,
-      executionContractId: contract.executionContractId,
-      attemptId: started.attemptId,
-    });
-    if (!completed.ok) {
-      setBusy(null);
-      setError(completed.message);
-      if (completed.attempt) {
-        flushSync(() => {
-          setAttempt(completed.attempt!);
-        });
-      }
-      return;
-    }
-    paintAttemptPhase(completed.phase, completed.attempt, completed.statusLabel);
-    flushSync(() => {
-      setProductEvidencePending(true);
-    });
-    await yieldBrowserPaint();
-
-    const materialized = await w2MaterializeProductOutcomeAction({
-      projectId,
-      attemptId: completed.attemptId,
-    });
+    await runServerReconcile("execute");
     setBusy(null);
-    if (!materialized.ok) {
-      setError(materialized.message);
-      if (materialized.product) setProductOutcome(materialized.product);
-      if (materialized.postEvidence) setPostEvidence(materialized.postEvidence);
-      return;
-    }
-    flushSync(() => {
-      setProductEvidencePending(false);
-      setProductOutcome(materialized.product);
-      setPostEvidence(materialized.postEvidence ?? null);
-    });
-    onDurableFactsChanged?.();
   }, [
     continuityMutationBlocked,
     contract,
     authorization,
     projectId,
     onDurableFactsChanged,
+    runServerReconcile,
   ]);
 
   const stopRunningExecution = useCallback(async () => {
@@ -1990,39 +1869,28 @@ export function TrajectorySurface({
       return;
     }
     paintAttemptPhase(cancelled.phase, cancelled.attempt, cancelled.statusLabel);
-    flushSync(() => {
-      setProductEvidencePending(true);
-    });
-    await yieldBrowserPaint();
-    const materialized = await w2MaterializeProductOutcomeAction({
-      projectId,
-      attemptId: cancelled.attemptId,
-    });
+    await runServerReconcile("continue");
     setBusy(null);
-    if (!materialized.ok) {
-      setError(materialized.message);
-      if (materialized.product) setProductOutcome(materialized.product);
-      if (materialized.postEvidence) setPostEvidence(materialized.postEvidence);
-      return;
-    }
-    flushSync(() => {
-      setProductEvidencePending(false);
-      setProductOutcome(materialized.product);
-      setPostEvidence(materialized.postEvidence ?? null);
-    });
-    onDurableFactsChanged?.();
   }, [
     contract,
     attempt,
     attemptPhase,
     projectId,
     onDurableFactsChanged,
+    runServerReconcile,
   ]);
 
+  /** Recovery-only — nominal path uses server Reconciler; rehydrate stays read-only. */
   const rehydrateProduct = useCallback(async () => {
     if (!attempt?.attemptId) return;
     setBusy("execute");
     setError(null);
+    if (contract?.executionContractId) {
+      // Prefer continue reconcile (deterministic remaining steps) over bare rehydrate.
+      await runServerReconcile("continue");
+      setBusy(null);
+      return;
+    }
     const result = await w2RehydrateProductOutcomeAction({
       projectId,
       attemptId: attempt.attemptId,
@@ -2035,7 +1903,7 @@ export function TrajectorySurface({
     setProductOutcome(result.product);
     setPostEvidence(result.postEvidence ?? null);
     setProductEvidencePending(false);
-  }, [attempt, projectId]);
+  }, [attempt, projectId, contract, runServerReconcile]);
 
   /**
    * JOURNEY-INTEGRITY — CTA exclusivity on the mutating primary action.
