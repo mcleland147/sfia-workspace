@@ -773,7 +773,7 @@ index b2df43e8..e9cdfabd 100644
 | Commit | **PASS** (`b63c5f37` — docs(crm-assurance-courtage): research 1.3.2c accessibility responsible digital) |
 | Push projet | **NOT DONE** |
 | PR | **NOT CREATED** |
-| Review Handoff | **PASS** — tip  / blob  — HANDOFF UPDATED — REMOTE VERIFIED |
+| Review Handoff | **PASS** — tip `d1735bd8` / blob `b181068b` — HANDOFF UPDATED — REMOTE VERIFIED |
 
 ## 13. Réserves
 
