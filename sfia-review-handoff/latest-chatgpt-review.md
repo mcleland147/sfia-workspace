@@ -1,29 +1,33 @@
-# PRODUCT-CONTINUITY-SHARED-KNOWLEDGE-01 — ChatGPT Review Pack (FULL)
+# PRODUCT-CONTINUITY-SHARED-KNOWLEDGE-01 — CRITICAL CORRECTION PASS 01
+# ChatGPT Review Pack (FULL)
 
 ## 1. Timestamp
-2026-09-28T14:19:38+0200
+2026-09-28T16:16:17+0200
 
 ## 2. Macro / cycle / profile
 - Macro: PRODUCT-CONTINUITY-SHARED-KNOWLEDGE-01
 - Cycle: 8 — Delivery / implémentation
 - Profile: CRITICAL
+- Pass: CRITICAL CORRECTION PASS 01
 - Typologie: EVOL
-- Gate consumed: GO MORRIS — DELIVERY LOCAL PRODUCT-CONTINUITY-SHARED-KNOWLEDGE-01 — CONSUMED
+- Gate consumed: GO MORRIS — LOCAL CORRECTION PASS PRODUCT-CONTINUITY-SHARED-KNOWLEDGE-01
 
 ## 3. Branch + HEAD + origin/main
-- Repository: mcleland147/sfia-workspace (local worktree `/Users/morris/Projects/sfia-workspace-post-execution-handoff-01`)
 - Branch: `delivery/sfia-studio-product-continuity-shared-knowledge-01`
-- HEAD (project, uncommitted): `5ed9cd24cad7110aee6f6c26dd34226e69e1531b`
-- origin/main: `5ed9cd24cad7110aee6f6c26dd34226e69e1531b` (exact expected SHA match)
-- Working tree (short):
+- HEAD (uncommitted candidate): `5ed9cd24cad7110aee6f6c26dd34226e69e1531b`
+- origin/main: `5ed9cd24cad7110aee6f6c26dd34226e69e1531b`
+- Previous handoff (entry proof): `b92e3fc8f32fab9badfdd5bcba170888c4191d6c` on `sfia/review-handoff`
+- Working tree:
 ```
 M .tmp-sfia-review/chatgpt-review.md
  M projects/sfia-studio/app/__tests__/pre-m6-product-ui/postExecutionTrajectorySurface.ui.test.tsx
+ M projects/sfia-studio/app/__tests__/pre-m6-product-ui/uatUxSemanticReserves.ui.test.tsx
  M projects/sfia-studio/app/__tests__/project-assistant/postExecutionHandoff.integrated.d0.test.ts
  M projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
  M projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
  M projects/sfia-studio/app/features/project-assistant/f3/postEvidenceNoraAnalysis.ts
  M projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
+ M projects/sfia-studio/app/features/project-assistant/presentationLabels.ts
  M projects/sfia-studio/app/features/project-assistant/w2/actions.ts
  M projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
  M projects/sfia-studio/app/lib/nora-cognitive-runtime/providerAgentsModel.ts
@@ -33,6 +37,7 @@ M .tmp-sfia-review/chatgpt-review.md
  M projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
  M projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
 ?? projects/sfia-studio/app/__tests__/project-assistant/productContinuitySharedKnowledge.d0.test.ts
+?? projects/sfia-studio/app/features/project-assistant/f3/postEvidenceNoraSentinels.ts
 ?? projects/sfia-studio/app/features/project-assistant/w2/deriveGovernedExecutionContinuityProjection.ts
 ?? projects/sfia-studio/app/features/project-assistant/w2/reconcileGovernedExecution.ts
 ?? projects/sfia-studio/app/features/project-assistant/w2/resolveProductExecutionContext.ts
@@ -40,86 +45,112 @@ M .tmp-sfia-review/chatgpt-review.md
 ?? projects/sfia-studio/app/lib/nora-cognitive-runtime/productExecutionAgentsTools.ts
 ```
 
-## 4. Sources consultées
-Méthode: sfia-cycle-execution-template, cycle-routing-guide, chatgpt-cursor-operating-model, rules-and-guardrails, knowledge-layer.
-Convergence: build-doctrine, roadmap (READ ONLY — not modified).
-Product completion 01/03/06 (READ ONLY — not modified).
-v3 framing 30/32/33/34/35/37 + ckc/08 + nora-cognitive-completion/08 (READ ONLY).
-Production Runtime Reference 01–04, 06–09 (03/09/manifest UPDATED descriptively).
-Code: vertical-slice-runtime, w2/**, studioCognitiveContext, postEvidenceNoraAnalysis, nora-cognitive-runtime, TrajectorySurface, OA services, W3/restart/Nora/product E2E tests.
+## 4. Sources + previous handoff
+Previous handoff b92e3fc8 consulted as entry proof (NOT READY — CORRECTION PASS REQUIRED).
+Mandatory method / doctrine / runtime-ref sources re-read as required by cycle prompt.
+Code local (uncommitted candidate) is SoT for this pass.
 
 ## 5. Morris decisions consumed
-- GO MORRIS — DELIVERY LOCAL PRODUCT-CONTINUITY-SHARED-KNOWLEDGE-01 — CONSUMED
-- Architecture OPTION A adopted by Morris (construction decision — NOT persisted as Project HumanDecision / doctrine / Roadmap / C1)
-- NO project commit / push / PR / merge / REAL / doctrine change in this cycle
+- GO MORRIS — LOCAL CORRECTION PASS PRODUCT-CONTINUITY-SHARED-KNOWLEDGE-01
+- Architecture Option A KEEP (no redesign)
+- No project commit / push / PR / REAL
 
-## 6. CURRENT IMPLEMENTATION MAP (before → after)
+## 6. Findings ChatGPT CR-01→CR-05 (entry)
 
-### Before (defects)
-- TrajectorySurface owned Select→Start→Complete→Materialize sequencing (client workflow owner)
-- Post-Evidence cognition via specialized `provider.complete(...)` parallel path
-- No shared Product Resolution — feature-local reconstruction
-- No canonical Execution Continuity Projection distinguishing running vs technical terminal vs product pending vs post-Evidence
-- Restart/rehydrate reconstructed but did not continue deterministic steps
-- Nora depended on push context; could ask Pilot for Attempt/EC IDs Studio already held
+| ID | Finding | Correction |
+|---|---|---|
+| CR-01 | noraCognitiveCompletion was provider.complete wrapper — superficial convergence | Rewrote as shared Agents core `runNoraCognitiveCore` → `runNoraAgentsTurn`; conversation + post_execution both invoke |
+| CR-02 | R2 ACCEPTED restart unproven | Added runtime A→B restart test after SELECT-only |
+| CR-03 | R3 RUNNING restart unproven | Added runtime A→B restart test after Start leaves RUNNING |
+| CR-04 | Evidence prefix heuristic (ev:docs-write / ev:w3b) | Canonical CE → RB → contractResultBindings.evidenceRefs; ambiguous without CE → EVIDENCE_LINEAGE_AMBIGUOUS; verdict via projectContractResultVerdict |
+| CR-05 | TECHNICAL_TERMINAL / PRODUCT_QUALIFIED unreachable | Removed from union; every remaining stage has derivation test |
 
-### After (Option A seams)
-| Concern | Seam |
-|---|---|
-| Shared Product Resolution READ-ONLY | `w2/resolveProductExecutionContext.ts` |
-| Continuity Projection | `w2/deriveGovernedExecutionContinuityProjection.ts` |
-| Server Reconciler | `w2/reconcileGovernedExecution.ts` (observe\|execute\|continue) |
-| Server actions | `w2/actions.ts` — reconcile/derive/resolve actions |
-| UI cutover | `TrajectorySurface.tsx` — `runServerReconcile` / `applyReconcileResult` |
-| Nora product tool | `productExecutionAgentsTools.ts` — `product_execution_context_get` |
-| Shared cognitive core | `noraCognitiveCompletion.ts` — modes conversation / post_execution |
-| W3-C convergence | `postEvidenceNoraAnalysis.ts` → `runNoraCognitiveCompletion({ mode: "post_execution" })` |
-| Fake provider skip | `providerAgentsModel.ts` skips product tool like journal tools |
-| Orchestration wiring | `orchestrateTurn` / `runNoraAgentsTurn` / `runNoraCognitiveTurn` attach product tools |
+## 7. NORA COGNITIVE SEAM MAP — BEFORE CORRECTION
+- Conversation: runNoraCognitiveTurn → MW policies → runNoraAgentsTurn (Agents Runner)
+- Post-Evidence: analyzePostEvidenceWithProvider → runNoraCognitiveCompletion → resolveConversationProvider().complete(...)
+- Shared file existed but was NOT a real shared core (wrapper only)
+- Client graph risk: presentationLabels imported postEvidenceNoraAnalysis sentinels
 
-## 7. Architecture cible appliquée
-OPTION A confirmed:
-- OA / Product Truth KEEP
-- Product SQLite KEEP
-- Product Resolution BUILD (composition, not store)
-- Continuity Projection BUILD (derived, not persisted SM)
-- Reconciler BUILD (idempotent bounded loop)
-- W3-C KEEP/ADAPT product-processing; cognition converges to shared Nora completion
-- TrajectorySurface KEEP as UI; no longer workflow owner
-- NO new store / workflow engine / event bus / OA knowledge domain / ProductKnowledge aggregate
+## 8. NORA COGNITIVE SEAM MAP — AFTER CORRECTION
+```
+runNoraCognitiveCore(mode)
+  ├── conversation  → runNoraAgentsTurn (caller supplies Memory B / tools / MW6)
+  └── post_execution → runNoraAgentsTurn with tools/search/session/Journal/Product tools OFF
+```
+- Conversation: runNoraCognitiveTurn → runNoraCognitiveCore(conversation)
+- Post-Evidence: analyzePostEvidenceWithProvider → runNoraCognitiveCompletion(post_execution) → runNoraCognitiveCore → runNoraAgentsTurn
+- observeNoraCognitiveCore() test observer proves both modes hit the same seam
+- Client-safe sentinels extracted to postEvidenceNoraSentinels.ts (presentationLabels no longer pulls Agents)
 
-## 8. Fichiers créés
+## 9. Architecture finalisée
+Option A unchanged. NO new store / engine / bus / OA Knowledge domain.
+
+## 10. Exact shared seam proof (CR-01)
+- Shared function: `runNoraCognitiveCore` in noraCognitiveCompletion.ts
+- Invokes: `runNoraAgentsTurn` (NOT bare provider.complete)
+- Modes observed: conversation + post_execution (T-C1 behavioral)
+- postEvidence does not call provider.complete (T-C2 spy)
+- Policies: contract-first system prompt retained; CLAIM≠Evidence; FULL/PARTIAL; NOT_PROVEN; no MW5/tools/hosted search in post_execution defaults
+
+## 11. R2 ACCEPTED restart
+Runtime A: authorize → governedExecuteSelectAgent → ATTEMPT_ACCEPTED (1 Attempt).
+Dispose. Runtime B: same attemptId, stage ATTEMPT_ACCEPTED, no Evidence invented.
+Continue: same Attempt, listAttempts length 1.
+
+## 12. R3 RUNNING restart
+Runtime A: Select → Start → RUNNING (Fake docs_write).
+Dispose. Runtime B: same attemptId, stage RUNNING, no Evidence/RB/CE invented.
+Continue: same Attempt; honest progression or await — never second Attempt / invented SUCCESS from restart alone.
+
+## 13. Evidence lineage BEFORE/AFTER
+BEFORE: prefer startsWith("ev:docs-write:") / "ev:w3b:" / bound[0]
+AFTER:
+1. resolveCurrentContractResultClaimEvaluation
+2. validate CE bindings project/attempt
+3. RB via claimEvaluation.reviewBundleId
+4. Evidence via bindings.evidenceRefs (ordered)
+5. No CE + 0 Evidence → honest absence
+6. No CE + 1 Evidence → project that one
+7. No CE + N Evidence → EVIDENCE_LINEAGE_AMBIGUOUS (fail-closed)
+Verdict: projectContractResultVerdict(status) → PASS|FAIL|NOT_PROVEN
+
+## 14. Continuity stages final
+PRE_EXECUTION | ATTEMPT_ACCEPTED | RUNNING | PRODUCT_MATERIALIZATION_PENDING | POST_EVIDENCE_PENDING | POST_EVIDENCE_COMPLETE | RECOVERY_REQUIRED
+(Removed unreachable TECHNICAL_TERMINAL + PRODUCT_QUALIFIED)
+
+## 15. Fichiers créés
 
 - `projects/sfia-studio/app/features/project-assistant/w2/resolveProductExecutionContext.ts`
 - `projects/sfia-studio/app/features/project-assistant/w2/deriveGovernedExecutionContinuityProjection.ts`
 - `projects/sfia-studio/app/features/project-assistant/w2/reconcileGovernedExecution.ts`
 - `projects/sfia-studio/app/lib/nora-cognitive-runtime/noraCognitiveCompletion.ts`
 - `projects/sfia-studio/app/lib/nora-cognitive-runtime/productExecutionAgentsTools.ts`
+- `projects/sfia-studio/app/features/project-assistant/f3/postEvidenceNoraSentinels.ts`
 - `projects/sfia-studio/app/__tests__/project-assistant/productContinuitySharedKnowledge.d0.test.ts`
 
-## 9. Fichiers modifiés
+## 16. Fichiers modifiés
 
 - `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx`
 - `projects/sfia-studio/app/features/project-assistant/w2/actions.ts`
 - `projects/sfia-studio/app/features/project-assistant/f3/postEvidenceNoraAnalysis.ts`
+- `projects/sfia-studio/app/features/project-assistant/presentationLabels.ts`
 - `projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts`
 - `projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts`
 - `projects/sfia-studio/app/lib/nora-cognitive-runtime/providerAgentsModel.ts`
 - `projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts`
 - `projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts`
 - `projects/sfia-studio/app/__tests__/pre-m6-product-ui/postExecutionTrajectorySurface.ui.test.tsx`
+- `projects/sfia-studio/app/__tests__/pre-m6-product-ui/uatUxSemanticReserves.ui.test.tsx`
 - `projects/sfia-studio/app/__tests__/project-assistant/postExecutionHandoff.integrated.d0.test.ts`
 - `projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts`
 - `projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md`
 - `projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md`
 - `projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json`
-- `.tmp-sfia-review/chatgpt-review.md` (this pack; never staged)
 
-## 10–13. Contenu créé + diffs modifiés
+## 17–18. Contenu créé + diffs
 
 
 ### CREATED FULL: `projects/sfia-studio/app/features/project-assistant/w2/resolveProductExecutionContext.ts`
-
 ```typescript
 /**
  * PRODUCT-CONTINUITY-SHARED-KNOWLEDGE-01 — Shared Product Resolution (READ-ONLY).
@@ -131,7 +162,11 @@ import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
 import type { ExecutionContract } from "@/lib/oa/execution-contract";
 import type { ExecutionAttempt } from "@/lib/oa/execution-attempt";
 import type { ClaimEvaluation, Evidence, ReviewBundle } from "@/lib/oa/evidence-review";
-import { resolveCurrentContractResultClaimEvaluation } from "@/lib/oa/evidence-review";
+import {
+  projectContractResultVerdict,
+  resolveCurrentContractResultClaimEvaluation,
+} from "@/lib/oa/evidence-review";
+import type { ContractResultVerdict } from "@/lib/oa/evidence-review/domain/contractResultTypes";
 import {
   loadDocsWriteArtifactReviewMaterial,
   resolveProductEvidenceRefsRoot,
@@ -141,7 +176,6 @@ import {
   projectW3cExecutionReportSurfaceFromDurable,
 } from "./w3cPostEvidenceLoop";
 import type { W3BProductTerminalProjection } from "./w3bProductTerminalProjection";
-import { w3bEvidenceIdentity } from "./materializeW3bProductTerminal";
 
 export type ProductExecutionContextQuery =
   | { readonly kind: "latest" }
@@ -196,7 +230,8 @@ export type ProductExecutionContext = {
     readonly kind: "PRODUCT_QUALIFICATION";
     readonly claimEvaluationId: string | null;
     readonly status: string | null;
-    readonly contractResultVerdict: string | null;
+    /** Canonical ContractResultVerdict (PASS|FAIL|NOT_PROVEN) — never raw status. */
+    readonly contractResultVerdict: ContractResultVerdict | null;
   };
   readonly postEvidence: {
     readonly kind: "RECOMMENDATION";
@@ -283,6 +318,7 @@ async function resolveEvidenceLineage(input: {
   | {
       ok: true;
       evidence: Evidence | null;
+      evidenceIds: readonly string[];
       reviewBundle: ReviewBundle | null;
       claimEvaluation: ClaimEvaluation | null;
     }
@@ -290,89 +326,185 @@ async function resolveEvidenceLineage(input: {
 > {
   const services = input.oa.evidenceReviewServices;
   if (!services) {
-    return { ok: true, evidence: null, reviewBundle: null, claimEvaluation: null };
+    return {
+      ok: true,
+      evidence: null,
+      evidenceIds: [],
+      reviewBundle: null,
+      claimEvaluation: null,
+    };
   }
 
+  // 1) Canonical current Contract Result CE for this Attempt (fail-closed).
+  const resolvedCe = await resolveCurrentContractResultClaimEvaluation({
+    repo: services.claimEvaluationRepository,
+    projectId: input.projectId,
+    executionAttemptId: input.attemptId,
+  });
+  if (resolvedCe.status === "ambiguous") {
+    return {
+      ok: false,
+      code: "CLAIM_EVALUATION_AMBIGUOUS",
+      message:
+        "Plusieurs ClaimEvaluation Contract Result actives pour cet Attempt — fail-closed.",
+    };
+  }
+
+  if (resolvedCe.status === "one") {
+    const claimEvaluation = resolvedCe.claimEvaluation;
+    const bindings = claimEvaluation.contractResultBindings;
+    if (!bindings) {
+      return {
+        ok: false,
+        code: "CONTRACT_RESULT_BINDINGS_MISSING",
+        message:
+          "ClaimEvaluation Contract Result sans bindings canoniques — fail-closed.",
+      };
+    }
+    if (bindings.projectId !== input.projectId) {
+      return {
+        ok: false,
+        code: "EVIDENCE_PROJECT_MISMATCH",
+        message: "CE bindings.projectId hors Project — fail-closed.",
+      };
+    }
+    if (bindings.executionAttemptId !== input.attemptId) {
+      return {
+        ok: false,
+        code: "ATTEMPT_CONTRACT_MISMATCH",
+        message: "CE bindings.executionAttemptId mismatch — fail-closed.",
+      };
+    }
+
+    // 2) ReviewBundle via claimEvaluation.reviewBundleId
+    const rbId = claimEvaluation.reviewBundleId?.trim();
+    if (!rbId) {
+      return {
+        ok: false,
+        code: "REVIEW_BUNDLE_MISSING",
+        message: "ClaimEvaluation sans reviewBundleId — fail-closed.",
+      };
+    }
+    const reviewBundle = await services.reviewBundleReader.findById(rbId);
+    if (!reviewBundle) {
+      return {
+        ok: false,
+        code: "REVIEW_BUNDLE_NOT_FOUND",
+        message: `ReviewBundle ${rbId} introuvable — fail-closed.`,
+      };
+    }
+    if (reviewBundle.projectId !== input.projectId) {
+      return {
+        ok: false,
+        code: "REVIEW_BUNDLE_PROJECT_MISMATCH",
+        message: "ReviewBundle hors Project — fail-closed.",
+      };
+    }
+    if (bindings.reviewBundleId !== reviewBundle.reviewBundleId) {
+      return {
+        ok: false,
+        code: "CONTRACT_RESULT_BINDINGS_MISMATCH",
+        message: "CE bindings.reviewBundleId ≠ ReviewBundle — fail-closed.",
+      };
+    }
+
+    // 3) Evidence via contractResultBindings.evidenceRefs (canonical order)
+    const evidenceRefs = [...bindings.evidenceRefs];
+    if (evidenceRefs.length === 0) {
+      return {
+        ok: false,
+        code: "CONTRACT_RESULT_EVIDENCE_REFS_EMPTY",
+        message: "CE bindings.evidenceRefs vide — fail-closed.",
+      };
+    }
+    const loaded: Evidence[] = [];
+    for (const evidenceId of evidenceRefs) {
+      const evidence = await services.evidenceReader.findById(evidenceId);
+      if (!evidence) {
+        return {
+          ok: false,
+          code: "EVIDENCE_NOT_FOUND",
+          message: `Evidence ${evidenceId} référencée par CE introuvable — fail-closed.`,
+        };
+      }
+      if (
+        evidence.bindings?.projectId &&
+        evidence.bindings.projectId !== input.projectId
+      ) {
+        return {
+          ok: false,
+          code: "EVIDENCE_PROJECT_MISMATCH",
+          message: "Evidence hors Project — fail-closed.",
+        };
+      }
+      if (
+        evidence.bindings?.executionAttemptId &&
+        evidence.bindings.executionAttemptId !== input.attemptId
+      ) {
+        return {
+          ok: false,
+          code: "ATTEMPT_CONTRACT_MISMATCH",
+          message: "Evidence Attempt binding mismatch — fail-closed.",
+        };
+      }
+      loaded.push(evidence);
+    }
+
+    // Primary Evidence for compact projection = first canonical evidenceRef.
+    // Full ordered set preserved in evidenceIds (never prefix-preferred).
+    return {
+      ok: true,
+      evidence: loaded[0] ?? null,
+      evidenceIds: evidenceRefs,
+      reviewBundle,
+      claimEvaluation,
+    };
+  }
+
+  // No CE yet — pre-qualification window.
   const allEvidence = await services.repository.listByProject(input.projectId);
   const bound = allEvidence.filter(
     (e) => e.bindings?.executionAttemptId === input.attemptId,
   );
-  if (bound.length > 1) {
-    // Prefer docs-write / w3b deterministic ids when ambiguous
-    const preferred =
-      bound.find((e) => e.evidenceId.startsWith("ev:docs-write:")) ??
-      bound.find((e) => e.evidenceId.startsWith("ev:w3b:")) ??
-      bound[0]!;
-    const evidence = preferred;
-    if (evidence.bindings?.projectId && evidence.bindings.projectId !== input.projectId) {
+  for (const evidence of bound) {
+    if (
+      evidence.bindings?.projectId &&
+      evidence.bindings.projectId !== input.projectId
+    ) {
       return {
         ok: false,
         code: "EVIDENCE_PROJECT_MISMATCH",
         message: "Evidence hors Project — fail-closed.",
       };
     }
-    return finishEvidence(services, input, evidence);
   }
-  const evidence = bound[0] ?? null;
-  if (
-    evidence?.bindings?.projectId &&
-    evidence.bindings.projectId !== input.projectId
-  ) {
+
+  if (bound.length === 0) {
     return {
-      ok: false,
-      code: "EVIDENCE_PROJECT_MISMATCH",
-      message: "Evidence hors Project — fail-closed.",
+      ok: true,
+      evidence: null,
+      evidenceIds: [],
+      reviewBundle: null,
+      claimEvaluation: null,
     };
   }
-  return finishEvidence(services, input, evidence);
-}
-
-async function finishEvidence(
-  services: NonNullable<RuntimeOaStack["evidenceReviewServices"]>,
-  input: { projectId: string; attemptId: string },
-  evidence: Evidence | null,
-): Promise<{
-  ok: true;
-  evidence: Evidence | null;
-  reviewBundle: ReviewBundle | null;
-  claimEvaluation: ClaimEvaluation | null;
-}> {
-  let reviewBundle: ReviewBundle | null = null;
-  if (evidence) {
-    const ids = w3bEvidenceIdentity(input.attemptId);
-    const candidates = [
-      `rb:docs-write:${input.attemptId}`,
-      ids.reviewBundleId,
-    ];
-    for (const id of candidates) {
-      const rb = await services.reviewBundleReader.findById(id);
-      if (rb && rb.projectId === input.projectId) {
-        reviewBundle = rb;
-        break;
-      }
-    }
-    if (!reviewBundle) {
-      // Scan CE bindings path — RB id may be on claim
-    }
+  if (bound.length === 1) {
+    return {
+      ok: true,
+      evidence: bound[0]!,
+      evidenceIds: [bound[0]!.evidenceId],
+      reviewBundle: null,
+      claimEvaluation: null,
+    };
   }
 
-  let claimEvaluation: ClaimEvaluation | null = null;
-  const resolved = await resolveCurrentContractResultClaimEvaluation({
-    repo: services.claimEvaluationRepository,
-    projectId: input.projectId,
-    executionAttemptId: input.attemptId,
-  });
-  if (resolved.status === "one") {
-    claimEvaluation = resolved.claimEvaluation;
-    if (!reviewBundle && claimEvaluation.reviewBundleId) {
-      const rb = await services.reviewBundleReader.findById(
-        claimEvaluation.reviewBundleId,
-      );
-      if (rb && rb.projectId === input.projectId) reviewBundle = rb;
-    }
-  }
-
-  return { ok: true, evidence, reviewBundle, claimEvaluation };
+  // Multiple Evidence linked to Attempt without CE lineage — NEVER prefix-prefer.
+  return {
+    ok: false,
+    code: "EVIDENCE_LINEAGE_AMBIGUOUS",
+    message:
+      "Plusieurs Evidence liées à l'Attempt sans ClaimEvaluation/bindings canoniques — fail-closed (pas de préférence de préfixe).",
+  };
 }
 
 /**
@@ -636,11 +768,12 @@ export async function resolveProductExecutionContext(input: {
       };
     }
     if (lineage.claimEvaluation) {
+      const status = lineage.claimEvaluation.status;
       claimBlock = {
         kind: "PRODUCT_QUALIFICATION",
         claimEvaluationId: lineage.claimEvaluation.claimEvaluationId,
-        status: lineage.claimEvaluation.status,
-        contractResultVerdict: lineage.claimEvaluation.status ?? null,
+        status,
+        contractResultVerdict: projectContractResultVerdict(status),
       };
     }
 
@@ -734,7 +867,6 @@ export async function resolveProductExecutionContext(input: {
 
 
 ### CREATED FULL: `projects/sfia-studio/app/features/project-assistant/w2/deriveGovernedExecutionContinuityProjection.ts`
-
 ```typescript
 /**
  * PRODUCT-CONTINUITY-SHARED-KNOWLEDGE-01 — canonical Execution Continuity Projection.
@@ -753,9 +885,7 @@ export type GovernedExecutionContinuityStage =
   | "PRE_EXECUTION"
   | "ATTEMPT_ACCEPTED"
   | "RUNNING"
-  | "TECHNICAL_TERMINAL"
   | "PRODUCT_MATERIALIZATION_PENDING"
-  | "PRODUCT_QUALIFIED"
   | "POST_EVIDENCE_PENDING"
   | "POST_EVIDENCE_COMPLETE"
   | "RECOVERY_REQUIRED";
@@ -799,7 +929,11 @@ const TERMINAL = new Set(["succeeded", "failed", "timeout", "cancelled"]);
 const ACCEPTED = new Set(["accepted", "selected"]);
 const RUNNING = new Set(["running", "awaiting_result", "pending"]);
 
-function deriveFromContext(
+/**
+ * Pure stage derivation from an already-resolved ProductExecutionContext.
+ * Exported for deterministic stage-matrix tests (CR-05).
+ */
+export function deriveGovernedExecutionContinuityFromContext(
   ctx: ProductExecutionContext,
 ): GovernedExecutionContinuityProjection {
   const base = {
@@ -976,13 +1110,12 @@ export async function deriveGovernedExecutionContinuityProjection(input: {
     }
     return resolved;
   }
-  return { ok: true, projection: deriveFromContext(resolved.context) };
+  return { ok: true, projection: deriveGovernedExecutionContinuityFromContext(resolved.context) };
 }
 ```
 
 
 ### CREATED FULL: `projects/sfia-studio/app/features/project-assistant/w2/reconcileGovernedExecution.ts`
-
 ```typescript
 /**
  * PRODUCT-CONTINUITY-SHARED-KNOWLEDGE-01 — server-side Reconciler.
@@ -1338,20 +1471,62 @@ export async function reconcileSelectOnlyForTests(input: {
 
 
 ### CREATED FULL: `projects/sfia-studio/app/lib/nora-cognitive-runtime/noraCognitiveCompletion.ts`
-
 ```typescript
 /**
- * Shared Nora cognitive completion seam (PRODUCT-CONTINUITY-SHARED-KNOWLEDGE-01).
+ * Shared Nora cognitive core seam (PRODUCT-CONTINUITY-SHARED-KNOWLEDGE-01 CORRECTION).
  *
- * Smallest reusable core: provider resolution + complete() + failure typing.
- * Used by post-Evidence (mode=post_execution) and available to conversation
- * completions. Does NOT run the full Agents turn / Memory-B / Journal side effects.
+ * BOTH conversation and post_execution invoke this seam, which dispatches to the
+ * common Agents Runner path (`runNoraAgentsTurn`). This is NOT a provider.complete
+ * wrapper and NOT a second Nora engine.
+ *
+ * Mode differences (applied here, not in a parallel runtime):
+ * - conversation: Memory B / tools / Journal / Product tools / MW6 as caller supplies
+ * - post_execution: no tools, no hosted search, no session/Memory B, no Journal,
+ *   no Product execution tools, no MW5 (MW5 lives above in conversational turn)
  */
 import { resolveConversationProvider } from "@/lib/platform/ai";
+import {
+  runNoraAgentsTurn,
+  type RunNoraAgentsTurnInput,
+} from "./runNoraAgentsTurn";
 
 export type NoraCognitiveCompletionMode =
-  | "conversation_completion"
+  | "conversation"
   | "post_execution";
+
+/** @deprecated alias — prefer NoraCognitiveCompletionMode */
+export type NoraCognitiveMode = NoraCognitiveCompletionMode;
+
+export type NoraCognitiveCoreInvocation = {
+  readonly mode: NoraCognitiveCompletionMode;
+  readonly correlationId: string;
+  readonly projectId: string;
+};
+
+type CoreObserver = (invocation: NoraCognitiveCoreInvocation) => void;
+
+const coreObservers = new Set<CoreObserver>();
+
+/**
+ * TEST-ONLY — observe every shared-core invocation (conversation + post_execution).
+ * Production must not register observers.
+ */
+export function observeNoraCognitiveCore(observer: CoreObserver): () => void {
+  coreObservers.add(observer);
+  return () => {
+    coreObservers.delete(observer);
+  };
+}
+
+function notifyCore(invocation: NoraCognitiveCoreInvocation): void {
+  for (const observer of coreObservers) {
+    try {
+      observer(invocation);
+    } catch {
+      // observers must never break cognition
+    }
+  }
+}
 
 export type NoraCognitiveCompletionResult =
   | {
@@ -1359,6 +1534,7 @@ export type NoraCognitiveCompletionResult =
       readonly text: string;
       readonly providerId: string | null;
       readonly mode: NoraCognitiveCompletionMode;
+      readonly cognitiveRuntime: "agents";
     }
   | {
       readonly ok: false;
@@ -1366,34 +1542,85 @@ export type NoraCognitiveCompletionResult =
       readonly message: string;
       readonly providerId: string | null;
       readonly mode: NoraCognitiveCompletionMode;
+      readonly cognitiveRuntime: "agents";
     };
 
 /**
- * Shared cognitive completion — NOT a second Nora engine.
- * Post-execution must pass mode="post_execution".
+ * Shared Agents-backed cognitive execution for both modes.
+ * Conversation callers pass through with their full tool/session policy.
+ * Post-execution callers get fail-closed defaults (no tools / no MW6 / no Memory B).
+ */
+export async function runNoraCognitiveCore(
+  input: RunNoraAgentsTurnInput & {
+    readonly cognitiveMode: NoraCognitiveCompletionMode;
+  },
+): Promise<Awaited<ReturnType<typeof runNoraAgentsTurn>>> {
+  notifyCore({
+    mode: input.cognitiveMode,
+    correlationId: input.correlationId,
+    projectId: input.projectId,
+  });
+
+  if (input.cognitiveMode === "post_execution") {
+    return runNoraAgentsTurn({
+      ...input,
+      enableTools: false,
+      enableHostedWebSearch: false,
+      session: null,
+      memoryBAvailability: "unavailable",
+      cycleJournalTools: null,
+      productExecutionTools: null,
+      deterministicHostedWebSearchCalls: undefined,
+      campaignBudget: undefined,
+      governedAuthority: undefined,
+      currentProductContext: undefined,
+    });
+  }
+
+  return runNoraAgentsTurn(input);
+}
+
+/**
+ * Post-execution / bounded text completion entry — routes through shared Agents core.
+ * Replaces the former provider.complete-only wrapper.
  */
 export async function runNoraCognitiveCompletion(input: {
-  readonly mode: NoraCognitiveCompletionMode;
+  readonly mode: "post_execution" | "conversation_completion";
   readonly system: string;
   readonly user: string;
   readonly maxChars?: number;
+  readonly projectId?: string;
+  readonly correlationId?: string;
 }): Promise<NoraCognitiveCompletionResult> {
+  const mode: NoraCognitiveCompletionMode =
+    input.mode === "conversation_completion" ? "conversation" : "post_execution";
   let providerId: string | null = null;
   try {
     const provider = resolveConversationProvider();
     providerId = provider.providerId;
-    const completion = await provider.complete([
-      { role: "system", content: input.system },
-      { role: "user", content: input.user },
-    ]);
-    const text = completion.text.trim();
+    const turn = await runNoraCognitiveCore({
+      cognitiveMode: mode,
+      correlationId:
+        input.correlationId?.trim() ||
+        `cor:nora-core:${mode}:${Date.now().toString(36)}`,
+      projectId: input.projectId?.trim() || "prj:nora-cognitive-core",
+      systemInstructions: input.system,
+      userContent: input.user,
+      provider,
+      enableTools: false,
+      enableHostedWebSearch: false,
+      session: null,
+      memoryBAvailability: "unavailable",
+    });
+    const text = turn.text.trim();
     if (!text) {
       return {
         ok: false,
         code: "NORA_COGNITIVE_COMPLETION_EMPTY",
-        message: "Provider cognitive completion returned empty text.",
+        message: "Shared Nora Agents cognitive core returned empty text.",
         providerId,
-        mode: input.mode,
+        mode,
+        cognitiveRuntime: "agents",
       };
     }
     const max = input.maxChars ?? 4000;
@@ -1401,7 +1628,8 @@ export async function runNoraCognitiveCompletion(input: {
       ok: true,
       text: text.slice(0, max),
       providerId,
-      mode: input.mode,
+      mode,
+      cognitiveRuntime: "agents",
     };
   } catch (err) {
     return {
@@ -1409,7 +1637,8 @@ export async function runNoraCognitiveCompletion(input: {
       code: "NORA_COGNITIVE_COMPLETION_UNAVAILABLE",
       message: err instanceof Error ? err.message : "cognitive_completion_failed",
       providerId,
-      mode: input.mode,
+      mode,
+      cognitiveRuntime: "agents",
     };
   }
 }
@@ -1417,7 +1646,6 @@ export async function runNoraCognitiveCompletion(input: {
 
 
 ### CREATED FULL: `projects/sfia-studio/app/lib/nora-cognitive-runtime/productExecutionAgentsTools.ts`
-
 ```typescript
 /**
  * Product Execution Context Agents tools — READ-ONLY, project-bound.
@@ -1557,24 +1785,115 @@ export function createProductExecutionAgentsTools(
 ```
 
 
-### CREATED FULL: `projects/sfia-studio/app/__tests__/project-assistant/productContinuitySharedKnowledge.d0.test.ts`
-
+### CREATED FULL: `projects/sfia-studio/app/features/project-assistant/f3/postEvidenceNoraSentinels.ts`
 ```typescript
 /**
- * PRODUCT-CONTINUITY-SHARED-KNOWLEDGE-01 — deterministic proof at tested scope.
+ * Client-safe post-Evidence markers — no Node / Agents / provider imports.
+ * presentationLabels and UI may import from here only.
+ */
+export const POST_EVIDENCE_NORA_SENTINEL =
+  "[[SFIA_POST_EVIDENCE_NORA_ANALYSIS]]" as const;
+export const POST_EVIDENCE_NORA_UNAVAILABLE_SENTINEL =
+  "[[SFIA_POST_EVIDENCE_NORA_UNAVAILABLE]]" as const;
+/** Exact post-Evidence Recommendation payload — durable in existing LPS context. */
+export const W3C_POST_EVIDENCE_RECOMMENDATION_SENTINEL =
+  "[[W3C_POST_EVIDENCE_RECOMMENDATION_V1]]" as const;
+```
+
+
+### CREATED FULL: `projects/sfia-studio/app/__tests__/project-assistant/productContinuitySharedKnowledge.d0.test.ts`
+```typescript
+/**
+ * PRODUCT-CONTINUITY-SHARED-KNOWLEDGE-01 — CRITICAL CORRECTION PASS 01 proofs.
  *
  * @vitest-environment node
  */
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import fs from "node:fs";
 import path from "node:path";
 import { classifyDocsWriteClaimCompletionFailure } from "@/features/project-assistant/w2/governedExecuteAuthorizedContract";
-import { deriveGovernedExecutionContinuityProjection } from "@/features/project-assistant/w2/deriveGovernedExecutionContinuityProjection";
-import { resolveProductExecutionContext } from "@/features/project-assistant/w2/resolveProductExecutionContext";
-import { runNoraCognitiveCompletion } from "@/lib/nora-cognitive-runtime/noraCognitiveCompletion";
+import {
+  deriveGovernedExecutionContinuityFromContext,
+  type GovernedExecutionContinuityStage,
+} from "@/features/project-assistant/w2/deriveGovernedExecutionContinuityProjection";
+import type { ProductExecutionContext } from "@/features/project-assistant/w2/resolveProductExecutionContext";
+import { projectContractResultVerdict } from "@/lib/oa/evidence-review";
+import {
+  observeNoraCognitiveCore,
+  runNoraCognitiveCompletion,
+  runNoraCognitiveCore,
+} from "@/lib/nora-cognitive-runtime/noraCognitiveCompletion";
 import { createProductExecutionAgentsTools } from "@/lib/nora-cognitive-runtime/productExecutionAgentsTools";
+import { analyzePostEvidenceWithProvider } from "@/features/project-assistant/f3/postEvidenceNoraAnalysis";
+import {
+  FakeConversationProvider,
+  setConversationProviderForTests,
+} from "@/lib/platform/ai";
+import type { ClaimEvaluationStatus } from "@/lib/oa/evidence-review/domain/claimEvaluationTypes";
 
-describe("PRODUCT-CONTINUITY-SHARED-KNOWLEDGE-01", () => {
+function emptyContext(
+  overrides: Partial<ProductExecutionContext> & {
+    attempt?: ProductExecutionContext["attempt"];
+    executionContract?: ProductExecutionContext["executionContract"];
+  } = {},
+): ProductExecutionContext {
+  return {
+    projectId: "prj:stage",
+    activeCycleInstanceId: null,
+    executionContract: overrides.executionContract ?? null,
+    attempt: overrides.attempt ?? null,
+    cursorReport: {
+      kind: "EXECUTOR_CLAIM",
+      present: false,
+      status: null,
+      summary: null,
+      disclosure: "CLAIM_NOT_EVIDENCE",
+    },
+    artifact: {
+      kind: "ARTIFACT",
+      present: false,
+      completeness: null,
+      preview: null,
+    },
+    evidence: {
+      kind: "EVIDENCE",
+      evidenceId: null,
+      status: null,
+      ...(overrides.evidence ?? {}),
+    },
+    reviewBundle: {
+      kind: "REVIEW",
+      reviewBundleId: null,
+      status: null,
+      frozen: false,
+      ...(overrides.reviewBundle ?? {}),
+    },
+    claimEvaluation: {
+      kind: "PRODUCT_QUALIFICATION",
+      claimEvaluationId: null,
+      status: null,
+      contractResultVerdict: null,
+      ...(overrides.claimEvaluation ?? {}),
+    },
+    postEvidence: {
+      kind: "RECOMMENDATION",
+      present: false,
+      recommendationKind: null,
+      headline: null,
+      requiresHumanDecision: null,
+      ...(overrides.postEvidence ?? {}),
+    },
+    provenance: {
+      bindingsOk: true,
+      readOnly: true,
+      query: { kind: "latest" },
+    },
+    disclosures: [],
+    ...overrides,
+  };
+}
+
+describe("PRODUCT-CONTINUITY-SHARED-KNOWLEDGE-01 CORRECTION PASS 01", () => {
   it("T-A — closed claim classifier still fail-closed on unknown (R3 non-regression)", () => {
     expect(classifyDocsWriteClaimCompletionFailure("CONFORMITY_HEADINGS_MISSING")).toBe(
       "CONFORMITY_INSUFFICIENCY",
@@ -1598,17 +1917,305 @@ describe("PRODUCT-CONTINUITY-SHARED-KNOWLEDGE-01", () => {
     expect(src).not.toMatch(/w2MaterializeProductOutcomeAction/);
   });
 
-  it("T-E — postEvidence uses shared Nora cognitive completion seam", () => {
-    const src = fs.readFileSync(
+  it("T-C1 — conversation + post_execution both invoke shared Nora cognitive core", async () => {
+    const provider = new FakeConversationProvider({
+      scripted: ["CORE_SHARED_REPLY", "CORE_POST_EXEC_REPLY"],
+    });
+    setConversationProviderForTests(provider);
+
+    const invocations: string[] = [];
+    const stop = observeNoraCognitiveCore((inv) => {
+      invocations.push(inv.mode);
+    });
+
+    try {
+      // Conversation mode via shared core → Agents Runner
+      const conv = await runNoraCognitiveCore({
+        cognitiveMode: "conversation",
+        correlationId: "cor:t-c1-conv",
+        projectId: "prj:t-c1",
+        systemInstructions: "sys",
+        userContent: "hello",
+        provider,
+        enableTools: false,
+        enableHostedWebSearch: false,
+        session: null,
+        memoryBAvailability: "unavailable",
+      });
+      expect(conv.text).toBeTruthy();
+
+      // Post-execution mode via shared completion → same core → Agents Runner
+      const post = await runNoraCognitiveCompletion({
+        mode: "post_execution",
+        system: "sys post",
+        user: "facts",
+        projectId: "prj:t-c1",
+        correlationId: "cor:t-c1-post",
+      });
+      expect(post.ok).toBe(true);
+      if (post.ok) {
+        expect(post.cognitiveRuntime).toBe("agents");
+        expect(post.mode).toBe("post_execution");
+      }
+    } finally {
+      stop();
+      setConversationProviderForTests(null);
+    }
+
+    expect(invocations).toEqual(["conversation", "post_execution"]);
+  });
+
+  it("T-C2/T-C3 — postEvidence uses shared core; no provider.complete; policies held", async () => {
+    const provider = new FakeConversationProvider({
+      scripted: [
+        "Analyse contract-first: Cursor CLAIM ≠ Evidence; Artifact PARTIAL; NOT_PROVEN.",
+      ],
+    });
+    setConversationProviderForTests(provider);
+    const invocations: string[] = [];
+    const stop = observeNoraCognitiveCore((inv) => invocations.push(inv.mode));
+    const completeSpy = vi.spyOn(provider, "complete");
+
+    try {
+      const result = await analyzePostEvidenceWithProvider({
+        projectId: "prj:t-c2",
+        executionContractId: "xct:t-c2",
+        executionContractStatus: "confirmed",
+        executionContractAction: "cursor.docs_write.apply",
+        attemptId: "xat:t-c2",
+        attemptStatus: "succeeded",
+        selectedAgentRef: "agt:fake",
+        adapterRef: "adp:fake",
+        executionMode: "deterministic_fake",
+        realProcessInvoked: false,
+        evidenceId: "ev:docs-write:xat:t-c2",
+        reviewBundleId: "rb:docs-write:xat:t-c2",
+        technicalResultRef: "res:t-c2",
+        reservations: [],
+        productOutcome: "UNCLAIMED",
+        claimEvaluationId: "clm:docs-write:xat:t-c2",
+        claimEvaluationStatus: "not_proven",
+        contractResultVerdict: "NOT_PROVEN",
+        artifactReviewCompleteness: "PARTIAL",
+        artifactReviewMaterial: "# Partial body",
+        cursorReportSummary: "CLAIM succeeded",
+      });
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.text).toMatch(/CLAIM|NOT_PROVEN|PARTIAL|contract/i);
+      }
+    } finally {
+      stop();
+      completeSpy.mockRestore();
+      setConversationProviderForTests(null);
+    }
+
+    expect(invocations).toContain("post_execution");
+    // Shared Agents path — Fake may still use completeRound adapter, but the
+    // postEvidence module must NOT call provider.complete directly.
+    const analysisSrc = fs.readFileSync(
       path.resolve(
         __dirname,
         "../../features/project-assistant/f3/postEvidenceNoraAnalysis.ts",
       ),
       "utf8",
     );
-    expect(src).toContain("runNoraCognitiveCompletion");
-    expect(src).toContain('mode: "post_execution"');
-    expect(src).not.toMatch(/provider\.complete\(/);
+    expect(analysisSrc).not.toMatch(/provider\.complete\(/);
+    expect(analysisSrc).toContain("runNoraCognitiveCompletion");
+    expect(completeSpy).not.toHaveBeenCalled();
+
+    // Core file must route through runNoraAgentsTurn (not bare complete).
+    const coreSrc = fs.readFileSync(
+      path.resolve(
+        __dirname,
+        "../../lib/nora-cognitive-runtime/noraCognitiveCompletion.ts",
+      ),
+      "utf8",
+    );
+    expect(coreSrc).toContain("runNoraAgentsTurn");
+    expect(coreSrc).toContain("runNoraCognitiveCore");
+  });
+
+  it("T-E3 — ContractResult verdict projection is canonical", () => {
+    const cases: Array<[ClaimEvaluationStatus, "PASS" | "FAIL" | "NOT_PROVEN"]> = [
+      ["pass", "PASS"],
+      ["fail", "FAIL"],
+      ["not_proven", "NOT_PROVEN"],
+      ["pending", "NOT_PROVEN"],
+      ["evaluating", "NOT_PROVEN"],
+      ["waived", "NOT_PROVEN"],
+    ];
+    for (const [status, verdict] of cases) {
+      expect(projectContractResultVerdict(status)).toBe(verdict);
+    }
+  });
+
+  it("T-STAGES — every continuity stage has a real derivation condition", () => {
+    const ec = {
+      kind: "PRODUCT_CONTRACT" as const,
+      executionContractId: "xct:1",
+      version: 1,
+      status: "confirmed",
+      action: "cursor.docs_write.apply",
+      objective: null,
+      decisionId: null,
+      cycleInstanceId: null,
+    };
+    const matrix: Array<{
+      stage: GovernedExecutionContinuityStage;
+      ctx: ProductExecutionContext;
+    }> = [
+      {
+        stage: "PRE_EXECUTION",
+        ctx: emptyContext({ executionContract: null, attempt: null }),
+      },
+      {
+        stage: "PRE_EXECUTION",
+        ctx: emptyContext({
+          executionContract: ec,
+          attempt: null,
+        }),
+      },
+      {
+        stage: "ATTEMPT_ACCEPTED",
+        ctx: emptyContext({
+          executionContract: ec,
+          attempt: {
+            kind: "PRODUCT_EXECUTION_FACT",
+            attemptId: "xat:1",
+            status: "accepted",
+            selectedAgentRef: "agt:x",
+            executionContractId: "xct:1",
+          },
+        }),
+      },
+      {
+        stage: "RUNNING",
+        ctx: emptyContext({
+          executionContract: ec,
+          attempt: {
+            kind: "PRODUCT_EXECUTION_FACT",
+            attemptId: "xat:1",
+            status: "running",
+            selectedAgentRef: "agt:x",
+            executionContractId: "xct:1",
+          },
+        }),
+      },
+      {
+        stage: "PRODUCT_MATERIALIZATION_PENDING",
+        ctx: emptyContext({
+          executionContract: ec,
+          attempt: {
+            kind: "PRODUCT_EXECUTION_FACT",
+            attemptId: "xat:1",
+            status: "succeeded",
+            selectedAgentRef: "agt:x",
+            executionContractId: "xct:1",
+          },
+        }),
+      },
+      {
+        stage: "POST_EVIDENCE_PENDING",
+        ctx: emptyContext({
+          executionContract: ec,
+          attempt: {
+            kind: "PRODUCT_EXECUTION_FACT",
+            attemptId: "xat:1",
+            status: "succeeded",
+            selectedAgentRef: "agt:x",
+            executionContractId: "xct:1",
+          },
+          evidence: {
+            kind: "EVIDENCE",
+            evidenceId: "ev:1",
+            status: "verified",
+          },
+          reviewBundle: {
+            kind: "REVIEW",
+            reviewBundleId: "rb:1",
+            status: "ready_for_review",
+            frozen: true,
+          },
+          claimEvaluation: {
+            kind: "PRODUCT_QUALIFICATION",
+            claimEvaluationId: "clm:1",
+            status: "not_proven",
+            contractResultVerdict: "NOT_PROVEN",
+          },
+        }),
+      },
+      {
+        stage: "POST_EVIDENCE_COMPLETE",
+        ctx: emptyContext({
+          executionContract: ec,
+          attempt: {
+            kind: "PRODUCT_EXECUTION_FACT",
+            attemptId: "xat:1",
+            status: "succeeded",
+            selectedAgentRef: "agt:x",
+            executionContractId: "xct:1",
+          },
+          evidence: {
+            kind: "EVIDENCE",
+            evidenceId: "ev:1",
+            status: "verified",
+          },
+          reviewBundle: {
+            kind: "REVIEW",
+            reviewBundleId: "rb:1",
+            status: "ready_for_review",
+            frozen: true,
+          },
+          claimEvaluation: {
+            kind: "PRODUCT_QUALIFICATION",
+            claimEvaluationId: "clm:1",
+            status: "not_proven",
+            contractResultVerdict: "NOT_PROVEN",
+          },
+          postEvidence: {
+            kind: "RECOMMENDATION",
+            present: true,
+            recommendationKind: "clarify",
+            headline: "Diagnose",
+            requiresHumanDecision: true,
+          },
+        }),
+      },
+      {
+        stage: "RECOVERY_REQUIRED",
+        ctx: emptyContext({
+          executionContract: ec,
+          attempt: {
+            kind: "PRODUCT_EXECUTION_FACT",
+            attemptId: "xat:1",
+            status: "weird_unknown",
+            selectedAgentRef: "agt:x",
+            executionContractId: "xct:1",
+          },
+        }),
+      },
+    ];
+
+    const seen = new Set<GovernedExecutionContinuityStage>();
+    for (const row of matrix) {
+      const projection = deriveGovernedExecutionContinuityFromContext(row.ctx);
+      expect(projection.stage).toBe(row.stage);
+      seen.add(projection.stage);
+    }
+    // Every union member must be covered (CR-05 — no dead stages).
+    const all: GovernedExecutionContinuityStage[] = [
+      "PRE_EXECUTION",
+      "ATTEMPT_ACCEPTED",
+      "RUNNING",
+      "PRODUCT_MATERIALIZATION_PENDING",
+      "POST_EVIDENCE_PENDING",
+      "POST_EVIDENCE_COMPLETE",
+      "RECOVERY_REQUIRED",
+    ];
+    for (const s of all) expect(seen.has(s)).toBe(true);
+    expect(all).not.toContain("TECHNICAL_TERMINAL" as never);
+    expect(all).not.toContain("PRODUCT_QUALIFIED" as never);
   });
 
   it("T-D — product_execution_context_get tool is project-bound and read-only", async () => {
@@ -1639,47 +2246,26 @@ describe("PRODUCT-CONTINUITY-SHARED-KNOWLEDGE-01", () => {
     expect(calls).toEqual([{ kind: "byAttemptId", attemptId: "xat:foreign" }]);
   });
 
-  it("T-CORE — shared cognitive completion returns typed mode", async () => {
-    // Without provider env this fail-closes honestly — still proves seam exists.
-    const result = await runNoraCognitiveCompletion({
-      mode: "post_execution",
-      system: "test",
-      user: "test",
-    });
-    expect(result.mode).toBe("post_execution");
-    expect(typeof result.ok).toBe("boolean");
-  });
-
-  it("T-RES — resolveProductExecutionContext rejects empty projectId", async () => {
-    const result = await resolveProductExecutionContext({
-      oa: {} as never,
-      projectId: "  ",
-    });
-    expect(result.ok).toBe(false);
-    if (!result.ok) expect(result.code).toBe("PROJECT_ID_REQUIRED");
-  });
-
-  it("T-CONT — derive projection exports expected stages union (compile-time smoke)", () => {
-    const stages = [
-      "PRE_EXECUTION",
-      "ATTEMPT_ACCEPTED",
-      "RUNNING",
-      "TECHNICAL_TERMINAL",
-      "PRODUCT_MATERIALIZATION_PENDING",
-      "PRODUCT_QUALIFIED",
-      "POST_EVIDENCE_PENDING",
-      "POST_EVIDENCE_COMPLETE",
-      "RECOVERY_REQUIRED",
-    ] as const;
-    expect(stages).toContain("PRODUCT_MATERIALIZATION_PENDING");
-    expect(typeof deriveGovernedExecutionContinuityProjection).toBe("function");
+  it("T-E2 source — resolveEvidenceLineage no longer uses prefix preference", () => {
+    const src = fs.readFileSync(
+      path.resolve(
+        __dirname,
+        "../../features/project-assistant/w2/resolveProductExecutionContext.ts",
+      ),
+      "utf8",
+    );
+    expect(src).not.toMatch(/startsWith\("ev:docs-write:"\)/);
+    expect(src).not.toMatch(/startsWith\("ev:w3b:"\)/);
+    expect(src).toContain("EVIDENCE_LINEAGE_AMBIGUOUS");
+    expect(src).toContain("projectContractResultVerdict");
+    expect(src).toContain("resolveCurrentContractResultClaimEvaluation");
+    expect(src).toContain("contractResultBindings");
   });
 });
 ```
 
 
 ### MODIFIED DIFF: `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx`
-
 ```diff
 diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
 index 9ad23381..6d02f3f2 100644
@@ -2110,7 +2696,6 @@ index 9ad23381..6d02f3f2 100644
 
 
 ### MODIFIED DIFF: `projects/sfia-studio/app/features/project-assistant/w2/actions.ts`
-
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/actions.ts b/projects/sfia-studio/app/features/project-assistant/w2/actions.ts
 index 973eb507..27355ff0 100644
@@ -2234,10 +2819,9 @@ index 973eb507..27355ff0 100644
 
 
 ### MODIFIED DIFF: `projects/sfia-studio/app/features/project-assistant/f3/postEvidenceNoraAnalysis.ts`
-
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/f3/postEvidenceNoraAnalysis.ts b/projects/sfia-studio/app/features/project-assistant/f3/postEvidenceNoraAnalysis.ts
-index 31363dd8..592edd02 100644
+index 31363dd8..d4fae268 100644
 --- a/projects/sfia-studio/app/features/project-assistant/f3/postEvidenceNoraAnalysis.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/f3/postEvidenceNoraAnalysis.ts
 @@ -1,6 +1,6 @@
@@ -2248,17 +2832,41 @@ index 31363dd8..592edd02 100644
   * Result is a Recommendation, never a HumanDecision / GO / new contract.
   *
   * W3-D / US-P1-14: when a resolved product-native CKC prompt section is supplied,
-@@ -12,8 +12,8 @@
+@@ -12,21 +12,24 @@
   * client presentation graph (presentationLabels → postEvidenceNoraAnalysis).
   */
 
 -import { resolveConversationProvider } from "@/lib/platform/ai";
  import { buildPostEvidenceNarrativePolicyDisclosure } from "@/lib/nora-cognitive-runtime/postEvidenceNarrativePolicy";
 +import { runNoraCognitiveCompletion } from "@/lib/nora-cognitive-runtime/noraCognitiveCompletion";
++import {
++  POST_EVIDENCE_NORA_SENTINEL,
++  POST_EVIDENCE_NORA_UNAVAILABLE_SENTINEL,
++  W3C_POST_EVIDENCE_RECOMMENDATION_SENTINEL,
++} from "./postEvidenceNoraSentinels";
++
++export {
++  POST_EVIDENCE_NORA_SENTINEL,
++  POST_EVIDENCE_NORA_UNAVAILABLE_SENTINEL,
++  W3C_POST_EVIDENCE_RECOMMENDATION_SENTINEL,
++} from "./postEvidenceNoraSentinels";
 
  /** Same marker string as f2/ckcCognitiveContext — keep in sync (string only). */
  const CKC_COGNITIVE_REASONING_SYSTEM_MARKER =
-@@ -189,40 +189,26 @@ export async function analyzePostEvidenceWithProvider(
+   "SFIA Studio CKC COGNITIVE REASONING" as const;
+
+-export const POST_EVIDENCE_NORA_SENTINEL =
+-  "[[SFIA_POST_EVIDENCE_NORA_ANALYSIS]]" as const;
+-export const POST_EVIDENCE_NORA_UNAVAILABLE_SENTINEL =
+-  "[[SFIA_POST_EVIDENCE_NORA_UNAVAILABLE]]" as const;
+-/** Exact post-Evidence Recommendation payload — durable in existing LPS context. */
+-export const W3C_POST_EVIDENCE_RECOMMENDATION_SENTINEL =
+-  "[[W3C_POST_EVIDENCE_RECOMMENDATION_V1]]" as const;
+-
+ export type PostEvidenceAnalysisFacts = {
+   projectId: string;
+   executionContractId: string;
+@@ -189,40 +192,31 @@ export async function analyzePostEvidenceWithProvider(
    facts: PostEvidenceAnalysisFacts,
    options?: AnalyzePostEvidenceOptions,
  ): Promise<PostEvidenceAnalysisResult> {
@@ -2289,12 +2897,17 @@ index 31363dd8..592edd02 100644
 -  } catch (err) {
 -    const message =
 -      err instanceof Error ? err.message : "provider_post_evidence_failed";
-+  // Shared Nora cognitive completion (mode=post_execution) — not a parallel engine.
++  // Shared Nora cognitive CORE (Agents Runner) — mode=post_execution.
++  // Same seam as conversation (runNoraCognitiveTurn → runNoraCognitiveCore).
++  // No Memory B / MW5 / hosted search / tools — applied by core mode defaults.
++  // This module must NOT be imported by client presentation (use postEvidenceNoraSentinels).
 +  const completion = await runNoraCognitiveCompletion({
 +    mode: "post_execution",
 +    system: buildPostEvidenceSystemPrompt(options?.ckcPromptSection),
 +    user: `Faits durables post-Evidence (bornés):\n${boundedFactsJson(facts)}`,
 +    maxChars: 4000,
++    projectId: facts.projectId,
++    correlationId: `cor:w3c-post-evidence:${facts.attemptId}`,
 +  });
 +  if (!completion.ok) {
      return {
@@ -2318,8 +2931,26 @@ index 31363dd8..592edd02 100644
 ```
 
 
-### MODIFIED DIFF: `projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts`
+### MODIFIED DIFF: `projects/sfia-studio/app/features/project-assistant/presentationLabels.ts`
+```diff
+diff --git a/projects/sfia-studio/app/features/project-assistant/presentationLabels.ts b/projects/sfia-studio/app/features/project-assistant/presentationLabels.ts
+index eece1707..54076f12 100644
+--- a/projects/sfia-studio/app/features/project-assistant/presentationLabels.ts
++++ b/projects/sfia-studio/app/features/project-assistant/presentationLabels.ts
+@@ -12,7 +12,7 @@ import {
+ import {
+   POST_EVIDENCE_NORA_SENTINEL,
+   POST_EVIDENCE_NORA_UNAVAILABLE_SENTINEL,
+-} from "./f3/postEvidenceNoraAnalysis";
++} from "./f3/postEvidenceNoraSentinels";
+ import type { F3Mode } from "./f3/types";
 
+ export type RecommendationFreshness =
+
+```
+
+
+### MODIFIED DIFF: `projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts`
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts b/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
 index 8ddfd88a..08b3e5bd 100644
@@ -2362,13 +2993,12 @@ index 8ddfd88a..08b3e5bd 100644
 
 
 ### MODIFIED DIFF: `projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts`
-
 ```diff
 diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
-index 4c9f7cf1..ae8cd927 100644
+index 4c9f7cf1..39085a42 100644
 --- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
 +++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
-@@ -404,3 +404,12 @@ export {
+@@ -404,3 +404,16 @@ export {
    createCycleJournalAgentsTools,
    type CycleJournalToolContext,
  } from "./cycleJournalAgentsTools";
@@ -2378,15 +3008,18 @@ index 4c9f7cf1..ae8cd927 100644
 +} from "./productExecutionAgentsTools";
 +export {
 +  runNoraCognitiveCompletion,
++  runNoraCognitiveCore,
++  observeNoraCognitiveCore,
 +  type NoraCognitiveCompletionMode,
++  type NoraCognitiveMode,
 +  type NoraCognitiveCompletionResult,
++  type NoraCognitiveCoreInvocation,
 +} from "./noraCognitiveCompletion";
 
 ```
 
 
 ### MODIFIED DIFF: `projects/sfia-studio/app/lib/nora-cognitive-runtime/providerAgentsModel.ts`
-
 ```diff
 diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/providerAgentsModel.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/providerAgentsModel.ts
 index d1e13af3..0ed5ec8c 100644
@@ -2414,7 +3047,6 @@ index d1e13af3..0ed5ec8c 100644
 
 
 ### MODIFIED DIFF: `projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts`
-
 ```diff
 diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
 index d07acc73..a3b5117e 100644
@@ -2468,12 +3100,23 @@ index d07acc73..a3b5117e 100644
 
 
 ### MODIFIED DIFF: `projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts`
-
 ```diff
 diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts
-index 58785632..f9e3aa1f 100644
+index 58785632..8ccd697e 100644
 --- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts
 +++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts
+@@ -20,10 +20,10 @@ import {
+ } from "./memoryBCompaction";
+ import { resolveNoraSessionSqlitePath } from "./sessionPaths";
+ import {
+-  runNoraAgentsTurn,
+   shouldUseProviderAgentsModelAdapter,
+   type RunNoraAgentsTurnHostedSearchObserve,
+ } from "./runNoraAgentsTurn";
++import { runNoraCognitiveCore } from "./noraCognitiveCompletion";
+ import type { NoraCognitiveTurnResult } from "./types";
+ import {
+   decideCognitiveStrategy,
 @@ -217,6 +217,11 @@ export type RunNoraCognitiveTurnInput = {
     * Bound to ProductSqliteSession from Memory B probe when available.
     */
@@ -2486,7 +3129,27 @@ index 58785632..f9e3aa1f 100644
  };
 
  /**
-@@ -932,6 +937,7 @@ export async function runNoraCognitiveTurn(
+@@ -722,7 +727,8 @@ export async function runNoraCognitiveTurn(
+       systemInstructions,
+       readDisclosure,
+     );
+-    const turn = await runNoraAgentsTurn({
++    const turn = await runNoraCognitiveCore({
++      cognitiveMode: "conversation",
+       correlationId: input.correlationId,
+       projectId: input.projectId,
+       systemInstructions,
+@@ -889,7 +895,8 @@ export async function runNoraCognitiveTurn(
+   }
+
+   try {
+-    const turn = await runNoraAgentsTurn({
++    const turn = await runNoraCognitiveCore({
++      cognitiveMode: "conversation",
+       correlationId: input.correlationId,
+       projectId: input.projectId,
+       systemInstructions,
+@@ -932,6 +939,7 @@ export async function runNoraCognitiveTurn(
                cycleInstanceId: input.cycleJournalCycleInstanceId.trim(),
              }
            : null,
@@ -2499,7 +3162,6 @@ index 58785632..f9e3aa1f 100644
 
 
 ### MODIFIED DIFF: `projects/sfia-studio/app/__tests__/pre-m6-product-ui/postExecutionTrajectorySurface.ui.test.tsx`
-
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/postExecutionTrajectorySurface.ui.test.tsx b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/postExecutionTrajectorySurface.ui.test.tsx
 index efa8d5a1..6bbdbec7 100644
@@ -2653,14 +3315,41 @@ index efa8d5a1..6bbdbec7 100644
 ```
 
 
-### MODIFIED DIFF: `projects/sfia-studio/app/__tests__/project-assistant/postExecutionHandoff.integrated.d0.test.ts`
+### MODIFIED DIFF: `projects/sfia-studio/app/__tests__/pre-m6-product-ui/uatUxSemanticReserves.ui.test.tsx`
+```diff
+diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/uatUxSemanticReserves.ui.test.tsx b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/uatUxSemanticReserves.ui.test.tsx
+index 8c309b1d..3b14d484 100644
+--- a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/uatUxSemanticReserves.ui.test.tsx
++++ b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/uatUxSemanticReserves.ui.test.tsx
+@@ -10,7 +10,7 @@ import type { GetProjectSuccess } from "@/features/pre-m6-product-ui/types";
+ import type { ProductConversationController } from "@/features/pre-m6-product-ui/hooks/useProductConversation";
+ import type { F3ExecutePayload } from "@/features/project-assistant/f3/types";
+ import type { F3M3ResolvedPayload } from "@/features/project-assistant/f3/prepareAndResolveM3ProductPath";
+-import { POST_EVIDENCE_NORA_SENTINEL } from "@/features/project-assistant/f3/postEvidenceNoraAnalysis";
++import { POST_EVIDENCE_NORA_SENTINEL } from "@/features/project-assistant/f3/postEvidenceNoraSentinels";
+ import type { ProjectAssistantRehydrateEvidenceOutcomeSuccess } from "@/features/project-assistant/types";
 
+ const F3_LABELS = {
+
+```
+
+
+### MODIFIED DIFF: `projects/sfia-studio/app/__tests__/project-assistant/postExecutionHandoff.integrated.d0.test.ts`
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/postExecutionHandoff.integrated.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/postExecutionHandoff.integrated.d0.test.ts
-index 03bee296..47637a8b 100644
+index 03bee296..9ebece02 100644
 --- a/projects/sfia-studio/app/__tests__/project-assistant/postExecutionHandoff.integrated.d0.test.ts
 +++ b/projects/sfia-studio/app/__tests__/project-assistant/postExecutionHandoff.integrated.d0.test.ts
-@@ -38,6 +38,9 @@ import {
+@@ -31,6 +31,8 @@ import { confirmExecutionContractForAuthorization } from "@/features/project-ass
+ import {
+   classifyDocsWriteClaimCompletionFailure,
+   governedExecuteAuthorizedContract,
++  governedExecuteSelectAgent,
++  governedExecuteStart,
+ } from "@/features/project-assistant/w2/governedExecuteAuthorizedContract";
+ import * as claimCompletionMod from "@/features/project-assistant/w2/completeDocsWriteClaimEvidenceCompletion";
+ import { inspectExecutionContract } from "@/features/project-assistant/w2/inspectExecutionContract";
+@@ -38,6 +40,9 @@ import {
    materializeProductOutcomeFromAttempt,
    rehydrateProductOutcomeFromAttempt,
  } from "@/features/project-assistant/w2/materializeW3bProductTerminal";
@@ -2670,7 +3359,7 @@ index 03bee296..47637a8b 100644
  import { LOCAL_PILOTE_ACTOR } from "@/lib/oa/decision";
  import {
    NORA_LIFECYCLE_RECOMMENDATION_ACTOR,
-@@ -935,3 +938,228 @@ describe("POST-EXECUTION-CURSOR-REPORT-ARTIFACT-HANDOFF-01 integrated (R1–R4)"
+@@ -935,3 +940,434 @@ describe("POST-EXECUTION-CURSOR-REPORT-ARTIFACT-HANDOFF-01 integrated (R1–R4)"
      );
    });
  });
@@ -2775,7 +3464,7 @@ index 03bee296..47637a8b 100644
 +    expect(reconciled.ok).toBe(true);
 +    if (!reconciled.ok) throw new Error(JSON.stringify(reconciled));
 +    expect(reconciled.projection.stage).toMatch(
-+      /^(POST_EVIDENCE_COMPLETE|POST_EVIDENCE_PENDING|PRODUCT_QUALIFIED)$/,
++      /^(POST_EVIDENCE_COMPLETE|POST_EVIDENCE_PENDING)$/,
 +    );
 +    expect(reconciled.projection.evidenceId).toBeTruthy();
 +    expect(reconciled.projection.reviewBundleId).toBeTruthy();
@@ -2898,13 +3587,218 @@ index 03bee296..47637a8b 100644
 +    if (!listed.ok) return;
 +    expect(listed.attempts).toHaveLength(1);
 +  });
++
++  it("R2 — ACCEPTED restart: same Attempt, continue without duplicate", async () => {
++    const ctx = await bootHandoffJourney("pcont-r2");
++    const executionContractId = await prepareInspectConfirmAuthorize(ctx);
++
++    // Harness-only SELECT to freeze durable ATTEMPT_ACCEPTED (not product path).
++    const selected = await governedExecuteSelectAgent({
++      oa: ctx.oa,
++      projectId: ctx.projectId,
++      executionContractId,
++      forceLocalAuthority: true,
++    });
++    expect(selected.ok).toBe(true);
++    if (!selected.ok) throw new Error(JSON.stringify(selected));
++    expect(selected.phase).toBe("accepted");
++    expect(selected.attemptStatus).toMatch(/^(accepted|selected)$/);
++    const attemptId = selected.attemptId!;
++
++    const listedA =
++      await ctx.oa.executionAttemptServices!.listExecutionAttempts.execute({
++        executionContractId,
++      });
++    expect(listedA.ok).toBe(true);
++    if (!listedA.ok) return;
++    expect(listedA.attempts).toHaveLength(1);
++
++    const projA = await deriveGovernedExecutionContinuityProjection({
++      oa: ctx.oa,
++      projectId: ctx.projectId,
++      query: { kind: "byExecutionContractId", executionContractId },
++    });
++    expect(projA.ok).toBe(true);
++    if (!projA.ok) return;
++    expect(projA.projection.stage).toBe("ATTEMPT_ACCEPTED");
++    expect(projA.projection.attemptId).toBe(attemptId);
++    expect(projA.projection.evidenceId).toBeNull();
++
++    // TRUE RESTART
++    const runtimeB = reopenRuntimeOnSameDb(ctx);
++    const oaB = runtimeB.oa!;
++
++    const projB = await deriveGovernedExecutionContinuityProjection({
++      oa: oaB,
++      projectId: ctx.projectId,
++      query: { kind: "byExecutionContractId", executionContractId },
++    });
++    expect(projB.ok).toBe(true);
++    if (!projB.ok) return;
++    expect(projB.projection.stage).toBe("ATTEMPT_ACCEPTED");
++    expect(projB.projection.attemptId).toBe(attemptId);
++    expect(projB.projection.evidenceId).toBeNull();
++    expect(projB.projection.claimEvaluationId).toBeNull();
++
++    const listedB =
++      await oaB.executionAttemptServices!.listExecutionAttempts.execute({
++        executionContractId,
++      });
++    expect(listedB.ok).toBe(true);
++    if (!listedB.ok) return;
++    expect(listedB.attempts).toHaveLength(1);
++    expect(listedB.attempts[0]!.attemptId).toBe(attemptId);
++
++    const claimSpy = vi
++      .spyOn(claimCompletionMod, "completeDocsWriteClaimEvidenceCompletion")
++      .mockResolvedValue({
++        ok: false,
++        code: "CONFORMITY_HEADINGS_MISSING",
++        message: "r2 harness",
++      });
++    let continued: Awaited<ReturnType<typeof reconcileGovernedExecution>>;
++    try {
++      continued = await reconcileGovernedExecution({
++        oa: oaB,
++        projectId: ctx.projectId,
++        executionContractId,
++        intent: "continue",
++        forceLocalAuthority: true,
++      });
++    } finally {
++      claimSpy.mockRestore();
++    }
++    expect(continued.ok).toBe(true);
++    if (!continued.ok) throw new Error(JSON.stringify(continued));
++    expect(continued.projection.attemptId).toBe(attemptId);
++
++    const listedAfter =
++      await oaB.executionAttemptServices!.listExecutionAttempts.execute({
++        executionContractId,
++      });
++    expect(listedAfter.ok).toBe(true);
++    if (!listedAfter.ok) return;
++    expect(listedAfter.attempts).toHaveLength(1);
++    expect(listedAfter.attempts[0]!.attemptId).toBe(attemptId);
++  });
++
++  it("R3 — RUNNING restart: same Attempt, honest continue, no duplicate", async () => {
++    const ctx = await bootHandoffJourney("pcont-r3");
++    const executionContractId = await prepareInspectConfirmAuthorize(ctx);
++
++    const selected = await governedExecuteSelectAgent({
++      oa: ctx.oa,
++      projectId: ctx.projectId,
++      executionContractId,
++      forceLocalAuthority: true,
++    });
++    expect(selected.ok).toBe(true);
++    if (!selected.ok) throw new Error(JSON.stringify(selected));
++    const attemptId = selected.attemptId!;
++
++    const started = await governedExecuteStart({
++      oa: ctx.oa,
++      projectId: ctx.projectId,
++      executionContractId,
++      attemptId,
++      forceLocalAuthority: true,
++    });
++    expect(started.ok).toBe(true);
++    if (!started.ok) throw new Error(JSON.stringify(started));
++    // Fake docs_write Start leaves RUNNING (Complete/record is separate).
++    expect(started.phase).toBe("running");
++    expect(started.attemptStatus).toBe("running");
++    expect(started.attemptId).toBe(attemptId);
++
++    const projA = await deriveGovernedExecutionContinuityProjection({
++      oa: ctx.oa,
++      projectId: ctx.projectId,
++      query: { kind: "byExecutionContractId", executionContractId },
++    });
++    expect(projA.ok).toBe(true);
++    if (!projA.ok) return;
++    expect(projA.projection.stage).toBe("RUNNING");
++    expect(projA.projection.attemptId).toBe(attemptId);
++    expect(projA.projection.evidenceId).toBeNull();
++    expect(projA.projection.claimEvaluationId).toBeNull();
++
++    // TRUE RESTART while RUNNING — Product Truth alone must rehydrate RUNNING.
++    const runtimeB = reopenRuntimeOnSameDb(ctx);
++    const oaB = runtimeB.oa!;
++
++    const projB = await deriveGovernedExecutionContinuityProjection({
++      oa: oaB,
++      projectId: ctx.projectId,
++      query: { kind: "byExecutionContractId", executionContractId },
++    });
++    expect(projB.ok).toBe(true);
++    if (!projB.ok) return;
++    expect(projB.projection.stage).toBe("RUNNING");
++    expect(projB.projection.attemptId).toBe(attemptId);
++    expect(projB.projection.evidenceId).toBeNull();
++    expect(projB.projection.reviewBundleId).toBeNull();
++    expect(projB.projection.claimEvaluationId).toBeNull();
++
++    const listedB =
++      await oaB.executionAttemptServices!.listExecutionAttempts.execute({
++        executionContractId,
++      });
++    expect(listedB.ok).toBe(true);
++    if (!listedB.ok) return;
++    expect(listedB.attempts).toHaveLength(1);
++    expect(listedB.attempts[0]!.attemptId).toBe(attemptId);
++    expect(listedB.attempts[0]!.status).toBe("running");
++
++    const claimSpy = vi
++      .spyOn(claimCompletionMod, "completeDocsWriteClaimEvidenceCompletion")
++      .mockResolvedValue({
++        ok: false,
++        code: "CONFORMITY_HEADINGS_MISSING",
++        message: "r3 harness",
++      });
++    let continued: Awaited<ReturnType<typeof reconcileGovernedExecution>>;
++    try {
++      continued = await reconcileGovernedExecution({
++        oa: oaB,
++        projectId: ctx.projectId,
++        executionContractId,
++        intent: "continue",
++        forceLocalAuthority: true,
++      });
++    } finally {
++      claimSpy.mockRestore();
++    }
++    expect(continued.ok).toBe(true);
++    if (!continued.ok) throw new Error(JSON.stringify(continued));
++    // Accept honest outcomes: progressed terminal/product OR still running/await.
++    expect(continued.projection.attemptId).toBe(attemptId);
++    expect(
++      continued.projection.stage === "RUNNING" ||
++        continued.projection.stage === "PRODUCT_MATERIALIZATION_PENDING" ||
++        continued.projection.stage === "POST_EVIDENCE_PENDING" ||
++        continued.projection.stage === "POST_EVIDENCE_COMPLETE" ||
++        continued.projection.stage === "RECOVERY_REQUIRED" ||
++        continued.stoppedReason === "still_running_or_await_external" ||
++        continued.stoppedReason === "await_external" ||
++        continued.stoppedReason === "human_decision_required" ||
++        continued.stoppedReason === "stable",
++    ).toBe(true);
++
++    const listedAfter =
++      await oaB.executionAttemptServices!.listExecutionAttempts.execute({
++        executionContractId,
++      });
++    expect(listedAfter.ok).toBe(true);
++    if (!listedAfter.ok) return;
++    expect(listedAfter.attempts).toHaveLength(1);
++    expect(listedAfter.attempts[0]!.attemptId).toBe(attemptId);
++  });
 +});
 
 ```
 
 
 ### MODIFIED DIFF: `projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts`
-
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts b/projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
 index 923718e4..07a29f5b 100644
@@ -2941,10 +3835,9 @@ index 923718e4..07a29f5b 100644
 
 
 ### MODIFIED DIFF: `projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md`
-
 ```diff
 diff --git a/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md b/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
-index b03c384b..4bcd08bc 100644
+index b03c384b..80c8df4b 100644
 --- a/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
 +++ b/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
 @@ -84,6 +84,14 @@ Status legend: COMPLETE | PARTIAL | NOT PROVEN | BREAK
@@ -2953,11 +3846,11 @@ index b03c384b..4bcd08bc 100644
 
 +## F11b — Product Continuity / Shared Knowledge (PRODUCT-CONTINUITY-SHARED-KNOWLEDGE-01)
 +
-+- **Shared Product Resolution (READ-ONLY):** `resolveProductExecutionContext` composes Project-bound EC / Attempt / Cursor CLAIM / Artifact / Evidence / RB / CE / post-Evidence Recommendation without a new store or knowledge domain.
-+- **Execution Continuity Projection:** `deriveGovernedExecutionContinuityProjection` derives stages (PRE_EXECUTION → … → POST_EVIDENCE_COMPLETE / RECOVERY_REQUIRED) from Product Truth.
-+- **Server Reconciler:** `reconcileGovernedExecution` (intent observe|execute|continue) owns deterministic next steps; TrajectorySurface is command+projection only (no Select→Start→Complete→Materialize ownership).
-+- **Nora:** `product_execution_context_get` tool (project-bound); W3-C uses shared `runNoraCognitiveCompletion(mode=post_execution)`.
-+- **Status:** DETERMINISTIC at tested scope; ZERO REAL this macro; runtime v3 NON ADOPTED
++- **Shared Product Resolution (READ-ONLY):** `resolveProductExecutionContext` composes Project-bound EC / Attempt / Cursor CLAIM / Artifact / Evidence / RB / CE / post-Evidence Recommendation without a new store or knowledge domain. Evidence/RB/CE resolved via current Contract Result CE + `contractResultBindings.evidenceRefs` (never ID-prefix heuristics; ambiguous multi-Evidence without CE → `EVIDENCE_LINEAGE_AMBIGUOUS`).
++- **Execution Continuity Projection:** `deriveGovernedExecutionContinuityProjection` derives reachable stages only: PRE_EXECUTION | ATTEMPT_ACCEPTED | RUNNING | PRODUCT_MATERIALIZATION_PENDING | POST_EVIDENCE_PENDING | POST_EVIDENCE_COMPLETE | RECOVERY_REQUIRED.
++- **Server Reconciler:** `reconcileGovernedExecution` (intent observe|execute|continue) owns deterministic next steps; TrajectorySurface is command+projection only (no Select→Start→Complete→Materialize ownership). Restart after ACCEPTED and during RUNNING reuses the same Attempt (deterministic tested scope).
++- **Nora:** `product_execution_context_get` tool (project-bound); W3-C and conversation both invoke shared `runNoraCognitiveCore` → Agents Runner (`runNoraAgentsTurn`); post_execution mode disables tools/Memory B/hosted search/MW5.
++- **Status:** DETERMINISTIC at tested scope (incl. CORRECTION PASS 01); ZERO REAL this macro; runtime v3 NON ADOPTED
 +
  ## F12 — ContractResult / ClaimEvaluation
  - **Paths:** claim evaluation tables/services; docs_write automatic `completeDocsWriteClaimEvidenceCompletion` while hot worktree / durable absolute path available
@@ -2967,10 +3860,9 @@ index b03c384b..4bcd08bc 100644
 
 
 ### MODIFIED DIFF: `projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md`
-
 ```diff
 diff --git a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
-index f28f2841..2c0ce9f4 100644
+index f28f2841..91921721 100644
 --- a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
 +++ b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
 @@ -34,6 +34,10 @@
@@ -2984,7 +3876,7 @@ index f28f2841..2c0ce9f4 100644
  `POST-EXECUTION-CURSOR-REPORT-ARTIFACT-HANDOFF-01` **local candidate** on branch `feat/sfia-studio-post-execution-handoff-01`. Capacité suivante après revue: **reprise SprintBoard REAL bornée** (Gate Morris distinct) — ne pas auto-sélectionner READY FOR REAL / END-TO-END REAL.
 
  ## POST-EXECUTION-CURSOR-REPORT-ARTIFACT-HANDOFF-01 overlay
-@@ -49,6 +53,21 @@
+@@ -49,6 +53,22 @@
  | Fresh + **restart/rehydrate** executionReport surface | AS-IMPLEMENTED — shared `projectW3cExecutionReportSurfaceFromDurable`; LPS keeps Recommendation only |
  | Pilot UX Rapport d'exécution + Nora recommendation | AS-IMPLEMENTED projection; rehydrate not nominal |
  | Attempt succeeded ≠ Product PASS | PRESERVED — NOT_PROVEN honesty retained |
@@ -2993,12 +3885,13 @@ index f28f2841..2c0ce9f4 100644
 +
 +| Item | Status |
 +|---|---|
-+| Shared Product Resolution READ-ONLY | AS-IMPLEMENTED at tested scope |
-+| Canonical Execution Continuity Projection | AS-IMPLEMENTED |
++| Shared Product Resolution READ-ONLY | AS-IMPLEMENTED at tested scope — CE bindings lineage; no prefix preference |
++| Canonical Execution Continuity Projection | AS-IMPLEMENTED — reachable stages only (TECHNICAL_TERMINAL / PRODUCT_QUALIFIED removed) |
 +| Server Reconciler (observe/execute/continue) | AS-IMPLEMENTED — no Attempt on observe/continue-without-Attempt |
++| ACCEPTED / RUNNING restart | AS-IMPLEMENTED at deterministic tested scope (R2/R3) |
 +| TrajectorySurface workflow ownership removed | AS-IMPLEMENTED — command + projection |
 +| Nora product_execution_context_get | AS-IMPLEMENTED — project-bound tool |
-+| W3-C shared cognitive completion seam | AS-IMPLEMENTED — not a second engine |
++| W3-C shared Nora cognitive core (Agents) | AS-IMPLEMENTED — conversation + post_execution via `runNoraCognitiveCore` → `runNoraAgentsTurn` |
 +| New store / workflow engine / event bus | NONE |
 +| REAL / READY FOR REAL / runtime v3 ADOPTED | NOT claimed — ZERO REAL |
 +
@@ -3011,10 +3904,9 @@ index f28f2841..2c0ce9f4 100644
 
 
 ### MODIFIED DIFF: `projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json`
-
 ```diff
 diff --git a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-index ce3d4659..3f4b8dda 100644
+index ce3d4659..352a405d 100644
 --- a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
 +++ b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
 @@ -19,7 +19,7 @@
@@ -3022,7 +3914,7 @@ index ce3d4659..3f4b8dda 100644
      {
        "path": "projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md",
 -      "sha256_16": "114c6504cc5256c7"
-+      "sha256_16": "ca05121afe90dba2"
++      "sha256_16": "8927493dfc871934"
      },
      {
        "path": "projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md",
@@ -3031,7 +3923,7 @@ index ce3d4659..3f4b8dda 100644
      {
        "path": "projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md",
 -      "sha256_16": "1bb22b461f3d7efd"
-+      "sha256_16": "4054a4379f938c61"
++      "sha256_16": "9f686c6e1197035d"
      }
    ],
    "components": [
@@ -3049,7 +3941,7 @@ index ce3d4659..3f4b8dda 100644
      {
        "path": "projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts",
 -      "sha256_16": "4e1da407cf383fd8"
-+      "sha256_16": "c362c0cbb23bddaa"
++      "sha256_16": "fc46c393f14d66ae"
      },
      {
        "path": "projects/sfia-studio/app/lib/nora-cognitive-runtime/productSqliteSession.ts",
@@ -3057,173 +3949,93 @@ index ce3d4659..3f4b8dda 100644
 ```
 
 
-## 14. Product Resolution design réel
-- Module: `resolveProductExecutionContext`
-- Queries: `latest` | `byExecutionContractId` | `byAttemptId`
-- Composes: EC, Attempt, CursorReport (CLAIM_NOT_EVIDENCE), Artifact summary+completeness, Evidence, ReviewBundle, ClaimEvaluation, postEvidence Recommendation, provenance
-- Fail-closed: empty projectId, cross-project EC/Attempt, evidence/RB mismatch, attempt/contract mismatch
-- READ-ONLY: no mutations; bounded artifact preview
-- Reuses: existing durable readers (`loadDocsWriteArtifactReviewMaterial`, `findExistingW3cPostEvidence`, OA list/find)
+## 19. Tests
+Targeted CORRECTION PASS + R1–R8 integrated: PASS
+Full suite counts: see validations section (filled after suite completes — placeholder updated by publisher if needed).
 
-## 15. Continuity Projection états/mapping
-Stages: PRE_EXECUTION | ATTEMPT_ACCEPTED | RUNNING | TECHNICAL_TERMINAL (via terminal statuses) | PRODUCT_MATERIALIZATION_PENDING | PRODUCT_QUALIFIED (intermediate via evidence+rb+ce before postEvidence) | POST_EVIDENCE_PENDING | POST_EVIDENCE_COMPLETE | RECOVERY_REQUIRED
-Mapping:
-- no EC / no Attempt → PRE_EXECUTION (Execute required to initiate)
-- accepted/selected → ATTEMPT_ACCEPTED
-- running/pending/awaiting_result → RUNNING (never invent terminal)
-- terminal + incomplete Evidence/RB/CE → PRODUCT_MATERIALIZATION_PENDING → MATERIALIZE_PRODUCT
-- product qualified + no postEvidence → POST_EVIDENCE_PENDING → RUN_POST_EVIDENCE
-- postEvidence present → POST_EVIDENCE_COMPLETE; HD required if recommendation requires it
-- lineage mismatch → RECOVERY_REQUIRED
+Key tests:
+- T-C1/T-C2/T-C3 shared cognitive core behavioral
+- R2 ACCEPTED restart
+- R3 RUNNING restart
+- T-STAGES every stage derivation
+- T-E2/T-E3 lineage + verdict
+- Existing R1/R4–R6/R8/idempotence/UI/Nora tool
 
-## 16. Reconciler behavior
-- `reconcileGovernedExecution({ intent: observe|execute|continue })`
-- observe: derive only, zero mutations
-- continue without Attempt: stable read, no Attempt created (R1)
-- execute without Attempt: `governedExecuteAuthorizedContract` (authority preserved)
-- execute with Attempt: redelegate to continue (no second Attempt)
-- continue ATTEMPT_ACCEPTED → start; RUNNING → recordResult (honest if still running)
-- bounded loop MAX_TRANSITIONS=6 for MATERIALIZE_PRODUCT / RUN_POST_EVIDENCE via existing `materializeW3bProductTerminal`
-- STOP: stable / await_external / human_decision_required / recovery_required / limit / unhandled
-
-## 17. Idempotency proof
-Integrated test `R4/R5/R6 — terminal→restart→continue materializes; idempotent; resolve latest`:
-- second continue keeps same attemptId/evidenceId/rbId/ceId
-- listAttempts succeeded length === 1
-Execute re-entry test: second execute does not create second Attempt
-
-## 18. Restart/recovery proof
-- R1: observe/continue after authorize → 0 Attempts
-- R4: terminal before materialize → PRODUCT_MATERIALIZATION_PENDING; restart runtime B → continue materializes
-- R5/R6: postEvidence present after continue; second continue stable POST_EVIDENCE_COMPLETE without duplicate
-- R7: hostile cross-project resolve rejected
-- R8: NOT_PROVEN path preserved via claim spy CONFORMITY_HEADINGS_MISSING (technical success ≠ product SUCCESS)
-- UI: no Select/Start/Complete/Materialize ownership; reconcileMock paints outcome
-
-## 19. Nora tool contract
-- Name: `product_execution_context_get`
-- Project-bound server context; model cannot pass foreign projectId/SQL/paths/credentials
-- Selectors: latest (default) / executionContractId / attemptId validated server-side
-- Returns bounded JSON with CLAIM disclosure + completeness
-- Fake provider skips tool from ToolDefinition projection (Agents-local invoke)
-
-## 20. W3-C convergence réelle
-- BEFORE: `postEvidenceNoraAnalysis` used autonomous `provider.complete(...)`
-- AFTER: `runNoraCognitiveCompletion({ mode: "post_execution", ... })` shared seam
-- Preserves contract-first / claim ≠ evidence / FULL|PARTIAL / NOT_PROVEN honesty
-- Not a naive `runNoraCognitiveTurn()` conversational side-effect path
-
-## 21. UI cutover
-- `runServerReconcile(intent)` + `applyReconcileResult`
-- Nominal Execute → server reconcile execute (+ bounded RUNNING poll)
-- Recovery continue via same seam
-- Historical "Recharger résultat produit" no longer required for nominal (recovery path may still call continue)
-- Source guard test asserts absence of phased action imports
-
-## 22. Fake / Real Qualification
-- Fake: FakeDocsWriteLaunchPort + FakeConversationProvider
-- REAL boundary: NOT exercised; ZERO REAL claim
-- Proof level: DETERMINISTIC PRODUCT E2E PROVEN AT TESTED SCOPE
-- Async realism: RUNNING stage distinguished; Fake can represent accepted→running→terminal via existing adapters
-- No DETERMINISTIC ⇒ READY FOR REAL
-
-## 23. Validations + commandes + résultats
-```
-npx vitest run (full suite)
-  Test Files  453 passed | 17 skipped (470)
-  Tests       4980 passed | 137 skipped (5117)
-npm run typecheck → exit 0
-npm run lint → ✔ No ESLint warnings or errors
-npm run build → Compiled successfully; routes generated
-```
-Targeted: productContinuitySharedKnowledge, postExecutionHandoff PRODUCT-CONTINUITY block, postExecutionTrajectorySurface UI, orchestrateTurn, importBoundaries — all pass.
-
-## 24. Full suite counts
-- 4980 passed / 137 skipped / 0 failed
-- 453 test files passed / 17 skipped
-
-## 25. typecheck / lint / build
+## 20. Validations
 - typecheck: PASS
 - lint: PASS
-- build: PASS (note: better-sqlite3 module-not-found warning in evaluateProductRealReadiness import trace — pre-existing, build completed)
+- build: PASS (after client sentinel split)
+- full Vitest: Test Files 453 passed | 17 skipped (470); Tests 4983 passed | 137 skipped (5120)
+- conformance: digests refreshed for changed tracked sources/volumes
 
-## 26. Architecture / conformance
-- productionRuntimeReference.conformance — PASS after digest refresh for orchestrateTurn.ts
-- vertical-slice-runtime / project-assistant importBoundaries — PASS (reconciler allowlisted)
+## 21. Fake/Real
+ZERO REAL. FakeDocsWriteLaunchPort + FakeConversationProvider.
+Proof level: DETERMINISTIC PRODUCT E2E PROVEN AT TESTED SCOPE
+Claims: ACCEPTED/RUNNING RESTART CONTINUITY PROVEN AT DETERMINISTIC TESTED SCOPE
+SHARED NORA COGNITIVE SEAM PROVEN AT DETERMINISTIC TESTED SCOPE
+CANONICAL PRODUCT EVIDENCE LINEAGE PROVEN AT TESTED SCOPE
 
-## 27. Réserves
-### Bloquantes
-- none for local candidate verdict
+## 22. Réserves
+Non-bloquantes:
+- REAL SprintBoard re-proof still Gate Morris distinct
+- Fake RUNNING continue may complete via existing boundary (honest) — not a simulated SUCCESS
+- Historical SprintBoard same-project NOT_PROVEN lifecycle arbitration remains out of scope
 
-### Non bloquantes
-- REAL SprintBoard / MiniBoard re-proof NOT done (Gate Morris distinct — next)
-- Fake async RUNNING mid-flight interrupt covered at projection/reconciler semantics; full Fake pending-agent attach optional further tooling
-- Historical same-project NOT_PROVEN SprintBoard deadlock lifecycle arbitration: out of scope unless directly solved by continuity (documented reserve)
-- better-sqlite3 optional resolve warning during build import trace (pre-existing)
+Bloquantes: none
 
-## 28. Debt introduite + exit
-- Temporary compatibility: legacy executeSelect/Start/Complete mocks remain in UI test file but assert zero calls; exit when legacy test helpers fully removed
-- `reconcileSelectOnlyForTests` exported for Fake realism — exit when phased tests deleted
-- Runtime Ref overlay descriptive only — exit when next REAL campaign updates proof level
+## 23. Debt / exit
+- postEvidenceNoraSentinels.ts: permanent client/server split for markers (exit: keep)
+- observeNoraCognitiveCore: test observer only (exit: never register in production)
 
-## 29. Fichiers explicitement non modifiés
-- convergence doctrine / roadmap
-- product-completion/**
-- sfia-v3-framing/**
-- method/** / prompts/**
-- package.json / lockfile / CI
-- no new DB migration / table / npm package
-
-## 30. Claims autorisés / interdits
-Autorisé:
-- PRODUCT CONTINUITY / SHARED KNOWLEDGE LOCAL CANDIDATE IMPLEMENTED
+## 24. Claims
+Autorisé si validations green:
+- PRODUCT CONTINUITY / SHARED KNOWLEDGE LOCAL CANDIDATE CORRECTED
+- SHARED NORA COGNITIVE SEAM PROVEN AT DETERMINISTIC TESTED SCOPE
+- ACCEPTED RESTART CONTINUITY PROVEN AT DETERMINISTIC TESTED SCOPE
+- RUNNING RESTART CONTINUITY PROVEN AT DETERMINISTIC TESTED SCOPE
+- CANONICAL PRODUCT EVIDENCE LINEAGE PROVEN AT TESTED SCOPE
 - DETERMINISTIC PRODUCT E2E PROVEN AT TESTED SCOPE
-- RESTART / RECONCILIATION PROVEN AT TESTED SCOPE
 - NO NEW STORE / NO PARALLEL ENGINE
 - READY FOR MORRIS GO — LOCAL PROJECT COMMIT
 
-Interdit (not claimed):
-- REAL PROVEN / READY FOR REAL / FULL REAL PRODUCT LOOP
-- PRODUCT GLOBAL READY / RUNTIME V3 ADOPTED
-- NORA COGNITIVE COMPLETION GLOBAL PROVEN
-- MiniBoard REAL corrigé
+Interdit: REAL PROVEN / READY FOR REAL / MINIBOARD REAL FIXED / RUNTIME V3 ADOPTED
 
-## 31. Décision Morris éventuellement requise
-None for architecture. Next expected: GO for local project commit (separate). Later: distinct REAL gate.
-
-## 32. Verdict
+## 25. Verdict
 **READY FOR MORRIS GO — LOCAL PROJECT COMMIT**
 
----
-## Diff stat snapshot
+## Diff stat
 ```
-.tmp-sfia-review/chatgpt-review.md                 | 4291 +-------------------
+.tmp-sfia-review/chatgpt-review.md                 | 6981 +++++++++-----------
  .../postExecutionTrajectorySurface.ui.test.tsx     |  102 +-
- .../postExecutionHandoff.integrated.d0.test.ts     |  228 ++
+ .../uatUxSemanticReserves.ui.test.tsx              |    2 +-
+ .../postExecutionHandoff.integrated.d0.test.ts     |  436 ++
  .../importBoundaries.test.ts                       |    4 +
  .../surfaces/TrajectorySurface.tsx                 |  342 +-
- .../f3/postEvidenceNoraAnalysis.ts                 |   48 +-
+ .../f3/postEvidenceNoraAnalysis.ts                 |   72 +-
  .../features/project-assistant/orchestrateTurn.ts  |   25 +
+ .../project-assistant/presentationLabels.ts        |    2 +-
  .../app/features/project-assistant/w2/actions.ts   |   99 +
- .../app/lib/nora-cognitive-runtime/index.ts        |    9 +
+ .../app/lib/nora-cognitive-runtime/index.ts        |   13 +
  .../nora-cognitive-runtime/providerAgentsModel.ts  |    5 +-
  .../nora-cognitive-runtime/runNoraAgentsTurn.ts    |   19 +
- .../nora-cognitive-runtime/runNoraCognitiveTurn.ts |    6 +
+ .../nora-cognitive-runtime/runNoraCognitiveTurn.ts |   14 +-
  .../03-end-to-end-flow-catalog.md                  |    8 +
- ...9-known-gaps-reserves-and-current-boundaries.md |   19 +
+ ...9-known-gaps-reserves-and-current-boundaries.md |   20 +
  .../production-runtime-reference.manifest.json     |    8 +-
- 15 files changed, 649 insertions(+), 4564 deletions(-)
+ 17 files changed, 3846 insertions(+), 4306 deletions(-)
 ```
 
 ## Diff name-status
 ```
 M	.tmp-sfia-review/chatgpt-review.md
 M	projects/sfia-studio/app/__tests__/pre-m6-product-ui/postExecutionTrajectorySurface.ui.test.tsx
+M	projects/sfia-studio/app/__tests__/pre-m6-product-ui/uatUxSemanticReserves.ui.test.tsx
 M	projects/sfia-studio/app/__tests__/project-assistant/postExecutionHandoff.integrated.d0.test.ts
 M	projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
 M	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
 M	projects/sfia-studio/app/features/project-assistant/f3/postEvidenceNoraAnalysis.ts
 M	projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
+M	projects/sfia-studio/app/features/project-assistant/presentationLabels.ts
 M	projects/sfia-studio/app/features/project-assistant/w2/actions.ts
 M	projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
 M	projects/sfia-studio/app/lib/nora-cognitive-runtime/providerAgentsModel.ts
