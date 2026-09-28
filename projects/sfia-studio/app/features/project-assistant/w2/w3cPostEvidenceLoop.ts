@@ -27,6 +27,10 @@ import {
   lastW3cEvidenceIdInLpsContext,
 } from "@/features/project-assistant/f3/postEvidenceNoraAnalysis";
 import {
+  loadDocsWriteArtifactReviewMaterial,
+  resolveProductEvidenceRefsRoot,
+} from "@/features/project-assistant/f3/persistDocsWriteArtifactReviewMaterial";
+import {
   buildCkcCognitivePromptSection,
   loadProductCkcCognitiveContent,
 } from "@/features/project-assistant/f2/ckcCognitiveContext";
@@ -63,6 +67,156 @@ export type W3cPostEvidenceRecommendation = {
   nextActionCode: string | null;
 };
 
+export type W3cExecutionReportSurface = {
+  readonly cursorStatus: string | null;
+  readonly workPerformedSummary: string | null;
+  readonly artifactsSummary: string | null;
+  readonly validationsSummary: string | null;
+  readonly blockersSummary: string | null;
+  readonly reservationsSummary: string | null;
+  readonly artifactReviewCompleteness: "FULL" | "PARTIAL" | null;
+};
+
+/**
+ * Rebuild business-first execution report from durable server-owned refs
+ * (mission-result-refs). Shared by fresh W3-C and rehydrate — never invent
+ * a Cursor report when the claim file is absent.
+ */
+export function projectW3cExecutionReportSurfaceFromDurable(input: {
+  readonly attemptId: string;
+  readonly targetPath?: string | null;
+  readonly refsRoot?: string | null;
+}): {
+  readonly executionReport: W3cExecutionReportSurface | null;
+  readonly artifactReviewMaterial: string | undefined;
+  readonly artifactReviewCompleteness: "FULL" | "PARTIAL" | undefined;
+  readonly workPerformedSummary: string | undefined;
+  readonly blockersSummary: string | undefined;
+  readonly stopReason: string | undefined;
+  readonly cursorReportSummary: string | undefined;
+} {
+  const durable = loadDocsWriteArtifactReviewMaterial({
+    refsRoot: resolveProductEvidenceRefsRoot(input.refsRoot),
+    attemptId: input.attemptId,
+    ...(input.targetPath ? { targetPath: input.targetPath } : {}),
+  });
+  if (!durable.ok) {
+    return {
+      executionReport: null,
+      artifactReviewMaterial: undefined,
+      artifactReviewCompleteness: undefined,
+      workPerformedSummary: undefined,
+      blockersSummary: undefined,
+      stopReason: undefined,
+      cursorReportSummary: undefined,
+    };
+  }
+  const artifactReviewMaterial = durable.artifactText;
+  const artifactReviewCompleteness = durable.completeness;
+  const report = durable.cursorReport;
+  if (!report) {
+    // Artifact bytes may exist without a Cursor claim — do not fabricate a report surface.
+    return {
+      executionReport: null,
+      artifactReviewMaterial,
+      artifactReviewCompleteness,
+      workPerformedSummary: undefined,
+      blockersSummary: undefined,
+      stopReason: undefined,
+      cursorReportSummary: undefined,
+    };
+  }
+  const workPerformedSummary = (report.workPerformed ?? [])
+    .map((s) => String(s))
+    .join("; ")
+    .slice(0, 1200);
+  const blockersSummary = (report.blockers ?? [])
+    .map((s) => String(s))
+    .join("; ")
+    .slice(0, 800);
+  const stopReason = report.stopConditionTriggered?.trim() || undefined;
+  const fileFx = report.fileEffects;
+  const artifactsSummary = fileFx
+    ? [
+        ...(fileFx.created ?? []).map((p) => `créé:${p}`),
+        ...(fileFx.modified ?? []).map((p) => `modifié:${p}`),
+        ...(fileFx.deleted ?? []).map((p) => `supprimé:${p}`),
+      ]
+        .join("; ")
+        .slice(0, 800)
+    : null;
+  const validationsSummary = (report.validationEffects ?? [])
+    .map((v) => `${v.identity}:${v.result}`)
+    .join("; ")
+    .slice(0, 600);
+  const reservationsSummary = (report.reservations ?? [])
+    .map((s) => String(s))
+    .join("; ")
+    .slice(0, 600);
+  const cursorReportSummary = [
+    `status=${report.status}`,
+    workPerformedSummary ? `work=${workPerformedSummary}` : null,
+    artifactsSummary ? `files=${artifactsSummary}` : null,
+    validationsSummary ? `validations=${validationsSummary}` : null,
+    blockersSummary ? `blockers=${blockersSummary}` : null,
+    `artifactReview=${durable.completeness}`,
+  ]
+    .filter(Boolean)
+    .join(" | ")
+    .slice(0, 2000);
+  return {
+    executionReport: {
+      cursorStatus: report.status,
+      workPerformedSummary: workPerformedSummary || null,
+      artifactsSummary,
+      validationsSummary: validationsSummary || null,
+      blockersSummary: blockersSummary || null,
+      reservationsSummary: reservationsSummary || null,
+      artifactReviewCompleteness: durable.completeness,
+    },
+    artifactReviewMaterial,
+    artifactReviewCompleteness,
+    workPerformedSummary: workPerformedSummary || undefined,
+    blockersSummary: blockersSummary || undefined,
+    stopReason,
+    cursorReportSummary,
+  };
+}
+
+async function resolveDocsWriteTargetPathForProduct(input: {
+  readonly oa: RuntimeOaStack;
+  readonly executionContractId: string;
+}): Promise<string | undefined> {
+  if (!input.oa.executionContractServices) return undefined;
+  const loaded =
+    await input.oa.executionContractServices.getExecutionContract.execute({
+      executionContractId: input.executionContractId,
+    });
+  if (!loaded.ok) return undefined;
+  const raw = loaded.contract.inputs?.targetPath;
+  return typeof raw === "string" && raw.trim() ? raw.trim() : undefined;
+}
+
+async function withDurableExecutionReport(
+  success: W3cPostEvidenceLoopSuccess,
+  input: {
+    readonly oa: RuntimeOaStack;
+    readonly product: W3BProductTerminalProjection;
+  },
+): Promise<W3cPostEvidenceLoopSuccess> {
+  if (success.executionReport) return success;
+  const targetPath = await resolveDocsWriteTargetPathForProduct({
+    oa: input.oa,
+    executionContractId: input.product.technicalDetail.executionContractId,
+  });
+  const projected = projectW3cExecutionReportSurfaceFromDurable({
+    attemptId: input.product.technicalDetail.attemptId,
+    targetPath,
+  });
+  if (!projected.executionReport) return success;
+  return { ...success, executionReport: projected.executionReport };
+}
+
 export type W3cPostEvidenceLoopSuccess = {
   ok: true;
   noraInvoked: boolean;
@@ -76,6 +230,8 @@ export type W3cPostEvidenceLoopSuccess = {
   reviewBundleId: string;
   claimEvaluationId: string | null;
   productOutcome: "SUCCESS" | "STOP" | "FAIL" | "UNCLAIMED";
+  /** Business-first Cursor/artifact handoff surface (optional). */
+  executionReport?: W3cExecutionReportSurface | null;
 };
 
 export type W3cPostEvidenceLoopResult =
@@ -635,7 +791,10 @@ export async function findExistingW3cPostEvidence(input: {
     | "claimEvaluationId"
     | "outcome"
   > & {
-    readonly technicalDetail: { readonly attemptId: string };
+    readonly technicalDetail: {
+      readonly attemptId: string;
+      readonly executionContractId?: string;
+    };
   };
 }): Promise<W3cPostEvidenceLoopSuccess | null> {
   if (!input.oa.cycleServices) return null;
@@ -724,7 +883,41 @@ export async function findExistingW3cPostEvidence(input: {
       }
     }
   }
-  return successFromPayload(payload);
+  const success = successFromPayload(payload);
+  const ecId = input.product?.technicalDetail?.executionContractId;
+  if (ecId) {
+    return withDurableExecutionReport(success, {
+      oa: input.oa,
+      product: {
+        ...input.product,
+        evidenceId: input.product.evidenceId ?? input.evidenceId,
+        reviewBundleId:
+          input.product.reviewBundleId ?? success.reviewBundleId,
+        technicalDetail: {
+          attemptId:
+            input.product.technicalDetail.attemptId || input.attemptId,
+          attemptStatus: "unknown",
+          resultRef: null,
+          errorRef: null,
+          stopReason: null,
+          stopOrigin: null,
+          stopCode: null,
+          executionContractId: ecId,
+          executionContractVersion: 0,
+        },
+      } as W3BProductTerminalProjection,
+    });
+  }
+  // Fallback: attemptId alone — try durable load without contract targetPath.
+  if (input.product) {
+    const projected = projectW3cExecutionReportSurfaceFromDurable({
+      attemptId: input.attemptId,
+    });
+    if (projected.executionReport) {
+      return { ...success, executionReport: projected.executionReport };
+    }
+  }
+  return success;
 }
 
 /**
@@ -1231,6 +1424,7 @@ export async function runW3cPostEvidenceLoop(input: {
   let acceptanceCriteriaSummary: string | undefined;
   let expectedOutputsSummary: string | undefined;
   let validationPlanSummary: string | undefined;
+  let docsWriteTargetPath: string | undefined;
   if (oa.executionContractServices) {
     const loaded =
       await oa.executionContractServices.getExecutionContract.execute({
@@ -1242,6 +1436,10 @@ export async function runW3cPostEvidenceLoop(input: {
       const objective = loaded.contract.inputs?.objective;
       if (typeof objective === "string" && objective.trim()) {
         contractObjective = objective.trim().slice(0, 500);
+      }
+      const targetPathRaw = loaded.contract.inputs?.targetPath;
+      if (typeof targetPathRaw === "string" && targetPathRaw.trim()) {
+        docsWriteTargetPath = targetPathRaw.trim();
       }
       const criteria = parseContractAcceptanceCriteria(
         loaded.contract.inputs?.[CONTRACT_ACCEPTANCE_CRITERIA_INPUT_KEY],
@@ -1292,7 +1490,6 @@ export async function runW3cPostEvidenceLoop(input: {
   }
   const ckcPromptSection = buildCkcCognitivePromptSection(ckcContent);
 
-  noraInvoked = true;
   const eoSummary =
     claimEvaluation?.expectedOutputAssessments
       ?.map((a) => `${a.itemId.ordinal}:${a.result}`)
@@ -1301,6 +1498,23 @@ export async function runW3cPostEvidenceLoop(input: {
     claimEvaluation?.evidenceRequirementAssessments
       ?.map((a) => `${a.itemId.ordinal}:${a.result}`)
       .join("; ") ?? undefined;
+
+  // Durable Cursor report + artifact review material (no Pilot paste / PATH widen).
+  // Shared projection with rehydrate — never invent a report when claim file absent.
+  const durableProjection = projectW3cExecutionReportSurfaceFromDurable({
+    attemptId,
+    targetPath: docsWriteTargetPath,
+  });
+  const workPerformedSummary = durableProjection.workPerformedSummary;
+  const blockersSummary = durableProjection.blockersSummary;
+  const stopReason = durableProjection.stopReason;
+  const artifactReviewMaterial = durableProjection.artifactReviewMaterial;
+  const artifactReviewCompleteness =
+    durableProjection.artifactReviewCompleteness;
+  const cursorReportSummary = durableProjection.cursorReportSummary;
+  const executionReport = durableProjection.executionReport;
+
+  noraInvoked = true;
   const analysis = await analyzePostEvidenceWithProvider(
     {
       projectId,
@@ -1336,6 +1550,13 @@ export async function runW3cPostEvidenceLoop(input: {
         : {}),
       ...(processStdout !== undefined ? { stdout: processStdout } : {}),
       ...(processStderr !== undefined ? { stderr: processStderr } : {}),
+      ...(workPerformedSummary ? { workPerformedSummary } : {}),
+      ...(blockersSummary ? { blockersSummary } : {}),
+      ...(stopReason ? { stopReason } : {}),
+      ...(artifactReviewMaterial
+        ? { artifactReviewMaterial, artifactReviewCompleteness }
+        : {}),
+      ...(cursorReportSummary ? { cursorReportSummary } : {}),
     },
     { ckcPromptSection },
   );
@@ -1371,6 +1592,7 @@ export async function runW3cPostEvidenceLoop(input: {
     reviewBundleId: product.reviewBundleId,
     claimEvaluationId: product.claimEvaluationId,
     productOutcome: product.outcome,
+    ...(executionReport ? { executionReport } : {}),
   };
 
   // Exact Recommendation payload in existing LPS context (Option A).
@@ -1452,7 +1674,10 @@ export async function rehydrateW3cPostEvidenceFromLps(input: {
     attemptId: product.technicalDetail.attemptId,
   });
   if (payload) {
-    return successFromPayload(payload);
+    return withDurableExecutionReport(successFromPayload(payload), {
+      oa,
+      product,
+    });
   }
 
   // Exact LPS V1 payload (partial-write recovery) before any lossy rebuild.
@@ -1463,12 +1688,13 @@ export async function rehydrateW3cPostEvidenceFromLps(input: {
     product,
   });
   if (exact) {
-    return repairEpistemicFromRecoveredSuccess({
+    const repaired = await repairEpistemicFromRecoveredSuccess({
       oa,
       projectId,
       attemptId: product.technicalDetail.attemptId,
       success: exact,
     });
+    return withDurableExecutionReport(repaired, { oa, product });
   }
 
   // Legacy fallback: evidence-scoped LPS Nora extract — never return B's analysis for A.
@@ -1551,19 +1777,22 @@ export async function rehydrateW3cPostEvidenceFromLps(input: {
       ? { ...built, nextStep: lps.nextStep.trim() }
       : built;
 
-  return {
-    ok: true,
-    // Fidelity: never invent Nora — only from scoped extract.
-    noraInvoked: Boolean(scoped.analysisText),
-    replanInvoked: false,
-    analysisText: scoped.analysisText,
-    analysisUnavailableReason: scoped.analysisUnavailableReason,
-    analysisProviderId: null,
-    recommendation,
-    lpsVersion: lps.version,
-    evidenceId: product.evidenceId,
-    reviewBundleId: product.reviewBundleId,
-    claimEvaluationId: product.claimEvaluationId,
-    productOutcome: product.outcome,
-  };
+  return withDurableExecutionReport(
+    {
+      ok: true,
+      // Fidelity: never invent Nora — only from scoped extract.
+      noraInvoked: Boolean(scoped.analysisText),
+      replanInvoked: false,
+      analysisText: scoped.analysisText,
+      analysisUnavailableReason: scoped.analysisUnavailableReason,
+      analysisProviderId: null,
+      recommendation,
+      lpsVersion: lps.version,
+      evidenceId: product.evidenceId,
+      reviewBundleId: product.reviewBundleId,
+      claimEvaluationId: product.claimEvaluationId,
+      productOutcome: product.outcome,
+    },
+    { oa, product },
+  );
 }

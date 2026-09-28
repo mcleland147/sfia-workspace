@@ -77,6 +77,11 @@ export type FakeDocsWriteLaunchPortOptions = {
   gitState?: FakeCursorGitExternalState;
   /** Default branch name used for fake commit/push when not otherwise known. */
   defaultBranch?: string;
+  /**
+   * TestOnly — control CursorExecutionReport stdout claim emission.
+   * Default `emit` (nominal). `omit` / `malformed` prove fail-closed handoff.
+   */
+  cursorReportMode?: "emit" | "omit" | "malformed";
 };
 
 const DEFAULT_FILESYSTEM_EFFECTS: readonly CursorAuthorizedEffectId[] = [
@@ -774,13 +779,21 @@ export class FakeDocsWriteLaunchPort implements RealExecutionLaunchPort {
     this.lastReport = report;
 
     const processRef = `proc:fake-docs-write:${request.attemptId}`;
+    const reportMode = this.options.cursorReportMode ?? "emit";
+    let reportStdout = "";
+    if (reportMode === "emit") {
+      reportStdout = `CURSOR_EXECUTION_REPORT_JSON=${JSON.stringify(report)}\n`;
+    } else if (reportMode === "malformed") {
+      reportStdout = "CURSOR_EXECUTION_REPORT_JSON={not-valid-json\n";
+    }
+    // omit → no marker / no claim
     this.observations.set(processRef, {
       processRef,
       exitCode: 0,
       timedOut: false,
       stdout:
         `FAKE_DOCS_WRITE_OK\nfiles=${rel}\ndigest=${this.lastDigest ?? ""}\n` +
-        `CURSOR_EXECUTION_REPORT_JSON=${JSON.stringify(report)}\n`,
+        reportStdout,
       stderr: "",
       durationMs: 1,
       realProcessInvoked: true,

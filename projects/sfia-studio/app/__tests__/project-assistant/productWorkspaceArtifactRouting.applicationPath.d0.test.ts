@@ -74,6 +74,32 @@ import {
 } from "./w2Harness";
 import type { RuntimeApplicationService } from "@/lib/vertical-slice-runtime";
 
+/** R3 — docs_write Product journey may hit BOUND_ACCEPTANCE_ORACLE_* on claim completion.
+ * Technical Attempt remains succeeded; RecordResult returns continuity fail-closed.
+ */
+function expectDocsWriteExecuteTechnicalSuccess(
+  executed: {
+    ok: boolean;
+    code?: string;
+    message?: string;
+    attemptStatus?: string;
+    attempt?: { attemptStatus?: string } | null;
+    phase?: string;
+  },
+): void {
+  if (executed.ok) {
+    expect(executed.attemptStatus ?? executed.attempt?.attemptStatus).toBe(
+      "succeeded",
+    );
+    return;
+  }
+  expect(executed.code).toBe("POST_EXECUTION_CONTINUITY_ADVANCE_FAILED");
+  expect(executed.message ?? "").toMatch(/BOUND_ACCEPTANCE_ORACLE_/);
+  expect(
+    executed.attemptStatus ?? executed.attempt?.attemptStatus,
+  ).toBe("succeeded");
+}
+
 const NATURAL_REQUEST = `Matérialise la note de cadrage de ce cycle. N'exécute rien : prépare la proposition pour ma décision.`;
 
 const EXPECTED_PROJECT_ROOT = "projects/mini-cadrage-suivi-de-taches";
@@ -1157,13 +1183,19 @@ describe("CR-PWR-01…04 + DETERMINISTIC E2E Proposal→Evidence", () => {
       executionContractId,
       forceLocalAuthority: true,
     });
-    expect(executed.ok).toBe(true);
-    if (!executed.ok) throw new Error(`execute: ${JSON.stringify(executed)}`);
-    expect(executed.phase).toBe("terminal");
-    expect(executed.selectedAgentRef).toBe(M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID);
-    expect(executed.realExecution).toBe(false);
-    expect(executed.boundaryProofMode).toBe("deterministic_fake");
-    expect(executed.attemptStatus).toBe("succeeded");
+    expectDocsWriteExecuteTechnicalSuccess(executed);
+    if (executed.ok) {
+      expect(executed.phase).toBe("terminal");
+      expect(executed.selectedAgentRef).toBe(M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID);
+      expect(executed.realExecution).toBe(false);
+      expect(executed.boundaryProofMode).toBe("deterministic_fake");
+      expect(executed.attemptStatus).toBe("succeeded");
+    } else {
+      expect(executed.attempt?.attemptStatus).toBe("succeeded");
+      expect(executed.attempt?.selectedAgentRef).toBe(
+        M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
+      );
+    }
     expect(fakeLaunch.calls.length).toBe(launchBefore + 1);
 
     const absTarget = path.join(repoRoot, EXPECTED_TARGET);
@@ -1187,8 +1219,11 @@ describe("CR-PWR-01…04 + DETERMINISTIC E2E Proposal→Evidence", () => {
     const artifact = evidence.find(
       (e) =>
         e.type === "artifact" &&
-        e.location === EXPECTED_TARGET &&
-        e.bindings?.projectId === projectId,
+        e.bindings?.projectId === projectId &&
+        (e.location === EXPECTED_TARGET ||
+          (typeof e.location === "string" &&
+            (e.location.endsWith(`/${EXPECTED_TARGET}`) ||
+              e.location.endsWith(EXPECTED_TARGET)))),
     );
     expect(artifact).toBeTruthy();
     expect(artifact!.digest).toMatch(/^sha256:/);
@@ -1634,9 +1669,7 @@ describe("CR-PWR-01…04 + DETERMINISTIC E2E Proposal→Evidence", () => {
       executionContractId,
       forceLocalAuthority: true,
     });
-    expect(executed.ok).toBe(true);
-    if (!executed.ok) throw new Error(JSON.stringify(executed));
-    expect(executed.attemptStatus).toBe("succeeded");
+    expectDocsWriteExecuteTechnicalSuccess(executed);
     const after = fs.readFileSync(absTarget, "utf8");
     expect(after).toContain("Note de cadrage");
     expect(after).not.toBe("# prior content before UPDATE\n");

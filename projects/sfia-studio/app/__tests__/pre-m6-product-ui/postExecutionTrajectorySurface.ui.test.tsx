@@ -500,6 +500,15 @@ describe("CR-PCONT-05 TrajectorySurface post-execution recovery", () => {
         reviewBundleId: "rb:docs-write:pcont-ui",
         claimEvaluationId: "ce:pcont-ui",
         productOutcome: "UNCLAIMED",
+        executionReport: {
+          cursorStatus: "succeeded",
+          workPerformedSummary: "Wrote functional design",
+          artifactsSummary: "créé:docs/functional-design.md",
+          validationsSummary: "file_exists:pass",
+          blockersSummary: null,
+          reservationsSummary: "claim_only",
+          artifactReviewCompleteness: "FULL",
+        },
       },
     });
 
@@ -536,6 +545,13 @@ describe("CR-PCONT-05 TrajectorySurface post-execution recovery", () => {
     expect(screen.getByTestId("w3b-product-outcome")).toHaveAttribute(
       "data-outcome",
       "UNCLAIMED",
+    );
+    expect(screen.getByTestId("w3b-execution-report")).toBeVisible();
+    expect(screen.getByTestId("w3b-execution-report-status")).toHaveTextContent(
+      "succeeded",
+    );
+    expect(screen.getByTestId("w3b-execution-report-work")).toHaveTextContent(
+      "Wrote functional design",
     );
     expect(screen.getByTestId("w3c-post-evidence")).toBeVisible();
     expect(executeCompleteMock).not.toHaveBeenCalled();

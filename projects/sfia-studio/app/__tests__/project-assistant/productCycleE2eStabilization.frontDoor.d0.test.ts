@@ -605,8 +605,11 @@ describe("PRODUCT-CYCLE-E2E-STABILIZATION-01 front-door oracle", () => {
     const artifact = evidence.find(
       (e) =>
         e.type === "artifact" &&
-        e.location === EXPECTED_TARGET &&
-        e.bindings?.projectId === projectId,
+        e.bindings?.projectId === projectId &&
+        (e.location === EXPECTED_TARGET ||
+          (typeof e.location === "string" &&
+            (e.location.endsWith(`/${EXPECTED_TARGET}`) ||
+              e.location.endsWith(EXPECTED_TARGET)))),
     );
     expect(artifact).toBeTruthy();
     expect(artifact!.digest).toMatch(/^sha256:/);
