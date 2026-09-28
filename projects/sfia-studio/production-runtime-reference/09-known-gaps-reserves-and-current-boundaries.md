@@ -34,6 +34,10 @@
 
 ## Next macro
 
+`PRODUCT-CONTINUITY-SHARED-KNOWLEDGE-01` **local candidate** on branch `delivery/sfia-studio-product-continuity-shared-knowledge-01`. Capacité suivante après revue: **SprintBoard REAL re-proof bornée** (Gate Morris distinct).
+
+## Prior overlay retained
+
 `POST-EXECUTION-CURSOR-REPORT-ARTIFACT-HANDOFF-01` **local candidate** on branch `feat/sfia-studio-post-execution-handoff-01`. Capacité suivante après revue: **reprise SprintBoard REAL bornée** (Gate Morris distinct) — ne pas auto-sélectionner READY FOR REAL / END-TO-END REAL.
 
 ## POST-EXECUTION-CURSOR-REPORT-ARTIFACT-HANDOFF-01 overlay
@@ -49,6 +53,23 @@
 | Fresh + **restart/rehydrate** executionReport surface | AS-IMPLEMENTED — shared `projectW3cExecutionReportSurfaceFromDurable`; LPS keeps Recommendation only |
 | Pilot UX Rapport d'exécution + Nora recommendation | AS-IMPLEMENTED projection; rehydrate not nominal |
 | Attempt succeeded ≠ Product PASS | PRESERVED — NOT_PROVEN honesty retained |
+
+## PRODUCT-CONTINUITY-SHARED-KNOWLEDGE-01 overlay
+
+| Item | Status |
+|---|---|
+| Shared Product Resolution READ-ONLY | AS-IMPLEMENTED at tested scope — canonical `contractResultBindingsMatchCurrentFacts`; no prefix/repo-order preference |
+| Canonical Execution Continuity Projection | AS-IMPLEMENTED — reachable stages only (TECHNICAL_TERMINAL / PRODUCT_QUALIFIED removed) |
+| Lineage integrity → RECOVERY_REQUIRED | AS-IMPLEMENTED — closed integrity code set; Reconciler STOP; query errors remain resolve errors |
+| Server Reconciler (observe/execute/continue) | AS-IMPLEMENTED — no Attempt on observe/continue-without-Attempt; STOP on recoveryRequired |
+| ACCEPTED / RUNNING restart | AS-IMPLEMENTED at deterministic tested scope (R2/R3) |
+| TrajectorySurface workflow ownership removed | AS-IMPLEMENTED — command + projection |
+| Nora product_execution_context_get | AS-IMPLEMENTED — project-bound tool |
+| W3-C shared Nora cognitive core (Agents) | AS-IMPLEMENTED — conversation + post_execution via `runNoraCognitiveCore` → `runNoraAgentsTurn` |
+| New store / workflow engine / event bus | NONE |
+| REAL / READY FOR REAL / runtime v3 ADOPTED | NOT claimed — ZERO REAL |
+
+
 | REAL SprintBoard / Cursor REAL re-proof | NOT PROVEN — ZERO REAL this macro |
 | New store/table / parallel engines | NONE |
 

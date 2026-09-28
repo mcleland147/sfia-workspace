@@ -31,6 +31,8 @@ import { confirmExecutionContractForAuthorization } from "@/features/project-ass
 import {
   classifyDocsWriteClaimCompletionFailure,
   governedExecuteAuthorizedContract,
+  governedExecuteSelectAgent,
+  governedExecuteStart,
 } from "@/features/project-assistant/w2/governedExecuteAuthorizedContract";
 import * as claimCompletionMod from "@/features/project-assistant/w2/completeDocsWriteClaimEvidenceCompletion";
 import { inspectExecutionContract } from "@/features/project-assistant/w2/inspectExecutionContract";
@@ -38,6 +40,9 @@ import {
   materializeProductOutcomeFromAttempt,
   rehydrateProductOutcomeFromAttempt,
 } from "@/features/project-assistant/w2/materializeW3bProductTerminal";
+import { reconcileGovernedExecution } from "@/features/project-assistant/w2/reconcileGovernedExecution";
+import { resolveProductExecutionContext } from "@/features/project-assistant/w2/resolveProductExecutionContext";
+import { deriveGovernedExecutionContinuityProjection } from "@/features/project-assistant/w2/deriveGovernedExecutionContinuityProjection";
 import { LOCAL_PILOTE_ACTOR } from "@/lib/oa/decision";
 import {
   NORA_LIFECYCLE_RECOMMENDATION_ACTOR,
@@ -933,5 +938,436 @@ describe("POST-EXECUTION-CURSOR-REPORT-ARTIFACT-HANDOFF-01 integrated (R1–R4)"
     expect(classifyDocsWriteClaimCompletionFailure("UNKNOWN_CODE_XYZ")).toBe(
       "CONTINUITY_FAILURE",
     );
+  });
+});
+
+describe("PRODUCT-CONTINUITY-SHARED-KNOWLEDGE-01 reconciler integrated", () => {
+  it("R1 — observe/continue after authorize never creates Attempt", async () => {
+    const ctx = await bootHandoffJourney("pcont-r1");
+    const executionContractId = await prepareInspectConfirmAuthorize(ctx);
+
+    const observed = await reconcileGovernedExecution({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      executionContractId,
+      intent: "observe",
+      forceLocalAuthority: true,
+    });
+    expect(observed.ok).toBe(true);
+    if (!observed.ok) return;
+    expect(observed.projection.stage).toBe("PRE_EXECUTION");
+    expect(observed.projection.attemptId).toBeNull();
+    expect(observed.transitionsApplied).toEqual([]);
+
+    const continued = await reconcileGovernedExecution({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      executionContractId,
+      intent: "continue",
+      forceLocalAuthority: true,
+    });
+    expect(continued.ok).toBe(true);
+    if (!continued.ok) return;
+    expect(continued.stoppedReason).toBe("no_attempt_continue_is_read_stable");
+    expect(continued.projection.attemptId).toBeNull();
+
+    const listed =
+      await ctx.oa.executionAttemptServices!.listExecutionAttempts.execute({
+        executionContractId,
+      });
+    expect(listed.ok).toBe(true);
+    if (!listed.ok) return;
+    expect(listed.attempts).toHaveLength(0);
+  });
+
+  it("R4/R5/R6 — terminal→restart→continue materializes; idempotent; resolve latest", async () => {
+    const nora = new FakeConversationProvider({
+      scripted: Array(12).fill("PCONT_RECONCILE_NORA"),
+    });
+    setConversationProviderForTests(nora);
+
+    const ctx = await bootHandoffJourney("pcont-r456");
+    const executionContractId = await prepareInspectConfirmAuthorize(ctx);
+
+    const claimSpy = vi
+      .spyOn(claimCompletionMod, "completeDocsWriteClaimEvidenceCompletion")
+      .mockResolvedValue({
+        ok: false,
+        code: "CONFORMITY_HEADINGS_MISSING",
+        message: "missing required headings (pcont harness)",
+      });
+
+    let executed: Awaited<
+      ReturnType<typeof governedExecuteAuthorizedContract>
+    >;
+    try {
+      executed = await governedExecuteAuthorizedContract({
+        oa: ctx.oa,
+        projectId: ctx.projectId,
+        executionContractId,
+        forceLocalAuthority: true,
+        missionResultRefsRoot: ctx.refsRoot,
+      });
+    } finally {
+      claimSpy.mockRestore();
+    }
+    expect(executed.ok).toBe(true);
+    if (!executed.ok) throw new Error(JSON.stringify(executed));
+    expect(executed.attemptStatus).toBe("succeeded");
+
+    const beforeMat = await deriveGovernedExecutionContinuityProjection({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      query: { kind: "byExecutionContractId", executionContractId },
+    });
+    expect(beforeMat.ok).toBe(true);
+    if (!beforeMat.ok) return;
+    expect(beforeMat.projection.stage).toBe("PRODUCT_MATERIALIZATION_PENDING");
+    expect(beforeMat.projection.nextDeterministicAction).toBe(
+      "MATERIALIZE_PRODUCT",
+    );
+
+    // TRUE RESTART — dispose runtime A, reopen B on same SQLite.
+    const runtimeB = reopenRuntimeOnSameDb(ctx);
+    const oaB = runtimeB.oa!;
+
+    const reconciled = await reconcileGovernedExecution({
+      oa: oaB,
+      projectId: ctx.projectId,
+      executionContractId,
+      intent: "continue",
+      forceLocalAuthority: true,
+    });
+    expect(reconciled.ok).toBe(true);
+    if (!reconciled.ok) throw new Error(JSON.stringify(reconciled));
+    expect(reconciled.projection.stage).toMatch(
+      /^(POST_EVIDENCE_COMPLETE|POST_EVIDENCE_PENDING)$/,
+    );
+    expect(reconciled.projection.evidenceId).toBeTruthy();
+    expect(reconciled.projection.reviewBundleId).toBeTruthy();
+    expect(reconciled.projection.claimEvaluationId).toBeTruthy();
+    expect(reconciled.transitionsApplied.some((t) =>
+      t.includes("materializeW3bProductTerminal"),
+    )).toBe(true);
+
+    const attemptId = reconciled.projection.attemptId!;
+    const evidenceId = reconciled.projection.evidenceId!;
+    const rbId = reconciled.projection.reviewBundleId!;
+    const ceId = reconciled.projection.claimEvaluationId!;
+
+    // Idempotence — second continue must not duplicate durable objects.
+    const again = await reconcileGovernedExecution({
+      oa: oaB,
+      projectId: ctx.projectId,
+      executionContractId,
+      intent: "continue",
+      forceLocalAuthority: true,
+    });
+    expect(again.ok).toBe(true);
+    if (!again.ok) return;
+    expect(again.projection.attemptId).toBe(attemptId);
+    expect(again.projection.evidenceId).toBe(evidenceId);
+    expect(again.projection.reviewBundleId).toBe(rbId);
+    expect(again.projection.claimEvaluationId).toBe(ceId);
+    expect(again.projection.stage).toBe("POST_EVIDENCE_COMPLETE");
+
+    const listed =
+      await oaB.executionAttemptServices!.listExecutionAttempts.execute({
+        executionContractId,
+      });
+    expect(listed.ok).toBe(true);
+    if (!listed.ok) return;
+    expect(listed.attempts.filter((a) => a.status === "succeeded")).toHaveLength(
+      1,
+    );
+
+    const resolved = await resolveProductExecutionContext({
+      oa: oaB,
+      projectId: ctx.projectId,
+      query: { kind: "latest" },
+    });
+    expect(resolved.ok).toBe(true);
+    if (!resolved.ok) return;
+    expect(resolved.context.attempt?.attemptId).toBe(attemptId);
+    expect(resolved.context.cursorReport.disclosure).toBe("CLAIM_NOT_EVIDENCE");
+    expect(resolved.context.provenance.readOnly).toBe(true);
+
+    const hostile = await resolveProductExecutionContext({
+      oa: oaB,
+      projectId: "prj:hostile-other",
+      query: {
+        kind: "byExecutionContractId",
+        executionContractId,
+      },
+    });
+    expect(hostile.ok).toBe(false);
+    if (hostile.ok) return;
+    expect(hostile.code).toMatch(/CROSS_PROJECT|NOT_FOUND|REJECTED/);
+  });
+
+  it("execute intent initiates Attempt; re-execute does not create a second", async () => {
+    const nora = new FakeConversationProvider({
+      scripted: Array(12).fill("PCONT_EXECUTE_NORA"),
+    });
+    setConversationProviderForTests(nora);
+
+    const ctx = await bootHandoffJourney("pcont-exec");
+    const executionContractId = await prepareInspectConfirmAuthorize(ctx);
+
+    const claimSpy = vi
+      .spyOn(claimCompletionMod, "completeDocsWriteClaimEvidenceCompletion")
+      .mockResolvedValue({
+        ok: false,
+        code: "CONFORMITY_HEADINGS_MISSING",
+        message: "pcont execute harness",
+      });
+
+    let first: Awaited<ReturnType<typeof reconcileGovernedExecution>>;
+    try {
+      first = await reconcileGovernedExecution({
+        oa: ctx.oa,
+        projectId: ctx.projectId,
+        executionContractId,
+        intent: "execute",
+        forceLocalAuthority: true,
+      });
+    } finally {
+      claimSpy.mockRestore();
+    }
+    expect(first.ok).toBe(true);
+    if (!first.ok) throw new Error(JSON.stringify(first));
+    expect(first.projection.attemptId).toBeTruthy();
+    const attemptId = first.projection.attemptId!;
+
+    const second = await reconcileGovernedExecution({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      executionContractId,
+      intent: "execute",
+      forceLocalAuthority: true,
+    });
+    expect(second.ok).toBe(true);
+    if (!second.ok) return;
+    expect(second.projection.attemptId).toBe(attemptId);
+    expect(
+      second.transitionsApplied.includes("execute_redelegated_to_continue") ||
+        second.projection.stage === "POST_EVIDENCE_COMPLETE" ||
+        second.stoppedReason === "human_decision_required" ||
+        second.stoppedReason === "stable",
+    ).toBe(true);
+
+    const listed =
+      await ctx.oa.executionAttemptServices!.listExecutionAttempts.execute({
+        executionContractId,
+      });
+    expect(listed.ok).toBe(true);
+    if (!listed.ok) return;
+    expect(listed.attempts).toHaveLength(1);
+  });
+
+  it("R2 — ACCEPTED restart: same Attempt, continue without duplicate", async () => {
+    const ctx = await bootHandoffJourney("pcont-r2");
+    const executionContractId = await prepareInspectConfirmAuthorize(ctx);
+
+    // Harness-only SELECT to freeze durable ATTEMPT_ACCEPTED (not product path).
+    const selected = await governedExecuteSelectAgent({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      executionContractId,
+      forceLocalAuthority: true,
+    });
+    expect(selected.ok).toBe(true);
+    if (!selected.ok) throw new Error(JSON.stringify(selected));
+    expect(selected.phase).toBe("accepted");
+    expect(selected.attemptStatus).toMatch(/^(accepted|selected)$/);
+    const attemptId = selected.attemptId!;
+
+    const listedA =
+      await ctx.oa.executionAttemptServices!.listExecutionAttempts.execute({
+        executionContractId,
+      });
+    expect(listedA.ok).toBe(true);
+    if (!listedA.ok) return;
+    expect(listedA.attempts).toHaveLength(1);
+
+    const projA = await deriveGovernedExecutionContinuityProjection({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      query: { kind: "byExecutionContractId", executionContractId },
+    });
+    expect(projA.ok).toBe(true);
+    if (!projA.ok) return;
+    expect(projA.projection.stage).toBe("ATTEMPT_ACCEPTED");
+    expect(projA.projection.attemptId).toBe(attemptId);
+    expect(projA.projection.evidenceId).toBeNull();
+
+    // TRUE RESTART
+    const runtimeB = reopenRuntimeOnSameDb(ctx);
+    const oaB = runtimeB.oa!;
+
+    const projB = await deriveGovernedExecutionContinuityProjection({
+      oa: oaB,
+      projectId: ctx.projectId,
+      query: { kind: "byExecutionContractId", executionContractId },
+    });
+    expect(projB.ok).toBe(true);
+    if (!projB.ok) return;
+    expect(projB.projection.stage).toBe("ATTEMPT_ACCEPTED");
+    expect(projB.projection.attemptId).toBe(attemptId);
+    expect(projB.projection.evidenceId).toBeNull();
+    expect(projB.projection.claimEvaluationId).toBeNull();
+
+    const listedB =
+      await oaB.executionAttemptServices!.listExecutionAttempts.execute({
+        executionContractId,
+      });
+    expect(listedB.ok).toBe(true);
+    if (!listedB.ok) return;
+    expect(listedB.attempts).toHaveLength(1);
+    expect(listedB.attempts[0]!.attemptId).toBe(attemptId);
+
+    const claimSpy = vi
+      .spyOn(claimCompletionMod, "completeDocsWriteClaimEvidenceCompletion")
+      .mockResolvedValue({
+        ok: false,
+        code: "CONFORMITY_HEADINGS_MISSING",
+        message: "r2 harness",
+      });
+    let continued: Awaited<ReturnType<typeof reconcileGovernedExecution>>;
+    try {
+      continued = await reconcileGovernedExecution({
+        oa: oaB,
+        projectId: ctx.projectId,
+        executionContractId,
+        intent: "continue",
+        forceLocalAuthority: true,
+      });
+    } finally {
+      claimSpy.mockRestore();
+    }
+    expect(continued.ok).toBe(true);
+    if (!continued.ok) throw new Error(JSON.stringify(continued));
+    expect(continued.projection.attemptId).toBe(attemptId);
+
+    const listedAfter =
+      await oaB.executionAttemptServices!.listExecutionAttempts.execute({
+        executionContractId,
+      });
+    expect(listedAfter.ok).toBe(true);
+    if (!listedAfter.ok) return;
+    expect(listedAfter.attempts).toHaveLength(1);
+    expect(listedAfter.attempts[0]!.attemptId).toBe(attemptId);
+  });
+
+  it("R3 — RUNNING restart: same Attempt, honest continue, no duplicate", async () => {
+    const ctx = await bootHandoffJourney("pcont-r3");
+    const executionContractId = await prepareInspectConfirmAuthorize(ctx);
+
+    const selected = await governedExecuteSelectAgent({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      executionContractId,
+      forceLocalAuthority: true,
+    });
+    expect(selected.ok).toBe(true);
+    if (!selected.ok) throw new Error(JSON.stringify(selected));
+    const attemptId = selected.attemptId!;
+
+    const started = await governedExecuteStart({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      executionContractId,
+      attemptId,
+      forceLocalAuthority: true,
+    });
+    expect(started.ok).toBe(true);
+    if (!started.ok) throw new Error(JSON.stringify(started));
+    // Fake docs_write Start leaves RUNNING (Complete/record is separate).
+    expect(started.phase).toBe("running");
+    expect(started.attemptStatus).toBe("running");
+    expect(started.attemptId).toBe(attemptId);
+
+    const projA = await deriveGovernedExecutionContinuityProjection({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      query: { kind: "byExecutionContractId", executionContractId },
+    });
+    expect(projA.ok).toBe(true);
+    if (!projA.ok) return;
+    expect(projA.projection.stage).toBe("RUNNING");
+    expect(projA.projection.attemptId).toBe(attemptId);
+    expect(projA.projection.evidenceId).toBeNull();
+    expect(projA.projection.claimEvaluationId).toBeNull();
+
+    // TRUE RESTART while RUNNING — Product Truth alone must rehydrate RUNNING.
+    const runtimeB = reopenRuntimeOnSameDb(ctx);
+    const oaB = runtimeB.oa!;
+
+    const projB = await deriveGovernedExecutionContinuityProjection({
+      oa: oaB,
+      projectId: ctx.projectId,
+      query: { kind: "byExecutionContractId", executionContractId },
+    });
+    expect(projB.ok).toBe(true);
+    if (!projB.ok) return;
+    expect(projB.projection.stage).toBe("RUNNING");
+    expect(projB.projection.attemptId).toBe(attemptId);
+    expect(projB.projection.evidenceId).toBeNull();
+    expect(projB.projection.reviewBundleId).toBeNull();
+    expect(projB.projection.claimEvaluationId).toBeNull();
+
+    const listedB =
+      await oaB.executionAttemptServices!.listExecutionAttempts.execute({
+        executionContractId,
+      });
+    expect(listedB.ok).toBe(true);
+    if (!listedB.ok) return;
+    expect(listedB.attempts).toHaveLength(1);
+    expect(listedB.attempts[0]!.attemptId).toBe(attemptId);
+    expect(listedB.attempts[0]!.status).toBe("running");
+
+    const claimSpy = vi
+      .spyOn(claimCompletionMod, "completeDocsWriteClaimEvidenceCompletion")
+      .mockResolvedValue({
+        ok: false,
+        code: "CONFORMITY_HEADINGS_MISSING",
+        message: "r3 harness",
+      });
+    let continued: Awaited<ReturnType<typeof reconcileGovernedExecution>>;
+    try {
+      continued = await reconcileGovernedExecution({
+        oa: oaB,
+        projectId: ctx.projectId,
+        executionContractId,
+        intent: "continue",
+        forceLocalAuthority: true,
+      });
+    } finally {
+      claimSpy.mockRestore();
+    }
+    expect(continued.ok).toBe(true);
+    if (!continued.ok) throw new Error(JSON.stringify(continued));
+    // Accept honest outcomes: progressed terminal/product OR still running/await.
+    expect(continued.projection.attemptId).toBe(attemptId);
+    expect(
+      continued.projection.stage === "RUNNING" ||
+        continued.projection.stage === "PRODUCT_MATERIALIZATION_PENDING" ||
+        continued.projection.stage === "POST_EVIDENCE_PENDING" ||
+        continued.projection.stage === "POST_EVIDENCE_COMPLETE" ||
+        continued.projection.stage === "RECOVERY_REQUIRED" ||
+        continued.stoppedReason === "still_running_or_await_external" ||
+        continued.stoppedReason === "await_external" ||
+        continued.stoppedReason === "human_decision_required" ||
+        continued.stoppedReason === "stable",
+    ).toBe(true);
+
+    const listedAfter =
+      await oaB.executionAttemptServices!.listExecutionAttempts.execute({
+        executionContractId,
+      });
+    expect(listedAfter.ok).toBe(true);
+    if (!listedAfter.ok) return;
+    expect(listedAfter.attempts).toHaveLength(1);
+    expect(listedAfter.attempts[0]!.attemptId).toBe(attemptId);
   });
 });

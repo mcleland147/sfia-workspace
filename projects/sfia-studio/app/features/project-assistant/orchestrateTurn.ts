@@ -424,6 +424,31 @@ export async function orchestrateProjectAssistantTurn(input: {
       outputType: NORA_PRODUCT_TURN_WITH_OPTIONAL_LR_OUTPUT_TYPE,
       cycleJournalCycleInstanceId:
         input.studioCognitiveContext?.activeCycle?.cycleInstanceId ?? null,
+      productExecutionTools: {
+        projectId: project.projectId,
+        resolve: async (query) => {
+          // Dynamic imports — keep orchestrateTurn loadable in jsdom without
+          // evaluating vertical-slice-runtime serverGuard at module load.
+          const [{ getRuntimeApplicationService }, { resolveProductExecutionContext }] =
+            await Promise.all([
+              import("@/lib/vertical-slice-runtime"),
+              import("./w2/resolveProductExecutionContext"),
+            ]);
+          const oa = getRuntimeApplicationService().oa;
+          if (!oa) {
+            return {
+              ok: false as const,
+              code: "OA_UNAVAILABLE",
+              message: "OA runtime indisponible pour Product Resolution.",
+            };
+          }
+          return resolveProductExecutionContext({
+            oa,
+            projectId: project.projectId,
+            query,
+          });
+        },
+      },
     });
 
     let assistantText = turn.text;

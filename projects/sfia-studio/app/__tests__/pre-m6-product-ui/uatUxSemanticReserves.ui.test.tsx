@@ -10,7 +10,7 @@ import type { GetProjectSuccess } from "@/features/pre-m6-product-ui/types";
 import type { ProductConversationController } from "@/features/pre-m6-product-ui/hooks/useProductConversation";
 import type { F3ExecutePayload } from "@/features/project-assistant/f3/types";
 import type { F3M3ResolvedPayload } from "@/features/project-assistant/f3/prepareAndResolveM3ProductPath";
-import { POST_EVIDENCE_NORA_SENTINEL } from "@/features/project-assistant/f3/postEvidenceNoraAnalysis";
+import { POST_EVIDENCE_NORA_SENTINEL } from "@/features/project-assistant/f3/postEvidenceNoraSentinels";
 import type { ProjectAssistantRehydrateEvidenceOutcomeSuccess } from "@/features/project-assistant/types";
 
 const F3_LABELS = {
