@@ -4,11 +4,12 @@
 
 | Champ | Valeur |
 |-------|--------|
-| **Date / heure / timezone** | 2026-09-29 00:20:00 CEST |
-| **Cycle** | Cadrage projet — ouverture 1.3 / système de veille 1.3.1 |
+| **Date / heure / timezone** | 2026-09-29 00:55:00 CEST |
+| **Cycle** | Cadrage — recherche 1.3.2-A Réglementation assurance & données personnelles |
 | **Profil** | Standard |
-| **Typologie** | DOC / research-watch setup |
-| **Projet** | CRM Assurance Courtage |
+| **Typologie** | DOC / regulatory research deep-dive |
+| **Transverse activé** | RGPD / conformité |
+| **Sécurité / RSSI autonome** | NON |
 | **Baseline** | SFIA v2.6 |
 
 ---
@@ -17,46 +18,42 @@
 
 | Check | Valeur |
 |-------|--------|
-| **Workspace** | `/Users/l/Projects/sfia-worktree-crm-assurance` |
-| **Branche initiale** | `docs/crm-assurance-courtage-1-2-user-discovery-01` |
-| **Nouvelle branche** | `docs/crm-assurance-courtage-1-3-watch-01` |
-| **HEAD initial** | `f035ae6e32b701cff29738ec6e391d597bb83439` |
-| **origin/main** | `6f47f74dc9b515c4c79624b21772223ba02c76cd` |
-| **Drift CRM main** | **NONE** |
-| **Dirt** | `.tmp-sfia-review/**` uniquement |
-| **Git Truth** | **PASS** |
+| Workspace | `/Users/l/Projects/sfia-worktree-crm-assurance` |
+| Branche | `docs/crm-assurance-courtage-1-3-watch-01` |
+| HEAD initial | `dabc5c7600cac430ca8e36e5dc84b37d8ffe8394` |
+| origin/main | `6f47f74dc9b515c4c79624b21772223ba02c76cd` |
+| Drift CRM | NONE |
+| Dirt | `.tmp-sfia-review/**` |
+| Git Truth | **PASS** |
 
 ---
 
-## Sources SFIA lues
+## Sources SFIA / projet
 
-1. `prompts/templates/sfia-cycle-execution-template.md`
-2. `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
-3. `method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2.5-project-cycles-method-candidate.md`
-4. `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/01-cadrage.md`
-5. `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
-6. `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
-7. `method/sfia-fast-track/checklists/sfia-validation-checklist.md`
-8. `scripts/sfia/README.md`
-9–11. doctrine, 01-01, 01-02 (locaux CRM)
-
-## Sources pédagogiques prises en compte
-
-Exigences 1.3 / 1.3.1 du brief : marché/concurrence ; réglementation ; no-code/low-code ; IA ; nouvelles technologies ; numérique responsable (écologique, accessible, éthique, inclusif). Support Notion = optionnel ; Git Markdown = équivalent canonique.
-
-## Objectif exact 1.3.1
-
-Établir le système de veille (axes, hiérarchie sources, registre vérifié, méthode, cadence, matrice, questions ouvertes, squelette 1.3.2) — **sans** rapport final, **sans** validation 1.3, **sans** stack/architecture.
-
-## Statut projet d’entrée
-
-1.1 VALIDATED · 1.2 VALIDATED · Architecture NOT DECIDED · Stack NOT DECIDED · 1.3 NOT OPENED (avant cycle) · 1.4 NOT OPENED
+SFIA : template, routing, v2.5, CKC cadrage, operating model, guardrails, checklist, scripts README.
+Projet : doctrine, 01-01, 01-02, **01-03 au HEAD dabc5c76** (base d’entrée).
 
 ---
 
-## Document 1.3 créé — CONTENU COMPLET
+## Méthode de recherche
 
-Path : `projects/crm-assurance-courtage/01-cadrage/01-03-veille-technologique-reglementaire.md`
+1. Hub CNIL assurance → fiches conservation / minimisation-santé / bases légales / droits / AIPD.
+2. ACPR reco 2024-R-03 + article officiel 2025 (entrée en application 31/12/2025).
+3. EIOPA IDD page + EUR-Lex Directive 2016/97 (art. 17, 20).
+4. EUR-Lex GDPR 2016/679 (art. 5, 9, 25, 28, 32, 35 ; recital health data).
+5. Croisement strict avec périmètre 1.1/1.2 ; pas de conclusion depuis snippets seuls.
+
+### Requêtes / chemins utiles
+
+- `site:cnil.fr assurance`
+- `CNIL durées conservation secteur assurance`
+- `ACPR recommandation 2024-R-03 devoir de conseil`
+- `EUR-Lex CELEX:32016L0097` / `32016R0679`
+- `CNIL AIPD`
+
+---
+
+## Métadonnées document 1.3 après mutation
 
 ```markdown
 # CRM Assurance Courtage — 1.3 Veille technologique et réglementaire
@@ -64,8 +61,12 @@ Path : `projects/crm-assurance-courtage/01-cadrage/01-03-veille-technologique-re
 | Champ | Valeur |
 |-------|--------|
 | **Statut 1.3** | **OPENED — WORKING WATCH** |
-| **Sous-étape** | **1.3.1 — WATCH SYSTEM ESTABLISHMENT IN PROGRESS** |
-| **1.3.2 Rapport de veille** | **NOT STARTED / REPORT NOT YET PRODUCED** — structure only (§11) |
+| **1.3.1** | **REVIEW PASS — WATCH SYSTEM ESTABLISHED** |
+| **1.3.2 Rapport de veille** | **IN PROGRESS** (deep-dives bornés ; rapport final non produit) |
+| **1.3.2-A** | **REGULATION & DATA — AWAITING REVIEW** |
+| **1.3.2-B** | **NOT STARTED** |
+| **1.3.2-C** | **NOT STARTED** |
+| **1.3.2-D** | **NOT STARTED** |
 | **1.1** | VALIDATED |
 | **1.2** | VALIDATED (2026-09-28) |
 | **1.4** | **NOT OPENED** |
@@ -75,319 +76,199 @@ Path : `projects/crm-assurance-courtage/01-cadrage/01-03-veille-technologique-re
 | **Notion** | Aucune action dans ce cycle |
 | **Miro** | Hors scope — non modifié |
 
-**Décision Morris :** ouverture du 1.3 et établissement du système de veille **1.3.1**.
-Le présent document **n’est pas** une validation globale du 1.3.
-
----
-
-## 1. Objectif du 1.3
-
-La veille technologique et réglementaire vise à identifier, pour le CRM Assurance Courtage :
-
-- les évolutions technologiques pertinentes (no-code / low-code, IA, nouvelles technologies) ;
-- les contraintes réglementaires et de conformité à examiner ;
-- les opportunités et risques pour le cabinet et ses utilisateurs ;
-- les impacts possibles sur les **choix futurs** (architecture, stack, conception) — **sans** les décider ici.
-
-**Règle de gouvernance :** la veille **informe** les décisions futures ; elle **ne choisit pas** elle-même la stack ni l’architecture.
-
-Le sous-cycle **1.3.1** établit le **système** de veille (axes, sources, méthode, registre, matrice).
-Le sous-cycle **1.3.2** produira le **rapport** de veille (hors périmètre du présent cycle).
-
----
-
-## 2. Périmètre issu de 1.1 / 1.2
-
-Capacités et éléments utiles pour **orienter** la veille (sans redécrire 1.1 / 1.2) :
-
-| Domaine | Éléments retenus |
-|---------|------------------|
-| Relation / cycle | Prospects / clients / contrats ; prospection ; devis ; relances / rendez-vous ; souscription ; renouvellement / résiliation |
-| Documents | Gestion documentaire ; espace sécurisé documentaire ; historique des échanges et contrats |
-| Canaux / accès | Espace client ; canaux physiques et numériques (RDV physique, Visio, téléphone, email) |
-| Opérations | Sinistres ; accompagnement personnalisé sur le cycle de vie du contrat |
-| Pilotage | Tableau de bord / KPI (conversion, panier moyen, satisfaction) |
-| Segments BMC groupe | TPE/PME ; clients particuliers (famille/étudiant) |
-
-**Non décidé :** architecture, stack, UI détaillée, permissions, intégrations techniques.
-
----
-
-## 3. Axes de veille
-
-| Axe | Sujets à surveiller |
-|-----|---------------------|
-| **A. Marché et concurrence** | Digitalisation de la distribution d’assurance ; évolution des usages clients ; combinaison relation humaine / parcours numérique ; évolution du rôle des courtiers ; nouveaux modèles de distribution |
-| **B. Réglementation métier assurance** | Statut / obligations des intermédiaires et courtiers ; distribution d’assurance ; devoir de conseil / recommandation personnalisée ; information et protection du client ; impacts potentiels de la digitalisation sur la distribution |
-| **C. Données personnelles / confidentialité** | Prospects et clients ; contrats ; documents ; données potentiellement sensibles selon les contrats ; historique des échanges ; accès client ; gestion des droits ; sécurité ; durées / finalités **uniquement lorsque sourcées** |
-| **D. Cybersécurité / résilience** | Authentification ; contrôle des accès ; stockage documentaire ; protection des données ; fournisseurs SaaS ; résilience opérationnelle ; **DORA** à examiner selon le champ d’application réel du cabinet — **APPLICABILITY TO VERIFY** (ne pas affirmer DORA applicable au cabinet fictif sans preuve suffisante sur taille / catégorie) |
-| **E. No-code / low-code** | Capacités : CRM ; base structurée ; workflows ; automatisations ; documents ; formulaires ; rendez-vous ; espace client / portail ; reporting ; intégrations ; sécurité / rôles ; maintenabilité ; réversibilité — **aucun outil sélectionné** |
-| **F. IA / nouvelles technologies** | IA générative ; assistants ; classification / extraction documentaire ; aide au traitement ; personnalisation ; analyse / synthèse ; risques d’automatisation ; gouvernance IA ; protection des données ; transparence — **aucun cas d’usage IA ADOPTED** |
-| **G. Accessibilité / inclusion** | Accessibilité des interfaces ; formulaires ; navigation ; contraste ; clavier ; technologies d’assistance ; inclusion numérique ; risque d’exclusion lié à une relation uniquement digitale — **ne pas affirmer une obligation juridique précise sans vérifier son champ d’application** |
-| **H. Numérique responsable / écoconception** | Sobriété ; utilité des fonctionnalités ; limitation des traitements inutiles ; poids / complexité des interfaces ; consommation de ressources ; durée de vie / maintenabilité du service |
-
----
-
-## 4. Hiérarchie des sources
-
-### Niveau 1 — sources primaires / officielles
-
-Prioritaires pour les affirmations juridiques ou réglementaires :
-
-- EUR-Lex ;
-- Commission européenne ;
-- CNIL ;
-- ACPR / Banque de France ;
-- EIOPA ;
-- ORIAS ;
-- ANSSI ;
-- DINUM / références d’accessibilité (RGAA) ;
-- MiNumEco / RGESN ;
-- ADEME / ARCEP lorsque directement pertinent ;
-- textes législatifs / réglementaires officiels (ex. Légifrance — accès à confirmer selon disponibilité technique).
-
-### Niveau 2 — sources institutionnelles / professionnelles solides
-
-- France Assureurs ;
-- organismes publics ;
-- publications sectorielles reconnues ;
-- études professionnelles identifiées et datées.
-
-Toujours distinguer **analyse sectorielle** et **règle juridique**.
-
-### Niveau 3 — sources éditeurs
-
-Uniquement pour : fonctionnalités produits ; limites ; sécurité déclarée ; intégrations ; tarifs ; roadmap / release notes — via documentations et pages **officielles** des éditeurs.
-
-**Interdit :** utiliser une page marketing éditeur pour démontrer une obligation légale, une tendance de marché générale, ou une supériorité comparative.
-
----
-
-## 5. Règles de qualité des sources
-
-Chaque information future du rapport **1.3.2** devra porter :
-
-| Métadonnée | Contenu attendu |
-|------------|-----------------|
-| Organisme / auteur | Obligatoire |
-| Titre | Obligatoire |
-| URL | Obligatoire — non inventée |
-| Date publication / mise à jour | Si disponible |
-| Date de consultation | Obligatoire |
-| Zone géographique | UE / FR / autre |
-| Type de source | Niveau 1 / 2 / 3 |
-| Thème | Axe(s) de veille |
-| Synthèse courte | Factuelle |
-| Impact potentiel projet | Orienté CRM Courtage |
-| Niveau de confiance | Haut / moyen / à confirmer |
-| Applicability | **CONFIRMED** / **LIKELY** / **TO VERIFY** / **NOT APPLICABLE** |
-| Statut | **WATCH** / **PROJECT CONSTRAINT** / **PROJECT OPPORTUNITY** / **INFORMATION ONLY** |
-
-Une absence de preuve ne doit **jamais** être transformée en règle.
-
----
-
-## 6. Registre initial des sources
-
-**Date de consultation initiale :** 2026-09-29
-**Méthode :** ouverture réelle des pages (WebFetch / HTTP) — URLs non inventées.
-**Portée :** identification et vérification de pertinence — **pas** de conclusions détaillées (réservées au 1.3.2).
-
-| ID | Thème | Organisme | Source / page | Type | Zone | Pourquoi cette source | Fréquence | Statut | Dernière vérification |
-|----|-------|-----------|---------------|------|------|----------------------|-----------|--------|----------------------|
-| S01 | C — Données | CNIL | [Site CNIL](https://www.cnil.fr/) | N1 | FR | Autorité FR protection des données — point d’entrée veille RGPD / droits | Hebdo + événementiel | ACTIVE | 2026-09-29 |
-| S02 | C — Données | CNIL | [RGPD — page CNIL](https://www.cnil.fr/fr/reglement-europeen-protection-donnees) | N1 | FR/UE | Cadre RGPD expliqué par l’autorité compétente | Mensuel | ACTIVE | 2026-09-29 |
-| S03 | C — Sécurité données | CNIL | [Guide sécurité des données personnelles](https://www.cnil.fr/fr/guide-de-la-securite-des-donnees-personnelles) | N1 | FR | Précautions sécurité pour organismes traitant des données personnelles | Mensuel | ACTIVE | 2026-09-29 |
-| S04 | F — IA | CNIL | [Intelligence artificielle](https://www.cnil.fr/fr/intelligence-artificielle) | N1 | FR | Positions / outils CNIL sur IA et données personnelles | Hebdo | ACTIVE | 2026-09-29 |
-| S05 | B — Assurance | ACPR | [ACPR — Banque de France](https://acpr.banque-france.fr/) | N1 | FR | Superviseur banque / assurance FR — distribution, intermédiaires, résilience | Hebdo | ACTIVE | 2026-09-29 |
-| S06 | B / D | Banque de France | [Banque de France](https://www.banque-france.fr/) | N1 | FR | Contexte institutionnel ACPR / stabilité financière | Mensuel | ACTIVE | 2026-09-29 |
-| S07 | B — Distribution | EIOPA | [EIOPA](https://www.eiopa.europa.eu/) | N1 | UE | Autorité européenne assurance / pensions | Hebdo | ACTIVE | 2026-09-29 |
-| S08 | B — IDD | EIOPA | [Insurance Distribution Directive (IDD)](https://www.eiopa.europa.eu/browse/regulation-and-policy/insurance-distribution-directive-idd_en) | N1 | UE | Cadre UE distribution d’assurance ; devoirs d’information / conduite | Mensuel | ACTIVE | 2026-09-29 |
-| S09 | A / B — Consommateur | EIOPA | [Consumer protection](https://www.eiopa.europa.eu/browse/consumer-protection_en) | N1 | UE | Tendances consommateurs, protection, innovation | Mensuel | ACTIVE | 2026-09-29 |
-| S10 | B / C / D | EUR-Lex | [EUR-Lex homepage](https://eur-lex.europa.eu/homepage.html) | N1 | UE | Portail droit UE — textes primaires | À la demande | ACTIVE | 2026-09-29 |
-| S11 | C — RGPD | EUR-Lex | [Règlement (UE) 2016/679 — GDPR](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32016R0679) | N1 | UE | Texte officiel RGPD | À la demande | ACTIVE | 2026-09-29 |
-| S12 | B — IDD | EUR-Lex | [Directive (UE) 2016/97 — IDD](https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32016L0097) | N1 | UE | Texte officiel distribution d’assurance | À la demande | ACTIVE | 2026-09-29 |
-| S13 | D — DORA | EUR-Lex | [Règlement (UE) 2022/2554 — DORA](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32022R2554) | N1 | UE | Résilience opérationnelle numérique — **applicability cabinet fictif : TO VERIFY** | À la demande | ACTIVE — APPLICABILITY TO VERIFY | 2026-09-29 |
-| S14 | B — Intermédiaires | ORIAS | [ORIAS](https://www.orias.fr/) | N1 | FR | Registre unique intermédiaires assurance / banque / finance | Mensuel | ACTIVE | 2026-09-29 |
-| S15 | D — Cybersécurité | ANSSI | [cyber.gouv.fr](https://cyber.gouv.fr/) | N1 | FR | Autorité nationale cybersécurité — guides et actualités | Hebdo | ACTIVE | 2026-09-29 |
-| S16 | G — Accessibilité | DINUM | [Accessibilité numérique — RGAA](https://accessibilite.numerique.gouv.fr/) | N1 | FR | Référentiel accessibilité services numériques | Mensuel | ACTIVE | 2026-09-29 |
-| S17 | G — Accessibilité | DINUM | [RGAA — critères et tests](https://accessibilite.numerique.gouv.fr/methode/criteres-et-tests/) | N1 | FR | Critères opérationnels accessibilité | Mensuel | ACTIVE | 2026-09-29 |
-| S18 | H — Écoconception | MiNumEco | [Numérique écoresponsable](https://ecoresponsable.numerique.gouv.fr/) | N1 | FR | Mission interministérielle numérique écoresponsable | Mensuel | ACTIVE | 2026-09-29 |
-| S19 | H — RGESN | MiNumEco | [Référentiel général d’écoconception (RGESN)](https://ecoresponsable.numerique.gouv.fr/publications/referentiel-general-ecoconception/) | N1 | FR | Référentiel écoconception services numériques | Mensuel | ACTIVE | 2026-09-29 |
-| S20 | A — Marché | France Assureurs | [France Assureurs](https://www.franceassureurs.fr/) | N2 | FR | Fédération professionnelle — tendances / données secteur (≠ règle juridique) | Mensuel | ACTIVE | 2026-09-29 |
-
-**Sources candidates non retenues dans ce registre initial faute de vérification stable :** pages ACPR profondes (HTTP 403/404 selon chemins) ; ADEME (challenge bot) ; Légifrance (challenge Cloudflare au moment de la consultation). Elles restent **à reprendre** en 1.3.2 avec accès navigateur interactif si nécessaire.
-
-**Niveau 3 (éditeurs) :** non peuplé dans 1.3.1 — à ouvrir lors de la veille technologique détaillée des outils candidats, sans sélection.
-
----
-
-## 7. Dispositif de veille
-
-| Élément | Choix |
-|---------|-------|
-| **Support canonique** | Git — le présent document |
-| **Notion** | OPTIONNEL pédagogiquement — **aucune action** dans ce cycle |
-| **Canaux** | Moteurs de recherche → **ouverture de la source** ; pages institutionnelles ; newsletters officielles ; alertes ; flux RSS si disponibles ; release notes / docs éditeurs (niveau 3) |
-| **Outils / moyens** | Navigateur ; WebFetch / HTTP pour vérification d’URL ; alertes email institutionnelles lorsque pertinentes ; abonnements newsletters officielles |
-
-### Cadence proposée
-
-| Cadence | Usage |
-|---------|-------|
-| Revue courte **hebdomadaire** | Pendant la phase active du projet |
-| Vérification **ponctuelle** | Avant toute décision technique structurante |
-| Vérification **avant** rédaction finale du rapport Bloc 1 | Consolidation |
-| Suivi **événementiel** | Changements réglementaires majeurs |
-
-**Qualification :** WORKING CADENCE — **TO BE CONFIRMED BY GROUP**
-Cette cadence n’est **pas** présentée comme décision groupe validée.
-
----
-
-## 8. Workflow de qualification d’une information
-
-```text
-Découverte
-  → ouverture de la source
-  → vérification organisme / date / périmètre
-  → synthèse factuelle
-  → qualification de pertinence CRM Courtage
-  → impact potentiel
-  → WATCH / RETAIN / DISCARD
-  → éventuelle intégration au rapport 1.3.2
-```
-
-**Interdit :**
-
-```text
-moteur de recherche → conclusion directe
 ```
 
 ---
 
-## 9. Matrice de veille
+## Section 1.3.2-A COMPLÈTE
 
-| Sujet | Question projet | Sources prioritaires | Information recherchée | Décision future potentiellement éclairée | Statut |
-|-------|-----------------|----------------------|------------------------|------------------------------------------|--------|
-| RGPD / données clients | Quelles contraintes doivent encadrer données, documents et accès ? | S01–S03, S11 | Bases légales, droits, sécurité, sous-traitance | Conception données / accès / DPA futurs | WATCH |
-| Distribution assurance / IDD | Quelles règles doivent être respectées dans un parcours digital ? | S05, S08, S12, S14 | Information client, conseil, transparence distribution | Parcours commercial digital futur | WATCH |
-| DORA / résilience | Le cabinet fictif est-il dans le champ ? Quelles exigences si oui ? | S05, S13, S15 | Champ d’application, ICT risk | Hébergement / SaaS / continuité — **si applicable** | WATCH — APPLICABILITY TO VERIFY |
-| No-code / low-code | Quelles capacités et limites vérifier avant sélection future ? | Docs éditeurs N3 (à peupler) + critères E | Capacités CRM/workflows/docs/portail/sécurité | Sélection stack future (hors 1.3.1) | WATCH |
-| IA | Quels usages sont pertinents et quelles contraintes les encadrent ? | S04, S03, S11 | Gouvernance IA, données, transparence | Cas d’usage IA futurs — aucun ADOPTED | WATCH |
-| Accessibilité | Quels principes doivent guider le futur espace client ? | S16, S17 | RGAA / bonnes pratiques ; champ d’obligation TO VERIFY | UX espace client futur | WATCH |
-| Écoconception | Quelles bonnes pratiques intégrer dès la conception ? | S18, S19 | RGESN / sobriété | Priorisation fonctionnalités / perf | WATCH |
-| Marché / concurrence | Comment évoluent digitalisation et rôle des courtiers ? | S09, S20 | Tendances usages / distribution | Positionnement produit (sans architecture) | WATCH |
+```markdown
+## 14. 1.3.2-A — Réglementation assurance & données personnelles
 
----
+| Champ | Valeur |
+|-------|--------|
+| **Statut** | **AWAITING REVIEW** |
+| **Date de recherche** | 2026-09-29 |
+| **Transverse** | RGPD / conformité (activé) |
+| **Sécurité / RSSI autonome** | **NON** — frontière stricte avec 1.3.2-B |
+| **Nature** | Veille / analyse de cadrage sourcée — **pas** avis juridique ; **pas** conformité certifiée |
 
-## 10. Questions de veille ouvertes
+### 14.1 Périmètre et méthode
 
-Toutes marquées **TO VERIFY** — aucune réponse inventée.
+**Périmètre fonctionnel utilisé (1.1 / 1.2 uniquement) :** prospects ; clients ; contrats ; TPE/PME ; particuliers ; prospection ; devis ; relances ; RDV ; compréhension du besoin ; conseil / recommandation personnalisée ; souscription ; renouvellement / résiliation ; documents ; espace sécurisé documentaire ; historique ; espace client ; sinistres ; dashboard / KPI ; canaux RDV physique / Visio / téléphone / email / espace client.
 
-1. Nature exacte des données manipulées selon les types de contrats (auto, habitation, santé, prévoyance, etc.).
-2. Présence éventuelle de **données de santé** et conséquences associées.
-3. Taille / catégorie juridique du cabinet fictif lorsque nécessaire à l’applicabilité de certains textes (**ex. DORA**).
-4. Rôle exact des **compagnies d’assurance partenaires** (BMC) vs intégrations techniques futures.
-5. Niveau futur d’accès de l’**espace client** (canal validé — conception NON DÉCIDÉE).
-6. Besoins futurs d’**intégration** (compagnies, paiement, signature, etc.).
-7. Cas d’usage **IA** réellement retenus (aucun ADOPTED à ce stade).
-8. Contraintes de **sécurité** des plateformes candidates (niveau 3 à peupler).
-9. Exigences d’**accessibilité** juridiquement applicables vs bonnes pratiques retenues.
-10. Exigences de **conservation documentaire**.
+**Non inventé :** paiement ; signature électronique ; enregistrement d’appels ; API compagnies ; données bancaires ; données médicales stockées ; scoring / profilage automatisé ; antifraude — sauf mention **TO VERIFY** si une source montre une pertinence potentielle.
 
----
+**Méthode :** ouverture réelle de sources N1 (CNIL, ACPR, EIOPA, EUR-Lex) ; distinction fait réglementaire / implication projet / applicability ; interdiction moteur → conclusion.
 
-## 11. Squelette 1.3.2 — Rapport de veille
+### 14.2 Synthèse exécutive bornée
 
-**Statut :** NOT STARTED — STRUCTURE ONLY
+1. **IDD art. 20 (EUR-Lex)** : avant conclusion, le distributeur doit spécifier exigences et besoins du client, fournir une information compréhensible, et proposer un contrat **cohérent** avec ces besoins ; si conseil, une **recommandation personnalisée** motivée est requise → le CRM doit pouvoir **soutenir** (pas « décider ») le recueil / la traçabilité du parcours de conseil — **LIKELY** pour un parcours courtage digitalisé.
+2. **IDD art. 17 (EUR-Lex)** : agir honnêtement, loyalement et professionnellement dans l’intérêt du client → principe de conduite à transmettre à la conception du parcours — **LIKELY**.
+3. **ACPR reco. 2024-R-03** (+ article ACPR 2025) : formaliser le recueil d’informations pour devoir de conseil / recommandation personnalisée ; étendre le conseil dans la durée (dont dommages / prévoyance) ; entrée en application **31/12/2025** → le CRM a un intérêt fort à conserver l’historique besoins / conseils / échanges — **LIKELY** (applicabilité exacte au cabinet fictif **TO VERIFY** selon statut distributeur).
+4. **CNIL assurance — finalités** : distinguer (i) passation / gestion / exécution des contrats et (ii) prospection ; chaque finalité exige une base légale propre — bases finales du projet = **TO VERIFY**.
+5. **CNIL — minimisation** : ne traiter que données pertinentes / nécessaires ; exemple : localisation du bien non nécessaire pour une complémentaire santé — le modèle de données futur doit rester **minimal** — **CONFIRMED** (principe) / champs exacts **TO VERIFY**.
+6. **CNIL — conservation assurance** : prospect sans contrat ≈ **3 ans** depuis collecte / dernier contact prospect ; données utiles à défense de droits ≈ **5 ans** ; contrat conclu → délais de prescription sectoriels (ex. vie 30 ans dans certains cas) → guidance, **pas** politique finale — **LIKELY** / calibrage contrat par contrat **TO VERIFY**.
+7. **Contrat « santé » ≠ donnée de santé** : le brief cite des **catégories de contrats** (auto, habitation, santé, prévoyance) sans prouver le stockage de données concernant la santé → **HEALTH DATA PROCESSING = TO VERIFY** (voir §14.7).
+8. **RGPD art. 9 / CNIL** : données de santé = catégorie particulière ; traitement en principe interdit hors dérogations (protection sociale / consentement explicite selon cas) → si le CRM devait en traiter un jour, contraintes renforcées — **NON confirmé** dans le périmètre actuel.
+9. **Transparence / droits (CNIL + RGPD ch. III)** : information concise et accessible ; droits d’accès, rectification, opposition, etc. → à prévoir pour espace client / parcours — **LIKELY** sans UI décidée.
+10. **AIPD** : obligatoire si risque élevé (liste CNIL ou ≥2 critères G29) ; traitements réels non encore définis → **AIPD = TO VERIFY** — **ne pas** écrire REQUIRED.
 
-Sections prévues (à remplir uniquement après recherche sourcée) :
+### 14.3 Distribution / devoir de conseil
 
-1. Synthèse exécutive
-2. Tendances marché / concurrence
-3. Réglementation assurance
-4. RGPD / données
-5. Cybersécurité / résilience
-6. No-code / low-code
-7. IA / nouvelles technologies
-8. Accessibilité / inclusion
-9. Numérique responsable
-10. Impacts concrets pour le CRM
-11. Contraintes à transmettre aux étapes suivantes
-12. Opportunités
-13. Questions encore ouvertes
-14. Sources
+| Point | Fait réglementaire | Source | Applicability projet | Impact potentiel CRM | Statut |
+|-------|-------------------|--------|----------------------|----------------------|--------|
+| Exigences et besoins | Avant conclusion, spécifier demands & needs sur la base d’informations obtenues du client | IDD art. 20 §1 — EUR-Lex CELEX:32016L0097 | Parcours devis → RDV → proposition → souscription | Soutenir saisie / conservation des informations de besoin | LIKELY |
+| Cohérence produit | Tout contrat proposé doit être cohérent avec demands & needs | IDD art. 20 §1 | Conseil personnalisé BMC / 1.2 | Traçabilité du lien besoin → proposition | LIKELY |
+| Recommandation personnalisée | Si conseil fourni : recommandation personnalisée expliquant pourquoi le produit convient | IDD art. 20 §1 | « Conseil personnalisé » BMC | Enregistrer motivation / justification de conseil (niveau métier) | LIKELY |
+| Gradation | Détails modulés selon complexité produit et type de client | IDD art. 20 §2 | Segments TPE/PME / particuliers | Parcours / questionnaires différenciés possibles — **non conçus ici** | TO VERIFY |
+| Conduite générale | Agir honestly, fairly, professionally ; best interests of customers | IDD art. 17 | Tous canaux validés | Gouvernance du parcours digital / humain | LIKELY |
+| Information précontractuelle | Information claire avant signature ; IPID pour non-vie (cadre IDD / EIOPA) | EIOPA IDD page ; IDD | Souscription | Mettre à disposition / tracer remise d’informations — modalités **TO VERIFY** | LIKELY |
+| Recueil formalisé (FR) | Recommandation ACPR sur recueil d’informations client pour devoir de conseil / reco. personnalisée | ACPR 2024-R-03 (21/11/2024) ; article ACPR 22/09/2025 | Distributeurs FR | Formaliser questionnaires / historique / preuves de conseil | LIKELY |
+| Conseil dans la durée | ACPR recommande conseil périodique aussi pour dommages / prévoyance ; entrée en application 31/12/2025 | ACPR article 2025 | Renouvellement / vie du contrat | Rappels / revue besoins / historique | LIKELY / calendrier exact TO VERIFY |
+| Traçabilité documentaire | Nécessaire pour démontrer le parcours de conseil (principe issu des obligations d’information / reco.) | IDD + ACPR (lecture combinée) | Documents + historique + espace sécurisé | Conserver échanges / pièces / besoins | LIKELY |
+| Digitalisation | ACPR : quel que soit le canal de vente (ex. préférences durabilité assurance-vie) | ACPR article 2025 | Canaux Visio / email / espace client | Même exigence de qualité de conseil en digital | LIKELY |
+| Support durable / com. | Non approfondi ici hors besoins sourcés IDD/ACPR | — | — | Hors scope détaillé 1.3.2-A | NOT APPLICABLE (pour l’instant) |
 
-**Ne pas** remplir ces sections avec des conclusions non recherchées.
+**Limite :** ACPR 2024-R-03 est une **recommandation** de superviseur (bonnes pratiques / attentes de Place), distincte du texte IDD. Le statut juridique exact pour le cabinet fictif reste **TO VERIFY** (ORIAS / catégorie d’intermédiaire).
 
----
+### 14.4 Cartographie des catégories de données (pas un modèle de données)
 
-## 12. Préparation future de la soutenance
+| Domaine | Donnée / catégorie identifiable | Source projet | Donnée personnelle ? | Catégorie particulière potentielle ? | Finalité probable issue du besoin | Statut | Question restante |
+|---------|--------------------------------|---------------|----------------------|--------------------------------------|-----------------------------------|--------|-------------------|
+| Prospect | Identité / coordonnées de contact | 1.1 / 1.2 (prise de contact, devis, RDV) | Oui (si personne physique) | Non a priori | Entrée en relation / devis / RDV | LIKELY | Champs exacts NON DÉCIDÉS |
+| Prospect | Contenu devis / besoin initial | 1.1 / 1.2 | Oui si rattaché à une personne | Possible selon produit (santé) — **TO VERIFY** | Préparation devis / conseil | LIKELY | Contenu devis santé ? |
+| Prospect | Historique d’échanges | 1.1 / 1.2 / BMC transparence | Oui | Non a priori | Continuité / traçabilité relation | LIKELY | Canaux de capture |
+| Client | Identité / coordonnées | 1.1 / 1.2 | Oui | Non a priori | Gestion relation / contrat | LIKELY | — |
+| Client | Données de contrat (type, garanties, échéances) | 1.1 / 1.2 / BMC | Oui si personne physique | Le **type** « santé » ≠ donnée de santé | Gestion / renouvellement / conseil | LIKELY | Périmètre champs contrat |
+| Client | Documents administratifs | 1.1 / 1.2 / espace sécurisé | Oui souvent | Possible (Pièces) — **TO VERIFY** | Gestion documentaire | LIKELY | Types de pièces |
+| Client | Historique échanges / contrats | BMC | Oui | Non a priori | Transparence / confiance | LIKELY | Accès espace client |
+| Sinistre | Infos déclaration / suivi | 1.1 / 1.2 (niveau brief) | Oui | Possible selon sinistre — **TO VERIFY** | Suivi sinistre | LIKELY | Granularité non définie |
+| Pilotage | KPI (conversion, panier, satisfaction) | 1.1 / 1.2 | Agrégats : pas nécessairement ; individuels : oui | Non a priori | Pilotage commercial | TO VERIFY | Agrégation vs individuel |
+| Segments | TPE/PME / particulier | BMC groupe | Particulier : oui ; TPE/PME : selon personnes | Non a priori | Segmentation relationnelle | LIKELY | Statut PME vs personne |
 
-Règle pédagogique tracée uniquement :
+### 14.5 Principes RGPD pertinents à transmettre
 
-- la soutenance devra retenir les **éléments essentiels** pour le client ;
-- le système et le rapport complet seront plus détaillés dans le rapport de cadrage ;
-- un **focus** pourra être choisi ultérieurement selon pertinence (ex. RGPD, sécurité, accessibilité ou écoconception).
+| Principe | Source officielle | Applicability | Impact futur | Décision encore nécessaire |
+|----------|-------------------|---------------|--------------|----------------------------|
+| Licéité / loyauté / transparence | RGPD art. 5 ; CNIL information | LIKELY | Mentions d’information ; UX transparence | Rédaction mentions ; responsable de traitement |
+| Finalités déterminées | RGPD art. 5 ; CNIL bases légales assurance | LIKELY | Séparer finalités contrat vs prospection | Cartographie traitements réelle |
+| Minimisation | RGPD art. 5 ; CNIL minimisation assurance | CONFIRMED (principe) | Limiter champs CRM | Liste de champs |
+| Exactitude | RGPD art. 5 | LIKELY | Mise à jour coordonnées / besoin | Processus de mise à jour |
+| Limitation de conservation | RGPD art. 5 ; CNIL durées assurance | LIKELY | Politique rétention différenciée | Calibrage par finalité / contrat |
+| Intégrité / confidentialité (sécurité appropriée) | RGPD art. 5 + art. 32 | LIKELY (principe) | Exigence de sécurité — **détails → 1.3.2-B** | Mesures techniques |
+| Privacy by design / by default | RGPD art. 25 | LIKELY | Intégrer minimisation dès conception | Architecture future |
+| Sous-traitance | RGPD art. 28 | LIKELY si SaaS / no-code | Contrats / garanties processeur | Choix plateforme (NOT DECIDED) |
+| Droits des personnes | RGPD art. 12–22 ; CNIL droits assurance | LIKELY | Accès / rectification / opposition via process ou espace client | Modalités |
+| Bases légales | RGPD art. 6 ; CNIL grands traitements | **TO VERIFY** | Ne pas figer une base par traitement fictif | Analyse traitement par traitement |
+| Catégories particulières | RGPD art. 9 ; CNIL données de santé assurance | **TO VERIFY** | Si santé : régime renforcé | Preuve projet de traitement |
 
-**Aucun focus final décidé dans ce cycle.**
+**Bases légales possibles à étudier (CNIL assurance) — non attribuées définitivement :** contrat (mesures précontractuelles / exécution) ; obligation légale ; intérêt légitime ; consentement (notamment prospection électronique / cas art. 9).
+**Base juridique finale = TO VERIFY.**
 
----
+### 14.6 Conservation — guidance / candidats de contrainte
 
-## 13. Synthèse 1.3.1
+Source prioritaire : CNIL — *Les durées de conservation des données du secteur de l’assurance* (16/07/2021).
 
-| Point | État |
-|-------|------|
-| **1.3** | OPENED — WORKING WATCH |
-| **1.3.1** | Système de veille établi — AWAITING REVIEW |
-| Axes A–H | Couverture pédagogique complète |
-| Hiérarchie sources N1–N3 | Définie |
-| Registre initial | 20 sources vérifiées (2026-09-29) |
-| Cadence | WORKING — TO BE CONFIRMED BY GROUP |
-| Matrice / questions ouvertes | Établies |
-| **1.3.2** | STRUCTURE ONLY / NOT STARTED |
-| Architecture | NOT DECIDED |
-| Stack | NOT DECIDED |
-| **1.4** | NOT OPENED |
-| Miro / Notion | NOT MODIFIED |
+| Situation | Guidance CNIL (synthèse) | Applicability CRM | Statut |
+|-----------|--------------------------|-------------------|--------|
+| Prospect / pas de contrat (prospection) | Ne pas conserver au-delà de **3 ans** à compter de la collecte ou du **dernier contact émanant du prospect** | Parcours prospect CRM | LIKELY |
+| Données pour constatation / défense / exercice de droits | Jusqu’à **5 ans** (prescription de droit commun, selon CNIL) | Contentieux potentiel | LIKELY |
+| Contrat conclu | Délais de **prescription sectoriels** (ex. assurance-vie : jusqu’à 30 ans dans certains cas cités) | Vie du contrat / archives | TO VERIFY (selon types de contrats réellement gérés) |
+| Fraude (si un jour) | Règles spécifiques (6 mois qualification alerte ; 5 ans si pertinente) | **Hors périmètre actuel** | NOT APPLICABLE pour l’instant |
 
-Le 1.3 **n’est pas** VALIDATED par ce document.
+**Ce n’est PAS une politique de rétention finale.** Les durées dépendent du type de contrat, de la prescription et de la finalité.
 
+### 14.7 Données de santé / catégories particulières
+
+1. **Définition (RGPD, recital / cadre CNIL)** : données concernant la santé = informations révélant l’état de santé physique ou mentale passé, présent ou futur d’une personne (EUR-Lex GDPR ; traitement encadré art. 9).
+2. **Protection spécifique** : traitement en principe **interdit**, sous dérogations (CNIL : protection sociale ; consentement explicite art. 9.2.a selon cas ; défense de droits, etc.).
+3. **Distinction critique :**
+   - **TYPE DE CONTRAT « SANTÉ »** (catégorie produit du brief) ;
+   - **≠ DONNÉE CONCERNANT LA SANTÉ** (catégorie particulière RGPD).
+4. **Situations potentielles assurance (CNIL)** : complémentaire santé / prévoyance / emprunteur peuvent impliquer des données de santé **si** le traitement le nécessite ; la CNIL appelle à vigilance NIR / santé.
+5. **État du projet 1.1 / 1.2 :** aucun champ, pièce, questionnaire médical, ni traitement de donnée de santé n’est décrit comme stocké dans le CRM.
+
+**Verdict sous-sujet :**
+
+### HEALTH DATA PROCESSING = TO VERIFY
+
+Forme équivalente retenue : **NO EVIDENCE OF HEALTH DATA PROCESSING IN CURRENT PROJECT SCOPE** — la présence future reste **TO VERIFY** dès que le contenu réel des dossiers « santé / prévoyance / sinistres » sera précisé.
+
+### 14.8 AIPD / risques élevés
+
+| Élément | Contenu | Statut |
+|---------|---------|--------|
+| Cadre | RGPD art. 35 ; CNIL page AIPD (18/10/2017) | — |
+| Quand | Traitement susceptible d’engendrer un **risque élevé** : liste CNIL **ou** ≥2 critères G29 (scoring/profilage, décision auto, données sensibles, large échelle, etc.) | — |
+| Projet actuel | Traitements détaillés, volumes, technologies, profilage non définis | — |
+| Conclusion | **Ne pas écrire AIPD REQUIRED** | **TO VERIFY** |
+
+### 14.9 Tableau contraintes / impacts futurs
+
+| ID | Constat sourcé | Applicability | Impact potentiel CRM | Étape future concernée | Statut |
+|----|----------------|---------------|----------------------|------------------------|--------|
+| C-A01 | Demands & needs + cohérence produit (IDD art. 20) | LIKELY | Capacité à recueillir / historiser le besoin et le rattacher à la proposition | Conception fonctionnelle ; UX/UI | OPEN |
+| C-A02 | Recommandation personnalisée motivée si conseil (IDD art. 20) | LIKELY | Tracer justification de conseil | Conception fonctionnelle | OPEN |
+| C-A03 | Formalisation recueil + conseil dans la durée (ACPR 2024-R-03 / 2025) | LIKELY | Rappels périodiques ; revue besoins ; preuves | Conception ; delivery | OPEN |
+| C-A04 | Finalités distinctes contrat vs prospection (CNIL) | LIKELY | Séparer traitements / bases / oppositions | Conception ; architecture fonctionnelle | OPEN |
+| C-A05 | Minimisation (CNIL / RGPD art. 5) | CONFIRMED (principe) | Éviter sur-collecte | Conception ; architecture données | OPEN |
+| C-A06 | Conservation prospect ~3 ans / droits ~5 ans / contrat selon prescription (CNIL) | LIKELY | Règles de rétention différenciées | Architecture ; delivery ; QA | OPEN |
+| C-A07 | Transparence + droits personnes (RGPD / CNIL) | LIKELY | Information + exercice des droits | UX/UI ; delivery | OPEN |
+| C-A08 | Privacy by design (RGPD art. 25) | LIKELY | Intégrer minimisation / droits dès design | Architecture ; UX/UI | OPEN |
+| C-A09 | Sous-traitance (RGPD art. 28) si éditeur SaaS | LIKELY | DPA / garanties processeur | Architecture technique ; delivery | OPEN |
+| C-A10 | Sécurité appropriée (RGPD art. 32) — principe | LIKELY | Exigence de sécurité | **Sécurité/RSSI → 1.3.2-B** | OPEN — handoff B |
+| C-A11 | Données de santé / art. 9 | TO VERIFY | Régime renforcé **si** confirmation projet | Conception ; Sécurité/RSSI | OPEN |
+| C-A12 | AIPD si risque élevé | TO VERIFY | Analyse avant mise en œuvre le cas échéant | Conception ; Sécurité/RSSI | OPEN |
+
+### 14.10 Questions TO VERIFY (1.3.2-A)
+
+1. Statut exact du cabinet fictif comme distributeur / inscription ORIAS.
+2. Types de contrats réellement proposés et pièces demandées (surtout santé / prévoyance).
+3. Présence ou non de **données concernant la santé** dans les dossiers CRM.
+4. Bases légales retenues traitement par traitement.
+5. Volume / échelle des traitements (critère AIPD).
+6. Usage ou non de profilage / décision automatisée.
+7. Sous-traitants techniques futurs (stack NOT DECIDED).
+8. Politique de conservation fine par famille de contrat.
+9. Modalités d’exercice des droits via espace client.
+10. Périmètre exact « conseil dans la durée » applicable aux produits du cas.
+
+### 14.11 Sources exploitées (1.3.2-A)
+
+| ID | Thème | Organisme | Titre / page | Lien | Date (si dispo) | Consultation | Pertinence | Statut |
+|----|-------|-----------|--------------|------|-----------------|--------------|------------|--------|
+| S21 | Assurance / RGPD | CNIL | Le secteur de l’assurance | https://www.cnil.fr/fr/assurance | — | 2026-09-29 | Hub sectoriel | ACTIVE |
+| S22 | Conservation | CNIL | Durées de conservation — secteur assurance | https://www.cnil.fr/fr/les-durees-de-conservation-des-donnees-du-secteur-de-lassurance | 16/07/2021 | 2026-09-29 | Guidance rétention | ACTIVE |
+| S23 | Minimisation / santé | CNIL | Minimisation, NIR et données de santé | https://www.cnil.fr/fr/le-principe-de-minimisation-et-les-traitements-du-nir-et-des-donnees-de-sante-dans-le-secteur-de | 16/07/2021 | 2026-09-29 | Art. 9 / minimisation | ACTIVE |
+| S24 | Bases légales | CNIL | Grands traitements et bases légales | https://www.cnil.fr/fr/les-grands-traitements-du-secteur-de-lassurance-et-leurs-bases-legales | 16/07/2021 | 2026-09-29 | Finalités / bases | ACTIVE |
+| S25 | Droits / profilage | CNIL | Droit des personnes et profilage | https://www.cnil.fr/fr/droit-des-personnes-et-profilage-les-specificites-du-secteur-de-lassurance | 16/07/2021 | 2026-09-29 | Transparence / droits | ACTIVE |
+| S26 | AIPD | CNIL | Ce qu’il faut savoir sur l’AIPD | https://www.cnil.fr/fr/ce-quil-faut-savoir-sur-lanalyse-dimpact-relative-la-protection-des-donnees-aipd | 18/10/2017 | 2026-09-29 | Applicability AIPD | ACTIVE |
+| S27 | Devoir de conseil | ACPR | Publication reco. devoir de conseil | https://acpr.banque-france.fr/fr/actualites/publication-de-la-recommandation-sur-le-devoir-de-conseil-en-assurance | 22/09/2025 (maj 25/09/2026) | 2026-09-29 | Conseil dans la durée / calendrier | ACTIVE |
+| S28 | Devoir de conseil | ACPR | Recommandation 2024-R-03 | https://acpr.banque-france.fr/fr/publications-et-statistiques/publications/recommandation-2024-r-03-du-21-novembre-2024-sur-le-recueil-des-informations-relatives-au-client | 21/11/2024 (maj 24/09/2026) | 2026-09-29 | Recueil infos client | ACTIVE |
+| S29 | IDD | EIOPA | Insurance Distribution Directive | https://www.eiopa.europa.eu/browse/regulation-and-policy/insurance-distribution-directive-idd_en | — | 2026-09-29 | Cadre distribution UE | ACTIVE |
+| S30 | IDD texte | EUR-Lex | Directive (UE) 2016/97 | https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32016L0097 | 2016 | 2026-09-29 | Art. 17 / 20 | ACTIVE |
+| S31 | RGPD texte | EUR-Lex | Règlement (UE) 2016/679 | https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32016R0679 | 2016 | 2026-09-29 | Art. 5, 6, 9, 12–22, 25, 28, 32, 35 | ACTIVE |
+| S03 | Sécurité données (principe) | CNIL | Guide sécurité des données personnelles | https://www.cnil.fr/fr/guide-de-la-securite-des-donnees-personnelles | — | 2026-09-29 | Lien principe → 1.3.2-B | ACTIVE (déjà S03) |
+
+### 14.12 Frontière explicite avec 1.3.2-B (Sécurité & résilience)
+
+**Inclus ici (principe RGPD uniquement) :** confidentialité / intégrité comme objectifs ; sécurité appropriée (art. 32) comme contrainte de transmission ; protection documentaire comme besoin métier.
+
+**Exclus / reportés à 1.3.2-B :** threat modeling ; matrice de risques cyber ; IAM détaillé ; chiffrement cible ; MFA ; sauvegarde / PRA / PCA ; durcissement ; évaluation fournisseurs SaaS ; **DORA détaillé**.
+
+### 14.13 Limites / réserves
+
+- Pas d’avis juridique ni de conformité certifiée.
+- Cabinet fictif : taille / statut / produits exacts incomplets.
+- PDF intégral ACPR 2024-R-03 non paraphrasé article par article ; synthèse appuyée sur page officielle + article ACPR 2025.
+- Légifrance non mobilisé (accès technique parfois bloqué) ; droit FR cité via ACPR/CNIL.
+- Aucune stack / architecture / conception SSI.
 ```
 
 ---
 
-## URLs effectivement vérifiées (2026-09-29)
-
-| ID | URL | Preuve |
-|----|-----|--------|
-| S01 | https://www.cnil.fr/ | WebFetch OK |
-| S02 | https://www.cnil.fr/fr/reglement-europeen-protection-donnees | WebFetch OK |
-| S03 | https://www.cnil.fr/fr/guide-de-la-securite-des-donnees-personnelles | WebFetch OK |
-| S04 | https://www.cnil.fr/fr/intelligence-artificielle | WebFetch OK |
-| S05 | https://acpr.banque-france.fr/ | WebFetch OK |
-| S06 | https://www.banque-france.fr/ | HTTP 200 |
-| S07 | https://www.eiopa.europa.eu/ | WebFetch OK |
-| S08 | https://www.eiopa.europa.eu/browse/regulation-and-policy/insurance-distribution-directive-idd_en | WebFetch OK |
-| S09 | https://www.eiopa.europa.eu/browse/consumer-protection_en | WebFetch OK |
-| S10 | https://eur-lex.europa.eu/homepage.html | HTTP 200 |
-| S11 | https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32016R0679 | HTTP 200 |
-| S12 | https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32016L0097 | HTTP 202 |
-| S13 | https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32022R2554 | HTTP 202 — DORA applicability TO VERIFY |
-| S14 | https://www.orias.fr/ | WebFetch OK |
-| S15 | https://cyber.gouv.fr/ | WebFetch OK (ANSSI) |
-| S16 | https://accessibilite.numerique.gouv.fr/ | WebFetch OK |
-| S17 | https://accessibilite.numerique.gouv.fr/methode/criteres-et-tests/ | HTTP 200 |
-| S18 | https://ecoresponsable.numerique.gouv.fr/ | WebFetch OK |
-| S19 | https://ecoresponsable.numerique.gouv.fr/publications/referentiel-general-ecoconception/ | WebFetch OK |
-| S20 | https://www.franceassureurs.fr/ | WebFetch OK |
-
-Non retenues faute d’accès stable : chemins ACPR profonds 404/403 ; ADEME challenge ; Légifrance Cloudflare — à reprendre en 1.3.2.
-
----
-
-## Doctrine §11 après modification (complète)
+## Doctrine §11 complète après modification
 
 ```markdown
 ---
@@ -400,13 +281,18 @@ Non retenues faute d’accès stable : chemins ACPR profonds 404/403 ; ADEME cha
 | Dernière étape validée | **1.2 Analyse des besoins utilisateurs — VALIDATED (2026-09-28)** |
 | 1.1 | **VALIDATED** |
 | 1.2 | **VALIDATED** |
-| Étape actuelle | **1.3 Veille technologique et réglementaire — OPENED** |
-| Sous-étape | **1.3.1 Système de veille — IN PROGRESS / AWAITING REVIEW** |
-| 1.3.2 | **NOT STARTED** |
+| 1.3 | **OPENED** |
+| 1.3.1 | **REVIEW PASS — WATCH SYSTEM ESTABLISHED** |
+| Étape actuelle | **1.3.2-A Réglementation assurance & données — AWAITING REVIEW** |
+| 1.3.2-B | **NOT STARTED** |
+| 1.3.2-C | **NOT STARTED** |
+| 1.3.2-D | **NOT STARTED** |
 | 1.4 | **NOT OPENED** |
 | Architecture | **NOT DECIDED** |
 | Stack runtime | **CANDIDATE TOOL ECOSYSTEM ONLY / NOT DECIDED** |
-| Prochain objectif | Revoir le système de veille 1.3.1 puis ouvrir la production du rapport 1.3.2 après REVIEW PASS |
+| Prochain objectif | Revoir le deep-dive 1.3.2-A avant d’ouvrir 1.3.2-B |
+
+---
 ```
 
 ---
@@ -414,337 +300,302 @@ Non retenues faute d’accès stable : chemins ACPR profonds 404/403 ; ADEME cha
 ## Diff Git utile complet
 
 ```diff
-commit dabc5c7600cac430ca8e36e5dc84b37d8ffe8394
+commit b2e6fb98dee3cb498e073837c32cc7e75c7d0fa7
 Author: Ludo243 <ludo_zaya@hotmail.fr>
-Date:   Tue Sep 29 00:19:31 2026 +0200
+Date:   Tue Sep 29 00:54:59 2026 +0200
 
-    docs(crm-assurance-courtage): open 1.3 technology regulatory watch
+    docs(crm-assurance-courtage): research 1.3.2a regulation and data
 
     Co-authored-by: Cursor <cursoragent@cursor.com>
 
 diff --git a/projects/crm-assurance-courtage/00-intake/crm-assurance-courtage-operating-doctrine.md b/projects/crm-assurance-courtage/00-intake/crm-assurance-courtage-operating-doctrine.md
-index dfc4a6e0..5caaae78 100644
+index 5caaae78..5873c9b1 100644
 --- a/projects/crm-assurance-courtage/00-intake/crm-assurance-courtage-operating-doctrine.md
 +++ b/projects/crm-assurance-courtage/00-intake/crm-assurance-courtage-operating-doctrine.md
-@@ -169,11 +169,15 @@ Décisions futures **séparées** — le GO du présent cycle documentaire **ne
- |---------|------|
- | Phase actuelle | Bloc / Phase 1 — cadrage |
+@@ -171,13 +171,16 @@ Décisions futures **séparées** — le GO du présent cycle documentaire **ne
  | Dernière étape validée | **1.2 Analyse des besoins utilisateurs — VALIDATED (2026-09-28)** |
--| 1.1 | **VALIDATED** — BMC réaligné sur version groupe validée 2026-09-28 |
--| Étape suivante | **1.3 Veille technologique et réglementaire — NOT OPENED** |
-+| 1.1 | **VALIDATED** |
-+| 1.2 | **VALIDATED** |
-+| Étape actuelle | **1.3 Veille technologique et réglementaire — OPENED** |
-+| Sous-étape | **1.3.1 Système de veille — IN PROGRESS / AWAITING REVIEW** |
-+| 1.3.2 | **NOT STARTED** |
-+| 1.4 | **NOT OPENED** |
+ | 1.1 | **VALIDATED** |
+ | 1.2 | **VALIDATED** |
+-| Étape actuelle | **1.3 Veille technologique et réglementaire — OPENED** |
+-| Sous-étape | **1.3.1 Système de veille — IN PROGRESS / AWAITING REVIEW** |
+-| 1.3.2 | **NOT STARTED** |
++| 1.3 | **OPENED** |
++| 1.3.1 | **REVIEW PASS — WATCH SYSTEM ESTABLISHED** |
++| Étape actuelle | **1.3.2-A Réglementation assurance & données — AWAITING REVIEW** |
++| 1.3.2-B | **NOT STARTED** |
++| 1.3.2-C | **NOT STARTED** |
++| 1.3.2-D | **NOT STARTED** |
+ | 1.4 | **NOT OPENED** |
  | Architecture | **NOT DECIDED** |
  | Stack runtime | **CANDIDATE TOOL ECOSYSTEM ONLY / NOT DECIDED** |
--| Prochain objectif | Attendre le GO Morris pour ouvrir le 1.3 après revue de l’alignement 1.1 / 1.2 sur le BMC groupe |
-+| Prochain objectif | Revoir le système de veille 1.3.1 puis ouvrir la production du rapport 1.3.2 après REVIEW PASS |
+-| Prochain objectif | Revoir le système de veille 1.3.1 puis ouvrir la production du rapport 1.3.2 après REVIEW PASS |
++| Prochain objectif | Revoir le deep-dive 1.3.2-A avant d’ouvrir 1.3.2-B |
 
  ---
 
 diff --git a/projects/crm-assurance-courtage/01-cadrage/01-03-veille-technologique-reglementaire.md b/projects/crm-assurance-courtage/01-cadrage/01-03-veille-technologique-reglementaire.md
-new file mode 100644
-index 00000000..ad75bf2c
---- /dev/null
+index ad75bf2c..e0b981b6 100644
+--- a/projects/crm-assurance-courtage/01-cadrage/01-03-veille-technologique-reglementaire.md
 +++ b/projects/crm-assurance-courtage/01-cadrage/01-03-veille-technologique-reglementaire.md
-@@ -0,0 +1,294 @@
-+# CRM Assurance Courtage — 1.3 Veille technologique et réglementaire
+@@ -3,8 +3,12 @@
+ | Champ | Valeur |
+ |-------|--------|
+ | **Statut 1.3** | **OPENED — WORKING WATCH** |
+-| **Sous-étape** | **1.3.1 — WATCH SYSTEM ESTABLISHMENT IN PROGRESS** |
+-| **1.3.2 Rapport de veille** | **NOT STARTED / REPORT NOT YET PRODUCED** — structure only (§11) |
++| **1.3.1** | **REVIEW PASS — WATCH SYSTEM ESTABLISHED** |
++| **1.3.2 Rapport de veille** | **IN PROGRESS** (deep-dives bornés ; rapport final non produit) |
++| **1.3.2-A** | **REGULATION & DATA — AWAITING REVIEW** |
++| **1.3.2-B** | **NOT STARTED** |
++| **1.3.2-C** | **NOT STARTED** |
++| **1.3.2-D** | **NOT STARTED** |
+ | **1.1** | VALIDATED |
+ | **1.2** | VALIDATED (2026-09-28) |
+ | **1.4** | **NOT OPENED** |
+@@ -14,8 +18,8 @@
+ | **Notion** | Aucune action dans ce cycle |
+ | **Miro** | Hors scope — non modifié |
+
+-**Décision Morris :** ouverture du 1.3 et établissement du système de veille **1.3.1**.
+-Le présent document **n’est pas** une validation globale du 1.3.
++**Décision Morris :** 1.3 OPENED ; 1.3.1 établi ; trajectoire 1.3.2 découpée en deep-dives A→E.
++Le présent document **n’est pas** une validation globale du 1.3 ni un avis juridique / conformité certifiée.
+
+ ---
+
+@@ -31,7 +35,7 @@ La veille technologique et réglementaire vise à identifier, pour le CRM Assura
+ **Règle de gouvernance :** la veille **informe** les décisions futures ; elle **ne choisit pas** elle-même la stack ni l’architecture.
+
+ Le sous-cycle **1.3.1** établit le **système** de veille (axes, sources, méthode, registre, matrice).
+-Le sous-cycle **1.3.2** produira le **rapport** de veille (hors périmètre du présent cycle).
++Le sous-cycle **1.3.2** produit le **rapport** de veille par deep-dives bornés. Le présent état documente **1.3.2-A** uniquement.
+
+ ---
+
+@@ -157,6 +161,9 @@ Une absence de preuve ne doit **jamais** être transformée en règle.
+
+ **Sources candidates non retenues dans ce registre initial faute de vérification stable :** pages ACPR profondes (HTTP 403/404 selon chemins) ; ADEME (challenge bot) ; Légifrance (challenge Cloudflare au moment de la consultation). Elles restent **à reprendre** en 1.3.2 avec accès navigateur interactif si nécessaire.
+
++
++**Enrichissement 1.3.2-A :** sources S21–S31 ajoutées en §14.11 (CNIL assurance profond, ACPR 2024-R-03, EUR-Lex IDD/RGPD). Les entrées S01–S20 du registre 1.3.1 restent valides.
++
+ **Niveau 3 (éditeurs) :** non peuplé dans 1.3.1 — à ouvrir lors de la veille technologique détaillée des outils candidats, sans sélection.
+
+ ---
+@@ -274,21 +281,204 @@ Règle pédagogique tracée uniquement :
+
+ ---
+
+-## 13. Synthèse 1.3.1
++
++---
++
++## 14. 1.3.2-A — Réglementation assurance & données personnelles
 +
 +| Champ | Valeur |
 +|-------|--------|
-+| **Statut 1.3** | **OPENED — WORKING WATCH** |
-+| **Sous-étape** | **1.3.1 — WATCH SYSTEM ESTABLISHMENT IN PROGRESS** |
-+| **1.3.2 Rapport de veille** | **NOT STARTED / REPORT NOT YET PRODUCED** — structure only (§11) |
-+| **1.1** | VALIDATED |
-+| **1.2** | VALIDATED (2026-09-28) |
-+| **1.4** | **NOT OPENED** |
-+| **Architecture** | NOT DECIDED |
-+| **Stack** | NOT DECIDED |
-+| **Support canonique** | Git Markdown (équivalent pédagogique à un workspace Notion) |
-+| **Notion** | Aucune action dans ce cycle |
-+| **Miro** | Hors scope — non modifié |
-+
-+**Décision Morris :** ouverture du 1.3 et établissement du système de veille **1.3.1**.
-+Le présent document **n’est pas** une validation globale du 1.3.
-+
-+---
-+
-+## 1. Objectif du 1.3
-+
-+La veille technologique et réglementaire vise à identifier, pour le CRM Assurance Courtage :
-+
-+- les évolutions technologiques pertinentes (no-code / low-code, IA, nouvelles technologies) ;
-+- les contraintes réglementaires et de conformité à examiner ;
-+- les opportunités et risques pour le cabinet et ses utilisateurs ;
-+- les impacts possibles sur les **choix futurs** (architecture, stack, conception) — **sans** les décider ici.
-+
-+**Règle de gouvernance :** la veille **informe** les décisions futures ; elle **ne choisit pas** elle-même la stack ni l’architecture.
-+
-+Le sous-cycle **1.3.1** établit le **système** de veille (axes, sources, méthode, registre, matrice).
-+Le sous-cycle **1.3.2** produira le **rapport** de veille (hors périmètre du présent cycle).
-+
-+---
-+
-+## 2. Périmètre issu de 1.1 / 1.2
-+
-+Capacités et éléments utiles pour **orienter** la veille (sans redécrire 1.1 / 1.2) :
-+
-+| Domaine | Éléments retenus |
-+|---------|------------------|
-+| Relation / cycle | Prospects / clients / contrats ; prospection ; devis ; relances / rendez-vous ; souscription ; renouvellement / résiliation |
-+| Documents | Gestion documentaire ; espace sécurisé documentaire ; historique des échanges et contrats |
-+| Canaux / accès | Espace client ; canaux physiques et numériques (RDV physique, Visio, téléphone, email) |
-+| Opérations | Sinistres ; accompagnement personnalisé sur le cycle de vie du contrat |
-+| Pilotage | Tableau de bord / KPI (conversion, panier moyen, satisfaction) |
-+| Segments BMC groupe | TPE/PME ; clients particuliers (famille/étudiant) |
-+
-+**Non décidé :** architecture, stack, UI détaillée, permissions, intégrations techniques.
-+
-+---
-+
-+## 3. Axes de veille
-+
-+| Axe | Sujets à surveiller |
-+|-----|---------------------|
-+| **A. Marché et concurrence** | Digitalisation de la distribution d’assurance ; évolution des usages clients ; combinaison relation humaine / parcours numérique ; évolution du rôle des courtiers ; nouveaux modèles de distribution |
-+| **B. Réglementation métier assurance** | Statut / obligations des intermédiaires et courtiers ; distribution d’assurance ; devoir de conseil / recommandation personnalisée ; information et protection du client ; impacts potentiels de la digitalisation sur la distribution |
-+| **C. Données personnelles / confidentialité** | Prospects et clients ; contrats ; documents ; données potentiellement sensibles selon les contrats ; historique des échanges ; accès client ; gestion des droits ; sécurité ; durées / finalités **uniquement lorsque sourcées** |
-+| **D. Cybersécurité / résilience** | Authentification ; contrôle des accès ; stockage documentaire ; protection des données ; fournisseurs SaaS ; résilience opérationnelle ; **DORA** à examiner selon le champ d’application réel du cabinet — **APPLICABILITY TO VERIFY** (ne pas affirmer DORA applicable au cabinet fictif sans preuve suffisante sur taille / catégorie) |
-+| **E. No-code / low-code** | Capacités : CRM ; base structurée ; workflows ; automatisations ; documents ; formulaires ; rendez-vous ; espace client / portail ; reporting ; intégrations ; sécurité / rôles ; maintenabilité ; réversibilité — **aucun outil sélectionné** |
-+| **F. IA / nouvelles technologies** | IA générative ; assistants ; classification / extraction documentaire ; aide au traitement ; personnalisation ; analyse / synthèse ; risques d’automatisation ; gouvernance IA ; protection des données ; transparence — **aucun cas d’usage IA ADOPTED** |
-+| **G. Accessibilité / inclusion** | Accessibilité des interfaces ; formulaires ; navigation ; contraste ; clavier ; technologies d’assistance ; inclusion numérique ; risque d’exclusion lié à une relation uniquement digitale — **ne pas affirmer une obligation juridique précise sans vérifier son champ d’application** |
-+| **H. Numérique responsable / écoconception** | Sobriété ; utilité des fonctionnalités ; limitation des traitements inutiles ; poids / complexité des interfaces ; consommation de ressources ; durée de vie / maintenabilité du service |
-+
-+---
-+
-+## 4. Hiérarchie des sources
-+
-+### Niveau 1 — sources primaires / officielles
-+
-+Prioritaires pour les affirmations juridiques ou réglementaires :
-+
-+- EUR-Lex ;
-+- Commission européenne ;
-+- CNIL ;
-+- ACPR / Banque de France ;
-+- EIOPA ;
-+- ORIAS ;
-+- ANSSI ;
-+- DINUM / références d’accessibilité (RGAA) ;
-+- MiNumEco / RGESN ;
-+- ADEME / ARCEP lorsque directement pertinent ;
-+- textes législatifs / réglementaires officiels (ex. Légifrance — accès à confirmer selon disponibilité technique).
-+
-+### Niveau 2 — sources institutionnelles / professionnelles solides
-+
-+- France Assureurs ;
-+- organismes publics ;
-+- publications sectorielles reconnues ;
-+- études professionnelles identifiées et datées.
-+
-+Toujours distinguer **analyse sectorielle** et **règle juridique**.
-+
-+### Niveau 3 — sources éditeurs
-+
-+Uniquement pour : fonctionnalités produits ; limites ; sécurité déclarée ; intégrations ; tarifs ; roadmap / release notes — via documentations et pages **officielles** des éditeurs.
-+
-+**Interdit :** utiliser une page marketing éditeur pour démontrer une obligation légale, une tendance de marché générale, ou une supériorité comparative.
-+
-+---
-+
-+## 5. Règles de qualité des sources
-+
-+Chaque information future du rapport **1.3.2** devra porter :
-+
-+| Métadonnée | Contenu attendu |
-+|------------|-----------------|
-+| Organisme / auteur | Obligatoire |
-+| Titre | Obligatoire |
-+| URL | Obligatoire — non inventée |
-+| Date publication / mise à jour | Si disponible |
-+| Date de consultation | Obligatoire |
-+| Zone géographique | UE / FR / autre |
-+| Type de source | Niveau 1 / 2 / 3 |
-+| Thème | Axe(s) de veille |
-+| Synthèse courte | Factuelle |
-+| Impact potentiel projet | Orienté CRM Courtage |
-+| Niveau de confiance | Haut / moyen / à confirmer |
-+| Applicability | **CONFIRMED** / **LIKELY** / **TO VERIFY** / **NOT APPLICABLE** |
-+| Statut | **WATCH** / **PROJECT CONSTRAINT** / **PROJECT OPPORTUNITY** / **INFORMATION ONLY** |
-+
-+Une absence de preuve ne doit **jamais** être transformée en règle.
-+
-+---
-+
-+## 6. Registre initial des sources
-+
-+**Date de consultation initiale :** 2026-09-29
-+**Méthode :** ouverture réelle des pages (WebFetch / HTTP) — URLs non inventées.
-+**Portée :** identification et vérification de pertinence — **pas** de conclusions détaillées (réservées au 1.3.2).
-+
-+| ID | Thème | Organisme | Source / page | Type | Zone | Pourquoi cette source | Fréquence | Statut | Dernière vérification |
-+|----|-------|-----------|---------------|------|------|----------------------|-----------|--------|----------------------|
-+| S01 | C — Données | CNIL | [Site CNIL](https://www.cnil.fr/) | N1 | FR | Autorité FR protection des données — point d’entrée veille RGPD / droits | Hebdo + événementiel | ACTIVE | 2026-09-29 |
-+| S02 | C — Données | CNIL | [RGPD — page CNIL](https://www.cnil.fr/fr/reglement-europeen-protection-donnees) | N1 | FR/UE | Cadre RGPD expliqué par l’autorité compétente | Mensuel | ACTIVE | 2026-09-29 |
-+| S03 | C — Sécurité données | CNIL | [Guide sécurité des données personnelles](https://www.cnil.fr/fr/guide-de-la-securite-des-donnees-personnelles) | N1 | FR | Précautions sécurité pour organismes traitant des données personnelles | Mensuel | ACTIVE | 2026-09-29 |
-+| S04 | F — IA | CNIL | [Intelligence artificielle](https://www.cnil.fr/fr/intelligence-artificielle) | N1 | FR | Positions / outils CNIL sur IA et données personnelles | Hebdo | ACTIVE | 2026-09-29 |
-+| S05 | B — Assurance | ACPR | [ACPR — Banque de France](https://acpr.banque-france.fr/) | N1 | FR | Superviseur banque / assurance FR — distribution, intermédiaires, résilience | Hebdo | ACTIVE | 2026-09-29 |
-+| S06 | B / D | Banque de France | [Banque de France](https://www.banque-france.fr/) | N1 | FR | Contexte institutionnel ACPR / stabilité financière | Mensuel | ACTIVE | 2026-09-29 |
-+| S07 | B — Distribution | EIOPA | [EIOPA](https://www.eiopa.europa.eu/) | N1 | UE | Autorité européenne assurance / pensions | Hebdo | ACTIVE | 2026-09-29 |
-+| S08 | B — IDD | EIOPA | [Insurance Distribution Directive (IDD)](https://www.eiopa.europa.eu/browse/regulation-and-policy/insurance-distribution-directive-idd_en) | N1 | UE | Cadre UE distribution d’assurance ; devoirs d’information / conduite | Mensuel | ACTIVE | 2026-09-29 |
-+| S09 | A / B — Consommateur | EIOPA | [Consumer protection](https://www.eiopa.europa.eu/browse/consumer-protection_en) | N1 | UE | Tendances consommateurs, protection, innovation | Mensuel | ACTIVE | 2026-09-29 |
-+| S10 | B / C / D | EUR-Lex | [EUR-Lex homepage](https://eur-lex.europa.eu/homepage.html) | N1 | UE | Portail droit UE — textes primaires | À la demande | ACTIVE | 2026-09-29 |
-+| S11 | C — RGPD | EUR-Lex | [Règlement (UE) 2016/679 — GDPR](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32016R0679) | N1 | UE | Texte officiel RGPD | À la demande | ACTIVE | 2026-09-29 |
-+| S12 | B — IDD | EUR-Lex | [Directive (UE) 2016/97 — IDD](https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32016L0097) | N1 | UE | Texte officiel distribution d’assurance | À la demande | ACTIVE | 2026-09-29 |
-+| S13 | D — DORA | EUR-Lex | [Règlement (UE) 2022/2554 — DORA](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32022R2554) | N1 | UE | Résilience opérationnelle numérique — **applicability cabinet fictif : TO VERIFY** | À la demande | ACTIVE — APPLICABILITY TO VERIFY | 2026-09-29 |
-+| S14 | B — Intermédiaires | ORIAS | [ORIAS](https://www.orias.fr/) | N1 | FR | Registre unique intermédiaires assurance / banque / finance | Mensuel | ACTIVE | 2026-09-29 |
-+| S15 | D — Cybersécurité | ANSSI | [cyber.gouv.fr](https://cyber.gouv.fr/) | N1 | FR | Autorité nationale cybersécurité — guides et actualités | Hebdo | ACTIVE | 2026-09-29 |
-+| S16 | G — Accessibilité | DINUM | [Accessibilité numérique — RGAA](https://accessibilite.numerique.gouv.fr/) | N1 | FR | Référentiel accessibilité services numériques | Mensuel | ACTIVE | 2026-09-29 |
-+| S17 | G — Accessibilité | DINUM | [RGAA — critères et tests](https://accessibilite.numerique.gouv.fr/methode/criteres-et-tests/) | N1 | FR | Critères opérationnels accessibilité | Mensuel | ACTIVE | 2026-09-29 |
-+| S18 | H — Écoconception | MiNumEco | [Numérique écoresponsable](https://ecoresponsable.numerique.gouv.fr/) | N1 | FR | Mission interministérielle numérique écoresponsable | Mensuel | ACTIVE | 2026-09-29 |
-+| S19 | H — RGESN | MiNumEco | [Référentiel général d’écoconception (RGESN)](https://ecoresponsable.numerique.gouv.fr/publications/referentiel-general-ecoconception/) | N1 | FR | Référentiel écoconception services numériques | Mensuel | ACTIVE | 2026-09-29 |
-+| S20 | A — Marché | France Assureurs | [France Assureurs](https://www.franceassureurs.fr/) | N2 | FR | Fédération professionnelle — tendances / données secteur (≠ règle juridique) | Mensuel | ACTIVE | 2026-09-29 |
-+
-+**Sources candidates non retenues dans ce registre initial faute de vérification stable :** pages ACPR profondes (HTTP 403/404 selon chemins) ; ADEME (challenge bot) ; Légifrance (challenge Cloudflare au moment de la consultation). Elles restent **à reprendre** en 1.3.2 avec accès navigateur interactif si nécessaire.
-+
-+**Niveau 3 (éditeurs) :** non peuplé dans 1.3.1 — à ouvrir lors de la veille technologique détaillée des outils candidats, sans sélection.
-+
-+---
-+
-+## 7. Dispositif de veille
-+
-+| Élément | Choix |
-+|---------|-------|
-+| **Support canonique** | Git — le présent document |
-+| **Notion** | OPTIONNEL pédagogiquement — **aucune action** dans ce cycle |
-+| **Canaux** | Moteurs de recherche → **ouverture de la source** ; pages institutionnelles ; newsletters officielles ; alertes ; flux RSS si disponibles ; release notes / docs éditeurs (niveau 3) |
-+| **Outils / moyens** | Navigateur ; WebFetch / HTTP pour vérification d’URL ; alertes email institutionnelles lorsque pertinentes ; abonnements newsletters officielles |
-+
-+### Cadence proposée
-+
-+| Cadence | Usage |
-+|---------|-------|
-+| Revue courte **hebdomadaire** | Pendant la phase active du projet |
-+| Vérification **ponctuelle** | Avant toute décision technique structurante |
-+| Vérification **avant** rédaction finale du rapport Bloc 1 | Consolidation |
-+| Suivi **événementiel** | Changements réglementaires majeurs |
-+
-+**Qualification :** WORKING CADENCE — **TO BE CONFIRMED BY GROUP**
-+Cette cadence n’est **pas** présentée comme décision groupe validée.
-+
-+---
-+
-+## 8. Workflow de qualification d’une information
-+
-+```text
-+Découverte
-+  → ouverture de la source
-+  → vérification organisme / date / périmètre
-+  → synthèse factuelle
-+  → qualification de pertinence CRM Courtage
-+  → impact potentiel
-+  → WATCH / RETAIN / DISCARD
-+  → éventuelle intégration au rapport 1.3.2
-+```
-+
-+**Interdit :**
-+
-+```text
-+moteur de recherche → conclusion directe
-+```
-+
-+---
-+
-+## 9. Matrice de veille
-+
-+| Sujet | Question projet | Sources prioritaires | Information recherchée | Décision future potentiellement éclairée | Statut |
-+|-------|-----------------|----------------------|------------------------|------------------------------------------|--------|
-+| RGPD / données clients | Quelles contraintes doivent encadrer données, documents et accès ? | S01–S03, S11 | Bases légales, droits, sécurité, sous-traitance | Conception données / accès / DPA futurs | WATCH |
-+| Distribution assurance / IDD | Quelles règles doivent être respectées dans un parcours digital ? | S05, S08, S12, S14 | Information client, conseil, transparence distribution | Parcours commercial digital futur | WATCH |
-+| DORA / résilience | Le cabinet fictif est-il dans le champ ? Quelles exigences si oui ? | S05, S13, S15 | Champ d’application, ICT risk | Hébergement / SaaS / continuité — **si applicable** | WATCH — APPLICABILITY TO VERIFY |
-+| No-code / low-code | Quelles capacités et limites vérifier avant sélection future ? | Docs éditeurs N3 (à peupler) + critères E | Capacités CRM/workflows/docs/portail/sécurité | Sélection stack future (hors 1.3.1) | WATCH |
-+| IA | Quels usages sont pertinents et quelles contraintes les encadrent ? | S04, S03, S11 | Gouvernance IA, données, transparence | Cas d’usage IA futurs — aucun ADOPTED | WATCH |
-+| Accessibilité | Quels principes doivent guider le futur espace client ? | S16, S17 | RGAA / bonnes pratiques ; champ d’obligation TO VERIFY | UX espace client futur | WATCH |
-+| Écoconception | Quelles bonnes pratiques intégrer dès la conception ? | S18, S19 | RGESN / sobriété | Priorisation fonctionnalités / perf | WATCH |
-+| Marché / concurrence | Comment évoluent digitalisation et rôle des courtiers ? | S09, S20 | Tendances usages / distribution | Positionnement produit (sans architecture) | WATCH |
-+
-+---
-+
-+## 10. Questions de veille ouvertes
-+
-+Toutes marquées **TO VERIFY** — aucune réponse inventée.
-+
-+1. Nature exacte des données manipulées selon les types de contrats (auto, habitation, santé, prévoyance, etc.).
-+2. Présence éventuelle de **données de santé** et conséquences associées.
-+3. Taille / catégorie juridique du cabinet fictif lorsque nécessaire à l’applicabilité de certains textes (**ex. DORA**).
-+4. Rôle exact des **compagnies d’assurance partenaires** (BMC) vs intégrations techniques futures.
-+5. Niveau futur d’accès de l’**espace client** (canal validé — conception NON DÉCIDÉE).
-+6. Besoins futurs d’**intégration** (compagnies, paiement, signature, etc.).
-+7. Cas d’usage **IA** réellement retenus (aucun ADOPTED à ce stade).
-+8. Contraintes de **sécurité** des plateformes candidates (niveau 3 à peupler).
-+9. Exigences d’**accessibilité** juridiquement applicables vs bonnes pratiques retenues.
-+10. Exigences de **conservation documentaire**.
-+
-+---
-+
-+## 11. Squelette 1.3.2 — Rapport de veille
-+
-+**Statut :** NOT STARTED — STRUCTURE ONLY
-+
-+Sections prévues (à remplir uniquement après recherche sourcée) :
-+
-+1. Synthèse exécutive
-+2. Tendances marché / concurrence
-+3. Réglementation assurance
-+4. RGPD / données
-+5. Cybersécurité / résilience
-+6. No-code / low-code
-+7. IA / nouvelles technologies
-+8. Accessibilité / inclusion
-+9. Numérique responsable
-+10. Impacts concrets pour le CRM
-+11. Contraintes à transmettre aux étapes suivantes
-+12. Opportunités
-+13. Questions encore ouvertes
-+14. Sources
-+
-+**Ne pas** remplir ces sections avec des conclusions non recherchées.
-+
-+---
-+
-+## 12. Préparation future de la soutenance
-+
-+Règle pédagogique tracée uniquement :
-+
-+- la soutenance devra retenir les **éléments essentiels** pour le client ;
-+- le système et le rapport complet seront plus détaillés dans le rapport de cadrage ;
-+- un **focus** pourra être choisi ultérieurement selon pertinence (ex. RGPD, sécurité, accessibilité ou écoconception).
-+
-+**Aucun focus final décidé dans ce cycle.**
-+
-+---
-+
-+## 13. Synthèse 1.3.1
-+
-+| Point | État |
-+|-------|------|
-+| **1.3** | OPENED — WORKING WATCH |
-+| **1.3.1** | Système de veille établi — AWAITING REVIEW |
-+| Axes A–H | Couverture pédagogique complète |
-+| Hiérarchie sources N1–N3 | Définie |
-+| Registre initial | 20 sources vérifiées (2026-09-29) |
-+| Cadence | WORKING — TO BE CONFIRMED BY GROUP |
-+| Matrice / questions ouvertes | Établies |
-+| **1.3.2** | STRUCTURE ONLY / NOT STARTED |
-+| Architecture | NOT DECIDED |
-+| Stack | NOT DECIDED |
-+| **1.4** | NOT OPENED |
-+| Miro / Notion | NOT MODIFIED |
-+
-+Le 1.3 **n’est pas** VALIDATED par ce document.
++| **Statut** | **AWAITING REVIEW** |
++| **Date de recherche** | 2026-09-29 |
++| **Transverse** | RGPD / conformité (activé) |
++| **Sécurité / RSSI autonome** | **NON** — frontière stricte avec 1.3.2-B |
++| **Nature** | Veille / analyse de cadrage sourcée — **pas** avis juridique ; **pas** conformité certifiée |
++
++### 14.1 Périmètre et méthode
++
++**Périmètre fonctionnel utilisé (1.1 / 1.2 uniquement) :** prospects ; clients ; contrats ; TPE/PME ; particuliers ; prospection ; devis ; relances ; RDV ; compréhension du besoin ; conseil / recommandation personnalisée ; souscription ; renouvellement / résiliation ; documents ; espace sécurisé documentaire ; historique ; espace client ; sinistres ; dashboard / KPI ; canaux RDV physique / Visio / téléphone / email / espace client.
++
++**Non inventé :** paiement ; signature électronique ; enregistrement d’appels ; API compagnies ; données bancaires ; données médicales stockées ; scoring / profilage automatisé ; antifraude — sauf mention **TO VERIFY** si une source montre une pertinence potentielle.
++
++**Méthode :** ouverture réelle de sources N1 (CNIL, ACPR, EIOPA, EUR-Lex) ; distinction fait réglementaire / implication projet / applicability ; interdiction moteur → conclusion.
++
++### 14.2 Synthèse exécutive bornée
++
++1. **IDD art. 20 (EUR-Lex)** : avant conclusion, le distributeur doit spécifier exigences et besoins du client, fournir une information compréhensible, et proposer un contrat **cohérent** avec ces besoins ; si conseil, une **recommandation personnalisée** motivée est requise → le CRM doit pouvoir **soutenir** (pas « décider ») le recueil / la traçabilité du parcours de conseil — **LIKELY** pour un parcours courtage digitalisé.
++2. **IDD art. 17 (EUR-Lex)** : agir honnêtement, loyalement et professionnellement dans l’intérêt du client → principe de conduite à transmettre à la conception du parcours — **LIKELY**.
++3. **ACPR reco. 2024-R-03** (+ article ACPR 2025) : formaliser le recueil d’informations pour devoir de conseil / recommandation personnalisée ; étendre le conseil dans la durée (dont dommages / prévoyance) ; entrée en application **31/12/2025** → le CRM a un intérêt fort à conserver l’historique besoins / conseils / échanges — **LIKELY** (applicabilité exacte au cabinet fictif **TO VERIFY** selon statut distributeur).
++4. **CNIL assurance — finalités** : distinguer (i) passation / gestion / exécution des contrats et (ii) prospection ; chaque finalité exige une base légale propre — bases finales du projet = **TO VERIFY**.
++5. **CNIL — minimisation** : ne traiter que données pertinentes / nécessaires ; exemple : localisation du bien non nécessaire pour une complémentaire santé — le modèle de données futur doit rester **minimal** — **CONFIRMED** (principe) / champs exacts **TO VERIFY**.
++6. **CNIL — conservation assurance** : prospect sans contrat ≈ **3 ans** depuis collecte / dernier contact prospect ; données utiles à défense de droits ≈ **5 ans** ; contrat conclu → délais de prescription sectoriels (ex. vie 30 ans dans certains cas) → guidance, **pas** politique finale — **LIKELY** / calibrage contrat par contrat **TO VERIFY**.
++7. **Contrat « santé » ≠ donnée de santé** : le brief cite des **catégories de contrats** (auto, habitation, santé, prévoyance) sans prouver le stockage de données concernant la santé → **HEALTH DATA PROCESSING = TO VERIFY** (voir §14.7).
++8. **RGPD art. 9 / CNIL** : données de santé = catégorie particulière ; traitement en principe interdit hors dérogations (protection sociale / consentement explicite selon cas) → si le CRM devait en traiter un jour, contraintes renforcées — **NON confirmé** dans le périmètre actuel.
++9. **Transparence / droits (CNIL + RGPD ch. III)** : information concise et accessible ; droits d’accès, rectification, opposition, etc. → à prévoir pour espace client / parcours — **LIKELY** sans UI décidée.
++10. **AIPD** : obligatoire si risque élevé (liste CNIL ou ≥2 critères G29) ; traitements réels non encore définis → **AIPD = TO VERIFY** — **ne pas** écrire REQUIRED.
++
++### 14.3 Distribution / devoir de conseil
++
++| Point | Fait réglementaire | Source | Applicability projet | Impact potentiel CRM | Statut |
++|-------|-------------------|--------|----------------------|----------------------|--------|
++| Exigences et besoins | Avant conclusion, spécifier demands & needs sur la base d’informations obtenues du client | IDD art. 20 §1 — EUR-Lex CELEX:32016L0097 | Parcours devis → RDV → proposition → souscription | Soutenir saisie / conservation des informations de besoin | LIKELY |
++| Cohérence produit | Tout contrat proposé doit être cohérent avec demands & needs | IDD art. 20 §1 | Conseil personnalisé BMC / 1.2 | Traçabilité du lien besoin → proposition | LIKELY |
++| Recommandation personnalisée | Si conseil fourni : recommandation personnalisée expliquant pourquoi le produit convient | IDD art. 20 §1 | « Conseil personnalisé » BMC | Enregistrer motivation / justification de conseil (niveau métier) | LIKELY |
++| Gradation | Détails modulés selon complexité produit et type de client | IDD art. 20 §2 | Segments TPE/PME / particuliers | Parcours / questionnaires différenciés possibles — **non conçus ici** | TO VERIFY |
++| Conduite générale | Agir honestly, fairly, professionally ; best interests of customers | IDD art. 17 | Tous canaux validés | Gouvernance du parcours digital / humain | LIKELY |
++| Information précontractuelle | Information claire avant signature ; IPID pour non-vie (cadre IDD / EIOPA) | EIOPA IDD page ; IDD | Souscription | Mettre à disposition / tracer remise d’informations — modalités **TO VERIFY** | LIKELY |
++| Recueil formalisé (FR) | Recommandation ACPR sur recueil d’informations client pour devoir de conseil / reco. personnalisée | ACPR 2024-R-03 (21/11/2024) ; article ACPR 22/09/2025 | Distributeurs FR | Formaliser questionnaires / historique / preuves de conseil | LIKELY |
++| Conseil dans la durée | ACPR recommande conseil périodique aussi pour dommages / prévoyance ; entrée en application 31/12/2025 | ACPR article 2025 | Renouvellement / vie du contrat | Rappels / revue besoins / historique | LIKELY / calendrier exact TO VERIFY |
++| Traçabilité documentaire | Nécessaire pour démontrer le parcours de conseil (principe issu des obligations d’information / reco.) | IDD + ACPR (lecture combinée) | Documents + historique + espace sécurisé | Conserver échanges / pièces / besoins | LIKELY |
++| Digitalisation | ACPR : quel que soit le canal de vente (ex. préférences durabilité assurance-vie) | ACPR article 2025 | Canaux Visio / email / espace client | Même exigence de qualité de conseil en digital | LIKELY |
++| Support durable / com. | Non approfondi ici hors besoins sourcés IDD/ACPR | — | — | Hors scope détaillé 1.3.2-A | NOT APPLICABLE (pour l’instant) |
++
++**Limite :** ACPR 2024-R-03 est une **recommandation** de superviseur (bonnes pratiques / attentes de Place), distincte du texte IDD. Le statut juridique exact pour le cabinet fictif reste **TO VERIFY** (ORIAS / catégorie d’intermédiaire).
++
++### 14.4 Cartographie des catégories de données (pas un modèle de données)
++
++| Domaine | Donnée / catégorie identifiable | Source projet | Donnée personnelle ? | Catégorie particulière potentielle ? | Finalité probable issue du besoin | Statut | Question restante |
++|---------|--------------------------------|---------------|----------------------|--------------------------------------|-----------------------------------|--------|-------------------|
++| Prospect | Identité / coordonnées de contact | 1.1 / 1.2 (prise de contact, devis, RDV) | Oui (si personne physique) | Non a priori | Entrée en relation / devis / RDV | LIKELY | Champs exacts NON DÉCIDÉS |
++| Prospect | Contenu devis / besoin initial | 1.1 / 1.2 | Oui si rattaché à une personne | Possible selon produit (santé) — **TO VERIFY** | Préparation devis / conseil | LIKELY | Contenu devis santé ? |
++| Prospect | Historique d’échanges | 1.1 / 1.2 / BMC transparence | Oui | Non a priori | Continuité / traçabilité relation | LIKELY | Canaux de capture |
++| Client | Identité / coordonnées | 1.1 / 1.2 | Oui | Non a priori | Gestion relation / contrat | LIKELY | — |
++| Client | Données de contrat (type, garanties, échéances) | 1.1 / 1.2 / BMC | Oui si personne physique | Le **type** « santé » ≠ donnée de santé | Gestion / renouvellement / conseil | LIKELY | Périmètre champs contrat |
++| Client | Documents administratifs | 1.1 / 1.2 / espace sécurisé | Oui souvent | Possible (Pièces) — **TO VERIFY** | Gestion documentaire | LIKELY | Types de pièces |
++| Client | Historique échanges / contrats | BMC | Oui | Non a priori | Transparence / confiance | LIKELY | Accès espace client |
++| Sinistre | Infos déclaration / suivi | 1.1 / 1.2 (niveau brief) | Oui | Possible selon sinistre — **TO VERIFY** | Suivi sinistre | LIKELY | Granularité non définie |
++| Pilotage | KPI (conversion, panier, satisfaction) | 1.1 / 1.2 | Agrégats : pas nécessairement ; individuels : oui | Non a priori | Pilotage commercial | TO VERIFY | Agrégation vs individuel |
++| Segments | TPE/PME / particulier | BMC groupe | Particulier : oui ; TPE/PME : selon personnes | Non a priori | Segmentation relationnelle | LIKELY | Statut PME vs personne |
++
++### 14.5 Principes RGPD pertinents à transmettre
++
++| Principe | Source officielle | Applicability | Impact futur | Décision encore nécessaire |
++|----------|-------------------|---------------|--------------|----------------------------|
++| Licéité / loyauté / transparence | RGPD art. 5 ; CNIL information | LIKELY | Mentions d’information ; UX transparence | Rédaction mentions ; responsable de traitement |
++| Finalités déterminées | RGPD art. 5 ; CNIL bases légales assurance | LIKELY | Séparer finalités contrat vs prospection | Cartographie traitements réelle |
++| Minimisation | RGPD art. 5 ; CNIL minimisation assurance | CONFIRMED (principe) | Limiter champs CRM | Liste de champs |
++| Exactitude | RGPD art. 5 | LIKELY | Mise à jour coordonnées / besoin | Processus de mise à jour |
++| Limitation de conservation | RGPD art. 5 ; CNIL durées assurance | LIKELY | Politique rétention différenciée | Calibrage par finalité / contrat |
++| Intégrité / confidentialité (sécurité appropriée) | RGPD art. 5 + art. 32 | LIKELY (principe) | Exigence de sécurité — **détails → 1.3.2-B** | Mesures techniques |
++| Privacy by design / by default | RGPD art. 25 | LIKELY | Intégrer minimisation dès conception | Architecture future |
++| Sous-traitance | RGPD art. 28 | LIKELY si SaaS / no-code | Contrats / garanties processeur | Choix plateforme (NOT DECIDED) |
++| Droits des personnes | RGPD art. 12–22 ; CNIL droits assurance | LIKELY | Accès / rectification / opposition via process ou espace client | Modalités |
++| Bases légales | RGPD art. 6 ; CNIL grands traitements | **TO VERIFY** | Ne pas figer une base par traitement fictif | Analyse traitement par traitement |
++| Catégories particulières | RGPD art. 9 ; CNIL données de santé assurance | **TO VERIFY** | Si santé : régime renforcé | Preuve projet de traitement |
++
++**Bases légales possibles à étudier (CNIL assurance) — non attribuées définitivement :** contrat (mesures précontractuelles / exécution) ; obligation légale ; intérêt légitime ; consentement (notamment prospection électronique / cas art. 9).
++**Base juridique finale = TO VERIFY.**
++
++### 14.6 Conservation — guidance / candidats de contrainte
++
++Source prioritaire : CNIL — *Les durées de conservation des données du secteur de l’assurance* (16/07/2021).
++
++| Situation | Guidance CNIL (synthèse) | Applicability CRM | Statut |
++|-----------|--------------------------|-------------------|--------|
++| Prospect / pas de contrat (prospection) | Ne pas conserver au-delà de **3 ans** à compter de la collecte ou du **dernier contact émanant du prospect** | Parcours prospect CRM | LIKELY |
++| Données pour constatation / défense / exercice de droits | Jusqu’à **5 ans** (prescription de droit commun, selon CNIL) | Contentieux potentiel | LIKELY |
++| Contrat conclu | Délais de **prescription sectoriels** (ex. assurance-vie : jusqu’à 30 ans dans certains cas cités) | Vie du contrat / archives | TO VERIFY (selon types de contrats réellement gérés) |
++| Fraude (si un jour) | Règles spécifiques (6 mois qualification alerte ; 5 ans si pertinente) | **Hors périmètre actuel** | NOT APPLICABLE pour l’instant |
++
++**Ce n’est PAS une politique de rétention finale.** Les durées dépendent du type de contrat, de la prescription et de la finalité.
++
++### 14.7 Données de santé / catégories particulières
++
++1. **Définition (RGPD, recital / cadre CNIL)** : données concernant la santé = informations révélant l’état de santé physique ou mentale passé, présent ou futur d’une personne (EUR-Lex GDPR ; traitement encadré art. 9).
++2. **Protection spécifique** : traitement en principe **interdit**, sous dérogations (CNIL : protection sociale ; consentement explicite art. 9.2.a selon cas ; défense de droits, etc.).
++3. **Distinction critique :**
++   - **TYPE DE CONTRAT « SANTÉ »** (catégorie produit du brief) ;
++   - **≠ DONNÉE CONCERNANT LA SANTÉ** (catégorie particulière RGPD).
++4. **Situations potentielles assurance (CNIL)** : complémentaire santé / prévoyance / emprunteur peuvent impliquer des données de santé **si** le traitement le nécessite ; la CNIL appelle à vigilance NIR / santé.
++5. **État du projet 1.1 / 1.2 :** aucun champ, pièce, questionnaire médical, ni traitement de donnée de santé n’est décrit comme stocké dans le CRM.
++
++**Verdict sous-sujet :**
++
++### HEALTH DATA PROCESSING = TO VERIFY
++
++Forme équivalente retenue : **NO EVIDENCE OF HEALTH DATA PROCESSING IN CURRENT PROJECT SCOPE** — la présence future reste **TO VERIFY** dès que le contenu réel des dossiers « santé / prévoyance / sinistres » sera précisé.
++
++### 14.8 AIPD / risques élevés
++
++| Élément | Contenu | Statut |
++|---------|---------|--------|
++| Cadre | RGPD art. 35 ; CNIL page AIPD (18/10/2017) | — |
++| Quand | Traitement susceptible d’engendrer un **risque élevé** : liste CNIL **ou** ≥2 critères G29 (scoring/profilage, décision auto, données sensibles, large échelle, etc.) | — |
++| Projet actuel | Traitements détaillés, volumes, technologies, profilage non définis | — |
++| Conclusion | **Ne pas écrire AIPD REQUIRED** | **TO VERIFY** |
++
++### 14.9 Tableau contraintes / impacts futurs
++
++| ID | Constat sourcé | Applicability | Impact potentiel CRM | Étape future concernée | Statut |
++|----|----------------|---------------|----------------------|------------------------|--------|
++| C-A01 | Demands & needs + cohérence produit (IDD art. 20) | LIKELY | Capacité à recueillir / historiser le besoin et le rattacher à la proposition | Conception fonctionnelle ; UX/UI | OPEN |
++| C-A02 | Recommandation personnalisée motivée si conseil (IDD art. 20) | LIKELY | Tracer justification de conseil | Conception fonctionnelle | OPEN |
++| C-A03 | Formalisation recueil + conseil dans la durée (ACPR 2024-R-03 / 2025) | LIKELY | Rappels périodiques ; revue besoins ; preuves | Conception ; delivery | OPEN |
++| C-A04 | Finalités distinctes contrat vs prospection (CNIL) | LIKELY | Séparer traitements / bases / oppositions | Conception ; architecture fonctionnelle | OPEN |
++| C-A05 | Minimisation (CNIL / RGPD art. 5) | CONFIRMED (principe) | Éviter sur-collecte | Conception ; architecture données | OPEN |
++| C-A06 | Conservation prospect ~3 ans / droits ~5 ans / contrat selon prescription (CNIL) | LIKELY | Règles de rétention différenciées | Architecture ; delivery ; QA | OPEN |
++| C-A07 | Transparence + droits personnes (RGPD / CNIL) | LIKELY | Information + exercice des droits | UX/UI ; delivery | OPEN |
++| C-A08 | Privacy by design (RGPD art. 25) | LIKELY | Intégrer minimisation / droits dès design | Architecture ; UX/UI | OPEN |
++| C-A09 | Sous-traitance (RGPD art. 28) si éditeur SaaS | LIKELY | DPA / garanties processeur | Architecture technique ; delivery | OPEN |
++| C-A10 | Sécurité appropriée (RGPD art. 32) — principe | LIKELY | Exigence de sécurité | **Sécurité/RSSI → 1.3.2-B** | OPEN — handoff B |
++| C-A11 | Données de santé / art. 9 | TO VERIFY | Régime renforcé **si** confirmation projet | Conception ; Sécurité/RSSI | OPEN |
++| C-A12 | AIPD si risque élevé | TO VERIFY | Analyse avant mise en œuvre le cas échéant | Conception ; Sécurité/RSSI | OPEN |
++
++### 14.10 Questions TO VERIFY (1.3.2-A)
++
++1. Statut exact du cabinet fictif comme distributeur / inscription ORIAS.
++2. Types de contrats réellement proposés et pièces demandées (surtout santé / prévoyance).
++3. Présence ou non de **données concernant la santé** dans les dossiers CRM.
++4. Bases légales retenues traitement par traitement.
++5. Volume / échelle des traitements (critère AIPD).
++6. Usage ou non de profilage / décision automatisée.
++7. Sous-traitants techniques futurs (stack NOT DECIDED).
++8. Politique de conservation fine par famille de contrat.
++9. Modalités d’exercice des droits via espace client.
++10. Périmètre exact « conseil dans la durée » applicable aux produits du cas.
++
++### 14.11 Sources exploitées (1.3.2-A)
++
++| ID | Thème | Organisme | Titre / page | Lien | Date (si dispo) | Consultation | Pertinence | Statut |
++|----|-------|-----------|--------------|------|-----------------|--------------|------------|--------|
++| S21 | Assurance / RGPD | CNIL | Le secteur de l’assurance | https://www.cnil.fr/fr/assurance | — | 2026-09-29 | Hub sectoriel | ACTIVE |
++| S22 | Conservation | CNIL | Durées de conservation — secteur assurance | https://www.cnil.fr/fr/les-durees-de-conservation-des-donnees-du-secteur-de-lassurance | 16/07/2021 | 2026-09-29 | Guidance rétention | ACTIVE |
++| S23 | Minimisation / santé | CNIL | Minimisation, NIR et données de santé | https://www.cnil.fr/fr/le-principe-de-minimisation-et-les-traitements-du-nir-et-des-donnees-de-sante-dans-le-secteur-de | 16/07/2021 | 2026-09-29 | Art. 9 / minimisation | ACTIVE |
++| S24 | Bases légales | CNIL | Grands traitements et bases légales | https://www.cnil.fr/fr/les-grands-traitements-du-secteur-de-lassurance-et-leurs-bases-legales | 16/07/2021 | 2026-09-29 | Finalités / bases | ACTIVE |
++| S25 | Droits / profilage | CNIL | Droit des personnes et profilage | https://www.cnil.fr/fr/droit-des-personnes-et-profilage-les-specificites-du-secteur-de-lassurance | 16/07/2021 | 2026-09-29 | Transparence / droits | ACTIVE |
++| S26 | AIPD | CNIL | Ce qu’il faut savoir sur l’AIPD | https://www.cnil.fr/fr/ce-quil-faut-savoir-sur-lanalyse-dimpact-relative-la-protection-des-donnees-aipd | 18/10/2017 | 2026-09-29 | Applicability AIPD | ACTIVE |
++| S27 | Devoir de conseil | ACPR | Publication reco. devoir de conseil | https://acpr.banque-france.fr/fr/actualites/publication-de-la-recommandation-sur-le-devoir-de-conseil-en-assurance | 22/09/2025 (maj 25/09/2026) | 2026-09-29 | Conseil dans la durée / calendrier | ACTIVE |
++| S28 | Devoir de conseil | ACPR | Recommandation 2024-R-03 | https://acpr.banque-france.fr/fr/publications-et-statistiques/publications/recommandation-2024-r-03-du-21-novembre-2024-sur-le-recueil-des-informations-relatives-au-client | 21/11/2024 (maj 24/09/2026) | 2026-09-29 | Recueil infos client | ACTIVE |
++| S29 | IDD | EIOPA | Insurance Distribution Directive | https://www.eiopa.europa.eu/browse/regulation-and-policy/insurance-distribution-directive-idd_en | — | 2026-09-29 | Cadre distribution UE | ACTIVE |
++| S30 | IDD texte | EUR-Lex | Directive (UE) 2016/97 | https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32016L0097 | 2016 | 2026-09-29 | Art. 17 / 20 | ACTIVE |
++| S31 | RGPD texte | EUR-Lex | Règlement (UE) 2016/679 | https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32016R0679 | 2016 | 2026-09-29 | Art. 5, 6, 9, 12–22, 25, 28, 32, 35 | ACTIVE |
++| S03 | Sécurité données (principe) | CNIL | Guide sécurité des données personnelles | https://www.cnil.fr/fr/guide-de-la-securite-des-donnees-personnelles | — | 2026-09-29 | Lien principe → 1.3.2-B | ACTIVE (déjà S03) |
++
++### 14.12 Frontière explicite avec 1.3.2-B (Sécurité & résilience)
++
++**Inclus ici (principe RGPD uniquement) :** confidentialité / intégrité comme objectifs ; sécurité appropriée (art. 32) comme contrainte de transmission ; protection documentaire comme besoin métier.
++
++**Exclus / reportés à 1.3.2-B :** threat modeling ; matrice de risques cyber ; IAM détaillé ; chiffrement cible ; MFA ; sauvegarde / PRA / PCA ; durcissement ; évaluation fournisseurs SaaS ; **DORA détaillé**.
++
++### 14.13 Limites / réserves
++
++- Pas d’avis juridique ni de conformité certifiée.
++- Cabinet fictif : taille / statut / produits exacts incomplets.
++- PDF intégral ACPR 2024-R-03 non paraphrasé article par article ; synthèse appuyée sur page officielle + article ACPR 2025.
++- Légifrance non mobilisé (accès technique parfois bloqué) ; droit FR cité via ACPR/CNIL.
++- Aucune stack / architecture / conception SSI.
++
++
++## 13. Synthèse 1.3 (état courant)
+
+ | Point | État |
+ |-------|------|
+ | **1.3** | OPENED — WORKING WATCH |
+-| **1.3.1** | Système de veille établi — AWAITING REVIEW |
+-| Axes A–H | Couverture pédagogique complète |
+-| Hiérarchie sources N1–N3 | Définie |
+-| Registre initial | 20 sources vérifiées (2026-09-29) |
+-| Cadence | WORKING — TO BE CONFIRMED BY GROUP |
+-| Matrice / questions ouvertes | Établies |
+-| **1.3.2** | STRUCTURE ONLY / NOT STARTED |
++| **1.3.1** | REVIEW PASS — WATCH SYSTEM ESTABLISHED |
++| **1.3.2** | IN PROGRESS |
++| **1.3.2-A** | REGULATION & DATA — AWAITING REVIEW |
++| **1.3.2-B / C / D** | NOT STARTED |
+ | Architecture | NOT DECIDED |
+ | Stack | NOT DECIDED |
+ | **1.4** | NOT OPENED |
+ | Miro / Notion | NOT MODIFIED |
+
+-Le 1.3 **n’est pas** VALIDATED par ce document.
++Le 1.3 **n’est pas** VALIDATED. Le deep-dive 1.3.2-A **n’est pas** une conformité RGPD certifiée ni un avis juridique.
 
 ```
 
@@ -755,28 +606,25 @@ index 00000000..ad75bf2c
 | Validation | Résultat |
 |------------|----------|
 | Git Truth | **PASS** |
-| Nouvelle branche 1.3 | **PASS** (`docs/crm-assurance-courtage-1-3-watch-01`) |
-| 1.1 inchangé | **PASS** |
-| 1.2 inchangé | **PASS** |
-| Doctrine alignée | **PASS** |
-| Document 1.3 créé | **PASS** |
-| 1.3 = OPENED | **PASS** |
-| 1.3.1 système de veille | **PASS** |
-| Axes pédagogiques A–H | **PASS** |
+| 1.3.1 REVIEW PASS conservé | **PASS** |
+| 1.3.2-A ouvert uniquement | **PASS** |
 | Sources officielles prioritaires | **PASS** |
-| Sources réellement vérifiées | **PASS** (20) |
-| URLs non inventées | **PASS** |
-| Registre des sources | **PASS** |
-| Cadence | WORKING / documented — TO BE CONFIRMED BY GROUP |
-| Matrice de veille | **PASS** |
-| Questions ouvertes | **PASS** |
-| 1.3.2 | STRUCTURE ONLY / NOT STARTED |
-| Aucune conclusion réglementaire non sourcée | **PASS** |
-| Aucun choix de stack | **PASS** |
-| Architecture NOT DECIDED | **PASS** |
+| IDD / devoir de conseil sourcé | **PASS** |
+| Cartographie données | **PASS** |
+| Contrat santé ≠ donnée de santé | **PASS** |
+| Health data status | **TO VERIFY** (NO EVIDENCE in current scope) |
+| RGPD principes | **PASS** |
+| Conservation assurance | **PASS** |
+| AIPD applicability | **PASS** (TO VERIFY) |
+| Bases légales non inventées | **PASS** |
+| Impacts CRM sans conception | **PASS** |
+| Frontière RSSI | **PASS** |
+| DORA non conclu | **PASS** |
+| 1.3 OPENED | **PASS** |
+| 1.3.2-B/C/D NOT STARTED | **PASS** |
 | 1.4 NOT OPENED | **PASS** |
-| Miro | **NOT MODIFIED** |
-| Notion | **NOT MODIFIED** |
+| Architecture / Stack NOT DECIDED | **PASS** |
+| Miro / Notion NOT MODIFIED | **PASS** |
 | Exactement 2 fichiers projet | **PASS** |
 | git diff --check | **PASS** |
 | Commit local | **PASS** |
@@ -789,9 +637,9 @@ index 00000000..ad75bf2c
 
 | Champ | Valeur |
 |-------|--------|
-| Message | `docs(crm-assurance-courtage): open 1.3 technology regulatory watch` |
-| SHA | `dabc5c7600cac430ca8e36e5dc84b37d8ffe8394` |
-| Parent | `f035ae6e32b701cff29738ec6e391d597bb83439` |
+| Message | `docs(crm-assurance-courtage): research 1.3.2a regulation and data` |
+| SHA | `b2e6fb98dee3cb498e073837c32cc7e75c7d0fa7` |
+| Parent | `dabc5c7600cac430ca8e36e5dc84b37d8ffe8394` |
 
 ---
 
@@ -799,27 +647,26 @@ index 00000000..ad75bf2c
 
 | Champ | Valeur |
 |-------|--------|
-| **HEAD final** | `dabc5c7600cac430ca8e36e5dc84b37d8ffe8394` |
-| **Branche** | `docs/crm-assurance-courtage-1-3-watch-01` |
-| **Push projet** | NOT DONE |
-| **PR** | NOT CREATED |
-| **1.3** | OPENED |
-| **1.3.2** | NOT STARTED |
-| **1.4** | NOT OPENED |
-| **Architecture / Stack** | NOT DECIDED |
+| HEAD final | `b2e6fb98dee3cb498e073837c32cc7e75c7d0fa7` |
+| Push projet | NOT DONE |
+| PR | NOT CREATED |
+| 1.3 | OPENED |
+| 1.3.2-A | AWAITING REVIEW |
+| 1.3.2-B/C/D | NOT STARTED |
+| Architecture / Stack | NOT DECIDED |
 
 ---
 
 ## Réserves
 
-1. Cadence de veille = WORKING — TO BE CONFIRMED BY GROUP.
-2. Applicabilité DORA au cabinet fictif = **TO VERIFY**.
-3. Niveau 3 éditeurs non peuplé (volontaire — 1.3.2 / veille outils).
-4. Certaines pages institutionnelles (ADEME, Légifrance, chemins ACPR) non accessibles proprement — documentées comme à reprendre.
-5. Aucune validation globale du 1.3.
+1. Pas d’avis juridique / conformité certifiée.
+2. PDF ACPR 2024-R-03 non paraphrasé ligne à ligne ; synthèse via pages officielles ACPR.
+3. Health data / AIPD / bases légales restent TO VERIFY.
+4. Détail SSI / DORA hors scope → 1.3.2-B.
+5. Légifrance non utilisé (accès technique).
 
 ---
 
 ## Verdict
 
-**READY FOR CHATGPT REVIEW — CRM 1.3.1 WATCH SYSTEM ESTABLISHED**
+**READY FOR CHATGPT REVIEW — CRM 1.3.2-A REGULATION AND DATA RESEARCH COMPLETE**
