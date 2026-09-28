@@ -1,16 +1,16 @@
-# ChatGPT Review Pack — CRM 1.3.2-D Technologie / no-code / IA / marché
+# ChatGPT Review Pack — CRM 1.3.2-E Consolidation finale du rapport de veille
 
 ## 0. Identité
 
 | Champ | Valeur |
 |-------|--------|
-| **Date / heure / timezone** | 2026-09-29 01:34:41 CEST |
-| **Cycle** | 1.3.2-D Technologie / no-code / IA / marché |
-| **Typologie** | DOC / technology-market research |
+| **Date / heure / timezone** | 2026-09-29 01:52:10 CEST |
+| **Cycle** | 1.3.2-E Consolidation finale du rapport de veille |
+| **Typologie** | DOC / final watch consolidation |
 | **Profil** | **Standard** |
 | **Critical** | **NON** |
-| **CKC** | Cadrage pilot candidate + §4.1 / §4.16 |
-| **Nature** | EVIDENCE FOR FUTURE TOOL DECISION — NOT stack selection |
+| **CKC** | Cadrage pilot candidate |
+| **Nature** | 1.3.2 FINAL CONSOLIDATION — AWAITING CHATGPT REVIEW (pas validation globale du 1.3) |
 
 ## 1. Git Truth
 
@@ -18,59 +18,60 @@
 |-------|----------|
 | Workspace | /Users/l/Projects/sfia-worktree-crm-assurance |
 | Branche | docs/crm-assurance-courtage-1-3-watch-01 |
-| HEAD initial | b63c5f37610ac290a5dadea93594f75eee26f8b4 |
-| HEAD final | 58d52ac0be9efbd5bc500fd4087285d6f34e8699 |
+| HEAD initial | 58d52ac0be9efbd5bc500fd4087285d6f34e8699 |
+| HEAD final | 43b89a9e7690fb53c38b3afe4cf281e2327df692 |
 | origin/main | 6f47f74dc9b515c4c79624b21772223ba02c76cd |
 | Dirt | .tmp-sfia-review/** only |
 | Drift CRM | NONE |
 | Git Truth | **PASS** |
 
-Handoff C tip connu avant cycle : cc353f2d / blob c73ac5a0
+Handoff D tip connu avant cycle : 2f81e4c0
 
 ## 2. Sources SFIA / projet
 
-Template ; routing ; sfia-v2.5 §4.1/§4.16 ; CKC 01-cadrage ; operating model ; guardrails ; checklist ; scripts README ; doctrine ; 01-01 ; 01-02 ; 01-03.
+Template ; routing ; sfia-v2.5 §4.1/§4.16 ; CKC 01-cadrage ; OM ; guardrails ; checklist ; scripts README ; doctrine ; 01-01 ; 01-02 ; 01-03.
 
-## 3. Entrée → sortie
+## 3. État entrée → sortie
 
 | Élément | Entrée | Sortie |
 |---------|--------|--------|
-| 1.3.2-C | REVIEW PASS ChatGPT (handoff Git AWAITING) | **REVIEW PASS — ACCESSIBILITY & RESPONSIBLE DIGITAL** |
-| 1.3.2-D | NOT STARTED | **TECHNOLOGY / NO-CODE / AI / MARKET — AWAITING REVIEW** |
-| 1.3.2-E | — | NOT STARTED |
-| Architecture / Stack | NOT DECIDED | NOT DECIDED |
+| 1.3.2-D | REVIEW PASS WITH RESERVES | **REVIEW PASS — RESERVES RESOLVED IN 1.3.2-E** |
+| 1.3.2-E | NOT STARTED | **FINAL CONSOLIDATION — AWAITING REVIEW** |
+| 1.3 | OPENED | **OPENED — AWAITING FINAL REVIEW** |
+| 1.4 | NOT OPENED | **NOT OPENED** |
+| Architecture / Stack | NOT DECIDED | **NOT DECIDED** |
 
-Trace C : | **1.3.2-C** | **REVIEW PASS — ACCESSIBILITY & RESPONSIBLE DIGITAL** |
 
-Correction éditoriale C (fraîcheur décret) :
-**Méthode :** sources N1 ouvertes (RGAA officiel, décret 2019-768 **tel que modifié** — fraîcheur 2026-09-29 : décret n° 2026-816 du 24 août 2026 (alignement EAA / exemptions ; accès HTML Légifrance parfois bloqué — preuve secondaire INSEI + existence JO), EUR-Lex EAA 2019/882, W3C WCAG, RGESN 2024 / Arcep–MiNumEco) ; distinction stricte **obligation juridique** / **référentiel** / **bonne pratique** ; analyse qualitative sans inventer d’écrans ni de scores environnementaux.
-+ S49b décret 2026-816 ; **ACCESSIBILITY LEGAL APPLICABILITY = TO VERIFY** inchangé.
+## 4. Corrections R-D01…R-D07
 
-## 4. Stratégie D
+| ID | Avant | Après | Preuve | Statut |
+|----|-------|-------|--------|--------|
+| R-D01 | passeports +12 % 2020–2024 | **+10 % FoS/FoE 2022–2024** (S56) ; S55 conserve +12 % 2020–2024 comme période news distincte | EIOPA structure page | **RESOLVED** |
+| R-D02 | « Applicabilité générale = 2026-08-02 » trop large | Tableau phases : interdictions 2025-02 ; GPAI 2025-08 ; régime général/enforcement 2026-08-02 ≠ high-risk ; transparence août 2026 ; Annex III **2027-12-02** ; Annex I **2028-08-02** | Commission AI Act page S60 | **RESOLVED** |
+| R-D03 | SSO Enterprise | SSO **Professional et Enterprise** | HubSpot KB S86 (MAJ 2026-08-05) | **RESOLVED** |
+| R-D04 | Alan « particuliers selon pages » vague | Cibles sourcées alan.com (entreprises, TNS, particuliers revendiqués) + S87 | alan.com | **RESOLVED** |
+| R-D05 | Make sans source registre / preuve floue | S85 help.make.com/get-started ; cellules sécu/IA = **TV** | Make Help | **RESOLVED** |
+| R-D06 | Décret 2026-816 via INSEI primaire | Primaire **Légifrance** `JORFTEXT000054746617` (S49b) ; secondaire INSEI S49c ; HTML Cloudflare-challenged | Légifrance ID + INSEI | **RESOLVED** (accès HTML corps = réserve technique tracée) |
+| R-D07 | Preuve « Trust+KB / Docs » | IDs S62–S77 / S85–S86 sur cellules décisionnelles | Matrice §17.8 | **RESOLVED** |
 
-Marché N1 (EIOPA/ACPR/Commission) ; scan 4–5 acteurs sites officiels ; panel doctrine L1–L3 ; sources éditeur ; matrice S/P/NN/TV/OOS ; réutilisation A/B/C ; IA sans adoption ; AI Act current-state.
+**1.3.2-D = REVIEW PASS — RESERVES RESOLVED IN 1.3.2-E**
 
-## 5. Preuves (détail §17)
 
-Voir section §17 complète ci-dessous : tendances ; concurrentiel ; matrix ; HubSpot/Airtable/Bubble/Softr/Power Apps ; Make/n8n/PA/Tally/Power BI ; Voiceflow/frontières ; A/B/C ; automation ; AI-D01–D08 ; AI Act ; gaps ; Future Tool Evaluation Criteria ; C-D01–C-D15.
-
-Aucun gagnant / score / poids / stack.
-
-## 6. Métadonnées 01-03
+## 5. Métadonnées 01-03
 
 ```markdown
 # CRM Assurance Courtage — 1.3 Veille technologique et réglementaire
 
 | Champ | Valeur |
 |-------|--------|
-| **Statut 1.3** | **OPENED — WORKING WATCH** |
+| **Statut 1.3** | **OPENED — AWAITING FINAL REVIEW** |
 | **1.3.1** | **REVIEW PASS — WATCH SYSTEM ESTABLISHED** |
-| **1.3.2 Rapport de veille** | **IN PROGRESS** (deep-dives bornés ; rapport final non produit) |
+| **1.3.2 Rapport de veille** | **FINAL CONSOLIDATION — AWAITING REVIEW** |
 | **1.3.2-A** | **REVIEW PASS — REGULATION & DATA** |
 | **1.3.2-B** | **REVIEW PASS — SECURITY & RESILIENCE** |
 | **1.3.2-C** | **REVIEW PASS — ACCESSIBILITY & RESPONSIBLE DIGITAL** |
-| **1.3.2-D** | **TECHNOLOGY / NO-CODE / AI / MARKET — AWAITING REVIEW** |
-| **1.3.2-E** | **NOT STARTED** |
+| **1.3.2-D** | **REVIEW PASS — RESERVES RESOLVED IN 1.3.2-E** |
+| **1.3.2-E** | **FINAL CONSOLIDATION — AWAITING REVIEW** |
 | **1.1** | VALIDATED |
 | **1.2** | VALIDATED (2026-09-28) |
 | **1.4** | **NOT OPENED** |
@@ -81,17 +82,9 @@ Aucun gagnant / score / poids / stack.
 | **Miro** | Hors scope — non modifié |
 
 **Décision Morris :** 1.3 OPENED ; 1.3.1 établi ; trajectoire 1.3.2 découpée en deep-dives A→E.
-Le présent document **n’est pas** une validation globale du 1.3 ni un avis juridique / conformité certifiée.
-
----
-
-## 1. Objectif du 1.3
-
-La veille technologique et réglementaire vise à identifier, pour le CRM Assurance Courtage :
-
 ```
 
-## 7. Doctrine §11 complète
+## 6. Doctrine §11 complète
 
 ```markdown
 ## 11. État actuel
@@ -102,831 +95,806 @@ La veille technologique et réglementaire vise à identifier, pour le CRM Assura
 | Dernière étape validée | **1.2 Analyse des besoins utilisateurs — VALIDATED (2026-09-28)** |
 | 1.1 | **VALIDATED** |
 | 1.2 | **VALIDATED** |
-| 1.3 | **OPENED** |
+| 1.3 | **OPENED — AWAITING FINAL REVIEW** |
 | 1.3.1 | **REVIEW PASS** |
 | 1.3.2-A | **REVIEW PASS — REGULATION & DATA** |
 | 1.3.2-B | **REVIEW PASS — SECURITY & RESILIENCE** |
 | 1.3.2-C | **REVIEW PASS — ACCESSIBILITY & RESPONSIBLE DIGITAL** |
-| Étape actuelle | **1.3.2-D Technologie / no-code / IA / marché — AWAITING REVIEW** |
-| 1.3.2-E | **NOT STARTED** |
+| 1.3.2-D | **REVIEW PASS — RESERVES RESOLVED IN 1.3.2-E** |
+| Étape actuelle | **1.3.2-E Consolidation finale — AWAITING REVIEW** |
 | 1.4 | **NOT OPENED** |
 | Architecture | **NOT DECIDED** |
 | Stack runtime | **CANDIDATE TOOL ECOSYSTEM ONLY / NOT DECIDED** |
-| Prochain objectif | Revoir 1.3.2-D avant éventuel GO Morris pour consolidation 1.3.2-E |
+| Prochain objectif | Revue ChatGPT finale du 1.3.2 puis décision Morris séparée sur validation globale du 1.3 et éventuelle ouverture du 1.4 |
 
 ---
 ```
 
-## 8. Section §17 complète
+## 7. §13 complet
 
 ```markdown
-## 17. 1.3.2-D — Technologie / no-code / IA / marché
-
-| Champ | Valeur |
-|-------|--------|
-| **Statut** | **TECHNOLOGY / NO-CODE / AI / MARKET — AWAITING REVIEW** |
-| **Date de recherche** | 2026-09-29 |
-| **Type** | Cadrage — DOC / technology-market research |
-| **Profil** | **Standard** |
-| **Critical** | **NON** — aucune sélection d’outil ; aucune architecture ; aucun use case IA adopté ; aucun budget |
-| **Nature** | **EVIDENCE FOR FUTURE TOOL DECISION** — **pas** TOOL SELECTION / STACK DECISION |
-
-### 17.1 Périmètre et méthode
-
-**Périmètre :** tendances marché distribution assurance ; scan concurrentiel léger (4–6 acteurs publics FR) ; familles technologiques CRM ; panel doctrine candidat (niveaux 1–3) ; réutilisation contraintes A/B/C ; IA candidats + veille AI Act ; gaps ; critères futurs.
-
-**Méthode :** sources N1/institutionnelles (EIOPA, ACPR, Commission UE) + sources éditeur officielles (docs / trust / help) ; distinction **SUPPORTED / PARTIAL / NOT NATIVE / TO VERIFY / OUT OF SCOPE** ; aucune cellule « BEST / WINNER » ; pas de pondération.
-
-**Panel doctrine (présence = CANDIDATE ONLY) :** Bubble, Softr, Power Apps, Airtable, HubSpot, Make, n8n, Power Automate, Tally, Power BI, Voiceflow, Postman, Notion, Figma, Miro, Shopify.
-
-**Hors scope :** sélection stack ; architecture ; modèle de données ; budget 1.5 ; API assureurs ; paiement / signature comme exigence validée ; ouverture 1.3.2-E / 1.4.
-
-### 17.2 Synthèse exécutive bornée
-
-1. **FAIT** — EIOPA (3e rapport IDD, 2026-03-30) : digitalisation distribution **lente** ; ventes en ligne souvent **&lt;10 %** primes dans la plupart des marchés ; produits simples ; GenAI via chatbots/outils de vente en hausse → **IMPACT** : CRM courtier doit soutenir **conseil humain + digital**, pas remplacer → **STATUT** : MARKET PATTERN
-2. **FAIT** — Nombre d’intermédiaires en baisse / consolidation ; passeports UE +12 % (2020–2024) → **IMPACT** : différenciation par relation / outil → **STATUT** : CONTEXT
-3. **OBSERVATION** — Acteurs digitaux FR (comparateurs, assureurs en ligne, insurtech) exposent devis/souscription/espace client/self-service, souvent avec canal humain revendiqué → **IMPACT** : attentes clients sur self-service + contact → **STATUT** : COMPETITIVE OBSERVATION (pas ranking)
-4. **FAIT** — Besoins CRM validés = relation, devis, RDV, documents, espace client, historique, sinistres, KPI — **pas** paiement/API assureur/scoring → **IMPACT** : familles techno à couvrir → **STATUT** : NEED-DRIVEN
-5. **OBSERVATION** — HubSpot = CRM natif documenté (objets, permissions, portail tickets legacy, 2FA/SSO, audit, export, API) ; dépendances **tier** (Enterprise SSO, etc.) → **IMPACT** : fort fit CRM commercial **candidat** → **STATUT** : EVIDENCE — NOT SELECTED
-6. **OBSERVATION** — Airtable / Softr / Bubble / Power Apps = données + apps/portails **construisibles** ; sécurité/rôles souvent **à concevoir** (Privacy Rules Bubble ; Dataverse Power ; groups Softr) → **IMPACT** : flexibilité élevée / complexité maintenabilité → **STATUT** : EVIDENCE — NOT SELECTED
-7. **OBSERVATION** — Make / n8n / Power Automate = orchestration ; Tally = formulaires ; Power BI = reporting — briques **complémentaires**, pas CRM cœur seuls → **IMPACT** : intégrations nécessaires pour RDV/docs/IA → **STATUT** : COMPLEMENTARY CANDIDATES
-8. **FAIT** — Contraintes A/B/C (RGPD, MFA candidate, logs, backup, accessibilité, sobriété, réversibilité) **réutilisables** comme critères d’évaluation outils → **IMPACT** : checklist future Phase 2 → **STATUT** : CRITERIA CARRIED FORWARD
-9. **FAIT** — AI Act (UE) 2024/1689 applicable par phases ; Omnibus 2026/1744 (en vigueur 2026-07-27) décale high-risk Annex III → **2027-12-02** → **IMPACT** : gouvernance IA **use-case dependent** → **STATUT** : **AI ACT PROJECT APPLICABILITY = TO VERIFY / USE-CASE DEPENDENT**
-10. **OBSERVATION** — Cas IA « conseil / scoring / underwriting » = **HIGH-SENSITIVITY** ; candidats AI-D01…D08 restent **RESEARCH CANDIDATE / WATCH** — **aucun ADOPTED**
-11. **GAP** — RDV natif, génération documentaire accessible, audit fin, portail client « dossier assurance » : souvent **PARTIAL** ou via extensions → **IMPACT** : **GAP IDENTIFIED — FUTURE TOOL DISCOVERY REQUIRED** pour certaines briques → **STATUT** : OPEN
-12. **LIMITE** — **Architecture = NOT DECIDED** ; **Stack = NOT DECIDED** ; aucun gagnant ; aucun score
-
-### 17.3 Tendances marché assurance / courtage
-
-| Observation | Source | Portée | Implication projet |
-|-------------|--------|--------|-------------------|
-| Digitalisation distribution progresse lentement ; online &lt;10 % GWP dans la plupart des marchés ; produits simples | EIOPA 3rd IDD report / factsheet 2026-03-30 | UE / agrégats NCA | CRM = support omnicanal + conseil, pas pure digital-only |
-| GenAI utilisé via chatbots / sales tools ; IDD ne régule pas exhaustivement ces canaux | EIOPA 2026-03-30 | UE | IA = watch ; human oversight ; pas d’adoption conseil auto |
-| Baisse nombre intermédiaires ; +12 % passeports UE 2020–2024 | EIOPA | UE | Consolidation / différenciation relationnelle |
-| Canaux de distribution doivent être compatibles marché cible / intérêt client | ACPR Rec. 2024-R-01 | FR | Traçabilité conseil / historique dans le futur CRM |
-| Digitalisation + IA complexifient protection client / fraudes | Pôle commun ACPR-AMF 2025 | FR | Sécurité + clarté parcours (lien B/C) |
-
-**Réserve :** statistiques UE/FR **ne** se traduisent **pas** automatiquement en volumes du cabinet fictif.
-
-### 17.4 Scan concurrentiel léger
-
-**But :** MARKET PATTERNS / COMPETITIVE OBSERVATIONS — **pas** BEST COMPETITOR. Sources = sites officiels consultés 2026-09-29.
-
-| Acteur | Type | Cible visible | Devis / souscription | Espace client / docs | Sinistres | Conseil humain | Différenciation revendiquée |
-|--------|------|---------------|----------------------|----------------------|-----------|----------------|----------------------------|
-| Direct Assurance | Assureur direct (groupe AXA) | Particuliers auto/hab/santé/moto | Parcours produits en ligne | App mobile ; parcours digitaux | Mise en avant résolution sinistres | Conseiller dédié revendiqué | Assurance en ligne depuis 1992 ; labels ; économie multi-contrats |
-| Réassurez-moi | Comparateur / courtage digital | Emprunteur, santé, divers | Simulation + devis + souscription en ligne | Accompagnement experts | — (hors focus) | Interlocuteur humain revendiqué (« pas un robot ») | Comparaison ; experts non commissionnés (revendiqué) |
-| LeLynx.fr | Comparateur (courtier ORIAS) | Particuliers auto/moto/hab/santé/énergie | Formulaire unique ; redirection souscription partenaire | — | — | Service comparaison | Panel partenaires ; gratuit / impartial (revendiqué) |
-| Lovys | Insurtech / abonnement multi-produits | Particuliers | Souscription en ligne ~2 min ; signature en ligne | Espace personnel / attestations | Réactivité sinistre (avis) | Mail, chatbot, téléphone | 100 % en ligne + humain ; mensualité unique |
-| Alan | Assurtech santé (emploi/entreprises + particuliers selon pages) | Santé collective / digitale | Parcours digital (site) | App / self-service typique insurtech | — | Support digital | Santé digitale (pattern) — détail produit TO VERIFY hors brief |
-
-**Patterns utiles au cadrage :** self-service devis ; espace documents ; multicanal humain+digital ; comparaison vs relation de conseil personnalisé (opportunité différenciante du cabinet).
-
-**Non déduit :** outils techniques internes des acteurs ; conformité ; volumes.
-
-### 17.5 Besoins technologiques du CRM
-
-| Besoin validé (1.1/1.2) | Famille techno | Priorité conception |
-|-------------------------|----------------|---------------------|
-| Prospects / clients / TPE-PME / particuliers | CRM / données structurées | Haute |
-| Prospection, devis, relances, RDV, conseil, souscription, renouvellement, résiliation | CRM + workflows + formulaires | Haute |
-| Documents / espace documentaire / historique | Documents + stockage + droits | Haute |
-| Espace client | Portail / auth externe | Haute |
-| Sinistres (niveau brief) | CRM / dossiers | Moyenne–Haute |
-| Dashboard KPI (conversion, panier, satisfaction) | Reporting / BI | Moyenne |
-| Multicanal (physique, Visio, tel, email, espace client) | Intégrations + inclusion (C) | Haute |
-| Génération / envoi documentaire | Documents + automatisation | Haute |
-
-**Non inventé comme besoin validé :** paiement ; signature électronique obligatoire ; API assureurs ; scoring ; underwriting auto ; app native ; biométrie.
-
-### 17.6 Cartographie des familles technologiques
-
-1. CRM relation client
-2. Données structurées / app métier
-3. Portail / espace client
-4. Formulaires / collecte
-5. Workflows / automatisation
-6. Documents
-7. RDV / interactions
-8. Reporting / BI
-9. Intégrations / API / webhooks
-10. Sécurité / rôles / audit
-11. Export / réversibilité / maintenabilité
-12. Accessibilité
-13. Numérique responsable
-14. Capacités IA
-15. Collaboration / knowledge (périphérique)
-
-**Aucune architecture cible combinant ces briques.**
-
-### 17.7 Panel no-code / low-code étudié
-
-| Niveau | Outils | Objectif |
-|--------|--------|----------|
-| 1 | HubSpot, Airtable, Bubble, Softr, Power Apps | Couverture potentielle large CRM/app |
-| 2 | Make, n8n, Power Automate, Tally, Power BI | Briques spécialisées |
-| 3 | Voiceflow, Postman, Notion, Figma, Miro, Shopify | Frontières / hors cœur CRM |
-
-Shopify = **OUT OF SCOPE** (pas de besoin e-commerce validé). Figma/Miro/Postman/Notion = **pas** candidats cœur CRM.
-
-### 17.8 Capability Evidence Matrix
-
-Légende : **S**=SUPPORTED ; **P**=PARTIAL ; **NN**=NOT NATIVE ; **TV**=TO VERIFY ; **OOS**=OUT OF SCOPE. Preuves = sources éditeur ouvertes 2026-09-29. **Aucun classement.**
-
-| Outil | Rôle candidat | CRM natif | Données | Portail / externe | Formulaires | Automatisation | Documents | Reporting | API / intégrations | Rôles / sécurité | Audit / logs | Export / réversib. | Accessibilité doc. | IA doc. | Dépendances / limites | Preuve |
-|-------|---------------|-----------|---------|-------------------|-------------|----------------|-----------|-----------|--------------------|------------------|--------------|--------------------|--------------------|---------|-----------------------|--------|
-| HubSpot | CRM spécialisé | **S** | **S** | **P** (Customer Portal tickets / memberships) | **S** | **S** (workflows) | **P** (Documents tool / fichiers) | **S** | **S** (API 2026-09) | **S** (permissions, teams, 2FA, SSO Enterprise) | **S** (audit logs ; tier) | **S** (export ; GDPR delete) | **TV** | **P**/TV (features AI produit) | Tier / hub / Enterprise SSO | Trust+KB |
-| Airtable | Données / interfaces | **P** | **S** | **P** (Interfaces / Portals — plans) | **S** | **S** (Automations) | **P** (attachments) | **P** | **S** (API) | **P**/S (permissions interfaces ; SSO Biz/Ent) | **S** Enterprise Scale audit API | **P**/S (CSV/API) | **TV** | **P** (AI events in audit) | Enterprise pour audit avancé | Support+API |
-| Bubble | App full-stack no-code | **NN** (à construire) | **S** | **S** (app users) | **S** (à construire) | **S** (workflows) | **P** (à concevoir) | **P** | **S** (Data/Workflow API) | **P** (Privacy Rules ; 2FA possible) | **P**/TV | **P**/TV | **TV** | **TV** | Sécurité **responsabilité partagée** builder | Manual security |
-| Softr | Portail / frontend | **NN** | **P** (Softr DB / sources) | **S** (client portal pattern) | **S** | **P** (workflows) | **P** | **P** | **P**/S (API/intégrations) | **S** (user groups ; 2FA password+OTP ; SSO Enterprise) | **TV** | **TV** | **TV** | **P** (AI-native claims marketing docs) | Tier Enterprise SSO | Docs Softr |
-| Power Apps | App low-code | **P** (model-driven / canvas) | **S** (Dataverse) | **P** (Power Pages lié écosystème) | **S** | **S** (via Automate) | **P** | **P** (via BI) | **S** (connectors) | **S** (Entra ID + Dataverse roles) | **P**/S (platform) | **P**/S | **P**/TV (platform guidance) | **P** (Copilot) | Licences Power Platform / Dataverse | MS Learn |
-| Make | Automatisation | **NN** | **NN** | **NN** | **NN** | **S** | **P** (via modules) | **NN** | **S** | **TV** (compte Make) | **TV** | **TV** | **OOS** | **P**/TV | Orchestrateur seulement | Make help (accès parfois limité) |
-| n8n | Automatisation | **NN** | **NN** | **NN** | **NN** | **S** | **P** | **NN** | **S** | **P**/TV (self-host vs cloud) | **P**/TV | **P**/TV | **OOS** | **P** (AI features docs) | Self-host = ops | docs.n8n.io |
-| Power Automate | Automatisation M365 | **NN** | **P** | **NN** | **P** | **S** | **P** | **P** | **S** | **S** (Entra / env) | **P** | **P** | **OOS**/TV | **P** (Copilot) | Environnements / licences | MS Learn |
-| Tally | Formulaires | **NN** | **NN** | **NN** | **S** | **P** (webhooks / Make/n8n/Zapier) | **P** (PDF guides) | **P** (insights) | **P**/S (API/webhooks) | **TV** | **TV** | **P** (retention Pro+) | **TV** | **P** (ChatGPT integ.) | Free vs Pro/Business | help.tally.so |
-| Power BI | Reporting | **NN** | **P** | **NN** | **NN** | **P** | **P** (export) | **S** | **S** | **S** (workspace roles) | **P** | **S** | **P** (alt text ; Accessible PDF paginated) | **P** | Licence Power BI | MS Learn accessibility |
-| Voiceflow | Conversation | **NN** | **NN** | **P** | **NN** | **P** | **NN** | **NN** | **P** | **TV** | **TV** | **TV** | **TV** | **S**/P (voice AI) | Frontière ; pas CRM | Panel L3 |
-| Postman | Test API | **OOS** | **OOS** | **OOS** | **OOS** | **OOS** | **OOS** | **OOS** | **S** (outil test) | **OOS** | **OOS** | **OOS** | **OOS** | **OOS** | Pas runtime CRM | Doctrine |
-| Notion | Collab / docs | **OOS** cœur | **P** | **NN** | **P** | **P** | **P** | **NN** | **P** | **P** | **TV** | **P** | **TV** | **P** | Pas source vérité SFIA | Doctrine |
-| Figma / Miro | Design / atelier | **OOS** | **OOS** | **OOS** | **OOS** | **OOS** | **OOS** | **OOS** | **OOS** | **OOS** | **OOS** | **OOS** | **OOS** | **OOS** | Hors runtime | Doctrine |
-| Shopify | E-commerce | **OOS** | **OOS** | **OOS** | **OOS** | **OOS** | **OOS** | **OOS** | **OOS** | **OOS** | **OOS** | **OOS** | **OOS** | **OOS** | Pas besoin validé | Doctrine |
-
-**COST / LICENSING IMPACT = FUTURE BUDGET INPUT** (pas de chiffrage 1.5).
-
-### 17.9 Sécurité / données / accessibilité / sobriété dans le panel
-
-| Critère héritage | Application au panel | Statut |
-|------------------|----------------------|--------|
-| A — proportionnalité / export / suppression / DPA / localisation | HubSpot : GDPR delete, export, EU DC option documentés ; autres : TV selon contrat/DPA éditeur | CRITERIA — pas de certificat « RGPD compliant » outil |
-| A — HEALTH DATA / AIPD | **TO VERIFY** inchangé ; si santé → hausser exigences | OPEN |
-| B — auth / MFA candidate | HubSpot 2FA/SSO ; Softr password+OTP ; Bubble 2FA possible ; Power Entra | SECURITY REQUIREMENT CANDIDATE — techno NOT DECIDED |
-| B — rôles / moindre privilège | Permissions HubSpot/Dataverse/Softr groups/Bubble Privacy Rules | ACCESS CONTROL TO DESIGN |
-| B — audit / backup | Audit Enterprise souvent **tier-dependent** ; backups éditeur ≠ PRA cabinet | TO VERIFY / DESIGN |
-| B — DORA | **TO VERIFY** (B) | OPEN |
-| C — accessibilité | Power BI alt text / Accessible PDF documentés ; autres **TV** (pas de VPAT systématiquement ouvert ici) | Ne pas certifier RGAA/WCAG outil |
-| C — sobriété / réversibilité | Préférer outils permettant désactivation features, export, limitation stockage | FUTURE EVAL |
-
-### 17.10 Automatisation et intégrations
-
-| Capacité | Preuve panel | Limite |
-|----------|--------------|--------|
-| Workflows CRM | HubSpot workflows ; Airtable Automations ; Bubble workflows | Complexité / licences |
-| Orchestration multi-apps | Make ; n8n ; Power Automate | Pas un CRM ; gouvernance flux |
-| Formulaires → CRM | Tally webhooks + Make/n8n ; HubSpot forms ; Airtable forms | Mapping champs / consentement |
-| API | HubSpot API ; Airtable API ; Bubble API ; Softr API ; Power connectors | Auth, quotas, maintenance |
-| RDV | Souvent **NN / P** via intégration calendrier tierce | **GAP** fréquent |
-| Documents générés | Souvent **P** (templates + automation) | Accessibilité documents (C) |
-
-### 17.11 IA — cas d’usage candidats
-
-Aucun use case **ADOPTED**.
-
-| ID | Cas | Valeur potentielle | Données | Exposition DP | Human oversight | Statut |
-|----|-----|--------------------|---------|---------------|-----------------|--------|
-| AI-D01 | Résumé historique / échanges | Gain temps courtier | Historique CRM | Haute | Requis | RESEARCH CANDIDATE |
-| AI-D02 | Aide rédaction emails / docs | Productivité | Contenu client | Haute | Requis | RESEARCH CANDIDATE |
-| AI-D03 | Classification documentaire | Classement pièces | Fichiers | Haute | Requis | WATCH |
-| AI-D04 | Extraction d’info documents | Saisie assistée | Docs | Haute | Requis | WATCH |
-| AI-D05 | Recherche / assistant connaissance | Accès info interne | Base connaissance | Moyenne–Haute | Requis | RESEARCH CANDIDATE |
-| AI-D06 | Assistant conversationnel / FAQ | Self-service | FAQ / policies | Moyenne | Requis ; pas conseil produit auto | WATCH |
-| AI-D07 | Aide courtier à retrouver info | Productivité conseil | CRM | Haute | Requis | RESEARCH CANDIDATE |
-| AI-D08 | Synthèse KPI | Pilotage | Agrégats | Faible–Moyenne | Requis | WATCH |
-
-**HIGH-SENSITIVITY / REGULATORY REVIEW REQUIRED (non adoptés) :** recommandation automatique d’assurance ; éligibilité ; tarification auto ; scoring client ; underwriting ; fraude automatisée — cohérent EIOPA (clarification IDD/AI needed).
-
-### 17.12 IA — gouvernance / AI Act watch
-
-| Élément | État vérifié 2026-09-29 | Source |
-|---------|-------------------------|--------|
-| Règlement | (UE) 2024/1689 AI Act | EUR-Lex / Commission |
-| Omnibus | (UE) 2026/1744 en vigueur 2026-07-27 | Commission / EUR-Lex |
-| Interdictions / literacy | depuis 2025-02-02 | Commission |
-| GPAI | depuis 2025-08-02 | Commission |
-| Applicabilité générale | 2026-08-02 | Commission |
-| High-risk Annex III | **2027-12-02** (après Omnibus) | Commission |
-| High-risk Annex I produits | **2028-08-02** | Commission |
-| Transparence (chatbots, etc.) | règles transparence → 2026-08 | Commission |
-
-### AI ACT PROJECT APPLICABILITY = TO VERIFY / USE-CASE DEPENDENT
-
-**Pas** de claim « AI ACT COMPLIANT ». Human oversight, transparence, minimisation données = principes à transmettre si IA retenue plus tard.
-
-### 17.13 Gaps / limites / dépendances
-
-| Gap / limite | Signal | Suite |
-|--------------|--------|-------|
-| Portail « dossier client assurance » complet (contrats+docs+sinistres+devis) | Souvent à composer (CRM + portail + fichiers) | Architecture futur / discovery |
-| Prise de RDV native unifiée | Souvent intégration tierce | **GAP IDENTIFIED — FUTURE TOOL DISCOVERY REQUIRED** (calendrier) |
-| Génération documentaire accessible (devis PDF/UA) | Rarement native complète | Lien C-C04 ; discovery |
-| Audit / logs fins hors Enterprise | Tier dependency | Budget 1.5 + sécurité |
-| Accessibilité déclarée (VPAT/RGAA) peu visible sur plusieurs no-code | TV | Critère 1.3.2-D→Phase 2 |
-| Maintenabilité Bubble/Power Apps custom | HIGH COMPLEXITY SIGNAL si app métier large | TO VERIFY selon scope |
-| HubSpot simplicité CRM | LOW–MODERATE COMPLEXITY SIGNAL pour cœur commercial | NOT a selection |
-| Dépendance éditeur / lock-in | Export ≠ migration indolore | Réversibilité critère |
-| Shopify / e-commerce | OOS | — |
-
-### 17.14 Future Tool Evaluation Criteria
-
-Dimensions **sans poids / sans score** (poids = Morris / groupe) :
-
-1. Couverture fonctionnelle (CRM, portail, docs, RDV, KPI)
-2. Simplicité opérationnelle
-3. Maintenabilité / gouvernance
-4. Sécurité (auth, MFA candidate, rôles)
-5. Confidentialité / RGPD (export, suppression, DPA, localisation)
-6. Droits / moindre privilège
-7. Portail externe
-8. Automatisation
-9. Intégration / API
-10. Reporting
-11. Documents (génération / accessibilité)
-12. Accessibilité interfaces
-13. Numérique responsable / sobriété
-14. Export / réversibilité
-15. IA (contrôles, oversight, opt-out)
-16. Dépendances licences / tiers
-17. Capacité d’évolution
-
-Réutilise checklists **B §15.10** et **C §16.10**.
-
-### 17.15 Contraintes / éléments à transmettre C-Dxx
-
-| ID | Besoin / contrainte | Preuve A/B/C/D | Implication future sélection | Question à arbitrer | Gate futur | Statut |
-|----|---------------------|----------------|------------------------------|---------------------|------------|--------|
-| C-D01 | CRM relation + historique | Besoins 1.1/1.2 ; HubSpot S ; autres P/NN | Exiger objets contact/deal/historique ou équivalent | CRM natif vs app construite ? | Choix stack | OPEN |
-| C-D02 | Espace client / docs | C + pattern marché ; Softr/HubSpot/Bubble P/S | Portail avec séparation données (B C-B04) | Portail natif vs composé ? | Architecture ; UX | OPEN |
-| C-D03 | Formulaires devis / besoins | Tally S ; HubSpot/Airtable S | Collecte + consentement (A) | Quel front de collecte ? | Stack ; UX | OPEN |
-| C-D04 | Automatisations relances | Make/n8n/PA/HubSpot | Gouvernance flux ; pas d’auto-conseil | Quelle orchestration ? | Architecture ; IA | OPEN |
-| C-D05 | MFA / rôles / audit | B + preuves éditeurs | Tier souvent Enterprise | Niveau licence minimal sécurité ? | Budget 1.5 ; RSSI | OPEN |
-| C-D06 | Export / suppression / DPA | A + HubSpot GDPR delete/export | Réversibilité obligatoire candidat | Preuves contractuelles éditeur ? | Stack ; conformité | OPEN |
-| C-D07 | Accessibilité UI + docs | C | Exiger preuves accessibilité / limites | VPAT / tests QA ? | UX ; QA | OPEN |
-| C-D08 | Sobriété / features inutiles | C RGESN | Désactivation modules ; limiter IA par défaut | Scope fonctionnel minimal ? | Conception | OPEN |
-| C-D09 | RDV | Gap fréquent | Discovery calendrier / intégration | Outil RDV dans panel ? | Discovery ; stack | OPEN |
-| C-D10 | Documents générés accessibles | C-C04 ; gap | Générateur + accessibilité | Format & outil doc ? | Delivery ; QA | OPEN |
-| C-D11 | Reporting KPI | Power BI S ; HubSpot S | Éviter dashboard surdimensionné (C) | BI séparé vs natif CRM ? | Stack | OPEN |
-| C-D12 | IA assistance (D01–D08) | EIOPA + AI Act | Human oversight ; pas conseil auto | Quel use case si GO Morris ? | IA ; Morris | OPEN — not adopted |
-| C-D13 | AI Act classification | Commission 2026 | Use-case dependent | High-risk ou non ? | Conformité IA | TO VERIFY |
-| C-D14 | Multicanal inclusion | C + marché | Ne pas digital-only | Parcours téléphone/physique ? | Conception | OPEN |
-| C-D15 | Pas de sélection prématurée | Doctrine panel | Conserver CANDIDATE ONLY | Qui arbitre pondération critères ? | Morris / groupe | OPEN |
-
-### 17.16 Questions TO VERIFY
-
-1. Pondération des 17 critères futurs (Morris/groupe) ?
-2. CRM natif vs composition no-code pour ce cabinet ?
-3. Niveau licence minimal acceptable (SSO, audit, EU hosting) ?
-4. Outil RDV / calendrier à découvrir hors panel ?
-5. Générateur documentaire et exigence accessibilité ?
-6. Premier use case IA éventuel (si GO) et classification AI Act ?
-7. DPA / sous-traitants / localisation par éditeur finaliste ?
-8. VPAT / accessibilité réelle des finalistes ?
-9. HEALTH DATA impact stack si confirmé ?
-10. Budget 1.5 bornes pour tiers Enterprise ?
-
-### 17.17 Sources exploitées
-
-| ID | Thème | Organisme / éditeur | Titre | URL | Date | Consultation | Claim | Nature | Statut |
-|----|-------|---------------------|-------|-----|------|--------------|-------|--------|--------|
-| S55 | Marché IDD | EIOPA | 3rd Report application IDD (news) | https://www.eiopa.europa.eu/eiopa-publishes-third-report-application-insurance-distribution-directive-2026-03-30_en | 2026-03-30 | 2026-09-29 | Digitalisation lente ; GenAI ; passeports +12 % | N1 | ACTIVE |
-| S56 | Marché IDD | EIOPA | Structure EU insurance distribution market | https://www.eiopa.europa.eu/structure-eu-insurance-distribution-market_en | 2026-03 | 2026-09-29 | Online sales charts ; intermediaries | N1 | ACTIVE |
-| S57 | Marché IDD | EIOPA | Factsheet Insurance distribution 2024/25 | https://www.eiopa.europa.eu/document/download/1957cba8-284b-4621-a034-4592b59b2f39_en?filename=2026-03-30+-+Factsheet+-+3d+IDD+application+report.pdf | 2026-03-30 | 2026-09-29 | Online &lt;10 % ; GenAI | N1 | ACTIVE |
-| S58 | Distribution FR | ACPR | Rec. 2024-R-01 IDD | https://acpr.banque-france.fr/fr/publications-et-statistiques/publications/recommandation-2024-r-01-du-28-juin-2024-sur-la-mise-en-oeuvre-de-certaines-dispositions-issues-de | 2024-06-28 | 2026-09-29 | Canaux / marché cible | N1 | ACTIVE |
-| S59 | Protection client | ACPR-AMF | Rapport pôle commun 2025 | https://acpr.banque-france.fr/fr/publications-et-statistiques/publications/rapport-annuel-du-pole-commun-acpr-amf-2025 | 2025 / MAJ 2026-06 | 2026-09-29 | Digitalisation + IA | N1 | ACTIVE |
-| S60 | AI Act | Commission UE | AI Act policy page | https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai | 2026 (Omnibus) | 2026-09-29 | Timeline ; Omnibus ; high-risk dates | N1 | ACTIVE |
-| S61 | AI Act | EUR-Lex | Reg. 2024/1689 consolidé | https://eur-lex.europa.eu/eli/reg/2024/1689/2026-07-27/eng | 2026-07-27 | 2026-09-29 | Texte consolidé | N1 | ACTIVE |
-| S62 | HubSpot sécu | HubSpot | Security / privacy / control | https://legal.hubspot.com/security | MAJ 2023-04-18 | 2026-09-29 | 2FA, SSO, encryption, EU DC, GDPR delete | Éditeur | ACTIVE |
-| S63 | HubSpot perms | HubSpot | User permissions guide | https://knowledge.hubspot.com/user-management/hubspot-user-permissions-guide | — | 2026-09-29 | Roles, export, portal, audit | Éditeur | ACTIVE |
-| S64 | HubSpot audit | HubSpot | View and export account activity | https://knowledge.hubspot.com/account-management/view-and-export-account-activity-history | — | 2026-09-29 | Audit logs | Éditeur | ACTIVE |
-| S65 | HubSpot portal | HubSpot | Customer portal settings | https://knowledge.hubspot.com/inbox/manage-customer-portal-settings | — | 2026-09-29 | Portal tickets | Éditeur | ACTIVE |
-| S66 | HubSpot API | HubSpot | API reference 2026-09 | https://developers.hubspot.com/docs/api/overview | 2026-09 | 2026-09-29 | API CRM | Éditeur | ACTIVE |
-| S67 | Airtable forms | Airtable | Form views | https://support.airtable.com/docs/getting-started-with-airtable-form-views | — | 2026-09-29 | Forms | Éditeur | ACTIVE |
-| S68 | Airtable interfaces | Airtable | Interface permissions | https://support.airtable.com/docs/interface-designer-permissions | — | 2026-09-29 | Portals/interfaces | Éditeur | ACTIVE |
-| S69 | Airtable audit | Airtable | Enterprise audit logs | https://support.airtable.com/docs/accessing-enterprise-audit-logs-in-airtable | — | 2026-09-29 | Audit Enterprise | Éditeur | ACTIVE |
-| S70 | Bubble sécu | Bubble | Security guide | https://manual.bubble.io/help-guides/security | — | 2026-09-29 | Privacy Rules ; shared responsibility | Éditeur | ACTIVE |
-| S71 | Bubble API | Bubble | Bubble API | https://manual.bubble.io/help-guides/integrations/api/the-bubble-api | — | 2026-09-29 | API + Privacy Rules | Éditeur | ACTIVE |
-| S72 | Softr auth | Softr | User authentication | https://docs.softr.io/core-concepts-overview/user-authentication | — | 2026-09-29 | 2FA password+OTP | Éditeur | ACTIVE |
-| S73 | Softr perms | Softr | User groups & permissions | https://docs.softr.io/core-concepts-overview/user-groups--permissions | — | 2026-09-29 | Groups / data perms | Éditeur | ACTIVE |
-| S74 | Softr SSO | Softr | SAML SSO | https://docs.softr.io/add-and-manage-users/saml-single-sign-on | — | 2026-09-29 | Enterprise SSO | Éditeur | ACTIVE |
-| S75 | Power Apps | Microsoft | Start building apps | https://learn.microsoft.com/en-us/power-apps/maker/ | — | 2026-09-29 | Canvas/model-driven/Dataverse | Éditeur | ACTIVE |
-| S76 | Dataverse sécu | Microsoft | Security in Dataverse | https://learn.microsoft.com/en-us/power-platform/admin/wp-security | — | 2026-09-29 | Entra + roles | Éditeur | ACTIVE |
-| S77 | Power Automate | Microsoft | Getting started | https://learn.microsoft.com/en-us/power-automate/getting-started | — | 2026-09-29 | Flows | Éditeur | ACTIVE |
-| S78 | n8n | n8n | Docs home | https://docs.n8n.io/ | — | 2026-09-29 | Workflow automation + AI | Éditeur | ACTIVE |
-| S79 | Tally | Tally | Help Center | https://help.tally.so/ | — | 2026-09-29 | Forms, webhooks, API | Éditeur | ACTIVE |
-| S80 | Power BI a11y | Microsoft | Design reports for accessibility | https://learn.microsoft.com/en-us/power-bi/create-reports/desktop-accessibility-creating-reports | — | 2026-09-29 | Alt text / checklist | Éditeur | ACTIVE |
-| S81 | Concurrent | Direct Assurance | Site officiel | https://www.direct-assurance.fr/ | — | 2026-09-29 | Pattern assureur direct | Public | ACTIVE |
-| S82 | Concurrent | Réassurez-moi | Site officiel | https://reassurez-moi.fr/ | — | 2026-09-29 | Comparateur + experts | Public | ACTIVE |
-| S83 | Concurrent | LeLynx | Site officiel | https://www.lelynx.fr/ | — | 2026-09-29 | Comparateur ORIAS | Public | ACTIVE |
-| S84 | Concurrent | Lovys | Site officiel | https://www.lovys.com/fr | — | 2026-09-29 | Insurtech self-service + humain | Public | ACTIVE |
-
-### 17.18 Limites / réserves
-
-- **EVIDENCE FOR FUTURE TOOL DECISION** uniquement — **pas** de sélection, ranking, poids, gagnant.
-- Architecture / Stack = **NOT DECIDED**.
-- Capacités = documentées éditeur ; configuration réelle / plans = **TO VERIFY** en Phase 2.
-- Pas de certificat RGPD / RGAA / RGESN / AI Act pour un outil.
-- Make.com help parfois inaccessible (bot protection) — capacités Make = **TV** sur détails sécu.
-- Légifrance HTML parfois bloqué ; fraîcheur décret 2026-816 tracée via INSEI + JO.
-- Aucun use case IA adopté ; 1.3.2-E / 1.4 **non ouverts**.
-```
-
-## 9. Synthèse §13
-
-```markdown
-## 13. Synthèse 1.3 (état courant)
+## 13. Synthèse 1.3 — état de consolidation
 
 | Point | État |
 |-------|------|
-| **1.3** | OPENED — WORKING WATCH |
+| **1.3** | **OPENED — AWAITING FINAL REVIEW** |
 | **1.3.1** | REVIEW PASS — WATCH SYSTEM ESTABLISHED |
-| **1.3.2** | IN PROGRESS |
+| **1.3.2** | **FINAL CONSOLIDATION — AWAITING REVIEW** |
 | **1.3.2-A** | **REVIEW PASS — REGULATION & DATA** |
 | **1.3.2-B** | **REVIEW PASS — SECURITY & RESILIENCE** |
 | **1.3.2-C** | **REVIEW PASS — ACCESSIBILITY & RESPONSIBLE DIGITAL** |
-| **1.3.2-D** | **TECHNOLOGY / NO-CODE / AI / MARKET — AWAITING REVIEW** |
-| **1.3.2-E** | NOT STARTED |
-| Architecture | NOT DECIDED |
-| Stack | NOT DECIDED |
-| **1.4** | NOT OPENED |
+| **1.3.2-D** | **REVIEW PASS — RESERVES RESOLVED IN 1.3.2-E** |
+| **1.3.2-E** | **FINAL CONSOLIDATION — AWAITING REVIEW** |
+| Architecture | **NOT DECIDED** |
+| Stack | **NOT DECIDED** / CANDIDATE TOOL ECOSYSTEM ONLY |
+| **1.4** | **NOT OPENED** |
 | Miro / Notion | NOT MODIFIED |
 
-Le 1.3 **n’est pas** VALIDATED. Le deep-dive 1.3.2-D **n’est pas** une sélection de stack, une architecture, ni une adoption d’IA.
+La **synthèse exécutive finale** et les impacts à transmettre sont en **§18**. Les deep-dives A–D restent les preuves détaillées.
+
+Le 1.3 **n’est pas** VALIDATED. Aucune stack, architecture ni use case IA n’est adopté.
 ```
 
-## 10. Diff Git
+## 8. Section §18 COMPLÈTE
+
+```markdown
+## 18. 1.3.2-E — Consolidation finale du rapport de veille
+
+| Champ | Valeur |
+|-------|--------|
+| **Statut** | **FINAL CONSOLIDATION — AWAITING REVIEW** |
+| **Date** | 2026-09-29 |
+| **Profil** | **Standard** — DOC / final watch consolidation |
+| **Critical** | **NON** |
+| **Nature** | Synthèse / transmission — **pas** sélection d’outil, **pas** architecture, **pas** validation du 1.3 |
+
+### 18.1 Objet et méthode de consolidation
+
+**Objet :** répondre à « qu’avons-nous appris de suffisamment solide pour orienter la suite du CRM Assurance Courtage, sans encore choisir sa solution ? »
+
+**Méthode :**
+1. **1.3.1** a établi le système de veille (axes, registre, méthode).
+2. **A / B / C / D** ont produit les recherches bornées (preuves détaillées conservées en §14–§17).
+3. **E** consolide, corrige les réserves D (R-D01…R-D07), élimine contradictions / formulations obsolètes, et produit une couche de **transmission** vers conception / budget / organisation futurs.
+4. Aucune architecture cible ; aucune stack ; aucun use case IA **ADOPTED**.
+
+**Niveaux de preuve utilisés :**
+
+| Statut | Signification |
+|--------|---------------|
+| **CONFIRMED** | Fait sourcé, non contesté dans le périmètre documentaire |
+| **LIKELY** | Exigence / contrainte probable pour le projet, sous réserve de paramètres cabinet |
+| **TO VERIFY** | Inconnue projet ou applicabilité conditionnelle |
+| **DESIGN REFERENCE** | Référentiel de conception (non = obligation juridique prouvée) |
+| **FUTURE DECISION INPUT** | Élément utile à une décision ultérieure (Morris / groupe) |
+| **WATCH** | Sujet à suivre ; pas d’adoption |
+
+### 18.2 Synthèse exécutive finale
+
+1. **FAIT** — Digitalisation de la distribution d’assurance **lente** ; ventes en ligne souvent faibles (agrégats EIOPA) → **IMPACT CRM** : soutenir omnicanal + conseil, pas un modèle digital-only → **STATUT** : CONFIRMED (marché) / FUTURE DECISION INPUT
+2. **FAIT** — Intermédiaires en consolidation ; passeports FoS/FoE **+10 % (2022–2024)** (S56) → **IMPACT** : différenciation relationnelle / outillage → **STATUT** : CONFIRMED (contexte)
+3. **CONSTAT** — Acteurs digitaux exposent devis / self-service / espace client, souvent avec canal humain revendiqué → **IMPACT** : attentes clients sur self-service **borné** + contact humain → **STATUT** : COMPETITIVE OBSERVATION (pas ranking)
+4. **LIKELY** — IDD / ACPR : devoir d’information, conseil adapté, traçabilité du conseil → **IMPACT** : historique / preuves / formalisation dans le CRM → **STATUT** : PROJECT CONSTRAINT
+5. **TO VERIFY** — Traitement de **données de santé** et **AIPD** → **IMPACT** : régime éventuellement renforcé si confirmé → **STATUT** : LEGAL TO VERIFY (`HEALTH DATA` / `AIPD`)
+6. **LIKELY** — RGPD : finalité, minimisation, conservation, droits, privacy by design, sous-traitants → **IMPACT** : critères de conception + DPA futurs → **STATUT** : PROJECT CONSTRAINT
+7. **LIKELY** — Sécurité appropriée : auth, MFA **candidate**, rôles, logs, backup/restauration, réversibilité fournisseur → **IMPACT** : contraintes SSI de conception (sans architecture SSI) → **STATUT** : SECURITY CONSTRAINT ; **DORA = TO VERIFY**
+8. **TO VERIFY** — Applicabilité juridique accessibilité (seuil CA / statut) → **IMPACT** : ne pas écrire « RGAA REQUIRED » sans preuve → **STATUT** : `ACCESSIBILITY LEGAL APPLICABILITY = TO VERIFY`
+9. **DESIGN REFERENCE** — RGAA / WCAG / inclusion multicanal ; RGESN pour sobriété → **IMPACT** : interfaces, docs, poids, features inutiles → **STATUT** : DESIGN REFERENCE (pas certification)
+10. **FAIT** — Panel no-code/low-code = **CANDIDATE ONLY** ; capacités documentées avec gaps (RDV, docs accessibles, portail dossier…) → **IMPACT** : future évaluation outillée, pas sélection ici → **STATUT** : FUTURE DECISION INPUT
+11. **WATCH** — IA assistance (AI-D01…D08) ; cas sensibles (reco auto, scoring, underwriting…) = HIGH-SENSITIVITY → **IMPACT** : human oversight ; pas d’adoption → **STATUT** : RESEARCH CANDIDATE / WATCH ; `AI ACT = TO VERIFY / USE-CASE DEPENDENT`
+12. **LIKELY** — Export / réversibilité / dépendance licences (SSO Pro/Ent, audit Enterprise…) → **IMPACT** : critères 1.5 / Phase 2 → **STATUT** : TOOL EVALUATION INPUT
+13. **LIMITE** — **Architecture = NOT DECIDED** ; **Stack = NOT DECIDED** ; **1.3 ≠ VALIDATED** ; **1.4 NOT OPENED**
+
+### 18.3 Enseignements marché / relation client
+
+| Enseignement | Source | Implication |
+|--------------|--------|-------------|
+| Digitalisation distribution progressive mais limitée | S55–S57 | CRM = soutien omnicanal |
+| GenAI via chatbots / sales tools en hausse ; IDD incomplet sur ces canaux | S55 | IA = watch ; oversight humain |
+| Passeports FoS/FoE **+10 % 2022–2024** (corr. R-D01 ; S56) | S56 | Contexte consolidation / mobilité |
+| Self-service devis + espace client = patterns visibles | Scan §17.4 + S81–S84 + S87 | Différenciation cabinet = proximité / conseil personnalisé / transparence |
+| Canaux compatibles marché cible / intérêt client | S58 | Traçabilité conseil |
+
+**Pas** de « meilleur concurrent » ni de modèle à cloner.
+
+### 18.4 Contraintes réglementaires & données
+
+Consolide A (détail §14) :
+
+| Thème | Statut consolidé |
+|-------|------------------|
+| Exigences / besoins client ; conseil / recommandation ; traçabilité | LIKELY — PROJECT CONSTRAINT |
+| Finalité ; minimisation ; conservation ; droits ; privacy by design | LIKELY |
+| Sous-traitants / DPA | LIKELY si SaaS — FUTURE DECISION INPUT |
+| Sécurité appropriée (art. 32) | LIKELY — lien B |
+| **HEALTH DATA PROCESSING** | **TO VERIFY** |
+| **AIPD** | **TO VERIFY** |
+| Bases légales détaillées | **TO VERIFY** |
+
+**Pas** un avis juridique.
+
+### 18.5 Contraintes sécurité & résilience
+
+Consolide B (détail §15) comme **contraintes de conception futures** :
+
+- authentification ; MFA **candidate** (selon risque / population) ;
+- habilitations / moindre privilège ;
+- espace client & documents (séparation, droits, traçabilité) ;
+- logs / incidents ; sauvegarde / restauration ;
+- critères fournisseurs SaaS ; export / réversibilité.
+
+**DORA APPLICABILITY = TO VERIFY.**
+
+**SECURITY SCENARIOS ARE NOT A MEASURED RISK REGISTER** — les scénarios R-Bxx / formulations d’impact potentiel du deep-dive B **ne constituent pas** une cotation de risque acceptée ni un registre de risques mesuré.
+
+**Pas** d’architecture SSI.
+
+### 18.6 Accessibilité & numérique responsable
+
+| Couche | Contenu | Statut |
+|--------|---------|--------|
+| **A. Obligations juridiques potentielles** | Art. 47 loi 2005-102 ; décret 2019-768 **modifié** par **2026-816** (S49b) ; seuil CA privé | `ACCESSIBILITY LEGAL APPLICABILITY = TO VERIFY` |
+| **B. Références de conception** | **RGAA** = ACCESSIBILITY DESIGN REFERENCE ; **WCAG** = STANDARD / GUIDANCE | DESIGN REFERENCE |
+| **C. Bonnes pratiques** | Clavier, focus, formulaires, contraste, docs, auth accessible, sobriété, limiter tiers | DESIGN REFERENCE |
+| Écoconception | **RGESN** = DESIGN / ECO-CONCEPTION REFERENCE | DESIGN REFERENCE |
+
+**Ne pas écrire** RGAA REQUIRED / RGESN REQUIRED sans preuve projet.
+
+### 18.7 Technologie / no-code / IA
+
+Le panel doctrine reste **CANDIDATE TOOL ECOSYSTEM ONLY** (détail matrice §17.8).
+
+**Familles (pas un concours) :**
+
+| Famille | Candidats (exemples panel) | Enseignement principal |
+|---------|----------------------------|------------------------|
+| A. CRM spécialisés | HubSpot | CRM natif documenté ; SSO **Professional/Enterprise** (S86) — **NOT SELECTED** |
+| B. App / data no-code-low-code | Airtable, Bubble, Power Apps | Flexibilité élevée ; sécurité souvent à concevoir |
+| C. Portails | Softr (+ patterns HubSpot/Bubble/Power Pages) | Portail possible ; « dossier assurance » souvent à composer |
+| D. Automatisation | Make (S85), n8n, Power Automate | Orchestration ; pas CRM cœur |
+| E. Formulaires | Tally (+ forms natifs) | Collecte + consentement |
+| F. BI | Power BI (+ reporting CRM) | KPI ; sobriété dashboards |
+| G. Périphériques | Voiceflow, Postman, Notion, Figma, Miro | Hors cœur CRM ; Shopify **OOS** |
+| H. IA / assistants | Features éditeurs + AI-D01…D08 | Assistance ≠ décision ; **aucun ADOPTED** |
+
+**AI Act (corr. R-D02) :** régime progressif — 2026-08-02 = début enforcement / majorité du régime général **concerné**, **sans** assimiler high-risk Annex III (2027-12-02) ni Annex I (2028-08-02). Transparence → août 2026. **`AI ACT PROJECT APPLICABILITY = TO VERIFY / USE-CASE DEPENDENT`.**
+
+Cas sensibles (reco auto, scoring, underwriting, fraude auto…) : **HIGH-SENSITIVITY / REGULATORY REVIEW REQUIRED** — non conçus.
+
+### 18.8 Impacts concrets pour le CRM
+
+| ID | Enseignement | Origine | Impact CRM | Nature | Étape future | Statut |
+|----|--------------|---------|------------|--------|--------------|--------|
+| I-E01 | Omnicanal + conseil humain | D+marché | Ne pas concevoir digital-only | OPPORTUNITY / DESIGN REFERENCE | Conception ; UX | OPEN |
+| I-E02 | Traçabilité conseil / historique | A | Preuves, historique échanges/contrats | PROJECT CONSTRAINT | Conception ; delivery | OPEN |
+| I-E03 | Minimisation / finalité / droits | A | Modèle de données & UX droits | PROJECT CONSTRAINT | Architecture ; UX | OPEN — model NOT DECIDED |
+| I-E04 | HEALTH DATA / AIPD | A | Régime potentiellement renforcé | LEGAL TO VERIFY | Conformité | TO VERIFY |
+| I-E05 | Auth / MFA candidate / rôles | B | Comptes séparés ; moindre privilège | SECURITY CONSTRAINT | Architecture ; RSSI | OPEN |
+| I-E06 | Espace client & docs sécurisés | B+C | Séparation, droits, accessibilité | SECURITY + DESIGN | Conception ; UX | OPEN |
+| I-E07 | Logs / backup / incidents | B | Exigences RUN futures | SECURITY CONSTRAINT | Architecture ; RUN | OPEN |
+| I-E08 | DORA | B | Applicabilité cabinet | LEGAL TO VERIFY | Conformité | TO VERIFY |
+| I-E09 | Accessibilité juridique | C | Déclaration / conformité si champ | LEGAL TO VERIFY | Morris / conformité | TO VERIFY |
+| I-E10 | RGAA/WCAG comme références | C | Critères UI / docs / auth | DESIGN REFERENCE | UX ; QA | OPEN |
+| I-E11 | RGESN / sobriété | C | Scope minimal ; limiter IA/tiers | DESIGN REFERENCE | Conception | OPEN |
+| I-E12 | Panel no-code = candidats | D | Évaluer sans sélection précoce | TOOL EVALUATION INPUT | Phase 2 / Morris | OPEN |
+| I-E13 | Gaps RDV / docs / portail dossier | D | Discovery éventuelle hors panel | TOOL EVALUATION INPUT | Discovery | OPEN |
+| I-E14 | SSO / audit souvent tier-dependent | D | Input budget licences | TOOL EVALUATION INPUT | 1.5 | OPEN |
+| I-E15 | Réversibilité / export | A+B+D | Critère sélection obligatoire | PROJECT CONSTRAINT | Stack futur | OPEN |
+| I-E16 | IA assistance vs décision | D+AI Act | Human oversight ; pas auto-conseil | WATCH | IA ; Morris | OPEN — not adopted |
+| I-E17 | Multicanal inclusion | C+D | Téléphone / physique / Visio | DESIGN REFERENCE | Conception | OPEN |
+| I-E18 | Self-service borné | Marché+D | Espace client utile sans remplacer conseil | OPPORTUNITY | Conception | OPEN |
+
+### 18.9 Contraintes à transmettre aux prochaines étapes
+
+| Catégorie | Acquis (veille) | Reste à décider | Gate futur |
+|-----------|-----------------|-----------------|------------|
+| **DATA** | Principes RGPD / conservation guidance CNIL | Bases légales ; HEALTH DATA ; AIPD ; rétention fine | Conformité ; architecture |
+| **SECURITY** | Familles de contrôles candidates | MFA scope ; IdP ; RPO/RTO ; SIEM | RSSI ; architecture |
+| **ACCESSIBILITY** | Références RGAA/WCAG | Applicabilité légale ; VPAT finalistes | UX ; QA ; Morris |
+| **RESPONSIBLE DIGITAL** | RGESN = référence | Scope features / poids / tiers | Conception |
+| **FUNCTIONAL** | Besoins 1.1/1.2 inchangés | Portail / RDV / docs générés | Architecture ; discovery |
+| **TOOL SELECTION** | Matrice evidence + 17 critères | Pondération ; shortlist ; choix | Morris / groupe ; Phase 2 |
+| **AI GOVERNANCE** | Calendrier AI Act ; cas WATCH | Use case ; classification | Morris ; conformité IA |
+| **OPERATIONS** | Besoin backup / incidents / réversibilité | Process RUN | Delivery ; RUN |
+
+### 18.10 Opportunités à préserver
+
+| Opportunité | Statut |
+|-------------|--------|
+| Relation **humain + digital** (différenciation vs pure digital) | OPPORTUNITY / FUTURE DECISION INPUT |
+| Multicanal (physique, Visio, tel, email, espace client) | OPPORTUNITY |
+| Centralisation historique / documents | OPPORTUNITY |
+| Self-service **borné** (docs, devis, suivi) | OPPORTUNITY |
+| Réduction tâches admin via automatisation **assistive** | OPPORTUNITY |
+| IA comme **assistance** (pas décision) | OPPORTUNITY / WATCH |
+| Sobriété fonctionnelle (RGESN) | OPPORTUNITY |
+| Approche modulaire no-code / briques complémentaires | OPPORTUNITY / FUTURE DECISION INPUT |
+
+### 18.11 Points de vigilance / TO VERIFY
+
+| Question | Pourquoi ça compte | Moment pour trancher |
+|----------|--------------------|----------------------|
+| Taille / CA / bilan / statut juridique cabinet | Accessibilité légale ; DORA ; proportionnalité | Avant conformité / Morris |
+| DORA applicability | Obligations résilience éventuelles | Conformité / RSSI |
+| Accessibilité juridique + EAA e-commerce | Obligations / déclaration | Conformité ; UX |
+| HEALTH DATA ; AIPD ; bases légales | Régime données | Avant modèle de données |
+| Sous-traitants / DPA / localisation / transferts | RGPD art. 28 | Avant choix stack |
+| RPO / RTO | Résilience | Architecture / RUN |
+| Niveau licence sécurité (SSO, audit…) | Budget / faisabilité | 1.5 + stack |
+| Accessibilité réelle plateformes finalistes | Inclusion | QA / UX |
+| Outil RDV ; générateur documentaire accessible | Gaps panel | Discovery / Phase 2 |
+| Use case IA + classification AI Act | Risque / conformité | Morris / IA |
+| Pondération des 17 critères outils | Décision stack | Morris / groupe |
+| Budget global | Viabilité | 1.5 |
+
+### 18.12 Future Tool Evaluation Framework
+
+Les **17 dimensions** de §17.14 restent le cadre (reformulées pour lisibilité) :
+
+1. Couverture fonctionnelle — 2. Simplicité opérationnelle — 3. Maintenabilité / gouvernance — 4. Sécurité — 5. Confidentialité / RGPD — 6. Droits / rôles — 7. Portail externe — 8. Automatisation — 9. Intégration / API — 10. Reporting — 11. Documents — 12. Accessibilité — 13. Numérique responsable — 14. Export / réversibilité — 15. IA (contrôles / oversight) — 16. Dépendances licences / tiers — 17. Capacité d’évolution.
+
+**Aucun poids. Aucun score. Aucun ranking.**
+
+**DECISION OWNER = MORRIS / WORKING GROUP** (pondération et choix futurs — **non décidés ici**).
+
+### 18.13 Inputs pour organisation / budget / vision
+
+| Étape future | Input issu du 1.3 | Ce que le 1.3 **ne** décide **pas** |
+|--------------|-------------------|-------------------------------------|
+| **1.4 Organisation** | Compétences / responsabilités à prévoir (données, sécurité, accessibilité, outils, IA governance) | Organigramme ; RACI final ; staffing |
+| **1.5 Budget** | Impacts licence / tiers / niveaux Professional–Enterprise potentiels ; COST/LICENSING = FUTURE BUDGET INPUT | Budget chiffré ; arbitrage financier |
+| **1.6 Vision** | Contraintes + opportunités + critères d’évaluation | Vision finale / pitch produit |
+
+**1.4 = NOT OPENED.** Aucune mutation des documents 1.4 / 1.5 / 1.6 dans ce cycle.
+
+### 18.14 Points clés pour le rapport et la soutenance
+
+Messages réutilisables (groupe / jury / client pédagogique) :
+
+1. Le CRM doit soutenir une **relation de conseil humain** renforcée par le digital — pas un pure digital-only.
+2. **Données & traçabilité du conseil** sont structurantes (RGPD + devoir de conseil) ; santé / AIPD restent à vérifier.
+3. **Sécurité** : comptes, droits, espace client/docs, logs, sauvegarde, réversibilité — sans architecture figée ici.
+4. **Accessibilité & sobriété** : références de conception (RGAA/WCAG/RGESN) ; obligation légale **à vérifier** selon le cabinet.
+5. **No-code / low-code** : écosystème **candidat** documenté ; gaps connus (RDV, docs, portail) ; **aucun outil choisi**.
+6. **IA** : assistance possible en veille ; décisions automatisées sensibles **hors adoption** ; AI Act **use-case dependent**.
+7. Ce que le 1.3 **n’a pas** décidé : architecture, stack, budget, organisation, vision finale.
+
+### 18.15 Sources prioritaires finales
+
+Shortlist (registre complet = A/B/C/D) :
+
+| Priorité | IDs | Thème |
+|----------|-----|-------|
+| Assurance / IDD / ACPR | S27, S28, S55, S56, S57, S58 | Distribution / conseil / marché |
+| RGPD / CNIL | S21–S26, S31 | Données |
+| Sécurité / ANSSI | S03 + sources B §15 | SSI |
+| Accessibilité | S16, S17, **S49b** (Légifrance JO), S49c | RGAA / décret |
+| RGESN | S18, S19 | Écoconception |
+| AI Act | S60, S61 | Gouvernance IA |
+| Éditeurs structurants | S62–S66, S70–S77, S80, S85, S86 | Capacités outils |
+
+### 18.16 Limites / réserves
+
+- Cabinet **fictif** ; pas de terrain utilisateur réel au-delà de 1.1/1.2.
+- Pas d’avis juridique ; pas d’audit sécurité ; pas d’audit RGAA ; pas de bilan environnemental.
+- Capacités outils = **evidence éditeur** ; plans / configs réels = **TO VERIFY**.
+- HTML Légifrance parfois inaccessible (Cloudflare) — ID JO tracé (S49b).
+- **Aucun outil sélectionné** ; **aucune architecture décidée** ; **aucun use case IA adopté**.
+- Points réglementaires conditionnels restent **TO VERIFY**.
+- **1.3 ≠ VALIDATED** ; **1.4 NOT OPENED**.
+```
+
+## 9. Diff Git
 
 ```
- .../crm-assurance-courtage-operating-doctrine.md   |   7 +-
- .../01-03-veille-technologique-reglementaire.md    | 335 ++++++++++++++++++++-
- 2 files changed, 328 insertions(+), 14 deletions(-)
+ .../crm-assurance-courtage-operating-doctrine.md   |   8 +-
+ .../01-03-veille-technologique-reglementaire.md    | 331 ++++++++++++++++++---
+ 2 files changed, 296 insertions(+), 43 deletions(-)
 
 ```
 
 ```diff
 diff --git a/projects/crm-assurance-courtage/00-intake/crm-assurance-courtage-operating-doctrine.md b/projects/crm-assurance-courtage/00-intake/crm-assurance-courtage-operating-doctrine.md
-index e93f5e18..e7161d88 100644
+index e7161d88..f3304b42 100644
 --- a/projects/crm-assurance-courtage/00-intake/crm-assurance-courtage-operating-doctrine.md
 +++ b/projects/crm-assurance-courtage/00-intake/crm-assurance-courtage-operating-doctrine.md
-@@ -175,12 +175,13 @@ Décisions futures **séparées** — le GO du présent cycle documentaire **ne
+@@ -171,17 +171,17 @@ Décisions futures **séparées** — le GO du présent cycle documentaire **ne
+ | Dernière étape validée | **1.2 Analyse des besoins utilisateurs — VALIDATED (2026-09-28)** |
+ | 1.1 | **VALIDATED** |
+ | 1.2 | **VALIDATED** |
+-| 1.3 | **OPENED** |
++| 1.3 | **OPENED — AWAITING FINAL REVIEW** |
  | 1.3.1 | **REVIEW PASS** |
  | 1.3.2-A | **REVIEW PASS — REGULATION & DATA** |
  | 1.3.2-B | **REVIEW PASS — SECURITY & RESILIENCE** |
--| Étape actuelle | **1.3.2-C Accessibilité & numérique responsable — AWAITING REVIEW** |
--| 1.3.2-D | **NOT STARTED** |
-+| 1.3.2-C | **REVIEW PASS — ACCESSIBILITY & RESPONSIBLE DIGITAL** |
-+| Étape actuelle | **1.3.2-D Technologie / no-code / IA / marché — AWAITING REVIEW** |
-+| 1.3.2-E | **NOT STARTED** |
+ | 1.3.2-C | **REVIEW PASS — ACCESSIBILITY & RESPONSIBLE DIGITAL** |
+-| Étape actuelle | **1.3.2-D Technologie / no-code / IA / marché — AWAITING REVIEW** |
+-| 1.3.2-E | **NOT STARTED** |
++| 1.3.2-D | **REVIEW PASS — RESERVES RESOLVED IN 1.3.2-E** |
++| Étape actuelle | **1.3.2-E Consolidation finale — AWAITING REVIEW** |
  | 1.4 | **NOT OPENED** |
  | Architecture | **NOT DECIDED** |
  | Stack runtime | **CANDIDATE TOOL ECOSYSTEM ONLY / NOT DECIDED** |
--| Prochain objectif | Revoir 1.3.2-C avant ouverture de 1.3.2-D |
-+| Prochain objectif | Revoir 1.3.2-D avant éventuel GO Morris pour consolidation 1.3.2-E |
+-| Prochain objectif | Revoir 1.3.2-D avant éventuel GO Morris pour consolidation 1.3.2-E |
++| Prochain objectif | Revue ChatGPT finale du 1.3.2 puis décision Morris séparée sur validation globale du 1.3 et éventuelle ouverture du 1.4 |
 
  ---
 
 diff --git a/projects/crm-assurance-courtage/01-cadrage/01-03-veille-technologique-reglementaire.md b/projects/crm-assurance-courtage/01-cadrage/01-03-veille-technologique-reglementaire.md
-index e9cdfabd..513dd1c4 100644
+index 513dd1c4..6fe7197c 100644
 --- a/projects/crm-assurance-courtage/01-cadrage/01-03-veille-technologique-reglementaire.md
 +++ b/projects/crm-assurance-courtage/01-cadrage/01-03-veille-technologique-reglementaire.md
-@@ -7,8 +7,9 @@
- | **1.3.2 Rapport de veille** | **IN PROGRESS** (deep-dives bornés ; rapport final non produit) |
- | **1.3.2-A** | **REVIEW PASS — REGULATION & DATA** |
- | **1.3.2-B** | **REVIEW PASS — SECURITY & RESILIENCE** |
--| **1.3.2-C** | **ACCESSIBILITY & RESPONSIBLE DIGITAL — AWAITING REVIEW** |
--| **1.3.2-D** | **NOT STARTED** |
-+| **1.3.2-C** | **REVIEW PASS — ACCESSIBILITY & RESPONSIBLE DIGITAL** |
-+| **1.3.2-D** | **TECHNOLOGY / NO-CODE / AI / MARKET — AWAITING REVIEW** |
-+| **1.3.2-E** | **NOT STARTED** |
- | **1.1** | VALIDATED |
- | **1.2** | VALIDATED (2026-09-28) |
- | **1.4** | **NOT OPENED** |
-@@ -35,7 +36,7 @@ La veille technologique et réglementaire vise à identifier, pour le CRM Assura
- **Règle de gouvernance :** la veille **informe** les décisions futures ; elle **ne choisit pas** elle-même la stack ni l’architecture.
-
- Le sous-cycle **1.3.1** établit le **système** de veille (axes, sources, méthode, registre, matrice).
--Le sous-cycle **1.3.2** produit le **rapport** de veille par deep-dives bornés. Le présent état documente **1.3.2-A / B** (REVIEW PASS) et **1.3.2-C** (AWAITING REVIEW). **1.3.2-D / E** et **1.4** restent **NON OUVERTS**.
-+Le sous-cycle **1.3.2** produit le **rapport** de veille par deep-dives bornés. Le présent état documente **1.3.2-A / B / C** (REVIEW PASS) et **1.3.2-D** (AWAITING REVIEW). **1.3.2-E** et **1.4** restent **NON OUVERTS**.
-
- ---
-
-@@ -772,7 +773,7 @@ Checklist **réutilisable en 1.3.2-D** — **sans** scorer ni sélectionner d’
+@@ -2,14 +2,14 @@
 
  | Champ | Valeur |
  |-------|--------|
--| **Statut** | **ACCESSIBILITY & RESPONSIBLE DIGITAL — AWAITING REVIEW** |
-+| **Statut** | **REVIEW PASS — ACCESSIBILITY & RESPONSIBLE DIGITAL** (ChatGPT ; preuve postérieure au handoff Git historique AWAITING REVIEW) |
- | **Date de recherche** | 2026-09-29 |
- | **Type** | Cadrage — DOC / accessibility-responsible-digital research |
- | **Transverses** | Accessibilité ; GreenOps / sobriété numérique (§4.16) |
-@@ -784,7 +785,7 @@ Checklist **réutilisable en 1.3.2-D** — **sans** scorer ni sélectionner d’
+-| **Statut 1.3** | **OPENED — WORKING WATCH** |
++| **Statut 1.3** | **OPENED — AWAITING FINAL REVIEW** |
+ | **1.3.1** | **REVIEW PASS — WATCH SYSTEM ESTABLISHED** |
+-| **1.3.2 Rapport de veille** | **IN PROGRESS** (deep-dives bornés ; rapport final non produit) |
++| **1.3.2 Rapport de veille** | **FINAL CONSOLIDATION — AWAITING REVIEW** |
+ | **1.3.2-A** | **REVIEW PASS — REGULATION & DATA** |
+ | **1.3.2-B** | **REVIEW PASS — SECURITY & RESILIENCE** |
+ | **1.3.2-C** | **REVIEW PASS — ACCESSIBILITY & RESPONSIBLE DIGITAL** |
+-| **1.3.2-D** | **TECHNOLOGY / NO-CODE / AI / MARKET — AWAITING REVIEW** |
+-| **1.3.2-E** | **NOT STARTED** |
++| **1.3.2-D** | **REVIEW PASS — RESERVES RESOLVED IN 1.3.2-E** |
++| **1.3.2-E** | **FINAL CONSOLIDATION — AWAITING REVIEW** |
+ | **1.1** | VALIDATED |
+ | **1.2** | VALIDATED (2026-09-28) |
+ | **1.4** | **NOT OPENED** |
+@@ -36,7 +36,7 @@ La veille technologique et réglementaire vise à identifier, pour le CRM Assura
+ **Règle de gouvernance :** la veille **informe** les décisions futures ; elle **ne choisit pas** elle-même la stack ni l’architecture.
+
+ Le sous-cycle **1.3.1** établit le **système** de veille (axes, sources, méthode, registre, matrice).
+-Le sous-cycle **1.3.2** produit le **rapport** de veille par deep-dives bornés. Le présent état documente **1.3.2-A / B / C** (REVIEW PASS) et **1.3.2-D** (AWAITING REVIEW). **1.3.2-E** et **1.4** restent **NON OUVERTS**.
++Le sous-cycle **1.3.2** produit le **rapport** de veille par deep-dives bornés. Le présent état documente **1.3.2-A / B / C** (REVIEW PASS), **1.3.2-D** (REVIEW PASS — réserves résolues dans E) et **1.3.2-E** (FINAL CONSOLIDATION — AWAITING REVIEW). **1.4** reste **NOT OPENED**. Le **1.3** n’est **pas** VALIDATED.
+
+ ---
+
+@@ -785,7 +785,7 @@ Checklist **réutilisable en 1.3.2-D** — **sans** scorer ni sélectionner d’
 
  **Périmètre fonctionnel (1.1 / 1.2) :** interfaces internes (Courtier / Directeur) ; espace client (particulier / TPE-PME) ; formulaires ; contenus ; documents générés ; notifications ; prise de rendez-vous ; dashboard / KPI ; canaux physique / Visio / téléphone / email / espace client.
 
--**Méthode :** sources N1 ouvertes (RGAA officiel, Légifrance / décret 2019-768, EUR-Lex EAA 2019/882, W3C WCAG, RGESN 2024 / Arcep–MiNumEco) ; distinction stricte **obligation juridique** / **référentiel** / **bonne pratique** ; analyse qualitative sans inventer d’écrans ni de scores environnementaux.
-+**Méthode :** sources N1 ouvertes (RGAA officiel, décret 2019-768 **tel que modifié** — fraîcheur 2026-09-29 : décret n° 2026-816 du 24 août 2026 (alignement EAA / exemptions ; accès HTML Légifrance parfois bloqué — preuve secondaire INSEI + existence JO), EUR-Lex EAA 2019/882, W3C WCAG, RGESN 2024 / Arcep–MiNumEco) ; distinction stricte **obligation juridique** / **référentiel** / **bonne pratique** ; analyse qualitative sans inventer d’écrans ni de scores environnementaux.
+-**Méthode :** sources N1 ouvertes (RGAA officiel, décret 2019-768 **tel que modifié** — fraîcheur 2026-09-29 : décret n° 2026-816 du 24 août 2026 (alignement EAA / exemptions ; accès HTML Légifrance parfois bloqué — preuve secondaire INSEI + existence JO), EUR-Lex EAA 2019/882, W3C WCAG, RGESN 2024 / Arcep–MiNumEco) ; distinction stricte **obligation juridique** / **référentiel** / **bonne pratique** ; analyse qualitative sans inventer d’écrans ni de scores environnementaux.
++**Méthode :** sources N1 ouvertes (RGAA officiel, décret 2019-768 **tel que modifié** par décret n° **2026-816** du 24 août 2026 — source primaire **Légifrance** `JORFTEXT000054746617` / ELI `…/eli/decret/2026/8/24/2026-816/jo/texte` (S49b ; consultation HTML 2026-09-29 = Cloudflare challenge — existence confirmée via lien officiel INSEI → Légifrance), EUR-Lex EAA 2019/882, W3C WCAG, RGESN 2024 / Arcep–MiNumEco) ; distinction stricte **obligation juridique** / **référentiel** / **bonne pratique** ; analyse qualitative sans inventer d’écrans ni de scores environnementaux.
 
  **Posture CKC Cadrage :** besoin avant solution ; rendre visibles les inconnues ; ne pas convertir un référentiel en obligation sans preuve ; pas d’écoconception = architecture prématurée.
 
-@@ -807,7 +808,7 @@ Checklist **réutilisable en 1.3.2-D** — **sans** scorer ni sélectionner d’
-
- | Sujet | Source | Nature | Applicability | Impact CRM | Étape future | Statut |
- |-------|--------|--------|---------------|------------|--------------|--------|
--| Obligation accessibilité services en ligne (champ FR) | Loi 2005-102 art. 47 ; décret 2019-768 ; page RGAA champ d’application | LEGAL REQUIREMENT (si organisme dans le champ) | **TO VERIFY** (CA / statut juridique cabinet inconnus) | Déterminer si déclaration / conformité légale s’imposent | Conformité futur ; Morris | OPEN |
-+| Obligation accessibilité services en ligne (champ FR) | Loi 2005-102 art. 47 ; décret 2019-768 **modifié par** décret 2026-816 (24/08/2026) ; page RGAA champ d’application | LEGAL REQUIREMENT (si organisme dans le champ) | **TO VERIFY** (CA / statut juridique cabinet inconnus) | Déterminer si déclaration / conformité légale s’imposent | Conformité futur ; Morris | OPEN |
- | Seuil entreprise privée 250 M€ CA moyen FR | Décret 2019-768 ; RGAA obligations | LEGAL REQUIREMENT (seuil) | **TO VERIFY** | Si CA < seuil et hors autres cas → obligation art. 47 **probablement** hors champ — **non démontré** ici | Conformité | OPEN — no false NOT APPLICABLE |
- | RGAA comme méthode technique | DINUM RGAA 4.1.2 | OFFICIAL REFERENCE | LIKELY (référence de conception) même si obligation TO VERIFY | Critères opérationnels UX/QA | UX/UI ; QA ; conception | OPEN |
- | EAA — consumer banking | Dir. 2019/882 art. 2 (liste crédit, MiFID, paiements, comptes, e-money) | LEGAL REQUIREMENT (si service listé) | **NOT APPLICABLE** au courtage assurance *en tant que* banking listé | Ne pas assimiler assurance = banque | — | QUALIFIED |
-@@ -987,7 +988,8 @@ GreenOps SFIA activé en **cadrage uniquement** : hypothèses, leviers, question
- | S46 | RGAA hub | DINUM | Référentiel général d’amélioration de l’accessibilité | https://accessibilite.numerique.gouv.fr/ | MAJ 2023-04-18 (v4) ; note RGAA5 | 2026-09-29 | Version courante 4.1.2 | OFFICIAL REFERENCE | ACTIVE |
+@@ -989,7 +989,7 @@ GreenOps SFIA activé en **cadrage uniquement** : hypothèses, leviers, question
  | S47 | RGAA obligations | DINUM | Champ d’application — obligations légales | https://accessibilite.numerique.gouv.fr/obligations/champ-application | — | 2026-09-29 | Organismes ; seuil 250 M€ | LEGAL / OFFICIAL | ACTIVE |
  | S48 | RGAA PDF | DINUM | RGAA version 4.1.2 | https://accessibilite.numerique.gouv.fr/doc/RGAA-v4.1.2.pdf | 4.1.2 | 2026-09-29 | Critères ; WCAG 2.1 ; EN 301 549 | OFFICIAL REFERENCE | ACTIVE |
--| S49 | Décret accessibilité | Légifrance | Décret n° 2019-768 du 24 juillet 2019 | https://www.legifrance.gouv.fr/loda/id/JORFTEXT000038811937/2025-04-22/ | 2019-07-24 | 2026-09-29 | Seuil CA ; normes | LEGAL REQUIREMENT | ACTIVE |
-+| S49 | Décret accessibilité | Légifrance | Décret n° 2019-768 du 24 juillet 2019 (consol. / modifié) | https://www.legifrance.gouv.fr/loda/id/JORFTEXT000038811937 | 2019-07-24 ; mod. 2026-08-24 | 2026-09-29 | Seuil CA ; normes ; fraîcheur 2026 | LEGAL REQUIREMENT | ACTIVE |
-+| S49b | Décret accessibilité (modificatif) | JO / INSEI (lien Légifrance) | Décret n° 2026-816 du 24 août 2026 modifiant le 2019-768 | https://www.insei.fr/ressources/decret-ndeg-2026-816-du-24-aout-2026-modifiant-le-decret-ndeg-2019-768-du-24-juillet | 2026-08-24 | 2026-09-29 | Alignement EAA / exemptions ; **ne change pas** TO VERIFY projet | LEGAL / SOURCE FRESHNESS | ACTIVE |
+ | S49 | Décret accessibilité | Légifrance | Décret n° 2019-768 du 24 juillet 2019 (consol. / modifié) | https://www.legifrance.gouv.fr/loda/id/JORFTEXT000038811937 | 2019-07-24 ; mod. 2026-08-24 | 2026-09-29 | Seuil CA ; normes ; fraîcheur 2026 | LEGAL REQUIREMENT | ACTIVE |
+-| S49b | Décret accessibilité (modificatif) | JO / INSEI (lien Légifrance) | Décret n° 2026-816 du 24 août 2026 modifiant le 2019-768 | https://www.insei.fr/ressources/decret-ndeg-2026-816-du-24-aout-2026-modifiant-le-decret-ndeg-2019-768-du-24-juillet | 2026-08-24 | 2026-09-29 | Alignement EAA / exemptions ; **ne change pas** TO VERIFY projet | LEGAL / SOURCE FRESHNESS | ACTIVE |
++| S49b | Décret accessibilité (modificatif) | Légifrance (JO) | Décret n° 2026-816 du 24 août 2026 modifiant le 2019-768 | https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000054746617 | 2026-08-24 | 2026-09-29 | Source **primaire** JO ; HTML bot-blocked à la consultation — ID JO confirmé via INSEI ; **ne change pas** ACCESSIBILITY LEGAL APPLICABILITY=TO VERIFY | LEGAL / SOURCE FRESHNESS | ACTIVE |
  | S50 | EAA | EUR-Lex | Directive (UE) 2019/882 | https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=uriserv%3AOJ.L_.2019.151.01.0070.01.ENG | 2019-04-17 | 2026-09-29 | Champ services ; définitions banking / e-commerce | LEGAL REQUIREMENT | ACTIVE |
  | S51 | WCAG | W3C WAI | WCAG 2 Overview | https://www.w3.org/WAI/standards-guidelines/wcag/ | WCAG 2.2 (2023/2024) ; 2.1 ref RGAA | 2026-09-29 | Standard technique | STANDARD / GUIDANCE | ACTIVE |
  | S52 | RGESN hub | MiNumEco / numérique.gouv | RGESN 2024 | https://ecoresponsable.numerique.gouv.fr/publications/referentiel-general-ecoconception/ | v2 ; 2024-05-28 | 2026-09-29 | Version ; outils ; REEN | DESIGN / ECO REFERENCE | ACTIVE |
-@@ -1002,7 +1004,317 @@ GreenOps SFIA activé en **cadrage uniquement** : hypothèses, leviers, question
- - Applicabilité juridique accessibilité = **TO VERIFY** (données cabinet insuffisantes).
- - RGESN = référence d’écoconception, **pas** obligation démontrée pour ce projet.
- - EAA banking **NOT APPLICABLE** ; e-commerce **TO VERIFY**.
--- **1.3.2-D / E** et **1.4** **non ouverts**.
-+- Deep-dive **1.3.2-D** ouvert séparément (technologie / no-code / IA / marché).
+@@ -1018,6 +1018,7 @@ GreenOps SFIA activé en **cadrage uniquement** : hypothèses, leviers, question
+ | **Type** | Cadrage — DOC / technology-market research |
+ | **Profil** | **Standard** |
+ | **Critical** | **NON** — aucune sélection d’outil ; aucune architecture ; aucun use case IA adopté ; aucun budget |
++| **Statut revue D** | **REVIEW PASS — RESERVES RESOLVED IN 1.3.2-E** (corrections R-D01…R-D07) |
+ | **Nature** | **EVIDENCE FOR FUTURE TOOL DECISION** — **pas** TOOL SELECTION / STACK DECISION |
+
+ ### 17.1 Périmètre et méthode
+@@ -1033,10 +1034,10 @@ GreenOps SFIA activé en **cadrage uniquement** : hypothèses, leviers, question
+ ### 17.2 Synthèse exécutive bornée
+
+ 1. **FAIT** — EIOPA (3e rapport IDD, 2026-03-30) : digitalisation distribution **lente** ; ventes en ligne souvent **&lt;10 %** primes dans la plupart des marchés ; produits simples ; GenAI via chatbots/outils de vente en hausse → **IMPACT** : CRM courtier doit soutenir **conseil humain + digital**, pas remplacer → **STATUT** : MARKET PATTERN
+-2. **FAIT** — Nombre d’intermédiaires en baisse / consolidation ; passeports UE +12 % (2020–2024) → **IMPACT** : différenciation par relation / outil → **STATUT** : CONTEXT
++2. **FAIT** — Nombre d’intermédiaires en baisse / consolidation ; passeports FoS/FoE **+10 % (2022–2024)** (S56 ; news S55 cite aussi +12 % sur 2020–2024 — période différente) → **IMPACT** : différenciation par relation / outil → **STATUT** : CONTEXT
+ 3. **OBSERVATION** — Acteurs digitaux FR (comparateurs, assureurs en ligne, insurtech) exposent devis/souscription/espace client/self-service, souvent avec canal humain revendiqué → **IMPACT** : attentes clients sur self-service + contact → **STATUT** : COMPETITIVE OBSERVATION (pas ranking)
+ 4. **FAIT** — Besoins CRM validés = relation, devis, RDV, documents, espace client, historique, sinistres, KPI — **pas** paiement/API assureur/scoring → **IMPACT** : familles techno à couvrir → **STATUT** : NEED-DRIVEN
+-5. **OBSERVATION** — HubSpot = CRM natif documenté (objets, permissions, portail tickets legacy, 2FA/SSO, audit, export, API) ; dépendances **tier** (Enterprise SSO, etc.) → **IMPACT** : fort fit CRM commercial **candidat** → **STATUT** : EVIDENCE — NOT SELECTED
++5. **OBSERVATION** — HubSpot = CRM natif documenté (objets, permissions, portail tickets legacy, 2FA/SSO, audit, export, API) ; dépendances **tier** (SSO **Professional / Enterprise** — S86 ; autres features plan-dependent) → **IMPACT** : fort fit CRM commercial **candidat** → **STATUT** : EVIDENCE — NOT SELECTED
+ 6. **OBSERVATION** — Airtable / Softr / Bubble / Power Apps = données + apps/portails **construisibles** ; sécurité/rôles souvent **à concevoir** (Privacy Rules Bubble ; Dataverse Power ; groups Softr) → **IMPACT** : flexibilité élevée / complexité maintenabilité → **STATUT** : EVIDENCE — NOT SELECTED
+ 7. **OBSERVATION** — Make / n8n / Power Automate = orchestration ; Tally = formulaires ; Power BI = reporting — briques **complémentaires**, pas CRM cœur seuls → **IMPACT** : intégrations nécessaires pour RDV/docs/IA → **STATUT** : COMPLEMENTARY CANDIDATES
+ 8. **FAIT** — Contraintes A/B/C (RGPD, MFA candidate, logs, backup, accessibilité, sobriété, réversibilité) **réutilisables** comme critères d’évaluation outils → **IMPACT** : checklist future Phase 2 → **STATUT** : CRITERIA CARRIED FORWARD
+@@ -1051,7 +1052,7 @@ GreenOps SFIA activé en **cadrage uniquement** : hypothèses, leviers, question
+ |-------------|--------|--------|-------------------|
+ | Digitalisation distribution progresse lentement ; online &lt;10 % GWP dans la plupart des marchés ; produits simples | EIOPA 3rd IDD report / factsheet 2026-03-30 | UE / agrégats NCA | CRM = support omnicanal + conseil, pas pure digital-only |
+ | GenAI utilisé via chatbots / sales tools ; IDD ne régule pas exhaustivement ces canaux | EIOPA 2026-03-30 | UE | IA = watch ; human oversight ; pas d’adoption conseil auto |
+-| Baisse nombre intermédiaires ; +12 % passeports UE 2020–2024 | EIOPA | UE | Consolidation / différenciation relationnelle |
++| Baisse nombre intermédiaires ; passeports FoS/FoE **+10 % entre 2022 et 2024** | EIOPA S56 | UE | Consolidation / différenciation relationnelle |
+ | Canaux de distribution doivent être compatibles marché cible / intérêt client | ACPR Rec. 2024-R-01 | FR | Traçabilité conseil / historique dans le futur CRM |
+ | Digitalisation + IA complexifient protection client / fraudes | Pôle commun ACPR-AMF 2025 | FR | Sécurité + clarté parcours (lien B/C) |
+
+@@ -1067,7 +1068,7 @@ GreenOps SFIA activé en **cadrage uniquement** : hypothèses, leviers, question
+ | Réassurez-moi | Comparateur / courtage digital | Emprunteur, santé, divers | Simulation + devis + souscription en ligne | Accompagnement experts | — (hors focus) | Interlocuteur humain revendiqué (« pas un robot ») | Comparaison ; experts non commissionnés (revendiqué) |
+ | LeLynx.fr | Comparateur (courtier ORIAS) | Particuliers auto/moto/hab/santé/énergie | Formulaire unique ; redirection souscription partenaire | — | — | Service comparaison | Panel partenaires ; gratuit / impartial (revendiqué) |
+ | Lovys | Insurtech / abonnement multi-produits | Particuliers | Souscription en ligne ~2 min ; signature en ligne | Espace personnel / attestations | Réactivité sinistre (avis) | Mail, chatbot, téléphone | 100 % en ligne + humain ; mensualité unique |
+-| Alan | Assurtech santé (emploi/entreprises + particuliers selon pages) | Santé collective / digitale | Parcours digital (site) | App / self-service typique insurtech | — | Support digital | Santé digitale (pattern) — détail produit TO VERIFY hors brief |
++| Alan | Assurtech / assureur santé digital (S87) | Entreprises (TPE→grands comptes) + TNS/indépendants ; offres particuliers (retraités / TNS ; fonction publique « très bientôt ») revendiquées sur alan.com | Devis en ligne (« Mon devis en 2 min ») | Expérience digitale / app (pattern insurtech) | — | Support digital revendiqué | Différenciation santé digitale + self-service — **pas** un modèle à copier |
+
+ **Patterns utiles au cadrage :** self-service devis ; espace documents ; multicanal humain+digital ; comparaison vs relation de conseil personnalisé (opportunité différenciante du cabinet).
+
+@@ -1124,12 +1125,12 @@ Légende : **S**=SUPPORTED ; **P**=PARTIAL ; **NN**=NOT NATIVE ; **TV**=TO VERIF
+
+ | Outil | Rôle candidat | CRM natif | Données | Portail / externe | Formulaires | Automatisation | Documents | Reporting | API / intégrations | Rôles / sécurité | Audit / logs | Export / réversib. | Accessibilité doc. | IA doc. | Dépendances / limites | Preuve |
+ |-------|---------------|-----------|---------|-------------------|-------------|----------------|-----------|-----------|--------------------|------------------|--------------|--------------------|--------------------|---------|-----------------------|--------|
+-| HubSpot | CRM spécialisé | **S** | **S** | **P** (Customer Portal tickets / memberships) | **S** | **S** (workflows) | **P** (Documents tool / fichiers) | **S** | **S** (API 2026-09) | **S** (permissions, teams, 2FA, SSO Enterprise) | **S** (audit logs ; tier) | **S** (export ; GDPR delete) | **TV** | **P**/TV (features AI produit) | Tier / hub / Enterprise SSO | Trust+KB |
+-| Airtable | Données / interfaces | **P** | **S** | **P** (Interfaces / Portals — plans) | **S** | **S** (Automations) | **P** (attachments) | **P** | **S** (API) | **P**/S (permissions interfaces ; SSO Biz/Ent) | **S** Enterprise Scale audit API | **P**/S (CSV/API) | **TV** | **P** (AI events in audit) | Enterprise pour audit avancé | Support+API |
+-| Bubble | App full-stack no-code | **NN** (à construire) | **S** | **S** (app users) | **S** (à construire) | **S** (workflows) | **P** (à concevoir) | **P** | **S** (Data/Workflow API) | **P** (Privacy Rules ; 2FA possible) | **P**/TV | **P**/TV | **TV** | **TV** | Sécurité **responsabilité partagée** builder | Manual security |
+-| Softr | Portail / frontend | **NN** | **P** (Softr DB / sources) | **S** (client portal pattern) | **S** | **P** (workflows) | **P** | **P** | **P**/S (API/intégrations) | **S** (user groups ; 2FA password+OTP ; SSO Enterprise) | **TV** | **TV** | **TV** | **P** (AI-native claims marketing docs) | Tier Enterprise SSO | Docs Softr |
+-| Power Apps | App low-code | **P** (model-driven / canvas) | **S** (Dataverse) | **P** (Power Pages lié écosystème) | **S** | **S** (via Automate) | **P** | **P** (via BI) | **S** (connectors) | **S** (Entra ID + Dataverse roles) | **P**/S (platform) | **P**/S | **P**/TV (platform guidance) | **P** (Copilot) | Licences Power Platform / Dataverse | MS Learn |
+-| Make | Automatisation | **NN** | **NN** | **NN** | **NN** | **S** | **P** (via modules) | **NN** | **S** | **TV** (compte Make) | **TV** | **TV** | **OOS** | **P**/TV | Orchestrateur seulement | Make help (accès parfois limité) |
++| HubSpot | CRM spécialisé | **S** | **S** | **P** (Customer Portal tickets / memberships) **S65** | **S** | **S** (workflows) | **P** (Documents tool / fichiers) | **S** | **S** (API) **S66** | **S** (permissions **S63** ; 2FA **S62** ; SSO **Pro/Ent S86**) | **S** (audit logs **S64** ; tier) | **S** (export ; GDPR delete **S62**) | **TV** | **P**/TV (features AI produit) | Tier / hub ; SSO = Professional **ou** Enterprise | S62–S66, S86 |
++| Airtable | Données / interfaces | **P** | **S** | **P** (Interfaces / Portals — plans) **S68** | **S** **S67** | **S** (Automations) | **P** (attachments) | **P** | **S** (API) | **P**/S (permissions ; SSO Biz/Ent) **S68** | **S** Enterprise Scale audit **S69** | **P**/S (CSV/API) | **TV** | **P** (AI events in audit) | Enterprise pour audit avancé | S67–S69 |
++| Bubble | App full-stack no-code | **NN** (à construire) | **S** | **S** (app users) | **S** (à construire) | **S** (workflows) | **P** (à concevoir) | **P** | **S** (Data/Workflow API) **S71** | **P** (Privacy Rules ; 2FA possible) **S70** | **P**/TV | **P**/TV | **TV** | **TV** | Sécurité **responsabilité partagée** builder | S70–S71 |
++| Softr | Portail / frontend | **NN** | **P** (Softr DB / sources) | **S** (client portal pattern) | **S** | **P** (workflows) | **P** | **P** | **P**/S (API/intégrations) | **S** (user groups **S73** ; 2FA **S72** ; SSO Enterprise **S74**) | **TV** | **TV** | **TV** | **P** (AI claims marketing) | Tier Enterprise SSO | S72–S74 |
++| Power Apps | App low-code | **P** (model-driven / canvas) **S75** | **S** (Dataverse) | **P** (Power Pages lié écosystème) | **S** | **S** (via Automate **S77**) | **P** | **P** (via BI) | **S** (connectors) | **S** (Entra ID + Dataverse roles **S76**) | **P**/S (platform) | **P**/S | **P**/TV (platform guidance) | **P** (Copilot) | Licences Power Platform / Dataverse | S75–S77 |
++| Make | Automatisation | **NN** | **NN** | **NN** | **NN** | **S** (scenarios **S85**) | **P**/TV (modules — détail TV) | **NN** | **S**/P (connections **S85**) | **TV** | **TV** | **TV** | **OOS** | **TV** | Orchestrateur seulement ; sécu/IA = **TV** | S85 |
+ | n8n | Automatisation | **NN** | **NN** | **NN** | **NN** | **S** | **P** | **NN** | **S** | **P**/TV (self-host vs cloud) | **P**/TV | **P**/TV | **OOS** | **P** (AI features docs) | Self-host = ops | docs.n8n.io |
+ | Power Automate | Automatisation M365 | **NN** | **P** | **NN** | **P** | **S** | **P** | **P** | **S** | **S** (Entra / env) | **P** | **P** | **OOS**/TV | **P** (Copilot) | Environnements / licences | MS Learn |
+ | Tally | Formulaires | **NN** | **NN** | **NN** | **S** | **P** (webhooks / Make/n8n/Zapier) | **P** (PDF guides) | **P** (insights) | **P**/S (API/webhooks) | **TV** | **TV** | **P** (retention Pro+) | **TV** | **P** (ChatGPT integ.) | Free vs Pro/Business | help.tally.so |
+@@ -1187,14 +1188,14 @@ Aucun use case **ADOPTED**.
+
+ | Élément | État vérifié 2026-09-29 | Source |
+ |---------|-------------------------|--------|
+-| Règlement | (UE) 2024/1689 AI Act | EUR-Lex / Commission |
+-| Omnibus | (UE) 2026/1744 en vigueur 2026-07-27 | Commission / EUR-Lex |
+-| Interdictions / literacy | depuis 2025-02-02 | Commission |
+-| GPAI | depuis 2025-08-02 | Commission |
+-| Applicabilité générale | 2026-08-02 | Commission |
+-| High-risk Annex III | **2027-12-02** (après Omnibus) | Commission |
+-| High-risk Annex I produits | **2028-08-02** | Commission |
+-| Transparence (chatbots, etc.) | règles transparence → 2026-08 | Commission |
++| Règlement | (UE) 2024/1689 AI Act | S60 / S61 |
++| Omnibus | (UE) 2026/1744 en vigueur **2026-07-27** | S60 |
++| Interdictions (1–8) / AI literacy | depuis **2025-02-02** | S60 |
++| GPAI + gouvernance GPAI | depuis **2025-08-02** | S60 |
++| Début régime général / enforcement AI Office & autorités | **2026-08-02** — **ne signifie pas** que toutes les obligations high-risk s’appliquent déjà | S60 |
++| Transparence (chatbots, labelling, etc.) | règles de transparence → **août 2026** | S60 |
++| High-risk **Annex III** (cas d’usage sensibles) | **2027-12-02** (après Omnibus) | S60 |
++| High-risk **Annex I** (produits réglementés) | **2028-08-02** | S60 |
+
+ ### AI ACT PROJECT APPLICABILITY = TO VERIFY / USE-CASE DEPENDENT
+
+@@ -1275,8 +1276,8 @@ Réutilise checklists **B §15.10** et **C §16.10**.
+
+ | ID | Thème | Organisme / éditeur | Titre | URL | Date | Consultation | Claim | Nature | Statut |
+ |----|-------|---------------------|-------|-----|------|--------------|-------|--------|--------|
+-| S55 | Marché IDD | EIOPA | 3rd Report application IDD (news) | https://www.eiopa.europa.eu/eiopa-publishes-third-report-application-insurance-distribution-directive-2026-03-30_en | 2026-03-30 | 2026-09-29 | Digitalisation lente ; GenAI ; passeports +12 % | N1 | ACTIVE |
+-| S56 | Marché IDD | EIOPA | Structure EU insurance distribution market | https://www.eiopa.europa.eu/structure-eu-insurance-distribution-market_en | 2026-03 | 2026-09-29 | Online sales charts ; intermediaries | N1 | ACTIVE |
++| S55 | Marché IDD | EIOPA | 3rd Report application IDD (news) | https://www.eiopa.europa.eu/eiopa-publishes-third-report-application-insurance-distribution-directive-2026-03-30_en | 2026-03-30 | 2026-09-29 | Digitalisation lente ; GenAI ; passeports **+12 % 2020–2024** (période news) | N1 | ACTIVE |
++| S56 | Marché IDD | EIOPA | Structure EU insurance distribution market | https://www.eiopa.europa.eu/structure-eu-insurance-distribution-market_en | 2026-03 | 2026-09-29 | Online sales ; intermediaries ; passeports FoS/FoE **+10 % 2022–2024** | N1 | ACTIVE |
+ | S57 | Marché IDD | EIOPA | Factsheet Insurance distribution 2024/25 | https://www.eiopa.europa.eu/document/download/1957cba8-284b-4621-a034-4592b59b2f39_en?filename=2026-03-30+-+Factsheet+-+3d+IDD+application+report.pdf | 2026-03-30 | 2026-09-29 | Online &lt;10 % ; GenAI | N1 | ACTIVE |
+ | S58 | Distribution FR | ACPR | Rec. 2024-R-01 IDD | https://acpr.banque-france.fr/fr/publications-et-statistiques/publications/recommandation-2024-r-01-du-28-juin-2024-sur-la-mise-en-oeuvre-de-certaines-dispositions-issues-de | 2024-06-28 | 2026-09-29 | Canaux / marché cible | N1 | ACTIVE |
+ | S59 | Protection client | ACPR-AMF | Rapport pôle commun 2025 | https://acpr.banque-france.fr/fr/publications-et-statistiques/publications/rapport-annuel-du-pole-commun-acpr-amf-2025 | 2025 / MAJ 2026-06 | 2026-09-29 | Digitalisation + IA | N1 | ACTIVE |
+@@ -1305,6 +1306,10 @@ Réutilise checklists **B §15.10** et **C §16.10**.
+ | S82 | Concurrent | Réassurez-moi | Site officiel | https://reassurez-moi.fr/ | — | 2026-09-29 | Comparateur + experts | Public | ACTIVE |
+ | S83 | Concurrent | LeLynx | Site officiel | https://www.lelynx.fr/ | — | 2026-09-29 | Comparateur ORIAS | Public | ACTIVE |
+ | S84 | Concurrent | Lovys | Site officiel | https://www.lovys.com/fr | — | 2026-09-29 | Insurtech self-service + humain | Public | ACTIVE |
++| S85 | Make automation | Make | Help Center — Get started | https://help.make.com/get-started | MAJ 2026-06-15 | 2026-09-29 | Scenarios / first automation (capacité orchestration) | Éditeur | ACTIVE |
++| S86 | HubSpot SSO | HubSpot | Set up single sign-on (SSO) | https://knowledge.hubspot.com/account-security/set-up-single-sign-on-sso | MAJ 2026-08-05 | 2026-09-29 | SSO disponible **Professional et Enterprise** (tous hubs listés) | Éditeur | ACTIVE |
++| S87 | Concurrentiel | Alan | Site officiel alan.com | https://alan.com/ | — | 2026-09-29 | Cibles entreprises/TNS ; devis digital ; particuliers revendiqués | Éditeur / marché | ACTIVE |
++| S49c | Décret accessibilité (secondaire) | INSEI | Page ressource décret 2026-816 + lien Légifrance | https://www.insei.fr/ressources/decret-ndeg-2026-816-du-24-aout-2026-modifiant-le-decret-ndeg-2019-768-du-24-juillet | 2026-08-28 | 2026-09-29 | Découverte / confirmation lien JO `JORFTEXT000054746617` | SECONDARY | ACTIVE |
+
+ ### 17.18 Limites / réserves
+
+@@ -1312,26 +1317,274 @@ Réutilise checklists **B §15.10** et **C §16.10**.
+ - Architecture / Stack = **NOT DECIDED**.
+ - Capacités = documentées éditeur ; configuration réelle / plans = **TO VERIFY** en Phase 2.
+ - Pas de certificat RGPD / RGAA / RGESN / AI Act pour un outil.
+-- Make.com help parfois inaccessible (bot protection) — capacités Make = **TV** sur détails sécu.
+-- Légifrance HTML parfois bloqué ; fraîcheur décret 2026-816 tracée via INSEI + JO.
+-- Aucun use case IA adopté ; 1.3.2-E / 1.4 **non ouverts**.
++- Make : orchestration sourcée **S85** ; détails sécu / IA Make restent **TV**.
++- Légifrance HTML Cloudflare-challenged à la consultation ; source primaire **S49b** (`JORFTEXT000054746617`) + secondaire **S49c**.
++- Aucun use case IA adopté ; **1.4 NOT OPENED**.
+
+
+-## 13. Synthèse 1.3 (état courant)
++## 13. Synthèse 1.3 — état de consolidation
+
+ | Point | État |
+ |-------|------|
+-| **1.3** | OPENED — WORKING WATCH |
++| **1.3** | **OPENED — AWAITING FINAL REVIEW** |
+ | **1.3.1** | REVIEW PASS — WATCH SYSTEM ESTABLISHED |
+-| **1.3.2** | IN PROGRESS |
++| **1.3.2** | **FINAL CONSOLIDATION — AWAITING REVIEW** |
+ | **1.3.2-A** | **REVIEW PASS — REGULATION & DATA** |
+ | **1.3.2-B** | **REVIEW PASS — SECURITY & RESILIENCE** |
+ | **1.3.2-C** | **REVIEW PASS — ACCESSIBILITY & RESPONSIBLE DIGITAL** |
+-| **1.3.2-D** | **TECHNOLOGY / NO-CODE / AI / MARKET — AWAITING REVIEW** |
+-| **1.3.2-E** | NOT STARTED |
+-| Architecture | NOT DECIDED |
+-| Stack | NOT DECIDED |
+-| **1.4** | NOT OPENED |
++| **1.3.2-D** | **REVIEW PASS — RESERVES RESOLVED IN 1.3.2-E** |
++| **1.3.2-E** | **FINAL CONSOLIDATION — AWAITING REVIEW** |
++| Architecture | **NOT DECIDED** |
++| Stack | **NOT DECIDED** / CANDIDATE TOOL ECOSYSTEM ONLY |
++| **1.4** | **NOT OPENED** |
+ | Miro / Notion | NOT MODIFIED |
+
+-Le 1.3 **n’est pas** VALIDATED. Le deep-dive 1.3.2-D **n’est pas** une sélection de stack, une architecture, ni une adoption d’IA.
++La **synthèse exécutive finale** et les impacts à transmettre sont en **§18**. Les deep-dives A–D restent les preuves détaillées.
++
++Le 1.3 **n’est pas** VALIDATED. Aucune stack, architecture ni use case IA n’est adopté.
 +
 +
-+
-+
-+## 17. 1.3.2-D — Technologie / no-code / IA / marché
++## 18. 1.3.2-E — Consolidation finale du rapport de veille
 +
 +| Champ | Valeur |
 +|-------|--------|
-+| **Statut** | **TECHNOLOGY / NO-CODE / AI / MARKET — AWAITING REVIEW** |
-+| **Date de recherche** | 2026-09-29 |
-+| **Type** | Cadrage — DOC / technology-market research |
-+| **Profil** | **Standard** |
-+| **Critical** | **NON** — aucune sélection d’outil ; aucune architecture ; aucun use case IA adopté ; aucun budget |
-+| **Nature** | **EVIDENCE FOR FUTURE TOOL DECISION** — **pas** TOOL SELECTION / STACK DECISION |
++| **Statut** | **FINAL CONSOLIDATION — AWAITING REVIEW** |
++| **Date** | 2026-09-29 |
++| **Profil** | **Standard** — DOC / final watch consolidation |
++| **Critical** | **NON** |
++| **Nature** | Synthèse / transmission — **pas** sélection d’outil, **pas** architecture, **pas** validation du 1.3 |
 +
-+### 17.1 Périmètre et méthode
++### 18.1 Objet et méthode de consolidation
 +
-+**Périmètre :** tendances marché distribution assurance ; scan concurrentiel léger (4–6 acteurs publics FR) ; familles technologiques CRM ; panel doctrine candidat (niveaux 1–3) ; réutilisation contraintes A/B/C ; IA candidats + veille AI Act ; gaps ; critères futurs.
++**Objet :** répondre à « qu’avons-nous appris de suffisamment solide pour orienter la suite du CRM Assurance Courtage, sans encore choisir sa solution ? »
 +
-+**Méthode :** sources N1/institutionnelles (EIOPA, ACPR, Commission UE) + sources éditeur officielles (docs / trust / help) ; distinction **SUPPORTED / PARTIAL / NOT NATIVE / TO VERIFY / OUT OF SCOPE** ; aucune cellule « BEST / WINNER » ; pas de pondération.
++**Méthode :**
++1. **1.3.1** a établi le système de veille (axes, registre, méthode).
++2. **A / B / C / D** ont produit les recherches bornées (preuves détaillées conservées en §14–§17).
++3. **E** consolide, corrige les réserves D (R-D01…R-D07), élimine contradictions / formulations obsolètes, et produit une couche de **transmission** vers conception / budget / organisation futurs.
++4. Aucune architecture cible ; aucune stack ; aucun use case IA **ADOPTED**.
 +
-+**Panel doctrine (présence = CANDIDATE ONLY) :** Bubble, Softr, Power Apps, Airtable, HubSpot, Make, n8n, Power Automate, Tally, Power BI, Voiceflow, Postman, Notion, Figma, Miro, Shopify.
++**Niveaux de preuve utilisés :**
 +
-+**Hors scope :** sélection stack ; architecture ; modèle de données ; budget 1.5 ; API assureurs ; paiement / signature comme exigence validée ; ouverture 1.3.2-E / 1.4.
++| Statut | Signification |
++|--------|---------------|
++| **CONFIRMED** | Fait sourcé, non contesté dans le périmètre documentaire |
++| **LIKELY** | Exigence / contrainte probable pour le projet, sous réserve de paramètres cabinet |
++| **TO VERIFY** | Inconnue projet ou applicabilité conditionnelle |
++| **DESIGN REFERENCE** | Référentiel de conception (non = obligation juridique prouvée) |
++| **FUTURE DECISION INPUT** | Élément utile à une décision ultérieure (Morris / groupe) |
++| **WATCH** | Sujet à suivre ; pas d’adoption |
 +
-+### 17.2 Synthèse exécutive bornée
++### 18.2 Synthèse exécutive finale
 +
-+1. **FAIT** — EIOPA (3e rapport IDD, 2026-03-30) : digitalisation distribution **lente** ; ventes en ligne souvent **&lt;10 %** primes dans la plupart des marchés ; produits simples ; GenAI via chatbots/outils de vente en hausse → **IMPACT** : CRM courtier doit soutenir **conseil humain + digital**, pas remplacer → **STATUT** : MARKET PATTERN
-+2. **FAIT** — Nombre d’intermédiaires en baisse / consolidation ; passeports UE +12 % (2020–2024) → **IMPACT** : différenciation par relation / outil → **STATUT** : CONTEXT
-+3. **OBSERVATION** — Acteurs digitaux FR (comparateurs, assureurs en ligne, insurtech) exposent devis/souscription/espace client/self-service, souvent avec canal humain revendiqué → **IMPACT** : attentes clients sur self-service + contact → **STATUT** : COMPETITIVE OBSERVATION (pas ranking)
-+4. **FAIT** — Besoins CRM validés = relation, devis, RDV, documents, espace client, historique, sinistres, KPI — **pas** paiement/API assureur/scoring → **IMPACT** : familles techno à couvrir → **STATUT** : NEED-DRIVEN
-+5. **OBSERVATION** — HubSpot = CRM natif documenté (objets, permissions, portail tickets legacy, 2FA/SSO, audit, export, API) ; dépendances **tier** (Enterprise SSO, etc.) → **IMPACT** : fort fit CRM commercial **candidat** → **STATUT** : EVIDENCE — NOT SELECTED
-+6. **OBSERVATION** — Airtable / Softr / Bubble / Power Apps = données + apps/portails **construisibles** ; sécurité/rôles souvent **à concevoir** (Privacy Rules Bubble ; Dataverse Power ; groups Softr) → **IMPACT** : flexibilité élevée / complexité maintenabilité → **STATUT** : EVIDENCE — NOT SELECTED
-+7. **OBSERVATION** — Make / n8n / Power Automate = orchestration ; Tally = formulaires ; Power BI = reporting — briques **complémentaires**, pas CRM cœur seuls → **IMPACT** : intégrations nécessaires pour RDV/docs/IA → **STATUT** : COMPLEMENTARY CANDIDATES
-+8. **FAIT** — Contraintes A/B/C (RGPD, MFA candidate, logs, backup, accessibilité, sobriété, réversibilité) **réutilisables** comme critères d’évaluation outils → **IMPACT** : checklist future Phase 2 → **STATUT** : CRITERIA CARRIED FORWARD
-+9. **FAIT** — AI Act (UE) 2024/1689 applicable par phases ; Omnibus 2026/1744 (en vigueur 2026-07-27) décale high-risk Annex III → **2027-12-02** → **IMPACT** : gouvernance IA **use-case dependent** → **STATUT** : **AI ACT PROJECT APPLICABILITY = TO VERIFY / USE-CASE DEPENDENT**
-+10. **OBSERVATION** — Cas IA « conseil / scoring / underwriting » = **HIGH-SENSITIVITY** ; candidats AI-D01…D08 restent **RESEARCH CANDIDATE / WATCH** — **aucun ADOPTED**
-+11. **GAP** — RDV natif, génération documentaire accessible, audit fin, portail client « dossier assurance » : souvent **PARTIAL** ou via extensions → **IMPACT** : **GAP IDENTIFIED — FUTURE TOOL DISCOVERY REQUIRED** pour certaines briques → **STATUT** : OPEN
-+12. **LIMITE** — **Architecture = NOT DECIDED** ; **Stack = NOT DECIDED** ; aucun gagnant ; aucun score
++1. **FAIT** — Digitalisation de la distribution d’assurance **lente** ; ventes en ligne souvent faibles (agrégats EIOPA) → **IMPACT CRM** : soutenir omnicanal + conseil, pas un modèle digital-only → **STATUT** : CONFIRMED (marché) / FUTURE DECISION INPUT
++2. **FAIT** — Intermédiaires en consolidation ; passeports FoS/FoE **+10 % (2022–2024)** (S56) → **IMPACT** : différenciation relationnelle / outillage → **STATUT** : CONFIRMED (contexte)
++3. **CONSTAT** — Acteurs digitaux exposent devis / self-service / espace client, souvent avec canal humain revendiqué → **IMPACT** : attentes clients sur self-service **borné** + contact humain → **STATUT** : COMPETITIVE OBSERVATION (pas ranking)
++4. **LIKELY** — IDD / ACPR : devoir d’information, conseil adapté, traçabilité du conseil → **IMPACT** : historique / preuves / formalisation dans le CRM → **STATUT** : PROJECT CONSTRAINT
++5. **TO VERIFY** — Traitement de **données de santé** et **AIPD** → **IMPACT** : régime éventuellement renforcé si confirmé → **STATUT** : LEGAL TO VERIFY (`HEALTH DATA` / `AIPD`)
++6. **LIKELY** — RGPD : finalité, minimisation, conservation, droits, privacy by design, sous-traitants → **IMPACT** : critères de conception + DPA futurs → **STATUT** : PROJECT CONSTRAINT
++7. **LIKELY** — Sécurité appropriée : auth, MFA **candidate**, rôles, logs, backup/restauration, réversibilité fournisseur → **IMPACT** : contraintes SSI de conception (sans architecture SSI) → **STATUT** : SECURITY CONSTRAINT ; **DORA = TO VERIFY**
++8. **TO VERIFY** — Applicabilité juridique accessibilité (seuil CA / statut) → **IMPACT** : ne pas écrire « RGAA REQUIRED » sans preuve → **STATUT** : `ACCESSIBILITY LEGAL APPLICABILITY = TO VERIFY`
++9. **DESIGN REFERENCE** — RGAA / WCAG / inclusion multicanal ; RGESN pour sobriété → **IMPACT** : interfaces, docs, poids, features inutiles → **STATUT** : DESIGN REFERENCE (pas certification)
++10. **FAIT** — Panel no-code/low-code = **CANDIDATE ONLY** ; capacités documentées avec gaps (RDV, docs accessibles, portail dossier…) → **IMPACT** : future évaluation outillée, pas sélection ici → **STATUT** : FUTURE DECISION INPUT
++11. **WATCH** — IA assistance (AI-D01…D08) ; cas sensibles (reco auto, scoring, underwriting…) = HIGH-SENSITIVITY → **IMPACT** : human oversight ; pas d’adoption → **STATUT** : RESEARCH CANDIDATE / WATCH ; `AI ACT = TO VERIFY / USE-CASE DEPENDENT`
++12. **LIKELY** — Export / réversibilité / dépendance licences (SSO Pro/Ent, audit Enterprise…) → **IMPACT** : critères 1.5 / Phase 2 → **STATUT** : TOOL EVALUATION INPUT
++13. **LIMITE** — **Architecture = NOT DECIDED** ; **Stack = NOT DECIDED** ; **1.3 ≠ VALIDATED** ; **1.4 NOT OPENED**
 +
-+### 17.3 Tendances marché assurance / courtage
++### 18.3 Enseignements marché / relation client
 +
-+| Observation | Source | Portée | Implication projet |
-+|-------------|--------|--------|-------------------|
-+| Digitalisation distribution progresse lentement ; online &lt;10 % GWP dans la plupart des marchés ; produits simples | EIOPA 3rd IDD report / factsheet 2026-03-30 | UE / agrégats NCA | CRM = support omnicanal + conseil, pas pure digital-only |
-+| GenAI utilisé via chatbots / sales tools ; IDD ne régule pas exhaustivement ces canaux | EIOPA 2026-03-30 | UE | IA = watch ; human oversight ; pas d’adoption conseil auto |
-+| Baisse nombre intermédiaires ; +12 % passeports UE 2020–2024 | EIOPA | UE | Consolidation / différenciation relationnelle |
-+| Canaux de distribution doivent être compatibles marché cible / intérêt client | ACPR Rec. 2024-R-01 | FR | Traçabilité conseil / historique dans le futur CRM |
-+| Digitalisation + IA complexifient protection client / fraudes | Pôle commun ACPR-AMF 2025 | FR | Sécurité + clarté parcours (lien B/C) |
++| Enseignement | Source | Implication |
++|--------------|--------|-------------|
++| Digitalisation distribution progressive mais limitée | S55–S57 | CRM = soutien omnicanal |
++| GenAI via chatbots / sales tools en hausse ; IDD incomplet sur ces canaux | S55 | IA = watch ; oversight humain |
++| Passeports FoS/FoE **+10 % 2022–2024** (corr. R-D01 ; S56) | S56 | Contexte consolidation / mobilité |
++| Self-service devis + espace client = patterns visibles | Scan §17.4 + S81–S84 + S87 | Différenciation cabinet = proximité / conseil personnalisé / transparence |
++| Canaux compatibles marché cible / intérêt client | S58 | Traçabilité conseil |
 +
-+**Réserve :** statistiques UE/FR **ne** se traduisent **pas** automatiquement en volumes du cabinet fictif.
++**Pas** de « meilleur concurrent » ni de modèle à cloner.
 +
-+### 17.4 Scan concurrentiel léger
++### 18.4 Contraintes réglementaires & données
 +
-+**But :** MARKET PATTERNS / COMPETITIVE OBSERVATIONS — **pas** BEST COMPETITOR. Sources = sites officiels consultés 2026-09-29.
++Consolide A (détail §14) :
 +
-+| Acteur | Type | Cible visible | Devis / souscription | Espace client / docs | Sinistres | Conseil humain | Différenciation revendiquée |
-+|--------|------|---------------|----------------------|----------------------|-----------|----------------|----------------------------|
-+| Direct Assurance | Assureur direct (groupe AXA) | Particuliers auto/hab/santé/moto | Parcours produits en ligne | App mobile ; parcours digitaux | Mise en avant résolution sinistres | Conseiller dédié revendiqué | Assurance en ligne depuis 1992 ; labels ; économie multi-contrats |
-+| Réassurez-moi | Comparateur / courtage digital | Emprunteur, santé, divers | Simulation + devis + souscription en ligne | Accompagnement experts | — (hors focus) | Interlocuteur humain revendiqué (« pas un robot ») | Comparaison ; experts non commissionnés (revendiqué) |
-+| LeLynx.fr | Comparateur (courtier ORIAS) | Particuliers auto/moto/hab/santé/énergie | Formulaire unique ; redirection souscription partenaire | — | — | Service comparaison | Panel partenaires ; gratuit / impartial (revendiqué) |
-+| Lovys | Insurtech / abonnement multi-produits | Particuliers | Souscription en ligne ~2 min ; signature en ligne | Espace personnel / attestations | Réactivité sinistre (avis) | Mail, chatbot, téléphone | 100 % en ligne + humain ; mensualité unique |
-+| Alan | Assurtech santé (emploi/entreprises + particuliers selon pages) | Santé collective / digitale | Parcours digital (site) | App / self-service typique insurtech | — | Support digital | Santé digitale (pattern) — détail produit TO VERIFY hors brief |
++| Thème | Statut consolidé |
++|-------|------------------|
++| Exigences / besoins client ; conseil / recommandation ; traçabilité | LIKELY — PROJECT CONSTRAINT |
++| Finalité ; minimisation ; conservation ; droits ; privacy by design | LIKELY |
++| Sous-traitants / DPA | LIKELY si SaaS — FUTURE DECISION INPUT |
++| Sécurité appropriée (art. 32) | LIKELY — lien B |
++| **HEALTH DATA PROCESSING** | **TO VERIFY** |
++| **AIPD** | **TO VERIFY** |
++| Bases légales détaillées | **TO VERIFY** |
 +
-+**Patterns utiles au cadrage :** self-service devis ; espace documents ; multicanal humain+digital ; comparaison vs relation de conseil personnalisé (opportunité différenciante du cabinet).
++**Pas** un avis juridique.
 +
-+**Non déduit :** outils techniques internes des acteurs ; conformité ; volumes.
++### 18.5 Contraintes sécurité & résilience
 +
-+### 17.5 Besoins technologiques du CRM
++Consolide B (détail §15) comme **contraintes de conception futures** :
 +
-+| Besoin validé (1.1/1.2) | Famille techno | Priorité conception |
-+|-------------------------|----------------|---------------------|
-+| Prospects / clients / TPE-PME / particuliers | CRM / données structurées | Haute |
-+| Prospection, devis, relances, RDV, conseil, souscription, renouvellement, résiliation | CRM + workflows + formulaires | Haute |
-+| Documents / espace documentaire / historique | Documents + stockage + droits | Haute |
-+| Espace client | Portail / auth externe | Haute |
-+| Sinistres (niveau brief) | CRM / dossiers | Moyenne–Haute |
-+| Dashboard KPI (conversion, panier, satisfaction) | Reporting / BI | Moyenne |
-+| Multicanal (physique, Visio, tel, email, espace client) | Intégrations + inclusion (C) | Haute |
-+| Génération / envoi documentaire | Documents + automatisation | Haute |
++- authentification ; MFA **candidate** (selon risque / population) ;
++- habilitations / moindre privilège ;
++- espace client & documents (séparation, droits, traçabilité) ;
++- logs / incidents ; sauvegarde / restauration ;
++- critères fournisseurs SaaS ; export / réversibilité.
 +
-+**Non inventé comme besoin validé :** paiement ; signature électronique obligatoire ; API assureurs ; scoring ; underwriting auto ; app native ; biométrie.
++**DORA APPLICABILITY = TO VERIFY.**
 +
-+### 17.6 Cartographie des familles technologiques
++**SECURITY SCENARIOS ARE NOT A MEASURED RISK REGISTER** — les scénarios R-Bxx / formulations d’impact potentiel du deep-dive B **ne constituent pas** une cotation de risque acceptée ni un registre de risques mesuré.
 +
-+1. CRM relation client
-+2. Données structurées / app métier
-+3. Portail / espace client
-+4. Formulaires / collecte
-+5. Workflows / automatisation
-+6. Documents
-+7. RDV / interactions
-+8. Reporting / BI
-+9. Intégrations / API / webhooks
-+10. Sécurité / rôles / audit
-+11. Export / réversibilité / maintenabilité
-+12. Accessibilité
-+13. Numérique responsable
-+14. Capacités IA
-+15. Collaboration / knowledge (périphérique)
++**Pas** d’architecture SSI.
 +
-+**Aucune architecture cible combinant ces briques.**
++### 18.6 Accessibilité & numérique responsable
 +
-+### 17.7 Panel no-code / low-code étudié
++| Couche | Contenu | Statut |
++|--------|---------|--------|
++| **A. Obligations juridiques potentielles** | Art. 47 loi 2005-102 ; décret 2019-768 **modifié** par **2026-816** (S49b) ; seuil CA privé | `ACCESSIBILITY LEGAL APPLICABILITY = TO VERIFY` |
++| **B. Références de conception** | **RGAA** = ACCESSIBILITY DESIGN REFERENCE ; **WCAG** = STANDARD / GUIDANCE | DESIGN REFERENCE |
++| **C. Bonnes pratiques** | Clavier, focus, formulaires, contraste, docs, auth accessible, sobriété, limiter tiers | DESIGN REFERENCE |
++| Écoconception | **RGESN** = DESIGN / ECO-CONCEPTION REFERENCE | DESIGN REFERENCE |
 +
-+| Niveau | Outils | Objectif |
-+|--------|--------|----------|
-+| 1 | HubSpot, Airtable, Bubble, Softr, Power Apps | Couverture potentielle large CRM/app |
-+| 2 | Make, n8n, Power Automate, Tally, Power BI | Briques spécialisées |
-+| 3 | Voiceflow, Postman, Notion, Figma, Miro, Shopify | Frontières / hors cœur CRM |
++**Ne pas écrire** RGAA REQUIRED / RGESN REQUIRED sans preuve projet.
 +
-+Shopify = **OUT OF SCOPE** (pas de besoin e-commerce validé). Figma/Miro/Postman/Notion = **pas** candidats cœur CRM.
++### 18.7 Technologie / no-code / IA
 +
-+### 17.8 Capability Evidence Matrix
++Le panel doctrine reste **CANDIDATE TOOL ECOSYSTEM ONLY** (détail matrice §17.8).
 +
-+Légende : **S**=SUPPORTED ; **P**=PARTIAL ; **NN**=NOT NATIVE ; **TV**=TO VERIFY ; **OOS**=OUT OF SCOPE. Preuves = sources éditeur ouvertes 2026-09-29. **Aucun classement.**
++**Familles (pas un concours) :**
 +
-+| Outil | Rôle candidat | CRM natif | Données | Portail / externe | Formulaires | Automatisation | Documents | Reporting | API / intégrations | Rôles / sécurité | Audit / logs | Export / réversib. | Accessibilité doc. | IA doc. | Dépendances / limites | Preuve |
-+|-------|---------------|-----------|---------|-------------------|-------------|----------------|-----------|-----------|--------------------|------------------|--------------|--------------------|--------------------|---------|-----------------------|--------|
-+| HubSpot | CRM spécialisé | **S** | **S** | **P** (Customer Portal tickets / memberships) | **S** | **S** (workflows) | **P** (Documents tool / fichiers) | **S** | **S** (API 2026-09) | **S** (permissions, teams, 2FA, SSO Enterprise) | **S** (audit logs ; tier) | **S** (export ; GDPR delete) | **TV** | **P**/TV (features AI produit) | Tier / hub / Enterprise SSO | Trust+KB |
-+| Airtable | Données / interfaces | **P** | **S** | **P** (Interfaces / Portals — plans) | **S** | **S** (Automations) | **P** (attachments) | **P** | **S** (API) | **P**/S (permissions interfaces ; SSO Biz/Ent) | **S** Enterprise Scale audit API | **P**/S (CSV/API) | **TV** | **P** (AI events in audit) | Enterprise pour audit avancé | Support+API |
-+| Bubble | App full-stack no-code | **NN** (à construire) | **S** | **S** (app users) | **S** (à construire) | **S** (workflows) | **P** (à concevoir) | **P** | **S** (Data/Workflow API) | **P** (Privacy Rules ; 2FA possible) | **P**/TV | **P**/TV | **TV** | **TV** | Sécurité **responsabilité partagée** builder | Manual security |
-+| Softr | Portail / frontend | **NN** | **P** (Softr DB / sources) | **S** (client portal pattern) | **S** | **P** (workflows) | **P** | **P** | **P**/S (API/intégrations) | **S** (user groups ; 2FA password+OTP ; SSO Enterprise) | **TV** | **TV** | **TV** | **P** (AI-native claims marketing docs) | Tier Enterprise SSO | Docs Softr |
-+| Power Apps | App low-code | **P** (model-driven / canvas) | **S** (Dataverse) | **P** (Power Pages lié écosystème) | **S** | **S** (via Automate) | **P** | **P** (via BI) | **S** (connectors) | **S** (Entra ID + Dataverse roles) | **P**/S (platform) | **P**/S | **P**/TV (platform guidance) | **P** (Copilot) | Licences Power Platform / Dataverse | MS Learn |
-+| Make | Automatisation | **NN** | **NN** | **NN** | **NN** | **S** | **P** (via modules) | **NN** | **S** | **TV** (compte Make) | **TV** | **TV** | **OOS** | **P**/TV | Orchestrateur seulement | Make help (accès parfois limité) |
-+| n8n | Automatisation | **NN** | **NN** | **NN** | **NN** | **S** | **P** | **NN** | **S** | **P**/TV (self-host vs cloud) | **P**/TV | **P**/TV | **OOS** | **P** (AI features docs) | Self-host = ops | docs.n8n.io |
-+| Power Automate | Automatisation M365 | **NN** | **P** | **NN** | **P** | **S** | **P** | **P** | **S** | **S** (Entra / env) | **P** | **P** | **OOS**/TV | **P** (Copilot) | Environnements / licences | MS Learn |
-+| Tally | Formulaires | **NN** | **NN** | **NN** | **S** | **P** (webhooks / Make/n8n/Zapier) | **P** (PDF guides) | **P** (insights) | **P**/S (API/webhooks) | **TV** | **TV** | **P** (retention Pro+) | **TV** | **P** (ChatGPT integ.) | Free vs Pro/Business | help.tally.so |
-+| Power BI | Reporting | **NN** | **P** | **NN** | **NN** | **P** | **P** (export) | **S** | **S** | **S** (workspace roles) | **P** | **S** | **P** (alt text ; Accessible PDF paginated) | **P** | Licence Power BI | MS Learn accessibility |
-+| Voiceflow | Conversation | **NN** | **NN** | **P** | **NN** | **P** | **NN** | **NN** | **P** | **TV** | **TV** | **TV** | **TV** | **S**/P (voice AI) | Frontière ; pas CRM | Panel L3 |
-+| Postman | Test API | **OOS** | **OOS** | **OOS** | **OOS** | **OOS** | **OOS** | **OOS** | **S** (outil test) | **OOS** | **OOS** | **OOS** | **OOS** | **OOS** | Pas runtime CRM | Doctrine |
-+| Notion | Collab / docs | **OOS** cœur | **P** | **NN** | **P** | **P** | **P** | **NN** | **P** | **P** | **TV** | **P** | **TV** | **P** | Pas source vérité SFIA | Doctrine |
-+| Figma / Miro | Design / atelier | **OOS** | **OOS** | **OOS** | **OOS** | **OOS** | **OOS** | **OOS** | **OOS** | **OOS** | **OOS** | **OOS** | **OOS** | **OOS** | Hors runtime | Doctrine |
-+| Shopify | E-commerce | **OOS** | **OOS** | **OOS** | **OOS** | **OOS** | **OOS** | **OOS** | **OOS** | **OOS** | **OOS** | **OOS** | **OOS** | **OOS** | Pas besoin validé | Doctrine |
++| Famille | Candidats (exemples panel) | Enseignement principal |
++|---------|----------------------------|------------------------|
++| A. CRM spécialisés | HubSpot | CRM natif documenté ; SSO **Professional/Enterprise** (S86) — **NOT SELECTED** |
++| B. App / data no-code-low-code | Airtable, Bubble, Power Apps | Flexibilité élevée ; sécurité souvent à concevoir |
++| C. Portails | Softr (+ patterns HubSpot/Bubble/Power Pages) | Portail possible ; « dossier assurance » souvent à composer |
++| D. Automatisation | Make (S85), n8n, Power Automate | Orchestration ; pas CRM cœur |
++| E. Formulaires | Tally (+ forms natifs) | Collecte + consentement |
++| F. BI | Power BI (+ reporting CRM) | KPI ; sobriété dashboards |
++| G. Périphériques | Voiceflow, Postman, Notion, Figma, Miro | Hors cœur CRM ; Shopify **OOS** |
++| H. IA / assistants | Features éditeurs + AI-D01…D08 | Assistance ≠ décision ; **aucun ADOPTED** |
 +
-+**COST / LICENSING IMPACT = FUTURE BUDGET INPUT** (pas de chiffrage 1.5).
++**AI Act (corr. R-D02) :** régime progressif — 2026-08-02 = début enforcement / majorité du régime général **concerné**, **sans** assimiler high-risk Annex III (2027-12-02) ni Annex I (2028-08-02). Transparence → août 2026. **`AI ACT PROJECT APPLICABILITY = TO VERIFY / USE-CASE DEPENDENT`.**
 +
-+### 17.9 Sécurité / données / accessibilité / sobriété dans le panel
++Cas sensibles (reco auto, scoring, underwriting, fraude auto…) : **HIGH-SENSITIVITY / REGULATORY REVIEW REQUIRED** — non conçus.
 +
-+| Critère héritage | Application au panel | Statut |
-+|------------------|----------------------|--------|
-+| A — proportionnalité / export / suppression / DPA / localisation | HubSpot : GDPR delete, export, EU DC option documentés ; autres : TV selon contrat/DPA éditeur | CRITERIA — pas de certificat « RGPD compliant » outil |
-+| A — HEALTH DATA / AIPD | **TO VERIFY** inchangé ; si santé → hausser exigences | OPEN |
-+| B — auth / MFA candidate | HubSpot 2FA/SSO ; Softr password+OTP ; Bubble 2FA possible ; Power Entra | SECURITY REQUIREMENT CANDIDATE — techno NOT DECIDED |
-+| B — rôles / moindre privilège | Permissions HubSpot/Dataverse/Softr groups/Bubble Privacy Rules | ACCESS CONTROL TO DESIGN |
-+| B — audit / backup | Audit Enterprise souvent **tier-dependent** ; backups éditeur ≠ PRA cabinet | TO VERIFY / DESIGN |
-+| B — DORA | **TO VERIFY** (B) | OPEN |
-+| C — accessibilité | Power BI alt text / Accessible PDF documentés ; autres **TV** (pas de VPAT systématiquement ouvert ici) | Ne pas certifier RGAA/WCAG outil |
-+| C — sobriété / réversibilité | Préférer outils permettant désactivation features, export, limitation stockage | FUTURE EVAL |
++### 18.8 Impacts concrets pour le CRM
 +
-+### 17.10 Automatisation et intégrations
++| ID | Enseignement | Origine | Impact CRM | Nature | Étape future | Statut |
++|----|--------------|---------|------------|--------|--------------|--------|
++| I-E01 | Omnicanal + conseil humain | D+marché | Ne pas concevoir digital-only | OPPORTUNITY / DESIGN REFERENCE | Conception ; UX | OPEN |
++| I-E02 | Traçabilité conseil / historique | A | Preuves, historique échanges/contrats | PROJECT CONSTRAINT | Conception ; delivery | OPEN |
++| I-E03 | Minimisation / finalité / droits | A | Modèle de données & UX droits | PROJECT CONSTRAINT | Architecture ; UX | OPEN — model NOT DECIDED |
++| I-E04 | HEALTH DATA / AIPD | A | Régime potentiellement renforcé | LEGAL TO VERIFY | Conformité | TO VERIFY |
++| I-E05 | Auth / MFA candidate / rôles | B | Comptes séparés ; moindre privilège | SECURITY CONSTRAINT | Architecture ; RSSI | OPEN |
++| I-E06 | Espace client & docs sécurisés | B+C | Séparation, droits, accessibilité | SECURITY + DESIGN | Conception ; UX | OPEN |
++| I-E07 | Logs / backup / incidents | B | Exigences RUN futures | SECURITY CONSTRAINT | Architecture ; RUN | OPEN |
++| I-E08 | DORA | B | Applicabilité cabinet | LEGAL TO VERIFY | Conformité | TO VERIFY |
++| I-E09 | Accessibilité juridique | C | Déclaration / conformité si champ | LEGAL TO VERIFY | Morris / conformité | TO VERIFY |
++| I-E10 | RGAA/WCAG comme références | C | Critères UI / docs / auth | DESIGN REFERENCE | UX ; QA | OPEN |
++| I-E11 | RGESN / sobriété | C | Scope minimal ; limiter IA/tiers | DESIGN REFERENCE | Conception | OPEN |
++| I-E12 | Panel no-code = candidats | D | Évaluer sans sélection précoce | TOOL EVALUATION INPUT | Phase 2 / Morris | OPEN |
++| I-E13 | Gaps RDV / docs / portail dossier | D | Discovery éventuelle hors panel | TOOL EVALUATION INPUT | Discovery | OPEN |
++| I-E14 | SSO / audit souvent tier-dependent | D | Input budget licences | TOOL EVALUATION INPUT | 1.5 | OPEN |
++| I-E15 | Réversibilité / export | A+B+D | Critère sélection obligatoire | PROJECT CONSTRAINT | Stack futur | OPEN |
++| I-E16 | IA assistance vs décision | D+AI Act | Human oversight ; pas auto-conseil | WATCH | IA ; Morris | OPEN — not adopted |
++| I-E17 | Multicanal inclusion | C+D | Téléphone / physique / Visio | DESIGN REFERENCE | Conception | OPEN |
++| I-E18 | Self-service borné | Marché+D | Espace client utile sans remplacer conseil | OPPORTUNITY | Conception | OPEN |
 +
-+| Capacité | Preuve panel | Limite |
-+|----------|--------------|--------|
-+| Workflows CRM | HubSpot workflows ; Airtable Automations ; Bubble workflows | Complexité / licences |
-+| Orchestration multi-apps | Make ; n8n ; Power Automate | Pas un CRM ; gouvernance flux |
-+| Formulaires → CRM | Tally webhooks + Make/n8n ; HubSpot forms ; Airtable forms | Mapping champs / consentement |
-+| API | HubSpot API ; Airtable API ; Bubble API ; Softr API ; Power connectors | Auth, quotas, maintenance |
-+| RDV | Souvent **NN / P** via intégration calendrier tierce | **GAP** fréquent |
-+| Documents générés | Souvent **P** (templates + automation) | Accessibilité documents (C) |
++### 18.9 Contraintes à transmettre aux prochaines étapes
 +
-+### 17.11 IA — cas d’usage candidats
++| Catégorie | Acquis (veille) | Reste à décider | Gate futur |
++|-----------|-----------------|-----------------|------------|
++| **DATA** | Principes RGPD / conservation guidance CNIL | Bases légales ; HEALTH DATA ; AIPD ; rétention fine | Conformité ; architecture |
++| **SECURITY** | Familles de contrôles candidates | MFA scope ; IdP ; RPO/RTO ; SIEM | RSSI ; architecture |
++| **ACCESSIBILITY** | Références RGAA/WCAG | Applicabilité légale ; VPAT finalistes | UX ; QA ; Morris |
++| **RESPONSIBLE DIGITAL** | RGESN = référence | Scope features / poids / tiers | Conception |
++| **FUNCTIONAL** | Besoins 1.1/1.2 inchangés | Portail / RDV / docs générés | Architecture ; discovery |
++| **TOOL SELECTION** | Matrice evidence + 17 critères | Pondération ; shortlist ; choix | Morris / groupe ; Phase 2 |
++| **AI GOVERNANCE** | Calendrier AI Act ; cas WATCH | Use case ; classification | Morris ; conformité IA |
++| **OPERATIONS** | Besoin backup / incidents / réversibilité | Process RUN | Delivery ; RUN |
 +
-+Aucun use case **ADOPTED**.
++### 18.10 Opportunités à préserver
 +
-+| ID | Cas | Valeur potentielle | Données | Exposition DP | Human oversight | Statut |
-+|----|-----|--------------------|---------|---------------|-----------------|--------|
-+| AI-D01 | Résumé historique / échanges | Gain temps courtier | Historique CRM | Haute | Requis | RESEARCH CANDIDATE |
-+| AI-D02 | Aide rédaction emails / docs | Productivité | Contenu client | Haute | Requis | RESEARCH CANDIDATE |
-+| AI-D03 | Classification documentaire | Classement pièces | Fichiers | Haute | Requis | WATCH |
-+| AI-D04 | Extraction d’info documents | Saisie assistée | Docs | Haute | Requis | WATCH |
-+| AI-D05 | Recherche / assistant connaissance | Accès info interne | Base connaissance | Moyenne–Haute | Requis | RESEARCH CANDIDATE |
-+| AI-D06 | Assistant conversationnel / FAQ | Self-service | FAQ / policies | Moyenne | Requis ; pas conseil produit auto | WATCH |
-+| AI-D07 | Aide courtier à retrouver info | Productivité conseil | CRM | Haute | Requis | RESEARCH CANDIDATE |
-+| AI-D08 | Synthèse KPI | Pilotage | Agrégats | Faible–Moyenne | Requis | WATCH |
++| Opportunité | Statut |
++|-------------|--------|
++| Relation **humain + digital** (différenciation vs pure digital) | OPPORTUNITY / FUTURE DECISION INPUT |
++| Multicanal (physique, Visio, tel, email, espace client) | OPPORTUNITY |
++| Centralisation historique / documents | OPPORTUNITY |
++| Self-service **borné** (docs, devis, suivi) | OPPORTUNITY |
++| Réduction tâches admin via automatisation **assistive** | OPPORTUNITY |
++| IA comme **assistance** (pas décision) | OPPORTUNITY / WATCH |
++| Sobriété fonctionnelle (RGESN) | OPPORTUNITY |
++| Approche modulaire no-code / briques complémentaires | OPPORTUNITY / FUTURE DECISION INPUT |
 +
-+**HIGH-SENSITIVITY / REGULATORY REVIEW REQUIRED (non adoptés) :** recommandation automatique d’assurance ; éligibilité ; tarification auto ; scoring client ; underwriting ; fraude automatisée — cohérent EIOPA (clarification IDD/AI needed).
++### 18.11 Points de vigilance / TO VERIFY
 +
-+### 17.12 IA — gouvernance / AI Act watch
++| Question | Pourquoi ça compte | Moment pour trancher |
++|----------|--------------------|----------------------|
++| Taille / CA / bilan / statut juridique cabinet | Accessibilité légale ; DORA ; proportionnalité | Avant conformité / Morris |
++| DORA applicability | Obligations résilience éventuelles | Conformité / RSSI |
++| Accessibilité juridique + EAA e-commerce | Obligations / déclaration | Conformité ; UX |
++| HEALTH DATA ; AIPD ; bases légales | Régime données | Avant modèle de données |
++| Sous-traitants / DPA / localisation / transferts | RGPD art. 28 | Avant choix stack |
++| RPO / RTO | Résilience | Architecture / RUN |
++| Niveau licence sécurité (SSO, audit…) | Budget / faisabilité | 1.5 + stack |
++| Accessibilité réelle plateformes finalistes | Inclusion | QA / UX |
++| Outil RDV ; générateur documentaire accessible | Gaps panel | Discovery / Phase 2 |
++| Use case IA + classification AI Act | Risque / conformité | Morris / IA |
++| Pondération des 17 critères outils | Décision stack | Morris / groupe |
++| Budget global | Viabilité | 1.5 |
 +
-+| Élément | État vérifié 2026-09-29 | Source |
-+|---------|-------------------------|--------|
-+| Règlement | (UE) 2024/1689 AI Act | EUR-Lex / Commission |
-+| Omnibus | (UE) 2026/1744 en vigueur 2026-07-27 | Commission / EUR-Lex |
-+| Interdictions / literacy | depuis 2025-02-02 | Commission |
-+| GPAI | depuis 2025-08-02 | Commission |
-+| Applicabilité générale | 2026-08-02 | Commission |
-+| High-risk Annex III | **2027-12-02** (après Omnibus) | Commission |
-+| High-risk Annex I produits | **2028-08-02** | Commission |
-+| Transparence (chatbots, etc.) | règles transparence → 2026-08 | Commission |
++### 18.12 Future Tool Evaluation Framework
 +
-+### AI ACT PROJECT APPLICABILITY = TO VERIFY / USE-CASE DEPENDENT
++Les **17 dimensions** de §17.14 restent le cadre (reformulées pour lisibilité) :
 +
-+**Pas** de claim « AI ACT COMPLIANT ». Human oversight, transparence, minimisation données = principes à transmettre si IA retenue plus tard.
++1. Couverture fonctionnelle — 2. Simplicité opérationnelle — 3. Maintenabilité / gouvernance — 4. Sécurité — 5. Confidentialité / RGPD — 6. Droits / rôles — 7. Portail externe — 8. Automatisation — 9. Intégration / API — 10. Reporting — 11. Documents — 12. Accessibilité — 13. Numérique responsable — 14. Export / réversibilité — 15. IA (contrôles / oversight) — 16. Dépendances licences / tiers — 17. Capacité d’évolution.
 +
-+### 17.13 Gaps / limites / dépendances
++**Aucun poids. Aucun score. Aucun ranking.**
 +
-+| Gap / limite | Signal | Suite |
-+|--------------|--------|-------|
-+| Portail « dossier client assurance » complet (contrats+docs+sinistres+devis) | Souvent à composer (CRM + portail + fichiers) | Architecture futur / discovery |
-+| Prise de RDV native unifiée | Souvent intégration tierce | **GAP IDENTIFIED — FUTURE TOOL DISCOVERY REQUIRED** (calendrier) |
-+| Génération documentaire accessible (devis PDF/UA) | Rarement native complète | Lien C-C04 ; discovery |
-+| Audit / logs fins hors Enterprise | Tier dependency | Budget 1.5 + sécurité |
-+| Accessibilité déclarée (VPAT/RGAA) peu visible sur plusieurs no-code | TV | Critère 1.3.2-D→Phase 2 |
-+| Maintenabilité Bubble/Power Apps custom | HIGH COMPLEXITY SIGNAL si app métier large | TO VERIFY selon scope |
-+| HubSpot simplicité CRM | LOW–MODERATE COMPLEXITY SIGNAL pour cœur commercial | NOT a selection |
-+| Dépendance éditeur / lock-in | Export ≠ migration indolore | Réversibilité critère |
-+| Shopify / e-commerce | OOS | — |
++**DECISION OWNER = MORRIS / WORKING GROUP** (pondération et choix futurs — **non décidés ici**).
 +
-+### 17.14 Future Tool Evaluation Criteria
++### 18.13 Inputs pour organisation / budget / vision
 +
-+Dimensions **sans poids / sans score** (poids = Morris / groupe) :
++| Étape future | Input issu du 1.3 | Ce que le 1.3 **ne** décide **pas** |
++|--------------|-------------------|-------------------------------------|
++| **1.4 Organisation** | Compétences / responsabilités à prévoir (données, sécurité, accessibilité, outils, IA governance) | Organigramme ; RACI final ; staffing |
++| **1.5 Budget** | Impacts licence / tiers / niveaux Professional–Enterprise potentiels ; COST/LICENSING = FUTURE BUDGET INPUT | Budget chiffré ; arbitrage financier |
++| **1.6 Vision** | Contraintes + opportunités + critères d’évaluation | Vision finale / pitch produit |
 +
-+1. Couverture fonctionnelle (CRM, portail, docs, RDV, KPI)
-+2. Simplicité opérationnelle
-+3. Maintenabilité / gouvernance
-+4. Sécurité (auth, MFA candidate, rôles)
-+5. Confidentialité / RGPD (export, suppression, DPA, localisation)
-+6. Droits / moindre privilège
-+7. Portail externe
-+8. Automatisation
-+9. Intégration / API
-+10. Reporting
-+11. Documents (génération / accessibilité)
-+12. Accessibilité interfaces
-+13. Numérique responsable / sobriété
-+14. Export / réversibilité
-+15. IA (contrôles, oversight, opt-out)
-+16. Dépendances licences / tiers
-+17. Capacité d’évolution
++**1.4 = NOT OPENED.** Aucune mutation des documents 1.4 / 1.5 / 1.6 dans ce cycle.
 +
-+Réutilise checklists **B §15.10** et **C §16.10**.
++### 18.14 Points clés pour le rapport et la soutenance
 +
-+### 17.15 Contraintes / éléments à transmettre C-Dxx
++Messages réutilisables (groupe / jury / client pédagogique) :
 +
-+| ID | Besoin / contrainte | Preuve A/B/C/D | Implication future sélection | Question à arbitrer | Gate futur | Statut |
-+|----|---------------------|----------------|------------------------------|---------------------|------------|--------|
-+| C-D01 | CRM relation + historique | Besoins 1.1/1.2 ; HubSpot S ; autres P/NN | Exiger objets contact/deal/historique ou équivalent | CRM natif vs app construite ? | Choix stack | OPEN |
-+| C-D02 | Espace client / docs | C + pattern marché ; Softr/HubSpot/Bubble P/S | Portail avec séparation données (B C-B04) | Portail natif vs composé ? | Architecture ; UX | OPEN |
-+| C-D03 | Formulaires devis / besoins | Tally S ; HubSpot/Airtable S | Collecte + consentement (A) | Quel front de collecte ? | Stack ; UX | OPEN |
-+| C-D04 | Automatisations relances | Make/n8n/PA/HubSpot | Gouvernance flux ; pas d’auto-conseil | Quelle orchestration ? | Architecture ; IA | OPEN |
-+| C-D05 | MFA / rôles / audit | B + preuves éditeurs | Tier souvent Enterprise | Niveau licence minimal sécurité ? | Budget 1.5 ; RSSI | OPEN |
-+| C-D06 | Export / suppression / DPA | A + HubSpot GDPR delete/export | Réversibilité obligatoire candidat | Preuves contractuelles éditeur ? | Stack ; conformité | OPEN |
-+| C-D07 | Accessibilité UI + docs | C | Exiger preuves accessibilité / limites | VPAT / tests QA ? | UX ; QA | OPEN |
-+| C-D08 | Sobriété / features inutiles | C RGESN | Désactivation modules ; limiter IA par défaut | Scope fonctionnel minimal ? | Conception | OPEN |
-+| C-D09 | RDV | Gap fréquent | Discovery calendrier / intégration | Outil RDV dans panel ? | Discovery ; stack | OPEN |
-+| C-D10 | Documents générés accessibles | C-C04 ; gap | Générateur + accessibilité | Format & outil doc ? | Delivery ; QA | OPEN |
-+| C-D11 | Reporting KPI | Power BI S ; HubSpot S | Éviter dashboard surdimensionné (C) | BI séparé vs natif CRM ? | Stack | OPEN |
-+| C-D12 | IA assistance (D01–D08) | EIOPA + AI Act | Human oversight ; pas conseil auto | Quel use case si GO Morris ? | IA ; Morris | OPEN — not adopted |
-+| C-D13 | AI Act classification | Commission 2026 | Use-case dependent | High-risk ou non ? | Conformité IA | TO VERIFY |
-+| C-D14 | Multicanal inclusion | C + marché | Ne pas digital-only | Parcours téléphone/physique ? | Conception | OPEN |
-+| C-D15 | Pas de sélection prématurée | Doctrine panel | Conserver CANDIDATE ONLY | Qui arbitre pondération critères ? | Morris / groupe | OPEN |
++1. Le CRM doit soutenir une **relation de conseil humain** renforcée par le digital — pas un pure digital-only.
++2. **Données & traçabilité du conseil** sont structurantes (RGPD + devoir de conseil) ; santé / AIPD restent à vérifier.
++3. **Sécurité** : comptes, droits, espace client/docs, logs, sauvegarde, réversibilité — sans architecture figée ici.
++4. **Accessibilité & sobriété** : références de conception (RGAA/WCAG/RGESN) ; obligation légale **à vérifier** selon le cabinet.
++5. **No-code / low-code** : écosystème **candidat** documenté ; gaps connus (RDV, docs, portail) ; **aucun outil choisi**.
++6. **IA** : assistance possible en veille ; décisions automatisées sensibles **hors adoption** ; AI Act **use-case dependent**.
++7. Ce que le 1.3 **n’a pas** décidé : architecture, stack, budget, organisation, vision finale.
 +
-+### 17.16 Questions TO VERIFY
++### 18.15 Sources prioritaires finales
 +
-+1. Pondération des 17 critères futurs (Morris/groupe) ?
-+2. CRM natif vs composition no-code pour ce cabinet ?
-+3. Niveau licence minimal acceptable (SSO, audit, EU hosting) ?
-+4. Outil RDV / calendrier à découvrir hors panel ?
-+5. Générateur documentaire et exigence accessibilité ?
-+6. Premier use case IA éventuel (si GO) et classification AI Act ?
-+7. DPA / sous-traitants / localisation par éditeur finaliste ?
-+8. VPAT / accessibilité réelle des finalistes ?
-+9. HEALTH DATA impact stack si confirmé ?
-+10. Budget 1.5 bornes pour tiers Enterprise ?
++Shortlist (registre complet = A/B/C/D) :
 +
-+### 17.17 Sources exploitées
++| Priorité | IDs | Thème |
++|----------|-----|-------|
++| Assurance / IDD / ACPR | S27, S28, S55, S56, S57, S58 | Distribution / conseil / marché |
++| RGPD / CNIL | S21–S26, S31 | Données |
++| Sécurité / ANSSI | S03 + sources B §15 | SSI |
++| Accessibilité | S16, S17, **S49b** (Légifrance JO), S49c | RGAA / décret |
++| RGESN | S18, S19 | Écoconception |
++| AI Act | S60, S61 | Gouvernance IA |
++| Éditeurs structurants | S62–S66, S70–S77, S80, S85, S86 | Capacités outils |
 +
-+| ID | Thème | Organisme / éditeur | Titre | URL | Date | Consultation | Claim | Nature | Statut |
-+|----|-------|---------------------|-------|-----|------|--------------|-------|--------|--------|
-+| S55 | Marché IDD | EIOPA | 3rd Report application IDD (news) | https://www.eiopa.europa.eu/eiopa-publishes-third-report-application-insurance-distribution-directive-2026-03-30_en | 2026-03-30 | 2026-09-29 | Digitalisation lente ; GenAI ; passeports +12 % | N1 | ACTIVE |
-+| S56 | Marché IDD | EIOPA | Structure EU insurance distribution market | https://www.eiopa.europa.eu/structure-eu-insurance-distribution-market_en | 2026-03 | 2026-09-29 | Online sales charts ; intermediaries | N1 | ACTIVE |
-+| S57 | Marché IDD | EIOPA | Factsheet Insurance distribution 2024/25 | https://www.eiopa.europa.eu/document/download/1957cba8-284b-4621-a034-4592b59b2f39_en?filename=2026-03-30+-+Factsheet+-+3d+IDD+application+report.pdf | 2026-03-30 | 2026-09-29 | Online &lt;10 % ; GenAI | N1 | ACTIVE |
-+| S58 | Distribution FR | ACPR | Rec. 2024-R-01 IDD | https://acpr.banque-france.fr/fr/publications-et-statistiques/publications/recommandation-2024-r-01-du-28-juin-2024-sur-la-mise-en-oeuvre-de-certaines-dispositions-issues-de | 2024-06-28 | 2026-09-29 | Canaux / marché cible | N1 | ACTIVE |
-+| S59 | Protection client | ACPR-AMF | Rapport pôle commun 2025 | https://acpr.banque-france.fr/fr/publications-et-statistiques/publications/rapport-annuel-du-pole-commun-acpr-amf-2025 | 2025 / MAJ 2026-06 | 2026-09-29 | Digitalisation + IA | N1 | ACTIVE |
-+| S60 | AI Act | Commission UE | AI Act policy page | https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai | 2026 (Omnibus) | 2026-09-29 | Timeline ; Omnibus ; high-risk dates | N1 | ACTIVE |
-+| S61 | AI Act | EUR-Lex | Reg. 2024/1689 consolidé | https://eur-lex.europa.eu/eli/reg/2024/1689/2026-07-27/eng | 2026-07-27 | 2026-09-29 | Texte consolidé | N1 | ACTIVE |
-+| S62 | HubSpot sécu | HubSpot | Security / privacy / control | https://legal.hubspot.com/security | MAJ 2023-04-18 | 2026-09-29 | 2FA, SSO, encryption, EU DC, GDPR delete | Éditeur | ACTIVE |
-+| S63 | HubSpot perms | HubSpot | User permissions guide | https://knowledge.hubspot.com/user-management/hubspot-user-permissions-guide | — | 2026-09-29 | Roles, export, portal, audit | Éditeur | ACTIVE |
-+| S64 | HubSpot audit | HubSpot | View and export account activity | https://knowledge.hubspot.com/account-management/view-and-export-account-activity-history | — | 2026-09-29 | Audit logs | Éditeur | ACTIVE |
-+| S65 | HubSpot portal | HubSpot | Customer portal settings | https://knowledge.hubspot.com/inbox/manage-customer-portal-settings | — | 2026-09-29 | Portal tickets | Éditeur | ACTIVE |
-+| S66 | HubSpot API | HubSpot | API reference 2026-09 | https://developers.hubspot.com/docs/api/overview | 2026-09 | 2026-09-29 | API CRM | Éditeur | ACTIVE |
-+| S67 | Airtable forms | Airtable | Form views | https://support.airtable.com/docs/getting-started-with-airtable-form-views | — | 2026-09-29 | Forms | Éditeur | ACTIVE |
-+| S68 | Airtable interfaces | Airtable | Interface permissions | https://support.airtable.com/docs/interface-designer-permissions | — | 2026-09-29 | Portals/interfaces | Éditeur | ACTIVE |
-+| S69 | Airtable audit | Airtable | Enterprise audit logs | https://support.airtable.com/docs/accessing-enterprise-audit-logs-in-airtable | — | 2026-09-29 | Audit Enterprise | Éditeur | ACTIVE |
-+| S70 | Bubble sécu | Bubble | Security guide | https://manual.bubble.io/help-guides/security | — | 2026-09-29 | Privacy Rules ; shared responsibility | Éditeur | ACTIVE |
-+| S71 | Bubble API | Bubble | Bubble API | https://manual.bubble.io/help-guides/integrations/api/the-bubble-api | — | 2026-09-29 | API + Privacy Rules | Éditeur | ACTIVE |
-+| S72 | Softr auth | Softr | User authentication | https://docs.softr.io/core-concepts-overview/user-authentication | — | 2026-09-29 | 2FA password+OTP | Éditeur | ACTIVE |
-+| S73 | Softr perms | Softr | User groups & permissions | https://docs.softr.io/core-concepts-overview/user-groups--permissions | — | 2026-09-29 | Groups / data perms | Éditeur | ACTIVE |
-+| S74 | Softr SSO | Softr | SAML SSO | https://docs.softr.io/add-and-manage-users/saml-single-sign-on | — | 2026-09-29 | Enterprise SSO | Éditeur | ACTIVE |
-+| S75 | Power Apps | Microsoft | Start building apps | https://learn.microsoft.com/en-us/power-apps/maker/ | — | 2026-09-29 | Canvas/model-driven/Dataverse | Éditeur | ACTIVE |
-+| S76 | Dataverse sécu | Microsoft | Security in Dataverse | https://learn.microsoft.com/en-us/power-platform/admin/wp-security | — | 2026-09-29 | Entra + roles | Éditeur | ACTIVE |
-+| S77 | Power Automate | Microsoft | Getting started | https://learn.microsoft.com/en-us/power-automate/getting-started | — | 2026-09-29 | Flows | Éditeur | ACTIVE |
-+| S78 | n8n | n8n | Docs home | https://docs.n8n.io/ | — | 2026-09-29 | Workflow automation + AI | Éditeur | ACTIVE |
-+| S79 | Tally | Tally | Help Center | https://help.tally.so/ | — | 2026-09-29 | Forms, webhooks, API | Éditeur | ACTIVE |
-+| S80 | Power BI a11y | Microsoft | Design reports for accessibility | https://learn.microsoft.com/en-us/power-bi/create-reports/desktop-accessibility-creating-reports | — | 2026-09-29 | Alt text / checklist | Éditeur | ACTIVE |
-+| S81 | Concurrent | Direct Assurance | Site officiel | https://www.direct-assurance.fr/ | — | 2026-09-29 | Pattern assureur direct | Public | ACTIVE |
-+| S82 | Concurrent | Réassurez-moi | Site officiel | https://reassurez-moi.fr/ | — | 2026-09-29 | Comparateur + experts | Public | ACTIVE |
-+| S83 | Concurrent | LeLynx | Site officiel | https://www.lelynx.fr/ | — | 2026-09-29 | Comparateur ORIAS | Public | ACTIVE |
-+| S84 | Concurrent | Lovys | Site officiel | https://www.lovys.com/fr | — | 2026-09-29 | Insurtech self-service + humain | Public | ACTIVE |
++### 18.16 Limites / réserves
 +
-+### 17.18 Limites / réserves
-+
-+- **EVIDENCE FOR FUTURE TOOL DECISION** uniquement — **pas** de sélection, ranking, poids, gagnant.
-+- Architecture / Stack = **NOT DECIDED**.
-+- Capacités = documentées éditeur ; configuration réelle / plans = **TO VERIFY** en Phase 2.
-+- Pas de certificat RGPD / RGAA / RGESN / AI Act pour un outil.
-+- Make.com help parfois inaccessible (bot protection) — capacités Make = **TV** sur détails sécu.
-+- Légifrance HTML parfois bloqué ; fraîcheur décret 2026-816 tracée via INSEI + JO.
-+- Aucun use case IA adopté ; 1.3.2-E / 1.4 **non ouverts**.
-
-
- ## 13. Synthèse 1.3 (état courant)
-@@ -1014,11 +1326,12 @@ GreenOps SFIA activé en **cadrage uniquement** : hypothèses, leviers, question
- | **1.3.2** | IN PROGRESS |
- | **1.3.2-A** | **REVIEW PASS — REGULATION & DATA** |
- | **1.3.2-B** | **REVIEW PASS — SECURITY & RESILIENCE** |
--| **1.3.2-C** | **ACCESSIBILITY & RESPONSIBLE DIGITAL — AWAITING REVIEW** |
--| **1.3.2-D** | NOT STARTED |
-+| **1.3.2-C** | **REVIEW PASS — ACCESSIBILITY & RESPONSIBLE DIGITAL** |
-+| **1.3.2-D** | **TECHNOLOGY / NO-CODE / AI / MARKET — AWAITING REVIEW** |
-+| **1.3.2-E** | NOT STARTED |
- | Architecture | NOT DECIDED |
- | Stack | NOT DECIDED |
- | **1.4** | NOT OPENED |
- | Miro / Notion | NOT MODIFIED |
-
--Le 1.3 **n’est pas** VALIDATED. Le deep-dive 1.3.2-C **n’est pas** un audit d’accessibilité, une conformité RGAA/RGESN certifiée, ni un bilan environnemental.
-+Le 1.3 **n’est pas** VALIDATED. Le deep-dive 1.3.2-D **n’est pas** une sélection de stack, une architecture, ni une adoption d’IA.
++- Cabinet **fictif** ; pas de terrain utilisateur réel au-delà de 1.1/1.2.
++- Pas d’avis juridique ; pas d’audit sécurité ; pas d’audit RGAA ; pas de bilan environnemental.
++- Capacités outils = **evidence éditeur** ; plans / configs réels = **TO VERIFY**.
++- HTML Légifrance parfois inaccessible (Cloudflare) — ID JO tracé (S49b).
++- **Aucun outil sélectionné** ; **aucune architecture décidée** ; **aucun use case IA adopté**.
++- Points réglementaires conditionnels restent **TO VERIFY**.
++- **1.3 ≠ VALIDATED** ; **1.4 NOT OPENED**.
 
 ```
 
-## 11. Validations
+## 10. Validations
 
 | Check | Résultat |
 |-------|----------|
 | Git Truth | PASS |
-| C REVIEW PASS tracé | PASS |
-| Correction éditoriale C | PASS |
-| Marché / sources récentes | PASS |
-| Scan concurrentiel sans ranking | PASS |
-| Panel doctrine | PASS |
-| Capability Evidence Matrix | PASS |
-| Tier/licensing tracés | PASS |
-| Pas budget 1.5 | PASS |
-| Critères A/B/C réutilisés | PASS |
-| IA non adoptée | PASS |
-| AI Act current-state | PASS |
-| Gaps | PASS |
-| Future criteria sans poids | PASS |
-| Aucun gagnant | PASS |
+| R-D01…R-D07 | PASS (R-D06 HTML corps Légifrance = réserve technique tracée) |
+| E synthèse | PASS |
+| EIOPA +10 % 2022–2024 | PASS |
+| AI Act calendrier | PASS |
+| HubSpot SSO Pro/Ent | PASS |
+| Alan S87 | PASS |
+| Make S85 | PASS |
+| Décret S49b Légifrance ID | PASS |
+| Matrix provenance IDs | PASS |
+| Aucun ranking / sélection | PASS |
 | Architecture / Stack | NOT DECIDED |
-| 1.3 OPENED ; E NOT STARTED ; 1.4 NOT OPENED | PASS |
+| 1.3 AWAITING FINAL REVIEW | PASS |
+| 1.4 NOT OPENED | PASS |
 | 2 fichiers projet | PASS |
 | git diff --check | PASS |
-| Commit | PASS (58d52ac0) |
+| Commit | PASS (43b89a9e) |
 | Push projet | NOT DONE |
 | PR | NOT CREATED |
-| Review Handoff | PASS — content tip 1d4e18ea / blob 5a321cd2 |
+| Review Handoff | TO VERIFY AFTER PUBLISH |
 
-## 12. Réserves
+## 11. Réserves restantes
 
-Evidence only ; configs/plans réels TO VERIFY ; Make help parfois inaccessible ; Légifrance bot-blocked parfois ; pas de conformité outil certifiée.
+- HEALTH DATA / AIPD / DORA / accessibility legal / AI Act project applicability = TO VERIFY
+- Légifrance HTML parfois inaccessible (ID JO tracé)
+- Capacités outils = evidence éditeur ; configs/plans réels TO VERIFY
+- 1.3 non VALIDATED (attente revue ChatGPT puis Morris)
 
-## 13. Verdict
+## 12. Verdict
 
-**READY FOR CHATGPT REVIEW — CRM 1.3.2-D TECHNOLOGY / NO-CODE / AI / MARKET RESEARCH COMPLETE**
-
-## 14. Handoff remote verification
-
-| Champ | Valeur |
-|-------|--------|
-| Publisher verdict | HANDOFF UPDATED — REMOTE VERIFIED |
-| Branch | sfia/review-handoff |
-| Canonical path | sfia-review-handoff/latest-chatgpt-review.md |
-| Content tip (1.3.2-D FULL body) | 1d4e18ea0acf1f04b8e85d04060edc82706e7e8e |
-| Content blob (1.3.2-D FULL body) | 5a321cd255d79c78a6bca14925dfc10cf37c81f9 |
-| Latest tip (includes stamp commits) | verified by publisher on sfia/review-handoff |
-| Push projet | NOT DONE |
-| PR | NOT CREATED |
+**READY FOR CHATGPT FINAL REVIEW — CRM 1.3.2 FINAL WATCH REPORT CONSOLIDATED**
