@@ -14,6 +14,7 @@
  */
 
 import { createHash } from "node:crypto";
+import fs from "node:fs";
 import path from "node:path";
 import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
 import {
@@ -46,6 +47,7 @@ import {
   buildMissionResultPayloadFromReport,
   type CursorExecutionReportWithMission,
 } from "@/features/project-assistant/f3/buildMissionResultPayloadFromReport";
+import { resolveProductEvidenceRefsRoot } from "@/features/project-assistant/f3/persistDocsWriteArtifactReviewMaterial";
 import { deriveAttemptProvenance } from "@/features/project-assistant/f3/deriveAttemptProvenance";
 import { authorizedM3ResolutionKind } from "@/features/project-assistant/f3/selectProductM3ResolutionProfile";
 import { completeDocsWriteClaimEvidenceCompletion } from "./completeDocsWriteClaimEvidenceCompletion";
@@ -64,15 +66,25 @@ import type {
   GovernedExecutePhaseResult,
 } from "./types";
 
-function tryParseReportFromStdout(
-  stdout: string,
-): CursorExecutionReportWithMission | null {
+type CursorReportStdoutParse =
+  | { kind: "ok"; report: CursorExecutionReportWithMission }
+  | { kind: "absent" }
+  | { kind: "malformed"; message: string };
+
+/**
+ * Classify CursorExecutionReport claim from stdout.
+ * Marker present + unparseable JSON → malformed (fail-closed).
+ * Marker absent → absent (docs_write nominal requires report).
+ */
+function classifyCursorReportFromStdout(stdout: string): CursorReportStdoutParse {
   const trimmed = stdout.trim();
-  if (!trimmed) return null;
+  if (!trimmed) return { kind: "absent" };
   const marker = "CURSOR_EXECUTION_REPORT_JSON=";
   const idx = trimmed.indexOf(marker);
   const candidates: string[] = [];
+  let markerPresent = false;
   if (idx >= 0) {
+    markerPresent = true;
     candidates.push(
       trimmed.slice(idx + marker.length).trim().split("\n")[0] ?? "",
     );
@@ -81,18 +93,62 @@ function tryParseReportFromStdout(
   if (trimmed.startsWith("{")) {
     candidates.push(trimmed);
   }
+  if (candidates.length === 0) return { kind: "absent" };
   for (const json of candidates) {
     if (!json) continue;
     try {
       const parsed = parseCursorExecutionReport(JSON.parse(json));
       if (parsed.ok) {
-        return parsed.report as CursorExecutionReportWithMission;
+        return {
+          kind: "ok",
+          report: parsed.report as CursorExecutionReportWithMission,
+        };
       }
     } catch {
       /* try next candidate */
     }
   }
-  return null;
+  if (markerPresent) {
+    return {
+      kind: "malformed",
+      message:
+        "CURSOR_EXECUTION_REPORT_JSON présent mais JSON / schéma non parseable — fail-closed.",
+    };
+  }
+  return { kind: "absent" };
+}
+
+function tryParseReportFromStdout(
+  stdout: string,
+): CursorExecutionReportWithMission | null {
+  const classified = classifyCursorReportFromStdout(stdout);
+  return classified.kind === "ok" ? classified.report : null;
+}
+
+/**
+ * Closed claim-completion failure classification (R3).
+ * Allowlist only — unknown codes fail-closed as continuity failures.
+ * Never use startsWith/includes catch-alls that absorb future codes.
+ */
+export type DocsWriteClaimCompletionFailureKind =
+  | "CONFORMITY_INSUFFICIENCY"
+  | "CONTINUITY_FAILURE";
+
+/**
+ * Content non-conformity only — Attempt may stay succeeded; Product NOT_PROVEN/UNCLAIMED.
+ * ARTIFACT_EMPTY: verifier content-path (empty/whitespace payload after digest OK);
+ * not integrity/path/oracle — no repo test treats it as continuity infra.
+ */
+const DOCS_WRITE_CLAIM_COMPLETION_CONFORMITY_INSUFFICIENCY_CODES =
+  new Set<string>(["CONFORMITY_HEADINGS_MISSING", "ARTIFACT_EMPTY"]);
+
+export function classifyDocsWriteClaimCompletionFailure(
+  code: string,
+): DocsWriteClaimCompletionFailureKind {
+  if (DOCS_WRITE_CLAIM_COMPLETION_CONFORMITY_INSUFFICIENCY_CODES.has(code)) {
+    return "CONFORMITY_INSUFFICIENCY";
+  }
+  return "CONTINUITY_FAILURE";
 }
 function mapCycleProfileToSelectionProfile(
   profile: CycleProfile | string | null | undefined,
@@ -948,6 +1004,97 @@ export async function governedExecuteRecordResult(
         completed.facts &&
         contract.cycleInstanceId
       ) {
+        const refsRoot =
+          input.missionResultRefsRoot?.trim() ||
+          resolveProductEvidenceRefsRoot();
+
+        // Read independently verified hot-worktree bytes for durable review material.
+        let artifactBytes: Buffer | undefined;
+        let hotArtifactAbsolutePath: string | undefined;
+        if (completed.facts.worktreeRef) {
+          hotArtifactAbsolutePath = path.join(
+            completed.facts.worktreeRef,
+            completed.facts.targetPath,
+          );
+          try {
+            artifactBytes = fs.readFileSync(hotArtifactAbsolutePath);
+          } catch (err) {
+            return {
+              ok: false,
+              code: "POST_EXECUTION_CONTINUITY_ADVANCE_FAILED",
+              message: `Attempt succeeded durable — lecture artifact hot-worktree échouée: ${
+                err instanceof Error ? err.message : String(err)
+              }`,
+              attempt: projectAttempt(attempt, adapterId),
+            };
+          }
+        }
+
+        // R1 — CursorExecutionReport REQUIRED for nominal docs_write Product handoff.
+        // Technical Attempt may remain succeeded; missing/malformed report ≠ product handoff.
+        const stdout = completed.facts.stdout ?? "";
+        const classified = classifyCursorReportFromStdout(stdout);
+        const reportCandidate =
+          completed.facts.cursorReport ??
+          (classified.kind === "ok" ? classified.report : null);
+        if (!reportCandidate) {
+          // Preserve independently verified artifact as technical Evidence when possible.
+          if (artifactBytes) {
+            await ingestDocsWriteArtifactEvidence({
+              evidenceReviewServices: input.oa.evidenceReviewServices,
+              projectId: input.projectId,
+              cycleInstanceId: contract.cycleInstanceId,
+              executionContractId: contract.executionContractId,
+              executionAttemptId: attempt.attemptId,
+              targetPath: completed.facts.targetPath,
+              digest: completed.facts.digest,
+              nowIso: input.oa.clock.nowIso(),
+              refsRoot,
+              artifactBytes,
+            });
+          }
+          const code =
+            classified.kind === "malformed"
+              ? "CURSOR_EXECUTION_REPORT_MALFORMED"
+              : "CURSOR_EXECUTION_REPORT_REQUIRED";
+          const message =
+            classified.kind === "malformed"
+              ? classified.message
+              : "CursorExecutionReport structuré obligatoire pour le handoff Product docs_write — rapport absent après Attempt succeeded.";
+          return {
+            ok: false,
+            code,
+            message: `Attempt succeeded durable — continuité Product refusée (${code}): ${message}`,
+            attempt: projectAttempt(attempt, adapterId),
+          };
+        }
+
+        const expectedRepo =
+          typeof contract.inputs?.repositoryBindingIdentity === "string"
+            ? contract.inputs.repositoryBindingIdentity
+            : null;
+        const expectedSha =
+          typeof contract.inputs?.baseHeadSha === "string"
+            ? contract.inputs.baseHeadSha
+            : null;
+        const bound = bindCursorExecutionReportToAttempt({
+          report: reportCandidate,
+          expectedAttemptId: attempt.attemptId,
+          expectedExecutionContractId: contract.executionContractId,
+          attemptExecutionContractId: attempt.executionContractId,
+          expectedRepositoryRef: expectedRepo,
+          expectedBaseSha: expectedSha,
+        });
+        if (!bound.ok) {
+          return {
+            ok: false,
+            code: bound.code,
+            message: bound.message,
+            attempt: projectAttempt(attempt, adapterId),
+          };
+        }
+        const boundReport = reportCandidate;
+
         const ingested = await ingestDocsWriteArtifactEvidence({
           evidenceReviewServices: input.oa.evidenceReviewServices,
           projectId: input.projectId,
@@ -957,6 +1104,9 @@ export async function governedExecuteRecordResult(
           targetPath: completed.facts.targetPath,
           digest: completed.facts.digest,
           nowIso: input.oa.clock.nowIso(),
+          refsRoot,
+          cursorReport: boundReport,
+          ...(artifactBytes ? { artifactBytes } : {}),
         });
         // CR-PCONT-06 — Attempt succeeded stays durable; ingest / advance failure
         // must surface as post-execution continuity failure (never silent).
@@ -986,20 +1136,40 @@ export async function governedExecuteRecordResult(
             attempt: projectAttempt(attempt, adapterId),
           };
         }
-        // Automatic Product result qualification while worktree is still hot.
-        // Failures stay fail-closed on Product claim; technical Attempt unchanged.
-        if (completed.facts.worktreeRef) {
-          await completeDocsWriteClaimEvidenceCompletion({
-            evidenceReviewServices: input.oa.evidenceReviewServices!,
-            attempt,
-            contract,
-            actor: LOCAL_PILOTE_ACTOR,
-            artifactAbsolutePath: path.join(
-              completed.facts.worktreeRef,
-              completed.facts.targetPath,
-            ),
-            nowIso: input.oa.clock.nowIso(),
-          });
+        // R3 — Automatic Product result qualification while worktree / durable path hot.
+        // Never swallow the result: infra fail-closed; insufficiency → honest NOT_PROVEN later.
+        const qualifyPath =
+          ingested.durableArtifactAbsolutePath ?? hotArtifactAbsolutePath;
+        if (!qualifyPath) {
+          return {
+            ok: false,
+            code: "POST_EXECUTION_CONTINUITY_ADVANCE_FAILED",
+            message:
+              "Attempt succeeded durable — aucun chemin artifact pour claim completion (durable ou hot).",
+            attempt: projectAttempt(attempt, adapterId),
+          };
+        }
+        const qualified = await completeDocsWriteClaimEvidenceCompletion({
+          evidenceReviewServices: input.oa.evidenceReviewServices!,
+          attempt,
+          contract,
+          actor: LOCAL_PILOTE_ACTOR,
+          artifactAbsolutePath: qualifyPath,
+          nowIso: input.oa.clock.nowIso(),
+        });
+        if (!qualified.ok) {
+          if (
+            classifyDocsWriteClaimCompletionFailure(qualified.code) ===
+            "CONTINUITY_FAILURE"
+          ) {
+            return {
+              ok: false,
+              code: "POST_EXECUTION_CONTINUITY_ADVANCE_FAILED",
+              message: `Attempt succeeded durable — claim completion continuity fail-closed (${qualified.code}): ${qualified.message}`,
+              attempt: projectAttempt(attempt, adapterId),
+            };
+          }
+          // CONFORMITY_INSUFFICIENCY only: keep technical Attempt; Product materialize stays NOT_PROVEN/UNCLAIMED.
         }
       }
     }

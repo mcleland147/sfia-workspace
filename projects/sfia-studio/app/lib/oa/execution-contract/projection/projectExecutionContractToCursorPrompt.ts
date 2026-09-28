@@ -299,6 +299,15 @@ export function projectExecutionContractToCursorPrompt(input: {
     `- stops/blockers`,
     `- verdict/status — claim seulement, pas Evidence produit`,
     ``,
+    `### Envelope machine-readable OBLIGATOIRE (Studio parser)`,
+    `En plus du résumé business-readable ci-dessus, émettre UNE ligne stdout exacte:`,
+    `CURSOR_EXECUTION_REPORT_JSON=<json compact sur une seule ligne>`,
+    `Le JSON DOIT respecter le schéma oa.cursor-execution-report.1 (reportId, attemptId,`,
+    `executionContractId, repositoryRef, baseSha, status, authorizedEffectsExecuted,`,
+    `fileEffects / workPerformed / validations / blockers / reservations le cas échéant).`,
+    `Un rapport libre en prose SEUL n'est PAS exploitable pour Evidence / Nora.`,
+    `Studio re-vérifie indépendamment les effets fichiers — le rapport reste un CLAIM.`,
+    ``,
     `## Secondaire technique (audit)`,
     `- action: ${d.action}`,
     `- technicalTarget: ${d.technicalTarget}`,
@@ -402,6 +411,14 @@ export function assertCursorPromptParityWithInspection(input: {
         message: `Report requirement absent from prompt: ${requirement}`,
       };
     }
+  }
+  if (!text.includes("CURSOR_EXECUTION_REPORT_JSON=")) {
+    return {
+      ok: false,
+      code: "PROMPT_MACHINE_READABLE_REPORT_MARKER_MISSING",
+      message:
+        "Prompt must require CURSOR_EXECUTION_REPORT_JSON= machine-readable envelope.",
+    };
   }
   // Must not inject mandatory HOW sequence markers
   if (

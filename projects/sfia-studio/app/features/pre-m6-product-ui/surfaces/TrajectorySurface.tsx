@@ -3594,6 +3594,58 @@ export function TrajectorySurface({
             {productOutcome.evidenceSummary ??
               "Aucune preuve enregistrée — aucun résultat produit revendiqué."}
           </p>
+          {postEvidence && postEvidence.ok && postEvidence.executionReport ? (
+            <div
+              className={styles.blockBody}
+              data-testid="w3b-execution-report"
+            >
+              <p className={styles.productHeadline}>Rapport d&apos;exécution</p>
+              <dl className={styles.facts}>
+                <div>
+                  <dt>Statut Cursor</dt>
+                  <dd data-testid="w3b-execution-report-status">
+                    {postEvidence.executionReport.cursorStatus ?? "—"}
+                  </dd>
+                </div>
+                <div>
+                  <dt>Travail réalisé</dt>
+                  <dd data-testid="w3b-execution-report-work">
+                    {postEvidence.executionReport.workPerformedSummary ?? "—"}
+                  </dd>
+                </div>
+                <div>
+                  <dt>Artefacts</dt>
+                  <dd data-testid="w3b-execution-report-artifacts">
+                    {postEvidence.executionReport.artifactsSummary ?? "—"}
+                  </dd>
+                </div>
+                <div>
+                  <dt>Validations</dt>
+                  <dd data-testid="w3b-execution-report-validations">
+                    {postEvidence.executionReport.validationsSummary ?? "—"}
+                  </dd>
+                </div>
+                <div>
+                  <dt>Blockers / réserves</dt>
+                  <dd data-testid="w3b-execution-report-blockers">
+                    {[
+                      postEvidence.executionReport.blockersSummary,
+                      postEvidence.executionReport.reservationsSummary,
+                    ]
+                      .filter(Boolean)
+                      .join(" · ") || "—"}
+                  </dd>
+                </div>
+                <div>
+                  <dt>Revue artifact</dt>
+                  <dd data-testid="w3b-execution-report-artifact-completeness">
+                    {postEvidence.executionReport.artifactReviewCompleteness ??
+                      "—"}
+                  </dd>
+                </div>
+              </dl>
+            </div>
+          ) : null}
           <dl className={styles.facts}>
             <div>
               <dt>Preuve disponible</dt>

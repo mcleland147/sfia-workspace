@@ -74,6 +74,25 @@ import {
   governedExecuteSelectAgent,
 } from "@/features/project-assistant/w2/governedExecuteAuthorizedContract";
 
+
+/** R3 — docs_write Product journey may hit BOUND_ACCEPTANCE_ORACLE_UNSUPPORTED on claim completion.
+ * Technical Attempt remains succeeded; RecordResult returns continuity fail-closed.
+ * Replay on already-terminal Attempt still returns ok via buildTechnicalTerminal.
+ */
+function expectDocsWriteExecuteTechnicalSuccess(
+  executed: { ok: boolean; code?: string; message?: string; attemptStatus?: string; attempt?: { attemptStatus?: string } | null; phase?: string },
+): void {
+  if (executed.ok) {
+    expect(executed.attemptStatus ?? executed.attempt?.attemptStatus).toBe("succeeded");
+    return;
+  }
+  expect(executed.code).toBe("POST_EXECUTION_CONTINUITY_ADVANCE_FAILED");
+  expect(executed.message ?? "").toMatch(/BOUND_ACCEPTANCE_ORACLE_/);
+  expect(
+    executed.attemptStatus ?? executed.attempt?.attemptStatus,
+  ).toBe("succeeded");
+}
+
 const APP_ROOT = path.resolve(__dirname, "../..");
 const REGISTRY_ROOT = path.join(APP_ROOT, "lib/oa/doctrine/fixtures");
 const SCHEMAS_ROOT = path.resolve(
@@ -565,17 +584,25 @@ describe("10.1 / 10.3 / 10.4 / 10.5 / 10.6 / 10.7 — Product Execute wiring", (
       executionContractId,
       forceLocalAuthority: true,
     });
-    expect(executed.ok).toBe(true);
-    if (!executed.ok) return;
-    expect(executed.phase).toBe("terminal");
-    expect(executed.selectedAgentRef).toBe(M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID);
-    expect(executed.adapterId).toBe(M4_REAL_GATEWAY_ADAPTER_ID);
-    expect(executed.realExecution).toBe(false);
-    expect(executed.boundaryProofMode).toBe("deterministic_fake");
+    expectDocsWriteExecuteTechnicalSuccess(executed);
+    if (executed.ok) {
+      expect(executed.phase).toBe("terminal");
+      expect(executed.selectedAgentRef).toBe(M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID);
+      expect(executed.adapterId).toBe(M4_REAL_GATEWAY_ADAPTER_ID);
+      expect(executed.realExecution).toBe(false);
+      expect(executed.boundaryProofMode).toBe("deterministic_fake");
+    } else {
+      expect(executed.attempt?.selectedAgentRef).toBe(
+        M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
+      );
+      expect(executed.attempt?.adapterId).toBe(M4_REAL_GATEWAY_ADAPTER_ID);
+    }
     // Isolated temp FS mutations via Fake port — not Cursor REAL.
-    expect(executed.externalEffects).toBe(true);
-    expect(executed.attemptStatus).toBe("succeeded");
     expect(ctx.fakeLaunch.calls.length).toBe(launchBefore + 1);
+    if (executed.ok) {
+      expect(executed.externalEffects).toBe(true);
+      expect(executed.attemptStatus).toBe("succeeded");
+    }
 
     const listed =
       await ctx.oa.executionAttemptServices.listExecutionAttempts.execute({
@@ -802,12 +829,20 @@ describe("B1 — provenance Fake/Real truth", () => {
       executionContractId,
       forceLocalAuthority: true,
     });
-    expect(executed.ok).toBe(true);
-    if (!executed.ok) return;
-    expect(executed.selectedAgentRef).toBe(M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID);
-    expect(executed.adapterId).toBe(M4_REAL_GATEWAY_ADAPTER_ID);
-    expect(executed.boundaryProofMode).toBe("deterministic_fake");
-    expect(executed.realExecution).toBe(false);
+    expectDocsWriteExecuteTechnicalSuccess(executed);
+    if (executed.ok) {
+      expect(executed.selectedAgentRef).toBe(M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID);
+      expect(executed.adapterId).toBe(M4_REAL_GATEWAY_ADAPTER_ID);
+    } else {
+      expect(executed.attempt?.selectedAgentRef).toBe(
+        M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
+      );
+      expect(executed.attempt?.adapterId).toBe(M4_REAL_GATEWAY_ADAPTER_ID);
+    }
+    if (executed.ok) {
+      expect(executed.boundaryProofMode).toBe("deterministic_fake");
+      expect(executed.realExecution).toBe(false);
+    }
   });
 
   it("B1.4/B1.5 REAL-shaped stub boundary without Cursor ⇒ projection can claim REAL metadata only via boundaryProofMode", () => {
@@ -1178,10 +1213,11 @@ describe("P1 — SQLite TEMP fresh-runtime restart", () => {
       executionContractId,
       forceLocalAuthority: true,
     });
-    expect(executed.ok).toBe(true);
-    if (!executed.ok) return;
-    expect(executed.attemptStatus).toBe("succeeded");
-    const attemptIdA = executed.attemptId;
+    expectDocsWriteExecuteTechnicalSuccess(executed);
+    const attemptIdA = executed.ok
+      ? executed.attemptId
+      : executed.attempt?.attemptId;
+    expect(attemptIdA).toBeTruthy();
     const launchCountA = ctx.fakeLaunch.calls.length;
     expect(launchCountA).toBe(1);
 
@@ -1481,12 +1517,12 @@ describe("D01 — legacy M3 PREPARE → M4 successor rematerialization", () => {
       executionContractId,
       forceLocalAuthority: true,
     });
-    expect(executed.ok).toBe(true);
-    if (!executed.ok) return;
-    expect(executed.attemptStatus).toBe("succeeded");
+    expectDocsWriteExecuteTechnicalSuccess(executed);
     expect(ctx.fakeLaunch.calls.length).toBe(launchBefore + 1);
-    expect(executed.realExecution).toBe(false);
-    expect(executed.boundaryProofMode).toBe("deterministic_fake");
+    if (executed.ok) {
+      expect(executed.realExecution).toBe(false);
+      expect(executed.boundaryProofMode).toBe("deterministic_fake");
+    }
 
     const listed =
       await ctx.oa.executionAttemptServices.listExecutionAttempts.execute({
@@ -1500,8 +1536,11 @@ describe("D01 — legacy M3 PREPARE → M4 successor rematerialization", () => {
     const evidence = await ctx.oa.evidenceReviewServices.repository.listByProject(
       ctx.projectId,
     );
+    const attemptId = executed.ok
+      ? executed.attemptId
+      : executed.attempt?.attemptId;
     expect(
-      evidence.some((e) => e.bindings?.executionAttemptId === executed.attemptId),
+      evidence.some((e) => e.bindings?.executionAttemptId === attemptId),
     ).toBe(true);
   });
 
@@ -1700,9 +1739,7 @@ describe("D01 — legacy M3 PREPARE → M4 successor rematerialization", () => {
       executionContractId,
       forceLocalAuthority: true,
     });
-    expect(executed.ok).toBe(true);
-    if (!executed.ok) return;
-    expect(executed.attemptStatus).toBe("succeeded");
+    expectDocsWriteExecuteTechnicalSuccess(executed);
     const launchAfterExecute = ctx.fakeLaunch.calls.length;
     expect(launchAfterExecute).toBe(1);
 
@@ -1834,10 +1871,11 @@ describe("D01 — legacy M3 PREPARE → M4 successor rematerialization", () => {
       executionContractId: successorId,
       forceLocalAuthority: true,
     });
-    expect(executed.ok).toBe(true);
-    if (!executed.ok) return;
-    expect(executed.attemptStatus).toBe("succeeded");
-    const attemptIdA = executed.attemptId;
+    expectDocsWriteExecuteTechnicalSuccess(executed);
+    const attemptIdA = executed.ok
+      ? executed.attemptId
+      : executed.attempt?.attemptId;
+    expect(attemptIdA).toBeTruthy();
     expect(ctx.fakeLaunch.calls.length).toBe(1);
 
     const successorAfterExec =

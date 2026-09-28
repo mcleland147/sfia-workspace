@@ -66,6 +66,14 @@ export type PostEvidenceAnalysisFacts = {
   stopReason?: string;
   blockersSummary?: string;
   outcomeKind?: string;
+  /**
+   * Durable artifact body for Nora review (server-owned).
+   * Never claim FULL when truncated — completeness must be honest.
+   */
+  artifactReviewMaterial?: string;
+  artifactReviewCompleteness?: "FULL" | "PARTIAL";
+  /** Compact CursorExecutionReport claim summary (NOT Evidence). */
+  cursorReportSummary?: string;
 };
 
 export type PostEvidenceAnalysisResult =
@@ -84,11 +92,12 @@ export type PostEvidenceAnalysisResult =
 const ANALYSIS_SYSTEM = `Tu es Nora, analyste post-exécution SFIA Studio.
 Ordre cognitif imposé (contract-first):
 1) CONTRAT (objectif, expected outputs, critères d'acceptation, validations)
-2) RÉSULTAT OBSERVÉ (travail réel, effets, stop/blocker)
-3) PREUVE (Evidence / ReviewBundle / ClaimEvaluation)
-4) CONFORMITÉ (PASS / FAIL / NOT_PROVEN — jamais inventé)
-5) IMPACT PROJET
-6) RECOMMANDATION (jamais une HumanDecision, jamais une relance automatique)
+2) RÉSULTAT OBSERVÉ (travail réel, effets, stop/blocker — via CursorExecutionReport claim + vérifs Studio)
+3) ARTIFACT REVIEWABLE (contenu durable FULL/PARTIAL fourni — ne jamais inventer ni demander au Pilote)
+4) PREUVE (Evidence / ReviewBundle / ClaimEvaluation)
+5) CONFORMITÉ (PASS / FAIL / NOT_PROVEN — jamais inventé)
+6) IMPACT PROJET
+7) RECOMMANDATION (jamais une HumanDecision, jamais une relance automatique)
 
 Tu produis UNIQUEMENT une recommandation non autoritaire à partir des faits durables fournis.
 Interdit:
@@ -98,7 +107,9 @@ Interdit:
 - demander des secrets;
 - inventer une preuve REAL;
 - convertir not_proven / UNCLAIMED en succès produit;
-- commenter le rapport Cursor sans d'abord confronter le contrat.
+- commenter le rapport Cursor sans d'abord confronter le contrat;
+- affirmer avoir lu l'artifact si artifactReviewMaterial est absent;
+- affirmer lecture FULL si artifactReviewCompleteness=PARTIAL.
 Si productOutcome=UNCLAIMED et claimEvaluationStatus=not_proven :
 l'exécution technique a pu réussir et un Artifact peut exister, mais le résultat
 contractuel n'est pas prouvé faute d'Evidence suffisante sur les expectedOutputs.
@@ -146,6 +157,9 @@ function boundedFactsJson(facts: PostEvidenceAnalysisFacts): string {
     stopReason: facts.stopReason,
     blockersSummary: facts.blockersSummary,
     outcomeKind: facts.outcomeKind,
+    artifactReviewMaterial: facts.artifactReviewMaterial,
+    artifactReviewCompleteness: facts.artifactReviewCompleteness,
+    cursorReportSummary: facts.cursorReportSummary,
   });
 }
 

@@ -517,6 +517,15 @@ export type W3cPostEvidenceLoopDto =
       readonly reviewBundleId: string;
       readonly claimEvaluationId: string | null;
       readonly productOutcome: "SUCCESS" | "STOP" | "FAIL" | "UNCLAIMED";
+      readonly executionReport?: {
+        readonly cursorStatus: string | null;
+        readonly workPerformedSummary: string | null;
+        readonly artifactsSummary: string | null;
+        readonly validationsSummary: string | null;
+        readonly blockersSummary: string | null;
+        readonly reservationsSummary: string | null;
+        readonly artifactReviewCompleteness: "FULL" | "PARTIAL" | null;
+      } | null;
     }
   | {
       readonly ok: false;
