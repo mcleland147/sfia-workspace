@@ -908,7 +908,7 @@ index e9cdfabd..513dd1c4 100644
 | Commit | PASS (58d52ac0) |
 | Push projet | NOT DONE |
 | PR | NOT CREATED |
-| Review Handoff | TO VERIFY AFTER PUBLISH |
+| Review Handoff | PASS — tip 1d4e18ea / blob 5a321cd2 |
 
 ## 12. Réserves
 
@@ -917,3 +917,15 @@ Evidence only ; configs/plans réels TO VERIFY ; Make help parfois inaccessible 
 ## 13. Verdict
 
 **READY FOR CHATGPT REVIEW — CRM 1.3.2-D TECHNOLOGY / NO-CODE / AI / MARKET RESEARCH COMPLETE**
+
+## 14. Handoff remote verification
+
+| Champ | Valeur |
+|-------|--------|
+| Publisher verdict | HANDOFF UPDATED — REMOTE VERIFIED |
+| Branch | sfia/review-handoff |
+| Tip | 1d4e18ea0acf1f04b8e85d04060edc82706e7e8e |
+| Canonical path | sfia-review-handoff/latest-chatgpt-review.md |
+| Canonical blob | 5a321cd255d79c78a6bca14925dfc10cf37c81f9 |
+| Push projet | NOT DONE |
+| PR | NOT CREATED |
