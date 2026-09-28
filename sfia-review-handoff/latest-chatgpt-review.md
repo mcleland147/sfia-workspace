@@ -947,7 +947,7 @@ index e0b981b6..b2df43e8 100644
 | Commit | **PASS** (`154036ca` — docs(crm-assurance-courtage): research 1.3.2b security resilience) |
 | Push projet | **NOT DONE** |
 | PR | **NOT CREATED** |
-| Review Handoff | **PASS** — tip pending republish — HANDOFF UPDATED — REMOTE VERIFIED |
+| Review Handoff | **PASS** — tip `33bbf7bc` / blob `910cb6fa` — HANDOFF UPDATED — REMOTE VERIFIED |
 
 ## 15. Réserves
 
