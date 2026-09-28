@@ -908,7 +908,7 @@ index e9cdfabd..513dd1c4 100644
 | Commit | PASS (58d52ac0) |
 | Push projet | NOT DONE |
 | PR | NOT CREATED |
-| Review Handoff | PASS — tip 5c645a66 / blob aefe7a75 |
+| Review Handoff | PASS — content tip 1d4e18ea / blob 5a321cd2 |
 
 ## 12. Réserves
 
@@ -922,12 +922,11 @@ Evidence only ; configs/plans réels TO VERIFY ; Make help parfois inaccessible 
 
 | Champ | Valeur |
 |-------|--------|
-| Publisher verdict | HANDOFF UPDATED — REMOTE VERIFIED (content + stamp) |
+| Publisher verdict | HANDOFF UPDATED — REMOTE VERIFIED |
 | Branch | sfia/review-handoff |
-| Content tip (1.3.2-D body) | 1d4e18ea0acf1f04b8e85d04060edc82706e7e8e |
-| Content blob | 5a321cd255d79c78a6bca14925dfc10cf37c81f9 |
-| Current tip (after stamp) | TO_FILL_AFTER_PUBLISH |
-| Current canonical blob | TO_FILL_AFTER_PUBLISH |
 | Canonical path | sfia-review-handoff/latest-chatgpt-review.md |
+| Content tip (1.3.2-D FULL body) | 1d4e18ea0acf1f04b8e85d04060edc82706e7e8e |
+| Content blob (1.3.2-D FULL body) | 5a321cd255d79c78a6bca14925dfc10cf37c81f9 |
+| Latest tip (includes stamp commits) | verified by publisher on sfia/review-handoff |
 | Push projet | NOT DONE |
 | PR | NOT CREATED |
