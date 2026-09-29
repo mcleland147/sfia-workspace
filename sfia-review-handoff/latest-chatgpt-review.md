@@ -1,1601 +1,1267 @@
-# SFIA Studio — Review Pack FULL
-## GENERIC EXECUTION / REVIEW / RESULT — ARCHITECTURE TRUTH-SYNC
+# ChatGPT Review Pack — CRM 1.2 Group Persona Consolidation
 
-| Métadonnée | Valeur |
-| --- | --- |
-| **Timestamp** | 2026-09-29T11:08:54+0200 |
-| **Repo** | https://github.com/mcleland147/sfia-workspace.git |
-| **Branche projet** | `sfia-studio/generic-execution-review-result-architecture-01` |
-| **HEAD** | `6f47f74dc9b515c4c79624b21772223ba02c76cd` |
-| **origin/main** | `6f47f74dc9b515c4c79624b21772223ba02c76cd` |
-| **Cycle** | 6 — Architecture technique · DOC / EVOL · CRITICAL |
-| **CKC** | `cyc:technical-architecture` · `projects/sfia-studio/sfia-v3-framing/ckc/06-architecture-technique.md` · CONTENT VALIDATED BY MORRIS · guidance only · ≠ execution authority |
-| **Profil** | CRITICAL |
-| **Qualification** | ARCHITECTURE / DOCUMENTARY TRUTH-SYNC · informed by prior BOUNDED REAL NoteLite · **ZERO NEW REAL** this cycle |
-| **Capacité v3 concernée** | Generic Execution → Execution Review → Evidence → Nora → Result → Pilot |
-| **Roadmap lien** | tip 2026-09-29 `GENERIC-EXECUTION-REVIEW-RESULT-ARCHITECTURE-01 truth-sync` |
-| **Statut document** | ADOPTED TARGET ARCHITECTURE BY MORRIS — DOCUMENTARY CANDIDATE PENDING GIT INTEGRATION |
-| **≠** | Build Doctrine · v3 global doctrine promotion · runtime v3 ADOPTED · Delivery authorization · READY FOR REAL |
+## 0. Identité
 
----
+| Champ | Valeur |
+|-------|--------|
+| **Date / heure / timezone** | 2026-09-29 11:11:46 CEST |
+| **Cycle** | 1.2 Group Persona Consolidation |
+| **Typologie** | DOC / group-truth consolidation |
+| **Profil** | **Standard** |
+| **Critical** | **NON** |
+| **CKC** | Cadrage pilot candidate |
 
-## git status (au moment du Review Pack)
+## 1. Git Truth
 
-```
- M .tmp-sfia-review/chatgpt-review.md
- M projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-?? projects/sfia-studio/convergence/sfia-studio-generic-execution-review-result-architecture.md
-```
+| Check | Résultat |
+|-------|----------|
+| Workspace | /Users/l/Projects/sfia-worktree-crm-assurance |
+| Branche | docs/crm-assurance-courtage-1-3-watch-01 |
+| HEAD initial | 91659feeface45fb45bbd78fec0556c76fec877a |
+| HEAD final | eed1a7ff6236bf7bd524a3a6b5c9a9e85f658ad1 |
+| origin/main | 6f47f74dc9b515c4c79624b21772223ba02c76cd |
+| Dirt | .tmp-sfia-review/** only |
+| Drift CRM | NONE |
+| Git Truth | **PASS** |
 
----
+## 2. Sources SFIA / projet
 
-## Qualification cycle
+Template ; routing ; CKC 01-cadrage ; OM ; guardrails ; checklist ; scripts README ; doctrine ; 01-01 (contrôle) ; 01-02 ; 01-03 (contrôle).
 
-- Type : **6 — Architecture technique**
-- Nature : **EVOL / DOC** — truth-sync architecture Product Execution / Review / Result
-- Fake / Real applicable : **OUI** (architecture informée par campagne REAL NoteLite antérieure)
-- Nouvelle exécution REAL ce cycle : **NON**
-- Fake/mock/fixture créé : **NON**
-- Niveau preuve entrée : **BOUNDED REAL PROOF** sous-chaîne NoteLite
-- Niveau preuve produit ce cycle : **ARCHITECTURE / DOCUMENTARY TRUTH-SYNC**
-- GO Morris REAL : **NON**
-- Delivery slicing : **TBD AFTER ARCHITECTURE REVIEW** — **NOT ADOPTED** (hypothèse 5 lots **NOT ADOPTED**)
-- runtime v3 : **NON ADOPTED**
-- READY FOR REAL : **NO**
+## 3. Décision groupe 2026-09-29
 
----
+| Avant (préparatoire) | Après (canonique) |
+|----------------------|-------------------|
+| Courtier | Courtier |
+| Directeur | Directeur |
+| Prospect → Client (persona) | **Client particulier** (persona) |
+| — | Prospect → client = **lifecycle CJM** |
 
-## Sources lues (gouvernance / doctrine / process)
+**Statut attributs :** GROUP-VALIDATED PEDAGOGICAL SCENARIO ASSUMPTIONS — **pas** FIELD RESEARCH FACTS.
+**Détail cartes atelier :** non inventé ; **à synchroniser** depuis source atelier lisible.
 
-- `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md`
-- `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
-- `projects/sfia-studio/product-completion/01-product-completion-cadrage.md`
-- `projects/sfia-studio/sfia-v3-framing/32-living-project-state-and-dynamic-trajectory.md`
-- `projects/sfia-studio/sfia-v3-framing/33-epistemology-provenance-and-contradiction-model.md`
-- `projects/sfia-studio/sfia-v3-framing/34-agent-capabilities-reversibility-and-execution-governance.md`
-- `projects/sfia-studio/sfia-v3-framing/35-artifact-evidence-debt-and-controlled-learning.md`
-- `projects/sfia-studio/sfia-v3-framing/ckc/06-architecture-technique.md`
-- `projects/sfia-studio/convergence/sfia-studio-native-execution-loop-convergence-01-capitalisation.md`
-- assets / références continuity PRODUCT-CONTINUITY-SHARED-KNOWLEDGE-01 présents sur main
-- `prompts/templates/sfia-cycle-execution-template.md` (process only)
-- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md` (process only)
 
-## Code audité (main @ 6f47f74d — lecture seule)
+## Audit occurrences Prospect → Client / personas
 
-- ExecutionContract domain / generalistExecutionSurface / projectExecutionContractToCursorPrompt
-- studioCursorGeneralistAgent / studioCursorRealLaunchGateway / studioGitWorktreeWorkspace
-- cursorExecutionReport / verifyWorkspaceFileEffects
-- deriveActualExecutionWorkFromProductContext / w3aProductExecutionSemantics / missionContractSemanticInputs
-- persistDocsWriteArtifactReviewMaterial / ingestDocsWriteArtifactEvidence / completeBoundedDocsWriteLaunch
-- governedExecuteAuthorizedContract / materializeW3bProductTerminal / resolveProductExecutionContext
-- deriveGovernedExecutionContinuityProjection / reconcileGovernedExecution
-- w3cPostEvidenceLoop / postEvidenceNoraAnalysis
-- noraCognitiveCompletion / runNoraAgentsTurn / productExecutionAgentsTools
-- evidence-review domain types / ReviewBundle / ClaimEvaluation semantics
-- TrajectorySurface result rendering + poll RUNNING
-- tests structurants continuity / native loop / generalist / workspace verification / post-execution UI / recovery / parity
+| Fichier | Classification | Action |
+|---------|----------------|--------|
+| 01-02 (ancien set Prospect → Client comme persona) | ADAPT | Remplacé par Client particulier ; note historique |
+| 01-02 Experience Map Courtier | KEEP / ADAPT MINOR | Conservée ; Courtier toujours canonique |
+| 01-02 Customer Journey | ADAPT | Renommée Client particulier — Du prospect à la vie client |
+| 01-01 (Prospect/Client comme états BMC/BPMN) | NO CHANGE / KEEP | États relationnels valides ; pas de contradiction |
+| 01-03 | NO CHANGE | Pas de dépendance à l’ancien persona |
+| Doctrine §11 | ADAPT | Statuts personas / maps / Miro SYNC REQUIRED |
+| Miro | OUT OF SCOPE | SYNC REQUIRED — NOT MODIFIED |
+| Notion | OUT OF SCOPE | NOT MODIFIED |
 
-## Décisions Morris tracées (ADOPTED 2026-09-29)
 
-D-ER-01 … D-ER-15 (intégralité dans le document architecture §12).
+## 4. Contrôles protégés
 
-Résumé :
-1. ONE GENERIC PRODUCT EXECUTION MODEL — retire taxonomies Product `docs_write` / `code_write` / `read` / `read_only` / … — **interdit** `generic_read|write|code` Product
-2. KEEP isolated Git worktree
-3. CursorExecutionReport = CLAIM
-4. Generic Execution Review Material (TARGET)
-5. Native Review End Of (harvest sémantique ≠ transport externe)
-6. Studio VerifiedChangeSet
-7. ONE Product Resolution path
-8. Reconciler owns deterministic progression
-9. Nora Deep post-execution review (shared core + RO tools)
-10. Result Surface always explains
-11. Claim / Fact / Analysis / Authority separation
-12. Review Material retention HOT→PRUNED
-13. Migration without big bang
-14. No parallel architecture
-15. Delivery slicing NOT YET ADOPTED
+| Fichier | Résultat |
+|---------|----------|
+| 01-01 | **NO CHANGE** — particuliers déjà dans BMC ; Prospect/Client = états BPMN valides |
+| 01-03 | **NO CHANGE** — pas de dépendance structurante à l’ancien persona |
+| Miro | **NOT MODIFIED** — **MIRO PERSONA SYNC REQUIRED** |
+| Notion | **NOT MODIFIED** |
+| 1.3 status | conservé OPENED — AWAITING FINAL REVIEW |
+| 1.4 | **NOT OPENED** |
+| Architecture / Stack | **NOT DECIDED** |
 
----
-
-## Findings confirmés (audit main)
-
-| Finding | Qualification |
-| --- | --- |
-| A. Generic Execution Surface (quartet) EXISTS | CURRENT IMPLEMENTED FACT — KEEP |
-| B. Cursor Generalist EXISTS | CURRENT — KEEP |
-| C. EC riche WHAT EXISTS | CURRENT — KEEP / COMPLETE |
-| D. Specialized semantics persistent (docs_write family + overlays) | CURRENT + TRANSITIONAL — HARVEST/GENERALIZE/RETIRE FROM PRODUCT MODEL |
-| E. CursorExecutionReport largement générique | CURRENT — KEEP / COMPLETE as CLAIM |
-| F. Isolated detached worktree | CURRENT — KEEP |
-| G. verifyWorkspaceFileEffects observe worktree + policy docs_write | CURRENT — HARVEST / GENERALIZE |
-| H. Durable review persist mono-artifact docs_write-centric | CURRENT — GENERALIZE |
-| I. materializeW3b branches docs_write / generic | CURRENT — KEEP orchestration / GENERALIZE branches |
-| J. Shared Product Resolution | CURRENT — KEEP / COMPLETE |
-| K. Continuity Projection read-only | CURRENT — KEEP |
-| L. Server Reconciler | CURRENT — KEEP |
-| M. Shared Nora cognitive core | CURRENT — KEEP |
-| N. post_execution tools/MemoryB/hosted search OFF | CURRENT — KEEP posture / COMPLETE RO review tools |
-| O. Result rendering in TrajectorySurface | CURRENT — KEEP / EXTRACT / COMPLETE |
-| P. Evidence retentionClass / availability | CURRENT — KEEP / REUSE |
-| NoteLite post-terminal UI stall + Recharger | REAL OBSERVATION + HIGH-CONFIDENCE ARCHITECTURAL CAUSE ≠ proven instance root cause |
-| Poll UI ≤8 / no autonomous worker post-exhaust | CURRENT IMPLEMENTED FACT / AUDIT INFERENCE |
-
-## Findings ajustés
-
-- Aucune **ARCHITECTURE SOURCE CONTRADICTION** matérielle entre le brief Morris et main @ `6f47f74d`.
-- Les taxonomies `code_write` / `read` / `read_only` sont traitées comme **exemples de modèles Product à retirer** même si l’empreinte code `docs_write` domine actuellement (non réduit à docs_write seul).
-- Gap NoteLite post-terminal : **HIGH-CONFIDENCE ARCHITECTURAL CAUSE** documentée ; **≠ PROVEN INSTANCE ROOT CAUSE** (traces runtime instance Exactes non utilisées comme preuve forensique).
-
-## Réserves
-
-- Document = **documentary candidate** — pas encore intégré Git projet.
-- Schema final Execution Review Material = **OPEN DESIGN DETAIL**.
-- API finale outils Nora review = **OPEN DESIGN DETAIL**.
-- Model / reasoning upgrade Nora = **OPEN DESIGN DETAIL**.
-- TTL / quota / GC scheduler = **OPEN DESIGN DETAIL**.
-- Delivery slicing = **TBD**.
-- NoteLite correction governed / finalization = **non relancées** · campagne **PAUSED**.
-
-## Open design details
-
-Voir document architecture §37.
-
----
-
-## Fichiers créés / modifiés (scope autorisé uniquement)
-
-| Path | Action |
-| --- | --- |
-| `projects/sfia-studio/convergence/sfia-studio-generic-execution-review-result-architecture.md` | **CREATED** |
-| `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` | **MODIFIED** (tip 2026-09-29 only) |
-| `.tmp-sfia-review/chatgpt-review.md` | **RESET** (ce Review Pack) |
-
-**Aucun** fichier `app/**`, Build Doctrine, C1, framing, method, prompts, tests, CI modifié.
-
----
-
-## Validations V-01 … V-43
-
-| ID | Résultat |
-| --- | --- |
-| V-01 git diff --check | **PASS** |
-| V-02 seuls fichiers projet autorisés | **PASS** (arch + roadmap ; pack local) |
-| V-03 CURRENT/TARGET/TRANSITIONAL/RETIRE | **PASS** |
-| V-04 component matrix | **PASS** (§9 + annexe disposition) |
-| V-05 six flux diagrammes | **PASS** (6 Mermaid) |
-| V-06 Review Material ≠ Evidence | **PASS** |
-| V-07 Cursor report ≠ Evidence | **PASS** |
-| V-08 Nora ≠ HumanDecision | **PASS** |
-| V-09 Artifact ≠ universal result | **PASS** |
-| V-10 exécution sans Artifact couverte | **PASS** |
-| V-11 Product cible générique | **PASS** |
-| V-12 docs_write pas seul legacy | **PASS** |
-| V-13 code_write/read/read_only couverts | **PASS** |
-| V-14 capabilities ≠ Product categories | **PASS** |
-| V-15 pas de generic_read/write/code Product | **PASS** |
-| V-16 worktree KEEP | **PASS** |
-| V-17 Cursor Generalist KEEP | **PASS** |
-| V-18 Product Resolution KEEP/COMPLETE | **PASS** |
-| V-19 Reconciler owner | **PASS** |
-| V-20 UI ≠ state-machine owner | **PASS** |
-| V-21 post-terminal gap NoteLite qualifié | **PASS** |
-| V-22 high-confidence ≠ proven instance RC | **PASS** |
-| V-23 Nora shared core | **PASS** |
-| V-24 no second Nora | **PASS** |
-| V-25 review tools RO / Attempt/Project-bound | **PASS** |
-| V-26 model upgrade OPEN | **PASS** |
-| V-27 retention Review Material | **PASS** |
-| V-28 purge ne casse pas Evidence | **PASS** |
-| V-29 logical/worktree/durable/promotion distingués | **PASS** |
-| V-30 .sfia-exec ≠ business target | **PASS** |
-| V-31 SUCCESS/NOT_PROVEN/FAIL/STOP/TIMEOUT/recovery | **PASS** |
-| V-32 aucun terminal → rien | **PASS** |
-| V-33 v2.6 parity analysée | **PASS** |
-| V-34 external handoff transport non importé runtime | **PASS** |
-| V-35 migration sans big-bang | **PASS** |
-| V-36 dettes avec exit conditions | **PASS** |
-| V-37 aucun plan 5 lots | **PASS** |
-| V-38 DELIVERY SLICING = TBD | **PASS** |
-| V-39 NoteLite PAUSED / non finalisé | **PASS** |
-| V-40 aucun nouveau REAL revendiqué | **PASS** |
-| V-41 runtime v3 NON ADOPTED | **PASS** |
-| V-42 READY FOR REAL jamais revendiqué | **PASS** |
-| V-43 Roadmap ⇄ architecture cohérents | **PASS** |
-
----
-
-## Anti-claims
-
-- ≠ full REAL E2E proven
-- ≠ READY FOR REAL
-- ≠ generic execution path fully REAL-proven
-- ≠ NoteLite cycle finalized
-- ≠ Git promotion proven
-- ≠ runtime v3 ADOPTED
-- ≠ Delivery authorized / Delivery plan adopted
-- ≠ Build Doctrine mutated
-- ≠ project commit / push / PR / merge this cycle
-- ≠ 5-lot Delivery plan adopted
-
----
-
-## Verdict Review Pack
-
-**ARCHITECTURE TRUTH-SYNC READY FOR CHATGPT CRITICAL REVIEW**
-
-NEXT STEP (post-pack) : ChatGPT Critical Review of architecture truth-sync.
-Après validation Morris seulement : Delivery slicing design.
-
----
-
-# CONTENU COMPLET — DOCUMENT ARCHITECTURE CRÉÉ
-
-Path : `projects/sfia-studio/convergence/sfia-studio-generic-execution-review-result-architecture.md`
+## 5. Doctrine §11 complète
 
 ```markdown
-# SFIA Studio — Architecture de référence : Generic Execution → Execution Review → Evidence → Nora → Result → Pilot
-
-| Métadonnée | Valeur |
-| --- | --- |
-| **Projet** | SFIA Studio |
-| **Titre** | Generic Execution / Execution Review / Evidence / Nora / Result / Pilot — Architecture de référence |
-| **Rôle documentaire** | **CURRENT ARCHITECTURE REFERENCE** (cible adoptée + cartographie factuelle du code) |
-| **Chaîne couverte** | `GENERIC EXECUTION → EXECUTION REVIEW → EVIDENCE → NORA → RESULT → PILOT` |
-| **Statut** | **ADOPTED TARGET ARCHITECTURE BY MORRIS** — **DOCUMENTARY CANDIDATE PENDING GIT INTEGRATION** |
-| **Décisions datées** | **2026-09-29** |
-| **Base main auditée** | `6f47f74dc9b515c4c79624b21772223ba02c76cd` |
-| **Qualification épistémique** | Assertions étiquetées : `CURRENT IMPLEMENTED FACT` · `REAL OBSERVATION` · `AUDIT INFERENCE` · `TARGET ARCHITECTURE — ADOPTED BY MORRIS` · `TRANSITIONAL DEBT` · `OPEN DESIGN DETAIL` · `FUTURE PROOF` |
-| **runtime v3** | **NON ADOPTED** |
-| **READY FOR REAL** | **NO** |
-| **Delivery slicing** | **NOT ADOPTED / TBD** — aucun plan en N lots inventé |
-| **Autorité d’exécution** | Ce document **n’autorise pas** commit / push / PR / REAL / Execute |
-| **Nature** | Référence d’architecture Product — **≠** doctrine · **≠** Build Doctrine · **≠** C1 · **≠** baseline v2.6 · **≠** promotion runtime v3 |
-
----
-
-## Légende épistémique (obligatoire)
-
-| Tag | Signification |
-| --- | --- |
-| **CURRENT IMPLEMENTED FACT** | Observé dans le code / runtime sur main `6f47f74d` (ou preuve Git/CI associée) |
-| **REAL OBSERVATION** | Observation de campagne REAL bornée (NoteLite) — scope testé uniquement |
-| **AUDIT INFERENCE** | Inférence d’architecture à partir du code / des seams — **≠** preuve d’instance |
-| **TARGET ARCHITECTURE — ADOPTED BY MORRIS** | Cible adoptée le 2026-09-29 — **≠** implémenté tant que non tagué autrement |
-| **TRANSITIONAL DEBT** | Pont / legacy vivant à retirer ou généraliser sous conditions |
-| **OPEN DESIGN DETAIL** | Décision d’architecture encore ouverte |
-| **FUTURE PROOF** | Preuve de sortie / critère d’exit futur — non réalisé |
-
-**Règle éditoriale :** ne jamais présenter une assertion **TARGET** comme **IMPLEMENTED**. Ne jamais inventer de preuve REAL au-delà des faits NoteLite bornés ci-dessous.
-
----
-
-## 1. Métadonnées / statut
-
-### 1.1 Objet
-
-Ce document fixe la **référence d’architecture Product** pour le circuit générique d’exécution gouvernée dans SFIA Studio, après requalification de la trajectoire spécialisée (`docs_write` et taxonomies Product homologues) vers un modèle **Generic Product Execution** centré sur :
-
-1. un **ExecutionContract** sémantique unique (WHAT) ;
-2. un exécuteur **Cursor Generalist** (HOW) en **worktree isolé** ;
-3. un **CursorExecutionReport** = **CLAIM** ;
-4. une **Generic Execution Review Material** + **Native Review End Of** ;
-5. un **Studio VerifiedChangeSet** (vérité Studio, pas narration Cursor) ;
-6. **Evidence / ReviewBundle / ClaimEvaluation** ;
-7. **Product Resolution** unique + **Reconciler** ;
-8. **Nora** (analyse profonde bornée) ;
-9. **Result Surface** → décision Pilot.
-
-### 1.2 Statut décisionnel
-
-| Élément | Qualification |
-| --- | --- |
-| Cible architecturale D-ER-01…15 | **TARGET ARCHITECTURE — ADOPTED BY MORRIS** (2026-09-29) |
-| Intégration Git de ce document | **DOCUMENTARY CANDIDATE PENDING GIT INTEGRATION** |
-| Implémentation complète de la cible | **NON** — voir matrice CURRENT/TARGET |
-| runtime v3 | **NON ADOPTED** |
-| READY FOR REAL (boucle générique cible) | **NO** |
-| Delivery slicing (lots) | **TBD** — **D-ER-15** |
-
-### 1.3 Anti-confusion de maturité
-
-| Claim interdit | État |
-| --- | --- |
-| « Architecture cible déjà livrée » | **FAUX** — cible adoptée ≠ code convergé |
-| « Generic loop REAL-proven » | **FAUX** — NoteLite prouve un chemin borné, pas la cible complète |
-| « runtime v3 ADOPTED » | **FAUX** |
-| « Delivery plan 5 lots » | **FAUX** — non adopté ; TBD |
-
----
-
-## 2. Déclaration exécutive d’architecture
-
-### 2.1 Circuit nominal cible
-
-**TARGET ARCHITECTURE — ADOPTED BY MORRIS**
-
-```text
-Pilot / Nora context
-  → ExecutionContract (WHAT générique Product)
-  → Pilot inspection + Confirmation / authority
-  → Governed Execute
-  → Cursor Generalist HOW (isolated detached git worktree)
-  → CursorExecutionReport (CLAIM)
-  → Generic Execution Review Material
-  → Native Review End Of (harvest sémantique Studio)
-  → Studio VerifiedChangeSet (oracle Studio)
-  → Evidence + ReviewBundle + ClaimEvaluation
-  → Product Resolution (unique)
-  → Reconciler (progression déterministe)
-  → Nora Deep Review (outils read-only bornés)
-  → Result Surface (explique toujours)
-  → Pilot decision / continue / correct / stop
-```
-
-### 2.2 Invariant central
-
-**TARGET ARCHITECTURE — ADOPTED BY MORRIS** · partiellement **CURRENT IMPLEMENTED FACT** sur le backbone OA / NELC :
-
-- L’**ExecutionContract** est le **seul WHAT Product** pour inspection Pilot, projection mission Cursor, binding d’enforcement, évaluation de résultat et analyse post-exécution.
-- **Cursor** possède le **HOW** à l’intérieur du contrat autorisé.
-- Les **catégories techniques** (effets, policies, overlays) ne sont **pas** des **catégories de tâche Product**.
-- **Claim ≠ Fact ≠ Analysis ≠ Authority**.
-
-### 2.3 Verdict de requalification
-
-La spécialisation Product par taxonomie de tâche (`docs_write`, et homologues `code_write` / `read` / `read_only` comme exemples de taxonomies Product à retirer) est **architecture de transition**, pas architecture cible.
-
-La cible adoptée est **un modèle Product générique** + **capabilities/effects techniques** en enforcement — **sans** inventer de nouvelles catégories Product du type `generic_read` / `generic_write` / `generic_code`.
-
----
-
-## 3. Périmètre / hors-périmètre
-
-### 3.1 In scope
-
-| Thème | Qualification |
-| --- | --- |
-| Modèle Product Execution générique | TARGET + CURRENT backbone |
-| ExecutionContract semantics / projection Cursor | CURRENT + TARGET |
-| Isolated worktree + Real launch gateway | CURRENT KEEP |
-| Claim / Evidence / RB / CE / VerifiedChangeSet | CURRENT partiel + TARGET |
-| Generic Execution Review Material + Native Review End Of | TARGET (+ harvest CURRENT) |
-| Product Resolution + Continuity + Reconciler | CURRENT partiel + TARGET |
-| Nora post-Evidence / Deep Review | CURRENT partiel + TARGET |
-| Result Surface / Pilot journey | TARGET (+ surfaces CURRENT) |
-| Restart / recovery / retention / GC | CURRENT partiel + TARGET |
-| Retirement des taxonomies Product spécialisées | TARGET + TRANSITIONAL DEBT |
-| Frontière Git promotion future | OPEN / FUTURE |
-
-### 3.2 Out of scope (explicite)
-
-| Hors-périmètre | Note |
-| --- | --- |
-| Adoption runtime v3 | **NON ADOPTED** — non décidé ici |
-| Plan de delivery en N lots | **TBD** — D-ER-15 |
-| Doctrine / Build Doctrine / C1 rewrite | Non autorisé par ce document |
-| Invention de catégories Product `generic_*` | **INTERDIT** |
-| Preuves REAL au-delà de NoteLite borné | **INTERDIT** |
-| Autorité push / PR / merge | Distinct Morris GO |
-| MealFlow / autres campagnes | Non autorisées par ce document |
-
----
-
-## 4. Sources / base de preuve
-
-| Source | Nature | Usage |
-| --- | --- | --- |
-| Main `6f47f74dc9b515c4c79624b21772223ba02c76cd` | Git / code Product | **CURRENT IMPLEMENTED FACT** |
-| Audit code (generalist surface, EC, gateway, verifier, continuity, Nora, Evidence) | Lecture code | **CURRENT IMPLEMENTED FACT** / **AUDIT INFERENCE** |
-| NoteLite REAL (scope testé) | Campagne Product REAL | **REAL OBSERVATION** bornée |
-| Capitalisations convergence (NELC #527, docs_write, ContractResult, continuity) | REX documentaire | Contexte / harvest — ne pas sur-réclamer |
-| Décisions Morris D-ER-01…15 (2026-09-29) | Gouvernance architecture | **TARGET ARCHITECTURE — ADOPTED BY MORRIS** |
-
-**Hiérarchie :** Git/code > REAL borné > audit inference > cible adoptée > open detail. Une cible adoptée **ne remplace pas** un fait d’implémentation manquant.
-
----
-
-## 5. Contexte / pourquoi la requalification
-
-### 5.1 Trajectoire historique (résumé factuel)
-
-**CURRENT IMPLEMENTED FACT** / capitalisations :
-
-1. Chemins Product spécialisés (`docs_write` en tête) ont permis des preuves REAL bornées et l’intégration de seams Evidence / RB / ContractResult.
-2. `NATIVE-EXECUTION-LOOP-CONVERGENCE-01` (PR **#527**) a convergent un circuit natif autour d’un EC sémantique + projection Cursor généraliste + report enrichi — **déterministe**, **≠ READY FOR REAL**.
-3. `PRODUCT-CONTINUITY-SHARED-KNOWLEDGE-01` (ancre main `6f47f74d` / PR **#540**) a introduit Product Resolution + Continuity Projection + Reconciler comme owners de progression.
-
-### 5.2 Problème structurant
-
-**AUDIT INFERENCE** (validé comme motive de décision Morris) :
-
-Le Product modèle actuel **mélange** encore :
-
-- des **taxonomies de tâche Product** (`docs_write`, et patterns homologues `code_write` / `read` / `read_only`) ;
-- des **capabilities / effects techniques** ;
-- des **ponts de materialization / ingest** nommés par effet ;
-- une **UI de continuité** qui peut s’arrêter (poll) sans worker autonome.
-
-Résultat : la richesse sémantique du contrat généraliste coexiste avec des branches spécialisées qui **empêchent** de traiter Execution Review / Result / Pilot comme un circuit générique unique.
-
-### 5.3 Requalification adoptée
-
-**TARGET ARCHITECTURE — ADOPTED BY MORRIS** :
-
-Retirer les taxonomies Product spécialisées du **modèle Product** ; conserver / généraliser les **mécanismes techniques** utiles (worktree, verifier, Evidence, RB, CE, Resolution, Reconciler) ; introduire **Execution Review Material** générique + **VerifiedChangeSet** Studio + **Native Review End Of** ; garder Claim/Fact/Analysis/Authority séparés.
-
----
-
-## 6. NoteLite — observations REAL bornées
-
-> Toutes les assertions de cette section sont **REAL OBSERVATION** au **scope testé NoteLite** uniquement.
-> **≠** preuve de la cible D-ER complète. **≠** READY FOR REAL générique.
-
-### 6.1 Chaîne PROVEN AT TESTED SCOPE
-
-| Étape | Observation |
-| --- | --- |
-| EC → Attempt REAL | **PROVEN** |
-| Cursor REAL | **PROVEN** |
-| Attempt `succeeded` | **PROVEN** |
-| Evidence / RB / CE durables (recovery path) | **PROVEN** |
-| Product Resolution | **PROVEN** (chemin de résolution) |
-| Nora post-Evidence | **PROVEN** |
-| Nora conversationnelle ensuite | **PROVEN** |
-| Transfert d’ID Pilot | **NON** — conversation sans transfert d’ID Pilot **PROVEN AT TESTED SCOPE** |
-
-### 6.2 NOT_PROVEN
-
-Lorsque l’Evidence est insuffisante, le statut **NOT_PROVEN** est **préservé** — **REAL OBSERVATION** alignée avec la sémantique fail-closed ContractResult.
-
-### 6.3 Gap UI / continuité (qualification honnête)
-
-| Élément | Qualification |
-| --- | --- |
-| UI restée sur **materialization pending** | **REAL OBSERVATION** |
-| Pilot a cliqué **« Recharger résultat produit »** pour continuer | **REAL OBSERVATION** |
-| Cause architecturale **haute confiance** : poll TrajectorySurface exhausté (≤ 8 `continue`) **sans worker autonome** après exhaust | **AUDIT INFERENCE** — **HIGH-CONFIDENCE ARCHITECTURAL CAUSE** |
-| Cause racine **d’instance** prouvée pour ce run Exact | **≠ PROVEN INSTANCE ROOT CAUSE** |
-
-### 6.4 Chemins artifact / logique
-
-| Couche | Valeur observée |
-| --- | --- |
-| Artifact physique (campagne) | sous `.sfia-exec/.../docs-write-artifact/...` |
-| Cible logique | `projects/notelite/01-cadrage/...` |
-
-**REAL OBSERVATION** : dualité logical vs physical path déjà visible ; la cible architecture (section 30) doit la traiter sans coller la taxonomie `docs_write` au modèle Product.
-
-### 6.5 Review manuelle / binding conversationnel
-
-| Observation | Qualification |
-| --- | --- |
-| Feedback de review manuel initialement **sans contexte** | **REAL OBSERVATION** |
-| Ré-instruction naturelle a **reattaché** le contexte | **REAL OBSERVATION** |
-| Lecture | faiblesse de **binding conversationnel** — **≠** rupture de Product Resolution |
-
-### 6.6 État campagne
+## 11. État actuel
 
 | Élément | État |
-| --- | --- |
-| Campagne | **PAUSED** |
-| Correction gouvernée | **non re-testée** |
-| Cycle | **non finalisé** |
+|---------|------|
+| Phase actuelle | Bloc / Phase 1 — cadrage |
+| Dernière étape validée | **1.2 Analyse des besoins utilisateurs — VALIDATED — GROUP PERSONA CONSOLIDATION 2026-09-29** |
+| 1.1 | **VALIDATED** |
+| 1.2 | **VALIDATED — GROUP PERSONA CONSOLIDATION 2026-09-29** |
+| Personas canoniques | **Client particulier** · **Courtier** · **Directeur** |
+| Ancien persona préparatoire Prospect → Client | **SUPERSEDED AS PERSONA** |
+| Continuité prospect → client | **RETAINED IN CUSTOMER JOURNEY** |
+| Experience Map Courtier | **RETAINED / ALIGNED** |
+| Customer Journey | **Client particulier — Du prospect à la vie client** |
+| Miro personas / maps | **SYNC REQUIRED** (Cursor n’a pas modifié Miro) |
+| 1.3 | **OPENED — AWAITING FINAL REVIEW** |
+| 1.3.1 | **REVIEW PASS** |
+| Base détaillée 1.3.2 A→E | **REVIEW PASS** (historique Git) |
+| Étape actuelle | **1.3.2 simplification pédagogique — AWAITING REVIEW** |
+| 1.4 | **NOT OPENED** |
+| Architecture | **NOT DECIDED** |
+| Stack runtime | **CANDIDATE TOOL ECOSYSTEM ONLY / NOT DECIDED** |
+| Prochain objectif | Revue ChatGPT de la consolidation personas 1.2 ; 1.3 reste ouvert séparément (pas validé par ce cycle) |
 
 ---
-
-## 7. Carte d’architecture actuelle (CURRENT)
-
-### 7.1 Diagramme — CURRENT EXECUTION FLOW
-
-```mermaid
-flowchart TD
-  A[Pilot / Nora context] --> B[ExecutionContract<br/>WHAT + inputs mission]
-  B --> C[Pilot inspect / Confirm]
-  C --> D[Governed Execute / Reconciler intent=execute]
-  D --> E[StudioCursorRealLaunchGateway]
-  E --> F[Isolated detached git worktree]
-  F --> G[Cursor Generalist HOW]
-  G --> H[CursorExecutionReport CLAIM]
-  H --> I{Specialized branch?}
-  I -->|docs_write path vivant| J[persist / ingest / requalify docs_write]
-  I -->|autres overlays| K[M4 RO / git commit-push-PR / policies]
-  J --> L[verifyWorkspaceFileEffects<br/>worktree + policies]
-  K --> L
-  L --> M[Evidence + RB + CE]
-  M --> N[resolveProductExecutionContext]
-  N --> O[Continuity Projection]
-  O --> P[Reconciler continue]
-  P --> Q[Nora post_execution<br/>tools OFF]
-  Q --> R[TrajectorySurface / Result UI]
-  R --> S{Poll RUNNING ≤ 8?}
-  S -->|exhaust sans worker| T[UI peut rester pending<br/>Pilot recharge]
-  S -->|stage avance| U[Post-Evidence / Pilot]
 ```
 
-**Qualification :** diagramme = synthèse **CURRENT IMPLEMENTED FACT** + **AUDIT INFERENCE** sur seams spécialisées encore vivantes.
+## 6. Persona Courtier (section complète)
 
-### 7.2 Composants CURRENT (résumé)
+```markdown
+## 5. Persona — Courtier
 
-| Composant | Rôle CURRENT | Qualification |
-| --- | --- | --- |
-| `generalistExecutionSurface` | Quartet `cap/action/target/scope` Cursor Generalist | **CURRENT IMPLEMENTED FACT** |
-| ExecutionContract | objective/context/scope/expectedOutputs/acceptance/validation/authority/reversibility via inputs + top-level | **CURRENT IMPLEMENTED FACT** |
-| `projectExecutionContractToCursorPrompt` | Projette WHAT ; HOW laissé à Cursor | **CURRENT IMPLEMENTED FACT** |
-| `StudioCursorRealLaunchGateway` | Lance `cursor agent` en worktree isolé détaché | **CURRENT IMPLEMENTED FACT** |
-| `CursorExecutionReport` | CLAIM enrichi — **≠ Evidence** | **CURRENT IMPLEMENTED FACT** |
-| `verifyWorkspaceFileEffects` | Observe le worktree puis applique policies (policy `docs_write` séparée) | **CURRENT IMPLEMENTED FACT** |
-| Specialized `docs_write` | persist / ingest / requalify ; materialize branches | **CURRENT IMPLEMENTED FACT** / **TRANSITIONAL DEBT** |
-| M4 RO / M4 git commit/push/PR | Chemins spécialisés encore présents | **CURRENT IMPLEMENTED FACT** / **TRANSITIONAL DEBT** |
-| `resolveProductExecutionContext` | Shared Product Resolution EXISTS | **CURRENT IMPLEMENTED FACT** |
-| Artifact load | encore nommé / branché `docs_write` | **TRANSITIONAL DEBT** |
-| Continuity + `reconcileGovernedExecution` | Own continue | **CURRENT IMPLEMENTED FACT** |
-| TrajectorySurface | Poll RUNNING jusqu’à **8** continues — **pas de worker** après exhaust | **CURRENT IMPLEMENTED FACT** |
-| Nora shared core | `post_execution` désactive tools / MemoryB / hosted search / product tools | **CURRENT IMPLEMENTED FACT** |
-| Evidence | `retentionClass` / availability / `MarkEvidenceUnavailable` | **CURRENT IMPLEMENTED FACT** |
-| Stages | `PRE_EXECUTION` … `RECOVERY_REQUIRED` ; integrity codes → `RECOVERY_REQUIRED` | **CURRENT IMPLEMENTED FACT** |
+| Champ | Contenu | Niveau de preuve |
+|-------|---------|------------------|
+| **Rôle** | Courtier du cabinet | EXPLICITE + SET GROUPE |
+| **Angle** | Métier / opérations / relation client | EXPLICITE |
+| **Relation au projet** | Utilisateur métier interne principal | EXPLICITE |
+| **Objectifs / capacités supportés** | Prospection ; devis ; relances ; rendez-vous ; conseil personnalisé ; souscription ; renouvellement / résiliation ; documents ; sinistres ; traçabilité ; réactivité ; personnalisation soutenue par l’historique | EXPLICITE BRIEF + BMC |
+| **Besoins déduits** | Retrouver l’information utile ; vision cohérente du dossier ; limiter l’admin ; historique pour personnaliser | INFÉRENCE DE CADRAGE |
+
+**Non inventé :** démographie atelier, outils nominatifs, frustrations verbatim, scores — **à synchroniser** depuis la carte atelier.
+
+**Phrase de synthèse (analytique — non issue d’un entretien) :**
+Le courtier a besoin d’un suivi centralisé du parcours commercial et administratif pour rester réactif et personnaliser la relation sans charge administrative excessive.
 
 ---
-
-## 8. Constatations d’implémentation actuelles
-
-### 8.1 Surface généraliste Product
-
-**CURRENT IMPLEMENTED FACT** — module `generalistExecutionSurface` :
-
-| Token | Valeur |
-| --- | --- |
-| Capability | `cap:studio.cursor.generalist` |
-| Action | `studio.cursor.generalist.execute` |
-| Target | `studio.cursor.generalist.workspace` |
-| Scope | `studio.cursor.generalist.authorized_contract` |
-
-Ces tokens décrivent la **surface de contrat Product générique** — **pas** un catalogue de tâches Product, **pas** l’infrastructure AgentDescriptor seule.
-
-### 8.2 ExecutionContract — champs sémantiques
-
-**CURRENT IMPLEMENTED FACT** : EC porte (via inputs + champs top-level) au minimum :
-
-- `objective` / `context` / `scope`
-- `expectedOutputs` / `acceptance` / `validation`
-- `authority` / `reversibility`
-
-**AUDIT INFERENCE** : la richesse sémantique est déjà **généraliste** ; la spécialisation résiduelle vit surtout dans les **branches post-report** (persist/ingest/materialize nommées) et dans des overlays techniques.
-
-### 8.3 Projection EC → Cursor
-
-**CURRENT IMPLEMENTED FACT** : `projectExecutionContractToCursorPrompt` projette le **WHAT** inspectable ; le **HOW** reste responsabilité Cursor dans le contrat autorisé.
-
-### 8.4 Launch REAL
-
-**CURRENT IMPLEMENTED FACT** : `StudioCursorRealLaunchGateway` exécute Cursor en **isolated detached git worktree**.
-
-### 8.5 Report = CLAIM
-
-**CURRENT IMPLEMENTED FACT** : `CursorExecutionReport` est traité comme **CLAIM** (disclosure `CLAIM_NOT_EVIDENCE` dans Product Resolution) — **≠** Evidence automatique.
-
-### 8.6 Verifier
-
-**CURRENT IMPLEMENTED FACT** : `verifyWorkspaceFileEffects` observe le worktree complet puis applique des **policies** ; la policy `docs_write` est **séparée** (spécialisation technique encore vivante).
-
-### 8.7 Spécialisations encore vivantes
-
-**CURRENT IMPLEMENTED FACT** / **TRANSITIONAL DEBT** :
-
-| Spécialisation | Manifestation |
-| --- | --- |
-| `docs_write` | persist artifact / ingest Evidence / requalify ; materialize branches |
-| M4 read-only | chemin RO spécialisé |
-| M4 git commit / push / PR | chemins lifecycle Git spécialisés |
-| Artifact naming | `docs-write-artifact` paths sous `.sfia-exec` |
-
-**Note éditoriale :** `docs_write` **n’est pas** le seul legacy Product taxonomy — `code_write`, `read`, `read_only` sont des **exemples** de taxonomies Product à retirer du modèle Product (même si leur empreinte code varie). **Ne pas** les remplacer par `generic_read` / `generic_write` / `generic_code` comme catégories Product.
-
-### 8.8 Product Resolution
-
-**CURRENT IMPLEMENTED FACT** : `resolveProductExecutionContext` **EXISTS** et compose EC / Attempt / report / artifact / Evidence / RB / CE / post-Evidence.
-
-**TRANSITIONAL DEBT** : chargement artifact encore branché sur helpers **docs_write-named** (`loadDocsWriteArtifactReviewMaterial`, etc.).
-
-### 8.9 Continuity / Reconciler / UI poll
-
-**CURRENT IMPLEMENTED FACT** :
-
-- Projection stages : `PRE_EXECUTION` | `ATTEMPT_ACCEPTED` | `RUNNING` | `PRODUCT_MATERIALIZATION_PENDING` | `POST_EVIDENCE_PENDING` | `POST_EVIDENCE_COMPLETE` | `RECOVERY_REQUIRED`
-- `reconcileGovernedExecution` own `execute` / `continue`
-- TrajectorySurface : boucle `for (i < 8)` tant que stage `RUNNING` — **aucun worker serveur** après exhaust du poll UI
-
-**AUDIT INFERENCE** : seam critique pour le gap NoteLite « materialization pending ».
-
-### 8.10 Nora
-
-**CURRENT IMPLEMENTED FACT** : cœur cognitif partagé ; mode `post_execution` = tools OFF, MemoryB OFF, hosted search OFF, product tools OFF.
-
-### 8.11 Evidence retention / availability
-
-**CURRENT IMPLEMENTED FACT** : Evidence expose `retentionClass` / availability ; `MarkEvidenceUnavailable` existe.
-
----
-
-## 9. Matrice composants CURRENT / TARGET
-
-| Composant | CURRENT | TARGET (ADOPTED) | Écart |
-| --- | --- | --- | --- |
-| Product task taxonomy | Spécialisées vivantes (`docs_write` + homologues) | **Une** modèle Product générique — taxonomies tâche **retirées** | Majeur |
-| EC surface | Generalist quartet + inputs riches | **KEEP** + clarifier WHAT-only | Faible |
-| Cursor HOW | Generalist en worktree | **KEEP** | Faible |
-| Report | CLAIM | **KEEP CLAIM** | Nul (discipline) |
-| Review Material | docs_write-named persist | **Generic Execution Review Material** | Majeur |
-| Review End Of | Transport / process externes historiques + harvest partiel | **Native Review End Of** (harvest sémantique, pas transport) | Majeur |
-| VerifiedChangeSet | Verifier policies spécialisées | **Studio VerifiedChangeSet** générique | Moyen |
-| Evidence/RB/CE | Vivants ; règles encore partiellement spécialisées | **KEEP** backbone ; critères génériques | Moyen |
-| Product Resolution | EXISTS ; artifact docs_write-named | **Un** chemin générique | Moyen |
-| Reconciler | Own continue ; UI poll borné | Owner progression déterministe **bout-en-bout** | Moyen |
-| Nora Deep Review | post_execution tools OFF | Deep Review + **outils read-only bornés** | Moyen |
-| Result Surface | Surfaces partielles / pending gaps | **Toujours expliquer** Claim/Fact/Analysis/Authority | Moyen |
-| Retention Review Material | Partiel Evidence | HOT→PRUNED pour Review Material | Moyen |
-| Delivery slicing | N/A | **TBD** | Open |
-
----
-
-## 10. Problèmes / seams
-
-| # | Seam | Qualification | Impact |
-| --- | --- | --- | --- |
-| S1 | Taxonomies Product spécialisées encore dans le modèle / naming | TRANSITIONAL DEBT | Empêche circuit Review/Result générique |
-| S2 | Artifact load docs_write-named dans Product Resolution | TRANSITIONAL DEBT | Couplage faux « Product = docs_write » |
-| S3 | Policy verifier séparée par effet | CURRENT + dette | Oracle non unifié en VerifiedChangeSet |
-| S4 | UI poll ≤8 sans worker post-exhaust | CURRENT FACT | Progression peut stall → Pilot « Recharger » |
-| S5 | Nora post_execution sans outils | CURRENT FACT | Deep Review cible non atteinte |
-| S6 | Binding conversationnel review faible | REAL OBSERVATION NoteLite | UX review context-free initiale |
-| S7 | Logical path vs physical `.sfia-exec` path | REAL + CURRENT | Confusion Pilot / audit si non articulé |
-| S8 | Materialize branches spécialisées | TRANSITIONAL DEBT | Parallelisme de chemins post-terminal |
-| S9 | Tentation de recréer `generic_*` Product categories | Anti-architecture | Interdit (D-ER-01 / §33) |
-| S10 | Sur-réclamer NoteLite comme preuve cible | Risque épistémique | Anti-claims §41 |
-
----
-
-## 11. Principes adoptés
-
-**TARGET ARCHITECTURE — ADOPTED BY MORRIS**
-
-1. **Un modèle Product Execution générique** — pas de catalogue de tâches Product.
-2. **WHAT (EC) ≠ HOW (Cursor)** — Cursor libre dans le contrat autorisé.
-3. **Claim ≠ Evidence ≠ Analysis ≠ Authority**.
-4. **Studio owns Fact** (VerifiedChangeSet / Evidence) — Cursor owns Claim.
-5. **Un Product Resolution** — pas de second knowledge store.
-6. **Reconciler owns progression déterministe** — UI n’est pas workflow owner.
-7. **Native Review End Of** = harvest sémantique interne — **≠** reproduction du transport ChatGPT↔Cursor externe.
-8. **Nora explique et analyse** — ne devient pas owner d’autorité d’exécution.
-9. **Result Surface always explains** — y compris NOT_PROVEN / RECOVERY_REQUIRED.
-10. **Migration sans big bang** — bridges transitionnels avec exit.
-11. **Pas d’architecture parallèle** durable.
-12. **runtime v3 reste NON ADOPTED** ; **READY FOR REAL = NO** jusqu’à preuve gouvernée distincte.
-13. **Delivery slicing = TBD**.
-14. **Retirer taxonomies Product** (`docs_write`, `code_write`, `read`, `read_only`, …) **sans** inventer `generic_read|write|code` Product.
-
----
-
-## 12. Décisions D-ER-01 … D-ER-15 (complètes)
-
-> Toutes : **TARGET ARCHITECTURE — ADOPTED BY MORRIS** (2026-09-29), sauf mention d’ancrage CURRENT.
-
-### D-ER-01 — Un modèle Product générique ; retirer les taxonomies de tâche Product spécialisées
-
-**Décision :** Le Product Execution Model ne classe **pas** les missions par taxonomie de tâche (`docs_write`, `code_write`, `read`, `read_only`, …).
-**Conserve :** capabilities / effects / policies **techniques** comme enforcement.
-**Interdit :** inventer des catégories Product `generic_read` / `generic_write` / `generic_code`.
-**Exit :** plus aucune branche Product mission nommée par taxonomie de tâche dans le chemin nominal.
-
-### D-ER-02 — Conserver le worktree isolé
-
-**Décision :** **KEEP** isolated detached git worktree via gateway REAL.
-**Motif :** borne d’effet, reproductibilité, oracle filesystem, non-contamination du managed root.
-**CURRENT :** déjà implémenté (`StudioCursorRealLaunchGateway`).
-
-### D-ER-03 — Le Report reste CLAIM
-
-**Décision :** `CursorExecutionReport` = **CLAIM** uniquement.
-**Jamais :** Evidence automatique / PASS métier par narration.
-**CURRENT :** disclosure Product Resolution `CLAIM_NOT_EVIDENCE`.
-
-### D-ER-04 — Generic Execution Review Material
-
-**Décision :** Introduire une **Generic Execution Review Material** (payload durable de revue) indépendante des noms `docs_write-*`.
-**Contenu minimal cible :** refs Attempt/EC, report claim ref, artifact refs logiques, verifier/Changeset refs, métadonnées de complétude.
-**Disposition CURRENT persist docs_write :** **HARVEST → GENERALIZE**.
-
-### D-ER-05 — Native Review End Of
-
-**Décision :** **Native Review End Of** = fin de revue **native Studio** par **harvest sémantique** (contrats, claims, facts, analyses) — **pas** un transport externe (copy/paste ChatGPT↔Cursor) érigé en architecture Product.
-**Harvest :** sémantique utile des process externes historiques **autorisée** ; mécanismes de transport **non** productisés.
-
-### D-ER-06 — Studio VerifiedChangeSet
-
-**Décision :** Studio produit un **VerifiedChangeSet** (ensemble d’effets observés/validés) comme vérité d’effet — oracle Studio, policies génériques, fail-closed.
-**CURRENT harvest :** `verifyWorkspaceFileEffects` + policies.
-**Cible :** un objet/sémantique Product stable, pas une policy `docs_write` comme centre.
-
-### D-ER-07 — Un chemin Product Resolution
-
-**Décision :** **Un** `resolveProductExecutionContext` (ou successeur générique équivalent) — pas de résolution parallèle par taxonomie.
-**CURRENT :** EXISTS.
-**Dette :** retirer dépendances artifact docs_write-named.
-
-### D-ER-08 — Reconciler owns progression déterministe
-
-**Décision :** `reconcileGovernedExecution` (ou successeur) **possède** la progression post-accept Attempt → materialization → post-Evidence.
-**UI :** projection + intent — **pas** owner.
-**Dette :** poll UI 8 without worker = **non conforme** à la cible ; correction = worker/serveur ou continue autonome bornée — **OPEN DESIGN DETAIL** sur le mécanisme exact.
-
-### D-ER-09 — Nora Deep Review avec outils read-only bornés
-
-**Décision :** Après Evidence, Nora peut faire une **Deep Review** avec **outils read-only bornés** (lecture Evidence/RB/CE/changeset/artifact autorisés) — sans mutation Product, sans tools d’exécution.
-**CURRENT :** `post_execution` tools OFF — **écart cible**.
-**Non-but :** MemoryB / hosted search / product mutation tools en post_execution.
-
-### D-ER-10 — Result Surface always explains
-
-**Décision :** La Result Surface explique **toujours** l’état épistémique : Claim / Fact / Analysis / Authority / NOT_PROVEN / RECOVERY_REQUIRED / next action.
-**Interdit :** silence, faux PASS, ou CTA opaque sans raison.
-
-### D-ER-11 — Séparation Claim / Fact / Analysis / Authority
-
-**Décision :**
-- **Claim** = CursorExecutionReport / assertions exécuteur
-- **Fact** = VerifiedChangeSet + Evidence
-- **Analysis** = Nora (post_execution / Deep Review)
-- **Authority** = HD / Confirmation / effective authority / Pilot
-**Jamais** fusionner ces couches dans un seul « résultat ».
-
-### D-ER-12 — Retention Review Material HOT → PRUNED
-
-**Décision :** Review Material suit une classe de rétention **HOT → PRUNED** (et indisponibilité explicite alignée Evidence).
-**CURRENT harvest :** `retentionClass` / `MarkEvidenceUnavailable` sur Evidence.
-**Cible :** politique cohérente Review Material + Evidence — détails GC = **OPEN DESIGN DETAIL**.
-
-### D-ER-13 — Migration sans big bang
-
-**Décision :** Bridges transitionnels autorisés **avec exit conditions**.
-**Interdit :** freeze durable de dual-stack Product taxonomy + generic model.
-
-### D-ER-14 — Pas d’architecture parallèle
-
-**Décision :** Pas de second moteur Execution / Review / Resolution « générique » à côté du spécialisé.
-**Méthode :** généraliser le chemin unique ; retirer le spécialisé du modèle Product.
-
-### D-ER-15 — Delivery slicing NON adopté / TBD
-
-**Décision :** **Aucun** découpage delivery (ex. « 5 lots ») n’est adopté par ce document.
-**DELIVERY SLICING = TBD**.
-Toute proposition de lots = décision Morris ultérieure distincte.
-
----
-
-## 13. Modèle Generic Product Execution
-
-### 13.1 Définition
-
-**TARGET ARCHITECTURE — ADOPTED BY MORRIS**
-
-Un **Generic Product Execution** est :
-
-1. un **ExecutionContract** générique (surface generalist + sémantique mission) ;
-2. autorisé par authority / confirmations ;
-3. exécuté par **Cursor Generalist** dans un **worktree isolé** ;
-4. rapporté comme **CLAIM** ;
-5. revu via **Generic Execution Review Material** + **Native Review End Of** ;
-6. factualisé via **Studio VerifiedChangeSet** → Evidence/RB/CE ;
-7. exposé via **Product Resolution** ;
-8. progressé par **Reconciler** ;
-9. analysé par **Nora** ;
-10. décidé par **Pilot** sur **Result Surface**.
-
-### 13.2 Product task categories vs technical capabilities/effects
-
-| Couche | Exemples | Statut cible |
-| --- | --- | --- |
-| **Product task categories** | `docs_write`, `code_write`, `read`, `read_only`, … | **RETIRE FROM PRODUCT MODEL** |
-| **Technical capabilities / effects / policies** | workspace file effects, git lifecycle proofs, allowlists, RO enforcement | **KEEP / GENERALIZE** comme enforcement — **≠** catégories Product |
-| **Forbidden Product renames** | `generic_read`, `generic_write`, `generic_code` | **NE PAS INTRODUIRE** |
-
-### 13.3 Conséquence pour prepare / inspect / execute
-
-Prepare/inspect/execute raisonnent sur **mission sémantique EC** + **contraintes d’enforcement**, jamais sur un enum de « type de tâche Product ».
-
----
-
-## 14. Sémantique ExecutionContract
-
-### 14.1 Rôle
-
-**CURRENT + TARGET :** unique pivot WHAT Product.
-
-### 14.2 Contenu sémantique (CURRENT FACT ancré)
-
-| Famille | Contenu typique |
-| --- | --- |
-| Mission | objective, context, scope |
-| Outcomes | expectedOutputs, acceptance, validation |
-| Gouvernance | authority, reversibility, confirmations |
-| Surface exécuteur | quartet generalist |
-| Bindings | decision / cycle / project |
-
-### 14.3 Projection
-
-| Projection | Owner | Contenu |
-| --- | --- | --- |
-| Pilot inspection | Studio | WHAT lisible |
-| Cursor prompt | `projectExecutionContractToCursorPrompt` | WHAT ; **pas** HOW exhaustif |
-| Enforcement overlay | Gateway / policies | Bornes techniques — **pas** mission Product |
-| Bound snapshot | Attempt | Base ContractResult |
-
-### 14.4 Interdits
-
-- Injecter le HOW Studio dans le WHAT Pilot comme si c’était la mission.
-- Faire d’une policy technique une catégorie Product.
-- PASS ContractResult sur live EC non bound.
-
----
-
-## 15. Matrice de parité EC → Cursor vs v2.6
-
-| Dimension | v2.6 (harvest) | CURRENT native (6f47f74d) | TARGET |
-| --- | --- | --- | --- |
-| Richesse sémantique mission | Haute (externe) | Native inputs + inspection | **KEEP / COMPLETE** native |
-| Transport revue | Externe ChatGPT↔Cursor | Partiel native | **Native Review End Of** (harvest sémantique) |
-| Pivot | Templates / process | ExecutionContract | **EC unique** |
-| HOW | Cursor | Cursor Generalist | **KEEP** |
-| Preuve effet | Variable / process | Verifier + Evidence spécialisée | **VerifiedChangeSet** générique |
-| Claim vs Evidence | Discipline process | CLAIM disclosure | **KEEP strict** |
-| Disposition v2.6 | — | **HARVEST** baseline fonctionnelle | Pas de re-baseline Product |
-
-**Note :** v2.6 reste **HARVEST** — **≠** runtime à réadopter.
-
----
-
-## 16. Cursor Generalist / HOW
-
-### 16.1 Rôle
-
-**CURRENT IMPLEMENTED FACT** + **TARGET KEEP** :
-
-Cursor, via surface generalist, choisit le **HOW** (outils, séquence, édition) **dans** le contrat autorisé (allowlist, worktree, authority).
-
-### 16.2 Non-rôles
-
-| Non-rôle | Raison |
-| --- | --- |
-| Owner d’autorité Product | Pilot / HD / Confirmation |
-| Producer d’Evidence automatique | Report = CLAIM |
-| Catégorie de tâche Product | Surface ≠ taxonomy |
-| Guarantor de PASS métier | ContractResult / Evidence |
-
-### 16.3 Overlay d’enforcement
-
-Le gateway applique des overlays techniques (chemins scellés, worktree, caps) **sans** remplacer la mission EC.
-
----
-
-## 17. Isolated worktree
-
-### 17.1 Décision
-
-**D-ER-02 / CURRENT KEEP** : isolated detached git worktree.
-
-### 17.2 Propriétés
-
-| Propriété | Valeur cible/current |
-| --- | --- |
-| Isolation | Effets hors managed root nominal |
-| Detached | Base SHA / head de préparation |
-| Oracle | Observation filesystem + policies |
-| Cleanup | Retention/GC — **OPEN DESIGN DETAIL** partiel |
-
-### 17.3 Anti-claims worktree
-
-Worktree isolé **≠** preuve Git remote · **≠** commit/push autorisé · **≠** merge.
-
----
-
-## 18. CursorExecutionReport — modèle de claim
-
-### 18.1 Nature
-
-**CURRENT + TARGET (D-ER-03) :** **CLAIM**.
-
-### 18.2 Contenu typique
-
-- statut / summary / assertions exécuteur
-- refs Attempt / process
-- éventuelles listes d’effets **revendiqués** (non faits)
-
-### 18.3 Discipline
-
-| Action | Autorisé ? |
-| --- | --- |
-| Afficher comme Claim sur Result Surface | Oui |
-| Convertir auto en Evidence | **Non** |
-| Satisfaire ER sans verifier | **Non** |
-| Overrider NOT_PROVEN | **Non** |
-
----
-
-## 19. Studio VerifiedChangeSet
-
-### 19.1 Définition cible
-
-**TARGET (D-ER-06) :** objet/sémantique Studio décrivant les **effets vérifiés** dans le worktree (et bornes associées), indépendamment de la narration Cursor.
-
-### 19.2 Harvest CURRENT
-
-`verifyWorkspaceFileEffects` :
-
-1. observe le worktree ;
-2. applique policies (dont policy `docs_write` séparée — **dette**) ;
-3. produit un résultat de vérification consommable par completion / Evidence.
-
-### 19.3 Cible
-
-| Aspect | Cible |
-| --- | --- |
-| Nom/sémantique Product | VerifiedChangeSet |
-| Policies | génériques par **effet technique**, pas par taxonomie Product |
-| Liaison | Review Material + Evidence |
-| Fail-closed | unknown / hors allowlist → reject ou NOT_PROVEN selon couche |
-
----
-
-## 20. Generic Execution Review Material
-
-### 20.1 Définition cible
-
-**TARGET (D-ER-04) :** matériau durable permettant Native Review End Of + Product Resolution + Nora, **sans** nommage `docs_write`.
-
-### 20.2 Contenu minimal cible
-
-- identity (reviewMaterialId)
-- project / cycle / EC / Attempt bindings
-- claim report ref
-- logical artifact targets + physical storage refs
-- VerifiedChangeSet ref
-- completeness (`FULL` / `PARTIAL`)
-- retentionClass
-- createdAt / provenance
-
-### 20.3 Disposition CURRENT
-
-| Asset | Disposition |
-| --- | --- |
-| `persistDocsWriteArtifactReviewMaterial` | **HARVEST → GENERALIZE** |
-| paths `docs-write-artifact` | **TRANSITIONAL** puis retire naming Product |
-
----
-
-## 21. Native Review End Of
-
-### 21.1 Définition
-
-**TARGET (D-ER-05) :** point architectural où Studio a **récolté** claim + facts + bindings suffisants pour Evidence/RB/CE et handoff Nora/Pilot — **en natif**.
-
-### 21.2 Ce que ce n’est pas
-
-| Non-définition | Raison |
-| --- | --- |
-| Export markdown vers ChatGPT externe | Transport process ≠ architecture Product |
-| Bouton « envoyer au reviewer externe » comme cœur | Hors modèle cible |
-| Duplicate d’Evidence | Review Material ≠ Evidence |
-
-### 21.3 Harvest autorisé
-
-Importer la **discipline sémantique** des revues externes historiques (séparation claim/fact, fail-closed, anti-claims) — **pas** leur canal.
-
----
-
-## 22. Articulation Evidence / ReviewBundle / ClaimEvaluation
-
-### 22.1 Rôles
-
-| Objet | Rôle | Qualification |
-| --- | --- | --- |
-| Evidence | Fait durable traçable | CURRENT KEEP |
-| ReviewBundle | Ensemble d’Evidence pour revue / freeze | CURRENT KEEP |
-| ClaimEvaluation (ContractResult) | Qualification EC vs Evidence | CURRENT KEEP / GENERALIZE criteria |
-| VerifiedChangeSet | Oracle d’effets Studio en amont | TARGET (+ harvest verifier) |
-| Report | Claim | CURRENT KEEP |
-
-### 22.2 Ordre épistémique cible
-
-```text
-Claim (Report)
-  → Review Material
-  → VerifiedChangeSet
-  → Evidence(s)
-  → ReviewBundle (freeze)
-  → ClaimEvaluation
 ```
 
-### 22.3 NOT_PROVEN
+## 7. Persona Directeur (section complète)
 
-**CURRENT + TARGET :** insuffisance / ambiguïté / no applicable rule → **NOT_PROVEN** (soft) plutôt que PASS inventé.
-**REAL OBSERVATION NoteLite :** NOT_PROVEN préservé quand Evidence insuffisante.
+```markdown
+## 6. Persona — Directeur
 
----
+| Champ | Contenu | Niveau de preuve |
+|-------|---------|------------------|
+| **Rôle** | Directeur du cabinet | EXPLICITE + SET GROUPE |
+| **Angle** | Pilotage / performance / vision business | EXPLICITE (objectifs) |
+| **Relation au projet** | Persona de pilotage | SET GROUPE |
 
-## 23. Product Resolution
+### Faits explicites du brief (conservés)
 
-### 23.1 CURRENT
+- souhaite se différencier face aux assureurs en ligne ;
+- insiste sur proximité, personnalisation, transparence ;
+- objectifs : réduction des tâches administratives ; traçabilité ; confiance ; rétention ;
+- tableau de bord : taux de conversion ; panier moyen ; satisfaction client.
 
-**CURRENT IMPLEMENTED FACT :** `resolveProductExecutionContext` compose un `ProductExecutionContext` typé (EC, Attempt, cursorReport CLAIM, artifact, Evidence, RB, CE, postEvidence, …). Fail-closed sur mismatch de lineage.
+### Inférences de cadrage (conservées)
 
-### 23.2 TARGET (D-ER-07)
+Visibilité consolidée ; suivi des indicateurs ; supervision de l’activité ; **usage du dashboard** = inférence forte (le brief ne dit pas littéralement que le directeur consulte personnellement le dashboard).
 
-Un seul chemin de résolution générique :
+**Non inventé :** démographie atelier, outils nominatifs, frustrations verbatim — **à synchroniser**.
 
-- charge Review Material générique (plus docs_write-named) ;
-- expose Claim/Fact/Analysis/Authority distincts ;
-- sert Continuity, Result Surface, Nora tools read-only, Reconciler.
-
-### 23.3 Dette
-
-Artifact load via `loadDocsWriteArtifactReviewMaterial` = **TRANSITIONAL DEBT** explicite.
-
----
-
-## 24. Continuity / Reconciler
-
-### 24.1 Continuity Projection
-
-**CURRENT IMPLEMENTED FACT** — stages :
-
-`PRE_EXECUTION` → `ATTEMPT_ACCEPTED` → `RUNNING` → `PRODUCT_MATERIALIZATION_PENDING` → `POST_EVIDENCE_PENDING` → `POST_EVIDENCE_COMPLETE`
-(+ `RECOVERY_REQUIRED` via integrity / bindings codes)
-
-Projection **READ-ONLY**, dérivée — **pas** un state machine persisté parallèle.
-
-### 24.2 Reconciler
-
-**CURRENT :** `reconcileGovernedExecution` exécute les next deterministic actions selon intent `execute` | `continue`.
-**TARGET (D-ER-08) :** owner unique de la progression déterministe jusqu’au post-Evidence nominal (ou RECOVERY_REQUIRED).
-
-### 24.3 UI
-
-TrajectorySurface applique le résultat Reconciler ; poll borné **8** continues pendant `RUNNING`.
-**Écart cible :** stall possible — voir NoteLite gap.
+**Phrase de synthèse (analytique) :**
+Le directeur a besoin d’une vision consolidée de la performance commerciale pour piloter différenciation, traçabilité, confiance et rétention.
 
 ---
-
-## 25. Progression nominale post-terminale
-
-### 25.1 Diagramme — TARGET NOMINAL FLOW
-
-```mermaid
-flowchart TD
-  A[Attempt terminal succeeded/failed/...] --> B[Persist Generic Execution Review Material]
-  B --> C[Native Review End Of harvest]
-  C --> D[Studio VerifiedChangeSet]
-  D --> E[Register Evidence]
-  E --> F[ReviewBundle attach/freeze]
-  F --> G[Evaluate ClaimEvaluation / ContractResult]
-  G --> H[Product Resolution refresh]
-  H --> I[Reconciler next action]
-  I --> J[Nora Deep Review read-only]
-  J --> K[Result Surface explains]
-  K --> L[Pilot decision]
 ```
 
-### 25.2 CURRENT vs TARGET post-terminal
+## 8. Persona Client particulier (section complète)
 
-| Étape | CURRENT | TARGET |
-| --- | --- | --- |
-| Persist material | docs_write-named | Generic Review Material |
-| Verify | verifyWorkspaceFileEffects + policies | VerifiedChangeSet |
-| Evidence/RB/CE | vivants | KEEP |
-| Post-Evidence Nora | tools OFF | Deep Review read-only tools |
-| Progression | Reconciler + UI poll | Reconciler complet / worker |
+```markdown
+## 7. Persona — Client particulier
 
----
+| Champ | Contenu | Niveau de preuve |
+|-------|---------|------------------|
+| **Rôle** | Client particulier (persona externe) | SET GROUPE 2026-09-29 |
+| **Segments BMC associés** | Client particulier (famille/étudiant) ; TPE/PME reste un segment BMC distinct (pas un 4ᵉ persona 1.2) | BMC GROUPE |
+| **États de parcours** | Prospect → souscription → Client (vie du contrat) | EXPLICITE BRIEF — lifecycle CJM |
+| **Attentes supportées (brief)** | Proximité ; réactivité ; personnalisation ; transparence ; confiance ; continuité | EXPLICITE |
+| **Canaux (BMC groupe)** | RDV physique ; Visio ; téléphone ; email ; espace client | BMC GROUPE — conception UI **NON DÉCIDÉE** |
 
-## 26. Nora Deep Review
+### Lifecycle (pas un second persona)
 
-### 26.1 CURRENT
+| État | Attentes / étapes supportées | Niveau |
+|------|------------------------------|--------|
+| **Prospect** | Contact ; devis ; RDV ; besoin ; proposition ; progression vers souscription | EXPLICITE BRIEF |
+| **Client** | Vie du contrat ; échanges ; documents ; historique ; sinistre éventuel ; renouvellement / résiliation | EXPLICITE BRIEF |
 
-**CURRENT IMPLEMENTED FACT :** shared cognitive core ; `post_execution` désactive tools / MemoryB / hosted search / product tools. Analyse contract-first possible sans tools.
+**Réserve :** usage direct du futur CRM par le prospect = **NON RENSEIGNÉ**. Forme exacte de l’accès client = **NOT DECIDED**.
 
-### 26.2 TARGET (D-ER-09)
+**Non inventé :** nom, âge, revenus, situation familiale, localisation, outils, frustrations détaillées — **à synchroniser** depuis la carte atelier « Client particulier ».
 
-| Capacité | Autorisé |
-| --- | --- |
-| Lire Evidence / RB / CE / Review Material / VerifiedChangeSet | Oui (borné) |
-| Lire artifact logique autorisé | Oui (borné) |
-| Muter Project / Execute / Git | **Non** |
-| Hosted search / MemoryB | **Non** (sauf décision future distincte) |
-| Remplacer Pilot authority | **Non** |
-
-### 26.3 Sortie Nora
-
-Analysis only → alimente Result Surface ; **≠** Authority.
+**Phrase de synthèse (analytique) :**
+Le Client particulier est suivi depuis l’entrée en relation (état prospect) jusqu’à la vie du contrat (état client), avec une continuité attendue de proximité, personnalisation et transparence.
 
 ---
-
-## 27. Result Surface / parcours Pilot
-
-### 27.1 Exigence
-
-**TARGET (D-ER-10) :** always explain.
-
-### 27.2 Contenu minimal expliqué
-
-- Claim exécuteur (et limites)
-- Facts vérifiés / Evidence ids
-- ContractResult / NOT_PROVEN reasons
-- Analysis Nora (si présente)
-- Authority / next deterministic action / recovery
-- CTA clairs (continue / correct / stop / recharge seulement si dette UI encore présente)
-
-### 27.3 Journey Pilot cible
-
-```text
-Inspect EC → Confirm → Execute → Follow continuity → Read Result Surface
-  → Accept / Request correction / Stop / Replan
 ```
 
-Correction = **gouvernée** (nouveau HD/EC selon règles) — NoteLite : correction **non re-testée**.
+## 9. Experience Map Courtier (après alignement)
+
+```markdown
+## 11. Experience Map — Courtier
+
+| Champ | Valeur |
+|-------|--------|
+| **Statut** | **RETAINED / ALIGNED** — Courtier reste persona canonique |
+| **Persona cible** | Courtier |
+| **Décision d’alignement 2026-09-29** | **KEEP / ADAPT MINOR** — pas de reconstruction ; le parcours métier reste cohérent avec le Courtier |
+| **Objet** | Expérience métier du courtier au fil de la relation (prospects → clients) — sans interface logicielle décidée |
+| **Nature** | CIBLE PÉDAGOGIQUE — **NON AS-IS OBSERVÉ** |
+
+### Phases (conservées)
+
+| Phase | Actions / enjeux (cadrage) | Niveau de preuve |
+|-------|----------------------------|------------------|
+| Prospection / contact / qualification | Prospecter ; prendre contact ; qualifier — Réactivité · Continuité du suivi | EXPLICITE + INFÉRENCE |
+| Devis | Réactivité · Charge administrative | EXPLICITE + INFÉRENCE |
+| Relance / RDV | Réactivité · Continuité du suivi | EXPLICITE + INFÉRENCE |
+| Besoin → proposition | Personnalisation · Continuité du suivi | EXPLICITE + INFÉRENCE |
+| Souscription → vie contrat | Traçabilité · Continuité du suivi | EXPLICITE + INFÉRENCE |
+| Docs / sinistre / renouvellement | Traçabilité · Continuité · Charge administrative | EXPLICITE + INFÉRENCE |
+
+**Traçabilité** = retrouver ce qui s’est passé (historique, étapes, documents).
+**Continuité du suivi** = poursuivre correctement la relation à partir du contexte — liée mais non synonyme.
+
+**Pensées / émotions :** dimension méthodologique conservée ; **NON RENSEIGNÉES** — pas d’inférence émotionnelle ; pas d’injection artificielle des frustrations atelier phase par phase.
 
 ---
-
-## 28. Restart / recovery
-
-### 28.1 Diagramme — RESTART/RECOVERY FLOW
-
-```mermaid
-flowchart TD
-  A[Studio restart / reprise Project] --> B[Product Resolution reload]
-  B --> C{Integrity bindings OK?}
-  C -->|Non| D[RECOVERY_REQUIRED]
-  D --> E[Pilot / governed recovery path]
-  C -->|Oui| F[Continuity Projection]
-  F --> G{Stage}
-  G -->|RUNNING stale| H[Reconciler continue / observe]
-  G -->|MATERIALIZATION_PENDING| I[Reconciler MATERIALIZE_PRODUCT]
-  G -->|POST_EVIDENCE_PENDING| J[Reconciler RUN_POST_EVIDENCE]
-  G -->|COMPLETE| K[Result Surface]
-  G -->|RECOVERY_REQUIRED| D
-  H --> F
 ```
 
-### 28.2 CURRENT anchors
+## 10. Customer Journey Client particulier (après alignement)
 
-- Integrity codes → `RECOVERY_REQUIRED` (**CURRENT FACT**)
-- Recovery continuity paths préservés (NELC / continuity macros)
-- Restart ne doit **pas** relaunch Cursor silencieusement (discipline docs_write REAL historique)
+```markdown
+## 12. Customer Journey Map — Client particulier
 
-### 28.3 TARGET
+| Champ | Valeur |
+|-------|--------|
+| **Statut** | **ADAPTED** — réalignement conceptuel 2026-09-29 |
+| **Titre** | Customer Journey — **Client particulier** |
+| **Sous-titre** | Du prospect à la vie client |
+| **Persona cible** | **Client particulier** (pas « Prospect → Client » comme persona) |
+| **Lifecycle** | Prospect → souscription → Client |
+| **Objet** | Relation avec le **service de courtage / cabinet** |
+| **Nature** | CIBLE PÉDAGOGIQUE — **NON AS-IS OBSERVÉ** |
 
-Reconciler + Resolution suffisent à reprendre sans CTA magique ; UI recharge = **dette** si encore nécessaire.
+### Séquence (étapes déjà validées — conservées)
 
----
-
-## 29. Retention / GC
-
-### 29.1 Diagramme — RETENTION FLOW
-
-```mermaid
-flowchart TD
-  A[HOT Review Material + Evidence] --> B{Retention policy}
-  B -->|still needed| A
-  B -->|prune window| C[PRUNED content]
-  C --> D[Mark unavailable / tombstone refs]
-  D --> E[Resolution exposes availability honestly]
-  E --> F[Result Surface explains missing bytes]
-```
-
-### 29.2 CURRENT
-
-Evidence : `retentionClass`, availability, `MarkEvidenceUnavailable`.
-
-### 29.3 TARGET (D-ER-12)
-
-Review Material **HOT → PRUNED** cohérent avec Evidence.
-Détails TTL / GC jobs = **OPEN DESIGN DETAIL**.
-
----
-
-## 30. Chemins logiques vs physiques
-
-| Couche | Exemple NoteLite / pattern | Rôle |
-| --- | --- | --- |
-| **Logical target** | `projects/notelite/01-cadrage/...` | Autorité Product / EC / Pilot |
-| **Physical storage** | `.sfia-exec/.../docs-write-artifact/...` | Runtime storage / review bytes |
-| **Worktree path** | prepared WT + sealed absolute | Enforcement Cursor |
+1. Première prise de contact
+2. Devis
+3. Relance / rendez-vous
+4. Compréhension / qualification du besoin
+5. Proposition personnalisée
+6. Souscription
+7. Vie du contrat / suivi (échanges, documents, sinistre éventuel, renouvellement / résiliation)
 
 **Règles :**
 
-- EC / ExpectedOutputs raisonnent en **logique repo-relative** ;
-- instructions Cursor peuvent recevoir absolu scellé sous WT ;
-- Review Material doit **relier** logique ↔ physique sans exposer un faux « Product path » `.sfia-exec` comme cible métier ;
-- naming `docs-write-artifact` = **TRANSITIONAL**.
+- Le début « prospect » du journey **n’en fait pas** un persona différent.
+- La map **ne suppose pas** que le futur CRM existe déjà.
+- **Ne pas décider ici :** interfaces distinctes prospect/client ; permissions ; écrans ; UI.
+- **Émotion :** NON RENSEIGNÉE — pas d’invention.
+- Canaux groupe (physique, Visio, téléphone, email, espace client) : transversaux — pas d’affectation canal × phase inventée.
 
 ---
-
-## 31. Retirement des taxonomies spécialisées
-
-### 31.1 Objet de retirement (Product model)
-
-Exemples à **RETIRE FROM PRODUCT MODEL** :
-
-- `docs_write`
-- `code_write`
-- `read`
-- `read_only`
-- toute taxonomie de tâche Product homologue
-
-### 31.2 Ce qui n’est pas retiré automatiquement
-
-| Asset technique | Disposition typique |
-| --- | --- |
-| Verifier filesystem | KEEP / GENERALIZE |
-| Worktree isolation | KEEP |
-| Git lifecycle evidence sources | KEEP / HARVEST comme effects |
-| Allowlists / RO enforcement | KEEP |
-| ContractResult engine | KEEP / GENERALIZE rules |
-
-### 31.3 Interdiction de renommage trompeur
-
-**Ne pas** créer des catégories Product :
-
-- `generic_read`
-- `generic_write`
-- `generic_code`
-
-La généricité est le **modèle** (un EC generalist), pas un nouvel enum.
-
----
-
-## 32. Ponts transitionnels
-
-| Bridge | Rôle | Exit |
-| --- | --- | --- |
-| persist/ingest `docs_write*` | Compat Evidence path | Generic Review Material + ingest générique |
-| policy `docs_write` dans verifier | Oracle actuel | Policies d’effet génériques + VerifiedChangeSet |
-| UI « Recharger résultat produit » | Continue manuel | Reconciler/worker autonome |
-| Legacy M3/M4 rematerialize docs_write | Recovery vieux EC | Sunset quand plus d’EC legacy |
-| post_execution tools OFF | Safe analysis minimale | Deep Review read-only tools bornés |
-| Naming paths `docs-write-artifact` | Storage actuel | Rename neutre sous Review Material |
-
-**Règle (D-ER-13/14) :** chaque bridge a une **exit condition** ; pas de dual-stack permanent.
-
----
-
-## 33. Anti-architecture
-
-Pratiques **rejetées** (TARGET + discipline CURRENT) :
-
-1. Catalogue Product de tâches (`docs_write` et homologues) comme architecture durable.
-2. Catégories Product `generic_read|write|code`.
-3. Report → Evidence automatique.
-4. Second moteur Resolution / ContractResult / Execution « parallèle ».
-5. UI owner du workflow (sequence locale Select→Start→Complete→Materialize).
-6. Transport externe de revue comme cœur Product.
-7. PASS sur narration / resultRef seul / Evidence available seul sans critères.
-8. Big bang rewrite sans bridges à exit.
-9. Présenter TARGET comme IMPLEMENTED.
-10. Inventer un delivery plan N-lots dans ce document.
-11. runtime v3 smuggled comme adopté.
-12. READY FOR REAL implicite.
-
----
-
-## 34. Frontière future de promotion Git
-
-| Couche | État |
-| --- | --- |
-| Ce document | **DOCUMENTARY CANDIDATE PENDING GIT INTEGRATION** |
-| Autorité commit/push/PR | **Distinct Morris GO** après revue |
-| Promotion doctrine / Build Doctrine / C1 | **NON** autorisée ici |
-| Promotion runtime v3 | **NON ADOPTED** — hors frontière |
-| Preuve REAL cible générique | **FUTURE PROOF** — GO distinct ; READY FOR REAL = NO aujourd’hui |
-
----
-
-## 35. Stratégie de migration
-
-**TARGET (D-ER-13/14)** — séquence logique (≠ delivery lots) :
-
-1. **Freeze sémantique** : EC generalist + Claim/Fact/Analysis/Authority (déjà largement ancré).
-2. **Generalize Review Material** : harvest persist docs_write → API neutre.
-3. **Introduce VerifiedChangeSet** sémantique au-dessus du verifier.
-4. **Unify Product Resolution** load path.
-5. **Harden Reconciler progression** (éliminer stall poll-only).
-6. **Enable Nora Deep Review read-only tools**.
-7. **Result Surface always-explain** parity.
-8. **Retire Product taxonomies** du prepare/UI/naming nominal.
-9. **Retention HOT→PRUNED** Review Material.
-10. **Exit proofs** (section 38) avant claims de complétude.
-
-**DELIVERY SLICING** de ces étapes = **TBD** (D-ER-15).
-
----
-
-## 36. Risques / réserves
-
-| ID | Risque | Mitigation |
-| --- | --- | --- |
-| R1 | Dual-stack prolongé (spécialisé + générique) | Exit conditions obligatoires ; D-ER-14 |
-| R2 | Stall UI post-REAL (NoteLite-class) | Reconciler/worker ; ne pas normaliser « Recharger » |
-| R3 | Confusion Claim/Fact | D-ER-11 + Result Surface |
-| R4 | Sur-claim REAL | Anti-claims ; READY FOR REAL=NO |
-| R5 | Renommage `generic_*` Product | Interdiction explicite |
-| R6 | Deep Review tools trop larges | Allowlist read-only stricte |
-| R7 | GC agressif casse reprise | Tombstones + availability honesty |
-| R8 | Delivery plan inventé | D-ER-15 TBD |
-| R9 | runtime v3 confusion | Bannière NON ADOPTED |
-| R10 | Correction gouvernée non re-testée (NoteLite) | Ne pas clore cycle sur pause |
-
----
-
-## 37. Open design details
-
-**OPEN DESIGN DETAIL** (non bloquants pour l’adoption de la cible, bloquants pour certaines claims d’implémentation) :
-
-1. Forme exacte persistée du **VerifiedChangeSet** (aggregate vs value object vs Evidence sourceKind).
-2. Mécanisme exact anti-stall (**worker** vs continue serveur vs autre) — principe D-ER-08 fixe l’owner, pas l’implémentation.
-3. Schéma exact **Generic Execution Review Material** (IDs, storage root neutre).
-4. Allowlist précise des **outils Nora Deep Review**.
-5. TTL / jobs **HOT→PRUNED** et interaction avec worktree GC.
-6. UX exacte Result Surface (composants) — exigence = always explain.
-7. Mapping des anciens EC `docs_write` en reprise (compat window).
-8. **DELIVERY SLICING** (D-ER-15).
-
----
-
-## 38. Future exit proofs
-
-**FUTURE PROOF** — exemples de preuves de sortie (aucune n’est claimée aujourd’hui) :
-
-| Exit | Contenu minimal |
-| --- | --- |
-| E1 Generic Review Material | Persist/load sans symbole `docs_write` sur chemin nominal |
-| E2 VerifiedChangeSet | Au moins une mission non-docs produisant Changeset→Evidence→CE cohérent |
-| E3 No UI stall | Attempt REAL long > poll legacy avance sans clic « Recharger » |
-| E4 Nora Deep Review | Lecture Evidence via tool read-only borné + analysis |
-| E5 Taxonomy retirement | Prepare/Execute nominal sans action Product `cursor.docs_write.apply` |
-| E6 Retention | HOT→PRUNED observable + Surface explique unavailable |
-| E7 Bounded REAL cible | Campagne REAL distincte sous Morris GO — encore **READY FOR REAL = NO** |
-
----
-
-## 39. Critical path
-
-Ordre de dépendance architectural (≠ lots delivery) :
-
-1. Discipline Claim/Fact/Analysis/Authority (**D-ER-11**) — déjà partiellement ancrée
-2. Generic Review Material (**D-ER-04**)
-3. VerifiedChangeSet (**D-ER-06**) branché Evidence
-4. Product Resolution générique (**D-ER-07**)
-5. Reconciler progression complète (**D-ER-08**)
-6. Nora Deep Review (**D-ER-09**)
-7. Result Surface always-explain (**D-ER-10**)
-8. Retirement taxonomies Product (**D-ER-01**)
-9. Retention Review Material (**D-ER-12**)
-10. Exit proofs / éventuel READY FOR REAL futur (GO distinct)
-
-Worktree isolé (**D-ER-02**) et Report CLAIM (**D-ER-03**) sont **prérequis déjà largement satisfaits** — les garder stables pendant la migration.
-
----
-
-## 40. Delivery boundary TBD
-
-**D-ER-15 / TARGET :**
-
-- **DELIVERY SLICING = TBD**
-- Ce document **n’adopte pas** de plan en 5 lots (ni autre N).
-- Toute macro/lot future doit être une **décision Morris distincte**, dérivée de ce référentiel — pas l’inverse.
-
----
-
-## 41. Anti-claims
-
-Ce document et l’adoption D-ER **≠** :
-
-- architecture cible **implémentée** bout-en-bout
-- READY FOR REAL
-- generic loop REAL-proven au-delà de NoteLite borné
-- NoteLite cycle finalisé / correction re-testée
-- preuve d’instance root-cause du stall UI (seulement cause architecturale haute confiance)
-- runtime v3 ADOPTED
-- global L5
-- doctrine / Build Doctrine / C1 / framing promotion
-- delivery plan adopté
-- autorité commit/push/PR
-- E2E Product Journey COMPLETE
-- retirement déjà effectué de `docs_write` / `code_write` / `read` / `read_only`
-- introduction de catégories Product `generic_*`
-- Nora Deep Review tools déjà ON
-- VerifiedChangeSet déjà objet Product premier
-
----
-
-## 42. Resume anchors / prochaine décision
-
-### 42.1 Anchors de reprise
-
-| Anchor | Valeur |
-| --- | --- |
-| Document | `projects/sfia-studio/convergence/sfia-studio-generic-execution-review-result-architecture.md` |
-| Décisions | D-ER-01 … D-ER-15 @ 2026-09-29 |
-| Base main audit | `6f47f74dc9b515c4c79624b21772223ba02c76cd` |
-| REAL borné | NoteLite — PAUSED ; NOT_PROVEN preserved ; UI recharge gap |
-| Backbone KEEP | EC generalist · worktree · Report CLAIM · Evidence/RB/CE · Resolution · Reconciler |
-| Dette nommée | docs_write persist/ingest · UI poll 8 · post_execution tools OFF · artifact naming |
-
-### 42.2 Prochaine décision (gouvernance)
-
-| Décision | Statut |
-| --- | --- |
-| Intégration Git de ce document | **PENDING** — Morris GO distinct |
-| Première tranche d’implémentation | **TBD** (pas de slicing adopté) |
-| Campagne REAL générique | **NOT AUTHORIZED** — READY FOR REAL = NO |
-| runtime v3 | **NON ADOPTED** — ne pas rouvrir ici |
-
-### 42.3 Question de reprise recommandée
-
-> Quelle **première** exit condition (E1–E7) Morris autorise-t-il à poursuivre en construction, **sans** adopter encore un découpage delivery global ?
-
----
-
-## Annexes
-
-### A. Diagramme — EPISTEMIC FLOW
-
-```mermaid
-flowchart LR
-  subgraph CLAIM
-    R[CursorExecutionReport]
-  end
-  subgraph FACT
-    V[VerifiedChangeSet]
-    E[Evidence]
-    RB[ReviewBundle]
-  end
-  subgraph QUALIFICATION
-    CE[ClaimEvaluation / ContractResult]
-  end
-  subgraph ANALYSIS
-    N[Nora Deep Review]
-  end
-  subgraph AUTHORITY
-    P[Pilot / HD / Confirmation]
-  end
-  R --> V
-  V --> E --> RB --> CE
-  CE --> N
-  R -.-> N
-  N --> P
-  CE --> P
-  P -->|new EC / stop / correct| X[Next governed action]
 ```
 
-### B. Diagramme — REVIEW/CORRECTION FLOW
+## 11. Miro status
 
-```mermaid
-flowchart TD
-  A[Result Surface] --> B{Pilot choice}
-  B -->|Accept| C[Close / next trajectory]
-  B -->|Request correction| D[Governed correction HD]
-  D --> E[Successor ExecutionContract]
-  E --> F[Execute again under Reconciler]
-  B -->|Manual review feedback| G{Context bound?}
-  G -->|No| H[Conversational re-instruction<br/>reattach context]
-  G -->|Yes| D
-  B -->|Stop / Pause| I[Campaign PAUSED / RECOVERY_REQUIRED]
+```markdown
+## Miro — état
+
+| Champ | Valeur |
+|-------|--------|
+| **Board** | https://miro.com/app/board/uXjVHiWX64c=/ |
+| **État Cursor** | **NOT MODIFIED** |
+| **Sync** | **MIRO PERSONA SYNC REQUIRED** |
+
+| Livrable Miro historique | Impact |
+|--------------------------|--------|
+| Persona Courtier | À auditer / aligner sur set groupe |
+| Persona Directeur | À auditer / aligner |
+| Persona Prospect → Client | **À remplacer** par **Client particulier** |
+| Experience Map Courtier | À auditer / aligner si besoin |
+| Customer Journey Prospect → Client | **À renommer / réaligner** → Client particulier — du prospect à la vie client |
+
+Git est canonique après transcription. Miro n’est **pas** synchronisé dans ce cycle.
+
+Frames 1.1 (BMC / BPMN) : **protégées — inchangées**.
+
+---
 ```
 
-**Note NoteLite :** feedback review initialement context-free → re-instruction naturelle reattach — **≠** Product Resolution break.
+## 12. Synthèse 1.2
 
-### C. Matrice de disposition détaillée
+```markdown
+## 13. Synthèse 1.2
 
-| Asset | Current responsibility | Implementation evidence | Limitation | Target | Disposition | Dependencies | Transitional debt | Exit condition |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| OA ExecutionContract backbone | Pivot WHAT durable | EC domain + NELC on main | Spécialisations encore branchées post-EC | Unique WHAT Product | **KEEP** | — | Low | EC nominal sans taxonomy Product |
-| `generalistExecutionSurface` quartet | Surface Product générique | `generalistExecutionSurface.ts` | Coexiste avec legacy actions docs_write | Surface unique | **KEEP** / **COMPLETE** | D-ER-01 | Legacy actions encore adressables | Prepare nominal = quartet only |
-| EC semantic inputs (objective/context/EO/…) | Mission semantics | EC fields + inputs | Pont typé optionnel encore dette NELC | Mission-first authority | **KEEP** / **COMPLETE** | Inspection UI | D1 typed bridge optionnel | Inspection↔projection parity stable |
-| `projectExecutionContractToCursorPrompt` | Projette WHAT→prompt | projection module | Ne doit pas absorber HOW Studio | Projection WHAT-only | **KEEP** | EC | — | Tests parity inspection↔prompt |
-| `StudioCursorRealLaunchGateway` | Launch REAL WT isolé | gateway + M4 REAL tests | Overlays encore spécialisables | Launch générique + overlays enforcement | **KEEP** | Worktree | Overlay docs_write paths | Launch sans branche Product taxonomy |
-| Isolated detached git worktree | Borne d’effet | gateway prepare WT | GC/retention partiels | KEEP isolation | **KEEP** | D-ER-02 | Cleanup policy open | Cleanup deterministic documenté |
-| `CursorExecutionReport` | Claim exécuteur | report persistence + Resolution disclosure | Enrichissement ≠ Evidence | CLAIM strict | **KEEP** | D-ER-03 | — | Aucun auto-promote Evidence |
-| `verifyWorkspaceFileEffects` | Oracle filesystem | verifier application | Policy docs_write séparée | Socle VerifiedChangeSet | **HARVEST** / **GENERALIZE** | D-ER-06 | Policy-per-taxonomy | VerifiedChangeSet API neutre |
-| Studio VerifiedChangeSet | — (absent comme objet Product nommé) | N/A | Manquant | Oracle Fact Studio | **COMPLETE** (à créer sémantiquement) | verifier harvest | — | E2 exit proof |
-| `persistDocsWriteArtifactReviewMaterial` | Persist review bytes + claim | f3 persist module | Naming + couplage docs_write | Generic Execution Review Material | **HARVEST** / **GENERALIZE** | D-ER-04 | paths `.sfia-exec/.../docs-write-artifact` | E1 sans symbole docs_write nominal |
-| `ingestDocsWriteArtifactEvidence` | Evidence artifact | ingest module | Spécialisé effet | Ingest générique depuis Changeset/Material | **GENERALIZE** | Evidence domain | docs_write source tags | Ingest nominal générique |
-| docs_write requalify / rematerialize EO | Compat ContractResult / Git proofs | rematerialize helpers | Ancre taxonomy | Critères EC génériques | **TRANSITIONAL** / **RETIRE FROM PRODUCT MODEL** | ContractResult registry | Legacy EC window | Plus d’appel nominal |
-| M4 RO specialized path | Read-only enforcement / missions | M4 RO codepaths | Lu comme tâche Product possible | Enforcement technique only | **GENERALIZE** / **RETIRE FROM PRODUCT MODEL** | allowlists | RO-as-taxonomy | RO = policy, pas Product category |
-| M4 git commit/push/PR paths | Lifecycle Git effects | M4 git modules | Spécialisé ; authority sensible | Effects techniques gouvernés | **KEEP** (technique) / **RETIRE FROM PRODUCT MODEL** (si exposé comme tâche) | Evidence git sources | Product-facing naming | Git = effect class ≠ Product task |
-| materialize branches on docs_write | Post-terminal product materialization | materialize* docs_write-linked | Parallel paths | Reconciler MATERIALIZE générique | **GENERALIZE** | D-ER-08 | docs_write triggers | Materialize via stage only |
-| ContractResult / ClaimEvaluation engine | Qualify EC vs Evidence | EvaluateContractResult + registry | Rules encore partiellement spécialisées | Engine unique générique | **KEEP** / **GENERALIZE** | bound snapshot | specialized assessors | Rules sans Product taxonomy |
-| Evidence retentionClass / availability | Rétention Evidence | Evidence domain + MarkEvidenceUnavailable | Review Material non aligné | HOT→PRUNED cohérent | **KEEP** / **COMPLETE** | D-ER-12 | Review Material retention | E6 |
-| `MarkEvidenceUnavailable` | Transition disponibilité | application service | — | KEEP + mirror Review Material | **KEEP** | Retention | — | Unavailable visible Result Surface |
-| `resolveProductExecutionContext` | Shared Product Resolution | w2 resolve module | Artifact load docs_write-named | Unique generic resolution | **KEEP** / **GENERALIZE** | D-ER-07 | loadDocsWrite* | Resolution sans import docs_write |
-| Continuity Projection stages | Derive stage/next action | deriveGovernedExecutionContinuityProjection | Non persisté (voulu) | KEEP derived | **KEEP** | Resolution | — | Stage matrix stable |
-| `reconcileGovernedExecution` | Execute/continue deterministic | reconciler module | UI poll peut stall avant continue ultérieur | Owner progression bout-en-bout | **KEEP** / **COMPLETE** | D-ER-08 | No worker post UI poll | E3 |
-| TrajectorySurface poll ≤8 | UX observe RUNNING | TrajectorySurface `for i<8` | Exhaust → pending possible | UI projection only | **TRANSITIONAL** | Reconciler | Pilot « Recharger » | Plus de dépendance poll pour avancer |
-| Nora shared cognitive core | Conversation + post_execution | noraCognitiveCompletion | post_execution tools OFF | Shared core KEEP | **KEEP** | — | — | Modes clairement séparés |
-| Nora post_execution tools OFF | Safe analysis minimale | mode gate | Bloque Deep Review riche | Read-only tools bornés | **GENERALIZE** (tools) | D-ER-09 | tools OFF bridge | E4 |
-| Result / Trajectory surfaces | Exposent pending/outcomes | pre-m6 UI | Pas always-explain complet | Always explain Claim/Fact/Analysis/Authority | **COMPLETE** / **GENERALIZE** | D-ER-10 | CTA opaque / pending silencieux | Checklist explainability |
-| Legacy Product taxonomies (`docs_write`, `code_write`, `read`, `read_only`) | Historique mission typing | actions/caps/legacy prepare | Contredit modèle générique | Retrait du modèle Product | **RETIRE FROM PRODUCT MODEL** | D-ER-01 | Bridges §32 | E5 |
-| External review transport (ChatGPT↔Cursor process) | Process construction historique | capitalisations / process | Non Product architecture | Harvest sémantique only | **HARVEST** / **RETIRE LATER** (process) | D-ER-05 | Encore utilisé en construction | Native Review End Of en usage réel |
-| v2.6 canonical contract logic | Baseline fonctionnelle harvest | framing / capitalisations | Pas runtime | Harvest only | **HARVEST** | — | — | Pas de re-baseline |
-| runtime v3 | — | — | NON ADOPTED | Hors adoption | **RETIRE LATER** / hors scope (non adopté) | — | Tentation promotion | Décision Morris distincte seulement |
-| Delivery slicing plan | — | — | Non adopté | TBD | **TBD** (pas une disposition code) | D-ER-15 | Invention de lots | Morris slicing decision |
-
----
-
-### D. Synthèse disposition (compte)
-
-| Disposition | Lecture |
-| --- | --- |
-| **KEEP** | Backbone à préserver (EC, WT, Report CLAIM, Evidence/RB/CE, Resolution, Reconciler, Nora core) |
-| **COMPLETE** | Manques cibles à combler (VerifiedChangeSet nommé, always-explain, progression autonome) |
-| **HARVEST** | Extraire sémantique (v2.6, verifier, persist docs_write, external review discipline) |
-| **GENERALIZE** | Étendre hors naming/taxonomie spécialisée |
-| **TRANSITIONAL** | Pont autorisé avec exit |
-| **RETIRE FROM PRODUCT MODEL** | Taxonomies tâche Product et expositions Product homologues |
-| **RETIRE LATER** | Process/runtime non Product ou non adoptés — ne pas smuggle |
-
----
-
-### E. Index des décisions D-ER
-
-| ID | Titre court |
-| --- | --- |
-| D-ER-01 | Modèle Product générique — retire taxonomies tâche |
-| D-ER-02 | Keep isolated worktree |
-| D-ER-03 | Report = CLAIM |
-| D-ER-04 | Generic Execution Review Material |
-| D-ER-05 | Native Review End Of |
-| D-ER-06 | Studio VerifiedChangeSet |
-| D-ER-07 | Un Product Resolution |
-| D-ER-08 | Reconciler owns progression |
-| D-ER-09 | Nora Deep Review read-only tools |
-| D-ER-10 | Result Surface always explains |
-| D-ER-11 | Claim/Fact/Analysis/Authority |
-| D-ER-12 | Review Material HOT→PRUNED |
-| D-ER-13 | Migration without big bang |
-| D-ER-14 | No parallel architecture |
-| D-ER-15 | Delivery slicing TBD |
-
----
-
-*Fin du document — Architecture de référence Generic Execution / Execution Review / Evidence / Nora / Result / Pilot — ADOPTED TARGET BY MORRIS — DOCUMENTARY CANDIDATE PENDING GIT INTEGRATION — base main `6f47f74d` — 2026-09-29.*
+| Point | État |
+|-------|------|
+| **1.2** | **VALIDATED — GROUP PERSONA CONSOLIDATION 2026-09-29** |
+| Personas canoniques | Client particulier · Courtier · Directeur |
+| Ancien persona Prospect → Client | **SUPERSEDED AS PERSONA** |
+| Continuity prospect → client | **RETAINED IN CUSTOMER JOURNEY** |
+| Experience Map Courtier | **RETAINED / ALIGNED** |
+| Customer Journey | **Client particulier — Du prospect à la vie client** |
+| Détail cartes atelier | **À SYNCHRONISER** (non inventé) |
+| Evidence | GROUP-VALIDATED PEDAGOGICAL SCENARIO — NO FIELD INTERVIEWS |
+| Miro | **SYNC REQUIRED** / NOT MODIFIED by Cursor |
+| Architecture / Stack | NOT DECIDED |
+| **1.3** | OPENED — AWAITING FINAL REVIEW (fond inchangé ce cycle) |
+| **1.4** | NOT OPENED |
 ```
 
+## 13. CONTENU COMPLET FINAL 01-02
+
+```markdown
+# CRM Assurance Courtage — 1.2 Analyse des besoins utilisateurs
+
+| Champ | Valeur |
+|-------|--------|
+| **Statut** | **VALIDATED — GROUP PERSONA CONSOLIDATION 2026-09-29** |
+| **Étape** | 1.2 |
+| **Source métier principale** | Brief pédagogique CRM + 1.1 validé + BMC groupe + **personas atelier groupe 2026-09-29** |
+| **Source méthodologique** | Guide Bloc 1 PBNC + exigences 1.2 du brief |
+| **Doctrine projet** | [`../00-intake/crm-assurance-courtage-operating-doctrine.md`](../00-intake/crm-assurance-courtage-operating-doctrine.md) |
+| **1.1** | VALIDATED — [`01-01-analyse-besoins-metiers.md`](01-01-analyse-besoins-metiers.md) |
+| **Evidence user discovery** | GROUP-VALIDATED PEDAGOGICAL SCENARIO — **NO FIELD INTERVIEWS** — **NO OBSERVED AS-IS** |
+| **Personas canoniques** | **Client particulier** · **Courtier** · **Directeur** |
+| **Experience Map** | **RETAINED / ALIGNED** — Courtier |
+| **Customer Journey Map** | **Client particulier — Du prospect à la vie client** |
+| **Miro** | **SYNC REQUIRED** — board historique encore sur l’ancienne version (Cursor **n’a pas** modifié Miro) |
+| **Architecture** | NOT DECIDED |
+| **Stack** | NOT DECIDED |
+| **1.3** | OPENED — AWAITING FINAL REVIEW (hors modification de fond dans ce cycle) |
+| **1.4** | NOT OPENED |
+
+### Décisions Morris / groupe tracées
+
+| Décision | Contenu | Portée |
+|----------|---------|--------|
+| Ouverture 1.2 | 1.2 = OPENED (2026-09-27) | Historique |
+| Validation 1.2 initiale | 1.2 = VALIDATED (2026-09-28) | Livrable initial |
+| **Consolidation personas atelier** | Set canonique = **Client particulier** · **Courtier** · **Directeur** (2026-09-29) | **Supersède** le persona préparatoire « Prospect → Client » |
+| Experience Map | Cible **Courtier** — conservée / alignée | Contenu parcours métier inchangé sur le fond |
+| Customer Journey Map | Persona **Client particulier** ; lifecycle prospect → client | Réalignement conceptuel |
+
+**VALIDATED** (1.2) signifie que Morris / le groupe valide le livrable de cadrage utilisateur pour la suite.
+Cela ne signifie **pas** : user research empirique ; profil statistiquement démontré ; données terrain d’un cabinet réel.
+
 ---
 
-# ROADMAP — TIP AJOUTÉ (ligne metadata 2026-09-29)
+## 1. Objectif du 1.2
 
-Path : `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
+Identifier les profils utilisateurs pertinents pour le cas pédagogique CRM Assurance Courtage, comprendre leurs objectifs et attentes **à partir des informations disponibles**, et fonder les maps (Experience Map / Customer Journey) sur les **personas validés par le groupe**.
 
-## Tip courant (extrait)
+Ce livrable doit :
 
-| **Timestamp maintenance GENERIC-EXECUTION-REVIEW-RESULT-ARCHITECTURE-01 truth-sync** | 2026-09-29 — **GENERIC EXECUTION / REVIEW / RESULT — ARCHITECTURE TRUTH-SYNC** · Cycle **6 — Architecture technique** · DOC / EVOL · CRITICAL · CKC `cyc:technical-architecture` / `ckc/06-architecture-technique.md` (**CONTENT VALIDATED BY MORRIS** · guidance only · **≠** execution authority) · Morris decisions **D-ER-01…D-ER-15 ADOPTED** (2026-09-29) · **CURRENT main** `origin/main` @ `6f47f74dc9b515c4c79624b21772223ba02c76cd` · capacité **PRODUCT-CONTINUITY-SHARED-KNOWLEDGE-01** = **INTEGRATED ON MAIN** via PR **#540** merge `6f47f74d…` (head `47fcab2b…`) · campagne **NoteLite bounded REAL** = **RÉALISÉE AT TESTED SCOPE** puis **PAUSED** à ce point (correction governed **non relancée** · cycle NoteLite **non finalisé**) · findings bornés : EC→Attempt REAL→Cursor REAL→terminal succeeded→durable Evidence/RB/CE→Product Resolution→Nora post-Evidence→Nora conversationnelle **sans transfer d’IDs Pilote** · **NOT_PROVEN** honesty préservée · gap nominal post-terminal / UI « qualification en cours » + clic « Recharger résultat produit » = **HIGH-CONFIDENCE ARCHITECTURAL CAUSE** (poll UI ≤8 / pas de worker autonome) **≠ PROVEN INSTANCE ROOT CAUSE** · **ADOPTED TARGET** = un modèle Product d’exécution **générique** · **toutes** taxonomies de tâche Product spécialisées (`docs_write`, `code_write`, `read`, `read_only`, …) = **RETIRE FROM PRODUCT MODEL** · capabilities/effects techniques = **enforcement-only possibles** · **interdit** inventer `generic_read` / `generic_write` / `generic_code` comme catégories Product · isolated Git worktree = **KEEP** · Cursor Generalist = **KEEP** · CursorExecutionReport = **CLAIM KEEP** · Generic Execution Review Material = **TARGET** · Native Review End Of = **TARGET** (harvest sémantique · **≠** import transport `.tmp-sfia-review` / `sfia/review-handoff`) · Studio VerifiedChangeSet = **TARGET** · Product Resolution = **KEEP / COMPLETE** · Continuity Projection + Reconciler = **KEEP** (Reconciler = owner progression déterministe) · Nora Deep Review = **TARGET** sur shared cognitive core (**≠** second Nora) · Result Surface = **KEEP / COMPLETE** · Review Material retention HOT→PRUNED = **TARGET** · document architecture = `projects/sfia-studio/convergence/sfia-studio-generic-execution-review-result-architecture.md` (**ADOPTED TARGET BY MORRIS — DOCUMENTARY CANDIDATE PENDING GIT INTEGRATION**) · ancienne hypothèse **5 lots Delivery** = **NOT ADOPTED** · **DELIVERY SLICING = TBD AFTER ARCHITECTURE REVIEW** · future Delivery = **DISTINCT Morris GO** · future REAL / READY FOR REAL = **DISTINCT Morris GO** · **READY FOR REAL = NO** · runtime v3 = **NON ADOPTED** · **≠** code Product modifié ce cycle · **≠** Delivery authorized · **≠** NoteLite finalized · **≠** full E2E REAL proven · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT / `origin/main` / PR evidence** · **next** = ChatGPT Critical Review of architecture truth-sync → puis seulement Delivery slicing design |
+- distinguer hypothèses de scénario pédagogique et faits terrain ;
+- ne pas transformer l’analyse en spécification fonctionnelle, backlog, interfaces ou architecture.
 
-## Diff unifié complet (roadmap)
+**Ce livrable ne constitue PAS une user research empirique.**
+
+---
+
+## 2. Niveau de preuve et méthode
+
+| Catégorie | Signification |
+|-----------|---------------|
+| **EXPLICITE DANS LE BRIEF / BMC** | Information affirmée par le brief ou le BMC groupe |
+| **GROUP-VALIDATED PEDAGOGICAL SCENARIO** | Attributs / set de personas consolidés en atelier et validés par le groupe — **pas** des faits terrain |
+| **INFÉRENCE DE CADRAGE** | Déduction raisonnable, clairement marquée |
+| **NON RENSEIGNÉ / À SYNCHRONISER** | Détail non disponible de façon lisible dans le dépôt — **non inventé** |
+
+Aucun entretien, questionnaire ou observation terrain n’est fourni.
+Aucun verbatim réel n’est disponible.
+
+### Provenance personas (obligatoire)
+
+Les attributs des personas sont des **hypothèses de scénario pédagogique consolidées et validées par le groupe**.
+Ils servent à concevoir et tester la cohérence du CRM ; **ils ne résultent pas d’entretiens ou d’une étude terrain réelle**.
+
+Les cartes atelier (Profil · Démographie · Objectifs · Frustrations · Tâches · Outils) constituent la **référence de contenu détaillé**.
+Dans le présent dépôt, aucune source locale lisible et explicitement identifiable comme transcription complète de ces cartes n’a été trouvée pour ce cycle : **les petits textes (âge, revenus, localisation, outils nominatifs, scores, etc.) ne sont pas inventés ici**.
+**Transcription détaillée à synchroniser** depuis la source atelier lisible — **sans** remettre en cause la validation du **set** de personas.
+
+---
+
+## 3. Utilisateurs et parties prenantes
+
+| Profil | Qualification | Preuves / statut |
+|--------|---------------|------------------|
+| **Courtier** | Utilisateur métier interne principal — **persona canonique** | Prospection ; devis ; relances ; RDV ; conseil ; souscription ; renouvellement / résiliation ; documents ; sinistres ; suivi — EXPLICITE BRIEF + BMC + SET GROUPE |
+| **Directeur** | Persona de pilotage — **persona canonique** | Objectifs business, différenciation, KPIs — EXPLICITE BRIEF + SET GROUPE |
+| **Client particulier** | Persona externe — **persona canonique** | Segment BMC + SET GROUPE 2026-09-29 |
+| **Prospect** | **État** commercial (avant souscription) du Client particulier | Contact ; devis ; RDV ; besoin ; proposition ; souscription — EXPLICITE BRIEF — **≠ persona distinct** |
+| **Client (état)** | **État** commercial (après souscription) du Client particulier | Contrats ; documents ; historique ; sinistres ; renouvellement / résiliation — EXPLICITE BRIEF — **≠ persona distinct** |
+
+**Persona ≠ état commercial.**
+Persona = **Client particulier**.
+États possibles du parcours = prospect → futur client → client.
+
+---
+
+## 4. Personas canoniques (set groupe 2026-09-29)
+
+| # | Persona | Statut |
+|---|---------|--------|
+| 1 | **Client particulier** | **CANONICAL** — GROUP-VALIDATED PEDAGOGICAL SCENARIO |
+| 2 | **Courtier** | **CANONICAL** — GROUP-VALIDATED PEDAGOGICAL SCENARIO |
+| 3 | **Directeur** | **CANONICAL** — GROUP-VALIDATED PEDAGOGICAL SCENARIO |
+
+**Note historique :** la version préparatoire utilisait un persona longitudinal **Prospect → Client**. La consolidation atelier du **2026-09-29** retient désormais le persona **Client particulier** ; la continuité prospect → client est conservée dans le **Customer Journey**.
+
+Structure attendue des cartes atelier (référence) : Profil · Démographie · Objectifs · Frustrations · Tâches · Outils — **détail à synchroniser** (voir §2).
+
+---
+
+## 5. Persona — Courtier
+
+| Champ | Contenu | Niveau de preuve |
+|-------|---------|------------------|
+| **Rôle** | Courtier du cabinet | EXPLICITE + SET GROUPE |
+| **Angle** | Métier / opérations / relation client | EXPLICITE |
+| **Relation au projet** | Utilisateur métier interne principal | EXPLICITE |
+| **Objectifs / capacités supportés** | Prospection ; devis ; relances ; rendez-vous ; conseil personnalisé ; souscription ; renouvellement / résiliation ; documents ; sinistres ; traçabilité ; réactivité ; personnalisation soutenue par l’historique | EXPLICITE BRIEF + BMC |
+| **Besoins déduits** | Retrouver l’information utile ; vision cohérente du dossier ; limiter l’admin ; historique pour personnaliser | INFÉRENCE DE CADRAGE |
+
+**Non inventé :** démographie atelier, outils nominatifs, frustrations verbatim, scores — **à synchroniser** depuis la carte atelier.
+
+**Phrase de synthèse (analytique — non issue d’un entretien) :**
+Le courtier a besoin d’un suivi centralisé du parcours commercial et administratif pour rester réactif et personnaliser la relation sans charge administrative excessive.
+
+---
+
+## 6. Persona — Directeur
+
+| Champ | Contenu | Niveau de preuve |
+|-------|---------|------------------|
+| **Rôle** | Directeur du cabinet | EXPLICITE + SET GROUPE |
+| **Angle** | Pilotage / performance / vision business | EXPLICITE (objectifs) |
+| **Relation au projet** | Persona de pilotage | SET GROUPE |
+
+### Faits explicites du brief (conservés)
+
+- souhaite se différencier face aux assureurs en ligne ;
+- insiste sur proximité, personnalisation, transparence ;
+- objectifs : réduction des tâches administratives ; traçabilité ; confiance ; rétention ;
+- tableau de bord : taux de conversion ; panier moyen ; satisfaction client.
+
+### Inférences de cadrage (conservées)
+
+Visibilité consolidée ; suivi des indicateurs ; supervision de l’activité ; **usage du dashboard** = inférence forte (le brief ne dit pas littéralement que le directeur consulte personnellement le dashboard).
+
+**Non inventé :** démographie atelier, outils nominatifs, frustrations verbatim — **à synchroniser**.
+
+**Phrase de synthèse (analytique) :**
+Le directeur a besoin d’une vision consolidée de la performance commerciale pour piloter différenciation, traçabilité, confiance et rétention.
+
+---
+
+## 7. Persona — Client particulier
+
+| Champ | Contenu | Niveau de preuve |
+|-------|---------|------------------|
+| **Rôle** | Client particulier (persona externe) | SET GROUPE 2026-09-29 |
+| **Segments BMC associés** | Client particulier (famille/étudiant) ; TPE/PME reste un segment BMC distinct (pas un 4ᵉ persona 1.2) | BMC GROUPE |
+| **États de parcours** | Prospect → souscription → Client (vie du contrat) | EXPLICITE BRIEF — lifecycle CJM |
+| **Attentes supportées (brief)** | Proximité ; réactivité ; personnalisation ; transparence ; confiance ; continuité | EXPLICITE |
+| **Canaux (BMC groupe)** | RDV physique ; Visio ; téléphone ; email ; espace client | BMC GROUPE — conception UI **NON DÉCIDÉE** |
+
+### Lifecycle (pas un second persona)
+
+| État | Attentes / étapes supportées | Niveau |
+|------|------------------------------|--------|
+| **Prospect** | Contact ; devis ; RDV ; besoin ; proposition ; progression vers souscription | EXPLICITE BRIEF |
+| **Client** | Vie du contrat ; échanges ; documents ; historique ; sinistre éventuel ; renouvellement / résiliation | EXPLICITE BRIEF |
+
+**Réserve :** usage direct du futur CRM par le prospect = **NON RENSEIGNÉ**. Forme exacte de l’accès client = **NOT DECIDED**.
+
+**Non inventé :** nom, âge, revenus, situation familiale, localisation, outils, frustrations détaillées — **à synchroniser** depuis la carte atelier « Client particulier ».
+
+**Phrase de synthèse (analytique) :**
+Le Client particulier est suivi depuis l’entrée en relation (état prospect) jusqu’à la vie du contrat (état client), avec une continuité attendue de proximité, personnalisation et transparence.
+
+---
+
+## 8. Synthèse des besoins par profil
+
+| Profil | Objectifs | Attentes | Besoins / enjeux | Niveau |
+|--------|-----------|----------|------------------|--------|
+| Courtier | Suivi cycle ; devis / RDV / souscription ; docs ; sinistres | Réactivité ; personnalisation | Vision du dossier ; admin. réduite | BRIEF + INFÉRENCE |
+| Directeur | Différenciation ; KPIs | Pilotage | Visibilité consolidée | BRIEF + INFÉRENCE |
+| Client particulier — état prospect | Contact → devis → RDV → proposition → souscription | Proximité ; réactivité ; personnalisation ; transparence | Entrée en relation claire | BRIEF + INFÉRENCE |
+| Client particulier — état client | Suivi contrats ; docs ; sinistre ; renouvellement / résiliation | Transparence ; confiance ; continuité | Comprendre le suivi ; retrouver l’info | BRIEF + INFÉRENCE |
+
+Aucune user story. Aucun backlog.
+
+---
+
+## 9. Difficultés / pain points
+
+Aucune observation AS-IS. Aucune affirmation du type « les utilisateurs disent… ».
+
+**Courtier :** charge administrative ; traçabilité ; réactivité ; continuité du suivi.
+**Directeur :** visibilité / pilotage déduits des objectifs et KPIs.
+**Client particulier :** fluidité d’entrée en relation ; personnalisation ; transparence ; confiance ; continuité.
+
+**Qualification :** DÉDUITS DU BRIEF / SCÉNARIO — **NON OBSERVÉS SUR LE TERRAIN**.
+Frustrations détaillées des cartes atelier : **à synchroniser** (non inventées).
+
+---
+
+## 10. Inconnues et limites
+
+- aucun entretien réel ;
+- détails démographiques / outils / frustrations des cartes atelier : **à synchroniser** ;
+- usage personnel du dashboard par le Directeur = inférence ;
+- usage direct du CRM par le Prospect = non démontré ;
+- interfaces / permissions = hors scope ;
+- pensées / émotions des maps = **NON RENSEIGNÉES**.
+
+---
+
+## 11. Experience Map — Courtier
+
+| Champ | Valeur |
+|-------|--------|
+| **Statut** | **RETAINED / ALIGNED** — Courtier reste persona canonique |
+| **Persona cible** | Courtier |
+| **Décision d’alignement 2026-09-29** | **KEEP / ADAPT MINOR** — pas de reconstruction ; le parcours métier reste cohérent avec le Courtier |
+| **Objet** | Expérience métier du courtier au fil de la relation (prospects → clients) — sans interface logicielle décidée |
+| **Nature** | CIBLE PÉDAGOGIQUE — **NON AS-IS OBSERVÉ** |
+
+### Phases (conservées)
+
+| Phase | Actions / enjeux (cadrage) | Niveau de preuve |
+|-------|----------------------------|------------------|
+| Prospection / contact / qualification | Prospecter ; prendre contact ; qualifier — Réactivité · Continuité du suivi | EXPLICITE + INFÉRENCE |
+| Devis | Réactivité · Charge administrative | EXPLICITE + INFÉRENCE |
+| Relance / RDV | Réactivité · Continuité du suivi | EXPLICITE + INFÉRENCE |
+| Besoin → proposition | Personnalisation · Continuité du suivi | EXPLICITE + INFÉRENCE |
+| Souscription → vie contrat | Traçabilité · Continuité du suivi | EXPLICITE + INFÉRENCE |
+| Docs / sinistre / renouvellement | Traçabilité · Continuité · Charge administrative | EXPLICITE + INFÉRENCE |
+
+**Traçabilité** = retrouver ce qui s’est passé (historique, étapes, documents).
+**Continuité du suivi** = poursuivre correctement la relation à partir du contexte — liée mais non synonyme.
+
+**Pensées / émotions :** dimension méthodologique conservée ; **NON RENSEIGNÉES** — pas d’inférence émotionnelle ; pas d’injection artificielle des frustrations atelier phase par phase.
+
+---
+
+## 12. Customer Journey Map — Client particulier
+
+| Champ | Valeur |
+|-------|--------|
+| **Statut** | **ADAPTED** — réalignement conceptuel 2026-09-29 |
+| **Titre** | Customer Journey — **Client particulier** |
+| **Sous-titre** | Du prospect à la vie client |
+| **Persona cible** | **Client particulier** (pas « Prospect → Client » comme persona) |
+| **Lifecycle** | Prospect → souscription → Client |
+| **Objet** | Relation avec le **service de courtage / cabinet** |
+| **Nature** | CIBLE PÉDAGOGIQUE — **NON AS-IS OBSERVÉ** |
+
+### Séquence (étapes déjà validées — conservées)
+
+1. Première prise de contact
+2. Devis
+3. Relance / rendez-vous
+4. Compréhension / qualification du besoin
+5. Proposition personnalisée
+6. Souscription
+7. Vie du contrat / suivi (échanges, documents, sinistre éventuel, renouvellement / résiliation)
+
+**Règles :**
+
+- Le début « prospect » du journey **n’en fait pas** un persona différent.
+- La map **ne suppose pas** que le futur CRM existe déjà.
+- **Ne pas décider ici :** interfaces distinctes prospect/client ; permissions ; écrans ; UI.
+- **Émotion :** NON RENSEIGNÉE — pas d’invention.
+- Canaux groupe (physique, Visio, téléphone, email, espace client) : transversaux — pas d’affectation canal × phase inventée.
+
+---
+
+## Alignement BMC groupe (rappel)
+
+- Segments : **TPE/PME** ; **Client particulier (famille/étudiant)** — le persona 1.2 externe retenu par l’atelier est **Client particulier**.
+- Courtier : prospection + conseil personnalisé confirmés.
+- Directeur : inchangé sur le fond brief.
+- Maps : sémantique Traçabilité / Continuité conservée.
+
+---
+
+## Miro — état
+
+| Champ | Valeur |
+|-------|--------|
+| **Board** | https://miro.com/app/board/uXjVHiWX64c=/ |
+| **État Cursor** | **NOT MODIFIED** |
+| **Sync** | **MIRO PERSONA SYNC REQUIRED** |
+
+| Livrable Miro historique | Impact |
+|--------------------------|--------|
+| Persona Courtier | À auditer / aligner sur set groupe |
+| Persona Directeur | À auditer / aligner |
+| Persona Prospect → Client | **À remplacer** par **Client particulier** |
+| Experience Map Courtier | À auditer / aligner si besoin |
+| Customer Journey Prospect → Client | **À renommer / réaligner** → Client particulier — du prospect à la vie client |
+
+Git est canonique après transcription. Miro n’est **pas** synchronisé dans ce cycle.
+
+Frames 1.1 (BMC / BPMN) : **protégées — inchangées**.
+
+---
+
+## 13. Synthèse 1.2
+
+| Point | État |
+|-------|------|
+| **1.2** | **VALIDATED — GROUP PERSONA CONSOLIDATION 2026-09-29** |
+| Personas canoniques | Client particulier · Courtier · Directeur |
+| Ancien persona Prospect → Client | **SUPERSEDED AS PERSONA** |
+| Continuity prospect → client | **RETAINED IN CUSTOMER JOURNEY** |
+| Experience Map Courtier | **RETAINED / ALIGNED** |
+| Customer Journey | **Client particulier — Du prospect à la vie client** |
+| Détail cartes atelier | **À SYNCHRONISER** (non inventé) |
+| Evidence | GROUP-VALIDATED PEDAGOGICAL SCENARIO — NO FIELD INTERVIEWS |
+| Miro | **SYNC REQUIRED** / NOT MODIFIED by Cursor |
+| Architecture / Stack | NOT DECIDED |
+| **1.3** | OPENED — AWAITING FINAL REVIEW (fond inchangé ce cycle) |
+| **1.4** | NOT OPENED |
+```
+
+## 14. Diff Git
+
+```
+ .../crm-assurance-courtage-operating-doctrine.md   |  12 +-
+ .../01-02-analyse-besoins-utilisateurs.md          | 443 +++++++++------------
+ 2 files changed, 187 insertions(+), 268 deletions(-)
+
+```
 
 ```diff
-diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-index 0fc62239..75b2974e 100644
---- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-+++ b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-@@ -4,6 +4,7 @@
- | --- | --- |
- | **Rôle** | Roadmap **vivante** de convergence vers l’utilisation complète de la doctrine produit SFIA Studio v3 |
- | **Statut** | **VALIDATED — ACTIVE LIVING ROADMAP** |
-+| **Timestamp maintenance GENERIC-EXECUTION-REVIEW-RESULT-ARCHITECTURE-01 truth-sync** | 2026-09-29 — **GENERIC EXECUTION / REVIEW / RESULT — ARCHITECTURE TRUTH-SYNC** · Cycle **6 — Architecture technique** · DOC / EVOL · CRITICAL · CKC `cyc:technical-architecture` / `ckc/06-architecture-technique.md` (**CONTENT VALIDATED BY MORRIS** · guidance only · **≠** execution authority) · Morris decisions **D-ER-01…D-ER-15 ADOPTED** (2026-09-29) · **CURRENT main** `origin/main` @ `6f47f74dc9b515c4c79624b21772223ba02c76cd` · capacité **PRODUCT-CONTINUITY-SHARED-KNOWLEDGE-01** = **INTEGRATED ON MAIN** via PR **#540** merge `6f47f74d…` (head `47fcab2b…`) · campagne **NoteLite bounded REAL** = **RÉALISÉE AT TESTED SCOPE** puis **PAUSED** à ce point (correction governed **non relancée** · cycle NoteLite **non finalisé**) · findings bornés : EC→Attempt REAL→Cursor REAL→terminal succeeded→durable Evidence/RB/CE→Product Resolution→Nora post-Evidence→Nora conversationnelle **sans transfer d’IDs Pilote** · **NOT_PROVEN** honesty préservée · gap nominal post-terminal / UI « qualification en cours » + clic « Recharger résultat produit » = **HIGH-CONFIDENCE ARCHITECTURAL CAUSE** (poll UI ≤8 / pas de worker autonome) **≠ PROVEN INSTANCE ROOT CAUSE** · **ADOPTED TARGET** = un modèle Product d’exécution **générique** · **toutes** taxonomies de tâche Product spécialisées (`docs_write`, `code_write`, `read`, `read_only`, …) = **RETIRE FROM PRODUCT MODEL** · capabilities/effects techniques = **enforcement-only possibles** · **interdit** inventer `generic_read` / `generic_write` / `generic_code` comme catégories Product · isolated Git worktree = **KEEP** · Cursor Generalist = **KEEP** · CursorExecutionReport = **CLAIM KEEP** · Generic Execution Review Material = **TARGET** · Native Review End Of = **TARGET** (harvest sémantique · **≠** import transport `.tmp-sfia-review` / `sfia/review-handoff`) · Studio VerifiedChangeSet = **TARGET** · Product Resolution = **KEEP / COMPLETE** · Continuity Projection + Reconciler = **KEEP** (Reconciler = owner progression déterministe) · Nora Deep Review = **TARGET** sur shared cognitive core (**≠** second Nora) · Result Surface = **KEEP / COMPLETE** · Review Material retention HOT→PRUNED = **TARGET** · document architecture = `projects/sfia-studio/convergence/sfia-studio-generic-execution-review-result-architecture.md` (**ADOPTED TARGET BY MORRIS — DOCUMENTARY CANDIDATE PENDING GIT INTEGRATION**) · ancienne hypothèse **5 lots Delivery** = **NOT ADOPTED** · **DELIVERY SLICING = TBD AFTER ARCHITECTURE REVIEW** · future Delivery = **DISTINCT Morris GO** · future REAL / READY FOR REAL = **DISTINCT Morris GO** · **READY FOR REAL = NO** · runtime v3 = **NON ADOPTED** · **≠** code Product modifié ce cycle · **≠** Delivery authorized · **≠** NoteLite finalized · **≠** full E2E REAL proven · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT / `origin/main` / PR evidence** · **next** = ChatGPT Critical Review of architecture truth-sync → puis seulement Delivery slicing design |
- | **Timestamp maintenance NATIVE-EXECUTION-LOOP-CONVERGENCE-01 post-merge verification** | 2026-09-26 — **NATIVE EXECUTION LOOP CONVERGENCE — POST-MERGE VERIFICATION / ROADMAP TRUTH-SYNC / CAPITALISATION** · Macro **NATIVE-EXECUTION-LOOP-CONVERGENCE-01** · **SAME MACRO / NO MICRO-CYCLE** · Cycle **15** · Capitalisation / REX · DOC · CRITICAL · Morris GO **POST-MERGE / DOCUMENTARY TRUTH-SYNC / CAPITALISATION** **CONSUMED** (local docs only · **≠** project commit/push/PR) · protected path authorization = Convergence Roadmap + capitalisation asset under `convergence/**` **ONLY** · Build Doctrine / C1 / framing / method / prompts = **READ ONLY** · PR **#527 MERGED** · product head `5a05a2a7082bc140393f18647a56f1ed23cef73c` · merge/main `e486e81f2443bb9837b4bbdc1967cf5d1368f4d9` · pre-merge CI **#614** run `36261815679` **SUCCESS / Required Gate PASS** · post-merge CI **#615** run `36262627727` **SUCCESS / Required Gate PASS** · Product head→merge app parity **ZERO** · capacité **NATIVE EXECUTION LOOP CONVERGENCE** = **INTEGRATED ON MAIN / POST-MERGE VERIFIED** · proof = **DETERMINISTIC / LOCAL + PR/CI INTEGRATION ONLY** · **ZERO NEW REAL** · runtime v3 = **NON ADOPTED** · Product Completion = historical **COMPLETE/CLOSED** (**≠** newly completed by NELC) · remaining governed debts = **D1** optional first-class typed EC input bridge · optional mid-turn repository SHA stamp · future bounded REAL under **distinct Morris GO** · **next activity** = MealFlow semantic reservation campaign (**observation / qualification** · **NOT STARTED / NOT AUTHORIZED** by this documentary sync) · **NEXT MACRO CAPABILITY** = **NOT YET DETERMINED** · future bounded REAL of native loop = **OPEN GOVERNED PROOF OPTION / DISTINCT MORRIS GO** (**≠** auto-selected next capability) · **≠** READY FOR REAL · **≠** Product READY · **≠** runtime v3 ADOPTED · repository truth = **RESOLVE FROM GIT / PR evidence** · capitalisation asset = `projects/sfia-studio/convergence/sfia-studio-native-execution-loop-convergence-01-capitalisation.md` (**LOCAL DOCUMENTARY CANDIDATE** until distinct Git integration GO) |
- | **Timestamp maintenance CYCLE-RESERVATION-PILOTING-01 post-merge verification** | 2026-09-25 — **CYCLE RESERVATION MANAGEMENT & GATE-AWARE PILOTING — POST-MERGE VERIFICATION / ROADMAP TRUTH-SYNC** · Macro **CYCLE-RESERVATION-PILOTING-01** · Cycle **14** · Post-merge · DOC · CRITICAL · Morris GO **POST-MERGE DOCUMENTARY TRUTH-SYNC — ROADMAP PROTECTED PATH ONLY** **CONSUMED** · PR **#518 MERGED** · product head `f0874ec05fec4237a6f39311b90c9233debce5f5` · merge/main `29f1597951bd6e4d779cc728f46396e28b8f5aa0` · PR CI **#595** run `36100845339` **SUCCESS / Required Gate PASS** · post-merge CI **#596** run `36101841229` **SUCCESS / Required Gate PASS** · capacité **CYCLE RESERVATION MANAGEMENT & GATE-AWARE PILOTING** = **INTEGRATED ON MAIN / POST-MERGE VERIFIED** · same-macro construction reserves = **ZERO** at reviewed scope · protected Roadmap truth-sync = local documentary candidate under this cycle until Git integration · Product Completion = historical **COMPLETE/CLOSED** (**≠** newly completed) · Nora Cognitive Completion = **NOT COMPLETE** · global semantic Reservation quality = **NOT PROVEN** · READY FOR REAL global = **NO** · runtime v3 = **NON ADOPTED** · **next** = MealFlow semantic reservation campaign (**observation / qualification** · **NOT STARTED** by this documentary sync · **≠** new macro pre-authorized) · Git / PR evidence remains authoritative · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT / `origin/main` / PR evidence** |
- | **Timestamp maintenance CYCLE-RESERVATION-PILOTING-01 known-reserves closure** | 2026-09-25 — **CYCLE RESERVATION MANAGEMENT & GATE-AWARE PILOTING — KNOWN RESERVES CLOSED / MACRO PR READINESS PASS / ROADMAP TRUTH-SYNC** · Macro **CYCLE-RESERVATION-PILOTING-01** · Cycle Delivery / same-macro closure · EVOL · CRITICAL · Morris GO **CONSUMED** for R1/R2/R3 only · protected path authorization = Roadmap file **ONLY** under `convergence/**` · Build Doctrine / framing / C1 = **READ ONLY** · **PR #516** SFIA Studio — durable cycle journal and conversation continuity · merge `dc462d9f43661fb63f222f37691e80efb8650157` · capacité **PROJECT CONVERSATIONAL CONTINUITY & CYCLE JOURNAL** · status **INTEGRATED ON MAIN / POST-MERGE VERIFIED** · **PR #517** SFIA Studio — pilotability and journal semantic integrity · merge/current main `385c764458c5212913388d5e0e5b80f5390c23db` · capacité **PILOTABILITY & JOURNAL SEMANTIC INTEGRITY** · status **INTEGRATED ON MAIN / POST-MERGE VERIFIED** · post-merge CI #594 attempt 2 **SUCCESS / Required Gate PASS** · **CURRENT CONSTRUCTION STATE** = capacité **CYCLE RESERVATION MANAGEMENT & GATE-AWARE PILOTING** · branch `feat/sfia-studio-cycle-reservation-piloting-01` · base `385c764458c5212913388d5e0e5b80f5390c23db` · state **LOCAL CANDIDATE / SAME-MACRO COMPLETE / CONTENT READY FOR PRODUCT GIT INTEGRATION** · **LOCAL CANDIDATE / NOT YET INTEGRATED ON MAIN** · **NOT YET COMMITTED / PUSHED / OPENED AS PR** · proof scope (local candidate): reservationDelta · Memory Sujets/Réserves · gate-aware FINALIZE · Treat with Nora · Pilot-confirmed resolution · Defer + HumanDecision · bounded REAL Reservation proof · Pilot/Morris authority separation Option A · generic non-Morris Pilot proof · canonical Pilot env `SFIA_STUDIO_LOCAL_PILOT_AUTHORITY` + deprecated legacy alias · historical HD `authority:"morris"` immutable compatibility · R1 legacy env naming = **CLOSED BY CANONICAL PILOT ENV + DEPRECATED COMPATIBILITY ALIAS** · R2 historical morris HD = **CLOSED AS IMMUTABLE HISTORICAL COMPATIBILITY** · R3 Roadmap truth-sync = **CURRENT TO LOCAL CANDIDATE STATE** · runtime v3 = **NON ADOPTED** · Product Completion = historical **COMPLETE/CLOSED** (**≠** newly completed by this macro) · Nora Cognitive Completion = **≠** newly COMPLETE · global semantic reservation quality = **≠** PROVEN · READY FOR REAL global = **NO** · **CURRENT PRIORITY** = this Reservation macro local candidate · **next after eventual integration** = MealFlow semantic reservation campaign (**NOT STARTED / NOT AUTHORIZED** by this truth-sync) · **≠** current macro integrated on main · **≠** product commit/push/PR/merge · **≠** runtime v3 ADOPTED · **≠** READY FOR REAL · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT / `origin/main` / PR evidence** |
+diff --git a/projects/crm-assurance-courtage/00-intake/crm-assurance-courtage-operating-doctrine.md b/projects/crm-assurance-courtage/00-intake/crm-assurance-courtage-operating-doctrine.md
+index 127134fb..aace4df7 100644
+--- a/projects/crm-assurance-courtage/00-intake/crm-assurance-courtage-operating-doctrine.md
++++ b/projects/crm-assurance-courtage/00-intake/crm-assurance-courtage-operating-doctrine.md
+@@ -168,9 +168,15 @@ Décisions futures **séparées** — le GO du présent cycle documentaire **ne
+ | Élément | État |
+ |---------|------|
+ | Phase actuelle | Bloc / Phase 1 — cadrage |
+-| Dernière étape validée | **1.2 Analyse des besoins utilisateurs — VALIDATED (2026-09-28)** |
++| Dernière étape validée | **1.2 Analyse des besoins utilisateurs — VALIDATED — GROUP PERSONA CONSOLIDATION 2026-09-29** |
+ | 1.1 | **VALIDATED** |
+-| 1.2 | **VALIDATED** |
++| 1.2 | **VALIDATED — GROUP PERSONA CONSOLIDATION 2026-09-29** |
++| Personas canoniques | **Client particulier** · **Courtier** · **Directeur** |
++| Ancien persona préparatoire Prospect → Client | **SUPERSEDED AS PERSONA** |
++| Continuité prospect → client | **RETAINED IN CUSTOMER JOURNEY** |
++| Experience Map Courtier | **RETAINED / ALIGNED** |
++| Customer Journey | **Client particulier — Du prospect à la vie client** |
++| Miro personas / maps | **SYNC REQUIRED** (Cursor n’a pas modifié Miro) |
+ | 1.3 | **OPENED — AWAITING FINAL REVIEW** |
+ | 1.3.1 | **REVIEW PASS** |
+ | Base détaillée 1.3.2 A→E | **REVIEW PASS** (historique Git) |
+@@ -178,7 +184,7 @@ Décisions futures **séparées** — le GO du présent cycle documentaire **ne
+ | 1.4 | **NOT OPENED** |
+ | Architecture | **NOT DECIDED** |
+ | Stack runtime | **CANDIDATE TOOL ECOSYSTEM ONLY / NOT DECIDED** |
+-| Prochain objectif | Revue ChatGPT de la version pédagogique, puis décision Morris séparée sur validation globale du 1.3 |
++| Prochain objectif | Revue ChatGPT de la consolidation personas 1.2 ; 1.3 reste ouvert séparément (pas validé par ce cycle) |
+
+ ---
+
+diff --git a/projects/crm-assurance-courtage/01-cadrage/01-02-analyse-besoins-utilisateurs.md b/projects/crm-assurance-courtage/01-cadrage/01-02-analyse-besoins-utilisateurs.md
+index 485d31af..94c16517 100644
+--- a/projects/crm-assurance-courtage/01-cadrage/01-02-analyse-besoins-utilisateurs.md
++++ b/projects/crm-assurance-courtage/01-cadrage/01-02-analyse-besoins-utilisateurs.md
+@@ -2,46 +2,47 @@
+
+ | Champ | Valeur |
+ |-------|--------|
+-| **Statut** | **VALIDATED** — décision Morris du **2026-09-28** |
++| **Statut** | **VALIDATED — GROUP PERSONA CONSOLIDATION 2026-09-29** |
+ | **Étape** | 1.2 |
+-| **Source métier principale** | Brief pédagogique CRM + 1.1 validé + BMC groupe validé 2026-09-28 |
++| **Source métier principale** | Brief pédagogique CRM + 1.1 validé + BMC groupe + **personas atelier groupe 2026-09-29** |
+ | **Source méthodologique** | Guide Bloc 1 PBNC + exigences 1.2 du brief |
+ | **Doctrine projet** | [`../00-intake/crm-assurance-courtage-operating-doctrine.md`](../00-intake/crm-assurance-courtage-operating-doctrine.md) |
+-| **1.1** | VALIDATED (2026-09-27) — BMC réaligné groupe 2026-09-28 — [`01-01-analyse-besoins-metiers.md`](01-01-analyse-besoins-metiers.md) |
+-| **Evidence user discovery** | BRIEF-DERIVED — NO FIELD INTERVIEWS — NO OBSERVED AS-IS |
+-| **Personas** | **VALIDATED / MATERIALIZED IN MIRO** — BRIEF-DERIVED (+ alignement BMC groupe) |
+-| **Experience Map** | **VALIDATED / MATERIALIZED IN MIRO** — Courtier — alignée BMC groupe |
+-| **Customer Journey Map** | **VALIDATED / MATERIALIZED IN MIRO** — Prospect → Client — alignée BMC groupe |
++| **1.1** | VALIDATED — [`01-01-analyse-besoins-metiers.md`](01-01-analyse-besoins-metiers.md) |
++| **Evidence user discovery** | GROUP-VALIDATED PEDAGOGICAL SCENARIO — **NO FIELD INTERVIEWS** — **NO OBSERVED AS-IS** |
++| **Personas canoniques** | **Client particulier** · **Courtier** · **Directeur** |
++| **Experience Map** | **RETAINED / ALIGNED** — Courtier |
++| **Customer Journey Map** | **Client particulier — Du prospect à la vie client** |
++| **Miro** | **SYNC REQUIRED** — board historique encore sur l’ancienne version (Cursor **n’a pas** modifié Miro) |
+ | **Architecture** | NOT DECIDED |
+ | **Stack** | NOT DECIDED |
+-| **1.3** | NOT OPENED |
++| **1.3** | OPENED — AWAITING FINAL REVIEW (hors modification de fond dans ce cycle) |
++| **1.4** | NOT OPENED |
+
+-### Décisions Morris tracées (alignement 1.2)
++### Décisions Morris / groupe tracées
+
+ | Décision | Contenu | Portée |
+ |----------|---------|--------|
+ | Ouverture 1.2 | 1.2 = OPENED (2026-09-27) | Historique |
+-| Validation 1.2 | 1.2 = **VALIDATED** (2026-09-28) | Clôture du livrable 1.2 |
+-| Proto-personas | **Courtier** ; **Directeur du cabinet** ; **Prospect → Client assuré** | VALIDATED — pédagogique / brief-derived — **non** empiriquement validés par recherche terrain |
+-| Experience Map | VALIDATED — cible **Courtier** | MATERIALIZED IN MIRO — phase 1 alignée prospection |
+-| Customer Journey Map | VALIDATED — cible **Prospect → Client assuré** | MATERIALIZED IN MIRO — canaux groupe transversaux |
++| Validation 1.2 initiale | 1.2 = VALIDATED (2026-09-28) | Livrable initial |
++| **Consolidation personas atelier** | Set canonique = **Client particulier** · **Courtier** · **Directeur** (2026-09-29) | **Supersède** le persona préparatoire « Prospect → Client » |
++| Experience Map | Cible **Courtier** — conservée / alignée | Contenu parcours métier inchangé sur le fond |
++| Customer Journey Map | Persona **Client particulier** ; lifecycle prospect → client | Réalignement conceptuel |
+
+-**VALIDATED** (1.2) signifie que Morris valide le livrable de cadrage utilisateur pour la suite du projet.
+-Cela ne signifie **pas** : user research empirique ; profil statistiquement démontré ; persona terrain validé.
++**VALIDATED** (1.2) signifie que Morris / le groupe valide le livrable de cadrage utilisateur pour la suite.
++Cela ne signifie **pas** : user research empirique ; profil statistiquement démontré ; données terrain d’un cabinet réel.
+
+ ---
+
+ ## 1. Objectif du 1.2
+
+-Identifier les profils utilisateurs pertinents pour le cas pédagogique CRM Assurance Courtage, comprendre leurs objectifs et attentes **à partir des informations disponibles**, et préparer des **proto-personas de cadrage** ainsi que le contrat des maps adoptées, avant matérialisation Miro dans un cycle dédié.
++Identifier les profils utilisateurs pertinents pour le cas pédagogique CRM Assurance Courtage, comprendre leurs objectifs et attentes **à partir des informations disponibles**, et fonder les maps (Experience Map / Customer Journey) sur les **personas validés par le groupe**.
+
+-Ce cycle doit :
++Ce livrable doit :
+
+-- rendre explicites les hypothèses faute d’entretiens réels ;
+-- distinguer faits sourcés, inférences et décisions Morris ;
++- distinguer hypothèses de scénario pédagogique et faits terrain ;
+ - ne pas transformer l’analyse en spécification fonctionnelle, backlog, interfaces ou architecture.
+
+-**Ce cycle ne constitue PAS une user research empirique.**
++**Ce livrable ne constitue PAS une user research empirique.**
+
+ ---
+
+@@ -49,15 +50,22 @@ Ce cycle doit :
+
+ | Catégorie | Signification |
+ |-----------|---------------|
+-| **EXPLICITE DANS LE BRIEF** | Information affirmée directement par le brief (ou reprise telle quelle du 1.1 validé) |
+-| **INFÉRENCE DE CADRAGE** | Déduction raisonnable à partir du brief, clairement marquée |
+-| **DÉCISION MORRIS** | Arbitrage pédagogique / de modélisation du 1.2, distinct du fait source |
+-| **NON RENSEIGNÉ** | Information non fournie — **non inventée** |
++| **EXPLICITE DANS LE BRIEF / BMC** | Information affirmée par le brief ou le BMC groupe |
++| **GROUP-VALIDATED PEDAGOGICAL SCENARIO** | Attributs / set de personas consolidés en atelier et validés par le groupe — **pas** des faits terrain |
++| **INFÉRENCE DE CADRAGE** | Déduction raisonnable, clairement marquée |
++| **NON RENSEIGNÉ / À SYNCHRONISER** | Détail non disponible de façon lisible dans le dépôt — **non inventé** |
+
+ Aucun entretien, questionnaire ou observation terrain n’est fourni.
+ Aucun verbatim réel n’est disponible.
+
+-Les profils sont des **PROTO-PERSONAS DE CADRAGE** (BRIEF-DERIVED / NO FIELD INTERVIEWS / NO OBSERVED AS-IS), adoptés pour le 1.2 pédagogique.
++### Provenance personas (obligatoire)
++
++Les attributs des personas sont des **hypothèses de scénario pédagogique consolidées et validées par le groupe**.
++Ils servent à concevoir et tester la cohérence du CRM ; **ils ne résultent pas d’entretiens ou d’une étude terrain réelle**.
++
++Les cartes atelier (Profil · Démographie · Objectifs · Frustrations · Tâches · Outils) constituent la **référence de contenu détaillé**.
++Dans le présent dépôt, aucune source locale lisible et explicitement identifiable comme transcription complète de ces cartes n’a été trouvée pour ce cycle : **les petits textes (âge, revenus, localisation, outils nominatifs, scores, etc.) ne sont pas inventés ici**.
++**Transcription détaillée à synchroniser** depuis la source atelier lisible — **sans** remettre en cause la validation du **set** de personas.
+
+ ---
+
+@@ -65,168 +73,135 @@ Les profils sont des **PROTO-PERSONAS DE CADRAGE** (BRIEF-DERIVED / NO FIELD INT
+
+ | Profil | Qualification | Preuves / statut |
+ |--------|---------------|------------------|
+-| **Courtier** | Utilisateur métier interne principal | Prospection ; devis ; relances ; rendez-vous ; conseil personnalisé ; souscription ; renouvellement / résiliation ; documents ; sinistres ; suivi relationnel — **EXPLICITE DANS LE BRIEF + BMC GROUPE** |
+-| **Directeur du cabinet** | Partie prenante décisionnaire **et** proto-persona de pilotage **adopté par Morris** | Objectifs business, différenciation, KPIs du scénario — **EXPLICITE DANS LE BRIEF**. Usage personnel du dashboard = **INFÉRENCE DE CADRAGE FORTE + DÉCISION MORRIS** — **pas** un fait explicite du brief |
+-| **Prospect** | État métier initial (avant souscription) du persona externe longitudinal | Contact ; devis ; RDV ; besoin ; proposition ; souscription — **EXPLICITE DANS LE BRIEF**. Usage direct de toutes les interfaces du futur CRM — **NON RENSEIGNÉ** |
+-| **Client** | État métier ultérieur (après souscription) du **même** persona externe | Contrats ; échanges ; historique ; transparence ; documents ; sinistres ; renouvellement / résiliation — **EXPLICITE DANS LE BRIEF** |
++| **Courtier** | Utilisateur métier interne principal — **persona canonique** | Prospection ; devis ; relances ; RDV ; conseil ; souscription ; renouvellement / résiliation ; documents ; sinistres ; suivi — EXPLICITE BRIEF + BMC + SET GROUPE |
++| **Directeur** | Persona de pilotage — **persona canonique** | Objectifs business, différenciation, KPIs — EXPLICITE BRIEF + SET GROUPE |
++| **Client particulier** | Persona externe — **persona canonique** | Segment BMC + SET GROUPE 2026-09-29 |
++| **Prospect** | **État** commercial (avant souscription) du Client particulier | Contact ; devis ; RDV ; besoin ; proposition ; souscription — EXPLICITE BRIEF — **≠ persona distinct** |
++| **Client (état)** | **État** commercial (après souscription) du Client particulier | Contrats ; documents ; historique ; sinistres ; renouvellement / résiliation — EXPLICITE BRIEF — **≠ persona distinct** |
+
+-**Sources vs modélisation :** le brief distingue les états métier Prospect et Client.
+-**Modélisation persona 1.2 (décision Morris) :** ces deux états sont réunis dans un **seul** proto-persona longitudinal **Prospect → Client assuré**.
++**Persona ≠ état commercial.**
++Persona = **Client particulier**.
++États possibles du parcours = prospect → futur client → client.
+
+ ---
+
+-## 4. Choix des proto-personas adoptés pour le 1.2
++## 4. Personas canoniques (set groupe 2026-09-29)
+
+-Ancienne sélection (brouillon initial) : Courtier / Client / Prospect (candidats) ; Directeur = stakeholder only.
++| # | Persona | Statut |
++|---|---------|--------|
++| 1 | **Client particulier** | **CANONICAL** — GROUP-VALIDATED PEDAGOGICAL SCENARIO |
++| 2 | **Courtier** | **CANONICAL** — GROUP-VALIDATED PEDAGOGICAL SCENARIO |
++| 3 | **Directeur** | **CANONICAL** — GROUP-VALIDATED PEDAGOGICAL SCENARIO |
+
+-**Sélection adoptée (décision Morris) :**
++**Note historique :** la version préparatoire utilisait un persona longitudinal **Prospect → Client**. La consolidation atelier du **2026-09-29** retient désormais le persona **Client particulier** ; la continuité prospect → client est conservée dans le **Customer Journey**.
+
+-| Candidat | Profil | Statut |
+-|----------|--------|--------|
+-| **A** | Courtier | **ADOPTED PROTO-PERSONA** — PRIMARY / OPERATIONAL USER |
+-| **B** | Directeur du cabinet | **ADOPTED PROTO-PERSONA** — MANAGEMENT / PILOTING USER |
+-| **C** | Prospect → Client assuré | **ADOPTED PROTO-PERSONA** — EXTERNAL LIFECYCLE USER / BENEFICIARY |
+-
+-La fusion Prospect → Client est une **DÉCISION MORRIS DE MODÉLISATION DU 1.2**. Elle ne prouve pas que tous les prospects et clients ont exactement les mêmes besoins.
++Structure attendue des cartes atelier (référence) : Profil · Démographie · Objectifs · Frustrations · Tâches · Outils — **détail à synchroniser** (voir §2).
+
+ ---
+
+-## 5. Proto-persona A — Courtier
++## 5. Persona — Courtier
+
+ | Champ | Contenu | Niveau de preuve |
+ |-------|---------|------------------|
+-| **Rôle** | Courtier du cabinet | EXPLICITE DANS LE BRIEF |
+-| **Angle** | Métier / opérations / relation client | EXPLICITE DANS LE BRIEF |
+-| **Relation au projet** | Utilisateur métier interne principal | EXPLICITE DANS LE BRIEF |
+-| **Objectifs / capacités supportés** | Prospection ; devis ; relances ; rendez-vous ; conseil personnalisé ; souscription ; renouvellement / résiliation ; collecte de pièces ; documents ; sinistres ; traçabilité ; réactivité ; personnalisation soutenue par l’historique | EXPLICITE DANS LE BRIEF + BMC GROUPE |
+-| **Besoins déduits** | Retrouver l’information de suivi utile ; vision cohérente des étapes du dossier ; limiter les tâches administratives ; disposer de l’historique pour personnaliser la relation | **INFÉRENCE DE CADRAGE** |
++| **Rôle** | Courtier du cabinet | EXPLICITE + SET GROUPE |
++| **Angle** | Métier / opérations / relation client | EXPLICITE |
++| **Relation au projet** | Utilisateur métier interne principal | EXPLICITE |
++| **Objectifs / capacités supportés** | Prospection ; devis ; relances ; rendez-vous ; conseil personnalisé ; souscription ; renouvellement / résiliation ; documents ; sinistres ; traçabilité ; réactivité ; personnalisation soutenue par l’historique | EXPLICITE BRIEF + BMC |
++| **Besoins déduits** | Retrouver l’information utile ; vision cohérente du dossier ; limiter l’admin ; historique pour personnaliser | INFÉRENCE DE CADRAGE |
+
+-**Non renseigné (non inventé) :** outil actuel ; temps perdu ; volumes ; âge ; séniorité ; aisance numérique ; organisation quotidienne ; canal favori ; rémunération ; localisation.
++**Non inventé :** démographie atelier, outils nominatifs, frustrations verbatim, scores — **à synchroniser** depuis la carte atelier.
+
+-**Phrase de synthèse (reformulation analytique — non issue d’un entretien utilisateur) :**
++**Phrase de synthèse (analytique — non issue d’un entretien) :**
+ Le courtier a besoin d’un suivi centralisé du parcours commercial et administratif pour rester réactif et personnaliser la relation sans charge administrative excessive.
+
+ ---
+
+-## 6. Proto-persona B — Directeur du cabinet
++## 6. Persona — Directeur
+
+ | Champ | Contenu | Niveau de preuve |
+ |-------|---------|------------------|
+-| **Rôle** | Directeur du cabinet | EXPLICITE DANS LE BRIEF |
+-| **Angle** | Pilotage / supervision / performance / vision business | EXPLICITE DANS LE BRIEF (objectifs) + **INFÉRENCE** (usage opérationnel de pilotage) |
+-| **Relation au projet** | Partie prenante décisionnaire et proto-persona de pilotage **adopté par Morris** | **DÉCISION MORRIS** |
++| **Rôle** | Directeur du cabinet | EXPLICITE + SET GROUPE |
++| **Angle** | Pilotage / performance / vision business | EXPLICITE (objectifs) |
++| **Relation au projet** | Persona de pilotage | SET GROUPE |
+
+-### Faits explicites du brief
++### Faits explicites du brief (conservés)
+
+-- directeur du cabinet ;
+ - souhaite se différencier face aux assureurs en ligne ;
+ - insiste sur proximité, personnalisation, transparence ;
+-- objectifs : réduction des tâches administratives ; amélioration de la traçabilité ; renforcement de la confiance ; augmentation de la rétention ;
+-- le scénario demande un tableau de bord de performance commerciale comprenant : taux de conversion ; panier moyen ; satisfaction client.
+-
+-### Inférences de cadrage
+-
+-- besoin de visibilité consolidée ;
+-- besoin de suivre les indicateurs ;
+-- besoin d’apprécier la performance commerciale ;
+-- besoin de supervision globale de l’activité ;
+-- **usage du dashboard par le directeur**.
+-
+-Ces éléments sont des **INFÉRENCES DE CADRAGE**. Le brief **ne dit pas littéralement** que le directeur consulte personnellement le dashboard.
+-
+-### Décision Morris
++- objectifs : réduction des tâches administratives ; traçabilité ; confiance ; rétention ;
++- tableau de bord : taux de conversion ; panier moyen ; satisfaction client.
+
+-Le Directeur est retenu comme proto-persona de pilotage malgré l’absence de phrase explicite indiquant qu’il utilise personnellement le dashboard.
+-Fondement : **INFÉRENCE DE CADRAGE FORTE** (dashboard + KPIs + objectifs de différenciation / traçabilité / réactivité / confiance / rétention) + **DÉCISION MORRIS**.
++### Inférences de cadrage (conservées)
+
+-### Non renseigné (non inventé)
++Visibilité consolidée ; suivi des indicateurs ; supervision de l’activité ; **usage du dashboard** = inférence forte (le brief ne dit pas littéralement que le directeur consulte personnellement le dashboard).
+
+-Fréquence de consultation ; appareil ; niveau digital ; mode précis de management ; taille d’équipe ; objectifs chiffrés ; droits exacts dans l’application.
++**Non inventé :** démographie atelier, outils nominatifs, frustrations verbatim — **à synchroniser**.
+
+-**Phrase de synthèse (reformulation analytique — non issue d’un entretien utilisateur) :**
++**Phrase de synthèse (analytique) :**
+ Le directeur a besoin d’une vision consolidée de la performance commerciale pour piloter différenciation, traçabilité, confiance et rétention.
+
+ ---
+
+-## 7. Proto-persona C — Prospect → Client assuré
+-
+-Un **seul** proto-persona externe longitudinal.
+-**DÉCISION MORRIS DE MODÉLISATION DU 1.2.**
+-
+-Objectif : montrer l’évolution des besoins **avant** et **après** souscription — **sans** conclure à deux applications ou deux interfaces distinctes.
+-
+-### État 1 — Prospect
+-
+-| Élément | Contenu | Niveau de preuve |
+-|---------|---------|------------------|
+-| **Étapes / attentes soutenues** | Prise de contact ; devis ; rendez-vous ; expression / compréhension du besoin ; proposition personnalisée ; progression vers souscription | EXPLICITE DANS LE BRIEF |
+-| **Axes** | Proximité ; réactivité ; personnalisation ; transparence | EXPLICITE DANS LE BRIEF |
+-
+-**Réserve :** l’usage direct du futur CRM par le prospect n’est **pas** démontré — **NON RENSEIGNÉ**.
+-
+-### État 2 — Client assuré
++## 7. Persona — Client particulier
+
+-| Élément | Contenu | Niveau de preuve |
+-|---------|---------|------------------|
+-| **Étapes / attentes soutenues** | Vie du contrat ; échanges ; documents ; transparence / historique ; sinistre éventuel ; renouvellement ; résiliation | EXPLICITE DANS LE BRIEF |
+-
+-L’accès en temps réel à l’historique des échanges et contrats est un signal d’interaction externe important (**EXPLICITE DANS LE BRIEF**) ; il **ne définit pas** l’architecture ni l’interface exacte — **NOT DECIDED** / hors scope 1.2.
+-
+-### Continuité Prospect → Client
++| Champ | Contenu | Niveau de preuve |
++|-------|---------|------------------|
++| **Rôle** | Client particulier (persona externe) | SET GROUPE 2026-09-29 |
++| **Segments BMC associés** | Client particulier (famille/étudiant) ; TPE/PME reste un segment BMC distinct (pas un 4ᵉ persona 1.2) | BMC GROUPE |
++| **États de parcours** | Prospect → souscription → Client (vie du contrat) | EXPLICITE BRIEF — lifecycle CJM |
++| **Attentes supportées (brief)** | Proximité ; réactivité ; personnalisation ; transparence ; confiance ; continuité | EXPLICITE |
++| **Canaux (BMC groupe)** | RDV physique ; Visio ; téléphone ; email ; espace client | BMC GROUPE — conception UI **NON DÉCIDÉE** |
+
+-Les besoins évoluent entre entrée en relation et vie du contrat.
+-On pourra **plus tard** comparer informations accessibles, besoins, actions, points de contact et permissions candidates — **ces choix ne sont PAS décidés dans le 1.2**.
++### Lifecycle (pas un second persona)
+
+-**Non renseigné (non inventé) :** démographie ; budget ; comparateurs ; fréquence ; appareil ; forme exacte / UI de l’accès client.
++| État | Attentes / étapes supportées | Niveau |
++|------|------------------------------|--------|
++| **Prospect** | Contact ; devis ; RDV ; besoin ; proposition ; progression vers souscription | EXPLICITE BRIEF |
++| **Client** | Vie du contrat ; échanges ; documents ; historique ; sinistre éventuel ; renouvellement / résiliation | EXPLICITE BRIEF |
+
+-**Segments clients (BMC groupe) :** TPE/PME ; Client particulier (famille/étudiant) — associés au persona longitudinal **sans** multiplier les personas.
++**Réserve :** usage direct du futur CRM par le prospect = **NON RENSEIGNÉ**. Forme exacte de l’accès client = **NOT DECIDED**.
+
+-**Canaux validés (BMC groupe) :** RDV physique ; RDV Visio ; téléphone ; email ; espace client. Existence du canal retenue ; conception / écrans / permissions **NON DÉCIDÉES**.
++**Non inventé :** nom, âge, revenus, situation familiale, localisation, outils, frustrations détaillées — **à synchroniser** depuis la carte atelier « Client particulier ».
+
+-**Phrase de synthèse (reformulation analytique — non issue d’un entretien utilisateur) :**
+-La même personne passe d’une entrée en relation (prospect) à une relation de suivi contractualisée (client), avec une continuité attendue de proximité, personnalisation et transparence.
++**Phrase de synthèse (analytique) :**
++Le Client particulier est suivi depuis l’entrée en relation (état prospect) jusqu’à la vie du contrat (état client), avec une continuité attendue de proximité, personnalisation et transparence.
+
+ ---
+
+ ## 8. Synthèse des besoins par profil
+
+-| Profil | Objectifs | Attentes | Besoins / enjeux | Niveau de preuve |
+-|--------|-----------|----------|------------------|------------------|
+-| Courtier | Suivi cycle client ; devis / RDV / souscription ; documents ; sinistres ; traçabilité / réactivité | Personnalisation soutenue par l’historique | Vision cohérente du dossier ; charge admin. réduite | EXPLICIT BRIEF + INFERENCE |
+-| Directeur | Différenciation ; objectifs business ; KPIs (conversion, panier moyen, satisfaction) | Pilotage / performance | Visibilité consolidée ; suivi des indicateurs | EXPLICIT BRIEF + INFERENCE + DÉCISION MORRIS (usage dashboard) |
+-| Prospect → Client — état Prospect | Contact → devis → RDV → proposition → souscription | Proximité ; réactivité ; personnalisation ; transparence | Entrée en relation simple ; progression claire | EXPLICIT BRIEF + INFERENCE |
+-| Prospect → Client — état Client | Suivi contrats ; échanges ; documents ; sinistre éventuel ; renouvellement / résiliation | Transparence ; confiance ; continuité | Comprendre l’état du suivi ; retrouver infos utiles | EXPLICIT BRIEF + INFERENCE |
++| Profil | Objectifs | Attentes | Besoins / enjeux | Niveau |
++|--------|-----------|----------|------------------|--------|
++| Courtier | Suivi cycle ; devis / RDV / souscription ; docs ; sinistres | Réactivité ; personnalisation | Vision du dossier ; admin. réduite | BRIEF + INFÉRENCE |
++| Directeur | Différenciation ; KPIs | Pilotage | Visibilité consolidée | BRIEF + INFÉRENCE |
++| Client particulier — état prospect | Contact → devis → RDV → proposition → souscription | Proximité ; réactivité ; personnalisation ; transparence | Entrée en relation claire | BRIEF + INFÉRENCE |
++| Client particulier — état client | Suivi contrats ; docs ; sinistre ; renouvellement / résiliation | Transparence ; confiance ; continuité | Comprendre le suivi ; retrouver l’info | BRIEF + INFÉRENCE |
+
+-Aucune user story. Aucun backlog fonctionnel.
++Aucune user story. Aucun backlog.
+
+ ---
+
+ ## 9. Difficultés / pain points
+
+-Aucune observation AS-IS utilisateur n’est disponible.
+-Aucune affirmation du type « les utilisateurs disent… » n’est formulée.
++Aucune observation AS-IS. Aucune affirmation du type « les utilisateurs disent… ».
+
+-### Enjeux utilisateurs déduits du brief
++**Courtier :** charge administrative ; traçabilité ; réactivité ; continuité du suivi.
++**Directeur :** visibilité / pilotage déduits des objectifs et KPIs.
++**Client particulier :** fluidité d’entrée en relation ; personnalisation ; transparence ; confiance ; continuité.
+
+-**Courtier :** charge administrative à réduire ; traçabilité ; réactivité ; continuité du suivi.
+-**Directeur :** besoin de visibilité et de pilotage déduit des objectifs et KPIs ; performance commerciale ; satisfaction ; rétention.
+-**Prospect → Client :** fluidité de l’entrée en relation ; personnalisation ; transparence ; confiance ; continuité de la relation.
+-
+-**Qualification :** DÉDUITS DU BRIEF — NON OBSERVÉS SUR LE TERRAIN.
++**Qualification :** DÉDUITS DU BRIEF / SCÉNARIO — **NON OBSERVÉS SUR LE TERRAIN**.
++Frustrations détaillées des cartes atelier : **à synchroniser** (non inventées).
+
+ ---
+
+ ## 10. Inconnues et limites
+
+-- aucun entretien ou questionnaire réel ;
+-- aucune observation terrain ;
+-- aucune donnée démographique fiable ;
+-- aucun outil actuel connu ;
+-- usage personnel du dashboard par le Directeur = **inférence** (pas fait explicite) ;
+-- usage direct du CRM par le Prospect = **non démontré** ;
+-- forme exacte de l’accès Client = **non décidée** ;
+-- interfaces et permissions = **hors scope** ;
+-- pensées / émotions des futures maps = **hypothèses** si non sourcées.
++- aucun entretien réel ;
++- détails démographiques / outils / frustrations des cartes atelier : **à synchroniser** ;
++- usage personnel du dashboard par le Directeur = inférence ;
++- usage direct du CRM par le Prospect = non démontré ;
++- interfaces / permissions = hors scope ;
++- pensées / émotions des maps = **NON RENSEIGNÉES**.
+
+ ---
+
+@@ -234,153 +209,90 @@ Aucune affirmation du type « les utilisateurs disent… » n’est formulée.
+
+ | Champ | Valeur |
+ |-------|--------|
+-| **Statut** | **ADOPTED FOR 1.2 — COURTIER — MATERIALIZED IN MIRO** |
++| **Statut** | **RETAINED / ALIGNED** — Courtier reste persona canonique |
+ | **Persona cible** | Courtier |
+-| **Objet** | Expérience métier globale du courtier au fil de la relation client — **sans** limitation à une interface logicielle précise |
+-| **Cadre** | Expérience opérationnelle ; étapes métier ; actions ; besoins ; enjeux ; points de continuité ; pensées / émotions **uniquement** si qualifiées comme hypothèses lorsque non sourcées |
+-| **Nature** | CIBLE PÉDAGOGIQUE DÉRIVÉE DU BRIEF — **NON AS-IS OBSERVÉ** |
++| **Décision d’alignement 2026-09-29** | **KEEP / ADAPT MINOR** — pas de reconstruction ; le parcours métier reste cohérent avec le Courtier |
++| **Objet** | Expérience métier du courtier au fil de la relation (prospects → clients) — sans interface logicielle décidée |
++| **Nature** | CIBLE PÉDAGOGIQUE — **NON AS-IS OBSERVÉ** |
+
+-Aucune émotion observée n’est inventée. La dimension méthodologique **PENSÉES / ÉMOTIONS — NON RENSEIGNÉES** est conservée ; l’information est transversale (aucune recherche terrain ; aucune inférence émotionnelle) — **pas** de répétition phase par phase ni de courbe émotionnelle.
++### Phases (conservées)
+
+----
++| Phase | Actions / enjeux (cadrage) | Niveau de preuve |
++|-------|----------------------------|------------------|
++| Prospection / contact / qualification | Prospecter ; prendre contact ; qualifier — Réactivité · Continuité du suivi | EXPLICITE + INFÉRENCE |
++| Devis | Réactivité · Charge administrative | EXPLICITE + INFÉRENCE |
++| Relance / RDV | Réactivité · Continuité du suivi | EXPLICITE + INFÉRENCE |
++| Besoin → proposition | Personnalisation · Continuité du suivi | EXPLICITE + INFÉRENCE |
++| Souscription → vie contrat | Traçabilité · Continuité du suivi | EXPLICITE + INFÉRENCE |
++| Docs / sinistre / renouvellement | Traçabilité · Continuité · Charge administrative | EXPLICITE + INFÉRENCE |
+
+-## 12. Customer Journey Map — Prospect → Client
++**Traçabilité** = retrouver ce qui s’est passé (historique, étapes, documents).
++**Continuité du suivi** = poursuivre correctement la relation à partir du contexte — liée mais non synonyme.
+
+-| Champ | Valeur |
+-|-------|--------|
+-| **Statut** | **ADOPTED FOR 1.2 — PROSPECT → CLIENT — MATERIALIZED IN MIRO** |
+-| **Persona cible** | Prospect → Client assuré |
+-| **Objet** | Relation du persona avec le **service de courtage / cabinet** (service de référence du scénario) |
+-| **Transition structurante** | Prospect → souscription → Client |
+-| **Séquence** | Entrée en relation → prospect → devis / rendez-vous → compréhension du besoin → proposition → souscription → client → vie du contrat → échanges / documents → sinistre éventuel → renouvellement / résiliation |
+-| **Nature** | CIBLE PÉDAGOGIQUE DÉRIVÉE DU BRIEF — **NON AS-IS OBSERVÉ** |
+-
+-**Règles :**
+-
+-- La Customer Journey Map **ne suppose PAS** que le futur CRM existe déjà ou est observé.
+-- Elle cartographie l’expérience avec le **service de courtage**, pas avec un produit CRM déjà déployé.
+-- **Ne PAS** décider ici : interface Prospect distincte ; interface Client distincte ; accès Prospect direct au CRM ; accès Client à toutes les fonctions ; écrans ; permissions ; composants UI.
+-
+-La dimension méthodologique **ÉMOTION — NON RENSEIGNÉE** est conservée ; réserve transversale unique (aucune observation / recherche terrain ; aucune émotion inférée) — **pas** de répétition phase par phase ni de courbe émotionnelle.
++**Pensées / émotions :** dimension méthodologique conservée ; **NON RENSEIGNÉES** — pas d’inférence émotionnelle ; pas d’injection artificielle des frustrations atelier phase par phase.
+
+ ---
+
+-### Clarifications Morris — maps 1.2
+-
+-**Statut :** raffinement sémantique validé par Morris (cycle dédié) — **CLARIFICATION DE CADRAGE**, non citation littérale du brief.
++## 12. Customer Journey Map — Client particulier
+
+-1. **Réactivité** ajoutée comme enjeu de la phase **Prospection / contact / qualification** de l’Experience Map (enjeu global explicite dans le brief ; rattachement précis à cette phase = **inférence de cadrage**).
+-
+-2. **Distinction adoptée Traçabilité / Continuité du suivi :**
+-
+-| Notion | Définition de cadrage |
+-|--------|------------------------|
+-| **Traçabilité** | Capacité à **retrouver et comprendre ce qui s’est passé** : historique, étapes réalisées, échanges, documents, actions ou événements du dossier (mémoire factuelle). |
+-| **Continuité du suivi** | Capacité à **poursuivre correctement** la relation ou le traitement à partir de l’historique et du contexte disponibles, **sans rupture de suivi**. |
+-
+-Relation : la traçabilité **peut soutenir** la continuité du suivi ; elles sont **liées mais non synonymes**.
+-
+-3. **Répartition des enjeux — Experience Map Courtier :**
+-
+-| Phase | Enjeux |
++| Champ | Valeur |
+ |-------|--------|
+-| Prospection / contact / qualification | Réactivité · Continuité du suivi |
+-| Devis | Réactivité · Charge administrative |
+-| Relance / RDV | Réactivité · Continuité du suivi |
+-| Besoin → proposition | Personnalisation · Continuité du suivi |
+-| Souscription → vie contrat | Traçabilité · Continuité du suivi |
+-| Docs / sinistre / renouvellement | Traçabilité · Continuité du suivi · Charge administrative |
+-
+-4. **Pensées / émotions — Experience Map :** dimension méthodologique conservée ; information **NON RENSEIGNÉE** ; aucune recherche terrain ; **pas** d’inférence émotionnelle.
++| **Statut** | **ADAPTED** — réalignement conceptuel 2026-09-29 |
++| **Titre** | Customer Journey — **Client particulier** |
++| **Sous-titre** | Du prospect à la vie client |
++| **Persona cible** | **Client particulier** (pas « Prospect → Client » comme persona) |
++| **Lifecycle** | Prospect → souscription → Client |
++| **Objet** | Relation avec le **service de courtage / cabinet** |
++| **Nature** | CIBLE PÉDAGOGIQUE — **NON AS-IS OBSERVÉ** |
++
++### Séquence (étapes déjà validées — conservées)
++
++1. Première prise de contact
++2. Devis
++3. Relance / rendez-vous
++4. Compréhension / qualification du besoin
++5. Proposition personnalisée
++6. Souscription
++7. Vie du contrat / suivi (échanges, documents, sinistre éventuel, renouvellement / résiliation)
+
+-5. **Émotion — Customer Journey Map :** dimension méthodologique conservée ; information **NON RENSEIGNÉE** ; aucune observation terrain ; **pas** d’inférence émotionnelle.
+-
+-6. **Niveau de preuve de l’Experience Map :**
+-
+-Les six phases sont qualifiées **EXPLICITE + INFÉRENCE**.
+-
+-Cette qualification combinée signifie que les étapes métier et certains enjeux sont soutenus explicitement par le brief, tandis que leur rattachement précis à une phase donnée et certaines notions de cadrage — notamment la **continuité du suivi** — relèvent d’une **inférence de cadrage**.
+-
+-Elle ne signifie **pas** que chaque élément est littéralement écrit dans le brief, ni que chaque élément est une pure inférence, ni que les maps sont empiriquement validées.
++**Règles :**
+
+-| Phase | Niveau de preuve |
+-|-------|------------------|
+-| Prospection / contact / qualification | EXPLICITE + INFÉRENCE |
+-| Devis | EXPLICITE + INFÉRENCE |
+-| Relance / RDV | EXPLICITE + INFÉRENCE |
+-| Besoin → proposition | EXPLICITE + INFÉRENCE |
+-| Souscription → vie contrat | EXPLICITE + INFÉRENCE |
+-| Docs / sinistre / renouvellement | EXPLICITE + INFÉRENCE |
++- Le début « prospect » du journey **n’en fait pas** un persona différent.
++- La map **ne suppose pas** que le futur CRM existe déjà.
++- **Ne pas décider ici :** interfaces distinctes prospect/client ; permissions ; écrans ; UI.
++- **Émotion :** NON RENSEIGNÉE — pas d’invention.
++- Canaux groupe (physique, Visio, téléphone, email, espace client) : transversaux — pas d’affectation canal × phase inventée.
+
+ ---
+
++## Alignement BMC groupe (rappel)
+
+-## Alignement groupe — BMC validé 2026-09-28
+-
+-Traçabilité des impacts du BMC groupe sur les artefacts 1.2 (sans nouvelle couche méthodologique) :
++- Segments : **TPE/PME** ; **Client particulier (famille/étudiant)** — le persona 1.2 externe retenu par l’atelier est **Client particulier**.
++- Courtier : prospection + conseil personnalisé confirmés.
++- Directeur : inchangé sur le fond brief.
++- Maps : sémantique Traçabilité / Continuité conservée.
+
+-### Courtier
+-
+-- **prospection** ajoutée aux capacités ;
+-- **conseil personnalisé** confirmé comme activité ;
+-- reste du persona inchangé (pas de démographie, verbatim ni usage technique inventé).
+-
+-### Prospect → Client assuré
+-
+-- persona longitudinal **conservé** (une seule personne, deux états) ;
+-- segments clients associés : **TPE/PME** ; **Client particulier (famille/étudiant)** ;
+-- canaux validés : RDV physique ; RDV Visio ; téléphone ; email ; **espace client** ;
+-- **aucune** multiplication automatique des personas ;
+-- nombre d’applications / portails / écrans / permissions / UI / modalités exactes d’accès : **NON DÉCIDÉS**.
+-
+-### Experience Map — Courtier
+-
+-- première phase devient : **Prospection / contact / qualification** (actions : Prospecter ; prendre contact ; qualifier le besoin initial) ;
+-- reste des phases inchangé ;
+-- Traçabilité / Continuité / niveaux de preuve / émotions : inchangés.
+-
+-### Customer Journey Map — Prospect → Client
++---
+
+-- canaux groupe intégrés **transversalement** (pas d’affectation canal × phase inventée) ;
+-- espace sécurisé documentaire intégré au suivi documentaire (phase échanges / docs) ;
+-- pas de conception détaillée des écrans / permissions / UI.
++## Miro — état
+
+-### Directeur
++| Champ | Valeur |
++|-------|--------|
++| **Board** | https://miro.com/app/board/uXjVHiWX64c=/ |
++| **État Cursor** | **NOT MODIFIED** |
++| **Sync** | **MIRO PERSONA SYNC REQUIRED** |
+
+-- **inchangé**.
++| Livrable Miro historique | Impact |
++|--------------------------|--------|
++| Persona Courtier | À auditer / aligner sur set groupe |
++| Persona Directeur | À auditer / aligner |
++| Persona Prospect → Client | **À remplacer** par **Client particulier** |
++| Experience Map Courtier | À auditer / aligner si besoin |
++| Customer Journey Prospect → Client | **À renommer / réaligner** → Client particulier — du prospect à la vie client |
+
+----
+-## Miro — matérialisation 1.2
++Git est canonique après transcription. Miro n’est **pas** synchronisé dans ce cycle.
+
+-| Champ | Valeur |
+-|-------|--------|
+-| **Board** | CRM Assurance Courtage — 1.1 Analyse des besoins métiers |
+-| **Board URL** | https://miro.com/app/board/uXjVHiWX64c=/ |
+-| **Board ID** | `uXjVHiWX64c=` |
+-| **État** | **MATERIALIZED** — **1.2 VALIDATED** (2026-09-28) — aligné BMC groupe |
+-| **Méthode** | Miro MCP Canvas Composer (`canvas_create_from_svg`) — objets natifs éditables |
+-
+-| Livrable | Statut | Frame ID | URL |
+-|----------|--------|----------|-----|
+-| 1.2 — Persona — Courtier | MATERIALIZED | `3458764685164456040` | https://miro.com/app/board/uXjVHiWX64c=/?moveToWidget=3458764685164456040 |
+-| 1.2 — Persona — Directeur du cabinet | MATERIALIZED | `3458764685164456041` | https://miro.com/app/board/uXjVHiWX64c=/?moveToWidget=3458764685164456041 |
+-| 1.2 — Persona — Prospect → Client assuré | MATERIALIZED | `3458764685164456042` | https://miro.com/app/board/uXjVHiWX64c=/?moveToWidget=3458764685164456042 |
+-| 1.2 — Experience Map — Courtier | MATERIALIZED | `3458764685164458754` | https://miro.com/app/board/uXjVHiWX64c=/?moveToWidget=3458764685164458754 |
+-| 1.2 — Customer Journey Map — Prospect → Client | MATERIALIZED | `3458764685164510320` | https://miro.com/app/board/uXjVHiWX64c=/?moveToWidget=3458764685164510320 |
+-
+-**Frames 1.1 (protégées — inchangées) :**
+-
+-| Frame | Frame ID | URL |
+-|-------|----------|-----|
+-| 1.1 — Business Model Canvas | `3458764685039847893` | https://miro.com/app/board/uXjVHiWX64c=/?moveToWidget=3458764685039847893 |
+-| 1.1 — BPMN — Prise de contact → souscription | `3458764685039847894` | https://miro.com/app/board/uXjVHiWX64c=/?moveToWidget=3458764685039847894 |
+-
+-**Règles de vérité :**
+-
+-- Git reste la source canonique du fond validé / adopté.
+-- Miro est la représentation visuelle éditable correspondante.
+-- Aucune interface produit n’est décidée par ces artefacts.
+-- Le 1.2 est **VALIDATED** (2026-09-28). Architecture / stack / 1.3 restent **NOT DECIDED / NOT OPENED**.
++Frames 1.1 (BMC / BPMN) : **protégées — inchangées**.
+
+ ---
+
+@@ -388,14 +300,15 @@ Traçabilité des impacts du BMC groupe sur les artefacts 1.2 (sans nouvelle cou
+
+ | Point | État |
+ |-------|------|
+-| **1.2** | **VALIDATED** — décision Morris 2026-09-28 |
+-| Courtier | VALIDATED / ALIGNED — MATERIALIZED |
+-| Directeur | VALIDATED / UNCHANGED — MATERIALIZED |
+-| Prospect → Client | VALIDATED / ALIGNED — MATERIALIZED |
+-| Evidence | BRIEF-DERIVED / NO FIELD INTERVIEWS + BMC groupe |
+-| Experience Map Courtier | VALIDATED / ALIGNED — MATERIALIZED |
+-| Customer Journey Map Prospect → Client | VALIDATED / ALIGNED — MATERIALIZED |
+-| Miro | MATERIALIZED — aligné BMC groupe |
+-| Architecture | NOT DECIDED |
+-| Stack | NOT DECIDED |
+-| **1.3** | **NOT OPENED** |
++| **1.2** | **VALIDATED — GROUP PERSONA CONSOLIDATION 2026-09-29** |
++| Personas canoniques | Client particulier · Courtier · Directeur |
++| Ancien persona Prospect → Client | **SUPERSEDED AS PERSONA** |
++| Continuity prospect → client | **RETAINED IN CUSTOMER JOURNEY** |
++| Experience Map Courtier | **RETAINED / ALIGNED** |
++| Customer Journey | **Client particulier — Du prospect à la vie client** |
++| Détail cartes atelier | **À SYNCHRONISER** (non inventé) |
++| Evidence | GROUP-VALIDATED PEDAGOGICAL SCENARIO — NO FIELD INTERVIEWS |
++| Miro | **SYNC REQUIRED** / NOT MODIFIED by Cursor |
++| Architecture / Stack | NOT DECIDED |
++| **1.3** | OPENED — AWAITING FINAL REVIEW (fond inchangé ce cycle) |
++| **1.4** | NOT OPENED |
+
 ```
 
----
+## 15. Validations
 
-# FIN REVIEW PACK FULL
+| Check | Résultat |
+|-------|----------|
+| 3 personas canoniques seulement | PASS |
+| Client particulier / Courtier / Directeur | PASS |
+| Prospect → Client plus persona canonique | PASS |
+| Lifecycle prospect → client dans CJM | PASS |
+| Experience Map Courtier conservée | PASS |
+| Pas d’invention démographie / émotions terrain | PASS |
+| Provenance groupe explicite | PASS |
+| 01-01 / 01-03 inchangés | PASS |
+| 1.4 NOT OPENED | PASS |
+| Archi / stack NOT DECIDED | PASS |
+| Miro SYNC REQUIRED | PASS |
+| Commit | PASS (eed1a7ff) |
+| Push projet | NOT DONE |
+| PR | NOT CREATED |
+| Review Handoff | TO VERIFY AFTER PUBLISH |
+
+## 16. Réserves
+
+Détail cartes atelier (Profil/Démographie/…) non transcrit faute de source locale lisible — sync ultérieure. Miro non synchronisé. 1.3 non validé par ce cycle.
+
+## 17. Verdict
+
+**READY FOR CHATGPT REVIEW — CRM 1.2 GROUP PERSONA CONSOLIDATION COMPLETE**
