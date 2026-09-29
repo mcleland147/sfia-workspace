@@ -1,1733 +1,936 @@
-# ChatGPT Review Pack — CRM 1.2 Final Persona Synchronization
+# SFIA Studio — Review Pack FULL
+## GENERIC-EXECUTION-REVIEW-RESULT-ARCHITECTURE-01 — MICRO-CORRECTION / NORMALIZATION PASS
 
-## 0. Identité
+| Métadonnée | Valeur |
+| --- | --- |
+| **Timestamp** | 2026-09-29T11:43:52+0200 |
+| **Repo** | https://github.com/mcleland147/sfia-workspace.git |
+| **Branche** | `sfia-studio/generic-execution-review-result-architecture-01` |
+| **HEAD** | `6f47f74dc9b515c4c79624b21772223ba02c76cd` |
+| **origin/main** | `6f47f74dc9b515c4c79624b21772223ba02c76cd` |
+| **Ahead / Behind** | 0 / 0 |
+| **Nature** | MICRO-CORRECTION / NORMALIZATION PASS |
+| **Input Critical Review handoff** | `ee423841f44609d7ec1918832cd5e54bc84f5102` |
+| **Input verified** | **YES** (blob `2719125cd26a174cb63b2d69c3017603e03bfba6`) |
+| **D-ER** | 01…15 **INCHANGÉES** sur le fond |
+| **Roadmap** | **NO CHANGE** |
+| **runtime v3** | **NON ADOPTED** |
+| **READY FOR REAL** | **NO** |
+| **Delivery slicing** | **TBD** |
 
-| Champ | Valeur |
-|-------|--------|
-| **Date / heure / timezone** | 2026-09-29 11:31:27 CEST |
-| **Cycle** | 1.2 Persona Final Synchronization |
-| **Typologie** | DOC / group-truth final synchronization |
-| **Profil** | **Standard** |
-| **Critical** | **NON** |
+---
 
-## 1. Git Truth
+## Git status
 
-| Check | Résultat |
-|-------|----------|
-| Workspace | /Users/l/Projects/sfia-worktree-crm-assurance |
-| Branche | docs/crm-assurance-courtage-1-3-watch-01 |
-| HEAD initial | eed1a7ff6236bf7bd524a3a6b5c9a9e85f658ad1 |
-| HEAD final | cb336124563a865198ed350d8faf52ed90e27515 |
-| origin/main | 6f47f74dc9b515c4c79624b21772223ba02c76cd |
-| Dirt | .tmp-sfia-review/** only |
-| Git Truth | **PASS** |
+```
+ M .tmp-sfia-review/chatgpt-review.md
+ M projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+?? projects/sfia-studio/convergence/sfia-studio-generic-execution-review-result-architecture.md
+```
 
-## 2. Sources atelier
+Staged: none. Dirty = chantier candidate (arch + roadmap tip Pass 0 + pack).
 
-| Source | Statut |
-|--------|--------|
-| Capture atelier 2026-09-29 10:53:41 (3 personas) | **ACCESSIBLE / LISIBLE** pour Profil, Démographie, Objectifs, Frustrations, Tâches, Outils textuels |
-| Captures 10:53:26 / 11:19:55 | Illisibles / vides — **non utilisées** |
-| Jauges personnalité / compétences | Tendances qualitatives — **pas de % inventés** |
-| Champs illisibles pour transcription textuelle | **ZÉRO** sur stickies/profils lus |
-| Champs non renseignés comme chiffres exacts de jauges | % curseurs — traités en tendances |
+---
 
-## 3. Audit aval
+## MC-01 — Parity normalization
 
-| Fichier | Class |
-|---------|-------|
-| 01-02 | ADAPT — transcription |
-| Doctrine §11 | ADAPT — TRANSCRIBED + PENDING CHATGPT SYNC |
-| 01-01 | **NO CHANGE** (Prospect/Client = états) |
-| 01-03 | **NO CHANGE** |
-| Miro | OUT OF SCOPE Cursor — payload ready |
-| Notion | NOT MODIFIED |
+Contrat de lecture : une ligne = une valeur parmi FULL | PARTIAL | ABSENT | NOT_APPLICABLE.
 
-## 4. Doctrine §11 complète
+### #17 full validation expectation
+
+- **BEFORE Parity :** `ABSENT / PARTIAL`
+- **AFTER Parity :** `PARTIAL`
+- **Anchor :** « report fields partiels » / CURRENT « Faible / process »
+- **Justification :** empreinte native partielle déjà présente (champs report) mais full validation non disciplinée → **PARTIAL** (pas ABSENT)
+
+### #25 CursorExecutionReport
+
+- **BEFORE Parity :** `FULL / PARTIAL`
+- **AFTER Parity :** `PARTIAL`
+- **Anchor :** `cursorExecutionReport` + Resolution CLAIM ; « Présent largement générique »
+- **Justification :** structure générique vivante mais enrichissement sémantique encore incomplet → **PARTIAL** (pas FULL)
+
+### #32 allowed claims
+
+- **BEFORE Parity :** `ABSENT / PARTIAL`
+- **AFTER Parity :** `PARTIAL`
+- **Anchor :** « anti-claim discipline partielle »
+- **Justification :** discipline partielle native / documentaire → **PARTIAL** (pas ABSENT)
+
+### #33 forbidden / anti-claims
+
+- **BEFORE Parity :** `ABSENT / PARTIAL`
+- **AFTER Parity :** `PARTIAL`
+- **Anchor :** capitalisations / docs ; « Faible natif »
+- **Justification :** anti-claims présents en discipline documentaire, non systématiques runtime → **PARTIAL** (pas ABSENT)
+
+### Quatre lignes complètes APRÈS correction
+
+```
+| 17 | full validation expectation | Attente full validation | Faible / process | report fields partiels | **PARTIAL** | Full validation non disciplinée / non systématique | Exigence contractuelle quand applicable | **HARVEST** / **COMPLETE** |
+| 25 | CursorExecutionReport | Rapport machine process | Présent largement générique | `cursorExecutionReport` + Resolution CLAIM | **PARTIAL** | Structure générique présente ; enrichissement sémantique encore incomplet (≠ Evidence) | KEEP CLAIM + COMPLETE champs utiles | **KEEP** / **COMPLETE** |
+| 32 | allowed claims | Claims autorisés process | Faible natif | anti-claim discipline partielle | **PARTIAL** | Sur-réclame / discipline non systématique | Allowed claims contractuels | **HARVEST** / **COMPLETE** |
+| 33 | forbidden / anti-claims | Anti-claims process | Faible natif | capitalisations / docs | **PARTIAL** | Anti-claims non runtime systématiques | Anti-claims dans reporting + Surface | **HARVEST** / **COMPLETE** |
+```
+
+**Composite parity remaining = 0**
+
+---
+
+## MC-02 — Worker neutralization
+
+### Implicit TARGET selections REMOVED
+
+| Before | After |
+| --- | --- |
+| `Reconciler complet / worker` | `Reconciler complet + continuation autonome TBD (mécanisme OPEN DESIGN DETAIL)` |
+| `Reconciler/worker autonome` | `Reconciler + mécanisme de continuation autonome à définir` |
+| `Reconciler/worker ; ne pas normaliser « Recharger »` | `Reconciler + continuation autonome TBD ; ne pas normaliser « Recharger »` |
+| D-ER-08 dette : `correction = worker/serveur ou continue…` (lisible comme menu cible) | `mécanisme anti-stall piloté par le Reconciler — OPEN DESIGN DETAIL (options ouvertes : worker vs continuation serveur vs autre — aucune sélection)` |
+
+### CURRENT facts KEPT
+
+(poll sans worker, aucun worker après exhaust, diagramme exhaust sans worker, etc.)
+
+### OPEN options KEPT
+
+§37 item 2 : worker vs continue serveur vs autre — owner Reconciler, mécanisme non sélectionné.
+
+### Confirmed
+
+- Reconciler owner = **YES**
+- anti-stall mechanism selected = **NO**
+- OPEN DESIGN DETAIL preserved = **YES**
+
+### All `worker` occurrences after pass
+
+```
+L189: - une **UI de continuité** qui peut s’arrêter (poll) sans worker autonome.
+L229: | Cause architecturale **haute confiance** : poll TrajectorySurface exhausté (≤ 8 `continue`) **sans worker autonome** après exhaust | **AUDIT INFERENCE** — **HIGH-CONFIDENCE ARCHITECTURAL CAUSE** |
+L284:   S -->|exhaust sans worker| T[UI peut rester pending<br/>Pilot recharge]
+L305: | TrajectorySurface | Poll RUNNING jusqu’à **8** continues — **pas de worker** après exhaust | **CURRENT IMPLEMENTED FACT** |
+L378: - TrajectorySurface : boucle `for (i < 8)` tant que stage `RUNNING` — **aucun worker serveur** après exhaust du poll UI
+L420: | S4 | UI poll ≤8 sans worker post-exhaust | CURRENT FACT | Progression peut stall → Pilot « Recharger » |
+L508: **Dette :** poll UI 8 without worker = **non conforme** à la cible ; mécanisme anti-stall piloté par le Reconciler — implémentation **OPEN DESIGN DETAIL** (ex. options ouvertes : worker vs continuation serveur vs autre — **aucune sélection**).
+L1261: 2. Mécanisme exact anti-stall (**worker** vs continue serveur vs autre) — principe D-ER-08 fixe l’owner, pas l’implémentation.
+L1455: | `reconcileGovernedExecution` | Execute/continue deterministic | reconciler module | UI poll peut stall avant continue ultérieur | Owner progression bout-en-bout | **KEEP** / **COMPLETE** | D-ER-08 | No worker post UI poll | E3 |
+```
+
+---
+
+## Sections modifiées (intégrales)
+
+### D-ER-08 (extrait)
 
 ```markdown
-## 11. État actuel
+### D-ER-08 — Reconciler owns progression déterministe
 
-| Élément | État |
-|---------|------|
-| Phase actuelle | Bloc / Phase 1 — cadrage |
-| Dernière étape validée | **1.2 Analyse des besoins utilisateurs — VALIDATED — GROUP PERSONA CONSOLIDATION 2026-09-29** |
-| 1.1 | **VALIDATED** |
-| 1.2 | **VALIDATED — GROUP PERSONA CONSOLIDATION 2026-09-29** |
-| Personas canoniques | **Client particulier** · **Courtier** · **Directeur** |
-| Persona detail source | **GROUP-VALIDATED WORKSHOP CARDS — TRANSCRIBED IN GIT** |
-| Ancien persona préparatoire Prospect → Client | **SUPERSEDED AS PERSONA** |
-| Continuité prospect → client | **RETAINED IN CUSTOMER JOURNEY** |
-| Experience Map Courtier | **RETAINED / ALIGNED — KEEP** |
-| Customer Journey | **Client particulier — Du prospect à la vie client** |
-| Miro personas / maps | **PENDING CHATGPT SYNC AFTER REVIEW** (Cursor n’a pas modifié Miro) |
-| 1.3 | **OPENED — AWAITING FINAL REVIEW** |
-| 1.3.1 | **REVIEW PASS** |
-| Base détaillée 1.3.2 A→E | **REVIEW PASS** (historique Git) |
-| Étape actuelle | **1.3.2 simplification pédagogique — AWAITING REVIEW** |
-| 1.4 | **NOT OPENED** |
-| Architecture | **NOT DECIDED** |
-| Stack runtime | **CANDIDATE TOOL ECOSYSTEM ONLY / NOT DECIDED** |
-| Prochain objectif | Revue ChatGPT transcription personas + sync Miro bornée ; 1.3 non validé par ce cycle |
-
----
+**Décision :** `reconcileGovernedExecution` (ou successeur) **possède** la progression post-accept Attempt → materialization → post-Evidence.
+**UI :** projection + intent — **pas** owner.
+**Dette :** poll UI 8 without worker = **non conforme** à la cible ; mécanisme anti-stall piloté par le Reconciler — implémentation **OPEN DESIGN DETAIL** (ex. options ouvertes : worker vs continuation serveur vs autre — **aucune sélection**).
 ```
 
-## 5. Persona Courtier COMPLET
+### §15 — lignes #17/#25/#32/#33 (voir aussi matrice contextuelle)
+
+La matrice §15 complète reste inchangée hors cells Parity/gap des 4 lignes. Extraits :
+
+```
+| 17 | full validation expectation | Attente full validation | Faible / process | report fields partiels | **PARTIAL** | Full validation non disciplinée / non systématique | Exigence contractuelle quand applicable | **HARVEST** / **COMPLETE** |
+| 25 | CursorExecutionReport | Rapport machine process | Présent largement générique | `cursorExecutionReport` + Resolution CLAIM | **PARTIAL** | Structure générique présente ; enrichissement sémantique encore incomplet (≠ Evidence) | KEEP CLAIM + COMPLETE champs utiles | **KEEP** / **COMPLETE** |
+| 32 | allowed claims | Claims autorisés process | Faible natif | anti-claim discipline partielle | **PARTIAL** | Sur-réclame / discipline non systématique | Allowed claims contractuels | **HARVEST** / **COMPLETE** |
+| 33 | forbidden / anti-claims | Anti-claims process | Faible natif | capitalisations / docs | **PARTIAL** | Anti-claims non runtime systématiques | Anti-claims dans reporting + Surface | **HARVEST** / **COMPLETE** |
+```
+
+### §25.2
 
 ```markdown
-## 5. Persona — Courtier
+### 25.2 CURRENT vs TARGET post-terminal
 
-#### Profil
-
-| Champ | Contenu atelier |
-|-------|-----------------|
-| Nom | Sarah Benali |
-| Âge | 38 ans |
-| Rôle | Courtier en assurance |
-| Bio courte | Travaille à son compte. Gère un portefeuille de clients diversifiés. Cherche à optimiser son temps pour se concentrer sur le conseil et la vente plutôt que sur l’administratif. |
-| Phrase pédagogique | « Je veux que mon outil m’aide à être plus efficace pour mieux conseiller mes clients. » |
-
-#### Démographie
-
-| Champ | Contenu atelier |
-|-------|-----------------|
-| Genre | Femme |
-| Localisation | Lyon |
-| Situation familiale | Célibataire |
-| Niveau d’études | Master Assurance / Finance |
-| Profession | Courtière indépendante |
-| Revenu (scénario) | env. 60 k€ / an |
-
-**Personnalité (échelles visuelles atelier — tendances) :** plutôt Extraverti · équilibré Analytique/Créatif · plutôt Audacieux · plutôt Innovant.
-
-#### Objectifs
-
-- Centraliser les dossiers clients
-- Automatiser les relances
-- Accéder aux offres multi-compagnies
-- Améliorer le taux de conversion
-- Développer son portefeuille
-- Simplifier la gestion des commissions
-- Avoir une vision globale de l’activité
-
-#### Frustrations
-
-- Saisie manuelle répétitive
-- Multiplication des portails assureurs
-- Difficulté de suivi des sinistres clients
-- Manque de rappels automatiques
-- Outils actuels trop rigides
-- Perte de temps en reporting
-
-#### Tâches
-
-- Analyser les besoins clients
-- Négocier avec les assureurs
-- Relancer les prospects
-
-**Compétences (échelles visuelles — tendances) :** Technologie élevée · Assurance très élevée · Organisation élevée · Réseau très élevé.
-
-#### Outils
-
-- CRM spécialisé assurance
-- Outils de bureautique (Office 365)
-- Portails extranet des compagnies
-- Logiciel de signature électronique
-- Réseaux sociaux (LinkedIn)
-
-**Note atelier :** utilise son CRM toute la journée ; besoin d’une interface fluide et de connecteurs avec les compagnies.
-*(Outils / notes = hypothèses de scénario persona — **pas** décisions de stack projet.)*
-
----
+| Étape | CURRENT | TARGET |
+| --- | --- | --- |
+| Executor claims | Report (+ process REO externe) | Report + **Cursor Review End Of** CLAIM exigés |
+| Verify | verifyWorkspaceFileEffects + policies | VerifiedChangeSet **avant** RM finalisé |
+| Review Material | docs_write-named / Artifact-centric | Generic RM multi-`reviewItems[]` |
+| Evidence/RB/CE | vivants | KEEP |
+| Post-Evidence Nora | tools OFF | Deep Review read-only tools |
+| Progression | Reconciler + UI poll | Reconciler complet + continuation autonome TBD (mécanisme OPEN DESIGN DETAIL) |
 ```
 
-## 6. Persona Directeur COMPLET
+### §32 Ponts transitionnels (table)
 
 ```markdown
-## 6. Persona — Directeur
+## 32. Ponts transitionnels
 
-#### Profil
+| Bridge | Rôle | Exit |
+| --- | --- | --- |
+| persist/ingest `docs_write*` | Compat Evidence path | Generic Review Material + ingest générique |
+| policy `docs_write` dans verifier | Oracle actuel | Policies d’effet génériques + VerifiedChangeSet |
+| UI « Recharger résultat produit » | Continue manuel | Reconciler + mécanisme de continuation autonome à définir |
+| Legacy M3/M4 rematerialize docs_write | Recovery vieux EC | Sunset quand plus d’EC legacy |
+| post_execution tools OFF | Safe analysis minimale | Deep Review read-only tools bornés |
+| Naming paths `docs-write-artifact` | Storage actuel | Rename neutre sous Review Material |
 
-| Champ | Contenu atelier |
-|-------|-----------------|
-| Nom | Jean Dupont |
-| Âge | 52 ans |
-| Rôle | Directeur de cabinet |
-| Bio courte | Dirige une agence de 10 personnes. Besoin de piloter l’activité de manière stratégique. Cherche à améliorer la rentabilité globale et à s’assurer de la conformité réglementaire. |
-| Phrase pédagogique | « J’ai besoin d’une vision claire de l’activité pour décider des investissements et des recrutements futurs. » |
-
-#### Démographie
-
-| Champ | Contenu atelier |
-|-------|-----------------|
-| Genre | Homme |
-| Localisation | Paris |
-| Situation familiale | Marié, 3 enfants |
-| Niveau d’études | École de Commerce |
-| Profession | Directeur de cabinet de courtage |
-| Revenu (scénario) | env. 100 k€ / an |
-
-**Personnalité (tendances visuelles) :** plutôt Extraverti · plutôt Analytique · plutôt Prudent · plutôt Traditionnel.
-
-#### Objectifs
-
-- Suivre les indicateurs clés (KPI)
-- Optimiser la rentabilité
-- Garantir la conformité (RGPD, DDA)
-- Manager les équipes efficacement
-- Identifier les leviers de croissance
-- Simplifier le reporting mensuel
-- Sécuriser les données clients
-
-#### Frustrations
-
-- Manque de fiabilité des données
-- Temps de consolidation trop long
-- Difficulté à piloter à distance
-- Risques de non-conformité
-- Outils non adaptés au pilotage
-- Coût élevé des licences
-
-#### Tâches
-
-- Analyser les KPIs
-- Prendre des décisions stratégiques
-- Manager les équipes
-
-**Compétences (tendances visuelles) :** Technologie moyenne · Assurance très élevée · Organisation très élevée · Réseau élevé.
-
-#### Outils
-
-- Tableaux de bord BI
-- Outils de pilotage financier
-- CRM (accès administrateur)
-- Logiciels de gestion RH
-- Visioconférence (Teams / Zoom)
-
-**Note atelier :** ne manipule pas les dossiers clients au quotidien ; utilise les outils pour la décision et le suivi de performance.
-*(≠ décision d’architecture / stack projet.)*
-
----
+**Règle (D-ER-13/14) :** chaque bridge a une **exit condition** ; pas de dual-stack permanent.
 ```
 
-## 7. Persona Client particulier COMPLET
+### Risques (snippet R2)
 
 ```markdown
-## 7. Persona — Client particulier
+| # | Guarantee / semantic dimension | External v2.6 proven behavior | CURRENT Studio native support | CURRENT source / implementation anchor | Parity | Gap / risk | TARGET native behavior | Disposition |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 1 | objective | Mission objective explicite dans le contrat externe | Présent | EC mission inputs / inspectionDisclosure | **FULL** | Drift si projection omet | Conserver comme WHAT autoritaire | **KEEP** |
+| 2 | context | Contexte mission riche | Présent | EC context inputs | **FULL** | Compactage excessif | Conserver + lisible Pilot/Cursor | **KEEP** |
+| 3 | cycle/profile qualification when applicable | Cycle / profil process qualifiés | Partiel (cycle bindings Product ; profil process ≠ runtime) | CycleInstance / EC bindings | **PARTIAL** | Confusion process vs Product cycle | Qualifier Product cycle sans importer process profile comme doctrine | **COMPLETE** |
+| 4 | sources | Sources listées | Présent | EC source refs | **FULL** | Sources non grounded | Sources + grounding | **KEEP** / **COMPLETE** |
+| 5 | source grounding | Grounding explicite | Présent (partiel selon missions) | mission semantic inputs | **PARTIAL** | Grounding faible → revue floue | Exiger grounding quand sources critiques | **COMPLETE** |
+| 6 | repository identity | Repo cible identifié | Présent (Project repository binding) | Project / workspace binding | **FULL** | Multi-repo non traité | Repo Project unique par binding | **KEEP** |
+| 7 | base / HEAD truth | Base/HEAD truth process | Partiel (worktree base SHA ; HEAD live variable) | gateway worktree prepare | **PARTIAL** | Confusion logical vs WT HEAD | Base SHA explicite + vérité observée Studio | **COMPLETE** |
+| 8 | scope IN | Scope inclus explicite | Partiel | EC scope / files boundaries | **PARTIAL** | Scope flou → effets hors intention | Scope IN contractuel clair | **COMPLETE** |
+| 9 | scope OUT | Scope exclu explicite | Partiel / souvent implicite | EC boundaries | **PARTIAL** | OUT silencieux | Scope OUT explicite quand pertinent | **COMPLETE** |
+| 10 | files / path boundaries | Bornes chemins | Partiel (overlays / allowlists) | gateway overlays + verifier | **PARTIAL** | Overlay docs_write-centric | Bornes génériques effets/chemin | **GENERALIZE** |
+| 11 | authorized technical effects | Effets autorisés process | Présent (allowlists / capabilities techniques) | EC surface + gateway | **PARTIAL** | Taxonomy Product encore branchée | Effects techniques only (≠ Product category) | **KEEP** / **COMPLETE** |
+| 12 | forbidden effects | Interdits process | Partiel | stop / policy / allowlist | **PARTIAL** | Interdits non unifiés | Forbidden effects explicites + fail-closed | **COMPLETE** |
+| 13 | expected outputs | EO process | Présent | EC expectedOutputs | **FULL** | EO = Artifact-only mental model | EO génériques (y compris non-fichier) | **COMPLETE** |
+| 14 | acceptance criteria | Critères acceptation | Présent | EC acceptance | **FULL** | Critères trop docs-centric | Critères génériques ContractResult | **KEEP** / **COMPLETE** |
+| 15 | validation plan | Plan validation | Présent | EC validationPlan input | **PARTIAL** | Plan non exécuté / non observé | Plan + observation Studio | **COMPLETE** |
+| 16 | targeted validations | Validations ciblées | Partiel | report validationEffects / verifier | **PARTIAL** | Validations claim-only | Validations revendiquées + faits Studio | **COMPLETE** |
+| 17 | full validation expectation | Attente full validation | Faible / process | report fields partiels | **PARTIAL** | Full validation non disciplinée / non systématique | Exigence contractuelle quand applicable | **HARVEST** / **COMPLETE** |
+| 18 | authority | Authority process | Présent | HumanDecision / effective authority | **FULL** | — | KEEP authority Product | **KEEP** |
+| 19 | Confirmation | Confirmation gates | Présent | Confirmation / inspection | **FULL** | — | KEEP | **KEEP** |
+| 20 | reversibility | Reversibility qualifiée | Présent | EC reversibility | **PARTIAL** | Sous-exploité en Result Surface | Exposer honnêtement | **COMPLETE** |
+| 21 | stop conditions | Stop conditions process | Partiel | EC / report blockers | **PARTIAL** | Stop non matérialisé en Result | Stop conditions contractuelles + surface | **COMPLETE** |
+| 22 | Fake / Real qualification where applicable | Qualification Fake/Real process | Partiel (gateway REAL gates) | REAL launch gates / harness | **PARTIAL** | Confusion preuve | Fake/Real explicite hors READY inventé | **KEEP** / **COMPLETE** |
+| 23 | Evidence requirements | Exigences Evidence process | Partiel | EC / Evidence domain | **PARTIAL** | Evidence trop Artifact-centric | Evidence requirements génériques | **COMPLETE** |
+| 24 | report requirements | Exigences de rapport process | Partiel (string list `reportRequirements`) | contractMissionSemantics / projection | **PARTIAL** | N’exige pas encore systématiquement Review End Of | Exiger Report + Review End Of | **COMPLETE** |
+| 25 | CursorExecutionReport | Rapport machine process | Présent largement générique | `cursorExecutionReport` + Resolution CLAIM | **PARTIAL** | Structure générique présente ; enrichissement sémantique encore incomplet (≠ Evidence) | KEEP CLAIM + COMPLETE champs utiles | **KEEP** / **COMPLETE** |
+| 26 | Cursor Review End Of | Fin de revue exécuteur process | Absent comme CLAIM natif systématique | process externe historique | **ABSENT** | Studio pourrait « inventer » REO | Cursor produit REO CLAIM ; native binding Studio | **HARVEST** / **COMPLETE** |
+| 27 | deviations | Écarts rapportés | Partiel dans report | report deviations | **PARTIAL** | Deviations ignorées en CE | Deviations claim + évaluation | **COMPLETE** |
+| 28 | blockers | Blockers process | Partiel | report blockers | **PARTIAL** | Blockers non visibles Pilot | Blockers → Result Surface | **COMPLETE** |
+| 29 | reservations | Réserves process | Partiel | report reservations / Memory | **PARTIAL** | Confusion Reservation Product | Reservations claim + Product reserves distincts | **COMPLETE** |
+| 30 | Git proof when applicable | Preuve Git process | Partiel (Evidence git sources / GCEC) | Evidence git / verifier | **PARTIAL** | Git proof confondu avec PASS Product | Git facts Studio + CE rules | **HARVEST** / **COMPLETE** |
+| 31 | final Cursor verdict | Verdict final exécuteur | Partiel (report status) | CursorExecutionReport status | **PARTIAL** | Verdict Cursor ≠ Product PASS | Verdict CLAIM explicite | **COMPLETE** |
+| 32 | allowed claims | Claims autorisés process | Faible natif | anti-claim discipline partielle | **PARTIAL** | Sur-réclame / discipline non systématique | Allowed claims contractuels | **HARVEST** / **COMPLETE** |
+| 33 | forbidden / anti-claims | Anti-claims process | Faible natif | capitalisations / docs | **PARTIAL** | Anti-claims non runtime systématiques | Anti-claims dans reporting + Surface | **HARVEST** / **COMPLETE** |
+| 34 | Review Pack semantics useful to native review | Pack revue riche (garanties review) | Partiel (Review Material docs_write ; Resolution) | persist docs_write / Resolution | **PARTIAL** | Artifact-centric | **HARVEST** garanties utiles → Generic RM + REO CLAIM | **HARVEST** |
+| 35 | external Review Handoff transport | Branche `sfia/review-handoff` / `.tmp-sfia-review` / copy-paste | **Ne doit pas** être runtime Product | process v2.6 publisher | **NOT_APPLICABLE** (à ne pas importer) | Tentation d’importer le bus Git | **DO NOT IMPORT INTO STUDIO RUNTIME** | **N/A** |
 
-#### Profil
+**Règle éditoriale :**
 
-| Champ | Contenu atelier |
-|-------|-----------------|
-| Nom | Marc Descamps |
-| Âge | 45 ans |
-| Rôle | Client particulier |
-| Bio courte | Marié, deux enfants. Travaille dans le secteur du bâtiment. Très occupé ; cherche simplicité et rapidité dans les démarches administratives. |
-| Phrase pédagogique | « Je veux comprendre ce que je paie et savoir rapidement où en est ma demande. » |
-
-#### Démographie
-
-| Champ | Contenu atelier |
-|-------|-----------------|
-| Genre | Homme |
-| Localisation | Rennes |
-| Situation familiale | Marié, 2 enfants |
-| Niveau d’études | Bac +2 |
-| Profession | Chef de chantier |
-| Revenu (scénario) | env. 45 k€ / an |
-
-**Personnalité (tendances visuelles) :** plutôt Extraverti · plutôt Créatif · plutôt Prudent · plutôt Traditionnel.
-
-#### Objectifs
-
-- Trouver une assurance adaptée
-- Souscrire en ligne facilement
-- Avoir un suivi clair des sinistres
-- Bénéficier de conseils clairs
-- Payer le juste prix
-- Gagner du temps
-- Simplifier les démarches
-
-#### Frustrations
-
-- Langage technique trop complexe
-- Temps de réponse trop long
-- Manque de transparence sur les prix
-- Devoir rappeler plusieurs fois
-- Difficulté à joindre un conseiller
-- Interface mobile peu ergonomique
-
-#### Tâches
-
-- Comparer les offres
-- Envoyer les pièces justificatives
-- Déclarer un sinistre
-
-**Compétences (tendances visuelles) :** Technologie moyenne · Assurance plutôt faible · Organisation élevée · Réseau moyen.
-
-#### Outils
-
-- Email (Outlook / Gmail)
-- Smartphone (iPhone / Android)
-- Espace client web
-- Comparateurs d’assurance
-- WhatsApp (échanges rapides)
-
-**Note atelier :** préfère outils simples et mobiles pour gérer ses contrats le soir ou pendant les pauses.
-
-### Lifecycle (états — pas un second persona)
-
-| État | Rôle dans le parcours |
-|------|----------------------|
-| **Prospect** | Contact → devis → RDV → besoin → proposition → souscription |
-| **Client** | Vie du contrat ; documents ; historique ; sinistre éventuel ; renouvellement / résiliation |
-
-Canaux BMC groupe (transversaux) : RDV physique · Visio · téléphone · email · espace client — UI **NOT DECIDED**.
+- **HARVEST SEMANTICS** ≠ **IMPORT EXTERNAL TRANSPORT**
+- Lignes 34 = **HARVEST** ; ligne 35 = **DO NOT IMPORT**
+- Ne pas modifier le template v2.6 dans ce cycle.
 
 ---
+
+## 16. Cursor Generalist / HOW
+
+### 16.1 Rôle
+
+**CURRENT IMPLEMENTED FACT** + **TARGET KEEP** :
+
+Cursor, via surface generalist, choisit le **HOW** (outils, séquence, édition) **dans** le contrat autorisé (allowlist, worktree, authority).
+
+### 16.2 Non-rôles
+
+| Non-rôle | Raison |
+| --- | --- |
+| Owner d’autorité Product | Pilot / HD / Confirmation |
+| Producer d’Evidence automatique | Report = CLAIM |
+| Catégorie de tâche Product | Surface ≠ taxonomy |
+| Guarantor de PASS métier | ContractResult / Evidence |
+
+### 16.3 Overlay d’enforcement
+
+Le gateway applique des overlays techniques (chemins scellés, worktree, caps) **sans** remplacer la mission EC.
+
+---
+
+## 17. Isolated worktree
+
+### 17.1 Décision
+
+**D-ER-02 / CURRENT KEEP** : isolated detached git worktree.
+
+### 17.2 Propriétés
+
+| Propriété | Valeur cible/current |
+| --- | --- |
+| Isolation | Effets hors managed root nominal |
+| Detached | Base SHA / head de préparation |
+| Oracle | Observation filesystem + policies |
+| Cleanup | Retention/GC — **OPEN DESIGN DETAIL** partiel |
+
+### 17.3 Anti-claims worktree
+
+Worktree isolé **≠** preuve Git remote · **≠** commit/push autorisé · **≠** merge.
+
+---
+
+## 18. CursorExecutionReport — modèle de claim
+
+### 18.1 Nature
+
+**CURRENT + TARGET (D-ER-03) :** **CLAIM**.
+
+### 18.2 Contenu typique
+
+- statut / summary / assertions exécuteur
+- refs Attempt / process
+- éventuelles listes d’effets **revendiqués** (non faits)
+
+### 18.3 Discipline
+
+| Action | Autorisé ? |
+| --- | --- |
+| Afficher comme Claim sur Result Surface | Oui |
+| Convertir auto en Evidence | **Non** |
+| Satisfaire ER sans verifier | **Non** |
+| Overrider NOT_PROVEN | **Non** |
+
+---
+
+## 19. Studio VerifiedChangeSet
+
+### 19.1 Définition cible
+
+**TARGET (D-ER-06) :** objet/sémantique Studio décrivant les **effets vérifiés** dans le worktree (et bornes associées), indépendamment de la narration Cursor.
+
+### 19.2 Harvest CURRENT
+
+`verifyWorkspaceFileEffects` :
+
+1. observe le worktree ;
+2. applique policies (dont policy `docs_write` séparée — **dette**) ;
+3. produit un résultat de vérification consommable par completion / Evidence.
+
+### 19.3 Cible
+
+| Aspect | Cible |
+| --- | --- |
+| Nom/sémantique Product | VerifiedChangeSet |
+| Policies | génériques par **effet technique**, pas par taxonomie Product |
+| Liaison | Review Material + Evidence |
+| Fail-closed | unknown / hors allowlist → reject ou NOT_PROVEN selon couche |
+
+---
+
+## 20. Generic Execution Review Material
+
+### 20.1 Définition cible
+
+**TARGET (D-ER-04) :** payload opérationnel **temporairement durable** permettant à Studio / Nora / Pilote de **revoir** le résultat d’exécution — **sans** nommage `docs_write`, **sans** modèle Artifact-centric.
+
+Ce n’est **pas** : Product Truth principal ; HumanDecision ; Evidence automatique ; Product Result automatique ; Git commit ; second workflow.
+
+### 20.2 Modèle conceptuel (non schema)
+
+**OPEN DESIGN DETAIL — FINAL SCHEMA NOT ADOPTED**
+
+```text
+ExecutionReviewMaterial
+  bindings
+    - projectId / cycleInstanceId / executionContractId / attemptId
+    - repositoryRef / baseSha
+  executorClaims
+    - cursorExecutionReportRef
+    - cursorReviewEndOfRef
+  verifiedEffects
+    - verifiedChangeSetRef
+    - gitFacts[]
+    - validationFacts[]
+  reviewItems[]   # générique — Artifact n’est qu’un type possible
+    - file | diff | validation output | test output | log
+    - artifact | git result | external result | other reviewable
+  blockers[]
+  reservations[]
+  completeness    # FULL | PARTIAL
+  retention       # HOT → ARCHIVABLE → PRUNABLE → PRUNED
 ```
 
-## 8. Experience Map COMPLET + verdict KEEP
+**Règle dure :** Review Material peut exister avec **0 Artifact** et **0 changed file** si l’exécution produit d’autres effets gouvernés / reviewables (analyse read-only, commit, push, PR, merge, validation, action externe, …).
 
-```markdown
-## 10. Experience Map — Courtier
+### 20.3 Ordre conceptuel vs capture raw
 
-| Champ | Valeur |
-|-------|--------|
-| **Statut** | **KEEP** — cohérente avec la carte atelier Courtier |
-| **Persona cible** | Courtier |
-| **Nature** | Cible pédagogique — **NON AS-IS OBSERVÉ** |
+| Concept | Rôle |
+| --- | --- |
+| **RAW EXECUTION OUTPUT CAPTURE** | Stockage technique éventuel **précoce** des sorties Cursor (crash-safety) — **OPEN DESIGN DETAIL** |
+| **FINALIZED EXECUTION REVIEW MATERIAL** | Composition reviewable **après** observation Studio / VerifiedChangeSet |
 
-| Phase | Enjeux (cadrage) |
-|-------|------------------|
-| Prospection / contact / qualification | Réactivité · Continuité du suivi |
-| Devis | Réactivité · Charge administrative |
-| Relance / RDV | Réactivité · Continuité du suivi |
-| Besoin → proposition | Personnalisation · Continuité du suivi |
-| Souscription → vie contrat | Traçabilité · Continuité du suivi |
-| Docs / sinistre / renouvellement | Traçabilité · Continuité · Charge administrative |
+### 20.4 Disposition CURRENT
 
-**Contrôle carte atelier :** objectifs (centraliser, automatiser relances, vision globale) et frustrations (saisie manuelle, portails multiples, reporting) **confirment** la map — **sans** injection mécanique phase × sticky.
-**Pensées / émotions par phase :** **NON RENSEIGNÉES** — pas de courbe émotionnelle inventée.
+| Asset | Disposition |
+| --- | --- |
+| `persistDocsWriteArtifactReviewMaterial` | **HARVEST → GENERALIZE** (sortir du mono-Artifact / docs_write) |
+| paths `docs-write-artifact` | **TRANSITIONAL** puis retire naming Product |
 
 ---
+
+## 21. Native Review End Of
+
+### 21.1 Définition (producteur + épistémologie)
+
+**TARGET (D-ER-05) :**
+
+| Aspect | Décision |
+| --- | --- |
+| **Producteur** | **Cursor / EXECUTOR** — à la fin de l’exécution Cursor |
+| **Statut** | **CLAIM** (avec `CursorExecutionReport`) |
+| **Native** | binding / stockage / consommation **Studio** |
+| **≠ Native** | Studio **ne produit pas** le contenu Review End Of |
+
+```text
+Cursor execution
+  ├── CursorExecutionReport     [CLAIM]
+  ├── Cursor Review End Of      [CLAIM]
+  └── candidate worktree effects
+
+Studio independent verification
+  → VerifiedChangeSet           [VERIFIED FACTS]
+  → Evidence / …
+Nora Review                     [ANALYSIS / RECOMMENDATION]
+HumanDecision                   [AUTHORITY]
 ```
 
-## 9. Customer Journey COMPLET
+### 21.2 Contenu sémantique cible (CLAIM)
 
-```markdown
-## 11. Customer Journey Map — Client particulier
+Selon `reportRequirements` applicables : verdict Cursor ; timestamp ; repository / base ; objectif ; scope traité ; work performed ; files/effects ; validations ; full validation si applicable ; Git proof si applicable ; deviations ; blockers ; reservations ; stop conditions ; claims ; points nécessitant revue.
 
-| Champ | Valeur |
-|-------|--------|
-| **Titre** | Customer Journey — **Client particulier** |
-| **Sous-titre** | Du prospect à la vie client |
-| **Persona** | Client particulier |
-| **Lifecycle** | Prospect → souscription → Client |
-| **Statut** | Conservé / cohérent avec carte atelier |
+### 21.3 Ce que ce n’est pas
 
-### Séquence cadrage (7 étapes)
+| Non-définition | Raison |
+| --- | --- |
+| Studio Verified Facts | Facts = oracle Studio (VerifiedChangeSet / Evidence) |
+| Evidence / ClaimEvaluation / Nora Analysis | Couches distinctes (D-ER-11) |
+| Export markdown vers ChatGPT externe | Transport process ≠ architecture Product |
+| Duplicate d’Evidence | Review End Of = CLAIM ; Review Material ≠ Evidence |
+| Producteur Studio du contenu | Contredit D-ER-05 |
 
-1. Première prise de contact
-2. Devis
-3. Relance / rendez-vous
-4. Compréhension / qualification du besoin
-5. Proposition personnalisée
-6. Souscription
-7. Vie du contrat / suivi (échanges, docs, sinistre éventuel, renouvellement / résiliation)
+### 21.4 Harvest autorisé / transport interdit
 
-Granularité Miro historique (entrée en relation · devis · RDV/besoin · proposition · souscription · vie du contrat · échanges/docs · sinistre/renouvellement) = **compatible**, pas de nouvelles étapes inventées.
+- **HARVEST :** discipline sémantique des revues externes historiques (séparation claim/fact, fail-closed, anti-claims, richesse Review End Of).
+- **DO NOT IMPORT :** canal `.tmp-sfia-review` / branche `sfia/review-handoff` / copy-paste ChatGPT↔Cursor comme bus runtime Product.
 
-**Émotion :** NON RENSEIGNÉE.
-**Ne pas décider :** interfaces Prospect/Client, écrans, permissions, UI.
+**OPEN DESIGN DETAIL :** packaging physique Report ↔ Review End Of.
 
 ---
+
+## 22. Articulation Evidence / ReviewBundle / ClaimEvaluation
+
+### 22.1 Rôles
+
+| Objet | Rôle | Qualification |
+| --- | --- | --- |
+| Evidence | Fait durable traçable | CURRENT KEEP |
+| ReviewBundle | Ensemble d’Evidence pour revue / freeze | CURRENT KEEP |
+| ClaimEvaluation (ContractResult) | Qualification EC vs Evidence | CURRENT KEEP / GENERALIZE criteria |
+| VerifiedChangeSet | Oracle d’effets Studio en amont | TARGET (+ harvest verifier) |
+| CursorExecutionReport | Claim exécuteur | CURRENT KEEP |
+| Cursor Review End Of | Claim exécuteur | TARGET COMPLETE (native binding) |
+| Review Material | Payload review (post-verify finalized) | TARGET GENERALIZE |
+
+### 22.2 Ordre épistémique cible
+
+```text
+Claim (CursorExecutionReport + Cursor Review End Of)
+  → Studio observation
+  → VerifiedChangeSet [VERIFIED FACTS]
+  → Finalized Execution Review Material
+  → Evidence(s)
+  → ReviewBundle (freeze)
+  → ClaimEvaluation
+  → Nora Analysis
+  → HumanDecision / Pilot
 ```
 
-## 10. CONTENU COMPLET FINAL 01-02
+### 22.3 NOT_PROVEN
 
-```markdown
-# CRM Assurance Courtage — 1.2 Analyse des besoins utilisateurs
-
-| Champ | Valeur |
-|-------|--------|
-| **Statut** | **VALIDATED — GROUP PERSONA CONSOLIDATION 2026-09-29** |
-| **Étape** | 1.2 |
-| **Source métier principale** | Brief + 1.1 + BMC groupe + **cartes atelier groupe 2026-09-29** (transcription Git) |
-| **Persona detail source** | **GROUP-VALIDATED WORKSHOP CARDS — TRANSCRIBED IN GIT** |
-| **Evidence** | GROUP-VALIDATED PEDAGOGICAL SCENARIO ASSUMPTIONS — **NO FIELD INTERVIEWS** — **NO OBSERVED AS-IS** |
-| **Personas canoniques** | **Client particulier** · **Courtier** · **Directeur** |
-| **Experience Map** | **RETAINED / ALIGNED** — Courtier — **KEEP** |
-| **Customer Journey Map** | **Client particulier — Du prospect à la vie client** |
-| **Miro** | **PENDING CHATGPT SYNC AFTER REVIEW** (Cursor **n’a pas** modifié Miro) |
-| **Architecture / Stack** | NOT DECIDED |
-| **1.3** | OPENED — AWAITING FINAL REVIEW (fond inchangé ce cycle) |
-| **1.4** | NOT OPENED |
-
-### Décisions Morris / groupe
-
-| Décision | Contenu |
-|----------|---------|
-| Set personas atelier 2026-09-29 | Client particulier · Courtier · Directeur |
-| Ancien persona Prospect → Client | **SUPERSEDED AS PERSONA** |
-| Continuity prospect → client | **RETAINED IN CUSTOMER JOURNEY** |
-| Transcription cartes | Profil · Démographie · Objectifs · Frustrations · Tâches · Outils — **transcrits dans Git** |
-
-**VALIDATED** = livrable de cadrage utilisateur retenu pour la suite.
-**≠** étude terrain, entretiens, statistiques réelles.
+**CURRENT + TARGET :** insuffisance / ambiguïté / no applicable rule → **NOT_PROVEN** (soft) plutôt que PASS inventé.
+**REAL OBSERVATION NoteLite :** NOT_PROVEN préservé quand Evidence insuffisante.
 
 ---
 
-## 1. Objectif du 1.2
+## 23. Product Resolution
 
-Fonder le cadrage utilisateurs sur les **personas validés par le groupe**, distinguer hypothèses pédagogiques et faits terrain, et aligner Experience Map / Customer Journey — **sans** spécification produit, backlog, UI ou architecture.
+### 23.1 CURRENT
 
----
+**CURRENT IMPLEMENTED FACT :** `resolveProductExecutionContext` compose un `ProductExecutionContext` typé (EC, Attempt, cursorReport CLAIM, artifact, Evidence, RB, CE, postEvidence, …). Fail-closed sur mismatch de lineage.
+**Limitation :** modèle encore **trop Artifact-centric** / docs_write-named pour le chargement review.
 
-## 2. Niveau de preuve et provenance
+### 23.2 TARGET (D-ER-07)
 
-| Catégorie | Signification |
-|-----------|---------------|
-| **GROUP-VALIDATED WORKSHOP CARD** | Contenu de la carte atelier groupe, transcrit |
-| **EXPLICITE BRIEF / BMC** | Brief ou BMC groupe |
-| **INFÉRENCE DE CADRAGE** | Déduction marquée |
-| **NON RENSEIGNÉ** | Champ absent / non inventé |
-| **ÉCHELLE VISUELLE** | Jauge atelier lue qualitative (pas de % inventé) |
+Un seul chemin de résolution générique :
 
-### Provenance obligatoire
+- charge **Generic Execution Review Material** (executorClaims + verifiedEffects + reviewItems[]) — **pas** mono-Artifact ;
+- expose Claim (`Report` + **Review End Of**) / Fact / Analysis / Authority distincts ;
+- sert Continuity, Result Surface, Nora tools read-only, Reconciler ;
+- couvre missions **sans** Artifact fichier.
 
-Les attributs de ces personas sont des **hypothèses de scénario pédagogique consolidées et validées par le groupe**.
-Ils servent au cadrage du CRM ; **ils ne résultent pas d’entretiens ou d’une étude terrain réelle**.
+### 23.3 Dette
 
-Les « citations » des cartes sont des **phrases de persona pédagogique**, pas des verbatims d’entretien.
-
-**Source atelier utilisée pour transcription :** capture d’écran atelier groupe du **2026-09-29** (trois personas visibles, structure Profil / Démographie / Objectifs / Frustrations / Tâches / Outils).
-Champs textuels stickies / profils : **lisibles**.
-Jauges personnalité / compétences : **tendances qualitatives** (valeurs numériques exactes des curseurs = non affirmées comme chiffres).
+Artifact load via `loadDocsWriteArtifactReviewMaterial` = **TRANSITIONAL DEBT** explicite (bridge, pas modèle cible).
 
 ---
 
-## 3. Utilisateurs, personas et états
+## 24. Continuity / Reconciler
 
-| Élément | Qualification |
-|---------|---------------|
-| **Courtier** | Persona canonique — utilisateur métier interne principal |
-| **Directeur** | Persona canonique — pilotage |
-| **Client particulier** | Persona canonique — externe |
-| **Prospect** | **État** commercial (avant souscription) du Client particulier — **≠ persona** |
-| **Client (état)** | **État** commercial (après souscription) — **≠ persona** |
+### 24.1 Continuity Projection
 
-**Persona ≠ état commercial.**
-TPE/PME = segment BMC (pas un 4ᵉ persona 1.2).
+**CURRENT IMPLEMENTED FACT** — stages :
 
----
+`PRE_EXECUTION` → `ATTEMPT_ACCEPTED` → `RUNNING` → `PRODUCT_MATERIALIZATION_PENDING` → `POST_EVIDENCE_PENDING` → `POST_EVIDENCE_COMPLETE`
+(+ `RECOVERY_REQUIRED` via integrity / bindings codes)
 
-## 4. Personas canoniques
+Projection **READ-ONLY**, dérivée — **pas** un state machine persisté parallèle.
 
-| # | Persona | Statut |
-|---|---------|--------|
-| 1 | Client particulier | CANONICAL — GROUP-VALIDATED |
-| 2 | Courtier | CANONICAL — GROUP-VALIDATED |
-| 3 | Directeur | CANONICAL — GROUP-VALIDATED |
+### 24.2 Reconciler
 
-**Note historique :** la version préparatoire utilisait un persona longitudinal Prospect → Client. Depuis le 2026-09-29 : persona **Client particulier** ; continuity prospect → client = **Customer Journey**.
+**CURRENT :** `reconcileGovernedExecution` exécute les next deterministic actions selon intent `execute` | `continue`.
+**TARGET (D-ER-08) :** owner unique de la progression déterministe jusqu’au post-Evidence nominal (ou RECOVERY_REQUIRED).
+
+### 24.3 UI
+
+TrajectorySurface applique le résultat Reconciler ; poll borné **8** continues pendant `RUNNING`.
+**Écart cible :** stall possible — voir NoteLite gap.
 
 ---
 
-## 5. Persona — Courtier
-
-#### Profil
-
-| Champ | Contenu atelier |
-|-------|-----------------|
-| Nom | Sarah Benali |
-| Âge | 38 ans |
-| Rôle | Courtier en assurance |
-| Bio courte | Travaille à son compte. Gère un portefeuille de clients diversifiés. Cherche à optimiser son temps pour se concentrer sur le conseil et la vente plutôt que sur l’administratif. |
-| Phrase pédagogique | « Je veux que mon outil m’aide à être plus efficace pour mieux conseiller mes clients. » |
-
-#### Démographie
-
-| Champ | Contenu atelier |
-|-------|-----------------|
-| Genre | Femme |
-| Localisation | Lyon |
-| Situation familiale | Célibataire |
-| Niveau d’études | Master Assurance / Finance |
-| Profession | Courtière indépendante |
-| Revenu (scénario) | env. 60 k€ / an |
-
-**Personnalité (échelles visuelles atelier — tendances) :** plutôt Extraverti · équilibré Analytique/Créatif · plutôt Audacieux · plutôt Innovant.
-
-#### Objectifs
-
-- Centraliser les dossiers clients
-- Automatiser les relances
-- Accéder aux offres multi-compagnies
-- Améliorer le taux de conversion
-- Développer son portefeuille
-- Simplifier la gestion des commissions
-- Avoir une vision globale de l’activité
-
-#### Frustrations
-
-- Saisie manuelle répétitive
-- Multiplication des portails assureurs
-- Difficulté de suivi des sinistres clients
-- Manque de rappels automatiques
-- Outils actuels trop rigides
-- Perte de temps en reporting
-
-#### Tâches
-
-- Analyser les besoins clients
-- Négocier avec les assureurs
-- Relancer les prospects
-
-**Compétences (échelles visuelles — tendances) :** Technologie élevée · Assurance très élevée · Organisation élevée · Réseau très élevé.
-
-#### Outils
-
-- CRM spécialisé assurance
-- Outils de bureautique (Office 365)
-- Portails extranet des compagnies
-- Logiciel de signature électronique
-- Réseaux sociaux (LinkedIn)
-
-**Note atelier :** utilise son CRM toute la journée ; besoin d’une interface fluide et de connecteurs avec les compagnies.
-*(Outils / notes = hypothèses de scénario persona — **pas** décisions de stack projet.)*
-
----
-
-## 6. Persona — Directeur
-
-#### Profil
-
-| Champ | Contenu atelier |
-|-------|-----------------|
-| Nom | Jean Dupont |
-| Âge | 52 ans |
-| Rôle | Directeur de cabinet |
-| Bio courte | Dirige une agence de 10 personnes. Besoin de piloter l’activité de manière stratégique. Cherche à améliorer la rentabilité globale et à s’assurer de la conformité réglementaire. |
-| Phrase pédagogique | « J’ai besoin d’une vision claire de l’activité pour décider des investissements et des recrutements futurs. » |
-
-#### Démographie
-
-| Champ | Contenu atelier |
-|-------|-----------------|
-| Genre | Homme |
-| Localisation | Paris |
-| Situation familiale | Marié, 3 enfants |
-| Niveau d’études | École de Commerce |
-| Profession | Directeur de cabinet de courtage |
-| Revenu (scénario) | env. 100 k€ / an |
-
-**Personnalité (tendances visuelles) :** plutôt Extraverti · plutôt Analytique · plutôt Prudent · plutôt Traditionnel.
-
-#### Objectifs
-
-- Suivre les indicateurs clés (KPI)
-- Optimiser la rentabilité
-- Garantir la conformité (RGPD, DDA)
-- Manager les équipes efficacement
-- Identifier les leviers de croissance
-- Simplifier le reporting mensuel
-- Sécuriser les données clients
-
-#### Frustrations
-
-- Manque de fiabilité des données
-- Temps de consolidation trop long
-- Difficulté à piloter à distance
-- Risques de non-conformité
-- Outils non adaptés au pilotage
-- Coût élevé des licences
-
-#### Tâches
-
-- Analyser les KPIs
-- Prendre des décisions stratégiques
-- Manager les équipes
-
-**Compétences (tendances visuelles) :** Technologie moyenne · Assurance très élevée · Organisation très élevée · Réseau élevé.
-
-#### Outils
-
-- Tableaux de bord BI
-- Outils de pilotage financier
-- CRM (accès administrateur)
-- Logiciels de gestion RH
-- Visioconférence (Teams / Zoom)
-
-**Note atelier :** ne manipule pas les dossiers clients au quotidien ; utilise les outils pour la décision et le suivi de performance.
-*(≠ décision d’architecture / stack projet.)*
-
----
-
-## 7. Persona — Client particulier
-
-#### Profil
-
-| Champ | Contenu atelier |
-|-------|-----------------|
-| Nom | Marc Descamps |
-| Âge | 45 ans |
-| Rôle | Client particulier |
-| Bio courte | Marié, deux enfants. Travaille dans le secteur du bâtiment. Très occupé ; cherche simplicité et rapidité dans les démarches administratives. |
-| Phrase pédagogique | « Je veux comprendre ce que je paie et savoir rapidement où en est ma demande. » |
-
-#### Démographie
-
-| Champ | Contenu atelier |
-|-------|-----------------|
-| Genre | Homme |
-| Localisation | Rennes |
-| Situation familiale | Marié, 2 enfants |
-| Niveau d’études | Bac +2 |
-| Profession | Chef de chantier |
-| Revenu (scénario) | env. 45 k€ / an |
-
-**Personnalité (tendances visuelles) :** plutôt Extraverti · plutôt Créatif · plutôt Prudent · plutôt Traditionnel.
-
-#### Objectifs
-
-- Trouver une assurance adaptée
-- Souscrire en ligne facilement
-- Avoir un suivi clair des sinistres
-- Bénéficier de conseils clairs
-- Payer le juste prix
-- Gagner du temps
-- Simplifier les démarches
-
-#### Frustrations
-
-- Langage technique trop complexe
-- Temps de réponse trop long
-- Manque de transparence sur les prix
-- Devoir rappeler plusieurs fois
-- Difficulté à joindre un conseiller
-- Interface mobile peu ergonomique
-
-#### Tâches
-
-- Comparer les offres
-- Envoyer les pièces justificatives
-- Déclarer un sinistre
-
-**Compétences (tendances visuelles) :** Technologie moyenne · Assurance plutôt faible · Organisation élevée · Réseau moyen.
-
-#### Outils
-
-- Email (Outlook / Gmail)
-- Smartphone (iPhone / Android)
-- Espace client web
-- Comparateurs d’assurance
-- WhatsApp (échanges rapides)
-
-**Note atelier :** préfère outils simples et mobiles pour gérer ses contrats le soir ou pendant les pauses.
-
-### Lifecycle (états — pas un second persona)
-
-| État | Rôle dans le parcours |
-|------|----------------------|
-| **Prospect** | Contact → devis → RDV → besoin → proposition → souscription |
-| **Client** | Vie du contrat ; documents ; historique ; sinistre éventuel ; renouvellement / résiliation |
-
-Canaux BMC groupe (transversaux) : RDV physique · Visio · téléphone · email · espace client — UI **NOT DECIDED**.
-
----
-
-## 8. Synthèse des besoins (cadrage)
-
-| Profil | Enjeux principaux (atelier + brief) |
-|--------|-------------------------------------|
-| Courtier | Centralisation ; moins d’admin ; relances ; conseil ; conversion |
-| Directeur | KPI ; rentabilité ; conformité ; reporting ; données fiables |
-| Client particulier | Simplicité ; clarté ; suivi ; conseil humain ; gain de temps |
-
-Aucune user story. Aucun backlog. Aucune stack.
-
----
-
-## 9. Inconnues / limites
-
-- pas d’entretiens réels ;
-- pourcentages exacts des jauges atelier = **non affirmés** (tendances seulement) ;
-- outils listés = **scénario persona**, pas choix projet ;
-- interfaces / permissions = hors scope.
-
----
-
-## 10. Experience Map — Courtier
-
-| Champ | Valeur |
-|-------|--------|
-| **Statut** | **KEEP** — cohérente avec la carte atelier Courtier |
-| **Persona cible** | Courtier |
-| **Nature** | Cible pédagogique — **NON AS-IS OBSERVÉ** |
-
-| Phase | Enjeux (cadrage) |
-|-------|------------------|
-| Prospection / contact / qualification | Réactivité · Continuité du suivi |
-| Devis | Réactivité · Charge administrative |
-| Relance / RDV | Réactivité · Continuité du suivi |
-| Besoin → proposition | Personnalisation · Continuité du suivi |
-| Souscription → vie contrat | Traçabilité · Continuité du suivi |
-| Docs / sinistre / renouvellement | Traçabilité · Continuité · Charge administrative |
-
-**Contrôle carte atelier :** objectifs (centraliser, automatiser relances, vision globale) et frustrations (saisie manuelle, portails multiples, reporting) **confirment** la map — **sans** injection mécanique phase × sticky.
-**Pensées / émotions par phase :** **NON RENSEIGNÉES** — pas de courbe émotionnelle inventée.
-
----
-
-## 11. Customer Journey Map — Client particulier
-
-| Champ | Valeur |
-|-------|--------|
-| **Titre** | Customer Journey — **Client particulier** |
-| **Sous-titre** | Du prospect à la vie client |
-| **Persona** | Client particulier |
-| **Lifecycle** | Prospect → souscription → Client |
-| **Statut** | Conservé / cohérent avec carte atelier |
-
-### Séquence cadrage (7 étapes)
-
-1. Première prise de contact
-2. Devis
-3. Relance / rendez-vous
-4. Compréhension / qualification du besoin
-5. Proposition personnalisée
-6. Souscription
-7. Vie du contrat / suivi (échanges, docs, sinistre éventuel, renouvellement / résiliation)
-
-Granularité Miro historique (entrée en relation · devis · RDV/besoin · proposition · souscription · vie du contrat · échanges/docs · sinistre/renouvellement) = **compatible**, pas de nouvelles étapes inventées.
-
-**Émotion :** NON RENSEIGNÉE.
-**Ne pas décider :** interfaces Prospect/Client, écrans, permissions, UI.
-
----
-
-## 12. Miro — état
-
-| Champ | Valeur |
-|-------|--------|
-| Board | https://miro.com/app/board/uXjVHiWX64c=/ |
-| Cursor | **NOT MODIFIED** |
-| Sync | **PENDING CHATGPT SYNC AFTER REVIEW** |
-
-| Frame ID | Cible |
-|----------|--------|
-| `3458764685164456040` | Persona Courtier — update in place |
-| `3458764685164456041` | Persona Directeur — update in place |
-| `3458764685164456042` | → Persona **Client particulier** |
-| `3458764685164458754` | Experience Map Courtier — KEEP |
-| `3458764685164510320` | CJM → Client particulier — Du prospect à la vie client |
-
-**Protégés :** BMC `3458764685039847893` · BPMN `3458764685039847894`.
-
----
-
-## 13. Synthèse 1.2
-
-| Point | État |
-|-------|------|
-| **1.2** | VALIDATED — GROUP PERSONA CONSOLIDATION 2026-09-29 |
-| Détail personas | **TRANSCRIBED IN GIT** depuis cartes atelier |
-| Experience Map | KEEP |
-| Customer Journey | Client particulier — Du prospect à la vie client |
-| Miro | PENDING CHATGPT SYNC AFTER REVIEW |
-| 1.3 / 1.4 | OPENED AWAITING FINAL REVIEW / **NOT OPENED** |
-| Architecture / Stack | NOT DECIDED |
+## 25. Progression nominale post-terminale
+
+### 25.1 Diagramme — TARGET NOMINAL FLOW
+
+```mermaid
+flowchart TD
+  A[Cursor terminal] --> B[CursorExecutionReport CLAIM]
+  A --> C[Cursor Review End Of CLAIM]
+  A --> D[Candidate worktree effects]
+  B --> E[Optional RAW output capture]
+  C --> E
+  D --> F[Studio independent observation]
+  E -.->|crash-safety only| F
+  F --> G[VerifiedChangeSet VERIFIED FACTS]
+  G --> H[Finalized Generic Execution Review Material]
+  H --> I[Evidence]
+  I --> J[ReviewBundle]
+  J --> K[ClaimEvaluation / Contract Result]
+  K --> L[Product Resolution]
+  L --> M[Nora Deep Review ANALYSIS]
+  M --> N[Result Surface]
+  N --> O[Pilot AUTHORITY]
 ```
 
+### 25.2 CURRENT vs TARGET post-terminal
 
-## MIRO SYNC PAYLOAD — READY FOR CHATGPT EXECUTION
-
-**Board :** https://miro.com/app/board/uXjVHiWX64c=/
-**Mode :** UPDATE IN PLACE — no new frames — no deletes
-**Cursor :** NOT MODIFIED Miro
-**Executor :** ChatGPT after REVIEW PASS
-
-### Frames protégés (NE PAS TOUCHER)
-
-| Frame | ID |
-|-------|-----|
-| Business Model Canvas | `3458764685039847893` |
-| BPMN — Prise de contact → souscription | `3458764685039847894` |
-
-### Frame 1 — Persona Courtier
-
-| Champ | Valeur |
-|-------|--------|
-| Frame ID | `3458764685164456040` |
-| Titre cible | 1.2 — Persona — Courtier |
-| Sous-titre / statut | GROUP-VALIDATED PEDAGOGICAL SCENARIO · NO FIELD INTERVIEWS |
-| Action | Remplacer le contenu persona préparatoire par la structure atelier |
-
-**Sections à remplacer (contenu final = Git §5) :** Profil · Démographie · Objectifs · Frustrations · Tâches · Outils (+ personnalité / compétences en tendances qualitatives)
-
-**Contenu textuel final :**
-
-## 5. Persona — Courtier
-
-#### Profil
-
-| Champ | Contenu atelier |
-|-------|-----------------|
-| Nom | Sarah Benali |
-| Âge | 38 ans |
-| Rôle | Courtier en assurance |
-| Bio courte | Travaille à son compte. Gère un portefeuille de clients diversifiés. Cherche à optimiser son temps pour se concentrer sur le conseil et la vente plutôt que sur l’administratif. |
-| Phrase pédagogique | « Je veux que mon outil m’aide à être plus efficace pour mieux conseiller mes clients. » |
-
-#### Démographie
-
-| Champ | Contenu atelier |
-|-------|-----------------|
-| Genre | Femme |
-| Localisation | Lyon |
-| Situation familiale | Célibataire |
-| Niveau d’études | Master Assurance / Finance |
-| Profession | Courtière indépendante |
-| Revenu (scénario) | env. 60 k€ / an |
-
-**Personnalité (échelles visuelles atelier — tendances) :** plutôt Extraverti · équilibré Analytique/Créatif · plutôt Audacieux · plutôt Innovant.
-
-#### Objectifs
-
-- Centraliser les dossiers clients
-- Automatiser les relances
-- Accéder aux offres multi-compagnies
-- Améliorer le taux de conversion
-- Développer son portefeuille
-- Simplifier la gestion des commissions
-- Avoir une vision globale de l’activité
-
-#### Frustrations
-
-- Saisie manuelle répétitive
-- Multiplication des portails assureurs
-- Difficulté de suivi des sinistres clients
-- Manque de rappels automatiques
-- Outils actuels trop rigides
-- Perte de temps en reporting
-
-#### Tâches
-
-- Analyser les besoins clients
-- Négocier avec les assureurs
-- Relancer les prospects
-
-**Compétences (échelles visuelles — tendances) :** Technologie élevée · Assurance très élevée · Organisation élevée · Réseau très élevé.
-
-#### Outils
-
-- CRM spécialisé assurance
-- Outils de bureautique (Office 365)
-- Portails extranet des compagnies
-- Logiciel de signature électronique
-- Réseaux sociaux (LinkedIn)
-
-**Note atelier :** utilise son CRM toute la journée ; besoin d’une interface fluide et de connecteurs avec les compagnies.
-*(Outils / notes = hypothèses de scénario persona — **pas** décisions de stack projet.)*
+| Étape | CURRENT | TARGET |
+| --- | --- | --- |
+| Executor claims | Report (+ process REO externe) | Report + **Cursor Review End Of** CLAIM exigés |
+| Verify | verifyWorkspaceFileEffects + policies | VerifiedChangeSet **avant** RM finalisé |
+| Review Material | docs_write-named / Artifact-centric | Generic RM multi-`reviewItems[]` |
+| Evidence/RB/CE | vivants | KEEP |
+| Post-Evidence Nora | tools OFF | Deep Review read-only tools |
+| Progression | Reconciler + UI poll | Reconciler complet + continuation autonome TBD (mécanisme OPEN DESIGN DETAIL) |
 
 ---
 
-**Ne pas toucher :** frame BMC/BPMN ; autres frames hors liste.
+## 26. Nora Deep Review
 
-### Frame 2 — Persona Directeur
+### 26.1 CURRENT
 
-| Champ | Valeur |
-|-------|--------|
-| Frame ID | `3458764685164456041` |
-| Titre cible | 1.2 — Persona — Directeur |
-| Sous-titre / statut | GROUP-VALIDATED PEDAGOGICAL SCENARIO · NO FIELD INTERVIEWS |
-| Action | Update in place |
+**CURRENT IMPLEMENTED FACT :** shared cognitive core ; `post_execution` désactive tools / MemoryB / hosted search / product tools. Analyse contract-first possible sans tools.
 
-**Contenu textuel final :**
+### 26.2 TARGET (D-ER-09)
 
-## 6. Persona — Directeur
+| Capacité | Autorisé |
+| --- | --- |
+| Lire Evidence / RB / CE / Review Material / VerifiedChangeSet | Oui (borné) |
+| Lire artifact logique autorisé | Oui (borné) |
+| Muter Project / Execute / Git | **Non** |
+| Hosted search / MemoryB | **Non** (sauf décision future distincte) |
+| Remplacer Pilot authority | **Non** |
 
-#### Profil
+### 26.3 Sortie Nora
 
-| Champ | Contenu atelier |
-|-------|-----------------|
-| Nom | Jean Dupont |
-| Âge | 52 ans |
-| Rôle | Directeur de cabinet |
-| Bio courte | Dirige une agence de 10 personnes. Besoin de piloter l’activité de manière stratégique. Cherche à améliorer la rentabilité globale et à s’assurer de la conformité réglementaire. |
-| Phrase pédagogique | « J’ai besoin d’une vision claire de l’activité pour décider des investissements et des recrutements futurs. » |
-
-#### Démographie
-
-| Champ | Contenu atelier |
-|-------|-----------------|
-| Genre | Homme |
-| Localisation | Paris |
-| Situation familiale | Marié, 3 enfants |
-| Niveau d’études | École de Commerce |
-| Profession | Directeur de cabinet de courtage |
-| Revenu (scénario) | env. 100 k€ / an |
-
-**Personnalité (tendances visuelles) :** plutôt Extraverti · plutôt Analytique · plutôt Prudent · plutôt Traditionnel.
-
-#### Objectifs
-
-- Suivre les indicateurs clés (KPI)
-- Optimiser la rentabilité
-- Garantir la conformité (RGPD, DDA)
-- Manager les équipes efficacement
-- Identifier les leviers de croissance
-- Simplifier le reporting mensuel
-- Sécuriser les données clients
-
-#### Frustrations
-
-- Manque de fiabilité des données
-- Temps de consolidation trop long
-- Difficulté à piloter à distance
-- Risques de non-conformité
-- Outils non adaptés au pilotage
-- Coût élevé des licences
-
-#### Tâches
-
-- Analyser les KPIs
-- Prendre des décisions stratégiques
-- Manager les équipes
-
-**Compétences (tendances visuelles) :** Technologie moyenne · Assurance très élevée · Organisation très élevée · Réseau élevé.
-
-#### Outils
-
-- Tableaux de bord BI
-- Outils de pilotage financier
-- CRM (accès administrateur)
-- Logiciels de gestion RH
-- Visioconférence (Teams / Zoom)
-
-**Note atelier :** ne manipule pas les dossiers clients au quotidien ; utilise les outils pour la décision et le suivi de performance.
-*(≠ décision d’architecture / stack projet.)*
+Analysis only → alimente Result Surface ; **≠** Authority.
 
 ---
 
-### Frame 3 — Persona Client particulier (ex Prospect → Client)
+## 27. Result Surface / parcours Pilot
 
-| Champ | Valeur |
-|-------|--------|
-| Frame ID | `3458764685164456042` |
-| Titre cible | 1.2 — Persona — Client particulier |
-| Ancien titre | 1.2 — Persona — Prospect → Client assuré |
-| Sous-titre / statut | GROUP-VALIDATED PEDAGOGICAL SCENARIO · lifecycle prospect→client = CJM only |
-| Action | Renommer + remplacer contenu |
+### 27.1 Exigence
 
-**Contenu textuel final :**
+**TARGET (D-ER-10) :** always explain.
 
-## 7. Persona — Client particulier
+### 27.2 Contenu minimal expliqué
 
-#### Profil
+- Claim exécuteur (et limites)
+- Facts vérifiés / Evidence ids
+- ContractResult / NOT_PROVEN reasons
+- Analysis Nora (si présente)
+- Authority / next deterministic action / recovery
+- CTA clairs (continue / correct / stop / recharge seulement si dette UI encore présente)
 
-| Champ | Contenu atelier |
-|-------|-----------------|
-| Nom | Marc Descamps |
-| Âge | 45 ans |
-| Rôle | Client particulier |
-| Bio courte | Marié, deux enfants. Travaille dans le secteur du bâtiment. Très occupé ; cherche simplicité et rapidité dans les démarches administratives. |
-| Phrase pédagogique | « Je veux comprendre ce que je paie et savoir rapidement où en est ma demande. » |
+### 27.3 Journey Pilot cible
 
-#### Démographie
+```text
+Inspect EC → Confirm → Execute → Follow continuity → Read Result Surface
+  → Accept / Request correction / Stop / Replan
+```
 
-| Champ | Contenu atelier |
-|-------|-----------------|
-| Genre | Homme |
-| Localisation | Rennes |
-| Situation familiale | Marié, 2 enfants |
-| Niveau d’études | Bac +2 |
-| Profession | Chef de chantier |
-| Revenu (scénario) | env. 45 k€ / an |
-
-**Personnalité (tendances visuelles) :** plutôt Extraverti · plutôt Créatif · plutôt Prudent · plutôt Traditionnel.
-
-#### Objectifs
-
-- Trouver une assurance adaptée
-- Souscrire en ligne facilement
-- Avoir un suivi clair des sinistres
-- Bénéficier de conseils clairs
-- Payer le juste prix
-- Gagner du temps
-- Simplifier les démarches
-
-#### Frustrations
-
-- Langage technique trop complexe
-- Temps de réponse trop long
-- Manque de transparence sur les prix
-- Devoir rappeler plusieurs fois
-- Difficulté à joindre un conseiller
-- Interface mobile peu ergonomique
-
-#### Tâches
-
-- Comparer les offres
-- Envoyer les pièces justificatives
-- Déclarer un sinistre
-
-**Compétences (tendances visuelles) :** Technologie moyenne · Assurance plutôt faible · Organisation élevée · Réseau moyen.
-
-#### Outils
-
-- Email (Outlook / Gmail)
-- Smartphone (iPhone / Android)
-- Espace client web
-- Comparateurs d’assurance
-- WhatsApp (échanges rapides)
-
-**Note atelier :** préfère outils simples et mobiles pour gérer ses contrats le soir ou pendant les pauses.
-
-### Lifecycle (états — pas un second persona)
-
-| État | Rôle dans le parcours |
-|------|----------------------|
-| **Prospect** | Contact → devis → RDV → besoin → proposition → souscription |
-| **Client** | Vie du contrat ; documents ; historique ; sinistre éventuel ; renouvellement / résiliation |
-
-Canaux BMC groupe (transversaux) : RDV physique · Visio · téléphone · email · espace client — UI **NOT DECIDED**.
+Correction = **gouvernée** (nouveau HD/EC selon règles) — NoteLite : correction **non re-testée**.
 
 ---
 
-### Frame 4 — Experience Map Courtier
+## 28. Restart / recovery
 
-| Champ | Valeur |
-|-------|--------|
-| Frame ID | `3458764685164458754` |
-| Titre cible | 1.2 — Experience Map — Courtier |
-| Verdict | **KEEP** (ADAPT MINOR si label statut seulement) |
-| Action | Conserver phases / enjeux ; mettre à jour bandeau statut si besoin : RETAINED / ALIGNED — KEEP · GROUP-VALIDATED PERSONA COURTIER |
+### 28.1 Diagramme — RESTART/RECOVERY FLOW
 
-**Ne pas :** reconstruire ; inventer émotions ; injecter stickies phase × frustration.
+```mermaid
+flowchart TD
+  A[Studio restart / reprise Project] --> B[Product Resolution reload]
+  B --> C{Integrity bindings OK?}
+  C -->|Non| D[RECOVERY_REQUIRED]
+  D --> E[Pilot / governed recovery path]
+  C -->|Oui| F[Continuity Projection]
+  F --> G{Stage}
+  G -->|RUNNING stale| H[Reconciler continue / observe]
+  G -->|MATERIALIZATION_PENDING| I[Reconciler MATERIALIZE_PRODUCT]
+  G -->|POST_EVIDENCE_PENDING| J[Reconciler RUN_POST_EVIDENCE]
+  G -->|COMPLETE| K[Result Surface]
+  G -->|RECOVERY_REQUIRED| D
+  H --> F
+```
 
-**Référence Git :**
+### 28.2 CURRENT anchors
 
-## 10. Experience Map — Courtier
+- Integrity codes → `RECOVERY_REQUIRED` (**CURRENT FACT**)
+- Recovery continuity paths préservés (NELC / continuity macros)
+- Restart ne doit **pas** relaunch Cursor silencieusement (discipline docs_write REAL historique)
 
-| Champ | Valeur |
-|-------|--------|
-| **Statut** | **KEEP** — cohérente avec la carte atelier Courtier |
-| **Persona cible** | Courtier |
-| **Nature** | Cible pédagogique — **NON AS-IS OBSERVÉ** |
+### 28.3 TARGET
 
-| Phase | Enjeux (cadrage) |
-|-------|------------------|
-| Prospection / contact / qualification | Réactivité · Continuité du suivi |
-| Devis | Réactivité · Charge administrative |
-| Relance / RDV | Réactivité · Continuité du suivi |
-| Besoin → proposition | Personnalisation · Continuité du suivi |
-| Souscription → vie contrat | Traçabilité · Continuité du suivi |
-| Docs / sinistre / renouvellement | Traçabilité · Continuité · Charge administrative |
-
-**Contrôle carte atelier :** objectifs (centraliser, automatiser relances, vision globale) et frustrations (saisie manuelle, portails multiples, reporting) **confirment** la map — **sans** injection mécanique phase × sticky.
-**Pensées / émotions par phase :** **NON RENSEIGNÉES** — pas de courbe émotionnelle inventée.
+Reconciler + Resolution suffisent à reprendre sans CTA magique ; UI recharge = **dette** si encore nécessaire.
 
 ---
 
-### Frame 5 — Customer Journey Client particulier
+## 29. Retention / GC
 
-| Champ | Valeur |
-|-------|--------|
-| Frame ID | `3458764685164510320` |
-| Titre cible | 1.2 — Customer Journey Map — Client particulier |
-| Sous-titre | Du prospect à la vie client |
-| Ancien titre | Customer Journey Map — Prospect → Client |
-| Action | Renommer + aligner labels persona ; conserver étapes |
+### 29.1 Diagramme — RETENTION FLOW
 
-**Contenu / règles finales :**
+```mermaid
+flowchart TD
+  RM1[Review Material HOT] --> RM2[ARCHIVABLE]
+  RM2 --> RM3{Evidence still depends on RM payload?}
+  RM3 -->|CASE A yes| RM4[NOT PRUNABLE]
+  RM4 --> RM1
+  RM3 -->|CASE B independent durable source| RM5[PRUNABLE]
+  RM5 --> RM6[PRUNED duplicate bytes]
+  RM6 --> EVOK[Evidence may remain AVAILABLE]
+  RM3 -->|CASE C authoritative payload removed without replacement| RM7[PRUNED]
+  RM7 --> EVREQ[Explicit Evidence availability requalification]
+  EVREQ --> MUE[MarkEvidenceUnavailable or successor]
+  EV[Evidence own lifecycle] -.->|evaluated before prune| RM3
+  RM6 --> SURF[Result Surface explains retention honestly]
+  MUE --> SURF
+```
 
-## 11. Customer Journey Map — Client particulier
+### 29.2 CURRENT
 
-| Champ | Valeur |
-|-------|--------|
-| **Titre** | Customer Journey — **Client particulier** |
-| **Sous-titre** | Du prospect à la vie client |
-| **Persona** | Client particulier |
-| **Lifecycle** | Prospect → souscription → Client |
-| **Statut** | Conservé / cohérent avec carte atelier |
+Evidence : `retentionClass`, availability, `MarkEvidenceUnavailable`.
+Review Material générique lifecycle : **pas encore** premier-class séparé.
 
-### Séquence cadrage (7 étapes)
+### 29.3 TARGET (D-ER-12)
 
-1. Première prise de contact
-2. Devis
-3. Relance / rendez-vous
-4. Compréhension / qualification du besoin
-5. Proposition personnalisée
-6. Souscription
-7. Vie du contrat / suivi (échanges, docs, sinistre éventuel, renouvellement / résiliation)
+| Objet | Lifecycle |
+| --- | --- |
+| Review Material | HOT → ARCHIVABLE → PRUNABLE → PRUNED |
+| Evidence | propre `status` / `availability` / `provenance` / `retentionClass` |
 
-Granularité Miro historique (entrée en relation · devis · RDV/besoin · proposition · souscription · vie du contrat · échanges/docs · sinistre/renouvellement) = **compatible**, pas de nouvelles étapes inventées.
+**Invariant :** `PRUNE REVIEW MATERIAL ≠ AUTOMATICALLY MarkEvidenceUnavailable`.
 
-**Émotion :** NON RENSEIGNÉE.
-**Ne pas décider :** interfaces Prospect/Client, écrans, permissions, UI.
+TTL / scheduler / GC implementation = **OPEN DESIGN DETAIL**.
 
 ---
 
-**Dimensions :** ajuster largeur titre si nécessaire pour lisibilité ; pas de frame parallèle.
+## 30. Chemins logiques vs physiques
 
-### Règles Miro globales
+| Couche | Exemple NoteLite / pattern | Rôle |
+| --- | --- | --- |
+| **Logical target** | `projects/notelite/01-cadrage/...` | Autorité Product / EC / Pilot |
+| **Physical storage** | `.sfia-exec/.../docs-write-artifact/...` | Runtime storage / review bytes |
+| **Worktree path** | prepared WT + sealed absolute | Enforcement Cursor |
 
-1. Fidélité au Git final de ce commit
-2. Lisibilité + cohérence visuelle entre les 3 personas (6 colonnes atelier)
-3. Distinction groupe pédagogique ≠ terrain sur chaque frame persona
-4. Zéro ambiguïté : outils/listes personas ≠ stack projet
-5. Aucun nouveau frame ; aucun delete
+**Règles :**
 
+- EC / ExpectedOutputs raisonnent en **logique repo-relative** ;
+- instructions Cursor peuvent recevoir absolu scellé sous WT ;
+- Review Material doit **relier** logique ↔ physique sans exposer un faux « Product path » `.sfia-exec` comme cible métier ;
+- naming `docs-write-artifact` = **TRANSITIONAL**.
 
-## 11. Diff Git
+---
+
+## 31. Retirement des taxonomies spécialisées
+
+### 31.1 Objet de retirement (Product model)
+
+Exemples à **RETIRE FROM PRODUCT MODEL** :
+
+- `docs_write`
+- `code_write`
+- `read`
+- `read_only`
+- toute taxonomie de tâche Product homologue
+
+### 31.2 Ce qui n’est pas retiré automatiquement
+
+| Asset technique | Disposition typique |
+| --- | --- |
+| Verifier filesystem | KEEP / GENERALIZE |
+| Worktree isolation | KEEP |
+| Git lifecycle evidence sources | KEEP / HARVEST comme effects |
+| Allowlists / RO enforcement | KEEP |
+| ContractResult engine | KEEP / GENERALIZE rules |
+
+### 31.3 Interdiction de renommage trompeur
+
+**Ne pas** créer des catégories Product :
+
+- `generic_read`
+- `generic_write`
+- `generic_code`
+
+La généricité est le **modèle** (un EC generalist), pas un nouvel enum.
+
+---
+
+## 32. Ponts transitionnels
+
+| Bridge | Rôle | Exit |
+| --- | --- | --- |
+| persist/ingest `docs_write*` | Compat Evidence path | Generic Review Material + ingest générique |
+| policy `docs_write` dans verifier | Oracle actuel | Policies d’effet génériques + VerifiedChangeSet |
+| UI « Recharger résultat produit » | Continue manuel | Reconciler + mécanisme de continuation autonome à définir |
+| Legacy M3/M4 rematerialize docs_write | Recovery vieux EC | Sunset quand plus d’EC legacy |
+| post_execution tools OFF | Safe analysis minimale | Deep Review read-only tools bornés |
+| Naming paths `docs-write-artifact` | Storage actuel | Rename neutre sous Review Material |
+
+**Règle (D-ER-13/14) :** chaque bridge a une **exit condition** ; pas de dual-stack permanent.
+
+---
+
+## 33. Anti-architecture
+
+Pratiques **rejetées** (TARGET + discipline CURRENT) :
+
+1. Catalogue Product de tâches (`docs_write` et homologues) comme architecture durable.
+2. Catégories Product `generic_read|write|code`.
+3. Report → Evidence automatique.
+4. Second moteur Resolution / ContractResult / Execution « parallèle ».
+5. UI owner du workflow (sequence locale Select→Start→Complete→Materialize).
+6. Transport externe de revue comme cœur Product.
+7. PASS sur narration / resultRef seul / Evidence available seul sans critères.
+8. Big bang rewrite sans bridges à exit.
+9. Présenter TARGET comme IMPLEMENTED.
+10. Inventer un delivery plan N-lots dans ce document.
+11. runtime v3 smuggled comme adopté.
+12. READY FOR REAL implicite.
+
+---
+
+## 34. Frontière future de promotion Git
+
+| Couche | État |
+| --- | --- |
+| Ce document | **DOCUMENTARY CANDIDATE PENDING GIT INTEGRATION** |
+| Autorité commit/push/PR | **Distinct Morris GO** après revue |
+| Promotion doctrine / Build Doctrine / C1 | **NON** autorisée ici |
+| Promotion runtime v3 | **NON ADOPTED** — hors frontière |
+| Preuve REAL cible générique | **FUTURE PROOF** — GO distinct ; READY FOR REAL = NO aujourd’hui |
+
+---
+
+## 35. Stratégie de migration
+
+**TARGET (D-ER-13/14)** — séquence logique (≠ delivery lots) :
+
+1. **Freeze sémantique** : EC generalist + Claim/Fact/Analysis/Authority (déjà largement ancré).
+2. **Generalize Review Material** : harvest persist docs_write → API neutre.
+3. **Introduce VerifiedChangeSet** sémantique au-dessus du verifier.
+4. **Unify Product Resolution** load path.
+5. **Harden Reconciler progression** (éliminer stall poll-only).
+6. **Enable Nora Deep Review read-only tools**.
+7. **Result Surface always-explain** parity.
+8. **Retire Product taxonomies** du prepare/UI/naming nominal.
+9. **Retention HOT→PRUNED** Review Material (distinct Evidence lifecycle).
+10. **Exit proofs** (section 38) avant claims de complétude.
+
+**DELIVERY SLICING** de ces étapes = **TBD** (D-ER-15).
+
+---
+
+## 36. Risques / réserves
+
+| ID | Risque | Mitigation |
+| --- | --- | --- |
+| R1 | Dual-stack prolongé (spécialisé + générique) | Exit conditions obligatoires ; D-ER-14 |
+| R2 | Stall UI post-REAL (NoteLite-class) | Reconciler + continuation autonome TBD ; ne pas normaliser « Recharger » |
+| R3 | Confusion Claim/Fact | D-ER-11 + Result Surface |
+| R4 | Sur-claim REAL | Anti-claims ; READY FOR REAL=NO |
+| R5 | Renommage `generic_*` Product | Interdiction explicite |
+| R6 | Deep Review tools trop larges | Allowlist read-only stricte |
+| R7 | GC agressif casse reprise | Tombstones + availability honesty |
+| R8 | Delivery plan inventé | D-ER-15 TBD |
+| R9 | runtime v3 confusion | Bannière NON ADOPTED |
+| R10 | Correction gouvernée non re-testée (NoteLite) | Ne pas clore cycle sur pause |
+```
+
+### Open design detail #2 (kept OPEN)
 
 ```
- .../crm-assurance-courtage-operating-doctrine.md   |   7 +-
- .../01-02-analyse-besoins-utilisateurs.md          | 455 ++++++++++++---------
- 2 files changed, 270 insertions(+), 192 deletions(-)
-
+2. Mécanisme exact anti-stall (**worker** vs continue serveur vs autre) — principe D-ER-08 fixe l’owner, pas l’implémentation.
 ```
+
+---
+
+## Unified diff — micro-passe uniquement
 
 ```diff
-diff --git a/projects/crm-assurance-courtage/00-intake/crm-assurance-courtage-operating-doctrine.md b/projects/crm-assurance-courtage/00-intake/crm-assurance-courtage-operating-doctrine.md
-index aace4df7..82731628 100644
---- a/projects/crm-assurance-courtage/00-intake/crm-assurance-courtage-operating-doctrine.md
-+++ b/projects/crm-assurance-courtage/00-intake/crm-assurance-courtage-operating-doctrine.md
-@@ -172,11 +172,12 @@ Décisions futures **séparées** — le GO du présent cycle documentaire **ne
- | 1.1 | **VALIDATED** |
- | 1.2 | **VALIDATED — GROUP PERSONA CONSOLIDATION 2026-09-29** |
- | Personas canoniques | **Client particulier** · **Courtier** · **Directeur** |
-+| Persona detail source | **GROUP-VALIDATED WORKSHOP CARDS — TRANSCRIBED IN GIT** |
- | Ancien persona préparatoire Prospect → Client | **SUPERSEDED AS PERSONA** |
- | Continuité prospect → client | **RETAINED IN CUSTOMER JOURNEY** |
--| Experience Map Courtier | **RETAINED / ALIGNED** |
-+| Experience Map Courtier | **RETAINED / ALIGNED — KEEP** |
- | Customer Journey | **Client particulier — Du prospect à la vie client** |
--| Miro personas / maps | **SYNC REQUIRED** (Cursor n’a pas modifié Miro) |
-+| Miro personas / maps | **PENDING CHATGPT SYNC AFTER REVIEW** (Cursor n’a pas modifié Miro) |
- | 1.3 | **OPENED — AWAITING FINAL REVIEW** |
- | 1.3.1 | **REVIEW PASS** |
- | Base détaillée 1.3.2 A→E | **REVIEW PASS** (historique Git) |
-@@ -184,7 +185,7 @@ Décisions futures **séparées** — le GO du présent cycle documentaire **ne
- | 1.4 | **NOT OPENED** |
- | Architecture | **NOT DECIDED** |
- | Stack runtime | **CANDIDATE TOOL ECOSYSTEM ONLY / NOT DECIDED** |
--| Prochain objectif | Revue ChatGPT de la consolidation personas 1.2 ; 1.3 reste ouvert séparément (pas validé par ce cycle) |
-+| Prochain objectif | Revue ChatGPT transcription personas + sync Miro bornée ; 1.3 non validé par ce cycle |
+--- a/projects/sfia-studio/convergence/sfia-studio-generic-execution-review-result-architecture.md
++++ b/projects/sfia-studio/convergence/sfia-studio-generic-execution-review-result-architecture.md
+@@ -505,7 +505,7 @@
+
+ **Décision :** `reconcileGovernedExecution` (ou successeur) **possède** la progression post-accept Attempt → materialization → post-Evidence.
+ **UI :** projection + intent — **pas** owner.
+-**Dette :** poll UI 8 without worker = **non conforme** à la cible ; correction = worker/serveur ou continue autonome bornée — **OPEN DESIGN DETAIL** sur le mécanisme exact.
++**Dette :** poll UI 8 without worker = **non conforme** à la cible ; mécanisme anti-stall piloté par le Reconciler — implémentation **OPEN DESIGN DETAIL** (ex. options ouvertes : worker vs continuation serveur vs autre — **aucune sélection**).
+
+ ### D-ER-09 — Nora Deep Review avec outils read-only bornés
+
+@@ -664,7 +664,7 @@
+ | 14 | acceptance criteria | Critères acceptation | Présent | EC acceptance | **FULL** | Critères trop docs-centric | Critères génériques ContractResult | **KEEP** / **COMPLETE** |
+ | 15 | validation plan | Plan validation | Présent | EC validationPlan input | **PARTIAL** | Plan non exécuté / non observé | Plan + observation Studio | **COMPLETE** |
+ | 16 | targeted validations | Validations ciblées | Partiel | report validationEffects / verifier | **PARTIAL** | Validations claim-only | Validations revendiquées + faits Studio | **COMPLETE** |
+-| 17 | full validation expectation | Attente full validation | Faible / process | report fields partiels | **ABSENT** / **PARTIAL** | Full validation non disciplinada | Exigence contractuelle quand applicable | **HARVEST** / **COMPLETE** |
++| 17 | full validation expectation | Attente full validation | Faible / process | report fields partiels | **PARTIAL** | Full validation non disciplinée / non systématique | Exigence contractuelle quand applicable | **HARVEST** / **COMPLETE** |
+ | 18 | authority | Authority process | Présent | HumanDecision / effective authority | **FULL** | — | KEEP authority Product | **KEEP** |
+ | 19 | Confirmation | Confirmation gates | Présent | Confirmation / inspection | **FULL** | — | KEEP | **KEEP** |
+ | 20 | reversibility | Reversibility qualifiée | Présent | EC reversibility | **PARTIAL** | Sous-exploité en Result Surface | Exposer honnêtement | **COMPLETE** |
+@@ -672,15 +672,15 @@
+ | 22 | Fake / Real qualification where applicable | Qualification Fake/Real process | Partiel (gateway REAL gates) | REAL launch gates / harness | **PARTIAL** | Confusion preuve | Fake/Real explicite hors READY inventé | **KEEP** / **COMPLETE** |
+ | 23 | Evidence requirements | Exigences Evidence process | Partiel | EC / Evidence domain | **PARTIAL** | Evidence trop Artifact-centric | Evidence requirements génériques | **COMPLETE** |
+ | 24 | report requirements | Exigences de rapport process | Partiel (string list `reportRequirements`) | contractMissionSemantics / projection | **PARTIAL** | N’exige pas encore systématiquement Review End Of | Exiger Report + Review End Of | **COMPLETE** |
+-| 25 | CursorExecutionReport | Rapport machine process | Présent largement générique | `cursorExecutionReport` + Resolution CLAIM | **FULL** / **PARTIAL** enrichissement | Enrichir ≠ Evidence | KEEP CLAIM + COMPLETE champs utiles | **KEEP** / **COMPLETE** |
++| 25 | CursorExecutionReport | Rapport machine process | Présent largement générique | `cursorExecutionReport` + Resolution CLAIM | **PARTIAL** | Structure générique présente ; enrichissement sémantique encore incomplet (≠ Evidence) | KEEP CLAIM + COMPLETE champs utiles | **KEEP** / **COMPLETE** |
+ | 26 | Cursor Review End Of | Fin de revue exécuteur process | Absent comme CLAIM natif systématique | process externe historique | **ABSENT** | Studio pourrait « inventer » REO | Cursor produit REO CLAIM ; native binding Studio | **HARVEST** / **COMPLETE** |
+ | 27 | deviations | Écarts rapportés | Partiel dans report | report deviations | **PARTIAL** | Deviations ignorées en CE | Deviations claim + évaluation | **COMPLETE** |
+ | 28 | blockers | Blockers process | Partiel | report blockers | **PARTIAL** | Blockers non visibles Pilot | Blockers → Result Surface | **COMPLETE** |
+ | 29 | reservations | Réserves process | Partiel | report reservations / Memory | **PARTIAL** | Confusion Reservation Product | Reservations claim + Product reserves distincts | **COMPLETE** |
+ | 30 | Git proof when applicable | Preuve Git process | Partiel (Evidence git sources / GCEC) | Evidence git / verifier | **PARTIAL** | Git proof confondu avec PASS Product | Git facts Studio + CE rules | **HARVEST** / **COMPLETE** |
+ | 31 | final Cursor verdict | Verdict final exécuteur | Partiel (report status) | CursorExecutionReport status | **PARTIAL** | Verdict Cursor ≠ Product PASS | Verdict CLAIM explicite | **COMPLETE** |
+-| 32 | allowed claims | Claims autorisés process | Faible natif | anti-claim discipline partielle | **ABSENT** / **PARTIAL** | Sur-réclame | Allowed claims contractuels | **HARVEST** / **COMPLETE** |
+-| 33 | forbidden / anti-claims | Anti-claims process | Faible natif | capitalisations / docs | **ABSENT** / **PARTIAL** | Anti-claims non runtime | Anti-claims dans reporting + Surface | **HARVEST** / **COMPLETE** |
++| 32 | allowed claims | Claims autorisés process | Faible natif | anti-claim discipline partielle | **PARTIAL** | Sur-réclame / discipline non systématique | Allowed claims contractuels | **HARVEST** / **COMPLETE** |
++| 33 | forbidden / anti-claims | Anti-claims process | Faible natif | capitalisations / docs | **PARTIAL** | Anti-claims non runtime systématiques | Anti-claims dans reporting + Surface | **HARVEST** / **COMPLETE** |
+ | 34 | Review Pack semantics useful to native review | Pack revue riche (garanties review) | Partiel (Review Material docs_write ; Resolution) | persist docs_write / Resolution | **PARTIAL** | Artifact-centric | **HARVEST** garanties utiles → Generic RM + REO CLAIM | **HARVEST** |
+ | 35 | external Review Handoff transport | Branche `sfia/review-handoff` / `.tmp-sfia-review` / copy-paste | **Ne doit pas** être runtime Product | process v2.6 publisher | **NOT_APPLICABLE** (à ne pas importer) | Tentation d’importer le bus Git | **DO NOT IMPORT INTO STUDIO RUNTIME** | **N/A** |
+
+@@ -997,7 +997,7 @@
+ | Review Material | docs_write-named / Artifact-centric | Generic RM multi-`reviewItems[]` |
+ | Evidence/RB/CE | vivants | KEEP |
+ | Post-Evidence Nora | tools OFF | Deep Review read-only tools |
+-| Progression | Reconciler + UI poll | Reconciler complet / worker |
++| Progression | Reconciler + UI poll | Reconciler complet + continuation autonome TBD (mécanisme OPEN DESIGN DETAIL) |
 
  ---
 
-diff --git a/projects/crm-assurance-courtage/01-cadrage/01-02-analyse-besoins-utilisateurs.md b/projects/crm-assurance-courtage/01-cadrage/01-02-analyse-besoins-utilisateurs.md
-index 94c16517..33390cf8 100644
---- a/projects/crm-assurance-courtage/01-cadrage/01-02-analyse-besoins-utilisateurs.md
-+++ b/projects/crm-assurance-courtage/01-cadrage/01-02-analyse-besoins-utilisateurs.md
-@@ -4,248 +4,344 @@
- |-------|--------|
- | **Statut** | **VALIDATED — GROUP PERSONA CONSOLIDATION 2026-09-29** |
- | **Étape** | 1.2 |
--| **Source métier principale** | Brief pédagogique CRM + 1.1 validé + BMC groupe + **personas atelier groupe 2026-09-29** |
--| **Source méthodologique** | Guide Bloc 1 PBNC + exigences 1.2 du brief |
--| **Doctrine projet** | [`../00-intake/crm-assurance-courtage-operating-doctrine.md`](../00-intake/crm-assurance-courtage-operating-doctrine.md) |
--| **1.1** | VALIDATED — [`01-01-analyse-besoins-metiers.md`](01-01-analyse-besoins-metiers.md) |
--| **Evidence user discovery** | GROUP-VALIDATED PEDAGOGICAL SCENARIO — **NO FIELD INTERVIEWS** — **NO OBSERVED AS-IS** |
-+| **Source métier principale** | Brief + 1.1 + BMC groupe + **cartes atelier groupe 2026-09-29** (transcription Git) |
-+| **Persona detail source** | **GROUP-VALIDATED WORKSHOP CARDS — TRANSCRIBED IN GIT** |
-+| **Evidence** | GROUP-VALIDATED PEDAGOGICAL SCENARIO ASSUMPTIONS — **NO FIELD INTERVIEWS** — **NO OBSERVED AS-IS** |
- | **Personas canoniques** | **Client particulier** · **Courtier** · **Directeur** |
--| **Experience Map** | **RETAINED / ALIGNED** — Courtier |
-+| **Experience Map** | **RETAINED / ALIGNED** — Courtier — **KEEP** |
- | **Customer Journey Map** | **Client particulier — Du prospect à la vie client** |
--| **Miro** | **SYNC REQUIRED** — board historique encore sur l’ancienne version (Cursor **n’a pas** modifié Miro) |
--| **Architecture** | NOT DECIDED |
--| **Stack** | NOT DECIDED |
--| **1.3** | OPENED — AWAITING FINAL REVIEW (hors modification de fond dans ce cycle) |
-+| **Miro** | **PENDING CHATGPT SYNC AFTER REVIEW** (Cursor **n’a pas** modifié Miro) |
-+| **Architecture / Stack** | NOT DECIDED |
-+| **1.3** | OPENED — AWAITING FINAL REVIEW (fond inchangé ce cycle) |
- | **1.4** | NOT OPENED |
-
--### Décisions Morris / groupe tracées
-+### Décisions Morris / groupe
-
--| Décision | Contenu | Portée |
--|----------|---------|--------|
--| Ouverture 1.2 | 1.2 = OPENED (2026-09-27) | Historique |
--| Validation 1.2 initiale | 1.2 = VALIDATED (2026-09-28) | Livrable initial |
--| **Consolidation personas atelier** | Set canonique = **Client particulier** · **Courtier** · **Directeur** (2026-09-29) | **Supersède** le persona préparatoire « Prospect → Client » |
--| Experience Map | Cible **Courtier** — conservée / alignée | Contenu parcours métier inchangé sur le fond |
--| Customer Journey Map | Persona **Client particulier** ; lifecycle prospect → client | Réalignement conceptuel |
-+| Décision | Contenu |
-+|----------|---------|
-+| Set personas atelier 2026-09-29 | Client particulier · Courtier · Directeur |
-+| Ancien persona Prospect → Client | **SUPERSEDED AS PERSONA** |
-+| Continuity prospect → client | **RETAINED IN CUSTOMER JOURNEY** |
-+| Transcription cartes | Profil · Démographie · Objectifs · Frustrations · Tâches · Outils — **transcrits dans Git** |
-
--**VALIDATED** (1.2) signifie que Morris / le groupe valide le livrable de cadrage utilisateur pour la suite.
--Cela ne signifie **pas** : user research empirique ; profil statistiquement démontré ; données terrain d’un cabinet réel.
-+**VALIDATED** = livrable de cadrage utilisateur retenu pour la suite.
-+**≠** étude terrain, entretiens, statistiques réelles.
-
- ---
-
- ## 1. Objectif du 1.2
-
--Identifier les profils utilisateurs pertinents pour le cas pédagogique CRM Assurance Courtage, comprendre leurs objectifs et attentes **à partir des informations disponibles**, et fonder les maps (Experience Map / Customer Journey) sur les **personas validés par le groupe**.
--
--Ce livrable doit :
--
--- distinguer hypothèses de scénario pédagogique et faits terrain ;
--- ne pas transformer l’analyse en spécification fonctionnelle, backlog, interfaces ou architecture.
--
--**Ce livrable ne constitue PAS une user research empirique.**
-+Fonder le cadrage utilisateurs sur les **personas validés par le groupe**, distinguer hypothèses pédagogiques et faits terrain, et aligner Experience Map / Customer Journey — **sans** spécification produit, backlog, UI ou architecture.
-
- ---
-
--## 2. Niveau de preuve et méthode
-+## 2. Niveau de preuve et provenance
-
- | Catégorie | Signification |
- |-----------|---------------|
--| **EXPLICITE DANS LE BRIEF / BMC** | Information affirmée par le brief ou le BMC groupe |
--| **GROUP-VALIDATED PEDAGOGICAL SCENARIO** | Attributs / set de personas consolidés en atelier et validés par le groupe — **pas** des faits terrain |
--| **INFÉRENCE DE CADRAGE** | Déduction raisonnable, clairement marquée |
--| **NON RENSEIGNÉ / À SYNCHRONISER** | Détail non disponible de façon lisible dans le dépôt — **non inventé** |
-+| **GROUP-VALIDATED WORKSHOP CARD** | Contenu de la carte atelier groupe, transcrit |
-+| **EXPLICITE BRIEF / BMC** | Brief ou BMC groupe |
-+| **INFÉRENCE DE CADRAGE** | Déduction marquée |
-+| **NON RENSEIGNÉ** | Champ absent / non inventé |
-+| **ÉCHELLE VISUELLE** | Jauge atelier lue qualitative (pas de % inventé) |
-
--Aucun entretien, questionnaire ou observation terrain n’est fourni.
--Aucun verbatim réel n’est disponible.
-+### Provenance obligatoire
-
--### Provenance personas (obligatoire)
-+Les attributs de ces personas sont des **hypothèses de scénario pédagogique consolidées et validées par le groupe**.
-+Ils servent au cadrage du CRM ; **ils ne résultent pas d’entretiens ou d’une étude terrain réelle**.
-
--Les attributs des personas sont des **hypothèses de scénario pédagogique consolidées et validées par le groupe**.
--Ils servent à concevoir et tester la cohérence du CRM ; **ils ne résultent pas d’entretiens ou d’une étude terrain réelle**.
-+Les « citations » des cartes sont des **phrases de persona pédagogique**, pas des verbatims d’entretien.
-
--Les cartes atelier (Profil · Démographie · Objectifs · Frustrations · Tâches · Outils) constituent la **référence de contenu détaillé**.
--Dans le présent dépôt, aucune source locale lisible et explicitement identifiable comme transcription complète de ces cartes n’a été trouvée pour ce cycle : **les petits textes (âge, revenus, localisation, outils nominatifs, scores, etc.) ne sont pas inventés ici**.
--**Transcription détaillée à synchroniser** depuis la source atelier lisible — **sans** remettre en cause la validation du **set** de personas.
-+**Source atelier utilisée pour transcription :** capture d’écran atelier groupe du **2026-09-29** (trois personas visibles, structure Profil / Démographie / Objectifs / Frustrations / Tâches / Outils).
-+Champs textuels stickies / profils : **lisibles**.
-+Jauges personnalité / compétences : **tendances qualitatives** (valeurs numériques exactes des curseurs = non affirmées comme chiffres).
-
- ---
-
--## 3. Utilisateurs et parties prenantes
-+## 3. Utilisateurs, personas et états
-
--| Profil | Qualification | Preuves / statut |
--|--------|---------------|------------------|
--| **Courtier** | Utilisateur métier interne principal — **persona canonique** | Prospection ; devis ; relances ; RDV ; conseil ; souscription ; renouvellement / résiliation ; documents ; sinistres ; suivi — EXPLICITE BRIEF + BMC + SET GROUPE |
--| **Directeur** | Persona de pilotage — **persona canonique** | Objectifs business, différenciation, KPIs — EXPLICITE BRIEF + SET GROUPE |
--| **Client particulier** | Persona externe — **persona canonique** | Segment BMC + SET GROUPE 2026-09-29 |
--| **Prospect** | **État** commercial (avant souscription) du Client particulier | Contact ; devis ; RDV ; besoin ; proposition ; souscription — EXPLICITE BRIEF — **≠ persona distinct** |
--| **Client (état)** | **État** commercial (après souscription) du Client particulier | Contrats ; documents ; historique ; sinistres ; renouvellement / résiliation — EXPLICITE BRIEF — **≠ persona distinct** |
-+| Élément | Qualification |
-+|---------|---------------|
-+| **Courtier** | Persona canonique — utilisateur métier interne principal |
-+| **Directeur** | Persona canonique — pilotage |
-+| **Client particulier** | Persona canonique — externe |
-+| **Prospect** | **État** commercial (avant souscription) du Client particulier — **≠ persona** |
-+| **Client (état)** | **État** commercial (après souscription) — **≠ persona** |
-
- **Persona ≠ état commercial.**
--Persona = **Client particulier**.
--États possibles du parcours = prospect → futur client → client.
-+TPE/PME = segment BMC (pas un 4ᵉ persona 1.2).
-
- ---
-
--## 4. Personas canoniques (set groupe 2026-09-29)
-+## 4. Personas canoniques
-
- | # | Persona | Statut |
- |---|---------|--------|
--| 1 | **Client particulier** | **CANONICAL** — GROUP-VALIDATED PEDAGOGICAL SCENARIO |
--| 2 | **Courtier** | **CANONICAL** — GROUP-VALIDATED PEDAGOGICAL SCENARIO |
--| 3 | **Directeur** | **CANONICAL** — GROUP-VALIDATED PEDAGOGICAL SCENARIO |
-+| 1 | Client particulier | CANONICAL — GROUP-VALIDATED |
-+| 2 | Courtier | CANONICAL — GROUP-VALIDATED |
-+| 3 | Directeur | CANONICAL — GROUP-VALIDATED |
-
--**Note historique :** la version préparatoire utilisait un persona longitudinal **Prospect → Client**. La consolidation atelier du **2026-09-29** retient désormais le persona **Client particulier** ; la continuité prospect → client est conservée dans le **Customer Journey**.
--
--Structure attendue des cartes atelier (référence) : Profil · Démographie · Objectifs · Frustrations · Tâches · Outils — **détail à synchroniser** (voir §2).
-+**Note historique :** la version préparatoire utilisait un persona longitudinal Prospect → Client. Depuis le 2026-09-29 : persona **Client particulier** ; continuity prospect → client = **Customer Journey**.
-
- ---
-
- ## 5. Persona — Courtier
-
--| Champ | Contenu | Niveau de preuve |
--|-------|---------|------------------|
--| **Rôle** | Courtier du cabinet | EXPLICITE + SET GROUPE |
--| **Angle** | Métier / opérations / relation client | EXPLICITE |
--| **Relation au projet** | Utilisateur métier interne principal | EXPLICITE |
--| **Objectifs / capacités supportés** | Prospection ; devis ; relances ; rendez-vous ; conseil personnalisé ; souscription ; renouvellement / résiliation ; documents ; sinistres ; traçabilité ; réactivité ; personnalisation soutenue par l’historique | EXPLICITE BRIEF + BMC |
--| **Besoins déduits** | Retrouver l’information utile ; vision cohérente du dossier ; limiter l’admin ; historique pour personnaliser | INFÉRENCE DE CADRAGE |
-+#### Profil
-+
-+| Champ | Contenu atelier |
-+|-------|-----------------|
-+| Nom | Sarah Benali |
-+| Âge | 38 ans |
-+| Rôle | Courtier en assurance |
-+| Bio courte | Travaille à son compte. Gère un portefeuille de clients diversifiés. Cherche à optimiser son temps pour se concentrer sur le conseil et la vente plutôt que sur l’administratif. |
-+| Phrase pédagogique | « Je veux que mon outil m’aide à être plus efficace pour mieux conseiller mes clients. » |
-+
-+#### Démographie
-+
-+| Champ | Contenu atelier |
-+|-------|-----------------|
-+| Genre | Femme |
-+| Localisation | Lyon |
-+| Situation familiale | Célibataire |
-+| Niveau d’études | Master Assurance / Finance |
-+| Profession | Courtière indépendante |
-+| Revenu (scénario) | env. 60 k€ / an |
-+
-+**Personnalité (échelles visuelles atelier — tendances) :** plutôt Extraverti · équilibré Analytique/Créatif · plutôt Audacieux · plutôt Innovant.
-+
-+#### Objectifs
-
--**Non inventé :** démographie atelier, outils nominatifs, frustrations verbatim, scores — **à synchroniser** depuis la carte atelier.
-+- Centraliser les dossiers clients
-+- Automatiser les relances
-+- Accéder aux offres multi-compagnies
-+- Améliorer le taux de conversion
-+- Développer son portefeuille
-+- Simplifier la gestion des commissions
-+- Avoir une vision globale de l’activité
-
--**Phrase de synthèse (analytique — non issue d’un entretien) :**
--Le courtier a besoin d’un suivi centralisé du parcours commercial et administratif pour rester réactif et personnaliser la relation sans charge administrative excessive.
-+#### Frustrations
-+
-+- Saisie manuelle répétitive
-+- Multiplication des portails assureurs
-+- Difficulté de suivi des sinistres clients
-+- Manque de rappels automatiques
-+- Outils actuels trop rigides
-+- Perte de temps en reporting
-+
-+#### Tâches
-+
-+- Analyser les besoins clients
-+- Négocier avec les assureurs
-+- Relancer les prospects
-+
-+**Compétences (échelles visuelles — tendances) :** Technologie élevée · Assurance très élevée · Organisation élevée · Réseau très élevé.
-+
-+#### Outils
-+
-+- CRM spécialisé assurance
-+- Outils de bureautique (Office 365)
-+- Portails extranet des compagnies
-+- Logiciel de signature électronique
-+- Réseaux sociaux (LinkedIn)
-+
-+**Note atelier :** utilise son CRM toute la journée ; besoin d’une interface fluide et de connecteurs avec les compagnies.
-+*(Outils / notes = hypothèses de scénario persona — **pas** décisions de stack projet.)*
-
- ---
-
- ## 6. Persona — Directeur
-
--| Champ | Contenu | Niveau de preuve |
--|-------|---------|------------------|
--| **Rôle** | Directeur du cabinet | EXPLICITE + SET GROUPE |
--| **Angle** | Pilotage / performance / vision business | EXPLICITE (objectifs) |
--| **Relation au projet** | Persona de pilotage | SET GROUPE |
-+#### Profil
-+
-+| Champ | Contenu atelier |
-+|-------|-----------------|
-+| Nom | Jean Dupont |
-+| Âge | 52 ans |
-+| Rôle | Directeur de cabinet |
-+| Bio courte | Dirige une agence de 10 personnes. Besoin de piloter l’activité de manière stratégique. Cherche à améliorer la rentabilité globale et à s’assurer de la conformité réglementaire. |
-+| Phrase pédagogique | « J’ai besoin d’une vision claire de l’activité pour décider des investissements et des recrutements futurs. » |
-+
-+#### Démographie
-+
-+| Champ | Contenu atelier |
-+|-------|-----------------|
-+| Genre | Homme |
-+| Localisation | Paris |
-+| Situation familiale | Marié, 3 enfants |
-+| Niveau d’études | École de Commerce |
-+| Profession | Directeur de cabinet de courtage |
-+| Revenu (scénario) | env. 100 k€ / an |
-+
-+**Personnalité (tendances visuelles) :** plutôt Extraverti · plutôt Analytique · plutôt Prudent · plutôt Traditionnel.
-+
-+#### Objectifs
-
--### Faits explicites du brief (conservés)
-+- Suivre les indicateurs clés (KPI)
-+- Optimiser la rentabilité
-+- Garantir la conformité (RGPD, DDA)
-+- Manager les équipes efficacement
-+- Identifier les leviers de croissance
-+- Simplifier le reporting mensuel
-+- Sécuriser les données clients
-
--- souhaite se différencier face aux assureurs en ligne ;
--- insiste sur proximité, personnalisation, transparence ;
--- objectifs : réduction des tâches administratives ; traçabilité ; confiance ; rétention ;
--- tableau de bord : taux de conversion ; panier moyen ; satisfaction client.
-+#### Frustrations
-
--### Inférences de cadrage (conservées)
-+- Manque de fiabilité des données
-+- Temps de consolidation trop long
-+- Difficulté à piloter à distance
-+- Risques de non-conformité
-+- Outils non adaptés au pilotage
-+- Coût élevé des licences
-
--Visibilité consolidée ; suivi des indicateurs ; supervision de l’activité ; **usage du dashboard** = inférence forte (le brief ne dit pas littéralement que le directeur consulte personnellement le dashboard).
-+#### Tâches
-
--**Non inventé :** démographie atelier, outils nominatifs, frustrations verbatim — **à synchroniser**.
-+- Analyser les KPIs
-+- Prendre des décisions stratégiques
-+- Manager les équipes
-
--**Phrase de synthèse (analytique) :**
--Le directeur a besoin d’une vision consolidée de la performance commerciale pour piloter différenciation, traçabilité, confiance et rétention.
-+**Compétences (tendances visuelles) :** Technologie moyenne · Assurance très élevée · Organisation très élevée · Réseau élevé.
-+
-+#### Outils
-+
-+- Tableaux de bord BI
-+- Outils de pilotage financier
-+- CRM (accès administrateur)
-+- Logiciels de gestion RH
-+- Visioconférence (Teams / Zoom)
-+
-+**Note atelier :** ne manipule pas les dossiers clients au quotidien ; utilise les outils pour la décision et le suivi de performance.
-+*(≠ décision d’architecture / stack projet.)*
-
- ---
-
- ## 7. Persona — Client particulier
-
--| Champ | Contenu | Niveau de preuve |
--|-------|---------|------------------|
--| **Rôle** | Client particulier (persona externe) | SET GROUPE 2026-09-29 |
--| **Segments BMC associés** | Client particulier (famille/étudiant) ; TPE/PME reste un segment BMC distinct (pas un 4ᵉ persona 1.2) | BMC GROUPE |
--| **États de parcours** | Prospect → souscription → Client (vie du contrat) | EXPLICITE BRIEF — lifecycle CJM |
--| **Attentes supportées (brief)** | Proximité ; réactivité ; personnalisation ; transparence ; confiance ; continuité | EXPLICITE |
--| **Canaux (BMC groupe)** | RDV physique ; Visio ; téléphone ; email ; espace client | BMC GROUPE — conception UI **NON DÉCIDÉE** |
-+#### Profil
-
--### Lifecycle (pas un second persona)
-+| Champ | Contenu atelier |
-+|-------|-----------------|
-+| Nom | Marc Descamps |
-+| Âge | 45 ans |
-+| Rôle | Client particulier |
-+| Bio courte | Marié, deux enfants. Travaille dans le secteur du bâtiment. Très occupé ; cherche simplicité et rapidité dans les démarches administratives. |
-+| Phrase pédagogique | « Je veux comprendre ce que je paie et savoir rapidement où en est ma demande. » |
-
--| État | Attentes / étapes supportées | Niveau |
--|------|------------------------------|--------|
--| **Prospect** | Contact ; devis ; RDV ; besoin ; proposition ; progression vers souscription | EXPLICITE BRIEF |
--| **Client** | Vie du contrat ; échanges ; documents ; historique ; sinistre éventuel ; renouvellement / résiliation | EXPLICITE BRIEF |
-+#### Démographie
-
--**Réserve :** usage direct du futur CRM par le prospect = **NON RENSEIGNÉ**. Forme exacte de l’accès client = **NOT DECIDED**.
-+| Champ | Contenu atelier |
-+|-------|-----------------|
-+| Genre | Homme |
-+| Localisation | Rennes |
-+| Situation familiale | Marié, 2 enfants |
-+| Niveau d’études | Bac +2 |
-+| Profession | Chef de chantier |
-+| Revenu (scénario) | env. 45 k€ / an |
-
--**Non inventé :** nom, âge, revenus, situation familiale, localisation, outils, frustrations détaillées — **à synchroniser** depuis la carte atelier « Client particulier ».
-+**Personnalité (tendances visuelles) :** plutôt Extraverti · plutôt Créatif · plutôt Prudent · plutôt Traditionnel.
-
--**Phrase de synthèse (analytique) :**
--Le Client particulier est suivi depuis l’entrée en relation (état prospect) jusqu’à la vie du contrat (état client), avec une continuité attendue de proximité, personnalisation et transparence.
-+#### Objectifs
-
-----
-+- Trouver une assurance adaptée
-+- Souscrire en ligne facilement
-+- Avoir un suivi clair des sinistres
-+- Bénéficier de conseils clairs
-+- Payer le juste prix
-+- Gagner du temps
-+- Simplifier les démarches
-
--## 8. Synthèse des besoins par profil
-+#### Frustrations
-
--| Profil | Objectifs | Attentes | Besoins / enjeux | Niveau |
--|--------|-----------|----------|------------------|--------|
--| Courtier | Suivi cycle ; devis / RDV / souscription ; docs ; sinistres | Réactivité ; personnalisation | Vision du dossier ; admin. réduite | BRIEF + INFÉRENCE |
--| Directeur | Différenciation ; KPIs | Pilotage | Visibilité consolidée | BRIEF + INFÉRENCE |
--| Client particulier — état prospect | Contact → devis → RDV → proposition → souscription | Proximité ; réactivité ; personnalisation ; transparence | Entrée en relation claire | BRIEF + INFÉRENCE |
--| Client particulier — état client | Suivi contrats ; docs ; sinistre ; renouvellement / résiliation | Transparence ; confiance ; continuité | Comprendre le suivi ; retrouver l’info | BRIEF + INFÉRENCE |
-+- Langage technique trop complexe
-+- Temps de réponse trop long
-+- Manque de transparence sur les prix
-+- Devoir rappeler plusieurs fois
-+- Difficulté à joindre un conseiller
-+- Interface mobile peu ergonomique
-
--Aucune user story. Aucun backlog.
-+#### Tâches
-
-----
-+- Comparer les offres
-+- Envoyer les pièces justificatives
-+- Déclarer un sinistre
-+
-+**Compétences (tendances visuelles) :** Technologie moyenne · Assurance plutôt faible · Organisation élevée · Réseau moyen.
-+
-+#### Outils
-+
-+- Email (Outlook / Gmail)
-+- Smartphone (iPhone / Android)
-+- Espace client web
-+- Comparateurs d’assurance
-+- WhatsApp (échanges rapides)
-+
-+**Note atelier :** préfère outils simples et mobiles pour gérer ses contrats le soir ou pendant les pauses.
-+
-+### Lifecycle (états — pas un second persona)
-+
-+| État | Rôle dans le parcours |
-+|------|----------------------|
-+| **Prospect** | Contact → devis → RDV → besoin → proposition → souscription |
-+| **Client** | Vie du contrat ; documents ; historique ; sinistre éventuel ; renouvellement / résiliation |
-+
-+Canaux BMC groupe (transversaux) : RDV physique · Visio · téléphone · email · espace client — UI **NOT DECIDED**.
-
--## 9. Difficultés / pain points
-+---
-
--Aucune observation AS-IS. Aucune affirmation du type « les utilisateurs disent… ».
-+## 8. Synthèse des besoins (cadrage)
-
--**Courtier :** charge administrative ; traçabilité ; réactivité ; continuité du suivi.
--**Directeur :** visibilité / pilotage déduits des objectifs et KPIs.
--**Client particulier :** fluidité d’entrée en relation ; personnalisation ; transparence ; confiance ; continuité.
-+| Profil | Enjeux principaux (atelier + brief) |
-+|--------|-------------------------------------|
-+| Courtier | Centralisation ; moins d’admin ; relances ; conseil ; conversion |
-+| Directeur | KPI ; rentabilité ; conformité ; reporting ; données fiables |
-+| Client particulier | Simplicité ; clarté ; suivi ; conseil humain ; gain de temps |
-
--**Qualification :** DÉDUITS DU BRIEF / SCÉNARIO — **NON OBSERVÉS SUR LE TERRAIN**.
--Frustrations détaillées des cartes atelier : **à synchroniser** (non inventées).
-+Aucune user story. Aucun backlog. Aucune stack.
-
- ---
-
--## 10. Inconnues et limites
-+## 9. Inconnues / limites
-
--- aucun entretien réel ;
--- détails démographiques / outils / frustrations des cartes atelier : **à synchroniser** ;
--- usage personnel du dashboard par le Directeur = inférence ;
--- usage direct du CRM par le Prospect = non démontré ;
--- interfaces / permissions = hors scope ;
--- pensées / émotions des maps = **NON RENSEIGNÉES**.
-+- pas d’entretiens réels ;
-+- pourcentages exacts des jauges atelier = **non affirmés** (tendances seulement) ;
-+- outils listés = **scénario persona**, pas choix projet ;
-+- interfaces / permissions = hors scope.
-
- ---
-
--## 11. Experience Map — Courtier
-+## 10. Experience Map — Courtier
-
- | Champ | Valeur |
- |-------|--------|
--| **Statut** | **RETAINED / ALIGNED** — Courtier reste persona canonique |
-+| **Statut** | **KEEP** — cohérente avec la carte atelier Courtier |
- | **Persona cible** | Courtier |
--| **Décision d’alignement 2026-09-29** | **KEEP / ADAPT MINOR** — pas de reconstruction ; le parcours métier reste cohérent avec le Courtier |
--| **Objet** | Expérience métier du courtier au fil de la relation (prospects → clients) — sans interface logicielle décidée |
--| **Nature** | CIBLE PÉDAGOGIQUE — **NON AS-IS OBSERVÉ** |
--
--### Phases (conservées)
--
--| Phase | Actions / enjeux (cadrage) | Niveau de preuve |
--|-------|----------------------------|------------------|
--| Prospection / contact / qualification | Prospecter ; prendre contact ; qualifier — Réactivité · Continuité du suivi | EXPLICITE + INFÉRENCE |
--| Devis | Réactivité · Charge administrative | EXPLICITE + INFÉRENCE |
--| Relance / RDV | Réactivité · Continuité du suivi | EXPLICITE + INFÉRENCE |
--| Besoin → proposition | Personnalisation · Continuité du suivi | EXPLICITE + INFÉRENCE |
--| Souscription → vie contrat | Traçabilité · Continuité du suivi | EXPLICITE + INFÉRENCE |
--| Docs / sinistre / renouvellement | Traçabilité · Continuité · Charge administrative | EXPLICITE + INFÉRENCE |
-+| **Nature** | Cible pédagogique — **NON AS-IS OBSERVÉ** |
-
--**Traçabilité** = retrouver ce qui s’est passé (historique, étapes, documents).
--**Continuité du suivi** = poursuivre correctement la relation à partir du contexte — liée mais non synonyme.
-+| Phase | Enjeux (cadrage) |
-+|-------|------------------|
-+| Prospection / contact / qualification | Réactivité · Continuité du suivi |
-+| Devis | Réactivité · Charge administrative |
-+| Relance / RDV | Réactivité · Continuité du suivi |
-+| Besoin → proposition | Personnalisation · Continuité du suivi |
-+| Souscription → vie contrat | Traçabilité · Continuité du suivi |
-+| Docs / sinistre / renouvellement | Traçabilité · Continuité · Charge administrative |
-
--**Pensées / émotions :** dimension méthodologique conservée ; **NON RENSEIGNÉES** — pas d’inférence émotionnelle ; pas d’injection artificielle des frustrations atelier phase par phase.
-+**Contrôle carte atelier :** objectifs (centraliser, automatiser relances, vision globale) et frustrations (saisie manuelle, portails multiples, reporting) **confirment** la map — **sans** injection mécanique phase × sticky.
-+**Pensées / émotions par phase :** **NON RENSEIGNÉES** — pas de courbe émotionnelle inventée.
-
- ---
-
--## 12. Customer Journey Map — Client particulier
-+## 11. Customer Journey Map — Client particulier
-
- | Champ | Valeur |
- |-------|--------|
--| **Statut** | **ADAPTED** — réalignement conceptuel 2026-09-29 |
- | **Titre** | Customer Journey — **Client particulier** |
- | **Sous-titre** | Du prospect à la vie client |
--| **Persona cible** | **Client particulier** (pas « Prospect → Client » comme persona) |
-+| **Persona** | Client particulier |
- | **Lifecycle** | Prospect → souscription → Client |
--| **Objet** | Relation avec le **service de courtage / cabinet** |
--| **Nature** | CIBLE PÉDAGOGIQUE — **NON AS-IS OBSERVÉ** |
-+| **Statut** | Conservé / cohérent avec carte atelier |
-
--### Séquence (étapes déjà validées — conservées)
-+### Séquence cadrage (7 étapes)
-
- 1. Première prise de contact
- 2. Devis
-@@ -253,46 +349,32 @@ Frustrations détaillées des cartes atelier : **à synchroniser** (non inventé
- 4. Compréhension / qualification du besoin
- 5. Proposition personnalisée
- 6. Souscription
--7. Vie du contrat / suivi (échanges, documents, sinistre éventuel, renouvellement / résiliation)
--
--**Règles :**
--
--- Le début « prospect » du journey **n’en fait pas** un persona différent.
--- La map **ne suppose pas** que le futur CRM existe déjà.
--- **Ne pas décider ici :** interfaces distinctes prospect/client ; permissions ; écrans ; UI.
--- **Émotion :** NON RENSEIGNÉE — pas d’invention.
--- Canaux groupe (physique, Visio, téléphone, email, espace client) : transversaux — pas d’affectation canal × phase inventée.
--
-----
-+7. Vie du contrat / suivi (échanges, docs, sinistre éventuel, renouvellement / résiliation)
-
--## Alignement BMC groupe (rappel)
-+Granularité Miro historique (entrée en relation · devis · RDV/besoin · proposition · souscription · vie du contrat · échanges/docs · sinistre/renouvellement) = **compatible**, pas de nouvelles étapes inventées.
-
--- Segments : **TPE/PME** ; **Client particulier (famille/étudiant)** — le persona 1.2 externe retenu par l’atelier est **Client particulier**.
--- Courtier : prospection + conseil personnalisé confirmés.
--- Directeur : inchangé sur le fond brief.
--- Maps : sémantique Traçabilité / Continuité conservée.
-+**Émotion :** NON RENSEIGNÉE.
-+**Ne pas décider :** interfaces Prospect/Client, écrans, permissions, UI.
-
- ---
-
--## Miro — état
-+## 12. Miro — état
-
- | Champ | Valeur |
- |-------|--------|
--| **Board** | https://miro.com/app/board/uXjVHiWX64c=/ |
--| **État Cursor** | **NOT MODIFIED** |
--| **Sync** | **MIRO PERSONA SYNC REQUIRED** |
--
--| Livrable Miro historique | Impact |
--|--------------------------|--------|
--| Persona Courtier | À auditer / aligner sur set groupe |
--| Persona Directeur | À auditer / aligner |
--| Persona Prospect → Client | **À remplacer** par **Client particulier** |
--| Experience Map Courtier | À auditer / aligner si besoin |
--| Customer Journey Prospect → Client | **À renommer / réaligner** → Client particulier — du prospect à la vie client |
-+| Board | https://miro.com/app/board/uXjVHiWX64c=/ |
-+| Cursor | **NOT MODIFIED** |
-+| Sync | **PENDING CHATGPT SYNC AFTER REVIEW** |
-
--Git est canonique après transcription. Miro n’est **pas** synchronisé dans ce cycle.
-+| Frame ID | Cible |
-+|----------|--------|
-+| `3458764685164456040` | Persona Courtier — update in place |
-+| `3458764685164456041` | Persona Directeur — update in place |
-+| `3458764685164456042` | → Persona **Client particulier** |
-+| `3458764685164458754` | Experience Map Courtier — KEEP |
-+| `3458764685164510320` | CJM → Client particulier — Du prospect à la vie client |
-
--Frames 1.1 (BMC / BPMN) : **protégées — inchangées**.
-+**Protégés :** BMC `3458764685039847893` · BPMN `3458764685039847894`.
-
- ---
-
-@@ -300,15 +382,10 @@ Frames 1.1 (BMC / BPMN) : **protégées — inchangées**.
-
- | Point | État |
- |-------|------|
--| **1.2** | **VALIDATED — GROUP PERSONA CONSOLIDATION 2026-09-29** |
--| Personas canoniques | Client particulier · Courtier · Directeur |
--| Ancien persona Prospect → Client | **SUPERSEDED AS PERSONA** |
--| Continuity prospect → client | **RETAINED IN CUSTOMER JOURNEY** |
--| Experience Map Courtier | **RETAINED / ALIGNED** |
--| Customer Journey | **Client particulier — Du prospect à la vie client** |
--| Détail cartes atelier | **À SYNCHRONISER** (non inventé) |
--| Evidence | GROUP-VALIDATED PEDAGOGICAL SCENARIO — NO FIELD INTERVIEWS |
--| Miro | **SYNC REQUIRED** / NOT MODIFIED by Cursor |
-+| **1.2** | VALIDATED — GROUP PERSONA CONSOLIDATION 2026-09-29 |
-+| Détail personas | **TRANSCRIBED IN GIT** depuis cartes atelier |
-+| Experience Map | KEEP |
-+| Customer Journey | Client particulier — Du prospect à la vie client |
-+| Miro | PENDING CHATGPT SYNC AFTER REVIEW |
-+| 1.3 / 1.4 | OPENED AWAITING FINAL REVIEW / **NOT OPENED** |
- | Architecture / Stack | NOT DECIDED |
--| **1.3** | OPENED — AWAITING FINAL REVIEW (fond inchangé ce cycle) |
--| **1.4** | NOT OPENED |
-
+@@ -1177,7 +1177,7 @@
+ | --- | --- | --- |
+ | persist/ingest `docs_write*` | Compat Evidence path | Generic Review Material + ingest générique |
+ | policy `docs_write` dans verifier | Oracle actuel | Policies d’effet génériques + VerifiedChangeSet |
+-| UI « Recharger résultat produit » | Continue manuel | Reconciler/worker autonome |
++| UI « Recharger résultat produit » | Continue manuel | Reconciler + mécanisme de continuation autonome à définir |
+ | Legacy M3/M4 rematerialize docs_write | Recovery vieux EC | Sunset quand plus d’EC legacy |
+ | post_execution tools OFF | Safe analysis minimale | Deep Review read-only tools bornés |
+ | Naming paths `docs-write-artifact` | Storage actuel | Rename neutre sous Review Material |
+@@ -1241,7 +1241,7 @@
+ | ID | Risque | Mitigation |
+ | --- | --- | --- |
+ | R1 | Dual-stack prolongé (spécialisé + générique) | Exit conditions obligatoires ; D-ER-14 |
+-| R2 | Stall UI post-REAL (NoteLite-class) | Reconciler/worker ; ne pas normaliser « Recharger » |
++| R2 | Stall UI post-REAL (NoteLite-class) | Reconciler + continuation autonome TBD ; ne pas normaliser « Recharger » |
+ | R3 | Confusion Claim/Fact | D-ER-11 + Result Surface |
+ | R4 | Sur-claim REAL | Anti-claims ; READY FOR REAL=NO |
+ | R5 | Renommage `generic_*` Product | Interdiction explicite |
 ```
 
-## 12. Validations
+---
 
-| Check | Résultat |
-|-------|----------|
-| 3 personas + transcription fidèle | PASS |
-| Pas d’invention % jauges | PASS |
-| Provenance pédagogique | PASS |
-| Experience Map KEEP | PASS |
-| CJM Client particulier | PASS |
-| 01-01 / 01-03 NO CHANGE | PASS |
-| Miro payload 5 frames | PASS |
-| BMC/BPMN protégés | PASS |
-| 1.4 NOT OPENED | PASS |
-| Archi/stack NOT DECIDED | PASS |
-| Commit | PASS (cb336124) |
-| Push projet | NOT DONE |
-| PR | NOT CREATED |
-| Review Handoff | TO VERIFY AFTER PUBLISH |
+## Recherche globale résultats
 
-## 13. Réserves
+| Recherche | Résultat |
+| --- | --- |
+| `FULL / PARTIAL` / `**FULL** / **PARTIAL**` as Parity | 0 — ['(none)'] |
+| `ABSENT / PARTIAL` as Parity | 0 — ['(none)'] |
+| `Reconciler complet / worker` / `Reconciler/worker*` | 0 — ['(none)'] |
 
-Jauges = tendances qualitatives. Miro non synchronisé par Cursor. Outils personas ≠ stack. 1.3 non validé.
+---
 
-## 14. Verdict
+## Validations M-01…M-32
 
-**READY FOR CHATGPT REVIEW AND MIRO SYNC — CRM 1.2 FINAL PERSONA SYNCHRONIZATION COMPLETE**
+| ID | Result |
+| --- | --- |
+| M-01 Git Truth | **PASS** |
+| M-02 Only arch project file modified this pass | **PASS** |
+| M-03 Roadmap NO CHANGE | **PASS** |
+| M-04 #17/#25/#32/#33 single Parity | **PASS** |
+| M-05 Domain FULL/PARTIAL/ABSENT/NOT_APPLICABLE | **PASS** |
+| M-06 No FULL/PARTIAL composite | **PASS** |
+| M-07 No ABSENT/PARTIAL composite | **PASS** |
+| M-08 #17 justified | **PASS** (PARTIAL) |
+| M-09 #25 justified | **PASS** (PARTIAL) |
+| M-10 #32 justified | **PASS** (PARTIAL) |
+| M-11 #33 justified | **PASS** (PARTIAL) |
+| M-12 No TARGET worker selection | **PASS** |
+| M-13 worker kept = CURRENT or OPEN only | **PASS** |
+| M-14 D-ER-08 Reconciler owner / mechanism OPEN | **PASS** |
+| M-15 No anti-stall solution newly chosen | **PASS** |
+| M-16 No D-ER fund change | **PASS** |
+| M-17 No D-ER added | **PASS** |
+| M-18 Delivery slicing TBD | **PASS** |
+| M-19 runtime v3 NON ADOPTED | **PASS** |
+| M-20 READY FOR REAL NO | **PASS** |
+| M-21 No code | **PASS** |
+| M-22 No REAL | **PASS** |
+| M-23 No project commit | **PASS** |
+| M-24 No project push | **PASS** |
+| M-25 No PR | **PASS** |
+| M-26 No merge | **PASS** |
+| M-27 git diff --check | **PASS** |
+| M-28 FULL/PARTIAL as Parity = 0 | **PASS** |
+| M-29 ABSENT/PARTIAL as Parity = 0 | **PASS** |
+| M-30 Reconciler/worker TARGET phrases = 0 | **PASS** |
+| M-31 OPEN worker vs serveur kept | **PASS** |
+| M-32 Document coherent | **PASS** |
+
+---
+
+## Roadmap
+
+**ROADMAP NO CHANGE**
+
+---
+
+## Réserves / Anti-claims
+
+- ≠ READY FOR PROJECT GIT INTEGRATION (appartient à ChatGPT Final Review)
+- ≠ READY FOR DELIVERY / REAL / MERGE
+- ≠ runtime v3 ADOPTED
+- ≠ anti-stall mechanism selected
+- ≠ Delivery slicing adopted
+- ≠ new D-ER / architecture reopen
+
+## Verdict Review Pack
+
+**ARCHITECTURE TRUTH-SYNC MICRO-CORRECTION READY FOR CHATGPT FINAL REVIEW**
+
+---
+
+# FIN REVIEW PACK FULL — MICRO-CORRECTION / NORMALIZATION PASS
