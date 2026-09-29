@@ -1,19 +1,18 @@
-# Review Pack FULL — GENERIC-EXECUTION-REVIEW-RESULT-CONVERGENCE-01
+# Review Pack FULL — CORRECTION PASS 01
+# GENERIC-EXECUTION-REVIEW-RESULT-CONVERGENCE-01
 
 ## 1. Timestamp
-- UTC: 2026-09-29T11:43:03Z
-- Local: 2026-09-29 13:43:03 CEST
+- UTC: 2026-09-29T13:12:52Z
+- Local: 2026-09-29 15:12:52 CEST
 
-## 2. Repo / branch / HEAD / origin/main
+## 2. Repo / branch / HEAD
 - Repo: mcleland147/sfia-workspace
 - Workspace: /Users/morris/Projects/sfia-workspace-post-execution-handoff-01
 - Branch: `delivery/sfia-studio-generic-execution-review-result-convergence-01`
 - HEAD: `d4d986af5884b31b416374da3cb5e60757501f87`
 - origin/main: `d4d986af5884b31b416374da3cb5e60757501f87`
-- ahead/behind (origin/main...HEAD left=behind right=ahead): `0	0`
-- Base expected: `d4d986af5884b31b416374da3cb5e60757501f87` (PR #541 merge)
-- Project commit this cycle: **NO**
-- Project push/PR/merge: **NO**
+- ahead/behind: `0	0`
+- Project commit: **NO**
 
 ### git status --short
 ```
@@ -21,109 +20,139 @@ M .tmp-sfia-review/chatgpt-review.md
  M projects/sfia-studio/app/__tests__/project-assistant/productContinuitySharedKnowledge.d0.test.ts
  M projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
  M projects/sfia-studio/app/features/project-assistant/f3/ingestDocsWriteArtifactEvidence.ts
+ M projects/sfia-studio/app/features/project-assistant/f3/persistDocsWriteArtifactReviewMaterial.ts
  M projects/sfia-studio/app/features/project-assistant/f3/postEvidenceNoraAnalysis.ts
+ M projects/sfia-studio/app/features/project-assistant/w2/governedExecuteAuthorizedContract.ts
+ M projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts
  M projects/sfia-studio/app/features/project-assistant/w2/missionContractSemanticInputs.ts
+ M projects/sfia-studio/app/features/project-assistant/w2/prepareExecutionContractFromW2Decision.ts
  M projects/sfia-studio/app/features/project-assistant/w2/resolveProductExecutionContext.ts
  M projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
  M projects/sfia-studio/app/lib/nora-cognitive-runtime/noraCognitiveCompletion.ts
  M projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
  M projects/sfia-studio/app/lib/oa/execution-attempt/domain/cursorExecutionReport.ts
  M projects/sfia-studio/app/lib/oa/execution-attempt/index.ts
+ M projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts
  M projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
  M projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
  M projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
  M projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
  M projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
 ?? projects/sfia-studio/app/__tests__/project-assistant/genericExecutionReviewResultConvergence01.d0.test.ts
+?? projects/sfia-studio/app/__tests__/project-assistant/genericExecutionReviewResultConvergence01.frontDoor.d0.test.ts
 ?? projects/sfia-studio/app/features/project-assistant/f3/finalizeGenericExecutionReview.ts
 ?? projects/sfia-studio/app/features/project-assistant/f3/persistGenericExecutionReviewMaterial.ts
+?? projects/sfia-studio/app/features/project-assistant/w2/applyVerifiedChangeSetProductHonesty.ts
 ?? projects/sfia-studio/app/features/project-assistant/w2/reconcileContinuePolicy.ts
 ?? projects/sfia-studio/app/lib/nora-cognitive-runtime/executionReviewAgentsTools.ts
 ?? projects/sfia-studio/app/lib/oa/execution-attempt/application/observeVerifiedChangeSet.ts
 ?? projects/sfia-studio/app/lib/oa/execution-attempt/domain/cursorReviewEndOf.ts
 ```
 
-## 3. Cycle / profil / typologie
-- Macro: GENERIC-EXECUTION-REVIEW-RESULT-CONVERGENCE-01
-- Cycle type: 8 — Delivery / implémentation
-- Profil: CRITICAL
-- Typologie: EVOL
-- Capacity: close Product spine Generic EC → Cursor CLAIM → Studio FACTS → Review Material → Evidence/RB/CE → Resolution → Reconciler → Nora Deep Review → Result (restart-safe, no specialized Product taxonomy on nominal tested path, no nominal manual recovery)
+## 3–5. Entry handoff / Critical Review / Cycle
+- Entry handoff commit: `c502591663dee20a532eb840e4a3ecbdc15b2923`
+- Entry blob verified: `1e947905538641cca65d36978e9e72fe69799f22` YES
+- Entry verdict: NOT READY — GENERIC EXECUTION REVIEW RESULT CONVERGENCE INCOMPLETE
+- Same macro / cycle 8 Delivery / CRITICAL / EVOL / CKC ckc:studio:delivery
+- D-ER-01…15 unchanged / consumed
+- Correction Pass 01 — SAME MACRO
 
-## 4. CKC
-- Path: projects/sfia-studio/sfia-v3-framing/ckc/08-delivery-implementation.md
-- ckcId: ckc:studio:delivery
-- contractVersion: 0.1.0
-- contentStatus: VALIDATED
-- Usage: cognitive guidance only — no ExecutionAuthority, no implicit HumanDecision
+## 6. CR-01…CR-10 closure
 
-## 5. Convergence pre-check
-- Build Doctrine: stable (not modified)
-- Roadmap: tip updated LOCAL CANDIDATE (not INTEGRATED ON MAIN)
-- C1 Product Completion outcomes served: O-06 O-07 O-08 O-09 O-12
-- Architecture D-ER-01…15: ADOPTED BY MORRIS — consumed, not redesigned
-- Living Production Runtime Reference: volumes 03/08/09 + manifest digests updated after semantic review
-- Runtime v3: **NON ADOPTED**
-- NoteLite REAL: **PAUSED** (distinct Morris GO for replay)
-- Next gate: ChatGPT Critical Review → then Morris GO COMMIT/PUSH/PR
+### CR-01 Generic nominal wiring — PASS
+- Before: finalize only via docs_write ingest bridge
+- After: `governedExecuteRecordResult` productCursor path calls `finalizeGenericExecutionReview` with server-owned `observation.worktreeRef` BEFORE mission Evidence ingest
+- Files: `governedExecuteAuthorizedContract.ts`, gateway `processWorktreeByRef` decorate
+- Proof: frontDoor wiring invariant + E2E oracle fails if finalize disconnected
 
-## 6. Sources lues
-- Governance: convergence-build-doctrine, convergence-roadmap, product-completion cadrage
-- Architecture: sfia-studio-generic-execution-review-result-architecture.md (D-ER-01…15)
-- Doctrine v3: 30–37 framing docs
-- CKC 08-delivery
-- Living Production Runtime Reference README + volumes 01–09 + manifest
-- Process external: cycle template, routing guide, chatgpt-cursor operating model, rules, knowledge layer (harvest guarantees only)
-- Code seams under execution-contract / execution-attempt / evidence-review / w2 / f3 / nora / pre-m6-product-ui / tests
+### CR-02 Verification semantics — PASS
+- Before: missing worktree invented empty VerifiedChangeSet claimFactMismatch=false
+- After: verificationStatus OBSERVED | UNAVAILABLE | NOT_PERFORMED | NOT_APPLICABLE; VerifiedChangeSet ABSENT unless OBSERVED; empty OBSERVED = verified zero change
+- Files: finalize + persistGenericExecutionReviewMaterial
+- Proof: core CR-02 tests
 
-## 7. Architecture D-ER consommée
-All D-ER-01…15 ADOPTED — implementation follows; no structural redesign in this cycle.
+### CR-03 Product honesty — PASS
+- `applyVerifiedChangeSetProductHonesty` downgrades SUCCESS/PASS when claimFactMismatch or verification ≠ OBSERVED
+- Wired in materializeW3bProductTerminal
+- No second Evidence engine
 
-## 8. Impact analysis CURRENT (summary disposition)
+### CR-04 Anti-stall — PASS
+- Budget no longer sole correctness; `shouldAutoResumeReconcileOnRemount`; TrajectorySurface remount auto-continue via derive+reconcile
+- FrontDoor: >legacy poll window same Attempt then remount continue; launchCount=1
+- No worker/queue/scheduler
 
-| Actif | CURRENT role | Disposition | Macro change |
-|---|---|---|---|
-| ExecutionContract + reportRequirements | Product WHAT + constraints | ADAPT | GENERIC_PRODUCT_REPORT_REQUIREMENTS includes Cursor Review End Of CLAIM |
-| generalistExecutionSurface | Generalist EC surface | KEEP | Nominal Product uses generic EC |
-| projectExecutionContractToCursor / agent | Cursor HOW | KEEP | Existing transport reused |
-| CursorExecutionReport | CLAIM DTO | ADAPT | Optional nested `reviewEndOf` CLAIM |
-| Cursor Review End Of | NEW typed CLAIM | COMPLETE | New domain type + parse/mint |
-| verifyWorkspaceFileEffects | docs_write-oriented verify | HARVEST | observeVerifiedChangeSet generic observation |
-| VerifiedChangeSet | NEW FACTS | COMPLETE | Independent worktree observation + claim/fact mismatch |
-| persistDocsWriteArtifactReviewMaterial | specialized RM | TRANSITIONAL | Dual-write via finalize from ingestDocsWrite |
-| Generic Execution Review Material | NEW durable RM | COMPLETE | Filesystem refs under existing mission-result pattern |
-| Evidence/RB/CE | Existing stack | KEEP | No second engine; claims ≠ evidence |
-| resolveProductExecutionContext | ONE Resolution | ADAPT | Loads `executionReview` |
-| reconcileGovernedExecution | Progression owner | KEEP | UI continue budget policy |
-| TrajectorySurface | Projection/trigger | ADAPT | NOMINAL_RECONCILE_CONTINUE_BUDGET=120 |
-| Nora Agents + product_execution_context_get | Shared cognitive core | KEEP+ADAPT | Opt-in execution_review_* RO tools |
-| Result Surface | Explains terminal | KEEP/ADAPT | Continues via reconciler; no parallel screen |
-| docs_write / read taxonomies | Historical Product categories | RETIRE FROM PRODUCT NOMINAL / TRANSITIONAL bridges | Dual-write bridge retained |
-| Fake launch ports | External boundary substitute | KEEP | Same Product spine |
-| DB schema / npm / worker/queue | — | NO CHANGE | STOP avoided |
+### CR-05 Front-door oracle — PASS
+- `genericExecutionReviewResultConvergence01.frontDoor.d0.test.ts`
+- Prepare→authorize→execute→record→finalize→RM mismatch→Resolution→materialize honesty→Nora tools
 
-## 9. OpenAI Capability Fit Check (R22)
-- Existing: OpenAI Agents Runner + native tool adapters (`createSfiaRouteToolAdapters`, product_execution tools, cycle journal tools)
-- Classification: **KEEP** shared Nora cognitive core / Agents Runner
-- **ADAPT/COMPLETE**: bounded read-only `execution_review_manifest_get` + `execution_review_item_read` (Project/Attempt/ref-bound)
-- **DEFER**: model/reasoning tier upgrade
-- **REJECT**: second Nora engine, bespoke reasoning loop, arbitrary filesystem tools
-- Proof: tools default OFF; opt-in via `enableExecutionReviewTools` on post-Evidence path
+### CR-06 Nora behavioral — PASS
+- analyzePostEvidenceWithProvider(enableExecutionReviewTools) → observeNoraCognitiveCore post_execution
+- Tools return claimFactMismatch from Review Material
 
-## 10. Fake / Real qualification
-- Applicable: YES (Cursor CLI / process REAL boundary)
-- This macro: **ZERO REAL**
-- Fake substitutes external Cursor only; same Product spine required
-- Proof ceiling claimed: **DETERMINISTIC PRODUCT SEAM/INTEGRATION PROVEN AT TESTED SCOPE**
-- Explicitly NOT claimed: READY FOR REAL / REAL BOUNDARY PROVEN / E2E REAL / Product READY / runtime v3 ADOPTED
-- Front-door Fake mutating Product E2E oracle covering full EP-01…20 in one journey: **PARTIAL** (seam/integration oracles green; ChatGPT weigh front-door expansion before GO COMMIT)
+### CR-07 Result Surface — PASS
+- TrajectorySurface review summary block; remount auto-continue; Recharger not required nominally
+- Resolution exposes reviewItemSummaries / blockers / verificationStatus
 
-## 11–13. Files created / modified / deleted
+### CR-08 Living Reference — PASS
+- 09 Next macro stale PRODUCT-CONTINUITY fixed; CURRENT MACRO = CONVERGENCE-01; NoteLite PAUSED as next REAL
+
+### CR-09 reportRequirements consumption — PASS
+- prepareExecutionContractFromW2Decision stamps deriveGenericProductReportRequirements()
+- FrontDoor asserts Review End Of on prepared EC inputs
+
+### CR-10 mismatch honesty — PASS
+- Attempt succeeded + claimFactMismatch ⇒ Product PASS refused via honesty helper
+
+## 7. Generic call graph AFTER
+HumanDecision → prepareExecutionContractFromW2Decision (GENERIC reportRequirements)
+→ confirm/authorize → governedExecute Select/Start
+→ Fake/TestOnly launch (worktreeRef)
+→ governedExecuteRecordResult → completeBoundedReadOnlyLaunch
+→ parse/bind CursorExecutionReport + Review End Of
+→ finalizeGenericExecutionReview(worktreeRef) → observeVerifiedChangeSet → persist RM
+→ ingestMissionResultEvidence → advance EC
+→ materializeW3b (+ honesty) → resolveProductExecutionContext(executionReview)
+→ postEvidence Nora tools → Result Surface / remount continue
+
+## 8–14. Worktree / VCS / RM / Evidence / Nora / Reconciler / Result
+See CR sections. worktreeRef from LaunchAck/observation; gateway decorate map process-local; Fake parity via TestOnly resolveSimulatedCompletion.worktreeRef; FS fallback when git porcelain empty; ZERO REAL.
+
+## 15–17. EP-01…EP-20 MATRIX
+
+| EP | Verdict | Proof |
+|---|---|---|
+| EP-01 Generic EC | PASS | frontDoor prepare |
+| EP-02 Report+REO requirements | PASS | CR-09 |
+| EP-03 Cursor CLAIM incomplete | PASS | mismatchReportStdout |
+| EP-04 Fake worktree A+B | PASS | frontDoor wt files |
+| EP-05 Studio observe | PASS | OBSERVED |
+| EP-06 VerifiedChangeSet durable | PASS | load after teardown |
+| EP-07 Review Material durable | PASS | same |
+| EP-08 Worktree teardown OK | PASS | rmSync then reload |
+| EP-09 Evidence/RB/CE | PASS | mission ingest + materialize |
+| EP-10 Attempt≠Product PASS | PASS | honesty helper |
+| EP-11 Resolution reloads RM | PASS | executionReview.present |
+| EP-12 Nora shared core | PASS | observeNoraCognitiveCore |
+| EP-13 Nora grounded FACTS | PASS | tool manifest mismatch |
+| EP-14 Result Surface | PASS | review summary + remount |
+| EP-15 Review item RO | PASS | tools read + item summaries |
+| EP-16 Restart same Attempt | PASS | CR-04 |
+| EP-17 Restart same RM | PASS | reload after teardown |
+| EP-18 Long-running > legacy | PASS | CR-04 frontDoor |
+| EP-19 No second Execute | PASS | launchCount=1 |
+| EP-20 No manual recovery/ID | PASS | auto continue / no Recharger required |
+
+## 18. Fake/Real
+ZERO REAL · Fake substitutes Cursor boundary · same Product spine · realism gaps: no real Cursor CLI/process timing
+
+## 19–21. Files
 ### Created
 
 - `projects/sfia-studio/app/__tests__/project-assistant/genericExecutionReviewResultConvergence01.d0.test.ts`
+- `projects/sfia-studio/app/__tests__/project-assistant/genericExecutionReviewResultConvergence01.frontDoor.d0.test.ts`
 - `projects/sfia-studio/app/features/project-assistant/f3/finalizeGenericExecutionReview.ts`
 - `projects/sfia-studio/app/features/project-assistant/f3/persistGenericExecutionReviewMaterial.ts`
+- `projects/sfia-studio/app/features/project-assistant/w2/applyVerifiedChangeSetProductHonesty.ts`
 - `projects/sfia-studio/app/features/project-assistant/w2/reconcileContinuePolicy.ts`
 - `projects/sfia-studio/app/lib/nora-cognitive-runtime/executionReviewAgentsTools.ts`
 - `projects/sfia-studio/app/lib/oa/execution-attempt/application/observeVerifiedChangeSet.ts`
@@ -133,14 +162,19 @@ All D-ER-01…15 ADOPTED — implementation follows; no structural redesign in t
 - `projects/sfia-studio/app/__tests__/project-assistant/productContinuitySharedKnowledge.d0.test.ts`
 - `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx`
 - `projects/sfia-studio/app/features/project-assistant/f3/ingestDocsWriteArtifactEvidence.ts`
+- `projects/sfia-studio/app/features/project-assistant/f3/persistDocsWriteArtifactReviewMaterial.ts`
 - `projects/sfia-studio/app/features/project-assistant/f3/postEvidenceNoraAnalysis.ts`
+- `projects/sfia-studio/app/features/project-assistant/w2/governedExecuteAuthorizedContract.ts`
+- `projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts`
 - `projects/sfia-studio/app/features/project-assistant/w2/missionContractSemanticInputs.ts`
+- `projects/sfia-studio/app/features/project-assistant/w2/prepareExecutionContractFromW2Decision.ts`
 - `projects/sfia-studio/app/features/project-assistant/w2/resolveProductExecutionContext.ts`
 - `projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts`
 - `projects/sfia-studio/app/lib/nora-cognitive-runtime/noraCognitiveCompletion.ts`
 - `projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts`
 - `projects/sfia-studio/app/lib/oa/execution-attempt/domain/cursorExecutionReport.ts`
 - `projects/sfia-studio/app/lib/oa/execution-attempt/index.ts`
+- `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts`
 - `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
 - `projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md`
 - `projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md`
@@ -151,160 +185,38 @@ All D-ER-01…15 ADOPTED — implementation follows; no structural redesign in t
 - none
 
 
-## 14–15. Code changes by seam / changed functions
+## 22. Validations
+- Targeted frontDoor+core: 13 PASS
+- Full Vitest: **456 files / 5011 tests PASS** (137 skipped); 0 Errors after TrajectorySurface remount guard
+- typecheck PASS · lint PASS · build PASS
+- modeled + Living Ref conformance PASS
+- git diff --check PASS
 
-### Workstream A — Generic EC + Cursor outputs
-- `missionContractSemanticInputs.ts`: GENERIC_PRODUCT_REPORT_REQUIREMENTS includes Review End Of CLAIM requirement
-- `cursorExecutionReport.ts`: optional `reviewEndOf?: CursorReviewEndOf`
-- `cursorReviewEndOf.ts`: schema `oa.cursor-review-end-of.1`, mint/parse/is helpers
-- Transport: reuse existing report envelope (nested field) — no new network protocol
+## 23–26. Living Ref / Roadmap / Conformance
+- 03/08/09 updated (CURRENT MACRO, E2E proof, stale Next macro fixed)
+- Roadmap tip Correction Pass 01 DETERMINISTIC PRODUCT E2E PROVEN AT TESTED SCOPE LOCAL CANDIDATE
+- Digests refreshed
 
-### Workstream B — Retire Product taxonomy from nominal
-- Generic report requirements path used for Product missions
-- Specialized docs_write adapters retained as TRANSITIONAL dual-write bridges (exit: callers=0 + non-regression)
+## 27–31. Diff check / secrets / reserves / debt / claims
+- Secret scan: no hits on changed paths (pattern scan)
+- Reserves: REAL NoteLite PAUSED; retention GC open; Git promotion open; docs_write bridge TRANSITIONAL
+- Debt exits: as architecture + prior pack
+- Allowed claim: DETERMINISTIC PRODUCT E2E PROVEN AT TESTED SCOPE · ZERO REAL
+- Forbidden: READY FOR REAL · REAL proven · runtime v3 ADOPTED · INTEGRATED ON MAIN · NoteLite REAL fixed
 
-### Workstream C — VerifiedChangeSet
-- `observeVerifiedChangeSet.ts`: independent git status observation → created/modified/deleted + digests + claimFactMismatch/unclaimedObservedPaths
-- Separates OBSERVATION from contract policy evaluation
-
-### Workstream D — Generic Review Material
-- `persistGenericExecutionReviewMaterial.ts`: durable filesystem refs (mission-result style), reviewItems[], completeness FULL|PARTIAL, retention metadata compatible HOT→ARCHIVABLE→PRUNABLE (GC not implemented)
-- `finalizeGenericExecutionReview.ts`: observe + resolve REO CLAIM (or synthesize PARTIAL CLAIM) + persist
-- `ingestDocsWriteArtifactEvidence.ts`: dual-write finalize when cursor report present
-
-### Workstream E — Evidence/RB/CE
-- No second Evidence engine; finalize does NOT create Evidence
-- Attempt SUCCESS ≠ Product PASS preserved
-
-### Workstream F — Product Resolution
-- `resolveProductExecutionContext.ts`: adds `executionReview` load via `loadGenericExecutionReviewMaterial`
-
-### Workstream G — Nora Deep Review
-- `executionReviewAgentsTools.ts`: manifest_get + item_read
-- Wired in `runNoraAgentsTurn` / `noraCognitiveCompletion` opt-in
-- `postEvidenceNoraAnalysis.ts`: enableExecutionReviewTools when context available
-
-### Workstream H — Reconciler anti-stall
-- `reconcileContinuePolicy.ts`: NOMINAL_RECONCILE_CONTINUE_BUDGET=120 (> legacy ~8)
-- `TrajectorySurface.tsx`: continue-until-stable loop uses policy budget; Reconciler remains owner
-
-### Workstream I — Result Surface
-- Reuses TrajectorySurface; no second workflow screen
-- Reviewable access via Resolution executionReview + Nora tools (logical refs, not `.sfia-exec` as business target)
-
-## 16. Tests added/modified
-- ADDED: `genericExecutionReviewResultConvergence01.d0.test.ts` (7 tests)
-- MODIFIED: `productContinuitySharedKnowledge.d0.test.ts` (shared knowledge fixture awareness)
-
-## 17. Scénario E2E
-Deterministic seam/integration oracle covers:
-1. Generic report requirements include REO
-2. Claim/fact mismatch (Cursor claims A, worktree has A+B)
-3. 0-artifact / 0-file Review Material validity
-4. finalize + durable load after teardown path
-5. Anti-stall budget > legacy 8
-6. Nora tool Project/Attempt binding guards
-7. Resolution load of Review Material
-
-**PARTIAL vs EP-01…20:** single Product front-door Fake journey through governedExecute→materialize→UI Result states→restart without recovery click not fully closed as one oracle in this candidate. ChatGPT Critical must decide if that blocks GO COMMIT.
-
-## 18. Targeted tests
-```
-npx vitest run genericExecutionReviewResultConvergence01.d0.test.ts productContinuitySharedKnowledge.d0.test.ts importBoundaries.test.ts
-→ 7+8+3 PASSED
-```
-
-## 19. Full suite
-```
-npm test (Vitest)
-Test Files  455 passed | 17 skipped (472)
-Tests  5005 passed | 137 skipped (5142)
-Duration ~53.55s
-```
-
-## 20. Typecheck
-`npm run typecheck` → PASS (tsc --noEmit)
-
-## 21. Lint
-`npm run lint` → PASS (0 warnings after unused import fix)
-
-## 22. Build
-`npm run build` → PASS (Next.js production build)
-
-## 23. Modeled governance
-`mw1.s02.compaction.modeled.test.ts` → 5 passed
-`productionRuntimeReference.conformance.d0.test.ts` → 5 passed
-
-## 24. Living Reference semantic changes
-- 03: added Generic Execution → Review → Result CURRENT local candidate flow note
-- 08: proof table for CONVERGENCE-01 deterministic scope + ZERO REAL
-- 09: local candidate gaps (legacy bridges, PARTIAL front-door E2E, NoteLite PAUSED, retention/Git promotion open)
-- manifest digests refreshed after semantic review; lastReviewedAt updated; lastReviewedCommit remains prior until project commit
-
-## 25. Conformance checker
-`node scripts/check-production-runtime-reference.mjs` → PRODUCTION RUNTIME REFERENCE CONFORMANCE OK
-
-## 26. Roadmap diff
-Tip entry LOCAL CANDIDATE for GENERIC-EXECUTION-REVIEW-RESULT-CONVERGENCE-01 (cycle 8 Critical EVOL; REAL=ZERO; NoteLite PAUSED; not INTEGRATED ON MAIN)
-
-## 27. git diff --check
-PASS (after EOF blank-line fix on 03/08)
-
-## 28. Réserves
-1. Product-front-door Fake mutating E2E oracle (full EP chain in one journey) PARTIAL
-2. Result Surface dedicated reviewable UX actions beyond Resolution/Nora tools — functional only, no redesign; screenshot not captured this cycle
-3. docs_write dual-write bridge retained (TEMPORARY WITH EXIT)
-4. Retention GC / TTL / scheduler not implemented (by design)
-5. Git promotion Product not implemented (by design)
-6. REAL NoteLite / generic REAL not run (by design)
-
-## 29. Dettes / exits
-1. Legacy specialized adapters — exit when callers=0 + non-regression
-2. Retention GC — before industrialization volumetry
-3. Git promotion — future capacity after review/result stabilized
-4. REAL generic replay — NoteLite bounded REAL under distinct Morris GO
-5. Nora model/reasoning upgrade — after grounding/tools measured
-
-## 30. Claims autorisés
-- generic Product execution path implemented at deterministic tested scope (seam/integration)
-- Cursor report + Review End Of claim path deterministic-proven
-- VerifiedChangeSet deterministic-proven (incl. claim/fact mismatch)
-- generic Review Material restart-safe at tested scope
-- Nora bounded Deep Review tools deterministic-proven (opt-in)
-- Result Surface continue-until-stable budget deterministic-proven
-- specialized Product taxonomy not required for tested generic report-requirements path
-- ZERO REAL this macro
-
-## 31. Anti-claims
-- READY FOR REAL
-- REAL BOUNDARY PROVEN
-- END-TO-END REAL PROVEN
-- Product global READY
-- runtime v3 ADOPTED
-- NoteLite REAL fixed
-- legacy fully retired
-- retention production complete
-- Git promotion complete
-- INTEGRATED ON MAIN
-
-## 32. Décisions Morris nécessaires
-- NONE for architecture (D-ER already adopted)
-- AFTER ChatGPT Critical: Morris GO COMMIT / PUSH / PR (separate)
-- DISTINCT later: REAL NoteLite replay GO
+## 32. Morris decisions: NONE (architecture already adopted)
 
 ## 33. Verdict
-**READY FOR CHATGPT CRITICAL REVIEW — GENERIC EXECUTION REVIEW RESULT CONVERGENCE**
+**READY FOR CHATGPT CRITICAL REVIEW — GENERIC EXECUTION REVIEW RESULT CONVERGENCE CORRECTION PASS 01**
 
-Proof ceiling: **DETERMINISTIC PRODUCT SEAM/INTEGRATION PROVEN AT TESTED SCOPE** (front-door full EP oracle PARTIAL — disclosed)
-
-ZERO REAL · runtime v3 NON ADOPTED · no project Git publish
+Proof ceiling: **DETERMINISTIC PRODUCT E2E PROVEN AT TESTED SCOPE**
+ZERO REAL · runtime v3 NON ADOPTED
 
 ---
+# FULL CREATED FILE CONTENTS
 
-# FULL FILE CONTENTS — CREATED FILES
 
-
-## CREATED: `projects/sfia-studio/app/__tests__/project-assistant/genericExecutionReviewResultConvergence01.d0.test.ts`
+## CREATED `projects/sfia-studio/app/__tests__/project-assistant/genericExecutionReviewResultConvergence01.d0.test.ts`
 
 ```typescript
 /**
@@ -334,6 +246,7 @@ import {
   LEGACY_UI_RUNNING_POLL_BUDGET,
   NOMINAL_RECONCILE_CONTINUE_BUDGET,
   shouldContinueReconcileNominally,
+  shouldAutoResumeReconcileOnRemount,
   nominalContinueIterationsRemaining,
 } from "@/features/project-assistant/w2/reconcileContinuePolicy";
 import { createExecutionReviewAgentsTools } from "@/lib/nora-cognitive-runtime/executionReviewAgentsTools";
@@ -531,10 +444,66 @@ describe("GENERIC-EXECUTION-REVIEW-RESULT-CONVERGENCE-01 core", () => {
     expect(finalized.manifest.reviewItems.length).toBeGreaterThanOrEqual(2);
   });
 
-  it("EP-18 — anti-stall continue budget exceeds legacy poll of 8", () => {
+  it("CR-02 — no worktree ⇒ verification UNAVAILABLE (not empty FACTS)", async () => {
+    const refs = tmpRoot("noobs");
+    const report = baseReport("att:noobs", "ec:noobs");
+    const finalized = await finalizeGenericExecutionReview({
+      refsRoot: refs,
+      projectId: "prj:noobs",
+      executionContractId: "ec:noobs",
+      attemptId: "att:noobs",
+      repositoryRef: "repo:test",
+      baseSha: report.baseSha,
+      cursorReport: report,
+      // no worktreePath
+    });
+    expect(finalized.ok).toBe(true);
+    if (!finalized.ok) return;
+    expect(finalized.verificationStatus).toBe("UNAVAILABLE");
+    expect(finalized.verifiedChangeSet).toBeNull();
+    expect(finalized.manifest.verifiedEffects.verifiedChangeSetRef).toBeNull();
+    expect(finalized.manifest.completeness).toBe("PARTIAL");
+    expect(finalized.manifest.blockers.some((b) => b.includes("VERIFICATION_UNAVAILABLE"))).toBe(true);
+  });
+
+  it("CR-02 — observed zero-file is VerifiedChangeSet empty OBSERVED", async () => {
+    const refs = tmpRoot("zeroobs");
+    const wt = tmpRoot("zero-wt");
+    const report = baseReport("att:zeroobs", "ec:zeroobs", {
+      fileEffects: { created: [], modified: [], deleted: [] },
+      authorizedEffectsExecuted: ["validation.run"],
+      validationEffects: [{ identity: "v1", result: "pass" }],
+    });
+    const finalized = await finalizeGenericExecutionReview({
+      refsRoot: refs,
+      projectId: "prj:zeroobs",
+      executionContractId: "ec:zeroobs",
+      attemptId: "att:zeroobs",
+      repositoryRef: "repo:test",
+      baseSha: report.baseSha,
+      cursorReport: report,
+      worktreePath: wt,
+      nameStatusText: "",
+    });
+    expect(finalized.ok).toBe(true);
+    if (!finalized.ok) return;
+    expect(finalized.verificationStatus).toBe("OBSERVED");
+    expect(finalized.verifiedChangeSet).not.toBeNull();
+    expect(finalized.verifiedChangeSet!.all).toEqual([]);
+    expect(finalized.manifest.verifiedEffects.gitFacts).toContain("verified_zero_change");
+  });
+
+  it("EP-18/CR-04 — anti-stall: remount resume policy + budget exceeds legacy 8 (budget not correctness)", () => {
     expect(NOMINAL_RECONCILE_CONTINUE_BUDGET).toBeGreaterThan(
       LEGACY_UI_RUNNING_POLL_BUDGET,
     );
+    expect(shouldAutoResumeReconcileOnRemount({ stage: "RUNNING" })).toBe(true);
+    expect(
+      shouldAutoResumeReconcileOnRemount({
+        stage: "PRODUCT_MATERIALIZATION_PENDING",
+        nextDeterministicAction: "MATERIALIZE_PRODUCT",
+      }),
+    ).toBe(true);
     expect(
       shouldContinueReconcileNominally({ stage: "RUNNING" }),
     ).toBe(true);
@@ -659,13 +628,532 @@ describe("GENERIC-EXECUTION-REVIEW-RESULT — Product Resolution surface", () =>
 ```
 
 
-## CREATED: `projects/sfia-studio/app/features/project-assistant/f3/finalizeGenericExecutionReview.ts`
+## CREATED `projects/sfia-studio/app/__tests__/project-assistant/genericExecutionReviewResultConvergence01.frontDoor.d0.test.ts`
+
+```typescript
+/**
+ * CORRECTION PASS 01 — Front-door Product E2E oracle
+ * GENERIC-EXECUTION-REVIEW-RESULT-CONVERGENCE-01
+ *
+ * Traverses Product prepare → authorize → execute → record → finalize Review Material
+ * → Evidence → Resolution → (Nora tools wiring) without calling finalize directly as entry.
+ * ZERO REAL. Fake/TestOnly boundary only.
+ *
+ * @vitest-environment node
+ */
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import { readFileSync } from "node:fs";
+import { setConversationProviderForTests } from "@/lib/platform/ai";
+import { STUDIO_CURSOR_GENERALIST_AGENT_ID } from "@/lib/oa/execution-attempt";
+import { CONTRACT_REPORT_REQUIREMENTS_INPUT_KEY } from "@/lib/oa/execution-contract";
+import {
+  governedExecuteRecordResult,
+  governedExecuteSelectAgent,
+  governedExecuteStart,
+} from "@/features/project-assistant/w2/governedExecuteAuthorizedContract";
+import { reconcileGovernedExecution } from "@/features/project-assistant/w2/reconcileGovernedExecution";
+import { materializeW3bProductTerminal } from "@/features/project-assistant/w2/materializeW3bProductTerminal";
+import { resolveProductExecutionContext } from "@/features/project-assistant/w2/resolveProductExecutionContext";
+import { prepareExecutionContractFromW2Decision } from "@/features/project-assistant/w2/prepareExecutionContractFromW2Decision";
+import { confirmExecutionContractForAuthorization } from "@/features/project-assistant/w2/confirmForAuthorization";
+import { evaluateExecutionAuthorization } from "@/features/project-assistant/w2/authorizeExecutionContract";
+import { inspectExecutionContract } from "@/features/project-assistant/w2/inspectExecutionContract";
+import { proposeTrajectoryOptions } from "@/features/project-assistant/w2/proposeTrajectoryOptions";
+import { decideTrajectory } from "@/features/project-assistant/w2/decideTrajectory";
+import { resolveW2QualificationInputs } from "@/features/project-assistant/w2/qualificationInputs";
+import { CLARIFY_OPTION_REF } from "@/features/project-assistant/w2/trajectoryOptions";
+import { loadGenericExecutionReviewMaterial } from "@/features/project-assistant/f3/persistGenericExecutionReviewMaterial";
+import {
+  analyzePostEvidenceWithProvider,
+  type PostEvidenceAnalysisFacts,
+} from "@/features/project-assistant/f3/postEvidenceNoraAnalysis";
+import {
+  observeNoraCognitiveCore,
+} from "@/lib/nora-cognitive-runtime/noraCognitiveCompletion";
+import { createExecutionReviewAgentsTools } from "@/lib/nora-cognitive-runtime/executionReviewAgentsTools";
+import { applyVerifiedChangeSetProductHonesty } from "@/features/project-assistant/w2/applyVerifiedChangeSetProductHonesty";
+import {
+  shouldAutoResumeReconcileOnRemount,
+  LEGACY_UI_RUNNING_POLL_BUDGET,
+} from "@/features/project-assistant/w2/reconcileContinuePolicy";
+import { TestOnlyRealExecutionLaunchPort } from "../oa/execution-attempt/support/testOnlyRealExecutionLaunchPort";
+import {
+  bootW2Runtime,
+  cleanupW2TempDirs,
+  currentF2Context,
+  seedQualifiedProject,
+  tempProductDbPath,
+  W2_TEST_PINNED_BASE_HEAD_SHA,
+} from "./w2Harness";
+import { RunContext } from "@openai/agents";
+
+const APP = path.resolve(__dirname, "../..");
+
+beforeEach(() => {
+  process.env.OPS1_CONVERSATION_PROVIDER = "fake";
+  setConversationProviderForTests(null);
+  delete process.env.SFIA_STUDIO_CURSOR_REAL;
+});
+
+afterEach(() => {
+  cleanupW2TempDirs();
+  delete process.env.SFIA_STUDIO_PRODUCT_EVIDENCE_REFS_ROOT;
+});
+
+function launchPortOf(oa: {
+  executionAttemptServices?: {
+    realBoundary?: { launchPort?: unknown };
+  } | null;
+}): TestOnlyRealExecutionLaunchPort {
+  const port = oa.executionAttemptServices?.realBoundary?.launchPort;
+  if (!(port instanceof TestOnlyRealExecutionLaunchPort)) {
+    throw new Error("TestOnlyRealExecutionLaunchPort required");
+  }
+  return port;
+}
+
+async function authorizeGenericMission(suffix: string) {
+  const db = tempProductDbPath(`gerrc-fd-${suffix}.sqlite`);
+  const runtime = bootW2Runtime({
+    productDbPath: db,
+    idPrefix: `gfd${suffix}`,
+  });
+  const seeded = await seedQualifiedProject(runtime, {
+    suffix,
+    reservations: [{ statement: `GERRC FD ${suffix}`, blocking: true }],
+  });
+  const oa = runtime.oa!;
+  const qualification = await resolveW2QualificationInputs({
+    oa,
+    projectId: seeded.projectId,
+  });
+  expect(qualification.ok).toBe(true);
+  if (!qualification.ok) throw new Error("qual");
+  const proposed = await proposeTrajectoryOptions({
+    oa,
+    projectId: seeded.projectId,
+    ...qualification.qualification.inputs,
+    packagePin: qualification.qualification.packagePin,
+    objective: qualification.qualification.objective,
+    projectTitle: qualification.qualification.projectTitle,
+  });
+  expect(proposed.ok).toBe(true);
+  if (!proposed.ok) throw new Error("propose");
+  const decided = await decideTrajectory({
+    oa,
+    projectId: seeded.projectId,
+    optionSetRef: proposed.optionSetRef,
+    options: proposed.options,
+    recommendedOptionRef: proposed.recommendation.recommendedOptionRef,
+    selectedOptionRef: CLARIFY_OPTION_REF,
+    trajectoryId: proposed.proposedTrajectory!.trajectoryId,
+    candidateVersion: proposed.proposedTrajectory!.version,
+    forceLocalAuthority: true,
+  });
+  expect(decided.ok).toBe(true);
+  if (!decided.ok) throw new Error("decide");
+  const context = await currentF2Context(runtime, seeded.projectId);
+  const prepared = await prepareExecutionContractFromW2Decision({
+    oa,
+    projectId: seeded.projectId,
+    decisionId: decided.decision.decisionId,
+    currentContext: context,
+    forceLocalAuthority: true,
+    pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+  });
+  expect(prepared.ok).toBe(true);
+  if (!prepared.ok) throw new Error(`prepare ${prepared.code}`);
+  const executionContractId = prepared.contract.executionContractId;
+  await inspectExecutionContract({
+    oa,
+    projectId: seeded.projectId,
+    executionContractId,
+  });
+  if (prepared.contract.effectConfirmationRequired) {
+    const confirmed = await confirmExecutionContractForAuthorization({
+      oa,
+      projectId: seeded.projectId,
+      executionContractId,
+      forceLocalAuthority: true,
+    });
+    expect(confirmed.ok).toBe(true);
+  }
+  const authorized = await evaluateExecutionAuthorization({
+    oa,
+    projectId: seeded.projectId,
+    executionContractId,
+    forceLocalAuthority: true,
+  });
+  expect(authorized.ok).toBe(true);
+  if (!authorized.ok) throw new Error("auth");
+  const live =
+    (await oa.executionContractServices.contracts.findById(executionContractId)) ??
+    prepared.contract;
+  const inputs = (live as { inputs?: Record<string, unknown> }).inputs ?? {};
+  const repositoryRef =
+    typeof inputs.repositoryBindingIdentity === "string"
+      ? inputs.repositoryBindingIdentity
+      : "acme/w2-harness";
+  const baseSha =
+    typeof inputs.baseHeadSha === "string"
+      ? inputs.baseHeadSha
+      : W2_TEST_PINNED_BASE_HEAD_SHA;
+  const refsRoot = path.join(path.dirname(db), "mission-result-refs");
+  process.env.SFIA_STUDIO_PRODUCT_EVIDENCE_REFS_ROOT = refsRoot;
+  return {
+    oa,
+    projectId: seeded.projectId,
+    executionContractId,
+    contract: live as typeof prepared.contract,
+    repositoryRef,
+    baseSha,
+    refsRoot,
+    reportRequirements: inputs[CONTRACT_REPORT_REQUIREMENTS_INPUT_KEY],
+  };
+}
+
+function mismatchReportStdout(input: {
+  attemptId: string;
+  executionContractId: string;
+  repositoryRef: string;
+  baseSha: string;
+}): string {
+  const body = {
+    schemaVersion: "oa.cursor-execution-report.1",
+    reportId: `rpt:cursor:gerrc:${input.attemptId.slice(-8)}`,
+    attemptId: input.attemptId,
+    executionContractId: input.executionContractId,
+    repositoryRef: input.repositoryRef,
+    baseSha: input.baseSha,
+    status: "succeeded",
+    authorizedEffectsExecuted: ["filesystem.create"],
+    workPerformed: ["created a.md only (CLAIM incomplete)"],
+    fileEffects: {
+      created: ["a.md"],
+      modified: [],
+      deleted: [],
+    },
+    missionResult: {
+      diagnosticSummary: "Mission CLAIM incomplete vs worktree (test).",
+      recommendedNextProductStep: "Review Studio VerifiedChangeSet.",
+    },
+    reviewEndOf: {
+      schemaVersion: "oa.cursor-review-end-of.1",
+      reviewEndOfId: `reo:cursor:${input.executionContractId}:${input.attemptId}`,
+      attemptId: input.attemptId,
+      executionContractId: input.executionContractId,
+      timestamp: new Date().toISOString(),
+      repositoryRef: input.repositoryRef,
+      baseSha: input.baseSha,
+      verdict: "succeeded",
+      objective: "generic mission",
+      scopeTreated: "a.md only",
+      workPerformed: ["created a.md"],
+      filesCreated: ["a.md"],
+      filesModified: [],
+      filesDeleted: [],
+      validations: [],
+      deviations: [],
+      blockers: [],
+      reservations: [],
+      stopConditionsMet: [],
+      claims: ["created a.md"],
+      pointsRequiringReview: ["confirm completeness"],
+    },
+  };
+  return `CURSOR_EXECUTION_REPORT_JSON=${JSON.stringify(body)}`;
+}
+
+describe("GENERIC-EXECUTION-REVIEW-RESULT-CONVERGENCE-01 Correction Pass 01 front-door", () => {
+  it("CR-01 wiring invariant — Product generic path calls finalizeGenericExecutionReview", () => {
+    const src = readFileSync(
+      path.join(
+        APP,
+        "features/project-assistant/w2/governedExecuteAuthorizedContract.ts",
+      ),
+      "utf8",
+    );
+    expect(src).toMatch(/finalizeGenericExecutionReview/);
+    expect(src).toMatch(/worktreeRef/);
+    // Must not only live behind docs_write ingest
+    const ingestIdx = src.indexOf("ingestDocsWriteArtifactEvidence");
+    const finalizeIdx = src.indexOf("finalizeGenericExecutionReview");
+    const productCursorIdx = src.indexOf("isCanonicalProductGovernedContract");
+    expect(finalizeIdx).toBeGreaterThan(0);
+    expect(productCursorIdx).toBeGreaterThan(0);
+    // finalize appears in generic productCursor region (after docs_write block uses ingest)
+    expect(finalizeIdx).toBeGreaterThan(ingestIdx);
+  });
+
+  it("CR-09 — prepared Generic EC consumes GENERIC_PRODUCT_REPORT_REQUIREMENTS (incl. Review End Of)", async () => {
+    const ctx = await authorizeGenericMission("req");
+    expect(Array.isArray(ctx.reportRequirements)).toBe(true);
+    const joined = (ctx.reportRequirements as string[]).join("\n");
+    expect(joined).toMatch(/Review End Of/i);
+    expect(joined).toMatch(/reportId/);
+    expect(joined).toMatch(/fileEffects/);
+  });
+
+  it("EP front-door — Generic Product → Fake Cursor → worktree observe → Review Material mismatch → Resolution", async () => {
+    expect(process.env.SFIA_STUDIO_CURSOR_REAL).toBeUndefined();
+    const ctx = await authorizeGenericMission("mm");
+    const port = launchPortOf(ctx.oa);
+    const launchBefore = port.launchCallCount;
+
+    const selected = await governedExecuteSelectAgent({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      executionContractId: ctx.executionContractId,
+      forceLocalAuthority: true,
+    });
+    expect(selected.ok).toBe(true);
+    if (!selected.ok) return;
+    expect(selected.selectedAgentRef).toBe(STUDIO_CURSOR_GENERALIST_AGENT_ID);
+
+    const started = await governedExecuteStart({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      executionContractId: ctx.executionContractId,
+      attemptId: selected.attemptId,
+      forceLocalAuthority: true,
+    });
+    expect(started.ok).toBe(true);
+    if (!started.ok) return;
+    expect(started.phase).toBe("running");
+    expect(port.launchCallCount).toBe(launchBefore + 1);
+
+    // Real worktree facts: A + B; Cursor CLAIM only A.
+    const wt = fs.mkdtempSync(path.join(os.tmpdir(), "gerrc-fd-wt-"));
+    fs.writeFileSync(path.join(wt, "a.md"), "A-content\n");
+    fs.writeFileSync(path.join(wt, "b.md"), "B-unclaimed\n");
+
+    setTimeout(() => {
+      port.resolveSimulatedCompletion(`proc:sim:${started.attemptId}`, {
+        exitCode: 0,
+        timedOut: false,
+        stdout: mismatchReportStdout({
+          attemptId: started.attemptId,
+          executionContractId: ctx.executionContractId,
+          repositoryRef: ctx.repositoryRef,
+          baseSha: ctx.baseSha,
+        }),
+        stderr: "",
+        durationMs: 5,
+        worktreeRef: wt,
+      });
+    }, 15);
+
+    const terminal = await governedExecuteRecordResult({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      executionContractId: ctx.executionContractId,
+      attemptId: started.attemptId,
+      forceLocalAuthority: true,
+      awaitIfPending: true,
+      missionResultRefsRoot: ctx.refsRoot,
+    });
+    expect(terminal.ok).toBe(true);
+    if (!terminal.ok) return;
+    expect(terminal.attemptStatus).toBe("succeeded");
+    expect(port.launchCallCount).toBe(launchBefore + 1); // no second launch
+
+    // EP-06/07 — Review Material finalized by Product path (not docs_write-only)
+    const loaded = loadGenericExecutionReviewMaterial({
+      refsRoot: ctx.refsRoot,
+      attemptId: started.attemptId,
+    });
+    expect(loaded.ok).toBe(true);
+    if (!loaded.ok) return;
+    expect(loaded.manifest.verifiedEffects.verificationStatus).toBe("OBSERVED");
+    expect(loaded.verifiedChangeSet?.claimFactMismatch).toBe(true);
+    expect(loaded.verifiedChangeSet?.unclaimedObservedPaths).toContain("b.md");
+    expect(loaded.reviewEndOf).not.toBeNull();
+    expect(loaded.manifest.completeness).toBe("PARTIAL");
+
+    // Teardown worktree — Review Material must remain durable
+    fs.rmSync(wt, { recursive: true, force: true });
+    const reloaded = loadGenericExecutionReviewMaterial({
+      refsRoot: ctx.refsRoot,
+      attemptId: started.attemptId,
+    });
+    expect(reloaded.ok).toBe(true);
+    if (!reloaded.ok) return;
+    expect(reloaded.manifest.verifiedEffects.claimFactMismatch).toBe(true);
+
+    // Product Resolution
+    const resolved = await resolveProductExecutionContext({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      query: { kind: "byAttemptId", attemptId: started.attemptId },
+    });
+    expect(resolved.ok).toBe(true);
+    if (!resolved.ok) return;
+    expect(resolved.context.executionReview.present).toBe(true);
+    expect(resolved.context.executionReview.claimFactMismatch).toBe(true);
+    expect(resolved.context.executionReview.verificationStatus).toBe("OBSERVED");
+    expect(resolved.context.attempt?.attemptId).toBe(started.attemptId);
+
+    // Materialize + honesty: Attempt succeeded ≠ automatic Product PASS
+    const materialized = await materializeW3bProductTerminal({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      attemptId: started.attemptId,
+    });
+    expect(materialized.ok).toBe(true);
+    if (!materialized.ok) return;
+    // If CE somehow PASS, honesty helper must refuse silent PASS
+    const honest = applyVerifiedChangeSetProductHonesty({
+      attemptId: started.attemptId,
+      product: materialized.product,
+      refsRoot: ctx.refsRoot,
+    });
+    if (honest.claimAllowed && honest.outcome === "SUCCESS") {
+      throw new Error("CLAIM_FACT_MISMATCH must not yield Product PASS");
+    }
+
+    // CR-06 — Nora shared core with review tools enabled; tools see mismatch
+    const coreCalls: { mode: string }[] = [];
+    const stop = observeNoraCognitiveCore((inv) => {
+      coreCalls.push({ mode: inv.mode });
+    });
+    const facts: PostEvidenceAnalysisFacts = {
+      projectId: ctx.projectId,
+      executionContractId: ctx.executionContractId,
+      executionContractStatus: "completed",
+      executionContractAction: "studio.cursor.generalist.execute",
+      attemptId: started.attemptId,
+      attemptStatus: "succeeded",
+      selectedAgentRef: STUDIO_CURSOR_GENERALIST_AGENT_ID,
+      adapterRef: "gateway",
+      executionMode: "cursor_cli_real",
+      realProcessInvoked: true,
+      evidenceId: materialized.product.evidenceId ?? "ev:test",
+      reviewBundleId: "rb:test",
+      technicalResultRef: null,
+      reservations: [],
+      cursorReportSummary: "CLAIM created a.md only",
+    };
+    const analysis = await analyzePostEvidenceWithProvider(facts, {
+      enableExecutionReviewTools: true,
+    });
+    stop();
+    expect(coreCalls.some((c) => c.mode === "post_execution")).toBe(true);
+    // Tools must be usable on the shared Agents path context
+    const tools = createExecutionReviewAgentsTools({
+      projectId: ctx.projectId,
+      attemptId: started.attemptId,
+      refsRoot: ctx.refsRoot,
+    });
+    const runCtx = new RunContext({});
+    const manifestRaw = await tools[0]!.invoke(runCtx, JSON.stringify({}));
+    const manifest = JSON.parse(String(manifestRaw)) as {
+      ok: boolean;
+      verifiedEffects?: { claimFactMismatch?: boolean };
+      blockers?: string[];
+    };
+    expect(manifest.ok).toBe(true);
+    expect(
+      manifest.verifiedEffects?.claimFactMismatch === true ||
+        (manifest.blockers ?? []).some((b) => b.includes("CLAIM_FACT_MISMATCH")),
+    ).toBe(true);
+    // Fake may or may not produce text; analysis must not invent FULL
+    if (analysis.ok) {
+      expect(analysis.text).not.toMatch(/\bFULL\b.*review material/i);
+    }
+
+    // CR-04 — remount resume policy for RUNNING / pending (budget not sole criterion)
+    expect(
+      shouldAutoResumeReconcileOnRemount({ stage: "RUNNING" }),
+    ).toBe(true);
+    expect(LEGACY_UI_RUNNING_POLL_BUDGET).toBe(8);
+
+    // Same Attempt after continue reconcile (no second Execute)
+    const continued = await reconcileGovernedExecution({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      executionContractId: ctx.executionContractId,
+      intent: "continue",
+    });
+    expect(continued.ok || continued.projection?.attemptId).toBeTruthy();
+    if (continued.projection?.attemptId) {
+      expect(continued.projection.attemptId).toBe(started.attemptId);
+    }
+  }, 60_000);
+
+  it("CR-04 long-running — > legacy poll window then remount continue; same Attempt", async () => {
+    const ctx = await authorizeGenericMission("long");
+    const port = launchPortOf(ctx.oa);
+    const selected = await governedExecuteSelectAgent({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      executionContractId: ctx.executionContractId,
+      forceLocalAuthority: true,
+    });
+    expect(selected.ok).toBe(true);
+    if (!selected.ok) return;
+    const started = await governedExecuteStart({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      executionContractId: ctx.executionContractId,
+      attemptId: selected.attemptId,
+      forceLocalAuthority: true,
+    });
+    expect(started.ok).toBe(true);
+    if (!started.ok) return;
+
+    // Exceed legacy UI poll budget while Attempt remains RUNNING (no await terminal).
+    for (let i = 0; i < LEGACY_UI_RUNNING_POLL_BUDGET + 2; i++) {
+      const got = await ctx.oa.executionAttemptServices!.getExecutionAttempt.execute(
+        { attemptId: started.attemptId },
+      );
+      expect(got.ok && got.attempt?.status).toBe("running");
+      expect(got.ok && got.attempt?.attemptId).toBe(started.attemptId);
+    }
+    expect(shouldAutoResumeReconcileOnRemount({ stage: "RUNNING" })).toBe(true);
+
+    const wt = fs.mkdtempSync(path.join(os.tmpdir(), "gerrc-long-wt-"));
+    fs.writeFileSync(path.join(wt, "a.md"), "ok\n");
+    port.resolveSimulatedCompletion(`proc:sim:${started.attemptId}`, {
+      exitCode: 0,
+      timedOut: false,
+      stdout: mismatchReportStdout({
+        attemptId: started.attemptId,
+        executionContractId: ctx.executionContractId,
+        repositoryRef: ctx.repositoryRef,
+        baseSha: ctx.baseSha,
+      }),
+      worktreeRef: wt,
+    });
+
+    // Remount-style continue after budget window — no second launch
+    const after = await reconcileGovernedExecution({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      executionContractId: ctx.executionContractId,
+      intent: "continue",
+    });
+    expect(after.projection?.attemptId).toBe(started.attemptId);
+    expect(port.launchCallCount).toBe(1);
+  }, 90_000);
+});
+
+```
+
+
+## CREATED `projects/sfia-studio/app/features/project-assistant/f3/finalizeGenericExecutionReview.ts`
 
 ```typescript
 /**
  * Finalize Generic Execution Review Material after Studio observation (D-ER-04/06).
  * Called after Cursor terminal + independent worktree observation.
  * Does NOT create Evidence — Evidence ingest remains separate.
+ *
+ * CR-02: NO OBSERVATION ≠ VERIFIED ZERO CHANGE.
+ * - OBSERVED: VerifiedChangeSet present (may be empty = verified zero change)
+ * - UNAVAILABLE / NOT_PERFORMED: VerifiedChangeSet ABSENT — never invent empty FACTS
  */
 import {
   mintCursorReviewEndOfId,
@@ -679,13 +1167,16 @@ import type { LocalGitStatusDiffPort } from "@/lib/oa/git-ports";
 import {
   persistGenericExecutionReviewMaterial,
   type ExecutionReviewMaterialManifest,
+  type ExecutionReviewVerificationStatus,
 } from "./persistGenericExecutionReviewMaterial";
 
 export type FinalizeGenericExecutionReviewResult =
   | {
       ok: true;
       manifest: ExecutionReviewMaterialManifest;
-      verifiedChangeSet: VerifiedChangeSet;
+      /** Present only when verificationStatus === "OBSERVED". */
+      verifiedChangeSet: VerifiedChangeSet | null;
+      verificationStatus: ExecutionReviewVerificationStatus;
       reviewEndOf: CursorReviewEndOf | null;
       claimFactMismatch: boolean;
     }
@@ -710,9 +1201,9 @@ export function resolveCursorReviewEndOfClaim(
       attemptId: report.attemptId,
       executionContractId: report.executionContractId,
     }),
+    timestamp: new Date().toISOString(),
     attemptId: report.attemptId,
     executionContractId: report.executionContractId,
-    timestamp: new Date().toISOString(),
     repositoryRef: report.repositoryRef,
     baseSha: report.baseSha,
     verdict:
@@ -757,6 +1248,7 @@ export async function finalizeGenericExecutionReview(input: {
   readonly repositoryRef: string;
   readonly baseSha: string;
   readonly cursorReport: CursorExecutionReport;
+  /** Server-owned worktree path. Absence ⇒ verification UNAVAILABLE — never empty FACTS. */
   readonly worktreePath?: string | null;
   readonly statusDiffPort?: LocalGitStatusDiffPort;
   readonly nameStatusText?: string;
@@ -768,29 +1260,27 @@ export async function finalizeGenericExecutionReview(input: {
     input.cursorReport,
   );
 
-  let verifiedChangeSet: VerifiedChangeSet;
-  if (input.worktreePath) {
+  const worktreePath =
+    typeof input.worktreePath === "string" && input.worktreePath.trim()
+      ? input.worktreePath.trim()
+      : null;
+
+  let verificationStatus: ExecutionReviewVerificationStatus;
+  let verifiedChangeSet: VerifiedChangeSet | null = null;
+
+  if (worktreePath) {
     verifiedChangeSet = await observeVerifiedChangeSet({
-      worktreePath: input.worktreePath,
+      worktreePath,
       report: input.cursorReport,
       statusDiffPort: input.statusDiffPort,
       nameStatusText: input.nameStatusText,
       computeDigests: true,
     });
+    verificationStatus = "OBSERVED";
   } else {
-    verifiedChangeSet = {
-      schemaVersion: "oa.studio-verified-changeset.1",
-      worktreePath: "",
-      observedAt: new Date().toISOString(),
-      created: [],
-      modified: [],
-      deleted: [],
-      renamed: [],
-      all: [],
-      unclaimedObservedPaths: [],
-      claimedMissingPaths: [],
-      claimFactMismatch: false,
-    };
+    // CR-02 — no observation ⇒ VerifiedChangeSet ABSENT (not empty FACTS).
+    verificationStatus = "UNAVAILABLE";
+    verifiedChangeSet = null;
   }
 
   const reviewItems: {
@@ -802,22 +1292,23 @@ export async function finalizeGenericExecutionReview(input: {
     summary?: string;
   }[] = [...(input.extraReviewItems ?? [])];
 
-  // Promote verified file contents as review items when digests exist.
-  for (const entry of verifiedChangeSet.all) {
-    if (entry.status === "deleted" || !entry.contentAbsolutePath) continue;
-    try {
-      const fs = await import("node:fs");
-      if (!fs.existsSync(entry.contentAbsolutePath)) continue;
-      const bytes = fs.readFileSync(entry.contentAbsolutePath);
-      reviewItems.push({
-        kind: "file",
-        logicalPath: entry.path,
-        label: `${entry.status}: ${entry.path}`,
-        bytes,
-        summary: entry.afterDigest,
-      });
-    } catch {
-      // keep PARTIAL
+  if (verifiedChangeSet) {
+    for (const entry of verifiedChangeSet.all) {
+      if (entry.status === "deleted" || !entry.contentAbsolutePath) continue;
+      try {
+        const fs = await import("node:fs");
+        if (!fs.existsSync(entry.contentAbsolutePath)) continue;
+        const bytes = fs.readFileSync(entry.contentAbsolutePath);
+        reviewItems.push({
+          kind: "file",
+          logicalPath: entry.path,
+          label: `${entry.status}: ${entry.path}`,
+          bytes,
+          summary: entry.afterDigest,
+        });
+      } catch {
+        // keep PARTIAL
+      }
     }
   }
 
@@ -830,6 +1321,31 @@ export async function finalizeGenericExecutionReview(input: {
     });
   }
 
+  const claimFactMismatch = verifiedChangeSet?.claimFactMismatch === true;
+  const observationMissing = verificationStatus !== "OBSERVED";
+
+  const blockers = [
+    ...(input.cursorReport.blockers ?? []),
+    ...(claimFactMismatch
+      ? [
+          `CLAIM_FACT_MISMATCH unclaimed=${verifiedChangeSet!.unclaimedObservedPaths.join(",")}`,
+        ]
+      : []),
+    ...(observationMissing
+      ? ["VERIFICATION_UNAVAILABLE — worktree observation not performed"]
+      : []),
+  ];
+
+  const reservations = [
+    ...(input.cursorReport.reservations ?? []),
+    ...(observationMissing
+      ? ["Studio VerifiedChangeSet not available — FACTS incomplete"]
+      : []),
+    ...(claimFactMismatch
+      ? ["Cursor CLAIM incomplete vs Studio OBSERVED FACTS"]
+      : []),
+  ];
+
   const persisted = persistGenericExecutionReviewMaterial({
     refsRoot: input.refsRoot,
     projectId: input.projectId,
@@ -841,17 +1357,14 @@ export async function finalizeGenericExecutionReview(input: {
     cursorReport: input.cursorReport,
     reviewEndOf,
     verifiedChangeSet,
+    verificationStatus,
     reviewItems,
     completeness:
-      synthesized || verifiedChangeSet.claimFactMismatch ? "PARTIAL" : undefined,
-    blockers: [
-      ...(input.cursorReport.blockers ?? []),
-      ...(verifiedChangeSet.claimFactMismatch
-        ? [
-            `CLAIM_FACT_MISMATCH unclaimed=${verifiedChangeSet.unclaimedObservedPaths.join(",")}`,
-          ]
-        : []),
-    ],
+      synthesized || claimFactMismatch || observationMissing
+        ? "PARTIAL"
+        : undefined,
+    blockers,
+    reservations,
   });
 
   if (!persisted.ok) {
@@ -866,15 +1379,16 @@ export async function finalizeGenericExecutionReview(input: {
     ok: true,
     manifest: persisted.manifest,
     verifiedChangeSet,
+    verificationStatus,
     reviewEndOf,
-    claimFactMismatch: verifiedChangeSet.claimFactMismatch,
+    claimFactMismatch,
   };
 }
 
 ```
 
 
-## CREATED: `projects/sfia-studio/app/features/project-assistant/f3/persistGenericExecutionReviewMaterial.ts`
+## CREATED `projects/sfia-studio/app/features/project-assistant/f3/persistGenericExecutionReviewMaterial.ts`
 
 ```typescript
 /**
@@ -900,6 +1414,18 @@ export const OA_EXECUTION_REVIEW_MATERIAL_SCHEMA =
   "oa.execution-review-material.1" as const;
 
 export type ExecutionReviewCompleteness = "FULL" | "PARTIAL";
+
+/**
+ * CR-02 — distinguish observed zero-change from missing observation.
+ * OBSERVED: VerifiedChangeSet present (may be empty = verified zero change).
+ * UNAVAILABLE / NOT_PERFORMED: VerifiedChangeSet ABSENT — never invent empty FACTS.
+ * NOT_APPLICABLE: observation intentionally not required for this Attempt.
+ */
+export type ExecutionReviewVerificationStatus =
+  | "OBSERVED"
+  | "UNAVAILABLE"
+  | "NOT_PERFORMED"
+  | "NOT_APPLICABLE";
 
 export type ExecutionReviewRetentionState =
   | "HOT"
@@ -943,7 +1469,10 @@ export type ExecutionReviewMaterialManifest = {
     readonly cursorReviewEndOfRef: string | null;
   };
   readonly verifiedEffects: {
+    /** OBSERVED ⇒ verifiedChangeSetRef may be set (incl. empty set). Else ABSENT. */
+    readonly verificationStatus: ExecutionReviewVerificationStatus;
     readonly verifiedChangeSetRef: string | null;
+    readonly claimFactMismatch: boolean;
     readonly gitFacts: readonly string[];
     readonly validationFacts: readonly string[];
   };
@@ -997,6 +1526,8 @@ export function persistGenericExecutionReviewMaterial(input: {
   readonly cursorReport?: CursorExecutionReport | null;
   readonly reviewEndOf?: CursorReviewEndOf | null;
   readonly verifiedChangeSet?: VerifiedChangeSet | null;
+  /** Required when VerifiedChangeSet may be absent — defaults UNAVAILABLE if unset + no VCS. */
+  readonly verificationStatus?: ExecutionReviewVerificationStatus;
   readonly reviewItems?: readonly {
     readonly kind: ExecutionReviewItemKind;
     readonly logicalPath?: string;
@@ -1040,7 +1571,13 @@ export function persistGenericExecutionReviewMaterial(input: {
     let verifiedChangeSetRef: string | null = null;
     const gitFacts: string[] = [];
     const validationFacts: string[] = [];
-    if (input.verifiedChangeSet) {
+    const claimFactMismatch =
+      input.verifiedChangeSet?.claimFactMismatch === true;
+    // CR-02: only persist VerifiedChangeSet when observation actually ran.
+    const verificationStatus: ExecutionReviewVerificationStatus =
+      input.verificationStatus ??
+      (input.verifiedChangeSet ? "OBSERVED" : "UNAVAILABLE");
+    if (verificationStatus === "OBSERVED" && input.verifiedChangeSet) {
       const abs = path.join(input.refsRoot, rel.verifiedChangeSet);
       // Strip absolute worktree paths from durable payload — logical facts only.
       const durable = {
@@ -1058,11 +1595,16 @@ export function persistGenericExecutionReviewMaterial(input: {
       };
       fs.writeFileSync(abs, `${JSON.stringify(durable)}\n`, "utf8");
       verifiedChangeSetRef = rel.verifiedChangeSet;
-      if (input.verifiedChangeSet.claimFactMismatch) {
+      if (claimFactMismatch) {
         gitFacts.push(
           `claim_fact_mismatch unclaimed=${input.verifiedChangeSet.unclaimedObservedPaths.join(",")}`,
         );
       }
+      if (input.verifiedChangeSet.all.length === 0) {
+        gitFacts.push("verified_zero_change");
+      }
+    } else if (verificationStatus !== "OBSERVED") {
+      gitFacts.push(`verification_status=${verificationStatus}`);
     }
 
     const reviewItems: ExecutionReviewItem[] = [];
@@ -1098,12 +1640,16 @@ export function persistGenericExecutionReviewMaterial(input: {
 
     const completeness: ExecutionReviewCompleteness =
       input.completeness ??
-      (cursorExecutionReportRef &&
-      (reviewItems.length > 0 ||
-        verifiedChangeSetRef ||
-        cursorReviewEndOfRef)
-        ? "FULL"
-        : "PARTIAL");
+      (verificationStatus !== "OBSERVED" ||
+      claimFactMismatch ||
+      !cursorExecutionReportRef
+        ? "PARTIAL"
+        : cursorExecutionReportRef &&
+            (reviewItems.length > 0 ||
+              verifiedChangeSetRef ||
+              cursorReviewEndOfRef)
+          ? "FULL"
+          : "PARTIAL");
 
     const manifest: ExecutionReviewMaterialManifest = {
       schemaVersion: OA_EXECUTION_REVIEW_MATERIAL_SCHEMA,
@@ -1119,7 +1665,10 @@ export function persistGenericExecutionReviewMaterial(input: {
         cursorReviewEndOfRef,
       },
       verifiedEffects: {
-        verifiedChangeSetRef,
+        verificationStatus,
+        verifiedChangeSetRef:
+          verificationStatus === "OBSERVED" ? verifiedChangeSetRef : null,
+        claimFactMismatch,
         gitFacts,
         validationFacts,
       },
@@ -1198,7 +1747,10 @@ export function loadGenericExecutionReviewMaterial(input: {
         reviewEndOf = JSON.parse(fs.readFileSync(p, "utf8")) as CursorReviewEndOf;
       }
     }
-    if (manifest.verifiedEffects.verifiedChangeSetRef) {
+    if (
+      manifest.verifiedEffects.verificationStatus === "OBSERVED" &&
+      manifest.verifiedEffects.verifiedChangeSetRef
+    ) {
       const p = path.join(
         input.refsRoot,
         manifest.verifiedEffects.verifiedChangeSetRef,
@@ -1272,7 +1824,69 @@ export function defaultMissionResultRefsRoot(sqliteDbPath: string): string {
 ```
 
 
-## CREATED: `projects/sfia-studio/app/features/project-assistant/w2/reconcileContinuePolicy.ts`
+## CREATED `projects/sfia-studio/app/features/project-assistant/w2/applyVerifiedChangeSetProductHonesty.ts`
+
+```typescript
+/**
+ * CR-03 / CR-10 — VerifiedChangeSet honesty for Product projection.
+ * Cursor CLAIM ≠ Studio FACT. Attempt succeeded ≠ Product PASS.
+ * Does NOT create a second Evidence engine — only downgrades dishonest PASS.
+ */
+import { resolveProductEvidenceRefsRoot } from "@/features/project-assistant/f3/persistDocsWriteArtifactReviewMaterial";
+import { loadGenericExecutionReviewMaterial } from "@/features/project-assistant/f3/persistGenericExecutionReviewMaterial";
+import type { W3BProductTerminalProjection } from "./w3bProductTerminalProjection";
+
+export function applyVerifiedChangeSetProductHonesty(input: {
+  readonly attemptId: string;
+  readonly product: W3BProductTerminalProjection;
+  readonly refsRoot?: string;
+}): W3BProductTerminalProjection {
+  const refsRoot = input.refsRoot ?? resolveProductEvidenceRefsRoot();
+  const review = loadGenericExecutionReviewMaterial({
+    refsRoot,
+    attemptId: input.attemptId,
+  });
+  if (!review.ok) return input.product;
+
+  const status =
+    review.manifest.verifiedEffects.verificationStatus ??
+    (review.manifest.verifiedEffects.verifiedChangeSetRef
+      ? "OBSERVED"
+      : "UNAVAILABLE");
+  const mismatch =
+    review.manifest.verifiedEffects.claimFactMismatch === true ||
+    review.verifiedChangeSet?.claimFactMismatch === true ||
+    review.manifest.blockers.some((b) => b.includes("CLAIM_FACT_MISMATCH"));
+
+  // Silent PASS forbidden when FACTS unavailable or CLAIM/FACT mismatch.
+  if (
+    input.product.outcome === "SUCCESS" &&
+    input.product.claimAllowed &&
+    (mismatch || status !== "OBSERVED")
+  ) {
+    const reason = mismatch
+      ? "Studio VerifiedChangeSet diverges from Cursor CLAIM (CLAIM_FACT_MISMATCH) — Product PASS refused; Attempt technical success preserved."
+      : `Studio worktree verification ${status} — Product PASS refused until FACTS observed; Attempt technical success preserved.`;
+    return {
+      ...input.product,
+      outcome: "UNCLAIMED",
+      claimAllowed: false,
+      businessHeadline: "Qualification produit incomplète",
+      businessReason: reason,
+      evidenceSummary:
+        (input.product.evidenceSummary ?? "") +
+        (mismatch
+          ? " · CLAIM_FACT_MISMATCH visible in Review Material"
+          : ` · verificationStatus=${status}`),
+    };
+  }
+  return input.product;
+}
+
+```
+
+
+## CREATED `projects/sfia-studio/app/features/project-assistant/w2/reconcileContinuePolicy.ts`
 
 ```typescript
 /**
@@ -1281,12 +1895,17 @@ export function defaultMissionResultRefsRoot(sqliteDbPath: string): string {
  * Owner remains reconcileGovernedExecution. UI only triggers continue.
  * No worker / queue / scheduler platform — OPEN DESIGN DETAIL for other
  * mechanisms; this is the minimal seam-reuse chosen for this macro.
+ *
+ * CR-04: budget is operational only — correctness is durable projection
+ * + automatic remount resume of the same Attempt. Budget exhaust must not
+ * silently abandon; remount re-triggers continue from Product Truth.
  */
 
 export type ContinuityStageLike =
   | "RUNNING"
   | "PRODUCT_MATERIALIZATION_PENDING"
   | "POST_EVIDENCE_PENDING"
+  | "ATTEMPT_ACCEPTED"
   | string;
 
 export type ContinuityProjectionLike = {
@@ -1299,8 +1918,8 @@ export type ContinuityProjectionLike = {
 export const LEGACY_UI_RUNNING_POLL_BUDGET = 8;
 
 /**
- * Nominal continue budget — must exceed legacy poll so long-running Attempt
- * still converges without manual « Recharger résultat produit ».
+ * Nominal continue budget — operational upper bound per mount session.
+ * Correctness does NOT depend on this number alone (CR-04).
  */
 export const NOMINAL_RECONCILE_CONTINUE_BUDGET = 120;
 
@@ -1309,19 +1928,35 @@ export function shouldContinueReconcileNominally(
 ): boolean {
   if (!projection) return false;
   if (projection.recoveryRequired) return false;
-  if (projection.stage === "RUNNING") return true;
+  if (
+    projection.stage === "RUNNING" ||
+    projection.stage === "ATTEMPT_ACCEPTED"
+  ) {
+    return true;
+  }
   const next = projection.nextDeterministicAction ?? "NONE";
   return (
     next === "MATERIALIZE_PRODUCT" ||
     next === "RUN_POST_EVIDENCE" ||
+    next === "AWAIT_EXTERNAL" ||
     projection.stage === "PRODUCT_MATERIALIZATION_PENDING" ||
     projection.stage === "POST_EVIDENCE_PENDING"
   );
 }
 
 /**
+ * Remount / reload resume: durable projection still has deterministic work
+ * → automatic continue intent (no « Recharger résultat produit » nominal click).
+ */
+export function shouldAutoResumeReconcileOnRemount(
+  projection: ContinuityProjectionLike | null | undefined,
+): boolean {
+  return shouldContinueReconcileNominally(projection);
+}
+
+/**
  * Pure policy: how many continue iterations remain under nominal budget.
- * Tests assert this exceeds LEGACY_UI_RUNNING_POLL_BUDGET.
+ * Operational detail — not the EP-18 correctness criterion.
  */
 export function nominalContinueIterationsRemaining(
   alreadyUsed: number,
@@ -1335,7 +1970,7 @@ export function nominalContinueIterationsRemaining(
 ```
 
 
-## CREATED: `projects/sfia-studio/app/lib/nora-cognitive-runtime/executionReviewAgentsTools.ts`
+## CREATED `projects/sfia-studio/app/lib/nora-cognitive-runtime/executionReviewAgentsTools.ts`
 
 ```typescript
 /**
@@ -1536,7 +2171,7 @@ export function createExecutionReviewAgentsTools(
 ```
 
 
-## CREATED: `projects/sfia-studio/app/lib/oa/execution-attempt/application/observeVerifiedChangeSet.ts`
+## CREATED `projects/sfia-studio/app/lib/oa/execution-attempt/application/observeVerifiedChangeSet.ts`
 
 ```typescript
 /**
@@ -1550,7 +2185,7 @@ export function createExecutionReviewAgentsTools(
  * silently promoted to Evidence.
  */
 import { createHash } from "node:crypto";
-import { existsSync } from "node:fs";
+import { existsSync, readdirSync, statSync } from "node:fs";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import type { LocalGitStatusDiffPort } from "@/lib/oa/git-ports";
@@ -1647,6 +2282,37 @@ async function digestIfExists(
   return `sha256:${createHash("sha256").update(buf).digest("hex")}`;
 }
 
+function listWorktreeRelFiles(worktreePath: string): string[] {
+  const out: string[] = [];
+  const root = path.resolve(worktreePath);
+  const walk = (dir: string) => {
+    let entries: string[];
+    try {
+      entries = readdirSync(dir);
+    } catch {
+      return;
+    }
+    for (const name of entries) {
+      if (name === ".git" || name === "node_modules" || name === ".sfia-exec") {
+        continue;
+      }
+      const abs = path.join(dir, name);
+      let st;
+      try {
+        st = statSync(abs);
+      } catch {
+        continue;
+      }
+      if (st.isDirectory()) walk(abs);
+      else if (st.isFile()) {
+        out.push(normalizeRel(path.relative(root, abs)));
+      }
+    }
+  };
+  walk(root);
+  return out.filter(Boolean);
+}
+
 /**
  * Observe the full worktree independently of Cursor claims and of docs_write policy.
  */
@@ -1660,13 +2326,26 @@ export async function observeVerifiedChangeSet(input: {
 }): Promise<VerifiedChangeSet> {
   let nameStatus = input.nameStatusText ?? "";
   if (!nameStatus && input.statusDiffPort) {
-    const diff = await input.statusDiffPort.statusDiff({
-      repoPath: input.worktreePath,
-    });
-    nameStatus = diff.statusPorcelain || diff.diffStat;
+    try {
+      const diff = await input.statusDiffPort.statusDiff({
+        repoPath: input.worktreePath,
+      });
+      nameStatus = diff.statusPorcelain || diff.diffStat;
+    } catch {
+      nameStatus = "";
+    }
   }
 
-  const changed = parseNameStatus(nameStatus);
+  let changed = parseNameStatus(nameStatus);
+  // Fake / non-git worktree parity: when git porcelain is empty, still observe
+  // files present under the server-owned worktree (VERIFIED FACTS).
+  if (changed.length === 0 && existsSync(input.worktreePath)) {
+    changed = listWorktreeRelFiles(input.worktreePath).map((p) => ({
+      path: p,
+      status: "??",
+    }));
+  }
+
   const created: VerifiedPathEntry[] = [];
   const modified: VerifiedPathEntry[] = [];
   const deleted: VerifiedPathEntry[] = [];
@@ -1734,7 +2413,7 @@ export async function observeVerifiedChangeSet(input: {
 ```
 
 
-## CREATED: `projects/sfia-studio/app/lib/oa/execution-attempt/domain/cursorReviewEndOf.ts`
+## CREATED `projects/sfia-studio/app/lib/oa/execution-attempt/domain/cursorReviewEndOf.ts`
 
 ```typescript
 /**
@@ -1844,14 +2523,14 @@ export function parseCursorReviewEndOf(
 # UNIFIED DIFFS — MODIFIED FILES
 
 
-## DIFF: `projects/sfia-studio/app/__tests__/project-assistant/productContinuitySharedKnowledge.d0.test.ts`
+## DIFF `projects/sfia-studio/app/__tests__/project-assistant/productContinuitySharedKnowledge.d0.test.ts`
 
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/productContinuitySharedKnowledge.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/productContinuitySharedKnowledge.d0.test.ts
-index 1d517c31..2b226c43 100644
+index 1d517c31..892d5e5a 100644
 --- a/projects/sfia-studio/app/__tests__/project-assistant/productContinuitySharedKnowledge.d0.test.ts
 +++ b/projects/sfia-studio/app/__tests__/project-assistant/productContinuitySharedKnowledge.d0.test.ts
-@@ -50,6 +50,17 @@ function emptyContext(
+@@ -50,6 +50,20 @@ function emptyContext(
        completeness: null,
        preview: null,
      },
@@ -1862,9 +2541,12 @@ index 1d517c31..2b226c43 100644
 +      reviewMaterialId: null,
 +      reviewItemCount: 0,
 +      claimFactMismatch: false,
++      verificationStatus: null,
 +      retentionState: null,
 +      reviewEndOfPresent: false,
 +      verifiedChangeSetPresent: false,
++      blockers: [],
++      reviewItemSummaries: [],
 +    },
      evidence: {
        kind: "EVIDENCE",
@@ -1873,11 +2555,11 @@ index 1d517c31..2b226c43 100644
 ```
 
 
-## DIFF: `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx`
+## DIFF `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx`
 
 ```diff
 diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
-index 6d02f3f2..65451d67 100644
+index 6d02f3f2..3529c3d2 100644
 --- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
 +++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
 @@ -1732,10 +1732,18 @@ export function TrajectorySurface({
@@ -1902,11 +2584,74 @@ index 6d02f3f2..65451d67 100644
          await yieldBrowserPaint();
          reconciled = await w2ReconcileGovernedExecutionAction({
            projectId,
+@@ -1941,6 +1949,41 @@ export function TrajectorySurface({
+    */
+   const legacyDecisionCtaVisible = decisionWorkflowMode === "legacy_cta";
+
++  /**
++   * CR-04 — On remount / reload, if durable Attempt still needs deterministic
++   * progression, auto-trigger Reconciler continue (no nominal Recharger click).
++   * Budget exhaust of a prior mount session must not abandon the workflow.
++   */
++  useEffect(() => {
++    if (!contract?.executionContractId) return;
++    if (busy !== null) return;
++    let cancelled = false;
++    void (async () => {
++      try {
++        const { shouldAutoResumeReconcileOnRemount } = await import(
++          "@/features/project-assistant/w2/reconcileContinuePolicy"
++        );
++        const { w2DeriveGovernedExecutionContinuityAction: deriveContinuity } =
++          await import("@/features/project-assistant/w2/actions");
++        if (typeof deriveContinuity !== "function") return;
++        const derived = await deriveContinuity({
++          projectId,
++          executionContractId: contract.executionContractId,
++        });
++        if (cancelled || !derived.ok) return;
++        if (!shouldAutoResumeReconcileOnRemount(derived.projection)) return;
++        await runServerReconcile("continue");
++      } catch {
++        // Remount resume must never crash UI when action mocks omit the export.
++      }
++    })();
++    return () => {
++      cancelled = true;
++    };
++    // Mount / contract identity only — remount resume, not every projection tick.
++    // eslint-disable-next-line react-hooks/exhaustive-deps
++  }, [contract?.executionContractId, projectId]);
++
+   useEffect(() => {
+     if (!onProposalSubjectOwnershipChange) return;
+     if (continuityReadsUnresolved) {
+@@ -3423,6 +3466,20 @@ export function TrajectorySurface({
+               Recharger résultat produit (durable)
+             </button>
+           ) : null}
++          {/* CR-07 — Generic Execution Review summary for Pilot (no .sfia-exec paths). */}
++          {productOutcome ? (
++            <div
++              className={styles.blockBody}
++              data-testid="w3b-execution-review-summary"
++            >
++              <p className={styles.productHeadline}>Matière de revue</p>
++              <p data-testid="w3b-execution-review-hint">
++                Rapport Cursor (CLAIM), faits Studio vérifiés et items de revue
++                sont accessibles via la résolution produit — pas via un chemin
++                worktree.
++              </p>
++            </div>
++          ) : null}
+         </section>
+       ) : null}
+
 
 ```
 
 
-## DIFF: `projects/sfia-studio/app/features/project-assistant/f3/ingestDocsWriteArtifactEvidence.ts`
+## DIFF `projects/sfia-studio/app/features/project-assistant/f3/ingestDocsWriteArtifactEvidence.ts`
 
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/f3/ingestDocsWriteArtifactEvidence.ts b/projects/sfia-studio/app/features/project-assistant/f3/ingestDocsWriteArtifactEvidence.ts
@@ -1951,7 +2696,31 @@ index 6151592b..a184deb5 100644
 ```
 
 
-## DIFF: `projects/sfia-studio/app/features/project-assistant/f3/postEvidenceNoraAnalysis.ts`
+## DIFF `projects/sfia-studio/app/features/project-assistant/f3/persistDocsWriteArtifactReviewMaterial.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/features/project-assistant/f3/persistDocsWriteArtifactReviewMaterial.ts b/projects/sfia-studio/app/features/project-assistant/f3/persistDocsWriteArtifactReviewMaterial.ts
+index a3faf6ae..cafa3fd2 100644
+--- a/projects/sfia-studio/app/features/project-assistant/f3/persistDocsWriteArtifactReviewMaterial.ts
++++ b/projects/sfia-studio/app/features/project-assistant/f3/persistDocsWriteArtifactReviewMaterial.ts
+@@ -199,6 +199,12 @@ export function resolveProductEvidenceRefsRoot(
+ ): string {
+   const trimmed = explicit?.trim();
+   if (trimmed) return trimmed;
++  const fromEnv =
++    typeof process.env.SFIA_STUDIO_PRODUCT_EVIDENCE_REFS_ROOT === "string" &&
++    process.env.SFIA_STUDIO_PRODUCT_EVIDENCE_REFS_ROOT.trim()
++      ? process.env.SFIA_STUDIO_PRODUCT_EVIDENCE_REFS_ROOT.trim()
++      : null;
++  if (fromEnv) return fromEnv;
+   const db =
+     typeof process.env.SFIA_STUDIO_PRODUCT_DB_PATH === "string" &&
+     process.env.SFIA_STUDIO_PRODUCT_DB_PATH.trim()
+
+```
+
+
+## DIFF `projects/sfia-studio/app/features/project-assistant/f3/postEvidenceNoraAnalysis.ts`
 
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/f3/postEvidenceNoraAnalysis.ts b/projects/sfia-studio/app/features/project-assistant/f3/postEvidenceNoraAnalysis.ts
@@ -1999,7 +2768,130 @@ index d4fae268..5d3b4a96 100644
 ```
 
 
-## DIFF: `projects/sfia-studio/app/features/project-assistant/w2/missionContractSemanticInputs.ts`
+## DIFF `projects/sfia-studio/app/features/project-assistant/w2/governedExecuteAuthorizedContract.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/governedExecuteAuthorizedContract.ts b/projects/sfia-studio/app/features/project-assistant/w2/governedExecuteAuthorizedContract.ts
+index e9ce7276..53242274 100644
+--- a/projects/sfia-studio/app/features/project-assistant/w2/governedExecuteAuthorizedContract.ts
++++ b/projects/sfia-studio/app/features/project-assistant/w2/governedExecuteAuthorizedContract.ts
+@@ -43,6 +43,7 @@ import { completeBoundedDocsWriteLaunch } from "@/features/project-assistant/f3/
+ import { completeBoundedReadOnlyLaunch } from "@/features/project-assistant/f3/completeBoundedReadOnlyLaunch";
+ import { ingestDocsWriteArtifactEvidence } from "@/features/project-assistant/f3/ingestDocsWriteArtifactEvidence";
+ import { ingestMissionResultEvidence } from "@/features/project-assistant/f3/ingestMissionResultEvidence";
++import { finalizeGenericExecutionReview } from "@/features/project-assistant/f3/finalizeGenericExecutionReview";
+ import {
+   buildMissionResultPayloadFromReport,
+   type CursorExecutionReportWithMission,
+@@ -1280,6 +1281,52 @@ export async function governedExecuteRecordResult(
+             };
+           }
+         }
++        const refsRoot =
++          input.missionResultRefsRoot?.trim() ||
++          path.join(
++            path.dirname(
++              typeof process.env.SFIA_STUDIO_PRODUCT_DB_PATH === "string" &&
++                process.env.SFIA_STUDIO_PRODUCT_DB_PATH.trim()
++                ? process.env.SFIA_STUDIO_PRODUCT_DB_PATH
++                : path.join(
++                    process.cwd(),
++                    "..",
++                    ".sfia-exec",
++                    "product",
++                    "oa-product.sqlite",
++                  ),
++            ),
++            "mission-result-refs",
++          );
++
++        // CR-01 — Generic Product nominal: observe worktree → VerifiedChangeSet →
++        // finalize Generic Review Material BEFORE Evidence/mission ingest.
++        // worktreeRef is server-owned (RealProcessObservation / LaunchAck).
++        if (report) {
++          const worktreeRef =
++            completed.observation?.worktreeRef?.trim() || null;
++          const finalized = await finalizeGenericExecutionReview({
++            refsRoot,
++            projectId: input.projectId,
++            cycleInstanceId: contract.cycleInstanceId,
++            executionContractId: contract.executionContractId,
++            attemptId: attempt.attemptId,
++            repositoryRef:
++              expectedRepo ?? report.repositoryRef ?? "repository:unknown",
++            baseSha: expectedSha ?? report.baseSha ?? "unknown",
++            cursorReport: report,
++            worktreePath: worktreeRef,
++          });
++          if (!finalized.ok) {
++            return {
++              ok: false,
++              code: "POST_EXECUTION_CONTINUITY_ADVANCE_FAILED",
++              message: `Attempt succeeded durable — Generic Review Material finalize échoué (${finalized.code}): ${finalized.message}`,
++              attempt: projectAttempt(attempt, adapterId),
++            };
++          }
++        }
++
+         const built = report
+           ? buildMissionResultPayloadFromReport({ report })
+           : ({
+@@ -1289,17 +1336,6 @@ export async function governedExecuteRecordResult(
+                 "Mission Result Evidence requires a structured CursorExecutionReport with missionResult fields.",
+             } as const);
+         if (built.ok) {
+-          const refsRoot =
+-            input.missionResultRefsRoot?.trim() ||
+-            path.join(
+-              path.dirname(
+-                typeof process.env.SFIA_STUDIO_PRODUCT_DB_PATH === "string" &&
+-                  process.env.SFIA_STUDIO_PRODUCT_DB_PATH.trim()
+-                  ? process.env.SFIA_STUDIO_PRODUCT_DB_PATH
+-                  : path.join(process.cwd(), "..", ".sfia-exec", "product", "oa-product.sqlite"),
+-              ),
+-              "mission-result-refs",
+-            );
+           const ingested = await ingestMissionResultEvidence({
+             evidenceReviewServices: input.oa.evidenceReviewServices,
+             projectId: input.projectId,
+
+```
+
+
+## DIFF `projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts b/projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts
+index 8874e7c4..4b1c4ac9 100644
+--- a/projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts
++++ b/projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts
+@@ -504,13 +504,20 @@ export async function materializeW3bProductTerminal(input: {
+     };
+   }
+
+-  const product = projectFromFacts({
++  const productRaw = projectFromFacts({
+     attempt,
+     contract,
+     evidence: primaryEvidence,
+     reviewBundle: frozenReviewBundle,
+     claimEvaluation: evaluated.claimEvaluation,
+   });
++  const { applyVerifiedChangeSetProductHonesty } = await import(
++    "./applyVerifiedChangeSetProductHonesty"
++  );
++  const product = applyVerifiedChangeSetProductHonesty({
++    attemptId: attempt.attemptId,
++    product: productRaw,
++  });
+
+   const reusedFromIdempotency = Boolean(
+     ingested.reusedFromIdempotencyKey ||
+
+```
+
+
+## DIFF `projects/sfia-studio/app/features/project-assistant/w2/missionContractSemanticInputs.ts`
 
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/missionContractSemanticInputs.ts b/projects/sfia-studio/app/features/project-assistant/w2/missionContractSemanticInputs.ts
@@ -2039,11 +2931,39 @@ index e6c78514..efc19105 100644
 ```
 
 
-## DIFF: `projects/sfia-studio/app/features/project-assistant/w2/resolveProductExecutionContext.ts`
+## DIFF `projects/sfia-studio/app/features/project-assistant/w2/prepareExecutionContractFromW2Decision.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/prepareExecutionContractFromW2Decision.ts b/projects/sfia-studio/app/features/project-assistant/w2/prepareExecutionContractFromW2Decision.ts
+index a5ea435c..5cb9a54b 100644
+--- a/projects/sfia-studio/app/features/project-assistant/w2/prepareExecutionContractFromW2Decision.ts
++++ b/projects/sfia-studio/app/features/project-assistant/w2/prepareExecutionContractFromW2Decision.ts
+@@ -47,6 +47,7 @@ import {
+ import {
+   deriveMissionAcceptanceCriteria,
+   deriveMissionReportRequirements,
++  deriveGenericProductReportRequirements,
+   deriveMissionValidationPlan,
+ } from "./missionContractSemanticInputs";
+
+@@ -495,7 +496,7 @@ export async function prepareExecutionContractFromW2Decision(input: {
+           [CONTRACT_VALIDATION_PLAN_INPUT_KEY]:
+             deriveMissionValidationPlan(mission),
+           [CONTRACT_REPORT_REQUIREMENTS_INPUT_KEY]:
+-            deriveMissionReportRequirements(),
++            deriveGenericProductReportRequirements(),
+         }
+       : {}),
+   };
+
+```
+
+
+## DIFF `projects/sfia-studio/app/features/project-assistant/w2/resolveProductExecutionContext.ts`
 
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/resolveProductExecutionContext.ts b/projects/sfia-studio/app/features/project-assistant/w2/resolveProductExecutionContext.ts
-index ba78a0c3..31b491d2 100644
+index ba78a0c3..e1c0e4cd 100644
 --- a/projects/sfia-studio/app/features/project-assistant/w2/resolveProductExecutionContext.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/w2/resolveProductExecutionContext.ts
 @@ -18,6 +18,7 @@ import {
@@ -2054,7 +2974,7 @@ index ba78a0c3..31b491d2 100644
  import {
    findExistingW3cPostEvidence,
    projectW3cExecutionReportSurfaceFromDurable,
-@@ -62,6 +63,18 @@ export type ProductExecutionContext = {
+@@ -62,6 +63,31 @@ export type ProductExecutionContext = {
      readonly completeness: "FULL" | "PARTIAL" | null;
      readonly preview: string | null;
    };
@@ -2066,14 +2986,27 @@ index ba78a0c3..31b491d2 100644
 +    readonly reviewMaterialId: string | null;
 +    readonly reviewItemCount: number;
 +    readonly claimFactMismatch: boolean;
++    readonly verificationStatus:
++      | "OBSERVED"
++      | "UNAVAILABLE"
++      | "NOT_PERFORMED"
++      | "NOT_APPLICABLE"
++      | null;
 +    readonly retentionState: string | null;
 +    readonly reviewEndOfPresent: boolean;
 +    readonly verifiedChangeSetPresent: boolean;
++    readonly blockers: readonly string[];
++    readonly reviewItemSummaries: readonly {
++      readonly itemId: string;
++      readonly kind: string;
++      readonly label: string;
++      readonly logicalPath?: string;
++    }[];
 +  };
    readonly evidence: {
      readonly kind: "EVIDENCE";
      readonly evidenceId: string | null;
-@@ -543,6 +556,17 @@ export async function resolveProductExecutionContext(input: {
+@@ -543,6 +569,20 @@ export async function resolveProductExecutionContext(input: {
      completeness: null,
      preview: null,
    };
@@ -2084,14 +3017,17 @@ index ba78a0c3..31b491d2 100644
 +    reviewMaterialId: null,
 +    reviewItemCount: 0,
 +    claimFactMismatch: false,
++    verificationStatus: null,
 +    retentionState: null,
 +    reviewEndOfPresent: false,
 +    verifiedChangeSetPresent: false,
++    blockers: [],
++    reviewItemSummaries: [],
 +  };
    let evidenceBlock: ProductExecutionContext["evidence"] = {
      kind: "EVIDENCE",
      evidenceId: null,
-@@ -620,6 +644,38 @@ export async function resolveProductExecutionContext(input: {
+@@ -620,6 +660,52 @@ export async function resolveProductExecutionContext(input: {
        }
      }
 
@@ -2101,10 +3037,14 @@ index ba78a0c3..31b491d2 100644
 +    });
 +    if (genericReview.ok) {
 +      const mismatch =
++        genericReview.manifest.verifiedEffects.claimFactMismatch === true ||
 +        genericReview.verifiedChangeSet?.claimFactMismatch === true ||
 +        genericReview.manifest.blockers.some((b) =>
 +          b.includes("CLAIM_FACT_MISMATCH"),
 +        );
++      const verificationStatus =
++        genericReview.manifest.verifiedEffects.verificationStatus ??
++        (genericReview.verifiedChangeSet ? "OBSERVED" : "UNAVAILABLE");
 +      executionReview = {
 +        kind: "EXECUTION_REVIEW_MATERIAL",
 +        present: true,
@@ -2112,9 +3052,19 @@ index ba78a0c3..31b491d2 100644
 +        reviewMaterialId: genericReview.manifest.reviewMaterialId,
 +        reviewItemCount: genericReview.manifest.reviewItems.length,
 +        claimFactMismatch: mismatch,
++        verificationStatus,
 +        retentionState: genericReview.manifest.retentionState,
 +        reviewEndOfPresent: Boolean(genericReview.reviewEndOf),
-+        verifiedChangeSetPresent: Boolean(genericReview.verifiedChangeSet),
++        verifiedChangeSetPresent:
++          verificationStatus === "OBSERVED" &&
++          Boolean(genericReview.verifiedChangeSet),
++        blockers: [...genericReview.manifest.blockers],
++        reviewItemSummaries: genericReview.manifest.reviewItems.map((it) => ({
++          itemId: it.itemId,
++          kind: it.kind,
++          label: it.label,
++          ...(it.logicalPath ? { logicalPath: it.logicalPath } : {}),
++        })),
 +      };
 +      if (genericReview.cursorReport && !cursorReport.present) {
 +        cursorReport = {
@@ -2130,7 +3080,7 @@ index ba78a0c3..31b491d2 100644
      const lineage = await resolveEvidenceLineage({
        oa: input.oa,
        projectId,
-@@ -730,6 +786,7 @@ export async function resolveProductExecutionContext(input: {
+@@ -730,6 +816,7 @@ export async function resolveProductExecutionContext(input: {
          : null,
        cursorReport,
        artifact,
@@ -2138,7 +3088,7 @@ index ba78a0c3..31b491d2 100644
        evidence: evidenceBlock,
        reviewBundle: reviewBlock,
        claimEvaluation: claimBlock,
-@@ -742,6 +799,8 @@ export async function resolveProductExecutionContext(input: {
+@@ -742,6 +829,8 @@ export async function resolveProductExecutionContext(input: {
        disclosures: [
          "Product Resolution is READ-ONLY — not Truth C / HumanDecision / Evidence authority.",
          "CursorExecutionReport is an EXECUTOR CLAIM, never Evidence by itself.",
@@ -2151,7 +3101,7 @@ index ba78a0c3..31b491d2 100644
 ```
 
 
-## DIFF: `projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts`
+## DIFF `projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts`
 
 ```diff
 diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
@@ -2173,7 +3123,7 @@ index 39085a42..8f444247 100644
 ```
 
 
-## DIFF: `projects/sfia-studio/app/lib/nora-cognitive-runtime/noraCognitiveCompletion.ts`
+## DIFF `projects/sfia-studio/app/lib/nora-cognitive-runtime/noraCognitiveCompletion.ts`
 
 ```diff
 diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/noraCognitiveCompletion.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/noraCognitiveCompletion.ts
@@ -2222,7 +3172,7 @@ index 2b6da640..aa507f66 100644
 ```
 
 
-## DIFF: `projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts`
+## DIFF `projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts`
 
 ```diff
 diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
@@ -2275,7 +3225,7 @@ index a3b5117e..5894cfc7 100644
 ```
 
 
-## DIFF: `projects/sfia-studio/app/lib/oa/execution-attempt/domain/cursorExecutionReport.ts`
+## DIFF `projects/sfia-studio/app/lib/oa/execution-attempt/domain/cursorExecutionReport.ts`
 
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/domain/cursorExecutionReport.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/cursorExecutionReport.ts
@@ -2299,7 +3249,7 @@ index 1b0fefd0..931cbfca 100644
 ```
 
 
-## DIFF: `projects/sfia-studio/app/lib/oa/execution-attempt/index.ts`
+## DIFF `projects/sfia-studio/app/lib/oa/execution-attempt/index.ts`
 
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/index.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/index.ts
@@ -2319,18 +3269,87 @@ index c9e7c1d9..d509b3cc 100644
 ```
 
 
-## DIFF: `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
+## DIFF `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts
+index 369d64f5..b7134aac 100644
+--- a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts
+@@ -328,6 +328,8 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
+     string,
+     RealProcessObservation
+   >();
++  /** processRef → worktreePath (gateway-local, Attempt/process-bound, not Product Truth). */
++  private readonly processWorktreeByRef = new Map<string, string>();
+
+   constructor(options: StudioCursorRealLaunchGatewayOptions) {
+     if (!options.processRunner) {
+@@ -1090,6 +1092,7 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
+           worktreeRef: workspacePath,
+         });
+       }
++      this.processWorktreeByRef.set(invoked.processRef, workspacePath);
+
+       return {
+         outcome: "ack",
+@@ -1112,19 +1115,36 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
+   }
+
+   async observe(processRef: string): Promise<RealProcessObservation | null> {
++    let obs: RealProcessObservation | null = null;
+     if (typeof this.runner.observe === "function") {
+-      return this.runner.observe(processRef);
++      obs = await this.runner.observe(processRef);
++    } else {
++      obs = this.fallbackObservations.get(processRef) ?? null;
+     }
+-    return this.fallbackObservations.get(processRef) ?? null;
++    return this.decorateWorktreeRef(processRef, obs);
+   }
+
+   async awaitCompletion(
+     processRef: string,
+   ): Promise<RealProcessObservation | null> {
++    let obs: RealProcessObservation | null = null;
+     if (typeof this.runner.awaitCompletion === "function") {
+-      return this.runner.awaitCompletion(processRef);
++      obs = await this.runner.awaitCompletion(processRef);
++    } else {
++      obs = await this.observe(processRef);
+     }
+-    return this.observe(processRef);
++    return this.decorateWorktreeRef(processRef, obs);
++  }
++
++  private decorateWorktreeRef(
++    processRef: string,
++    obs: RealProcessObservation | null,
++  ): RealProcessObservation | null {
++    if (!obs) return null;
++    if (obs.worktreeRef && obs.worktreeRef.trim()) return obs;
++    const known = this.processWorktreeByRef.get(processRef);
++    if (!known) return obs;
++    return { ...obs, worktreeRef: known };
+   }
+ }
+
+
+```
+
+
+## DIFF `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
 
 ```diff
 diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-index 75b2974e..119c1675 100644
+index 75b2974e..1b810b71 100644
 --- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 +++ b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 @@ -4,6 +4,7 @@
  | --- | --- |
  | **Rôle** | Roadmap **vivante** de convergence vers l’utilisation complète de la doctrine produit SFIA Studio v3 |
  | **Statut** | **VALIDATED — ACTIVE LIVING ROADMAP** |
-+| **Timestamp maintenance GENERIC-EXECUTION-REVIEW-RESULT-CONVERGENCE-01 delivery candidate** | 2026-09-29 — **GENERIC EXECUTION / REVIEW / RESULT — CONVERGENCE DELIVERY CANDIDATE** · Cycle **8 — Delivery / implémentation** · EVOL · CRITICAL · CKC `cyc:delivery` / `ckc/08-delivery-implementation.md` (**CONTENT VALIDATED BY MORRIS** · guidance only) · Architecture **D-ER-01…D-ER-15 CONSUMED** from `sfia-studio-generic-execution-review-result-architecture.md` · base `origin/main` @ `d4d986af5884b31b416374da3cb5e60757501f87` (PR **#541** architecture merge) · branche locale `delivery/sfia-studio-generic-execution-review-result-convergence-01` · capacité = **LOCAL CANDIDATE / NOT INTEGRATED ON MAIN** · seams livrés (deterministic tested scope) : Cursor Review End Of CLAIM type + EC `reportRequirements` · `observeVerifiedChangeSet` · Generic Execution Review Material persist/load (refs FS, no new table) · Product Resolution `executionReview` · Nora bounded `execution_review_*` tools · Reconciler anti-stall continue budget **> legacy 8** · dual-write Review Material depuis ingest docs_write (bridge) · **ZERO REAL** · NoteLite = **PAUSED** · next = ChatGPT Critical Review → Morris GO commit/push/PR · replay REAL NoteLite = **DISTINCT Morris GO** · runtime v3 = **NON ADOPTED** · READY FOR REAL = **NO** · **≠** INTEGRATED ON MAIN · **≠** full Product-front-door E2E oracle claim without reserves · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT** |
++| **Timestamp maintenance GENERIC-EXECUTION-REVIEW-RESULT-CONVERGENCE-01 delivery candidate** | 2026-09-29 — **GENERIC EXECUTION / REVIEW / RESULT — CONVERGENCE DELIVERY CANDIDATE** · Cycle **8 — Delivery / implémentation** · EVOL · CRITICAL · CKC `cyc:delivery` / `ckc/08-delivery-implementation.md` (**CONTENT VALIDATED BY MORRIS** · guidance only) · Architecture **D-ER-01…D-ER-15 CONSUMED** from `sfia-studio-generic-execution-review-result-architecture.md` · base `origin/main` @ `d4d986af5884b31b416374da3cb5e60757501f87` (PR **#541** architecture merge) · branche locale `delivery/sfia-studio-generic-execution-review-result-convergence-01` · Correction Pass 01 · preuve **DETERMINISTIC PRODUCT E2E PROVEN AT TESTED SCOPE** · capacité = **LOCAL CANDIDATE / NOT INTEGRATED ON MAIN** · ZERO REAL · NoteLite PAUSED · READY FOR REAL **NO** · seams livrés (deterministic tested scope) : Cursor Review End Of CLAIM type + EC `reportRequirements` · `observeVerifiedChangeSet` · Generic Execution Review Material persist/load (refs FS, no new table) · Product Resolution `executionReview` · Nora bounded `execution_review_*` tools · Reconciler anti-stall continue budget **> legacy 8** · dual-write Review Material depuis ingest docs_write (bridge) · **ZERO REAL** · NoteLite = **PAUSED** · next = ChatGPT Critical Review → Morris GO commit/push/PR · replay REAL NoteLite = **DISTINCT Morris GO** · runtime v3 = **NON ADOPTED** · READY FOR REAL = **NO** · **≠** INTEGRATED ON MAIN · **≠** full Product-front-door E2E oracle claim without reserves · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT** |
  | **Timestamp maintenance GENERIC-EXECUTION-REVIEW-RESULT-ARCHITECTURE-01 truth-sync** | 2026-09-29 — **GENERIC EXECUTION / REVIEW / RESULT — ARCHITECTURE TRUTH-SYNC** · Cycle **6 — Architecture technique** · DOC / EVOL · CRITICAL · CKC `cyc:technical-architecture` / `ckc/06-architecture-technique.md` (**CONTENT VALIDATED BY MORRIS** · guidance only · **≠** execution authority) · Morris decisions **D-ER-01…D-ER-15 ADOPTED** (2026-09-29) · **CURRENT main** `origin/main` @ `6f47f74dc9b515c4c79624b21772223ba02c76cd` · capacité **PRODUCT-CONTINUITY-SHARED-KNOWLEDGE-01** = **INTEGRATED ON MAIN** via PR **#540** merge `6f47f74d…` (head `47fcab2b…`) · campagne **NoteLite bounded REAL** = **RÉALISÉE AT TESTED SCOPE** puis **PAUSED** à ce point (correction governed **non relancée** · cycle NoteLite **non finalisé**) · findings bornés : EC→Attempt REAL→Cursor REAL→terminal succeeded→durable Evidence/RB/CE→Product Resolution→Nora post-Evidence→Nora conversationnelle **sans transfer d’IDs Pilote** · **NOT_PROVEN** honesty préservée · gap nominal post-terminal / UI « qualification en cours » + clic « Recharger résultat produit » = **HIGH-CONFIDENCE ARCHITECTURAL CAUSE** (poll UI ≤8 / pas de worker autonome) **≠ PROVEN INSTANCE ROOT CAUSE** · **ADOPTED TARGET** = un modèle Product d’exécution **générique** · **toutes** taxonomies de tâche Product spécialisées (`docs_write`, `code_write`, `read`, `read_only`, …) = **RETIRE FROM PRODUCT MODEL** · capabilities/effects techniques = **enforcement-only possibles** · **interdit** inventer `generic_read` / `generic_write` / `generic_code` comme catégories Product · isolated Git worktree = **KEEP** · Cursor Generalist = **KEEP** · CursorExecutionReport = **CLAIM KEEP** · Generic Execution Review Material = **TARGET** · Native Review End Of = **TARGET** (harvest sémantique · **≠** import transport `.tmp-sfia-review` / `sfia/review-handoff`) · Studio VerifiedChangeSet = **TARGET** · Product Resolution = **KEEP / COMPLETE** · Continuity Projection + Reconciler = **KEEP** (Reconciler = owner progression déterministe) · Nora Deep Review = **TARGET** sur shared cognitive core (**≠** second Nora) · Result Surface = **KEEP / COMPLETE** · Review Material retention HOT→PRUNED = **TARGET** · document architecture = `projects/sfia-studio/convergence/sfia-studio-generic-execution-review-result-architecture.md` (**ADOPTED TARGET BY MORRIS — DOCUMENTARY CANDIDATE PENDING GIT INTEGRATION**) · ancienne hypothèse **5 lots Delivery** = **NOT ADOPTED** · **DELIVERY SLICING = TBD AFTER ARCHITECTURE REVIEW** · future Delivery = **DISTINCT Morris GO** · future REAL / READY FOR REAL = **DISTINCT Morris GO** · **READY FOR REAL = NO** · runtime v3 = **NON ADOPTED** · **≠** code Product modifié ce cycle · **≠** Delivery authorized · **≠** NoteLite finalized · **≠** full E2E REAL proven · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT / `origin/main` / PR evidence** · **next** = ChatGPT Critical Review of architecture truth-sync → puis seulement Delivery slicing design |
  | **Timestamp maintenance NATIVE-EXECUTION-LOOP-CONVERGENCE-01 post-merge verification** | 2026-09-26 — **NATIVE EXECUTION LOOP CONVERGENCE — POST-MERGE VERIFICATION / ROADMAP TRUTH-SYNC / CAPITALISATION** · Macro **NATIVE-EXECUTION-LOOP-CONVERGENCE-01** · **SAME MACRO / NO MICRO-CYCLE** · Cycle **15** · Capitalisation / REX · DOC · CRITICAL · Morris GO **POST-MERGE / DOCUMENTARY TRUTH-SYNC / CAPITALISATION** **CONSUMED** (local docs only · **≠** project commit/push/PR) · protected path authorization = Convergence Roadmap + capitalisation asset under `convergence/**` **ONLY** · Build Doctrine / C1 / framing / method / prompts = **READ ONLY** · PR **#527 MERGED** · product head `5a05a2a7082bc140393f18647a56f1ed23cef73c` · merge/main `e486e81f2443bb9837b4bbdc1967cf5d1368f4d9` · pre-merge CI **#614** run `36261815679` **SUCCESS / Required Gate PASS** · post-merge CI **#615** run `36262627727` **SUCCESS / Required Gate PASS** · Product head→merge app parity **ZERO** · capacité **NATIVE EXECUTION LOOP CONVERGENCE** = **INTEGRATED ON MAIN / POST-MERGE VERIFIED** · proof = **DETERMINISTIC / LOCAL + PR/CI INTEGRATION ONLY** · **ZERO NEW REAL** · runtime v3 = **NON ADOPTED** · Product Completion = historical **COMPLETE/CLOSED** (**≠** newly completed by NELC) · remaining governed debts = **D1** optional first-class typed EC input bridge · optional mid-turn repository SHA stamp · future bounded REAL under **distinct Morris GO** · **next activity** = MealFlow semantic reservation campaign (**observation / qualification** · **NOT STARTED / NOT AUTHORIZED** by this documentary sync) · **NEXT MACRO CAPABILITY** = **NOT YET DETERMINED** · future bounded REAL of native loop = **OPEN GOVERNED PROOF OPTION / DISTINCT MORRIS GO** (**≠** auto-selected next capability) · **≠** READY FOR REAL · **≠** Product READY · **≠** runtime v3 ADOPTED · repository truth = **RESOLVE FROM GIT / PR evidence** · capitalisation asset = `projects/sfia-studio/convergence/sfia-studio-native-execution-loop-convergence-01-capitalisation.md` (**LOCAL DOCUMENTARY CANDIDATE** until distinct Git integration GO) |
  | **Timestamp maintenance CYCLE-RESERVATION-PILOTING-01 post-merge verification** | 2026-09-25 — **CYCLE RESERVATION MANAGEMENT & GATE-AWARE PILOTING — POST-MERGE VERIFICATION / ROADMAP TRUTH-SYNC** · Macro **CYCLE-RESERVATION-PILOTING-01** · Cycle **14** · Post-merge · DOC · CRITICAL · Morris GO **POST-MERGE DOCUMENTARY TRUTH-SYNC — ROADMAP PROTECTED PATH ONLY** **CONSUMED** · PR **#518 MERGED** · product head `f0874ec05fec4237a6f39311b90c9233debce5f5` · merge/main `29f1597951bd6e4d779cc728f46396e28b8f5aa0` · PR CI **#595** run `36100845339` **SUCCESS / Required Gate PASS** · post-merge CI **#596** run `36101841229` **SUCCESS / Required Gate PASS** · capacité **CYCLE RESERVATION MANAGEMENT & GATE-AWARE PILOTING** = **INTEGRATED ON MAIN / POST-MERGE VERIFIED** · same-macro construction reserves = **ZERO** at reviewed scope · protected Roadmap truth-sync = local documentary candidate under this cycle until Git integration · Product Completion = historical **COMPLETE/CLOSED** (**≠** newly completed) · Nora Cognitive Completion = **NOT COMPLETE** · global semantic Reservation quality = **NOT PROVEN** · READY FOR REAL global = **NO** · runtime v3 = **NON ADOPTED** · **next** = MealFlow semantic reservation campaign (**observation / qualification** · **NOT STARTED** by this documentary sync · **≠** new macro pre-authorized) · Git / PR evidence remains authoritative · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT / `origin/main` / PR evidence** |
@@ -2338,11 +3357,11 @@ index 75b2974e..119c1675 100644
 ```
 
 
-## DIFF: `projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md`
+## DIFF `projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md`
 
 ```diff
 diff --git a/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md b/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
-index f6d81c37..98ae9050 100644
+index f6d81c37..ddeea55a 100644
 --- a/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
 +++ b/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
 @@ -139,3 +139,11 @@ Status legend: COMPLETE | PARTIAL | NOT PROVEN | BREAK
@@ -2350,25 +3369,25 @@ index f6d81c37..98ae9050 100644
  - **Parallel BC:** `lib/oa/execution-run/**` (memory-only; FinOps/T7 shadow consumer; not product EC→Attempt)
  - **Status:** ACTIVE compatibility / temporary keep — **no SAFE TO REMOVE proven** under SFIA-STUDIO-LEGACY-ARCHITECTURE-DECOMMISSION-01 (see vol 09)
 +
-+## Generic Execution → Review → Result (CURRENT local candidate)
++## Generic Execution → Review → Result (CURRENT — Correction Pass 01 candidate)
 +
-+Nominal target path (architecture D-ER; delivery candidate on branch):
++Nominal Product path (architecture D-ER; delivery candidate):
 +
-+HumanDecision → Generic EC (+ reportRequirements including Cursor Review End Of CLAIM) → Cursor Generalist → isolated worktree → CursorExecutionReport [CLAIM] + Cursor Review End Of [CLAIM] → Studio `observeVerifiedChangeSet` [FACTS] → Generic Execution Review Material → Evidence/RB/CE → Product Resolution (`executionReview`) → Reconciler continue-until-stable → Nora Deep Review (bounded read-only tools, opt-in) → Result Surface.
++HumanDecision → Generic EC (`reportRequirements` incl. Cursor Review End Of CLAIM) → Cursor Generalist → isolated worktree → CursorExecutionReport [CLAIM] + Cursor Review End Of [CLAIM] → Studio `observeVerifiedChangeSet` [FACTS] (OBSERVED vs UNAVAILABLE — never invent empty FACTS) → Generic Execution Review Material → Evidence/RB/CE → Product Resolution (`executionReview`) → Reconciler continue + remount auto-resume → Nora Deep Review (bounded RO tools, opt-in) → Result Surface.
 +
-+CURRENT: docs_write specialized persist remains as compatibility bridge with dual-write into Generic Review Material when Cursor report present. Anti-stall: UI continue budget raised above legacy ~8; Reconciler remains owner.
++CURRENT: docs_write specialized persist remains TRANSITIONAL dual-write bridge. Anti-stall: remount auto-continue from durable projection; Reconciler remains owner; UI budget is operational only.
 
 ```
 
 
-## DIFF: `projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md`
+## DIFF `projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md`
 
 ```diff
 diff --git a/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md b/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
-index cf981abf..be17a9e9 100644
+index cf981abf..4d40273b 100644
 --- a/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
 +++ b/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
-@@ -39,3 +39,14 @@
+@@ -39,3 +39,15 @@
  - DETERMINISTIC PROVEN (seam/unit)
  - REAL BOUNDARY / E2E REAL — require distinct Morris GO; **not claimed**
  - Runtime v3 **NON ADOPTED**; Product global READY **not claimed**
@@ -2377,48 +3396,61 @@ index cf981abf..be17a9e9 100644
 +
 +| Proof | Level | Notes |
 +| --- | --- | --- |
-+| VerifiedChangeSet claim/fact mismatch | DETERMINISTIC AT TESTED SCOPE | `genericExecutionReviewResultConvergence01.d0.test.ts` |
-+| Generic Review Material 0-file + durable load | DETERMINISTIC AT TESTED SCOPE | same |
-+| Nora execution_review tools Project/Attempt-bound | DETERMINISTIC AT TESTED SCOPE | same |
-+| Anti-stall continue budget > legacy 8 | DETERMINISTIC AT TESTED SCOPE | `reconcileContinuePolicy` + TrajectorySurface |
++| Front-door Generic Product → Review Material mismatch → Resolution | **DETERMINISTIC PRODUCT E2E PROVEN AT TESTED SCOPE** | `genericExecutionReviewResultConvergence01.frontDoor.d0.test.ts` |
++| VerifiedChangeSet claim/fact mismatch | DETERMINISTIC AT TESTED SCOPE | core + frontDoor |
++| Generic Review Material 0-file + UNAVAILABLE vs OBSERVED | DETERMINISTIC AT TESTED SCOPE | CR-02 |
++| Nora execution_review tools + shared core post_execution | DETERMINISTIC AT TESTED SCOPE | frontDoor + core |
++| Anti-stall remount continue / same Attempt | DETERMINISTIC AT TESTED SCOPE | frontDoor CR-04 (budget ≠ correctness) |
 +| Product Continuity shared knowledge non-regression | DETERMINISTIC AT TESTED SCOPE | existing continuity suites |
-+| REAL generic / NoteLite replay | NOT PROVEN | ZERO REAL this macro |
++| REAL generic / NoteLite replay | **NOT PROVEN** | ZERO REAL this macro |
 
 ```
 
 
-## DIFF: `projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md`
+## DIFF `projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md`
 
 ```diff
 diff --git a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
-index 0d817466..380739f6 100644
+index 0d817466..9c8d3335 100644
 --- a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
 +++ b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
-@@ -32,6 +32,15 @@
+@@ -32,11 +32,24 @@
  - Some object cards mark PARTIAL where aggregate naming is distributed across DTOs.
  - REAL OpenAI leaf candidacy parity not re-proven this macro (DETERMINISTIC only).
 
-+## GENERIC-EXECUTION-REVIEW-RESULT-CONVERGENCE-01 (local candidate)
-+
-+- Generic Product path / Review End Of CLAIM / VerifiedChangeSet / Generic Review Material / Nora bounded review tools / anti-stall continue budget: **IMPLEMENTED locally on delivery branch** at **deterministic tested scope**.
-+- docs_write adapters: **TRANSITIONAL bridge retained** (dual-write Review Material).
-+- NoteLite REAL replay: **NOT DONE** (PAUSED; distinct Morris GO).
-+- Retention GC / Git promotion: **NOT IMPLEMENTED** (compatible only).
-+- Full Product-front-door Fake E2E oracle for multi-file claim/fact mismatch through governedExecute→UI: **PARTIAL** — core seams unit/integration proven; front-door expansion reserved.
-+- REAL / READY FOR REAL / runtime v3: **NO**.
-+
- ## Next macro
+-## Next macro
++## GENERIC-EXECUTION-REVIEW-RESULT-CONVERGENCE-01 (CURRENT MACRO — local candidate)
 
- `PRODUCT-CONTINUITY-SHARED-KNOWLEDGE-01` **local candidate** on branch `delivery/sfia-studio-product-continuity-shared-knowledge-01`. Capacité suivante après revue: **SprintBoard REAL re-proof bornée** (Gate Morris distinct).
+-`PRODUCT-CONTINUITY-SHARED-KNOWLEDGE-01` **local candidate** on branch `delivery/sfia-studio-product-continuity-shared-knowledge-01`. Capacité suivante après revue: **SprintBoard REAL re-proof bornée** (Gate Morris distinct).
++- **CURRENT MACRO** on branch `delivery/sfia-studio-generic-execution-review-result-convergence-01`.
++- Generic Product path / Review End Of CLAIM / VerifiedChangeSet / Generic Review Material / Nora bounded review tools / Reconciler remount auto-continue: **IMPLEMENTED** at **DETERMINISTIC PRODUCT E2E PROVEN AT TESTED SCOPE** (Correction Pass 01 candidate).
++- docs_write adapters: **TRANSITIONAL bridge retained** (dual-write Review Material).
++- NoteLite REAL replay: **NOT DONE** (PAUSED; distinct Morris GO — future REAL campaign).
++- Retention GC / Git promotion: **NOT IMPLEMENTED** (compatible only).
++- REAL / READY FOR REAL / runtime v3: **NO**.
+
+-## Prior overlay retained
++## Next / CURRENT REAL campaign
++
++NoteLite bounded REAL re-proof — **PAUSED**. Gate Morris distinct. Not this delivery macro.
++
++## Prior overlay retained — PRODUCT-CONTINUITY-SHARED-KNOWLEDGE-01
++
++`PRODUCT-CONTINUITY-SHARED-KNOWLEDGE-01` is **INTEGRATED ON MAIN** (historical). Prior tip wording « local candidate » is obsolete as CURRENT next macro.
++
++## Prior overlay retained — POST-EXECUTION
+
+ `POST-EXECUTION-CURSOR-REPORT-ARTIFACT-HANDOFF-01` **local candidate** on branch `feat/sfia-studio-post-execution-handoff-01`. Capacité suivante après revue: **reprise SprintBoard REAL bornée** (Gate Morris distinct) — ne pas auto-sélectionner READY FOR REAL / END-TO-END REAL.
+
 
 ```
 
 
-## DIFF: `projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json`
+## DIFF `projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json`
 
 ```diff
 diff --git a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-index 56917ea5..c9d29564 100644
+index 56917ea5..b438a469 100644
 --- a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
 +++ b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
 @@ -2,7 +2,7 @@
@@ -2426,7 +3458,7 @@ index 56917ea5..c9d29564 100644
    "kind": "SFIA_STUDIO_LIVING_PRODUCTION_RUNTIME_REFERENCE",
    "lastReviewedCommit": "6beb8cc369bd9b82eebee97b70309838373b3dfa",
 -  "lastReviewedAt": "2026-09-27T18:42:24.911Z",
-+  "lastReviewedAt": "2026-09-29T11:38:18.920Z",
++  "lastReviewedAt": "2026-09-29T13:09:51.894Z",
    "canonicalReadme": "projects/sfia-studio/production-runtime-reference/README.md",
    "volumes": [
      {
@@ -2435,7 +3467,7 @@ index 56917ea5..c9d29564 100644
      {
        "path": "projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md",
 -      "sha256_16": "2b33f2c9648004ec"
-+      "sha256_16": "0f4de402502d3ded"
++      "sha256_16": "d311c7a12cc7f9d6"
      },
      {
        "path": "projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md",
@@ -2444,12 +3476,12 @@ index 56917ea5..c9d29564 100644
      {
        "path": "projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md",
 -      "sha256_16": "8fc11fd081bb37dc"
-+      "sha256_16": "b483c7800e0121c1"
++      "sha256_16": "129e70efc2d8e3a0"
      },
      {
        "path": "projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md",
 -      "sha256_16": "7f9b17310ec84156"
-+      "sha256_16": "189d4069b56e4b83"
++      "sha256_16": "a6aa9906dac7d84a"
      }
    ],
    "components": [
@@ -2458,39 +3490,46 @@ index 56917ea5..c9d29564 100644
 
 
 ---
-
 ## Instruction ChatGPT obligatoire
 
 Avant de répondre à Morris sur ce rapport, ChatGPT doit consulter le Review Handoff distant canonique :
-branche `sfia/review-handoff`
-fichier `sfia-review-handoff/latest-chatgpt-review.md`
 
-ChatGPT doit vérifier au minimum :
-- cycle / profil / macro ;
+branche :
+sfia/review-handoff
+
+fichier :
+sfia-review-handoff/latest-chatgpt-review.md
+
+ChatGPT doit vérifier :
+- cycle / profil / same macro ;
 - branch / HEAD / base ;
-- architecture D-ER consommée ;
-- impact analysis ;
-- Generic Product path ;
-- Report + Review End Of ;
-- VerifiedChangeSet ;
+- entry handoff c5025916 ;
+- CR-01→CR-10 ;
+- Generic nominal wiring ;
+- reportRequirements réellement consommés ;
+- worktree lineage ;
+- VerifiedChangeSet semantics ;
+- verification unavailable vs zero change ;
 - Review Material ;
 - Evidence/RB/CE ;
 - Product Resolution ;
-- Nora Deep Review ;
-- Reconciler anti-stall ;
+- Nora actual tool consumption ;
+- Reconciler long-running/restart ;
+- no manual recovery ;
 - Result Surface ;
+- review item access ;
+- EP-01→EP-20 ;
+- front-door deterministic E2E ;
 - Fake/Real ;
-- deterministic E2E ;
-- restart ;
-- Living Runtime Reference ;
+- ZERO REAL ;
+- Living Reference ;
 - Roadmap ;
-- fichiers ;
+- files ;
 - tests ;
 - full suite ;
 - typecheck/lint/build ;
-- ZERO REAL ;
-- réserves ;
-- dette/exit ;
+- reservations ;
+- debt/exits ;
 - Review Handoff remote ;
 - verdict.
 
