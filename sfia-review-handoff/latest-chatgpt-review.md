@@ -312,6 +312,15 @@ Acceptable debt:
 
 Non-acceptable items from CP2: closed at tested scope.
 
+### Post-handoff follow-up (same Pass 02 candidate, no new macro)
+Closed residual CP2-02 gap flagged by intermediate test harness (`it.fails`):
+- `NodeLocalGitStatusDiffPort` previously returned `git status` **stderr** as `statusPorcelain` on non-zero exit → non-Git cwd could be mis-read as OBSERVED with a bogus path.
+- Fix: throw `git_status_failed` on non-zero status (never treat stderr as porcelain); `observeVerifiedChangeSetStrict` also fails closed when HEAD is null in git mode.
+- Test: non-Git directory under git mode ⇒ `UNAVAILABLE` / `GIT_OBSERVATION_FAILED` (no `it.fails`).
+- Targeted suite: `genericExecutionReviewResultConvergence01*` → **60 passed**.
+
+Reservation retained: Fake independent worktree may use `requireHeadMatch:false` when Fake worktree ≠ contract base; production Git mode still fail-closed on HEAD mismatch when `expectedBaseSha` is set.
+
 ## 47–48. Claims / anti-claims
 ### Authorized claims
 - DETERMINISTIC PRODUCT E2E PROVEN AT TESTED SCOPE
