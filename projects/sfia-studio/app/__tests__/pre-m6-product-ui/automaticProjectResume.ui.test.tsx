@@ -114,6 +114,17 @@ vi.mock("@/features/project-assistant/w2/actions", () => ({
     code: "UNUSED",
     message: "unused",
   }),
+
+  w2ResolveProductExecutionContextAction: vi.fn().mockResolvedValue({
+    ok: false,
+    code: "UNUSED",
+    message: "unused",
+  }),
+  w2ReadExecutionReviewItemAction: vi.fn().mockResolvedValue({
+    ok: false,
+    code: "UNUSED",
+    message: "unused",
+  }),
   w2RehydrateProductOutcomeAction: vi.fn(),
 }));
 

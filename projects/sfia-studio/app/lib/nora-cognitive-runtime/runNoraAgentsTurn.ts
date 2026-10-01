@@ -48,6 +48,7 @@ import {
   createProductExecutionAgentsTools,
   type ProductExecutionToolContext,
 } from "./productExecutionAgentsTools";
+import { createExecutionReviewAgentsTools } from "./executionReviewAgentsTools";
 import type { MemoryBAvailability } from "./memoryBAvailability";
 import {
   createNoraTurnBudget,
@@ -168,6 +169,11 @@ export type RunNoraAgentsTurnInput = {
    * Never authority / HD / Evidence. Optional.
    */
   productExecutionTools?: ProductExecutionToolContext | null;
+  /**
+   * D-ER-09 — bounded READ-ONLY Execution Review tools (Attempt/Project-bound).
+   * Used by post_execution Deep Review without enabling Memory B / hosted search.
+   */
+  executionReviewTools?: import("./executionReviewAgentsTools").ExecutionReviewToolContext | null;
 };
 
 export type RunNoraAgentsTurnHostedSearchObserve = {
@@ -518,10 +524,21 @@ export async function runNoraAgentsTurn(
           budget,
         })
       : [];
+  const executionReviewTools =
+    input.executionReviewTools &&
+    input.executionReviewTools.projectId.trim() &&
+    input.executionReviewTools.attemptId.trim() &&
+    enableTools
+      ? [...createExecutionReviewAgentsTools({
+          ...input.executionReviewTools,
+          budget,
+        })]
+      : [];
   const tools = [
     ...sfiaTools,
     ...journalTools,
     ...productTools,
+    ...executionReviewTools,
     ...(hostedTool ? [hostedTool] : []),
   ];
 

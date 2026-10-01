@@ -39,7 +39,12 @@ export type CanonicalPathResult =
         | "double_encoding";
     };
 
-const DEFAULT_PROTECTED = [
+/**
+ * OA sandbox deny floor — Studio execution-run protected paths.
+ * Exported read-only so Product local-write qualification can compose the same floor
+ * without duplicating a second policy list in derive.
+ */
+export const SANDBOX_DEFAULT_PROTECTED_PATHS = [
   ".git/",
   ".env",
   "method/",
@@ -48,6 +53,74 @@ const DEFAULT_PROTECTED = [
   ".sfia/",
   "node_modules/",
 ] as const;
+
+/**
+ * MD-CP4-02 Option C — Morris-approved Studio governance protection set.
+ * PREFIX: sfia-v3-framing/** ; EXACT: Build Doctrine / Roadmap / D-ER architecture / C1.
+ * NOT a blanket deny of projects/sfia-studio/** or projects/sfia-studio/convergence/**.
+ * Composition lives in this sandbox policy layer — not a second policy engine.
+ */
+export const STUDIO_GOVERNANCE_PROTECTED_PATHS = [
+  "projects/sfia-studio/sfia-v3-framing/",
+  "projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md",
+  "projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md",
+  "projects/sfia-studio/convergence/sfia-studio-generic-execution-review-result-architecture.md",
+  "projects/sfia-studio/product-completion/01-product-completion-cadrage.md",
+] as const;
+
+/**
+ * Effective Product write protection = sandbox floor ∪ Studio governance set.
+ * Campus360/CT `SFIA_DEFAULT_PROTECTED_PATHS` is intentionally NOT included.
+ */
+export const STUDIO_PRODUCT_PROTECTED_PATHS = [
+  ...SANDBOX_DEFAULT_PROTECTED_PATHS,
+  ...STUDIO_GOVERNANCE_PROTECTED_PATHS,
+] as const;
+
+/**
+ * Classify a repository-relative path under Studio Product write protection.
+ * Returns the matched protected entry, or null when ordinary (not protected).
+ * Invalid / hostile paths return a synthetic "INVALID_PATH" hit (fail-closed).
+ */
+export function classifyStudioProductProtectedPath(
+  repoRelativePath: unknown,
+): string | null {
+  const canonical = normalizeCanonicalPath(repoRelativePath);
+  if (!canonical.ok) return "INVALID_PATH";
+  const normalized = canonical.normalized;
+  for (const prot of STUDIO_PRODUCT_PROTECTED_PATHS) {
+    if (pathMatchesAllowlistPrefix(normalized, prot)) return prot;
+  }
+  return null;
+}
+
+/**
+ * Studio Product write-path gate (protection only — no allowlist inventiveness).
+ * Ordinary non-protected paths are allowed at this layer; mission scope / EC
+ * still decide what may actually be written.
+ */
+export function evaluateStudioProductWritePath(input: {
+  readonly path: unknown;
+}):
+  | { readonly allowed: true; readonly normalized: string }
+  | {
+      readonly allowed: false;
+      readonly reason: Exclude<
+        Extract<SandboxPathDecision, { allowed: false }>["reason"],
+        "not_allowlisted" | "arbitrary_command" | "git_write" | "branch_mismatch" | "head_mismatch" | "observed_missing"
+      >;
+      readonly hit?: string;
+    } {
+  const canonical = normalizeCanonicalPath(input.path);
+  if (!canonical.ok) {
+    return { allowed: false, reason: canonical.reason };
+  }
+  const hit = classifyStudioProductProtectedPath(canonical.normalized);
+  if (hit != null) {
+    return { allowed: false, reason: "protected", hit };
+  }
+  return { allowed: true, normalized: canonical.normalized };
+}
 
 const DANGEROUS_ENCODED = /%(?:00|2e|2f|5c)/i;
 
@@ -138,7 +211,7 @@ export function evaluateSandboxPath(input: {
   }
   const normalized = canonical.normalized;
   const protectedPaths = [
-    ...DEFAULT_PROTECTED,
+    ...SANDBOX_DEFAULT_PROTECTED_PATHS,
     ...(input.protectedPaths ?? []),
   ];
   for (const p of protectedPaths) {

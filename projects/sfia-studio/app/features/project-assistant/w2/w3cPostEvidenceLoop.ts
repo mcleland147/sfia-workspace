@@ -30,6 +30,7 @@ import {
   loadDocsWriteArtifactReviewMaterial,
   resolveProductEvidenceRefsRoot,
 } from "@/features/project-assistant/f3/persistDocsWriteArtifactReviewMaterial";
+import { loadGenericExecutionReviewMaterial } from "@/features/project-assistant/f3/persistGenericExecutionReviewMaterial";
 import {
   buildCkcCognitivePromptSection,
   loadProductCkcCognitiveContent,
@@ -438,6 +439,31 @@ export function isEvidenceBackedNotProvenUnclaimed(
     Boolean(product.claimEvaluationId) &&
     product.technicalDetail.attemptStatus === "succeeded"
   );
+}
+
+/**
+ * CP2 — post-Evidence Deep Review is Analysis, not Authority.
+ * Eligible when Product is durable-qualified as non-SUCCESS (NOT_PROVEN / FAIL)
+ * with CE + Evidence present. Covers mismatch / verification honesty cases where
+ * projection may be UNCLAIMED while CE status is fail|not_proven.
+ */
+export function isEvidenceBackedPostEvidenceEligible(
+  product: W3BProductTerminalProjection,
+): boolean {
+  if (isEvidenceBackedNotProvenUnclaimed(product)) return true;
+  if (product.claimAllowed !== false) return false;
+  if (product.technicalDetail.attemptStatus !== "succeeded") return false;
+  if (!product.evidenceId || !product.reviewBundleId || !product.claimEvaluationId) {
+    return false;
+  }
+  const ceOk =
+    product.claimEvaluationStatus === "not_proven" ||
+    product.claimEvaluationStatus === "fail";
+  const verdictOk =
+    product.contractResultVerdict === "NOT_PROVEN" ||
+    product.contractResultVerdict === "FAIL";
+  if (!ceOk || !verdictOk) return false;
+  return product.outcome === "UNCLAIMED" || product.outcome === "FAIL";
 }
 
 /**
@@ -938,7 +964,7 @@ export async function recoverExactRecommendationFromLps(input: {
     product.outcome !== "FAIL" &&
     !(
       product.outcome === "UNCLAIMED" &&
-      isEvidenceBackedNotProvenUnclaimed(product)
+      isEvidenceBackedPostEvidenceEligible(product)
     )
   ) {
     return null;
@@ -1195,7 +1221,7 @@ export async function runW3cPostEvidenceLoop(input: {
   const { oa, projectId, attemptId, product } = input;
 
   if (product.outcome === "UNCLAIMED") {
-    if (!isEvidenceBackedNotProvenUnclaimed(product)) {
+    if (!isEvidenceBackedPostEvidenceEligible(product)) {
       return failClosed(
         "PRODUCT_UNCLAIMED",
         "Résultat produit non claimable — boucle post-Evidence refusée.",
@@ -1311,10 +1337,14 @@ export async function runW3cPostEvidenceLoop(input: {
         "EVIDENCE_BACKED_NOT_PROVEN exige une ClaimEvaluation courante.",
       );
     }
-    if (claimEvaluation.status !== "not_proven" || product.claimAllowed) {
+    if (
+      (claimEvaluation.status !== "not_proven" &&
+        claimEvaluation.status !== "fail") ||
+      product.claimAllowed
+    ) {
       return failClosed(
         "PRODUCT_UNCLAIMED",
-        "UNCLAIMED sans CE not_proven / claimAllowed=false — fail-closed.",
+        "UNCLAIMED sans CE not_proven|fail / claimAllowed=false — fail-closed.",
       );
     }
     if (claimEvaluation.claimEvaluationId !== product.claimEvaluationId) {
@@ -1515,6 +1545,19 @@ export async function runW3cPostEvidenceLoop(input: {
   const executionReport = durableProjection.executionReport;
 
   noraInvoked = true;
+  // CP3-07 — nominal W3-C Deep Review: enable Execution Review tools when
+  // server-owned Generic Execution Review Material exists for this Attempt.
+  // Decision is NEVER a client boolean — Product Resolution / durable refs only.
+  const refsRootForReview = resolveProductEvidenceRefsRoot();
+  const reviewMaterialLoaded = loadGenericExecutionReviewMaterial({
+    refsRoot: refsRootForReview,
+    attemptId,
+  });
+  const enableExecutionReviewTools =
+    reviewMaterialLoaded.ok &&
+    reviewMaterialLoaded.manifest.projectId === projectId &&
+    reviewMaterialLoaded.manifest.attemptId === attemptId;
+
   const analysis = await analyzePostEvidenceWithProvider(
     {
       projectId,
@@ -1558,7 +1601,10 @@ export async function runW3cPostEvidenceLoop(input: {
         : {}),
       ...(cursorReportSummary ? { cursorReportSummary } : {}),
     },
-    { ckcPromptSection },
+    {
+      ckcPromptSection,
+      enableExecutionReviewTools,
+    },
   );
   if (analysis.ok) {
     analysisText = analysis.text;
@@ -1658,7 +1704,7 @@ export async function rehydrateW3cPostEvidenceFromLps(input: {
     );
   }
   if (product.outcome === "UNCLAIMED") {
-    if (!isEvidenceBackedNotProvenUnclaimed(product)) {
+    if (!isEvidenceBackedPostEvidenceEligible(product)) {
       return failClosed(
         "PRODUCT_UNCLAIMED",
         "UNCLAIMED — pas de boucle post-Evidence à rehydrater.",
@@ -1758,7 +1804,7 @@ export async function rehydrateW3cPostEvidenceFromLps(input: {
     product.outcome !== "FAIL" &&
     !(
       product.outcome === "UNCLAIMED" &&
-      isEvidenceBackedNotProvenUnclaimed(product)
+      isEvidenceBackedPostEvidenceEligible(product)
     )
   ) {
     return failClosed(

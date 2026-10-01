@@ -3,13 +3,49 @@
  */
 import { describe, expect, it } from "vitest";
 import {
+  classifyStudioProductProtectedPath,
   evaluateSandboxMutationGuards,
   evaluateSandboxPath,
+  evaluateStudioProductWritePath,
   pathMatchesAllowlistPrefix,
+  STUDIO_GOVERNANCE_PROTECTED_PATHS,
 } from "@/lib/oa/execution-run/domain/sandboxContract";
 import { FixtureCursorExecutionAdapter } from "@/lib/oa/execution-run/infrastructure/cursor/fixtureCursorExecutionAdapter";
 
 describe("D2D2-08 sandbox contract fixture", () => {
+  it("CP4-02 Option C — Studio Product write protection composes sandbox floor + governance set", () => {
+    expect(STUDIO_GOVERNANCE_PROTECTED_PATHS.length).toBeGreaterThanOrEqual(5);
+    expect(
+      classifyStudioProductProtectedPath("projects/sfia-studio/app/example.ts"),
+    ).toBeNull();
+    expect(evaluateStudioProductWritePath({ path: "projects/sfia-studio/app/x.ts" }).allowed).toBe(
+      true,
+    );
+    expect(classifyStudioProductProtectedPath("method/x.md")).toBe("method/");
+    expect(
+      classifyStudioProductProtectedPath(
+        "projects/sfia-studio/sfia-v3-framing/30-knowledge-context-human-decision-doctrine.md",
+      ),
+    ).toBe("projects/sfia-studio/sfia-v3-framing/");
+    expect(
+      classifyStudioProductProtectedPath(
+        "projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md",
+      ),
+    ).toBe(
+      "projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md",
+    );
+    expect(
+      classifyStudioProductProtectedPath(
+        "projects/sfia-studio/convergence/other-note.md",
+      ),
+    ).toBeNull();
+    expect(
+      evaluateStudioProductWritePath({
+        path: "projects/sfia-studio/product-completion/01-product-completion-cadrage.md",
+      }).allowed,
+    ).toBe(false);
+  });
+
   it("deny-by-default and protects sensitive paths", () => {
     expect(
       evaluateSandboxPath({

@@ -23,21 +23,34 @@
 
 import type { DecisionBasis } from "@/lib/oa/decision";
 import { isRepositorySourceRef } from "@/lib/oa/execution-contract";
+import { classifyStudioProductProtectedPath } from "@/lib/oa/sandboxContract";
 import {
   buildActualExecutionWork,
+  buildProductQualifiedLocalWriteWork,
   isActualExecutionOperationKind,
   isHighRiskPolicyOnlyOperationKind,
   type ActualExecutionWork,
-  type W3ACanonicalActualOperationKind,
 } from "./w3aActualExecutionWork";
 import type { EffectQualificationFailure } from "./w3aQualifiedExecutionEffects";
 import type { PostEvidenceRecoveryContext } from "./resolvePostEvidenceRecoveryContext";
+import { PROPOSAL_SUBJECT_PURSUE_REF } from "./proposalSubjectOptions";
 import {
   BOUNDED_OPTION_REF,
   CLARIFY_OPTION_REF,
   GOVERNED_OPTION_REF,
 } from "./trajectoryOptions";
 
+/**
+ * CP4-02 Option C — Product local-write protection via sandbox policy composition
+ * (SANDBOX_DEFAULT_PROTECTED_PATHS ∪ STUDIO_GOVERNANCE_PROTECTED_PATHS).
+ * No Campus360/CT SFIA_DEFAULT_PROTECTED_PATHS. No parallel list in this module.
+ * Returns the protected entry hit, or null when path is ordinary.
+ */
+export function classifyProtectedRepositoryPath(
+  repoRelativePath: string,
+): string | null {
+  return classifyStudioProductProtectedPath(repoRelativePath);
+}
 /**
  * Repository document paths known from durable DecisionBasis / cycle facts.
  * Pseudo-refs (`attempt:…`, `product:…`) are excluded — they are not files.
@@ -235,6 +248,163 @@ function missionFromClarifyWithoutRecovery(
 }
 
 /**
+ * Durable Product facts sufficient to qualify a bounded local-write effect
+ * WITHOUT docs_write Product taxonomy. Product EC surface stays generalist.
+ */
+export function canQualifyGenericLocalWriteFromDurableFacts(input: {
+  readonly basis: DecisionBasis;
+  readonly selectedOptionRef: string;
+}):
+  | {
+      readonly ok: true;
+      readonly allowedPaths: readonly string[];
+      readonly rollbackAvailable: true;
+      readonly rollbackDescription: string;
+    }
+  | { readonly ok: false; readonly reason: string } {
+  const { basis, selectedOptionRef } = input;
+  const proposalPursue =
+    selectedOptionRef === PROPOSAL_SUBJECT_PURSUE_REF &&
+    basis.sourceType === "proposal";
+  const trajectoryGoverned =
+    selectedOptionRef === GOVERNED_OPTION_REF ||
+    selectedOptionRef === BOUNDED_OPTION_REF;
+  if (!proposalPursue && !trajectoryGoverned) {
+    return {
+      ok: false,
+      reason:
+        "local-write requires GOVERNED/BOUNDED or Proposal pursue HumanDecision provenance",
+    };
+  }
+  const eb = basis.executionBasis;
+  const requested = eb.requestedOperation?.trim() ?? "";
+  // docs_write sealed path stays on PREPARE Proposal/M3 — not this path.
+  if (
+    eb.intentKind === "docs_write" ||
+    requested === "cursor.docs_write.apply"
+  ) {
+    return {
+      ok: false,
+      reason: "docs_write sealed — use PREPARE Proposal/M3 path",
+    };
+  }
+  if (eb.reversibilityExpectation === "irreversible") {
+    return {
+      ok: false,
+      reason: "irreversible expectation — local-write blocked",
+    };
+  }
+  const paths = repositorySourcesFromProductFacts({ basis });
+  if (paths.length === 0) {
+    return {
+      ok: false,
+      reason:
+        "no sealed repository paths on DecisionBasis (targetPath / scopeIn)",
+    };
+  }
+  // targetPath must be inside sealed scopeIn when both are present.
+  const target = typeof eb.targetPath === "string" ? eb.targetPath.trim() : "";
+  const scopeIn = (eb.scopeIn ?? [])
+    .map((s) => (typeof s === "string" ? s.trim() : ""))
+    .filter(Boolean);
+  if (target && scopeIn.length > 0 && !scopeIn.includes(target)) {
+    return {
+      ok: false,
+      reason: "targetPath not contained in sealed scopeIn",
+    };
+  }
+  // CP4-02 Option C — Studio Product protected paths (sandbox floor ∪ governance).
+  // Confirmation N2 never bypasses this gate.
+  const protectedHits = paths
+    .map((p) => ({ path: p, hit: classifyProtectedRepositoryPath(p) }))
+    .filter((x) => x.hit != null);
+  if (protectedHits.length > 0) {
+    return {
+      ok: false,
+      reason: `protected boundary without dedicated authority: ${protectedHits
+        .map((h) => `${h.path}→${h.hit}`)
+        .join(",")}`,
+    };
+  }
+  return {
+    ok: true,
+    allowedPaths: paths,
+    rollbackAvailable: true,
+    rollbackDescription:
+      "Isolated Git worktree discard after Attempt — no Git commit/push/PR.",
+  };
+}
+
+function missionFromGovernedLocalWrite(
+  projectObjective: string | null,
+  basis: DecisionBasis,
+  allowedPaths: readonly string[],
+): ProductMissionFields {
+  const eb = basis.executionBasis;
+  return {
+    objective:
+      (eb.objective?.trim() ||
+        "Exécuter une mutation locale bornée dans le worktree isolé") +
+      (projectObjective ? ` — ${projectObjective}` : ""),
+    expectedOutputs: [
+      ...(eb.expectedOutputs ?? []),
+      "Fichiers créés/modifiés dans le scope autorisé",
+      "CursorExecutionReport machine + Cursor Review End Of natif",
+      "Studio VerifiedChangeSet (FACTS) pour qualification produit",
+    ].filter((s, i, a) => s && a.indexOf(s) === i),
+    scopeIn: [
+      "product:project-workspace",
+      ...allowedPaths,
+      ...(eb.scopeIn ?? []).filter((s) => !allowedPaths.includes(s)),
+    ],
+    scopeOut: [
+      "GIT_COMMIT",
+      "GIT_PUSH",
+      "GIT_PR",
+      "GIT_MERGE",
+      "FILESYSTEM_DELETE",
+      "DOCTRINE_MUTATION",
+      "BASELINE_PROMOTION",
+      "unrelated-project-mutation",
+      "protected-boundary-without-authorization",
+      ...(eb.scopeOut ?? []),
+    ],
+    stopConditions: [
+      "REQUIRED_EVIDENCE_UNAVAILABLE",
+      "CAPABILITY_OR_AUTHORITY_INSUFFICIENT",
+      "PROTECTED_EFFECT_OUTSIDE_AUTHORIZED_CONTRACT",
+      "CLAIM_FACT_MISMATCH",
+      "NO_AUTOMATIC_RELAUNCH",
+      // Do NOT fold trajectory authorize-flow markers (AUCUNE EXÉCUTION /
+      // STOP AVANT EXECUTE) — those are stripped by productStopConditions.
+    ],
+    evidenceRequirements: [
+      "evreq:mission-result-for-nora-reevaluation",
+      "evreq:local-write",
+      "evreq:studio-verified-changeset",
+      ...(eb.evidenceRequirements ?? []),
+    ],
+    sourcesToRead: [
+      "product:current-project-facts",
+      "product:decision-basis-and-lps",
+      // Write targets are scopeIn only — they are NOT claimed as prior reads.
+    ],
+    contextNotes: [
+      "product_qualified_local_write",
+      "NOT_DOCS_WRITE_PRODUCT_TAXONOMY",
+      `allowedPaths=${allowedPaths.join(",")}`,
+      `reversibilityExpectation=${eb.reversibilityExpectation ?? "unknown"}`,
+    ],
+    authorizesMutatingEffects: true,
+    recoveryAttemptId: null,
+    recoveryEvidenceId: null,
+    recoveryReviewBundleId: null,
+    recoveryExecutionContractId: null,
+    productOutcome: null,
+  };
+}
+
+/**
  * Internal effect-control scaffold from mission perimeter — NOT a Product
  * contract category. `operationKind: "read"` here is ActionPolicy taxonomy only;
  * the durable EC surface is stamped as the generic Cursor quartet by the envelope.
@@ -244,15 +414,46 @@ function buildInternalWorkFromMissionPerimeter(input: {
   readonly projectTitle: string | null;
   readonly mission: ProductMissionFields;
   readonly qualificationSource: string;
+  readonly basis?: DecisionBasis;
+  readonly selectedOptionRef?: string;
 }): ActualExecutionWork | EffectQualificationFailure {
-  // Mutating missions still need sealed docs_write / GCEC path today —
-  // do not invent a generalist mutator from trajectory alone.
   if (input.mission.authorizesMutatingEffects) {
+    // Product-qualified local-write from durable facts — not docs_write taxonomy.
+    if (input.basis && input.selectedOptionRef) {
+      const qual = canQualifyGenericLocalWriteFromDurableFacts({
+        basis: input.basis,
+        selectedOptionRef: input.selectedOptionRef,
+      });
+      if (qual.ok) {
+        const built = buildProductQualifiedLocalWriteWork({
+          projectId: input.projectId,
+          projectTitle: input.projectTitle,
+          objective: input.mission.objective,
+          allowedPaths: qual.allowedPaths,
+          rollbackAvailable: qual.rollbackAvailable,
+          rollbackDescription: qual.rollbackDescription,
+          qualificationSource: input.qualificationSource,
+        });
+        if ("ok" in built && built.ok === false) return built;
+        const work = built as ActualExecutionWork;
+        return {
+          ...work,
+          notes: [
+            ...work.notes,
+            "INTERNAL_EFFECT_CONTROL_FROM_MISSION_PERIMETER",
+            "PRODUCT_QUALIFIED_LOCAL_WRITE",
+            "NOT_OPTION_TO_OPERATION",
+            "CURSOR_DETERMINES_HOW",
+            ...input.mission.contextNotes,
+          ],
+        };
+      }
+    }
     return {
       ok: false,
       code: "EFFECTS_UNRESOLVED",
       message:
-        "Mission mutante sans sealed docs_write / GCEC — utiliser le chemin Proposal/M3 ou facts produit scellés.",
+        "Mission mutante sans faits durables suffisants pour local-write produit (chemins + réversibilité) — pas de docs_write taxonomy inventée.",
     };
   }
   const built = buildActualExecutionWork({
@@ -305,7 +506,7 @@ export function deriveActualExecutionWorkFromProductContext(input: {
     };
   }
 
-  const clientKind: W3ACanonicalActualOperationKind | null =
+  const clientKind =
     isActualExecutionOperationKind(input.clientOperationKind)
       ? input.clientOperationKind
       : null;
@@ -339,6 +540,8 @@ export function deriveActualExecutionWorkFromProductContext(input: {
       mission,
       qualificationSource:
         "studio.nora.mission-perimeter.internal-effect-control",
+      basis,
+      selectedOptionRef,
     });
     if ("ok" in work && work.ok === false) return work;
     void clientKind; // durable mission wins — ignore client HOW
@@ -352,12 +555,25 @@ export function deriveActualExecutionWorkFromProductContext(input: {
 
   if (
     selectedOptionRef !== GOVERNED_OPTION_REF &&
-    selectedOptionRef !== BOUNDED_OPTION_REF
+    selectedOptionRef !== BOUNDED_OPTION_REF &&
+    selectedOptionRef !== PROPOSAL_SUBJECT_PURSUE_REF
   ) {
     return {
       ok: false,
       code: "TRAJECTORY_NOT_EXECUTABLE",
       message: `Option ${selectedOptionRef} — mission d'exécution non dérivable.`,
+    };
+  }
+
+  if (
+    selectedOptionRef === PROPOSAL_SUBJECT_PURSUE_REF &&
+    basis.sourceType !== "proposal"
+  ) {
+    return {
+      ok: false,
+      code: "SUBJECT_OPTION_SET_MISMATCH",
+      message:
+        "Proposal pursue sans DecisionBasis.sourceType=proposal — fail-closed.",
     };
   }
 
@@ -372,6 +588,46 @@ export function deriveActualExecutionWorkFromProductContext(input: {
       code: "PREPARE_ROUTE_DOCS_WRITE",
       message:
         "DecisionBasis scellée docs_write — utiliser le chemin PREPARE Proposal/M3, pas le sandbox W3-A.",
+    };
+  }
+
+  // CP4-01 — GOVERNED/BOUNDED or Proposal pursue + durable local-write facts
+  // → product-qualified local-write (generic Cursor quartet).
+  const localWriteQual = canQualifyGenericLocalWriteFromDurableFacts({
+    basis,
+    selectedOptionRef,
+  });
+  if (localWriteQual.ok) {
+    const mission = missionFromGovernedLocalWrite(
+      input.projectObjective,
+      basis,
+      localWriteQual.allowedPaths,
+    );
+    const work = buildInternalWorkFromMissionPerimeter({
+      projectId: input.projectId,
+      projectTitle: input.projectTitle,
+      mission,
+      qualificationSource:
+        "studio.nora.mission-perimeter.product-qualified-local-write",
+      basis,
+      selectedOptionRef,
+    });
+    if ("ok" in work && work.ok === false) return work;
+    void clientKind; // durable local-write wins — ignore client HOW
+    return {
+      ok: true,
+      work: work as ActualExecutionWork,
+      mission,
+      derivationSource: "durable_product_mission",
+    };
+  }
+
+  // Proposal pursue without local-write facts = fail closed (no invented HOW).
+  if (selectedOptionRef === PROPOSAL_SUBJECT_PURSUE_REF) {
+    return {
+      ok: false,
+      code: "EFFECTS_UNRESOLVED",
+      message: `Proposal pursue local-write non qualifiable — ${localWriteQual.reason}`,
     };
   }
 

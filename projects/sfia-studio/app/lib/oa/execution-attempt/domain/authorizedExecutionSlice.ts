@@ -202,6 +202,8 @@ export function deriveAuthorizedExecutionSlice(input: {
   requiredCapabilities?: readonly string[];
   evidenceRequirements?: readonly string[];
   expectedOutputs?: readonly string[];
+  /** EC constraints — EFFECT_CLASS:local-write → filesystem mutate. */
+  constraints?: readonly string[];
   confirmations?: readonly Confirmation[];
   nowIso?: string;
   allowDelete?: boolean;
@@ -240,6 +242,7 @@ export function deriveAuthorizedExecutionSlice(input: {
     evidenceRequirements: input.evidenceRequirements ?? [],
     expectedOutputs: input.expectedOutputs,
     requiredCapabilities: input.requiredCapabilities,
+    constraints: input.constraints,
     allowFilesystemCreateOrModify: true,
   });
 

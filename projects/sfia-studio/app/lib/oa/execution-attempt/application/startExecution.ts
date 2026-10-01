@@ -995,6 +995,9 @@ export class StartExecution {
       (Array.isArray(contract.evidenceRequirements)
         ? contract.evidenceRequirements.map(String)
         : []);
+    const contractConstraints = Array.isArray(contract.constraints)
+      ? contract.constraints.map(String)
+      : undefined;
     const classified = deriveExecutableEffectsFromContractRequirements({
       evidenceRequirements,
       expectedOutputs: Array.isArray(contract.expectedOutputs)
@@ -1003,6 +1006,7 @@ export class StartExecution {
       requiredCapabilities: Array.isArray(contract.requiredCapabilities)
         ? contract.requiredCapabilities.map(String)
         : undefined,
+      constraints: contractConstraints,
       allowFilesystemCreateOrModify: true,
     });
     const gitExecutable = classified.executableEffects.filter(
@@ -1146,6 +1150,7 @@ export class StartExecution {
       requiredCapabilities: Array.isArray(contract.requiredCapabilities)
         ? contract.requiredCapabilities.map(String)
         : undefined,
+      constraints: contractConstraints,
       confirmations: request.confirmations ?? [],
       verifiedEffects: request.verifiedEffects,
       confirmationMatch: serverConfirmationMatch,

@@ -23,6 +23,7 @@ import {
   STUDIO_CURSOR_GENERALIST_TARGET,
 } from "@/lib/oa/execution-contract";
 import type { ProductMissionFields } from "./deriveActualExecutionWorkFromProductContext";
+import { PROPOSAL_SUBJECT_PURSUE_REF } from "./proposalSubjectOptions";
 import {
   BOUNDED_OPTION_REF,
   CLARIFY_OPTION_REF,
@@ -172,7 +173,9 @@ export function deriveW3AExecutionEnvelope(input: {
   const optionAllowed =
     input.selectedOptionRef === GOVERNED_OPTION_REF ||
     input.selectedOptionRef === BOUNDED_OPTION_REF ||
-    input.selectedOptionRef === CLARIFY_OPTION_REF;
+    input.selectedOptionRef === CLARIFY_OPTION_REF ||
+    // CP4-01 — Proposal pursue with sealed non-docs_write facts (MD-CP4-01).
+    input.selectedOptionRef === PROPOSAL_SUBJECT_PURSUE_REF;
   if (!optionAllowed) {
     return {
       ok: false,

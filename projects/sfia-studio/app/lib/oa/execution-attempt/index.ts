@@ -45,6 +45,8 @@ export * from "./domain/errors";
 export * from "./domain/invariants";
 export * from "./domain/realLaunchSafety";
 export * from "./domain/cursorExecutionReport";
+export * from "./domain/cursorReviewEndOf";
+export * from "./application/observeVerifiedChangeSet";
 export * from "./domain/authorizedExecutionSlice";
 export * from "./domain/contractEffectClassification";
 export * from "./domain/resolveGitEffectTarget";

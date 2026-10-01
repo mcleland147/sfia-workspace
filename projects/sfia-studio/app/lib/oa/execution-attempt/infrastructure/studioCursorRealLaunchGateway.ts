@@ -328,6 +328,8 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
     string,
     RealProcessObservation
   >();
+  /** processRef → worktreePath (gateway-local, Attempt/process-bound, not Product Truth). */
+  private readonly processWorktreeByRef = new Map<string, string>();
 
   constructor(options: StudioCursorRealLaunchGatewayOptions) {
     if (!options.processRunner) {
@@ -1090,6 +1092,7 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
           worktreeRef: workspacePath,
         });
       }
+      this.processWorktreeByRef.set(invoked.processRef, workspacePath);
 
       return {
         outcome: "ack",
@@ -1112,19 +1115,36 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
   }
 
   async observe(processRef: string): Promise<RealProcessObservation | null> {
+    let obs: RealProcessObservation | null = null;
     if (typeof this.runner.observe === "function") {
-      return this.runner.observe(processRef);
+      obs = await this.runner.observe(processRef);
+    } else {
+      obs = this.fallbackObservations.get(processRef) ?? null;
     }
-    return this.fallbackObservations.get(processRef) ?? null;
+    return this.decorateWorktreeRef(processRef, obs);
   }
 
   async awaitCompletion(
     processRef: string,
   ): Promise<RealProcessObservation | null> {
+    let obs: RealProcessObservation | null = null;
     if (typeof this.runner.awaitCompletion === "function") {
-      return this.runner.awaitCompletion(processRef);
+      obs = await this.runner.awaitCompletion(processRef);
+    } else {
+      obs = await this.observe(processRef);
     }
-    return this.observe(processRef);
+    return this.decorateWorktreeRef(processRef, obs);
+  }
+
+  private decorateWorktreeRef(
+    processRef: string,
+    obs: RealProcessObservation | null,
+  ): RealProcessObservation | null {
+    if (!obs) return null;
+    if (obs.worktreeRef && obs.worktreeRef.trim()) return obs;
+    const known = this.processWorktreeByRef.get(processRef);
+    if (!known) return obs;
+    return { ...obs, worktreeRef: known };
   }
 }
 

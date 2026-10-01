@@ -372,9 +372,9 @@ export async function materializeW3bProductTerminal(input: {
   }
 
   // Mission Product path: W3-B frozen RB must contain verified Mission Evidence
-  // as the sole evidenceRefs set consumed by EvaluateContractResult (CE bindings
-  // = selectEvidenceIds mission-only). Technical Attempt Evidence alone remains
-  // the fallback when Mission Evidence is absent/unverified → NOT_PROVEN honest.
+  // (+ Studio Verification Evidence when required) as the Evidence set consumed
+  // by EvaluateContractResult. Technical Attempt Evidence alone remains the
+  // fallback when Mission Evidence is absent/unverified → NOT_PROVEN honest.
   const isMissionProduct = contract.constraints.includes(
     PRODUCT_MISSION_FROM_DURABLE_CONTEXT,
   );
@@ -384,9 +384,45 @@ export async function materializeW3bProductTerminal(input: {
     const missionEvidenceId = missionResultEvidenceIdForAttempt(attempt.attemptId);
     const missionEvidence =
       await services.evidenceReader.findById(missionEvidenceId);
-    if (missionEvidence && missionEvidence.status === "verified") {
+      if (missionEvidence && missionEvidence.status === "verified") {
       evidenceIdsForBundle = [missionEvidence.evidenceId];
       primaryEvidence = missionEvidence;
+      // CP2-04 — include Verification Evidence in same ReviewBundle only when
+      // the EC requires studio-verified-changeset (generic local-write path).
+      // Historical clarify/read missions must keep a mission-only RB so CE
+      // bindings.evidenceRefs match reviewBundle.evidenceRefs.
+      const { executionReviewVerificationEvidenceIdForAttempt } = await import(
+        "@/features/project-assistant/f3/ingestExecutionReviewVerificationEvidence"
+      );
+      const { missionRequiresStudioVerification } = await import(
+        "@/lib/oa/evidence-review/application/missionResultContractResultSemantic"
+      );
+      const requiresVerification = missionRequiresStudioVerification({
+        evidenceRequirements: [
+          ...((
+            contract as { evidenceRequirements?: readonly string[] }
+          ).evidenceRequirements ?? []),
+          ...((
+            (contract as {
+              inspectionDisclosure?: {
+                evidenceRequirements?: readonly string[];
+              };
+            }).inspectionDisclosure
+          )?.evidenceRequirements ?? []),
+        ],
+      } as never);
+      if (requiresVerification) {
+        const verificationEvidenceId =
+          executionReviewVerificationEvidenceIdForAttempt(attempt.attemptId);
+        const verificationEvidence =
+          await services.evidenceReader.findById(verificationEvidenceId);
+        if (verificationEvidence && verificationEvidence.status === "verified") {
+          evidenceIdsForBundle = [
+            missionEvidence.evidenceId,
+            verificationEvidence.evidenceId,
+          ];
+        }
+      }
     }
     // Missing / unverified Mission Evidence → tech-only RB; mission semantic
     // yields NOT_PROVEN / Product UNCLAIMED (honest).
@@ -504,12 +540,19 @@ export async function materializeW3bProductTerminal(input: {
     };
   }
 
-  const product = projectFromFacts({
+  const productRaw = projectFromFacts({
     attempt,
     contract,
     evidence: primaryEvidence,
     reviewBundle: frozenReviewBundle,
     claimEvaluation: evaluated.claimEvaluation,
+  });
+  const { applyVerifiedChangeSetProductHonesty } = await import(
+    "./applyVerifiedChangeSetProductHonesty"
+  );
+  const product = applyVerifiedChangeSetProductHonesty({
+    attemptId: attempt.attemptId,
+    product: productRaw,
   });
 
   const reusedFromIdempotency = Boolean(

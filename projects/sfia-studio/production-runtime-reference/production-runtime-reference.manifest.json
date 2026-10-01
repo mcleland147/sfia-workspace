@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "kind": "SFIA_STUDIO_LIVING_PRODUCTION_RUNTIME_REFERENCE",
-  "lastReviewedCommit": "6beb8cc369bd9b82eebee97b70309838373b3dfa",
-  "lastReviewedAt": "2026-09-27T18:42:24.911Z",
+  "lastReviewedCommit": "d4d986af5884b31b416374da3cb5e60757501f87",
+  "lastReviewedAt": "2026-10-01T22:00:20.000Z",
   "canonicalReadme": "projects/sfia-studio/production-runtime-reference/README.md",
   "volumes": [
     {
@@ -19,7 +19,7 @@
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md",
-      "sha256_16": "2b33f2c9648004ec"
+      "sha256_16": "4059db411bb5a428"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md",
@@ -39,11 +39,11 @@
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md",
-      "sha256_16": "8fc11fd081bb37dc"
+      "sha256_16": "7c7596c841933c67"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md",
-      "sha256_16": "7f9b17310ec84156"
+      "sha256_16": "439b50db8e68633d"
     }
   ],
   "components": [

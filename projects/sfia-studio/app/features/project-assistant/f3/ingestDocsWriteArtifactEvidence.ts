@@ -88,6 +88,33 @@ export async function ingestDocsWriteArtifactEvidence(
     storageMode = "external_payload_ref";
     durableArtifactAbsolutePath = persisted.artifactAbsolutePath;
     durableCursorReportAbsolutePath = persisted.cursorReportAbsolutePath;
+
+    // Dual-write Generic Execution Review Material (D-ER-04) — transitional bridge.
+    // docs_write persist remains compatibility; generic path is the nominal target.
+    if (input.cursorReport) {
+      const { finalizeGenericExecutionReview } = await import(
+        "./finalizeGenericExecutionReview"
+      );
+      await finalizeGenericExecutionReview({
+        refsRoot,
+        projectId: input.projectId,
+        cycleInstanceId: input.cycleInstanceId,
+        executionContractId: input.executionContractId,
+        attemptId: input.executionAttemptId,
+        repositoryRef: input.cursorReport.repositoryRef,
+        baseSha: input.cursorReport.baseSha,
+        cursorReport: input.cursorReport,
+        extraReviewItems: [
+          {
+            kind: "artifact",
+            logicalPath: input.targetPath,
+            label: `artifact: ${input.targetPath}`,
+            bytes: input.artifactBytes,
+            summary: input.digest,
+          },
+        ],
+      });
+    }
   }
 
   const registered = await input.evidenceReviewServices.registerEvidence.execute({

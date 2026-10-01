@@ -22,11 +22,16 @@ export function isStudioVerificationObligation(req: string): boolean {
 /**
  * Derive Cursor-executable effects from effective EC requirements.
  * Verification-only families never produce Cursor mutation effects.
+ *
+ * CP2-01 — EFFECT_CLASS:local-write / evreq:local-write authorize
+ * filesystem.create+modify without docs_write Product taxonomy.
  */
 export function deriveExecutableEffectsFromContractRequirements(input: {
   evidenceRequirements?: readonly string[];
   expectedOutputs?: readonly string[];
   requiredCapabilities?: readonly string[];
+  /** EC constraints — EFFECT_CLASS:local-write grants FS mutate. */
+  constraints?: readonly string[];
   /** When true (docs_write createOrModify), filesystem create+modify may both be allowed. */
   allowFilesystemCreateOrModify?: boolean;
 }): {
@@ -39,10 +44,24 @@ export function deriveExecutableEffectsFromContractRequirements(input: {
       /artifact/i.test(o) ? "artifact" : o,
     ),
   ];
+  const constraints = input.constraints ?? [];
   const executable: CursorAuthorizedEffectId[] = [];
   const verification: VerificationObligationId[] = [];
 
+  const localWriteFromEffectClass = constraints.some(
+    (c) =>
+      c === "EFFECT_CLASS:local-write" ||
+      c.startsWith("EFFECT_CLASS:local-write"),
+  );
+  const localWriteFromEvreq = reqs.some(
+    (r) =>
+      r === "evreq:local-write" ||
+      /local-write|local_write|filesystem/i.test(r),
+  );
+
   const wantsArtifact =
+    localWriteFromEffectClass ||
+    localWriteFromEvreq ||
     reqs.some((r) => /artifact|docs_write|filesystem/i.test(r)) ||
     (input.expectedOutputs ?? []).some((o) => /artifact/i.test(o)) ||
     (input.requiredCapabilities ?? []).some((c) => /docs_write/i.test(c));
