@@ -433,9 +433,9 @@ ACK that Product generic local-write facts are carried by **Proposal `sealedExec
 | Field | Value |
 |-------|-------|
 | Verdict | **HANDOFF UPDATED — REMOTE VERIFIED** |
-| Remote SHA | `bae6bf5326318c8177a97d5d5b384e2e5512db31` |
-| Blob SHA | `936304f268a56b8740d047bbfe2138f7584d359a` |
-| Size | 36243 bytes (pre-AN patch; see republish if size advances) |
+| Remote SHA | `1ba4638be0c44a1520dfe5d7c6a2202fca6b2ddc` |
+| Blob SHA | `e063fb104569e8ec16dfb7dd6ff65b91dc0ac46e` |
+| Size | 36660 bytes |
 | Message | `docs(review-handoff): publish generic execution review result correction pass 04` |
 | Mode | publish-in-cycle L3 borné |
 | Force push | **NO** |
