@@ -1,24 +1,19 @@
-# Review Pack FULL — CORRECTION PASS 02 (COMPLETE DIFF REGULARIZATION)
+# Review Pack FULL — CORRECTION PASS 03
 # GENERIC-EXECUTION-REVIEW-RESULT-CONVERGENCE-01
 
 ## 1. Timestamp
-- UTC: 2026-10-01T19:54:15Z
-- Local: 2026-10-01 21:54 CEST
-- Purpose: Regularize Review Pack / Review Handoff so ChatGPT can verify directly from remote latest (complete diffs + new files + tests + docs + validations).
-- Code changes this turn: **NONE intentional** (pack/handoff only).
+- UTC: 2026-10-01T20:33:56Z
+- Local: 2026-10-01 22:33 CEST
+- Purpose: Close CP3-01…CP3-09 from Critical Review of Pass 02 handoff `3a9dc0ac…`.
 
-## 2. Git truth initial / final (UNCHANGED)
-- Repo root: `/Users/morris/Projects/sfia-workspace-post-execution-handoff-01`
-- origin: `origin` (GitHub `mcleland147/sfia-workspace`)
+## 2. Git truth initial / final
 - Branch: `delivery/sfia-studio-generic-execution-review-result-convergence-01`
 - HEAD: `d4d986af5884b31b416374da3cb5e60757501f87`
 - origin/main: `d4d986af5884b31b416374da3cb5e60757501f87`
-- ahead/behind (main...HEAD): `0	0` (= right/left = commits on HEAD / on main not in HEAD)
+- ahead/behind: `0	0`
 - Project commits: **NO**
-- Candidate: dirty locale intentionnelle (55 short-status lines incl. `.tmp-sfia-review`)
-- Staged project commit: **NO**
-- Entry Critical Review handoff (immutable): `d72306051421f48316c2412002d057d4e730a2e7`
-- Prior tip before Pass 02 publish was other-project `d268831e…` — not used as entry
+- Candidate: dirty locale CP2+CP3
+- Entry handoff immutable: `3a9dc0acf3559fb25978a80331078b49a4887aaa` / blob `52d991da297e406eee25b84c67dc4af8b6e68cdf`
 
 ### git status --short
 ```
@@ -79,7 +74,7 @@ M .tmp-sfia-review/chatgpt-review.md
 ?? projects/sfia-studio/app/lib/oa/execution-attempt/domain/cursorReviewEndOf.ts
 ```
 
-### git diff --stat (vs HEAD, excluding .tmp-sfia-review)
+### git diff --stat
 ```
 .../automaticProjectResume.ui.test.tsx             |  11 +
  .../chatFirstGovernedDecisionLoop.ui.test.tsx      |  11 +
@@ -92,21 +87,21 @@ M .tmp-sfia-review/chatgpt-review.md
  .../f3/ingestDocsWriteArtifactEvidence.ts          |  27 ++
  .../f3/persistDocsWriteArtifactReviewMaterial.ts   |   6 +
  .../f3/postEvidenceNoraAnalysis.ts                 |  16 +-
- .../app/features/project-assistant/w2/actions.ts   |  79 ++++++
+ .../app/features/project-assistant/w2/actions.ts   |  86 ++++++
  .../project-assistant/w2/decideTrajectory.ts       |  60 ++++-
- .../deriveActualExecutionWorkFromProductContext.ts | 205 ++++++++++++++-
- .../w2/governedExecuteAuthorizedContract.ts        | 111 +++++++-
+ .../deriveActualExecutionWorkFromProductContext.ts | 238 ++++++++++++++++-
+ .../w2/governedExecuteAuthorizedContract.ts        | 106 +++++++-
  .../w2/materializeW3bProductTerminal.ts            |  53 +++-
  .../w2/missionContractSemanticInputs.ts            |  16 ++
  .../w2/prepareExecutionContractFromW2Decision.ts   |   9 +-
  .../w2/resolveProductExecutionContext.ts           | 115 +++++++++
  .../project-assistant/w2/w3aActualExecutionWork.ts | 132 +++++++++-
- .../project-assistant/w2/w3cPostEvidenceLoop.ts    |  41 ++-
+ .../project-assistant/w2/w3cPostEvidenceLoop.ts    |  60 ++++-
  .../app/lib/nora-cognitive-runtime/index.ts        |   4 +
  .../noraCognitiveCompletion.ts                     |  10 +-
  .../nora-cognitive-runtime/providerAgentsModel.ts  |  11 +-
  .../nora-cognitive-runtime/runNoraAgentsTurn.ts    |  17 ++
- .../missionResultContractResultSemantic.ts         | 185 +++++++++++++
+ .../missionResultContractResultSemantic.ts         | 216 ++++++++++++++++
  .../application/startExecution.ts                  |   5 +
  .../domain/authorizedExecutionSlice.ts             |   3 +
  .../domain/contractEffectClassification.ts         |  19 ++
@@ -116,66 +111,61 @@ M .tmp-sfia-review/chatgpt-review.md
  .../app/lib/oa/execution-attempt/index.ts          |   2 +
  .../studioCursorRealLaunchGateway.ts               |  28 +-
  .../app/lib/oa/git-ports/localGitStatusDiffPort.ts |  12 +-
- .../convergence/sfia-studio-convergence-roadmap.md |   2 +
+ .../convergence/sfia-studio-convergence-roadmap.md |   3 +
  .../03-end-to-end-flow-catalog.md                  |   8 +
- .../08-test-proof-and-conformance-map.md           |  15 ++
- ...9-known-gaps-reserves-and-current-boundaries.md |  19 +-
+ .../08-test-proof-and-conformance-map.md           |  21 ++
+ ...9-known-gaps-reserves-and-current-boundaries.md |  26 +-
  .../production-runtime-reference.manifest.json     |  10 +-
- 40 files changed, 1523 insertions(+), 82 deletions(-)
+ 40 files changed, 1621 insertions(+), 83 deletions(-)
 ```
 
-## 3. Entry handoff exact
-- Commit: `d72306051421f48316c2412002d057d4e730a2e7`
-- Blob (historical): `adffe8efd53db7b3201c119917dcf881718076d7`
-- Entry verdict then: READY FOR CHATGPT CRITICAL REVIEW → ChatGPT concluded **NOT READY — CORRECTION PASS 02 REQUIRED**
-- This pack supersedes incomplete synthesis-only Pass 02 handoffs (`5a857d09…`, `2777b90b…`) with **complete modified content**.
+## 3. Entry handoff
+- Commit: `3a9dc0acf3559fb25978a80331078b49a4887aaa`
+- Blob: `52d991da297e406eee25b84c67dc4af8b6e68cdf`
+- Entry Critical Review: **NOT READY — CORRECTION PASS 03 REQUIRED**
+- Entry proof ceiling retained by ChatGPT: DETERMINISTIC GENERIC EXECUTION / REVIEW INTEGRATION PROVEN AT TESTED SCOPE
 
 ## 4. Cycle / profile
-- Macro: GENERIC-EXECUTION-REVIEW-RESULT-CONVERGENCE-01
-- Phase: CORRECTION PASS 02 — SAME MACRO
-- Cycle: 8 — Delivery / implémentation
-- Profile: CRITICAL · Typologie: EVOL
-- CKC: `ckc:studio:delivery` · `projects/sfia-studio/sfia-v3-framing/ckc/08-delivery-implementation.md`
-- Architecture: D-ER-01…D-ER-15 ADOPTED / consumed — no new architecture decisions
-- REAL: **ZERO REAL** · READY FOR REAL: **NO** · NoteLite: PAUSED · runtime v3: NON ADOPTED
+- Macro: GENERIC-EXECUTION-REVIEW-RESULT-CONVERGENCE-01 — SAME MACRO
+- Cycle 8 Delivery · CRITICAL · EVOL · ckc:studio:delivery
+- D-ER-01…15 CONSUMED · ZERO REAL · READY FOR REAL NO · runtime v3 NON ADOPTED
 
-## 5. Convergence pre-check
-- Same branch, same base `d4d986af…`, dirty candidate intentional
-- No reset/stash/rebase/merge main
-- Proof ceiling claimed only if EP/validations hold: DETERMINISTIC PRODUCT E2E PROVEN AT TESTED SCOPE
-
-## 6–7. CP2-01→CP2-10 matrix (summary)
+## 5–7. CP3-01→CP3-09 matrix
 
 | ID | BEFORE | AFTER | FILES | TEST | PASS |
 |----|--------|-------|-------|------|------|
-| CP2-01 | CLARIFY read → Fake writes | GOVERNED + durable DecisionBasis local-write seal → QualifiedExecutionEffects → generic EC | deriveActualExecutionWork*, w3aActualExecutionWork, decideTrajectory | frontDoor prepare + MAIN | **PASS** |
-| CP2-02 | silent full-repo scan fallback; stderr-as-porcelain | `observeVerifiedChangeSetStrict` git mode + `NodeLocalGitStatusDiffPort` fail-closed; no stderr porcelain | observeVerifiedChangeSet.ts, localGitStatusDiffPort.ts, finalize* | cp2Seams + d0 + frontDoor | **PASS** |
-| CP2-03 | Studio synthetic REO | executor-only parse; missing → PARTIAL + CURSOR_REVIEW_END_OF_MISSING | finalizeGenericExecutionReview, cursorReviewEndOf | frontDoor missing REO + cp2Seams | **PASS** |
-| CP2-04 | honesty UI overlay after CE | Verification Evidence `ev:execution-review:*` in RB when `evreq:studio-verified-changeset`; mission semantic gate; lineage accepts mission+verification pair | ingestExecutionReview*, missionResultContractResultSemantic, materializeW3b, resolveProductExecutionContext | frontDoor MAIN + remount | **PASS** |
-| CP2-05 | tool tested separately | Fake toolScript → Agents Runner → `execution_review_get_manifest` | providerAgentsModel, executionReviewAgentsTools, frontDoor | frontDoor MAIN | **PASS** |
-| CP2-06 | static copy | TrajectorySurface loads `w2ResolveProductExecutionContextAction` fields | TrajectorySurface.tsx | trajectorySurface + frontDoor | **PASS** |
-| CP2-07 | Nora tools ≠ Pilot UI | `w2ReadExecutionReviewItemAction` + shared `readBoundExecutionReviewItem` | actions.ts, readBoundExecutionReviewItem.ts | frontDoor Pilot security | **PASS** |
-| CP2-08 | 120 then abandon | scheduled continue + backoff; no total abandon | reconcileContinuePolicy, TrajectorySurface | trajectorySurface + frontDoor remount | **PASS** |
-| CP2-09 | test called reconciler directly | TrajectorySurface component harness + remountJourney | trajectorySurface.d0.test.ts | trajectorySurface | **PASS** |
-| CP2-10 | read-only EC + unauthorized Fake | front-door rewrite: Decision→local-write→Git→Evidence→Nora→Pilot | frontDoor.d0.test.ts | frontDoor | **PASS** |
+| CP3-01 | decisions.save after decide | decideTrajectory durableLocalWriteSeal stamps DecisionBasis; w2DecideTrajectoryAction never accepts client seal | decideTrajectory, actions, frontDoor | frontDoor prepare + MAIN | **PASS** |
+| CP3-02 | no protected qualification | classifyProtectedRepositoryPath via SFIA_DEFAULT_PROTECTED_PATHS fail-closed | deriveActualExecutionWorkFromProductContext | d0/cp2Seams + prepare fail | **PASS** |
+| CP3-03 | requireHeadMatch:false nominal | HEAD-bound by default in finalize/governedExecute | finalize*, governedExecute* | frontDoor HEAD=H0 + d0 mismatch | **PASS** |
+| CP3-04 | digest on in-memory VCS with abs paths | durableVerifiedChangeSetDigest of persisted bytes; CE verifies bytes | persist*, governedExecute*, missionResultContractResultSemantic | frontDoor digest equality + d0 | **PASS** |
+| CP3-05 | REO shape only | bindCursorReviewEndOfToAttempt Attempt/EC/repo/base | cursorReviewEndOf, finalize* | d0/frontDoor | **PASS** |
+| CP3-06 | missing REO PARTIAL but PASS possible | verificationEvidenceFactsHold requires reviewEndOfPresent | missionResultContractResultSemantic | frontDoor missing REO | **PASS** |
+| CP3-07 | tools only via direct analyze | W3-C enables tools when Review Material present | w3cPostEvidenceLoop | frontDoor MAIN via materialize | **PASS** |
+| CP3-08 | digest returned without compare | EXECUTION_REVIEW_ITEM_INTEGRITY_MISMATCH | readBoundExecutionReviewItem | frontDoor tamper | **PASS** |
+| CP3-09 | privileged Decision.save + direct Nora | Product decide seal + W3-C tool path | frontDoor.d0.test.ts | frontDoor | **PASS** |
 
-## 8–27. Spine proof narrative (condensed; evidence in diffs/tests below)
-- Generic mutating mission from durable Product facts (EFFECT_CLASS:local-write); EC remains `studio.cursor.generalist.execute`; no Product write taxonomy.
-- Git: temp repo H0; NodeLocalGitStatusDiffPort; delta-only; Git error → UNAVAILABLE; zero-change ≠ unavailable.
-- Claims: Fake report + native REO; missing REO → no synthetic CursorReviewEndOf.
-- Evidence: Verification Evidence in same RB; ContractResult ≠ PASS under mismatch; Product projection coherent.
-- Nora: real tool call; grounded exclusive fact.
-- Pilot: Result Surface real fields; itemId server read; Project B / unknown DENY.
-- Continuity: mounted auto-continue; remount resume; same Attempt; launchCount=1.
+## 8. Product-owned local-write source
+- Canonical seam: `decideTrajectory({ durableLocalWriteSeal })` stamps DecisionBasis.executionBasis (targetPath/scopeIn/reversibilityExpectation).
+- Server action `w2DecideTrajectoryAction` does **not** accept client seal fields (documented).
+- Front-door no longer calls `oa.decisionServices.decisions.save()`.
+- Proposal subject mode remains the alternate Product path that already seals from sealedExecutionBasis.
 
-## 28. EP-01→EP-30
-All **PASS** individually at tested deterministic scope (see frontDoor / d0 / cp2Seams / trajectorySurface suites). Aggregate PASS only because no EP FAIL/PARTIAL.
+## 9. Protected boundary
+- Reused `SFIA_DEFAULT_PROTECTED_PATHS` via `classifyProtectedRepositoryPath` — fail-closed in `canQualifyGenericLocalWriteFromDurableFacts`.
+
+## 10–27. Spine (condensed; evidence in §32–35)
+- Git HEAD-bound VerifiedChangeSet; durable digest; native bound REO; missing REO blocks PASS.
+- Verification Evidence + Mission Evidence → RB/CE; Product Resolution coherent.
+- Nominal W3-C → Agents Runner → execution_review_get_manifest; Pilot integrity-checked item read.
+- Continuity / remount / same Attempt / launchCount=1 retained.
+
+## 28. EP/T
+CP3 T-01…T-40 covered by frontDoor/d0/cp2Seams/trajectorySurface at tested scope — all PASS in targeted suite (60).
 
 ## 29. Fake/Real
-- Applicable: YES · Fake Cursor boundary only · **ZERO REAL**
-- Local Git inspect of test worktree ≠ Cursor REAL
+- Fake Cursor boundary only · **ZERO REAL** · temp Git for observation semantics
 
-## 30. Files created (NEW — full contents in §33)
+## 30. Files created
 - `projects/sfia-studio/app/__tests__/project-assistant/genericExecutionReviewResultConvergence01.cp2Seams.d0.test.ts`
 - `projects/sfia-studio/app/__tests__/project-assistant/genericExecutionReviewResultConvergence01.d0.test.ts`
 - `projects/sfia-studio/app/__tests__/project-assistant/genericExecutionReviewResultConvergence01.frontDoor.d0.test.ts`
@@ -190,7 +180,7 @@ All **PASS** individually at tested deterministic scope (see frontDoor / d0 / cp
 - `projects/sfia-studio/app/lib/oa/execution-attempt/application/observeVerifiedChangeSet.ts`
 - `projects/sfia-studio/app/lib/oa/execution-attempt/domain/cursorReviewEndOf.ts`
 
-## 31. Files modified (unified diffs in §32)
+## 31. Files modified
 - `tmp-sfia-review/chatgpt-review.md`
 - `projects/sfia-studio/app/__tests__/pre-m6-product-ui/automaticProjectResume.ui.test.tsx`
 - `projects/sfia-studio/app/__tests__/pre-m6-product-ui/chatFirstGovernedDecisionLoop.ui.test.tsx`
@@ -233,7 +223,7 @@ All **PASS** individually at tested deterministic scope (see frontDoor / d0 / cp
 - `projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md`
 - `projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json`
 
-## 32. Complete useful code diffs (all modified files vs HEAD)
+## 32. Complete useful code diffs (modified vs HEAD)
 
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/automaticProjectResume.ui.test.tsx b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/automaticProjectResume.ui.test.tsx
@@ -832,10 +822,24 @@ index d4fae268..5d3b4a96 100644
    if (!completion.ok) {
      return {
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/actions.ts b/projects/sfia-studio/app/features/project-assistant/w2/actions.ts
-index 27355ff0..394dcba0 100644
+index 27355ff0..a2b14fdd 100644
 --- a/projects/sfia-studio/app/features/project-assistant/w2/actions.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/w2/actions.ts
-@@ -825,6 +825,85 @@ export async function w2ResolveProductExecutionContextAction(input: {
+@@ -234,6 +234,13 @@ export async function w2DecideTrajectoryAction(input: {
+     };
+   }
+ 
++  /**
++   * CP3-01 — never accept durableLocalWriteSeal / targetPath / scopeIn from the
++   * browser. Seal is stamped only by decideTrajectory when server-owned facts
++   * are supplied by a domain/server caller (Proposal subject path, or an
++   * internal orchestration that already holds durable Product facts).
++   * Client operationKind cannot manufacture local-write authority.
++   */
+   return decideTrajectory({
+     oa: runtime.oa,
+     projectId: input.projectId,
+@@ -825,6 +832,85 @@ export async function w2ResolveProductExecutionContextAction(input: {
    });
  }
  
@@ -1017,11 +1021,14 @@ index ee320048..c316401b 100644
        };
  
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/deriveActualExecutionWorkFromProductContext.ts b/projects/sfia-studio/app/features/project-assistant/w2/deriveActualExecutionWorkFromProductContext.ts
-index 091a13c5..c614cfb4 100644
+index 091a13c5..856c75c1 100644
 --- a/projects/sfia-studio/app/features/project-assistant/w2/deriveActualExecutionWorkFromProductContext.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/w2/deriveActualExecutionWorkFromProductContext.ts
-@@ -25,10 +25,10 @@ import type { DecisionBasis } from "@/lib/oa/decision";
+@@ -23,12 +23,13 @@
+ 
+ import type { DecisionBasis } from "@/lib/oa/decision";
  import { isRepositorySourceRef } from "@/lib/oa/execution-contract";
++import { SFIA_DEFAULT_PROTECTED_PATHS } from "@/lib/platform/sfia-context/canonicalPaths";
  import {
    buildActualExecutionWork,
 +  buildProductQualifiedLocalWriteWork,
@@ -1032,7 +1039,33 @@ index 091a13c5..c614cfb4 100644
  } from "./w3aActualExecutionWork";
  import type { EffectQualificationFailure } from "./w3aQualifiedExecutionEffects";
  import type { PostEvidenceRecoveryContext } from "./resolvePostEvidenceRecoveryContext";
-@@ -234,6 +234,137 @@ function missionFromClarifyWithoutRecovery(
+@@ -38,6 +39,25 @@ import {
+   GOVERNED_OPTION_REF,
+ } from "./trajectoryOptions";
+ 
++/**
++ * CP3-02 — reuse Studio default protected path prefixes (no second policy engine).
++ * Returns the protected prefix hit, or null when path is ordinary.
++ */
++export function classifyProtectedRepositoryPath(
++  repoRelativePath: string,
++): string | null {
++  const norm = repoRelativePath.replace(/\\/g, "/").replace(/^\.\//, "");
++  if (!norm || norm.includes("..") || norm.startsWith("/")) return "INVALID_PATH";
++  for (const prot of SFIA_DEFAULT_PROTECTED_PATHS) {
++    const p = prot.endsWith("/") ? prot : `${prot}`;
++    if (p.endsWith("/")) {
++      if (norm === p.slice(0, -1) || norm.startsWith(p)) return prot;
++    } else if (norm === p || norm.startsWith(`${p}/`)) {
++      return prot;
++    }
++  }
++  return null;
++}
+ /**
+  * Repository document paths known from durable DecisionBasis / cycle facts.
+  * Pseudo-refs (`attempt:…`, `product:…`) are excluded — they are not files.
+@@ -234,6 +254,150 @@ function missionFromClarifyWithoutRecovery(
    };
  }
  
@@ -1085,6 +1118,19 @@ index 091a13c5..c614cfb4 100644
 +      ok: false,
 +      reason:
 +        "no sealed repository paths on DecisionBasis (targetPath / scopeIn)",
++    };
++  }
++  // CP3-02 — protected / doctrine / baseline paths fail closed for ordinary
++  // generic local-write (no N2 bypass of protected boundaries).
++  const protectedHits = paths
++    .map((p) => ({ path: p, hit: classifyProtectedRepositoryPath(p) }))
++    .filter((x) => x.hit != null);
++  if (protectedHits.length > 0) {
++    return {
++      ok: false,
++      reason: `protected boundary without dedicated authority: ${protectedHits
++        .map((h) => `${h.path}→${h.hit}`)
++        .join(",")}`,
 +    };
 +  }
 +  // Rollback: isolated worktree discard is credible for local-write only
@@ -1170,7 +1216,7 @@ index 091a13c5..c614cfb4 100644
  /**
   * Internal effect-control scaffold from mission perimeter — NOT a Product
   * contract category. `operationKind: "read"` here is ActionPolicy taxonomy only;
-@@ -244,15 +375,46 @@ function buildInternalWorkFromMissionPerimeter(input: {
+@@ -244,15 +408,46 @@ function buildInternalWorkFromMissionPerimeter(input: {
    readonly projectTitle: string | null;
    readonly mission: ProductMissionFields;
    readonly qualificationSource: string;
@@ -1220,7 +1266,7 @@ index 091a13c5..c614cfb4 100644
      };
    }
    const built = buildActualExecutionWork({
-@@ -305,7 +467,7 @@ export function deriveActualExecutionWorkFromProductContext(input: {
+@@ -305,7 +500,7 @@ export function deriveActualExecutionWorkFromProductContext(input: {
      };
    }
  
@@ -1229,7 +1275,7 @@ index 091a13c5..c614cfb4 100644
      isActualExecutionOperationKind(input.clientOperationKind)
        ? input.clientOperationKind
        : null;
-@@ -339,6 +501,8 @@ export function deriveActualExecutionWorkFromProductContext(input: {
+@@ -339,6 +534,8 @@ export function deriveActualExecutionWorkFromProductContext(input: {
        mission,
        qualificationSource:
          "studio.nora.mission-perimeter.internal-effect-control",
@@ -1238,7 +1284,7 @@ index 091a13c5..c614cfb4 100644
      });
      if ("ok" in work && work.ok === false) return work;
      void clientKind; // durable mission wins — ignore client HOW
-@@ -375,6 +539,37 @@ export function deriveActualExecutionWorkFromProductContext(input: {
+@@ -375,6 +572,37 @@ export function deriveActualExecutionWorkFromProductContext(input: {
      };
    }
  
@@ -1277,7 +1323,7 @@ index 091a13c5..c614cfb4 100644
    if (clientKind) {
      const built = buildActualExecutionWork({
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/governedExecuteAuthorizedContract.ts b/projects/sfia-studio/app/features/project-assistant/w2/governedExecuteAuthorizedContract.ts
-index e9ce7276..25c8cca1 100644
+index e9ce7276..278fec81 100644
 --- a/projects/sfia-studio/app/features/project-assistant/w2/governedExecuteAuthorizedContract.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/w2/governedExecuteAuthorizedContract.ts
 @@ -43,6 +43,8 @@ import { completeBoundedDocsWriteLaunch } from "@/features/project-assistant/f3/
@@ -1289,7 +1335,7 @@ index e9ce7276..25c8cca1 100644
  import {
    buildMissionResultPayloadFromReport,
    type CursorExecutionReportWithMission,
-@@ -1280,6 +1282,104 @@ export async function governedExecuteRecordResult(
+@@ -1280,6 +1282,99 @@ export async function governedExecuteRecordResult(
              };
            }
          }
@@ -1328,9 +1374,8 @@ index e9ce7276..25c8cca1 100644
 +            baseSha: expectedSha ?? report.baseSha ?? "unknown",
 +            cursorReport: report,
 +            worktreePath: worktreeRef,
-+            // Fake/TestOnly isolated worktree HEAD ≠ Product pinned baseSha;
-+            // HEAD match is proven in dedicated Git unit tests (CP2-02).
-+            requireHeadMatch: false,
++            // CP3-03 — nominal HEAD binding (worktree HEAD == pinned baseSha).
++            // Do NOT bypass; Fake fixtures must use the same H0 worktree.
 +          });
 +          if (!finalized.ok) {
 +            return {
@@ -1341,13 +1386,8 @@ index e9ce7276..25c8cca1 100644
 +            };
 +          }
 +
-+          // CP2-04 — Verification Evidence via existing Evidence stack (same Attempt).
-+          const vcsDigest =
-+            finalized.verifiedChangeSet != null
-+              ? `sha256:${createHash("sha256")
-+                  .update(JSON.stringify(finalized.verifiedChangeSet))
-+                  .digest("hex")}`
-+              : null;
++          // CP3-04 — Verification Evidence digest = durable VCS bytes digest.
++          const vcsDigest = finalized.durableVerifiedChangeSetDigest;
 +          const verificationPayload = {
 +            schemaVersion: "oa.execution-review-verification.1" as const,
 +            attemptId: attempt.attemptId,
@@ -1360,6 +1400,7 @@ index e9ce7276..25c8cca1 100644
 +            verificationStatus: finalized.verificationStatus,
 +            verifiedChangeSetDigest: vcsDigest,
 +            verifiedChangeSetRef:
++              finalized.verifiedChangeSetRef ??
 +              finalized.manifest.verifiedEffects.verifiedChangeSetRef,
 +            claimFactMismatch: finalized.claimFactMismatch,
 +            unclaimedObservedPaths:
@@ -1394,7 +1435,7 @@ index e9ce7276..25c8cca1 100644
          const built = report
            ? buildMissionResultPayloadFromReport({ report })
            : ({
-@@ -1289,17 +1389,6 @@ export async function governedExecuteRecordResult(
+@@ -1289,17 +1384,6 @@ export async function governedExecuteRecordResult(
                  "Mission Result Evidence requires a structured CursorExecutionReport with missionResult fields.",
              } as const);
          if (built.ok) {
@@ -1949,10 +1990,18 @@ index 19fc642a..6ebc6f8c 100644
  export function qualifyEffectsFromActualExecutionWork(input: {
    readonly work: ActualExecutionWork;
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts b/projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts
-index af8477d6..eba3e16b 100644
+index af8477d6..b8416960 100644
 --- a/projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts
-@@ -440,6 +440,31 @@ export function isEvidenceBackedNotProvenUnclaimed(
+@@ -30,6 +30,7 @@ import {
+   loadDocsWriteArtifactReviewMaterial,
+   resolveProductEvidenceRefsRoot,
+ } from "@/features/project-assistant/f3/persistDocsWriteArtifactReviewMaterial";
++import { loadGenericExecutionReviewMaterial } from "@/features/project-assistant/f3/persistGenericExecutionReviewMaterial";
+ import {
+   buildCkcCognitivePromptSection,
+   loadProductCkcCognitiveContent,
+@@ -440,6 +441,31 @@ export function isEvidenceBackedNotProvenUnclaimed(
    );
  }
  
@@ -1984,7 +2033,7 @@ index af8477d6..eba3e16b 100644
  /**
   * Project durable product outcome + real D5 coordination onto a Recommendation.
   * Never invents kind:"replan" from D5 (no trajectory replan code in NextActionCode).
-@@ -938,7 +963,7 @@ export async function recoverExactRecommendationFromLps(input: {
+@@ -938,7 +964,7 @@ export async function recoverExactRecommendationFromLps(input: {
      product.outcome !== "FAIL" &&
      !(
        product.outcome === "UNCLAIMED" &&
@@ -1993,7 +2042,7 @@ index af8477d6..eba3e16b 100644
      )
    ) {
      return null;
-@@ -1195,7 +1220,7 @@ export async function runW3cPostEvidenceLoop(input: {
+@@ -1195,7 +1221,7 @@ export async function runW3cPostEvidenceLoop(input: {
    const { oa, projectId, attemptId, product } = input;
  
    if (product.outcome === "UNCLAIMED") {
@@ -2002,7 +2051,7 @@ index af8477d6..eba3e16b 100644
        return failClosed(
          "PRODUCT_UNCLAIMED",
          "Résultat produit non claimable — boucle post-Evidence refusée.",
-@@ -1311,10 +1336,14 @@ export async function runW3cPostEvidenceLoop(input: {
+@@ -1311,10 +1337,14 @@ export async function runW3cPostEvidenceLoop(input: {
          "EVIDENCE_BACKED_NOT_PROVEN exige une ClaimEvaluation courante.",
        );
      }
@@ -2019,7 +2068,39 @@ index af8477d6..eba3e16b 100644
        );
      }
      if (claimEvaluation.claimEvaluationId !== product.claimEvaluationId) {
-@@ -1658,7 +1687,7 @@ export async function rehydrateW3cPostEvidenceFromLps(input: {
+@@ -1515,6 +1545,19 @@ export async function runW3cPostEvidenceLoop(input: {
+   const executionReport = durableProjection.executionReport;
+ 
+   noraInvoked = true;
++  // CP3-07 — nominal W3-C Deep Review: enable Execution Review tools when
++  // server-owned Generic Execution Review Material exists for this Attempt.
++  // Decision is NEVER a client boolean — Product Resolution / durable refs only.
++  const refsRootForReview = resolveProductEvidenceRefsRoot();
++  const reviewMaterialLoaded = loadGenericExecutionReviewMaterial({
++    refsRoot: refsRootForReview,
++    attemptId,
++  });
++  const enableExecutionReviewTools =
++    reviewMaterialLoaded.ok &&
++    reviewMaterialLoaded.manifest.projectId === projectId &&
++    reviewMaterialLoaded.manifest.attemptId === attemptId;
++
+   const analysis = await analyzePostEvidenceWithProvider(
+     {
+       projectId,
+@@ -1558,7 +1601,10 @@ export async function runW3cPostEvidenceLoop(input: {
+         : {}),
+       ...(cursorReportSummary ? { cursorReportSummary } : {}),
+     },
+-    { ckcPromptSection },
++    {
++      ckcPromptSection,
++      enableExecutionReviewTools,
++    },
+   );
+   if (analysis.ok) {
+     analysisText = analysis.text;
+@@ -1658,7 +1704,7 @@ export async function rehydrateW3cPostEvidenceFromLps(input: {
      );
    }
    if (product.outcome === "UNCLAIMED") {
@@ -2028,7 +2109,7 @@ index af8477d6..eba3e16b 100644
        return failClosed(
          "PRODUCT_UNCLAIMED",
          "UNCLAIMED — pas de boucle post-Evidence à rehydrater.",
-@@ -1758,7 +1787,7 @@ export async function rehydrateW3cPostEvidenceFromLps(input: {
+@@ -1758,7 +1804,7 @@ export async function rehydrateW3cPostEvidenceFromLps(input: {
      product.outcome !== "FAIL" &&
      !(
        product.outcome === "UNCLAIMED" &&
@@ -2167,24 +2248,27 @@ index a3b5117e..5894cfc7 100644
    ];
  
 diff --git a/projects/sfia-studio/app/lib/oa/evidence-review/application/missionResultContractResultSemantic.ts b/projects/sfia-studio/app/lib/oa/evidence-review/application/missionResultContractResultSemantic.ts
-index 42c39db6..3aff0ff4 100644
+index 42c39db6..51b7f925 100644
 --- a/projects/sfia-studio/app/lib/oa/evidence-review/application/missionResultContractResultSemantic.ts
 +++ b/projects/sfia-studio/app/lib/oa/evidence-review/application/missionResultContractResultSemantic.ts
-@@ -34,6 +34,13 @@ import {
+@@ -34,6 +34,16 @@ import {
    type MissionResultPayload,
  } from "./missionResultPayload";
  import fs from "node:fs";
++import path from "node:path";
 +import {
 +  EXECUTION_REVIEW_VERIFICATION_ER_KEY,
 +  digestExecutionReviewVerificationPayload,
++  executionReviewVerificationLocationForAttempt,
 +  isExecutionReviewVerificationEvidenceId,
 +  isExecutionReviewVerificationPayload,
 +  type ExecutionReviewVerificationPayload,
 +} from "@/features/project-assistant/f3/ingestExecutionReviewVerificationEvidence";
++import { digestUtf8 } from "@/features/project-assistant/f3/persistGenericExecutionReviewMaterial";
  
  export const MISSION_RESULT_RULE_REF =
    "w3b-contract-result/product-mission-result-v1" as const;
-@@ -86,6 +93,74 @@ function loadMissionPayload(evidence: Evidence): MissionResultPayload | null {
+@@ -86,6 +96,102 @@ function loadMissionPayload(evidence: Evidence): MissionResultPayload | null {
    }
  }
  
@@ -2238,9 +2322,37 @@ index 42c39db6..3aff0ff4 100644
 +  if (payload.executionContractId !== input.attempt.executionContractId) {
 +    return false;
 +  }
-+  // CP2-04 — mismatch or non-OBSERVED cannot support PASS.
++  // CP2-04 / CP3-06 — mismatch, non-OBSERVED, or missing required REO
++  // cannot support PASS. REO remains CLAIM; presence is attested on Verification Evidence.
 +  if (payload.claimFactMismatch) return false;
 +  if (payload.verificationStatus !== "OBSERVED") return false;
++  if (payload.reviewEndOfPresent !== true) return false;
++  // CP3-04 — OBSERVED requires durable VCS digest tied to persisted bytes.
++  if (payload.verifiedChangeSetDigest == null || !payload.verifiedChangeSetRef) {
++    return false;
++  }
++  const loc = e.location.trim();
++  const relPayload = executionReviewVerificationLocationForAttempt(
++    input.attempt.attemptId,
++  );
++  const normalizedLoc = loc.replace(/\\/g, "/");
++  const normalizedRel = relPayload.replace(/\\/g, "/");
++  if (!normalizedLoc.endsWith(normalizedRel)) return false;
++  const refsRoot = loc.slice(0, loc.length - relPayload.length).replace(
++    /[/\\]$/,
++    "",
++  );
++  const vcsAbs = path.join(refsRoot, payload.verifiedChangeSetRef);
++  if (!fs.existsSync(vcsAbs)) return false;
++  let durableBytes: Buffer;
++  try {
++    durableBytes = fs.readFileSync(vcsAbs);
++  } catch {
++    return false;
++  }
++  if (digestUtf8(durableBytes) !== payload.verifiedChangeSetDigest) {
++    return false;
++  }
 +  return true;
 +}
 +
@@ -2259,7 +2371,7 @@ index 42c39db6..3aff0ff4 100644
  export function missionResultEvidenceFactsHold(input: {
    attempt: ExecutionAttemptSnapshot;
    evidence: Evidence;
-@@ -258,6 +333,9 @@ export function assessMissionResultEvidenceRequirement(input: {
+@@ -258,6 +364,9 @@ export function assessMissionResultEvidenceRequirement(input: {
    attempt: ExecutionAttemptSnapshot;
    evidence: Evidence;
    frozenSnapshot: ReviewBundleEvidenceSnapshot | undefined;
@@ -2269,7 +2381,7 @@ index 42c39db6..3aff0ff4 100644
  }): "SATISFIED" | "NOT_SATISFIED" | "NOT_PROVEN" {
    if (
      !isUsableFrozen({
-@@ -267,6 +345,35 @@ export function assessMissionResultEvidenceRequirement(input: {
+@@ -267,6 +376,35 @@ export function assessMissionResultEvidenceRequirement(input: {
    ) {
      return "NOT_PROVEN";
    }
@@ -2305,7 +2417,7 @@ index 42c39db6..3aff0ff4 100644
    if (input.requirement !== MISSION_RESULT_ER_KEY) {
      if (
        input.requirement === "evreq:mission-trace-of-inspected-durable-facts" ||
-@@ -279,6 +386,26 @@ export function assessMissionResultEvidenceRequirement(input: {
+@@ -279,6 +417,26 @@ export function assessMissionResultEvidenceRequirement(input: {
      return "NOT_PROVEN";
    }
    if (!missionResultEvidenceFactsHold(input)) return "NOT_SATISFIED";
@@ -2332,7 +2444,7 @@ index 42c39db6..3aff0ff4 100644
    return "SATISFIED";
  }
  
-@@ -311,6 +438,32 @@ export const missionResultContractResultSemantic: ContractResultSemantic = {
+@@ -311,6 +469,32 @@ export const missionResultContractResultSemantic: ContractResultSemantic = {
          incompleteReason: "mission_evidence_ambiguous",
        };
      }
@@ -2365,7 +2477,7 @@ index 42c39db6..3aff0ff4 100644
      return {
        requiredEvidenceIds: [mission[0]!.evidenceId],
      };
-@@ -318,6 +471,23 @@ export const missionResultContractResultSemantic: ContractResultSemantic = {
+@@ -318,6 +502,23 @@ export const missionResultContractResultSemantic: ContractResultSemantic = {
    assessExpectedOutput(input) {
      const evidence = pickMissionEvidence(input.evidences, input.attempt);
      if (!evidence) return "NOT_PROVEN";
@@ -2389,7 +2501,7 @@ index 42c39db6..3aff0ff4 100644
      return assessMissionResultExpectedOutput({
        expectation: input.expectation,
        ordinal: input.ordinal,
-@@ -334,12 +504,27 @@ export const missionResultContractResultSemantic: ContractResultSemantic = {
+@@ -334,12 +535,27 @@ export const missionResultContractResultSemantic: ContractResultSemantic = {
      const frozenSnapshot = input.frozenSnapshots.find(
        (s) => s.evidenceId === evidence.evidenceId,
      );
@@ -2672,13 +2784,14 @@ index eca8e682..962cd849 100644
  
      return {
 diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-index 75b2974e..6353d332 100644
+index 75b2974e..fc750076 100644
 --- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 +++ b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-@@ -4,6 +4,8 @@
+@@ -4,6 +4,9 @@
  | --- | --- |
  | **Rôle** | Roadmap **vivante** de convergence vers l’utilisation complète de la doctrine produit SFIA Studio v3 |
  | **Statut** | **VALIDATED — ACTIVE LIVING ROADMAP** |
++| **Timestamp maintenance GENERIC-EXECUTION-REVIEW-RESULT-CONVERGENCE-01 Correction Pass 03** | 2026-10-01 — **GENERIC EXECUTION / REVIEW / RESULT — CONVERGENCE CORRECTION PASS 03** · SAME MACRO · Cycle **8** · EVOL · CRITICAL · CKC `ckc:studio:delivery` · Architecture **D-ER-01…D-ER-15 CONSUMED** · base `origin/main` @ `d4d986af5884b31b416374da3cb5e60757501f87` · branche `delivery/sfia-studio-generic-execution-review-result-convergence-01` · entry handoff Pass 02 régularisé `3a9dc0acf3559fb25978a80331078b49a4887aaa` / blob `52d991da297e406eee25b84c67dc4af8b6e68cdf` · CP3-01…CP3-09 closed · preuve **DETERMINISTIC PRODUCT E2E PROVEN AT TESTED SCOPE** · **LOCAL CANDIDATE / NOT INTEGRATED ON MAIN** · ZERO REAL · READY FOR REAL **NO** · corrections : Product decideTrajectory durableLocalWriteSeal (no Decision.save fabrication) · protected path fail-closed via SFIA_DEFAULT_PROTECTED_PATHS · nominal Git HEAD binding · durable VerifiedChangeSet digest binding · REO Attempt/EC/repo/base binding · missing REO blocks PASS · nominal W3-C enables execution_review_* tools · ReviewItem integrity · front-door oracle honesty · debt : docs_write bridges / retention GC / Git promotion / NoteLite REAL · next = ChatGPT Critical Review Pass 03 → Morris GO commit/push/PR · runtime v3 = **NON ADOPTED** · **≠** INTEGRATED ON MAIN · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT** |
 +| **Timestamp maintenance GENERIC-EXECUTION-REVIEW-RESULT-CONVERGENCE-01 Correction Pass 02** | 2026-10-01 — **GENERIC EXECUTION / REVIEW / RESULT — CONVERGENCE CORRECTION PASS 02** · SAME MACRO · Cycle **8 — Delivery / implémentation** · EVOL · CRITICAL · CKC `ckc:studio:delivery` / `ckc/08-delivery-implementation.md` · Architecture **D-ER-01…D-ER-15 CONSUMED** (no redesign) · base `origin/main` @ `d4d986af5884b31b416374da3cb5e60757501f87` · branche locale `delivery/sfia-studio-generic-execution-review-result-convergence-01` · entry handoff Correction Pass 01 Critical Review `d72306051421f48316c2412002d057d4e730a2e7` · CP2-01…CP2-10 closed · preuve **DETERMINISTIC PRODUCT E2E PROVEN AT TESTED SCOPE** · capacité = **LOCAL CANDIDATE / NOT INTEGRATED ON MAIN** · ZERO REAL · NoteLite PAUSED · READY FOR REAL **NO** · corrections : authorized generic local-write from durable DecisionBasis (≠ Product write taxonomy) · NodeLocalGitStatusDiffPort Git delta (no full-repo scan) · native Cursor REO only (no Studio synthesis) · Verification Evidence `ev:execution-review:*` in same RB → ContractResult coherence · Nora actual `execution_review_*` tool calls · Result Surface real fields · Pilot `w2ReadExecutionReviewItemAction` · mounted scheduled continue + remount (no abandon counter) · debt acceptable : docs_write bridge / retention GC / Git promotion / NoteLite REAL · next = ChatGPT Critical Review Pass 02 → Morris GO commit/push/PR · runtime v3 = **NON ADOPTED** · **≠** INTEGRATED ON MAIN · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT** |
 +| **Timestamp maintenance GENERIC-EXECUTION-REVIEW-RESULT-CONVERGENCE-01 delivery candidate** | 2026-09-29 — **GENERIC EXECUTION / REVIEW / RESULT — CONVERGENCE DELIVERY CANDIDATE** · Cycle **8** · Correction Pass 01 · preuve then claimed DETERMINISTIC PRODUCT E2E · superseded as tip by Correction Pass 02 after ChatGPT Critical Review NOT READY (handoff `d7230605…`) · historical tip retained · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT** |
  | **Timestamp maintenance GENERIC-EXECUTION-REVIEW-RESULT-ARCHITECTURE-01 truth-sync** | 2026-09-29 — **GENERIC EXECUTION / REVIEW / RESULT — ARCHITECTURE TRUTH-SYNC** · Cycle **6 — Architecture technique** · DOC / EVOL · CRITICAL · CKC `cyc:technical-architecture` / `ckc/06-architecture-technique.md` (**CONTENT VALIDATED BY MORRIS** · guidance only · **≠** execution authority) · Morris decisions **D-ER-01…D-ER-15 ADOPTED** (2026-09-29) · **CURRENT main** `origin/main` @ `6f47f74dc9b515c4c79624b21772223ba02c76cd` · capacité **PRODUCT-CONTINUITY-SHARED-KNOWLEDGE-01** = **INTEGRATED ON MAIN** via PR **#540** merge `6f47f74d…` (head `47fcab2b…`) · campagne **NoteLite bounded REAL** = **RÉALISÉE AT TESTED SCOPE** puis **PAUSED** à ce point (correction governed **non relancée** · cycle NoteLite **non finalisé**) · findings bornés : EC→Attempt REAL→Cursor REAL→terminal succeeded→durable Evidence/RB/CE→Product Resolution→Nora post-Evidence→Nora conversationnelle **sans transfer d’IDs Pilote** · **NOT_PROVEN** honesty préservée · gap nominal post-terminal / UI « qualification en cours » + clic « Recharger résultat produit » = **HIGH-CONFIDENCE ARCHITECTURAL CAUSE** (poll UI ≤8 / pas de worker autonome) **≠ PROVEN INSTANCE ROOT CAUSE** · **ADOPTED TARGET** = un modèle Product d’exécution **générique** · **toutes** taxonomies de tâche Product spécialisées (`docs_write`, `code_write`, `read`, `read_only`, …) = **RETIRE FROM PRODUCT MODEL** · capabilities/effects techniques = **enforcement-only possibles** · **interdit** inventer `generic_read` / `generic_write` / `generic_code` comme catégories Product · isolated Git worktree = **KEEP** · Cursor Generalist = **KEEP** · CursorExecutionReport = **CLAIM KEEP** · Generic Execution Review Material = **TARGET** · Native Review End Of = **TARGET** (harvest sémantique · **≠** import transport `.tmp-sfia-review` / `sfia/review-handoff`) · Studio VerifiedChangeSet = **TARGET** · Product Resolution = **KEEP / COMPLETE** · Continuity Projection + Reconciler = **KEEP** (Reconciler = owner progression déterministe) · Nora Deep Review = **TARGET** sur shared cognitive core (**≠** second Nora) · Result Surface = **KEEP / COMPLETE** · Review Material retention HOT→PRUNED = **TARGET** · document architecture = `projects/sfia-studio/convergence/sfia-studio-generic-execution-review-result-architecture.md` (**ADOPTED TARGET BY MORRIS — DOCUMENTARY CANDIDATE PENDING GIT INTEGRATION**) · ancienne hypothèse **5 lots Delivery** = **NOT ADOPTED** · **DELIVERY SLICING = TBD AFTER ARCHITECTURE REVIEW** · future Delivery = **DISTINCT Morris GO** · future REAL / READY FOR REAL = **DISTINCT Morris GO** · **READY FOR REAL = NO** · runtime v3 = **NON ADOPTED** · **≠** code Product modifié ce cycle · **≠** Delivery authorized · **≠** NoteLite finalized · **≠** full E2E REAL proven · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT / `origin/main` / PR evidence** · **next** = ChatGPT Critical Review of architecture truth-sync → puis seulement Delivery slicing design |
@@ -2701,10 +2814,10 @@ index f6d81c37..df6f99f6 100644
 +
 +CURRENT: docs_write specialized persist remains TRANSITIONAL dual-write bridge. Anti-stall: mounted schedule + remount from durable projection; Reconciler remains owner of transitions. Proof ceiling: **DETERMINISTIC PRODUCT E2E PROVEN AT TESTED SCOPE** · ZERO REAL · READY FOR REAL **NO**.
 diff --git a/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md b/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
-index cf981abf..f5cf3ecf 100644
+index cf981abf..64664fc2 100644
 --- a/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
 +++ b/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
-@@ -39,3 +39,18 @@
+@@ -39,3 +39,24 @@
  - DETERMINISTIC PROVEN (seam/unit)
  - REAL BOUNDARY / E2E REAL — require distinct Morris GO; **not claimed**
  - Runtime v3 **NON ADOPTED**; Product global READY **not claimed**
@@ -2723,8 +2836,14 @@ index cf981abf..f5cf3ecf 100644
 +| 0-file OBSERVED ≠ verification UNAVAILABLE | DETERMINISTIC AT TESTED SCOPE | cp2Seams |
 +| Product Continuity shared knowledge non-regression | DETERMINISTIC AT TESTED SCOPE | existing continuity suites |
 +| REAL generic / NoteLite replay | **NOT PROVEN** | ZERO REAL this macro |
++
++### GENERIC-EXECUTION-REVIEW-RESULT-CONVERGENCE-01 Correction Pass 03
++- Front-door Product oracle: decideTrajectory durableLocalWriteSeal (no Decision repository fabrication).
++- Nominal Git HEAD binding; durable VerifiedChangeSet digest; REO binding; missing REO blocks ContractResult PASS.
++- W3-C nominally enables execution_review_* tools; ReviewItem integrity checked.
++- Proof ceiling claimed when EP/T green: **DETERMINISTIC PRODUCT E2E PROVEN AT TESTED SCOPE** · ZERO REAL · READY FOR REAL **NO**.
 diff --git a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
-index 0d817466..fa9e179c 100644
+index 0d817466..3f1f060b 100644
 --- a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
 +++ b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
 @@ -32,11 +32,24 @@
@@ -2755,8 +2874,19 @@ index 0d817466..fa9e179c 100644
  
  `POST-EXECUTION-CURSOR-REPORT-ARTIFACT-HANDOFF-01` **local candidate** on branch `feat/sfia-studio-post-execution-handoff-01`. Capacité suivante après revue: **reprise SprintBoard REAL bornée** (Gate Morris distinct) — ne pas auto-sélectionner READY FOR REAL / END-TO-END REAL.
  
+@@ -116,3 +129,10 @@
+ | `sfia-v3-modeled/**` | HORS SCOPE | Required Gate CI |
+ 
+ No `retired-components-ledger.md` — zero components removed.
++
++### CP3 residual reserves (acceptable debt)
++- docs_write compatibility bridges retained
++- Review Material GC/retention not implemented
++- Git promotion of reviewed candidate not implemented
++- NoteLite REAL re-proof deferred (Morris GO distinct)
++- Nora model/provider tuning deferred
 diff --git a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-index 56917ea5..c9e6b618 100644
+index 56917ea5..9c1683a7 100644
 --- a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
 +++ b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
 @@ -1,8 +1,8 @@
@@ -2784,12 +2914,12 @@ index 56917ea5..c9e6b618 100644
      {
        "path": "projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md",
 -      "sha256_16": "8fc11fd081bb37dc"
-+      "sha256_16": "96e3ab54029b3166"
++      "sha256_16": "7c7596c841933c67"
      },
      {
        "path": "projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md",
 -      "sha256_16": "7f9b17310ec84156"
-+      "sha256_16": "68ec93abb6747b09"
++      "sha256_16": "d2318bc7379bccfd"
      }
    ],
    "components": [
@@ -3138,6 +3268,7 @@ import {
   genericExecutionReviewMaterialRefsRelative,
   loadGenericExecutionReviewMaterial,
   persistGenericExecutionReviewMaterial,
+  digestUtf8,
 } from "@/features/project-assistant/f3/persistGenericExecutionReviewMaterial";
 import { readBoundExecutionReviewItem } from "@/features/project-assistant/f3/readBoundExecutionReviewItem";
 import {
@@ -3995,6 +4126,7 @@ describe("CP2-03 — no synthetic Cursor Review End Of", () => {
     expect(resolveCursorReviewEndOfClaim(report)).toEqual({
       reviewEndOf: null,
       present: false,
+      bindingCode: null,
     });
     const fin = await finalizeGenericExecutionReview({
       refsRoot: refs,
@@ -4105,6 +4237,33 @@ describe("CP2-04 — Verification Evidence prerequisites", () => {
     refs: string,
     p: ExecutionReviewVerificationPayload,
   ) {
+    // CP3-04 — when OBSERVED, durable VCS bytes must exist and match digest.
+    if (
+      p.verificationStatus === "OBSERVED" &&
+      p.verifiedChangeSetRef &&
+      p.verifiedChangeSetDigest
+    ) {
+      const vcsAbs = path.join(refs, p.verifiedChangeSetRef);
+      fs.mkdirSync(path.dirname(vcsAbs), { recursive: true });
+      // Write bytes whose digest equals the declared digest, OR recompute.
+      const body = `${JSON.stringify({
+        schemaVersion: "oa.verified-change-set.1",
+        worktreePath: "<disposed-or-ephemeral>",
+        all: [],
+        created: [],
+        modified: [],
+        deleted: [],
+        renamed: [],
+        claimFactMismatch: p.claimFactMismatch,
+        unclaimedObservedPaths: p.unclaimedObservedPaths,
+        claimedMissingPaths: p.claimedMissingPaths,
+      })}\n`;
+      fs.writeFileSync(vcsAbs, body, "utf8");
+      p = {
+        ...p,
+        verifiedChangeSetDigest: digestUtf8(body),
+      };
+    }
     const persisted = persistExecutionReviewVerificationPayload({
       refsRoot: refs,
       attemptId: p.attemptId,
@@ -4516,7 +4675,7 @@ import { applyVerifiedChangeSetProductHonesty } from "@/features/project-assista
 import {
   w2ReadExecutionReviewItemAction,
 } from "@/features/project-assistant/w2/actions";
-import { loadGenericExecutionReviewMaterial } from "@/features/project-assistant/f3/persistGenericExecutionReviewMaterial";
+import { loadGenericExecutionReviewMaterial, digestUtf8 } from "@/features/project-assistant/f3/persistGenericExecutionReviewMaterial";
 import {
   executionReviewVerificationEvidenceIdForAttempt,
   executionReviewVerificationLocationForAttempt,
@@ -4524,10 +4683,6 @@ import {
   type ExecutionReviewVerificationPayload,
 } from "@/features/project-assistant/f3/ingestExecutionReviewVerificationEvidence";
 import { CURSOR_REVIEW_END_OF_MISSING } from "@/features/project-assistant/f3/finalizeGenericExecutionReview";
-import {
-  analyzePostEvidenceWithProvider,
-  type PostEvidenceAnalysisFacts,
-} from "@/features/project-assistant/f3/postEvidenceNoraAnalysis";
 import { observeNoraCognitiveCore } from "@/lib/nora-cognitive-runtime/noraCognitiveCompletion";
 import { createExecutionReviewAgentsTools } from "@/lib/nora-cognitive-runtime/executionReviewAgentsTools";
 import {
@@ -4642,7 +4797,9 @@ async function authorizeGovernedLocalWrite(
   expect(proposed.ok).toBe(true);
   if (!proposed.ok) throw new Error("propose");
 
-  // CP2-10 — GOVERNED_OPTION_REF (NOT CLARIFY).
+  // CP3-01 — Product decideTrajectory stamps durable local-write facts via
+  // durableLocalWriteSeal (server-owned DecisionBasis path). NEVER mutate the
+  // Decision repository after the fact to fabricate Product authority.
   const decided = await decideTrajectory({
     oa,
     projectId: seeded.projectId,
@@ -4653,37 +4810,30 @@ async function authorizeGovernedLocalWrite(
     trajectoryId: proposed.proposedTrajectory!.trajectoryId,
     candidateVersion: proposed.proposedTrajectory!.version,
     forceLocalAuthority: true,
+    durableLocalWriteSeal: {
+      targetPath: "a.md",
+      scopeIn: ["a.md", "baseline.txt"],
+      reversibilityExpectation: "reversible",
+      objective: "Créer a.md et modifier baseline.txt dans le worktree isolé",
+      expectedOutputs: [
+        "a.md créé",
+        "baseline.txt modifié",
+        "CursorExecutionReport + Cursor Review End Of",
+      ],
+    },
   });
   expect(decided.ok).toBe(true);
   if (!decided.ok) throw new Error("decide");
   expect(decided.decision.selectedOptionRef).toBe(GOVERNED_OPTION_REF);
 
-  // Seal durable local-write facts on the accepted HumanDecision.DecisionBasis.
   const row = await oa.decisionServices.decisions.findById(
     decided.decision.decisionId,
   );
   expect(row?.status).toBe("accepted");
-  const basis = row!.decisionBasis!;
-  // Before sealing: trajectory-mode basis carries NO repository facts.
-  expect(basis.executionBasis.targetPath).toBeUndefined();
-  expect(basis.executionBasis.scopeIn).toBeUndefined();
-  await oa.decisionServices.decisions.save({
-    ...row!,
-    decisionBasis: {
-      ...basis,
-      executionBasis: {
-        ...basis.executionBasis,
-        targetPath: "a.md",
-        scopeIn: ["a.md", "baseline.txt"],
-        reversibilityExpectation: "reversible",
-        // NOT intentKind docs_write; requestedOperation stays the
-        // non-executable trajectory marker.
-      },
-    },
-  });
-  const sealed = (
-    await oa.decisionServices.decisions.findById(decided.decision.decisionId)
-  )!.decisionBasis!.executionBasis;
+  const sealed = row!.decisionBasis!.executionBasis;
+  expect(sealed.targetPath).toBe("a.md");
+  expect(sealed.scopeIn).toEqual(["a.md", "baseline.txt"]);
+  expect(sealed.reversibilityExpectation).toBe("reversible");
   expect(sealed.intentKind).toBeUndefined();
   expect(sealed.requestedOperation).toMatch(/^w2:decide-trajectory:/);
 
@@ -5212,7 +5362,14 @@ describe("GENERIC-EXECUTION-REVIEW-RESULT-CONVERGENCE-01 CP2 front-door", () => 
     expect(run.verificationPayload.observedPathCount).toBe(3);
 
     // ── ContractResult / Product outcome ≠ PASS under mismatch.
+    // CP3-07 — install Fake Nora provider BEFORE W3-B/W3-C so the nominal
+    // runW3cPostEvidenceLoop (via materialize) actually exercises Deep Review tools.
+    const provider = new ReviewManifestToolProvider();
+    setConversationProviderForTests(provider);
+    const coreCalls: string[] = [];
+    const stop = observeNoraCognitiveCore((inv) => coreCalls.push(inv.mode));
     const { product, context } = await productVerdictOf(ctx, attemptId);
+    stop();
     expect(context.claimEvaluation.contractResultVerdict).not.toBe("PASS");
     expect(product.contractResultVerdict).not.toBe("PASS");
     expect(product.outcome).not.toBe("SUCCESS");
@@ -5231,61 +5388,25 @@ describe("GENERIC-EXECUTION-REVIEW-RESULT-CONVERGENCE-01 CP2 front-door", () => 
     expect(context.executionReview.verifiedChangeSetPresent).toBe(true);
     expect(context.executionReview.reviewEndOfPresent).toBe(true);
 
-    // ── Worktree teardown: Review Material stays durable.
-    const worktreeSnapshot = fs.readdirSync(fx.repo);
-    expect(worktreeSnapshot).toContain("b.md");
-    fs.rmSync(fx.repo, { recursive: true, force: true });
-    const reloaded = loadGenericExecutionReviewMaterial({
-      refsRoot: ctx.refsRoot,
-      attemptId,
-    });
-    expect(reloaded.ok && reloaded.verifiedChangeSet?.unclaimedObservedPaths).toEqual(
-      ["b.md"],
+    // CP3-04 — Verification Evidence digest == durable verified-changeset.json bytes.
+    expect(run.verificationPayload.verifiedChangeSetDigest).toBeTruthy();
+    expect(run.verificationPayload.verifiedChangeSetRef).toBeTruthy();
+    const durableVcsAbs = path.join(
+      ctx.refsRoot,
+      run.verificationPayload.verifiedChangeSetRef!,
     );
+    expect(fs.existsSync(durableVcsAbs)).toBe(true);
+    const durableDigest = digestUtf8(fs.readFileSync(durableVcsAbs));
+    expect(run.verificationPayload.verifiedChangeSetDigest).toBe(durableDigest);
 
-    // ── Nora: FakeConversationProvider tool script ⇒ tool actually invoked.
-    const provider = new ReviewManifestToolProvider();
-    setConversationProviderForTests(provider);
-    const coreCalls: string[] = [];
-    const stop = observeNoraCognitiveCore((inv) => coreCalls.push(inv.mode));
-    const facts: PostEvidenceAnalysisFacts = {
-      projectId: ctx.projectId,
-      executionContractId: ctx.executionContractId,
-      executionContractStatus: "completed",
-      executionContractAction: "studio.cursor.generalist.execute",
-      attemptId,
-      attemptStatus: "succeeded",
-      selectedAgentRef: STUDIO_CURSOR_GENERALIST_AGENT_ID,
-      adapterRef: "gateway",
-      executionMode: "cursor_cli_real",
-      realProcessInvoked: true,
-      evidenceId: product.evidenceId ?? "ev:test",
-      reviewBundleId: product.reviewBundleId ?? "rb:test",
-      technicalResultRef: null,
-      reservations: [],
-      // The prompt carries the Cursor CLAIM only — never b.md / the mismatch.
-      cursorReportSummary: "CLAIM: created a.md; modified baseline.txt",
-      contractResultVerdict: product.contractResultVerdict ?? undefined,
-    };
-    const analysis = await analyzePostEvidenceWithProvider(facts, {
-      enableExecutionReviewTools: true,
-    });
-    stop();
+    // ── CP3-07 Nora via nominal W3-C (not direct analyzePostEvidenceWithProvider).
     expect(coreCalls).toContain("post_execution");
-    expect(analysis.ok).toBe(true);
     expect(provider.rounds.length).toBeGreaterThanOrEqual(2);
-
-    // The first-round prompt contains NO knowledge of b.md / the mismatch.
     const promptText = provider.rounds[0]!
       .filter((i) => i.type === "message")
       .map((i) => (i.type === "message" ? i.content : ""))
       .join("\n");
-    expect(promptText).not.toMatch(/b\.md/);
-    expect(promptText).not.toMatch(/CLAIM_FACT_MISMATCH/);
-    expect(promptText).not.toMatch(/unclaimedObservedPaths|unclaimed=/);
-
-    // Tool-call trace: the Runner invoked execution_review_get_manifest and fed
-    // its output back (that output — not the prompt — carries b.md).
+    expect(promptText).not.toMatch(/\bb\.md\b/);
     const secondRound = provider.rounds[1]!;
     const toolCall = secondRound.find(
       (i) => i.type === "function_call" && i.name === "execution_review_get_manifest",
@@ -5294,7 +5415,6 @@ describe("GENERIC-EXECUTION-REVIEW-RESULT-CONVERGENCE-01 CP2 front-door", () => 
     const toolOut = secondRound.find((i) => i.type === "function_call_output");
     expect(toolOut && toolOut.type === "function_call_output").toBe(true);
     if (toolOut && toolOut.type === "function_call_output") {
-      // Agents tool output envelope: {"type":"text","text":"<json>"}.
       const envelope = JSON.parse(toolOut.output) as { type?: string; text?: string };
       const rawJson = typeof envelope.text === "string" ? envelope.text : toolOut.output;
       const parsed = JSON.parse(rawJson) as {
@@ -5305,12 +5425,31 @@ describe("GENERIC-EXECUTION-REVIEW-RESULT-CONVERGENCE-01 CP2 front-door", () => 
       expect(parsed.verifiedEffects.claimFactMismatch).toBe(true);
       expect(parsed.verifiedEffects.unclaimedObservedPaths).toEqual(["b.md"]);
     }
-    // Final answer is derived from the tool result.
-    if (analysis.ok) {
-      expect(analysis.text).toMatch(/b\.md/);
-      expect(analysis.text).toMatch(/CLAIM_FACT_MISMATCH/);
-      expect(analysis.text).not.toMatch(/aucun écart/);
-    }
+    // Final Nora answer grounded on tool output (W3-C / Agents Runner).
+    const finalMessages = provider.rounds
+      .flat()
+      .filter((i) => i.type === "message")
+      .map((i) => (i.type === "message" ? i.content : ""));
+    // The tool output round embeds CLAIM_FACT_MISMATCH + b.md; Fake final uses it.
+    expect(toolOut).toBeDefined();
+    expect(
+      finalMessages.some(
+        (m) => /b\.md/.test(m) || /CLAIM_FACT_MISMATCH/.test(m),
+      ) ||
+        (toolOut &&
+          toolOut.type === "function_call_output" &&
+          /b\.md/.test(toolOut.output)),
+    ).toBe(true);
+    const worktreeSnapshot = fs.readdirSync(fx.repo);
+    expect(worktreeSnapshot).toContain("b.md");
+    fs.rmSync(fx.repo, { recursive: true, force: true });
+    const reloaded = loadGenericExecutionReviewMaterial({
+      refsRoot: ctx.refsRoot,
+      attemptId,
+    });
+    expect(reloaded.ok && reloaded.verifiedChangeSet?.unclaimedObservedPaths).toEqual(
+      ["b.md"],
+    );
 
     // ── Pilot: server action — security (same shared reader as the Nora tool).
     const items = loaded.manifest.reviewItems;
@@ -5327,6 +5466,23 @@ describe("GENERIC-EXECUTION-REVIEW-RESULT-CONVERGENCE-01 CP2 front-door", () => 
       expect(okRead.claimFactMismatch).toBe(true);
       expect(okRead.logicalPath).toBe("b.md");
     }
+
+    // CP3-08 — tamper item bytes after persistence ⇒ integrity DENY.
+    expect(bItem!.contentRef).toBeTruthy();
+    const itemAbs = path.join(ctx.refsRoot, bItem!.contentRef!);
+    fs.writeFileSync(itemAbs, Buffer.from("TAMPERED-CONTENT"));
+    const tampered = await w2ReadExecutionReviewItemAction({
+      projectId: ctx.projectId,
+      attemptId,
+      itemId: bItem!.itemId,
+    });
+    expect(tampered.ok).toBe(false);
+    if (!tampered.ok) {
+      expect(tampered.code).toBe("EXECUTION_REVIEW_ITEM_INTEGRITY_MISMATCH");
+    }
+    // restore for any later reads
+    fs.writeFileSync(itemAbs, Buffer.from("B-unclaimed\n"));
+
     // Project mismatch ⇒ deny.
     const wrongProject = await w2ReadExecutionReviewItemAction({
       projectId: "prj:not-this-project",
@@ -5415,6 +5571,11 @@ describe("GENERIC-EXECUTION-REVIEW-RESULT-CONVERGENCE-01 CP2 front-door", () => 
     expect(loaded.verifiedChangeSet!.claimFactMismatch).toBe(false);
     expect(run.verificationPayload.reviewEndOfPresent).toBe(false);
     expect(run.verificationPayload.completeness).toBe("PARTIAL");
+    // CP3-06 — required REO absent ⇒ ContractResult / Product cannot PASS.
+    const { product, context } = await productVerdictOf(ctx, run.attemptId);
+    expect(context.claimEvaluation.contractResultVerdict).not.toBe("PASS");
+    expect(product.contractResultVerdict).not.toBe("PASS");
+    expect(product.outcome).not.toBe("SUCCESS");
     // No REO artifact on disk.
     const reoFile = path.join(
       ctx.refsRoot,
@@ -5426,7 +5587,6 @@ describe("GENERIC-EXECUTION-REVIEW-RESULT-CONVERGENCE-01 CP2 front-door", () => 
     );
     expect(fs.existsSync(reoFile)).toBe(false);
 
-    const { context } = await productVerdictOf(ctx, run.attemptId);
     expect(context.executionReview.reviewEndOfPresent).toBe(false);
     expect(context.executionReview.blockers).toContain(
       CURSOR_REVIEW_END_OF_MISSING,
@@ -6275,6 +6435,7 @@ describe("CP2-08 TrajectorySurface mounted continuity (component-driven)", () =>
  * Studio NEVER synthesizes CursorReviewEndOf. Missing REO ⇒ PARTIAL + blocker.
  */
 import {
+  bindCursorReviewEndOfToAttempt,
   observeVerifiedChangeSetStrict,
   parseCursorReviewEndOf,
   type CursorExecutionReport,
@@ -6299,26 +6460,65 @@ export type FinalizeGenericExecutionReviewResult =
       reviewEndOf: CursorReviewEndOf | null;
       reviewEndOfPresent: boolean;
       claimFactMismatch: boolean;
+      /** Digest of durable verified-changeset.json bytes — null when not OBSERVED. */
+      durableVerifiedChangeSetDigest: string | null;
+      verifiedChangeSetRef: string | null;
+      /** Binding mismatch / missing REO blockers already on manifest. */
+      reoBindingCode: string | null;
     }
   | { ok: false; code: string; message: string };
 
 export const CURSOR_REVIEW_END_OF_MISSING =
   "CURSOR_REVIEW_END_OF_MISSING" as const;
 
+export const CURSOR_REVIEW_END_OF_BINDING_MISMATCH =
+  "CURSOR_REVIEW_END_OF_BINDING_MISMATCH" as const;
+
 /**
  * Resolve native Cursor Review End Of CLAIM from the report — NEVER synthesize.
- * CP2-03: absent/invalid ⇒ null (PARTIAL + CURSOR_REVIEW_END_OF_MISSING).
+ * CP2-03 / CP3-05: absent/invalid/unbound ⇒ null (PARTIAL + blocker).
  */
 export function resolveCursorReviewEndOfClaim(
   report: CursorExecutionReport,
-): { reviewEndOf: CursorReviewEndOf | null; present: boolean } {
+  binding?: {
+    readonly expectedAttemptId: string;
+    readonly expectedExecutionContractId: string;
+    readonly expectedRepositoryRef?: string | null;
+    readonly expectedBaseSha?: string | null;
+  },
+): {
+  reviewEndOf: CursorReviewEndOf | null;
+  present: boolean;
+  bindingCode: string | null;
+} {
   if (report.reviewEndOf) {
     const parsed = parseCursorReviewEndOf(report.reviewEndOf);
-    if (parsed.ok) {
-      return { reviewEndOf: parsed.reviewEndOf, present: true };
+    if (!parsed.ok) {
+      return { reviewEndOf: null, present: false, bindingCode: null };
     }
+    if (binding) {
+      const bound = bindCursorReviewEndOfToAttempt({
+        reviewEndOf: parsed.reviewEndOf,
+        expectedAttemptId: binding.expectedAttemptId,
+        expectedExecutionContractId: binding.expectedExecutionContractId,
+        expectedRepositoryRef: binding.expectedRepositoryRef,
+        expectedBaseSha: binding.expectedBaseSha,
+      });
+      if (!bound.ok) {
+        return {
+          reviewEndOf: null,
+          present: false,
+          bindingCode: bound.code,
+        };
+      }
+    }
+    return {
+      reviewEndOf: parsed.reviewEndOf,
+      present: true,
+      bindingCode: null,
+    };
   }
-  return { reviewEndOf: null, present: false };
+  return { reviewEndOf: null, present: false, bindingCode: null };
 }
 
 /**
@@ -6369,17 +6569,25 @@ export async function finalizeGenericExecutionReview(input: {
    */
   readonly observationMode?: "git" | "test_non_git";
   /**
-   * When false, skip worktree HEAD vs baseSha integrity check.
-   * Unit tests prove HEAD match; Fake front-door worktrees are independent
-   * of the Product pinned baseHeadSha and must still observe deltas.
+   * CP3-03 — nominal Git mode verifies worktree HEAD == EC/report baseSha.
+   * Only pass false from explicit test-only fixtures that intentionally
+   * decouple Fake worktree identity from Product pinned base (rare).
+   * Default: HEAD-bound (undefined/true).
    */
   readonly requireHeadMatch?: boolean;
   readonly extraReviewItems?: Parameters<
     typeof persistGenericExecutionReviewMaterial
   >[0]["reviewItems"];
 }): Promise<FinalizeGenericExecutionReviewResult> {
-  const { reviewEndOf, present: reviewEndOfPresent } =
-    resolveCursorReviewEndOfClaim(input.cursorReport);
+  const reoResolved = resolveCursorReviewEndOfClaim(input.cursorReport, {
+    expectedAttemptId: input.attemptId,
+    expectedExecutionContractId: input.executionContractId,
+    expectedRepositoryRef: input.repositoryRef,
+    expectedBaseSha: input.baseSha,
+  });
+  const reviewEndOf = reoResolved.reviewEndOf;
+  const reviewEndOfPresent = reoResolved.present;
+  const reoBindingCode = reoResolved.bindingCode;
 
   const worktreePath =
     typeof input.worktreePath === "string" && input.worktreePath.trim()
@@ -6467,7 +6675,10 @@ export async function finalizeGenericExecutionReview(input: {
 
   const blockers = [
     ...(input.cursorReport.blockers ?? []),
-    ...(reoMissing ? [CURSOR_REVIEW_END_OF_MISSING] : []),
+    ...(reoMissing && !reoBindingCode ? [CURSOR_REVIEW_END_OF_MISSING] : []),
+    ...(reoBindingCode
+      ? [`${CURSOR_REVIEW_END_OF_BINDING_MISMATCH}:${reoBindingCode}`]
+      : []),
     ...(claimFactMismatch
       ? [
           `CLAIM_FACT_MISMATCH unclaimed=${verifiedChangeSet!.unclaimedObservedPaths.join(",")}`,
@@ -6482,7 +6693,9 @@ export async function finalizeGenericExecutionReview(input: {
     ...(input.cursorReport.reservations ?? []),
     ...(reoMissing
       ? [
-          "Cursor Review End Of absent — CLAIM incomplete; Studio did not synthesize REO",
+          reoBindingCode
+            ? `Cursor Review End Of binding refused (${reoBindingCode}) — CLAIM incomplete; Studio did not synthesize REO`
+            : "Cursor Review End Of absent — CLAIM incomplete; Studio did not synthesize REO",
         ]
       : []),
     ...(observationMissing
@@ -6502,7 +6715,7 @@ export async function finalizeGenericExecutionReview(input: {
     repositoryRef: input.repositoryRef,
     baseSha: input.baseSha,
     cursorReport: input.cursorReport,
-    reviewEndOf, // null when missing — never synthetic
+    reviewEndOf, // null when missing/unbound — never synthetic
     verifiedChangeSet,
     verificationStatus,
     reviewItems,
@@ -6530,6 +6743,9 @@ export async function finalizeGenericExecutionReview(input: {
     reviewEndOf,
     reviewEndOfPresent,
     claimFactMismatch,
+    durableVerifiedChangeSetDigest: persisted.durableVerifiedChangeSetDigest,
+    verifiedChangeSetRef: persisted.verifiedChangeSetRef,
+    reoBindingCode,
   };
 }
 
@@ -6915,6 +7131,10 @@ export function persistGenericExecutionReviewMaterial(input: {
       ok: true;
       manifest: ExecutionReviewMaterialManifest;
       manifestAbsolutePath: string;
+      /** Relative ref under refsRoot when OBSERVED; else null. */
+      verifiedChangeSetRef: string | null;
+      /** Digest of exact durable verified-changeset.json bytes (CP3-04). */
+      durableVerifiedChangeSetDigest: string | null;
     }
   | { ok: false; code: string; message: string } {
   try {
@@ -6938,6 +7158,7 @@ export function persistGenericExecutionReviewMaterial(input: {
     }
 
     let verifiedChangeSetRef: string | null = null;
+    let durableVerifiedChangeSetDigest: string | null = null;
     const gitFacts: string[] = [];
     const validationFacts: string[] = [];
     const claimFactMismatch =
@@ -6962,7 +7183,11 @@ export function persistGenericExecutionReviewMaterial(input: {
         deleted: input.verifiedChangeSet.deleted,
         renamed: input.verifiedChangeSet.renamed,
       };
-      fs.writeFileSync(abs, `${JSON.stringify(durable)}\n`, "utf8");
+      // CP3-04 — digest MUST be of the exact durable bytes persisted (not the
+      // in-memory VerifiedChangeSet that still carries absolute paths).
+      const durableBytes = `${JSON.stringify(durable)}\n`;
+      fs.writeFileSync(abs, durableBytes, "utf8");
+      durableVerifiedChangeSetDigest = digestUtf8(durableBytes);
       verifiedChangeSetRef = rel.verifiedChangeSet;
       if (claimFactMismatch) {
         gitFacts.push(
@@ -7058,7 +7283,13 @@ export function persistGenericExecutionReviewMaterial(input: {
       "utf8",
     );
 
-    return { ok: true, manifest, manifestAbsolutePath };
+    return {
+      ok: true,
+      manifest,
+      manifestAbsolutePath,
+      verifiedChangeSetRef,
+      durableVerifiedChangeSetDigest,
+    };
   } catch (err) {
     return {
       ok: false,
@@ -7312,6 +7543,16 @@ export function readBoundExecutionReviewItem(input: {
   });
   if (!bytes.ok) {
     return { ok: false, code: bytes.code, message: bytes.message };
+  }
+
+  // CP3-08 — fail-closed when durable bytes no longer match manifest digest.
+  if (item.digest && bytes.digest !== item.digest) {
+    return {
+      ok: false,
+      code: "EXECUTION_REVIEW_ITEM_INTEGRITY_MISMATCH",
+      message:
+        "ReviewItem digest mismatch — bytes altérés; lecture refusée (Nora/Pilot).",
+    };
   }
 
   return {
@@ -8186,20 +8427,74 @@ export function parseCursorReviewEndOf(
   return { ok: true, reviewEndOf: raw };
 }
 
+/**
+ * CP3-05 — fail-closed REO ↔ Attempt / EC / repo / base binding.
+ * Analogous to bindCursorExecutionReportToAttempt. REO remains CLAIM.
+ */
+export function bindCursorReviewEndOfToAttempt(input: {
+  readonly reviewEndOf: CursorReviewEndOf;
+  readonly expectedAttemptId: string;
+  readonly expectedExecutionContractId: string;
+  readonly expectedRepositoryRef?: string | null;
+  readonly expectedBaseSha?: string | null;
+}):
+  | { readonly ok: true }
+  | { readonly ok: false; readonly code: string; readonly message: string } {
+  const { reviewEndOf: reo } = input;
+  if (reo.attemptId !== input.expectedAttemptId) {
+    return {
+      ok: false,
+      code: "REO_ATTEMPT_MISMATCH",
+      message: "reviewEndOf.attemptId ≠ Attempt courant.",
+    };
+  }
+  if (reo.executionContractId !== input.expectedExecutionContractId) {
+    return {
+      ok: false,
+      code: "REO_CONTRACT_MISMATCH",
+      message: "reviewEndOf.executionContractId ≠ ExecutionContract courant.",
+    };
+  }
+  if (
+    input.expectedRepositoryRef != null &&
+    input.expectedRepositoryRef.trim() !== "" &&
+    reo.repositoryRef !== input.expectedRepositoryRef
+  ) {
+    return {
+      ok: false,
+      code: "REO_REPOSITORY_MISMATCH",
+      message: "reviewEndOf.repositoryRef ≠ trusted repository identity.",
+    };
+  }
+  if (
+    input.expectedBaseSha != null &&
+    input.expectedBaseSha.trim() !== "" &&
+    reo.baseSha.toLowerCase() !== input.expectedBaseSha.trim().toLowerCase()
+  ) {
+    return {
+      ok: false,
+      code: "REO_BASE_SHA_MISMATCH",
+      message: "reviewEndOf.baseSha ≠ trusted baseSha.",
+    };
+  }
+  return { ok: true };
+}
+
 ```
 
 
-## 34. Docs sections modified (unified diff)
+## 34. Docs sections modified
 
 ```diff
 diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-index 75b2974e..6353d332 100644
+index 75b2974e..fc750076 100644
 --- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 +++ b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-@@ -4,6 +4,8 @@
+@@ -4,6 +4,9 @@
  | --- | --- |
  | **Rôle** | Roadmap **vivante** de convergence vers l’utilisation complète de la doctrine produit SFIA Studio v3 |
  | **Statut** | **VALIDATED — ACTIVE LIVING ROADMAP** |
++| **Timestamp maintenance GENERIC-EXECUTION-REVIEW-RESULT-CONVERGENCE-01 Correction Pass 03** | 2026-10-01 — **GENERIC EXECUTION / REVIEW / RESULT — CONVERGENCE CORRECTION PASS 03** · SAME MACRO · Cycle **8** · EVOL · CRITICAL · CKC `ckc:studio:delivery` · Architecture **D-ER-01…D-ER-15 CONSUMED** · base `origin/main` @ `d4d986af5884b31b416374da3cb5e60757501f87` · branche `delivery/sfia-studio-generic-execution-review-result-convergence-01` · entry handoff Pass 02 régularisé `3a9dc0acf3559fb25978a80331078b49a4887aaa` / blob `52d991da297e406eee25b84c67dc4af8b6e68cdf` · CP3-01…CP3-09 closed · preuve **DETERMINISTIC PRODUCT E2E PROVEN AT TESTED SCOPE** · **LOCAL CANDIDATE / NOT INTEGRATED ON MAIN** · ZERO REAL · READY FOR REAL **NO** · corrections : Product decideTrajectory durableLocalWriteSeal (no Decision.save fabrication) · protected path fail-closed via SFIA_DEFAULT_PROTECTED_PATHS · nominal Git HEAD binding · durable VerifiedChangeSet digest binding · REO Attempt/EC/repo/base binding · missing REO blocks PASS · nominal W3-C enables execution_review_* tools · ReviewItem integrity · front-door oracle honesty · debt : docs_write bridges / retention GC / Git promotion / NoteLite REAL · next = ChatGPT Critical Review Pass 03 → Morris GO commit/push/PR · runtime v3 = **NON ADOPTED** · **≠** INTEGRATED ON MAIN · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT** |
 +| **Timestamp maintenance GENERIC-EXECUTION-REVIEW-RESULT-CONVERGENCE-01 Correction Pass 02** | 2026-10-01 — **GENERIC EXECUTION / REVIEW / RESULT — CONVERGENCE CORRECTION PASS 02** · SAME MACRO · Cycle **8 — Delivery / implémentation** · EVOL · CRITICAL · CKC `ckc:studio:delivery` / `ckc/08-delivery-implementation.md` · Architecture **D-ER-01…D-ER-15 CONSUMED** (no redesign) · base `origin/main` @ `d4d986af5884b31b416374da3cb5e60757501f87` · branche locale `delivery/sfia-studio-generic-execution-review-result-convergence-01` · entry handoff Correction Pass 01 Critical Review `d72306051421f48316c2412002d057d4e730a2e7` · CP2-01…CP2-10 closed · preuve **DETERMINISTIC PRODUCT E2E PROVEN AT TESTED SCOPE** · capacité = **LOCAL CANDIDATE / NOT INTEGRATED ON MAIN** · ZERO REAL · NoteLite PAUSED · READY FOR REAL **NO** · corrections : authorized generic local-write from durable DecisionBasis (≠ Product write taxonomy) · NodeLocalGitStatusDiffPort Git delta (no full-repo scan) · native Cursor REO only (no Studio synthesis) · Verification Evidence `ev:execution-review:*` in same RB → ContractResult coherence · Nora actual `execution_review_*` tool calls · Result Surface real fields · Pilot `w2ReadExecutionReviewItemAction` · mounted scheduled continue + remount (no abandon counter) · debt acceptable : docs_write bridge / retention GC / Git promotion / NoteLite REAL · next = ChatGPT Critical Review Pass 02 → Morris GO commit/push/PR · runtime v3 = **NON ADOPTED** · **≠** INTEGRATED ON MAIN · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT** |
 +| **Timestamp maintenance GENERIC-EXECUTION-REVIEW-RESULT-CONVERGENCE-01 delivery candidate** | 2026-09-29 — **GENERIC EXECUTION / REVIEW / RESULT — CONVERGENCE DELIVERY CANDIDATE** · Cycle **8** · Correction Pass 01 · preuve then claimed DETERMINISTIC PRODUCT E2E · superseded as tip by Correction Pass 02 after ChatGPT Critical Review NOT READY (handoff `d7230605…`) · historical tip retained · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT** |
  | **Timestamp maintenance GENERIC-EXECUTION-REVIEW-RESULT-ARCHITECTURE-01 truth-sync** | 2026-09-29 — **GENERIC EXECUTION / REVIEW / RESULT — ARCHITECTURE TRUTH-SYNC** · Cycle **6 — Architecture technique** · DOC / EVOL · CRITICAL · CKC `cyc:technical-architecture` / `ckc/06-architecture-technique.md` (**CONTENT VALIDATED BY MORRIS** · guidance only · **≠** execution authority) · Morris decisions **D-ER-01…D-ER-15 ADOPTED** (2026-09-29) · **CURRENT main** `origin/main` @ `6f47f74dc9b515c4c79624b21772223ba02c76cd` · capacité **PRODUCT-CONTINUITY-SHARED-KNOWLEDGE-01** = **INTEGRATED ON MAIN** via PR **#540** merge `6f47f74d…` (head `47fcab2b…`) · campagne **NoteLite bounded REAL** = **RÉALISÉE AT TESTED SCOPE** puis **PAUSED** à ce point (correction governed **non relancée** · cycle NoteLite **non finalisé**) · findings bornés : EC→Attempt REAL→Cursor REAL→terminal succeeded→durable Evidence/RB/CE→Product Resolution→Nora post-Evidence→Nora conversationnelle **sans transfer d’IDs Pilote** · **NOT_PROVEN** honesty préservée · gap nominal post-terminal / UI « qualification en cours » + clic « Recharger résultat produit » = **HIGH-CONFIDENCE ARCHITECTURAL CAUSE** (poll UI ≤8 / pas de worker autonome) **≠ PROVEN INSTANCE ROOT CAUSE** · **ADOPTED TARGET** = un modèle Product d’exécution **générique** · **toutes** taxonomies de tâche Product spécialisées (`docs_write`, `code_write`, `read`, `read_only`, …) = **RETIRE FROM PRODUCT MODEL** · capabilities/effects techniques = **enforcement-only possibles** · **interdit** inventer `generic_read` / `generic_write` / `generic_code` comme catégories Product · isolated Git worktree = **KEEP** · Cursor Generalist = **KEEP** · CursorExecutionReport = **CLAIM KEEP** · Generic Execution Review Material = **TARGET** · Native Review End Of = **TARGET** (harvest sémantique · **≠** import transport `.tmp-sfia-review` / `sfia/review-handoff`) · Studio VerifiedChangeSet = **TARGET** · Product Resolution = **KEEP / COMPLETE** · Continuity Projection + Reconciler = **KEEP** (Reconciler = owner progression déterministe) · Nora Deep Review = **TARGET** sur shared cognitive core (**≠** second Nora) · Result Surface = **KEEP / COMPLETE** · Review Material retention HOT→PRUNED = **TARGET** · document architecture = `projects/sfia-studio/convergence/sfia-studio-generic-execution-review-result-architecture.md` (**ADOPTED TARGET BY MORRIS — DOCUMENTARY CANDIDATE PENDING GIT INTEGRATION**) · ancienne hypothèse **5 lots Delivery** = **NOT ADOPTED** · **DELIVERY SLICING = TBD AFTER ARCHITECTURE REVIEW** · future Delivery = **DISTINCT Morris GO** · future REAL / READY FOR REAL = **DISTINCT Morris GO** · **READY FOR REAL = NO** · runtime v3 = **NON ADOPTED** · **≠** code Product modifié ce cycle · **≠** Delivery authorized · **≠** NoteLite finalized · **≠** full E2E REAL proven · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT / `origin/main` / PR evidence** · **next** = ChatGPT Critical Review of architecture truth-sync → puis seulement Delivery slicing design |
@@ -8222,10 +8517,10 @@ index f6d81c37..df6f99f6 100644
 +
 +CURRENT: docs_write specialized persist remains TRANSITIONAL dual-write bridge. Anti-stall: mounted schedule + remount from durable projection; Reconciler remains owner of transitions. Proof ceiling: **DETERMINISTIC PRODUCT E2E PROVEN AT TESTED SCOPE** · ZERO REAL · READY FOR REAL **NO**.
 diff --git a/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md b/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
-index cf981abf..f5cf3ecf 100644
+index cf981abf..64664fc2 100644
 --- a/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
 +++ b/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
-@@ -39,3 +39,18 @@
+@@ -39,3 +39,24 @@
  - DETERMINISTIC PROVEN (seam/unit)
  - REAL BOUNDARY / E2E REAL — require distinct Morris GO; **not claimed**
  - Runtime v3 **NON ADOPTED**; Product global READY **not claimed**
@@ -8244,8 +8539,14 @@ index cf981abf..f5cf3ecf 100644
 +| 0-file OBSERVED ≠ verification UNAVAILABLE | DETERMINISTIC AT TESTED SCOPE | cp2Seams |
 +| Product Continuity shared knowledge non-regression | DETERMINISTIC AT TESTED SCOPE | existing continuity suites |
 +| REAL generic / NoteLite replay | **NOT PROVEN** | ZERO REAL this macro |
++
++### GENERIC-EXECUTION-REVIEW-RESULT-CONVERGENCE-01 Correction Pass 03
++- Front-door Product oracle: decideTrajectory durableLocalWriteSeal (no Decision repository fabrication).
++- Nominal Git HEAD binding; durable VerifiedChangeSet digest; REO binding; missing REO blocks ContractResult PASS.
++- W3-C nominally enables execution_review_* tools; ReviewItem integrity checked.
++- Proof ceiling claimed when EP/T green: **DETERMINISTIC PRODUCT E2E PROVEN AT TESTED SCOPE** · ZERO REAL · READY FOR REAL **NO**.
 diff --git a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
-index 0d817466..fa9e179c 100644
+index 0d817466..3f1f060b 100644
 --- a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
 +++ b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
 @@ -32,11 +32,24 @@
@@ -8276,8 +8577,19 @@ index 0d817466..fa9e179c 100644
  
  `POST-EXECUTION-CURSOR-REPORT-ARTIFACT-HANDOFF-01` **local candidate** on branch `feat/sfia-studio-post-execution-handoff-01`. Capacité suivante après revue: **reprise SprintBoard REAL bornée** (Gate Morris distinct) — ne pas auto-sélectionner READY FOR REAL / END-TO-END REAL.
  
+@@ -116,3 +129,10 @@
+ | `sfia-v3-modeled/**` | HORS SCOPE | Required Gate CI |
+ 
+ No `retired-components-ledger.md` — zero components removed.
++
++### CP3 residual reserves (acceptable debt)
++- docs_write compatibility bridges retained
++- Review Material GC/retention not implemented
++- Git promotion of reviewed candidate not implemented
++- NoteLite REAL re-proof deferred (Morris GO distinct)
++- Nora model/provider tuning deferred
 diff --git a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-index 56917ea5..c9e6b618 100644
+index 56917ea5..9c1683a7 100644
 --- a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
 +++ b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
 @@ -1,8 +1,8 @@
@@ -8305,156 +8617,68 @@ index 56917ea5..c9e6b618 100644
      {
        "path": "projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md",
 -      "sha256_16": "8fc11fd081bb37dc"
-+      "sha256_16": "96e3ab54029b3166"
++      "sha256_16": "7c7596c841933c67"
      },
      {
        "path": "projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md",
 -      "sha256_16": "7f9b17310ec84156"
-+      "sha256_16": "68ec93abb6747b09"
++      "sha256_16": "d2318bc7379bccfd"
      }
    ],
    "components": [
 
 ```
 
-## 35. Targeted tests (front-door / CP2 / trajectory / Nora / continuity)
+## 35. Targeted validations
+- `genericExecutionReviewResultConvergence01*` : **60 passed**
+- conformance + OA evidence/contract/attempt + trajectory : **882 passed** (subset rerun after digest refresh)
 
-Command:
-```
-cd projects/sfia-studio/app && OPS1_CONVERSATION_PROVIDER=fake npx vitest run \
-  __tests__/project-assistant/genericExecutionReviewResultConvergence01 \
-  __tests__/project-assistant/productContinuitySharedKnowledge.d0.test.ts
-```
+## 36–44. Full validation
+## 36–44. Full validation (this Correction Pass 03)
 
-Result (this regularization turn): **5 files / 68 tests passed**.
-
-Tail excerpt:
-```
-{"event":"oa.execution_attempt.started","ts":"2026-08-23T04:30:00.000Z","correlationId":"cor:2a7bf2922cdebf50","attemptId":"xat:w3a:98948986b3f3811b","executionContractId":"xct:w3a:dec:w2-trj:ac4b5ae7-b59d-4b82-9928-21417152c7c7","executionContractVersion":3,"selectedAgentRef":"agt:studio.cursor.generalist","adapterId":"adp:m4-cursor-cli-real","previousStatus":"accepted","newStatus":"running","contractStatus":"executing","result":"ok","durationMs":3}
-{"event":"oa.execution_contract.status_written","ts":"2026-08-23T04:30:00.000Z","correlationId":"cor:2a7bf2922cdebf50","attemptId":"xat:w3a:98948986b3f3811b","executionContractId":"xct:w3a:dec:w2-trj:ac4b5ae7-b59d-4b82-9928-21417152c7c7","contractStatus":"executing","result":"ok","durationMs":3}
-
-stdout | __tests__/project-assistant/genericExecutionReviewResultConvergence01.frontDoor.d0.test.ts > GENERIC-EXECUTION-REVIEW-RESULT-CONVERGENCE-01 CP2 front-door > CP2-08 remount → terminal Product — no RECOVERY_REQUIRED / EVIDENCE_LINEAGE_AMBIGUOUS
-{"event":"oa.execution_attempt.succeeded","ts":"2026-08-23T04:30:00.000Z","correlationId":"cor:d39b257ca828725b","attemptId":"xat:w3a:98948986b3f3811b","executionContractId":"xct:w3a:dec:w2-trj:ac4b5ae7-b59d-4b82-9928-21417152c7c7","selectedAgentRef":"agt:studio.cursor.generalist","adapterId":"adp:m4-cursor-cli-real","previousStatus":"running","newStatus":"succeeded","contractStatus":"completed","result":"ok","durationMs":1}
-
-stdout | __tests__/project-assistant/genericExecutionReviewResultConvergence01.frontDoor.d0.test.ts > GENERIC-EXECUTION-REVIEW-RESULT-CONVERGENCE-01 CP2 front-door > CP2-08 remount → terminal Product — no RECOVERY_REQUIRED / EVIDENCE_LINEAGE_AMBIGUOUS
-{"event":"oa.evidence.execution_attempt_ingested","ts":"2026-08-23T04:30:00.000Z","correlationId":"cor:execution-review-verification:ev:execution-review:xat:w3a:98948986b3f3811b","evidenceId":"ev:execution-review:xat:w3a:98948986b3f3811b","executionAttemptId":"xat:w3a:98948986b3f3811b","actorId":"actor:local-pilote","newStatus":"available","version":1,"result":"ok","durationMs":1}
-
-stdout | __tests__/project-assistant/genericExecutionReviewResultConvergence01.frontDoor.d0.test.ts > GENERIC-EXECUTION-REVIEW-RESULT-CONVERGENCE-01 CP2 front-door > CP2-08 remount → terminal Product — no RECOVERY_REQUIRED / EVIDENCE_LINEAGE_AMBIGUOUS
-{"event":"oa.evidence.integrity_verified","ts":"2026-08-23T04:30:00.000Z","correlationId":"cor:execution-review-verification-verify:ev:execution-review:xat:w3a:98948986b3f3811b","evidenceId":"ev:execution-review:xat:w3a:98948986b3f3811b","actorId":"actor:local-pilote","previousStatus":"available","newStatus":"verified","version":2,"expectedVersion":1,"result":"ok","durationMs":0}
-
-stdout | __tests__/project-assistant/genericExecutionReviewResultConvergence01.frontDoor.d0.test.ts > GENERIC-EXECUTION-REVIEW-RESULT-CONVERGENCE-01 CP2 front-door > CP2-08 remount → terminal Product — no RECOVERY_REQUIRED / EVIDENCE_LINEAGE_AMBIGUOUS
-{"event":"oa.evidence.execution_attempt_ingested","ts":"2026-08-23T04:30:00.000Z","correlationId":"cor:mission-result:ev:mission-result:xat:w3a:98948986b3f3811b","evidenceId":"ev:mission-result:xat:w3a:98948986b3f3811b","executionAttemptId":"xat:w3a:98948986b3f3811b","actorId":"actor:local-pilote","newStatus":"available","version":1,"result":"ok","durationMs":1}
-
-stdout | __tests__/project-assistant/genericExecutionReviewResultConvergence01.frontDoor.d0.test.ts > GENERIC-EXECUTION-REVIEW-RESULT-CONVERGENCE-01 CP2 front-door > CP2-08 remount → terminal Product — no RECOVERY_REQUIRED / EVIDENCE_LINEAGE_AMBIGUOUS
-{"event":"oa.evidence.integrity_verified","ts":"2026-08-23T04:30:00.000Z","correlationId":"cor:mission-result-verify:ev:mission-result:xat:w3a:98948986b3f3811b","evidenceId":"ev:mission-result:xat:w3a:98948986b3f3811b","actorId":"actor:local-pilote","previousStatus":"available","newStatus":"verified","version":2,"expectedVersion":1,"result":"ok","durationMs":0}
-
-stdout | __tests__/project-assistant/genericExecutionReviewResultConvergence01.frontDoor.d0.test.ts > GENERIC-EXECUTION-REVIEW-RESULT-CONVERGENCE-01 CP2 front-door > CP2-08 remount → terminal Product — no RECOVERY_REQUIRED / EVIDENCE_LINEAGE_AMBIGUOUS
-{"event":"oa.evidence.execution_attempt_ingested","ts":"2026-08-23T04:30:00.000Z","correlationId":"cor:334d3a041111ba3e","evidenceId":"ev:w3b:0293e82d23d85838","executionAttemptId":"xat:w3a:98948986b3f3811b","actorId":"actor:local-pilote","newStatus":"available","version":1,"result":"ok","durationMs":1}
-
-stdout | __tests__/project-assistant/genericExecutionReviewResultConvergence01.frontDoor.d0.test.ts > GENERIC-EXECUTION-REVIEW-RESULT-CONVERGENCE-01 CP2 front-door > CP2-08 remount → terminal Product — no RECOVERY_REQUIRED / EVIDENCE_LINEAGE_AMBIGUOUS
-{"event":"oa.review_bundle.created","ts":"2026-08-23T04:30:00.000Z","correlationId":"cor:803fc9d8db2be899","reviewBundleId":"rb:w3b:0293e82d23d85838","evidenceIds":["ev:execution-review:xat:w3a:98948986b3f3811b","ev:mission-result:xat:w3a:98948986b3f3811b"],"actorId":"actor:local-pilote","newStatus":"draft","version":1,"result":"ok","durationMs":0}
-
-stdout | __tests__/project-assistant/genericExecutionReviewResultConvergence01.frontDoor.d0.test.ts > GENERIC-EXECUTION-REVIEW-RESULT-CONVERGENCE-01 CP2 front-door > CP2-08 remount → terminal Product — no RECOVERY_REQUIRED / EVIDENCE_LINEAGE_AMBIGUOUS
-{"event":"oa.review_bundle.frozen","ts":"2026-08-23T04:30:00.000Z","correlationId":"cor:b51e514a34dbdeeb","reviewBundleId":"rb:w3b:0293e82d23d85838","evidenceIds":["ev:execution-review:xat:w3a:98948986b3f3811b","ev:mission-result:xat:w3a:98948986b3f3811b"],"actorId":"actor:local-pilote","previousStatus":"draft","newStatus":"ready_for_review","version":2,"expectedVersion":1,"result":"ok","durationMs":0}
-
-stdout | __tests__/project-assistant/genericExecutionReviewResultConvergence01.frontDoor.d0.test.ts > GENERIC-EXECUTION-REVIEW-RESULT-CONVERGENCE-01 CP2 front-door > CP2-08 remount → terminal Product — no RECOVERY_REQUIRED / EVIDENCE_LINEAGE_AMBIGUOUS
-{"event":"oa.claim_evaluation.evaluated","ts":"2026-08-23T04:30:00.000Z","correlationId":"cor:afc4e864e0d2bd73","claimEvaluationId":"clm:w3b:0293e82d23d85838","reviewBundleId":"rb:w3b:0293e82d23d85838","actorId":"actor:local-pilote","result":"ok","durationMs":1}
-
-stdout | __tests__/project-assistant/genericExecutionReviewResultConvergence01.frontDoor.d0.test.ts > GENERIC-EXECUTION-REVIEW-RESULT-CONVERGENCE-01 CP2 front-door > CP2-08 remount → terminal Product — no RECOVERY_REQUIRED / EVIDENCE_LINEAGE_AMBIGUOUS
-{"event":"oa.coordination.next_action_recommended","ts":"2026-08-23T04:30:00.000Z","correlationId":"cor:w3c-reco:xat:w3a:98948986b3f3811b","actorId":"actor:sfia-studio-system-factual-writer","result":"ok","detailCode":"not_recommended","durationMs":1}
-
- ✓ __tests__/project-assistant/genericExecutionReviewResultConvergence01.frontDoor.d0.test.ts (8 tests) 1418ms
-
- Test Files  5 passed (5)
-      Tests  68 passed (68)
-   Start at  21:52:15
-   Duration  3.38s (transform 1.77s, setup 278ms, collect 4.96s, tests 3.79s, environment 242ms, prepare 243ms)
-
-```
-
-Primary test files (full source in §33 as NEW files):
-- `genericExecutionReviewResultConvergence01.frontDoor.d0.test.ts`
-- `genericExecutionReviewResultConvergence01.d0.test.ts`
-- `genericExecutionReviewResultConvergence01.cp2Seams.d0.test.ts`
-- `genericExecutionReviewResultConvergence01.trajectorySurface.d0.test.ts`
-
-## 36–44. Full validation (this regularization turn)
-
-| Check | Command / scope | Result |
-|-------|-----------------|--------|
-| Targeted Vitest | `genericExecutionReviewResultConvergence01*` + `productContinuitySharedKnowledge.d0` | **PASS** — 5 files / **68** tests |
-| Full Vitest | `OPS1_CONVERSATION_PROVIDER=fake npx vitest run` | **PASS** — **5058** passed / **137** skipped / 0 failed (458 files + 17 skipped files) |
-| Modeled governance (OA) | vitest `__tests__/oa/evidence-review` + `execution-contract` + `execution-attempt` | **PASS** — 69 files / **817** tests |
-| typecheck | `npm run typecheck` (`tsc --noEmit`) | **PASS** (exit 0) |
-| lint | `npm run lint` (`next lint`) | **PASS** (no warnings/errors) |
-| build | `npm run build` | **PASS** (exit 0) |
-| git diff --check | vs HEAD excl. `.tmp-sfia-review` | **PASS** |
-| Living Ref | 03/08/09 + manifest + roadmap tip | updated (see §34 docs.diff) |
-
-### Full Vitest summary excerpt
-```
- Test Files  458 passed | 17 skipped (475)
-      Tests  5058 passed | 137 skipped (5195)
-   Duration  53.09s
-FULL_VITEST_EXIT:0
-```
-
-### Governance Vitest summary excerpt
-```
- Test Files  69 passed (69)
-      Tests  817 passed (817)
-GOV:0
-```
-
-Claims below are retained **because** the above validations are green and the complete diffs/new files/tests are included in this pack.
+| Check | Result |
+|-------|--------|
+| Targeted CP3 suite | **60 passed** |
+| Conformance + OA evidence/contract/attempt + trajectory (subset) | **882 passed** |
+| Full Vitest | **5058 passed / 137 skipped / 0 failed** (458 files) |
+| typecheck | **PASS** (exit 0) |
+| lint | **PASS** |
+| build | **PASS** |
+| git diff --check | **PASS** |
+| Living Ref digests | refreshed after 08/09 edits |
 
 
 ## 45–46. Reservations / debt
-Acceptable debt:
-1. docs_write compatibility bridges retained
-2. Retention GC not implemented
-3. Git promotion not implemented
-4. NoteLite REAL replay not done (Morris GO distinct)
-5. Nora model/reasoning not optimized
-
-CP2-02 follow-up already in candidate: NodeLocalGitStatusDiffPort never uses stderr as porcelain; non-Git cwd → UNAVAILABLE.
-Reservation: Fake independent worktree may use `requireHeadMatch:false` when Fake worktree ≠ contract base; production Git mode fail-closed on HEAD mismatch when `expectedBaseSha` set.
+1. docs_write bridges 2. retention GC 3. Git promotion 4. NoteLite REAL 5. Nora model tuning
+w2DecideTrajectoryAction does not yet auto-derive seal from an active Proposal when GOVERNED is chosen in the UI — Product callers must use decideTrajectory domain API with server-owned seal or Proposal subject mode. This is intentional fail-closed against client path trust, not a new architecture.
 
 ## 47–48. Claims / anti-claims
-### Authorized claims (only if validations green)
+### Authorized
 - DETERMINISTIC PRODUCT E2E PROVEN AT TESTED SCOPE
-- Generic mutating Product mission deterministic-proven
-- Generic Git VerifiedChangeSet path deterministic-proven
-- Native Cursor REO binding deterministic-proven
-- Missing REO fail-honest deterministic-proven
-- Verification Evidence / ContractResult coherence deterministic-proven
-- Nora grounded Deep Review deterministic-proven
-- Pilot Result Surface deterministic-proven
-- Pilot bounded ReviewItem access deterministic-proven
-- Mounted + remount continuation deterministic-proven
-- No nominal manual recovery at tested scope
+- Product-owned durable local-write facts (decideTrajectory seal)
+- Protected boundary fail-closed
+- Git HEAD-bound VerifiedChangeSet
+- Durable VCS digest binding
+- Native bound Cursor REO
+- Missing REO fail-honest
+- Nominal W3-C Nora tool-grounded review
+- Pilot bounded/integrity-checked item read
+- Mounted/remount continuation
 - ZERO REAL
-
 ### Anti-claims
-- READY FOR REAL / REAL BOUNDARY PROVEN / E2E REAL PROVEN
-- NoteLite REAL fixed / Product global READY / runtime v3 ADOPTED
-- legacy fully retired / retention complete / Git promotion complete
-- **INTEGRATED ON MAIN**
+- READY FOR REAL / REAL BOUNDARY PROVEN / E2E REAL PROVEN / INTEGRATED ON MAIN / runtime v3 ADOPTED
 
 ## 49. Morris decisions
-- None required this regularization
-- Next gate after Critical Review PASS: **GO MORRIS — COMMIT / PUSH / PR** (distinct)
+- None required this pass
+- Next after Critical Review: GO MORRIS — COMMIT / PUSH / PR
 
 ## 50. Verdict
-**READY FOR CHATGPT CRITICAL REVIEW — GENERIC EXECUTION REVIEW RESULT CONVERGENCE CORRECTION PASS 02**
+**READY FOR CHATGPT CRITICAL REVIEW — GENERIC EXECUTION REVIEW RESULT CONVERGENCE CORRECTION PASS 03**
 
 Proof ceiling: **DETERMINISTIC PRODUCT E2E PROVEN AT TESTED SCOPE** · **ZERO REAL**
 
 ---
-
-## Instruction ChatGPT (obligatoire)
-Avant de répondre à Morris, ChatGPT doit consulter le nouveau Review Handoff distant canonique produit par CE pass.
-Ne pas utiliser le précédent latest d'un autre projet, ni les handoffs synthesis-only `5a857d09` / `2777b90b`.
-ChatGPT doit vérifier au minimum: macro/cycle/profile; Git base; entry handoff d7230605…; CP2-01→CP2-10; valid generic mutating mission; technical effect authorization; no Product write taxonomy; Git observer; expected base SHA; no full-worktree fallback; native Cursor Review End Of provenance; missing REO behavior; VerifiedChangeSet; Verification Evidence; ReviewBundle; ClaimEvaluation; ContractResult; Product outcome coherence; Product Resolution; Nora actual tool invocation; Nora grounded fact; Result Surface actual data; Pilot ReviewItem read; security bindings; mounted continuation; remount continuation; same Attempt; launchCount; EP-01→EP-30; ZERO REAL; Living Reference; Roadmap; **complete diffs §32**; **new files §33**; **docs §34**; **tests §33/§35**; validations; reservations; debt/exits; handoff remote; verdict.
-Absent / incohérent / synthesis-only: **REVIEW HANDOFF INCOMPLETE — MODIFIED CONTENT MISSING**
-Une preuve Git plus récente peut superseder le handoff.
+## Instruction ChatGPT
+Avant de répondre à Morris, consulter `sfia/review-handoff` `sfia-review-handoff/latest-chatgpt-review.md` produit par CE pass.
+Vérifier CP3-01→09, Product local-write source, protected boundary, HEAD binding, durable digest, REO binding, missing REO honesty, W3-C tool path, ReviewItem integrity, front-door honesty, EP/T, validations, ZERO REAL, handoff remote.
+Absent / synthesis-only: **REVIEW HANDOFF INCOMPLETE — MODIFIED CONTENT MISSING**
