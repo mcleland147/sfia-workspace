@@ -430,7 +430,16 @@ ACK that Product generic local-write facts are carried by **Proposal `sealedExec
 
 ## AN. Review Handoff publication
 
-(Filled after push.)
+| Field | Value |
+|-------|-------|
+| Verdict | **HANDOFF UPDATED — REMOTE VERIFIED** |
+| Remote SHA | `bae6bf5326318c8177a97d5d5b384e2e5512db31` |
+| Blob SHA | `936304f268a56b8740d047bbfe2138f7584d359a` |
+| Size | 36243 bytes (pre-AN patch; see republish if size advances) |
+| Message | `docs(review-handoff): publish generic execution review result correction pass 04` |
+| Mode | publish-in-cycle L3 borné |
+| Force push | **NO** |
+
 
 ## AO. project Git effects
 
