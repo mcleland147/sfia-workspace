@@ -586,11 +586,11 @@
     },
     {
       "path": "projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts",
-      "sha256_16": "2f94963886255d2a"
+      "sha256_16": "a398bf461383386f"
     },
     {
       "path": "projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts",
-      "sha256_16": "eb13a379525867dd"
+      "sha256_16": "94d908d10eb822f2"
     },
     {
       "path": "projects/sfia-studio/app/features/project-assistant/f2/activeCycleGovernedContinuation.ts",
@@ -666,7 +666,7 @@
     },
     {
       "path": "projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts",
-      "sha256_16": "c9b1570800033f8a"
+      "sha256_16": "d8db5a73ecb35722"
     },
     {
       "path": "projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.tsx",

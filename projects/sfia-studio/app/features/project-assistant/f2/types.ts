@@ -36,8 +36,25 @@ export type PilotDecisionDisposition =
   | "none"
   | "ambiguous";
 
+/**
+ * D3-EXT — NON-AUTHORITATIVE semantic target of the disposition.
+ * NEVER an optionRef / optionSetRef / HumanDecision / execution permission.
+ * Server re-resolves sealed PresentedOptionSet; this field only discriminates
+ * whether the Pilot meant CURRENT Recommendation vs alternative vs subject.
+ */
+export type PilotDecisionTargetKind =
+  | "current_recommendation"
+  | "presented_subject"
+  | "specific_alternative"
+  | "ambiguous";
+
 export type PilotDecisionCandidate = {
   disposition: PilotDecisionDisposition;
+  /**
+   * NON-AUTHORITATIVE target discriminator (D3-EXT).
+   * Absent/unknown MUST NOT silently become current_recommendation.
+   */
+  targetKind: PilotDecisionTargetKind;
   /** optional non-authoritative hint; never trusted alone */
   rationale?: string | null;
 };

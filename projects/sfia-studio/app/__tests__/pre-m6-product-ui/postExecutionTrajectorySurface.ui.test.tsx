@@ -630,8 +630,7 @@ describe("CR-PCONT-05 TrajectorySurface post-execution recovery", () => {
     );
     await screen.findByTestId("w2-decision");
 
-    // PJ-REPROOF-04 — no Pilot HOW selection; Studio derives mission.
-    fireEvent.click(screen.getByTestId("w2-prepare-contract-sandbox"));
+    // D2-A — BOUNDED auto-PREPARE (same as GOVERNED); no mandatory sandbox CTA.
     await screen.findByTestId("w2-contract");
     fireEvent.click(screen.getByTestId("w2-inspect-contract"));
     await screen.findByTestId("w2-inspection-state");

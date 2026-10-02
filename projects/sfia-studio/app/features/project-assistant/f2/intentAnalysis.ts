@@ -19,6 +19,7 @@ import type {
   IntentClass,
   PilotDecisionCandidate,
   PilotDecisionDisposition,
+  PilotDecisionTargetKind,
   SemanticCognitiveWorkloadAssessment,
   SemanticCognitiveWorkloadLevel,
 } from "./types";
@@ -70,6 +71,13 @@ const PILOT_DECISION_DISPOSITIONS: readonly PilotDecisionDisposition[] = [
   "amend",
   "defer",
   "none",
+  "ambiguous",
+] as const;
+
+const PILOT_DECISION_TARGET_KINDS: readonly PilotDecisionTargetKind[] = [
+  "current_recommendation",
+  "presented_subject",
+  "specific_alternative",
   "ambiguous",
 ] as const;
 
@@ -139,9 +147,13 @@ const PILOT_DECISION_CANDIDATE_OBJECT_SCHEMA = {
       type: "string",
       enum: [...PILOT_DECISION_DISPOSITIONS],
     },
+    targetKind: {
+      type: "string",
+      enum: [...PILOT_DECISION_TARGET_KINDS],
+    },
     rationale: NULLABLE_STRING,
   },
-  required: ["disposition", "rationale"],
+  required: ["disposition", "targetKind", "rationale"],
 } as const;
 
 const CWP_LEVEL_SCHEMA = {
@@ -313,9 +325,10 @@ function ambiguousFallback(partial?: Partial<IntentAnalysisDto>): IntentAnalysis
 }
 
 /**
- * CHAT-FIRST-GOVERNED-DECISION-LOOP-01 — validate the NON-AUTHORITATIVE
+ * CHAT-FIRST-GOVERNED-DECISION-LOOP-01 / D3-EXT — validate the NON-AUTHORITATIVE
  * disposition candidate. Absent / null / malformed → null. An unrecognised
  * disposition never becomes accept: it degrades to "ambiguous".
+ * Unknown / absent targetKind never becomes current_recommendation (fail-closed).
  */
 export function parsePilotDecisionCandidate(
   raw: unknown,
@@ -327,12 +340,28 @@ export function parsePilotDecisionCandidate(
   if (typeof disposition !== "string") return null;
   const normalized = disposition.trim().toLowerCase();
   if (!normalized) return null;
+
+  const rawTarget = obj.targetKind;
+  let targetKind: PilotDecisionTargetKind;
+  if (typeof rawTarget !== "string" || !rawTarget.trim()) {
+    // Absent / empty — fail-closed; never invent current_recommendation.
+    targetKind = "ambiguous";
+  } else {
+    const t = rawTarget.trim().toLowerCase();
+    targetKind = PILOT_DECISION_TARGET_KINDS.includes(
+      t as PilotDecisionTargetKind,
+    )
+      ? (t as PilotDecisionTargetKind)
+      : "ambiguous";
+  }
+
   return {
     disposition: PILOT_DECISION_DISPOSITIONS.includes(
       normalized as PilotDecisionDisposition,
     )
       ? (normalized as PilotDecisionDisposition)
       : "ambiguous",
+    targetKind,
     rationale: clip(obj.rationale, 500),
   };
 }
@@ -541,7 +570,7 @@ expectedOutcome, criticalJustification, requestedOperation (string libre / legac
 executionIntent (objet structuré docs_write/read_only/other NON-AUTORITAIRE OU null — intention d'exécution proposée, JAMAIS une grant REAL / HumanDecision / autorité ; executionIntent.requestedOperation reste générique/nullable ; champs incluant artifactBrief, contentRequirements, targetPath, evidenceRequirements).
 continuationKind (active_cycle_artifact_materialization OU null — hint NON-AUTORITAIRE de continuation du cycle actif ; JAMAIS une permission createCycle/skip ; le serveur valide contre activeCycle + REQUIRE_ARTIFACT).
 artifactMaterializationOperation (cursor.docs_write.apply OU null — discriminateur TECHNIQUE dédié à la matérialisation Artifact active-cycle ; JAMAIS du texte libre ; JAMAIS une autorité d'exécution).
-pilotDecisionCandidate ({disposition, rationale} OU null — lecture NON-AUTORITAIRE de la disposition du Pilote sur un sujet de décision DÉJÀ présenté ; JAMAIS une HumanDecision).
+pilotDecisionCandidate ({disposition, targetKind, rationale} OU null — lecture NON-AUTORITAIRE de la disposition du Pilote sur un sujet de décision DÉJÀ présenté ; JAMAIS une HumanDecision ; targetKind n'est JAMAIS un optionRef).
 
 === DISTINCTION FONDAMENTALE ===
 intentClass = EFFET demandé à Studio (quoi faire sur le produit).
@@ -679,10 +708,17 @@ disposition ∈ accept | refuse | amend | defer | none | ambiguous.
 - defer — le Pilote demande explicitement de reporter la disposition du sujet.
 - none — le tour ne dispose d'aucun sujet gouverné (cas nominal : conversation, question, autre sujet).
 - ambiguous — une disposition semble présente mais la cible ou la portée reste indéterminée.
+targetKind ∈ current_recommendation | presented_subject | specific_alternative | ambiguous (D3-EXT — NON-AUTORITAIRE).
+- current_recommendation — le Pilote accepte explicitement LA Recommendation actuellement présentée (« Oui, je valide ta recommandation », « Poursuis avec l'option que tu recommandes »).
+- presented_subject — le Pilote dispose le sujet présenté sans sélectionner explicitement une Recommendation particulière (principalement Proposal : « Oui, poursuis cette proposition »).
+- specific_alternative — le Pilote demande explicitement une option différente / alternative (« Je préfère l'autre option », « Je choisis la trajectoire gouvernée plutôt », « Pas celle que tu recommandes »).
+- ambiguous — la cible exacte n'est pas déterminable.
 Règles dures :
 - ce champ N'EST PAS une HumanDecision, un GO, une confirmation ni une autorité ; le serveur re-résout le sujet durable et refuse tout ce qui n'est pas unique et éligible ;
-- un « oui / ok / d'accord » isolé sans sujet gouverné présenté ⇒ none (JAMAIS accept) ;
-- si plusieurs sujets gouvernés sont plausibles ⇒ ambiguous (JAMAIS accept) ;
+- targetKind N'EST PAS un optionRef / optionSetRef / permission d'exécution ; un nom ou label d'option dans la prose ne devient JAMAIS un optionRef autoritaire ;
+- un « oui / ok / d'accord » isolé sans sujet gouverné présenté ⇒ disposition none (JAMAIS accept) ;
+- si plusieurs sujets gouvernés sont plausibles ⇒ disposition ambiguous (JAMAIS accept) ;
+- si la cible Recommendation vs alternative reste indéterminée ⇒ targetKind ambiguous (JAMAIS current_recommendation inventé) ;
 - ne JAMAIS inventer un sujet, un proposalId, un optionRef ou un optionSetRef ; ne JAMAIS les citer ici ;
 - en l'absence de preuve ⇒ none ; none et ambiguous n'enregistrent jamais rien.
 rationale : justification courte NON-AUTORITAIRE ou null.

@@ -43,31 +43,104 @@ function normalizeNaturalMaterializationProbe(raw: string): string {
 }
 
 /**
- * CHAT-FIRST-GOVERNED-DECISION-LOOP-01 — deterministic NON-AUTHORITATIVE
+ * CHAT-FIRST-GOVERNED-DECISION-LOOP-01 / D3-EXT — deterministic NON-AUTHORITATIVE
  * disposition candidate, emitted on the SAME structured intent payload a live
  * provider would use. There is no parallel Fake decision writer: the server
  * still re-resolves the durable subject and owns every HumanDecision.
+ *
+ * targetKind is NEVER an optionRef — only a semantic target discriminator.
  */
 function matchPilotDecisionCandidate(
   probe: string,
-): { disposition: string; rationale: string | null } | null {
+): {
+  disposition: string;
+  targetKind: string;
+  rationale: string | null;
+} | null {
+  if (probe.includes("__F2_DECIDE_ACCEPT_CURRENT_REC__")) {
+    return {
+      disposition: "accept",
+      targetKind: "current_recommendation",
+      rationale: "Pilote valide explicitement la Recommendation courante.",
+    };
+  }
+  if (probe.includes("__F2_DECIDE_ACCEPT_ALT__")) {
+    return {
+      disposition: "accept",
+      targetKind: "specific_alternative",
+      rationale: "Pilote demande une option différente de la Recommendation.",
+    };
+  }
+  if (probe.includes("__F2_DECIDE_ACCEPT_SUBJECT__")) {
+    return {
+      disposition: "accept",
+      targetKind: "presented_subject",
+      rationale: "Pilote engage le sujet présenté.",
+    };
+  }
   if (probe.includes("__F2_DECIDE_ACCEPT__")) {
-    return { disposition: "accept", rationale: "Pilote engage le sujet présenté." };
+    // Proposal-compatible default: presented_subject (not current_recommendation).
+    return {
+      disposition: "accept",
+      targetKind: "presented_subject",
+      rationale: "Pilote engage le sujet présenté.",
+    };
   }
   if (probe.includes("__F2_DECIDE_REFUSE__")) {
-    return { disposition: "refuse", rationale: "Pilote refuse le sujet présenté." };
+    return {
+      disposition: "refuse",
+      targetKind: "presented_subject",
+      rationale: "Pilote refuse le sujet présenté.",
+    };
   }
   if (probe.includes("__F2_DECIDE_AMEND__")) {
-    return { disposition: "amend", rationale: "Pilote demande un amendement." };
+    return {
+      disposition: "amend",
+      targetKind: "presented_subject",
+      rationale: "Pilote demande un amendement.",
+    };
   }
   if (probe.includes("__F2_DECIDE_DEFER__")) {
-    return { disposition: "defer", rationale: "Pilote demande un report." };
+    return {
+      disposition: "defer",
+      targetKind: "presented_subject",
+      rationale: "Pilote demande un report.",
+    };
   }
   if (probe.includes("__F2_DECIDE_AMBIGUOUS__")) {
-    return { disposition: "ambiguous", rationale: "Cible du « oui » indéterminée." };
+    return {
+      disposition: "ambiguous",
+      targetKind: "ambiguous",
+      rationale: "Cible du « oui » indéterminée.",
+    };
   }
   if (probe.includes("__F2_DECIDE_NONE__")) {
-    return { disposition: "none", rationale: null };
+    return { disposition: "none", targetKind: "ambiguous", rationale: null };
+  }
+
+  // Natural-language Fake cues for D3-EXT deterministic proofs (no optionRef).
+  const normalized = probe.toLowerCase();
+  if (
+    /valide\s+ta\s+recommandation|option\s+que\s+tu\s+recommand|poursuis\s+avec\s+l['']option\s+que\s+tu\s+recommand/.test(
+      normalized,
+    )
+  ) {
+    return {
+      disposition: "accept",
+      targetKind: "current_recommendation",
+      rationale: "Acceptation explicite de la Recommendation courante.",
+    };
+  }
+  if (
+    /autre\s+option|plut[oô]t\s+(l['']autre|la\s+trajectoire\s+gouvern)|pas\s+celle\s+que\s+tu\s+recommand|je\s+choisis\s+la\s+trajectoire\s+gouvern/.test(
+      normalized,
+    )
+  ) {
+    return {
+      disposition: "accept",
+      targetKind: "specific_alternative",
+      rationale: "Demande explicite d'une option alternative.",
+    };
   }
   return null;
 }

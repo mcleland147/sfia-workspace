@@ -43,7 +43,10 @@ import {
   w2ResolveProductExecutionContextAction,
   w2ReadExecutionReviewItemAction,
 } from "@/features/project-assistant/w2/actions";
-import { GOVERNED_OPTION_REF } from "@/features/project-assistant/w2/trajectoryOptions";
+import {
+  BOUNDED_OPTION_REF,
+  GOVERNED_OPTION_REF,
+} from "@/features/project-assistant/w2/trajectoryOptions";
 import type { RecoveryExecutionBinding } from "@/features/project-assistant/w2/resolveRecoveryExecutionBinding";
 import { isWrongGenericPreExecReplaceableByRecoveryPrepare } from "@/features/project-assistant/w2/recoveryReplaceableCurrentContract";
 import {
@@ -1061,7 +1064,8 @@ export function TrajectorySurface({
         next.decisionBasisLinked === true;
       const shouldAutoPrepareGoverned =
         !isProposalSubject &&
-        selectedOptionRef === GOVERNED_OPTION_REF &&
+        (selectedOptionRef === GOVERNED_OPTION_REF ||
+          selectedOptionRef === BOUNDED_OPTION_REF) &&
         !next.proposalId;
 
       if (shouldAutoPrepareProposal) {
@@ -1213,7 +1217,8 @@ export function TrajectorySurface({
       }
       if (
         decision &&
-        decision.selectedOptionRef !== GOVERNED_OPTION_REF
+        decision.selectedOptionRef !== GOVERNED_OPTION_REF &&
+        decision.selectedOptionRef !== BOUNDED_OPTION_REF
       ) {
         setRecoveryBinding(null);
         return;
