@@ -111,7 +111,7 @@ export function presentedBindingToOptionSetDto(
   };
 }
 
-function decidedOptionSetRefsFromEpistemic(
+export function decidedOptionSetRefsFromEpistemicItems(
   items: ReadonlyArray<EpistemicItemLike>,
 ): ReadonlySet<string> {
   const refs = new Set<string>();
@@ -230,7 +230,9 @@ export async function findActiveAwaitingProposalPresentedOptionSet(
     };
   }
 
-  const decidedRefs = decidedOptionSetRefsFromEpistemic(epistemic.state.items);
+  const decidedRefs = decidedOptionSetRefsFromEpistemicItems(
+    epistemic.state.items,
+  );
   const matches: PresentedOptionSetBinding[] = [];
   for (const item of epistemic.state.items) {
     if (item.type !== "Observation" || item.status !== "active") continue;

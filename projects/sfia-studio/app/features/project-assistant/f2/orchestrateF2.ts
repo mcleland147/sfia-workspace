@@ -105,6 +105,7 @@ import {
   resolveChatFirstPilotDecision,
   toEffectiveDisposition,
   type ChatFirstEffectiveDisposition,
+  type ChatFirstPrepareOutcome,
 } from "../w2/resolveChatFirstPilotDecision";
 import {
   replacePendingDecisionSubjectForExplicitReinstruction,
@@ -721,29 +722,63 @@ const CHAT_FIRST_HUMAN_STATUS: Record<
 function chatFirstDecisionText(input: {
   readonly presentation: "test_provider" | "openai_live";
   readonly disposition: ChatFirstEffectiveDisposition;
+  readonly subjectFamily?: "proposal" | "project_trajectory";
+  readonly prepareOutcome?: ChatFirstPrepareOutcome;
 }): string {
   const head =
     input.presentation === "test_provider" ? "[Mode test]" : "[Mode réel]";
+  if (input.disposition === "accept") {
+    if (input.subjectFamily === "project_trajectory") {
+      const prep = input.prepareOutcome;
+      if (prep?.kind === "prepared") {
+        return [
+          head,
+          "Votre décision est enregistrée : vous acceptez la Recommendation ProjectTrajectory courante.",
+          `ExecutionContract préparé (${prep.executionContractId}).`,
+          "Aucune exécution n'a été lancée.",
+          "Nora recommande ; le Pilote décide. AUCUNE EXÉCUTION.",
+        ].join(" ");
+      }
+      if (prep?.kind === "blocked") {
+        return [
+          head,
+          "Votre décision est enregistrée : vous acceptez la Recommendation ProjectTrajectory courante.",
+          "ExecutionContract NON matérialisé — préparation bloquée.",
+          prep.message,
+          "Aucune exécution n'a été lancée.",
+          "Nora recommande ; le Pilote décide. AUCUNE EXÉCUTION.",
+        ].join(" ");
+      }
+      return [
+        head,
+        "Votre décision est enregistrée : vous acceptez la Recommendation ProjectTrajectory courante.",
+        "Aucun ExecutionContract n'a été préparé pour cette décision.",
+        "Aucune exécution n'a été lancée.",
+        "Nora recommande ; le Pilote décide. AUCUNE EXÉCUTION.",
+      ].join(" ");
+    }
+    return [
+      head,
+      "Votre décision est enregistrée : vous poursuivez le sujet proposé.",
+      "La préparation de l'action est maintenant disponible. Rien n'a encore été exécuté.",
+      "Nora recommande ; le Pilote décide. AUCUNE EXÉCUTION.",
+    ].join(" ");
+  }
   const body =
-    input.disposition === "accept"
+    input.disposition === "refuse"
       ? [
-          "Votre décision est enregistrée : vous poursuivez le sujet proposé.",
-          "La préparation de l'action est maintenant disponible. Rien n'a encore été exécuté.",
+          "Votre décision est enregistrée : vous ne poursuivez pas ce sujet.",
+          "Aucun contrat d'exécution n'est préparé. Aucune trajectoire projet n'est promue.",
         ]
-      : input.disposition === "refuse"
+      : input.disposition === "defer"
         ? [
-            "Votre décision est enregistrée : vous ne poursuivez pas ce sujet.",
-            "Aucun contrat d'exécution n'est préparé. Aucune trajectoire projet n'est promue.",
+            "Votre report est enregistré : la recommandation de travail est reportée vers un cycle aval honnête.",
+            "Une réserve non bloquante trace le report. Le sujet proposé est clos.",
           ]
-        : input.disposition === "defer"
-          ? [
-              "Votre report est enregistré : la recommandation de travail est reportée vers un cycle aval honnête.",
-              "Une réserve non bloquante trace le report. Le sujet proposé est clos.",
-            ]
-          : [
-              "Votre décision est enregistrée : le sujet doit être amendé avant d'être engagé.",
-              "Le sujet précédent est clos ; reformulez ce que vous voulez changer et je réinstruirai.",
-            ];
+        : [
+            "Votre décision est enregistrée : le sujet doit être amendé avant d'être engagé.",
+            "Le sujet précédent est clos ; reformulez ce que vous voulez changer et je réinstruirai.",
+          ];
   return [
     head,
     ...body,
@@ -1222,6 +1257,7 @@ export async function orchestrateAssistantSend(input: {
           oa: oaForChatFirst,
           projectId: project.projectId,
           disposition: analysis.pilotDecisionCandidate?.disposition ?? null,
+          targetKind: analysis.pilotDecisionCandidate?.targetKind ?? null,
           rationale: analysis.pilotDecisionCandidate?.rationale ?? null,
         });
 
@@ -1245,6 +1281,8 @@ export async function orchestrateAssistantSend(input: {
             text: chatFirstDecisionText({
               presentation,
               disposition: resolved.disposition,
+              subjectFamily: resolved.subjectFamily,
+              prepareOutcome: resolved.prepareOutcome,
             }),
             mode: modeResolution.mode as "fixture" | "live",
             presentation,

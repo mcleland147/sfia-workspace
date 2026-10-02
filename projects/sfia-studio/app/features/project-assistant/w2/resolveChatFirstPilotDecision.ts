@@ -3,6 +3,10 @@
  * NON-AUTHORITATIVE Pilot disposition candidate into (at most) ONE durable
  * HumanDecision on an already-presented governed decision subject.
  *
+ * HABITFLOW-CHAT-FIRST-PROJECTTRAJECTORY-HD-EC-CONTINUITY-01 —
+ * ProjectTrajectory accept → CURRENT recommendedOptionRef via decideTrajectory;
+ * GOVERNED/BOUNDED → canonical auto-PREPARE (PREPARE ≠ Execute).
+ *
  * Doctrine boundaries enforced here:
  * - the candidate is NEVER a HumanDecision; it only selects WHICH sealed
  *   option of an existing PresentedOptionSet the server submits to the
@@ -14,17 +18,28 @@
  * - no new store, no new HumanDecision writer, no DEFERRED enum invention.
  */
 
+import { readLiveProjectContext } from "@/lib/vertical-slice-runtime";
 import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
-import type { PilotDecisionDisposition } from "../f2/types";
+import { isRepositorySourceRef } from "@/lib/oa/execution-contract";
+import type {
+  PilotDecisionDisposition,
+  PilotDecisionTargetKind,
+} from "../f2/types";
 import {
   listEffectivePendingDecisionSubjectMarkers,
   readActiveProposalDecisionSubject,
 } from "./activeProposalDecisionSubject";
+import {
+  ensureSealedProjectTrajectoryPresentedOptionSet,
+  findActiveAwaitingProjectTrajectoryPresentedOptionSet,
+} from "./activeProjectTrajectoryDecisionSubject";
 import { decideTrajectory, trajectoryDecisionScope } from "./decideTrajectory";
+import { classifyProtectedRepositoryPath } from "./deriveActualExecutionWorkFromProductContext";
 import {
   isProposalSubjectPresentedSet,
   type PresentedOptionSetBinding,
 } from "./presentedOptionSet";
+import { prepareExecutionContractFromW2Decision } from "./prepareExecutionContractFromW2Decision";
 import {
   PROPOSAL_SUBJECT_AMEND_REF,
   PROPOSAL_SUBJECT_PURSUE_REF,
@@ -34,6 +49,10 @@ import { proposeTrajectoryOptions } from "./proposeTrajectoryOptions";
 import { resolveW2QualificationInputs } from "./qualificationInputs";
 import { pilotAmbiguousPendingMessage } from "../presentationLabels";
 import { deferWorkRecommendation } from "./deferWorkRecommendation";
+import {
+  BOUNDED_OPTION_REF,
+  GOVERNED_OPTION_REF,
+} from "./trajectoryOptions";
 
 /** Dispositions that can carry a governed effect (incl. durable defer). */
 export type ChatFirstEffectiveDisposition =
@@ -41,6 +60,22 @@ export type ChatFirstEffectiveDisposition =
   | "refuse"
   | "amend"
   | "defer";
+
+/** CP3 — honest auto-PREPARE continuation outcome (not a Product Result engine). */
+export type ChatFirstPrepareOutcome =
+  | {
+      readonly kind: "prepared";
+      readonly executionContractId: string;
+    }
+  | {
+      readonly kind: "blocked";
+      readonly code: string;
+      readonly message: string;
+    }
+  | {
+      readonly kind: "not_applicable";
+      readonly reason: string;
+    };
 
 export type ChatFirstPilotDecisionResult =
   /** Nothing to dispose — normal orchestration continues untouched. */
@@ -50,6 +85,7 @@ export type ChatFirstPilotDecisionResult =
       readonly kind: "ambiguous_subjects";
       readonly message: string;
       readonly proposalIds: readonly string[];
+      readonly optionSetRefs?: readonly string[];
     }
   /** No unique bound subject with a sealed PresentedOptionSet — governed action fails closed. */
   | {
@@ -86,6 +122,12 @@ export type ChatFirstPilotDecisionResult =
       readonly capturedAt: string;
       readonly decisionBasisLinked: boolean;
       readonly readyForNextGatedStep: boolean;
+      readonly subjectFamily: "proposal" | "project_trajectory";
+      readonly prepareOutcome: ChatFirstPrepareOutcome;
+      readonly executionContractId: string | null;
+      readonly executionContractPrepared: boolean;
+      readonly attemptCreated: false;
+      readonly executionPerformed: false;
     };
 
 const SELECTED_OPTION_BY_DISPOSITION: Record<
@@ -100,6 +142,22 @@ const SELECTED_OPTION_BY_DISPOSITION: Record<
 const NO_ELIGIBLE_SUBJECT_MESSAGE =
   "Aucun sujet de décision gouverné unique n'est ouvert pour ce projet — aucune décision n'a été enregistrée. La conversation reste ouverte.";
 
+const PT_NON_ACCEPT_MESSAGE =
+  "Pour une Recommendation ProjectTrajectory, seule l'acceptation explicite de la Recommendation courante est enregistrable ici — précisez ou utilisez le panneau d'état. Aucune décision n'a été enregistrée.";
+
+const PT_TARGET_NOT_CURRENT_MESSAGE =
+  "Pour ProjectTrajectory, seule l'acceptation explicite de la Recommendation courante (targetKind=current_recommendation) est enregistrable — une cible alternative ou ambiguë ne produit aucune HumanDecision.";
+
+const PROPOSAL_TARGET_REQUIRED_MESSAGE =
+  "Pour un sujet Proposal, la cible sémantique doit être le sujet présenté (presented_subject) — aucune HumanDecision enregistrée.";
+
+function proposalPrepareNotApplicable(): ChatFirstPrepareOutcome {
+  return {
+    kind: "not_applicable",
+    reason: "Proposal chat-first n'auto-prépare pas d'ExecutionContract.",
+  };
+}
+
 export function toEffectiveDisposition(
   disposition: PilotDecisionDisposition | null | undefined,
 ): ChatFirstEffectiveDisposition | "defer" | null {
@@ -108,6 +166,24 @@ export function toEffectiveDisposition(
   if (disposition === "amend") return "amend";
   if (disposition === "defer") return "defer";
   return null;
+}
+
+/**
+ * Normalize NON-AUTHORITATIVE targetKind. Absent/invalid → ambiguous.
+ * NEVER invents current_recommendation.
+ */
+export function toPilotDecisionTargetKind(
+  targetKind: PilotDecisionTargetKind | null | undefined,
+): PilotDecisionTargetKind {
+  if (
+    targetKind === "current_recommendation" ||
+    targetKind === "presented_subject" ||
+    targetKind === "specific_alternative" ||
+    targetKind === "ambiguous"
+  ) {
+    return targetKind;
+  }
+  return "ambiguous";
 }
 
 /**
@@ -170,18 +246,18 @@ async function materializeSealedOptionSetForPendingSubject(input: {
   return { ok: true, presented: rebound.presented };
 }
 
-export async function resolveChatFirstPilotDecision(input: {
+async function resolveProposalPresented(input: {
   readonly oa: RuntimeOaStack;
   readonly projectId: string;
-  readonly disposition: PilotDecisionDisposition | null | undefined;
-  /** Non-authoritative hint carried into the decision reserves; never authority. */
-  readonly rationale?: string | null;
-  /** Test inject for the local single-user authority gate. */
-  readonly forceLocalAuthority?: boolean;
-}): Promise<ChatFirstPilotDecisionResult> {
-  const effective = toEffectiveDisposition(input.disposition);
-  if (effective == null) return { kind: "no_decision" };
-
+}): Promise<
+  | { readonly ok: true; readonly presented: PresentedOptionSetBinding | null }
+  | Extract<
+      ChatFirstPilotDecisionResult,
+      | { kind: "ambiguous_subjects" }
+      | { kind: "no_eligible_subject" }
+      | { kind: "subject_read_failed" }
+    >
+> {
   const subject = await readActiveProposalDecisionSubject(
     input.oa,
     input.projectId,
@@ -194,10 +270,7 @@ export async function resolveChatFirstPilotDecision(input: {
     };
   }
 
-  let presented: PresentedOptionSetBinding;
   if (subject.kind === "bound_awaiting_decision") {
-    // A second effective pending subject alongside a bound one is a competing
-    // sealed-subject situation: Studio never picks one for the Pilot.
     const pending = await listEffectivePendingDecisionSubjectMarkers(
       input.oa,
       input.projectId,
@@ -224,8 +297,13 @@ export async function resolveChatFirstPilotDecision(input: {
         ],
       };
     }
-    presented = subject.presented;
-  } else if (subject.kind === "pending_reinstruction_required") {
+    if (!isProposalSubjectPresentedSet(subject.presented)) {
+      return { ok: true, presented: null };
+    }
+    return { ok: true, presented: subject.presented };
+  }
+
+  if (subject.kind === "pending_reinstruction_required") {
     if (subject.markers.length > 1) {
       return {
         kind: "ambiguous_subjects",
@@ -235,7 +313,6 @@ export async function resolveChatFirstPilotDecision(input: {
     }
     const sole = subject.markers[0];
     if (!sole || !subject.recoverableProposalIds.includes(sole.proposalId)) {
-      // Pending marker without a reconstructible subject: fail-closed action.
       return {
         kind: "no_eligible_subject",
         message: subject.message,
@@ -254,87 +331,213 @@ export async function resolveChatFirstPilotDecision(input: {
         code: bound.code,
       };
     }
-    presented = bound.presented;
-  } else {
-    // "none" and "pursue_prepare_ready": nothing awaiting a disposition.
-    return {
-      kind: "no_eligible_subject",
-      message: NO_ELIGIBLE_SUBJECT_MESSAGE,
-      code: "NO_ACTIVE_DECISION_SUBJECT",
-    };
+    if (!isProposalSubjectPresentedSet(bound.presented)) {
+      return { ok: true, presented: null };
+    }
+    return { ok: true, presented: bound.presented };
   }
 
-  if (!isProposalSubjectPresentedSet(presented)) {
-    // Project trajectory promotion stays on its own explicit path.
-    return {
-      kind: "no_eligible_subject",
-      message: NO_ELIGIBLE_SUBJECT_MESSAGE,
-      code: "SUBJECT_NOT_PROPOSAL_MODE",
-    };
-  }
+  return { ok: true, presented: null };
+}
 
-  if (effective === "defer") {
-    const deferred = await deferWorkRecommendation({
-      oa: input.oa,
-      projectId: input.projectId,
-      presented,
-      rationale: input.rationale,
-      forceLocalAuthority: input.forceLocalAuthority,
-    });
-    if (!deferred.ok) {
-      if (deferred.code === "DEFER_TARGET_UNRESOLVED") {
-        return {
-          kind: "defer_target_unresolved",
-          code: deferred.code,
-          message: deferred.message,
-        };
-      }
-      return {
-        kind: "decision_refused",
-        code: deferred.code,
-        message: deferred.message,
+async function resolveProjectTrajectoryDurableLocalWriteSeal(input: {
+  readonly oa: RuntimeOaStack;
+  readonly projectId: string;
+  readonly selectedOptionRef: string;
+}): Promise<
+  | {
+      readonly ok: true;
+      readonly seal: {
+        readonly scopeIn: readonly string[];
+        readonly reversibilityExpectation: "reversible";
+        readonly objective?: string;
       };
     }
+  | { readonly ok: false; readonly code: string; readonly message: string }
+> {
+  if (
+    input.selectedOptionRef !== GOVERNED_OPTION_REF &&
+    input.selectedOptionRef !== BOUNDED_OPTION_REF
+  ) {
     return {
-      kind: "decision_recorded",
-      disposition: "defer",
-      decisionId: deferred.decisionId,
-      proposalId: presented.proposalId ?? null,
-      optionSetRef: presented.optionSetRef,
-      selectedOptionRef: "opt:defer-work-recommendation",
-      scope: trajectoryDecisionScope(presented.optionSetRef),
-      capturedAt: deferred.capturedAt,
-      decisionBasisLinked: false,
-      readyForNextGatedStep: false,
+      ok: false,
+      code: "OPTION_NOT_EXECUTABLE_FOR_SEAL",
+      message: "Option non GOVERNED/BOUNDED — pas de seal local-write.",
     };
   }
+  const project = await input.oa.projectServices.getProject.execute({
+    projectId: input.projectId,
+  });
+  if (!project.ok) {
+    return {
+      ok: false,
+      code: "PROJECT_READ_FAILED",
+      message: "Projet illisible — impossible de dériver un périmètre local-write.",
+    };
+  }
+  const binding = project.project.repositoryBinding;
+  const pathRoot =
+    typeof binding?.pathRoot === "string" ? binding.pathRoot.trim() : "";
+  if (!pathRoot) {
+    return {
+      ok: false,
+      code: "REPOSITORY_PATH_ROOT_ABSENT",
+      message:
+        "repositoryBinding.pathRoot absent — aucun périmètre local-write server-owned.",
+    };
+  }
+  if (!isRepositorySourceRef(pathRoot) || pathRoot.includes("..")) {
+    return {
+      ok: false,
+      code: "REPOSITORY_PATH_ROOT_UNSAFE",
+      message:
+        "pathRoot non sûr (traversée / ref invalide) — seal local-write refusé.",
+    };
+  }
+  const protectedHit = classifyProtectedRepositoryPath(pathRoot);
+  if (protectedHit) {
+    return {
+      ok: false,
+      code: "REPOSITORY_PATH_ROOT_PROTECTED",
+      message: `pathRoot protégé (${protectedHit}) — aucune qualification local-write.`,
+    };
+  }
+  // Objective from durable LPS (Project entity has no objective field).
+  let objective: string | undefined;
+  const lps = await input.oa.projectServices.getCurrentLivingProjectState.execute({
+    projectId: input.projectId,
+  });
+  if (lps.ok) {
+    const raw = lps.livingProjectState.objective;
+    if (typeof raw === "string" && raw.trim()) objective = raw.trim();
+  }
+  return {
+    ok: true,
+    seal: {
+      scopeIn: [pathRoot],
+      reversibilityExpectation: "reversible",
+      ...(objective ? { objective } : {}),
+    },
+  };
+}
 
-  const selectedOptionRef =
-    SELECTED_OPTION_BY_DISPOSITION[effective as Exclude<
-      ChatFirstEffectiveDisposition,
-      "defer"
-    >];
-  if (!presented.optionRefs.includes(selectedOptionRef)) {
+async function autoPrepareProjectTrajectoryContract(input: {
+  readonly oa: RuntimeOaStack;
+  readonly projectId: string;
+  readonly decisionId: string;
+  readonly selectedOptionRef: string;
+  readonly forceLocalAuthority?: boolean;
+  /** Test inject — never from browser/model; production resolves managed clone HEAD. */
+  readonly pinnedBaseHeadSha?: string | null;
+  readonly managedRepoRootBase?: string | null;
+}): Promise<ChatFirstPrepareOutcome> {
+  if (
+    input.selectedOptionRef !== GOVERNED_OPTION_REF &&
+    input.selectedOptionRef !== BOUNDED_OPTION_REF
+  ) {
+    return {
+      kind: "not_applicable",
+      reason: "Option non GOVERNED/BOUNDED — PREPARE non applicable.",
+    };
+  }
+  const live = await readLiveProjectContext(input.oa, input.projectId);
+  if (!live.ok) {
+    return {
+      kind: "blocked",
+      code: live.code,
+      message: live.message,
+    };
+  }
+  const prepared = await prepareExecutionContractFromW2Decision({
+    oa: input.oa,
+    projectId: input.projectId,
+    decisionId: input.decisionId,
+    currentContext: {
+      projectId: input.projectId,
+      lpsId: live.context.lpsId,
+      lpsVersion: live.context.lpsVersion,
+      doctrineDigest: live.context.doctrineDigest,
+      activeCycleInstanceId: live.context.activeCycleInstanceId,
+      ckcResolutionRef: live.context.ckcResolutionRef ?? undefined,
+    },
+    forceLocalAuthority: input.forceLocalAuthority,
+    pinnedBaseHeadSha: input.pinnedBaseHeadSha,
+    managedRepoRootBase: input.managedRepoRootBase,
+  });
+  if (!prepared.ok) {
+    return {
+      kind: "blocked",
+      code: prepared.code,
+      message: prepared.message,
+    };
+  }
+  return {
+    kind: "prepared",
+    executionContractId: prepared.contract.executionContractId,
+  };
+}
+
+async function recordProjectTrajectoryAccept(input: {
+  readonly oa: RuntimeOaStack;
+  readonly projectId: string;
+  readonly presented: PresentedOptionSetBinding;
+  readonly rationale?: string | null;
+  readonly forceLocalAuthority?: boolean;
+  readonly pinnedBaseHeadSha?: string | null;
+  readonly managedRepoRootBase?: string | null;
+}): Promise<ChatFirstPilotDecisionResult> {
+  const recommendedOptionRef = (
+    input.presented.recommendedOptionRef ?? ""
+  ).trim();
+  if (!recommendedOptionRef) {
     return {
       kind: "no_eligible_subject",
       message:
-        "L'option correspondante n'appartient pas au jeu d'options scellé — aucune décision enregistrée.",
-      code: "OPTION_NOT_PRESENTED",
+        "Recommendation courante absente du jeu d'options scellé — aucune décision enregistrée.",
+      code: "RECOMMENDED_OPTION_MISSING",
     };
   }
+  if (!input.presented.optionRefs.includes(recommendedOptionRef)) {
+    return {
+      kind: "no_eligible_subject",
+      message:
+        "La Recommendation courante n'appartient pas au jeu d'options scellé — aucune décision enregistrée.",
+      code: "RECOMMENDED_OPTION_NOT_PRESENTED",
+    };
+  }
+  if (
+    input.presented.trajectoryId == null ||
+    input.presented.candidateVersion == null
+  ) {
+    return {
+      kind: "no_eligible_subject",
+      message:
+        "Liaison trajectoire/version absente du PresentedOptionSet — aucune décision enregistrée.",
+      code: "TRAJECTORY_BINDING_INCOMPLETE",
+    };
+  }
+
+  // CP2 — seal durable Product scope BEFORE decide so DecisionBasis carries it.
+  const sealResolved = await resolveProjectTrajectoryDurableLocalWriteSeal({
+    oa: input.oa,
+    projectId: input.projectId,
+    selectedOptionRef: recommendedOptionRef,
+  });
+  const durableLocalWriteSeal = sealResolved.ok ? sealResolved.seal : null;
 
   const decided = await decideTrajectory({
     oa: input.oa,
     projectId: input.projectId,
-    // Sealed binding only — no client/model-supplied refs ever reach here.
-    optionSetRef: presented.optionSetRef,
-    options: presented.options,
-    recommendedOptionRef: presented.recommendedOptionRef,
-    selectedOptionRef,
-    trajectoryId: null,
-    candidateVersion: null,
-    epistemicRefs: presented.epistemicRefs,
-    reservesText: null,
+    optionSetRef: input.presented.optionSetRef,
+    options: input.presented.options,
+    recommendedOptionRef,
+    // D3 — server selects CURRENT recommendedOptionRef only.
+    selectedOptionRef: recommendedOptionRef,
+    trajectoryId: input.presented.trajectoryId,
+    candidateVersion: input.presented.candidateVersion,
+    epistemicRefs: input.presented.epistemicRefs,
+    reservesText: input.rationale?.trim() ? input.rationale.trim() : null,
+    durableLocalWriteSeal,
     forceLocalAuthority: input.forceLocalAuthority,
   });
   if (!decided.ok) {
@@ -345,16 +548,324 @@ export async function resolveChatFirstPilotDecision(input: {
     };
   }
 
+  const prepareOutcome = await autoPrepareProjectTrajectoryContract({
+    oa: input.oa,
+    projectId: input.projectId,
+    decisionId: decided.decision.decisionId,
+    selectedOptionRef: recommendedOptionRef,
+    forceLocalAuthority: input.forceLocalAuthority,
+    pinnedBaseHeadSha: input.pinnedBaseHeadSha,
+    managedRepoRootBase: input.managedRepoRootBase,
+  });
+  const preparedId =
+    prepareOutcome.kind === "prepared"
+      ? prepareOutcome.executionContractId
+      : null;
+
   return {
     kind: "decision_recorded",
-    disposition: effective as Exclude<ChatFirstEffectiveDisposition, "defer">,
+    disposition: "accept",
     decisionId: decided.decision.decisionId,
-    proposalId: decided.decision.proposalId ?? presented.proposalId ?? null,
-    optionSetRef: presented.optionSetRef,
-    selectedOptionRef,
-    scope: trajectoryDecisionScope(presented.optionSetRef),
+    proposalId: null,
+    optionSetRef: input.presented.optionSetRef,
+    selectedOptionRef: recommendedOptionRef,
+    scope: trajectoryDecisionScope(input.presented.optionSetRef),
     capturedAt: decided.decision.capturedAt,
     decisionBasisLinked: decided.decision.decisionBasisLinked,
-    readyForNextGatedStep: effective === "accept",
+    readyForNextGatedStep: prepareOutcome.kind === "prepared",
+    subjectFamily: "project_trajectory",
+    prepareOutcome,
+    executionContractId: preparedId,
+    executionContractPrepared: prepareOutcome.kind === "prepared",
+    attemptCreated: false,
+    executionPerformed: false,
   };
+}
+
+export async function resolveChatFirstPilotDecision(input: {
+  readonly oa: RuntimeOaStack;
+  readonly projectId: string;
+  readonly disposition: PilotDecisionDisposition | null | undefined;
+  /**
+   * D3-EXT — NON-AUTHORITATIVE target discriminator.
+   * Absent/invalid → ambiguous (never invents current_recommendation).
+   */
+  readonly targetKind?: PilotDecisionTargetKind | null;
+  /** Non-authoritative hint carried into the decision reserves; never authority. */
+  readonly rationale?: string | null;
+  /** Test inject for the local single-user authority gate. */
+  readonly forceLocalAuthority?: boolean;
+  /** Test inject — PREPARE pin; production resolves managed clone HEAD. */
+  readonly pinnedBaseHeadSha?: string | null;
+  readonly managedRepoRootBase?: string | null;
+}): Promise<ChatFirstPilotDecisionResult> {
+  const effective = toEffectiveDisposition(input.disposition);
+  if (effective == null) return { kind: "no_decision" };
+  const targetKind = toPilotDecisionTargetKind(input.targetKind);
+
+  const proposal = await resolveProposalPresented({
+    oa: input.oa,
+    projectId: input.projectId,
+  });
+  if ("kind" in proposal) {
+    return proposal;
+  }
+
+  const ptLookup = await findActiveAwaitingProjectTrajectoryPresentedOptionSet(
+    input.oa,
+    input.projectId,
+  );
+  if (!ptLookup.ok) {
+    return {
+      kind: "subject_read_failed",
+      code: ptLookup.code,
+      message: ptLookup.message,
+    };
+  }
+
+  const hasProposal = proposal.presented != null;
+  const hasPt =
+    ptLookup.kind === "unique" || ptLookup.kind === "ambiguous";
+
+  // D4 — Proposal + ProjectTrajectory (or multi-PT) → clarification, zero HD.
+  if (hasProposal && hasPt) {
+    return {
+      kind: "ambiguous_subjects",
+      message: pilotAmbiguousPendingMessage(),
+      proposalIds: proposal.presented?.proposalId
+        ? [proposal.presented.proposalId]
+        : [],
+      optionSetRefs:
+        ptLookup.kind === "unique"
+          ? [ptLookup.presented.optionSetRef]
+          : ptLookup.kind === "ambiguous"
+            ? ptLookup.optionSetRefs
+            : [],
+    };
+  }
+  if (ptLookup.kind === "ambiguous") {
+    return {
+      kind: "ambiguous_subjects",
+      message: pilotAmbiguousPendingMessage(),
+      proposalIds: [],
+      optionSetRefs: ptLookup.optionSetRefs,
+    };
+  }
+
+  // ——— Proposal path (KEEP semantics; D3-EXT targetKind gate) ———
+  if (hasProposal && proposal.presented) {
+    if (targetKind !== "presented_subject") {
+      return {
+        kind: "no_eligible_subject",
+        message: PROPOSAL_TARGET_REQUIRED_MESSAGE,
+        code: "PROPOSAL_TARGET_KIND_REQUIRED",
+      };
+    }
+    const presented = proposal.presented;
+
+    if (effective === "defer") {
+      const deferred = await deferWorkRecommendation({
+        oa: input.oa,
+        projectId: input.projectId,
+        presented,
+        rationale: input.rationale,
+        forceLocalAuthority: input.forceLocalAuthority,
+      });
+      if (!deferred.ok) {
+        if (deferred.code === "DEFER_TARGET_UNRESOLVED") {
+          return {
+            kind: "defer_target_unresolved",
+            code: deferred.code,
+            message: deferred.message,
+          };
+        }
+        return {
+          kind: "decision_refused",
+          code: deferred.code,
+          message: deferred.message,
+        };
+      }
+      return {
+        kind: "decision_recorded",
+        disposition: "defer",
+        decisionId: deferred.decisionId,
+        proposalId: presented.proposalId ?? null,
+        optionSetRef: presented.optionSetRef,
+        selectedOptionRef: "opt:defer-work-recommendation",
+        scope: trajectoryDecisionScope(presented.optionSetRef),
+        capturedAt: deferred.capturedAt,
+        decisionBasisLinked: false,
+        readyForNextGatedStep: false,
+        subjectFamily: "proposal",
+        prepareOutcome: proposalPrepareNotApplicable(),
+        executionContractId: null,
+        executionContractPrepared: false,
+        attemptCreated: false,
+        executionPerformed: false,
+      };
+    }
+
+    const selectedOptionRef =
+      SELECTED_OPTION_BY_DISPOSITION[effective as Exclude<
+        ChatFirstEffectiveDisposition,
+        "defer"
+      >];
+    if (!presented.optionRefs.includes(selectedOptionRef)) {
+      return {
+        kind: "no_eligible_subject",
+        message:
+          "L'option correspondante n'appartient pas au jeu d'options scellé — aucune décision enregistrée.",
+        code: "OPTION_NOT_PRESENTED",
+      };
+    }
+
+    const decided = await decideTrajectory({
+      oa: input.oa,
+      projectId: input.projectId,
+      optionSetRef: presented.optionSetRef,
+      options: presented.options,
+      recommendedOptionRef: presented.recommendedOptionRef,
+      selectedOptionRef,
+      trajectoryId: null,
+      candidateVersion: null,
+      epistemicRefs: presented.epistemicRefs,
+      reservesText: null,
+      forceLocalAuthority: input.forceLocalAuthority,
+    });
+    if (!decided.ok) {
+      return {
+        kind: "decision_refused",
+        code: decided.code,
+        message: decided.message,
+      };
+    }
+
+    return {
+      kind: "decision_recorded",
+      disposition: effective as Exclude<ChatFirstEffectiveDisposition, "defer">,
+      decisionId: decided.decision.decisionId,
+      proposalId: decided.decision.proposalId ?? presented.proposalId ?? null,
+      optionSetRef: presented.optionSetRef,
+      selectedOptionRef,
+      scope: trajectoryDecisionScope(presented.optionSetRef),
+      capturedAt: decided.decision.capturedAt,
+      decisionBasisLinked: decided.decision.decisionBasisLinked,
+      readyForNextGatedStep: effective === "accept",
+      subjectFamily: "proposal",
+      prepareOutcome: proposalPrepareNotApplicable(),
+      executionContractId: null,
+      executionContractPrepared: false,
+      attemptCreated: false,
+      executionPerformed: false,
+    };
+  }
+
+  // ——— ProjectTrajectory path (D1-A / D3-EXT / D2-A / CP2 / CP3) ———
+  if (effective !== "accept") {
+    if (ptLookup.kind === "unique") {
+      return {
+        kind: "no_eligible_subject",
+        message: PT_NON_ACCEPT_MESSAGE,
+        code: "PROJECT_TRAJECTORY_ACCEPT_ONLY",
+      };
+    }
+    return {
+      kind: "no_eligible_subject",
+      message: NO_ELIGIBLE_SUBJECT_MESSAGE,
+      code: "NO_ACTIVE_DECISION_SUBJECT",
+    };
+  }
+
+  // D3-EXT — PT HD only for explicit CURRENT Recommendation acceptance.
+  if (targetKind !== "current_recommendation") {
+    return {
+      kind: "no_eligible_subject",
+      message: PT_TARGET_NOT_CURRENT_MESSAGE,
+      code:
+        targetKind === "specific_alternative"
+          ? "PROJECT_TRAJECTORY_SPECIFIC_ALTERNATIVE"
+          : "PROJECT_TRAJECTORY_TARGET_NOT_CURRENT_RECOMMENDATION",
+    };
+  }
+
+  let presented: PresentedOptionSetBinding;
+  if (ptLookup.kind === "unique") {
+    presented = ptLookup.presented;
+  } else {
+    // Idempotency — never seal+decide a second PT after a current trajectory HD.
+    const current = await input.oa.cycleServices.getCurrentTrajectory.execute({
+      projectId: input.projectId,
+    });
+    if (
+      current.ok &&
+      typeof current.trajectory.decidedByDecisionRef === "string" &&
+      current.trajectory.decidedByDecisionRef.trim().length > 0
+    ) {
+      return {
+        kind: "no_eligible_subject",
+        message:
+          "Une trajectoire courante est déjà décidée — aucune nouvelle HumanDecision chat-first.",
+        code: "TRAJECTORY_ALREADY_DECIDED",
+      };
+    }
+
+    // Align with eligibility: only seal when TDS PRESENT carries a CURRENT Nora ref.
+    const { resolveTrajectoryDecisionSupportProjection } = await import(
+      "./resolveTrajectoryDecisionSupportProjection"
+    );
+    const live = await input.oa.projectServices.getCurrentLivingProjectState.execute(
+      {
+        projectId: input.projectId,
+      },
+    );
+    const cycleInstanceId =
+      live.ok ? live.livingProjectState.activeCycleInstanceId ?? null : null;
+    const tds = await resolveTrajectoryDecisionSupportProjection({
+      oa: input.oa,
+      projectId: input.projectId,
+      cycleInstanceId,
+    });
+    if (
+      tds.state !== "PRESENT" ||
+      typeof tds.currentNoraRecommendedOptionRef !== "string" ||
+      tds.currentNoraRecommendedOptionRef.trim().length === 0
+    ) {
+      return {
+        kind: "no_eligible_subject",
+        message: NO_ELIGIBLE_SUBJECT_MESSAGE,
+        code: "NO_ACTIVE_DECISION_SUBJECT",
+      };
+    }
+
+    const sealed = await ensureSealedProjectTrajectoryPresentedOptionSet({
+      oa: input.oa,
+      projectId: input.projectId,
+    });
+    if (!sealed.ok) {
+      if (sealed.kind === "ambiguous") {
+        return {
+          kind: "ambiguous_subjects",
+          message: sealed.message,
+          proposalIds: [],
+          optionSetRefs: sealed.optionSetRefs ?? [],
+        };
+      }
+      return {
+        kind: "no_eligible_subject",
+        message: sealed.message,
+        code: sealed.code,
+      };
+    }
+    presented = sealed.presented;
+  }
+
+  return recordProjectTrajectoryAccept({
+    oa: input.oa,
+    projectId: input.projectId,
+    presented,
+    rationale: input.rationale,
+    forceLocalAuthority: input.forceLocalAuthority,
+    pinnedBaseHeadSha: input.pinnedBaseHeadSha,
+    managedRepoRootBase: input.managedRepoRootBase,
+  });
 }
