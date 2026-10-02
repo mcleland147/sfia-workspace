@@ -749,3 +749,147 @@ describe("CORR-PROOF-04 studioCognitiveContext composer", () => {
   });
 
 });
+
+/**
+ * HABITFLOW-SEMANTIC-OPTION-LABEL-CORR-01 — bounded-direct label must follow
+ * the server OptionSet contextual label (nominal ≠ recovery), not the
+ * contextless recovery mapping in pilotTrajectoryOptionLabel.
+ */
+describe("HABITFLOW-SEMANTIC-OPTION-LABEL-CORR-01 — contextual bounded-direct label", () => {
+  const BOUNDED = "opt:trajectory:bounded-direct";
+  const GOVERNED = "opt:trajectory:governed-gated";
+  const CLARIFY = "opt:trajectory:clarify-first";
+  const NOMINAL_BOUNDED_LABEL = "Trajectoire bornée directe";
+  const RECOVERY_BOUNDED_LABEL =
+    "Replanifier ou suspendre sans relance immédiate";
+
+  function promptWithBoundedRecommendation(input: {
+    readonly boundedLabel: string;
+    readonly recommendedRef?: string;
+  }): string {
+    const optionRefs = [GOVERNED, BOUNDED, CLARIFY] as const;
+    const optionLabels = [
+      "Préparer une nouvelle tentative gouvernée",
+      input.boundedLabel,
+      "Diagnostiquer / clarifier avant nouvelle tentative",
+    ] as const;
+    const recommendedRef = input.recommendedRef ?? BOUNDED;
+    const ctx = {
+      projectTruth: {
+        projectId: "prj:habitflow-label",
+        name: "HabitFlow",
+        objective: "O",
+        context: "C",
+        constraints: [],
+        criticality: "STANDARD",
+        shortReference: null,
+        lpsId: "lps:hf",
+        lpsVersion: 1,
+        activeCycleInstanceId: "cycinst:hf",
+        doctrineId: "pkg:hf",
+        doctrineVersion: "1",
+        doctrineStatus: "resolved",
+      },
+      method: {
+        orientation: {
+          state: "UNRESOLVED" as const,
+          candidateCycleTypeId: null,
+        },
+        cycleLabel: "Delivery",
+        ckcLensSection: null,
+        ckcLoaded: false,
+        doctrinePinPresent: true,
+        sourceLimit: "none" as const,
+        trajectory: null,
+      },
+      activeCycle: {
+        cycleInstanceId: "cycinst:hf",
+        cycleTypeId: "cyc:delivery",
+        cycleLabel: "Delivery",
+        profile: "Standard",
+        status: "active",
+        workEligible: true,
+        trajectoryId: "traj:hf",
+        trajectoryVersion: 1,
+        trajectoryStepId: null,
+        ckcResolutionRef: null,
+      },
+      activeCycleWorkItems: { state: "NONE" as const, items: [] },
+      trajectoryDecisionSupport: {
+        state: "PRESENT" as const,
+        optionRefs: Object.freeze([...optionRefs]),
+        optionLabels: Object.freeze([...optionLabels]),
+        currentNoraRecommendedOptionRef: recommendedRef,
+        currentRecommendationSource: "nora_active_cycle" as const,
+      },
+      decisions: { state: "NONE" as const, items: [] },
+      evidence: { state: "NONE" as const, items: [] },
+      review: { state: "NONE" as const, items: [] },
+      trajectory: { state: "ABSENT" as const, current: null },
+      lifecycleRecommendation: {
+        state: "NONE" as const,
+        current: null,
+        satisfiesPreCycleNextCycleTransition: false,
+      },
+      reservationCompactSection: null,
+      reservationFocusSection: null,
+      limits: {
+        oaAvailable: true,
+        truthOutranksConversation: true as const,
+        composerDoesNotScoreMaturity: true as const,
+        composerDoesNotSelectTrajectory: true as const,
+      },
+    } satisfies StudioCognitiveContext;
+    return buildStudioCognitivePromptSections(ctx).join("\n");
+  }
+
+  it("NOMINAL — bounded-direct Recommendation uses Trajectoire bornée directe", () => {
+    const prompt = promptWithBoundedRecommendation({
+      boundedLabel: NOMINAL_BOUNDED_LABEL,
+    });
+    expect(prompt).toContain(
+      `Recommendation Nora courante (structurée) : ${BOUNDED} (${NOMINAL_BOUNDED_LABEL}) — PAS une HumanDecision.`,
+    );
+    expect(prompt).toContain(`• ${BOUNDED} — ${NOMINAL_BOUNDED_LABEL}`);
+    // Must not re-map via contextless recovery helper for this Recommendation.
+    expect(prompt).not.toContain(
+      `Recommendation Nora courante (structurée) : ${BOUNDED} (${RECOVERY_BOUNDED_LABEL})`,
+    );
+    // optionRef identity unchanged
+    expect(prompt).toMatch(
+      new RegExp(
+        `Recommendation Nora courante \\(structurée\\) : ${BOUNDED.replace(/:/g, "\\:")} \\(`,
+      ),
+    );
+  });
+
+  it("RECOVERY — same bounded-direct ref keeps Replanifier ou suspendre label", () => {
+    const prompt = promptWithBoundedRecommendation({
+      boundedLabel: RECOVERY_BOUNDED_LABEL,
+    });
+    expect(prompt).toContain(
+      `Recommendation Nora courante (structurée) : ${BOUNDED} (${RECOVERY_BOUNDED_LABEL}) — PAS une HumanDecision.`,
+    );
+    expect(prompt).toContain(`• ${BOUNDED} — ${RECOVERY_BOUNDED_LABEL}`);
+    expect(prompt).not.toContain(
+      `Recommendation Nora courante (structurée) : ${BOUNDED} (${NOMINAL_BOUNDED_LABEL})`,
+    );
+  });
+
+  it("optionRef is never transformed when label context changes", () => {
+    const nominal = promptWithBoundedRecommendation({
+      boundedLabel: NOMINAL_BOUNDED_LABEL,
+    });
+    const recovery = promptWithBoundedRecommendation({
+      boundedLabel: RECOVERY_BOUNDED_LABEL,
+    });
+    const recLine =
+      /Recommendation Nora courante \(structurée\) : (opt:trajectory:bounded-direct) \(([^)]+)\)/;
+    const n = nominal.match(recLine);
+    const r = recovery.match(recLine);
+    expect(n?.[1]).toBe(BOUNDED);
+    expect(r?.[1]).toBe(BOUNDED);
+    expect(n?.[2]).toBe(NOMINAL_BOUNDED_LABEL);
+    expect(r?.[2]).toBe(RECOVERY_BOUNDED_LABEL);
+  });
+});

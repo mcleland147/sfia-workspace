@@ -893,6 +893,27 @@ export async function composeStudioCognitiveContext(input: {
 }
 
 /**
+ * Resolve a trajectory option presentation label from the server OptionSet
+ * pairing (optionRefs[i] ↔ optionLabels[i]). Same optionRef can legitimately
+ * carry different labels across nominal vs recovery contexts.
+ *
+ * Fallback to contextless `pilotTrajectoryOptionLabel` only when the
+ * contextual label is absent — never as the nominal source of truth.
+ */
+function contextualTrajectoryOptionLabelFromDecisionSupport(
+  optionRef: string,
+  optionRefs: readonly string[],
+  optionLabels: readonly string[],
+): string {
+  const idx = optionRefs.indexOf(optionRef);
+  if (idx >= 0) {
+    const contextual = optionLabels[idx]?.trim();
+    if (contextual) return contextual;
+  }
+  return pilotTrajectoryOptionLabel(optionRef);
+}
+
+/**
  * Render StudioCognitiveContext into F1 system-prompt sections.
  * Business-first; no digests / repository mechanics / F1-F2-MW5 jargon.
  */
@@ -1010,13 +1031,25 @@ export function buildStudioCognitivePromptSections(
       );
       for (let i = 0; i < tds.optionRefs.length; i += 1) {
         const ref = tds.optionRefs[i]!;
-        const label =
-          tds.optionLabels[i] ?? pilotTrajectoryOptionLabel(ref);
+        const label = contextualTrajectoryOptionLabelFromDecisionSupport(
+          ref,
+          tds.optionRefs,
+          tds.optionLabels,
+        );
         lines.push(`• ${ref} — ${label}`);
       }
       if (tds.currentNoraRecommendedOptionRef) {
+        // HABITFLOW-SEMANTIC-OPTION-LABEL-CORR-01 — use OptionSet contextual
+        // label (nominal vs recovery). Same optionRef can carry different
+        // presentation labels; never re-map via contextless recovery helper.
+        const recRef = tds.currentNoraRecommendedOptionRef;
+        const recLabel = contextualTrajectoryOptionLabelFromDecisionSupport(
+          recRef,
+          tds.optionRefs,
+          tds.optionLabels,
+        );
         lines.push(
-          `Recommendation Nora courante (structurée) : ${tds.currentNoraRecommendedOptionRef} (${pilotTrajectoryOptionLabel(tds.currentNoraRecommendedOptionRef)}) — PAS une HumanDecision.`,
+          `Recommendation Nora courante (structurée) : ${recRef} (${recLabel}) — PAS une HumanDecision.`,
         );
       } else {
         lines.push(
