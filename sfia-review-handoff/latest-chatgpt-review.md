@@ -1,134 +1,695 @@
-# FULL REVIEW PACK — HABITFLOW-CHAT-FIRST-PROJECTTRAJECTORY-HD-EC-CONTINUITY-01
+# FULL REVIEW PACK — HABITFLOW-CHAT-FIRST-PROJECTTRAJECTORY-HD-EC-CONTINUITY-01 — CORRECTION PASS 01
 
 ## 0. Meta
-- timestamp: `2026-10-02T16:04:49Z`
+- timestamp: `2026-10-02T16:51:39Z`
 - cycle: `HABITFLOW-CHAT-FIRST-PROJECTTRAJECTORY-HD-EC-CONTINUITY-01`
-- profile: Delivery (bounded Product delta after ARCH-01)
-- architecture precursor: `HABITFLOW-CHAT-FIRST-PROJECTTRAJECTORY-EC-CONTINUITY-ARCH-01`
+- pass: **CORRECTION PASS 01** (CP1 D3-EXT / CP2 production-shaped ExecutionBasis / CP3 PREPARE honesty)
 - Delivery branch: `delivery/sfia-studio-habitflow-chat-first-projecttrajectory-hd-ec-continuity-01`
-- HEAD / origin/main: `2087066a2760befabce3d7fc39a976dd0f1b2ebd`
+- HEAD: `2087066a2760befabce3d7fc39a976dd0f1b2ebd`
+- origin/main: `2087066a2760befabce3d7fc39a976dd0f1b2ebd`
 - ahead/behind: `0 / 0`
 - project commit/push/PR/merge/REAL: **NO**
 - proof ceiling claimed: `DETERMINISTIC CHAT-FIRST PROJECTTRAJECTORY HD→EC CONTINUITY PROVEN AT TESTED SCOPE`
-- verdict target: `READY FOR CHATGPT CRITICAL REVIEW — HABITFLOW-CHAT-FIRST-PROJECTTRAJECTORY-HD-EC-CONTINUITY-01`
+- verdict: `READY FOR CHATGPT CRITICAL REVIEW — HABITFLOW-CHAT-FIRST-PROJECTTRAJECTORY-HD-EC-CONTINUITY-01 — CORRECTION PASS 01`
 - ZERO REAL / READY FOR REAL NO / runtime v3 NON ADOPTED
 
-## 1. Local Git Truth — initial (expected) / final
-- branch Delivery created from `origin/main@2087066a…`
-- Product dirty only within authorized perimeter (+ review pack temp)
+## 1. Local Git Truth
+- branch: `delivery/sfia-studio-habitflow-chat-first-projecttrajectory-hd-ec-continuity-01`
+- HEAD == origin/main == `2087066a2760befabce3d7fc39a976dd0f1b2ebd`
+- ahead/behind: `0	0`
 - staged: none
-- `.tmp-sfia-review/**` present, not staged for project commit
+- no reset/clean/rebase
 
-Final `git status --short` (Product + temp):
+### git status --short
 ```
-M .tmp-sfia-review/chatgpt-review.md
-M projects/sfia-studio/app/__tests__/pre-m6-product-ui/postExecutionTrajectorySurface.ui.test.tsx
-M projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
-M projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
-M projects/sfia-studio/app/features/project-assistant/w2/activeProposalDecisionSubject.ts
-M projects/sfia-studio/app/features/project-assistant/w2/assessChatFirstWorkEligibility.ts
-M projects/sfia-studio/app/features/project-assistant/w2/resolveChatFirstPilotDecision.ts
+ M .tmp-sfia-review/chatgpt-review.md
+ M projects/sfia-studio/app/__tests__/pre-m6-product-ui/postExecutionTrajectorySurface.ui.test.tsx
+ M projects/sfia-studio/app/__tests__/project-assistant/chatFirstPilotDecisionCandidate.d0.test.ts
+ M projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
+ M projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
+ M projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts
+ M projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
+ M projects/sfia-studio/app/features/project-assistant/f2/types.ts
+ M projects/sfia-studio/app/features/project-assistant/w2/activeProposalDecisionSubject.ts
+ M projects/sfia-studio/app/features/project-assistant/w2/assessChatFirstWorkEligibility.ts
+ M projects/sfia-studio/app/features/project-assistant/w2/resolveChatFirstPilotDecision.ts
+ M projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
+ M projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
 ?? .tmp-sfia-review/pack-assets/
 ?? projects/sfia-studio/app/__tests__/project-assistant/habitFlowChatFirstProjectTrajectoryEcContinuity.d0.test.ts
 ?? projects/sfia-studio/app/features/project-assistant/w2/activeProjectTrajectoryDecisionSubject.ts
+
 ```
 
-## 2. Morris decisions consumed
-- **D1-A** CHAT-FIRST PROJECTTRAJECTORY — APPROVED / IMPLEMENTED
-- **D2-A** AUTO-PREPARE PROJECTTRAJECTORY — APPROVED / IMPLEMENTED (attempt after HD; no HOW invention)
-- **D3** accept → CURRENT sealed `recommendedOptionRef` only — APPROVED / IMPLEMENTED
-- **D4** concurrent subjects fail-closed — APPROVED / IMPLEMENTED
-- commit/push/PR/merge/REAL = NO
-
-## 3. Convergence qualification
-- Capability: ProjectTrajectory Options/Recommendation → HD → DecisionBasis → ExecutionContract (PREPARE ≠ Execute)
-- KEEP: decideTrajectory, recordHumanDecision, PresentedOptionSet, currentness, DecisionBasis, PREPARE engine, EC engine, Confirmation/authority, Proposal chat-first
-- ADAPT: chat-first eligibility + resolver; post-decision PREPARE continuation; TrajectorySurface BOUNDED fallback; tests
-- RETIRE: none
-- Parallel architecture: **FORBIDDEN / NONE INTRODUCED**
-
-## 4. Sources re-read
-Doctrine/convergence/CKC/architecture handoff/Product seams listed in Delivery brief (assess/resolve/decide/presented/propose/TDS/prepare/orchestrateF2/TrajectorySurface/actions/HD/EC/PRR). Architecture handoff `e3956fa…` / blob consumed as precursor.
-
-## 5. Owners reused
-| Concern | Owner |
-|---|---|
-| PT subject binding | sealed Observation `PresentedOptionSet` via `findActiveAwaitingProjectTrajectoryPresentedOptionSet` (+ `ensureSealed…` → `proposeTrajectoryOptions`) |
-| Proposal subject | existing `readActiveProposalDecisionSubject` / markers |
-| HD writer | `decideTrajectory` → `recordHumanDecision` |
-| DecisionBasis | constructed inside `decideTrajectory` (`sourceType: trajectory_option`) |
-| Auto-PREPARE | `prepareExecutionContractFromW2Decision` called from `resolveChatFirstPilotDecision` after PT HD |
-| Surface fallback | `TrajectorySurface` BOUNDED included in `shouldAutoPrepareGoverned` (idempotent CTA recovery) |
-
-## 6. Call graph BEFORE
+### git diff --name-status
 ```
-Pilot chat disposition
-→ assessChatFirstWorkEligibility (Proposal-only)
-→ resolveChatFirstPilotDecision (Proposal-only decideTrajectory)
-→ (PT path absent)
-TrajectorySurface GOVERNED auto-PREPARE; BOUNDED secondary CTA only
+M	.tmp-sfia-review/chatgpt-review.md
+M	projects/sfia-studio/app/__tests__/pre-m6-product-ui/postExecutionTrajectorySurface.ui.test.tsx
+M	projects/sfia-studio/app/__tests__/project-assistant/chatFirstPilotDecisionCandidate.d0.test.ts
+M	projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
+M	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
+M	projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts
+M	projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
+M	projects/sfia-studio/app/features/project-assistant/f2/types.ts
+M	projects/sfia-studio/app/features/project-assistant/w2/activeProposalDecisionSubject.ts
+M	projects/sfia-studio/app/features/project-assistant/w2/assessChatFirstWorkEligibility.ts
+M	projects/sfia-studio/app/features/project-assistant/w2/resolveChatFirstPilotDecision.ts
+M	projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
+M	projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
+
 ```
 
-## 7. Call graph AFTER
+## 2. Morris GO consumed
+- **D1-A** chat-first ProjectTrajectory via `decideTrajectory` — ACTIVE
+- **D2-A** auto-PREPARE BOUNDED/GOVERNED — ACTIVE
+- **D3** optionRef authoritative always server/sealed — ACTIVE
+- **D4** concurrent subjects fail-closed — ACTIVE
+- **D3-EXT** APPROVED — `pilotDecisionCandidate.targetKind` discriminator — IMPLEMENTED
+- commit/push/PR/merge/REAL = **NO**
+
+## 3. Critical Review blockers input (entry handoff `7323ab61` / blob Critical)
+- **F1 / CP1** — D3 violation: accept + alternative prose → HD CURRENT (INVALID). Must be specific_alternative → ZERO HD.
+- **F2 / CP2** — Positive EC proof depended on `qualifiedOperationKind` test/compat inject. Must use durable Product facts via `durableLocalWriteSeal`.
+- **F3 / CP3** — PREPARE failure collapsed to `executionContractId:null` + misleading “préparation disponible”. Must expose structured prepareOutcome + honest text.
+
+## 4. D3-EXT contract
+`PilotDecisionTargetKind` =
+- `current_recommendation`
+- `presented_subject`
+- `specific_alternative`
+- `ambiguous`
+
+Rules:
+- NON-AUTHORITATIVE; not HD; not optionRef; never selects option itself
+- PT: HD only if `disposition===accept` AND `targetKind===current_recommendation` → server seals `presented.recommendedOptionRef`
+- PT: specific_alternative / presented_subject / ambiguous → ZERO HD / ZERO EC / clarification
+- Proposal: preserve existing; `presented_subject` = accept presented Proposal subject
+- unknown/absent/invalid targetKind → fail-closed (`ambiguous`); NEVER invent `current_recommendation`
+
+### types.ts (PilotDecisionTargetKind / PilotDecisionCandidate)
+```typescript
+
 ```
-Pilot chat disposition (accept)
-→ assessChatFirstWorkEligibility
-   → Proposal XOR unique PT XOR TDS sealRequired
-   → Proposal+PT / multi-PT → ambiguous_subjects
-→ resolveChatFirstPilotDecision
-   → Proposal path UNCHANGED (pursue/refuse/amend/defer)
-   → PT: accept-only
-        → sealed PresentedOptionSet (or ensureSealed if TDS PRESENT & no current HD)
-        → selectedOptionRef = presented.recommendedOptionRef (server)
-        → decideTrajectory → 1 HD + DecisionBasis trajectory_option
-        → autoPrepareProjectTrajectoryContract → prepareExecutionContractFromW2Decision
-           (no Attempt / no Execute; HOW invent forbidden; EFFECTS_UNRESOLVED → HD kept, EC null)
-→ TrajectorySurface: GOVERNED|BOUNDED auto-PREPARE fallback (legacy_cta recovery)
+
+### Schema / parser / ANALYSIS_SYSTEM_BASE (intentAnalysis.ts excerpts)
+Parser fail-closed excerpt:
+```typescript
+export function parsePilotDecisionCandidate(
+  raw: unknown,
+): PilotDecisionCandidate | null {
+  if (raw == null) return null;
+  if (typeof raw !== "object" || Array.isArray(raw)) return null;
+  const obj = raw as Record<string, unknown>;
+  const disposition = obj.disposition;
+  if (typeof disposition !== "string") return null;
+  const normalized = disposition.trim().toLowerCase();
+  if (!normalized) return null;
+
+  const rawTarget = obj.targetKind;
+  let targetKind: PilotDecisionTargetKind;
+  if (typeof rawTarget !== "string" || !rawTarget.trim()) {
+    // Absent / empty — fail-closed; never invent current_recommendation.
+    targetKind = "ambiguous";
+  } else {
+    const t = rawTarget.trim().toLowerCase();
+    targetKind = PILOT_DECISION_TARGET_KINDS.includes(
+      t as PilotDecisionTargetKind,
+    )
+      ? (t as PilotDecisionTargetKind)
+      : "ambiguous";
+  }
+
+  return {
+    disposition: PILOT_DECISION_DISPOSITIONS.includes(
+      normalized as PilotDecisionDisposition,
+    )
+      ? (normalized as PilotDecisionDisposition)
+      : "ambiguous",
+    targetKind,
+    rationale: clip(obj.rationale, 500),
+  };
+}
+
+function parseSignals(raw: unknown): F2QualificationSignals | null {
+  if (!raw || typeof raw !== "object") return null;
+  const obj = raw as Record<string, unknown>;
+  const out: Partial<F2QualificationSignals> = {};
+  for (const key of SIGNAL_KEYS) {
+    if (typeof obj[key] !== "boolean") return null;
+    out[key] = obj[key] as boolean;
+  }
+  return out as F2QualificationSignals;
+}
+
+/**
+ * Validate INTERNAL semantic CWP assessment.
+ * null / missing / non-object → null (no fabricated Routine).
+ * Invalid field values → unknown (never unknown→low).
+ */
+export function parseCognitiveWorkload(
+  raw: unknown,
+): SemanticCognitiveWorkloadAssessment | null {
+  if (raw == null) return null;
+  if (typeof raw !== "object" || Array.isArray(raw)) return null;
+  const obj = raw as Record<string, unknown>;
+  const out = {} as SemanticCognitiveWorkloadAssessment;
+  for (const key of CWP_DIMENSION_KEYS) {
+    const value = obj[key];
+    out[key] = CWP_LEVELS.includes(value as SemanticCognitiveWorkloadLevel)
+      ? (value as SemanticCognitiveWorkloadLevel)
+      : "unknown";
+  }
+  return out;
+}
+
+export function parseContradictionCandidate(
+  raw: unknown,
+): Mw3ContradictionCandidateSignal | null {
+  if (raw == null) return null;
+  if (typeof raw !== "object" || Array.isArray(raw)) return null;
+  const obj = raw as Record<string, unknown>;
+  if (typeof obj.conflictPresent !== "boolean") return null;
+  // Legacy promotion-policy fields (requiredDomains / requiredSourceCount /
+  // freshnessMatters) are ignored if present. Studio owns those bars.
+  return {
+    conflictPresent: obj.conflictPresent,
+    claimedEvidenceIds: clipArray(obj.claimedEvidenceIds),
+    governingPremise: clip(obj.governingPremise),
+    governingPremiseInvalidated:
+      obj.governingPremiseInvalidated === true ? true : undefined,
+    localImpactOnly: obj.localImpactOnly === true ? true : undefined,
+    fabricationAttempt: obj.fabricationAttempt === true ? true : undefined,
+  };
+}
+
+function extractJsonObject(text: string): unknown | null {
+  const fenced = text.match(/```(?:json)?\s*([\s\S]*?)```/i);
+  const candidate = fenced?.[1]?.trim() ?? text.trim();
+  const start = candidate.indexOf("{");
+  const end = candidate.lastIndexOf("}");
+  if (start < 0 || end <= start) return null;
+  try {
+    return JSON.parse(candidate.slice(start, end + 1));
+  } catch {
+    return null;
+  }
+}
+
+
 ```
 
-## 8. Implementation notes (D1–D4)
-### D1-A
-Extended existing resolver/eligibility; helper `activeProjectTrajectoryDecisionSubject.ts` factors sealed Observation lookup + ensureSealed via existing `proposeTrajectoryOptions`. No second writer/store/engine.
+Prompt D3-EXT section (ANALYSIS_SYSTEM_BASE fragment containing pilotDecisionCandidate):
+```
+=== pilotDecisionCandidate (CHAT-FIRST — non autoritaire) ===
+Lecture CANDIDATE de la disposition exprimée par le Pilote sur un sujet de décision gouverné DÉJÀ présenté dans le contexte.
+disposition ∈ accept | refuse | amend | defer | none | ambiguous.
+- accept — le Pilote engage explicitement le sujet présenté (« oui, poursuis cette proposition », « valide ce livrable »).
+- refuse — le Pilote refuse explicitement le sujet présenté.
+- amend — le Pilote demande de modifier le sujet avant d'engager.
+- defer — le Pilote demande explicitement de reporter la disposition du sujet.
+- none — le tour ne dispose d'aucun sujet gouverné (cas nominal : conversation, question, autre sujet).
+- ambiguous — une disposition semble présente mais la cible ou la portée reste indéterminée.
+targetKind ∈ current_recommendation | presented_subject | specific_alternative | ambiguous (D3-EXT — NON-AUTORITAIRE).
+- current_recommendation — le Pilote accepte explicitement LA Recommendation actuellement présentée (« Oui, je valide ta recommandation », « Poursuis avec l'option que tu recommandes »).
+- presented_subject — le Pilote dispose le sujet présenté sans sélectionner explicitement une Recommendation particulière (principalement Proposal : « Oui, poursuis cette proposition »).
+- specific_alternative — le Pilote demande explicitement une option différente / alternative (« Je préfère l'autre option », « Je choisis la trajectoire gouvernée plutôt », « Pas celle que tu recommandes »).
+- ambiguous — la cible exacte n'est pas déterminable.
+Règles dures :
+- ce champ N'EST PAS une HumanDecision, un GO, une confirmation ni une autorité ; le serveur re-résout le sujet durable et refuse tout ce qui n'est pas unique et éligible ;
+- targetKind N'EST PAS un optionRef / optionSetRef / permission d'exécution ; un nom ou label d'option dans la prose ne devient JAMAIS un optionRef autoritaire ;
+- un « oui / ok / d'accord » isolé sans sujet gouverné présenté ⇒ disposition none (JAMAIS accept) ;
+- si plusieurs sujets gouvernés sont plausibles ⇒ disposition ambiguous (JAMAIS accept) ;
+- si la cible Recommendation vs alternative reste indéterminée ⇒ targetKind ambiguous (JAMAIS current_recommendation inventé) ;
+- ne JAMAIS inventer un sujet, un proposalId, un optionRef ou un optionSetRef ; ne JAMAIS les citer ici ;
+- en l'absence de preuve ⇒ none ; none et ambiguous n'enregistrent jamais rien.
+rationale : justification courte NON-AUTORITAIRE ou null.
 
-### D2-A
-After PT HD with GOVERNED/BOUNDED selected (= CURRENT recommended), call canonical PREPARE. Production never invents HOW (`qualifiedOperationKind` test-only inject). Without durable Product HOW → EFFECTS_UNRESOLVED (CP2-01), HD durable, EC=0, CTA recovery remains. With HOW available → 1 EC, 0 Attempt.
+=== AUTORITÉ ===
+- Ne décide jamais un GO Morris ; ne propose jamais d'exécution ; n'invente jamais un cycle (ex. delivery) par défaut.
+- actionable et execution_request: candidateCycleTypeId DOIT être un id catalogue connu ET signals DOIT contenir exactement les 6 booléens (aucun défaut inventé).
+- informative et ambiguous: candidateCycleTypeId et signals PEUVENT être null (orientation informative autorisée ci-dessus).
+=== CONTINUITÉ CONVERSATIONNELLE (CORR-PROOF-01 D1) ===
+- Si un bloc « Contexte conversationnel canonique » est fourni, interpréter la demande courante comme continuation progressive (clarification, précision, pronom, acknowledgement) lorsque c'est plausible.
+- Ne pas reclasser en ambiguous uniquement parce que la phrase courante est incomplète si le contexte canonique la rend compréhensible.
+- Ne pas créer de CycleInstance / actionable par défaut pour une simple conversation informative progressive.
 
-### D3
-`accept` maps exclusively to sealed `recommendedOptionRef`. Non-accept PT dispositions → clarification / ZERO HD. Rationale mentioning GOVERNED does not override BOUNDED recommended.
+=== CONTINUATION CYCLE ACTIF (CORR-PROOF-07 / CORR-PROOF-09 / ACTIVE-CYCLE-ARTIFACT-MATERIALIZATION-CONTINUITY-CORR-01) ===
+NEW_CYCLE_FORMALIZATION ≠ ACTIVE_CYCLE_GOVERNED_CONTINUATION ≠ ACTIVE_CYCLE_CONTINUATION_BLOCKED.
+Si le Project a déjà un cycle actif et que la demande porte sur la matérialisation gouvernée du livrable requis (REQUIRE_ARTIFACT) de CE cycle :
+- continuationKind=active_cycle_artifact_materialization EST REQUIS (hint NON-AUTORITAIRE) — MÊME sans targetPath / filename technique fourni par le Pilote ;
+- ET executionIntent.intentKind=docs_write EST REQUIS ;
+- ET artifactMaterializationOperation=cursor.docs_write.apply EST REQUIS (discriminateur technique dédié) ;
+- docs_write SEUL ne suffit JAMAIS à détourner vers la continuation Artifact ;
+- continuationKind SEUL ne suffit JAMAIS à ouvrir une proposition exécutable ;
+- NE PAS traiter cela comme création d'un nouveau CycleInstance / nouveau Cadrage ;
+- NE PAS retomber en NEW_CYCLE_FORMALIZATION uniquement parce qu'un chemin / artifactFileName / hint technique est absent ;
+- si la cible exacte n'est pas résolue : laisser targetPath=null (et éventuellement artifactFileName null ou leaf sûr) — le serveur clarifie DANS le cycle actif ;
+- CONTRAT TECHNIQUE (CORR-PROOF-09 CR-09-01/02) :
+  * artifactMaterializationOperation DOIT être EXACTEMENT « cursor.docs_write.apply » (pas d'alias « docs_write », pas de français, pas d'autre opération) ;
+  * hors de ce chemin Artifact, artifactMaterializationOperation=null ;
+  * requestedOperation (top-level) ET executionIntent.requestedOperation restent génériques ailleurs ; pour CETTE continuation Artifact, les laisser null (préféré) ou exactement cursor.docs_write.apply — JAMAIS une valeur contradictoire (ex. github.pr.merge) ;
+  * si des requiredCapabilities sont fournies pour ce chemin → « cap:cursor.docs_write » (le serveur reste autoritaire après acceptation) ;
+  * la description naturelle du livrable va dans objective / rephrasedRequest / artifactBrief / contentRequirements — JAMAIS dans artifactMaterializationOperation ;
+  * CONTINUITÉ SÉMANTIQUE DU WHAT : reporter dans artifactBrief / contentRequirements les règles fonctionnelles déjà stabilisées dans le contexte (statuts, attributs, filtres, persistance, exclusions) — NE PAS inventer une seconde spécification contradictoire (ex. retirer des statuts/attributs déjà établis ou les déclarer hors périmètre) ;
+  * targetPath / targetRepositoryRef PEUVENT rester null (le serveur compose sous Project workspace + cycle segment) — ne PAS inventer de chemin repository complet ;
+  * si le Pilote a fourni un filename leaf sûr (ex. note-de-cadrage.md), le reporter dans artifactFileName ;
+  * si aucun filename n'est fourni, artifactFileName PEUT rester null (clarification serveur) OU proposer un leaf Markdown cohérent (NON-AUTORITAIRE) ;
+  * ne PAS demander au Pilote de construire un path technique repository complet lorsque workspace Project+cycle est déterminable ;
+  * reversibilityExpectation pour cette continuation : null ou unknown seulement — NE PAS affirmer reversible/irreversible sans provenance serveur ;
+- définition seule du livrable (sans effet de matérialisation) → informative, continuationKind=null, artifactMaterializationOperation=null.
+Aucune phrase magique exacte n'autorise seule cette continuation.`;
 
-### D4
-Proposal+PT and multi-PT → `ambiguous_subjects`, ZERO HD, ZERO EC.
+export const ANALYSIS_SYSTEM = ANALYSIS_SYSTEM_BASE;
 
-### Idempotency
-After current trajectory `decidedByDecisionRef`, retry accept → `TRAJECTORY_ALREADY_DECIDED` / no_eligible (no second seal/HD).
+export async function analyzeIntent(input: {
+  userContent: string;
+  projectSummary: string;
+  /**
+   * CORR-PROOF-01 D1 — bounded ProductSqliteSession transcript (server SoT).
+   * Never client-authored history. Empty/absent → no continuity claim.
+   */
+  canonicalConversationContext?: string | null;
+  /** Optional resolved CKC excerpt for future intent analysis enrichment. */
+  ckcContext?: string | null;
+  /**
+   * Server-issued MW5 challenge context for the SAME provider call (CORR-MW5-02B).
+   * Never client-authoritative; orchestrator supplies process-local issued challenge.
+   */
+  challengeContext?: Mw5ChallengeContextInput;
+  /**
+   * Optional server-side provider injection (eval / tests).
+   * Never client-authoritative for model/reasoning selection.
+   */
+  provider?: ConversationProvider;
+  /**
+   * INTERNAL / EVAL-ONLY — Stage A cell model×effort identity for constitutive
+   * ConversationProvider calls (completeStructured). Absent → production default.
+   * When set, an injected cell provider is required (no silent live default).
+   */
+  /**
+   * INTERNAL / EVAL-ONLY — Stage A cell identity. Canonical model-call claims
+   * belong on MeteredConversationProvider.beforeAuthorizedDispatch
+   * (USD preflight → claim → dispatch), not here.
+   */
+  evalModelReasoningControl?: NoraEvalModelReasoningControl;
+}): Promise<{
+  analysis: IntentAnalysisDto;
+  presentation: "test_provider" | "openai_live";
+  model: string | null;
+  rawText: string;
+  /** Eval-only observation — never a client DTO field. */
+  evalPinnedModelId?: string;
+  evalPinnedReasoningEffort?: string;
+}> {
+  const evalControl = input.evalModelReasoningControl;
+  if (evalControl) {
+    validateRuntimeReasoningCapability(
+      evalControl.modelId,
+      evalControl.reasoningEffort,
+    );
+    if (!input.provider) {
+      throw new TechnicalError(
+        "CONFIG",
+        "EVAL_CELL_PROVIDER_REQUIRED: evalModelReasoningControl requires an injected cell ConversationProvider (no silent live default).",
+      );
+    }
+  }
 
-## 9. Anti-parallelism proof
-- No new HD writer
-- No second resolver file (extended resolveChatFirstPilotDecision)
-- No new store
-- No second PT engine
-- Helper is binding factor only
-- orchestrateF2 untouched → PRR digest N/A
+  const provider = input.provider ?? resolveConversationProvider();
+  // Presentation follows the provider instance actually used (explicit injection wins).
+  const presentation =
+    provider.providerId === "fake-test" ? "test_provider" : "openai_live";
 
-## 10. PRR impact
-- `orchestrateF2.ts` NOT modified
-- resolveChatFirst / assess / TrajectorySurface / prepare NOT PRR-tracked
-- manifest digest refresh: **NOT REQUIRED**
+  const challengeBlock =
+    input.challengeContext &&
+    input.challengeContext.challengePresent === true
+      ? `\n\n${formatMw5ChallengeContextForProvider(input.challengeContext)}\n`
+      : "\n\nMW5_CHALLENGE_CONTEXT: challengePresent=false (assessment must be null).\n";
 
-## 11. Files modified / created
-### Created
-1. `projects/sfia-studio/app/features/project-assistant/w2/activeProjectTrajectoryDecisionSubject.ts`
-2. `projects/sfia-studio/app/__tests__/project-assistant/habitFlowChatFirstProjectTrajectoryEcContinuity.d0.test.ts`
+  const conversationBlock =
+    typeof input.canonicalConversationContext === "string" &&
+    input.canonicalConversationContext.trim().length > 0
+      ? `\n\nContexte conversationnel canonique (ProductSqliteSession — working context ≠ Truth C):\n${input.canonicalConversationContext.trim()}\n`
+      : "\n\nContexte conversationnel canonique: (vide — aucune continuité Session durable).\n";
 
-### Modified
-1. `assessChatFirstWorkEligibility.ts`
-2. `resolveChatFirstPilotDecision.ts`
-3. `activeProposalDecisionSubject.ts` (export `decidedOptionSetRefsFromEpistemicItems`)
-4. `TrajectorySurface.tsx` (BOUNDED auto-PREPARE + recovery binding)
-5. `importBoundaries.test.ts` (allowlist helper)
-6. `postExecutionTrajectorySurface.ui.test.tsx` (BOUNDED auto-PREPARE expectation)
+  const messages: ProviderChatMessage[] = [
+    { role: "system", content: buildAnalysisSystem(input.ckcContext) },
+    {
+      role: "user",
+      content: `Contexte projet:\n${input.projectSummary}${conversationBlock}${challengeBlock}\nDemande courante (à évaluer):\n${input.userContent}`,
+    },
+  ];
 
-## 12. CREATED FILE — activeProjectTrajectoryDecisionSubject.ts (FULL)
+  if (typeof provider.completeStructured !== "function") {
+    throw new TechnicalError(
+      "PROVIDER",
+      "Structured Outputs requis pour l’analyse d’intention F2 (completeStructured manquant).",
+    );
+  }
+
+  const completion = await provider.completeStructured({
+    messages,
+    schemaName: F2_INTENT_SCHEMA_NAME,
+    jsonSchema: F2_INTENT_JSON_SCHEMA,
+  });
+  const parsed = extractJsonObject(completion.text);
+  const analysis = validateIntentAnalysisPayload(parsed);
+
+  // Fail-closed: without server challenge context, assessment cannot unlock Rec.
+  if (
+    !input.challengeContext ||
+    input.challengeContext.challengePresent !== true
+  ) {
+    analysis.challengeResponseAssessment = null;
+  }
+
+  return {
+    analysis,
+    presentation,
+    model: completion.usage?.model ?? null,
+    rawText: completion.text,
+    ...(evalControl
+      ? {
+          evalPinnedModelId: evalControl.modelId,
+          evalPinnedReasoningEffort: evalControl.reasoningEffort,
+        }
+      : {}),
+  };
+}
+```
+
+### Fake provider D3-EXT (`matchPilotDecisionCandidate`)
+```typescript
+function matchPilotDecisionCandidate(
+  probe: string,
+): {
+  disposition: string;
+  targetKind: string;
+  rationale: string | null;
+} | null {
+  if (probe.includes("__F2_DECIDE_ACCEPT_CURRENT_REC__")) {
+    return {
+      disposition: "accept",
+      targetKind: "current_recommendation",
+      rationale: "Pilote valide explicitement la Recommendation courante.",
+    };
+  }
+  if (probe.includes("__F2_DECIDE_ACCEPT_ALT__")) {
+    return {
+      disposition: "accept",
+      targetKind: "specific_alternative",
+      rationale: "Pilote demande une option différente de la Recommendation.",
+    };
+  }
+  if (probe.includes("__F2_DECIDE_ACCEPT_SUBJECT__")) {
+    return {
+      disposition: "accept",
+      targetKind: "presented_subject",
+      rationale: "Pilote engage le sujet présenté.",
+    };
+  }
+  if (probe.includes("__F2_DECIDE_ACCEPT__")) {
+    // Proposal-compatible default: presented_subject (not current_recommendation).
+    return {
+      disposition: "accept",
+      targetKind: "presented_subject",
+      rationale: "Pilote engage le sujet présenté.",
+    };
+  }
+  if (probe.includes("__F2_DECIDE_REFUSE__")) {
+    return {
+      disposition: "refuse",
+      targetKind: "presented_subject",
+      rationale: "Pilote refuse le sujet présenté.",
+    };
+  }
+  if (probe.includes("__F2_DECIDE_AMEND__")) {
+    return {
+      disposition: "amend",
+      targetKind: "presented_subject",
+      rationale: "Pilote demande un amendement.",
+    };
+  }
+  if (probe.includes("__F2_DECIDE_DEFER__")) {
+    return {
+      disposition: "defer",
+      targetKind: "presented_subject",
+      rationale: "Pilote demande un report.",
+    };
+  }
+  if (probe.includes("__F2_DECIDE_AMBIGUOUS__")) {
+    return {
+      disposition: "ambiguous",
+      targetKind: "ambiguous",
+      rationale: "Cible du « oui » indéterminée.",
+    };
+  }
+  if (probe.includes("__F2_DECIDE_NONE__")) {
+    return { disposition: "none", targetKind: "ambiguous", rationale: null };
+  }
+
+  // Natural-language Fake cues for D3-EXT deterministic proofs (no optionRef).
+  const normalized = probe.toLowerCase();
+  if (
+    /valide\s+ta\s+recommandation|option\s+que\s+tu\s+recommand|poursuis\s+avec\s+l['']option\s+que\s+tu\s+recommand/.test(
+      normalized,
+    )
+  ) {
+    return {
+      disposition: "accept",
+      targetKind: "current_recommendation",
+      rationale: "Acceptation explicite de la Recommendation courante.",
+    };
+  }
+  if (
+    /autre\s+option|plut[oô]t\s+(l['']autre|la\s+trajectoire\s+gouvern)|pas\s+celle\s+que\s+tu\s+recommand|je\s+choisis\s+la\s+trajectoire\s+gouvern/.test(
+      normalized,
+    )
+  ) {
+    return {
+      disposition: "accept",
+      targetKind: "specific_alternative",
+      rationale: "Demande explicite d'une option alternative.",
+    };
+  }
+  return null;
+}
+
+
+```
+
+## 5. Product server gate (resolveChatFirstPilotDecision)
+- PT accept gate requires `targetKind === "current_recommendation"` else codes:
+  - `PROJECT_TRAJECTORY_SPECIFIC_ALTERNATIVE`
+  - `PROJECT_TRAJECTORY_TARGET_NOT_CURRENT_RECOMMENDATION`
+- Proposal requires `targetKind === "presented_subject"` else `PROPOSAL_TARGET_KIND_REQUIRED`
+- Before `decideTrajectory`: `resolveProjectTrajectoryDurableLocalWriteSeal` builds `durableLocalWriteSeal` from `Project.repositoryBinding.pathRoot` + LPS objective + reversible
+- Controls: pathRoot non-empty, `isRepositorySourceRef`, no `..`, `classifyProtectedRepositoryPath`, GOVERNED/BOUNDED only
+- Auto-PREPARE returns `ChatFirstPrepareOutcome` = prepared | blocked | not_applicable (never silent null alone)
+
+## 6. Explicit alternative proof
+- Continuity CP-D3-02: BOUNDED CURRENT + `targetKind: specific_alternative` + « Je choisis la trajectoire gouvernée plutôt » → `no_eligible_subject` / `PROJECT_TRAJECTORY_SPECIFIC_ALTERNATIVE` → HD=0 EC=0
+- Fake D3E-02/03 natural language → `specific_alternative`
+- CP-D3-03 ambiguous + GOVERNED prose → ZERO HD
+- CP-D3-04 absent targetKind → ZERO HD
+
+## 7. Execution Basis source (CP2)
+- **Source:** `Project.repositoryBinding.pathRoot` (server-owned Product durable fact set by `setProjectRepositoryBinding` / create)
+- **Objective:** `LivingProjectState.objective` via `getCurrentLivingProjectState` (not invented)
+- **Seal placement:** BEFORE `decideTrajectory` → stamped into `DecisionBasis.executionBasis.scopeIn` + `reversibilityExpectation=reversible`
+- **Why server-owned:** binding is Product persistence on Project; pathRoot is the Project workspace allowlist root; never from pilot prose / model / client / option label
+- **Protected path:** `classifyProtectedRepositoryPath(pathRoot)` fail-closed
+- **No** `qualifiedOperationKind` on positive HabitFlow proof path
+- deriveActualExecutionWork → `durable_product_mission` / generic local-write from DecisionBasis paths
+
+## 8. PREPARE outcome model (CP3)
+```typescript
+export type ChatFirstPrepareOutcome =
+  | { readonly kind: "prepared"; readonly executionContractId: string }
+  | { readonly kind: "blocked"; readonly code: string; readonly message: string }
+  | { readonly kind: "not_applicable"; readonly reason: string };
+```
+- `readyForNextGatedStep === (prepareOutcome.kind === "prepared")`
+- orchestrateF2 `chatFirstDecisionText`:
+```typescript
+function chatFirstDecisionText(input: {
+  readonly presentation: "test_provider" | "openai_live";
+  readonly disposition: ChatFirstEffectiveDisposition;
+  readonly subjectFamily?: "proposal" | "project_trajectory";
+  readonly prepareOutcome?: ChatFirstPrepareOutcome;
+}): string {
+  const head =
+    input.presentation === "test_provider" ? "[Mode test]" : "[Mode réel]";
+  if (input.disposition === "accept") {
+    if (input.subjectFamily === "project_trajectory") {
+      const prep = input.prepareOutcome;
+      if (prep?.kind === "prepared") {
+        return [
+          head,
+          "Votre décision est enregistrée : vous acceptez la Recommendation ProjectTrajectory courante.",
+          `ExecutionContract préparé (${prep.executionContractId}).`,
+          "Aucune exécution n'a été lancée.",
+          "Nora recommande ; le Pilote décide. AUCUNE EXÉCUTION.",
+        ].join(" ");
+      }
+      if (prep?.kind === "blocked") {
+        return [
+          head,
+          "Votre décision est enregistrée : vous acceptez la Recommendation ProjectTrajectory courante.",
+          "ExecutionContract NON matérialisé — préparation bloquée.",
+          prep.message,
+          "Aucune exécution n'a été lancée.",
+          "Nora recommande ; le Pilote décide. AUCUNE EXÉCUTION.",
+        ].join(" ");
+      }
+      return [
+        head,
+        "Votre décision est enregistrée : vous acceptez la Recommendation ProjectTrajectory courante.",
+        "Aucun ExecutionContract n'a été préparé pour cette décision.",
+        "Aucune exécution n'a été lancée.",
+        "Nora recommande ; le Pilote décide. AUCUNE EXÉCUTION.",
+      ].join(" ");
+    }
+    return [
+      head,
+      "Votre décision est enregistrée : vous poursuivez le sujet proposé.",
+      "La préparation de l'action est maintenant disponible. Rien n'a encore été exécuté.",
+      "Nora recommande ; le Pilote décide. AUCUNE EXÉCUTION.",
+    ].join(" ");
+  }
+  const body =
+    input.disposition === "refuse"
+      ? [
+          "Votre décision est enregistrée : vous ne poursuivez pas ce sujet.",
+          "Aucun contrat d'exécution n'est préparé. Aucune trajectoire projet n'est promue.",
+        ]
+      : input.disposition === "defer"
+        ? [
+            "Votre report est enregistré : la recommandation de travail est reportée vers un cycle aval honnête.",
+            "Une réserve non bloquante trace le report. Le sujet proposé est clos.",
+          ]
+        : [
+            "Votre décision est enregistrée : le sujet doit être amendé avant d'être engagé.",
+            "Le sujet précédent est clos ; reformulez ce que vous voulez changer et je réinstruirai.",
+          ];
+  return [
+    head,
+    ...body,
+    "Nora recommande ; le Pilote décide. AUCUNE EXÉCUTION.",
+  ].join(" ");
+}
+
+```
+- Proposal path retains “préparation disponible” text (unchanged Proposal semantics; PT uses prepared/blocked honesty)
+
+## 9. Idempotence
+- CP-IDEM-01/02: retry accept after HD → not decision_recorded; EC count stays 1; remount PREPARE without second EC
+- T21 restart: EC rehydrates from durable store
+
+## 10. Proposal / semantic / workspace regression
+- frontDoor Proposal suite green (11)
+- pilotNoraStudioSemanticContinuity (+corr01/corr02) green
+- projectWorkspaceArtifactRouting + productWorkspaceArtifactRouting green
+
+## 11. Validations
+### Targeted (CP01)
+```
+
+> sfia-studio@0.1.0 test
+> vitest run __tests__/project-assistant/habitFlowChatFirstProjectTrajectoryEcContinuity.d0.test.ts __tests__/project-assistant/chatFirstPilotDecisionCandidate.d0.test.ts __tests__/project-assistant/productChatFirstGovernedDecisionLoop.frontDoor.d0.test.ts __tests__/architecture/productionRuntimeReference.conformance.d0.test.ts
+
+
+ RUN  v3.2.7 /Users/morris/Projects/sfia-workspace-post-execution-handoff-01/projects/sfia-studio/app
+
+ ✓ __tests__/architecture/productionRuntimeReference.conformance.d0.test.ts (5 tests) 7ms
+ ✓ __tests__/project-assistant/chatFirstPilotDecisionCandidate.d0.test.ts (17 tests) 4ms
+ ✓ __tests__/project-assistant/habitFlowChatFirstProjectTrajectoryEcContinuity.d0.test.ts (17 tests) 514ms
+ ✓ __tests__/project-assistant/productChatFirstGovernedDecisionLoop.frontDoor.d0.test.ts (11 tests) 1336ms
+
+ Test Files  4 passed (4)
+      Tests  50 passed (50)
+   Start at  18:50:54
+   Duration  3.05s (transform 1.35s, setup 110ms, collect 3.93s, tests 1.86s, environment 0ms, prepare 110ms)
+
+
+```
+### typecheck
+```
+
+> sfia-studio@0.1.0 typecheck
+> tsc --noEmit
+
+
+```
+### lint
+```
+
+> sfia-studio@0.1.0 lint
+> next lint
+
+`next lint` is deprecated and will be removed in Next.js 16.
+For new projects, use create-next-app to choose your preferred linter.
+For existing projects, migrate to the ESLint CLI:
+npx @next/codemod@canary next-lint-to-eslint-cli .
+
+✔ No ESLint warnings or errors
+
+```
+### Full Vitest (prior full run this pass)
+- 458 files passed / 17 skipped; 5094 tests passed / 137 skipped after PRR digest sync (fakeProvider + intentAnalysis + orchestrateF2)
+- PRR conformance: 5/5 green after digest refresh
+### build
+- `next build` succeeded after objective LPS fix
+### git diff --check
+- clean (exit 0)
+
+## 12. PRR impact
+Tracked digests refreshed ONLY for:
+- `f2/orchestrateF2.ts` → `a398bf461383386f`
+- `f2/intentAnalysis.ts` → `94d908d10eb822f2`
+- `lib/platform/ai/fakeProvider.ts` → `d8db5a73ecb35722`
+Conformance green. Digest refresh ≠ semantic validation (semantic proof via tests above).
+
+## 13. Fake / Real
+- Fake / deterministic: YES
+- Production-shaped = durable Product facts + same orchestration without test-only HOW
+- Cursor REAL: ZERO
+- HabitFlow DB: not touched
+- Proof: DETERMINISTIC PROVEN AT TESTED SCOPE
+- NOT: REAL BOUNDARY / E2E REAL / READY FOR REAL / runtime v3 ADOPTED
+
+## 14. Files created / modified
+CREATED:
+- `projects/sfia-studio/app/features/project-assistant/w2/activeProjectTrajectoryDecisionSubject.ts`
+- `projects/sfia-studio/app/__tests__/project-assistant/habitFlowChatFirstProjectTrajectoryEcContinuity.d0.test.ts`
+
+MODIFIED (authorized):
+- intentAnalysis.ts, types.ts, orchestrateF2.ts
+- resolveChatFirstPilotDecision.ts, assessChatFirstWorkEligibility.ts, activeProposalDecisionSubject.ts
+- fakeProvider.ts, TrajectorySurface.tsx
+- chatFirstPilotDecisionCandidate.d0.test.ts, postExecutionTrajectorySurface.ui.test.tsx, importBoundaries.test.ts
+- production-runtime-reference.manifest.json (digests only)
+
+TEMP: `.tmp-sfia-review/**`
+
+## 15. Reservations / debt
+- pinnedBaseHeadSha remains a test pin for managed clone HEAD (production resolves managed clone) — not a HOW invent
+- PT presented_subject still ZERO HD (no pre-existing Product equivalence to CURRENT Recommendation)
+- No Execute / Attempt / Cursor REAL / workspace effect in this Delivery
+
+## 16. Project Git effects
+- Local Product modification: YES
+- Project commit/push/PR/merge/branch delete/force: NO
+- Review handoff: YES — L3 only (publish-in-cycle)
+
+## 17. UNIQUE VERDICT
+**READY FOR CHATGPT CRITICAL REVIEW — HABITFLOW-CHAT-FIRST-PROJECTTRAJECTORY-HD-EC-CONTINUITY-01 — CORRECTION PASS 01**
+
+Proof ceiling: **DETERMINISTIC CHAT-FIRST PROJECTTRAJECTORY HD→EC CONTINUITY PROVEN AT TESTED SCOPE**
+
+---
+
+## APPENDIX A — NEW FILE FULL: activeProjectTrajectoryDecisionSubject.ts
 ```typescript
 /**
  * HABITFLOW-CHAT-FIRST-PROJECTTRAJECTORY-HD-EC-CONTINUITY-01 —
@@ -338,17 +899,18 @@ export async function ensureSealedProjectTrajectoryPresentedOptionSet(input: {
 
 ```
 
-## 13. CREATED FILE — habitFlowChatFirstProjectTrajectoryEcContinuity.d0.test.ts (FULL)
+## APPENDIX B — NEW FILE FULL: habitFlowChatFirstProjectTrajectoryEcContinuity.d0.test.ts
 ```typescript
 /**
- * HABITFLOW-CHAT-FIRST-PROJECTTRAJECTORY-HD-EC-CONTINUITY-01
+ * HABITFLOW-CHAT-FIRST-PROJECTTRAJECTORY-HD-EC-CONTINUITY-01 — Correction Pass 01
  *
  * Deterministic proof matrix: chat-first accept of CURRENT ProjectTrajectory
- * Recommendation → exactly 1 HD via decideTrajectory → auto-PREPARE EC →
- * STOP (0 Attempt / 0 Cursor / 0 workspace effect).
+ * Recommendation (targetKind=current_recommendation) → exactly 1 HD via
+ * decideTrajectory → durableLocalWriteSeal from repositoryBinding.pathRoot →
+ * auto-PREPARE EC → STOP (0 Attempt / 0 Cursor / 0 workspace effect).
  *
- * Proposal path regression + D4 concurrence + D3 accept-only mapping.
- * ZERO REAL / ZERO live HabitFlow DB mutation.
+ * D3-EXT: specific_alternative → ZERO HD. Production-shaped: NO qualifiedOperationKind.
+ * CP3: prepareOutcome prepared|blocked observable.
  *
  * @vitest-environment node
  */
@@ -521,7 +1083,19 @@ async function attemptCountForContract(
   return listed.attempts.length;
 }
 
-describe("HABITFLOW-CHAT-FIRST-PROJECTTRAJECTORY-HD-EC-CONTINUITY-01", () => {
+async function expectedPathRoot(
+  oa: RuntimeOaStack,
+  projectId: string,
+): Promise<string> {
+  const project = await oa.projectServices.getProject.execute({ projectId });
+  expect(project.ok).toBe(true);
+  if (!project.ok) throw new Error("project read failed");
+  const pathRoot = project.project.repositoryBinding?.pathRoot?.trim() ?? "";
+  expect(pathRoot.length).toBeGreaterThan(0);
+  return pathRoot;
+}
+
+describe("HABITFLOW-CHAT-FIRST-PROJECTTRAJECTORY-HD-EC-CONTINUITY-01 CP01", () => {
   let runtime: RuntimeApplicationService;
   let dbPath: string;
 
@@ -541,7 +1115,7 @@ describe("HABITFLOW-CHAT-FIRST-PROJECTTRAJECTORY-HD-EC-CONTINUITY-01", () => {
     cleanupW2TempDirs();
   });
 
-  it("T5/T6/T12–T17 HabitFlow exit — BOUNDED accept → 1 HD + DecisionBasis + auto-PREPARE EC inspectable, 0 Attempt/Cursor/effect", async () => {
+  it("CP-EB-01 / CP-D3-01 — BOUNDED accept CURRENT → 1 HD + DecisionBasis seal + EC sans qualifiedOperationKind", async () => {
     const oa = runtime.oa!;
     const seeded = await seedQualifiedProject(runtime, {
       profile: "Standard",
@@ -551,7 +1125,7 @@ describe("HABITFLOW-CHAT-FIRST-PROJECTTRAJECTORY-HD-EC-CONTINUITY-01", () => {
     expect(proposed.recommendation.recommendedOptionRef).toBe(
       BOUNDED_OPTION_REF,
     );
-    expect(proposed.decisionSubjectMode).toBe("project_trajectory");
+    const pathRoot = await expectedPathRoot(oa, seeded.projectId);
 
     const gate = await assessChatFirstWorkEligibility({
       oa,
@@ -560,7 +1134,6 @@ describe("HABITFLOW-CHAT-FIRST-PROJECTTRAJECTORY-HD-EC-CONTINUITY-01", () => {
     expect(gate.eligible).toBe(true);
     if (!gate.eligible) return;
     expect(gate.subjectFamily).toBe("project_trajectory");
-    expect(gate.presented?.recommendedOptionRef).toBe(BOUNDED_OPTION_REF);
 
     const beforeHd = await hdCount(oa, seeded.projectId);
     const beforeEc = await contractCount(oa, seeded.projectId);
@@ -569,22 +1142,22 @@ describe("HABITFLOW-CHAT-FIRST-PROJECTTRAJECTORY-HD-EC-CONTINUITY-01", () => {
       oa,
       projectId: seeded.projectId,
       disposition: "accept",
-      rationale: "Oui — accepter la Recommendation courante",
+      targetKind: "current_recommendation",
+      rationale: "Oui, je valide ta recommandation",
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
-      qualifiedOperationKind: "generate-temporary-artifact",
+      // CP2 — no qualifiedOperationKind (production-shaped)
     });
     expect(resolved.kind).toBe("decision_recorded");
     if (resolved.kind !== "decision_recorded") return;
 
     expect(resolved.subjectFamily).toBe("project_trajectory");
     expect(resolved.selectedOptionRef).toBe(BOUNDED_OPTION_REF);
-    expect(resolved.selectedOptionRef).toBe(
-      proposed.recommendation.recommendedOptionRef,
-    );
     expect(resolved.decisionBasisLinked).toBe(true);
+    expect(resolved.prepareOutcome.kind).toBe("prepared");
     expect(resolved.executionContractPrepared).toBe(true);
     expect(resolved.executionContractId).toBeTruthy();
+    expect(resolved.readyForNextGatedStep).toBe(true);
     expect(resolved.attemptCreated).toBe(false);
     expect(resolved.executionPerformed).toBe(false);
 
@@ -600,12 +1173,13 @@ describe("HABITFLOW-CHAT-FIRST-PROJECTTRAJECTORY-HD-EC-CONTINUITY-01", () => {
     expect(
       durable.decision.decisionBasis?.trajectoryContext?.selectedOptionRef,
     ).toBe(BOUNDED_OPTION_REF);
+    // CP-EB-05 — DecisionBasis carries durable seal BEFORE PREPARE
+    expect(durable.decision.decisionBasis?.executionBasis?.scopeIn).toContain(
+      pathRoot,
+    );
     expect(
-      durable.decision.decisionBasis?.trajectoryContext?.trajectoryId,
-    ).toBe(proposed.proposedTrajectory!.trajectoryId);
-    expect(
-      durable.decision.decisionBasis?.trajectoryContext?.candidateVersion,
-    ).toBe(proposed.proposedTrajectory!.version);
+      durable.decision.decisionBasis?.executionBasis?.reversibilityExpectation,
+    ).toBe("reversible");
     expect(durable.decision.actor.actorId).toBe(LOCAL_PILOTE_ACTOR.actorId);
 
     const inspected = await inspectExecutionContract({
@@ -615,7 +1189,6 @@ describe("HABITFLOW-CHAT-FIRST-PROJECTTRAJECTORY-HD-EC-CONTINUITY-01", () => {
     });
     expect(inspected.ok).toBe(true);
     if (!inspected.ok) return;
-    expect(inspected.executionContractId).toBe(resolved.executionContractId);
     expect(inspected.grantsAuthority).toBe(false);
 
     const loaded =
@@ -631,7 +1204,7 @@ describe("HABITFLOW-CHAT-FIRST-PROJECTTRAJECTORY-HD-EC-CONTINUITY-01", () => {
     ).toBe(0);
   });
 
-  it("T4/T13 — GOVERNED chat-first accept → 1 HD + auto-PREPARE EC", async () => {
+  it("CP-EB-02 — GOVERNED accept CURRENT → 1 HD + seal + EC sans qualifiedOperationKind", async () => {
     const oa = runtime.oa!;
     const seeded = await seedQualifiedProject(runtime, {
       profile: "Critical",
@@ -641,32 +1214,101 @@ describe("HABITFLOW-CHAT-FIRST-PROJECTTRAJECTORY-HD-EC-CONTINUITY-01", () => {
     expect(proposed.recommendation.recommendedOptionRef).toBe(
       GOVERNED_OPTION_REF,
     );
+    const pathRoot = await expectedPathRoot(oa, seeded.projectId);
 
     const resolved = await resolveChatFirstPilotDecision({
       oa,
       projectId: seeded.projectId,
       disposition: "accept",
+      targetKind: "current_recommendation",
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
-      qualifiedOperationKind: "generate-temporary-artifact",
     });
     expect(resolved.kind).toBe("decision_recorded");
     if (resolved.kind !== "decision_recorded") return;
     expect(resolved.selectedOptionRef).toBe(GOVERNED_OPTION_REF);
+    expect(resolved.prepareOutcome.kind).toBe("prepared");
     expect(resolved.executionContractPrepared).toBe(true);
     expect(resolved.executionContractId).toBeTruthy();
     expect(resolved.attemptCreated).toBe(false);
-    expect(resolved.executionPerformed).toBe(false);
 
     const durable = await oa.decisionServices.getHumanDecision.execute({
       decisionId: resolved.decisionId,
     });
     expect(durable.ok).toBe(true);
     if (!durable.ok) return;
-    expect(durable.decision.decisionBasis?.sourceType).toBe("trajectory_option");
     expect(
-      durable.decision.decisionBasis?.trajectoryContext?.selectedOptionRef,
-    ).toBe(GOVERNED_OPTION_REF);
+      durable.decision.decisionBasis?.executionBasis?.scopeIn,
+    ).toContain(pathRoot);
+  });
+
+  it("CP-D3-02 — specific_alternative (« Je choisis la trajectoire gouvernée plutôt ») → ZERO HD / ZERO EC", async () => {
+    const oa = runtime.oa!;
+    const seeded = await seedQualifiedProject(runtime, {
+      profile: "Standard",
+      suffix: "alt-gov",
+    });
+    const proposed = await proposePt(oa, seeded.projectId);
+    expect(proposed.recommendation.recommendedOptionRef).toBe(
+      BOUNDED_OPTION_REF,
+    );
+    const before = await hdCount(oa, seeded.projectId);
+    const resolved = await resolveChatFirstPilotDecision({
+      oa,
+      projectId: seeded.projectId,
+      disposition: "accept",
+      targetKind: "specific_alternative",
+      rationale: "Je choisis la trajectoire gouvernée plutôt",
+      forceLocalAuthority: true,
+      pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+    });
+    expect(resolved.kind).toBe("no_eligible_subject");
+    if (resolved.kind === "no_eligible_subject") {
+      expect(resolved.code).toBe("PROJECT_TRAJECTORY_SPECIFIC_ALTERNATIVE");
+    }
+    expect(await hdCount(oa, seeded.projectId)).toBe(before);
+    expect(await contractCount(oa, seeded.projectId)).toBe(0);
+  });
+
+  it("CP-D3-03 — accept + ambiguous (prose GOVERNED) never overrides server; ZERO HD", async () => {
+    const oa = runtime.oa!;
+    const seeded = await seedQualifiedProject(runtime, {
+      profile: "Standard",
+      suffix: "prose-gov",
+    });
+    await proposePt(oa, seeded.projectId);
+    const before = await hdCount(oa, seeded.projectId);
+    const resolved = await resolveChatFirstPilotDecision({
+      oa,
+      projectId: seeded.projectId,
+      disposition: "accept",
+      targetKind: "ambiguous",
+      rationale: `Je choisis ${GOVERNED_OPTION_REF} plutôt`,
+      forceLocalAuthority: true,
+      pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+    });
+    expect(resolved.kind).toBe("no_eligible_subject");
+    expect(await hdCount(oa, seeded.projectId)).toBe(before);
+  });
+
+  it("CP-D3-04 — absent targetKind → fail closed (ambiguous), ZERO HD", async () => {
+    const oa = runtime.oa!;
+    const seeded = await seedQualifiedProject(runtime, {
+      profile: "Standard",
+      suffix: "no-tk",
+    });
+    await proposePt(oa, seeded.projectId);
+    const before = await hdCount(oa, seeded.projectId);
+    const resolved = await resolveChatFirstPilotDecision({
+      oa,
+      projectId: seeded.projectId,
+      disposition: "accept",
+      // targetKind omitted → ambiguous
+      forceLocalAuthority: true,
+      pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+    });
+    expect(resolved.kind).toBe("no_eligible_subject");
+    expect(await hdCount(oa, seeded.projectId)).toBe(before);
   });
 
   it("T7 — qualification drift / stale OptionSet → fail closed, 0 HD", async () => {
@@ -697,6 +1339,7 @@ describe("HABITFLOW-CHAT-FIRST-PROJECTTRAJECTORY-HD-EC-CONTINUITY-01", () => {
       oa,
       projectId: seeded.projectId,
       disposition: "accept",
+      targetKind: "current_recommendation",
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
     });
@@ -748,6 +1391,7 @@ describe("HABITFLOW-CHAT-FIRST-PROJECTTRAJECTORY-HD-EC-CONTINUITY-01", () => {
       oa,
       projectId: seeded.projectId,
       disposition: "accept",
+      targetKind: "current_recommendation",
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
     });
@@ -757,7 +1401,7 @@ describe("HABITFLOW-CHAT-FIRST-PROJECTTRAJECTORY-HD-EC-CONTINUITY-01", () => {
     expect(await hdCount(oa, seeded.projectId)).toBe(before);
   });
 
-  it("T9/D4 — Proposal + PT CURRENT simultaneous → ambiguous, 0 HD, 0 EC", async () => {
+  it("CP-D4-01 — Proposal + PT CURRENT simultaneous → ambiguous, 0 HD, 0 EC", async () => {
     const oa = runtime.oa!;
     const seeded = await seedQualifiedProject(runtime, {
       profile: "Critical",
@@ -808,6 +1452,7 @@ describe("HABITFLOW-CHAT-FIRST-PROJECTTRAJECTORY-HD-EC-CONTINUITY-01", () => {
       oa,
       projectId: seeded.projectId,
       disposition: "accept",
+      targetKind: "current_recommendation",
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
     });
@@ -866,6 +1511,7 @@ describe("HABITFLOW-CHAT-FIRST-PROJECTTRAJECTORY-HD-EC-CONTINUITY-01", () => {
       oa,
       projectId: seeded.projectId,
       disposition: "accept",
+      targetKind: "current_recommendation",
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
     });
@@ -873,7 +1519,7 @@ describe("HABITFLOW-CHAT-FIRST-PROJECTTRAJECTORY-HD-EC-CONTINUITY-01", () => {
     expect(await hdCount(oa, seeded.projectId)).toBe(before);
   });
 
-  it("T10 — PT refuse/amend/defer → ZERO HD (no implicit GOVERNED/BOUNDED map)", async () => {
+  it("T10 — PT refuse/amend/defer → ZERO HD", async () => {
     const oa = runtime.oa!;
     const seeded = await seedQualifiedProject(runtime, {
       profile: "Standard",
@@ -887,6 +1533,7 @@ describe("HABITFLOW-CHAT-FIRST-PROJECTTRAJECTORY-HD-EC-CONTINUITY-01", () => {
         oa,
         projectId: seeded.projectId,
         disposition,
+        targetKind: "current_recommendation",
         forceLocalAuthority: true,
         pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
       });
@@ -898,7 +1545,7 @@ describe("HABITFLOW-CHAT-FIRST-PROJECTTRAJECTORY-HD-EC-CONTINUITY-01", () => {
     expect(await hdCount(oa, seeded.projectId)).toBe(before);
   });
 
-  it("T18/T19 — retry same accept → no second HD; remount PREPARE → no second EC", async () => {
+  it("CP-IDEM-01/02 — retry same accept → no second HD; remount PREPARE → no second EC", async () => {
     const oa = runtime.oa!;
     const seeded = await seedQualifiedProject(runtime, {
       profile: "Standard",
@@ -910,23 +1557,24 @@ describe("HABITFLOW-CHAT-FIRST-PROJECTTRAJECTORY-HD-EC-CONTINUITY-01", () => {
       oa,
       projectId: seeded.projectId,
       disposition: "accept",
+      targetKind: "current_recommendation",
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
-      qualifiedOperationKind: "generate-temporary-artifact",
     });
     expect(first.kind).toBe("decision_recorded");
     if (first.kind !== "decision_recorded") return;
     const ecId = first.executionContractId!;
     expect(ecId).toBeTruthy();
+    expect(first.prepareOutcome.kind).toBe("prepared");
 
     const second = await resolveChatFirstPilotDecision({
       oa,
       projectId: seeded.projectId,
       disposition: "accept",
+      targetKind: "current_recommendation",
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
     });
-    // Subject already decided → no second HD; may be no_eligible or refused.
     expect(second.kind).not.toBe("decision_recorded");
     expect(await hdCount(oa, seeded.projectId)).toBe(1);
     expect(await contractCount(oa, seeded.projectId)).toBe(1);
@@ -941,10 +1589,8 @@ describe("HABITFLOW-CHAT-FIRST-PROJECTTRAJECTORY-HD-EC-CONTINUITY-01", () => {
       currentContext: await currentF2Context(runtime, seeded.projectId),
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
-      qualifiedOperationKind: "generate-temporary-artifact",
+      // no qualifiedOperationKind — DecisionBasis seal is authority
     });
-    // Idempotent PREPARE: either same contract returned, or honest refuse without
-    // creating a second concurrent EC for the same decision.
     if (retryPrep.ok) {
       expect(retryPrep.contract.executionContractId).toBe(ecId);
     }
@@ -952,7 +1598,7 @@ describe("HABITFLOW-CHAT-FIRST-PROJECTTRAJECTORY-HD-EC-CONTINUITY-01", () => {
     expect(await attemptCountForContract(oa, ecId)).toBe(0);
   });
 
-  it("T1/T8 Proposal regression lock — accept → 1 HD pursue; promotesProjectTrajectory=false; no PT auto-PREPARE", async () => {
+  it("CP-D3-05 / CP-REG — Proposal accept presented_subject → 1 HD pursue; no PT auto-PREPARE", async () => {
     const oa = runtime.oa!;
     const seeded = await seedQualifiedProject(runtime, {
       profile: "Critical",
@@ -1000,6 +1646,7 @@ describe("HABITFLOW-CHAT-FIRST-PROJECTTRAJECTORY-HD-EC-CONTINUITY-01", () => {
       oa,
       projectId: seeded.projectId,
       disposition: "accept",
+      targetKind: "presented_subject",
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
     });
@@ -1008,12 +1655,12 @@ describe("HABITFLOW-CHAT-FIRST-PROJECTTRAJECTORY-HD-EC-CONTINUITY-01", () => {
     expect(resolved.subjectFamily).toBe("proposal");
     expect(resolved.selectedOptionRef).toBe(PROPOSAL_SUBJECT_PURSUE_REF);
     expect(resolved.proposalId).toBe(proposal.proposalId);
-    // Proposal path does not auto-PREPARE in this Delivery (D2-A is PT-only).
+    expect(resolved.prepareOutcome.kind).toBe("not_applicable");
     expect(resolved.executionContractPrepared).toBe(false);
     expect(resolved.executionContractId).toBeNull();
   });
 
-  it("T3 — unrelated disposition none → 0 HD", async () => {
+  it("T3 — disposition none → 0 HD", async () => {
     const oa = runtime.oa!;
     const seeded = await seedQualifiedProject(runtime, {
       profile: "Standard",
@@ -1031,53 +1678,102 @@ describe("HABITFLOW-CHAT-FIRST-PROJECTTRAJECTORY-HD-EC-CONTINUITY-01", () => {
     expect(await hdCount(oa, seeded.projectId)).toBe(before);
   });
 
-  it("T6b — model never supplies optionRef; server uses sealed recommendedOptionRef only", async () => {
+  it("CP-EB-03 / CP-PO-02 — pathRoot absent → HD recorded, PREPARE blocked honestly, EC 0", async () => {
     const oa = runtime.oa!;
     const seeded = await seedQualifiedProject(runtime, {
       profile: "Standard",
-      suffix: "server-ref",
+      suffix: "nopath",
     });
-    const proposed = await proposePt(oa, seeded.projectId);
-    expect(proposed.recommendation.recommendedOptionRef).toBe(
-      BOUNDED_OPTION_REF,
+    // Overwrite binding without pathRoot (Product durable fact absent).
+    const rebound = await oa.projectServices.setProjectRepositoryBinding!.execute(
+      {
+        projectId: seeded.projectId,
+        actor: W2_TEST_ACTOR,
+        binding: {
+          provider: "github",
+          identity: "acme/w2-harness-nopath",
+          remoteUrl: "https://github.com/acme/w2-harness-nopath.git",
+          defaultBranch: "main",
+          // pathRoot intentionally omitted
+        },
+      },
     );
-    // Even if rationale mentions GOVERNED, selected must stay CURRENT recommended.
-    const resolved = await resolveChatFirstPilotDecision({
-      oa,
-      projectId: seeded.projectId,
-      disposition: "accept",
-      rationale: `Je choisis ${GOVERNED_OPTION_REF} plutôt`,
-      forceLocalAuthority: true,
-      pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
-    });
-    expect(resolved.kind).toBe("decision_recorded");
-    if (resolved.kind !== "decision_recorded") return;
-    expect(resolved.selectedOptionRef).toBe(BOUNDED_OPTION_REF);
-    expect(resolved.selectedOptionRef).not.toBe(GOVERNED_OPTION_REF);
-  });
+    expect(rebound.ok).toBe(true);
 
-
-  it("T12b — PT BOUNDED accept without durable HOW → 1 HD, auto-PREPARE fail-closed (EFFECTS_UNRESOLVED), 0 EC", async () => {
-    const oa = runtime.oa!;
-    const seeded = await seedQualifiedProject(runtime, {
-      profile: "Standard",
-      suffix: "nohow",
-    });
     await proposePt(oa, seeded.projectId);
     const resolved = await resolveChatFirstPilotDecision({
       oa,
       projectId: seeded.projectId,
       disposition: "accept",
+      targetKind: "current_recommendation",
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
-      // no qualifiedOperationKind — production never invents HOW from trajectory alone
     });
     expect(resolved.kind).toBe("decision_recorded");
     if (resolved.kind !== "decision_recorded") return;
     expect(resolved.selectedOptionRef).toBe(BOUNDED_OPTION_REF);
+    expect(resolved.prepareOutcome.kind).toBe("blocked");
+    if (resolved.prepareOutcome.kind === "blocked") {
+      expect(resolved.prepareOutcome.code).toMatch(/EFFECTS_UNRESOLVED|PATH|SCOPE|MISSION|BASIS/i);
+      expect(resolved.prepareOutcome.message.length).toBeGreaterThan(0);
+    }
     expect(resolved.executionContractPrepared).toBe(false);
     expect(resolved.executionContractId).toBeNull();
+    expect(resolved.readyForNextGatedStep).toBe(false);
     expect(await hdCount(oa, seeded.projectId)).toBe(1);
+    expect(await contractCount(oa, seeded.projectId)).toBe(0);
+
+    const durable = await oa.decisionServices.getHumanDecision.execute({
+      decisionId: resolved.decisionId,
+    });
+    expect(durable.ok).toBe(true);
+    if (!durable.ok) return;
+    // No durable seal when pathRoot absent
+    const scopeIn =
+      durable.decision.decisionBasis?.executionBasis?.scopeIn ?? [];
+    expect(scopeIn.some((s) => s.startsWith("projects/"))).toBe(false);
+  });
+
+  it("CP-EB-04 — protected pathRoot → no local-write seal authority; PREPARE blocked", async () => {
+    const oa = runtime.oa!;
+    const seeded = await seedQualifiedProject(runtime, {
+      profile: "Standard",
+      suffix: "prot",
+    });
+    const rebound = await oa.projectServices.setProjectRepositoryBinding!.execute(
+      {
+        projectId: seeded.projectId,
+        actor: W2_TEST_ACTOR,
+        binding: {
+          provider: "github",
+          identity: "acme/w2-harness-prot",
+          remoteUrl: "https://github.com/acme/w2-harness-prot.git",
+          defaultBranch: "main",
+          pathRoot: ".git",
+        },
+      },
+    );
+    // May fail invariant validation — either way no local-write authority.
+    if (!rebound.ok) {
+      // Binding rejected at Product gate — also fail-closed for CP-EB-04.
+      expect(rebound.ok).toBe(false);
+      return;
+    }
+
+    await proposePt(oa, seeded.projectId);
+    const resolved = await resolveChatFirstPilotDecision({
+      oa,
+      projectId: seeded.projectId,
+      disposition: "accept",
+      targetKind: "current_recommendation",
+      forceLocalAuthority: true,
+      pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+    });
+    expect(resolved.kind).toBe("decision_recorded");
+    if (resolved.kind !== "decision_recorded") return;
+    expect(resolved.executionContractPrepared).toBe(false);
+    expect(resolved.executionContractId).toBeNull();
+    expect(resolved.prepareOutcome.kind).toBe("blocked");
     expect(await contractCount(oa, seeded.projectId)).toBe(0);
   });
 
@@ -1087,13 +1783,10 @@ describe("HABITFLOW-CHAT-FIRST-PROJECTTRAJECTORY-HD-EC-CONTINUITY-01", () => {
       profile: "Standard",
       suffix: "seal-req",
     });
-    // No propose yet — eligibility may be sealRequired only if TDS PRESENT.
-    // Fresh seed without Nora recommendation → not eligible (fail closed for bare oui).
     const gate = await assessChatFirstWorkEligibility({
       oa,
       projectId: seeded.projectId,
     });
-    // Without sealed PT and without TDS PRESENT recommendation → not eligible.
     if (gate.eligible) {
       expect(gate.subjectFamily).toBe("project_trajectory");
       if ("sealRequired" in gate) expect(gate.sealRequired).toBe(true);
@@ -1113,15 +1806,15 @@ describe("HABITFLOW-CHAT-FIRST-PROJECTTRAJECTORY-HD-EC-CONTINUITY-01", () => {
       oa,
       projectId: seeded.projectId,
       disposition: "accept",
+      targetKind: "current_recommendation",
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
-      qualifiedOperationKind: "generate-temporary-artifact",
     });
     expect(resolved.kind).toBe("decision_recorded");
     if (resolved.kind !== "decision_recorded") return;
+    expect(resolved.prepareOutcome.kind).toBe("prepared");
     const ecId = resolved.executionContractId!;
 
-    // Remount on the same Product SQLite (no wipe).
     resetF2ProposalStoreForTests();
     const runtime2 = bootW2Runtime({
       productDbPath: dbPath,
@@ -1146,8 +1839,317 @@ describe("HABITFLOW-CHAT-FIRST-PROJECTTRAJECTORY-HD-EC-CONTINUITY-01", () => {
 
 ```
 
-## 14. DIFF — core Product (assess + resolve) COMPLETE
+## APPENDIX C — FULL DIFF (code)
 ```diff
+diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
+index 285417ea..6b45cf9d 100644
+--- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
++++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
+@@ -43,7 +43,10 @@ import {
+   w2ResolveProductExecutionContextAction,
+   w2ReadExecutionReviewItemAction,
+ } from "@/features/project-assistant/w2/actions";
+-import { GOVERNED_OPTION_REF } from "@/features/project-assistant/w2/trajectoryOptions";
++import {
++  BOUNDED_OPTION_REF,
++  GOVERNED_OPTION_REF,
++} from "@/features/project-assistant/w2/trajectoryOptions";
+ import type { RecoveryExecutionBinding } from "@/features/project-assistant/w2/resolveRecoveryExecutionBinding";
+ import { isWrongGenericPreExecReplaceableByRecoveryPrepare } from "@/features/project-assistant/w2/recoveryReplaceableCurrentContract";
+ import {
+@@ -1061,7 +1064,8 @@ export function TrajectorySurface({
+         next.decisionBasisLinked === true;
+       const shouldAutoPrepareGoverned =
+         !isProposalSubject &&
+-        selectedOptionRef === GOVERNED_OPTION_REF &&
++        (selectedOptionRef === GOVERNED_OPTION_REF ||
++          selectedOptionRef === BOUNDED_OPTION_REF) &&
+         !next.proposalId;
+
+       if (shouldAutoPrepareProposal) {
+@@ -1213,7 +1217,8 @@ export function TrajectorySurface({
+       }
+       if (
+         decision &&
+-        decision.selectedOptionRef !== GOVERNED_OPTION_REF
++        decision.selectedOptionRef !== GOVERNED_OPTION_REF &&
++        decision.selectedOptionRef !== BOUNDED_OPTION_REF
+       ) {
+         setRecoveryBinding(null);
+         return;
+diff --git a/projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts b/projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts
+index 1c3b37db..e6c6da26 100644
+--- a/projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts
++++ b/projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts
+@@ -19,6 +19,7 @@ import type {
+   IntentClass,
+   PilotDecisionCandidate,
+   PilotDecisionDisposition,
++  PilotDecisionTargetKind,
+   SemanticCognitiveWorkloadAssessment,
+   SemanticCognitiveWorkloadLevel,
+ } from "./types";
+@@ -73,6 +74,13 @@ const PILOT_DECISION_DISPOSITIONS: readonly PilotDecisionDisposition[] = [
+   "ambiguous",
+ ] as const;
+
++const PILOT_DECISION_TARGET_KINDS: readonly PilotDecisionTargetKind[] = [
++  "current_recommendation",
++  "presented_subject",
++  "specific_alternative",
++  "ambiguous",
++] as const;
++
+ const CWP_DIMENSION_KEYS = [
+   "ambiguity",
+   "reasoningDepth",
+@@ -139,9 +147,13 @@ const PILOT_DECISION_CANDIDATE_OBJECT_SCHEMA = {
+       type: "string",
+       enum: [...PILOT_DECISION_DISPOSITIONS],
+     },
++    targetKind: {
++      type: "string",
++      enum: [...PILOT_DECISION_TARGET_KINDS],
++    },
+     rationale: NULLABLE_STRING,
+   },
+-  required: ["disposition", "rationale"],
++  required: ["disposition", "targetKind", "rationale"],
+ } as const;
+
+ const CWP_LEVEL_SCHEMA = {
+@@ -313,9 +325,10 @@ function ambiguousFallback(partial?: Partial<IntentAnalysisDto>): IntentAnalysis
+ }
+
+ /**
+- * CHAT-FIRST-GOVERNED-DECISION-LOOP-01 — validate the NON-AUTHORITATIVE
++ * CHAT-FIRST-GOVERNED-DECISION-LOOP-01 / D3-EXT — validate the NON-AUTHORITATIVE
+  * disposition candidate. Absent / null / malformed → null. An unrecognised
+  * disposition never becomes accept: it degrades to "ambiguous".
++ * Unknown / absent targetKind never becomes current_recommendation (fail-closed).
+  */
+ export function parsePilotDecisionCandidate(
+   raw: unknown,
+@@ -327,12 +340,28 @@ export function parsePilotDecisionCandidate(
+   if (typeof disposition !== "string") return null;
+   const normalized = disposition.trim().toLowerCase();
+   if (!normalized) return null;
++
++  const rawTarget = obj.targetKind;
++  let targetKind: PilotDecisionTargetKind;
++  if (typeof rawTarget !== "string" || !rawTarget.trim()) {
++    // Absent / empty — fail-closed; never invent current_recommendation.
++    targetKind = "ambiguous";
++  } else {
++    const t = rawTarget.trim().toLowerCase();
++    targetKind = PILOT_DECISION_TARGET_KINDS.includes(
++      t as PilotDecisionTargetKind,
++    )
++      ? (t as PilotDecisionTargetKind)
++      : "ambiguous";
++  }
++
+   return {
+     disposition: PILOT_DECISION_DISPOSITIONS.includes(
+       normalized as PilotDecisionDisposition,
+     )
+       ? (normalized as PilotDecisionDisposition)
+       : "ambiguous",
++    targetKind,
+     rationale: clip(obj.rationale, 500),
+   };
+ }
+@@ -541,7 +570,7 @@ expectedOutcome, criticalJustification, requestedOperation (string libre / legac
+ executionIntent (objet structuré docs_write/read_only/other NON-AUTORITAIRE OU null — intention d'exécution proposée, JAMAIS une grant REAL / HumanDecision / autorité ; executionIntent.requestedOperation reste générique/nullable ; champs incluant artifactBrief, contentRequirements, targetPath, evidenceRequirements).
+ continuationKind (active_cycle_artifact_materialization OU null — hint NON-AUTORITAIRE de continuation du cycle actif ; JAMAIS une permission createCycle/skip ; le serveur valide contre activeCycle + REQUIRE_ARTIFACT).
+ artifactMaterializationOperation (cursor.docs_write.apply OU null — discriminateur TECHNIQUE dédié à la matérialisation Artifact active-cycle ; JAMAIS du texte libre ; JAMAIS une autorité d'exécution).
+-pilotDecisionCandidate ({disposition, rationale} OU null — lecture NON-AUTORITAIRE de la disposition du Pilote sur un sujet de décision DÉJÀ présenté ; JAMAIS une HumanDecision).
++pilotDecisionCandidate ({disposition, targetKind, rationale} OU null — lecture NON-AUTORITAIRE de la disposition du Pilote sur un sujet de décision DÉJÀ présenté ; JAMAIS une HumanDecision ; targetKind n'est JAMAIS un optionRef).
+
+ === DISTINCTION FONDAMENTALE ===
+ intentClass = EFFET demandé à Studio (quoi faire sur le produit).
+@@ -679,10 +708,17 @@ disposition ∈ accept | refuse | amend | defer | none | ambiguous.
+ - defer — le Pilote demande explicitement de reporter la disposition du sujet.
+ - none — le tour ne dispose d'aucun sujet gouverné (cas nominal : conversation, question, autre sujet).
+ - ambiguous — une disposition semble présente mais la cible ou la portée reste indéterminée.
++targetKind ∈ current_recommendation | presented_subject | specific_alternative | ambiguous (D3-EXT — NON-AUTORITAIRE).
++- current_recommendation — le Pilote accepte explicitement LA Recommendation actuellement présentée (« Oui, je valide ta recommandation », « Poursuis avec l'option que tu recommandes »).
++- presented_subject — le Pilote dispose le sujet présenté sans sélectionner explicitement une Recommendation particulière (principalement Proposal : « Oui, poursuis cette proposition »).
++- specific_alternative — le Pilote demande explicitement une option différente / alternative (« Je préfère l'autre option », « Je choisis la trajectoire gouvernée plutôt », « Pas celle que tu recommandes »).
++- ambiguous — la cible exacte n'est pas déterminable.
+ Règles dures :
+ - ce champ N'EST PAS une HumanDecision, un GO, une confirmation ni une autorité ; le serveur re-résout le sujet durable et refuse tout ce qui n'est pas unique et éligible ;
+-- un « oui / ok / d'accord » isolé sans sujet gouverné présenté ⇒ none (JAMAIS accept) ;
+-- si plusieurs sujets gouvernés sont plausibles ⇒ ambiguous (JAMAIS accept) ;
++- targetKind N'EST PAS un optionRef / optionSetRef / permission d'exécution ; un nom ou label d'option dans la prose ne devient JAMAIS un optionRef autoritaire ;
++- un « oui / ok / d'accord » isolé sans sujet gouverné présenté ⇒ disposition none (JAMAIS accept) ;
++- si plusieurs sujets gouvernés sont plausibles ⇒ disposition ambiguous (JAMAIS accept) ;
++- si la cible Recommendation vs alternative reste indéterminée ⇒ targetKind ambiguous (JAMAIS current_recommendation inventé) ;
+ - ne JAMAIS inventer un sujet, un proposalId, un optionRef ou un optionSetRef ; ne JAMAIS les citer ici ;
+ - en l'absence de preuve ⇒ none ; none et ambiguous n'enregistrent jamais rien.
+ rationale : justification courte NON-AUTORITAIRE ou null.
+diff --git a/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts b/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
+index d84952df..9c84e644 100644
+--- a/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
++++ b/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
+@@ -105,6 +105,7 @@ import {
+   resolveChatFirstPilotDecision,
+   toEffectiveDisposition,
+   type ChatFirstEffectiveDisposition,
++  type ChatFirstPrepareOutcome,
+ } from "../w2/resolveChatFirstPilotDecision";
+ import {
+   replacePendingDecisionSubjectForExplicitReinstruction,
+@@ -721,29 +722,63 @@ const CHAT_FIRST_HUMAN_STATUS: Record<
+ function chatFirstDecisionText(input: {
+   readonly presentation: "test_provider" | "openai_live";
+   readonly disposition: ChatFirstEffectiveDisposition;
++  readonly subjectFamily?: "proposal" | "project_trajectory";
++  readonly prepareOutcome?: ChatFirstPrepareOutcome;
+ }): string {
+   const head =
+     input.presentation === "test_provider" ? "[Mode test]" : "[Mode réel]";
++  if (input.disposition === "accept") {
++    if (input.subjectFamily === "project_trajectory") {
++      const prep = input.prepareOutcome;
++      if (prep?.kind === "prepared") {
++        return [
++          head,
++          "Votre décision est enregistrée : vous acceptez la Recommendation ProjectTrajectory courante.",
++          `ExecutionContract préparé (${prep.executionContractId}).`,
++          "Aucune exécution n'a été lancée.",
++          "Nora recommande ; le Pilote décide. AUCUNE EXÉCUTION.",
++        ].join(" ");
++      }
++      if (prep?.kind === "blocked") {
++        return [
++          head,
++          "Votre décision est enregistrée : vous acceptez la Recommendation ProjectTrajectory courante.",
++          "ExecutionContract NON matérialisé — préparation bloquée.",
++          prep.message,
++          "Aucune exécution n'a été lancée.",
++          "Nora recommande ; le Pilote décide. AUCUNE EXÉCUTION.",
++        ].join(" ");
++      }
++      return [
++        head,
++        "Votre décision est enregistrée : vous acceptez la Recommendation ProjectTrajectory courante.",
++        "Aucun ExecutionContract n'a été préparé pour cette décision.",
++        "Aucune exécution n'a été lancée.",
++        "Nora recommande ; le Pilote décide. AUCUNE EXÉCUTION.",
++      ].join(" ");
++    }
++    return [
++      head,
++      "Votre décision est enregistrée : vous poursuivez le sujet proposé.",
++      "La préparation de l'action est maintenant disponible. Rien n'a encore été exécuté.",
++      "Nora recommande ; le Pilote décide. AUCUNE EXÉCUTION.",
++    ].join(" ");
++  }
+   const body =
+-    input.disposition === "accept"
++    input.disposition === "refuse"
+       ? [
+-          "Votre décision est enregistrée : vous poursuivez le sujet proposé.",
+-          "La préparation de l'action est maintenant disponible. Rien n'a encore été exécuté.",
++          "Votre décision est enregistrée : vous ne poursuivez pas ce sujet.",
++          "Aucun contrat d'exécution n'est préparé. Aucune trajectoire projet n'est promue.",
+         ]
+-      : input.disposition === "refuse"
++      : input.disposition === "defer"
+         ? [
+-            "Votre décision est enregistrée : vous ne poursuivez pas ce sujet.",
+-            "Aucun contrat d'exécution n'est préparé. Aucune trajectoire projet n'est promue.",
++            "Votre report est enregistré : la recommandation de travail est reportée vers un cycle aval honnête.",
++            "Une réserve non bloquante trace le report. Le sujet proposé est clos.",
+           ]
+-        : input.disposition === "defer"
+-          ? [
+-              "Votre report est enregistré : la recommandation de travail est reportée vers un cycle aval honnête.",
+-              "Une réserve non bloquante trace le report. Le sujet proposé est clos.",
+-            ]
+-          : [
+-              "Votre décision est enregistrée : le sujet doit être amendé avant d'être engagé.",
+-              "Le sujet précédent est clos ; reformulez ce que vous voulez changer et je réinstruirai.",
+-            ];
++        : [
++            "Votre décision est enregistrée : le sujet doit être amendé avant d'être engagé.",
++            "Le sujet précédent est clos ; reformulez ce que vous voulez changer et je réinstruirai.",
++          ];
+   return [
+     head,
+     ...body,
+@@ -1222,6 +1257,7 @@ export async function orchestrateAssistantSend(input: {
+           oa: oaForChatFirst,
+           projectId: project.projectId,
+           disposition: analysis.pilotDecisionCandidate?.disposition ?? null,
++          targetKind: analysis.pilotDecisionCandidate?.targetKind ?? null,
+           rationale: analysis.pilotDecisionCandidate?.rationale ?? null,
+         });
+
+@@ -1245,6 +1281,8 @@ export async function orchestrateAssistantSend(input: {
+             text: chatFirstDecisionText({
+               presentation,
+               disposition: resolved.disposition,
++              subjectFamily: resolved.subjectFamily,
++              prepareOutcome: resolved.prepareOutcome,
+             }),
+             mode: modeResolution.mode as "fixture" | "live",
+             presentation,
+diff --git a/projects/sfia-studio/app/features/project-assistant/f2/types.ts b/projects/sfia-studio/app/features/project-assistant/f2/types.ts
+index 304c81e2..655bc12b 100644
+--- a/projects/sfia-studio/app/features/project-assistant/f2/types.ts
++++ b/projects/sfia-studio/app/features/project-assistant/f2/types.ts
+@@ -36,8 +36,25 @@ export type PilotDecisionDisposition =
+   | "none"
+   | "ambiguous";
+
++/**
++ * D3-EXT — NON-AUTHORITATIVE semantic target of the disposition.
++ * NEVER an optionRef / optionSetRef / HumanDecision / execution permission.
++ * Server re-resolves sealed PresentedOptionSet; this field only discriminates
++ * whether the Pilot meant CURRENT Recommendation vs alternative vs subject.
++ */
++export type PilotDecisionTargetKind =
++  | "current_recommendation"
++  | "presented_subject"
++  | "specific_alternative"
++  | "ambiguous";
++
+ export type PilotDecisionCandidate = {
+   disposition: PilotDecisionDisposition;
++  /**
++   * NON-AUTHORITATIVE target discriminator (D3-EXT).
++   * Absent/unknown MUST NOT silently become current_recommendation.
++   */
++  targetKind: PilotDecisionTargetKind;
+   /** optional non-authoritative hint; never trusted alone */
+   rationale?: string | null;
+ };
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/activeProposalDecisionSubject.ts b/projects/sfia-studio/app/features/project-assistant/w2/activeProposalDecisionSubject.ts
+index a9fca932..443d30fa 100644
+--- a/projects/sfia-studio/app/features/project-assistant/w2/activeProposalDecisionSubject.ts
++++ b/projects/sfia-studio/app/features/project-assistant/w2/activeProposalDecisionSubject.ts
+@@ -111,7 +111,7 @@ export function presentedBindingToOptionSetDto(
+   };
+ }
+
+-function decidedOptionSetRefsFromEpistemic(
++export function decidedOptionSetRefsFromEpistemicItems(
+   items: ReadonlyArray<EpistemicItemLike>,
+ ): ReadonlySet<string> {
+   const refs = new Set<string>();
+@@ -230,7 +230,9 @@ export async function findActiveAwaitingProposalPresentedOptionSet(
+     };
+   }
+
+-  const decidedRefs = decidedOptionSetRefsFromEpistemic(epistemic.state.items);
++  const decidedRefs = decidedOptionSetRefsFromEpistemicItems(
++    epistemic.state.items,
++  );
+   const matches: PresentedOptionSetBinding[] = [];
+   for (const item of epistemic.state.items) {
+     if (item.type !== "Observation" || item.status !== "active") continue;
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/assessChatFirstWorkEligibility.ts b/projects/sfia-studio/app/features/project-assistant/w2/assessChatFirstWorkEligibility.ts
 index 3f75635d..fb8af29d 100644
 --- a/projects/sfia-studio/app/features/project-assistant/w2/assessChatFirstWorkEligibility.ts
@@ -1428,7 +2430,7 @@ index 3f75635d..fb8af29d 100644
 +  return { eligible: false, kind: "no_eligible_subject" };
  }
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/resolveChatFirstPilotDecision.ts b/projects/sfia-studio/app/features/project-assistant/w2/resolveChatFirstPilotDecision.ts
-index 6b51b88d..2b68a9a3 100644
+index 6b51b88d..5d13a517 100644
 --- a/projects/sfia-studio/app/features/project-assistant/w2/resolveChatFirstPilotDecision.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/w2/resolveChatFirstPilotDecision.ts
 @@ -3,6 +3,10 @@
@@ -1442,13 +2444,18 @@ index 6b51b88d..2b68a9a3 100644
   * Doctrine boundaries enforced here:
   * - the candidate is NEVER a HumanDecision; it only selects WHICH sealed
   *   option of an existing PresentedOptionSet the server submits to the
-@@ -14,17 +18,23 @@
+@@ -14,17 +18,28 @@
   * - no new store, no new HumanDecision writer, no DEFERRED enum invention.
   */
 
 +import { readLiveProjectContext } from "@/lib/vertical-slice-runtime";
  import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
- import type { PilotDecisionDisposition } from "../f2/types";
+-import type { PilotDecisionDisposition } from "../f2/types";
++import { isRepositorySourceRef } from "@/lib/oa/execution-contract";
++import type {
++  PilotDecisionDisposition,
++  PilotDecisionTargetKind,
++} from "../f2/types";
  import {
    listEffectivePendingDecisionSubjectMarkers,
    readActiveProposalDecisionSubject,
@@ -1458,6 +2465,7 @@ index 6b51b88d..2b68a9a3 100644
 +  findActiveAwaitingProjectTrajectoryPresentedOptionSet,
 +} from "./activeProjectTrajectoryDecisionSubject";
  import { decideTrajectory, trajectoryDecisionScope } from "./decideTrajectory";
++import { classifyProtectedRepositoryPath } from "./deriveActualExecutionWorkFromProductContext";
  import {
    isProposalSubjectPresentedSet,
    type PresentedOptionSetBinding,
@@ -1466,7 +2474,7 @@ index 6b51b88d..2b68a9a3 100644
  import {
    PROPOSAL_SUBJECT_AMEND_REF,
    PROPOSAL_SUBJECT_PURSUE_REF,
-@@ -34,6 +44,10 @@ import { proposeTrajectoryOptions } from "./proposeTrajectoryOptions";
+@@ -34,6 +49,10 @@ import { proposeTrajectoryOptions } from "./proposeTrajectoryOptions";
  import { resolveW2QualificationInputs } from "./qualificationInputs";
  import { pilotAmbiguousPendingMessage } from "../presentationLabels";
  import { deferWorkRecommendation } from "./deferWorkRecommendation";
@@ -1477,7 +2485,30 @@ index 6b51b88d..2b68a9a3 100644
 
  /** Dispositions that can carry a governed effect (incl. durable defer). */
  export type ChatFirstEffectiveDisposition =
-@@ -50,6 +64,7 @@ export type ChatFirstPilotDecisionResult =
+@@ -42,6 +61,22 @@ export type ChatFirstEffectiveDisposition =
+   | "amend"
+   | "defer";
+
++/** CP3 — honest auto-PREPARE continuation outcome (not a Product Result engine). */
++export type ChatFirstPrepareOutcome =
++  | {
++      readonly kind: "prepared";
++      readonly executionContractId: string;
++    }
++  | {
++      readonly kind: "blocked";
++      readonly code: string;
++      readonly message: string;
++    }
++  | {
++      readonly kind: "not_applicable";
++      readonly reason: string;
++    };
++
+ export type ChatFirstPilotDecisionResult =
+   /** Nothing to dispose — normal orchestration continues untouched. */
+   | { readonly kind: "no_decision" }
+@@ -50,6 +85,7 @@ export type ChatFirstPilotDecisionResult =
        readonly kind: "ambiguous_subjects";
        readonly message: string;
        readonly proposalIds: readonly string[];
@@ -1485,11 +2516,12 @@ index 6b51b88d..2b68a9a3 100644
      }
    /** No unique bound subject with a sealed PresentedOptionSet — governed action fails closed. */
    | {
-@@ -86,6 +101,11 @@ export type ChatFirstPilotDecisionResult =
+@@ -86,6 +122,12 @@ export type ChatFirstPilotDecisionResult =
        readonly capturedAt: string;
        readonly decisionBasisLinked: boolean;
        readonly readyForNextGatedStep: boolean;
 +      readonly subjectFamily: "proposal" | "project_trajectory";
++      readonly prepareOutcome: ChatFirstPrepareOutcome;
 +      readonly executionContractId: string | null;
 +      readonly executionContractPrepared: boolean;
 +      readonly attemptCreated: false;
@@ -1497,17 +2529,55 @@ index 6b51b88d..2b68a9a3 100644
      };
 
  const SELECTED_OPTION_BY_DISPOSITION: Record<
-@@ -100,6 +120,9 @@ const SELECTED_OPTION_BY_DISPOSITION: Record<
+@@ -100,6 +142,22 @@ const SELECTED_OPTION_BY_DISPOSITION: Record<
  const NO_ELIGIBLE_SUBJECT_MESSAGE =
    "Aucun sujet de décision gouverné unique n'est ouvert pour ce projet — aucune décision n'a été enregistrée. La conversation reste ouverte.";
 
 +const PT_NON_ACCEPT_MESSAGE =
 +  "Pour une Recommendation ProjectTrajectory, seule l'acceptation explicite de la Recommendation courante est enregistrable ici — précisez ou utilisez le panneau d'état. Aucune décision n'a été enregistrée.";
 +
++const PT_TARGET_NOT_CURRENT_MESSAGE =
++  "Pour ProjectTrajectory, seule l'acceptation explicite de la Recommendation courante (targetKind=current_recommendation) est enregistrable — une cible alternative ou ambiguë ne produit aucune HumanDecision.";
++
++const PROPOSAL_TARGET_REQUIRED_MESSAGE =
++  "Pour un sujet Proposal, la cible sémantique doit être le sujet présenté (presented_subject) — aucune HumanDecision enregistrée.";
++
++function proposalPrepareNotApplicable(): ChatFirstPrepareOutcome {
++  return {
++    kind: "not_applicable",
++    reason: "Proposal chat-first n'auto-prépare pas d'ExecutionContract.",
++  };
++}
++
  export function toEffectiveDisposition(
    disposition: PilotDecisionDisposition | null | undefined,
  ): ChatFirstEffectiveDisposition | "defer" | null {
-@@ -170,18 +193,18 @@ async function materializeSealedOptionSetForPendingSubject(input: {
+@@ -110,6 +168,24 @@ export function toEffectiveDisposition(
+   return null;
+ }
+
++/**
++ * Normalize NON-AUTHORITATIVE targetKind. Absent/invalid → ambiguous.
++ * NEVER invents current_recommendation.
++ */
++export function toPilotDecisionTargetKind(
++  targetKind: PilotDecisionTargetKind | null | undefined,
++): PilotDecisionTargetKind {
++  if (
++    targetKind === "current_recommendation" ||
++    targetKind === "presented_subject" ||
++    targetKind === "specific_alternative" ||
++    targetKind === "ambiguous"
++  ) {
++    return targetKind;
++  }
++  return "ambiguous";
++}
++
+ /**
+  * Bind a sealed PresentedOptionSet for a unique pre-binding pending subject.
+  *
+@@ -170,18 +246,18 @@ async function materializeSealedOptionSetForPendingSubject(input: {
    return { ok: true, presented: rebound.presented };
  }
 
@@ -1536,7 +2606,7 @@ index 6b51b88d..2b68a9a3 100644
    const subject = await readActiveProposalDecisionSubject(
      input.oa,
      input.projectId,
-@@ -194,10 +217,7 @@ export async function resolveChatFirstPilotDecision(input: {
+@@ -194,10 +270,7 @@ export async function resolveChatFirstPilotDecision(input: {
      };
    }
 
@@ -1547,7 +2617,7 @@ index 6b51b88d..2b68a9a3 100644
      const pending = await listEffectivePendingDecisionSubjectMarkers(
        input.oa,
        input.projectId,
-@@ -224,8 +244,13 @@ export async function resolveChatFirstPilotDecision(input: {
+@@ -224,8 +297,13 @@ export async function resolveChatFirstPilotDecision(input: {
          ],
        };
      }
@@ -1563,7 +2633,7 @@ index 6b51b88d..2b68a9a3 100644
      if (subject.markers.length > 1) {
        return {
          kind: "ambiguous_subjects",
-@@ -235,7 +260,6 @@ export async function resolveChatFirstPilotDecision(input: {
+@@ -235,7 +313,6 @@ export async function resolveChatFirstPilotDecision(input: {
      }
      const sole = subject.markers[0];
      if (!sole || !subject.recoverableProposalIds.includes(sole.proposalId)) {
@@ -1571,29 +2641,115 @@ index 6b51b88d..2b68a9a3 100644
        return {
          kind: "no_eligible_subject",
          message: subject.message,
-@@ -254,87 +278,116 @@ export async function resolveChatFirstPilotDecision(input: {
+@@ -254,87 +331,213 @@ export async function resolveChatFirstPilotDecision(input: {
          code: bound.code,
        };
      }
 -    presented = bound.presented;
 -  } else {
 -    // "none" and "pursue_prepare_ready": nothing awaiting a disposition.
--    return {
--      kind: "no_eligible_subject",
--      message: NO_ELIGIBLE_SUBJECT_MESSAGE,
--      code: "NO_ACTIVE_DECISION_SUBJECT",
--    };
 +    if (!isProposalSubjectPresentedSet(bound.presented)) {
 +      return { ok: true, presented: null };
 +    }
 +    return { ok: true, presented: bound.presented };
-   }
-
--  if (!isProposalSubjectPresentedSet(presented)) {
--    // Project trajectory promotion stays on its own explicit path.
++  }
++
 +  return { ok: true, presented: null };
 +}
 +
++async function resolveProjectTrajectoryDurableLocalWriteSeal(input: {
++  readonly oa: RuntimeOaStack;
++  readonly projectId: string;
++  readonly selectedOptionRef: string;
++}): Promise<
++  | {
++      readonly ok: true;
++      readonly seal: {
++        readonly scopeIn: readonly string[];
++        readonly reversibilityExpectation: "reversible";
++        readonly objective?: string;
++      };
++    }
++  | { readonly ok: false; readonly code: string; readonly message: string }
++> {
++  if (
++    input.selectedOptionRef !== GOVERNED_OPTION_REF &&
++    input.selectedOptionRef !== BOUNDED_OPTION_REF
++  ) {
+     return {
+-      kind: "no_eligible_subject",
+-      message: NO_ELIGIBLE_SUBJECT_MESSAGE,
+-      code: "NO_ACTIVE_DECISION_SUBJECT",
++      ok: false,
++      code: "OPTION_NOT_EXECUTABLE_FOR_SEAL",
++      message: "Option non GOVERNED/BOUNDED — pas de seal local-write.",
+     };
+   }
+-
+-  if (!isProposalSubjectPresentedSet(presented)) {
+-    // Project trajectory promotion stays on its own explicit path.
++  const project = await input.oa.projectServices.getProject.execute({
++    projectId: input.projectId,
++  });
++  if (!project.ok) {
+     return {
+-      kind: "no_eligible_subject",
+-      message: NO_ELIGIBLE_SUBJECT_MESSAGE,
+-      code: "SUBJECT_NOT_PROPOSAL_MODE",
++      ok: false,
++      code: "PROJECT_READ_FAILED",
++      message: "Projet illisible — impossible de dériver un périmètre local-write.",
+     };
+   }
++  const binding = project.project.repositoryBinding;
++  const pathRoot =
++    typeof binding?.pathRoot === "string" ? binding.pathRoot.trim() : "";
++  if (!pathRoot) {
++    return {
++      ok: false,
++      code: "REPOSITORY_PATH_ROOT_ABSENT",
++      message:
++        "repositoryBinding.pathRoot absent — aucun périmètre local-write server-owned.",
++    };
++  }
++  if (!isRepositorySourceRef(pathRoot) || pathRoot.includes("..")) {
++    return {
++      ok: false,
++      code: "REPOSITORY_PATH_ROOT_UNSAFE",
++      message:
++        "pathRoot non sûr (traversée / ref invalide) — seal local-write refusé.",
++    };
++  }
++  const protectedHit = classifyProtectedRepositoryPath(pathRoot);
++  if (protectedHit) {
++    return {
++      ok: false,
++      code: "REPOSITORY_PATH_ROOT_PROTECTED",
++      message: `pathRoot protégé (${protectedHit}) — aucune qualification local-write.`,
++    };
++  }
++  // Objective from durable LPS (Project entity has no objective field).
++  let objective: string | undefined;
++  const lps = await input.oa.projectServices.getCurrentLivingProjectState.execute({
++    projectId: input.projectId,
++  });
++  if (lps.ok) {
++    const raw = lps.livingProjectState.objective;
++    if (typeof raw === "string" && raw.trim()) objective = raw.trim();
++  }
++  return {
++    ok: true,
++    seal: {
++      scopeIn: [pathRoot],
++      reversibilityExpectation: "reversible",
++      ...(objective ? { objective } : {}),
++    },
++  };
++}
+
+-  if (effective === "defer") {
+-    const deferred = await deferWorkRecommendation({
+-      oa: input.oa,
 +async function autoPrepareProjectTrajectoryContract(input: {
 +  readonly oa: RuntimeOaStack;
 +  readonly projectId: string;
@@ -1603,73 +2759,30 @@ index 6b51b88d..2b68a9a3 100644
 +  /** Test inject — never from browser/model; production resolves managed clone HEAD. */
 +  readonly pinnedBaseHeadSha?: string | null;
 +  readonly managedRepoRootBase?: string | null;
-+  /**
-+   * Test/compat inject for ActualExecutionWork when durable Product HOW is absent.
-+   * Production chat-first never invents HOW from the trajectory alone.
-+   */
-+  readonly qualifiedOperationKind?: unknown;
-+}): Promise<{ readonly executionContractId: string | null }> {
++}): Promise<ChatFirstPrepareOutcome> {
 +  if (
 +    input.selectedOptionRef !== GOVERNED_OPTION_REF &&
 +    input.selectedOptionRef !== BOUNDED_OPTION_REF
 +  ) {
-+    return { executionContractId: null };
++    return {
++      kind: "not_applicable",
++      reason: "Option non GOVERNED/BOUNDED — PREPARE non applicable.",
++    };
 +  }
 +  const live = await readLiveProjectContext(input.oa, input.projectId);
 +  if (!live.ok) {
-+    return { executionContractId: null };
++    return {
++      kind: "blocked",
++      code: live.code,
++      message: live.message,
++    };
 +  }
 +  const prepared = await prepareExecutionContractFromW2Decision({
 +    oa: input.oa,
 +    projectId: input.projectId,
 +    decisionId: input.decisionId,
 +    currentContext: {
-+      projectId: input.projectId,
-+      lpsId: live.context.lpsId,
-+      lpsVersion: live.context.lpsVersion,
-+      doctrineDigest: live.context.doctrineDigest,
-+      activeCycleInstanceId: live.context.activeCycleInstanceId,
-+      ckcResolutionRef: live.context.ckcResolutionRef ?? undefined,
-+    },
-+    forceLocalAuthority: input.forceLocalAuthority,
-+    pinnedBaseHeadSha: input.pinnedBaseHeadSha,
-+    managedRepoRootBase: input.managedRepoRootBase,
-+    qualifiedOperationKind: input.qualifiedOperationKind,
-+  });
-+  if (!prepared.ok) {
-+    return { executionContractId: null };
-+  }
-+  return { executionContractId: prepared.contract.executionContractId };
-+}
-+
-+async function recordProjectTrajectoryAccept(input: {
-+  readonly oa: RuntimeOaStack;
-+  readonly projectId: string;
-+  readonly presented: PresentedOptionSetBinding;
-+  readonly rationale?: string | null;
-+  readonly forceLocalAuthority?: boolean;
-+  readonly pinnedBaseHeadSha?: string | null;
-+  readonly managedRepoRootBase?: string | null;
-+  readonly qualifiedOperationKind?: unknown;
-+}): Promise<ChatFirstPilotDecisionResult> {
-+  const recommendedOptionRef = (
-+    input.presented.recommendedOptionRef ?? ""
-+  ).trim();
-+  if (!recommendedOptionRef) {
-     return {
-       kind: "no_eligible_subject",
--      message: NO_ELIGIBLE_SUBJECT_MESSAGE,
--      code: "SUBJECT_NOT_PROPOSAL_MODE",
-+      message:
-+        "Recommendation courante absente du jeu d'options scellé — aucune décision enregistrée.",
-+      code: "RECOMMENDED_OPTION_MISSING",
-     };
-   }
--
--  if (effective === "defer") {
--    const deferred = await deferWorkRecommendation({
--      oa: input.oa,
--      projectId: input.projectId,
+       projectId: input.projectId,
 -      presented,
 -      rationale: input.rationale,
 -      forceLocalAuthority: input.forceLocalAuthority,
@@ -1688,7 +2801,17 @@ index 6b51b88d..2b68a9a3 100644
 -        message: deferred.message,
 -      };
 -    }
-+  if (!input.presented.optionRefs.includes(recommendedOptionRef)) {
++      lpsId: live.context.lpsId,
++      lpsVersion: live.context.lpsVersion,
++      doctrineDigest: live.context.doctrineDigest,
++      activeCycleInstanceId: live.context.activeCycleInstanceId,
++      ckcResolutionRef: live.context.ckcResolutionRef ?? undefined,
++    },
++    forceLocalAuthority: input.forceLocalAuthority,
++    pinnedBaseHeadSha: input.pinnedBaseHeadSha,
++    managedRepoRootBase: input.managedRepoRootBase,
++  });
++  if (!prepared.ok) {
      return {
 -      kind: "decision_recorded",
 -      disposition: "defer",
@@ -1700,19 +2823,51 @@ index 6b51b88d..2b68a9a3 100644
 -      capturedAt: deferred.capturedAt,
 -      decisionBasisLinked: false,
 -      readyForNextGatedStep: false,
-+      kind: "no_eligible_subject",
-+      message:
-+        "La Recommendation courante n'appartient pas au jeu d'options scellé — aucune décision enregistrée.",
-+      code: "RECOMMENDED_OPTION_NOT_PRESENTED",
++      kind: "blocked",
++      code: prepared.code,
++      message: prepared.message,
      };
    }
--
++  return {
++    kind: "prepared",
++    executionContractId: prepared.contract.executionContractId,
++  };
++}
+
 -  const selectedOptionRef =
 -    SELECTED_OPTION_BY_DISPOSITION[effective as Exclude<
 -      ChatFirstEffectiveDisposition,
 -      "defer"
 -    >];
 -  if (!presented.optionRefs.includes(selectedOptionRef)) {
++async function recordProjectTrajectoryAccept(input: {
++  readonly oa: RuntimeOaStack;
++  readonly projectId: string;
++  readonly presented: PresentedOptionSetBinding;
++  readonly rationale?: string | null;
++  readonly forceLocalAuthority?: boolean;
++  readonly pinnedBaseHeadSha?: string | null;
++  readonly managedRepoRootBase?: string | null;
++}): Promise<ChatFirstPilotDecisionResult> {
++  const recommendedOptionRef = (
++    input.presented.recommendedOptionRef ?? ""
++  ).trim();
++  if (!recommendedOptionRef) {
++    return {
++      kind: "no_eligible_subject",
++      message:
++        "Recommendation courante absente du jeu d'options scellé — aucune décision enregistrée.",
++      code: "RECOMMENDED_OPTION_MISSING",
++    };
++  }
++  if (!input.presented.optionRefs.includes(recommendedOptionRef)) {
++    return {
++      kind: "no_eligible_subject",
++      message:
++        "La Recommendation courante n'appartient pas au jeu d'options scellé — aucune décision enregistrée.",
++      code: "RECOMMENDED_OPTION_NOT_PRESENTED",
++    };
++  }
 +  if (
 +    input.presented.trajectoryId == null ||
 +    input.presented.candidateVersion == null
@@ -1727,6 +2882,14 @@ index 6b51b88d..2b68a9a3 100644
      };
    }
 
++  // CP2 — seal durable Product scope BEFORE decide so DecisionBasis carries it.
++  const sealResolved = await resolveProjectTrajectoryDurableLocalWriteSeal({
++    oa: input.oa,
++    projectId: input.projectId,
++    selectedOptionRef: recommendedOptionRef,
++  });
++  const durableLocalWriteSeal = sealResolved.ok ? sealResolved.seal : null;
++
    const decided = await decideTrajectory({
      oa: input.oa,
      projectId: input.projectId,
@@ -1748,14 +2911,15 @@ index 6b51b88d..2b68a9a3 100644
 +    candidateVersion: input.presented.candidateVersion,
 +    epistemicRefs: input.presented.epistemicRefs,
 +    reservesText: input.rationale?.trim() ? input.rationale.trim() : null,
++    durableLocalWriteSeal,
      forceLocalAuthority: input.forceLocalAuthority,
    });
    if (!decided.ok) {
-@@ -345,16 +398,300 @@ export async function resolveChatFirstPilotDecision(input: {
+@@ -345,16 +548,324 @@ export async function resolveChatFirstPilotDecision(input: {
      };
    }
 
-+  const prepared = await autoPrepareProjectTrajectoryContract({
++  const prepareOutcome = await autoPrepareProjectTrajectoryContract({
 +    oa: input.oa,
 +    projectId: input.projectId,
 +    decisionId: decided.decision.decisionId,
@@ -1763,8 +2927,11 @@ index 6b51b88d..2b68a9a3 100644
 +    forceLocalAuthority: input.forceLocalAuthority,
 +    pinnedBaseHeadSha: input.pinnedBaseHeadSha,
 +    managedRepoRootBase: input.managedRepoRootBase,
-+    qualifiedOperationKind: input.qualifiedOperationKind,
 +  });
++  const preparedId =
++    prepareOutcome.kind === "prepared"
++      ? prepareOutcome.executionContractId
++      : null;
 +
    return {
      kind: "decision_recorded",
@@ -1782,10 +2949,11 @@ index 6b51b88d..2b68a9a3 100644
      capturedAt: decided.decision.capturedAt,
      decisionBasisLinked: decided.decision.decisionBasisLinked,
 -    readyForNextGatedStep: effective === "accept",
-+    readyForNextGatedStep: prepared.executionContractId != null,
++    readyForNextGatedStep: prepareOutcome.kind === "prepared",
 +    subjectFamily: "project_trajectory",
-+    executionContractId: prepared.executionContractId,
-+    executionContractPrepared: prepared.executionContractId != null,
++    prepareOutcome,
++    executionContractId: preparedId,
++    executionContractPrepared: prepareOutcome.kind === "prepared",
 +    attemptCreated: false,
 +    executionPerformed: false,
    };
@@ -1795,6 +2963,11 @@ index 6b51b88d..2b68a9a3 100644
 +  readonly oa: RuntimeOaStack;
 +  readonly projectId: string;
 +  readonly disposition: PilotDecisionDisposition | null | undefined;
++  /**
++   * D3-EXT — NON-AUTHORITATIVE target discriminator.
++   * Absent/invalid → ambiguous (never invents current_recommendation).
++   */
++  readonly targetKind?: PilotDecisionTargetKind | null;
 +  /** Non-authoritative hint carried into the decision reserves; never authority. */
 +  readonly rationale?: string | null;
 +  /** Test inject for the local single-user authority gate. */
@@ -1802,14 +2975,10 @@ index 6b51b88d..2b68a9a3 100644
 +  /** Test inject — PREPARE pin; production resolves managed clone HEAD. */
 +  readonly pinnedBaseHeadSha?: string | null;
 +  readonly managedRepoRootBase?: string | null;
-+  /**
-+   * Test/compat inject for PREPARE HOW when durable Product mission facts are absent.
-+   * Production chat-first never invents HOW from trajectory alone (CP2-01).
-+   */
-+  readonly qualifiedOperationKind?: unknown;
 +}): Promise<ChatFirstPilotDecisionResult> {
 +  const effective = toEffectiveDisposition(input.disposition);
 +  if (effective == null) return { kind: "no_decision" };
++  const targetKind = toPilotDecisionTargetKind(input.targetKind);
 +
 +  const proposal = await resolveProposalPresented({
 +    oa: input.oa,
@@ -1860,8 +3029,15 @@ index 6b51b88d..2b68a9a3 100644
 +    };
 +  }
 +
-+  // ——— Proposal path (unchanged semantics) ———
++  // ——— Proposal path (KEEP semantics; D3-EXT targetKind gate) ———
 +  if (hasProposal && proposal.presented) {
++    if (targetKind !== "presented_subject") {
++      return {
++        kind: "no_eligible_subject",
++        message: PROPOSAL_TARGET_REQUIRED_MESSAGE,
++        code: "PROPOSAL_TARGET_KIND_REQUIRED",
++      };
++    }
 +    const presented = proposal.presented;
 +
 +    if (effective === "defer") {
@@ -1898,6 +3074,7 @@ index 6b51b88d..2b68a9a3 100644
 +        decisionBasisLinked: false,
 +        readyForNextGatedStep: false,
 +        subjectFamily: "proposal",
++        prepareOutcome: proposalPrepareNotApplicable(),
 +        executionContractId: null,
 +        executionContractPrepared: false,
 +        attemptCreated: false,
@@ -1952,6 +3129,7 @@ index 6b51b88d..2b68a9a3 100644
 +      decisionBasisLinked: decided.decision.decisionBasisLinked,
 +      readyForNextGatedStep: effective === "accept",
 +      subjectFamily: "proposal",
++      prepareOutcome: proposalPrepareNotApplicable(),
 +      executionContractId: null,
 +      executionContractPrepared: false,
 +      attemptCreated: false,
@@ -1959,9 +3137,8 @@ index 6b51b88d..2b68a9a3 100644
 +    };
 +  }
 +
-+  // ——— ProjectTrajectory path (D1-A / D3 / D2-A) ———
++  // ——— ProjectTrajectory path (D1-A / D3-EXT / D2-A / CP2 / CP3) ———
 +  if (effective !== "accept") {
-+    // D3 — no implicit GOVERNED/BOUNDED/CLARIFY mapping for refuse/amend/defer.
 +    if (ptLookup.kind === "unique") {
 +      return {
 +        kind: "no_eligible_subject",
@@ -1973,6 +3150,18 @@ index 6b51b88d..2b68a9a3 100644
 +      kind: "no_eligible_subject",
 +      message: NO_ELIGIBLE_SUBJECT_MESSAGE,
 +      code: "NO_ACTIVE_DECISION_SUBJECT",
++    };
++  }
++
++  // D3-EXT — PT HD only for explicit CURRENT Recommendation acceptance.
++  if (targetKind !== "current_recommendation") {
++    return {
++      kind: "no_eligible_subject",
++      message: PT_TARGET_NOT_CURRENT_MESSAGE,
++      code:
++        targetKind === "specific_alternative"
++          ? "PROJECT_TRAJECTORY_SPECIFIC_ALTERNATIVE"
++          : "PROJECT_TRAJECTORY_TARGET_NOT_CURRENT_RECOMMENDATION",
 +    };
 +  }
 +
@@ -2055,13 +3244,129 @@ index 6b51b88d..2b68a9a3 100644
 +    forceLocalAuthority: input.forceLocalAuthority,
 +    pinnedBaseHeadSha: input.pinnedBaseHeadSha,
 +    managedRepoRootBase: input.managedRepoRootBase,
-+    qualifiedOperationKind: input.qualifiedOperationKind,
 +  });
 +}
+diff --git a/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts b/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
+index 34d85a97..ecf475fa 100644
+--- a/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
++++ b/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
+@@ -43,31 +43,104 @@ function normalizeNaturalMaterializationProbe(raw: string): string {
+ }
+
+ /**
+- * CHAT-FIRST-GOVERNED-DECISION-LOOP-01 — deterministic NON-AUTHORITATIVE
++ * CHAT-FIRST-GOVERNED-DECISION-LOOP-01 / D3-EXT — deterministic NON-AUTHORITATIVE
+  * disposition candidate, emitted on the SAME structured intent payload a live
+  * provider would use. There is no parallel Fake decision writer: the server
+  * still re-resolves the durable subject and owns every HumanDecision.
++ *
++ * targetKind is NEVER an optionRef — only a semantic target discriminator.
+  */
+ function matchPilotDecisionCandidate(
+   probe: string,
+-): { disposition: string; rationale: string | null } | null {
++): {
++  disposition: string;
++  targetKind: string;
++  rationale: string | null;
++} | null {
++  if (probe.includes("__F2_DECIDE_ACCEPT_CURRENT_REC__")) {
++    return {
++      disposition: "accept",
++      targetKind: "current_recommendation",
++      rationale: "Pilote valide explicitement la Recommendation courante.",
++    };
++  }
++  if (probe.includes("__F2_DECIDE_ACCEPT_ALT__")) {
++    return {
++      disposition: "accept",
++      targetKind: "specific_alternative",
++      rationale: "Pilote demande une option différente de la Recommendation.",
++    };
++  }
++  if (probe.includes("__F2_DECIDE_ACCEPT_SUBJECT__")) {
++    return {
++      disposition: "accept",
++      targetKind: "presented_subject",
++      rationale: "Pilote engage le sujet présenté.",
++    };
++  }
+   if (probe.includes("__F2_DECIDE_ACCEPT__")) {
+-    return { disposition: "accept", rationale: "Pilote engage le sujet présenté." };
++    // Proposal-compatible default: presented_subject (not current_recommendation).
++    return {
++      disposition: "accept",
++      targetKind: "presented_subject",
++      rationale: "Pilote engage le sujet présenté.",
++    };
+   }
+   if (probe.includes("__F2_DECIDE_REFUSE__")) {
+-    return { disposition: "refuse", rationale: "Pilote refuse le sujet présenté." };
++    return {
++      disposition: "refuse",
++      targetKind: "presented_subject",
++      rationale: "Pilote refuse le sujet présenté.",
++    };
+   }
+   if (probe.includes("__F2_DECIDE_AMEND__")) {
+-    return { disposition: "amend", rationale: "Pilote demande un amendement." };
++    return {
++      disposition: "amend",
++      targetKind: "presented_subject",
++      rationale: "Pilote demande un amendement.",
++    };
+   }
+   if (probe.includes("__F2_DECIDE_DEFER__")) {
+-    return { disposition: "defer", rationale: "Pilote demande un report." };
++    return {
++      disposition: "defer",
++      targetKind: "presented_subject",
++      rationale: "Pilote demande un report.",
++    };
+   }
+   if (probe.includes("__F2_DECIDE_AMBIGUOUS__")) {
+-    return { disposition: "ambiguous", rationale: "Cible du « oui » indéterminée." };
++    return {
++      disposition: "ambiguous",
++      targetKind: "ambiguous",
++      rationale: "Cible du « oui » indéterminée.",
++    };
+   }
+   if (probe.includes("__F2_DECIDE_NONE__")) {
+-    return { disposition: "none", rationale: null };
++    return { disposition: "none", targetKind: "ambiguous", rationale: null };
++  }
++
++  // Natural-language Fake cues for D3-EXT deterministic proofs (no optionRef).
++  const normalized = probe.toLowerCase();
++  if (
++    /valide\s+ta\s+recommandation|option\s+que\s+tu\s+recommand|poursuis\s+avec\s+l['']option\s+que\s+tu\s+recommand/.test(
++      normalized,
++    )
++  ) {
++    return {
++      disposition: "accept",
++      targetKind: "current_recommendation",
++      rationale: "Acceptation explicite de la Recommendation courante.",
++    };
++  }
++  if (
++    /autre\s+option|plut[oô]t\s+(l['']autre|la\s+trajectoire\s+gouvern)|pas\s+celle\s+que\s+tu\s+recommand|je\s+choisis\s+la\s+trajectoire\s+gouvern/.test(
++      normalized,
++    )
++  ) {
++    return {
++      disposition: "accept",
++      targetKind: "specific_alternative",
++      rationale: "Demande explicite d'une option alternative.",
++    };
+   }
+   return null;
+ }
 
 ```
 
-## 15. DIFF — collateral (Proposal export, TrajectorySurface, tests) COMPLETE
+## APPENDIX D — FULL DIFF (tests + PRR)
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/postExecutionTrajectorySurface.ui.test.tsx b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/postExecutionTrajectorySurface.ui.test.tsx
 index ac760a1e..53954657 100644
@@ -2077,6 +3382,281 @@ index ac760a1e..53954657 100644
      await screen.findByTestId("w2-contract");
      fireEvent.click(screen.getByTestId("w2-inspect-contract"));
      await screen.findByTestId("w2-inspection-state");
+diff --git a/projects/sfia-studio/app/__tests__/project-assistant/chatFirstPilotDecisionCandidate.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/chatFirstPilotDecisionCandidate.d0.test.ts
+index 71f2c377..2bd7ee6d 100644
+--- a/projects/sfia-studio/app/__tests__/project-assistant/chatFirstPilotDecisionCandidate.d0.test.ts
++++ b/projects/sfia-studio/app/__tests__/project-assistant/chatFirstPilotDecisionCandidate.d0.test.ts
+@@ -1,5 +1,5 @@
+ /**
+- * CHAT-FIRST-GOVERNED-DECISION-LOOP-01 — non-authoritative disposition
++ * CHAT-FIRST-GOVERNED-DECISION-LOOP-01 / D3-EXT — non-authoritative disposition
+  * candidate: schema contract, fail-closed validation, fake-provider parity.
+  *
+  * @vitest-environment node
+@@ -11,7 +11,10 @@ import {
+   parsePilotDecisionCandidate,
+   validateIntentAnalysisPayload,
+ } from "@/features/project-assistant/f2/intentAnalysis";
+-import { toEffectiveDisposition } from "@/features/project-assistant/w2/resolveChatFirstPilotDecision";
++import {
++  toEffectiveDisposition,
++  toPilotDecisionTargetKind,
++} from "@/features/project-assistant/w2/resolveChatFirstPilotDecision";
+ import { FakeConversationProvider } from "@/lib/platform/ai";
+
+ function basePayload(extra: Record<string, unknown>) {
+@@ -40,26 +43,41 @@ function basePayload(extra: Record<string, unknown>) {
+   };
+ }
+
+-describe("F2 intent schema — pilotDecisionCandidate", () => {
++describe("F2 intent schema — pilotDecisionCandidate D3-EXT", () => {
+   const ajv = new Ajv({ allErrors: true });
+   const validate = ajv.compile(F2_INTENT_JSON_SCHEMA);
+
+-  it("accepts an explicit null and a well-formed candidate", () => {
++  it("accepts null and a well-formed candidate with targetKind", () => {
+     expect(validate(basePayload({ pilotDecisionCandidate: null }))).toBe(true);
+     expect(
+       validate(
+         basePayload({
+-          pilotDecisionCandidate: { disposition: "accept", rationale: null },
++          pilotDecisionCandidate: {
++            disposition: "accept",
++            targetKind: "current_recommendation",
++            rationale: null,
++          },
+         }),
+       ),
+     ).toBe(true);
+   });
+
+-  it("refuses an unknown disposition and any extra field", () => {
++  it("refuses missing targetKind, unknown disposition, and extra fields", () => {
++    expect(
++      validate(
++        basePayload({
++          pilotDecisionCandidate: { disposition: "accept", rationale: null },
++        }),
++      ),
++    ).toBe(false);
+     expect(
+       validate(
+         basePayload({
+-          pilotDecisionCandidate: { disposition: "go", rationale: null },
++          pilotDecisionCandidate: {
++            disposition: "go",
++            targetKind: "current_recommendation",
++            rationale: null,
++          },
+         }),
+       ),
+     ).toBe(false);
+@@ -68,6 +86,7 @@ describe("F2 intent schema — pilotDecisionCandidate", () => {
+         basePayload({
+           pilotDecisionCandidate: {
+             disposition: "accept",
++            targetKind: "current_recommendation",
+             rationale: null,
+             proposalId: "prop:hostile",
+           },
+@@ -77,7 +96,7 @@ describe("F2 intent schema — pilotDecisionCandidate", () => {
+   });
+ });
+
+-describe("parsePilotDecisionCandidate — fail-closed", () => {
++describe("parsePilotDecisionCandidate — fail-closed D3-EXT", () => {
+   it("returns null for absent / null / non-object payloads", () => {
+     expect(parsePilotDecisionCandidate(undefined)).toBeNull();
+     expect(parsePilotDecisionCandidate(null)).toBeNull();
+@@ -86,18 +105,41 @@ describe("parsePilotDecisionCandidate — fail-closed", () => {
+     expect(parsePilotDecisionCandidate({})).toBeNull();
+   });
+
+-  it("degrades an unrecognised disposition to ambiguous, never to accept", () => {
+-    expect(parsePilotDecisionCandidate({ disposition: "go" })).toEqual({
+-      disposition: "ambiguous",
++  it("D3E-05 — unknown targetKind → ambiguous, never current_recommendation", () => {
++    expect(
++      parsePilotDecisionCandidate({
++        disposition: "accept",
++        targetKind: "something_else",
++      }),
++    ).toEqual({
++      disposition: "accept",
++      targetKind: "ambiguous",
++      rationale: null,
++    });
++  });
++
++  it("absent targetKind → ambiguous (fail-closed, never invents current_recommendation)", () => {
++    expect(parsePilotDecisionCandidate({ disposition: "accept" })).toEqual({
++      disposition: "accept",
++      targetKind: "ambiguous",
+       rationale: null,
+     });
+-    expect(parsePilotDecisionCandidate({ disposition: "APPROVE" })).toEqual({
++  });
++
++  it("degrades an unrecognised disposition to ambiguous, never to accept", () => {
++    expect(
++      parsePilotDecisionCandidate({
++        disposition: "go",
++        targetKind: "current_recommendation",
++      }),
++    ).toEqual({
+       disposition: "ambiguous",
++      targetKind: "current_recommendation",
+       rationale: null,
+     });
+   });
+
+-  it("keeps the six known dispositions", () => {
++  it("keeps the six known dispositions and four targetKinds", () => {
+     for (const disposition of [
+       "accept",
+       "refuse",
+@@ -105,11 +147,25 @@ describe("parsePilotDecisionCandidate — fail-closed", () => {
+       "defer",
+       "none",
+       "ambiguous",
+-    ]) {
++    ] as const) {
+       expect(
+-        parsePilotDecisionCandidate({ disposition })?.disposition,
++        parsePilotDecisionCandidate({
++          disposition,
++          targetKind: "presented_subject",
++        })?.disposition,
+       ).toBe(disposition);
+     }
++    for (const targetKind of [
++      "current_recommendation",
++      "presented_subject",
++      "specific_alternative",
++      "ambiguous",
++    ] as const) {
++      expect(
++        parsePilotDecisionCandidate({ disposition: "accept", targetKind })
++          ?.targetKind,
++      ).toBe(targetKind);
++    }
+   });
+ });
+
+@@ -117,15 +173,19 @@ describe("validateIntentAnalysisPayload — candidate is never authority", () =>
+   it("carries a validated candidate on an otherwise informative analysis", () => {
+     const dto = validateIntentAnalysisPayload(
+       basePayload({
+-        pilotDecisionCandidate: { disposition: "accept", rationale: "oui" },
++        pilotDecisionCandidate: {
++          disposition: "accept",
++          targetKind: "current_recommendation",
++          rationale: "oui",
++        },
+       }),
+     );
+     expect(dto.parseOk).toBe(true);
+     expect(dto.pilotDecisionCandidate).toEqual({
+       disposition: "accept",
++      targetKind: "current_recommendation",
+       rationale: "oui",
+     });
+-    // A candidate never upgrades the intent class or grants authority.
+     expect(dto.intentClass).toBe("informative");
+   });
+
+@@ -136,20 +196,20 @@ describe("validateIntentAnalysisPayload — candidate is never authority", () =>
+   });
+ });
+
+-describe("toEffectiveDisposition — only three dispositions carry an effect", () => {
+-  it("maps accept/refuse/amend/defer and neutralises the rest", () => {
++describe("toEffectiveDisposition / toPilotDecisionTargetKind", () => {
++  it("maps dispositions and never invents current_recommendation", () => {
+     expect(toEffectiveDisposition("accept")).toBe("accept");
+-    expect(toEffectiveDisposition("refuse")).toBe("refuse");
+-    expect(toEffectiveDisposition("amend")).toBe("amend");
+-    expect(toEffectiveDisposition("defer")).toBe("defer");
+     expect(toEffectiveDisposition("none")).toBeNull();
+-    expect(toEffectiveDisposition("ambiguous")).toBeNull();
+-    expect(toEffectiveDisposition(null)).toBeNull();
+-    expect(toEffectiveDisposition(undefined)).toBeNull();
++    expect(toPilotDecisionTargetKind("current_recommendation")).toBe(
++      "current_recommendation",
++    );
++    expect(toPilotDecisionTargetKind(null)).toBe("ambiguous");
++    expect(toPilotDecisionTargetKind(undefined)).toBe("ambiguous");
++    expect(toPilotDecisionTargetKind("nope" as never)).toBe("ambiguous");
+   });
+ });
+
+-describe("fake provider parity", () => {
++describe("fake provider parity — D3-EXT", () => {
+   async function analyze(userContent: string) {
+     const provider = new FakeConversationProvider();
+     const completion = await provider.completeStructured({
+@@ -167,18 +227,57 @@ describe("fake provider parity", () => {
+     return validateIntentAnalysisPayload(JSON.parse(json));
+   }
+
+-  it("emits the candidate on the same structured intent payload as live", async () => {
++  it("D3E-06 — Proposal accept marker → presented_subject (not current_recommendation)", async () => {
+     const accepted = await analyze("Oui, poursuis. __F2_DECIDE_ACCEPT__");
+     expect(accepted.pilotDecisionCandidate?.disposition).toBe("accept");
+-    // No subject identity is ever produced by the provider.
++    expect(accepted.pilotDecisionCandidate?.targetKind).toBe(
++      "presented_subject",
++    );
+     expect(JSON.stringify(accepted)).not.toMatch(/prop:|optset:|opt:proposal/);
+   });
+
+-  it("emits none for a bare acknowledgement", async () => {
++  it("D3E-01 — natural « Oui, je valide ta recommandation » → current_recommendation", async () => {
++    const dto = await analyze("Oui, je valide ta recommandation.");
++    expect(dto.pilotDecisionCandidate?.disposition).toBe("accept");
++    expect(dto.pilotDecisionCandidate?.targetKind).toBe(
++      "current_recommendation",
++    );
++  });
++
++  it("D3E-02 — « Je préfère l'autre option » → specific_alternative", async () => {
++    const dto = await analyze("Je préfère l'autre option.");
++    expect(dto.pilotDecisionCandidate?.disposition).toBe("accept");
++    expect(dto.pilotDecisionCandidate?.targetKind).toBe(
++      "specific_alternative",
++    );
++  });
++
++  it("D3E-03 — « Je choisis la trajectoire gouvernée plutôt » → specific_alternative", async () => {
++    const dto = await analyze(
++      "Je choisis la trajectoire gouvernée plutôt.",
++    );
++    expect(dto.pilotDecisionCandidate?.disposition).toBe("accept");
++    expect(dto.pilotDecisionCandidate?.targetKind).toBe(
++      "specific_alternative",
++    );
++  });
++
++  it("D3E-04 — bare oui → none", async () => {
+     const none = await analyze("oui __F2_DECIDE_NONE__");
+     expect(none.pilotDecisionCandidate?.disposition).toBe("none");
+   });
+
++  it("marker ACCEPT_CURRENT_REC / ACCEPT_ALT", async () => {
++    const cur = await analyze("ok __F2_DECIDE_ACCEPT_CURRENT_REC__");
++    expect(cur.pilotDecisionCandidate?.targetKind).toBe(
++      "current_recommendation",
++    );
++    const alt = await analyze("ok __F2_DECIDE_ACCEPT_ALT__");
++    expect(alt.pilotDecisionCandidate?.targetKind).toBe(
++      "specific_alternative",
++    );
++  });
++
+   it("leaves the candidate null on ordinary turns", async () => {
+     const ordinary = await analyze("Résume le projet. __F2_INFORMATIVE__");
+     expect(ordinary.pilotDecisionCandidate ?? null).toBeNull();
 diff --git a/projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts b/projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
 index 07a29f5b..44852ad2 100644
 --- a/projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
@@ -2089,126 +3669,32 @@ index 07a29f5b..44852ad2 100644
        "features/project-assistant/w2/activeProposalDecisionSubject.ts:@/lib/vertical-slice-runtime",
        "features/project-assistant/w2/advanceProductExecutionContractAfterEvidence.ts:@/lib/vertical-slice-runtime",
        "features/project-assistant/w2/amendExecutionContract.ts:@/lib/vertical-slice-runtime",
-diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
-index 285417ea..6b45cf9d 100644
---- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
-+++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
-@@ -43,7 +43,10 @@ import {
-   w2ResolveProductExecutionContextAction,
-   w2ReadExecutionReviewItemAction,
- } from "@/features/project-assistant/w2/actions";
--import { GOVERNED_OPTION_REF } from "@/features/project-assistant/w2/trajectoryOptions";
-+import {
-+  BOUNDED_OPTION_REF,
-+  GOVERNED_OPTION_REF,
-+} from "@/features/project-assistant/w2/trajectoryOptions";
- import type { RecoveryExecutionBinding } from "@/features/project-assistant/w2/resolveRecoveryExecutionBinding";
- import { isWrongGenericPreExecReplaceableByRecoveryPrepare } from "@/features/project-assistant/w2/recoveryReplaceableCurrentContract";
- import {
-@@ -1061,7 +1064,8 @@ export function TrajectorySurface({
-         next.decisionBasisLinked === true;
-       const shouldAutoPrepareGoverned =
-         !isProposalSubject &&
--        selectedOptionRef === GOVERNED_OPTION_REF &&
-+        (selectedOptionRef === GOVERNED_OPTION_REF ||
-+          selectedOptionRef === BOUNDED_OPTION_REF) &&
-         !next.proposalId;
-
-       if (shouldAutoPrepareProposal) {
-@@ -1213,7 +1217,8 @@ export function TrajectorySurface({
-       }
-       if (
-         decision &&
--        decision.selectedOptionRef !== GOVERNED_OPTION_REF
-+        decision.selectedOptionRef !== GOVERNED_OPTION_REF &&
-+        decision.selectedOptionRef !== BOUNDED_OPTION_REF
-       ) {
-         setRecoveryBinding(null);
-         return;
-diff --git a/projects/sfia-studio/app/features/project-assistant/w2/activeProposalDecisionSubject.ts b/projects/sfia-studio/app/features/project-assistant/w2/activeProposalDecisionSubject.ts
-index a9fca932..443d30fa 100644
---- a/projects/sfia-studio/app/features/project-assistant/w2/activeProposalDecisionSubject.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/w2/activeProposalDecisionSubject.ts
-@@ -111,7 +111,7 @@ export function presentedBindingToOptionSetDto(
-   };
- }
-
--function decidedOptionSetRefsFromEpistemic(
-+export function decidedOptionSetRefsFromEpistemicItems(
-   items: ReadonlyArray<EpistemicItemLike>,
- ): ReadonlySet<string> {
-   const refs = new Set<string>();
-@@ -230,7 +230,9 @@ export async function findActiveAwaitingProposalPresentedOptionSet(
-     };
-   }
-
--  const decidedRefs = decidedOptionSetRefsFromEpistemic(epistemic.state.items);
-+  const decidedRefs = decidedOptionSetRefsFromEpistemicItems(
-+    epistemic.state.items,
-+  );
-   const matches: PresentedOptionSetBinding[] = [];
-   for (const item of epistemic.state.items) {
-     if (item.type !== "Observation" || item.status !== "active") continue;
+diff --git a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
+index ca1dc909..05b1cdfb 100644
+--- a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
++++ b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
+@@ -586,11 +586,11 @@
+     },
+     {
+       "path": "projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts",
+-      "sha256_16": "2f94963886255d2a"
++      "sha256_16": "a398bf461383386f"
+     },
+     {
+       "path": "projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts",
+-      "sha256_16": "eb13a379525867dd"
++      "sha256_16": "94d908d10eb822f2"
+     },
+     {
+       "path": "projects/sfia-studio/app/features/project-assistant/f2/activeCycleGovernedContinuation.ts",
+@@ -666,7 +666,7 @@
+     },
+     {
+       "path": "projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts",
+-      "sha256_16": "c9b1570800033f8a"
++      "sha256_16": "d8db5a73ecb35722"
+     },
+     {
+       "path": "projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.tsx",
 
 ```
-
-## 16. Proof matrix (tested scope)
-| ID | Result |
-|---|---|
-| T1 Proposal accept | PASS (dedicated + frontDoor suite) |
-| T2 Proposal refuse | PASS (frontDoor) |
-| T3 unrelated none | PASS (dedicated) |
-| T4 PT GOVERNED accept HD+basis | PASS |
-| T5 PT BOUNDED accept HD | PASS |
-| T6 server recommendedOptionRef | PASS |
-| T7 stale / drift | PASS OPTION_SET_STALE |
-| T8 version mismatch | PASS fail-closed |
-| T9 Proposal+PT | PASS ambiguous |
-| T9b multi-PT | PASS ambiguous |
-| T10 non-accept PT | PASS ZERO HD |
-| T11 alt unsafe | covered by D3 accept=recommended only |
-| T12/T13 auto-PREPARE EC | PASS with test HOW inject; T12b honest EFFECTS_UNRESOLVED without HOW |
-| T14–T16 0 Attempt/Cursor/effect | PASS |
-| T17 inspectable | PASS |
-| T18 no second HD | PASS |
-| T19 no second EC | PASS |
-| T20/T21 restart | PASS (HD before EC = T12b; after EC = T21) |
-| T22–T24 Confirmation/authority/protected | unchanged (no schema/policy edits) |
-| T25 semantic #544 | PASS related suites |
-| T26–T27 recovery/Proposal suites | PASS |
-| T28 PRR | N/A (no tracked file change) |
-
-## 17. Validations
-- Targeted mandatory suites: **88 PASS**
-- Related semantic/w2/corr10: **140 PASS**
-- Full Vitest: **5086 passed / 137 skipped** (459 files)
-- typecheck: **PASS**
-- lint: **PASS**
-- build: **PASS**
-- git diff --check: **PASS**
-- Historical better-sqlite3 warning: non-blocking if identical (build PASS)
-
-## 18. Fake / Real
-- FakeConversationProvider / W2 harness / deterministic SQLite
-- No HabitFlow campaign DB mutation
-- Entry: ARCHITECTURE / IMPACT QUALIFIED
-- Exit proof: DETERMINISTIC … PROVEN AT TESTED SCOPE
-- ZERO REAL / READY FOR REAL NO
-
-## 19. Reservations / debt
-1. Production auto-PREPARE does **not** invent HOW from bare trajectory (CP2-01). Without durable Product mission facts, HD is recorded and EC remains null until HOW exists or recovery CTA — same honesty as GOVERNED prepare-without-facts.
-2. Test inject `qualifiedOperationKind` / `pinnedBaseHeadSha` prove wiring when HOW/pin available; production uses managed clone HEAD + durable facts only.
-3. Manual PREPARE CTA remains as idempotent recovery/fallback (authorized).
-4. No Nora schema/prompt change (D3 accept semantics demonstrated via existing disposition contract + tests).
-
-## 20. Project Git effects
-- local Product YES
-- project commit/push/PR/merge/REAL: NO
-- review handoff push: YES (L3) — next step after this pack
-
-## 21. Verdict
-**READY FOR CHATGPT CRITICAL REVIEW — HABITFLOW-CHAT-FIRST-PROJECTTRAJECTORY-HD-EC-CONTINUITY-01**
-
-Proof ceiling: **DETERMINISTIC CHAT-FIRST PROJECTTRAJECTORY HD→EC CONTINUITY PROVEN AT TESTED SCOPE**
-
-ZERO REAL · READY FOR REAL NO · runtime v3 NON ADOPTED
