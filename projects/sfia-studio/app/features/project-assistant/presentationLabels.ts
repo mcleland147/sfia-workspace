@@ -862,6 +862,9 @@ export function pilotProposalOptionLabel(
 /**
  * Pilote labels for ProjectTrajectory option refs (PJ-REPROOF-01/02).
  * Raw optionRef stays secondary/audit only.
+ *
+ * CONTEXTLESS FALLBACK ONLY — recovery-biased for bounded-direct. When trajectory
+ * decision-support OptionSet pairing is available, use `pilotPresentedOptionLabel`.
  */
 export function pilotTrajectoryOptionLabel(
   optionRef: string | null | undefined,
@@ -880,6 +883,20 @@ export function pilotTrajectoryOptionLabel(
     default:
       return nonempty(optionRef) ?? "Option";
   }
+}
+
+/**
+ * Pure shape adapter: parallel TDS arrays → PresentedOptionSet-compatible rows.
+ * Does not resolve labels — use with `pilotPresentedOptionLabel`.
+ */
+export function presentedOptionsFromTrajectoryDecisionSupportPairing(
+  optionRefs: readonly string[],
+  optionLabels: readonly string[],
+): readonly { readonly optionRef: string; readonly label: string }[] {
+  return optionRefs.map((optionRef, i) => ({
+    optionRef,
+    label: (optionLabels[i] ?? "").trim(),
+  }));
 }
 
 /** Resolve Pilote label from PresentedOptionSet when available; else trajectory map. */

@@ -11,6 +11,8 @@ import {
   resolvePersistenceNotice,
   shouldShowProjectRecovery,
   textContainsInternalLpsMarker,
+  pilotPresentedOptionLabel,
+  pilotTrajectoryOptionLabel,
 } from "@/features/project-assistant/presentationLabels";
 
 describe("G-UX-10 recommendation freshness", () => {
@@ -589,5 +591,30 @@ describe("UAT-UX-09 pre-confirmation Fake/Real truth", () => {
     });
     expect(facts.authority).toMatch(/autorité structurante|Morris/);
     expect(facts.constraints).toContain("Pas d'écriture Git");
+  });
+});
+
+describe("HABITFLOW-SPC-01 — pilotPresentedOptionLabel fallback (T-SPC-10)", () => {
+  it("falls back to contextless map when no matching contextual option", () => {
+    expect(
+      pilotPresentedOptionLabel({
+        optionRef: "opt:trajectory:bounded-direct",
+        options: [{ optionRef: "opt:trajectory:governed-gated", label: "X" }],
+      }),
+    ).toBe(pilotTrajectoryOptionLabel("opt:trajectory:bounded-direct"));
+  });
+
+  it("prefers contextual label when optionRef matches", () => {
+    expect(
+      pilotPresentedOptionLabel({
+        optionRef: "opt:trajectory:bounded-direct",
+        options: [
+          {
+            optionRef: "opt:trajectory:bounded-direct",
+            label: "Trajectoire bornée directe",
+          },
+        ],
+      }),
+    ).toBe("Trajectoire bornée directe");
   });
 });

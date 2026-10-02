@@ -48,7 +48,11 @@ import {
   LIFECYCLE_RECOMMENDATION_MATERIALIZE_FAILURE_PILOTE_NOTICE,
   lifecycleRecommendationMaterializeFailurePiloteNotice,
 } from "./lifecycleRecommendationPiloteNotice";
-import { pilotTrajectoryOptionLabel } from "./presentationLabels";
+import {
+  pilotPresentedOptionLabel,
+  pilotTrajectoryOptionLabel,
+  presentedOptionsFromTrajectoryDecisionSupportPairing,
+} from "./presentationLabels";
 import {
   materializeActiveCycleWork,
   validateActiveCycleRecommendationAgainstDecisionSupport,
@@ -1212,13 +1216,24 @@ export async function orchestrateProjectAssistantTurn(input: {
             optionRefs: tdsForDisplay?.optionRefs,
           })
         : { ok: true as const };
+      const recommendedOptionRef =
+        structuredRecItem?.recommendedOptionRef?.trim() ?? "";
       const structuredRecommendation =
-        displayValidation.ok && structuredRecItem?.recommendedOptionRef
+        displayValidation.ok && recommendedOptionRef
           ? {
-              recommendedOptionRef: structuredRecItem.recommendedOptionRef.trim(),
-              optionLabel: pilotTrajectoryOptionLabel(
-                structuredRecItem.recommendedOptionRef,
-              ),
+              recommendedOptionRef,
+              optionLabel:
+                tdsForDisplay?.state === "PRESENT" &&
+                (tdsForDisplay.optionRefs?.length ?? 0) > 0
+                  ? pilotPresentedOptionLabel({
+                      optionRef: recommendedOptionRef,
+                      options:
+                        presentedOptionsFromTrajectoryDecisionSupportPairing(
+                          tdsForDisplay.optionRefs!,
+                          tdsForDisplay.optionLabels ?? [],
+                        ),
+                    })
+                  : pilotTrajectoryOptionLabel(recommendedOptionRef),
             }
           : null;
       assistantText = composePilotFacingAssistantText(
