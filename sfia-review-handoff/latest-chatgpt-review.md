@@ -1,172 +1,534 @@
-# LIGHT REVIEW PACK — HABITFLOW-LEGACY-TRAJECTORY-STATE-TRUTH-CHECK-01
+# LIGHT REVIEW PACK — HABITFLOW-NORA-ACW-OPTION-REF-CONTRACT-CORR-01
 
 ## 0. Meta
-- timestamp: `2026-10-02T20:11:37Z`
-- cycle: `HABITFLOW-LEGACY-TRAJECTORY-STATE-TRUTH-CHECK-01`
-- type: Audit projet / RUN-Support (READ-ONLY)
-- profile: Standard
-- Product mutation: **ZERO**
-- DB mutation: **ZERO**
-- REAL: **ZERO**
-- classification: **A — LEGACY PRE-CORRECTION STATE INCOMPLETE**
-- verdict: **LEGACY STATE NON-BLOCKING — REPLAY ON CURRENT RUNTIME RECOMMENDED**
+- timestamp: `2026-10-02T22:01:32Z`
+- cycle: `HABITFLOW-NORA-ACW-OPTION-REF-CONTRACT-CORR-01`
+- type: Cycle 8 — Delivery / implémentation
+- profil: Standard
+- typologie: RUN / Support
+- verdict: `READY FOR CHATGPT REVIEW — NORA ACW CONTRACT CORRECTION CANDIDATE`
+- project commit/push/PR/merge/REAL: **NO**
 
-## 1. Git truth
-- workspace: `/Users/morris/Projects/sfia-workspace-post-execution-handoff-01`
-- current branch (local): `delivery/sfia-studio-habitflow-chat-first-projecttrajectory-hd-ec-continuity-01` @ `b0cbdfb006c2a183a1e73cfa7052b8e6a1eb8885`
-- origin/main: `0a8c808bf0f701e6b2c1fcf7421ca04efc4f03fe` (= Merge PR #545) — **MAIN_OK**
-- dirty: `.tmp-sfia-review/**` only (tolerated)
-- no rebase / reset / clean / project commit
+## 1. Local Git Truth
+- worktree: `/Users/morris/Projects/sfia-studio-nora-acw-option-ref-contract-01`
+- branch: `fix/sfia-studio-nora-acw-option-ref-contract-01`
+- HEAD / origin/main: `0a8c808bf0f701e6b2c1fcf7421ca04efc4f03fe` (Merge PR #545)
+- prior Delivery worktree left intact (detached `b0cbdfb0` on handoff-01); new worktree used for clean main base
+- staged project files: none
+- dirty: product candidate (2 files) + `.tmp-sfia-review/**` temp only
 
-## 2. Store inspected (READ-ONLY)
-- Product DB: `/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/new-project-campaign-01/product/oa-product.sqlite`
-- Session DB: `.../nora-session.sqlite`
-- Opened via SQLite URI `file:...?mode=ro` — SELECT only
-- No INSERT/UPDATE/DELETE/services mutantes / Studio writes triggered
-- DB mtime unchanged by audit (last Product write = T4 Proposal turn `2026-10-02T19:36:47Z`)
+## 2. Qualification
+- Capability: Nora ACW Structured Output → Recommendation PT → decide → EC
+- Milestone: HabitFlow Replay 02 blocker before PT Recommendation materialization
+- KEEP: materializeActiveCycleWork fail-closed `recommended_option_ref_only_on_recommendation`
+- ADAPT: `NORA_ACTIVE_CYCLE_WORK_ITEM_SCHEMA`, `isNoraActiveCycleWorkItem`
+- COMPLETE: ACW + semantic continuity tests
+- INTERDIT: new architecture / store / second validator engine
 
-## 3. HabitFlow Project ID
-**Unique match:** `prj:4047b5eb-5abd-402b-9712-45c1b3634b50`
-- title: HabitFlow
-- created: `2026-10-02T07:11:47.826Z`
-- repositoryBinding.pathRoot: `projects/habitflow`
-- repositoryBinding.identity: `mcleland147/sfia-workspace`
-- current LPS: `lps:e206b42c1c3fe2d1` (v11 active)
-- activeCycleInstanceId (Project payload): `cyc:trj-7b226d5d5d54d00bb88fbce2` (framing)
+## 3. Root cause confirmation (pre-mod)
+| Layer | Before |
+|---|---|
+| Structured Output schema | `recommendedOptionRef: string \| null` for **all** types |
+| `isNoraActiveCycleWorkItem` | accepted non-Recommendation + valid `opt:*` |
+| `materializeActiveCycleWork` | refused with `ACTIVE_CYCLE_WORK_INVALID` / `recommended_option_ref_only_on_recommendation` |
 
-No other HabitFlow Project in this store.
+= exact HABITFLOW-REPLAY-02 failure mode. **ROOT CAUSE MATCH.**
 
-## 4. PROJECT / LPS
-- LPS v1→v11; objective HabitFlow habit-tracking unchanged
-- Active cycle on LPS v5+: framing `cyc:trj-7b226d5d5d54d00bb88fbce2`
-- Trajectory pin: `trj:lr-bridge-a1fbf8de34ad` @ v1
+## 4. OpenAI Capability Fit
+- Provider: `openaiProvider.completeStructured` → Responses API `json_schema` **strict:true**
+- Existing schemas already use nested `anyOf` (confidence/blocking/nullables)
+- Strategy: nested `anyOf` discrimination on item schema (Recommendation vs non-Recommendation)
+- No if/then/else; no second format; no retry engine; no silent repair
+- KEEP + ADAPT Structured Outputs
 
-## 5. CYCLE INSTANCES
-| cycleInstanceId | type | status | createdAt |
-|---|---|---|---|
-| `cyc:trj-7b226d5d5d54d00bb88fbce2` | cyc:framing / Light | **active** | 2026-10-02T07:15:48.841Z |
-| `cyc:f2-82d25cd2781cbed9` | cyc:delivery / Light | acknowledged (not Project-active) | **2026-10-02T19:36:43.951Z** (post-#545) |
+## 5. Implementation
+### After
+- Recommendation branch: `recommendedOptionRef` = string | null
+- Non-Recommendation branch: `recommendedOptionRef` = **null only** (`type: "null"`)
+- Parser rejects non-Recommendation + non-null (fail-closed; no silent nulling)
+- Materializer KEEP identical defense-in-depth
 
-Active cycle at old Recommendation era and now: framing cycle (still active on Project).
+### Schema + parser (post-fix)
+```typescript
+const NORA_ACTIVE_CYCLE_WORK_ITEM_COMMON_PROPERTIES = {
+  statement: { type: "string" as const },
+  confidence: {
+    anyOf: [
+      {
+        type: "string" as const,
+        enum: ["high", "medium", "low", "none"],
+      },
+      { type: "null" as const },
+    ],
+  },
+  blocking: { anyOf: [{ type: "boolean" as const }, { type: "null" as const }] },
+} as const;
 
-## 6. PROJECT TRAJECTORIES
-- `trj:lr-bridge-a1fbf8de34ad` v1 status=`validated`
-- decidedByDecisionRef=`dec:gf-trj:60a65977-4d59-478a-a058-ec9d9a2aa302` (greenfield candidate_trajectory HD @ 07:15:47Z)
-- CURRENT pointer: same traj@1
-- **No second W2 ProjectTrajectory candidate** created for BOUNDED chat-first decide
+const NORA_ACTIVE_CYCLE_WORK_ITEM_REQUIRED = [
+  "type",
+  "statement",
+  "confidence",
+  "blocking",
+  "recommendedOptionRef",
+] as const;
 
-## 7. NORA RECOMMENDATIONS
-Lifecycle + ACW Recommendations (all status=active):
+/**
+ * D-GF-ACW-01 — non-authoritative active-cycle cognitive work items (no ids).
+ *
+ * HABITFLOW-NORA-ACW-OPTION-REF-CONTRACT-CORR-01 — parity with
+ * materializeActiveCycleWork `recommended_option_ref_only_on_recommendation`:
+ * - Recommendation: recommendedOptionRef = string | null
+ * - all other types: recommendedOptionRef = null only
+ *
+ * Discriminated via nested anyOf (OpenAI Responses json_schema strict:true).
+ * Recommendation ≠ HumanDecision; never promotes trajectory.
+ */
+export const NORA_ACTIVE_CYCLE_WORK_ITEM_SCHEMA = {
+  anyOf: [
+    {
+      type: "object" as const,
+      additionalProperties: false as const,
+      required: [...NORA_ACTIVE_CYCLE_WORK_ITEM_REQUIRED],
+      properties: {
+        type: {
+          type: "string" as const,
+          enum: ["Recommendation"],
+        },
+        ...NORA_ACTIVE_CYCLE_WORK_ITEM_COMMON_PROPERTIES,
+        /**
+         * Canonical Option identity when Recommendation targets a server-derived
+         * trajectory/proposal Option. Structured field only (never from prose).
+         */
+        recommendedOptionRef: {
+          anyOf: [{ type: "string" as const }, { type: "null" as const }],
+        },
+      },
+    },
+    {
+      type: "object" as const,
+      additionalProperties: false as const,
+      required: [...NORA_ACTIVE_CYCLE_WORK_ITEM_REQUIRED],
+      properties: {
+        type: {
+          type: "string" as const,
+          enum: [
+            "Observation",
+            "Hypothesis",
+            "Option",
+            "Reservation",
+            "Contradiction",
+          ],
+        },
+        ...NORA_ACTIVE_CYCLE_WORK_ITEM_COMMON_PROPERTIES,
+        /** Non-Recommendation ACW items must not carry Option identity. */
+        recommendedOptionRef: { type: "null" as const },
+      },
+    },
+  ],
+} as const;
 
-Pre-correction ACW with `opt:trajectory:bounded-direct` in relatedObjects:
-- `epi:acw:1a17622ebf6028c1f64f` @ 07:44:15Z
-- `epi:acw:534ec1141c0f7a1485cf` @ 07:48:14Z
-- `epi:acw:9e3b6c786ccaf6ff3d7d` @ 10:37:57Z
-- `epi:acw:da481442f0bf64f6120d` @ 13:27:11Z
-- `epi:acw:8028408aa6c1efe0b2e1` @ 13:33:39Z (latest ACW bounded-direct)
 
-Source: `active-cycle-work:nora` — **not** a PresentedOptionSet seal.
-Post-#545 Recommendation: `epi:rec-w2-e92cb65a8204` @ 19:36:47Z source=`optset:w2-e92cb65a8204` (Proposal amend).
+```
 
-## 8. PROJECTTRAJECTORY PRESENTED OPTION SETS
-**EXISTAIT-IL un PresentedOptionSet ProjectTrajectory durable pour l’ancienne Recommendation ?**
+```typescript
+export function isNoraActiveCycleWorkItem(
+  value: unknown,
+): value is NoraActiveCycleWorkItem {
+  if (!value || typeof value !== "object") return false;
+  const o = value as Record<string, unknown>;
+  if (!ACTIVE_CYCLE_WORK_ITEM_TYPES.has(String(o.type))) return false;
+  if (typeof o.statement !== "string") return false;
+  if (
+    o.confidence !== null &&
+    !(
+      typeof o.confidence === "string" &&
+      ACTIVE_CYCLE_WORK_CONFIDENCES.has(o.confidence)
+    )
+  ) {
+    return false;
+  }
+  if (o.blocking !== null && typeof o.blocking !== "boolean") return false;
+  // HABITFLOW-NORA-ACW-OPTION-REF-CONTRACT-CORR-01 — parity with materializer:
+  // non-Recommendation + non-null recommendedOptionRef → REJECT (never silent null).
+  // Recommendation: absent (legacy) OR null OR valid opt: ref.
+  // Invalid non-null strings fail closed (reject item).
+  const type = String(o.type);
+  const hasRefKey = "recommendedOptionRef" in o;
+  const rawRef = hasRefKey ? o.recommendedOptionRef : undefined;
+  if (type !== "Recommendation") {
+    if (rawRef !== undefined && rawRef !== null) {
+      return false;
+    }
+    return true;
+  }
+  if (
+    hasRefKey &&
+    rawRef !== null &&
+    rawRef !== undefined
+  ) {
+    if (normalizeActiveCycleRecommendedOptionRef(rawRef) === null) {
+      return false;
+    }
+  }
+  return true;
+}
 
-### **NO**
 
-Evidence:
-- Only Observation with `kind=w2_presented_option_set`: `epi:set-w2-e92cb65a8204` @ 19:36:47Z
-- That set is **Proposal** (`optionRefs` pursue/amend/refuse; `trajectoryId=null`; `candidateVersion=null`)
-- Zero historical / resolved / inactive PT POS found for HabitFlow
-- Options epistemic items exist only for this Proposal set (3 Options)
+```
 
-## 9. CURRENTNESS / TDS reconstruction (conceptual, no mutation)
-From durable facts + current code contracts:
+## 6. Files read
+- convergence Build Doctrine / Roadmap / product-completion cadrage / GERR architecture (paths as brief)
+- ckc/08-delivery-implementation.md
+- noraProductTurnOutputType.ts, materializeActiveCycleWork.ts
+- openaiProvider.ts (strict:true)
+- activeCycleCognitiveWork.d0.test.ts
+- pilotNoraStudioSemanticContinuity*.d0.test.ts (commit 71c31a8e)
 
-| Reader | Reconstructed result | Why |
-|---|---|---|
-| `findActiveAwaitingProjectTrajectoryPresentedOptionSet` | **none** | No PT POS Observation exists |
-| Proposal awaiting POS | **unique** (`optset:w2-e92cb65a8204`) | Active Proposal POS; pending marker resolved after bind |
-| `assessChatFirstWorkEligibility` | **eligible Proposal** (not PT) | Proposal XOR PT → Proposal wins; no PT unique |
-| ACW Nora refs | newest ACW carries `opt:trajectory:bounded-direct` on framing cycle | Durable ACW items yes |
-| Chat-first PT HD path | **blocked** | Requires awaiting PT POS or seal; none sealed historically |
-| TDS PRESENT vs CURRENT PT subject | ACW may project PRESENT for framing, but **CURRENT sealed PT decision subject = absent** | Nora T4 text: Recommendation ProjectTrajectory CURRENT unavailable |
+## 7. Files modified
+- `projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts`
+- `projects/sfia-studio/app/__tests__/project-assistant/activeCycleCognitiveWork.d0.test.ts`
 
-## 10. HUMAN DECISIONS
-| decisionId | sourceType / subject | when |
-|---|---|---|
-| `dec:gf-trj:60a65977-…` | `candidate_trajectory` (approve as-is, stopConditions AUCUN EXECUTION_CONTRACT) | 07:15:47Z |
-| `dec:pilot-life:cf94116d-…` | lifecycle obligation-policy framing | 07:39:25Z |
+NOT modified: materializeActiveCycleWork.ts, HabitFlow DB, framing, doctrine, #545 path
 
-- W2 trajectory_option HD: **0**
-- W2 Proposal HD: **0**
-- HD created by last message (T4): **NO**
+## 8. Diff (complete)
+```diff
+diff --git a/projects/sfia-studio/app/__tests__/project-assistant/activeCycleCognitiveWork.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/activeCycleCognitiveWork.d0.test.ts
+index c81e708a..143ccc03 100644
+--- a/projects/sfia-studio/app/__tests__/project-assistant/activeCycleCognitiveWork.d0.test.ts
++++ b/projects/sfia-studio/app/__tests__/project-assistant/activeCycleCognitiveWork.d0.test.ts
+@@ -8,6 +8,7 @@
+ import fs from "node:fs";
+ import os from "node:os";
+ import path from "node:path";
++import Ajv from "ajv";
+ import { afterEach, describe, expect, it, vi } from "vitest";
+ import {
+   classifyTrajectoryBinding,
+@@ -31,6 +32,7 @@ import {
+   NORA_ACTIVE_CYCLE_WORK_ITEM_SCHEMA,
+   NORA_ACTIVE_CYCLE_WORK_OUTPUT_SCHEMA,
+   applyPreCycleRoutingBoundaryCoherence,
++  isNoraActiveCycleWorkItem,
+   isNoraActiveCycleWorkOutput,
+   normalizeNoraProductTurnStructuredOutput,
+   type NoraActiveCycleWorkItem,
+@@ -840,6 +842,103 @@ describe("D-GF-ACW-01 schema (BAR-WORK-12..15)", () => {
+     );
+     expect(acwSlice).not.toMatch(/"properties":\{[^}]*"(id|authority|provenance)"/);
+   });
++
++  it("CORR-ACW-OPTREF: schema + parser enforce type × recommendedOptionRef parity", () => {
++    const ajv = new Ajv({ allErrors: true });
++    const validateItem = ajv.compile(NORA_ACTIVE_CYCLE_WORK_ITEM_SCHEMA);
++    const nonRecTypes = [
++      "Observation",
++      "Hypothesis",
++      "Option",
++      "Reservation",
++      "Contradiction",
++    ] as const;
++    const validOpt = "opt:trajectory:bounded-direct";
++
++    for (const type of nonRecTypes) {
++      const withNull = {
++        type,
++        statement: "ok",
++        confidence: null,
++        blocking: null,
++        recommendedOptionRef: null,
++      };
++      expect(validateItem(withNull)).toBe(true);
++      expect(isNoraActiveCycleWorkItem(withNull)).toBe(true);
++      expect(isNoraActiveCycleWorkOutput({ items: [withNull] })).toBe(true);
++
++      const withRef = {
++        ...withNull,
++        recommendedOptionRef: validOpt,
++      };
++      expect(validateItem(withRef)).toBe(false);
++      expect(isNoraActiveCycleWorkItem(withRef)).toBe(false);
++      expect(isNoraActiveCycleWorkOutput({ items: [withRef] })).toBe(false);
++      // Fail-closed: normalize drops the whole structured turn (no silent nulling).
++      expect(
++        normalizeNoraProductTurnStructuredOutput({
++          narrative: "n",
++          preCycleRoutingAssessment: { ...ACW_DEFER_ASSESSMENT },
++          lifecycleRecommendation: null,
++          activeCycleWork: { items: [withRef] },
++        }),
++      ).toBeNull();
++    }
++
++    const recWithRef = {
++      type: "Recommendation" as const,
++      statement: "Poursuivre bornée",
++      confidence: "high" as const,
++      blocking: false,
++      recommendedOptionRef: validOpt,
++    };
++    expect(validateItem(recWithRef)).toBe(true);
++    expect(isNoraActiveCycleWorkItem(recWithRef)).toBe(true);
++
++    const recWithNull = {
++      type: "Recommendation" as const,
++      statement: "Recommandation non optionnelle",
++      confidence: null,
++      blocking: null,
++      recommendedOptionRef: null,
++    };
++    expect(validateItem(recWithNull)).toBe(true);
++    expect(isNoraActiveCycleWorkItem(recWithNull)).toBe(true);
++  });
++
++  it("CORR-ACW-OPTREF: materialize keeps recommended_option_ref_only_on_recommendation (ZERO write)", async () => {
++    const s = await seedStarted("optref-mat");
++    const facts = await materializeFacts(
++      s.oa,
++      s.projectId,
++      s.cycle.cycleInstanceId,
++      "cor:acw-optref-mat",
++    );
++    const before = (
++      await s.oa.cycleServices.epistemic.listByProject(s.projectId)
++    ).filter((e) => e.source === ACTIVE_CYCLE_WORK_SOURCE).length;
++
++    const mat = await materializeActiveCycleWork(
++      acwMaterializeInput(s.oa, facts, [
++        {
++          type: "Observation",
++          statement: "Observation carrying illegal option identity",
++          confidence: null,
++          blocking: null,
++          recommendedOptionRef: "opt:trajectory:bounded-direct",
++        },
++      ]),
++    );
++    expect(mat.ok).toBe(false);
++    if (mat.ok) throw new Error("expected fail-closed");
++    expect(mat.code).toBe("ACTIVE_CYCLE_WORK_INVALID");
++    expect(mat.reason).toBe("recommended_option_ref_only_on_recommendation");
++
++    const after = (
++      await s.oa.cycleServices.epistemic.listByProject(s.projectId)
++    ).filter((e) => e.source === ACTIVE_CYCLE_WORK_SOURCE).length;
++    expect(after).toBe(before);
++  });
+ });
 
-## 11. EXECUTION CONTRACTS
-- EC count HabitFlow: **0**
-- EC created by last attempt/message: **NO**
-- Attempts: **0**
+ // ─── Materialization authority ───────────────────────────────────────────────
+diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts
+index d90c1424..8f322903 100644
+--- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts
++++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts
+@@ -86,50 +86,86 @@ export const PRE_CYCLE_ROUTING_ASSESSMENT_READY_TO_EMIT: PreCycleRoutingAssessme
+     activeCycleAlreadyCoversWork: false,
+   });
 
-## 12. CURRENT PROPOSAL (T4 — do not decide)
-- proposalId: `prop:f2:5d6ba5fe-86c0-45ef-9469-84edd394996d`
-- createdAt: `2026-10-02T19:36:43.958Z` (pending marker) / POS `19:36:47.444Z`
-- status snapshot: DECISION_REQUIRED
-- cycle proposed: `cyc:f2-82d25cd2781cbed9` (delivery) — not Project active
-- POS: `optset:w2-e92cb65a8204` recommended amend
-- **NOT decided / not mutated by this audit**
+-/** D-GF-ACW-01 — non-authoritative active-cycle cognitive work items (no ids). */
++/**
++ * Shared ACW item fields for OpenAI Structured Outputs (strict).
++ * HABITFLOW-NORA-ACW-OPTION-REF-CONTRACT-CORR-01 — type×recommendedOptionRef
++ * is discriminated via anyOf below (no if/then/else).
++ */
++const NORA_ACTIVE_CYCLE_WORK_ITEM_COMMON_PROPERTIES = {
++  statement: { type: "string" as const },
++  confidence: {
++    anyOf: [
++      {
++        type: "string" as const,
++        enum: ["high", "medium", "low", "none"],
++      },
++      { type: "null" as const },
++    ],
++  },
++  blocking: { anyOf: [{ type: "boolean" as const }, { type: "null" as const }] },
++} as const;
++
++const NORA_ACTIVE_CYCLE_WORK_ITEM_REQUIRED = [
++  "type",
++  "statement",
++  "confidence",
++  "blocking",
++  "recommendedOptionRef",
++] as const;
++
++/**
++ * D-GF-ACW-01 — non-authoritative active-cycle cognitive work items (no ids).
++ *
++ * HABITFLOW-NORA-ACW-OPTION-REF-CONTRACT-CORR-01 — parity with
++ * materializeActiveCycleWork `recommended_option_ref_only_on_recommendation`:
++ * - Recommendation: recommendedOptionRef = string | null
++ * - all other types: recommendedOptionRef = null only
++ *
++ * Discriminated via nested anyOf (OpenAI Responses json_schema strict:true).
++ * Recommendation ≠ HumanDecision; never promotes trajectory.
++ */
+ export const NORA_ACTIVE_CYCLE_WORK_ITEM_SCHEMA = {
+-  type: "object" as const,
+-  additionalProperties: false as const,
+-  required: [
+-    "type",
+-    "statement",
+-    "confidence",
+-    "blocking",
+-    "recommendedOptionRef",
+-  ],
+-  properties: {
+-    type: {
+-      type: "string" as const,
+-      enum: [
+-        "Observation",
+-        "Hypothesis",
+-        "Option",
+-        "Recommendation",
+-        "Reservation",
+-        "Contradiction",
+-      ],
+-    },
+-    statement: { type: "string" as const },
+-    confidence: {
+-      anyOf: [
+-        {
++  anyOf: [
++    {
++      type: "object" as const,
++      additionalProperties: false as const,
++      required: [...NORA_ACTIVE_CYCLE_WORK_ITEM_REQUIRED],
++      properties: {
++        type: {
+           type: "string" as const,
+-          enum: ["high", "medium", "low", "none"],
++          enum: ["Recommendation"],
+         },
+-        { type: "null" as const },
+-      ],
++        ...NORA_ACTIVE_CYCLE_WORK_ITEM_COMMON_PROPERTIES,
++        /**
++         * Canonical Option identity when Recommendation targets a server-derived
++         * trajectory/proposal Option. Structured field only (never from prose).
++         */
++        recommendedOptionRef: {
++          anyOf: [{ type: "string" as const }, { type: "null" as const }],
++        },
++      },
+     },
+-    blocking: { anyOf: [{ type: "boolean" as const }, { type: "null" as const }] },
+-    /**
+-     * PILOT-NORA-STUDIO-SEMANTIC-CONTINUITY-01 — canonical Option identity when
+-     * type=Recommendation targets a server-derived trajectory/proposal Option.
+-     * Structured field only (never parsed from statement). Null for non-option
+-     * recommendations. Recommendation ≠ HumanDecision; never promotes trajectory.
+-     */
+-    recommendedOptionRef: {
+-      anyOf: [{ type: "string" as const }, { type: "null" as const }],
++    {
++      type: "object" as const,
++      additionalProperties: false as const,
++      required: [...NORA_ACTIVE_CYCLE_WORK_ITEM_REQUIRED],
++      properties: {
++        type: {
++          type: "string" as const,
++          enum: [
++            "Observation",
++            "Hypothesis",
++            "Option",
++            "Reservation",
++            "Contradiction",
++          ],
++        },
++        ...NORA_ACTIVE_CYCLE_WORK_ITEM_COMMON_PROPERTIES,
++        /** Non-Recommendation ACW items must not carry Option identity. */
++        recommendedOptionRef: { type: "null" as const },
++      },
+     },
+-  },
++  ],
+ } as const;
 
-## 13. Timeline T0–T5
-| T | UTC | Durable | Conversational |
-|---|---|---|---|
-| T0 | 07:11:47 | Project HabitFlow created | — |
-| T0b | 07:15:47–51 | Traj validated + framing cycle active + GF HD | — |
-| T1 | 07:44→13:33 | ACW Recommendations bounded-direct (no PT POS) | Nora recommends prepare EC |
-| T2 | 13:27 / 13:33 | Still 0 HD W2 / 0 EC | Pilot “accepts bornée” / “matérialise EC”; Nora cannot write EC |
-| T3 | 19:24:52 | PR #545 merge on main `0a8c808b` | — |
-| T4 | 19:36:43 | Delivery cycle draft + Proposal + Proposal POS | Pilot accept CURRENT PT; Nora: CURRENT unavailable; 0 HD / 0 EC |
-| T5 | now | Proposal DECISION_REQUIRED still open | UI shows Proposal, not PT |
+ export const NORA_ACTIVE_CYCLE_WORK_OUTPUT_SCHEMA = {
+@@ -481,14 +517,25 @@ export function isNoraActiveCycleWorkItem(
+     return false;
+   }
+   if (o.blocking !== null && typeof o.blocking !== "boolean") return false;
+-  // recommendedOptionRef: absent (legacy) OR null OR valid opt: ref.
++  // HABITFLOW-NORA-ACW-OPTION-REF-CONTRACT-CORR-01 — parity with materializer:
++  // non-Recommendation + non-null recommendedOptionRef → REJECT (never silent null).
++  // Recommendation: absent (legacy) OR null OR valid opt: ref.
+   // Invalid non-null strings fail closed (reject item).
++  const type = String(o.type);
++  const hasRefKey = "recommendedOptionRef" in o;
++  const rawRef = hasRefKey ? o.recommendedOptionRef : undefined;
++  if (type !== "Recommendation") {
++    if (rawRef !== undefined && rawRef !== null) {
++      return false;
++    }
++    return true;
++  }
+   if (
+-    "recommendedOptionRef" in o &&
+-    o.recommendedOptionRef !== null &&
+-    o.recommendedOptionRef !== undefined
++    hasRefKey &&
++    rawRef !== null &&
++    rawRef !== undefined
+   ) {
+-    if (normalizeActiveCycleRecommendedOptionRef(o.recommendedOptionRef) === null) {
++    if (normalizeActiveCycleRecommendedOptionRef(rawRef) === null) {
+       return false;
+     }
+   }
 
-## 14. Why last turn created a new Proposal
-Pilot asked to accept CURRENT PT Recommendation + auto-PREPARE EC.
-Durable store had **no sealed PT PresentedOptionSet**.
-Chat-first PT path therefore had no CURRENT subject.
-Orchestration produced a **new F2 Delivery Proposal** (propose-only) instead of recording a PT HD.
-This is consistent with fail-closed currentness after #545 — not a silent PT accept.
+```
 
-## 15. Exit answers
-1. Old Recommendation durable as PT decision subject? **NO** (ACW only)
-2. Linked to identifiable active cycle? **YES** (framing ACW relatedObjects) — but not as sealed PT POS
-3. PT PresentedOptionSet existed? **NO**
-4. Still active? **N/A** (never existed)
-5. HD PT W2? **NO** (0)
-6. EC? **NO** (0)
-7. Why TDS/CURRENT unavailable for chat-first PT? **No awaiting PT POS**; subject slot now Proposal
-8. Why new Proposal? **Fail-closed absence of CURRENT PT subject → F2 Proposal path**
-9. Classification: **A**
-10. Next minimal action: **Pilot-facing options for clean replay on current runtime; do not decide/delete current Proposal in this audit**
+## 9. Contract matrix
+| type | recommendedOptionRef | schema | parser | materializer |
+|---|---|---|---|---|
+| Recommendation | valid opt: | VALID | VALID | OK |
+| Recommendation | null | VALID | VALID | OK |
+| Observation | null | VALID | VALID | OK |
+| Hypothesis | null | VALID | VALID | OK |
+| Option | null | VALID | VALID | OK |
+| Reservation | null | VALID | VALID | OK |
+| Contradiction | null | VALID | VALID | OK |
+| Observation | valid opt: | INVALID | INVALID | fail-closed ZERO write |
+| Hypothesis/Option/Reservation/Contradiction | valid opt: | INVALID | INVALID | fail-closed |
 
-## 16. Classification
-**A — LEGACY PRE-CORRECTION STATE INCOMPLETE**
+## 10. Tests
+- CORR-ACW-OPTREF schema+parser matrix (Ajv + isNora* + normalize fail-closed)
+- CORR-ACW-OPTREF materialize Observation+ref → `recommended_option_ref_only_on_recommendation`, ZERO write
+- activeCycleCognitiveWork.d0: **59 PASS**
+- semantic continuity (d0+corr01+corr02): **26 PASS**
+- Full Vitest: **5097 PASS / 137 skipped** (459 files)
 
-Proof: never produced Observation `w2_presented_option_set` with `decisionSubjectMode=project_trajectory`; never recorded W2 trajectory HD; never prepared EC. ACW Recommendations are insufficient carriers for post-#545 chat-first PT HD→EC continuity.
+## 11. Validations
+- typecheck PASS
+- lint PASS
+- build PASS
+- git diff --check PASS
+- full Vitest PASS (above)
 
-#545 is **not** falsified. Secondary fact: T4 created a Proposal subject (current UI) — do not treat as B.
+## 12. Product / REAL effects
+- HabitFlow DB write: NO
+- HumanDecision: 0
+- ExecutionContract: 0
+- Attempt: 0
+- Cursor REAL: NO
+- OpenAI REAL proof: NO
 
-Not B: required durable PT POS artifacts are absent, not merely unread.
-Not C as primary: supersession is a *consequence* of incomplete legacy + new Proposal, not that an old sealed PT was overwritten.
+## 13. Fake / Real Qualification
+- Fake: FakeConversationProvider + isolated SQLite
+- Deterministic correction proven at tested scope
+- Realism gap: live provider must honor corrected schema (next Replay REAL, out of scope)
+- Claims: DETERMINISTIC CORRECTION PROVEN AT TESTED SCOPE
+- Forbidden claims: REAL closed / READY FOR REAL / E2E REAL / runtime v3 ADOPTED
 
-## 17. Recommendation
-**LEGACY STATE NON-BLOCKING — REPLAY ON CURRENT RUNTIME RECOMMENDED**
+## 14. Risks / reserves
+- OpenAI strict anyOf discrimination assumed compatible (same pattern already used elsewhere); REAL Replay must confirm generation compliance
+- No silent coercion of invalid refs
 
-Present to Pilot (decision outside this cycle):
-- leave current Proposal undecided / isolate;
-- run a clean replay under post-#545 runtime that produces a sealed PT POS then accept CURRENT;
-- do **not** reset DB / delete Proposal / invent Recommendation / send Nora from this audit.
+## 15. Morris decisions
+- local correction authorized
+- commit/push/PR/merge/REAL project: **NOT authorized** this cycle
 
-## 18. Effects
-- Product files changed: NO
-- DB writes: NO
-- project commit/push: NO
-- REAL: NO
-
-## 19. UNIQUE VERDICT
-**LEGACY STATE NON-BLOCKING — REPLAY ON CURRENT RUNTIME RECOMMENDED**
+## 16. UNIQUE VERDICT
+**READY FOR CHATGPT REVIEW — NORA ACW CONTRACT CORRECTION CANDIDATE**
