@@ -633,6 +633,13 @@ export function resolveAttemptExecutionProfile(
     requiredCapabilities: Array.isArray(contract.requiredCapabilities)
       ? contract.requiredCapabilities.map(String)
       : undefined,
+    constraints: Array.isArray(
+      (contract as unknown as { constraints?: unknown }).constraints,
+    )
+      ? (
+          (contract as unknown as { constraints: unknown[] }).constraints
+        ).map(String)
+      : undefined,
     allowFilesystemCreateOrModify: true,
   });
 

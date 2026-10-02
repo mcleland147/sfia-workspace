@@ -88,14 +88,19 @@ export async function runNoraCognitiveCore(
   });
 
   if (input.cognitiveMode === "post_execution") {
+    const hasReviewTools =
+      Boolean(input.executionReviewTools?.projectId?.trim()) &&
+      Boolean(input.executionReviewTools?.attemptId?.trim());
     return runNoraAgentsTurn({
       ...input,
-      enableTools: false,
+      // Deep Review: only bounded execution-review tools when bound; never Memory B / hosted search.
+      enableTools: hasReviewTools,
       enableHostedWebSearch: false,
       session: null,
       memoryBAvailability: "unavailable",
       cycleJournalTools: null,
       productExecutionTools: null,
+      executionReviewTools: hasReviewTools ? input.executionReviewTools : null,
       deterministicHostedWebSearchCalls: undefined,
       campaignBudget: undefined,
       governedAuthority: undefined,
@@ -117,6 +122,8 @@ export async function runNoraCognitiveCompletion(input: {
   readonly maxChars?: number;
   readonly projectId?: string;
   readonly correlationId?: string;
+  /** D-ER-09 — when set, post_execution enables bounded read-only review tools only. */
+  readonly executionReviewTools?: import("./executionReviewAgentsTools").ExecutionReviewToolContext | null;
 }): Promise<NoraCognitiveCompletionResult> {
   const mode: NoraCognitiveCompletionMode =
     input.mode === "conversation_completion" ? "conversation" : "post_execution";
@@ -137,6 +144,7 @@ export async function runNoraCognitiveCompletion(input: {
       enableHostedWebSearch: false,
       session: null,
       memoryBAvailability: "unavailable",
+      executionReviewTools: input.executionReviewTools ?? null,
     });
     const text = turn.text.trim();
     if (!text) {

@@ -65,14 +65,22 @@ export class NodeLocalGitStatusDiffPort implements LocalGitStatusDiffPort {
     if (pathspecs.length > 0) diffArgs.push("--", ...pathspecs);
     const diffRes = await runGit(diffArgs, input.repoPath);
 
+    // Never treat stderr as porcelain — git error text is not a status line.
+    // Non-zero `git status` (incl. non-repo cwd) must fail closed for observers.
+    if (statusRes.exitCode !== 0) {
+      const detail = (statusRes.stderr || statusRes.stdout || "non-zero exit")
+        .trim()
+        .slice(0, 240);
+      throw new Error(`git_status_failed: ${detail || "non-zero exit"}`);
+    }
+
     const branch =
       branchRes.exitCode === 0 ? branchRes.stdout.trim() || null : null;
     const headSha =
       headRes.exitCode === 0
         ? headRes.stdout.trim().toLowerCase() || null
         : null;
-    const statusPorcelain =
-      statusRes.exitCode === 0 ? statusRes.stdout : statusRes.stderr;
+    const statusPorcelain = statusRes.stdout;
     const dirty = statusPorcelain.trim().length > 0;
 
     return {

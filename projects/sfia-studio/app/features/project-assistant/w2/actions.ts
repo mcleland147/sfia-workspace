@@ -234,6 +234,13 @@ export async function w2DecideTrajectoryAction(input: {
     };
   }
 
+  /**
+   * CP3-01 — never accept durableLocalWriteSeal / targetPath / scopeIn from the
+   * browser. Seal is stamped only by decideTrajectory when server-owned facts
+   * are supplied by a domain/server caller (Proposal subject path, or an
+   * internal orchestration that already holds durable Product facts).
+   * Client operationKind cannot manufacture local-write authority.
+   */
   return decideTrajectory({
     oa: runtime.oa,
     projectId: input.projectId,
@@ -823,6 +830,85 @@ export async function w2ResolveProductExecutionContextAction(input: {
     projectId: input.projectId,
     query,
   });
+}
+
+/**
+ * CP2-07 — Pilot bounded ReviewItem read (server-owned contentRef).
+ * Client may send ONLY projectId + attemptId + itemId.
+ */
+export async function w2ReadExecutionReviewItemAction(input: {
+  projectId: string;
+  attemptId: string;
+  itemId: string;
+}): Promise<
+  | {
+      ok: true;
+      itemId: string;
+      kind: string;
+      label: string;
+      logicalPath: string | null;
+      content: string | null;
+      completeness: "FULL" | "PARTIAL";
+      digest: string | null;
+      claimFactMismatch: boolean;
+      verificationStatus: string;
+      reviewEndOfPresent: boolean;
+    }
+  | { ok: false; code: string; message: string }
+> {
+  const runtime = getRuntimeApplicationService();
+  if (!runtime.oa) {
+    return {
+      ok: false,
+      code: "OA_STACK_UNAVAILABLE",
+      message: "Services OA indisponibles.",
+    };
+  }
+  // Confirm Attempt belongs to Project via Product Resolution (no parallel SoT).
+  const resolved = await resolveProductExecutionContext({
+    oa: runtime.oa,
+    projectId: input.projectId,
+    query: { kind: "byAttemptId", attemptId: input.attemptId },
+  });
+  if (!resolved.ok) {
+    return {
+      ok: false,
+      code: resolved.code,
+      message: resolved.message,
+    };
+  }
+  if (resolved.context.attempt?.attemptId !== input.attemptId) {
+    return {
+      ok: false,
+      code: "EXECUTION_REVIEW_ATTEMPT_PROJECT_MISMATCH",
+      message: "Attempt n'appartient pas au Project — fail-closed.",
+    };
+  }
+
+  const { readBoundExecutionReviewItem } = await import(
+    "@/features/project-assistant/f3/readBoundExecutionReviewItem"
+  );
+  const read = readBoundExecutionReviewItem({
+    projectId: input.projectId,
+    attemptId: input.attemptId,
+    itemId: input.itemId,
+  });
+  if (!read.ok) {
+    return { ok: false, code: read.code, message: read.message };
+  }
+  return {
+    ok: true,
+    itemId: read.item.itemId,
+    kind: read.item.kind,
+    label: read.item.label,
+    logicalPath: read.item.logicalPath ?? null,
+    content: read.content,
+    completeness: read.completeness,
+    digest: read.digest,
+    claimFactMismatch: read.claimFactMismatch,
+    verificationStatus: read.verificationStatus,
+    reviewEndOfPresent: read.reviewEndOfPresent,
+  };
 }
 
 export async function w2ReadProjectHistoryAction(input: {

@@ -140,14 +140,17 @@ export function toolDefinitionsFromModelRequest(
     }
     const name = String(t.name ?? "");
     if (!name) continue;
-    // CYCLE JOURNAL / PRODUCT RESOLUTION — Agents-local READ-ONLY tools on the same Runner.
-    // Executed by Agents SDK tool.invoke, not via ConversationProvider.completeRound.
-    // Skip from Fake/provider ToolDefinition projection (same pattern as hosted web_search).
+    // CYCLE JOURNAL / PRODUCT RESOLUTION / EXECUTION REVIEW — Agents-local
+    // READ-ONLY tools on the same Runner. Executed by Agents SDK tool.invoke,
+    // not via ConversationProvider.completeRound. Skip from Fake/provider
+    // ToolDefinition projection (same pattern as hosted web_search).
     if (
       name === "cycle_journal_search" ||
       name === "cycle_journal_get_entry" ||
       name === "cycle_journal_get_sources" ||
-      name === "product_execution_context_get"
+      name === "product_execution_context_get" ||
+      name === "execution_review_get_manifest" ||
+      name === "execution_review_read_item"
     ) {
       continue;
     }

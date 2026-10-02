@@ -92,10 +92,15 @@ export {
   validateUntrustedProviderResult,
 } from "./domain/providerBoundary";
 export {
+  classifyStudioProductProtectedPath,
   evaluateSandboxMutationGuards,
   evaluateSandboxPath,
+  evaluateStudioProductWritePath,
   normalizeCanonicalPath,
   pathMatchesAllowlistPrefix,
+  SANDBOX_DEFAULT_PROTECTED_PATHS,
+  STUDIO_GOVERNANCE_PROTECTED_PATHS,
+  STUDIO_PRODUCT_PROTECTED_PATHS,
 } from "./domain/sandboxContract";
 export type {
   CanonicalPathResult,

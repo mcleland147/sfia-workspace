@@ -44,8 +44,18 @@ export const W3A_PRODUCT_TARGET_WORKSPACE = "product:project-workspace" as const
 /**
  * Canonical W3-A actual work kinds — facts are product-qualifiable today.
  * Not a global ActionCatalog.
+ *
+ * `local-write` is product-qualifiable ONLY from durable DecisionBasis facts
+ * (target/scope + reversibility) — NEVER from client operationKind alone.
  */
 export type W3ACanonicalActualOperationKind =
+  | "read"
+  | "simulate"
+  | "generate-temporary-artifact"
+  | "local-write";
+
+/** Compat kinds acceptible from optional client/test operationKind (never local-write). */
+export type W3AClientCompatOperationKind =
   | "read"
   | "simulate"
   | "generate-temporary-artifact";
@@ -55,7 +65,8 @@ export type ActualExecutionOperationKind = W3ACanonicalActualOperationKind;
 
 /**
  * Effect-policy taxonomy kinds (authority/Confirmation/reversibility projection).
- * NOT executable ActualExecutionWork from operationKind alone on /studio.
+ * NOT executable ActualExecutionWork from operationKind alone on /studio —
+ * except product-qualified local-write from durable DecisionBasis facts.
  */
 export type EffectPolicyOnlyOperationKind =
   | "local-write"
@@ -72,7 +83,6 @@ export type ActualExecutionWork = {
   readonly effectClass: Exclude<
     ExecutionEffectClass,
     | "unknown"
-    | "local-write"
     | "commit"
     | "push"
     | "pull-request"
@@ -112,7 +122,15 @@ const CANONICAL_KIND_TO_SCOPE: Record<W3ACanonicalActualOperationKind, string> =
     read: W3A_PRODUCT_SCOPE.READ,
     simulate: W3A_PRODUCT_SCOPE.SIMULATE,
     "generate-temporary-artifact": W3A_PRODUCT_SCOPE.TEMP_ARTIFACT,
+    "local-write": W3A_PRODUCT_SCOPE.LOCAL_WRITE,
   };
+
+/** Kinds buildable from operationKind alone (client/compat) — excludes local-write. */
+const CLIENT_COMPAT_KINDS = new Set<string>([
+  "read",
+  "simulate",
+  "generate-temporary-artifact",
+]);
 
 const CANONICAL_KINDS = new Set<string>(Object.keys(CANONICAL_KIND_TO_SCOPE));
 
@@ -133,11 +151,14 @@ export function isCanonicalW3AActualOperationKind(
   return typeof value === "string" && CANONICAL_KINDS.has(value);
 }
 
-/** Alias — product prepare path accepts canonical kinds only. */
+/**
+ * Client/compat operationKind allowlist — NEVER includes local-write.
+ * local-write requires durable Product facts (buildProductQualifiedLocalWriteWork).
+ */
 export function isActualExecutionOperationKind(
   value: unknown,
-): value is W3ACanonicalActualOperationKind {
-  return isCanonicalW3AActualOperationKind(value);
+): value is W3AClientCompatOperationKind {
+  return typeof value === "string" && CLIENT_COMPAT_KINDS.has(value);
 }
 
 export function isHighRiskPolicyOnlyOperationKind(value: unknown): boolean {
@@ -334,13 +355,25 @@ function scopeOutForCanonicalKind(
         "DOCTRINE_MUTATION",
         "BASELINE_PROMOTION",
       ];
+    case "local-write":
+      return [
+        "GIT_COMMIT",
+        "GIT_PUSH",
+        "GIT_PR",
+        "GIT_MERGE",
+        "FILESYSTEM_DELETE",
+        "DOCTRINE_MUTATION",
+        "BASELINE_PROMOTION",
+        "PROTECTED_PATH_WITHOUT_AUTHORIZATION",
+      ];
   }
 }
 
 /**
  * Build ActualExecutionWork from an explicit Pilot/Nora canonical operation
  * kind + project-bound product facts. Never from W2 trajectory alone.
- * High-risk kinds must not call this — reject at prepare (R15).
+ * High-risk kinds / local-write must not call this — use
+ * buildProductQualifiedLocalWriteWork for durable-fact local-write (R15).
  */
 export function buildActualExecutionWork(input: {
   readonly operationKind: W3ACanonicalActualOperationKind;
@@ -358,21 +391,26 @@ export function buildActualExecutionWork(input: {
     };
   }
 
-  if (!isCanonicalW3AActualOperationKind(input.operationKind)) {
+  // local-write is canonical when product-qualified, but NEVER from this
+  // operationKind-alone builder (client / compat path).
+  if (
+    input.operationKind === "local-write" ||
+    isHighRiskPolicyOnlyOperationKind(input.operationKind)
+  ) {
+    return {
+      ok: false,
+      code: "PREPARATION_BLOCKED",
+      message:
+        "Opération à risque non qualifiable depuis operationKind seul — facts produit requis (buildProductQualifiedLocalWriteWork).",
+    };
+  }
+
+  if (!isActualExecutionOperationKind(input.operationKind)) {
     return {
       ok: false,
       code: "PREPARATION_BLOCKED",
       message:
         "operationKind hors chemin canonique W3-A (read/simulate/temp-artifact).",
-    };
-  }
-
-  if (isHighRiskPolicyOnlyOperationKind(input.operationKind)) {
-    return {
-      ok: false,
-      code: "PREPARATION_BLOCKED",
-      message:
-        "Opération à risque non qualifiable depuis operationKind seul — facts produit requis.",
     };
   }
 
@@ -412,6 +450,80 @@ export function buildActualExecutionWork(input: {
       "W2 trajectory option is NOT the execution action/scope/target",
       "EC.projectId remains the project binding",
       `canonicalW3AActualWork=${kind}`,
+    ].filter((n): n is string => n !== null),
+  };
+}
+
+/**
+ * Product-qualified local-write from durable DecisionBasis facts.
+ * Product EC surface remains studio.cursor.generalist.execute (quartet).
+ * Technical effectClass = local-write — NOT a Product write taxonomy.
+ */
+export function buildProductQualifiedLocalWriteWork(input: {
+  readonly projectId: string;
+  readonly projectTitle?: string | null;
+  readonly objective?: string | null;
+  /** Repository-relative paths sealed on DecisionBasis (scopeIn / targetPath). */
+  readonly allowedPaths: readonly string[];
+  readonly protectedBoundaries?: readonly string[];
+  readonly rollbackAvailable: boolean;
+  readonly rollbackDescription?: string | null;
+  readonly qualificationSource: string;
+}): ActualExecutionWork | EffectQualificationFailure {
+  if (!input.projectId.trim()) {
+    return {
+      ok: false,
+      code: "PREPARATION_BLOCKED",
+      message: "projectId requis pour qualifier local-write produit.",
+    };
+  }
+  const paths = [
+    ...new Set(
+      input.allowedPaths
+        .map((p) => (typeof p === "string" ? p.trim() : ""))
+        .filter((p) => p.length > 0 && !p.includes("..") && !p.startsWith("/")),
+    ),
+  ];
+  if (paths.length === 0) {
+    return {
+      ok: false,
+      code: "SCOPE_UNRESOLVED",
+      message:
+        "local-write produit exige des chemins repository scellés (DecisionBasis targetPath / scopeIn).",
+    };
+  }
+  if (!input.rollbackAvailable) {
+    return {
+      ok: false,
+      code: "REVERSIBILITY_UNRESOLVED",
+      message:
+        "local-write produit sans fait de rollback crédible — préparation bloquée.",
+    };
+  }
+  const protectedBoundaries = [...(input.protectedBoundaries ?? [])];
+  return {
+    operationKind: "local-write",
+    effectClass: "local-write",
+    target: W3A_PRODUCT_TARGET_WORKSPACE,
+    scopeIn: W3A_PRODUCT_SCOPE.LOCAL_WRITE,
+    scopeOut: scopeOutForCanonicalKind("local-write"),
+    protectedBoundaries,
+    rollbackAvailable: true,
+    rollbackDescription:
+      input.rollbackDescription ??
+      "Isolated worktree discard / rollback — no Git commit/push/PR.",
+    weakBoundary: protectedBoundaries.length === 0,
+    qualificationSource: input.qualificationSource,
+    notes: [
+      `projectId=${input.projectId}`,
+      input.projectTitle ? `projectTitle=${input.projectTitle}` : null,
+      input.objective ? `objective=${input.objective}` : null,
+      "PRODUCT_QUALIFIED_LOCAL_WRITE",
+      "NOT_DOCS_WRITE_PRODUCT_TAXONOMY",
+      "NOT_CLIENT_OPERATION_KIND",
+      "CURSOR_GENERALIST_QUARTET_SURFACE",
+      `allowedPaths=${paths.join(",")}`,
+      "W2 trajectory option is NOT the execution action/scope/target",
     ].filter((n): n is string => n !== null),
   };
 }

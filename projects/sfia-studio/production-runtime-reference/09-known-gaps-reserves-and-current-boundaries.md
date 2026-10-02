@@ -32,11 +32,32 @@
 - Some object cards mark PARTIAL where aggregate naming is distributed across DTOs.
 - REAL OpenAI leaf candidacy parity not re-proven this macro (DETERMINISTIC only).
 
-## Next macro
+## GENERIC-EXECUTION-REVIEW-RESULT-CONVERGENCE-01 (CURRENT MACRO — local candidate)
 
-`PRODUCT-CONTINUITY-SHARED-KNOWLEDGE-01` **local candidate** on branch `delivery/sfia-studio-product-continuity-shared-knowledge-01`. Capacité suivante après revue: **SprintBoard REAL re-proof bornée** (Gate Morris distinct).
+- **CURRENT MACRO** on branch `delivery/sfia-studio-generic-execution-review-result-convergence-01` · Correction Pass **04 RESUMED AFTER MORRIS DECISION** · **CLOSED FOR CRITICAL REVIEW**.
+- **CP4-01 WIRED** — Product carrier = Proposal `PresentedOptionSet.sealedExecutionBasis` → pursue HumanDecision → DecisionBasis → generic local-write (MD-CP4-01 consumed). MAIN front-door oracle does **not** inject `durableLocalWriteSeal`.
+- **CP4-02 OPTION C IMPLEMENTED** — Studio Product write protection = sandbox floor ∪ `STUDIO_GOVERNANCE_PROTECTED_PATHS` (framing prefix + exact Build Doctrine / Roadmap / D-ER architecture / C1). No blanket `projects/sfia-studio/**` deny. No Campus360/CT `SFIA_DEFAULT_PROTECTED_PATHS` as Product classifier.
+- Proof ceiling: **DETERMINISTIC PRODUCT E2E PROVEN AT TESTED SCOPE** · **LOCAL CANDIDATE / NOT INTEGRATED ON MAIN** · ZERO REAL · READY FOR REAL **NO** · runtime v3 **NON ADOPTED**.
+- Historical: Correction Pass 04 STOP (Morris decision required on CP4-02) superseded by MD-CP4-01/MD-CP4-02 resume — see prior tip / handoff `2daf0dc3…`.
+- docs_write adapters: **TRANSITIONAL bridge retained** (dual-write Review Material) — exit when historical callers = 0.
+- `durableLocalWriteSeal` domain seam: **TRANSITIONAL** (isolated domain/tests only) — exit when GOVERNED trajectory Product carrier is retired or superseded; never browser/client.
+- NoteLite REAL replay: **NOT DONE** (PAUSED; distinct Morris GO).
+- Retention GC / Git promotion: **NOT IMPLEMENTED**.
+- Next = ChatGPT Critical Review of Correction Pass 04 resume → Morris GO commit/push/PR (distinct).
 
-## Prior overlay retained
+### Historical — Correction Pass 04 STOP (superseded)
+
+Prior documentary tip recorded **STOP — MORRIS DECISION REQUIRED** (CP4-02) with CP4-01 SOURCE FOUND / NOT WIRED. Morris decisions MD-CP4-01 + MD-CP4-02 Option C consumed; this CURRENT section supersedes that STOP state.
+
+## Next / CURRENT REAL campaign
+
+NoteLite bounded REAL re-proof — **PAUSED**. Gate Morris distinct. Not this delivery macro.
+
+## Prior overlay retained — PRODUCT-CONTINUITY-SHARED-KNOWLEDGE-01
+
+`PRODUCT-CONTINUITY-SHARED-KNOWLEDGE-01` is **INTEGRATED ON MAIN** (historical). Prior tip wording « local candidate » is obsolete as CURRENT next macro.
+
+## Prior overlay retained — POST-EXECUTION
 
 `POST-EXECUTION-CURSOR-REPORT-ARTIFACT-HANDOFF-01` **local candidate** on branch `feat/sfia-studio-post-execution-handoff-01`. Capacité suivante après revue: **reprise SprintBoard REAL bornée** (Gate Morris distinct) — ne pas auto-sélectionner READY FOR REAL / END-TO-END REAL.
 
@@ -116,3 +137,11 @@
 | `sfia-v3-modeled/**` | HORS SCOPE | Required Gate CI |
 
 No `retired-components-ledger.md` — zero components removed.
+
+### CP4 residual reserves (acceptable debt after resume)
+- docs_write compatibility bridges retained
+- Review Material GC/retention not implemented
+- Git promotion of reviewed candidate not implemented
+- NoteLite REAL re-proof deferred (Morris GO distinct)
+- Nora model/provider tuning deferred
+- `durableLocalWriteSeal` domain API transitional (tests/domain only — not Product front door)

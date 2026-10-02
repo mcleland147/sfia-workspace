@@ -41,7 +41,19 @@ export const MISSION_REPORT_REQUIREMENTS: readonly string[] = Object.freeze([
   "diagnosticSummary non vide",
   "recommendedNextProductStep non vide",
   "authorizedEffectsExecuted (liste explicite, vide si aucune)",
+  "Cursor Review End Of (CLAIM exécuteur) — verdict, scope, work, effects, validations, blockers, reservations, points de revue",
 ]);
+
+/**
+ * Generic Product mutating / reviewable missions — machine report + Review End Of.
+ * Technical effects remain enforcement; this is NOT a Product task taxonomy.
+ */
+export const GENERIC_PRODUCT_REPORT_REQUIREMENTS: readonly string[] =
+  Object.freeze([
+    ...MISSION_REPORT_REQUIREMENTS,
+    "fileEffects claim (created/modified/deleted) lorsque des fichiers sont touchés — CLAIM seulement",
+    "validationEffects lorsque des validations sont exécutées — CLAIM seulement",
+  ]);
 
 function criterionIdFor(ordinal: number, suffix: string): string {
   return `acc:${String(ordinal).padStart(2, "0")}:${suffix}`;
@@ -200,4 +212,8 @@ export function deriveDocsWriteValidationPlan(input: {
 
 export function deriveMissionReportRequirements(): readonly string[] {
   return MISSION_REPORT_REQUIREMENTS;
+}
+
+export function deriveGenericProductReportRequirements(): readonly string[] {
+  return GENERIC_PRODUCT_REPORT_REQUIREMENTS;
 }

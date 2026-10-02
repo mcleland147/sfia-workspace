@@ -45,9 +45,14 @@ import {
   PROPOSAL_SUBJECT_PURSUE_REF,
   PROPOSAL_SUBJECT_REFUSE_REF,
 } from "./proposalSubjectOptions";
+import {
+  BOUNDED_OPTION_REF,
+  GOVERNED_OPTION_REF,
+} from "./trajectoryOptions";
 import { resolveW2QualificationInputs } from "./qualificationInputs";
 import { resolvePostEvidenceRecoveryContext } from "./resolvePostEvidenceRecoveryContext";
 import { resolveCurrentNoraTrajectoryRecommendation } from "./resolveCurrentNoraTrajectoryRecommendation";
+import { isRepositorySourceRef } from "@/lib/oa/execution-contract";
 import type { DecideTrajectoryResult, TrajectoryOptionDto } from "./types";
 import type { F2ProposalStatus } from "../f2/types";
 import {
@@ -164,6 +169,19 @@ export type DecideTrajectoryInput = {
   readonly candidateVersion?: number | null;
   readonly epistemicRefs?: readonly string[];
   readonly reservesText?: string | null;
+  /**
+   * CP2-01 — optional durable local-write mission seal for GOVERNED/BOUNDED.
+   * Stamped onto DecisionBasis.executionBasis (targetPath / scopeIn /
+   * reversibilityExpectation). NOT a Product write taxonomy (not docs_write).
+   * Never invents HOW — only seals WHAT paths + reversibility facts.
+   */
+  readonly durableLocalWriteSeal?: {
+    readonly targetPath?: string;
+    readonly scopeIn: readonly string[];
+    readonly reversibilityExpectation: "reversible";
+    readonly objective?: string;
+    readonly expectedOutputs?: readonly string[];
+  } | null;
   /** Hostile client fields — never trusted. */
   readonly canActAsMorris?: unknown;
   readonly claimedAuthorityLevel?: unknown;
@@ -590,15 +608,53 @@ export async function decideTrajectory(
           optionSetDigest,
         },
         executionBasis: {
-          objective: live.context.objective,
+          objective:
+            input.durableLocalWriteSeal?.objective?.trim() ||
+            live.context.objective,
           scope: selected.intent,
-          expectedOutcome: `Trajectoire décidée: ${selected.label}`,
+          expectedOutcome:
+            input.durableLocalWriteSeal?.expectedOutputs?.[0] ??
+            `Trajectoire décidée: ${selected.label}`,
+          expectedOutputs: input.durableLocalWriteSeal?.expectedOutputs
+            ? [...input.durableLocalWriteSeal.expectedOutputs]
+            : undefined,
           reservations: input.reservesText?.trim()
             ? [input.reservesText.trim()]
             : [...selected.reservations],
           stopConditions: ["AUCUNE EXÉCUTION", "STOP AVANT EXECUTE"],
           cycleTypeId: undefined,
           requestedOperation: `w2:decide-trajectory:${input.selectedOptionRef}`,
+          // CP2-01 — seal durable local-write WHAT facts when GOVERNED/BOUNDED
+          // provides a bounded path perimeter (NOT docs_write Product taxonomy).
+          ...(input.durableLocalWriteSeal &&
+          (input.selectedOptionRef === GOVERNED_OPTION_REF ||
+            input.selectedOptionRef === BOUNDED_OPTION_REF)
+            ? {
+                targetPath: input.durableLocalWriteSeal.targetPath?.trim()
+                  ? input.durableLocalWriteSeal.targetPath.trim()
+                  : undefined,
+                scopeIn: [
+                  ...new Set(
+                    [
+                      ...(input.durableLocalWriteSeal.targetPath
+                        ? [input.durableLocalWriteSeal.targetPath.trim()]
+                        : []),
+                      ...input.durableLocalWriteSeal.scopeIn.map((s) =>
+                        s.trim(),
+                      ),
+                    ].filter(
+                      (p) =>
+                        p.length > 0 &&
+                        isRepositorySourceRef(p) &&
+                        !p.includes(".."),
+                    ),
+                  ),
+                ],
+                reversibilityExpectation: "reversible" as const,
+                // Explicitly NOT docs_write — generic local-write technical effect.
+                intentKind: undefined,
+              }
+            : {}),
         },
       };
 

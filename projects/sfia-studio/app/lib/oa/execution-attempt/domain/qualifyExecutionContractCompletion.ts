@@ -245,6 +245,13 @@ export function qualifyExecutionContractCompletion(input: {
     executionContractId: input.contract.executionContractId,
     evidenceRequirements: input.contract.evidenceRequirements ?? [],
     requiredCapabilities: input.contract.requiredCapabilities ?? [],
+    constraints: Array.isArray(
+      (input.contract as unknown as { constraints?: unknown }).constraints,
+    )
+      ? (
+          (input.contract as unknown as { constraints: unknown[] }).constraints
+        ).map(String)
+      : undefined,
     confirmations: input.confirmations ?? [],
     nowIso: input.nowIso,
   });

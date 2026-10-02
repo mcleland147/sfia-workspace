@@ -40,6 +40,8 @@ import {
   w2ReconcileGovernedExecutionAction,
   w2RehydrateProductOutcomeAction,
   w2RematerializeDocsWriteEvidenceAction,
+  w2ResolveProductExecutionContextAction,
+  w2ReadExecutionReviewItemAction,
 } from "@/features/project-assistant/w2/actions";
 import { GOVERNED_OPTION_REF } from "@/features/project-assistant/w2/trajectoryOptions";
 import type { RecoveryExecutionBinding } from "@/features/project-assistant/w2/resolveRecoveryExecutionBinding";
@@ -367,6 +369,31 @@ export function TrajectorySurface({
   const [productEvidencePending, setProductEvidencePending] = useState(false);
   const [recoveryBinding, setRecoveryBinding] =
     useState<RecoveryExecutionBinding | null>(null);
+  /** CP2-06 — real Execution Review payload from Product Resolution. */
+  const [executionReview, setExecutionReview] = useState<{
+    present: boolean;
+    completeness: "FULL" | "PARTIAL" | null;
+    reviewItemCount: number;
+    claimFactMismatch: boolean;
+    verificationStatus: string | null;
+    reviewEndOfPresent: boolean;
+    verifiedChangeSetPresent: boolean;
+    blockers: readonly string[];
+    reviewItemSummaries: readonly {
+      itemId: string;
+      kind: string;
+      label: string;
+      logicalPath?: string;
+    }[];
+    attemptStatus: string | null;
+    contractResultVerdict: string | null;
+    noraRecommendation: string | null;
+  } | null>(null);
+  const [reviewItemPreview, setReviewItemPreview] = useState<{
+    itemId: string;
+    content: string | null;
+    label: string;
+  } | null>(null);
 
   /**
    * Continuity pass generation — invalidates in-flight subject/EC reads when a
@@ -1715,39 +1742,105 @@ export function TrajectorySurface({
       if (reconciled.postEvidence) {
         setPostEvidence(reconciled.postEvidence as never);
       }
+      // CP2-06 — load real Execution Review fields from Product Resolution.
+      if (proj.attemptId && reconciled.product) {
+        void w2ResolveProductExecutionContextAction({
+          projectId,
+          attemptId: proj.attemptId,
+        }).then((resolved) => {
+          if (!resolved.ok) return;
+          const er = resolved.context.executionReview;
+          setExecutionReview({
+            present: er.present,
+            completeness: er.completeness,
+            reviewItemCount: er.reviewItemCount,
+            claimFactMismatch: er.claimFactMismatch,
+            verificationStatus: er.verificationStatus,
+            reviewEndOfPresent: er.reviewEndOfPresent,
+            verifiedChangeSetPresent: er.verifiedChangeSetPresent,
+            blockers: er.blockers,
+            reviewItemSummaries: er.reviewItemSummaries,
+            attemptStatus: resolved.context.attempt?.status ?? null,
+            contractResultVerdict:
+              resolved.context.claimEvaluation.contractResultVerdict,
+            noraRecommendation:
+              resolved.context.postEvidence?.recommendationKind ?? null,
+          });
+        });
+      }
     },
-    [],
+    [projectId],
   );
 
   /**
    * Server-owned execute/continue — TrajectorySurface does not sequence
    * Select→Start→Complete→Materialize locally anymore.
+   *
+   * CP2-08 — schedule one-step continues with backoff while mounted and
+   * durable projection still requires continue. No total 120 abandonment.
+   * Reconciler keeps its own MAX_TRANSITIONS per call.
    */
+  const reconcileContinueTimerRef = useRef<ReturnType<typeof setTimeout> | null>(
+    null,
+  );
+  const reconcileInFlightRef = useRef(false);
+  const reconcileMountedRef = useRef(true);
+  const runServerReconcileRef = useRef<
+    (intent: "execute" | "continue", stepIndex?: number) => Promise<void>
+  >(async () => {});
+
+  useEffect(() => {
+    reconcileMountedRef.current = true;
+    return () => {
+      reconcileMountedRef.current = false;
+      if (reconcileContinueTimerRef.current) {
+        clearTimeout(reconcileContinueTimerRef.current);
+        reconcileContinueTimerRef.current = null;
+      }
+    };
+  }, []);
+
   const runServerReconcile = useCallback(
-    async (intent: "execute" | "continue") => {
+    async (intent: "execute" | "continue", stepIndex = 0) => {
       if (!contract) return;
+      if (reconcileInFlightRef.current && intent === "continue") return;
+      reconcileInFlightRef.current = true;
       setProductEvidencePending(true);
-      let reconciled = await w2ReconcileGovernedExecutionAction({
-        projectId,
-        executionContractId: contract.executionContractId,
-        intent,
-      });
-      // Bounded poll while Attempt still running (async REAL / Fake pending).
-      for (let i = 0; i < 8; i++) {
-        if (!reconciled.ok) break;
-        if (reconciled.projection.stage !== "RUNNING") break;
-        await yieldBrowserPaint();
-        reconciled = await w2ReconcileGovernedExecutionAction({
+      try {
+        const reconciled = await w2ReconcileGovernedExecutionAction({
           projectId,
           executionContractId: contract.executionContractId,
-          intent: "continue",
+          intent,
         });
+        applyReconcileResult(reconciled);
+        onDurableFactsChanged?.();
+        if (!reconciled.ok || !reconcileMountedRef.current) return;
+        const {
+          shouldContinueReconcileNominally,
+          nextReconcileContinueDelayMs,
+        } = await import(
+          "@/features/project-assistant/w2/reconcileContinuePolicy"
+        );
+        if (!shouldContinueReconcileNominally(reconciled.projection)) return;
+        if (reconcileContinueTimerRef.current) {
+          clearTimeout(reconcileContinueTimerRef.current);
+        }
+        const delay = nextReconcileContinueDelayMs(stepIndex + 1);
+        reconcileContinueTimerRef.current = setTimeout(() => {
+          reconcileContinueTimerRef.current = null;
+          if (!reconcileMountedRef.current) return;
+          void runServerReconcileRef.current("continue", stepIndex + 1);
+        }, delay);
+      } finally {
+        reconcileInFlightRef.current = false;
       }
-      applyReconcileResult(reconciled);
-      onDurableFactsChanged?.();
     },
     [applyReconcileResult, contract, projectId, onDurableFactsChanged],
   );
+
+  useEffect(() => {
+    runServerReconcileRef.current = runServerReconcile;
+  }, [runServerReconcile]);
 
 
   const executeAsPilot = useCallback(async () => {
@@ -1940,6 +2033,41 @@ export function TrajectorySurface({
    * available; they are simply no longer a required UX step.
    */
   const legacyDecisionCtaVisible = decisionWorkflowMode === "legacy_cta";
+
+  /**
+   * CR-04 — On remount / reload, if durable Attempt still needs deterministic
+   * progression, auto-trigger Reconciler continue (no nominal Recharger click).
+   * Budget exhaust of a prior mount session must not abandon the workflow.
+   */
+  useEffect(() => {
+    if (!contract?.executionContractId) return;
+    if (busy !== null) return;
+    let cancelled = false;
+    void (async () => {
+      try {
+        const { shouldAutoResumeReconcileOnRemount } = await import(
+          "@/features/project-assistant/w2/reconcileContinuePolicy"
+        );
+        const { w2DeriveGovernedExecutionContinuityAction: deriveContinuity } =
+          await import("@/features/project-assistant/w2/actions");
+        if (typeof deriveContinuity !== "function") return;
+        const derived = await deriveContinuity({
+          projectId,
+          executionContractId: contract.executionContractId,
+        });
+        if (cancelled || !derived.ok) return;
+        if (!shouldAutoResumeReconcileOnRemount(derived.projection)) return;
+        await runServerReconcile("continue");
+      } catch {
+        // Remount resume must never crash UI when action mocks omit the export.
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+    // Mount / contract identity only — remount resume, not every projection tick.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [contract?.executionContractId, projectId]);
 
   useEffect(() => {
     if (!onProposalSubjectOwnershipChange) return;
@@ -3422,6 +3550,133 @@ export function TrajectorySurface({
             >
               Recharger résultat produit (durable)
             </button>
+          ) : null}
+          {/* CP2-06 — Generic Execution Review from Product Resolution (real data). */}
+          {productOutcome && executionReview?.present ? (
+            <div
+              className={styles.blockBody}
+              data-testid="w3b-execution-review-summary"
+            >
+              <p className={styles.productHeadline}>Matière de revue</p>
+              <dl className={styles.facts} data-testid="w3b-execution-review-facts">
+                <div>
+                  <dt>Statut technique</dt>
+                  <dd data-testid="w3b-review-attempt-status">
+                    {executionReview.attemptStatus ?? "—"}
+                  </dd>
+                </div>
+                <div>
+                  <dt>Qualification produit</dt>
+                  <dd data-testid="w3b-review-contract-result">
+                    {executionReview.contractResultVerdict ??
+                      productOutcome.outcome}
+                  </dd>
+                </div>
+                <div>
+                  <dt>Cursor Report</dt>
+                  <dd data-testid="w3b-review-cursor-report">présent</dd>
+                </div>
+                <div>
+                  <dt>Cursor Review End Of</dt>
+                  <dd data-testid="w3b-review-reo">
+                    {executionReview.reviewEndOfPresent
+                      ? "présent"
+                      : "manquant"}
+                  </dd>
+                </div>
+                <div>
+                  <dt>Vérification Studio</dt>
+                  <dd data-testid="w3b-review-verification-status">
+                    {executionReview.verificationStatus ?? "UNAVAILABLE"}
+                  </dd>
+                </div>
+                <div>
+                  <dt>VerifiedChangeSet</dt>
+                  <dd data-testid="w3b-review-vcs">
+                    {executionReview.verifiedChangeSetPresent
+                      ? "présent"
+                      : "absent"}
+                  </dd>
+                </div>
+                <div>
+                  <dt>CLAIM / FACT mismatch</dt>
+                  <dd data-testid="w3b-review-mismatch">
+                    {executionReview.claimFactMismatch ? "oui" : "non"}
+                  </dd>
+                </div>
+                <div>
+                  <dt>Complétude</dt>
+                  <dd data-testid="w3b-review-completeness">
+                    {executionReview.completeness ?? "—"} ·{" "}
+                    {executionReview.reviewItemCount} items
+                  </dd>
+                </div>
+              </dl>
+              {executionReview.blockers.length > 0 ? (
+                <ul data-testid="w3b-review-blockers">
+                  {executionReview.blockers.map((b) => (
+                    <li key={b}>{b}</li>
+                  ))}
+                </ul>
+              ) : null}
+              {executionReview.noraRecommendation ? (
+                <p data-testid="w3b-review-nora">
+                  Nora : {executionReview.noraRecommendation}
+                </p>
+              ) : null}
+              <ul data-testid="w3b-review-items">
+                {executionReview.reviewItemSummaries.map((item) => (
+                  <li key={item.itemId}>
+                    <span>
+                      [{item.kind}] {item.label}
+                      {item.logicalPath ? ` — ${item.logicalPath}` : ""}
+                    </span>{" "}
+                    <button
+                      type="button"
+                      className={styles.secondaryAction}
+                      data-testid={`w3b-review-item-open-${item.itemId}`}
+                      onClick={() => {
+                        if (!attempt?.attemptId) return;
+                        void w2ReadExecutionReviewItemAction({
+                          projectId,
+                          attemptId: attempt.attemptId,
+                          itemId: item.itemId,
+                        }).then((r) => {
+                          if (!r.ok) return;
+                          setReviewItemPreview({
+                            itemId: r.itemId,
+                            content: r.content,
+                            label: r.label,
+                          });
+                        });
+                      }}
+                    >
+                      Voir
+                    </button>
+                  </li>
+                ))}
+              </ul>
+              {reviewItemPreview ? (
+                <pre
+                  data-testid="w3b-review-item-content"
+                  className={styles.blockBody}
+                >
+                  {reviewItemPreview.label}
+                  {"\n"}
+                  {reviewItemPreview.content ?? "(contenu indisponible)"}
+                </pre>
+              ) : null}
+            </div>
+          ) : productOutcome ? (
+            <div
+              className={styles.blockBody}
+              data-testid="w3b-execution-review-summary"
+            >
+              <p className={styles.productHeadline}>Matière de revue</p>
+              <p data-testid="w3b-execution-review-hint">
+                Aucune matière de revue générique pour cet Attempt.
+              </p>
+            </div>
           ) : null}
         </section>
       ) : null}

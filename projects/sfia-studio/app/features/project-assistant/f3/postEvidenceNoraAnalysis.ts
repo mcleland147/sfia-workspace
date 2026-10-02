@@ -172,6 +172,11 @@ export type AnalyzePostEvidenceOptions = {
    * `buildCkcCognitivePromptSection` — never raw package paths for Pilote.
    */
   readonly ckcPromptSection?: string | null;
+  /**
+   * D-ER-09 — opt-in bounded Execution Review tools for Deep Review.
+   * Default false preserves Fake complete-only post_execution path.
+   */
+  readonly enableExecutionReviewTools?: boolean;
 };
 
 function buildPostEvidenceSystemPrompt(
@@ -193,9 +198,8 @@ export async function analyzePostEvidenceWithProvider(
   options?: AnalyzePostEvidenceOptions,
 ): Promise<PostEvidenceAnalysisResult> {
   // Shared Nora cognitive CORE (Agents Runner) — mode=post_execution.
-  // Same seam as conversation (runNoraCognitiveTurn → runNoraCognitiveCore).
-  // No Memory B / MW5 / hosted search / tools — applied by core mode defaults.
-  // This module must NOT be imported by client presentation (use postEvidenceNoraSentinels).
+  // Deep Review tools are opt-in via options (keeps Fake complete path stable).
+  // No Memory B / MW5 / hosted search — applied by core mode defaults.
   const completion = await runNoraCognitiveCompletion({
     mode: "post_execution",
     system: buildPostEvidenceSystemPrompt(options?.ckcPromptSection),
@@ -203,6 +207,12 @@ export async function analyzePostEvidenceWithProvider(
     maxChars: 4000,
     projectId: facts.projectId,
     correlationId: `cor:w3c-post-evidence:${facts.attemptId}`,
+    executionReviewTools: options?.enableExecutionReviewTools
+      ? {
+          projectId: facts.projectId,
+          attemptId: facts.attemptId,
+        }
+      : null,
   });
   if (!completion.ok) {
     return {

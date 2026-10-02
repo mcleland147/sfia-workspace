@@ -136,6 +136,12 @@ export type CursorExecutionReport = {
   /** Top-level narrative claim aliases (optional; prefer missionResult). */
   diagnosticSummary?: string;
   recommendedNextProductStep?: string;
+  /**
+   * Optional nested Cursor Review End Of CLAIM (D-ER-05).
+   * Logical distinctness from the machine report is required even when
+   * transport reuses this enveloppe. Studio never treats this as Fact/Evidence.
+   */
+  reviewEndOf?: import("./cursorReviewEndOf").CursorReviewEndOf;
 };
 
 export function mintCursorExecutionReportId(input: {

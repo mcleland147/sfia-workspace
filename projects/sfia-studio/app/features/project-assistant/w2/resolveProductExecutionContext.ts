@@ -18,6 +18,9 @@ import {
   loadDocsWriteArtifactReviewMaterial,
   resolveProductEvidenceRefsRoot,
 } from "@/features/project-assistant/f3/persistDocsWriteArtifactReviewMaterial";
+import { loadGenericExecutionReviewMaterial } from "@/features/project-assistant/f3/persistGenericExecutionReviewMaterial";
+import { isExecutionReviewVerificationEvidenceId } from "@/features/project-assistant/f3/ingestExecutionReviewVerificationEvidence";
+import { isMissionResultEvidenceId } from "@/features/project-assistant/f3/ingestMissionResultEvidence";
 import {
   findExistingW3cPostEvidence,
   projectW3cExecutionReportSurfaceFromDurable,
@@ -61,6 +64,31 @@ export type ProductExecutionContext = {
     readonly present: boolean;
     readonly completeness: "FULL" | "PARTIAL" | null;
     readonly preview: string | null;
+  };
+  /** Generic Execution Review Material — payload only; ≠ Product Truth / Evidence. */
+  readonly executionReview: {
+    readonly kind: "EXECUTION_REVIEW_MATERIAL";
+    readonly present: boolean;
+    readonly completeness: "FULL" | "PARTIAL" | null;
+    readonly reviewMaterialId: string | null;
+    readonly reviewItemCount: number;
+    readonly claimFactMismatch: boolean;
+    readonly verificationStatus:
+      | "OBSERVED"
+      | "UNAVAILABLE"
+      | "NOT_PERFORMED"
+      | "NOT_APPLICABLE"
+      | null;
+    readonly retentionState: string | null;
+    readonly reviewEndOfPresent: boolean;
+    readonly verifiedChangeSetPresent: boolean;
+    readonly blockers: readonly string[];
+    readonly reviewItemSummaries: readonly {
+      readonly itemId: string;
+      readonly kind: string;
+      readonly label: string;
+      readonly logicalPath?: string;
+    }[];
   };
   readonly evidence: {
     readonly kind: "EVIDENCE";
@@ -381,6 +409,30 @@ async function resolveEvidenceLineage(input: {
     };
   }
 
+  // Canonical pre-CE pair for generic execution review (CP2-04):
+  // exactly one Mission Evidence + one Studio Verification Evidence.
+  // Not ambiguous — materializeW3b freezes both into the same ReviewBundle.
+  // Any other multi-Evidence set without CE remains fail-closed.
+  const missionBound = bound.filter((e) =>
+    isMissionResultEvidenceId(e.evidenceId),
+  );
+  const verificationBound = bound.filter((e) =>
+    isExecutionReviewVerificationEvidenceId(e.evidenceId),
+  );
+  if (
+    bound.length === 2 &&
+    missionBound.length === 1 &&
+    verificationBound.length === 1
+  ) {
+    return {
+      ok: true,
+      evidence: missionBound[0]!,
+      evidenceIds: [missionBound[0]!.evidenceId, verificationBound[0]!.evidenceId],
+      reviewBundle: null,
+      claimEvaluation: null,
+    };
+  }
+
   // Multiple Evidence linked to Attempt without CE lineage — NEVER prefix-prefer.
   return {
     ok: false,
@@ -543,6 +595,20 @@ export async function resolveProductExecutionContext(input: {
     completeness: null,
     preview: null,
   };
+  let executionReview: ProductExecutionContext["executionReview"] = {
+    kind: "EXECUTION_REVIEW_MATERIAL",
+    present: false,
+    completeness: null,
+    reviewMaterialId: null,
+    reviewItemCount: 0,
+    claimFactMismatch: false,
+    verificationStatus: null,
+    retentionState: null,
+    reviewEndOfPresent: false,
+    verifiedChangeSetPresent: false,
+    blockers: [],
+    reviewItemSummaries: [],
+  };
   let evidenceBlock: ProductExecutionContext["evidence"] = {
     kind: "EVIDENCE",
     evidenceId: null,
@@ -617,6 +683,52 @@ export async function resolveProductExecutionContext(input: {
             disclosure: "CLAIM_NOT_EVIDENCE",
           };
         }
+      }
+    }
+
+    const genericReview = loadGenericExecutionReviewMaterial({
+      refsRoot: resolveProductEvidenceRefsRoot(),
+      attemptId: attempt.attemptId,
+    });
+    if (genericReview.ok) {
+      const mismatch =
+        genericReview.manifest.verifiedEffects.claimFactMismatch === true ||
+        genericReview.verifiedChangeSet?.claimFactMismatch === true ||
+        genericReview.manifest.blockers.some((b) =>
+          b.includes("CLAIM_FACT_MISMATCH"),
+        );
+      const verificationStatus =
+        genericReview.manifest.verifiedEffects.verificationStatus ??
+        (genericReview.verifiedChangeSet ? "OBSERVED" : "UNAVAILABLE");
+      executionReview = {
+        kind: "EXECUTION_REVIEW_MATERIAL",
+        present: true,
+        completeness: genericReview.manifest.completeness,
+        reviewMaterialId: genericReview.manifest.reviewMaterialId,
+        reviewItemCount: genericReview.manifest.reviewItems.length,
+        claimFactMismatch: mismatch,
+        verificationStatus,
+        retentionState: genericReview.manifest.retentionState,
+        reviewEndOfPresent: Boolean(genericReview.reviewEndOf),
+        verifiedChangeSetPresent:
+          verificationStatus === "OBSERVED" &&
+          Boolean(genericReview.verifiedChangeSet),
+        blockers: [...genericReview.manifest.blockers],
+        reviewItemSummaries: genericReview.manifest.reviewItems.map((it) => ({
+          itemId: it.itemId,
+          kind: it.kind,
+          label: it.label,
+          ...(it.logicalPath ? { logicalPath: it.logicalPath } : {}),
+        })),
+      };
+      if (genericReview.cursorReport && !cursorReport.present) {
+        cursorReport = {
+          kind: "EXECUTOR_CLAIM",
+          present: true,
+          status: genericReview.cursorReport.status,
+          summary: `status=${genericReview.cursorReport.status}`,
+          disclosure: "CLAIM_NOT_EVIDENCE",
+        };
       }
     }
 
@@ -730,6 +842,7 @@ export async function resolveProductExecutionContext(input: {
         : null,
       cursorReport,
       artifact,
+      executionReview,
       evidence: evidenceBlock,
       reviewBundle: reviewBlock,
       claimEvaluation: claimBlock,
@@ -742,6 +855,8 @@ export async function resolveProductExecutionContext(input: {
       disclosures: [
         "Product Resolution is READ-ONLY — not Truth C / HumanDecision / Evidence authority.",
         "CursorExecutionReport is an EXECUTOR CLAIM, never Evidence by itself.",
+        "Cursor Review End Of is an EXECUTOR CLAIM when present — never Fact/Evidence.",
+        "Execution Review Material is a review payload — not Product Truth.",
         "Artifact preview may be PARTIAL — never invent FULL.",
         "Attempt technical succeeded ≠ Product Result PROVEN.",
       ],

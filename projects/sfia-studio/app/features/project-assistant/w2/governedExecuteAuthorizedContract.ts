@@ -43,6 +43,8 @@ import { completeBoundedDocsWriteLaunch } from "@/features/project-assistant/f3/
 import { completeBoundedReadOnlyLaunch } from "@/features/project-assistant/f3/completeBoundedReadOnlyLaunch";
 import { ingestDocsWriteArtifactEvidence } from "@/features/project-assistant/f3/ingestDocsWriteArtifactEvidence";
 import { ingestMissionResultEvidence } from "@/features/project-assistant/f3/ingestMissionResultEvidence";
+import { finalizeGenericExecutionReview } from "@/features/project-assistant/f3/finalizeGenericExecutionReview";
+import { ingestExecutionReviewVerificationEvidence } from "@/features/project-assistant/f3/ingestExecutionReviewVerificationEvidence";
 import {
   buildMissionResultPayloadFromReport,
   type CursorExecutionReportWithMission,
@@ -1280,6 +1282,99 @@ export async function governedExecuteRecordResult(
             };
           }
         }
+        const refsRoot =
+          input.missionResultRefsRoot?.trim() ||
+          path.join(
+            path.dirname(
+              typeof process.env.SFIA_STUDIO_PRODUCT_DB_PATH === "string" &&
+                process.env.SFIA_STUDIO_PRODUCT_DB_PATH.trim()
+                ? process.env.SFIA_STUDIO_PRODUCT_DB_PATH
+                : path.join(
+                    process.cwd(),
+                    "..",
+                    ".sfia-exec",
+                    "product",
+                    "oa-product.sqlite",
+                  ),
+            ),
+            "mission-result-refs",
+          );
+
+        // CR-01 — Generic Product nominal: observe worktree → VerifiedChangeSet →
+        // finalize Generic Review Material BEFORE Evidence/mission ingest.
+        // worktreeRef is server-owned (RealProcessObservation / LaunchAck).
+        if (report) {
+          const worktreeRef =
+            completed.observation?.worktreeRef?.trim() || null;
+          const finalized = await finalizeGenericExecutionReview({
+            refsRoot,
+            projectId: input.projectId,
+            cycleInstanceId: contract.cycleInstanceId,
+            executionContractId: contract.executionContractId,
+            attemptId: attempt.attemptId,
+            repositoryRef:
+              expectedRepo ?? report.repositoryRef ?? "repository:unknown",
+            baseSha: expectedSha ?? report.baseSha ?? "unknown",
+            cursorReport: report,
+            worktreePath: worktreeRef,
+            // CP3-03 — nominal HEAD binding (worktree HEAD == pinned baseSha).
+            // Do NOT bypass; Fake fixtures must use the same H0 worktree.
+          });
+          if (!finalized.ok) {
+            return {
+              ok: false,
+              code: "POST_EXECUTION_CONTINUITY_ADVANCE_FAILED",
+              message: `Attempt succeeded durable — Generic Review Material finalize échoué (${finalized.code}): ${finalized.message}`,
+              attempt: projectAttempt(attempt, adapterId),
+            };
+          }
+
+          // CP3-04 — Verification Evidence digest = durable VCS bytes digest.
+          const vcsDigest = finalized.durableVerifiedChangeSetDigest;
+          const verificationPayload = {
+            schemaVersion: "oa.execution-review-verification.1" as const,
+            attemptId: attempt.attemptId,
+            executionContractId: contract.executionContractId,
+            projectId: input.projectId,
+            repositoryRef:
+              expectedRepo ?? report.repositoryRef ?? "repository:unknown",
+            baseSha: expectedSha ?? report.baseSha ?? "unknown",
+            reviewMaterialId: finalized.manifest.reviewMaterialId,
+            verificationStatus: finalized.verificationStatus,
+            verifiedChangeSetDigest: vcsDigest,
+            verifiedChangeSetRef:
+              finalized.verifiedChangeSetRef ??
+              finalized.manifest.verifiedEffects.verifiedChangeSetRef,
+            claimFactMismatch: finalized.claimFactMismatch,
+            unclaimedObservedPaths:
+              finalized.verifiedChangeSet?.unclaimedObservedPaths ?? [],
+            claimedMissingPaths:
+              finalized.verifiedChangeSet?.claimedMissingPaths ?? [],
+            observedPathCount: finalized.verifiedChangeSet?.all.length ?? 0,
+            completeness: finalized.manifest.completeness,
+            reviewEndOfPresent: finalized.reviewEndOfPresent,
+          };
+          const verificationIngested =
+            await ingestExecutionReviewVerificationEvidence({
+              evidenceReviewServices: input.oa.evidenceReviewServices,
+              projectId: input.projectId,
+              cycleInstanceId: contract.cycleInstanceId,
+              executionContractId: contract.executionContractId,
+              executionAttemptId: attempt.attemptId,
+              payload: verificationPayload,
+              refsRoot,
+              technicalResultRef: attempt.resultRef,
+            });
+          if (!verificationIngested.ok) {
+            return {
+              ok: false,
+              code: "POST_EXECUTION_CONTINUITY_ADVANCE_FAILED",
+              message: `Attempt succeeded durable — Verification Evidence ingest échoué (${verificationIngested.code}): ${verificationIngested.message}`,
+              attempt: projectAttempt(attempt, adapterId),
+            };
+          }
+        }
+
         const built = report
           ? buildMissionResultPayloadFromReport({ report })
           : ({
@@ -1289,17 +1384,6 @@ export async function governedExecuteRecordResult(
                 "Mission Result Evidence requires a structured CursorExecutionReport with missionResult fields.",
             } as const);
         if (built.ok) {
-          const refsRoot =
-            input.missionResultRefsRoot?.trim() ||
-            path.join(
-              path.dirname(
-                typeof process.env.SFIA_STUDIO_PRODUCT_DB_PATH === "string" &&
-                  process.env.SFIA_STUDIO_PRODUCT_DB_PATH.trim()
-                  ? process.env.SFIA_STUDIO_PRODUCT_DB_PATH
-                  : path.join(process.cwd(), "..", ".sfia-exec", "product", "oa-product.sqlite"),
-              ),
-              "mission-result-refs",
-            );
           const ingested = await ingestMissionResultEvidence({
             evidenceReviewServices: input.oa.evidenceReviewServices,
             projectId: input.projectId,

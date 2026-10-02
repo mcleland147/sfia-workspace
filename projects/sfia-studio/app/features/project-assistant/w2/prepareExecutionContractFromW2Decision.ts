@@ -47,6 +47,7 @@ import {
 import {
   deriveMissionAcceptanceCriteria,
   deriveMissionReportRequirements,
+  deriveGenericProductReportRequirements,
   deriveMissionValidationPlan,
 } from "./missionContractSemanticInputs";
 
@@ -466,10 +467,8 @@ export async function prepareExecutionContractFromW2Decision(input: {
   const sourceGrounding = await resolveContractSourceGroundingForPrepare({
     projectId: input.projectId,
     cycleInstanceId: cycleBinding.cycleInstanceId,
-    declaredSources: [
-      ...(mission?.sourcesToRead ?? []),
-      ...(mission?.scopeIn ?? []),
-    ],
+    // Declared READ sources only — mutation scopeIn paths are not "read" claims.
+    declaredSources: [...(mission?.sourcesToRead ?? [])],
     repositoryIdentity: launch.context.repositoryBindingIdentity,
     repositoryHeadSha: launch.context.baseHeadSha,
     reader: input.sourceGroundingReader ?? null,
@@ -495,7 +494,7 @@ export async function prepareExecutionContractFromW2Decision(input: {
           [CONTRACT_VALIDATION_PLAN_INPUT_KEY]:
             deriveMissionValidationPlan(mission),
           [CONTRACT_REPORT_REQUIREMENTS_INPUT_KEY]:
-            deriveMissionReportRequirements(),
+            deriveGenericProductReportRequirements(),
         }
       : {}),
   };
