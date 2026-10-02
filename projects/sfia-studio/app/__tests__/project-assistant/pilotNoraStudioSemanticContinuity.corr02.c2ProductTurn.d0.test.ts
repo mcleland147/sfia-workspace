@@ -4,7 +4,8 @@
  *
  * Exercises real orchestrateProjectAssistantTurn with FakeConversationProvider
  * structured output. Does NOT call the C2 validator as the primary assertion.
- * ZERO production code change. Isolated Product SQLite only.
+ * HABITFLOW-SPC-01 — transcript structured Recommendation uses TDS contextual labels.
+ * Isolated Product SQLite only.
  */
 import fs from "node:fs";
 import os from "node:os";
@@ -25,6 +26,8 @@ import { normalizeActiveCycleRecommendedOptionRef } from "@/lib/nora-cognitive-r
 import type { NoraActiveCycleWorkItem } from "@/lib/nora-cognitive-runtime/noraProductTurnOutputType";
 import type { IntentAnalysisDto } from "@/features/project-assistant/f2/types";
 import type { ProjectAssistantContextDto } from "@/features/project-assistant/types";
+import type { StudioCognitiveContext } from "@/features/project-assistant/f2/studioCognitiveContext";
+import type { AssistantHistoryMessage } from "@/features/project-assistant/types";
 import {
   bootW2Runtime,
   cleanupW2TempDirs,
@@ -400,10 +403,257 @@ describe("CORR-02 C2 Product-turn integration proof", () => {
       lpsVersionBefore,
     );
 
-    // Pilot-facing structured line derived from same canonical option.
-    expect(result.text).toMatch(
-      /Recommandation structurée \(pas une décision\)/i,
+    const governedIdx = tds.optionRefs.indexOf(GOVERNED_OPTION_REF);
+    const governedLabel = tds.optionLabels[governedIdx]!.trim();
+    expect(result.text).toContain(
+      `Recommandation structurée (pas une décision) : « ${governedLabel} ».`,
     );
     expect(result.text).not.toContain(INVENTED_REF);
+  });
+});
+
+describe("HABITFLOW-SPC-01 — transcript contextual structured Recommendation", () => {
+  const RECOVERY_BOUNDED_LABEL =
+    "Replanifier ou suspendre sans relance immédiate";
+
+  function withPatchedTdsLabels(
+    ctx: StudioCognitiveContext,
+    patch: (ref: string, label: string) => string,
+  ): StudioCognitiveContext {
+    const tds = ctx.trajectoryDecisionSupport;
+    if (tds.state !== "PRESENT") return ctx;
+    const optionLabels = tds.optionRefs.map((ref, i) =>
+      patch(ref, tds.optionLabels[i] ?? ""),
+    );
+    return {
+      ...ctx,
+      trajectoryDecisionSupport: {
+        ...tds,
+        optionLabels: Object.freeze([...optionLabels]),
+      },
+    };
+  }
+
+  async function runStructuredRecommendationTurn(input: {
+    projectId: string;
+    composed: StudioCognitiveContext;
+    narrative: string;
+    suffix: string;
+    recommendedOptionRef: string;
+    content?: string;
+    history?: AssistantHistoryMessage[];
+    oa?: NonNullable<ReturnType<typeof bootW2Runtime>["oa"]>;
+  }) {
+    const provider = new FakeConversationProvider({
+      scripted: [
+        acwProductTurn(
+          [
+            {
+              type: "Recommendation",
+              statement: input.narrative,
+              confidence: "high",
+              blocking: null,
+              recommendedOptionRef: input.recommendedOptionRef,
+            },
+          ],
+          input.narrative,
+        ),
+      ],
+    });
+
+    const decisionsBefore =
+      input.oa != null
+        ? (
+            await input.oa.decisionServices.decisions.listByProject(
+              input.projectId,
+            )
+          ).length
+        : null;
+
+    const result = await orchestrateProjectAssistantTurn({
+      projectId: input.projectId,
+      content: input.content ?? "Recommande parmi les options serveur.",
+      history: input.history,
+      sessionDbPath: sessionDbPath(`spc-turn-${input.suffix}.sqlite`),
+      simulateMemoryBUnavailable: true,
+      provider,
+      studioCognitiveContext: input.composed,
+      turnCorrelationId: `ltu:spc:turn:${input.suffix}`,
+    });
+
+    if (input.oa != null && decisionsBefore != null) {
+      const decisionsAfter =
+        await input.oa.decisionServices.decisions.listByProject(input.projectId);
+      expect(decisionsAfter.length).toBe(decisionsBefore);
+    }
+
+    return result;
+  }
+
+  async function runBoundedStructuredTurn(input: {
+    projectId: string;
+    composed: StudioCognitiveContext;
+    narrative: string;
+    suffix: string;
+    history?: AssistantHistoryMessage[];
+    oa?: NonNullable<ReturnType<typeof bootW2Runtime>["oa"]>;
+  }) {
+    return runStructuredRecommendationTurn({
+      ...input,
+      recommendedOptionRef: BOUNDED_OPTION_REF,
+      content: "Recommande trajectoire bornée.",
+    });
+  }
+
+  it("T-SPC-03 — nominal bounded transcript uses TDS label, not contextless recovery map", async () => {
+    const db = tempProductDbPath("spc-nominal.sqlite");
+    const runtime = bootW2Runtime({ productDbPath: db, idPrefix: "spcn" });
+    const seeded = await seedQualifiedProject(runtime, { suffix: "spcn" });
+    const oa = runtime.oa!;
+    const { tds, composed } = await composeWithDecisionSupport({
+      oa,
+      projectId: seeded.projectId,
+      cycleInstanceId: seeded.cycleInstanceId,
+    });
+    const boundedIdx = tds.optionRefs.indexOf(BOUNDED_OPTION_REF);
+    const nominalBoundedLabel = tds.optionLabels[boundedIdx]!.trim();
+    expect(nominalBoundedLabel).toBe("Trajectoire bornée directe");
+
+    const result = await runBoundedStructuredTurn({
+      projectId: seeded.projectId,
+      composed,
+      narrative:
+        "Recommandation structurée bounded-direct (fixture SPC nominal — sans répéter le libellé TDS).",
+      suffix: "nom",
+    });
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.text).toContain(
+      `Recommandation structurée (pas une décision) : « ${nominalBoundedLabel} ».`,
+    );
+    expect(result.text).not.toContain(
+      `Recommandation structurée (pas une décision) : « ${RECOVERY_BOUNDED_LABEL} ».`,
+    );
+  });
+
+  it("T-SPC-04 — recovery bounded transcript uses contextual recovery label", async () => {
+    const db = tempProductDbPath("spc-recovery.sqlite");
+    const runtime = bootW2Runtime({ productDbPath: db, idPrefix: "spcr" });
+    const seeded = await seedQualifiedProject(runtime, { suffix: "spcr" });
+    const oa = runtime.oa!;
+    const { composed } = await composeWithDecisionSupport({
+      oa,
+      projectId: seeded.projectId,
+      cycleInstanceId: seeded.cycleInstanceId,
+    });
+    const composedRecovery = withPatchedTdsLabels(composed, (ref, label) =>
+      ref === BOUNDED_OPTION_REF ? RECOVERY_BOUNDED_LABEL : label,
+    );
+
+    const result = await runBoundedStructuredTurn({
+      projectId: seeded.projectId,
+      composed: composedRecovery,
+      narrative: "Replanifier sans relance (fixture SPC recovery).",
+      suffix: "rec",
+    });
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.text).toContain(
+      `Recommandation structurée (pas une décision) : « ${RECOVERY_BOUNDED_LABEL} ».`,
+    );
+    expect(result.text).not.toContain(
+      "Recommandation structurée (pas une décision) : « Trajectoire bornée directe ».",
+    );
+  });
+
+  it("T-SPC-06 — clarify transcript uses CURRENT TDS contextual label", async () => {
+    const db = tempProductDbPath("spc-clarify.sqlite");
+    const runtime = bootW2Runtime({ productDbPath: db, idPrefix: "spcc" });
+    const seeded = await seedQualifiedProject(runtime, { suffix: "spcc" });
+    const oa = runtime.oa!;
+    const { tds, composed } = await composeWithDecisionSupport({
+      oa,
+      projectId: seeded.projectId,
+      cycleInstanceId: seeded.cycleInstanceId,
+    });
+    const clarifyIdx = tds.optionRefs.indexOf(CLARIFY_OPTION_REF);
+    expect(clarifyIdx).toBeGreaterThanOrEqual(0);
+    const clarifyLabel = tds.optionLabels[clarifyIdx]!.trim();
+    expect(clarifyLabel.length).toBeGreaterThan(0);
+
+    const result = await runStructuredRecommendationTurn({
+      projectId: seeded.projectId,
+      composed,
+      oa,
+      recommendedOptionRef: CLARIFY_OPTION_REF,
+      narrative:
+        "Recommendation clarify-first structurée (fixture SPC-06 — sans répéter le libellé TDS).",
+      content: "Clarifie avant d'engager.",
+      suffix: "clar",
+    });
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.text).toContain(
+      `Recommandation structurée (pas une décision) : « ${clarifyLabel} ».`,
+    );
+    expect(result.text).not.toContain(
+      `Recommandation structurée (pas une décision) : « ${RECOVERY_BOUNDED_LABEL} ».`,
+    );
+    expect(CLARIFY_OPTION_REF).toBe("opt:trajectory:clarify-first");
+  });
+
+  it("T-SPC-15 — historical conversation recovery wording does not override CURRENT nominal TDS", async () => {
+    const db = tempProductDbPath("spc-hist.sqlite");
+    const runtime = bootW2Runtime({ productDbPath: db, idPrefix: "spch" });
+    const seeded = await seedQualifiedProject(runtime, { suffix: "spch" });
+    const oa = runtime.oa!;
+    const { tds, composed } = await composeWithDecisionSupport({
+      oa,
+      projectId: seeded.projectId,
+      cycleInstanceId: seeded.cycleInstanceId,
+    });
+    const boundedIdx = tds.optionRefs.indexOf(BOUNDED_OPTION_REF);
+    const nominalBoundedLabel = tds.optionLabels[boundedIdx]!.trim();
+    expect(nominalBoundedLabel).toBe("Trajectoire bornée directe");
+
+    const staleStructuredBlock = `Recommandation structurée (pas une décision) : « ${RECOVERY_BOUNDED_LABEL} ».`;
+    const history: AssistantHistoryMessage[] = [
+      {
+        role: "user",
+        content: "Ancien tour — quelle trajectoire recommander ?",
+      },
+      {
+        role: "assistant",
+        content: `Tour historique (stale). ${staleStructuredBlock}`,
+      },
+    ];
+    expect(history[1]!.content).toContain(staleStructuredBlock);
+
+    const currentNarrative =
+      "Nouveau tour bounded-direct (fixture SPC-15 — narrative sans libellé recovery ni TDS).";
+    expect(currentNarrative).not.toContain(RECOVERY_BOUNDED_LABEL);
+    expect(currentNarrative).not.toContain(nominalBoundedLabel);
+
+    const result = await runBoundedStructuredTurn({
+      projectId: seeded.projectId,
+      composed,
+      oa,
+      history,
+      narrative: currentNarrative,
+      suffix: "hist",
+    });
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+
+    expect(result.text).toContain(
+      `Recommandation structurée (pas une décision) : « ${nominalBoundedLabel} ».`,
+    );
+    expect(result.text).not.toContain(staleStructuredBlock);
+    expect(result.text).not.toContain(
+      `Recommandation structurée (pas une décision) : « ${RECOVERY_BOUNDED_LABEL} ».`,
+    );
+    expect(BOUNDED_OPTION_REF).toBe("opt:trajectory:bounded-direct");
+    // Historical conversation was an input only — no migration/rewrite of history.
+    expect(history[1]!.content).toContain(staleStructuredBlock);
   });
 });

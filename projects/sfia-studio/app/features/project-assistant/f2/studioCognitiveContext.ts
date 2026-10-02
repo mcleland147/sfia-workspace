@@ -47,7 +47,10 @@ import {
   classifyAcwRecommendationCurrentness,
   resolveTrajectoryRecommendationCutoffFromDecisions,
 } from "../trajectoryRecommendationCurrentness";
-import { pilotTrajectoryOptionLabel } from "../presentationLabels";
+import {
+  pilotPresentedOptionLabel,
+  presentedOptionsFromTrajectoryDecisionSupportPairing,
+} from "../presentationLabels";
 import {
   buildReservationCompactForPrompt,
   formatReservationCompactForPrompt,
@@ -893,27 +896,6 @@ export async function composeStudioCognitiveContext(input: {
 }
 
 /**
- * Resolve a trajectory option presentation label from the server OptionSet
- * pairing (optionRefs[i] ↔ optionLabels[i]). Same optionRef can legitimately
- * carry different labels across nominal vs recovery contexts.
- *
- * Fallback to contextless `pilotTrajectoryOptionLabel` only when the
- * contextual label is absent — never as the nominal source of truth.
- */
-function contextualTrajectoryOptionLabelFromDecisionSupport(
-  optionRef: string,
-  optionRefs: readonly string[],
-  optionLabels: readonly string[],
-): string {
-  const idx = optionRefs.indexOf(optionRef);
-  if (idx >= 0) {
-    const contextual = optionLabels[idx]?.trim();
-    if (contextual) return contextual;
-  }
-  return pilotTrajectoryOptionLabel(optionRef);
-}
-
-/**
  * Render StudioCognitiveContext into F1 system-prompt sections.
  * Business-first; no digests / repository mechanics / F1-F2-MW5 jargon.
  */
@@ -1025,29 +1007,29 @@ export function buildStudioCognitivePromptSections(
     }
     const tds = ctx.trajectoryDecisionSupport;
     if (tds.state === "PRESENT" && tds.optionRefs.length > 0) {
+      const presentedOptions =
+        presentedOptionsFromTrajectoryDecisionSupportPairing(
+          tds.optionRefs,
+          tds.optionLabels,
+        );
       lines.push("");
       lines.push(
         "Options trajectoire serveur (decision-support — Nora ne peut recommander QUE parmi ces refs) :",
       );
       for (let i = 0; i < tds.optionRefs.length; i += 1) {
         const ref = tds.optionRefs[i]!;
-        const label = contextualTrajectoryOptionLabelFromDecisionSupport(
-          ref,
-          tds.optionRefs,
-          tds.optionLabels,
-        );
+        const label = pilotPresentedOptionLabel({
+          optionRef: ref,
+          options: presentedOptions,
+        });
         lines.push(`• ${ref} — ${label}`);
       }
       if (tds.currentNoraRecommendedOptionRef) {
-        // HABITFLOW-SEMANTIC-OPTION-LABEL-CORR-01 — use OptionSet contextual
-        // label (nominal vs recovery). Same optionRef can carry different
-        // presentation labels; never re-map via contextless recovery helper.
         const recRef = tds.currentNoraRecommendedOptionRef;
-        const recLabel = contextualTrajectoryOptionLabelFromDecisionSupport(
-          recRef,
-          tds.optionRefs,
-          tds.optionLabels,
-        );
+        const recLabel = pilotPresentedOptionLabel({
+          optionRef: recRef,
+          options: presentedOptions,
+        });
         lines.push(
           `Recommendation Nora courante (structurée) : ${recRef} (${recLabel}) — PAS une HumanDecision.`,
         );
