@@ -1,118 +1,305 @@
 # ChatGPT Critical Review Pack — FULL
-## Regularization republish (embedded diffs + PRR digest rule)
+## HABITFLOW-SEMANTIC-PRESENTATION-CONTINUITY-01 — Proof-completion QA sub-pass
 
 ## 1. Timestamp
 
-2026-10-02T11:24:29Z (UTC)
-
-**Nature of this republish:** Review Handoff regularization only.
-**Product code:** NOT modified in this regularization turn.
-**Candidate Product tree:** unchanged from Delivery HABITFLOW-SEMANTIC-PRESENTATION-CONTINUITY-01 (6 uncommitted files).
+2026-10-02T11:36:53Z (UTC)
 
 ## 2. Cycle / profile / typology
 
-- **Cycle:** HABITFLOW-SEMANTIC-PRESENTATION-CONTINUITY-01 — Delivery / implémentation (Cycle 8)
+- **Cycle:** 9 — QA / validation (proof-completion sub-pass of HABITFLOW-SEMANTIC-PRESENTATION-CONTINUITY-01)
 - **Profil:** Critical
-- **Typology v2.4:** EVOL
-- **CKC:** `ckc:studio:delivery`
-- **Sub-pass:** Review Handoff regularization (FULL pack + embedded diffs + PRR rule proof)
+- **Typology v2.4:** EVOL — proof-completion QA sub-pass
+- **CKC:** `ckc:studio:delivery` (closes Delivery Critical Review reserves)
 
-## 3. MD-HF-SPC-01 consumed
+## 3. Local Git Truth
 
-**Option B APPROVED** — reuse existing `pilotPresentedOptionLabel` when TDS OptionSet pairing is available; `pilotTrajectoryOptionLabel` remains contextless fallback only; consolidate/remove private #543 helper; fix `orchestrateTurn.ts` structured Recommendation label from TDS, not optionRef-only map.
-
-## 4. Local Git Truth
-
-### Candidate (unchanged this regularization)
+### Initial (this QA sub-pass entry)
 
 - Branch: `delivery/sfia-studio-habitflow-semantic-presentation-continuity-01`
-- HEAD: `e996caeba6ec67c85f9d6f98d31b88958e70159d` (= `origin/main`)
-- vs `origin/main`: **0 ahead / 0 behind**
-- Staged: **none**
-- Project commit/push/PR: **NO**
+- HEAD: `e996caeba6ec67c85f9d6f98d31b88958e70159d`
+- origin/main: `e996caeba6ec67c85f9d6f98d31b88958e70159d`
+- ahead/behind: **0/0**
+- staged: **none**
+- Candidate Product dirty: exactly 6 Delivery files (+ `.tmp-sfia-review/**`)
 
-### Product dirty (exact 6 files — no additional Product change this turn)
+### Final
 
-1. `projects/sfia-studio/app/features/project-assistant/presentationLabels.ts`
-2. `projects/sfia-studio/app/features/project-assistant/f2/studioCognitiveContext.ts`
-3. `projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts`
-4. `projects/sfia-studio/app/__tests__/project-assistant/presentationLabels.test.ts`
-5. `projects/sfia-studio/app/__tests__/project-assistant/pilotNoraStudioSemanticContinuity.corr02.c2ProductTurn.d0.test.ts`
-6. `projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json`
+- Same branch / HEAD / main / 0/0 / staged none
+- **Only additional Product delta this sub-pass:** corr02 test file
+- Five non-corr02 candidate files: **bit-identical** to entry (sha256 captured)
 
-Confirm: regularization touched **only** `.tmp-sfia-review/**` + handoff publish on `sfia/review-handoff`.
+## 4. Main
 
-## 5. Branch / base
+`e996caeba6ec67c85f9d6f98d31b88958e70159d` — Merge PR #543
 
-- **Delivery branch:** `delivery/sfia-studio-habitflow-semantic-presentation-continuity-01`
-- **Base:** `origin/main` @ `e996caeba6ec67c85f9d6f98d31b88958e70159d` (merge PR #543)
+## 5. Candidate branch
 
-## 6. Architecture entry handoff
+`delivery/sfia-studio-habitflow-semantic-presentation-continuity-01`
+
+## 6. Handoff d'entrée (Critical Review prior)
 
 - Branch: `sfia/review-handoff`
-- Commit: `7e1842e1a7d430d7d446541fb36ae3aebd432034`
-- Blob: `988cd67f413bc7f8845d54c926e73a2c577810ca`
-- File: `sfia-review-handoff/latest-chatgpt-review.md` (ARCH-01 qualified Option B)
+- Commit: `4ecab43aff08cac6a5cc5a0d0a0df611ff8da225`
+- Blob: `0d0a72d798c881888b22c87d4bf5efa4f0f12fc6`
 
-## 7. Sources
+## 7. Deux réserves ChatGPT fermées
 
-Architecture Option B consumed; Product implementation already present on candidate; this pack embeds full useful diffs for Critical Review.
+1. **T-SPC-15** — vraie preuve via `history` (pas stale wording dans narrative courante)
+2. **T-SPC-06** — clarify transcript = label contextuel CURRENT TDS
 
-## 8. Discovery grep (summary)
+## 8. Confirmation TEST-ONLY
 
-- `contextualTrajectoryOptionLabelFromDecisionSupport`: **removed** from `studioCognitiveContext.ts`
-- Canonical: `pilotPresentedOptionLabel` + shape adapter `presentedOptionsFromTrajectoryDecisionSupportPairing`
-- Fallback: `pilotTrajectoryOptionLabel` when TDS not PRESENT
+- Product implementation files: **NOT modified** this sub-pass
+- PRR manifest: **NOT modified** this sub-pass
+- `presentationLabels.test.ts`: **NOT modified** this sub-pass
+- Allowed write: **only** `pilotNoraStudioSemanticContinuity.corr02.c2ProductTurn.d0.test.ts`
 
-## 9. Before / after
+## 9. Fichiers candidate à l'entrée (6)
 
-| Seam | Before (#543 on main) | After (this delivery candidate) |
-|------|----------------------|------------------------|
-| Nora cognitive INPUT | Contextual via private helper | Same via `pilotPresentedOptionLabel` |
-| Pilot transcript structured Recommendation | Contextless `pilotTrajectoryOptionLabel(ref)` | Contextual from TDS when PRESENT |
-| W2 TrajectorySurface | Already contextual | Unchanged |
-| optionRef identity | Unchanged | Unchanged |
+1. `presentationLabels.ts`
+2. `studioCognitiveContext.ts`
+3. `orchestrateTurn.ts`
+4. `presentationLabels.test.ts`
+5. `pilotNoraStudioSemanticContinuity.corr02.c2ProductTurn.d0.test.ts`
+6. `production-runtime-reference.manifest.json`
 
-## 10–11. Exact code changes & why Option B
+## 10. Preuve seul corr02 a reçu un nouveau delta
 
-Single canonical presentation owner; close OUTPUT gap without parallel resolver / DTO reshape / authority change.
+Entry sha256 (must remain identical for files 1–4 and 6):
 
-## 12. Canonical presentation ownership
+```
+4b546bb234d0cfabb654258f3f6d9bd2e6826144d00718336b023cebbc9f6fed  projects/sfia-studio/app/features/project-assistant/presentationLabels.ts
+5780338fcf96d3cd0a9503d3704392946d7359fd4f1b62542c93398f86ef82a3  projects/sfia-studio/app/features/project-assistant/f2/studioCognitiveContext.ts
+a7b846cb4ae83cc6cbda663befbac4637a57a463e04cfc4fe88828feedc82ebd  projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
+e165aa4e0c17fc01e746036a56a2c83eb8dafb3d1b0d69d176882ff8a5ca0f34  projects/sfia-studio/app/__tests__/project-assistant/presentationLabels.test.ts
+597ac8db37bfe9fbddb50785f7e79e408ac15a261e3c55c1c195cbb004dce5de  projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
+```
 
-- **Owner:** `pilotPresentedOptionLabel`
-- **Shape adapter only:** `presentedOptionsFromTrajectoryDecisionSupportPairing`
+Final verification: **ALL_FIVE_UNCHANGED=yes** / **FINAL_FIVE_UNCHANGED=yes**
 
-## 13. Contextless fallback disposition
+## 11–12. T-SPC-06 — clarify transcript proof
 
-`pilotTrajectoryOptionLabel` = CONTEXTLESS FALLBACK ONLY (JSDoc); strings unchanged.
+### Test body
 
-## 14. Private #543 helper disposition
+```ts
+it("T-SPC-06 — clarify transcript uses CURRENT TDS contextual label", async () => {
+    const db = tempProductDbPath("spc-clarify.sqlite");
+    const runtime = bootW2Runtime({ productDbPath: db, idPrefix: "spcc" });
+    const seeded = await seedQualifiedProject(runtime, { suffix: "spcc" });
+    const oa = runtime.oa!;
+    const { tds, composed } = await composeWithDecisionSupport({
+      oa,
+      projectId: seeded.projectId,
+      cycleInstanceId: seeded.cycleInstanceId,
+    });
+    const clarifyIdx = tds.optionRefs.indexOf(CLARIFY_OPTION_REF);
+    expect(clarifyIdx).toBeGreaterThanOrEqual(0);
+    const clarifyLabel = tds.optionLabels[clarifyIdx]!.trim();
+    expect(clarifyLabel.length).toBeGreaterThan(0);
 
-**Removed** `contextualTrajectoryOptionLabelFromDecisionSupport`.
+    const result = await runStructuredRecommendationTurn({
+      projectId: seeded.projectId,
+      composed,
+      oa,
+      recommendedOptionRef: CLARIFY_OPTION_REF,
+      narrative:
+        "Recommendation clarify-first structurée (fixture SPC-06 — sans répéter le libellé TDS).",
+      content: "Clarifie avant d'engager.",
+      suffix: "clar",
+    });
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.text).toContain(
+      `Recommandation structurée (pas une décision) : « ${clarifyLabel} ».`,
+    );
+    expect(result.text).not.toContain(
+      `Recommandation structurée (pas une décision) : « ${RECOVERY_BOUNDED_LABEL} ».`,
+    );
+    expect(CLARIFY_OPTION_REF).toBe("opt:trajectory:clarify-first");
+  });
+```
 
-## 15–27. Delivery proofs (summary)
+### Result
 
-INPUT preserved; OUTPUT contextual; W2 non-regression; historical prose outrank (T-SPC-15); optionRef/HD/EC unchanged; invented fail-closed; recovery/fallback matrices PASS at prior full validation.
+**PASS** — contextual clarify label taken from `tds.optionRefs`/`tds.optionLabels` (not hardcoded primary); structured block exact; HD count unchanged; optionRef `opt:trajectory:clarify-first`.
 
-## 28. Fake / Real
+## 13–17. T-SPC-15 — historical conversation via `history`
 
-FakeConversationProvider; ZERO REAL; READY FOR REAL NO; runtime v3 NON ADOPTED.
+### Why prior test was insufficient
 
-## 29–30. Validations (Delivery — already run; not re-run this regularization except PRR proof below)
+Previous T-SPC-15 injected recovery wording into the **current** turn narrative. That did not exercise `orchestrateProjectAssistantTurn({ history })`.
 
-- Targeted semantic suites PASS
-- Full Vitest 5071 PASS
-- tsc / lint / build PASS
-- git diff --check PASS
-- PRR conformance PASS **with** digest sync (re-proven this turn)
+### New test body
 
-## 31. Files modified (candidate Product tree)
+```ts
+it("T-SPC-15 — historical conversation recovery wording does not override CURRENT nominal TDS", async () => {
+    const db = tempProductDbPath("spc-hist.sqlite");
+    const runtime = bootW2Runtime({ productDbPath: db, idPrefix: "spch" });
+    const seeded = await seedQualifiedProject(runtime, { suffix: "spch" });
+    const oa = runtime.oa!;
+    const { tds, composed } = await composeWithDecisionSupport({
+      oa,
+      projectId: seeded.projectId,
+      cycleInstanceId: seeded.cycleInstanceId,
+    });
+    const boundedIdx = tds.optionRefs.indexOf(BOUNDED_OPTION_REF);
+    const nominalBoundedLabel = tds.optionLabels[boundedIdx]!.trim();
+    expect(nominalBoundedLabel).toBe("Trajectoire bornée directe");
 
-Exactly the 6 files listed in §4.
+    const staleStructuredBlock = `Recommandation structurée (pas une décision) : « ${RECOVERY_BOUNDED_LABEL} ».`;
+    const history: AssistantHistoryMessage[] = [
+      {
+        role: "user",
+        content: "Ancien tour — quelle trajectoire recommander ?",
+      },
+      {
+        role: "assistant",
+        content: `Tour historique (stale). ${staleStructuredBlock}`,
+      },
+    ];
+    expect(history[1]!.content).toContain(staleStructuredBlock);
 
-## 32. FULL USEFUL DIFF — all 6 files (embedded)
+    const currentNarrative =
+      "Nouveau tour bounded-direct (fixture SPC-15 — narrative sans libellé recovery ni TDS).";
+    expect(currentNarrative).not.toContain(RECOVERY_BOUNDED_LABEL);
+    expect(currentNarrative).not.toContain(nominalBoundedLabel);
 
-### presentationLabels.ts
+    const result = await runBoundedStructuredTurn({
+      projectId: seeded.projectId,
+      composed,
+      oa,
+      history,
+      narrative: currentNarrative,
+      suffix: "hist",
+    });
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+
+    expect(result.text).toContain(
+      `Recommandation structurée (pas une décision) : « ${nominalBoundedLabel} ».`,
+    );
+    expect(result.text).not.toContain(staleStructuredBlock);
+    expect(result.text).not.toContain(
+      `Recommandation structurée (pas une décision) : « ${RECOVERY_BOUNDED_LABEL} ».`,
+    );
+    expect(BOUNDED_OPTION_REF).toBe("opt:trajectory:bounded-direct");
+    // Historical conversation was an input only — no migration/rewrite of history.
+    expect(history[1]!.content).toContain(staleStructuredBlock);
+  });
+```
+
+### Proof of real `history` usage
+
+- Prior assistant message contains: `Recommandation structurée (pas une décision) : « Replanifier ou suspendre sans relance immédiate ».`
+- Passed as `history: AssistantHistoryMessage[]` into `orchestrateProjectAssistantTurn`
+- Current narrative **does not** contain recovery nor nominal TDS label
+- New structured block: `« Trajectoire bornée directe »`
+- New structured block **does not** contain recovery label
+- History array content still contains stale block after turn (no migration/rewrite)
+- FakeConversationProvider envelope inspection not required (orchestrator `history` input sufficient per cycle brief)
+
+### CURRENT TDS outrank
+
+CURRENT TDS nominal bounded + historical recovery structured wording → new Pilot structured Recommendation uses CURRENT nominal label only.
+
+## 18. Clarify contextual label exact
+
+Derived from CURRENT TDS pairing for `CLARIFY_OPTION_REF` at runtime of the test.
+
+## 19. optionRef identity
+
+- bounded: `opt:trajectory:bounded-direct`
+- clarify: `opt:trajectory:clarify-first`
+- No transformation.
+
+## 20–21. HumanDecision / EC non-impact
+
+- T-SPC-06/15 assert decision list length unchanged across the turn
+- No HD/EC Product code touched this sub-pass (or Delivery authority paths)
+
+## 22. Targeted results
+
+| Suite | Result |
+|-------|--------|
+| corr02.c2ProductTurn.d0.test.ts | **6 PASS** (incl. T-SPC-06, T-SPC-15) |
+| studioCognitiveContext.test.ts | 11 PASS |
+| pilotNoraStudioSemanticContinuity.d0.test.ts | 15 PASS |
+| corr01.d0.test.ts | 5 PASS |
+| presentationLabels.test.ts | 39 PASS |
+| **Targeted total** | **76 PASS** (6 + 70) |
+
+## 23–27. Full validations
+
+| Check | Result |
+|-------|--------|
+| Full Vitest | **5072 passed**, 137 skipped (458 files) |
+| `npx tsc --noEmit` | PASS |
+| lint | PASS |
+| build | PASS (pre-existing better-sqlite3 warning unchanged) |
+| `git diff --check` | PASS |
+
+## 28. PRR manifest unchanged during this sub-pass
+
+Yes — sha256 identical to entry; no new digest generated (corr02 not PRR-tracked).
+
+## 29. Product implementation unchanged during this sub-pass
+
+Yes — presentationLabels.ts, studioCognitiveContext.ts, orchestrateTurn.ts bit-identical to entry.
+
+## 30. Fake / Real
+
+- Fake: FakeConversationProvider
+- Product path: real `orchestrateProjectAssistantTurn`
+- REAL this cycle: **ZERO**
+- READY FOR REAL: **NO**
+- runtime v3: **NON ADOPTED**
+
+## 31. Réserves
+
+- better-sqlite3 Next build warning (pre-existing, non-blocking)
+- Fake provider does not expose last-message capture API; history proof is via explicit orchestrator `history` param (accepted by cycle brief)
+
+## 32. Claims
+
+- Deterministic semantic presentation continuity proven at tested scope **including** clarify transcript + true historical conversation outrank
+- Authority unchanged
+- Test-only proof completion; Delivery Option B implementation unchanged this sub-pass
+
+## 33. Anti-claims
+
+- NOT full Product REAL E2E
+- NOT READY FOR REAL
+- NOT runtime v3 adopted
+- NOT HabitFlow HD/EC executed
+
+## 34. Project Git effects
+
+| Effect | Value |
+|--------|-------|
+| project commit | **NO** |
+| project push | **NO** |
+| PR | **NO** |
+| merge | **NO** |
+| staged | **none** |
+
+## 35. Review Handoff
+
+Published in-cycle: `docs(review-handoff): publish habitflow semantic presentation proof completion`
+
+## 36. Verdict
+
+**READY FOR CHATGPT CRITICAL REVIEW — HABITFLOW-SEMANTIC-PRESENTATION-CONTINUITY-01**
+
+**Proof ceiling:** DETERMINISTIC SEMANTIC PRESENTATION CONTINUITY PROVEN AT TESTED SCOPE
+
+ZERO REAL · READY FOR REAL NO · runtime v3 NON ADOPTED
+
+---
+
+## APPENDIX — FULL USEFUL DIFF (current candidate, all 6 Product files)
+
+### 1. presentationLabels.ts (Delivery — unchanged this QA sub-pass)
 
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/presentationLabels.ts b/projects/sfia-studio/app/features/project-assistant/presentationLabels.ts
@@ -152,7 +339,7 @@ index 54076f12..b9db0e87 100644
    readonly optionRef: string | null | undefined;
 ```
 
-### studioCognitiveContext.ts
+### 2. studioCognitiveContext.ts (Delivery — unchanged this QA sub-pass)
 
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/f2/studioCognitiveContext.ts b/projects/sfia-studio/app/features/project-assistant/f2/studioCognitiveContext.ts
@@ -244,7 +431,7 @@ index 9ac22fff..a5d1af96 100644
          );
 ```
 
-### orchestrateTurn.ts
+### 3. orchestrateTurn.ts (Delivery — unchanged this QA sub-pass)
 
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts b/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
@@ -296,7 +483,7 @@ index 08b3e5bd..165c90be 100644
        assistantText = composePilotFacingAssistantText(
 ```
 
-### presentationLabels.test.ts
+### 4. presentationLabels.test.ts (Delivery — unchanged this QA sub-pass)
 
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/presentationLabels.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/presentationLabels.test.ts
@@ -343,11 +530,29 @@ index f753d59d..0ab1db55 100644
 +});
 ```
 
-### pilotNoraStudioSemanticContinuity.corr02.c2ProductTurn.d0.test.ts
+### 5. production-runtime-reference.manifest.json (Delivery — unchanged this QA sub-pass)
+
+```diff
+diff --git a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
+index 6159c7ca..ca1dc909 100644
+--- a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
++++ b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
+@@ -582,7 +582,7 @@
+     },
+     {
+       "path": "projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts",
+-      "sha256_16": "44ae65a43da3f02e"
++      "sha256_16": "a7b846cb4ae83cc6"
+     },
+     {
+       "path": "projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts",
+```
+
+### 6. pilotNoraStudioSemanticContinuity.corr02.c2ProductTurn.d0.test.ts (Delivery + QA proof-completion delta)
 
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/pilotNoraStudioSemanticContinuity.corr02.c2ProductTurn.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/pilotNoraStudioSemanticContinuity.corr02.c2ProductTurn.d0.test.ts
-index e0e0701b..8cbb2481 100644
+index e0e0701b..7018c7e6 100644
 --- a/projects/sfia-studio/app/__tests__/project-assistant/pilotNoraStudioSemanticContinuity.corr02.c2ProductTurn.d0.test.ts
 +++ b/projects/sfia-studio/app/__tests__/project-assistant/pilotNoraStudioSemanticContinuity.corr02.c2ProductTurn.d0.test.ts
 @@ -4,7 +4,8 @@
@@ -365,11 +570,11 @@ index e0e0701b..8cbb2481 100644
  import type { IntentAnalysisDto } from "@/features/project-assistant/f2/types";
  import type { ProjectAssistantContextDto } from "@/features/project-assistant/types";
 +import type { StudioCognitiveContext } from "@/features/project-assistant/f2/studioCognitiveContext";
-+import { pilotTrajectoryOptionLabel } from "@/features/project-assistant/presentationLabels";
++import type { AssistantHistoryMessage } from "@/features/project-assistant/types";
  import {
    bootW2Runtime,
    cleanupW2TempDirs,
-@@ -400,10 +403,160 @@ describe("CORR-02 C2 Product-turn integration proof", () => {
+@@ -400,10 +403,257 @@ describe("CORR-02 C2 Product-turn integration proof", () => {
        lpsVersionBefore,
      );
 
@@ -407,11 +612,15 @@ index e0e0701b..8cbb2481 100644
 +    };
 +  }
 +
-+  async function runBoundedStructuredTurn(input: {
++  async function runStructuredRecommendationTurn(input: {
 +    projectId: string;
 +    composed: StudioCognitiveContext;
 +    narrative: string;
 +    suffix: string;
++    recommendedOptionRef: string;
++    content?: string;
++    history?: AssistantHistoryMessage[];
++    oa?: NonNullable<ReturnType<typeof bootW2Runtime>["oa"]>;
 +  }) {
 +    const provider = new FakeConversationProvider({
 +      scripted: [
@@ -422,7 +631,7 @@ index e0e0701b..8cbb2481 100644
 +              statement: input.narrative,
 +              confidence: "high",
 +              blocking: null,
-+              recommendedOptionRef: BOUNDED_OPTION_REF,
++              recommendedOptionRef: input.recommendedOptionRef,
 +            },
 +          ],
 +          input.narrative,
@@ -430,14 +639,47 @@ index e0e0701b..8cbb2481 100644
 +      ],
 +    });
 +
-+    return orchestrateProjectAssistantTurn({
++    const decisionsBefore =
++      input.oa != null
++        ? (
++            await input.oa.decisionServices.decisions.listByProject(
++              input.projectId,
++            )
++          ).length
++        : null;
++
++    const result = await orchestrateProjectAssistantTurn({
 +      projectId: input.projectId,
-+      content: "Recommande trajectoire bornée.",
-+      sessionDbPath: sessionDbPath(`spc-bounded-${input.suffix}.sqlite`),
++      content: input.content ?? "Recommande parmi les options serveur.",
++      history: input.history,
++      sessionDbPath: sessionDbPath(`spc-turn-${input.suffix}.sqlite`),
 +      simulateMemoryBUnavailable: true,
 +      provider,
 +      studioCognitiveContext: input.composed,
-+      turnCorrelationId: `ltu:spc:bounded:${input.suffix}`,
++      turnCorrelationId: `ltu:spc:turn:${input.suffix}`,
++    });
++
++    if (input.oa != null && decisionsBefore != null) {
++      const decisionsAfter =
++        await input.oa.decisionServices.decisions.listByProject(input.projectId);
++      expect(decisionsAfter.length).toBe(decisionsBefore);
++    }
++
++    return result;
++  }
++
++  async function runBoundedStructuredTurn(input: {
++    projectId: string;
++    composed: StudioCognitiveContext;
++    narrative: string;
++    suffix: string;
++    history?: AssistantHistoryMessage[];
++    oa?: NonNullable<ReturnType<typeof bootW2Runtime>["oa"]>;
++  }) {
++    return runStructuredRecommendationTurn({
++      ...input,
++      recommendedOptionRef: BOUNDED_OPTION_REF,
++      content: "Recommande trajectoire bornée.",
 +    });
 +  }
 +
@@ -502,7 +744,43 @@ index e0e0701b..8cbb2481 100644
 +    );
 +  });
 +
-+  it("T-SPC-15 — historical prose with recovery wording does not override CURRENT TDS nominal structured label", async () => {
++  it("T-SPC-06 — clarify transcript uses CURRENT TDS contextual label", async () => {
++    const db = tempProductDbPath("spc-clarify.sqlite");
++    const runtime = bootW2Runtime({ productDbPath: db, idPrefix: "spcc" });
++    const seeded = await seedQualifiedProject(runtime, { suffix: "spcc" });
++    const oa = runtime.oa!;
++    const { tds, composed } = await composeWithDecisionSupport({
++      oa,
++      projectId: seeded.projectId,
++      cycleInstanceId: seeded.cycleInstanceId,
++    });
++    const clarifyIdx = tds.optionRefs.indexOf(CLARIFY_OPTION_REF);
++    expect(clarifyIdx).toBeGreaterThanOrEqual(0);
++    const clarifyLabel = tds.optionLabels[clarifyIdx]!.trim();
++    expect(clarifyLabel.length).toBeGreaterThan(0);
++
++    const result = await runStructuredRecommendationTurn({
++      projectId: seeded.projectId,
++      composed,
++      oa,
++      recommendedOptionRef: CLARIFY_OPTION_REF,
++      narrative:
++        "Recommendation clarify-first structurée (fixture SPC-06 — sans répéter le libellé TDS).",
++      content: "Clarifie avant d'engager.",
++      suffix: "clar",
++    });
++    expect(result.ok).toBe(true);
++    if (!result.ok) return;
++    expect(result.text).toContain(
++      `Recommandation structurée (pas une décision) : « ${clarifyLabel} ».`,
++    );
++    expect(result.text).not.toContain(
++      `Recommandation structurée (pas une décision) : « ${RECOVERY_BOUNDED_LABEL} ».`,
++    );
++    expect(CLARIFY_OPTION_REF).toBe("opt:trajectory:clarify-first");
++  });
++
++  it("T-SPC-15 — historical conversation recovery wording does not override CURRENT nominal TDS", async () => {
 +    const db = tempProductDbPath("spc-hist.sqlite");
 +    const runtime = bootW2Runtime({ productDbPath: db, idPrefix: "spch" });
 +    const seeded = await seedQualifiedProject(runtime, { suffix: "spch" });
@@ -514,226 +792,47 @@ index e0e0701b..8cbb2481 100644
 +    });
 +    const boundedIdx = tds.optionRefs.indexOf(BOUNDED_OPTION_REF);
 +    const nominalBoundedLabel = tds.optionLabels[boundedIdx]!.trim();
++    expect(nominalBoundedLabel).toBe("Trajectoire bornée directe");
 +
-+    const staleWording = pilotTrajectoryOptionLabel(BOUNDED_OPTION_REF);
++    const staleStructuredBlock = `Recommandation structurée (pas une décision) : « ${RECOVERY_BOUNDED_LABEL} ».`;
++    const history: AssistantHistoryMessage[] = [
++      {
++        role: "user",
++        content: "Ancien tour — quelle trajectoire recommander ?",
++      },
++      {
++        role: "assistant",
++        content: `Tour historique (stale). ${staleStructuredBlock}`,
++      },
++    ];
++    expect(history[1]!.content).toContain(staleStructuredBlock);
++
++    const currentNarrative =
++      "Nouveau tour bounded-direct (fixture SPC-15 — narrative sans libellé recovery ni TDS).";
++    expect(currentNarrative).not.toContain(RECOVERY_BOUNDED_LABEL);
++    expect(currentNarrative).not.toContain(nominalBoundedLabel);
++
 +    const result = await runBoundedStructuredTurn({
 +      projectId: seeded.projectId,
 +      composed,
-+      narrative: `Ancien tour mentionnait « ${staleWording} » dans la prose — CURRENT TDS reste nominal.`,
++      oa,
++      history,
++      narrative: currentNarrative,
 +      suffix: "hist",
 +    });
 +    expect(result.ok).toBe(true);
 +    if (!result.ok) return;
-+    expect(result.text).toContain(staleWording);
++
 +    expect(result.text).toContain(
 +      `Recommandation structurée (pas une décision) : « ${nominalBoundedLabel} ».`,
 +    );
++    expect(result.text).not.toContain(staleStructuredBlock);
 +    expect(result.text).not.toContain(
-+      `Recommandation structurée (pas une décision) : « ${staleWording} ».`,
++      `Recommandation structurée (pas une décision) : « ${RECOVERY_BOUNDED_LABEL} ».`,
 +    );
++    expect(BOUNDED_OPTION_REF).toBe("opt:trajectory:bounded-direct");
++    // Historical conversation was an input only — no migration/rewrite of history.
++    expect(history[1]!.content).toContain(staleStructuredBlock);
 +  });
 +});
 ```
-
-### production-runtime-reference.manifest.json
-
-```diff
-diff --git a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-index 6159c7ca..ca1dc909 100644
---- a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-+++ b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-@@ -582,7 +582,7 @@
-     },
-     {
-       "path": "projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts",
--      "sha256_16": "44ae65a43da3f02e"
-+      "sha256_16": "a7b846cb4ae83cc6"
-     },
-     {
-       "path": "projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts",
-```
-
-
-## 33. PRR DIGEST SYNCHRONIZATION RULE (authoritative)
-
-### Rule location
-
-1. **Living maintenance contract** — `projects/sfia-studio/production-runtime-reference/README.md`:
-
-> For any Studio change touching tracked paths in the manifest:
-> … Refresh digests **only after** human/ChatGPT review of content.
-> A digest mismatch means: `REFERENCE REVIEW REQUIRED`.
-> Refreshing a digest ≠ validating semantic correctness.
-
-2. **Manifest machine contract** — `production-runtime-reference.manifest.json` → `maintenance`:
-
-```json
-"maintenance": {
-  "digestMismatchMeans": "REFERENCE REVIEW REQUIRED",
-  "refreshDigestDoesNotValidateSemantics": true,
-  "automateDriftDetection": true,
-  "automateStructuralArbitration": false
-}
-```
-
-3. **Deterministic gate** — `__tests__/architecture/productionRuntimeReference.conformance.d0.test.ts`:
-
-- Test: `tracked source/test/volume digests match current tree`
-- Asserts every `volumes` / `trackedSources` / `trackedTests` entry: `e.sha256_16 === sha16(file)`
-- `orchestrateTurn.ts` is listed under `trackedSources` → any content change **requires** matching `sha256_16` update or full Vitest fails.
-
-### Why the manifest line changed in this Delivery
-
-`orchestrateTurn.ts` is a **tracked source**. Option B modified it. Without updating:
-
-```
-"sha256_16": "44ae65a43da3f02e"  →  "a7b846cb4ae83cc6"
-```
-
-conformance fails. Sync is **mechanical digest alignment** for Living PRR drift detection — **not** a semantic architecture claim (`refreshDigestDoesNotValidateSemantics: true`).
-
-### Exact manifest-only diff
-
-```diff
-diff --git a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-index 6159c7ca..ca1dc909 100644
---- a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-+++ b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-@@ -582,7 +582,7 @@
-     },
-     {
-       "path": "projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts",
--      "sha256_16": "44ae65a43da3f02e"
-+      "sha256_16": "a7b846cb4ae83cc6"
-     },
-     {
-       "path": "projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts",
-```
-
-## 34. PRR proof: without digest sync → FAIL / with sync → PASS
-
-Executed this regularization turn on the candidate tree (temporary stale digest then restore; **no lasting Product change**).
-
-### Without digest sync (stale `44ae65a43da3f02e` while file hashes to `a7b846cb4ae83cc6`)
-
-- Exit code: **1**
-- Failure:
-
-```
-FAIL  productionRuntimeReference.conformance.d0.test.ts
-> tracked source/test/volume digests match current tree
-AssertionError: expected '44ae65a43da3f02e' to be 'a7b846cb4ae83cc6'
-```
-
-Full log excerpt:
-
-```
-
-> sfia-studio@0.1.0 test
-> vitest run __tests__/architecture/productionRuntimeReference.conformance.d0.test.ts
-
-
- RUN  v3.2.7 /Users/morris/Projects/sfia-workspace-post-execution-handoff-01/projects/sfia-studio/app
-
- ❯ __tests__/architecture/productionRuntimeReference.conformance.d0.test.ts (5 tests | 1 failed) 6ms
-   ✓ Living Production Runtime Reference conformance > manifest exists and is valid JSON schema v1 1ms
-   ✓ Living Production Runtime Reference conformance > canonical README and all volumes exist 0ms
-   ✓ Living Production Runtime Reference conformance > component / flow / invariant / dependency IDs are unique and resolve 1ms
-   × Living Production Runtime Reference conformance > tracked source/test/volume digests match current tree 3ms
-     → expected '44ae65a43da3f02e' to be 'a7b846cb4ae83cc6' // Object.is equality
-   ✓ Living Production Runtime Reference conformance > intentional digest drift is detectable (temporary mutation) 0ms
-
-⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
-
- FAIL  __tests__/architecture/productionRuntimeReference.conformance.d0.test.ts > Living Production Runtime Reference conformance > tracked source/test/volume digests match current tree
-AssertionError: expected '44ae65a43da3f02e' to be 'a7b846cb4ae83cc6' // Object.is equality
-
-Expected: "a7b846cb4ae83cc6"
-Received: "44ae65a43da3f02e"
-
- ❯ __tests__/architecture/productionRuntimeReference.conformance.d0.test.ts:100:27
-     98|       const abs = path.join(repoRoot, e.path);
-     99|       expect(fs.existsSync(abs)).toBe(true);
-    100|       expect(e.sha256_16).toBe(sha16(abs));
-       |                           ^
-    101|     }
-    102|   });
-
-⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
-
-
- Test Files  1 failed (1)
-      Tests  1 failed | 4 passed (5)
-   Start at  13:23:54
-   Duration  229ms (transform 17ms, setup 54ms, collect 7ms, tests 6ms, environment 0ms, prepare 37ms)
-
-
-```
-
-### With digest sync (restored `a7b846cb4ae83cc6`)
-
-- Exit code: **0**
-- **5/5 tests PASS**
-
-```
-
-> sfia-studio@0.1.0 test
-> vitest run __tests__/architecture/productionRuntimeReference.conformance.d0.test.ts
-
-
- RUN  v3.2.7 /Users/morris/Projects/sfia-workspace-post-execution-handoff-01/projects/sfia-studio/app
-
- ✓ __tests__/architecture/productionRuntimeReference.conformance.d0.test.ts (5 tests) 11ms
-
- Test Files  1 passed (1)
-      Tests  5 passed (5)
-   Start at  13:23:54
-   Duration  180ms (transform 15ms, setup 24ms, collect 8ms, tests 11ms, environment 0ms, prepare 29ms)
-
-
-```
-
-## 35. Risks / reservations
-
-- Digest refresh ≠ semantic PRR content review of volumes (contract says so).
-- `composePilotFacingAssistantText` may omit structured block if narrative already contains the label substring (existing behavior).
-
-## 36. Debt / exit
-
-Private #543 helper eliminated; contextless map fallback-only; no parallel resolver; HabitFlow remains PAUSED before HumanDecision.
-
-## 37. Claims
-
-Contextual presentation consolidation proven at tested deterministic scope; authority unchanged.
-
-## 38. Anti-claims
-
-NOT full Product REAL E2E; NOT READY FOR REAL; NOT runtime v3 adopted; NOT HabitFlow HD/EC completed.
-
-## 39. Morris decisions remaining
-
-ChatGPT Critical Review → GO project commit/push/PR → resume HabitFlow.
-
-## 40. Project Git effects (this regularization)
-
-| Effect | Value |
-|--------|-------|
-| Product code change | **NO** (tree unchanged vs Delivery candidate) |
-| project commit | **NO** |
-| project push | **NO** |
-| PR | **NO** |
-| handoff publish | **YES** (sfia/review-handoff only) |
-
-## 41. Review Handoff
-
-Published via `scripts/sfia/publish-review-handoff.sh` (see remote verification after publish).
-
-## 42. Verdict
-
-**READY FOR CHATGPT CRITICAL REVIEW — HABITFLOW-SEMANTIC-PRESENTATION-CONTINUITY-01**
-
-**Proof ceiling:** DETERMINISTIC SEMANTIC PRESENTATION CONTINUITY PROVEN AT TESTED SCOPE
-
-ZERO REAL · READY FOR REAL NO · runtime v3 NON ADOPTED
-
-**Handoff regularization:** FULL pack now embeds complete 6-file diffs + PRR rule + fail/pass digest proof.
