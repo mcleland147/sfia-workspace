@@ -40,7 +40,15 @@ import {
   isAcceptedStartTrajectoryDecision,
   type AssessFinalizationInput,
 } from "./assessFinalization";
-import { deriveUndisposedRecommendations } from "./deriveUndisposedRecommendations";
+import {
+  deriveRecommendationClassificationUnavailableRefs,
+  deriveUndisposedRecommendations,
+} from "./deriveUndisposedRecommendations";
+import {
+  hasTrajectoryOptionRef,
+  isActiveCycleWorkRecommendationItem,
+  type TrajectoryDecisionSupportState,
+} from "./deriveWorkRecommendations";
 import {
   assessResumeReconciliation,
   buildPauseReconciliationSnapshot,
@@ -108,6 +116,15 @@ export type PilotLifecycleAuthorityPort = {
   }): { ok: boolean; reason?: string };
 };
 
+/**
+ * Resolves the explicit PRESENT | NONE | UNAVAILABLE trajectory
+ * decision-support state for a cycle (feature-layer projection, injected).
+ */
+export type TrajectoryDecisionSupportStateResolver = (input: {
+  readonly projectId: string;
+  readonly cycleInstanceId: string;
+}) => Promise<TrajectoryDecisionSupportState>;
+
 export type PilotLifecycleDeps = {
   cycles: CycleRepositoryPort;
   trajectories: TrajectoryRepositoryPort;
@@ -126,6 +143,11 @@ export type PilotLifecycleDeps = {
    * Wired once from vertical-slice-runtime via create*CycleServices.
    */
   qualifyCycleWithCkc?: QualifyCycleWithCkcPort;
+  /**
+   * MD-WR-07 — optional TDS tri-state resolver for finalization blockers.
+   * Absent → ACW+opt:trajectory:* is treated UNAVAILABLE (never Work).
+   */
+  resolveTrajectoryDecisionSupportState?: TrajectoryDecisionSupportStateResolver;
   /**
    * Optional static applicability override — test-only / low-level.
    * Product `buildAssessment` always derives from durable facts and ignores this.
@@ -192,7 +214,24 @@ async function appendLpsActiveLink(input: {
 }
 
 export class PilotLifecycleTransitions {
-  constructor(private readonly deps: PilotLifecycleDeps) {}
+  private trajectoryDecisionSupportResolver:
+    | TrajectoryDecisionSupportStateResolver
+    | undefined;
+
+  constructor(private readonly deps: PilotLifecycleDeps) {
+    this.trajectoryDecisionSupportResolver =
+      deps.resolveTrajectoryDecisionSupportState;
+  }
+
+  /**
+   * Blocker 3 / MD-WR-07 — late-bind the feature-layer TDS tri-state resolver
+   * (lib never imports @/features). Idempotent; last binding wins.
+   */
+  bindTrajectoryDecisionSupportStateResolver(
+    resolver: TrajectoryDecisionSupportStateResolver | undefined,
+  ): void {
+    this.trajectoryDecisionSupportResolver = resolver;
+  }
 
   async start(request: StartCycleRequest): Promise<PilotLifecycleResult> {
     const started = Date.now();
@@ -1584,10 +1623,13 @@ export class PilotLifecycleTransitions {
   }
 
   /**
-   * CHAT-FIRST-GOVERNED-DECISION-LOOP-01 — Work Recommendations only for the
-   * cycle under assessment. Lifecycle NEXT_CYCLE / FINALIZE_CURRENT_CYCLE never
-   * appear here. An unreadable Epistemic source must not silently mean
-   * "nothing to dispose".
+   * CHAT-FIRST-GOVERNED-DECISION-LOOP-01 + CP02 — Work Recommendations for the
+   * cycle under assessment, PLUS derived classification-unavailable sentinels
+   * when TDS cannot honestly classify an active ACW+opt:trajectory:* item.
+   *
+   * Lifecycle NEXT_CYCLE / FINALIZE_CURRENT_CYCLE never appear as Work.
+   * An unreadable Epistemic source must not silently mean "nothing to dispose".
+   * KNOWN EMPTY (no Work, no uncertain ACW) ≠ CLASSIFICATION UNAVAILABLE.
    */
   private async loadUndisposedRecommendationRefs(
     projectId: string,
@@ -1596,9 +1638,43 @@ export class PilotLifecycleTransitions {
     if (!this.deps.epistemic) return ["recommendation_source_unreadable"];
     try {
       const items = await this.deps.epistemic.listByProject(projectId);
-      return deriveUndisposedRecommendations(items, cycleInstanceId).map(
-        (r) => r.epistemicItemId,
+      // Blocker 3 / MD-WR-07 — explicit TDS tri-state. Only resolve it when an
+      // active ACW actually carries opt:trajectory:* (otherwise irrelevant).
+      // No resolver wired → UNAVAILABLE (fail-closed, never a silent NONE).
+      let trajectoryDecisionSupportState: TrajectoryDecisionSupportState =
+        "UNAVAILABLE";
+      const needsTds = items.some(
+        (i) =>
+          i.status === "active" &&
+          isActiveCycleWorkRecommendationItem(i) &&
+          hasTrajectoryOptionRef(i),
       );
+      if (!needsTds) {
+        trajectoryDecisionSupportState = "NONE";
+      } else if (this.trajectoryDecisionSupportResolver) {
+        try {
+          trajectoryDecisionSupportState =
+            await this.trajectoryDecisionSupportResolver({
+              projectId,
+              cycleInstanceId,
+            });
+        } catch {
+          trajectoryDecisionSupportState = "UNAVAILABLE";
+        }
+      }
+      // Work blockers only — never invent Work from UNAVAILABLE+opt:trajectory.
+      const workRefs = deriveUndisposedRecommendations(items, cycleInstanceId, {
+        trajectoryDecisionSupportState,
+      }).map((r) => r.epistemicItemId);
+      // CP02 — derived uncertainty blockers (not Work, not PT). Channel stays
+      // undisposedRecommendationRefs → blockers = undisposed_recommendations.
+      const classificationUnavailableRefs =
+        deriveRecommendationClassificationUnavailableRefs(
+          items,
+          cycleInstanceId,
+          trajectoryDecisionSupportState,
+        );
+      return [...workRefs, ...classificationUnavailableRefs];
     } catch {
       return ["recommendation_source_unreadable"];
     }

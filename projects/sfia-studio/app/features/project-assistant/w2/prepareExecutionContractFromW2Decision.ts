@@ -245,6 +245,16 @@ export async function prepareExecutionContractFromW2Decision(input: {
     };
   }
 
+  // MD-WR-06 — Work Recommendation HD never opens an ExecutionContract path.
+  if (basis.sourceType === "work_recommendation") {
+    return {
+      ok: false,
+      code: "PREPARE_NOT_APPLICABLE",
+      message:
+        "Une décision sur recommandation de travail n'ouvre aucune préparation d'exécution — fail-closed.",
+    };
+  }
+
   const traj = basis.trajectoryContext;
 
   // trajectory_option always requires trajectoryContext; proposal does not.

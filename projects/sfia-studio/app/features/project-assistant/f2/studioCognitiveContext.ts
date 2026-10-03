@@ -45,7 +45,7 @@ import {
 import { ACTIVE_CYCLE_WORK_SOURCE, extractAcwRecommendedOptionRef } from "../materializeActiveCycleWork";
 import {
   classifyAcwRecommendationCurrentness,
-  resolveTrajectoryRecommendationCutoffFromDecisions,
+  resolveProjectTrajectoryRecommendationCutoff,
 } from "../trajectoryRecommendationCurrentness";
 import {
   pilotPresentedOptionLabel,
@@ -659,18 +659,16 @@ export async function composeStudioCognitiveContext(input: {
   if (activeCycle) {
     try {
       const epistemic = await oa.cycleServices.epistemic.listByProject(projectId);
-      let hdCutoff: string | null = null;
-      try {
-        const decisionsForCutoff =
-          await oa.decisionServices.decisions.listByProject(projectId);
-        hdCutoff = resolveTrajectoryRecommendationCutoffFromDecisions({
-          decisions: decisionsForCutoff,
-          cycleInstanceId: activeCycle.cycleInstanceId,
-        });
-      } catch {
-        // Decision unreadability → do not claim ACW Recommendation as CURRENT.
-        hdCutoff = "9999-12-31T23:59:59.999Z";
-      }
+      // Blocker 4 — shared PT currentness cutoff, always with the current
+      // trajectory's decidedByDecisionRef. Unreadable → never claim CURRENT.
+      const cutoffResolved = await resolveProjectTrajectoryRecommendationCutoff({
+        oa,
+        projectId,
+        cycleInstanceId: activeCycle.cycleInstanceId,
+      });
+      const hdCutoff: string | null = cutoffResolved.ok
+        ? cutoffResolved.cutoff
+        : "9999-12-31T23:59:59.999Z";
       const filtered = epistemic.filter(
         (item) =>
           item.source === ACTIVE_CYCLE_WORK_SOURCE &&
@@ -1041,6 +1039,10 @@ export function buildStudioCognitivePromptSections(
     } else if (tds.state === "UNAVAILABLE") {
       lines.push(
         "Decision-support trajectoire : UNAVAILABLE — ne pas inventer d'optionRefs.",
+      );
+    } else if (tds.state === "NONE") {
+      lines.push(
+        "Options trajectoire (ProjectTrajectory) : non ouvertes pour ce travail — les Work Recommendations se disposent en chat (accepter / amender / refuser / reporter) ; ne pas proposer d'optionRefs trajectoire.",
       );
     }
     if (ctx.reservationFocusSection) {

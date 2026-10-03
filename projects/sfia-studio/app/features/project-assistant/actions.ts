@@ -32,6 +32,7 @@ import {
   type CycleReservationProjectionCard,
   type CycleReservationSummary,
   projectCycleWorkRecommendations,
+  type TrajectoryDecisionSupportState,
 } from "@/lib/oa/cycle";
 import type { HumanDecision } from "@/lib/oa/decision";
 import type {
@@ -1539,14 +1540,41 @@ async function buildAssistantPilotLifecycleProjection(
   // CHAT-FIRST — Décisions Journal tab (HumanDecision history).
   projection.cycleDecisions = projectCycleDecisionCards(decisions);
 
-  // Morris correction — Work Recommendations for Journal > Recommandations.
+  // Morris correction + MD-WR-02 — Work Recommendations for Journal > Recommandations.
   // Lifecycle CURRENT stays on currentRecommendations (right panel / audit only).
+  // When PT decision-support is open, ACW+opt:trajectory:* stay PT fuel (excluded).
   const workCycleId =
     projection.selectedCycleInstanceId ?? projection.activeCycleInstanceId;
+  // Blocker 3 — explicit TDS tri-state (never collapse NONE and UNAVAILABLE).
+  // No active/selected cycle → NONE (projection is empty anyway). Missing OA
+  // stack or any resolver failure → UNAVAILABLE (fail-closed).
+  let trajectoryDecisionSupportState: TrajectoryDecisionSupportState = "NONE";
+  if (workCycleId) {
+    if (!runtime.oa) {
+      trajectoryDecisionSupportState = "UNAVAILABLE";
+    } else {
+      try {
+        const {
+          resolveTrajectoryDecisionSupportProjection,
+          bindPilotLifecycleTrajectoryDecisionSupport,
+        } = await import("./w2/resolveTrajectoryDecisionSupportProjection");
+        bindPilotLifecycleTrajectoryDecisionSupport(runtime.oa);
+        const tds = await resolveTrajectoryDecisionSupportProjection({
+          oa: runtime.oa,
+          projectId,
+          cycleInstanceId: workCycleId,
+        });
+        trajectoryDecisionSupportState = tds.state;
+      } catch {
+        trajectoryDecisionSupportState = "UNAVAILABLE";
+      }
+    }
+  }
   projection.cycleWorkRecommendations = projectCycleWorkRecommendations({
     items: epistemicItems,
     cycleInstanceId: workCycleId,
     fallbackCycleInstanceId: workCycleId,
+    trajectoryDecisionSupportState,
   });
 
   if (
@@ -1794,6 +1822,15 @@ export async function projectAssistantPilotLifecycleAction(input: {
     };
   }
   const project = toContextDto(projectResult);
+  // MD-WR-07 — finalization blockers use the explicit TDS tri-state.
+  try {
+    const { bindPilotLifecycleTrajectoryDecisionSupport } = await import(
+      "./w2/resolveTrajectoryDecisionSupportProjection"
+    );
+    bindPilotLifecycleTrajectoryDecisionSupport(runtime.oa);
+  } catch {
+    /* unbound finalization stays fail-closed (UNAVAILABLE) */
+  }
   const executed = await executePilotLifecycleAction({
     action: input.action,
     projectId: input.projectId,

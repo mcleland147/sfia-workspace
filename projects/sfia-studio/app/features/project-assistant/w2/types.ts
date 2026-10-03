@@ -114,7 +114,10 @@ export type TrajectoryOptionSetDto = {
   readonly autoDecisionPerformed: false;
   readonly executionPerformed: false;
   readonly ckcCognitionCompletedBeforeMutation: true;
-  readonly decisionSubjectMode: "proposal" | "project_trajectory";
+  readonly decisionSubjectMode:
+    | "proposal"
+    | "project_trajectory"
+    | "work_recommendation";
   readonly proposalId?: string | null;
   readonly promotesProjectTrajectory: boolean;
 };
@@ -297,7 +300,10 @@ export type DecideTrajectoryResult =
       readonly livingProjectStateVersion: number;
       readonly executionPerformed: false;
       readonly promotesProjectTrajectory: boolean;
-      readonly decisionSubjectMode: "proposal" | "project_trajectory";
+      readonly decisionSubjectMode:
+    | "proposal"
+    | "project_trajectory"
+    | "work_recommendation";
     }
   | W2Failure;
 

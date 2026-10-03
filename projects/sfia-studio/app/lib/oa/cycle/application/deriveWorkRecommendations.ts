@@ -1,25 +1,27 @@
 /**
- * CHAT-FIRST-GOVERNED-DECISION-LOOP-01 (Morris correction) —
+ * CHAT-FIRST-GOVERNED-DECISION-LOOP-01 + CHAT-FIRST-WORK-RECOMMENDATION-CONTINUITY-01
  * Work Recommendation vs Lifecycle Recommendation family separation.
  *
- * Work Recommendations: in-cycle governed work (OptionSet / Proposal subject).
- * Carrier: EpistemicItem.type = Recommendation WITHOUT lifecycleRecommendation
- * and source ≠ lifecycle-recommendation:nora (typically source = optset:…).
+ * Work Recommendations:
+ * - historical sealed carriers: source / relatedObjects optset:*
+ * - ACW Nora Recommendations (source = active-cycle-work:nora) that are not
+ *   Lifecycle and not classified as active ProjectTrajectory-replan Recommendations
  *
- * Lifecycle Recommendations: NEXT_CYCLE / FINALIZE_CURRENT_CYCLE transitions.
- * Carrier: typed lifecycleRecommendation + source lifecycle-recommendation:nora.
+ * Lifecycle Recommendations: typed lifecycleRecommendation + source
+ * lifecycle-recommendation:nora — never Journal Work.
  *
- * Journal > Recommandations projects WORK only.
- * Right-panel / lifecycle projection keeps Lifecycle CURRENT only.
- * No new store / table.
+ * Journal > Recommandations projects WORK only (MD-WR-02).
+ * Dedup: when a sealed optset WR links an ACW id, project the sealed card only.
  */
 
 const LIFECYCLE_RECOMMENDATION_SOURCE = "lifecycle-recommendation:nora";
+const ACTIVE_CYCLE_WORK_SOURCE = "active-cycle-work:nora";
 const OPTION_SET_REF_PREFIX = "optset:";
 const PROPOSAL_ID_PREFIX = "prop:";
 const CYCLE_ID_PREFIX = "cycinst:";
 /** Alternate cycle id prefix used by some durable writers. */
 const CYCLE_INSTANCE_PREFIXES = ["cycinst:", "cycle:", "cyc:"] as const;
+const TRAJECTORY_OPTION_PREFIX = "opt:trajectory:";
 
 export type WorkRecommendationItemLike = {
   readonly type: string;
@@ -44,6 +46,8 @@ export type WorkRecommendationProjectionCard = {
   readonly createdAt: string;
   /** HumanDecision id closing this work recommendation when reconstructible. */
   readonly dispositionDecisionId: string | null;
+  /** ACW identity when this card is (or is linked to) an ACW Recommendation. */
+  readonly workRecommendationEpistemicItemId: string | null;
 };
 
 export function isLifecycleRecommendationItem(
@@ -54,19 +58,96 @@ export function isLifecycleRecommendationItem(
   return (item.source ?? "") === LIFECYCLE_RECOMMENDATION_SOURCE;
 }
 
-export function isWorkRecommendationItem(
+export function isActiveCycleWorkRecommendationItem(
   item: WorkRecommendationItemLike,
 ): boolean {
   if (item.type !== "Recommendation") return false;
   if (isLifecycleRecommendationItem(item)) return false;
-  const source = item.source ?? "";
-  // Primary durable carrier for chat-first work: PresentedOptionSet Recommendation.
-  if (source.startsWith(OPTION_SET_REF_PREFIX)) return true;
-  // Fail-closed: unknown Recommendation sources without lifecycle payload are
-  // treated as work only when they carry an optset-related object.
+  return (item.source ?? "") === ACTIVE_CYCLE_WORK_SOURCE;
+}
+
+/**
+ * Blocker 3 — explicit tri-state of the ProjectTrajectory decision-support
+ * (TDS) projection. NONE and UNAVAILABLE MUST NOT be collapsed:
+ * - PRESENT: ACW+opt:trajectory:* is PT fuel — excluded from Work.
+ * - NONE: non-lifecycle ACW (incl. opt:trajectory:*) can be Work.
+ * - UNAVAILABLE: fail-closed — ACW+opt:trajectory:* must NOT become Work;
+ *   plain ACW without opt:trajectory:* may remain Work if coherent.
+ */
+export type TrajectoryDecisionSupportState = "PRESENT" | "NONE" | "UNAVAILABLE";
+
+/** ACW Recommendation carrying a typed opt:trajectory:* option ref. */
+export function hasTrajectoryOptionRef(
+  item: WorkRecommendationItemLike,
+): boolean {
   return (item.relatedObjects ?? []).some((r) =>
-    r.startsWith(OPTION_SET_REF_PREFIX),
+    r.startsWith(TRAJECTORY_OPTION_PREFIX),
   );
+}
+
+/**
+ * ACW Recommendation currently treated as ProjectTrajectory / replan fuel.
+ * Pure: opt:trajectory:* present AND TDS state is PRESENT.
+ */
+export function isAcwProjectTrajectoryRecommendationItem(
+  item: WorkRecommendationItemLike,
+  input: {
+    readonly trajectoryDecisionSupportState: TrajectoryDecisionSupportState;
+  },
+): boolean {
+  if (!isActiveCycleWorkRecommendationItem(item)) return false;
+  if (input.trajectoryDecisionSupportState !== "PRESENT") return false;
+  return hasTrajectoryOptionRef(item);
+}
+
+/**
+ * ACW Recommendation that must NOT be treated as Work under the given TDS
+ * state: PT fuel (PRESENT) or uncertain / fail-closed (UNAVAILABLE).
+ * NONE never excludes.
+ */
+export function isAcwExcludedFromWorkByTrajectoryState(
+  item: WorkRecommendationItemLike,
+  input: {
+    readonly trajectoryDecisionSupportState: TrajectoryDecisionSupportState;
+  },
+): boolean {
+  if (!isActiveCycleWorkRecommendationItem(item)) return false;
+  if (input.trajectoryDecisionSupportState === "NONE") return false;
+  return hasTrajectoryOptionRef(item);
+}
+
+export function isWorkRecommendationItem(
+  item: WorkRecommendationItemLike,
+  input?: {
+    /**
+     * PRESENT → ACW+opt:trajectory:* is PT fuel; UNAVAILABLE → fail-closed
+     * (also excluded); NONE → Work. Omitted → "NONE" (callers that already
+     * hold a sealed optset / ACW identity and do not classify PT fuel).
+     */
+    readonly trajectoryDecisionSupportState?: TrajectoryDecisionSupportState;
+  },
+): boolean {
+  if (item.type !== "Recommendation") return false;
+  if (isLifecycleRecommendationItem(item)) return false;
+  const source = item.source ?? "";
+  if (source.startsWith(OPTION_SET_REF_PREFIX)) return true;
+  if (
+    (item.relatedObjects ?? []).some((r) => r.startsWith(OPTION_SET_REF_PREFIX))
+  ) {
+    return true;
+  }
+  if (source === ACTIVE_CYCLE_WORK_SOURCE) {
+    if (
+      isAcwExcludedFromWorkByTrajectoryState(item, {
+        trajectoryDecisionSupportState:
+          input?.trajectoryDecisionSupportState ?? "NONE",
+      })
+    ) {
+      return false;
+    }
+    return true;
+  }
+  return false;
 }
 
 export function workRecommendationOptionSetRef(
@@ -81,6 +162,18 @@ export function workRecommendationOptionSetRef(
   );
 }
 
+export function workRecommendationAcwId(
+  item: WorkRecommendationItemLike,
+): string | null {
+  if (isActiveCycleWorkRecommendationItem(item)) {
+    return item.epistemicItemId ?? null;
+  }
+  const fromRelated = (item.relatedObjects ?? []).find(
+    (r) => typeof r === "string" && r.startsWith("epi:acw:"),
+  );
+  return fromRelated ?? null;
+}
+
 function relatedCycleInstanceId(
   item: WorkRecommendationItemLike,
 ): string | null {
@@ -90,8 +183,6 @@ function relatedCycleInstanceId(
       if (related.startsWith(prefix) && related !== prefix) return related;
     }
   }
-  // Many writers store raw cycleInstanceId strings (no prefix). Prefer explicit
-  // ids that look like durable cycle instance ids when present.
   for (const related of item.relatedObjects ?? []) {
     if (/^cycinst:/i.test(related)) return related;
     if (/^ci[_:]/i.test(related)) return related;
@@ -111,13 +202,16 @@ function dispositionDecisionIdFromItems(
   all: ReadonlyArray<WorkRecommendationItemLike>,
 ): string | null {
   const optionSetRef = workRecommendationOptionSetRef(item);
-  if (!optionSetRef) return null;
+  const acwId = workRecommendationAcwId(item);
   for (const candidate of all) {
     if (candidate.type !== "DecisionRef" || candidate.status !== "active") {
       continue;
     }
     const related = candidate.relatedObjects ?? [];
-    if (!related.includes(optionSetRef)) continue;
+    const closesOptionSet =
+      optionSetRef != null && related.includes(optionSetRef);
+    const closesAcw = acwId != null && related.includes(acwId);
+    if (!closesOptionSet && !closesAcw) continue;
     const fromSource =
       typeof candidate.source === "string" && candidate.source.startsWith("dec:")
         ? candidate.source
@@ -157,12 +251,31 @@ export function projectCycleWorkRecommendations(input: {
   readonly cycleInstanceId: string | null;
   /** When cycle binding is missing on legacy items, attribute to this cycle. */
   readonly fallbackCycleInstanceId?: string | null;
+  /**
+   * Blocker 3 — explicit TDS tri-state. PRESENT: ACW+opt:trajectory:* is PT
+   * fuel (excluded, MD-WR-02/04). UNAVAILABLE: same exclusion, fail-closed.
+   * NONE: ACW can be Work. REQUIRED — no boolean collapse.
+   */
+  readonly trajectoryDecisionSupportState: TrajectoryDecisionSupportState;
 }): readonly WorkRecommendationProjectionCard[] {
   const cycleId = input.cycleInstanceId;
   if (!cycleId) return [];
+  const tdsState = input.trajectoryDecisionSupportState;
+  const workItems = input.items.filter((item) =>
+    isWorkRecommendationItem(item, { trajectoryDecisionSupportState: tdsState }),
+  );
+
+  // Dedup: sealed optset WR that links an ACW id suppresses the unbound ACW card.
+  const sealedAcwIds = new Set<string>();
+  for (const item of workItems) {
+    const optset = workRecommendationOptionSetRef(item);
+    if (!optset) continue;
+    const acw = workRecommendationAcwId(item);
+    if (acw) sealedAcwIds.add(acw);
+  }
+
   const cards: WorkRecommendationProjectionCard[] = [];
-  for (const item of input.items) {
-    if (!isWorkRecommendationItem(item)) continue;
+  for (const item of workItems) {
     if (
       !workRecommendationBelongsToCycle(
         item,
@@ -172,16 +285,28 @@ export function projectCycleWorkRecommendations(input: {
     ) {
       continue;
     }
+    const acwId = workRecommendationAcwId(item);
+    const optset = workRecommendationOptionSetRef(item);
+    if (
+      !optset &&
+      acwId &&
+      sealedAcwIds.has(acwId) &&
+      isActiveCycleWorkRecommendationItem(item)
+    ) {
+      continue;
+    }
     cards.push({
-      epistemicItemId: item.epistemicItemId ?? workRecommendationOptionSetRef(item) ?? "",
+      epistemicItemId:
+        item.epistemicItemId ?? workRecommendationOptionSetRef(item) ?? "",
       statement: item.statement ?? "",
       status: item.status,
       source: item.source ?? null,
-      optionSetRef: workRecommendationOptionSetRef(item),
+      optionSetRef: optset,
       proposalId: relatedProposalId(item),
       cycleInstanceId: relatedCycleInstanceId(item) ?? cycleId,
       createdAt: item.createdAt ?? "",
       dispositionDecisionId: dispositionDecisionIdFromItems(item, input.items),
+      workRecommendationEpistemicItemId: acwId,
     });
   }
   return cards.sort((a, b) => {

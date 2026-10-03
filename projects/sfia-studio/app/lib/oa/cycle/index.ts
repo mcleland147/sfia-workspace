@@ -74,15 +74,24 @@ export {
   type LifecycleBlockerSnapshot,
 } from "./application/deriveLifecycleBlockers";
 export {
+  deriveRecommendationClassificationUnavailableRefs,
   deriveUndisposedRecommendations,
+  recommendationClassificationUnavailableRef,
+  RECOMMENDATION_CLASSIFICATION_UNAVAILABLE_PREFIX,
   type UndisposedRecommendation,
 } from "./application/deriveUndisposedRecommendations";
 export {
+  hasTrajectoryOptionRef,
+  isAcwExcludedFromWorkByTrajectoryState,
+  isAcwProjectTrajectoryRecommendationItem,
+  isActiveCycleWorkRecommendationItem,
   isLifecycleRecommendationItem,
   isWorkRecommendationItem,
   projectCycleWorkRecommendations,
+  workRecommendationAcwId,
   workRecommendationBelongsToCycle,
   workRecommendationOptionSetRef,
+  type TrajectoryDecisionSupportState,
   type WorkRecommendationProjectionCard,
 } from "./application/deriveWorkRecommendations";
 export {

@@ -267,6 +267,7 @@ const RECOMMENDATION: JournalRecommendationCard = {
   cycleInstanceId: "cycinst:a",
   createdAt: "2026-09-27T10:00:00.000Z",
   dispositionDecisionId: null,
+  workRecommendationEpistemicItemId: null,
 };
 
 const DECISION: JournalDecisionCard = {

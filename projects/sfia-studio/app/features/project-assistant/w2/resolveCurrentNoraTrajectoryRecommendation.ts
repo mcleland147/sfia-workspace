@@ -19,7 +19,7 @@ import {
   extractAcwRecommendedOptionRef,
 } from "../materializeActiveCycleWork";
 import {
-  resolveTrajectoryRecommendationCutoffFromDecisions,
+  resolveProjectTrajectoryRecommendationCutoff,
 } from "../trajectoryRecommendationCurrentness";
 import type { TrajectoryRecommendationDto } from "./types";
 import { computeDecisionBasisSourceDigest } from "@/lib/oa/decision";
@@ -216,25 +216,28 @@ export async function resolveCurrentNoraTrajectoryRecommendation(input: {
     };
   }
 
-  // CORR-01 C3 — subject-aware HD cutoff from durable HumanDecision truth.
+  // CORR-01 C3 + MD-WR — subject-aware HD cutoff from durable HumanDecision truth.
+  // Includes candidate_trajectory HD referenced by decidedByDecisionRef.
   let cutoff = input.ignoreCreatedAtOnOrBefore?.trim() || null;
   if (cutoff === null && input.ignoreCreatedAtOnOrBefore === undefined) {
-    try {
-      const decisions = await input.oa.decisionServices.decisions.listByProject(
-        input.projectId,
-      );
-      cutoff = resolveTrajectoryRecommendationCutoffFromDecisions({
-        decisions,
-        cycleInstanceId: input.cycleInstanceId,
-      });
-    } catch {
+    // Blocker 4 — shared PT currentness cutoff (decidedByDecisionRef included;
+    // unreadable decisions OR trajectory fail closed, never a silent null ref).
+    const resolvedCutoff = await resolveProjectTrajectoryRecommendationCutoff({
+      oa: input.oa,
+      projectId: input.projectId,
+      cycleInstanceId: input.cycleInstanceId,
+    });
+    if (!resolvedCutoff.ok) {
       return {
         ok: false,
         code: "EPISTEMIC_UNAVAILABLE",
         message:
-          "HumanDecisions illisibles — impossible de déterminer la currentness Recommendation.",
+          resolvedCutoff.reason === "decisions_unreadable"
+            ? "HumanDecisions illisibles — impossible de déterminer la currentness Recommendation."
+            : "Trajectoire courante illisible — impossible de déterminer la currentness Recommendation.",
       };
     }
+    cutoff = resolvedCutoff.cutoff;
   }
 
   const selected = selectCurrentNoraTrajectoryRecommendationItems({

@@ -127,10 +127,31 @@ export type DecisionBasisCandidateTrajectoryContext = {
   };
 };
 
+/**
+ * MD-WR-06 — durable linkage from a HumanDecision to a chat-first Work
+ * Recommendation OptionSet (ACW). NEVER a Proposal, NEVER a ProjectTrajectory.
+ * A Recommendation recorded here is never itself a decision.
+ */
+export type DecisionBasisWorkRecommendationContext = {
+  /** Active Work Recommendation (ACW) epistemic item the decision arbitrates. */
+  workRecommendationEpistemicItemId: string;
+  /** Sealed OptionSet ref (also DecisionBasis.sourceRef). */
+  optionSetRef: string;
+  /** Option refs presented to the Pilote, in presentation order. */
+  optionRefs: string[];
+  /** Option the Pilote selected — must belong to optionRefs. */
+  selectedOptionRef: string;
+  /** Option that Nora recommended, when any. Never a decision. */
+  recommendedOptionRef?: string;
+  /** Digest of the exact presented OptionSet sealed at propose. */
+  optionSetDigest: string;
+};
+
 export type DecisionBasisSourceType =
   | "proposal"
   | "trajectory_option"
-  | "candidate_trajectory";
+  | "candidate_trajectory"
+  | "work_recommendation";
 
 export type DecisionBasis = {
   sourceType: DecisionBasisSourceType;
@@ -138,7 +159,8 @@ export type DecisionBasis = {
    * Opaque source id:
    * - proposal id, or
    * - trajectory option-set ref, or
-   * - candidate trajectoryId (D-GF-HD-01).
+   * - candidate trajectoryId (D-GF-HD-01), or
+   * - Work Recommendation optionSetRef (MD-WR-06).
    */
   sourceRef: string;
   /** SHA-256 hex of canonical JSON over stable source fields. */
@@ -150,6 +172,8 @@ export type DecisionBasis = {
   trajectoryContext?: DecisionBasisTrajectoryContext;
   /** Present when sourceType is `candidate_trajectory` (greenfield only). */
   candidateTrajectoryContext?: DecisionBasisCandidateTrajectoryContext;
+  /** Present when sourceType is `work_recommendation` (chat-first Work only). */
+  workRecommendationContext?: DecisionBasisWorkRecommendationContext;
   executionBasis: {
     objective?: string;
     scope?: string;

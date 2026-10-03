@@ -324,8 +324,18 @@ describe("PILOT-NORA-STUDIO-SEMANTIC-CONTINUITY-01", () => {
         decisions: { listByProject: async () => [] },
       },
     };
+    // Blocker 4 — PT read is fail-closed; TRAJECTORY_NOT_FOUND = no current PT.
+    const noTrajectory = {
+      getCurrentTrajectory: {
+        execute: async () => ({
+          ok: false,
+          error: { detailCode: "TRAJECTORY_NOT_FOUND" },
+        }),
+      },
+    };
     const oa = {
       cycleServices: {
+        ...noTrajectory,
         epistemic: {
           listByProject: async () => [
             acwRecommendationItem({
@@ -359,6 +369,7 @@ describe("PILOT-NORA-STUDIO-SEMANTIC-CONTINUITY-01", () => {
     const withoutNora = await resolveCurrentNoraTrajectoryRecommendation({
       oa: {
         cycleServices: {
+          ...noTrajectory,
           epistemic: { listByProject: async () => [] },
         },
         ...emptyDecisions,
