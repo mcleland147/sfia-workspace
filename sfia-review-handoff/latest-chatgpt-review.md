@@ -1,17 +1,17 @@
-# STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION P2 — INITIAL FUNCTIONAL MODEL CANDIDATE REVIEW PACK
+# STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION P2 — GUIDED REVIEW CHECKPOINT 01 REVIEW PACK
 
 ```text
-TIMESTAMP: 2026-10-03 20:05:00 +0200
+TIMESTAMP: 2026-10-03 21:35:00 +0200
 MACRO: STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01
+MILESTONE: P2 — Functional Operating Model
 CYCLE: 2 — Conception fonctionnelle
-MILESTONE: P2 — FUNCTIONAL OPERATING MODEL
-PASS: P2 INITIAL FUNCTIONAL MODEL CANDIDATE / GUIDED REVIEW BASELINE
+PASS: GUIDED REVIEW CHECKPOINT 01 — SECTIONS 1–11
 TYPOLOGY: EVOL / DOC
 PROFILE: CRITICAL
-AUTHORITY: D-SIMP-06 CONSUMED
+AUTHORITY: D-SIMP-07 CONSUMED
 ```
 
-## 1. Local Git Truth
+## 1. Local Git Truth (initial / final)
 
 ```text
 pwd: /Users/morris/Projects/sfia-studio-chat-first-product-simplification-p2
@@ -19,184 +19,99 @@ toplevel: /Users/morris/Projects/sfia-studio-chat-first-product-simplification-p
 branch: docs/sfia-studio-chat-first-product-simplification-p2-functional-operating-model
 HEAD: 642a10c87bdad2ef4291bf8b7294872c2b14be90
 origin/main: 642a10c87bdad2ef4291bf8b7294872c2b14be90
-status: dirty local candidate (authorized) — project uncommitted
+left-right origin/main...HEAD: 0	0
+status: LOCAL / DIRTY / NON COMMITTÉ (authorized)
 ```
 
-Expected base match:
+MATCHES expected `642a10c87bdad2ef4291bf8b7294872c2b14be90`.
+
+## 2. Entry handoff / C1 truth
 
 ```text
-origin/main = 642a10c87bdad2ef4291bf8b7294872c2b14be90
-HEAD = 642a10c87bdad2ef4291bf8b7294872c2b14be90
-branch = docs/sfia-studio-chat-first-product-simplification-p2-functional-operating-model
+entry handoff SHA: 02836afa6cea4b2c1b0e0612e62dce3b5bb62914
+entry blob: 5335b8ceae547da5ad946953ff8e69152d4f6879
+C1: VALIDATED BY MORRIS + INTEGRATED ON MAIN + POST-MERGE VERIFIED + CLOSED
+PR #548 / merge 642a10c8… / project commit 7044e1a6…
 ```
-
-## 2. C1 post-merge entry truth
-
-```text
-PR #548 = MERGED
-C1 project commit = 7044e1a6b8cd470e6c2a25101da046bcabb4ddfe
-C1 merge / post-merge main = 642a10c87bdad2ef4291bf8b7294872c2b14be90
-entry handoff = fcadb9e2bfbd028acf7331ca95ddd24ed9799b23
-entry blob = 498c9c28566084034e2afe1bbe5ad4414845098d
-C1 = VALIDATED BY MORRIS + INTEGRATED ON MAIN + POST-MERGE VERIFIED + Cycle 1 CLOSED
-```
-
-Pre-merge wording remaining inside C1/Roadmap historical tips is historical — CURRENT TRUTH from Git/PR/handoff.
-C1 file not modified in this pass.
 
 ## 3. D-SIMP-06
 
 ```text
-D-SIMP-06 — AUTHORIZE STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION P2 — FUNCTIONAL OPERATING MODEL
+D-SIMP-06 — AUTHORIZE STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION P2
+Status: CONSUMED (P2 start only — prior)
+```
+
+## 4. D-SIMP-07 — FULL
+
+```text
+D-SIMP-07 — VALIDATE P2 GUIDED REVIEW SECTIONS 1–11 AND AUTHORIZE CHECKPOINT 01 CONSOLIDATION
 Authority: Morris
 Status: CONSUMED
 
-Authorizes: P2 start · P2 FOM document · repo-informed synthesis · bounded Roadmap tip · local branch/worktree · FULL Review Pack · L3 handoff publish-in-cycle
-Does NOT authorize: P2 validation · P3→P8 · architecture · persistence · UX/Figma · product code · Delivery · REAL · production routing · RETIRE · project commit/push/PR/merge · runtime v3 adoption
+Authorizes: §§1–11 consolidation · Guided Review dispositions · P2-D-01/02/03 recording ·
+necessary §§1–11 cross-corrections · status update · Roadmap tip · FULL pack · L3 handoff
+
+Does NOT authorize: global P2 validation · Guided Review §12→22 · P3→P8 · architecture ·
+UX/Figma · Product code · Delivery · REAL · production routing · runtime v3 ·
+project commit/push/PR/merge · branch deletion
 ```
 
-## 4. Sources read
-
-Process: sfia-cycle-execution-template · sfia-cycle-routing-guide · v2.6 CKC pilot 02 (candidate).
-
-Governance: Build Doctrine · Convergence Roadmap · handoff fcadb9e2….
-
-Primary: validated C1 01-chat-first-product-simplification-cadrage.md.
-
-Harvest: PC 01/02 · UX EA 01 · v3 framings 30–37 · Studio CKC 02 · GE architecture · Nora 08 · Journal/continuity CURRENT FACT (#516/#517/#547).
-
-## 5. Source hierarchy
-
-Git/PR facts > Morris D-SIMP-* > Pilot runtime HD > validated C1 > v3 doctrine > Studio CKC (guidance/authority NONE) > Build Doctrine/Roadmap/D-ER/Nora08 > v2.6 process-only > conversation/hypotheses.
-
-## 6. CURRENT vs TARGET / harvested vs rejected
-
-CURRENT FACT: C1 integrated; GE #542 merged; Journal #516/#517; recommendation continuity #547; runtime v3 NON ADOPTED; production routing NOT SELECTED.
-
-TARGET P2 candidate: chat-first operating loop; Cycle≠Execution; optional Execution Branch; Journal derived control-tower; HD materiality OPEN for Guided Review.
-
-HARVEST PC-C2: actors, Project≠Cycle≠Attempt, authority boundaries, recovery/no-false-memory, CA style.
-
-REJECTED PC-C2 assumptions: A→W mandatory loop; EC-every-Cycle; UX exposure as FOM.
-
-## 7. Open Morris decisions / routed questions / provider items
-
-See P2 document §10, §21, §22.
-
-Provider-dependent: none promoted; Fit Check status = not required for any asserted material claim in this pass.
-
-## 8. Validations P2-I-01…39
+## 5. P2-D-01 — FULL (ADOPTED BY MORRIS)
 
 ```text
-P2-I-01 PASS — D-SIMP-06 recorded
-P2-I-02 PASS — C1 VALIDATED + INTEGRATED + CLOSED
-P2-I-03 PASS — P2 AUTHORIZED / IN PROGRESS
-P2-I-04 PASS — P3→P8 NOT AUTHORIZED
-P2-I-05 PASS — unique document path
-P2-I-06 PASS — HOW STUDIO FUNCTIONS AS PRODUCT
-P2-I-07 PASS — no UX/Figma selection
-P2-I-08 PASS — no technical architecture/persistence selection (NOT ADOPTED / ROUTED TO P4)
-P2-I-09 PASS — Cycle Lifecycle ≠ Execution Lifecycle
-P2-I-10 PASS — Execution optional/transverse
-P2-I-11 PASS — 0/1/N executions
-P2-I-12 PASS — artifact ≠ validation ≠ exit proof ≠ Cycle completion
-P2-I-13 PASS — deliverable expected ≠ immediate execution
-P2-I-14 PASS — conversation may produce no durable mutation
-P2-I-15 PASS — Recommendation ≠ HD
-P2-I-16 PASS — HD policy candidate/open
-P2-I-17 PASS — A–J test scenarios only
-P2-I-18 PASS — Journal non-authoritative
-P2-I-19 PASS — Journal semantic model included
-P2-I-20 PASS — Recovery model included
-P2-I-21 PASS — ProjectTrajectory/replanning included
-P2-I-22 PASS — DoctrinePackage/CKC implicit resolution
-P2-I-23 PASS — Pilot does not administer method nominally
-P2-I-24 PASS — GDR representative only
-P2-I-25 PASS — Functional Routes bounded
-P2-I-26 PASS — cognitive behavior provider-agnostic
-P2-I-27 PASS — no model mapping selected
-P2-I-28 PASS — no hysteresis selected
-P2-I-29 PASS — OpenAI fit-check dependency correctly marked (none promoted)
-P2-I-30 PASS — P2 exit criteria candidate defined
-P2-I-31 PASS — downstream questions routed P3/P4/P6/P7
-P2-I-32 PASS — no SharedKnowledgeStore assumption
-P2-I-33 PASS — no Canonical Orchestration Spine adoption
-P2-I-34 PASS — no code
-P2-I-35 PASS — ZERO REAL
-P2-I-36 PASS — runtime v3 NON ADOPTED
-P2-I-37 PASS — Roadmap current tip truth-synced
-P2-I-38 PASS — git diff --check
-P2-I-39 PASS — authorized file scope
+P2-D-01 — RECOMMENDATION DISPOSITION vs HUMANDECISION
+ADOPTED BY MORRIS.
+
+Non-structural Recommendation disposition → M-DISP is sufficient.
+HumanDecision required when Pilot act establishes/changes structural Product truth
+(Project objective, structural scope, decided ProjectTrajectory, structural Project/Cycle
+lifecycle disposition, authority envelope, structural commitment for downstream effects).
+Acceptance/refusal of Recommendation does NOT automatically create HD.
+Materiality of the semantic act decides the mechanism — not the word "yes" alone.
 ```
 
-## 9. Fake / Real
+## 6. P2-D-02 — FULL (ADOPTED BY MORRIS)
 
 ```text
-Applicable conceptually: YES
-This pass: DOCUMENTARY ONLY
-Fake/mock/fixture: NONE
-REAL: ZERO
-Evidence level: DOCUMENTARY / FUNCTIONAL MODEL CANDIDATE ONLY
-NOT PROVEN: runtime · implementation · UX · architecture · Model×Reasoning · REAL · Fresh Project Replay
+P2-D-02 — CYCLE CLOSURE MATERIALITY
+ADOPTED BY MORRIS.
+
+Cycle closure is CONDITIONAL — NOT universally a HumanDecision.
+Studio may materialize deterministic Cycle closure when exit criteria + exit proof satisfied,
+no blocking finding, no unresolved structural human judgment, no silently inferred intent/scope/authority change.
+HD required only when closure itself requires structural human judgment.
+Execution SUCCESS alone NEVER closes a Cycle.
 ```
 
-## 10. Files / diffs
+## 7. P2-D-03 — FULL (ADOPTED BY MORRIS)
 
 ```text
-AUTHORIZED CREATE:
-projects/sfia-studio/product-simplification/02-chat-first-product-simplification-functional-operating-model.md
+P2-D-03 — CONFIRMATION BOUNDARY
+ADOPTED BY MORRIS.
 
-AUTHORIZED MODIFY:
-projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-.tmp-sfia-review/chatgpt-review.md
-
-HANDOFF ONLY:
-sfia-review-handoff/latest-chatgpt-review.md via sfia/review-handoff
-
-NOT MODIFIED: C1 · Build Doctrine · v3 framings · PC historical · CKCs · code · schemas · tests · UI
+Confirmation authorizes an inspected concrete effect when required.
+Confirmation ≠ HD · does not replace missing HD · does not create Product intent ·
+does not widen scope · does not widen authority · applies only to inspected/bound effect.
+Execution proximity does NOT itself create a new HumanDecision.
 ```
 
-### name-status
+## 8. Sources
 
-```text
-M	projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-A	projects/sfia-studio/product-simplification/02-chat-first-product-simplification-functional-operating-model.md
-```
+Process templates · routing guide · Build Doctrine · Roadmap · validated C1 · PC 01 ·
+v3 30–37 · Studio CKC functional-design · GE architecture harvest · Nora 08 / Journal assets ·
+entry handoff 02836afa… · current local P2 candidate.
 
-### stat
+## 9. Guided Review dispositions §§1–11 (summary)
 
-```text
-.../convergence/sfia-studio-convergence-roadmap.md | 22 ++++++++++++----------
- 1 file changed, 12 insertions(+), 10 deletions(-)
- projects/sfia-studio/product-simplification/02-chat-first-product-simplification-functional-operating-model.md | 963 lines (new file)
-```
+§1 status/invariant GR≠validation · §2 domain authority · §3 contracts/semantic-before-tech ·
+§4 runtime vs governance + ownership≠visibility · §5 authority model + recursive loop ·
+§6 focus/pause/close-abandon-archive · §7 lifecycle vs derived + P2-D-02 ·
+§8 Nora≠Studio qualification · §9 materialization 0/1/N · §10 P2-D-01/02/03 ·
+§11 Deliverable≠Artifact / suggested ephemeral / no Execution-requested state.
 
-### git diff --check
+## 10. COMPLETE modified content §§1–11
 
-```text
-PASS
-```
-
-## 11. Project Git effects
-
-```text
-Local branch/worktree: AUTHORIZED / CREATED
-Local docs: AUTHORIZED / DIRTY NONCOMMITTED
-Project commit: NO
-Project push: NO
-PR: NO
-Merge: NO
-Branch deletion: NO
-Review handoff push: YES — L3 bounded
-```
-
-## 12. Roadmap truth-sync (summary)
-
-Living tip records: C1 integrated/closed · D-SIMP-06 CONSUMED · P2 AUTHORIZED/IN PROGRESS · initial candidate as CURRENT STRUCTURAL STEP · P3→P8 NOT AUTHORIZED · ZERO REAL · production routing NOT SELECTED · Cognitive Completion NOT PROVEN · Spine CANDIDATE · Pilot–Nora–Studio tech arch NOT ADOPTED · runtime v3 NON ADOPTED.
-
-## 13. FULL P2 candidate content
-
-<!-- BEGIN FULL P2 DOCUMENT -->
+<!-- BEGIN §§1–11 -->
 
 # SFIA Studio — Chat-First Product Simplification — P2 Functional Operating Model
 
@@ -206,18 +121,20 @@ Living tip records: C1 integrated/closed · D-SIMP-06 CONSUMED · P2 AUTHORIZED/
 | **Macro** | `STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01` |
 | **Cycle projet** | **2 — Conception fonctionnelle** |
 | **Milestone** | **P2 — FUNCTIONAL OPERATING MODEL** |
-| **Pass** | **P2 INITIAL FUNCTIONAL MODEL CANDIDATE / GUIDED REVIEW BASELINE** |
+| **Pass** | **GUIDED REVIEW CHECKPOINT 01 — SECTIONS 1–11 CONSOLIDATED** |
 | **Profil** | **CRITICAL** |
 | **Typologie v2.4** | **EVOL / DOC** — modèle fonctionnel documentaire ; **aucun** code produit |
-| **Autorité** | **D-SIMP-06 CONSUMED** — AUTHORIZE STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION P2 — FUNCTIONAL OPERATING MODEL |
-| **Décisions héritées** | **D-SIMP-01…D-SIMP-05 CONSUMED** (C1) — **ne pas rouvrir** |
+| **Autorité** | **D-SIMP-06 CONSUMED** + **D-SIMP-07 CONSUMED** |
+| **Décisions P2 adoptées (CP01)** | **P2-D-01** · **P2-D-02** · **P2-D-03** — **ADOPTED BY MORRIS** |
+| **Décisions héritées C1** | **D-SIMP-01…D-SIMP-05 CONSUMED** — **ne pas rouvrir** |
 | **C1** | **VALIDATED BY MORRIS** + **INTEGRATED ON MAIN** + **POST-MERGE VERIFIED** + **Cycle 1 CLOSED** |
-| **C1 evidence** | PR **#548** MERGED · project commit `7044e1a6b8cd470e6c2a25101da046bcabb4ddfe` · merge/main `642a10c87bdad2ef4291bf8b7294872c2b14be90` · post-merge handoff `fcadb9e2bfbd028acf7331ca95ddd24ed9799b23` / blob `498c9c28566084034e2afe1bbe5ad4414845098d` |
+| **C1 evidence** | PR **#548** MERGED · project commit `7044e1a6b8cd470e6c2a25101da046bcabb4ddfe` · merge/main `642a10c87bdad2ef4291bf8b7294872c2b14be90` |
+| **Entry handoff (P2 start)** | `02836afa6cea4b2c1b0e0612e62dce3b5bb62914` / blob `5335b8ceae547da5ad946953ff8e69152d4f6879` |
 | **Branche** | `docs/sfia-studio-chat-first-product-simplification-p2-functional-operating-model` |
 | **Base Git** | `origin/main` @ `642a10c87bdad2ef4291bf8b7294872c2b14be90` |
-| **CKC Studio-native** | `ckc:studio:functional-design` / `cyc:functional-design` — **CONTENT VALIDATED BY MORRIS** · guidance only · **authority NONE** |
+| **CKC Studio-native** | `ckc:studio:functional-design` / `cyc:functional-design` — guidance only · **authority NONE** |
 | **v2.6 process CKC** | candidate process guidance only — **≠** Studio runtime doctrine |
-| **Statut du document** | **P2 AUTHORIZED / IN PROGRESS** · **INITIAL CANDIDATE** · **NOT VALIDATED** · **READY FOR CHATGPT GUIDED REVIEW** (après ce pass) |
+| **Statut du document** | **P2 AUTHORIZED / IN PROGRESS** · Guided Review **CHECKPOINT 01 §§1–11 CONSOLIDATED** · §§12–22 **PENDING GUIDED REVIEW** · **P2 NOT VALIDATED** · next = **ChatGPT Critical Review Checkpoint 01** |
 | **P3→P8** | **NOT AUTHORIZED** |
 | **READY FOR REAL** | **NO** |
 | **Runtime v3** | **NON ADOPTED** |
@@ -229,36 +146,51 @@ Living tip records: C1 integrated/closed · D-SIMP-06 CONSUMED · P2 AUTHORIZED/
 | **Fichier** | `projects/sfia-studio/product-simplification/02-chat-first-product-simplification-functional-operating-model.md` |
 | **Date** | 2026-10-03 · Europe/Paris |
 
-> **Lecture rapide.** Ce document est un **INITIAL P2 CANDIDATE** : il transforme les contraintes C1 validées en modèle fonctionnel (« HOW STUDIO FUNCTIONS AS A PRODUCT »), harvest les actifs existants, et expose les questions de politique produit encore ouvertes. **≠ P2 VALIDATED.** **≠ P3/P4.** **≠ architecture.** **≠ UX.** **≠ code.** **≠ REAL.**
+> **Lecture rapide.** Document P2 Functional Operating Model. Guided Review Checkpoint 01 consolidates **§§1–11** under **D-SIMP-07**. **Guided Review acceptance of a section ≠ global P2 validation.** **≠ P3/P4.** **≠ architecture.** **≠ UX.** **≠ code.** **≠ REAL.**
 
-**D-SIMP-06** (Morris) :
+**D-SIMP-06** (Morris) — **CONSUMED** : authorize P2 start.
 
-- **autorise** : démarrage P2 · ce document · synthèse repo-informed · Roadmap tip borné · branche/worktree locale · Review Pack FULL · Review Handoff L3 publish-in-cycle ;
-- **n’autorise pas** : validation P2 · P3→P8 · architecture technique · persistence/DB/API/schema · UX/Figma · code produit · Delivery · REAL · production routing · RETIRE · commit/push/PR/merge projet · runtime v3 adoption.
+**D-SIMP-07** (Morris) — **CONSUMED** : VALIDATE P2 GUIDED REVIEW SECTIONS 1–11 AND AUTHORIZE CHECKPOINT 01 CONSOLIDATION.
+
+- **autorise** : consolidation §§1–11 · adoption des dispositions Guided Review · enregistrement P2-D-01/02/03 · corrections transverses strictement nécessaires dans §§1–11 · Roadmap tip · FULL Review Pack · Handoff L3 ;
+- **n’autorise pas** : validation globale P2 · Guided Review §12→§22 · P3→P8 · architecture/persistence · UX/Figma · code · Delivery · REAL · production routing · runtime v3 · project commit/push/PR/merge · branch deletion.
 
 ---
 
 ## 1. Metadata / Authority / Status
 
-### 1.1 Epistemic labels used in this document
+### 1.1 Epistemic labels
 
 | Label | Meaning |
 | --- | --- |
-| **VALIDATED INPUT** | Constrained by validated C1 / Morris decisions already consumed |
+| **VALIDATED INPUT** | Constrained by validated C1 / Morris decisions already consumed (incl. P2-D-* once adopted) |
 | **CURRENT FACT** | Established by Git / PR / main / tests at reviewed scope |
 | **HARVESTED PATTERN** | Useful pattern from existing assets — adapt, do not copy blindly |
-| **P2 CANDIDATE** | Proposed functional semantics for Guided Review — **not decided** |
-| **OPEN QUESTION** | Needs Guided Review / further analysis |
+| **P2 CANDIDATE** | Proposed functional semantics for Guided Review — becomes **VALIDATED INPUT** only via applicable Morris validation/gate |
+| **OPEN QUESTION** | Needs further Guided Review / analysis |
 | **MORRIS DECISION REQUIRED** | Structural product-policy choice not consumable by Cursor |
 | **ROUTED TO P3 / P4 / P6 / P7** | Explicitly deferred to a later authorized phase |
 
-### 1.2 Status statements (current)
+### 1.2 Invariant — Guided Review vs P2 validation
+
+```text
+Guided Review acceptance of a section
+  ≠ global P2 validation.
+
+A P2 CANDIDATE statement becomes VALIDATED INPUT
+only through the applicable Morris validation / gate.
+```
+
+### 1.3 Status statements (current — after Checkpoint 01)
 
 ```text
 C1 = VALIDATED BY MORRIS + INTEGRATED ON MAIN + POST-MERGE VERIFIED + CLOSED
 D-SIMP-06 = CONSUMED
+D-SIMP-07 = CONSUMED
 P2 = AUTHORIZED / IN PROGRESS
-P2 content = INITIAL FUNCTIONAL MODEL CANDIDATE / GUIDED REVIEW BASELINE
+P2 Guided Review = CHECKPOINT 01 §§1–11 CONSOLIDATED
+§§12–22 = PENDING GUIDED REVIEW
+P2-D-01 / P2-D-02 / P2-D-03 = ADOPTED BY MORRIS
 P2 VALIDATED = NO
 P3→P8 = NOT AUTHORIZED
 ZERO REAL
@@ -267,25 +199,40 @@ production routing = NOT SELECTED
 Cognitive Completion = NOT PROVEN
 ```
 
-> Note: C1 document text may still contain pre-merge wording (« NOT YET INTEGRATED »). **CURRENT TRUTH** = Git main + PR #548 + post-merge handoff. This P2 pass does **not** rewrite validated C1.
+> Note: C1 document text may still contain pre-merge wording. **CURRENT TRUTH** = Git main + PR #548 + post-merge evidence. This pass does **not** rewrite validated C1.
 
 ---
 
 ## 2. Source hierarchy / inherited decisions / anti-claims
 
-### 2.1 Authority separation
+### 2.1 Domain-based authority / truth ownership
 
-| Rank | Source class | Role |
+Sources from different authority domains do **not** automatically override each other through one global numeric ranking.
+
+| Domain | Authoritative sources | Establishes |
 | --- | --- | --- |
-| 1 | **Git / runtime facts / PR evidence** | What is integrated / proven at tested scope |
-| 2 | **Morris construction decisions** (D-SIMP-*) | Construction trajectory & gates |
-| 3 | **Pilot HumanDecisions (runtime)** | Runtime product authority — **≠** Morris |
-| 4 | **Validated C1** (`01-…-cadrage.md`) | Primary product framing authority for this macro |
-| 5 | **v3 framings 30–37** | Product doctrine |
-| 6 | **Studio CKC** `ckc:studio:functional-design` | Cognitive guidance only · **authority NONE** |
-| 7 | **Build Doctrine / Roadmap / D-ER / Nora 08 / project docs** | Construction / harvest inputs |
-| 8 | **v2.6 process CKC / templates / routing guide** | Process guidance only — **≠** Studio runtime doctrine |
-| 9 | Conversation / recommendations / hypotheses | Non-authoritative unless promoted |
+| **1. Current implementation / proof** | Git / PR / tests / runtime facts | What exists / what is proven at tested scope |
+| **2. Studio construction / governance** | Morris construction decisions + applicable Build Doctrine / Roadmap | What may be built/promoted and construction gates |
+| **3. Runtime Project authority** | Pilot HumanDecisions | Project runtime human choices |
+| **4. Macro Product framing** | Validated C1 | Target / scope / trajectory constraints for this simplification macro |
+| **5. Target Product doctrine** | v3 framings 30–37 | Applicable target invariants |
+| **6. Cognitive guidance** | Applicable CKC | Guidance only · **authority NONE** |
+| **7. Existing architecture / assets** | D-ER / Nora / project docs / current code | KEEP/HARVEST/ADAPT evidence · **≠** automatic target authority |
+| **8. External process** | v2.6 templates / routing | ChatGPT↔Cursor process only |
+| **9. Conversation / recommendation / hypothesis** | Conversation | Non-authoritative until applicable promotion/materialization |
+
+### 2.1.1 Contradiction rule — CURRENT vs TARGET gap
+
+```text
+C1 TARGET = X
+Git CURRENT = Y
+→ Current→Target GAP
+
+NOT: "Git rank higher therefore doctrine false"
+NOT: "doctrine says X therefore pretend current code already does X"
+```
+
+**Morris construction authority ≠ Pilot runtime HD authority.**
 
 ### 2.2 Inherited Morris decisions (DO NOT REOPEN)
 
@@ -297,6 +244,10 @@ Cognitive Completion = NOT PROVEN
 | **D-SIMP-04** | Validate Guided Review §§16–22 + authorize Final C1 documentary consolidation | **CONSUMED** |
 | **D-SIMP-05** | Validate Studio Chat-First Product Simplification C1 | **CONSUMED** |
 | **D-SIMP-06** | Authorize Studio Chat-First Product Simplification P2 — Functional Operating Model | **CONSUMED** |
+| **D-SIMP-07** | Validate P2 Guided Review §§1–11 and authorize Checkpoint 01 consolidation | **CONSUMED** |
+| **P2-D-01** | Recommendation disposition vs HumanDecision | **ADOPTED BY MORRIS** |
+| **P2-D-02** | Cycle closure materiality | **ADOPTED BY MORRIS** |
+| **P2-D-03** | Confirmation boundary | **ADOPTED BY MORRIS** |
 
 ### 2.3 Core C1 invariants preserved (**VALIDATED INPUT**)
 
@@ -341,19 +292,20 @@ This document does **NOT** mean :
 4. UX / Figma / React routes selected
 5. Canonical Orchestration Spine adopted
 6. SharedKnowledgeStore selected
-7. HumanDecision materiality policy finalized
+7. Remaining HD materiality edges (DecisionBasis universal, Confirmation form, stale-subject thresholds) finalized beyond P2-D-01/02/03
 8. Cycle/Execution technical enums selected
 9. Production model routing selected
 10. Cognitive Completion proven
 11. READY FOR REAL
 12. runtime v3 ADOPTED
 13. Project commit/push/PR/merge authorized
+14. Guided Review §§12–22 completed
 
 ---
 
 ## 3. P2 mission / Functional Operating Model boundaries
 
-### 3.1 Mission (**P2 CANDIDATE** framed by **VALIDATED INPUT**)
+### 3.1 Mission (**VALIDATED INPUT** framing)
 
 **P2 = HOW STUDIO FUNCTIONS AS A PRODUCT.**
 
@@ -363,7 +315,7 @@ It defines observable functional behavior for :
 - Project / Cycle lifecycles ;
 - work qualification and method absorption ;
 - conversation → Product outcomes ;
-- materiality / HumanDecision / Confirmation framing ;
+- materiality / HumanDecision / Confirmation ;
 - deliverable lifecycle ;
 - optional Execution Branch ;
 - review / validation / exit-proof / Cycle closure ;
@@ -373,9 +325,29 @@ It defines observable functional behavior for :
 - representative Functional Routes ;
 - cognitive reliability functional boundary (provider-agnostic).
 
-### 3.2 Explicit non-goals (this document)
+### 3.2 Design principles (Checkpoint 01)
 
-P2 does **NOT** define :
+#### A. Functional contracts / observable invariants
+
+P2 defines behaviors later reusable as design/proof contracts by P3/P4/P5/P6. Examples :
+
+- Cycle can close with zero Execution where exit proof allows.
+- Execution SUCCESS does not equal Cycle COMPLETE.
+- Invalid / unvalidated required deliverable keeps applicable exit unsatisfied.
+
+#### B. Semantic before technical representation
+
+P2 defines required **functional semantics**. **P4** determines technical implementation representation.
+
+#### C. Sufficiently complete, not exhaustively combinatorial
+
+P2 covers structural routes / invariants / meaningful alternatives. It does **not** model every conversational micro-variant.
+
+#### D. Model / routing candidates
+
+P2/P4 may express provider-agnostic needs, capability candidates and routing hypotheses where needed. **Production model/routing promotion remains P8** after applicable P6/P7 evidence.
+
+### 3.3 Explicit non-goals
 
 | Out of scope | Route |
 | --- | --- |
@@ -392,36 +364,43 @@ P2 does **NOT** define :
 
 ## 4. Actors / responsibilities
 
-### 4.1 Actor matrix (**VALIDATED INPUT** + **HARVESTED PATTERN** from PC-C2 / UX EA)
+### 4.A Runtime Product actors
 
 | Actor | Responsibility | Must not |
 | --- | --- | --- |
-| **Pilot** | Intent, judgment, HumanDecision, consent/Confirmation when required ; orient via conversation + supporting surfaces | Administer CKC/cycle taxonomy nominally ; invent authority ; confuse Option/Recommendation with HD |
-| **Nora** | UNDERSTAND / analyze / clarify / challenge / recommend ; probabilistic reasoning over minimum-sufficient projection | Materialize HD ; own authoritative Product truth ; widen authority ; become second SoT |
-| **Studio** | RESOLVE against authoritative state ; qualify materiality/effect/currentness/policy ; MATERIALIZE governed outcomes ; ENFORCE fail-closed ; build role projections | Treat probabilistic judgment as authority ; invent Pilot decisions |
-| **Executor / Cursor (agent)** | Technical execution under ExecutionContract when Execution Branch invoked | Own Product semantics ; decide Cycle closure ; invent HD |
-| **Validators / connectors** (optional) | Domain-specific checks when applicable | Become competing SoT |
-| **Git** | Repository / construction / versioned evidence source — **not** a runtime persona | Replace Product Store / HD authority |
-| **Morris** | Construction governance & repo gates — **outside** runtime persona | Substitute for Pilot HD at runtime |
+| **Pilot** | Express Product intent/judgment ; HumanDecision ; consent/Confirmation when required ; orient via conversation + supporting surfaces | Administer CKC, mechanism codes, runtime taxonomy or other SFIA internals in nominal flow ; invent authority ; confuse Option/Recommendation with HD |
+| **Nora** | UNDERSTAND / analyze / clarify / challenge / recommend ; probabilistic reasoning over minimum-sufficient projection ; **signal insufficient/ambiguous context** instead of inventing facts or authority | Materialize HD ; own authoritative Product truth ; widen authority ; become second SoT |
+| **Studio** | RESOLVE against authoritative state ; qualify materiality/effect/currentness/policy ; MATERIALIZE governed outcomes ; ENFORCE fail-closed ; build role projections ; **deterministically orchestrate** the transition *current authoritative context → cognitive result → resolved semantic outcome → governed materialization when applicable → continuity update → next role projection/context* (**functional semantics · ≠ P4 architecture**) | Treat probabilistic judgment as authority ; invent Pilot decisions |
+| **Executor / agent** | Technical execution under ExecutionContract when Execution Branch invoked | Own Product semantics ; decide Cycle closure ; invent HD |
+| **Validators / connectors** (optional, bounded) | Produce bounded inputs / facts / evidence candidates according to provenance | Automatic HumanDecision ; competing Product SoT |
 
-### 4.2 Shared information ≠ shared authority (**VALIDATED INPUT**)
+**Executor result/claim ≠ verified Product fact.** Studio qualification/verification is required where applicable.
 
-Pilot, Nora, and Studio must operate on the **same governed semantic world** with **different responsibilities and projections**.
+### 4.B Construction / governance / repository evidence authorities
+
+| Authority | Role | Must not |
+| --- | --- | --- |
+| **Morris** | Construction governance & repo gates — outside runtime persona | Substitute for Pilot HD at runtime |
+| **Git** | Repository / construction / versioned evidence source — not a runtime persona | Replace Product Store / HD authority |
+
+### 4.2 Shared information ≠ shared authority · ownership ≠ visibility
 
 - **SHARED INFORMATION ≠ SHARED AUTHORITY.**
+- **OWNERSHIP ≠ VISIBILITY.** A role does not need to own a fact to require access to it.
+- Functional invariant : any materially relevant **CURRENT** fact required by Pilot/Nora/Studio must be available through an appropriate role projection. **P4 decides HOW.**
 - No default SharedKnowledgeStore.
-- Role-aware derived projections are allowed ; authoritative owners remain singular per truth domain.
+- Role-aware derived projections allowed ; authoritative owners remain singular per truth domain.
 
 ---
 
 ## 5. Canonical Product Operating Loop — CANDIDATE
 
-> **P2 CANDIDATE.** Do **not** call this final/canonical until Morris validation of P2.
+> Loop semantics consolidated under Checkpoint 01. Still **≠** globally validated P2 until Morris validation of P2.
 
 ### 5.1 Primary loop (chat-first Project / Cycle continuity)
 
 ```text
-Pilot ⇄ Conversation (primary channel)
+Pilot ⇄ Conversation (primary channel) — RECURSIVE / NON-WATERFALL
 
 Studio:
   resolve Project / current state / current subject / current work
@@ -436,64 +415,113 @@ Studio:
   qualify materiality / effect / currentness / policy / authority
 
 Pilot:
-  arbitrate ONLY when human judgment / authority is required
+  ARBITRATE / AUTHORIZE when human judgment / authority is required
 
 Studio:
-  MATERIALIZE appropriate governed outcome, which MAY be:
-    · no durable mutation
-    · factual / derived LPS update
-    · Recommendation disposition
-    · HumanDecision (when warranted)
-    · Reservation / Risk
-    · Trajectory change
-    · deliverable expectation
-    · Confirmation (when warranted)
-    · execution intent → Execution Branch (optional)
+  MATERIALIZE / ENFORCE appropriate governed outcome when authorized
+  (or materialize an already-authorized deterministic outcome if no human judgment is required)
 
-→ authoritative continuity state updated
-→ role projections refreshed
-→ next action presented
+Possible materializations include:
+  · zero durable mutation
+  · factual / derived LPS update
+  · Recommendation (ephemeral or durable when justified)
+  · Recommendation disposition (M-DISP) — see P2-D-01
+  · HumanDecision (M-HD) when warranted — see P2-D-01
+  · Reservation / Risk / Blocker (distinct)
+  · trajectory Recommendation · methodological requalification · decided trajectory update
+  · deliverable expectation
+  · Confirmation as protection around inspected effect — see P2-D-03 (≠ HD outcome)
+  · execution intent → optional Execution Branch
+
+→ authoritative continuity state updated when applicable
+→ role projections refreshed / invalidated / rebuilt as needed
+→ useful next action / state / blocker / waiting condition / clarification
 → conversation continues
 ```
 
-### 5.2 Conceptual capture model (**VALIDATED INPUT**)
+### 5.2 Conceptual authority model
 
 ```text
-UNDERSTAND (Nora) → RESOLVE (Studio) → AUTHORIZE / MATERIALIZE (Studio)
+UNDERSTAND (Nora)
+  → RESOLVE (Studio)
+  → ARBITRATE / AUTHORIZE (Pilot when human authority is required)
+  → MATERIALIZE / ENFORCE (Studio)
 ```
+
+If no human judgment is required, Studio may directly materialize an already-authorized deterministic outcome.
 
 This is a **conceptual** model — **≠** a mandated ConversationalDecisionEngine.
 
-### 5.3 Contrast — CURRENT FACT vs TARGET
+### 5.3 Path examples (non-exhaustive)
 
-| Aspect | CURRENT FACT (summary) | TARGET (P2 candidate) |
+- answer / clarify → zero durable mutation ;
+- ambiguity → clarification → loop ;
+- Recommendation → Pilot arbitration if required → materialization ;
+- decided execution intent → optional Execution Branch → Product result → return to Project/Cycle loop.
+
+**Conversation ≠ mutation.**
+
+**HumanDecision :** Studio may materialize an HD only when sufficient Pilot decision intent and applicable subject/currentness/materiality/authority/provenance conditions are satisfied.
+
+### 5.4 Contrast — CURRENT FACT vs TARGET
+
+| Aspect | CURRENT FACT (summary) | TARGET (P2) |
 | --- | --- | --- |
 | Interaction | Nora-capable chat + multiple supporting surfaces / gates | Chat primary ; supporting surfaces proportional |
 | Binding | Frequent explicit disambiguation | Studio resolves subject/currentness ; clarify only when material |
-| HD / disposition | Often via gates/modals | Conversational capture when deterministic guarantees satisfied |
+| HD / disposition | Often via gates/modals | Conversational capture when guarantees satisfied · P2-D-01 |
 | Execution | Strong GE path when used | Optional transverse branch ; Cycle may close with 0 executions |
-| Continuity | Journal #516/#517 + recommendation continuity #547 integrated | Journal as orientation/control-tower projection ; not second cockpit |
+| Continuity | Journal #516/#517 + #547 integrated | Journal as orientation/control-tower projection ; not second cockpit |
 
 ---
 
 ## 6. Project lifecycle
 
-### 6.1 Functional behaviors (**P2 CANDIDATE**)
+### 6.1 Create
 
-| Behavior | Meaning (functional) | Notes |
-| --- | --- | --- |
-| **Create** | Intent → qualification → durable Project / initial LPS / trajectory framing | No DB enum commitment |
-| **Activate** | Project becomes the active work context for Pilot/Nora/Studio | Currentness required |
-| **Resume** | Re-enter after interruption without inventing stale intent | See §16 Recovery |
-| **Pause / interrupt** | Work continues to exist ; session ends or attention shifts | No false closure |
-| **Requalify** | Method/work/trajectory reassessment when evidence or intent changes | May be Studio-derived (I2) or require HD — **OPEN** |
-| **Close / archive / abandon** | Terminal Project dispositions when applicable | Closure policy details = **OPEN QUESTION** / **MORRIS DECISION REQUIRED** where structural |
+Project creation establishes durable Project context and minimum viable continuity.
 
-### 6.2 Open questions (Project)
+A fully qualified ProjectTrajectory is **NOT** mandatory at creation. Trajectory framing/proposal occurs when sufficient context exists.
 
-1. Which Project terminal actions always require HD vs may be Studio-derived? (**MORRIS DECISION REQUIRED** / Guided Review)
-2. How is « active Project » currentness presented without becoming a second cockpit? (**ROUTED TO P3** for surface; functional rule here)
-3. Multi-Project attention switching semantics — minimum sufficient? (**OPEN QUESTION**)
+### 6.2 Current focus (≠ lifecycle state)
+
+**Activate / current focus** = which Project is the current conversational/cognitive focus.
+
+**Current focus ≠ Project lifecycle state.**
+
+A Project may remain open while another Project becomes current focus.
+
+### 6.3 Resume
+
+Resume reconstructs **CURRENT** authoritative truth/currentness. Do **not** replay stale conversational assumptions as current intent.
+
+### 6.4 Pause vs interruption
+
+| Concept | Meaning |
+| --- | --- |
+| **Interruption / leave context** | Session/attention event → does **not** automatically mutate Project lifecycle |
+| **Pause** | Explicit suspension of Project progression when functionally meaningful |
+
+### 6.5 Requalify
+
+- Factual/methodological requalification may be **Studio-derived** when it does not alter structural Pilot intent/scope/direction/authority.
+- Structural change to Pilot intent/scope/direction/authority requires applicable human authority (**P2-D-01**).
+
+### 6.6 Close / Abandon / Archive (distinct)
+
+| Semantic | Meaning |
+| --- | --- |
+| **Close** | Project reaches applicable completion semantics |
+| **Abandon** | Project terminates without target completion through human structural choice |
+| **Archive** | Retention/visibility concern · **≠** primary business completion semantic |
+
+Exact Project close/abandon HD policy remains **OPEN** at this checkpoint (beyond the structural-HD rule of P2-D-01).
+
+### 6.7 Multi-Project invariants
+
+1. Focus switch ≠ lifecycle mutation.
+2. Current conversational/cognitive context is explicitly Project-bound.
+3. No stale subject/recommendation/decision from Project A may silently apply to Project B.
 
 **No DB/status enum commitment in P2.**
 
@@ -501,120 +529,205 @@ This is a **conceptual** model — **≠** a mandated ConversationalDecisionEngi
 
 ## 7. Current Work / Cycle lifecycle
 
-### 7.1 Conceptual semantics (**P2 CANDIDATE** — NOT technical enum)
+### 7.A Lifecycle / existence semantics (NOT technical enum)
 
-| Semantic | Meaning |
+Conceptually :
+
+```text
+candidate / proposed work
+  → open / current Cycle
+  → closed Cycle
+```
+
+Do **not** model Proposed → Active → Progressing → Blocked → Exit candidate → Closed as one flat lifecycle axis.
+
+### 7.B Current conditions / derived states
+
+Examples (derived, not necessarily durable lifecycle states) :
+
+- progressing ;
+- blocked ;
+- reserved ;
+- awaiting decision ;
+- awaiting evidence ;
+- exit eligible / exit candidate.
+
+**Active / current conversational focus ≠ Cycle lifecycle state.**
+
+### 7.C Blocker vs Reservation
+
+| Concept | Meaning |
 | --- | --- |
-| **Proposed work** | Candidate current work / Cycle not yet activated |
-| **Active** | Current Cycle is the governing work context |
-| **Progressing** | Meaningful advancement without claiming exit |
-| **Blocked / reserved** | Progress constrained ; Reservation/Risk may be durable |
-| **Exit candidate** | Exit criteria appear satisfiable ; closure not yet materialized |
-| **Closed / transitioned** | Cycle closed or transitioned under policy ; next work may open |
+| **Blocker** | Prevents a required progression/exit |
+| **Reservation** | Durable qualification/constraint that is **not** automatically blocking |
 
-### 7.2 Lifecycle clarifications (**VALIDATED INPUT**)
+### 7.D Exit candidate / close / transition
 
-| Topic | Functional rule |
-| --- | --- |
-| **Cycle entry** | Studio qualifies work + applicable DoctrinePackage/CKC ; Pilot does not pick CKC nominally |
-| **Progression** | Conversation-driven ; method absorption implicit |
-| **Exit eligibility** | Based on applicable exit criteria — **not** on Execution SUCCESS alone |
-| **Close** | May require HD when structural judgment remains (cat. I1 floor) — **policy OPEN** |
-| **Transition** | Candidate next Cycle / work — **≠** auto-waterfall |
-| **Reopen / requalify** | Allowed when evidence/contradiction/intent warrants ; no silent rewrite of history |
+- **Exit candidate** = derived closure eligibility · not necessarily a durable lifecycle state.
+- **Cycle close ≠ next Cycle activation.**
+- Transition = next-work / Cycle-transition candidate · **≠** auto-waterfall.
 
-### 7.3 Critical distinction (**VALIDATED INPUT**)
+### 7.E Cycle closure — **P2-D-02 ADOPTED BY MORRIS**
+
+Cycle closure is **CONDITIONAL**. It is **NOT** universally a HumanDecision.
+
+Studio may materialize **deterministic Cycle closure** when :
+
+- applicable exit criteria are satisfied ;
+- required exit proof is satisfied ;
+- no blocking finding remains ;
+- no unresolved structural human judgment remains ;
+- no Pilot intent/scope/authority change is being silently inferred.
+
+HumanDecision is required **only when** closure itself still requires a structural human judgment (e.g. accepting material residual debt, accepting an exception, abandoning an objective, or equivalent).
+
+**Execution SUCCESS alone NEVER closes a Cycle.**
+
+A–J / I1 / I2 remain **design/test references only** — not runtime taxonomy.
+
+### 7.F Reopen
+
+Exact reopen cases remain **OPEN**, with invariant :
+
+**Closed Cycle historical truth must not be silently rewritten.**
+
+Default direction : append / supersede / requalify / corrective next work rather than mutate history.
+
+### 7.G Functional contracts
+
+- Cycle may close with 0 Execution.
+- Execution SUCCESS alone never closes Cycle.
+- Unresolved exit blocker prevents close.
+- Reservation is not automatically a blocker.
+- Cycle close ≠ next Cycle activation.
+- Closed history is not silently rewritten.
 
 ```text
 Cycle Lifecycle ≠ Execution Lifecycle
 Execution Result ≠ Cycle Resolution
 ```
 
-A Cycle may :
-
-- progress and close with **zero** executions ;
-- invoke **one** execution ;
-- invoke **N** executions (correction / re-execution / additional deliverables) while remaining OPEN until exit proof is satisfied.
-
-### 7.4 Open questions (Cycle)
-
-1. Exact conditions under which Cycle close always requires HD vs Studio-derived eligibility + Pilot assent. (**MORRIS DECISION REQUIRED**)
-2. Whether « exit candidate » is a Pilot-visible concept or Studio-internal. (**ROUTED TO P3** for presentation; functional need **OPEN**)
-3. Reopen after close — allowed cases. (**OPEN QUESTION**)
+A Cycle may progress/close with **zero** executions ; invoke **one** ; or invoke **N** while remaining OPEN until exit proof is satisfied.
 
 ---
 
 ## 8. Work qualification / DoctrinePackage / CKC
 
-### 8.1 Functional behavior (**P2 CANDIDATE**)
+### 8.1 Context-sensitive resolution (not a mandatory per-message pipeline)
 
 ```text
-intent
-  → current-work qualification
-  → applicable DoctrinePackage
-  → applicable CKC
-  → constraints
-  → minimum-sufficient cognitive context for Nora
+Pilot intent + authoritative current context
+  → resolve / requalify current work when needed
+  → resolve applicable DoctrinePackage / CKC / constraints
+  → build minimum-sufficient cognitive projection
+  → Nora reasons
 ```
 
-### 8.2 Method absorption (**VALIDATED INPUT**)
+### 8.2 Nora vs Studio qualification
 
-- Studio resolves applicable DoctrinePackage / CKC.
-- Pilot does **not** manually administer CKC / cycle taxonomy / profile in nominal flow.
-- Studio CKC = **guidance** · authority **NONE**.
-- v2.6 process CKC = process guidance only · **≠** Studio runtime doctrine.
+| Role | Role in qualification |
+| --- | --- |
+| **Nora** | Candidate cognitive qualification / ambiguity / risk signal |
+| **Studio** | Authoritative resolution of current work, applicability, materiality, currentness, policy and constraints |
 
-### 8.3 Harvest from Studio CKC modes (guidance)
+### 8.3 Method absorption
 
-ASK / PROPOSE / PROCEED UNDER EXPLICIT HYPOTHESIS / CHALLENGE / ESCALATE TO HUMAN DECISION / PAUSE / STOP / REPLAN / RECOMMEND TRANSITION — used as **cognitive posture guidance**, not as a rigid questionnaire.
+Pilot does **NOT** administer CKC · DoctrinePackage · cycle taxonomy · profile · internal mechanism codes in nominal flow.
 
-### 8.4 Open questions
+Studio CKC = guidance · authority **NONE**. v2.6 process CKC = process only · **≠** Studio runtime doctrine.
 
-1. How much DoctrinePackage/CKC detail belongs in Nora’s projection vs targeted retrieval? (**OPEN QUESTION** · fit with SP-22 minimum-sufficient)
-2. When methodological requalification (I2) is silent Studio-derived vs requires Pilot visibility. (**MORRIS DECISION REQUIRED**)
+### 8.4 Minimum-sufficient context + targeted retrieval
+
+Functional default :
+
+- minimum-sufficient projection ;
+- targeted retrieval when additional context is genuinely needed.
+
+Projection must preserve materially relevant :
+
+- semantic status ;
+- currentness ;
+- provenance ;
+- decided vs proposed ;
+- authoritative fact vs claim / recommendation / hypothesis.
+
+Exact technical retrieval/context architecture → **P4**. Quality/cost/reliability evaluation → **P6**.
+
+### 8.5 CKC modes = cognitive posture guidance only
+
+ASK / PROPOSE / PROCEED UNDER EXPLICIT HYPOTHESIS / CHALLENGE / ESCALATE TO HUMAN DECISION / PAUSE / STOP / REPLAN / RECOMMEND TRANSITION
+
+do **NOT** by themselves :
+
+- create HD ;
+- close Cycle ;
+- authorize execution ;
+- create Product STOP state ;
+- change trajectory authoritatively.
+
+### 8.6 Methodological requalification
+
+Internal/factual methodological requalification may be Studio-derived if it does not alter structural Pilot intent/scope/authority. Structural intent/scope/direction changes cannot be silently derived. Do not make « I2 » a runtime taxonomy.
 
 ---
 
 ## 9. Conversation → Product Outcome
 
-### 9.1 Candidate outcomes (**P2 CANDIDATE**)
+### 9.1 Hard invariants
 
-Conversation MAY produce :
+```text
+Conversation ≠ durable mutation.
+Conversation MAY produce Product outcomes.
+One conversational turn may produce 0 / 1 / N governed materializations.
+```
 
-| Outcome | Durable? | Notes |
-| --- | --- | --- |
-| **No durable mutation** | No | Clarification / exploration / challenge only |
-| **LPS factual / derived update** | Yes (factual) | Must not be falsely attributed as Pilot HD |
-| **Recommendation** | Yes (as Rec) | Remains Recommendation until disposition/HD |
-| **Recommendation disposition** | Yes (M-DISP candidate) | ≠ automatic HD |
-| **HumanDecision** | Yes (M-HD) | Only when warranted + guarantees satisfied |
-| **Reservation / Risk** | Yes when applicable | Continuity of constraints |
-| **Trajectory change** | Yes when decided | Proposed trajectory = Recommendation until required HD |
-| **Deliverable expectation** | Yes (expectation) | ≠ execute now |
-| **Execution intent** | Yes (intent) | May open Execution Branch |
-| **Cycle transition candidate** | Possibly | ≠ auto-selected next Cycle |
+### 9.2 Materialization semantics
 
-### 9.2 Hard rule
+```text
+Conversation
+  → semantic interpretation
+  → semantic outcome
+  → Studio resolves materiality / currentness / authority / continuity / policy
+  → 0 / 1 / N governed materializations
+```
 
-**Do NOT make all conversation produce durable state.**
+**Semantic outcome ≠ storage/materialization representation.**
 
-### 9.3 Capture mechanisms (representations, ≠ UIs) — **VALIDATED INPUT**
+### 9.3 Outcome catalogue (semantic)
+
+| Semantic outcome | Notes |
+| --- | --- |
+| **No durable mutation** | Clarification / exploration / challenge only |
+| **LPS factual / derived update** | Must not be falsely attributed as Pilot HD ; must never bypass HD/materiality semantics |
+| **Recommendation** | May remain ephemeral ; durable only when continuity/materiality/disposition needs justify |
+| **Recommendation disposition** | Distinct from HD · **P2-D-01** |
+| **HumanDecision** | When structural Pilot truth established/changed · **P2-D-01** |
+| **Reservation** | Durable qualification/constraint · ≠ automatic blocker |
+| **Risk** | Distinct from Reservation / Blocker |
+| **Blocker** | Prevents required progression/exit |
+| **Trajectory Recommendation** | Proposed · not decided |
+| **Methodological requalification** | Studio-derived when non-structural |
+| **Decided trajectory update** | After required HD/disposition policy |
+| **Deliverable expectation** | ≠ execute now |
+| **Execution intent** | ≠ EC ≠ ExecutionAuthority ≠ launch |
+| **Next-work / Cycle-transition Recommendation or derived candidate** | No automatic next Cycle activation |
+
+### 9.4 Internal materialization mechanisms (≠ Product semantic taxonomy)
 
 | Code | Mechanism |
 | --- | --- |
 | **M-LPS** | LPS evolution (factual/derived vs Pilot intent/scope) |
 | **M-DISP** | Recommendation disposition |
 | **M-HD** | Durable HumanDecision |
-| **M-CONF** | Confirmation (form OPEN) |
-| **M-OTHER** | Clarification / ephemeral / other |
+| **M-CONF** | Confirmation (authorization of inspected effect when required) |
 
-Pilot never selects M-* codes ; Studio selects the governed representation.
+Pilot never selects M-* codes. **M-OTHER** may remain a documentary placeholder only — do **not** promote an « OTHER » runtime enum.
 
 ---
 
 ## 10. Materiality / HumanDecision / Confirmation
 
-> **CENTRAL P2 OPEN DESIGN AREA.** Framing from C1 §9–§10. **No silent finalization.**
+> Central section. Consumes **P2-D-01 / P2-D-02 / P2-D-03**. No global materiality enum / LOW-MEDIUM-HIGH hierarchy selected.
 
 ### 10.1 Non-negotiable invariants (**VALIDATED INPUT**)
 
@@ -622,7 +735,7 @@ Pilot never selects M-* codes ; Studio selects the governed representation.
 2. No invented human decisions.
 3. Raw phrase ≠ automatic gate/HD.
 4. Proposed trajectory = Recommendation until required HD.
-5. Confirmation tied to inspected contract/effect ; proportional.
+5. Confirmation tied to inspected contract/effect ; proportional · **P2-D-03**.
 6. Effective authority = intersection.
 7. No global L5 / auto-escalade.
 8. Auditability / reconstructibility = invariant ; DecisionBasis universal = **NOT DECIDED**.
@@ -630,7 +743,7 @@ Pilot never selects M-* codes ; Studio selects the governed representation.
 10. HD ≠ UI ceremony.
 11. Pilot expresses meaning ; Studio materializes mechanism.
 
-### 10.2 Materiality dimensions (precedence over rigid categories)
+### 10.2 Materiality dimensions (no global enum)
 
 | Dimension | Question |
 | --- | --- |
@@ -641,43 +754,79 @@ Pilot never selects M-* codes ; Studio selects the governed representation.
 | Downstream dependencies | Which durable objects depend? |
 | Error cost | Cost of misinterpretation? |
 | Auditability | Minimum reconstructible provenance? |
-| Residual ambiguity | Single current non-stale subject? |
+| Residual ambiguity / currentness | Single current non-stale subject? |
 
-### 10.3 A–J = TEST SCENARIOS ONLY (**VALIDATED INPUT**)
+### 10.3 A–J = TEST SCENARIOS ONLY
 
-A–J remain design/analysis/test scenarios. They must **not** become :
+A–J remain design/analysis/test scenarios. They must **not** become a persisted runtime taxonomy, DecisionClassifier enum, or ten specialized engines.
 
-- a persisted runtime taxonomy ;
-- a DecisionClassifier enum ;
-- ten specialized engines.
+### 10.4 Capture safety (conceptual groups — not 10 engines)
 
-### 10.4 Candidate functional criteria (not final policy) — **P2 CANDIDATE**
+A. Subject resolution.
+B. Intent understanding.
+C. Materiality / effect / authority compatibility.
+D. Safe deterministic materialization.
 
-Studio may materialize a conversational Pilot act as durable HD / disposition / Confirmation **only if** applicable conditions hold (C1 CD-style dimensions) :
+### 10.5 **P2-D-01 ADOPTED BY MORRIS** — Recommendation disposition vs HumanDecision
 
-- subject resolved ;
-- currentness valid ;
-- intent sufficiently explicit ;
-- materiality/policy compatible ;
-- authority valid ;
-- provenance/auditability sufficient ;
-- Confirmation constraints satisfied when applicable.
+Non-structural Recommendation disposition → **M-DISP is sufficient**.
 
-Otherwise : clarify, recommend, or fail-closed — **no** authoritative durable effect.
+HumanDecision is required when a Pilot act establishes or changes a structural Product truth such as applicable :
 
-### 10.5 Explicitly NOT decided (**OPEN** / **MORRIS DECISION REQUIRED**)
+- Project objective ;
+- structural scope ;
+- decided ProjectTrajectory ;
+- structural Project/Cycle lifecycle disposition ;
+- authority envelope ;
+- structural commitment on which downstream governed effects depend.
+
+Acceptance/refusal of a Recommendation does **NOT** automatically create HD.
+
+**Materiality of the semantic act** decides the mechanism — not the word « yes » and not the Recommendation category alone.
+
+### 10.6 **P2-D-02 ADOPTED BY MORRIS** — Cycle closure materiality
+
+Cycle closure is **CONDITIONAL** · **NOT** universally a HumanDecision.
+
+Studio may materialize deterministic Cycle closure when exit proof conditions of §7.E are satisfied.
+
+HumanDecision is required only when closure itself still requires a structural human judgment.
+
+**Execution SUCCESS alone NEVER closes a Cycle.**
+
+### 10.7 **P2-D-03 ADOPTED BY MORRIS** — Confirmation boundary
+
+Confirmation authorizes an inspected concrete effect when required.
+
+Confirmation :
+
+- ≠ HumanDecision ;
+- does **NOT** replace a missing HumanDecision ;
+- does **NOT** create Product intent ;
+- does **NOT** widen scope ;
+- does **NOT** widen authority ;
+- applies only to the inspected/bound effect or contract.
+
+**Execution proximity does NOT itself create a new HumanDecision.**
+
+### 10.8 Multi-intent / supersession
+
+One message may contain multiple independently resolved semantic intents.
+
+Example : « oui pour la trajectoire, mais ne lance pas l'exécution » must **not** be treated as globally positive.
+
+Before protected/irreversible effect : a newer explicit/current intent may supersede according to applicable policy. After effect : no history rewrite — use correction/compensation/replan/new decision as applicable.
+
+### 10.9 Remaining OPEN (not decided by P2-D-01/02/03)
 
 | Topic | Status |
 | --- | --- |
-| Definitive category → mechanism mapping | **NOT DECIDED** |
-| DecisionBasis obligation/form for all HDs | **NOT DECIDED** |
-| Confirmation form per case (incl. conversational) | **NOT DECIDED** |
-| Numeric thresholds for material acts | **NOT DECIDED** |
-| Cycle closure always HD vs conditional | **MORRIS DECISION REQUIRED** |
-| Recommendation disposition vs HD boundary for non-structural accepts | **MORRIS DECISION REQUIRED** (central Guided Review) |
-| Stale subject / multi-intent / correction-supersession edge policy | **OPEN QUESTION** (must be coherent in P2 before validation) |
+| Exact universal/non-universal DecisionBasis form | **NOT DECIDED** |
+| Exact Confirmation presentation/form | **OPEN** |
+| Detailed stale-subject edge policy / numeric thresholds | **OPEN** |
+| Remaining non-decided threshold/policy details | **OPEN** |
 
-### 10.6 Nora vs Studio boundary for materiality (**VALIDATED INPUT**)
+### 10.10 Nora vs Studio boundary for materiality
 
 | Role | May | Must not |
 | --- | --- | --- |
@@ -688,505 +837,286 @@ Otherwise : clarify, recommend, or fail-closed — **no** authoritative durable 
 
 ## 11. Deliverable lifecycle
 
-### 11.1 Conceptual semantics (**P2 CANDIDATE** — NOT implementation enum)
-
-| Semantic | Meaning |
-| --- | --- |
-| **Suggested** | Nora or Pilot surfaces a possible deliverable |
-| **Expected** | Deliverable is part of current work expectations |
-| **Deferred** | Expected later ; not execute-now |
-| **Execution requested** | Execution Branch invoked to produce/update |
-| **Produced** | Artifact/output exists |
-| **Under review** | Review against criteria in progress |
-| **Changes required** | Findings block validation |
-| **Corrected** | Subsequent production/correction occurred |
-| **Validated** | Accepted against applicable acceptance/exit criteria |
-| **Superseded** | Replaced by a later authoritative artifact when relevant |
-
-### 11.2 Emergence (**VALIDATED INPUT**)
-
-Deliverable need may emerge from **Nora OR Pilot** conversation.
-
-**Deliverable expected ≠ execute now.**
-
-### 11.3 Open questions
-
-1. Who/what validates a required artifact against exit criteria in each work class? (**OPEN QUESTION** — may vary ; do not invent a single validator engine)
-2. Whether « suggested » is durable or ephemeral until expected. (**OPEN QUESTION**)
-
----
-
-## 12. Execution Branch
-
-### 12.1 Invocation rule (**VALIDATED INPUT**)
-
-Execution Branch is invoked **only when** effect/work requires governed technical execution.
-
-It is **optional / transverse**. It does **not** own Cycle lifecycle.
-
-### 12.2 Functional sequence candidate (**P2 CANDIDATE** + **HARVESTED PATTERN** from GE)
-
-```text
-execution intent
-  → EC preparation (WHAT)
-  → inspection
-  → Confirmation if applicable
-  → authority / executor qualification
-  → execution (HOW under EC)
-  → Claim
-  → verification
-  → Evidence / Review
-  → Product Resolution
-  → Execution Result
-  → return to Project / Cycle loop
-```
-
-### 12.3 Cardinality (**VALIDATED INPUT**)
-
-Per Cycle : **0 / 1 / N** executions.
-
-Do **not** universalize Execution objects as the Product’s only progression model.
-
-### 12.4 CURRENT FACT (harvest, not whole FOM)
-
-- Generic Execution / Review / Result delivery convergence = **PR #542 MERGED on main** (**CURRENT FACT**).
-- Reconciler = deterministic progression owner **in GE context** — harvest as orchestration principle **candidate**, **≠** eternal global architecture.
-- Residual GE seams = **P4 AUDIT INPUT** · **≠** automatic P2 scope.
-
-### 12.5 Rejected import from Product Completion C2
-
-| Rejected assumption | Why |
-| --- | --- |
-| A→W as mandatory sequential Product loop | Contradicts chat-first target loop |
-| EC mandatory every Cycle | Contradicts 0-execution Cycle |
-| Extra HD merely because EC prep starts | C1 cat. J : EC only after *necessary* decisions already exist |
-
----
-
-## 13. Review / validation / exit-proof / Cycle closure
-
-### 13.1 Distinctions (**VALIDATED INPUT**)
-
-```text
-artifact exists
-  ≠ validated artifact
-  ≠ exit proof satisfied
-  ≠ Cycle completion
-```
-
-```text
-Execution SUCCESS ≠ Cycle COMPLETE
-```
-
-### 13.2 Functional relationships (**P2 CANDIDATE**)
-
-| Concept | Role |
-| --- | --- |
-| **Review** | Examine produced work against applicable criteria |
-| **Finding** | Issue discovered ; may be blocking or non-blocking |
-| **Correction** | Work to address findings ; may trigger another Execution |
-| **Validation** | Acceptance that criteria for the artifact/work are met |
-| **Exit criteria** | Conditions under which Cycle may become exit-eligible |
-| **Exit eligibility** | Studio determination that criteria appear satisfied |
-| **Cycle closure** | Materialization of close/transition under policy |
-
-### 13.3 Who validates? (**OPEN**)
-
-Validator identity/mechanism remains **OPEN** where not already source-constrained. Do not invent a global ValidationEngine in P2.
-
-### 13.4 Mandatory scenario families (for later P6 — listed now for FOM coherence)
-
-1. Cycle completes with NO Execution.
-2. Optional artifact/execution not required for exit.
-3. Required deliverable produced+reviewed+validated → exit proof.
-4. Execution SUCCESS + artifact BUT review blockers → exit NOT satisfied · Cycle OPEN.
-5. Correction → subsequent EC → re-review → validation.
-
----
-
-## 14. ProjectTrajectory / Replanning / Cycle transition
-
-### 14.1 Candidate distinctions (**P2 CANDIDATE** + **VALIDATED INPUT**)
+### 11.0 Deliverable ≠ Artifact
 
 | Concept | Meaning |
 | --- | --- |
-| **Recommended trajectory** | Nora/Studio Recommendation — not yet decided |
-| **Decided trajectory** | Authoritative after required HD/disposition policy |
-| **Methodological current-work requalification (I2)** | May be Studio-derived when no structural Project/authority/scope change |
+| **Deliverable** | Functional expected result / obligation |
+| **Artifact** | Concrete manifestation that may satisfy all or part of a Deliverable |
 
-### 14.2 Replan triggers (guidance)
+One Deliverable may bind **0..N** artifacts / versions / evidence items.
 
-Evidence contradiction · blocked exit · Pilot intent change · Reservation · dependency shift · CKC REPLAN posture.
+### 11.A Deliverable requirement
 
-### 14.3 Candidate rules
+- suggested ;
+- expected ;
+- deferred ;
+- requirement superseded / no longer required when applicable.
 
-- No waterfall auto-advance of Cycles.
-- Nora may **recommend** transition ; Studio may surface transition candidate ; Pilot HD when structural.
-- When Studio may derive current work without ceremony = **OPEN** / **MORRIS DECISION REQUIRED** (I2 boundary).
+**Suggested Deliverable = ephemeral by default.** Materialize durably only when continuity/materiality requires (e.g. becomes expected, deferred for later treatment, or otherwise needs durable disposition).
 
-### 14.4 Open questions
+### 11.B Production
 
-1. Trajectory amend vs replace — materiality floor. (**MORRIS DECISION REQUIRED**)
-2. Relation between Cycle transition and ProjectTrajectory update. (**OPEN QUESTION**)
+- not produced ;
+- produced ;
+- revision / new version produced.
 
----
+Production may be done by Pilot · Nora · Executor · import/external mechanism · other governed means.
 
-## 15. Cycle Journal / Memory semantics
+**Execution is one production mechanism, NOT a Deliverable lifecycle state.**
+Do **not** use « Execution requested » as a Deliverable state.
 
-### 15.1 CURRENT FACT
+« Corrected » = revision/new-production event · not a universal lifecycle state.
 
-- PR **#516** Project Conversational Continuity & Cycle Journal — **INTEGRATED ON MAIN**.
-- PR **#517** Pilotability & Journal Semantic Integrity — **INTEGRATED ON MAIN**.
-- PR **#547** chat-first work recommendation continuity — **INTEGRATED ON MAIN**.
-- Core capability = **KEEP / HARVEST / ADAPT** · **≠** already satisfies global target · **no immediate RETIRE**.
+### 11.C Validation
 
-### 15.2 Target semantics (**P2 CANDIDATE** from C1 CF-W*)
+- not reviewed ;
+- under review ;
+- changes required ;
+- validated.
 
-| Topic | Candidate semantic |
-| --- | --- |
-| **Role** | Primary orientation / continuity surface (« control tower ») |
-| **Authority** | **Derived projection only** — never competing SoT |
-| **Subjects** | open / stabilized / superseded / closed (conceptual) |
-| **May expose** | Subjects · open/stabilized points · Reservations · Recommendations · Decisions · progression/currentness links |
-| **Pilot use** | orient / remember / inspect / resume / retrieve source / discuss with Nora |
-| **Nora/Studio use** | bounded context / targeted source retrieval |
-| **Must not** | become second command cockpit · override authoritative truth |
+### 11.D Supersession (distinguish)
 
-### 15.3 Scope
+- Deliverable requirement superseded ;
+- Artifact/version superseded.
 
-Journal may carry Cycle-scoped and Project-scoped continuity projections, always linked to authoritative sources/currentness.
+Historical superseded artifacts remain historical.
 
-### 15.4 Open questions (**OPEN** / partly **ROUTED TO P4**)
-
-1. Exact Subject state model and invalidation rules.
-2. Recommendation inactive-after-disposition projection rules.
-3. How much Journal content enters Nora projection vs on-demand retrieval.
-
----
-
-## 16. Recovery / Resume
-
-### 16.1 Situations covered (**P2 CANDIDATE**)
-
-| Situation | Functional need |
-| --- | --- |
-| New session | Re-establish current Project/Cycle/subject without false memory |
-| Restart | Same |
-| Long interruption | Currentness + stale detection |
-| Subject switch | Explicit current subject resolution |
-| Post-Execution return | Return to Cycle loop with Evidence/Result grounding |
-| Stale projection | Invalidate / refresh derived projections |
-| Missing provenance/currentness | Fail-closed for authoritative acts ; allow safe orientation |
-
-### 16.2 Principles (**VALIDATED INPUT** + **HARVESTED PATTERN**)
-
-- Minimum sufficient recovery context.
-- **No fake memory.**
-- Fail-closed only where authoritative action cannot be established safely.
-- Stale secondary projection ≠ automatic global STOP if authoritative path remains resolvable (**HARVESTED** from PC recovery lessons).
-
-### 16.3 Open questions
-
-1. Minimum Pilot-visible recovery summary contents. (**ROUTED TO P3** for UX; functional minimum **OPEN**)
-2. Cross-device/session identity assumptions. (**ROUTED TO P4** if technical)
-
----
-
-## 17. Guided Document Review — representative functional route
-
-### 17.1 Role (**VALIDATED INPUT**)
-
-Guided Document Review (GDR) is **ONE representative cognitive flow** for P2 design and later P6 — **≠** a dedicated GDR engine · **≠** full P6 scope.
-
-**Parity with current ChatGPT conversation quality = NOT PROVEN.**
-
-### 17.2 Candidate route
+### 11.E Explicit chain
 
 ```text
-resolve document / current section / context
-  → Nora explain / challenge / propose disposition
-  → Pilot discuss / validate
-  → Studio materializes progress / disposition as appropriate
-  → next section / checkpoint
+Artifact exists
+  ≠ Artifact validated
+  ≠ Exit proof satisfied
+  ≠ Cycle complete
 ```
 
-Uses the same Product Operating Loop (§5) and materiality rules (§10). No special-case second product.
+**Deliverable expected ≠ execute now.**
 
-### 17.3 Cognitive class
+### 11.F Validation authority
 
-Likely **CW2 / CW3 candidate** workload — evaluation **ROUTED TO P6** ; mapping **NOT SELECTED**.
+No universal Validator Engine.
 
----
+Applicable validation mechanism/authority is determined by acceptance criteria · exit criteria · domain checks · evidence · deterministic validation · Nora review · Pilot judgment where required · combinations thereof.
 
-## 18. Functional Routes catalogue
+**Verification ≠ human acceptance** when criteria require both.
 
-> Bounded route matrix — **NOT** a giant state machine (**P2 CANDIDATE**).
+Exact validator mechanism remains **OPEN** where work-class specific.
 
-| ID | Route | Trigger | Actors | Authoritative input | Candidate outcome | HD? | Execution? | Stop / fallback | Next action |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| **R01** | Clarify → continue | Ambiguous intent | Pilot/Nora/Studio | Current subject/state | No durable mutation or minor clarification | No | No | Ask / hypothesis | Continue conversation |
-| **R02** | Recommendation → disposition → continue | Nora/Studio Rec | Pilot/Nora/Studio | Rec + currentness | M-DISP or M-HD per policy | Maybe | No | Fail-closed if ambiguous | Continue / next Rec |
-| **R03** | Structural choice → HD → continue | Structural judgment needed | Pilot/Studio (+Nora) | Options + constraints | M-HD | **Yes** | No | Escalate / stop if authority missing | Continue under decided constraint |
-| **R04** | Deliverable expected → defer | Need identified, not now | Pilot/Nora/Studio | Current work | Expectation durable ; no EC | Maybe | No | Keep expectation visible via projection | Continue Cycle |
-| **R05** | Execution intent → Execution Branch | Effect requires execution | Pilot/Studio/Executor/Nora | Intent + authority | EC…Result then return | Maybe prior | **Yes** | Confirmation/fail-closed | Return to Cycle loop |
-| **R06** | Cycle → exit unmet → continue | Exit criteria incomplete | Studio/Nora/Pilot | Exit criteria + evidence | Cycle remains OPEN | Maybe | Maybe | Show blockers honestly | Continue / correct |
-| **R07** | Cycle → exit eligible → transition candidate | Criteria appear satisfied | Studio/Nora/Pilot | Exit eligibility | Close/transition candidate | Policy OPEN | No (unless residual work) | No auto-waterfall | Close / next work |
-| **R08** | Review → changes required → correction | Blocking findings | Pilot/Nora/Studio/(Executor) | Findings | Correction loop ; Cycle OPEN | Maybe | Often | Keep exit unsatisfied | Re-produce / re-review |
-| **R09** | Review → validated → exit proof | Criteria met | Studio/(validators)/Pilot | Validation | Exit proof satisfied (artifact path) | Maybe | No | Distinguish from Cycle close | Consider R07 |
-| **R10** | Interruption → recovery | Session end / resume | Pilot/Studio/Nora | Authoritative state + projections | Honest resume | No invent | No | Fail-closed on authoritative act if unsafe | Continue |
-| **R11** | Blocker → Reserve / replan | Blocked progress | Pilot/Nora/Studio | Blocker facts | Reservation and/or trajectory Rec | Maybe | No | Do not fake progress | Treat / replan |
-| **R12** | Guided Document Review slice | Document review work | Pilot/Nora/Studio | Doc + section currentness | Disposition / progress | Maybe | No | No dedicated engine | Next section |
-| **R13** | Zero-execution Cycle close path | Work complete without EC | Pilot/Studio/Nora | Exit criteria | Cycle close without Execution | Policy OPEN | **No** | Must remain possible | Transition / next |
-| **R14** | Cognitive escalation (server-owned) | Workload/quality signal | Studio/Nora | Workload signals | Higher cognitive class | **No** authority change | No | Anti-oscillation behavior required | Continue |
+### 11.G Emergence
 
-Each route should later support happy / alt / error / recovery paths in acceptance criteria — without rigid stepper UX (**ROUTED TO P3**).
+Deliverable need may emerge from **Nora OR Pilot** conversation.
 
 ---
 
-## 19. Cognitive Reliability functional boundary
 
-### 19.1 Provider-agnostic first (**VALIDATED INPUT**)
 
-This initial P2 pass states **functional** cognitive behavior. It does **NOT** select :
+<!-- END §§1–11 -->
 
-- Luna / Sol / Astra mapping ;
-- reasoning effort ;
-- hysteresis mechanism ;
-- provider routing.
-
-Production model routing = **NOT SELECTED**.
-
-### 19.2 CW0–CW3 candidates (**VALIDATED INPUT**)
-
-| Class | Owner | LLM | Functional meaning |
-| --- | --- | --- | --- |
-| **CW0 DETERMINISTIC** | Studio | **NONE** | Currentness, membership, authority, idempotence, fail-closed, lifecycle invariants |
-| **CW1 ROUTINE** | Nora | Yes | Routine cognitive assistance |
-| **CW2 STANDARD / SIGNIFICANT** | Nora | Yes | Standard/significant reasoning |
-| **CW3 DEEP / CRITICAL** | Nora | Yes | Deep/critical cognitive work |
-
-CW* are **not** authority levels, SFIA profiles, or permissions.
-
-### 19.3 Desired functional behaviors (**P2 CANDIDATE**)
-
-| Behavior | Requirement |
-| --- | --- |
-| **Escalation** | Server-owned ; may raise cognitive class ; **≠** authority escalation |
-| **Fallback** | Degrade safely ; never silently widen authority |
-| **Anti-oscillation** | Avoid flapping between classes — **behavior required** ; hysteresis mechanism = **CANDIDATE only / NOT SELECTED** (**ROUTED TO P4** for mechanism if needed ; **ROUTED TO P6** for eval) |
-| **Context size** | Minimum-sufficient projection ; targeted retrieval ; avoid context overfeeding |
-| **Quality floor** | Prefer honest NOT PROVEN / clarify over fluent wrong authority |
-
-### 19.4 Nora trajectory absorption (**HARVESTED PATTERN**)
-
-`nora-cognitive-completion/08-nora-openai-native-first-cognitive-trajectory.md` = **KEEP / HARVEST / ADAPT** · **≠** second Nora engine · **≠** Cognitive Completion proven.
-
-### 19.5 OpenAI Capability Fit Check (**Build Doctrine R22**)
-
-If a **material** P2 design statement depends on current provider capabilities :
+## 11. Cross-section coherence sweep §§1–11
 
 ```text
-OPENAI CAPABILITY FIT CHECK REQUIRED
+1 Guided Review acceptance ≠ P2 global validation — PASS
+2 No global authority ranking — PASS (domain model)
+3 Git CURRENT vs doctrine TARGET = gap — PASS
+4 Pilot runtime ≠ Morris construction — PASS
+5 P2 semantics ≠ P4 technical — PASS
+6 Chat-first ≠ chat-only — PASS
+7 Conversation ≠ mutation — PASS
+8 0/1/N conversation materializations — PASS
+9 0/1/N Cycle executions — PASS
+10 Cycle Lifecycle ≠ Execution Lifecycle — PASS
+11 Execution SUCCESS ≠ Cycle COMPLETE — PASS
+12 Cycle close ≠ next Cycle activation — PASS
+13 Blocker ≠ Reservation — PASS
+14 Deliverable ≠ Artifact — PASS
+15 Expected Deliverable ≠ execute now — PASS
+16 Execution intent ≠ EC ≠ authority ≠ launch — PASS
+17 Recommendation ≠ HD — PASS
+18 Disposition ≠ automatically HD — PASS
+19 Confirmation ≠ HD — PASS
+20 Confirmation never expands scope/authority — PASS
+21 LPS cannot bypass decision authority — PASS
+22 Nora qualification ≠ authoritative qualification — PASS
+23 CKC guidance ≠ Product authority — PASS
+24 Current focus ≠ Project lifecycle — PASS
+25 Interruption ≠ Pause — PASS
+26 Archive ≠ business completion — PASS
+27 Closed history not rewritten — PASS
+28 A–J / I1 / I2 design/test only — PASS
+29 No universal DecisionBasis — PASS
+30 No technical enums/API/schema selected — PASS
 ```
 
-**This initial pass :** no provider-dependent claim is promoted as decided. Provider-dependent questions are listed in §21.
-
-**Status for this pass :** no STOP — Fit Check — because no material claim is asserted that requires current provider evidence.
-
----
-
-## 20. Functional acceptance criteria
-
-> Observable/testable criteria for the **P2 model** — **≠** implementation proof.
-
-| ID | Criterion |
-| --- | --- |
-| **P2-AC-01** | A Cycle can close without Execution when applicable exit criteria are satisfied. |
-| **P2-AC-02** | Execution SUCCESS alone cannot close a Cycle. |
-| **P2-AC-03** | Invalid / unvalidated required artifact keeps exit proof unsatisfied. |
-| **P2-AC-04** | Journal projection cannot override authoritative truth. |
-| **P2-AC-05** | Nora cannot materialize HumanDecision. |
-| **P2-AC-06** | Pilot does not need to select CKC manually in nominal flow. |
-| **P2-AC-07** | The same durable decision is reflected coherently to Pilot / Nora / Studio projections. |
-| **P2-AC-08** | Resume does not invent stale intent. |
-| **P2-AC-09** | Execution Branch may repeat (N) inside the same Cycle. |
-| **P2-AC-10** | Conversation may produce no durable mutation. |
-| **P2-AC-11** | Recommendation remains ≠ HumanDecision under disposition paths. |
-| **P2-AC-12** | Deliverable expected does not imply immediate execution. |
-| **P2-AC-13** | Cognitive escalation does not grant authority. |
-| **P2-AC-14** | A–J are usable as test scenarios without being runtime taxonomy. |
-| **P2-AC-15** | GDR uses the generic loop ; no dedicated GDR product engine required by FOM. |
-
----
-
-## 21. Open decisions / downstream routing
-
-### 21.1 P2 DECISIONS REQUIRED (Guided Review / Morris)
-
-| ID | Question |
-| --- | --- |
-| **P2-D-01** | HumanDecision materiality policy — simple operable policy using dimensions (+ A–J as tests) |
-| **P2-D-02** | Recommendation disposition vs HD boundary for non-structural accepts |
-| **P2-D-03** | Cycle closure / structural lifecycle actions — when HD is mandatory |
-| **P2-D-04** | Confirmation form family (incl. conversational linked consent) — still open |
-| **P2-D-05** | DecisionBasis universal obligation — keep NOT DECIDED or decide |
-| **P2-D-06** | I2 methodological requalification — silent Studio-derived vs Pilot-visible |
-| **P2-D-07** | Minimum Functional Routes set sufficiency (R01–R14) |
-| **P2-D-08** | Deliverable validation responsibility patterns |
-| **P2-D-09** | Journal Subject semantics enough for P2 exit |
-| **P2-D-10** | Zero-execution close path — explicit acceptance |
-
-### 21.2 ROUTED TO P3
-
-- Workspace redesign / surface ownership / progressive disclosure
-- Whether concepts are Pilot-visible chips/panels vs conversational only
-- Figma / visual contract
-- Exposure of model/effort to Pilot (default : not exposed)
-
-### 21.3 ROUTED TO P4
-
-- Persistence / schema / API / technical state machines
-- Pilot–Nora–Studio Semantic Connectivity Audit & projection contracts
-- Whether any new store is justified (default : no SharedKnowledgeStore)
-- Canonical Orchestration Spine adoption decision (remains candidate)
-- Anti-oscillation technical mechanism if needed
-- GE residual seams treatment
-
-### 21.4 ROUTED TO P6
-
-- Global Integrated Product QA of whole target
-- Model × Reasoning evaluation before any routing promotion
-- GDR as one cognitive scenario among many
-- Net Complexity Reduction measurement
-
-### 21.5 ROUTED TO P7
-
-- Fresh Project selection & End-to-End Product Replay
-- REAL only under distinct Morris GO
-
-### 21.6 Provider-dependent open items (no silent claim)
-
-| Item | Status |
-| --- | --- |
-| Permanent Luna/Sol/Astra mapping | **NOT SELECTED** · eval later |
-| Reasoning effort defaults | **NOT SELECTED** |
-| Hysteresis mechanism | **CANDIDATE only / NOT SELECTED** |
-| Any P2 claim needing live provider capability proof | **OPENAI CAPABILITY FIT CHECK REQUIRED** before promotion — **none promoted in this pass** |
-
----
-
-## 22. P2 Exit Criteria / Gates / Anti-claims
-
-### 22.1 Candidate P2 exit criteria
-
-P2 may be proposed for Morris validation only when :
-
-1. Complete Functional Operating Model reviewed (this document evolved through Guided Review).
-2. HumanDecision materiality policy **sufficiently decided**.
-3. Project/Cycle lifecycle coherent.
-4. Journal semantics coherent.
-5. Execution / exit-proof semantics coherent.
-6. Functional Routes coherent (bounded).
-7. Recovery semantics coherent.
-8. Cognitive functional boundary coherent (provider-agnostic ; fit-check flagged where needed).
-9. No P3/P4 leakage disguised as FOM.
-10. Downstream open questions routed (P3/P4/P6/P7).
-11. ChatGPT Critical Review **PASS**.
-12. **Morris validation P2** consumed (distinct decision — **not** this pass).
-
-### 22.2 Gates
-
-| Gate | Status |
-| --- | --- |
-| **D-SIMP-06** | **CONSUMED** (authorize P2 start) |
-| ChatGPT Guided Review of this candidate | **NEXT** |
-| ChatGPT Critical Review P2 | **NOT STARTED** |
-| Morris validation P2 | **NOT STARTED** |
-| Git integration P2 | **NOT AUTHORIZED** |
-| P3 GO | **NOT AUTHORIZED** |
-
-### 22.3 Anti-claims (repeat)
+## 12. §§12–22 substantively untouched
 
 ```text
-P2 VALIDATED = NO
-P3 AUTHORIZED = NO
-P4 ARCHITECTURE ADOPTED = NO
-DELIVERY READY = NO
-READY FOR REAL = NO
-PRODUCTION ROUTING SELECTED = NO
-COGNITIVE COMPLETION PROVEN = NO
-runtime v3 ADOPTED = NO
-SharedKnowledgeStore SELECTED = NO
-Canonical Orchestration Spine ADOPTED = NO
+CONFIRMED: §12 Execution Branch body retained (invocation rule, GE harvest, rejected PC-C2 A→W).
+Only minimal non-substantive status sync applied in §21 decision table, §22.2 gates, §22.4 verdict
+to record D-SIMP-07 / P2-D-01/02/03 and next Critical Review Checkpoint 01.
+No Guided Review of §12–22. No new §12+ semantics adopted.
 ```
 
-### 22.4 Verdict (this pass)
+## 13. Roadmap tip (current living tip row)
 
 ```text
-STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION P2
-— INITIAL FUNCTIONAL OPERATING MODEL CANDIDATE CREATED
-— D-SIMP-06 CONSUMED
-— READY FOR CHATGPT GUIDED REVIEW
-— P2 NOT YET VALIDATED
-— P3→P8 NOT AUTHORIZED
+| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P2 GUIDED REVIEW CHECKPOINT 01 §§1–11** | 2026-10-03 21:35:00 +0200 — **STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P2 GUIDED REVIEW CHECKPOINT 01 SECTIONS 1–11 CONSOLIDATED** · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **2 — Conception fonctionnelle** · Milestone **P2 — FUNCTIONAL OPERATING MODEL** · Pass **Guided Review Checkpoint 01 — §§1–11** · EVOL/DOC · CRITICAL · **D-SIMP-07 CONSUMED** — VALIDATE P2 GUIDED REVIEW SECTIONS 1–11 AND AUTHORIZE CHECKPOINT 01 CONSOLIDATION · **D-SIMP-06 CONSUMED** · **D-SIMP-01…07 CONSUMED** · **P2-D-01 ADOPTED** (Recommendation disposition vs HD) · **P2-D-02 ADOPTED** (Cycle closure conditional) · **P2-D-03 ADOPTED** (Confirmation boundary) · C1 = **VALIDATED / INTEGRATED / CLOSED** (PR **#548** / merge `642a10c8…`) · P2 = **AUTHORIZED / IN PROGRESS** · Guided Review §§1–11 = **CONSOLIDATED** · §§12–22 = **PENDING GUIDED REVIEW** · P2 **NOT VALIDATED** · document = `projects/sfia-studio/product-simplification/02-chat-first-product-simplification-functional-operating-model.md` · branche locale `docs/sfia-studio-chat-first-product-simplification-p2-functional-operating-model` · entry handoff P2 start `02836afa6cea4b2c1b0e0612e62dce3b5bb62914` / blob `5335b8ceae547da5ad946953ff8e69152d4f6879` · base `origin/main` @ `642a10c87bdad2ef4291bf8b7294872c2b14be90` · candidate **LOCAL / NOT INTEGRATED** · next = **ChatGPT Critical Review Checkpoint 01** → then Guided Review resumes §12 · P3→P8 **NOT AUTHORIZED** · **ZERO REAL** · production model routing = **NOT SELECTED** · Cognitive Completion = **NOT PROVEN** · runtime v3 = **NON ADOPTED** · Canonical Orchestration Spine = **CANDIDATE ONLY** · **≠** P2 VALIDATED · **≠** P3 AUTHORIZED · **≠** project commit/push/PR/merge · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT / `origin/main` / PR evidence** |
 ```
 
-**NEXT WORK :** ChatGPT Guided Review of P2 Functional Operating Model.
+## 14. Validation matrix P2-CP01-01…53
 
----
+```text
+P2-CP01-01 PASS — HEAD / origin/main exact
+P2-CP01-02 PASS — entry handoff SHA/blob
+P2-CP01-03 PASS — authorized file scope
+P2-CP01-04 PASS — D-SIMP-07 CONSUMED
+P2-CP01-05 PASS — P2-D-01 ADOPTED
+P2-CP01-06 PASS — P2-D-02 ADOPTED
+P2-CP01-07 PASS — P2-D-03 ADOPTED
+P2-CP01-08 PASS — §1 GR ≠ global validation
+P2-CP01-09 PASS — §2 authority domains
+P2-CP01-10 PASS — CURRENT vs TARGET gap
+P2-CP01-11 PASS — §3 functional contracts
+P2-CP01-12 PASS — §3 semantic-before-technical
+P2-CP01-13 PASS — §3 non-exhaustive
+P2-CP01-14 PASS — §4 runtime vs governance
+P2-CP01-15 PASS — §4 ownership ≠ visibility
+P2-CP01-16 PASS — §4 Executor claim ≠ verified fact
+P2-CP01-17 PASS — §5 authority model
+P2-CP01-18 PASS — §5 recursive / non-waterfall
+P2-CP01-19 PASS — §5 conversation ≠ mutation
+P2-CP01-20 PASS — §6 current focus ≠ lifecycle
+P2-CP01-21 PASS — §6 pause ≠ interruption
+P2-CP01-22 PASS — §6 Close / Abandon / Archive
+P2-CP01-23 PASS — §6 cross-Project leakage prohibited
+P2-CP01-24 PASS — §7 lifecycle vs derived conditions
+P2-CP01-25 PASS — §7 Blocker ≠ Reservation
+P2-CP01-26 PASS — §7 close ≠ transition
+P2-CP01-27 PASS — §7 closure = P2-D-02
+P2-CP01-28 PASS — §8 Nora ≠ Studio resolution
+P2-CP01-29 PASS — §8 minimum-sufficient + targeted retrieval
+P2-CP01-30 PASS — §8 semantic status/currentness/provenance
+P2-CP01-31 PASS — §8 CKC modes do not create authority
+P2-CP01-32 PASS — §9 materialization semantics
+P2-CP01-33 PASS — §9 0/1/N materializations
+P2-CP01-34 PASS — §9 execution intent ≠ EC ≠ authority ≠ launch
+P2-CP01-35 PASS — §10 no global materiality enum
+P2-CP01-36 PASS — §10 disposition vs HD = P2-D-01
+P2-CP01-37 PASS — §10 closure = P2-D-02
+P2-CP01-38 PASS — §10 Confirmation = P2-D-03
+P2-CP01-39 PASS — §10 DecisionBasis universal NOT DECIDED
+P2-CP01-40 PASS — §11 Deliverable ≠ Artifact
+P2-CP01-41 PASS — §11 production separated from requirement
+P2-CP01-42 PASS — §11 execution not Deliverable state (prohibition wording retained)
+P2-CP01-43 PASS — §11 Suggested ephemeral by default
+P2-CP01-44 PASS — Produced ≠ Validated ≠ Exit proof ≠ Cycle closed
+P2-CP01-45 PASS — no universal Validator Engine
+P2-CP01-46 PASS — §§12–22 substantive content untouched
+P2-CP01-47 PASS — P2 NOT VALIDATED
+P2-CP01-48 PASS — P3→P8 NOT AUTHORIZED
+P2-CP01-49 PASS — ZERO REAL
+P2-CP01-50 PASS — runtime v3 NON ADOPTED
+P2-CP01-51 PASS — git diff --check
+P2-CP01-52 PASS — Review Pack FULL
+P2-CP01-53 PASS — Review Handoff remote verified (after publish)
+```
 
-## Appendix A — Harvested vs rejected Product Completion C2 patterns
+## 15. Fake / Real
 
-### A.1 Harvest
+```text
+Documentary only. Fake: NONE new. REAL: ZERO. No runtime Product proof created.
+```
 
-- Actor distinctions (Pilot / Nora / Studio / Cursor / Git / Morris construction)
-- Project ≠ Cycle ≠ Attempt distinctions
-- Authority intersection / layered epistemology style
-- Recovery : no false memory ; Evidence-before-claims style
-- Acceptance-criteria style (observable Given/When/Then)
+## 16. Claims / anti-claims
 
-### A.2 Reject as P2 baseline
+```text
+CLAIMS:
+- Checkpoint 01 §§1–11 consolidated under D-SIMP-07
+- P2-D-01/02/03 ADOPTED BY MORRIS
+- READY FOR CHATGPT CRITICAL REVIEW CHECKPOINT 01
 
-- A→W as mandatory Product operating loop
-- EC-every-Cycle assumption
-- UX/workflow exposure as FOM content
-- Any rule making execution the nominal center of Cycle progress
+ANTI-CLAIMS:
+- P2 VALIDATED = NO
+- §§12–22 Guided Review = NOT DONE
+- P3→P8 NOT AUTHORIZED
+- READY FOR REAL = NO
+- production routing NOT SELECTED
+- Cognitive Completion NOT PROVEN
+- runtime v3 NON ADOPTED
+- no architecture/UX/code
+```
 
-## Appendix B — Source list read for this candidate
+## 17. Open questions remaining (after CP01)
 
-Process : `prompts/templates/sfia-cycle-execution-template.md` · `method/sfia-fast-track/core/sfia-cycle-routing-guide.md` · v2.6 CKC pilot `02-conception-fonctionnelle.md` (candidate).
+- DecisionBasis universal form
+- Confirmation presentation/form
+- Stale-subject edge thresholds
+- Project close/abandon exact HD policy details
+- Work-class validator mechanisms
+- §§12–22 entire Guided Review agenda
 
-Governance : Build Doctrine · Convergence Roadmap · post-merge handoff `fcadb9e2…`.
+## 18. Files / diffs
 
-Primary : validated C1 `01-chat-first-product-simplification-cadrage.md`.
+```text
+status:
+M .tmp-sfia-review/chatgpt-review.md
+ M projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+?? projects/sfia-studio/product-simplification/02-chat-first-product-simplification-functional-operating-model.md
 
-Harvest : PC `01`/`02` · UX EA `01-experience-architecture.md` · v3 framings 30–37 · Studio CKC `02-conception-fonctionnelle.md` · GE architecture · Nora `08-…` · Journal/continuity CURRENT FACT via PR #516/#517/#547 and related assets.
+name-status:
+M	.tmp-sfia-review/chatgpt-review.md
+M	projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+A	projects/sfia-studio/product-simplification/02-chat-first-product-simplification-functional-operating-model.md
 
+stat:
+.tmp-sfia-review/chatgpt-review.md                 | 1252 ++++++++++++++++++--
+ .../convergence/sfia-studio-convergence-roadmap.md |   24 +-
+ 2 files changed, 1153 insertions(+), 123 deletions(-)
+```
 
-<!-- END FULL P2 DOCUMENT -->
+### git diff --check
 
-## 14. Review Handoff (to be completed by publisher)
+```text
+PASS
+```
+
+## 19. Project Git effects
+
+```text
+Local documentary modifications: YES
+Project commit: NO
+Project push: NO
+PR: NO
+Merge: NO
+Branch delete: NO
+Handoff L3: YES
+```
+
+## 20. Review Handoff
 
 ```text
 mode: publish-in-cycle L3
 branch: sfia/review-handoff
 canonical: sfia-review-handoff/latest-chatgpt-review.md
-entry handoff: fcadb9e2bfbd028acf7331ca95ddd24ed9799b23
-entry blob: 498c9c28566084034e2afe1bbe5ad4414845098d
-commit message: docs(review-handoff): publish product simplification p2 initial functional model
+entry: 02836afa6cea4b2c1b0e0612e62dce3b5bb62914 / 5335b8ceae547da5ad946953ff8e69152d4f6879
+commit message: docs(review-handoff): publish product simplification p2 guided review checkpoint 01
 published SHA: PENDING
 published blob: PENDING
 ```
 
-## 15. Unique verdict
+## 21. Unique verdict
 
 ```text
 STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION P2
-— INITIAL FUNCTIONAL OPERATING MODEL CANDIDATE CREATED
-— D-SIMP-06 CONSUMED
-— READY FOR CHATGPT GUIDED REVIEW
+— GUIDED REVIEW CHECKPOINT 01 SECTIONS 1–11 CONSOLIDATED
+— D-SIMP-07 CONSUMED
+— P2-D-01 / P2-D-02 / P2-D-03 ADOPTED
+— READY FOR CHATGPT CRITICAL REVIEW CHECKPOINT 01
 — P2 NOT YET VALIDATED
+— SECTIONS 12–22 PENDING GUIDED REVIEW
 — P3→P8 NOT AUTHORIZED
 ```
 
-NEXT WORK: CHATGPT GUIDED REVIEW OF P2 FUNCTIONAL OPERATING MODEL.
+NEXT WORK:
+1. ChatGPT Critical Review Checkpoint 01.
+2. If PASS, resume Guided Review at Section 12 — Execution Branch.
