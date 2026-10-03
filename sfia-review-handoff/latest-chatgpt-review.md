@@ -1053,7 +1053,11 @@ Branche : sfia/review-handoff
 Fichier : sfia-review-handoff/latest-chatgpt-review.md
 Source : .tmp-sfia-review/chatgpt-review.md
 Message : docs(review-handoff): publish p2 final documentary consolidation
-Verdict handoff : (rempli après publication)
+Handoff commit SHA : `08f9f4e566a56b18dba934097983d727d77c68be`
+Handoff blob SHA : `99dd133b336aa8d01ffca2f462da419b08cc7f56`
+Remote SHA : `08f9f4e566a56b18dba934097983d727d77c68be` (= origin/sfia/review-handoff)
+Remote reread : PASS (header FULL + §§12–22 + P2-D-04 + verdict READY FOR CHATGPT FINAL CRITICAL REVIEW)
+Verdict handoff : **HANDOFF UPDATED — REMOTE VERIFIED**
 
 ---
 
