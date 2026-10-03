@@ -1,326 +1,169 @@
-# CHAT-FIRST-WORK-RECOMMENDATION-CONTINUITY-01 — PR INTEGRATION GATE
+# CHAT-FIRST-WORK-RECOMMENDATION-CONTINUITY-01 — POST-MERGE HANDOFF
 
-## 1. Timestamp
-- Local: `2026-10-03 12:40:18 +0200`
-- UTC: `2026-10-03T10:40:18Z`
-- Macro: CHAT-FIRST-WORK-RECOMMENDATION-CONTINUITY-01
-- Pass: Integration / PR Gate
-- Verdict target: PR CREATED — CI GREEN — READY FOR CHATGPT PR REVIEW
+## 1. Verdict
 
-## 2. Local Git Truth before commit
-- Worktree: `/Users/morris/Projects/sfia-studio-chat-first-work-recommendation-continuity-delivery-01`
-- Branch: `delivery/sfia-studio-chat-first-work-recommendation-continuity-01`
-- HEAD before commit: `193b79d6732cca8fe49455fc4df866add301e56f`
-- Working tree: uncommitted CP01+CP02 Product candidate present
-- Staged before this pass: none
+**MERGED ON MAIN — POST-MERGE CI GREEN — INTEGRATION VERIFIED**
 
-## 3. Base main
-- origin/main (pre-commit / pre-PR / post-CI): `193b79d6732cca8fe49455fc4df866add301e56f`
-- BASE MAIN CHANGED: **NO**
+Runtime v3 remains **NON ADOPTED**.
 
-## 4. Handoff d'entrée
-- Branch: `sfia/review-handoff`
-- SHA: `153ca231b603b7573c02283296895c31399d853a`
-- Confirmed: MD-WR-01…08, CP01 closed, CP02 finalization fail-closed closed, 5152/137, typecheck/lint/build/diff-check PASS, ZERO REAL, ZERO HabitFlow mutation
-- Critical Review ChatGPT entry verdict consumed as: PASS — READY FOR MORRIS GO COMMIT / PUSH / PR
+## 2. Authority consumed
 
-## 5. Morris GO consommé
-- COMMIT projet: YES
-- PUSH branche Delivery: YES
-- CREATE PR vers main: YES
-- CI / checks: YES
-- publication Review Handoff d'intégration: YES
-- MERGE: **NO**
-- branch delete: **NO**
-- runtime v3 promotion: **NO**
-- REAL: **NO**
+Morris GO consumed for:
+- merge PR #547
+- post-merge Git truth verification
+- post-merge CI verification
+- publication of this handoff
 
-## 6. Fichiers staged / committed (PRODUCT_FILES_TO_COMMIT)
+Not consumed:
+- branch deletion
+- runtime v3 promotion/adoption
+- new REAL execution
+- doctrine/baseline promotion
 
-Count: 33
+## 3. Source / prior handoff
 
-```
-projects/sfia-studio/app/__tests__/oa/cycle/deriveWorkRecommendations.d0.test.ts
-projects/sfia-studio/app/__tests__/oa/cycle/undisposedRecommendations.d0.test.ts
-projects/sfia-studio/app/__tests__/pre-m6-product-ui/chatFirstGovernedDecisionLoop.ui.test.tsx
-projects/sfia-studio/app/__tests__/project-assistant/chatFirstWorkRecommendationContinuity.d0.test.ts
-projects/sfia-studio/app/__tests__/project-assistant/pilotNoraStudioSemanticContinuity.corr01.d0.test.ts
-projects/sfia-studio/app/__tests__/project-assistant/pilotNoraStudioSemanticContinuity.d0.test.ts
-projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
-projects/sfia-studio/app/features/project-assistant/actions.ts
-projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
-projects/sfia-studio/app/features/project-assistant/f2/studioCognitiveContext.ts
-projects/sfia-studio/app/features/project-assistant/f3/prepareM3FromDecision.ts
-projects/sfia-studio/app/features/project-assistant/trajectoryRecommendationCurrentness.ts
-projects/sfia-studio/app/features/project-assistant/w2/activeWorkRecommendationDecisionSubject.ts
-projects/sfia-studio/app/features/project-assistant/w2/assessChatFirstWorkEligibility.ts
-projects/sfia-studio/app/features/project-assistant/w2/closeProposalDecisionSubject.ts
-projects/sfia-studio/app/features/project-assistant/w2/decideTrajectory.ts
-projects/sfia-studio/app/features/project-assistant/w2/deferWorkRecommendation.ts
-projects/sfia-studio/app/features/project-assistant/w2/disposeWorkRecommendation.ts
-projects/sfia-studio/app/features/project-assistant/w2/prepareExecutionContractFromW2Decision.ts
-projects/sfia-studio/app/features/project-assistant/w2/presentedOptionSet.ts
-projects/sfia-studio/app/features/project-assistant/w2/proposalSubjectOptions.ts
-projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts
-projects/sfia-studio/app/features/project-assistant/w2/resolveChatFirstPilotDecision.ts
-projects/sfia-studio/app/features/project-assistant/w2/resolveCurrentNoraTrajectoryRecommendation.ts
-projects/sfia-studio/app/features/project-assistant/w2/resolveTrajectoryDecisionSupportProjection.ts
-projects/sfia-studio/app/features/project-assistant/w2/types.ts
-projects/sfia-studio/app/lib/oa/cycle/application/deriveUndisposedRecommendations.ts
-projects/sfia-studio/app/lib/oa/cycle/application/deriveWorkRecommendations.ts
-projects/sfia-studio/app/lib/oa/cycle/application/pilotLifecycleTransitions.ts
-projects/sfia-studio/app/lib/oa/cycle/index.ts
-projects/sfia-studio/app/lib/oa/decision/domain/invariants.ts
-projects/sfia-studio/app/lib/oa/decision/domain/types.ts
-projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-```
+Prior canonical review handoff:
+- commit: `9f1e1be901ed02c37282d8f661706d8cb11d52fb`
+- blob: `90c581b5ac9a3dad4130d9c7ec6e76c0027606f9`
 
-Includes:
-- 2 new Product files: `activeWorkRecommendationDecisionSubject.ts`, `chatFirstWorkRecommendationContinuity.d0.test.ts`
-- `production-runtime-reference.manifest.json` (mechanical digests only)
+That handoff contains the complete PR integration evidence and is superseded for integration state by this post-merge Git proof.
 
-## 7. TEMP files excluded (EXCLUDED_TEMP_FILES)
+## 4. Pull request
 
-```
-.tmp-sfia-review/chatgpt-review.md
-.tmp-sfia-review/pack-assets/
-```
+- PR: **#547 — SFIA Studio — complete chat-first Work Recommendation continuity**
+- head branch: `delivery/sfia-studio-chat-first-work-recommendation-continuity-01`
+- head SHA: `4edb9febdd2d4048c651ddc733ccdfa23f3ef857`
+- original base SHA: `193b79d6732cca8fe49455fc4df866add301e56f`
+- commits: 1
+- changed files: 33
+- additions/deletions: +4265 / -161
+- PR pre-merge state: mergeable / clean
+- PR required CI before merge: PASS
 
-Never staged. Remain local-only after commit.
+## 5. Merge
 
-## 8. Pre-commit validations
+- merge method: merge commit
+- merged: **YES**
+- merged at: `2026-10-03T10:49:13Z`
+- merge commit: `ac272df5270faae1d1bea6a78cd0cc11886e97f4`
+- merge message:
+  `Merge pull request #547 from mcleland147/delivery/sfia-studio-chat-first-work-recommendation-continuity-01`
 
-### PRE-COMMIT RERUN
-- `git diff --check` (Product): PASS
-- `npm run typecheck`: PASS
-- targeted continuity / CP02 suite (65 tests): PASS
-  - undisposedRecommendations.d0.test.ts (14)
-  - deriveWorkRecommendations.d0.test.ts (2)
-  - chatFirstWorkRecommendationContinuity.d0.test.ts (49)
+## 6. Main truth
 
-### PREVIOUS VALIDATED FULL RUN (handoff 153ca231)
-- full Vitest: 5152 PASS / 137 skipped
-- lint PASS
-- build PASS
-- git diff --check PASS
-- PRR conformance PASS
-- targeted regression aggregate: 264 PASS
+Post-merge:
+- `main = ac272df5270faae1d1bea6a78cd0cc11886e97f4`
+- PR #547 = CLOSED / MERGED
+- merge_commit_sha = `ac272df5270faae1d1bea6a78cd0cc11886e97f4`
 
-No Product code modified during this integration pass.
+Therefore the validated Delivery is now integrated on `main`.
 
-## 9. Commit SHA
-`4edb9febdd2d4048c651ddc733ccdfa23f3ef857`
+## 7. Post-merge CI
 
-## 10. Commit message
-```
-feat(sfia-studio): complete chat-first work recommendation continuity
-```
+Workflow run:
+- run id: `37117651719`
+- event: push
+- head SHA: `ac272df5270faae1d1bea6a78cd0cc11886e97f4`
+- started: `2026-10-03T10:49:15Z`
+- completed/update: `2026-10-03T10:57:17Z`
+- conclusion: **SUCCESS**
 
-Commit metadata:
-```
-4edb9febdd2d4048c651ddc733ccdfa23f3ef857
-feat(sfia-studio): complete chat-first work recommendation continuity
-Morris Cleland <morris@macbook-air.home>
-2026-10-03 12:34:21 +0200
-```
+Jobs:
+- Detect SFIA Studio changes — **SUCCESS**
+- Build and validate SFIA Studio — **SUCCESS**
+- SFIA Studio Required Gate — **SUCCESS**
 
-## 11. Committed diff
+Observed build job steps include:
+- Typecheck — SUCCESS
+- Lint — SUCCESS
+- Build — SUCCESS
+- Unit tests (Vitest) — SUCCESS
+- Modeled governance tests — SUCCESS
+- targeted secret scan / whitespace gates — completed within successful job
 
-### name-status (origin/main...HEAD)
-```
-M	projects/sfia-studio/app/__tests__/oa/cycle/deriveWorkRecommendations.d0.test.ts
-M	projects/sfia-studio/app/__tests__/oa/cycle/undisposedRecommendations.d0.test.ts
-M	projects/sfia-studio/app/__tests__/pre-m6-product-ui/chatFirstGovernedDecisionLoop.ui.test.tsx
-A	projects/sfia-studio/app/__tests__/project-assistant/chatFirstWorkRecommendationContinuity.d0.test.ts
-M	projects/sfia-studio/app/__tests__/project-assistant/pilotNoraStudioSemanticContinuity.corr01.d0.test.ts
-M	projects/sfia-studio/app/__tests__/project-assistant/pilotNoraStudioSemanticContinuity.d0.test.ts
-M	projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
-M	projects/sfia-studio/app/features/project-assistant/actions.ts
-M	projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
-M	projects/sfia-studio/app/features/project-assistant/f2/studioCognitiveContext.ts
-M	projects/sfia-studio/app/features/project-assistant/f3/prepareM3FromDecision.ts
-M	projects/sfia-studio/app/features/project-assistant/trajectoryRecommendationCurrentness.ts
-A	projects/sfia-studio/app/features/project-assistant/w2/activeWorkRecommendationDecisionSubject.ts
-M	projects/sfia-studio/app/features/project-assistant/w2/assessChatFirstWorkEligibility.ts
-M	projects/sfia-studio/app/features/project-assistant/w2/closeProposalDecisionSubject.ts
-M	projects/sfia-studio/app/features/project-assistant/w2/decideTrajectory.ts
-M	projects/sfia-studio/app/features/project-assistant/w2/deferWorkRecommendation.ts
-M	projects/sfia-studio/app/features/project-assistant/w2/disposeWorkRecommendation.ts
-M	projects/sfia-studio/app/features/project-assistant/w2/prepareExecutionContractFromW2Decision.ts
-M	projects/sfia-studio/app/features/project-assistant/w2/presentedOptionSet.ts
-M	projects/sfia-studio/app/features/project-assistant/w2/proposalSubjectOptions.ts
-M	projects/sfia-studio/app/features/project-assistant/w2/proposeTrajectoryOptions.ts
-M	projects/sfia-studio/app/features/project-assistant/w2/resolveChatFirstPilotDecision.ts
-M	projects/sfia-studio/app/features/project-assistant/w2/resolveCurrentNoraTrajectoryRecommendation.ts
-M	projects/sfia-studio/app/features/project-assistant/w2/resolveTrajectoryDecisionSupportProjection.ts
-M	projects/sfia-studio/app/features/project-assistant/w2/types.ts
-M	projects/sfia-studio/app/lib/oa/cycle/application/deriveUndisposedRecommendations.ts
-M	projects/sfia-studio/app/lib/oa/cycle/application/deriveWorkRecommendations.ts
-M	projects/sfia-studio/app/lib/oa/cycle/application/pilotLifecycleTransitions.ts
-M	projects/sfia-studio/app/lib/oa/cycle/index.ts
-M	projects/sfia-studio/app/lib/oa/decision/domain/invariants.ts
-M	projects/sfia-studio/app/lib/oa/decision/domain/types.ts
-M	projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-```
+## 8. Product behavior integrated
 
-### stat
-```
- .../oa/cycle/deriveWorkRecommendations.d0.test.ts  |    2 +
- .../oa/cycle/undisposedRecommendations.d0.test.ts  |  126 ++
- .../chatFirstGovernedDecisionLoop.ui.test.tsx      |    1 +
- ...hatFirstWorkRecommendationContinuity.d0.test.ts | 2016 ++++++++++++++++++++
- ...tNoraStudioSemanticContinuity.corr01.d0.test.ts |    7 +-
- .../pilotNoraStudioSemanticContinuity.d0.test.ts   |   11 +
- .../importBoundaries.test.ts                       |    1 +
- .../app/features/project-assistant/actions.ts      |   39 +-
- .../features/project-assistant/f2/orchestrateF2.ts |   16 +-
- .../project-assistant/f2/studioCognitiveContext.ts |   28 +-
- .../project-assistant/f3/prepareM3FromDecision.ts  |   10 +
- .../trajectoryRecommendationCurrentness.ts         |  144 +-
- .../w2/activeWorkRecommendationDecisionSubject.ts  |  285 +++
- .../w2/assessChatFirstWorkEligibility.ts           |   63 +-
- .../w2/closeProposalDecisionSubject.ts             |   53 +
- .../project-assistant/w2/decideTrajectory.ts       |  183 +-
- .../w2/deferWorkRecommendation.ts                  |   75 +-
- .../w2/disposeWorkRecommendation.ts                |   78 +-
- .../w2/prepareExecutionContractFromW2Decision.ts   |   10 +
- .../project-assistant/w2/presentedOptionSet.ts     |   47 +-
- .../project-assistant/w2/proposalSubjectOptions.ts |   90 +
- .../w2/proposeTrajectoryOptions.ts                 |  255 ++-
- .../w2/resolveChatFirstPilotDecision.ts            |  206 +-
- .../resolveCurrentNoraTrajectoryRecommendation.ts  |   27 +-
- .../resolveTrajectoryDecisionSupportProjection.ts  |  105 +-
- .../app/features/project-assistant/w2/types.ts     |   10 +-
- .../application/deriveUndisposedRecommendations.ts |  148 +-
- .../cycle/application/deriveWorkRecommendations.ts |  171 +-
- .../cycle/application/pilotLifecycleTransitions.ts |   92 +-
- projects/sfia-studio/app/lib/oa/cycle/index.ts     |    9 +
- .../app/lib/oa/decision/domain/invariants.ts       |   86 +-
- .../app/lib/oa/decision/domain/types.ts            |   28 +-
- .../production-runtime-reference.manifest.json     |    4 +-
- 33 files changed, 4265 insertions(+), 161 deletions(-)
-```
+The integrated macro preserves Morris decisions MD-WR-01…08:
 
-### show --stat
-```
-4edb9feb feat(sfia-studio): complete chat-first work recommendation continuity
- .../oa/cycle/deriveWorkRecommendations.d0.test.ts  |    2 +
- .../oa/cycle/undisposedRecommendations.d0.test.ts  |  126 ++
- .../chatFirstGovernedDecisionLoop.ui.test.tsx      |    1 +
- ...hatFirstWorkRecommendationContinuity.d0.test.ts | 2016 ++++++++++++++++++++
- ...tNoraStudioSemanticContinuity.corr01.d0.test.ts |    7 +-
- .../pilotNoraStudioSemanticContinuity.d0.test.ts   |   11 +
- .../importBoundaries.test.ts                       |    1 +
- .../app/features/project-assistant/actions.ts      |   39 +-
- .../features/project-assistant/f2/orchestrateF2.ts |   16 +-
- .../project-assistant/f2/studioCognitiveContext.ts |   28 +-
- .../project-assistant/f3/prepareM3FromDecision.ts  |   10 +
- .../trajectoryRecommendationCurrentness.ts         |  144 +-
- .../w2/activeWorkRecommendationDecisionSubject.ts  |  285 +++
- .../w2/assessChatFirstWorkEligibility.ts           |   63 +-
- .../w2/closeProposalDecisionSubject.ts             |   53 +
- .../project-assistant/w2/decideTrajectory.ts       |  183 +-
- .../w2/deferWorkRecommendation.ts                  |   75 +-
- .../w2/disposeWorkRecommendation.ts                |   78 +-
- .../w2/prepareExecutionContractFromW2Decision.ts   |   10 +
- .../project-assistant/w2/presentedOptionSet.ts     |   47 +-
- .../project-assistant/w2/proposalSubjectOptions.ts |   90 +
- .../w2/proposeTrajectoryOptions.ts                 |  255 ++-
- .../w2/resolveChatFirstPilotDecision.ts            |  206 +-
- .../resolveCurrentNoraTrajectoryRecommendation.ts  |   27 +-
- .../resolveTrajectoryDecisionSupportProjection.ts  |  105 +-
- .../app/features/project-assistant/w2/types.ts     |   10 +-
- .../application/deriveUndisposedRecommendations.ts |  148 +-
- .../cycle/application/deriveWorkRecommendations.ts |  171 +-
- .../cycle/application/pilotLifecycleTransitions.ts |   92 +-
- projects/sfia-studio/app/lib/oa/cycle/index.ts     |    9 +
- .../app/lib/oa/decision/domain/invariants.ts       |   86 +-
- .../app/lib/oa/decision/domain/types.ts            |   28 +-
- .../production-runtime-reference.manifest.json     |    4 +-
- 33 files changed, 4265 insertions(+), 161 deletions(-)
-```
+- Work Recommendations are chat-first.
+- Journal left rail is memory/read-only, not a decision surface.
+- Active ACW Work Recommendations are visible before seal.
+- `work_recommendation` is a first-class governed decision subject.
+- `DecisionBasis.sourceType = work_recommendation` for governed Work decisions.
+- No artificial Proposal is created for Work.
+- ProjectTrajectory decision support is not kept open after an already-decided PT unless genuine replan support is present.
+- TDS `PRESENT | NONE | UNAVAILABLE` remains explicit.
+- Active unresolved Work Recommendations block finalization.
+- TDS UNAVAILABLE + active ACW `opt:trajectory:*` blocks finalization through a derived classification-unavailable sentinel without inventing Work or PT.
+- Work HumanDecision does not implicitly open EC/M3 preparation.
+- Lifecycle Recommendations remain separate on the right-side Lifecycle surface.
 
-### diff-check origin/main...HEAD
-PASS
+## 9. Finalization fail-closed proof
 
-Product invariants present in committed candidate:
-- Work Recommendations chat-first
-- Journal gauche read-only
-- work_recommendation DecisionSubjectMode
-- work_recommendation DecisionBasis
-- TDS PRESENT/NONE/UNAVAILABLE
-- finalization blockers + CP02 derived sentinel
-- prepare guards
-- Lifecycle separation
-- PRR manifest digest-only
+For TDS UNAVAILABLE + active cycle-bound ACW Recommendation carrying `opt:trajectory:*`:
 
-## 12. Push remote verification
-- Remote branch: `origin/delivery/sfia-studio-chat-first-work-recommendation-continuity-01`
-- Before push: branch absent (new)
-- After push: `4edb9febdd2d4048c651ddc733ccdfa23f3ef857`
-- REMOTE_BRANCH_SHA == DELIVERY_COMMIT_SHA: **YES**
-- Force: NO
+- not classified Work
+- not classified ProjectTrajectory
+- no HumanDecision
+- no PresentedOptionSet authority
+- derived finalization ref:
+  `recommendation_classification_unavailable:<acwId>`
+- existing blocker channel:
+  `undisposed_recommendations`
+- `assessment.canComplete = false`
+- FINALIZE therefore does not call completion mutation.
 
-## 13. PR
-- Number: **547**
-- Title: SFIA Studio — complete chat-first Work Recommendation continuity
-- URL: https://github.com/mcleland147/sfia-workspace/pull/547
-- State: OPEN
+The sentinel is derived/recomputed and never persisted as an EpistemicItem or decision subject.
 
-## 14. PR head / base SHA
-- PR_HEAD_SHA: `4edb9febdd2d4048c651ddc733ccdfa23f3ef857` (== DELIVERY_COMMIT_SHA)
-- PR_BASE_SHA: `193b79d6732cca8fe49455fc4df866add301e56f` (== origin/main at creation)
-- Base conflict / main advanced: **NO**
+## 10. Proof qualification
 
-## 15. CI checks (terminal)
-
-Workflow run: https://github.com/mcleland147/sfia-workspace/actions/runs/37116865750
-
-| Check | Status | Conclusion | Duration | URL |
-|-------|--------|------------|----------|-----|
-| Detect SFIA Studio changes | COMPLETED | SUCCESS | 7s | https://github.com/mcleland147/sfia-workspace/actions/runs/37116865750/job/111185260192 |
-| Build and validate SFIA Studio | COMPLETED | SUCCESS | 4m53s | https://github.com/mcleland147/sfia-workspace/actions/runs/37116865750/job/111185285917 |
-| SFIA Studio Required Gate | COMPLETED | SUCCESS | 2s | https://github.com/mcleland147/sfia-workspace/actions/runs/37116865750/job/111186034926 |
-
-gh pr checks:
-```
-Build and validate SFIA Studio	pass	4m53s	https://github.com/mcleland147/sfia-workspace/actions/runs/37116865750/job/111185285917
-Detect SFIA Studio changes	pass	7s	https://github.com/mcleland147/sfia-workspace/actions/runs/37116865750/job/111185260192
-SFIA Studio Required Gate	pass	2s	https://github.com/mcleland147/sfia-workspace/actions/runs/37116865750/job/111186034926
-```
-
-**CI_STATUS = PASS**
-
-## 16. Current origin/main
-`193b79d6732cca8fe49455fc4df866add301e56f`
-
-Delivery is **NOT** on main. Local HEAD == remote Delivery branch == PR head.
-
-## 17. Proof qualification
 **DETERMINISTIC PRODUCT E2E PROVEN AT TESTED SCOPE**
 
-## 18. Fake / Real
-ZERO REAL Nora / OpenAI / HabitFlow / HD / EC / Attempt / execution.
+This merge does NOT establish:
+- REAL boundary proof
+- global Product readiness
+- runtime v3 ADOPTED
+- doctrine/baseline promotion
 
-## 19. Runtime v3
-**NON ADOPTED**
+## 11. REAL / external effects
 
-## 20. Reserves
-- Merge not authorized by this pass.
-- ChatGPT must re-read remote handoff + PR before any merge GO.
-- Local `.tmp-sfia-review/**` remains uncommitted (expected).
+New REAL run during this merge pass: **NO**.
 
-## 21. Debt / exit
-- Await ChatGPT PR review of canonical handoff + PR #547.
-- Merge / branch delete require a separate Morris GO.
+HabitFlow REAL mutation: **ZERO**.
 
-## 22. Merge authority
-**NOT AUTHORIZED / NOT CONSUMED**
+No new Nora/OpenAI REAL, HumanDecision REAL, ExecutionContract REAL, Attempt REAL, or execution REAL was performed by this merge pass.
 
-## 23. Branch deletion
-**NOT AUTHORIZED**
+## 12. Branch state
 
-## 24. Unique verdict
-**PR CREATED — CI GREEN — READY FOR CHATGPT PR REVIEW**
+Delivery branch still exists:
+- `delivery/sfia-studio-chat-first-work-recommendation-continuity-01`
+- branch head: `4edb9febdd2d4048c651ddc733ccdfa23f3ef857`
 
-Not READY FOR MERGE.
+**Branch deletion NOT authorized and NOT performed.**
+
+## 13. Reserves / debt
+
+Non-blocking known reserves remain:
+- Work defer may record a HumanDecision without DecisionBasis rather than fabricate Proposal provenance.
+- `proposalContext` naming remains historical in DecisionBasis/LPS context.
+- TDS resolver remains late-bound into pilot lifecycle; fail-closed behavior is now deterministic.
+
+No reserve blocks the merged scope.
+
+## 14. Git effects
+
+- Product commit: YES — `4edb9febdd2d4048c651ddc733ccdfa23f3ef857`
+- Product branch push: YES
+- PR: YES — #547
+- Merge: YES — `ac272df5270faae1d1bea6a78cd0cc11886e97f4`
+- Main updated: YES
+- Branch delete: NO
+- Force push: NO
+
+## 15. Unique verdict
+
+**POST-MERGE VERIFIED — CHAT-FIRST-WORK-RECOMMENDATION-CONTINUITY-01 INTEGRATED ON MAIN**
+
+Next activity must start from current Git truth at `main@ac272df5270faae1d1bea6a78cd0cc11886e97f4`.
+
+No runtime v3 adoption claim is made.
