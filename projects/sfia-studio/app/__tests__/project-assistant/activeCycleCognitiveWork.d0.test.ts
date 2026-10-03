@@ -8,6 +8,7 @@
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
+import Ajv from "ajv";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   classifyTrajectoryBinding,
@@ -31,6 +32,7 @@ import {
   NORA_ACTIVE_CYCLE_WORK_ITEM_SCHEMA,
   NORA_ACTIVE_CYCLE_WORK_OUTPUT_SCHEMA,
   applyPreCycleRoutingBoundaryCoherence,
+  isNoraActiveCycleWorkItem,
   isNoraActiveCycleWorkOutput,
   normalizeNoraProductTurnStructuredOutput,
   type NoraActiveCycleWorkItem,
@@ -839,6 +841,103 @@ describe("D-GF-ACW-01 schema (BAR-WORK-12..15)", () => {
       turnSchema.indexOf("activeCycleWork") + 1200,
     );
     expect(acwSlice).not.toMatch(/"properties":\{[^}]*"(id|authority|provenance)"/);
+  });
+
+  it("CORR-ACW-OPTREF: schema + parser enforce type × recommendedOptionRef parity", () => {
+    const ajv = new Ajv({ allErrors: true });
+    const validateItem = ajv.compile(NORA_ACTIVE_CYCLE_WORK_ITEM_SCHEMA);
+    const nonRecTypes = [
+      "Observation",
+      "Hypothesis",
+      "Option",
+      "Reservation",
+      "Contradiction",
+    ] as const;
+    const validOpt = "opt:trajectory:bounded-direct";
+
+    for (const type of nonRecTypes) {
+      const withNull = {
+        type,
+        statement: "ok",
+        confidence: null,
+        blocking: null,
+        recommendedOptionRef: null,
+      };
+      expect(validateItem(withNull)).toBe(true);
+      expect(isNoraActiveCycleWorkItem(withNull)).toBe(true);
+      expect(isNoraActiveCycleWorkOutput({ items: [withNull] })).toBe(true);
+
+      const withRef = {
+        ...withNull,
+        recommendedOptionRef: validOpt,
+      };
+      expect(validateItem(withRef)).toBe(false);
+      expect(isNoraActiveCycleWorkItem(withRef)).toBe(false);
+      expect(isNoraActiveCycleWorkOutput({ items: [withRef] })).toBe(false);
+      // Fail-closed: normalize drops the whole structured turn (no silent nulling).
+      expect(
+        normalizeNoraProductTurnStructuredOutput({
+          narrative: "n",
+          preCycleRoutingAssessment: { ...ACW_DEFER_ASSESSMENT },
+          lifecycleRecommendation: null,
+          activeCycleWork: { items: [withRef] },
+        }),
+      ).toBeNull();
+    }
+
+    const recWithRef = {
+      type: "Recommendation" as const,
+      statement: "Poursuivre bornée",
+      confidence: "high" as const,
+      blocking: false,
+      recommendedOptionRef: validOpt,
+    };
+    expect(validateItem(recWithRef)).toBe(true);
+    expect(isNoraActiveCycleWorkItem(recWithRef)).toBe(true);
+
+    const recWithNull = {
+      type: "Recommendation" as const,
+      statement: "Recommandation non optionnelle",
+      confidence: null,
+      blocking: null,
+      recommendedOptionRef: null,
+    };
+    expect(validateItem(recWithNull)).toBe(true);
+    expect(isNoraActiveCycleWorkItem(recWithNull)).toBe(true);
+  });
+
+  it("CORR-ACW-OPTREF: materialize keeps recommended_option_ref_only_on_recommendation (ZERO write)", async () => {
+    const s = await seedStarted("optref-mat");
+    const facts = await materializeFacts(
+      s.oa,
+      s.projectId,
+      s.cycle.cycleInstanceId,
+      "cor:acw-optref-mat",
+    );
+    const before = (
+      await s.oa.cycleServices.epistemic.listByProject(s.projectId)
+    ).filter((e) => e.source === ACTIVE_CYCLE_WORK_SOURCE).length;
+
+    const mat = await materializeActiveCycleWork(
+      acwMaterializeInput(s.oa, facts, [
+        {
+          type: "Observation",
+          statement: "Observation carrying illegal option identity",
+          confidence: null,
+          blocking: null,
+          recommendedOptionRef: "opt:trajectory:bounded-direct",
+        },
+      ]),
+    );
+    expect(mat.ok).toBe(false);
+    if (mat.ok) throw new Error("expected fail-closed");
+    expect(mat.code).toBe("ACTIVE_CYCLE_WORK_INVALID");
+    expect(mat.reason).toBe("recommended_option_ref_only_on_recommendation");
+
+    const after = (
+      await s.oa.cycleServices.epistemic.listByProject(s.projectId)
+    ).filter((e) => e.source === ACTIVE_CYCLE_WORK_SOURCE).length;
+    expect(after).toBe(before);
   });
 });
 

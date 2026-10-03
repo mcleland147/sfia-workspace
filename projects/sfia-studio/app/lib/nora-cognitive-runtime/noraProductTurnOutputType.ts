@@ -86,50 +86,86 @@ export const PRE_CYCLE_ROUTING_ASSESSMENT_READY_TO_EMIT: PreCycleRoutingAssessme
     activeCycleAlreadyCoversWork: false,
   });
 
-/** D-GF-ACW-01 — non-authoritative active-cycle cognitive work items (no ids). */
-export const NORA_ACTIVE_CYCLE_WORK_ITEM_SCHEMA = {
-  type: "object" as const,
-  additionalProperties: false as const,
-  required: [
-    "type",
-    "statement",
-    "confidence",
-    "blocking",
-    "recommendedOptionRef",
-  ],
-  properties: {
-    type: {
-      type: "string" as const,
-      enum: [
-        "Observation",
-        "Hypothesis",
-        "Option",
-        "Recommendation",
-        "Reservation",
-        "Contradiction",
-      ],
-    },
-    statement: { type: "string" as const },
-    confidence: {
-      anyOf: [
-        {
-          type: "string" as const,
-          enum: ["high", "medium", "low", "none"],
-        },
-        { type: "null" as const },
-      ],
-    },
-    blocking: { anyOf: [{ type: "boolean" as const }, { type: "null" as const }] },
-    /**
-     * PILOT-NORA-STUDIO-SEMANTIC-CONTINUITY-01 — canonical Option identity when
-     * type=Recommendation targets a server-derived trajectory/proposal Option.
-     * Structured field only (never parsed from statement). Null for non-option
-     * recommendations. Recommendation ≠ HumanDecision; never promotes trajectory.
-     */
-    recommendedOptionRef: {
-      anyOf: [{ type: "string" as const }, { type: "null" as const }],
-    },
+/**
+ * Shared ACW item fields for OpenAI Structured Outputs (strict).
+ * HABITFLOW-NORA-ACW-OPTION-REF-CONTRACT-CORR-01 — type×recommendedOptionRef
+ * is discriminated via anyOf below (no if/then/else).
+ */
+const NORA_ACTIVE_CYCLE_WORK_ITEM_COMMON_PROPERTIES = {
+  statement: { type: "string" as const },
+  confidence: {
+    anyOf: [
+      {
+        type: "string" as const,
+        enum: ["high", "medium", "low", "none"],
+      },
+      { type: "null" as const },
+    ],
   },
+  blocking: { anyOf: [{ type: "boolean" as const }, { type: "null" as const }] },
+} as const;
+
+const NORA_ACTIVE_CYCLE_WORK_ITEM_REQUIRED = [
+  "type",
+  "statement",
+  "confidence",
+  "blocking",
+  "recommendedOptionRef",
+] as const;
+
+/**
+ * D-GF-ACW-01 — non-authoritative active-cycle cognitive work items (no ids).
+ *
+ * HABITFLOW-NORA-ACW-OPTION-REF-CONTRACT-CORR-01 — parity with
+ * materializeActiveCycleWork `recommended_option_ref_only_on_recommendation`:
+ * - Recommendation: recommendedOptionRef = string | null
+ * - all other types: recommendedOptionRef = null only
+ *
+ * Discriminated via nested anyOf (OpenAI Responses json_schema strict:true).
+ * Recommendation ≠ HumanDecision; never promotes trajectory.
+ */
+export const NORA_ACTIVE_CYCLE_WORK_ITEM_SCHEMA = {
+  anyOf: [
+    {
+      type: "object" as const,
+      additionalProperties: false as const,
+      required: [...NORA_ACTIVE_CYCLE_WORK_ITEM_REQUIRED],
+      properties: {
+        type: {
+          type: "string" as const,
+          enum: ["Recommendation"],
+        },
+        ...NORA_ACTIVE_CYCLE_WORK_ITEM_COMMON_PROPERTIES,
+        /**
+         * Canonical Option identity when Recommendation targets a server-derived
+         * trajectory/proposal Option. Structured field only (never from prose).
+         */
+        recommendedOptionRef: {
+          anyOf: [{ type: "string" as const }, { type: "null" as const }],
+        },
+      },
+    },
+    {
+      type: "object" as const,
+      additionalProperties: false as const,
+      required: [...NORA_ACTIVE_CYCLE_WORK_ITEM_REQUIRED],
+      properties: {
+        type: {
+          type: "string" as const,
+          enum: [
+            "Observation",
+            "Hypothesis",
+            "Option",
+            "Reservation",
+            "Contradiction",
+          ],
+        },
+        ...NORA_ACTIVE_CYCLE_WORK_ITEM_COMMON_PROPERTIES,
+        /** Non-Recommendation ACW items must not carry Option identity. */
+        recommendedOptionRef: { type: "null" as const },
+      },
+    },
+  ],
 } as const;
 
 export const NORA_ACTIVE_CYCLE_WORK_OUTPUT_SCHEMA = {
@@ -481,14 +517,25 @@ export function isNoraActiveCycleWorkItem(
     return false;
   }
   if (o.blocking !== null && typeof o.blocking !== "boolean") return false;
-  // recommendedOptionRef: absent (legacy) OR null OR valid opt: ref.
+  // HABITFLOW-NORA-ACW-OPTION-REF-CONTRACT-CORR-01 — parity with materializer:
+  // non-Recommendation + non-null recommendedOptionRef → REJECT (never silent null).
+  // Recommendation: absent (legacy) OR null OR valid opt: ref.
   // Invalid non-null strings fail closed (reject item).
+  const type = String(o.type);
+  const hasRefKey = "recommendedOptionRef" in o;
+  const rawRef = hasRefKey ? o.recommendedOptionRef : undefined;
+  if (type !== "Recommendation") {
+    if (rawRef !== undefined && rawRef !== null) {
+      return false;
+    }
+    return true;
+  }
   if (
-    "recommendedOptionRef" in o &&
-    o.recommendedOptionRef !== null &&
-    o.recommendedOptionRef !== undefined
+    hasRefKey &&
+    rawRef !== null &&
+    rawRef !== undefined
   ) {
-    if (normalizeActiveCycleRecommendedOptionRef(o.recommendedOptionRef) === null) {
+    if (normalizeActiveCycleRecommendedOptionRef(rawRef) === null) {
       return false;
     }
   }
