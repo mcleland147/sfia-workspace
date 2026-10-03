@@ -90,6 +90,59 @@ export async function writeProposalDecisionRef(
 }
 
 /**
+ * MD-WR-03 — durable DecisionRef for a Work Recommendation subject.
+ * relatedObjects carry BOTH optionSetRef (optset:) and the ACW id (epi:acw:)
+ * so decidedOptionSetRefs / Journal disposition reconstruct without any
+ * Proposal id. No ProposalStore interaction.
+ */
+export async function writeWorkRecommendationDecisionRef(input: {
+  readonly oa: RuntimeOaStack;
+  readonly projectId: string;
+  readonly decisionId: string;
+  readonly workRecommendationEpistemicItemId: string;
+  readonly selectedOptionRef: string;
+  readonly optionSetRef: string;
+  readonly epistemicRefs?: readonly string[];
+  readonly statement?: string;
+  readonly correlationId?: string;
+}): Promise<CloseProposalDecisionSubjectResult> {
+  const epistemicItemId = decisionRefEpistemicItemId(input.optionSetRef);
+  const closure = await input.oa.cycleServices.updateEpistemicState.execute({
+    projectId: input.projectId,
+    items: [
+      {
+        epistemicItemId,
+        type: "DecisionRef",
+        statement:
+          input.statement ??
+          `Décision humaine ${input.decisionId} — option retenue ${input.selectedOptionRef} — recommandation de travail ${input.workRecommendationEpistemicItemId} (ProjectTrajectory non promue).`,
+        status: "active",
+        source: input.decisionId,
+        relatedObjects: [
+          input.projectId,
+          input.decisionId,
+          input.selectedOptionRef,
+          input.optionSetRef,
+          input.workRecommendationEpistemicItemId,
+          ...(input.epistemicRefs ?? []),
+        ],
+      },
+    ],
+    createdBy: LOCAL_PILOTE_ACTOR,
+    correlationId:
+      input.correlationId ?? `w2-decref-work:${input.optionSetRef}`,
+  });
+  if (!closure.ok) {
+    return {
+      ok: false,
+      code: closure.error.detailCode,
+      message: `Closure DecisionRef recommandation de travail échouée (${closure.error.detailCode}) — HumanDecision non autoritaire.`,
+    };
+  }
+  return { ok: true, epistemicItemId };
+}
+
+/**
  * Process-local ProposalStore status + pending marker resolve.
  * Call ONLY after durable DecisionRef (and HD) succeeded.
  */

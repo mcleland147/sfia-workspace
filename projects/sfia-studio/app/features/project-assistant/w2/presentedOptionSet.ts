@@ -17,7 +17,10 @@ import type { TrajectoryOptionDto, TrajectoryRecommendationDto } from "./types";
 
 export const W2_PRESENTED_OPTION_SET_KIND = "w2_presented_option_set" as const;
 
-export type DecisionSubjectMode = "proposal" | "project_trajectory";
+export type DecisionSubjectMode =
+  | "proposal"
+  | "project_trajectory"
+  | "work_recommendation";
 
 export type OptionSetDigestInputs = {
   readonly cycleTypeId: string;
@@ -30,6 +33,8 @@ export type OptionSetDigestInputs = {
   readonly proposalId?: string | null;
   readonly proposalSubjectDigest?: string | null;
   readonly decisionSubjectMode?: DecisionSubjectMode;
+  /** MD-WR-03 — ACW identity sealed into the digest (work_recommendation only). */
+  readonly workRecommendationEpistemicItemId?: string | null;
 };
 
 export type QualificationDigestInputs = {
@@ -78,6 +83,11 @@ export type PresentedOptionSetBinding = {
   readonly decisionSubjectMode: DecisionSubjectMode;
   readonly proposalId?: string | null;
   readonly proposalSubjectDigest?: string | null;
+  /**
+   * MD-WR-03 — durable ACW Recommendation identity for work_recommendation mode.
+   * Server-owned; never accepted from model/client as authority at decide time.
+   */
+  readonly workRecommendationEpistemicItemId?: string | null;
   readonly promotesProjectTrajectory: boolean;
   readonly sealedExecutionBasis?: SealedProposalExecutionBasis | null;
 };
@@ -112,6 +122,13 @@ export function computeOptionSetDigest(inputs: OptionSetDigestInputs): string {
     proposalId: inputs.proposalId ?? null,
     proposalSubjectDigest: inputs.proposalSubjectDigest ?? null,
     decisionSubjectMode: inputs.decisionSubjectMode ?? "project_trajectory",
+    // Only present for work_recommendation so legacy digests stay stable.
+    ...(inputs.workRecommendationEpistemicItemId
+      ? {
+          workRecommendationEpistemicItemId:
+            inputs.workRecommendationEpistemicItemId,
+        }
+      : {}),
   });
 }
 
@@ -152,7 +169,8 @@ function isPresentedBinding(value: unknown): value is PresentedOptionSetBinding 
   }
   const mode =
     v.decisionSubjectMode === "proposal" ||
-    v.decisionSubjectMode === "project_trajectory"
+    v.decisionSubjectMode === "project_trajectory" ||
+    v.decisionSubjectMode === "work_recommendation"
       ? v.decisionSubjectMode
       : // Legacy bindings without mode are trajectory OptionSets.
         "project_trajectory";
@@ -162,8 +180,16 @@ function isPresentedBinding(value: unknown): value is PresentedOptionSetBinding 
       typeof v.candidateVersion === "number"
     );
   }
-  // proposal mode: trajectory fields must be null/absent
-  return v.trajectoryId == null && v.candidateVersion == null;
+  // proposal / work_recommendation: trajectory fields must be null/absent
+  if (v.trajectoryId != null || v.candidateVersion != null) return false;
+  if (mode === "work_recommendation") {
+    return (
+      typeof v.workRecommendationEpistemicItemId === "string" &&
+      v.workRecommendationEpistemicItemId.startsWith("epi:acw:") &&
+      v.promotesProjectTrajectory === false
+    );
+  }
+  return true;
 }
 
 export function parsePresentedOptionSetStatement(
@@ -195,6 +221,19 @@ export function isProposalSubjectPresentedSet(
     typeof presented.proposalId === "string" &&
     presented.proposalId.trim().length > 0 &&
     presented.promotesProjectTrajectory === false
+  );
+}
+
+export function isWorkRecommendationPresentedSet(
+  presented: PresentedOptionSetBinding,
+): boolean {
+  return (
+    presented.decisionSubjectMode === "work_recommendation" &&
+    typeof presented.workRecommendationEpistemicItemId === "string" &&
+    presented.workRecommendationEpistemicItemId.startsWith("epi:acw:") &&
+    presented.promotesProjectTrajectory === false &&
+    presented.trajectoryId == null &&
+    presented.candidateVersion == null
   );
 }
 

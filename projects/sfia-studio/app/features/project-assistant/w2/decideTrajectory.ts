@@ -14,6 +14,13 @@
  *
  * CORR-PROOF-10 — Proposal subject OptionSets record HD only (ZERO promotion).
  * Client trajectoryId/candidateVersion are hostile and ignored in that mode.
+ *
+ * MD-WR-03 — Work Recommendation OptionSets (decisionSubjectMode
+ * work_recommendation) behave like Proposal subjects for promotion: HD +
+ * DecisionRef + dispose carrier AND ACW, ZERO ProjectTrajectory / Proposal
+ * store mutation. MD-WR-06: DecisionBasis.sourceType is `work_recommendation`
+ * with sourceRef=optionSetRef (never a prop: id) and a typed
+ * workRecommendationContext (ACW id, option refs, digest).
  */
 
 import { randomBytes, randomUUID } from "node:crypto";
@@ -38,6 +45,7 @@ import {
   computeOptionSetDigest,
   computeQualificationDigest,
   isProposalSubjectPresentedSet,
+  isWorkRecommendationPresentedSet,
   loadPresentedOptionSet,
 } from "./presentedOptionSet";
 import {
@@ -58,6 +66,7 @@ import type { F2ProposalStatus } from "../f2/types";
 import {
   finalizeProposalSubjectAfterDurableClosure,
   writeProposalDecisionRef,
+  writeWorkRecommendationDecisionRef,
 } from "./closeProposalDecisionSubject";
 import { disposeWorkRecommendationAfterDecision } from "./disposeWorkRecommendation";
 
@@ -199,6 +208,12 @@ type AtomicDecideOutcome =
       readonly nextProposalStatus: F2ProposalStatus;
     }
   | {
+      readonly mode: "work_recommendation";
+      readonly decisionId: string;
+      readonly livingProjectStateVersion: number;
+      readonly workRecommendationEpistemicItemId: string;
+    }
+  | {
       readonly mode: "project_trajectory";
       readonly decisionId: string;
       readonly promoted: {
@@ -242,9 +257,12 @@ export async function decideTrajectory(
   }
   const presented = loaded.presented;
   const proposalSubjectMode = isProposalSubjectPresentedSet(presented);
+  const workSubjectMode = isWorkRecommendationPresentedSet(presented);
+  /** Non-promoting subject (Proposal or Work Recommendation). */
+  const nonPromotingSubject = proposalSubjectMode || workSubjectMode;
 
   // Durable closure: a DecisionRef for this OptionSet means subject already decided.
-  if (proposalSubjectMode) {
+  if (nonPromotingSubject) {
     const epistemic = await oa.cycleServices.getEpistemicState.execute({
       projectId: input.projectId,
     });
@@ -267,12 +285,12 @@ export async function decideTrajectory(
         ok: false,
         code: "SUBJECT_ALREADY_DECIDED",
         message:
-          "Ce PresentedOptionSet Proposal a déjà reçu une HumanDecision — aucune seconde décision.",
+          "Ce PresentedOptionSet a déjà reçu une HumanDecision — aucune seconde décision.",
       };
     }
   }
 
-  if (!proposalSubjectMode) {
+  if (!nonPromotingSubject) {
     if (
       presented.trajectoryId !== input.trajectoryId ||
       presented.candidateVersion !== input.candidateVersion
@@ -298,6 +316,8 @@ export async function decideTrajectory(
     proposalId: presented.proposalId ?? null,
     proposalSubjectDigest: presented.proposalSubjectDigest ?? null,
     decisionSubjectMode: presented.decisionSubjectMode,
+    workRecommendationEpistemicItemId:
+      presented.workRecommendationEpistemicItemId ?? null,
   });
   if (recomputedDigest !== presented.optionSetDigest) {
     return {
@@ -321,11 +341,28 @@ export async function decideTrajectory(
           "OptionSet Proposal sans executionBasis/digest scellés — fail-closed.",
       };
     }
+  } else if (workSubjectMode) {
+    if (
+      presented.proposalId ||
+      presented.proposalSubjectDigest ||
+      presented.sealedExecutionBasis ||
+      presented.trajectoryId != null ||
+      presented.candidateVersion != null ||
+      presented.promotesProjectTrajectory !== false
+    ) {
+      return {
+        ok: false,
+        code: "SUBJECT_OPTION_SET_MISMATCH",
+        message:
+          "Liaison recommandation de travail incohérente (Proposal/trajectoire présentes) — fail-closed.",
+      };
+    }
   } else if (
     presented.proposalId ||
     presented.sealedExecutionBasis ||
     presented.promotesProjectTrajectory === false ||
-    presented.decisionSubjectMode === "proposal"
+    presented.decisionSubjectMode === "proposal" ||
+    presented.decisionSubjectMode === "work_recommendation"
   ) {
     return {
       ok: false,
@@ -382,7 +419,8 @@ export async function decideTrajectory(
   if (
     typeof presented.recommendationBasisDigest === "string" &&
     presented.recommendationBasisDigest.trim().length > 0 &&
-    presented.decisionSubjectMode !== "proposal"
+    presented.decisionSubjectMode !== "proposal" &&
+    presented.decisionSubjectMode !== "work_recommendation"
   ) {
     const liveForBasis = await readLiveProjectContext(oa, input.projectId);
     if (!liveForBasis.ok) {
@@ -459,7 +497,7 @@ export async function decideTrajectory(
   }
 
   // Trajectory candidate load — project_trajectory mode only.
-  if (!proposalSubjectMode) {
+  if (!nonPromotingSubject) {
     if (
       typeof input.trajectoryId !== "string" ||
       !input.trajectoryId.trim() ||
@@ -518,7 +556,52 @@ export async function decideTrajectory(
 
   const optionRefs = options.map((o) => o.optionRef);
   const sealed = presented.sealedExecutionBasis;
-  const decisionBasis: DecisionBasis = proposalSubjectMode
+  const workAcwId = presented.workRecommendationEpistemicItemId ?? null;
+  const decisionBasis: DecisionBasis = workSubjectMode
+    ? {
+        // MD-WR-06 — honest source type; NEVER "proposal".
+        sourceType: "work_recommendation",
+        sourceRef: input.optionSetRef,
+        workRecommendationContext: {
+          workRecommendationEpistemicItemId: workAcwId!,
+          optionSetRef: input.optionSetRef,
+          optionRefs: [...optionRefs],
+          selectedOptionRef: input.selectedOptionRef,
+          ...(recommendedOptionRef ? { recommendedOptionRef } : {}),
+          optionSetDigest,
+        },
+        sourceDigest: computeDecisionBasisSourceDigest({
+          decisionSubjectMode: "work_recommendation",
+          optionSetRef: input.optionSetRef,
+          optionSetDigest,
+          optionRefs,
+          selectedOptionRef: input.selectedOptionRef,
+          recommendedOptionRef,
+          workRecommendationEpistemicItemId: workAcwId,
+        }),
+        projectId: input.projectId,
+        cycleInstanceId: live.context.activeCycleInstanceId ?? undefined,
+        proposalContext: {
+          lpsId: live.context.lpsId,
+          lpsVersion: live.context.lpsVersion,
+          doctrineDigest: live.context.doctrineDigest,
+          activeCycleInstanceId: live.context.activeCycleInstanceId ?? undefined,
+          ckcResolutionRef: live.context.ckcResolutionRef ?? undefined,
+        },
+        // NO trajectoryContext — Work Recommendation never binds ProjectTrajectory.
+        // NO targetPath / intentKind — never an execution-qualifying basis.
+        executionBasis: {
+          objective: live.context.objective,
+          scope: selected.intent,
+          expectedOutcome: `Recommandation de travail ${workAcwId}: ${selected.label}`,
+          reservations: input.reservesText?.trim()
+            ? [input.reservesText.trim()]
+            : [...selected.reservations],
+          stopConditions: ["AUCUNE EXÉCUTION", "STOP AVANT EXECUTE"],
+          requestedOperation: `w2:work-recommendation:${input.selectedOptionRef}`,
+        },
+      }
+    : proposalSubjectMode
     ? {
         sourceType: "proposal",
         sourceRef: presented.proposalId!,
@@ -658,13 +741,17 @@ export async function decideTrajectory(
         },
       };
 
-  const decisionId = proposalSubjectMode
-    ? `dec:w2-prop:${randomUUID()}`
-    : `dec:w2-trj:${randomUUID()}`;
+  const decisionId = workSubjectMode
+    ? `dec:w2-wr:${randomUUID()}`
+    : proposalSubjectMode
+      ? `dec:w2-prop:${randomUUID()}`
+      : `dec:w2-trj:${randomUUID()}`;
   const reserves = input.reservesText?.trim();
-  const decisionSubject = proposalSubjectMode
-    ? `W2 Proposal subject arbitration for ${presented.proposalId}`
-    : `W2 trajectory arbitration for ${input.optionSetRef}`;
+  const decisionSubject = workSubjectMode
+    ? `W2 work recommendation arbitration for ${workAcwId}`
+    : proposalSubjectMode
+      ? `W2 Proposal subject arbitration for ${presented.proposalId}`
+      : `W2 trajectory arbitration for ${input.optionSetRef}`;
 
   let atomic: AtomicDecideOutcome;
   try {
@@ -701,9 +788,11 @@ export async function decideTrajectory(
         decisionBasis,
         linkToLivingProjectState: true,
         expectedLpsVersion: live.context.lpsVersion,
-        correlationId: proposalSubjectMode
-          ? `w2-dec-prop:${presented.proposalId}`
-          : `w2-dec:${input.optionSetRef}`,
+        correlationId: workSubjectMode
+          ? `w2-dec-wr:${input.optionSetRef}`
+          : proposalSubjectMode
+            ? `w2-dec-prop:${presented.proposalId}`
+            : `w2-dec:${input.optionSetRef}`,
       });
 
       if (!recorded.ok) {
@@ -715,6 +804,46 @@ export async function decideTrajectory(
 
       const lpsAfterDecision =
         recorded.livingProjectStateVersion ?? live.context.lpsVersion;
+
+      if (workSubjectMode) {
+        // Work Recommendation subject — HD + DecisionRef + dispose carrier AND ACW
+        // in ONE UoW. ZERO ProjectTrajectory, ZERO ProposalStore.
+        const workDisposition =
+          input.selectedOptionRef === PROPOSAL_SUBJECT_REFUSE_REF
+            ? ("refuse" as const)
+            : input.selectedOptionRef === PROPOSAL_SUBJECT_AMEND_REF
+              ? ("amend" as const)
+              : ("accept" as const);
+        const closure = await writeWorkRecommendationDecisionRef({
+          oa,
+          projectId: input.projectId,
+          decisionId,
+          workRecommendationEpistemicItemId: workAcwId!,
+          selectedOptionRef: input.selectedOptionRef,
+          optionSetRef: input.optionSetRef,
+          epistemicRefs,
+        });
+        if (!closure.ok) {
+          throw new DecideAtomicFailure(closure.code, closure.message);
+        }
+        const workDisposed = await disposeWorkRecommendationAfterDecision({
+          oa,
+          projectId: input.projectId,
+          optionSetRef: input.optionSetRef,
+          decisionId,
+          disposition: workDisposition,
+          workRecommendationEpistemicItemId: workAcwId,
+        });
+        if (!workDisposed.ok) {
+          throw new DecideAtomicFailure(workDisposed.code, workDisposed.message);
+        }
+        return {
+          mode: "work_recommendation" as const,
+          decisionId,
+          livingProjectStateVersion: lpsAfterDecision,
+          workRecommendationEpistemicItemId: workAcwId!,
+        };
+      }
 
       if (proposalSubjectMode) {
         // Non-trajectory Proposal subject — HD + DecisionRef closure in ONE UoW.
@@ -840,6 +969,28 @@ export async function decideTrajectory(
       code: "PERSISTENCE_FAILURE",
       message:
         "Échec atomique décision+promotion — aucune décision orpheline n'a été commitée.",
+    };
+  }
+
+  if (atomic.mode === "work_recommendation") {
+    return {
+      ok: true,
+      decision: {
+        decisionId: atomic.decisionId,
+        selectedOptionRef: input.selectedOptionRef,
+        actorRole: "Pilote",
+        authorityClass: "morris",
+        statusLabel: "DÉCISION HUMAINE PRISE",
+        capturedAt: issuedAt,
+        decisionBasisLinked: true,
+        reservesText: reserves ?? null,
+        proposalId: null,
+      },
+      trajectory: null,
+      livingProjectStateVersion: atomic.livingProjectStateVersion,
+      executionPerformed: false,
+      promotesProjectTrajectory: false,
+      decisionSubjectMode: "work_recommendation",
     };
   }
 

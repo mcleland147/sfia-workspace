@@ -459,6 +459,16 @@ export async function prepareM3FromDecision(input: {
   }
   const basis = basisOrFail as DecisionBasis;
 
+  // MD-WR-06 — Work Recommendation HD never opens PREPARE.
+  if (basis.sourceType === "work_recommendation") {
+    return {
+      ok: false,
+      code: "PREPARE_NOT_APPLICABLE",
+      message:
+        "Une décision sur recommandation de travail n'ouvre aucune préparation M3 — fail-closed.",
+    };
+  }
+
   /**
    * JOURNEY-INTEGRITY — amend / refuse on a Proposal decision subject close the
    * subject; they never open an execution path. The surface already hides the

@@ -345,14 +345,17 @@ describe("CORR-01 product-path semantic continuity", () => {
     );
     expect(resolved.resolved.noraRecommendationEpistemicItemId).toBeNull();
 
+    // MD-WR-04 — after PT HumanDecision, trajectory option menu is closed
+    // (no permanent opt:trajectory:* exposure). Currentness cutoff above still
+    // proves prior Nora PT Recommendation is not CURRENT via resolver.
     const tds = await resolveTrajectoryDecisionSupportProjection({
       oa,
       projectId: seeded.projectId,
       cycleInstanceId: seeded.cycleInstanceId,
     });
-    expect(tds.state).toBe("PRESENT");
+    expect(tds.state).toBe("NONE");
     expect(tds.currentNoraRecommendedOptionRef).toBeNull();
-    expect(tds.currentRecommendationSource).toBe("deterministic_fallback");
+    expect(tds.optionRefs).toEqual([]);
 
     // Reload durable Product truth (new runtime on same sqlite).
     const runtime2 = bootW2Runtime({ productDbPath: db, idPrefix: "c01h2" });

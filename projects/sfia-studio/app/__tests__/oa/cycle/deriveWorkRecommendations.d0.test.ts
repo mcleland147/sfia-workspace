@@ -135,6 +135,7 @@ describe("deriveWorkRecommendations — §10-A family separation", () => {
     const journalCards = projectCycleWorkRecommendations({
       items: [work, next, fin],
       cycleInstanceId: CYCLE_ID,
+      trajectoryDecisionSupportState: "NONE",
     });
     expect(journalCards).toHaveLength(1);
     expect(journalCards[0]!.epistemicItemId).toBe("epi:work-1");
@@ -256,6 +257,7 @@ describe("deriveWorkRecommendations — §10-A family separation", () => {
       items: [workRecommendation(), ...durableItems],
       cycleInstanceId: CYCLE_ID,
       fallbackCycleInstanceId: CYCLE_ID,
+      trajectoryDecisionSupportState: "NONE",
     });
     expect(workCards).toHaveLength(1);
     expect(workCards[0]!.optionSetRef).toBe(OPTION_SET);

@@ -5,6 +5,10 @@
  * HABITFLOW-CHAT-FIRST-PROJECTTRAJECTORY-HD-EC-CONTINUITY-01 —
  * Proposal subjects KEEP; unique ProjectTrajectory PresentedOptionSet ADDED;
  * Proposal+PT / multi-PT → ambiguous (D4).
+ *
+ * MD-WR-03 — work_recommendation family (ACW identity): Proposal keeps
+ * priority (unchanged); Work + sealed PT, Work + PT-sealable, multi-Work →
+ * ambiguous. Never a silent pick.
  */
 
 import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
@@ -13,6 +17,10 @@ import {
   readActiveProposalDecisionSubject,
 } from "./activeProposalDecisionSubject";
 import { findActiveAwaitingProjectTrajectoryPresentedOptionSet } from "./activeProjectTrajectoryDecisionSubject";
+import {
+  findActiveWorkRecommendationSubject,
+  isProjectTrajectoryChatFirstSealEligible,
+} from "./activeWorkRecommendationDecisionSubject";
 import {
   isProposalSubjectPresentedSet,
   type PresentedOptionSetBinding,
@@ -25,12 +33,15 @@ export type ChatFirstWorkEligibility =
   | {
       readonly eligible: true;
       readonly presented: PresentedOptionSetBinding;
-      readonly subjectFamily: "proposal" | "project_trajectory";
+      readonly subjectFamily:
+        | "proposal"
+        | "project_trajectory"
+        | "work_recommendation";
     }
   | {
       readonly eligible: true;
       readonly presented: null;
-      readonly subjectFamily: "project_trajectory";
+      readonly subjectFamily: "project_trajectory" | "work_recommendation";
       /** Sealed OptionSet will be materialised on accept inside the resolver. */
       readonly sealRequired: true;
     }
@@ -261,6 +272,54 @@ export async function assessChatFirstWorkEligibility(input: {
       eligible: true,
       presented: proposal.presented,
       subjectFamily: "proposal",
+    };
+  }
+
+  // ——— MD-WR-03 work_recommendation family (after Proposal/PT ambiguity) ———
+  const work = await findActiveWorkRecommendationSubject(input);
+  if (!work.ok) {
+    return {
+      eligible: false,
+      kind: "subject_read_failed",
+      code: work.code,
+      message: work.message,
+    };
+  }
+  if (work.kind === "ambiguous") {
+    return {
+      eligible: false,
+      kind: "ambiguous_subjects",
+      message: pilotAmbiguousPendingMessage(),
+      code: "AMBIGUOUS_WORK_RECOMMENDATION_SUBJECTS",
+      optionSetRefs: work.workRecommendationIds,
+    };
+  }
+  if (work.kind === "unique") {
+    // Never silent-pick between Work and ProjectTrajectory.
+    if (hasPtUnique || (await isProjectTrajectoryChatFirstSealEligible(input))) {
+      return {
+        eligible: false,
+        kind: "ambiguous_subjects",
+        message: pilotAmbiguousPendingMessage(),
+        code: "WORK_RECOMMENDATION_AND_PROJECT_TRAJECTORY_SUBJECTS",
+        optionSetRefs: [
+          work.workRecommendationEpistemicItemId,
+          ...(pt.kind === "unique" ? [pt.presented.optionSetRef] : []),
+        ],
+      };
+    }
+    if (work.presented) {
+      return {
+        eligible: true,
+        presented: work.presented,
+        subjectFamily: "work_recommendation",
+      };
+    }
+    return {
+      eligible: true,
+      presented: null,
+      subjectFamily: "work_recommendation",
+      sealRequired: true,
     };
   }
 

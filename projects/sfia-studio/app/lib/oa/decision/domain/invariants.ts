@@ -207,7 +207,8 @@ export function validateDecisionBasis(
   if (
     basis.sourceType !== "proposal" &&
     basis.sourceType !== "trajectory_option" &&
-    basis.sourceType !== "candidate_trajectory"
+    basis.sourceType !== "candidate_trajectory" &&
+    basis.sourceType !== "work_recommendation"
   ) {
     return { detailCode: "DECISION_INVALID", reason: "decision_basis_source_type" };
   }
@@ -237,6 +238,89 @@ export function validateDecisionBasis(
     return {
       detailCode: "DECISION_INVALID",
       reason: "decision_basis_proposal_context",
+    };
+  }
+
+  if (basis.sourceType === "work_recommendation") {
+    // MD-WR-06 — Work Recommendation is neither a Proposal nor a trajectory.
+    if (basis.trajectoryContext !== undefined) {
+      return {
+        detailCode: "DECISION_INVALID",
+        reason: "work_recommendation_forbids_trajectory_context",
+      };
+    }
+    if (basis.candidateTrajectoryContext !== undefined) {
+      return {
+        detailCode: "DECISION_INVALID",
+        reason: "work_recommendation_forbids_candidate_trajectory_context",
+      };
+    }
+    const ctx = basis.workRecommendationContext;
+    if (!ctx) {
+      return {
+        detailCode: "DECISION_INVALID",
+        reason: "work_recommendation_context_required",
+      };
+    }
+    for (const [key, value] of [
+      ["workRecommendationEpistemicItemId", ctx.workRecommendationEpistemicItemId],
+      ["optionSetRef", ctx.optionSetRef],
+      ["selectedOptionRef", ctx.selectedOptionRef],
+      ["optionSetDigest", ctx.optionSetDigest],
+    ] as Array<[string, unknown]>) {
+      if (typeof value !== "string" || value.trim().length < 1) {
+        return {
+          detailCode: "DECISION_INVALID",
+          reason: `work_recommendation_context_${key}`,
+        };
+      }
+    }
+    if (
+      !Array.isArray(ctx.optionRefs) ||
+      ctx.optionRefs.length < 1 ||
+      !ctx.optionRefs.every((r) => typeof r === "string" && r.trim().length > 0)
+    ) {
+      return {
+        detailCode: "DECISION_INVALID",
+        reason: "work_recommendation_context_optionRefs",
+      };
+    }
+    if (!ctx.optionRefs.includes(ctx.selectedOptionRef)) {
+      return {
+        detailCode: "DECISION_INVALID",
+        reason: "work_recommendation_selected_option_not_presented",
+      };
+    }
+    if (
+      ctx.recommendedOptionRef !== undefined &&
+      !ctx.optionRefs.includes(ctx.recommendedOptionRef)
+    ) {
+      return {
+        detailCode: "DECISION_INVALID",
+        reason: "work_recommendation_recommended_option_not_presented",
+      };
+    }
+    if (basis.sourceRef !== ctx.optionSetRef) {
+      return {
+        detailCode: "DECISION_INVALID",
+        reason: "work_recommendation_source_ref_mismatch",
+      };
+    }
+    // A Work Recommendation basis must never masquerade as a Proposal id.
+    if (basis.sourceRef.startsWith("prop:")) {
+      return {
+        detailCode: "DECISION_INVALID",
+        reason: "work_recommendation_source_ref_is_proposal_id",
+      };
+    }
+    return null;
+  }
+
+  if (basis.workRecommendationContext !== undefined) {
+    // proposal / trajectory_option / candidate_trajectory never carry Work context.
+    return {
+      detailCode: "DECISION_INVALID",
+      reason: `${basis.sourceType}_forbids_work_recommendation_context`,
     };
   }
 

@@ -26,7 +26,11 @@ import {
   resolveProductDoctrineRegistryRoot,
 } from "@/lib/vertical-slice-runtime";
 import { LOCAL_PILOTE_ACTOR } from "@/lib/oa/decision";
-import type { ProjectTrajectory, TrajectoryStep } from "@/lib/oa/cycle";
+import {
+  isActiveCycleWorkRecommendationItem,
+  type ProjectTrajectory,
+  type TrajectoryStep,
+} from "@/lib/oa/cycle";
 import type { DoctrinePackagePin } from "@/lib/oa/doctrine";
 import {
   buildCkcCognitivePromptSection,
@@ -44,15 +48,23 @@ import {
   optionSetObservationId,
   optionSetOptionId,
   optionSetRecommendationId,
+  parsePresentedOptionSetStatement,
+  isWorkRecommendationPresentedSet,
   serializePresentedOptionSet,
   type PresentedOptionSetBinding,
 } from "./presentedOptionSet";
 import {
   deriveProposalSubjectOptions,
   deriveProposalSubjectRecommendation,
+  deriveWorkRecommendationOptions,
+  deriveWorkRecommendationRecommendation,
 } from "./proposalSubjectOptions";
+import { resolveW2QualificationInputs } from "./qualificationInputs";
 import { resolvePendingDecisionSubjectMarker } from "./pendingDecisionSubjectMarker";
-import { readActiveProposalDecisionSubject } from "./activeProposalDecisionSubject";
+import {
+  decidedOptionSetRefsFromEpistemicItems,
+  readActiveProposalDecisionSubject,
+} from "./activeProposalDecisionSubject";
 import {
   assertProposalSubjectGateOrFail,
   resolveProposalDecisionSubject,
@@ -970,3 +982,242 @@ export async function proposeTrajectoryOptions(
 
 /** Exposed for the read model / tests: the Pilote is the decision-maker. */
 export const W2_DECISION_ACTOR = LOCAL_PILOTE_ACTOR;
+
+/* -------------------------------------------------------------------------- */
+/* MD-WR-03 — seal a Work Recommendation PresentedOptionSet (no Proposal)      */
+/* -------------------------------------------------------------------------- */
+
+export type SealWorkRecommendationResult =
+  | {
+      readonly ok: true;
+      readonly presented: PresentedOptionSetBinding;
+      /** False when an awaiting sealed set for this ACW already existed. */
+      readonly created: boolean;
+    }
+  | { readonly ok: false; readonly code: string; readonly message: string };
+
+/**
+ * Seal server-owned Options (PROPOSAL_SUBJECT_* refs, Work labels) for ONE
+ * active ACW Work Recommendation.
+ *
+ * Durable writes (single updateEpistemicState call):
+ *   - Option items (relatedObjects carry the ACW id)
+ *   - Recommendation (source=optset:…, relatedObjects ⊇ ACW id + cycle) — the
+ *     dispose carrier; Journal dedup suppresses the bare ACW card
+ *   - Observation PresentedOptionSet (decisionSubjectMode=work_recommendation,
+ *     promotesProjectTrajectory=false, trajectoryId=null)
+ *
+ * No Proposal, no ProjectTrajectory mutation, no provider cognition, no new
+ * store. ACW stays the identity; decide/defer also dispose the ACW item.
+ * Idempotent: an awaiting sealed set for the same ACW is returned unchanged.
+ */
+export async function sealWorkRecommendationPresentedOptionSet(input: {
+  readonly oa: RuntimeOaStack;
+  readonly projectId: string;
+  readonly workRecommendationEpistemicItemId: string;
+  readonly correlationId?: string;
+}): Promise<SealWorkRecommendationResult> {
+  const { oa } = input;
+  const acwId = input.workRecommendationEpistemicItemId.trim();
+  if (!acwId.startsWith("epi:acw:")) {
+    return {
+      ok: false,
+      code: "WORK_RECOMMENDATION_ID_INVALID",
+      message: "Identité de recommandation de travail invalide — scellage refusé.",
+    };
+  }
+
+  const epistemic = await oa.cycleServices.getEpistemicState.execute({
+    projectId: input.projectId,
+  });
+  if (!epistemic.ok) {
+    return {
+      ok: false,
+      code: "EPISTEMIC_READ_FAILED",
+      message: "État épistémique illisible — scellage refusé.",
+    };
+  }
+  const acw = epistemic.state.items.find(
+    (i) =>
+      i.epistemicItemId === acwId &&
+      i.status === "active" &&
+      isActiveCycleWorkRecommendationItem(i),
+  );
+  if (!acw) {
+    return {
+      ok: false,
+      code: "WORK_RECOMMENDATION_MISSING",
+      message:
+        "Recommandation de travail active introuvable — aucun jeu d'options scellé.",
+    };
+  }
+
+  // Idempotency — reuse an awaiting sealed set for this ACW.
+  const decidedRefs = decidedOptionSetRefsFromEpistemicItems(
+    epistemic.state.items,
+  );
+  for (const item of [...epistemic.state.items].reverse()) {
+    if (item.type !== "Observation" || item.status !== "active") continue;
+    const parsed = parsePresentedOptionSetStatement(item.statement);
+    if (!parsed || !isWorkRecommendationPresentedSet(parsed)) continue;
+    if (parsed.workRecommendationEpistemicItemId !== acwId) continue;
+    if (decidedRefs.has(parsed.optionSetRef)) continue;
+    return { ok: true, presented: parsed, created: false };
+  }
+
+  const live = await readLiveProjectContext(oa, input.projectId);
+  if (!live.ok) {
+    return { ok: false, code: live.code, message: live.message };
+  }
+  const cycleInstanceId = live.context.activeCycleInstanceId ?? null;
+  if (!cycleInstanceId) {
+    return {
+      ok: false,
+      code: "ACTIVE_CYCLE_MISSING",
+      message: "Cycle actif requis pour sceller une recommandation de travail.",
+    };
+  }
+
+  const qualification = await resolveW2QualificationInputs({
+    oa,
+    projectId: input.projectId,
+  });
+  if (!qualification.ok) {
+    return {
+      ok: false,
+      code: qualification.code,
+      message: qualification.message,
+    };
+  }
+  const q = qualification.qualification;
+
+  // Same qualification seal as decideTrajectory re-checks (CKC optional).
+  const ckcContent = loadProductCkcCognitiveContent({
+    registryRoot: resolveProductDoctrineRegistryRoot(),
+    cycleTypeId: q.inputs.cycleTypeId,
+    packagePin: q.packagePin,
+  });
+  const semanticFingerprint = ckcContent
+    ? computeCkcSemanticFingerprint(ckcContent.provenance)
+    : null;
+  const qualificationDigest = computeQualificationDigest({
+    cycleTypeId: q.inputs.cycleTypeId,
+    recommendedProfile: q.inputs.recommendedProfile,
+    criticalSignalsPresent: q.inputs.criticalSignalsPresent,
+    irreversible: q.inputs.irreversible,
+    reservations: q.inputs.reservations,
+    ckcAttribution: q.inputs.ckcAttribution,
+    ckcSemanticFingerprint: semanticFingerprint,
+  });
+
+  const options = deriveWorkRecommendationOptions({
+    workRecommendationEpistemicItemId: acwId,
+    statement: acw.statement,
+  });
+  const recommendation = deriveWorkRecommendationRecommendation({
+    workRecommendationEpistemicItemId: acwId,
+    statement: acw.statement,
+  });
+  const integrity = assertRecommendedOptionInPresentedSet({
+    options,
+    recommendedOptionRef: recommendation.recommendedOptionRef,
+  });
+  if (!integrity.ok) {
+    return { ok: false, code: integrity.code, message: integrity.message };
+  }
+
+  const optionSetRef = `optset:w2-wr-${shortId()}`;
+  const correlationId = input.correlationId ?? `cor:w2-wr-${shortId()}`;
+  const optionSetDigest = computeOptionSetDigest({
+    cycleTypeId: q.inputs.cycleTypeId,
+    recommendedProfile: q.inputs.recommendedProfile,
+    criticalSignalsPresent: q.inputs.criticalSignalsPresent,
+    irreversible: q.inputs.irreversible,
+    reservations: q.inputs.reservations,
+    options,
+    recommendedOptionRef: recommendation.recommendedOptionRef,
+    proposalId: null,
+    proposalSubjectDigest: null,
+    decisionSubjectMode: "work_recommendation",
+    workRecommendationEpistemicItemId: acwId,
+  });
+
+  const optionItems = options.map((option) => ({
+    epistemicItemId: optionSetOptionId(optionSetRef, option.optionRef),
+    type: "Option" as const,
+    statement: optionStatement(option),
+    status: "active" as const,
+    source: optionSetRef,
+    relatedObjects: [input.projectId, option.optionRef, optionSetRef, acwId],
+  }));
+  const recommendationItem = {
+    epistemicItemId: optionSetRecommendationId(optionSetRef),
+    type: "Recommendation" as const,
+    // Journal shows this sealed card instead of the bare ACW (dedup by acw id).
+    statement: acw.statement,
+    status: "active" as const,
+    source: optionSetRef,
+    relatedObjects: [
+      input.projectId,
+      recommendation.recommendedOptionRef,
+      optionSetRef,
+      acwId,
+      cycleInstanceId,
+    ],
+  };
+  const epistemicRefs = [
+    ...optionItems.map((i) => i.epistemicItemId),
+    recommendationItem.epistemicItemId,
+    optionSetObservationId(optionSetRef),
+  ];
+
+  const presented: PresentedOptionSetBinding = {
+    kind: "w2_presented_option_set",
+    optionSetRef,
+    optionSetDigest,
+    qualificationDigest,
+    trajectoryId: null,
+    candidateVersion: null,
+    optionRefs: options.map((o) => o.optionRef),
+    recommendedOptionRef: recommendation.recommendedOptionRef,
+    options,
+    recommendation,
+    epistemicRefs,
+    cycleTypeId: q.inputs.cycleTypeId,
+    recommendedProfile: q.inputs.recommendedProfile,
+    criticalSignalsPresent: q.inputs.criticalSignalsPresent,
+    irreversible: q.inputs.irreversible,
+    reservations: [...q.inputs.reservations],
+    ckcAttribution: q.inputs.ckcAttribution,
+    ckcSemanticFingerprint: semanticFingerprint,
+    decisionSubjectMode: "work_recommendation",
+    proposalId: null,
+    proposalSubjectDigest: null,
+    workRecommendationEpistemicItemId: acwId,
+    promotesProjectTrajectory: false,
+    sealedExecutionBasis: null,
+  };
+  const observationItem = {
+    epistemicItemId: optionSetObservationId(optionSetRef),
+    type: "Observation" as const,
+    statement: serializePresentedOptionSet(presented),
+    status: "active" as const,
+    source: optionSetRef,
+    relatedObjects: [input.projectId, optionSetRef, acwId, cycleInstanceId],
+  };
+
+  const materialized = await oa.cycleServices.updateEpistemicState.execute({
+    projectId: input.projectId,
+    items: [...optionItems, recommendationItem, observationItem],
+    createdBy: NORA_OPTION_AUTHOR,
+    correlationId,
+  });
+  if (!materialized.ok) {
+    return {
+      ok: false,
+      code: materialized.error.detailCode,
+      message: `Scellage des options de travail échoué (${materialized.error.detailCode}).`,
+    };
+  }
+  return { ok: true, presented, created: true };
+}

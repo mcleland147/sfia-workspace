@@ -254,3 +254,93 @@ export function deriveProposalSubjectRecommendation(
 export function isProposalSubjectOptionRef(optionRef: string): boolean {
   return (PROPOSAL_SUBJECT_OPTION_REFS as readonly string[]).includes(optionRef);
 }
+
+/* -------------------------------------------------------------------------- */
+/* MD-WR-03 — Work Recommendation subject (no Proposal, no ProjectTrajectory)  */
+/* -------------------------------------------------------------------------- */
+
+function workStatementExcerpt(statement: string): string {
+  const flat = statement.replace(/\s+/g, " ").trim();
+  return flat.length > 280 ? `${flat.slice(0, 277)}...` : flat;
+}
+
+/**
+ * Server-owned three-way for a Work Recommendation (ACW identity).
+ * Reuses PROPOSAL_SUBJECT_* option refs (same sealed refs the chat-first
+ * disposition already maps) with WORK labels — never a fake Proposal.
+ */
+export function deriveWorkRecommendationOptions(inputs: {
+  readonly workRecommendationEpistemicItemId: string;
+  readonly statement: string;
+}): TrajectoryOptionDto[] {
+  const excerpt = workStatementExcerpt(inputs.statement);
+  const acwId = inputs.workRecommendationEpistemicItemId;
+  return [
+    {
+      kind: "OPTION",
+      optionRef: PROPOSAL_SUBJECT_PURSUE_REF,
+      label: "Poursuivre cette recommandation de travail",
+      intent: `Retenir la recommandation de travail ${acwId} — « ${excerpt} ». Décision Pilote explicite ; aucune exécution, aucune promotion ProjectTrajectory.`,
+      impacts: [
+        "HumanDecision liée à cette recommandation de travail",
+        "Recommandation de travail clôturée (acceptée)",
+        "Pas de promotion ProjectTrajectory",
+        "Aucune exécution lancée",
+      ],
+      reservations: [],
+      steps: [
+        step(1, "w2-wr-review", `Revoir la recommandation de travail — ${excerpt}`),
+        step(2, "w2-wr-decide", "Décision humaine explicite sur cette recommandation", {
+          dependencies: ["stp:w2-wr-review"],
+          gate: "human_decision",
+          exitCriteria: ["HumanDecision acceptée et reliée à la recommandation"],
+        }),
+      ],
+    },
+    {
+      kind: "OPTION",
+      optionRef: PROPOSAL_SUBJECT_AMEND_REF,
+      label: "Amender cette recommandation de travail",
+      intent:
+        "Demander une modification de la recommandation de travail avant de l'engager — sans exécution.",
+      impacts: [
+        "Recommandation de travail close (amendement demandé)",
+        "Réinstruction requise après amendement",
+      ],
+      reservations: [],
+      steps: [
+        step(1, "w2-wr-amend", "Amender la recommandation de travail"),
+      ],
+    },
+    {
+      kind: "OPTION",
+      optionRef: PROPOSAL_SUBJECT_REFUSE_REF,
+      label: "Ne pas retenir cette recommandation de travail",
+      intent:
+        "Refuser la recommandation de travail. Aucune exécution. Aucune promotion de trajectoire Project.",
+      impacts: [
+        "Recommandation de travail refusée",
+        "ProjectTrajectory inchangée",
+      ],
+      reservations: [],
+      steps: [
+        step(1, "w2-wr-refuse", "Refuser la recommandation de travail"),
+      ],
+    },
+  ];
+}
+
+export function deriveWorkRecommendationRecommendation(inputs: {
+  readonly workRecommendationEpistemicItemId: string;
+  readonly statement: string;
+}): TrajectoryRecommendationDto {
+  return {
+    label: "RECOMMANDATION — PAS UNE DÉCISION",
+    recommendedOptionRef: PROPOSAL_SUBJECT_PURSUE_REF,
+    rationale: `Recommandation de travail ${inputs.workRecommendationEpistemicItemId} prête pour arbitrage Pilote — « ${workStatementExcerpt(inputs.statement)} » (≠ HumanDecision).`,
+    isHumanDecision: false,
+    promotesTrajectory: false,
+    ckcAttribution: null,
+    ckcProvenance: null,
+  };
+}

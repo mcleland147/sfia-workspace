@@ -24,10 +24,14 @@ import {
   resolveHonestReservationDeferTarget,
   type EpistemicReservationMetadata,
 } from "@/lib/oa/cycle/domain/reservationSemantics";
-import type { PresentedOptionSetBinding } from "./presentedOptionSet";
+import {
+  isWorkRecommendationPresentedSet,
+  type PresentedOptionSetBinding,
+} from "./presentedOptionSet";
 import {
   finalizeProposalSubjectAfterDurableClosure,
   writeProposalDecisionRef,
+  writeWorkRecommendationDecisionRef,
 } from "./closeProposalDecisionSubject";
 import { disposeWorkRecommendationAfterDecision } from "./disposeWorkRecommendation";
 
@@ -172,8 +176,14 @@ export async function deferWorkRecommendation(input: {
   | { readonly ok: false; readonly code: string; readonly message: string }
 > {
   const optionSetRef = input.presented.optionSetRef;
-  const proposalId = input.presented.proposalId;
-  if (!proposalId) {
+  // MD-WR-03 — work_recommendation mode has no Proposal: skip proposal
+  // closure; still HD + Reservation + dispose WR carrier AND ACW.
+  const workMode = isWorkRecommendationPresentedSet(input.presented);
+  const workAcwId = workMode
+    ? (input.presented.workRecommendationEpistemicItemId ?? null)
+    : null;
+  const proposalId = input.presented.proposalId ?? null;
+  if (!workMode && !proposalId) {
     return {
       ok: false,
       code: "PROPOSAL_ID_MISSING",
@@ -286,6 +296,7 @@ export async function deferWorkRecommendation(input: {
           rationale,
           evidenceRefs: [
             workRec.epistemicItemId!,
+            ...(workAcwId ? [workAcwId] : []),
             optionSetRef,
             target.targetCycleTypeId,
           ],
@@ -333,6 +344,7 @@ export async function deferWorkRecommendation(input: {
                 input.projectId,
                 activeCycleInstanceId,
                 workRec.epistemicItemId!,
+                ...(workAcwId ? [workAcwId] : []),
                 optionSetRef,
                 decisionId,
               ],
@@ -353,6 +365,7 @@ export async function deferWorkRecommendation(input: {
         decisionId,
         disposition: "defer",
         deferTargetCycleTypeId: target.targetCycleTypeId,
+        workRecommendationEpistemicItemId: workAcwId,
       });
       if (!disposed.ok) {
         throw Object.assign(new Error(disposed.message), {
@@ -360,19 +373,31 @@ export async function deferWorkRecommendation(input: {
         });
       }
 
-      const closure = await writeProposalDecisionRef({
-        oa: input.oa,
-        projectId: input.projectId,
-        decisionId,
-        proposalId,
-        selectedOptionRef: WORK_RECOMMENDATION_DEFER_OPTION_ID,
-        optionSetRef,
-        epistemicRefs: input.presented.epistemicRefs,
-        markerReason: "decided",
-        nextProposalStatus: "APPROVED_WITH_RESERVES",
-        statement: `Décision reportée (defer) — ${decisionId} — sujet ${proposalId}.`,
-        correlationId: `w2-decref-defer:${optionSetRef}`,
-      });
+      const closure = workMode
+        ? await writeWorkRecommendationDecisionRef({
+            oa: input.oa,
+            projectId: input.projectId,
+            decisionId,
+            workRecommendationEpistemicItemId: workAcwId!,
+            selectedOptionRef: WORK_RECOMMENDATION_DEFER_OPTION_ID,
+            optionSetRef,
+            epistemicRefs: input.presented.epistemicRefs,
+            statement: `Décision reportée (defer) — ${decisionId} — recommandation de travail ${workAcwId}.`,
+            correlationId: `w2-decref-defer:${optionSetRef}`,
+          })
+        : await writeProposalDecisionRef({
+            oa: input.oa,
+            projectId: input.projectId,
+            decisionId,
+            proposalId: proposalId!,
+            selectedOptionRef: WORK_RECOMMENDATION_DEFER_OPTION_ID,
+            optionSetRef,
+            epistemicRefs: input.presented.epistemicRefs,
+            markerReason: "decided",
+            nextProposalStatus: "APPROVED_WITH_RESERVES",
+            statement: `Décision reportée (defer) — ${decisionId} — sujet ${proposalId}.`,
+            correlationId: `w2-decref-defer:${optionSetRef}`,
+          });
       if (!closure.ok) {
         throw Object.assign(new Error(closure.message), {
           detailCode: closure.code,
@@ -397,14 +422,16 @@ export async function deferWorkRecommendation(input: {
     };
   }
 
-  await finalizeProposalSubjectAfterDurableClosure({
-    oa: input.oa,
-    projectId: input.projectId,
-    proposalId,
-    markerReason: "decided",
-    nextProposalStatus: "APPROVED_WITH_RESERVES",
-    correlationId: `cor:pending-defer:${proposalId}`,
-  });
+  if (!workMode && proposalId) {
+    await finalizeProposalSubjectAfterDurableClosure({
+      oa: input.oa,
+      projectId: input.projectId,
+      proposalId,
+      markerReason: "decided",
+      nextProposalStatus: "APPROVED_WITH_RESERVES",
+      correlationId: `cor:pending-defer:${proposalId}`,
+    });
+  }
 
   return {
     ok: true,

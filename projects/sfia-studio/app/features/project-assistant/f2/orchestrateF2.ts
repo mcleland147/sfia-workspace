@@ -722,11 +722,25 @@ const CHAT_FIRST_HUMAN_STATUS: Record<
 function chatFirstDecisionText(input: {
   readonly presentation: "test_provider" | "openai_live";
   readonly disposition: ChatFirstEffectiveDisposition;
-  readonly subjectFamily?: "proposal" | "project_trajectory";
+  readonly subjectFamily?:
+    | "proposal"
+    | "project_trajectory"
+    | "work_recommendation";
   readonly prepareOutcome?: ChatFirstPrepareOutcome;
 }): string {
   const head =
     input.presentation === "test_provider" ? "[Mode test]" : "[Mode réel]";
+  if (
+    input.subjectFamily === "work_recommendation" &&
+    input.disposition === "accept"
+  ) {
+    return [
+      head,
+      "Votre décision est enregistrée : vous retenez la recommandation de travail.",
+      "La recommandation est clôturée ; aucune exécution n'a été lancée et aucune trajectoire projet n'est promue.",
+      "Nora recommande ; le Pilote décide. AUCUNE EXÉCUTION.",
+    ].join(" ");
+  }
   if (input.disposition === "accept") {
     if (input.subjectFamily === "project_trajectory") {
       const prep = input.prepareOutcome;

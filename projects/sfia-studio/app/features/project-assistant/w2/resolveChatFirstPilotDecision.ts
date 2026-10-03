@@ -33,6 +33,11 @@ import {
   ensureSealedProjectTrajectoryPresentedOptionSet,
   findActiveAwaitingProjectTrajectoryPresentedOptionSet,
 } from "./activeProjectTrajectoryDecisionSubject";
+import {
+  ensureSealedWorkRecommendationPresentedOptionSet,
+  findActiveWorkRecommendationSubject,
+  isProjectTrajectoryChatFirstSealEligible,
+} from "./activeWorkRecommendationDecisionSubject";
 import { decideTrajectory, trajectoryDecisionScope } from "./decideTrajectory";
 import { classifyProtectedRepositoryPath } from "./deriveActualExecutionWorkFromProductContext";
 import {
@@ -122,7 +127,10 @@ export type ChatFirstPilotDecisionResult =
       readonly capturedAt: string;
       readonly decisionBasisLinked: boolean;
       readonly readyForNextGatedStep: boolean;
-      readonly subjectFamily: "proposal" | "project_trajectory";
+      readonly subjectFamily:
+        | "proposal"
+        | "project_trajectory"
+        | "work_recommendation";
       readonly prepareOutcome: ChatFirstPrepareOutcome;
       readonly executionContractId: string | null;
       readonly executionContractPrepared: boolean;
@@ -150,6 +158,9 @@ const PT_TARGET_NOT_CURRENT_MESSAGE =
 
 const PROPOSAL_TARGET_REQUIRED_MESSAGE =
   "Pour un sujet Proposal, la cible sémantique doit être le sujet présenté (presented_subject) — aucune HumanDecision enregistrée.";
+
+const WORK_TARGET_REQUIRED_MESSAGE =
+  "Pour une recommandation de travail, la cible sémantique doit être la recommandation courante ou le sujet présenté — une cible alternative ou ambiguë ne produit aucune HumanDecision.";
 
 function proposalPrepareNotApplicable(): ChatFirstPrepareOutcome {
   return {
@@ -582,6 +593,133 @@ async function recordProjectTrajectoryAccept(input: {
   };
 }
 
+/**
+ * MD-WR-03 — accept / refuse / amend / defer of ONE Work Recommendation (ACW).
+ * Seals the PresentedOptionSet lazily, then reuses decideTrajectory (HD +
+ * DecisionRef + dispose WR+ACW) or deferWorkRecommendation. No auto-PREPARE,
+ * no Proposal, no ProjectTrajectory.
+ */
+async function recordWorkRecommendationDisposition(input: {
+  readonly oa: RuntimeOaStack;
+  readonly projectId: string;
+  readonly effective: ChatFirstEffectiveDisposition;
+  readonly workRecommendationEpistemicItemId: string;
+  readonly presented: PresentedOptionSetBinding | null;
+  readonly rationale?: string | null;
+  readonly forceLocalAuthority?: boolean;
+}): Promise<ChatFirstPilotDecisionResult> {
+  const sealed = await ensureSealedWorkRecommendationPresentedOptionSet({
+    oa: input.oa,
+    projectId: input.projectId,
+    workRecommendationEpistemicItemId: input.workRecommendationEpistemicItemId,
+    presented: input.presented,
+  });
+  if (!sealed.ok) {
+    return {
+      kind: "no_eligible_subject",
+      message: sealed.message,
+      code: sealed.code,
+    };
+  }
+  const presented = sealed.presented;
+  const notApplicable: ChatFirstPrepareOutcome = {
+    kind: "not_applicable",
+    reason: "Recommandation de travail chat-first n'auto-prépare pas d'ExecutionContract.",
+  };
+
+  if (input.effective === "defer") {
+    const deferred = await deferWorkRecommendation({
+      oa: input.oa,
+      projectId: input.projectId,
+      presented,
+      rationale: input.rationale,
+      forceLocalAuthority: input.forceLocalAuthority,
+    });
+    if (!deferred.ok) {
+      if (deferred.code === "DEFER_TARGET_UNRESOLVED") {
+        return {
+          kind: "defer_target_unresolved",
+          code: deferred.code,
+          message: deferred.message,
+        };
+      }
+      return {
+        kind: "decision_refused",
+        code: deferred.code,
+        message: deferred.message,
+      };
+    }
+    return {
+      kind: "decision_recorded",
+      disposition: "defer",
+      decisionId: deferred.decisionId,
+      proposalId: null,
+      optionSetRef: presented.optionSetRef,
+      selectedOptionRef: "opt:defer-work-recommendation",
+      scope: trajectoryDecisionScope(presented.optionSetRef),
+      capturedAt: deferred.capturedAt,
+      decisionBasisLinked: false,
+      readyForNextGatedStep: false,
+      subjectFamily: "work_recommendation",
+      prepareOutcome: notApplicable,
+      executionContractId: null,
+      executionContractPrepared: false,
+      attemptCreated: false,
+      executionPerformed: false,
+    };
+  }
+
+  const selectedOptionRef =
+    SELECTED_OPTION_BY_DISPOSITION[input.effective];
+  if (!presented.optionRefs.includes(selectedOptionRef)) {
+    return {
+      kind: "no_eligible_subject",
+      message:
+        "L'option correspondante n'appartient pas au jeu d'options scellé — aucune décision enregistrée.",
+      code: "OPTION_NOT_PRESENTED",
+    };
+  }
+  const decided = await decideTrajectory({
+    oa: input.oa,
+    projectId: input.projectId,
+    optionSetRef: presented.optionSetRef,
+    options: presented.options,
+    recommendedOptionRef: presented.recommendedOptionRef,
+    selectedOptionRef,
+    trajectoryId: null,
+    candidateVersion: null,
+    epistemicRefs: presented.epistemicRefs,
+    reservesText: null,
+    forceLocalAuthority: input.forceLocalAuthority,
+  });
+  if (!decided.ok) {
+    return {
+      kind: "decision_refused",
+      code: decided.code,
+      message: decided.message,
+    };
+  }
+  return {
+    kind: "decision_recorded",
+    disposition: input.effective,
+    decisionId: decided.decision.decisionId,
+    proposalId: null,
+    optionSetRef: presented.optionSetRef,
+    selectedOptionRef,
+    scope: trajectoryDecisionScope(presented.optionSetRef),
+    capturedAt: decided.decision.capturedAt,
+    decisionBasisLinked: decided.decision.decisionBasisLinked,
+    // Accept closes the Work Recommendation; nothing is prepared or executed.
+    readyForNextGatedStep: false,
+    subjectFamily: "work_recommendation",
+    prepareOutcome: notApplicable,
+    executionContractId: null,
+    executionContractPrepared: false,
+    attemptCreated: false,
+    executionPerformed: false,
+  };
+}
+
 export async function resolveChatFirstPilotDecision(input: {
   readonly oa: RuntimeOaStack;
   readonly projectId: string;
@@ -650,6 +788,72 @@ export async function resolveChatFirstPilotDecision(input: {
       proposalIds: [],
       optionSetRefs: ptLookup.optionSetRefs,
     };
+  }
+
+  // ——— MD-WR-03 Work Recommendation path (Proposal keeps priority) ———
+  // After the Proposal/PT ambiguity checks, before the PT path. Never a silent
+  // pick between Work and ProjectTrajectory.
+  if (!hasProposal) {
+    const work = await findActiveWorkRecommendationSubject({
+      oa: input.oa,
+      projectId: input.projectId,
+    });
+    if (!work.ok) {
+      return {
+        kind: "subject_read_failed",
+        code: work.code,
+        message: work.message,
+      };
+    }
+    if (work.kind === "ambiguous") {
+      return {
+        kind: "ambiguous_subjects",
+        message: pilotAmbiguousPendingMessage(),
+        proposalIds: [],
+        optionSetRefs: work.workRecommendationIds,
+      };
+    }
+    if (work.kind === "unique") {
+      if (
+        ptLookup.kind === "unique" ||
+        (await isProjectTrajectoryChatFirstSealEligible({
+          oa: input.oa,
+          projectId: input.projectId,
+        }))
+      ) {
+        return {
+          kind: "ambiguous_subjects",
+          message: pilotAmbiguousPendingMessage(),
+          proposalIds: [],
+          optionSetRefs: [
+            work.workRecommendationEpistemicItemId,
+            ...(ptLookup.kind === "unique"
+              ? [ptLookup.presented.optionSetRef]
+              : []),
+          ],
+        };
+      }
+      if (
+        targetKind !== "current_recommendation" &&
+        targetKind !== "presented_subject"
+      ) {
+        return {
+          kind: "no_eligible_subject",
+          message: WORK_TARGET_REQUIRED_MESSAGE,
+          code: "WORK_RECOMMENDATION_TARGET_KIND_REQUIRED",
+        };
+      }
+      return recordWorkRecommendationDisposition({
+        oa: input.oa,
+        projectId: input.projectId,
+        effective,
+        workRecommendationEpistemicItemId:
+          work.workRecommendationEpistemicItemId,
+        presented: work.presented,
+        rationale: input.rationale,
+        forceLocalAuthority: input.forceLocalAuthority,
+      });
+    }
   }
 
   // ——— Proposal path (KEEP semantics; D3-EXT targetKind gate) ———
