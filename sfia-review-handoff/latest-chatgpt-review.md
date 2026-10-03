@@ -1,18 +1,23 @@
-# FULL REVIEW PACK — STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 — CYCLE 1 CADRAGE
+# FULL REVIEW PACK — STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 — CYCLE 1 CADRAGE — CORRECTION PASS 01
 
 ## 1. Timestamp
 
-2026-10-03 14:08:43 +0200
+2026-10-03 14:35:49 +0200
 
 Macro: STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01
 Cycle: 1 — Cadrage
+Pass: Correction Pass 01
 Profile: CRITICAL
-Typologie: EVOL
+Typologie: EVOL / DOC
 CKC: method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/01-cadrage.md (candidate / experimental cognitive guidance · ≠ execution authority)
 Runtime v3: NON ADOPTED
 REAL: ZERO
 Delivery: NOT AUTHORIZED
+C2: NOT AUTHORIZED
+Production model routing: NOT SELECTED
 Project commit/push/PR/merge: NO
+Entry handoff C1: 38acba19e769d25a31f821857e262ebc36769736
+Entry blob: 15e986efa6375747c3ef939a800eb85a7e627fd8
 
 ## 2. Local Git Truth
 
@@ -24,95 +29,109 @@ HEAD: ac272df5270faae1d1bea6a78cd0cc11886e97f4
 branch: docs/sfia-studio-chat-first-product-simplification-c1
 expected origin/main: ac272df5270faae1d1bea6a78cd0cc11886e97f4
 match: YES
+HEAD expected ac272df5…: YES
 status --short --untracked-files=all:
+ M .tmp-sfia-review/chatgpt-review.md
  M projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 ?? projects/sfia-studio/product-simplification/01-chat-first-product-simplification-cadrage.md
 ```
 
 Interpretation:
-- origin/main matches expected post-merge PR #547 SHA.
-- Local documentary branch docs/sfia-studio-chat-first-product-simplification-c1 based on that main.
-- Dirty project files limited to Roadmap + new product-simplification cadrage (+ this review pack under .tmp-sfia-review/).
+- origin/main and HEAD match expected post-merge PR #547 SHA.
+- Local documentary branch docs/sfia-studio-chat-first-product-simplification-c1.
+- Uncommitted C1 candidate (cadrage + Roadmap) plus this process pack.
+- Entry remote handoff still 38acba19 / blob 15e986ef at pack-write time (publisher will FF-update after).
 - NO project commit in this pass.
 
-## 3. Sources lues (obligatoires)
+## 3. Sources
 
-Project (read-only except Roadmap):
-1. projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md
-2. projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md (MODIFIED — truth-sync borné)
-3. projects/sfia-studio/product-completion/01-product-completion-cadrage.md
-4. projects/sfia-studio/product-completion/02-product-completion-conception-fonctionnelle.md
-5. projects/sfia-studio/product-completion/ux-product-experience/01-experience-architecture.md
-6. projects/sfia-studio/product-completion/ux-product-experience/02-end-to-end-wireframes-interaction-model.md
+Project (read-only except Roadmap + cadrage):
+1. prompts/templates/sfia-cycle-execution-template.md
+2. projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md (READ ONLY)
+3. projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md (MODIFIED — truth-sync borné)
+4. projects/sfia-studio/product-completion/01-product-completion-cadrage.md
+5. projects/sfia-studio/product-completion/02-product-completion-conception-fonctionnelle.md
+6. projects/sfia-studio/product-completion/ux-product-experience/01-experience-architecture.md
 7. projects/sfia-studio/convergence/sfia-studio-generic-execution-review-result-architecture.md
-8–14. projects/sfia-studio/sfia-v3-framing/30,31,32,33,34,35,37
-Process:
-15. method/sfia-fast-track/core/sfia-cycle-routing-guide.md
-16. method/sfia-fast-track/documentation/capitalization/sfia-v2/sfia-v2.5-project-cycles-method-candidate.md
-17. method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/01-cadrage.md
-18. prompts/templates/sfia-cycle-execution-template.md
-19. sfia-review-handoff/latest-chatgpt-review.md (pre-cycle tip confirmed CHAT-FIRST-WORK-RECOMMENDATION-CONTINUITY-01 POST-MERGE VERIFIED / main=ac272df5…)
+8. projects/sfia-studio/nora-cognitive-completion/08-nora-openai-native-first-cognitive-trajectory.md (READ ONLY — HARVEST/ADAPT in cadrage only)
+9–15. sfia-v3-framing/30,31,32,33,34,35,37
+16. Entry handoff sfia-review-handoff/latest-chatgpt-review.md @ 38acba19e769d25a31f821857e262ebc36769736 / blob 15e986efa6375747c3ef939a800eb85a7e627fd8
 
-## 4. Décision Morris D-SIMP-01
+Nora trajectory source was NOT modified (STOP condition avoided).
 
-CONSUMED:
-**D-SIMP-01 — ADOPT STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION TRAJECTORY**
+## 4. D-SIMP-01
 
-Adopte:
-- trajectoire de simplification chat-first ;
-- démarrage par cadrage (P1) ;
-- suite gouvernée P2 conception → P3 UX/interaction → P4 architecture delta → P5 Delivery → P6 QA → P7 Replay → P8 Requalification ;
-- conservation/réutilisation du backbone utile ;
-- pas de redessin greenfield de bout en bout ;
-- réexamen de HumanDecision materiality (dont « oui / go ») sans décider encore la politique.
+CONSUMED (unchanged): ADOPT STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION TRAJECTORY.
+Adopts trajectory P1→P8; does NOT adopt HD policy, C2, Delivery, REAL, RETIRE.
 
-N’adopte PAS:
-- modèle fonctionnel détaillé ;
-- politique HumanDecision définitive ;
-- C2 / Delivery / REAL / code / RETIRE.
+## 5. D-SIMP-02
 
-## 5. Convergence Pre-check
+CONSUMED: INTEGRATE ADAPTIVE COGNITIVE MODEL & REASONING STRATEGY INTO CHAT-FIRST PRODUCT SIMPLIFICATION.
+
+Adopts:
+1. Cognitive Reliability as structural axis of this macro;
+2. adaptive cognitive capacity by workload;
+3. separation: deterministic Studio rules / Nora cognition / server-owned cognitive selection-config;
+4. mandatory model × reasoning evaluation;
+5. absorption of existing Nora OpenAI-native-first trajectory into this simplification macro.
+
+Does NOT adopt:
+- production model; permanent Luna/Sol/Astra mapping; global reasoning high; definitive routing matrix;
+- permanent provider/service; new technical architecture; API migration; REAL campaign;
+- Cognitive Completion; runtime v3 ADOPTED.
+
+## 6. Convergence Pre-check
 
 | Check | Result |
 | --- | --- |
-| Previous macro integrated | YES — CHAT-FIRST-WORK-RECOMMENDATION-CONTINUITY-01 via PR #547 merge ac272df5… POST-MERGE VERIFIED |
+| Previous macro integrated | YES — CHAT-FIRST-WORK-RECOMMENDATION-CONTINUITY-01 PR #547 / ac272df5… |
+| Entry C1 handoff | 38acba19 / blob 15e986ef MATCH |
 | origin/main expected | PASS |
-| Local dirty unrelated | PASS — only cadrage + Roadmap (+ review pack process) |
-| Build Doctrine rewrite | NO — read only |
+| Candidate drift vs handoff | PASS — CP01 is intentional evolution of uncommitted C1 candidate, not unrelated drift |
+| Build Doctrine rewrite | NO |
+| Nora trajectory 08 rewrite | NO |
 | Product code | ZERO |
 | REAL | ZERO |
 | Runtime v3 | NON ADOPTED |
-| Greenfield rewrite implied | NO — BACKBONE KEEP/ADAPT |
+| Greenfield / second Nora | NO |
 | Immediate RETIRE | NONE |
-| HD policy prematurely decided | NO — framed only |
-| Roadmap historical snapshots rewritten | NO — tip + B10 + CURRENT SIMPLIFICATION TRAJECTORY only |
-| Trajectory P1→P8 traced | YES — D-SIMP-01 ADOPTED; aval NOT AUTHORIZED |
+| HD policy prematurely decided | NO |
+| Production routing selected | NO |
+| Roadmap historical Nora/MW snapshots rewritten | NO |
+| Trajectory P1→P8 + cognition axis | YES — aval NOT AUTHORIZED |
 
-## 6. Problème de simplification
+## 7. Six Critical Review findings
 
-Constat: robustesse/généricité gagnées, mais friction croissante:
-- trop d’interactions Studio/Nora pour sujets mineurs ;
-- orchestration sémantique distribuée (resolvers/classifications/currentness) ;
-- trop de concepts pour un échange simple ;
-- risques de régression quand classification/currentness diverge ;
-- écart vs simplicité ChatGPT ↔ Cursor v2.6 ;
-- coût cognitif Pilote + Nora ; maintenance lourde malgré backbone solide.
+| ID | Finding |
+| --- | --- |
+| CR-C1-01 | §9.1 treated durable HD → DecisionBasis as universal doctrine |
+| CR-C1-02 | Category H imposed M-HD + M-CONF as two obligatory ceremonies; closed conversational Confirmation |
+| CR-C1-03 | CD-10 fail-closed cited only CD-01…CD-05 despite text talking about all conditions |
+| CR-C1-04 | Roadmap still showed NEXT MORRIS GATE AFTER REQUALIFICATION = capability not started, concurrent with D-SIMP-01 C1 |
+| CR-C1-05 | §6.2 labeled D-ER-01…15 as DOCTRINE |
+| CR-C1-06 | residual A–I taxonomy wording; OQ-C2-16 incomplete on PT adoption HD |
 
-Cible: Net Complexity Reduction sans affaiblir durabilité, provenance, gouvernance proportionnée, preuves, reprise, autorité, Recommendation ≠ HD, fail-closed.
+## 8. Exact correction of each finding
 
-## 7. Assets classification (synthèse cadrage §7)
+### CR-C1-01
+Invariant restated: structural HD must be sufficiently provenanced/reconstructible for its materiality. DecisionBasis = current Product/runtime mechanism. Obligation/granularity/minimal form for all HDs = NOT DECIDED / C2. Updated §9.1 item 8, M-HD, auditability dimension, OQ-C2-05, asset row 8, essential-complexity example.
 
-KEEP/ADAPT backbone: Product SQLite, Project/CycleInstance, LPS, ProjectTrajectory, DoctrinePackage/CKC, Observation/Option/Recommendation, HumanDecision/DecisionBasis (materiality ADAPT), Confirmation, ExecutionContract, AgentCapability/ActionPolicy, Cursor Generalist, isolated worktree, Attempt/Report, Review End Of, VerifiedChangeSet, Evidence/ReviewBundle/ClaimEvaluation, Product Resolution, Reconciler, Result Surface, History/Recovery, Journal/Sujets/Réserves (semantics ADAPT), current conversation / Nora cognitive runtime (projection ADAPT).
+### CR-C1-02
+H floor = protected effect identifiable; EC prepared+inspected; explicit consent if Confirmation required; valid authority/policy; no implicit widening; auditability; fail-closed. NOT two obligatory HD+CONF ceremonies. Conversational « oui, exécute » linked to explicit Confirmation remains OPEN for C2. Generic/pre-inspection/ambiguous « oui » ≠ Confirmation. Existing structural HD may already apply — no extra HD per protected effect. Updated H row, M-CONF, §10.4, OQ-C2-06.
 
-KEEP/ADAPT UX: Conversation-first EA, workspace principal, état/trajectory secondaires, Evidence in-workspace, progressive disclosure EC, Confirmation proportionnée.
+### CR-C1-03
+CD-10 now: if any REQUIRED applicable condition among CD-01…CD-09 fails → no authoritative capture, no disposition/HD/Confirmation, no execution; clarification/re-presentation/requalification. C2 may decide applicability by mechanism/category.
 
-ADAPT/REQUALIFY: HD materiality, Work Recommendation disposition, PresentedOptionSet, DecisionSubjectMode proliferation, Recommendation family boundaries, PT decision-support exposure, currentness ownership, finalization recommendation classification, Journal semantics, cognitive context projection, Nora tool/context exposure, Confirmation interaction budget, multiple decision/continuity resolvers.
+### CR-C1-04
+Roadmap B10: previous NEXT MORRIS GATE AFTER REQUALIFICATION marked HISTORICAL / CONSUMED / SUPERSEDED. CURRENT MORRIS GATE = ChatGPT Critical Review C1 → Morris validation C1 → distinct Git integration GO → distinct C2 authorization GO. No concurrent current-truth.
 
-HARVEST: v2.6 ChatGPT↔Cursor UX, HabitFlow Replay 02, Work Recommendation continuity findings, NoteLite observations, Generic Execution architecture audit, Product Completion UX artifacts.
+### CR-C1-05
+§6.2 now ADOPTED TARGET ARCHITECTURE (D-ER). Hierarchy explicit: v3 framing = product doctrine; Build Doctrine = construction governance; D-ER = adopted target architecture; Roadmap = current construction state. Epistemic legend split.
 
-RETIRE LATER only: no immediate RETIRE; candidates only after aval proof + distinct Morris gate.
+### CR-C1-06
+Taxonomy mentions that meant the full set now say A–J. OQ-C2-16 reformulated: validate ProjectTrajectory in conversation without multiplying HDs per micro-step, while keeping the required HD for structuring adoption/amendment.
 
-## 8. Contenu COMPLET du nouveau cadrage
+## 9. Contenu COMPLET du C1 corrigé
 
 Path: `projects/sfia-studio/product-simplification/01-chat-first-product-simplification-cadrage.md`
 
@@ -126,10 +145,11 @@ Path: `projects/sfia-studio/product-simplification/01-chat-first-product-simplif
 | **Cycle** | 1 — Cadrage |
 | **Profil** | **CRITICAL** |
 | **Typologie v2.4** | **EVOL** — évolution du produit existant ; cadrage documentaire sans modification de code |
-| **Autorité de trajectoire** | **D-SIMP-01 — ADOPT STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION TRAJECTORY** — trajectoire **adoptée** ; politique détaillée de HumanDecision **NON décidée** |
+| **Autorité de trajectoire** | **D-SIMP-01** (simplification chat-first) **+ D-SIMP-02** (fiabilité cognitive / modèle & reasoning adaptatifs) — trajectoires **adoptées** ; politique HD **NON décidée** ; **production model routing NOT SELECTED** |
+| **Pass** | **Correction Pass 01** — ferme CR-C1-01…06 et intègre D-SIMP-02 |
 | **Branche documentaire** | `docs/sfia-studio-chat-first-product-simplification-c1` |
 | **Base Git** | `main` @ `ac272df5270faae1d1bea6a78cd0cc11886e97f4` (merge PR #547 — chat-first work recommendation continuity) |
-| **Statut du document** | **LOCAL DOCUMENTARY CANDIDATE / CONTENT COMPLETE** — en attente de **ChatGPT Critical Review** |
+| **Statut du document** | **LOCAL DOCUMENTARY CANDIDATE / CORRECTION PASS 01 COMPLETE** — en attente de **ChatGPT Critical Review** |
 | **Intégration Git** | **NON intégré** — aucun commit / push / PR / merge autorisé par ce document |
 | **Runtime v3** | **NON ADOPTED** |
 | **READY FOR REAL** | **NO** |
@@ -137,13 +157,13 @@ Path: `projects/sfia-studio/product-simplification/01-chat-first-product-simplif
 | **Fichier** | `projects/sfia-studio/product-simplification/01-chat-first-product-simplification-cadrage.md` |
 | **Date de rédaction** | 2026-10-03 · Europe/Paris |
 
-> **Lecture rapide.** Ce cadrage ne change pas le produit. Il fixe le *problème*, les *invariants à ne pas perdre*, la *classification des actifs* et les *décisions que C2 devra prendre* pour que le Pilote travaille davantage en conversation avec Nora et moins en navigation d’objets, de gates et de surfaces, **sans réduire la gouvernance** (Recommendation ≠ HumanDecision, décisions structurantes humaines, preuves auditables, fail-closed).
+> **Lecture rapide.** Ce cadrage ne change pas le produit. Il fixe le *problème*, les *invariants à ne pas perdre*, la *classification des actifs* et les *décisions que C2 devra prendre* pour que le Pilote travaille davantage en conversation avec Nora et moins en navigation d’objets, de gates et de surfaces, **sans réduire la gouvernance** (Recommendation ≠ HumanDecision, décisions structurantes humaines, preuves auditables, fail-closed). **Correction Pass 01** y ajoute l’axe **Cognitive Reliability** (D-SIMP-02) : classes de workload candidates C0–C3, snapshot fournisseur GPT-6 daté, évaluation Model × Reasoning obligatoire avant toute routing policy — **sans** second moteur Nora et **sans** mapping production.
 
 ---
 
 ## 1. Autorité, sources et épistémologie du document
 
-### 1.1 Décision consommée
+### 1.1 Décisions consommées
 
 **D-SIMP-01** adopte la **trajectoire** « Studio chat-first product simplification ». Cette décision :
 
@@ -151,16 +171,26 @@ Path: `projects/sfia-studio/product-simplification/01-chat-first-product-simplif
 - **n’adopte pas** de politique détaillée de matérialité HumanDecision (quand une phrase conversationnelle devient une HumanDecision durable, une Confirmation, une simple disposition de Recommendation ou une évolution de LPS) ;
 - **n’autorise pas** Cycle 2, Delivery, code, REAL, ni retrait d’actif.
 
+**D-SIMP-02** intègre l’axe **Cognitive Reliability + adaptive model / reasoning strategy** dans *ce même* macro. Cette décision :
+
+- **adopte** : fiabilité cognitive comme axe structurant ; modèle adaptatif selon workload ; séparation règles déterministes Studio / cognition Nora / sélection-configuration cognitive server-owned ; nécessité d’évaluer modèle × reasoning effort ; **absorption** de la trajectoire Nora OpenAI-native-first existante (`nora-cognitive-completion/08-…`) comme actif KEEP / HARVEST / ADAPT ;
+- **n’adopte pas** : modèle production définitif ; mapping permanent GPT-6 Luna / GPT-6.1 Sol / GPT-6 Astra ; reasoning high global ; matrice de routing définitive ; service/provider permanent ; nouvelle architecture technique ; migration API ; campagne REAL ; Cognitive Completion ; runtime v3 ADOPTED.
+
 ### 1.2 Hiérarchie d’autorité appliquée
 
 ```text
 Git courant / preuves runtime
-> décision Morris D-SIMP-01 (trajectoire)
-> sources projet versionnées (doctrine v3 30–37, Build Doctrine, Roadmap, architectures de référence)
+> décisions Morris D-SIMP-01 + D-SIMP-02 (trajectoires)
+> framings v3 30–37          = product doctrine
+> Build Doctrine             = construction governance
+> D-ER-01…15                 = adopted target architecture
+> Roadmap                    = current construction state / trajectory
+> trajectoire Nora OpenAI-native-first (08) = actif KEEP/HARVEST/ADAPT (≠ second chemin)
+> snapshot fournisseur daté  = EXTERNAL CURRENT INPUT (≠ doctrine)
 > hypothèses de ce document
 ```
 
-La **Build Doctrine** dit comment construire (R1–R22). La **Roadmap** dit où en est la construction. La **doctrine v3** dit ce que Studio doit devenir. Ce cadrage **ne remplace aucune** de ces sources et ne les modifie pas.
+Ce cadrage **ne remplace aucune** de ces sources et **ne modifie pas** la trajectoire Nora source. D-SIMP-02 l’**absorbe et la recontextualise** dans la simplification chat-first ; elle ne redécide pas l’historique MW2→MW6.
 
 ### 1.3 Sources lues (lecture seule)
 
@@ -172,7 +202,8 @@ La **Build Doctrine** dit comment construire (R1–R22). La **Roadmap** dit où 
 | `product-completion/ux-product-experience/01-experience-architecture.md` | Principes d’expérience, modèle mental Pilote, surfaces S1–S12, contrat Option / Recommendation / HumanDecision |
 | `sfia-v3-framing/30-knowledge-context-human-decision-doctrine.md` | Chaîne conversation → décision → exécution (V3-F05), CKC, N1–N3, « phrase conversationnelle ≠ gate » |
 | `sfia-v3-framing/32-living-project-state-and-dynamic-trajectory.md` | LPS, ProjectTrajectory, continuité sémantique, replanification gouvernée |
-| `convergence/sfia-studio-generic-execution-review-result-architecture.md` (en-tête) | Cible adoptée : exécution générique, claims vs faits vérifiés, Product Resolution, Result Surface |
+| `convergence/sfia-studio-generic-execution-review-result-architecture.md` (en-tête) | **Adopted target architecture** D-ER : exécution générique, claims vs faits vérifiés, Product Resolution, Result Surface |
+| `nora-cognitive-completion/08-nora-openai-native-first-cognitive-trajectory.md` | Trajectoire Nora existante VALIDATED / ACTIVE ON MAIN — KEEP / HARVEST / ADAPT ; **pas de second moteur** |
 
 ### 1.4 Légende épistémique
 
@@ -181,8 +212,10 @@ Chaque assertion non triviale porte (explicitement ou par section) l’un des st
 | Tag | Signification |
 | --- | --- |
 | **FACT** | Observé dans une source versionnée ou Git (au moment de la rédaction) |
-| **DOCTRINE** | Posé par doctrine v3 / Build Doctrine / architecture adoptée |
-| **INFERENCE** | Déduit de FACT / DOCTRINE — non prouvé sur instance |
+| **DOCTRINE** | Posé par framings v3 ou Build Doctrine (construction governance) |
+| **ADOPTED TARGET ARCHITECTURE** | Cible d’architecture adoptée (ex. D-ER-01…15) — **≠** doctrine produit |
+| **EXTERNAL CURRENT INPUT** | Snapshot fournisseur daté, à revalider — **≠** doctrine, **≠** routing production |
+| **INFERENCE** | Déduit de FACT / DOCTRINE / architecture adoptée — non prouvé sur instance |
 | **HYPOTHESIS** | À valider ou invalider en C2 / par preuve |
 | **OPEN** | Décision ou information manquante — voir §17 |
 | **TARGET** | Direction visée — **≠ implémenté** |
@@ -197,18 +230,20 @@ SFIA Studio dispose d’un backbone produit utile et largement prouvé au niveau
 
 Ce que les cycles récents montrent, c’est que la **complexité interne s’infiltre dans l’interaction** : le Pilote et Nora manipulent (ou doivent désambiguïser) un grand nombre d’objets, de statuts, de références et de dispositions, et chaque évolution de continuité chat-first (série de PR #543 → #547) nécessite des corrections sémantiques fines pour que « ce que dit le Pilote » reste fidèlement relié « à ce que le système retient comme décision ».
 
-**D-SIMP-01 adopte la trajectoire** pour traiter ce problème **par simplification ciblée, non par réécriture**. Ce Cycle 1 :
+**D-SIMP-01 + D-SIMP-02 adoptent la trajectoire** pour traiter ce problème **par simplification ciblée, non par réécriture**, et pour y intégrer la **fiabilité cognitive** sans second chemin Nora. Ce Cycle 1 (Correction Pass 01) :
 
 1. qualifie la distinction entre **complexité utile** (gouvernance, preuve, fail-closed) et **complexité accidentelle** (surface, vocabulaire, doubles chemins, coût de maintenance) ;
-2. classe tous les actifs structurants (KEEP / ADAPT / COMPLETE / HARVEST / REPLACE / FREEZE / RETIRE LATER) — **aucun RETIRE immédiat** ;
+2. classe tous les actifs structurants (KEEP / ADAPT / COMPLETE / HARVEST / REPLACE / FREEZE / RETIRE LATER) — **aucun RETIRE immédiat** — y compris la trajectoire Nora OpenAI-native-first (**KEEP / HARVEST / ADAPT**) ;
 3. pose les **principes de simplification** et la **frontière Nora cognitive** ;
 4. **cadre** — sans trancher — la **matérialité des HumanDecisions** (catégories A–J, alternatives, décisions à prendre en C2) et la **capture conversationnelle de décision** (dont « oui / go ») sous contraintes d’ambiguïté fail-closed ;
 5. introduit un **Pilot Interaction Budget** comme outil de mesure ;
 6. décrit la boucle conceptuelle courante → cible (sans architecture technique) ;
-7. séquence une **trajectoire P1→P8 adaptative** dont seul **P1** est en cours ;
-8. liste risques, questions ouvertes pour C2, critères de sortie C1-01…C1-12 et gates.
+7. séquence une **trajectoire P1→P8 adaptative** dont seul **P1** est en cours, enrichie de l’axe cognition ;
+8. intègre **Cognitive Reliability** : classes candidates C0–C3, snapshot fournisseur GPT-6 daté (EXTERNAL CURRENT INPUT), escalade cognitive ≠ escalade d’autorité, évaluation Model × Reasoning obligatoire avant promotion d’une routing policy ;
+9. ferme les 6 findings Critical Review (CR-C1-01…06) ;
+10. liste risques, questions ouvertes pour C2, critères de sortie C1-01…C1-20 et gates.
 
-**Ce document n’autorise pas** Cycle 2, ni Delivery, ni REAL, ni retrait d’actif, ni adoption runtime v3.
+**Ce document n’autorise pas** Cycle 2, ni Delivery, ni REAL, ni retrait d’actif, ni adoption runtime v3, ni production model routing.
 
 ---
 
@@ -220,7 +255,7 @@ La simplification visée **n’est pas** une réduction de la rigueur. La distin
 
 | Type | Définition | Exemples (SFIA Studio) | Traitement |
 | --- | --- | --- | --- |
-| **Complexité utile (essential)** | Encode une garantie : gouvernance, autorité, preuve, réversibilité, fail-closed, auditabilité | Recommendation ≠ HumanDecision ; DecisionBasis durable ; autorité effective = intersection ; Evidence / ReviewBundle ; claims ≠ faits vérifiés ; worktree isolé ; Project ≠ Cycle | **À préserver** ; peut être *rendue invisible* au Pilote mais pas supprimée |
+| **Complexité utile (essential)** | Encode une garantie : gouvernance, autorité, preuve, réversibilité, fail-closed, auditabilité / reconstructibilité | Recommendation ≠ HumanDecision ; HumanDecision structurante provenancée/reconstructible ; autorité effective = intersection ; Evidence / ReviewBundle ; claims ≠ faits vérifiés ; worktree isolé ; Project ≠ Cycle | **À préserver** ; peut être *rendue invisible* au Pilote mais pas supprimée |
 | **Complexité accidentelle (accidental)** | Résulte de l’historique de construction, de doubles chemins, de vocabulaire exposé, de surfaces redondantes, ou de la façon dont l’interaction est découpée | Objets internes exposés comme étapes ; surfaces qui répètent la même information ; chemins parallèles legacy / générique ; confirmations dont la matérialité est faible ; désambiguïsation de références (`optionRef`, sujets) imposée au dialogue | **À réduire** de manière gouvernée |
 | **Complexité transitoire (debt)** | Pont temporaire avec sortie attendue | Taxonomies de tâche spécialisées (`docs_write`, …) déjà requalifiées *RETIRE FROM PRODUCT MODEL* par l’architecture générique ; stores process-local pour certains objets | Sortie explicite (voir §20) |
 
@@ -283,7 +318,7 @@ Continuer à ajouter des chemins de continuité conversationnelle un par un (par
 
 ### 4.4 Lien capacité v3 (Build Doctrine R1)
 
-Capacités servies : chaîne conversation → décision → exécution (V3-F05), LPS / continuité sémantique (V3-F02), ProjectTrajectory et replanification gouvernée (V3-F06 / V3-F09), CKC comme guidance cognitive non exposée (V3-F01).
+Capacités servies : chaîne conversation → décision → exécution (V3-F05), LPS / continuité sémantique (V3-F02), ProjectTrajectory et replanification gouvernée (V3-F06 / V3-F09), CKC / cognition (V3-F01), épistémologie (V3-F04), AgentCapability (V3-F11), execution governance (V3-F12), preuve / anti-claims (V3-F14 / F15).
 
 ---
 
@@ -302,14 +337,15 @@ Ce cadrage et la trajectoire D-SIMP-01 **ne sont pas** :
 | NG-07 | La **décision de la politique complète** de matérialité HumanDecision |
 | NG-08 | Un élargissement de l’autonomie : pas de global L5, pas d’auto-escalade, pas de merge autonome |
 | NG-09 | Un nouveau rôle runtime : le rôle fonctionnel reste **Pilote** ; Morris reste autorité de construction / gouvernance |
-| NG-10 | Un choix d’architecture technique (persistence, schémas, APIs, modèles OpenAI) |
+| NG-10 | Un choix d’architecture technique (persistence, schémas, APIs) ou une **nouvelle Nora / second moteur cognitif** |
 | NG-11 | Une autorisation de Cycle 2, de Delivery, de commit / push / PR |
+| NG-12 | Un **production model routing**, un mapping permanent Luna/Sol/Astra, un reasoning effort global, une campagne REAL d’évaluation, ou Cognitive Completion |
 
 ---
 
 ## 6. Current State
 
-> Les éléments ci-dessous sont **FACT / DOCTRINE** sauf mention contraire. Les frictions (§6.5) sont **INFERENCE / HYPOTHESIS** tant qu’un audit d’interaction C2 ne les a pas confirmées.
+> Les éléments ci-dessous sont **FACT / DOCTRINE / ADOPTED TARGET ARCHITECTURE** sauf mention contraire. Les frictions (§6.5) sont **INFERENCE / HYPOTHESIS** tant qu’un audit d’interaction C2 ne les a pas confirmées.
 
 ### 6.1 Backbone produit (KEEP / ADAPT)
 
@@ -326,7 +362,7 @@ Ce cadrage et la trajectoire D-SIMP-01 **ne sont pas** :
 
 ### 6.2 Generic Execution → Review → Result (cible adoptée)
 
-**DOCTRINE (D-ER-01…D-ER-15, adoptées par Morris le 2026-09-29).**
+**ADOPTED TARGET ARCHITECTURE (D-ER-01…D-ER-15, adoptées par Morris le 2026-09-29).** D-ER n’est **pas** de la doctrine produit. Hiérarchie : framings v3 = product doctrine · Build Doctrine = construction governance · D-ER = adopted target architecture · Roadmap = current construction state / trajectory.
 
 - Un **ExecutionContract** sémantique générique (WHAT), incluant exigences de rapport ;
 - **Cursor Generalist** (HOW) en **worktree Git isolé** ;
@@ -347,7 +383,7 @@ Ce cadrage et la trajectoire D-SIMP-01 **ne sont pas** :
 
 ### 6.4 UX déjà conversation-first
 
-**DOCTRINE (CC-D01, UX Experience Architecture).**
+**DOCTRINE / UX Experience Architecture (CC-D01).**
 
 - Conversation **dominante** + panneau d’état vivant + confirmations structurantes ; pas de stepper principal ; pas de workspace multi-panneaux au MVP ;
 - Surfaces S1–S12 candidates ; « un concept C2 ≠ un écran » ; minimiser fragmentation, navigation, jargon méthode, modales systématiques ;
@@ -391,7 +427,7 @@ Ce cadrage et la trajectoire D-SIMP-01 **ne sont pas** :
 | 5 | **ProjectTrajectory** | Chemin réel du Project ; Recommendation jusqu’à HD | **ADAPT** | MUST conservé ; simplifier présentation et validation conversationnelle | Oui |
 | 6 | **Doctrine / DoctrinePackage / CKC** | Contexte v3 piné ; guidance cognitive sans autorité | **KEEP** | Jamais exposé comme formulaire ; fallback silencieux intra-v3 | Non (hors fit-check Nora) |
 | 7 | **Observation / Hypothèse / Option / Recommendation** | Distinctions épistémiques | **KEEP** (distinction) / **ADAPT** (surfaçage) | La distinction est un invariant ; la façon de la montrer peut devenir plus légère | Oui — surfaçage |
-| 8 | **HumanDecision / DecisionBasis** | Décision structurante durable du Pilote | **KEEP** (invariants) / **ADAPT** (capture & matérialité) | Voir §9–§10 ; invariants doctrinaux inchangés | **Oui — central** |
+| 8 | **HumanDecision / DecisionBasis** | Décision structurante durable du Pilote ; DecisionBasis = mécanisme runtime actuel | **KEEP** (HD + auditability) / **ADAPT** (capture, matérialité, forme DecisionBasis) | Invariant = provenance/reconstructibilité (§9.1) ; DecisionBasis universel = **NOT DECIDED / C2** | **Oui — central** |
 | 9 | **Confirmation (N1–N3)** | Consentement proportionné avant effet | **ADAPT** | Proportionnalité à rendre plus explicite ; objet encore process-local selon source C1 — **état à résoudre depuis Git** | Oui |
 | 10 | **ExecutionContract (EC)** | WHAT natif inspectable, autorité, gates, stops, evidence | **ADAPT** | Conserver ; progressive disclosure ; généricité (D-ER) | Oui — niveau de divulgation |
 | 11 | **AgentCapability** | Enveloppe d’autorité / gouvernance | **KEEP** | Pas un catalogue de fonctions Cursor ; « capacité technique ≠ autorité » | Non |
@@ -416,8 +452,15 @@ Ce cadrage et la trajectoire D-SIMP-01 **ne sont pas** :
 | 30 | **Stepper / cockpit / workspace multi-panneaux** | Surfaces alternatives | **FREEZE** | Pas d’investissement nouveau ; CC-D01 prévaut | Non |
 | 31 | **Taxonomies de tâche Product spécialisées** (`docs_write`, `code_write`, …) | Dette transitoire D-ER | **RETIRE LATER** (déjà qualifié par D-ER) | Pas de retrait dans ce macro avant C2 + gate distinct ; ne pas inventer `generic_*` | Non (hérité) |
 | 32 | **Stores process-local** (Proposal, Conversation, Confirmation selon objet) | Dette de durabilité | **COMPLETE** (vers durable ou reconstructible) | Voir §13 | Oui |
+| 33 | **Nora OpenAI-native-first trajectory** (`08-nora-openai-native-first-cognitive-trajectory.md`) | Trajectoire cognitive VALIDATED / ACTIVE ON MAIN | **KEEP / HARVEST / ADAPT** | Absorbée par D-SIMP-02 ; **pas de duplication** ; historique MW2→MW6 **non redécidé** ; ≠ Cognitive Completion | Oui — recontextualisation P2/P4 |
+| 34 | **MW0 Model × Reasoning evaluation contract / evidence** | Preuve comparative héritée | **HARVEST** | Réutiliser le contrat d’évaluation ; cohortes 5.6-era à requalifier | Oui — P6 |
+| 35 | **Assumptions production/eval GPT-5.6-era** | Inputs fournisseur historiques | **HARVEST / REQUALIFY** | Snapshot GPT-6 (2026-10-03) a évolué ; **≠** routing production | P4/P6 |
+| 36 | **Model selection / reasoning config** | Configuration cognitive actuelle | **ADAPT / REQUALIFY** | Minimum sufficient by workload ; mapping **CANDIDATE / EVAL REQUIRED** | **Oui — P2/P4/P6** |
+| 37 | **Hardcoded model mappings** (si présents) | Couplage runtime | **AUDIT IN P4** | Pas de RETIRE décidé | P4 |
+| 38 | **Responses API / Agents SDK existing seams** | Primitives OpenAI déjà utilisées | **KEEP / ADAPT** | Subject to **current** OpenAI Capability Fit Check ; Responses API = voie nominale *candidate* pour reasoning + tools | P2/P4 |
+| 39 | **OpenAI provider snapshot GPT-6 (2026-10-03)** | Input fournisseur vivant | **EXTERNAL CURRENT INPUT** | Jamais doctrine durable ; revalider avant P2/P4/P5/P6 | Non (input) |
 
-> **Contrôle de non-régression (C1-05).** Aucune ligne de la matrice ne prescrit un retrait immédiat. Les lignes 25 (partielle), 31 sont les seuls candidats RETIRE LATER, avec condition de sortie en §20. La ligne 29 est un REPLACE de *pattern*, conditionnel et réversible.
+> **Contrôle de non-régression (C1-05 / C1-19).** Aucune ligne de la matrice ne prescrit un retrait immédiat. Les lignes 25 (partielle), 31 sont les seuls candidats RETIRE LATER, avec condition de sortie en §20. La ligne 29 est un REPLACE de *pattern*, conditionnel et réversible. La ligne 33 **interdit** une seconde trajectoire Nora.
 
 ---
 
@@ -442,10 +485,14 @@ Ce cadrage et la trajectoire D-SIMP-01 **ne sont pas** :
 | **SP-15** | **Net Complexity Reduction.** Le futur Delivery sera jugé aussi sur la complexité *supprimée* (interactions, surfaces, resolvers dupliqués, branches spécialisées, concepts exposés) — pas seulement sur les tests ajoutés. Mesures candidates (non contractuelles en C1) : interactions Pilote sur le nominal ; surfaces décisionnelles ; concepts exposés ; resolvers/classifications dupliqués ; transitions pour une disposition ; contexte technique injecté à Nora ; branches retirées/fusionnées ; lignes/mécanismes retirés si pertinent. | D-SIMP-01 |
 | **SP-16** | **Capacité utilisateur end-to-end avant micro-composants.** | R8, R18 |
 | **SP-17** | **Mesurer avant de simplifier.** PIB avant/après (§11). | R19 |
-| **SP-18** | **OpenAI-native-first.** Fit check avant tout nouveau mécanisme cognitif. | R22 |
+| **SP-18** | **OpenAI-native-first.** Fit check avant tout nouveau mécanisme cognitif. Réutiliser la trajectoire Nora existante ; pas de second moteur. | R22 / D-SIMP-02 |
 | **SP-19** | **No second engine / pas d’architecture parallèle.** | R6 |
 | **SP-20** | **Retraits tardifs, gouvernés, réversibles.** Aucun RETIRE immédiat. | R5, R11, R20 |
-| **SP-21** | **Aucun claim au-delà de la preuve.** Trajectoire adoptée ≠ politique décidée ≠ C2 autorisé. | R19, R21 |
+| **SP-21** | **Aucun claim au-delà de la preuve.** Trajectoire adoptée ≠ politique décidée ≠ C2 autorisé ≠ routing production. | R19, R21 |
+| **SP-22** | **Minimum sufficient cognitive configuration by workload.** Ni le plus gros modèle partout, ni l’effort maximal partout, ni le moins cher partout. | D-SIMP-02 / trajectoire Nora §8 |
+| **SP-23** | **C0 déterministe = NO LLM.** Ne jamais déléguer à un modèle ce que Studio peut et doit garantir déterministement. | D-SIMP-02 |
+| **SP-24** | **Cognitive escalation ≠ authority escalation.** Un modèle plus capable n’acquiert ni HD, ni permission, ni scope, ni Confirmation, ni AgentCapability. | D-SIMP-02 |
+| **SP-25** | **Model routing is server-owned / policy-owned.** Nora peut *signaler* un besoin cognitif ; elle ne s’auto-attribue pas un modèle. | D-SIMP-02 |
 
 ---
 
@@ -462,7 +509,7 @@ Ce cadrage et la trajectoire D-SIMP-01 **ne sont pas** :
 5. **Confirmation** porte sur le contrat / les effets *inspectés*, est conditionnelle, et suit l’inspection de l’EC.
 6. **Autorité effective** = autorisation humaine valide ∩ scope EC ∩ AgentCapability/policy ∩ garde-fous runtime ∩ Confirmations requises — jamais élargie par une couche seule.
 7. **Pas de global L5**, pas d’auto-escalade ; L0–L5 sont des niveaux d’autonomie, pas des rôles.
-8. **DecisionBasis** : une HumanDecision durable référence sa base (contexte, sujet, options présentées).
+8. **Auditability / reconstructibility** : toute HumanDecision **structurante** doit être suffisamment provenancée et reconstructible pour son niveau de matérialité. **DecisionBasis** est un **mécanisme Product/runtime actuel** utilisé par plusieurs chemins gouvernés. Son caractère obligatoire, sa granularité et sa forme minimale pour *toutes* les HumanDecisions = **NOT DECIDED / C2**. DecisionBasis universel **n’est pas** un invariant doctrinal.
 9. **Seul le Pilote** émet une HumanDecision runtime ; Morris détient la construction / promotion / gates de SFIA Studio.
 
 ### 9.2 Mécanismes de capture candidats (colonnes d’alternatives)
@@ -471,8 +518,8 @@ Ce cadrage et la trajectoire D-SIMP-01 **ne sont pas** :
 | --- | --- | --- | --- |
 | **M-LPS** | **LPS evolution** | Mise à jour d’état projet (objectif, contexte, périmètre, réserve) attribuée au Pilote, sans HD structurante dédiée | Durable (LPS) |
 | **M-DISP** | **Recommendation disposition** | Disposition d’une Recommendation (accepter / différer / rejeter / traiter) sans création d’une HD structurante | Durable (disposition) |
-| **M-HD** | **Durable HumanDecision** | HumanDecision avec DecisionBasis, rattachée à un sujet précis | Durable |
-| **M-CONF** | **Confirmation (N1–N3)** | Consentement explicite avant effet, après inspection du contrat | Selon niveau (dette process-local) |
+| **M-HD** | **Durable HumanDecision** | HumanDecision durable rattachée à un sujet précis ; provenance/reconstructibilité proportionnée à la matérialité (**DecisionBasis** = mécanisme actuel, **pas** doctrine universelle) | Durable |
+| **M-CONF** | **Confirmation (N1–N3)** | Consentement explicite avant effet, après inspection du contrat. **Forme ouverte** : surface dédiée **ou**, si C2 le décide, réponse conversationnelle explicitement liée (« oui, exécute ») server-validated / scoped / current / auditable. « oui » générique / avant inspection / ambigu **≠** Confirmation. | Selon niveau (dette process-local) |
 | **M-OTHER** | **Autre** | Reconnaissance éphémère (accusé de lecture), clarification sans mutation, ou mécanisme à définir | Non durable / à définir |
 
 ### 9.3 Catégories de décision A–J et alternatives
@@ -488,7 +535,7 @@ Ce cadrage et la trajectoire D-SIMP-01 **ne sont pas** :
 | **E** | **Modification de scope / objectif** | Élargir/réduire le périmètre, reformuler l’objectif | M-LPS ; M-HD | Changement de périmètre = événement de replanification (V3-F09) ; événement ≠ décision | **C2** — floor fort si structurant |
 | **F** | **Adoption ou amendement ProjectTrajectory** | Valider un chemin, replanifier | M-HD ; M-DISP + M-HD | Trajectoire proposée = Recommendation tant que HD absente | **C2** — floor **fort** |
 | **G** | **Arbitrage structurant fonctionnel / architecture / gouvernance** | Choix d’architecture, règle de gouvernance produit | M-HD | Décisions structurantes restent humaines | **C2** — floor **fort** |
-| **H** | **Autorisation d’un effet protégé** | Écriture Git protégée, push, PR, merge, REAL, secrets | M-HD + M-CONF | Aucun élargissement par une couche seule ; « oui » seul **jamais** suffisant | **Floor non descendable sans décision Morris** ; C2 = présentation seulement |
+| **H** | **Autorisation d’un effet protégé** | Écriture Git protégée, push, PR, merge, REAL, secrets | **M-CONF** (forme ouverte : conversationnelle candidate **ou** surface dédiée) ; **M-HD seulement si** une HD structurante applicable n’existe pas déjà — **pas** de HD supplémentaire automatique à chaque effet | Floor : effet protégé identifiable ; EC préparé et inspecté avant effet ; consentement explicite si Confirmation requise ; authority/policy valides ; aucun élargissement implicite ; auditabilité ; fail-closed. **≠** deux cérémonies HD+CONF obligatoires. « oui » générique / avant inspection / ambigu ≠ Confirmation. « oui, exécute » en réponse directe à une Confirmation explicite **reste ouvert** pour C2. | **Floor d’effet protégé non descendable sans Morris** ; **mécanisme Confirmation = OPEN / C2** |
 | **I** | **FINALIZE / CANCEL / abandon ou changement de cycle** | Finaliser, annuler, changer de cycle | M-HD ; M-DISP + M-HD | Lifecycle ≠ Work chat-first ; gates lifecycle séparés | **C2** — floor fort |
 | **J** | **Choix préparant directement un ExecutionContract** | Valider WHAT / scope / evidence attendue avant EC | M-HD ; M-CONF | EC uniquement après décisions nécessaires ; Confirmation après inspection | **C2** — floor **fort** |
 
@@ -504,18 +551,18 @@ Pour chaque catégorie, C2 pourra évaluer (liste **proposée**, **HYPOTHESIS**)
 | **Autorité** | Élargit-on ou délimite-t-on une autorité ? |
 | **Dépendances aval** | Quels objets durables dépendent de cette décision ? |
 | **Coût d’erreur** | Quelle est la conséquence d’une mauvaise interprétation ? |
-| **Auditabilité** | Faut-il une DecisionBasis durable pour reconstruire plus tard ? |
+| **Auditabilité** | Quelle provenance minimale rend la décision reconstructible plus tard ? (DecisionBasis = une forme actuelle, pas la seule forme possible) |
 | **Ambiguïté résiduelle** | Le sujet visé est-il unique, courant et non périmé ? |
 
 ### 9.5 Ce qui est explicitement NON décidé ici
 
 - le mapping définitif catégorie → mécanisme ;
 - la possibilité (ou non) qu’une disposition de Recommendation suffise pour certaines catégories ;
-- la forme de la DecisionBasis allégée éventuelle ;
-- le niveau de Confirmation par catégorie ;
+- l’obligation, la granularité et la forme minimale de DecisionBasis pour toutes les HD (auditability = invariant ; DecisionBasis universel = OPEN) ;
+- le niveau **et la forme** de Confirmation par catégorie — y compris Confirmation conversationnelle candidate pour H ;
 - toute règle de seuil (ex. « moins de N actes par cycle »).
 
-> **Marqueur C2.** Les catégories **A–G, I, J** nécessitent une décision de matérialité (ou confirmation de non-capture) en C2. **H** (effet protégé) conserve un floor non descendable sans décision Morris — C2 ne peut qu’en clarifier la présentation / le budget d’interaction.
+> **Marqueur C2.** Les catégories **A–J** nécessitent une décision de matérialité (ou confirmation de non-capture) en C2. **H** conserve un **floor d’effet protégé** non descendable sans décision Morris ; C2 décide la *présentation* et le *mécanisme* de Confirmation (conversationnel inclus, non exclu).
 
 ---
 
@@ -541,10 +588,10 @@ Les réponses brèves (« oui », « go », « ok », « vas-y », « on part l�
 | **CD-04** | **Proximité conversationnelle** | La phrase répond directement au dernier tour pertinent ; pas de glissement de sujet |
 | **CD-05** | **Absence de conflit** | Pas de signal de désaccord, de réserve ou de question dans le même message |
 | **CD-06** | **Matérialité vs mécanisme** | Le mécanisme de capture activé correspond à la matérialité de la catégorie (§9) ; ex. un effet protégé n’est **jamais** activé par « oui » seul |
-| **CD-07** | **Traçabilité** | Le lien phrase → sujet → disposition/décision est auditable (DecisionBasis ou équivalent selon la décision C2) |
+| **CD-07** | **Traçabilité** | Le lien phrase → sujet → disposition/décision est auditable (provenance/reconstructibilité proportionnée ; DecisionBasis **ou équivalent** selon C2) |
 | **CD-08** | **Idempotence** | Une même phrase ne produit pas deux dispositions ; rejouer un message ne ré-exécute pas |
 | **CD-09** | **Pas d’élargissement** | La phrase ne peut qu’exercer ce qui a été présenté ; aucun scope additionnel inféré |
-| **CD-10** | **Fail-closed** | Si l’une des conditions CD-01…CD-05 échoue ⇒ **aucune mutation** ; Nora pose une **clarification courte** ou re-présente le sujet |
+| **CD-10** | **Fail-closed** | Si **toute condition REQUISE applicable** parmi **CD-01…CD-09** échoue ⇒ **aucune capture autoritaire** ; **aucune** disposition / HD / Confirmation créée ; **aucune** exécution déclenchée ; clarification / re-présentation / requalification. C2 décide *quelles* conditions sont applicables selon mécanisme/catégorie ; C1 exige la cohérence : le fail-closed n’est pas limité à CD-01…CD-05. |
 
 ### 10.4 Comportements de repli
 
@@ -553,13 +600,13 @@ Les réponses brèves (« oui », « go », « ok », « vas-y », « on part l�
 | Plusieurs sujets actifs | Clarification brève : « Vous parlez de A ou de B ? » (sans énumération lourde) |
 | Sujet périmé | Re-présenter le sujet courant ; ne pas appliquer |
 | Phrase ambiguë (« oui mais… ») | Traiter comme conversation ; pas de capture |
-| Effet protégé visé | Parcours EC + Confirmation selon doctrine ; « oui » ne suffit pas |
+| Effet protégé visé | Floor : EC inspecté + consentement explicite si Confirmation requise. « oui » générique, « oui » **avant** inspection, « oui » **ambigu** ≠ Confirmation. Une réponse conversationnelle du type « oui, exécute » *directement liée* à une Confirmation explicite, server-validated, scoped, current et auditable **reste une option C2** — non exclue, non décidée. HD structurante applicable peut déjà exister : pas de HD supplémentaire automatique. |
 | Aucune présentation préalable | Refus de capture ; présenter d’abord |
 | Reprise après interruption | Requalification : ne jamais reprendre un « oui » ancien |
 
 ### 10.5 Ce qui reste à décider (C2)
 
-- lesquelles des catégories A–I peuvent être capturées par phrase brève et à quel mécanisme ;
+- lesquelles des catégories **A–J** peuvent être capturées par phrase brève et à quel mécanisme ;
 - la forme minimale de la « présentation préalable » prouvable ;
 - la durée de validité d’un sujet (currentness) ;
 - la contribution respective de Nora (interprétation) et du serveur (validation déterministe) — voir §12 : **Nora interprète, Studio valide ; Nora ne décide pas** ;
@@ -632,7 +679,7 @@ Nora **comprend, qualifie, challenge, analyse, distingue les statuts épistémiq
 4. ne construire un mécanisme générique interne que si l’insuffisance/incompatibilité est **qualifiée** ;
 5. rappeler qu’une primitive OpenAI **n’acquiert jamais** l’autorité métier SFIA (une réponse structurée ≠ HumanDecision).
 
-> **Ce C1 ne réalise pas ce fit check** et ne choisit ni modèle, ni tier, ni reasoning effort, ni service.
+> **Ce C1 ne réalise pas ce fit check** et **ne choisit** ni modèle de production, ni tier, ni reasoning effort, ni service. Le snapshot GPT-6 (§12A.3) est un **EXTERNAL CURRENT INPUT** à revalider, pas un contrat.
 
 ### 12.4 Anti-claims cognitifs
 
@@ -640,6 +687,126 @@ Nora **comprend, qualifie, challenge, analyse, distingue les statuts épistémiq
 - Mémoire / résumé Nora ≠ vérité projet.
 - Compaction candidate ≠ adoptée (selon Roadmap).
 - Cognitive Completion **NOT PROVEN**.
+- **Production model routing NOT SELECTED.**
+- Snapshot fournisseur GPT-6 = EXTERNAL CURRENT INPUT, pas un contrat.
+
+---
+
+## 12A. Cognitive Reliability & Adaptive Model / Reasoning Strategy
+
+> **Statut : TARGET / FRAMING.** D-SIMP-02 **ADOPTED** comme trajectoire d’axe. **≠** architecture technique. **≠** production routing. **≠** Cognitive Completion. **≠** second moteur Nora.
+
+### 12A.1 Quatre axes non fusionnables
+
+| Axe | Owner | Rôle | Interdit |
+| --- | --- | --- | --- |
+| **1. Deterministic Product Logic** | SFIA Studio (code / state / policy) | Currentness, membership, cardinalité de sujet, scope, authority, policies, idempotence, lifecycle, protected boundaries, fail-closed | Déléguer à un LLM |
+| **2. Cognitive Work** | Nora | Comprendre, analyser, qualifier, challenger, recommander, clarifier | Acquérir une autorité |
+| **3. Model / Reasoning Configuration** | Studio policy, **server-owned** | Choisir (candidat) modèle × effort *minimum suffisant* pour le workload | Mapping 1:1 Cycle/Profil → modèle ; auto-attribution par Nora |
+| **4. Authority** | Pilote (runtime) / Morris (construction) | HD, consentement, Confirmation, gates | Un modèle plus puissant n’élève pas l’autorité |
+
+**TARGET MODEL (≠ claim runtime actuel) :**
+
+```text
+STUDIO PORTE LA VÉRITÉ ET LES RÈGLES.
+NORA PORTE L’INTELLIGENCE.
+OPENAI FOURNIT LA PUISSANCE COGNITIVE.
+LE PILOTE CONSERVE L’AUTORITÉ.
+
+PILOTE     = authority / HumanDecision / consent
+NORA       = cognition / understanding / analysis / challenge / recommendation
+SFIA STUDIO = durable truth / policy / currentness / deterministic validation /
+              materiality / model routing / execution governance
+OPENAI     = cognitive primitives / models / reasoning / tools
+CURSOR     = technical executor under ExecutionContract
+```
+
+### 12A.2 Absorption de la trajectoire Nora existante
+
+Le repo contient déjà `projects/sfia-studio/nora-cognitive-completion/08-nora-openai-native-first-cognitive-trajectory.md` (**VALIDATED — ACTIVE ON MAIN**), qui pose déjà : NORA OPENAI-NATIVE-FIRST ; OpenAI Capability Fit Check ; Strategy Classes ; Model × Reasoning Evaluation ; minimum sufficient cognitive configuration by workload ; provider capabilities = current inputs, not permanent doctrine ; production model routing NOT SELECTED.
+
+D-SIMP-02 :
+
+- **absorbe** cette trajectoire comme actif **KEEP / HARVEST / ADAPT** ;
+- la **recontextualise** dans la simplification chat-first (PIB, matérialité HD, Net Complexity Reduction) ;
+- **ne la remplace pas** et **ne crée pas** une « Nora Cognitive Architecture » parallèle ;
+- **ne redécide pas** l’historique MW2→MW6 ;
+- **ne prétend pas** Cognitive Completion.
+
+Noms conceptuels candidats pour P4 (Cognitive Workload Profiler, Cognitive Strategy Policy, Model/Reasoning Router, …) = **rôles**, **pas** obligation de créer 3 nouveaux services. Objectif Delivery : **centraliser / simplifier**, pas ajouter une cascade de routers.
+
+### 12A.3 Provider snapshot — EXTERNAL CURRENT INPUT (2026-10-03)
+
+> **PROVIDER CURRENT INPUT ≠ SFIA DOCTRINE ≠ PRODUCTION ROUTING DECISION ≠ PERMANENT MODEL CONTRACT.**
+> Revalidé par ChatGPT depuis documentation officielle OpenAI au **2026-10-03**.
+> Capacités, prix, latences, modalités API et settings supportés = **inputs vivants à REVALIDER** avant P2 / P4 / P5 / P6.
+> Ce cadrage **ne modifie aucune** source doctrine avec ce snapshot.
+
+| Famille | Model id candidat | Positionnement fournisseur | Reasoning efforts supportés | Default fournisseur |
+| --- | --- | --- | --- | --- |
+| **GPT-6 Astra** | `gpt-6-astra` | Modèle OpenAI le plus capable pour les travaux les plus exigeants | low / medium / high / xhigh / max | — |
+| **GPT-6.1 Sol** | `gpt-6.1-sol` | Near-Astra pour travaux complexes, coût inférieur | low / medium / high / xhigh / max | **medium** |
+| **GPT-6 Luna** | `gpt-6-luna` | Efficient pour tâches focalisées / volume | none / low / medium / high / xhigh / max | **medium** |
+
+**API.** Responses API = voie nominale **candidate** pour reasoning + tool calling sur cette famille — subject to current fit check ; **≠** migration décidée.
+
+**Anti-claims snapshot.** GPT-6 Luna / GPT-6.1 Sol / GPT-6 Astra **ne sont pas** des mappings permanents. Reasoning **high** n’est **pas** une valeur globale. `none` / `xhigh` / `max` ne sont pas des politiques.
+
+### 12A.4 Classes de workload cognitif candidates C0–C3
+
+> **C0–C3 ne sont PAS** : niveaux d’autorité, profils SFIA, classes de décision, action policies, cycle profiles, permissions. Ce sont uniquement des **COGNITIVE WORKLOAD CLASSES** candidates.
+
+| Classe | Nature | Owner | LLM | Mapping fournisseur **candidat** | Reasoning **candidat** | Statut |
+| --- | --- | --- | --- | --- | --- | --- |
+| **C0 — DETERMINISTIC** | Garanties déterministes : currentness, optionRef membership, cardinalité de sujet actif, durable state, scope, authority, policies, idempotence, lifecycle invariants, protected boundaries, fail-closed | Studio code / state / policy | **NONE** | — | — | **INVARIANT DE TRAJECTOIRE** : ne jamais déléguer à Luna/Sol/Astra ce qui peut et doit être garanti déterministement |
+| **C1 — ROUTINE COGNITIVE** | Tâche cognitive focalisée, faible ambiguïté, faible profondeur, volume potentiel élevé (extraction, classification simple, résumé, reformulation, présentation, petite qualification, préparation non autoritaire) | Nora | Oui | GPT-6 Luna | low / medium | **CANDIDATE — EVAL REQUIRED** |
+| **C2 — STANDARD / SIGNIFICANT REASONING** | Raisonnement Nora nominal significatif (intention complexe, qualification cycle/profil/contexte, analyse Project, Recommendation, comparaison d’options, clarification non triviale, replanification courante, synthèse multi-source) | Nora | Oui | GPT-6.1 Sol | medium / high | **CANDIDATE — EVAL REQUIRED**. Souhait Morris « Sol high comme régime possible de travail courant robuste » = **CANDIDATE STARTING HYPOTHESIS TO EVALUATE**, **≠** production decision |
+| **C3 — DEEP / CRITICAL REASONING** | Workload exigeant, impact important, forte ambiguïté, multi-source complexe, review approfondie (architecture, critical review, code review complexe, contradiction difficile, investigation, decision support à forte exigence) | Nora | Oui | GPT-6 Astra | medium / high ; **xhigh uniquement si eval le justifie** | **CANDIDATE — EVAL REQUIRED** |
+
+### 12A.5 Cognitive escalation (candidate)
+
+Exemple conceptuel : C2 / Sol → Nora ou Studio détecte contradiction élevée / complexité inattendue / confiance insuffisante / forte profondeur de review / besoin multi-source exigeant → Studio/policy **qualifie** l’escalade → C3 / Astra → analyse approfondie → **retour dans la même Nora / même Product workflow**.
+
+**Invariant :** **COGNITIVE ESCALATION ≠ AUTHORITY ESCALATION.**
+
+Un modèle plus puissant :
+
+- n’acquiert aucune HumanDecision ;
+- n’acquiert aucune permission ;
+- ne modifie aucun scope ;
+- ne contourne aucune Confirmation ;
+- ne change aucun AgentCapability.
+
+Le choix/escalade modèle est **server-owned / policy-owned**. Nora peut produire un **SIGNAL** cognitif ; elle **ne s’auto-attribue pas** Astra ni une autorité supérieure.
+
+### 12A.6 Cognitive Workload Profile — dimensions candidates
+
+Hypothèses de conception pour que P2/P4 qualifient un workload. Objectif P2 : identifier le **MINIMUM** de dimensions réellement prédictives — **pas** une taxonomie énorme.
+
+- cognitive complexity · ambiguity · contradiction level · source count / heterogeneity · expected tool use · code / architecture depth · epistemic sensitivity · criticality · expected quality bar · stability requirement · latency tolerance · cost sensitivity · recovery/retry burden.
+
+### 12A.7 Principe de sélection
+
+**MINIMUM SUFFICIENT COGNITIVE CONFIGURATION BY WORKLOAD.**
+
+Le système ne sélectionne ni le plus gros modèle partout, ni l’effort maximal partout, ni le modèle le moins cher partout. La configuration doit satisfaire le quality bar du workload au coût/latence raisonnables. **Le mapping final se décide sur preuve (P6 → P8).**
+
+### 12A.8 Model × Reasoning Evaluation — obligatoire avant promotion
+
+**P6 doit** produire une matrice d’évaluation représentative **avant** qu’une production routing policy puisse être promue.
+
+Matrice **candidate** (P6 peut l’adapter selon résultats fournisseur et P2/P4) :
+
+- GPT-6 Luna × low / medium
+- GPT-6.1 Sol × medium / high
+- GPT-6 Astra × medium / high
+- xhigh / max : uniquement si besoin démontré
+
+Mesures candidates héritées de MW0 / trajectoire Nora : task success · grounding · completeness · fabricated claim rate · contradiction handling · instruction adherence · epistemic separation · authority / STOP compliance · clarification quality · genericity · narrative ↔ Evidence coherence · stability / variance · latency · token use · cost · tool-call burden · retries · cost per successful task.
+
+Mesures **ajoutées** pour ce macro : Pilot Interaction Budget effect · clarification burden · model escalation rate · wrong-routing rate · unnecessary high-tier usage · quality gain per escalation.
+
+**Aucune production routing policy ne peut être promue sans preuve représentative.**
 
 ---
 
@@ -667,7 +834,7 @@ Nora **comprend, qualifie, challenge, analyse, distingue les statuts épistémiq
 
 ### 13.3 Questions de frontière laissées à C2
 
-- Quelle information minimale rend une disposition/décision auditable pour chaque catégorie A–I ?
+- Quelle information minimale rend une disposition/décision auditable pour chaque catégorie **A–J** ?
 - Quels sujets « actifs » doivent être durables vs reconstructibles ?
 - Où s’arrête la « mémoire de session » Nora et où commence l’état Studio ?
 
@@ -730,16 +897,16 @@ Chaîne conversation → décision → exécution ; Recommendation ≠ HD ; EC a
 
 > **Trajectoire adaptative par capacités**, pas waterfall. **Chaque gate est distinct** : l’achèvement d’une phase **n’autorise pas** la suivante. **Seul P1 est en cours.** **L’aval (P2→P8) est NON AUTORISÉ.**
 
-| Phase | Intitulé (D-SIMP-01) | Contenu visé | Gate d’entrée | Gate de sortie | Statut |
+| Phase | Intitulé | Contenu visé (axes A interaction · B HD materiality · C Cognitive Reliability) | Gate d’entrée | Gate de sortie | Statut |
 | --- | --- | --- | --- | --- | --- |
-| **P1** | **Cadrage (ce document, C1)** | Problème, objectifs, invariants, scope, actifs, questions, critères | D-SIMP-01 (consommée) | ChatGPT Critical Review → Morris validation | **IN PROGRESS (LOCAL DOCUMENTARY CANDIDATE)** |
-| **P2** | **Conception fonctionnelle** | Modèle d’interaction simplifié ; politique de matérialité HD ; parcours conversation→state→decision→execution ; nominal / ambiguïté / STOP / recovery | P1 validé + **GO distinct** C2 | Validation Morris de la politique | **NOT AUTHORIZED** |
-| **P3** | **UX / Interaction Architecture** | Simplification Pilot-facing ; chat dominant ; état/trajectory/history secondaires ; interactions proportionnées ; wireframes ciblés sur deltas utiles | P2 validé + GO distinct | Validation UX | **NOT AUTHORIZED** |
-| **P4** | **Architecture technique delta** | Mapping CURRENT → TARGET simplifié ; ownership unique ; mécanismes à fusionner / supprimer / adapter ; zéro architecture parallèle ; **OpenAI Capability Fit Check** avant nouveau mécanisme cognitif | P2/P3 validés + GO distinct | Validation architecture delta | **NOT AUTHORIZED** |
-| **P5** | **Delivery de simplification** | Modification incrémentale du backbone ; priorité Net Complexity Reduction ; pas de rewrite global | Conception + architecture validées + **GO Delivery distinct** | Preuve déterministe + validation Morris | **NOT AUTHORIZED** |
-| **P6** | **QA / validation intégrée** | Deterministic E2E ; non-régression ; mesures de friction / interaction budget | P5 + GO distinct | Validation QA | **NOT AUTHORIZED** |
-| **P7** | **Product Replay** | HabitFlow Replay ou scénario représentatif requalifié ; observer l’expérience conversationnelle réelle ; identifier le gap suivant | P6 + GO distinct | Observation / capitalisation | **NOT AUTHORIZED** · REAL = GO distinct |
-| **P8** | **Requalification** | Décider suite / REAL / autre capacité ; revue éventuelle des RETIRE LATER (jamais automatique) | P7 + preuve | Décision Morris | **NOT AUTHORIZED** |
+| **P1** | **Cadrage (ce document, C1)** | Problème, objectifs, invariants, scope, actifs, questions, critères ; provider snapshot daté ; C0–C3 candidates ; production routing NOT DECIDED | D-SIMP-01 + D-SIMP-02 (consommées) | ChatGPT Critical Review → Morris validation | **IN PROGRESS (LOCAL DOCUMENTARY CANDIDATE / CP01)** |
+| **P2** | **Conception fonctionnelle** | Politique de matérialité HD ; capture conversationnelle ; classes de workload utiles ; signaux de profondeur ; frontière déterministe vs cognitif ; escalade cognitive ; fail-closed si cognition insuffisante ; comportement Pilot-facing. **OpenAI Capability Fit Check courant requis.** | P1 validé + **GO distinct** C2 | Validation Morris de la politique | **NOT AUTHORIZED** |
+| **P3** | **UX / Interaction Architecture** | Chat dominant ; complexité modèle **absorbée** (aucune exposition gratuite de GPT model / reasoning effort / internals) ; éventuel état « analyse approfondie » *seulement si* valeur UX démontrée ; Confirmation conversationnelle candidate ; surfaces secondaires réduites | P2 validé + GO distinct | Validation UX | **NOT AUTHORIZED** |
+| **P4** | **Architecture technique delta** | Mapping CURRENT → TARGET pour rôles conceptuels candidats (Workload Profiler, Strategy Policy, Model/Reasoning Router, provider config, Responses/agent boundary, fallback, escalation, telemetry, cost/latency, versioning, failover, deterministic validation after cognition). **Pas 3 nouveaux services obligatoires.** No second Nora. No parallel runtime. Hardcoded mappings = **AUDIT**, pas RETIRE. | P2/P3 validés + GO distinct + **fit check courant** | Validation architecture delta | **NOT AUTHORIZED** |
+| **P5** | **Delivery de simplification** | Implémentation incrémentale du backbone **après** architecture validée ; centraliser / simplifier, pas une cascade de routers ; **Net Complexity Reduction** = exit criterion | Conception + architecture validées + **GO Delivery distinct** | Preuve déterministe + validation Morris | **NOT AUTHORIZED** |
+| **P6** | **QA / validation intégrée** | Functional simplification QA **+** **Model × Reasoning evaluation** représentative. Aucune production routing policy sans preuve. | P5 + GO distinct | Validation QA | **NOT AUTHORIZED** |
+| **P7** | **Product Replay** | HabitFlow ou scénario représentatif : observer simultanément chat-first, matérialité decision, routing cognitif, escalations, qualité Nora, PIB, cost/latency, authority integrity | P6 + GO distinct | Observation / capitalisation | **NOT AUTHORIZED** · REAL = **GO Morris distinct** |
+| **P8** | **Requalification** | Morris peut décider : Cognitive Routing Policy v1 ; mappings fournisseur/version/config ; maintien/adaptation ; éventuels RETIRE LATER ; preuve REAL suivante. **Jamais automatiquement.** | P7 + preuve | Décision Morris | **NOT AUTHORIZED** |
 
 **Règles de trajectoire :**
 
@@ -768,7 +935,12 @@ Chaîne conversation → décision → exécution ; Recommendation ≠ HD ; EC a
 | **R-12** | **Surcharge de revue** (ChatGPT / Morris) | Moyenne / Moyenne | Document autonome ; questions C2 explicites ; slices par capacité |
 | **R-13** | **Faux sentiment de simplicité** : complexité déplacée vers Studio/Nora sans gain net | Moyenne / Moyenne | PIB + mesure du coût de maintenance |
 | **R-14** | **Dépendance à un snapshot OpenAI** présenté comme permanent | Moyenne / Moyenne | Revalidation à date de conception (R22) |
-| **R-15** | **Réintroduction de rôles/personas** (ex. « Morris » runtime) | Faible / Moyenne | Rôle fonctionnel = Pilote (NG-09) |
+| **R-16** | **Routing cognitif transformé en autorité** (Astra = plus de droits) | Moyenne / **Critique** | SP-24 ; escalade ≠ authority ; C0 NO LLM |
+| **R-17** | **Second moteur Nora / architecture parallèle** | Faible-Moyenne / Haute | KEEP/HARVEST/ADAPT de `08-…` ; SP-19 ; NG-10 |
+| **R-18** | **Promotion de mapping Luna/Sol/Astra sans preuve** | Moyenne / Haute | P6 Model × Reasoning obligatoire ; snapshot = EXTERNAL CURRENT INPUT |
+| **R-19** | **Churn / oscillation de routing** | Moyenne / Moyenne | OQ-C2-27 ; policy server-owned ; hysteresis à concevoir en P2 |
+| **R-20** | **Exposition Pilot-facing des internals fournisseur** | Moyenne / Moyenne | P3 : modèle/effort non exposés sauf valeur UX démontrée |
+| **R-21** | **Coût transformé en autorité** (PIB vs routing) | Moyenne / Haute | OQ-C2-32 ; qualité bar d’abord ; coût = contrainte, pas permission |
 
 ---
 
@@ -782,8 +954,8 @@ Chaîne conversation → décision → exécution ; Recommendation ≠ HD ; EC a
 | **OQ-C2-02** | Quelle liste finale de catégories de décision (A–J) et quelles éventuelles fusions/scissions ? | §9 |
 | **OQ-C2-03** | Pour chaque catégorie A–J : quel mécanisme de capture (M-LPS / M-DISP / M-HD / M-CONF / autre / aucune) ? | §9.3 |
 | **OQ-C2-04** | Une disposition de Recommendation (M-DISP) peut-elle, seule, couvrir certaines Work Recommendations non structurantes (C) ou choix opérationnels (D) sans HD durable ? | §9.3 (C, D) |
-| **OQ-C2-05** | Quelle forme minimale de DecisionBasis allégée est acceptable sans perdre l’auditabilité ? | §9.4, §13 |
-| **OQ-C2-06** | Quels niveaux de Confirmation (N1–N3) s’appliquent par catégorie, et comment les rendre non intrusifs ? | §9, SP-07 |
+| **OQ-C2-05** | DecisionBasis doit-elle rester obligatoire pour toute HD, ou seulement pour les HD structurantes, et sous quelle forme minimale / granularité ? (**Auditability = invariant** ; DecisionBasis universel = **NOT DECIDED**) | §9.1, §9.4, §13 |
+| **OQ-C2-06** | Quels niveaux **et quelles formes** de Confirmation (N1–N3, surface dédiée vs « oui, exécute » conversationnel lié) s’appliquent par catégorie, sans cérémonie superflue ? | §9.2–§9.3 (H), SP-09 |
 | **OQ-C2-07** | Quelles formulations brèves (« oui », « go », …) peuvent être capturées, dans quelles catégories, avec quelles conditions CD-01…CD-10 ? | §10 |
 | **OQ-C2-08** | Quelle définition opérationnelle de *currentness* et de *présentation préalable* ? | §10.3 |
 | **OQ-C2-09** | Comment partager la responsabilité Nora (interprétation) / Studio (validation déterministe) sans second chemin ? | §12.2 |
@@ -793,15 +965,21 @@ Chaîne conversation → décision → exécution ; Recommendation ≠ HD ; EC a
 | **OQ-C2-13** | Quelles surfaces (journal, historique, trajectoire, result) sont redondantes et lesquelles peuvent être fusionnées sans retrait ? | §7 (ligne 25), FR-04 |
 | **OQ-C2-14** | Quel contenu minimal pour la Result Surface (SUCCESS/STOP/FAIL, prochaine action) ? | §7 (ligne 23) |
 | **OQ-C2-15** | Comment traiter une évolution de LPS / préférence (A, B) vs modification de scope (E) ? | §9.3 |
-| **OQ-C2-16** | Comment ProjectTrajectory (F) est-elle validée en conversation sans HD par micro-étape ? | §9.3 (F) |
+| **OQ-C2-16** | Comment valider une ProjectTrajectory en conversation **sans multiplier les HumanDecisions par micro-étape**, tout en conservant la HumanDecision requise pour son **adoption / amendement structurant** ? | §9.3 (F) |
 | **OQ-C2-17** | Quelle stratégie de test (jeux adversariaux bilingues, non-régression #543–#547) conditionne chaque slice ? | R-01, R-07, R-08 |
 | **OQ-C2-18** | Quels critères de preuve de « simplification effective » (PIB avant/après, maintenance) ? | §11, R-13 |
 | **OQ-C2-19** | Quel statut Git exact de la convergence Generic Execution / Review / Result à l’entrée de C2 (intégré, candidat, partiel) ? | §6.2 |
 | **OQ-C2-20** | Quels candidats RETIRE LATER (lignes 25, 31) ont un owner et une condition de sortie vérifiable ? | §7, §20 |
 | **OQ-C2-21** | Comment distinguer clairement EC-preparing choices (J) des dispositions Work (C) et des effets protégés (H) ? | §9.3 (C, H, J) |
 | **OQ-C2-22** | Comment articuler la trajectoire P2→P8 avec le chemin critique Roadmap (B10) sans second chemin ? | §15 |
+| **OQ-C2-23** | Quelles cognitive workload classes sont réellement nécessaires ? C0–C3 est-il le bon niveau de granularité ? | §12A.4 |
+| **OQ-C2-24** | Quels signaux justifient une escalade cognitive, et comment éviter oscillation / wrong-routing ? | §12A.5 |
+| **OQ-C2-25** | Quelles tâches restent **strictement déterministes (C0 / NO LLM)** vs cognitives ? | §12A.1, §12A.4 |
+| **OQ-C2-26** | Quelles tâches nominales nécessitent Sol vs Luna, et quels workloads justifient Astra ? Quel effort est *minimal suffisant* par workload ? | §12A.4, §12A.7 |
+| **OQ-C2-27** | Quelle stratégie de fallback en erreur provider/model, et comment rendre l’escalade observable **sans** exposer la mécanique fournisseur ? | §12A.5, P3/P4 |
+| **OQ-C2-28** | Quelles métriques (dont PIB, escalation rate, quality gain per escalation) **conditionnent** la promotion d’une routing policy — sans transformer le coût en autorité ? | §12A.8, §11 |
 
-**Total : 22 questions ouvertes.**
+**Total : 28 questions ouvertes.** Fusionnées lorsque possible ; pas de catalogue illisible. **Aucune n’est décidée.**
 
 ---
 
@@ -821,6 +999,14 @@ Chaîne conversation → décision → exécution ; Recommendation ≠ HD ; EC a
 | **C1-10** | Les risques de simplification sont explicités | §16 | **PASS (content) — pending review** |
 | **C1-11** | La capacité suivante est identifiable : Cycle 2 — Conception fonctionnelle (après gates) | §17 ; §19 ; §22 | **PASS (content) — pending review** |
 | **C1-12** | Aucune architecture technique ou politique runtime détaillée n’est présentée comme décidée | §9.5 ; §14 ; §21 | **PASS (content) — pending review** |
+| **C1-13** | Cognitive Reliability est intégrée comme axe du macro | §12A ; D-SIMP-02 | **PASS (content) — pending review** |
+| **C1-14** | La frontière deterministic Studio / cognitive Nora est explicite | §12 ; §12A.1 | **PASS (content) — pending review** |
+| **C1-15** | C0–C3 sont cadrées comme classes candidates, sans mapping production décidé | §12A.4 | **PASS (content) — pending review** |
+| **C1-16** | Le snapshot fournisseur GPT-6 est daté et qualifié EXTERNAL CURRENT INPUT | §12A.3 | **PASS (content) — pending review** |
+| **C1-17** | Model × Reasoning evaluation est obligatoire avant promotion d’une routing policy | §12A.8 ; P6 | **PASS (content) — pending review** |
+| **C1-18** | Cognitive escalation ≠ authority escalation | §12A.5 ; SP-24 | **PASS (content) — pending review** |
+| **C1-19** | La trajectoire Nora OpenAI-native-first existante est réutilisée, pas dupliquée | §7 ligne 33 ; §12A.2 | **PASS (content) — pending review** |
+| **C1-20** | P1→P8 intègre explicitement l’axe cognition | §15 | **PASS (content) — pending review** |
 
 > **Lecture.** « ADDRESSED » signifie *traité dans le contenu du document*. Cela **n’équivaut pas** à « validé » : la validation relève de ChatGPT Critical Review puis de Morris.
 
@@ -830,8 +1016,8 @@ Chaîne conversation → décision → exécution ; Recommendation ≠ HD ; EC a
 
 | Gate | Description | Statut |
 | --- | --- | --- |
-| **G-SIMP-01** | **Contenu C1 complet** (ce document) | **SATISFIED — LOCAL DOCUMENTARY CANDIDATE** |
-| **G-SIMP-02** | **ChatGPT Critical Review** du C1 | **PENDING — NEXT GATE** |
+| **G-SIMP-01** | **Contenu C1 complet** (ce document, Correction Pass 01) | **SATISFIED — LOCAL DOCUMENTARY CANDIDATE** |
+| **G-SIMP-02** | **ChatGPT Critical Review** du C1 (y compris CP01) | **PENDING — NEXT GATE** |
 | **G-SIMP-03** | **Validation Morris** du contenu C1 (éventuelles corrections incluses) | **NOT STARTED** |
 | **G-SIMP-04** | **Intégration Git** du C1 (commit / push / PR / merge) | **NOT AUTHORIZED — distinct GO Morris** |
 | **G-SIMP-05** | **GO distinct** pour ouvrir **Cycle 2** (conception) | **NOT AUTHORIZED** |
@@ -841,6 +1027,7 @@ Chaîne conversation → décision → exécution ; Recommendation ≠ HD ; EC a
 | **G-SIMP-09** | GO REAL (tout service externe/Cursor/OpenAI/Git distant) | **NOT AUTHORIZED** |
 | **G-SIMP-10** | Retrait (RETIRE) d’un actif | **NOT AUTHORIZED — gate par actif** |
 | **G-SIMP-11** | Adoption runtime v3 | **NOT AUTHORIZED / NON ADOPTED** |
+| **G-SIMP-12** | Promotion d’une **production model routing policy** | **NOT SELECTED** — exige P6 preuve + P8 Morris |
 
 > Les gates sont **séquentiels et indépendants** : franchir G-SIMP-02 n’ouvre pas G-SIMP-05 ; franchir G-SIMP-05 n’ouvre pas G-SIMP-08.
 
@@ -857,6 +1044,9 @@ Chaîne conversation → décision → exécution ; Recommendation ≠ HD ; EC a
 | **Document C1 non intégré à Git** | Cycle documentaire local | Morris | ChatGPT Review + validation + GO Git | G-SIMP-02 → G-SIMP-04 |
 | **Fit check OpenAI non réalisé** | Exigence R22 | Morris / cycle concerné | Réalisé et revalidé à date de conception | Avant C2/P3/P4 |
 | **Statut Git de Generic Execution à confirmer** | Roadmap (candidat local à un instant donné) | Morris | Résolution depuis Git / PR | À l’entrée de C2 |
+| **Snapshot fournisseur GPT-6 (2026-10-03)** | Input externe daté | Morris / cycle P2+ | Revalidation officielle avant P2/P4/P5/P6 | Avant chaque phase aval cognitive |
+| **Mapping Luna/Sol/Astra candidate** | D-SIMP-02 framing | Morris (P6→P8) | Preuve Model × Reasoning représentative + décision P8 | P6 → P8 |
+| **Trajectoire Nora 08 non dupliquée** | D-SIMP-02 | Morris | Toute évolution de la source `08-…` = **GO Morris distinct** (hors scope CP01) | Conservé |
 
 **Règle de dette (R11/R20).** Aucune dette volontaire sans propriétaire et condition de sortie. Ce cadrage ne crée **aucune dette de code** (aucun code modifié).
 
@@ -864,7 +1054,7 @@ Chaîne conversation → décision → exécution ; Recommendation ≠ HD ; EC a
 
 ## 21. Explicit Anti-claims
 
-Ce document, son statut et la décision D-SIMP-01 **ne signifient pas** :
+Ce document, son statut et les décisions D-SIMP-01 / D-SIMP-02 **ne signifient pas** :
 
 1. **C2 AUTORISÉ** — Cycle 2 n’est pas ouvert.
 2. **READY FOR DELIVERY** — aucune livraison, aucun slicing adopté.
@@ -872,16 +1062,20 @@ Ce document, son statut et la décision D-SIMP-01 **ne signifient pas** :
 4. **Runtime v3 ADOPTED** — **NON ADOPTED**.
 5. **Politique HumanDecision décidée** — seule la trajectoire est adoptée ; la matérialité est **cadrée, non décidée**.
 6. **Recommendation = HumanDecision** — jamais ; « oui / go » n’est pas automatiquement une décision.
-7. **Réécriture / greenfield / architecture parallèle**.
-8. **Réécriture de doctrine** ou modification de Build Doctrine / framings / C1 Product Completion / method / prompts. *(La Roadmap Convergence peut recevoir un truth-sync borné autorisé par le cycle documentaire C1 — ≠ doctrine rewrite.)*
+7. **Réécriture / greenfield / architecture parallèle / seconde Nora**.
+8. **Réécriture de doctrine** ou modification de Build Doctrine / framings / C1 Product Completion / method / prompts / **source trajectoire Nora 08**. *(La Roadmap Convergence peut recevoir un truth-sync borné — ≠ doctrine rewrite.)*
 9. **RETIRE** — aucun retrait, immédiat ou programmé.
 10. **Global L5 / auto-escalade / merge autonome**.
 11. **Cognitive Completion PROVEN** ; Nora ≠ autorité.
-12. **OpenAI fit check réalisé** ou modèle/tier/service sélectionné.
+12. **OpenAI fit check réalisé** ou **production model routing SELECTED**.
 13. **Intégré sur `main`** : candidat documentaire local ; pas de commit / push / PR / merge.
 14. **Simplification prouvée** : aucune mesure PIB n’existe ; la valeur est une cible.
 15. **Statut Git exact des travaux Generic Execution / Review / Result** : à résoudre depuis Git.
 16. **Remplacement de SFIA v2.6 comme processus externe** : v2.6 reste processus d’exécution documentaire externe, jamais doctrine runtime Studio.
+17. **GPT-6 Luna / GPT-6.1 Sol / GPT-6 Astra / reasoning high** comme mapping ou régime **permanent**.
+18. **DecisionBasis universel = doctrine** — auditability = invariant ; forme DecisionBasis = C2.
+19. **Confirmation conversationnelle décidée** — option **ouverte**, non sélectionnée.
+20. **C0–C3 = niveaux d’autorité** — classes de workload candidates seulement.
 
 ---
 
@@ -889,11 +1083,13 @@ Ce document, son statut et la décision D-SIMP-01 **ne signifient pas** :
 
 ### 22.1 Verdict
 
-> **C1 CONTENT COMPLETE — LOCAL DOCUMENTARY CANDIDATE — READY FOR CHATGPT CRITICAL REVIEW.**
+> **STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION C1 — CORRECTION PASS 01 COMPLETE — READY FOR CHATGPT CRITICAL REVIEW.**
 
-- Trajectoire **D-SIMP-01** : **adoptée** (consommée).
-- Politique détaillée de matérialité HumanDecision : **NON DÉCIDÉE** (framing + 22 questions C2).
-- Critères **C1-01…C1-12** : **traités dans le contenu**, **en attente de revue**.
+- Trajectoires **D-SIMP-01** et **D-SIMP-02** : **adoptées** (consommées).
+- Politique détaillée de matérialité HumanDecision : **NON DÉCIDÉE**.
+- Production model routing : **NOT SELECTED**.
+- Critères **C1-01…C1-20** : **traités dans le contenu**, **en attente de revue**.
+- CR-C1-01…06 : **fermés dans le contenu**.
 - Aucun RETIRE immédiat ; aucune modification de code ; aucun REAL.
 
 ### 22.2 Prochain gate
@@ -906,7 +1102,7 @@ PROCHAIN GATE = READY FOR CHATGPT CRITICAL REVIEW
   → (distinct) GO d’ouverture de Cycle 2
 ```
 
-**Cycle 2 ne peut démarrer qu’après :** (1) ChatGPT Critical Review favorable ; (2) validation Morris du C1 ; (3) **GO Morris distinct** d’ouverture de C2. Même alors, tout nouveau mécanisme cognitif exige l’**OpenAI Capability Fit Check** (§12.3), et toute Delivery / REAL / retrait exige un **GO distinct**.
+**Cycle 2 ne peut démarrer qu’après :** (1) ChatGPT Critical Review favorable du C1 (y compris CP01) ; (2) validation Morris du C1 ; (3) **intégration Git C1 sous GO distinct** ; (4) **GO Morris distinct** d’ouverture de C2. Même alors, tout nouveau mécanisme cognitif exige l’**OpenAI Capability Fit Check** (§12.3), et toute Delivery / REAL / retrait / **production routing** exige un **GO distinct**.
 
 ### 22.3 Synthèse des restrictions actives
 
@@ -918,33 +1114,90 @@ PROCHAIN GATE = READY FOR CHATGPT CRITICAL REVIEW
 | RETIRE | **NONE** (aucun immédiat) |
 | Runtime v3 | **NON ADOPTED** |
 | Politique HD matérialité | **NOT DECIDED** |
+| Production model routing | **NOT SELECTED** |
+| Cognitive Completion | **NOT PROVEN** |
 | Intégration Git | **NOT AUTHORIZED** |
 ```
 
-## 9. Diff COMPLET Roadmap
+## 10. Provider snapshot + source qualification
+
+Date: 2026-10-03
+Qualification: PROVIDER CURRENT INPUT ≠ SFIA DOCTRINE ≠ PRODUCTION ROUTING DECISION ≠ PERMANENT MODEL CONTRACT
+Source: revalidated by ChatGPT from official OpenAI documentation (mission input). Not written into doctrine sources.
+
+| Family | Candidate model id | Provider positioning | Reasoning efforts | Provider default |
+| --- | --- | --- | --- | --- |
+| GPT-6 Astra | gpt-6-astra | most capable for most demanding work | low/medium/high/xhigh/max | — |
+| GPT-6.1 Sol | gpt-6.1-sol | near-Astra, lower cost | low/medium/high/xhigh/max | medium |
+| GPT-6 Luna | gpt-6-luna | efficient focused/volume | none/low/medium/high/xhigh/max | medium |
+
+Responses API = candidate nominal path for reasoning + tool calling on this family. Capabilities/price/latency/API/settings = living inputs to REVALIDATE before P2/P4/P5/P6.
+
+## 11. Cognitive strategy framing
+
+Four non-mergeable axes: (1) Deterministic Product Logic (2) Cognitive Work (3) Model/Reasoning Configuration server-owned (4) Authority.
+TARGET: STUDIO holds truth/rules; NORA holds intelligence; OPENAI supplies cognitive power; PILOTE keeps authority.
+MINIMUM SUFFICIENT COGNITIVE CONFIGURATION BY WORKLOAD.
+Existing Nora trajectory 08 KEEP/HARVEST/ADAPT — no second engine.
+
+## 12. C0–C3
+
+C0 DETERMINISTIC — Studio — LLM NONE — invariant, never delegate.
+C1 ROUTINE — Luna low/medium — CANDIDATE EVAL REQUIRED.
+C2 STANDARD/SIGNIFICANT — Sol medium/high — CANDIDATE; Morris « Sol high as possible robust current regime » = CANDIDATE STARTING HYPOTHESIS TO EVALUATE ≠ production decision.
+C3 DEEP/CRITICAL — Astra medium/high; xhigh only if eval justifies — CANDIDATE EVAL REQUIRED.
+NOT authority levels / SFIA profiles / decision classes / policies / permissions.
+
+## 13. Cognitive escalation
+
+Candidate: C2/Sol → qualified signals → policy-owned escalation → C3/Astra → same Nora/Product workflow.
+COGNITIVE ESCALATION ≠ AUTHORITY ESCALATION.
+Nora may SIGNAL; Nora does not self-assign Astra or extra authority.
+
+## 14. Deterministic / cognitive / authority boundary
+
+Studio: durable truth, policy, currentness, deterministic validation, materiality, model routing, execution governance.
+Nora: cognition only.
+Pilote: HD / consent.
+OpenAI: primitives.
+Cursor: executor under EC.
+
+## 15. Updated P1→P8
+
+P1 Cadrage (+ snapshot, C0–C3, routing NOT DECIDED) IN PROGRESS CP01
+P2 Functional design (+ workload classes, escalation, fit check) NOT AUTHORIZED
+P3 UX (model internals absorbed; conversational Confirmation candidate) NOT AUTHORIZED
+P4 Technical delta (conceptual roles, no 3 mandatory new services, no second Nora) NOT AUTHORIZED
+P5 Incremental delivery; Net Complexity Reduction exit NOT AUTHORIZED
+P6 QA + Model×Reasoning evaluation mandatory before routing promotion NOT AUTHORIZED
+P7 Replay observes chat-first + materiality + routing + PIB + authority; REAL distinct GO NOT AUTHORIZED
+P8 Requalification may adopt Cognitive Routing Policy v1 — never automatic NOT AUTHORIZED
+
+## 16. Diff COMPLET Roadmap
 
 Path: `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
 
 Sections touchées (bornées):
-- Tip snapshot table row: STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 Cycle 1 CADRAGE STARTED / LOCAL DOCUMENTARY CANDIDATE
-- B10 CRITICAL PATH tip: previous macro + D-SIMP-01 + current next capability + CURRENT STRUCTURAL STEP
-- CURRENT SIMPLIFICATION TRAJECTORY P1→P8 (aval NOT AUTHORIZED)
+- Tip snapshot → Correction Pass 01 + D-SIMP-02 + CURRENT MORRIS GATE + cognitive axis
+- B10 critical path: D-SIMP-02 line
+- CURRENT SIMPLIFICATION TRAJECTORY enriched
 - CURRENT STRUCTURAL STEP (main + repeat + living tip)
+- NEXT MORRIS GATE AFTER REQUALIFICATION → HISTORICAL/SUPERSEDED + CURRENT MORRIS GATE
 
 ```diff
 diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-index 47e3a2ec..deaeebec 100644
+index 47e3a2ec..6c20ed79 100644
 --- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 +++ b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 @@ -4,6 +4,7 @@
  | --- | --- |
  | **Rôle** | Roadmap **vivante** de convergence vers l’utilisation complète de la doctrine produit SFIA Studio v3 |
  | **Statut** | **VALIDATED — ACTIVE LIVING ROADMAP** |
-+| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 Cycle 1 CADRAGE** | 2026-10-03 14:07:55 +0200 — **STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — CYCLE 1 CADRAGE — STARTED / LOCAL DOCUMENTARY CANDIDATE** · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **1 — Cadrage** · EVOL · CRITICAL · CKC `ckc/01-cadrage.md` (candidate / experimental guidance · **≠** execution authority) · **D-SIMP-01 CONSUMED** — ADOPT STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION TRAJECTORY · base `origin/main` @ `ac272df5270faae1d1bea6a78cd0cc11886e97f4` · macro précédent **CHAT-FIRST-WORK-RECOMMENDATION-CONTINUITY-01** = **INTEGRATED ON MAIN / POST-MERGE VERIFIED** via PR **#547** merge `ac272df5…` · raison de requalification = orchestration / surfaces / matérialité HD devenues excessivement complexes pour l’expérience cible chat-first · **BACKBONE GLOBAL = KEEP / ADAPT** · document = `projects/sfia-studio/product-simplification/01-chat-first-product-simplification-cadrage.md` (**LOCAL DOCUMENTARY CANDIDATE / CONTENT COMPLETE — READY FOR CHATGPT CRITICAL REVIEW**) · branche locale `docs/sfia-studio-chat-first-product-simplification-c1` · **ZERO REAL** · **ZERO Delivery** · ZERO project commit/push/PR/merge this pass · runtime v3 = **NON ADOPTED** · HumanDecision materiality policy = **FRAMED / NOT DECIDED** · **current next capability** = **Product Simplification C1** · **next after C1** = ChatGPT Critical Review → Morris validation of C1 → **distinct Morris GO** for Cycle 2 simplification functional design **if authorized** · phases P2→P8 = **NOT YET AUTHORIZED** · **≠** C1 INTEGRATED ON MAIN · **≠** C2 AUTHORIZED · **≠** READY FOR REAL · **≠** runtime v3 ADOPTED · **≠** greenfield rewrite · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT / `origin/main` / PR evidence** |
++| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 Cycle 1 CADRAGE Correction Pass 01** | 2026-10-03 14:34:46 +0200 — **STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — CYCLE 1 CADRAGE — CORRECTION PASS 01 COMPLETE / LOCAL DOCUMENTARY CANDIDATE** · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **1 — Cadrage** · Pass **Correction Pass 01** · EVOL/DOC · CRITICAL · CKC `ckc/01-cadrage.md` (candidate / experimental guidance · **≠** execution authority) · **D-SIMP-01 CONSUMED** — ADOPT STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION TRAJECTORY · **D-SIMP-02 CONSUMED** — INTEGRATE ADAPTIVE COGNITIVE MODEL & REASONING STRATEGY INTO CHAT-FIRST PRODUCT SIMPLIFICATION · axes C1 = (1) Product Interaction Simplification · (2) HumanDecision Materiality · (3) Cognitive Reliability / Adaptive Model & Reasoning Strategy · CR-C1-01…06 **CLOSED IN CONTENT** · base `origin/main` @ `ac272df5270faae1d1bea6a78cd0cc11886e97f4` · entry handoff C1 `38acba19e769d25a31f821857e262ebc36769736` / blob `15e986efa6375747c3ef939a800eb85a7e627fd8` · **BACKBONE GLOBAL = KEEP / ADAPT** · Nora OpenAI-native-first trajectory (`08-…`) = **KEEP / HARVEST / ADAPT** · **≠** second Nora · **≠** Cognitive Completion · production model routing = **NOT SELECTED** · cognitive mapping Luna/Sol/Astra = **CANDIDATE / EVAL REQUIRED** · provider snapshot GPT-6 dated 2026-10-03 = **EXTERNAL CURRENT INPUT** · document = `projects/sfia-studio/product-simplification/01-chat-first-product-simplification-cadrage.md` (**LOCAL DOCUMENTARY CANDIDATE / CORRECTION PASS 01 COMPLETE — READY FOR CHATGPT CRITICAL REVIEW**) · branche locale `docs/sfia-studio-chat-first-product-simplification-c1` · **ZERO REAL** · **ZERO Delivery** · ZERO project commit/push/PR/merge this pass · runtime v3 = **NON ADOPTED** · HumanDecision materiality policy = **FRAMED / NOT DECIDED** · **CURRENT MORRIS GATE** = ChatGPT Critical Review C1 → Morris validation C1 → distinct Git integration GO → distinct C2 authorization GO · phases P2→P8 = **NOT YET AUTHORIZED** · **≠** C1 INTEGRATED ON MAIN · **≠** C2 AUTHORIZED · **≠** READY FOR REAL · **≠** runtime v3 ADOPTED · **≠** PRODUCTION MODEL ROUTING SELECTED · **≠** greenfield rewrite · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT / `origin/main` / PR evidence** |
  | **Timestamp maintenance GENERIC-EXECUTION-REVIEW-RESULT-CONVERGENCE-01 Correction Pass 04 RESUMED** | 2026-10-01 — **GENERIC EXECUTION / REVIEW / RESULT — CONVERGENCE CORRECTION PASS 04 RESUMED AFTER MORRIS DECISION** · SAME MACRO · Cycle **8** · EVOL · CRITICAL · CKC `ckc:studio:delivery` · Architecture **D-ER-01…D-ER-15 CONSUMED** · base `origin/main` @ `d4d986af5884b31b416374da3cb5e60757501f87` · branche `delivery/sfia-studio-generic-execution-review-result-convergence-01` · entry STOP handoff `2daf0dc3284d4188c2893eb429dcf429e598834f` / blob `4b91cc6fb5e402585001ec6ea609d561d1fb8abc` · entry CP3 `47e7e593…` · **MD-CP4-01 CONSUMED** (Proposal sealedExecutionBasis Product carrier) · **MD-CP4-02 OPTION C CONSUMED** (sandbox floor ∪ STUDIO_GOVERNANCE_PROTECTED_PATHS) · CP4-01 WIRED · CP4-02 IMPLEMENTED · preuve **DETERMINISTIC PRODUCT E2E PROVEN AT TESTED SCOPE** · **LOCAL CANDIDATE / NOT INTEGRATED ON MAIN** · ZERO REAL · READY FOR REAL **NO** · durableLocalWriteSeal = transitional domain seam only · next = ChatGPT Critical Review Pass 04 resume → Morris GO commit/push/PR · runtime v3 = **NON ADOPTED** · **≠** INTEGRATED ON MAIN · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT** |
  | **Timestamp maintenance GENERIC-EXECUTION-REVIEW-RESULT-CONVERGENCE-01 Correction Pass 04** | 2026-10-01 — **GENERIC EXECUTION / REVIEW / RESULT — CONVERGENCE CORRECTION PASS 04** · SAME MACRO · Cycle **8** · EVOL · CRITICAL · CKC `ckc:studio:delivery` · Architecture **D-ER-01…D-ER-15 CONSUMED** · base `origin/main` @ `d4d986af5884b31b416374da3cb5e60757501f87` · branche `delivery/sfia-studio-generic-execution-review-result-convergence-01` · entry handoff CP3 `47e7e5930980cc5aa2172ec70a14077aaff74629` / blob `dba5d65df9cc289fe22a3e10849744d0e8367006` · **STOP — MORRIS DECISION REQUIRED** (CP4-02) then **SUPERSEDED** by Pass 04 RESUMED tip after MD-CP4-01/MD-CP4-02 · historical STOP tip retained · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT** |
  | **Timestamp maintenance GENERIC-EXECUTION-REVIEW-RESULT-CONVERGENCE-01 Correction Pass 03** | 2026-10-01 — **GENERIC EXECUTION / REVIEW / RESULT — CONVERGENCE CORRECTION PASS 03** · SAME MACRO · Cycle **8** · EVOL · CRITICAL · CKC `ckc:studio:delivery` · Architecture **D-ER-01…D-ER-15 CONSUMED** · base `origin/main` @ `d4d986af5884b31b416374da3cb5e60757501f87` · branche `delivery/sfia-studio-generic-execution-review-result-convergence-01` · entry handoff Pass 02 régularisé `3a9dc0acf3559fb25978a80331078b49a4887aaa` / blob `52d991da297e406eee25b84c67dc4af8b6e68cdf` · CP3-01…CP3-09 closed · preuve then claimed **DETERMINISTIC PRODUCT E2E PROVEN AT TESTED SCOPE** · ChatGPT Critical Review CP3 = **NOT READY** (Product seal injection + incomplete protected paths + Living Ref CURRENT drift) · **LOCAL CANDIDATE / NOT INTEGRATED ON MAIN** · ZERO REAL · READY FOR REAL **NO** · corrections : Product decideTrajectory durableLocalWriteSeal (no Decision.save fabrication) · protected path fail-closed via SFIA_DEFAULT_PROTECTED_PATHS · nominal Git HEAD binding · durable VerifiedChangeSet digest binding · REO Attempt/EC/repo/base binding · missing REO blocks PASS · nominal W3-C enables execution_review_* tools · ReviewItem integrity · front-door oracle honesty · debt : docs_write bridges / retention GC / Git promotion / NoteLite REAL · superseded as tip by Correction Pass 04 · runtime v3 = **NON ADOPTED** · **≠** INTEGRATED ON MAIN · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT** |
-@@ -929,10 +930,22 @@ CRITICAL PATH:
+@@ -929,10 +930,25 @@ CRITICAL PATH:
    → PC POST-CLOSURE ROADMAP/DOC11 TRUTH SYNC — repository publication/integration lifecycle = **RESOLVE FROM GIT / PR EVIDENCE**
    → CYCLE RESERVATION MANAGEMENT & GATE-AWARE PILOTING — **INTEGRATED ON MAIN / POST-MERGE VERIFIED** (PR **#518**)
    → NATIVE EXECUTION LOOP CONVERGENCE — **INTEGRATED ON MAIN / POST-MERGE VERIFIED** (PR **#527** · head `5a05a2a7…` · merge `e486e81f…` · post-merge CI **#615** SUCCESS / Required Gate PASS · deterministic proof only · **ZERO NEW REAL**)
@@ -954,168 +1207,149 @@ index 47e3a2ec..deaeebec 100644
 +  → HISTORICAL NEXT OBSERVATION ACTIVITY — MealFlow semantic reservation campaign (**NOT STARTED / NOT AUTHORIZED** by NELC documentary sync) · retained as observation option · **≠** current structural tip
 +  → CHAT-FIRST-WORK-RECOMMENDATION-CONTINUITY-01 — **INTEGRATED ON MAIN / POST-MERGE VERIFIED** (PR **#547** / merge `ac272df5…`)
 +  → **D-SIMP-01 CONSUMED** — ADOPT STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION TRAJECTORY
-+  → CURRENT NEXT CAPABILITY — **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 Cycle 1 CADRAGE** — LOCAL DOCUMENTARY CANDIDATE · document `product-simplification/01-chat-first-product-simplification-cadrage.md` · **≠** C1 integrated · **≠** C2 authorized
-+  → CURRENT STRUCTURAL STEP — STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — C1 CADRAGE AUTHORIZED / IN PROGRESS AS LOCAL DOCUMENTARY CANDIDATE · **≠** Delivery · **≠** REAL · **≠** runtime v3 adoption
++  → **D-SIMP-02 CONSUMED** — INTEGRATE ADAPTIVE COGNITIVE MODEL & REASONING STRATEGY INTO CHAT-FIRST PRODUCT SIMPLIFICATION · production routing NOT SELECTED · Nora 08 KEEP/HARVEST/ADAPT
++  → CURRENT NEXT CAPABILITY — **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 Cycle 1 CADRAGE Correction Pass 01** — LOCAL DOCUMENTARY CANDIDATE · document `product-simplification/01-chat-first-product-simplification-cadrage.md` · **≠** C1 integrated · **≠** C2 authorized · production routing **NOT SELECTED**
++  → CURRENT STRUCTURAL STEP — STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — C1 CADRAGE AUTHORIZED / IN PROGRESS AS LOCAL DOCUMENTARY CANDIDATE — CORRECTION PASS 01 COMPLETE · D-SIMP-01+D-SIMP-02 CONSUMED · **≠** Delivery · **≠** REAL · **≠** runtime v3 adoption · production routing **NOT SELECTED**
    → DYNAMIC PRODUCT TRAJECTORY — requalify after each capability *(method invariant)*
 +
-+CURRENT SIMPLIFICATION TRAJECTORY (D-SIMP-01 ADOPTED BY MORRIS — phases aval NOT YET AUTHORIZED):
-+  P1 Cadrage — IN PROGRESS (LOCAL DOCUMENTARY CANDIDATE)
++CURRENT SIMPLIFICATION TRAJECTORY (D-SIMP-01 + D-SIMP-02 ADOPTED BY MORRIS — phases aval NOT YET AUTHORIZED):
++  Axes: (1) Product Interaction Simplification · (2) HumanDecision Materiality · (3) Cognitive Reliability / Adaptive Model & Reasoning Strategy
++  P1 Cadrage — IN PROGRESS (LOCAL DOCUMENTARY CANDIDATE / CORRECTION PASS 01 COMPLETE)
 +  → P2 Conception fonctionnelle — NOT AUTHORIZED
 +  → P3 UX / Interaction Architecture — NOT AUTHORIZED
 +  → P4 Technical Architecture Delta — NOT AUTHORIZED
 +  → P5 Delivery — NOT AUTHORIZED
-+  → P6 QA — NOT AUTHORIZED
++  → P6 QA (+ Model × Reasoning evaluation) — NOT AUTHORIZED
 +  → P7 Replay — NOT AUTHORIZED
 +  → P8 Requalification — NOT AUTHORIZED
++  Production model routing — NOT SELECTED · Cognitive mapping — CANDIDATE / EVAL REQUIRED · Nora trajectory 08 — KEEP/HARVEST/ADAPT
    → OPTIONAL CKC lessons → v2.6 capitalization — DISTINCT METHOD GATE — NOT DECIDED
 
  M4 ARCHITECTURE GATE: CLOSED (D-M4-01→05)
-@@ -971,7 +984,7 @@ FINOPS/T7: FREEZE — D-W2-CI-FINOPS-FREEZE-01 ADOPTED — T7-C04 DEFERRED — N
+@@ -971,8 +987,9 @@ FINOPS/T7: FREEZE — D-W2-CI-FINOPS-FREEZE-01 ADOPTED — T7-C04 DEFERRED — N
  HISTORICAL / CONSUMED (W2-era tip): NEXT REPO GATE was ROADMAP W2-G3 POST-MERGE TRUTH-SYNC GIT INTEGRATION — later CONSUMED
  HISTORICAL / CONSUMED (W2-era tip): NEXT PRODUCT GATE was TRACK D / BOUNDED CKC PHASE B QUALIFICATION → GO PHASE B — later CONSUMED (PR #403) · W2 later CLOSED BY MORRIS
  HISTORICAL / CONSUMED (W2-era tip): NEXT CONVERGENCE CAPABILITY was W2 TRACK D / BOUNDED CKC PHASE B — GO PHASE B NOT CONSUMED *(true then)*
 -CURRENT STRUCTURAL STEP: NEXT-CAPABILITY REQUALIFICATION — next capability NOT YET SELECTED / NOT AUTHORIZED / NOT STARTED
-+CURRENT STRUCTURAL STEP: STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — C1 CADRAGE AUTHORIZED / IN PROGRESS AS LOCAL DOCUMENTARY CANDIDATE — D-SIMP-01 CONSUMED — C2 / Delivery / REAL NOT AUTHORIZED — runtime v3 NON ADOPTED
- NEXT MORRIS GATE AFTER REQUALIFICATION: selection / authorization of a future Studio capability — NOT STARTED · ≠ Delivery · ≠ READY FOR REAL · ≠ runtime v3 ADOPTED
+-NEXT MORRIS GATE AFTER REQUALIFICATION: selection / authorization of a future Studio capability — NOT STARTED · ≠ Delivery · ≠ READY FOR REAL · ≠ runtime v3 ADOPTED
++CURRENT STRUCTURAL STEP: STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — C1 CADRAGE AUTHORIZED / IN PROGRESS AS LOCAL DOCUMENTARY CANDIDATE — CORRECTION PASS 01 COMPLETE — D-SIMP-01 + D-SIMP-02 CONSUMED — C2 / Delivery / REAL NOT AUTHORIZED — production model routing NOT SELECTED — runtime v3 NON ADOPTED
++HISTORICAL / CONSUMED / SUPERSEDED: NEXT MORRIS GATE AFTER REQUALIFICATION was "selection / authorization of a future Studio capability — NOT STARTED" — SUPERSEDED by D-SIMP-01 (capability selected = Product Simplification C1)
++CURRENT MORRIS GATE: ChatGPT Critical Review C1 → Morris validation C1 → distinct Git integration GO → distinct C2 authorization GO · ≠ Delivery · ≠ READY FOR REAL · ≠ runtime v3 ADOPTED · ≠ production model routing SELECTED
  M6 / M7: HISTORICAL MILESTONES — SUPERSEDED / ABSORBED BY PRODUCT COMPLETION — traces conservées
  CKC COVERAGE: corpus Studio-native INTEGRATED · Phase A package-bound INTEGRATED via W1 · Phase B ≠ complete · `15` non structurel
-@@ -988,7 +1001,7 @@ OPTION A: ADOPTED BY MORRIS AS PRE-M6 UI DELIVERY SCOPE — SCOPE ADOPTED ≠ UI
+ CKC→V2.6 CAPITALIZATION: FUTURE OPTION — DISTINCT METHOD GATE — NOT DECIDED — Studio doctrine remains v3-exclusive
+@@ -988,7 +1005,7 @@ OPTION A: ADOPTED BY MORRIS AS PRE-M6 UI DELIVERY SCOPE — SCOPE ADOPTED ≠ UI
  MAJOR GAP TREATMENT: ADOPTED AS OPTION A SCOPE (F1 entry · nav · workspace · assistant · G-UX-08/09/10/11 · Confirmation · History · Recovery · responsive · visual reserves · M5-C separate) — dispositions ≠ implementation proof ≠ gaps closed
  W1 ROADMAP REPOSITORY TRUTH: SATISFIED — PR #396 MERGED — PUSH/MAIN CI 32591909031 SUCCESS
  HISTORICAL / CONSUMED (duplicate W2-era tip block): NEXT REPO GATE / NEXT PRODUCT GATE / NEXT CONVERGENCE CAPABILITY Track D Phase B — CONSUMED by PR #403 + W2 CLOSED + subsequent W3/W4/PC trajectory
 -CURRENT STRUCTURAL STEP (repeat for local block coherence): NEXT-CAPABILITY REQUALIFICATION — capability NOT YET SELECTED / NOT AUTHORIZED / NOT STARTED
-+CURRENT STRUCTURAL STEP (repeat for local block coherence): STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — C1 CADRAGE AUTHORIZED / IN PROGRESS AS LOCAL DOCUMENTARY CANDIDATE — aval NOT AUTHORIZED
++CURRENT STRUCTURAL STEP (repeat for local block coherence): STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — C1 CADRAGE AUTHORIZED / IN PROGRESS AS LOCAL DOCUMENTARY CANDIDATE — CORRECTION PASS 01 COMPLETE — D-SIMP-01+D-SIMP-02 CONSUMED — aval NOT AUTHORIZED — production routing NOT SELECTED
  M6 / M7: HISTORICAL / SUPERSEDED / ABSORBED — not forward milestones
  CKC COVERAGE: catalogue applicable evolvable — Phase A integrated · Phase B downstream — current 15-type baseline is a measure, not a structural invariant
  CKC→V2.6 CAPITALIZATION: FUTURE OPTION — DISTINCT METHOD GATE — NOT DECIDED — Studio doctrine remains v3-exclusive
-@@ -1144,7 +1157,7 @@ Ne pas mettre à jour pour chaque micro-commit sans impact de trajectoire.
+@@ -1144,7 +1161,7 @@ Ne pas mettre à jour pour chaque micro-commit sans impact de trajectoire.
  - HISTORICAL / CONSUMED (post-C1 tip): NEXT REPOSITORY GATE was **POST-MERGE REPO COHERENCE**
  - HISTORICAL / CONSUMED (post-C1 tip): NEXT PRODUCT GATE was **POST-MERGE REPO COHERENCE → MORRIS GATE FOR C2 EXECUTION** *(later CONSUMED by C2 PR #369)*
  - HISTORICAL / CONSUMED (post-C1 tip): NEXT CAPABILITY was **Cycle 2 — Conception fonctionnelle — RECOMMENDED / NOT AUTHORIZED** *(later VALIDATED / INTEGRATED)*
 -- CURRENT STRUCTURAL STEP (living tip): **NEXT-CAPABILITY REQUALIFICATION** · next capability **NOT YET SELECTED / NOT AUTHORIZED / NOT STARTED**
-+- CURRENT STRUCTURAL STEP (living tip): **STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — C1 CADRAGE AUTHORIZED / IN PROGRESS AS LOCAL DOCUMENTARY CANDIDATE** · D-SIMP-01 CONSUMED · C2 **NOT AUTHORIZED** · Delivery/REAL **NOT AUTHORIZED** · runtime v3 **NON ADOPTED**
++- CURRENT STRUCTURAL STEP (living tip): **STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — C1 CADRAGE AUTHORIZED / IN PROGRESS AS LOCAL DOCUMENTARY CANDIDATE — CORRECTION PASS 01 COMPLETE** · D-SIMP-01 + D-SIMP-02 CONSUMED · C2 **NOT AUTHORIZED** · Delivery/REAL **NOT AUTHORIZED** · production model routing **NOT SELECTED** · runtime v3 **NON ADOPTED**
  - D-PRE-M6-UX-05 : Freeze `uUdLBElF2B4dOefaAYt4QY` · handoff `69106c82024158889f77e9d31508a222ea5f3a0f` / blob `3593ddbdc286cd244790f0ca1d2c421128202c5c` · **ADOPTED AS PRE-M6 VISUAL REFERENCE ON MAIN**
  - CKC coverage : current **4/15** detailed pilots + **11/15** synthetic fallback · target = 100 % du catalogue applicable · `15` non structurel · optional later v2.6 capitalization under distinct method gate
  - Audit handoff historique : `sfia/review-handoff` @ `c5b417dc13fa3700787d28571e5b5abe0599ae98` / `31a5db07fba2555a59ee8c65ad76b537bbd8a73d`
 ```
 
-## 10. C1 Exit Criteria C1-01…C1-12
+## 17. C1-01…C1-20
 
 | ID | Status (content self-check) |
 | --- | --- |
-| C1-01 Problem/value bounded | PASS (content) — pending ChatGPT/Morris review |
-| C1-02 NON-greenfield explicit | PASS (content) |
+| C1-01 Problem/value bounded | PASS (content) — pending review |
+| C1-02 NON-greenfield | PASS (content) |
 | C1-03 Assets classified; no immediate RETIRE | PASS (content) |
 | C1-04 HD materiality central, policy NOT decided | PASS (content) |
-| C1-05 oui/go framed with ambiguity/fail-closed | PASS (content) |
-| C1-06 Pilot interaction budget framed | PASS (content) |
-| C1-07 Nora cognitive boundary + OpenAI fit check note | PASS (content) |
-| C1-08 Net Complexity Reduction explicit | PASS (content) |
-| C1-09 P1→P8 complete; separate gates; aval NOT AUTHORIZED | PASS (content) |
-| C1-10 Risks explicit | PASS (content) |
-| C1-11 Next capability identifiable = C2 after gates | PASS (content) |
-| C1-12 No detailed tech/runtime policy presented as decided | PASS (content) |
+| C1-05 oui/go + fail-closed | PASS (content) |
+| C1-06 Pilot interaction budget | PASS (content) |
+| C1-07 Nora vs Studio boundary + fit check | PASS (content) |
+| C1-08 Net Complexity Reduction | PASS (content) |
+| C1-09 P1→P8 gates; aval NOT AUTHORIZED | PASS (content) |
+| C1-10 Risks | PASS (content) |
+| C1-11 Next capability = C2 after gates | PASS (content) |
+| C1-12 No detailed tech/runtime policy decided | PASS (content) |
+| C1-13 Cognitive Reliability integrated | PASS (content) |
+| C1-14 Deterministic/cognitive boundary explicit | PASS (content) |
+| C1-15 C0–C3 candidate only | PASS (content) |
+| C1-16 GPT-6 snapshot dated EXTERNAL CURRENT INPUT | PASS (content) |
+| C1-17 Model×Reasoning eval mandatory before routing promotion | PASS (content) |
+| C1-18 Cognitive escalation ≠ authority escalation | PASS (content) |
+| C1-19 Existing Nora trajectory reused not duplicated | PASS (content) |
+| C1-20 P1→P8 includes cognition axis | PASS (content) |
 
-## 11. Risks (cadrage §16 — minimum set covered)
+## 18. Open questions C2
 
-R-01 Promotion implicite Rec→HD via oui/go
-R-02 Perte de gouvernance / floors
-R-03 Compatibilité décisions historiques durables
-R-04 Ambiguïté conversationnelle
-R-05 Hidden state unintelligible
-R-06 Régression execution authority
-R-07 Rewrite creep / greenfield drift
-R-08 Architecture parallèle
-R-09 Nora overloading
-R-10 Confusion de statut (trajectory≠policy≠C2)
-(+ additional R-* in cadrage §16)
+OQ-C2-01…OQ-C2-28 in cadrage §17.
+Includes CR-updated OQ-C2-05 (DecisionBasis universality), OQ-C2-06 (Confirmation form), OQ-C2-16 (PT without micro-HD), plus OQ-C2-23…28 cognitive classes/escalation/fallback/metrics.
+NONE decided.
 
-## 12. Open Questions for C2
-
-22 open questions OQ-C2-01…OQ-C2-22 in cadrage §17 covering HD materiality A–J, disposition vs HD, PresentedOptionSet, currentness ownership, Nora projection, confirmation budget, journal semantics, OpenAI fit, P2→P8 articulation, etc.
-Policy answers NOT selected in C1.
-
-## 13. Trajectory P1→P8
-
-P1 Cadrage — IN PROGRESS (LOCAL DOCUMENTARY CANDIDATE)
-P2 Conception fonctionnelle — NOT AUTHORIZED
-P3 UX / Interaction Architecture — NOT AUTHORIZED
-P4 Technical Architecture Delta — NOT AUTHORIZED
-P5 Delivery — NOT AUTHORIZED
-P6 QA — NOT AUTHORIZED
-P7 Replay — NOT AUTHORIZED
-P8 Requalification — NOT AUTHORIZED
-
-D-SIMP-01 ADOPTED BY MORRIS — phases aval NOT YET AUTHORIZED.
-Each phase requires own qualification + distinct Morris GO.
-
-## 14. Fichiers modifiés (project)
-
-CREATE:
-- projects/sfia-studio/product-simplification/01-chat-first-product-simplification-cadrage.md
+## 19. Files changed
 
 MODIFY:
+- projects/sfia-studio/product-simplification/01-chat-first-product-simplification-cadrage.md
 - projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 
-PROCESS ONLY:
+PROCESS:
 - .tmp-sfia-review/chatgpt-review.md (this pack)
 
-NO OTHER PROJECT FILES.
+NO OTHER PROJECT FILES. Nora 08 / Build Doctrine / Product Completion / framing / app = untouched.
 
-## 15. Validations
+## 20. Validations
 
 | Check | Result |
 | --- | --- |
 | git diff --check (projects/sfia-studio) | PASS |
-| New cadrage present | PASS |
-| Roadmap-only project modify + new cadrage | PASS |
-| Paths valid | PASS |
-| runtime v3 NON ADOPTED | PASS |
-| Aval phases NOT AUTHORIZED | PASS |
-| No rewrite claim | PASS |
-| No Product READY claim | PASS |
-| D-SIMP-01 correctly represented | PASS |
-| C1-01…C1-12 content-addressed | PASS |
-| B10 coherent with new structural step | PASS |
-| Scope expansion | NONE |
+| Scope cadrage + Roadmap + tmp pack | PASS |
+| CR-C1-01 DecisionBasis universal doctrine removed | PASS |
+| CR-C1-02 chat Confirmation remains open | PASS |
+| CR-C1-03 CD-10 covers CD-01…CD-09 required applicable | PASS |
+| CR-C1-04 CURRENT MORRIS GATE coherent | PASS |
+| CR-C1-05 D-ER = adopted target architecture | PASS |
+| CR-C1-06 A–J + PT wording | PASS |
+| D-SIMP-02-01 Cognitive Reliability integrated | PASS |
+| D-SIMP-02-02 provider snapshot dated | PASS |
+| D-SIMP-02-03 C0 NO LLM | PASS |
+| D-SIMP-02-04 Luna/Sol/Astra candidate only | PASS |
+| D-SIMP-02-05 production routing NOT SELECTED | PASS |
+| D-SIMP-02-06 cognitive ≠ authority escalation | PASS |
+| D-SIMP-02-07 existing Nora trajectory reused | PASS |
+| D-SIMP-02-08 P1→P8 enriched | PASS |
+| D-SIMP-02-09 Model×Reasoning eval required | PASS |
+| D-SIMP-02-10 OpenAI-native-first preserved | PASS |
+| D-SIMP-02-11 no second cognitive engine | PASS |
+| D-SIMP-02-12 runtime v3 NON ADOPTED / ZERO REAL / no Delivery | PASS |
 
-## 16. Fake / Real
+## 21. Fake / Real
 
 ZERO REAL.
-No Cursor REAL, no OpenAI REAL, no remote product mutation, no external service invocation as product effect.
-Handoff L3 push of review-handoff branch only (process), if publisher succeeds.
+No OpenAI runtime call, no Cursor REAL, no HabitFlow REAL, no eval REAL.
+Handoff L3 push of sfia/review-handoff only (process).
 
-## 17. Runtime v3 status
+## 22. Runtime v3
 
 NON ADOPTED.
 
-## 18. Debt / Exit
+## 23. Debt / Exit
 
-Documented in cadrage §20:
-- specialized Product taxonomies (retire later candidates)
-- process-local objects durability decisions for C2
-- redundant surfaces audit
-- low-materiality gates/modals
-- C1 not yet Git-integrated
-- OpenAI fit check not yet performed
-- Generic Execution Git status resolve-from-Git at C2 entry
+Cadrage §20: specialized taxonomies, process-local objects, redundant surfaces, low-materiality gates, C1 not Git-integrated, OpenAI fit check not performed, Generic Execution Git status, GPT-6 snapshot revalidation, Luna/Sol/Astra mapping pending P6→P8 proof, Nora 08 source change requires distinct Morris GO.
+No code debt created.
 
-No code debt created (no code changed).
+## 24. Anti-claims
 
-## 19. Réserves
+Not claimed: C1 VALIDATED, C1 INTEGRATED, C2 AUTHORIZED, PRODUCTION MODEL ROUTING SELECTED, COGNITIVE COMPLETION PROVEN, READY FOR DELIVERY, READY FOR REAL, runtime v3 ADOPTED, permanent Luna/Sol/Astra, DecisionBasis universal doctrine, conversational Confirmation decided.
 
-- C1 content-complete ≠ validated.
-- HD materiality policy remains OPEN for C2.
-- MealFlow observation campaign retained as historical/option; not current structural tip.
-- No KPI of Net Complexity Reduction contracted in C1.
-- ChatGPT must re-read remote canonical handoff before validating C1 content.
-
-## 20. Project Git effects
+## 25. Project Git effects
 
 | Effect | Status |
 | --- | --- |
 | Local branch | YES — docs/sfia-studio-chat-first-product-simplification-c1 |
-| Isolated worktree | YES — /Users/morris/Projects/sfia-studio-chat-first-product-simplification-c1 |
+| Isolated worktree | YES |
 | Local docs modifications | YES |
 | Project commit | NO |
 | Project push | NO |
@@ -1125,22 +1359,17 @@ No code debt created (no code changed).
 | Force | NO |
 | REAL | NO |
 
-## 21. Verdict
+## 26. Verdict
 
-**STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION C1 — CONTENT COMPLETE — READY FOR CHATGPT CRITICAL REVIEW**
-
-NOT claimed:
-- C1 VALIDATED
-- C1 INTEGRATED
-- C2 AUTHORIZED
-- DELIVERY READY
-- READY FOR REAL
-- runtime v3 ADOPTED
+**STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION C1 — CORRECTION PASS 01 COMPLETE — READY FOR CHATGPT CRITICAL REVIEW**
 
 Next gates:
 1. ChatGPT Critical Review of remote canonical handoff
 2. Morris validation of C1 content
-3. Distinct Morris GO for Cycle 2 — Conception fonctionnelle (if authorized)
+3. Distinct Morris GO for Git integration of C1
+4. Distinct Morris GO for Cycle 2 — Conception fonctionnelle (if authorized)
+
+No production model routing is adopted by this pass.
 
 ---
 END FULL REVIEW PACK
