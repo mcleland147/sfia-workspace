@@ -2,31 +2,26 @@
 
 | Métadonnée | Valeur |
 | --- | --- |
-| **Timestamp Europe/Paris** | 2026-10-03 23:28:35 +0200 |
+| **Timestamp Europe/Paris** | 2026-10-03 23:40:12 +0200 |
 | **Macro** | STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 |
 | **Cycle** | 2 — Conception fonctionnelle |
 | **Milestone** | P2 — FUNCTIONAL OPERATING MODEL |
-| **Pass** | FINAL DOCUMENTARY CONSOLIDATION |
+| **Pass** | FINAL CRITICAL REVIEW — TARGETED CORRECTION PASS 01 |
 | **Profil** | CRITICAL |
 | **Typologie** | DOC dans macro EVOL |
-| **Niveau pack** | FULL |
-| **Objectif** | Consolider P2 FOM §§1–22 + P2-D-01…04 + traduction FR + Roadmap tip + handoff L3 pour ChatGPT Final Critical Review P2 uniquement |
-| **Verdict attendu Cursor** | READY FOR CHATGPT FINAL CRITICAL REVIEW — … — P2 NOT YET VALIDATED |
+| **Niveau** | FULL |
+| **Objectif** | Corriger exclusivement FCR-P2-01 (§18) et FCR-P2-02 (§21.3) pour ChatGPT Closure Review P2 |
+| **Verdict attendu** | READY FOR CHATGPT CLOSURE REVIEW P2 — … — P2 NOT YET VALIDATED |
 
 ---
 
-## A. Objectif / justification CRITICAL
+## A. Timestamp / Objectif / Cycle
 
-- Consolidation documentaire du Functional Operating Model global.
-- Intégration dispositions Guided Review §§12–22 + décisions Morris P2-D-01…P2-D-04.
-- Cohérence transverse §§1–22.
-- Traduction française contrôlée (identifiants canoniques préservés).
-- Préparation **ChatGPT Final Critical Review P2** uniquement.
-- **≠** validation P2 · **≠** P3 · **≠** architecture · **≠** REAL.
+Targeted Correction Pass documentaire uniquement. Aucune nouvelle décision Morris. Aucun élargissement FOM. Aucun P3/architecture/code/REAL.
 
 ---
 
-## B. Local Git Truth Check — INITIAL
+## B. Local Git Truth — INITIAL
 
 ```text
 pwd = /Users/morris/Projects/sfia-studio-chat-first-product-simplification-p2
@@ -36,295 +31,70 @@ HEAD = 642a10c87bdad2ef4291bf8b7294872c2b14be90
 origin/main = 642a10c87bdad2ef4291bf8b7294872c2b14be90
 expected origin/main = 642a10c87bdad2ef4291bf8b7294872c2b14be90
 match = True
+P2 candidate present = YES (local untracked candidate)
 ```
 
-Entry handoff historical anchor (supersedable): `cb67b45a…` / blob `f274a20f…` — revalidated via publisher at end of cycle.
-
-Pack reset at start: `.tmp-sfia-review/chatgpt-review.md` truncated to empty then rewritten this cycle.
+Pack reset at start: YES (truncated to empty).
 
 ---
 
 ## C. Sources consultées
 
-| Source | Rôle | Usage |
-| --- | --- | --- |
-| Build Doctrine | VALIDATED ACTIVE ON MAIN · READ ONLY | Garde-fous construction / R22 |
-| Convergence Roadmap | VALIDATED LIVING · WRITE tip only | Truth-sync tip Final Documentary Consolidation |
-| C1 Product Simplification | VALIDATED INPUT · READ ONLY | Macro framing autoritatif |
-| Product Completion C1 | READ ONLY | Scope/trajectory source |
-| v3 framings 30–37 | READ ONLY | Doctrine produit cible |
-| CKC 02-conception-fonctionnelle | CONTENT VALIDATED BY MORRIS · guidance | authority NONE |
-| Generic Execution architecture | HARVEST | Mécaniques génériques pertinentes seulement |
-| Nora trajectory 08 | KEEP/HARVEST/ADAPT | Pas de second Nora |
-| Template + routing v2.6 | Processus externe only | ≠ doctrine runtime Studio |
-| P2 candidate local | ADAPT/CONSOLIDATE/TRANSLATE | Corps principal |
+| Source | Rôle |
+| --- | --- |
+| Build Doctrine | READ ONLY gouvernance |
+| Roadmap | WRITE tip only |
+| C1 Product Simplification | READ ONLY framing |
+| Product Completion C1 | READ ONLY |
+| v3 framings 30–37 | READ ONLY |
+| CKC functional-design | guidance · authority NONE |
+| Generic Execution | HARVEST only |
+| Nora trajectory 08 | KEEP/HARVEST/ADAPT |
+| Template/routing v2.6 | process only |
+| P2 candidate local | ADAPT/CORRECT |
 
 ---
 
-## D. Matrice locale de consolidation (pré-écriture)
+## D. Entry Review Handoff
 
-| Section | État candidat entrée | Disposition GR | Modification | Décision Morris | Downstream |
-| --- | --- | --- | --- | --- | --- |
-| §§1–11 | CP01+Corr01 EN consolidated | KEEP sémantique | Traduction FR + cross-refs P2-D-04 (§§6/7) | P2-D-01…04 | — |
-| §12 Execution | Pending GR wording | KEEP optional/transverse + chaîne intent≠EC≠auth≠launch | Rewrite FR consolidé | P2-D-03 (Confirmation) | P4 harvest Reconciler |
-| §13 Review/Validation/Exit | Pending | Distinctions dures + P2-D-02 | Rewrite FR | P2-D-02 | — |
-| §14 Trajectory/Replan | Pending + OPEN next activation | Fermer via P2-D-04 | Rewrite FR | P2-D-01/04 | P4 tech form |
-| §15 Journal/Memory | Pending | ≠ SoT · no second store | Rewrite FR | — | P4 if gap |
-| §16 Recovery | Pending | Reconstruct current truth | Rewrite FR | — | P3 UX summary |
-| §17 GDR | Pending | Representative route · same loop | Rewrite FR | — | P6 parity |
-| §18 Routes | Binary HD?/Execution? risk | Materiality + execution relation columns | Catalogue FR | P2-D-01/02/03/04 | P6 scenarios |
-| §19 Cognitive | CW runtime risk | CW0≠CW1–3 · no authority escalation | Rewrite FR | R22 | P4/P6/P8 |
-| §20 AC | A–J dependency | Adapt AC-14 · add AC-16…38 | Rebuild | P2-D-* | P6 |
-| §21 Open decisions | STALE P2-D-04=Confirmation form | Rebuild adopted + closed + routing | Full rewrite | P2-D-01…04 | P3→P8 |
-| §22 Gates | Pending §§12–22 | Point Final Critical Review | Rewrite FR | all | — |
+| Item | Valeur |
+| --- | --- |
+| **ENTRY / PREVIOUS HANDOFF commit** | `93b1884a440e5c74e7df0b4415d9be1d9e877dbf` |
+| **ENTRY / PREVIOUS HANDOFF blob** | `7430d3ee895f56bc502da6db945e7c43f2bbda33` |
+| Branche | `sfia/review-handoff` |
+| Fichier | `sfia-review-handoff/latest-chatgpt-review.md` |
+| Qualification | Entry handoff Final Documentary Consolidation — **≠** tip courant après ce pass |
+
+> Hygiène metadata : les SHA ci-dessus sont **ENTRY/PREVIOUS**. Ils ne sont **pas** présentés comme current remote tip de ce pass. Le tip courant après publication est reporté dans le rapport Cursor final post-vérification distante uniquement.
 
 ---
 
-## E. Décisions Morris consommées
+## E. Final Critical Review findings
 
-| ID | Statut | Intégration |
-| --- | --- | --- |
-| P2-D-01 | ADOPTED BY MORRIS | §§5/9/10/18/20/21/22 |
-| P2-D-02 | ADOPTED BY MORRIS | §§7/10/13/18/20/21/22 |
-| P2-D-03 | ADOPTED BY MORRIS | §§5/10/12/18/20/21/22 |
-| P2-D-04 | ADOPTED BY MORRIS | §§6/7/14/18/20/21/22 — next Cycle · Project Close · Abandon HD · exceptional fail-closed · no tech SM |
-
-D-SIMP-06/07/08 = CONSUMED.
+| Finding | Problème |
+| --- | --- |
+| **FCR-P2-01** | §18 a repurposé R06/R08/R09 et absorbé des scénarios Guided Review distincts |
+| **FCR-P2-02** | §21.3 routait encore certains sujets via « Aval » vague |
 
 ---
 
-## F. Contenu structurel modifié — §§12–22 (complets)
+## F. Correction FCR-P2-01
 
-> Seuil pack : si >~1200 lignes, les §§1–11 traduits sans changement sémantique sont représentés par extraits + contrôle d’intégrité.
+### Avant (pertinent)
 
-### §12
+```markdown
+| **R06** | Review d’Artifact / Evidence | Artifact produit | Review ≠ Validation | Validation selon critères applicables | Post-Execution possible ; pas obligatoire | Changes required / rework | Mettre à jour Evidence / Deliverable state |
+| **R08** | Replan / requalify signal | ProjectTrajectory | Recommended ≠ decided | Structurel → HD ; non-structurel peut être Studio-derived | Aucune Execution automatique | Replan signal ≠ automatic replan | Historique non réécrit |
+| **R09** | Validated Deliverable | Deliverable validé | Vérifier Exit Proof global | Validated Deliverable ≠ complete Exit Proof | Peut coexister avec 0..N executions | Exit Proof insuffisant → pas de close | Continuer jusqu’à ALL criteria |
 
-## 12. Execution Branch
+### 18.4 Couverture représentative sans nouvelle identité runtime
 
-> KEEP Execution comme branche **optionnelle / transverse**. Intention générique héritée de CP4 **sans** rendre P2 execution-centric. Mécaniques Reconciler **HARVESTABLE** · **≠** architecture universelle du FOM.
-
-### 12.1 Position
-
-```text
-tool use / read-only cognition ≠ automatiquement Execution Branch
-Execution intent ≠ ExecutionContract ≠ authority ≠ launch
+- Ordinary conversation → zero durable mutation (R01).
+- Replanning / requalification (R08).
+- Checkpoint / coherence review (R12).
 ```
 
-### 12.2 Chaîne fonctionnelle
-
-```text
-1. Vérifier décisions Product / prérequis / eligibility avant préparation / lancement
-2. Préparer ExecutionContract
-   — préparer un ExecutionContract ne répare JAMAIS une décision Product manquante
-   — ExecutionContract ≠ Confirmation automatique
-3. Vérifier authority / currentness / policy compatibles
-4. Confirmation seulement si applicable (P2-D-03)
-5. Vérifier executor / capability eligibility avant launch
-6. Launch (si autorisé)
-7. Exécution
-8. Executor Claim
-   — Executor Claim ≠ verified Product fact
-9. Independent Studio verification
-10. Evidence / Review
-11. Product Resolution
-12. Continuer le Cycle / Project loop
-```
-
-### 12.3 Invariants
-
-1. **Execution Branch Result ≠ Cycle Resolution / closure.**
-2. **Artifact produit par Execution ≠ Deliverable validé / Exit Proof.**
-3. Un même Cycle peut contenir **0 / 1 / N** executions.
-4. Post-Execution recovery repart de verified facts / Evidence / Product Resolution — **pas** d’un old execution intent comme relaunch automatique.
-5. Old execution intent ≠ automatic relaunch.
-
-### 12.4 Contraste CURRENT vs TARGET
-
-| Aspect | CURRENT FACT | TARGET |
-| --- | --- | --- |
-| Chemin GE | Fort lorsqu’utilisé | Branche transverse optionnelle |
-| Fermeture | Historiquement trop liée au succès d’exécution | P2-D-02 : Exit Proof + conditions ; SUCCESS alone never closes |
-| Cognition outils | Peut être confondue avec Execution | Explicitement séparée |
-
----
-
-
-### §13
-
-## 13. Review / Validation / Exit Proof / Closure
-
-### 13.1 Distinctions dures
-
-```text
-Review ≠ Validation
-Validation ≠ nécessairement human acceptance
-Validated Deliverable ≠ automatiquement whole Exit Proof
-Exit Proof = sufficient verified evidence for ALL applicable exit criteria
-Exit Proof ≠ nécessairement un Artifact unique
-Exit eligibility = derived Product determination
-Exit eligibility ≠ Cycle closure
-Cycle closure ≠ next Cycle activation
-```
-
-### 13.2 Findings / correction
-
-- Un finding est bloquant **uniquement relativement aux critères applicables**.
-- Correction ≠ forcément nouvelle Execution.
-- Un Cycle peut fermer **sans Artifact** lorsqu’aucun Artifact n’est requis.
-
-### 13.3 Lien P2-D-02
-
-Si Exit Proof est suffisant mais un unresolved structural human judgment subsiste :
-
-```text
-HumanDecision applicable avant closure selon P2-D-02
-```
-
-### 13.4 Lien P2-D-04
-
-Après closure correcte, l’activation du Cycle suivant suit **P2-D-04** — pas d’auto-waterfall.
-
----
-
-
-### §14
-
-## 14. ProjectTrajectory / Replanning
-
-### 14.1 Distinctions
-
-```text
-Recommended trajectory ≠ decided ProjectTrajectory
-structural decided ProjectTrajectory update requires applicable HumanDecision
-M-DISP ne peut pas établir seul une structural decided ProjectTrajectory
-replan signal ≠ automatic replan
-CKC REPLAN ≠ Product authority
-```
-
-### 14.2 Requalification
-
-- Une requalification non-structurelle current-work/méthodologique peut être **Studio-derived**.
-- La matérialité dépend de l’**impact sémantique**, non du simple label amend/replace.
-- Cycle transition ≠ ProjectTrajectory update.
-- Cycle close ≠ automatic next Cycle activation (**P2-D-04**).
-- Le replanning **ne réécrit pas** silencieusement l’historique.
-
-### 14.3 Activation du Cycle suivant — **P2-D-04** (fermeture de l’ancienne question OPEN)
-
-Voir §7.F. L’ancienne question « next Cycle activation exact policy OPEN » est **bornée / résolue fonctionnellement** par **P2-D-04**. Une mécanique technique aval peut rester ouverte ; la sémantique fonctionnelle P2 est décidée.
-
-### 14.4 Project Close — **P2-D-04**
-
-Voir §6.6. L’ancienne question « Project Close exact policy OPEN » est **bornée / résolue fonctionnellement** par **P2-D-04**.
-
----
-
-
-### §15
-
-## 15. Cycle Journal / Memory
-
-### 15.1 Position
-
-```text
-Journal / Memory ≠ authoritative Product truth
-Conversation reste primary interaction channel
-Journal = supporting orientation / continuity projection
-pas de second cockpit
-P2 ne requiert pas MemoryStore séparé
-P2 ne requiert pas SharedKnowledgeStore
-```
-
-### 15.2 Subject statuses
-
-Subject statuses = **derived continuity semantics**, pas runtime enum obligatoire.
-
-### 15.3 Projection / currentness
-
-- La projection préserve epistemic status / provenance / currentness.
-- Une stale projection **ne peut pas** autoriser un Product effect.
-- Une disposed Recommendation n’est plus current/active.
-- L’historique reste reconstructible.
-- Journal Decision summary ≠ HumanDecision authority record.
-- Cycle history ≠ automatiquement current Project context.
-- Carry-over gouverné par currentness autoritative.
-
-### 15.4 Nora
-
-Nora utilise **minimum-sufficient projection + targeted retrieval**.
-
-```text
-full transcript dump ≠ default cognitive-memory strategy
-```
-
----
-
-
-### §16
-
-## 16. Recovery / Resume
-
-### 16.1 Position
-
-```text
-Recovery ≠ UI / session restoration
-Recovery reconstruit current authoritative Product truth avant old session context
-Resume repart du présent, pas d’une stale intent
-```
-
-### 16.2 Règles
-
-- Missing ephemeral state → rederive / requalify / clarify.
-- Ne jamais inventer.
-- Recovery sufficiency = action-relative.
-- Fail-closed local à l’effet autoritatif/protected.
-- Stale projection ≠ current truth.
-- Last discussed subject ≠ automatically current subject.
-- Post-Execution recovery repart de verified facts / Evidence / Product Resolution.
-- Old execution intent ≠ automatic relaunch.
-- Device/session identity ≠ Product authority.
-- Pilot-visible recovery summary = minimum-sufficient orientation.
-
----
-
-
-### §17
-
-## 17. Guided Document Review
-
-### 17.1 Position
-
-```text
-GDR = representative route
-aucun dedicated GDR Product engine
-même Product Operating Loop
-```
-
-### 17.2 Comportement
-
-- Résoudre exact document / version / currentness / section / source context.
-- Review target content ≠ automatiquement authoritative truth.
-- Le Pilote peut discuss / accept / reject / amend / arbitrate.
-- Section acceptance ≠ global document validation.
-- Section acceptance ≠ automatiquement HumanDecision.
-- Conversation ≠ durable mutation.
-- Local disposition scope only.
-- Navigation non-waterfall ; retour à une section précédente autorisé.
-- Checkpoint = bounded coherence / consolidation boundary.
-- Checkpoint PASS ≠ whole-document validation.
-- Checkpoint PASS ≠ Cycle closure.
-- Reviewed sections ≠ automatiquement validated Deliverable.
-- Cognitive workload adaptatif par section/turn.
-- Cognitive workload ≠ authority.
-
-### 17.3 Qualité
-
-Parity avec qualité ChatGPT reste **NOT PROVEN** et doit être évaluée **P6**.
-
----
-
-
-### §18
+### Après — section §18 complète
 
 ## 18. Catalogue Functional Routes
 
@@ -336,7 +106,7 @@ Parity avec qualité ChatGPT reste **NOT PROVEN** et doit être évaluée **P6**
 2. Une interaction réelle peut traverser plusieurs scénarios.
 3. Route identity ne détermine **jamais** authority.
 4. Route identity ne détermine **jamais** Execution.
-5. Couverture représentative additionnelle sans nouvelle identité runtime : ordinary conversation → zero durable mutation ; replanning/requalification ; checkpoint/coherence review.
+5. Couverture représentative additionnelle **non numérotée** (sans nouvelle identité runtime) : ordinary conversation → zero durable mutation ; replanning/requalification ; checkpoint/coherence review — voir §18.4.
 
 ### 18.2 Structure du catalogue
 
@@ -360,270 +130,114 @@ Parity avec qualité ChatGPT reste **NOT PROVEN** et doit être évaluée **P6**
 | **R03** | Intention HD structurelle | Sujet/currentness clairs | Nora challenge/recommande ; Pilote arbitre | **M-HD** lorsque conditions satisfaites | Aucune Execution automatique | Fail-closed si intention/authority insuffisantes | LPS / decided truth mis à jour |
 | **R04** | Attente Deliverable | Travail courant | Qualifier expected vs suggested | Deliverable expected ≠ execute now | Peut plus tard mener à Execution Branch | Ne pas lancer Execution par défaut | Continuer sans Execution si non requis |
 | **R05** | Intention d’exécution | Prérequis Product | Chaîne §12 | Intent ≠ EC ≠ authority ≠ launch ; Confirmation si applicable (**P2-D-03**) | Execution Branch optionnelle | Stop si décision/eligibility manquantes | Product Resolution ; Cycle reste ouvert sauf Exit Proof |
-| **R06** | Review d’Artifact / Evidence | Artifact produit | Review ≠ Validation | Validation selon critères applicables | Post-Execution possible ; pas obligatoire | Changes required / rework | Mettre à jour Evidence / Deliverable state |
+| **R06 — EXIT UNMET** | Exit Proof / critères de sortie applicables non satisfaits | Cycle courant OPEN ; Exit eligibility non atteinte | Identifier le gap réel ; choisir la progression appropriée (clarification · contexte · attente · HD si structurelle · correction · Deliverable/Artifact · Evidence · re-review · Execution Branch seulement si réellement nécessaire) | Cycle remains **OPEN** ; Exit unmet ≠ execute something | **MAY** use Execution ; Execution is **NOT** implied | Ne pas réduire à « lancer quelque chose » ; ne pas fermer | Continuer jusqu’à satisfaction des critères applicables |
 | **R07** | Fermeture / transition | Exit eligibility dérivée | Séparer closure et transition | **P2-D-02** pour closure ; **P2-D-04** pour next Cycle / Project Close | Execution SUCCESS never closes | Si jugement structurel reste → HD | Closed ≠ next activation automatique |
-| **R08** | Replan / requalify signal | ProjectTrajectory | Recommended ≠ decided | Structurel → HD ; non-structurel peut être Studio-derived | Aucune Execution automatique | Replan signal ≠ automatic replan | Historique non réécrit |
-| **R09** | Validated Deliverable | Deliverable validé | Vérifier Exit Proof global | Validated Deliverable ≠ complete Exit Proof | Peut coexister avec 0..N executions | Exit Proof insuffisant → pas de close | Continuer jusqu’à ALL criteria |
+| **R08 — REVIEW → CHANGES REQUIRED** | Review avec finding relatif aux critères applicables | Artifact / Deliverable / Evidence under review | Review → finding → changes required → mécanisme de correction/production applicable → **re-review** | Finding bloquant uniquement relativement aux critères applicables ; Correction ≠ necessarily Execution | Execution **peut** être utilisée si le mécanisme de production/correction applicable l’exige ; sinon correction hors Execution Branch | Ne pas traiter R08 comme route principale de replanning | Après correction : re-review ; puis réévaluer Exit Proof si applicable |
+| **R09** | Review / Deliverable validated | Validation locale d’un Deliverable / Artifact contre critères applicables | La validation contribue aux critères applicables ; **réévaluer** l’Exit Proof global | Validated Deliverable ≠ complete Exit Proof automatically ; validation locale ne court-circuite jamais les autres exit criteria | Peut coexister avec 0..N executions | Exit Proof insuffisant → pas de close | Continuer jusqu’à ALL applicable exit criteria |
 | **R10** | Resume / recovery | Session interrompue | Reconstruire current truth | Resume does not invent stale intent | Old execution intent ≠ relaunch | Missing state → rederive/clarify | Pilot-visible minimum summary |
 | **R11** | Blocker / Reservation | Travail bloqué ou réservé | Distinguer les deux | Blocker ≠ Reservation ≠ automatic replan | Aucune Execution automatique | Fail-closed sur effet bloqué | Clarifier / HD / replan si structurel |
 | **R12** | Guided Document Review | Document/version/section | Même Product loop ; non-waterfall | Section/checkpoint ≠ global validation/closure | Aucune Execution automatique | Ambiguïté de version → clarifier | Checkpoint = bounded coherence |
 | **R13** | Zero-execution close | Critères satisfaits sans Artifact/Execution | First-class path | **P2-D-02** si conditions OK | Explicitement zéro Execution | Si HD structurelle reste → HD | Cycle close sans Execution |
 | **R14** | Charge cognitive élevée | Ambiguïté / multi-source / qualité | Adapter stratégie cognitive | Cognitive escalation ≠ authority escalation | ≠ auto Execution | Insufficient cognition → retrieve/clarify/abstain ; fail-closed local | Continuer sans élargir authority |
 
-### 18.4 Couverture représentative sans nouvelle identité runtime
+### 18.4 Couverture représentative additionnelle (non numérotée — ≠ runtime taxonomy)
 
-- Ordinary conversation → zero durable mutation (R01).
-- Replanning / requalification (R08).
-- Checkpoint / coherence review (R12).
+Ces scénarios complètent la couverture design/acceptance **sans** créer R15/R16/R17 ni aucune nouvelle identité runtime. Une interaction réelle peut traverser plusieurs scénarios/routes.
+
+#### Ordinary conversation → zero durable mutation
+
+```text
+Pilote demande / explore
+  → Nora répond / challenge
+  → zero durable Product mutation
+```
+
+Couverture additionnelle **non numérotée**. Ne pas confondre avec une identité runtime distincte de R01 ; R01 reste la référence design/test de clarification, tandis que ce scénario porte explicitement le cas nominal « exploration conversationnelle sans mutation ».
+
+#### Replanning / requalification
+
+```text
+Evidence / blocker / dependency signal
+  → requalification
+  → trajectory Recommendation if needed
+  → HumanDecision only if structural decided ProjectTrajectory changes
+```
+
+**≠ R08.** R08 porte Review → changes required → re-review. Replanning/requalification reste ici une couverture additionnelle.
+
+```text
+replan signal ≠ automatic replan
+```
+
+#### Checkpoint / coherence review
+
+```text
+reviewed subset
+  → bounded checkpoint
+  → cross-section coherence
+  → corrections if needed
+  → continue review
+```
+
+```text
+checkpoint PASS ≠ global validation
+checkpoint PASS ≠ Cycle closure
+```
+
+Peut s’articuler avec R12 (GDR) sans en faire une taxonomie runtime distincte.
 
 ---
 
 
-### §19
+### Justification fidélité Guided Review
 
-## 19. Frontière fonctionnelle de fiabilité cognitive
-
-### 19.1 Frontière fondamentale
-
-```text
-deterministic Studio guarantees
-  ≠
-probabilistic Nora reasoning
-```
-
-Provider-agnostic Product semantics
-+
-OpenAI-native-first construction qualification lorsque Build Doctrine **R22** est matériellement applicable.
-
-**Aucune production routing selection.**
-
-### 19.2 CW0 vs CW1–CW3
-
-| Symbole | Nature |
-| --- | --- |
-| **CW0** | Shorthand pour la frontière déterministe Studio : currentness, membership, authority, idempotence, protected boundaries, lifecycle invariants, fail-closed. **NO LLM.** |
-| **CW1–CW3** | Candidate cognitive workload bands utiles au design, à l’évaluation et éventuellement au routing futur |
-
-CW1–CW3 **ne sont PAS** :
-
-- Product runtime taxonomy obligatoire ;
-- niveaux d’autorité ;
-- SFIA profiles ;
-- permissions ;
-- Functional Routes.
-
-Ne pas imposer un futur champ runtime `cognitiveClass` ni exactement quatre classes.
-
-### 19.3 Escalation cognitive
-
-Remplacer l’idée de « raise cognitive class » par **adaptation de cognitive strategy / effort / capability** lorsque workload/quality signals le justifient.
-
-Nora peut signaler : ambiguïté, contradiction, profondeur, complexité multisource, insuffisance de qualité, besoin de contexte.
-
-Studio/policy reste propriétaire de la résolution gouvernée de la stratégie.
-
-```text
-Cognitive escalation / de-escalation
-  ≠ scope escalation
-  ≠ permission escalation
-  ≠ HumanDecision
-  ≠ Confirmation
-  ≠ authority escalation
-```
-
-### 19.4 Fallback cognitif
-
-```text
-insufficient cognition
-  → retrieve / clarify / adapt / escalate when allowed
-  → sinon expose uncertainty / NOT PROVEN / abstain
-  → fail-closed seulement localement sur l’effet autoritatif
-     qui ne peut pas être exécuté honnêtement
-```
-
-Ne pas transformer un problème cognitif local en global Product STOP par défaut.
-
-### 19.5 Anti-oscillation
-
-- Comportement fonctionnel **REQUIRED**.
-- Mécanisme exact **NOT SELECTED**.
-- Hysteresis = candidate mechanism only.
-- **P4** qualifie la mécanique si nécessaire ; **P6** l’évalue.
-
-### 19.6 Contexte
-
-```text
-minimum-sufficient projection
-+ targeted retrieval
-+ provenance / currentness
-
-More context ≠ automatically better reasoning
-Full transcript/context dump ≠ nominal cognition/recovery strategy
-Nora n’a pas de second cognitive truth/store
-```
-
-### 19.7 Quality floor
-
-Clarify / retrieve / challenge / abstain plutôt que produire une fausse certitude fluide.
-
-Si cognition requise insuffisamment établie : **ne pas matérialiser** l’effet autoritatif concerné.
-
-### 19.8 Nora trajectory 08 / R22
-
-- Nora trajectory 08 : **KEEP / HARVEST / ADAPT**.
-- No second Nora engine.
-- Cognitive Completion = **NOT PROVEN**.
-- **R22** : provider/OpenAI Capability Fit Check lorsqu’une affirmation de design dépend réellement des capacités provider courantes.
-- Aucune primitive provider n’acquiert l’autorité métier SFIA.
-- Snapshot provider courant ≠ doctrine permanente.
+- R06 restauré = **EXIT UNMET** (Cycle OPEN ; Exit unmet ≠ execute ; MAY Execution NOT implied).
+- R08 restauré = **REVIEW → CHANGES REQUIRED** + re-review ; **≠** route principale Replan.
+- R09 : validation locale contribue puis réévalue Exit Proof global ; Validated Deliverable ≠ complete Exit Proof.
+- Ordinary conversation / Replanning / Checkpoint = couverture additionnelle **non numérotée** (préférence A) — pas R15/R16/R17.
+- Functional Routes restent design/acceptance only · ≠ runtime taxonomy.
 
 ---
 
+## G. Correction FCR-P2-02
 
-### §20
+### Avant (pertinent)
 
-## 20. Functional Acceptance Criteria
-
-> Critères observables/testables pour le modèle P2 · **≠** implementation proof. IDs existants préservés autant que possible.
-
-| ID | Critère |
-| --- | --- |
-| **P2-AC-01** | Un Cycle peut fermer sans Execution lorsque les critères applicables sont satisfaits. |
-| **P2-AC-02** | Execution SUCCESS alone cannot close a Cycle. |
-| **P2-AC-03** | Un Artifact requis invalide/non validé laisse Exit Proof insatisfait lorsque cette validation est requise. |
-| **P2-AC-04** | Journal projection cannot override authoritative truth. |
-| **P2-AC-05** | Nora cannot materialize HumanDecision. |
-| **P2-AC-06** | Le Pilote ne sélectionne pas manuellement CKC en nominal flow. |
-| **P2-AC-07** | La même durable decision est cohérente dans les projections Pilot / Nora / Studio. |
-| **P2-AC-08** | Resume does not invent stale intent. |
-| **P2-AC-09** | Execution Branch peut se répéter N fois dans un Cycle. |
-| **P2-AC-10** | Conversation peut produire zero durable mutation. |
-| **P2-AC-11** | Recommendation remains ≠ HumanDecision. |
-| **P2-AC-12** | Deliverable expected ≠ immediate execution. |
-| **P2-AC-13** | Cognitive adaptation/escalation does not grant authority. |
-| **P2-AC-14** | Les bounded representative functional scenarios / Functional Routes peuvent servir de scénarios de test d’acceptation **sans** devenir runtime taxonomy. |
-| **P2-AC-15** | GDR uses generic Product loop ; no dedicated GDR Product engine required by FOM. |
-| **P2-AC-16** | Confirmation ≠ HumanDecision et ne peut élargir scope/authority (**P2-D-03**). |
-| **P2-AC-17** | Execution intent ≠ ExecutionContract ≠ authority ≠ launch. |
-| **P2-AC-18** | Tool use / read-only cognition ≠ automatic Execution Branch. |
-| **P2-AC-19** | Executor Claim ≠ verified Product fact. |
-| **P2-AC-20** | Review ≠ Validation. |
-| **P2-AC-21** | Validated Deliverable ≠ automatically complete Exit Proof. |
-| **P2-AC-22** | Exit Proof is sufficient only when ALL applicable exit criteria are satisfied. |
-| **P2-AC-23** | Exit eligibility ≠ Cycle closure. |
-| **P2-AC-24** | Cycle closure ≠ next Cycle activation (**P2-D-04**). |
-| **P2-AC-25** | Fermeture déterministe de Cycle uniquement sous les conditions **P2-D-02**. |
-| **P2-AC-26** | Activation déterministe du Cycle suivant uniquement sous les conditions **P2-D-04**. |
-| **P2-AC-27** | Last Cycle closed ≠ Project automatically closed (**P2-D-04**). |
-| **P2-AC-28** | Project Abandon requires applicable HumanDecision. |
-| **P2-AC-29** | Structural ProjectTrajectory change requires applicable HumanDecision. |
-| **P2-AC-30** | Replan signal ≠ automatic replan. |
-| **P2-AC-31** | Stale Journal/Memory cannot authorize Product effect. |
-| **P2-AC-32** | Recovery reconstruit current authoritative Product truth. |
-| **P2-AC-33** | GDR section/checkpoint disposition ≠ global validation/closure. |
-| **P2-AC-34** | Functional Route identity never determines authority or Execution. |
-| **P2-AC-35** | Deterministic Product guarantees remain Studio-owned. |
-| **P2-AC-36** | CW bands never widen authority. |
-| **P2-AC-37** | Context = minimum-sufficient + targeted retrieval + provenance/currentness. |
-| **P2-AC-38** | Insufficient required cognition cannot be silently converted into authoritative certainty. |
-
-> **P2-AC-14** n’utilise plus A–J comme taxonomie structurante. A–J restent des références design/test de provenance uniquement.
-
----
-
-
-### §21
-
-## 21. Décisions P2 adoptées / questions fermées / routing aval
-
-### 21.1 Décisions P2 adoptées
-
-| ID | Décision | Statut |
-| --- | --- | --- |
-| **P2-D-01** | Recommendation disposition vs HumanDecision | **ADOPTED BY MORRIS** |
-| **P2-D-02** | Cycle closure conditional ; Studio deterministic closure possible lorsque conditions satisfaites et aucun jugement structurel humain non résolu | **ADOPTED BY MORRIS** |
-| **P2-D-03** | Confirmation autorise l’effet inspecté lorsqu’elle est requise ; Confirmation ≠ HumanDecision ; ne crée pas l’intention ; n’élargit ni scope ni authority | **ADOPTED BY MORRIS** |
-| **P2-D-04** | Lifecycle Progression & Project Closure Authority — matérialisation déterministe des conséquences de lifecycle / next Cycle activation / Project Close normal sous conditions ; Project Abandon = HD ; cas exceptionnel fail-closed → Pilot judgment → HD ; aucun state machine technique sélectionné | **ADOPTED BY MORRIS** |
-
-> **Important.** Toute ancienne table utilisant **P2-D-04** pour « Confirmation presentation/form » est **STALE** et **supprimée**. L’ID **P2-D-04** désigne uniquement Lifecycle Progression & Project Closure Authority. La forme UX de Confirmation est **ROUTED TO P3**, sans nouvel ID de décision P2.
-
-### 21.2 Questions P2 générales désormais fermées / bornées
-
-| Ancienne interrogation | Statut actuel |
-| --- | --- |
-| Zero-execution close | **CLOSED** via P2-D-02 + AC-01 / R13 |
-| Exact fixed Functional Route set | **CLOSED** comme non-requis ; catalogue bounded design/test only |
-| Journal Subject runtime taxonomy | **CLOSED** comme non-requis ; derived continuity semantics only |
-| Universal Validator Engine | **CLOSED** comme non-requis |
-| Confirmation semantic boundary | **CLOSED** via P2-D-03 |
-| CW0–CW3 mandatory runtime mapping | **CLOSED** comme non-requis |
-| Next Cycle activation exact policy | **BOUNDED / RESOLVED** via P2-D-04 |
-| Project Close exact policy | **BOUNDED / RESOLVED** via P2-D-04 |
-
-### 21.3 Restant OPEN (non-blocker P2 ou route aval)
-
-| Sujet | Statut | Route |
-| --- | --- | --- |
-| Forme UX / présentation de Confirmation | OPEN | **P3** |
-| DecisionBasis universel / représentation technique | NOT DECIDED · non-blocker P2 | **P4** si nécessaire |
+```markdown
 | Validator mechanism work-class-specific | OPEN lorsque mécanique exacte dépend de la classe de travail | Aval · pas de Validator Engine inventé |
 | Exact reopen policy details | OPEN avec invariant no silent rewrite | Aval |
-| Exact anti-oscillation technical mechanism | NOT SELECTED | **P4** qualify / **P6** evaluate |
-| Permanent model/provider mapping | NOT SELECTED | **P8** après preuves |
 | Reasoning defaults | NOT SELECTED | Aval |
-| Cognitive Completion | NOT PROVEN | **P6/P8** |
+```
 
-### 21.4 Downstream routing
+### Après — §21.3 complète
 
-| Phase | Contenu |
+### 21.3 Restant OPEN / NON-BLOCKER — routing explicite
+
+| Sujet | Statut fonctionnel actuel | Route phase / règle de requalification | Raison |
+| --- | --- | --- | --- |
+| Forme UX / présentation de Confirmation | OPEN | **P3** — Workspace / Interaction Architecture | Forme UX hors périmètre FOM ; sémantique Confirmation déjà bornée par **P2-D-03** |
+| DecisionBasis universel / représentation technique | NOT DECIDED · NON-BLOCKER P2 | **P4** si une représentation technique s’avère nécessaire | Auditabilité/reconstructibility déjà invariant ; forme technique non requise pour clôturer P2 |
+| Validator mechanism work-class-specific | NON-BLOCKER / ROUTED | **P4** uniquement si un mécanisme technique spécifique doit être conçu/représenté · **P6** pour preuve/QA du comportement et des mécanismes applicables | Sémantiques fonctionnelles déjà suffisantes en P2 (Review ≠ Validation ; mécanisme dépend critères/domaine/Evidence/jugement) · **aucun universal Validator Engine** |
+| Exact reopen policy details | **DEFERRED — NON-BLOCKER P2** | Pas de first-class reopen mechanism sélectionné en P2. Si P6/P7 ou une preuve produit ultérieure démontre qu’un comportement de reopen fonctionnel distinct est requis → **functional requalification first** avant toute implémentation technique | Invariant P2 : closed historical truth must never be silently rewritten. Ne décide ni « reopen interdit » ni « reopen obligatoire » · aucun état lifecycle supplémentaire inventé |
+| Exact anti-oscillation technical mechanism | NOT SELECTED | **P4** qualify if needed · **P6** evaluate | Comportement fonctionnel REQUIRED ; mécanisme exact NOT SELECTED |
+| Permanent model/provider mapping | NOT SELECTED | **P8** après preuves P6(+P7) + décision Morris applicable | Mapping permanent ≠ doctrine Product |
+| Reasoning defaults | NOT SELECTED | **P6** — Model × Reasoning evaluation / quality-cost-latency/tool evidence · **P8** — éventuelle politique de routing/defaults/promotions sur preuve suffisante + décision Morris applicable | Reasoning default ≠ Product authority · provider/model mapping ≠ permanent doctrine |
+| Cognitive Completion | NOT PROVEN | **P6** évaluation · **P8** requalification éventuelle | Pas de claim Cognitive Completion en P2 |
+
+
+### Routing final
+
+| Sujet | Route |
 | --- | --- |
-| **P3 — Workspace / Interaction Architecture** | Requalification des surfaces/contrôles ; progressive disclosure ; Confirmation UX ; model/reasoning visibility Pilot-facing si valeur démontrée ; Figma / visual contract |
-| **P4 — Technical / Semantic Architecture Delta** | Persistence/schema/API éventuels ; role projection contracts ; source/currentness/invalidation mechanics ; DecisionBasis technical form if applicable ; anti-oscillation technical mechanism if needed ; store only if demonstrated gap ; no SharedKnowledgeStore by default ; no new orchestration architecture unless justified |
-| **P5 — Delivery** | Implémenter les deltas validés ; ne pas inventer de nouvelle sémantique Product pendant Delivery ; Net Complexity Reduction applicable |
-| **P6 — Global Integrated Product QA** | Whole target QA ; functional scenarios/routes ; GDR cognitive scenario ; Model × Reasoning evaluation ; role/semantic continuity ; recovery ; governance/fail-closed ; Net Complexity Reduction |
-| **P7 — Fresh Project End-to-End Product Replay** | Fresh non-fixture Project ; realistic/non-happy-path-only ; REAL sous GO Morris distinct |
-| **P8 — evidence-based requalification** | Production cognitive routing policy si preuve suffisante ; provider/model/reasoning mapping éventuel ; RETIRE decisions éventuelles ; aucune auto-promotion |
+| Validator work-class-specific | P4 (tech if needed) + P6 (QA) · no Validator Engine · NON-BLOCKER |
+| Reasoning defaults | P6 eval → P8 policy éventuelle · NOT SELECTED |
+| Exact reopen policy | DEFERRED NON-BLOCKER P2 · functional requalification first if evidence · no silent rewrite |
 
-### 21.5 Provider-dependent items
-
-| Item | Statut |
-| --- | --- |
-| Permanent model/provider mapping | **NOT SELECTED** |
-| Reasoning defaults | **NOT SELECTED** |
-| Exact hysteresis mechanism | **NOT SELECTED** |
-| Cognitive Completion | **NOT PROVEN** |
-| OpenAI Capability Fit Check | Obligation de revalidation lorsque le claim en dépend · **≠** production-routing decision |
+Cross-ref §11.F aligné (même sujet validator) : NON-BLOCKER · P4/P6 · voir §21.3.
 
 ---
 
-
-### §22
-
-## 22. Critères de sortie P2 / Gates / Anti-claims
-
-### 22.1 Conditions pour proposer P2 à Final Critical Review
-
-P2 peut être proposé pour Final Critical Review uniquement si :
-
-1. Guided Review §§1–22 **COMPLETE**.
-2. P2-D-01…P2-D-04 correctement consolidées.
-3. Project / Cycle / Deliverable / Execution lifecycles cohérents.
-4. Recommendation / HumanDecision / Confirmation / materiality / authority cohérents.
-5. Execution reste optional/transverse.
-6. Review / Validation / Exit Proof / Exit eligibility / Closure restent distincts.
-7. ProjectTrajectory / replanning / transition semantics cohérents.
-8. P2-D-04 correctement intégré sans auto-waterfall.
-9. Journal/Memory + Recovery respectent currentness/provenance/no-second-truth.
-10. GDR reste representative route du même Product loop.
-11. Functional Routes restent bounded design/acceptance scenarios.
-12. Cognitive Reliability boundary cohérente : deterministic Studio / probabilistic Nora / no authority escalation.
-13. Functional Acceptance Criteria couvrent les invariants majeurs du FOM.
-14. Questions non-P2 correctement routées P3→P8.
-15. Pas de P3/P4 leakage : no UI/Figma selection, no DB/API/schema, no technical state machine, no production routing selection.
-16. Documentary consolidation complète.
-17. Cross-section consistency checks locaux PASS.
-18. Review pack FULL complet.
-19. Review Handoff remote verified.
+## H. Gates §22.2–22.3 (truth-sync pass)
 
 ### 22.2 Gates actuels
 
@@ -637,8 +251,12 @@ P2 peut être proposé pour Final Critical Review uniquement si :
 | **P2-D-03** | **ADOPTED BY MORRIS** |
 | **P2-D-04** | **ADOPTED BY MORRIS** |
 | **Guided Review §§1–22** | **COMPLETE** |
-| **Final Documentary Consolidation** | **COMPLETE AS LOCAL CANDIDATE** (si validations de ce cycle PASS) |
-| **ChatGPT Final Critical Review P2** | **NOT STARTED** |
+| **Final Documentary Consolidation** | **COMPLETE AS LOCAL CANDIDATE** |
+| **ChatGPT Final Critical Review P2 #1** | **NOT READY — TARGETED CORRECTION REQUIRED** |
+| **FCR-P2-01** | **CORRECTED** (ce pass) |
+| **FCR-P2-02** | **CORRECTED** (ce pass) |
+| **Targeted Correction Pass 01** | **COMPLETE AS LOCAL CANDIDATE** |
+| **ChatGPT Closure Review P2** | **NOT STARTED** |
 | **Morris validation P2** | **NOT STARTED** |
 | **Git integration P2** | **NOT AUTHORIZED** |
 | **P3 GO** | **NOT AUTHORIZED** |
@@ -646,377 +264,86 @@ P2 peut être proposé pour Final Critical Review uniquement si :
 ### 22.3 Prochain gate
 
 ```text
-ChatGPT Final Critical Review P2
-  → corrections éventuelles / Closure Review si nécessaire
-  → Morris validation P2 distincte
+ChatGPT Closure Review P2
+  → Morris validation P2 distincte (si Closure Review PASS)
   → Git integration distincte
   → GO aval distinct
 ```
 
-**Ne PAS écrire que ChatGPT Final Critical Review est PASS.** Cette revue a lieu **APRÈS** Cursor.
+**Ne PAS écrire que ChatGPT Closure Review est PASS.** Cette revue a lieu **APRÈS** Cursor.
+
+**Ne PAS écrire que P2 est VALIDATED.** Même si Closure Review PASS, la validation P2 reste une décision Morris distincte.
 
 **Morris validation P2 n’est PAS consommée dans ce cycle.**
 
-### 22.4 Anti-claims
-
-| Claim | Statut |
-| --- | --- |
-| P2 VALIDATED | **NO** |
-| P3 AUTHORIZED | **NO** |
-| P4 ARCHITECTURE ADOPTED | **NO** |
-| P5 DELIVERY AUTHORIZED | **NO** |
-| P6 GLOBAL QA PROVEN | **NO** |
-| P7 FRESH PROJECT SELECTED | **NO** |
-| P8 REQUALIFICATION PERFORMED | **NO** |
-| READY FOR REAL | **NO** |
-| PRODUCTION ROUTING SELECTED | **NO** |
-| COGNITIVE COMPLETION PROVEN | **NO** |
-| runtime v3 ADOPTED | **NO** |
-| SharedKnowledgeStore SELECTED | **NO** |
-| Canonical Orchestration Spine ADOPTED | **NO** |
-| ExecutionContract required for every Cycle | **NO** |
-| Execution SUCCESS closes Cycle | **NO** |
-| Artifact existence satisfies Exit Proof | **NO** |
-| Every Cycle must produce an Artifact | **NO** |
-| Journal / Memory = authoritative source of truth | **NO** |
-| Journal = second business cockpit | **NO** |
-| Functional Routes = runtime taxonomy | **NO** |
-| Route identity determines authority | **NO** |
-| Route identity determines Execution | **NO** |
-| CW0–CW3 mandatory runtime classes | **NO** |
-| CW* = authority levels | **NO** |
-| more cognitive capability = more Product authority | **NO** |
-| full transcript/context dump required | **NO** |
-| OpenAI-native-first = production routing decision | **NO** |
-| Recommendation = HumanDecision | **NO** |
-| Confirmation = HumanDecision | **NO** |
-| CKC = authority | **NO** |
-| Cycle close = automatic next Cycle activation | **NO** |
-| Last Cycle closed = automatic Project Close | **NO** |
-| replan signal = automatic decided replan | **NO** |
 
 ---
 
+## I. Non-régression P2-D-01…04
 
----
-
-## G. Traduction §§1–11 — extraits représentatifs
-
-### Extrait §1
-
-```markdown
-## 1. Métadonnées / Autorité / Statut
-
-### 1.1 Étiquettes épistémiques
-
-| Étiquette | Signification |
+| ID | Statut |
 | --- | --- |
-| **VALIDATED INPUT** | Contraint par C1 validé / décisions Morris déjà consommées (dont P2-D-*) |
-| **CURRENT FACT** | Établi par Git / PR / main / tests au périmètre revu |
-| **HARVESTED PATTERN** | Motif utile des actifs existants — adapter, ne pas copier aveuglément |
-| **P2 CANDIDATE** | Sémantique fonctionnelle proposée — devient **VALIDATED INPUT** seulement via le gate Morris applicable |
-| **OPEN QUESTION** | Nécessite encore analyse / aval |
-| **MORRIS DECISION REQUIRED** | Choix de politique produit structurante non consommable par Cursor |
-| **ROUTED TO P3 / P4 / P6 / P7 / P8** | Explicitement différé à une phase aval autorisée |
-
-### 1.2 Invariant — Guided Review ≠ validation P2
-
-```text
-L’acceptation Guided Review d’une section
-  ≠ validation globale P2.
-
-Un énoncé P2 CANDIDATE devient VALIDATED INPUT
-uniquement via la validation / le gate Morris applicable.
-```
-
-### 1.3 Statuts courants (après consolidation finale)
-
-```text
-C1 = VALIDATED BY MORRIS + INTEGRATED ON MAIN + POST-MERGE VERIFIED + CLOSED
-D-SIMP-06 / D-SIMP-07 / D-SIMP-08 = CONSUMED
-P2-D-01 / P2-D-02 / P2-D-03 / P2-D-04 = ADOPTED BY MORRIS
-```
-
-### Extrait §6.6 Project Close / P2-D-04
-
-```markdown
-### 6.6 Close / Abandon / Archive (distincts) — **P2-D-01** + **P2-D-04**
-
-| Sémantique | Signification |
-| --- | --- |
-| **Close** | Le Project atteint les sémantiques de completion applicables |
-| **Abandon** | Le Project se termine sans completion cible via un choix structurel humain |
-| **Archive** | Préoccupation de rétention/visibilité · **≠** sémantique primaire de completion métier |
-
-**Project Abandon**, lorsqu’il est l’acte structurel humain mettant fin au Project sans completion cible, **requiert HumanDecision sous P2-D-01**.
-
-#### Project Close normal — **P2-D-04 ADOPTED BY MORRIS**
-
-Studio peut matérialiser déterministiquement un **Project Close** normal uniquement lorsque :
-
-- les sémantiques de completion/termination applicables sont déjà décidées ;
-- les critères / Cycles / preuves requis sont satisfaits ;
-- aucun blocker applicable ne subsiste ;
-- aucune Reservation non résolue ayant un impact matériel sur la terminaison ne subsiste ;
-- aucune continuation/replanification nécessitant un jugement structurel n’est ouverte ;
-- aucun nouveau jugement structurel n’est nécessaire pour fermer.
-
-```text
-Last Cycle closed ≠ Project automatically closed
-```
-
-Cas terminal exceptionnel non couvert par une règle déterministe décidée :
-
-```text
-fail-closed → jugement Pilote → HumanDecision applicable
-```
-
-**P2-D-04** ne sélectionne aucun state machine technique, persistence, schema, API ni architecture runtime.
-
-### 6.7 Invariants multi-Project
-
-```
-
-### Extrait §7.E / §7.F
-
-```markdown
-### 7.E Fermeture de Cycle — **P2-D-02 ADOPTED BY MORRIS**
-
-La fermeture de Cycle est **CONDITIONAL**. Elle n’est **PAS** universellement une HumanDecision.
-
-Studio peut matérialiser une **fermeture de Cycle déterministe** lorsque :
-
-- les critères de sortie applicables sont satisfaits ;
-- Exit Proof requis est satisfait ;
-- aucun finding bloquant ne demeure ;
-- aucun jugement structurel humain non résolu ne demeure ;
-- aucun changement d’intention/scope/authority Pilote n’est silencieusement inféré.
-
-HumanDecision est requise **seulement lorsque** la fermeture elle-même exige encore un jugement structurel humain.
-
-**Execution SUCCESS alone NEVER closes a Cycle.**
-
-A–J / I1 / I2 restent des **références design/test uniquement** — pas une runtime taxonomy.
-
-### 7.F Activation du Cycle suivant — **P2-D-04 ADOPTED BY MORRIS**
-
-```text
-Cycle close ≠ automatic next Cycle activation
-```
-
-Mais :
-
-```text
-next Cycle activation ≠ nouvelle HumanDecision obligatoire
-lorsque la décision structurelle nécessaire existe déjà
-```
-
-Studio peut activer le Cycle suivant **sans nouvelle HumanDecision** uniquement lorsque :
-
-- le Cycle courant est correctement clos ;
-- la decided ProjectTrajectory courante identifie sans ambiguïté le prochain Cycle ;
-- les conditions d’entrée applicables sont satisfaites ;
-- aucune requalification/replanification structurelle non résolue n’existe ;
-- aucun choix structurel entre plusieurs trajectoires n’est requis ;
-- aucune nouvelle intention, extension de scope ou extension d’authority n’est créée.
-
-
-### 7.F Activation du Cycle suivant — **P2-D-04 ADOPTED BY MORRIS**
-
-```text
-Cycle close ≠ automatic next Cycle activation
-```
-
-Mais :
-
-```text
-next Cycle activation ≠ nouvelle HumanDecision obligatoire
-lorsque la décision structurelle nécessaire existe déjà
-```
-
-Studio peut activer le Cycle suivant **sans nouvelle HumanDecision** uniquement lorsque :
-
-- le Cycle courant est correctement clos ;
-- la decided ProjectTrajectory courante identifie sans ambiguïté le prochain Cycle ;
-- les conditions d’entrée applicables sont satisfaites ;
-- aucune requalification/replanification structurelle non résolue n’existe ;
-- aucun choix structurel entre plusieurs trajectoires n’est requis ;
-- aucune nouvelle intention, extension de scope ou extension d’authority n’est créée.
-
-Sinon :
-
-```text
-Recommendation / options
-  → HumanDecision applicable du Pilote
-  → decided ProjectTrajectory
-  → activation lorsque les conditions sont ensuite satisfaites
-```
-
-Studio peut matérialiser déterministiquement une conséquence de lifecycle uniquement lorsque (**P2-D-04**) :
-
-- elle est entièrement déterminée par une vérité Product déjà décidée ;
-- les conditions applicables sont objectivement vérifiables et satisfaites ;
-- aucun nouveau jugement structurel humain n’est nécessaire ;
-- aucun changement implicite d’intention, scope, authority ou decided ProjectTrajectory n’est introduit.
-
-### 7.G Reopen
-
-```
-
-### Extrait §10.5–10.7
-
-```markdown
-### 10.5 **P2-D-01 ADOPTED BY MORRIS** — Recommendation disposition vs HumanDecision
-
-Disposition de Recommendation non structurelle → **M-DISP is sufficient**.
-
-HumanDecision est requise lorsqu’un acte Pilote établit ou change une vérité Product structurelle telle que applicable :
-
-- objectif Project ;
-- scope structurel ;
-- decided ProjectTrajectory ;
-- disposition structurelle de lifecycle Project/Cycle ;
-- enveloppe d’autorité ;
-- engagement structurel dont dépendent des effets gouvernés aval.
-
-L’acceptation/refus d’une Recommendation **ne crée PAS** automatiquement une HD.
-
-**La matérialité de l’acte sémantique** décide le mécanisme — pas le mot « oui » ni la seule catégorie Recommendation.
-
-### 10.6 **P2-D-02 ADOPTED BY MORRIS** — Matérialité de fermeture de Cycle
-
-Fermeture de Cycle **CONDITIONAL** · **PAS** universellement une HumanDecision.
-
-Studio peut matérialiser une fermeture déterministe lorsque les conditions d’Exit Proof du §7.E sont satisfaites.
-
-HumanDecision requise seulement lorsque la fermeture elle-même exige encore un jugement structurel humain.
-
-**Execution SUCCESS alone NEVER closes a Cycle.**
-
-### 10.7 **P2-D-03 ADOPTED BY MORRIS** — Frontière de Confirmation
-
-Confirmation autorise un effet concret inspecté lorsque requis.
-
-Confirmation :
-
-- ≠ HumanDecision ;
-- **ne remplace PAS** une HumanDecision manquante ;
-- **ne crée PAS** l’intention Product ;
-- **n’élargit PAS** le scope ;
-- **n’élargit PAS** l’autorité ;
-- s’applique uniquement à l’effet ou contrat inspecté/lié.
-
-```
-
----
-
-## H. Contrôle d’intégrité de traduction
-
-| Contrôle | Résultat |
-| --- | --- |
-| Portée traduite | Document P2 complet majoritairement FR (§§1–22 + annexes) |
-| Identifiants canoniques préservés | HumanDecision, Recommendation, Confirmation, ExecutionContract, ProjectTrajectory, LPS, Evidence, ReviewBundle, Nora, Studio, CKC, P2-D-*, P2-AC-*, R01–R14, M-*, KEEP/ADAPT/HARVEST, VALIDATED/NOT VALIDATED, ZERO REAL, chemins, SHA |
-| Exceptions laissées en anglais | Verdict strings / IDs / noms d’objets canoniques / anti-claims table keys |
-| IDs perdus | NON — counts: P2-D-01=21, P2-D-02=15, P2-D-03=12, P2-D-04=29, P2-AC-01=1, P2-AC-14=2, P2-AC-15=1, P2-AC-16=1, P2-AC-38=1, R01=3, R14=2, M-DISP=6, M-HD=3, M-CONF=1, HumanDecision=46, Confirmation=26, ExecutionContract=10, ProjectTrajectory=19 |
-| P2-D-01…04 présents | OUI |
-| Gate changé hors instruction | NON |
-| Anti-claims préservés | OUI (§2.4 + §22.4) |
-| OPEN fermé par seule traduction | NON — fermetures via P2-D-* / dispositions GR |
-| Recommendation promue | NON |
-| Authority élargie | NON |
-| Nouveau état lifecycle inventé | NON |
-| Concept canonique renommé incompatible | NON |
-| Path/SHA/ID cassés | NON |
-| Tables/code blocks | Structure préservée |
-| Ancien registre P2-D-01…10 stale | SUPPRIMÉ · `P2-D-10` present=False · P2-D-05 table present=False |
-| Dépendance A–J structurante §20 | SUPPRIMÉE · AC-14 reformulé |
-| Verdict intégrité traduction | **PASS** |
-
----
-
-## I. Stale-content checks
-
-- `§§12–22 PENDING GUIDED REVIEW` : count=0 · ABSENT (PASS)
-- `Guided Review NEXT` : count=0 · ABSENT (PASS)
-- `Policy OPEN` : count=0 · ABSENT (PASS)
-- `Execution SUCCESS → Cycle COMPLETE` : count=0 · ABSENT (PASS)
-- `Artifact exists → Exit Proof` : count=0 · ABSENT (PASS)
-- `Higher cognitive class` : count=0 · ABSENT (PASS)
-- `PENDING GUIDED REVIEW` : count=0 · ABSENT (PASS)
-
-- `exact policy OPEN` hors langage de résolution historique : count=0 · ABSENT (PASS)
-- Mentions historiques « ancienne question … OPEN » dans §14 = langage de **fermeture** · acceptable.
-- `dedicated GDR Product engine` apparaît uniquement en négation · PASS.
-
-**Stale-content verdict : PASS**
+| P2-D-01 | ADOPTED BY MORRIS — unchanged |
+| P2-D-02 | ADOPTED BY MORRIS — unchanged |
+| P2-D-03 | ADOPTED BY MORRIS — unchanged |
+| P2-D-04 | ADOPTED BY MORRIS — unchanged |
+
+Aucune réouverture. Aucune nouvelle décision Product.
 
 ---
 
 ## J. Cross-section coherence
 
-| Frontière | Statut |
+| Invariant | Statut |
 | --- | --- |
 | Conversation ≠ durable mutation | PASS |
-| Recommendation ≠ HumanDecision | PASS |
-| Confirmation ≠ HumanDecision | PASS |
-| Nora ≠ authority | PASS |
+| Recommendation ≠ HD | PASS |
+| Confirmation ≠ HD | PASS |
 | Review ≠ Validation | PASS |
-| Validated Deliverable ≠ complete Exit Proof | PASS |
-| Exit eligibility ≠ Cycle closure | PASS |
-| Cycle closure ≠ next Cycle activation | PASS |
-| Last Cycle closed ≠ Project Close auto | PASS |
-| Cycle Lifecycle ≠ Execution Lifecycle | PASS |
-| Execution Result ≠ Cycle Resolution | PASS |
-| Intent ≠ EC ≠ authority ≠ launch | PASS |
-| Artifact exists ≠ validated ≠ Exit Proof ≠ complete | PASS |
-| Recommended ≠ decided ProjectTrajectory | PASS |
-| Replan signal ≠ automatic replan | PASS |
-| Journal ≠ authoritative truth | PASS |
-| Recovery ≠ old-session replay | PASS |
-| Functional Routes ≠ runtime taxonomy | PASS |
-| Cognitive workload ≠ Product authority | PASS |
-| Provider capability ≠ SFIA authority | PASS |
-| §21 P2-D-04 ID collision (old Confirmation form) | CORRECTED — rebuilt |
-
-Corrections appliquées : rebuild §21 ; intégration P2-D-04 §§6/7/14 ; AC-14 sans A–J ; catalogue routes sans colonnes HD?/Execution? binaires.
-
-Reserves restantes (non-blockers) : forme UX Confirmation → P3 ; DecisionBasis tech → P4 ; reopen details OPEN avec invariant ; anti-oscillation mechanism NOT SELECTED.
-
-**Coherence verdict : PASS (documentaire)**
+| Validated Deliverable ≠ complete Exit Proof | PASS (R09) |
+| Exit unmet → Cycle OPEN | PASS (R06) |
+| Exit unmet ≠ execute | PASS (R06) |
+| Review→changes→re-review | PASS (R08) |
+| R08 ≠ replan principal | PASS |
+| Replan signal ≠ automatic replan | PASS (§18.4 + AC-30) |
+| Checkpoint PASS ≠ global validation/closure | PASS (§18.4 + AC-33) |
+| Routes ≠ runtime taxonomy | PASS |
+| Route identity ≠ authority/Execution | PASS |
+| Cycle close ≠ auto next | PASS |
+| Last Cycle closed ≠ auto Project Close | PASS |
+| Vague « Aval » §21.3 ciblés | REMOVED |
 
 ---
 
-## K. Roadmap truth-sync
+## K. Acceptance criteria impact
 
-Tip CURRENT ajouté (historique non réécrit) :
+Aucun nouvel AC créé. Cohérence vérifiée :
+
+- P2-AC-14 routes/scenarios = coverage/test only
+- P2-AC-20 Review ≠ Validation
+- P2-AC-21 Validated Deliverable ≠ complete Exit Proof
+- P2-AC-22 Exit Proof all criteria
+- P2-AC-30 replan signal ≠ automatic
+- P2-AC-33 GDR checkpoint ≠ global validation/closure
+- P2-AC-34 route identity never determines authority/Execution
+
+---
+
+## L. Roadmap truth-sync
 
 ```markdown
-| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P2 FINAL DOCUMENTARY CONSOLIDATION** | 2026-10-03 23:28:35 +0200 — **STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P2 FINAL DOCUMENTARY CONSOLIDATION COMPLETE AS LOCAL CANDIDATE — READY FOR CHATGPT FINAL CRITICAL REVIEW P2** · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **2 — Conception fonctionnelle** · Milestone **P2 — FUNCTIONAL OPERATING MODEL** · Pass **Final Documentary Consolidation** · EVOL/DOC · CRITICAL · **D-SIMP-06/07/08 CONSUMED** · **P2-D-01/02/03/04 ADOPTED BY MORRIS** · Guided Review §§1–22 = **COMPLETE** · Checkpoint 01 = **CLOSED — PASS** · Final Documentary Consolidation = **COMPLETE AS LOCAL CANDIDATE** · document P2 = **LOCAL CANDIDATE / NOT INTEGRATED** · langue = **FR (identifiants canoniques préservés)** · P2 = **AUTHORIZED / IN PROGRESS / NOT VALIDATED** · ChatGPT Final Critical Review P2 = **NOT STARTED / NEXT** · Morris validation P2 = **NOT STARTED** · Git integration P2 = **NOT AUTHORIZED** · P3→P8 = **NOT AUTHORIZED** · production routing = **NOT SELECTED** · Cognitive Completion = **NOT PROVEN** · runtime v3 = **NON ADOPTED** · **ZERO REAL** · document = `projects/sfia-studio/product-simplification/02-chat-first-product-simplification-functional-operating-model.md` · branche locale `docs/sfia-studio-chat-first-product-simplification-p2-functional-operating-model` · base `origin/main` @ `642a10c87bdad2ef4291bf8b7294872c2b14be90` · **≠** P2 VALIDATED · **≠** READY FOR P3 · **≠** project commit/push/PR/merge · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT / `origin/main` / PR evidence** |
+| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P2 FINAL CRITICAL REVIEW TARGETED CORRECTION PASS 01** | 2026-10-03 23:39:29 +0200 — **STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P2 FINAL CRITICAL REVIEW TARGETED CORRECTION PASS 01 COMPLETE AS LOCAL CANDIDATE — READY FOR CHATGPT CLOSURE REVIEW P2** · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **2 — Conception fonctionnelle** · Milestone **P2 — FUNCTIONAL OPERATING MODEL** · Pass **Final Critical Review — Targeted Correction Pass 01** · EVOL/DOC · CRITICAL · **D-SIMP-06/07/08 CONSUMED** · **P2-D-01/02/03/04 ADOPTED BY MORRIS** (unchanged) · Guided Review §§1–22 = **COMPLETE** · Final Documentary Consolidation = **COMPLETE AS LOCAL CANDIDATE** · ChatGPT Final Critical Review P2 #1 = **NOT READY — TARGETED CORRECTION REQUIRED** · **FCR-P2-01 CORRECTED** (§18 Functional Routes fidelity) · **FCR-P2-02 CORRECTED** (§21.3 explicit downstream routing) · Targeted Correction Pass 01 = **COMPLETE AS LOCAL CANDIDATE** · document P2 = **LOCAL CANDIDATE / NOT INTEGRATED** · P2 = **AUTHORIZED / IN PROGRESS / NOT VALIDATED** · ChatGPT Closure Review P2 = **NOT STARTED / NEXT** · Morris validation P2 = **NOT STARTED** · Git integration P2 = **NOT AUTHORIZED** · P3→P8 = **NOT AUTHORIZED** · production routing = **NOT SELECTED** · Cognitive Completion = **NOT PROVEN** · runtime v3 = **NON ADOPTED** · **ZERO REAL** · document = `projects/sfia-studio/product-simplification/02-chat-first-product-simplification-functional-operating-model.md` · branche locale `docs/sfia-studio-chat-first-product-simplification-p2-functional-operating-model` · base `origin/main` @ `642a10c87bdad2ef4291bf8b7294872c2b14be90` · entry handoff Final Documentary Consolidation `93b1884a440e5c74e7df0b4415d9be1d9e877dbf` / blob `7430d3ee895f56bc502da6db945e7c43f2bbda33` · **≠** P2 VALIDATED · **≠** Closure Review PASS · **≠** READY FOR P3 · **≠** project commit/push/PR/merge · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT / `origin/main` / PR evidence** |
 ```
 
 ---
 
-## L. Fake / Real Qualification
+## M. Fake / Real
 
-| Item | Valeur |
-| --- | --- |
-| Applicable | NON pour exécution de ce cycle documentaire |
-| Fake/mock/fixture | NONE |
-| Frontière REAL | aucune |
-| Preuve entrée | DOCUMENTARY / FUNCTIONAL DESIGN ONLY |
-| Preuve attendue | DOCUMENTARY CONSOLIDATION PROVEN AT REVIEWABLE SCOPE |
-| Hors scope | DETERMINISTIC PRODUCT RUNTIME PROOF · REAL · E2E REAL |
-| Gate Morris REAL | N/A |
+Documentary targeted correction only · Fake/mock NONE · ZERO REAL · N/A Morris REAL gate.
 
 ---
 
-## M. Anti-claims
-
-P2 VALIDATED=NO · P3 AUTHORIZED=NO · P4 ARCHITECTURE ADOPTED=NO · P5 DELIVERY AUTHORIZED=NO · P6 GLOBAL QA PROVEN=NO · P7 FRESH PROJECT SELECTED=NO · P8 REQUALIFICATION PERFORMED=NO · READY FOR REAL=NO · PRODUCTION ROUTING SELECTED=NO · COGNITIVE COMPLETION PROVEN=NO · runtime v3 ADOPTED=NO · SharedKnowledgeStore SELECTED=NO · Canonical Orchestration Spine ADOPTED=NO · EC required every Cycle=NO · Execution SUCCESS closes Cycle=NO · Artifact exists=Exit Proof=NO · Every Cycle must produce Artifact=NO · Journal=SoT=NO · Journal=second cockpit=NO · Routes=runtime taxonomy=NO · Route identity→authority/Execution=NO · CW0–CW3 mandatory runtime=NO · CW*=authority=NO · more cognition=more authority=NO · full transcript dump required=NO · OpenAI-native-first=production routing=NO · Recommendation=HD=NO · Confirmation=HD=NO · CKC=authority=NO · Cycle close=auto next=NO · Last Cycle closed=auto Project Close=NO · replan signal=auto decided replan=NO.
-
----
-
-## N. Fichiers modifiés / Git validations
+## N. Git Review Index / Validations
 
 ```text
 M .tmp-sfia-review/chatgpt-review.md
@@ -1025,48 +352,39 @@ M .tmp-sfia-review/chatgpt-review.md
 ```
 
 ```text
-diff --check:
-(clean)
+.tmp-sfia-review/chatgpt-review.md                 | 166 ---------------------
+ .../convergence/sfia-studio-convergence-roadmap.md |  28 ++--
+ 2 files changed, 18 insertions(+), 176 deletions(-)
 ```
 
-Scope autorisé : P2 doc · Roadmap · pack · handoff L3 only.
-Aucun commit projet · aucun push projet · pack non staged.
+diff --check: (clean) PASS
+
+Scope: P2 doc + Roadmap (+ pack tmp). Cached empty for project. No project commit/push.
 
 ---
 
-## O. Local Git Truth — FINAL (pré-handoff)
+## O. Anti-claims
 
-```text
-branch = docs/sfia-studio-chat-first-product-simplification-p2-functional-operating-model
-HEAD = 642a10c87bdad2ef4291bf8b7294872c2b14be90
-origin/main = 642a10c87bdad2ef4291bf8b7294872c2b14be90
-P2 lines = 1462
-P2 bytes = 67188
-```
+P2 VALIDATED=NO · Closure Review PASS=NO (not started) · P3→P8 NOT AUTHORIZED · READY FOR REAL=NO · production routing NOT SELECTED · Cognitive Completion NOT PROVEN · runtime v3 NON ADOPTED · Routes≠runtime taxonomy · ZERO REAL.
 
 ---
 
-## P. Review Handoff
+## P. Review Handoff metadata hygiene
 
-Mode : publish-in-cycle L3 borné.
-Branche : sfia/review-handoff
-Fichier : sfia-review-handoff/latest-chatgpt-review.md
-Source : .tmp-sfia-review/chatgpt-review.md
-Message : docs(review-handoff): publish p2 final documentary consolidation
-Handoff commit SHA : `08f9f4e566a56b18dba934097983d727d77c68be`
-Handoff blob SHA : `99dd133b336aa8d01ffca2f462da419b08cc7f56`
-Remote SHA : `08f9f4e566a56b18dba934097983d727d77c68be` (= origin/sfia/review-handoff)
-Remote reread : PASS (header FULL + §§12–22 + P2-D-04 + verdict READY FOR CHATGPT FINAL CRITICAL REVIEW)
-Verdict handoff : **HANDOFF UPDATED — REMOTE VERIFIED**
+- ENTRY/PREVIOUS handoff SHA labelled explicitly above (93b1884a… / 7430d3ee…).
+- Ce pack **ne prétend pas** contenir à l’avance son propre blob/commit final.
+- Current published SHA = reporté dans le rapport Cursor **après** remote verification uniquement.
+
+Mode publish-in-cycle L3 · message : `docs(review-handoff): publish p2 final critical review correction pass 01`
 
 ---
 
-## Q. Verdict Cursor
+## Q. Verdict
 
-**READY FOR CHATGPT FINAL CRITICAL REVIEW — STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION P2 FUNCTIONAL OPERATING MODEL — FINAL DOCUMENTARY CONSOLIDATION COMPLETE — GUIDED REVIEW §§1–22 COMPLETE — P2 NOT YET VALIDATED**
+**READY FOR CHATGPT CLOSURE REVIEW P2 — FINAL CRITICAL REVIEW TARGETED CORRECTION PASS 01 COMPLETE — FCR-P2-01 CLOSED — FCR-P2-02 CLOSED — P2 NOT YET VALIDATED**
 
-Next gate : **ChatGPT Final Critical Review P2**.
+Next gate : **ChatGPT Closure Review P2**.
 
-Morris : transmettre ce verdict/rapport à ChatGPT. ChatGPT lit en priorité `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md`, revalide Git courant, puis effectue la Final Critical Review.
+Morris : transmettre à ChatGPT. ChatGPT revalide Git, lit `sfia/review-handoff` → `latest-chatgpt-review.md`, vérifie FCR-P2-01/02 fermés + non-régression P2-D-01…04, rend Closure Review.
 
-Ne jamais présenter cette sortie comme P2 VALIDATED · GO P3 · architecture adopted · READY FOR REAL · runtime v3 ADOPTED.
+Même si Closure Review PASS : **≠ P2 VALIDATED** automatiquement.
