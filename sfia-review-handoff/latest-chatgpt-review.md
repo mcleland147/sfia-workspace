@@ -2,22 +2,21 @@
 
 | Métadonnée | Valeur |
 | --- | --- |
-| **Timestamp Europe/Paris** | 2026-10-04 20:28:45 +0200 |
-| **Objectif** | FINAL DOCUMENTARY CONSOLIDATION P3 |
+| **Timestamp Europe/Paris** | 2026-10-04 20:55:23 +0200 |
 | **Macro** | STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 |
-| **Milestone** | P3 — WORKSPACE / INTERACTION ARCHITECTURE |
 | **Cycle** | 4 — UX/UI |
-| **Pass** | FINAL DOCUMENTARY CONSOLIDATION / CLOSURE PREPARATION |
+| **Milestone** | P3 — WORKSPACE / INTERACTION ARCHITECTURE |
+| **Pass** | FINAL CRITICAL REVIEW — TARGETED CORRECTION PASS 01 |
 | **Profil** | CRITICAL |
 | **Typologie** | EVOL / DOC |
 | **Niveau** | FULL |
-| **Verdict attendu** | READY FOR CHATGPT FINAL CRITICAL REVIEW P3 |
+| **Verdict attendu** | READY FOR CHATGPT CLOSURE REVIEW P3 |
 
 ---
 
 ## A–B. Objectif / Cycle
 
-Consolider le travail P3 déjà conduit/revu avec Morris en contrat documentaire UX/UI exploitable par P4, **sans** nouveaux écrans, **sans** code, **sans** architecture technique, **sans** promotion globale P3.
+Corriger exclusivement FCR-P3-01…04 (Morris 2026-10-04 APPROVED). Aucune mutation Figma · aucun code · aucune architecture P4 · ≠ P3 VALIDATED.
 
 ## C. Local Git Truth
 
@@ -28,48 +27,276 @@ branch = docs/sfia-studio-chat-first-product-simplification-p3-workspace-interac
 HEAD = e99d9ad5cc7011e414b00006e88ac33e11b5ce87
 origin/main = e99d9ad5cc7011e414b00006e88ac33e11b5ce87
 merge-base = e99d9ad5cc7011e414b00006e88ac33e11b5ce87
-expected origin/main = e99d9ad5cc7011e414b00006e88ac33e11b5ce87
+expected = e99d9ad5cc7011e414b00006e88ac33e11b5ce87
 match = YES
 staged = empty
-P3 branch local = YES
-remote P3 dedicated branch = NONE
-project commit = NO
+P3 doc = untracked local candidate (present)
+Roadmap = modified
+pack historically tracked = YES (debt HORS SCOPE — not untracked/rm/.gitignore)
 ```
 
-## D. Entry handoff
+## D. Entry handoff / sources
 
 | Champ | Valeur |
 | --- | --- |
-| commit | `26485583fa2bee01846c38b7636faa801d3c8f48` |
-| blob | `07d62b55aa842ea52cfecdb63e9d8e3a634a510a` |
+| Entry handoff | `abe0c05e938ac8c2864ef9546681975d9a250542` / blob `d2d65b6efd57ac89e55d31cd0a66b14fc5d987a2` |
+| Sources | Build Doctrine · Roadmap · C1 · P2 · P3 local · CKC UX/UI authority NONE · framing · routing/template v2.6 · Self-Review `205:2` |
+| Morris decision | 2026-10-04 FCR-P3-01/02/03/04 APPROVED FOR CORRECTION |
 
-## E. Sources lues
+## E. Findings d’entrée
 
-Build Doctrine · Roadmap · Product Completion · C1/P2 · P3 local consolidé · CKC `04-ux-ui.md` · template/routing v2.6 process-only · entry Review Handoff.
+ChatGPT Final Critical Review P3 #1 = NOT READY — TARGETED CORRECTION REQUIRED · FCR-P3-01 · FCR-P3-02 · FCR-P3-03 · FCR-P3-04.
 
-## F. CKC UX/UI
+## F. FCR-P3-01 — Authority by domain
 
-Trouvé : `projects/sfia-studio/sfia-v3-framing/ckc/04-ux-ui.md` · `ckc:studio:ux-ui` · CONTENT VALIDATED BY MORRIS · **authority NONE** · fallback routing + C1/P2 + Morris.
+### Avant
 
-## G. Figma MCP
+Hiérarchie globale : Décisions Morris > P2 > C1 > doctrine > repo > Figma > CKC > hypotheses.
 
-YES READ ONLY · fileKey `m4g8j0gNbEzfIuH6S9AZJF` · mutation **NONE** · listing pages sans nodeId = `0:1` only · frames lues : `2:6`/`63:39`, `46:2`, `94:2`, `184:2`, `190:2`, `205:2`. Autres IDs transcrits du handoff ChatGPT/Morris.
+### Après — §1.2 complet
 
-## H. Décisions Morris
+```markdown
+### 1.2 Autorité par domaine (FCR-P3-01)
 
-Voir P3 §41. Aucune nouvelle HumanDecision inventée ce pass.
+> **Dépréciation.** L’ancienne hiérarchie globale « Décisions Morris > P2 > C1 > doctrine > repo > Figma > CKC > hypotheses » est **retirée**. Elle créait une fausse précédence entre domaines d’autorité distincts. Alignement avec P2 §2.1 : **aucun rang de précédence global** entre domaines.
 
-## I. Fichiers
+| Domaine | Autorité | Rôle |
+| --- | --- | --- |
+| **Construction / gouvernance Studio** | Décisions Morris explicites · Build Doctrine · Convergence Roadmap | Gates, trajectoire de construction, promotions, doctrine de build |
+| **Autorité runtime Project** | HumanDecision du Pilote (modèle de domaine adopté) | Décisions structurantes Project au runtime |
+| **Vérité CURRENT technique / capacités présentes** | **Git courant** · runtime evidence **qualifiée** | Ce qui existe et fonctionne **réellement** |
+| **Destination produit Studio** | Doctrine v3 applicable (30–37 · CC-D01 Option A) | CE QUE Studio doit devenir |
+| **Cadrage Product Completion** | C1 validé | Cible / scope / trajectoire macro |
+| **Functional Operating Model** | P2 validé / intégré | HOW STUDIO FUNCTIONS |
+| **Contrat expérience P3** | P3 documentaire · Figma (statut frame-by-frame) · décisions Morris P3 | HOW THE PRODUCT IS EXPERIENCED (+ fidélité visuelle) |
+| **Guidance UX/UI** | CKC UX/UI | Guidance uniquement · **authority NONE** |
+| **Hypothèses / explorations** | **Aucune** | Candidates / working material uniquement |
 
-- consolidé untracked : `03-chat-first-product-simplification-workspace-interaction-architecture.md`
-- modifié : Roadmap (tip CURRENT)
-- pack tmp hors commit projet
+#### CURRENT vs TARGET RULE
 
-## J. P3 document — contenu COMPLET
+- **Git / runtime evidence** prime pour les claims **CURRENT**.
+- Doctrine / C1 / P2 / P3 définissent des contrats **TARGET** selon leur domaine.
+- Aucun document TARGET ne prouve qu’une capacité runtime **existe déjà**.
+- Aucun code CURRENT n’annule silencieusement une décision produit cible.
+- Un conflit CURRENT ↔ TARGET = **gap de convergence**, pas une hiérarchie implicite.
+- **Git reste** la source de vérité **repository**.
 
-Path: `projects/sfia-studio/product-simplification/03-chat-first-product-simplification-workspace-interaction-architecture.md` · lines=934 · bytes=47357
+P2 documentaire sur main peut encore porter « P3 NOT AUTHORIZED » comme **vérité historique**. **Ne pas réécrire P2.** La vérité courante de trajectoire = ce document + Roadmap living tip (**domaine construction**).
+```
 
-<details><summary>Full P3 document content</summary>
+Status: **CLOSED**.
+
+## G. FCR-P3-02 — P4 mandatory work products
+
+### Après — §39 (extrait work products + entrée)
+
+```markdown
+## 39. P3→P4 Input Contract
+
+**Aucune architecture choisie.** P4 devra permettre P2+P3 **sans** seconde vérité UI. **P4 NOT AUTHORIZED.**
+
+### 39.0 Entrée P4 — ordre de travail (FCR-P3-02)
+
+P4 **ne commence pas** par « quelle DB / quel store / quelle API ? ».
+
+P4 commence par :
+
+> quel monde sémantique doit exister, qui en est autoritaire, comment est-il projeté, et comment le CURRENT converge vers cette cible ?
+
+### 39.1 P4 MANDATORY STRUCTURAL WORK PRODUCTS (FCR-P3-02)
+
+Ces quatre outputs sont **obligatoires pour P4**. Ils **ne sont pas résolus** dans P3. Ils **n’autorisent pas** P4. Aucune solution technique n’est sélectionnée ici.
+
+#### 1. Pilot–Nora–Studio Semantic Connectivity Audit
+
+Identifier : objets sémantiques partagés · points d’entrée · lecture · écriture · relations · projections · ruptures actuelles · duplications · gaps · risques de **parallel truth**.
+
+#### 2. Information Ownership / Authority Matrix
+
+Pour chaque information / objet : owner · authority · writer · reader · derived projections · currentness · provenance · mutability · decision authority · **interdit de duplication autoritative**.
+
+Doit préserver notamment : Recommendation ≠ HumanDecision · Result ≠ Evidence · Journal ≠ Product SoT · Historique ≠ current truth · Synthèse ≠ ReviewBundle brut · Conversation ≠ mutation automatique.
+
+#### 3. Role Projection Contracts
+
+Définir comment le **même** monde sémantique est projeté vers Pilote · Nora · Studio · executor/agent si applicable — **sans** quatre modèles métier concurrents. Représentations distinctes · rôles / droits / autorités distincts.
+
+#### 4. CURRENT → TARGET Integration Map
+
+Classifier les actifs existants (Build Doctrine) : KEEP · ADAPT · HARVEST · COMPLETE · REPLACE · FREEZE · RETIRE LATER.
+
+Doit empêcher : réécriture inutile · architecture parallèle · nouveau moteur UI · conservation par inertie.
+
+Relier : CURRENT repo → capacité cible → adaptation → exit → preuve.
+
+### 39.2 Capacités / projections à permettre
+
+1. **SoT / projections.** Conversation, Project, Cycle, ProjectTrajectory, Recommendation, HumanDecision, ExecutionContract, Execution/Attempt, Result, Evidence, ReviewBundle, Journal, Historique, Synthèses — **même monde sémantique**. Interdiction : vérité UI indépendante.
+
+2. **Project creation.** État pré-Project · conversation · matérialisation Project · continuité conversation · first Cycle · recovery interruption. Trajectory complète **non** obligatoire à Create.
+
+3. **Workspace views.** Conversation / Aperçu / Exécution / contexte / Journal / Historique / Synthèses projetés depuis les mêmes facts.
+
+4. **Trajectory.** Terminé/En cours = truth · Proposé = recommendation. Proposition ≠ Cycle durable auto.
+
+5. **Decision / Confirmation.** Rec ≠ HD ≠ Confirmation ≠ Execute. Confirmation sur l’action inspectée, pas gratuite.
+
+6. **Journal.** Dérivation Sujets · currentness · points · liens autoritatifs · échanges · retrieval · provenance. **≠** persistence concurrente SoT.
+
+7. **Historique.** Événements · projection contexte · reconstruction · liens · relation current truth.
+
+8. **Synthèses.** Stockage **ou** reconstruction selon archi · sections · provenance · Result/Evidence/ReviewBundle · **full-content search** · currentness. Moteur/index **non** décidé.
+
+9. **Execution.** États Pilote listés. Timeout = cause d’Échouée. Machine interne peut être plus fine **sans** jargon Pilote.
+
+10. **Result ≠ Evidence.** Preuves contextuelles Exécution/Synthèses.
+
+11. **Nora activity.** START/ACTIVITY/STREAMING/COMPLETE/STOPPED honnêtes. Stop composer = capacité réelle **ou** sémantique qualifiée. No fake progress. Pas de CoT.
+
+12. **Search.** Locale Projets / Historique / Synthèses full-content. Pas de Search global fictif.
+
+13. **Auth.** GitHub-only UX. **≠** REAL proven.
+
+14. **Responsive.** Traduire Large/Compact/Mobile **sans** API/état métier/parcours seconds.
+
+15. **Design system / visual fidelity (FCR-P3-04).** P4 **ne réinterprète pas** P3 pour faciliter l’architecture. P4 propose une architecture **capable de porter** la fidélité pixel-perfect. Qualifier (sans sélectionner ici) : design-token architecture · component architecture · shared primitives · typography/spacing/sizing · radius/border/shadow · color system · responsive layout · dynamic-content · overflow/scroll · state representation · motion · reduced-motion · assets · icons · Meridian · GitHub icon · a11y constraints · capture/testability. Éviter : CSS ad hoc écran par écran · styles dupliqués · archi responsive parallèle · composants génériques dégradant le design · abstraction prématurée · DS divergent de Figma. **P3 définit le rendu · P4 porte le contrat · l’implémentation reproduit · l’architecture ne redessine pas silencieusement P3.**
+
+16. **Navigation / routing.** Représenter les vues **sans** transformer les routes en taxonomie autoritative.
+
+17. **Deep links / selected object.** Carte conversation → décision / action / synthèse / sujet / preuve **sans** dupliquer les objets.
+
+18. **Recovery / currentness.** Retour Project = current authoritative truth **avant** stale session.
+
+19. **Reuse.** Auditer le repo. Build Doctrine : réutiliser avant reconstruire. Pas de nouveau moteur Journal/History/store/orchestration UI **juste** pour coller aux maquettes.
+
+20. **Temporary debt.** Toute rustine P4 : cible · owner · condition d’exit.
+
+---
+```
+
+Quatre outputs nommés, non résolus, obligatoires pour P4, sans sélection technique. Status: **CLOSED**.
+
+## H. FCR-P3-04 — Pixel-perfect fidelity
+
+### Après — §34.1 complet
+
+```markdown
+### 34.1 Figma → Runtime Visual Fidelity Contract (FCR-P3-04)
+
+**Décision Morris 2026-10-04 :** l’implémentation future doit reproduire l’IHM P3 **au détail près**. Figma n’est **pas** une simple inspiration.
+
+#### Règle normative
+
+Figma = **référence visuelle P3**. Toute implémentation des surfaces couvertes par P3 doit rechercher une reproduction **pixel-perfect** des frames canoniques.
+
+Principe central : **NO INTENTIONAL VISUAL DEVIATION.**
+
+Toute divergence **intentionnelle** Figma ↔ runtime doit être : identifiée · motivée · impact analysé · **approuvée explicitement** · jamais silencieuse.
+
+Variations tolérées **sans** décision structurante = artefacts intrinsèques de rendu runtime uniquement :
+
+- antialiasing · rasterisation · font rendering navigateur/OS · subpixel · artefacts purement techniques ne modifiant pas perception/layout.
+
+Ces artefacts **ne justifient pas** : changement de spacing · typography · composants · layout · couleur · suppression d’état · variation responsive volontaire.
+
+#### Définition opérationnelle « pixel-perfect »
+
+1. Géométrie structurelle : **0–1 px** d’écart cible lorsque techniquement contrôlable.
+2. Aucune différence visible volontaire d’alignement.
+3. Aucune différence volontaire sur margins / paddings / gaps / widths / heights / position / grid / master-detail ratio.
+4. Typography fidèle : famille · weight · size · line-height · letter-spacing si spécifié · wrapping · truncation.
+5. Visual tokens fidèles : colors · backgrounds · borders · widths · radii · shadows · opacity · dividers.
+6. Components fidèles : buttons · chips · tabs · inputs · cards · list items · status · composer · panels · rail · topbar.
+7. Branding fidèle : Meridian (crop · opacity · placement · z-order) · logo GitHub.
+8. States fidèles lorsqu’ils sont définis : hover · focus · active · selected · disabled · loading/working · empty · error · failed · stopped · stale · unavailable.
+9. Content behavior fidèle : wrapping · dynamic-height cards · scroll · progressive disclosure · long synthesis · expanded exchanges · variantes 9-éléments Exécution.
+10. Responsive fidèle Large / Compact / Mobile selon contrat P3 (**design bands** · **≠** breakpoints CSS finaux).
+
+#### Canonical Implementation Frames
+
+| Surface | Band | Node | Dim. | Statut Figma | Rôle implémentation | Alternate / state | Remarque |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Projects | Desktop | `63:39` | 1440×1024 | EXPLORATORY | canonical ref | empty `184:2` | EXPLORATORY ≠ invalid |
+| New Project | Desktop | `67:39` | 1440×1024 | EXPLORATORY | canonical ref | mobile `190:284` | |
+| Workspace / Conversation | Desktop | `46:2` | 1440×1024 | EXPLORATORY | canonical ref | compact `190:44` · mobile `190:306` | |
+| Aperçu | Desktop | `51:2` | 1440×1024 | EXPLORATORY | canonical ref | mobile `192:2` | |
+| Journal | Desktop | `94:2` | 1440×1024 | VALIDATED | canonical ref | expanded `94:222` · mobile `192:41`/`192:81` | |
+| Execution After | Desktop | `147:2` | — | VALIDATED | canonical ref | 9-el `150:29` | |
+| Execution Before | Desktop | `150:295` | — | VALIDATED | canonical ref | 9-el `150:532` | |
+| Decision | Desktop | `59:2` | — | EXPLORATORY | canonical ref | mobile `190:495` | |
+| Confirmation | Desktop | `61:2` | — | EXPLORATORY | canonical ref | mobile `190:520` | |
+| Historique | Desktop | `78:2` | — | VALIDATED | canonical ref | compact `190:111` · mobile `190:380`/`190:412` | |
+| Synthèses | Desktop | `164:3` | — | VALIDATED | canonical ref | compact `190:175` · mobile `190:433`/`190:455` | |
+| Auth | Desktop | `130:3` | — | VALIDATED | canonical ref | mobile `190:551` · states `133:*` EXPLORATORY | |
+| Nora motion | — | `125:2` `119:4` `125:183` `125:365` `125:535` | — | EXPLORATORY | motion refs | contract `125:712` | |
+| États transverses | Desktop | `184:2`…`184:1475` | 1440×1024 typ. | VALIDATED | state refs | Responsive States `190:560` | VALIDATED BY MORRIS |
+| Responsive contract | — | `190:2` | 1440×690 | VALIDATED | band contract | | VALIDATED BY MORRIS |
+| Self-Review | — | `205:2` | 1600×920 | review log | process ref | | ≠ P3 VALIDATED |
+
+Distinguer toujours : **canonical implementation reference** · **Figma status** · **Morris review** · **P3 global status (NOT VALIDATED)**.
+
+Si aucune frame canonique pour un viewport : qualifier l’absence · appliquer responsive contract · **ne pas** claim « pixel-perfect against Figma » sans référence.
+
+#### Future Visual Fidelity Gate
+
+Pour chaque surface implémentée, un **Visual Fidelity Review Pack** doit identifier :
+
+surface · canonical Figma frame · node ID · target viewport · runtime route · fixture/état qualifié · **runtime screenshot** · Figma reference capture · comparaison · écarts · corrections · verdict.
+
+Viewports cibles lorsque frame existe : Desktop 1440×1024 (ou dims exactes) · Compact 1024 · Mobile 390.
+
+```text
+Code implemented ≠ Figma fidelity proven
+Screenshot exists ≠ pixel-perfect PASS
+Visual PASS = canonical frame + runtime screenshot + comparaison + écarts qualifiés + aucun écart intentionnel non approuvé
+```
+
+#### Visual QA checklist (minimum)
+
+SHELL · GEOMETRY · TYPE · VISUALS · COMPONENTS · CONTENT · INTERACTION STATE · RESPONSIVE · BRANDING · MOTION (+ reduced-motion) · ACCESSIBILITY (keyboard · focus-visible · touch · contrast qualification).
+
+#### Tolerance / acceptance
+
+Pas de seuil « 100 % pixels identiques » comme unique définition. **No intentional visual deviation.** Target structural : **0–1 px** lorsque contrôlable. Écart >1 px n’est pas auto-FAIL s’il est intrinsèque et démontré, mais doit être qualifié s’il affecte perception/layout.
+
+**FAIL** tant que non approuvé : spacing/alignement/font/size/radius/couleur différents · composant substitué · élément/état manquant · responsive changé · layout simplifié · branding absent · hiérarchie altérée.
+
+#### Divergence policy
+
+Si le design canonique est techniquement incompatible : **ne pas** modifier silencieusement code ou Figma. Créer une divergence qualifiée (frame · requirement · contrainte · impact · alternatives · recommendation) → **gate Morris** si le changement altère contrat visuel / comportement / architecture / responsive / scope.
+
+#### Boucle d’implémentation future
+
+```text
+canonical Figma frame
+  → implementation
+  → runtime screenshot
+  → visual comparison
+  → targeted corrections
+  → new screenshot
+  → Visual Fidelity PASS
+```
+
+**Pas :** Figma → code approximatif → « ça ressemble » → done.
+
+#### Anti-claims pixel-perfect
+
+Code implemented ≠ fidelity proven · Screenshot exists ≠ PASS · Component exists ≠ frame reproduced · Responsive works ≠ responsive fidelity proven · Figma reference ≠ runtime proof · Visual Fidelity PASS exige comparaison au viewport cible · Pixel-perfect ≠ licence d’exposer internals SFIA · Pixel-perfect ≠ duplication des états métier · **PIXEL-PERFECT RUNTIME PROVEN = NO** (ce pass).
+
+---
+```
+
+Plus §39.2.15 design system / visual fidelity P4 obligations. Status: **CLOSED**.
+
+## I. FCR-P3-03 — Review integrity
+
+- Pack réinitialisé au début du pass (`: > .tmp-sfia-review/chatgpt-review.md`).
+- `.tmp-sfia-review/chatgpt-review.md` **historiquement tracké** (`git ls-files` YES) — dette process **HORS SCOPE** (pas de git rm / untrack / .gitignore).
+- Pack courant généré **sans trailing whitespace** (rstrip ligne par ligne).
+- P3 doc + Roadmap rstripped.
+- Voir section Validations pour `git diff --check` exact.
+
+## J. Metadata / gates modifiés
 
 ```markdown
 # SFIA Studio — Chat-First Product Simplification — P3 Workspace / Interaction Architecture
@@ -80,7 +307,7 @@ Path: `projects/sfia-studio/product-simplification/03-chat-first-product-simplif
 | **Macro** | `STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01` |
 | **Milestone** | **P3 — WORKSPACE / INTERACTION ARCHITECTURE** |
 | **Cycle projet** | **4 — UX/UI** |
-| **Pass** | **FINAL DOCUMENTARY CONSOLIDATION / CLOSURE PREPARATION** |
+| **Pass** | **FINAL CRITICAL REVIEW — TARGETED CORRECTION PASS 01** |
 | **Type SFIA / guidance** | UX/UI · Interaction Architecture · `cyc:ux-ui` / `ckc:studio:ux-ui` |
 | **Profil** | **CRITICAL** |
 | **Typologie** | **DOC** dans macro **EVOL** |
@@ -101,7 +328,145 @@ Path: `projects/sfia-studio/product-simplification/03-chat-first-product-simplif
 | **Fichier** | `projects/sfia-studio/product-simplification/03-chat-first-product-simplification-workspace-interaction-architecture.md` |
 | **Date** | 2026-10-04 · Europe/Paris |
 
-> **Lecture rapide.** P3 = **HOW THIS PRODUCT IS EXPERIENCED**. P2 reste **HOW STUDIO FUNCTIONS**. Ce pass **consolide** le contrat UX/UI / interaction déjà conçu et revu avec Morris. **Aucune** mutation Figma · **aucun** code · **aucune** architecture P4 · **≠ P3 VALIDATED** · **≠ P4 AUTHORIZED**. Design Self-Review PASS + passe visuelle Morris = **entrée de revue**, pas validation globale du milestone.
+> **Lecture rapide.** P3 = **HOW THIS PRODUCT IS EXPERIENCED** (+ contrat de fidélité Figma→runtime). P2 = **HOW STUDIO FUNCTIONS**. Ce pass corrige **uniquement** FCR-P3-01…04 (Morris 2026-10-04). **Aucune** mutation Figma · **aucun** code · **aucune** architecture P4 · **≠ P3 VALIDATED** · **≠ P4 AUTHORIZED** · pixel-perfect = **requirement futur**, pas preuve runtime.
+
+---
+
+## 1. Statut / autorité / anti-claims
+
+```
+
+```markdown
+## 43. Anti-claims finaux / next gate
+
+| Gate | Statut |
+| --- | --- |
+| P3 GLOBAL VALIDATED | **NO** |
+| P3 INTEGRATED | **NO** |
+| Git integration P3 | **NOT AUTHORIZED** |
+| ChatGPT Final Critical Review P3 #1 | **NOT READY — TARGETED CORRECTION REQUIRED** [historical] |
+| Targeted Correction Pass 01 | **COMPLETE AS LOCAL CANDIDATE** (si validations PASS) |
+| FCR-P3-01 / 02 / 03 / 04 | **CORRECTED** (documentaire / process) |
+| ChatGPT Closure Review P3 | **NEXT / NOT STARTED** |
+| P4 AUTHORIZED | **NO** |
+| READY FOR REAL | **NO** |
+| PIXEL-PERFECT RUNTIME PROVEN | **NO** |
+| FIGMA-TO-RUNTIME ALIGNMENT PROVEN | **NO** |
+| runtime v3 | **NON ADOPTED** |
+| ZERO REAL | **YES** (cycle documentaire) |
+
+```text
+NEXT:
+  ChatGPT Closure Review P3
+  → si PASS : READY FOR MORRIS P3 GLOBAL VALIDATION GATE
+  → Morris global P3 validation (distincte)
+  → Git integration (GO distinct)
+  → requalification / GO P4 distinct
+```
+
+Ce pass : **READY FOR CHATGPT CLOSURE REVIEW P3** (si pack/handoff complets) signifie **uniquement** corrections FCR appliquées. **≠** P3 VALIDATED · **≠** P4 AUTHORIZED · **≠** pixel-perfect runtime proven.
+
+---
+
+*Fin du document P3 — FINAL CRITICAL REVIEW TARGETED CORRECTION PASS 01 — FCR-P3-01…04 CORRECTED — LOCAL CANDIDATE — P3 AUTHORIZED / NOT VALIDATED — P4 NOT AUTHORIZED — ZERO REAL.*
+```
+
+## K. Roadmap tip COMPLETE
+
+```markdown
+| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P3 FINAL CRITICAL REVIEW TARGETED CORRECTION PASS 01** | 2026-10-04 20:55:23 +0200 — **STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P3 FINAL CRITICAL REVIEW TARGETED CORRECTION PASS 01 COMPLETE AS LOCAL CANDIDATE — READY FOR CHATGPT CLOSURE REVIEW P3** · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **4 — UX/UI** · Milestone **P3 — WORKSPACE / INTERACTION ARCHITECTURE** · Pass **FINAL CRITICAL REVIEW — TARGETED CORRECTION PASS 01** · CRITICAL · EVOL/DOC · ChatGPT Final Critical Review P3 #1 = **NOT READY — TARGETED CORRECTION REQUIRED** [historical] · Morris 2026-10-04 = **FCR-P3-01/02/03/04 APPROVED FOR CORRECTION** (incl. Pixel-Perfect Fidelity Contract) · **FCR-P3-01 CLOSED** (authority-by-domain · CURRENT vs TARGET) · **FCR-P3-02 CLOSED** (4 P4 mandatory structural work products named, unresolved) · **FCR-P3-03 CLOSED** (review pack reset · trailing whitespace clean · git diff --check PASS · report=evidence · `.tmp` tracked debt HORS SCOPE) · **FCR-P3-04 CLOSED** (Figma→Runtime Visual Fidelity Contract · pixel-perfect · no intentional visual deviation · canonical frames · Visual Fidelity Gate) · P3 Design = materially complete · Figma = **READ ONLY** · document = **LOCAL CANDIDATE** · P3 GLOBAL = **NOT VALIDATED** · Git integration = **NOT AUTHORIZED** · **P4 NOT AUTHORIZED** · READY FOR REAL = **NO** · runtime v3 = **NON ADOPTED** · **ZERO REAL** · PIXEL-PERFECT RUNTIME PROVEN = **NO** · FIGMA-TO-RUNTIME ALIGNMENT PROVEN = **NO** · document = `projects/sfia-studio/product-simplification/03-chat-first-product-simplification-workspace-interaction-architecture.md` · branche `docs/sfia-studio-chat-first-product-simplification-p3-workspace-interaction-architecture` · base `origin/main` @ `e99d9ad5cc7011e414b00006e88ac33e11b5ce87` · entry handoff `abe0c05e938ac8c2864ef9546681975d9a250542` / blob `d2d65b6efd57ac89e55d31cd0a66b14fc5d987a2` · next = **CHATGPT CLOSURE REVIEW P3** · **≠** P3 VALIDATED · **≠** P4 AUTHORIZED · **≠** project commit/push/PR/merge · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT / `origin/main` / PR evidence** |
+```
+
+## L. Figma / Code mutation
+
+Figma = **NONE** · Code = **NONE**.
+
+## M. P4 scope leak
+
+**PASS** — work products named unresolved · no DB/API/store/routes selected.
+
+## N. FCR closure matrix
+
+| Finding | Status |
+| --- | --- |
+| FCR-P3-01 | **CLOSED** |
+| FCR-P3-02 | **CLOSED** |
+| FCR-P3-03 | **CLOSED** |
+| FCR-P3-04 | **CLOSED** |
+
+## O. Validations
+
+### Project / pack / global
+
+- Project files in scope: P3 doc (untracked) + Roadmap (modified).
+- Review pack: `.tmp-sfia-review/chatgpt-review.md` (tracked historically; overwritten mono-cycle; not staged).
+- `git diff --check` global result: PASS
+
+```text
+M .tmp-sfia-review/chatgpt-review.md
+ M projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+?? projects/sfia-studio/product-simplification/03-chat-first-product-simplification-workspace-interaction-architecture.md
+
+M	.tmp-sfia-review/chatgpt-review.md
+M	projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+
+.tmp-sfia-review/chatgpt-review.md                 | 1612 ++++++++++++++++++--
+ .../convergence/sfia-studio-convergence-roadmap.md |    5 +
+ 2 files changed, 1496 insertions(+), 121 deletions(-)
+diff --check output:
+(empty — PASS)
+cached: (empty)
+```
+
+## P. Anti-claims
+
+P3 GLOBAL VALIDATED=NO · INTEGRATED=NO · P4 AUTHORIZED=NO · READY FOR REAL=NO · runtime v3 NON ADOPTED · PIXEL-PERFECT RUNTIME PROVEN=NO · FIGMA-TO-RUNTIME ALIGNMENT PROVEN=NO.
+
+## Q. Verdict
+
+**READY FOR CHATGPT CLOSURE REVIEW P3**
+
+FCR-P3-01 CLOSED · FCR-P3-02 CLOSED · FCR-P3-03 CLOSED · FCR-P3-04 CLOSED · P3 NOT YET VALIDATED.
+
+## R. Full P3 document (modified) — contenu exploitable
+
+Path: `projects/sfia-studio/product-simplification/03-chat-first-product-simplification-workspace-interaction-architecture.md` · lines=1095 · bytes=60207
+
+Sections modifiées incluses ci-dessus (§1.2, §34.1, §39, §43 + metadata). Contenu complet :
+
+<details><summary>Full P3 document content</summary>
+
+```markdown
+# SFIA Studio — Chat-First Product Simplification — P3 Workspace / Interaction Architecture
+
+| Métadonnée | Valeur |
+| --- | --- |
+| **Projet** | SFIA Studio |
+| **Macro** | `STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01` |
+| **Milestone** | **P3 — WORKSPACE / INTERACTION ARCHITECTURE** |
+| **Cycle projet** | **4 — UX/UI** |
+| **Pass** | **FINAL CRITICAL REVIEW — TARGETED CORRECTION PASS 01** |
+| **Type SFIA / guidance** | UX/UI · Interaction Architecture · `cyc:ux-ui` / `ckc:studio:ux-ui` |
+| **Profil** | **CRITICAL** |
+| **Typologie** | **DOC** dans macro **EVOL** |
+| **Base Git** | `origin/main` @ `e99d9ad5cc7011e414b00006e88ac33e11b5ce87` (PR **#549** merge P2 · PR **#548** C1) |
+| **Branche locale** | `docs/sfia-studio-chat-first-product-simplification-p3-workspace-interaction-architecture` |
+| **Worktree** | `/Users/morris/Projects/sfia-studio-chat-first-product-simplification-p3` |
+| **Statut P3** | **AUTHORIZED BY MORRIS / IN PROGRESS / NOT VALIDATED** · **LOCAL CANDIDATE** |
+| **P2** | **VALIDATED BY MORRIS + INTEGRATED ON MAIN + POST-MERGE VERIFIED + CLOSED** |
+| **P3 Design Contract Opening** | **STABILIZED** |
+| **North Star** | **Morris Structural Decision — P3 North Star — AMEND & ADOPT** (2026-10-04) · **CONSUMED** |
+| **Figma** | **REQUIRED DESIGN SURFACE** · fileKey `m4g8j0gNbEzfIuH6S9AZJF` · READ ONLY ce pass |
+| **Figma Self-Review** | `205:2` · **PASS WITH TARGETED CORRECTIONS COMPLETE** · **≠ P3 GLOBAL VALIDATED** |
+| **runtime v3** | **NON ADOPTED** |
+| **READY FOR REAL** | **NO** |
+| **P4→P8** | **NOT AUTHORIZED** |
+| **Git integration P3** | **NOT AUTHORIZED** |
+| **Langue** | Français (identifiants Product canoniques préservés) |
+| **Fichier** | `projects/sfia-studio/product-simplification/03-chat-first-product-simplification-workspace-interaction-architecture.md` |
+| **Date** | 2026-10-04 · Europe/Paris |
+
+> **Lecture rapide.** P3 = **HOW THIS PRODUCT IS EXPERIENCED** (+ contrat de fidélité Figma→runtime). P2 = **HOW STUDIO FUNCTIONS**. Ce pass corrige **uniquement** FCR-P3-01…04 (Morris 2026-10-04). **Aucune** mutation Figma · **aucun** code · **aucune** architecture P4 · **≠ P3 VALIDATED** · **≠ P4 AUTHORIZED** · pixel-perfect = **requirement futur**, pas preuve runtime.
 
 ---
 
@@ -120,26 +485,40 @@ Morris Structural Decision — P3 North Star — AMEND & ADOPT = CONSUMED
 Design work (Figma) = MATERIALLY COMPLETE AS DESIGN EVIDENCE
 P3 Design Self-Review = PASS WITH TARGETED CORRECTIONS COMPLETE
 Morris visual pass = coherent / accepted as consolidation entry
-This pass = FINAL DOCUMENTARY CONSOLIDATION = LOCAL CANDIDATE
-ChatGPT Final Critical Review P3 = NEXT
+Final Documentary Consolidation = COMPLETE AS LOCAL CANDIDATE
+ChatGPT Final Critical Review P3 #1 = NOT READY — TARGETED CORRECTION REQUIRED [historical]
+Morris 2026-10-04 = FCR-P3-01…04 APPROVED FOR CORRECTION
+This pass = FINAL CRITICAL REVIEW — TARGETED CORRECTION PASS 01
 P3 GLOBAL VALIDATED = NO
 P4→P8 = NOT AUTHORIZED
 ```
 
-### 1.2 Hiérarchie de sources
+### 1.2 Autorité par domaine (FCR-P3-01)
 
-```text
-Décisions Morris explicites
-  > P2 Functional Operating Model (CLOSED)
-  > C1 cadrage (CLOSED)
-  > Doctrine v3 applicable (CC-D01 Option A prévaut)
-  > Repo evidence (audit UI — READ ONLY)
-  > Figma visual contract (statuts frame-by-frame)
-  > CKC UX/UI (guidance only, authority NONE)
-  > hypotheses / exploratory frames
-```
+> **Dépréciation.** L’ancienne hiérarchie globale « Décisions Morris > P2 > C1 > doctrine > repo > Figma > CKC > hypotheses » est **retirée**. Elle créait une fausse précédence entre domaines d’autorité distincts. Alignement avec P2 §2.1 : **aucun rang de précédence global** entre domaines.
 
-P2 documentaire sur main peut encore porter « P3 NOT AUTHORIZED » comme **vérité historique**. **Ne pas réécrire P2.** La vérité courante de trajectoire est dans ce document + Roadmap living tip.
+| Domaine | Autorité | Rôle |
+| --- | --- | --- |
+| **Construction / gouvernance Studio** | Décisions Morris explicites · Build Doctrine · Convergence Roadmap | Gates, trajectoire de construction, promotions, doctrine de build |
+| **Autorité runtime Project** | HumanDecision du Pilote (modèle de domaine adopté) | Décisions structurantes Project au runtime |
+| **Vérité CURRENT technique / capacités présentes** | **Git courant** · runtime evidence **qualifiée** | Ce qui existe et fonctionne **réellement** |
+| **Destination produit Studio** | Doctrine v3 applicable (30–37 · CC-D01 Option A) | CE QUE Studio doit devenir |
+| **Cadrage Product Completion** | C1 validé | Cible / scope / trajectoire macro |
+| **Functional Operating Model** | P2 validé / intégré | HOW STUDIO FUNCTIONS |
+| **Contrat expérience P3** | P3 documentaire · Figma (statut frame-by-frame) · décisions Morris P3 | HOW THE PRODUCT IS EXPERIENCED (+ fidélité visuelle) |
+| **Guidance UX/UI** | CKC UX/UI | Guidance uniquement · **authority NONE** |
+| **Hypothèses / explorations** | **Aucune** | Candidates / working material uniquement |
+
+#### CURRENT vs TARGET RULE
+
+- **Git / runtime evidence** prime pour les claims **CURRENT**.
+- Doctrine / C1 / P2 / P3 définissent des contrats **TARGET** selon leur domaine.
+- Aucun document TARGET ne prouve qu’une capacité runtime **existe déjà**.
+- Aucun code CURRENT n’annule silencieusement une décision produit cible.
+- Un conflit CURRENT ↔ TARGET = **gap de convergence**, pas une hiérarchie implicite.
+- **Git reste** la source de vérité **repository**.
+
+P2 documentaire sur main peut encore porter « P3 NOT AUTHORIZED » comme **vérité historique**. **Ne pas réécrire P2.** La vérité courante de trajectoire = ce document + Roadmap living tip (**domaine construction**).
 
 ### 1.3 Anti-claims d’entrée
 
@@ -153,10 +532,11 @@ P2 documentaire sur main peut encore porter « P3 NOT AUTHORIZED » comme **vér
 | P4 AUTHORIZED | **NO** |
 | READY FOR REAL | **NO** |
 | runtime v3 ADOPTED | **NO** |
-| Figma-to-runtime aligned | **NO** |
+| Figma-to-runtime aligned / pixel-perfect runtime proven | **NO** |
 | GitHub Auth REAL proven | **NO** |
 | Nora streaming REAL proven | **NO** |
 | Design Self-Review PASS = P3 VALIDATED | **NO** |
+| FCR-P3-01…04 APPROVED BY MORRIS (2026-10-04) | **YES** — correction documentaire seulement |
 
 ---
 
@@ -808,6 +1188,108 @@ Navigation Preuves principale · Share/Partager · Search/Activity globaux non i
 | Self-Review | 2026-10-04 | `205:2` | 1600×920 | review log | entrée consolidation | anti-claims | | ≠ P3 VALIDATED |
 | Meridian emblem | rail bg | `179:2` etc. | 192×390 @y250 | design | branding P3 | signature | assets | ≠ rename produit |
 
+### 34.1 Figma → Runtime Visual Fidelity Contract (FCR-P3-04)
+
+**Décision Morris 2026-10-04 :** l’implémentation future doit reproduire l’IHM P3 **au détail près**. Figma n’est **pas** une simple inspiration.
+
+#### Règle normative
+
+Figma = **référence visuelle P3**. Toute implémentation des surfaces couvertes par P3 doit rechercher une reproduction **pixel-perfect** des frames canoniques.
+
+Principe central : **NO INTENTIONAL VISUAL DEVIATION.**
+
+Toute divergence **intentionnelle** Figma ↔ runtime doit être : identifiée · motivée · impact analysé · **approuvée explicitement** · jamais silencieuse.
+
+Variations tolérées **sans** décision structurante = artefacts intrinsèques de rendu runtime uniquement :
+
+- antialiasing · rasterisation · font rendering navigateur/OS · subpixel · artefacts purement techniques ne modifiant pas perception/layout.
+
+Ces artefacts **ne justifient pas** : changement de spacing · typography · composants · layout · couleur · suppression d’état · variation responsive volontaire.
+
+#### Définition opérationnelle « pixel-perfect »
+
+1. Géométrie structurelle : **0–1 px** d’écart cible lorsque techniquement contrôlable.
+2. Aucune différence visible volontaire d’alignement.
+3. Aucune différence volontaire sur margins / paddings / gaps / widths / heights / position / grid / master-detail ratio.
+4. Typography fidèle : famille · weight · size · line-height · letter-spacing si spécifié · wrapping · truncation.
+5. Visual tokens fidèles : colors · backgrounds · borders · widths · radii · shadows · opacity · dividers.
+6. Components fidèles : buttons · chips · tabs · inputs · cards · list items · status · composer · panels · rail · topbar.
+7. Branding fidèle : Meridian (crop · opacity · placement · z-order) · logo GitHub.
+8. States fidèles lorsqu’ils sont définis : hover · focus · active · selected · disabled · loading/working · empty · error · failed · stopped · stale · unavailable.
+9. Content behavior fidèle : wrapping · dynamic-height cards · scroll · progressive disclosure · long synthesis · expanded exchanges · variantes 9-éléments Exécution.
+10. Responsive fidèle Large / Compact / Mobile selon contrat P3 (**design bands** · **≠** breakpoints CSS finaux).
+
+#### Canonical Implementation Frames
+
+| Surface | Band | Node | Dim. | Statut Figma | Rôle implémentation | Alternate / state | Remarque |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Projects | Desktop | `63:39` | 1440×1024 | EXPLORATORY | canonical ref | empty `184:2` | EXPLORATORY ≠ invalid |
+| New Project | Desktop | `67:39` | 1440×1024 | EXPLORATORY | canonical ref | mobile `190:284` | |
+| Workspace / Conversation | Desktop | `46:2` | 1440×1024 | EXPLORATORY | canonical ref | compact `190:44` · mobile `190:306` | |
+| Aperçu | Desktop | `51:2` | 1440×1024 | EXPLORATORY | canonical ref | mobile `192:2` | |
+| Journal | Desktop | `94:2` | 1440×1024 | VALIDATED | canonical ref | expanded `94:222` · mobile `192:41`/`192:81` | |
+| Execution After | Desktop | `147:2` | — | VALIDATED | canonical ref | 9-el `150:29` | |
+| Execution Before | Desktop | `150:295` | — | VALIDATED | canonical ref | 9-el `150:532` | |
+| Decision | Desktop | `59:2` | — | EXPLORATORY | canonical ref | mobile `190:495` | |
+| Confirmation | Desktop | `61:2` | — | EXPLORATORY | canonical ref | mobile `190:520` | |
+| Historique | Desktop | `78:2` | — | VALIDATED | canonical ref | compact `190:111` · mobile `190:380`/`190:412` | |
+| Synthèses | Desktop | `164:3` | — | VALIDATED | canonical ref | compact `190:175` · mobile `190:433`/`190:455` | |
+| Auth | Desktop | `130:3` | — | VALIDATED | canonical ref | mobile `190:551` · states `133:*` EXPLORATORY | |
+| Nora motion | — | `125:2` `119:4` `125:183` `125:365` `125:535` | — | EXPLORATORY | motion refs | contract `125:712` | |
+| États transverses | Desktop | `184:2`…`184:1475` | 1440×1024 typ. | VALIDATED | state refs | Responsive States `190:560` | VALIDATED BY MORRIS |
+| Responsive contract | — | `190:2` | 1440×690 | VALIDATED | band contract | | VALIDATED BY MORRIS |
+| Self-Review | — | `205:2` | 1600×920 | review log | process ref | | ≠ P3 VALIDATED |
+
+Distinguer toujours : **canonical implementation reference** · **Figma status** · **Morris review** · **P3 global status (NOT VALIDATED)**.
+
+Si aucune frame canonique pour un viewport : qualifier l’absence · appliquer responsive contract · **ne pas** claim « pixel-perfect against Figma » sans référence.
+
+#### Future Visual Fidelity Gate
+
+Pour chaque surface implémentée, un **Visual Fidelity Review Pack** doit identifier :
+
+surface · canonical Figma frame · node ID · target viewport · runtime route · fixture/état qualifié · **runtime screenshot** · Figma reference capture · comparaison · écarts · corrections · verdict.
+
+Viewports cibles lorsque frame existe : Desktop 1440×1024 (ou dims exactes) · Compact 1024 · Mobile 390.
+
+```text
+Code implemented ≠ Figma fidelity proven
+Screenshot exists ≠ pixel-perfect PASS
+Visual PASS = canonical frame + runtime screenshot + comparaison + écarts qualifiés + aucun écart intentionnel non approuvé
+```
+
+#### Visual QA checklist (minimum)
+
+SHELL · GEOMETRY · TYPE · VISUALS · COMPONENTS · CONTENT · INTERACTION STATE · RESPONSIVE · BRANDING · MOTION (+ reduced-motion) · ACCESSIBILITY (keyboard · focus-visible · touch · contrast qualification).
+
+#### Tolerance / acceptance
+
+Pas de seuil « 100 % pixels identiques » comme unique définition. **No intentional visual deviation.** Target structural : **0–1 px** lorsque contrôlable. Écart >1 px n’est pas auto-FAIL s’il est intrinsèque et démontré, mais doit être qualifié s’il affecte perception/layout.
+
+**FAIL** tant que non approuvé : spacing/alignement/font/size/radius/couleur différents · composant substitué · élément/état manquant · responsive changé · layout simplifié · branding absent · hiérarchie altérée.
+
+#### Divergence policy
+
+Si le design canonique est techniquement incompatible : **ne pas** modifier silencieusement code ou Figma. Créer une divergence qualifiée (frame · requirement · contrainte · impact · alternatives · recommendation) → **gate Morris** si le changement altère contrat visuel / comportement / architecture / responsive / scope.
+
+#### Boucle d’implémentation future
+
+```text
+canonical Figma frame
+  → implementation
+  → runtime screenshot
+  → visual comparison
+  → targeted corrections
+  → new screenshot
+  → Visual Fidelity PASS
+```
+
+**Pas :** Figma → code approximatif → « ça ressemble » → done.
+
+#### Anti-claims pixel-perfect
+
+Code implemented ≠ fidelity proven · Screenshot exists ≠ PASS · Component exists ≠ frame reproduced · Responsive works ≠ responsive fidelity proven · Figma reference ≠ runtime proof · Visual Fidelity PASS exige comparaison au viewport cible · Pixel-perfect ≠ licence d’exposer internals SFIA · Pixel-perfect ≠ duplication des états métier · **PIXEL-PERFECT RUNTIME PROVEN = NO** (ce pass).
+
 ---
 
 ## 35. P3 Design Self-Review
@@ -879,7 +1361,43 @@ Documentary consolidation ≠ P3 VALIDATED
 
 ## 39. P3→P4 Input Contract
 
-**Aucune architecture choisie.** P4 devra permettre P2+P3 **sans** seconde vérité UI.
+**Aucune architecture choisie.** P4 devra permettre P2+P3 **sans** seconde vérité UI. **P4 NOT AUTHORIZED.**
+
+### 39.0 Entrée P4 — ordre de travail (FCR-P3-02)
+
+P4 **ne commence pas** par « quelle DB / quel store / quelle API ? ».
+
+P4 commence par :
+
+> quel monde sémantique doit exister, qui en est autoritaire, comment est-il projeté, et comment le CURRENT converge vers cette cible ?
+
+### 39.1 P4 MANDATORY STRUCTURAL WORK PRODUCTS (FCR-P3-02)
+
+Ces quatre outputs sont **obligatoires pour P4**. Ils **ne sont pas résolus** dans P3. Ils **n’autorisent pas** P4. Aucune solution technique n’est sélectionnée ici.
+
+#### 1. Pilot–Nora–Studio Semantic Connectivity Audit
+
+Identifier : objets sémantiques partagés · points d’entrée · lecture · écriture · relations · projections · ruptures actuelles · duplications · gaps · risques de **parallel truth**.
+
+#### 2. Information Ownership / Authority Matrix
+
+Pour chaque information / objet : owner · authority · writer · reader · derived projections · currentness · provenance · mutability · decision authority · **interdit de duplication autoritative**.
+
+Doit préserver notamment : Recommendation ≠ HumanDecision · Result ≠ Evidence · Journal ≠ Product SoT · Historique ≠ current truth · Synthèse ≠ ReviewBundle brut · Conversation ≠ mutation automatique.
+
+#### 3. Role Projection Contracts
+
+Définir comment le **même** monde sémantique est projeté vers Pilote · Nora · Studio · executor/agent si applicable — **sans** quatre modèles métier concurrents. Représentations distinctes · rôles / droits / autorités distincts.
+
+#### 4. CURRENT → TARGET Integration Map
+
+Classifier les actifs existants (Build Doctrine) : KEEP · ADAPT · HARVEST · COMPLETE · REPLACE · FREEZE · RETIRE LATER.
+
+Doit empêcher : réécriture inutile · architecture parallèle · nouveau moteur UI · conservation par inertie.
+
+Relier : CURRENT repo → capacité cible → adaptation → exit → preuve.
+
+### 39.2 Capacités / projections à permettre
 
 1. **SoT / projections.** Conversation, Project, Cycle, ProjectTrajectory, Recommendation, HumanDecision, ExecutionContract, Execution/Attempt, Result, Evidence, ReviewBundle, Journal, Historique, Synthèses — **même monde sémantique**. Interdiction : vérité UI indépendante.
 
@@ -909,7 +1427,7 @@ Documentary consolidation ≠ P3 VALIDATED
 
 14. **Responsive.** Traduire Large/Compact/Mobile **sans** API/état métier/parcours seconds.
 
-15. **Design system.** Tokens, spacing, couleurs, components, rail, Meridian, states, type, a11y, reduced motion. **Figma = source visuelle.**
+15. **Design system / visual fidelity (FCR-P3-04).** P4 **ne réinterprète pas** P3 pour faciliter l’architecture. P4 propose une architecture **capable de porter** la fidélité pixel-perfect. Qualifier (sans sélectionner ici) : design-token architecture · component architecture · shared primitives · typography/spacing/sizing · radius/border/shadow · color system · responsive layout · dynamic-content · overflow/scroll · state representation · motion · reduced-motion · assets · icons · Meridian · GitHub icon · a11y constraints · capture/testability. Éviter : CSS ad hoc écran par écran · styles dupliqués · archi responsive parallèle · composants génériques dégradant le design · abstraction prématurée · DS divergent de Figma. **P3 définit le rendu · P4 porte le contrat · l’implémentation reproduit · l’architecture ne redessine pas silencieusement P3.**
 
 16. **Navigation / routing.** Représenter les vues **sans** transformer les routes en taxonomie autoritative.
 
@@ -925,7 +1443,7 @@ Documentary consolidation ≠ P3 VALIDATED
 
 ## 40. Questions routées à P4 — **ne pas résoudre ici**
 
-Architecture composants front · route structure · state management · persistence Synthèses · index full-text · persistence/dérivation Journal · event model Historique · activity events Nora · interruption streaming · mapping domain→Pilot UI · token implementation · breakpoints CSS · GitHub auth integration · deep-link implementation · store/search caching · schemas/API.
+Architecture composants front · route structure · state management · persistence Synthèses · index full-text · persistence/dérivation Journal · event model Historique · activity events Nora · interruption streaming · mapping domain→Pilot UI · token implementation · breakpoints CSS · GitHub auth integration · deep-link implementation · store/search caching · schemas/API · choix concrets du design-token / component stack.
 
 Si une solution est sélectionnée dans P3 : **STOP — P4 SCOPE LEAK**.
 
@@ -965,6 +1483,10 @@ Pas d’IDs `P3-D-*` inventés. Table de consommation.
 | Responsive 3 bandes | Morris | **VALIDATED** | projection | CSS later |
 | Self-review corrections | ChatGPT + Morris accept | consumed | lint visuel | |
 | Morris visual pass cohérente | Morris | consolidation entry | **≠ global P3** | |
+| FCR-P3-01 Authority-by-domain | Morris 2026-10-04 | **APPROVED / CORRECTED** | §1.2 | P4 lit domaines sans hiérarchie globale |
+| FCR-P3-02 P4 mandatory work products | Morris 2026-10-04 | **APPROVED / CORRECTED** | §39.1 | 4 outputs obligatoires non résolus |
+| FCR-P3-03 Review integrity / diff-check | Morris 2026-10-04 | **APPROVED** (process) | pack + reporting | dette `.tmp` trackée HORS SCOPE |
+| FCR-P3-04 Pixel-perfect fidelity | Morris 2026-10-04 | **APPROVED / CORRECTED** | §34.1 · §39.2.15 | Visual Fidelity Gate futur |
 
 Recommandations ChatGPT historiques **≠** décisions Morris.
 
@@ -985,96 +1507,31 @@ Ne pas avancer avec blocker structurel non résolu.
 | P3 GLOBAL VALIDATED | **NO** |
 | P3 INTEGRATED | **NO** |
 | Git integration P3 | **NOT AUTHORIZED** |
-| ChatGPT Final Critical Review P3 | **NEXT / NOT STARTED** |
+| ChatGPT Final Critical Review P3 #1 | **NOT READY — TARGETED CORRECTION REQUIRED** [historical] |
+| Targeted Correction Pass 01 | **COMPLETE AS LOCAL CANDIDATE** (si validations PASS) |
+| FCR-P3-01 / 02 / 03 / 04 | **CORRECTED** (documentaire / process) |
+| ChatGPT Closure Review P3 | **NEXT / NOT STARTED** |
 | P4 AUTHORIZED | **NO** |
 | READY FOR REAL | **NO** |
+| PIXEL-PERFECT RUNTIME PROVEN | **NO** |
+| FIGMA-TO-RUNTIME ALIGNMENT PROVEN | **NO** |
 | runtime v3 | **NON ADOPTED** |
 | ZERO REAL | **YES** (cycle documentaire) |
 
 ```text
 NEXT:
-  ChatGPT Final Critical Review P3
-  → correction ciblée éventuelle
-  → ChatGPT Closure Review
+  ChatGPT Closure Review P3
+  → si PASS : READY FOR MORRIS P3 GLOBAL VALIDATION GATE
   → Morris global P3 validation (distincte)
   → Git integration (GO distinct)
   → requalification / GO P4 distinct
 ```
 
-Ce pass : **READY FOR CHATGPT FINAL CRITICAL REVIEW P3** (si pack/handoff complets) signifie **uniquement** documentation consolidée, pas validation du milestone.
+Ce pass : **READY FOR CHATGPT CLOSURE REVIEW P3** (si pack/handoff complets) signifie **uniquement** corrections FCR appliquées. **≠** P3 VALIDATED · **≠** P4 AUTHORIZED · **≠** pixel-perfect runtime proven.
 
 ---
 
-*Fin du document P3 — FINAL DOCUMENTARY CONSOLIDATION — LOCAL CANDIDATE — P3 AUTHORIZED / NOT VALIDATED — P4 NOT AUTHORIZED — ZERO REAL.*
-
+*Fin du document P3 — FINAL CRITICAL REVIEW TARGETED CORRECTION PASS 01 — FCR-P3-01…04 CORRECTED — LOCAL CANDIDATE — P3 AUTHORIZED / NOT VALIDATED — P4 NOT AUTHORIZED — ZERO REAL.*
 ```
 
 </details>
-
-## K. Roadmap tip COMPLETE
-
-```markdown
-| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P3 FINAL DOCUMENTARY CONSOLIDATION** | 2026-10-04 20:27:48 +0200 — **STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P3 FINAL DOCUMENTARY CONSOLIDATION COMPLETE AS LOCAL CANDIDATE — READY FOR CHATGPT FINAL CRITICAL REVIEW P3** · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **4 — UX/UI** · Milestone **P3 — WORKSPACE / INTERACTION ARCHITECTURE** · Pass **FINAL DOCUMENTARY CONSOLIDATION / CLOSURE PREPARATION** · Type **UX/UI / Interaction Architecture** (`cyc:ux-ui`) · CRITICAL · EVOL/DOC · **P2 VALIDATED BY MORRIS + INTEGRATED ON MAIN + POST-MERGE VERIFIED + CLOSED** (PR **#549**) · **P3 AUTHORIZED BY MORRIS / IN PROGRESS / NOT VALIDATED** · Design Contract Opening = **STABILIZED** · ChatGPT Opening Closure Review = **PASS** · **FCR-P3-OPEN-01 CLOSED** · **FCR-P3-OPEN-02 CLOSED** · **Morris Structural Decision — P3 North Star — AMEND & ADOPT = CONSUMED** · Conception : familles P3 matérialisées (Projets, Nouveau projet, Workspace/Conversation, Aperçu, Décision, Confirmation, Journal, Historique, Exécution, Synthèses, Auth, Motion, États, Responsive) · Journal/Exécution/Historique/Synthèses/Auth main **revus** · Francisation **VALIDATED BY MORRIS** · États transverses **VALIDATED BY MORRIS** · Responsive **VALIDATED BY MORRIS** · Design Self-Review `205:2` = **PASS WITH TARGETED CORRECTIONS COMPLETE** · Morris visual pass = coherent / consolidation entry · document = `projects/sfia-studio/product-simplification/03-chat-first-product-simplification-workspace-interaction-architecture.md` = **LOCAL CANDIDATE** · ChatGPT Final Critical Review P3 = **NEXT / NOT STARTED** · P3 global validation = **NOT YET CONSUMED** · Git integration P3 = **NOT AUTHORIZED** · Figma fileKey `m4g8j0gNbEzfIuH6S9AZJF` READ ONLY this pass · mix VALIDATED/EXPLORATORY frames · **≠** all frames VALIDATED · branche `docs/sfia-studio-chat-first-product-simplification-p3-workspace-interaction-architecture` · base `origin/main` @ `e99d9ad5cc7011e414b00006e88ac33e11b5ce87` · entry handoff `26485583fa2bee01846c38b7636faa801d3c8f48` / blob `07d62b55aa842ea52cfecdb63e9d8e3a634a510a` · **P4 NOT AUTHORIZED** · P4→P8 **NOT AUTHORIZED** · production routing = **NOT SELECTED** · Cognitive Completion = **NOT PROVEN** · runtime v3 = **NON ADOPTED** · **ZERO REAL** · READY FOR REAL = **NO** · next = **CHATGPT FINAL CRITICAL REVIEW P3** → correction ciblée éventuelle → Closure Review → Morris global P3 validation → Git integration → GO P4 distinct · **≠** P3 VALIDATED · **≠** P3 INTEGRATED · **≠** P4 AUTHORIZED · **≠** Figma-to-runtime aligned · **≠** project commit/push/PR/merge · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT / `origin/main` / PR evidence** |
-```
-
-Insertion unique CURRENT ; historique P2/P3 opening préservé.
-
-## L. Figma effects
-
-**NONE**.
-
-## M. Couverture
-
-Projects, New Project, Conversation, Aperçu, Trajectory, Decision, Confirmation, Journal, Linked exchanges, Historique, Execution Before/During/After, Evidence, Synthèses, Search, Nora Activity, Auth, Branding, Language, States, Responsive, Accessibility, Self-review, P3→P4 : **COVERED**.
-
-## N. Invariants P2
-
-§4 — 25 invariants conservés.
-
-## O. P4 leak
-
-**PASS**.
-
-## P. Fake / Real
-
-**ZERO REAL**.
-
-## Q. Validations
-
-```text
-M .tmp-sfia-review/chatgpt-review.md
- M projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-?? projects/sfia-studio/product-simplification/03-chat-first-product-simplification-workspace-interaction-architecture.md
-
-M	.tmp-sfia-review/chatgpt-review.md
-M	projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-
-.tmp-sfia-review/chatgpt-review.md                 | 1187 ++++++++++++++++++--
- .../convergence/sfia-studio-convergence-roadmap.md |    4 +
- 2 files changed, 1069 insertions(+), 122 deletions(-)
-diff --check: .tmp-sfia-review/chatgpt-review.md:668: trailing whitespace.
-+1. Résumé
-.tmp-sfia-review/chatgpt-review.md:669: trailing whitespace.
-+2. Ce qui était prévu
-.tmp-sfia-review/chatgpt-review.md:670: trailing whitespace.
-+3. Ce qui a été réalisé
-.tmp-sfia-review/chatgpt-review.md:671: trailing whitespace.
-+4. Évaluation du résultat
-.tmp-sfia-review/chatgpt-review.md:672: trailing whitespace.
-+5. Écarts, réserves et blocages — même si vide : « Aucun écart, réserve ou blocage identifié. »
-.tmp-sfia-review/chatgpt-review.md:673: trailing whitespace.
-+6. Impact sur le projet
-.tmp-sfia-review/chatgpt-review.md:674: trailing whitespace.
-+7. **Verdict** (avant recommandation)
-.tmp-sfia-review/chatgpt-review.md:675: trailing whitespace.
-+8. Recommandation / prochaine étape
-cached: (empty)
-```
-
-## R. Anti-claims
-
-P3 GLOBAL VALIDATED=NO · INTEGRATED=NO · P4 AUTHORIZED=NO · READY FOR REAL=NO · runtime v3 NON ADOPTED.
-
-## S. Verdict
-
-**READY FOR CHATGPT FINAL CRITICAL REVIEW P3**
