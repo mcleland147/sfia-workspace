@@ -5,29 +5,29 @@
 | **Projet** | SFIA Studio |
 | **Macro** | `STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01` |
 | **Milestone** | **P3 — WORKSPACE / INTERACTION ARCHITECTURE** |
-| **Cycle projet** | **13 — PR Readiness / Git Integration** (contrat UX/UI P3 = Cycle **4** historique) |
-| **Pass** | **FINAL GIT INTEGRATION PRE-MERGE** |
-| **Type SFIA / guidance** | UX/UI · Interaction Architecture · `cyc:ux-ui` / `ckc:studio:ux-ui` · `cyc:pr-readiness` |
+| **Cycle projet** | **14 — Post-merge** (contrat UX/UI P3 = Cycle **4** historique · Git integration = Cycle **13** historique) |
+| **Pass** | **POST-MERGE VERIFICATION & CLOSURE** |
+| **Type SFIA / guidance** | UX/UI · Interaction Architecture · `cyc:ux-ui` / `ckc:studio:ux-ui` · post-merge (CKC Post-merge = **ABSENT** · fallback routing/template/Build Doctrine) |
 | **Profil** | **CRITICAL** |
 | **Typologie** | **DOC** dans macro **EVOL** |
-| **Base Git** | `origin/main` @ `e99d9ad5cc7011e414b00006e88ac33e11b5ce87` (PR **#549** merge P2 · PR **#548** C1) |
-| **Branche locale** | `docs/sfia-studio-chat-first-product-simplification-p3-workspace-interaction-architecture` |
+| **Base Git / Integration** | PR **#550** MERGED · merge `b5fd3b546e355ed8af3303de670b90332cd8f8b9` · parents `e99d9ad5…` + `53d7d55c…` |
+| **Branche de clôture** | `docs/sfia-studio-chat-first-product-simplification-p3-post-merge-closure` |
 | **Worktree** | `/Users/morris/Projects/sfia-studio-chat-first-product-simplification-p3` |
-| **Statut P3** | **VALIDATED BY MORRIS** (2026-10-04) · **LOCAL / BRANCH CANDIDATE** · **NOT INTEGRATED ON MAIN** |
+| **Statut P3** | **VALIDATED BY MORRIS** + **INTEGRATED ON MAIN** + **POST-MERGE VERIFIED** + **CLOSED** |
 | **P2** | **VALIDATED BY MORRIS + INTEGRATED ON MAIN + POST-MERGE VERIFIED + CLOSED** |
 | **P3 Design Contract Opening** | **STABILIZED** |
 | **North Star** | **Morris Structural Decision — P3 North Star — AMEND & ADOPT** (2026-10-04) · **CONSUMED** |
-| **Figma** | **REQUIRED DESIGN SURFACE** · fileKey `m4g8j0gNbEzfIuH6S9AZJF` · **READ ONLY** ce pass (aucune mutation) |
+| **Figma** | **REQUIRED DESIGN SURFACE** · fileKey `m4g8j0gNbEzfIuH6S9AZJF` · KEEP as visual contract / canonical refs · **READ ONLY** ce pass |
 | **Figma Self-Review** | `205:2` · **PASS WITH TARGETED CORRECTIONS COMPLETE** |
 | **runtime v3** | **NON ADOPTED** |
 | **READY FOR REAL** | **NO** |
 | **P4→P8** | **NOT AUTHORIZED** |
-| **Git integration P3** | **AUTHORIZED FOR COMMIT / PUSH / PR** · **MERGE = DISTINCT MORRIS GATE** · **≠ INTEGRATED** |
+| **Git integration P3** | **INTEGRATED VIA PR #550** · post-merge CI **SUCCESS** (run **#668** / `37227837199`) · Required Gate **SUCCESS** |
 | **Langue** | Français (identifiants Product canoniques préservés) |
 | **Fichier** | `projects/sfia-studio/product-simplification/03-chat-first-product-simplification-workspace-interaction-architecture.md` |
 | **Date** | 2026-10-04 · Europe/Paris |
 
-> **Lecture rapide.** P3 = **HOW THIS PRODUCT IS EXPERIENCED** (+ contrat de fidélité Figma→runtime). P2 = **HOW STUDIO FUNCTIONS**. **P3 GLOBAL VALIDATED BY MORRIS = YES** (2026-10-04) · **P3 INTEGRATED = NO** · **P4 AUTHORIZED = NO**. Ce pass = **FINAL GIT INTEGRATION PRE-MERGE** (commit / push / PR). **Aucune** mutation Figma · **aucun** code · **aucune** architecture P4 · **aucun merge**. Pixel-perfect = **requirement futur**, pas preuve runtime.
+> **Lecture rapide.** P3 = **HOW THIS PRODUCT IS EXPERIENCED** (+ contrat de fidélité Figma→runtime). P2 = **HOW STUDIO FUNCTIONS**. **P3 GLOBAL VALIDATED BY MORRIS = YES** · **P3 INTEGRATED ON MAIN = YES** (PR **#550** / `b5fd3b54…`) · **P3 POST-MERGE VERIFIED = YES** · **P3 CLOSED = YES** · **P4 AUTHORIZED = NO**. Ce pass = **POST-MERGE VERIFICATION & CLOSURE** (patch documentaire de clôture). **Aucune** mutation Figma · **aucun** code · **aucune** architecture P4. **P3 CLOSED ≠ P4 AUTHORIZED.** Pixel-perfect = **requirement futur**, pas preuve runtime.
 
 ---
 
@@ -38,25 +38,26 @@
 ```text
 C1 = VALIDATED / INTEGRATED / CLOSED          (PR #548 · 642a10c8…)
 P2 = VALIDATED / INTEGRATED / CLOSED          (PR #549 · e99d9ad5…)
-P3 = VALIDATED BY MORRIS (2026-10-04)
-P3 INTEGRATED ON MAIN = NO
-P3 CLOSED = NO
+P3 = VALIDATED / INTEGRATED / POST-MERGE VERIFIED / CLOSED
+PR #550 = MERGED
+merge = b5fd3b546e355ed8af3303de670b90332cd8f8b9
+post-merge CI = SUCCESS (SFIA Studio CI run #668 / 37227837199)
+Required Gate = SUCCESS
 P3 Design Contract Opening = STABILIZED
 ChatGPT Opening Closure Review = PASS
 FCR-P3-OPEN-01 / FCR-P3-OPEN-02 = CLOSED
 Morris Structural Decision — P3 North Star — AMEND & ADOPT = CONSUMED
 Design work (Figma) = MATERIALLY COMPLETE AS DESIGN EVIDENCE
 P3 Design Self-Review = PASS WITH TARGETED CORRECTIONS COMPLETE
-Morris visual pass = coherent / accepted as consolidation entry
-Final Documentary Consolidation = COMPLETE AS LOCAL CANDIDATE
-ChatGPT Final Critical Review P3 #1 = NOT READY — TARGETED CORRECTION REQUIRED [historical]
+Final Documentary Consolidation = COMPLETE
 FCR-P3-01 / 02 / 03 / 04 = CLOSED
-ChatGPT Closure Review P3 = PASS — READY FOR MORRIS P3 GLOBAL VALIDATION GATE
+ChatGPT Closure Review P3 = PASS
 Morris 2026-10-04 = P3 GLOBAL VALIDATION APPROVED / CONSUMED
-This pass = FINAL GIT INTEGRATION PRE-MERGE
-Git integration = AUTHORIZED FOR COMMIT / PUSH / PR
-Merge = NOT AUTHORIZED (DISTINCT MORRIS GATE)
-P4→P8 = NOT AUTHORIZED
+Morris 2026-10-04 = P3 POST-MERGE VERIFICATION & CLOSURE AUTHORIZED / CONSUMED
+This pass = POST-MERGE VERIFICATION & CLOSURE
+P3 Exit Proof = SATISFIED
+P4 = NOT AUTHORIZED
+P3 closure does not activate P4 automatically.
 ```
 
 ### 1.2 Autorité par domaine (FCR-P3-01)
@@ -91,21 +92,23 @@ P2 documentaire sur main peut encore porter « P3 NOT AUTHORIZED » comme **vér
 | Claim | Statut |
 | --- | --- |
 | P3 GLOBAL VALIDATED BY MORRIS | **YES** (2026-10-04) |
-| P3 INTEGRATED ON MAIN | **NO** |
-| P3 CLOSED | **NO** |
-| MERGE AUTHORIZED | **NO** |
+| P3 INTEGRATED ON MAIN | **YES** (PR **#550** / `b5fd3b54…`) |
+| P3 POST-MERGE VERIFIED | **YES** (CI run **#668** / `37227837199` SUCCESS) |
+| P3 CLOSED | **YES** |
+| P4 AUTHORIZED | **NO** |
+| P4 STARTED | **NO** |
 | Figma entièrement VALIDATED (labels Figma) | **NO** (mix VALIDATED / EXPLORATORY) |
 | Screen 01 / Workspace frames EXPLORATORY = screens invalid | **NON** — EXPLORATORY ≠ rejet |
 | Canonical Implementation Frames = références contractuelles P3 | **YES** — même si suffixe Figma historique EXPLORATORY |
 | Visual system tokens / Geist / cobalt / violet adopted as final | **NO** |
-| P4 AUTHORIZED | **NO** |
 | READY FOR REAL | **NO** |
 | runtime v3 ADOPTED | **NO** |
 | Figma-to-runtime aligned / pixel-perfect runtime proven | **NO** |
 | GitHub Auth REAL proven | **NO** |
 | Nora streaming REAL proven | **NO** |
-| Design Self-Review PASS = P3 VALIDATED | **NO** (validation Morris distincte consommée ci-dessus) |
+| Design Self-Review PASS = P3 VALIDATED | **NO** (validation Morris distincte consommée) |
 | FCR-P3-01…04 CLOSED | **YES** |
+| P3 CLOSED = P4 AUTHORIZED | **NO** |
 
 ---
 
@@ -153,9 +156,11 @@ Cette validation couvre le contrat P3 dans son ensemble :
 
 IA globale · Chat-first · surfaces · Journal · Historique · Synthèses · Exécution · Decision / Confirmation · Trajectoire · Auth · Nora Motion contract · branding · francisation · états transverses · responsive · P3→P4 Input Contract · Figma→Runtime Pixel-Perfect Fidelity Contract.
 
-Elle **n’autorise pas** : P3 INTEGRATED · P3 CLOSED · merge · P4 · code · runtime v3 ADOPTED · READY FOR REAL · pixel-perfect runtime proven · Figma/runtime alignment proven.
+Elle a autorisé (consommé) : statut documentaire VALIDATED · Git integration · merge PR **#550**.
 
-Elle **autorise** : statut documentaire VALIDATED · Roadmap · commit / push / PR (ce pass). **Merge = gate Morris distinct.**
+Elle **n’autorise pas** : P4 · code · runtime v3 ADOPTED · READY FOR REAL · pixel-perfect runtime proven · Figma/runtime alignment proven.
+
+**Post-merge 2026-10-04 :** P3 INTEGRATED ON MAIN = **YES** · POST-MERGE VERIFIED = **YES** · CLOSED = **YES**. **P3 CLOSED ≠ P4 AUTHORIZED.**
 
 ### 3.2 Morris Structural Decision — P3 North Star — AMEND & ADOPT
 
@@ -922,28 +927,32 @@ Corrections : faux contrôles globaux (⌘K, Activité, vues non définies) · f
 
 ## 38. P3 Exit Proof
 
-**P3 GLOBAL VALIDATED BY MORRIS = YES** (2026-10-04). Critères documentaires / expérience **consommés** pour le gate de validation globale :
+**P3 EXIT PROOF = SATISFIED.** **P3 CLOSED = YES.**
 
-- inventaire retained COVERED ;
-- familles conçues (y compris Auth visuel) ;
-- états structurants conçus ;
-- HD/Confirmation UX validée au niveau milestone ;
-- IA validée au niveau milestone ;
-- language / visual / motion / responsive / a11y **suffisamment** verrouillés pour P3 ;
-- frames de référence identifiées (Canonical Implementation Frames) ;
+Preuves cumulatives :
+
+- **P3 GLOBAL VALIDATED BY MORRIS = YES** (2026-10-04) ;
+- inventaire retained COVERED · familles / états / HD-Confirmation / IA / language / visual / motion / responsive / a11y suffisamment verrouillés pour P3 ;
+- Canonical Implementation Frames + Figma→Runtime Pixel-Perfect Fidelity Contract présents ;
 - Design Self-Review PASS WITH TARGETED CORRECTIONS COMPLETE ;
-- FCR-P3-01…04 CLOSED ;
-- ChatGPT Closure Review P3 = PASS ;
-- **Morris global validation CONSUMED**.
-
-**P3 Exit Proof documentaire VALIDATED ≠ INTEGRATED ON MAIN.** Merge / post-merge / CLOSED = gates **distincts**.
+- FCR-P3-01 / 02 / 03 / 04 = **CLOSED** ;
+- ChatGPT Closure Review P3 = **PASS** ;
+- PR **#550** = **MERGED** · merge SHA `b5fd3b546e355ed8af3303de670b90332cd8f8b9` ;
+- document P3 présent sur `main` ;
+- post-merge SFIA Studio CI run **#668** / `37227837199` = **SUCCESS** ;
+- Detect / Build / **Required Gate** = **SUCCESS** ;
+- P3→P4 Input Contract présent (4 mandatory structural work products + fidelity) ;
+- aucune réserve P3 **bloquante** ouverte ;
+- aucun scope leak P4 dans le contrat P3 ;
+- Morris GO **P3 POST-MERGE VERIFICATION & CLOSURE** (2026-10-04) **CONSUMED**.
 
 ```text
-Artifact / Figma frame VALIDATED ≠ P3 INTEGRATED
-Self-Review PASS ≠ P3 VALIDATED (Morris distinct — now CONSUMED)
-Documentary consolidation ≠ P3 INTEGRATED
-P3 VALIDATED BY MORRIS ≠ P4 AUTHORIZED
-P3 VALIDATED BY MORRIS ≠ pixel-perfect runtime proven
+P3 EXIT PROOF SATISFIED ≠ P4 AUTHORIZED
+P3 CLOSED ≠ runtime v3 ADOPTED
+P3 CLOSED ≠ pixel-perfect runtime proven
+P3 CLOSED ≠ FIGMA-TO-RUNTIME ALIGNMENT PROVEN
+P3 CLOSED ≠ READY FOR REAL
+Artifact / Figma frame VALIDATED ≠ P4 STARTED
 ```
 
 ---
@@ -1071,12 +1080,14 @@ Pas d’IDs `P3-D-*` inventés. Table de consommation.
 | États transverses | Morris | **VALIDATED** | honesty | |
 | Responsive 3 bandes | Morris | **VALIDATED** | projection | CSS later |
 | Self-review corrections | ChatGPT + Morris accept | consumed | lint visuel | |
-| Morris visual pass cohérente | Morris | consolidation entry | consumed in global validation | **≠ INTEGRATED** | |
+| Morris visual pass cohérente | Morris | consolidation entry | consumed in global validation | integrated via #550 |
 | FCR-P3-01 Authority-by-domain | Morris 2026-10-04 | **APPROVED / CORRECTED** | §1.2 | P4 lit domaines sans hiérarchie globale |
 | FCR-P3-02 P4 mandatory work products | Morris 2026-10-04 | **APPROVED / CORRECTED** | §39.1 | 4 outputs obligatoires non résolus |
 | FCR-P3-03 Review integrity / diff-check | Morris 2026-10-04 | **APPROVED** (process) | pack + reporting | dette `.tmp` trackée HORS SCOPE |
 | FCR-P3-04 Pixel-perfect fidelity | Morris 2026-10-04 | **APPROVED / CORRECTED** | §34.1 · §39.2.15 | Visual Fidelity Gate futur |
-| **P3 GLOBAL VALIDATION** | Morris 2026-10-04 | **APPROVED / CONSUMED** | contrat P3 entier | **≠ P4 AUTHORIZED** · **≠ INTEGRATED** |
+| **P3 GLOBAL VALIDATION** | Morris 2026-10-04 | **APPROVED / CONSUMED** | contrat P3 entier | **≠ P4 AUTHORIZED** |
+| **PR #550 merge + post-merge CI** | Git/GitHub | **MERGED / SUCCESS** | `b5fd3b54…` · run `#668` | **≠ P4 AUTHORIZED** |
+| **P3 POST-MERGE VERIFICATION & CLOSURE** | Morris 2026-10-04 | **AUTHORIZED / CONSUMED** | statut lifecycle | **≠ P4 AUTHORIZED** |
 
 Recommandations ChatGPT historiques **≠** décisions Morris.
 
@@ -1095,15 +1106,16 @@ Ne pas avancer avec blocker structurel non résolu.
 | Gate | Statut |
 | --- | --- |
 | P3 GLOBAL VALIDATED BY MORRIS | **YES** (2026-10-04) |
-| P3 INTEGRATED | **NO** |
-| P3 CLOSED | **NO** |
-| Git integration P3 | **AUTHORIZED FOR COMMIT / PUSH / PR** |
-| MERGE AUTHORIZED | **NO** |
+| P3 INTEGRATED ON MAIN | **YES** (PR **#550** / `b5fd3b54…`) |
+| P3 POST-MERGE VERIFIED | **YES** (CI **#668** / `37227837199` SUCCESS · Required Gate SUCCESS) |
+| P3 CLOSED | **YES** |
+| P3 Exit Proof | **SATISFIED** |
 | ChatGPT Final Critical Review P3 #1 | **NOT READY — TARGETED CORRECTION REQUIRED** [historical] |
 | Targeted Correction Pass 01 | **COMPLETE** |
 | FCR-P3-01 / 02 / 03 / 04 | **CLOSED** |
 | ChatGPT Closure Review P3 | **PASS** |
 | P4 AUTHORIZED | **NO** |
+| P4 STARTED | **NO** |
 | READY FOR REAL | **NO** |
 | PIXEL-PERFECT RUNTIME PROVEN | **NO** |
 | FIGMA-TO-RUNTIME ALIGNMENT PROVEN | **NO** |
@@ -1112,17 +1124,16 @@ Ne pas avancer avec blocker structurel non résolu.
 
 ```text
 NEXT:
-  Final Git Integration P3 (ce pass: commit / push / PR)
-  → PR review
-  → Morris merge gate
-  → merge
-  → post-merge
-  → requalification P4
-  → GO P4 distinct
+  P3 CLOSED
+  → P4 REQUALIFICATION
+  → vérifier CURRENT repo / actifs / gaps / dependencies
+  → préparer options / recommandation
+  → MORRIS GO P4 distinct
+  → seulement ensuite P4
 ```
 
-Ce pass : **READY FOR MORRIS P3 MERGE GATE** (après commit / push / PR) signifie **P3 VALIDATED + PR créée**. **≠** P3 INTEGRATED · **≠** P3 CLOSED · **≠** P4 AUTHORIZED · **≠** pixel-perfect runtime proven.
+**P3 CLOSED ≠ P4 AUTHORIZED ≠ P4 STARTED.** Ce pass documente la clôture post-merge ; le merge du **patch de clôture** reste un gate Morris distinct. **≠** runtime v3 ADOPTED · **≠** READY FOR REAL · **≠** pixel-perfect runtime proven.
 
 ---
 
-*Fin du document P3 — FINAL GIT INTEGRATION PRE-MERGE — P3 VALIDATED BY MORRIS — NOT INTEGRATED — P4 NOT AUTHORIZED — ZERO REAL.*
+*Fin du document P3 — POST-MERGE VERIFICATION & CLOSURE — P3 VALIDATED / INTEGRATED / POST-MERGE VERIFIED / CLOSED — P4 NOT AUTHORIZED — ZERO REAL.*
