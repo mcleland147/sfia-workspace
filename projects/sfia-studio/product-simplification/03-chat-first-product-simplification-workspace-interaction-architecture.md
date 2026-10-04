@@ -1071,7 +1071,7 @@ Pas d’IDs `P3-D-*` inventés. Table de consommation.
 | États transverses | Morris | **VALIDATED** | honesty | |
 | Responsive 3 bandes | Morris | **VALIDATED** | projection | CSS later |
 | Self-review corrections | ChatGPT + Morris accept | consumed | lint visuel | |
-| Morris visual pass cohérente | Morris | consolidation entry | **≠ global P3** | |
+| Morris visual pass cohérente | Morris | consolidation entry | consumed in global validation | **≠ INTEGRATED** | |
 | FCR-P3-01 Authority-by-domain | Morris 2026-10-04 | **APPROVED / CORRECTED** | §1.2 | P4 lit domaines sans hiérarchie globale |
 | FCR-P3-02 P4 mandatory work products | Morris 2026-10-04 | **APPROVED / CORRECTED** | §39.1 | 4 outputs obligatoires non résolus |
 | FCR-P3-03 Review integrity / diff-check | Morris 2026-10-04 | **APPROVED** (process) | pack + reporting | dette `.tmp` trackée HORS SCOPE |
