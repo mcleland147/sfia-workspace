@@ -2,7 +2,7 @@
 
 | Métadonnée | Valeur |
 | --- | --- |
-| **Timestamp Europe/Paris** | 2026-10-04 06:05:17 +0200 |
+| **Timestamp Europe/Paris** | 2026-10-04 06:12:40 +0200 |
 | **Macro** | STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 |
 | **Milestone** | P3 — WORKSPACE / INTERACTION ARCHITECTURE |
 | **Pass** | P3 CYCLE INITIALIZATION / DESIGN CONTRACT |
@@ -23,6 +23,8 @@ origin/main = e99d9ad5cc7011e414b00006e88ac33e11b5ce87
 expected origin/main = e99d9ad5cc7011e414b00006e88ac33e11b5ce87
 match = YES
 worktree = dedicated P3 from origin/main (not reusing dirty P2 worktree)
+project commit = NO
+project push = NO
 ```
 
 ## D. Morris P3 Entry Directives
@@ -33,16 +35,16 @@ GO P3 CONSUMED. Directives 1–10 recorded (Figma required · reuse pre-cycle fi
 
 | Source | SHA | Role |
 | --- | --- | --- |
-| template | 948156a2… | process v2.6 |
-| routing | 8949e764… | process |
-| Build Doctrine | 99232e45… | READ ONLY |
-| Roadmap entry | 899e6ab1… | tip WRITE |
-| C1 | 2a2c998a… | framing |
-| P2 | a7ee321e… | constraining FOM |
-| Product Completion | 806d672f… | READ ONLY |
-| CKC UX | 88a77170… | guidance authority NONE |
-| Framing 11 | e33b3f0c… | HARVEST historical |
-| Framing 37 | 210e933a… | CC-D01 Option A |
+| template | 948156a21309ef99c3aaed6410947dc6b9bc569a | process v2.6 |
+| routing | 8949e764d96faf3fa812d39307dbc298b500f5ef | process |
+| Build Doctrine | 99232e4582e4ef4cf489020a46b818ebb41ac397 | READ ONLY |
+| Roadmap entry tip base | 899e6ab180dd2821cdd3489e0b47dde387e667a4 | tip WRITE (new tip only) |
+| C1 | 2a2c998a5fa3eb372891f18ebfd7d77bccde4c2f | framing |
+| P2 | a7ee321e2a6646cf69a5f326761aad4de47a5f97 | constraining FOM CLOSED |
+| Product Completion | 806d672fe21ad82a641bf88fe95fc87870481105 | READ ONLY |
+| CKC UX | 88a77170c7c7b74bf71e0bcd7408d47f07eb6ce8 | guidance authority NONE |
+| Framing 11 | e33b3f0cbfaa6645a516593c26349bc40917faf8 | HARVEST historical |
+| Framing 37 | 210e933ad0dae386d1880baaf04457ddd234e96a | CC-D01 Option A |
 
 ## F. Convergence Pre-check
 
@@ -681,9 +683,9 @@ M .tmp-sfia-review/chatgpt-review.md
 M	.tmp-sfia-review/chatgpt-review.md
 M	projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 
-.tmp-sfia-review/chatgpt-review.md                 | 166 ---------------------
+.tmp-sfia-review/chatgpt-review.md                 | 777 +++++++++++++++++----
  .../convergence/sfia-studio-convergence-roadmap.md |   1 +
- 2 files changed, 1 insertion(+), 166 deletions(-)
+ 2 files changed, 657 insertions(+), 121 deletions(-)
 diff --check: PASS
 cached: (empty)
 ```
@@ -692,7 +694,7 @@ Scope: new P3 doc + Roadmap + tmp pack only. No code. No P2 mutation. No project
 
 ## U. Review Handoff hygiene
 
-publish-in-cycle L3 · message `docs(review-handoff): publish p3 workspace interaction architecture initialization` · current tip SHAs only after remote verify.
+publish-in-cycle L3 · message `docs(review-handoff): publish p3 workspace interaction architecture initialization` · tip after remote verify.
 
 ## V. Verdict
 
