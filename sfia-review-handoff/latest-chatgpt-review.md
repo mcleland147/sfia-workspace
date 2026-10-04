@@ -1,8 +1,8 @@
-# P4 TARGETED CORRECTION PASS 01 — FULL REVIEW PACK
+# P4 MICRO-CORRECTION PASS 02 — FULL REVIEW PACK
 
 | Métadonnée | Valeur |
 | --- | --- |
-| **Timestamp Europe/Paris** | 2026-10-05 01:13:05 +0200 |
+| **Timestamp Europe/Paris** | 2026-10-05 01:21:17 +0200 |
 | **Macro** | STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 |
 | **Milestone** | P4 — Semantic / Projection / Cognitive Architecture / Technical Delta |
 | **Cycle** | 15 — Capitalisation / REX |
@@ -11,130 +11,88 @@
 | **Branche locale** | `docs/sfia-studio-chat-first-product-simplification-p4-semantic-projection-cognitive-architecture` |
 | **HEAD** | `e19f89409a5eb717838b9d7bffdc8c3d2ee02b18` |
 | **origin/main** | `e19f89409a5eb717838b9d7bffdc8c3d2ee02b18` |
-| **Previous Review Handoff** | commit `b4d48506647cf19e69c37a789399f96ddba8afb5` · blob `13ddd9ef450a53ba83fc15c6c706e640b9cf6d22` |
-| **ChatGPT Review #1 verdict** | NOT READY FOR GLOBAL MORRIS VALIDATION — TARGETED CORRECTION REQUIRED |
-| **This pass** | TARGETED CORRECTION PASS 01 |
-| **Next** | CHATGPT FINAL CRITICAL REVIEW P4 #2 |
-| **Project commit** | NONE |
-| **Project push / PR / merge** | NONE |
+| **Previous Review Handoff** | commit `730f5b7fca6329d841f885cd645508a7d46936a2` · blob `411ac2c8e993145f70d7e225a8a9032c0fd82981` |
+| **ChatGPT Final Critical Review #2 verdict** | PASS WITH MINOR CORRECTIONS — P4 ARCHITECTURE SUBSTANTIVELY READY |
+| **C1–C9 status** | ALL PASS after Final Critical Review #2 — **NOT REOPENED** |
+| **This pass** | P4 MICRO-CORRECTION PASS 02 (MC1–MC4 only) |
+| **Next** | CHATGPT TARGETED VERIFICATION |
+| **Project commit / push / PR / merge** | NONE |
 
 ---
 
-## A. Local Git Truth (pre-edit confirmed)
+## A. Local Git Truth (pre-edit)
 
 ```text
 M .tmp-sfia-review/chatgpt-review.md
 ?? projects/sfia-studio/product-simplification/04-chat-first-product-simplification-semantic-projection-cognitive-architecture.md
 ```
 
-État attendu confirmé :
-- branche P4 correcte
-- HEAD = origin/main = `e19f89409a5eb717838b9d7bffdc8c3d2ee02b18`
-- P4 document untracked présent
-- `.tmp-sfia-review/chatgpt-review.md` modified
+Verdict : **MATCH**
+- branch / HEAD / origin/main exact
+- P4 untracked + tmp pack modified expected
 - staged empty
-- aucun autre fichier projet modifié
-
-Verdict Local Git Truth : **MATCH**
+- no other project files
 
 ---
 
-## B. Sources re-read
+## B. Previous handoff / FCR #2
 
-PROCESSUS : sfia-cycle-execution-template · sfia-cycle-routing-guide · 02-fifteen-cycles-synthetic-map
+Previous remote : `730f5b7fca6329d841f885cd645508a7d46936a2`
+Previous blob : `411ac2c8e993145f70d7e225a8a9032c0fd82981`
 
-GOUVERNANCE : Build Doctrine · Roadmap (READ ONLY) · Product Completion C1
+ChatGPT Final Critical Review #2 :
+**PASS WITH MINOR CORRECTIONS — P4 ARCHITECTURE SUBSTANTIVELY READY**
 
-P1 / P2 / P3 (READ ONLY)
-
-P4 CANDIDATE LOCAL (CORRECTED THIS PASS)
-
-DOCTRINE v3 : 30 · 32 · 33 · 34 · 35 · 37 (READ ONLY)
-
-CURRENT CODE (READ ONLY for corrections) :
-- createProject.ts (Project+LPS atomic)
-- NewProjectIntentionPage.tsx
-- canonicalConversationSession / productSqliteSession / cycleJournalStore
-- proposalStore.ts (process-local + stale notice)
-- proposalSubjectIntegrity / resolveProposalDecisionSubject / recommendationDecisionIntegrity
-- trajectoryRecommendationCurrentness · lifecycleRecommendation/currentness · basisFingerprint
-- resolveProductExecutionContext · w3bProductTerminalProjection
-- projectHistory.ts
-- cognitiveWorkloadPolicy · runNoraCognitiveTurn · runNoraAgentsTurn · reasoningCapability · reasoningModelSettings
-- nora-eval Stage A / capabilityBudget · turnBudget · campaignBudget · agentsUsdAccounting
+C1–C9 : **ALL PASS** — not reopened this pass.
 
 ---
 
-## C. ChatGPT Review #1 consumed
+## C. MC1–MC4 Correction Matrix
 
-Verdict : **NOT READY FOR GLOBAL MORRIS VALIDATION — TARGETED CORRECTION REQUIRED**
+| ID | Sections | Before semantic problem | Resulting semantic contract | Verdict |
+| --- | --- | --- | --- | --- |
+| **MC1** | §9.3 | « BRANCH B — indépendante de A » trop fort (efface le gating authority) | Cardinalité orthogonale à HD ; gated by A when applicable authority requires ; HD non requise ≠ always required ; HD requise ⇒ Execution gated | **APPLIED** |
+| **MC2** | §12 Confirmation row | Domain owner = « Applicability Studio-resolved » (pas un owner) | Domain owner = Governed Product Confirmation state · applicability Studio-resolved in Currentness/dimension · Pilote = authority source · Studio = writer | **APPLIED** |
+| **MC3** | §25 | Reliquat « authority calculation » | « effective-authority resolution & enforcement » + Studio ≠ HD/Confirmation source ≠ authority-by-persistence | **APPLIED** |
+| **MC4** | §2 · §19.2–19.3 · §30 · §31 · §32 | CURRENT « may host derived projections » / « Product SQLite Truth C » conflate physical/CURRENT/TARGET | CURRENT = authoritative Product host only · Synthesis NOT IMPLEMENTED CURRENT · TARGET same DB + derived Synthesis ≠ Truth C · Option A preserved | **APPLIED** |
 
-ChatGPT conclusions respected :
-- pas de pivot
-- pas de décision structurante nouvelle nécessaire
-- décisions P4 existantes conservées
-- correction de précision/contrat nécessaire
+### Direct coherence cleanup caused strictly by MC1–MC4
 
----
+- Metadata Correction Pass line → Pass 01 COMPLETE/REVIEWED + Pass 02
+- §1.4 WP status → micro-corrections pending Targeted Verification
+- Claims matrix + footer + Exit run note → Micro-Correction Pass 02 markers
 
-## D. C1–C9 Correction Matrix
-
-| ID | Issue | Sections changed | Before semantic problem | Resulting semantic contract | Source/CURRENT evidence | Verdict |
-| --- | --- | --- | --- | --- | --- | --- |
-| **C1** | Ambiguïté C1 vs P1 | Metadata · §1.1 · §1.3 · §4 VALIDATED INPUT · §57 refs | « C1 » pouvait être lu comme Cycle 1 Product Simplification | Product Completion C1 ≠ Product Simplification P1 ; both VALIDATED/INTEGRATED/CLOSED | Product Completion cadrage vs P1 cadrage | **APPLIED** |
-| **C2-A** | Flow HD→EC→Conf→Exec séquentiel | §9.3 | Lecture workflow obligatoire | Branches 0/1/N explicites ; parcours ≠ workflow rigide | P2 invariants | **APPLIED** |
-| **C2-B** | Pre-Project continuity trop mince | §9.4 (new) | « Pre-project → Project materialization » insuffisant | CreateProject = Project+LPS atomic ; ≠ atomic Project+first Cycle ; TARGET continuity rebinding | createProject.ts · NewProjectIntentionPage | **APPLIED** |
-| **C3-A** | Owner/authority/writer fusionnés | §12 matrix restructurée · §12.1–12.2 | Studio+HD flou · writer=authority | Dimensions distinctes · STUDIO WRITER ≠ HUMAN AUTHORITY | P2 authority-by-domain | **APPLIED** |
-| **C3-B** | AUTHORITY (Studio) trop large | §10 topology · §21 · §12.1 | Studio = authority source | EFFECTIVE-AUTHORITY RESOLUTION & ENFORCEMENT · intersection as applicable | P2 EC≠authority | **APPLIED** |
-| **C3-C** | Rec currentness = id only | §13.5 · matrix Rec row | Currentness faible | basisFingerprint/semanticKey/material basis/fail-closed · HARVEST pattern | trajectoryRecommendationCurrentness · lifecycleRecommendation/* | **APPLIED** |
-| **C3-D** | « immutable-ish » | §12 Attempt · §12.2 | Vague Critical wording | Attempt identity/lifecycle/≠HD/≠business success/qualification via Evidence lineage | Attempt/Evidence CURRENT | **APPLIED** |
-| **C4** | ProposalStore/transcript mismatch | §15 · §30 map · §50 debt | Disclosure process-memory stale | Debt HARVEST/ADAPT TEMP WITH EXIT · P5 owner · no false-memory · no new Proposal aggregate without gap | proposalStore.ts notice · session stores | **APPLIED** |
-| **C5** | Synthèse narrative before Rec | §18.2–18.4 | Ordre génération faux | Product Resolution → Rec (when applicable) → Builder → narrative ; présentation P3 ≠ génération | resolveProductExecutionContext · w3bProductTerminalProjection | **APPLIED** |
-| **C6** | Product SQLite = Truth C auto | §2 · §19 · §30 · §32 · §55 | Co-location ⇒ Truth C | PHYSICAL ≠ SEMANTIC CLASS · CO-LOCATION DOES NOT PROMOTE | oa-product vs nora-session split · Morris Option A | **APPLIED** |
-| **C7-A** | Pilot sans objective | §22 | Manquait Project identity + objective | Explicit before LPS/Cycle | P3 Pilot understanding | **APPLIED** |
-| **C7-B** | Nora decide Confirmation | §24.1 | REQUEST CONFIRMATION non borné | Studio resolves applicability · Nora surfaces only | P2 Confirmation | **APPLIED** |
-| **C7-C** | EC = authority | §26 | EC capability alone flou | EC alone ≠ effective authority | P2 | **APPLIED** |
-| **C7-D** | Recovery next turn | §29.1 | Manquait re-resolve rule | Product truth re-resolved before next Nora context | PRODUCT TRUTH BEFORE CONVERSATION REPLAY | **APPLIED** |
-| **C7-E** | History TARGET mince | §17.2 | Ambigu pour P5 | Sources Product list · transcript ≠ History auto | projectHistory.ts | **APPLIED** |
-| **C8-A** | Fold F2 into CWP/router | §30 · §33.3 · §50 | Implémentation trop spécifique | Align under SAME policy/provenance · not necessarily one entry point | F2 provider vs Agents path | **APPLIED** |
-| **C8-B** | capability envelopes conflation | §37.2 | Strategy envelopes = provider capability | Strategy reasoning-demand envelopes · provider validation AFTER | CWP | **APPLIED** |
-| **C8-C** | Quality Floor opaque score | §41 | Risque scalar 0–100 | Requirements contract · not mandatory scalar | Morris quality floor | **APPLIED** |
-| **C8-D** | Escalation reset per tool | §44.1 | Budget resetable | cognitiveTaskId/routingCorrelationId OPEN name · P5 | Morris max 1 escalation | **APPLIED** |
-| **C8-E** | Telemetry correlation | §47 | Champs incomplets | routingDecisionId · task/correlation · initial/final · escalation · capability snapshot · failureClass | Telemetry KEEP/COMPLETE | **APPLIED** |
-| **C8-F** | R3 objects unconditional | §48 R3 | Tout objet requis | as applicable to the workload | P2 minimum-sufficient | **APPLIED** |
-| **C8-G** | Eval second runtime | §35 · §49.1 | Risque EvalRouterRuntime | SAME PRODUCT PATH mandatory · MANUAL PIN ≠ R2 | nora-eval / Runner | **APPLIED** |
-| **C9-A** | P5 router-then-UI | §52 | Séquentialité parallèle | Convergent critical path · early Product vertical slice · R1/R2 through same path | Morris REAL-FIRST | **APPLIED** |
-| **C9-B** | Exit sans Roadmap truth-sync | §53 item 15 | Gate future absente | Roadmap truth-sync after P4 validation/integration · not now | Roadmap tip historical | **APPLIED** |
-
-Additional coherence-only edits (direct consequence of C1–C9) :
-- §1.4 WP status after Correction Pass 01
-- Claims matrix + footer Correction Pass 01 markers
-- Unqualified C1 in §4 VALIDATED INPUT table
-
-**Architecture decision re-opened?** NO
-**New Morris decision required?** NO
+No WP reopened. No architecture decision changed. No new Morris decision.
 
 ---
 
-## E. WP status after Correction Pass 01
+## D. Residual-pattern searches (post-edit)
 
-| WP | Status |
-| --- | --- |
-| WP1 | corrected candidate, pending Final Critical Review #2 |
-| WP2 | corrected candidate, pending Final Critical Review #2 |
-| WP3 | corrected candidate, pending Final Critical Review #2 |
-| WP4 | corrected candidate, pending Final Critical Review #2 |
-| WP5 | corrected candidate, pending Final Critical Review #2 |
+- `indépendante de A`: NONE
+- `independent of A`: NONE
+- `authority calculation`: NONE
+- `Product SQLite Truth C`: NONE
+- `Truth C island`: NONE
+- `may host classified derived projections`: NONE
+- `Confirmation | Applicability`: NONE
+
+Additional positives confirmed :
+- orthogonale en cardinalité / gated par A / CARDINALITY ORTHOGONAL
+- Governed Product Confirmation state
+- effective-authority resolution & enforcement (no authority calculation)
+- NOT IMPLEMENTED CURRENT (Synthesis)
+- Product SQLite-backed authoritative Product records (§31)
 
 ---
 
-## F. Anti-claims (after Correction Pass 01)
+## E. Anti-claims
 
 ```text
 P4 AUTHORIZED = YES
 P4 STARTED = YES
 P4 DOCUMENTARY CANDIDATE = YES
-P4 TARGETED CORRECTION PASS 01 COMPLETE = YES (this pass applied C1–C9)
+P4 TARGETED CORRECTION PASS 01 = COMPLETE / REVIEWED (C1–C9 PASS)
+P4 MICRO-CORRECTION PASS 02 = COMPLETE
 P4 GLOBAL VALIDATED BY MORRIS = NO
 P4 INTEGRATED ON MAIN = NO
 P4 CLOSED = NO
@@ -143,45 +101,32 @@ P5 STARTED = NO
 READY FOR REAL = NO
 runtime v3 ADOPTED = NO
 Production router IMPLEMENTED = NO
-GPT-6 REAL routing PROVEN = NO
 Synthesis Product implementation = NO
 Roadmap P4 truth-sync = NO
-Figma/runtime fidelity proven = NO
 No Product code changed = YES
+Architecture decision reopened = NO
+New Morris decision required = NO
 ```
 
 ---
 
-## G. Git validations (post-edit)
+## F. Git validations (post-edit)
 
 ```text
 M .tmp-sfia-review/chatgpt-review.md
 ?? projects/sfia-studio/product-simplification/04-chat-first-product-simplification-semantic-projection-cognitive-architecture.md
 ```
 
-P4 file lines : **1737**
+P4 file lines : **1756**
+Tracked diff check : clean (untracked P4 validated by direct inspection)
 Staged : empty
 Other project files : none beyond expected tmp pack + P4 doc
 
 ---
 
-## H. Reserves / unexpected findings
+## G. Final Micro-Correction Pass verdict
 
-- Aucune contradiction CURRENT bloquante (Option A Product SQLite cohérente ; ProposalStore debt documentée ; Rec currentness harvestable).
-- Aucune décision Morris requise.
-- Aucun STOP déclenché.
-
----
-
-## I. Decisions Morris required
-
-**NONE**
-
----
-
-## J. Final Correction Pass verdict
-
-**READY FOR CHATGPT FINAL CRITICAL REVIEW P4 #2 — TARGETED CORRECTION PASS 01 COMPLETE**
+**READY FOR CHATGPT TARGETED VERIFICATION — P4 MICRO-CORRECTION PASS 02 COMPLETE**
 
 Explicitly NOT :
 - P4 VALIDATED
@@ -194,10 +139,10 @@ Explicitly NOT :
 
 ---
 
-## K. COMPLETE CORRECTED P4 DOCUMENT
+## H. COMPLETE CORRECTED P4 DOCUMENT
 
 Fichier : `projects/sfia-studio/product-simplification/04-chat-first-product-simplification-semantic-projection-cognitive-architecture.md`
-Lines : 1737
+Lines : 1756
 
 ```markdown
 # SFIA Studio — Chat-First Product Simplification — P4 Pilot–Nora–Studio Semantic, Projection & Cognitive Architecture / Technical Delta
@@ -226,7 +171,7 @@ Lines : 1737
 | **Langue** | Français (identifiants Product / runtime préservés) |
 | **Fichier** | `projects/sfia-studio/product-simplification/04-chat-first-product-simplification-semantic-projection-cognitive-architecture.md` |
 | **Date** | 2026-10-05 · Europe/Paris |
-| **Correction Pass** | **01** — TARGETED CORRECTION after ChatGPT Documentary Review #1 · pending Final Critical Review #2 |
+| **Correction Pass** | **01** COMPLETE / REVIEWED (C1–C9 PASS) · **02** MICRO-CORRECTION after Final Critical Review #2 · pending Targeted Verification |
 
 > **Lecture rapide.** P4 = **comment** le monde Product défini par P1/P2/P3 est représenté, projeté, rendu current/durable/searchable et connecté à la cognition Nora — **sans** seconde vérité ni architecture parallèle. Cinq Work Products. Décisions Morris structurantes **consommées** (Synthèse → Product SQLite existant · router Strategy-first borné · cohort GPT-6 Luna / GPT-6.1 Sol / GPT-6 Astra · quality floor · escalation ≤1 · REAL-FIRST dès P5). Ce document = **CANDIDAT DOCUMENTAIRE**. **≠ P4 VALIDATED · ≠ P4 CLOSED · ≠ P5 AUTHORIZED · ≠ runtime v3 ADOPTED · ≠ code · ≠ Roadmap truth-sync.**
 
@@ -292,17 +237,20 @@ Aligné P2 §2.1 / P3 §1.2 — **aucun rang de précédence global** entre doma
 - Conflit CURRENT ↔ TARGET = **gap de convergence**.
 
 
-### 1.4 WP status after Correction Pass 01
+### 1.4 WP status after Micro-Correction Pass 02
 
 | WP | Status |
 | --- | --- |
-| WP1 | corrected candidate, pending Final Critical Review #2 |
-| WP2 | corrected candidate, pending Final Critical Review #2 |
-| WP3 | corrected candidate, pending Final Critical Review #2 |
-| WP4 | corrected candidate, pending Final Critical Review #2 |
-| WP5 | corrected candidate, pending Final Critical Review #2 |
+| WP1 | architectural substance unchanged after FCR #2 · micro-corrections only · pending Targeted Verification |
+| WP2 | architectural substance unchanged after FCR #2 · micro-corrections only · pending Targeted Verification |
+| WP3 | architectural substance unchanged after FCR #2 · micro-corrections only · pending Targeted Verification |
+| WP4 | architectural substance unchanged after FCR #2 · micro-corrections only · pending Targeted Verification |
+| WP5 | architectural substance unchanged after FCR #2 · micro-corrections only · pending Targeted Verification |
 
-**≠** P4 Exit Proof satisfied · **≠** P4 CLOSED · **≠** P5 READY.
+Correction Pass 01 (C1–C9) = **COMPLETE / REVIEWED PASS** (Final Critical Review #2).
+Micro-Correction Pass 02 (MC1–MC4) = this pass.
+
+**≠** P4 GLOBAL VALIDATED · **≠** P4 Exit Proof satisfied · **≠** P4 CLOSED · **≠** P5 READY.
 
 ---
 
@@ -312,7 +260,7 @@ P4 matérialise l’architecture technique **sémantique**, de **projection** et
 
 1. **Un seul monde Product** (objets gouvernés + projections dérivées + records d’interaction).
 2. **Des projections bornées** Pilote / Nora / Studio / Executor / surfaces P3 — sans SharedKnowledgeStore.
-3. **Synthèse** = materialized derived projection durable, rebuildable, searchable — persistée dans le **Product SQLite existant** (`oa-product.sqlite` — **physical** boundary) — classe sémantique = derived projection **≠ Truth C** — **≠** ProductSqliteSession — **≠** Artifact owner primaire.
+3. **Synthèse** = materialized derived projection durable, rebuildable, searchable — **TARGET** physical persistence = existing Product SQLite (`oa-product.sqlite`) · **CURRENT** Synthesis Product-derived persistence = **NOT IMPLEMENTED** · classe sémantique = derived projection **≠ Truth C** — **≠** ProductSqliteSession — **≠** Artifact owner primaire.
 4. **Nora Cognitive Routing** = Strategy-first bounded router **intégré** au runtime Nora existant (même Agents Runner) — cohort cible GPT-6 Luna / GPT-6.1 Sol / GPT-6 Astra — quality floor avant FinOps — escalation cognitive ≤ 1 — REAL-FIRST dès P5.
 
 Cinq Work Products structurants (WP1–WP5) forment la substance P4. Ce fichier les capitalise pour revue section-par-section ChatGPT + Morris, puis pour entrée P5 **si et seulement si** gates distincts l’autorisent.
@@ -547,7 +495,9 @@ BRANCH A — HumanDecision (0 / 1 / N)
   ELSE:
     → aucune HumanDecision
 
-BRANCH B — Execution (0 / 1 / N) — indépendante de A
+BRANCH B — Execution (0 / 1 / N) —
+  orthogonale en cardinalité à HumanDecision ;
+  peut être gated par A lorsque l’autorité applicable l’exige.
   IF exécution nécessaire:
     → action préparée / ExecutionContract
     → inspection
@@ -561,6 +511,13 @@ BRANCH B — Execution (0 / 1 / N) — indépendante de A
   ELSE:
     → aucune branche execution
 
+Relation BRANCH A ↔ BRANCH B :
+  CARDINALITY / EXISTENCE ARE ORTHOGONAL.
+  EFFECTIVE AUTHORITY MAY CREATE A DEPENDENCY WHEN APPLICABLE.
+  HD non requise → Execution may proceed without HD,
+    subject to all other applicable authority / Confirmation / EC / guardrails.
+  HD requise → Execution is gated until a valid applicable HumanDecision exists.
+
 AFTER (as applicable):
 → Nora analysis / Recommendation / replan / continuation
 → deterministic Cycle progression where applicable
@@ -572,6 +529,8 @@ Conversation peut produire **zéro** mutation.
 HumanDecision = seulement lorsqu’un jugement structurel est requis.
 Confirmation = conditionnelle.
 Execution = optionnelle.
+**≠** HumanDecision always required before Execution.
+**≠** Execution never depends on HumanDecision.
 
 **Invariant :** une surface UI **ne possède pas** ce graphe — elle le **projette**.
 
@@ -679,7 +638,7 @@ Dimensions distinctes (ne pas fusionner) :
 | Recommendation | Epistemic object | Nora produce | Disposition P2-D-01 (≠ HD) | Studio materializes | Product epistemic path | Journal Rec / Conversation | **basis/currentness** (§13.5) — **≠ id alone** | KEEP | ≠ HD |
 | Reservation | Epistemic/governed | Nora/Studio | Rules | Studio | Product | Journal Réserves | | KEEP | ≠ auto-blocker |
 | HumanDecision | Pilote | Nora may prepare/request | **Pilote** (judgment source) | **Studio** persists/materializes | Product SQLite | Journal Décisions | HD id/status | KEEP | Studio NEVER author of Pilot judgment · Nora cannot decide |
-| Confirmation | Applicability Studio-resolved | Nora may surface/request **only if** Studio resolved Confirmation applicable | **Pilote** against inspected prepared effect when applicable | Studio resolves/applies state | Product | Conversation/Exec | | KEEP | ≠ HD · Nora ≠ decide applicability · cannot fill missing HD |
+| Confirmation | Governed Product Confirmation state | Nora may surface/request **only if** Studio resolved Confirmation applicable | **Pilote** against inspected prepared effect when applicable | Studio persists/applies governed state | Product | Conversation/Exec | Applicability = Studio-resolved from effect/boundary/rules | KEEP | ≠ HD · Nora ≠ decide applicability · cannot fill missing intention/HD · Studio writer ≠ Pilot authority |
 | ExecutionContract | Studio | Nora may prepare candidate | Inputs/authority basis may include intention, HD, Confirmation, policy, capabilities **as applicable** | Studio materializes contractual object | Product SQLite | Exec/Nora/Executor | EC version | KEEP | **EC alone ≠ effective authority** |
 | Attempt | Execution subsystem | Studio/executor path | N/A as human judgment | Studio/executor path | Product SQLite | Exec/Resolution | Attempt id + lifecycle | KEEP | See Attempt semantics below |
 | Executor report | Executor | Executor | N/A (claim) | Claim path | Review material / claim path | Resolution | | KEEP | CLAIM ≠ Evidence |
@@ -1001,9 +960,10 @@ Persister la projection Synthèse dans le **PRODUCT SQLITE EXISTANT** (`oa-produ
 
 **Storage location ≠ authority class.**
 
-Product SQLite may physically host :
-- authoritative / governed Product records (Truth C objects) ;
-- **and** explicitly classified rebuildable derived projections (e.g. Synthesis).
+| Horizon | What Product SQLite hosts |
+| --- | --- |
+| **CURRENT** | Physical host of current governed / authoritative Product persistence (Truth C objects: Project/LPS/Cycle/HD/EC/Attempt/Evidence/RB/Trajectory/CE…). **Synthesis Product-derived persistence = NOT IMPLEMENTED CURRENT.** |
+| **TARGET** | Same physical Product SQLite **additionally** hosts explicitly classified rebuildable Synthesis materialized projections. Those projections remain **NON-AUTHORITATIVE** · **NOT Truth C** · rebuildable from governed Product sources · do **not** gain authority from co-location. |
 
 Synthesis implementation target must preserve :
 - explicit projection classification ;
@@ -1016,10 +976,12 @@ Synthesis implementation target must preserve :
 
 | Fichier | Rôle CURRENT |
 | --- | --- |
-| `oa-product.sqlite` | Hosts Truth C Product objects (Project/LPS/Cycle/HD/EC/Attempt/Evidence/RB/Trajectory/CE…) **and may host** classified derived projections |
+| `oa-product.sqlite` | Physical host of current governed/authoritative Product persistence (Truth C objects: Project/LPS/Cycle/HD/EC/Attempt/Evidence/RB/Trajectory/CE…) · **≠** Synthesis derived persistence already implemented |
 | `nora-session.sqlite` | Session Agents + transcript + Cycle Journal |
 
-`sessionPaths` **interdit** d’utiliser `oa-product.sqlite` comme session. Ce split est **KEEP**. Option A = **COMPLETE** tables/ports de projection Synthèse **dans** Product SQLite — **pas** fusion Session↔Truth C · **pas** promotion Synthesis→Truth C par co-location.
+`sessionPaths` **interdit** d’utiliser `oa-product.sqlite` comme session. Ce split est **KEEP**.
+
+**TARGET (Option A ADOPTED) :** COMPLETE tables/ports de projection Synthèse **dans** le même Product SQLite physique — **pas** fusion Session↔Truth C · **pas** promotion Synthesis→Truth C par co-location · Synthesis class remains derived / rebuildable / **NOT Truth C**.
 
 ### 19.4 Non-sélectionné (OPEN → P5)
 
@@ -1159,10 +1121,11 @@ Pas : text → LLM → duplicate UI text state.
 
 Studio : **RESOLVE · VALIDATE · MATERIALIZE · ENFORCE**
 
-Currentness · identity · membership · subject binding · versioning · authority calculation · idempotence · persistence · Product qualification · projection building · guardrails.
+Currentness · identity · membership · subject binding · versioning · **effective-authority resolution & enforcement** · idempotence · persistence · Product qualification · projection building · guardrails.
 
 Studio peut stocker/enforce une HD — **n’est pas** l’auteur du jugement Pilote.
 Studio peut vérifier une claim — l’executor ne devient pas authority source.
+Studio resolves/enforces authority conditions — **≠** source of HumanDecision · **≠** source of Pilot Confirmation · **≠** gains authority by persisting a record.
 
 CURRENT seams KEEP/COMPLETE : `resolveProductExecutionContext` · `deriveGovernedExecutionContinuityProjection` · `reconcileGovernedExecution` · `w3bProductTerminalProjection`.
 
@@ -1251,7 +1214,7 @@ Use cached/derived context **only while** currentness remains established.
 
 | Asset | CURRENT role | Evidence | TARGET | Disposition | P5 delta | Exit / preuve | Risks |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| Product SQLite `oa-product` + `SqliteProductStore` | Physical host of Truth C objects (+ may host classified derived projections) | `db.ts` M1–M8 · paths | Same physical DB + Synthesis as **derived projection** (≠ Truth C) | **KEEP / COMPLETE** | Synthesis tables/ports | Truth reconstructible w/o syntheses | Don’t merge session · don’t promote Synthesis→Truth C |
+| Product SQLite `oa-product` + `SqliteProductStore` | Physical Product persistence for current governed/authoritative records (Truth C objects) · Synthesis derived persistence **NOT IMPLEMENTED CURRENT** | `db.ts` M1–M8 · paths | Same physical DB + Synthesis as **derived projection** (**class ≠ Truth C**) | **KEEP / COMPLETE** | Synthesis tables/ports | Truth reconstructible w/o syntheses | Don’t merge session · don’t promote Synthesis→Truth C · don’t claim CURRENT Synthesis already stored |
 | `productSqliteSession` / `nora-session` | Session + transcript + Journal | NEVER Truth C comments | Session/transcript/journal only | **KEEP** | No Synthesis owner | Collision guards preserved | Expanding into Synthesis = leak |
 | `cycleJournalStore` / types | Journal projection | Session DB | Continuity projection | **KEEP / ADAPT** | Composite tabs wiring | Journal ≠ SoT tests | |
 | `studioCognitiveContext` | Rich RO composer | F2 | Nora Semantic Context object-native | **KEEP / ADAPT** | Formalize contract | Context minimum-sufficient | |
@@ -1287,7 +1250,7 @@ Use cached/derived context **only while** currentness remains established.
 
 | Disposition | Exemples |
 | --- | --- |
-| KEEP | Product SQLite Truth C · Session/Journal · W2 resolution · Runner · CWP classes |
+| KEEP | Product SQLite-backed authoritative Product records · Session/Journal · W2 resolution · Runner · CWP classes |
 | ADAPT | studioCognitiveContext → NoraSemanticContext · reasoning envelopes → eligible configs · History for P3 |
 | COMPLETE | Synthesis Product projection · cognitiveRoutingPolicy · routing telemetry · F2 path alignment |
 | HARVEST | VsDemo honesty · old eval evidence · History pattern |
@@ -1302,11 +1265,11 @@ Use cached/derived context **only while** currentness remains established.
 
 | Concern | CURRENT | TARGET |
 | --- | --- | --- |
-| Product truth (authoritative) | `oa-product.sqlite` Truth C objects | KEEP |
-| Synthesis derived projection | (absent Product) | COMPLETE in same physical Product SQLite · **class ≠ Truth C** |
+| Product truth (authoritative) | `oa-product.sqlite` — physical host of current governed/authoritative Product records | KEEP |
+| Synthesis derived projection | **NOT IMPLEMENTED CURRENT** (fixture UI only) | COMPLETE in same physical Product SQLite · **class ≠ Truth C** · co-location ≠ Truth C |
 | Session/Journal/Transcript | `nora-session.sqlite` | KEEP · not Synthesis owner |
 | History | No dedicated store | Keep as read projection |
-| Synthesis | Fixture UI | Product SQLite materialized projection |
+| Synthesis UI (CURRENT) | Fixture UI (`VsDemo`) | TARGET: Product SQLite materialized derived projection (**≠ Truth C**) |
 | Execution review material | Filesystem | KEEP as review material · ≠ Product SoT |
 
 ---
@@ -1811,7 +1774,7 @@ Exit ultérieur (gates distincts) :
     - **no claim P5 authorized** until applicable Morris gate ;
     - **ne pas** modifier la Roadmap dans ce Correction Pass.
 
-**Ce run (Correction Pass 01) vise la correction documentaire du candidat uniquement — ≠ Exit Proof satisfied · ≠ P4 CLOSED · ≠ P5 READY.**
+**Ce run (Micro-Correction Pass 02) vise uniquement MC1–MC4 — ≠ Exit Proof satisfied · ≠ P4 GLOBAL VALIDATED · ≠ P4 CLOSED · ≠ P5 READY.**
 
 ---
 
@@ -1864,8 +1827,9 @@ Pas d’IDs `D-P4-*` inventés.
 
 | Claim | Status |
 | --- | --- |
-| P4 documentary candidate (corrected — Correction Pass 01) | **YES** (this file) |
-| P4 TARGETED CORRECTION PASS 01 COMPLETE | **YES** (pending ChatGPT FCR #2) |
+| P4 documentary candidate (corrected — Micro-Correction Pass 02) | **YES** (this file) |
+| P4 TARGETED CORRECTION PASS 01 COMPLETE / REVIEWED | **YES** (C1–C9 PASS at FCR #2) |
+| P4 MICRO-CORRECTION PASS 02 COMPLETE | **YES** (pending ChatGPT Targeted Verification) |
 | P4 GLOBAL VALIDATED | **NO** |
 | P4 CLOSED | **NO** |
 | P5 AUTHORIZED | **NO** |
@@ -1936,10 +1900,10 @@ Future P5 : D0/R1/R2/R3. Claims REAL/READY FOR REAL **interdits** ici.
 
 ---
 
-*Fin du document P4 — DOCUMENTARY CANDIDATE CORRECTED (Correction Pass 01) — AUTHORIZED/STARTED — ≠ GLOBAL VALIDATED — ≠ CLOSED — ≠ P5 AUTHORIZED — ≠ runtime v3 ADOPTED — ZERO CODE — ZERO ROADMAP MUTATION — ZERO REAL — pending Final Critical Review #2.*
+*Fin du document P4 — DOCUMENTARY CANDIDATE CORRECTED (Micro-Correction Pass 02) — AUTHORIZED/STARTED — ≠ GLOBAL VALIDATED — ≠ CLOSED — ≠ P5 AUTHORIZED — ≠ runtime v3 ADOPTED — ZERO CODE — ZERO ROADMAP MUTATION — ZERO REAL — pending ChatGPT Targeted Verification.*
 
 ```
 
 ---
 
-*End of P4 TARGETED CORRECTION PASS 01 — FULL REVIEW PACK*
+*End of P4 MICRO-CORRECTION PASS 02 — FULL REVIEW PACK*
