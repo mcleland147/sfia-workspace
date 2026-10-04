@@ -1,181 +1,367 @@
-# P4 TARGETED CORRECTION PASS 03 — AUTONOMOUS REVIEW GAPS A–E — FULL REVIEW PACK
+# P4 GLOBAL VALIDATION MATERIALIZATION + ROADMAP TRUTH-SYNC — FULL REVIEW PACK
 
 | Métadonnée | Valeur |
 | --- | --- |
-| **Timestamp Europe/Paris** | 2026-10-05 01:43:44 +0200 |
+| **Timestamp Europe/Paris** | 2026-10-05 01:54:17 +0200 |
 | **Macro** | STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 |
 | **Milestone** | P4 — Semantic / Projection / Cognitive Architecture / Technical Delta |
 | **Cycle** | 15 — Capitalisation / REX |
 | **Profil** | Capitalization · Critical · DOC dans macro EVOL |
+| **Pass** | GLOBAL VALIDATION MATERIALIZATION + ROADMAP TRUTH-SYNC |
 | **Niveau pack** | **FULL** |
 | **Branche** | `docs/sfia-studio-chat-first-product-simplification-p4-semantic-projection-cognitive-architecture` |
 | **HEAD** | `e19f89409a5eb717838b9d7bffdc8c3d2ee02b18` |
 | **origin/main** | `e19f89409a5eb717838b9d7bffdc8c3d2ee02b18` |
-| **Previous handoff** | `309a6323abba8d94d55b707e850a148970fc9518` · blob `fe33439c06c2976ec346ea8e8aad2a28fc06dca6` |
-| **Autonomous ChatGPT review verdict** | P4 AUTONOMOUS FULL REVIEW — TARGETED CORRECTION REQUIRED — NO ARCHITECTURAL REWORK / NO NEW MORRIS STRUCTURAL DECISION EXPECTED |
-| **C1–C9** | PASS — unchanged / not reopened |
-| **MC1–MC4** | PASS — unchanged / not reopened |
-| **This pass** | TARGETED CORRECTION PASS 03 — gaps A–E |
-| **Next** | CHATGPT FINAL TARGETED COHERENCE VERIFICATION |
+| **Previous handoff** | `e70a0615f68973079b2c5a9bb94e326842f9bfea` · blob `f3e9af22c95543ca82316c9c2fdeaaa0e99bcf18` |
+| **ChatGPT Final Targeted Coherence Verification** | PASS — P4 READY FOR MORRIS GLOBAL VALIDATION |
+| **Morris decision consumed** | **P4 GLOBAL VALIDATED BY MORRIS = YES** (2026-10-05 Europe/Paris) |
 | **Project commit/push/PR/merge** | NONE |
 
 ---
 
-## A. Local Git Truth
+## A. Local Git Truth (pre-edit)
 
 ```text
 M .tmp-sfia-review/chatgpt-review.md
 ?? projects/sfia-studio/product-simplification/04-chat-first-product-simplification-semantic-projection-cognitive-architecture.md
 ```
 
+Roadmap not locally modified before this pass.
 Verdict: **MATCH**
 
 ---
 
-## B. A–E Correction Matrix
+## B. Morris Global Validation Consumed
 
-| Gap | Sections changed | Before semantic gap | Resulting P4 contract | Verdict |
-| --- | --- | --- | --- | --- |
-| **A** | §2 · §7.7 · §8.16–17 · §27 · **§27A** · §30 · §31 · §50 · §51.2 · §54 | P3 technical carrying (tokens/components/responsive/activity/auth/a11y) not first-class | Frontend/Visual Projection Technical Boundary · surface matrix complete · CURRENT frontend families classified · converge existing assets · no new DS stack | **APPLIED** |
-| **B** | §6.4 · §8.13 · §33.2 · §38 · §44.2 · §46 · §51.4 · §52 | Routing began at Strategy→Model (LLM-everywhere risk) · fallback incomplete | Deterministic NO-LLM bypass · CW0 not runtime taxonomy · retrieve/clarify/challenge/adapt/abstain · local fail-closed · anti-oscillation | **APPLIED** |
-| **C** | §6.3 · §9.2 · §11.A · §12 · §23.2 · §30 · §50 · §51.1 · §52 | Deliverable/Artifact absent from semantic world/ownership | Deliverable≠Artifact · validation composition · Execution≠lifecycle · CURRENT Deliverable gap honest · no new store · no universal Validator | **APPLIED** |
-| **D** | §2 · §5.6 · §8.18 · §35 · §50 · §51.5 · §52 | PIB/Net Complexity not in P5 entry | PIB heuristic · Material/Protective/Accidental · admin burden near-zero · Net Complexity Reduction · no metrics factory · FinOps≠Simplification | **APPLIED** |
-| **E** | §8.15 · §12.3 · §12.4 · §50 · §54 · §56 · §57.1 | DecisionBasis/Validator P2 questions not explicitly closed | No universal mandatory DecisionBasis · reuse optional CURRENT types · no universal Validator Engine · compose domain mechanisms | **APPLIED** |
+Decision: **P4 GLOBAL VALIDATED BY MORRIS = YES**
+Date: 2026-10-05 Europe/Paris
 
-Architecture decision reopened? **NO**
-New Morris decision required? **NO**
+Basis:
+- ChatGPT Final Targeted Coherence Verification = PASS
+- C1–C9 PASS
+- MC1–MC4 PASS
+- A–E PASS
+- WP1–WP5 PASS
+- P1/P2/P3 inheritance PASS
+- architecture parallelism PASS
+- P5 Entry Contract PASS
+
+Scope: P4 contract only.
+
+Does NOT authorize: project Git integration auto · P5 · REAL · runtime v3 adoption.
 
 ---
 
-## C. CURRENT Frontend Asset Audit (family)
+## C. Files changed
 
-| Family | CURRENT role | Disposition |
+1. `projects/sfia-studio/product-simplification/04-chat-first-product-simplification-semantic-projection-cognitive-architecture.md` (untracked · status materialization only · architecture substance unchanged)
+2. `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` (tracked · living truth-sync · historical rows preserved)
+3. `.tmp-sfia-review/chatgpt-review.md` (this pack)
+
+---
+
+## D. P4 status before / after
+
+| Field | BEFORE | AFTER |
 | --- | --- | --- |
-| `--sfia-*` (`styles/tokens.css`) | Legacy/general Figma-extracted tokens | AUDIT / HARVEST / ADAPT |
-| `--pm6-*` (`product-tokens.css`) | Pre-M6 Option A tokens isolated from `--sfia-*` | AUDIT / HARVEST / ADAPT / RETIRE LATER |
-| `globals.css` | focus-visible · prefers-reduced-motion · imports `--sfia-*` | KEEP / ADAPT |
-| pre-m6-product-ui shell/pages/surfaces | Product UI transitional | HARVEST / ADAPT |
-| components/ui · components/shell | Legacy primitives | HARVEST / ADAPT / REPLACE as fit |
-| vertical-slice / synthese VsDemo | Fixture/demo | HARVEST / REPLACE |
-| GitHub Auth (`lib/auth` · login · `/api/auth`) | REAL functional GitHub OAuth | KEEP/ADAPT functional · ADAPT/REPLACE visual |
-| useProductConversation enums | INITIAL…BLOCKED implementation states | ADAPT → project to P3 Pilot-facing states |
+| P4 | AUTHORIZED / STARTED | **GLOBAL VALIDATED BY MORRIS** |
+| Document | DOCUMENTARY CANDIDATE | **VALIDATED DOCUMENTARY CANDIDATE** |
+| GLOBAL VALIDATED | NO | **YES** |
+| INTEGRATED ON MAIN | NO | **NO** |
+| CLOSED | NO | **NO** |
+| WP1–WP5 | pending coherence verification | **PASS / INCLUDED IN GLOBAL VALIDATION** |
+| P5 | NOT AUTHORIZED | **NOT AUTHORIZED** (Entry Contract DEFINED) |
+| Architecture substance | validated candidate | **UNCHANGED** |
 
-**Multiple visual/token layers verified:** YES (`--sfia-*` + `--pm6-*`).
-**Converge to one min-sufficient P3-capable presentation layer supported?** YES — reuse/convergence · **no** third family · **no** new stack required by CURRENT evidence.
-**Meridian in CURRENT app tree:** not observed as implemented UI asset — TARGET carry from P3.
+P4 sections touched (status/governance only): metadata · banner · §1.1–1.4 · §2 · §4.2 · §53 Exit · §54 · §55 decision register · §56 claims · §57 ref · footer.
 
 ---
 
-## D. CURRENT Deliverable / Artifact / DecisionBasis Audit
+## E. Roadmap living-state before / after
 
-| Finding | Result |
-| --- | --- |
-| First-class Deliverable aggregate/store | **NO** — UI focus helpers / cognitive mentions only (`LifecycleSurface` focusAssistantForDeliverable) |
-| Artifact mechanisms | **YES** — `artifactTargetRouting.ts` · docs-write artifact evidence/review (f3) · completeness/obligation proofs · KEEP/ADAPT |
-| DecisionBasis | **YES optional/bounded** — `lib/oa/decision/domain/types.ts` embeddable on HD · NOT universal mandate |
-| Universal Validator Engine | **NO** |
+| Block | BEFORE (stale living) | AFTER |
+| --- | --- | --- |
+| Maintenance tip | P3 POST-MERGE tip (P4 NOT AUTHORIZED) | **New tip** P4 GLOBAL VALIDATED + truth-sync LOCAL CANDIDATE |
+| CURRENT STRUCTURAL STEP | P2 CP01 COMPLETE | **P4 GLOBAL VALIDATED — truth-sync LOCAL** |
+| CURRENT MORRIS GATE | ChatGPT Closure CP01 | **ChatGPT review of this truth-sync → DISTINCT P4 Git Integration** |
+| CURRENT NEXT CAPABILITY | P2 Closure Review CP01 | **P4 Git integration/closure then P5 under DISTINCT GO** |
+| CURRENT SIMPLIFICATION TRAJECTORY | P2 in progress · P3/P4 NOT AUTHORIZED | **P1/P2/P3 CLOSED · P4 VALIDATED/NOT INTEGRATED · P5 DEFINED≠AUTHORIZED** |
+| Historical P2 CURRENT blocks | claimed CURRENT | **Qualified HISTORICAL / SUPERSEDED** |
+| Historical maintenance rows with « P4 NOT AUTHORIZED » | unchanged | **PRESERVED** (historically true at timestamp) |
+
+Stale CURRENT blocks found: **4** living P2 CURRENT STRUCTURAL/GATE/NEXT/TRAJECTORY clusters.
+Corrected/qualified historical: **all 4** + References living tip.
+
+B10 critical-path tail: appended P2 CLOSED → P3 CLOSED → P4 GLOBAL VALIDATED → Git integration NOT YET → P5 NOT AUTHORIZED.
 
 ---
 
-## E. Self-review A1–E4 + G1–G10
+## F. P4 / Roadmap consistency matrix
 
-| ID | Q | Answer | Evidence |
+| Claim | P4 | Roadmap living | Result |
 | --- | --- | --- | --- |
-| A1 | All P3 surfaces carried? | YES | §27 matrix Projects→Auth/Activity/Responsive |
-| A2 | Frontend families classified? | YES | §30 token/shell/auth/fixture rows |
-| A3 | Avoid new DS stack? | YES | §27A reject list · converge principle |
-| A4 | P3 Figma authority? | YES | §7.5 · §27A.1/10/11 |
-| A5 | Responsive = same semantics? | YES | §27 · §27A.8 |
-| A6 | Activity/STOP honest? | YES | §27 activity note · §27A.19–20 |
-| A7 | Reduced-motion carried? | YES | §27A.13 · globals KEEP/ADAPT |
-| A8 | Auth functional ≠ visual? | YES | §27 Auth · §30 GitHub Auth row |
-| A9 | Local search no global fake? | YES | §27A.18 · Projects/History/Synthesis |
-| B1 | Deterministic bypass LLM? | YES | §33.2 · §38 entry · §8.13 |
-| B2 | CW0 not forced runtime? | YES | §6.4 · §33.2 |
-| B3 | Fallback retrieve/clarify/…? | YES | §33.2 · §46 |
-| B4 | Fail-closed local? | YES | §46 |
-| B5 | Anti-oscillation preserved? | YES | §44.1–44.2 |
-| C1 | Deliverable≠Artifact in WP1? | YES | §9.2 · §11.A |
-| C2 | In WP2 ownership? | YES | §12 rows |
-| C3 | Execution one production path? | YES | §6.3 · §12 EC anti-claim |
-| C4 | Existence≠validation≠Exit≠Cycle? | YES | §6.3 · §12 Artifact |
-| C5 | No universal Validator? | YES | §12.4 · claims |
-| D1 | PIB heuristic not engine? | YES | §5.6 |
-| D2 | Material/Protective/Accidental? | YES | §5.6 |
-| D3 | Admin burden near-zero? | YES | §5.6 · §51.5 |
-| D4 | Net Complexity in P5? | YES | §51.5 · §52 |
-| D5 | No metrics factory? | YES | §5.6 · §51.5.12 |
-| E1 | No universal mandatory DecisionBasis? | YES | §12.3 |
-| E2 | Reuse existing basis first? | YES | §12.3 · CURRENT types.ts |
-| E3 | Work-class validation compositional? | YES | §12.4 |
-| E4 | No new validator architecture? | YES | §12.4 |
-| G1 | P1 intact? | YES | §5 strengthened |
-| G2 | P2 intact? | YES | §6 |
-| G3 | P3 intact? | YES | §7 · §27A |
-| G4 | No silent P4 decision change? | YES | Option A/router/cohort preserved |
-| G5 | No second truth? | YES | anti-claims |
-| G6 | No parallel architecture? | YES | §57.1 |
-| G7 | No premature freeze? | YES | OPEN items |
-| G8 | P5 can execute without chat reconstruction? | YES | §51 six dimensions |
-| G9 | P5 NOT AUTHORIZED? | YES | §51.8 · claims |
-| G10 | runtime v3 NON ADOPTED? | YES | metadata · claims |
+| P1 CLOSED/integrated | YES | YES | PASS |
+| P2 CLOSED/integrated | YES | YES | PASS |
+| P3 CLOSED/integrated | YES | YES | PASS |
+| P4 GLOBAL VALIDATED | YES | YES | PASS |
+| P4 INTEGRATED | NO | NO | PASS |
+| P4 CLOSED | NO | NO | PASS |
+| P5 AUTHORIZED | NO | NO | PASS |
+| P5 STARTED | NO | NO | PASS |
+| READY FOR REAL | NO | NO | PASS |
+| runtime v3 ADOPTED | NO | NO | PASS |
+| TARGET routing architecture selected/validated | YES | YES | PASS |
+| Production router proven | NO | NO | PASS |
+| REAL routing proven | NO | NO | PASS |
+| P3 visual contract preserved | YES | YES | PASS |
+| Runtime visual fidelity proven | NO | NO | PASS |
+| Synthesis target placement decided | YES | YES | PASS |
+| Synthesis implementation | NO | NO | PASS |
+| Net Complexity Reduction proven | NO | NO | PASS |
 
+**Matrix result: PASS**
 
 ---
 
-## F. Anti-claims
+## G. Anti-claims
 
 ```text
-A–E COMPLETE = YES (this pass)
-C1–C9 PASS = YES (unchanged)
-MC1–MC4 PASS = YES (unchanged)
-P4 GLOBAL VALIDATED BY MORRIS = NO
+P4 GLOBAL VALIDATED BY MORRIS = YES
+P4 VALIDATION DECISION MATERIALIZED LOCALLY = YES
+ROADMAP TRUTH-SYNC LOCAL CANDIDATE = YES
 P4 INTEGRATED ON MAIN = NO
+P4 POST-MERGE VERIFIED = NO
 P4 CLOSED = NO
 P5 AUTHORIZED = NO
 P5 STARTED = NO
 READY FOR REAL = NO
 runtime v3 ADOPTED = NO
-frontend P3 runtime fidelity PROVEN = NO
-Auth P3 visual fidelity PROVEN = NO
-Nora Activity runtime P3 parity PROVEN = NO
-Deliverable Product representation implemented = NO
-Net Complexity Reduction PROVEN = NO
-Pilot Interaction Budget improvement PROVEN = NO
-Production router implemented = NO
-Cognitive Completion PROVEN = NO
-New design-system stack selected = NO
+Production router implemented/proven = NO
+Visual fidelity runtime proven = NO
+Roadmap truth-sync integrated = NO
 Architecture decision reopened = NO
-New Morris decision required = NO
+New Morris structural decision required = NO (next = DISTINCT Git Integration gate)
 ```
 
 ---
 
-## G. Git validations
+## H. Git validations (post-edit)
 
 ```text
 M .tmp-sfia-review/chatgpt-review.md
+ M projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 ?? projects/sfia-studio/product-simplification/04-chat-first-product-simplification-semantic-projection-cognitive-architecture.md
 ```
 
-P4 lines: **1988**
+```text
+.tmp-sfia-review/chatgpt-review.md                 | 2242 +++++++++++++++++++-
+ .../convergence/sfia-studio-convergence-roadmap.md |   43 +-
+ 2 files changed, 2151 insertions(+), 134 deletions(-)
+```
+
 Staged: empty
-Other project files: none beyond expected
+Architecture substance reopened? **NO**
 
 ---
 
-## H. Final verdict
+## I. Roadmap modified living sections (extract)
 
-**READY FOR CHATGPT FINAL TARGETED COHERENCE VERIFICATION — P4 AUTONOMOUS REVIEW CORRECTION PASS 03 COMPLETE**
+### Tip maintenance (first rows)
 
-Explicitly NOT: P4 VALIDATED · P4 CLOSED · READY FOR COMMIT · READY FOR PR · P5 AUTHORIZED · READY FOR REAL · runtime v3 ADOPTED
+```markdown
+# SFIA Studio Convergence Roadmap
+
+| Métadonnée | Valeur |
+| --- | --- |
+| **Rôle** | Roadmap **vivante** de convergence vers l’utilisation complète de la doctrine produit SFIA Studio v3 |
+| **Statut** | **VALIDATED — ACTIVE LIVING ROADMAP** |
+| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P4 GLOBAL VALIDATION MATERIALIZATION + ROADMAP TRUTH-SYNC** | 2026-10-05 01:54:17 +0200 — **STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P4 GLOBAL VALIDATED BY MORRIS — VALIDATION MATERIALIZATION + ROADMAP TRUTH-SYNC LOCAL CANDIDATE** · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **15 — Capitalisation / REX** · Milestone **P4 — SEMANTIC / PROJECTION / COGNITIVE ARCHITECTURE / TECHNICAL DELTA** · Pass **GLOBAL VALIDATION MATERIALIZATION + ROADMAP TRUTH-SYNC** · CRITICAL · EVOL/DOC · Morris 2026-10-05 Europe/Paris = **P4 GLOBAL VALIDATED BY MORRIS = YES** · ChatGPT Final Targeted Coherence Verification = **PASS — P4 READY FOR MORRIS GLOBAL VALIDATION** · C1–C9 = **PASS** · MC1–MC4 = **PASS** · A–E = **PASS** · WP1–WP5 = **PASS / INCLUDED IN GLOBAL P4 VALIDATION** · document = `projects/sfia-studio/product-simplification/04-chat-first-product-simplification-semantic-projection-cognitive-architecture.md` = **VALIDATED DOCUMENTARY CANDIDATE** · canonical validation handoff `sfia/review-handoff` @ `e70a0615f68973079b2c5a9bb94e326842f9bfea` / blob `f3e9af22c95543ca82316c9c2fdeaaa0e99bcf18` · P1/P2/P3 = **CLOSED / INTEGRATED** · **P4 INTEGRATED = NO** · **P4 CLOSED = NO** · **P5 = NOT AUTHORIZED / NOT STARTED** (Entry Contract DEFINED ≠ AUTHORIZED) · READY FOR REAL = **NO** · runtime v3 = **NON ADOPTED** · TARGET routing architecture = **VALIDATED IN P4** · production router IMPLEMENTED/PROVEN = **NO** · REAL routing PROVEN = **NO** · Project Git integration = **NOT AUTHORIZED IN THIS RUN** · branche `docs/sfia-studio-chat-first-product-simplification-p4-semantic-projection-cognitive-architecture` · base `origin/main` @ `e19f89409a5eb717838b9d7bffdc8c3d2ee02b18` · next = **ChatGPT review of validation materialization + Roadmap truth-sync** → **DISTINCT Morris P4 Git Integration gate** (commit/push/PR) → PR review → DISTINCT merge gate → post-merge → P4 closure qualification → requalify → DISTINCT GO P5 · **≠** P4 INTEGRATED · **≠** P4 CLOSED · **≠** P5 AUTHORIZED · **≠** READY FOR REAL · **≠** runtime v3 ADOPTED · **≠** project commit/push/PR/merge this pass · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT / `origin/main` / PR evidence** |
+| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P3 POST-MERGE VERIFICATION & CLOSURE** | 2026-10-04 21:38:00 +0200 — **STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P3 POST-MERGE VERIFICATION & CLOSURE COMPLETE AS LOCAL CANDIDATE — READY FOR MORRIS P3 CLOSURE PATCH MERGE GATE** · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **14 — Post-merge** · Milestone **P3 — WORKSPACE / INTERACTION ARCHITECTURE** · Pass **POST-MERGE VERIFICATION & CLOSURE** · CRITICAL · EVOL/DOC · PR **#550 MERGED** · merge `b5fd3b546e355ed8af3303de670b90332cd8f8b9` · parents `e99d9ad5…` + `53d7d55c…` · P3 = **VALIDATED BY MORRIS** + **INTEGRATED ON MAIN** + **POST-MERGE VERIFIED** + **CLOSED** · post-merge SFIA Studio CI run **#668** / `37227837199` = **SUCCESS** · Detect / Build / **Required Gate** = **SUCCESS** · **FCR-P3-01 CLOSED** · **FCR-P3-02 CLOSED** · **FCR-P3-03 CLOSED** · **FCR-P3-04 CLOSED** · P3 Exit Proof = **SATISFIED** · P3→P4 Input Contract = **PRESERVED** · Pixel-Perfect Fidelity Contract = **PRESERVED** · **P4 NOT AUTHORIZED** · P4 STARTED = **NO** · READY FOR REAL = **NO** · runtime v3 = **NON ADOPTED** · **ZERO REAL** · PIXEL-PERFECT RUNTIME PROVEN = **NO** · FIGMA-TO-RUNTIME ALIGNMENT PROVEN = **NO** · document = `projects/sfia-studio/product-simplification/03-chat-first-product-simplification-workspace-interaction-architecture.md` · branche de clôture `docs/sfia-studio-chat-first-product-simplification-p3-post-merge-closure` · base `origin/main` @ `b5fd3b546e355ed8af3303de670b90332cd8f8b9` · entry handoff git-integration `2992938afcc8290bb9cd51762f9a164e7fafddbc` · next = **P4 REQUALIFICATION → Morris GO P4 distinct** · **≠** P4 AUTHORIZED · **≠** P4 STARTED · **≠** closure-patch merge this pass · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT / `origin/main` / PR evidence** |
+```
+
+### Living CURRENT blocks (extract)
+
+```markdown
+  → P4 — **GLOBAL VALIDATED BY MORRIS** (2026-10-05) · document VALIDATED DOCUMENTARY CANDIDATE · **NOT INTEGRATED** · **NOT CLOSED**
+  → CURRENT NEXT CAPABILITY — **P4 Git integration / post-merge / closure** then **P5 Integrated Delivery** under DISTINCT Morris GO · P5 Entry Contract **DEFINED** by validated P4 · P5 **NOT AUTHORIZED / NOT STARTED**
+  → CURRENT STRUCTURAL STEP — STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P4 GLOBAL VALIDATED BY MORRIS — VALIDATION MATERIALIZATION / ROADMAP TRUTH-SYNC LOCAL CANDIDATE · P1/P2/P3 CLOSED · P4 architecture/document globally validated · P4 **≠** integrated · P4 **≠** closed · P5 Entry Contract defined · P5 **≠** authorized · TARGET routing architecture validated in P4 · production router **NOT IMPLEMENTED/PROVEN** · REAL **≠** authorized · runtime v3 **NON ADOPTED** · next = ChatGPT review of this truth-sync → DISTINCT Morris P4 Git Integration gate
+  → DYNAMIC PRODUCT TRAJECTORY — requalify after each capability *(method invariant)*
 
 ---
 
-## I. COMPLETE CORRECTED P4 DOCUMENT
+
+CURRENT SIMPLIFICATION TRAJECTORY (living — P4 GLOBAL VALIDATED · P5 NOT AUTHORIZED):
+  Axes: (1) Product Interaction Simplification · (2) HumanDecision Materiality · (3) Cognitive Reliability / Adaptive Model & Reasoning Strategy · (4) Chat-first Operating / Workspace / Semantic Architecture trajectory
+  P1 Cadrage — VALIDATED / INTEGRATED / POST-MERGE VERIFIED / CLOSED (PR #548 / merge `642a10c8…`)
+  → P2 Functional Operating Model — VALIDATED / INTEGRATED / POST-MERGE VERIFIED / CLOSED (PR #549 / merge `e99d9ad5…`)
+  → P3 Workspace / Interaction Architecture — VALIDATED / INTEGRATED / POST-MERGE VERIFIED / CLOSED (PR #550 + closure #551 / main `e19f8940…`)
+  → P4 Semantic / Projection / Cognitive Architecture — GLOBAL VALIDATED BY MORRIS · NOT YET INTEGRATED · NOT CLOSED · validation-materialization / Roadmap truth-sync LOCAL CANDIDATE
+  → P5 Integrated Delivery — TARGET NEXT DELIVERY CAPABILITY · Entry Contract DEFINED by validated P4 · **NOT AUTHORIZED** · **NOT STARTED**
+  → P6 Global Integrated Product QA — NOT AUTHORIZED
+  → P7 Fresh Project End-to-End Product Replay — NOT AUTHORIZED · Project NOT SELECTED
+  → P8 Requalification — NOT AUTHORIZED
+  TARGET routing architecture — VALIDATED IN P4 (Strategy-first bounded · GPT-6 Luna / GPT-6.1 Sol / GPT-6 Astra · GPT-5.6 exits nominal TARGET) · exact production workload→model/effort mapping = implementation/evidence subject
+  Production router IMPLEMENTED / REAL routing PROVEN — **NO**
+  Trajectory-significant P4 conclusions (detail owned by P4 doc): one Product world · P3-capable frontend convergence · no new DS stack by default · deterministic NO-LLM path · object-native projections · Synthesis derived projection target · Deliverable ≠ Artifact · REAL-FIRST begins in P5 when separately authorized · PIB / Net Complexity part of Product Simplification success · no parallel architecture
+  → OPTIONAL CKC lessons → v2.6 capitalization — DISTINCT METHOD GATE — NOT DECIDED
+
+M4 ARCHITECTURE GATE: CLOSED (D-M4-01→05)
+M4 DELIVERY GATE: CLOSED / MERGED (PR #344)
+FIRST REAL GATE: CONSUMED / HISTORICAL — PARTIAL (launch only)
+TIMEOUT DIAGNOSIS: COMPLETE WITH RESERVES
+PRE-REPROOF BOUNDING: MERGED (PR #346)
+M4 GOVERNED REAL COMPLETION PROOF: CONSUMED / PASS
+M4 EXIT PROOF: ACCEPTED BY MORRIS — SATISFIED
+M4: CLOSED
+GATE D: IMPLEMENTED — consumed once per historical governed REAL — fresh grant required for future REAL
+CRITICAL ACK: DEFERRED FOR FIRST RO — FUTURE N2/N3 / IAM — NOT PROMOTED
+
+---
+
+HISTORICAL / SUPERSEDED (P2 CP01 living tip): CURRENT MORRIS GATE was CHATGPT CLOSURE REVIEW CHECKPOINT 01 *(true then)*
+CURRENT STRUCTURAL STEP: STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P4 GLOBAL VALIDATED BY MORRIS — VALIDATION MATERIALIZATION / ROADMAP TRUTH-SYNC LOCAL CANDIDATE — P1/P2/P3 CLOSED — P4 architecture/document globally validated — P4 NOT INTEGRATED — P4 NOT CLOSED — P5 Entry Contract DEFINED — P5 NOT AUTHORIZED / NOT STARTED — TARGET routing architecture VALIDATED IN P4 — production router NOT IMPLEMENTED/PROVEN — REAL NOT AUTHORIZED — runtime v3 NON ADOPTED — READY FOR REAL NO
+CURRENT MORRIS GATE: ChatGPT review of P4 validation materialization + Roadmap truth-sync → if PASS DISTINCT MORRIS P4 GIT INTEGRATION AUTHORIZATION (commit/push/PR) → PR review → DISTINCT merge gate → post-merge → P4 closure qualification → requalify → DISTINCT GO P5 · ≠ P4 INTEGRATED · ≠ P4 CLOSED · ≠ P5 AUTHORIZED · ≠ READY FOR REAL · ≠ runtime v3 ADOPTED · ≠ production router proven
+M6 / M7: HISTORICAL MILESTONES — SUPERSEDED / ABSORBED BY PRODUCT COMPLETION — traces conservées
+
+---
+
+CURRENT STRUCTURAL STEP: STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P4 GLOBAL VALIDATED BY MORRIS — VALIDATION MATERIALIZATION / ROADMAP TRUTH-SYNC LOCAL CANDIDATE — P1/P2/P3 CLOSED — P4 architecture/document globally validated — P4 NOT INTEGRATED — P4 NOT CLOSED — P5 Entry Contract DEFINED — P5 NOT AUTHORIZED / NOT STARTED — TARGET routing architecture VALIDATED IN P4 — production router NOT IMPLEMENTED/PROVEN — REAL NOT AUTHORIZED — runtime v3 NON ADOPTED — READY FOR REAL NO
+CURRENT MORRIS GATE: ChatGPT review of P4 validation materialization + Roadmap truth-sync → if PASS DISTINCT MORRIS P4 GIT INTEGRATION AUTHORIZATION (commit/push/PR) → PR review → DISTINCT merge gate → post-merge → P4 closure qualification → requalify → DISTINCT GO P5 · ≠ P4 INTEGRATED · ≠ P4 CLOSED · ≠ P5 AUTHORIZED · ≠ READY FOR REAL · ≠ runtime v3 ADOPTED · ≠ production router proven
+M6 / M7: HISTORICAL MILESTONES — SUPERSEDED / ABSORBED BY PRODUCT COMPLETION — traces conservées
+CKC COVERAGE: corpus Studio-native INTEGRATED · Phase A package-bound INTEGRATED via W1 · Phase B ≠ complete · `15` non structurel
+
+---
+
+HISTORICAL / SUPERSEDED (repeat tip): CURRENT STRUCTURAL STEP was P2 CHECKPOINT 01 CORRECTION PASS 01 COMPLETE — P2 NOT VALIDATED — P3→P8 NOT AUTHORIZED — production routing NOT SELECTED *(true then)*
+CURRENT STRUCTURAL STEP (repeat for local block coherence): STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P4 GLOBAL VALIDATED BY MORRIS — VALIDATION MATERIALIZATION / ROADMAP TRUTH-SYNC LOCAL CANDIDATE — P1/P2/P3 CLOSED — P4 VALIDATED / NOT INTEGRATED / NOT CLOSED — P5 NOT AUTHORIZED — TARGET routing VALIDATED IN P4 — production router NOT PROVEN — runtime v3 NON ADOPTED
+M6 / M7: HISTORICAL / SUPERSEDED / ABSORBED — not forward milestones
+CKC COVERAGE: catalogue applicable evolvable — Phase A integrated · Phase B downstream — current 15-type baseline is a measure, not a structural invariant
+
+---
+
+- HISTORICAL / SUPERSEDED (living tip): CURRENT STRUCTURAL STEP was P2 CHECKPOINT 01 CORRECTION PASS 01 COMPLETE · P2 AUTHORIZED/IN PROGRESS · P2 NOT VALIDATED · P3→P8 NOT AUTHORIZED · production model routing NOT SELECTED · Pilot–Nora–Studio technical architecture NOT ADOPTED *(true then)*
+- CURRENT STRUCTURAL STEP (living tip): **STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P4 GLOBAL VALIDATED BY MORRIS — VALIDATION MATERIALIZATION / ROADMAP TRUTH-SYNC LOCAL CANDIDATE** · P1/P2/P3 **CLOSED** · P4 **GLOBAL VALIDATED** · P4 **NOT INTEGRATED** · P4 **NOT CLOSED** · P5 Entry Contract **DEFINED** · P5 **NOT AUTHORIZED / NOT STARTED** · TARGET routing architecture **VALIDATED IN P4** · production router **NOT IMPLEMENTED/PROVEN** · REAL **NOT AUTHORIZED** · runtime v3 **NON ADOPTED** · READY FOR REAL **NO** · document `product-simplification/04-chat-first-product-simplification-semantic-projection-cognitive-architecture.md` · next = **ChatGPT review of truth-sync** → **DISTINCT Morris P4 Git Integration gate**
+- D-PRE-M6-UX-05 : Freeze `uUdLBElF2B4dOefaAYt4QY` · handoff `69106c82024158889f77e9d31508a222ea5f3a0f` / blob `3593ddbdc286cd244790f0ca1d2c421128202c5c` · **ADOPTED AS PRE-M6 VISUAL REFERENCE ON MAIN**
+- CKC coverage : current **4/15** detailed pilots + **11/15** synthetic fallback · target = 100 % du catalogue applicable · `15` non structurel · optional later v2.6 capitalization under distinct method gate
+```
+
+### Full Roadmap git diff
+
+```diff
+diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+index 73e1402b..aff23e02 100644
+--- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
++++ b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+@@ -4,6 +4,7 @@
+ | --- | --- |
+ | **Rôle** | Roadmap **vivante** de convergence vers l’utilisation complète de la doctrine produit SFIA Studio v3 |
+ | **Statut** | **VALIDATED — ACTIVE LIVING ROADMAP** |
++| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P4 GLOBAL VALIDATION MATERIALIZATION + ROADMAP TRUTH-SYNC** | 2026-10-05 01:54:17 +0200 — **STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P4 GLOBAL VALIDATED BY MORRIS — VALIDATION MATERIALIZATION + ROADMAP TRUTH-SYNC LOCAL CANDIDATE** · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **15 — Capitalisation / REX** · Milestone **P4 — SEMANTIC / PROJECTION / COGNITIVE ARCHITECTURE / TECHNICAL DELTA** · Pass **GLOBAL VALIDATION MATERIALIZATION + ROADMAP TRUTH-SYNC** · CRITICAL · EVOL/DOC · Morris 2026-10-05 Europe/Paris = **P4 GLOBAL VALIDATED BY MORRIS = YES** · ChatGPT Final Targeted Coherence Verification = **PASS — P4 READY FOR MORRIS GLOBAL VALIDATION** · C1–C9 = **PASS** · MC1–MC4 = **PASS** · A–E = **PASS** · WP1–WP5 = **PASS / INCLUDED IN GLOBAL P4 VALIDATION** · document = `projects/sfia-studio/product-simplification/04-chat-first-product-simplification-semantic-projection-cognitive-architecture.md` = **VALIDATED DOCUMENTARY CANDIDATE** · canonical validation handoff `sfia/review-handoff` @ `e70a0615f68973079b2c5a9bb94e326842f9bfea` / blob `f3e9af22c95543ca82316c9c2fdeaaa0e99bcf18` · P1/P2/P3 = **CLOSED / INTEGRATED** · **P4 INTEGRATED = NO** · **P4 CLOSED = NO** · **P5 = NOT AUTHORIZED / NOT STARTED** (Entry Contract DEFINED ≠ AUTHORIZED) · READY FOR REAL = **NO** · runtime v3 = **NON ADOPTED** · TARGET routing architecture = **VALIDATED IN P4** · production router IMPLEMENTED/PROVEN = **NO** · REAL routing PROVEN = **NO** · Project Git integration = **NOT AUTHORIZED IN THIS RUN** · branche `docs/sfia-studio-chat-first-product-simplification-p4-semantic-projection-cognitive-architecture` · base `origin/main` @ `e19f89409a5eb717838b9d7bffdc8c3d2ee02b18` · next = **ChatGPT review of validation materialization + Roadmap truth-sync** → **DISTINCT Morris P4 Git Integration gate** (commit/push/PR) → PR review → DISTINCT merge gate → post-merge → P4 closure qualification → requalify → DISTINCT GO P5 · **≠** P4 INTEGRATED · **≠** P4 CLOSED · **≠** P5 AUTHORIZED · **≠** READY FOR REAL · **≠** runtime v3 ADOPTED · **≠** project commit/push/PR/merge this pass · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT / `origin/main` / PR evidence** |
+ | **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P3 POST-MERGE VERIFICATION & CLOSURE** | 2026-10-04 21:38:00 +0200 — **STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P3 POST-MERGE VERIFICATION & CLOSURE COMPLETE AS LOCAL CANDIDATE — READY FOR MORRIS P3 CLOSURE PATCH MERGE GATE** · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **14 — Post-merge** · Milestone **P3 — WORKSPACE / INTERACTION ARCHITECTURE** · Pass **POST-MERGE VERIFICATION & CLOSURE** · CRITICAL · EVOL/DOC · PR **#550 MERGED** · merge `b5fd3b546e355ed8af3303de670b90332cd8f8b9` · parents `e99d9ad5…` + `53d7d55c…` · P3 = **VALIDATED BY MORRIS** + **INTEGRATED ON MAIN** + **POST-MERGE VERIFIED** + **CLOSED** · post-merge SFIA Studio CI run **#668** / `37227837199` = **SUCCESS** · Detect / Build / **Required Gate** = **SUCCESS** · **FCR-P3-01 CLOSED** · **FCR-P3-02 CLOSED** · **FCR-P3-03 CLOSED** · **FCR-P3-04 CLOSED** · P3 Exit Proof = **SATISFIED** · P3→P4 Input Contract = **PRESERVED** · Pixel-Perfect Fidelity Contract = **PRESERVED** · **P4 NOT AUTHORIZED** · P4 STARTED = **NO** · READY FOR REAL = **NO** · runtime v3 = **NON ADOPTED** · **ZERO REAL** · PIXEL-PERFECT RUNTIME PROVEN = **NO** · FIGMA-TO-RUNTIME ALIGNMENT PROVEN = **NO** · document = `projects/sfia-studio/product-simplification/03-chat-first-product-simplification-workspace-interaction-architecture.md` · branche de clôture `docs/sfia-studio-chat-first-product-simplification-p3-post-merge-closure` · base `origin/main` @ `b5fd3b546e355ed8af3303de670b90332cd8f8b9` · entry handoff git-integration `2992938afcc8290bb9cd51762f9a164e7fafddbc` · next = **P4 REQUALIFICATION → Morris GO P4 distinct** · **≠** P4 AUTHORIZED · **≠** P4 STARTED · **≠** closure-patch merge this pass · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT / `origin/main` / PR evidence** |
+ | **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P3 FINAL GIT INTEGRATION PRE-MERGE** | 2026-10-04 21:04:00 +0200 — **STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P3 GLOBAL VALIDATED BY MORRIS — FINAL GIT INTEGRATION PRE-MERGE AUTHORIZED / IN PROGRESS** · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **13 — PR Readiness / Git Integration** · Milestone **P3 — WORKSPACE / INTERACTION ARCHITECTURE** · Pass **FINAL GIT INTEGRATION PRE-MERGE** · CRITICAL · EVOL/DOC · ChatGPT Closure Review P3 = **PASS — READY FOR MORRIS P3 GLOBAL VALIDATION GATE** · Morris 2026-10-04 = **P3 GLOBAL VALIDATED BY MORRIS = YES** · **FCR-P3-01 CLOSED** · **FCR-P3-02 CLOSED** · **FCR-P3-03 CLOSED** · **FCR-P3-04 CLOSED** · document = **VALIDATED BY MORRIS** · **NOT INTEGRATED** · Git integration = **AUTHORIZED FOR COMMIT / PUSH / PR** · PR = **NOT YET CREATED** at tip write · Merge = **NOT AUTHORIZED** · **P4 NOT AUTHORIZED** · READY FOR REAL = **NO** · runtime v3 = **NON ADOPTED** · **ZERO REAL** · PIXEL-PERFECT RUNTIME PROVEN = **NO** · FIGMA-TO-RUNTIME ALIGNMENT PROVEN = **NO** · document = `projects/sfia-studio/product-simplification/03-chat-first-product-simplification-workspace-interaction-architecture.md` · branche `docs/sfia-studio-chat-first-product-simplification-p3-workspace-interaction-architecture` · base `origin/main` @ `e99d9ad5cc7011e414b00006e88ac33e11b5ce87` · entry handoff Closure Review `f7e318cb45bc07ee4637e665b60c1f707d1dc864` · next = **PR review → Morris merge gate → merge → post-merge → requalification P4 → GO P4 distinct** · **≠** P3 INTEGRATED · **≠** P3 CLOSED · **≠** P4 AUTHORIZED · **≠** merge authorized · **≠** project merge this pass · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT / `origin/main` / PR evidence** |
+ | **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P3 FINAL CRITICAL REVIEW TARGETED CORRECTION PASS 01** | 2026-10-04 20:55:23 +0200 — **STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P3 FINAL CRITICAL REVIEW TARGETED CORRECTION PASS 01 COMPLETE AS LOCAL CANDIDATE — READY FOR CHATGPT CLOSURE REVIEW P3** · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **4 — UX/UI** · Milestone **P3 — WORKSPACE / INTERACTION ARCHITECTURE** · Pass **FINAL CRITICAL REVIEW — TARGETED CORRECTION PASS 01** · CRITICAL · EVOL/DOC · ChatGPT Final Critical Review P3 #1 = **NOT READY — TARGETED CORRECTION REQUIRED** [historical] · Morris 2026-10-04 = **FCR-P3-01/02/03/04 APPROVED FOR CORRECTION** (incl. Pixel-Perfect Fidelity Contract) · **FCR-P3-01 CLOSED** (authority-by-domain · CURRENT vs TARGET) · **FCR-P3-02 CLOSED** (4 P4 mandatory structural work products named, unresolved) · **FCR-P3-03 CLOSED** (review pack reset · trailing whitespace clean · git diff --check PASS · report=evidence · `.tmp` tracked debt HORS SCOPE) · **FCR-P3-04 CLOSED** (Figma→Runtime Visual Fidelity Contract · pixel-perfect · no intentional visual deviation · canonical frames · Visual Fidelity Gate) · P3 Design = materially complete · Figma = **READ ONLY** · document = **LOCAL CANDIDATE** · P3 GLOBAL = **NOT VALIDATED** · Git integration = **NOT AUTHORIZED** · **P4 NOT AUTHORIZED** · READY FOR REAL = **NO** · runtime v3 = **NON ADOPTED** · **ZERO REAL** · PIXEL-PERFECT RUNTIME PROVEN = **NO** · FIGMA-TO-RUNTIME ALIGNMENT PROVEN = **NO** · document = `projects/sfia-studio/product-simplification/03-chat-first-product-simplification-workspace-interaction-architecture.md` · branche `docs/sfia-studio-chat-first-product-simplification-p3-workspace-interaction-architecture` · base `origin/main` @ `e99d9ad5cc7011e414b00006e88ac33e11b5ce87` · entry handoff `abe0c05e938ac8c2864ef9546681975d9a250542` / blob `d2d65b6efd57ac89e55d31cd0a66b14fc5d987a2` · next = **CHATGPT CLOSURE REVIEW P3** · **≠** P3 VALIDATED · **≠** P4 AUTHORIZED · **≠** project commit/push/PR/merge · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT / `origin/main` / PR evidence** |
+@@ -960,24 +961,28 @@ CRITICAL PATH:
+   → **D-SIMP-06 CONSUMED** — AUTHORIZE STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION P2 — FUNCTIONAL OPERATING MODEL
+   → **D-SIMP-07 CONSUMED** — VALIDATE P2 GUIDED REVIEW SECTIONS 1–11 AND AUTHORIZE CHECKPOINT 01 CONSOLIDATION · **P2-D-01/02/03 ADOPTED**
+   → **D-SIMP-08 CONSUMED** — AUTHORIZE P2 CHECKPOINT 01 TARGETED CORRECTION PASS AFTER CRITICAL REVIEW · four findings + two cleanups **CORRECTED**
+-  → CURRENT NEXT CAPABILITY — **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 Cycle 2 P2 FUNCTIONAL OPERATING MODEL** — CHECKPOINT 01 CORRECTION PASS 01 **COMPLETE** · READY FOR **CHATGPT CLOSURE REVIEW CHECKPOINT 01** · §§12–22 **PENDING** · document `product-simplification/02-chat-first-product-simplification-functional-operating-model.md` · P2 **AUTHORIZED / IN PROGRESS** · P2 **NOT VALIDATED** · **≠** P3 authorized · production routing **NOT SELECTED** · GE **PR #542 MERGED ON MAIN**
+-  → CURRENT STRUCTURAL STEP — STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P2 CHECKPOINT 01 TARGETED CORRECTION PASS 01 COMPLETE · D-SIMP-01…08 CONSUMED · P2-D-01/02/03 ADOPTED (unchanged) · C1 CLOSED/INTEGRATED · §§12–22 PENDING GUIDED REVIEW · Workspace redesign = P3 · Pilot–Nora–Studio semantic = P4 target · Generic orchestration **CANDIDATE** · **≠** Delivery · **≠** REAL · **≠** runtime v3 adoption · production routing **NOT SELECTED** · next = **CHATGPT CLOSURE REVIEW CHECKPOINT 01** → Guided Review §12 if PASS
++  → HISTORICAL / SUPERSEDED (P2 CP01 tip) — NEXT CAPABILITY was P2 Closure Review CP01 / §§12–22 PENDING · P2 NOT VALIDATED · P3 NOT AUTHORIZED · production routing NOT SELECTED *(true then)*
++  → HISTORICAL / SUPERSEDED (P2 CP01 tip) — STRUCTURAL STEP was P2 CHECKPOINT 01 CORRECTION PASS 01 COMPLETE *(true then)*
++  → P2 — **VALIDATED BY MORRIS + INTEGRATED ON MAIN + POST-MERGE VERIFIED + CLOSED** (PR **#549** / merge `e99d9ad5…`)
++  → P3 — **VALIDATED BY MORRIS + INTEGRATED ON MAIN + POST-MERGE VERIFIED + CLOSED** (PR **#550** + closure **#551** / main `e19f8940…`)
++  → P4 — **GLOBAL VALIDATED BY MORRIS** (2026-10-05) · document VALIDATED DOCUMENTARY CANDIDATE · **NOT INTEGRATED** · **NOT CLOSED**
++  → CURRENT NEXT CAPABILITY — **P4 Git integration / post-merge / closure** then **P5 Integrated Delivery** under DISTINCT Morris GO · P5 Entry Contract **DEFINED** by validated P4 · P5 **NOT AUTHORIZED / NOT STARTED**
++  → CURRENT STRUCTURAL STEP — STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P4 GLOBAL VALIDATED BY MORRIS — VALIDATION MATERIALIZATION / ROADMAP TRUTH-SYNC LOCAL CANDIDATE · P1/P2/P3 CLOSED · P4 architecture/document globally validated · P4 **≠** integrated · P4 **≠** closed · P5 Entry Contract defined · P5 **≠** authorized · TARGET routing architecture validated in P4 · production router **NOT IMPLEMENTED/PROVEN** · REAL **≠** authorized · runtime v3 **NON ADOPTED** · next = ChatGPT review of this truth-sync → DISTINCT Morris P4 Git Integration gate
+   → DYNAMIC PRODUCT TRAJECTORY — requalify after each capability *(method invariant)*
+
+-CURRENT SIMPLIFICATION TRAJECTORY (D-SIMP-01…08 CONSUMED — P3→P8 NOT YET AUTHORIZED):
++CURRENT SIMPLIFICATION TRAJECTORY (living — P4 GLOBAL VALIDATED · P5 NOT AUTHORIZED):
+   Axes: (1) Product Interaction Simplification · (2) HumanDecision Materiality · (3) Cognitive Reliability / Adaptive Model & Reasoning Strategy · (4) Chat-first Operating / Workspace / Semantic Architecture trajectory
+-  P1 Cadrage — VALIDATED BY MORRIS · INTEGRATED ON MAIN · POST-MERGE VERIFIED · CLOSED (PR #548 / merge `642a10c8…`)
+-  → P2 Functional Operating Model — AUTHORIZED / IN PROGRESS — CHECKPOINT 01 CORRECTION PASS 01 COMPLETE · P2-D-01/02/03 ADOPTED · READY FOR CLOSURE REVIEW CP01 · §§12–22 PENDING · NOT VALIDATED
+-  → P3 Chat-first Workspace & Interaction Architecture — NOT AUTHORIZED
+-  → P4 Technical Architecture Delta / Pilot–Nora–Studio Semantic Architecture — NOT AUTHORIZED · TARGET CONCERN ONLY
+-  → P5 Delivery — NOT AUTHORIZED
++  P1 Cadrage — VALIDATED / INTEGRATED / POST-MERGE VERIFIED / CLOSED (PR #548 / merge `642a10c8…`)
++  → P2 Functional Operating Model — VALIDATED / INTEGRATED / POST-MERGE VERIFIED / CLOSED (PR #549 / merge `e99d9ad5…`)
++  → P3 Workspace / Interaction Architecture — VALIDATED / INTEGRATED / POST-MERGE VERIFIED / CLOSED (PR #550 + closure #551 / main `e19f8940…`)
++  → P4 Semantic / Projection / Cognitive Architecture — GLOBAL VALIDATED BY MORRIS · NOT YET INTEGRATED · NOT CLOSED · validation-materialization / Roadmap truth-sync LOCAL CANDIDATE
++  → P5 Integrated Delivery — TARGET NEXT DELIVERY CAPABILITY · Entry Contract DEFINED by validated P4 · **NOT AUTHORIZED** · **NOT STARTED**
+   → P6 Global Integrated Product QA — NOT AUTHORIZED
+-  → P7 Fresh Project End-to-End Product Replay — NOT AUTHORIZED · Project NOT SELECTED · ≠ HabitFlow default
++  → P7 Fresh Project End-to-End Product Replay — NOT AUTHORIZED · Project NOT SELECTED
+   → P8 Requalification — NOT AUTHORIZED
+-  Production model routing — NOT SELECTED · Cognitive mapping — CANDIDATE / EVAL REQUIRED · CW0–CW3 (≠ Cycle 1/2) · Nora trajectory 08 — KEEP/HARVEST/ADAPT
+-  Generic Execution → Review → Result — PR #542 MERGED ON MAIN · KEEP + GLOBAL ARCHITECTURAL PATTERN CANDIDATE for P2/P4 · residual seams = P4 AUDIT INPUT · ≠ adopted global architecture
+-  Guided Document Review — REPRESENTATIVE CANDIDATE NORA WORKLOAD FOR P2/P6 · parity NOT PROVEN · ≠ full P6 scope
+-  Cycle Journal / Memory — KEEP/HARVEST/ADAPT CORE · derived / non-authoritative · Pilot orientation + Nora/Studio bounded context
++  TARGET routing architecture — VALIDATED IN P4 (Strategy-first bounded · GPT-6 Luna / GPT-6.1 Sol / GPT-6 Astra · GPT-5.6 exits nominal TARGET) · exact production workload→model/effort mapping = implementation/evidence subject
++  Production router IMPLEMENTED / REAL routing PROVEN — **NO**
++  Trajectory-significant P4 conclusions (detail owned by P4 doc): one Product world · P3-capable frontend convergence · no new DS stack by default · deterministic NO-LLM path · object-native projections · Synthesis derived projection target · Deliverable ≠ Artifact · REAL-FIRST begins in P5 when separately authorized · PIB / Net Complexity part of Product Simplification success · no parallel architecture
+   → OPTIONAL CKC lessons → v2.6 capitalization — DISTINCT METHOD GATE — NOT DECIDED
+
+ M4 ARCHITECTURE GATE: CLOSED (D-M4-01→05)
+@@ -1016,9 +1021,11 @@ FINOPS/T7: FREEZE — D-W2-CI-FINOPS-FREEZE-01 ADOPTED — T7-C04 DEFERRED — N
+ HISTORICAL / CONSUMED (W2-era tip): NEXT REPO GATE was ROADMAP W2-G3 POST-MERGE TRUTH-SYNC GIT INTEGRATION — later CONSUMED
+ HISTORICAL / CONSUMED (W2-era tip): NEXT PRODUCT GATE was TRACK D / BOUNDED CKC PHASE B QUALIFICATION → GO PHASE B — later CONSUMED (PR #403) · W2 later CLOSED BY MORRIS
+ HISTORICAL / CONSUMED (W2-era tip): NEXT CONVERGENCE CAPABILITY was W2 TRACK D / BOUNDED CKC PHASE B — GO PHASE B NOT CONSUMED *(true then)*
+-CURRENT STRUCTURAL STEP: STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P2 CHECKPOINT 01 TARGETED CORRECTION PASS 01 COMPLETE — D-SIMP-01…08 CONSUMED — P2-D-01/02/03 ADOPTED (unchanged) — C1 VALIDATED/INTEGRATED/CLOSED (PR #548 / merge `642a10c8…`) — P2 AUTHORIZED/IN PROGRESS — P2 NOT VALIDATED — READY FOR CHATGPT CLOSURE REVIEW CHECKPOINT 01 — §§12–22 PENDING GUIDED REVIEW — P3→P8 / Delivery / REAL NOT AUTHORIZED — production model routing NOT SELECTED — Generic orchestration CANDIDATE — Pilot–Nora–Studio semantic TARGET FOR P4 — runtime v3 NON ADOPTED
++HISTORICAL / SUPERSEDED (P2 CP01 living tip): CURRENT STRUCTURAL STEP was P2 CHECKPOINT 01 CORRECTION PASS 01 COMPLETE — P2 AUTHORIZED/IN PROGRESS — P2 NOT VALIDATED — P3→P8 NOT AUTHORIZED — production model routing NOT SELECTED — Pilot–Nora–Studio semantic TARGET FOR P4 *(true then)*
+ HISTORICAL / CONSUMED / SUPERSEDED: NEXT MORRIS GATE AFTER REQUALIFICATION was "selection / authorization of a future Studio capability — NOT STARTED" — SUPERSEDED by D-SIMP-01 (capability selected = Product Simplification C1)
+-CURRENT MORRIS GATE: CHATGPT CLOSURE REVIEW CHECKPOINT 01 → if PASS Guided Review resumes §12 · ≠ P2 VALIDATED · ≠ P3 AUTHORIZED · ≠ Delivery · ≠ READY FOR REAL · ≠ runtime v3 ADOPTED · ≠ production model routing SELECTED
++HISTORICAL / SUPERSEDED (P2 CP01 living tip): CURRENT MORRIS GATE was CHATGPT CLOSURE REVIEW CHECKPOINT 01 *(true then)*
++CURRENT STRUCTURAL STEP: STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P4 GLOBAL VALIDATED BY MORRIS — VALIDATION MATERIALIZATION / ROADMAP TRUTH-SYNC LOCAL CANDIDATE — P1/P2/P3 CLOSED — P4 architecture/document globally validated — P4 NOT INTEGRATED — P4 NOT CLOSED — P5 Entry Contract DEFINED — P5 NOT AUTHORIZED / NOT STARTED — TARGET routing architecture VALIDATED IN P4 — production router NOT IMPLEMENTED/PROVEN — REAL NOT AUTHORIZED — runtime v3 NON ADOPTED — READY FOR REAL NO
++CURRENT MORRIS GATE: ChatGPT review of P4 validation materialization + Roadmap truth-sync → if PASS DISTINCT MORRIS P4 GIT INTEGRATION AUTHORIZATION (commit/push/PR) → PR review → DISTINCT merge gate → post-merge → P4 closure qualification → requalify → DISTINCT GO P5 · ≠ P4 INTEGRATED · ≠ P4 CLOSED · ≠ P5 AUTHORIZED · ≠ READY FOR REAL · ≠ runtime v3 ADOPTED · ≠ production router proven
+ M6 / M7: HISTORICAL MILESTONES — SUPERSEDED / ABSORBED BY PRODUCT COMPLETION — traces conservées
+ CKC COVERAGE: corpus Studio-native INTEGRATED · Phase A package-bound INTEGRATED via W1 · Phase B ≠ complete · `15` non structurel
+ CKC→V2.6 CAPITALIZATION: FUTURE OPTION — DISTINCT METHOD GATE — NOT DECIDED — Studio doctrine remains v3-exclusive
+@@ -1034,7 +1041,8 @@ OPTION A: ADOPTED BY MORRIS AS PRE-M6 UI DELIVERY SCOPE — SCOPE ADOPTED ≠ UI
+ MAJOR GAP TREATMENT: ADOPTED AS OPTION A SCOPE (F1 entry · nav · workspace · assistant · G-UX-08/09/10/11 · Confirmation · History · Recovery · responsive · visual reserves · M5-C separate) — dispositions ≠ implementation proof ≠ gaps closed
+ W1 ROADMAP REPOSITORY TRUTH: SATISFIED — PR #396 MERGED — PUSH/MAIN CI 32591909031 SUCCESS
+ HISTORICAL / CONSUMED (duplicate W2-era tip block): NEXT REPO GATE / NEXT PRODUCT GATE / NEXT CONVERGENCE CAPABILITY Track D Phase B — CONSUMED by PR #403 + W2 CLOSED + subsequent W3/W4/PC trajectory
+-CURRENT STRUCTURAL STEP (repeat for local block coherence): STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P2 CHECKPOINT 01 CORRECTION PASS 01 COMPLETE — READY FOR CLOSURE REVIEW CP01 — §§12–22 PENDING — P2 NOT VALIDATED — P3→P8 / Delivery / REAL NOT AUTHORIZED — production routing NOT SELECTED — Generic orchestration CANDIDATE — Pilot–Nora–Studio semantic TARGET FOR P4 — runtime v3 NON ADOPTED
++HISTORICAL / SUPERSEDED (repeat tip): CURRENT STRUCTURAL STEP was P2 CHECKPOINT 01 CORRECTION PASS 01 COMPLETE — P2 NOT VALIDATED — P3→P8 NOT AUTHORIZED — production routing NOT SELECTED *(true then)*
++CURRENT STRUCTURAL STEP (repeat for local block coherence): STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P4 GLOBAL VALIDATED BY MORRIS — VALIDATION MATERIALIZATION / ROADMAP TRUTH-SYNC LOCAL CANDIDATE — P1/P2/P3 CLOSED — P4 VALIDATED / NOT INTEGRATED / NOT CLOSED — P5 NOT AUTHORIZED — TARGET routing VALIDATED IN P4 — production router NOT PROVEN — runtime v3 NON ADOPTED
+ M6 / M7: HISTORICAL / SUPERSEDED / ABSORBED — not forward milestones
+ CKC COVERAGE: catalogue applicable evolvable — Phase A integrated · Phase B downstream — current 15-type baseline is a measure, not a structural invariant
+ CKC→V2.6 CAPITALIZATION: FUTURE OPTION — DISTINCT METHOD GATE — NOT DECIDED — Studio doctrine remains v3-exclusive
+@@ -1190,7 +1198,8 @@ Ne pas mettre à jour pour chaque micro-commit sans impact de trajectoire.
+ - HISTORICAL / CONSUMED (post-C1 tip): NEXT REPOSITORY GATE was **POST-MERGE REPO COHERENCE**
+ - HISTORICAL / CONSUMED (post-C1 tip): NEXT PRODUCT GATE was **POST-MERGE REPO COHERENCE → MORRIS GATE FOR C2 EXECUTION** *(later CONSUMED by C2 PR #369)*
+ - HISTORICAL / CONSUMED (post-C1 tip): NEXT CAPABILITY was **Cycle 2 — Conception fonctionnelle — RECOMMENDED / NOT AUTHORIZED** *(later VALIDATED / INTEGRATED)*
+-- CURRENT STRUCTURAL STEP (living tip): **STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P2 CHECKPOINT 01 TARGETED CORRECTION PASS 01 COMPLETE** · **D-SIMP-08 CONSUMED** · **P2-D-01/02/03 ADOPTED** (unchanged) · C1 **VALIDATED/INTEGRATED/CLOSED** (PR **#548**) · P2 **AUTHORIZED / IN PROGRESS** · P2 **NOT VALIDATED** · READY FOR **CHATGPT CLOSURE REVIEW CHECKPOINT 01** · §§12–22 **PENDING GUIDED REVIEW** · P3→P8 **NOT AUTHORIZED** · Delivery/REAL **NOT AUTHORIZED** · production model routing **NOT SELECTED** · Cognitive Completion **NOT PROVEN** · Canonical Orchestration Spine **CANDIDATE ONLY** · Pilot–Nora–Studio technical architecture **NOT ADOPTED** · runtime v3 **NON ADOPTED** · document `product-simplification/02-chat-first-product-simplification-functional-operating-model.md` · next = **CHATGPT CLOSURE REVIEW CHECKPOINT 01** → Guided Review §12 if PASS
++- HISTORICAL / SUPERSEDED (living tip): CURRENT STRUCTURAL STEP was P2 CHECKPOINT 01 CORRECTION PASS 01 COMPLETE · P2 AUTHORIZED/IN PROGRESS · P2 NOT VALIDATED · P3→P8 NOT AUTHORIZED · production model routing NOT SELECTED · Pilot–Nora–Studio technical architecture NOT ADOPTED *(true then)*
++- CURRENT STRUCTURAL STEP (living tip): **STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P4 GLOBAL VALIDATED BY MORRIS — VALIDATION MATERIALIZATION / ROADMAP TRUTH-SYNC LOCAL CANDIDATE** · P1/P2/P3 **CLOSED** · P4 **GLOBAL VALIDATED** · P4 **NOT INTEGRATED** · P4 **NOT CLOSED** · P5 Entry Contract **DEFINED** · P5 **NOT AUTHORIZED / NOT STARTED** · TARGET routing architecture **VALIDATED IN P4** · production router **NOT IMPLEMENTED/PROVEN** · REAL **NOT AUTHORIZED** · runtime v3 **NON ADOPTED** · READY FOR REAL **NO** · document `product-simplification/04-chat-first-product-simplification-semantic-projection-cognitive-architecture.md` · next = **ChatGPT review of truth-sync** → **DISTINCT Morris P4 Git Integration gate**
+ - D-PRE-M6-UX-05 : Freeze `uUdLBElF2B4dOefaAYt4QY` · handoff `69106c82024158889f77e9d31508a222ea5f3a0f` / blob `3593ddbdc286cd244790f0ca1d2c421128202c5c` · **ADOPTED AS PRE-M6 VISUAL REFERENCE ON MAIN**
+ - CKC coverage : current **4/15** detailed pilots + **11/15** synthetic fallback · target = 100 % du catalogue applicable · `15` non structurel · optional later v2.6 capitalization under distinct method gate
+ - Audit handoff historique : `sfia/review-handoff` @ `c5b417dc13fa3700787d28571e5b5abe0599ae98` / `31a5db07fba2555a59ee8c65ad76b537bbd8a73d`
+
+```
+
+---
+
+## J. Decisions Morris still required
+
+1. DISTINCT P4 Git Integration authorization (commit + push + PR) — after ChatGPT PASS on this pack
+2. DISTINCT Morris merge gate (later)
+3. P4 closure decision (later)
+4. DISTINCT GO P5 (later)
+
+---
+
+## K. Final verdict
+
+**READY FOR CHATGPT P4 VALIDATION MATERIALIZATION / ROADMAP TRUTH-SYNC REVIEW**
+
+Explicitly NOT: P4 INTEGRATED · P4 CLOSED · READY FOR COMMIT · READY FOR PR · P5 AUTHORIZED · READY FOR REAL · runtime v3 ADOPTED
+
+---
+
+## L. COMPLETE P4 DOCUMENT (validated materialization)
 
 Fichier: `projects/sfia-studio/product-simplification/04-chat-first-product-simplification-semantic-projection-cognitive-architecture.md`
-Lines: 1988
+Lines: 2005
 
 ```markdown
 # SFIA Studio — Chat-First Product Simplification — P4 Pilot–Nora–Studio Semantic, Projection & Cognitive Architecture / Technical Delta
@@ -191,7 +377,7 @@ Lines: 1988
 | **Base Git** | `origin/main` @ `e19f89409a5eb717838b9d7bffdc8c3d2ee02b18` (merge PR **#551** P3 post-merge closure) |
 | **Branche locale** | `docs/sfia-studio-chat-first-product-simplification-p4-semantic-projection-cognitive-architecture` |
 | **Worktree** | `/Users/morris/Projects/sfia-studio-chat-first-product-simplification-p3` |
-| **Statut P4** | **AUTHORIZED / STARTED** · substance architecturale **CONVERGED IN CHAT** · document = **DOCUMENTARY CANDIDATE** · **≠ GLOBAL VALIDATED** · **≠ INTEGRATED** · **≠ CLOSED** |
+| **Statut P4** | **GLOBAL VALIDATED BY MORRIS** (2026-10-05 Europe/Paris) · document = **VALIDATED DOCUMENTARY CANDIDATE** · **≠ INTEGRATED ON MAIN** · **≠ CLOSED** |
 | **Product Completion C1** | **VALIDATED / INTEGRATED / CLOSED** (macro Product Completion — distinct de Product Simplification) |
 | **Product Simplification P1** | **VALIDATED / INTEGRATED / CLOSED** — Cadrage Chat-First Product Simplification |
 | **P2** | **VALIDATED / INTEGRATED / CLOSED** (PR **#549**) |
@@ -200,13 +386,13 @@ Lines: 1988
 | **runtime v3** | **NON ADOPTED** |
 | **READY FOR REAL** | **NO** |
 | **Figma** | READ ONLY · contrat P3 préservé · **≠** mutation ce cycle |
-| **Roadmap Git tip** | peut encore porter « P4 NOT AUTHORIZED » — **snapshot historique** jusqu’à truth-sync distinct · **≠** annulation des décisions Morris P4 de ce contrat |
+| **Roadmap** | Truth-sync **LOCAL CANDIDATE** this pass · **≠** Roadmap integrated on main |
 | **Langue** | Français (identifiants Product / runtime préservés) |
 | **Fichier** | `projects/sfia-studio/product-simplification/04-chat-first-product-simplification-semantic-projection-cognitive-architecture.md` |
 | **Date** | 2026-10-05 · Europe/Paris |
-| **Correction Pass** | **01** COMPLETE/REVIEWED (C1–C9 PASS) · **02** COMPLETE (MC1–MC4 PASS) · **03** AUTONOMOUS REVIEW GAPS A–E · pending Final Targeted Coherence Verification |
+| **Review path** | C1–C9 PASS · MC1–MC4 PASS · A–E PASS · ChatGPT Final Targeted Coherence Verification = **PASS** · Morris Global Validation = **YES** · Pass = **VALIDATION MATERIALIZATION + ROADMAP TRUTH-SYNC** |
 
-> **Lecture rapide.** P4 = **comment** le monde Product défini par P1/P2/P3 est représenté, projeté, rendu current/durable/searchable et connecté à la cognition Nora — **sans** seconde vérité ni architecture parallèle. Cinq Work Products. Décisions Morris structurantes **consommées** (Synthèse → Product SQLite existant · router Strategy-first borné · cohort GPT-6 Luna / GPT-6.1 Sol / GPT-6 Astra · quality floor · escalation ≤1 · REAL-FIRST dès P5). Ce document = **CANDIDAT DOCUMENTAIRE**. **≠ P4 VALIDATED · ≠ P4 CLOSED · ≠ P5 AUTHORIZED · ≠ runtime v3 ADOPTED · ≠ code · ≠ Roadmap truth-sync.**
+> **Lecture rapide.** P4 = **comment** le monde Product défini par P1/P2/P3 est représenté, projeté, rendu current/durable/searchable et connecté à la cognition Nora — **sans** seconde vérité ni architecture parallèle. Cinq Work Products. **P4 GLOBAL VALIDATED BY MORRIS = YES** (2026-10-05). Document = **VALIDATED DOCUMENTARY CANDIDATE**. **≠ P4 INTEGRATED · ≠ P4 CLOSED · ≠ P5 AUTHORIZED · ≠ runtime v3 ADOPTED · ≠ READY FOR REAL · ≠ production router proven · ≠ code.**
 
 ---
 
@@ -222,25 +408,25 @@ Product Simplification P1 = VALIDATED / INTEGRATED / CLOSED
 P2 = VALIDATED / INTEGRATED / CLOSED          (PR #549)
 P3 = VALIDATED / INTEGRATED / POST-MERGE VERIFIED / CLOSED
      (PR #550 merge b5fd3b54… · closure PR #551 merge e19f8940…)
-P4 = AUTHORIZED / STARTED
-P4 documentary candidate = THIS FILE
-P4 GLOBAL VALIDATED BY MORRIS = NO
+P4 = GLOBAL VALIDATED BY MORRIS               (2026-10-05 Europe/Paris)
+P4 document = VALIDATED DOCUMENTARY CANDIDATE (THIS FILE)
 P4 INTEGRATED ON MAIN = NO
 P4 CLOSED = NO
 P5 = NOT AUTHORIZED / NOT STARTED
+  (Entry Contract DEFINED by validated P4 · DEFINED ≠ AUTHORIZED)
 runtime v3 = NON ADOPTED
 READY FOR REAL = NO
 ```
 
-### 1.2 Distinction Roadmap Git vs décisions Morris P4
+### 1.2 Roadmap truth-sync vs Git integration
 
 | Source | Statut | Rôle |
 | --- | --- | --- |
-| Convergence Roadmap tip (Git @ `e19f8940…`) | Peut encore dire **P4 NOT AUTHORIZED / P4 STARTED = NO** | Snapshot **historique** pré–truth-sync |
-| Décisions Morris P4 (consommées pendant P4, matérialisées ici) | **P4 AUTHORIZED / STARTED** + arbitrages WP1–WP5 | Autorité de **construction** pour ce contrat documentaire |
-| Future Roadmap truth-sync | **DISTINCT** · hors ce cycle | Ne pas modifier la Roadmap ici |
+| Convergence Roadmap (Git @ `e19f8940…` before this pass) | Historical tip may still say **P4 NOT AUTHORIZED** | Snapshot **historique** pré–truth-sync |
+| Convergence Roadmap **LOCAL CANDIDATE** (this pass) | Truth-synced for P4 GLOBAL VALIDATED | Living construction truth · **≠** integrated on main |
+| Morris P4 Global Validation | **YES** · 2026-10-05 Europe/Paris | Validates P4 architecture/document · **≠** Git integration · **≠** P5 |
 
-**Règle :** ne pas traiter le tip Roadmap historique comme annulant les décisions Morris plus récentes de ce prompt. Ne pas réécrire la Roadmap dans ce run.
+**Règle :** historical Roadmap rows remain historically accurate. Living CURRENT blocks are truth-synced locally this pass. Project Git integration remains a **distinct** future Morris gate.
 
 ### 1.3 Domaines d’autorité (pas de hiérarchie globale)
 
@@ -255,7 +441,7 @@ Aligné P2 §2.1 / P3 §1.2 — **aucun rang de précédence global** entre doma
 | Product Completion framing | **Product Completion C1** | Cible / scope macro · **≠ Product Simplification P1** |
 | Functional Product behavior | P2 | HOW STUDIO FUNCTIONS |
 | Experience / Interaction | P3 + Figma (statut frame-by-frame) + décisions Morris P3 | HOW THE PRODUCT IS EXPERIENCED |
-| P4 target technical architecture | **Ce document — CANDIDATE** jusqu’à validation Morris globale | HOW P2+P3 sont représentés / projetés / routés cognitivement |
+| P4 target technical architecture | **Ce document — VALIDATED DOCUMENTARY CANDIDATE** (Morris global YES) · **≠** integrated | HOW P2+P3 sont représentés / projetés / routés cognitivement |
 | Processus externe | v2.6 ChatGPT↔Cursor | Operating model d’exécution |
 | Cognitive guidance | CKC | Authority **NONE** |
 | External OpenAI capabilities | Snapshot CURRENT daté / revalidable | ≠ doctrine permanente |
@@ -270,18 +456,19 @@ Aligné P2 §2.1 / P3 §1.2 — **aucun rang de précédence global** entre doma
 - Conflit CURRENT ↔ TARGET = **gap de convergence**.
 
 
-### 1.4 WP status after Autonomous Review Correction Pass 03
+### 1.4 WP status — included in P4 GLOBAL VALIDATION
 
 | WP | Status |
 | --- | --- |
-| WP1 | COMPLETED WITH AUTONOMOUS REVIEW CORRECTIONS · pending targeted coherence verification |
-| WP2 | COMPLETED WITH AUTONOMOUS REVIEW CORRECTIONS · pending targeted coherence verification |
-| WP3 | COMPLETED WITH AUTONOMOUS REVIEW CORRECTIONS · pending targeted coherence verification |
-| WP4 | COMPLETED WITH AUTONOMOUS REVIEW CORRECTIONS · pending targeted coherence verification |
-| WP5 | COMPLETED WITH AUTONOMOUS REVIEW CORRECTIONS · pending targeted coherence verification |
+| WP1 | **PASS / INCLUDED IN P4 GLOBAL VALIDATION** |
+| WP2 | **PASS / INCLUDED IN P4 GLOBAL VALIDATION** |
+| WP3 | **PASS / INCLUDED IN P4 GLOBAL VALIDATION** |
+| WP4 | **PASS / INCLUDED IN P4 GLOBAL VALIDATION** |
+| WP5 | **PASS / INCLUDED IN P4 GLOBAL VALIDATION** |
 
-C1–C9 = PASS · MC1–MC4 = PASS · Pass 03 = gaps A–E completions only.
-**≠** globally VALIDATED · **≠** P4 CLOSED · **≠** P5 READY.
+One Morris global P4 decision covers WP1–WP5 (no separate per-WP Morris IDs).
+C1–C9 PASS · MC1–MC4 PASS · A–E PASS · ChatGPT Final Targeted Coherence Verification = PASS.
+**≠** P4 INTEGRATED · **≠** P4 CLOSED · **≠** P5 AUTHORIZED.
 
 ---
 
@@ -295,7 +482,7 @@ P4 matérialise l’architecture technique **sémantique**, de **projection** et
 4. **Nora Cognitive Routing** = Strategy-first bounded router **intégré** au runtime Nora existant (même Agents Runner) — **deterministic NO-LLM bypass** avant routing — cohort GPT-6 Luna / GPT-6.1 Sol / GPT-6 Astra — quality floor avant FinOps — escalation ≤ 1 — REAL-FIRST dès P5.
 5. **Simplification proof** = Pilot Interaction Budget (heuristic) + Net Complexity Reduction dans le P5 Entry Contract — pas de PIBEngine.
 
-Cinq Work Products structurants (WP1–WP5) + complétions A–E forment le contrat d’entrée P5. **≠** P4 GLOBAL VALIDATED · **≠** P5 AUTHORIZED.
+Cinq Work Products structurants (WP1–WP5) + complétions A–E forment le contrat d’entrée P5. **P4 GLOBAL VALIDATED BY MORRIS = YES**. **≠** P4 INTEGRATED · **≠** P4 CLOSED · **≠** P5 AUTHORIZED.
 
 ---
 
@@ -351,12 +538,14 @@ Code · migrations · schéma SQL final · package · tests · Figma mutation ·
 | --- | --- |
 | P2 VALIDATED / INTEGRATED / CLOSED | **YES** (Git) |
 | P3 VALIDATED / INTEGRATED / POST-MERGE VERIFIED / CLOSED | **YES** (Git) |
-| P4 AUTHORIZED / STARTED | **YES** (Morris P4) |
-| P4 architectural substance converged in chat | **YES** |
-| P4 DOCUMENT = DOCUMENTARY CANDIDATE | **YES** |
-| P4 GLOBAL VALIDATED BY MORRIS | **NO** |
+| P4 AUTHORIZED / STARTED | **YES** (historical GO) |
+| P4 architectural substance converged | **YES** |
+| P4 DOCUMENT = VALIDATED DOCUMENTARY CANDIDATE | **YES** |
+| P4 GLOBAL VALIDATED BY MORRIS | **YES** (2026-10-05 Europe/Paris) |
 | P4 INTEGRATED ON MAIN | **NO** |
 | P4 CLOSED | **NO** |
+| Roadmap truth-sync LOCAL CANDIDATE | **YES** (this pass) |
+| Roadmap truth-sync INTEGRATED ON MAIN | **NO** |
 | P5 AUTHORIZED / STARTED | **NO** |
 | READY FOR REAL | **NO** |
 | runtime v3 ADOPTED | **NO** |
@@ -1994,32 +2183,37 @@ REAL Project → P3 Conversation → real Project semantic context
 
 ## 53. P4 Exit Contract
 
-**P4 ARCHITECTURAL SUBSTANCE CONVERGED ≠ P4 CLOSED.**
+**P4 GLOBAL MORRIS VALIDATION ≠ P4 INTEGRATED ≠ P4 CLOSED ≠ P5 AUTHORIZED.**
 
-Exit ultérieur (gates distincts) :
+| Exit element | Status |
+| --- | --- |
+| P4 architectural coherence | **SATISFIED** |
+| P4 P1/P2/P3 inheritance | **SATISFIED** |
+| P4 WP1–WP5 review | **SATISFIED** |
+| P4 GLOBAL MORRIS VALIDATION | **SATISFIED** (2026-10-05) |
+| Roadmap truth-sync LOCAL CANDIDATE | **THIS PASS** |
+| P4 document integrated on main | **NOT YET** |
+| Roadmap truth-sync integrated on main | **NOT YET** |
+| P4 post-merge verification | **NOT YET** |
+| P4 CLOSED | **NO** |
+| P5 authorization | **NO** |
 
-1. WP1 complete and coherent
-2. WP2 ownership/authority complete
-3. WP3 projection contracts complete
-4. WP4 integration map complete
-5. WP5 routing architecture complete
-6. Morris structural decisions faithfully recorded
-7. No unresolved architecture parallelism
-8. No unowned temporary debt
-9. P5 Entry Contract complete
-10. ChatGPT section-by-section review complete
-11. Targeted corrections complete if any
-12. Morris global P4 validation distinct
-13. Git integration distinct
-14. Post-merge verification distinct if/when authorized
-15. **Roadmap construction truth-sync** (après validation/intégration P4 globale, avant P5 readiness/GO as applicable) :
-    - reflect validated/integrated P4 status ;
-    - reflect next capability/milestone/gate ;
-    - distinct documentary/governance action ;
-    - **no claim P5 authorized** until applicable Morris gate ;
-    - **ne pas** modifier la Roadmap dans ce Correction Pass.
+**Remaining exit path (gates distincts) :**
 
-**Ce run (Autonomous Review Correction Pass 03) vise uniquement gaps A–E — ≠ Exit Proof satisfied · ≠ P4 GLOBAL VALIDATED · ≠ P4 CLOSED · ≠ P5 READY.**
+1. Global Morris validation — **DONE**
+2. Documentary materialization + Roadmap truth-sync candidate — **THIS PASS**
+3. ChatGPT review of this materialization / truth-sync
+4. **DISTINCT** Morris Git integration authorization (commit + push + PR only)
+5. PR review
+6. **DISTINCT** Morris merge gate
+7. Merge
+8. Post-merge verification / repository truth
+9. P4 closure qualification
+10. Morris closure decision if exit proof satisfied
+11. Requalify next capability
+12. P5 only under **DISTINCT** Morris GO
+
+**Do NOT skip from validation to P5.**
 
 ---
 
@@ -2043,9 +2237,9 @@ Exit ultérieur (gates distincts) :
 | DecisionBasis representation only if demonstrated need | OPEN · no universal mandate |
 | Precise P5 slice decomposition | OPEN after P4 validation |
 | REAL/account entitlement | NOT PROVEN |
-| Roadmap truth-sync for P4 AUTHORIZED tip | DISTINCT future DOC cycle |
+| Roadmap truth-sync LOCAL CANDIDATE | **THIS PASS** · integration on main = DISTINCT Morris Git gate |
 
-**Aucune nouvelle décision Morris structurante requise** pour Pass 03 (A–E = completions). Contradiction repo bloquante : **aucune identifiée** (Option A Product SQLite cohérente · dual token layers = converge/reuse · Deliverable gap = qualify without new store · DecisionBasis optional already exists).
+**Morris Global Validation consumed this pass.** Next Morris structural gate = **DISTINCT P4 Git Integration authorization** (not P5). Architecture substance unchanged.
 
 ---
 
@@ -2069,6 +2263,9 @@ Exit ultérieur (gates distincts) :
 | **OPENAI_MODEL/EFFORT exit nominal** | TEMP WITH EXIT overrides | Immediate env deletion | Exit proof |
 | **Full-content search semantics** · no vector DB default | Support P3 search | Elastic/vector adoption | Local search first |
 | **No SharedKnowledgeStore / no global ES / no second Project / no parallel architecture** | KEEP backbone | Parallel rebuild | Integration map |
+| **P4 GLOBAL VALIDATED BY MORRIS** (2026-10-05 Europe/Paris) | Validates WP1–WP5 + P4 decisions + P5 Entry Contract as target entry | Project Git integration auto · P5 · REAL · runtime v3 | Distinct Git integration gate · then post-merge/closure · then distinct GO P5 |
+
+**Basis of Global Validation :** ChatGPT Final Targeted Coherence Verification = PASS · C1–C9 PASS · MC1–MC4 PASS · A–E PASS · WP1–WP5 PASS · P1/P2/P3 inheritance PASS · architecture parallelism PASS · P5 Entry Contract PASS.
 
 Pas d’IDs `D-P4-*` inventés.
 
@@ -2078,14 +2275,20 @@ Pas d’IDs `D-P4-*` inventés.
 
 | Claim | Status |
 | --- | --- |
-| P4 documentary candidate (corrected — Autonomous Review Pass 03) | **YES** (this file) |
+| P4 VALIDATED DOCUMENTARY CANDIDATE | **YES** (this file) |
 | P4 TARGETED CORRECTION PASS 01 COMPLETE / REVIEWED | **YES** (C1–C9 PASS) |
 | P4 MICRO-CORRECTION PASS 02 COMPLETE | **YES** (MC1–MC4 PASS) |
-| P4 AUTONOMOUS REVIEW CORRECTION PASS 03 COMPLETE | **YES** (A–E · pending Final Targeted Coherence Verification) |
-| P4 GLOBAL VALIDATED | **NO** |
+| P4 AUTONOMOUS REVIEW CORRECTION PASS 03 COMPLETE | **YES** (A–E PASS) |
+| ChatGPT Final Targeted Coherence Verification | **PASS** |
+| P4 GLOBAL VALIDATED BY MORRIS | **YES** (2026-10-05 Europe/Paris) |
+| P4 VALIDATION MATERIALIZATION LOCAL | **YES** (this pass) |
+| Roadmap truth-sync LOCAL CANDIDATE | **YES** (this pass) |
+| P4 INTEGRATED ON MAIN | **NO** |
+| Roadmap truth-sync INTEGRATED ON MAIN | **NO** |
 | P4 CLOSED | **NO** |
 | P5 AUTHORIZED | **NO** |
-| Production routing selected/implemented | **NO** |
+| TARGET routing architecture validated in P4 | **YES** |
+| Production router IMPLEMENTED / PROVEN | **NO** |
 | GPT-6 REAL routing proven | **NO** |
 | Synthesis Product implemented | **NO** |
 | Deliverable Product representation implemented | **NO** (gap qualified) |
@@ -2098,7 +2301,7 @@ Pas d’IDs `D-P4-*` inventés.
 | READY FOR REAL | **NO** |
 | Cognitive Completion PROVEN | **NO** |
 | Pixel-perfect / Figma-runtime proven | **NO** |
-| Roadmap truth-synced for P4 GO | **NO** (distinct cycle) |
+| Roadmap truth-sync LOCAL | **YES** · INTEGRATED = **NO** |
 | Architecture parallelism introduced | **NO** (REJECT list explicit) |
 | New design-system stack selected | **NO** |
 | Universal Validator Engine / mandatory DecisionBasis | **NO** |
@@ -2110,7 +2313,7 @@ Pas d’IDs `D-P4-*` inventés.
 | Source | Role |
 | --- | --- |
 | `sfia-studio-convergence-build-doctrine.md` | R4 dispositions · R22 OpenAI-native-first |
-| `sfia-studio-convergence-roadmap.md` | Living tip (historical P4 NOT AUTHORIZED until truth-sync) |
+| `sfia-studio-convergence-roadmap.md` | Living tip — truth-sync LOCAL CANDIDATE this pass · historical rows preserved |
 | `product-completion/01-…cadrage.md` | **Product Completion C1** |
 | `product-simplification/01-…cadrage.md` | **Product Simplification P1** |
 | `product-simplification/02-…functional-operating-model.md` | P2 · P2-D-01…04 |
@@ -2165,10 +2368,10 @@ Future P5 : D0/R1/R2/R3. Claims REAL/READY FOR REAL **interdits** ici.
 
 ---
 
-*Fin du document P4 — DOCUMENTARY CANDIDATE CORRECTED (Autonomous Review Correction Pass 03 · gaps A–E) — AUTHORIZED/STARTED — ≠ GLOBAL VALIDATED — ≠ CLOSED — ≠ P5 AUTHORIZED — ≠ runtime v3 ADOPTED — ZERO CODE — ZERO ROADMAP MUTATION — ZERO REAL — pending Final Targeted Coherence Verification.*
+*Fin du document P4 — VALIDATED DOCUMENTARY CANDIDATE — P4 GLOBAL VALIDATED BY MORRIS = YES (2026-10-05) — ≠ INTEGRATED — ≠ CLOSED — ≠ P5 AUTHORIZED — ≠ runtime v3 ADOPTED — ≠ READY FOR REAL — ZERO PROJECT COMMIT THIS PASS — Roadmap truth-sync LOCAL CANDIDATE — pending ChatGPT materialization/truth-sync review → DISTINCT Morris Git Integration gate.*
 
 ```
 
 ---
 
-*End of P4 TARGETED CORRECTION PASS 03 — AUTONOMOUS REVIEW GAPS A–E — FULL REVIEW PACK*
+*End of P4 GLOBAL VALIDATION MATERIALIZATION + ROADMAP TRUTH-SYNC — FULL REVIEW PACK*
