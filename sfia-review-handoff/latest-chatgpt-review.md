@@ -423,7 +423,7 @@ ChatGPT P3 North Star Materialization Review
 
 ### Full modified P3 document
 
-Path: `projects/sfia-studio/product-simplification/03-chat-first-product-simplification-workspace-interaction-architecture.md` · lines=761 · bytes=40963
+Path: `projects/sfia-studio/product-simplification/03-chat-first-product-simplification-workspace-interaction-architecture.md` · lines=761 · bytes=41037
 
 <details><summary>Full P3 document content</summary>
 
@@ -574,7 +574,7 @@ IA · surfaces · navigation · interaction model · progressive disclosure · C
 | Global Integrated QA / Figma↔runtime proof | **P6** |
 | Fresh E2E / REAL | **P7** (+ GO distinct) |
 | Production routing / mapping modèle | **P8** |
-| Mutation Figma / validation Screen 01 dans ce pass | **NEXT design passes** après Opening Review |
+| Mutation Figma / validation Screen 01 / Project Workspace dans ce pass | **NEXT** — après ChatGPT North Star Materialization Review → Design Pass 01 Project Workspace |
 
 ---
 
@@ -1233,15 +1233,14 @@ ChatGPT P3 North Star Materialization Review
 ```text
 M .tmp-sfia-review/chatgpt-review.md
  M projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-?? .tmp-sfia-review/_build_p3_ns_pack.py
 ?? projects/sfia-studio/product-simplification/03-chat-first-product-simplification-workspace-interaction-architecture.md
 
 M	.tmp-sfia-review/chatgpt-review.md
 M	projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 
-.tmp-sfia-review/chatgpt-review.md                 | 166 ---------------------
- .../convergence/sfia-studio-convergence-roadmap.md |   3 +
- 2 files changed, 3 insertions(+), 166 deletions(-)
+.tmp-sfia-review/chatgpt-review.md                 | 1333 ++++++++++++++++++--
+ .../convergence/sfia-studio-convergence-roadmap.md |    3 +
+ 2 files changed, 1215 insertions(+), 121 deletions(-)
 diff --check: PASS
 cached: (empty)
 ```
