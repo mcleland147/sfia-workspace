@@ -704,6 +704,14 @@
   cursor: pointer;
 }
 
+.sendLabelFull {
+  display: inline;
+}
+
+.sendLabelCompact {
+  display: none;
+}
+
 .sendButton:hover:not(:disabled) {
   background: var(--pm6-forest-hover);
 }
@@ -733,7 +741,8 @@
 
 @media (max-width: 767px) {
   .root {
-    padding: var(--pm6-space-4);
+    /* Surface padding owned by ProjectWorkspacePage --ws-pad-x (Figma 16). */
+    padding: 0 0 12px;
   }
 
   .facts {
@@ -751,6 +760,75 @@
 
   .decisionButton {
     flex: 1 1 100%;
+  }
+
+  /*
+   * C-polish — Conversation mobile composer (Figma 190:306):
+   * compact ~60px row; send ~36×38; secondary to conversation content.
+   * Multiline retained for Product typing; not a one-line-only redesign.
+   */
+  .composer {
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    min-height: 60px;
+    max-height: none;
+    padding: 8px 8px 8px 12px;
+    border-radius: 8px;
+    background: var(--pm6-canvas-raised);
+    box-shadow: none;
+  }
+
+  .composerInput {
+    flex: 1 1 auto;
+    min-width: 0;
+    min-height: 38px;
+    max-height: 96px;
+    resize: none;
+    padding: 8px 0;
+    font-size: 0.6875rem;
+    line-height: 1.35;
+  }
+
+  .composerFoot {
+    flex: 0 0 auto;
+    margin-left: auto;
+  }
+
+  .composerStatus {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .sendButton {
+    display: inline-grid;
+    place-items: center;
+    width: 36px;
+    min-width: 36px;
+    height: 38px;
+    padding: 0;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    line-height: 1;
+  }
+
+  .sendLabelFull {
+    display: none;
+  }
+
+  .sendLabelCompact {
+    display: inline;
+  }
+
+  .composerCaption {
+    display: none;
   }
 }
 

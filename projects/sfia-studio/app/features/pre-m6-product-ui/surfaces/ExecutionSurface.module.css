@@ -1,0 +1,308 @@
+/*
+ * P5-S03 Exécution — Figma 150:295 / 147:2 / 190:337 adapted to --pm6-*.
+ */
+
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+  padding: 14px var(--ws-pad-x, 24px) 24px;
+}
+
+.head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.eyebrow {
+  margin: 0 0 4px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--pm6-muted-faint);
+}
+
+.title {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 650;
+  color: var(--pm6-ink);
+  line-height: 1.25;
+}
+
+.subtitle {
+  margin: 4px 0 0;
+  font-size: 0.8125rem;
+  color: var(--pm6-muted);
+  line-height: 1.4;
+}
+
+.chip {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 24px;
+  padding: 3px 10px;
+  border-radius: 7px;
+  border: 1px solid var(--pm6-border);
+  background: var(--pm6-canvas-raised);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: var(--pm6-muted-strong);
+}
+
+.chip[data-tone="ready"],
+.chip[data-tone="ok"] {
+  background: var(--pm6-ok-tint);
+  border-color: color-mix(in srgb, var(--pm6-ok) 28%, var(--pm6-border));
+  color: var(--pm6-ok);
+}
+
+.chip[data-tone="running"],
+.chip[data-tone="warn"] {
+  background: var(--pm6-warn-tint);
+  border-color: color-mix(in srgb, var(--pm6-warn) 28%, var(--pm6-border));
+  color: var(--pm6-warn);
+}
+
+.chip[data-tone="danger"] {
+  background: var(--pm6-danger-tint);
+  border-color: color-mix(in srgb, var(--pm6-danger) 28%, var(--pm6-border));
+  color: var(--pm6-danger);
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.metric {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+  padding: 12px;
+  border-radius: 7px;
+  background: var(--pm6-canvas-raised);
+  border: 1px solid var(--pm6-border-faint);
+}
+
+.metricLabel {
+  margin: 0;
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--pm6-muted-faint);
+}
+
+.metricValue {
+  margin: 0;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--pm6-ink);
+}
+
+.metricDetail {
+  margin: 0;
+  font-size: 0.6875rem;
+  color: var(--pm6-muted);
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.sectionTitle {
+  margin: 0;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--pm6-muted-faint);
+}
+
+.workList,
+.evidenceList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--pm6-border);
+  border-radius: var(--pm6-radius-md);
+  overflow: hidden;
+  background: var(--pm6-surface);
+}
+
+.workItem,
+.evidenceItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 11px 14px;
+  border-top: 1px solid var(--pm6-border-faint);
+  font-size: 0.8125rem;
+}
+
+.workItem:first-child,
+.evidenceItem:first-child {
+  border-top: none;
+}
+
+.workLabel,
+.evidenceLabel {
+  color: var(--pm6-ink);
+  font-weight: 500;
+}
+
+.workState,
+.evidenceState {
+  color: var(--pm6-muted);
+  font-size: 0.75rem;
+}
+
+.moreLink {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  align-self: flex-start;
+  color: var(--pm6-danger);
+  font: inherit;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.moreLink:focus-visible {
+  outline: none;
+  box-shadow: var(--pm6-focus-ring);
+  border-radius: 4px;
+}
+
+.attention {
+  padding: 12px 14px;
+  border-radius: var(--pm6-radius-md);
+  border: 1px solid var(--pm6-border);
+  background: var(--pm6-warn-tint);
+  font-size: 0.8125rem;
+  color: var(--pm6-ink-soft);
+  line-height: 1.4;
+}
+
+.result {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px;
+  border: 1px solid var(--pm6-border);
+  border-radius: var(--pm6-radius-md);
+  background: var(--pm6-surface);
+}
+
+.resultHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.resultTitle {
+  margin: 0;
+  font-size: 0.9375rem;
+  font-weight: 650;
+  color: var(--pm6-ink);
+}
+
+.resultBody {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: var(--pm6-muted-strong);
+  line-height: 1.45;
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding-top: 4px;
+}
+
+.primaryButton {
+  min-height: 38px;
+  padding: 0 18px;
+  border: none;
+  border-radius: 8px;
+  background: var(--pm6-forest);
+  color: var(--pm6-forest-ink);
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.primaryButton:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.primaryButton:focus-visible {
+  outline: none;
+  box-shadow: var(--pm6-focus-ring);
+}
+
+.empty {
+  margin: 0;
+  padding: 18px 4px 8px;
+  font-size: 0.8125rem;
+  color: var(--pm6-muted);
+  line-height: 1.45;
+}
+
+@media (max-width: 767px) {
+  .root {
+    gap: 12px;
+    padding-top: 10px;
+  }
+
+  .metrics {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .metric {
+    padding: 8px;
+    min-height: 60px;
+  }
+
+  .head {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .title {
+    font-size: 0.9375rem;
+  }
+
+  .footer {
+    justify-content: stretch;
+    padding-top: 2px;
+  }
+
+  .primaryButton {
+    width: 100%;
+    min-height: 38px;
+    border-radius: 8px;
+  }
+}

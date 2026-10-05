@@ -28,6 +28,53 @@ vi.mock("@/features/pre-m6-product-ui/hooks/useProductConversation", () => ({
     useProductConversationMock(...args),
 }));
 
+vi.mock("@/features/project-assistant/w2/actions", () => ({
+  w2DeriveGovernedExecutionContinuityAction: vi.fn().mockResolvedValue({
+    ok: true,
+    projection: {
+      projectId: "prj:p5-s01",
+      activeCycleInstanceId: null,
+      executionContractId: null,
+      executionContractVersion: null,
+      executionContractStatus: null,
+      attemptId: null,
+      attemptStatus: null,
+      stage: "PRE_EXECUTION",
+      productOutcome: null,
+      evidenceId: null,
+      reviewBundleId: null,
+      claimEvaluationId: null,
+      claimEvaluationStatus: null,
+      postEvidencePresent: false,
+      nextDeterministicAction: "NONE",
+      humanDecisionRequired: false,
+      recoveryRequired: false,
+      reason: null,
+      blockingCode: null,
+      context: null,
+    },
+  }),
+  w2ReadCurrentGovernedExecutionContinuityAction: vi
+    .fn()
+    .mockResolvedValue({ ok: true, kind: "none" }),
+  w2ReadProjectHistoryAction: vi.fn().mockResolvedValue({
+    ok: true,
+    history: {
+      projectId: "prj:p5-s01",
+      cycle: {
+        activeCycleInstanceId: null,
+        cycleTypeId: null,
+        profile: null,
+        status: null,
+      },
+      trajectory: { versions: [] },
+      decisions: [],
+      contracts: [],
+      absent: [],
+    },
+  }),
+}));
+
 vi.mock("@/features/project-assistant/actions", () => ({
   projectAssistantConversationContinuityAction: vi.fn(async () => ({
     ok: true,
