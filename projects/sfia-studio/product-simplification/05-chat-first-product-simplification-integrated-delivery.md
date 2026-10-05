@@ -1,39 +1,42 @@
-# SFIA Studio — Chat-First Product Simplification — P5 Integrated Delivery (P5-S01 — First Integrated Product Vertical Slice)
+# SFIA Studio — Chat-First Product Simplification — P5 Integrated Delivery
 
 | Métadonnée | Valeur |
 | --- | --- |
 | **Projet** | SFIA Studio |
 | **Macro** | `STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01` |
 | **Milestone** | **P5 — INTEGRATED DELIVERY** (Delivery / Implementation / Evidence source) |
-| **Slice** | **P5-S01** + **P5-S02** + **P5-S03** (integrated) + **P5-S04 — Product-derived Synthèses** |
-| **Pass** | **P5-S04 GIT INTEGRATION** — Product-derived Synthèses & Continuity Retrieval (CP01+CP02) — **AUTHORIZED BY MORRIS / IN PROGRESS — NOT YET INTEGRATED** |
+| **Slice** | **P5-S01** + **P5-S02** + **P5-S03** + **P5-S04** (integrated) |
+| **Pass** | **P5-S04 POST-MERGE VERIFIED / POST-S04 REQUALIFICATION** |
 | **Typologie** | Delivery evidence dans macro **EVOL** — **≠** doctrine · **≠** nouvelle architecture |
 | **Autorité architecture** | **P4** (`04-chat-first-product-simplification-semantic-projection-cognitive-architecture.md`) — **inchangée** |
-| **Branche S02** | `delivery/sfia-studio-product-simplification-p5-s02-bounded-real-r1-r2` |
-| **Base / HEAD Git** | `origin/main` = `49b4fdaf078fdf2a5c7bfce3baad05fa65220c2e` (PR **#557** merge · P5-S03) |
+| **Base / HEAD Git** | `origin/main` = `c7b53b93d48e626e5ac1548886162936ce7e9eb3` (PR **#558** merge · P5-S04) |
 | **P5-S01 integration** | PR **#555** **MERGED** · post-merge CI **#678** **SUCCESS** · **INTEGRATED / POST-MERGE VERIFIED** |
 | **P5-S02 integration** | PR **#556** **MERGED** · post-merge CI **#680** **SUCCESS** · Required Gate **SUCCESS** · **INTEGRATED / POST-MERGE VERIFIED** |
 | **P5-S03 integration** | PR **#557** **MERGED** · post-merge CI **#682** **SUCCESS** · Required Gate **SUCCESS** · **INTEGRATED / POST-MERGE VERIFIED** |
+| **P5-S04 integration** | PR **#558** **MERGED** · post-merge CI **#684** / run **`37377995199`** **SUCCESS** · Required Gate **SUCCESS** · **INTEGRATED / POST-MERGE VERIFIED** |
 | **Worktree** | `/Users/morris/Projects/sfia-studio-chat-first-product-simplification-p3` |
-| **Branche S04** | `delivery/sfia-studio-product-simplification-p5-s04-product-derived-syntheses` |
+| **Branche truth-sync** | `docs/sfia-studio-p5-s04-post-merge-truth-sync` (local · **NOT pushed**) |
 | **P5 AUTHORIZED BY MORRIS** | **YES** |
 | **P5 STARTED** | **YES** |
 | **P5 IN PROGRESS** | **YES** |
 | **P5-S01** | **INTEGRATED / POST-MERGE VERIFIED** |
 | **P5-S02** | **INTEGRATED / POST-MERGE VERIFIED** — R1/R2 **PROVEN** · envelope deviation **ACCEPTED BY MORRIS** |
 | **P5-S03** | **INTEGRATED / POST-MERGE VERIFIED** · Object-Native Aperçu + Exécution · A=0/B=0 |
-| **P5-S04** | **LOCAL CANDIDATE PASS** · Final Critical Re-Review **PASS** · Morris Git Integration **AUTHORIZED / CONSUMED** · CP01/CP02 **PASS** · A=0/B=0 · B1/B2 CLOSED · **≠ INTEGRATED** |
+| **P5-S04** | **INTEGRATED / POST-MERGE VERIFIED** · Product-derived Synthèses M9 · CP01/CP02 preserved · A=0/B=0 · B1/B2 CLOSED |
 | **R1 / R2 / R3** | **R1 PASS** · **R2 PASS** · **R3 NOT STARTED** |
-| **ZERO REAL** | **YES for S04** — S02 used bounded REAL historically |
+| **ZERO REAL** | **YES for S04** — S02 used bounded REAL historically (not revoked) |
 | **READY FOR REAL** | **NO** (R3 / broader REAL gates not authorized) |
 | **runtime v3** | **NON ADOPTED** |
-| **Git (S04 pass)** | **AUTHORIZED** — commit/push/PR · **NO** merge · **NO** auto-merge |
+| **Git (S04)** | **MERGED** · post-merge CI **#684** **SUCCESS** · Required Gate **SUCCESS** |
+| **ChatGPT POST-S04 REQUALIFICATION** | **PASS** |
+| **Next RECOMMENDED capability** | **P5-S05 — R3 Integrated Product Cognitive Path + F2 Routing Alignment** |
+| **P5-S05 DELIVERY** | **NOT AUTHORIZED** |
+| **P5-S05 REAL / R3** | **NOT AUTHORIZED** |
 | **Langue** | Français (identifiants canoniques anglais préservés) |
 | **Fichier** | `projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md` |
-| **Date** | 2026-10-05 · Europe/Paris |
+| **Date** | 2026-10-06 · Europe/Paris |
 
-> **Lecture rapide.** P5-S01 / S02 / S03 sont **intégrés sur main** (PR #555 / #556 / #557). P5-S04 matérialise les Synthèses Product-derived (M9 `oa_syntheses`) comme projection dérivée non autoritative, avec Continuity Retrieval. **≠ R3** · **≠ P5 COMPLETE** · **≠ runtime v3 ADOPTED** · **≠ P5-S04 INTEGRATED**. F2 routing debt **OPEN**.
-
+> **Lecture rapide.** P5-S01 / S02 / S03 / S04 sont **intégrés sur main** (PR #555 / #556 / #557 / #558). Synthèses Product-derived (M9 `oa_syntheses`) = projection dérivée non autoritative + Continuity Retrieval. **≠ R3** · **≠ P5 COMPLETE** · **≠ runtime v3 ADOPTED**. F2 routing debt **OPEN**. Next RECOMMENDED = **P5-S05** — **NOT AUTHORIZED**.
 > **Règle de lecture des preuves.** *Implémenté* ≠ *prouvé* ≠ *intégré* ≠ *REAL*. Chaque affirmation ci-dessous est qualifiée par son niveau de preuve. Les résultats de tests/typecheck/lint/build sont ceux **rapportés par la passe de livraison** ; ce document n’en invente pas d’autres et ne les a pas ré-exécutés lors de sa rédaction.
 
 ---
@@ -48,12 +51,26 @@ P2 = VALIDATED / INTEGRATED / CLOSED          (PR #549)
 P3 = VALIDATED / INTEGRATED / POST-MERGE VERIFIED / CLOSED   (PR #550 + #551)
 P4 = GLOBAL VALIDATED / INTEGRATED / POST-MERGE VERIFIED / CLOSED BY MORRIS
      (PR #552 · closure patch PR #553 · truth-sync PR #554 MERGED)
-P5-S01 = INTEGRATED / POST-MERGE VERIFIED (PR #555 MERGED · main 8aaedfae… · CI #678 SUCCESS)
-P5 = AUTHORIZED / STARTED / IN PROGRESS
-P5-S02 = LOCAL CANDIDATE — R1 PASS + R2 PASS (bounded REAL) — NOT committed
-R3 = NOT STARTED · READY FOR REAL = NO · runtime v3 = NON ADOPTED
-```
 
+P5 = AUTHORIZED / STARTED / IN PROGRESS
+P5-S01 = INTEGRATED / POST-MERGE VERIFIED (PR #555)
+P5-S02 = INTEGRATED / POST-MERGE VERIFIED (PR #556) — R1 PASS · R2 PASS (bounded REAL historical)
+P5-S03 = INTEGRATED / POST-MERGE VERIFIED (PR #557)
+P5-S04 = INTEGRATED / POST-MERGE VERIFIED (PR #558 · main c7b53b93… · CI #684 SUCCESS)
+
+R3 = NOT STARTED
+F2 routing debt = OPEN
+P5 COMPLETE = NO
+P6 READY = NO
+runtime v3 = NON ADOPTED
+READY FOR REAL = NO
+
+POST-S04 CHATGPT REQUALIFICATION = PASS
+NEXT RECOMMENDED CAPABILITY =
+  P5-S05 — R3 Integrated Product Cognitive Path + F2 Routing Alignment
+P5-S05 DELIVERY = NOT AUTHORIZED
+P5-S05 REAL / R3 = NOT AUTHORIZED
+```
 ### 1.2 Hiérarchie d’autorité
 
 | Domaine | Autorité | Rôle de ce document |
@@ -796,16 +813,18 @@ Visual / Git historical notes above for Correction Pass 01 are **SUPERSEDED** by
 | Morris P5-S04 CP02 authorization | **CONSUMED** |
 | Final ChatGPT Critical Re-Review | **PASS** |
 | Morris P5-S04 GIT INTEGRATION GATE | **AUTHORIZED / CONSUMED** |
+| Morris P5-S04 MERGE / POST-MERGE | PR **#558** **MERGED** · main **`c7b53b93…`** · CI **#684** / `37377995199` **SUCCESS** · Required Gate **SUCCESS** |
+| Status | **INTEGRATED / POST-MERGE VERIFIED** |
 | Scope | M9 `oa_syntheses` · deterministic `buildProductSynthesis` · SQLite repository · read-only Synthèses surface · Overview + Conversation teasers · authority `none` (no NON-AUTORITATIVE badge in Pilot UI) |
 | Architecture | OBJECTS FIRST → PROJECTIONS SECOND → SURFACES THIRD · Product-path `materializeW3bProductTerminal` → `maybeMaterializeProductSynthesisAfterW3c` · Contract-Result lineage + currentness · durable W3-C Recommendation · **no invented verdict/recommendation** · **≠ Truth C** |
 | CP02 axes | Soft-fail observability (`synthesisMaterialization` on ok:true) · Pilot semantic projection (subject/planned/done/recommendation) · recommendation currentness only (stale fallback closed) · missing bound Evidence fail-closed · visual recapture PRODUCT-PATH |
-| Auth / REAL | Studio auth via `.tmp-sfia-review/auth/studio-storage-state.json` · **ZERO REAL** · `P5_S02_RUN_REAL` never set |
-| Evidence — tests | CP02 SF/PL/REC/EV · CP01 L01–L09 / C01–C08 / P01–P05 · D0 + UI · migration · full `npm test` (see CP02 Review Pack counts) |
+| Auth / REAL | Studio auth via `.tmp-sfia-review/auth/studio-storage-state.json` · **ZERO REAL for S04** · `P5_S02_RUN_REAL` never set for S04 · S02 bounded REAL historical proof **not revoked** |
+| Evidence — tests | CP02 SF/PL/REC/EV · CP01 L01–L09 / C01–C08 / P01–P05 · D0 + UI · migration · full `npm test` (see prior Review Packs) |
 | Evidence — visual CP01 | `.tmp-sfia-review/p5-s04-visual/cp01/after/` · PRODUCT-PATH · FocusFlow `syn:fc44ff99449fd3b96f4500b60a2eeda7` · **A=0 / B=0** · B1/B2 **CLOSED** · preserved |
 | Evidence — visual CP02 | `.tmp-sfia-review/p5-s04-visual/cp02/after/` · PRODUCT-PATH · FocusFlow `syn:ed340d63e583ff51bc9a0cb7a6c35219` · **A=0 / B=0** · B1/B2 **CLOSED — NO REGRESSION** · **PILOT LEAKS = 0** · see `cp02/correction-design-note.md` |
 | Historical visual seed | `../_seed-synthesis.mjs` retained as historical only (direct materialize — **NOT** CP01/CP02 proof) |
 | Debts | F2 routing **OPEN** · R3 **NOT STARTED** · P6 **NOT READY** · runtime v3 **NON ADOPTED** |
-| Anti-claims | **≠** Truth C · **≠** authority mutation · **≠** UI-only fake synthesis · **≠** P5 COMPLETE · **≠** P5-S04 INTEGRATED until merge + post-merge proof |
+| Anti-claims | **≠** Truth C · **≠** authority mutation · **≠** UI-only fake synthesis · **≠** P5 COMPLETE · **≠** R3 PASS · **≠** P5-S05 AUTHORIZED |
 
 ---
 
@@ -817,29 +836,50 @@ P5 STARTED              = YES
 P5 IN PROGRESS          = YES
 
 P5-S01 = INTEGRATED / POST-MERGE VERIFIED (PR #555)
-P5-S02 = INTEGRATED / POST-MERGE VERIFIED (PR #556)
-P5-S03 = INTEGRATED / POST-MERGE VERIFIED (PR #557 · main 49b4fdaf…)
-
-P5-S04 = LOCAL CANDIDATE PASS
-         CP01 PASS · CP02 PASS
-         FINAL CRITICAL RE-REVIEW = PASS
-         MORRIS GIT INTEGRATION GATE = AUTHORIZED / CONSUMED
-         A=0 / B=0 · B1/B2 CLOSED · PILOT LEAKS = 0 (S04 projection/teasers)
-         ZERO REAL · NOT INTEGRATED
+P5-S02 = INTEGRATED / POST-MERGE VERIFIED (PR #556) — R1/R2 PASS
+P5-S03 = INTEGRATED / POST-MERGE VERIFIED (PR #557)
+P5-S04 = INTEGRATED / POST-MERGE VERIFIED (PR #558 · main c7b53b93… · CI #684 SUCCESS)
+         CP01/CP02 preserved · A=0 / B=0 · B1/B2 CLOSED
+         ZERO REAL for S04
 
 READY FOR REAL          = NO
 runtime v3              = NON ADOPTED
 P5 COMPLETE             = NO
 P6 READY                = NO
 R3                      = NOT STARTED
+F2 routing debt         = OPEN
 
-NEXT                   = commit + push + PR
-                         → ChatGPT PR review + CI
-                         → MORRIS P5-S04 MERGE GATE (distinct)
+POST-S04 CHATGPT REQUALIFICATION = PASS
+NEXT RECOMMENDED        = P5-S05 — R3 Integrated Product Cognitive Path + F2 Routing Alignment
+P5-S05 DELIVERY         = NOT AUTHORIZED
+P5-S05 REAL / R3        = NOT AUTHORIZED
 ```
 
-**Synthèse honnête.** P5-S04 est un candidat local PASS (CP01+CP02 + Final Critical Re-Review) sous Git Integration Gate Morris. **≠ INTEGRATED / ≠ R3 / ≠ P5 COMPLETE / ≠ runtime v3 ADOPTED**. **P4 reste l’autorité d’architecture**.
+**Synthèse honnête.** P5-S04 est **intégré et post-merge vérifié**. P5 reste **IN PROGRESS**. **≠ R3 / ≠ P5 COMPLETE / ≠ runtime v3 ADOPTED / ≠ S05 AUTHORIZED**. **P4 reste l’autorité d’architecture**.
 
 ---
 
-*Fin du document P5 — Integrated Delivery — S01/S02/S03 INTEGRATED · S04 LOCAL CANDIDATE PASS / GIT INTEGRATION AUTHORIZED · R3 NOT STARTED · READY FOR REAL = NO · runtime v3 NON ADOPTED — P4 remains architecture authority.*
+## 35. Post-S04 requalification — RECOMMENDATION CHATGPT (≠ décision Morris)
+
+> **Qualification.** Cette section enregistre une **recommandation ChatGPT** après intégration de P5-S04. Elle **n’autorise pas** P5-S05, R3, ni REAL. Elle **n’est pas** une décision Morris.
+
+| Item | Statut |
+| --- | --- |
+| ChatGPT POST-S04 REQUALIFICATION | **PASS** |
+| R3 | **NOT STARTED** — prochain proof gap majeur |
+| F2 intent cognition | utilise encore un chemin provider distinct du routing Product nominal — **OPEN** |
+| Recommandation | fermer **R3 + F2 routing alignment** ensemble dans **P5-S05** pour une preuve R3 intégrée cohérente |
+| Architecture parallèle | **NONE REQUIRED** |
+| Gaps P5 ultérieurs | Nora Activity / STOP P3 remaining · Auth P3 visual remaining · temporary/debt exits · Net Complexity Reduction exit proof not yet established |
+| P5-S05 DELIVERY | **NOT AUTHORIZED** |
+| P5-S05 REAL / R3 | **NOT AUTHORIZED** — gate Morris distinct requis avant toute exécution |
+
+Anti-claims explicites :
+- **≠** « Morris a autorisé S05 »
+- **≠** « Morris a autorisé REAL »
+- **≠** « P5-S05 started »
+- **≠** R3 PASS · **≠** P5 COMPLETE · **≠** P6 READY · **≠** runtime v3 ADOPTED
+
+---
+
+*Fin du document P5 — Integrated Delivery — S01/S02/S03/S04 INTEGRATED / POST-MERGE VERIFIED · POST-S04 REQUALIFICATION PASS · S05 RECOMMENDED NOT AUTHORIZED · R3 NOT STARTED · READY FOR REAL = NO · runtime v3 NON ADOPTED — P4 remains architecture authority.*
