@@ -1,16 +1,14 @@
-P5-S01 — FIRST INTEGRATED PRODUCT VERTICAL SLICE
-WORKSPACE / CONVERSATION
-+ SEMANTIC CONTEXT
-+ COGNITIVE ROUTING
-+ VISUAL FIDELITY
-D0 / ZERO REAL
+P5-S01 — CORRECTION PASS 01 —
+CRITICAL REVIEW BLOCKERS CP1–CP5 —
+D0 / ZERO REAL —
 FULL REVIEW PACK
 
-Timestamp: 2026-10-05 09:19:19 +0200
-Cycle: 8 — Delivery / implémentation
+Timestamp: 2026-10-05 09:51:23 +0200
+Cycle: 8 — Delivery / implementation correction
 Profile: Critical
 Typology: EVOL
-Morris P5 authorization: CONSUMED (GO P5)
+Morris P5 AUTHORIZATION: CONSUMED (GO P5)
+Morris Correction GO: P5-S01 CORRECTION PASS 01 = YES — CONSUMED
 
 ======================================================================
 LOCAL GIT TRUTH
@@ -28,6 +26,7 @@ git status --short:
 ```
  M .tmp-sfia-review/chatgpt-review.md
  M projects/sfia-studio/app/__tests__/pre-m6-product-ui/automaticProjectResume.ui.test.tsx
+ M projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
  M projects/sfia-studio/app/features/pre-m6-product-ui/ProductShell.module.css
  M projects/sfia-studio/app/features/pre-m6-product-ui/ProductShell.tsx
  M projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.module.css
@@ -44,6 +43,9 @@ git status --short:
  M projects/sfia-studio/app/lib/nora-eval/capabilityBudget.ts
  M projects/sfia-studio/app/lib/platform/observability/types.ts
  M projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+ M projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
+?? .tmp-sfia-review/p5-s01-cp01-diff-stat.txt
+?? .tmp-sfia-review/p5-s01-cp01-routing-capability.diff
 ?? .tmp-sfia-review/p5-s01-diff-stat.txt
 ?? .tmp-sfia-review/p5-s01-frontend-diff.txt
 ?? .tmp-sfia-review/p5-s01-name-status.txt
@@ -51,6 +53,7 @@ git status --short:
 ?? .tmp-sfia-review/p5-s01-routing-diff.txt
 ?? .tmp-sfia-review/visual/
 ?? projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p5.s01.cognitiveRouting.d0.test.ts
+?? projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p5.s01.deterministicBypass.d0.test.ts
 ?? projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p5.s01.integratedProduct.d0.test.ts
 ?? projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p5.s01.semanticInvariants.d0.test.ts
 ?? projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s01.workspaceLayout.ui.test.tsx
@@ -68,6 +71,7 @@ git diff --name-status:
 ```
 M	.tmp-sfia-review/chatgpt-review.md
 M	projects/sfia-studio/app/__tests__/pre-m6-product-ui/automaticProjectResume.ui.test.tsx
+M	projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
 M	projects/sfia-studio/app/features/pre-m6-product-ui/ProductShell.module.css
 M	projects/sfia-studio/app/features/pre-m6-product-ui/ProductShell.tsx
 M	projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.module.css
@@ -84,98 +88,298 @@ M	projects/sfia-studio/app/lib/nora-cognitive-runtime/types.ts
 M	projects/sfia-studio/app/lib/nora-eval/capabilityBudget.ts
 M	projects/sfia-studio/app/lib/platform/observability/types.ts
 M	projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+M	projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
 
 ```
 
-git diff --stat:
+Untracked (relevant):
 ```
- .tmp-sfia-review/chatgpt-review.md                 | 172 +-----
- .../automaticProjectResume.ui.test.tsx             |   5 +-
- .../pre-m6-product-ui/ProductShell.module.css      | 294 +++++++---
- .../features/pre-m6-product-ui/ProductShell.tsx    | 145 ++---
- .../ProjectWorkspacePage.module.css                | 636 +++++++++++++++++----
- .../pre-m6-product-ui/ProjectWorkspacePage.tsx     | 366 +++++++++---
- .../hooks/useProductConversation.ts                |   9 +-
- .../features/pre-m6-product-ui/product-tokens.css  |  74 ++-
- .../surfaces/ConversationSurface.module.css        |  46 +-
- .../pre-m6-product-ui/surfaces/LpsSurface.tsx      |  12 +-
- .../features/project-assistant/orchestrateTurn.ts  |   4 +-
- .../app/lib/nora-cognitive-runtime/index.ts        |  18 +
- .../nora-cognitive-runtime/reasoningCapability.ts  |  25 +-
- .../nora-cognitive-runtime/runNoraCognitiveTurn.ts | 143 ++++-
- .../app/lib/nora-cognitive-runtime/types.ts        |   9 +
- .../app/lib/nora-eval/capabilityBudget.ts          |  61 ++
- .../app/lib/platform/observability/types.ts        |   3 +-
- .../convergence/sfia-studio-convergence-roadmap.md |  25 +-
- 18 files changed, 1468 insertions(+), 579 deletions(-)
+.tmp-sfia-review/p5-s01-cp01-diff-stat.txt
+.tmp-sfia-review/p5-s01-cp01-routing-capability.diff
+.tmp-sfia-review/p5-s01-diff-stat.txt
+.tmp-sfia-review/p5-s01-frontend-diff.txt
+.tmp-sfia-review/p5-s01-name-status.txt
+.tmp-sfia-review/p5-s01-roadmap-diff.txt
+.tmp-sfia-review/p5-s01-routing-diff.txt
+.tmp-sfia-review/visual/
+projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p5.s01.cognitiveRouting.d0.test.ts
+projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p5.s01.deterministicBypass.d0.test.ts
+projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p5.s01.integratedProduct.d0.test.ts
+projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p5.s01.semanticInvariants.d0.test.ts
+projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s01.workspaceLayout.ui.test.tsx
+projects/sfia-studio/app/features/pre-m6-product-ui/ProductRailRecents.tsx
+projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ProjectContextSummary.module.css
+projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ProjectContextSummary.tsx
+projects/sfia-studio/app/features/pre-m6-product-ui/workspaceContextPresentation.ts
+projects/sfia-studio/app/lib/nora-cognitive-runtime/cognitiveRoutingPolicy.ts
+projects/sfia-studio/app/public/branding/
+projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md
+```
+
+git diff --cached --name-status:
+```
+(empty)
+```
+
+======================================================================
+PREVIOUS HANDOFF
+======================================================================
+Previous handoff SHA: 50314dfc784544724902ac90865eef1331f808e7
+Previous blob: 9e04239e1532f045ccee9ad9d5c20dbc04f898ad
+Previous pack: P5-S01 FIRST INTEGRATED PRODUCT VERTICAL SLICE FULL REVIEW PACK
+
+======================================================================
+P5 / P5-S01 STATE
+======================================================================
+P5 AUTHORIZED / STARTED / IN PROGRESS = YES
+P5-S01 before correction: LOCAL CANDIDATE (Critical Review NOT READY)
+P5-S01 after correction: LOCAL CANDIDATE — D0 PASS WITH VISUAL RESERVES
+R1/R2/R3 = NOT STARTED
+ZERO REAL = YES
+READY FOR REAL = NO
+runtime v3 = NON ADOPTED
+
+======================================================================
+PREVIOUS CRITICAL REVIEW VERDICT
+======================================================================
+NOT READY — P5-S01 CRITICAL REVIEW INCOMPLETE
+CORRECTION PASS REQUIRED BEFORE MORRIS P5-S01 GIT INTEGRATION GATE
+
+CP1–CP5 matrix BEFORE correction:
+| CP | Status before |
+| CP1 FULL Vitest | NOT PROVEN |
+| CP2 Product server-path D0 | NOT PROVEN (direct runNoraCognitiveTurn only) |
+| CP3 Deterministic NO-LLM | NOT PROVEN (KEEP asserted only) |
+| CP4 FinOps snapshot | INCORRECT / unqualified prices |
+| CP5 Pipeline order | capability → quality (WRONG vs P4) |
+
+======================================================================
+SOURCES READ
+======================================================================
+Build Doctrine · Roadmap · C1 · P1–P5 · v3 30/32/33/34/35/37 · process guides · prior handoff · CURRENT code (routing/capability/actions/F2/tests)
+
+======================================================================
+FILES CHANGED BY CORRECTION PASS 01
+======================================================================
+Principal:
+- cognitiveRoutingPolicy.ts (pipeline order + reason codes)
+- capabilityBudget.ts buildP5TargetCapabilityManifest (Standard short-context prices)
+- p5.s01.cognitiveRouting.d0.test.ts (order/prices/D0-10 harden)
+- p5.s01.integratedProduct.d0.test.ts (CP2 server-path)
+- p5.s01.deterministicBypass.d0.test.ts (CP3 NEW)
+- importBoundaries.test.ts (ProductRailRecents allowlist — S01-caused)
+- production-runtime-reference.manifest.json (digest refresh — S01-caused)
+- 05-…integrated-delivery.md (Correction Pass 01 evidence)
+- sfia-studio-convergence-roadmap.md (living tip)
+
+======================================================================
+CP1 — FULL VITEST
+======================================================================
+Command (from projects/sfia-studio/app):
+  npm test
+  (= vitest run per package.json)
+
+Result after S01-caused fixups:
+  Test Files  465 passed | 17 skipped (482)
+  Tests       5178 passed | 137 skipped (5315)
+  Duration    ~118s
+  EXIT        0
+
+FULL VITEST = PASS
+
+First full-suite run exposed 2 failures (classification A — caused by P5-S01):
+1. importBoundaries — ProductRailRecents.tsx new allowlisted entry
+2. productionRuntimeReference digests for orchestrateTurn / runNoraCognitiveTurn / useProductConversation
+Both fixed; full suite re-run PASS.
+
+Tail of FULL npm test:
+```
+[d1.intake] {"event":"intake_existing_project_conflict","ts":"2026-10-05T07:48:53.627Z","status":"STALE","projectId":"proj-56adac10-7364-49c3-880c-06401c3b64d8","sessionLocalId":"s5","durationMs":0,"errorCode":"CONFLICT","proposalId":"rrp-5"}
+
+ ✓ __tests__/project-assistant/orchestrateTurn.test.ts (8 tests) 331ms
+stdout | __tests__/d1/intake-c4.test.ts > D1-C4 bounded mutations > analyze-only and cancel produce no mutation
+[d1.intake] {"event":"intake_confirmation_presented","ts":"2026-10-05T07:48:53.635Z","status":"ANALYZE_ONLY","sessionLocalId":"s6","proposalId":"rrp-6"}
+[d1.intake] {"event":"intake_analyze_only_completed","ts":"2026-10-05T07:48:53.635Z","status":"NO_MUTATION","sessionLocalId":"s6","durationMs":0,"proposalId":"rrp-6"}
+[d1.intake] {"event":"intake_confirmation_presented","ts":"2026-10-05T07:48:53.636Z","status":"CANCEL","sessionLocalId":"s6","proposalId":"rrp-6"}
+[d1.intake] {"event":"intake_confirmation_cancelled","ts":"2026-10-05T07:48:53.636Z","status":"CANCELLED","sessionLocalId":"s6","durationMs":0,"proposalId":"rrp-6"}
+
+stdout | __tests__/d1/intake-c4.test.ts > D1-C4 bounded mutations > missing existing project returns CONFLICT
+[d1.intake] {"event":"intake_confirmation_presented","ts":"2026-10-05T07:48:53.645Z","status":"CONFIRM_EXISTING_PROJECT_CONTEXT","sessionLocalId":"s7","proposalId":"rrp-7"}
+[d1.intake] {"event":"intake_existing_project_conflict","ts":"2026-10-05T07:48:53.645Z","status":"NOT_FOUND","projectId":"proj-missing-does-not-exist","sessionLocalId":"s7","durationMs":0,"errorCode":"NOT_FOUND","proposalId":"rrp-7"}
+
+ ✓ __tests__/d1/intake-c4.test.ts (10 tests) 88ms
+ ✓ __tests__/pre-m6-product-ui/cycleReservationMemoryRail.ui.test.tsx (2 tests) 151ms
+ ✓ __tests__/pre-m6-product-ui/useRunningAttemptO3Observation.test.tsx (4 tests) 57ms
+ ✓ __tests__/auth/binding-s1-adversarial.test.ts (20 tests) 128ms
+ ✓ __tests__/nora-cognitive-runtime/cycleReservationPiloting.d0.test.ts (9 tests) 19ms
+ ✓ __tests__/oa/cycle/qualifyCycleWithCkc.test.ts (13 tests) 18ms
+ ✓ __tests__/project-assistant/presentationLabels.test.ts (39 tests) 42ms
+ ✓ __tests__/recommendation-vs-decision.test.tsx (2 tests) 115ms
+ ✓ __tests__/auth/better-auth-foundation.test.ts (5 tests) 115ms
+ ✓ __tests__/project-assistant/recommendationDecisionIntegrity.pjReproof.d0.test.ts (11 tests) 23ms
+ ✓ __tests__/auth/allowlist-actor-s1.test.ts (13 tests) 9ms
+ ✓ __tests__/pre-m6-product-ui/pilotContractPresentation.d0.test.ts (2 tests) 3ms
+ ✓ __tests__/nora-cognitive-runtime/reservationContextPilotConfirmation.d0.test.ts (6 tests) 9ms
+ ✓ __tests__/project-assistant/pilotNoraStudioSemanticContinuity.d0.test.ts (15 tests) 10ms
+ ✓ __tests__/fixtures.test.ts (2 tests) 4ms
+ ✓ __tests__/ops1/domain.test.ts (6 tests) 5ms
+ ✓ __tests__/oa/cycle/ckcQualificationResult.test.ts (2 tests) 5ms
+ ✓ __tests__/oa/execution-contract/checkpointE.docsWriteEvidenceCoherence.d0.test.ts (9 tests) 8ms
+ ✓ __tests__/ops1/globalModeBadge.test.ts (6 tests) 4ms
+ ✓ __tests__/project-assistant/pilotExecutionExperience.trustedLaunch.d0.test.ts (3 tests) 3ms
+ ✓ __tests__/project-assistant/pilotExecutionExperience.recoveryOwnership.d0.test.ts (4 tests) 3ms
+
+ Test Files  465 passed | 17 skipped (482)
+      Tests  5178 passed | 137 skipped (5315)
+   Start at  09:46:57
+   Duration  118.14s (transform 21.15s, setup 42.22s, collect 435.24s, tests 389.40s, environment 38.48s, prepare 39.18s)
 
 ```
 
 ======================================================================
-P5 STATUS
+CP2 — TRUE PRODUCT SERVER-PATH D0
 ======================================================================
-BEFORE: P5 NOT AUTHORIZED / NOT STARTED (post P4 final truth-sync on main)
-AFTER:
-- P5 AUTHORIZED BY MORRIS = YES
-- P5 STARTED = YES
-- P5 IN PROGRESS = YES
-- P5-S01 = LOCAL CANDIDATE (visual reserves)
-- R1/R2/R3 = NOT STARTED
-- READY FOR REAL = NO
-- runtime v3 = NON ADOPTED
-- ZERO REAL = YES
+Seam selected: projectAssistantSendAction (existing test-only provider injection)
+
+Exact call chain proven:
+  createProject (real local Product SQLite)
+  → projectAssistantSendAction
+  → orchestrateAssistantSend
+  → analyzeIntent (F2 / Fake structured)
+  → composeStudioCognitiveContext
+  → orchestrateProjectAssistantTurn
+  → runNoraCognitiveTurn
+  → CWP → Strategy → decideCognitiveRouting
+  → FakeConversationProvider / SAME Agents Runner
+
+Assertions:
+  result.ok · real projectId/lpsId · cognitiveRuntime=agents
+  decideCognitiveRouting called · selectedModel in Luna/Sol/Astra
+  policyVersion = P5_COGNITIVE_ROUTING_POLICY_VERSION
+  COGNITIVE_STRATEGY_SELECTED + COGNITIVE_ROUTING_SELECTED emitted
+  client DTO does NOT expose routing internals
+  fetch never called · no HD/authority manufactured · same Product SQLite
+
+CP2 verdict: PASS
 
 ======================================================================
-SOURCES READ (summary)
+CP3 — DETERMINISTIC NO-LLM BYPASS
 ======================================================================
-Build Doctrine · Roadmap · C1 · P1 · P2 · P3 · P4 · v3 30–37 applicable · Nora trajectory · Process templates · CURRENT code seams · Figma MCP Desktop 46:2 / Compact 190:44 / Mobile 190:306 / Meridian 179:2
-CKC Delivery coverage: SYNTHETIC / INCOMPLETE (canonical sources used; no invented CKC)
+Operation: composeStudioCognitiveContext (existing deterministic Product projection)
+
+Evidence:
+  runNoraCognitiveTurn calls = 0
+  decideCognitiveRouting calls = 0
+  Fake complete/completeStructured/completeRound = 0
+  live fetch = 0
+  COGNITIVE_STRATEGY_SELECTED = 0
+  COGNITIVE_ROUTING_SELECTED = 0
+  Product Project/LPS identity preserved
+
+CP3 verdict: PASS
 
 ======================================================================
-BUILD DOCTRINE APPLICATION
+CP4 — FINOPS SNAPSHOT
 ======================================================================
-R1–R26 applied: reuse Pre-M6 + Nora runtime; no parallel Product/Nora/Runner/RouterService; no third token family; Fake only at external LLM boundary; no REAL; no architecture pivot; logicalTurnId preferred for cognitive task identity.
+Previous incorrect illustrative values (e.g. Luna 0.2/1.2, Sol 4/20) replaced.
+
+Official Standard SHORT CONTEXT (≤272K) revalidated 2026-10-05:
+  gpt-6-luna:  input=0.10  output=0.50
+  gpt-6.1-sol: input=2.00  output=10.00
+  gpt-6-astra: input=10.00 output=50.00
+
+sourceName / sourceNote / caveats document:
+  Standard tier · short-context · dated · replaceable FinOps ordering · ≠ doctrine · entitlement unverified · revalidate before REAL
+
+Historical MW0 GPT-5.6: UNCHANGED (FREEZE) — test P5-D0-03
+
+CP4 tests: P5-D0-04b PASS
+CP4 verdict: PASS
+Claim: dated price-based ordering hint ONLY · REAL spend = 0
 
 ======================================================================
-FIGMA DESIGN EXTRACTION CONTRACT (Workspace P5-S01)
+CP5 — PIPELINE ORDER
 ======================================================================
-File key: m4g8j0gNbEzfIuH6S9AZJF
-Desktop canonical: 46:2 · 1440×1024
-Compact: 190:44 · 1024×768
-Mobile: 190:306 · 390×844
-Rail: 192×1024 · Meridian 192×390 @ y=250 opacity ~0.10
-Project App 1224 · Global header 54 · Project header 104 · Body 866 · Conversation 868 · Context 356 · Focus 50 · Transcript 638 · Composer 178
-Colors: canvas #fffdf9 · rail #f1ece5 · body #fbf7f2 · ink #1f1a16 · Nora #d9563b · ok #157a55
-Meridian asset: projects/sfia-studio/app/public/branding/meridian-emblem-product.png
-Provenance: Figma raw fill via download_assets(179:2) · truncated PNG recovered with Pillow LOAD_TRUNCATED_IMAGES · lion+compass content verified
-Reference screenshot: .tmp-sfia-review/visual/figma/workspace-desktop-46-2.png
-Runtime screenshots: NOT CAPTURED (Playwright auth bootstrap required) → Visual = CANDIDATE WITH RESERVES · NOT PIXEL-PERFECT PROVEN
+BEFORE (wrong):
+  candidates → provider capability → Quality Floor → FinOps
+
+AFTER (P4 contract):
+  candidates → Quality Floor → provider capability → optional budget among sufficient → minimum-sufficient
+  reason codes: candidates / qualitySufficient / qualityRejected / providerCompatible / providerRejected / budgetEligible / selected / pipeline:quality→provider→finops
+  fail-closed: NO_SUFFICIENT_CONFIG · PROVIDER_INCOMPATIBLE_WITH_QUALITY_FLOOR · BUDGET_EXCLUDES_ALL_SUFFICIENT · BUDGET_MUST_NOT_DOWNGRADE_BELOW_FLOOR
+
+Unknown-model harden (P5-D0-10):
+  manifest with no target cohort models → decideCognitiveRouting ok:false with PROVIDER_INCOMPATIBLE_WITH_QUALITY_FLOOR
+
+Order test P5-D0-05b:
+  below-floor Luna eliminated at Quality stage
+  Sol high/xhigh quality-sufficient but provider-rejected
+  selection from remaining quality+provider set
+
+CP5 verdict: PASS
 
 ======================================================================
-CURRENT→TARGET ASSET MATRIX (summary)
+TARGETED / ADJACENT / QUALITY GATES
 ======================================================================
-| Asset | Class | Action S01 |
-| ProductShell | HARVEST/ADAPT | P3 rail layout |
-| ProjectWorkspacePage | ADAPT | P3 workspace geometry |
-| ConversationSurface | ADAPT | flatter transcript / sticky composer |
-| ProjectContextSummary | NEW (projection UI) | Pilot context panel |
-| product-tokens --pm6-* | ADAPT | P3 colors/geometry |
-| --sfia-* | KEEP/AUDIT | dual-family TEMP WITH EXIT |
-| cognitiveWorkloadPolicy | KEEP | Strategy first |
-| cognitiveRoutingPolicy | NEW COMPLETE | P5 routing |
-| capabilityBudget MW0 | FREEZE | historical GPT-5.6 |
-| buildP5TargetCapabilityManifest | NEW | Luna/Sol/Astra |
-| runNoraCognitiveTurn | ADAPT | wire routing |
-| runNoraAgentsTurn | KEEP | same Runner |
-| FakeConversationProvider | KEEP | D0 external boundary |
-| logicalProductTurn / logicalTurnId | KEEP | cognitiveTaskId |
-| orchestrateTurn | ADAPT | correlationId←logicalTurnId |
-| F2 analyzeIntent | RETIRE LATER align | P5-DEBT-F2-ROUTING-ALIGNMENT |
-| Meridian | NEW asset | branding |
-| VsDemo | HARVEST honesty | not Product SoT |
+Targeted P5 (26 tests):
+```
+
+ RUN  v3.2.7 /Users/morris/Projects/sfia-studio-chat-first-product-simplification-p3/projects/sfia-studio/app
+
+ ✓ __tests__/pre-m6-product-ui/p5.s01.workspaceLayout.ui.test.tsx (1 test) 34ms
+ ✓ __tests__/nora-cognitive-runtime/p5.s01.semanticInvariants.d0.test.ts (3 tests) 3ms
+ ✓ __tests__/nora-cognitive-runtime/p5.s01.cognitiveRouting.d0.test.ts (19 tests) 31ms
+ ✓ __tests__/nora-cognitive-runtime/p5.s01.deterministicBypass.d0.test.ts (1 test) 53ms
+ ✓ __tests__/nora-cognitive-runtime/p5.s01.integratedProduct.d0.test.ts (2 tests) 98ms
+
+ Test Files  5 passed (5)
+      Tests  26 passed (26)
+   Start at  09:43:16
+   Duration  2.61s (transform 1.52s, setup 376ms, collect 5.35s, tests 219ms, environment 378ms, prepare 264ms)
+
+```
+
+Adjacent MW2+F2+Pre-M6 (197 tests):
+```
+ ✓ __tests__/pre-m6-product-ui/productJourneyProjectionCoherence.ui.test.tsx (3 tests) 439ms
+ ✓ __tests__/pre-m6-product-ui/postExecutionTrajectorySurface.ui.test.tsx (2 tests) 483ms
+   ✓ CR-PCONT-05 TrajectorySurface post-execution recovery > preserves Attempt/ProductOutcome/postEvidence after project_trajectory proposeOptions; no false Proposal conflict  455ms
+ ✓ __tests__/pre-m6-product-ui/runningAttemptRefresh.ui.test.tsx (7 tests) 540ms
+ ✓ __tests__/pre-m6-product-ui/uatUxSemanticReserves.ui.test.tsx (6 tests) 125ms
+ ✓ __tests__/pre-m6-product-ui/projectWorkspaceRouting.ui.test.tsx (3 tests) 55ms
+ ✓ __tests__/pre-m6-product-ui/preCycleTrajectoryCta.ui.test.tsx (3 tests) 67ms
+ ✓ __tests__/pre-m6-product-ui/chatFirstGovernedDecisionLoop.ui.test.tsx (10 tests) 98ms
+ ✓ __tests__/pre-m6-product-ui/reservationContextProposal.ui.test.tsx (3 tests) 44ms
+ ✓ __tests__/pre-m6-product-ui/cycleReservationMemoryRail.ui.test.tsx (2 tests) 43ms
+ ✓ __tests__/pre-m6-product-ui/p5.s01.workspaceLayout.ui.test.tsx (1 test) 105ms
+ ✓ __tests__/pre-m6-product-ui/useRunningAttemptO3Observation.test.tsx (4 tests) 33ms
+ ✓ __tests__/pre-m6-product-ui/pilotContractPresentation.d0.test.ts (2 tests) 3ms
+ ✓ __tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx (55 tests) 1739ms
+ ✓ __tests__/nora-cognitive-runtime/mw2.s01.cwpPolicy.d0.test.ts (25 tests) 8ms
+ ✓ __tests__/nora-cognitive-runtime/mw2.corr02.nativeLiveBoundary.d0.test.ts (7 tests) 15ms
+ ✓ __tests__/nora-cognitive-runtime/mw2.s01.f1ModelSettings.d0.test.ts (4 tests) 19ms
+ ✓ __tests__/project-assistant/orchestrateTurn.test.ts (8 tests) 133ms
+ ✓ __tests__/project-assistant/w1CkcSemanticSeam.test.ts (6 tests) 69ms
+
+ Test Files  22 passed (22)
+      Tests  197 passed (197)
+   Start at  09:43:24
+   Duration  4.50s (transform 4.13s, setup 1.23s, collect 10.91s, tests 4.63s, environment 5.89s, prepare 1.24s)
+
+```
+
+typecheck: PASS
+lint: PASS
+build: PASS
+FULL npm test: PASS (see CP1)
+git diff --check: (pack sanitized separately)
+staged: EMPTY
+ZERO REAL: YES (fetch spies fail-closed · Fake only · OPENAI_API_KEY deleted in tests)
+F2 debt: P5-DEBT-F2-ROUTING-ALIGNMENT = OPEN
+Visual reserve: Desktop/Compact/Mobile runtime screenshots NOT CAPTURED — CANDIDATE WITH RESERVES
 
 ======================================================================
-ARCHITECTURE PARALLELISM CHECK
+ARCHITECTURE ANTI-PARALLEL
 ======================================================================
 1 Existing Product model reused? YES
 2 Existing Product SQLite reused? YES
@@ -183,11 +387,11 @@ ARCHITECTURE PARALLELISM CHECK
 4 Existing Nora reused? YES
 5 Existing Agents Runner reused? YES
 6 Existing provider boundary reused? YES
-7 Studio Cognitive Context reused/adapted? YES
+7 Studio Cognitive Context reused? YES
 8 logical Product turn reused? YES
 9 Product resolution reused? YES
-10 Pre-M6 frontend audited? YES
-11 Tokens audited? YES
+10 Pre-M6 frontend audited? YES (not redesigned this pass)
+11 tokens audited? YES
 12 No third token family? YES
 13 No router service? YES
 14 No second Nora? YES
@@ -201,62 +405,1741 @@ ARCHITECTURE PARALLELISM CHECK
 22 No metrics factory? YES
 
 ======================================================================
-PIB / SIMPLIFICATION (S01 scope)
+DEBT + EXITS
 ======================================================================
-MATERIAL: PRESERVED
-PROTECTIVE: PRESERVED
-ACCIDENTAL: REDUCED at S01 scope (no model/effort/CKC selectors; Conversation primary; context panel)
-Pilot/runtime admin: NEAR ZERO
-parallel cockpit: NO
-new semantic truth: NO
-Net Complexity: IMPROVED AT S01 SCOPE (local) / NOT YET PROVEN globally
+P5-DEBT-F2-ROUTING-ALIGNMENT — OPEN — Owner P5 — Exit before R3
+OPENAI_MODEL / OPENAI_REASONING_EFFORT — TEMP WITH EXIT
+dual --sfia-*/--pm6-* — TEMP WITH EXIT
+runtime escalation execution — OPEN
+visual runtime comparison — OPEN
+Synthesis Product-derived — OPEN
+object-native Aperçu/Exécution/Journal/Historique — OPEN
 
 ======================================================================
-TESTS / VALIDATION
+USEFUL COMPLETE ROUTING POLICY (CURRENT FILE)
 ======================================================================
-Targeted P5: 22 PASS (routing 17 + integrated 1 + semantic 3 + workspace UI 1)
-Adjacent: MW2 CWP/modelSettings/nativeLiveBoundary PASS · pre-m6-product-ui suite 201 PASS in combined run
-typecheck: PASS
-lint: PASS
-build: PASS
-Playwright runtime visual: NOT RUN (auth bootstrap) — visual reserve
-git diff --check: trailing blank line only on .tmp review pack (rewritten below)
-Staged: EMPTY
-REAL calls: 0 · REAL spend: 0
+```ts
+/**
+ * P5-S01 — Strategy-first bounded cognitive routing policy.
+ *
+ * Pure / non-persistent / non-authoritative. Not a RouterService.
+ * Pipeline (P4 contract — Correction Pass 01):
+ *   candidate generation
+ *   → Quality Floor filter
+ *   → provider capability filter
+ *   → optional budget filter among sufficient/compatible
+ *   → minimum-sufficient selection.
+ *
+ * Nominal target cohort: gpt-6-luna · gpt-6.1-sol · gpt-6-astra.
+ * GPT-5.6 is excluded from nominal TARGET routing (historical evidence FREEZE).
+ */
+import { createHash, randomUUID } from "node:crypto";
+import type { OpenAiReasoningEffort } from "@/lib/platform/ai";
+import {
+  buildP5TargetCapabilityManifest,
+  estimateCostUsd,
+  modelCapabilitySet,
+  type CapabilityManifest,
+} from "@/lib/nora-eval/capabilityBudget";
+import type {
+  CognitiveStrategyDecision,
+  CognitiveWorkloadSignals,
+} from "./cognitiveWorkloadPolicy";
+
+export const P5_COGNITIVE_ROUTING_POLICY_VERSION = "p5-s01-routing-v1" as const;
+
+export const P5_TARGET_MODEL_COHORT = [
+  "gpt-6-luna",
+  "gpt-6.1-sol",
+  "gpt-6-astra",
+] as const;
+
+export type P5TargetModelId = (typeof P5_TARGET_MODEL_COHORT)[number];
+
+export const P5_REASONING_MODE_NOMINAL = "standard" as const;
+
+/** Max cognitive escalations per stable cognitive task (P4). */
+export const P5_MAX_ESCALATIONS_PER_TASK = 1 as const;
+
+const EFFORT_RANK: Record<OpenAiReasoningEffort, number> = {
+  none: 0,
+  minimal: 0,
+  low: 1,
+  medium: 2,
+  high: 3,
+  xhigh: 4,
+  max: 5,
+};
+
+/** Relative model capability rank for quality-floor comparison (not authority). */
+const MODEL_CAPABILITY_RANK: Record<P5TargetModelId, number> = {
+  "gpt-6-luna": 1,
+  "gpt-6.1-sol": 2,
+  "gpt-6-astra": 3,
+};
+
+export type CognitiveQualityFloor = {
+  /** Minimum model capability rank (1=Luna … 3=Astra). */
+  minModelRank: number;
+  /** Minimum reasoning effort rank. */
+  minEffortRank: number;
+  /** Categorical label for reconstructibility. */
+  category:
+    | "routine-sufficient"
+    | "focused-sufficient"
+    | "deep-sufficient"
+    | "high-assurance-sufficient";
+  reasonCodes: string[];
+};
+
+export type CognitiveRoutingConfig = {
+  modelId: P5TargetModelId;
+  reasoningEffort: OpenAiReasoningEffort;
+};
+
+export type CognitiveRoutingDecision = {
+  ok: true;
+  routingDecisionId: string;
+  cognitiveTaskId: string;
+  strategyClass: CognitiveStrategyDecision["strategyClass"];
+  qualityFloor: CognitiveQualityFloor;
+  eligibleConfigs: CognitiveRoutingConfig[];
+  selectedModel: P5TargetModelId;
+  selectedReasoningEffort: OpenAiReasoningEffort;
+  reasoningMode: typeof P5_REASONING_MODE_NOMINAL;
+  reasonCodes: string[];
+  escalationEligible: boolean;
+  maxEscalations: typeof P5_MAX_ESCALATIONS_PER_TASK;
+  providerSnapshotIdentity: string;
+  policyVersion: typeof P5_COGNITIVE_ROUTING_POLICY_VERSION;
+  estimatedCostUsdHint: number | null;
+};
+
+export type CognitiveRoutingLimitation = {
+  ok: false;
+  routingDecisionId: string;
+  cognitiveTaskId: string;
+  strategyClass: CognitiveStrategyDecision["strategyClass"];
+  qualityFloor: CognitiveQualityFloor;
+  reasonCodes: string[];
+  policyVersion: typeof P5_COGNITIVE_ROUTING_POLICY_VERSION;
+  providerSnapshotIdentity: string;
+};
+
+export type DecideCognitiveRoutingInput = {
+  strategy: CognitiveStrategyDecision;
+  /** Stable cognitive task identity — prefer logicalTurnId / correlation. */
+  cognitiveTaskId: string;
+  /** Optional workload signals for quality-floor reasons (already in strategy). */
+  signals?: CognitiveWorkloadSignals;
+  /** Override manifest (tests). Default: P5 target cohort snapshot. */
+  manifest?: CapabilityManifest;
+  /** Optional budget ceiling — never silently downgrades below quality floor. */
+  maxBudgetUsd?: number | null;
+  /** Prior escalations already consumed for this task. */
+  escalationsUsed?: number;
+};
+
+function signalRank(
+  value: CognitiveWorkloadSignals[keyof CognitiveWorkloadSignals] | undefined,
+): number {
+  if (value === "high") return 3;
+  if (value === "medium") return 2;
+  if (value === "low") return 1;
+  return 0; // unknown
+}
+
+/**
+ * Derive categorical Quality Floor from strategy + signals.
+ * Explainable / reconstructible — NOT a 0–100 score.
+ */
+export function deriveQualityFloor(
+  strategy: CognitiveStrategyDecision,
+  signals?: CognitiveWorkloadSignals,
+): CognitiveQualityFloor {
+  const s = signals ?? strategy.normalizedSignals;
+  const reasonCodes: string[] = [
+    `strategy:${strategy.strategyClass}`,
+    `reasoningDemand:${strategy.reasoningDemand}`,
+  ];
+
+  let minModelRank = 1;
+  let minEffortRank = EFFORT_RANK[strategy.reasoningDemand] ?? 1;
+  let category: CognitiveQualityFloor["category"] = "routine-sufficient";
+
+  switch (strategy.strategyClass) {
+    case "Routine":
+      category = "routine-sufficient";
+      minModelRank = 1;
+      minEffortRank = Math.max(minEffortRank, EFFORT_RANK.none);
+      break;
+    case "Focused":
+      category = "focused-sufficient";
+      minModelRank = 1;
+      minEffortRank = Math.max(minEffortRank, EFFORT_RANK.low);
+      if (signalRank(s.verificationNeed) >= 2 || signalRank(s.ambiguity) >= 2) {
+        minEffortRank = Math.max(minEffortRank, EFFORT_RANK.medium);
+        reasonCodes.push("focused:elevated-verification-or-ambiguity");
+      }
+      break;
+    case "Deep":
+      category = "deep-sufficient";
+      // Deep may still use Luna at high effort; Sol is preferred floor when rigor high.
+      minModelRank =
+        signalRank(s.rigorCriticality) >= 3 ||
+        signalRank(s.verificationNeed) >= 3 ||
+        signalRank(s.contradictionRisk) >= 3
+          ? 2
+          : 1;
+      minEffortRank = Math.max(minEffortRank, EFFORT_RANK.medium);
+      reasonCodes.push(
+        minModelRank >= 2
+          ? "deep:sol-floor-for-high-rigor"
+          : "deep:luna-eligible-at-sufficient-effort",
+      );
+      break;
+    case "High-Assurance":
+      category = "high-assurance-sufficient";
+      minModelRank = 2; // Sol minimum — Astra optional among sufficient
+      minEffortRank = Math.max(minEffortRank, EFFORT_RANK.high);
+      reasonCodes.push("high-assurance:sol-or-stronger");
+      break;
+  }
+
+  if (signalRank(s.contradictionRisk) >= 3) {
+    minModelRank = Math.max(minModelRank, 2);
+    reasonCodes.push("contradictionRisk:high→sol-floor");
+  }
+  if (strategy.criticalChallengeArmed) {
+    minEffortRank = Math.max(minEffortRank, EFFORT_RANK.high);
+    reasonCodes.push("criticalChallengeArmed→effort-floor-high");
+  }
+
+  return {
+    minModelRank,
+    minEffortRank,
+    category,
+    reasonCodes,
+  };
+}
+
+function meetsQualityFloor(
+  config: CognitiveRoutingConfig,
+  floor: CognitiveQualityFloor,
+): boolean {
+  const modelRank = MODEL_CAPABILITY_RANK[config.modelId];
+  const effortRank = EFFORT_RANK[config.reasoningEffort] ?? -1;
+  return modelRank >= floor.minModelRank && effortRank >= floor.minEffortRank;
+}
+
+/**
+ * Candidate generation: Strategy envelope × target cohort, NOT fixed Strategy→Model.
+ * Model × effort remain independent. Quality Floor applies next (before provider).
+ */
+export function generateCandidateConfigs(
+  strategy: CognitiveStrategyDecision,
+): CognitiveRoutingConfig[] {
+  const efforts = strategy.candidateEnvelope;
+  const configs: CognitiveRoutingConfig[] = [];
+  for (const modelId of P5_TARGET_MODEL_COHORT) {
+    for (const reasoningEffort of efforts) {
+      configs.push({ modelId, reasoningEffort });
+    }
+  }
+  return configs;
+}
+
+function filterByQualityFloor(
+  configs: CognitiveRoutingConfig[],
+  floor: CognitiveQualityFloor,
+): { sufficient: CognitiveRoutingConfig[]; rejected: string[] } {
+  const sufficient: CognitiveRoutingConfig[] = [];
+  const rejected: string[] = [];
+  for (const c of configs) {
+    if (meetsQualityFloor(c, floor)) {
+      sufficient.push(c);
+    } else {
+      rejected.push(`below-quality-floor:${c.modelId}/${c.reasoningEffort}`);
+    }
+  }
+  return { sufficient, rejected };
+}
+
+function filterByProviderCapability(
+  configs: CognitiveRoutingConfig[],
+  manifest: CapabilityManifest,
+): { eligible: CognitiveRoutingConfig[]; rejected: string[] } {
+  const eligible: CognitiveRoutingConfig[] = [];
+  const rejected: string[] = [];
+  for (const c of configs) {
+    const supported = modelCapabilitySet(manifest, c.modelId);
+    if (!supported) {
+      rejected.push(`unknown-model:${c.modelId}`);
+      continue;
+    }
+    if (c.reasoningEffort === "minimal") {
+      rejected.push(`unsupported-effort:${c.modelId}/minimal`);
+      continue;
+    }
+    if (!supported.includes(c.reasoningEffort)) {
+      rejected.push(`unsupported-effort:${c.modelId}/${c.reasoningEffort}`);
+      continue;
+    }
+    // Nominal cohort allowlist — GPT-5.6 never appears here.
+    if (
+      !(P5_TARGET_MODEL_COHORT as readonly string[]).includes(c.modelId)
+    ) {
+      rejected.push(`outside-target-cohort:${c.modelId}`);
+      continue;
+    }
+    eligible.push(c);
+  }
+  return { eligible, rejected };
+}
+
+function sortMinimumSufficient(
+  configs: CognitiveRoutingConfig[],
+  manifest: CapabilityManifest,
+): CognitiveRoutingConfig[] {
+  return [...configs].sort((a, b) => {
+    const costA = estimateCostUsd({
+      manifest,
+      modelId: a.modelId,
+      inputTokens: 4000,
+      outputTokens: 1200,
+    });
+    const costB = estimateCostUsd({
+      manifest,
+      modelId: b.modelId,
+      inputTokens: 4000,
+      outputTokens: 1200,
+    });
+    if (costA !== costB) return costA - costB;
+    const modelDiff =
+      MODEL_CAPABILITY_RANK[a.modelId] - MODEL_CAPABILITY_RANK[b.modelId];
+    if (modelDiff !== 0) return modelDiff;
+    return (
+      (EFFORT_RANK[a.reasoningEffort] ?? 0) -
+      (EFFORT_RANK[b.reasoningEffort] ?? 0)
+    );
+  });
+}
+
+function providerSnapshotIdentity(manifest: CapabilityManifest): string {
+  // Identity is content-stable: exclude retrievedAt (call-time) so the same
+  // cohort/capability set hashes identically across turns.
+  const payload = JSON.stringify({
+    sourceName: manifest.sourceName,
+    models: manifest.models.map((m) => ({
+      id: m.modelId,
+      efforts: m.reasoningEfforts,
+      inputUsdPerMTok: m.inputUsdPerMTok,
+      outputUsdPerMTok: m.outputUsdPerMTok,
+    })),
+    allowlist: manifest.campaignAllowlist,
+  });
+  return createHash("sha256").update(payload).digest("hex").slice(0, 16);
+}
+
+/**
+ * Decide nominal Product cognitive routing.
+ * Fail-closed when no sufficient config remains — never silently downgrade.
+ */
+export function decideCognitiveRouting(
+  input: DecideCognitiveRoutingInput,
+): CognitiveRoutingDecision | CognitiveRoutingLimitation {
+  const routingDecisionId = randomUUID();
+  const cognitiveTaskId = input.cognitiveTaskId.trim();
+  if (!cognitiveTaskId) {
+    throw new Error("COGNITIVE_ROUTING_REQUIRES_STABLE_TASK_ID");
+  }
+
+  const manifest =
+    input.manifest ??
+    buildP5TargetCapabilityManifest(new Date().toISOString());
+  const snapshotId = providerSnapshotIdentity(manifest);
+  const qualityFloor = deriveQualityFloor(input.strategy, input.signals);
+
+  // P4 order: candidates → Quality Floor → provider capability → FinOps.
+  const candidates = generateCandidateConfigs(input.strategy);
+  const {
+    sufficient: qualitySufficient,
+    rejected: qualityRejected,
+  } = filterByQualityFloor(candidates, qualityFloor);
+
+  const reasonCodes = [
+    ...qualityFloor.reasonCodes,
+    `candidates:${candidates.length}`,
+    `qualitySufficient:${qualitySufficient.length}`,
+    `qualityRejected:${qualityRejected.length}`,
+    ...qualityRejected.slice(0, 8).map((r) => `qualityRejected:${r}`),
+  ];
+
+  if (qualitySufficient.length === 0) {
+    return {
+      ok: false,
+      routingDecisionId,
+      cognitiveTaskId,
+      strategyClass: input.strategy.strategyClass,
+      qualityFloor,
+      reasonCodes: [
+        ...reasonCodes,
+        "NO_SUFFICIENT_CONFIG",
+        "BUDGET_MUST_NOT_DOWNGRADE_BELOW_FLOOR",
+      ],
+      policyVersion: P5_COGNITIVE_ROUTING_POLICY_VERSION,
+      providerSnapshotIdentity: snapshotId,
+    };
+  }
+
+  const {
+    eligible: providerCompatible,
+    rejected: providerRejected,
+  } = filterByProviderCapability(qualitySufficient, manifest);
+
+  reasonCodes.push(
+    `providerCompatible:${providerCompatible.length}`,
+    `providerRejected:${providerRejected.length}`,
+    ...providerRejected.slice(0, 8).map((r) => `providerRejected:${r}`),
+  );
+
+  if (providerCompatible.length === 0) {
+    return {
+      ok: false,
+      routingDecisionId,
+      cognitiveTaskId,
+      strategyClass: input.strategy.strategyClass,
+      qualityFloor,
+      reasonCodes: [
+        ...reasonCodes,
+        "PROVIDER_INCOMPATIBLE_WITH_QUALITY_FLOOR",
+        "NO_SUFFICIENT_CONFIG",
+        "BUDGET_MUST_NOT_DOWNGRADE_BELOW_FLOOR",
+      ],
+      policyVersion: P5_COGNITIVE_ROUTING_POLICY_VERSION,
+      providerSnapshotIdentity: snapshotId,
+    };
+  }
+
+  const ordered = sortMinimumSufficient(providerCompatible, manifest);
+  let selected = ordered[0]!;
+  let budgetEligibleCount = ordered.length;
+
+  // Budget may eliminate higher-cost options only among quality+provider-sufficient.
+  if (input.maxBudgetUsd != null && Number.isFinite(input.maxBudgetUsd)) {
+    const withinBudget = ordered.filter((c) => {
+      const est = estimateCostUsd({
+        manifest,
+        modelId: c.modelId,
+        inputTokens: 4000,
+        outputTokens: 1200,
+      });
+      return est <= input.maxBudgetUsd!;
+    });
+    budgetEligibleCount = withinBudget.length;
+    reasonCodes.push(`budgetEligible:${budgetEligibleCount}`);
+    if (withinBudget.length === 0) {
+      return {
+        ok: false,
+        routingDecisionId,
+        cognitiveTaskId,
+        strategyClass: input.strategy.strategyClass,
+        qualityFloor,
+        reasonCodes: [
+          ...reasonCodes,
+          "BUDGET_EXCLUDES_ALL_SUFFICIENT",
+          "BUDGET_MUST_NOT_DOWNGRADE_BELOW_FLOOR",
+        ],
+        policyVersion: P5_COGNITIVE_ROUTING_POLICY_VERSION,
+        providerSnapshotIdentity: snapshotId,
+      };
+    }
+    selected = withinBudget[0]!;
+    reasonCodes.push("budget:filtered-among-sufficient");
+  }
+
+  const escalationsUsed = input.escalationsUsed ?? 0;
+  const escalationEligible = escalationsUsed < P5_MAX_ESCALATIONS_PER_TASK;
+
+  const estimatedCostUsdHint = estimateCostUsd({
+    manifest,
+    modelId: selected.modelId,
+    inputTokens: 4000,
+    outputTokens: 1200,
+  });
+
+  reasonCodes.push(
+    `selected:${selected.modelId}/${selected.reasoningEffort}`,
+    "reasoningMode:standard",
+    "finops:among-sufficient-only",
+    "pipeline:quality→provider→finops",
+  );
+
+  return {
+    ok: true,
+    routingDecisionId,
+    cognitiveTaskId,
+    strategyClass: input.strategy.strategyClass,
+    qualityFloor,
+    eligibleConfigs: ordered,
+    selectedModel: selected.modelId,
+    selectedReasoningEffort: selected.reasoningEffort,
+    reasoningMode: P5_REASONING_MODE_NOMINAL,
+    reasonCodes,
+    escalationEligible,
+    maxEscalations: P5_MAX_ESCALATIONS_PER_TASK,
+    providerSnapshotIdentity: snapshotId,
+    policyVersion: P5_COGNITIVE_ROUTING_POLICY_VERSION,
+    estimatedCostUsdHint,
+  };
+}
+
+/** True when model id is outside the P5 nominal target cohort. */
+export function isOutsideP5TargetCohort(modelId: string): boolean {
+  return !(P5_TARGET_MODEL_COHORT as readonly string[]).includes(modelId);
+}
+
+```
 
 ======================================================================
-DEBT / EXIT
+CAPABILITY MANIFEST DIFF (capabilityBudget.ts)
 ======================================================================
-P5-DEBT-F2-ROUTING-ALIGNMENT — F2 analyzeIntent still static provider model — Owner P5 — Exit before R3 / integrated completion — Proof: same Product cognitive policy/provenance
-OPENAI_MODEL / OPENAI_REASONING_EFFORT — RETIRE LATER from nominal Product routing — TEMP WITH EXIT for bootstrapping/eval
-Dual --sfia-* / --pm6-* — TEMP WITH EXIT — converge presentation without third family
-Escalation runtime loop — policy max=1 only — exercise before R1
-Visual runtime Figma comparison — capture after auth — before claiming Visual PASS
-Synthesis shortcut disabled — honest until Product synthesis projection exists
-Meridian asset truncated-recovery — replace with clean export if available — Owner P5 visual
+```diff
+diff --git a/projects/sfia-studio/app/lib/nora-eval/capabilityBudget.ts b/projects/sfia-studio/app/lib/nora-eval/capabilityBudget.ts
+index 8ffe2b3a..146efed4 100644
+--- a/projects/sfia-studio/app/lib/nora-eval/capabilityBudget.ts
++++ b/projects/sfia-studio/app/lib/nora-eval/capabilityBudget.ts
+@@ -121,6 +121,73 @@ export function buildCurrentOpenAiCapabilityManifest(
+   };
+ }
+
++/**
++ * P5 nominal TARGET routing cohort capability snapshot (dated external input).
++ * Cohort EXACT: gpt-6-luna · gpt-6.1-sol · gpt-6-astra.
++ * Does NOT mutate {@link buildMw0CapabilityManifest} (GPT-5.6 historical FREEZE).
++ * Does NOT replace {@link buildCurrentOpenAiCapabilityManifest} provider universe.
++ * Snapshot ≠ permanent SFIA doctrine; account entitlement ≠ documented capability.
++ *
++ * Effort sets (external input revalidated for P5-S01 Delivery / Correction Pass 01, 2026-10-05):
++ * - gpt-6-luna: none · low · medium · high · xhigh · max
++ * - gpt-6.1-sol: low · medium · high · xhigh · max (none unsupported)
++ * - gpt-6-astra: low · medium · high · xhigh · max (none unsupported)
++ *
++ * Pricing (Correction Pass 01 — Official OpenAI STANDARD SHORT CONTEXT ≤272K):
++ * - Luna 0.10 / 0.50 · Sol 2.00 / 10.00 · Astra 10.00 / 50.00 (USD per 1M tokens)
++ * Cached/cache-write rates exist at provider but are not stored unless consumed by estimateCostUsd.
++ * Long-context / Batch / Flex / Fast / Ultrafast / regional tiers differ.
++ * Replaceable FinOps ordering hint only — NOT doctrine · NOT observed REAL cost.
++ */
++export function buildP5TargetCapabilityManifest(
++  retrievedAtIso: string,
++): CapabilityManifest {
++  return {
++    retrievedAt: retrievedAtIso,
++    provider: "openai",
++    sourceName:
++      "Official OpenAI API Models + Pricing — P5 TARGET cohort (GPT-6 Luna / GPT-6.1 Sol / GPT-6 Astra) — Standard short-context — revalidated 2026-10-05",
++    sourceNote:
++      "P5-S01 Correction Pass 01 TARGET routing cohort — Standard processing tier · short-context pricing band (≤272K input) · ≠ MW0 historical · ≠ full provider universe · ≠ permanent doctrine · ≠ entitlement proof · ZERO REAL in S01. Revalidate before REAL gates. Long-context and other tiers use different rates.",
++    sdkCodeCapabilitySet: OPENAI_REASONING_EFFORT_VALUES,
++    models: [
++      {
++        modelId: "gpt-6-luna",
++        inputUsdPerMTok: 0.1,
++        outputUsdPerMTok: 0.5,
++        reasoningEfforts: ["none", "low", "medium", "high", "xhigh", "max"],
++      },
++      {
++        modelId: "gpt-6.1-sol",
++        inputUsdPerMTok: 2.0,
++        outputUsdPerMTok: 10.0,
++        reasoningEfforts: ["low", "medium", "high", "xhigh", "max"],
++      },
++      {
++        modelId: "gpt-6-astra",
++        inputUsdPerMTok: 10.0,
++        outputUsdPerMTok: 50.0,
++        reasoningEfforts: ["low", "medium", "high", "xhigh", "max"],
++      },
++    ],
++    campaignAllowlist: {
++      modelIds: ["gpt-6-luna", "gpt-6.1-sol", "gpt-6-astra"],
++      reasoningEfforts: ["none", "low", "medium", "high", "xhigh", "max"],
++    },
++    caveats: [
++      "P5 TARGET cohort excludes GPT-5.6 from nominal Product routing.",
++      "Historical GPT-5.6 manifests/evidence remain IMMUTABLE (buildMw0CapabilityManifest).",
++      "Sol/Astra do not support reasoning.effort=none — do not silently coerce.",
++      "minimal remains non-admissible for target cohort.",
++      "Documented capability ≠ account/API entitlement — ZERO REAL in P5-S01.",
++      "Pricing = Official OpenAI Standard short-context (≤272K) dated 2026-10-05 — FinOps ordering hint only.",
++      "Long-context rates differ; Batch/Flex/Fast/Ultrafast/regional tiers differ — not stored here.",
++      "Cached input / cache write rates exist at provider; schema stores only fields consumed by estimateCostUsd.",
++      "NOT observed REAL cost · NOT production savings claim · revalidate before REAL.",
++    ],
++  };
++}
++
+ /**
+  * Distinct campaign capability policy for the Global Model × Reasoning Campaign.
+  * EXIT: campaign evaluation contract only — ≠ production model routing / ≠ multi-model router.
+
+```
 
 ======================================================================
-GATES
+IMPORT BOUNDARIES DIFF
 ======================================================================
-Consumed: MORRIS P5 AUTHORIZATION
-Next after ChatGPT PASS: MORRIS P5-S01 GIT INTEGRATION GATE
-NOT consumed: REAL · MERGE · R1 · R2 · R3 · runtime v3 adoption
+```diff
+diff --git a/projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts b/projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
+index 90426557..52fcc432 100644
+--- a/projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
++++ b/projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
+@@ -145,6 +145,7 @@ describe("V2-A1 vertical-slice-runtime import boundaries", () => {
+       "features/project-assistant/w2/resolveTrustedProductLaunchContext.ts:@/lib/vertical-slice-runtime/managedRepoRootBaseConfig",
+       "features/project-assistant/w2/resolveTrustedProductLaunchContext.ts:@/lib/vertical-slice-runtime/resolveBoundedReadOnlyBaseHeadSha",
+       "features/pre-m6-product-ui/NewProjectIntentionPage.tsx:@/lib/vertical-slice-runtime/actions",
++      "features/pre-m6-product-ui/ProductRailRecents.tsx:@/lib/vertical-slice-runtime/actions",
+       "features/pre-m6-product-ui/ProjectWorkspacePage.tsx:@/lib/vertical-slice-runtime/actions",
+       "features/pre-m6-product-ui/ProjectsPage.tsx:@/lib/vertical-slice-runtime/actions",
+       "features/pre-m6-product-ui/surfaces/RepositoryBindingForm.tsx:@/lib/vertical-slice-runtime/actions",
+
+```
 
 ======================================================================
-FINAL VERDICT (Cursor self)
+PRODUCTION RUNTIME REFERENCE DIGEST DIFF
 ======================================================================
-READY FOR CHATGPT P5-S01 INTEGRATED DELIVERY REVIEW —
-P5 AUTHORIZED / P5 IN PROGRESS /
-FIRST PRODUCT VERTICAL SLICE LOCAL CANDIDATE /
-P3 WORKSPACE VISUAL CANDIDATE (WITH RESERVES) /
-COGNITIVE ROUTING D0 PROVEN /
-ZERO REAL
+```diff
+diff --git a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
+index e2656d8a..6033a8db 100644
+--- a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
++++ b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
+@@ -582,7 +582,7 @@
+     },
+     {
+       "path": "projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts",
+-      "sha256_16": "a7b846cb4ae83cc6"
++      "sha256_16": "28b6b3d32b754cec"
+     },
+     {
+       "path": "projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts",
+@@ -622,7 +622,7 @@
+     },
+     {
+       "path": "projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts",
+-      "sha256_16": "fc46c393f14d66ae"
++      "sha256_16": "b1d586c1784f8c75"
+     },
+     {
+       "path": "projects/sfia-studio/app/lib/nora-cognitive-runtime/productSqliteSession.ts",
+@@ -678,7 +678,7 @@
+     },
+     {
+       "path": "projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts",
+-      "sha256_16": "eccf91d5637a87c5"
++      "sha256_16": "02979a5b05a36ced"
+     },
+     {
+       "path": "projects/sfia-studio/app/.env.example",
 
-≠ P5 COMPLETE · ≠ PIXEL-PERFECT GLOBAL PASS · ≠ READY FOR REAL · ≠ READY FOR PR/MERGE
+```
 
 ======================================================================
-FULL P5 DELIVERY DOCUMENT
+TESTS CREATED / CHANGED (FULL CONTENT)
 ======================================================================
+
+### p5.s01.cognitiveRouting.d0.test.ts
+```ts
+/** @vitest-environment node */
+/**
+ * P5-S01 D0 — Cognitive routing policy + Product-path wiring (ZERO REAL).
+ */
+import { describe, expect, it, vi } from "vitest";
+import {
+  ScriptedModel,
+  assistantMessage,
+} from "@openai/agents/testing";
+import {
+  buildMw0CapabilityManifest,
+  buildP5TargetCapabilityManifest,
+  modelCapabilitySet,
+  type CapabilityManifest,
+} from "@/lib/nora-eval/capabilityBudget";
+import type { OpenAiReasoningEffort } from "@/lib/platform/ai";
+import {
+  decideCognitiveRouting,
+  deriveQualityFloor,
+  generateCandidateConfigs,
+  isOutsideP5TargetCohort,
+  P5_COGNITIVE_ROUTING_POLICY_VERSION,
+  P5_MAX_ESCALATIONS_PER_TASK,
+  P5_TARGET_MODEL_COHORT,
+  decideCognitiveStrategy,
+  normalizeCognitiveWorkloadSignals,
+  runNoraCognitiveTurn,
+  sfiaBoundaryInstructions,
+} from "@/lib/nora-cognitive-runtime";
+import { FakeConversationProvider } from "@/lib/platform/ai/fakeProvider";
+import type { EventSink } from "@/lib/platform/observability/eventSink";
+import type { TechnicalEvent } from "@/lib/platform/observability/types";
+
+function strategyFor(
+  partial: Parameters<typeof normalizeCognitiveWorkloadSignals>[0],
+  profile = "trusted-profile",
+) {
+  return decideCognitiveStrategy({
+    signals: normalizeCognitiveWorkloadSignals(partial),
+    trustedSfiaProfile: profile,
+  });
+}
+
+describe("P5-S01 — cognitive routing D0", () => {
+  it("P5-D0-01 — nominal target cohort = Luna / Sol / Astra", () => {
+    expect([...P5_TARGET_MODEL_COHORT]).toEqual([
+      "gpt-6-luna",
+      "gpt-6.1-sol",
+      "gpt-6-astra",
+    ]);
+    const manifest = buildP5TargetCapabilityManifest("2026-10-05T00:00:00.000Z");
+    expect(manifest.models.map((m) => m.modelId).sort()).toEqual([
+      "gpt-6-astra",
+      "gpt-6-luna",
+      "gpt-6.1-sol",
+    ]);
+  });
+
+  it("P5-D0-02 — nominal routing excludes GPT-5.6", () => {
+    expect(isOutsideP5TargetCohort("gpt-5.6-luna")).toBe(true);
+    expect(isOutsideP5TargetCohort("gpt-5.6-sol")).toBe(true);
+    expect(isOutsideP5TargetCohort("gpt-6-luna")).toBe(false);
+    const strategy = strategyFor({
+      ambiguity: "low",
+      reasoningDepth: "low",
+      sourceBreadth: "low",
+      verificationNeed: "low",
+      contradictionRisk: "low",
+    });
+    const decision = decideCognitiveRouting({
+      strategy,
+      cognitiveTaskId: "p5-d0-02",
+    });
+    expect(decision.ok).toBe(true);
+    if (!decision.ok) return;
+    expect(decision.selectedModel.startsWith("gpt-5.6")).toBe(false);
+    expect(
+      decision.eligibleConfigs.every(
+        (c) => !c.modelId.startsWith("gpt-5.6"),
+      ),
+    ).toBe(true);
+  });
+
+  it("P5-D0-03 — historical GPT-5.6 MW0 manifest unchanged", () => {
+    const mw0 = buildMw0CapabilityManifest("2026-10-05T00:00:00.000Z");
+    expect(mw0.models.map((m) => m.modelId)).toEqual([
+      "gpt-5.6-sol",
+      "gpt-5.6-terra",
+      "gpt-5.6-luna",
+    ]);
+    expect(mw0.models.some((m) => m.modelId.startsWith("gpt-6"))).toBe(false);
+  });
+
+  it("P5-D0-04 — Strategy does not contain fixed model mapping", () => {
+    const strategy = strategyFor({
+      ambiguity: "medium",
+      reasoningDepth: "medium",
+      verificationNeed: "medium",
+    });
+    const candidates = generateCandidateConfigs(strategy);
+    const models = new Set(candidates.map((c) => c.modelId));
+    expect(models.has("gpt-6-luna")).toBe(true);
+    expect(models.has("gpt-6.1-sol")).toBe(true);
+    expect(models.has("gpt-6-astra")).toBe(true);
+    // Same strategy class yields multi-model candidates (not Strategy→Model fixed).
+    expect(models.size).toBe(3);
+  });
+
+  it("P5-D0-05 / P5-D0-06 — Quality Floor before FinOps; insufficient excluded", () => {
+    const strategy = strategyFor({
+      rigorCriticality: "high",
+      verificationNeed: "high",
+      contradictionRisk: "high",
+      ambiguity: "high",
+      reasoningDepth: "high",
+    });
+    expect(strategy.strategyClass).toBe("High-Assurance");
+    const floor = deriveQualityFloor(strategy);
+    expect(floor.minModelRank).toBeGreaterThanOrEqual(2);
+    const decision = decideCognitiveRouting({
+      strategy,
+      cognitiveTaskId: "p5-d0-05",
+    });
+    expect(decision.ok).toBe(true);
+    if (!decision.ok) return;
+    expect(decision.selectedModel).not.toBe("gpt-6-luna");
+    expect(
+      decision.eligibleConfigs.every((c) => c.modelId !== "gpt-6-luna" || false),
+    );
+    // Luna configs must not remain eligible under High-Assurance floor.
+    expect(
+      decision.eligibleConfigs.every((c) => c.modelId !== "gpt-6-luna"),
+    ).toBe(true);
+    // Pipeline order markers (CP5).
+    expect(decision.reasonCodes.some((c) => c.startsWith("qualitySufficient:"))).toBe(
+      true,
+    );
+    expect(decision.reasonCodes.some((c) => c.startsWith("providerCompatible:"))).toBe(
+      true,
+    );
+    expect(decision.reasonCodes).toContain("pipeline:quality→provider→finops");
+  });
+
+  it("P5-D0-05b — pipeline ORDER: Quality Floor then provider then FinOps", () => {
+    const strategy = strategyFor({
+      rigorCriticality: "high",
+      verificationNeed: "high",
+      contradictionRisk: "high",
+      ambiguity: "high",
+      reasoningDepth: "high",
+    });
+    expect(strategy.strategyClass).toBe("High-Assurance");
+    // Manifest where Luna is provider-supported (but below HA floor),
+    // Sol high/xhigh are quality-sufficient but provider-unsupported,
+    // Sol max is quality+provider sufficient.
+    const stagedManifest: CapabilityManifest = {
+      ...buildP5TargetCapabilityManifest("2026-10-05T00:00:00.000Z"),
+      models: [
+        {
+          modelId: "gpt-6-luna",
+          inputUsdPerMTok: 0.1,
+          outputUsdPerMTok: 0.5,
+          reasoningEfforts: [
+            "none",
+            "low",
+            "medium",
+            "high",
+            "xhigh",
+            "max",
+          ] as OpenAiReasoningEffort[],
+        },
+        {
+          modelId: "gpt-6.1-sol",
+          inputUsdPerMTok: 2.0,
+          outputUsdPerMTok: 10.0,
+          reasoningEfforts: ["max"] as OpenAiReasoningEffort[],
+        },
+        {
+          modelId: "gpt-6-astra",
+          inputUsdPerMTok: 10.0,
+          outputUsdPerMTok: 50.0,
+          reasoningEfforts: ["high", "xhigh", "max"] as OpenAiReasoningEffort[],
+        },
+      ],
+    };
+    const decision = decideCognitiveRouting({
+      strategy,
+      cognitiveTaskId: "p5-d0-05b-order",
+      manifest: stagedManifest,
+    });
+    expect(decision.ok).toBe(true);
+    if (!decision.ok) return;
+    const qualityRejected = decision.reasonCodes.find((c) =>
+      c.startsWith("qualityRejected:"),
+    );
+    const qualitySufficient = decision.reasonCodes.find((c) =>
+      c.startsWith("qualitySufficient:"),
+    );
+    const providerRejected = decision.reasonCodes.find((c) =>
+      c.startsWith("providerRejected:"),
+    );
+    expect(qualityRejected).toBeTruthy();
+    expect(Number(qualityRejected!.split(":")[1])).toBeGreaterThan(0);
+    expect(qualitySufficient).toBeTruthy();
+    expect(Number(qualitySufficient!.split(":")[1])).toBeGreaterThan(0);
+    // Sol high/xhigh must be rejected at provider stage AFTER quality.
+    expect(
+      decision.reasonCodes.some((c) =>
+        c.includes("providerRejected:unsupported-effort:gpt-6.1-sol/high"),
+      ),
+    ).toBe(true);
+    expect(providerRejected).toBeTruthy();
+    expect(Number(providerRejected!.split(":")[1])).toBeGreaterThan(0);
+    // Luna never survives quality floor into eligibleConfigs.
+    expect(
+      decision.eligibleConfigs.every((c) => c.modelId !== "gpt-6-luna"),
+    ).toBe(true);
+    expect(decision.reasonCodes).toContain("pipeline:quality→provider→finops");
+    // Selection among remaining sufficient+compatible (FinOps last).
+    expect(["gpt-6.1-sol", "gpt-6-astra"]).toContain(decision.selectedModel);
+  });
+
+  it("P5-D0-07 — Luna none accepted", () => {
+    const manifest = buildP5TargetCapabilityManifest("2026-10-05T00:00:00.000Z");
+    const efforts = modelCapabilitySet(manifest, "gpt-6-luna");
+    expect(efforts).toContain("none");
+  });
+
+  it("P5-D0-08 / P5-D0-09 — Sol/Astra none rejected", () => {
+    const manifest = buildP5TargetCapabilityManifest("2026-10-05T00:00:00.000Z");
+    expect(modelCapabilitySet(manifest, "gpt-6.1-sol")).not.toContain("none");
+    expect(modelCapabilitySet(manifest, "gpt-6-astra")).not.toContain("none");
+  });
+
+  it("P5-D0-04b — FinOps Standard short-context prices dated 2026-10-05", () => {
+    const manifest = buildP5TargetCapabilityManifest("2026-10-05T00:00:00.000Z");
+    const byId = Object.fromEntries(
+      manifest.models.map((m) => [m.modelId, m]),
+    );
+    expect(byId["gpt-6-luna"]?.inputUsdPerMTok).toBe(0.1);
+    expect(byId["gpt-6-luna"]?.outputUsdPerMTok).toBe(0.5);
+    expect(byId["gpt-6.1-sol"]?.inputUsdPerMTok).toBe(2.0);
+    expect(byId["gpt-6.1-sol"]?.outputUsdPerMTok).toBe(10.0);
+    expect(byId["gpt-6-astra"]?.inputUsdPerMTok).toBe(10.0);
+    expect(byId["gpt-6-astra"]?.outputUsdPerMTok).toBe(50.0);
+    expect(manifest.sourceNote).toMatch(/Standard/i);
+    expect(manifest.sourceNote).toMatch(/short-context/i);
+    expect(manifest.sourceName).toMatch(/2026-10-05/);
+  });
+
+  it("P5-D0-10 — unknown / empty provider capability fail-closed", () => {
+    const strategy = strategyFor({
+      ambiguity: "low",
+      reasoningDepth: "low",
+      sourceBreadth: "low",
+      verificationNeed: "low",
+      contradictionRisk: "low",
+    });
+    // Manifest where every target cohort model is absent → router fail-closed.
+    const emptyTargetManifest: CapabilityManifest = {
+      ...buildP5TargetCapabilityManifest("2026-10-05T00:00:00.000Z"),
+      models: [
+        {
+          modelId: "gpt-unknown-xyz",
+          inputUsdPerMTok: 1,
+          outputUsdPerMTok: 1,
+          reasoningEfforts: ["low", "medium", "high"] as OpenAiReasoningEffort[],
+        },
+      ],
+      campaignAllowlist: {
+        modelIds: ["gpt-unknown-xyz"],
+        reasoningEfforts: ["low", "medium", "high"] as OpenAiReasoningEffort[],
+      },
+    };
+    expect(modelCapabilitySet(emptyTargetManifest, "gpt-6-luna")).toBeNull();
+    expect(modelCapabilitySet(emptyTargetManifest, "gpt-6.1-sol")).toBeNull();
+    expect(modelCapabilitySet(emptyTargetManifest, "gpt-6-astra")).toBeNull();
+    const decision = decideCognitiveRouting({
+      strategy,
+      cognitiveTaskId: "p5-d0-10",
+      manifest: emptyTargetManifest,
+    });
+    expect(decision.ok).toBe(false);
+    if (decision.ok) return;
+    expect(decision.reasonCodes).toContain(
+      "PROVIDER_INCOMPATIBLE_WITH_QUALITY_FLOOR",
+    );
+    expect(decision.reasonCodes).toContain("NO_SUFFICIENT_CONFIG");
+    expect(
+      decision.reasonCodes.some((c) => c.includes("unknown-model:gpt-6-luna")),
+    ).toBe(true);
+  });
+
+  it("P5-D0-11 — unsupported effort not silently coerced", () => {
+    const manifest = buildP5TargetCapabilityManifest("2026-10-05T00:00:00.000Z");
+    const sol = modelCapabilitySet(manifest, "gpt-6.1-sol")!;
+    expect(sol.includes("none")).toBe(false);
+    // Routine envelope includes none — Sol none must be filtered, not coerced to low.
+    const strategy = strategyFor({
+      ambiguity: "low",
+      reasoningDepth: "low",
+      sourceBreadth: "low",
+      verificationNeed: "low",
+      contradictionRisk: "low",
+    });
+    const decision = decideCognitiveRouting({
+      strategy,
+      cognitiveTaskId: "p5-d0-11",
+      manifest,
+    });
+    expect(decision.ok).toBe(true);
+    if (!decision.ok) return;
+    expect(
+      decision.eligibleConfigs.some(
+        (c) => c.modelId === "gpt-6.1-sol" && c.reasoningEffort === "none",
+      ),
+    ).toBe(false);
+  });
+
+  it("P5-D0-12 — budget cannot downgrade below quality", () => {
+    const strategy = strategyFor({
+      rigorCriticality: "high",
+      verificationNeed: "high",
+      contradictionRisk: "high",
+      ambiguity: "high",
+      reasoningDepth: "high",
+    });
+    // Impossible budget among Sol/Astra → limitation, not Luna downgrade.
+    const decision = decideCognitiveRouting({
+      strategy,
+      cognitiveTaskId: "p5-d0-12",
+      maxBudgetUsd: 0.000001,
+    });
+    expect(decision.ok).toBe(false);
+    if (decision.ok) return;
+    expect(decision.reasonCodes).toContain(
+      "BUDGET_MUST_NOT_DOWNGRADE_BELOW_FLOOR",
+    );
+  });
+
+  it("P5-D0-13 / P5-D0-14 / P5-D0-15 — reconstructible + policy version + reason codes", () => {
+    const strategy = strategyFor({ ambiguity: "medium" });
+    const decision = decideCognitiveRouting({
+      strategy,
+      cognitiveTaskId: "p5-d0-13-task",
+    });
+    expect(decision.ok).toBe(true);
+    if (!decision.ok) return;
+    expect(decision.routingDecisionId.length).toBeGreaterThan(8);
+    expect(decision.cognitiveTaskId).toBe("p5-d0-13-task");
+    expect(decision.policyVersion).toBe(P5_COGNITIVE_ROUTING_POLICY_VERSION);
+    expect(decision.reasonCodes.length).toBeGreaterThan(0);
+    expect(decision.providerSnapshotIdentity.length).toBeGreaterThan(0);
+  });
+
+  it("P5-D0-16 — max escalation = 1", () => {
+    expect(P5_MAX_ESCALATIONS_PER_TASK).toBe(1);
+    const strategy = strategyFor({});
+    const decision = decideCognitiveRouting({
+      strategy,
+      cognitiveTaskId: "p5-d0-16",
+      escalationsUsed: 0,
+    });
+    expect(decision.ok).toBe(true);
+    if (!decision.ok) return;
+    expect(decision.maxEscalations).toBe(1);
+    expect(decision.escalationEligible).toBe(true);
+    const after = decideCognitiveRouting({
+      strategy,
+      cognitiveTaskId: "p5-d0-16",
+      escalationsUsed: 1,
+    });
+    expect(after.ok).toBe(true);
+    if (!after.ok) return;
+    expect(after.escalationEligible).toBe(false);
+  });
+
+  it("P5-D0-17 — stable cognitive task identity required", () => {
+    const strategy = strategyFor({});
+    expect(() =>
+      decideCognitiveRouting({ strategy, cognitiveTaskId: "   " }),
+    ).toThrow(/COGNITIVE_ROUTING_REQUIRES_STABLE_TASK_ID/);
+  });
+
+  it("P5-D0-18 / P5-D0-19 — client cannot select model/effort via Product path", async () => {
+    const provider = new FakeConversationProvider({
+      toolScript: [{ kind: "message", text: "[TEST/FAKE] P5 routing." }],
+    });
+    const result = await runNoraCognitiveTurn({
+      correlationId: "p5-d0-18",
+      projectId: "prj:p5",
+      messages: [
+        { role: "system", content: sfiaBoundaryInstructions() },
+        { role: "user", content: "probe routing" },
+      ],
+      provider,
+      enableTools: false,
+      cognitiveWorkloadSignals: {
+        ambiguity: "low",
+        reasoningDepth: "low",
+        sourceBreadth: "low",
+        verificationNeed: "low",
+        contradictionRisk: "low",
+      },
+      trustedSfiaProfile: "trusted-profile",
+      // Intentionally no client model/effort fields exist on the input type.
+    });
+    expect(result.selectedModelId).toBeTruthy();
+    expect(P5_TARGET_MODEL_COHORT).toContain(
+      result.selectedModelId as (typeof P5_TARGET_MODEL_COHORT)[number],
+    );
+    expect(result.selectedReasoningEffort).toBeTruthy();
+    expect(result.cognitiveRoutingPolicyVersion).toBe(
+      P5_COGNITIVE_ROUTING_POLICY_VERSION,
+    );
+  });
+
+  it("P5-D0-20 — stronger model does not widen authority fields", async () => {
+    const provider = new FakeConversationProvider({
+      toolScript: [{ kind: "message", text: "[TEST/FAKE] HA." }],
+    });
+    const result = await runNoraCognitiveTurn({
+      correlationId: "p5-d0-20",
+      projectId: "prj:p5",
+      messages: [
+        { role: "system", content: sfiaBoundaryInstructions() },
+        { role: "user", content: "high assurance probe" },
+      ],
+      provider,
+      enableTools: false,
+      cognitiveWorkloadSignals: {
+        rigorCriticality: "high",
+        verificationNeed: "high",
+        contradictionRisk: "high",
+        ambiguity: "high",
+        reasoningDepth: "high",
+      },
+      trustedSfiaProfile: "trusted-profile",
+    });
+    expect(result.selectedModelId).not.toBe("gpt-6-luna");
+    // No authority envelope / confirmation / HD fields introduced by routing.
+    expect(
+      Object.keys(result).some((k) =>
+        /authority|humanDecision|confirmation/i.test(k),
+      ),
+    ).toBe(false);
+  });
+
+  it("P5-D0-21 — routing telemetry contains no CoT", async () => {
+    const events: TechnicalEvent[] = [];
+    const sink: EventSink = {
+      emit(event) {
+        events.push(event);
+      },
+    };
+    const provider = new FakeConversationProvider({
+      toolScript: [{ kind: "message", text: "[TEST/FAKE] telemetry." }],
+    });
+    await runNoraCognitiveTurn({
+      correlationId: "p5-d0-21",
+      projectId: "prj:p5",
+      messages: [
+        { role: "system", content: sfiaBoundaryInstructions() },
+        { role: "user", content: "telemetry probe" },
+      ],
+      provider,
+      enableTools: false,
+      sink,
+      cognitiveWorkloadSignals: {
+        ambiguity: "low",
+        reasoningDepth: "low",
+        sourceBreadth: "low",
+        verificationNeed: "low",
+        contradictionRisk: "low",
+      },
+      trustedSfiaProfile: "trusted-profile",
+    });
+    const routing = events.find((e) => e.type === "COGNITIVE_ROUTING_SELECTED");
+    expect(routing).toBeTruthy();
+    const blob = JSON.stringify(routing?.detail ?? {});
+    expect(blob).not.toMatch(/chain of thought|private reasoning|confidencePercent|qualityScore/i);
+    expect(routing?.detail).toMatchObject({
+      routingPolicyVersion: P5_COGNITIVE_ROUTING_POLICY_VERSION,
+      selectedModel: expect.any(String),
+      selectedEffort: expect.any(String),
+    });
+  });
+
+  it("P5-D0-22 / P5-D0-23 / P5-D0-24 — Fake boundary + same Runner + zero live", async () => {
+    const model = new ScriptedModel([[assistantMessage("ok")]]);
+    const provider = new FakeConversationProvider({
+      toolScript: [{ kind: "message", text: "[TEST/FAKE] boundary." }],
+    });
+    const spy = vi.spyOn(globalThis, "fetch").mockImplementation(() => {
+      throw new Error("UNEXPECTED_LIVE_FETCH");
+    });
+    try {
+      const result = await runNoraCognitiveTurn({
+        correlationId: "p5-d0-22",
+        projectId: "prj:p5",
+        messages: [
+          { role: "system", content: sfiaBoundaryInstructions() },
+          { role: "user", content: "fake boundary" },
+        ],
+        provider,
+        enableTools: false,
+        cognitiveWorkloadSignals: {
+          ambiguity: "low",
+          reasoningDepth: "low",
+          sourceBreadth: "low",
+          verificationNeed: "low",
+          contradictionRisk: "low",
+        },
+        trustedSfiaProfile: "trusted-profile",
+        // Eval pin with ScriptedModel proves same Agents Runner path remains usable.
+        evalModelReasoningControl: {
+          modelId: "gpt-6-luna",
+          reasoningEffort: "low",
+          agentsModel: model,
+        },
+      });
+      expect(result.cognitiveRuntime).toBe("agents");
+      expect(result.evalPinnedModelId).toBe("gpt-6-luna");
+      expect(spy).not.toHaveBeenCalled();
+    } finally {
+      spy.mockRestore();
+    }
+  });
+});
+
+```
+
+### p5.s01.integratedProduct.d0.test.ts
+```ts
+/** @vitest-environment node */
+/**
+ * P5-S01 — Integrated Product vertical slice D0 (ZERO REAL).
+ *
+ * Correction Pass 01 CP2: TRUE Product server path
+ *   projectAssistantSendAction
+ *   → orchestrateAssistantSend
+ *   → analyzeIntent (F2)
+ *   → composeStudioCognitiveContext
+ *   → orchestrateProjectAssistantTurn (F1)
+ *   → runNoraCognitiveTurn
+ *   → CWP → Strategy → CognitiveRoutingPolicy
+ *   → Fake external LLM → SAME Agents Runner
+ *
+ * Prior direct runNoraCognitiveTurn proof retained as seam unit evidence.
+ */
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import {
+  P5_COGNITIVE_ROUTING_POLICY_VERSION,
+  P5_TARGET_MODEL_COHORT,
+  runNoraCognitiveTurn,
+  sfiaBoundaryInstructions,
+} from "@/lib/nora-cognitive-runtime";
+import { FakeConversationProvider } from "@/lib/platform/ai/fakeProvider";
+import { setConversationProviderForTests } from "@/lib/platform/ai";
+import {
+  getRuntimeApplicationService,
+  resetRuntimeApplicationServiceForTests,
+} from "@/lib/vertical-slice-runtime";
+import { composeStudioCognitiveContext } from "@/features/project-assistant/f2/studioCognitiveContext";
+import { resolveProductDoctrineRegistryRoot } from "@/lib/vertical-slice-runtime/paths";
+import { DEFAULT_PRODUCT_DOCTRINE_PIN } from "@/lib/oa/doctrine/product/constants";
+import type { ProjectAssistantContextDto } from "@/features/project-assistant/types";
+import type { IntentAnalysisDto } from "@/features/project-assistant/f2/types";
+import { projectAssistantSendAction } from "@/features/project-assistant/actions";
+import { ProjectAssistantMemoryEventSink } from "@/features/project-assistant/memoryEventSink";
+import type { TechnicalEvent } from "@/lib/platform/observability/types";
+import * as routingPolicy from "@/lib/nora-cognitive-runtime/cognitiveRoutingPolicy";
+import * as cognitiveRuntime from "@/lib/nora-cognitive-runtime/runNoraCognitiveTurn";
+
+function analysisStub(): IntentAnalysisDto {
+  return {
+    intentClass: "informative",
+    parseOk: true,
+    candidateCycleTypeId: null,
+    signals: null,
+    cognitiveWorkload: {
+      ambiguity: "low",
+      reasoningDepth: "low",
+      sourceBreadth: "low",
+      toolDependency: "low",
+      contradictionRisk: "low",
+      verificationNeed: "low",
+    },
+    contradictionCandidate: null,
+    challengeResponseAssessment: null,
+    objective: null,
+    scope: null,
+    rephrasedRequest: null,
+    outOfScope: [],
+    risks: [],
+    reservations: [],
+    stopConditions: [],
+    activatedBlocks: [],
+    expectedOutcome: null,
+    criticalJustification: null,
+    requestedOperation: null,
+    executionIntent: null,
+  };
+}
+
+describe("P5-S01 — integrated Product path D0", () => {
+  const tempDirs: string[] = [];
+  let projectId = "";
+  let lpsId = "";
+  let productDbPath = "";
+  const prevFake = process.env.OPS1_CONVERSATION_PROVIDER;
+  const prevKey = process.env.OPENAI_API_KEY;
+  const prevModel = process.env.OPENAI_MODEL;
+
+  beforeEach(async () => {
+    process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
+    process.env.OPS1_CONVERSATION_PROVIDER = "fake";
+    delete process.env.OPENAI_API_KEY;
+    delete process.env.OPENAI_MODEL;
+    setConversationProviderForTests(null);
+    resetRuntimeApplicationServiceForTests();
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-p5-s01-"));
+    tempDirs.push(dir);
+    productDbPath = path.join(dir, "oa-product.sqlite");
+    const runtime = getRuntimeApplicationService({
+      productDbPath,
+      auditMode: "noop",
+      nowIso: "2026-10-05T08:00:00.000Z",
+    });
+    const created = await runtime.createProject({
+      name: "Product Simplification P5-S01",
+      objective:
+        "Premier slice intégré Conversation + contexte sémantique + routing",
+      context: "P5-S01 vertical slice D0",
+      criticality: "STANDARD",
+      constraints: ["ZERO REAL"],
+      shortReference: "P5S01",
+      idempotencyKey: `idem:p5-s01-${Date.now()}-${Math.random()}`,
+    });
+    expect(created.ok).toBe(true);
+    if (!created.ok) throw new Error("createProject failed");
+    projectId = created.projectId;
+    const project = await runtime.getProject(projectId);
+    expect(project.ok).toBe(true);
+    if (!project.ok) throw new Error("getProject failed");
+    lpsId = project.livingState.id;
+    expect(lpsId).toBeTruthy();
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+    setConversationProviderForTests(null);
+    resetRuntimeApplicationServiceForTests();
+    if (prevFake === undefined) delete process.env.OPS1_CONVERSATION_PROVIDER;
+    else process.env.OPS1_CONVERSATION_PROVIDER = prevFake;
+    if (prevKey === undefined) delete process.env.OPENAI_API_KEY;
+    else process.env.OPENAI_API_KEY = prevKey;
+    if (prevModel === undefined) delete process.env.OPENAI_MODEL;
+    else process.env.OPENAI_MODEL = prevModel;
+    while (tempDirs.length) {
+      const dir = tempDirs.pop();
+      if (dir) fs.rmSync(dir, { recursive: true, force: true });
+    }
+  });
+
+  it("seam — real Product Project/LPS + routing + Fake boundary + same Runner", async () => {
+    const fetchSpy = vi.spyOn(globalThis, "fetch").mockImplementation(() => {
+      throw new Error("UNEXPECTED_LIVE_FETCH_P5_S01");
+    });
+
+    try {
+      const projectDto: ProjectAssistantContextDto = {
+        projectId,
+        name: "Product Simplification P5-S01",
+        shortReference: "P5S01",
+        objective:
+          "Premier slice intégré Conversation + contexte sémantique + routing",
+        contextSummary: "P5-S01 vertical slice D0",
+        criticality: "STANDARD",
+        constraints: ["ZERO REAL"],
+        lpsId,
+        lpsVersion: 1,
+        lpsCreatedAt: "2026-10-05T08:00:00.000Z",
+        doctrineId: DEFAULT_PRODUCT_DOCTRINE_PIN.doctrinePackageId,
+        doctrineVersion: DEFAULT_PRODUCT_DOCTRINE_PIN.version,
+        doctrineDigest: DEFAULT_PRODUCT_DOCTRINE_PIN.digest,
+        doctrineStatus: "product-studio-native",
+        runtimeMode: "local",
+        persistence: "product-sqlite",
+        readiness: "ready",
+      };
+
+      const runtime = getRuntimeApplicationService();
+      const composed = await composeStudioCognitiveContext({
+        analysis: analysisStub(),
+        project: projectDto,
+        registryRoot: resolveProductDoctrineRegistryRoot(),
+        truthCContext: "P5-S01 vertical slice D0",
+        oa: runtime.oa!,
+      });
+      expect(composed.ok).toBe(true);
+      if (!composed.ok) throw new Error("composeStudioCognitiveContext failed");
+      expect(composed.context.projectTruth.projectId).toBe(projectId);
+      expect(composed.context.projectTruth.lpsId).toBe(lpsId);
+      expect(composed.context.limits.truthOutranksConversation).toBe(true);
+      expect(fs.existsSync(productDbPath)).toBe(true);
+
+      const provider = new FakeConversationProvider({
+        toolScript: [
+          {
+            kind: "message",
+            text: "[TEST/FAKE] P5-S01 integrated Product path — zero durable mutation.",
+          },
+        ],
+      });
+
+      const result = await runNoraCognitiveTurn({
+        correlationId: `logical:${projectId}:p5-s01-turn-1`,
+        projectId,
+        messages: [
+          {
+            role: "system",
+            content: [
+              sfiaBoundaryInstructions(),
+              "",
+              `ProjectId=${projectId}`,
+              `LpsId=${lpsId}`,
+              `Objective=${projectDto.objective}`,
+            ].join("\n"),
+          },
+          {
+            role: "user",
+            content:
+              "Peux-tu me rappeler le contexte courant de ce projet sans rien modifier ?",
+          },
+        ],
+        provider,
+        enableTools: false,
+        turnWorkloadContext: {
+          userContentLength: 64,
+          historyMessageCount: 0,
+          projectCriticality: "STANDARD",
+        },
+        semanticCognitiveWorkload: analysisStub().cognitiveWorkload,
+        trustedSfiaProfile: "trusted-profile",
+      });
+
+      expect(result.cognitiveRuntime).toBe("agents");
+      expect(result.selectedModelId).toBeTruthy();
+      expect(P5_TARGET_MODEL_COHORT).toContain(
+        result.selectedModelId as (typeof P5_TARGET_MODEL_COHORT)[number],
+      );
+      expect(result.cognitiveRoutingPolicyVersion).toBe(
+        P5_COGNITIVE_ROUTING_POLICY_VERSION,
+      );
+      expect(result.cognitiveStrategyClass).toBeTruthy();
+      expect(result.selectedReasoningEffort).toBeTruthy();
+      expect(result.text).toMatch(/P5-S01|FAKE|contexte|projet/i);
+      expect((result as { humanDecisionId?: string }).humanDecisionId).toBeUndefined();
+      expect(fetchSpy).not.toHaveBeenCalled();
+      expect(fs.existsSync(productDbPath)).toBe(true);
+    } finally {
+      fetchSpy.mockRestore();
+    }
+  });
+
+  it("CP2 — TRUE Product server path: SendAction → F2 → Semantic Context → F1 → routing → Fake Runner", async () => {
+    const fetchSpy = vi.spyOn(globalThis, "fetch").mockImplementation(() => {
+      throw new Error("UNEXPECTED_LIVE_FETCH_P5_S01_CP2");
+    });
+
+    const emitted: TechnicalEvent[] = [];
+    const originalEmit = ProjectAssistantMemoryEventSink.prototype.emit;
+    const emitSpy = vi
+      .spyOn(ProjectAssistantMemoryEventSink.prototype, "emit")
+      .mockImplementation(function (
+        this: ProjectAssistantMemoryEventSink,
+        event: TechnicalEvent,
+      ) {
+        emitted.push(event);
+        return originalEmit.call(this, event);
+      });
+
+    const routingSpy = vi.spyOn(routingPolicy, "decideCognitiveRouting");
+    const turnSpy = vi.spyOn(cognitiveRuntime, "runNoraCognitiveTurn");
+
+    const sessionDbPath = path.join(
+      path.dirname(productDbPath),
+      "nora-session.sqlite",
+    );
+
+    const provider = new FakeConversationProvider({
+      toolScript: [
+        {
+          kind: "message",
+          text: "[TEST/FAKE] P5-S01 server-path Conversation — aucune mutation durable.",
+        },
+      ],
+    });
+
+    try {
+      const result = await projectAssistantSendAction({
+        projectId,
+        content:
+          "Peux-tu me rappeler le contexte courant de ce projet sans rien modifier ?",
+        provider,
+        sessionDbPath,
+      });
+
+      expect(result.ok).toBe(true);
+      if (!result.ok) throw new Error(`send failed: ${JSON.stringify(result)}`);
+
+      expect(result.project.projectId).toBe(projectId);
+      expect(result.project.lpsId).toBe(lpsId);
+      expect(result.cognitiveRuntime).toBe("agents");
+      expect(result.text.length).toBeGreaterThan(0);
+      // Client DTO must not expose routing internals (MW2 invariant preserved).
+      expect(result).not.toHaveProperty("cognitiveStrategyClass");
+      expect(result).not.toHaveProperty("selectedReasoningEffort");
+      expect(result).not.toHaveProperty("cognitiveRoutingPolicyVersion");
+
+      // F1 + routing actually traversed.
+      expect(turnSpy).toHaveBeenCalled();
+      expect(routingSpy).toHaveBeenCalled();
+      const routingDecision = routingSpy.mock.results.find(
+        (r) => r.type === "return" && r.value && (r.value as { ok?: boolean }).ok,
+      )?.value as
+        | {
+            ok: true;
+            selectedModel: string;
+            selectedReasoningEffort: string;
+            policyVersion: string;
+            strategyClass: string;
+            cognitiveTaskId: string;
+          }
+        | undefined;
+      expect(routingDecision).toBeTruthy();
+      expect(P5_TARGET_MODEL_COHORT).toContain(
+        routingDecision!.selectedModel as (typeof P5_TARGET_MODEL_COHORT)[number],
+      );
+      expect(routingDecision!.selectedReasoningEffort).toBeTruthy();
+      expect(routingDecision!.policyVersion).toBe(
+        P5_COGNITIVE_ROUTING_POLICY_VERSION,
+      );
+      expect(routingDecision!.strategyClass).toBeTruthy();
+      expect(routingDecision!.cognitiveTaskId.length).toBeGreaterThan(0);
+
+      const strategyEvents = emitted.filter(
+        (e) => e.type === "COGNITIVE_STRATEGY_SELECTED",
+      );
+      const routingEvents = emitted.filter(
+        (e) => e.type === "COGNITIVE_ROUTING_SELECTED",
+      );
+      expect(strategyEvents.length).toBeGreaterThanOrEqual(1);
+      expect(routingEvents.length).toBeGreaterThanOrEqual(1);
+      expect(routingEvents[0]!.detail?.routingPolicyVersion).toBe(
+        P5_COGNITIVE_ROUTING_POLICY_VERSION,
+      );
+      expect(P5_TARGET_MODEL_COHORT).toContain(
+        routingEvents[0]!.detail?.selectedModel as string,
+      );
+
+      // No HD/Confirmation manufactured by routing.
+      expect(
+        JSON.stringify(result).match(/humanDecisionId|authorityEnvelope/i),
+      ).toBeNull();
+      expect(fetchSpy).not.toHaveBeenCalled();
+      expect(fs.existsSync(productDbPath)).toBe(true);
+      // Same Product SQLite — no second Product store.
+      const siblingDbs = fs
+        .readdirSync(path.dirname(productDbPath))
+        .filter((f) => f.endsWith(".sqlite"));
+      expect(siblingDbs).toContain("oa-product.sqlite");
+    } finally {
+      emitSpy.mockRestore();
+      fetchSpy.mockRestore();
+    }
+  });
+});
+
+```
+
+### p5.s01.deterministicBypass.d0.test.ts
+```ts
+/** @vitest-environment node */
+/**
+ * P5-S01 Correction Pass 01 — CP3 Deterministic NO-LLM bypass proof.
+ *
+ * Representative EXISTING Product operation:
+ *   composeStudioCognitiveContext
+ * (Studio Hybrid Context Envelope — deterministic Product projection;
+ *  NO LLM · NO cognitive router · trusted operation identity).
+ *
+ * ZERO REAL. No keyword classification. No DeterministicRouter.
+ */
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import {
+  getRuntimeApplicationService,
+  resetRuntimeApplicationServiceForTests,
+} from "@/lib/vertical-slice-runtime";
+import { composeStudioCognitiveContext } from "@/features/project-assistant/f2/studioCognitiveContext";
+import { resolveProductDoctrineRegistryRoot } from "@/lib/vertical-slice-runtime/paths";
+import { DEFAULT_PRODUCT_DOCTRINE_PIN } from "@/lib/oa/doctrine/product/constants";
+import type { ProjectAssistantContextDto } from "@/features/project-assistant/types";
+import type { IntentAnalysisDto } from "@/features/project-assistant/f2/types";
+import * as routingPolicy from "@/lib/nora-cognitive-runtime/cognitiveRoutingPolicy";
+import * as cognitiveRuntime from "@/lib/nora-cognitive-runtime/runNoraCognitiveTurn";
+import * as fakeProviderModule from "@/lib/platform/ai/fakeProvider";
+import { ProjectAssistantMemoryEventSink } from "@/features/project-assistant/memoryEventSink";
+import type { TechnicalEvent } from "@/lib/platform/observability/types";
+
+function analysisStub(): IntentAnalysisDto {
+  return {
+    intentClass: "informative",
+    parseOk: true,
+    candidateCycleTypeId: null,
+    signals: null,
+    cognitiveWorkload: {
+      ambiguity: "low",
+      reasoningDepth: "low",
+      sourceBreadth: "low",
+      toolDependency: "low",
+      contradictionRisk: "low",
+      verificationNeed: "low",
+    },
+    contradictionCandidate: null,
+    challengeResponseAssessment: null,
+    objective: null,
+    scope: null,
+    rephrasedRequest: null,
+    outOfScope: [],
+    risks: [],
+    reservations: [],
+    stopConditions: [],
+    activatedBlocks: [],
+    expectedOutcome: null,
+    criticalJustification: null,
+    requestedOperation: null,
+    executionIntent: null,
+  };
+}
+
+describe("P5-S01 — deterministic NO-LLM bypass D0 (CP3)", () => {
+  const tempDirs: string[] = [];
+  let projectId = "";
+  let lpsId = "";
+
+  beforeEach(async () => {
+    process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
+    process.env.OPS1_CONVERSATION_PROVIDER = "fake";
+    resetRuntimeApplicationServiceForTests();
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-p5-s01-det-"));
+    tempDirs.push(dir);
+    const productDbPath = path.join(dir, "oa-product.sqlite");
+    const runtime = getRuntimeApplicationService({
+      productDbPath,
+      auditMode: "noop",
+      nowIso: "2026-10-05T08:00:00.000Z",
+    });
+    const created = await runtime.createProject({
+      name: "P5-S01 Deterministic Bypass",
+      objective: "Prove composeStudioCognitiveContext never enters cognition",
+      context: "CP3 deterministic Product mechanic",
+      criticality: "STANDARD",
+      constraints: ["ZERO REAL", "NO LLM"],
+      shortReference: "P5DET",
+      idempotencyKey: `idem:p5-det-${Date.now()}-${Math.random()}`,
+    });
+    expect(created.ok).toBe(true);
+    if (!created.ok) throw new Error("createProject failed");
+    projectId = created.projectId;
+    const project = await runtime.getProject(projectId);
+    expect(project.ok).toBe(true);
+    if (!project.ok) throw new Error("getProject failed");
+    lpsId = project.livingState.id;
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+    resetRuntimeApplicationServiceForTests();
+    delete process.env.OPS1_CONVERSATION_PROVIDER;
+    while (tempDirs.length) {
+      const dir = tempDirs.pop();
+      if (dir) fs.rmSync(dir, { recursive: true, force: true });
+    }
+  });
+
+  it("CP3 — composeStudioCognitiveContext: 0 provider / 0 router / 0 Nora turn", async () => {
+    const fetchSpy = vi.spyOn(globalThis, "fetch").mockImplementation(() => {
+      throw new Error("UNEXPECTED_LIVE_FETCH_P5_S01_CP3");
+    });
+    const routingSpy = vi.spyOn(routingPolicy, "decideCognitiveRouting");
+    const turnSpy = vi.spyOn(cognitiveRuntime, "runNoraCognitiveTurn");
+    const completeSpy = vi.spyOn(
+      fakeProviderModule.FakeConversationProvider.prototype,
+      "complete",
+    );
+    const structuredSpy = vi.spyOn(
+      fakeProviderModule.FakeConversationProvider.prototype,
+      "completeStructured",
+    );
+    const roundSpy = vi.spyOn(
+      fakeProviderModule.FakeConversationProvider.prototype,
+      "completeRound",
+    );
+
+    const emitted: TechnicalEvent[] = [];
+    const originalEmit = ProjectAssistantMemoryEventSink.prototype.emit;
+    const emitSpy = vi
+      .spyOn(ProjectAssistantMemoryEventSink.prototype, "emit")
+      .mockImplementation(function (
+        this: ProjectAssistantMemoryEventSink,
+        event: TechnicalEvent,
+      ) {
+        emitted.push(event);
+        return originalEmit.call(this, event);
+      });
+
+    try {
+      const projectDto: ProjectAssistantContextDto = {
+        projectId,
+        name: "P5-S01 Deterministic Bypass",
+        shortReference: "P5DET",
+        objective: "Prove composeStudioCognitiveContext never enters cognition",
+        contextSummary: "CP3 deterministic Product mechanic",
+        criticality: "STANDARD",
+        constraints: ["ZERO REAL", "NO LLM"],
+        lpsId,
+        lpsVersion: 1,
+        lpsCreatedAt: "2026-10-05T08:00:00.000Z",
+        doctrineId: DEFAULT_PRODUCT_DOCTRINE_PIN.doctrinePackageId,
+        doctrineVersion: DEFAULT_PRODUCT_DOCTRINE_PIN.version,
+        doctrineDigest: DEFAULT_PRODUCT_DOCTRINE_PIN.digest,
+        doctrineStatus: "product-studio-native",
+        runtimeMode: "local",
+        persistence: "product-sqlite",
+        readiness: "ready",
+      };
+
+      const runtime = getRuntimeApplicationService();
+      const composed = await composeStudioCognitiveContext({
+        analysis: analysisStub(),
+        project: projectDto,
+        registryRoot: resolveProductDoctrineRegistryRoot(),
+        truthCContext: "CP3 deterministic Product mechanic",
+        oa: runtime.oa!,
+      });
+
+      expect(composed.ok).toBe(true);
+      if (!composed.ok) throw new Error("compose failed");
+      // Product semantics preserved — real Project/LPS identity.
+      expect(composed.context.projectTruth.projectId).toBe(projectId);
+      expect(composed.context.projectTruth.lpsId).toBe(lpsId);
+      expect(composed.context.limits.truthOutranksConversation).toBe(true);
+
+      // Zero cognition / provider / router.
+      expect(turnSpy).not.toHaveBeenCalled();
+      expect(routingSpy).not.toHaveBeenCalled();
+      expect(completeSpy).not.toHaveBeenCalled();
+      expect(structuredSpy).not.toHaveBeenCalled();
+      expect(roundSpy).not.toHaveBeenCalled();
+      expect(fetchSpy).not.toHaveBeenCalled();
+
+      const strategyEvents = emitted.filter(
+        (e) => e.type === "COGNITIVE_STRATEGY_SELECTED",
+      );
+      const routingEvents = emitted.filter(
+        (e) => e.type === "COGNITIVE_ROUTING_SELECTED",
+      );
+      expect(strategyEvents).toHaveLength(0);
+      expect(routingEvents).toHaveLength(0);
+    } finally {
+      emitSpy.mockRestore();
+      fetchSpy.mockRestore();
+    }
+  });
+});
+
+```
+
+
+======================================================================
+COMPLETE UPDATED P5 DELIVERY DOCUMENT
+======================================================================
+```md
 # SFIA Studio — Chat-First Product Simplification — P5 Integrated Delivery (P5-S01 — First Integrated Product Vertical Slice)
 
 | Métadonnée | Valeur |
@@ -265,7 +2148,7 @@ FULL P5 DELIVERY DOCUMENT
 | **Macro** | `STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01` |
 | **Milestone** | **P5 — INTEGRATED DELIVERY** (Delivery / Implementation / Evidence source) |
 | **Slice** | **P5-S01 — First Integrated Product Vertical Slice** |
-| **Pass** | **P5-S01 DELIVERY DOCUMENTATION** (evidence source, local) |
+| **Pass** | **P5-S01 CORRECTION PASS 01** (CP1–CP5 Critical Review blockers) |
 | **Typologie** | Delivery evidence dans macro **EVOL** — **≠** doctrine · **≠** nouvelle architecture |
 | **Autorité architecture** | **P4** (`04-chat-first-product-simplification-semantic-projection-cognitive-architecture.md`) — **inchangée** |
 | **Branche** | `delivery/sfia-studio-product-simplification-p5-s01-integrated-product-vertical-slice` |
@@ -275,7 +2158,7 @@ FULL P5 DELIVERY DOCUMENT
 | **P5 AUTHORIZED BY MORRIS** | **YES** (GO P5 consommé dans cette conversation) |
 | **P5 STARTED** | **YES** |
 | **P5 IN PROGRESS** | **YES** |
-| **P5-S01** | **LOCAL CANDIDATE** (réserves visuelles — voir §22 / §25) |
+| **P5-S01** | **LOCAL CANDIDATE** — D0 **PASS WITH VISUAL RESERVES** (CP1–CP5 Correction Pass 01) |
 | **R1 / R2 / R3** | **NOT STARTED** |
 | **ZERO REAL** | **YES** — aucun appel OpenAI réel dans P5-S01 |
 | **READY FOR REAL** | **NO** |
@@ -623,7 +2506,7 @@ Précisions :
 | --- | --- |
 | Nature | Fonction pure, non persistante, **non autoritative**, **≠ RouterService** |
 | Version de politique | `p5-s01-routing-v1` |
-| Pipeline | Strategy → **Quality Floor** → configs éligibles (model × effort) → filtre capability → **FinOps parmi les suffisants** → minimum-suffisant |
+| Pipeline (P4 / CP5) | candidates → **Quality Floor** → **provider capability** → **FinOps parmi les suffisants/compatibles** → minimum-suffisant (`pipeline:quality→provider→finops`) |
 | Cohort nominal | `gpt-6-luna` · `gpt-6.1-sol` · `gpt-6-astra` (GPT-5.6 **exclu** du routing nominal) |
 | Candidats | Enveloppe d’efforts de la Strategy × cohort — **pas** de mapping fixe Strategy→Modèle ; model × effort indépendants |
 | Reasoning mode nominal | `standard` |
@@ -652,7 +2535,7 @@ Surcharges : `contradictionRisk` élevé → plancher Sol ; `criticalChallengeAr
 | `gpt-6-astra` | low · medium · high · xhigh · max (**none non supporté**) |
 
 - `minimal` reste **non admissible** pour le cohort cible.
-- Les lignes de prix sont des **indices d’ordonnancement FinOps datés**, remplaçables — **pas de doctrine**.
+- Prix Standard short-context (Correction Pass 01, 2026-10-05) : Luna **0.10/0.50** · Sol **2/10** · Astra **10/50** (USD/1M) — **indices d’ordonnancement FinOps datés**, remplaçables — **pas de doctrine**.
 - **`buildMw0CapabilityManifest` (GPT-5.6) non modifié — FREEZE historique** ; `buildCurrentOpenAiCapabilityManifest` non remplacé.
 - « Documented capability ≠ account/API entitlement » : **non vérifié** (ZERO REAL).
 
@@ -680,7 +2563,14 @@ Surcharges : `contradictionRisk` élevé → plancher Sol ; `criticalChallengeAr
 
 | Élément | Valeur |
 | --- | --- |
-| Type | Snapshot **daté** d’entrée externe (revalidé pour la livraison P5-S01, 2026-10-05) |
+| Type | Snapshot **daté** d’entrée externe (Correction Pass 01, 2026-10-05) |
+| Processing tier | **STANDARD** |
+| Context band | **SHORT CONTEXT** (≤272K input tokens under current provider pricing) |
+| Luna input/output USD/1M | **0.10 / 0.50** |
+| Sol input/output USD/1M | **2.00 / 10.00** |
+| Astra input/output USD/1M | **10.00 / 50.00** |
+| Provenance | Official OpenAI GPT-6 Luna / GPT-6.1 Sol / GPT-6 Astra model docs + API Pricing page (ChatGPT-revalidated 2026-10-05) |
+| Claim boundary | Dated FinOps **ordering hint** among sufficient configs · **≠** observed REAL cost · **≠** savings proven · cached/cache-write/long-context/other tiers **not** stored unless consumed by `estimateCostUsd` |
 | Cohort | Luna / Sol / Astra |
 | Efforts | Voir §17.3 |
 | Statut | **Non confirmé par appel réel** — **ZERO REAL** |
@@ -696,7 +2586,8 @@ Surcharges : `contradictionRisk` élevé → plancher Sol ; `criticalChallengeAr
 - P4 : **deterministic NO-LLM bypass avant routing**.
 - P5-S01 : **aucune logique de bypass nouvelle** ; les chemins déterministes Product existants sont **conservés**. **Pas de routeur par mots-clés.**
 - Le routing n’est invoqué que lorsque la Strategy a produit une décision (cognition requise) ; sans décision Strategy, `resolveProductCognitiveRouting` retourne `null`.
-- **Réserve :** l’inventaire exhaustif des chemins déterministes et leur ordonnancement par rapport au routing n’est pas ré-audité dans ce document.
+- **Correction Pass 01 CP3 — PREUVE D0 :** opération Product représentative `composeStudioCognitiveContext` (projection sémantique déterministe Studio) → **0** `runNoraCognitiveTurn` · **0** `decideCognitiveRouting` · **0** appels Fake provider (`complete` / `completeStructured` / `completeRound`) · **0** live `fetch` · **0** `COGNITIVE_STRATEGY_SELECTED` · **0** `COGNITIVE_ROUTING_SELECTED` · identité Project/LPS préservée (`p5.s01.deterministicBypass.d0.test.ts`).
+- **Réserve :** inventaire exhaustif de tous les chemins déterministes ≠ re-audité ; une opération représentative existante est prouvée.
 
 ---
 
@@ -718,12 +2609,13 @@ Surcharges : `contradictionRisk` élevé → plancher Sol ; `criticalChallengeAr
 
 ## 21. Test/evidence matrix
 
-### 21.1 Tests ajoutés (22 cas)
+### 21.1 Tests P5-S01 (Correction Pass 01 — 26 cas ciblés)
 
 | Fichier | Cas | Couvre |
 | --- | --- | --- |
-| `p5.s01.cognitiveRouting.d0.test.ts` | **17** | P5-D0-01 … P5-D0-24 (certains cas regroupent plusieurs IDs) |
-| `p5.s01.integratedProduct.d0.test.ts` | **1** | Chemin intégré Product réel local + routing + Fake + même Runner |
+| `p5.s01.cognitiveRouting.d0.test.ts` | **19** | P5-D0-01 … P5-D0-24 + CP4 prices + CP5 order + hardened D0-10 |
+| `p5.s01.integratedProduct.d0.test.ts` | **2** | Seam direct + **CP2 TRUE server-path** (`projectAssistantSendAction` → F2 → F1 → routing) |
+| `p5.s01.deterministicBypass.d0.test.ts` | **1** | **CP3** `composeStudioCognitiveContext` NO-LLM / NO-router |
 | `p5.s01.semanticInvariants.d0.test.ts` | **3** | P5-SEM-05 · P5-SEM-02/03 · P5-SEM-08 |
 | `p5.s01.workspaceLayout.ui.test.tsx` | **1** | Rail P3 + Workspace Conversation sans internals |
 
@@ -735,10 +2627,12 @@ Surcharges : `contradictionRisk` élevé → plancher Sol ; `criticalChallengeAr
 | P5-D0-02 | Routing nominal exclut GPT-5.6 |
 | P5-D0-03 | Manifest historique MW0 GPT-5.6 inchangé |
 | P5-D0-04 | Strategy ne contient aucun mapping modèle fixe |
+| P5-D0-04b | FinOps Standard short-context prices 0.10/0.50 · 2/10 · 10/50 |
 | P5-D0-05 / 06 | Quality Floor avant FinOps ; configs insuffisantes exclues |
+| P5-D0-05b | **ORDER** Quality → provider → FinOps (reason codes stage-distinct) |
 | P5-D0-07 | Luna `none` accepté |
 | P5-D0-08 / 09 | Sol / Astra `none` rejeté |
-| P5-D0-10 | Modèle inconnu → fail-closed |
+| P5-D0-10 | Manifest cible vide/inconnu → router **fail-closed** (`PROVIDER_INCOMPATIBLE_WITH_QUALITY_FLOOR`) |
 | P5-D0-11 | Effort non supporté non coercé silencieusement |
 | P5-D0-12 | Le budget ne peut pas abaisser sous le plancher |
 | P5-D0-13 / 14 / 15 | Décision reconstructible · version de politique · reason codes |
@@ -749,11 +2643,13 @@ Surcharges : `contradictionRisk` élevé → plancher Sol ; `criticalChallengeAr
 | P5-D0-21 | Télémétrie sans CoT |
 | P5-D0-22 / 23 / 24 | Frontière Fake (adapter) · même Runner · zéro live |
 
-### 21.3 Régressions et portes qualité (rapportées par la passe de livraison)
+### 21.3 Régressions et portes qualité (Correction Pass 01)
 
-| Vérification | Résultat rapporté |
+| Vérification | Résultat |
 | --- | --- |
-| Suites MW2 + régression UI Pre-M6 ciblées | **PASS (201+ tests ciblés)** |
+| Targeted P5 (26) | **PASS** |
+| Adjacent MW2 + F2 + Pre-M6 (197) | **PASS** |
+| **`npm test` FULL** | **PASS** — 465 files / 5178 tests passed · 17 files / 137 skipped |
 | `typecheck` | **PASS** |
 | `lint` | **PASS** |
 | `build` | **PASS** |
@@ -761,7 +2657,7 @@ Surcharges : `contradictionRisk` élevé → plancher Sol ; `criticalChallengeAr
 
 ### 21.4 Ce que la matrice ne prouve pas
 
-Fidélité visuelle · REAL · R1/R2/R3 · exécution de la boucle d’escalade · alignement F2 · comportement Compact/Mobile · accessibilité mesurée (axe/clavier) · NCR.
+Fidélité visuelle · REAL · R1/R2/R3 · exécution de la boucle d’escalade · alignement F2 production routing · comportement Compact/Mobile · accessibilité mesurée (axe/clavier) · NCR.
 
 ---
 
@@ -932,14 +2828,37 @@ P6 (QA comparatif/global, NCR) **ne démarre pas** sur la base de S01. Condition
 
 ---
 
-## 30. Current verdict
+## 30. Correction Pass 01 — Critical Review blockers CP1–CP5
+
+Previous ChatGPT Critical Review verdict: **NOT READY — P5-S01 CRITICAL REVIEW INCOMPLETE**.
+
+Morris GO: **P5-S01 CORRECTION PASS 01 = YES** (local edits + tests + docs + Review Pack + handoff L3 only).
+
+| CP | Gap previous | Correction | Verdict |
+| --- | --- | --- | --- |
+| **CP1** | Full Vitest not proven | `npm test` (= `vitest run`) FULL | **PASS** — 465 files / 5178 tests · 17 files / 137 skipped |
+| **CP2** | Integrated test bypassed Conversation server seam | `projectAssistantSendAction` → `orchestrateAssistantSend` → `analyzeIntent` → `composeStudioCognitiveContext` → `orchestrateProjectAssistantTurn` → `runNoraCognitiveTurn` → routing → Fake Runner | **PASS** |
+| **CP3** | Deterministic bypass only asserted KEEP | Representative op `composeStudioCognitiveContext` — 0 provider / 0 router / 0 Nora turn | **PASS** |
+| **CP4** | Incorrect/unqualified prices | Standard short-context 2026-10-05: Luna 0.10/0.50 · Sol 2/10 · Astra 10/50 + provenance | **PASS** |
+| **CP5** | Pipeline capability→quality (wrong order) | Code+tests: quality → provider → FinOps; stage reason codes; hardened unknown-manifest fail-closed | **PASS** |
+
+Also fixed full-suite regressions caused by S01 (classification A):
+- `importBoundaries` allowlist + `ProductRailRecents`
+- Living Production Runtime Reference digests for modified tracked sources
+
+Visual reserve **PRESERVED** (runtime screenshots still NOT CAPTURED — auth-gated). F2 debt **OPEN**. ZERO REAL. R1/R2/R3 NOT STARTED.
+
+---
+
+## 31. Current verdict
 
 ```text
 P5 AUTHORIZED BY MORRIS = YES
 P5 STARTED              = YES
 P5 IN PROGRESS          = YES
 
-P5-S01 = LOCAL CANDIDATE (visual reserves)
+P5-S01 = LOCAL CANDIDATE — D0 PASS WITH VISUAL RESERVES
+         (Correction Pass 01 CP1–CP5 CLOSED locally)
          — NOT COMPLETE · NOT VALIDATED · NOT INTEGRATED
 
 R1 / R2 / R3            = NOT STARTED
@@ -948,3999 +2867,55 @@ READY FOR REAL          = NO
 runtime v3              = NON ADOPTED
 
 Visual fidelity         = CANDIDATE WITH RESERVES (≠ pixel-perfect PROVEN)
-Cognitive routing       = D0 IMPLEMENTED (policy max escalation = 1; loop not exercised)
+Cognitive routing       = D0 PROVEN (server-path + policy order + FinOps snapshot)
 Net Complexity Reduction = NOT PROVEN
 
 Git this pass           = NO commit · NO push · NO PR · NO merge
 Base                    = 04527bede4a3aad1853387b9eb39af3fe0615412
                           (PR #554 MERGED · CI #676 SUCCESS · Required Gate SUCCESS)
 
-NEXT GATE               = MORRIS P5-S01 GIT INTEGRATION (not consumed)
+NEXT                   = CHATGPT P5-S01 CRITICAL RE-REVIEW
+NEXT MORRIS GATE       = P5-S01 GIT INTEGRATION (not consumed; ChatGPT PASS first)
 REAL / merge            = NOT consumed
 ```
 
-**Synthèse honnête.** P5-S01 livre localement un premier tronçon intégré : une politique de routage cognitif D0 branchée sur le runtime Nora existant, et un Workspace/Shell Pre-M6 convergé vers la structure P3. Les tests D0/UI ciblés, le typecheck, le lint et le build passent (rapportés). Restent ouverts : preuve visuelle runtime vs Figma, Compact/Mobile, exercice de l’escalade, alignement F2, retrait nominal des variables d’environnement de modèle, convergence des tokens, projections object-native, et toute preuve REAL. **P4 reste l’autorité d’architecture** ; ce document n’y ajoute aucune doctrine.
+**Synthèse honnête.** Correction Pass 01 ferme localement les cinq bloqueurs Critical Review (FULL Vitest, server-path D0, deterministic bypass, FinOps snapshot, pipeline order). P5-S01 reste **LOCAL CANDIDATE** avec **réserves visuelles**. **P4 reste l’autorité d’architecture**.
 
 ---
 
-*Fin du document P5 — Integrated Delivery (P5-S01) — P5 AUTHORIZED BY MORRIS = YES — P5 STARTED = YES — P5 IN PROGRESS = YES — P5-S01 = LOCAL CANDIDATE (visual reserves) — R1/R2/R3 NOT STARTED — ZERO REAL — READY FOR REAL = NO — runtime v3 NON ADOPTED — no project commit/push/PR/merge this pass — P4 remains architecture authority.*
-
-======================================================================
-NEW FILE — cognitiveRoutingPolicy.ts
-======================================================================
-```ts
-/**
- * P5-S01 — Strategy-first bounded cognitive routing policy.
- *
- * Pure / non-persistent / non-authoritative. Not a RouterService.
- * Pipeline: Strategy → Quality Floor → eligible model×effort → capability
- * filter → FinOps among sufficient → minimum-sufficient selection.
- *
- * Nominal target cohort: gpt-6-luna · gpt-6.1-sol · gpt-6-astra.
- * GPT-5.6 is excluded from nominal TARGET routing (historical evidence FREEZE).
- */
-import { createHash, randomUUID } from "node:crypto";
-import type { OpenAiReasoningEffort } from "@/lib/platform/ai";
-import {
-  buildP5TargetCapabilityManifest,
-  estimateCostUsd,
-  modelCapabilitySet,
-  type CapabilityManifest,
-} from "@/lib/nora-eval/capabilityBudget";
-import type {
-  CognitiveStrategyDecision,
-  CognitiveWorkloadSignals,
-} from "./cognitiveWorkloadPolicy";
-
-export const P5_COGNITIVE_ROUTING_POLICY_VERSION = "p5-s01-routing-v1" as const;
-
-export const P5_TARGET_MODEL_COHORT = [
-  "gpt-6-luna",
-  "gpt-6.1-sol",
-  "gpt-6-astra",
-] as const;
-
-export type P5TargetModelId = (typeof P5_TARGET_MODEL_COHORT)[number];
-
-export const P5_REASONING_MODE_NOMINAL = "standard" as const;
-
-/** Max cognitive escalations per stable cognitive task (P4). */
-export const P5_MAX_ESCALATIONS_PER_TASK = 1 as const;
-
-const EFFORT_RANK: Record<OpenAiReasoningEffort, number> = {
-  none: 0,
-  minimal: 0,
-  low: 1,
-  medium: 2,
-  high: 3,
-  xhigh: 4,
-  max: 5,
-};
-
-/** Relative model capability rank for quality-floor comparison (not authority). */
-const MODEL_CAPABILITY_RANK: Record<P5TargetModelId, number> = {
-  "gpt-6-luna": 1,
-  "gpt-6.1-sol": 2,
-  "gpt-6-astra": 3,
-};
-
-export type CognitiveQualityFloor = {
-  /** Minimum model capability rank (1=Luna … 3=Astra). */
-  minModelRank: number;
-  /** Minimum reasoning effort rank. */
-  minEffortRank: number;
-  /** Categorical label for reconstructibility. */
-  category:
-    | "routine-sufficient"
-    | "focused-sufficient"
-    | "deep-sufficient"
-    | "high-assurance-sufficient";
-  reasonCodes: string[];
-};
-
-export type CognitiveRoutingConfig = {
-  modelId: P5TargetModelId;
-  reasoningEffort: OpenAiReasoningEffort;
-};
-
-export type CognitiveRoutingDecision = {
-  ok: true;
-  routingDecisionId: string;
-  cognitiveTaskId: string;
-  strategyClass: CognitiveStrategyDecision["strategyClass"];
-  qualityFloor: CognitiveQualityFloor;
-  eligibleConfigs: CognitiveRoutingConfig[];
-  selectedModel: P5TargetModelId;
-  selectedReasoningEffort: OpenAiReasoningEffort;
-  reasoningMode: typeof P5_REASONING_MODE_NOMINAL;
-  reasonCodes: string[];
-  escalationEligible: boolean;
-  maxEscalations: typeof P5_MAX_ESCALATIONS_PER_TASK;
-  providerSnapshotIdentity: string;
-  policyVersion: typeof P5_COGNITIVE_ROUTING_POLICY_VERSION;
-  estimatedCostUsdHint: number | null;
-};
-
-export type CognitiveRoutingLimitation = {
-  ok: false;
-  routingDecisionId: string;
-  cognitiveTaskId: string;
-  strategyClass: CognitiveStrategyDecision["strategyClass"];
-  qualityFloor: CognitiveQualityFloor;
-  reasonCodes: string[];
-  policyVersion: typeof P5_COGNITIVE_ROUTING_POLICY_VERSION;
-  providerSnapshotIdentity: string;
-};
-
-export type DecideCognitiveRoutingInput = {
-  strategy: CognitiveStrategyDecision;
-  /** Stable cognitive task identity — prefer logicalTurnId / correlation. */
-  cognitiveTaskId: string;
-  /** Optional workload signals for quality-floor reasons (already in strategy). */
-  signals?: CognitiveWorkloadSignals;
-  /** Override manifest (tests). Default: P5 target cohort snapshot. */
-  manifest?: CapabilityManifest;
-  /** Optional budget ceiling — never silently downgrades below quality floor. */
-  maxBudgetUsd?: number | null;
-  /** Prior escalations already consumed for this task. */
-  escalationsUsed?: number;
-};
-
-function signalRank(
-  value: CognitiveWorkloadSignals[keyof CognitiveWorkloadSignals] | undefined,
-): number {
-  if (value === "high") return 3;
-  if (value === "medium") return 2;
-  if (value === "low") return 1;
-  return 0; // unknown
-}
-
-/**
- * Derive categorical Quality Floor from strategy + signals.
- * Explainable / reconstructible — NOT a 0–100 score.
- */
-export function deriveQualityFloor(
-  strategy: CognitiveStrategyDecision,
-  signals?: CognitiveWorkloadSignals,
-): CognitiveQualityFloor {
-  const s = signals ?? strategy.normalizedSignals;
-  const reasonCodes: string[] = [
-    `strategy:${strategy.strategyClass}`,
-    `reasoningDemand:${strategy.reasoningDemand}`,
-  ];
-
-  let minModelRank = 1;
-  let minEffortRank = EFFORT_RANK[strategy.reasoningDemand] ?? 1;
-  let category: CognitiveQualityFloor["category"] = "routine-sufficient";
-
-  switch (strategy.strategyClass) {
-    case "Routine":
-      category = "routine-sufficient";
-      minModelRank = 1;
-      minEffortRank = Math.max(minEffortRank, EFFORT_RANK.none);
-      break;
-    case "Focused":
-      category = "focused-sufficient";
-      minModelRank = 1;
-      minEffortRank = Math.max(minEffortRank, EFFORT_RANK.low);
-      if (signalRank(s.verificationNeed) >= 2 || signalRank(s.ambiguity) >= 2) {
-        minEffortRank = Math.max(minEffortRank, EFFORT_RANK.medium);
-        reasonCodes.push("focused:elevated-verification-or-ambiguity");
-      }
-      break;
-    case "Deep":
-      category = "deep-sufficient";
-      // Deep may still use Luna at high effort; Sol is preferred floor when rigor high.
-      minModelRank =
-        signalRank(s.rigorCriticality) >= 3 ||
-        signalRank(s.verificationNeed) >= 3 ||
-        signalRank(s.contradictionRisk) >= 3
-          ? 2
-          : 1;
-      minEffortRank = Math.max(minEffortRank, EFFORT_RANK.medium);
-      reasonCodes.push(
-        minModelRank >= 2
-          ? "deep:sol-floor-for-high-rigor"
-          : "deep:luna-eligible-at-sufficient-effort",
-      );
-      break;
-    case "High-Assurance":
-      category = "high-assurance-sufficient";
-      minModelRank = 2; // Sol minimum — Astra optional among sufficient
-      minEffortRank = Math.max(minEffortRank, EFFORT_RANK.high);
-      reasonCodes.push("high-assurance:sol-or-stronger");
-      break;
-  }
-
-  if (signalRank(s.contradictionRisk) >= 3) {
-    minModelRank = Math.max(minModelRank, 2);
-    reasonCodes.push("contradictionRisk:high→sol-floor");
-  }
-  if (strategy.criticalChallengeArmed) {
-    minEffortRank = Math.max(minEffortRank, EFFORT_RANK.high);
-    reasonCodes.push("criticalChallengeArmed→effort-floor-high");
-  }
-
-  return {
-    minModelRank,
-    minEffortRank,
-    category,
-    reasonCodes,
-  };
-}
-
-function meetsQualityFloor(
-  config: CognitiveRoutingConfig,
-  floor: CognitiveQualityFloor,
-): boolean {
-  const modelRank = MODEL_CAPABILITY_RANK[config.modelId];
-  const effortRank = EFFORT_RANK[config.reasoningEffort] ?? -1;
-  return modelRank >= floor.minModelRank && effortRank >= floor.minEffortRank;
-}
-
-/**
- * Candidate generation: Strategy envelope × target cohort, NOT fixed Strategy→Model.
- * Model × effort remain independent; capability filter applies next.
- */
-export function generateCandidateConfigs(
-  strategy: CognitiveStrategyDecision,
-): CognitiveRoutingConfig[] {
-  const efforts = strategy.candidateEnvelope;
-  const configs: CognitiveRoutingConfig[] = [];
-  for (const modelId of P5_TARGET_MODEL_COHORT) {
-    for (const reasoningEffort of efforts) {
-      configs.push({ modelId, reasoningEffort });
-    }
-  }
-  return configs;
-}
-
-function filterByProviderCapability(
-  configs: CognitiveRoutingConfig[],
-  manifest: CapabilityManifest,
-): { eligible: CognitiveRoutingConfig[]; rejected: string[] } {
-  const eligible: CognitiveRoutingConfig[] = [];
-  const rejected: string[] = [];
-  for (const c of configs) {
-    const supported = modelCapabilitySet(manifest, c.modelId);
-    if (!supported) {
-      rejected.push(`unknown-model:${c.modelId}`);
-      continue;
-    }
-    if (c.reasoningEffort === "minimal") {
-      rejected.push(`unsupported-effort:${c.modelId}/minimal`);
-      continue;
-    }
-    if (!supported.includes(c.reasoningEffort)) {
-      rejected.push(`unsupported-effort:${c.modelId}/${c.reasoningEffort}`);
-      continue;
-    }
-    // Nominal cohort allowlist — GPT-5.6 never appears here.
-    if (
-      !(P5_TARGET_MODEL_COHORT as readonly string[]).includes(c.modelId)
-    ) {
-      rejected.push(`outside-target-cohort:${c.modelId}`);
-      continue;
-    }
-    eligible.push(c);
-  }
-  return { eligible, rejected };
-}
-
-function sortMinimumSufficient(
-  configs: CognitiveRoutingConfig[],
-  manifest: CapabilityManifest,
-): CognitiveRoutingConfig[] {
-  return [...configs].sort((a, b) => {
-    const costA = estimateCostUsd({
-      manifest,
-      modelId: a.modelId,
-      inputTokens: 4000,
-      outputTokens: 1200,
-    });
-    const costB = estimateCostUsd({
-      manifest,
-      modelId: b.modelId,
-      inputTokens: 4000,
-      outputTokens: 1200,
-    });
-    if (costA !== costB) return costA - costB;
-    const modelDiff =
-      MODEL_CAPABILITY_RANK[a.modelId] - MODEL_CAPABILITY_RANK[b.modelId];
-    if (modelDiff !== 0) return modelDiff;
-    return (
-      (EFFORT_RANK[a.reasoningEffort] ?? 0) -
-      (EFFORT_RANK[b.reasoningEffort] ?? 0)
-    );
-  });
-}
-
-function providerSnapshotIdentity(manifest: CapabilityManifest): string {
-  // Identity is content-stable: exclude retrievedAt (call-time) so the same
-  // cohort/capability set hashes identically across turns.
-  const payload = JSON.stringify({
-    sourceName: manifest.sourceName,
-    models: manifest.models.map((m) => ({
-      id: m.modelId,
-      efforts: m.reasoningEfforts,
-      inputUsdPerMTok: m.inputUsdPerMTok,
-      outputUsdPerMTok: m.outputUsdPerMTok,
-    })),
-    allowlist: manifest.campaignAllowlist,
-  });
-  return createHash("sha256").update(payload).digest("hex").slice(0, 16);
-}
-
-/**
- * Decide nominal Product cognitive routing.
- * Fail-closed when no sufficient config remains — never silently downgrade.
- */
-export function decideCognitiveRouting(
-  input: DecideCognitiveRoutingInput,
-): CognitiveRoutingDecision | CognitiveRoutingLimitation {
-  const routingDecisionId = randomUUID();
-  const cognitiveTaskId = input.cognitiveTaskId.trim();
-  if (!cognitiveTaskId) {
-    throw new Error("COGNITIVE_ROUTING_REQUIRES_STABLE_TASK_ID");
-  }
-
-  const manifest =
-    input.manifest ??
-    buildP5TargetCapabilityManifest(new Date().toISOString());
-  const snapshotId = providerSnapshotIdentity(manifest);
-  const qualityFloor = deriveQualityFloor(input.strategy, input.signals);
-
-  const candidates = generateCandidateConfigs(input.strategy);
-  const { eligible: capabilityEligible, rejected } = filterByProviderCapability(
-    candidates,
-    manifest,
-  );
-
-  const qualityEligible = capabilityEligible.filter((c) =>
-    meetsQualityFloor(c, qualityFloor),
-  );
-
-  const reasonCodes = [
-    ...qualityFloor.reasonCodes,
-    `candidates:${candidates.length}`,
-    `capabilityEligible:${capabilityEligible.length}`,
-    `qualityEligible:${qualityEligible.length}`,
-    ...rejected.slice(0, 12).map((r) => `rejected:${r}`),
-  ];
-
-  if (qualityEligible.length === 0) {
-    return {
-      ok: false,
-      routingDecisionId,
-      cognitiveTaskId,
-      strategyClass: input.strategy.strategyClass,
-      qualityFloor,
-      reasonCodes: [
-        ...reasonCodes,
-        "NO_SUFFICIENT_CONFIG",
-        "BUDGET_MUST_NOT_DOWNGRADE_BELOW_FLOOR",
-      ],
-      policyVersion: P5_COGNITIVE_ROUTING_POLICY_VERSION,
-      providerSnapshotIdentity: snapshotId,
-    };
-  }
-
-  const ordered = sortMinimumSufficient(qualityEligible, manifest);
-  let selected = ordered[0]!;
-
-  // Budget may eliminate higher-cost options only among quality-sufficient set.
-  if (input.maxBudgetUsd != null && Number.isFinite(input.maxBudgetUsd)) {
-    const withinBudget = ordered.filter((c) => {
-      const est = estimateCostUsd({
-        manifest,
-        modelId: c.modelId,
-        inputTokens: 4000,
-        outputTokens: 1200,
-      });
-      return est <= input.maxBudgetUsd!;
-    });
-    if (withinBudget.length === 0) {
-      return {
-        ok: false,
-        routingDecisionId,
-        cognitiveTaskId,
-        strategyClass: input.strategy.strategyClass,
-        qualityFloor,
-        reasonCodes: [
-          ...reasonCodes,
-          "BUDGET_EXCLUDES_ALL_SUFFICIENT",
-          "BUDGET_MUST_NOT_DOWNGRADE_BELOW_FLOOR",
-        ],
-        policyVersion: P5_COGNITIVE_ROUTING_POLICY_VERSION,
-        providerSnapshotIdentity: snapshotId,
-      };
-    }
-    selected = withinBudget[0]!;
-    reasonCodes.push("budget:filtered-among-sufficient");
-  }
-
-  const escalationsUsed = input.escalationsUsed ?? 0;
-  const escalationEligible = escalationsUsed < P5_MAX_ESCALATIONS_PER_TASK;
-
-  const estimatedCostUsdHint = estimateCostUsd({
-    manifest,
-    modelId: selected.modelId,
-    inputTokens: 4000,
-    outputTokens: 1200,
-  });
-
-  reasonCodes.push(
-    `selected:${selected.modelId}/${selected.reasoningEffort}`,
-    "reasoningMode:standard",
-    "finops:among-sufficient-only",
-  );
-
-  return {
-    ok: true,
-    routingDecisionId,
-    cognitiveTaskId,
-    strategyClass: input.strategy.strategyClass,
-    qualityFloor,
-    eligibleConfigs: ordered,
-    selectedModel: selected.modelId,
-    selectedReasoningEffort: selected.reasoningEffort,
-    reasoningMode: P5_REASONING_MODE_NOMINAL,
-    reasonCodes,
-    escalationEligible,
-    maxEscalations: P5_MAX_ESCALATIONS_PER_TASK,
-    providerSnapshotIdentity: snapshotId,
-    policyVersion: P5_COGNITIVE_ROUTING_POLICY_VERSION,
-    estimatedCostUsdHint,
-  };
-}
-
-/** True when model id is outside the P5 nominal target cohort. */
-export function isOutsideP5TargetCohort(modelId: string): boolean {
-  return !(P5_TARGET_MODEL_COHORT as readonly string[]).includes(modelId);
-}
+*Fin du document P5 — Integrated Delivery (P5-S01) — Correction Pass 01 — P5 AUTHORIZED BY MORRIS = YES — P5 STARTED = YES — P5 IN PROGRESS = YES — P5-S01 = LOCAL CANDIDATE (D0 PASS WITH VISUAL RESERVES) — R1/R2/R3 NOT STARTED — ZERO REAL — READY FOR REAL = NO — runtime v3 NON ADOPTED — no project commit/push/PR/merge this pass — P4 remains architecture authority.*
 
 ```
 
 ======================================================================
-NEW TESTS
-======================================================================
-
-### FILE projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p5.s01.cognitiveRouting.d0.test.ts
-
-```ts
-/** @vitest-environment node */
-/**
- * P5-S01 D0 — Cognitive routing policy + Product-path wiring (ZERO REAL).
- */
-import { describe, expect, it, vi } from "vitest";
-import {
-  ScriptedModel,
-  assistantMessage,
-} from "@openai/agents/testing";
-import {
-  buildMw0CapabilityManifest,
-  buildP5TargetCapabilityManifest,
-  modelCapabilitySet,
-} from "@/lib/nora-eval/capabilityBudget";
-import {
-  decideCognitiveRouting,
-  deriveQualityFloor,
-  generateCandidateConfigs,
-  isOutsideP5TargetCohort,
-  P5_COGNITIVE_ROUTING_POLICY_VERSION,
-  P5_MAX_ESCALATIONS_PER_TASK,
-  P5_TARGET_MODEL_COHORT,
-  decideCognitiveStrategy,
-  normalizeCognitiveWorkloadSignals,
-  runNoraCognitiveTurn,
-  sfiaBoundaryInstructions,
-} from "@/lib/nora-cognitive-runtime";
-import { FakeConversationProvider } from "@/lib/platform/ai/fakeProvider";
-import type { EventSink } from "@/lib/platform/observability/eventSink";
-import type { TechnicalEvent } from "@/lib/platform/observability/types";
-
-function strategyFor(
-  partial: Parameters<typeof normalizeCognitiveWorkloadSignals>[0],
-  profile = "trusted-profile",
-) {
-  return decideCognitiveStrategy({
-    signals: normalizeCognitiveWorkloadSignals(partial),
-    trustedSfiaProfile: profile,
-  });
-}
-
-describe("P5-S01 — cognitive routing D0", () => {
-  it("P5-D0-01 — nominal target cohort = Luna / Sol / Astra", () => {
-    expect([...P5_TARGET_MODEL_COHORT]).toEqual([
-      "gpt-6-luna",
-      "gpt-6.1-sol",
-      "gpt-6-astra",
-    ]);
-    const manifest = buildP5TargetCapabilityManifest("2026-10-05T00:00:00.000Z");
-    expect(manifest.models.map((m) => m.modelId).sort()).toEqual([
-      "gpt-6-astra",
-      "gpt-6-luna",
-      "gpt-6.1-sol",
-    ]);
-  });
-
-  it("P5-D0-02 — nominal routing excludes GPT-5.6", () => {
-    expect(isOutsideP5TargetCohort("gpt-5.6-luna")).toBe(true);
-    expect(isOutsideP5TargetCohort("gpt-5.6-sol")).toBe(true);
-    expect(isOutsideP5TargetCohort("gpt-6-luna")).toBe(false);
-    const strategy = strategyFor({
-      ambiguity: "low",
-      reasoningDepth: "low",
-      sourceBreadth: "low",
-      verificationNeed: "low",
-      contradictionRisk: "low",
-    });
-    const decision = decideCognitiveRouting({
-      strategy,
-      cognitiveTaskId: "p5-d0-02",
-    });
-    expect(decision.ok).toBe(true);
-    if (!decision.ok) return;
-    expect(decision.selectedModel.startsWith("gpt-5.6")).toBe(false);
-    expect(
-      decision.eligibleConfigs.every(
-        (c) => !c.modelId.startsWith("gpt-5.6"),
-      ),
-    ).toBe(true);
-  });
-
-  it("P5-D0-03 — historical GPT-5.6 MW0 manifest unchanged", () => {
-    const mw0 = buildMw0CapabilityManifest("2026-10-05T00:00:00.000Z");
-    expect(mw0.models.map((m) => m.modelId)).toEqual([
-      "gpt-5.6-sol",
-      "gpt-5.6-terra",
-      "gpt-5.6-luna",
-    ]);
-    expect(mw0.models.some((m) => m.modelId.startsWith("gpt-6"))).toBe(false);
-  });
-
-  it("P5-D0-04 — Strategy does not contain fixed model mapping", () => {
-    const strategy = strategyFor({
-      ambiguity: "medium",
-      reasoningDepth: "medium",
-      verificationNeed: "medium",
-    });
-    const candidates = generateCandidateConfigs(strategy);
-    const models = new Set(candidates.map((c) => c.modelId));
-    expect(models.has("gpt-6-luna")).toBe(true);
-    expect(models.has("gpt-6.1-sol")).toBe(true);
-    expect(models.has("gpt-6-astra")).toBe(true);
-    // Same strategy class yields multi-model candidates (not Strategy→Model fixed).
-    expect(models.size).toBe(3);
-  });
-
-  it("P5-D0-05 / P5-D0-06 — Quality Floor before FinOps; insufficient excluded", () => {
-    const strategy = strategyFor({
-      rigorCriticality: "high",
-      verificationNeed: "high",
-      contradictionRisk: "high",
-      ambiguity: "high",
-      reasoningDepth: "high",
-    });
-    expect(strategy.strategyClass).toBe("High-Assurance");
-    const floor = deriveQualityFloor(strategy);
-    expect(floor.minModelRank).toBeGreaterThanOrEqual(2);
-    const decision = decideCognitiveRouting({
-      strategy,
-      cognitiveTaskId: "p5-d0-05",
-    });
-    expect(decision.ok).toBe(true);
-    if (!decision.ok) return;
-    expect(decision.selectedModel).not.toBe("gpt-6-luna");
-    expect(
-      decision.eligibleConfigs.every((c) => c.modelId !== "gpt-6-luna" || false),
-    );
-    // Luna configs must not remain eligible under High-Assurance floor.
-    expect(
-      decision.eligibleConfigs.every((c) => c.modelId !== "gpt-6-luna"),
-    ).toBe(true);
-  });
-
-  it("P5-D0-07 — Luna none accepted", () => {
-    const manifest = buildP5TargetCapabilityManifest("2026-10-05T00:00:00.000Z");
-    const efforts = modelCapabilitySet(manifest, "gpt-6-luna");
-    expect(efforts).toContain("none");
-  });
-
-  it("P5-D0-08 / P5-D0-09 — Sol/Astra none rejected", () => {
-    const manifest = buildP5TargetCapabilityManifest("2026-10-05T00:00:00.000Z");
-    expect(modelCapabilitySet(manifest, "gpt-6.1-sol")).not.toContain("none");
-    expect(modelCapabilitySet(manifest, "gpt-6-astra")).not.toContain("none");
-  });
-
-  it("P5-D0-10 — unknown model fail-closed", () => {
-    const strategy = strategyFor({});
-    const manifest = buildP5TargetCapabilityManifest("2026-10-05T00:00:00.000Z");
-    expect(modelCapabilitySet(manifest, "gpt-unknown-xyz")).toBeNull();
-    const decision = decideCognitiveRouting({
-      strategy,
-      cognitiveTaskId: "p5-d0-10",
-      manifest,
-    });
-    expect(decision.ok).toBe(true);
-    if (!decision.ok) return;
-    expect(decision.selectedModel).not.toBe("gpt-unknown-xyz");
-  });
-
-  it("P5-D0-11 — unsupported effort not silently coerced", () => {
-    const manifest = buildP5TargetCapabilityManifest("2026-10-05T00:00:00.000Z");
-    const sol = modelCapabilitySet(manifest, "gpt-6.1-sol")!;
-    expect(sol.includes("none")).toBe(false);
-    // Routine envelope includes none — Sol none must be filtered, not coerced to low.
-    const strategy = strategyFor({
-      ambiguity: "low",
-      reasoningDepth: "low",
-      sourceBreadth: "low",
-      verificationNeed: "low",
-      contradictionRisk: "low",
-    });
-    const decision = decideCognitiveRouting({
-      strategy,
-      cognitiveTaskId: "p5-d0-11",
-      manifest,
-    });
-    expect(decision.ok).toBe(true);
-    if (!decision.ok) return;
-    expect(
-      decision.eligibleConfigs.some(
-        (c) => c.modelId === "gpt-6.1-sol" && c.reasoningEffort === "none",
-      ),
-    ).toBe(false);
-  });
-
-  it("P5-D0-12 — budget cannot downgrade below quality", () => {
-    const strategy = strategyFor({
-      rigorCriticality: "high",
-      verificationNeed: "high",
-      contradictionRisk: "high",
-      ambiguity: "high",
-      reasoningDepth: "high",
-    });
-    // Impossible budget among Sol/Astra → limitation, not Luna downgrade.
-    const decision = decideCognitiveRouting({
-      strategy,
-      cognitiveTaskId: "p5-d0-12",
-      maxBudgetUsd: 0.000001,
-    });
-    expect(decision.ok).toBe(false);
-    if (decision.ok) return;
-    expect(decision.reasonCodes).toContain(
-      "BUDGET_MUST_NOT_DOWNGRADE_BELOW_FLOOR",
-    );
-  });
-
-  it("P5-D0-13 / P5-D0-14 / P5-D0-15 — reconstructible + policy version + reason codes", () => {
-    const strategy = strategyFor({ ambiguity: "medium" });
-    const decision = decideCognitiveRouting({
-      strategy,
-      cognitiveTaskId: "p5-d0-13-task",
-    });
-    expect(decision.ok).toBe(true);
-    if (!decision.ok) return;
-    expect(decision.routingDecisionId.length).toBeGreaterThan(8);
-    expect(decision.cognitiveTaskId).toBe("p5-d0-13-task");
-    expect(decision.policyVersion).toBe(P5_COGNITIVE_ROUTING_POLICY_VERSION);
-    expect(decision.reasonCodes.length).toBeGreaterThan(0);
-    expect(decision.providerSnapshotIdentity.length).toBeGreaterThan(0);
-  });
-
-  it("P5-D0-16 — max escalation = 1", () => {
-    expect(P5_MAX_ESCALATIONS_PER_TASK).toBe(1);
-    const strategy = strategyFor({});
-    const decision = decideCognitiveRouting({
-      strategy,
-      cognitiveTaskId: "p5-d0-16",
-      escalationsUsed: 0,
-    });
-    expect(decision.ok).toBe(true);
-    if (!decision.ok) return;
-    expect(decision.maxEscalations).toBe(1);
-    expect(decision.escalationEligible).toBe(true);
-    const after = decideCognitiveRouting({
-      strategy,
-      cognitiveTaskId: "p5-d0-16",
-      escalationsUsed: 1,
-    });
-    expect(after.ok).toBe(true);
-    if (!after.ok) return;
-    expect(after.escalationEligible).toBe(false);
-  });
-
-  it("P5-D0-17 — stable cognitive task identity required", () => {
-    const strategy = strategyFor({});
-    expect(() =>
-      decideCognitiveRouting({ strategy, cognitiveTaskId: "   " }),
-    ).toThrow(/COGNITIVE_ROUTING_REQUIRES_STABLE_TASK_ID/);
-  });
-
-  it("P5-D0-18 / P5-D0-19 — client cannot select model/effort via Product path", async () => {
-    const provider = new FakeConversationProvider({
-      toolScript: [{ kind: "message", text: "[TEST/FAKE] P5 routing." }],
-    });
-    const result = await runNoraCognitiveTurn({
-      correlationId: "p5-d0-18",
-      projectId: "prj:p5",
-      messages: [
-        { role: "system", content: sfiaBoundaryInstructions() },
-        { role: "user", content: "probe routing" },
-      ],
-      provider,
-      enableTools: false,
-      cognitiveWorkloadSignals: {
-        ambiguity: "low",
-        reasoningDepth: "low",
-        sourceBreadth: "low",
-        verificationNeed: "low",
-        contradictionRisk: "low",
-      },
-      trustedSfiaProfile: "trusted-profile",
-      // Intentionally no client model/effort fields exist on the input type.
-    });
-    expect(result.selectedModelId).toBeTruthy();
-    expect(P5_TARGET_MODEL_COHORT).toContain(
-      result.selectedModelId as (typeof P5_TARGET_MODEL_COHORT)[number],
-    );
-    expect(result.selectedReasoningEffort).toBeTruthy();
-    expect(result.cognitiveRoutingPolicyVersion).toBe(
-      P5_COGNITIVE_ROUTING_POLICY_VERSION,
-    );
-  });
-
-  it("P5-D0-20 — stronger model does not widen authority fields", async () => {
-    const provider = new FakeConversationProvider({
-      toolScript: [{ kind: "message", text: "[TEST/FAKE] HA." }],
-    });
-    const result = await runNoraCognitiveTurn({
-      correlationId: "p5-d0-20",
-      projectId: "prj:p5",
-      messages: [
-        { role: "system", content: sfiaBoundaryInstructions() },
-        { role: "user", content: "high assurance probe" },
-      ],
-      provider,
-      enableTools: false,
-      cognitiveWorkloadSignals: {
-        rigorCriticality: "high",
-        verificationNeed: "high",
-        contradictionRisk: "high",
-        ambiguity: "high",
-        reasoningDepth: "high",
-      },
-      trustedSfiaProfile: "trusted-profile",
-    });
-    expect(result.selectedModelId).not.toBe("gpt-6-luna");
-    // No authority envelope / confirmation / HD fields introduced by routing.
-    expect(
-      Object.keys(result).some((k) =>
-        /authority|humanDecision|confirmation/i.test(k),
-      ),
-    ).toBe(false);
-  });
-
-  it("P5-D0-21 — routing telemetry contains no CoT", async () => {
-    const events: TechnicalEvent[] = [];
-    const sink: EventSink = {
-      emit(event) {
-        events.push(event);
-      },
-    };
-    const provider = new FakeConversationProvider({
-      toolScript: [{ kind: "message", text: "[TEST/FAKE] telemetry." }],
-    });
-    await runNoraCognitiveTurn({
-      correlationId: "p5-d0-21",
-      projectId: "prj:p5",
-      messages: [
-        { role: "system", content: sfiaBoundaryInstructions() },
-        { role: "user", content: "telemetry probe" },
-      ],
-      provider,
-      enableTools: false,
-      sink,
-      cognitiveWorkloadSignals: {
-        ambiguity: "low",
-        reasoningDepth: "low",
-        sourceBreadth: "low",
-        verificationNeed: "low",
-        contradictionRisk: "low",
-      },
-      trustedSfiaProfile: "trusted-profile",
-    });
-    const routing = events.find((e) => e.type === "COGNITIVE_ROUTING_SELECTED");
-    expect(routing).toBeTruthy();
-    const blob = JSON.stringify(routing?.detail ?? {});
-    expect(blob).not.toMatch(/chain of thought|private reasoning|confidencePercent|qualityScore/i);
-    expect(routing?.detail).toMatchObject({
-      routingPolicyVersion: P5_COGNITIVE_ROUTING_POLICY_VERSION,
-      selectedModel: expect.any(String),
-      selectedEffort: expect.any(String),
-    });
-  });
-
-  it("P5-D0-22 / P5-D0-23 / P5-D0-24 — Fake boundary + same Runner + zero live", async () => {
-    const model = new ScriptedModel([[assistantMessage("ok")]]);
-    const provider = new FakeConversationProvider({
-      toolScript: [{ kind: "message", text: "[TEST/FAKE] boundary." }],
-    });
-    const spy = vi.spyOn(globalThis, "fetch").mockImplementation(() => {
-      throw new Error("UNEXPECTED_LIVE_FETCH");
-    });
-    try {
-      const result = await runNoraCognitiveTurn({
-        correlationId: "p5-d0-22",
-        projectId: "prj:p5",
-        messages: [
-          { role: "system", content: sfiaBoundaryInstructions() },
-          { role: "user", content: "fake boundary" },
-        ],
-        provider,
-        enableTools: false,
-        cognitiveWorkloadSignals: {
-          ambiguity: "low",
-          reasoningDepth: "low",
-          sourceBreadth: "low",
-          verificationNeed: "low",
-          contradictionRisk: "low",
-        },
-        trustedSfiaProfile: "trusted-profile",
-        // Eval pin with ScriptedModel proves same Agents Runner path remains usable.
-        evalModelReasoningControl: {
-          modelId: "gpt-6-luna",
-          reasoningEffort: "low",
-          agentsModel: model,
-        },
-      });
-      expect(result.cognitiveRuntime).toBe("agents");
-      expect(result.evalPinnedModelId).toBe("gpt-6-luna");
-      expect(spy).not.toHaveBeenCalled();
-    } finally {
-      spy.mockRestore();
-    }
-  });
-});
-
-```
-
-
-### FILE projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p5.s01.integratedProduct.d0.test.ts
-
-```ts
-/** @vitest-environment node */
-/**
- * P5-S01 — Integrated Product vertical slice D0 (ZERO REAL).
- *
- * Real local Product Project/LPS → studioCognitiveContext facts →
- * runNoraCognitiveTurn → CWP → Strategy → P5 routing → Fake provider →
- * SAME Agents Runner → Product-safe result. No live OpenAI.
- */
-import fs from "node:fs";
-import os from "node:os";
-import path from "node:path";
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import {
-  P5_COGNITIVE_ROUTING_POLICY_VERSION,
-  P5_TARGET_MODEL_COHORT,
-  runNoraCognitiveTurn,
-  sfiaBoundaryInstructions,
-} from "@/lib/nora-cognitive-runtime";
-import { FakeConversationProvider } from "@/lib/platform/ai/fakeProvider";
-import {
-  getRuntimeApplicationService,
-  resetRuntimeApplicationServiceForTests,
-} from "@/lib/vertical-slice-runtime";
-import { composeStudioCognitiveContext } from "@/features/project-assistant/f2/studioCognitiveContext";
-import { resolveProductDoctrineRegistryRoot } from "@/lib/vertical-slice-runtime/paths";
-import { DEFAULT_PRODUCT_DOCTRINE_PIN } from "@/lib/oa/doctrine/product/constants";
-import type { ProjectAssistantContextDto } from "@/features/project-assistant/types";
-import type { IntentAnalysisDto } from "@/features/project-assistant/f2/types";
-
-function analysisStub(): IntentAnalysisDto {
-  return {
-    intentClass: "informative",
-    parseOk: true,
-    candidateCycleTypeId: null,
-    signals: null,
-    cognitiveWorkload: {
-      ambiguity: "low",
-      reasoningDepth: "low",
-      sourceBreadth: "low",
-      toolDependency: "low",
-      contradictionRisk: "low",
-      verificationNeed: "low",
-    },
-    contradictionCandidate: null,
-    challengeResponseAssessment: null,
-    objective: null,
-    scope: null,
-    rephrasedRequest: null,
-    outOfScope: [],
-    risks: [],
-    reservations: [],
-    stopConditions: [],
-    activatedBlocks: [],
-    expectedOutcome: null,
-    criticalJustification: null,
-    requestedOperation: null,
-    executionIntent: null,
-  };
-}
-
-describe("P5-S01 — integrated Product path D0", () => {
-  const tempDirs: string[] = [];
-  let projectId = "";
-  let lpsId = "";
-  let productDbPath = "";
-
-  beforeEach(async () => {
-    process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
-    process.env.OPS1_CONVERSATION_PROVIDER = "fake";
-    resetRuntimeApplicationServiceForTests();
-    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-p5-s01-"));
-    tempDirs.push(dir);
-    productDbPath = path.join(dir, "oa-product.sqlite");
-    const runtime = getRuntimeApplicationService({
-      productDbPath,
-      auditMode: "noop",
-      nowIso: "2026-10-05T08:00:00.000Z",
-    });
-    const created = await runtime.createProject({
-      name: "Product Simplification P5-S01",
-      objective:
-        "Premier slice intégré Conversation + contexte sémantique + routing",
-      context: "P5-S01 vertical slice D0",
-      criticality: "STANDARD",
-      constraints: ["ZERO REAL"],
-      shortReference: "P5S01",
-      idempotencyKey: `idem:p5-s01-${Date.now()}-${Math.random()}`,
-    });
-    expect(created.ok).toBe(true);
-    if (!created.ok) throw new Error("createProject failed");
-    projectId = created.projectId;
-    const project = await runtime.getProject(projectId);
-    expect(project.ok).toBe(true);
-    if (!project.ok) throw new Error("getProject failed");
-    lpsId = project.livingState.id;
-    expect(lpsId).toBeTruthy();
-  });
-
-  afterEach(() => {
-    resetRuntimeApplicationServiceForTests();
-    delete process.env.OPS1_CONVERSATION_PROVIDER;
-    while (tempDirs.length) {
-      const dir = tempDirs.pop();
-      if (dir) fs.rmSync(dir, { recursive: true, force: true });
-    }
-  });
-
-  it("uses real Product Project/LPS + routing + Fake boundary + same Runner", async () => {
-    const fetchSpy = vi.spyOn(globalThis, "fetch").mockImplementation(() => {
-      throw new Error("UNEXPECTED_LIVE_FETCH_P5_S01");
-    });
-
-    try {
-      const projectDto: ProjectAssistantContextDto = {
-        projectId,
-        name: "Product Simplification P5-S01",
-        shortReference: "P5S01",
-        objective:
-          "Premier slice intégré Conversation + contexte sémantique + routing",
-        contextSummary: "P5-S01 vertical slice D0",
-        criticality: "STANDARD",
-        constraints: ["ZERO REAL"],
-        lpsId,
-        lpsVersion: 1,
-        lpsCreatedAt: "2026-10-05T08:00:00.000Z",
-        doctrineId: DEFAULT_PRODUCT_DOCTRINE_PIN.doctrinePackageId,
-        doctrineVersion: DEFAULT_PRODUCT_DOCTRINE_PIN.version,
-        doctrineDigest: DEFAULT_PRODUCT_DOCTRINE_PIN.digest,
-        doctrineStatus: "product-studio-native",
-        runtimeMode: "local",
-        persistence: "product-sqlite",
-        readiness: "ready",
-      };
-
-      const runtime = getRuntimeApplicationService();
-      const composed = await composeStudioCognitiveContext({
-        analysis: analysisStub(),
-        project: projectDto,
-        registryRoot: resolveProductDoctrineRegistryRoot(),
-        truthCContext: "P5-S01 vertical slice D0",
-        oa: runtime.oa!,
-      });
-      expect(composed.ok).toBe(true);
-      if (!composed.ok) throw new Error("composeStudioCognitiveContext failed");
-      expect(composed.context.projectTruth.projectId).toBe(projectId);
-      expect(composed.context.projectTruth.lpsId).toBe(lpsId);
-      expect(composed.context.limits.truthOutranksConversation).toBe(true);
-      expect(fs.existsSync(productDbPath)).toBe(true);
-
-      const provider = new FakeConversationProvider({
-        toolScript: [
-          {
-            kind: "message",
-            text: "[TEST/FAKE] P5-S01 integrated Product path — zero durable mutation.",
-          },
-        ],
-      });
-
-      const result = await runNoraCognitiveTurn({
-        correlationId: `logical:${projectId}:p5-s01-turn-1`,
-        projectId,
-        messages: [
-          {
-            role: "system",
-            content: [
-              sfiaBoundaryInstructions(),
-              "",
-              `ProjectId=${projectId}`,
-              `LpsId=${lpsId}`,
-              `Objective=${projectDto.objective}`,
-            ].join("\n"),
-          },
-          {
-            role: "user",
-            content:
-              "Peux-tu me rappeler le contexte courant de ce projet sans rien modifier ?",
-          },
-        ],
-        provider,
-        enableTools: false,
-        turnWorkloadContext: {
-          userContentLength: 64,
-          historyMessageCount: 0,
-          projectCriticality: "STANDARD",
-        },
-        semanticCognitiveWorkload: analysisStub().cognitiveWorkload,
-        trustedSfiaProfile: "trusted-profile",
-      });
-
-      expect(result.cognitiveRuntime).toBe("agents");
-      expect(result.selectedModelId).toBeTruthy();
-      expect(P5_TARGET_MODEL_COHORT).toContain(
-        result.selectedModelId as (typeof P5_TARGET_MODEL_COHORT)[number],
-      );
-      expect(result.cognitiveRoutingPolicyVersion).toBe(
-        P5_COGNITIVE_ROUTING_POLICY_VERSION,
-      );
-      expect(result.cognitiveStrategyClass).toBeTruthy();
-      expect(result.selectedReasoningEffort).toBeTruthy();
-      expect(result.text).toMatch(/P5-S01|FAKE|contexte|projet/i);
-      // No HD/authority expansion fields from routing.
-      expect((result as { humanDecisionId?: string }).humanDecisionId).toBeUndefined();
-      expect(fetchSpy).not.toHaveBeenCalled();
-      // Same Product SQLite file still present — no second Product store.
-      expect(fs.existsSync(productDbPath)).toBe(true);
-    } finally {
-      fetchSpy.mockRestore();
-    }
-  });
-});
-
-```
-
-
-### FILE projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p5.s01.semanticInvariants.d0.test.ts
-
-```ts
-/** @vitest-environment node */
-/**
- * P5-S01 — Product semantic invariants at tested D0 scope (ZERO REAL).
- */
-import { describe, expect, it } from "vitest";
-import {
-  decideCognitiveRouting,
-  decideCognitiveStrategy,
-  normalizeCognitiveWorkloadSignals,
-  P5_TARGET_MODEL_COHORT,
-} from "@/lib/nora-cognitive-runtime";
-
-describe("P5-S01 — semantic invariants D0", () => {
-  it("P5-SEM-05 — model choice cannot encode Product authority fields", () => {
-    const strategy = decideCognitiveStrategy({
-      signals: normalizeCognitiveWorkloadSignals({
-        rigorCriticality: "high",
-        verificationNeed: "high",
-        contradictionRisk: "high",
-        ambiguity: "high",
-        reasoningDepth: "high",
-      }),
-      trustedSfiaProfile: "trusted-profile",
-    });
-    const decision = decideCognitiveRouting({
-      strategy,
-      cognitiveTaskId: "p5-sem-05",
-    });
-    expect(decision.ok).toBe(true);
-    if (!decision.ok) return;
-    expect(P5_TARGET_MODEL_COHORT).toContain(decision.selectedModel);
-    const keys = Object.keys(decision);
-    expect(keys.some((k) => /authority|humanDecision|confirmation/i.test(k))).toBe(
-      false,
-    );
-  });
-
-  it("P5-SEM-02/03 — routing decision is not HumanDecision / Recommendation disposition", () => {
-    const strategy = decideCognitiveStrategy({
-      signals: normalizeCognitiveWorkloadSignals({
-        ambiguity: "low",
-        reasoningDepth: "low",
-        sourceBreadth: "low",
-        verificationNeed: "low",
-        contradictionRisk: "low",
-      }),
-      trustedSfiaProfile: "trusted-profile",
-    });
-    const decision = decideCognitiveRouting({
-      strategy,
-      cognitiveTaskId: "p5-sem-02",
-    });
-    expect(decision.ok).toBe(true);
-    if (!decision.ok) return;
-    expect("humanDecisionId" in decision).toBe(false);
-    expect("recommendationDisposition" in decision).toBe(false);
-    expect(decision.reasoningMode).toBe("standard");
-  });
-
-  it("P5-SEM-08 — Strategy Proposed trajectory semantics remain outside router", () => {
-    // Router must not invent ProjectTrajectory decided/proposed states.
-    const strategy = decideCognitiveStrategy({
-      signals: normalizeCognitiveWorkloadSignals({}),
-      trustedSfiaProfile: null,
-    });
-    const decision = decideCognitiveRouting({
-      strategy,
-      cognitiveTaskId: "p5-sem-08",
-    });
-    expect(decision.ok).toBe(true);
-    if (!decision.ok) return;
-    expect(JSON.stringify(decision)).not.toMatch(/ProjectTrajectory|Terminé|Proposé/);
-  });
-});
-
-```
-
-
-### FILE projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s01.workspaceLayout.ui.test.tsx
-
-```ts
-/** @vitest-environment jsdom */
-/**
- * P5-S01 — Workspace / Conversation P3 layout smoke (UI).
- */
-import { cleanup, render, screen, waitFor } from "@testing-library/react";
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { ProductShell } from "@/features/pre-m6-product-ui/ProductShell";
-import { ProjectWorkspacePage } from "@/features/pre-m6-product-ui/ProjectWorkspacePage";
-
-const { getProjectRuntimeActionMock, useProductConversationMock } = vi.hoisted(
-  () => ({
-    getProjectRuntimeActionMock: vi.fn(),
-    useProductConversationMock: vi.fn(),
-  }),
-);
-
-vi.mock("@/lib/vertical-slice-runtime/actions", () => ({
-  getProjectRuntimeAction: (...args: unknown[]) =>
-    getProjectRuntimeActionMock(...args),
-  setProjectRepositoryBindingAction: vi.fn(),
-}));
-
-vi.mock("@/features/pre-m6-product-ui/hooks/useProductConversation", () => ({
-  useProductConversation: (...args: unknown[]) =>
-    useProductConversationMock(...args),
-}));
-
-vi.mock("@/features/project-assistant/actions", () => ({
-  projectAssistantConversationContinuityAction: vi.fn(async () => ({
-    ok: true,
-    transcriptAvailability: "empty",
-    messages: [],
-    journal: { cycleInstanceId: null, entries: [] },
-  })),
-  projectAssistantActiveCycleWorkspaceAction: vi.fn().mockResolvedValue({
-    ok: true,
-    cycleTypeId: null,
-    repositoryWorkspaceSegment: null,
-  }),
-  projectAssistantConfirmReservationResolutionAction: vi.fn(),
-  projectAssistantDeferReservationAction: vi.fn(),
-  projectAssistantPilotLifecycleProjection: vi.fn(),
-  projectAssistantPilotLifecycleAction: vi.fn(),
-  projectAssistantRecordObligationPolicyAction: vi.fn(),
-  projectAssistantCompleteTrajectoryStepAction: vi.fn(),
-  projectAssistantResolveBlockingReservationAction: vi.fn(),
-  projectAssistantRehydrateEvidenceOutcomeAction: vi.fn().mockResolvedValue({
-    ok: false,
-  }),
-}));
-
-vi.mock("@/features/pre-m6-product-ui/surfaces/LifecycleSurface", () => ({
-  LifecycleSurface: () => <div data-testid="lifecycle-stub" />,
-}));
-
-vi.mock("@/features/pre-m6-product-ui/surfaces/TrajectorySurface", () => ({
-  TrajectorySurface: () => <div data-testid="trajectory-stub" />,
-}));
-
-vi.mock("@/features/pre-m6-product-ui/surfaces/HistorySurface", () => ({
-  HistorySurface: () => <div data-testid="history-stub" />,
-}));
-
-vi.mock("@/features/pre-m6-product-ui/surfaces/JournalSurface", () => ({
-  JournalSurface: () => <div data-testid="cycle-journal-rail" />,
-}));
-
-vi.mock("@/features/pre-m6-product-ui/surfaces/LpsSurface", () => ({
-  LpsSurface: () => <div data-testid="lps-stub" />,
-  lpsNextAction: () => null,
-}));
-
-vi.mock("@/features/pre-m6-product-ui/surfaces/RecoverySurface", () => ({
-  RecoverySurface: () => null,
-}));
-
-vi.mock(
-  "@/features/pre-m6-product-ui/surfaces/ProjectWorkspaceRoutingPanel",
-  () => ({
-    ProjectWorkspaceRoutingPanelLazy: () => null,
-  }),
-);
-
-vi.mock("@/features/pre-m6-product-ui/ProductRailRecents", () => ({
-  ProductRailRecents: () => (
-    <div data-testid="studio-rail-recents-stub">Projets récents</div>
-  ),
-}));
-
-vi.mock("@/features/pre-m6-product-ui/surfaces/ConversationSurface", () => ({
-  ConversationSurface: () => (
-    <div data-testid="project-assistant-panel">Conversation</div>
-  ),
-}));
-
-describe("P5-S01 Workspace layout", () => {
-  afterEach(() => {
-    cleanup();
-  });
-
-  beforeEach(() => {
-    vi.clearAllMocks();
-    getProjectRuntimeActionMock.mockResolvedValue({
-      ok: true,
-      project: {
-        projectId: "prj:p5-s01",
-        name: "Product Simplification",
-        shortReference: "P5",
-        objective:
-          "Simplifier le pilotage sans perdre gouvernance, preuve et maîtrise du Pilote.",
-        contextSummary: "ctx",
-        criticality: "STANDARD",
-        constraints: [],
-        localMode: true,
-        source: "REAL_LOCAL_CORE",
-        fixture: false,
-        projectWorkspaceKey: null,
-        repositoryBinding: null,
-      },
-      livingState: {
-        id: "lps:p5",
-        version: 3,
-        createdAt: "2026-10-05T00:00:00.000Z",
-        activeCycleInstanceId: null,
-      },
-      doctrine: { id: "d", version: "1", digest: "x", status: "RESOLVED" },
-      readiness: {
-        status: "NOT_READY",
-        hard: "OPEN",
-        tA6: "INCOMPLETE",
-        iam: "NOT_SELECTED",
-        productPersistence: "SQLITE_OA_PRODUCT_STORE",
-        realAgentExecution: "DISABLED",
-        delivery: "NOT_AUTHORIZED",
-        cutover: "NOT_AUTHORIZED",
-        runReady: false,
-        productReady: false,
-      },
-      disclosures: {},
-    });
-    useProductConversationMock.mockReturnValue({
-      listRef: { current: null },
-      messages: [],
-      draft: "",
-      setDraft: vi.fn(),
-      toolEvents: [],
-      busy: false,
-      error: null,
-      send: vi.fn(),
-      transcriptAvailability: "available",
-      openContinuityPresentation: { kind: "none" },
-      refreshConversationContinuity: vi.fn(),
-      journalEntries: [],
-      activeProposal: null,
-      f3Prepare: null,
-      f3M3Resolved: null,
-      f3Execute: null,
-      durableEvidenceOutcome: null,
-    });
-  });
-
-  it("renders P3 shell rail + Conversation workspace without internals", async () => {
-    render(
-      <ProductShell
-        activeNav="current"
-        currentProjectHref="/studio/projects/prj%3Ap5-s01"
-      >
-        <ProjectWorkspacePage projectId="prj:p5-s01" />
-      </ProductShell>,
-    );
-
-    expect(screen.getByTestId("studio-shell")).toBeTruthy();
-    expect(screen.getByTestId("studio-rail")).toBeTruthy();
-    expect(screen.getByTestId("studio-rail-meridian")).toBeTruthy();
-    expect(screen.getAllByText("SFIA Studio").length).toBeGreaterThan(0);
-    expect(screen.getAllByText("Pilote").length).toBeGreaterThan(0);
-
-    await waitFor(() => {
-      expect(screen.getByTestId("project-principal")).toBeTruthy();
-    });
-
-    expect(screen.getByTestId("project-tab-conversation")).toHaveAttribute(
-      "data-selected",
-      "true",
-    );
-    expect(screen.getByTestId("project-tab-overview").textContent).toMatch(
-      /Aperçu/,
-    );
-    expect(screen.getByTestId("project-tab-execution").textContent).toMatch(
-      /Exécution/,
-    );
-    expect(screen.getByTestId("project-conversation-main")).toBeTruthy();
-    expect(screen.getByTestId("project-lps-column")).toBeTruthy();
-
-    const body = document.body.textContent ?? "";
-    expect(body).not.toMatch(
-      /HumanDecision|ExecutionContract|\bCKC\b|reasoning effort|gpt-6|OPENAI_MODEL/i,
-    );
-    expect(screen.queryByLabelText(/modèle/i)).toBeNull();
-    expect(screen.queryByLabelText(/reasoning/i)).toBeNull();
-  });
-});
-
-```
-
-======================================================================
-USEFUL DIFF — ROUTING / RUNTIME
-======================================================================
-```diff
-diff --git a/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts b/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
-index 165c90be..7dcb49d2 100644
---- a/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
-@@ -397,7 +397,9 @@ export async function orchestrateProjectAssistantTurn(input: {
-
-   try {
-     const turn = await runNoraCognitiveTurn({
--      correlationId: `f1:${project.projectId}`,
-+      // P5-S01 — prefer durable logicalTurnId as stable cognitive task identity
-+      // across tool rounds / retry / one escalation. Fallback keeps prior f1: key.
-+      correlationId: logicalTurnId ?? `f1:${project.projectId}`,
-       projectId: project.projectId,
-       messages,
-       provider,
-diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
-index 8f444247..e56f07f0 100644
---- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
-+++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
-@@ -252,6 +252,24 @@ export {
-   buildRunnerModelSettingsForEffort,
-   type NoraRunnerModelSettings,
- } from "./reasoningModelSettings";
-+export {
-+  decideCognitiveRouting,
-+  deriveQualityFloor,
-+  generateCandidateConfigs,
-+  isOutsideP5TargetCohort,
-+  P5_COGNITIVE_ROUTING_POLICY_VERSION,
-+  P5_MAX_ESCALATIONS_PER_TASK,
-+  P5_REASONING_MODE_NOMINAL,
-+  P5_TARGET_MODEL_COHORT,
-+} from "./cognitiveRoutingPolicy";
-+export type {
-+  CognitiveQualityFloor,
-+  CognitiveRoutingConfig,
-+  CognitiveRoutingDecision,
-+  CognitiveRoutingLimitation,
-+  DecideCognitiveRoutingInput,
-+  P5TargetModelId,
-+} from "./cognitiveRoutingPolicy";
- export {
-   GROUNDING_REFS_TYPE,
-   acceptGroundingRefsForProject,
-diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/reasoningCapability.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/reasoningCapability.ts
-index 4e865ae5..567f8ae0 100644
---- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/reasoningCapability.ts
-+++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/reasoningCapability.ts
-@@ -1,20 +1,39 @@
- /**
-  * Runtime model capability validation — fail-closed, no campaign allowlist.
-- * Uses CURRENT OpenAI provider snapshot (incl. Astra). MW0 historical snapshot untouched.
-+ * Default: CURRENT OpenAI provider snapshot (incl. Astra). MW0 historical untouched.
-+ * Callers on the P5 nominal Product path pass the P5 TARGET cohort manifest.
-  */
- import type { OpenAiReasoningEffort } from "@/lib/platform/ai";
- import { TechnicalError } from "@/lib/platform/ai/errors";
- import {
-   buildCurrentOpenAiCapabilityManifest,
-+  buildP5TargetCapabilityManifest,
-   modelCapabilitySet,
-+  type CapabilityManifest,
- } from "@/lib/nora-eval/capabilityBudget";
-
-+function resolveCapabilitySet(
-+  modelId: string,
-+  manifest?: CapabilityManifest,
-+): OpenAiReasoningEffort[] | null {
-+  if (manifest) {
-+    return modelCapabilitySet(manifest, modelId);
-+  }
-+  const now = new Date().toISOString();
-+  // Prefer CURRENT provider universe; fall back to P5 TARGET cohort for
-+  // nominal Product / eval pins that already use GPT-6 Luna/Sol/Astra.
-+  return (
-+    modelCapabilitySet(buildCurrentOpenAiCapabilityManifest(now), modelId) ??
-+    modelCapabilitySet(buildP5TargetCapabilityManifest(now), modelId)
-+  );
-+}
-+
- export function validateRuntimeReasoningCapability(
-   modelId: string,
-   reasoningEffort: OpenAiReasoningEffort,
-+  manifest?: CapabilityManifest,
- ): void {
--  const manifest = buildCurrentOpenAiCapabilityManifest(new Date().toISOString());
--  const supported = modelCapabilitySet(manifest, modelId);
-+  const supported = resolveCapabilitySet(modelId, manifest);
-   if (!supported) {
-     throw new TechnicalError(
-       "CONFIG",
-diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts
-index 8ccd697e..faa4c498 100644
---- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts
-+++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts
-@@ -35,6 +35,13 @@ import {
- } from "./cognitiveWorkloadPolicy";
- import { validateRuntimeReasoningCapability } from "./reasoningCapability";
- import { buildRunnerModelSettingsForEffort } from "./reasoningModelSettings";
-+import {
-+  decideCognitiveRouting,
-+  type CognitiveRoutingDecision,
-+} from "./cognitiveRoutingPolicy";
-+import {
-+  buildP5TargetCapabilityManifest,
-+} from "@/lib/nora-eval/capabilityBudget";
- import {
-   disposeContradiction,
-   type ContradictionConflictInput,
-@@ -91,6 +98,7 @@ import type {
- } from "./campaignBudget";
- import type { NoraAgentsUsdAccounting } from "./agentsUsdAccounting";
- import type { OpenAiReasoningEffort } from "@/lib/platform/ai";
-+import { TechnicalError } from "@/lib/platform/ai/errors";
- import type { Model } from "@openai/agents";
-
- /**
-@@ -253,6 +261,43 @@ function emitCognitiveStrategyTelemetry(
-   });
- }
-
-+function emitCognitiveRoutingTelemetry(
-+  sink: EventSink | undefined,
-+  correlationId: string,
-+  routing: CognitiveRoutingDecision,
-+): void {
-+  if (!sink) return;
-+  sink.emit({
-+    type: "COGNITIVE_ROUTING_SELECTED",
-+    correlationId,
-+    detail: {
-+      routingDecisionId: routing.routingDecisionId,
-+      cognitiveTaskId: routing.cognitiveTaskId,
-+      strategyClass: routing.strategyClass,
-+      selectedModel: routing.selectedModel,
-+      selectedEffort: routing.selectedReasoningEffort,
-+      reasoningMode: routing.reasoningMode,
-+      qualityFloor: {
-+        category: routing.qualityFloor.category,
-+        minModelRank: routing.qualityFloor.minModelRank,
-+        minEffortRank: routing.qualityFloor.minEffortRank,
-+        reasonCodes: routing.qualityFloor.reasonCodes,
-+      },
-+      reasonCodes: routing.reasonCodes,
-+      eligibleSummary: routing.eligibleConfigs.slice(0, 12).map((c) => ({
-+        modelId: c.modelId,
-+        reasoningEffort: c.reasoningEffort,
-+      })),
-+      escalationEligible: routing.escalationEligible,
-+      maxEscalations: routing.maxEscalations,
-+      providerCapabilitySnapshot: routing.providerSnapshotIdentity,
-+      routingPolicyVersion: routing.policyVersion,
-+      estimatedCostUsdHint: routing.estimatedCostUsdHint,
-+      // Never emit Chain of Thought / private reasoning / fake confidence.
-+    },
-+  });
-+}
-+
- function resolveCognitiveStrategyForTurn(
-   input: RunNoraCognitiveTurnInput,
- ): ReturnType<typeof decideCognitiveStrategy> | null {
-@@ -286,20 +331,60 @@ function resolveCognitiveStrategyForTurn(
-
- function resolveEvalAgentsModel(
-   input: RunNoraCognitiveTurnInput,
-+  routing: CognitiveRoutingDecision | null,
- ): Model | string | undefined {
-   const control = input.evalModelReasoningControl;
--  if (!control) return undefined;
--  if (control.agentsModel !== undefined) return control.agentsModel;
--  // Fake/completeRound providers keep adapter path — modelId remains Evidence identity.
--  if (input.provider && shouldUseProviderAgentsModelAdapter(input.provider)) {
--    return undefined;
-+  if (control) {
-+    if (control.agentsModel !== undefined) return control.agentsModel;
-+    // Fake/completeRound providers keep adapter path — modelId remains Evidence identity.
-+    if (input.provider && shouldUseProviderAgentsModelAdapter(input.provider)) {
-+      return undefined;
-+    }
-+    return control.modelId;
-+  }
-+
-+  // P5 nominal Product path: router-owned model for live Agents; Fake keeps adapter.
-+  if (routing) {
-+    if (input.provider && shouldUseProviderAgentsModelAdapter(input.provider)) {
-+      return undefined;
-+    }
-+    return routing.selectedModel;
-+  }
-+
-+  return undefined;
-+}
-+
-+function resolveProductCognitiveRouting(
-+  input: RunNoraCognitiveTurnInput,
-+  decision: ReturnType<typeof decideCognitiveStrategy> | null,
-+): CognitiveRoutingDecision | null {
-+  // Eval pin owns model×effort — no Product router arbitration.
-+  if (input.evalModelReasoningControl) return null;
-+  // Strategy skipped → no cognition routing (deterministic / isolated tests).
-+  if (!decision) return null;
-+
-+  const cognitiveTaskId = input.correlationId.trim();
-+  const routed = decideCognitiveRouting({
-+    strategy: decision,
-+    cognitiveTaskId,
-+    signals: decision.normalizedSignals,
-+  });
-+
-+  if (!routed.ok) {
-+    throw new TechnicalError(
-+      "CONFIG",
-+      `P5 cognitive routing: aucune configuration suffisante (quality floor). Codes: ${routed.reasonCodes.join(", ")}`,
-+    );
-   }
--  return control.modelId;
-+
-+  emitCognitiveRoutingTelemetry(input.sink, input.correlationId, routed);
-+  return routed;
- }
-
- function resolveRunnerModelSettings(
-   input: RunNoraCognitiveTurnInput,
-   decision: ReturnType<typeof decideCognitiveStrategy> | null,
-+  routing: CognitiveRoutingDecision | null,
- ): ReturnType<typeof buildRunnerModelSettingsForEffort> | undefined {
-   const evalControl = input.evalModelReasoningControl;
-   if (evalControl) {
-@@ -310,8 +395,22 @@ function resolveRunnerModelSettings(
-     return buildRunnerModelSettingsForEffort(evalControl.reasoningEffort);
-   }
-
-+  if (routing) {
-+    const p5Manifest = buildP5TargetCapabilityManifest(
-+      new Date().toISOString(),
-+    );
-+    validateRuntimeReasoningCapability(
-+      routing.selectedModel,
-+      routing.selectedReasoningEffort,
-+      p5Manifest,
-+    );
-+    return buildRunnerModelSettingsForEffort(routing.selectedReasoningEffort);
-+  }
-+
-   if (!decision) return undefined;
-
-+  // Legacy fallback when strategy ran but routing was skipped (should be rare).
-+  // OPENAI_MODEL remains TEMP WITH EXIT for non-routed paths / bootstrapping.
-   const model =
-     typeof input.provider?.providerId === "string" &&
-     input.provider.providerId.startsWith("fake")
-@@ -326,6 +425,7 @@ function withStrategyFields(
-   turn: NoraCognitiveTurnResult,
-   decision: ReturnType<typeof decideCognitiveStrategy> | null,
-   evalControl?: NoraEvalModelReasoningControl,
-+  routing?: CognitiveRoutingDecision | null,
- ): NoraCognitiveTurnResult {
-   const base: NoraCognitiveTurnResult = {
-     ...turn,
-@@ -336,15 +436,24 @@ function withStrategyFields(
-           selectedReasoningEffort: evalControl.reasoningEffort,
-         }
-       : {}),
-+    ...(routing
-+      ? {
-+          selectedModelId: routing.selectedModel,
-+          cognitiveRoutingDecisionId: routing.routingDecisionId,
-+          cognitiveRoutingPolicyVersion: routing.policyVersion,
-+        }
-+      : {}),
-   };
-   if (!decision) return base;
-   return {
-     ...base,
-     cognitiveStrategyClass: decision.strategyClass,
-     cwpDerivedReasoningEffort: decision.reasoningEffort,
--    // Effective effort: eval pin wins; else CWP.
-+    // Effective effort: eval pin wins; else P5 router; else CWP.
-     selectedReasoningEffort:
--      evalControl?.reasoningEffort ?? decision.reasoningEffort,
-+      evalControl?.reasoningEffort ??
-+      routing?.selectedReasoningEffort ??
-+      decision.reasoningEffort,
-     criticalChallengeArmed: decision.criticalChallengeArmed,
-   };
- }
-@@ -444,12 +553,14 @@ function finalizeTurn(
-   strategyDecision: ReturnType<typeof decideCognitiveStrategy> | null,
-   mw4Grounding?: Mw4GroundingTurnSurface,
-   mw6SourceIntelligence?: Mw6SourceIntelligenceSurface,
-+  routing?: CognitiveRoutingDecision | null,
- ): NoraCognitiveTurnResult {
-   const withMw3 = withMw3Fields(
-     withStrategyFields(
-       turn,
-       strategyDecision,
-       input.evalModelReasoningControl,
-+      routing,
-     ),
-     input,
-     strategyDecision,
-@@ -670,7 +781,15 @@ export async function runNoraCognitiveTurn(
-       strategyDecision,
-     );
-   }
--  const runnerModelSettings = resolveRunnerModelSettings(input, strategyDecision);
-+  const routingDecision = resolveProductCognitiveRouting(
-+    input,
-+    strategyDecision,
-+  );
-+  const runnerModelSettings = resolveRunnerModelSettings(
-+    input,
-+    strategyDecision,
-+    routingDecision,
-+  );
-
-   const system = input.messages.find((m) => m.role === "system");
-   const userMessages = input.messages.filter((m) => m.role === "user");
-@@ -739,7 +858,7 @@ export async function runNoraCognitiveTurn(
-       sink: input.sink,
-       enableTools: input.enableTools,
-       provider: input.provider,
--      model: resolveEvalAgentsModel(input),
-+      model: resolveEvalAgentsModel(input, routingDecision),
-       runnerModelSettings,
-       usdAccounting: input.usdAccounting,
-       enableHostedWebSearch: attachHostedWebSearch,
-@@ -822,6 +941,7 @@ export async function runNoraCognitiveTurn(
-         strategyDecision,
-         mw4,
-         mw6,
-+        routingDecision,
-       ),
-       // CORR-02B — factual hosted observation pass-through (no drop).
-       ...(hostedSearchObserve ? { hostedSearchObserve } : {}),
-@@ -907,7 +1027,7 @@ export async function runNoraCognitiveTurn(
-       sink: input.sink,
-       enableTools: input.enableTools,
-       provider: input.provider,
--      model: resolveEvalAgentsModel(input),
-+      model: resolveEvalAgentsModel(input, routingDecision),
-       runnerModelSettings,
-       usdAccounting: input.usdAccounting,
-       enableHostedWebSearch: attachHostedWebSearch,
-@@ -984,6 +1104,7 @@ export async function runNoraCognitiveTurn(
-       strategyDecision,
-       mw4Prep.surface ?? undefined,
-       mw6,
-+      routingDecision,
-     );
-
-     // Persist Evidence IDs claimed/accepted this turn (non-authoritative).
-diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/types.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/types.ts
-index dec56300..096f8c5f 100644
---- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/types.ts
-+++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/types.ts
-@@ -54,6 +54,15 @@ export type NoraCognitiveTurnResult = {
-   /** Eval-only pin identity when Stage A / campaign cell control is active. */
-   evalPinnedModelId?: string;
-   evalPinnedReasoningEffort?: OpenAiReasoningEffort;
-+  /**
-+   * P5-S01 — router-selected model identity on nominal Product path.
-+   * Absent when eval pin / skipCognitiveStrategy / routing limitation.
-+   */
-+  selectedModelId?: string;
-+  /** P5-S01 routing decision id (telemetry / reconstructibility). */
-+  cognitiveRoutingDecisionId?: string;
-+  /** P5-S01 routing policy version. */
-+  cognitiveRoutingPolicyVersion?: string;
-   criticalChallengeArmed?: boolean;
-   /** MW3 — present only when contradictionAssessment was supplied. */
-   contradictionDisposition?: ContradictionDispositionResult;
-diff --git a/projects/sfia-studio/app/lib/nora-eval/capabilityBudget.ts b/projects/sfia-studio/app/lib/nora-eval/capabilityBudget.ts
-index 8ffe2b3a..192a7558 100644
---- a/projects/sfia-studio/app/lib/nora-eval/capabilityBudget.ts
-+++ b/projects/sfia-studio/app/lib/nora-eval/capabilityBudget.ts
-@@ -121,6 +121,67 @@ export function buildCurrentOpenAiCapabilityManifest(
-   };
- }
-
-+/**
-+ * P5 nominal TARGET routing cohort capability snapshot (dated external input).
-+ * Cohort EXACT: gpt-6-luna · gpt-6.1-sol · gpt-6-astra.
-+ * Does NOT mutate {@link buildMw0CapabilityManifest} (GPT-5.6 historical FREEZE).
-+ * Does NOT replace {@link buildCurrentOpenAiCapabilityManifest} provider universe.
-+ * Snapshot ≠ permanent SFIA doctrine; account entitlement ≠ documented capability.
-+ *
-+ * Effort sets (external input revalidated for P5-S01 Delivery, 2026-10-05):
-+ * - gpt-6-luna: none · low · medium · high · xhigh · max
-+ * - gpt-6.1-sol: low · medium · high · xhigh · max (none unsupported)
-+ * - gpt-6-astra: low · medium · high · xhigh · max (none unsupported)
-+ *
-+ * Pricing rows are replaceable FinOps ordering hints only — not eternal doctrine.
-+ */
-+export function buildP5TargetCapabilityManifest(
-+  retrievedAtIso: string,
-+): CapabilityManifest {
-+  return {
-+    retrievedAt: retrievedAtIso,
-+    provider: "openai",
-+    sourceName:
-+      "P5 nominal TARGET cohort capability snapshot (GPT-6 Luna / GPT-6.1 Sol / GPT-6 Astra)",
-+    sourceNote:
-+      "P5-S01 TARGET routing cohort only — ≠ MW0 historical · ≠ full provider universe · ≠ permanent doctrine · ZERO REAL in S01. Revalidate before REAL gates.",
-+    sdkCodeCapabilitySet: OPENAI_REASONING_EFFORT_VALUES,
-+    models: [
-+      {
-+        modelId: "gpt-6-luna",
-+        inputUsdPerMTok: 0.2,
-+        outputUsdPerMTok: 1.2,
-+        reasoningEfforts: ["none", "low", "medium", "high", "xhigh", "max"],
-+      },
-+      {
-+        modelId: "gpt-6.1-sol",
-+        inputUsdPerMTok: 4,
-+        outputUsdPerMTok: 20,
-+        reasoningEfforts: ["low", "medium", "high", "xhigh", "max"],
-+      },
-+      {
-+        modelId: "gpt-6-astra",
-+        inputUsdPerMTok: 10,
-+        cachedInputUsdPerMTok: 1,
-+        outputUsdPerMTok: 50,
-+        reasoningEfforts: ["low", "medium", "high", "xhigh", "max"],
-+      },
-+    ],
-+    campaignAllowlist: {
-+      modelIds: ["gpt-6-luna", "gpt-6.1-sol", "gpt-6-astra"],
-+      reasoningEfforts: ["none", "low", "medium", "high", "xhigh", "max"],
-+    },
-+    caveats: [
-+      "P5 TARGET cohort excludes GPT-5.6 from nominal Product routing.",
-+      "Historical GPT-5.6 manifests/evidence remain IMMUTABLE (buildMw0CapabilityManifest).",
-+      "Sol/Astra do not support reasoning.effort=none — do not silently coerce.",
-+      "minimal remains non-admissible for target cohort.",
-+      "Documented capability ≠ account/API entitlement — ZERO REAL in P5-S01.",
-+      "Pricing is dated FinOps ordering input only — replaceable provider data.",
-+    ],
-+  };
-+}
-+
- /**
-  * Distinct campaign capability policy for the Global Model × Reasoning Campaign.
-  * EXIT: campaign evaluation contract only — ≠ production model routing / ≠ multi-model router.
-diff --git a/projects/sfia-studio/app/lib/platform/observability/types.ts b/projects/sfia-studio/app/lib/platform/observability/types.ts
-index 0530dfaa..f1254ffc 100644
---- a/projects/sfia-studio/app/lib/platform/observability/types.ts
-+++ b/projects/sfia-studio/app/lib/platform/observability/types.ts
-@@ -15,7 +15,8 @@ export type TechnicalEventType =
-   | "STRUCTURED_OUTPUT_REJECTED"
-   | "TOOL_LOOP_COMPLETED"
-   | "TOOL_LOOP_LIMIT_REACHED"
--  | "COGNITIVE_STRATEGY_SELECTED";
-+  | "COGNITIVE_STRATEGY_SELECTED"
-+  | "COGNITIVE_ROUTING_SELECTED";
-
- export interface TechnicalEvent {
-   type: TechnicalEventType;
-
-```
-
-======================================================================
-USEFUL DIFF — FRONTEND
-======================================================================
-```diff
-diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/ProductShell.module.css b/projects/sfia-studio/app/features/pre-m6-product-ui/ProductShell.module.css
-index e02d3861..f5133272 100644
---- a/projects/sfia-studio/app/features/pre-m6-product-ui/ProductShell.module.css
-+++ b/projects/sfia-studio/app/features/pre-m6-product-ui/ProductShell.module.css
-@@ -1,7 +1,9 @@
-+/* P3 Workspace Desktop 46:2 — Project Switcher Rail + main column. */
-+
- .shell {
-   min-height: 100vh;
--  display: flex;
--  flex-direction: column;
-+  display: grid;
-+  grid-template-columns: var(--pm6-rail-width) minmax(0, 1fr);
-   background: var(--pm6-canvas);
-   color: var(--pm6-ink);
-   font-family: var(--pm6-font);
-@@ -13,132 +15,269 @@
-   box-shadow: var(--pm6-focus-ring);
- }
-
--.header {
-+/* ---------- rail ---------- */
-+
-+.rail {
-   position: sticky;
-   top: 0;
--  z-index: 40;
--  background: color-mix(in srgb, var(--pm6-canvas-raised) 88%, transparent);
--  backdrop-filter: blur(10px);
--  border-bottom: 1px solid var(--pm6-border-soft);
-+  align-self: start;
-+  height: 100vh;
-+  overflow: hidden;
-+  background: var(--pm6-rail);
-+  border-right: 1px solid var(--pm6-rail-border);
-+  z-index: 30;
- }
-
--.headerInner {
--  max-width: var(--pm6-content-max);
--  margin: 0 auto;
--  padding: var(--pm6-space-3) var(--pm6-space-5);
-+/* Meridian emblem — decorative only (192×390 at y≈250, opacity ≈ 0.10). */
-+.meridian {
-+  position: absolute;
-+  inset-inline: 0;
-+  top: 250px;
-+  height: 390px;
-+  background-image: url("/branding/meridian-emblem-product.png");
-+  background-repeat: no-repeat;
-+  background-position: center;
-+  background-size: cover;
-+  opacity: 0.1;
-+  pointer-events: none;
-+  user-select: none;
-+}
-+
-+.railInner {
-+  position: relative;
-+  z-index: 1;
-+  height: 100%;
-   display: flex;
--  align-items: center;
--  gap: var(--pm6-space-5);
-+  flex-direction: column;
-+  gap: var(--pm6-space-4);
-+  padding: var(--pm6-space-3) var(--pm6-space-2) var(--pm6-space-4);
-+  overflow-y: auto;
- }
-
- .brand {
-   display: inline-flex;
-   align-items: center;
--  gap: var(--pm6-space-3);
-+  gap: 10px;
-+  padding: var(--pm6-space-1) var(--pm6-space-2);
-+  min-height: 30px;
-   text-decoration: none;
-   color: inherit;
- }
-
- .brandMark {
--  width: 34px;
--  height: 34px;
--  border-radius: var(--pm6-radius-md);
-+  width: 22px;
-+  height: 22px;
-+  border-radius: 6px;
-   background: var(--pm6-forest);
-   color: var(--pm6-forest-ink);
-   display: grid;
-   place-items: center;
-+  flex: 0 0 auto;
- }
-
- .brandGlyph {
-   display: block;
- }
-
--.brandText {
--  display: flex;
--  flex-direction: column;
--  line-height: 1.2;
-+.brandGlyphLetter {
-+  display: block;
-+  font-size: 11px;
-+  font-weight: 500;
-+  line-height: 1;
-+  letter-spacing: 0.4px;
-+  color: inherit;
- }
-
- .brandName {
--  font-size: 0.98rem;
--  font-weight: 600;
--  color: var(--pm6-forest);
-+  font-size: 0.8125rem;
-+  font-weight: 500;
-+  color: var(--pm6-ink);
-+  white-space: nowrap;
- }
-
--.brandTagline {
--  font-size: 0.76rem;
--  color: var(--pm6-muted);
-+.nav {
-+  display: flex;
-+  flex-direction: column;
-+  gap: 2px;
- }
-
--.nav {
-+.navItem {
-   display: flex;
-   align-items: center;
--  gap: var(--pm6-space-2);
--  margin-left: auto;
-+  gap: 8px;
-+  padding: 7px var(--pm6-space-2);
-+  border-radius: 6px;
-+  font-size: 0.75rem;
-+  font-weight: 500;
-+  color: var(--pm6-muted-strong);
-+  text-decoration: none;
-+  transition: background 120ms ease, color 120ms ease;
- }
-
--.navPill {
--  display: inline-flex;
--  align-items: center;
--  padding: 7px 15px;
-+.navItem:hover {
-+  background: color-mix(in srgb, var(--pm6-border-soft) 55%, transparent);
-+  color: var(--pm6-ink);
-+}
-+
-+.navItem[data-active="true"] {
-+  background: color-mix(in srgb, var(--pm6-border) 45%, transparent);
-+  color: var(--pm6-ink);
-+}
-+
-+.navDot {
-+  width: 5px;
-+  height: 5px;
-   border-radius: var(--pm6-radius-pill);
--  border: 1px solid transparent;
--  font-size: 0.86rem;
-+  background: var(--pm6-muted-ghost);
-+  flex: 0 0 auto;
-+}
-+
-+.navItem[data-active="true"] .navDot,
-+.recentsItem[data-active="true"] .navDot {
-+  background: var(--pm6-ink);
-+}
-+
-+/* ---------- recents ---------- */
-+
-+.recents {
-+  display: flex;
-+  flex-direction: column;
-+  gap: var(--pm6-space-2);
-+  min-height: 0;
-+}
-+
-+.recentsTitle {
-+  margin: 0;
-+  padding-inline: var(--pm6-space-2);
-+  font-size: 0.625rem;
-+  font-weight: 500;
-+  letter-spacing: 0.06em;
-+  text-transform: uppercase;
-+  color: var(--pm6-muted-faint);
-+}
-+
-+.recentsList {
-+  list-style: none;
-+  margin: 0;
-+  padding: 0;
-+  display: flex;
-+  flex-direction: column;
-+  gap: 2px;
-+}
-+
-+.recentsItem {
-+  display: flex;
-+  align-items: flex-start;
-+  gap: 8px;
-+  padding: 6px var(--pm6-space-2);
-+  border-radius: 6px;
-+  font-size: 0.75rem;
-+  line-height: 1.25;
-   color: var(--pm6-muted-strong);
-   text-decoration: none;
--  transition: background 120ms ease, color 120ms ease;
- }
-
--.navPill:hover {
--  background: var(--pm6-surface);
-+.recentsItem .navDot {
-+  margin-top: 5px;
-+}
-+
-+.recentsItem:hover {
-+  background: color-mix(in srgb, var(--pm6-border-soft) 55%, transparent);
-   color: var(--pm6-ink);
- }
-
--.navPill[data-active="true"] {
--  background: var(--pm6-forest);
--  border-color: var(--pm6-forest);
--  color: var(--pm6-forest-ink);
-+.recentsItem[data-active="true"] {
-+  color: var(--pm6-ink);
-+  font-weight: 500;
- }
-
--.navPill[data-inert="true"] {
--  color: var(--pm6-muted);
--  cursor: default;
-+.recentsLabel {
-+  min-width: 0;
-+  overflow-wrap: anywhere;
- }
-
--.navPill[data-inert="true"]:hover {
--  background: transparent;
--  color: var(--pm6-muted);
-+.recentsEmpty {
-+  margin: 0;
-+  padding-inline: var(--pm6-space-2);
-+  font-size: 0.6875rem;
-+  line-height: 1.4;
-+  color: var(--pm6-muted-faint);
- }
-
--.avatar {
--  width: 34px;
--  height: 34px;
-+.railFoot {
-+  margin-top: auto;
-+  padding-top: var(--pm6-space-3);
-+}
-+
-+.profile {
-+  display: flex;
-+  align-items: center;
-+  gap: 8px;
-+  padding: 6px var(--pm6-space-2);
-+  font-size: 0.75rem;
-+  color: var(--pm6-muted-strong);
-+}
-+
-+.profileDot {
-+  width: 5px;
-+  height: 5px;
-   border-radius: var(--pm6-radius-pill);
--  background: var(--pm6-forest-tint);
--  border: 1px solid var(--pm6-border);
--  color: var(--pm6-forest);
--  display: grid;
--  place-items: center;
--  font-size: 0.85rem;
--  font-weight: 600;
--  flex: 0 0 auto;
-+  background: var(--pm6-muted-faint);
-+}
-+
-+/* ---------- main column ---------- */
-+
-+.column {
-+  min-width: 0;
-+  display: flex;
-+  flex-direction: column;
- }
-
- .main {
-   flex: 1;
-+  min-width: 0;
-   width: 100%;
-+}
-+
-+/* Non-workspace pages (Projets, Nouveau projet): centered content column. */
-+.mainPage {
-   max-width: var(--pm6-content-max);
-   margin: 0 auto;
--  padding: var(--pm6-space-6) var(--pm6-space-4) var(--pm6-space-7);
-+  padding: var(--pm6-space-6) var(--pm6-space-5) var(--pm6-space-7);
- }
-
--.mainWide {
--  max-width: var(--pm6-content-max-workspace);
--  padding-inline: var(--pm6-space-4);
-+/* Workspace: full-bleed — the page owns its global/project headers. */
-+.mainWorkspace {
-+  padding: 0;
-+  display: flex;
-+  flex-direction: column;
-+}
-+
-+/* ---------- mobile topbar (hidden ≥768) ---------- */
-+
-+.mobileBar {
-+  display: none;
-+}
-+
-+.mobileNavLink {
-+  margin-left: auto;
-+  font-size: 0.8125rem;
-+  color: var(--pm6-muted-strong);
-+  text-decoration: none;
- }
-
--.headerInnerWide {
--  max-width: var(--pm6-content-max-workspace);
-+.mobileProfile {
-+  width: 28px;
-+  height: 28px;
-+  border-radius: var(--pm6-radius-pill);
-+  background: var(--pm6-forest-tint);
-+  border: 1px solid var(--pm6-border);
-+  color: var(--pm6-ink);
-+  display: grid;
-+  place-items: center;
-+  font-size: 0.75rem;
-+  font-weight: 600;
-+  flex: 0 0 auto;
- }
-
- .srOnly {
-@@ -153,17 +292,30 @@
-   border: 0;
- }
-
-+/* <768 — rail collapses into a compact topbar (190:306). */
- @media (max-width: 767px) {
--  .headerInner {
--    padding: var(--pm6-space-3) var(--pm6-space-4);
--    gap: var(--pm6-space-3);
-+  .shell {
-+    grid-template-columns: minmax(0, 1fr);
-   }
-
--  .brandTagline {
-+  .rail {
-     display: none;
-   }
-
--  .main {
-+  .mobileBar {
-+    position: sticky;
-+    top: 0;
-+    z-index: 40;
-+    display: flex;
-+    align-items: center;
-+    gap: var(--pm6-space-3);
-+    height: var(--pm6-global-header-h);
-+    padding-inline: var(--pm6-space-4);
-+    background: var(--pm6-rail);
-+    border-bottom: 1px solid var(--pm6-rail-border);
-+  }
-+
-+  .mainPage {
-     padding: var(--pm6-space-5) var(--pm6-space-4) var(--pm6-space-6);
-   }
- }
-diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/ProductShell.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/ProductShell.tsx
-index ac52f4d1..1d83c50d 100644
---- a/projects/sfia-studio/app/features/pre-m6-product-ui/ProductShell.tsx
-+++ b/projects/sfia-studio/app/features/pre-m6-product-ui/ProductShell.tsx
-@@ -1,107 +1,120 @@
- import type { ReactNode } from "react";
- import Link from "next/link";
- import "./product-tokens.css";
-+import { ProductRailRecents } from "./ProductRailRecents";
- import styles from "./ProductShell.module.css";
-
- export type ProductNav = "projects" | "current" | "new";
-
- export type ProductShellProps = {
-   activeNav: ProductNav;
--  /** Href for the "Projet courant" pill; omitted when no project is open. */
-+  /**
-+   * Href of the open project (workspace route). Used only to highlight the
-+   * matching entry in « Projets récents »; omitted when no project is open.
-+   */
-   currentProjectHref?: string;
-   children: ReactNode;
- };
-
-+function BrandMark() {
-+  // P3 Figma 46:5 — ink square + “S” mark (not a decorative network glyph).
-+  return (
-+    <span className={styles.brandMark} aria-hidden>
-+      <span className={styles.brandGlyphLetter}>S</span>
-+    </span>
-+  );
-+}
-+
- /**
-- * Self-contained Pre-M6 product shell (brand header + canvas).
-- * `studio-shell` is kept as the stable E2E anchor for the shell root.
-+ * Pre-M6 product shell — P3 Figma rail layout (Workspace Desktop 46:2).
-+ *
-+ * Left Project Switcher Rail (192px; 160px <1200; hidden <768 → compact
-+ * topbar, 190:306) + main area for children. `studio-shell` is kept as the
-+ * stable E2E anchor for the shell root.
-+ *
-+ * Honesty rules: « Projets récents » only lists real projects (client read of
-+ * the existing list action); the profile entry is labelled « Pilote » — no
-+ * personal persona is hardcoded. The Meridian emblem is decorative only.
-  */
- export function ProductShell({
-   activeNav,
-   currentProjectHref,
-   children,
- }: ProductShellProps) {
--  const currentHref = currentProjectHref ?? null;
--
-   return (
--    <div className={styles.shell} data-testid="studio-shell">
--      <header className={styles.header}>
--        <div className={[
--          styles.headerInner,
--          activeNav === "current" ? styles.headerInnerWide : "",
--        ].filter(Boolean).join(" ")}>
-+    <div
-+      className={styles.shell}
-+      data-testid="studio-shell"
-+      data-nav={activeNav}
-+    >
-+      <aside
-+        className={styles.rail}
-+        data-testid="studio-rail"
-+        aria-label="Sélecteur de projet"
-+      >
-+        <div
-+          className={styles.meridian}
-+          data-testid="studio-rail-meridian"
-+          aria-hidden
-+        />
-+
-+        <div className={styles.railInner}>
-           <Link href="/studio" className={styles.brand}>
--            <span className={styles.brandMark} aria-hidden>
--              <svg
--                className={styles.brandGlyph}
--                viewBox="0 0 24 24"
--                width="18"
--                height="18"
--                fill="none"
--              >
--                <circle cx="6" cy="12" r="2.2" fill="currentColor" />
--                <circle cx="12" cy="6.5" r="2.2" fill="currentColor" />
--                <circle cx="18" cy="12" r="2.2" fill="currentColor" />
--                <path
--                  d="M7.7 11.2 L10.4 7.8 M13.6 7.8 L16.3 11.2"
--                  stroke="currentColor"
--                  strokeWidth="1.4"
--                  strokeLinecap="round"
--                />
--              </svg>
--            </span>
--            <span className={styles.brandText}>
--              <span className={styles.brandName}>SFIA Studio</span>
--              <span className={styles.brandTagline}>Pilotage assisté</span>
--            </span>
-+            <BrandMark />
-+            <span className={styles.brandName}>SFIA Studio</span>
-           </Link>
-
-           <nav className={styles.nav} aria-label="Navigation principale">
-             <Link
-               href="/studio"
--              className={styles.navPill}
-+              className={styles.navItem}
-               data-active={activeNav === "projects"}
-               aria-current={activeNav === "projects" ? "page" : undefined}
-             >
-+              <span className={styles.navDot} aria-hidden />
-               Projets
-             </Link>
--            {currentHref ? (
--              <Link
--                href={currentHref}
--                className={styles.navPill}
--                data-active={activeNav === "current"}
--                aria-current={activeNav === "current" ? "page" : undefined}
--              >
--                Projet courant
--              </Link>
--            ) : (
--              <span
--                className={styles.navPill}
--                data-active={activeNav === "current"}
--                data-inert="true"
--              >
--                Projet courant
--              </span>
--            )}
-           </nav>
-
--          <span className={styles.avatar} title="Pilote">
-+          <ProductRailRecents currentProjectHref={currentProjectHref} />
-+
-+          <div className={styles.railFoot}>
-+            <span className={styles.profile} data-testid="studio-rail-profile">
-+              <span className={styles.profileDot} aria-hidden />
-+              Pilote
-+            </span>
-+          </div>
-+        </div>
-+      </aside>
-+
-+      <div className={styles.column}>
-+        <header className={styles.mobileBar} data-testid="studio-mobile-bar">
-+          <Link href="/studio" className={styles.brand}>
-+            <BrandMark />
-+            <span className={styles.brandName}>SFIA Studio</span>
-+          </Link>
-+          <Link
-+            href="/studio"
-+            className={styles.mobileNavLink}
-+            aria-current={activeNav === "projects" ? "page" : undefined}
-+          >
-+            Projets
-+          </Link>
-+          <span className={styles.mobileProfile} title="Pilote">
-             <span aria-hidden>P</span>
-             <span className={styles.srOnly}>Pilote</span>
-           </span>
--        </div>
--      </header>
-+        </header>
-
--      <main
--        className={[
--          styles.main,
--          activeNav === "current" ? styles.mainWide : "",
--        ]
--          .filter(Boolean)
--          .join(" ")}
--      >
--        {children}
--      </main>
-+        <main
-+          className={[
-+            styles.main,
-+            activeNav === "current" ? styles.mainWorkspace : styles.mainPage,
-+          ].join(" ")}
-+        >
-+          {children}
-+        </main>
-+      </div>
-     </div>
-   );
- }
-diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.module.css b/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.module.css
-index afc426f2..98b89e32 100644
---- a/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.module.css
-+++ b/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.module.css
-@@ -1,197 +1,492 @@
-+/*
-+ * P3 Workspace Desktop 46:2 (1440×1024) — main column of the product shell.
-+ *
-+ *   global header ........ 54px   (breadcrumb + currentness)
-+ *   project header ....... ~104px (title/objective/chips + tabs)
-+ *   body ................. conversation (dominant) | context 356px (280px <1200)
-+ *   focus bar ............ 50px   (top of the conversation column)
-+ *
-+ * <900: single column; context becomes a sheet opened by .lpsToggle.
-+ * Colours come from --pm6-* (product-tokens.css). No second token set.
-+ */
-+
- .root {
-+  --ws-global-h: var(--pm6-global-header-h, 54px);
-+  --ws-project-h: 104px;
-+  --ws-focus-h: var(--pm6-focus-bar-h, 50px);
-+  --ws-context-w: var(--pm6-context-width, 356px);
-+  --ws-pad-x: 24px;
-+
-   display: flex;
-   flex-direction: column;
--  gap: var(--pm6-space-4);
--  max-width: var(--pm6-content-max-workspace);
--  margin-inline: auto;
-   width: 100%;
-+  min-width: 0;
-+  min-height: 100vh;
-+  background: var(--pm6-canvas);
-+  color: var(--pm6-ink);
-+  font-family: var(--pm6-font);
- }
-
- .loading {
-   margin: 0;
--  padding: var(--pm6-space-7) 0;
-+  padding: var(--pm6-space-7) var(--ws-pad-x, 24px);
-   font-size: 0.95rem;
-   color: var(--pm6-muted);
- }
-
--/* ---------- project header ---------- */
-+/* ---------- global header (54px) ---------- */
-+
-+.globalHeader {
-+  position: sticky;
-+  top: 0;
-+  z-index: 25;
-+  box-sizing: border-box;
-+  height: var(--ws-global-h);
-+  flex: 0 0 auto;
-+  display: flex;
-+  align-items: center;
-+  justify-content: space-between;
-+  gap: var(--pm6-space-4);
-+  padding-inline: var(--ws-pad-x);
-+  background: var(--pm6-canvas);
-+  border-bottom: 1px solid var(--pm6-border);
-+}
-+
-+.breadcrumb {
-+  display: flex;
-+  align-items: center;
-+  gap: var(--pm6-space-2);
-+  min-width: 0;
-+  font-size: 0.8125rem;
-+  line-height: 1.2;
-+}
-+
-+.breadcrumbLink {
-+  color: var(--pm6-muted-strong);
-+  text-decoration: none;
-+  white-space: nowrap;
-+}
-+
-+.breadcrumbLink:hover {
-+  color: var(--pm6-ink);
-+  text-decoration: underline;
-+}
-+
-+.breadcrumbSep {
-+  color: var(--pm6-muted-ghost);
-+}
-+
-+.breadcrumbCurrent {
-+  min-width: 0;
-+  overflow: hidden;
-+  text-overflow: ellipsis;
-+  white-space: nowrap;
-+  font-weight: 500;
-+  color: var(--pm6-ink);
-+}
-+
-+.currentness {
-+  flex: 0 0 auto;
-+  display: inline-flex;
-+  align-items: center;
-+  gap: 6px;
-+  padding: 4px 10px;
-+  border-radius: var(--pm6-radius-pill);
-+  border: 1px solid var(--pm6-border);
-+  background: var(--pm6-surface);
-+  font-size: 0.6875rem;
-+  font-weight: 600;
-+  letter-spacing: 0.02em;
-+  color: var(--pm6-muted-strong);
-+  white-space: nowrap;
-+}
-+
-+.currentness::before {
-+  content: "";
-+  width: 6px;
-+  height: 6px;
-+  border-radius: var(--pm6-radius-pill);
-+  background: var(--pm6-muted-ghost);
-+}
-+
-+.currentness[data-tone="ok"] {
-+  color: var(--pm6-ok);
-+  border-color: color-mix(in srgb, var(--pm6-ok) 25%, transparent);
-+  background: var(--pm6-ok-tint);
-+}
-+
-+.currentness[data-tone="ok"]::before {
-+  background: var(--pm6-ok);
-+}
-+
-+.currentness[data-tone="warn"] {
-+  color: var(--pm6-warn);
-+  border-color: var(--pm6-cream-border);
-+  background: var(--pm6-warn-tint);
-+}
-+
-+.currentness[data-tone="warn"]::before {
-+  background: var(--pm6-warn);
-+}
-+
-+/* ---------- project header (~104px, with tabs) ---------- */
-
- .projectHeader {
-+  box-sizing: border-box;
-+  flex: 0 0 auto;
-+  min-height: var(--ws-project-h);
-+  display: flex;
-+  flex-direction: column;
-+  justify-content: space-between;
-+  gap: var(--pm6-space-3);
-+  padding: var(--pm6-space-4) var(--ws-pad-x) 0;
-+  background: var(--pm6-canvas);
-+  border-bottom: 1px solid var(--pm6-border);
-+}
-+
-+.projectHeaderRow {
-   display: flex;
-   flex-wrap: wrap;
-   align-items: flex-start;
-   justify-content: space-between;
--  gap: var(--pm6-space-4);
-+  gap: var(--pm6-space-3) var(--pm6-space-4);
-+  min-width: 0;
- }
-
- .projectHeaderText {
-   display: flex;
-   flex-direction: column;
--  gap: var(--pm6-space-2);
-+  gap: 2px;
-   min-width: 0;
-+  flex: 1 1 320px;
- }
-
- .projectTitle {
-   margin: 0;
--  font-size: 1.7rem;
-+  font-size: 1.25rem;
-   font-weight: 600;
-+  line-height: 1.25;
-   letter-spacing: -0.01em;
--  color: var(--pm6-forest);
-+  color: var(--pm6-ink);
-   overflow-wrap: anywhere;
- }
-
- .projectObjective {
-   margin: 0;
--  font-size: 0.92rem;
--  line-height: 1.6;
-+  max-width: 72ch;
-+  font-size: 0.8125rem;
-+  line-height: 1.45;
-   color: var(--pm6-muted-strong);
--  max-width: 68ch;
-+  display: -webkit-box;
-+  -webkit-line-clamp: 2;
-+  -webkit-box-orient: vertical;
-+  overflow: hidden;
- }
-
-+.projectChips {
-+  display: flex;
-+  flex-wrap: wrap;
-+  align-items: center;
-+  gap: var(--pm6-space-2);
-+}
-+
-+.chipAccent,
-+.chipMuted {
-+  display: inline-flex;
-+  align-items: center;
-+  padding: 3px 10px;
-+  border-radius: var(--pm6-radius-pill);
-+  border: 1px solid transparent;
-+  font-size: 0.6875rem;
-+  font-weight: 600;
-+  letter-spacing: 0.02em;
-+  white-space: nowrap;
-+}
-+
-+.chipAccent {
-+  background: var(--pm6-accent-tint);
-+  border-color: color-mix(in srgb, var(--pm6-accent) 28%, transparent);
-+  color: var(--pm6-accent);
-+}
-+
-+.chipMuted {
-+  background: var(--pm6-surface-sunken);
-+  border-color: var(--pm6-border);
-+  color: var(--pm6-muted-strong);
-+}
-+
-+/* Context sheet opener — only on single-column layouts (<900). */
- .lpsToggle {
-   display: none;
-   align-items: center;
-+  justify-content: center;
-   border-radius: var(--pm6-radius-pill);
-   border: 1px solid var(--pm6-border-strong);
-   background: var(--pm6-surface);
-   color: var(--pm6-ink-soft);
--  padding: 9px 16px;
--  font-size: 0.85rem;
-+  padding: 6px 14px;
-+  font: inherit;
-+  font-size: 0.75rem;
-   font-weight: 600;
-   cursor: pointer;
-+  transition: background 120ms ease, border-color 120ms ease;
- }
-
--.durabilityHint {
--  margin: 0;
--  border-radius: var(--pm6-radius-md);
--  border: 1px solid var(--pm6-border-soft);
--  background: var(--pm6-canvas-raised);
--  padding: var(--pm6-space-3) var(--pm6-space-4);
--  font-size: 0.83rem;
--  line-height: 1.55;
--  color: var(--pm6-muted-strong);
-+.lpsToggle:hover {
-+  background: var(--pm6-surface-sunken);
-+  border-color: var(--pm6-ink-soft);
- }
-
--/* ---------- layout — Option A: Journal | Conversation | Pilotage ---------- */
-+/* ---------- tabs ---------- */
-
--.layout {
--  display: grid;
--  grid-template-columns: minmax(0, 1fr) var(--pm6-lps-width);
-+.tabs {
-+  display: flex;
-+  align-items: flex-end;
-   gap: var(--pm6-space-5);
--  align-items: start;
-+  overflow-x: auto;
-+  scrollbar-width: none;
- }
-
--.journalColumn {
-+.tabs::-webkit-scrollbar {
-   display: none;
-+}
-+
-+.tab {
-+  position: relative;
-+  margin: 0;
-+  padding: 8px 0 10px;
-+  border: 0;
-+  background: transparent;
-+  font: inherit;
-+  font-size: 0.8125rem;
-+  font-weight: 500;
-+  color: var(--pm6-muted-strong);
-+  cursor: pointer;
-+  white-space: nowrap;
-+  transition: color 120ms ease;
-+}
-+
-+.tab::after {
-+  content: "";
-+  position: absolute;
-+  inset-inline: 0;
-+  bottom: -1px;
-+  height: 2px;
-+  border-radius: 2px 2px 0 0;
-+  background: transparent;
-+  transition: background 120ms ease;
-+}
-+
-+.tab:hover:not(:disabled) {
-+  color: var(--pm6-ink);
-+}
-+
-+.tab[data-selected="true"] {
-+  color: var(--pm6-ink);
-+  font-weight: 600;
-+}
-+
-+.tab[data-selected="true"]::after {
-+  background: var(--pm6-ink);
-+}
-+
-+.tab:disabled,
-+.tab[aria-disabled="true"] {
-+  color: var(--pm6-muted-ghost);
-+  cursor: not-allowed;
-+}
-+
-+.tab:focus-visible,
-+.lpsToggle:focus-visible,
-+.lpsClose:focus-visible,
-+.errorCta:focus-visible,
-+.breadcrumbLink:focus-visible {
-+  outline: none;
-+  box-shadow: var(--pm6-focus-ring);
-+  border-radius: var(--pm6-radius-sm);
-+}
-+
-+/* ---------- body layout: conversation | context ---------- */
-+
-+.layout {
-+  flex: 1 1 auto;
-   min-width: 0;
-+  display: grid;
-+  grid-template-columns: minmax(0, 1fr);
-+  align-items: start;
-+  background: var(--pm6-body);
- }
-
- .main {
-   display: flex;
-   flex-direction: column;
--  gap: var(--pm6-space-5);
-   min-width: 0;
-+  min-height: 0;
- }
-
--.conversation {
-+/* Focus bar — 50px, top of the conversation column. */
-+.focusBar {
-+  position: sticky;
-+  top: var(--ws-global-h);
-+  z-index: 15;
-+  box-sizing: border-box;
-+  height: var(--ws-focus-h);
-+  flex: 0 0 auto;
-+  display: flex;
-+  align-items: center;
-+  gap: var(--pm6-space-3);
-+  padding-inline: var(--ws-pad-x);
-+  background: var(--pm6-focus-bar);
-+  border-bottom: 1px solid var(--pm6-border);
-   min-width: 0;
- }
-
--.lpsColumn {
--  position: sticky;
--  top: 88px;
-+.focusLabel {
-+  flex: 0 0 auto;
-+  display: inline-flex;
-+  align-items: center;
-+  gap: 6px;
-+  font-size: 0.625rem;
-+  font-weight: 600;
-+  letter-spacing: 0.06em;
-+  text-transform: uppercase;
-+  color: var(--pm6-muted-faint);
-+  white-space: nowrap;
-+}
-+
-+.focusDot {
-+  width: 6px;
-+  height: 6px;
-+  border-radius: var(--pm6-radius-pill);
-+  background: var(--pm6-accent);
-+}
-+
-+.focusTitle {
-+  flex: 1 1 auto;
-   min-width: 0;
-+  overflow: hidden;
-+  text-overflow: ellipsis;
-+  white-space: nowrap;
-+  font-size: 0.8125rem;
-+  font-weight: 600;
-+  color: var(--pm6-ink);
- }
-
--/* Desktop large: three zones — Journal rail + dominant conversation + pilotage */
--@media (min-width: 1200px) {
--  .layout {
--    grid-template-columns:
--      var(--pm6-journal-width)
--      minmax(620px, 1fr)
--      var(--pm6-lps-width);
--    gap: var(--pm6-space-4);
--  }
-+.focusCounts {
-+  flex: 0 0 auto;
-+  display: inline-flex;
-+  align-items: center;
-+  gap: var(--pm6-space-2);
-+}
-
--  .journalColumn {
--    display: block;
--    position: sticky;
--    top: 88px;
--  }
-+.focusCount {
-+  display: inline-flex;
-+  align-items: center;
-+  padding: 2px 9px;
-+  border-radius: var(--pm6-radius-pill);
-+  border: 1px solid var(--pm6-cream-border);
-+  background: var(--pm6-cream);
-+  font-size: 0.6875rem;
-+  font-weight: 600;
-+  color: var(--pm6-gold-strong);
-+  white-space: nowrap;
- }
-
--/* ~1440: journal 270–290 · conversation ≥620 · rail 510–550 */
--@media (min-width: 1400px) {
--  .layout {
--    grid-template-columns:
--      clamp(270px, 18vw, 290px)
--      minmax(620px, 1fr)
--      clamp(510px, 32vw, 550px);
--  }
-+.durabilityHint {
-+  margin: var(--pm6-space-4) var(--ws-pad-x) 0;
-+  padding: var(--pm6-space-3) var(--pm6-space-4);
-+  border-radius: var(--pm6-radius-md);
-+  border: 1px solid var(--pm6-border-soft);
-+  background: var(--pm6-canvas-raised);
-+  font-size: 0.8125rem;
-+  line-height: 1.55;
-+  color: var(--pm6-muted-strong);
- }
-
--/* ~1600: journal 270–290 · conversation ≥650 · rail 550–600 */
--@media (min-width: 1600px) {
--  .layout {
--    grid-template-columns:
--      clamp(270px, 18vw, 290px)
--      minmax(650px, 1fr)
--      clamp(550px, 34vw, 600px);
--  }
-+.conversation {
-+  flex: 1 1 auto;
-+  min-width: 0;
-+  box-sizing: border-box;
-+  width: 100%;
-+  max-width: 880px;
-+  margin-inline: auto;
-+  padding: var(--pm6-space-5) var(--ws-pad-x) 0;
- }
-
--/* Above 1024px the project state is always alongside the conversation. */
--.lpsClosed,
--.lpsOpen {
--  display: block;
-+/* ---------- context column (sticky, independent scroll) ---------- */
-+
-+.lpsColumn {
-+  min-width: 0;
-+  box-sizing: border-box;
-+  display: flex;
-+  flex-direction: column;
-+  background: var(--pm6-canvas-raised);
-+  border-left: 1px solid var(--pm6-border);
- }
-
- .lpsSheet {
-+  flex: 1 1 auto;
-+  min-height: 0;
-   display: flex;
-   flex-direction: column;
--  gap: var(--pm6-space-3);
--  max-height: calc(100vh - 120px);
-+  gap: var(--pm6-space-4);
-+  padding: var(--pm6-space-5) var(--pm6-space-4) var(--pm6-space-4);
-   overflow-y: auto;
-+  overscroll-behavior: contain;
-+}
-+
-+/* Close button only exists for the <900 sheet. */
-+.lpsClose {
-+  display: none;
-+  align-self: flex-end;
-+  border-radius: var(--pm6-radius-pill);
-+  border: 1px solid var(--pm6-border-strong);
-+  background: var(--pm6-surface);
-+  color: var(--pm6-ink-soft);
-+  padding: 6px 14px;
-+  font: inherit;
-+  font-size: 0.75rem;
-+  font-weight: 600;
-+  cursor: pointer;
- }
-
--/* H-01 Option A — unified piloting region (LPS + Trajectory presentation) */
-+/* Pilotage region (lifecycle · LPS · routing · trajectory) — flat, not a card. */
- .stateTrajectoryRegion {
-   display: flex;
-   flex-direction: column;
-   gap: var(--pm6-space-4);
-   min-width: 0;
--  padding: var(--pm6-space-3);
--  background: var(--pm6-canvas-raised);
--  border: 1px solid var(--pm6-border);
--  border-radius: var(--pm6-radius-lg);
-+  padding: var(--pm6-space-4) 0 0;
-+  border-top: 1px solid var(--pm6-border-soft);
- }
-
- .stateTrajectoryHead {
-   display: flex;
-   flex-direction: column;
--  gap: var(--pm6-space-1);
-+  gap: 4px;
-   padding: 0;
- }
-
- .stateTrajectoryEyebrow {
-   margin: 0;
--  font-size: 0.7rem;
--  font-weight: 700;
--  letter-spacing: 0.1em;
-+  font-size: 0.625rem;
-+  font-weight: 500;
-+  letter-spacing: 0.06em;
-   text-transform: uppercase;
--  color: var(--pm6-forest);
-+  color: var(--pm6-muted-faint);
- }
-
- .stateTrajectoryTitle {
-   margin: 0;
--  font-size: 1.05rem;
-+  font-size: 0.9375rem;
-   font-weight: 600;
-+  line-height: 1.25;
-   color: var(--pm6-ink);
- }
-
- .stateTrajectoryNote {
-   margin: 0;
--  font-size: 0.8rem;
-+  font-size: 0.75rem;
-   line-height: 1.5;
-   color: var(--pm6-muted-strong);
- }
-@@ -203,61 +498,144 @@
-   min-width: 0;
- }
-
--.lpsClose {
--  display: none;
--  align-self: flex-end;
--  border-radius: var(--pm6-radius-pill);
--  border: 1px solid var(--pm6-border-strong);
--  background: var(--pm6-surface);
--  color: var(--pm6-ink-soft);
--  padding: 7px 15px;
--  font-size: 0.82rem;
--  font-weight: 600;
--  cursor: pointer;
-+/*
-+ * Journal now lives in the context column (inside the sheet): stays visible and
-+ * stacks with the rest. Kept as a class for the project-journal-column testid.
-+ */
-+.journalColumn {
-+  display: flex;
-+  flex-direction: column;
-+  gap: var(--pm6-space-3);
-+  min-width: 0;
-+  padding-top: var(--pm6-space-4);
-+  border-top: 1px solid var(--pm6-border-soft);
- }
-
--/* ---------- <1200: Journal always accessible (stack); conversation dominant ---------- */
--/* CR-CJ-05 — no dead zone between 1025–1199 (was hidden until 1200). */
-+/* ---------- ≥900: two columns, context sticky + own scroll ---------- */
-
--@media (max-width: 1199px) {
-+@media (min-width: 900px) {
-   .layout {
--    grid-template-columns: minmax(0, 1fr);
-+    grid-template-columns: minmax(0, 1fr) var(--ws-context-w);
-+  }
-+
-+  .lpsColumn {
-+    position: sticky;
-+    top: var(--ws-global-h);
-+    align-self: start;
-+    height: calc(100vh - var(--ws-global-h));
-+    max-height: calc(100vh - var(--ws-global-h));
-+  }
-+
-+  /* Always visible alongside the conversation. */
-+  .lpsClosed,
-+  .lpsOpen {
-+    display: flex;
-+  }
-+}
-+
-+/* ---------- <1200: compact geometry (context 280px) ---------- */
-+
-+@media (max-width: 1199px) {
-+  .root {
-+    --ws-context-w: 280px;
-+    --ws-pad-x: 20px;
-+  }
-+
-+  .lpsSheet {
-+    padding: var(--pm6-space-4) var(--pm6-space-3);
-   }
-
-+  /* Journal stays accessible in the context stack (no 900–1199 dead zone). */
-   .journalColumn {
-     display: block;
--    position: static;
--    order: -1;
-+  }
-+}
-+
-+/* ---------- ≥1200: full geometry (context 356px, roomy gutters) ---------- */
-+
-+@media (min-width: 1200px) {
-+  .root {
-+    --ws-context-w: 356px;
-+    --ws-pad-x: 32px;
-+  }
-+
-+  .lpsSheet {
-+    padding: var(--pm6-space-5) var(--pm6-space-5) var(--pm6-space-4);
-+  }
-+}
-+
-+/* ---------- <900: single column; context as sheet ---------- */
-+
-+@media (max-width: 899px) {
-+  .root {
-+    --ws-pad-x: 16px;
-   }
-
-   .lpsToggle {
-+    display: inline-flex;
-+  }
-+
-+  .layout {
-+    grid-template-columns: minmax(0, 1fr);
-+  }
-+
-+  .lpsClosed {
-     display: none;
-   }
-
--  .lpsClose {
-+  .lpsOpen {
-+    position: fixed;
-+    inset: auto 0 0 0;
-+    z-index: 60;
-+    max-height: min(85vh, 760px);
-+    border-left: 0;
-+    border-top: 1px solid var(--pm6-border-strong);
-+    border-radius: var(--pm6-radius-lg) var(--pm6-radius-lg) 0 0;
-+    background: var(--pm6-canvas-raised);
-+    box-shadow: 0 -12px 40px rgba(31, 26, 22, 0.18),
-+      0 0 0 100vmax rgba(31, 26, 22, 0.32);
-+    animation: lpsSheetIn 180ms ease-out;
-+  }
-+
-+  .lpsOpen .lpsClose {
-+    display: inline-flex;
-+  }
-+
-+  .lpsOpen .lpsSheet {
-+    padding: var(--pm6-space-4);
-+  }
-+
-+  .conversation {
-+    padding-top: var(--pm6-space-4);
-+  }
-+
-+  .projectTitle {
-+    font-size: 1.125rem;
-+  }
-+
-+  .focusLabel {
-     display: none;
-   }
-+}
-
--  .lpsColumn {
--    position: static;
--    top: auto;
--    width: auto;
--    z-index: auto;
--    background: transparent;
--    border-left: none;
--    box-shadow: none;
--    padding: 0;
--    overflow: visible;
-+@keyframes lpsSheetIn {
-+  from {
-+    transform: translateY(16px);
-+    opacity: 0;
-+  }
-+  to {
-+    transform: translateY(0);
-+    opacity: 1;
-   }
-+}
-
--  .lpsClosed,
--  .lpsOpen {
--    display: block;
-+@media (max-width: 767px) {
-+  .lpsToggle {
-+    width: 100%;
-   }
-
--  .lpsSheet {
--    max-height: none;
--    overflow: visible;
-+  .projectChips {
-+    width: 100%;
-   }
- }
-
-@@ -269,6 +647,7 @@
-   align-items: flex-start;
-   gap: var(--pm6-space-3);
-   max-width: 620px;
-+  margin: var(--pm6-space-6) var(--ws-pad-x, 24px);
-   border-radius: var(--pm6-radius-lg);
-   border: 1px solid var(--pm6-border);
-   background: var(--pm6-surface);
-@@ -280,7 +659,7 @@
-   margin: 0;
-   font-size: 1.35rem;
-   font-weight: 600;
--  color: var(--pm6-forest);
-+  color: var(--pm6-ink);
- }
-
- .errorBody {
-@@ -300,8 +679,8 @@
-   display: inline-flex;
-   align-items: center;
-   border-radius: var(--pm6-radius-pill);
--  border: 1px solid var(--pm6-forest);
--  background: var(--pm6-forest);
-+  border: 1px solid var(--pm6-ink);
-+  background: var(--pm6-ink);
-   color: var(--pm6-forest-ink);
-   padding: 10px 18px;
-   font-size: 0.88rem;
-@@ -309,13 +688,18 @@
-   text-decoration: none;
- }
-
--@media (max-width: 767px) {
--  .projectTitle {
--    font-size: 1.4rem;
--  }
-+.errorCta:hover {
-+  background: var(--pm6-forest-hover);
-+}
-
--  .lpsToggle {
--    width: 100%;
--    justify-content: center;
-+/* ---------- motion ---------- */
-+
-+@media (prefers-reduced-motion: reduce) {
-+  .root,
-+  .root * {
-+    scroll-behavior: auto !important;
-+    transition-duration: 0.01ms !important;
-+    animation-duration: 0.01ms !important;
-+    animation-iteration-count: 1 !important;
-   }
- }
-diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx
-index 360ca32a..66af4db1 100644
---- a/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx
-+++ b/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx
-@@ -18,6 +18,17 @@ import { LpsSurface } from "./surfaces/LpsSurface";
- import { RecoverySurface } from "./surfaces/RecoverySurface";
- import { LifecycleSurface } from "./surfaces/LifecycleSurface";
- import { TrajectorySurface } from "./surfaces/TrajectorySurface";
-+import { lpsNextAction } from "./surfaces/LpsSurface";
-+import {
-+  ProjectContextShortcuts,
-+  ProjectContextSummary,
-+} from "./surfaces/ProjectContextSummary";
-+import {
-+  deriveAttentionItems,
-+  deriveCycleSummary,
-+  deriveTrajectoryNodes,
-+  presentCurrentness,
-+} from "./workspaceContextPresentation";
- import {
-   projectAssistantActiveCycleWorkspaceAction,
-   projectAssistantConfirmReservationResolutionAction,
-@@ -28,6 +39,18 @@ import { ProjectWorkspaceRoutingPanelLazy } from "./surfaces/ProjectWorkspaceRou
- import type { GetProjectResult, GetProjectSuccess } from "./types";
- import styles from "./ProjectWorkspacePage.module.css";
-
-+/** prefers-reduced-motion: no smooth scrolling for in-page jumps. */
-+function scrollBehaviorPref(): ScrollBehavior {
-+  if (
-+    typeof window !== "undefined" &&
-+    typeof window.matchMedia === "function" &&
-+    window.matchMedia("(prefers-reduced-motion: reduce)").matches
-+  ) {
-+    return "auto";
-+  }
-+  return "smooth";
-+}
-+
- /**
-  * CYCLE-RESERVATION-PILOTING-01 — explicit Pilot draft about one Reservation.
-  * Prefill only: the Pilot reads, edits and sends. NEVER auto-sent.
-@@ -118,7 +141,7 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
-
-   const focusConversation = useCallback(() => {
-     conversationRef.current?.scrollIntoView({
--      behavior: "smooth",
-+      behavior: scrollBehaviorPref(),
-       block: "start",
-     });
-     const input = conversationRef.current?.querySelector(
-@@ -158,7 +181,7 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
-     setJournalCollapsed(false);
-     const rail = document.querySelector("[data-testid='cycle-journal-rail']");
-     if (rail instanceof HTMLElement) {
--      rail.scrollIntoView({ behavior: "smooth", block: "start" });
-+      rail.scrollIntoView({ behavior: scrollBehaviorPref(), block: "start" });
-     }
-   }, []);
-
-@@ -273,11 +296,50 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
-         `[data-testid='cycle-journal-entry-${journalEntryId}']`,
-       );
-       if (el instanceof HTMLElement) {
--        el.scrollIntoView({ behavior: "smooth", block: "nearest" });
-+        el.scrollIntoView({ behavior: scrollBehaviorPref(), block: "nearest" });
-       }
-     }, 0);
-   };
-
-+  const scrollToTestId = useCallback((testId: string) => {
-+    const el = document.querySelector(`[data-testid='${testId}']`);
-+    if (el instanceof HTMLElement) {
-+      el.scrollIntoView({ behavior: scrollBehaviorPref(), block: "start" });
-+      return true;
-+    }
-+    return false;
-+  }, []);
-+
-+  /** Shortcut « Journal du cycle » — opens the existing Journal rail. */
-+  const openJournal = useCallback(() => {
-+    setLpsOpen(true);
-+    setJournalCollapsed(false);
-+    window.setTimeout(() => scrollToTestId("cycle-journal-rail"), 0);
-+  }, [scrollToTestId]);
-+
-+  /** Shortcut « Historique » — the existing durable history surface. */
-+  const openHistory = useCallback(() => {
-+    setLpsOpen(true);
-+    window.setTimeout(() => scrollToTestId("project-history-panel"), 0);
-+  }, [scrollToTestId]);
-+
-+  /** Tab « Aperçu » — brings the project context panel into view. */
-+  const openOverview = useCallback(() => {
-+    setLpsOpen(true);
-+    window.setTimeout(() => scrollToTestId("project-lps-column"), 0);
-+  }, [scrollToTestId]);
-+
-+  /** Tab « Exécution » — jumps to the governed execution cards already in the conversation. */
-+  const openExecution = useCallback(() => {
-+    for (const id of [
-+      "project-assistant-f3-contract",
-+      "project-assistant-f3-prepare",
-+      "project-assistant-panel",
-+    ]) {
-+      if (scrollToTestId(id)) return;
-+    }
-+  }, [scrollToTestId]);
-+
-   if (!result) {
-     return (
-       <p className={styles.loading} data-testid="project-workspace-loading">
-@@ -320,95 +382,191 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
-     proposalSubjectOwnership === "UNKNOWN" ||
-     proposalSubjectOwnership === "OWNED";
-
-+  const lifecycle = lifecycleProjection;
-+  const decisionPending =
-+    controller.activeProposal?.status === "DECISION_REQUIRED";
-+  const currentness = presentCurrentness({
-+    transcriptAvailability: controller.transcriptAvailability,
-+    stateVersion: success.livingState.version,
-+  });
-+  const cycleSummary = deriveCycleSummary(lifecycle);
-+  const attention = deriveAttentionItems({ decisionPending, lifecycle });
-+  const trajectoryNodes = deriveTrajectoryNodes(lifecycle);
-+  const focusTopic =
-+    controller.journalEntries.find((e) => e.isCurrentTopic)?.title ?? null;
-+  const nextAction = lpsNextAction(success.readiness.status);
-+  const decisionCount = attention.some((a) => a.key === "decision") ? 1 : 0;
-+  const reserveCount = lifecycle?.reservationSummary?.activeCount ?? 0;
-+  const executionAvailable = Boolean(
-+    controller.f3Prepare ||
-+      controller.f3M3Resolved ||
-+      controller.f3Execute ||
-+      controller.durableEvidenceOutcome,
-+  );
-+
-   return (
-     <div className={styles.root} data-testid="project-principal">
--      <header className={styles.projectHeader}>
--        <div className={styles.projectHeaderText}>
--          <h1 className={styles.projectTitle}>{success.project.name}</h1>
--          <p className={styles.projectObjective}>{success.project.objective}</p>
--        </div>
--        <button
--          type="button"
--          className={styles.lpsToggle}
--          data-testid="lps-drawer-toggle"
--          aria-expanded={lpsOpen}
--          onClick={() => setLpsOpen((open) => !open)}
-+      <div
-+        className={styles.globalHeader}
-+        data-testid="project-global-header"
-+      >
-+        <nav className={styles.breadcrumb} aria-label="Fil d’Ariane">
-+          <Link href="/studio" className={styles.breadcrumbLink}>
-+            Projets
-+          </Link>
-+          <span className={styles.breadcrumbSep} aria-hidden>
-+            /
-+          </span>
-+          <span className={styles.breadcrumbCurrent} aria-current="page">
-+            {success.project.name}
-+          </span>
-+        </nav>
-+        <span
-+          className={styles.currentness}
-+          data-tone={currentness.tone}
-+          data-testid="project-currentness-chip"
-+          title={currentness.detail}
-         >
--          {lpsOpen
--            ? "Masquer l'état et la trajectoire"
--            : "État du projet / Trajectoire"}
--        </button>
--      </header>
-+          {currentness.label}
-+        </span>
-+      </div>
-
--      {continuity.kind === "restored_hint" ? (
--        <p
--          className={styles.durabilityHint}
--          data-testid="project-auto-resume-hint"
-+      <header className={styles.projectHeader} data-testid="project-header">
-+        <div className={styles.projectHeaderRow}>
-+          <div className={styles.projectHeaderText}>
-+            <h1 className={styles.projectTitle}>{success.project.name}</h1>
-+            <p className={styles.projectObjective}>
-+              {success.project.objective}
-+            </p>
-+          </div>
-+          <div className={styles.projectChips}>
-+            {lifecycle?.selectedCycleInstanceId ? (
-+              <>
-+                <span className={styles.chipAccent}>{cycleSummary.label}</span>
-+                {cycleSummary.statusLabel ? (
-+                  <span className={styles.chipMuted}>
-+                    {cycleSummary.statusLabel}
-+                  </span>
-+                ) : null}
-+              </>
-+            ) : null}
-+            <button
-+              type="button"
-+              className={styles.lpsToggle}
-+              data-testid="lps-drawer-toggle"
-+              aria-expanded={lpsOpen}
-+              onClick={() => setLpsOpen((open) => !open)}
-+            >
-+              {lpsOpen
-+                ? "Masquer l'état et la trajectoire"
-+                : "État du projet / Trajectoire"}
-+            </button>
-+          </div>
-+        </div>
-+        <nav
-+          className={styles.tabs}
-+          aria-label="Vues du projet"
-+          data-testid="project-tabs"
-         >
--          {continuity.message}
--        </p>
--      ) : null}
--      {continuity.kind === "transcript_unavailable" ? (
--        <RecoverySurface
--          message={continuity.message}
--          onRetryTranscript={() => {
--            void controller.refreshConversationContinuity();
--          }}
--        />
--      ) : null}
-+          <button
-+            type="button"
-+            className={styles.tab}
-+            data-selected="true"
-+            aria-current="true"
-+            data-testid="project-tab-conversation"
-+            onClick={focusConversation}
-+          >
-+            Conversation
-+          </button>
-+          <button
-+            type="button"
-+            className={styles.tab}
-+            data-selected="false"
-+            data-testid="project-tab-overview"
-+            onClick={openOverview}
-+          >
-+            Aperçu
-+          </button>
-+          <button
-+            type="button"
-+            className={styles.tab}
-+            data-selected="false"
-+            data-testid="project-tab-execution"
-+            disabled={!executionAvailable}
-+            aria-disabled={!executionAvailable}
-+            title={
-+              executionAvailable
-+                ? undefined
-+                : "Aucune exécution à afficher pour l’instant"
-+            }
-+            onClick={openExecution}
-+          >
-+            Exécution
-+          </button>
-+        </nav>
-+      </header>
-
-       <div className={styles.layout} data-testid="project-workspace-layout">
--        <div className={styles.journalColumn} data-testid="project-journal-column">
--          <JournalSurface
--            entries={controller.journalEntries}
--            cycleInstanceId={controller.journalCycleInstanceId}
--            reservationsCycleInstanceId={reservationCycleInstanceId}
--            selectedEntryId={controller.selectedJournalEntryId}
--            onSelectEntry={controller.setSelectedJournalEntryId}
--            onViewExchanges={controller.focusJournalExchanges}
--            onFocusTurn={controller.focusTranscriptTurn}
--            transcriptMessages={controller.messages}
--            collapsed={journalCollapsed}
--            onToggleCollapsed={() => setJournalCollapsed((v) => !v)}
--            reservations={cycleReservations}
--            memoryTab={memoryTab}
--            onMemoryTabChange={setMemoryTab}
--            onTreatWithNora={treatReservationWithNora}
--            onConfirmResolve={confirmReservationResolution}
--            onConfirmDefer={confirmReservationDefer}
--            onViewJournalSubject={viewJournalSubject}
--            reservationBusyId={reservationBusyId}
--            recommendations={cycleRecommendations}
--            decisions={cycleDecisions}
--            onResumeRecommendationInChat={resumeRecommendationInChat}
--          />
--          {reservationNotice ? (
-+        <div className={styles.main} ref={conversationRef}>
-+          <div className={styles.focusBar} data-testid="project-focus-bar">
-+            <span className={styles.focusLabel}>
-+              <span className={styles.focusDot} aria-hidden />
-+              Focus actuel
-+            </span>
-+            <span className={styles.focusTitle}>
-+              {focusTopic ??
-+                (lifecycle?.selectedCycleInstanceId
-+                  ? cycleSummary.label
-+                  : "Conversation avec Nora")}
-+            </span>
-+            <span className={styles.focusCounts}>
-+              {decisionCount > 0 ? (
-+                <span className={styles.focusCount}>1 décision</span>
-+              ) : null}
-+              {reserveCount > 0 ? (
-+                <span className={styles.focusCount}>
-+                  {reserveCount} réserve{reserveCount > 1 ? "s" : ""}
-+                </span>
-+              ) : null}
-+            </span>
-+          </div>
-+
-+          {continuity.kind === "restored_hint" ? (
-             <p
-               className={styles.durabilityHint}
--              data-testid="cycle-reservation-notice"
--              role="status"
-+              data-testid="project-auto-resume-hint"
-             >
--              {reservationNotice}
-+              {continuity.message}
-             </p>
-           ) : null}
--        </div>
-+          {continuity.kind === "transcript_unavailable" ? (
-+            <RecoverySurface
-+              message={continuity.message}
-+              onRetryTranscript={() => {
-+                void controller.refreshConversationContinuity();
-+              }}
-+            />
-+          ) : null}
-
--        <div className={styles.main} ref={conversationRef}>
--          <div className={styles.conversation} data-testid="project-conversation-main">
-+          <div
-+            className={styles.conversation}
-+            data-testid="project-conversation-main"
-+          >
-             <ConversationSurface
-               controller={controller}
-               onConfirmReservationResolve={confirmReservationResolution}
-               reservationConfirmBusyId={reservationBusyId}
-             />
-           </div>
--          <HistorySurface result={success} durableOutcome={durableOutcome} />
-         </div>
-
--        <div
--          className={[styles.lpsColumn, lpsOpen ? styles.lpsOpen : styles.lpsClosed].join(
--            " ",
--          )}
-+        <aside
-+          className={[
-+            styles.lpsColumn,
-+            lpsOpen ? styles.lpsOpen : styles.lpsClosed,
-+          ].join(" ")}
-           data-testid="project-lps-column"
-+          aria-label="Contexte du projet"
-         >
-           <div className={styles.lpsSheet}>
-             <button
-@@ -419,6 +577,16 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
-             >
-               Fermer
-             </button>
-+
-+            <ProjectContextSummary
-+              cycle={cycleSummary}
-+              focus={nextAction}
-+              focusTopic={focusTopic}
-+              currentness={currentness}
-+              trajectory={trajectoryNodes}
-+              attention={attention}
-+            />
-+
-             <section
-               className={styles.stateTrajectoryRegion}
-               data-testid="project-state-trajectory-region"
-@@ -431,10 +599,6 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
-                 <h2 className={styles.stateTrajectoryTitle}>
-                   État actuel et trajectoire
-                 </h2>
--                <p className={styles.stateTrajectoryNote}>
--                  L&apos;état actuel et la trajectoire sont regroupés ici pour
--                  faciliter le pilotage.
--                </p>
-               </header>
-               <div
-                 className={styles.stateTrajectoryStack}
-@@ -449,12 +613,7 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
-                   onOpenReservations={openReservationsTab}
-                   onTreatReservationWithNora={treatReservationWithNora}
-                   onEscalateTrajectory={() => {
--                    const el = document.querySelector(
--                      "[data-testid='w2-trajectory-panel']",
--                    );
--                    if (el instanceof HTMLElement) {
--                      el.scrollIntoView({ behavior: "smooth", block: "start" });
--                    }
-+                    scrollToTestId("w2-trajectory-panel");
-                   }}
-                 />
-                 <LpsSurface result={success} />
-@@ -498,8 +657,53 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
-                 />
-               </div>
-             </section>
-+
-+            <div
-+              className={styles.journalColumn}
-+              data-testid="project-journal-column"
-+            >
-+              <JournalSurface
-+                entries={controller.journalEntries}
-+                cycleInstanceId={controller.journalCycleInstanceId}
-+                reservationsCycleInstanceId={reservationCycleInstanceId}
-+                selectedEntryId={controller.selectedJournalEntryId}
-+                onSelectEntry={controller.setSelectedJournalEntryId}
-+                onViewExchanges={controller.focusJournalExchanges}
-+                onFocusTurn={controller.focusTranscriptTurn}
-+                transcriptMessages={controller.messages}
-+                collapsed={journalCollapsed}
-+                onToggleCollapsed={() => setJournalCollapsed((v) => !v)}
-+                reservations={cycleReservations}
-+                memoryTab={memoryTab}
-+                onMemoryTabChange={setMemoryTab}
-+                onTreatWithNora={treatReservationWithNora}
-+                onConfirmResolve={confirmReservationResolution}
-+                onConfirmDefer={confirmReservationDefer}
-+                onViewJournalSubject={viewJournalSubject}
-+                reservationBusyId={reservationBusyId}
-+                recommendations={cycleRecommendations}
-+                decisions={cycleDecisions}
-+                onResumeRecommendationInChat={resumeRecommendationInChat}
-+              />
-+              {reservationNotice ? (
-+                <p
-+                  className={styles.durabilityHint}
-+                  data-testid="cycle-reservation-notice"
-+                  role="status"
-+                >
-+                  {reservationNotice}
-+                </p>
-+              ) : null}
-+            </div>
-+
-+            <HistorySurface result={success} durableOutcome={durableOutcome} />
-           </div>
--        </div>
-+
-+          <ProjectContextShortcuts
-+            onOpenJournal={openJournal}
-+            onOpenHistory={openHistory}
-+          />
-+        </aside>
-       </div>
-     </div>
-   );
-diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts b/projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
-index b6ba5d62..a581711f 100644
---- a/projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
-+++ b/projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
-@@ -312,7 +312,14 @@ export function useProductConversation({
-   useEffect(() => {
-     const el = listRef.current;
-     if (!el || typeof el.scrollTo !== "function") return;
--    el.scrollTo({ top: el.scrollHeight, behavior: "smooth" });
-+    const reduceMotion =
-+      typeof window !== "undefined" &&
-+      typeof window.matchMedia === "function" &&
-+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-+    el.scrollTo({
-+      top: el.scrollHeight,
-+      behavior: reduceMotion ? "auto" : "smooth",
-+    });
-   }, [
-     messages,
-     toolEvents,
-diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/product-tokens.css b/projects/sfia-studio/app/features/pre-m6-product-ui/product-tokens.css
-index 46718967..84f468d5 100644
---- a/projects/sfia-studio/app/features/pre-m6-product-ui/product-tokens.css
-+++ b/projects/sfia-studio/app/features/pre-m6-product-ui/product-tokens.css
-@@ -1,44 +1,47 @@
- /**
-  * Pre-M6 Option A product presentation tokens.
-  *
-- * Visual reference: Penpot file 63bdc57a… pages 03 + 06 (W4-D).
-+ * Visual reference: P3 Figma Workspace Desktop 46:2 (1440×1024) and responsive
-+ * 190:44 / 190:306. Values converge on the P3 extraction (warm paper canvas,
-+ * ink primary, Nora vermilion accent) — same `--pm6-` family, no second set.
-  * Prefixed `--pm6-` so this layer never collides with the legacy `--sfia-` set.
-- * Inter is the Penpot typography reference — system fallback only (no font files).
-+ * Typography: the app already loads Inter via next/font (`--font-inter`); no
-+ * additional font is introduced (Geist is not available in this repo).
-  */
-
- :root {
-   --pm6-font: Inter, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-
--  --pm6-canvas: #f3f1ec;
--  --pm6-canvas-raised: #f7f5f0;
-+  --pm6-canvas: #fffdf9;
-+  --pm6-canvas-raised: #fbf7f2;
-   --pm6-surface: #ffffff;
--  --pm6-surface-sunken: #faf9f6;
-+  --pm6-surface-sunken: #fcf8f3;
-
--  --pm6-forest: #0b3d2e;
--  --pm6-forest-hover: #0f5540;
--  --pm6-forest-tint: #e8f2ed;
--  --pm6-forest-ink: #f4f8f6;
-+  --pm6-forest: #1f1a16;
-+  --pm6-forest-hover: #3a322b;
-+  --pm6-forest-tint: #f3ede5;
-+  --pm6-forest-ink: #fffdf9;
-
-   --pm6-cream: #fdf6e3;
-   --pm6-cream-border: #e8d9a8;
-   --pm6-gold: #a8791c;
-   --pm6-gold-strong: #7d5810;
-
--  --pm6-ink: #1b2320;
--  --pm6-ink-soft: #3d4a45;
--  --pm6-muted: #6b7671;
--  --pm6-muted-strong: #55605c;
-+  --pm6-ink: #1f1a16;
-+  --pm6-ink-soft: #3d352e;
-+  --pm6-muted: #7f766d;
-+  --pm6-muted-strong: #6f665e;
-
--  --pm6-border: #e3ded4;
--  --pm6-border-soft: #ece8e0;
--  --pm6-border-strong: #d3ccbe;
-+  --pm6-border: #e6ded5;
-+  --pm6-border-soft: #eae2d9;
-+  --pm6-border-strong: #d8cfc4;
-
--  --pm6-danger: #a63329;
-+  --pm6-danger: #b8432b;
-   --pm6-danger-tint: #fbeeec;
-   --pm6-warn: #8a5a12;
-   --pm6-warn-tint: #fdf1de;
--  --pm6-ok: #1f6b4f;
--  --pm6-ok-tint: #e7f3ed;
-+  --pm6-ok: #157a55;
-+  --pm6-ok-tint: #eef7f2;
-   --pm6-info: #1f4f6b;
-   --pm6-info-tint: #e7f1f6;
-
-@@ -47,10 +50,10 @@
-   --pm6-radius-lg: 16px;
-   --pm6-radius-pill: 999px;
-
--  --pm6-shadow-card: 0 1px 2px rgba(27, 35, 32, 0.04),
--    0 8px 24px rgba(27, 35, 32, 0.05);
--  --pm6-shadow-raised: 0 2px 4px rgba(27, 35, 32, 0.06),
--    0 16px 40px rgba(27, 35, 32, 0.08);
-+  --pm6-shadow-card: 0 1px 2px rgba(31, 26, 22, 0.04),
-+    0 8px 24px rgba(31, 26, 22, 0.05);
-+  --pm6-shadow-raised: 0 2px 4px rgba(31, 26, 22, 0.06),
-+    0 16px 40px rgba(31, 26, 22, 0.08);
-
-   --pm6-focus-ring: 0 0 0 3px color-mix(in srgb, var(--pm6-forest) 35%, transparent);
-
-@@ -67,4 +70,29 @@
-   --pm6-journal-width: 280px;
-   --pm6-content-max: 1180px;
-   --pm6-content-max-workspace: 1800px;
-+
-+  /* ---- P3 Workspace Desktop (46:2) additions ---- */
-+  --pm6-rail: #f1ece5;
-+  --pm6-rail-border: #e6ded5;
-+  --pm6-body: #fbf7f2;
-+  --pm6-border-faint: #eee7df;
-+  --pm6-muted-faint: #978c81;
-+  --pm6-muted-ghost: #a69a8e;
-+  --pm6-accent: #d9563b;
-+  --pm6-accent-tint: #fff0ea;
-+  --pm6-focus-bar: #fcf8f3;
-+
-+  /* Geometry — Figma 1440×1024 */
-+  --pm6-rail-width: 192px;
-+  --pm6-global-header-h: 54px;
-+  --pm6-context-width: 356px;
-+  --pm6-focus-bar-h: 50px;
-+}
-+
-+/* Responsive geometry: <1200 compact (rail ~160, context ~280). */
-+@media (max-width: 1199px) {
-+  :root {
-+    --pm6-rail-width: 160px;
-+    --pm6-context-width: 280px;
-+  }
- }
-diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.module.css b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.module.css
-index 45e471c5..dace45e1 100644
---- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.module.css
-+++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.module.css
-@@ -2,11 +2,13 @@
-   display: flex;
-   flex-direction: column;
-   gap: var(--pm6-space-4);
--  background: var(--pm6-surface);
--  border: 1px solid var(--pm6-border-soft);
--  border-radius: var(--pm6-radius-lg);
--  box-shadow: var(--pm6-shadow-card);
--  padding: var(--pm6-space-5);
-+  /* P3: flat transcript — the page column carries the surface, no card chrome. */
-+  background: transparent;
-+  border: 0;
-+  border-radius: 0;
-+  box-shadow: none;
-+  padding: 0 0 var(--pm6-space-4);
-+  min-width: 0;
- }
-
- /* ---------- top bar ---------- */
-@@ -62,9 +64,7 @@
-   flex-direction: column;
-   gap: var(--pm6-space-4);
-   min-height: 220px;
--  max-height: 52vh;
--  overflow-y: auto;
--  padding-right: var(--pm6-space-2);
-+  /* Page scrolls (composer is sticky); no inner scroll box. */
- }
-
- .threadEmpty {
-@@ -140,11 +140,14 @@
-   background: var(--pm6-surface-sunken);
-   border: 1px solid var(--pm6-border-soft);
-   border-top-left-radius: var(--pm6-radius-sm);
-+  background: transparent;
-+  border-color: transparent;
-+  padding-inline: 0;
- }
-
- .turnMine .bubble {
--  background: var(--pm6-forest-tint);
--  border: 1px solid var(--pm6-forest-tint);
-+  background: var(--pm6-rail);
-+  border: 1px solid var(--pm6-border-soft);
-   border-top-right-radius: var(--pm6-radius-sm);
- }
-
-@@ -648,6 +651,9 @@
- /* ---------- composer ---------- */
-
- .composer {
-+  position: sticky;
-+  bottom: 0;
-+  z-index: 10;
-   display: flex;
-   flex-direction: column;
-   gap: var(--pm6-space-2);
-@@ -655,7 +661,7 @@
-   border: 1px solid var(--pm6-border);
-   background: var(--pm6-surface);
-   padding: var(--pm6-space-3);
--  box-shadow: var(--pm6-shadow-card);
-+  box-shadow: var(--pm6-shadow-raised);
- }
-
- .composerInput {
-@@ -688,15 +694,20 @@
-
- .sendButton {
-   border-radius: var(--pm6-radius-pill);
--  border: 1px solid var(--pm6-forest);
--  background: var(--pm6-forest);
-+  border: 1px solid var(--pm6-ink);
-+  background: var(--pm6-ink);
-   color: var(--pm6-forest-ink);
-+  transition: background 120ms ease;
-   padding: 9px 20px;
-   font-size: 0.87rem;
-   font-weight: 600;
-   cursor: pointer;
- }
-
-+.sendButton:hover:not(:disabled) {
-+  background: var(--pm6-forest-hover);
-+}
-+
- .sendButton:disabled {
-   opacity: 0.45;
-   cursor: not-allowed;
-@@ -742,3 +753,12 @@
-     flex: 1 1 100%;
-   }
- }
-+
-+@media (prefers-reduced-motion: reduce) {
-+  .root,
-+  .root * {
-+    scroll-behavior: auto !important;
-+    transition-duration: 0.01ms !important;
-+    animation-duration: 0.01ms !important;
-+  }
-+}
-diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LpsSurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LpsSurface.tsx
-index a931ef3c..7ea46c65 100644
---- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LpsSurface.tsx
-+++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LpsSurface.tsx
-@@ -4,6 +4,13 @@ import type { GetProjectSuccess } from "../types";
- import { projectContextForDisplay } from "@/features/project-assistant/presentationLabels";
- import styles from "./LpsSurface.module.css";
-
-+/** Shared with the Workspace context panel — same wording, one source. */
-+export function lpsNextAction(readinessStatus: string): string {
-+  return readinessStatus === "NOT_READY"
-+    ? "Poursuivre la qualification avec Nora, puis décider."
-+    : "Poursuivre avec Nora — la préparation enregistrée reste à décider.";
-+}
-+
- /**
-  * "ÉTAT DU PROJET" — durable projection only.
-  * Every line comes from getProjectRuntimeAction; nothing is inferred or invented.
-@@ -17,10 +24,7 @@ export function LpsSurface({ result }: { result: GetProjectSuccess }) {
-       ? `Avancement enregistré · état v${livingState.version}`
-       : "Projet ouvert · état initial enregistré";
-
--  const nextAction =
--    readiness.status === "NOT_READY"
--      ? "Poursuivre la qualification avec Nora, puis décider."
--      : "Poursuivre avec Nora — la préparation enregistrée reste à décider.";
-+  const nextAction = lpsNextAction(readiness.status);
-
-   return (
-     <aside
-
-```
-
-======================================================================
-USEFUL DIFF — ROADMAP
+ROADMAP USEFUL DIFF
 ======================================================================
 ```diff
 diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-index 4d7997d4..a8e53a4d 100644
+index 4d7997d4..17d9fc9b 100644
 --- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 +++ b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-@@ -4,6 +4,7 @@
+@@ -4,6 +4,8 @@
  | --- | --- |
  | **Rôle** | Roadmap **vivante** de convergence vers l’utilisation complète de la doctrine produit SFIA Studio v3 |
  | **Statut** | **VALIDATED — ACTIVE LIVING ROADMAP** |
-+| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S01 INTEGRATED DELIVERY** | 2026-10-05 Europe/Paris — **STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5 AUTHORIZED BY MORRIS / STARTED / IN PROGRESS — P5-S01 FIRST INTEGRATED PRODUCT VERTICAL SLICE LOCAL CANDIDATE** · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **8 — Delivery / implémentation** · Milestone **P5 — Integrated Delivery** · Slice **P5-S01** · CRITICAL · EVOL · Morris P5 AUTHORIZATION = **CONSUMED** · P4 = **CLOSED / FINAL REPOSITORY VERIFIED / FINAL TRUTH-SYNC INTEGRATED ON MAIN** (PR **#554** MERGED · main `04527bede4a3aad1853387b9eb39af3fe0615412` · CI **#676** / `37269800594` SUCCESS · Required Gate SUCCESS) · branche locale `delivery/sfia-studio-product-simplification-p5-s01-integrated-product-vertical-slice` · base `origin/main` @ `04527bede4a3aad1853387b9eb39af3fe0615412` · document = `projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md` · CURRENT CAPABILITY = **P5-S01 Workspace/Conversation + Product Semantic Context + Cognitive Routing D0 + P3 Visual Fidelity foundation** · REAL = **NOT AUTHORIZED** · R1/R2/R3 = **NOT STARTED** · READY FOR REAL = **NO** · runtime v3 = **NON ADOPTED** · project commit/push/PR/merge = **NOT AUTHORIZED this pass** · next after ChatGPT PASS = **MORRIS P5-S01 GIT INTEGRATION GATE** · **≠** P5 COMPLETE · **≠** P5 CLOSED · **≠** READY FOR MERGE |
++| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S01 CORRECTION PASS 01** | 2026-10-05 Europe/Paris — **STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S01 D0 CORRECTION PASS 01 COMPLETE — READY FOR CHATGPT CRITICAL RE-REVIEW** · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **8 — Delivery / implementation correction** · Milestone **P5 — Integrated Delivery** · Slice **P5-S01** · Pass **CORRECTION PASS 01 (CP1–CP5)** · CRITICAL · EVOL · Morris P5 AUTHORIZATION = **CONSUMED** · Morris Correction GO = **YES** · P5 = **AUTHORIZED / STARTED / IN PROGRESS** · P5-S01 = **LOCAL CANDIDATE — D0 PASS WITH VISUAL RESERVES** · CP1 FULL `npm test` = **PASS** (465 files / 5178 tests) · CP2 Product server-path D0 = **PASS** · CP3 deterministic NO-LLM = **PASS** · CP4 FinOps Standard short-context 2026-10-05 = **PASS** · CP5 Quality→provider→FinOps order = **PASS** · ZERO REAL · Visual = **CANDIDATE WITH RESERVES** · F2 debt **OPEN** · branche `delivery/sfia-studio-product-simplification-p5-s01-integrated-product-vertical-slice` · base `04527bede4a3aad1853387b9eb39af3fe0615412` · document `05-…integrated-delivery.md` · project commit/push/PR/merge = **NOT AUTHORIZED** · next = **ChatGPT P5-S01 Critical Re-review** → if PASS then **MORRIS P5-S01 GIT INTEGRATION GATE** · **≠** P5 COMPLETE · **≠** READY FOR PR/MERGE · **≠** READY FOR REAL |
++| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S01 INTEGRATED DELIVERY** | 2026-10-05 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5 AUTHORIZED BY MORRIS / STARTED / IN PROGRESS — P5-S01 FIRST INTEGRATED PRODUCT VERTICAL SLICE LOCAL CANDIDATE *(true then; superseded by Correction Pass 01 tip)* · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **8 — Delivery / implémentation** · Milestone **P5 — Integrated Delivery** · Slice **P5-S01** · CRITICAL · EVOL · Morris P5 AUTHORIZATION = **CONSUMED** · P4 = **CLOSED / FINAL REPOSITORY VERIFIED / FINAL TRUTH-SYNC INTEGRATED ON MAIN** (PR **#554** MERGED · main `04527bede4a3aad1853387b9eb39af3fe0615412` · CI **#676** / `37269800594` SUCCESS · Required Gate SUCCESS) · branche locale `delivery/sfia-studio-product-simplification-p5-s01-integrated-product-vertical-slice` · base `origin/main` @ `04527bede4a3aad1853387b9eb39af3fe0615412` · document = `projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md` · CURRENT CAPABILITY = **P5-S01 Workspace/Conversation + Product Semantic Context + Cognitive Routing D0 + P3 Visual Fidelity foundation** · REAL = **NOT AUTHORIZED** · R1/R2/R3 = **NOT STARTED** · READY FOR REAL = **NO** · runtime v3 = **NON ADOPTED** · project commit/push/PR/merge = **NOT AUTHORIZED this pass** · next after ChatGPT PASS = **MORRIS P5-S01 GIT INTEGRATION GATE** · **≠** P5 COMPLETE · **≠** P5 CLOSED · **≠** READY FOR MERGE |
  | **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P4 FINAL REPOSITORY TRUTH-SYNC** | 2026-10-05 03:32:06 +0200 — **STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P4 FINAL REPOSITORY TRUTH-SYNC COMPLETE AS LOCAL CANDIDATE — READY FOR MORRIS P4 FINAL TRUTH-SYNC GIT INTEGRATION GATE** · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **14 — Post-merge / repository truth-sync** · Milestone **P4** · Pass **P4 FINAL REPOSITORY TRUTH-SYNC** · CRITICAL · EVOL/DOC · PR **#552 MERGED** · architecture merge `d0b4836046911731605883364d9cc3bef4ac3e7f` · post-merge CI **#672** SUCCESS · PR **#553 MERGED** · closure patch merge `17434de03585eb30d13d59d7ba5c249563f0b33c` · parents `d0b48360…` + `332ee04d…` · post-merge SFIA Studio CI run **#674** / `37250512824` = **SUCCESS** · Detect / Build / Unit tests / **Required Gate** = **SUCCESS** · P4 GLOBAL VALIDATED / INTEGRATED / POST-MERGE VERIFIED / CLOSED BY MORRIS = **YES** · P4 closure patch INTEGRATED ON MAIN = **YES** · P4 FINAL REPOSITORY VERIFICATION = **PASS** · P5 REQUALIFIED BY CHATGPT = **YES** · P5 Entry Contract = **DEFINED** · **P5 AUTHORIZED = NO** · **P5 STARTED = NO** · READY FOR REAL = **NO** · runtime v3 = **NON ADOPTED** · production router IMPLEMENTED = **NO** · REAL routing PROVEN = **NO** · document = `projects/sfia-studio/product-simplification/04-chat-first-product-simplification-semantic-projection-cognitive-architecture.md` · branche `docs/sfia-studio-p4-final-repository-truth-sync` · base `origin/main` @ `17434de03585eb30d13d59d7ba5c249563f0b33c` · prior handoff `5533a05cbfe334aee7c799ed74f7669ef1a08004` / blob `988967391fd9437355d90611c14aba1b3d74887a` · next = **ChatGPT P4 final truth-sync review** → **DISTINCT Morris truth-sync Git integration gate** (commit/push/PR) → DISTINCT merge → post-merge verify → **CURRENT MORRIS GATE = P5 AUTHORIZATION** (NOT CONSUMED) · **≠** P5 AUTHORIZED · **≠** P5 STARTED · **≠** READY FOR REAL · **≠** runtime v3 ADOPTED · **≠** project commit/push/PR/merge this pass · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT / `origin/main` / PR evidence** |
  | **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P4 POST-MERGE VERIFICATION & CLOSURE** | 2026-10-05 02:49:04 +0200 — **STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P4 POST-MERGE VERIFICATION & CLOSURE COMPLETE AS LOCAL CANDIDATE — READY FOR MORRIS P4 CLOSURE PATCH GIT INTEGRATION GATE** · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **14 — Post-merge** · Milestone **P4 — SEMANTIC / PROJECTION / COGNITIVE ARCHITECTURE / TECHNICAL DELTA** · Pass **POST-MERGE VERIFICATION & CLOSURE** · CRITICAL · EVOL/DOC · PR **#552 MERGED** · merge `d0b4836046911731605883364d9cc3bef4ac3e7f` · parents `e19f8940…` + `e24747e1…` · post-merge SFIA Studio CI run **#672** / `37248128868` = **SUCCESS** · Detect / Build / Unit tests / **Required Gate** = **SUCCESS** · P4 GLOBAL VALIDATED BY MORRIS = **YES** · P4 INTEGRATED ON MAIN = **YES** · P4 POST-MERGE VERIFIED = **YES** · P4 CLOSED BY MORRIS = **YES** · P4 Exit Proof = **SATISFIED** · closure materialization = **LOCAL CANDIDATE** · closure patch INTEGRATED ON MAIN = **NO** · **P5 = NOT AUTHORIZED / NOT STARTED** (Entry Contract DEFINED by CLOSED P4 · DEFINED ≠ AUTHORIZED) · READY FOR REAL = **NO** · runtime v3 = **NON ADOPTED** · TARGET routing architecture = **VALIDATED / ADOPTED AS P4 TARGET CONTRACT** · production router IMPLEMENTED = **NO** · REAL routing PROVEN = **NO** · Cognitive Completion PROVEN = **NO** · document = `projects/sfia-studio/product-simplification/04-chat-first-product-simplification-semantic-projection-cognitive-architecture.md` · branche de clôture `docs/sfia-studio-chat-first-product-simplification-p4-post-merge-closure` · base `origin/main` @ `d0b4836046911731605883364d9cc3bef4ac3e7f` · prior handoff `59dbf0c2f5cfb804e3c21f83e94e56f688d91792` / blob `2f2b45206e71df859b6850b56c7ec8030c514dd2` · next = **ChatGPT P4 post-merge closure review** → **DISTINCT Morris closure-patch Git integration gate** (commit/push/PR) → DISTINCT merge → repository truth → **P5 REQUALIFICATION** → DISTINCT GO P5 if recommended · **≠** P5 AUTHORIZED · **≠** P5 STARTED · **≠** READY FOR REAL · **≠** runtime v3 ADOPTED · **≠** production router implemented · **≠** project commit/push/PR/merge this pass · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT / `origin/main` / PR evidence** |
  | **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P4 GIT INTEGRATION AUTHORIZED / IN PROGRESS** | 2026-10-05 02:23:24 +0200 — **STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P4 GLOBAL VALIDATED BY MORRIS — GIT INTEGRATION AUTHORIZED / IN PROGRESS (COMMIT / PUSH / PR)** · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **15 — Capitalisation / REX** · Milestone **P4** · Pass **GIT INTEGRATION — COMMIT / PUSH / PR** · CRITICAL · EVOL/DOC · Morris Git Integration GO = **YES** (commit/push/PR) · MERGE = **NOT AUTHORIZED** · ChatGPT materialization/truth-sync review = **PASS** · prior handoff `db3b7b93723847629b9e46eef2ac6b343737a8a1` / blob `63829146f51b609fba31d0436a3e9a400b1a1869` · document P4 = VALIDATED DOCUMENTARY CANDIDATE · Roadmap truth-sync included · **P4 INTEGRATED = NO** · **P4 CLOSED = NO** · **P5 = NOT AUTHORIZED / NOT STARTED** · READY FOR REAL = **NO** · runtime v3 = **NON ADOPTED** · branche `docs/sfia-studio-chat-first-product-simplification-p4-semantic-projection-cognitive-architecture` · base `origin/main` @ `e19f89409a5eb717838b9d7bffdc8c3d2ee02b18` · next after PR = **ChatGPT PR review** → **DISTINCT MORRIS MERGE GATE** · **≠** P4 MERGED · **≠** P4 CLOSED · **≠** P5 AUTHORIZED · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT / `origin/main` / PR evidence** |
-@@ -969,23 +970,23 @@ CRITICAL PATH:
+@@ -969,23 +971,23 @@ CRITICAL PATH:
    → P2 — **VALIDATED BY MORRIS + INTEGRATED ON MAIN + POST-MERGE VERIFIED + CLOSED** (PR **#549** / merge `e99d9ad5…`)
    → P3 — **VALIDATED BY MORRIS + INTEGRATED ON MAIN + POST-MERGE VERIFIED + CLOSED** (PR **#550** + closure **#551** / main `e19f8940…`)
    → P4 — **GLOBAL VALIDATED BY MORRIS + INTEGRATED ON MAIN + POST-MERGE VERIFIED + CLOSED BY MORRIS** (PR **#552** / `d0b48360…` · CI **#672** SUCCESS) + **CLOSURE PATCH INTEGRATED** (PR **#553** / `17434de0…` · CI **#674** SUCCESS) · FINAL REPOSITORY VERIFICATION = **PASS**
 -  → CURRENT NEXT CAPABILITY — **MORRIS P5 AUTHORIZATION GATE** · P5 REQUALIFIED BY CHATGPT · Entry Contract DEFINED · P5 **NOT AUTHORIZED / NOT STARTED**
 -  → CURRENT STRUCTURAL STEP — STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P4 CLOSED + FINAL REPOSITORY VERIFIED → P5 REQUALIFIED BY CHATGPT → AWAITING DISTINCT MORRIS P5 AUTHORIZATION GATE · P1/P2/P3/P4 CLOSED · P5 Entry Contract DEFINED · P5 **≠** authorized · TARGET routing architecture validated/adopted as P4 target contract · production router **NOT IMPLEMENTED/PROVEN** · REAL **≠** authorized · runtime v3 **NON ADOPTED** · final truth-sync materialization LOCAL CANDIDATE · truth-sync patch **≠** on main yet
-+  → CURRENT NEXT CAPABILITY — **P5-S01 FIRST INTEGRATED PRODUCT VERTICAL SLICE** (LOCAL CANDIDATE) · next Morris gate after ChatGPT PASS = **P5-S01 GIT INTEGRATION**
-+  → CURRENT STRUCTURAL STEP — STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — **P5 AUTHORIZED / STARTED / IN PROGRESS** · P5-S01 Workspace/Conversation + Semantic Context + Cognitive Routing D0 + P3 Visual Fidelity foundation · P1/P2/P3/P4 **CLOSED** · P4 FINAL TRUTH-SYNC **ON MAIN** (PR **#554** / `04527bed…` · CI **#676** SUCCESS) · REAL **≠** authorized · R1/R2/R3 **NOT STARTED** · runtime v3 **NON ADOPTED** · project commit/push/PR/merge **≠** this pass
++  → CURRENT NEXT CAPABILITY — **P5-S01 D0 CORRECTION PASS 01 COMPLETE — READY FOR CHATGPT CRITICAL RE-REVIEW** · P5-S01 remains LOCAL CANDIDATE (visual reserves) · next Morris gate after ChatGPT PASS = **P5-S01 GIT INTEGRATION**
++  → CURRENT STRUCTURAL STEP — STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — **P5 AUTHORIZED / STARTED / IN PROGRESS** · P5-S01 Correction Pass 01 CP1–CP5 closed locally · Workspace/Conversation + Semantic Context + Cognitive Routing D0 + P3 Visual Fidelity foundation · P1/P2/P3/P4 **CLOSED** · P4 FINAL TRUTH-SYNC **ON MAIN** (PR **#554** / `04527bed…` · CI **#676** SUCCESS) · REAL **≠** authorized · R1/R2/R3 **NOT STARTED** · runtime v3 **NON ADOPTED** · project commit/push/PR/merge **≠** this pass
    → DYNAMIC PRODUCT TRAJECTORY — requalify after each capability *(method invariant)*
 
 -CURRENT SIMPLIFICATION TRAJECTORY (living — P4 CLOSED / FINAL REPOSITORY VERIFIED · P5 REQUALIFIED · P5 NOT AUTHORIZED):
-+CURRENT SIMPLIFICATION TRAJECTORY (living — P5 AUTHORIZED / IN PROGRESS · P5-S01 LOCAL CANDIDATE):
++CURRENT SIMPLIFICATION TRAJECTORY (living — P5 AUTHORIZED / IN PROGRESS · P5-S01 LOCAL CANDIDATE — Correction Pass 01):
    Axes: (1) Product Interaction Simplification · (2) HumanDecision Materiality · (3) Cognitive Reliability / Adaptive Model & Reasoning Strategy · (4) Chat-first Operating / Workspace / Semantic Architecture trajectory
    P1 Cadrage — VALIDATED / INTEGRATED / POST-MERGE VERIFIED / CLOSED (PR #548 / merge `642a10c8…`)
    → P2 Functional Operating Model — VALIDATED / INTEGRATED / POST-MERGE VERIFIED / CLOSED (PR #549 / merge `e99d9ad5…`)
@@ -4948,7 +2923,7 @@ index 4d7997d4..a8e53a4d 100644
 -  → P4 Semantic / Projection / Cognitive Architecture — GLOBAL VALIDATED / INTEGRATED / POST-MERGE VERIFIED / CLOSED BY MORRIS (PR #552 / `d0b48360…` · CI #672 SUCCESS) · closure patch INTEGRATED (PR #553 / `17434de0…` · CI #674 SUCCESS) · FINAL REPOSITORY VERIFICATION = PASS · final truth-sync materialization LOCAL CANDIDATE · truth-sync patch ≠ on main yet
 -  → P5 Integrated Delivery — REQUALIFIED BY CHATGPT · Entry Contract DEFINED by CLOSED P4 · **NOT AUTHORIZED** · **NOT STARTED**
 +  → P4 Semantic / Projection / Cognitive Architecture — GLOBAL VALIDATED / INTEGRATED / POST-MERGE VERIFIED / CLOSED BY MORRIS (PR #552 / `d0b48360…` · CI #672 SUCCESS) · closure patch INTEGRATED (PR #553 / `17434de0…` · CI #674 SUCCESS) · FINAL TRUTH-SYNC INTEGRATED (PR #554 / `04527bed…` · CI #676 SUCCESS) · FINAL REPOSITORY VERIFICATION = PASS
-+  → P5 Integrated Delivery — **AUTHORIZED BY MORRIS / STARTED / IN PROGRESS** · P5-S01 = **LOCAL CANDIDATE** · document `05-chat-first-product-simplification-integrated-delivery.md` · **≠** P5 COMPLETE / CLOSED
++  → P5 Integrated Delivery — **AUTHORIZED BY MORRIS / STARTED / IN PROGRESS** · P5-S01 = **LOCAL CANDIDATE — D0 PASS WITH VISUAL RESERVES** (Correction Pass 01 CP1–CP5) · document `05-chat-first-product-simplification-integrated-delivery.md` · **≠** P5 COMPLETE / CLOSED
    → P6 Global Integrated Product QA — NOT AUTHORIZED
    → P7 Fresh Project End-to-End Product Replay — NOT AUTHORIZED · Project NOT SELECTED
    → P8 Requalification — NOT AUTHORIZED
@@ -4961,27 +2936,27 @@ index 4d7997d4..a8e53a4d 100644
    → OPTIONAL CKC lessons → v2.6 capitalization — DISTINCT METHOD GATE — NOT DECIDED
 
  M4 ARCHITECTURE GATE: CLOSED (D-M4-01→05)
-@@ -1027,8 +1028,8 @@ HISTORICAL / CONSUMED (W2-era tip): NEXT CONVERGENCE CAPABILITY was W2 TRACK D /
+@@ -1027,8 +1029,8 @@ HISTORICAL / CONSUMED (W2-era tip): NEXT CONVERGENCE CAPABILITY was W2 TRACK D /
  HISTORICAL / SUPERSEDED (P2 CP01 living tip): CURRENT STRUCTURAL STEP was P2 CHECKPOINT 01 CORRECTION PASS 01 COMPLETE — P2 AUTHORIZED/IN PROGRESS — P2 NOT VALIDATED — P3→P8 NOT AUTHORIZED — production model routing NOT SELECTED — Pilot–Nora–Studio semantic TARGET FOR P4 *(true then)*
  HISTORICAL / CONSUMED / SUPERSEDED: NEXT MORRIS GATE AFTER REQUALIFICATION was "selection / authorization of a future Studio capability — NOT STARTED" — SUPERSEDED by D-SIMP-01 (capability selected = Product Simplification C1)
  HISTORICAL / SUPERSEDED (P2 CP01 living tip): CURRENT MORRIS GATE was CHATGPT CLOSURE REVIEW CHECKPOINT 01 *(true then)*
 -CURRENT STRUCTURAL STEP: STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P4 CLOSED + FINAL REPOSITORY VERIFIED → P5 REQUALIFIED BY CHATGPT → AWAITING DISTINCT MORRIS P5 AUTHORIZATION GATE — P1/P2/P3/P4 CLOSED — P5 Entry Contract DEFINED — P5 NOT AUTHORIZED / NOT STARTED — TARGET routing architecture VALIDATED / ADOPTED AS P4 TARGET CONTRACT — production router NOT IMPLEMENTED/PROVEN — REAL NOT AUTHORIZED — runtime v3 NON ADOPTED — READY FOR REAL NO — P4 closure patch INTEGRATED ON MAIN (PR #553) — final truth-sync materialization LOCAL CANDIDATE — truth-sync patch NOT INTEGRATED ON MAIN
 -CURRENT MORRIS GATE: P5 AUTHORIZATION — PENDING / NOT CONSUMED · prior P4 gates (validation / git integration / merge #552 / closure / closure-patch merge #553) CONSUMED · ChatGPT P5 requalification COMPLETED · ≠ P5 AUTHORIZED · ≠ P5 STARTED · ≠ READY FOR REAL · ≠ runtime v3 ADOPTED · ≠ truth-sync commit/push/PR this pass
-+CURRENT STRUCTURAL STEP: STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — **P5 AUTHORIZED / STARTED / IN PROGRESS** — P5-S01 FIRST INTEGRATED PRODUCT VERTICAL SLICE LOCAL CANDIDATE — Workspace/Conversation + Semantic Context + Cognitive Routing D0 + P3 Visual Fidelity foundation — P1/P2/P3/P4 CLOSED — P4 FINAL TRUTH-SYNC ON MAIN (PR #554 / `04527bed…` / CI #676 SUCCESS) — REAL NOT AUTHORIZED — R1/R2/R3 NOT STARTED — runtime v3 NON ADOPTED — READY FOR REAL NO — project commit/push/PR/merge NOT AUTHORIZED this pass
-+CURRENT MORRIS GATE (after ChatGPT P5-S01 PASS): **P5-S01 GIT INTEGRATION** (commit + project branch push + PR only) · MORRIS P5 AUTHORIZATION = **CONSUMED** · REAL gate = **NOT CONSUMED** · MERGE gate = **NOT CONSUMED** · ≠ P5 COMPLETE · ≠ READY FOR REAL · ≠ runtime v3 ADOPTED
++CURRENT STRUCTURAL STEP: STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — **P5 AUTHORIZED / STARTED / IN PROGRESS** — P5-S01 CORRECTION PASS 01 CP1–CP5 CLOSED LOCALLY — LOCAL CANDIDATE D0 PASS WITH VISUAL RESERVES — READY FOR CHATGPT CRITICAL RE-REVIEW — P1/P2/P3/P4 CLOSED — P4 FINAL TRUTH-SYNC ON MAIN (PR #554 / `04527bed…` / CI #676 SUCCESS) — REAL NOT AUTHORIZED — R1/R2/R3 NOT STARTED — runtime v3 NON ADOPTED — READY FOR REAL NO — project commit/push/PR/merge NOT AUTHORIZED this pass
++CURRENT MORRIS GATE (after ChatGPT P5-S01 Critical Re-review PASS): **P5-S01 GIT INTEGRATION** (commit + project branch push + PR only) · MORRIS P5 AUTHORIZATION = **CONSUMED** · Correction GO = **CONSUMED** · REAL gate = **NOT CONSUMED** · MERGE gate = **NOT CONSUMED** · ≠ P5 COMPLETE · ≠ READY FOR REAL · ≠ runtime v3 ADOPTED
  M6 / M7: HISTORICAL MILESTONES — SUPERSEDED / ABSORBED BY PRODUCT COMPLETION — traces conservées
  CKC COVERAGE: corpus Studio-native INTEGRATED · Phase A package-bound INTEGRATED via W1 · Phase B ≠ complete · `15` non structurel
  CKC→V2.6 CAPITALIZATION: FUTURE OPTION — DISTINCT METHOD GATE — NOT DECIDED — Studio doctrine remains v3-exclusive
-@@ -1045,7 +1046,7 @@ MAJOR GAP TREATMENT: ADOPTED AS OPTION A SCOPE (F1 entry · nav · workspace ·
+@@ -1045,7 +1047,7 @@ MAJOR GAP TREATMENT: ADOPTED AS OPTION A SCOPE (F1 entry · nav · workspace ·
  W1 ROADMAP REPOSITORY TRUTH: SATISFIED — PR #396 MERGED — PUSH/MAIN CI 32591909031 SUCCESS
  HISTORICAL / CONSUMED (duplicate W2-era tip block): NEXT REPO GATE / NEXT PRODUCT GATE / NEXT CONVERGENCE CAPABILITY Track D Phase B — CONSUMED by PR #403 + W2 CLOSED + subsequent W3/W4/PC trajectory
  HISTORICAL / SUPERSEDED (repeat tip): CURRENT STRUCTURAL STEP was P2 CHECKPOINT 01 CORRECTION PASS 01 COMPLETE — P2 NOT VALIDATED — P3→P8 NOT AUTHORIZED — production routing NOT SELECTED *(true then)*
 -CURRENT STRUCTURAL STEP (repeat for local block coherence): STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P4 CLOSED + FINAL REPOSITORY VERIFIED → P5 REQUALIFIED BY CHATGPT → AWAITING MORRIS P5 AUTHORIZATION GATE — P1/P2/P3/P4 CLOSED — P5 NOT AUTHORIZED / NOT STARTED — TARGET routing VALIDATED / ADOPTED AS P4 TARGET CONTRACT — production router NOT PROVEN — runtime v3 NON ADOPTED — closure patch ON MAIN via PR #553 — truth-sync patch NOT ON MAIN
-+CURRENT STRUCTURAL STEP (repeat for local block coherence): STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5 AUTHORIZED / STARTED / IN PROGRESS — P5-S01 LOCAL CANDIDATE — P1/P2/P3/P4 CLOSED — PR #554 ON MAIN (`04527bed…`) — REAL NOT AUTHORIZED — runtime v3 NON ADOPTED — next gate after ChatGPT PASS = MORRIS P5-S01 GIT INTEGRATION
++CURRENT STRUCTURAL STEP (repeat for local block coherence): STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5 AUTHORIZED / STARTED / IN PROGRESS — P5-S01 CORRECTION PASS 01 COMPLETE LOCALLY — LOCAL CANDIDATE D0 PASS WITH VISUAL RESERVES — P1/P2/P3/P4 CLOSED — PR #554 ON MAIN (`04527bed…`) — REAL NOT AUTHORIZED — runtime v3 NON ADOPTED — next = ChatGPT Critical Re-review → MORRIS P5-S01 GIT INTEGRATION
  M6 / M7: HISTORICAL / SUPERSEDED / ABSORBED — not forward milestones
  CKC COVERAGE: catalogue applicable evolvable — Phase A integrated · Phase B downstream — current 15-type baseline is a measure, not a structural invariant
  CKC→V2.6 CAPITALIZATION: FUTURE OPTION — DISTINCT METHOD GATE — NOT DECIDED — Studio doctrine remains v3-exclusive
-@@ -1202,7 +1203,7 @@ Ne pas mettre à jour pour chaque micro-commit sans impact de trajectoire.
+@@ -1202,7 +1204,7 @@ Ne pas mettre à jour pour chaque micro-commit sans impact de trajectoire.
  - HISTORICAL / CONSUMED (post-C1 tip): NEXT PRODUCT GATE was **POST-MERGE REPO COHERENCE → MORRIS GATE FOR C2 EXECUTION** *(later CONSUMED by C2 PR #369)*
  - HISTORICAL / CONSUMED (post-C1 tip): NEXT CAPABILITY was **Cycle 2 — Conception fonctionnelle — RECOMMENDED / NOT AUTHORIZED** *(later VALIDATED / INTEGRATED)*
  - HISTORICAL / SUPERSEDED (living tip): CURRENT STRUCTURAL STEP was P2 CHECKPOINT 01 CORRECTION PASS 01 COMPLETE · P2 AUTHORIZED/IN PROGRESS · P2 NOT VALIDATED · P3→P8 NOT AUTHORIZED · production model routing NOT SELECTED · Pilot–Nora–Studio technical architecture NOT ADOPTED *(true then)*
@@ -4992,3 +2967,29 @@ index 4d7997d4..a8e53a4d 100644
  - Audit handoff historique : `sfia/review-handoff` @ `c5b417dc13fa3700787d28571e5b5abe0599ae98` / `31a5db07fba2555a59ee8c65ad76b537bbd8a73d`
 
 ```
+
+======================================================================
+REMAINING RESERVATIONS
+======================================================================
+Blocking for Correction Pass 01 Critical Re-review: NONE of CP1–CP5 remain open.
+Non-blocking (preserved):
+- Visual runtime vs Figma not captured (auth)
+- Compact/Mobile fidelity unproven
+- F2 routing alignment debt
+- Escalation loop not exercised
+- REAL / R1/R2/R3 not started
+
+Next capability: ChatGPT Critical Re-review → if PASS → Morris P5-S01 Git Integration
+Gates remaining: ChatGPT re-review · Morris Git Integration · Merge · REAL
+
+======================================================================
+FINAL VERDICT (Cursor self)
+======================================================================
+READY FOR CHATGPT P5-S01 CRITICAL RE-REVIEW —
+CP1–CP5 CORRECTED /
+P5-S01 D0 LOCAL CANDIDATE /
+ZERO REAL /
+VISUAL RESERVES PRESERVED
+
+≠ READY FOR PR · ≠ READY FOR MERGE · ≠ P5-S01 COMPLETE · ≠ P5 COMPLETE
+≠ R1/R2/R3 PASS · ≠ READY FOR REAL · ≠ PIXEL-PERFECT PASS · ≠ runtime v3 ADOPTED
