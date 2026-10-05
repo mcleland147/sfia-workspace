@@ -5,28 +5,29 @@
 | **Projet** | SFIA Studio |
 | **Macro** | `STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01` |
 | **Milestone** | **P4 — PILOT–NORA–STUDIO SEMANTIC, PROJECTION & COGNITIVE ARCHITECTURE / TECHNICAL DELTA** |
-| **Cycle projet** | **15 — Capitalisation / REX** |
+| **Cycle projet** | **14 — Post-merge** (P4 architecture = Cycle **15** historique · Git integration = historique consumé) |
+| **Pass** | **POST-MERGE VERIFICATION & CLOSURE** |
 | **Profil SFIA** | **Capitalization** · profondeur **Critical** |
-| **Typologie** | **DOC** dans macro **EVOL** |
-| **Base Git** | `origin/main` @ `e19f89409a5eb717838b9d7bffdc8c3d2ee02b18` (merge PR **#551** P3 post-merge closure) |
-| **Branche locale** | `docs/sfia-studio-chat-first-product-simplification-p4-semantic-projection-cognitive-architecture` |
+| **Typologie** | **DOC** dans macro **EVOL** — post-merge closure |
+| **Base Git / Integration** | PR **#552** MERGED · merge `d0b4836046911731605883364d9cc3bef4ac3e7f` · parents `e19f8940…` + `e24747e1…` · `origin/main` @ `d0b48360…` |
+| **Branche de clôture** | `docs/sfia-studio-chat-first-product-simplification-p4-post-merge-closure` |
 | **Worktree** | `/Users/morris/Projects/sfia-studio-chat-first-product-simplification-p3` |
-| **Statut P4** | **GLOBAL VALIDATED BY MORRIS** (2026-10-05 Europe/Paris) · document = **VALIDATED DOCUMENTARY CANDIDATE** · Git Integration = **AUTHORIZED BY MORRIS — COMMIT / PUSH / PR — IN PROGRESS** · MERGE = **NOT AUTHORIZED** · **≠ INTEGRATED ON MAIN** · **≠ CLOSED** |
+| **Statut P4** | **GLOBAL VALIDATED BY MORRIS** + **INTEGRATED ON MAIN** + **POST-MERGE VERIFIED** + **CLOSED BY MORRIS** |
 | **Product Completion C1** | **VALIDATED / INTEGRATED / CLOSED** (macro Product Completion — distinct de Product Simplification) |
 | **Product Simplification P1** | **VALIDATED / INTEGRATED / CLOSED** — Cadrage Chat-First Product Simplification |
 | **P2** | **VALIDATED / INTEGRATED / CLOSED** (PR **#549**) |
 | **P3** | **VALIDATED / INTEGRATED / POST-MERGE VERIFIED / CLOSED** (PR **#550** + closure **#551**) |
-| **P5** | **NOT AUTHORIZED** · **NOT STARTED** |
+| **P5** | **NOT AUTHORIZED** · **NOT STARTED** (Entry Contract DEFINED by closed P4 · DEFINED ≠ AUTHORIZED) |
 | **runtime v3** | **NON ADOPTED** |
 | **READY FOR REAL** | **NO** |
 | **Figma** | READ ONLY · contrat P3 préservé · **≠** mutation ce cycle |
-| **Roadmap** | Truth-sync included in Git Integration AUTHORIZED / IN PROGRESS · **≠** integrated on main until merge |
+| **Roadmap** | Truth-sync LOCAL CLOSURE CANDIDATE this pass · P4 architecture package already on main via PR **#552** · **closure patch ≠ integrated on main yet** |
 | **Langue** | Français (identifiants Product / runtime préservés) |
 | **Fichier** | `projects/sfia-studio/product-simplification/04-chat-first-product-simplification-semantic-projection-cognitive-architecture.md` |
 | **Date** | 2026-10-05 · Europe/Paris |
-| **Review path** | C1–C9 PASS · MC1–MC4 PASS · A–E PASS · ChatGPT Final Targeted Coherence Verification = **PASS** · Morris Global Validation = **YES** · ChatGPT truth-sync review = **PASS** · Morris Git Integration GO = **YES** (commit/push/PR) · Pass = **GIT INTEGRATION — COMMIT / PUSH / PR** |
+| **Review path** | C1–C9 PASS · MC1–MC4 PASS · A–E PASS · ChatGPT Final Targeted Coherence Verification = **PASS** · Morris Global Validation = **YES** · Git Integration = **YES** · PR **#552** MERGED · post-merge CI **#672** SUCCESS · Required Gate SUCCESS · Morris Closure GO = **YES** · Pass = **POST-MERGE VERIFICATION & CLOSURE** |
 
-> **Lecture rapide.** P4 = **comment** le monde Product défini par P1/P2/P3 est représenté, projeté, rendu current/durable/searchable et connecté à la cognition Nora — **sans** seconde vérité ni architecture parallèle. Cinq Work Products. **P4 GLOBAL VALIDATED BY MORRIS = YES** (2026-10-05). Document = **VALIDATED DOCUMENTARY CANDIDATE**. Git Integration = **AUTHORIZED / IN PROGRESS** (commit/push/PR). **≠ MERGE · ≠ P4 INTEGRATED · ≠ P4 CLOSED · ≠ P5 AUTHORIZED · ≠ runtime v3 ADOPTED · ≠ READY FOR REAL.**
+> **Lecture rapide.** P4 = **comment** le monde Product défini par P1/P2/P3 est représenté, projeté, rendu current/durable/searchable et connecté à la cognition Nora — **sans** seconde vérité ni architecture parallèle. Cinq Work Products. **P4 GLOBAL VALIDATED BY MORRIS = YES** · **P4 INTEGRATED ON MAIN = YES** (PR **#552** / `d0b48360…`) · **P4 POST-MERGE VERIFIED = YES** (CI **#672** / `37248128868`) · **P4 CLOSED BY MORRIS = YES**. Ce pass = **POST-MERGE VERIFICATION & CLOSURE** (patch documentaire de clôture LOCAL CANDIDATE). **P4 CLOSED ≠ P5 AUTHORIZED.** **≠** runtime v3 ADOPTED · **≠** READY FOR REAL · **≠** production router implemented · **≠** closure patch integrated on main yet.
 
 ---
 
@@ -42,28 +43,34 @@ Product Simplification P1 = VALIDATED / INTEGRATED / CLOSED
 P2 = VALIDATED / INTEGRATED / CLOSED          (PR #549)
 P3 = VALIDATED / INTEGRATED / POST-MERGE VERIFIED / CLOSED
      (PR #550 merge b5fd3b54… · closure PR #551 merge e19f8940…)
-P4 = GLOBAL VALIDATED BY MORRIS               (2026-10-05 Europe/Paris)
-P4 document = VALIDATED DOCUMENTARY CANDIDATE (THIS FILE)
-P4 GIT INTEGRATION = AUTHORIZED BY MORRIS — COMMIT / PUSH / PR — IN PROGRESS
-P4 MERGE = NOT AUTHORIZED (distinct Morris gate)
-P4 INTEGRATED ON MAIN = NO
-P4 CLOSED = NO
+P4 = GLOBAL VALIDATED / INTEGRATED / POST-MERGE VERIFIED / CLOSED BY MORRIS
+PR #552 = MERGED
+merge = d0b4836046911731605883364d9cc3bef4ac3e7f
+parents = e19f8940… + e24747e1…
+post-merge CI = SUCCESS (SFIA Studio CI run #672 / 37248128868)
+Required Gate = SUCCESS
+P4 document architecture package = ON MAIN via PR #552
+P4 closure status materialization = LOCAL CANDIDATE this pass
+  (closure patch ≠ integrated on main yet)
 P5 = NOT AUTHORIZED / NOT STARTED
-  (Entry Contract DEFINED by validated P4 · DEFINED ≠ AUTHORIZED)
+  (Entry Contract DEFINED by CLOSED P4 · DEFINED ≠ AUTHORIZED)
 runtime v3 = NON ADOPTED
 READY FOR REAL = NO
+P4 CLOSED ≠ P5 AUTHORIZED
 ```
 
-### 1.2 Roadmap truth-sync vs Git integration
+### 1.2 Roadmap truth-sync vs post-merge closure
 
 | Source | Statut | Rôle |
 | --- | --- | --- |
-| Convergence Roadmap (Git @ `e19f8940…` before this pass) | Historical tip may still say **P4 NOT AUTHORIZED** | Snapshot **historique** pré–truth-sync |
-| Convergence Roadmap in Git Integration | Truth-synced for P4 GLOBAL VALIDATED · included in AUTHORIZED commit/push/PR | Living construction truth · **≠** integrated on main until merge |
+| Convergence Roadmap on main @ `d0b48360…` (pre-closure tip) | Living tip still said Git Integration AUTHORIZED / IN PROGRESS · NOT INTEGRATED · NOT CLOSED | **HISTORICAL / SUPERSEDED** as living tip after this closure candidate |
+| Convergence Roadmap this pass | Truth-synced for P4 INTEGRATED / POST-MERGE VERIFIED / CLOSED | Living construction truth · **LOCAL CLOSURE CANDIDATE** · closure patch ≠ on main yet |
 | Morris P4 Global Validation | **YES** · 2026-10-05 Europe/Paris | Validates P4 architecture/document |
-| Morris P4 Git Integration GO | **YES** · commit/push/PR authorized · merge **NOT** authorized | This pass |
+| Morris P4 Git Integration GO | **YES** · consumed · PR **#552** created | Historical for this tip |
+| Morris P4 Merge GO | **YES** · consumed · PR **#552** MERGED | Integration evidence |
+| Morris P4 Closure GO | **YES** · consumed this pass | Documentary/lifecycle closure |
 
-**Règle :** historical Roadmap rows remain historically accurate. Git Integration AUTHORIZED / IN PROGRESS ≠ INTEGRATED ≠ CLOSED ≠ P5.
+**Règle :** historical Roadmap rows remain historically accurate. P4 CLOSED ≠ P5 AUTHORIZED ≠ runtime implemented.
 
 ### 1.3 Domaines d’autorité (pas de hiérarchie globale)
 
@@ -78,7 +85,7 @@ Aligné P2 §2.1 / P3 §1.2 — **aucun rang de précédence global** entre doma
 | Product Completion framing | **Product Completion C1** | Cible / scope macro · **≠ Product Simplification P1** |
 | Functional Product behavior | P2 | HOW STUDIO FUNCTIONS |
 | Experience / Interaction | P3 + Figma (statut frame-by-frame) + décisions Morris P3 | HOW THE PRODUCT IS EXPERIENCED |
-| P4 target technical architecture | **Ce document — VALIDATED DOCUMENTARY CANDIDATE** (Morris global YES) · **≠** integrated | HOW P2+P3 sont représentés / projetés / routés cognitivement |
+| P4 target technical architecture | **Ce document — VALIDATED / INTEGRATED / CLOSED** (Morris global YES · PR **#552**) · closure status LOCAL CANDIDATE · **≠** runtime implemented | HOW P2+P3 sont représentés / projetés / routés cognitivement |
 | Processus externe | v2.6 ChatGPT↔Cursor | Operating model d’exécution |
 | Cognitive guidance | CKC | Authority **NONE** |
 | External OpenAI capabilities | Snapshot CURRENT daté / revalidable | ≠ doctrine permanente |
@@ -105,7 +112,7 @@ Aligné P2 §2.1 / P3 §1.2 — **aucun rang de précédence global** entre doma
 
 One Morris global P4 decision covers WP1–WP5 (no separate per-WP Morris IDs).
 C1–C9 PASS · MC1–MC4 PASS · A–E PASS · ChatGPT Final Targeted Coherence Verification = PASS.
-**≠** P4 INTEGRATED · **≠** P4 CLOSED · **≠** P5 AUTHORIZED.
+**P4 INTEGRATED / POST-MERGE VERIFIED / CLOSED BY MORRIS = YES.** **≠** P5 AUTHORIZED.
 
 ---
 
@@ -119,7 +126,7 @@ P4 matérialise l’architecture technique **sémantique**, de **projection** et
 4. **Nora Cognitive Routing** = Strategy-first bounded router **intégré** au runtime Nora existant (même Agents Runner) — **deterministic NO-LLM bypass** avant routing — cohort GPT-6 Luna / GPT-6.1 Sol / GPT-6 Astra — quality floor avant FinOps — escalation ≤ 1 — REAL-FIRST dès P5.
 5. **Simplification proof** = Pilot Interaction Budget (heuristic) + Net Complexity Reduction dans le P5 Entry Contract — pas de PIBEngine.
 
-Cinq Work Products structurants (WP1–WP5) + complétions A–E forment le contrat d’entrée P5. **P4 GLOBAL VALIDATED BY MORRIS = YES**. **≠** P4 INTEGRATED · **≠** P4 CLOSED · **≠** P5 AUTHORIZED.
+Cinq Work Products structurants (WP1–WP5) + complétions A–E forment le contrat d’entrée P5. **P4 GLOBAL VALIDATED / INTEGRATED / POST-MERGE VERIFIED / CLOSED BY MORRIS = YES**. **≠** P5 AUTHORIZED · **≠** runtime implemented · **≠** READY FOR REAL.
 
 ---
 
@@ -179,10 +186,14 @@ Code · migrations · schéma SQL final · package · tests · Figma mutation ·
 | P4 architectural substance converged | **YES** |
 | P4 DOCUMENT = VALIDATED DOCUMENTARY CANDIDATE | **YES** |
 | P4 GLOBAL VALIDATED BY MORRIS | **YES** (2026-10-05 Europe/Paris) |
-| P4 INTEGRATED ON MAIN | **NO** |
-| P4 CLOSED | **NO** |
-| Roadmap truth-sync LOCAL CANDIDATE | **YES** (this pass) |
-| Roadmap truth-sync INTEGRATED ON MAIN | **NO** |
+| P4 INTEGRATED ON MAIN | **YES** (PR **#552** / merge `d0b48360…`) |
+| P4 POST-MERGE VERIFIED | **YES** (CI **#672** / `37248128868` SUCCESS · Required Gate SUCCESS) |
+| P4 CLOSED BY MORRIS | **YES** (closure GO consumed this pass) |
+| P4 closure status materialization LOCAL CANDIDATE | **YES** (this pass) |
+| P4 closure patch INTEGRATED ON MAIN | **NO** |
+| Roadmap truth-sync architecture package ON MAIN | **YES** (via PR **#552**) |
+| Roadmap closure truth-sync LOCAL CANDIDATE | **YES** (this pass) |
+| Roadmap closure patch INTEGRATED ON MAIN | **NO** |
 | P5 AUTHORIZED / STARTED | **NO** |
 | READY FOR REAL | **NO** |
 | runtime v3 ADOPTED | **NO** |
@@ -195,7 +206,7 @@ Code · migrations · schéma SQL final · package · tests · Figma mutation ·
 | Second Nora / second Product model | **REJECT** |
 | Documentary convergence = runtime convergence | **NO** |
 | Target architecture = CURRENT implementation | **NO** |
-| Morris decision in prompt = Git integration | **NO** |
+| P4 CLOSED = P5 AUTHORIZED | **NO** |
 
 ---
 
@@ -1820,39 +1831,44 @@ REAL Project → P3 Conversation → real Project semantic context
 
 ## 53. P4 Exit Contract
 
-**P4 GLOBAL MORRIS VALIDATION ≠ P4 INTEGRATED ≠ P4 CLOSED ≠ P5 AUTHORIZED.**
+**P4 EXIT PROOF = SATISFIED.** **P4 CLOSED BY MORRIS = YES.**
+
+**P4 CLOSED ≠ P5 AUTHORIZED ≠ runtime implemented ≠ READY FOR REAL.**
 
 | Exit element | Status |
 | --- | --- |
 | P4 architectural coherence | **SATISFIED** |
 | P4 P1/P2/P3 inheritance | **SATISFIED** |
-| P4 WP1–WP5 review | **SATISFIED** |
+| P4 WP1–WP5 review | **SATISFIED** (PASS) |
+| C1–C9 / MC1–MC4 / A–E | **SATISFIED** (PASS) |
 | P4 GLOBAL MORRIS VALIDATION | **SATISFIED** (2026-10-05) |
-| Roadmap truth-sync LOCAL (pre-integration) | **DONE** |
-| P4 Git Integration AUTHORIZED / IN PROGRESS | **THIS PASS** (commit/push/PR) |
-| P4 document integrated on main | **NOT YET** |
-| Roadmap truth-sync integrated on main | **NOT YET** |
-| P4 MERGE | **NOT AUTHORIZED** |
-| P4 post-merge verification | **NOT YET** |
-| P4 CLOSED | **NO** |
+| P4 Git Integration (commit/push/PR) | **SATISFIED** · PR **#552** |
+| P4 document integrated on main | **SATISFIED** via PR **#552** / merge `d0b4836046911731605883364d9cc3bef4ac3e7f` |
+| Roadmap truth-sync architecture package on main | **SATISFIED** via same merge |
+| P4 post-merge verification | **SATISFIED** via CI **#672** / `37248128868` SUCCESS |
+| P4 Required Gate | **SATISFIED** (SUCCESS) |
+| Blocking reservation preventing documentary closure | **NONE** |
+| P4 CLOSED BY MORRIS | **YES** (GO consumed this pass) |
+| P4 closure status materialization | **LOCAL CANDIDATE** this pass |
+| P4 closure patch integrated on main | **NO** |
 | P5 authorization | **NO** |
 
-**Remaining exit path (gates distincts) :**
+**Exit path (gates consommés) :**
 
 1. Global Morris validation — **DONE**
 2. Documentary materialization + Roadmap truth-sync candidate — **DONE**
 3. ChatGPT review of materialization / truth-sync — **PASS**
-4. Morris Git integration authorization (commit + push + PR) — **CONSUMED THIS PASS**
-5. PR review / ChatGPT PR assessment — **NEXT**
-6. **DISTINCT** Morris merge gate — **NOT CONSUMED**
-7. Merge
-8. Post-merge verification / repository truth
-9. P4 closure qualification
-10. Morris closure decision if exit proof satisfied
-11. Requalify next capability
-12. P5 only under **DISTINCT** Morris GO
+4. Morris Git integration authorization (commit + push + PR) — **CONSUMED**
+5. PR review / ChatGPT PR assessment — **PASS**
+6. Morris merge gate — **CONSUMED** · PR **#552** MERGED
+7. Post-merge verification / repository truth — **SATISFIED** (CI **#672**)
+8. P4 closure qualification — **SATISFIED**
+9. Morris closure decision — **CONSUMED THIS PASS**
+10. Closure patch Git integration — **NOT AUTHORIZED THIS RUN** (distinct future Morris gate)
+11. Requalify next capability (**P5**) — **NEXT structural right only**
+12. P5 only under **DISTINCT** Morris GO — **NOT CONSUMED**
 
-**Do NOT skip from PR to merge or from validation to P5.**
+**Do NOT skip from P4 CLOSED to P5 AUTHORIZED.**
 
 ---
 
@@ -1874,11 +1890,16 @@ REAL Project → P3 Conversation → real Project semantic context
 | Exact Deliverable technical representation if CURRENT gap persists | OPEN → P5 · NEW STORE NOT ADOPTED |
 | Exact work-class validation mechanisms where domain-specific | OPEN · compose first |
 | DecisionBasis representation only if demonstrated need | OPEN · no universal mandate |
-| Precise P5 slice decomposition | OPEN after P4 validation |
+| Precise P5 slice decomposition | OPEN after P4 closure · before any P5 start |
 | REAL/account entitlement | NOT PROVEN |
-| Roadmap truth-sync in Git Integration | **IN PROGRESS** · integration on main = DISTINCT Morris merge gate |
+| Production router implementation | **NOT IMPLEMENTED** → P5+ |
+| R1/R2/R3 REAL proof / GPT-6 routing REAL | **NOT PROVEN** → P5+ when authorized |
+| Synthesis Product-derived persistence | **NOT IMPLEMENTED** → P5 |
+| P3 runtime/Figma fidelity | **NOT PROVEN** → P5/P6 |
+| Net Complexity Reduction / PIB improvement | **NOT PROVEN** → P5/P6 |
+| Roadmap closure truth-sync patch | **LOCAL CANDIDATE** · integration on main = DISTINCT Morris Git gate |
 
-**Morris Global Validation + Git Integration GO (commit/push/PR) consumed.** Next Morris structural gate = **DISTINCT MERGE GATE** (not P5). Architecture substance unchanged.
+**Morris Global Validation + Git Integration + Merge + Closure GO consumed.** Next structural right = **P5 REQUALIFICATION** (not P5 authorization). Architecture substance unchanged.
 
 ---
 
@@ -1904,8 +1925,12 @@ REAL Project → P3 Conversation → real Project semantic context
 | **No SharedKnowledgeStore / no global ES / no second Project / no parallel architecture** | KEEP backbone | Parallel rebuild | Integration map |
 | **P4 GLOBAL VALIDATED BY MORRIS** (2026-10-05 Europe/Paris) | Validates WP1–WP5 + P4 decisions + P5 Entry Contract as target entry | Project Git integration auto · P5 · REAL · runtime v3 | Distinct Git integration then merge/closure then distinct GO P5 |
 | **P4 GIT INTEGRATION AUTHORIZATION** (commit/push/PR) | Project commit + source branch push + open PR authorized | Merge · main push · branch delete · P4 closure · P5 · REAL · runtime v3 | DISTINCT Morris merge gate after PR review |
+| **P4 MERGE AUTHORIZATION** (PR **#552**) | Merge of validated P4 package onto main | Branch delete · P4 closure auto · P5 · REAL · runtime v3 | Post-merge CI + distinct closure gate |
+| **P4 POST-MERGE VERIFICATION & CLOSURE** (2026-10-05) | Documentary/lifecycle P4 CLOSED BY MORRIS · Roadmap living tip truth-sync LOCAL CANDIDATE | P5 authorization · P5 start · REAL · runtime v3 · closure patch auto-integration | Distinct Morris GO for closure patch commit/push/PR · then DISTINCT merge · then P5 requalification |
 
 **Basis of Global Validation :** ChatGPT Final Targeted Coherence Verification = PASS · C1–C9 PASS · MC1–MC4 PASS · A–E PASS · WP1–WP5 PASS · P1/P2/P3 inheritance PASS · architecture parallelism PASS · P5 Entry Contract PASS.
+
+**Basis of Closure :** PR **#552** MERGED · merge `d0b48360…` · post-merge CI **#672** / `37248128868` SUCCESS · Required Gate SUCCESS · Exit Contract SATISFIED · Morris Closure GO YES.
 
 Pas d’IDs `D-P4-*` inventés.
 
@@ -1921,14 +1946,17 @@ Pas d’IDs `D-P4-*` inventés.
 | P4 AUTONOMOUS REVIEW CORRECTION PASS 03 COMPLETE | **YES** (A–E PASS) |
 | ChatGPT Final Targeted Coherence Verification | **PASS** |
 | P4 GLOBAL VALIDATED BY MORRIS | **YES** (2026-10-05 Europe/Paris) |
-| P4 VALIDATION MATERIALIZATION LOCAL | **YES** |
-| Roadmap truth-sync LOCAL CANDIDATE | **YES** |
-| P4 GIT INTEGRATION AUTHORIZED (commit/push/PR) | **YES** |
-| P4 GIT INTEGRATION IN PROGRESS | **YES** |
-| P4 MERGE AUTHORIZED | **NO** |
-| P4 INTEGRATED ON MAIN | **NO** |
-| Roadmap truth-sync INTEGRATED ON MAIN | **NO** |
-| P4 CLOSED | **NO** |
+| P4 VALIDATION MATERIALIZATION LOCAL | **YES** (historical) |
+| Roadmap truth-sync LOCAL CANDIDATE (pre-merge) | **YES** (historical · now SUPERSEDED as tip) |
+| P4 GIT INTEGRATION AUTHORIZED (commit/push/PR) | **YES** (consumed) |
+| P4 GIT INTEGRATION COMPLETE | **YES** (PR **#552**) |
+| P4 MERGE AUTHORIZED / CONSUMED | **YES** (historical merge gate · consumed) |
+| P4 INTEGRATED ON MAIN | **YES** (PR **#552** / `d0b48360…`) |
+| Roadmap architecture truth-sync INTEGRATED ON MAIN | **YES** (via PR **#552**) |
+| P4 POST-MERGE VERIFIED | **YES** (CI **#672**) |
+| P4 CLOSED BY MORRIS | **YES** |
+| P4 closure materialization LOCAL CANDIDATE | **YES** (this pass) |
+| P4 closure patch INTEGRATED ON MAIN | **NO** |
 | P5 AUTHORIZED | **NO** |
 | TARGET routing architecture validated in P4 | **YES** |
 | Production router IMPLEMENTED / PROVEN | **NO** |
@@ -1956,7 +1984,7 @@ Pas d’IDs `D-P4-*` inventés.
 | Source | Role |
 | --- | --- |
 | `sfia-studio-convergence-build-doctrine.md` | R4 dispositions · R22 OpenAI-native-first |
-| `sfia-studio-convergence-roadmap.md` | Living tip — truth-sync LOCAL CANDIDATE this pass · historical rows preserved |
+| `sfia-studio-convergence-roadmap.md` | Living tip — P4 CLOSED truth-sync LOCAL CANDIDATE this pass · historical rows preserved |
 | `product-completion/01-…cadrage.md` | **Product Completion C1** |
 | `product-simplification/01-…cadrage.md` | **Product Simplification P1** |
 | `product-simplification/02-…functional-operating-model.md` | P2 · P2-D-01…04 |
@@ -2011,4 +2039,4 @@ Future P5 : D0/R1/R2/R3. Claims REAL/READY FOR REAL **interdits** ici.
 
 ---
 
-*Fin du document P4 — VALIDATED DOCUMENTARY CANDIDATE — P4 GLOBAL VALIDATED BY MORRIS = YES (2026-10-05) — Git Integration AUTHORIZED / IN PROGRESS (commit/push/PR) — ≠ MERGE — ≠ INTEGRATED — ≠ CLOSED — ≠ P5 AUTHORIZED — ≠ runtime v3 ADOPTED — ≠ READY FOR REAL — next = PR review → DISTINCT Morris merge gate.*
+*Fin du document P4 — VALIDATED DOCUMENTARY CANDIDATE — P4 GLOBAL VALIDATED BY MORRIS = YES — P4 INTEGRATED ON MAIN = YES (PR #552 / d0b48360…) — P4 POST-MERGE VERIFIED = YES (CI #672 / 37248128868) — P4 CLOSED BY MORRIS = YES — closure materialization LOCAL CANDIDATE — ≠ closure patch on main — ≠ P5 AUTHORIZED — ≠ P5 STARTED — ≠ runtime v3 ADOPTED — ≠ READY FOR REAL — ≠ production router implemented — next = ChatGPT P4 post-merge closure review → DISTINCT Morris closure-patch Git integration gate → then P5 REQUALIFICATION.*
