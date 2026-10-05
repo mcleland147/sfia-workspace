@@ -21,6 +21,11 @@ import type { AssistantToolEventDto } from "@/features/project-assistant/types";
 import type { F2DecisionKind } from "@/features/project-assistant/f2/types";
 import { useEffect, useId } from "react";
 import type { ProductConversationController } from "../hooks/useProductConversation";
+import type { ProductSynthesisProjection } from "@/lib/oa/synthesis";
+import {
+  presentSynthesisVerdictLabel,
+  synthesisSummaryExcerpt,
+} from "./synthesisPresentation";
 import styles from "./ConversationSurface.module.css";
 
 /**
@@ -76,6 +81,8 @@ export type ConversationSurfaceProps = {
    */
   onConfirmReservationResolve?: (epistemicItemId: string) => void;
   reservationConfirmBusyId?: string | null;
+  latestSynthesis?: ProductSynthesisProjection | null;
+  onOpenSynthesis?: (synthesisId: string) => void;
 };
 
 /**
@@ -89,6 +96,8 @@ export function ConversationSurface({
   exposeLegacyAuthorityPath = false,
   onConfirmReservationResolve,
   reservationConfirmBusyId = null,
+  latestSynthesis = null,
+  onOpenSynthesis,
 }: ConversationSurfaceProps) {
   const fieldId = useId();
   const liveRegionId = useId();
@@ -1318,6 +1327,38 @@ export function ConversationSurface({
               </p>
             </details>
           </div>
+        </section>
+      ) : null}
+
+      {latestSynthesis && onOpenSynthesis ? (
+        <section
+          className={styles.card}
+          data-testid="conversation-synthesis-teaser"
+          aria-live="polite"
+        >
+          <header className={styles.cardHead}>
+            <p className={styles.cardEyebrow}>Synthèse produit dérivée</p>
+            <h3 className={styles.cardTitle}>{latestSynthesis.title}</h3>
+          </header>
+          <div className={styles.chipRow}>
+            <span className={styles.chip}>
+              {presentSynthesisVerdictLabel(latestSynthesis.verdictLabel)}
+            </span>
+          </div>
+          <p
+            className={styles.subLead}
+            data-testid="conversation-synthesis-summary"
+          >
+            {synthesisSummaryExcerpt(latestSynthesis, 280)}
+          </p>
+          <button
+            type="button"
+            className={styles.primaryButton}
+            data-testid="conversation-open-synthesis"
+            onClick={() => onOpenSynthesis(latestSynthesis.synthesisId)}
+          >
+            Voir la synthèse complète →
+          </button>
         </section>
       ) : null}
 

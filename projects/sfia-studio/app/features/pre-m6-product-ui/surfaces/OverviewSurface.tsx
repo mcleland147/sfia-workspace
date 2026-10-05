@@ -9,6 +9,13 @@ import type {
   CycleSummary,
   TrajectoryNode,
 } from "../workspaceContextPresentation";
+import type { ProductSynthesisProjection } from "@/lib/oa/synthesis";
+import { getLatestRelevantProductSynthesisAction } from "@/features/project-assistant/synthesisActions";
+import {
+  formatSynthesisGeneratedAt,
+  presentSynthesisVerdictLabel,
+  synthesisSummaryExcerpt,
+} from "./synthesisPresentation";
 import styles from "./OverviewSurface.module.css";
 
 export type OverviewRecentActivityItem = {
@@ -69,6 +76,8 @@ export type OverviewSurfaceProps = {
   onOpenConversation: () => void;
   onOpenJournal: () => void;
   onOpenHistory: () => void;
+  onOpenSyntheses: () => void;
+  onOpenSynthesisDetail?: (synthesisId: string) => void;
 };
 
 /**
@@ -88,8 +97,13 @@ export function OverviewSurface({
   onOpenConversation,
   onOpenJournal,
   onOpenHistory,
+  onOpenSyntheses,
+  onOpenSynthesisDetail,
 }: OverviewSurfaceProps) {
   const [history, setHistory] = useState<W2ProjectHistoryReadModel | null>(null);
+  const [latestSynthesis, setLatestSynthesis] =
+    useState<ProductSynthesisProjection | null>(null);
+  const [synthesisCount, setSynthesisCount] = useState(0);
 
   useEffect(() => {
     let cancelled = false;
@@ -97,6 +111,23 @@ export function OverviewSurface({
       if (cancelled) return;
       if (result.ok) setHistory(result.history);
       else setHistory(null);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [projectId]);
+
+  useEffect(() => {
+    let cancelled = false;
+    void getLatestRelevantProductSynthesisAction({ projectId }).then((result) => {
+      if (cancelled) return;
+      if (result.ok) {
+        setLatestSynthesis(result.synthesis);
+        setSynthesisCount(result.count);
+      } else {
+        setLatestSynthesis(null);
+        setSynthesisCount(0);
+      }
     });
     return () => {
       cancelled = true;
@@ -358,7 +389,9 @@ export function OverviewSurface({
               </li>
               <li>
                 <span>Synthèses</span>
-                <span>—</span>
+                <span data-testid="project-overview-synthesis-count">
+                  {synthesisCount > 0 ? synthesisCount : "—"}
+                </span>
               </li>
             </ul>
           </div>
@@ -394,16 +427,53 @@ export function OverviewSurface({
             data-testid="project-overview-synthesis"
             aria-labelledby="overview-synthesis-title"
           >
-            <h3 className={styles.sectionTitle} id="overview-synthesis-title">
-              Synthèses
-            </h3>
-            <p
-              className={styles.empty}
-              data-testid="project-overview-synthesis-empty"
-            >
-              Aucune synthèse produit n’est encore disponible. Elle n’est pas
-              inventée depuis la conversation.
-            </p>
+            <div className={styles.sectionHead}>
+              <h3 className={styles.sectionTitle} id="overview-synthesis-title">
+                Synthèses
+              </h3>
+              <button
+                type="button"
+                className={styles.nextStepCta}
+                data-testid="project-overview-open-syntheses"
+                onClick={onOpenSyntheses}
+              >
+                Toutes les synthèses →
+              </button>
+            </div>
+            {latestSynthesis ? (
+              <div data-testid="project-overview-synthesis-preview">
+                <p className={styles.nextStepTitle}>{latestSynthesis.title}</p>
+                <p className={styles.statSub}>
+                  {presentSynthesisVerdictLabel(latestSynthesis.verdictLabel)} ·{" "}
+                  {formatSynthesisGeneratedAt(latestSynthesis.generatedAt)}
+                </p>
+                <p className={styles.nextStepBody}>
+                  {synthesisSummaryExcerpt(latestSynthesis)}
+                </p>
+                <button
+                  type="button"
+                  className={styles.nextStepCta}
+                  data-testid="project-overview-open-synthesis-detail"
+                  onClick={() => {
+                    if (onOpenSynthesisDetail) {
+                      onOpenSynthesisDetail(latestSynthesis.synthesisId);
+                    } else {
+                      onOpenSyntheses();
+                    }
+                  }}
+                >
+                  Ouvrir cette synthèse →
+                </button>
+              </div>
+            ) : (
+              <p
+                className={styles.empty}
+                data-testid="project-overview-synthesis-empty"
+              >
+                Aucune synthèse produit n’est encore disponible. Elle n’est pas
+                inventée depuis la conversation.
+              </p>
+            )}
           </section>
         </aside>
       </div>

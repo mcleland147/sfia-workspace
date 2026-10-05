@@ -711,6 +711,14 @@
   .focusBar {
     display: none;
   }
+
+  /*
+   * P5-S04 CP01 B2 — Synthèses is a focused secondary mobile view:
+   * hide project title + primary tabs; SynthesesSurface owns list/detail nav.
+   */
+  .root[data-active-view="syntheses"] .projectHeader {
+    display: none;
+  }
 }
 
 /* ---------- error state ---------- */

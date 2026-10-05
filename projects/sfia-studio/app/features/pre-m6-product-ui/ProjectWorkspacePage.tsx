@@ -25,6 +25,9 @@ import {
 } from "./surfaces/ProjectContextSummary";
 import { OverviewSurface } from "./surfaces/OverviewSurface";
 import { ExecutionSurface } from "./surfaces/ExecutionSurface";
+import { SynthesesSurface } from "./surfaces/SynthesesSurface";
+import { getLatestRelevantProductSynthesisAction } from "@/features/project-assistant/synthesisActions";
+import type { ProductSynthesisProjection } from "@/lib/oa/synthesis";
 import {
   deriveExecutionTabBadge,
   presentPilotExecution,
@@ -51,7 +54,7 @@ import type { GetProjectResult, GetProjectSuccess } from "./types";
 import styles from "./ProjectWorkspacePage.module.css";
 
 /** Ephemeral presentation view — never persisted as Product state. */
-type WorkspaceView = "conversation" | "overview" | "execution";
+type WorkspaceView = "conversation" | "overview" | "execution" | "syntheses";
 
 /** prefers-reduced-motion: no smooth scrolling for in-page jumps. */
 function scrollBehaviorPref(): ScrollBehavior {
@@ -126,6 +129,9 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
     useState<PilotLifecycleProjection | null>(null);
   const [reservationBusyId, setReservationBusyId] = useState<string | null>(null);
   const [reservationNotice, setReservationNotice] = useState<string | null>(null);
+  const [latestSynthesis, setLatestSynthesis] =
+    useState<ProductSynthesisProjection | null>(null);
+  const [synthesesFocusId, setSynthesesFocusId] = useState<string | null>(null);
   const conversationRef = useRef<HTMLDivElement | null>(null);
   const refreshInFlight = useRef(false);
 
@@ -176,6 +182,20 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
       cancelled = true;
     };
   }, [projectId]);
+
+  const refreshLatestSynthesis = useCallback(async () => {
+    const result = await getLatestRelevantProductSynthesisAction({ projectId });
+    if (result.ok) setLatestSynthesis(result.synthesis);
+    else setLatestSynthesis(null);
+  }, [projectId]);
+
+  useEffect(() => {
+    void refreshLatestSynthesis();
+  }, [
+    refreshLatestSynthesis,
+    lifecycleRefreshSignal,
+    trajectoryRefreshSignal,
+  ]);
 
   const focusConversation = useCallback(() => {
     setActiveView("conversation");
@@ -385,6 +405,19 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
     setLpsOpen(false);
   }, []);
 
+  const openSyntheses = useCallback((synthesisId?: string | null) => {
+    setSynthesesFocusId(synthesisId ?? null);
+    setActiveView("syntheses");
+    setLpsOpen(false);
+  }, []);
+
+  const openSynthesisDetail = useCallback(
+    (synthesisId: string) => {
+      openSyntheses(synthesisId);
+    },
+    [openSyntheses],
+  );
+
   const handleExecutionPresentationChange = useCallback(
     (presentation: PilotExecutionPresentation) => {
       setExecutionPresentation(presentation);
@@ -453,8 +486,9 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
     executionPresentation != null
       ? deriveExecutionTabBadge(executionPresentation)
       : null;
-  /** Overview owns its composition — no permanent sibling context rail. */
-  const showContextRail = activeView !== "overview";
+  /** Overview / Synthèses own principal width — no permanent sibling context rail. */
+  const showContextRail =
+    activeView !== "overview" && activeView !== "syntheses";
 
   return (
     <div
@@ -571,12 +605,18 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
       <div
         className={[
           styles.layout,
-          activeView === "overview" ? styles.layoutOverview : "",
+          activeView === "overview" || activeView === "syntheses"
+            ? styles.layoutOverview
+            : "",
         ]
           .filter(Boolean)
           .join(" ")}
         data-testid="project-workspace-layout"
-        data-layout={activeView === "overview" ? "overview" : "split"}
+        data-layout={
+          activeView === "overview" || activeView === "syntheses"
+            ? "overview"
+            : "split"
+        }
       >
         <div className={styles.main} ref={conversationRef}>
           {activeView === "conversation" ? (
@@ -629,6 +669,8 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
                   controller={controller}
                   onConfirmReservationResolve={confirmReservationResolution}
                   reservationConfirmBusyId={reservationBusyId}
+                  latestSynthesis={latestSynthesis}
+                  onOpenSynthesis={openSynthesisDetail}
                 />
               </div>
             </>
@@ -647,6 +689,16 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
               onOpenConversation={focusConversation}
               onOpenJournal={openJournal}
               onOpenHistory={openHistory}
+              onOpenSyntheses={() => openSyntheses()}
+              onOpenSynthesisDetail={openSynthesisDetail}
+            />
+          ) : null}
+
+          {activeView === "syntheses" ? (
+            <SynthesesSurface
+              projectId={projectId}
+              initialSynthesisId={synthesesFocusId}
+              onReturnToOverview={openOverview}
             />
           ) : null}
 
@@ -686,6 +738,7 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
               currentness={currentness}
               trajectory={trajectoryNodes}
               attention={attention}
+              latestSynthesis={latestSynthesis}
             />
 
             <section
@@ -803,6 +856,7 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
           <ProjectContextShortcuts
             onOpenJournal={openJournal}
             onOpenHistory={openHistory}
+            onOpenSyntheses={() => openSyntheses()}
           />
         </aside>
         ) : null}
