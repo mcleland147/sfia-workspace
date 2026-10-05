@@ -1,61 +1,69 @@
-# P5-S04 CORRECTION PASS 01 — PRODUCT-PATH SYNTHESIS + LINEAGE + PILOT UI + FIGMA B1/B2 — FULL REVIEW PACK
+# P5-S04 — CORRECTION PASS 02 — SYNTHESIS FAILURE OBSERVABILITY + PILOT SEMANTICS + RECOMMENDATION CURRENTNESS + EVIDENCE FAIL-CLOSED — FULL REVIEW PACK
 
 ## 0. Header
-**Pass:** P5-S04 CORRECTION PASS 01
-**Status:** LOCAL CANDIDATE COMPLETE — CRITICAL RE-REVIEW REQUIRED — NOT INTEGRATED
-**Completeness bar:** FULL — complete created-file contents + complete useful unified diffs for ALL CP01-changed files (same bar as prior republication).
+**Pass:** P5-S04 CORRECTION PASS 02
+**Status:** LOCAL CANDIDATE COMPLETE — FINAL CRITICAL RE-REVIEW REQUIRED — NOT INTEGRATED
+**Completeness bar:** FULL — complete created-file contents + complete useful unified diffs for ALL CP02-changed files (same bar as prior republication).
 
 ## 1. Timestamp
-2026-10-05 20:23:52 +0200 Europe/Paris
+2026-10-05 21:13:44 +0200 Europe/Paris
 
-## 2. Morris CP01 authorization
-**MORRIS P5-S04 CORRECTION PASS 01 AUTHORIZATION = CONSUMED**
+## 2. Morris CP02 authorization
+**MORRIS P5-S04 CORRECTION PASS 02 AUTHORIZATION = CONSUMED**
 
 ## 3. Branch
 `delivery/sfia-studio-product-simplification-p5-s04-product-derived-syntheses`
 
 ## 4. HEAD (local)
-`49b4fdaf078fdf2a5c7bfce3baad05fa65220c2e` (= origin/main — S04+CP01 work **uncommitted**)
+`49b4fdaf078fdf2a5c7bfce3baad05fa65220c2e` (= origin/main — S04+CP01+CP02 work **uncommitted**)
 
 ## 5. origin/main
 `49b4fdaf078fdf2a5c7bfce3baad05fa65220c2e` — PR **#557** MERGED (P5-S03)
 
 ## 6. Handoff before
-`sfia/review-handoff` @ `bd7a037384897fd6fdcb68416d8c2d91c6ac2d1b` · blob `fb6229256300bd725b45bf270492cfa9a2239da0`
+`sfia/review-handoff` @ `c22a99dffd90d3bb19edd4178a6ea06547f496c6` · blob `8d8fcd589576ce552bb47c678373614480979640`
 
-## 7. Architecture AFTER CP01
+## 7. Template SHA
+`948156a21309ef99c3aaed6410947dc6b9bc569a` (`prompts/templates/sfia-cycle-execution-template.md`)
+
+## 8. Architecture AFTER CP02
 AUTHORITATIVE PRODUCT FACTS → Contract Result resolution → durable W3-C Recommendation → deterministic Synthesis projection → M9 → Pilot UI.
 
-Production seam: `materializeW3bProductTerminal` → `maybeMaterializeProductSynthesisAfterW3c` (soft-fail; never mutates Truth C).
+Production seam: `materializeW3bProductTerminal` → `finishWithOptionalPostEvidence` → `maybeMaterializeProductSynthesisAfterW3c` (soft-fail; never mutates Truth C).
+Diagnostic carrier: optional `synthesisMaterialization` on ok:true Product terminal (`materialized` | `failed`+`retryable:true`).
 
-## 8. Critical Review closures
+## 9. Critical Review closures
 | Finding | Status |
 | --- | --- |
-| A0 Product path | **CLOSED** |
-| A1 Pilot semantics | **CLOSED** (no NON-AUTORITATIVE badge; sections free of OA jargon) |
-| B1 Desktop/Compact | **CLOSED** |
-| B2 Mobile | **CLOSED** |
-| Lineage / currentness / CE supersession | **CLOSED** (tests L/C/P) |
+| Soft-fail observability (SF) | **CLOSED** — real SQLite INSERT abort seam; CE/W3-C durable; no Synthesis row; rehydrate retry |
+| Pilot semantic projection (PL) | **CLOSED** — subject/planned/done/recommendation Pilot FR; OA internals absent |
+| Recommendation currentness (REC) | **CLOSED** — stale CE Recommendation fallback removed; current W3-C only |
+| Evidence fail-closed (EV) | **CLOSED** — missing bound Evidence → `SYNTHESIS_LINEAGE_EVIDENCE_NOT_FOUND` |
+| B1 Desktop/Compact | **CLOSED — NO REGRESSION** |
+| B2 Mobile | **CLOSED — NO REGRESSION** |
+| PILOT TECHNICAL LANGUAGE LEAKS | **0** |
 
-## 9. Product-path visual seed
-Script: `.tmp-sfia-review/p5-s04-visual/cp01/_seed-product-path.mjs`
+## 10. Product-path visual seed
+Script: `.tmp-sfia-review/p5-s04-visual/cp02/_seed-product-path.mjs`
 Mode: campaign rehydrate FocusFlow (`prj:2eaad5df…`) via `materializeW3bProductTerminal`
-Synthesis: `syn:fc44ff99449fd3b96f4500b60a2eeda7`
-Historical direct seed retained: `.tmp-sfia-review/p5-s04-visual/_seed-synthesis.mjs` (**NOT** CP01 proof).
+Synthesis: `syn:ed340d63e583ff51bc9a0cb7a6c35219` · title `Synthèse — Résultat de l'action non prouvé`
+CP01 evidence preserved under `.tmp-sfia-review/p5-s04-visual/cp01/`.
 
-## 10. Visual
-See `.tmp-sfia-review/p5-s04-visual/cp01/manifest.md` + `correction-design-note.md` — **A=0 · B=0**.
+## 11. Visual
+See `.tmp-sfia-review/p5-s04-visual/cp02/manifest.md` + `correction-design-note.md` — **A=0 · B=0** · B1/B2 NO REGRESSION · PILOT LEAKS = 0.
 
-## 11. Anti-claims
+## 12. Anti-claims
 ≠ Truth C · ≠ P5-S04 INTEGRATED · ≠ P5 COMPLETE · ≠ R3 · ≠ P6 READY · ≠ runtime v3 ADOPTED · ≠ project commit/push/PR · ≠ OpenAI REAL
 
-## 12. Validation placeholders
+## 13. Validation
+- tsc `--noEmit`: **PASS** (exit 0)
+- lint: **PASS** (No ESLint warnings or errors)
 - build: **PASS** (`npm run build` exit 0 — Compiled + lint/types + static generation)
-- full npm test: **PASS** — Test Files **472 passed | 18 skipped (490)** · Tests **5241 passed | 138 skipped (5379)**
-- prior flake on `candidateTrajectoryCycleStart.d0.test.ts` (5s timeout under load) **re-ran PASS** (13/13); clean full re-run green
-- CP01 targeted: **34 passed** (L/C/P + D0 + UI)
+- full npm test: **PASS** — Test Files **473 passed | 18 skipped (491)** · Tests **5263 passed | 138 skipped (5401)**
+- CP02 targeted SF/PL/REC/EV: **22 passed**
+- ZERO REAL · `P5_S02_RUN_REAL` never set
 
-## 13. git status --short (project scope)
+## 14. git status --short (project scope)
 ```
  M .tmp-sfia-review/chatgpt-review.md
  M projects/sfia-studio/app/__tests__/oa/decision/m3ProductSchemaMigration.test.ts
@@ -77,7 +85,7 @@ See `.tmp-sfia-review/p5-s04-visual/cp01/manifest.md` + `correction-design-note.
  M projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
  M projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md
  M projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-?? .tmp-sfia-review/p5-s04-visual/cp01/
+?? .tmp-sfia-review/p5-s04-visual/cp02/
 ?? projects/sfia-studio/app/__tests__/oa/synthesis/
 ?? projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s04.synthesesSurface.ui.test.tsx
 ?? projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/SynthesesSurface.module.css
@@ -87,10 +95,9 @@ See `.tmp-sfia-review/p5-s04-visual/cp01/manifest.md` + `correction-design-note.
 ?? projects/sfia-studio/app/features/project-assistant/synthesisActions.ts
 ?? projects/sfia-studio/app/features/project-assistant/w2/maybeMaterializeProductSynthesisAfterW3c.ts
 ?? projects/sfia-studio/app/lib/oa/synthesis/
-
 ```
 
-## 14. git diff --stat HEAD (tracked)
+## 15. git diff --stat HEAD (tracked modified)
 ```
  .../oa/decision/m3ProductSchemaMigration.test.ts   |  2 +-
  .../oa/project/m5ProductSchemaMigration.test.ts    |  4 +-
@@ -105,655 +112,147 @@ See `.tmp-sfia-review/p5-s04-visual/cp01/manifest.md` + `correction-design-note.
  .../surfaces/ConversationSurface.tsx               | 41 ++++++++++
  .../pre-m6-product-ui/surfaces/OverviewSurface.tsx | 92 +++++++++++++++++++---
  .../surfaces/ProjectContextSummary.tsx             | 40 +++++++---
- .../w2/materializeW3bProductTerminal.ts            | 48 ++++++++---
+ .../w2/materializeW3bProductTerminal.ts            | 84 +++++++++++++++++---
  projects/sfia-studio/app/lib/oa/project/index.ts   |  3 +
  .../app/lib/oa/project/infrastructure/sqlite/db.ts | 39 ++++++++-
- .../convergence/sfia-studio-convergence-roadmap.md |  5 +-
- ...t-product-simplification-integrated-delivery.md | 48 ++++++-----
+ .../convergence/sfia-studio-convergence-roadmap.md |  6 +-
+ ...t-product-simplification-integrated-delivery.md | 53 ++++++++-----
  .../production-runtime-reference.manifest.json     |  2 +-
- 19 files changed, 388 insertions(+), 65 deletions(-)
-
+ 19 files changed, 430 insertions(+), 65 deletions(-)
 ```
 
 ---
 
 # COMPLETE CREATED-FILE CONTENTS
 
-## FILE: `projects/sfia-studio/app/lib/oa/synthesis/application/buildProductSynthesis.ts` (492 lines)
+## FILE: `projects/sfia-studio/app/lib/oa/synthesis/index.ts` (57 lines)
 
 ```ts
-import { createHash, randomBytes } from "node:crypto";
-import type { ClaimEvaluation } from "@/lib/oa/evidence-review/domain/claimEvaluationTypes";
-import { projectContractResultVerdict } from "@/lib/oa/evidence-review/application/contractResultVerdictProjection";
-import { SynthesisDomainError } from "../domain/errors";
-import { validateProductSynthesisShape } from "../domain/invariants";
-import type {
+export type {
   ProductSynthesisProjection,
+  SynthesisDetailCode,
   SynthesisSections,
   SynthesisSourceBindings,
+  SynthesisStatus,
   SynthesisVerdictLabel,
-} from "../domain/types";
+} from "./domain/types";
 
-export const SYNTHESIS_GENERATED_BY =
-  "deterministic_product_synthesis_builder_s04" as const;
+export {
+  SynthesisDomainError,
+  isSynthesisDomainError,
+} from "./domain/errors";
 
-export const ABSENT_RECOMMENDATION_TEXT =
-  "Aucune recommandation Product enregistrée." as const;
+export {
+  validateProductSynthesisShape,
+  type SynthesisInvariantViolation,
+} from "./domain/invariants";
 
-export type BuildProductSynthesisExecutionContractSummary = {
-  readonly executionContractId: string;
-  readonly action?: string;
-  readonly target?: string;
-  readonly scope?: string;
-  readonly cycleInstanceId?: string | null;
-  readonly executionContractVersion?: number;
-  readonly semanticFingerprint?: string;
-};
+export type { SynthesisRepositoryPort } from "./ports/synthesisRepositoryPort";
 
-export type BuildProductSynthesisAttemptSummary = {
-  readonly attemptId: string;
-  readonly status?: string;
-  readonly resultRef?: string | null;
-};
-
-export type BuildProductSynthesisEvidenceSummary = {
-  readonly evidenceId: string;
-  readonly status?: string;
-  readonly type?: string;
-};
-
-export type BuildProductSynthesisReviewBundleSummary = {
-  readonly reviewBundleId: string;
-  readonly status?: string;
-  readonly completeness?: string;
-  readonly frozenVersion?: number;
-};
-
-export type BuildProductSynthesisRecommendation = {
-  readonly text: string;
-  readonly ref: string;
-};
-
-export type BuildProductSynthesisInput = {
-  readonly projectId: string;
-  readonly claimEvaluation: ClaimEvaluation;
-  readonly executionContract?: BuildProductSynthesisExecutionContractSummary | null;
-  readonly attempt?: BuildProductSynthesisAttemptSummary | null;
-  readonly evidence?: readonly BuildProductSynthesisEvidenceSummary[];
-  readonly reviewBundle?: BuildProductSynthesisReviewBundleSummary | null;
-  readonly recommendation?: BuildProductSynthesisRecommendation | null;
-  readonly title?: string;
-  readonly generatedAt?: string;
-  readonly synthesisId?: string;
-  readonly supersedes?: string | null;
-  readonly version?: number;
-  readonly cycleInstanceId?: string | null;
-};
-
-function stableStringify(value: unknown): string {
-  if (value === null || typeof value !== "object") {
-    return JSON.stringify(value);
-  }
-  if (Array.isArray(value)) {
-    return `[${value.map((v) => stableStringify(v)).join(",")}]`;
-  }
-  const obj = value as Record<string, unknown>;
-  const keys = Object.keys(obj).sort();
-  return `{${keys
-    .map((k) => `${JSON.stringify(k)}:${stableStringify(obj[k])}`)
-    .join(",")}}`;
-}
-
-/**
- * Canonical source material that affects derived sections / bindings.
- * Excludes generatedAt and random synthesisId.
- */
-export function buildSynthesisSourceMaterial(input: {
-  readonly projectId: string;
-  readonly claimEvaluation: ClaimEvaluation;
-  readonly bindings: SynthesisSourceBindings;
-  readonly canonicalVerdict: ProductSynthesisProjection["canonicalVerdict"];
-  readonly executionContract?: BuildProductSynthesisExecutionContractSummary | null;
-  readonly attempt?: BuildProductSynthesisAttemptSummary | null;
-  readonly evidence: readonly BuildProductSynthesisEvidenceSummary[];
-  readonly reviewBundle?: BuildProductSynthesisReviewBundleSummary | null;
-  readonly recommendationText: string;
-  readonly recommendationRef: string | null;
-}): Record<string, unknown> {
-  const ce = input.claimEvaluation;
-  const crb = ce.contractResultBindings ?? null;
-  return {
-    projectId: input.projectId,
-    claimEvaluation: {
-      claimEvaluationId: ce.claimEvaluationId,
-      subjectKind: ce.subjectKind ?? null,
-      status: ce.status,
-      claimStatement: ce.claimStatement,
-      supersedesClaimEvaluationId: ce.supersedesClaimEvaluationId ?? null,
-      reviewBundleId: ce.reviewBundleId ?? null,
-      reviewBundleVersion: ce.reviewBundleVersion ?? null,
-      contractResultBindings: crb
-        ? {
-            projectId: crb.projectId,
-            cycleInstanceId: crb.cycleInstanceId ?? null,
-            executionContractId: crb.executionContractId,
-            executionContractVersion: crb.executionContractVersion,
-            executionContractSemanticFingerprint:
-              crb.executionContractSemanticFingerprint,
-            executionAttemptId: crb.executionAttemptId,
-            reviewBundleId: crb.reviewBundleId,
-            reviewBundleVersion: crb.reviewBundleVersion,
-            evidenceRefs: [...crb.evidenceRefs],
-          }
-        : null,
-    },
-    bindings: input.bindings,
-    canonicalVerdict: input.canonicalVerdict,
-    executionContract: input.executionContract
-      ? {
-          executionContractId: input.executionContract.executionContractId,
-          action: input.executionContract.action ?? null,
-          target: input.executionContract.target ?? null,
-          scope: input.executionContract.scope ?? null,
-          cycleInstanceId: input.executionContract.cycleInstanceId ?? null,
-          executionContractVersion:
-            input.executionContract.executionContractVersion ?? null,
-          semanticFingerprint:
-            input.executionContract.semanticFingerprint ?? null,
-        }
-      : null,
-    attempt: input.attempt
-      ? {
-          attemptId: input.attempt.attemptId,
-          status: input.attempt.status ?? null,
-          resultRef: input.attempt.resultRef ?? null,
-        }
-      : null,
-    evidence: input.evidence.map((e) => ({
-      evidenceId: e.evidenceId,
-      status: e.status ?? null,
-      type: e.type ?? null,
-    })),
-    reviewBundle: input.reviewBundle
-      ? {
-          reviewBundleId: input.reviewBundle.reviewBundleId,
-          status: input.reviewBundle.status ?? null,
-          completeness: input.reviewBundle.completeness ?? null,
-          frozenVersion: input.reviewBundle.frozenVersion ?? null,
-        }
-      : null,
-    recommendationRef: input.recommendationRef,
-    recommendationText: input.recommendationText,
-  };
-}
-
-export function computeSynthesisSourceFingerprint(input: {
-  bindings: SynthesisSourceBindings;
-  canonicalVerdict: ProductSynthesisProjection["canonicalVerdict"];
-  claimEvaluationStatus: ClaimEvaluation["status"];
-  recommendationRef: string | null;
-  /** Prefer full source material when available (CP01 semantic completeness). */
-  sourceMaterial?: Record<string, unknown>;
-}): string {
-  const material =
-    input.sourceMaterial ??
-    ({
-      bindings: input.bindings,
-      canonicalVerdict: input.canonicalVerdict,
-      claimEvaluationStatus: input.claimEvaluationStatus,
-      recommendationRef: input.recommendationRef,
-    } as Record<string, unknown>);
-  return createHash("sha256")
-    .update(stableStringify(material), "utf8")
-    .digest("hex");
-}
-
-function mapVerdictLabel(
-  canonical: ProductSynthesisProjection["canonicalVerdict"],
-): SynthesisVerdictLabel {
-  if (canonical === "PASS") return "atteint";
-  if (canonical === "FAIL") return "echec";
-  return "non_prouve";
-}
-
-function presentVerdictSentence(
-  verdictLabel: SynthesisVerdictLabel,
-): string {
-  if (verdictLabel === "atteint") {
-    return "Le résultat évalué pour ce travail est atteint.";
-  }
-  if (verdictLabel === "echec") {
-    return "Le résultat évalué pour ce travail est un échec.";
-  }
-  return "Le résultat évalué pour ce travail n'est pas prouvé.";
-}
-
-function presentAttemptDone(
-  attempt?: BuildProductSynthesisAttemptSummary | null,
-): string {
-  if (!attempt) {
-    return "Aucune réalisation Product n'est encore rattachée à cette synthèse.";
-  }
-  const status = (attempt.status ?? "").toLowerCase();
-  if (status === "succeeded" || status === "success") {
-    return "Le travail prévu a été mené à terme.";
-  }
-  if (status === "failed" || status === "failure") {
-    return "Le travail prévu s'est terminé en échec.";
-  }
-  if (status === "cancelled" || status === "canceled") {
-    return "Le travail prévu a été annulé.";
-  }
-  if (status === "stopped" || status === "governed_stop") {
-    return "Le travail prévu a été arrêté avant son terme.";
-  }
-  if (status) {
-    return `Le travail prévu s'est conclu avec l'état « ${status} ».`;
-  }
-  return "Une réalisation Product est rattachée, sans détail d'état supplémentaire.";
-}
-
-function presentPlanned(
-  executionContract?: BuildProductSynthesisExecutionContractSummary | null,
-): string {
-  if (!executionContract) {
-    return "Aucun travail prévu n'est disponible pour cette synthèse.";
-  }
-  const bits = [
-    executionContract.action
-      ? `Action prévue: ${executionContract.action}.`
-      : null,
-    executionContract.target
-      ? `Cible: ${executionContract.target}.`
-      : null,
-    executionContract.scope
-      ? `Périmètre: ${executionContract.scope}.`
-      : null,
-  ].filter(Boolean);
-  if (bits.length === 0) {
-    return "Un travail était prévu, sans détail d'action, de cible ou de périmètre.";
-  }
-  return bits.join(" ");
-}
-
-function presentVerified(
-  evidence: readonly BuildProductSynthesisEvidenceSummary[],
-): string {
-  if (evidence.length === 0) {
-    return "Aucun élément de preuve détaillé n'est disponible pour cette synthèse.";
-  }
-  const byType = new Map<string, number>();
-  let verifiedCount = 0;
-  for (const e of evidence) {
-    const type = e.type?.trim() || "élément";
-    byType.set(type, (byType.get(type) ?? 0) + 1);
-    const st = (e.status ?? "").toLowerCase();
-    if (st === "verified" || st === "accepted" || st === "complete") {
-      verifiedCount += 1;
-    }
-  }
-  const typeParts = [...byType.entries()]
-    .map(([type, n]) => (n === 1 ? type : `${n}× ${type}`))
-    .join(", ");
-  if (verifiedCount > 0) {
-    return `${evidence.length} élément${evidence.length > 1 ? "s" : ""} de preuve rattaché${evidence.length > 1 ? "s" : ""} (${typeParts}), dont ${verifiedCount} vérifié${verifiedCount > 1 ? "s" : ""}.`;
-  }
-  return `${evidence.length} élément${evidence.length > 1 ? "s" : ""} de preuve rattaché${evidence.length > 1 ? "s" : ""} (${typeParts}).`;
-}
-
-function buildSections(input: {
-  claimEvaluation: ClaimEvaluation;
-  executionContract?: BuildProductSynthesisExecutionContractSummary | null;
-  attempt?: BuildProductSynthesisAttemptSummary | null;
-  evidence: readonly BuildProductSynthesisEvidenceSummary[];
-  reviewBundle?: BuildProductSynthesisReviewBundleSummary | null;
-  recommendationText: string;
-  canonicalVerdict: ProductSynthesisProjection["canonicalVerdict"];
-  verdictLabel: SynthesisVerdictLabel;
-}): SynthesisSections {
-  const gapsParts: string[] = [];
-  if (!input.executionContract) {
-    gapsParts.push("travail prévu non rattaché");
-  }
-  if (!input.attempt) {
-    gapsParts.push("réalisation non rattachée");
-  }
-  if (input.evidence.length === 0) {
-    gapsParts.push("aucun élément de preuve détaillé");
-  }
-  if (!input.reviewBundle) {
-    gapsParts.push("dossier d'évaluation incomplet");
-  }
-  if (input.canonicalVerdict !== "PASS") {
-    gapsParts.push(
-      input.canonicalVerdict === "FAIL"
-        ? "résultat en échec"
-        : "résultat non prouvé",
-    );
-  }
-  const gaps =
-    gapsParts.length > 0
-      ? `Écarts ou réserves: ${gapsParts.join("; ")}.`
-      : "Aucun écart Product explicite pour cette synthèse.";
-
-  const evaluation =
-    input.canonicalVerdict === "PASS"
-      ? "Le résultat a été qualifié comme atteint."
-      : input.canonicalVerdict === "FAIL"
-        ? "Le résultat a été qualifié comme un échec."
-        : "Le résultat n'a pas pu être prouvé.";
-
-  return {
-    summary: presentVerdictSentence(input.verdictLabel),
-    planned: presentPlanned(input.executionContract),
-    done: presentAttemptDone(input.attempt),
-    evaluation,
-    gaps,
-    impact:
-      input.canonicalVerdict === "PASS"
-        ? "Impact sur le projet: le résultat atteint peut servir de base pour la suite, sans créer d'autorité supplémentaire."
-        : input.canonicalVerdict === "FAIL"
-          ? "Impact sur le projet: l'échec doit être traité avant de poursuivre sur la même lignée."
-          : "Impact sur le projet: le résultat non prouvé laisse la continuité ou la récupération à décider hors synthèse.",
-    verdict: presentVerdictSentence(input.verdictLabel),
-    recommendation: input.recommendationText,
-    verified: presentVerified(input.evidence),
-  };
-}
-
-export function buildProductSynthesis(
-  input: BuildProductSynthesisInput,
-): ProductSynthesisProjection {
-  if (!input.claimEvaluation) {
-    throw new SynthesisDomainError(
-      "SYNTHESIS_LINEAGE_REQUIRES_CLAIM_EVALUATION",
-    );
-  }
-  if (!input.projectId || typeof input.projectId !== "string") {
-    throw new SynthesisDomainError("SYNTHESIS_INVALID", "project_id_required");
-  }
-
-  const ce = input.claimEvaluation;
-  const evidence = input.evidence ?? [];
-  const recommendationRef = input.recommendation?.ref ?? null;
-  const recommendationText =
-    input.recommendation?.text && input.recommendation.text.trim().length > 0
-      ? input.recommendation.text
-      : ABSENT_RECOMMENDATION_TEXT;
-
-  const cycleInstanceId =
-    input.cycleInstanceId ??
-    input.executionContract?.cycleInstanceId ??
-    ce.contractResultBindings?.cycleInstanceId ??
-    null;
-
-  const bindings: SynthesisSourceBindings = {
-    projectId: input.projectId,
-    cycleInstanceId,
-    executionContractId:
-      input.executionContract?.executionContractId ??
-      ce.contractResultBindings?.executionContractId ??
-      null,
-    attemptId:
-      input.attempt?.attemptId ??
-      ce.contractResultBindings?.executionAttemptId ??
-      null,
-    evidenceIds: evidence.map((e) => e.evidenceId),
-    reviewBundleId:
-      input.reviewBundle?.reviewBundleId ?? ce.reviewBundleId ?? null,
-    claimEvaluationId: ce.claimEvaluationId,
-    recommendationRef,
-  };
-
-  const canonicalVerdict = projectContractResultVerdict(ce.status);
-  const verdictLabel = mapVerdictLabel(canonicalVerdict);
-  const sourceMaterial = buildSynthesisSourceMaterial({
-    projectId: input.projectId,
-    claimEvaluation: ce,
-    bindings,
-    canonicalVerdict,
-    executionContract: input.executionContract,
-    attempt: input.attempt,
-    evidence,
-    reviewBundle: input.reviewBundle,
-    recommendationText,
-    recommendationRef,
-  });
-  const sourceFingerprint = computeSynthesisSourceFingerprint({
-    bindings,
-    canonicalVerdict,
-    claimEvaluationStatus: ce.status,
-    recommendationRef,
-    sourceMaterial,
-  });
-
-  const generatedAt = input.generatedAt ?? new Date().toISOString();
-  // Identity is fingerprint-keyed for idempotence; IDs are unique per materialization.
-  const synthesisId =
-    input.synthesisId ?? `syn:${randomBytes(16).toString("hex")}`;
-
-  const sections = buildSections({
-    claimEvaluation: ce,
-    executionContract: input.executionContract,
-    attempt: input.attempt,
-    evidence,
-    reviewBundle: input.reviewBundle,
-    recommendationText,
-    canonicalVerdict,
-    verdictLabel,
-  });
-
-  const defaultTitle =
-    verdictLabel === "atteint"
-      ? "Synthèse — résultat atteint"
-      : verdictLabel === "echec"
-        ? "Synthèse — résultat en échec"
-        : "Synthèse — résultat non prouvé";
-
-  const synthesis: ProductSynthesisProjection = {
-    synthesisId,
-    projectId: input.projectId,
-    cycleInstanceId,
-    title: input.title?.trim() || defaultTitle,
-    subject: ce.claimStatement,
-    status: "current",
-    verdictLabel,
-    canonicalVerdict,
-    sections,
-    sourceBindings: bindings,
-    sourceFingerprint,
-    generatedAt,
-    generatedBy: SYNTHESIS_GENERATED_BY,
-    authority: "none",
-    supersedes: input.supersedes ?? null,
-    version: input.version ?? 1,
-  };
-
-  const violation = validateProductSynthesisShape(synthesis);
-  if (violation) {
-    throw new SynthesisDomainError(violation.detailCode, violation.reason);
-  }
-  return synthesis;
-}
-
-export function buildSynthesisSearchText(
-  synthesis: ProductSynthesisProjection,
-): string {
-  const s = synthesis.sections;
-  return [
-    synthesis.title,
-    synthesis.subject,
-    synthesis.verdictLabel,
-    s.summary,
-    s.planned,
-    s.done,
-    s.evaluation,
-    s.gaps,
-    s.impact,
-    s.verdict,
-    s.recommendation,
-    s.verified,
-  ]
-    .join("\n")
-    .toLowerCase();
-}
-
-export function formatW3cRecommendationForSynthesis(input: {
-  readonly headline: string;
-  readonly nextStep: string;
-  readonly rationale?: string | null;
-}): string {
-  const parts: string[] = [];
-  if (input.headline.trim()) parts.push(input.headline.trim());
-  if (input.nextStep.trim()) {
-    parts.push(`Prochaine étape: ${input.nextStep.trim()}`);
-  }
-  const rationale = input.rationale?.trim();
-  if (rationale) {
-    parts.push(rationale.length > 400 ? `${rationale.slice(0, 400)}…` : rationale);
-  }
-  return parts.length > 0 ? parts.join(" ") : ABSENT_RECOMMENDATION_TEXT;
-}
-```
-
-## FILE: `projects/sfia-studio/app/lib/oa/synthesis/application/materializeProductSynthesis.ts` (84 lines)
-
-```ts
-import { SynthesisDomainError } from "../domain/errors";
-import type { ProductSynthesisProjection } from "../domain/types";
-import type { SynthesisRepositoryPort } from "../ports/synthesisRepositoryPort";
-import {
+export {
+  ABSENT_RECOMMENDATION_TEXT,
+  SYNTHESIS_GENERATED_BY,
   buildProductSynthesis,
+  buildSynthesisSearchText,
+  buildSynthesisSourceMaterial,
+  computeSynthesisSourceFingerprint,
+  formatW3cRecommendationForSynthesis,
+  presentProductOutcomeSubject,
+  projectPilotRecommendationFromW3c,
+  type BuildProductSynthesisAttemptSummary,
+  type BuildProductSynthesisEvidenceSummary,
+  type BuildProductSynthesisExecutionContractSummary,
   type BuildProductSynthesisInput,
-} from "./buildProductSynthesis";
-
-export type MaterializeProductSynthesisInput = BuildProductSynthesisInput;
-
-async function writeSuccessor(
-  repository: SynthesisRepositoryPort,
-  input: MaterializeProductSynthesisInput,
-  prior: ProductSynthesisProjection,
-  candidate: ProductSynthesisProjection,
-): Promise<ProductSynthesisProjection> {
-  await repository.softSupersede(prior.synthesisId);
-  const successor = buildProductSynthesis({
-    ...input,
-    supersedes: prior.synthesisId,
-    version: prior.version + 1,
-    generatedAt: candidate.generatedAt,
-    synthesisId: candidate.synthesisId,
-  });
-  await repository.create(successor);
-  return successor;
-}
-
-export async function materializeProductSynthesis(
-  repository: SynthesisRepositoryPort,
-  input: MaterializeProductSynthesisInput,
-): Promise<ProductSynthesisProjection> {
-  if (!input.claimEvaluation) {
-    throw new SynthesisDomainError(
-      "SYNTHESIS_LINEAGE_REQUIRES_CLAIM_EVALUATION",
-    );
-  }
-
-  const candidate = buildProductSynthesis(input);
-
-  const byFingerprint = await repository.findByFingerprint(
-    candidate.projectId,
-    candidate.sourceFingerprint,
-  );
-  if (byFingerprint && byFingerprint.status === "current") {
-    return byFingerprint;
-  }
-
-  const priorCurrent = await repository.findCurrentByClaimEvaluationId(
-    candidate.projectId,
-    candidate.sourceBindings.claimEvaluationId,
-  );
-
-  if (
-    priorCurrent &&
-    priorCurrent.sourceFingerprint !== candidate.sourceFingerprint
-  ) {
-    return writeSuccessor(repository, input, priorCurrent, candidate);
-  }
-
-  // CE-B supersedesClaimEvaluationId = CE-A → Synthesis-B supersedes Synthesis-A
-  const supersededCeId = input.claimEvaluation.supersedesClaimEvaluationId;
-  if (supersededCeId) {
-    const priorFromSupersededCe =
-      await repository.findCurrentByClaimEvaluationId(
-        candidate.projectId,
-        supersededCeId,
-      );
-    if (
-      priorFromSupersededCe &&
-      priorFromSupersededCe.sourceFingerprint !== candidate.sourceFingerprint
-    ) {
-      return writeSuccessor(
-        repository,
-        input,
-        priorFromSupersededCe,
-        candidate,
-      );
-    }
-  }
-
-  await repository.create(candidate);
-  return candidate;
-}
-```
-
-## FILE: `projects/sfia-studio/app/lib/oa/synthesis/application/rebuildProductSynthesis.ts` (28 lines)
-
-```ts
-import type { ProductSynthesisProjection } from "../domain/types";
-import type { SynthesisRepositoryPort } from "../ports/synthesisRepositoryPort";
-import {
+  type BuildProductSynthesisRecommendation,
+  type BuildProductSynthesisReviewBundleSummary,
+} from "./application/buildProductSynthesis";
+export {
   materializeProductSynthesis,
   type MaterializeProductSynthesisInput,
-} from "./materializeProductSynthesis";
+} from "./application/materializeProductSynthesis";
 
-export type RebuildProductSynthesisLineage = MaterializeProductSynthesisInput;
+export { searchProductSyntheses } from "./application/searchProductSyntheses";
 
-/**
- * Test/rebuild helper: deletes all derived syntheses for a project, then
- * rematerializes from provided lineage. Never deletes Truth C objects.
- */
-export async function rebuildProductSynthesis(
-  repository: SynthesisRepositoryPort,
-  projectId: string,
-  lineage: readonly RebuildProductSynthesisLineage[],
-): Promise<ProductSynthesisProjection[]> {
-  await repository.deleteAllByProject(projectId);
-  const out: ProductSynthesisProjection[] = [];
-  for (const item of lineage) {
-    if (item.projectId !== projectId) {
-      continue;
-    }
-    out.push(await materializeProductSynthesis(repository, item));
-  }
-  return out;
-}
+export {
+  rebuildProductSynthesis,
+  type RebuildProductSynthesisLineage,
+} from "./application/rebuildProductSynthesis";
+
+export { SqliteSynthesisRepository } from "./infrastructure/sqlite/sqliteSynthesisRepository";
+
+export {
+  createSqliteSynthesisServices,
+  type CreateSqliteSynthesisServicesOptions,
+  type SqliteSynthesisServices,
+} from "./infrastructure/sqlite/createSqliteSynthesisServices";
 ```
 
-## FILE: `projects/sfia-studio/app/lib/oa/synthesis/application/searchProductSyntheses.ts` (10 lines)
+## FILE: `projects/sfia-studio/app/lib/oa/synthesis/domain/types.ts` (60 lines)
 
 ```ts
-import type { ProductSynthesisProjection } from "../domain/types";
-import type { SynthesisRepositoryPort } from "../ports/synthesisRepositoryPort";
+export type SynthesisStatus = "current" | "superseded" | "stale_source";
+export type SynthesisVerdictLabel =
+  | "atteint"
+  | "non_prouve"
+  | "echec"
+  | "indetermine";
 
-export async function searchProductSyntheses(
-  repository: SynthesisRepositoryPort,
-  projectId: string,
-  query: string,
-): Promise<ProductSynthesisProjection[]> {
-  return repository.searchByProject(projectId, query);
-}
+export type SynthesisSourceBindings = {
+  readonly projectId: string;
+  readonly cycleInstanceId: string | null;
+  readonly executionContractId: string | null;
+  readonly attemptId: string | null;
+  readonly evidenceIds: readonly string[];
+  readonly reviewBundleId: string | null;
+  readonly claimEvaluationId: string;
+  readonly recommendationRef: string | null;
+};
+
+export type SynthesisSections = {
+  readonly summary: string;
+  readonly planned: string;
+  readonly done: string;
+  readonly evaluation: string;
+  readonly gaps: string;
+  readonly impact: string;
+  readonly verdict: string;
+  readonly recommendation: string;
+  readonly verified: string;
+};
+
+export type ProductSynthesisProjection = {
+  readonly synthesisId: string;
+  readonly projectId: string;
+  readonly cycleInstanceId: string | null;
+  readonly title: string;
+  readonly subject: string;
+  readonly status: SynthesisStatus;
+  readonly verdictLabel: SynthesisVerdictLabel;
+  readonly canonicalVerdict: "PASS" | "NOT_PROVEN" | "FAIL";
+  readonly sections: SynthesisSections;
+  readonly sourceBindings: SynthesisSourceBindings;
+  readonly sourceFingerprint: string;
+  readonly generatedAt: string;
+  readonly generatedBy: "deterministic_product_synthesis_builder_s04";
+  readonly authority: "none"; // never Truth C
+  readonly supersedes: string | null;
+  readonly version: number;
+};
+
+export type SynthesisDetailCode =
+  | "SYNTHESIS_INVALID"
+  | "SYNTHESIS_NOT_FOUND"
+  | "SYNTHESIS_ALREADY_EXISTS"
+  | "SYNTHESIS_LINEAGE_REQUIRES_CLAIM_EVALUATION"
+  | "SYNTHESIS_LINEAGE_REQUIRES_CONTRACT_RESULT_SUBJECT"
+  | "SYNTHESIS_LINEAGE_REQUIRES_CONTRACT_RESULT_BINDINGS"
+  | "SYNTHESIS_LINEAGE_BINDINGS_MISMATCH"
+  | "SYNTHESIS_LINEAGE_EVIDENCE_NOT_FOUND"
+  | "SYNTHESIS_AUTHORITY_FORBIDDEN"
+  | "SYNTHESIS_PERSISTENCE_FAILED";
 ```
 
-## FILE: `projects/sfia-studio/app/lib/oa/synthesis/domain/errors.ts` (34 lines)
+## FILE: `projects/sfia-studio/app/lib/oa/synthesis/domain/errors.ts` (36 lines)
 
 ```ts
 import type { SynthesisDetailCode } from "./types";
@@ -770,6 +269,8 @@ const SAFE_MESSAGES: Record<SynthesisDetailCode, string> = {
     "Product synthesis lineage requires Contract Result bindings.",
   SYNTHESIS_LINEAGE_BINDINGS_MISMATCH:
     "Product synthesis lineage bindings do not match current Product facts.",
+  SYNTHESIS_LINEAGE_EVIDENCE_NOT_FOUND:
+    "Product synthesis lineage requires every bound Evidence row to exist.",
   SYNTHESIS_AUTHORITY_FORBIDDEN:
     "Product synthesis authority cannot be mutated or elevated.",
   SYNTHESIS_PERSISTENCE_FAILED: "Product synthesis persistence failed.",
@@ -971,178 +472,828 @@ export function validateProductSynthesisShape(
 }
 ```
 
-## FILE: `projects/sfia-studio/app/lib/oa/synthesis/domain/types.ts` (59 lines)
+## FILE: `projects/sfia-studio/app/lib/oa/synthesis/ports/synthesisRepositoryPort.ts` (23 lines)
 
 ```ts
-export type SynthesisStatus = "current" | "superseded" | "stale_source";
-export type SynthesisVerdictLabel =
-  | "atteint"
-  | "non_prouve"
-  | "echec"
-  | "indetermine";
+import type { ProductSynthesisProjection } from "../domain/types";
 
-export type SynthesisSourceBindings = {
-  readonly projectId: string;
-  readonly cycleInstanceId: string | null;
-  readonly executionContractId: string | null;
-  readonly attemptId: string | null;
-  readonly evidenceIds: readonly string[];
-  readonly reviewBundleId: string | null;
-  readonly claimEvaluationId: string;
-  readonly recommendationRef: string | null;
+export type SynthesisRepositoryPort = {
+  create(synthesis: ProductSynthesisProjection): Promise<void>;
+  update(synthesis: ProductSynthesisProjection): Promise<void>;
+  findById(synthesisId: string): Promise<ProductSynthesisProjection | null>;
+  findByFingerprint(
+    projectId: string,
+    fingerprint: string,
+  ): Promise<ProductSynthesisProjection | null>;
+  findCurrentByClaimEvaluationId(
+    projectId: string,
+    claimEvaluationId: string,
+  ): Promise<ProductSynthesisProjection | null>;
+  listByProject(projectId: string): Promise<ProductSynthesisProjection[]>;
+  searchByProject(
+    projectId: string,
+    query: string,
+  ): Promise<ProductSynthesisProjection[]>;
+  /** Test/rebuild only — deletes derived projections; never touches Truth C. */
+  deleteAllByProject(projectId: string): Promise<void>;
+  softSupersede(synthesisId: string): Promise<ProductSynthesisProjection>;
 };
-
-export type SynthesisSections = {
-  readonly summary: string;
-  readonly planned: string;
-  readonly done: string;
-  readonly evaluation: string;
-  readonly gaps: string;
-  readonly impact: string;
-  readonly verdict: string;
-  readonly recommendation: string;
-  readonly verified: string;
-};
-
-export type ProductSynthesisProjection = {
-  readonly synthesisId: string;
-  readonly projectId: string;
-  readonly cycleInstanceId: string | null;
-  readonly title: string;
-  readonly subject: string;
-  readonly status: SynthesisStatus;
-  readonly verdictLabel: SynthesisVerdictLabel;
-  readonly canonicalVerdict: "PASS" | "NOT_PROVEN" | "FAIL";
-  readonly sections: SynthesisSections;
-  readonly sourceBindings: SynthesisSourceBindings;
-  readonly sourceFingerprint: string;
-  readonly generatedAt: string;
-  readonly generatedBy: "deterministic_product_synthesis_builder_s04";
-  readonly authority: "none"; // never Truth C
-  readonly supersedes: string | null;
-  readonly version: number;
-};
-
-export type SynthesisDetailCode =
-  | "SYNTHESIS_INVALID"
-  | "SYNTHESIS_NOT_FOUND"
-  | "SYNTHESIS_ALREADY_EXISTS"
-  | "SYNTHESIS_LINEAGE_REQUIRES_CLAIM_EVALUATION"
-  | "SYNTHESIS_LINEAGE_REQUIRES_CONTRACT_RESULT_SUBJECT"
-  | "SYNTHESIS_LINEAGE_REQUIRES_CONTRACT_RESULT_BINDINGS"
-  | "SYNTHESIS_LINEAGE_BINDINGS_MISMATCH"
-  | "SYNTHESIS_AUTHORITY_FORBIDDEN"
-  | "SYNTHESIS_PERSISTENCE_FAILED";
 ```
 
-## FILE: `projects/sfia-studio/app/lib/oa/synthesis/index.ts` (55 lines)
+## FILE: `projects/sfia-studio/app/lib/oa/synthesis/application/buildProductSynthesis.ts` (655 lines)
 
 ```ts
-export type {
+import { createHash, randomBytes } from "node:crypto";
+import type { ClaimEvaluation } from "@/lib/oa/evidence-review/domain/claimEvaluationTypes";
+import { projectContractResultVerdict } from "@/lib/oa/evidence-review/application/contractResultVerdictProjection";
+import { SynthesisDomainError } from "../domain/errors";
+import { validateProductSynthesisShape } from "../domain/invariants";
+import type {
   ProductSynthesisProjection,
-  SynthesisDetailCode,
   SynthesisSections,
   SynthesisSourceBindings,
-  SynthesisStatus,
   SynthesisVerdictLabel,
-} from "./domain/types";
+} from "../domain/types";
 
-export {
-  SynthesisDomainError,
-  isSynthesisDomainError,
-} from "./domain/errors";
+export const SYNTHESIS_GENERATED_BY =
+  "deterministic_product_synthesis_builder_s04" as const;
 
-export {
-  validateProductSynthesisShape,
-  type SynthesisInvariantViolation,
-} from "./domain/invariants";
+export const ABSENT_RECOMMENDATION_TEXT =
+  "Aucune recommandation Product courante n'est disponible pour cette synthèse." as const;
 
-export type { SynthesisRepositoryPort } from "./ports/synthesisRepositoryPort";
+export type BuildProductSynthesisExecutionContractSummary = {
+  readonly executionContractId: string;
+  readonly action?: string;
+  readonly target?: string;
+  readonly scope?: string;
+  /** Human-readable planned fields when present on bound semantic material. */
+  readonly title?: string;
+  readonly objective?: string;
+  readonly description?: string;
+  readonly cycleInstanceId?: string | null;
+  readonly executionContractVersion?: number;
+  readonly semanticFingerprint?: string;
+};
 
-export {
-  ABSENT_RECOMMENDATION_TEXT,
-  SYNTHESIS_GENERATED_BY,
-  buildProductSynthesis,
-  buildSynthesisSearchText,
-  buildSynthesisSourceMaterial,
-  computeSynthesisSourceFingerprint,
-  formatW3cRecommendationForSynthesis,
-  type BuildProductSynthesisAttemptSummary,
-  type BuildProductSynthesisEvidenceSummary,
-  type BuildProductSynthesisExecutionContractSummary,
-  type BuildProductSynthesisInput,
-  type BuildProductSynthesisRecommendation,
-  type BuildProductSynthesisReviewBundleSummary,
-} from "./application/buildProductSynthesis";
-export {
-  materializeProductSynthesis,
-  type MaterializeProductSynthesisInput,
-} from "./application/materializeProductSynthesis";
+export type BuildProductSynthesisAttemptSummary = {
+  readonly attemptId: string;
+  readonly status?: string;
+  readonly resultRef?: string | null;
+};
 
-export { searchProductSyntheses } from "./application/searchProductSyntheses";
+export type BuildProductSynthesisEvidenceSummary = {
+  readonly evidenceId: string;
+  readonly status?: string;
+  readonly type?: string;
+};
 
-export {
-  rebuildProductSynthesis,
-  type RebuildProductSynthesisLineage,
-} from "./application/rebuildProductSynthesis";
+export type BuildProductSynthesisReviewBundleSummary = {
+  readonly reviewBundleId: string;
+  readonly status?: string;
+  readonly completeness?: string;
+  readonly frozenVersion?: number;
+};
 
-export { SqliteSynthesisRepository } from "./infrastructure/sqlite/sqliteSynthesisRepository";
+/**
+ * Recommendation for Synthesis — prefer structured W3-C fields for Pilot
+ * adaptation. Optional `text` is an already Pilot-adapted string (tests / callers).
+ * Never invent recommendation content when absent.
+ */
+export type BuildProductSynthesisRecommendation = {
+  readonly ref: string;
+  readonly text?: string | null;
+  readonly kind?: string | null;
+  readonly headline?: string | null;
+  readonly nextStep?: string | null;
+  readonly nextActionCode?: string | null;
+};
 
-export {
-  createSqliteSynthesisServices,
-  type CreateSqliteSynthesisServicesOptions,
-  type SqliteSynthesisServices,
-} from "./infrastructure/sqlite/createSqliteSynthesisServices";
+export type BuildProductSynthesisInput = {
+  readonly projectId: string;
+  readonly claimEvaluation: ClaimEvaluation;
+  readonly executionContract?: BuildProductSynthesisExecutionContractSummary | null;
+  readonly attempt?: BuildProductSynthesisAttemptSummary | null;
+  readonly evidence?: readonly BuildProductSynthesisEvidenceSummary[];
+  readonly reviewBundle?: BuildProductSynthesisReviewBundleSummary | null;
+  readonly recommendation?: BuildProductSynthesisRecommendation | null;
+  readonly title?: string;
+  readonly generatedAt?: string;
+  readonly synthesisId?: string;
+  readonly supersedes?: string | null;
+  readonly version?: number;
+  readonly cycleInstanceId?: string | null;
+};
+
+function stableStringify(value: unknown): string {
+  if (value === null || typeof value !== "object") {
+    return JSON.stringify(value);
+  }
+  if (Array.isArray(value)) {
+    return `[${value.map((v) => stableStringify(v)).join(",")}]`;
+  }
+  const obj = value as Record<string, unknown>;
+  const keys = Object.keys(obj).sort();
+  return `{${keys
+    .map((k) => `${JSON.stringify(k)}:${stableStringify(obj[k])}`)
+    .join(",")}}`;
+}
+
+/**
+ * Canonical source material that affects derived sections / bindings.
+ * Excludes generatedAt and random synthesisId.
+ */
+export function buildSynthesisSourceMaterial(input: {
+  readonly projectId: string;
+  readonly claimEvaluation: ClaimEvaluation;
+  readonly bindings: SynthesisSourceBindings;
+  readonly canonicalVerdict: ProductSynthesisProjection["canonicalVerdict"];
+  readonly executionContract?: BuildProductSynthesisExecutionContractSummary | null;
+  readonly attempt?: BuildProductSynthesisAttemptSummary | null;
+  readonly evidence: readonly BuildProductSynthesisEvidenceSummary[];
+  readonly reviewBundle?: BuildProductSynthesisReviewBundleSummary | null;
+  readonly recommendationText: string;
+  readonly recommendationRef: string | null;
+}): Record<string, unknown> {
+  const ce = input.claimEvaluation;
+  const crb = ce.contractResultBindings ?? null;
+  return {
+    projectId: input.projectId,
+    claimEvaluation: {
+      claimEvaluationId: ce.claimEvaluationId,
+      subjectKind: ce.subjectKind ?? null,
+      status: ce.status,
+      claimStatement: ce.claimStatement,
+      supersedesClaimEvaluationId: ce.supersedesClaimEvaluationId ?? null,
+      reviewBundleId: ce.reviewBundleId ?? null,
+      reviewBundleVersion: ce.reviewBundleVersion ?? null,
+      contractResultBindings: crb
+        ? {
+            projectId: crb.projectId,
+            cycleInstanceId: crb.cycleInstanceId ?? null,
+            executionContractId: crb.executionContractId,
+            executionContractVersion: crb.executionContractVersion,
+            executionContractSemanticFingerprint:
+              crb.executionContractSemanticFingerprint,
+            executionAttemptId: crb.executionAttemptId,
+            reviewBundleId: crb.reviewBundleId,
+            reviewBundleVersion: crb.reviewBundleVersion,
+            evidenceRefs: [...crb.evidenceRefs],
+          }
+        : null,
+    },
+    bindings: input.bindings,
+    canonicalVerdict: input.canonicalVerdict,
+    executionContract: input.executionContract
+      ? {
+          executionContractId: input.executionContract.executionContractId,
+          action: input.executionContract.action ?? null,
+          target: input.executionContract.target ?? null,
+          scope: input.executionContract.scope ?? null,
+          title: input.executionContract.title ?? null,
+          objective: input.executionContract.objective ?? null,
+          description: input.executionContract.description ?? null,
+          cycleInstanceId: input.executionContract.cycleInstanceId ?? null,
+          executionContractVersion:
+            input.executionContract.executionContractVersion ?? null,
+          semanticFingerprint:
+            input.executionContract.semanticFingerprint ?? null,
+        }
+      : null,
+    attempt: input.attempt
+      ? {
+          attemptId: input.attempt.attemptId,
+          status: input.attempt.status ?? null,
+          resultRef: input.attempt.resultRef ?? null,
+        }
+      : null,
+    evidence: input.evidence.map((e) => ({
+      evidenceId: e.evidenceId,
+      status: e.status ?? null,
+      type: e.type ?? null,
+    })),
+    reviewBundle: input.reviewBundle
+      ? {
+          reviewBundleId: input.reviewBundle.reviewBundleId,
+          status: input.reviewBundle.status ?? null,
+          completeness: input.reviewBundle.completeness ?? null,
+          frozenVersion: input.reviewBundle.frozenVersion ?? null,
+        }
+      : null,
+    recommendationRef: input.recommendationRef,
+    recommendationText: input.recommendationText,
+  };
+}
+
+export function computeSynthesisSourceFingerprint(input: {
+  bindings: SynthesisSourceBindings;
+  canonicalVerdict: ProductSynthesisProjection["canonicalVerdict"];
+  claimEvaluationStatus: ClaimEvaluation["status"];
+  recommendationRef: string | null;
+  /** Prefer full source material when available (CP01 semantic completeness). */
+  sourceMaterial?: Record<string, unknown>;
+}): string {
+  const material =
+    input.sourceMaterial ??
+    ({
+      bindings: input.bindings,
+      canonicalVerdict: input.canonicalVerdict,
+      claimEvaluationStatus: input.claimEvaluationStatus,
+      recommendationRef: input.recommendationRef,
+    } as Record<string, unknown>);
+  return createHash("sha256")
+    .update(stableStringify(material), "utf8")
+    .digest("hex");
+}
+
+function mapVerdictLabel(
+  canonical: ProductSynthesisProjection["canonicalVerdict"],
+): SynthesisVerdictLabel {
+  if (canonical === "PASS") return "atteint";
+  if (canonical === "FAIL") return "echec";
+  return "non_prouve";
+}
+
+/** Pilot subject/title from Product outcome — never raw claimStatement / EC ids. */
+export function presentProductOutcomeSubject(
+  canonical: ProductSynthesisProjection["canonicalVerdict"],
+): string {
+  if (canonical === "PASS") return "Résultat de l'action atteint";
+  if (canonical === "FAIL") return "Résultat de l'action en échec";
+  return "Résultat de l'action non prouvé";
+}
+
+function presentVerdictSentence(
+  verdictLabel: SynthesisVerdictLabel,
+): string {
+  if (verdictLabel === "atteint") {
+    return "Le résultat évalué pour ce travail est atteint.";
+  }
+  if (verdictLabel === "echec") {
+    return "Le résultat évalué pour ce travail est un échec.";
+  }
+  return "Le résultat évalué pour ce travail n'est pas prouvé.";
+}
+
+/**
+ * Pilot language for done — Attempt terminal ≠ Product proof.
+ */
+function presentAttemptDone(
+  attempt: BuildProductSynthesisAttemptSummary | null | undefined,
+  canonicalVerdict: ProductSynthesisProjection["canonicalVerdict"],
+): string {
+  if (!attempt) {
+    return "Aucune réalisation Product n'est encore rattachée à cette synthèse.";
+  }
+  const status = (attempt.status ?? "").toLowerCase();
+  const technicalOk = status === "succeeded" || status === "success";
+  const technicalFail = status === "failed" || status === "failure";
+  const cancelled = status === "cancelled" || status === "canceled";
+  const stopped = status === "stopped" || status === "governed_stop";
+  const timedOut = status === "timeout" || status === "timed_out";
+
+  if (technicalOk) {
+    if (canonicalVerdict === "PASS") {
+      return "La réalisation prévue s'est terminée ; le résultat Product est atteint.";
+    }
+    if (canonicalVerdict === "FAIL") {
+      return "La réalisation technique s'est terminée, mais le résultat Product est en échec.";
+    }
+    return "La réalisation technique s'est terminée, sans preuve Product suffisante pour conclure.";
+  }
+  if (technicalFail) {
+    return "La réalisation prévue s'est terminée en échec technique.";
+  }
+  if (cancelled) {
+    return "La réalisation prévue a été annulée.";
+  }
+  if (stopped) {
+    return "La réalisation prévue a été arrêtée avant son terme.";
+  }
+  if (timedOut) {
+    return "La réalisation prévue a dépassé le délai imparti.";
+  }
+  if (status) {
+    return "Une réalisation Product est rattachée, sans détail d'état exploitable pour le Pilote.";
+  }
+  return "Une réalisation Product est rattachée, sans détail d'état supplémentaire.";
+}
+
+/**
+ * Planned work — never surface raw action/target/scope machine codes
+ * (cursor.docs_write.apply, workspace.isolated.*, studio.gcec.*, …).
+ * Prefer human-readable title/objective/description when present.
+ */
+function presentPlanned(
+  executionContract?: BuildProductSynthesisExecutionContractSummary | null,
+): string {
+  if (!executionContract) {
+    return "Aucun travail prévu n'est disponible pour cette synthèse.";
+  }
+  const readable =
+    executionContract.title?.trim() ||
+    executionContract.objective?.trim() ||
+    executionContract.description?.trim() ||
+    "";
+  if (readable.length > 0) {
+    return `Travail prévu : ${readable}.`;
+  }
+  return "Un travail Product était prévu pour cette synthèse.";
+}
+
+function presentVerified(
+  evidence: readonly BuildProductSynthesisEvidenceSummary[],
+): string {
+  if (evidence.length === 0) {
+    return "Aucun élément de preuve détaillé n'est disponible pour cette synthèse.";
+  }
+  const byType = new Map<string, number>();
+  let verifiedCount = 0;
+  for (const e of evidence) {
+    const type = e.type?.trim() || "élément";
+    byType.set(type, (byType.get(type) ?? 0) + 1);
+    const st = (e.status ?? "").toLowerCase();
+    if (st === "verified" || st === "accepted" || st === "complete") {
+      verifiedCount += 1;
+    }
+  }
+  const typeParts = [...byType.entries()]
+    .map(([type, n]) => (n === 1 ? type : `${n}× ${type}`))
+    .join(", ");
+  if (verifiedCount > 0) {
+    return `${evidence.length} élément${evidence.length > 1 ? "s" : ""} de preuve rattaché${evidence.length > 1 ? "s" : ""} (${typeParts}), dont ${verifiedCount} vérifié${verifiedCount > 1 ? "s" : ""}.`;
+  }
+  return `${evidence.length} élément${evidence.length > 1 ? "s" : ""} de preuve rattaché${evidence.length > 1 ? "s" : ""} (${typeParts}).`;
+}
+
+/**
+ * Map D5 NextActionCode → French Pilot next-step (mirrors classifyW3cD5NextAction
+ * classes). solicit_morris_* → arbitrage/validation without naming Morris.
+ */
+function pilotNextStepFromActionCode(code: string | null | undefined): string | null {
+  if (!code) return null;
+  switch (code) {
+    case "complete_evidence":
+      return "Compléter les éléments de preuve pour poursuivre.";
+    case "verify_evidence_integrity":
+      return "Vérifier l'intégrité des éléments de preuve.";
+    case "freeze_review_bundle":
+      return "Finaliser le dossier d'évaluation.";
+    case "complete_review":
+      return "Compléter l'évaluation en cours.";
+    case "evaluate_claim":
+      return "Qualifier le résultat Product.";
+    case "confirm_claim_evaluation":
+      return "Confirmer le résultat Product évalué.";
+    case "resolve_dispute":
+      return "Trancher le désaccord en cours.";
+    case "propose_maturity":
+      return "Proposer un niveau de maturité.";
+    case "confirm_maturity":
+      return "Confirmer le niveau de maturité.";
+    case "downgrade_maturity":
+      return "Revoir le niveau de maturité à la baisse.";
+    case "solicit_morris_arbitration":
+      return "Un arbitrage humain est recommandé avant de poursuivre.";
+    case "solicit_morris_go":
+      return "Une validation pour le prochain cycle est recommandée.";
+    default:
+      return null;
+  }
+}
+
+function pilotSentenceFromKind(kind: string | null | undefined): string | null {
+  if (!kind) return null;
+  switch (kind) {
+    case "continue":
+      return "Continuer selon la recommandation Product.";
+    case "recover":
+      return "Reprendre par une récupération Product.";
+    case "replan":
+      return "Revoir la suite du travail avant de poursuivre.";
+    case "fail_closed":
+      return "S'arrêter de façon prudente : aucune suite automatique.";
+    default:
+      return null;
+  }
+}
+
+function pilotHeadlineFromStructured(input: {
+  readonly kind?: string | null;
+  readonly nextActionCode?: string | null;
+  readonly headline?: string | null;
+}): string | null {
+  const code = input.nextActionCode ?? null;
+  if (code === "solicit_morris_arbitration") {
+    return "Arbitrage de coordination recommandé";
+  }
+  if (code === "solicit_morris_go") {
+    return "Validation pour le prochain cycle recommandée";
+  }
+  if (
+    code === "confirm_claim_evaluation" ||
+    code === "confirm_maturity"
+  ) {
+    return "Confirmation humaine recommandée";
+  }
+  if (input.kind === "recover") {
+    return "Récupération Product recommandée";
+  }
+  if (input.kind === "continue") {
+    return "Poursuite recommandée";
+  }
+  if (input.kind === "fail_closed") {
+    return "Arrêt prudent recommandé";
+  }
+  if (input.kind === "replan") {
+    return "Reprise de planification recommandée";
+  }
+  // Only reuse a headline when it is already Pilot-safe (no OA jargon tokens).
+  const raw = input.headline?.trim() ?? "";
+  if (
+    raw &&
+    !/\b(Morris|D5|HumanDecision|ProjectTrajectory|W2|ClaimEvaluation|ReviewBundle|ContractResult|NOT_PROVEN|expectedOutputs)\b/i.test(
+      raw,
+    )
+  ) {
+    return raw;
+  }
+  return null;
+}
+
+/**
+ * Pilot adapter — structured W3-C fields → French Pilot recommendation text.
+ * Never joins raw rationale (D5 / HumanDecision / ProjectTrajectory / W2).
+ */
+export function projectPilotRecommendationFromW3c(input: {
+  readonly kind?: string | null;
+  readonly headline?: string | null;
+  readonly nextStep?: string | null;
+  readonly nextActionCode?: string | null;
+}): string {
+  const headline = pilotHeadlineFromStructured(input);
+  const next =
+    pilotNextStepFromActionCode(input.nextActionCode) ??
+    pilotSentenceFromKind(input.kind);
+  const parts: string[] = [];
+  if (headline) parts.push(headline);
+  if (next) parts.push(next);
+  // Do not append raw nextStep machine tokens (complete_evidence, etc.).
+  return parts.length > 0 ? parts.join(" ") : ABSENT_RECOMMENDATION_TEXT;
+}
+
+function resolveRecommendationText(
+  recommendation: BuildProductSynthesisRecommendation | null | undefined,
+): string {
+  if (!recommendation) return ABSENT_RECOMMENDATION_TEXT;
+  const preadapted = recommendation.text?.trim();
+  if (preadapted) return preadapted;
+  return projectPilotRecommendationFromW3c(recommendation);
+}
+
+function buildSections(input: {
+  executionContract?: BuildProductSynthesisExecutionContractSummary | null;
+  attempt?: BuildProductSynthesisAttemptSummary | null;
+  evidence: readonly BuildProductSynthesisEvidenceSummary[];
+  reviewBundle?: BuildProductSynthesisReviewBundleSummary | null;
+  recommendationText: string;
+  canonicalVerdict: ProductSynthesisProjection["canonicalVerdict"];
+  verdictLabel: SynthesisVerdictLabel;
+}): SynthesisSections {
+  const gapsParts: string[] = [];
+  if (!input.executionContract) {
+    gapsParts.push("travail prévu non rattaché");
+  }
+  if (!input.attempt) {
+    gapsParts.push("réalisation non rattachée");
+  }
+  if (input.evidence.length === 0) {
+    gapsParts.push("aucun élément de preuve détaillé");
+  }
+  if (!input.reviewBundle) {
+    gapsParts.push("dossier d'évaluation incomplet");
+  }
+  if (input.canonicalVerdict !== "PASS") {
+    gapsParts.push(
+      input.canonicalVerdict === "FAIL"
+        ? "résultat en échec"
+        : "résultat non prouvé",
+    );
+  }
+  const gaps =
+    gapsParts.length > 0
+      ? `Écarts ou réserves: ${gapsParts.join("; ")}.`
+      : "Aucun écart Product explicite pour cette synthèse.";
+
+  const evaluation =
+    input.canonicalVerdict === "PASS"
+      ? "Le résultat a été qualifié comme atteint."
+      : input.canonicalVerdict === "FAIL"
+        ? "Le résultat a été qualifié comme un échec."
+        : "Le résultat n'a pas pu être prouvé.";
+
+  return {
+    summary: presentVerdictSentence(input.verdictLabel),
+    planned: presentPlanned(input.executionContract),
+    done: presentAttemptDone(input.attempt, input.canonicalVerdict),
+    evaluation,
+    gaps,
+    impact:
+      input.canonicalVerdict === "PASS"
+        ? "Impact sur le projet: le résultat atteint peut servir de base pour la suite, sans créer d'autorité supplémentaire."
+        : input.canonicalVerdict === "FAIL"
+          ? "Impact sur le projet: l'échec doit être traité avant de poursuivre sur la même lignée."
+          : "Impact sur le projet: le résultat non prouvé laisse la continuité ou la récupération à décider hors synthèse.",
+    verdict: presentVerdictSentence(input.verdictLabel),
+    recommendation: input.recommendationText,
+    verified: presentVerified(input.evidence),
+  };
+}
+
+export function buildProductSynthesis(
+  input: BuildProductSynthesisInput,
+): ProductSynthesisProjection {
+  if (!input.claimEvaluation) {
+    throw new SynthesisDomainError(
+      "SYNTHESIS_LINEAGE_REQUIRES_CLAIM_EVALUATION",
+    );
+  }
+  if (!input.projectId || typeof input.projectId !== "string") {
+    throw new SynthesisDomainError("SYNTHESIS_INVALID", "project_id_required");
+  }
+
+  const ce = input.claimEvaluation;
+  const evidence = input.evidence ?? [];
+  const recommendationRef = input.recommendation?.ref ?? null;
+  const recommendationText = resolveRecommendationText(input.recommendation);
+
+  const cycleInstanceId =
+    input.cycleInstanceId ??
+    input.executionContract?.cycleInstanceId ??
+    ce.contractResultBindings?.cycleInstanceId ??
+    null;
+
+  const bindings: SynthesisSourceBindings = {
+    projectId: input.projectId,
+    cycleInstanceId,
+    executionContractId:
+      input.executionContract?.executionContractId ??
+      ce.contractResultBindings?.executionContractId ??
+      null,
+    attemptId:
+      input.attempt?.attemptId ??
+      ce.contractResultBindings?.executionAttemptId ??
+      null,
+    evidenceIds: evidence.map((e) => e.evidenceId),
+    reviewBundleId:
+      input.reviewBundle?.reviewBundleId ?? ce.reviewBundleId ?? null,
+    claimEvaluationId: ce.claimEvaluationId,
+    recommendationRef,
+  };
+
+  const canonicalVerdict = projectContractResultVerdict(ce.status);
+  const verdictLabel = mapVerdictLabel(canonicalVerdict);
+  const sourceMaterial = buildSynthesisSourceMaterial({
+    projectId: input.projectId,
+    claimEvaluation: ce,
+    bindings,
+    canonicalVerdict,
+    executionContract: input.executionContract,
+    attempt: input.attempt,
+    evidence,
+    reviewBundle: input.reviewBundle,
+    recommendationText,
+    recommendationRef,
+  });
+  const sourceFingerprint = computeSynthesisSourceFingerprint({
+    bindings,
+    canonicalVerdict,
+    claimEvaluationStatus: ce.status,
+    recommendationRef,
+    sourceMaterial,
+  });
+
+  const generatedAt = input.generatedAt ?? new Date().toISOString();
+  // Identity is fingerprint-keyed for idempotence; IDs are unique per materialization.
+  const synthesisId =
+    input.synthesisId ?? `syn:${randomBytes(16).toString("hex")}`;
+
+  const sections = buildSections({
+    executionContract: input.executionContract,
+    attempt: input.attempt,
+    evidence,
+    reviewBundle: input.reviewBundle,
+    recommendationText,
+    canonicalVerdict,
+    verdictLabel,
+  });
+
+  const outcomeSubject = presentProductOutcomeSubject(canonicalVerdict);
+  const defaultTitle = `Synthèse — ${outcomeSubject}`;
+
+  const synthesis: ProductSynthesisProjection = {
+    synthesisId,
+    projectId: input.projectId,
+    cycleInstanceId,
+    title: input.title?.trim() || defaultTitle,
+    subject: outcomeSubject,
+    status: "current",
+    verdictLabel,
+    canonicalVerdict,
+    sections,
+    sourceBindings: bindings,
+    sourceFingerprint,
+    generatedAt,
+    generatedBy: SYNTHESIS_GENERATED_BY,
+    authority: "none",
+    supersedes: input.supersedes ?? null,
+    version: input.version ?? 1,
+  };
+
+  const violation = validateProductSynthesisShape(synthesis);
+  if (violation) {
+    throw new SynthesisDomainError(violation.detailCode, violation.reason);
+  }
+  return synthesis;
+}
+
+export function buildSynthesisSearchText(
+  synthesis: ProductSynthesisProjection,
+): string {
+  const s = synthesis.sections;
+  return [
+    synthesis.title,
+    synthesis.subject,
+    synthesis.verdictLabel,
+    s.summary,
+    s.planned,
+    s.done,
+    s.evaluation,
+    s.gaps,
+    s.impact,
+    s.verdict,
+    s.recommendation,
+    s.verified,
+  ]
+    .join("\n")
+    .toLowerCase();
+}
+
+/**
+ * Structured W3-C → Pilot recommendation text (no raw rationale).
+ * Delegates to projectPilotRecommendationFromW3c.
+ */
+export function formatW3cRecommendationForSynthesis(input: {
+  readonly kind?: string | null;
+  readonly headline?: string | null;
+  readonly nextStep?: string | null;
+  readonly nextActionCode?: string | null;
+  /** @deprecated Ignored — rationale must not reach Pilot sections. */
+  readonly rationale?: string | null;
+}): string {
+  void input.rationale;
+  return projectPilotRecommendationFromW3c({
+    kind: input.kind,
+    headline: input.headline,
+    nextStep: input.nextStep,
+    nextActionCode: input.nextActionCode,
+  });
+}
 ```
 
-## FILE: `projects/sfia-studio/app/lib/oa/synthesis/infrastructure/sqlite/createSqliteSynthesisServices.ts` (46 lines)
+## FILE: `projects/sfia-studio/app/lib/oa/synthesis/application/materializeProductSynthesis.ts` (84 lines)
 
 ```ts
-import type { ProductSqliteHandle } from "@/lib/oa/project";
+import { SynthesisDomainError } from "../domain/errors";
+import type { ProductSynthesisProjection } from "../domain/types";
+import type { SynthesisRepositoryPort } from "../ports/synthesisRepositoryPort";
 import {
   buildProductSynthesis,
   type BuildProductSynthesisInput,
-} from "../../application/buildProductSynthesis";
-import { materializeProductSynthesis } from "../../application/materializeProductSynthesis";
-import { rebuildProductSynthesis } from "../../application/rebuildProductSynthesis";
-import { searchProductSyntheses } from "../../application/searchProductSyntheses";
-import type { ProductSynthesisProjection } from "../../domain/types";
-import type { SynthesisRepositoryPort } from "../../ports/synthesisRepositoryPort";
-import { SqliteSynthesisRepository } from "./sqliteSynthesisRepository";
+} from "./buildProductSynthesis";
 
-export type CreateSqliteSynthesisServicesOptions = {
-  productStore: ProductSqliteHandle;
-};
+export type MaterializeProductSynthesisInput = BuildProductSynthesisInput;
 
-export type SqliteSynthesisServices = {
-  repository: SynthesisRepositoryPort;
-  build: (input: BuildProductSynthesisInput) => ProductSynthesisProjection;
-  materialize: (
-    input: BuildProductSynthesisInput,
-  ) => Promise<ProductSynthesisProjection>;
-  search: (
-    projectId: string,
-    query: string,
-  ) => Promise<ProductSynthesisProjection[]>;
-  rebuild: (
-    projectId: string,
-    lineage: readonly BuildProductSynthesisInput[],
-  ) => Promise<ProductSynthesisProjection[]>;
-};
+async function writeSuccessor(
+  repository: SynthesisRepositoryPort,
+  input: MaterializeProductSynthesisInput,
+  prior: ProductSynthesisProjection,
+  candidate: ProductSynthesisProjection,
+): Promise<ProductSynthesisProjection> {
+  await repository.softSupersede(prior.synthesisId);
+  const successor = buildProductSynthesis({
+    ...input,
+    supersedes: prior.synthesisId,
+    version: prior.version + 1,
+    generatedAt: candidate.generatedAt,
+    synthesisId: candidate.synthesisId,
+  });
+  await repository.create(successor);
+  return successor;
+}
 
-export function createSqliteSynthesisServices(
-  options: CreateSqliteSynthesisServicesOptions,
-): SqliteSynthesisServices {
-  const repository = new SqliteSynthesisRepository(options.productStore);
-  return {
-    repository,
-    build: buildProductSynthesis,
-    materialize: (input) => materializeProductSynthesis(repository, input),
-    search: (projectId, query) =>
-      searchProductSyntheses(repository, projectId, query),
-    rebuild: (projectId, lineage) =>
-      rebuildProductSynthesis(repository, projectId, lineage),
-  };
+export async function materializeProductSynthesis(
+  repository: SynthesisRepositoryPort,
+  input: MaterializeProductSynthesisInput,
+): Promise<ProductSynthesisProjection> {
+  if (!input.claimEvaluation) {
+    throw new SynthesisDomainError(
+      "SYNTHESIS_LINEAGE_REQUIRES_CLAIM_EVALUATION",
+    );
+  }
+
+  const candidate = buildProductSynthesis(input);
+
+  const byFingerprint = await repository.findByFingerprint(
+    candidate.projectId,
+    candidate.sourceFingerprint,
+  );
+  if (byFingerprint && byFingerprint.status === "current") {
+    return byFingerprint;
+  }
+
+  const priorCurrent = await repository.findCurrentByClaimEvaluationId(
+    candidate.projectId,
+    candidate.sourceBindings.claimEvaluationId,
+  );
+
+  if (
+    priorCurrent &&
+    priorCurrent.sourceFingerprint !== candidate.sourceFingerprint
+  ) {
+    return writeSuccessor(repository, input, priorCurrent, candidate);
+  }
+
+  // CE-B supersedesClaimEvaluationId = CE-A → Synthesis-B supersedes Synthesis-A
+  const supersededCeId = input.claimEvaluation.supersedesClaimEvaluationId;
+  if (supersededCeId) {
+    const priorFromSupersededCe =
+      await repository.findCurrentByClaimEvaluationId(
+        candidate.projectId,
+        supersededCeId,
+      );
+    if (
+      priorFromSupersededCe &&
+      priorFromSupersededCe.sourceFingerprint !== candidate.sourceFingerprint
+    ) {
+      return writeSuccessor(
+        repository,
+        input,
+        priorFromSupersededCe,
+        candidate,
+      );
+    }
+  }
+
+  await repository.create(candidate);
+  return candidate;
+}
+```
+
+## FILE: `projects/sfia-studio/app/lib/oa/synthesis/application/rebuildProductSynthesis.ts` (28 lines)
+
+```ts
+import type { ProductSynthesisProjection } from "../domain/types";
+import type { SynthesisRepositoryPort } from "../ports/synthesisRepositoryPort";
+import {
+  materializeProductSynthesis,
+  type MaterializeProductSynthesisInput,
+} from "./materializeProductSynthesis";
+
+export type RebuildProductSynthesisLineage = MaterializeProductSynthesisInput;
+
+/**
+ * Test/rebuild helper: deletes all derived syntheses for a project, then
+ * rematerializes from provided lineage. Never deletes Truth C objects.
+ */
+export async function rebuildProductSynthesis(
+  repository: SynthesisRepositoryPort,
+  projectId: string,
+  lineage: readonly RebuildProductSynthesisLineage[],
+): Promise<ProductSynthesisProjection[]> {
+  await repository.deleteAllByProject(projectId);
+  const out: ProductSynthesisProjection[] = [];
+  for (const item of lineage) {
+    if (item.projectId !== projectId) {
+      continue;
+    }
+    out.push(await materializeProductSynthesis(repository, item));
+  }
+  return out;
+}
+```
+
+## FILE: `projects/sfia-studio/app/lib/oa/synthesis/application/searchProductSyntheses.ts` (10 lines)
+
+```ts
+import type { ProductSynthesisProjection } from "../domain/types";
+import type { SynthesisRepositoryPort } from "../ports/synthesisRepositoryPort";
+
+export async function searchProductSyntheses(
+  repository: SynthesisRepositoryPort,
+  projectId: string,
+  query: string,
+): Promise<ProductSynthesisProjection[]> {
+  return repository.searchByProject(projectId, query);
 }
 ```
 
@@ -1380,35 +1531,169 @@ function escapeLike(value: string): string {
 }
 ```
 
-## FILE: `projects/sfia-studio/app/lib/oa/synthesis/ports/synthesisRepositoryPort.ts` (23 lines)
+## FILE: `projects/sfia-studio/app/lib/oa/synthesis/infrastructure/sqlite/createSqliteSynthesisServices.ts` (46 lines)
 
 ```ts
-import type { ProductSynthesisProjection } from "../domain/types";
+import type { ProductSqliteHandle } from "@/lib/oa/project";
+import {
+  buildProductSynthesis,
+  type BuildProductSynthesisInput,
+} from "../../application/buildProductSynthesis";
+import { materializeProductSynthesis } from "../../application/materializeProductSynthesis";
+import { rebuildProductSynthesis } from "../../application/rebuildProductSynthesis";
+import { searchProductSyntheses } from "../../application/searchProductSyntheses";
+import type { ProductSynthesisProjection } from "../../domain/types";
+import type { SynthesisRepositoryPort } from "../../ports/synthesisRepositoryPort";
+import { SqliteSynthesisRepository } from "./sqliteSynthesisRepository";
 
-export type SynthesisRepositoryPort = {
-  create(synthesis: ProductSynthesisProjection): Promise<void>;
-  update(synthesis: ProductSynthesisProjection): Promise<void>;
-  findById(synthesisId: string): Promise<ProductSynthesisProjection | null>;
-  findByFingerprint(
-    projectId: string,
-    fingerprint: string,
-  ): Promise<ProductSynthesisProjection | null>;
-  findCurrentByClaimEvaluationId(
-    projectId: string,
-    claimEvaluationId: string,
-  ): Promise<ProductSynthesisProjection | null>;
-  listByProject(projectId: string): Promise<ProductSynthesisProjection[]>;
-  searchByProject(
+export type CreateSqliteSynthesisServicesOptions = {
+  productStore: ProductSqliteHandle;
+};
+
+export type SqliteSynthesisServices = {
+  repository: SynthesisRepositoryPort;
+  build: (input: BuildProductSynthesisInput) => ProductSynthesisProjection;
+  materialize: (
+    input: BuildProductSynthesisInput,
+  ) => Promise<ProductSynthesisProjection>;
+  search: (
     projectId: string,
     query: string,
-  ): Promise<ProductSynthesisProjection[]>;
-  /** Test/rebuild only — deletes derived projections; never touches Truth C. */
-  deleteAllByProject(projectId: string): Promise<void>;
-  softSupersede(synthesisId: string): Promise<ProductSynthesisProjection>;
+  ) => Promise<ProductSynthesisProjection[]>;
+  rebuild: (
+    projectId: string,
+    lineage: readonly BuildProductSynthesisInput[],
+  ) => Promise<ProductSynthesisProjection[]>;
 };
+
+export function createSqliteSynthesisServices(
+  options: CreateSqliteSynthesisServicesOptions,
+): SqliteSynthesisServices {
+  const repository = new SqliteSynthesisRepository(options.productStore);
+  return {
+    repository,
+    build: buildProductSynthesis,
+    materialize: (input) => materializeProductSynthesis(repository, input),
+    search: (projectId, query) =>
+      searchProductSyntheses(repository, projectId, query),
+    rebuild: (projectId, lineage) =>
+      rebuildProductSynthesis(repository, projectId, lineage),
+  };
+}
 ```
 
-## FILE: `projects/sfia-studio/app/features/project-assistant/buildProductSynthesisLineageInput.ts` (242 lines)
+## FILE: `projects/sfia-studio/app/features/project-assistant/w2/maybeMaterializeProductSynthesisAfterW3c.ts` (106 lines)
+
+```ts
+/**
+ * Soft-fail Synthesis materialization after durable W3-C success/rehydrate.
+ * NEVER mutates Truth C (CE / Contract Result / Recommendation / Attempt).
+ */
+import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
+import { SqliteProductStore } from "@/lib/oa/project/infrastructure/sqlite/sqliteProductStore";
+import {
+  createSqliteSynthesisServices,
+  isSynthesisDomainError,
+  type ProductSynthesisProjection,
+} from "@/lib/oa/synthesis";
+import type { W3BProductTerminalProjection } from "./w3bProductTerminalProjection";
+import {
+  w3cRecommendationEpistemicId,
+  type W3cPostEvidenceLoopSuccess,
+} from "./w3cPostEvidenceLoop";
+import {
+  buildProductSynthesisLineageInput,
+  synthesisErrorMessage,
+} from "../buildProductSynthesisLineageInput";
+
+export type MaybeMaterializeProductSynthesisAfterW3cResult =
+  | {
+      readonly ok: true;
+      readonly synthesis: ProductSynthesisProjection;
+    }
+  | {
+      readonly ok: false;
+      readonly code: string;
+      readonly message: string;
+      /** Soft-fail: authoritative Product facts remain intact. */
+      readonly softFailed: true;
+    };
+
+export async function maybeMaterializeProductSynthesisAfterW3c(input: {
+  readonly oa: RuntimeOaStack;
+  readonly projectId: string;
+  readonly product: W3BProductTerminalProjection;
+  readonly postEvidence: W3cPostEvidenceLoopSuccess;
+}): Promise<MaybeMaterializeProductSynthesisAfterW3cResult> {
+  try {
+    const claimEvaluationId =
+      input.product.claimEvaluationId ??
+      input.postEvidence.claimEvaluationId ??
+      null;
+    if (!claimEvaluationId) {
+      return {
+        ok: false,
+        softFailed: true,
+        code: "SYNTHESIS_LINEAGE_REQUIRES_CLAIM_EVALUATION",
+        message: "ClaimEvaluation absente pour la synthèse dérivée.",
+      };
+    }
+
+    const store = input.oa.projectServices.store;
+    if (!(store instanceof SqliteProductStore)) {
+      return {
+        ok: false,
+        softFailed: true,
+        code: "PRODUCT_SQLITE_UNAVAILABLE",
+        message: "Persistance Product SQLite indisponible pour la synthèse.",
+      };
+    }
+
+    const evidenceId =
+      input.postEvidence.evidenceId ||
+      input.product.evidenceId ||
+      "";
+    // Pass structured W3-C fields — Pilot adapter derives text (no raw rationale).
+    const recommendation = {
+      ref: w3cRecommendationEpistemicId(evidenceId, claimEvaluationId),
+      kind: input.postEvidence.recommendation.kind,
+      headline: input.postEvidence.recommendation.headline,
+      nextStep: input.postEvidence.recommendation.nextStep,
+      nextActionCode: input.postEvidence.recommendation.nextActionCode,
+    };
+
+    const lineage = await buildProductSynthesisLineageInput({
+      oa: input.oa,
+      projectId: input.projectId,
+      claimEvaluationId,
+      recommendation,
+    });
+    if (!lineage.ok) {
+      return {
+        ok: false,
+        softFailed: true,
+        code: lineage.code,
+        message: lineage.message,
+      };
+    }
+
+    const services = createSqliteSynthesisServices({ productStore: store });
+    const synthesis = await services.materialize(lineage.input);
+    return { ok: true, synthesis };
+  } catch (err) {
+    return {
+      ok: false,
+      softFailed: true,
+      code: isSynthesisDomainError(err)
+        ? err.detailCode
+        : "SYNTHESIS_MATERIALIZE_FAILED",
+      message: synthesisErrorMessage(err),
+    };
+  }
+}
+```
+
+## FILE: `projects/sfia-studio/app/features/project-assistant/buildProductSynthesisLineageInput.ts` (249 lines)
 
 ```ts
 import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
@@ -1417,15 +1702,10 @@ import {
   contractResultBindingsMatchCurrentFacts,
 } from "@/lib/oa/evidence-review";
 import {
-  formatW3cRecommendationForSynthesis,
   type BuildProductSynthesisInput,
   type BuildProductSynthesisRecommendation,
 } from "@/lib/oa/synthesis";
 import { isSynthesisDomainError } from "@/lib/oa/synthesis";
-import {
-  findExistingW3cPostEvidence,
-  w3cRecommendationEpistemicId,
-} from "./w2/w3cPostEvidenceLoop";
 
 export type BuildProductSynthesisLineageResult =
   | { readonly ok: true; readonly input: BuildProductSynthesisInput }
@@ -1438,7 +1718,8 @@ export type BuildProductSynthesisLineageResult =
 /**
  * Loads durable Product OA facts for a Contract Result ClaimEvaluation and
  * builds BuildProductSynthesisInput — no invented verdict or recommendation.
- * Fail-closed on non Contract-Result subject or binding mismatch.
+ * Fail-closed on non Contract-Result subject, binding mismatch, or missing Evidence.
+ * Recommendation is caller-supplied only (no stale W3-C fallback).
  */
 export async function buildProductSynthesisLineageInput(input: {
   readonly oa: RuntimeOaStack;
@@ -1559,28 +1840,61 @@ export async function buildProductSynthesisLineageInput(input: {
   }
 
   const evidenceReader = input.oa.evidenceReviewServices.evidenceReader;
-  const evidence = (
-    await Promise.all(
-      boundEvidenceIds.map((id) => evidenceReader.findById(id)),
-    )
-  )
-    .filter((ev): ev is NonNullable<typeof ev> => ev != null)
-    .map((ev) => ({
+  const evidence: Array<{
+    evidenceId: string;
+    status: string;
+    type: string;
+  }> = [];
+  for (const id of boundEvidenceIds) {
+    const ev = await evidenceReader.findById(id);
+    if (!ev) {
+      return {
+        ok: false,
+        code: "SYNTHESIS_LINEAGE_EVIDENCE_NOT_FOUND",
+        message: `Élément de preuve lié introuvable: ${id}`,
+      };
+    }
+    evidence.push({
       evidenceId: ev.evidenceId,
       status: ev.status,
       type: ev.type,
-    }));
+    });
+  }
 
   // Planned semantics from Attempt-bound EC snapshot — never mutable latest EC.
+  // Never pass raw action/target/scope into Pilot sections; only human-readable
+  // title/objective/description when present on bound semantic material.
   const snap = attempt.boundExecutionContract;
   const material = snap?.semanticMaterial;
+  const materialExtra = material as unknown as {
+    title?: unknown;
+    objective?: unknown;
+    description?: unknown;
+  };
+  const humanTitle =
+    typeof materialExtra?.title === "string"
+      ? materialExtra.title.trim()
+      : "";
+  const humanObjective =
+    typeof materialExtra?.objective === "string"
+      ? materialExtra.objective.trim()
+      : "";
+  const humanDescription =
+    typeof materialExtra?.description === "string"
+      ? materialExtra.description.trim()
+      : "";
+
   const executionContract: BuildProductSynthesisInput["executionContract"] =
     material
       ? {
           executionContractId: material.executionContractId,
+          // Keep machine codes off the Pilot projection path (presentPlanned ignores them).
           action: material.action,
           target: material.target,
           scope: material.scope,
+          ...(humanTitle ? { title: humanTitle } : {}),
+          ...(humanObjective ? { objective: humanObjective } : {}),
+          ...(humanDescription ? { description: humanDescription } : {}),
           cycleInstanceId: material.cycleInstanceId ?? null,
           executionContractVersion: snap.executionContractVersion,
           semanticFingerprint: snap.semanticFingerprint,
@@ -1592,31 +1906,9 @@ export async function buildProductSynthesisLineageInput(input: {
           cycleInstanceId: bindings.cycleInstanceId ?? null,
         };
 
-  let recommendation: BuildProductSynthesisRecommendation | null =
+  // CP02 Axis 3 — no stale findExistingW3cPostEvidence fallback.
+  const recommendation: BuildProductSynthesisRecommendation | null =
     input.recommendation ?? null;
-
-  if (!recommendation && boundEvidenceIds[0]) {
-    const existing = await findExistingW3cPostEvidence({
-      oa: input.oa,
-      projectId,
-      evidenceId: boundEvidenceIds[0],
-      attemptId,
-    });
-    if (existing?.ok && existing.recommendation) {
-      const evidenceIdForRef = existing.evidenceId || boundEvidenceIds[0];
-      recommendation = {
-        text: formatW3cRecommendationForSynthesis({
-          headline: existing.recommendation.headline,
-          nextStep: existing.recommendation.nextStep,
-          rationale: existing.recommendation.rationale,
-        }),
-        ref: w3cRecommendationEpistemicId(
-          evidenceIdForRef,
-          claimEvaluation.claimEvaluationId,
-        ),
-      };
-    }
-  }
 
   return {
     ok: true,
@@ -1870,118 +2162,6 @@ export async function materializeProductSynthesisFromLineageAction(input: {
       ok: false,
       code:
         isSynthesisDomainError(err) ? err.detailCode : "SYNTHESIS_MATERIALIZE_FAILED",
-      message: synthesisErrorMessage(err),
-    };
-  }
-}
-```
-
-## FILE: `projects/sfia-studio/app/features/project-assistant/w2/maybeMaterializeProductSynthesisAfterW3c.ts` (107 lines)
-
-```ts
-/**
- * Soft-fail Synthesis materialization after durable W3-C success/rehydrate.
- * NEVER mutates Truth C (CE / Contract Result / Recommendation / Attempt).
- */
-import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
-import { SqliteProductStore } from "@/lib/oa/project/infrastructure/sqlite/sqliteProductStore";
-import {
-  createSqliteSynthesisServices,
-  formatW3cRecommendationForSynthesis,
-  isSynthesisDomainError,
-  type ProductSynthesisProjection,
-} from "@/lib/oa/synthesis";
-import type { W3BProductTerminalProjection } from "./w3bProductTerminalProjection";
-import {
-  w3cRecommendationEpistemicId,
-  type W3cPostEvidenceLoopSuccess,
-} from "./w3cPostEvidenceLoop";
-import {
-  buildProductSynthesisLineageInput,
-  synthesisErrorMessage,
-} from "../buildProductSynthesisLineageInput";
-
-export type MaybeMaterializeProductSynthesisAfterW3cResult =
-  | {
-      readonly ok: true;
-      readonly synthesis: ProductSynthesisProjection;
-    }
-  | {
-      readonly ok: false;
-      readonly code: string;
-      readonly message: string;
-      /** Soft-fail: authoritative Product facts remain intact. */
-      readonly softFailed: true;
-    };
-
-export async function maybeMaterializeProductSynthesisAfterW3c(input: {
-  readonly oa: RuntimeOaStack;
-  readonly projectId: string;
-  readonly product: W3BProductTerminalProjection;
-  readonly postEvidence: W3cPostEvidenceLoopSuccess;
-}): Promise<MaybeMaterializeProductSynthesisAfterW3cResult> {
-  try {
-    const claimEvaluationId =
-      input.product.claimEvaluationId ??
-      input.postEvidence.claimEvaluationId ??
-      null;
-    if (!claimEvaluationId) {
-      return {
-        ok: false,
-        softFailed: true,
-        code: "SYNTHESIS_LINEAGE_REQUIRES_CLAIM_EVALUATION",
-        message: "ClaimEvaluation absente pour la synthèse dérivée.",
-      };
-    }
-
-    const store = input.oa.projectServices.store;
-    if (!(store instanceof SqliteProductStore)) {
-      return {
-        ok: false,
-        softFailed: true,
-        code: "PRODUCT_SQLITE_UNAVAILABLE",
-        message: "Persistance Product SQLite indisponible pour la synthèse.",
-      };
-    }
-
-    const evidenceId =
-      input.postEvidence.evidenceId ||
-      input.product.evidenceId ||
-      "";
-    const recommendation = {
-      text: formatW3cRecommendationForSynthesis({
-        headline: input.postEvidence.recommendation.headline,
-        nextStep: input.postEvidence.recommendation.nextStep,
-        rationale: input.postEvidence.recommendation.rationale,
-      }),
-      ref: w3cRecommendationEpistemicId(evidenceId, claimEvaluationId),
-    };
-
-    const lineage = await buildProductSynthesisLineageInput({
-      oa: input.oa,
-      projectId: input.projectId,
-      claimEvaluationId,
-      recommendation,
-    });
-    if (!lineage.ok) {
-      return {
-        ok: false,
-        softFailed: true,
-        code: lineage.code,
-        message: lineage.message,
-      };
-    }
-
-    const services = createSqliteSynthesisServices({ productStore: store });
-    const synthesis = await services.materialize(lineage.input);
-    return { ok: true, synthesis };
-  } catch (err) {
-    return {
-      ok: false,
-      softFailed: true,
-      code: isSynthesisDomainError(err)
-        ? err.detailCode
-        : "SYNTHESIS_MATERIALIZE_FAILED",
       message: synthesisErrorMessage(err),
     };
   }
@@ -3458,7 +3638,7 @@ INSERT INTO schema_meta(key, value) VALUES ('schema_version', 'm99-future');
 });
 ```
 
-## FILE: `projects/sfia-studio/app/__tests__/oa/synthesis/p5.s04.cp01.productPathSynthesis.d0.test.ts` (842 lines)
+## FILE: `projects/sfia-studio/app/__tests__/oa/synthesis/p5.s04.cp01.productPathSynthesis.d0.test.ts` (849 lines)
 
 ```ts
 /**
@@ -4195,11 +4375,16 @@ describe("P5-S04 CP01 lineage L01–L09 + product-path P01–P05", () => {
     const listed = await svc.repository.listByProject(ctx.projectId);
     const syn = listed.find((s) => s.status === "current");
     expect(syn).toBeTruthy();
-    expect(syn!.sections.recommendation).toContain(
-      materialized.postEvidence.recommendation.headline,
+    expect(syn!.sections.recommendation.length).toBeGreaterThan(0);
+    expect(syn!.sections.recommendation).not.toBe(
+      "Aucune recommandation Product courante n'est disponible pour cette synthèse.",
+    );
+    expect(syn!.sections.recommendation).not.toMatch(
+      /\b(D5|HumanDecision|ProjectTrajectory|W2|Morris|NOT_PROVEN|evaluate claim)\b/i,
     );
     expect(syn!.sourceBindings.recommendationRef).toMatch(/^epi:w3c-rec:/);
     expect(materialized.postEvidence.recommendation.authority).toBe("none");
+    expect(materialized.synthesisMaterialization?.status).toBe("materialized");
   });
 
   it("P04 — mismatched lineage → no Synthesis; Truth C intact", async () => {
@@ -4298,9 +4483,844 @@ describe("P5-S04 CP01 Pilot language regression", () => {
       generatedAt: NOW,
     }) as ProductSynthesisProjection;
     const joined = Object.values(built.sections).join("\n");
-    expect(joined).not.toMatch(/ClaimEvaluation|ReviewBundle|Statut CE|deterministic|non_critical|canonical PASS|\bclm:|\brb:|\bxat:|\bev:/);
+    expect(joined).not.toMatch(/ClaimEvaluation|ReviewBundle|Statut CE|deterministic|non_critical|canonical PASS|\bclm:|\brb:|\bxat:|\bev:|\bcursor\.docs_write|\bNOT_PROVEN\b|expectedOutputs|HumanDecision|ProjectTrajectory|\bD5\b|\bW2\b/);
+    expect(built.subject).toBe("Résultat de l'action atteint");
+    expect(built.sections.planned).not.toMatch(/product:generate-temporary-artifact|cursor\./);
     expect(built.authority).toBe("none");
     store.close();
+  });
+});
+```
+
+## FILE: `projects/sfia-studio/app/__tests__/oa/synthesis/p5.s04.cp02.softFailPilotLineage.d0.test.ts` (828 lines)
+
+```ts
+/**
+ * P5-S04 CP02 — Soft-fail observability · Pilot projection · recommendation
+ * no-fallback · fail-closed Evidence. ZERO REAL.
+ * @vitest-environment node
+ */
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import { setConversationProviderForTests } from "@/lib/platform/ai";
+import { evaluateExecutionAuthorization } from "@/features/project-assistant/w2/authorizeExecutionContract";
+import { confirmExecutionContractForAuthorization } from "@/features/project-assistant/w2/confirmForAuthorization";
+import { decideTrajectory } from "@/features/project-assistant/w2/decideTrajectory";
+import {
+  governedExecuteRecordResult,
+  governedExecuteSelectAgent,
+  governedExecuteStart,
+} from "@/features/project-assistant/w2/governedExecuteAuthorizedContract";
+import { inspectExecutionContract } from "@/features/project-assistant/w2/inspectExecutionContract";
+import { prepareExecutionContractFromW2Decision } from "@/features/project-assistant/w2/prepareExecutionContractFromW2Decision";
+import { proposeTrajectoryOptions } from "@/features/project-assistant/w2/proposeTrajectoryOptions";
+import { resolveW2QualificationInputs } from "@/features/project-assistant/w2/qualificationInputs";
+import { GOVERNED_OPTION_REF } from "@/features/project-assistant/w2/trajectoryOptions";
+import {
+  materializeW3bProductTerminal,
+  rehydrateW3bProductTerminal,
+} from "@/features/project-assistant/w2/materializeW3bProductTerminal";
+import { buildProductSynthesisLineageInput } from "@/features/project-assistant/buildProductSynthesisLineageInput";
+import { LOCAL_PILOTE_ACTOR } from "@/lib/oa/decision";
+import {
+  CLAIM_EVALUATION_SCHEMA_VERSION,
+  CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT,
+  type ClaimEvaluation,
+} from "@/lib/oa/evidence-review";
+import { SqliteProductStore } from "@/lib/oa/project";
+import {
+  ABSENT_RECOMMENDATION_TEXT,
+  createSqliteSynthesisServices,
+  formatW3cRecommendationForSynthesis,
+  presentProductOutcomeSubject,
+  projectPilotRecommendationFromW3c,
+  type ProductSynthesisProjection,
+} from "@/lib/oa/synthesis";
+import { clearW3bBoundaryArm } from "@/lib/vertical-slice-runtime/w3bE2eBoundaryControl";
+import {
+  bootW2Runtime,
+  cleanupW2TempDirs,
+  currentF2Context,
+  seedQualifiedProject,
+  settleDeterministicProductCursorSuccess,
+  tempProductDbPath,
+  W2_TEST_PINNED_BASE_HEAD_SHA,
+} from "../../project-assistant/w2Harness";
+
+const NOW = "2026-10-05T12:00:00.000Z";
+
+const FORBIDDEN_PILOT =
+  /ClaimEvaluation|ReviewBundle|ContractResult|HumanDecision|ProjectTrajectory|\bD5\b|\bW2\b|\bNOT_PROVEN\b|expectedOutputs|evaluate claim|cursor\.docs_write|workspace\.isolated|studio\.gcec|\bclm:|\brb:|\bxat:|\bxct:|\bev:/i;
+
+beforeEach(() => {
+  process.env.OPS1_CONVERSATION_PROVIDER = "fake";
+  process.env.OPS1_E2E_ALLOW_DIRTY_PRINCIPAL = "1";
+  setConversationProviderForTests(null);
+  clearW3bBoundaryArm();
+});
+
+afterEach(() => {
+  clearW3bBoundaryArm();
+  cleanupW2TempDirs();
+});
+
+function makeClaimEvaluation(
+  overrides: Partial<ClaimEvaluation> & { claimEvaluationId: string },
+): ClaimEvaluation {
+  const projectId = overrides.contractResultBindings?.projectId ?? "prj:s04-c";
+  const status = overrides.status ?? "pass";
+  const base: ClaimEvaluation = {
+    schemaVersion: CLAIM_EVALUATION_SCHEMA_VERSION,
+    claimEvaluationId: overrides.claimEvaluationId,
+    claimType: "technique",
+    claimStatement:
+      overrides.claimStatement ??
+      "Temporary artifact produced for contract result xct:hidden",
+    criticality: "non_critical",
+    evaluationMethod: "deterministic",
+    requiredEvidenceRefs: overrides.requiredEvidenceRefs ?? ["ev:s04-1"],
+    reviewBundleId: overrides.reviewBundleId ?? "rb:s04-1",
+    reviewBundleVersion: overrides.reviewBundleVersion ?? 2,
+    status,
+    proposedBy: LOCAL_PILOTE_ACTOR,
+    proposedAt: NOW,
+    evaluatedAt: NOW,
+    provenance: {
+      schemaVersion: "0.1.0-oa",
+      provenanceRecordId: `prv:${overrides.claimEvaluationId}`,
+      actor: LOCAL_PILOTE_ACTOR,
+      source: "review",
+      timestamp: NOW,
+      correlationId: `cor:${overrides.claimEvaluationId}`,
+      projectId,
+    },
+    version: 1,
+    subjectKind: CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT,
+    contractResultBindings: {
+      projectId,
+      cycleInstanceId: "cyc:s04-1",
+      executionContractId: "xct:s04-1",
+      executionContractVersion: 1,
+      executionContractSemanticFingerprint: "fp:s04-contract",
+      executionAttemptId: "xat:s04-1",
+      reviewBundleId: overrides.reviewBundleId ?? "rb:s04-1",
+      reviewBundleVersion: 2,
+      evidenceRefs: ["ev:s04-1"],
+    },
+  };
+  return { ...base, ...overrides, status };
+}
+
+async function authorizeAndSucceed(suffix: string) {
+  const db = tempProductDbPath(`s04-cp02-${suffix}.sqlite`);
+  const runtime = bootW2Runtime({
+    productDbPath: db,
+    idPrefix: `s04c2${suffix}`,
+  });
+  const seeded = await seedQualifiedProject(runtime, { suffix });
+  const oa = runtime.oa!;
+  const qualification = await resolveW2QualificationInputs({
+    oa,
+    projectId: seeded.projectId,
+  });
+  expect(qualification.ok).toBe(true);
+  if (!qualification.ok) throw new Error("qual");
+  const proposed = await proposeTrajectoryOptions({
+    oa,
+    projectId: seeded.projectId,
+    ...qualification.qualification.inputs,
+    packagePin: qualification.qualification.packagePin,
+    objective: qualification.qualification.objective,
+    projectTitle: qualification.qualification.projectTitle,
+  });
+  expect(proposed.ok).toBe(true);
+  if (!proposed.ok) throw new Error("propose");
+  const decided = await decideTrajectory({
+    oa,
+    projectId: seeded.projectId,
+    optionSetRef: proposed.optionSetRef,
+    options: proposed.options,
+    recommendedOptionRef: proposed.recommendation.recommendedOptionRef,
+    selectedOptionRef: GOVERNED_OPTION_REF,
+    trajectoryId: proposed.proposedTrajectory!.trajectoryId,
+    candidateVersion: proposed.proposedTrajectory!.version,
+    forceLocalAuthority: true,
+  });
+  expect(decided.ok).toBe(true);
+  if (!decided.ok) throw new Error("decide");
+  const context = await currentF2Context(runtime, seeded.projectId);
+  const prepared = await prepareExecutionContractFromW2Decision({
+    oa,
+    projectId: seeded.projectId,
+    decisionId: decided.decision.decisionId,
+    currentContext: context,
+    forceLocalAuthority: true,
+    qualifiedOperationKind: "generate-temporary-artifact",
+    pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+  });
+  expect(prepared.ok).toBe(true);
+  if (!prepared.ok) throw new Error(prepared.code);
+  const executionContractId = prepared.contract.executionContractId;
+  await inspectExecutionContract({
+    oa,
+    projectId: seeded.projectId,
+    executionContractId,
+  });
+  const confirmed = await confirmExecutionContractForAuthorization({
+    oa,
+    projectId: seeded.projectId,
+    executionContractId,
+    forceLocalAuthority: true,
+  });
+  expect(confirmed.ok).toBe(true);
+  if (!confirmed.ok) throw new Error(confirmed.code);
+  const authorized = await evaluateExecutionAuthorization({
+    oa,
+    projectId: seeded.projectId,
+    executionContractId,
+    forceLocalAuthority: true,
+  });
+  expect(authorized.ok && authorized.outcome === "AUTHORIZED").toBe(true);
+
+  const selected = await governedExecuteSelectAgent({
+    oa,
+    projectId: seeded.projectId,
+    executionContractId,
+    forceLocalAuthority: true,
+  });
+  expect(selected.ok).toBe(true);
+  if (!selected.ok) throw new Error(selected.code);
+  const started = await governedExecuteStart({
+    oa,
+    projectId: seeded.projectId,
+    executionContractId,
+    attemptId: selected.attemptId,
+    forceLocalAuthority: true,
+  });
+  expect(started.ok).toBe(true);
+  if (!started.ok) throw new Error(started.code);
+
+  const settled = await settleDeterministicProductCursorSuccess({
+    oa,
+    attemptId: started.attemptId,
+  });
+  expect(settled.ok).toBe(true);
+  if (!settled.ok) throw new Error(settled.code);
+  const projected = await governedExecuteRecordResult({
+    oa,
+    projectId: seeded.projectId,
+    executionContractId,
+    attemptId: started.attemptId,
+    forceLocalAuthority: true,
+  });
+  expect(projected.ok).toBe(true);
+  if (!projected.ok) throw new Error(projected.code);
+
+  return {
+    oa,
+    projectId: seeded.projectId,
+    attemptId: started.attemptId,
+    executionContractId,
+    db,
+    store: oa.projectServices.store as SqliteProductStore,
+  };
+}
+
+function installSynthesisInsertAbortTrigger(store: SqliteProductStore): void {
+  store.db.exec(`
+    CREATE TRIGGER IF NOT EXISTS test_cp02_abort_oa_syntheses_insert
+    BEFORE INSERT ON oa_syntheses
+    BEGIN
+      SELECT RAISE(ABORT, 'TEST_CP02_SYNTHESIS_INSERT_ABORT');
+    END;
+  `);
+}
+
+function dropSynthesisInsertAbortTrigger(store: SqliteProductStore): void {
+  store.db.exec(
+    `DROP TRIGGER IF EXISTS test_cp02_abort_oa_syntheses_insert;`,
+  );
+}
+
+function assertPilotSafeSections(syn: ProductSynthesisProjection): void {
+  const joined = [
+    syn.title,
+    syn.subject,
+    ...Object.values(syn.sections),
+  ].join("\n");
+  expect(joined).not.toMatch(FORBIDDEN_PILOT);
+}
+
+describe("P5-S04 CP02 Axis 1 soft-fail observability SF01–SF07", () => {
+  it("SF01 — success attaches synthesisMaterialization materialized", async () => {
+    const ctx = await authorizeAndSucceed("sf01");
+    const materialized = await materializeW3bProductTerminal({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      attemptId: ctx.attemptId,
+    });
+    expect(materialized.ok).toBe(true);
+    if (!materialized.ok) return;
+    expect(materialized.postEvidence?.ok).toBe(true);
+    expect(materialized.synthesisMaterialization?.status).toBe("materialized");
+    if (materialized.synthesisMaterialization?.status === "materialized") {
+      expect(materialized.synthesisMaterialization.synthesisId).toMatch(/^syn:/);
+    }
+  });
+
+  it("SF02–SF05 — SQLite abort → ok:true, CE/W3-C durable, no Synthesis, failed observability", async () => {
+    const ctx = await authorizeAndSucceed("sf02");
+    installSynthesisInsertAbortTrigger(ctx.store);
+
+    const materialized = await materializeW3bProductTerminal({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      attemptId: ctx.attemptId,
+    });
+    expect(materialized.ok).toBe(true);
+    if (!materialized.ok) return;
+
+    // SF02 — ok stays true when only Synthesis fails
+    expect(materialized.ok).toBe(true);
+    // SF03 — CE durable
+    expect(materialized.product.claimEvaluationId).toBeTruthy();
+    const ce =
+      await ctx.oa.evidenceReviewServices!.claimEvaluationReader.findById(
+        materialized.product.claimEvaluationId!,
+      );
+    expect(ce).toBeTruthy();
+    // SF04 — W3-C durable
+    expect(materialized.postEvidence?.ok).toBe(true);
+    // SF05 — no Synthesis row + failed observability
+    expect(materialized.synthesisMaterialization?.status).toBe("failed");
+    if (materialized.synthesisMaterialization?.status === "failed") {
+      expect(materialized.synthesisMaterialization.retryable).toBe(true);
+      expect(materialized.synthesisMaterialization.code.length).toBeGreaterThan(0);
+      expect(materialized.synthesisMaterialization.message.length).toBeGreaterThan(
+        0,
+      );
+    }
+    const svc = createSqliteSynthesisServices({ productStore: ctx.store });
+    const listed = await svc.repository.listByProject(ctx.projectId);
+    expect(listed).toHaveLength(0);
+
+    dropSynthesisInsertAbortTrigger(ctx.store);
+  });
+
+  it("SF06–SF07 — drop trigger + rehydrate → Synthesis materializes, one current", async () => {
+    const ctx = await authorizeAndSucceed("sf06");
+    installSynthesisInsertAbortTrigger(ctx.store);
+    const failed = await materializeW3bProductTerminal({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      attemptId: ctx.attemptId,
+    });
+    expect(failed.ok).toBe(true);
+    if (!failed.ok) return;
+    expect(failed.synthesisMaterialization?.status).toBe("failed");
+    const ceId = failed.product.claimEvaluationId!;
+    const ceBefore =
+      await ctx.oa.evidenceReviewServices!.claimEvaluationReader.findById(ceId);
+    expect(ceBefore).toBeTruthy();
+
+    dropSynthesisInsertAbortTrigger(ctx.store);
+
+    const rehydrated = await rehydrateW3bProductTerminal({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      attemptId: ctx.attemptId,
+    });
+    expect(rehydrated.ok).toBe(true);
+    if (!rehydrated.ok) return;
+    // SF06 — Synthesis materializes
+    expect(rehydrated.synthesisMaterialization?.status).toBe("materialized");
+    const ceAfter =
+      await ctx.oa.evidenceReviewServices!.claimEvaluationReader.findById(ceId);
+    expect(ceAfter?.status).toBe(ceBefore!.status);
+
+    // SF07 — one current
+    const svc = createSqliteSynthesisServices({ productStore: ctx.store });
+    const listed = await svc.repository.listByProject(ctx.projectId);
+    const current = listed.filter((s) => s.status === "current");
+    expect(current).toHaveLength(1);
+  });
+});
+
+describe("P5-S04 CP02 Axis 2 Pilot semantic projection PL01–PL09", () => {
+  it("PL01 — PASS subject/title from product outcome, not claimStatement", () => {
+    const store = new SqliteProductStore(tempProductDbPath("pl01.sqlite"));
+    const svc = createSqliteSynthesisServices({ productStore: store });
+    const built = svc.build({
+      projectId: "prj:s04-c",
+      claimEvaluation: makeClaimEvaluation({
+        claimEvaluationId: "clm:pl01",
+        claimStatement: "Raw claim with xct:s04-1 and clm:hidden",
+        status: "pass",
+      }),
+      generatedAt: NOW,
+    });
+    expect(built.subject).toBe("Résultat de l'action atteint");
+    expect(built.title).toContain("Résultat de l'action atteint");
+    expect(built.subject).not.toContain("xct:");
+    expect(built.subject).not.toContain("Raw claim");
+    store.close();
+  });
+
+  it("PL02 — FAIL / NOT_PROVEN subjects", () => {
+    expect(presentProductOutcomeSubject("FAIL")).toBe(
+      "Résultat de l'action en échec",
+    );
+    expect(presentProductOutcomeSubject("NOT_PROVEN")).toBe(
+      "Résultat de l'action non prouvé",
+    );
+    const store = new SqliteProductStore(tempProductDbPath("pl02.sqlite"));
+    const svc = createSqliteSynthesisServices({ productStore: store });
+    const fail = svc.build({
+      projectId: "prj:s04-c",
+      claimEvaluation: makeClaimEvaluation({
+        claimEvaluationId: "clm:pl02f",
+        status: "fail",
+      }),
+      generatedAt: NOW,
+    });
+    expect(fail.subject).toBe("Résultat de l'action en échec");
+    const np = svc.build({
+      projectId: "prj:s04-c",
+      claimEvaluation: makeClaimEvaluation({
+        claimEvaluationId: "clm:pl02n",
+        status: "not_proven",
+      }),
+      generatedAt: NOW,
+    });
+    expect(np.subject).toBe("Résultat de l'action non prouvé");
+    store.close();
+  });
+
+  it("PL03 — planned never surfaces raw action/target/scope machine codes", () => {
+    const store = new SqliteProductStore(tempProductDbPath("pl03.sqlite"));
+    const svc = createSqliteSynthesisServices({ productStore: store });
+    const built = svc.build({
+      projectId: "prj:s04-c",
+      claimEvaluation: makeClaimEvaluation({ claimEvaluationId: "clm:pl03" }),
+      executionContract: {
+        executionContractId: "xct:s04-1",
+        action: "cursor.docs_write.apply",
+        target: "workspace.isolated.path",
+        scope: "studio.gcec.scope",
+      },
+      generatedAt: NOW,
+    });
+    expect(built.sections.planned).toBe(
+      "Un travail Product était prévu pour cette synthèse.",
+    );
+    expect(built.sections.planned).not.toMatch(
+      /cursor\.docs_write|workspace\.isolated|studio\.gcec/,
+    );
+    store.close();
+  });
+
+  it("PL04 — planned uses human-readable title when present", () => {
+    const store = new SqliteProductStore(tempProductDbPath("pl04.sqlite"));
+    const svc = createSqliteSynthesisServices({ productStore: store });
+    const built = svc.build({
+      projectId: "prj:s04-c",
+      claimEvaluation: makeClaimEvaluation({ claimEvaluationId: "clm:pl04" }),
+      executionContract: {
+        executionContractId: "xct:s04-1",
+        action: "cursor.docs_write.apply",
+        title: "Rédiger une note de cadrage",
+      },
+      generatedAt: NOW,
+    });
+    expect(built.sections.planned).toBe(
+      "Travail prévu : Rédiger une note de cadrage.",
+    );
+    store.close();
+  });
+
+  it("PL05 — done distinguishes Attempt success from Product proof", () => {
+    const store = new SqliteProductStore(tempProductDbPath("pl05.sqlite"));
+    const svc = createSqliteSynthesisServices({ productStore: store });
+    const pass = svc.build({
+      projectId: "prj:s04-c",
+      claimEvaluation: makeClaimEvaluation({
+        claimEvaluationId: "clm:pl05p",
+        status: "pass",
+      }),
+      attempt: { attemptId: "xat:s04-1", status: "succeeded" },
+      generatedAt: NOW,
+    });
+    expect(pass.sections.done).toContain("résultat Product est atteint");
+    const np = svc.build({
+      projectId: "prj:s04-c",
+      claimEvaluation: makeClaimEvaluation({
+        claimEvaluationId: "clm:pl05n",
+        status: "not_proven",
+      }),
+      attempt: { attemptId: "xat:s04-1", status: "succeeded" },
+      generatedAt: NOW,
+    });
+    expect(np.sections.done).toMatch(/sans preuve Product/);
+    expect(np.sections.done).not.toMatch(FORBIDDEN_PILOT);
+    store.close();
+  });
+
+  it("PL06 — recommendation adapter maps solicit_morris_* without Morris", () => {
+    const arb = projectPilotRecommendationFromW3c({
+      kind: "continue",
+      headline: "Arbitrage Morris de coordination recommandé",
+      nextStep: "coordinate_morris_arbitration",
+      nextActionCode: "solicit_morris_arbitration",
+    });
+    expect(arb).toContain("arbitrage");
+    expect(arb).not.toMatch(/Morris/i);
+    expect(arb).not.toMatch(/\bD5\b|HumanDecision|ProjectTrajectory|\bW2\b/);
+
+    const go = projectPilotRecommendationFromW3c({
+      kind: "continue",
+      headline: "Gate Morris next-cycle",
+      nextActionCode: "solicit_morris_go",
+    });
+    expect(go).toMatch(/validation|cycle/i);
+    expect(go).not.toMatch(/Morris/i);
+  });
+
+  it("PL07 — formatW3cRecommendationForSynthesis ignores rationale jargon", () => {
+    const text = formatW3cRecommendationForSynthesis({
+      kind: "recover",
+      headline: "Qualification Evidence / résultat incomplète",
+      nextStep: "complete_evidence",
+      nextActionCode: "complete_evidence",
+      rationale:
+        "D5 HumanDecision ProjectTrajectory W2 NOT_PROVEN expectedOutputs evaluate claim",
+    });
+    expect(text).not.toMatch(FORBIDDEN_PILOT);
+    expect(text).toContain("Compléter les éléments de preuve");
+  });
+
+  it("PL08 — ABSENT recommendation text", () => {
+    expect(ABSENT_RECOMMENDATION_TEXT).toBe(
+      "Aucune recommandation Product courante n'est disponible pour cette synthèse.",
+    );
+    const store = new SqliteProductStore(tempProductDbPath("pl08.sqlite"));
+    const svc = createSqliteSynthesisServices({ productStore: store });
+    const built = svc.build({
+      projectId: "prj:s04-c",
+      claimEvaluation: makeClaimEvaluation({ claimEvaluationId: "clm:pl08" }),
+      generatedAt: NOW,
+    });
+    expect(built.sections.recommendation).toBe(ABSENT_RECOMMENDATION_TEXT);
+    store.close();
+  });
+
+  it("PL09 — product-path sections stay Pilot-safe (negative lexicon)", async () => {
+    const ctx = await authorizeAndSucceed("pl09");
+    const materialized = await materializeW3bProductTerminal({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      attemptId: ctx.attemptId,
+    });
+    expect(materialized.ok).toBe(true);
+    if (!materialized.ok) return;
+    const svc = createSqliteSynthesisServices({ productStore: ctx.store });
+    const listed = await svc.repository.listByProject(ctx.projectId);
+    const syn = listed.find((s) => s.status === "current");
+    expect(syn).toBeTruthy();
+    assertPilotSafeSections(syn!);
+    expect(syn!.subject).toMatch(/^Résultat de l'action /);
+  });
+});
+
+describe("P5-S04 CP02 Axis 3 recommendation no-fallback REC01–REC06", () => {
+  it("REC01 — without input.recommendation → null / ABSENT, no W3-C scrape", async () => {
+    const ctx = await authorizeAndSucceed("rec01");
+    const materialized = await materializeW3bProductTerminal({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      attemptId: ctx.attemptId,
+    });
+    expect(materialized.ok).toBe(true);
+    if (!materialized.ok) return;
+    const ceId = materialized.product.claimEvaluationId!;
+
+    const lineage = await buildProductSynthesisLineageInput({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      claimEvaluationId: ceId,
+      // no recommendation
+    });
+    expect(lineage.ok).toBe(true);
+    if (!lineage.ok) return;
+    expect(lineage.input.recommendation).toBeNull();
+
+    const svc = createSqliteSynthesisServices({ productStore: ctx.store });
+    const built = svc.build(lineage.input);
+    expect(built.sections.recommendation).toBe(ABSENT_RECOMMENDATION_TEXT);
+    expect(built.sourceBindings.recommendationRef).toBeNull();
+  });
+
+  it("REC02 — explicit recommendation is preserved", async () => {
+    const ctx = await authorizeAndSucceed("rec02");
+    const materialized = await materializeW3bProductTerminal({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      attemptId: ctx.attemptId,
+    });
+    expect(materialized.ok).toBe(true);
+    if (!materialized.ok) return;
+    const ceId = materialized.product.claimEvaluationId!;
+    const lineage = await buildProductSynthesisLineageInput({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      claimEvaluationId: ceId,
+      recommendation: {
+        ref: "epi:w3c-rec:explicit",
+        text: "Poursuivre avec la prochaine étape Pilot.",
+      },
+    });
+    expect(lineage.ok).toBe(true);
+    if (!lineage.ok) return;
+    expect(lineage.input.recommendation?.text).toBe(
+      "Poursuivre avec la prochaine étape Pilot.",
+    );
+    expect(lineage.input.recommendation?.ref).toBe("epi:w3c-rec:explicit");
+  });
+
+  it("REC03 — structured recommendation without text adapts via Pilot", async () => {
+    const ctx = await authorizeAndSucceed("rec03");
+    const materialized = await materializeW3bProductTerminal({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      attemptId: ctx.attemptId,
+    });
+    expect(materialized.ok).toBe(true);
+    if (!materialized.ok) return;
+    const ceId = materialized.product.claimEvaluationId!;
+    const lineage = await buildProductSynthesisLineageInput({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      claimEvaluationId: ceId,
+      recommendation: {
+        ref: "epi:w3c-rec:struct",
+        kind: "continue",
+        nextActionCode: "confirm_claim_evaluation",
+      },
+    });
+    expect(lineage.ok).toBe(true);
+    if (!lineage.ok) return;
+    const svc = createSqliteSynthesisServices({ productStore: ctx.store });
+    const built = svc.build(lineage.input);
+    expect(built.sections.recommendation).toContain("Confirmation");
+    expect(built.sections.recommendation).not.toMatch(FORBIDDEN_PILOT);
+  });
+
+  it("REC04 — product-path materialize still carries recommendationRef", async () => {
+    const ctx = await authorizeAndSucceed("rec04");
+    const materialized = await materializeW3bProductTerminal({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      attemptId: ctx.attemptId,
+    });
+    expect(materialized.ok).toBe(true);
+    if (!materialized.ok) return;
+    const svc = createSqliteSynthesisServices({ productStore: ctx.store });
+    const syn = (await svc.repository.listByProject(ctx.projectId)).find(
+      (s) => s.status === "current",
+    );
+    expect(syn?.sourceBindings.recommendationRef).toMatch(/^epi:w3c-rec:/);
+    expect(syn?.sections.recommendation).not.toBe(ABSENT_RECOMMENDATION_TEXT);
+  });
+
+  it("REC05 — empty recommendation object fields → ABSENT", () => {
+    const store = new SqliteProductStore(tempProductDbPath("rec05.sqlite"));
+    const svc = createSqliteSynthesisServices({ productStore: store });
+    const built = svc.build({
+      projectId: "prj:s04-c",
+      claimEvaluation: makeClaimEvaluation({ claimEvaluationId: "clm:rec05" }),
+      recommendation: { ref: "epi:empty", kind: null, headline: "  ", nextStep: "" },
+      generatedAt: NOW,
+    });
+    expect(built.sections.recommendation).toBe(ABSENT_RECOMMENDATION_TEXT);
+    store.close();
+  });
+
+  it("REC06 — lineage recommendation equals input.recommendation only", async () => {
+    const ctx = await authorizeAndSucceed("rec06");
+    const materialized = await materializeW3bProductTerminal({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      attemptId: ctx.attemptId,
+    });
+    expect(materialized.ok).toBe(true);
+    if (!materialized.ok) return;
+    const ceId = materialized.product.claimEvaluationId!;
+    const withNull = await buildProductSynthesisLineageInput({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      claimEvaluationId: ceId,
+      recommendation: null,
+    });
+    expect(withNull.ok).toBe(true);
+    if (!withNull.ok) return;
+    expect(withNull.input.recommendation).toBeNull();
+  });
+});
+
+describe("P5-S04 CP02 Axis 4 fail-closed Evidence EV01–EV04", () => {
+  it("EV01 — missing bound evidence → SYNTHESIS_LINEAGE_EVIDENCE_NOT_FOUND", async () => {
+    const ctx = await authorizeAndSucceed("ev01");
+    const materialized = await materializeW3bProductTerminal({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      attemptId: ctx.attemptId,
+    });
+    expect(materialized.ok).toBe(true);
+    if (!materialized.ok) return;
+    const ceId = materialized.product.claimEvaluationId!;
+    const ce =
+      await ctx.oa.evidenceReviewServices!.claimEvaluationReader.findById(ceId);
+    expect(ce?.contractResultBindings).toBeTruthy();
+
+    const bad = structuredClone(ce!);
+    bad.claimEvaluationId = `clm:ev01-${ctx.attemptId}`;
+    bad.contractResultBindings = {
+      ...ce!.contractResultBindings!,
+      evidenceRefs: ["ev:missing-for-cp02"],
+    };
+    // Keep ReviewBundle evidenceRefs aligned so matcher reaches evidence load.
+    const rbId = ce!.contractResultBindings!.reviewBundleId;
+    const rb =
+      await ctx.oa.evidenceReviewServices!.reviewBundleReader.findById(rbId);
+    expect(rb).toBeTruthy();
+    // Force mismatch path avoided: update CE to match RB with missing id —
+    // instead mutate both bindings and RB evidenceRefs via direct payload.
+    const rbPayload = structuredClone(rb!);
+    (rbPayload as { evidenceRefs: string[] }).evidenceRefs = [
+      "ev:missing-for-cp02",
+    ];
+    ctx.store.db
+      .prepare(
+        `UPDATE oa_review_bundles SET payload_json = ?, updated_at = ? WHERE review_bundle_id = ?`,
+      )
+      .run(JSON.stringify(rbPayload), NOW, rbId);
+
+    bad.idempotencyKey = `idem:ev01-${ctx.attemptId}`;
+    await ctx.oa.evidenceReviewServices!.claimEvaluationRepository.create(bad);
+
+    const lineage = await buildProductSynthesisLineageInput({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      claimEvaluationId: bad.claimEvaluationId,
+    });
+    expect(lineage.ok).toBe(false);
+    if (lineage.ok) return;
+    expect(lineage.code).toBe("SYNTHESIS_LINEAGE_EVIDENCE_NOT_FOUND");
+  });
+
+  it("EV02 — all bound evidence present → lineage ok", async () => {
+    const ctx = await authorizeAndSucceed("ev02");
+    const materialized = await materializeW3bProductTerminal({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      attemptId: ctx.attemptId,
+    });
+    expect(materialized.ok).toBe(true);
+    if (!materialized.ok) return;
+    const lineage = await buildProductSynthesisLineageInput({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      claimEvaluationId: materialized.product.claimEvaluationId!,
+    });
+    expect(lineage.ok).toBe(true);
+    if (!lineage.ok) return;
+    expect(lineage.input.evidence!.length).toBeGreaterThan(0);
+  });
+
+  it("EV03 — partial missing among multiple refs → fail-closed", async () => {
+    const ctx = await authorizeAndSucceed("ev03");
+    const materialized = await materializeW3bProductTerminal({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      attemptId: ctx.attemptId,
+    });
+    expect(materialized.ok).toBe(true);
+    if (!materialized.ok) return;
+    const ceId = materialized.product.claimEvaluationId!;
+    const ce =
+      await ctx.oa.evidenceReviewServices!.claimEvaluationReader.findById(ceId);
+    const existing = ce!.contractResultBindings!.evidenceRefs[0]!;
+    const bad = structuredClone(ce!);
+    bad.claimEvaluationId = `clm:ev03-${ctx.attemptId}`;
+    bad.contractResultBindings = {
+      ...ce!.contractResultBindings!,
+      evidenceRefs: [existing, "ev:partial-missing-cp02"],
+    };
+    const rbId = ce!.contractResultBindings!.reviewBundleId;
+    const rb =
+      await ctx.oa.evidenceReviewServices!.reviewBundleReader.findById(rbId);
+    const rbPayload = structuredClone(rb!);
+    (rbPayload as { evidenceRefs: string[] }).evidenceRefs = [
+      existing,
+      "ev:partial-missing-cp02",
+    ];
+    ctx.store.db
+      .prepare(
+        `UPDATE oa_review_bundles SET payload_json = ?, updated_at = ? WHERE review_bundle_id = ?`,
+      )
+      .run(JSON.stringify(rbPayload), NOW, rbId);
+    bad.idempotencyKey = `idem:ev03-${ctx.attemptId}`;
+    await ctx.oa.evidenceReviewServices!.claimEvaluationRepository.create(bad);
+
+    const lineage = await buildProductSynthesisLineageInput({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      claimEvaluationId: bad.claimEvaluationId,
+    });
+    expect(lineage.ok).toBe(false);
+    if (!lineage.ok) {
+      expect(lineage.code).toBe("SYNTHESIS_LINEAGE_EVIDENCE_NOT_FOUND");
+    }
+  });
+
+  it("EV04 — empty evidenceRefs → ok with empty evidence (no phantom filter)", async () => {
+    const ctx = await authorizeAndSucceed("ev04");
+    const materialized = await materializeW3bProductTerminal({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      attemptId: ctx.attemptId,
+    });
+    expect(materialized.ok).toBe(true);
+    if (!materialized.ok) return;
+    const ce =
+      await ctx.oa.evidenceReviewServices!.claimEvaluationReader.findById(
+        materialized.product.claimEvaluationId!,
+      );
+    const bad = structuredClone(ce!);
+    bad.claimEvaluationId = `clm:ev04-${ctx.attemptId}`;
+    bad.contractResultBindings = {
+      ...ce!.contractResultBindings!,
+      evidenceRefs: [],
+    };
+    const rbId = ce!.contractResultBindings!.reviewBundleId;
+    const rb =
+      await ctx.oa.evidenceReviewServices!.reviewBundleReader.findById(rbId);
+    const rbPayload = structuredClone(rb!);
+    (rbPayload as { evidenceRefs: string[] }).evidenceRefs = [];
+    ctx.store.db
+      .prepare(
+        `UPDATE oa_review_bundles SET payload_json = ?, updated_at = ? WHERE review_bundle_id = ?`,
+      )
+      .run(JSON.stringify(rbPayload), NOW, rbId);
+    bad.idempotencyKey = `idem:ev04-${ctx.attemptId}`;
+    await ctx.oa.evidenceReviewServices!.claimEvaluationRepository.create(bad);
+
+    const lineage = await buildProductSynthesisLineageInput({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      claimEvaluationId: bad.claimEvaluationId,
+    });
+    expect(lineage.ok).toBe(true);
+    if (!lineage.ok) return;
+    expect(lineage.input.evidence).toEqual([]);
   });
 });
 ```
@@ -4335,7 +5355,7 @@ const mockSynthesis: ProductSynthesisProjection = {
     gaps: "Manques.",
     impact: "Impact.",
     verdict: "Verdict.",
-    recommendation: "Aucune recommandation Product enregistrée.",
+    recommendation: "Aucune recommandation Product courante n'est disponible pour cette synthèse.",
     verified: "Vérifié.",
   },
   sourceBindings: {
@@ -4698,11 +5718,11 @@ describe("P5-S04 Synthèses UI", () => {
 });
 ```
 
-## FILE: `.tmp-sfia-review/p5-s04-visual/cp01/_seed-product-path.mjs` (619 lines)
+## FILE: `.tmp-sfia-review/p5-s04-visual/cp02/_seed-product-path.mjs` (700 lines)
 
 ```js
 /**
- * P5-S04 CP01 — PRODUCT-PATH seed for visual captures.
+ * P5-S04 CP02 — PRODUCT-PATH seed for visual captures.
  *
  * Invokes production `materializeW3bProductTerminal` so Synthesis appears via
  * `maybeMaterializeProductSynthesisAfterW3c` — NOT direct services.materialize.
@@ -4714,10 +5734,11 @@ describe("P5-S04 Synthèses UI", () => {
  * 3. Else create a fresh governed project in the campaign Product DB
  *    (deterministic Cursor boundary — ZERO OpenAI REAL).
  *
- * Historical direct seed remains: ../_seed-synthesis.mjs (NOT CP01 proof).
+ * Historical direct seed remains: ../_seed-synthesis.mjs (NOT CP02 proof).
+ * CP01 seed retained under ../cp01/ (preserved evidence).
  *
  * Run from app dir:
- *   cd projects/sfia-studio/app && node --import tsx ../../../.tmp-sfia-review/p5-s04-visual/cp01/_seed-product-path.mjs
+ *   cd projects/sfia-studio/app && node --import tsx ../../../.tmp-sfia-review/p5-s04-visual/cp02/_seed-product-path.mjs
  */
 import fs from "node:fs";
 import os from "node:os";
@@ -4728,7 +5749,7 @@ const REPO = path.resolve(
   "/Users/morris/Projects/sfia-studio-chat-first-product-simplification-p3",
 );
 const APP_ROOT = path.join(REPO, "projects/sfia-studio/app");
-const OUT_DIR = path.resolve(REPO, ".tmp-sfia-review/p5-s04-visual/cp01");
+const OUT_DIR = path.resolve(REPO, ".tmp-sfia-review/p5-s04-visual/cp02");
 const PREFERRED_PROJECT_ID = "prj:0ed5c4e1-3d23-45cd-b34b-530df1090197";
 const W2_REGISTRY_ROOT = path.join(APP_ROOT, "lib/oa/doctrine/product");
 const W2_SCHEMAS_ROOT = path.resolve(
@@ -4737,7 +5758,7 @@ const W2_SCHEMAS_ROOT = path.resolve(
 );
 const W2_FIXED_NOW = "2026-10-05T18:00:00.000Z";
 const W2_TEST_PINNED_BASE_HEAD_SHA = "a".repeat(40);
-const SUFFIX = `cp01vis${Date.now().toString(36).slice(-6)}`;
+const SUFFIX = `cp02vis${Date.now().toString(36).slice(-6)}`;
 const tempDirs = [];
 
 function loadEnvLocal() {
@@ -4827,7 +5848,7 @@ async function bootRuntime(productDbPath) {
     process.env.SFIA_STUDIO_PROJECT_REPOSITORY_DEFAULT_BRANCH = "main";
   }
   if (!process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV]?.trim()) {
-    const managedBase = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-cp01-managed-"));
+    const managedBase = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-cp02-managed-"));
     tempDirs.push(managedBase);
     process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV] = managedBase;
   }
@@ -4837,7 +5858,7 @@ async function bootRuntime(productDbPath) {
   });
 
   resetRuntimeApplicationServiceForTests();
-  const safetyDir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-cp01-gate-"));
+  const safetyDir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-cp02-gate-"));
   tempDirs.push(safetyDir);
 
   class SeededIdSource {
@@ -4892,31 +5913,31 @@ async function seedQualifiedProject(runtime, suffix) {
   };
 
   const created = await runtime.createProject({
-    name: `P5-S04 CP01 Visual ${suffix}`,
-    objective: "Prouver Synthèse Product-path pour captures CP01",
+    name: `P5-S04 CP02 Visual ${suffix}`,
+    objective: "Prouver Synthèse Product-path pour captures CP02",
     context: "ZERO REAL — deterministic Cursor boundary",
     criticality: "STANDARD",
     constraints: ["AUCUNE EXÉCUTION RÉELLE OPENAI"],
     shortReference: `P5S04${suffix.toUpperCase().slice(0, 6)}`,
-    idempotencyKey: `p5-s04-cp01-visual-${suffix}`,
+    idempotencyKey: `p5-s04-cp02-visual-${suffix}`,
   });
   if (!created.ok) throw new Error("createProject failed");
   const projectId = created.project.projectId;
   const overview = await runtime.getProject(projectId);
   if (!overview.ok) throw new Error("getProject failed");
   const oa = runtime.oa;
-  const cycleInstanceId = `cyc:inst:cp01-${suffix}`;
+  const cycleInstanceId = `cyc:inst:cp02-${suffix}`;
   const cycle = await oa.cycleServices.createCycle.execute({
     cycleInstanceId,
     cycleTypeId: "cyc:delivery",
     projectId,
     signals: {},
     objective: "Prouver la trajectoire décidée",
-    scope: "p5-s04-cp01-visual",
+    scope: "p5-s04-cp02-visual",
     createdBy: W2_TEST_ACTOR,
     linkAsActiveCycle: true,
     expectedLpsVersion: overview.livingState.version,
-    ckcResolutionRef: "ckcres:p5-s04-cp01-visual",
+    ckcResolutionRef: "ckcres:p5-s04-cp02-visual",
   });
   if (!cycle.ok) throw new Error("createCycle failed");
 
@@ -5050,7 +6071,7 @@ async function authorizeExecuteAndMaterialize(runtime, oa) {
     lpsVersion: overview.livingState.version,
     doctrineDigest: overview.doctrine.digest,
     activeCycleInstanceId: overview.livingState.activeCycleInstanceId ?? null,
-    ckcResolutionRef: "ckcres:p5-s04-cp01-visual",
+    ckcResolutionRef: "ckcres:p5-s04-cp02-visual",
   };
 
   const prepared = await prepareExecutionContractFromW2Decision({
@@ -5273,15 +6294,87 @@ async function main() {
     };
   }
 
-  const syn = outcome.synthesis;
-  const joined = Object.values(syn.sections).join("\n");
-  const jargonHits = [
+  const FORBIDDEN = [
     "ClaimEvaluation",
     "ReviewBundle",
+    "ContractResult",
+    "ExecutionContract",
+    "HumanDecision",
+    "ProjectTrajectory",
     "NON-AUTORITATIVE",
     "non_critical",
     "deterministic",
-  ].filter((t) => joined.includes(t) || String(syn.title).includes(t));
+    "NOT_PROVEN",
+    "expectedOutputs",
+    "evaluate claim",
+    "cursor.docs_write",
+    "workspace.isolated",
+    "studio.gcec",
+    "\bD5\b",
+    "\bW2\b",
+  ];
+  const RAW_ID = /\b(clm|rb|xat|xct|ev|syn):[a-zA-Z0-9:_.-]+/;
+
+  async function scanPilot(syn) {
+    const joined = [syn.title, syn.verdictLabel, ...Object.values(syn.sections || {})].join("\n");
+    const jargonHits = [];
+    for (const t of FORBIDDEN) {
+      if (t.startsWith("\\b")) {
+        if (new RegExp(t).test(joined)) jargonHits.push(t);
+      } else if (joined.includes(t)) {
+        jargonHits.push(t);
+      }
+    }
+    const rawIds = joined.match(new RegExp(RAW_ID.source, "g")) || [];
+    // Machine action codes / capability ids often look like dotted tokens
+    const capabilityHits = [];
+    for (const tok of ["cursor.docs_write", "workspace.isolated", "studio.gcec"]) {
+      if (joined.includes(tok)) capabilityHits.push(tok);
+    }
+    return {
+      jargonHits: [...new Set([...jargonHits, ...capabilityHits])],
+      rawIdHits: [...new Set(rawIds)],
+      joined,
+    };
+  }
+
+  // If rehydrate returned a CP01-era row (same fingerprint, stale Pilot projection),
+  // soft-supersede and rematerialize once so CP02 builder sections are written.
+  let scan = await scanPilot(outcome.synthesis);
+  if (scan.jargonHits.length || scan.rawIdHits.length) {
+    console.log("stale/leaky synthesis — forcing soft-supersede + rematerialize", scan);
+    const { createSqliteSynthesisServices } = await import(
+      href("lib/oa/synthesis/index.ts")
+    );
+    const svc = createSqliteSynthesisServices({ productStore: store });
+    const current = await svc.repository.listByProject(outcome.projectId);
+    for (const row of current.filter((s) => s.status === "current")) {
+      await svc.repository.softSupersede(row.synthesisId);
+    }
+    const rematerialized = await materializeW3bProductTerminal({
+      oa,
+      projectId: outcome.projectId,
+      attemptId: outcome.attemptId,
+    });
+    if (!rematerialized.ok) {
+      throw new Error(`force rematerialize failed: ${JSON.stringify(rematerialized)}`);
+    }
+    const syntheses = await listSyntheses(store, outcome.projectId);
+    const refreshed = syntheses.filter((s) => s.status === "current");
+    if (refreshed.length < 1) {
+      throw new Error("force rematerialize produced no current Synthesis");
+    }
+    outcome = {
+      ...outcome,
+      materialized: rematerialized,
+      synthesis: refreshed[0],
+      mode: `${outcome.mode}+cp02-force-refresh`,
+    };
+    scan = await scanPilot(outcome.synthesis);
+  }
+
+  const syn = outcome.synthesis;
+  const jargonHits = [...scan.jargonHits, ...scan.rawIdHits];
 
   const report = {
     seededAt: new Date().toISOString(),
@@ -5303,8 +6396,16 @@ async function main() {
       sectionKeys: Object.keys(syn.sections),
     },
     pilotLanguageJargonHits: jargonHits,
+    pilotLeaks: jargonHits.length,
+
     studioHref: `/studio/projects/${encodeURIComponent(outcome.projectId)}`,
   };
+
+  if (jargonHits.length > 0) {
+    console.error("PILOT TECHNICAL LANGUAGE LEAKS", jargonHits);
+    fs.writeFileSync(path.join(OUT_DIR, "seed-product-path.json"), JSON.stringify(report, null, 2));
+    throw new Error(`PILOT TECHNICAL LANGUAGE LEAKS = ${jargonHits.length}`);
+  }
 
   const outFile = path.join(OUT_DIR, "seed-product-path.json");
   fs.writeFileSync(outFile, JSON.stringify(report, null, 2));
@@ -5322,13 +6423,13 @@ main().catch((err) => {
 });
 ```
 
-## FILE: `.tmp-sfia-review/p5-s04-visual/cp01/_capture.mjs` (244 lines)
+## FILE: `.tmp-sfia-review/p5-s04-visual/cp02/_capture.mjs` (266 lines)
 
 ```js
 /**
- * P5-S04 CP01 — visual captures after PRODUCT-PATH seed.
+ * P5-S04 CP02 — visual captures after PRODUCT-PATH seed.
  * Reads seed-product-path.json for projectId.
- * Output: .tmp-sfia-review/p5-s04-visual/cp01/after/
+ * Output: .tmp-sfia-review/p5-s04-visual/cp02/after/
  */
 import pkg from "/Users/morris/Projects/sfia-studio-chat-first-product-simplification-p3/projects/sfia-studio/app/node_modules/playwright/index.js";
 const { chromium } = pkg;
@@ -5336,7 +6437,7 @@ import fs from "node:fs";
 import path from "node:path";
 
 const ROOT = path.resolve(
-  "/Users/morris/Projects/sfia-studio-chat-first-product-simplification-p3/.tmp-sfia-review/p5-s04-visual/cp01",
+  "/Users/morris/Projects/sfia-studio-chat-first-product-simplification-p3/.tmp-sfia-review/p5-s04-visual/cp02",
 );
 const OUT = path.join(ROOT, "after");
 const FIGMA = path.resolve(ROOT, "../figma");
@@ -5405,9 +6506,27 @@ async function main() {
   const oaHits = await pageTextHas(page, [
     "ClaimEvaluation",
     "ReviewBundle",
+    "ContractResult",
+    "ExecutionContract",
+    "HumanDecision",
+    "ProjectTrajectory",
     "non_critical",
     "deterministic",
+    "NOT_PROVEN",
+    "expectedOutputs",
+    "evaluate claim",
+    "cursor.docs_write",
+    "workspace.isolated",
+    "studio.gcec",
   ]);
+  // Raw ID prefixes in visible body (exclude navigation URLs by scanning detail/list only)
+  const surfaceText = await page
+    .locator("[data-testid='project-syntheses-surface']")
+    .innerText()
+    .catch(async () => page.locator("body").innerText());
+  const rawIdHits = (
+    surfaceText.match(/\b(clm|rb|xat|xct|ev):[a-zA-Z0-9:_.-]+/g) || []
+  ).filter((x, i, a) => a.indexOf(x) === i);
 
   manifest.items.push({
     viewport: "1440x1024",
@@ -5419,6 +6538,8 @@ async function main() {
     noNonAuthoritativeBadge: badgeHits.length === 0,
     noOaJargonInVisible: oaHits.length === 0,
     oaHits,
+    rawIdHits,
+    pilotLeaks: oaHits.length + rawIdHits.length,
   });
 
   await page.setViewportSize({ width: 1024, height: 768 });
@@ -5555,6 +6676,8 @@ async function main() {
         teaserVisible,
         badgeHits,
         oaHits,
+        rawIdHits,
+        pilotLeaks: oaHits.length + rawIdHits.length,
         projectId: seed.projectId,
         items: manifest.items.map((i) => i.file),
       },
@@ -5571,76 +6694,87 @@ main().catch((err) => {
 });
 ```
 
-## FILE: `.tmp-sfia-review/p5-s04-visual/cp01/manifest.md` (24 lines)
+## FILE: `.tmp-sfia-review/p5-s04-visual/cp02/manifest.md` (29 lines)
 
 ```md
-# P5-S04 CORRECTION PASS 01 — Visual Manifest
+# P5-S04 CORRECTION PASS 02 — Visual Manifest
 
 **Captured:** 2026-10-05 Europe/Paris
 **Product project:** FocusFlow · `prj:2eaad5df-7e82-4bc0-844d-9df20e43462f`
 **Production path:** `materializeW3bProductTerminal` → `maybeMaterializeProductSynthesisAfterW3c`
-**Seed:** `.tmp-sfia-review/p5-s04-visual/cp01/_seed-product-path.mjs` · `seed-product-path.json`
-**Historical (NOT CP01 proof):** `../_seed-synthesis.mjs` (direct `services.materialize`)
-**HABITFLOW note:** `prj:0ed5c4e1…` present but no succeeded Attempt — product-path rehydrate used FocusFlow campaign Attempt `xat:w3a:46736f6deb0fb02f` + CE `clm:docs-write:…`.
+**Seed:** `.tmp-sfia-review/p5-s04-visual/cp02/_seed-product-path.mjs` · `seed-product-path.json`
+**Synthesis (CP02):** `syn:ed340d63e583ff51bc9a0cb7a6c35219` · title `Synthèse — Résultat de l'action non prouvé` · verdict `non_prouve`
+**Product outcome:** campaign CE `not_proven` (honest Product truth — Pilot label « Non prouvé »)
+**Prior CP01 evidence:** preserved under `../cp01/` (NOT overwritten)
+**Historical (NOT CP02 proof):** `../_seed-synthesis.mjs` (direct `services.materialize`)
 
-**Pilot language check (runtime):** no `NON-AUTORITATIVE` badge · no ClaimEvaluation / ReviewBundle / deterministic / non_critical in visible Synthèses sections.
+**Technical-token scan (runtime + durable sections):** **PILOT TECHNICAL LANGUAGE LEAKS = 0**
+Covered: ClaimEvaluation · ReviewBundle · ExecutionContract · ContractResult · HumanDecision · ProjectTrajectory · D5 · W2 · NOT_PROVEN · expectedOutputs · evaluate claim · raw ID prefixes (`clm:`/`rb:`/`xat:`/`xct:`/`ev:`) · cursor.docs_write · workspace.isolated · studio.gcec · NON-AUTORITATIVE · non_critical · deterministic.
 
-| Capture | Viewport | Figma | Prior (S04 delivery) | After (CP01) | Corrected | A | B | C | D |
-| --- | --- | --- | --- | --- | ---: | ---: | ---: | ---: | ---: |
-| syntheses-desktop-1440x1024.png | 1440×1024 | 164:3 | `../after/syntheses-desktop-1440x1024.png` | `after/syntheses-desktop-1440x1024.png` | B1 header/search/list in LEFT column; detail alongside | 0 | 0 | 1 | 1 |
-| syntheses-compact-1024x768.png | 1024×768 | 190:175 | `../after/syntheses-compact-1024x768.png` | `after/syntheses-compact-1024x768.png` | B1 same left-pane header composition | 0 | 0 | 1 | 0 |
-| syntheses-mobile-list-390x844.png | 390×844 | 190:433 | `../after/syntheses-mobile-list-390x844.png` | `after/syntheses-mobile-list-390x844.png` | B2 project header+tabs hidden; focused secondary view | 0 | 0 | 0 | 0 |
-| syntheses-mobile-detail-390x844.png | 390×844 | 190:455 | `../after/syntheses-mobile-detail-390x844.png` | `after/syntheses-mobile-detail-390x844.png` | B2 single nav level (← Synthèses) | 0 | 0 | 1 | 1 |
-| apercu-desktop-1440x1024.png | 1440×1024 | 51:2 block | `../after/apercu-desktop-1440x1024.png` | `after/apercu-desktop-1440x1024.png` | synthesis preview from product-path row | 0 | 0 | 0 | 1 |
-| conversation-desktop-1440x1024.png | 1440×1024 | 46:2 teaser | `../after/conversation-desktop-1440x1024.png` | `after/conversation-desktop-1440x1024.png` | teaser present; no NON-AUTORITATIVE | 0 | 0 | 0 | 0 |
-| execution-mobile-390x844.png | 390×844 | shell control | (S03) | `after/execution-mobile-390x844.png` | shared shell CSS hide scoped to syntheses only | 0 | 0 | 0 | 1 |
+| Capture | Viewport | Figma | Prior (CP01) | After (CP02) | Corrected / regression | A | B | C | D |
+| --- | --- | --- | --- | --- | --- | ---: | ---: | ---: | ---: |
+| syntheses-desktop-1440x1024.png | 1440×1024 | 164:3 | `../cp01/after/syntheses-desktop-1440x1024.png` | `after/syntheses-desktop-1440x1024.png` | B1 CLOSED — NO REGRESSION · Pilot subject/sections | 0 | 0 | 1 | 1 |
+| syntheses-compact-1024x768.png | 1024×768 | 190:175 | `../cp01/after/syntheses-compact-1024x768.png` | `after/syntheses-compact-1024x768.png` | B1 CLOSED — NO REGRESSION | 0 | 0 | 1 | 0 |
+| syntheses-mobile-list-390x844.png | 390×844 | 190:433 | `../cp01/after/syntheses-mobile-list-390x844.png` | `after/syntheses-mobile-list-390x844.png` | B2 CLOSED — NO REGRESSION (projectHeader+tabs hidden) | 0 | 0 | 0 | 0 |
+| syntheses-mobile-detail-390x844.png | 390×844 | 190:455 | `../cp01/after/syntheses-mobile-detail-390x844.png` | `after/syntheses-mobile-detail-390x844.png` | B2 CLOSED — NO REGRESSION (← Synthèses) | 0 | 0 | 1 | 0 |
+| apercu-desktop-1440x1024.png | 1440×1024 | 51:2 block | `../cp01/after/apercu-desktop-1440x1024.png` | `after/apercu-desktop-1440x1024.png` | teaser reflects CP02 Pilot title | 0 | 0 | 0 | 1 |
+| conversation-desktop-1440x1024.png | 1440×1024 | 46:2 teaser | `../cp01/after/conversation-desktop-1440x1024.png` | `after/conversation-desktop-1440x1024.png` | teaser present; no NON-AUTORITATIVE | 0 | 0 | 0 | 0 |
+| execution-mobile-390x844.png | 390×844 | shell control | `../cp01/after/execution-mobile-390x844.png` | `after/execution-mobile-390x844.png` | shared shell hide scoped to syntheses only | 0 | 0 | 0 | 1 |
 
-**Totals:** A=0 · B=0 · C=3 (polish) · D=4 (honest Product content / CE claimStatement subject / not_proven campaign state)
+**Totals:** A=0 · B=0 · C=3 (density/rhythm polish — NON-BLOCKING) · D=3 (campaign `not_proven` CE honesty · W3-C recommendation Pilot text · empty execution shell honesty)
 
-**Expected Product-content variance (D):** FocusFlow CE status `not_proven`; subject projects durable `claimStatement` (may include EC identifiers from Product truth — not UI invention); recommendation text from durable W3-C post-evidence.
+**B1 CLOSED — NO REGRESSION**
+**B2 CLOSED — NO REGRESSION**
+**PILOT TECHNICAL LANGUAGE LEAKS = 0**
 ```
 
-## FILE: `.tmp-sfia-review/p5-s04-visual/cp01/correction-design-note.md` (31 lines)
+## FILE: `.tmp-sfia-review/p5-s04-visual/cp02/correction-design-note.md` (37 lines)
 
 ```md
-# P5-S04 CORRECTION PASS 01 — Design Note
+# P5-S04 CORRECTION PASS 02 — Design Note
 
 **Reviewed:** 2026-10-05 Europe/Paris
-**Runtime evidence:** `.tmp-sfia-review/p5-s04-visual/cp01/after/`
+**Runtime evidence:** `.tmp-sfia-review/p5-s04-visual/cp02/after/`
 **Figma refs:** `../figma/` (164:3 · 190:175 · 190:433 · 190:455) · Overview 51:2 · Conversation teaser
 **Seed path:** PRODUCT PATH only (`materializeW3bProductTerminal` → `maybeMaterializeProductSynthesisAfterW3c`)
+**CP01 evidence:** preserved under `../cp01/` (not overwritten)
 
 ## Method
-Side-by-side against Figma; ChatGPT Critical Review B1/B2 supersede prior local classification.
+Side-by-side against Figma + CP01 after captures. Semantic CP02 axes (soft-fail observability · Pilot projection · recommendation currentness · Evidence fail-closed) must not reopen B1/B2.
 
 ## Critical Review closures
 
 | Finding | Status | Evidence |
 | --- | --- | --- |
-| **A0 Product path** | **CLOSED** | Seed via production seam; Synthesis `syn:fc44ff99449fd3b96f4500b60a2eeda7` on FocusFlow |
-| **A1 Pilot semantics** | **CLOSED** | No NON-AUTORITATIVE badge; sections free of ClaimEvaluation/ReviewBundle/deterministic/non_critical |
-| **B1 Desktop/Compact** | **CLOSED** | Header + search + list inside left column; detail begins alongside |
-| **B2 Mobile** | **CLOSED** | `data-active-view=syntheses` hides projectHeader+tabs; list↔detail single nav |
+| Soft-fail observability | **CLOSED** (tests SF) | Production seam diagnostic; Truth C preserved |
+| Pilot semantic projection | **CLOSED** | Subject `Résultat de l'action non prouvé`; sections free of OA internals |
+| Stale recommendation fallback | **CLOSED** (tests REC) | Current W3-C only |
+| Evidence fail-closed | **CLOSED** (tests EV) | Missing bound Evidence → lineage error |
+| **B1 Desktop/Compact** | **CLOSED — NO REGRESSION** | Header + search + list in left column; detail alongside |
+| **B2 Mobile** | **CLOSED — NO REGRESSION** | `data-active-view=syntheses` hides projectHeader+tabs; ← Synthèses detail |
 
 ## Counts (target A=0 B=0)
 
 | Class | Count | Notes |
 | --- | ---: | --- |
 | **A** | **0** | Read-only; authority none; no fake authority CTAs |
-| **B** | **0** | B1/B2 structural mismatches closed |
-| **C** | **3** | Desktop section density vs 164:3; compact column rhythm; mobile detail subject line density |
-| **D** | **4** | Campaign `not_proven` CE; durable claimStatement subject may carry EC ids; recommendation from W3-C; empty execution shell honesty |
+| **B** | **0** | B1/B2 preserved — no structural regression |
+| **C** | **3** | Desktop section density vs 164:3; compact column rhythm; mobile detail density (NON-BLOCKING) |
+| **D** | **3** | Campaign `not_proven` CE honesty; W3-C Pilot recommendation text; empty execution shell |
+
+## Technical-token scan
+**PILOT TECHNICAL LANGUAGE LEAKS = 0** (ClaimEvaluation, ReviewBundle, ContractResult, ExecutionContract, HumanDecision, ProjectTrajectory, D5, W2, NOT_PROVEN, expectedOutputs, evaluate claim, raw ID prefixes, cursor.docs_write, etc.)
 
 ## Verdict
 **PASS WITH C/D RESERVES — A=0 · B=0**
-Prior Critical Review B1/B2 = **CLOSED**. Ready for ChatGPT Final Critical Re-Review.
+B1/B2 = **CLOSED — NO REGRESSION**. Ready for ChatGPT Final Critical Re-Review.
 ```
 
-## FILE: `.tmp-sfia-review/p5-s04-visual/cp01/seed-product-path.json` (31 lines)
+## FILE: `.tmp-sfia-review/p5-s04-visual/cp02/seed-product-path.json` (32 lines)
 
 ```json
 {
-  "seededAt": "2026-10-05T18:21:23.875Z",
+  "seededAt": "2026-10-05T19:10:49.266Z",
   "mode": "campaign-rehydrate:clm:docs-write:xat:w3a:46736f6deb0fb02f",
   "productionSeam": "materializeW3bProductTerminal → maybeMaterializeProductSynthesisAfterW3c",
   "productDb": "/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/new-project-campaign-01/product/oa-product.sqlite",
@@ -5650,8 +6784,8 @@ Prior Critical Review B1/B2 = **CLOSED**. Ready for ChatGPT Final Critical Re-Re
   "claimEvaluationId": "clm:docs-write:xat:w3a:46736f6deb0fb02f",
   "postEvidenceOk": true,
   "synthesis": {
-    "synthesisId": "syn:fc44ff99449fd3b96f4500b60a2eeda7",
-    "title": "Synthèse — résultat non prouvé",
+    "synthesisId": "syn:ed340d63e583ff51bc9a0cb7a6c35219",
+    "title": "Synthèse — Résultat de l'action non prouvé",
     "authority": "none",
     "status": "current",
     "verdictLabel": "non_prouve",
@@ -5668,7 +6802,110 @@ Prior Critical Review B1/B2 = **CLOSED**. Ready for ChatGPT Final Critical Re-Re
     ]
   },
   "pilotLanguageJargonHits": [],
+  "pilotLeaks": 0,
   "studioHref": "/studio/projects/prj%3A2eaad5df-7e82-4bc0-844d-9df20e43462f"
+}
+```
+
+## FILE: `.tmp-sfia-review/p5-s04-visual/cp02/after/manifest.json` (97 lines)
+
+```json
+{
+  "capturedAt": "2026-10-05T19:10:53.763Z",
+  "seed": {
+    "seededAt": "2026-10-05T19:10:49.266Z",
+    "mode": "campaign-rehydrate:clm:docs-write:xat:w3a:46736f6deb0fb02f",
+    "productionSeam": "materializeW3bProductTerminal → maybeMaterializeProductSynthesisAfterW3c",
+    "productDb": "/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/new-project-campaign-01/product/oa-product.sqlite",
+    "projectId": "prj:2eaad5df-7e82-4bc0-844d-9df20e43462f",
+    "attemptId": "xat:w3a:46736f6deb0fb02f",
+    "executionContractId": null,
+    "claimEvaluationId": "clm:docs-write:xat:w3a:46736f6deb0fb02f",
+    "postEvidenceOk": true,
+    "synthesis": {
+      "synthesisId": "syn:ed340d63e583ff51bc9a0cb7a6c35219",
+      "title": "Synthèse — Résultat de l'action non prouvé",
+      "authority": "none",
+      "status": "current",
+      "verdictLabel": "non_prouve",
+      "sectionKeys": [
+        "summary",
+        "planned",
+        "done",
+        "evaluation",
+        "gaps",
+        "impact",
+        "verdict",
+        "recommendation",
+        "verified"
+      ]
+    },
+    "pilotLanguageJargonHits": [],
+    "pilotLeaks": 0,
+    "studioHref": "/studio/projects/prj%3A2eaad5df-7e82-4bc0-844d-9df20e43462f"
+  },
+  "items": [
+    {
+      "viewport": "1440x1024",
+      "view": "syntheses",
+      "state": "list+detail",
+      "figma": "164:3",
+      "figmaRef": "/Users/morris/Projects/sfia-studio-chat-first-product-simplification-p3/.tmp-sfia-review/p5-s04-visual/figma/desktop-164-3.png",
+      "file": "syntheses-desktop-1440x1024.png",
+      "noNonAuthoritativeBadge": true,
+      "noOaJargonInVisible": true,
+      "oaHits": [],
+      "rawIdHits": [],
+      "pilotLeaks": 0
+    },
+    {
+      "viewport": "1024x768",
+      "view": "syntheses",
+      "state": "list+detail",
+      "figma": "190:175",
+      "figmaRef": "/Users/morris/Projects/sfia-studio-chat-first-product-simplification-p3/.tmp-sfia-review/p5-s04-visual/figma/compact-190-175.png",
+      "file": "syntheses-compact-1024x768.png"
+    },
+    {
+      "viewport": "390x844",
+      "view": "syntheses",
+      "state": "mobile-list",
+      "figma": "190:433",
+      "figmaRef": "/Users/morris/Projects/sfia-studio-chat-first-product-simplification-p3/.tmp-sfia-review/p5-s04-visual/figma/mobile-list-190-433.png",
+      "file": "syntheses-mobile-list-390x844.png",
+      "projectHeaderHidden": true,
+      "projectTabsHidden": true
+    },
+    {
+      "viewport": "390x844",
+      "view": "syntheses",
+      "state": "mobile-detail",
+      "figma": "190:455",
+      "figmaRef": "/Users/morris/Projects/sfia-studio-chat-first-product-simplification-p3/.tmp-sfia-review/p5-s04-visual/figma/mobile-detail-190-455.png",
+      "file": "syntheses-mobile-detail-390x844.png"
+    },
+    {
+      "viewport": "1440x1024",
+      "view": "overview",
+      "state": "synthesis-preview",
+      "figma": "51:2",
+      "purpose": "Aperçu synthesis teaser control",
+      "file": "apercu-desktop-1440x1024.png"
+    },
+    {
+      "viewport": "1440x1024",
+      "view": "conversation",
+      "state": "synthesis-teaser",
+      "file": "conversation-desktop-1440x1024.png"
+    },
+    {
+      "viewport": "390x844",
+      "view": "execution",
+      "state": "mobile-shell-control",
+      "purpose": "B2 shared mobile shell regression control",
+      "file": "execution-mobile-390x844.png"
+    }
+  ]
 }
 ```
 
@@ -5680,7 +6917,7 @@ Prior Critical Review B1/B2 = **CLOSED**. Ready for ChatGPT Final Critical Re-Re
 
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts b/projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts
-index e504347b..6007b160 100644
+index e504347b..a9b4fd0a 100644
 --- a/projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts
 @@ -34,6 +34,7 @@ import {
@@ -5691,14 +6928,28 @@ index e504347b..6007b160 100644
  import { resolveManagedRepoRootBaseFromEnv } from "@/lib/vertical-slice-runtime/managedRepoRootBaseConfig";
 
  function w3cUnavailableFailure(
-@@ -51,12 +52,26 @@ function w3cUnavailableFailure(
+@@ -51,17 +52,62 @@ function w3cUnavailableFailure(
    };
  }
 
 -function finishWithOptionalPostEvidence(input: {
 +/**
++ * Soft-fail Synthesis observability on ok:true Product terminal.
++ * Synthesis failure never flips ok — Truth C / CE / W3-C stay intact.
++ */
++export type SynthesisMaterializationObservability =
++  | { readonly status: "materialized"; readonly synthesisId: string }
++  | {
++      readonly status: "failed";
++      readonly code: string;
++      readonly message: string;
++      readonly retryable: true;
++    };
++
++/**
 + * After W3-C success/rehydrate, soft-materialize Product Synthesis.
 + * Synthesis failure never mutates Truth C / Product terminal outcome.
++ * Captures maybeMaterialize result for observability (never discarded).
 + */
 +async function finishWithOptionalPostEvidence(input: {
 +  readonly oa: RuntimeOaStack;
@@ -5709,18 +6960,48 @@ index e504347b..6007b160 100644
 -}): Extract<MaterializeW3bProductTerminalResult, { ok: true }> {
 +}): Promise<Extract<MaterializeW3bProductTerminalResult, { ok: true }>> {
    const postOk = input.postEvidence?.ok === true;
++  let synthesisMaterialization: SynthesisMaterializationObservability | undefined;
 +  if (postOk && input.postEvidence?.ok === true) {
-+    await maybeMaterializeProductSynthesisAfterW3c({
++    const maybe = await maybeMaterializeProductSynthesisAfterW3c({
 +      oa: input.oa,
 +      projectId: input.projectId,
 +      product: input.product,
 +      postEvidence: input.postEvidence,
 +    });
++    if (maybe.ok) {
++      synthesisMaterialization = {
++        status: "materialized",
++        synthesisId: maybe.synthesis.synthesisId,
++      };
++    } else {
++      synthesisMaterialization = {
++        status: "failed",
++        code: maybe.code,
++        message: maybe.message,
++        retryable: true,
++      };
++    }
 +  }
    return {
      ok: true,
      reusedFromIdempotency: input.reusedFromIdempotency,
-@@ -262,6 +277,8 @@ async function materializeDocsWriteProductTerminal(input: {
+     product: withNoraUnavailableReserve(input.product, postOk),
+     postEvidence: input.postEvidence,
++    ...(synthesisMaterialization
++      ? { synthesisMaterialization }
++      : {}),
+   };
+ }
+
+@@ -73,6 +119,7 @@ export type MaterializeW3bProductTerminalResult =
+       readonly product: W3BProductTerminalProjection;
+       readonly reusedFromIdempotency: boolean;
+       readonly postEvidence?: W3cPostEvidenceLoopResult;
++      readonly synthesisMaterialization?: SynthesisMaterializationObservability;
+     }
+   | {
+       readonly ok: false;
+@@ -262,6 +309,8 @@ async function materializeDocsWriteProductTerminal(input: {
        });
        if (existing) {
          return finishWithOptionalPostEvidence({
@@ -5729,7 +7010,7 @@ index e504347b..6007b160 100644
            reusedFromIdempotency,
            product,
            postEvidence: existing,
-@@ -274,6 +291,8 @@ async function materializeDocsWriteProductTerminal(input: {
+@@ -274,6 +323,8 @@ async function materializeDocsWriteProductTerminal(input: {
        });
        if (rehydrated.ok) {
          return finishWithOptionalPostEvidence({
@@ -5738,7 +7019,7 @@ index e504347b..6007b160 100644
            reusedFromIdempotency,
            product,
            postEvidence: rehydrated,
-@@ -292,6 +311,8 @@ async function materializeDocsWriteProductTerminal(input: {
+@@ -292,6 +343,8 @@ async function materializeDocsWriteProductTerminal(input: {
    }
 
    return finishWithOptionalPostEvidence({
@@ -5747,7 +7028,7 @@ index e504347b..6007b160 100644
      reusedFromIdempotency,
      product,
      postEvidence,
-@@ -573,12 +594,13 @@ export async function materializeW3bProductTerminal(input: {
+@@ -573,12 +626,13 @@ export async function materializeW3bProductTerminal(input: {
        product,
      });
      if (existing) {
@@ -5764,7 +7045,7 @@ index e504347b..6007b160 100644
      }
      // Prefer LPS exact / Epistemic rehydrate before Nora+LPS (covers partial-write).
      const rehydrated = await rehydrateW3cPostEvidenceFromLps({
-@@ -587,12 +609,13 @@ export async function materializeW3bProductTerminal(input: {
+@@ -587,12 +641,13 @@ export async function materializeW3bProductTerminal(input: {
        product,
      });
      if (rehydrated.ok) {
@@ -5781,7 +7062,7 @@ index e504347b..6007b160 100644
      }
    }
 
-@@ -603,12 +626,13 @@ export async function materializeW3bProductTerminal(input: {
+@@ -603,12 +658,13 @@ export async function materializeW3bProductTerminal(input: {
      product,
    });
 
@@ -5798,7 +7079,7 @@ index e504347b..6007b160 100644
  }
 
  export async function rehydrateW3bProductTerminal(input: {
-@@ -715,6 +739,8 @@ export async function rehydrateW3bProductTerminal(input: {
+@@ -715,6 +771,8 @@ export async function rehydrateW3bProductTerminal(input: {
    });
 
    return finishWithOptionalPostEvidence({
@@ -5807,6 +7088,30 @@ index e504347b..6007b160 100644
      reusedFromIdempotency: true,
      product,
      postEvidence,
+@@ -740,6 +798,7 @@ export async function rehydrateLatestW3bProductTerminalForContract(input: {
+       readonly attemptStatus: string;
+       readonly reusedFromIdempotency: true;
+       readonly postEvidence?: W3cPostEvidenceLoopResult;
++      readonly synthesisMaterialization?: SynthesisMaterializationObservability;
+     }
+   | { readonly ok: false; readonly code: string; readonly message: string }
+ > {
+@@ -790,6 +849,9 @@ export async function rehydrateLatestW3bProductTerminalForContract(input: {
+     ...(rehydrated.postEvidence
+       ? { postEvidence: rehydrated.postEvidence }
+       : {}),
++    ...(rehydrated.synthesisMaterialization
++      ? { synthesisMaterialization: rehydrated.synthesisMaterialization }
++      : {}),
+   };
+ }
+
+```
+
+## DIFF: `projects/sfia-studio/app/features/project-assistant/actions.ts`
+
+```diff
+(no diff vs HEAD for projects/sfia-studio/app/features/project-assistant/actions.ts — check status)
 ```
 
 ## DIFF: `projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx`
@@ -6478,6 +7783,7 @@ index c039716c..23e56d96 100644
 +    expect(PRODUCT_SCHEMA_VERSION).toBe("m9-0.1.0");
      expect(tableExists(svc.store.db, "oa_execution_attempts")).toBe(true);
    });
+
 ```
 
 ## DIFF: `projects/sfia-studio/app/__tests__/oa/project/m6ProductSchemaMigration.test.ts`
@@ -6651,15 +7957,16 @@ index 52fcc432..97b86865 100644
 
 ```diff
 diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-index 93823ab3..2c30f662 100644
+index 93823ab3..6e5495a7 100644
 --- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 +++ b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-@@ -4,7 +4,10 @@
+@@ -4,7 +4,11 @@
  | --- | --- |
  | **Rôle** | Roadmap **vivante** de convergence vers l’utilisation complète de la doctrine produit SFIA Studio v3 |
  | **Statut** | **VALIDATED — ACTIVE LIVING ROADMAP** |
 -| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S03 GIT INTEGRATION** | 2026-10-05 Europe/Paris — **STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S03 OBJECT-NATIVE PRODUCT VIEWS — GIT INTEGRATION AUTHORIZED BY MORRIS / IN PROGRESS** · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **13 — PR Readiness / Git Integration** · Milestone **P5** · Slice **P5-S03** · CRITICAL · Morris P5-S03 GIT INTEGRATION GATE = **AUTHORIZED** · Final ChatGPT Critical Review = **PASS** · CP01/CP02 = **PASS at local candidate scope** · A=0 / B=0 · C-actionable = 0 · Expected Product content variance **PRESERVED** · ZERO REAL · branche `delivery/sfia-studio-product-simplification-p5-s03-object-native-product-views` · base/main `1a7e80b20949a041b1edc279ffed735b04bda997` · next = commit/push/PR → ChatGPT PR review + CI → **MORRIS P5-S03 MERGE GATE** · merge **NOT AUTHORIZED this pass** · **≠** P5-S03 INTEGRATED · **≠** P5 COMPLETE · **≠** R3 · **≠** P6 READY · **≠** runtime v3 ADOPTED · **≠** PIXEL-PERFECT GLOBAL |
-+| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S04 CORRECTION PASS 01** | 2026-10-05 Europe/Paris — **STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S04 CORRECTION PASS 01 COMPLETE LOCALLY / CRITICAL RE-REVIEW REQUIRED** · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **8 — Delivery / Implementation Correction** · Milestone **P5** · Slice **P5-S04** · Pass **CORRECTION PASS 01** · CRITICAL · Morris P5-S04 CP01 AUTHORIZATION = **CONSUMED** · Axes = Product-path materialization · lineage/currentness · Pilot-facing projection · Figma B1/B2 · A=0 / B=0 · ZERO REAL · F2 debt **OPEN** · R3 **NOT STARTED** · P5 COMPLETE **NO** · P6 READY **NO** · runtime v3 **NON ADOPTED** · branche `delivery/sfia-studio-product-simplification-p5-s04-product-derived-syntheses` · project commit/push/PR/merge = **NOT AUTHORIZED this pass** · next = **ChatGPT Final Critical Re-Review** → Morris Git Integration gate · **≠** P5-S04 INTEGRATED |
++| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S04 CORRECTION PASS 02** | 2026-10-05 Europe/Paris — **STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S04 CORRECTION PASS 02 COMPLETE LOCALLY / FINAL CRITICAL RE-REVIEW REQUIRED** · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **8 — Delivery / Implementation Correction** · Milestone **P5** · Slice **P5-S04** · Pass **CORRECTION PASS 02** · CRITICAL · Morris P5-S04 CP02 AUTHORIZATION = **CONSUMED** · Axes = soft-fail observability · Pilot semantic projection · recommendation currentness (no stale fallback) · Evidence fail-closed · visual recapture PRODUCT-PATH · A=0 / B=0 · B1/B2 CLOSED — NO REGRESSION · PILOT LEAKS = 0 · ZERO REAL · F2 debt **OPEN** · R3 **NOT STARTED** · P5 COMPLETE **NO** · P6 READY **NO** · runtime v3 **NON ADOPTED** · branche `delivery/sfia-studio-product-simplification-p5-s04-product-derived-syntheses` · project commit/push/PR/merge = **NOT AUTHORIZED this pass** · next = **ChatGPT Final Critical Re-Review** → Morris Git Integration gate · **≠** P5-S04 INTEGRATED |
++| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S04 CORRECTION PASS 01** | 2026-10-05 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S04 CORRECTION PASS 01 COMPLETE LOCALLY / CRITICAL RE-REVIEW REQUIRED *(true then; superseded by P5-S04 CP02 tip)* · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **8 — Delivery / Implementation Correction** · Milestone **P5** · Slice **P5-S04** · Pass **CORRECTION PASS 01** · CRITICAL · Morris P5-S04 CP01 AUTHORIZATION = **CONSUMED** · Axes = Product-path materialization · lineage/currentness · Pilot-facing projection · Figma B1/B2 · A=0 / B=0 · ZERO REAL · F2 debt **OPEN** · R3 **NOT STARTED** · P5 COMPLETE **NO** · P6 READY **NO** · runtime v3 **NON ADOPTED** · branche `delivery/sfia-studio-product-simplification-p5-s04-product-derived-syntheses` · project commit/push/PR/merge = **NOT AUTHORIZED this pass** · next = **ChatGPT Final Critical Re-Review** → Morris Git Integration gate · **≠** P5-S04 INTEGRATED |
 +| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S04 PRODUCT-DERIVED SYNTHESES** | 2026-10-05 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S04 PRODUCT-DERIVED SYNTHÈSES — DELIVERY AUTHORIZED / LOCAL CANDIDATE IN PROGRESS *(true then; superseded by P5-S04 CP01 tip)* · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **8 — Delivery / Implementation** · Milestone **P5** · Slice **P5-S04** · CRITICAL · Morris P5-S04 delivery authorization = **CONSUMED** · P5-S01/S02/S03 = **INTEGRATED / POST-MERGE VERIFIED** (main **`49b4fdaf…`** · S03 PR **#557** MERGED) · M9 **`oa_syntheses`** · deterministic builder + SQLite repository · Synthèses UI read-only · Overview/Conversation teasers · ZERO REAL · F2 debt **OPEN** · R3 **NOT STARTED** · P5 COMPLETE **NO** · P6 READY **NO** · runtime v3 **NON ADOPTED** · branche `delivery/sfia-studio-product-simplification-p5-s04-product-derived-syntheses` · project commit/push/PR/merge = **NOT AUTHORIZED this pass** · next = **ChatGPT Critical Review** → Morris Git Integration gate · **≠** P5-S04 INTEGRATED |
 +| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S03 INTEGRATED** | 2026-10-05 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S03 OBJECT-NATIVE PRODUCT VIEWS — **INTEGRATED / POST-MERGE VERIFIED** *(true then; superseded by P5-S04 tip)* · PR **#557** MERGED · main **`49b4fdaf078fdf2a5c7bfce3baad05fa65220c2e`** · merge **`5fc6238a…`** · CP01/CP02 preserved · A=0 / B=0 · ZERO REAL · Synthesis surface was **NOT BUILT** at S03 scope · **≠** P5 COMPLETE |
 +| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S03 GIT INTEGRATION** | 2026-10-05 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S03 OBJECT-NATIVE PRODUCT VIEWS — GIT INTEGRATION AUTHORIZED BY MORRIS / IN PROGRESS *(true then; superseded by P5-S03 INTEGRATED tip)* · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **13 — PR Readiness / Git Integration** · Milestone **P5** · Slice **P5-S03** · CRITICAL · Morris P5-S03 GIT INTEGRATION GATE = **AUTHORIZED** · Final ChatGPT Critical Review = **PASS** · CP01/CP02 = **PASS at local candidate scope** · A=0 / B=0 · C-actionable = 0 · Expected Product content variance **PRESERVED** · ZERO REAL · branche `delivery/sfia-studio-product-simplification-p5-s03-object-native-product-views` · base/main `1a7e80b20949a041b1edc279ffed735b04bda997` · next = commit/push/PR → ChatGPT PR review + CI → **MORRIS P5-S03 MERGE GATE** · merge **NOT AUTHORIZED this pass** · **≠** P5-S03 INTEGRATED · **≠** P5 COMPLETE · **≠** R3 · **≠** P6 READY · **≠** runtime v3 ADOPTED · **≠** PIXEL-PERFECT GLOBAL |
@@ -6672,10 +7979,10 @@ index 93823ab3..2c30f662 100644
 
 ```diff
 diff --git a/projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md b/projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md
-index 62af8c61..9e5018c9 100644
+index 62af8c61..8768cdbe 100644
 --- a/projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md
 +++ b/projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md
-@@ -785,39 +785,51 @@ Visual / Git historical notes above for Correction Pass 01 are **SUPERSEDED** by
+@@ -785,39 +785,56 @@ Visual / Git historical notes above for Correction Pass 01 are **SUPERSEDED** by
 
  ---
 
@@ -6686,12 +7993,15 @@ index 62af8c61..9e5018c9 100644
 +| --- | --- |
 +| Morris P5-S04 delivery authorization | **CONSUMED** |
 +| Morris P5-S04 CP01 authorization | **CONSUMED** |
++| Morris P5-S04 CP02 authorization | **CONSUMED** |
 +| Scope | M9 `oa_syntheses` · deterministic `buildProductSynthesis` · SQLite repository · read-only Synthèses surface · Overview + Conversation teasers · authority `none` (no NON-AUTORITATIVE badge in Pilot UI) |
 +| Architecture | OBJECTS FIRST → PROJECTIONS SECOND → SURFACES THIRD · Product-path `materializeW3bProductTerminal` → `maybeMaterializeProductSynthesisAfterW3c` · Contract-Result lineage + currentness · durable W3-C Recommendation · **no invented verdict/recommendation** · **≠ Truth C** |
++| CP02 axes | Soft-fail observability (`synthesisMaterialization` on ok:true) · Pilot semantic projection (subject/planned/done/recommendation) · recommendation currentness only (stale fallback closed) · missing bound Evidence fail-closed · visual recapture PRODUCT-PATH |
 +| Auth / REAL | Studio auth via `.tmp-sfia-review/auth/studio-storage-state.json` · **ZERO REAL** · `P5_S02_RUN_REAL` never set |
-+| Evidence — tests | CP01 L01–L09 / C01–C08 / P01–P05 · D0 + UI · migration · full `npm test` (see CP01 Review Pack counts) |
-+| Evidence — visual CP01 | `.tmp-sfia-review/p5-s04-visual/cp01/after/` · PRODUCT-PATH seed (NOT direct `services.materialize`) · FocusFlow `syn:fc44ff99449fd3b96f4500b60a2eeda7` · **A=0 / B=0** · B1/B2 **CLOSED** · see `cp01/correction-design-note.md` |
-+| Historical visual seed | `../_seed-synthesis.mjs` retained as historical only (direct materialize — **NOT** CP01 proof) |
++| Evidence — tests | CP02 SF/PL/REC/EV · CP01 L01–L09 / C01–C08 / P01–P05 · D0 + UI · migration · full `npm test` (see CP02 Review Pack counts) |
++| Evidence — visual CP01 | `.tmp-sfia-review/p5-s04-visual/cp01/after/` · PRODUCT-PATH · FocusFlow `syn:fc44ff99449fd3b96f4500b60a2eeda7` · **A=0 / B=0** · B1/B2 **CLOSED** · preserved |
++| Evidence — visual CP02 | `.tmp-sfia-review/p5-s04-visual/cp02/after/` · PRODUCT-PATH · FocusFlow `syn:ed340d63e583ff51bc9a0cb7a6c35219` · **A=0 / B=0** · B1/B2 **CLOSED — NO REGRESSION** · **PILOT LEAKS = 0** · see `cp02/correction-design-note.md` |
++| Historical visual seed | `../_seed-synthesis.mjs` retained as historical only (direct materialize — **NOT** CP01/CP02 proof) |
 +| Debts | F2 routing **OPEN** · R3 **NOT STARTED** · P6 **NOT READY** · runtime v3 **NON ADOPTED** |
 +| Anti-claims | **≠** Truth C · **≠** authority mutation · **≠** UI-only fake synthesis · **≠** P5 COMPLETE · **≠** integrated on main (local uncommitted candidate on branch tip = main @ `49b4fdaf…`) |
 +
@@ -6720,10 +8030,12 @@ index 62af8c61..9e5018c9 100644
 -         CP01 durable continuity CLOSED locally
 -         CP02 reconcile continuity + C polish CLOSED locally
 -         — NOT INTEGRATED · R3 NOT STARTED
-+P5-S04 = LOCAL CANDIDATE — CORRECTION PASS 01 COMPLETE LOCALLY
-+         CRITICAL RE-REVIEW REQUIRED
-+         PRODUCT-PATH SYNTHESIS + LINEAGE + PILOT UI + B1/B2
-+         A=0 / B=0 · ZERO REAL · NOT INTEGRATED
++P5-S04 = LOCAL CANDIDATE — CORRECTION PASS 02 COMPLETE LOCALLY
++         FINAL CRITICAL RE-REVIEW REQUIRED
++         SOFT-FAIL OBSERVABILITY + PILOT SEMANTICS + REC CURRENTNESS
++         + EVIDENCE FAIL-CLOSED + PRODUCT-PATH VISUAL
++         A=0 / B=0 · B1/B2 NO REGRESSION · PILOT LEAKS = 0
++         ZERO REAL · NOT INTEGRATED
 
  READY FOR REAL          = NO
  runtime v3              = NON ADOPTED
@@ -6734,17 +8046,17 @@ index 62af8c61..9e5018c9 100644
 -NEXT                   = COMMIT / PUSH / PR → CHATGPT PR REVIEW + CI
 -NEXT MORRIS GATE       = P5-S03 MERGE GATE (only after ChatGPT PR review + required CI green)
 -NEXT CAPABILITY HINT   = subsequent P5 capability requalification / later R3 / P6
-+NEXT                   = CHATGPT FINAL CRITICAL RE-REVIEW (S04 CP01)
++NEXT                   = CHATGPT FINAL CRITICAL RE-REVIEW (S04 CP02)
 +NEXT MORRIS GATE       = P5-S04 GIT INTEGRATION (after PASS)
  ```
 
 -**Synthèse honnête.** P5-S01/S02 sont sur main. P5-S03 projette Aperçu + Exécution depuis le monde Product existant, avec continuation W2 canonique et polish C borné. **≠ R3 / ≠ P5 COMPLETE / ≠ runtime v3 ADOPTED / ≠ Synthèses**. **P4 reste l’autorité d’architecture**.
-+**Synthèse honnête.** P5-S04 CP01 branche la matérialisation Synthèse sur le chemin Product gouverné, durcit la lignée Contract-Result / currentness, projette un langage Pilote, et aligne B1/B2 Figma. **≠ R3 / ≠ P5 COMPLETE / ≠ runtime v3 ADOPTED**. **P4 reste l’autorité d’architecture**.
++**Synthèse honnête.** P5-S04 CP02 rend l’échec Synthèse observable sans mutation Truth C, projette un langage Pilote sans fuites OA, ferme le fallback recommandation périmé, fail-close Evidence manquante, et reconfirme B1/B2. **≠ R3 / ≠ P5 COMPLETE / ≠ runtime v3 ADOPTED**. **P4 reste l’autorité d’architecture**.
 
  ---
 
 -*Fin du document P5 — Integrated Delivery — P5-S03 Object-Native Views — S01/S02 INTEGRATED · S03 LOCAL CANDIDATE GIT INTEGRATION AUTHORIZED — NOT YET INTEGRATED · R3 NOT STARTED · READY FOR REAL = NO · runtime v3 NON ADOPTED — P4 remains architecture authority.*
-+*Fin du document P5 — Integrated Delivery — S01/S02/S03 INTEGRATED · S04 CP01 COMPLETE LOCALLY / CRITICAL RE-REVIEW REQUIRED · R3 NOT STARTED · READY FOR REAL = NO · runtime v3 NON ADOPTED — P4 remains architecture authority.*
++*Fin du document P5 — Integrated Delivery — S01/S02/S03 INTEGRATED · S04 CP02 COMPLETE LOCALLY / FINAL CRITICAL RE-REVIEW REQUIRED · R3 NOT STARTED · READY FOR REAL = NO · runtime v3 NON ADOPTED — P4 remains architecture authority.*
 ```
 
 ## DIFF: `projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json`
@@ -6771,35 +8083,38 @@ index 6033a8db..8766284c 100644
 
 | File | Embedded |
 | --- | --- |
+| `projects/sfia-studio/app/lib/oa/synthesis/index.ts` | YES |
+| `projects/sfia-studio/app/lib/oa/synthesis/domain/types.ts` | YES |
+| `projects/sfia-studio/app/lib/oa/synthesis/domain/errors.ts` | YES |
+| `projects/sfia-studio/app/lib/oa/synthesis/domain/invariants.ts` | YES |
+| `projects/sfia-studio/app/lib/oa/synthesis/ports/synthesisRepositoryPort.ts` | YES |
 | `projects/sfia-studio/app/lib/oa/synthesis/application/buildProductSynthesis.ts` | YES |
 | `projects/sfia-studio/app/lib/oa/synthesis/application/materializeProductSynthesis.ts` | YES |
 | `projects/sfia-studio/app/lib/oa/synthesis/application/rebuildProductSynthesis.ts` | YES |
 | `projects/sfia-studio/app/lib/oa/synthesis/application/searchProductSyntheses.ts` | YES |
-| `projects/sfia-studio/app/lib/oa/synthesis/domain/errors.ts` | YES |
-| `projects/sfia-studio/app/lib/oa/synthesis/domain/invariants.ts` | YES |
-| `projects/sfia-studio/app/lib/oa/synthesis/domain/types.ts` | YES |
-| `projects/sfia-studio/app/lib/oa/synthesis/index.ts` | YES |
-| `projects/sfia-studio/app/lib/oa/synthesis/infrastructure/sqlite/createSqliteSynthesisServices.ts` | YES |
 | `projects/sfia-studio/app/lib/oa/synthesis/infrastructure/sqlite/sqliteSynthesisRepository.ts` | YES |
-| `projects/sfia-studio/app/lib/oa/synthesis/ports/synthesisRepositoryPort.ts` | YES |
+| `projects/sfia-studio/app/lib/oa/synthesis/infrastructure/sqlite/createSqliteSynthesisServices.ts` | YES |
+| `projects/sfia-studio/app/features/project-assistant/w2/maybeMaterializeProductSynthesisAfterW3c.ts` | YES |
 | `projects/sfia-studio/app/features/project-assistant/buildProductSynthesisLineageInput.ts` | YES |
 | `projects/sfia-studio/app/features/project-assistant/synthesisActions.ts` | YES |
-| `projects/sfia-studio/app/features/project-assistant/w2/maybeMaterializeProductSynthesisAfterW3c.ts` | YES |
 | `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/SynthesesSurface.tsx` | YES |
 | `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/SynthesesSurface.module.css` | YES |
 | `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/synthesisPresentation.ts` | YES |
 | `projects/sfia-studio/app/__tests__/oa/synthesis/p5.s04.productDerivedSynthesis.d0.test.ts` | YES |
 | `projects/sfia-studio/app/__tests__/oa/synthesis/p5.s04.cp01.productPathSynthesis.d0.test.ts` | YES |
+| `projects/sfia-studio/app/__tests__/oa/synthesis/p5.s04.cp02.softFailPilotLineage.d0.test.ts` | YES |
 | `projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s04.synthesesSurface.ui.test.tsx` | YES |
-| `.tmp-sfia-review/p5-s04-visual/cp01/_seed-product-path.mjs` | YES |
-| `.tmp-sfia-review/p5-s04-visual/cp01/_capture.mjs` | YES |
-| `.tmp-sfia-review/p5-s04-visual/cp01/manifest.md` | YES |
-| `.tmp-sfia-review/p5-s04-visual/cp01/correction-design-note.md` | YES |
-| `.tmp-sfia-review/p5-s04-visual/cp01/seed-product-path.json` | YES |
+| `.tmp-sfia-review/p5-s04-visual/cp02/_seed-product-path.mjs` | YES |
+| `.tmp-sfia-review/p5-s04-visual/cp02/_capture.mjs` | YES |
+| `.tmp-sfia-review/p5-s04-visual/cp02/manifest.md` | YES |
+| `.tmp-sfia-review/p5-s04-visual/cp02/correction-design-note.md` | YES |
+| `.tmp-sfia-review/p5-s04-visual/cp02/seed-product-path.json` | YES |
+| `.tmp-sfia-review/p5-s04-visual/cp02/after/manifest.json` | YES |
 
 | Modified diffs | Embedded |
 | --- | --- |
 | `projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts` | YES |
+| `projects/sfia-studio/app/features/project-assistant/actions.ts` | YES |
 | `projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx` | YES |
 | `projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.module.css` | YES |
 | `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx` | YES |
@@ -6821,108 +8136,99 @@ index 6033a8db..8766284c 100644
 
 ---
 
-# Cursor Report — P5-S04 CORRECTION PASS 01 (items 1–87)
+# Cursor Report — P5-S04 CORRECTION PASS 02 (items 1–94)
 
 1. Branch: `delivery/sfia-studio-product-simplification-p5-s04-product-derived-syntheses`
 2. HEAD/base/origin-main: `49b4fdaf078fdf2a5c7bfce3baad05fa65220c2e` (= origin/main)
-3. Local Git truth: S04+CP01 **uncommitted** local candidate; dirty scope attributable to S04/CP01 + `.tmp-sfia-review/**`
-4. Morris CP01 authorization: **CONSUMED**
-5. Sources reread: P4 architecture · `05-…integrated-delivery.md` · roadmap · Figma 164:3/190:175/190:433/190:455
+3. Local Git truth: S04+CP01+CP02 **uncommitted** local candidate; dirty scope attributable to S04/CP01/CP02 + `.tmp-sfia-review/**`
+4. Morris CP02 authorization: **CONSUMED**
+5. Sources reread: P4 architecture · `05-…integrated-delivery.md` · roadmap · Figma 164:3/190:175/190:433/190:455 · CP01 handoff
 6. Template SHA: `948156a21309ef99c3aaed6410947dc6b9bc569a`
-7. Handoff before SHA/blob: `bd7a037384897fd6fdcb68416d8c2d91c6ac2d1b` / `fb6229256300bd725b45bf270492cfa9a2239da0`
-8. Production materialization seam: `materializeW3bProductTerminal` → `finishWithOptionalPostEvidence` → `maybeMaterializeProductSynthesisAfterW3c`
-9. Exact caller/path: W3-B/W3-C success/rehydrate returns in `materializeW3bProductTerminal.ts` (docs-write + write-path)
-10. Direct seed still required for Product runtime? **NO** for CP01 proof (historical `_seed-synthesis.mjs` retained only)
-11. Automatic Product-path materialization proven? **YES** (P01–P05 + campaign rehydrate seed → `syn:fc44ff99449fd3b96f4500b60a2eeda7`)
-12. W3-C fresh path behavior: post-evidence success triggers soft Synthesis materialize
-13. W3-C rehydrate behavior: existing/rehydrated post-evidence also triggers soft materialize
-14. Recommendation source: durable W3-C recommendation via `formatW3cRecommendationForSynthesis` / `findExistingW3cPostEvidence`
-15. Recommendation durable ref: `w3cRecommendationEpistemicId(evidenceId, claimEvaluationId)`
-16. New Recommendation store? **NO**
-17. Recommendation authority: **unchanged** (Synthesis does not author Recommendation)
-18. subjectKind validation: requires `execution_contract_result`
-19. contractResultBindings required? **YES**
-20. contractResultBindingsMatchCurrentFacts reused? **YES**
-21. Project mismatch behavior: `CLAIM_EVALUATION_PROJECT_MISMATCH`
-22. EC version/fingerprint validation: via bindings match / Attempt-bound snapshot
-23. Attempt bound snapshot used? **YES** for planned semantics
-24. ReviewBundle version validation: via bindings match (`frozenVersion`)
-25. Evidence binding validation: CE `evidenceRefs` + ReviewBundle evidence order for matcher
-26. Fingerprint material before/after: covers section-affecting source material; excludes `generatedAt`
-27. Same semantics idempotent? **YES** (same fingerprint)
-28. generatedAt ignored by fingerprint? **YES**
-29. Same IDs/source semantic change detected? **YES** (C02–C08)
-30. CE supersession behavior: `supersedesClaimEvaluationId` → Synthesis successor
-31. Rebuildability preserved? **YES**
-32. Truth C unchanged? **YES**
-33. Synthesis failure effect on Product truth: **soft-fail** — CE/W3-C intact (P05)
-34. Pilot-facing section language: **YES** (sections rewritten)
-35. Raw ClaimEvaluation IDs visible? **NO** in sections (subject may project durable CE `claimStatement` — D variance)
-36. Raw ReviewBundle terminology visible? **NO** in sections
-37. deterministic/non_critical visible? **NO** in sections
-38. NON-AUTORITATIVE badge visible? **NO** (removed from Synthèses / conversation teaser)
-39. Search preserved? **YES**
-40. 9 sections preserved? **YES**
-41. Figma nodes reread: 164:3 · 190:175 · 190:433 · 190:455 · 51:2 · conversation teaser
-42. Desktop structural correction: **B1 CLOSED** (header/search/list in left column)
-43. Compact structural correction: **B1 CLOSED**
-44. Mobile list correction: **B2 CLOSED** (projectHeader+tabs hidden)
-45. Mobile detail correction: **B2 CLOSED** (single nav ← Synthèses)
-46. Prior C reclassification: actionable C reduced; remaining C polish only
-47. Final A count: **0**
-48. Final B count: **0**
-49. Remaining actionable C: **3** (density/rhythm polish)
-50. D/expected Product variance: **4** (not_proven campaign CE; durable claimStatement; W3-C recommendation text; empty execution honesty)
-51. Product-path runtime captures: `.tmp-sfia-review/p5-s04-visual/cp01/after/` (7 captures)
-52. S03 regression captures/tests: execution mobile control captured; S03 UI tests still green in full suite
-53. Lineage tests: L01–L09 **PASS**
-54. Currentness tests: C01–C08 **PASS**
-55. Product-path tests: P01–P05 **PASS**
-56. S04 D0 tests: **PASS**
-57. Migration tests: M3/M5/M6 **PASS**
-58. W3-B tests: covered via full suite **PASS**
-59. W3-C tests: covered via full suite **PASS**
-60. pre-m6 UI tests: **PASS** (incl. p5.s04 UI)
-61. typecheck: **PASS** (via `npm run build`)
-62. lint: **PASS** (via `npm run build`)
-63. build: **PASS**
-64. full npm test: **PASS** (472 files / 5241 tests)
-65. REAL calls: **ZERO** (`P5_S02_RUN_REAL` never set; fake provider)
-66. New DB? **NO** (M9 additive only)
-67. New state machine? **NO**
-68. New Product aggregate? **NO**
-69. Parallel architecture? **NO**
-70. Files created: `lib/oa/synthesis/**` · `buildProductSynthesisLineageInput.ts` · `synthesisActions.ts` · `maybeMaterializeProductSynthesisAfterW3c.ts` · `SynthesesSurface*` · CP01 tests · `cp01/_seed-product-path.mjs` · captures/docs
-71. Files modified: `materializeW3bProductTerminal.ts` · Workspace/Overview/Conversation/Context · sqlite db/index · migrations/mocks/importBoundaries · roadmap · 05-integrated-delivery · PRR digest
-72. Roadmap truth-sync: **YES** — tip **CP01 COMPLETE LOCALLY / CRITICAL RE-REVIEW REQUIRED**
-73. P5 truth-sync: **YES** — S04 section updated
-74. Project commit? **NO**
-75. Project push? **NO**
-76. PR? **NO**
-77. Merge? **NO**
-78. Review Pack FULL? **YES** (this file — complete bodies + unified diffs)
-79. Handoff after SHA: *(filled after publish)*
-80. Handoff blob: *(filled after publish)*
-81. Remote reread: *(filled after publish)*
-82. P5-S04 integrated? **NO**
-83. P5 COMPLETE? **NO**
-84. R3 status: **NOT STARTED**
-85. P6 READY? **NO**
-86. runtime v3: **NON ADOPTED**
-87. Final verdict:
-
-```text
-PASS — P5-S04 CORRECTION PASS 01 COMPLETE —
-PRODUCT-PATH SYNTHESIS MATERIALIZATION PROVEN —
-CANONICAL CONTRACT-RESULT LINEAGE ENFORCED —
-DURABLE W3-C RECOMMENDATION REUSED —
-SEMANTIC CURRENTNESS / CE SUPERSESSION PROVEN —
-SYNTHESIS REMAINS NON-AUTHORITATIVE / NOT TRUTH C —
-PILOT-FACING SYNTHESIS PROJECTION CLEAN —
-P3 DESKTOP / COMPACT / MOBILE STRUCTURE ALIGNED —
-A=0 / B=0 —
-ZERO REAL —
-READY FOR CHATGPT FINAL CRITICAL RE-REVIEW
-```
-
-Report timestamp: 2026-10-05 20:27:08 +0200 Europe/Paris
+7. Handoff before SHA/blob: `c22a99dffd90d3bb19edd4178a6ea06547f496c6` / `8d8fcd589576ce552bb47c678373614480979640`
+8. Soft-fail diagnostic design: optional `synthesisMaterialization` on ok:true Product terminal (`materialized` | `failed`+`retryable:true`)
+9. Existing diagnostic carrier reused? **YES** — extended W3-B Product terminal return (no new orchestration state)
+10. New orchestration state? **NO**
+11. Synthesis failure mutates Product truth? **NO** (Truth C / CE / W3-C intact)
+12. Real production-seam failure injected? **YES** (SQLite `BEFORE INSERT` abort on `oa_syntheses`)
+13. Failure injection method: temporary SQLite trigger aborting Synthesis INSERT in test DB only
+14. W3-B result during Synthesis failure: **ok:true** Product terminal preserved
+15. CE durability during failure: **YES**
+16. W3-C durability during failure: **YES**
+17. Synthesis row during failure: **absent** (no durable row)
+18. Failure observable? **YES** via `synthesisMaterialization.failed`
+19. Retry/rehydrate proof: **YES** — remove trigger + rehydrate/materialize → Synthesis appears
+20. Duplicate Synthesis after retry? **NO**
+21. Recommendation source nominal path: current durable W3-C via `postEvidence.recommendation` fields → Pilot adapter
+22. Implicit W3-C fallback removed/guarded? **YES** — lineage uses `input.recommendation ?? null` only
+23. Old CE Recommendation reusable after supersession? **NO** (stale fallback closed)
+24. Recommendation authority: **unchanged** (Synthesis does not author Recommendation)
+25. HumanDecision created? **NO** by Synthesis path
+26. Missing bound Evidence behavior: fail-closed `SYNTHESIS_LINEAGE_EVIDENCE_NOT_FOUND`
+27. Partial Evidence projection possible? **NO** for missing bound refs
+28. Subject Pilot language: `Résultat de l'action atteint|en échec|non prouvé`
+29. Planned Pilot language: functional FR; no machine action codes / raw EC tokens
+30. Result Pilot language: separates Attempt completion vs Product proof
+31. Recommendation Pilot language: `projectPilotRecommendationFromW3c` (no raw rationale)
+32. Raw `xct:` visible? **NO** in Pilot sections
+33. Raw `xat:` visible? **NO** in Pilot sections
+34. Raw `clm:` visible? **NO** in Pilot sections
+35. Raw `rb:` visible? **NO** in Pilot sections
+36. Raw `ev:` visible? **NO** in Pilot sections
+37. internal capability IDs visible? **NO** (`cursor.docs_write` etc. absent)
+38. D5/W2/HumanDecision/ProjectTrajectory visible? **NO**
+39. 9 sections preserved? **YES**
+40. Search preserved? **YES**
+41. Overview teaser: present with CP02 Pilot title
+42. Conversation teaser: present; no NON-AUTORITATIVE
+43. Figma nodes reread: 164:3 · 190:175 · 190:433 · 190:455 · 51:2 · conversation teaser
+44. Desktop regression: **B1 CLOSED — NO REGRESSION**
+45. Compact regression: **B1 CLOSED — NO REGRESSION**
+46. Mobile list regression: **B2 CLOSED — NO REGRESSION**
+47. Mobile detail regression: **B2 CLOSED — NO REGRESSION**
+48. Final A count: **0**
+49. Final B count: **0**
+50. Remaining C: **3** (density/rhythm polish — NON-BLOCKING)
+51. Expected genuine Product variance D: **3** (campaign `not_proven` CE; W3-C Pilot recommendation; empty execution honesty)
+52. CP02 runtime captures: `.tmp-sfia-review/p5-s04-visual/cp02/after/` (7 screenshots + manifest)
+53. SF tests: **PASS** (soft-fail observability)
+54. REC tests: **PASS** (recommendation currentness)
+55. EV tests: **PASS** (Evidence fail-closed)
+56. PL tests: **PASS** (Pilot language)
+57. L01–L09: **PASS** (CP01 preserved)
+58. C01–C08: **PASS** (CP01 preserved)
+59. P01–P05: **PASS** (CP01 + CP02 SF supersedes weak P05)
+60. S04 D0: **PASS**
+61. Migration tests: **PASS**
+62. W3-B: **PASS**
+63. W3-C: **PASS**
+64. pre-m6 UI: **PASS**
+65. S03 regression: **PASS**
+66. typecheck: **PASS**
+67. lint: **PASS**
+68. build: **PASS**
+69. full npm test: **PASS** — 473 files / 5263 tests
+70. REAL calls: **0**
+71. New DB? **NO**
+72. M10? **NO**
+73. New state machine? **NO**
+74. New Product aggregate? **NO**
+75. New Recommendation store? **NO**
+76. Parallel architecture? **NO**
+77. Files created: synthesis module · maybeMaterialize · lineage · synthesisActions · SynthesesSurface · CP01/CP02/D0/UI tests · cp02 visual seed/capture/manifest
+78. Files modified: materializeW3b · workspace/overview/conversation · sqlite migration · roadmap · 05-integrated-delivery · related tests
+79. Roadmap truth-sync: **YES** — tip CP02 COMPLETE LOCALLY / FINAL CRITICAL RE-REVIEW REQUIRED
+80. P5 truth-sync: **YES** — §33/§34 CP02 facts
+81. Project commit? **NO**
+82. Project push? **NO**
+83. PR? **NO**
+84. Merge? **NO**
+85. Review Pack FULL? **YES** (this file)
+86. Handoff after SHA: *(filled after publish)*
+87. Handoff blob: *(filled after publish)*
+88. Remote reread: *(filled after publish)*
+89. P5-S04 integrated? **NO**
+90. P5 COMPLETE? **NO**
+91. R3 status: **NOT STARTED**
+92. P6 READY? **NO**
+93. runtime v3: **NON ADOPTED**
+94. Final verdict: **PASS — P5-S04 CORRECTION PASS 02 COMPLETE — DERIVED SYNTHESIS FAILURE OBSERVABLE WITHOUT TRUTH-C MUTATION — EXISTING REHYDRATE PATH PROVIDES RETRY — CURRENT W3-C RECOMMENDATION ONLY — STALE RECOMMENDATION FALLBACK CLOSED — BOUND EVIDENCE FAIL-CLOSED — PILOT-FACING SYNTHESIS FREE OF OA INTERNALS — B1/B2 PRESERVED — A=0 / B=0 — ZERO REAL — READY FOR CHATGPT FINAL CRITICAL RE-REVIEW**
