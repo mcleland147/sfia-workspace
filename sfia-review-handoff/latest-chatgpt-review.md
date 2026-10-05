@@ -1,176 +1,204 @@
-# P5-S04 POST-MERGE TRUTH-SYNC + POST-S04 REQUALIFICATION — FULL REVIEW PACK
+# P5-S04 POST-MERGE TRUTH-SYNC — GIT INTEGRATION — FULL REVIEW PACK
 
 | Field | Value |
 | --- | --- |
-| Timestamp | 2026-10-06 00:33 Europe/Paris |
+| Timestamp | 2026-10-06 00:48:55 +0200 |
 | Project | SFIA Studio |
 | Macro | STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 |
 | Milestone | P5 — Integrated Delivery |
-| Object | P5-S04 Post-Merge Truth-Sync + P5 Post-S04 Requalification Recording |
-| Cycle | **14 — Post-merge** |
+| Object | P5-S04 Post-Merge Truth-Sync — Git Integration |
+| Cycle | **13 — PR Readiness / Git Integration** |
 | Profile | **Standard** |
 | Typologie | **DOC** |
-| Morris gate consumed | **P5 POST-S04 TRUTH-SYNC = CONSUMED** |
-| Project commit/push/PR/merge | **NOT AUTHORIZED / NOT PERFORMED** |
-| REAL / R3 / S05 delivery | **NOT AUTHORIZED** |
+| Morris gate consumed | **P5 POST-S04 TRUTH-SYNC GIT INTEGRATION = AUTHORIZED / CONSUMED** |
+| Merge | **NOT AUTHORIZED / NOT PERFORMED** |
+| Auto-merge | **OFF** |
 | ZERO REAL | **YES** |
+| S05 / R3 / REAL | **NOT AUTHORIZED** |
 
 ---
 
 ## 1. Objective
 
-Restore living documentary truth after verified integration of PR **#558** so that Roadmap + P5 Integrated Delivery match Git:
-
-- P5-S04 = **INTEGRATED / POST-MERGE VERIFIED**
-- next capability = **RECOMMENDED** P5-S05 only
-- **≠** S05 started / authorized
-- **≠** R3 / REAL authorized
-- **≠** P5 COMPLETE / P6 READY / runtime v3 ADOPTED
+Integrate the already ChatGPT-reviewed documentary candidate into Git via commit + push + PR only.
+No content edit. No merge. No S05. No REAL.
 
 ## 2. Local Git Truth Check
 
 ```text
 repository = mcleland147/sfia-workspace
+branch = docs/sfia-studio-p5-s04-post-merge-truth-sync
 origin/main = c7b53b93d48e626e5ac1548886162936ce7e9eb3
-docs branch = docs/sfia-studio-p5-s04-post-merge-truth-sync (local, NOT pushed)
-HEAD = c7b53b93d48e626e5ac1548886162936ce7e9eb3
-tracked dirty before edit = none (only .tmp untracked evidence)
-staged = EMPTY
-note = local `main` checkout blocked by unrelated worktree; docs branch created from origin/main (FF-aligned)
+pre-commit HEAD = c7b53b93d48e626e5ac1548886162936ce7e9eb3
+remote branch pre-state = ABSENT
+existing PR pre-state = NONE
+tracked project dirty = exactly 2 files
+staged pre = EMPTY
+.tmp present untracked/modified = YES (never staged)
 ```
 
-## 3. Git proofs consumed
+## 3. Candidate parity vs prior ChatGPT Review PASS
 
-| Proof | Result |
+| Item | Value |
 | --- | --- |
-| PR #558 | **MERGED** — feat(sfia-studio): integrate P5 S04 product-derived syntheses |
-| head | `bf08952ee426370d96eac0968302ab3ca6a84185` |
-| base | `49b4fdaf078fdf2a5c7bfce3baad05fa65220c2e` |
-| merge/main | `c7b53b93d48e626e5ac1548886162936ce7e9eb3` |
-| CI #684 / run `37377995199` | **SUCCESS** |
-| Detect | SUCCESS |
-| Build and validate | SUCCESS |
-| Required Gate | SUCCESS |
+| Prior handoff commit | `f79ab99c77da13e3fd206e3246dc8e19452b9409` |
+| Prior handoff blob | `5efd9337f837fa169d3003dd02c9f1254e7d070b` |
+| PART A Roadmap parity | **PASS** |
+| PART B P5 parity | **PASS** |
+| Silent content edit this cycle | **NONE** |
 
-## 4. Sources read (roles)
+## 4. Sources
 
 | Source | Role | SHA |
 | --- | --- | --- |
-| Build Doctrine | READ ONLY laws | `99232e4582e4ef4cf489020a46b818ebb41ac397` |
-| Roadmap | MODIFY living tip | `f6b0f93f7b28e2fb94f5f25c478ff6daed11812e` (before) |
+| Build Doctrine | READ ONLY | `99232e4582e4ef4cf489020a46b818ebb41ac397` |
+| Roadmap (main before) | COMMITTED | `f6b0f93f7b28e2fb94f5f25c478ff6daed11812e` |
 | C1 | READ ONLY | `806d672fe21ad82a641bf88fe95fc87870481105` |
-| P4 | READ ONLY | `db91b54659da9a43533794be261a3eb3b072b18e` |
-| P5 Integrated Delivery | MODIFY CURRENT state | `447710c621617417e1dc0b2af28e2035f653a7a2` (before) |
-| Template | PROCESS ONLY | `948156a21309ef99c3aaed6410947dc6b9bc569a` |
-| Routing guide | PROCESS ONLY | `8949e764d96faf3fa812d39307dbc298b500f5ef` |
-| v3 framing 32/34/35/37 | READ ONLY | present / unchanged |
+| P5 (main before) | COMMITTED | `447710c621617417e1dc0b2af28e2035f653a7a2` |
+| Template | PROCESS | `948156a21309ef99c3aaed6410947dc6b9bc569a` |
 
 ## 5. Convergence Pre-check
 
 ```text
-Capability served = Integrated Product / cognitive path readiness toward Product Completion
-Milestone = P5 Integrated Delivery
-Acquired = S01/S02/S03/S04 INTEGRATED / POST-MERGE VERIFIED
-Assets KEEP = Product backbone · cognitive routing · Aperçu/Exécution · Synthèses M9 · Evidence/Result lineage
-Gaps OPEN = R3 · F2 routing alignment · Nora Activity/STOP · Auth P3 visual · temporary/debt exits · Net Complexity Reduction
-Critical dependency = F2 routing alignment recommended before honest integrated R3
-Recommended next = P5-S05 R3 + F2 Routing Alignment
-RECOMMENDED ≠ AUTHORIZED
-Parallel architecture = NONE REQUIRED
-Exit proof this cycle = Roadmap + P5 reflect Git + requalification without starting S05
+S04 = INTEGRATED / POST-MERGE VERIFIED
+P5 = IN PROGRESS
+P5 COMPLETE = NO
+R3 = NOT STARTED
+F2 = OPEN
+S05 = RECOMMENDED ≠ AUTHORIZED
+REAL = NOT AUTHORIZED
+P6 READY = NO
+runtime v3 = NON ADOPTED
+parallel architecture = NONE
+this cycle = Git integration of reviewed truth-sync only
 ```
 
-## 6. Files modified (exact = 2)
+## 6. Staging / commit / push / PR
+
+### Staged files (exact = 2)
 
 ```text
 projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md
 ```
 
-Diff stat:
+`git diff --cached --check` = CLEAN · `.tmp` excluded.
+
+### Project commit
+
+| Item | Value |
+| --- | --- |
+| SHA | `8e75049cad9ad9fe1f50546cd3bfc34ea40591d7` |
+| Parent | `c7b53b93d48e626e5ac1548886162936ce7e9eb3` |
+| Message | `docs(sfia-studio): sync P5 S04 post-merge truth` |
+| Files | **2** |
+
+### Push
+
+| Item | Value |
+| --- | --- |
+| Remote branch | `docs/sfia-studio-p5-s04-post-merge-truth-sync` |
+| Remote SHA | `8e75049cad9ad9fe1f50546cd3bfc34ea40591d7` |
+| Force | **NO** |
+| Match local | **YES** |
+
+### PR
+
+| Item | Value |
+| --- | --- |
+| Number | **#559** |
+| URL | https://github.com/mcleland147/sfia-workspace/pull/559 |
+| State | **OPEN** |
+| Base | `main` |
+| Head | `docs/sfia-studio-p5-s04-post-merge-truth-sync` |
+| Head SHA | `8e75049cad9ad9fe1f50546cd3bfc34ea40591d7` |
+| Changed files | **2** |
+| Commit count vs main | **1** |
+| Auto-merge | **OFF** |
+| Mergeable | MERGEABLE |
+| Merge performed | **NO** |
+
+### CI at pack time
+
+| Item | Value |
+| --- | --- |
+| Run | https://github.com/mcleland147/sfia-workspace/actions/runs/37384829353 |
+| State | **PENDING / QUEUED** (Detect pending) |
+| REAL observed | **none** |
+
+## 7. Anti-claims / reserves
+
+- MERGE NOT AUTHORIZED
+- S05 DELIVERY NOT AUTHORIZED
+- REAL/R3 NOT AUTHORIZED
+- P5 COMPLETE NO
+- P6 READY NO
+- runtime v3 NON ADOPTED
+- F2 OPEN · Nora Activity/Auth remaining · Net Complexity Reduction not proven
+
+## 8. Gates
 
 ```text
- .../convergence/sfia-studio-convergence-roadmap.md |   3 +-
- ...t-product-simplification-integrated-delivery.md | 106 ++++++++++++++-------
- 2 files changed, 75 insertions(+), 34 deletions(-)
+CONSUMED = P5 POST-S04 TRUTH-SYNC GIT INTEGRATION
+NEXT = CHATGPT PR REVIEW + CI → MORRIS P5 POST-S04 TRUTH-SYNC MERGE GATE
+NOT CONSUMED = merge · branch delete · S05 DELIVERY · S05 REAL/R3 · P5 COMPLETE · P6 · runtime v3
 ```
 
-`git diff --check` = **CLEAN**.
-
-No Product code · no Build Doctrine · no C1 · no P1–P4 · no framing · no method · no prompts · no `.github`.
-
-## 7. Content truth-synced
-
-### Roadmap
-- NEW living tip: P5-S04 INTEGRATED / POST-S04 TRUTH-SYNC (2026-10-06)
-- OLD GI tip preserved as **HISTORICAL / SUPERSEDED AS TIP**
-- Records PR #558, merge `c7b53b93…`, CI #684 SUCCESS, Required Gate SUCCESS
-- Records S05 as **RECOMMENDED / NOT AUTHORIZED**
-
-### P5 Integrated Delivery
-- Title stabilized (no S01-only subtitle)
-- Metadata CURRENT: S01–S04 integrated; pass = POST-MERGE VERIFIED / POST-S04 REQUALIFICATION
-- Base/HEAD = `c7b53b93…`
-- §1.1 Trajectoire CURRENT rebuilt (S02 no longer LOCAL CANDIDATE as current)
-- §33 factual S04 status → INTEGRATED / POST-MERGE VERIFIED
-- §34 Current verdict updated
-- NEW §35 Post-S04 requalification explicitly **RECOMMENDATION CHATGPT ≠ Morris decision**
-
-### CURRENT vs HISTORICAL
-- Historical delivery/GI tips and historical proof sections preserved
-- Only CURRENT claims corrected
-
-## 8. Anti-claims / reserves
-
-- P5 COMPLETE = **NO**
-- R3 = **NOT STARTED**
-- F2 routing debt = **OPEN**
-- P6 READY = **NO**
-- runtime v3 = **NON ADOPTED**
-- P5-S05 DELIVERY = **NOT AUTHORIZED**
-- P5-S05 REAL / R3 = **NOT AUTHORIZED**
-- Project commit/push/PR/merge this cycle = **NOT AUTHORIZED**
-- S04 ZERO REAL does not revoke S02 bounded REAL historical proof
-
-## 9. Next capability / gates
+## 9. Verdict
 
 ```text
-NEXT RECOMMENDED = P5-S05 — R3 Integrated Product Cognitive Path + F2 Routing Alignment
-NEXT MORRIS GATE = distinct P5-S05 DELIVERY + REAL/R3 (NOT CONSUMED)
-```
+READY FOR CHATGPT PR REVIEW — P5 POST-S04 TRUTH-SYNC
 
-## 10. Validations
-
-- tracked changed files = **exactly 2**
-- `git diff --check` CLEAN
-- key tokens present: INTEGRATED, #558, c7b53b93…, #684, 37377995199, R3 NOT STARTED, F2 OPEN, P5-S05 NOT AUTHORIZED
-- stale CURRENT phrases for S04 LOCAL CANDIDATE / ≠ INTEGRATED removed from CURRENT sections
-
-## 11. Verdict
-
-```text
-READY FOR CHATGPT REVIEW — P5 POST-S04 TRUTH-SYNC LOCAL CANDIDATE
+PROJECT COMMIT = PASS
+PROJECT PUSH = PASS
+PR = OPEN (#559)
+AUTO-MERGE = OFF
+PR FILES = 2
+MERGE = NOT AUTHORIZED
 
 P5-S04 = INTEGRATED / POST-MERGE VERIFIED
-P5 = AUTHORIZED / STARTED / IN PROGRESS
+P5 = IN PROGRESS
 P5 COMPLETE = NO
 R3 = NOT STARTED
-F2 ROUTING ALIGNMENT = OPEN
-NEXT RECOMMENDED = P5-S05 — R3 Integrated Product Cognitive Path + F2 Routing Alignment
-P5-S05 DELIVERY = NOT AUTHORIZED
+F2 = OPEN
+P5-S05 = RECOMMENDED / NOT AUTHORIZED
 REAL/R3 = NOT AUTHORIZED
 P6 READY = NO
 runtime v3 = NON ADOPTED
-PROJECT COMMIT/PUSH/PR/MERGE = NOT AUTHORIZED
 ```
 
 ---
 
 # FULL MODIFIED CONTENT
 
-## PART A — Roadmap unified diff
+## PART A — commit name-status
+
+```text
+8e75049c docs(sfia-studio): sync P5 S04 post-merge truth
+M	projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+M	projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md
+```
+
+## PART B — commit stat
+
+```text
+8e75049c docs(sfia-studio): sync P5 S04 post-merge truth
+ .../convergence/sfia-studio-convergence-roadmap.md |   3 +-
+ ...t-product-simplification-integrated-delivery.md | 106 ++++++++++++++-------
+ 2 files changed, 75 insertions(+), 34 deletions(-)
+```
+
+## PART C — Roadmap commit diff
 
 ```diff
+commit 8e75049cad9ad9fe1f50546cd3bfc34ea40591d7
+Author: Morris Cleland <morris@macbook-air.home>
+Date:   Tue Oct 6 00:48:35 2026 +0200
+
+    docs(sfia-studio): sync P5 S04 post-merge truth
+
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
 diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 index f6b0f93f..fe53441d 100644
 --- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
@@ -187,9 +215,17 @@ index f6b0f93f..fe53441d 100644
  | **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S04 PRODUCT-DERIVED SYNTHESES** | 2026-10-05 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S04 PRODUCT-DERIVED SYNTHÈSES — DELIVERY AUTHORIZED / LOCAL CANDIDATE IN PROGRESS *(true then; superseded by P5-S04 CP01 tip)* · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **8 — Delivery / Implementation** · Milestone **P5** · Slice **P5-S04** · CRITICAL · Morris P5-S04 delivery authorization = **CONSUMED** · P5-S01/S02/S03 = **INTEGRATED / POST-MERGE VERIFIED** (main **`49b4fdaf…`** · S03 PR **#557** MERGED) · M9 **`oa_syntheses`** · deterministic builder + SQLite repository · Synthèses UI read-only · Overview/Conversation teasers · ZERO REAL · F2 debt **OPEN** · R3 **NOT STARTED** · P5 COMPLETE **NO** · P6 READY **NO** · runtime v3 **NON ADOPTED** · branche `delivery/sfia-studio-product-simplification-p5-s04-product-derived-syntheses` · project commit/push/PR/merge = **NOT AUTHORIZED this pass** · next = **ChatGPT Critical Review** → Morris Git Integration gate · **≠** P5-S04 INTEGRATED |
 ```
 
-## PART B — P5 Integrated Delivery unified diff
+## PART D — P5 Integrated Delivery commit diff
 
 ```diff
+commit 8e75049cad9ad9fe1f50546cd3bfc34ea40591d7
+Author: Morris Cleland <morris@macbook-air.home>
+Date:   Tue Oct 6 00:48:35 2026 +0200
+
+    docs(sfia-studio): sync P5 S04 post-merge truth
+
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
 diff --git a/projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md b/projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md
 index 447710c6..9647333b 100644
 --- a/projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md
