@@ -638,7 +638,7 @@
     },
     {
       "path": "projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/db.ts",
-      "sha256_16": "67ed985474e4e22b"
+      "sha256_16": "600264cca081308d"
     },
     {
       "path": "projects/sfia-studio/app/lib/oa/project/domain/artifactTargetRouting.ts",

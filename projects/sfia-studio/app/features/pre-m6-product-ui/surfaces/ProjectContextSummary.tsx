@@ -6,6 +6,12 @@ import type {
   CycleSummary,
   TrajectoryNode,
 } from "../workspaceContextPresentation";
+import type { ProductSynthesisProjection } from "@/lib/oa/synthesis";
+import {
+  formatSynthesisGeneratedAt,
+  presentSynthesisVerdictLabel,
+  synthesisSummaryExcerpt,
+} from "./synthesisPresentation";
 import styles from "./ProjectContextSummary.module.css";
 
 export type ProjectContextSummaryProps = {
@@ -17,6 +23,7 @@ export type ProjectContextSummaryProps = {
   currentness: CurrentnessPresentation;
   trajectory: TrajectoryNode[];
   attention: AttentionItem[];
+  latestSynthesis?: ProductSynthesisProjection | null;
 };
 
 /**
@@ -31,6 +38,7 @@ export function ProjectContextSummary({
   currentness,
   trajectory,
   attention,
+  latestSynthesis = null,
 }: ProjectContextSummaryProps) {
   return (
     <div className={styles.root} data-testid="project-context-summary">
@@ -132,10 +140,23 @@ export function ProjectContextSummary({
         <h3 className={styles.sectionTitle} id="ctx-synthesis-title">
           Dernière synthèse
         </h3>
-        <p className={styles.empty} data-testid="project-context-synthesis-empty">
-          Aucune synthèse disponible pour l’instant. Elle apparaîtra ici lorsque
-          Nora en aura enregistré une.
-        </p>
+        {latestSynthesis ? (
+          <div data-testid="project-context-synthesis-preview">
+            <p className={styles.attentionHead}>{latestSynthesis.title}</p>
+            <p className={styles.attentionDetail}>
+              {presentSynthesisVerdictLabel(latestSynthesis.verdictLabel)} ·{" "}
+              {formatSynthesisGeneratedAt(latestSynthesis.generatedAt)}
+            </p>
+            <p className={styles.empty}>
+              {synthesisSummaryExcerpt(latestSynthesis, 160)}
+            </p>
+          </div>
+        ) : (
+          <p className={styles.empty} data-testid="project-context-synthesis-empty">
+            Aucune synthèse produit disponible pour l’instant — projection
+            dérivée uniquement, jamais inventée depuis la conversation.
+          </p>
+        )}
       </section>
     </div>
   );
@@ -144,16 +165,16 @@ export function ProjectContextSummary({
 export type ProjectContextShortcutsProps = {
   onOpenJournal: () => void;
   onOpenHistory: () => void;
+  onOpenSyntheses: () => void;
 };
 
 /**
- * « Journal du cycle · Historique · Synthèses » — wired only to surfaces that
- * exist in the workspace. « Synthèses » has no Product surface yet, so it is
- * rendered as an honest disabled entry rather than a dead link.
+ * « Journal du cycle · Historique · Synthèses » — secondary navigation only.
  */
 export function ProjectContextShortcuts({
   onOpenJournal,
   onOpenHistory,
+  onOpenSyntheses,
 }: ProjectContextShortcutsProps) {
   return (
     <nav
@@ -181,9 +202,8 @@ export function ProjectContextShortcuts({
         type="button"
         className={styles.shortcut}
         data-testid="project-shortcut-syntheses"
-        disabled
-        aria-disabled="true"
-        title="Aucune synthèse n’est encore disponible dans le produit"
+        onClick={onOpenSyntheses}
+        title="Ouvrir les synthèses produit dérivées (projection non autoritative)"
       >
         Synthèses
       </button>

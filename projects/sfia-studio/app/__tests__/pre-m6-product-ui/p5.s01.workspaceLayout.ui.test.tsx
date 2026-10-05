@@ -28,6 +28,18 @@ vi.mock("@/features/pre-m6-product-ui/hooks/useProductConversation", () => ({
     useProductConversationMock(...args),
 }));
 
+vi.mock("@/features/project-assistant/synthesisActions", () => ({
+  getLatestRelevantProductSynthesisAction: vi.fn(async () => ({
+    ok: true,
+    synthesis: null,
+    count: 0,
+  })),
+  listProductSynthesesAction: vi.fn(async () => ({ ok: true, items: [] })),
+  getProductSynthesisAction: vi.fn(),
+  searchProductSynthesesAction: vi.fn(async () => ({ ok: true, items: [] })),
+  materializeProductSynthesisFromLineageAction: vi.fn(),
+}));
+
 vi.mock("@/features/project-assistant/w2/actions", () => ({
   w2DeriveGovernedExecutionContinuityAction: vi.fn().mockResolvedValue({
     ok: true,

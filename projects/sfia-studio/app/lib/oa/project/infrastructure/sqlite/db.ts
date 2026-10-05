@@ -7,7 +7,8 @@ export const PRODUCT_SCHEMA_VERSION_M5 = "m5-0.1.0" as const;
 export const PRODUCT_SCHEMA_VERSION_M6 = "m6-0.1.0" as const;
 export const PRODUCT_SCHEMA_VERSION_M7 = "m7-0.1.0" as const;
 export const PRODUCT_SCHEMA_VERSION_M8 = "m8-0.1.0" as const;
-export const PRODUCT_SCHEMA_VERSION = PRODUCT_SCHEMA_VERSION_M8;
+export const PRODUCT_SCHEMA_VERSION_M9 = "m9-0.1.0" as const;
+export const PRODUCT_SCHEMA_VERSION = PRODUCT_SCHEMA_VERSION_M9;
 
 const BASE_SCHEMA_SQL = `
 PRAGMA foreign_keys = ON;
@@ -318,6 +319,26 @@ CREATE TABLE IF NOT EXISTS oa_claim_evaluation_idempotency (
 );
 `;
 
+/** M9 — Product-derived Synthesis projections (NON-AUTHORITATIVE / NOT Truth C). */
+const M9_SYNTHESIS_SCHEMA_SQL = `
+CREATE TABLE IF NOT EXISTS oa_syntheses (
+  synthesis_id TEXT PRIMARY KEY NOT NULL,
+  project_id TEXT NOT NULL,
+  cycle_instance_id TEXT,
+  status TEXT NOT NULL,
+  source_fingerprint TEXT NOT NULL,
+  version INTEGER NOT NULL,
+  generated_at TEXT NOT NULL,
+  payload_json TEXT NOT NULL,
+  search_text TEXT NOT NULL,
+  FOREIGN KEY (project_id) REFERENCES oa_projects(project_id)
+);
+CREATE INDEX IF NOT EXISTS idx_oa_syntheses_project_generated
+  ON oa_syntheses(project_id, generated_at);
+CREATE INDEX IF NOT EXISTS idx_oa_syntheses_project_fingerprint
+  ON oa_syntheses(project_id, source_fingerprint);
+`;
+
 function readSchemaVersion(db: DatabaseSync): string | null {
   const row = db
     .prepare("SELECT value FROM schema_meta WHERE key = ?")
@@ -371,8 +392,12 @@ function applyM8(db: DatabaseSync): void {
   db.exec(M8_CLAIM_EVALUATION_SCHEMA_SQL);
 }
 
+function applyM9(db: DatabaseSync): void {
+  db.exec(M9_SYNTHESIS_SCHEMA_SQL);
+}
+
 /**
- * Open Product SQLite with additive M1→M2→M3→M5→M6→M7→M8 migration.
+ * Open Product SQLite with additive M1→M2→M3→M5→M6→M7→M8→M9 migration.
  * Fail closed on unknown/future schema versions.
  */
 export function openProductSqlite(dbPath: string): DatabaseSync {
@@ -388,6 +413,7 @@ export function openProductSqlite(dbPath: string): DatabaseSync {
     applyM6(db);
     applyM7(db);
     applyM8(db);
+    applyM9(db);
     setSchemaVersion(db, PRODUCT_SCHEMA_VERSION);
   } else if (version === PRODUCT_SCHEMA_VERSION_M2) {
     applyM3(db);
@@ -395,24 +421,32 @@ export function openProductSqlite(dbPath: string): DatabaseSync {
     applyM6(db);
     applyM7(db);
     applyM8(db);
+    applyM9(db);
     setSchemaVersion(db, PRODUCT_SCHEMA_VERSION);
   } else if (version === PRODUCT_SCHEMA_VERSION_M3) {
     applyM5(db);
     applyM6(db);
     applyM7(db);
     applyM8(db);
+    applyM9(db);
     setSchemaVersion(db, PRODUCT_SCHEMA_VERSION);
   } else if (version === PRODUCT_SCHEMA_VERSION_M5) {
     applyM6(db);
     applyM7(db);
     applyM8(db);
+    applyM9(db);
     setSchemaVersion(db, PRODUCT_SCHEMA_VERSION);
   } else if (version === PRODUCT_SCHEMA_VERSION_M6) {
     applyM7(db);
     applyM8(db);
+    applyM9(db);
     setSchemaVersion(db, PRODUCT_SCHEMA_VERSION);
   } else if (version === PRODUCT_SCHEMA_VERSION_M7) {
     applyM8(db);
+    applyM9(db);
+    setSchemaVersion(db, PRODUCT_SCHEMA_VERSION);
+  } else if (version === PRODUCT_SCHEMA_VERSION_M8) {
+    applyM9(db);
     setSchemaVersion(db, PRODUCT_SCHEMA_VERSION);
   } else if (version === PRODUCT_SCHEMA_VERSION) {
     applyM2(db);
@@ -421,6 +455,7 @@ export function openProductSqlite(dbPath: string): DatabaseSync {
     applyM6(db);
     applyM7(db);
     applyM8(db);
+    applyM9(db);
   } else {
     try {
       db.close();

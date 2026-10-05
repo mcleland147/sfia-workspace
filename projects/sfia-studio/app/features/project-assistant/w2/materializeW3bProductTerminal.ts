@@ -34,6 +34,7 @@ import {
   runW3cPostEvidenceLoop,
   type W3cPostEvidenceLoopResult,
 } from "./w3cPostEvidenceLoop";
+import { maybeMaterializeProductSynthesisAfterW3c } from "./maybeMaterializeProductSynthesisAfterW3c";
 import { resolveManagedRepoRootBaseFromEnv } from "@/lib/vertical-slice-runtime/managedRepoRootBaseConfig";
 
 function w3cUnavailableFailure(
@@ -51,17 +52,62 @@ function w3cUnavailableFailure(
   };
 }
 
-function finishWithOptionalPostEvidence(input: {
+/**
+ * Soft-fail Synthesis observability on ok:true Product terminal.
+ * Synthesis failure never flips ok — Truth C / CE / W3-C stay intact.
+ */
+export type SynthesisMaterializationObservability =
+  | { readonly status: "materialized"; readonly synthesisId: string }
+  | {
+      readonly status: "failed";
+      readonly code: string;
+      readonly message: string;
+      readonly retryable: true;
+    };
+
+/**
+ * After W3-C success/rehydrate, soft-materialize Product Synthesis.
+ * Synthesis failure never mutates Truth C / Product terminal outcome.
+ * Captures maybeMaterialize result for observability (never discarded).
+ */
+async function finishWithOptionalPostEvidence(input: {
+  readonly oa: RuntimeOaStack;
+  readonly projectId: string;
   readonly product: W3BProductTerminalProjection;
   readonly reusedFromIdempotency: boolean;
   readonly postEvidence: W3cPostEvidenceLoopResult | undefined;
-}): Extract<MaterializeW3bProductTerminalResult, { ok: true }> {
+}): Promise<Extract<MaterializeW3bProductTerminalResult, { ok: true }>> {
   const postOk = input.postEvidence?.ok === true;
+  let synthesisMaterialization: SynthesisMaterializationObservability | undefined;
+  if (postOk && input.postEvidence?.ok === true) {
+    const maybe = await maybeMaterializeProductSynthesisAfterW3c({
+      oa: input.oa,
+      projectId: input.projectId,
+      product: input.product,
+      postEvidence: input.postEvidence,
+    });
+    if (maybe.ok) {
+      synthesisMaterialization = {
+        status: "materialized",
+        synthesisId: maybe.synthesis.synthesisId,
+      };
+    } else {
+      synthesisMaterialization = {
+        status: "failed",
+        code: maybe.code,
+        message: maybe.message,
+        retryable: true,
+      };
+    }
+  }
   return {
     ok: true,
     reusedFromIdempotency: input.reusedFromIdempotency,
     product: withNoraUnavailableReserve(input.product, postOk),
     postEvidence: input.postEvidence,
+    ...(synthesisMaterialization
+      ? { synthesisMaterialization }
+      : {}),
   };
 }
 
@@ -73,6 +119,7 @@ export type MaterializeW3bProductTerminalResult =
       readonly product: W3BProductTerminalProjection;
       readonly reusedFromIdempotency: boolean;
       readonly postEvidence?: W3cPostEvidenceLoopResult;
+      readonly synthesisMaterialization?: SynthesisMaterializationObservability;
     }
   | {
       readonly ok: false;
@@ -262,6 +309,8 @@ async function materializeDocsWriteProductTerminal(input: {
       });
       if (existing) {
         return finishWithOptionalPostEvidence({
+          oa: input.oa,
+          projectId: input.projectId,
           reusedFromIdempotency,
           product,
           postEvidence: existing,
@@ -274,6 +323,8 @@ async function materializeDocsWriteProductTerminal(input: {
       });
       if (rehydrated.ok) {
         return finishWithOptionalPostEvidence({
+          oa: input.oa,
+          projectId: input.projectId,
           reusedFromIdempotency,
           product,
           postEvidence: rehydrated,
@@ -292,6 +343,8 @@ async function materializeDocsWriteProductTerminal(input: {
   }
 
   return finishWithOptionalPostEvidence({
+    oa: input.oa,
+    projectId: input.projectId,
     reusedFromIdempotency,
     product,
     postEvidence,
@@ -573,12 +626,13 @@ export async function materializeW3bProductTerminal(input: {
       product,
     });
     if (existing) {
-      return {
-        ok: true,
+      return finishWithOptionalPostEvidence({
+        oa: input.oa,
+        projectId: input.projectId,
         reusedFromIdempotency,
         product,
         postEvidence: existing,
-      };
+      });
     }
     // Prefer LPS exact / Epistemic rehydrate before Nora+LPS (covers partial-write).
     const rehydrated = await rehydrateW3cPostEvidenceFromLps({
@@ -587,12 +641,13 @@ export async function materializeW3bProductTerminal(input: {
       product,
     });
     if (rehydrated.ok) {
-      return {
-        ok: true,
+      return finishWithOptionalPostEvidence({
+        oa: input.oa,
+        projectId: input.projectId,
         reusedFromIdempotency,
         product,
         postEvidence: rehydrated,
-      };
+      });
     }
   }
 
@@ -603,12 +658,13 @@ export async function materializeW3bProductTerminal(input: {
     product,
   });
 
-  return {
-    ok: true,
+  return finishWithOptionalPostEvidence({
+    oa: input.oa,
+    projectId: input.projectId,
     reusedFromIdempotency,
     product,
     postEvidence,
-  };
+  });
 }
 
 export async function rehydrateW3bProductTerminal(input: {
@@ -715,6 +771,8 @@ export async function rehydrateW3bProductTerminal(input: {
   });
 
   return finishWithOptionalPostEvidence({
+    oa: input.oa,
+    projectId: input.projectId,
     reusedFromIdempotency: true,
     product,
     postEvidence,
@@ -740,6 +798,7 @@ export async function rehydrateLatestW3bProductTerminalForContract(input: {
       readonly attemptStatus: string;
       readonly reusedFromIdempotency: true;
       readonly postEvidence?: W3cPostEvidenceLoopResult;
+      readonly synthesisMaterialization?: SynthesisMaterializationObservability;
     }
   | { readonly ok: false; readonly code: string; readonly message: string }
 > {
@@ -789,6 +848,9 @@ export async function rehydrateLatestW3bProductTerminalForContract(input: {
     reusedFromIdempotency: true,
     ...(rehydrated.postEvidence
       ? { postEvidence: rehydrated.postEvidence }
+      : {}),
+    ...(rehydrated.synthesisMaterialization
+      ? { synthesisMaterialization: rehydrated.synthesisMaterialization }
       : {}),
   };
 }

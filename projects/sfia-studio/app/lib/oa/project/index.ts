@@ -69,6 +69,9 @@ export {
   PRODUCT_SCHEMA_VERSION_M3,
   PRODUCT_SCHEMA_VERSION_M5,
   PRODUCT_SCHEMA_VERSION_M6,
+  PRODUCT_SCHEMA_VERSION_M7,
+  PRODUCT_SCHEMA_VERSION_M8,
+  PRODUCT_SCHEMA_VERSION_M9,
 } from "./infrastructure/sqlite/db";
 export type { ProductSqliteHandle } from "./infrastructure/sqlite/productSqliteHandle";
 export { SqliteProductStore } from "./infrastructure/sqlite/sqliteProductStore";
