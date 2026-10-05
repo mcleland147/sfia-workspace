@@ -1,209 +1,248 @@
-# P5-S02 — GIT INTEGRATION —
-R1/R2 PROOF + ACCEPTED GOVERNANCE DEVIATION —
+# P5-S03 — OBJECT-NATIVE PRODUCT VIEWS —
+APERÇU + EXÉCUTION —
 FULL REVIEW PACK
 
 ## 1. Timestamp
 
-`2026-10-05T10:04:00Z` (Europe/Paris local gate execution)
+`2026-10-05T14:05:00Z` (Europe/Paris delivery)
 
-## 2. Morris decisions consumed
-
-| Decision | Status |
-| --- | --- |
-| MORRIS P5-S02 BOUNDED REAL R1+R2 AUTHORIZATION | **CONSUMED** (prior cycle) |
-| MORRIS P5-S02 REAL ENVELOPE GOVERNANCE DEVIATION ACCEPTANCE | **ACCEPTED** |
-| MORRIS P5-S02 GIT INTEGRATION GATE | **AUTHORIZED / CONSUMED this run** |
-
-## 3. Git truth
+## 2. Cycle / profile
 
 | Field | Value |
 | --- | --- |
-| Branch | `delivery/sfia-studio-product-simplification-p5-s02-bounded-real-r1-r2` |
-| Pre-commit HEAD | `8aaedfaea098827476157403cd0ba40a91ff7351` |
-| Commit SHA | `f1c2f08d243c8fed65012bccaa309f262aea49fb` |
-| Commit message | `test(sfia-studio): integrate P5 S02 bounded real proof` |
-| Dirty after commit | `.tmp-sfia-review/**` scratch only |
+| Macro | `STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01` |
+| Milestone | P5 — Integrated Delivery |
+| Slice | **P5-S03 — Object-Native Product Views — Aperçu + Exécution** |
+| Cycle | 8 — Delivery / Implementation |
+| Profile | **CRITICAL** |
+| Fake/Real | **ZERO REAL** — no OpenAI calls |
 
-## 4. origin/main
+## 3. Morris P5-S03 authorization consumed
 
-`8aaedfaea098827476157403cd0ba40a91ff7351` — **MATCH** expected (PR #555 MERGED · CI #678 SUCCESS)
+**YES — CONSUMED**
 
-## 5. Previous handoff
+Authorized: discovery · P2/P3/P4/P5 sources · Figma MCP · local Aperçu/Exécution projections · presentation-only adapters · deterministic/UI/browser tests · captures · Roadmap/P5 truth-sync · FULL pack · L3 handoff.
+
+**NOT authorized / NOT done:** project commit · push · PR · merge · REAL · R3 · P6 · new cognitive router · F2 refactor · new persistence · new Product model · Synthèses · Auth · Nora Activity · runtime v3 ADOPTED.
+
+## 4. Local Git truth
 
 | Field | Value |
 | --- | --- |
-| Handoff before | `969276c4a2f24cba709c3db2005ae7e68861a512` |
-| Prior blob | `040fb5c1d9d6822567cd573836fe351102977e5b` |
-| Canonical Cursor template SHA | `948156a21309ef99c3aaed6410947dc6b9bc569a` |
+| Branch | `delivery/sfia-studio-product-simplification-p5-s03-object-native-product-views` |
+| HEAD | `1a7e80b20949a041b1edc279ffed735b04bda997` (= origin/main) |
+| Staged | **EMPTY** |
+| Project Git actions | **NONE** |
 
-## 6. Exact scope
+## 5. Main
 
-1. `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p5.s02.boundedReal.r1r2.test.ts` (**ADDED**)
-2. `projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md` (**MODIFIED**)
-3. `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` (**MODIFIED**)
+`origin/main` = `1a7e80b20949a041b1edc279ffed735b04bda997`
 
-**3 files · 520 insertions / 38 deletions**
+Corresponds to: PR **#556** MERGED · P5-S02 integrated · post-merge CI **#680** SUCCESS · Required Gate SUCCESS.
 
-## 7. Harness opt-in safety proof
+## 6. Source list
 
-- Guard: `const RUN = process.env.P5_S02_RUN_REAL === "1"`
-- Suite: `describe.skipIf(!RUN)("P5-S02 bounded REAL R1+R2", …)`
-- Default Vitest (no env): **1 test skipped · EXIT 0 · tests 0ms · no provider call**
-- CI without opt-in: no OpenAI · no cost · no OPENAI_API_KEY dependency · no failure for disabled REAL
+- `sfia-studio-convergence-build-doctrine.md`
+- `sfia-studio-convergence-roadmap.md`
+- `01-product-completion-cadrage.md`
+- `01`…`05` chat-first product-simplification docs (P2/P3/P4/P5)
+- P3 priority §§5/8/14–18/22–25/31/34/34.1
+- P4 Role Projection / P5 Entry / §52
+- v3 framing 30/32/33/34/35/37 (applicable)
+- `prompts/templates/sfia-cycle-execution-template.md` (SHA `948156a2…`)
+- Prior handoff `f33f496a…` (pre-S02 merge; factually superseded by main `1a7e80b2…`)
 
-## 8. Confirmation NO NEW REAL
+## 7. Convergence pre-check
 
-**YES** — `P5_S02_RUN_REAL` unset this run · no R1 rerun · no R2 rerun · no OpenAI calls
-
-## 9. Staged file list (committed)
-
-Same as §6 — exactly 3 versionable project files.
-
-## 10. Exclusions (scratch / secrets)
-
-**NOT staged / NOT committed:**
-
-- `.tmp-sfia-review/**` (including `p5-s02-evidence.json`, `p5-s02-r1-prior.json`, captures, visual)
-- `.env.local` / API credentials / sessions / runtime local DB / provider payloads / logs / `node_modules` / `.next`
-
-## 11. Diff-check
-
-`git diff --cached --check` = **CLEAN** (pre-commit)
-
-## 12. R1 evidence
-
-| Target | Effort | Result |
-| --- | --- | --- |
-| `gpt-6-luna` | `none` | **PASS** |
-| `gpt-6.1-sol` | `low` | **PASS** |
-| `gpt-6-astra` | `low` | **PASS** |
-
-Status: **R1 PASS** — **PROVEN AT TESTED SCOPE** (historical; retained)
-
-## 13. R2 evidence
-
-| Case | Profile | Selected | Actual | Result |
-| --- | --- | --- | --- | --- |
-| R2-A | Routine | `gpt-6-luna` / `low` | `gpt-6-luna` / `low` | **PASS** |
-| R2-B | High-Assurance | `gpt-6.1-sol` / `high` | `gpt-6.1-sol` / `high` | **PASS** |
-
-Status: **R2 PASS** — **PROVEN AT TESTED SCOPE** (historical; retained)
-
-## 14. selected == actual proof
-
-**PROVEN** for both R2-A and R2-B (router-selected Model×Effort observed at Agents Runner / Responses boundary)
-
-## 15. Same Product / Nora / Runner
-
-| Invariant | Result |
+| Item | Result |
 | --- | --- |
-| Same Product path | **YES** |
-| Same Nora | **YES** |
-| Same Agents Runner | **YES** |
+| v3 capacity | Product Experience + Role Projection + Living Project State / ProjectTrajectory + Governed Execution intelligible |
+| Milestone | P5 Integrated Delivery |
+| Current state | S01+S02 INTEGRATED · S03 delivery authorized |
+| KEEP | ProductShell · JournalSurface · HistorySurface · ProjectContextSummary · workspaceContextPresentation · W2 continuity reads · Trajectory/Lifecycle surfaces · ConversationSurface CTAs |
+| ADAPT | ProjectWorkspacePage tabs → real views · presentation mapping for continuity |
+| HARVEST | Figma 51:2 / 192:2 / 150:295 / 147:2 / 190:337 geometry; pilotContractPresentation |
+| COMPLETE | S03 Aperçu + Exécution projections at tested scope |
+| RETIRE | scroll-only Aperçu/Exécution nominal behavior |
+| Gaps closed | Aperçu/Exécution not autonomous → now real views |
+| Gaps retained | Synthèses · F2 · Auth visual · Nora Activity · R3 |
+| Trajectory | S01→S02→S03→continuity/Synthèses→R3→P6 **HOLDS** |
+| Critical path | object-native projections without parallel SoT |
+| Exit proof | see §51 |
+| Morris gates | S03 delivery CONSUMED · Git Integration NOT authorized |
+| Next capability | continuity completion / Synthèses / remaining P5 exits |
 | Parallel architecture | **NONE** |
 
-## 16. F2 debt
+## 8. Linear-like maturity / anti-copy
 
-**OPEN** — F2 still uses `OPENAI_MODEL=gpt-5.6-luna`
+Direction: clarity · density · hierarchy · mastery · structured objects · low chrome · progressive disclosure.
 
-## 17. Deterministic bypass
+**NOT:** Linear clone · issue-tracker parity · brand copy · feature inventing · card-per-object dump.
 
-D0 suite **25/25 PASS** (prior S02 cycle; production unchanged this Git pass)
+SFIA Studio remains conversation-led, Nora-centric (non-authoritative), Pilot-controlled, object-native.
 
-## 18. REAL ledger historical
+## 9. Object Projection Matrix (complete)
 
-Successful proof run ledger retained in scratch `.tmp-sfia-review/p5-s02-evidence.json` (not committed)
+| Visible info | Product object / fact | Authority owner | Durable? | Source | Read/action | Derivation | Surface | User action | Mutation | Nora | Pilote | Executor | Freshness | 2nd SoT? |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Project name/objective | Project | Product | durable | getProjectRuntimeAction | existing | display | header / Aperçu | none | none | — | reads | — | LPS version | no |
+| Cycle / status | CycleInstance / LPS | Product | durable | LifecycleSurface projection | existing | deriveCycleSummary | Aperçu / context | none | none | — | reads | — | on refresh | no |
+| Focus / priority | readiness + journal topic | Product + transcript | mixed | lpsNextAction + journal | existing | present | Aperçu | open conversation | none | proposes | decides | — | current | no |
+| Trajectoire Terminé/En cours/Proposé | Cycle instances | Product | durable | PilotLifecycleProjection | existing | deriveTrajectoryNodes | Aperçu / context | none | none | Rec≠Cycle | owns decisions | — | current | no |
+| Attention décisions | HumanDecision pending (proposal DECISION_REQUIRED) | Product/process | process-local proposal | activeProposal | existing | deriveAttentionItems | Aperçu | open conversation | via Conversation decide | recommends | decides | — | current | no |
+| Attention réserves | Reservations | Product | durable | lifecycle.reservationSummary | existing | deriveAttentionItems | Aperçu | Journal | existing reservation actions | assists | confirms | — | current | no |
+| Activité récente | History (decisions/trajectory/contracts) | Product | durable | w2ReadProjectHistoryAction | existing | deriveRecentActivity | Aperçu | open Historique | none | — | reads | — | on load | no |
+| Synthèses | Synthesis | Product | n/a | none yet | none | honest empty | Aperçu / context | disabled shortcut | none | — | — | — | n/a | no |
+| Exécution statut Pilote | GovernedExecutionContinuity + Attempt | Product | durable | w2DeriveGovernedExecutionContinuityAction | existing | presentPilotExecution | Exécution | confirm/execute/return | via existing Conversation CTAs only | prepares | authorizes | executes HOW | on load | no |
+| Portée / réversibilité / impact | ExecutionContract inspection | Product | durable | w2ReadCurrentGovernedExecutionContinuityAction | existing | presentPilotContract | Exécution | inspect | none (read) | — | inspects | — | current | no |
+| Ce qui va/a été fait | executionReview summaries / contract | Product | durable | ProductExecutionContext | existing | buildWorkItems | Exécution | expand | none | — | reads | — | current | no |
+| Résultat | productOutcome / terminal attempt | Product | durable | continuity projection | existing | result block | Exécution | return to conversation | none | — | reads | produced | current | no |
+| Preuves | Evidence | Product | durable | continuity.evidenceId | existing | evidence block (≠ Result) | Exécution | none | none | — | inspects | — | current | no |
+| ReviewBundle | ReviewBundle | Product internal | durable | continuity | existing | **NOT exposed raw** | — | — | — | — | — | — | — | no |
+| Journal | Journal continuity | Product | process/durable mix | JournalSurface | KEEP | existing | context shortcuts | open Journal | none new | — | — | — | — | no |
+| Historique | History | Product | durable | HistorySurface | KEEP | existing | context shortcuts | open Historique | none | — | — | — | — | no |
+| activeView | presentation only | UI | ephemeral | React state | none | local | tabs | switch view | **never Product** | — | — | — | session | no |
 
-## 19. Successful proof run calls
+Authority invariants preserved: Recommendation ≠ HumanDecision ≠ Confirmation ≠ ExecutionContract ≠ Result ≠ Evidence.
 
-**7**
+## 10–18. Roles / objects / paths
 
-## 20. Cycle aggregate
+- **Product objects reused:** Project, LPS, CycleInstance, Trajectory nodes, Recommendation (as Proposé / attention only), HumanDecision pending, Reservations, ExecutionContract, ExecutionAttempt, Result/outcome, Evidence, History, Journal.
+- **Authority owners:** Product / Pilot for decisions & confirmations; Nora never decides; executor only within existing EC authority.
+- **Project read paths:** `getProjectRuntimeAction`, lifecycle projection, journal, `w2ReadProjectHistoryAction`.
+- **Execution canonical read:** `w2DeriveGovernedExecutionContinuityAction` (+ `w2ReadCurrentGovernedExecutionContinuityAction` for PRE-EXEC inspection).
+- **Actions reused:** Conversation `confirmAndExecuteResolvedM3` / `confirmAndExecuteLegacyFixture` only when existing canConfirm* true.
+- **Mutations authorized:** none new in S03; only existing confirm/execute paths.
+- **Nora:** context/recommend/prepare existing — no new cognitive path.
+- **Pilote:** understands, decides, confirms, executes via existing gates.
+- **Agent/executor:** unchanged Agents Runner / provider.
 
-≈ **10** (first R1×3 then createProject failed on invalid `CRITICAL`; successful retry re-ran R1+R2)
+## 19–21. Anti-parallel guarantees
 
-## 21. Contractual envelope ≤8
+- **No new Product truth**
+- **No new persistence** (activeView ephemeral)
+- **No architecture parallelism** (no OverviewStore / ExecutionStore / second Nora / second runner)
 
-**VIOLATED** — observed ≈10 > ≤8 · stop condition exceeded · disclosed
+## 22–24. Figma
 
-## 22. Morris deviation acceptance
+Nodes read via MCP `get_design_context`:
 
-**ACCEPTED BY MORRIS**
+| Node | Frame | Status | Size |
+| --- | --- | --- | --- |
+| `51:2` | Aperçu Desktop | EXPLORATORY / direction accepted | 1440×1024 |
+| `192:2` | Aperçu Mobile | VALIDATED | 390×844 |
+| `150:295` | Exécution BEFORE READY | VALIDATED | 1440×1024 |
+| `147:2` | Exécution AFTER TERMINÉE | VALIDATED | 1440×1024 |
+| `190:337` | Exécution Mobile | VALIDATED | 390×844 |
 
-- Historical gap accepted
-- Contract not retroactively rewritten as “compliant”
-- ≈10 not claimed as ≤8
-- Technical R1/R2 evidence **RETAINED**
-- **NO REAL RERUN** required or authorized
+Visual contract: `--pm6-*` tokens · ProductShell · no `--p5-s03-*` family · NO INTENTIONAL VISUAL DEVIATION · Figma content examples never become fake Product truth.
 
-## 23. Future-precondition corrective rule
+## 25–27. Files
 
-All local Product/setup preconditions **MUST** be validated before the first provider call when reasonably possible, to avoid spending the REAL envelope before local setup viability is known.
+**Created:**
+- `surfaces/OverviewSurface.tsx` + `.module.css`
+- `surfaces/ExecutionSurface.tsx` + `.module.css`
+- `surfaces/pilotExecutionPresentation.ts`
+- `__tests__/…/p5.s03.objectNativeViews.ui.test.tsx`
+- `__tests__/…/p5.s03.pilotExecutionPresentation.d0.test.ts`
 
-Documented in P5 integrated-delivery + Convergence Roadmap tip.
+**Modified:**
+- `ProjectWorkspacePage.tsx` + `.module.css`
+- UI test mocks adding `w2DeriveGovernedExecutionContinuityAction`
+- `05-…integrated-delivery.md`
+- `sfia-studio-convergence-roadmap.md`
 
-## 24. Commit SHA
+**Protected files modified:** **NONE** (`lib/oa`, nora-cognitive-runtime, provider, Agents Runner, F2, routing policy, DB schema untouched).
 
-`f1c2f08d243c8fed65012bccaa309f262aea49fb`
+## 28. Documentation sections modified
 
-## 25. Push
+Roadmap tip: P5-S03 LOCAL CANDIDATE; P5-S02 Git Integration tip marked historical/superseded by PR #556 merge.
 
-**YES** — `origin/delivery/sfia-studio-product-simplification-p5-s02-bounded-real-r1-r2` = `f1c2f08d243c8fed65012bccaa309f262aea49fb` (no force)
+P5 doc header + §31 Project Git INTEGRATED + new §32 S03 factual + §33 verdict updated for S01/S02 INTEGRATED + S03 LOCAL CANDIDATE.
 
-## 26. PR
+## 29–31. Implementation summary
 
-| Field | Value |
+**Navigation:** ephemeral `activeView` ∈ {conversation, overview, execution}; Conversation default; tabs `data-selected`; Exécution always available with honest empty; badge only via `deriveExecutionTabBadge`.
+
+**Aperçu:** OverviewSurface projects stats/trajectory/attention/activity/next step/synthesis-empty from Product projections + durable history.
+
+**Exécution:** ExecutionSurface loads canonical continuity; presentPilotExecution maps stages → Pilot statuses; CTAs fail-closed to existing canConfirm/canExecute.
+
+## 32–34. Mapping / integrity
+
+Stage mapping covers PRE_EXECUTION · ATTEMPT_ACCEPTED · RUNNING · PRODUCT_MATERIALIZATION_PENDING · POST_EVIDENCE_* · RECOVERY_REQUIRED; attempt timeout → Échouée/cause timeout; RUNNING no Exécuter; confirmation_required no direct execute; Result ≠ Evidence; unknown fail-closed.
+
+## 35–38. Visual evidence
+
+See `.tmp-sfia-review/p5-s03-visual/manifest.md`.
+
+| Class | Count |
 | --- | --- |
-| Number | **#556** |
-| URL | https://github.com/mcleland147/sfia-workspace/pull/556 |
-| Title | `test(sfia-studio): integrate P5 S02 bounded real proof` |
-| Base | `main` |
-| Head | `delivery/sfia-studio-product-simplification-p5-s02-bounded-real-r1-r2` @ `f1c2f08d…` |
-| State | **OPEN** |
-| Auto-merge | **disabled** (`null`) |
+| A | **0** |
+| B | **0** |
+| C | content honesty vs Figma illustrative; empty Exécution when no EC |
+| D | Synthèses; AFTER TERMINÉE natural EC absent on tested project |
 
-## 27. CI
+## 39–43. Validations
 
-| Field | Value |
+| Check | Result |
 | --- | --- |
-| At report time | **PENDING** — Detect SFIA Studio changes started (`37294066644`) |
-| REAL opt-in in CI | Must remain unset — harness skips without `P5_S02_RUN_REAL=1` |
-| CI REAL calls observed this run | **NONE** (CI still early / Detect pending) |
+| Targeted S03 UI + presentation tests | **PASS** |
+| Adjacent pre-m6-product-ui | **158/158 PASS** |
+| Deterministic bypass p5.s01 | **PASS** |
+| Typecheck | **PASS** |
+| Lint | **PASS** |
+| Build | **PASS** |
+| Full `npm test` | **5189 passed / 138 skipped** (467 files passed) |
 
-## 28. Remaining debts
+## 44. REAL calls
 
-- F2 routing debt **OPEN**
-- Visual C/D reserves from S01 (non-blocking historical)
-- R3 **NOT STARTED**
-- Envelope historical deviation retained as accepted governance fact
+**0**
 
-## 29. Anti-claims
+## 45. PIB qualitative
+
+CURRENT: Aperçu/Exécution = scroll to context/cards → mental search.
+S03: Aperçu = orientation; Exécution = governed lifecycle; Conversation = interaction; same objects/actions; accidental scroll hunting reduced; protective authority preserved.
+
+## 46–47. Truth-sync
+
+Roadmap + P5 integrated-delivery updated locally (S02 INTEGRATED · S03 LOCAL CANDIDATE).
+
+## 48. Debts retained
+
+F2 routing · OPENAI_MODEL/REASONING exits · escalation proof · Synthesis · Nora Activity/STOP · Auth visual · Deliverable/Artifact · token convergence · R3 · P6 NCR.
+
+## 49. Next-capability recommendation
+
+ChatGPT Critical Review → if PASS then **MORRIS P5-S03 GIT INTEGRATION GATE**. After integration: continuity completion / Synthèses / remaining P5 exits → later R3 (distinct authorization).
+
+## 50. Anti-claims
 
 | Claim | Status |
 | --- | --- |
-| R3 PASS | **NO** |
+| P5-S03 INTEGRATED | **NO** |
 | P5 COMPLETE | **NO** |
+| R3 PASS | **NO** |
 | P6 READY | **NO** |
-| Cognitive Completion PROVEN | **NO** |
+| PIXEL-PERFECT GLOBAL | **NO** |
+| COGNITIVE COMPLETION PROVEN | **NO** |
 | runtime v3 ADOPTED | **NO** |
-| broad READY FOR REAL | **NO** |
-| Envelope ≤8 respected | **NO** (deviation accepted) |
+| Synthèses built | **NO** |
+| Project commit/push/PR/merge | **NO** |
 
-## 30. Merge performed?
+## 51. Final verdict
 
-**NO** — merge **NOT AUTHORIZED** this gate
+**PASS — P5-S03 OBJECT-NATIVE APERÇU + EXÉCUTION**
+**IMPLEMENTED ON THE EXISTING PRODUCT WORLD —**
+**PRODUCT OBJECT AUTHORITY PRESERVED —**
+**NO PARALLEL STATE / PERSISTENCE / AGENT ARCHITECTURE —**
+**P3 FIGMA CONTRACT APPLIED —**
+**A=0 / B=0 —**
+**ZERO REAL —**
+**READY FOR CHATGPT CRITICAL REVIEW**
 
-## 31. Next gate
-
-**MORRIS P5-S02 MERGE GATE** after ChatGPT PR review + CI green.
-
-## 32. Final verdict
-
-**PASS — P5-S02 R1/R2 PROOF + ACCEPTED GOVERNANCE DEVIATION**
-**COMMITTED / PUSHED / PR OPEN — NO NEW REAL — READY FOR CHATGPT PR REVIEW / CI QUALIFICATION — MERGE NOT AUTHORIZED**
-
-Explicitly **NOT**: R3 PASS · P5 COMPLETE · P6 READY · COGNITIVE COMPLETION PROVEN · runtime v3 ADOPTED
+Explicitly **NOT**: P5-S03 INTEGRATED · P5 COMPLETE · R3 PASS · P6 READY · PIXEL-PERFECT GLOBAL · COGNITIVE COMPLETION PROVEN · runtime v3 ADOPTED.
 
 ---
 
-END — P5-S02 GIT INTEGRATION FULL REVIEW PACK
+END — P5-S03 FULL REVIEW PACK
