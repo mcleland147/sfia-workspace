@@ -1,175 +1,63 @@
-# P5-S04 — PRODUCT-DERIVED SYNTHÈSES — LOCAL CANDIDATE — FULL REVIEW PACK
+# P5-S04 CORRECTION PASS 01 — PRODUCT-PATH SYNTHESIS + LINEAGE + PILOT UI + FIGMA B1/B2 — FULL REVIEW PACK
 
-## 0. REPUBLICATION NOTICE — PRIOR HANDOFF INCOMPLETE (SUPERSEDED)
-
-**CRITICAL:** Remote handoff `0cd48f51` / blob `02f78487` was **INCOMPLETE**.
-It named structuring files but did **not** fully embed them, and lacked complete exploitable unified diffs for modified product/docs/test files.
-
-**This republication SUPERSEDES `0cd48f51` / blob `02f78487`.**
-Reviewers must use **this** pack only. Prefer embedded verbatim file bodies + unified diffs below — do not rely on filenames alone.
-
-Previously missing bodies now fully embedded (see §COMPLETE CREATED-FILE CONTENTS):
-- `lib/oa/synthesis/application/buildProductSynthesis.ts`
-- `lib/oa/synthesis/application/materializeProductSynthesis.ts`
-- `lib/oa/synthesis/application/rebuildProductSynthesis.ts`
-- `lib/oa/synthesis/application/searchProductSyntheses.ts`
-- `lib/oa/synthesis/domain/types.ts`
-- `lib/oa/synthesis/domain/invariants.ts`
-- `lib/oa/synthesis/infrastructure/sqlite/sqliteSynthesisRepository.ts`
-- `lib/oa/synthesis/ports/synthesisRepositoryPort.ts`
-- `features/project-assistant/buildProductSynthesisLineageInput.ts`
-(plus all other new S04 source/test/UI files listed in that section)
-
-Previously missing modified-file diffs now fully embedded (see §COMPLETE CHANGED SECTIONS / UNIFIED DIFFS).
-
+## 0. Header
+**Pass:** P5-S04 CORRECTION PASS 01
+**Status:** LOCAL CANDIDATE COMPLETE — CRITICAL RE-REVIEW REQUIRED — NOT INTEGRATED
+**Completeness bar:** FULL — complete created-file contents + complete useful unified diffs for ALL CP01-changed files (same bar as prior republication).
 
 ## 1. Timestamp
-2026-10-05 19:41:35 +0200 Europe/Paris
+2026-10-05 20:23:52 +0200 Europe/Paris
 
-## 2. Morris delivery authorization
-**MORRIS P5-S04 DELIVERY AUTHORIZATION = CONSUMED**
-
-Allowed: local implementation · Product DB seed · validations · visual evidence · FULL pack · L3 handoff · docs truth-sync (minimal).
-Forbidden: project commit/push/PR/merge · OpenAI REAL · R3 · P6 · architecture reinterpretation.
+## 2. Morris CP01 authorization
+**MORRIS P5-S04 CORRECTION PASS 01 AUTHORIZATION = CONSUMED**
 
 ## 3. Branch
 `delivery/sfia-studio-product-simplification-p5-s04-product-derived-syntheses`
 
 ## 4. HEAD (local)
-`49b4fdaf078fdf2a5c7bfce3baad05fa65220c2e` (= origin/main at delivery start — S04 work **uncommitted**)
+`49b4fdaf078fdf2a5c7bfce3baad05fa65220c2e` (= origin/main — S04+CP01 work **uncommitted**)
 
 ## 5. origin/main
 `49b4fdaf078fdf2a5c7bfce3baad05fa65220c2e` — PR **#557** MERGED (P5-S03)
 
-## 6. Pre-handoff L3 anchor (before this pass)
-Prior incomplete publish: `sfia/review-handoff` @ `0cd48f51ed50f5bf392c411245e54f8de721e7e2` · blob `02f78487fcc75bd0cd5215b5271ec0870e88dd49` — **SUPERSEDED by this republication**.
-Pre-S04 anchor: `7c8fd2e45cab48c5428a3b865c4f638c860be0b2` · blob `97c75bd19b7c64367d137171f6025b36b9480d60`
+## 6. Handoff before
+`sfia/review-handoff` @ `bd7a037384897fd6fdcb68416d8c2d91c6ac2d1b` · blob `fb6229256300bd725b45bf270492cfa9a2239da0`
 
-## 7. Canonical sources (reread — no reinterpretation)
-- P4 architecture authority preserved
-- `05-chat-first-product-simplification-integrated-delivery.md` updated (S04 section)
-- `sfia-studio-convergence-roadmap.md` updated (S03 INTEGRATED · S04 tip)
+## 7. Architecture AFTER CP01
+AUTHORITATIVE PRODUCT FACTS → Contract Result resolution → durable W3-C Recommendation → deterministic Synthesis projection → M9 → Pilot UI.
 
-## 8. Architecture BEFORE (post-S03)
-- Conversation / Aperçu / Exécution object-native
-- Synthèses = honest unavailable / not built
-- No M9 reads in Product UI
+Production seam: `materializeW3bProductTerminal` → `maybeMaterializeProductSynthesisAfterW3c` (soft-fail; never mutates Truth C).
 
-## 9. Architecture AFTER (S04 local candidate)
-OBJECTS FIRST → PROJECTIONS SECOND → SURFACES THIRD.
+## 8. Critical Review closures
+| Finding | Status |
+| --- | --- |
+| A0 Product path | **CLOSED** |
+| A1 Pilot semantics | **CLOSED** (no NON-AUTORITATIVE badge; sections free of OA jargon) |
+| B1 Desktop/Compact | **CLOSED** |
+| B2 Mobile | **CLOSED** |
+| Lineage / currentness / CE supersession | **CLOSED** (tests L/C/P) |
 
-- **Persistence:** Product SQLite M9 `oa_syntheses` (migration via `SqliteProductStore`)
-- **Domain:** `buildProductSynthesis` / `materializeProductSynthesis` — ClaimEvaluation-required lineage
-- **Server actions:** `synthesisActions.ts` (list/get/search/latest/materialize-from-lineage)
-- **UI:** `SynthesesSurface` read-only · Overview preview · Conversation teaser · shortcut nav
-- **Authority:** `authority: none` · NON-AUTORITATIVE badge · no mutation controls
+## 9. Product-path visual seed
+Script: `.tmp-sfia-review/p5-s04-visual/cp01/_seed-product-path.mjs`
+Mode: campaign rehydrate FocusFlow (`prj:2eaad5df…`) via `materializeW3bProductTerminal`
+Synthesis: `syn:fc44ff99449fd3b96f4500b60a2eeda7`
+Historical direct seed retained: `.tmp-sfia-review/p5-s04-visual/_seed-synthesis.mjs` (**NOT** CP01 proof).
 
-## 10. Schema / M9 proof
-- Migration in `lib/oa/project/infrastructure/sqlite/db.ts`
-- Campaign DB path: `SFIA_STUDIO_PRODUCT_DB_PATH` → `…/new-project-campaign-01/product/oa-product.sqlite`
-- Seeded CE: `clm:p5-s04:campaign:0ed5c4e1` · synthesis: `syn:65645eee8ad4206537f90d0c2b4b6c53`
+## 10. Visual
+See `.tmp-sfia-review/p5-s04-visual/cp01/manifest.md` + `correction-design-note.md` — **A=0 · B=0**.
 
-## 11. Anti-claims (explicit)
-- **≠** Truth C / authoritative synthesis
-- **≠** invented verdict or recommendation when absent
-- **≠** UI-only fake synthesis rows
-- **≠** P5 COMPLETE / **≠** R3 / **≠** runtime v3 adopted
-- **≠** project Git integration this pass
+## 11. Anti-claims
+≠ Truth C · ≠ P5-S04 INTEGRATED · ≠ P5 COMPLETE · ≠ R3 · ≠ P6 READY · ≠ runtime v3 ADOPTED · ≠ project commit/push/PR · ≠ OpenAI REAL
 
-## 12. Product DB seed path
-Script: `.tmp-sfia-review/p5-s04-visual/_seed-synthesis.mjs`
-Uses `createSqliteSynthesisServices.materialize` with real ClaimEvaluation row inserted when missing.
+## 12. Validation placeholders
+- build: **PASS** (`npm run build` exit 0 — Compiled + lint/types + static generation)
+- full npm test: **PASS** — Test Files **472 passed | 18 skipped (490)** · Tests **5241 passed | 138 skipped (5379)**
+- prior flake on `candidateTrajectoryCycleStart.d0.test.ts` (5s timeout under load) **re-ran PASS** (13/13); clean full re-run green
+- CP01 targeted: **34 passed** (L/C/P + D0 + UI)
 
-## 13. Visual capture path
-Script: `.tmp-sfia-review/p5-s04-visual/_capture.mjs` → `.tmp-sfia-review/p5-s04-visual/after/`
-
-## 14. Visual manifest
-```json
-{
-  "capturedAt": "2026-10-05T17:33:36.118Z",
-  "items": [
-    {
-      "viewport": "1440x1024",
-      "view": "syntheses",
-      "state": "list",
-      "figma": "164:3",
-      "figmaRef": "/Users/morris/Projects/sfia-studio-chat-first-product-simplification-p3/.tmp-sfia-review/p5-s04-visual/figma/desktop-164-3.png",
-      "file": "syntheses-desktop-1440x1024.png"
-    },
-    {
-      "viewport": "1024x768",
-      "view": "syntheses",
-      "state": "list",
-      "figma": "190:175",
-      "figmaRef": "/Users/morris/Projects/sfia-studio-chat-first-product-simplification-p3/.tmp-sfia-review/p5-s04-visual/figma/compact-190-175.png",
-      "file": "syntheses-compact-1024x768.png"
-    },
-    {
-      "viewport": "390x844",
-      "view": "syntheses",
-      "state": "mobile-list",
-      "figma": "190:433",
-      "figmaRef": "/Users/morris/Projects/sfia-studio-chat-first-product-simplification-p3/.tmp-sfia-review/p5-s04-visual/figma/mobile-list-190-433.png",
-      "file": "syntheses-mobile-list-390x844.png"
-    },
-    {
-      "viewport": "390x844",
-      "view": "syntheses",
-      "state": "mobile-detail",
-      "figma": "190:455",
-      "figmaRef": "/Users/morris/Projects/sfia-studio-chat-first-product-simplification-p3/.tmp-sfia-review/p5-s04-visual/figma/mobile-detail-190-455.png",
-      "file": "syntheses-mobile-detail-390x844.png"
-    },
-    {
-      "viewport": "1440x1024",
-      "view": "overview",
-      "state": "synthesis-preview",
-      "figma": "51:2",
-      "purpose": "Aperçu synthesis teaser block",
-      "file": "apercu-desktop-1440x1024.png"
-    },
-    {
-      "viewport": "1440x1024",
-      "view": "conversation",
-      "state": "synthesis-teaser",
-      "file": "conversation-desktop-1440x1024.png"
-    }
-  ]
-}
+## 13. git status --short (project scope)
 ```
-
-## 15. Visual classification
-See `.tmp-sfia-review/p5-s04-visual/correction-design-note.md` — **A=0 · B=0** · C=4 · D=3
-
-## 16. Figma references
-164:3 · 190:175 · 190:433 · 190:455 · Overview 51:2 block · Conversation 46:2 teaser
-
-## 17. Staged/tracked diff stat (committed + modified; S04 core mostly untracked)
-```
-.tmp-sfia-review/chatgpt-review.md                 | 951 ++++++++++++++++++---
- .../oa/decision/m3ProductSchemaMigration.test.ts   |   2 +-
- .../oa/project/m5ProductSchemaMigration.test.ts    |   4 +-
- .../oa/project/m6ProductSchemaMigration.test.ts    |   6 +-
- .../automaticProjectResume.ui.test.tsx             |  12 +
- .../p5.s01.workspaceLayout.ui.test.tsx             |  12 +
- .../p5.s03.objectNativeViews.ui.test.tsx           |  12 +
- .../productJourneyProjectionCoherence.ui.test.tsx  |  12 +
- .../importBoundaries.test.ts                       |   2 +
- .../pre-m6-product-ui/ProjectWorkspacePage.tsx     |  64 +-
- .../surfaces/ConversationSurface.tsx               |  42 +
- .../pre-m6-product-ui/surfaces/OverviewSurface.tsx |  92 +-
- .../surfaces/ProjectContextSummary.tsx             |  40 +-
- projects/sfia-studio/app/lib/oa/project/index.ts   |   3 +
- .../app/lib/oa/project/infrastructure/sqlite/db.ts |  39 +-
- .../convergence/sfia-studio-convergence-roadmap.md |   4 +-
- ...t-product-simplification-integrated-delivery.md |  46 +-
- .../production-runtime-reference.manifest.json     |   2 +-
- 18 files changed, 1157 insertions(+), 188 deletions(-)
-```
-
-## 18. git status --short (excerpt)
-```
-M .tmp-sfia-review/chatgpt-review.md
+ M .tmp-sfia-review/chatgpt-review.md
  M projects/sfia-studio/app/__tests__/oa/decision/m3ProductSchemaMigration.test.ts
  M projects/sfia-studio/app/__tests__/oa/project/m5ProductSchemaMigration.test.ts
  M projects/sfia-studio/app/__tests__/oa/project/m6ProductSchemaMigration.test.ts
@@ -178,33 +66,18 @@ M .tmp-sfia-review/chatgpt-review.md
  M projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s03.objectNativeViews.ui.test.tsx
  M projects/sfia-studio/app/__tests__/pre-m6-product-ui/productJourneyProjectionCoherence.ui.test.tsx
  M projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
+ M projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.module.css
  M projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx
  M projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
  M projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/OverviewSurface.tsx
  M projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ProjectContextSummary.tsx
+ M projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts
  M projects/sfia-studio/app/lib/oa/project/index.ts
  M projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/db.ts
  M projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
  M projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md
  M projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-?? .tmp-sfia-review/auth
-?? .tmp-sfia-review/p5-s01-cp01-diff-stat.txt
-?? .tmp-sfia-review/p5-s01-cp01-routing-capability.diff
-?? .tmp-sfia-review/p5-s01-diff-stat.txt
-?? .tmp-sfia-review/p5-s01-frontend-diff.txt
-?? .tmp-sfia-review/p5-s01-name-status.txt
-?? .tmp-sfia-review/p5-s01-roadmap-diff.txt
-?? .tmp-sfia-review/p5-s01-routing-diff.txt
-?? .tmp-sfia-review/p5-s01-vc01-layout-test.diff
-?? .tmp-sfia-review/p5-s01-vc01-next-config.diff
-?? .tmp-sfia-review/p5-s02-bounded-real.mjs
-?? .tmp-sfia-review/p5-s02-evidence.json
-?? .tmp-sfia-review/p5-s02-r1-prior.json
-?? .tmp-sfia-review/p5-s03-handoff/
-?? .tmp-sfia-review/p5-s03-visual/
-?? .tmp-sfia-review/p5-s04-visual/
-?? .tmp-sfia-review/pilot-execution-experience-visual/
-?? .tmp-sfia-review/visual/
+?? .tmp-sfia-review/p5-s04-visual/cp01/
 ?? projects/sfia-studio/app/__tests__/oa/synthesis/
 ?? projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s04.synthesesSurface.ui.test.tsx
 ?? projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/SynthesesSurface.module.css
@@ -212,117 +85,41 @@ M .tmp-sfia-review/chatgpt-review.md
 ?? projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/synthesisPresentation.ts
 ?? projects/sfia-studio/app/features/project-assistant/buildProductSynthesisLineageInput.ts
 ?? projects/sfia-studio/app/features/project-assistant/synthesisActions.ts
+?? projects/sfia-studio/app/features/project-assistant/w2/maybeMaterializeProductSynthesisAfterW3c.ts
 ?? projects/sfia-studio/app/lib/oa/synthesis/
+
 ```
 
-## 19. New/untracked S04 paths (representative)
+## 14. git diff --stat HEAD (tracked)
 ```
-.tmp-sfia-review/p5-s04-visual/_capture.mjs
-.tmp-sfia-review/p5-s04-visual/_seed-synthesis.mjs
-.tmp-sfia-review/p5-s04-visual/after/apercu-desktop-1440x1024.png
-.tmp-sfia-review/p5-s04-visual/after/conversation-desktop-1440x1024.png
-.tmp-sfia-review/p5-s04-visual/after/manifest.json
-.tmp-sfia-review/p5-s04-visual/after/syntheses-compact-1024x768.png
-.tmp-sfia-review/p5-s04-visual/after/syntheses-desktop-1440x1024.png
-.tmp-sfia-review/p5-s04-visual/after/syntheses-mobile-detail-390x844.png
-.tmp-sfia-review/p5-s04-visual/after/syntheses-mobile-list-390x844.png
-.tmp-sfia-review/p5-s04-visual/correction-design-note.md
-.tmp-sfia-review/p5-s04-visual/figma/compact-190-175.png
-.tmp-sfia-review/p5-s04-visual/figma/desktop-164-3.png
-.tmp-sfia-review/p5-s04-visual/figma/mobile-detail-190-455.png
-.tmp-sfia-review/p5-s04-visual/figma/mobile-list-190-433.png
-projects/sfia-studio/app/__tests__/oa/synthesis/p5.s04.productDerivedSynthesis.d0.test.ts
-projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s04.synthesesSurface.ui.test.tsx
-projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/SynthesesSurface.module.css
-projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/SynthesesSurface.tsx
-projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/synthesisPresentation.ts
-projects/sfia-studio/app/features/project-assistant/buildProductSynthesisLineageInput.ts
-projects/sfia-studio/app/features/project-assistant/synthesisActions.ts
-projects/sfia-studio/app/lib/oa/synthesis/application/buildProductSynthesis.ts
-projects/sfia-studio/app/lib/oa/synthesis/application/materializeProductSynthesis.ts
-projects/sfia-studio/app/lib/oa/synthesis/application/rebuildProductSynthesis.ts
-projects/sfia-studio/app/lib/oa/synthesis/application/searchProductSyntheses.ts
-projects/sfia-studio/app/lib/oa/synthesis/domain/errors.ts
-projects/sfia-studio/app/lib/oa/synthesis/domain/invariants.ts
-projects/sfia-studio/app/lib/oa/synthesis/domain/types.ts
-projects/sfia-studio/app/lib/oa/synthesis/index.ts
-projects/sfia-studio/app/lib/oa/synthesis/infrastructure/sqlite/createSqliteSynthesisServices.ts
-projects/sfia-studio/app/lib/oa/synthesis/infrastructure/sqlite/sqliteSynthesisRepository.ts
-projects/sfia-studio/app/lib/oa/synthesis/ports/synthesisRepositoryPort.ts
+ .../oa/decision/m3ProductSchemaMigration.test.ts   |  2 +-
+ .../oa/project/m5ProductSchemaMigration.test.ts    |  4 +-
+ .../oa/project/m6ProductSchemaMigration.test.ts    |  6 +-
+ .../automaticProjectResume.ui.test.tsx             | 12 +++
+ .../p5.s01.workspaceLayout.ui.test.tsx             | 12 +++
+ .../p5.s03.objectNativeViews.ui.test.tsx           | 12 +++
+ .../productJourneyProjectionCoherence.ui.test.tsx  | 12 +++
+ .../importBoundaries.test.ts                       |  3 +
+ .../ProjectWorkspacePage.module.css                |  8 ++
+ .../pre-m6-product-ui/ProjectWorkspacePage.tsx     | 64 +++++++++++++--
+ .../surfaces/ConversationSurface.tsx               | 41 ++++++++++
+ .../pre-m6-product-ui/surfaces/OverviewSurface.tsx | 92 +++++++++++++++++++---
+ .../surfaces/ProjectContextSummary.tsx             | 40 +++++++---
+ .../w2/materializeW3bProductTerminal.ts            | 48 ++++++++---
+ projects/sfia-studio/app/lib/oa/project/index.ts   |  3 +
+ .../app/lib/oa/project/infrastructure/sqlite/db.ts | 39 ++++++++-
+ .../convergence/sfia-studio-convergence-roadmap.md |  5 +-
+ ...t-product-simplification-integrated-delivery.md | 48 ++++++-----
+ .../production-runtime-reference.manifest.json     |  2 +-
+ 19 files changed, 388 insertions(+), 65 deletions(-)
+
 ```
 
-## 20. Validation — tsc
-**PASS** (`npx tsc --noEmit`)
+---
 
-## 21. Validation — lint
-**PASS** (`npm run lint`)
+# COMPLETE CREATED-FILE CONTENTS
 
-## 22. Validation — build
-**PASS** (`npm run build`)
-
-## 23. Validation — full npm test
-**PASS** — Test Files **471 passed** | 18 skipped · Tests **5223 passed** | 138 skipped
-
-## 24. Validation — S04 targeted
-- `p5.s04.productDerivedSynthesis.d0.test.ts` — **13 PASS**
-- `p5.s04.synthesesSurface.ui.test.tsx` — **3 PASS**
-- M3/M5/M6 migration tests — **PASS**
-
-## 25. Validation — hygiene fixes (local, uncommitted)
-- synthesisActions mocks in pre-m6 UI tests (server-only import boundary)
-- `importBoundaries.test.ts` allowlist + PRR digest for `db.ts`
-
-## 26. REAL calls
-**0** — `P5_S02_RUN_REAL` never set · dev uses `OPS1_CONVERSATION_PROVIDER=fake`
-
-## 27. Project commit/push/PR
-**NONE** (per gate)
-
-## 28. Docs truth-sync
-Roadmap + integrated delivery updated (minimal)
-
-## 29. Handoff target
-`scripts/sfia/publish-review-handoff.sh` → `sfia/review-handoff` / `sfia-review-handoff/latest-chatgpt-review.md`
-
-## 30. Expected commit message (handoff only)
-`docs(review-handoff): publish P5 S04 delivery review (complete contents)`
-
-## 31–36. Cursor Report anchor + verdict
-See sections **51–64** below (numbered Cursor Report).
-
-## 37. Created / key file contents (INDEX — full bodies in next section)
-
-Full verbatim bodies are embedded in **§COMPLETE CREATED-FILE CONTENTS** below (this republication fix).
-Index of created S04 source/test/UI files:
-
-- `projects/sfia-studio/app/lib/oa/synthesis/application/buildProductSynthesis.ts` (340 lines)
-- `projects/sfia-studio/app/lib/oa/synthesis/application/materializeProductSynthesis.ts` (54 lines)
-- `projects/sfia-studio/app/lib/oa/synthesis/application/rebuildProductSynthesis.ts` (28 lines)
-- `projects/sfia-studio/app/lib/oa/synthesis/application/searchProductSyntheses.ts` (10 lines)
-- `projects/sfia-studio/app/lib/oa/synthesis/domain/types.ts` (56 lines)
-- `projects/sfia-studio/app/lib/oa/synthesis/domain/invariants.ts` (174 lines)
-- `projects/sfia-studio/app/lib/oa/synthesis/domain/errors.ts` (28 lines)
-- `projects/sfia-studio/app/lib/oa/synthesis/ports/synthesisRepositoryPort.ts` (23 lines)
-- `projects/sfia-studio/app/lib/oa/synthesis/infrastructure/sqlite/sqliteSynthesisRepository.ts` (229 lines)
-- `projects/sfia-studio/app/lib/oa/synthesis/infrastructure/sqlite/createSqliteSynthesisServices.ts` (46 lines)
-- `projects/sfia-studio/app/lib/oa/synthesis/index.ts` (54 lines)
-- `projects/sfia-studio/app/features/project-assistant/synthesisActions.ts` (216 lines)
-- `projects/sfia-studio/app/features/project-assistant/buildProductSynthesisLineageInput.ts` (149 lines)
-- `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/SynthesesSurface.tsx` (334 lines)
-- `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/SynthesesSurface.module.css` (395 lines)
-- `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/synthesisPresentation.ts` (108 lines)
-- `projects/sfia-studio/app/__tests__/oa/synthesis/p5.s04.productDerivedSynthesis.d0.test.ts` (567 lines)
-- `projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s04.synthesesSurface.ui.test.tsx` (383 lines)
-
-Visual evidence excerpts retained after the complete-contents sections (design note + capture manifest).
-
-## COMPLETE CREATED-FILE CONTENTS
-
-Every new S04 source file below is embedded **verbatim in full**. Paths are absolute-from-repo-root.
-
-### projects/sfia-studio/app/lib/oa/synthesis/application/buildProductSynthesis.ts
-
-_Lines: 340_
+## FILE: `projects/sfia-studio/app/lib/oa/synthesis/application/buildProductSynthesis.ts` (492 lines)
 
 ```ts
 import { createHash, randomBytes } from "node:crypto";
@@ -349,6 +146,8 @@ export type BuildProductSynthesisExecutionContractSummary = {
   readonly target?: string;
   readonly scope?: string;
   readonly cycleInstanceId?: string | null;
+  readonly executionContractVersion?: number;
+  readonly semanticFingerprint?: string;
 };
 
 export type BuildProductSynthesisAttemptSummary = {
@@ -367,6 +166,7 @@ export type BuildProductSynthesisReviewBundleSummary = {
   readonly reviewBundleId: string;
   readonly status?: string;
   readonly completeness?: string;
+  readonly frozenVersion?: number;
 };
 
 export type BuildProductSynthesisRecommendation = {
@@ -404,18 +204,105 @@ function stableStringify(value: unknown): string {
     .join(",")}}`;
 }
 
+/**
+ * Canonical source material that affects derived sections / bindings.
+ * Excludes generatedAt and random synthesisId.
+ */
+export function buildSynthesisSourceMaterial(input: {
+  readonly projectId: string;
+  readonly claimEvaluation: ClaimEvaluation;
+  readonly bindings: SynthesisSourceBindings;
+  readonly canonicalVerdict: ProductSynthesisProjection["canonicalVerdict"];
+  readonly executionContract?: BuildProductSynthesisExecutionContractSummary | null;
+  readonly attempt?: BuildProductSynthesisAttemptSummary | null;
+  readonly evidence: readonly BuildProductSynthesisEvidenceSummary[];
+  readonly reviewBundle?: BuildProductSynthesisReviewBundleSummary | null;
+  readonly recommendationText: string;
+  readonly recommendationRef: string | null;
+}): Record<string, unknown> {
+  const ce = input.claimEvaluation;
+  const crb = ce.contractResultBindings ?? null;
+  return {
+    projectId: input.projectId,
+    claimEvaluation: {
+      claimEvaluationId: ce.claimEvaluationId,
+      subjectKind: ce.subjectKind ?? null,
+      status: ce.status,
+      claimStatement: ce.claimStatement,
+      supersedesClaimEvaluationId: ce.supersedesClaimEvaluationId ?? null,
+      reviewBundleId: ce.reviewBundleId ?? null,
+      reviewBundleVersion: ce.reviewBundleVersion ?? null,
+      contractResultBindings: crb
+        ? {
+            projectId: crb.projectId,
+            cycleInstanceId: crb.cycleInstanceId ?? null,
+            executionContractId: crb.executionContractId,
+            executionContractVersion: crb.executionContractVersion,
+            executionContractSemanticFingerprint:
+              crb.executionContractSemanticFingerprint,
+            executionAttemptId: crb.executionAttemptId,
+            reviewBundleId: crb.reviewBundleId,
+            reviewBundleVersion: crb.reviewBundleVersion,
+            evidenceRefs: [...crb.evidenceRefs],
+          }
+        : null,
+    },
+    bindings: input.bindings,
+    canonicalVerdict: input.canonicalVerdict,
+    executionContract: input.executionContract
+      ? {
+          executionContractId: input.executionContract.executionContractId,
+          action: input.executionContract.action ?? null,
+          target: input.executionContract.target ?? null,
+          scope: input.executionContract.scope ?? null,
+          cycleInstanceId: input.executionContract.cycleInstanceId ?? null,
+          executionContractVersion:
+            input.executionContract.executionContractVersion ?? null,
+          semanticFingerprint:
+            input.executionContract.semanticFingerprint ?? null,
+        }
+      : null,
+    attempt: input.attempt
+      ? {
+          attemptId: input.attempt.attemptId,
+          status: input.attempt.status ?? null,
+          resultRef: input.attempt.resultRef ?? null,
+        }
+      : null,
+    evidence: input.evidence.map((e) => ({
+      evidenceId: e.evidenceId,
+      status: e.status ?? null,
+      type: e.type ?? null,
+    })),
+    reviewBundle: input.reviewBundle
+      ? {
+          reviewBundleId: input.reviewBundle.reviewBundleId,
+          status: input.reviewBundle.status ?? null,
+          completeness: input.reviewBundle.completeness ?? null,
+          frozenVersion: input.reviewBundle.frozenVersion ?? null,
+        }
+      : null,
+    recommendationRef: input.recommendationRef,
+    recommendationText: input.recommendationText,
+  };
+}
+
 export function computeSynthesisSourceFingerprint(input: {
   bindings: SynthesisSourceBindings;
   canonicalVerdict: ProductSynthesisProjection["canonicalVerdict"];
   claimEvaluationStatus: ClaimEvaluation["status"];
   recommendationRef: string | null;
+  /** Prefer full source material when available (CP01 semantic completeness). */
+  sourceMaterial?: Record<string, unknown>;
 }): string {
-  const material = {
-    bindings: input.bindings,
-    canonicalVerdict: input.canonicalVerdict,
-    claimEvaluationStatus: input.claimEvaluationStatus,
-    recommendationRef: input.recommendationRef,
-  };
+  const material =
+    input.sourceMaterial ??
+    ({
+      bindings: input.bindings,
+      canonicalVerdict: input.canonicalVerdict,
+      claimEvaluationStatus: input.claimEvaluationStatus,
+      recommendationRef: input.recommendationRef,
+    } as Record<string, unknown>);
   return createHash("sha256")
     .update(stableStringify(material), "utf8")
     .digest("hex");
@@ -429,6 +316,91 @@ function mapVerdictLabel(
   return "non_prouve";
 }
 
+function presentVerdictSentence(
+  verdictLabel: SynthesisVerdictLabel,
+): string {
+  if (verdictLabel === "atteint") {
+    return "Le résultat évalué pour ce travail est atteint.";
+  }
+  if (verdictLabel === "echec") {
+    return "Le résultat évalué pour ce travail est un échec.";
+  }
+  return "Le résultat évalué pour ce travail n'est pas prouvé.";
+}
+
+function presentAttemptDone(
+  attempt?: BuildProductSynthesisAttemptSummary | null,
+): string {
+  if (!attempt) {
+    return "Aucune réalisation Product n'est encore rattachée à cette synthèse.";
+  }
+  const status = (attempt.status ?? "").toLowerCase();
+  if (status === "succeeded" || status === "success") {
+    return "Le travail prévu a été mené à terme.";
+  }
+  if (status === "failed" || status === "failure") {
+    return "Le travail prévu s'est terminé en échec.";
+  }
+  if (status === "cancelled" || status === "canceled") {
+    return "Le travail prévu a été annulé.";
+  }
+  if (status === "stopped" || status === "governed_stop") {
+    return "Le travail prévu a été arrêté avant son terme.";
+  }
+  if (status) {
+    return `Le travail prévu s'est conclu avec l'état « ${status} ».`;
+  }
+  return "Une réalisation Product est rattachée, sans détail d'état supplémentaire.";
+}
+
+function presentPlanned(
+  executionContract?: BuildProductSynthesisExecutionContractSummary | null,
+): string {
+  if (!executionContract) {
+    return "Aucun travail prévu n'est disponible pour cette synthèse.";
+  }
+  const bits = [
+    executionContract.action
+      ? `Action prévue: ${executionContract.action}.`
+      : null,
+    executionContract.target
+      ? `Cible: ${executionContract.target}.`
+      : null,
+    executionContract.scope
+      ? `Périmètre: ${executionContract.scope}.`
+      : null,
+  ].filter(Boolean);
+  if (bits.length === 0) {
+    return "Un travail était prévu, sans détail d'action, de cible ou de périmètre.";
+  }
+  return bits.join(" ");
+}
+
+function presentVerified(
+  evidence: readonly BuildProductSynthesisEvidenceSummary[],
+): string {
+  if (evidence.length === 0) {
+    return "Aucun élément de preuve détaillé n'est disponible pour cette synthèse.";
+  }
+  const byType = new Map<string, number>();
+  let verifiedCount = 0;
+  for (const e of evidence) {
+    const type = e.type?.trim() || "élément";
+    byType.set(type, (byType.get(type) ?? 0) + 1);
+    const st = (e.status ?? "").toLowerCase();
+    if (st === "verified" || st === "accepted" || st === "complete") {
+      verifiedCount += 1;
+    }
+  }
+  const typeParts = [...byType.entries()]
+    .map(([type, n]) => (n === 1 ? type : `${n}× ${type}`))
+    .join(", ");
+  if (verifiedCount > 0) {
+    return `${evidence.length} élément${evidence.length > 1 ? "s" : ""} de preuve rattaché${evidence.length > 1 ? "s" : ""} (${typeParts}), dont ${verifiedCount} vérifié${verifiedCount > 1 ? "s" : ""}.`;
+  }
+  return `${evidence.length} élément${evidence.length > 1 ? "s" : ""} de preuve rattaché${evidence.length > 1 ? "s" : ""} (${typeParts}).`;
+}
+
 function buildSections(input: {
   claimEvaluation: ClaimEvaluation;
   executionContract?: BuildProductSynthesisExecutionContractSummary | null;
@@ -439,107 +411,53 @@ function buildSections(input: {
   canonicalVerdict: ProductSynthesisProjection["canonicalVerdict"];
   verdictLabel: SynthesisVerdictLabel;
 }): SynthesisSections {
-  const ce = input.claimEvaluation;
-  const planned = input.executionContract
-    ? [
-        `Contrat d'exécution ${input.executionContract.executionContractId}.`,
-        input.executionContract.action
-          ? `Action prévue: ${input.executionContract.action}.`
-          : null,
-        input.executionContract.target
-          ? `Cible: ${input.executionContract.target}.`
-          : null,
-        input.executionContract.scope
-          ? `Périmètre: ${input.executionContract.scope}.`
-          : null,
-      ]
-        .filter(Boolean)
-        .join(" ")
-    : "Aucun contrat d'exécution Product fourni pour cette synthèse.";
-
-  const done = input.attempt
-    ? [
-        `Tentative ${input.attempt.attemptId}.`,
-        input.attempt.status
-          ? `Statut d'attempt: ${input.attempt.status}.`
-          : null,
-        input.attempt.resultRef
-          ? `Référence de résultat: ${input.attempt.resultRef}.`
-          : "Aucune référence de résultat d'attempt enregistrée.",
-      ]
-        .filter(Boolean)
-        .join(" ")
-    : "Aucune tentative d'exécution Product fournie pour cette synthèse.";
-
-  const evidenceLines =
-    input.evidence.length > 0
-      ? input.evidence
-          .map((e) => {
-            const bits = [e.evidenceId];
-            if (e.type) bits.push(`type=${e.type}`);
-            if (e.status) bits.push(`status=${e.status}`);
-            return bits.join(" ");
-          })
-          .join("; ")
-      : "Aucune evidence Product liée fournie.";
-
   const gapsParts: string[] = [];
   if (!input.executionContract) {
-    gapsParts.push("contrat d'exécution absent");
+    gapsParts.push("travail prévu non rattaché");
   }
   if (!input.attempt) {
-    gapsParts.push("tentative absente");
+    gapsParts.push("réalisation non rattachée");
   }
   if (input.evidence.length === 0) {
-    gapsParts.push("evidence absente");
+    gapsParts.push("aucun élément de preuve détaillé");
   }
   if (!input.reviewBundle) {
-    gapsParts.push("review bundle absent");
+    gapsParts.push("dossier d'évaluation incomplet");
   }
   if (input.canonicalVerdict !== "PASS") {
-    gapsParts.push(`verdict non atteint (${input.canonicalVerdict})`);
+    gapsParts.push(
+      input.canonicalVerdict === "FAIL"
+        ? "résultat en échec"
+        : "résultat non prouvé",
+    );
   }
   const gaps =
     gapsParts.length > 0
-      ? `Écarts / réserves observés: ${gapsParts.join("; ")}.`
-      : "Aucun écart Product explicite enregistré pour cette lignée.";
+      ? `Écarts ou réserves: ${gapsParts.join("; ")}.`
+      : "Aucun écart Product explicite pour cette synthèse.";
 
-  const rb = input.reviewBundle
-    ? `ReviewBundle ${input.reviewBundle.reviewBundleId}` +
-      (input.reviewBundle.status
-        ? ` (status=${input.reviewBundle.status})`
-        : "") +
-      (input.reviewBundle.completeness
-        ? ` completeness=${input.reviewBundle.completeness}`
-        : "") +
-      "."
-    : "Aucun ReviewBundle Product fourni.";
+  const evaluation =
+    input.canonicalVerdict === "PASS"
+      ? "Le résultat a été qualifié comme atteint."
+      : input.canonicalVerdict === "FAIL"
+        ? "Le résultat a été qualifié comme un échec."
+        : "Le résultat n'a pas pu être prouvé.";
 
   return {
-    summary: [
-      `Synthèse Product dérivée pour ClaimEvaluation ${ce.claimEvaluationId}.`,
-      `Affirmation: ${ce.claimStatement}.`,
-      `Statut CE: ${ce.status}.`,
-      `Verdict canonique projeté: ${input.canonicalVerdict}.`,
-    ].join(" "),
-    planned,
-    done,
-    evaluation: [
-      `Évaluation ClaimEvaluation ${ce.claimEvaluationId}: status=${ce.status}.`,
-      `Méthode: ${ce.evaluationMethod}.`,
-      `Criticalité: ${ce.criticality}.`,
-      rb,
-    ].join(" "),
+    summary: presentVerdictSentence(input.verdictLabel),
+    planned: presentPlanned(input.executionContract),
+    done: presentAttemptDone(input.attempt),
+    evaluation,
     gaps,
     impact:
       input.canonicalVerdict === "PASS"
-        ? "Impact Product: résultat de contrat atteint selon la ClaimEvaluation durable — projection dérivée uniquement."
+        ? "Impact sur le projet: le résultat atteint peut servir de base pour la suite, sans créer d'autorité supplémentaire."
         : input.canonicalVerdict === "FAIL"
-          ? "Impact Product: échec de preuve selon la ClaimEvaluation durable — aucune promotion d'autorité."
-          : "Impact Product: résultat non prouvé selon la ClaimEvaluation durable — continuité / récupération éventuelle hors synthèse.",
-    verdict: `Verdict Product projeté: ${input.verdictLabel} (canonique ${input.canonicalVerdict}) depuis ClaimEvaluation.status=${ce.status}.`,
+          ? "Impact sur le projet: l'échec doit être traité avant de poursuivre sur la même lignée."
+          : "Impact sur le projet: le résultat non prouvé laisse la continuité ou la récupération à décider hors synthèse.",
+    verdict: presentVerdictSentence(input.verdictLabel),
     recommendation: input.recommendationText,
-    verified: `Éléments vérifiés / liés: ${evidenceLines}`,
+    verified: presentVerified(input.evidence),
   };
 }
 
@@ -589,11 +507,24 @@ export function buildProductSynthesis(
 
   const canonicalVerdict = projectContractResultVerdict(ce.status);
   const verdictLabel = mapVerdictLabel(canonicalVerdict);
+  const sourceMaterial = buildSynthesisSourceMaterial({
+    projectId: input.projectId,
+    claimEvaluation: ce,
+    bindings,
+    canonicalVerdict,
+    executionContract: input.executionContract,
+    attempt: input.attempt,
+    evidence,
+    reviewBundle: input.reviewBundle,
+    recommendationText,
+    recommendationRef,
+  });
   const sourceFingerprint = computeSynthesisSourceFingerprint({
     bindings,
     canonicalVerdict,
     claimEvaluationStatus: ce.status,
     recommendationRef,
+    sourceMaterial,
   });
 
   const generatedAt = input.generatedAt ?? new Date().toISOString();
@@ -612,13 +543,18 @@ export function buildProductSynthesis(
     verdictLabel,
   });
 
+  const defaultTitle =
+    verdictLabel === "atteint"
+      ? "Synthèse — résultat atteint"
+      : verdictLabel === "echec"
+        ? "Synthèse — résultat en échec"
+        : "Synthèse — résultat non prouvé";
+
   const synthesis: ProductSynthesisProjection = {
     synthesisId,
     projectId: input.projectId,
     cycleInstanceId,
-    title:
-      input.title?.trim() ||
-      `Synthèse Product — ${ce.claimEvaluationId}`,
+    title: input.title?.trim() || defaultTitle,
     subject: ce.claimStatement,
     status: "current",
     verdictLabel,
@@ -648,7 +584,6 @@ export function buildSynthesisSearchText(
     synthesis.title,
     synthesis.subject,
     synthesis.verdictLabel,
-    synthesis.canonicalVerdict,
     s.summary,
     s.planned,
     s.done,
@@ -658,18 +593,30 @@ export function buildSynthesisSearchText(
     s.verdict,
     s.recommendation,
     s.verified,
-    synthesis.sourceBindings.claimEvaluationId,
-    synthesis.sourceBindings.executionContractId ?? "",
-    synthesis.sourceBindings.recommendationRef ?? "",
   ]
     .join("\n")
     .toLowerCase();
 }
+
+export function formatW3cRecommendationForSynthesis(input: {
+  readonly headline: string;
+  readonly nextStep: string;
+  readonly rationale?: string | null;
+}): string {
+  const parts: string[] = [];
+  if (input.headline.trim()) parts.push(input.headline.trim());
+  if (input.nextStep.trim()) {
+    parts.push(`Prochaine étape: ${input.nextStep.trim()}`);
+  }
+  const rationale = input.rationale?.trim();
+  if (rationale) {
+    parts.push(rationale.length > 400 ? `${rationale.slice(0, 400)}…` : rationale);
+  }
+  return parts.length > 0 ? parts.join(" ") : ABSENT_RECOMMENDATION_TEXT;
+}
 ```
 
-### projects/sfia-studio/app/lib/oa/synthesis/application/materializeProductSynthesis.ts
-
-_Lines: 54_
+## FILE: `projects/sfia-studio/app/lib/oa/synthesis/application/materializeProductSynthesis.ts` (84 lines)
 
 ```ts
 import { SynthesisDomainError } from "../domain/errors";
@@ -681,6 +628,24 @@ import {
 } from "./buildProductSynthesis";
 
 export type MaterializeProductSynthesisInput = BuildProductSynthesisInput;
+
+async function writeSuccessor(
+  repository: SynthesisRepositoryPort,
+  input: MaterializeProductSynthesisInput,
+  prior: ProductSynthesisProjection,
+  candidate: ProductSynthesisProjection,
+): Promise<ProductSynthesisProjection> {
+  await repository.softSupersede(prior.synthesisId);
+  const successor = buildProductSynthesis({
+    ...input,
+    supersedes: prior.synthesisId,
+    version: prior.version + 1,
+    generatedAt: candidate.generatedAt,
+    synthesisId: candidate.synthesisId,
+  });
+  await repository.create(successor);
+  return successor;
+}
 
 export async function materializeProductSynthesis(
   repository: SynthesisRepositoryPort,
@@ -711,16 +676,28 @@ export async function materializeProductSynthesis(
     priorCurrent &&
     priorCurrent.sourceFingerprint !== candidate.sourceFingerprint
   ) {
-    await repository.softSupersede(priorCurrent.synthesisId);
-    const successor = buildProductSynthesis({
-      ...input,
-      supersedes: priorCurrent.synthesisId,
-      version: priorCurrent.version + 1,
-      generatedAt: candidate.generatedAt,
-      synthesisId: candidate.synthesisId,
-    });
-    await repository.create(successor);
-    return successor;
+    return writeSuccessor(repository, input, priorCurrent, candidate);
+  }
+
+  // CE-B supersedesClaimEvaluationId = CE-A → Synthesis-B supersedes Synthesis-A
+  const supersededCeId = input.claimEvaluation.supersedesClaimEvaluationId;
+  if (supersededCeId) {
+    const priorFromSupersededCe =
+      await repository.findCurrentByClaimEvaluationId(
+        candidate.projectId,
+        supersededCeId,
+      );
+    if (
+      priorFromSupersededCe &&
+      priorFromSupersededCe.sourceFingerprint !== candidate.sourceFingerprint
+    ) {
+      return writeSuccessor(
+        repository,
+        input,
+        priorFromSupersededCe,
+        candidate,
+      );
+    }
   }
 
   await repository.create(candidate);
@@ -728,9 +705,7 @@ export async function materializeProductSynthesis(
 }
 ```
 
-### projects/sfia-studio/app/lib/oa/synthesis/application/rebuildProductSynthesis.ts
-
-_Lines: 28_
+## FILE: `projects/sfia-studio/app/lib/oa/synthesis/application/rebuildProductSynthesis.ts` (28 lines)
 
 ```ts
 import type { ProductSynthesisProjection } from "../domain/types";
@@ -763,9 +738,7 @@ export async function rebuildProductSynthesis(
 }
 ```
 
-### projects/sfia-studio/app/lib/oa/synthesis/application/searchProductSyntheses.ts
-
-_Lines: 10_
+## FILE: `projects/sfia-studio/app/lib/oa/synthesis/application/searchProductSyntheses.ts` (10 lines)
 
 ```ts
 import type { ProductSynthesisProjection } from "../domain/types";
@@ -780,72 +753,46 @@ export async function searchProductSyntheses(
 }
 ```
 
-### projects/sfia-studio/app/lib/oa/synthesis/domain/types.ts
-
-_Lines: 56_
+## FILE: `projects/sfia-studio/app/lib/oa/synthesis/domain/errors.ts` (34 lines)
 
 ```ts
-export type SynthesisStatus = "current" | "superseded" | "stale_source";
-export type SynthesisVerdictLabel =
-  | "atteint"
-  | "non_prouve"
-  | "echec"
-  | "indetermine";
+import type { SynthesisDetailCode } from "./types";
 
-export type SynthesisSourceBindings = {
-  readonly projectId: string;
-  readonly cycleInstanceId: string | null;
-  readonly executionContractId: string | null;
-  readonly attemptId: string | null;
-  readonly evidenceIds: readonly string[];
-  readonly reviewBundleId: string | null;
-  readonly claimEvaluationId: string;
-  readonly recommendationRef: string | null;
+const SAFE_MESSAGES: Record<SynthesisDetailCode, string> = {
+  SYNTHESIS_INVALID: "Product synthesis projection is invalid.",
+  SYNTHESIS_NOT_FOUND: "Product synthesis projection was not found.",
+  SYNTHESIS_ALREADY_EXISTS: "Product synthesis projection already exists.",
+  SYNTHESIS_LINEAGE_REQUIRES_CLAIM_EVALUATION:
+    "Product synthesis lineage requires a ClaimEvaluation.",
+  SYNTHESIS_LINEAGE_REQUIRES_CONTRACT_RESULT_SUBJECT:
+    "Product synthesis lineage requires a Contract Result ClaimEvaluation.",
+  SYNTHESIS_LINEAGE_REQUIRES_CONTRACT_RESULT_BINDINGS:
+    "Product synthesis lineage requires Contract Result bindings.",
+  SYNTHESIS_LINEAGE_BINDINGS_MISMATCH:
+    "Product synthesis lineage bindings do not match current Product facts.",
+  SYNTHESIS_AUTHORITY_FORBIDDEN:
+    "Product synthesis authority cannot be mutated or elevated.",
+  SYNTHESIS_PERSISTENCE_FAILED: "Product synthesis persistence failed.",
 };
 
-export type SynthesisSections = {
-  readonly summary: string;
-  readonly planned: string;
-  readonly done: string;
-  readonly evaluation: string;
-  readonly gaps: string;
-  readonly impact: string;
-  readonly verdict: string;
-  readonly recommendation: string;
-  readonly verified: string;
-};
+export class SynthesisDomainError extends Error {
+  readonly detailCode: SynthesisDetailCode;
 
-export type ProductSynthesisProjection = {
-  readonly synthesisId: string;
-  readonly projectId: string;
-  readonly cycleInstanceId: string | null;
-  readonly title: string;
-  readonly subject: string;
-  readonly status: SynthesisStatus;
-  readonly verdictLabel: SynthesisVerdictLabel;
-  readonly canonicalVerdict: "PASS" | "NOT_PROVEN" | "FAIL";
-  readonly sections: SynthesisSections;
-  readonly sourceBindings: SynthesisSourceBindings;
-  readonly sourceFingerprint: string;
-  readonly generatedAt: string;
-  readonly generatedBy: "deterministic_product_synthesis_builder_s04";
-  readonly authority: "none"; // never Truth C
-  readonly supersedes: string | null;
-  readonly version: number;
-};
+  constructor(detailCode: SynthesisDetailCode, message?: string) {
+    super(message ?? SAFE_MESSAGES[detailCode]);
+    this.name = "SynthesisDomainError";
+    this.detailCode = detailCode;
+  }
+}
 
-export type SynthesisDetailCode =
-  | "SYNTHESIS_INVALID"
-  | "SYNTHESIS_NOT_FOUND"
-  | "SYNTHESIS_ALREADY_EXISTS"
-  | "SYNTHESIS_LINEAGE_REQUIRES_CLAIM_EVALUATION"
-  | "SYNTHESIS_AUTHORITY_FORBIDDEN"
-  | "SYNTHESIS_PERSISTENCE_FAILED";
+export function isSynthesisDomainError(
+  err: unknown,
+): err is SynthesisDomainError {
+  return err instanceof SynthesisDomainError;
+}
 ```
 
-### projects/sfia-studio/app/lib/oa/synthesis/domain/invariants.ts
-
-_Lines: 174_
+## FILE: `projects/sfia-studio/app/lib/oa/synthesis/domain/invariants.ts` (174 lines)
 
 ```ts
 import type {
@@ -1024,74 +971,182 @@ export function validateProductSynthesisShape(
 }
 ```
 
-### projects/sfia-studio/app/lib/oa/synthesis/domain/errors.ts
-
-_Lines: 28_
+## FILE: `projects/sfia-studio/app/lib/oa/synthesis/domain/types.ts` (59 lines)
 
 ```ts
-import type { SynthesisDetailCode } from "./types";
+export type SynthesisStatus = "current" | "superseded" | "stale_source";
+export type SynthesisVerdictLabel =
+  | "atteint"
+  | "non_prouve"
+  | "echec"
+  | "indetermine";
 
-const SAFE_MESSAGES: Record<SynthesisDetailCode, string> = {
-  SYNTHESIS_INVALID: "Product synthesis projection is invalid.",
-  SYNTHESIS_NOT_FOUND: "Product synthesis projection was not found.",
-  SYNTHESIS_ALREADY_EXISTS: "Product synthesis projection already exists.",
-  SYNTHESIS_LINEAGE_REQUIRES_CLAIM_EVALUATION:
-    "Product synthesis lineage requires a ClaimEvaluation.",
-  SYNTHESIS_AUTHORITY_FORBIDDEN:
-    "Product synthesis authority cannot be mutated or elevated.",
-  SYNTHESIS_PERSISTENCE_FAILED: "Product synthesis persistence failed.",
+export type SynthesisSourceBindings = {
+  readonly projectId: string;
+  readonly cycleInstanceId: string | null;
+  readonly executionContractId: string | null;
+  readonly attemptId: string | null;
+  readonly evidenceIds: readonly string[];
+  readonly reviewBundleId: string | null;
+  readonly claimEvaluationId: string;
+  readonly recommendationRef: string | null;
 };
 
-export class SynthesisDomainError extends Error {
-  readonly detailCode: SynthesisDetailCode;
+export type SynthesisSections = {
+  readonly summary: string;
+  readonly planned: string;
+  readonly done: string;
+  readonly evaluation: string;
+  readonly gaps: string;
+  readonly impact: string;
+  readonly verdict: string;
+  readonly recommendation: string;
+  readonly verified: string;
+};
 
-  constructor(detailCode: SynthesisDetailCode, message?: string) {
-    super(message ?? SAFE_MESSAGES[detailCode]);
-    this.name = "SynthesisDomainError";
-    this.detailCode = detailCode;
-  }
-}
+export type ProductSynthesisProjection = {
+  readonly synthesisId: string;
+  readonly projectId: string;
+  readonly cycleInstanceId: string | null;
+  readonly title: string;
+  readonly subject: string;
+  readonly status: SynthesisStatus;
+  readonly verdictLabel: SynthesisVerdictLabel;
+  readonly canonicalVerdict: "PASS" | "NOT_PROVEN" | "FAIL";
+  readonly sections: SynthesisSections;
+  readonly sourceBindings: SynthesisSourceBindings;
+  readonly sourceFingerprint: string;
+  readonly generatedAt: string;
+  readonly generatedBy: "deterministic_product_synthesis_builder_s04";
+  readonly authority: "none"; // never Truth C
+  readonly supersedes: string | null;
+  readonly version: number;
+};
 
-export function isSynthesisDomainError(
-  err: unknown,
-): err is SynthesisDomainError {
-  return err instanceof SynthesisDomainError;
-}
+export type SynthesisDetailCode =
+  | "SYNTHESIS_INVALID"
+  | "SYNTHESIS_NOT_FOUND"
+  | "SYNTHESIS_ALREADY_EXISTS"
+  | "SYNTHESIS_LINEAGE_REQUIRES_CLAIM_EVALUATION"
+  | "SYNTHESIS_LINEAGE_REQUIRES_CONTRACT_RESULT_SUBJECT"
+  | "SYNTHESIS_LINEAGE_REQUIRES_CONTRACT_RESULT_BINDINGS"
+  | "SYNTHESIS_LINEAGE_BINDINGS_MISMATCH"
+  | "SYNTHESIS_AUTHORITY_FORBIDDEN"
+  | "SYNTHESIS_PERSISTENCE_FAILED";
 ```
 
-### projects/sfia-studio/app/lib/oa/synthesis/ports/synthesisRepositoryPort.ts
-
-_Lines: 23_
+## FILE: `projects/sfia-studio/app/lib/oa/synthesis/index.ts` (55 lines)
 
 ```ts
-import type { ProductSynthesisProjection } from "../domain/types";
+export type {
+  ProductSynthesisProjection,
+  SynthesisDetailCode,
+  SynthesisSections,
+  SynthesisSourceBindings,
+  SynthesisStatus,
+  SynthesisVerdictLabel,
+} from "./domain/types";
 
-export type SynthesisRepositoryPort = {
-  create(synthesis: ProductSynthesisProjection): Promise<void>;
-  update(synthesis: ProductSynthesisProjection): Promise<void>;
-  findById(synthesisId: string): Promise<ProductSynthesisProjection | null>;
-  findByFingerprint(
-    projectId: string,
-    fingerprint: string,
-  ): Promise<ProductSynthesisProjection | null>;
-  findCurrentByClaimEvaluationId(
-    projectId: string,
-    claimEvaluationId: string,
-  ): Promise<ProductSynthesisProjection | null>;
-  listByProject(projectId: string): Promise<ProductSynthesisProjection[]>;
-  searchByProject(
+export {
+  SynthesisDomainError,
+  isSynthesisDomainError,
+} from "./domain/errors";
+
+export {
+  validateProductSynthesisShape,
+  type SynthesisInvariantViolation,
+} from "./domain/invariants";
+
+export type { SynthesisRepositoryPort } from "./ports/synthesisRepositoryPort";
+
+export {
+  ABSENT_RECOMMENDATION_TEXT,
+  SYNTHESIS_GENERATED_BY,
+  buildProductSynthesis,
+  buildSynthesisSearchText,
+  buildSynthesisSourceMaterial,
+  computeSynthesisSourceFingerprint,
+  formatW3cRecommendationForSynthesis,
+  type BuildProductSynthesisAttemptSummary,
+  type BuildProductSynthesisEvidenceSummary,
+  type BuildProductSynthesisExecutionContractSummary,
+  type BuildProductSynthesisInput,
+  type BuildProductSynthesisRecommendation,
+  type BuildProductSynthesisReviewBundleSummary,
+} from "./application/buildProductSynthesis";
+export {
+  materializeProductSynthesis,
+  type MaterializeProductSynthesisInput,
+} from "./application/materializeProductSynthesis";
+
+export { searchProductSyntheses } from "./application/searchProductSyntheses";
+
+export {
+  rebuildProductSynthesis,
+  type RebuildProductSynthesisLineage,
+} from "./application/rebuildProductSynthesis";
+
+export { SqliteSynthesisRepository } from "./infrastructure/sqlite/sqliteSynthesisRepository";
+
+export {
+  createSqliteSynthesisServices,
+  type CreateSqliteSynthesisServicesOptions,
+  type SqliteSynthesisServices,
+} from "./infrastructure/sqlite/createSqliteSynthesisServices";
+```
+
+## FILE: `projects/sfia-studio/app/lib/oa/synthesis/infrastructure/sqlite/createSqliteSynthesisServices.ts` (46 lines)
+
+```ts
+import type { ProductSqliteHandle } from "@/lib/oa/project";
+import {
+  buildProductSynthesis,
+  type BuildProductSynthesisInput,
+} from "../../application/buildProductSynthesis";
+import { materializeProductSynthesis } from "../../application/materializeProductSynthesis";
+import { rebuildProductSynthesis } from "../../application/rebuildProductSynthesis";
+import { searchProductSyntheses } from "../../application/searchProductSyntheses";
+import type { ProductSynthesisProjection } from "../../domain/types";
+import type { SynthesisRepositoryPort } from "../../ports/synthesisRepositoryPort";
+import { SqliteSynthesisRepository } from "./sqliteSynthesisRepository";
+
+export type CreateSqliteSynthesisServicesOptions = {
+  productStore: ProductSqliteHandle;
+};
+
+export type SqliteSynthesisServices = {
+  repository: SynthesisRepositoryPort;
+  build: (input: BuildProductSynthesisInput) => ProductSynthesisProjection;
+  materialize: (
+    input: BuildProductSynthesisInput,
+  ) => Promise<ProductSynthesisProjection>;
+  search: (
     projectId: string,
     query: string,
-  ): Promise<ProductSynthesisProjection[]>;
-  /** Test/rebuild only — deletes derived projections; never touches Truth C. */
-  deleteAllByProject(projectId: string): Promise<void>;
-  softSupersede(synthesisId: string): Promise<ProductSynthesisProjection>;
+  ) => Promise<ProductSynthesisProjection[]>;
+  rebuild: (
+    projectId: string,
+    lineage: readonly BuildProductSynthesisInput[],
+  ) => Promise<ProductSynthesisProjection[]>;
 };
+
+export function createSqliteSynthesisServices(
+  options: CreateSqliteSynthesisServicesOptions,
+): SqliteSynthesisServices {
+  const repository = new SqliteSynthesisRepository(options.productStore);
+  return {
+    repository,
+    build: buildProductSynthesis,
+    materialize: (input) => materializeProductSynthesis(repository, input),
+    search: (projectId, query) =>
+      searchProductSyntheses(repository, projectId, query),
+    rebuild: (projectId, lineage) =>
+      rebuildProductSynthesis(repository, projectId, lineage),
+  };
+}
 ```
 
-### projects/sfia-studio/app/lib/oa/synthesis/infrastructure/sqlite/sqliteSynthesisRepository.ts
-
-_Lines: 229_
+## FILE: `projects/sfia-studio/app/lib/oa/synthesis/infrastructure/sqlite/sqliteSynthesisRepository.ts` (229 lines)
 
 ```ts
 import type { ProductSqliteHandle } from "@/lib/oa/project";
@@ -1325,123 +1380,282 @@ function escapeLike(value: string): string {
 }
 ```
 
-### projects/sfia-studio/app/lib/oa/synthesis/infrastructure/sqlite/createSqliteSynthesisServices.ts
-
-_Lines: 46_
+## FILE: `projects/sfia-studio/app/lib/oa/synthesis/ports/synthesisRepositoryPort.ts` (23 lines)
 
 ```ts
-import type { ProductSqliteHandle } from "@/lib/oa/project";
-import {
-  buildProductSynthesis,
-  type BuildProductSynthesisInput,
-} from "../../application/buildProductSynthesis";
-import { materializeProductSynthesis } from "../../application/materializeProductSynthesis";
-import { rebuildProductSynthesis } from "../../application/rebuildProductSynthesis";
-import { searchProductSyntheses } from "../../application/searchProductSyntheses";
-import type { ProductSynthesisProjection } from "../../domain/types";
-import type { SynthesisRepositoryPort } from "../../ports/synthesisRepositoryPort";
-import { SqliteSynthesisRepository } from "./sqliteSynthesisRepository";
+import type { ProductSynthesisProjection } from "../domain/types";
 
-export type CreateSqliteSynthesisServicesOptions = {
-  productStore: ProductSqliteHandle;
-};
-
-export type SqliteSynthesisServices = {
-  repository: SynthesisRepositoryPort;
-  build: (input: BuildProductSynthesisInput) => ProductSynthesisProjection;
-  materialize: (
-    input: BuildProductSynthesisInput,
-  ) => Promise<ProductSynthesisProjection>;
-  search: (
+export type SynthesisRepositoryPort = {
+  create(synthesis: ProductSynthesisProjection): Promise<void>;
+  update(synthesis: ProductSynthesisProjection): Promise<void>;
+  findById(synthesisId: string): Promise<ProductSynthesisProjection | null>;
+  findByFingerprint(
+    projectId: string,
+    fingerprint: string,
+  ): Promise<ProductSynthesisProjection | null>;
+  findCurrentByClaimEvaluationId(
+    projectId: string,
+    claimEvaluationId: string,
+  ): Promise<ProductSynthesisProjection | null>;
+  listByProject(projectId: string): Promise<ProductSynthesisProjection[]>;
+  searchByProject(
     projectId: string,
     query: string,
-  ) => Promise<ProductSynthesisProjection[]>;
-  rebuild: (
-    projectId: string,
-    lineage: readonly BuildProductSynthesisInput[],
-  ) => Promise<ProductSynthesisProjection[]>;
+  ): Promise<ProductSynthesisProjection[]>;
+  /** Test/rebuild only — deletes derived projections; never touches Truth C. */
+  deleteAllByProject(projectId: string): Promise<void>;
+  softSupersede(synthesisId: string): Promise<ProductSynthesisProjection>;
 };
+```
 
-export function createSqliteSynthesisServices(
-  options: CreateSqliteSynthesisServicesOptions,
-): SqliteSynthesisServices {
-  const repository = new SqliteSynthesisRepository(options.productStore);
+## FILE: `projects/sfia-studio/app/features/project-assistant/buildProductSynthesisLineageInput.ts` (242 lines)
+
+```ts
+import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
+import {
+  CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT,
+  contractResultBindingsMatchCurrentFacts,
+} from "@/lib/oa/evidence-review";
+import {
+  formatW3cRecommendationForSynthesis,
+  type BuildProductSynthesisInput,
+  type BuildProductSynthesisRecommendation,
+} from "@/lib/oa/synthesis";
+import { isSynthesisDomainError } from "@/lib/oa/synthesis";
+import {
+  findExistingW3cPostEvidence,
+  w3cRecommendationEpistemicId,
+} from "./w2/w3cPostEvidenceLoop";
+
+export type BuildProductSynthesisLineageResult =
+  | { readonly ok: true; readonly input: BuildProductSynthesisInput }
+  | {
+      readonly ok: false;
+      readonly code: string;
+      readonly message: string;
+    };
+
+/**
+ * Loads durable Product OA facts for a Contract Result ClaimEvaluation and
+ * builds BuildProductSynthesisInput — no invented verdict or recommendation.
+ * Fail-closed on non Contract-Result subject or binding mismatch.
+ */
+export async function buildProductSynthesisLineageInput(input: {
+  readonly oa: RuntimeOaStack;
+  readonly projectId: string;
+  readonly claimEvaluationId: string;
+  readonly title?: string;
+  readonly generatedAt?: string;
+  readonly recommendation?: BuildProductSynthesisRecommendation | null;
+}): Promise<BuildProductSynthesisLineageResult> {
+  const projectId = input.projectId.trim();
+  const claimEvaluationId = input.claimEvaluationId.trim();
+  if (!projectId || !claimEvaluationId) {
+    return {
+      ok: false,
+      code: "INVALID_INPUT",
+      message: "projectId et claimEvaluationId requis.",
+    };
+  }
+
+  const claimEvaluation =
+    await input.oa.evidenceReviewServices.claimEvaluationReader.findById(
+      claimEvaluationId,
+    );
+  if (!claimEvaluation) {
+    return {
+      ok: false,
+      code: "CLAIM_EVALUATION_NOT_FOUND",
+      message: "ClaimEvaluation introuvable.",
+    };
+  }
+
+  if (
+    claimEvaluation.subjectKind !==
+    CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT
+  ) {
+    return {
+      ok: false,
+      code: "SYNTHESIS_LINEAGE_REQUIRES_CONTRACT_RESULT_SUBJECT",
+      message:
+        "La synthèse Product exige une évaluation de résultat de contrat.",
+    };
+  }
+
+  const bindings = claimEvaluation.contractResultBindings;
+  if (!bindings) {
+    return {
+      ok: false,
+      code: "SYNTHESIS_LINEAGE_REQUIRES_CONTRACT_RESULT_BINDINGS",
+      message:
+        "La synthèse Product exige des liaisons de résultat de contrat.",
+    };
+  }
+
+  const boundProject = bindings.projectId;
+  if (boundProject !== projectId) {
+    return {
+      ok: false,
+      code: "CLAIM_EVALUATION_PROJECT_MISMATCH",
+      message: "ClaimEvaluation liée à un autre projet.",
+    };
+  }
+
+  const attemptId = bindings.executionAttemptId;
+  const attempt =
+    await input.oa.executionAttemptServices.attempts.findById(attemptId);
+  if (!attempt) {
+    return {
+      ok: false,
+      code: "SYNTHESIS_LINEAGE_BINDINGS_MISMATCH",
+      message: "Tentative liée introuvable pour la synthèse.",
+    };
+  }
+
+  const reviewBundleId = bindings.reviewBundleId;
+  const reviewBundle =
+    await input.oa.evidenceReviewServices.reviewBundleReader.findById(
+      reviewBundleId,
+    );
+  if (!reviewBundle) {
+    return {
+      ok: false,
+      code: "SYNTHESIS_LINEAGE_BINDINGS_MISMATCH",
+      message: "Dossier d'évaluation lié introuvable pour la synthèse.",
+    };
+  }
+
+  // Canonical evidence identity/order from CE bindings — used after match for sections.
+  const boundEvidenceIds = [...bindings.evidenceRefs];
+  // Current facts for matcher = ReviewBundle evidence order (not CE bindings echo).
+  const currentEvidenceIds = [...reviewBundle.evidenceRefs];
+
+  if (
+    !contractResultBindingsMatchCurrentFacts({
+      bindings,
+      attempt: {
+        attemptId: attempt.attemptId,
+        executionContractId: attempt.executionContractId,
+        executionContractVersion: attempt.executionContractVersion,
+        executionContractSemanticFingerprint:
+          attempt.executionContractSemanticFingerprint,
+        boundExecutionContract: attempt.boundExecutionContract,
+      },
+      reviewBundle: {
+        reviewBundleId: reviewBundle.reviewBundleId,
+        frozenVersion: reviewBundle.frozenVersion,
+      },
+      evidenceIds: currentEvidenceIds,
+      projectId,
+      cycleInstanceId: bindings.cycleInstanceId ?? null,
+    })
+  ) {
+    return {
+      ok: false,
+      code: "SYNTHESIS_LINEAGE_BINDINGS_MISMATCH",
+      message:
+        "Les liaisons Product ne correspondent pas aux faits durables courants.",
+    };
+  }
+
+  const evidenceReader = input.oa.evidenceReviewServices.evidenceReader;
+  const evidence = (
+    await Promise.all(
+      boundEvidenceIds.map((id) => evidenceReader.findById(id)),
+    )
+  )
+    .filter((ev): ev is NonNullable<typeof ev> => ev != null)
+    .map((ev) => ({
+      evidenceId: ev.evidenceId,
+      status: ev.status,
+      type: ev.type,
+    }));
+
+  // Planned semantics from Attempt-bound EC snapshot — never mutable latest EC.
+  const snap = attempt.boundExecutionContract;
+  const material = snap?.semanticMaterial;
+  const executionContract: BuildProductSynthesisInput["executionContract"] =
+    material
+      ? {
+          executionContractId: material.executionContractId,
+          action: material.action,
+          target: material.target,
+          scope: material.scope,
+          cycleInstanceId: material.cycleInstanceId ?? null,
+          executionContractVersion: snap.executionContractVersion,
+          semanticFingerprint: snap.semanticFingerprint,
+        }
+      : {
+          executionContractId: bindings.executionContractId,
+          executionContractVersion: bindings.executionContractVersion,
+          semanticFingerprint: bindings.executionContractSemanticFingerprint,
+          cycleInstanceId: bindings.cycleInstanceId ?? null,
+        };
+
+  let recommendation: BuildProductSynthesisRecommendation | null =
+    input.recommendation ?? null;
+
+  if (!recommendation && boundEvidenceIds[0]) {
+    const existing = await findExistingW3cPostEvidence({
+      oa: input.oa,
+      projectId,
+      evidenceId: boundEvidenceIds[0],
+      attemptId,
+    });
+    if (existing?.ok && existing.recommendation) {
+      const evidenceIdForRef = existing.evidenceId || boundEvidenceIds[0];
+      recommendation = {
+        text: formatW3cRecommendationForSynthesis({
+          headline: existing.recommendation.headline,
+          nextStep: existing.recommendation.nextStep,
+          rationale: existing.recommendation.rationale,
+        }),
+        ref: w3cRecommendationEpistemicId(
+          evidenceIdForRef,
+          claimEvaluation.claimEvaluationId,
+        ),
+      };
+    }
+  }
+
   return {
-    repository,
-    build: buildProductSynthesis,
-    materialize: (input) => materializeProductSynthesis(repository, input),
-    search: (projectId, query) =>
-      searchProductSyntheses(repository, projectId, query),
-    rebuild: (projectId, lineage) =>
-      rebuildProductSynthesis(repository, projectId, lineage),
+    ok: true,
+    input: {
+      projectId,
+      claimEvaluation,
+      executionContract,
+      attempt: {
+        attemptId: attempt.attemptId,
+        status: attempt.status,
+        resultRef: attempt.resultRef ?? null,
+      },
+      evidence,
+      reviewBundle: {
+        reviewBundleId: reviewBundle.reviewBundleId,
+        status: reviewBundle.status,
+        completeness: reviewBundle.completeness,
+        frozenVersion: reviewBundle.frozenVersion,
+      },
+      recommendation,
+      title: input.title,
+      generatedAt: input.generatedAt,
+      cycleInstanceId: bindings.cycleInstanceId ?? null,
+    },
   };
+}
+
+export function synthesisErrorMessage(err: unknown): string {
+  if (isSynthesisDomainError(err)) {
+    return err.message || err.detailCode;
+  }
+  if (err instanceof Error && err.message.trim()) {
+    return err.message;
+  }
+  return "Opération synthèse indisponible.";
 }
 ```
 
-### projects/sfia-studio/app/lib/oa/synthesis/index.ts
-
-_Lines: 54_
-
-```ts
-export type {
-  ProductSynthesisProjection,
-  SynthesisDetailCode,
-  SynthesisSections,
-  SynthesisSourceBindings,
-  SynthesisStatus,
-  SynthesisVerdictLabel,
-} from "./domain/types";
-
-export {
-  SynthesisDomainError,
-  isSynthesisDomainError,
-} from "./domain/errors";
-
-export {
-  validateProductSynthesisShape,
-  type SynthesisInvariantViolation,
-} from "./domain/invariants";
-
-export type { SynthesisRepositoryPort } from "./ports/synthesisRepositoryPort";
-
-export {
-  ABSENT_RECOMMENDATION_TEXT,
-  SYNTHESIS_GENERATED_BY,
-  buildProductSynthesis,
-  buildSynthesisSearchText,
-  computeSynthesisSourceFingerprint,
-  type BuildProductSynthesisAttemptSummary,
-  type BuildProductSynthesisEvidenceSummary,
-  type BuildProductSynthesisExecutionContractSummary,
-  type BuildProductSynthesisInput,
-  type BuildProductSynthesisRecommendation,
-  type BuildProductSynthesisReviewBundleSummary,
-} from "./application/buildProductSynthesis";
-
-export {
-  materializeProductSynthesis,
-  type MaterializeProductSynthesisInput,
-} from "./application/materializeProductSynthesis";
-
-export { searchProductSyntheses } from "./application/searchProductSyntheses";
-
-export {
-  rebuildProductSynthesis,
-  type RebuildProductSynthesisLineage,
-} from "./application/rebuildProductSynthesis";
-
-export { SqliteSynthesisRepository } from "./infrastructure/sqlite/sqliteSynthesisRepository";
-
-export {
-  createSqliteSynthesisServices,
-  type CreateSqliteSynthesisServicesOptions,
-  type SqliteSynthesisServices,
-} from "./infrastructure/sqlite/createSqliteSynthesisServices";
-```
-
-### projects/sfia-studio/app/features/project-assistant/synthesisActions.ts
-
-_Lines: 216_
+## FILE: `projects/sfia-studio/app/features/project-assistant/synthesisActions.ts` (216 lines)
 
 ```ts
 "use server";
@@ -1662,165 +1876,119 @@ export async function materializeProductSynthesisFromLineageAction(input: {
 }
 ```
 
-### projects/sfia-studio/app/features/project-assistant/buildProductSynthesisLineageInput.ts
-
-_Lines: 149_
+## FILE: `projects/sfia-studio/app/features/project-assistant/w2/maybeMaterializeProductSynthesisAfterW3c.ts` (107 lines)
 
 ```ts
+/**
+ * Soft-fail Synthesis materialization after durable W3-C success/rehydrate.
+ * NEVER mutates Truth C (CE / Contract Result / Recommendation / Attempt).
+ */
 import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
-import type { BuildProductSynthesisInput } from "@/lib/oa/synthesis";
-import { isSynthesisDomainError } from "@/lib/oa/synthesis";
+import { SqliteProductStore } from "@/lib/oa/project/infrastructure/sqlite/sqliteProductStore";
+import {
+  createSqliteSynthesisServices,
+  formatW3cRecommendationForSynthesis,
+  isSynthesisDomainError,
+  type ProductSynthesisProjection,
+} from "@/lib/oa/synthesis";
+import type { W3BProductTerminalProjection } from "./w3bProductTerminalProjection";
+import {
+  w3cRecommendationEpistemicId,
+  type W3cPostEvidenceLoopSuccess,
+} from "./w3cPostEvidenceLoop";
+import {
+  buildProductSynthesisLineageInput,
+  synthesisErrorMessage,
+} from "../buildProductSynthesisLineageInput";
 
-export type BuildProductSynthesisLineageResult =
-  | { readonly ok: true; readonly input: BuildProductSynthesisInput }
+export type MaybeMaterializeProductSynthesisAfterW3cResult =
+  | {
+      readonly ok: true;
+      readonly synthesis: ProductSynthesisProjection;
+    }
   | {
       readonly ok: false;
       readonly code: string;
       readonly message: string;
+      /** Soft-fail: authoritative Product facts remain intact. */
+      readonly softFailed: true;
     };
 
-/**
- * Loads durable Product OA facts for a ClaimEvaluation and builds
- * BuildProductSynthesisInput — no invented verdict or recommendation.
- */
-export async function buildProductSynthesisLineageInput(input: {
+export async function maybeMaterializeProductSynthesisAfterW3c(input: {
   readonly oa: RuntimeOaStack;
   readonly projectId: string;
-  readonly claimEvaluationId: string;
-  readonly title?: string;
-  readonly generatedAt?: string;
-}): Promise<BuildProductSynthesisLineageResult> {
-  const projectId = input.projectId.trim();
-  const claimEvaluationId = input.claimEvaluationId.trim();
-  if (!projectId || !claimEvaluationId) {
-    return {
-      ok: false,
-      code: "INVALID_INPUT",
-      message: "projectId et claimEvaluationId requis.",
-    };
-  }
+  readonly product: W3BProductTerminalProjection;
+  readonly postEvidence: W3cPostEvidenceLoopSuccess;
+}): Promise<MaybeMaterializeProductSynthesisAfterW3cResult> {
+  try {
+    const claimEvaluationId =
+      input.product.claimEvaluationId ??
+      input.postEvidence.claimEvaluationId ??
+      null;
+    if (!claimEvaluationId) {
+      return {
+        ok: false,
+        softFailed: true,
+        code: "SYNTHESIS_LINEAGE_REQUIRES_CLAIM_EVALUATION",
+        message: "ClaimEvaluation absente pour la synthèse dérivée.",
+      };
+    }
 
-  const claimEvaluation =
-    await input.oa.evidenceReviewServices.claimEvaluationReader.findById(
+    const store = input.oa.projectServices.store;
+    if (!(store instanceof SqliteProductStore)) {
+      return {
+        ok: false,
+        softFailed: true,
+        code: "PRODUCT_SQLITE_UNAVAILABLE",
+        message: "Persistance Product SQLite indisponible pour la synthèse.",
+      };
+    }
+
+    const evidenceId =
+      input.postEvidence.evidenceId ||
+      input.product.evidenceId ||
+      "";
+    const recommendation = {
+      text: formatW3cRecommendationForSynthesis({
+        headline: input.postEvidence.recommendation.headline,
+        nextStep: input.postEvidence.recommendation.nextStep,
+        rationale: input.postEvidence.recommendation.rationale,
+      }),
+      ref: w3cRecommendationEpistemicId(evidenceId, claimEvaluationId),
+    };
+
+    const lineage = await buildProductSynthesisLineageInput({
+      oa: input.oa,
+      projectId: input.projectId,
       claimEvaluationId,
-    );
-  if (!claimEvaluation) {
+      recommendation,
+    });
+    if (!lineage.ok) {
+      return {
+        ok: false,
+        softFailed: true,
+        code: lineage.code,
+        message: lineage.message,
+      };
+    }
+
+    const services = createSqliteSynthesisServices({ productStore: store });
+    const synthesis = await services.materialize(lineage.input);
+    return { ok: true, synthesis };
+  } catch (err) {
     return {
       ok: false,
-      code: "CLAIM_EVALUATION_NOT_FOUND",
-      message: "ClaimEvaluation introuvable.",
+      softFailed: true,
+      code: isSynthesisDomainError(err)
+        ? err.detailCode
+        : "SYNTHESIS_MATERIALIZE_FAILED",
+      message: synthesisErrorMessage(err),
     };
   }
-
-  const boundProject =
-    claimEvaluation.contractResultBindings?.projectId ??
-    claimEvaluation.provenance?.projectId ??
-    null;
-  if (boundProject && boundProject !== projectId) {
-    return {
-      ok: false,
-      code: "CLAIM_EVALUATION_PROJECT_MISMATCH",
-      message: "ClaimEvaluation liée à un autre projet.",
-    };
-  }
-
-  const bindings = claimEvaluation.contractResultBindings;
-  const evidenceIds = [
-    ...(bindings?.evidenceRefs ?? []),
-    ...claimEvaluation.requiredEvidenceRefs,
-  ].filter((id, index, arr) => arr.indexOf(id) === index);
-
-  const evidenceReader = input.oa.evidenceReviewServices.evidenceReader;
-  const evidence = (
-    await Promise.all(evidenceIds.map((id) => evidenceReader.findById(id)))
-  )
-    .filter((ev): ev is NonNullable<typeof ev> => ev != null)
-    .map((ev) => ({
-      evidenceId: ev.evidenceId,
-      status: ev.status,
-      type: ev.type,
-    }));
-
-  const reviewBundleId =
-    claimEvaluation.reviewBundleId ?? bindings?.reviewBundleId ?? null;
-  let reviewBundle: BuildProductSynthesisInput["reviewBundle"] = null;
-  if (reviewBundleId) {
-    const rb =
-      await input.oa.evidenceReviewServices.reviewBundleReader.findById(
-        reviewBundleId,
-      );
-    if (rb) {
-      reviewBundle = {
-        reviewBundleId: rb.reviewBundleId,
-        status: rb.status,
-        completeness: rb.completeness,
-      };
-    }
-  }
-
-  const executionContractId = bindings?.executionContractId ?? null;
-  let executionContract: BuildProductSynthesisInput["executionContract"] =
-    null;
-  if (executionContractId) {
-    const contract =
-      await input.oa.executionContractServices.contracts.findById(
-        executionContractId,
-      );
-    if (contract) {
-      executionContract = {
-        executionContractId: contract.executionContractId,
-        action: contract.action,
-        target: contract.target,
-        scope: contract.scope,
-        cycleInstanceId: contract.cycleInstanceId ?? null,
-      };
-    }
-  }
-
-  const attemptId = bindings?.executionAttemptId ?? null;
-  let attempt: BuildProductSynthesisInput["attempt"] = null;
-  if (attemptId) {
-    const att =
-      await input.oa.executionAttemptServices.attempts.findById(attemptId);
-    if (att) {
-      attempt = {
-        attemptId: att.attemptId,
-        status: att.status,
-        resultRef: att.resultRef ?? null,
-      };
-    }
-  }
-
-  return {
-    ok: true,
-    input: {
-      projectId,
-      claimEvaluation,
-      executionContract,
-      attempt,
-      evidence,
-      reviewBundle,
-      title: input.title,
-      generatedAt: input.generatedAt,
-      cycleInstanceId: bindings?.cycleInstanceId ?? null,
-    },
-  };
-}
-
-export function synthesisErrorMessage(err: unknown): string {
-  if (isSynthesisDomainError(err)) {
-    return err.message || err.detailCode;
-  }
-  if (err instanceof Error && err.message.trim()) {
-    return err.message;
-  }
-  return "Opération synthèse indisponible.";
 }
 ```
 
-### projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/SynthesesSurface.tsx
-
-_Lines: 334_
+## FILE: `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/SynthesesSurface.tsx` (347 lines)
 
 ```tsx
 "use client";
@@ -1965,31 +2133,11 @@ export function SynthesesSurface({
   };
 
   return (
-    <div className={styles.root} data-testid="project-syntheses-surface">
-      <header className={styles.head}>
-        <div>
-          <button
-            type="button"
-            className={styles.backLink}
-            onClick={onReturnToOverview}
-            data-testid="project-syntheses-return-overview"
-          >
-            ← Retour à l&apos;Aperçu
-          </button>
-          <h2 className={styles.title}>Synthèses</h2>
-          <p className={styles.subtitle}>
-            Analyses complètes produites après un travail significatif du
-            projet.
-          </p>
-        </div>
-        <span
-          className={styles.nonAuthChip}
-          data-testid="project-syntheses-authority-none"
-        >
-          NON-AUTORITATIVE
-        </span>
-      </header>
-
+    <div
+      className={styles.root}
+      data-testid="project-syntheses-surface"
+      data-mobile-detail={mobileShowDetail ? "true" : "false"}
+    >
       {loadError ? (
         <p className={styles.empty} role="alert">
           {loadError}
@@ -1997,18 +2145,51 @@ export function SynthesesSurface({
       ) : null}
 
       {listEmpty ? (
-        <p className={styles.empty} data-testid="project-syntheses-empty">
-          Aucune synthèse produit n&apos;est encore disponible. Elle n&apos;est
-          pas inventée depuis la conversation — elle apparaît lorsque la lignée
-          Product (ClaimEvaluation et faits liés) permet une matérialisation
-          déterministe.
-        </p>
+        <div className={styles.emptyPane}>
+          <header className={styles.contextualHead}>
+            <button
+              type="button"
+              className={styles.backLink}
+              onClick={onReturnToOverview}
+              data-testid="project-syntheses-return-overview"
+            >
+              ← Retour à l&apos;Aperçu
+            </button>
+            <h2 className={styles.title}>Synthèses</h2>
+            <p className={styles.subtitle}>
+              Analyses complètes produites après un travail significatif du
+              projet.
+            </p>
+          </header>
+          <p className={styles.empty} data-testid="project-syntheses-empty">
+            Aucune synthèse produit n&apos;est encore disponible. Elle apparaît
+            automatiquement après un résultat de travail qualifié — elle n&apos;est
+            pas inventée depuis la conversation.
+          </p>
+        </div>
       ) : (
         <div className={styles.body}>
           <div
             className={styles.listCol}
             data-mobile-hidden={mobileShowDetail ? "true" : "false"}
           >
+            {/* B1 — header/search live in the left contextual pane */}
+            <header className={styles.contextualHead}>
+              <button
+                type="button"
+                className={styles.backLink}
+                onClick={onReturnToOverview}
+                data-testid="project-syntheses-return-overview"
+              >
+                ← Retour à l&apos;Aperçu
+              </button>
+              <h2 className={styles.title}>Synthèses</h2>
+              <p className={styles.subtitle}>
+                Analyses complètes produites après un travail significatif du
+                projet.
+              </p>
+            </header>
+
             <div className={styles.listHead}>
               <label className={styles.searchLabel} htmlFor={searchId}>
                 Rechercher dans les synthèses
@@ -2159,30 +2340,47 @@ export function SynthesesSurface({
 }
 ```
 
-### projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/SynthesesSurface.module.css
-
-_Lines: 395_
+## FILE: `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/SynthesesSurface.module.css` (415 lines)
 
 ```css
 /*
  * P5-S04 Synthèses — Figma 164:3 / 190:175 / 190:433 / 190:455 (--pm6-* only).
+ * CP01 B1: contextual header lives inside the left column (alongside detail).
+ * CP01 B2: mobile list↔detail is a single nav level (header travels with listCol).
  */
 
 .root {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 0;
   min-width: 0;
   min-height: 0;
   padding: 14px var(--ws-pad-x, 24px) 24px;
+  flex: 1 1 auto;
 }
 
-.head {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
+.body {
+  display: grid;
+  grid-template-columns: minmax(0, 360px) minmax(0, 1fr);
   gap: 16px;
-  flex-wrap: wrap;
+  min-height: 0;
+  align-items: stretch;
+  flex: 1 1 auto;
+}
+
+.listCol {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  border: 1px solid var(--pm6-border);
+  border-radius: var(--pm6-radius-md);
+  background: var(--pm6-canvas-raised);
+  overflow: hidden;
+}
+
+.contextualHead {
+  padding: 14px 14px 10px;
 }
 
 .title {
@@ -2250,40 +2448,8 @@ _Lines: 395_
   box-shadow: var(--pm6-focus-ring);
 }
 
-.nonAuthChip {
-  display: inline-flex;
-  align-items: center;
-  min-height: 24px;
-  padding: 3px 10px;
-  border-radius: 7px;
-  border: 1px solid var(--pm6-border);
-  background: var(--pm6-canvas-raised);
-  font-size: 0.6875rem;
-  font-weight: 600;
-  color: var(--pm6-muted-strong);
-}
-
-.body {
-  display: grid;
-  grid-template-columns: minmax(0, 360px) minmax(0, 1fr);
-  gap: 16px;
-  min-height: 0;
-  align-items: stretch;
-}
-
-.listCol {
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-  min-height: 0;
-  border: 1px solid var(--pm6-border);
-  border-radius: var(--pm6-radius-md);
-  background: var(--pm6-canvas-raised);
-  overflow: hidden;
-}
-
 .listHead {
-  padding: 12px 14px;
+  padding: 0 14px 12px;
   border-bottom: 1px solid var(--pm6-border);
 }
 
@@ -2320,6 +2486,7 @@ _Lines: 395_
   padding: 6px;
   list-style: none;
   overflow: auto;
+  flex: 1 1 auto;
   max-height: min(70vh, 640px);
 }
 
@@ -2333,7 +2500,7 @@ _Lines: 395_
   align-items: flex-start;
   gap: 4px;
   width: 100%;
-  padding: 10px 12px;
+  padding: 12px 12px;
   border: 1px solid transparent;
   border-radius: var(--pm6-radius-sm);
   background: transparent;
@@ -2507,6 +2674,13 @@ _Lines: 395_
   white-space: pre-wrap;
 }
 
+.emptyPane {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 420px;
+}
+
 .empty {
   margin: 0;
   padding: 24px 16px;
@@ -2538,16 +2712,41 @@ _Lines: 395_
 }
 
 @media (max-width: 899px) {
+  .root {
+    padding: 8px var(--ws-pad-x, 16px) 20px;
+  }
+
   .body {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .listCol {
+    border: none;
+    border-radius: 0;
+    background: transparent;
   }
 
   .listCol[data-mobile-hidden="true"] {
     display: none;
   }
 
+  .detailCol {
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    max-height: none;
+  }
+
   .detailCol[data-mobile-hidden="true"] {
     display: none;
+  }
+
+  .detailInner {
+    padding: 8px 0 16px;
+  }
+
+  .listButton {
+    padding: 14px 12px;
   }
 
   .mobileBackRow {
@@ -2561,9 +2760,7 @@ _Lines: 395_
 }
 ```
 
-### projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/synthesisPresentation.ts
-
-_Lines: 108_
+## FILE: `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/synthesisPresentation.ts` (108 lines)
 
 ```ts
 import type {
@@ -2676,9 +2873,7 @@ export function formatSynthesisGeneratedAt(iso: string): string {
 }
 ```
 
-### projects/sfia-studio/app/__tests__/oa/synthesis/p5.s04.productDerivedSynthesis.d0.test.ts
-
-_Lines: 567_
+## FILE: `projects/sfia-studio/app/__tests__/oa/synthesis/p5.s04.productDerivedSynthesis.d0.test.ts` (580 lines)
 
 ```ts
 /**
@@ -2971,6 +3166,18 @@ describe("P5-S04 Product-derived Synthesis D0", () => {
       expect(built.sections[key].trim().length).toBeGreaterThan(0);
     }
     expect(validateProductSynthesisShape(built)).toBeNull();
+
+    const joined = Object.values(built.sections).join("\n");
+    expect(joined).not.toMatch(/ClaimEvaluation/);
+    expect(joined).not.toMatch(/ReviewBundle/);
+    expect(joined).not.toMatch(/Statut CE/);
+    expect(joined).not.toMatch(/deterministic/);
+    expect(joined).not.toMatch(/non_critical/);
+    expect(joined).not.toMatch(/canonical PASS/);
+    expect(joined).not.toMatch(/\bclm:/);
+    expect(joined).not.toMatch(/\brb:/);
+    expect(joined).not.toMatch(/\bxat:/);
+    expect(joined).not.toMatch(/\bev:/);
   });
 
   it("T07 — persistence survives reopen", async () => {
@@ -2994,7 +3201,8 @@ describe("P5-S04 Product-derived Synthesis D0", () => {
     expect(restored?.title).toBe("Synthèse durable");
     expect(restored?.authority).toBe("none");
     expect(restored?.sourceFingerprint).toBe(materialized.sourceFingerprint);
-    expect(restored?.sections.summary).toContain("clm:s04-dur");
+    expect(restored?.sections.summary).toMatch(/atteint|échec|non prouvé/i);
+    expect(restored?.sections.summary).not.toMatch(/ClaimEvaluation|clm:/i);
   });
 
   it("T08 — deleteAll + rebuild; projects and ClaimEvaluations remain", async () => {
@@ -3250,9 +3458,854 @@ INSERT INTO schema_meta(key, value) VALUES ('schema_version', 'm99-future');
 });
 ```
 
-### projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s04.synthesesSurface.ui.test.tsx
+## FILE: `projects/sfia-studio/app/__tests__/oa/synthesis/p5.s04.cp01.productPathSynthesis.d0.test.ts` (842 lines)
 
-_Lines: 383_
+```ts
+/**
+ * P5-S04 CP01 — Product-path Synthesis materialization + lineage/currentness.
+ * ZERO REAL.
+ * @vitest-environment node
+ */
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import { setConversationProviderForTests } from "@/lib/platform/ai";
+import { evaluateExecutionAuthorization } from "@/features/project-assistant/w2/authorizeExecutionContract";
+import { confirmExecutionContractForAuthorization } from "@/features/project-assistant/w2/confirmForAuthorization";
+import { decideTrajectory } from "@/features/project-assistant/w2/decideTrajectory";
+import {
+  governedExecuteRecordResult,
+  governedExecuteSelectAgent,
+  governedExecuteStart,
+} from "@/features/project-assistant/w2/governedExecuteAuthorizedContract";
+import { inspectExecutionContract } from "@/features/project-assistant/w2/inspectExecutionContract";
+import { prepareExecutionContractFromW2Decision } from "@/features/project-assistant/w2/prepareExecutionContractFromW2Decision";
+import { proposeTrajectoryOptions } from "@/features/project-assistant/w2/proposeTrajectoryOptions";
+import { resolveW2QualificationInputs } from "@/features/project-assistant/w2/qualificationInputs";
+import { GOVERNED_OPTION_REF } from "@/features/project-assistant/w2/trajectoryOptions";
+import {
+  materializeW3bProductTerminal,
+  rehydrateW3bProductTerminal,
+} from "@/features/project-assistant/w2/materializeW3bProductTerminal";
+import { buildProductSynthesisLineageInput } from "@/features/project-assistant/buildProductSynthesisLineageInput";
+import { LOCAL_PILOTE_ACTOR } from "@/lib/oa/decision";
+import {
+  CLAIM_EVALUATION_SCHEMA_VERSION,
+  CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT,
+  type ClaimEvaluation,
+} from "@/lib/oa/evidence-review";
+import { SqliteProductStore } from "@/lib/oa/project";
+import {
+  createSqliteSynthesisServices,
+  type ProductSynthesisProjection,
+} from "@/lib/oa/synthesis";
+import {
+  clearW3bBoundaryArm,
+} from "@/lib/vertical-slice-runtime/w3bE2eBoundaryControl";
+import {
+  bootW2Runtime,
+  cleanupW2TempDirs,
+  currentF2Context,
+  seedQualifiedProject,
+  settleDeterministicProductCursorSuccess,
+  tempProductDbPath,
+  W2_TEST_PINNED_BASE_HEAD_SHA,
+} from "../../project-assistant/w2Harness";
+
+const NOW = "2026-10-05T12:00:00.000Z";
+
+beforeEach(() => {
+  process.env.OPS1_CONVERSATION_PROVIDER = "fake";
+  process.env.OPS1_E2E_ALLOW_DIRTY_PRINCIPAL = "1";
+  setConversationProviderForTests(null);
+  clearW3bBoundaryArm();
+});
+
+afterEach(() => {
+  clearW3bBoundaryArm();
+  cleanupW2TempDirs();
+});
+
+function makeClaimEvaluation(
+  overrides: Partial<ClaimEvaluation> & { claimEvaluationId: string },
+): ClaimEvaluation {
+  const projectId = overrides.contractResultBindings?.projectId ?? "prj:s04-c";
+  const status = overrides.status ?? "pass";
+  const base: ClaimEvaluation = {
+    schemaVersion: CLAIM_EVALUATION_SCHEMA_VERSION,
+    claimEvaluationId: overrides.claimEvaluationId,
+    claimType: "technique",
+    claimStatement:
+      overrides.claimStatement ?? "Temporary artifact produced for contract result",
+    criticality: "non_critical",
+    evaluationMethod: "deterministic",
+    requiredEvidenceRefs: overrides.requiredEvidenceRefs ?? ["ev:s04-1"],
+    reviewBundleId: overrides.reviewBundleId ?? "rb:s04-1",
+    reviewBundleVersion: overrides.reviewBundleVersion ?? 2,
+    status,
+    proposedBy: LOCAL_PILOTE_ACTOR,
+    proposedAt: NOW,
+    evaluatedAt: NOW,
+    provenance: {
+      schemaVersion: "0.1.0-oa",
+      provenanceRecordId: `prv:${overrides.claimEvaluationId}`,
+      actor: LOCAL_PILOTE_ACTOR,
+      source: "review",
+      timestamp: NOW,
+      correlationId: `cor:${overrides.claimEvaluationId}`,
+      projectId,
+    },
+    version: 1,
+    subjectKind: CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT,
+    contractResultBindings: {
+      projectId,
+      cycleInstanceId: "cyc:s04-1",
+      executionContractId: "xct:s04-1",
+      executionContractVersion: 1,
+      executionContractSemanticFingerprint: "fp:s04-contract",
+      executionAttemptId: "xat:s04-1",
+      reviewBundleId: overrides.reviewBundleId ?? "rb:s04-1",
+      reviewBundleVersion: 2,
+      evidenceRefs: ["ev:s04-1"],
+    },
+  };
+  return { ...base, ...overrides, status };
+}
+
+async function authorizeAndSucceed(suffix: string) {
+  const db = tempProductDbPath(`s04-cp01-${suffix}.sqlite`);
+  const runtime = bootW2Runtime({
+    productDbPath: db,
+    idPrefix: `s04${suffix}`,
+  });
+  const seeded = await seedQualifiedProject(runtime, { suffix });
+  const oa = runtime.oa!;
+  const qualification = await resolveW2QualificationInputs({
+    oa,
+    projectId: seeded.projectId,
+  });
+  expect(qualification.ok).toBe(true);
+  if (!qualification.ok) throw new Error("qual");
+  const proposed = await proposeTrajectoryOptions({
+    oa,
+    projectId: seeded.projectId,
+    ...qualification.qualification.inputs,
+    packagePin: qualification.qualification.packagePin,
+    objective: qualification.qualification.objective,
+    projectTitle: qualification.qualification.projectTitle,
+  });
+  expect(proposed.ok).toBe(true);
+  if (!proposed.ok) throw new Error("propose");
+  const decided = await decideTrajectory({
+    oa,
+    projectId: seeded.projectId,
+    optionSetRef: proposed.optionSetRef,
+    options: proposed.options,
+    recommendedOptionRef: proposed.recommendation.recommendedOptionRef,
+    selectedOptionRef: GOVERNED_OPTION_REF,
+    trajectoryId: proposed.proposedTrajectory!.trajectoryId,
+    candidateVersion: proposed.proposedTrajectory!.version,
+    forceLocalAuthority: true,
+  });
+  expect(decided.ok).toBe(true);
+  if (!decided.ok) throw new Error("decide");
+  const context = await currentF2Context(runtime, seeded.projectId);
+  const prepared = await prepareExecutionContractFromW2Decision({
+    oa,
+    projectId: seeded.projectId,
+    decisionId: decided.decision.decisionId,
+    currentContext: context,
+    forceLocalAuthority: true,
+    qualifiedOperationKind: "generate-temporary-artifact",
+    pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+  });
+  expect(prepared.ok).toBe(true);
+  if (!prepared.ok) throw new Error(prepared.code);
+  const executionContractId = prepared.contract.executionContractId;
+  await inspectExecutionContract({
+    oa,
+    projectId: seeded.projectId,
+    executionContractId,
+  });
+  const confirmed = await confirmExecutionContractForAuthorization({
+    oa,
+    projectId: seeded.projectId,
+    executionContractId,
+    forceLocalAuthority: true,
+  });
+  expect(confirmed.ok).toBe(true);
+  if (!confirmed.ok) throw new Error(confirmed.code);
+  const authorized = await evaluateExecutionAuthorization({
+    oa,
+    projectId: seeded.projectId,
+    executionContractId,
+    forceLocalAuthority: true,
+  });
+  expect(authorized.ok && authorized.outcome === "AUTHORIZED").toBe(true);
+
+  const selected = await governedExecuteSelectAgent({
+    oa,
+    projectId: seeded.projectId,
+    executionContractId,
+    forceLocalAuthority: true,
+  });
+  expect(selected.ok).toBe(true);
+  if (!selected.ok) throw new Error(selected.code);
+  const started = await governedExecuteStart({
+    oa,
+    projectId: seeded.projectId,
+    executionContractId,
+    attemptId: selected.attemptId,
+    forceLocalAuthority: true,
+  });
+  expect(started.ok).toBe(true);
+  if (!started.ok) throw new Error(started.code);
+
+  const settled = await settleDeterministicProductCursorSuccess({
+    oa,
+    attemptId: started.attemptId,
+  });
+  expect(settled.ok).toBe(true);
+  if (!settled.ok) throw new Error(settled.code);
+  const projected = await governedExecuteRecordResult({
+    oa,
+    projectId: seeded.projectId,
+    executionContractId,
+    attemptId: started.attemptId,
+    forceLocalAuthority: true,
+  });
+  expect(projected.ok).toBe(true);
+  if (!projected.ok) throw new Error(projected.code);
+
+  return {
+    oa,
+    projectId: seeded.projectId,
+    attemptId: started.attemptId,
+    executionContractId,
+    db,
+    store: oa.projectServices.store as SqliteProductStore,
+  };
+}
+
+describe("P5-S04 CP01 currentness C01–C08", () => {
+  it("C01 — same semantics + different generatedAt → same fingerprint", () => {
+    const store = new SqliteProductStore(tempProductDbPath("c01.sqlite"));
+    const svc = createSqliteSynthesisServices({ productStore: store });
+    const ce = makeClaimEvaluation({ claimEvaluationId: "clm:c01" });
+    const a = svc.build({
+      projectId: "prj:s04-c",
+      claimEvaluation: ce,
+      evidence: [{ evidenceId: "ev:s04-1", status: "verified", type: "artifact" }],
+      recommendation: { text: "Continuer.", ref: "epi:w3c-rec:c01" },
+      generatedAt: NOW,
+    });
+    const b = svc.build({
+      projectId: "prj:s04-c",
+      claimEvaluation: ce,
+      evidence: [{ evidenceId: "ev:s04-1", status: "verified", type: "artifact" }],
+      recommendation: { text: "Continuer.", ref: "epi:w3c-rec:c01" },
+      generatedAt: "2026-10-05T18:00:00.000Z",
+    });
+    expect(b.sourceFingerprint).toBe(a.sourceFingerprint);
+    store.close();
+  });
+
+  it("C02 — ReviewBundle frozenVersion change → different fingerprint", () => {
+    const store = new SqliteProductStore(tempProductDbPath("c02.sqlite"));
+    const svc = createSqliteSynthesisServices({ productStore: store });
+    const ce = makeClaimEvaluation({ claimEvaluationId: "clm:c02" });
+    const a = svc.build({
+      projectId: "prj:s04-c",
+      claimEvaluation: ce,
+      reviewBundle: {
+        reviewBundleId: "rb:s04-1",
+        status: "frozen",
+        completeness: "complete",
+        frozenVersion: 1,
+      },
+      generatedAt: NOW,
+    });
+    const b = svc.build({
+      projectId: "prj:s04-c",
+      claimEvaluation: ce,
+      reviewBundle: {
+        reviewBundleId: "rb:s04-1",
+        status: "frozen",
+        completeness: "complete",
+        frozenVersion: 2,
+      },
+      generatedAt: NOW,
+    });
+    expect(b.sourceFingerprint).not.toBe(a.sourceFingerprint);
+    store.close();
+  });
+
+  it("C03 — EC version / semanticFingerprint change → different fingerprint", () => {
+    const store = new SqliteProductStore(tempProductDbPath("c03.sqlite"));
+    const svc = createSqliteSynthesisServices({ productStore: store });
+    const ce = makeClaimEvaluation({ claimEvaluationId: "clm:c03" });
+    const a = svc.build({
+      projectId: "prj:s04-c",
+      claimEvaluation: ce,
+      executionContract: {
+        executionContractId: "xct:s04-1",
+        action: "product:generate-temporary-artifact",
+        executionContractVersion: 1,
+        semanticFingerprint: "fp:v1",
+      },
+      generatedAt: NOW,
+    });
+    const b = svc.build({
+      projectId: "prj:s04-c",
+      claimEvaluation: ce,
+      executionContract: {
+        executionContractId: "xct:s04-1",
+        action: "product:generate-temporary-artifact",
+        executionContractVersion: 2,
+        semanticFingerprint: "fp:v2",
+      },
+      generatedAt: NOW,
+    });
+    expect(b.sourceFingerprint).not.toBe(a.sourceFingerprint);
+    store.close();
+  });
+
+  it("C04 — Attempt status change → different fingerprint", () => {
+    const store = new SqliteProductStore(tempProductDbPath("c04.sqlite"));
+    const svc = createSqliteSynthesisServices({ productStore: store });
+    const ce = makeClaimEvaluation({ claimEvaluationId: "clm:c04" });
+    const a = svc.build({
+      projectId: "prj:s04-c",
+      claimEvaluation: ce,
+      attempt: { attemptId: "xat:s04-1", status: "succeeded" },
+      generatedAt: NOW,
+    });
+    const b = svc.build({
+      projectId: "prj:s04-c",
+      claimEvaluation: ce,
+      attempt: { attemptId: "xat:s04-1", status: "failed" },
+      generatedAt: NOW,
+    });
+    expect(b.sourceFingerprint).not.toBe(a.sourceFingerprint);
+    store.close();
+  });
+
+  it("C05 — Evidence status/type change → different fingerprint", () => {
+    const store = new SqliteProductStore(tempProductDbPath("c05.sqlite"));
+    const svc = createSqliteSynthesisServices({ productStore: store });
+    const ce = makeClaimEvaluation({ claimEvaluationId: "clm:c05" });
+    const a = svc.build({
+      projectId: "prj:s04-c",
+      claimEvaluation: ce,
+      evidence: [{ evidenceId: "ev:s04-1", status: "verified", type: "artifact" }],
+      generatedAt: NOW,
+    });
+    const b = svc.build({
+      projectId: "prj:s04-c",
+      claimEvaluation: ce,
+      evidence: [{ evidenceId: "ev:s04-1", status: "draft", type: "artifact" }],
+      generatedAt: NOW,
+    });
+    expect(b.sourceFingerprint).not.toBe(a.sourceFingerprint);
+    store.close();
+  });
+
+  it("C06 — recommendation text change → different fingerprint", () => {
+    const store = new SqliteProductStore(tempProductDbPath("c06.sqlite"));
+    const svc = createSqliteSynthesisServices({ productStore: store });
+    const ce = makeClaimEvaluation({ claimEvaluationId: "clm:c06" });
+    const a = svc.build({
+      projectId: "prj:s04-c",
+      claimEvaluation: ce,
+      recommendation: { text: "Continuer.", ref: "epi:w3c-rec:c06" },
+      generatedAt: NOW,
+    });
+    const b = svc.build({
+      projectId: "prj:s04-c",
+      claimEvaluation: ce,
+      recommendation: { text: "Replanifier.", ref: "epi:w3c-rec:c06" },
+      generatedAt: NOW,
+    });
+    expect(b.sourceFingerprint).not.toBe(a.sourceFingerprint);
+    store.close();
+  });
+
+  it("C07 — CE supersession produces Synthesis successor", async () => {
+    const store = new SqliteProductStore(tempProductDbPath("c07.sqlite"));
+    store.db
+      .prepare(
+        `INSERT INTO oa_projects(project_id, status, current_lps_version_id, payload_json, created_at, updated_at)
+         VALUES (?, 'active', NULL, ?, ?, ?)`,
+      )
+      .run(
+        "prj:s04-c",
+        JSON.stringify({ projectId: "prj:s04-c", title: "C07", status: "active" }),
+        NOW,
+        NOW,
+      );
+    const svc = createSqliteSynthesisServices({ productStore: store });
+    const ceA = makeClaimEvaluation({ claimEvaluationId: "clm:c07-a" });
+    const synA = await svc.materialize({
+      projectId: "prj:s04-c",
+      claimEvaluation: ceA,
+      evidence: [{ evidenceId: "ev:s04-1" }],
+      generatedAt: NOW,
+    });
+    const ceB = makeClaimEvaluation({
+      claimEvaluationId: "clm:c07-b",
+      supersedesClaimEvaluationId: "clm:c07-a",
+      claimStatement: "Corrected contract result claim",
+    });
+    const synB = await svc.materialize({
+      projectId: "prj:s04-c",
+      claimEvaluation: ceB,
+      evidence: [{ evidenceId: "ev:s04-1" }],
+      generatedAt: "2026-10-05T13:00:00.000Z",
+    });
+    expect(synB.synthesisId).not.toBe(synA.synthesisId);
+    expect(synB.supersedes).toBe(synA.synthesisId);
+    expect(synB.status).toBe("current");
+    const old = await svc.repository.findById(synA.synthesisId);
+    expect(old?.status).toBe("superseded");
+    store.close();
+  });
+
+  it("C08 — unrelated generatedAt does not supersede", async () => {
+    const store = new SqliteProductStore(tempProductDbPath("c08.sqlite"));
+    store.db
+      .prepare(
+        `INSERT INTO oa_projects(project_id, status, current_lps_version_id, payload_json, created_at, updated_at)
+         VALUES (?, 'active', NULL, ?, ?, ?)`,
+      )
+      .run(
+        "prj:s04-c",
+        JSON.stringify({ projectId: "prj:s04-c", title: "C08", status: "active" }),
+        NOW,
+        NOW,
+      );
+    const svc = createSqliteSynthesisServices({ productStore: store });
+    const input = {
+      projectId: "prj:s04-c",
+      claimEvaluation: makeClaimEvaluation({ claimEvaluationId: "clm:c08" }),
+      evidence: [{ evidenceId: "ev:s04-1" }],
+      generatedAt: NOW,
+    };
+    const a = await svc.materialize(input);
+    const b = await svc.materialize({
+      ...input,
+      generatedAt: "2026-10-05T20:00:00.000Z",
+    });
+    expect(b.synthesisId).toBe(a.synthesisId);
+    expect(b.status).toBe("current");
+    const listed = await svc.repository.listByProject("prj:s04-c");
+    expect(listed).toHaveLength(1);
+    store.close();
+  });
+});
+
+describe("P5-S04 CP01 lineage L01–L09 + product-path P01–P05", () => {
+  it("L01 — generic/non Contract-Result CE rejected", async () => {
+    const ctx = await authorizeAndSucceed("l01");
+    const ceId = `clm:generic-${ctx.attemptId}`;
+    const generic: ClaimEvaluation = {
+      ...makeClaimEvaluation({
+        claimEvaluationId: ceId,
+        claimStatement: "generic claim",
+      }),
+      subjectKind: undefined,
+      contractResultBindings: undefined,
+      status: "pending",
+      evaluatedAt: undefined,
+    };
+    ctx.store.db
+      .prepare(
+        `INSERT INTO oa_claim_evaluations(
+           claim_evaluation_id, project_id, status, idempotency_key, version,
+           payload_json, created_at, updated_at
+         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+      )
+      .run(
+        ceId,
+        ctx.projectId,
+        generic.status,
+        `idem:generic-${ctx.attemptId}`,
+        1,
+        JSON.stringify(generic),
+        NOW,
+        NOW,
+      );
+    const lineage = await buildProductSynthesisLineageInput({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      claimEvaluationId: ceId,
+    });
+    expect(lineage.ok).toBe(false);
+    if (lineage.ok) return;
+    expect(lineage.code).toBe(
+      "SYNTHESIS_LINEAGE_REQUIRES_CONTRACT_RESULT_SUBJECT",
+    );
+  });
+
+  it("L02 — Contract Result CE without bindings rejected", async () => {
+    const ctx = await authorizeAndSucceed("l02");
+    const ceId = `clm:nobind-${ctx.attemptId}`;
+    const noBind: ClaimEvaluation = {
+      ...makeClaimEvaluation({ claimEvaluationId: ceId }),
+      subjectKind: CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT,
+      contractResultBindings: undefined,
+      status: "pending",
+      evaluatedAt: undefined,
+    };
+    ctx.store.db
+      .prepare(
+        `INSERT INTO oa_claim_evaluations(
+           claim_evaluation_id, project_id, status, idempotency_key, version,
+           payload_json, created_at, updated_at
+         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+      )
+      .run(
+        ceId,
+        ctx.projectId,
+        noBind.status,
+        `idem:nobind-${ctx.attemptId}`,
+        1,
+        JSON.stringify(noBind),
+        NOW,
+        NOW,
+      );
+    const lineage = await buildProductSynthesisLineageInput({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      claimEvaluationId: ceId,
+    });
+    expect(lineage.ok).toBe(false);
+    if (lineage.ok) return;
+    expect(lineage.code).toBe(
+      "SYNTHESIS_LINEAGE_REQUIRES_CONTRACT_RESULT_BINDINGS",
+    );
+  });
+
+  it("L03 — project mismatch rejected", async () => {
+    const ctx = await authorizeAndSucceed("l03");
+    const materialized = await materializeW3bProductTerminal({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      attemptId: ctx.attemptId,
+    });
+    expect(materialized.ok).toBe(true);
+    if (!materialized.ok) return;
+    const ceId = materialized.product.claimEvaluationId!;
+    const lineage = await buildProductSynthesisLineageInput({
+      oa: ctx.oa,
+      projectId: "prj:other-project",
+      claimEvaluationId: ceId,
+    });
+    expect(lineage.ok).toBe(false);
+    if (lineage.ok) return;
+    expect(lineage.code).toBe("CLAIM_EVALUATION_PROJECT_MISMATCH");
+  });
+
+  it("L04–L08 — binding mismatches rejected; L09 fully canonical accepted", async () => {
+    const ctx = await authorizeAndSucceed("lxx");
+    const materialized = await materializeW3bProductTerminal({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      attemptId: ctx.attemptId,
+    });
+    expect(materialized.ok).toBe(true);
+    if (!materialized.ok) return;
+    const ceId = materialized.product.claimEvaluationId!;
+    const ce =
+      await ctx.oa.evidenceReviewServices!.claimEvaluationReader.findById(ceId);
+    expect(ce?.contractResultBindings).toBeTruthy();
+    const bindings = ce!.contractResultBindings!;
+
+    // L09 — canonical accepted
+    const okLineage = await buildProductSynthesisLineageInput({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      claimEvaluationId: ceId,
+    });
+    expect(okLineage.ok).toBe(true);
+
+    // L04 — Attempt binding mismatch
+    {
+      const bad = structuredClone(ce!);
+      bad.claimEvaluationId = `clm:l04-${ctx.attemptId}`;
+      bad.contractResultBindings = {
+        ...bindings,
+        executionAttemptId: "xat:not-this-attempt",
+      };
+      bad.idempotencyKey = `idem:l04-${ctx.attemptId}`;
+      await ctx.oa.evidenceReviewServices!.claimEvaluationRepository.create(bad);
+      const lineage = await buildProductSynthesisLineageInput({
+        oa: ctx.oa,
+        projectId: ctx.projectId,
+        claimEvaluationId: bad.claimEvaluationId,
+      });
+      expect(lineage.ok).toBe(false);
+      if (!lineage.ok) {
+        expect(lineage.code).toBe("SYNTHESIS_LINEAGE_BINDINGS_MISMATCH");
+      }
+    }
+
+    // L05 — EC version / fingerprint mismatch
+    {
+      const bad = structuredClone(ce!);
+      bad.claimEvaluationId = `clm:l05-${ctx.attemptId}`;
+      bad.contractResultBindings = {
+        ...bindings,
+        executionContractVersion: bindings.executionContractVersion + 99,
+        executionContractSemanticFingerprint: "fp:wrong",
+      };
+      bad.idempotencyKey = `idem:l05-${ctx.attemptId}`;
+      await ctx.oa.evidenceReviewServices!.claimEvaluationRepository.create(bad);
+      const lineage = await buildProductSynthesisLineageInput({
+        oa: ctx.oa,
+        projectId: ctx.projectId,
+        claimEvaluationId: bad.claimEvaluationId,
+      });
+      expect(lineage.ok).toBe(false);
+      if (!lineage.ok) {
+        expect(lineage.code).toBe("SYNTHESIS_LINEAGE_BINDINGS_MISMATCH");
+      }
+    }
+
+    // L06 — ReviewBundle version mismatch
+    {
+      const bad = structuredClone(ce!);
+      bad.claimEvaluationId = `clm:l06-${ctx.attemptId}`;
+      bad.contractResultBindings = {
+        ...bindings,
+        reviewBundleVersion: (bindings.reviewBundleVersion ?? 1) + 50,
+      };
+      bad.idempotencyKey = `idem:l06-${ctx.attemptId}`;
+      await ctx.oa.evidenceReviewServices!.claimEvaluationRepository.create(bad);
+      const lineage = await buildProductSynthesisLineageInput({
+        oa: ctx.oa,
+        projectId: ctx.projectId,
+        claimEvaluationId: bad.claimEvaluationId,
+      });
+      expect(lineage.ok).toBe(false);
+      if (!lineage.ok) {
+        expect(lineage.code).toBe("SYNTHESIS_LINEAGE_BINDINGS_MISMATCH");
+      }
+    }
+
+    // L07 — Evidence refs/order mismatch
+    {
+      const bad = structuredClone(ce!);
+      bad.claimEvaluationId = `clm:l07-${ctx.attemptId}`;
+      bad.contractResultBindings = {
+        ...bindings,
+        evidenceRefs: [...bindings.evidenceRefs, "ev:extra-mismatch"],
+      };
+      bad.idempotencyKey = `idem:l07-${ctx.attemptId}`;
+      await ctx.oa.evidenceReviewServices!.claimEvaluationRepository.create(bad);
+      const lineage = await buildProductSynthesisLineageInput({
+        oa: ctx.oa,
+        projectId: ctx.projectId,
+        claimEvaluationId: bad.claimEvaluationId,
+      });
+      expect(lineage.ok).toBe(false);
+      if (!lineage.ok) {
+        expect(lineage.code).toBe("SYNTHESIS_LINEAGE_BINDINGS_MISMATCH");
+      }
+    }
+
+    // L08 — cycle mismatch when bound
+    if (bindings.cycleInstanceId) {
+      const bad = structuredClone(ce!);
+      bad.claimEvaluationId = `clm:l08-${ctx.attemptId}`;
+      bad.contractResultBindings = {
+        ...bindings,
+        cycleInstanceId: "cyc:wrong-cycle",
+      };
+      bad.idempotencyKey = `idem:l08-${ctx.attemptId}`;
+      await ctx.oa.evidenceReviewServices!.claimEvaluationRepository.create(bad);
+      const lineage = await buildProductSynthesisLineageInput({
+        oa: ctx.oa,
+        projectId: ctx.projectId,
+        claimEvaluationId: bad.claimEvaluationId,
+      });
+      expect(lineage.ok).toBe(false);
+      if (!lineage.ok) {
+        expect(lineage.code).toBe("SYNTHESIS_LINEAGE_BINDINGS_MISMATCH");
+      }
+    }
+  });
+
+  it("P01 — governed Product path auto-materializes Synthesis", async () => {
+    const ctx = await authorizeAndSucceed("p01");
+    const materialized = await materializeW3bProductTerminal({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      attemptId: ctx.attemptId,
+    });
+    expect(materialized.ok).toBe(true);
+    if (!materialized.ok) return;
+    expect(materialized.postEvidence?.ok).toBe(true);
+
+    const svc = createSqliteSynthesisServices({ productStore: ctx.store });
+    const listed = await svc.repository.listByProject(ctx.projectId);
+    const current = listed.filter((s) => s.status === "current");
+    expect(current.length).toBeGreaterThanOrEqual(1);
+    const syn = current[0]!;
+    expect(syn.authority).toBe("none");
+    expect(syn.sourceBindings.claimEvaluationId).toBe(
+      materialized.product.claimEvaluationId,
+    );
+    const joined = Object.values(syn.sections).join("\n");
+    expect(joined).not.toMatch(/ClaimEvaluation/);
+    expect(joined).not.toMatch(/NON-AUTORITATIVE/);
+  });
+
+  it("P02 — rehydrate/idempotence returns same Synthesis", async () => {
+    const ctx = await authorizeAndSucceed("p02");
+    const first = await materializeW3bProductTerminal({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      attemptId: ctx.attemptId,
+    });
+    expect(first.ok).toBe(true);
+    if (!first.ok) return;
+
+    const second = await rehydrateW3bProductTerminal({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      attemptId: ctx.attemptId,
+    });
+    expect(second.ok).toBe(true);
+
+    const svc = createSqliteSynthesisServices({ productStore: ctx.store });
+    const listed = await svc.repository.listByProject(ctx.projectId);
+    const current = listed.filter((s) => s.status === "current");
+    expect(current).toHaveLength(1);
+  });
+
+  it("P03 — W3-C recommendation propagates into Synthesis", async () => {
+    const ctx = await authorizeAndSucceed("p03");
+    const materialized = await materializeW3bProductTerminal({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      attemptId: ctx.attemptId,
+    });
+    expect(materialized.ok).toBe(true);
+    if (!materialized.ok || !materialized.postEvidence?.ok) return;
+
+    const svc = createSqliteSynthesisServices({ productStore: ctx.store });
+    const listed = await svc.repository.listByProject(ctx.projectId);
+    const syn = listed.find((s) => s.status === "current");
+    expect(syn).toBeTruthy();
+    expect(syn!.sections.recommendation).toContain(
+      materialized.postEvidence.recommendation.headline,
+    );
+    expect(syn!.sourceBindings.recommendationRef).toMatch(/^epi:w3c-rec:/);
+    expect(materialized.postEvidence.recommendation.authority).toBe("none");
+  });
+
+  it("P04 — mismatched lineage → no Synthesis; Truth C intact", async () => {
+    const ctx = await authorizeAndSucceed("p04");
+    const materialized = await materializeW3bProductTerminal({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      attemptId: ctx.attemptId,
+    });
+    expect(materialized.ok).toBe(true);
+    if (!materialized.ok) return;
+    const ceId = materialized.product.claimEvaluationId!;
+    const ce =
+      await ctx.oa.evidenceReviewServices!.claimEvaluationReader.findById(ceId);
+    expect(ce).toBeTruthy();
+
+    const svc = createSqliteSynthesisServices({ productStore: ctx.store });
+    await svc.repository.deleteAllByProject(ctx.projectId);
+
+    const bad = structuredClone(ce!);
+    bad.claimEvaluationId = `clm:p04-bad-${ctx.attemptId}`;
+    bad.contractResultBindings = {
+      ...ce!.contractResultBindings!,
+      executionAttemptId: "xat:stale",
+    };
+    bad.idempotencyKey = `idem:p04-bad-${ctx.attemptId}`;
+    await ctx.oa.evidenceReviewServices!.claimEvaluationRepository.create(bad);
+
+    const lineage = await buildProductSynthesisLineageInput({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      claimEvaluationId: bad.claimEvaluationId,
+    });
+    expect(lineage.ok).toBe(false);
+
+    const listed = await svc.repository.listByProject(ctx.projectId);
+    expect(listed).toHaveLength(0);
+
+    const stillThere =
+      await ctx.oa.evidenceReviewServices!.claimEvaluationReader.findById(ceId);
+    expect(stillThere?.status).toBe(ce!.status);
+  });
+
+  it("P05 — Synthesis soft-fail leaves CE / W3-C intact", async () => {
+    const ctx = await authorizeAndSucceed("p05");
+    const materialized = await materializeW3bProductTerminal({
+      oa: ctx.oa,
+      projectId: ctx.projectId,
+      attemptId: ctx.attemptId,
+    });
+    expect(materialized.ok).toBe(true);
+    if (!materialized.ok) return;
+    const ceId = materialized.product.claimEvaluationId!;
+    const before =
+      await ctx.oa.evidenceReviewServices!.claimEvaluationReader.findById(ceId);
+    expect(before).toBeTruthy();
+    expect(materialized.postEvidence?.ok).toBe(true);
+
+    // Soft-fail path: call lineage with wrong project — must not mutate CE.
+    const lineage = await buildProductSynthesisLineageInput({
+      oa: ctx.oa,
+      projectId: "prj:wrong",
+      claimEvaluationId: ceId,
+    });
+    expect(lineage.ok).toBe(false);
+
+    const after =
+      await ctx.oa.evidenceReviewServices!.claimEvaluationReader.findById(ceId);
+    expect(after?.status).toBe(before!.status);
+    expect(after?.claimEvaluationId).toBe(ceId);
+    expect(materialized.product.outcome).toBeTruthy();
+  });
+});
+
+describe("P5-S04 CP01 Pilot language regression", () => {
+  it("nominal sections exclude OA jargon", () => {
+    const store = new SqliteProductStore(tempProductDbPath("pilot.sqlite"));
+    const svc = createSqliteSynthesisServices({ productStore: store });
+    const built = svc.build({
+      projectId: "prj:s04-c",
+      claimEvaluation: makeClaimEvaluation({ claimEvaluationId: "clm:pilot" }),
+      executionContract: {
+        executionContractId: "xct:s04-1",
+        action: "product:generate-temporary-artifact",
+        target: "product:project-workspace",
+        scope: "product:temporary-local-artifact",
+      },
+      attempt: { attemptId: "xat:s04-1", status: "succeeded" },
+      evidence: [{ evidenceId: "ev:s04-1", status: "verified", type: "artifact" }],
+      reviewBundle: {
+        reviewBundleId: "rb:s04-1",
+        status: "frozen",
+        completeness: "complete",
+        frozenVersion: 2,
+      },
+      generatedAt: NOW,
+    }) as ProductSynthesisProjection;
+    const joined = Object.values(built.sections).join("\n");
+    expect(joined).not.toMatch(/ClaimEvaluation|ReviewBundle|Statut CE|deterministic|non_critical|canonical PASS|\bclm:|\brb:|\bxat:|\bev:/);
+    expect(built.authority).toBe("none");
+    store.close();
+  });
+});
+```
+
+## FILE: `projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s04.synthesesSurface.ui.test.tsx` (388 lines)
 
 ```tsx
 /** @vitest-environment jsdom */
@@ -3626,9 +4679,14 @@ describe("P5-S04 Synthèses UI", () => {
       expect(screen.getByTestId("project-syntheses-section-summary")).toBeTruthy();
     });
 
-    expect(screen.getByTestId("project-syntheses-authority-none")).toBeTruthy();
+    expect(screen.queryByTestId("project-syntheses-authority-none")).toBeNull();
+    expect(screen.queryByText(/NON-AUTORITATIVE/i)).toBeNull();
     expect(screen.queryByRole("button", { name: /promouvoir|autorité|décider/i })).toBeNull();
     expect(screen.queryByRole("form")).toBeNull();
+
+    // B1 — header lives in the left contextual column
+    expect(screen.getByTestId("project-syntheses-return-overview")).toBeTruthy();
+    expect(screen.getByText("Synthèses")).toBeTruthy();
 
     fireEvent.change(screen.getByTestId("project-syntheses-search"), {
       target: { value: "token-ui-search" },
@@ -3640,146 +4698,1118 @@ describe("P5-S04 Synthèses UI", () => {
 });
 ```
 
-## COMPLETE CHANGED SECTIONS / UNIFIED DIFFS
+## FILE: `.tmp-sfia-review/p5-s04-visual/cp01/_seed-product-path.mjs` (619 lines)
 
-Full useful unified diffs vs `origin/main` (`49b4fdaf078fdf2a5c7bfce3baad05fa65220c2e`) for all modified tracked S04-scope product/docs/test files.
-Command basis: `git diff origin/main -- <path>` (working tree; S04 uncommitted on delivery branch).
+```js
+/**
+ * P5-S04 CP01 — PRODUCT-PATH seed for visual captures.
+ *
+ * Invokes production `materializeW3bProductTerminal` so Synthesis appears via
+ * `maybeMaterializeProductSynthesisAfterW3c` — NOT direct services.materialize.
+ *
+ * Strategy:
+ * 1. Prefer HABITFLOW (prj:0ed5c4e1…) when a succeeded attempt exists.
+ * 2. Else rehydrate the best campaign succeeded attempt that already has a
+ *    Contract-Result ClaimEvaluation (e.g. NoteLite).
+ * 3. Else create a fresh governed project in the campaign Product DB
+ *    (deterministic Cursor boundary — ZERO OpenAI REAL).
+ *
+ * Historical direct seed remains: ../_seed-synthesis.mjs (NOT CP01 proof).
+ *
+ * Run from app dir:
+ *   cd projects/sfia-studio/app && node --import tsx ../../../.tmp-sfia-review/p5-s04-visual/cp01/_seed-product-path.mjs
+ */
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import { pathToFileURL } from "node:url";
 
-### projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/db.ts
+const REPO = path.resolve(
+  "/Users/morris/Projects/sfia-studio-chat-first-product-simplification-p3",
+);
+const APP_ROOT = path.join(REPO, "projects/sfia-studio/app");
+const OUT_DIR = path.resolve(REPO, ".tmp-sfia-review/p5-s04-visual/cp01");
+const PREFERRED_PROJECT_ID = "prj:0ed5c4e1-3d23-45cd-b34b-530df1090197";
+const W2_REGISTRY_ROOT = path.join(APP_ROOT, "lib/oa/doctrine/product");
+const W2_SCHEMAS_ROOT = path.resolve(
+  APP_ROOT,
+  "../sfia-v3-modeled/v3-native-option-a/schemas",
+);
+const W2_FIXED_NOW = "2026-10-05T18:00:00.000Z";
+const W2_TEST_PINNED_BASE_HEAD_SHA = "a".repeat(40);
+const SUFFIX = `cp01vis${Date.now().toString(36).slice(-6)}`;
+const tempDirs = [];
 
-_Unified diff lines: 104_
+function loadEnvLocal() {
+  const file = path.join(APP_ROOT, ".env.local");
+  if (!fs.existsSync(file)) return;
+  for (const line of fs.readFileSync(file, "utf8").split("\n")) {
+    const m = line.match(/^([A-Z0-9_]+)=(.*)$/);
+    if (!m) continue;
+    const key = m[1];
+    let val = m[2].trim().replace(/^["']|["']$/g, "");
+    if (!(key in process.env) || !process.env[key]) process.env[key] = val;
+  }
+}
+
+function href(rel) {
+  return pathToFileURL(path.join(APP_ROOT, rel)).href;
+}
+
+function cleanupTemp() {
+  while (tempDirs.length) {
+    const dir = tempDirs.pop();
+    try {
+      fs.rmSync(dir, { recursive: true, force: true });
+    } catch {
+      /* ignore */
+    }
+  }
+}
+
+async function listSucceededAttempts(store) {
+  const rows = store.db
+    .prepare(
+      `SELECT attempt_id, status, payload_json FROM oa_execution_attempts WHERE status = 'succeeded'`,
+    )
+    .all();
+  const out = [];
+  for (const row of rows) {
+    const payload = JSON.parse(row.payload_json);
+    let projectId = payload.projectId ?? null;
+    if (!projectId) {
+      const m = String(row.payload_json).match(/prj:[a-f0-9-]{36}/i);
+      projectId = m ? m[0] : null;
+    }
+    out.push({ attemptId: row.attempt_id, projectId, payload });
+  }
+  return out;
+}
+
+async function listSyntheses(store, projectId) {
+  const { createSqliteSynthesisServices } = await import(
+    href("lib/oa/synthesis/index.ts")
+  );
+  const svc = createSqliteSynthesisServices({ productStore: store });
+  return svc.repository.listByProject(projectId);
+}
+
+async function bootRuntime(productDbPath) {
+  const {
+    getRuntimeApplicationService,
+    resetRuntimeApplicationServiceForTests,
+  } = await import(href("lib/vertical-slice-runtime/index.ts"));
+  const { SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV } = await import(
+    href("lib/vertical-slice-runtime/managedRepoRootBaseConfig.ts")
+  );
+  const { ensureManagedRepoCloneSkeleton } = await import(
+    href("lib/oa/project/infrastructure/managedRepoPathFacts.ts")
+  );
+  const { SqliteRealLaunchSafetyJournal } = await import(
+    href("lib/oa/execution-attempt/index.ts")
+  );
+  const { TestOnlyRealExecutionLaunchPort } = await import(
+    href(
+      "__tests__/oa/execution-attempt/support/testOnlyRealExecutionLaunchPort.ts",
+    )
+  );
+
+  process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
+  process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY = "1";
+  if (!process.env.SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY?.trim()) {
+    process.env.SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY = "acme/w2-harness";
+  }
+  if (!process.env.SFIA_STUDIO_PROJECT_REPOSITORY_REMOTE_URL?.trim()) {
+    process.env.SFIA_STUDIO_PROJECT_REPOSITORY_REMOTE_URL =
+      "https://github.com/acme/w2-harness.git";
+  }
+  if (!process.env.SFIA_STUDIO_PROJECT_REPOSITORY_DEFAULT_BRANCH?.trim()) {
+    process.env.SFIA_STUDIO_PROJECT_REPOSITORY_DEFAULT_BRANCH = "main";
+  }
+  if (!process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV]?.trim()) {
+    const managedBase = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-cp01-managed-"));
+    tempDirs.push(managedBase);
+    process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV] = managedBase;
+  }
+  ensureManagedRepoCloneSkeleton({
+    managedRepoRootBase: process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV],
+    identity: process.env.SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY,
+  });
+
+  resetRuntimeApplicationServiceForTests();
+  const safetyDir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-cp01-gate-"));
+  tempDirs.push(safetyDir);
+
+  class SeededIdSource {
+    constructor(prefix) {
+      this.prefix = prefix;
+      this.project = 0;
+      this.lps = 0;
+      this.correlation = 0;
+    }
+    nextProjectId() {
+      this.project += 1;
+      return `prj:${this.prefix}-${this.project}`;
+    }
+    nextLpsVersionId() {
+      this.lps += 1;
+      return `lps:${this.prefix}-${this.lps}`;
+    }
+    nextCorrelationId() {
+      this.correlation += 1;
+      return `cor:${this.prefix}-${this.correlation}`;
+    }
+  }
+
+  return getRuntimeApplicationService({
+    registryRoot: W2_REGISTRY_ROOT,
+    schemasRoot: W2_SCHEMAS_ROOT,
+    nowIso: W2_FIXED_NOW,
+    idSource: new SeededIdSource(`s04${SUFFIX}`),
+    auditMode: "noop",
+    productDbPath,
+    realBoundary: {
+      launchPort: new TestOnlyRealExecutionLaunchPort({ holdCompletion: true }),
+      safetyJournal: new SqliteRealLaunchSafetyJournal({
+        databasePath: path.join(safetyDir, "safety.sqlite"),
+      }),
+    },
+  });
+}
+
+async function seedQualifiedProject(runtime, suffix) {
+  const { ensureManagedRepoCloneSkeleton } = await import(
+    href("lib/oa/project/infrastructure/managedRepoPathFacts.ts")
+  );
+  const { SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV } = await import(
+    href("lib/vertical-slice-runtime/managedRepoRootBaseConfig.ts")
+  );
+  const W2_TEST_ACTOR = {
+    actorId: "actor:w2-test-seed",
+    role: "project_owner",
+    displayName: "W2 seed",
+    authorityLevel: "N3",
+  };
+
+  const created = await runtime.createProject({
+    name: `P5-S04 CP01 Visual ${suffix}`,
+    objective: "Prouver Synthèse Product-path pour captures CP01",
+    context: "ZERO REAL — deterministic Cursor boundary",
+    criticality: "STANDARD",
+    constraints: ["AUCUNE EXÉCUTION RÉELLE OPENAI"],
+    shortReference: `P5S04${suffix.toUpperCase().slice(0, 6)}`,
+    idempotencyKey: `p5-s04-cp01-visual-${suffix}`,
+  });
+  if (!created.ok) throw new Error("createProject failed");
+  const projectId = created.project.projectId;
+  const overview = await runtime.getProject(projectId);
+  if (!overview.ok) throw new Error("getProject failed");
+  const oa = runtime.oa;
+  const cycleInstanceId = `cyc:inst:cp01-${suffix}`;
+  const cycle = await oa.cycleServices.createCycle.execute({
+    cycleInstanceId,
+    cycleTypeId: "cyc:delivery",
+    projectId,
+    signals: {},
+    objective: "Prouver la trajectoire décidée",
+    scope: "p5-s04-cp01-visual",
+    createdBy: W2_TEST_ACTOR,
+    linkAsActiveCycle: true,
+    expectedLpsVersion: overview.livingState.version,
+    ckcResolutionRef: "ckcres:p5-s04-cp01-visual",
+  });
+  if (!cycle.ok) throw new Error("createCycle failed");
+
+  if (oa.projectServices.setProjectRepositoryBinding) {
+    const bound = await oa.projectServices.setProjectRepositoryBinding.execute({
+      projectId,
+      actor: W2_TEST_ACTOR,
+      binding: {
+        provider: "github",
+        identity: `acme/w2-harness-${suffix}`,
+        remoteUrl: `https://github.com/acme/w2-harness-${suffix}.git`,
+        defaultBranch: "main",
+        pathRoot: `projects/w2-harness-${suffix}`,
+      },
+    });
+    if (!bound.ok) throw new Error("setProjectRepositoryBinding failed");
+    ensureManagedRepoCloneSkeleton({
+      managedRepoRootBase: process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV],
+      identity: `acme/w2-harness-${suffix}`,
+    });
+  }
+  return { projectId, cycleInstanceId };
+}
+
+async function settleDeterministicSuccess(oa, attemptId) {
+  const { M4_REAL_GATEWAY_ADAPTER_ID } = await import(
+    href("lib/oa/execution-attempt/index.ts")
+  );
+  const { TestOnlyRealExecutionLaunchPort } = await import(
+    href(
+      "__tests__/oa/execution-attempt/support/testOnlyRealExecutionLaunchPort.ts",
+    )
+  );
+  const services = oa.executionAttemptServices;
+  const port = services?.realBoundary?.launchPort;
+  if (!(port instanceof TestOnlyRealExecutionLaunchPort)) {
+    return { ok: false, code: "TEST_ONLY_LAUNCH_PORT_REQUIRED" };
+  }
+  if (!port.calls.some((c) => c.attemptId === attemptId)) {
+    return { ok: false, code: "LAUNCH_NOT_OBSERVED" };
+  }
+  const digest = attemptId.replace(/^xat:/, "").replace(/[^a-zA-Z0-9:_-]/g, "");
+  const processRef = `proc:test-only:${digest}`;
+  port.resolveSimulatedCompletion(processRef, {
+    exitCode: 0,
+    timedOut: false,
+    stdout: "SIMULATED_PRODUCT_CURSOR_SUCCESS",
+    stderr: "",
+    durationMs: 1,
+  });
+  const hex = attemptId.replace(/[^a-f0-9]/gi, "").toLowerCase() || "0";
+  const recorded = await services.recordExecutionResult.execute({
+    attemptId,
+    adapterId: M4_REAL_GATEWAY_ADAPTER_ID,
+    resultRef: `res:w3a:${hex.slice(0, 32)}`,
+    completedAt: W2_FIXED_NOW,
+  });
+  if (!recorded.ok) return recorded;
+  return { ok: true, attempt: recorded.attempt };
+}
+
+async function authorizeExecuteAndMaterialize(runtime, oa) {
+  const { evaluateExecutionAuthorization } = await import(
+    href("features/project-assistant/w2/authorizeExecutionContract.ts")
+  );
+  const { confirmExecutionContractForAuthorization } = await import(
+    href("features/project-assistant/w2/confirmForAuthorization.ts")
+  );
+  const { decideTrajectory } = await import(
+    href("features/project-assistant/w2/decideTrajectory.ts")
+  );
+  const {
+    governedExecuteRecordResult,
+    governedExecuteSelectAgent,
+    governedExecuteStart,
+  } = await import(
+    href("features/project-assistant/w2/governedExecuteAuthorizedContract.ts")
+  );
+  const { inspectExecutionContract } = await import(
+    href("features/project-assistant/w2/inspectExecutionContract.ts")
+  );
+  const { prepareExecutionContractFromW2Decision } = await import(
+    href("features/project-assistant/w2/prepareExecutionContractFromW2Decision.ts")
+  );
+  const { proposeTrajectoryOptions } = await import(
+    href("features/project-assistant/w2/proposeTrajectoryOptions.ts")
+  );
+  const { resolveW2QualificationInputs } = await import(
+    href("features/project-assistant/w2/qualificationInputs.ts")
+  );
+  const { GOVERNED_OPTION_REF } = await import(
+    href("features/project-assistant/w2/trajectoryOptions.ts")
+  );
+  const { materializeW3bProductTerminal } = await import(
+    href("features/project-assistant/w2/materializeW3bProductTerminal.ts")
+  );
+
+  const seeded = await seedQualifiedProject(runtime, SUFFIX);
+  const qualification = await resolveW2QualificationInputs({
+    oa,
+    projectId: seeded.projectId,
+  });
+  if (!qualification.ok) throw new Error(`qualification: ${qualification.code}`);
+  const proposed = await proposeTrajectoryOptions({
+    oa,
+    projectId: seeded.projectId,
+    ...qualification.qualification.inputs,
+    packagePin: qualification.qualification.packagePin,
+    objective: qualification.qualification.objective,
+    projectTitle: qualification.qualification.projectTitle,
+  });
+  if (!proposed.ok) throw new Error(`propose: ${proposed.code}`);
+  const decided = await decideTrajectory({
+    oa,
+    projectId: seeded.projectId,
+    optionSetRef: proposed.optionSetRef,
+    options: proposed.options,
+    recommendedOptionRef: proposed.recommendation.recommendedOptionRef,
+    selectedOptionRef: GOVERNED_OPTION_REF,
+    trajectoryId: proposed.proposedTrajectory.trajectoryId,
+    candidateVersion: proposed.proposedTrajectory.version,
+    forceLocalAuthority: true,
+  });
+  if (!decided.ok) throw new Error(`decide: ${decided.code}`);
+
+  const overview = await runtime.getProject(seeded.projectId);
+  if (!overview.ok) throw new Error("context getProject failed");
+  const context = {
+    projectId: seeded.projectId,
+    lpsId: overview.livingState.id,
+    lpsVersion: overview.livingState.version,
+    doctrineDigest: overview.doctrine.digest,
+    activeCycleInstanceId: overview.livingState.activeCycleInstanceId ?? null,
+    ckcResolutionRef: "ckcres:p5-s04-cp01-visual",
+  };
+
+  const prepared = await prepareExecutionContractFromW2Decision({
+    oa,
+    projectId: seeded.projectId,
+    decisionId: decided.decision.decisionId,
+    currentContext: context,
+    forceLocalAuthority: true,
+    qualifiedOperationKind: "generate-temporary-artifact",
+    pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+  });
+  if (!prepared.ok) throw new Error(`prepare: ${prepared.code}`);
+  const executionContractId = prepared.contract.executionContractId;
+  await inspectExecutionContract({
+    oa,
+    projectId: seeded.projectId,
+    executionContractId,
+  });
+  const confirmed = await confirmExecutionContractForAuthorization({
+    oa,
+    projectId: seeded.projectId,
+    executionContractId,
+    forceLocalAuthority: true,
+  });
+  if (!confirmed.ok) throw new Error(`confirm: ${confirmed.code}`);
+  const authorized = await evaluateExecutionAuthorization({
+    oa,
+    projectId: seeded.projectId,
+    executionContractId,
+    forceLocalAuthority: true,
+  });
+  if (!(authorized.ok && authorized.outcome === "AUTHORIZED")) {
+    throw new Error(`authorize: ${authorized.code ?? authorized.outcome}`);
+  }
+  const selected = await governedExecuteSelectAgent({
+    oa,
+    projectId: seeded.projectId,
+    executionContractId,
+    forceLocalAuthority: true,
+  });
+  if (!selected.ok) throw new Error(`select: ${selected.code}`);
+  const started = await governedExecuteStart({
+    oa,
+    projectId: seeded.projectId,
+    executionContractId,
+    attemptId: selected.attemptId,
+    forceLocalAuthority: true,
+  });
+  if (!started.ok) throw new Error(`start: ${started.code}`);
+  const settled = await settleDeterministicSuccess(oa, started.attemptId);
+  if (!settled.ok) throw new Error(`settle: ${settled.code}`);
+  const projected = await governedExecuteRecordResult({
+    oa,
+    projectId: seeded.projectId,
+    executionContractId,
+    attemptId: started.attemptId,
+    forceLocalAuthority: true,
+  });
+  if (!projected.ok) throw new Error(`record: ${projected.code}`);
+
+  const materialized = await materializeW3bProductTerminal({
+    oa,
+    projectId: seeded.projectId,
+    attemptId: started.attemptId,
+  });
+  return {
+    projectId: seeded.projectId,
+    attemptId: started.attemptId,
+    executionContractId,
+    materialized,
+    mode: "fresh-governed-path",
+  };
+}
+
+async function main() {
+  process.chdir(APP_ROOT);
+  loadEnvLocal();
+  process.env.OPS1_CONVERSATION_PROVIDER = "fake";
+  process.env.OPS1_E2E_ALLOW_DIRTY_PRINCIPAL = "1";
+  process.env.SFIA_STUDIO_E2E_QA_CONTROL = "1";
+  process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY = "1";
+  delete process.env.P5_S02_RUN_REAL;
+
+  const dbPath = process.env.SFIA_STUDIO_PRODUCT_DB_PATH?.trim();
+  if (!dbPath) throw new Error("SFIA_STUDIO_PRODUCT_DB_PATH missing");
+  fs.mkdirSync(OUT_DIR, { recursive: true });
+
+  const { SqliteProductStore } = await import(href("lib/oa/project/index.ts"));
+  const { setConversationProviderForTests } = await import(
+    href("lib/platform/ai/index.ts")
+  );
+  const { clearW3bBoundaryArm } = await import(
+    href("lib/vertical-slice-runtime/w3bE2eBoundaryControl.ts")
+  );
+  const { materializeW3bProductTerminal } = await import(
+    href("features/project-assistant/w2/materializeW3bProductTerminal.ts")
+  );
+
+  setConversationProviderForTests(null);
+  clearW3bBoundaryArm();
+
+  const probe = new SqliteProductStore(dbPath);
+  const attempts = await listSucceededAttempts(probe);
+  const habitflowAttempt =
+    attempts.find((a) => a.projectId === PREFERRED_PROJECT_ID)?.attemptId ??
+    null;
+
+  // Prefer rehydrate candidates that already have Contract-Result CE rows.
+  const ceRows = probe.db
+    .prepare(
+      `SELECT claim_evaluation_id, project_id, status, payload_json FROM oa_claim_evaluations`,
+    )
+    .all();
+  const rehydrateCandidates = [];
+  for (const ce of ceRows) {
+    let payload;
+    try {
+      payload = JSON.parse(ce.payload_json);
+    } catch {
+      continue;
+    }
+    if (payload.subjectKind !== "execution_contract_result") continue;
+    const bindings = payload.contractResultBindings;
+    if (!bindings?.executionAttemptId) continue;
+    const attempt = attempts.find(
+      (a) => a.attemptId === bindings.executionAttemptId,
+    );
+    if (!attempt) continue;
+    rehydrateCandidates.push({
+      projectId: ce.project_id,
+      attemptId: bindings.executionAttemptId,
+      claimEvaluationId: ce.claim_evaluation_id,
+      status: ce.status,
+    });
+  }
+  probe.close();
+
+  console.log(
+    JSON.stringify(
+      {
+        productDb: dbPath,
+        preferredProjectId: PREFERRED_PROJECT_ID,
+        habitflowSucceededAttempt: habitflowAttempt,
+        rehydrateCandidates,
+      },
+      null,
+      2,
+    ),
+  );
+
+  const runtime = await bootRuntime(dbPath);
+  const oa = runtime.oa;
+  if (!oa) throw new Error("runtime.oa missing");
+  const store = oa.projectServices.store;
+  if (!(store instanceof SqliteProductStore)) {
+    throw new Error("expected SqliteProductStore");
+  }
+
+  let outcome = null;
+
+  async function tryMaterialize(projectId, attemptId, mode) {
+    console.log(`trying ${mode}: ${projectId} / ${attemptId}`);
+    const materialized = await materializeW3bProductTerminal({
+      oa,
+      projectId,
+      attemptId,
+    });
+    if (!materialized.ok) {
+      console.log("materialize failed", materialized);
+      return null;
+    }
+    const syntheses = await listSyntheses(store, projectId);
+    const current = syntheses.filter((s) => s.status === "current");
+    if (current.length < 1) {
+      console.log("no current synthesis after materialize (soft-fail?)");
+      return null;
+    }
+    return {
+      projectId,
+      attemptId,
+      materialized,
+      mode,
+      synthesis: current[0],
+    };
+  }
+
+  if (habitflowAttempt) {
+    outcome = await tryMaterialize(
+      PREFERRED_PROJECT_ID,
+      habitflowAttempt,
+      "habitflow-rehydrate",
+    );
+  }
+
+  if (!outcome) {
+    for (const cand of rehydrateCandidates) {
+      outcome = await tryMaterialize(
+        cand.projectId,
+        cand.attemptId,
+        `campaign-rehydrate:${cand.claimEvaluationId}`,
+      );
+      if (outcome) break;
+    }
+  }
+
+  if (!outcome) {
+    console.log("falling back to fresh governed Product path");
+    const fresh = await authorizeExecuteAndMaterialize(runtime, oa);
+    if (!fresh.materialized?.ok) {
+      throw new Error(`fresh materialize failed: ${JSON.stringify(fresh.materialized)}`);
+    }
+    const syntheses = await listSyntheses(store, fresh.projectId);
+    const current = syntheses.filter((s) => s.status === "current");
+    if (current.length < 1) {
+      throw new Error("fresh path produced no current Synthesis");
+    }
+    outcome = {
+      ...fresh,
+      synthesis: current[0],
+    };
+  }
+
+  const syn = outcome.synthesis;
+  const joined = Object.values(syn.sections).join("\n");
+  const jargonHits = [
+    "ClaimEvaluation",
+    "ReviewBundle",
+    "NON-AUTORITATIVE",
+    "non_critical",
+    "deterministic",
+  ].filter((t) => joined.includes(t) || String(syn.title).includes(t));
+
+  const report = {
+    seededAt: new Date().toISOString(),
+    mode: outcome.mode,
+    productionSeam:
+      "materializeW3bProductTerminal → maybeMaterializeProductSynthesisAfterW3c",
+    productDb: dbPath,
+    projectId: outcome.projectId,
+    attemptId: outcome.attemptId,
+    executionContractId: outcome.executionContractId ?? null,
+    claimEvaluationId: outcome.materialized.product?.claimEvaluationId ?? null,
+    postEvidenceOk: outcome.materialized.postEvidence?.ok === true,
+    synthesis: {
+      synthesisId: syn.synthesisId,
+      title: syn.title,
+      authority: syn.authority,
+      status: syn.status,
+      verdictLabel: syn.verdictLabel,
+      sectionKeys: Object.keys(syn.sections),
+    },
+    pilotLanguageJargonHits: jargonHits,
+    studioHref: `/studio/projects/${encodeURIComponent(outcome.projectId)}`,
+  };
+
+  const outFile = path.join(OUT_DIR, "seed-product-path.json");
+  fs.writeFileSync(outFile, JSON.stringify(report, null, 2));
+  console.log(JSON.stringify(report, null, 2));
+  console.log("wrote", outFile);
+
+  clearW3bBoundaryArm();
+  cleanupTemp();
+}
+
+main().catch((err) => {
+  console.error(err);
+  cleanupTemp();
+  process.exit(1);
+});
+```
+
+## FILE: `.tmp-sfia-review/p5-s04-visual/cp01/_capture.mjs` (244 lines)
+
+```js
+/**
+ * P5-S04 CP01 — visual captures after PRODUCT-PATH seed.
+ * Reads seed-product-path.json for projectId.
+ * Output: .tmp-sfia-review/p5-s04-visual/cp01/after/
+ */
+import pkg from "/Users/morris/Projects/sfia-studio-chat-first-product-simplification-p3/projects/sfia-studio/app/node_modules/playwright/index.js";
+const { chromium } = pkg;
+import fs from "node:fs";
+import path from "node:path";
+
+const ROOT = path.resolve(
+  "/Users/morris/Projects/sfia-studio-chat-first-product-simplification-p3/.tmp-sfia-review/p5-s04-visual/cp01",
+);
+const OUT = path.join(ROOT, "after");
+const FIGMA = path.resolve(ROOT, "../figma");
+const AUTH = path.resolve(
+  "/Users/morris/Projects/sfia-studio-chat-first-product-simplification-p3/.tmp-sfia-review/auth/studio-storage-state.json",
+);
+const SEED = path.join(ROOT, "seed-product-path.json");
+const BASE = "http://localhost:3020";
+
+fs.mkdirSync(OUT, { recursive: true });
+
+const seed = JSON.parse(fs.readFileSync(SEED, "utf8"));
+const PROJECT_HREF = seed.studioHref;
+
+async function shot(page, name) {
+  const file = path.join(OUT, name);
+  await page.screenshot({ path: file, fullPage: false });
+  return file;
+}
+
+async function openProject(page) {
+  await page.goto(`${BASE}${PROJECT_HREF}`, { waitUntil: "networkidle" });
+  await page.waitForSelector("[data-testid='project-tabs']", { timeout: 45000 });
+}
+
+async function openSyntheses(page) {
+  const shortcut = page.locator("[data-testid='project-shortcut-syntheses']");
+  if ((await shortcut.count()) > 0) {
+    await shortcut.click();
+  } else {
+    await page.click("[data-testid='project-tab-overview']");
+    await page.waitForSelector("[data-testid='project-overview-surface']");
+    await page.click("[data-testid='project-overview-open-syntheses']");
+  }
+  await page.waitForSelector("[data-testid='project-syntheses-surface']", {
+    timeout: 30000,
+  });
+  await page.waitForTimeout(600);
+}
+
+async function pageTextHas(page, needles) {
+  const text = await page.locator("body").innerText();
+  return needles.filter((n) => text.includes(n));
+}
+
+async function main() {
+  if (!fs.existsSync(AUTH)) throw new Error(`Missing auth: ${AUTH}`);
+  const browser = await chromium.launch({ headless: true });
+  const context = await browser.newContext({
+    storageState: AUTH,
+    viewport: { width: 1440, height: 1024 },
+  });
+  const page = await context.newPage();
+  const manifest = {
+    capturedAt: new Date().toISOString(),
+    seed,
+    items: [],
+  };
+
+  await openProject(page);
+  await openSyntheses(page);
+
+  const listEmpty =
+    (await page.locator("[data-testid='project-syntheses-empty']").count()) > 0;
+  const badgeHits = await pageTextHas(page, ["NON-AUTORITATIVE"]);
+  const oaHits = await pageTextHas(page, [
+    "ClaimEvaluation",
+    "ReviewBundle",
+    "non_critical",
+    "deterministic",
+  ]);
+
+  manifest.items.push({
+    viewport: "1440x1024",
+    view: "syntheses",
+    state: listEmpty ? "empty" : "list+detail",
+    figma: "164:3",
+    figmaRef: path.join(FIGMA, "desktop-164-3.png"),
+    file: path.basename(await shot(page, "syntheses-desktop-1440x1024.png")),
+    noNonAuthoritativeBadge: badgeHits.length === 0,
+    noOaJargonInVisible: oaHits.length === 0,
+    oaHits,
+  });
+
+  await page.setViewportSize({ width: 1024, height: 768 });
+  await page.waitForTimeout(400);
+  manifest.items.push({
+    viewport: "1024x768",
+    view: "syntheses",
+    state: listEmpty ? "empty" : "list+detail",
+    figma: "190:175",
+    figmaRef: path.join(FIGMA, "compact-190-175.png"),
+    file: path.basename(await shot(page, "syntheses-compact-1024x768.png")),
+  });
+
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.waitForTimeout(500);
+  // Ensure list (not detail) for mobile list capture
+  if (!listEmpty) {
+    const back = page.locator("[data-testid='project-syntheses-back']");
+    if ((await back.count()) > 0 && (await back.isVisible())) {
+      await back.click();
+      await page.waitForTimeout(350);
+    }
+  }
+  const headerVisible = await page
+    .locator("[data-testid='project-header']")
+    .isVisible()
+    .catch(() => true);
+  const tabsVisible = await page
+    .locator("[data-testid='project-tabs']")
+    .isVisible()
+    .catch(() => true);
+  manifest.items.push({
+    viewport: "390x844",
+    view: "syntheses",
+    state: listEmpty ? "empty" : "mobile-list",
+    figma: "190:433",
+    figmaRef: path.join(FIGMA, "mobile-list-190-433.png"),
+    file: path.basename(await shot(page, "syntheses-mobile-list-390x844.png")),
+    projectHeaderHidden: !headerVisible,
+    projectTabsHidden: !tabsVisible,
+  });
+
+  if (!listEmpty) {
+    const item = page.locator("[data-testid='project-syntheses-item']").first();
+    if ((await item.count()) > 0) {
+      await item.click();
+      await page.waitForSelector("[data-testid='project-syntheses-detail']", {
+        timeout: 15000,
+      });
+      await page.waitForTimeout(400);
+    }
+  }
+  manifest.items.push({
+    viewport: "390x844",
+    view: "syntheses",
+    state: listEmpty ? "empty" : "mobile-detail",
+    figma: "190:455",
+    figmaRef: path.join(FIGMA, "mobile-detail-190-455.png"),
+    file: path.basename(
+      await shot(page, "syntheses-mobile-detail-390x844.png"),
+    ),
+  });
+
+  // Aperçu desktop control
+  await page.setViewportSize({ width: 1440, height: 1024 });
+  await page.click("[data-testid='project-syntheses-return-overview']");
+  await page.waitForSelector("[data-testid='project-overview-surface']", {
+    timeout: 20000,
+  });
+  await page.waitForFunction(
+    () =>
+      document.querySelector(
+        "[data-testid='project-overview-synthesis-preview']",
+      ) ||
+      document.querySelector(
+        "[data-testid='project-overview-synthesis-empty']",
+      ),
+    { timeout: 20000 },
+  );
+  await page.waitForTimeout(300);
+  const hasPreview =
+    (await page
+      .locator("[data-testid='project-overview-synthesis-preview']")
+      .count()) > 0;
+  manifest.items.push({
+    viewport: "1440x1024",
+    view: "overview",
+    state: hasPreview ? "synthesis-preview" : "no-preview",
+    figma: "51:2",
+    purpose: "Aperçu synthesis teaser control",
+    file: path.basename(await shot(page, "apercu-desktop-1440x1024.png")),
+  });
+
+  // Conversation control
+  await page.click("[data-testid='project-tab-conversation']");
+  await page.waitForSelector("[data-testid='project-conversation-main']");
+  await page.waitForTimeout(500);
+  const teaser = page.locator("[data-testid='conversation-synthesis-teaser']");
+  const teaserVisible =
+    (await teaser.count()) > 0 && (await teaser.isVisible());
+  manifest.items.push({
+    viewport: "1440x1024",
+    view: "conversation",
+    state: teaserVisible ? "synthesis-teaser" : "no-teaser",
+    file: path.basename(
+      await shot(page, "conversation-desktop-1440x1024.png"),
+    ),
+  });
+
+  // Execution mobile control (shared shell CSS may have changed)
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.click("[data-testid='project-tab-execution']");
+  await page.waitForSelector("[data-testid='project-execution-surface']", {
+    timeout: 20000,
+  });
+  await page.waitForTimeout(400);
+  manifest.items.push({
+    viewport: "390x844",
+    view: "execution",
+    state: "mobile-shell-control",
+    purpose: "B2 shared mobile shell regression control",
+    file: path.basename(await shot(page, "execution-mobile-390x844.png")),
+  });
+
+  fs.writeFileSync(
+    path.join(OUT, "manifest.json"),
+    JSON.stringify(manifest, null, 2),
+  );
+  console.log(
+    JSON.stringify(
+      {
+        listEmpty,
+        hasPreview,
+        teaserVisible,
+        badgeHits,
+        oaHits,
+        projectId: seed.projectId,
+        items: manifest.items.map((i) => i.file),
+      },
+      null,
+      2,
+    ),
+  );
+  await browser.close();
+}
+
+main().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});
+```
+
+## FILE: `.tmp-sfia-review/p5-s04-visual/cp01/manifest.md` (24 lines)
+
+```md
+# P5-S04 CORRECTION PASS 01 — Visual Manifest
+
+**Captured:** 2026-10-05 Europe/Paris
+**Product project:** FocusFlow · `prj:2eaad5df-7e82-4bc0-844d-9df20e43462f`
+**Production path:** `materializeW3bProductTerminal` → `maybeMaterializeProductSynthesisAfterW3c`
+**Seed:** `.tmp-sfia-review/p5-s04-visual/cp01/_seed-product-path.mjs` · `seed-product-path.json`
+**Historical (NOT CP01 proof):** `../_seed-synthesis.mjs` (direct `services.materialize`)
+**HABITFLOW note:** `prj:0ed5c4e1…` present but no succeeded Attempt — product-path rehydrate used FocusFlow campaign Attempt `xat:w3a:46736f6deb0fb02f` + CE `clm:docs-write:…`.
+
+**Pilot language check (runtime):** no `NON-AUTORITATIVE` badge · no ClaimEvaluation / ReviewBundle / deterministic / non_critical in visible Synthèses sections.
+
+| Capture | Viewport | Figma | Prior (S04 delivery) | After (CP01) | Corrected | A | B | C | D |
+| --- | --- | --- | --- | --- | ---: | ---: | ---: | ---: | ---: |
+| syntheses-desktop-1440x1024.png | 1440×1024 | 164:3 | `../after/syntheses-desktop-1440x1024.png` | `after/syntheses-desktop-1440x1024.png` | B1 header/search/list in LEFT column; detail alongside | 0 | 0 | 1 | 1 |
+| syntheses-compact-1024x768.png | 1024×768 | 190:175 | `../after/syntheses-compact-1024x768.png` | `after/syntheses-compact-1024x768.png` | B1 same left-pane header composition | 0 | 0 | 1 | 0 |
+| syntheses-mobile-list-390x844.png | 390×844 | 190:433 | `../after/syntheses-mobile-list-390x844.png` | `after/syntheses-mobile-list-390x844.png` | B2 project header+tabs hidden; focused secondary view | 0 | 0 | 0 | 0 |
+| syntheses-mobile-detail-390x844.png | 390×844 | 190:455 | `../after/syntheses-mobile-detail-390x844.png` | `after/syntheses-mobile-detail-390x844.png` | B2 single nav level (← Synthèses) | 0 | 0 | 1 | 1 |
+| apercu-desktop-1440x1024.png | 1440×1024 | 51:2 block | `../after/apercu-desktop-1440x1024.png` | `after/apercu-desktop-1440x1024.png` | synthesis preview from product-path row | 0 | 0 | 0 | 1 |
+| conversation-desktop-1440x1024.png | 1440×1024 | 46:2 teaser | `../after/conversation-desktop-1440x1024.png` | `after/conversation-desktop-1440x1024.png` | teaser present; no NON-AUTORITATIVE | 0 | 0 | 0 | 0 |
+| execution-mobile-390x844.png | 390×844 | shell control | (S03) | `after/execution-mobile-390x844.png` | shared shell CSS hide scoped to syntheses only | 0 | 0 | 0 | 1 |
+
+**Totals:** A=0 · B=0 · C=3 (polish) · D=4 (honest Product content / CE claimStatement subject / not_proven campaign state)
+
+**Expected Product-content variance (D):** FocusFlow CE status `not_proven`; subject projects durable `claimStatement` (may include EC identifiers from Product truth — not UI invention); recommendation text from durable W3-C post-evidence.
+```
+
+## FILE: `.tmp-sfia-review/p5-s04-visual/cp01/correction-design-note.md` (31 lines)
+
+```md
+# P5-S04 CORRECTION PASS 01 — Design Note
+
+**Reviewed:** 2026-10-05 Europe/Paris
+**Runtime evidence:** `.tmp-sfia-review/p5-s04-visual/cp01/after/`
+**Figma refs:** `../figma/` (164:3 · 190:175 · 190:433 · 190:455) · Overview 51:2 · Conversation teaser
+**Seed path:** PRODUCT PATH only (`materializeW3bProductTerminal` → `maybeMaterializeProductSynthesisAfterW3c`)
+
+## Method
+Side-by-side against Figma; ChatGPT Critical Review B1/B2 supersede prior local classification.
+
+## Critical Review closures
+
+| Finding | Status | Evidence |
+| --- | --- | --- |
+| **A0 Product path** | **CLOSED** | Seed via production seam; Synthesis `syn:fc44ff99449fd3b96f4500b60a2eeda7` on FocusFlow |
+| **A1 Pilot semantics** | **CLOSED** | No NON-AUTORITATIVE badge; sections free of ClaimEvaluation/ReviewBundle/deterministic/non_critical |
+| **B1 Desktop/Compact** | **CLOSED** | Header + search + list inside left column; detail begins alongside |
+| **B2 Mobile** | **CLOSED** | `data-active-view=syntheses` hides projectHeader+tabs; list↔detail single nav |
+
+## Counts (target A=0 B=0)
+
+| Class | Count | Notes |
+| --- | ---: | --- |
+| **A** | **0** | Read-only; authority none; no fake authority CTAs |
+| **B** | **0** | B1/B2 structural mismatches closed |
+| **C** | **3** | Desktop section density vs 164:3; compact column rhythm; mobile detail subject line density |
+| **D** | **4** | Campaign `not_proven` CE; durable claimStatement subject may carry EC ids; recommendation from W3-C; empty execution shell honesty |
+
+## Verdict
+**PASS WITH C/D RESERVES — A=0 · B=0**
+Prior Critical Review B1/B2 = **CLOSED**. Ready for ChatGPT Final Critical Re-Review.
+```
+
+## FILE: `.tmp-sfia-review/p5-s04-visual/cp01/seed-product-path.json` (31 lines)
+
+```json
+{
+  "seededAt": "2026-10-05T18:21:23.875Z",
+  "mode": "campaign-rehydrate:clm:docs-write:xat:w3a:46736f6deb0fb02f",
+  "productionSeam": "materializeW3bProductTerminal → maybeMaterializeProductSynthesisAfterW3c",
+  "productDb": "/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/new-project-campaign-01/product/oa-product.sqlite",
+  "projectId": "prj:2eaad5df-7e82-4bc0-844d-9df20e43462f",
+  "attemptId": "xat:w3a:46736f6deb0fb02f",
+  "executionContractId": null,
+  "claimEvaluationId": "clm:docs-write:xat:w3a:46736f6deb0fb02f",
+  "postEvidenceOk": true,
+  "synthesis": {
+    "synthesisId": "syn:fc44ff99449fd3b96f4500b60a2eeda7",
+    "title": "Synthèse — résultat non prouvé",
+    "authority": "none",
+    "status": "current",
+    "verdictLabel": "non_prouve",
+    "sectionKeys": [
+      "summary",
+      "planned",
+      "done",
+      "evaluation",
+      "gaps",
+      "impact",
+      "verdict",
+      "recommendation",
+      "verified"
+    ]
+  },
+  "pilotLanguageJargonHits": [],
+  "studioHref": "/studio/projects/prj%3A2eaad5df-7e82-4bc0-844d-9df20e43462f"
+}
+```
+
+---
+
+# COMPLETE CHANGED SECTIONS / UNIFIED DIFFS
+
+## DIFF: `projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts`
 
 ```diff
-diff --git a/projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/db.ts b/projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/db.ts
-index e9165081..563ae97d 100644
---- a/projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/db.ts
-+++ b/projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/db.ts
-@@ -7,7 +7,8 @@ export const PRODUCT_SCHEMA_VERSION_M5 = "m5-0.1.0" as const;
- export const PRODUCT_SCHEMA_VERSION_M6 = "m6-0.1.0" as const;
- export const PRODUCT_SCHEMA_VERSION_M7 = "m7-0.1.0" as const;
- export const PRODUCT_SCHEMA_VERSION_M8 = "m8-0.1.0" as const;
--export const PRODUCT_SCHEMA_VERSION = PRODUCT_SCHEMA_VERSION_M8;
-+export const PRODUCT_SCHEMA_VERSION_M9 = "m9-0.1.0" as const;
-+export const PRODUCT_SCHEMA_VERSION = PRODUCT_SCHEMA_VERSION_M9;
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts b/projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts
+index e504347b..6007b160 100644
+--- a/projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts
++++ b/projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts
+@@ -34,6 +34,7 @@ import {
+   runW3cPostEvidenceLoop,
+   type W3cPostEvidenceLoopResult,
+ } from "./w3cPostEvidenceLoop";
++import { maybeMaterializeProductSynthesisAfterW3c } from "./maybeMaterializeProductSynthesisAfterW3c";
+ import { resolveManagedRepoRootBaseFromEnv } from "@/lib/vertical-slice-runtime/managedRepoRootBaseConfig";
 
- const BASE_SCHEMA_SQL = `
- PRAGMA foreign_keys = ON;
-@@ -318,6 +319,26 @@ CREATE TABLE IF NOT EXISTS oa_claim_evaluation_idempotency (
- );
- `;
-
-+/** M9 — Product-derived Synthesis projections (NON-AUTHORITATIVE / NOT Truth C). */
-+const M9_SYNTHESIS_SCHEMA_SQL = `
-+CREATE TABLE IF NOT EXISTS oa_syntheses (
-+  synthesis_id TEXT PRIMARY KEY NOT NULL,
-+  project_id TEXT NOT NULL,
-+  cycle_instance_id TEXT,
-+  status TEXT NOT NULL,
-+  source_fingerprint TEXT NOT NULL,
-+  version INTEGER NOT NULL,
-+  generated_at TEXT NOT NULL,
-+  payload_json TEXT NOT NULL,
-+  search_text TEXT NOT NULL,
-+  FOREIGN KEY (project_id) REFERENCES oa_projects(project_id)
-+);
-+CREATE INDEX IF NOT EXISTS idx_oa_syntheses_project_generated
-+  ON oa_syntheses(project_id, generated_at);
-+CREATE INDEX IF NOT EXISTS idx_oa_syntheses_project_fingerprint
-+  ON oa_syntheses(project_id, source_fingerprint);
-+`;
-+
- function readSchemaVersion(db: DatabaseSync): string | null {
-   const row = db
-     .prepare("SELECT value FROM schema_meta WHERE key = ?")
-@@ -371,8 +392,12 @@ function applyM8(db: DatabaseSync): void {
-   db.exec(M8_CLAIM_EVALUATION_SCHEMA_SQL);
+ function w3cUnavailableFailure(
+@@ -51,12 +52,26 @@ function w3cUnavailableFailure(
+   };
  }
 
-+function applyM9(db: DatabaseSync): void {
-+  db.exec(M9_SYNTHESIS_SCHEMA_SQL);
-+}
-+
- /**
-- * Open Product SQLite with additive M1→M2→M3→M5→M6→M7→M8 migration.
-+ * Open Product SQLite with additive M1→M2→M3→M5→M6→M7→M8→M9 migration.
-  * Fail closed on unknown/future schema versions.
-  */
- export function openProductSqlite(dbPath: string): DatabaseSync {
-@@ -388,6 +413,7 @@ export function openProductSqlite(dbPath: string): DatabaseSync {
-     applyM6(db);
-     applyM7(db);
-     applyM8(db);
-+    applyM9(db);
-     setSchemaVersion(db, PRODUCT_SCHEMA_VERSION);
-   } else if (version === PRODUCT_SCHEMA_VERSION_M2) {
-     applyM3(db);
-@@ -395,24 +421,32 @@ export function openProductSqlite(dbPath: string): DatabaseSync {
-     applyM6(db);
-     applyM7(db);
-     applyM8(db);
-+    applyM9(db);
-     setSchemaVersion(db, PRODUCT_SCHEMA_VERSION);
-   } else if (version === PRODUCT_SCHEMA_VERSION_M3) {
-     applyM5(db);
-     applyM6(db);
-     applyM7(db);
-     applyM8(db);
-+    applyM9(db);
-     setSchemaVersion(db, PRODUCT_SCHEMA_VERSION);
-   } else if (version === PRODUCT_SCHEMA_VERSION_M5) {
-     applyM6(db);
-     applyM7(db);
-     applyM8(db);
-+    applyM9(db);
-     setSchemaVersion(db, PRODUCT_SCHEMA_VERSION);
-   } else if (version === PRODUCT_SCHEMA_VERSION_M6) {
-     applyM7(db);
-     applyM8(db);
-+    applyM9(db);
-     setSchemaVersion(db, PRODUCT_SCHEMA_VERSION);
-   } else if (version === PRODUCT_SCHEMA_VERSION_M7) {
-     applyM8(db);
-+    applyM9(db);
-+    setSchemaVersion(db, PRODUCT_SCHEMA_VERSION);
-+  } else if (version === PRODUCT_SCHEMA_VERSION_M8) {
-+    applyM9(db);
-     setSchemaVersion(db, PRODUCT_SCHEMA_VERSION);
-   } else if (version === PRODUCT_SCHEMA_VERSION) {
-     applyM2(db);
-@@ -421,6 +455,7 @@ export function openProductSqlite(dbPath: string): DatabaseSync {
-     applyM6(db);
-     applyM7(db);
-     applyM8(db);
-+    applyM9(db);
-   } else {
-     try {
-       db.close();
+-function finishWithOptionalPostEvidence(input: {
++/**
++ * After W3-C success/rehydrate, soft-materialize Product Synthesis.
++ * Synthesis failure never mutates Truth C / Product terminal outcome.
++ */
++async function finishWithOptionalPostEvidence(input: {
++  readonly oa: RuntimeOaStack;
++  readonly projectId: string;
+   readonly product: W3BProductTerminalProjection;
+   readonly reusedFromIdempotency: boolean;
+   readonly postEvidence: W3cPostEvidenceLoopResult | undefined;
+-}): Extract<MaterializeW3bProductTerminalResult, { ok: true }> {
++}): Promise<Extract<MaterializeW3bProductTerminalResult, { ok: true }>> {
+   const postOk = input.postEvidence?.ok === true;
++  if (postOk && input.postEvidence?.ok === true) {
++    await maybeMaterializeProductSynthesisAfterW3c({
++      oa: input.oa,
++      projectId: input.projectId,
++      product: input.product,
++      postEvidence: input.postEvidence,
++    });
++  }
+   return {
+     ok: true,
+     reusedFromIdempotency: input.reusedFromIdempotency,
+@@ -262,6 +277,8 @@ async function materializeDocsWriteProductTerminal(input: {
+       });
+       if (existing) {
+         return finishWithOptionalPostEvidence({
++          oa: input.oa,
++          projectId: input.projectId,
+           reusedFromIdempotency,
+           product,
+           postEvidence: existing,
+@@ -274,6 +291,8 @@ async function materializeDocsWriteProductTerminal(input: {
+       });
+       if (rehydrated.ok) {
+         return finishWithOptionalPostEvidence({
++          oa: input.oa,
++          projectId: input.projectId,
+           reusedFromIdempotency,
+           product,
+           postEvidence: rehydrated,
+@@ -292,6 +311,8 @@ async function materializeDocsWriteProductTerminal(input: {
+   }
+
+   return finishWithOptionalPostEvidence({
++    oa: input.oa,
++    projectId: input.projectId,
+     reusedFromIdempotency,
+     product,
+     postEvidence,
+@@ -573,12 +594,13 @@ export async function materializeW3bProductTerminal(input: {
+       product,
+     });
+     if (existing) {
+-      return {
+-        ok: true,
++      return finishWithOptionalPostEvidence({
++        oa: input.oa,
++        projectId: input.projectId,
+         reusedFromIdempotency,
+         product,
+         postEvidence: existing,
+-      };
++      });
+     }
+     // Prefer LPS exact / Epistemic rehydrate before Nora+LPS (covers partial-write).
+     const rehydrated = await rehydrateW3cPostEvidenceFromLps({
+@@ -587,12 +609,13 @@ export async function materializeW3bProductTerminal(input: {
+       product,
+     });
+     if (rehydrated.ok) {
+-      return {
+-        ok: true,
++      return finishWithOptionalPostEvidence({
++        oa: input.oa,
++        projectId: input.projectId,
+         reusedFromIdempotency,
+         product,
+         postEvidence: rehydrated,
+-      };
++      });
+     }
+   }
+
+@@ -603,12 +626,13 @@ export async function materializeW3bProductTerminal(input: {
+     product,
+   });
+
+-  return {
+-    ok: true,
++  return finishWithOptionalPostEvidence({
++    oa: input.oa,
++    projectId: input.projectId,
+     reusedFromIdempotency,
+     product,
+     postEvidence,
+-  };
++  });
+ }
+
+ export async function rehydrateW3bProductTerminal(input: {
+@@ -715,6 +739,8 @@ export async function rehydrateW3bProductTerminal(input: {
+   });
+
+   return finishWithOptionalPostEvidence({
++    oa: input.oa,
++    projectId: input.projectId,
+     reusedFromIdempotency: true,
+     product,
+     postEvidence,
 ```
 
-### projects/sfia-studio/app/lib/oa/project/index.ts
-
-_Unified diff lines: 14_
-
-```diff
-diff --git a/projects/sfia-studio/app/lib/oa/project/index.ts b/projects/sfia-studio/app/lib/oa/project/index.ts
-index 26b91fa0..770c0187 100644
---- a/projects/sfia-studio/app/lib/oa/project/index.ts
-+++ b/projects/sfia-studio/app/lib/oa/project/index.ts
-@@ -69,6 +69,9 @@ export {
-   PRODUCT_SCHEMA_VERSION_M3,
-   PRODUCT_SCHEMA_VERSION_M5,
-   PRODUCT_SCHEMA_VERSION_M6,
-+  PRODUCT_SCHEMA_VERSION_M7,
-+  PRODUCT_SCHEMA_VERSION_M8,
-+  PRODUCT_SCHEMA_VERSION_M9,
- } from "./infrastructure/sqlite/db";
- export type { ProductSqliteHandle } from "./infrastructure/sqlite/productSqliteHandle";
- export { SqliteProductStore } from "./infrastructure/sqlite/sqliteProductStore";
-```
-
-### projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx
-
-_Unified diff lines: 149_
+## DIFF: `projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx`
 
 ```diff
 diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx
@@ -3933,9 +5963,109 @@ index 06648947..0a6e0be3 100644
          ) : null}
 ```
 
-### projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/OverviewSurface.tsx
+## DIFF: `projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.module.css`
 
-_Unified diff lines: 140_
+```diff
+diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.module.css b/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.module.css
+index 29e5e55a..cebe63f9 100644
+--- a/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.module.css
++++ b/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.module.css
+@@ -711,6 +711,14 @@
+   .focusBar {
+     display: none;
+   }
++
++  /*
++   * P5-S04 CP01 B2 — Synthèses is a focused secondary mobile view:
++   * hide project title + primary tabs; SynthesesSurface owns list/detail nav.
++   */
++  .root[data-active-view="syntheses"] .projectHeader {
++    display: none;
++  }
+ }
+
+ /* ---------- error state ---------- */
+```
+
+## DIFF: `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx`
+
+```diff
+diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
+index 8b7df1af..a423ec48 100644
+--- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
++++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
+@@ -21,6 +21,11 @@ import type { AssistantToolEventDto } from "@/features/project-assistant/types";
+ import type { F2DecisionKind } from "@/features/project-assistant/f2/types";
+ import { useEffect, useId } from "react";
+ import type { ProductConversationController } from "../hooks/useProductConversation";
++import type { ProductSynthesisProjection } from "@/lib/oa/synthesis";
++import {
++  presentSynthesisVerdictLabel,
++  synthesisSummaryExcerpt,
++} from "./synthesisPresentation";
+ import styles from "./ConversationSurface.module.css";
+
+ /**
+@@ -76,6 +81,8 @@ export type ConversationSurfaceProps = {
+    */
+   onConfirmReservationResolve?: (epistemicItemId: string) => void;
+   reservationConfirmBusyId?: string | null;
++  latestSynthesis?: ProductSynthesisProjection | null;
++  onOpenSynthesis?: (synthesisId: string) => void;
+ };
+
+ /**
+@@ -89,6 +96,8 @@ export function ConversationSurface({
+   exposeLegacyAuthorityPath = false,
+   onConfirmReservationResolve,
+   reservationConfirmBusyId = null,
++  latestSynthesis = null,
++  onOpenSynthesis,
+ }: ConversationSurfaceProps) {
+   const fieldId = useId();
+   const liveRegionId = useId();
+@@ -1321,6 +1330,38 @@ export function ConversationSurface({
+         </section>
+       ) : null}
+
++      {latestSynthesis && onOpenSynthesis ? (
++        <section
++          className={styles.card}
++          data-testid="conversation-synthesis-teaser"
++          aria-live="polite"
++        >
++          <header className={styles.cardHead}>
++            <p className={styles.cardEyebrow}>Synthèse produit dérivée</p>
++            <h3 className={styles.cardTitle}>{latestSynthesis.title}</h3>
++          </header>
++          <div className={styles.chipRow}>
++            <span className={styles.chip}>
++              {presentSynthesisVerdictLabel(latestSynthesis.verdictLabel)}
++            </span>
++          </div>
++          <p
++            className={styles.subLead}
++            data-testid="conversation-synthesis-summary"
++          >
++            {synthesisSummaryExcerpt(latestSynthesis, 280)}
++          </p>
++          <button
++            type="button"
++            className={styles.primaryButton}
++            data-testid="conversation-open-synthesis"
++            onClick={() => onOpenSynthesis(latestSynthesis.synthesisId)}
++          >
++            Voir la synthèse complète →
++          </button>
++        </section>
++      ) : null}
++
+       {error ? (
+         <div
+           className={styles.errorBox}
+```
+
+## DIFF: `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/OverviewSurface.tsx`
 
 ```diff
 diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/OverviewSurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/OverviewSurface.tsx
@@ -4080,90 +6210,7 @@ index 501357ba..b1539d2f 100644
        </div>
 ```
 
-### projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
-
-_Unified diff lines: 74_
-
-```diff
-diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
-index 8b7df1af..1144f744 100644
---- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
-+++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
-@@ -21,6 +21,11 @@ import type { AssistantToolEventDto } from "@/features/project-assistant/types";
- import type { F2DecisionKind } from "@/features/project-assistant/f2/types";
- import { useEffect, useId } from "react";
- import type { ProductConversationController } from "../hooks/useProductConversation";
-+import type { ProductSynthesisProjection } from "@/lib/oa/synthesis";
-+import {
-+  presentSynthesisVerdictLabel,
-+  synthesisSummaryExcerpt,
-+} from "./synthesisPresentation";
- import styles from "./ConversationSurface.module.css";
-
- /**
-@@ -76,6 +81,8 @@ export type ConversationSurfaceProps = {
-    */
-   onConfirmReservationResolve?: (epistemicItemId: string) => void;
-   reservationConfirmBusyId?: string | null;
-+  latestSynthesis?: ProductSynthesisProjection | null;
-+  onOpenSynthesis?: (synthesisId: string) => void;
- };
-
- /**
-@@ -89,6 +96,8 @@ export function ConversationSurface({
-   exposeLegacyAuthorityPath = false,
-   onConfirmReservationResolve,
-   reservationConfirmBusyId = null,
-+  latestSynthesis = null,
-+  onOpenSynthesis,
- }: ConversationSurfaceProps) {
-   const fieldId = useId();
-   const liveRegionId = useId();
-@@ -1321,6 +1330,39 @@ export function ConversationSurface({
-         </section>
-       ) : null}
-
-+      {latestSynthesis && onOpenSynthesis ? (
-+        <section
-+          className={styles.card}
-+          data-testid="conversation-synthesis-teaser"
-+          aria-live="polite"
-+        >
-+          <header className={styles.cardHead}>
-+            <p className={styles.cardEyebrow}>Synthèse produit dérivée</p>
-+            <h3 className={styles.cardTitle}>{latestSynthesis.title}</h3>
-+          </header>
-+          <div className={styles.chipRow}>
-+            <span className={styles.chipQuiet}>NON-AUTORITATIVE</span>
-+            <span className={styles.chip}>
-+              {presentSynthesisVerdictLabel(latestSynthesis.verdictLabel)}
-+            </span>
-+          </div>
-+          <p
-+            className={styles.subLead}
-+            data-testid="conversation-synthesis-summary"
-+          >
-+            {synthesisSummaryExcerpt(latestSynthesis, 280)}
-+          </p>
-+          <button
-+            type="button"
-+            className={styles.primaryButton}
-+            data-testid="conversation-open-synthesis"
-+            onClick={() => onOpenSynthesis(latestSynthesis.synthesisId)}
-+          >
-+            Voir la synthèse complète →
-+          </button>
-+        </section>
-+      ) : null}
-+
-       {error ? (
-         <div
-           className={styles.errorBox}
-```
-
-### projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ProjectContextSummary.tsx
-
-_Unified diff lines: 93_
+## DIFF: `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ProjectContextSummary.tsx`
 
 ```diff
 diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ProjectContextSummary.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ProjectContextSummary.tsx
@@ -4261,9 +6308,135 @@ index 03ebc2ce..5a59c57c 100644
        </button>
 ```
 
-### projects/sfia-studio/app/__tests__/oa/decision/m3ProductSchemaMigration.test.ts
+## DIFF: `projects/sfia-studio/app/lib/oa/project/index.ts`
 
-_Unified diff lines: 13_
+```diff
+diff --git a/projects/sfia-studio/app/lib/oa/project/index.ts b/projects/sfia-studio/app/lib/oa/project/index.ts
+index 26b91fa0..770c0187 100644
+--- a/projects/sfia-studio/app/lib/oa/project/index.ts
++++ b/projects/sfia-studio/app/lib/oa/project/index.ts
+@@ -69,6 +69,9 @@ export {
+   PRODUCT_SCHEMA_VERSION_M3,
+   PRODUCT_SCHEMA_VERSION_M5,
+   PRODUCT_SCHEMA_VERSION_M6,
++  PRODUCT_SCHEMA_VERSION_M7,
++  PRODUCT_SCHEMA_VERSION_M8,
++  PRODUCT_SCHEMA_VERSION_M9,
+ } from "./infrastructure/sqlite/db";
+ export type { ProductSqliteHandle } from "./infrastructure/sqlite/productSqliteHandle";
+ export { SqliteProductStore } from "./infrastructure/sqlite/sqliteProductStore";
+```
+
+## DIFF: `projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/db.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/db.ts b/projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/db.ts
+index e9165081..563ae97d 100644
+--- a/projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/db.ts
++++ b/projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/db.ts
+@@ -7,7 +7,8 @@ export const PRODUCT_SCHEMA_VERSION_M5 = "m5-0.1.0" as const;
+ export const PRODUCT_SCHEMA_VERSION_M6 = "m6-0.1.0" as const;
+ export const PRODUCT_SCHEMA_VERSION_M7 = "m7-0.1.0" as const;
+ export const PRODUCT_SCHEMA_VERSION_M8 = "m8-0.1.0" as const;
+-export const PRODUCT_SCHEMA_VERSION = PRODUCT_SCHEMA_VERSION_M8;
++export const PRODUCT_SCHEMA_VERSION_M9 = "m9-0.1.0" as const;
++export const PRODUCT_SCHEMA_VERSION = PRODUCT_SCHEMA_VERSION_M9;
+
+ const BASE_SCHEMA_SQL = `
+ PRAGMA foreign_keys = ON;
+@@ -318,6 +319,26 @@ CREATE TABLE IF NOT EXISTS oa_claim_evaluation_idempotency (
+ );
+ `;
+
++/** M9 — Product-derived Synthesis projections (NON-AUTHORITATIVE / NOT Truth C). */
++const M9_SYNTHESIS_SCHEMA_SQL = `
++CREATE TABLE IF NOT EXISTS oa_syntheses (
++  synthesis_id TEXT PRIMARY KEY NOT NULL,
++  project_id TEXT NOT NULL,
++  cycle_instance_id TEXT,
++  status TEXT NOT NULL,
++  source_fingerprint TEXT NOT NULL,
++  version INTEGER NOT NULL,
++  generated_at TEXT NOT NULL,
++  payload_json TEXT NOT NULL,
++  search_text TEXT NOT NULL,
++  FOREIGN KEY (project_id) REFERENCES oa_projects(project_id)
++);
++CREATE INDEX IF NOT EXISTS idx_oa_syntheses_project_generated
++  ON oa_syntheses(project_id, generated_at);
++CREATE INDEX IF NOT EXISTS idx_oa_syntheses_project_fingerprint
++  ON oa_syntheses(project_id, source_fingerprint);
++`;
++
+ function readSchemaVersion(db: DatabaseSync): string | null {
+   const row = db
+     .prepare("SELECT value FROM schema_meta WHERE key = ?")
+@@ -371,8 +392,12 @@ function applyM8(db: DatabaseSync): void {
+   db.exec(M8_CLAIM_EVALUATION_SCHEMA_SQL);
+ }
+
++function applyM9(db: DatabaseSync): void {
++  db.exec(M9_SYNTHESIS_SCHEMA_SQL);
++}
++
+ /**
+- * Open Product SQLite with additive M1→M2→M3→M5→M6→M7→M8 migration.
++ * Open Product SQLite with additive M1→M2→M3→M5→M6→M7→M8→M9 migration.
+  * Fail closed on unknown/future schema versions.
+  */
+ export function openProductSqlite(dbPath: string): DatabaseSync {
+@@ -388,6 +413,7 @@ export function openProductSqlite(dbPath: string): DatabaseSync {
+     applyM6(db);
+     applyM7(db);
+     applyM8(db);
++    applyM9(db);
+     setSchemaVersion(db, PRODUCT_SCHEMA_VERSION);
+   } else if (version === PRODUCT_SCHEMA_VERSION_M2) {
+     applyM3(db);
+@@ -395,24 +421,32 @@ export function openProductSqlite(dbPath: string): DatabaseSync {
+     applyM6(db);
+     applyM7(db);
+     applyM8(db);
++    applyM9(db);
+     setSchemaVersion(db, PRODUCT_SCHEMA_VERSION);
+   } else if (version === PRODUCT_SCHEMA_VERSION_M3) {
+     applyM5(db);
+     applyM6(db);
+     applyM7(db);
+     applyM8(db);
++    applyM9(db);
+     setSchemaVersion(db, PRODUCT_SCHEMA_VERSION);
+   } else if (version === PRODUCT_SCHEMA_VERSION_M5) {
+     applyM6(db);
+     applyM7(db);
+     applyM8(db);
++    applyM9(db);
+     setSchemaVersion(db, PRODUCT_SCHEMA_VERSION);
+   } else if (version === PRODUCT_SCHEMA_VERSION_M6) {
+     applyM7(db);
+     applyM8(db);
++    applyM9(db);
+     setSchemaVersion(db, PRODUCT_SCHEMA_VERSION);
+   } else if (version === PRODUCT_SCHEMA_VERSION_M7) {
+     applyM8(db);
++    applyM9(db);
++    setSchemaVersion(db, PRODUCT_SCHEMA_VERSION);
++  } else if (version === PRODUCT_SCHEMA_VERSION_M8) {
++    applyM9(db);
+     setSchemaVersion(db, PRODUCT_SCHEMA_VERSION);
+   } else if (version === PRODUCT_SCHEMA_VERSION) {
+     applyM2(db);
+@@ -421,6 +455,7 @@ export function openProductSqlite(dbPath: string): DatabaseSync {
+     applyM6(db);
+     applyM7(db);
+     applyM8(db);
++    applyM9(db);
+   } else {
+     try {
+       db.close();
+```
+
+## DIFF: `projects/sfia-studio/app/__tests__/oa/decision/m3ProductSchemaMigration.test.ts`
 
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/oa/decision/m3ProductSchemaMigration.test.ts b/projects/sfia-studio/app/__tests__/oa/decision/m3ProductSchemaMigration.test.ts
@@ -4281,9 +6454,7 @@ index 46731996..2ae3b6ac 100644
        .prepare(
 ```
 
-### projects/sfia-studio/app/__tests__/oa/project/m5ProductSchemaMigration.test.ts
-
-_Unified diff lines: 22_
+## DIFF: `projects/sfia-studio/app/__tests__/oa/project/m5ProductSchemaMigration.test.ts`
 
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/oa/project/m5ProductSchemaMigration.test.ts b/projects/sfia-studio/app/__tests__/oa/project/m5ProductSchemaMigration.test.ts
@@ -4307,12 +6478,9 @@ index c039716c..23e56d96 100644
 +    expect(PRODUCT_SCHEMA_VERSION).toBe("m9-0.1.0");
      expect(tableExists(svc.store.db, "oa_execution_attempts")).toBe(true);
    });
-
 ```
 
-### projects/sfia-studio/app/__tests__/oa/project/m6ProductSchemaMigration.test.ts
-
-_Unified diff lines: 31_
+## DIFF: `projects/sfia-studio/app/__tests__/oa/project/m6ProductSchemaMigration.test.ts`
 
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/oa/project/m6ProductSchemaMigration.test.ts b/projects/sfia-studio/app/__tests__/oa/project/m6ProductSchemaMigration.test.ts
@@ -4348,29 +6516,7 @@ index a5348224..24e2b613 100644
      ).toBe(true);
 ```
 
-### projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
-
-_Unified diff lines: 13_
-
-```diff
-diff --git a/projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts b/projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
-index 52fcc432..5b0509f3 100644
---- a/projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
-+++ b/projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
-@@ -97,6 +97,8 @@ describe("V2-A1 vertical-slice-runtime import boundaries", () => {
-       "features/project-assistant/f3/e2eOptionATerminalAttempt.ts:@/lib/vertical-slice-runtime/e2eOptionAQaScenarioControl",
-       "features/project-assistant/mw3AvailableEvidence.ts:@/lib/vertical-slice-runtime",
-       "features/project-assistant/preCycleCandidateTrajectoryActions.ts:@/lib/vertical-slice-runtime",
-+      "features/project-assistant/buildProductSynthesisLineageInput.ts:@/lib/vertical-slice-runtime",
-+      "features/project-assistant/synthesisActions.ts:@/lib/vertical-slice-runtime",
-       "features/project-assistant/approveCandidateTrajectory.ts:@/lib/vertical-slice-runtime",
-       "features/project-assistant/w2/actions.ts:@/lib/vertical-slice-runtime",
-       "features/project-assistant/w2/actions.ts:@/lib/vertical-slice-runtime/liveProjectContext",
-```
-
-### projects/sfia-studio/app/__tests__/pre-m6-product-ui/automaticProjectResume.ui.test.tsx
-
-_Unified diff lines: 23_
+## DIFF: `projects/sfia-studio/app/__tests__/pre-m6-product-ui/automaticProjectResume.ui.test.tsx`
 
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/automaticProjectResume.ui.test.tsx b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/automaticProjectResume.ui.test.tsx
@@ -4398,9 +6544,7 @@ index c684f4e0..9d20de26 100644
      ok: true,
 ```
 
-### projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s01.workspaceLayout.ui.test.tsx
-
-_Unified diff lines: 23_
+## DIFF: `projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s01.workspaceLayout.ui.test.tsx`
 
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s01.workspaceLayout.ui.test.tsx b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s01.workspaceLayout.ui.test.tsx
@@ -4428,9 +6572,7 @@ index 3d8eb7bf..e8f4db44 100644
      ok: true,
 ```
 
-### projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s03.objectNativeViews.ui.test.tsx
-
-_Unified diff lines: 23_
+## DIFF: `projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s03.objectNativeViews.ui.test.tsx`
 
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s03.objectNativeViews.ui.test.tsx b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s03.objectNativeViews.ui.test.tsx
@@ -4458,9 +6600,7 @@ index 6767cc22..13e25826 100644
      ok: true,
 ```
 
-### projects/sfia-studio/app/__tests__/pre-m6-product-ui/productJourneyProjectionCoherence.ui.test.tsx
-
-_Unified diff lines: 23_
+## DIFF: `projects/sfia-studio/app/__tests__/pre-m6-product-ui/productJourneyProjectionCoherence.ui.test.tsx`
 
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/productJourneyProjectionCoherence.ui.test.tsx b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/productJourneyProjectionCoherence.ui.test.tsx
@@ -4488,21 +6628,39 @@ index 1d795812..23d635ba 100644
      ok: true,
 ```
 
-### projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+## DIFF: `projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts`
 
-_Unified diff lines: 15_
+```diff
+diff --git a/projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts b/projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
+index 52fcc432..97b86865 100644
+--- a/projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
++++ b/projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
+@@ -97,6 +97,9 @@ describe("V2-A1 vertical-slice-runtime import boundaries", () => {
+       "features/project-assistant/f3/e2eOptionATerminalAttempt.ts:@/lib/vertical-slice-runtime/e2eOptionAQaScenarioControl",
+       "features/project-assistant/mw3AvailableEvidence.ts:@/lib/vertical-slice-runtime",
+       "features/project-assistant/preCycleCandidateTrajectoryActions.ts:@/lib/vertical-slice-runtime",
++      "features/project-assistant/buildProductSynthesisLineageInput.ts:@/lib/vertical-slice-runtime",
++      "features/project-assistant/synthesisActions.ts:@/lib/vertical-slice-runtime",
++      "features/project-assistant/w2/maybeMaterializeProductSynthesisAfterW3c.ts:@/lib/vertical-slice-runtime",
+       "features/project-assistant/approveCandidateTrajectory.ts:@/lib/vertical-slice-runtime",
+       "features/project-assistant/w2/actions.ts:@/lib/vertical-slice-runtime",
+       "features/project-assistant/w2/actions.ts:@/lib/vertical-slice-runtime/liveProjectContext",
+```
+
+## DIFF: `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
 
 ```diff
 diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-index 93823ab3..d57e60ce 100644
+index 93823ab3..2c30f662 100644
 --- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 +++ b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-@@ -4,7 +4,9 @@
+@@ -4,7 +4,10 @@
  | --- | --- |
  | **Rôle** | Roadmap **vivante** de convergence vers l’utilisation complète de la doctrine produit SFIA Studio v3 |
  | **Statut** | **VALIDATED — ACTIVE LIVING ROADMAP** |
 -| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S03 GIT INTEGRATION** | 2026-10-05 Europe/Paris — **STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S03 OBJECT-NATIVE PRODUCT VIEWS — GIT INTEGRATION AUTHORIZED BY MORRIS / IN PROGRESS** · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **13 — PR Readiness / Git Integration** · Milestone **P5** · Slice **P5-S03** · CRITICAL · Morris P5-S03 GIT INTEGRATION GATE = **AUTHORIZED** · Final ChatGPT Critical Review = **PASS** · CP01/CP02 = **PASS at local candidate scope** · A=0 / B=0 · C-actionable = 0 · Expected Product content variance **PRESERVED** · ZERO REAL · branche `delivery/sfia-studio-product-simplification-p5-s03-object-native-product-views` · base/main `1a7e80b20949a041b1edc279ffed735b04bda997` · next = commit/push/PR → ChatGPT PR review + CI → **MORRIS P5-S03 MERGE GATE** · merge **NOT AUTHORIZED this pass** · **≠** P5-S03 INTEGRATED · **≠** P5 COMPLETE · **≠** R3 · **≠** P6 READY · **≠** runtime v3 ADOPTED · **≠** PIXEL-PERFECT GLOBAL |
-+| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S04 PRODUCT-DERIVED SYNTHESES** | 2026-10-05 Europe/Paris — **STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S04 PRODUCT-DERIVED SYNTHÈSES — DELIVERY AUTHORIZED / LOCAL CANDIDATE IN PROGRESS** · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **8 — Delivery / Implementation** · Milestone **P5** · Slice **P5-S04** · CRITICAL · Morris P5-S04 delivery authorization = **CONSUMED** · P5-S01/S02/S03 = **INTEGRATED / POST-MERGE VERIFIED** (main **`49b4fdaf…`** · S03 PR **#557** MERGED) · M9 **`oa_syntheses`** · deterministic builder + SQLite repository · Synthèses UI read-only · Overview/Conversation teasers · ZERO REAL · F2 debt **OPEN** · R3 **NOT STARTED** · P5 COMPLETE **NO** · P6 READY **NO** · runtime v3 **NON ADOPTED** · branche `delivery/sfia-studio-product-simplification-p5-s04-product-derived-syntheses` · project commit/push/PR/merge = **NOT AUTHORIZED this pass** · next = **ChatGPT Critical Review** → Morris Git Integration gate · **≠** P5-S04 INTEGRATED |
++| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S04 CORRECTION PASS 01** | 2026-10-05 Europe/Paris — **STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S04 CORRECTION PASS 01 COMPLETE LOCALLY / CRITICAL RE-REVIEW REQUIRED** · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **8 — Delivery / Implementation Correction** · Milestone **P5** · Slice **P5-S04** · Pass **CORRECTION PASS 01** · CRITICAL · Morris P5-S04 CP01 AUTHORIZATION = **CONSUMED** · Axes = Product-path materialization · lineage/currentness · Pilot-facing projection · Figma B1/B2 · A=0 / B=0 · ZERO REAL · F2 debt **OPEN** · R3 **NOT STARTED** · P5 COMPLETE **NO** · P6 READY **NO** · runtime v3 **NON ADOPTED** · branche `delivery/sfia-studio-product-simplification-p5-s04-product-derived-syntheses` · project commit/push/PR/merge = **NOT AUTHORIZED this pass** · next = **ChatGPT Final Critical Re-Review** → Morris Git Integration gate · **≠** P5-S04 INTEGRATED |
++| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S04 PRODUCT-DERIVED SYNTHESES** | 2026-10-05 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S04 PRODUCT-DERIVED SYNTHÈSES — DELIVERY AUTHORIZED / LOCAL CANDIDATE IN PROGRESS *(true then; superseded by P5-S04 CP01 tip)* · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **8 — Delivery / Implementation** · Milestone **P5** · Slice **P5-S04** · CRITICAL · Morris P5-S04 delivery authorization = **CONSUMED** · P5-S01/S02/S03 = **INTEGRATED / POST-MERGE VERIFIED** (main **`49b4fdaf…`** · S03 PR **#557** MERGED) · M9 **`oa_syntheses`** · deterministic builder + SQLite repository · Synthèses UI read-only · Overview/Conversation teasers · ZERO REAL · F2 debt **OPEN** · R3 **NOT STARTED** · P5 COMPLETE **NO** · P6 READY **NO** · runtime v3 **NON ADOPTED** · branche `delivery/sfia-studio-product-simplification-p5-s04-product-derived-syntheses` · project commit/push/PR/merge = **NOT AUTHORIZED this pass** · next = **ChatGPT Critical Review** → Morris Git Integration gate · **≠** P5-S04 INTEGRATED |
 +| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S03 INTEGRATED** | 2026-10-05 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S03 OBJECT-NATIVE PRODUCT VIEWS — **INTEGRATED / POST-MERGE VERIFIED** *(true then; superseded by P5-S04 tip)* · PR **#557** MERGED · main **`49b4fdaf078fdf2a5c7bfce3baad05fa65220c2e`** · merge **`5fc6238a…`** · CP01/CP02 preserved · A=0 / B=0 · ZERO REAL · Synthesis surface was **NOT BUILT** at S03 scope · **≠** P5 COMPLETE |
 +| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S03 GIT INTEGRATION** | 2026-10-05 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S03 OBJECT-NATIVE PRODUCT VIEWS — GIT INTEGRATION AUTHORIZED BY MORRIS / IN PROGRESS *(true then; superseded by P5-S03 INTEGRATED tip)* · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **13 — PR Readiness / Git Integration** · Milestone **P5** · Slice **P5-S03** · CRITICAL · Morris P5-S03 GIT INTEGRATION GATE = **AUTHORIZED** · Final ChatGPT Critical Review = **PASS** · CP01/CP02 = **PASS at local candidate scope** · A=0 / B=0 · C-actionable = 0 · Expected Product content variance **PRESERVED** · ZERO REAL · branche `delivery/sfia-studio-product-simplification-p5-s03-object-native-product-views` · base/main `1a7e80b20949a041b1edc279ffed735b04bda997` · next = commit/push/PR → ChatGPT PR review + CI → **MORRIS P5-S03 MERGE GATE** · merge **NOT AUTHORIZED this pass** · **≠** P5-S03 INTEGRATED · **≠** P5 COMPLETE · **≠** R3 · **≠** P6 READY · **≠** runtime v3 ADOPTED · **≠** PIXEL-PERFECT GLOBAL |
  | **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S03 CORRECTION PASS 02** | 2026-10-05 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S03 CORRECTION PASS 02 — EXECUTION RECONCILE CONTINUITY + BOUNDED C-VISUAL POLISH — LOCAL CANDIDATE *(true then; superseded by P5-S03 Git Integration tip)* · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **8 — Delivery / Implementation Correction** · Milestone **P5** · Slice **P5-S03** · Pass **CORRECTION PASS 02** · CRITICAL · Morris P5-S03 CP02 AUTHORIZATION = **CONSUMED** · Axis 1 = mounted + remount W2 reconcile `intent=continue` via existing `reconcileContinuePolicy` (no new SM / retry budget) · Axis 2 = actionable C polish (mobile composer ~60px · Overview/Execution spacing) · content-honesty variances **PRESERVED** · A=0 / B=0 · ZERO REAL · no new persistence / state machine / Product object / parallel architecture · F2 debt **OPEN** · Synthesis **NOT BUILT** · R3 **NOT STARTED** · P5 COMPLETE **NO** · P6 READY **NO** · runtime v3 **NON ADOPTED** · branche `delivery/sfia-studio-product-simplification-p5-s03-object-native-product-views` · base/main `1a7e80b20949a041b1edc279ffed735b04bda997` · project commit/push/PR/merge = **NOT AUTHORIZED this pass** · next = **ChatGPT Final Critical Review** → **MORRIS P5-S03 GIT INTEGRATION GATE** · **≠** P5-S03 INTEGRATED · **≠** R3 · **≠** P6 READY · **≠** PIXEL-PERFECT GLOBAL |
@@ -4510,16 +6668,14 @@ index 93823ab3..d57e60ce 100644
  | **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S03 OBJECT-NATIVE VIEWS** | 2026-10-05 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S03 OBJECT-NATIVE APERÇU + EXÉCUTION — LOCAL CANDIDATE / DELIVERY AUTHORIZED *(true then; superseded by P5-S03 Correction Pass 01 tip)* · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **8 — Delivery / Implementation** · Milestone **P5** · Slice **P5-S03** · CRITICAL · Morris P5-S03 DELIVERY AUTHORIZATION = **CONSUMED** · P5-S01 = **INTEGRATED** · P5-S02 = **INTEGRATED / POST-MERGE VERIFIED** (PR **#556** MERGED · main `1a7e80b20949a041b1edc279ffed735b04bda997` · CI **#680** SUCCESS · Required Gate SUCCESS) · S03 = real Conversation/Aperçu/Exécution views · Product-object projections · canonical Governed Execution Continuity · presentation-only adapter · ZERO REAL · no new persistence / state machine / agent architecture · F2 debt **OPEN** · Synthesis surface **NOT BUILT** · R3 **NOT STARTED** · P5 COMPLETE **NO** · P6 READY **NO** · runtime v3 **NON ADOPTED** · branche `delivery/sfia-studio-product-simplification-p5-s03-object-native-product-views` · project commit/push/PR/merge = **NOT AUTHORIZED this pass** · next = **ChatGPT Critical Review** → Morris Git Integration Gate · **≠** P5-S03 INTEGRATED · **≠** R3 · **≠** P6 READY |
 ```
 
-### projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md
-
-_Unified diff lines: 72_
+## DIFF: `projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md`
 
 ```diff
 diff --git a/projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md b/projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md
-index 62af8c61..5a3e2d99 100644
+index 62af8c61..9e5018c9 100644
 --- a/projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md
 +++ b/projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md
-@@ -785,39 +785,49 @@ Visual / Git historical notes above for Correction Pass 01 are **SUPERSEDED** by
+@@ -785,39 +785,51 @@ Visual / Git historical notes above for Correction Pass 01 are **SUPERSEDED** by
 
  ---
 
@@ -4529,12 +6685,14 @@ index 62af8c61..5a3e2d99 100644
 +| Item | Result |
 +| --- | --- |
 +| Morris P5-S04 delivery authorization | **CONSUMED** |
-+| Scope | M9 `oa_syntheses` · deterministic `buildProductSynthesis` · SQLite repository · read-only Synthèses surface · Overview + Conversation teasers · **NON-AUTORITATIVE** |
-+| Architecture | OBJECTS FIRST → PROJECTIONS SECOND → SURFACES THIRD · lineage from durable ClaimEvaluation (+ optional EC/attempt/evidence/RB reads) · **no invented verdict/recommendation** |
++| Morris P5-S04 CP01 authorization | **CONSUMED** |
++| Scope | M9 `oa_syntheses` · deterministic `buildProductSynthesis` · SQLite repository · read-only Synthèses surface · Overview + Conversation teasers · authority `none` (no NON-AUTORITATIVE badge in Pilot UI) |
++| Architecture | OBJECTS FIRST → PROJECTIONS SECOND → SURFACES THIRD · Product-path `materializeW3bProductTerminal` → `maybeMaterializeProductSynthesisAfterW3c` · Contract-Result lineage + currentness · durable W3-C Recommendation · **no invented verdict/recommendation** · **≠ Truth C** |
 +| Auth / REAL | Studio auth via `.tmp-sfia-review/auth/studio-storage-state.json` · **ZERO REAL** · `P5_S02_RUN_REAL` never set |
-+| Evidence — tests | D0 `p5.s04.productDerivedSynthesis.d0.test.ts` **13 PASS** · UI `p5.s04.synthesesSurface.ui.test.tsx` **3 PASS** · M3/M5/M6 migration tests **PASS** · full `npm test` **471 files / 5223 tests PASS** (after synthesisAction mocks + import boundary + PRR digest hygiene) |
-+| Evidence — visual | `.tmp-sfia-review/p5-s04-visual/after/` · seed script materialized real synthesis `syn:65645eee8ad4206537f90d0c2b4b6c53` for `prj:0ed5c4e1-3d23-45cd-b34b-530df1090197` · **A=0 / B=0** · C=4 · D=3 (see correction-design-note) |
-+| Debts | F2 routing **OPEN** · R3 **NOT STARTED** · P6 **NOT READY** · runtime v3 **NON ADOPTED** · richer campaign lineage (EC/attempt/evidence) **NOT REQUIRED for S04** but drives honest D gaps in sections |
++| Evidence — tests | CP01 L01–L09 / C01–C08 / P01–P05 · D0 + UI · migration · full `npm test` (see CP01 Review Pack counts) |
++| Evidence — visual CP01 | `.tmp-sfia-review/p5-s04-visual/cp01/after/` · PRODUCT-PATH seed (NOT direct `services.materialize`) · FocusFlow `syn:fc44ff99449fd3b96f4500b60a2eeda7` · **A=0 / B=0** · B1/B2 **CLOSED** · see `cp01/correction-design-note.md` |
++| Historical visual seed | `../_seed-synthesis.mjs` retained as historical only (direct materialize — **NOT** CP01 proof) |
++| Debts | F2 routing **OPEN** · R3 **NOT STARTED** · P6 **NOT READY** · runtime v3 **NON ADOPTED** |
 +| Anti-claims | **≠** Truth C · **≠** authority mutation · **≠** UI-only fake synthesis · **≠** P5 COMPLETE · **≠** integrated on main (local uncommitted candidate on branch tip = main @ `49b4fdaf…`) |
 +
 +---
@@ -4562,10 +6720,10 @@ index 62af8c61..5a3e2d99 100644
 -         CP01 durable continuity CLOSED locally
 -         CP02 reconcile continuity + C polish CLOSED locally
 -         — NOT INTEGRATED · R3 NOT STARTED
-+P5-S04 = LOCAL CANDIDATE — PRODUCT-DERIVED SYNTHÈSES
-+         DELIVERY AUTHORIZED / NOT INTEGRATED
-+         M9 + builder + read-only UI + teasers
-+         A=0 / B=0 · ZERO REAL
++P5-S04 = LOCAL CANDIDATE — CORRECTION PASS 01 COMPLETE LOCALLY
++         CRITICAL RE-REVIEW REQUIRED
++         PRODUCT-PATH SYNTHESIS + LINEAGE + PILOT UI + B1/B2
++         A=0 / B=0 · ZERO REAL · NOT INTEGRATED
 
  READY FOR REAL          = NO
  runtime v3              = NON ADOPTED
@@ -4576,22 +6734,20 @@ index 62af8c61..5a3e2d99 100644
 -NEXT                   = COMMIT / PUSH / PR → CHATGPT PR REVIEW + CI
 -NEXT MORRIS GATE       = P5-S03 MERGE GATE (only after ChatGPT PR review + required CI green)
 -NEXT CAPABILITY HINT   = subsequent P5 capability requalification / later R3 / P6
-+NEXT                   = CHATGPT CRITICAL REVIEW (S04)
++NEXT                   = CHATGPT FINAL CRITICAL RE-REVIEW (S04 CP01)
 +NEXT MORRIS GATE       = P5-S04 GIT INTEGRATION (after PASS)
  ```
 
 -**Synthèse honnête.** P5-S01/S02 sont sur main. P5-S03 projette Aperçu + Exécution depuis le monde Product existant, avec continuation W2 canonique et polish C borné. **≠ R3 / ≠ P5 COMPLETE / ≠ runtime v3 ADOPTED / ≠ Synthèses**. **P4 reste l’autorité d’architecture**.
-+**Synthèse honnête.** P5-S04 materialise des synthèses Product dérivées depuis ClaimEvaluation durable, les persiste en M9, et les projette en UI read-only. **≠ R3 / ≠ P5 COMPLETE / ≠ runtime v3 ADOPTED**. **P4 reste l’autorité d’architecture**.
++**Synthèse honnête.** P5-S04 CP01 branche la matérialisation Synthèse sur le chemin Product gouverné, durcit la lignée Contract-Result / currentness, projette un langage Pilote, et aligne B1/B2 Figma. **≠ R3 / ≠ P5 COMPLETE / ≠ runtime v3 ADOPTED**. **P4 reste l’autorité d’architecture**.
 
  ---
 
 -*Fin du document P5 — Integrated Delivery — P5-S03 Object-Native Views — S01/S02 INTEGRATED · S03 LOCAL CANDIDATE GIT INTEGRATION AUTHORIZED — NOT YET INTEGRATED · R3 NOT STARTED · READY FOR REAL = NO · runtime v3 NON ADOPTED — P4 remains architecture authority.*
-+*Fin du document P5 — Integrated Delivery — S01/S02/S03 INTEGRATED · S04 LOCAL CANDIDATE · R3 NOT STARTED · READY FOR REAL = NO · runtime v3 NON ADOPTED — P4 remains architecture authority.*
++*Fin du document P5 — Integrated Delivery — S01/S02/S03 INTEGRATED · S04 CP01 COMPLETE LOCALLY / CRITICAL RE-REVIEW REQUIRED · R3 NOT STARTED · READY FOR REAL = NO · runtime v3 NON ADOPTED — P4 remains architecture authority.*
 ```
 
-### projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-
-_Unified diff lines: 13_
+## DIFF: `projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json`
 
 ```diff
 diff --git a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
@@ -4609,225 +6765,164 @@ index 6033a8db..8766284c 100644
        "path": "projects/sfia-studio/app/lib/oa/project/domain/artifactTargetRouting.ts",
 ```
 
-### .tmp-sfia-review/p5-s04-visual/correction-design-note.md
+---
 
-_Lines: 38_
+# COMPLETE CONTENTS CHECKLIST
 
-```md
-# P5-S04 Synthèses — Visual classification (honest)
+| File | Embedded |
+| --- | --- |
+| `projects/sfia-studio/app/lib/oa/synthesis/application/buildProductSynthesis.ts` | YES |
+| `projects/sfia-studio/app/lib/oa/synthesis/application/materializeProductSynthesis.ts` | YES |
+| `projects/sfia-studio/app/lib/oa/synthesis/application/rebuildProductSynthesis.ts` | YES |
+| `projects/sfia-studio/app/lib/oa/synthesis/application/searchProductSyntheses.ts` | YES |
+| `projects/sfia-studio/app/lib/oa/synthesis/domain/errors.ts` | YES |
+| `projects/sfia-studio/app/lib/oa/synthesis/domain/invariants.ts` | YES |
+| `projects/sfia-studio/app/lib/oa/synthesis/domain/types.ts` | YES |
+| `projects/sfia-studio/app/lib/oa/synthesis/index.ts` | YES |
+| `projects/sfia-studio/app/lib/oa/synthesis/infrastructure/sqlite/createSqliteSynthesisServices.ts` | YES |
+| `projects/sfia-studio/app/lib/oa/synthesis/infrastructure/sqlite/sqliteSynthesisRepository.ts` | YES |
+| `projects/sfia-studio/app/lib/oa/synthesis/ports/synthesisRepositoryPort.ts` | YES |
+| `projects/sfia-studio/app/features/project-assistant/buildProductSynthesisLineageInput.ts` | YES |
+| `projects/sfia-studio/app/features/project-assistant/synthesisActions.ts` | YES |
+| `projects/sfia-studio/app/features/project-assistant/w2/maybeMaterializeProductSynthesisAfterW3c.ts` | YES |
+| `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/SynthesesSurface.tsx` | YES |
+| `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/SynthesesSurface.module.css` | YES |
+| `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/synthesisPresentation.ts` | YES |
+| `projects/sfia-studio/app/__tests__/oa/synthesis/p5.s04.productDerivedSynthesis.d0.test.ts` | YES |
+| `projects/sfia-studio/app/__tests__/oa/synthesis/p5.s04.cp01.productPathSynthesis.d0.test.ts` | YES |
+| `projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s04.synthesesSurface.ui.test.tsx` | YES |
+| `.tmp-sfia-review/p5-s04-visual/cp01/_seed-product-path.mjs` | YES |
+| `.tmp-sfia-review/p5-s04-visual/cp01/_capture.mjs` | YES |
+| `.tmp-sfia-review/p5-s04-visual/cp01/manifest.md` | YES |
+| `.tmp-sfia-review/p5-s04-visual/cp01/correction-design-note.md` | YES |
+| `.tmp-sfia-review/p5-s04-visual/cp01/seed-product-path.json` | YES |
 
-**Reviewed:** 2026-10-05 Europe/Paris
-**Runtime evidence:** `.tmp-sfia-review/p5-s04-visual/after/`
-**Figma refs:** `.tmp-sfia-review/p5-s04-visual/figma/` (164:3 · 190:175 · 190:433 · 190:455) · Overview preview vs 51:2 (S03)
-
-## Method
-Side-by-side against Figma exports; classify per P3/P5 visual debt taxonomy:
-- **A** — structural / authority / wrong surface
-- **B** — blocking layout break or illegibility
-- **C** — polish / spacing / typography / density drift (actionable or acceptable)
-- **D** — expected Product content variance (honest empty/missing lineage fields)
-
-## Counts (target A=0 B=0)
-
-| Class | Count | Notes |
-| --- | ---: | --- |
-| **A** | **0** | Synthèses remain read-only; NON-AUTORITATIVE badge present; no fake authority CTAs |
-| **B** | **0** | Desktop/compact/mobile list+detail usable; no overlap/clipping blockers at captured viewports |
-| **C** | **4** | Desktop list+detail column rhythm vs 164:3 (section numbering density); compact 1024 header stack; mobile list card padding vs 190:433; mobile detail section scroll anchor vs 190:455 |
-| **D** | **3** | Seeded synthesis lacks durable EC/attempt/evidence/RB in Product DB — builder correctly surfaces gaps in sections 02–05; Overview count shows real `1` when loaded; campaign project otherwise sparse |
-
-## Per-capture
-
-| Capture | Figma | A | B | C | D |
-| --- | --- | ---: | ---: | ---: | ---: |
-| syntheses-desktop-1440x1024.png | 164:3 | 0 | 0 | 1 | 0 |
-| syntheses-compact-1024x768.png | 190:175 | 0 | 0 | 1 | 0 |
-| syntheses-mobile-list-390x844.png | 190:433 | 0 | 0 | 1 | 0 |
-| syntheses-mobile-detail-390x844.png | 190:455 | 0 | 0 | 1 | 0 |
-| apercu-desktop-1440x1024.png | 51:2 (synthesis block) | 0 | 0 | 0 | 1 |
-| conversation-desktop-1440x1024.png | 46:2 (teaser) | 0 | 0 | 0 | 1 |
-
-## Verdict
-**PASS WITH C/D RESERVES** — **A=0 · B=0** (target met). C items are bounded polish; D items are honest Product lineage variance, not UI invention.
-
-## Re-capture note
-Dev server must run with `SFIA_STUDIO_PRODUCT_DB_PATH` (from `.env.local`) and auth storage state; otherwise Synthèses surface shows `Persistance Product SQLite indisponible` (runtime misconfiguration — not a visual class).
-```
-
-### .tmp-sfia-review/p5-s04-visual/after/manifest.json
-
-_Lines: 51_
-
-```json
-{
-  "capturedAt": "2026-10-05T17:33:36.118Z",
-  "items": [
-    {
-      "viewport": "1440x1024",
-      "view": "syntheses",
-      "state": "list",
-      "figma": "164:3",
-      "figmaRef": "/Users/morris/Projects/sfia-studio-chat-first-product-simplification-p3/.tmp-sfia-review/p5-s04-visual/figma/desktop-164-3.png",
-      "file": "syntheses-desktop-1440x1024.png"
-    },
-    {
-      "viewport": "1024x768",
-      "view": "syntheses",
-      "state": "list",
-      "figma": "190:175",
-      "figmaRef": "/Users/morris/Projects/sfia-studio-chat-first-product-simplification-p3/.tmp-sfia-review/p5-s04-visual/figma/compact-190-175.png",
-      "file": "syntheses-compact-1024x768.png"
-    },
-    {
-      "viewport": "390x844",
-      "view": "syntheses",
-      "state": "mobile-list",
-      "figma": "190:433",
-      "figmaRef": "/Users/morris/Projects/sfia-studio-chat-first-product-simplification-p3/.tmp-sfia-review/p5-s04-visual/figma/mobile-list-190-433.png",
-      "file": "syntheses-mobile-list-390x844.png"
-    },
-    {
-      "viewport": "390x844",
-      "view": "syntheses",
-      "state": "mobile-detail",
-      "figma": "190:455",
-      "figmaRef": "/Users/morris/Projects/sfia-studio-chat-first-product-simplification-p3/.tmp-sfia-review/p5-s04-visual/figma/mobile-detail-190-455.png",
-      "file": "syntheses-mobile-detail-390x844.png"
-    },
-    {
-      "viewport": "1440x1024",
-      "view": "overview",
-      "state": "synthesis-preview",
-      "figma": "51:2",
-      "purpose": "Aperçu synthesis teaser block",
-      "file": "apercu-desktop-1440x1024.png"
-    },
-    {
-      "viewport": "1440x1024",
-      "view": "conversation",
-      "state": "synthesis-teaser",
-      "file": "conversation-desktop-1440x1024.png"
-    }
-  ]
-}
-```
-
-## COMPLETE CONTENTS CHECKLIST (previously-missing)
-
-| File | Lines embedded | Signature verified locally |
-|---|---:|---|
-| `projects/sfia-studio/app/lib/oa/synthesis/application/buildProductSynthesis.ts` | 340 | `export function buildProductSynthesis` → YES |
-| `projects/sfia-studio/app/lib/oa/synthesis/application/materializeProductSynthesis.ts` | 54 | `export async function materializeProductSynthesis` → YES |
-| `projects/sfia-studio/app/lib/oa/synthesis/application/rebuildProductSynthesis.ts` | 28 | `export async function rebuildProductSynthesis` → YES |
-| `projects/sfia-studio/app/lib/oa/synthesis/application/searchProductSyntheses.ts` | 10 | `export async function searchProductSyntheses` → YES |
-| `projects/sfia-studio/app/lib/oa/synthesis/domain/types.ts` | 56 | `export type ProductSynthesisProjection` → YES |
-| `projects/sfia-studio/app/lib/oa/synthesis/domain/invariants.ts` | 174 | `export function validateProductSynthesisShape` → YES |
-| `projects/sfia-studio/app/lib/oa/synthesis/infrastructure/sqlite/sqliteSynthesisRepository.ts` | 229 | `export class SqliteSynthesisRepository` → YES |
-| `projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/db.ts` (diff) | (unified) | `CREATE TABLE IF NOT EXISTS oa_syntheses` → YES |
-| `projects/sfia-studio/app/lib/oa/synthesis/ports/synthesisRepositoryPort.ts` | 23 | `export interface SynthesisRepositoryPort` → NO |
-| `projects/sfia-studio/app/features/project-assistant/buildProductSynthesisLineageInput.ts` | 149 | `export async function buildProductSynthesisLineageInput` → YES |
-
-## 38. S03 handoff context (integrated)
-P5-S03 merged PR #557 · main 49b4fdaf… · object-native Aperçu/Exécution preserved · S04 adds Synthèses without new parallel architecture.
-
-## 39. Test output capture (S04 targeted)
-```
-Test Files  5 passed (5)
-Tests  25 passed (25)
-```
-
-## 40. Test output capture (full suite)
-```
-Test Files  471 passed | 18 skipped (489)
-Tests  5223 passed | 138 skipped (5361)
-```
-
-## 41. Dev server note
-Restart: `OPS1_CONVERSATION_PROVIDER=fake SFIA_STUDIO_E2E_QA_CONTROL=1 SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY=1 npm run dev -- --hostname localhost --port 3020`
-Requires `.env.local` Product DB path for SQLite synthesis services.
-
-## 42. Remaining debts
-F2 routing OPEN · R3 NOT STARTED · P6 NOT READY · runtime v3 NON ADOPTED · richer Product lineage for demo content (optional)
-
-## 43. Next gate
-**CHATGPT P5-S04 CRITICAL REVIEW** → **MORRIS P5-S04 GIT INTEGRATION**
-
-## 44. Final verdict (review pack)
-```text
-PASS — P5-S04 PRODUCT-DERIVED SYNTHÈSES
-LOCAL CANDIDATE COMPLETE — NOT INTEGRATED
-M9 + DETERMINISTIC BUILDER + READ-ONLY UI PROVEN
-REAL SYNTHESIS SEEDED IN CAMPAIGN PRODUCT DB
-A=0 / B=0 · ZERO REAL
-FULL SUITE GREEN AFTER S04 TEST HYGIENE
-PROJECT COMMIT/PUSH/PR NOT PERFORMED
-```
+| Modified diffs | Embedded |
+| --- | --- |
+| `projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts` | YES |
+| `projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx` | YES |
+| `projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.module.css` | YES |
+| `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx` | YES |
+| `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/OverviewSurface.tsx` | YES |
+| `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ProjectContextSummary.tsx` | YES |
+| `projects/sfia-studio/app/lib/oa/project/index.ts` | YES |
+| `projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/db.ts` | YES |
+| `projects/sfia-studio/app/__tests__/oa/decision/m3ProductSchemaMigration.test.ts` | YES |
+| `projects/sfia-studio/app/__tests__/oa/project/m5ProductSchemaMigration.test.ts` | YES |
+| `projects/sfia-studio/app/__tests__/oa/project/m6ProductSchemaMigration.test.ts` | YES |
+| `projects/sfia-studio/app/__tests__/pre-m6-product-ui/automaticProjectResume.ui.test.tsx` | YES |
+| `projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s01.workspaceLayout.ui.test.tsx` | YES |
+| `projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s03.objectNativeViews.ui.test.tsx` | YES |
+| `projects/sfia-studio/app/__tests__/pre-m6-product-ui/productJourneyProjectionCoherence.ui.test.tsx` | YES |
+| `projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts` | YES |
+| `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` | YES |
+| `projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md` | YES |
+| `projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json` | YES |
 
 ---
 
-# Cursor Report (items 1–64)
+# Cursor Report — P5-S04 CORRECTION PASS 01 (items 1–87)
 
-1. Timestamp: 2026-10-05 19:35:31 +0200 Europe/Paris
-2. Workspace: `/Users/morris/Projects/sfia-studio-chat-first-product-simplification-p3`
-3. Branch: `delivery/sfia-studio-product-simplification-p5-s04-product-derived-syntheses`
-4. HEAD: `49b4fdaf078fdf2a5c7bfce3baad05fa65220c2e`
-5. origin/main alignment at start: **YES** (49b4fdaf)
-6. P5-S04 delivery authorization: **CONSUMED**
-7. P5-S03 status: **INTEGRATED / POST-MERGE VERIFIED** (#557)
-8. P5-S04 status: **LOCAL CANDIDATE IN PROGRESS → COMPLETE (this pass)**
-9. Project commit performed: **NO**
-10. Project push performed: **NO**
-11. Project PR performed: **NO**
-12. ZERO REAL: **YES**
-13. P5_S02_RUN_REAL set: **NO**
-14. Product DB path used: campaign `oa-product.sqlite` via `.env.local`
-15. M9 table present after store open: **YES** (`oa_syntheses`)
-16. ClaimEvaluation seeded: **clm:p5-s04:campaign:0ed5c4e1**
-17. Synthesis materialized: **syn:65645eee8ad4206537f90d0c2b4b6c53**
-18. Seed script: `_seed-synthesis.mjs` — **PASS**
-19. Capture script: `_capture.mjs` — **PASS** (after dev restart)
-20. syntheses-desktop-1440x1024.png: **CAPTURED**
-21. syntheses-compact-1024x768.png: **CAPTURED**
-22. syntheses-mobile-list-390x844.png: **CAPTURED**
-23. syntheses-mobile-detail-390x844.png: **CAPTURED**
-24. apercu-desktop-1440x1024.png (preview): **CAPTURED**
-25. conversation-desktop-1440x1024.png (teaser): **CAPTURED**
-26. Visual A count: **0**
-27. Visual B count: **0**
-28. Visual C count: **4**
-29. Visual D count: **3**
-30. correction-design-note.md: **WRITTEN**
-31. tsc: **PASS**
-32. lint: **PASS**
-33. build: **PASS**
-34. npm test full: **PASS** (5223)
-35. S04 D0 tests: **PASS** (13)
-36. S04 UI tests: **PASS** (3)
-37. Migration tests: **PASS**
-38. importBoundaries updated: **YES**
-39. PRR digest updated: **YES** (db.ts)
-40. pre-m6 synthesis mocks: **YES** (3 files)
-41. Synthèses UI read-only: **PROVEN** (T16)
-42. Overview teaser: **PROVEN** (runtime capture)
-43. Conversation teaser: **PROVEN** (runtime capture)
-44. NON-AUTORITATIVE badge: **VISIBLE** (capture)
-45. No fake recommendation when absent: **PROVEN** (D0 T05)
-46. ClaimEvaluation required: **PROVEN** (D0 T01)
-47. Persistence survives reopen: **PROVEN** (D0 T07)
-48. Roadmap truth-sync: **DONE**
-49. Integrated delivery doc S04 section: **DONE**
-50. chatgpt-review.md FULL pack: **THIS FILE**
-51. Handoff publish script present: **YES**
-52. Handoff commit message prepared: **docs(review-handoff): publish P5 S04 delivery review**
-53. Before handoff SHA: **7c8fd2e45cab48c5428a3b865c4f638c860be0b2**
-54. Before handoff blob: **97c75bd19b7c64367d137171f6025b36b9480d60**
-55. L3 handoff worktree: `/Users/morris/Projects/sfia-workspace/sfia-review-handoff`
-56. Preserve .tmp historical evidence: **YES**
-57. Build Doctrine / P3 / P4 / v3 framing modified: **NO**
-58. F2 debt: **OPEN**
-59. R3: **NOT STARTED**
-60. P6 READY: **NO**
-61. runtime v3: **NON ADOPTED**
-62. P5 COMPLETE: **NO**
-63. Next Morris gate: **P5-S04 GIT INTEGRATION** (after ChatGPT PASS)
-64. **VERDICT: PASS — LOCAL CANDIDATE COMPLETE, NOT INTEGRATED**
+1. Branch: `delivery/sfia-studio-product-simplification-p5-s04-product-derived-syntheses`
+2. HEAD/base/origin-main: `49b4fdaf078fdf2a5c7bfce3baad05fa65220c2e` (= origin/main)
+3. Local Git truth: S04+CP01 **uncommitted** local candidate; dirty scope attributable to S04/CP01 + `.tmp-sfia-review/**`
+4. Morris CP01 authorization: **CONSUMED**
+5. Sources reread: P4 architecture · `05-…integrated-delivery.md` · roadmap · Figma 164:3/190:175/190:433/190:455
+6. Template SHA: `948156a21309ef99c3aaed6410947dc6b9bc569a`
+7. Handoff before SHA/blob: `bd7a037384897fd6fdcb68416d8c2d91c6ac2d1b` / `fb6229256300bd725b45bf270492cfa9a2239da0`
+8. Production materialization seam: `materializeW3bProductTerminal` → `finishWithOptionalPostEvidence` → `maybeMaterializeProductSynthesisAfterW3c`
+9. Exact caller/path: W3-B/W3-C success/rehydrate returns in `materializeW3bProductTerminal.ts` (docs-write + write-path)
+10. Direct seed still required for Product runtime? **NO** for CP01 proof (historical `_seed-synthesis.mjs` retained only)
+11. Automatic Product-path materialization proven? **YES** (P01–P05 + campaign rehydrate seed → `syn:fc44ff99449fd3b96f4500b60a2eeda7`)
+12. W3-C fresh path behavior: post-evidence success triggers soft Synthesis materialize
+13. W3-C rehydrate behavior: existing/rehydrated post-evidence also triggers soft materialize
+14. Recommendation source: durable W3-C recommendation via `formatW3cRecommendationForSynthesis` / `findExistingW3cPostEvidence`
+15. Recommendation durable ref: `w3cRecommendationEpistemicId(evidenceId, claimEvaluationId)`
+16. New Recommendation store? **NO**
+17. Recommendation authority: **unchanged** (Synthesis does not author Recommendation)
+18. subjectKind validation: requires `execution_contract_result`
+19. contractResultBindings required? **YES**
+20. contractResultBindingsMatchCurrentFacts reused? **YES**
+21. Project mismatch behavior: `CLAIM_EVALUATION_PROJECT_MISMATCH`
+22. EC version/fingerprint validation: via bindings match / Attempt-bound snapshot
+23. Attempt bound snapshot used? **YES** for planned semantics
+24. ReviewBundle version validation: via bindings match (`frozenVersion`)
+25. Evidence binding validation: CE `evidenceRefs` + ReviewBundle evidence order for matcher
+26. Fingerprint material before/after: covers section-affecting source material; excludes `generatedAt`
+27. Same semantics idempotent? **YES** (same fingerprint)
+28. generatedAt ignored by fingerprint? **YES**
+29. Same IDs/source semantic change detected? **YES** (C02–C08)
+30. CE supersession behavior: `supersedesClaimEvaluationId` → Synthesis successor
+31. Rebuildability preserved? **YES**
+32. Truth C unchanged? **YES**
+33. Synthesis failure effect on Product truth: **soft-fail** — CE/W3-C intact (P05)
+34. Pilot-facing section language: **YES** (sections rewritten)
+35. Raw ClaimEvaluation IDs visible? **NO** in sections (subject may project durable CE `claimStatement` — D variance)
+36. Raw ReviewBundle terminology visible? **NO** in sections
+37. deterministic/non_critical visible? **NO** in sections
+38. NON-AUTORITATIVE badge visible? **NO** (removed from Synthèses / conversation teaser)
+39. Search preserved? **YES**
+40. 9 sections preserved? **YES**
+41. Figma nodes reread: 164:3 · 190:175 · 190:433 · 190:455 · 51:2 · conversation teaser
+42. Desktop structural correction: **B1 CLOSED** (header/search/list in left column)
+43. Compact structural correction: **B1 CLOSED**
+44. Mobile list correction: **B2 CLOSED** (projectHeader+tabs hidden)
+45. Mobile detail correction: **B2 CLOSED** (single nav ← Synthèses)
+46. Prior C reclassification: actionable C reduced; remaining C polish only
+47. Final A count: **0**
+48. Final B count: **0**
+49. Remaining actionable C: **3** (density/rhythm polish)
+50. D/expected Product variance: **4** (not_proven campaign CE; durable claimStatement; W3-C recommendation text; empty execution honesty)
+51. Product-path runtime captures: `.tmp-sfia-review/p5-s04-visual/cp01/after/` (7 captures)
+52. S03 regression captures/tests: execution mobile control captured; S03 UI tests still green in full suite
+53. Lineage tests: L01–L09 **PASS**
+54. Currentness tests: C01–C08 **PASS**
+55. Product-path tests: P01–P05 **PASS**
+56. S04 D0 tests: **PASS**
+57. Migration tests: M3/M5/M6 **PASS**
+58. W3-B tests: covered via full suite **PASS**
+59. W3-C tests: covered via full suite **PASS**
+60. pre-m6 UI tests: **PASS** (incl. p5.s04 UI)
+61. typecheck: **PASS** (via `npm run build`)
+62. lint: **PASS** (via `npm run build`)
+63. build: **PASS**
+64. full npm test: **PASS** (472 files / 5241 tests)
+65. REAL calls: **ZERO** (`P5_S02_RUN_REAL` never set; fake provider)
+66. New DB? **NO** (M9 additive only)
+67. New state machine? **NO**
+68. New Product aggregate? **NO**
+69. Parallel architecture? **NO**
+70. Files created: `lib/oa/synthesis/**` · `buildProductSynthesisLineageInput.ts` · `synthesisActions.ts` · `maybeMaterializeProductSynthesisAfterW3c.ts` · `SynthesesSurface*` · CP01 tests · `cp01/_seed-product-path.mjs` · captures/docs
+71. Files modified: `materializeW3bProductTerminal.ts` · Workspace/Overview/Conversation/Context · sqlite db/index · migrations/mocks/importBoundaries · roadmap · 05-integrated-delivery · PRR digest
+72. Roadmap truth-sync: **YES** — tip **CP01 COMPLETE LOCALLY / CRITICAL RE-REVIEW REQUIRED**
+73. P5 truth-sync: **YES** — S04 section updated
+74. Project commit? **NO**
+75. Project push? **NO**
+76. PR? **NO**
+77. Merge? **NO**
+78. Review Pack FULL? **YES** (this file — complete bodies + unified diffs)
+79. Handoff after SHA: *(filled after publish)*
+80. Handoff blob: *(filled after publish)*
+81. Remote reread: *(filled after publish)*
+82. P5-S04 integrated? **NO**
+83. P5 COMPLETE? **NO**
+84. R3 status: **NOT STARTED**
+85. P6 READY? **NO**
+86. runtime v3: **NON ADOPTED**
+87. Final verdict:
+
+```text
+PASS — P5-S04 CORRECTION PASS 01 COMPLETE —
+PRODUCT-PATH SYNTHESIS MATERIALIZATION PROVEN —
+CANONICAL CONTRACT-RESULT LINEAGE ENFORCED —
+DURABLE W3-C RECOMMENDATION REUSED —
+SEMANTIC CURRENTNESS / CE SUPERSESSION PROVEN —
+SYNTHESIS REMAINS NON-AUTHORITATIVE / NOT TRUTH C —
+PILOT-FACING SYNTHESIS PROJECTION CLEAN —
+P3 DESKTOP / COMPACT / MOBILE STRUCTURE ALIGNED —
+A=0 / B=0 —
+ZERO REAL —
+READY FOR CHATGPT FINAL CRITICAL RE-REVIEW
+```
+
+Report timestamp: 2026-10-05 20:27:08 +0200 Europe/Paris
