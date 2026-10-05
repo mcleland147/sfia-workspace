@@ -18,6 +18,17 @@ import { LpsSurface } from "./surfaces/LpsSurface";
 import { RecoverySurface } from "./surfaces/RecoverySurface";
 import { LifecycleSurface } from "./surfaces/LifecycleSurface";
 import { TrajectorySurface } from "./surfaces/TrajectorySurface";
+import { lpsNextAction } from "./surfaces/LpsSurface";
+import {
+  ProjectContextShortcuts,
+  ProjectContextSummary,
+} from "./surfaces/ProjectContextSummary";
+import {
+  deriveAttentionItems,
+  deriveCycleSummary,
+  deriveTrajectoryNodes,
+  presentCurrentness,
+} from "./workspaceContextPresentation";
 import {
   projectAssistantActiveCycleWorkspaceAction,
   projectAssistantConfirmReservationResolutionAction,
@@ -27,6 +38,18 @@ import type { PilotLifecycleProjection } from "@/lib/oa/cycle/application/lifecy
 import { ProjectWorkspaceRoutingPanelLazy } from "./surfaces/ProjectWorkspaceRoutingPanel";
 import type { GetProjectResult, GetProjectSuccess } from "./types";
 import styles from "./ProjectWorkspacePage.module.css";
+
+/** prefers-reduced-motion: no smooth scrolling for in-page jumps. */
+function scrollBehaviorPref(): ScrollBehavior {
+  if (
+    typeof window !== "undefined" &&
+    typeof window.matchMedia === "function" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  ) {
+    return "auto";
+  }
+  return "smooth";
+}
 
 /**
  * CYCLE-RESERVATION-PILOTING-01 — explicit Pilot draft about one Reservation.
@@ -118,7 +141,7 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
 
   const focusConversation = useCallback(() => {
     conversationRef.current?.scrollIntoView({
-      behavior: "smooth",
+      behavior: scrollBehaviorPref(),
       block: "start",
     });
     const input = conversationRef.current?.querySelector(
@@ -158,7 +181,7 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
     setJournalCollapsed(false);
     const rail = document.querySelector("[data-testid='cycle-journal-rail']");
     if (rail instanceof HTMLElement) {
-      rail.scrollIntoView({ behavior: "smooth", block: "start" });
+      rail.scrollIntoView({ behavior: scrollBehaviorPref(), block: "start" });
     }
   }, []);
 
@@ -273,10 +296,49 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
         `[data-testid='cycle-journal-entry-${journalEntryId}']`,
       );
       if (el instanceof HTMLElement) {
-        el.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        el.scrollIntoView({ behavior: scrollBehaviorPref(), block: "nearest" });
       }
     }, 0);
   };
+
+  const scrollToTestId = useCallback((testId: string) => {
+    const el = document.querySelector(`[data-testid='${testId}']`);
+    if (el instanceof HTMLElement) {
+      el.scrollIntoView({ behavior: scrollBehaviorPref(), block: "start" });
+      return true;
+    }
+    return false;
+  }, []);
+
+  /** Shortcut « Journal du cycle » — opens the existing Journal rail. */
+  const openJournal = useCallback(() => {
+    setLpsOpen(true);
+    setJournalCollapsed(false);
+    window.setTimeout(() => scrollToTestId("cycle-journal-rail"), 0);
+  }, [scrollToTestId]);
+
+  /** Shortcut « Historique » — the existing durable history surface. */
+  const openHistory = useCallback(() => {
+    setLpsOpen(true);
+    window.setTimeout(() => scrollToTestId("project-history-panel"), 0);
+  }, [scrollToTestId]);
+
+  /** Tab « Aperçu » — brings the project context panel into view. */
+  const openOverview = useCallback(() => {
+    setLpsOpen(true);
+    window.setTimeout(() => scrollToTestId("project-lps-column"), 0);
+  }, [scrollToTestId]);
+
+  /** Tab « Exécution » — jumps to the governed execution cards already in the conversation. */
+  const openExecution = useCallback(() => {
+    for (const id of [
+      "project-assistant-f3-contract",
+      "project-assistant-f3-prepare",
+      "project-assistant-panel",
+    ]) {
+      if (scrollToTestId(id)) return;
+    }
+  }, [scrollToTestId]);
 
   if (!result) {
     return (
@@ -320,95 +382,191 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
     proposalSubjectOwnership === "UNKNOWN" ||
     proposalSubjectOwnership === "OWNED";
 
+  const lifecycle = lifecycleProjection;
+  const decisionPending =
+    controller.activeProposal?.status === "DECISION_REQUIRED";
+  const currentness = presentCurrentness({
+    transcriptAvailability: controller.transcriptAvailability,
+    stateVersion: success.livingState.version,
+  });
+  const cycleSummary = deriveCycleSummary(lifecycle);
+  const attention = deriveAttentionItems({ decisionPending, lifecycle });
+  const trajectoryNodes = deriveTrajectoryNodes(lifecycle);
+  const focusTopic =
+    controller.journalEntries.find((e) => e.isCurrentTopic)?.title ?? null;
+  const nextAction = lpsNextAction(success.readiness.status);
+  const decisionCount = attention.some((a) => a.key === "decision") ? 1 : 0;
+  const reserveCount = lifecycle?.reservationSummary?.activeCount ?? 0;
+  const executionAvailable = Boolean(
+    controller.f3Prepare ||
+      controller.f3M3Resolved ||
+      controller.f3Execute ||
+      controller.durableEvidenceOutcome,
+  );
+
   return (
     <div className={styles.root} data-testid="project-principal">
-      <header className={styles.projectHeader}>
-        <div className={styles.projectHeaderText}>
-          <h1 className={styles.projectTitle}>{success.project.name}</h1>
-          <p className={styles.projectObjective}>{success.project.objective}</p>
-        </div>
-        <button
-          type="button"
-          className={styles.lpsToggle}
-          data-testid="lps-drawer-toggle"
-          aria-expanded={lpsOpen}
-          onClick={() => setLpsOpen((open) => !open)}
+      <div
+        className={styles.globalHeader}
+        data-testid="project-global-header"
+      >
+        <nav className={styles.breadcrumb} aria-label="Fil d’Ariane">
+          <Link href="/studio" className={styles.breadcrumbLink}>
+            Projets
+          </Link>
+          <span className={styles.breadcrumbSep} aria-hidden>
+            /
+          </span>
+          <span className={styles.breadcrumbCurrent} aria-current="page">
+            {success.project.name}
+          </span>
+        </nav>
+        <span
+          className={styles.currentness}
+          data-tone={currentness.tone}
+          data-testid="project-currentness-chip"
+          title={currentness.detail}
         >
-          {lpsOpen
-            ? "Masquer l'état et la trajectoire"
-            : "État du projet / Trajectoire"}
-        </button>
+          {currentness.label}
+        </span>
+      </div>
+
+      <header className={styles.projectHeader} data-testid="project-header">
+        <div className={styles.projectHeaderRow}>
+          <div className={styles.projectHeaderText}>
+            <h1 className={styles.projectTitle}>{success.project.name}</h1>
+            <p className={styles.projectObjective}>
+              {success.project.objective}
+            </p>
+          </div>
+          <div className={styles.projectChips}>
+            {lifecycle?.selectedCycleInstanceId ? (
+              <>
+                <span className={styles.chipAccent}>{cycleSummary.label}</span>
+                {cycleSummary.statusLabel ? (
+                  <span className={styles.chipMuted}>
+                    {cycleSummary.statusLabel}
+                  </span>
+                ) : null}
+              </>
+            ) : null}
+            <button
+              type="button"
+              className={styles.lpsToggle}
+              data-testid="lps-drawer-toggle"
+              aria-expanded={lpsOpen}
+              onClick={() => setLpsOpen((open) => !open)}
+            >
+              {lpsOpen
+                ? "Masquer l'état et la trajectoire"
+                : "État du projet / Trajectoire"}
+            </button>
+          </div>
+        </div>
+        <nav
+          className={styles.tabs}
+          aria-label="Vues du projet"
+          data-testid="project-tabs"
+        >
+          <button
+            type="button"
+            className={styles.tab}
+            data-selected="true"
+            aria-current="true"
+            data-testid="project-tab-conversation"
+            onClick={focusConversation}
+          >
+            Conversation
+          </button>
+          <button
+            type="button"
+            className={styles.tab}
+            data-selected="false"
+            data-testid="project-tab-overview"
+            onClick={openOverview}
+          >
+            Aperçu
+          </button>
+          <button
+            type="button"
+            className={styles.tab}
+            data-selected="false"
+            data-testid="project-tab-execution"
+            disabled={!executionAvailable}
+            aria-disabled={!executionAvailable}
+            title={
+              executionAvailable
+                ? undefined
+                : "Aucune exécution à afficher pour l’instant"
+            }
+            onClick={openExecution}
+          >
+            Exécution
+          </button>
+        </nav>
       </header>
 
-      {continuity.kind === "restored_hint" ? (
-        <p
-          className={styles.durabilityHint}
-          data-testid="project-auto-resume-hint"
-        >
-          {continuity.message}
-        </p>
-      ) : null}
-      {continuity.kind === "transcript_unavailable" ? (
-        <RecoverySurface
-          message={continuity.message}
-          onRetryTranscript={() => {
-            void controller.refreshConversationContinuity();
-          }}
-        />
-      ) : null}
-
       <div className={styles.layout} data-testid="project-workspace-layout">
-        <div className={styles.journalColumn} data-testid="project-journal-column">
-          <JournalSurface
-            entries={controller.journalEntries}
-            cycleInstanceId={controller.journalCycleInstanceId}
-            reservationsCycleInstanceId={reservationCycleInstanceId}
-            selectedEntryId={controller.selectedJournalEntryId}
-            onSelectEntry={controller.setSelectedJournalEntryId}
-            onViewExchanges={controller.focusJournalExchanges}
-            onFocusTurn={controller.focusTranscriptTurn}
-            transcriptMessages={controller.messages}
-            collapsed={journalCollapsed}
-            onToggleCollapsed={() => setJournalCollapsed((v) => !v)}
-            reservations={cycleReservations}
-            memoryTab={memoryTab}
-            onMemoryTabChange={setMemoryTab}
-            onTreatWithNora={treatReservationWithNora}
-            onConfirmResolve={confirmReservationResolution}
-            onConfirmDefer={confirmReservationDefer}
-            onViewJournalSubject={viewJournalSubject}
-            reservationBusyId={reservationBusyId}
-            recommendations={cycleRecommendations}
-            decisions={cycleDecisions}
-            onResumeRecommendationInChat={resumeRecommendationInChat}
-          />
-          {reservationNotice ? (
+        <div className={styles.main} ref={conversationRef}>
+          <div className={styles.focusBar} data-testid="project-focus-bar">
+            <span className={styles.focusLabel}>
+              <span className={styles.focusDot} aria-hidden />
+              Focus actuel
+            </span>
+            <span className={styles.focusTitle}>
+              {focusTopic ??
+                (lifecycle?.selectedCycleInstanceId
+                  ? cycleSummary.label
+                  : "Conversation avec Nora")}
+            </span>
+            <span className={styles.focusCounts}>
+              {decisionCount > 0 ? (
+                <span className={styles.focusCount}>1 décision</span>
+              ) : null}
+              {reserveCount > 0 ? (
+                <span className={styles.focusCount}>
+                  {reserveCount} réserve{reserveCount > 1 ? "s" : ""}
+                </span>
+              ) : null}
+            </span>
+          </div>
+
+          {continuity.kind === "restored_hint" ? (
             <p
               className={styles.durabilityHint}
-              data-testid="cycle-reservation-notice"
-              role="status"
+              data-testid="project-auto-resume-hint"
             >
-              {reservationNotice}
+              {continuity.message}
             </p>
           ) : null}
-        </div>
+          {continuity.kind === "transcript_unavailable" ? (
+            <RecoverySurface
+              message={continuity.message}
+              onRetryTranscript={() => {
+                void controller.refreshConversationContinuity();
+              }}
+            />
+          ) : null}
 
-        <div className={styles.main} ref={conversationRef}>
-          <div className={styles.conversation} data-testid="project-conversation-main">
+          <div
+            className={styles.conversation}
+            data-testid="project-conversation-main"
+          >
             <ConversationSurface
               controller={controller}
               onConfirmReservationResolve={confirmReservationResolution}
               reservationConfirmBusyId={reservationBusyId}
             />
           </div>
-          <HistorySurface result={success} durableOutcome={durableOutcome} />
         </div>
 
-        <div
-          className={[styles.lpsColumn, lpsOpen ? styles.lpsOpen : styles.lpsClosed].join(
-            " ",
-          )}
+        <aside
+          className={[
+            styles.lpsColumn,
+            lpsOpen ? styles.lpsOpen : styles.lpsClosed,
+          ].join(" ")}
           data-testid="project-lps-column"
+          aria-label="Contexte du projet"
         >
           <div className={styles.lpsSheet}>
             <button
@@ -419,6 +577,16 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
             >
               Fermer
             </button>
+
+            <ProjectContextSummary
+              cycle={cycleSummary}
+              focus={nextAction}
+              focusTopic={focusTopic}
+              currentness={currentness}
+              trajectory={trajectoryNodes}
+              attention={attention}
+            />
+
             <section
               className={styles.stateTrajectoryRegion}
               data-testid="project-state-trajectory-region"
@@ -431,10 +599,6 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
                 <h2 className={styles.stateTrajectoryTitle}>
                   État actuel et trajectoire
                 </h2>
-                <p className={styles.stateTrajectoryNote}>
-                  L&apos;état actuel et la trajectoire sont regroupés ici pour
-                  faciliter le pilotage.
-                </p>
               </header>
               <div
                 className={styles.stateTrajectoryStack}
@@ -449,12 +613,7 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
                   onOpenReservations={openReservationsTab}
                   onTreatReservationWithNora={treatReservationWithNora}
                   onEscalateTrajectory={() => {
-                    const el = document.querySelector(
-                      "[data-testid='w2-trajectory-panel']",
-                    );
-                    if (el instanceof HTMLElement) {
-                      el.scrollIntoView({ behavior: "smooth", block: "start" });
-                    }
+                    scrollToTestId("w2-trajectory-panel");
                   }}
                 />
                 <LpsSurface result={success} />
@@ -498,8 +657,53 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
                 />
               </div>
             </section>
+
+            <div
+              className={styles.journalColumn}
+              data-testid="project-journal-column"
+            >
+              <JournalSurface
+                entries={controller.journalEntries}
+                cycleInstanceId={controller.journalCycleInstanceId}
+                reservationsCycleInstanceId={reservationCycleInstanceId}
+                selectedEntryId={controller.selectedJournalEntryId}
+                onSelectEntry={controller.setSelectedJournalEntryId}
+                onViewExchanges={controller.focusJournalExchanges}
+                onFocusTurn={controller.focusTranscriptTurn}
+                transcriptMessages={controller.messages}
+                collapsed={journalCollapsed}
+                onToggleCollapsed={() => setJournalCollapsed((v) => !v)}
+                reservations={cycleReservations}
+                memoryTab={memoryTab}
+                onMemoryTabChange={setMemoryTab}
+                onTreatWithNora={treatReservationWithNora}
+                onConfirmResolve={confirmReservationResolution}
+                onConfirmDefer={confirmReservationDefer}
+                onViewJournalSubject={viewJournalSubject}
+                reservationBusyId={reservationBusyId}
+                recommendations={cycleRecommendations}
+                decisions={cycleDecisions}
+                onResumeRecommendationInChat={resumeRecommendationInChat}
+              />
+              {reservationNotice ? (
+                <p
+                  className={styles.durabilityHint}
+                  data-testid="cycle-reservation-notice"
+                  role="status"
+                >
+                  {reservationNotice}
+                </p>
+              ) : null}
+            </div>
+
+            <HistorySurface result={success} durableOutcome={durableOutcome} />
           </div>
-        </div>
+
+          <ProjectContextShortcuts
+            onOpenJournal={openJournal}
+            onOpenHistory={openHistory}
+          />
+        </aside>
       </div>
     </div>
   );

@@ -2,11 +2,13 @@
   display: flex;
   flex-direction: column;
   gap: var(--pm6-space-4);
-  background: var(--pm6-surface);
-  border: 1px solid var(--pm6-border-soft);
-  border-radius: var(--pm6-radius-lg);
-  box-shadow: var(--pm6-shadow-card);
-  padding: var(--pm6-space-5);
+  /* P3: flat transcript — the page column carries the surface, no card chrome. */
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0 0 var(--pm6-space-4);
+  min-width: 0;
 }
 
 /* ---------- top bar ---------- */
@@ -62,9 +64,7 @@
   flex-direction: column;
   gap: var(--pm6-space-4);
   min-height: 220px;
-  max-height: 52vh;
-  overflow-y: auto;
-  padding-right: var(--pm6-space-2);
+  /* Page scrolls (composer is sticky); no inner scroll box. */
 }
 
 .threadEmpty {
@@ -140,11 +140,14 @@
   background: var(--pm6-surface-sunken);
   border: 1px solid var(--pm6-border-soft);
   border-top-left-radius: var(--pm6-radius-sm);
+  background: transparent;
+  border-color: transparent;
+  padding-inline: 0;
 }
 
 .turnMine .bubble {
-  background: var(--pm6-forest-tint);
-  border: 1px solid var(--pm6-forest-tint);
+  background: var(--pm6-rail);
+  border: 1px solid var(--pm6-border-soft);
   border-top-right-radius: var(--pm6-radius-sm);
 }
 
@@ -648,6 +651,9 @@
 /* ---------- composer ---------- */
 
 .composer {
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
   display: flex;
   flex-direction: column;
   gap: var(--pm6-space-2);
@@ -655,7 +661,7 @@
   border: 1px solid var(--pm6-border);
   background: var(--pm6-surface);
   padding: var(--pm6-space-3);
-  box-shadow: var(--pm6-shadow-card);
+  box-shadow: var(--pm6-shadow-raised);
 }
 
 .composerInput {
@@ -688,13 +694,18 @@
 
 .sendButton {
   border-radius: var(--pm6-radius-pill);
-  border: 1px solid var(--pm6-forest);
-  background: var(--pm6-forest);
+  border: 1px solid var(--pm6-ink);
+  background: var(--pm6-ink);
   color: var(--pm6-forest-ink);
+  transition: background 120ms ease;
   padding: 9px 20px;
   font-size: 0.87rem;
   font-weight: 600;
   cursor: pointer;
+}
+
+.sendButton:hover:not(:disabled) {
+  background: var(--pm6-forest-hover);
 }
 
 .sendButton:disabled {
@@ -740,5 +751,14 @@
 
   .decisionButton {
     flex: 1 1 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .root,
+  .root * {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
   }
 }

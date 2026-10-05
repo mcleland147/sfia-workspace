@@ -15,7 +15,8 @@ export type TechnicalEventType =
   | "STRUCTURED_OUTPUT_REJECTED"
   | "TOOL_LOOP_COMPLETED"
   | "TOOL_LOOP_LIMIT_REACHED"
-  | "COGNITIVE_STRATEGY_SELECTED";
+  | "COGNITIVE_STRATEGY_SELECTED"
+  | "COGNITIVE_ROUTING_SELECTED";
 
 export interface TechnicalEvent {
   type: TechnicalEventType;

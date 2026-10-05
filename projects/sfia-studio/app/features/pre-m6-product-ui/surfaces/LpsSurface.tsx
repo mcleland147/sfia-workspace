@@ -4,6 +4,13 @@ import type { GetProjectSuccess } from "../types";
 import { projectContextForDisplay } from "@/features/project-assistant/presentationLabels";
 import styles from "./LpsSurface.module.css";
 
+/** Shared with the Workspace context panel — same wording, one source. */
+export function lpsNextAction(readinessStatus: string): string {
+  return readinessStatus === "NOT_READY"
+    ? "Poursuivre la qualification avec Nora, puis décider."
+    : "Poursuivre avec Nora — la préparation enregistrée reste à décider.";
+}
+
 /**
  * "ÉTAT DU PROJET" — durable projection only.
  * Every line comes from getProjectRuntimeAction; nothing is inferred or invented.
@@ -17,10 +24,7 @@ export function LpsSurface({ result }: { result: GetProjectSuccess }) {
       ? `Avancement enregistré · état v${livingState.version}`
       : "Projet ouvert · état initial enregistré";
 
-  const nextAction =
-    readiness.status === "NOT_READY"
-      ? "Poursuivre la qualification avec Nora, puis décider."
-      : "Poursuivre avec Nora — la préparation enregistrée reste à décider.";
+  const nextAction = lpsNextAction(readiness.status);
 
   return (
     <aside

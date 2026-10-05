@@ -43,6 +43,7 @@ vi.mock("@/features/pre-m6-product-ui/surfaces/HistorySurface", () => ({
 
 vi.mock("@/features/pre-m6-product-ui/surfaces/LpsSurface", () => ({
   LpsSurface: () => <div data-testid="lps-stub" />,
+  lpsNextAction: () => null,
 }));
 
 vi.mock("@/features/pre-m6-product-ui/surfaces/ProjectWorkspaceRoutingPanel", () => ({
@@ -310,7 +311,7 @@ describe("AUTOMATIC PROJECT RESUME — ProjectWorkspacePage", () => {
     expect(await screen.findByTestId("project-principal")).toBeTruthy();
     expect(await screen.findByTestId("project-workspace-layout")).toBeTruthy();
     expect(screen.getByTestId("cycle-journal-rail")).toBeTruthy();
-    expect(screen.getByText("Périmètre")).toBeTruthy();
+    expect(screen.getAllByText("Périmètre").length).toBeGreaterThan(0);
     expect(screen.getByText("Bonjour")).toBeTruthy();
     expect(screen.getByTestId("project-auto-resume-hint").textContent).toBe(
       W1_AUTO_RESUME_RESTORED_HINT,
@@ -374,7 +375,7 @@ describe("AUTOMATIC PROJECT RESUME — ProjectWorkspacePage", () => {
       W1_TRANSCRIPT_UNAVAILABLE_DISCLOSURE,
     );
     assertNoGenericRecoveryCtas();
-    expect(screen.getByText("Sujet durable")).toBeTruthy();
+    expect(screen.getAllByText("Sujet durable").length).toBeGreaterThan(0);
     expect(screen.getByTestId("recovery-retry-transcript")).toBeTruthy();
   });
 });

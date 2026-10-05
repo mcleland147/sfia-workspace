@@ -253,6 +253,24 @@ export {
   type NoraRunnerModelSettings,
 } from "./reasoningModelSettings";
 export {
+  decideCognitiveRouting,
+  deriveQualityFloor,
+  generateCandidateConfigs,
+  isOutsideP5TargetCohort,
+  P5_COGNITIVE_ROUTING_POLICY_VERSION,
+  P5_MAX_ESCALATIONS_PER_TASK,
+  P5_REASONING_MODE_NOMINAL,
+  P5_TARGET_MODEL_COHORT,
+} from "./cognitiveRoutingPolicy";
+export type {
+  CognitiveQualityFloor,
+  CognitiveRoutingConfig,
+  CognitiveRoutingDecision,
+  CognitiveRoutingLimitation,
+  DecideCognitiveRoutingInput,
+  P5TargetModelId,
+} from "./cognitiveRoutingPolicy";
+export {
   GROUNDING_REFS_TYPE,
   acceptGroundingRefsForProject,
   appendGroundingCognitiveDisclosure,

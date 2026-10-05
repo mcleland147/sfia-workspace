@@ -122,6 +122,73 @@ export function buildCurrentOpenAiCapabilityManifest(
 }
 
 /**
+ * P5 nominal TARGET routing cohort capability snapshot (dated external input).
+ * Cohort EXACT: gpt-6-luna · gpt-6.1-sol · gpt-6-astra.
+ * Does NOT mutate {@link buildMw0CapabilityManifest} (GPT-5.6 historical FREEZE).
+ * Does NOT replace {@link buildCurrentOpenAiCapabilityManifest} provider universe.
+ * Snapshot ≠ permanent SFIA doctrine; account entitlement ≠ documented capability.
+ *
+ * Effort sets (external input revalidated for P5-S01 Delivery / Correction Pass 01, 2026-10-05):
+ * - gpt-6-luna: none · low · medium · high · xhigh · max
+ * - gpt-6.1-sol: low · medium · high · xhigh · max (none unsupported)
+ * - gpt-6-astra: low · medium · high · xhigh · max (none unsupported)
+ *
+ * Pricing (Correction Pass 01 — Official OpenAI STANDARD SHORT CONTEXT ≤272K):
+ * - Luna 0.10 / 0.50 · Sol 2.00 / 10.00 · Astra 10.00 / 50.00 (USD per 1M tokens)
+ * Cached/cache-write rates exist at provider but are not stored unless consumed by estimateCostUsd.
+ * Long-context / Batch / Flex / Fast / Ultrafast / regional tiers differ.
+ * Replaceable FinOps ordering hint only — NOT doctrine · NOT observed REAL cost.
+ */
+export function buildP5TargetCapabilityManifest(
+  retrievedAtIso: string,
+): CapabilityManifest {
+  return {
+    retrievedAt: retrievedAtIso,
+    provider: "openai",
+    sourceName:
+      "Official OpenAI API Models + Pricing — P5 TARGET cohort (GPT-6 Luna / GPT-6.1 Sol / GPT-6 Astra) — Standard short-context — revalidated 2026-10-05",
+    sourceNote:
+      "P5-S01 Correction Pass 01 TARGET routing cohort — Standard processing tier · short-context pricing band (≤272K input) · ≠ MW0 historical · ≠ full provider universe · ≠ permanent doctrine · ≠ entitlement proof · ZERO REAL in S01. Revalidate before REAL gates. Long-context and other tiers use different rates.",
+    sdkCodeCapabilitySet: OPENAI_REASONING_EFFORT_VALUES,
+    models: [
+      {
+        modelId: "gpt-6-luna",
+        inputUsdPerMTok: 0.1,
+        outputUsdPerMTok: 0.5,
+        reasoningEfforts: ["none", "low", "medium", "high", "xhigh", "max"],
+      },
+      {
+        modelId: "gpt-6.1-sol",
+        inputUsdPerMTok: 2.0,
+        outputUsdPerMTok: 10.0,
+        reasoningEfforts: ["low", "medium", "high", "xhigh", "max"],
+      },
+      {
+        modelId: "gpt-6-astra",
+        inputUsdPerMTok: 10.0,
+        outputUsdPerMTok: 50.0,
+        reasoningEfforts: ["low", "medium", "high", "xhigh", "max"],
+      },
+    ],
+    campaignAllowlist: {
+      modelIds: ["gpt-6-luna", "gpt-6.1-sol", "gpt-6-astra"],
+      reasoningEfforts: ["none", "low", "medium", "high", "xhigh", "max"],
+    },
+    caveats: [
+      "P5 TARGET cohort excludes GPT-5.6 from nominal Product routing.",
+      "Historical GPT-5.6 manifests/evidence remain IMMUTABLE (buildMw0CapabilityManifest).",
+      "Sol/Astra do not support reasoning.effort=none — do not silently coerce.",
+      "minimal remains non-admissible for target cohort.",
+      "Documented capability ≠ account/API entitlement — ZERO REAL in P5-S01.",
+      "Pricing = Official OpenAI Standard short-context (≤272K) dated 2026-10-05 — FinOps ordering hint only.",
+      "Long-context rates differ; Batch/Flex/Fast/Ultrafast/regional tiers differ — not stored here.",
+      "Cached input / cache write rates exist at provider; schema stores only fields consumed by estimateCostUsd.",
+      "NOT observed REAL cost · NOT production savings claim · revalidate before REAL.",
+    ],
+  };
+}
+
+/**
  * Distinct campaign capability policy for the Global Model × Reasoning Campaign.
  * EXIT: campaign evaluation contract only — ≠ production model routing / ≠ multi-model router.
  * Does not mutate or replace {@link buildMw0CapabilityManifest} historical semantics.

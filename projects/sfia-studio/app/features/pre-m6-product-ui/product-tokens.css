@@ -1,44 +1,47 @@
 /**
  * Pre-M6 Option A product presentation tokens.
  *
- * Visual reference: Penpot file 63bdc57a… pages 03 + 06 (W4-D).
+ * Visual reference: P3 Figma Workspace Desktop 46:2 (1440×1024) and responsive
+ * 190:44 / 190:306. Values converge on the P3 extraction (warm paper canvas,
+ * ink primary, Nora vermilion accent) — same `--pm6-` family, no second set.
  * Prefixed `--pm6-` so this layer never collides with the legacy `--sfia-` set.
- * Inter is the Penpot typography reference — system fallback only (no font files).
+ * Typography: the app already loads Inter via next/font (`--font-inter`); no
+ * additional font is introduced (Geist is not available in this repo).
  */
 
 :root {
   --pm6-font: Inter, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 
-  --pm6-canvas: #f3f1ec;
-  --pm6-canvas-raised: #f7f5f0;
+  --pm6-canvas: #fffdf9;
+  --pm6-canvas-raised: #fbf7f2;
   --pm6-surface: #ffffff;
-  --pm6-surface-sunken: #faf9f6;
+  --pm6-surface-sunken: #fcf8f3;
 
-  --pm6-forest: #0b3d2e;
-  --pm6-forest-hover: #0f5540;
-  --pm6-forest-tint: #e8f2ed;
-  --pm6-forest-ink: #f4f8f6;
+  --pm6-forest: #1f1a16;
+  --pm6-forest-hover: #3a322b;
+  --pm6-forest-tint: #f3ede5;
+  --pm6-forest-ink: #fffdf9;
 
   --pm6-cream: #fdf6e3;
   --pm6-cream-border: #e8d9a8;
   --pm6-gold: #a8791c;
   --pm6-gold-strong: #7d5810;
 
-  --pm6-ink: #1b2320;
-  --pm6-ink-soft: #3d4a45;
-  --pm6-muted: #6b7671;
-  --pm6-muted-strong: #55605c;
+  --pm6-ink: #1f1a16;
+  --pm6-ink-soft: #3d352e;
+  --pm6-muted: #7f766d;
+  --pm6-muted-strong: #6f665e;
 
-  --pm6-border: #e3ded4;
-  --pm6-border-soft: #ece8e0;
-  --pm6-border-strong: #d3ccbe;
+  --pm6-border: #e6ded5;
+  --pm6-border-soft: #eae2d9;
+  --pm6-border-strong: #d8cfc4;
 
-  --pm6-danger: #a63329;
+  --pm6-danger: #b8432b;
   --pm6-danger-tint: #fbeeec;
   --pm6-warn: #8a5a12;
   --pm6-warn-tint: #fdf1de;
-  --pm6-ok: #1f6b4f;
-  --pm6-ok-tint: #e7f3ed;
+  --pm6-ok: #157a55;
+  --pm6-ok-tint: #eef7f2;
   --pm6-info: #1f4f6b;
   --pm6-info-tint: #e7f1f6;
 
@@ -47,10 +50,10 @@
   --pm6-radius-lg: 16px;
   --pm6-radius-pill: 999px;
 
-  --pm6-shadow-card: 0 1px 2px rgba(27, 35, 32, 0.04),
-    0 8px 24px rgba(27, 35, 32, 0.05);
-  --pm6-shadow-raised: 0 2px 4px rgba(27, 35, 32, 0.06),
-    0 16px 40px rgba(27, 35, 32, 0.08);
+  --pm6-shadow-card: 0 1px 2px rgba(31, 26, 22, 0.04),
+    0 8px 24px rgba(31, 26, 22, 0.05);
+  --pm6-shadow-raised: 0 2px 4px rgba(31, 26, 22, 0.06),
+    0 16px 40px rgba(31, 26, 22, 0.08);
 
   --pm6-focus-ring: 0 0 0 3px color-mix(in srgb, var(--pm6-forest) 35%, transparent);
 
@@ -67,4 +70,29 @@
   --pm6-journal-width: 280px;
   --pm6-content-max: 1180px;
   --pm6-content-max-workspace: 1800px;
+
+  /* ---- P3 Workspace Desktop (46:2) additions ---- */
+  --pm6-rail: #f1ece5;
+  --pm6-rail-border: #e6ded5;
+  --pm6-body: #fbf7f2;
+  --pm6-border-faint: #eee7df;
+  --pm6-muted-faint: #978c81;
+  --pm6-muted-ghost: #a69a8e;
+  --pm6-accent: #d9563b;
+  --pm6-accent-tint: #fff0ea;
+  --pm6-focus-bar: #fcf8f3;
+
+  /* Geometry — Figma 1440×1024 */
+  --pm6-rail-width: 192px;
+  --pm6-global-header-h: 54px;
+  --pm6-context-width: 356px;
+  --pm6-focus-bar-h: 50px;
+}
+
+/* Responsive geometry: <1200 compact (rail ~160, context ~280). */
+@media (max-width: 1199px) {
+  :root {
+    --pm6-rail-width: 160px;
+    --pm6-context-width: 280px;
+  }
 }

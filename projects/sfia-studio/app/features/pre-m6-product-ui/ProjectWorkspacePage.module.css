@@ -1,197 +1,492 @@
+/*
+ * P3 Workspace Desktop 46:2 (1440×1024) — main column of the product shell.
+ *
+ *   global header ........ 54px   (breadcrumb + currentness)
+ *   project header ....... ~104px (title/objective/chips + tabs)
+ *   body ................. conversation (dominant) | context 356px (280px <1200)
+ *   focus bar ............ 50px   (top of the conversation column)
+ *
+ * <900: single column; context becomes a sheet opened by .lpsToggle.
+ * Colours come from --pm6-* (product-tokens.css). No second token set.
+ */
+
 .root {
+  --ws-global-h: var(--pm6-global-header-h, 54px);
+  --ws-project-h: 104px;
+  --ws-focus-h: var(--pm6-focus-bar-h, 50px);
+  --ws-context-w: var(--pm6-context-width, 356px);
+  --ws-pad-x: 24px;
+
   display: flex;
   flex-direction: column;
-  gap: var(--pm6-space-4);
-  max-width: var(--pm6-content-max-workspace);
-  margin-inline: auto;
   width: 100%;
+  min-width: 0;
+  min-height: 100vh;
+  background: var(--pm6-canvas);
+  color: var(--pm6-ink);
+  font-family: var(--pm6-font);
 }
 
 .loading {
   margin: 0;
-  padding: var(--pm6-space-7) 0;
+  padding: var(--pm6-space-7) var(--ws-pad-x, 24px);
   font-size: 0.95rem;
   color: var(--pm6-muted);
 }
 
-/* ---------- project header ---------- */
+/* ---------- global header (54px) ---------- */
+
+.globalHeader {
+  position: sticky;
+  top: 0;
+  z-index: 25;
+  box-sizing: border-box;
+  height: var(--ws-global-h);
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--pm6-space-4);
+  padding-inline: var(--ws-pad-x);
+  background: var(--pm6-canvas);
+  border-bottom: 1px solid var(--pm6-border);
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: var(--pm6-space-2);
+  min-width: 0;
+  font-size: 0.8125rem;
+  line-height: 1.2;
+}
+
+.breadcrumbLink {
+  color: var(--pm6-muted-strong);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.breadcrumbLink:hover {
+  color: var(--pm6-ink);
+  text-decoration: underline;
+}
+
+.breadcrumbSep {
+  color: var(--pm6-muted-ghost);
+}
+
+.breadcrumbCurrent {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 500;
+  color: var(--pm6-ink);
+}
+
+.currentness {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: var(--pm6-radius-pill);
+  border: 1px solid var(--pm6-border);
+  background: var(--pm6-surface);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--pm6-muted-strong);
+  white-space: nowrap;
+}
+
+.currentness::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: var(--pm6-radius-pill);
+  background: var(--pm6-muted-ghost);
+}
+
+.currentness[data-tone="ok"] {
+  color: var(--pm6-ok);
+  border-color: color-mix(in srgb, var(--pm6-ok) 25%, transparent);
+  background: var(--pm6-ok-tint);
+}
+
+.currentness[data-tone="ok"]::before {
+  background: var(--pm6-ok);
+}
+
+.currentness[data-tone="warn"] {
+  color: var(--pm6-warn);
+  border-color: var(--pm6-cream-border);
+  background: var(--pm6-warn-tint);
+}
+
+.currentness[data-tone="warn"]::before {
+  background: var(--pm6-warn);
+}
+
+/* ---------- project header (~104px, with tabs) ---------- */
 
 .projectHeader {
+  box-sizing: border-box;
+  flex: 0 0 auto;
+  min-height: var(--ws-project-h);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--pm6-space-3);
+  padding: var(--pm6-space-4) var(--ws-pad-x) 0;
+  background: var(--pm6-canvas);
+  border-bottom: 1px solid var(--pm6-border);
+}
+
+.projectHeaderRow {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
   justify-content: space-between;
-  gap: var(--pm6-space-4);
+  gap: var(--pm6-space-3) var(--pm6-space-4);
+  min-width: 0;
 }
 
 .projectHeaderText {
   display: flex;
   flex-direction: column;
-  gap: var(--pm6-space-2);
+  gap: 2px;
   min-width: 0;
+  flex: 1 1 320px;
 }
 
 .projectTitle {
   margin: 0;
-  font-size: 1.7rem;
+  font-size: 1.25rem;
   font-weight: 600;
+  line-height: 1.25;
   letter-spacing: -0.01em;
-  color: var(--pm6-forest);
+  color: var(--pm6-ink);
   overflow-wrap: anywhere;
 }
 
 .projectObjective {
   margin: 0;
-  font-size: 0.92rem;
-  line-height: 1.6;
+  max-width: 72ch;
+  font-size: 0.8125rem;
+  line-height: 1.45;
   color: var(--pm6-muted-strong);
-  max-width: 68ch;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
+.projectChips {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--pm6-space-2);
+}
+
+.chipAccent,
+.chipMuted {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: var(--pm6-radius-pill);
+  border: 1px solid transparent;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.chipAccent {
+  background: var(--pm6-accent-tint);
+  border-color: color-mix(in srgb, var(--pm6-accent) 28%, transparent);
+  color: var(--pm6-accent);
+}
+
+.chipMuted {
+  background: var(--pm6-surface-sunken);
+  border-color: var(--pm6-border);
+  color: var(--pm6-muted-strong);
+}
+
+/* Context sheet opener — only on single-column layouts (<900). */
 .lpsToggle {
   display: none;
   align-items: center;
+  justify-content: center;
   border-radius: var(--pm6-radius-pill);
   border: 1px solid var(--pm6-border-strong);
   background: var(--pm6-surface);
   color: var(--pm6-ink-soft);
-  padding: 9px 16px;
-  font-size: 0.85rem;
+  padding: 6px 14px;
+  font: inherit;
+  font-size: 0.75rem;
   font-weight: 600;
   cursor: pointer;
+  transition: background 120ms ease, border-color 120ms ease;
 }
 
-.durabilityHint {
+.lpsToggle:hover {
+  background: var(--pm6-surface-sunken);
+  border-color: var(--pm6-ink-soft);
+}
+
+/* ---------- tabs ---------- */
+
+.tabs {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--pm6-space-5);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.tab {
+  position: relative;
   margin: 0;
-  border-radius: var(--pm6-radius-md);
-  border: 1px solid var(--pm6-border-soft);
-  background: var(--pm6-canvas-raised);
-  padding: var(--pm6-space-3) var(--pm6-space-4);
-  font-size: 0.83rem;
-  line-height: 1.55;
+  padding: 8px 0 10px;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 500;
   color: var(--pm6-muted-strong);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 120ms ease;
 }
 
-/* ---------- layout — Option A: Journal | Conversation | Pilotage ---------- */
+.tab::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: -1px;
+  height: 2px;
+  border-radius: 2px 2px 0 0;
+  background: transparent;
+  transition: background 120ms ease;
+}
+
+.tab:hover:not(:disabled) {
+  color: var(--pm6-ink);
+}
+
+.tab[data-selected="true"] {
+  color: var(--pm6-ink);
+  font-weight: 600;
+}
+
+.tab[data-selected="true"]::after {
+  background: var(--pm6-ink);
+}
+
+.tab:disabled,
+.tab[aria-disabled="true"] {
+  color: var(--pm6-muted-ghost);
+  cursor: not-allowed;
+}
+
+.tab:focus-visible,
+.lpsToggle:focus-visible,
+.lpsClose:focus-visible,
+.errorCta:focus-visible,
+.breadcrumbLink:focus-visible {
+  outline: none;
+  box-shadow: var(--pm6-focus-ring);
+  border-radius: var(--pm6-radius-sm);
+}
+
+/* ---------- body layout: conversation | context ---------- */
 
 .layout {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) var(--pm6-lps-width);
-  gap: var(--pm6-space-5);
-  align-items: start;
-}
-
-.journalColumn {
-  display: none;
+  flex: 1 1 auto;
   min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+  background: var(--pm6-body);
 }
 
 .main {
   display: flex;
   flex-direction: column;
-  gap: var(--pm6-space-5);
   min-width: 0;
+  min-height: 0;
+}
+
+/* Focus bar — 50px, top of the conversation column. */
+.focusBar {
+  position: sticky;
+  top: var(--ws-global-h);
+  z-index: 15;
+  box-sizing: border-box;
+  height: var(--ws-focus-h);
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: var(--pm6-space-3);
+  padding-inline: var(--ws-pad-x);
+  background: var(--pm6-focus-bar);
+  border-bottom: 1px solid var(--pm6-border);
+  min-width: 0;
+}
+
+.focusLabel {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--pm6-muted-faint);
+  white-space: nowrap;
+}
+
+.focusDot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--pm6-radius-pill);
+  background: var(--pm6-accent);
+}
+
+.focusTitle {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--pm6-ink);
+}
+
+.focusCounts {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--pm6-space-2);
+}
+
+.focusCount {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 9px;
+  border-radius: var(--pm6-radius-pill);
+  border: 1px solid var(--pm6-cream-border);
+  background: var(--pm6-cream);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: var(--pm6-gold-strong);
+  white-space: nowrap;
+}
+
+.durabilityHint {
+  margin: var(--pm6-space-4) var(--ws-pad-x) 0;
+  padding: var(--pm6-space-3) var(--pm6-space-4);
+  border-radius: var(--pm6-radius-md);
+  border: 1px solid var(--pm6-border-soft);
+  background: var(--pm6-canvas-raised);
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  color: var(--pm6-muted-strong);
 }
 
 .conversation {
+  flex: 1 1 auto;
   min-width: 0;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 880px;
+  margin-inline: auto;
+  padding: var(--pm6-space-5) var(--ws-pad-x) 0;
 }
+
+/* ---------- context column (sticky, independent scroll) ---------- */
 
 .lpsColumn {
-  position: sticky;
-  top: 88px;
   min-width: 0;
-}
-
-/* Desktop large: three zones — Journal rail + dominant conversation + pilotage */
-@media (min-width: 1200px) {
-  .layout {
-    grid-template-columns:
-      var(--pm6-journal-width)
-      minmax(620px, 1fr)
-      var(--pm6-lps-width);
-    gap: var(--pm6-space-4);
-  }
-
-  .journalColumn {
-    display: block;
-    position: sticky;
-    top: 88px;
-  }
-}
-
-/* ~1440: journal 270–290 · conversation ≥620 · rail 510–550 */
-@media (min-width: 1400px) {
-  .layout {
-    grid-template-columns:
-      clamp(270px, 18vw, 290px)
-      minmax(620px, 1fr)
-      clamp(510px, 32vw, 550px);
-  }
-}
-
-/* ~1600: journal 270–290 · conversation ≥650 · rail 550–600 */
-@media (min-width: 1600px) {
-  .layout {
-    grid-template-columns:
-      clamp(270px, 18vw, 290px)
-      minmax(650px, 1fr)
-      clamp(550px, 34vw, 600px);
-  }
-}
-
-/* Above 1024px the project state is always alongside the conversation. */
-.lpsClosed,
-.lpsOpen {
-  display: block;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  background: var(--pm6-canvas-raised);
+  border-left: 1px solid var(--pm6-border);
 }
 
 .lpsSheet {
+  flex: 1 1 auto;
+  min-height: 0;
   display: flex;
   flex-direction: column;
-  gap: var(--pm6-space-3);
-  max-height: calc(100vh - 120px);
+  gap: var(--pm6-space-4);
+  padding: var(--pm6-space-5) var(--pm6-space-4) var(--pm6-space-4);
   overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
-/* H-01 Option A — unified piloting region (LPS + Trajectory presentation) */
+/* Close button only exists for the <900 sheet. */
+.lpsClose {
+  display: none;
+  align-self: flex-end;
+  border-radius: var(--pm6-radius-pill);
+  border: 1px solid var(--pm6-border-strong);
+  background: var(--pm6-surface);
+  color: var(--pm6-ink-soft);
+  padding: 6px 14px;
+  font: inherit;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Pilotage region (lifecycle · LPS · routing · trajectory) — flat, not a card. */
 .stateTrajectoryRegion {
   display: flex;
   flex-direction: column;
   gap: var(--pm6-space-4);
   min-width: 0;
-  padding: var(--pm6-space-3);
-  background: var(--pm6-canvas-raised);
-  border: 1px solid var(--pm6-border);
-  border-radius: var(--pm6-radius-lg);
+  padding: var(--pm6-space-4) 0 0;
+  border-top: 1px solid var(--pm6-border-soft);
 }
 
 .stateTrajectoryHead {
   display: flex;
   flex-direction: column;
-  gap: var(--pm6-space-1);
+  gap: 4px;
   padding: 0;
 }
 
 .stateTrajectoryEyebrow {
   margin: 0;
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--pm6-forest);
+  color: var(--pm6-muted-faint);
 }
 
 .stateTrajectoryTitle {
   margin: 0;
-  font-size: 1.05rem;
+  font-size: 0.9375rem;
   font-weight: 600;
+  line-height: 1.25;
   color: var(--pm6-ink);
 }
 
 .stateTrajectoryNote {
   margin: 0;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   line-height: 1.5;
   color: var(--pm6-muted-strong);
 }
@@ -203,61 +498,144 @@
   min-width: 0;
 }
 
-.lpsClose {
-  display: none;
-  align-self: flex-end;
-  border-radius: var(--pm6-radius-pill);
-  border: 1px solid var(--pm6-border-strong);
-  background: var(--pm6-surface);
-  color: var(--pm6-ink-soft);
-  padding: 7px 15px;
-  font-size: 0.82rem;
-  font-weight: 600;
-  cursor: pointer;
+/*
+ * Journal now lives in the context column (inside the sheet): stays visible and
+ * stacks with the rest. Kept as a class for the project-journal-column testid.
+ */
+.journalColumn {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm6-space-3);
+  min-width: 0;
+  padding-top: var(--pm6-space-4);
+  border-top: 1px solid var(--pm6-border-soft);
 }
 
-/* ---------- <1200: Journal always accessible (stack); conversation dominant ---------- */
-/* CR-CJ-05 — no dead zone between 1025–1199 (was hidden until 1200). */
+/* ---------- ≥900: two columns, context sticky + own scroll ---------- */
+
+@media (min-width: 900px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr) var(--ws-context-w);
+  }
+
+  .lpsColumn {
+    position: sticky;
+    top: var(--ws-global-h);
+    align-self: start;
+    height: calc(100vh - var(--ws-global-h));
+    max-height: calc(100vh - var(--ws-global-h));
+  }
+
+  /* Always visible alongside the conversation. */
+  .lpsClosed,
+  .lpsOpen {
+    display: flex;
+  }
+}
+
+/* ---------- <1200: compact geometry (context 280px) ---------- */
 
 @media (max-width: 1199px) {
+  .root {
+    --ws-context-w: 280px;
+    --ws-pad-x: 20px;
+  }
+
+  .lpsSheet {
+    padding: var(--pm6-space-4) var(--pm6-space-3);
+  }
+
+  /* Journal stays accessible in the context stack (no 900–1199 dead zone). */
+  .journalColumn {
+    display: block;
+  }
+}
+
+/* ---------- ≥1200: full geometry (context 356px, roomy gutters) ---------- */
+
+@media (min-width: 1200px) {
+  .root {
+    --ws-context-w: 356px;
+    --ws-pad-x: 32px;
+  }
+
+  .lpsSheet {
+    padding: var(--pm6-space-5) var(--pm6-space-5) var(--pm6-space-4);
+  }
+}
+
+/* ---------- <900: single column; context as sheet ---------- */
+
+@media (max-width: 899px) {
+  .root {
+    --ws-pad-x: 16px;
+  }
+
+  .lpsToggle {
+    display: inline-flex;
+  }
+
   .layout {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .journalColumn {
-    display: block;
-    position: static;
-    order: -1;
-  }
-
-  .lpsToggle {
+  .lpsClosed {
     display: none;
   }
 
-  .lpsClose {
-    display: none;
-  }
-
-  .lpsColumn {
-    position: static;
-    top: auto;
-    width: auto;
-    z-index: auto;
-    background: transparent;
-    border-left: none;
-    box-shadow: none;
-    padding: 0;
-    overflow: visible;
-  }
-
-  .lpsClosed,
   .lpsOpen {
-    display: block;
+    position: fixed;
+    inset: auto 0 0 0;
+    z-index: 60;
+    max-height: min(85vh, 760px);
+    border-left: 0;
+    border-top: 1px solid var(--pm6-border-strong);
+    border-radius: var(--pm6-radius-lg) var(--pm6-radius-lg) 0 0;
+    background: var(--pm6-canvas-raised);
+    box-shadow: 0 -12px 40px rgba(31, 26, 22, 0.18),
+      0 0 0 100vmax rgba(31, 26, 22, 0.32);
+    animation: lpsSheetIn 180ms ease-out;
   }
 
-  .lpsSheet {
-    max-height: none;
-    overflow: visible;
+  .lpsOpen .lpsClose {
+    display: inline-flex;
+  }
+
+  .lpsOpen .lpsSheet {
+    padding: var(--pm6-space-4);
+  }
+
+  .conversation {
+    padding-top: var(--pm6-space-4);
+  }
+
+  .projectTitle {
+    font-size: 1.125rem;
+  }
+
+  .focusLabel {
+    display: none;
+  }
+}
+
+@keyframes lpsSheetIn {
+  from {
+    transform: translateY(16px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 767px) {
+  .lpsToggle {
+    width: 100%;
+  }
+
+  .projectChips {
+    width: 100%;
   }
 }
 
@@ -269,6 +647,7 @@
   align-items: flex-start;
   gap: var(--pm6-space-3);
   max-width: 620px;
+  margin: var(--pm6-space-6) var(--ws-pad-x, 24px);
   border-radius: var(--pm6-radius-lg);
   border: 1px solid var(--pm6-border);
   background: var(--pm6-surface);
@@ -280,7 +659,7 @@
   margin: 0;
   font-size: 1.35rem;
   font-weight: 600;
-  color: var(--pm6-forest);
+  color: var(--pm6-ink);
 }
 
 .errorBody {
@@ -300,8 +679,8 @@
   display: inline-flex;
   align-items: center;
   border-radius: var(--pm6-radius-pill);
-  border: 1px solid var(--pm6-forest);
-  background: var(--pm6-forest);
+  border: 1px solid var(--pm6-ink);
+  background: var(--pm6-ink);
   color: var(--pm6-forest-ink);
   padding: 10px 18px;
   font-size: 0.88rem;
@@ -309,13 +688,18 @@
   text-decoration: none;
 }
 
-@media (max-width: 767px) {
-  .projectTitle {
-    font-size: 1.4rem;
-  }
+.errorCta:hover {
+  background: var(--pm6-forest-hover);
+}
 
-  .lpsToggle {
-    width: 100%;
-    justify-content: center;
+/* ---------- motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .root,
+  .root * {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
   }
 }

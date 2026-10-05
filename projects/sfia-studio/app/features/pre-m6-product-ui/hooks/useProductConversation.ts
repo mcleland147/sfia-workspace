@@ -312,7 +312,14 @@ export function useProductConversation({
   useEffect(() => {
     const el = listRef.current;
     if (!el || typeof el.scrollTo !== "function") return;
-    el.scrollTo({ top: el.scrollHeight, behavior: "smooth" });
+    const reduceMotion =
+      typeof window !== "undefined" &&
+      typeof window.matchMedia === "function" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    el.scrollTo({
+      top: el.scrollHeight,
+      behavior: reduceMotion ? "auto" : "smooth",
+    });
   }, [
     messages,
     toolEvents,
