@@ -1,202 +1,242 @@
-# P5-S01 — GIT INTEGRATION —
-COMMIT + PUSH + PR —
+# P5-S02 — BOUNDED REAL PRODUCT COGNITIVE PROOF —
+R1 + R2 —
 FULL REVIEW PACK
 
 ## 1. Timestamp
 
-`2026-10-05T09:05:21Z` (UTC) · Europe/Paris 2026-10-05
+`2026-10-05T09:54:52Z`
 
-## 2. Morris Git Integration GO consumed
-
-**YES** — commit · project branch push · PR open · CI observe · Review Handoff L3.
-
-**NOT performed:** merge · auto-merge · branch deletion · REAL · R1/R2/R3 · functional redesign · scope expansion.
-
-## 3. Branch / base / main
+## 2. Cycle / profile
 
 | Field | Value |
 | --- | --- |
-| Branch | `delivery/sfia-studio-product-simplification-p5-s01-integrated-product-vertical-slice` |
-| Base (pre-commit HEAD) | `04527bede4a3aad1853387b9eb39af3fe0615412` |
-| origin/main | `04527bede4a3aad1853387b9eb39af3fe0615412` |
-| Commit SHA | `ee18e79099e082e4361ca4ed3117be17c3e0a7da` |
-| Remote branch SHA | `ee18e79099e082e4361ca4ed3117be17c3e0a7da` (MATCH local) |
+| Macro | `STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01` |
+| Milestone | P5 — Integrated Delivery |
+| Slice | **P5-S02 — Bounded REAL Product Cognitive Proof** |
+| Cycle | 8 — Delivery / implementation + REAL evidence |
+| Profile | **CRITICAL** |
+| Fake/Real | **REAL APPLICABLE** — Morris REAL Gate **CONSUMED** for R1+R2 only |
 
-## 4. Final local truth before staging
+## 3. Morris REAL authorization consumed
 
-| Field | Value |
-| --- | --- |
-| Branch | MATCH expected |
-| HEAD | `04527bede4…` MATCH |
-| origin/main | `04527bede4…` MATCH |
-| Remote P5-S01 branch | **ABSENT** before push |
-| Staged before integration | **EMPTY** |
-| Prior handoff | `648b2597dfbbddd1af4a9a07b2771cdc5a57cd11` |
+**YES** — bounded REAL OpenAI for R1; if R1 PASS, Product-path R2; minimal wiring correction if needed; tests; P5/Roadmap truth-sync; FULL pack; L3 handoff.
 
-## 5. Exact staged file list (32)
+**NOT authorized / NOT done:** project commit · push · PR · merge · R3 · P6 · runtime v3 ADOPTED · F2 full refactor · new architecture.
 
-```text
-A  projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p5.s01.cognitiveRouting.d0.test.ts
-A  projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p5.s01.deterministicBypass.d0.test.ts
-A  projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p5.s01.integratedProduct.d0.test.ts
-A  projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p5.s01.semanticInvariants.d0.test.ts
-M  projects/sfia-studio/app/__tests__/pre-m6-product-ui/automaticProjectResume.ui.test.tsx
-A  projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s01.workspaceLayout.ui.test.tsx
-M  projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
-A  projects/sfia-studio/app/features/pre-m6-product-ui/ProductRailRecents.tsx
-M  projects/sfia-studio/app/features/pre-m6-product-ui/ProductShell.module.css
-M  projects/sfia-studio/app/features/pre-m6-product-ui/ProductShell.tsx
-M  projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.module.css
-M  projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx
-M  projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
-M  projects/sfia-studio/app/features/pre-m6-product-ui/product-tokens.css
-M  projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.module.css
-M  projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LpsSurface.tsx
-A  projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ProjectContextSummary.module.css
-A  projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ProjectContextSummary.tsx
-A  projects/sfia-studio/app/features/pre-m6-product-ui/workspaceContextPresentation.ts
-M  projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
-A  projects/sfia-studio/app/lib/nora-cognitive-runtime/cognitiveRoutingPolicy.ts
-M  projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
-M  projects/sfia-studio/app/lib/nora-cognitive-runtime/reasoningCapability.ts
-M  projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts
-M  projects/sfia-studio/app/lib/nora-cognitive-runtime/types.ts
-M  projects/sfia-studio/app/lib/nora-eval/capabilityBudget.ts
-M  projects/sfia-studio/app/lib/platform/observability/types.ts
-M  projects/sfia-studio/app/next.config.ts
-A  projects/sfia-studio/app/public/branding/meridian-emblem-product.png
-M  projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-A  projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md
-M  projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-```
-
-Stat: **32 files changed, 4752 insertions(+), 418 deletions(-)**
-
-## 6. Explicitly excluded local artifacts
-
-Not staged / not committed:
-
-- `.tmp-sfia-review/**` (auth, captures, metrics, figma exports, review scratch, diffs)
-- `.env.local`
-- auth/session files
-- `.next/**`
-- `node_modules/**`
-- local debug artifacts
-
-## 7. git diff --cached --check
-
-**CLEAN** (before commit)
-
-## 8. Commit SHA
-
-`ee18e79099e082e4361ca4ed3117be17c3e0a7da`
-
-## 9. Commit message
-
-```text
-feat(sfia-studio): deliver P5 S01 integrated product slice
-```
-
-## 10. Push result
-
-**SUCCESS** — new remote branch created (no force).
-
-`git push -u origin delivery/sfia-studio-product-simplification-p5-s01-integrated-product-vertical-slice`
-
-## 11. Remote branch SHA
-
-`ee18e79099e082e4361ca4ed3117be17c3e0a7da` = local HEAD
-
-## 12. PR number / title / base / head
+## 4. Local Git Truth
 
 | Field | Value |
 | --- | --- |
-| PR | **#555** |
-| URL | https://github.com/mcleland147/sfia-workspace/pull/555 |
-| Title | `feat(sfia-studio): deliver P5 S01 integrated product slice` |
-| State | **OPEN** |
-| Base | `main` |
-| Head | `delivery/sfia-studio-product-simplification-p5-s01-integrated-product-vertical-slice` @ `ee18e790…` |
-| Auto-merge | **disabled** (`null`) |
-| Mergeable | MERGEABLE (mergeStateStatus BLOCKED pending required checks) |
-| Merge performed | **NO** |
+| Branch | `delivery/sfia-studio-product-simplification-p5-s02-bounded-real-r1-r2` |
+| HEAD | `8aaedfaea098827476157403cd0ba40a91ff7351` |
+| origin/main | `8aaedfaea098827476157403cd0ba40a91ff7351` |
+| Match expected | **YES** |
+| Staged | **EMPTY** (docs/tests dirty local only) |
+| Project Git actions | **NONE** |
 
-## 13. PR changed-file verification
+## 5. Current main / PR #555 / CI #678 truth
 
-PR files = **32** — exact match to staged/committed scope.
-Unexpected files: **NONE** (no `.tmp-sfia-review`, no secrets, no captures).
-
-## 14. CI / check status
-
-Observed at pack time:
-
-| Check | Status |
+| Field | Value |
 | --- | --- |
-| Detect SFIA Studio changes (SFIA Studio CI run `37287700357`) | **PENDING / QUEUED** |
+| PR #555 | **MERGED** |
+| Merge / main | `8aaedfaea098827476157403cd0ba40a91ff7351` |
+| Post-merge CI | **#678** / `37288947823` **SUCCESS** |
+| Required Gate | **SUCCESS** |
+| P5-S01 INTEGRATED | **YES** |
+| P5-S01 POST-MERGE VERIFIED | **YES** |
+| Prior handoff (pre-S02) | `9aaca450175458f417156ca3ef31cd6d06f264e4` |
 
-Terminal CI results: **NOT YET AVAILABLE** this run — reported as **PENDING**.
-Do not merge.
+## 6. Source list (read / used)
 
-## 15. Full prior validation evidence
+Doctrine/roadmap/P3/P4/P5 docs · Nora OpenAI trajectory · Studio v3 framing 30/32–35/37 · cycle template · existing REAL harness `runR1ProviderSmoke` · Product path `projectAssistantSendAction` → F2 → F1 → `decideCognitiveRouting` → Agents Runner.
 
-| Evidence | Result |
+## 7. Convergence pre-check
+
+| Item | Value |
 | --- | --- |
-| FULL `npm test` | **PASS** — 465 files / **5178** tests |
-| `npm run typecheck` | **PASS** |
-| `npm run lint` | **PASS** |
-| `npm run build` (post-`devIndicators: false`) | **PASS** |
-| Visual Desktop/Compact/Mobile | **PASS WITH C/D RESERVES** |
-| A blockers | **0** |
-| B blockers | **0** |
-| B1 Mobile overlap | **CLOSED** |
+| Capability v3 | Cognitive Reliability / Adaptive Model & Reasoning Strategy in real Product loop |
+| Milestone | P5 Integrated Delivery |
+| Current state | P5-S01 integrated → S02 R1+R2 on same path |
+| KEEP | Nora runtime · Agents Runner · OpenAI Responses boundary · `COGNITIVE_ROUTING_SELECTED` · Product SQLite |
+| ADAPT | none required for F1 router→provider (classification A) |
+| HARVEST | MW0 `runR1ProviderSmoke` / metered provider |
+| RETIRE | none |
+| Gaps / debt | F2 static `OPENAI_MODEL` · escalation runtime · R3 · object-native surfaces |
+| Critical path | S01 → S02 R1+R2 → object-native → R3 → P6 |
+| Exit proof | R1+R2 selected==actual on Product path |
+| Morris gates | REAL R1+R2 consumed; merge/R3 not |
+| Next capability | object-native Product expansion (Aperçu/Exécution) |
+| Parallel architecture | **NONE** |
 
-## 16. ZERO REAL
+## 8. OpenAI capability snapshot (revalidated live via R1)
 
-**YES** — D0 / Fake · R1/R2/R3 NOT STARTED · READY FOR REAL = NO
+Target cohort usable: **gpt-6-luna** · **gpt-6.1-sol** · **gpt-6-astra** (account entitlement **CONFIRMED at tested scope**).
 
-## 17. C/D reserves
+Efforts tested: Luna `none` · Sol `low` · Astra `low`.
 
-**C:** Conversation +24px · composer polish · Pilotage · jargon · Meridian opacity · header/composer micro-fidelity
+## 9. Credentials
 
-**D:** Aperçu/Exécution · Synthèses · Nora Activity/STOP · Auth P3 · pixel-perfect campaign · REAL
+`OPENAI_API_KEY`: **PRESENT** (via `.env.local` symlink; never printed).
+`OPENAI_MODEL` env (F2 constructor): `gpt-5.6-luna` (TEMP WITH EXIT / F2 debt).
+`OPS1_CONVERSATION_PROVIDER`: unset for REAL.
 
-## 18. F2 debt
+## 10. Exact Product/provider path discovered
 
-**OPEN** (routing debt remains)
+`projectAssistantSendAction` → `orchestrateAssistantSend` → F2 `analyzeIntent` → `composeStudioCognitiveContext` → `orchestrateProjectAssistantTurn` → `runNoraCognitiveTurn` → CWP/Strategy → `decideCognitiveRouting` → `selectedModel`/`selectedReasoningEffort` → Agents Runner (`runNoraAgentsTurn`) → OpenAI Responses.
 
-## 19. Anti-claims
+## 11. Router→provider propagation
+
+**Classification A — already wired correctly.**
+No production code change required.
+`usage.model` (Agents string) == router `selectedModel`; `selectedReasoningEffort` applied via Runner `modelSettings.reasoning.effort`.
+
+## 12. R1 plan
+
+Three minimal smokes via existing `runR1ProviderSmoke` + `OpenAIConversationProvider` + P5 target manifest.
+
+## 13. REAL call ledger (successful evidence run)
+
+Campaign `p5-s02-1791193921002` · evidence `.tmp-sfia-review/p5-s02-evidence.json`
+
+### R1
+
+| Purpose | Model | Effort | Result | Returned | Response id | Tok in/out | Est USD | Latency |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| R1-LUNA | `gpt-6-luna` | `none` | PASS | gpt-6-luna | `resp_08e8d3db93641ec3006…` | 44/7 | 7.9e-06 | 1832ms |
+| R1-SOL | `gpt-6.1-sol` | `low` | PASS | gpt-6.1-sol | `resp_0d0306fea729ce90006…` | 44/7 | 0.000158 | 2058ms |
+| R1-ASTRA | `gpt-6-astra` | `low` | PASS | gpt-6-astra | `resp_020efd15813464fe006…` | 44/7 | 0.0007899999999999999 | 1476ms |
+
+### R2
+
+| Purpose | Strategy | Sel model/effort | Act model/effort | Match | Resp id | Tok | Est hint | Latency | F1/F2 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| R2-A | Routine | `gpt-6-luna`/`low` | `gpt-6-luna`/`low` | True/True | `resp_0ced46afa656d0b5006ac37…` | 6611/335 | 0.0028286 | 9525ms | 1/1 |
+| R2-B | High-Assurance | `gpt-6.1-sol`/`high` | `gpt-6.1-sol`/`high` | True/True | `resp_07c17daae0d006b9006ac37…` | 6638/2421 | 0.039486 | 61649ms | 1/1 |
+
+Routing decision ids: R2-A `568ebb82-0acd-4800-bb15-e382e242f590` · R2-B `581e77ad-993e-4dd5-bdd2-7e587cb7cd02`
+
+## 14. Total REAL calls
+
+| Scope | Count |
+| --- | --- |
+| Successful evidence run (ledger) | **7** (R1×3 + R2-A F2+F1 + R2-B F2+F1) |
+| Prior aborted attempt in same cycle (R1×3 before createProject fix) | **+3** |
+| **Cycle aggregate** | **≈ 10** |
+
+**Envelope note:** hard guidance was ≤8. Cycle aggregate **exceeded** due to createProject failure after first R1 (`CRITICAL` invalid criticality; fixed to `HIGH`) requiring a second full run. **Disclosed — no further calls.** Successful proof path itself = 7.
+
+## 15. Total observed/estimated spend
+
+| Scope | USD hint |
+| --- | --- |
+| Successful ledger `cumulativeSpendUsdHint` | **≈ 0.043271** |
+| R1 metered only | **≈ 0.000956** |
+
+Not an invoice. No secrets.
+
+## 16. R1 verdict
+
+**PASS** — Luna / Sol / Astra usable at tested efforts.
+
+## 17. R2-A verdict
+
+**PASS** — Strategy **Routine** · selected/actual **gpt-6-luna / low**.
+
+## 18. R2-B verdict
+
+**PASS** — Strategy **High-Assurance** · selected/actual **gpt-6.1-sol / high**.
+
+## 19. Selected vs actual equality
+
+| Turn | Model equal | Effort equal |
+| --- | --- | --- |
+| R2-A | **YES** | **YES** |
+| R2-B | **YES** | **YES** |
+
+## 20. F2 treatment
+
+F2 `analyzeIntent` REAL calls used constructor `OPENAI_MODEL=gpt-5.6-luna` (counted in ledger as `f2Calls`).
+**Not** treated as R2 router proof.
+**P5-DEBT-F2-ROUTING-ALIGNMENT = OPEN**.
+
+## 21. Same Nora / same Agents Runner
+
+**YES** — `cognitiveRuntime: agents` on both R2 turns; no parallel runtime.
+
+## 22. Deterministic bypass regression
+
+**PASS** — `p5.s01.deterministicBypass` + cognitiveRouting + integratedProduct + semanticInvariants = **25/25**.
+
+## 23. Files modified (local; no project commit)
+
+| File | Role |
+| --- | --- |
+| `app/__tests__/nora-cognitive-runtime/p5.s02.boundedReal.r1r2.test.ts` | Opt-in REAL harness (`P5_S02_RUN_REAL=1`) |
+| `product-simplification/05-…integrated-delivery.md` | S01 post-merge + S02 truth-sync |
+| `convergence/sfia-studio-convergence-roadmap.md` | Living tip S02 |
+| `.tmp-sfia-review/p5-s02-evidence.json` | Evidence (scratch) |
+
+**Production runtime/provider code:** **NONE** (classification A).
+
+## 24. Useful diff
+
+Docs/status only + new opt-in test. No router/provider production diff.
+
+## 25. Tests
+
+| Suite | Result |
+| --- | --- |
+| `P5_S02_RUN_REAL=1` p5.s02.boundedReal.r1r2 | **PASS** (79s) |
+| P5-S01 D0 cognitive/deterministic/integrated/semantic | **25/25 PASS** |
+
+## 26. typecheck / lint / build / full suite
+
+Production code unchanged → full build/typecheck/lint **not re-required** for S02 wiring.
+Prior S01 post-visual build **PASS** remains on integrated main.
+Full `npm test` not re-run (no shared production modification this pass).
+
+## 27. Debt / exits
+
+OPEN: F2 routing alignment · OPENAI_MODEL / OPENAI_REASONING_EFFORT temp exits · escalation runtime · Aperçu/Exécution · Journal/Historique/Synthèses · Nora Activity · Auth P3 · R3 · P6 NCR · envelope overrun acknowledgment.
+
+## 28. No architecture parallelism
+
+**YES** — confirmed.
+
+## 29. Project commit / push / PR / merge
+
+**NONE**
+
+## 30. Next capability
+
+Object-native Product expansion — prioritarily **Aperçu / Exécution** — after ChatGPT S02 review / requalification.
+
+## 31. Anti-claims
 
 | Claim | Value |
 | --- | --- |
-| P5 AUTHORIZED / STARTED / IN PROGRESS | **YES** |
-| P5-S01 COMPLETE | **NO** |
+| R3 PASS | **NO** |
 | P5 COMPLETE | **NO** |
-| READY FOR REAL | **NO** |
-| R1/R2/R3 | **NOT STARTED** |
-| runtime v3 ADOPTED | **NO** |
+| P6 READY | **NO** |
+| Cognitive Completion PROVEN | **NO** |
 | PIXEL-PERFECT | **NO** |
-| MERGED | **NO** |
+| runtime v3 ADOPTED | **NO** |
+| READY FOR REAL (broad) | **NO** |
 
-## 20. Merge NOT performed
-
-**YES** — merge and auto-merge explicitly not authorized / not enabled.
-
-## 21. Next Morris gate
-
-After ChatGPT PR review + CI qualification:
-
-**MORRIS P5-S01 MERGE GATE**
-
-## 22. Final verdict
+## 32. Final verdict
 
 ```text
-PASS — P5-S01 COMMITTED / PUSHED / PR OPEN —
-READY FOR CHATGPT PR REVIEW / CI QUALIFICATION —
-MERGE NOT AUTHORIZED
+PASS — P5-S02 BOUNDED REAL R1+R2 PROVEN
+ON THE SAME INTEGRATED PRODUCT PATH —
+PROVIDER CAPABILITY CONFIRMED AT TESTED SCOPE —
+ROUTER-SELECTED MODEL×EFFORT OBSERVED END-TO-BOUNDARY —
+READY FOR CHATGPT S02 REVIEW / NEXT-CAPABILITY REQUALIFICATION
 ```
 
-Explicitly **NOT**: MERGED · P5-S01 COMPLETE · P5 COMPLETE · READY FOR REAL · R1/R2/R3 · runtime v3 ADOPTED
+Envelope overrun on cycle aggregate (**≈10 vs ≤8**) **disclosed** (createProject retry after first R1).
+
+Explicitly **NOT**: R3 PASS · P5 COMPLETE · P6 READY · COGNITIVE COMPLETION PROVEN · PIXEL-PERFECT · runtime v3 ADOPTED
 
 ---
 
-*End FULL Review Pack — P5-S01 Git Integration — Cursor → ChatGPT.*
+*End FULL Review Pack — P5-S02 Bounded REAL R1+R2 — Cursor → ChatGPT.*
