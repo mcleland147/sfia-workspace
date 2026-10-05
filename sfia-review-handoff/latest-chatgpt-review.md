@@ -1,2124 +1,493 @@
-P4 FINAL TRUTH-SYNC GIT INTEGRATION —
-COMMIT / PUSH / PR —
+P5-S01 — FIRST INTEGRATED PRODUCT VERTICAL SLICE
+WORKSPACE / CONVERSATION
++ SEMANTIC CONTEXT
++ COGNITIVE ROUTING
++ VISUAL FIDELITY
+D0 / ZERO REAL
 FULL REVIEW PACK
 
-Timestamp (UTC): 2026-10-05T05:39:32Z
-Timestamp (local): 2026-10-05 07:39:32 +0200
+Timestamp: 2026-10-05 09:19:19 +0200
+Cycle: 8 — Delivery / implémentation
+Profile: Critical
+Typology: EVOL
+Morris P5 authorization: CONSUMED (GO P5)
 
 ======================================================================
-CYCLE / PROFILE
+LOCAL GIT TRUTH
 ======================================================================
-
-Project: SFIA Studio
-Macro: STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01
-Source milestone: P4 — PILOT–NORA–STUDIO SEMANTIC, PROJECTION & COGNITIVE ARCHITECTURE / TECHNICAL DELTA
-Pass: P4 FINAL TRUTH-SYNC GIT INTEGRATION — COMMIT / PUSH / PR
-Cycle type: EXÉCUTION REPOSITORY / GIT INTEGRATION
-Origin: POST-MERGE / REPOSITORY TRUTH-SYNC
-Profile: CRITICAL
-Typologie: DOC / EVOL
-Fake / Real: N/A
-
-======================================================================
-MORRIS GO CONSUMED
-======================================================================
-
-THIS RUN:
-P4 FINAL TRUTH-SYNC PROJECT COMMIT = YES
-P4 FINAL TRUTH-SYNC PROJECT PUSH = YES
-P4 FINAL TRUTH-SYNC PR = YES
-
-NOT CONSUMED:
-P4 FINAL TRUTH-SYNC MERGE = NO
-BRANCH DELETE = NO
-P5 AUTHORIZATION = NO
-P5 START = NO
-P5 IMPLEMENTATION = NO
-GO REAL = NO
-runtime v3 ADOPTION = NO
-
-Hard invariants:
-P5 REQUALIFIED BY CHATGPT ≠ P5 AUTHORIZED BY MORRIS
-P4 FINAL TRUTH-SYNC PR OPEN ≠ P4 FINAL TRUTH-SYNC INTEGRATED ON MAIN
-
-======================================================================
-PREVIOUS CANONICAL HANDOFF
-======================================================================
-
-branch: sfia/review-handoff
-commit: 404f9845fe40abe99bacfd5c9561a937c7cabb4c
-blob: e4c2d23344c23b7275d3c9cdfffde3525fcd7597
-file: sfia-review-handoff/latest-chatgpt-review.md
-Pack: P4 FINAL REPOSITORY TRUTH-SYNC — P5 REQUALIFICATION STATE MATERIALIZATION — FULL REVIEW PACK
-ChatGPT: PASS — P4 FINAL TRUTH-SYNC READY FOR MORRIS GIT INTEGRATION GATE
-Morris: GO
-
-Canonical template SHA on main:
-prompts/templates/sfia-cycle-execution-template.md @ 948156a21309ef99c3aaed6410947dc6b9bc569a
-
-======================================================================
-LOCAL GIT TRUTH (BEFORE COMMIT)
-======================================================================
-
-Workspace: /Users/morris/Projects/sfia-studio-chat-first-product-simplification-p3
-Branch: docs/sfia-studio-p4-final-repository-truth-sync
-HEAD/base: 17434de03585eb30d13d59d7ba5c249563f0b33c
-origin/main: 17434de03585eb30d13d59d7ba5c249563f0b33c
-Remote truth-sync branch before push: ABSENT
-Open PR before: NONE
-
-Initial status:
-M .tmp-sfia-review/chatgpt-review.md
- M projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
- M projects/sfia-studio/product-simplification/04-chat-first-product-simplification-semantic-projection-cognitive-architecture.md
+Repository: mcleland147/sfia-workspace (worktree)
+Branch: delivery/sfia-studio-product-simplification-p5-s01-integrated-product-vertical-slice
+HEAD / base: 04527bede4a3aad1853387b9eb39af3fe0615412
+Expected origin/main: 04527bede4a3aad1853387b9eb39af3fe0615412
+MATCH: YES
+P4 final: PR #554 MERGED · CI #676 SUCCESS · Required Gate SUCCESS
 Staged: EMPTY
-git diff --check: PASS
+Project commit/push/PR/merge this pass: NO
 
-======================================================================
-P4 / ROADMAP STATE
-======================================================================
-
-P4 GLOBAL VALIDATED BY MORRIS = YES
-P4 INTEGRATED ON MAIN = YES
-P4 POST-MERGE VERIFIED = YES
-P4 CLOSED BY MORRIS = YES
-P4 CLOSURE PATCH INTEGRATED ON MAIN = YES (PR #553 / 17434de0…)
-P4 FINAL REPOSITORY VERIFICATION = PASS (CI #674 / 37250512824 SUCCESS)
-P5 REQUALIFIED BY CHATGPT = YES
-P5 Entry Contract = DEFINED
-P5 AUTHORIZED = NO
-P5 STARTED = NO
-Production router IMPLEMENTED = NO
-REAL routing PROVEN = NO
-Cognitive Completion PROVEN = NO
-READY FOR REAL = NO
-runtime v3 ADOPTED = NO
-Architecture substance unchanged = YES
-
-CURRENT STRUCTURAL STEP:
-P4 CLOSED + FINAL REPOSITORY VERIFIED → P5 REQUALIFIED BY CHATGPT → AWAITING DISTINCT MORRIS P5 AUTHORIZATION GATE
-
-CURRENT MORRIS GATE:
-P5 AUTHORIZATION — PENDING / NOT CONSUMED
-
-Note: truth-sync patch itself remains LOCAL CANDIDATE / NOT INTEGRATED ON MAIN until distinct merge of this PR.
-
-======================================================================
-STAGED DIFF
-======================================================================
-
-git diff --cached --name-status:
-M	projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-M	projects/sfia-studio/product-simplification/04-chat-first-product-simplification-semantic-projection-cognitive-architecture.md
-
-git diff --cached --stat:
- .../convergence/sfia-studio-convergence-roadmap.md | 19 +++--
- ...n-semantic-projection-cognitive-architecture.md | 99 +++++++++++++---------
- 2 files changed, 68 insertions(+), 50 deletions(-)
-
-git diff --cached --check: PASS
-.tmp NOT STAGED
-
-======================================================================
-COMMIT
-======================================================================
-
-Commit SHA: 891801ce86e4b3a4483568dabe69054cfcb7f6f1
-Commit message: docs(sfia-studio): finalize P4 repository truth sync
-
-Commit file list:
-M	projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-M	projects/sfia-studio/product-simplification/04-chat-first-product-simplification-semantic-projection-cognitive-architecture.md
-
-Post-commit status:
+git status --short:
+```
  M .tmp-sfia-review/chatgpt-review.md
+ M projects/sfia-studio/app/__tests__/pre-m6-product-ui/automaticProjectResume.ui.test.tsx
+ M projects/sfia-studio/app/features/pre-m6-product-ui/ProductShell.module.css
+ M projects/sfia-studio/app/features/pre-m6-product-ui/ProductShell.tsx
+ M projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.module.css
+ M projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx
+ M projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
+ M projects/sfia-studio/app/features/pre-m6-product-ui/product-tokens.css
+ M projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.module.css
+ M projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LpsSurface.tsx
+ M projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
+ M projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
+ M projects/sfia-studio/app/lib/nora-cognitive-runtime/reasoningCapability.ts
+ M projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts
+ M projects/sfia-studio/app/lib/nora-cognitive-runtime/types.ts
+ M projects/sfia-studio/app/lib/nora-eval/capabilityBudget.ts
+ M projects/sfia-studio/app/lib/platform/observability/types.ts
+ M projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+?? .tmp-sfia-review/p5-s01-diff-stat.txt
+?? .tmp-sfia-review/p5-s01-frontend-diff.txt
+?? .tmp-sfia-review/p5-s01-name-status.txt
+?? .tmp-sfia-review/p5-s01-roadmap-diff.txt
+?? .tmp-sfia-review/p5-s01-routing-diff.txt
+?? .tmp-sfia-review/visual/
+?? projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p5.s01.cognitiveRouting.d0.test.ts
+?? projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p5.s01.integratedProduct.d0.test.ts
+?? projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p5.s01.semanticInvariants.d0.test.ts
+?? projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s01.workspaceLayout.ui.test.tsx
+?? projects/sfia-studio/app/features/pre-m6-product-ui/ProductRailRecents.tsx
+?? projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ProjectContextSummary.module.css
+?? projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ProjectContextSummary.tsx
+?? projects/sfia-studio/app/features/pre-m6-product-ui/workspaceContextPresentation.ts
+?? projects/sfia-studio/app/lib/nora-cognitive-runtime/cognitiveRoutingPolicy.ts
+?? projects/sfia-studio/app/public/branding/
+?? projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md
+
+```
+
+git diff --name-status:
+```
+M	.tmp-sfia-review/chatgpt-review.md
+M	projects/sfia-studio/app/__tests__/pre-m6-product-ui/automaticProjectResume.ui.test.tsx
+M	projects/sfia-studio/app/features/pre-m6-product-ui/ProductShell.module.css
+M	projects/sfia-studio/app/features/pre-m6-product-ui/ProductShell.tsx
+M	projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.module.css
+M	projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx
+M	projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
+M	projects/sfia-studio/app/features/pre-m6-product-ui/product-tokens.css
+M	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.module.css
+M	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LpsSurface.tsx
+M	projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
+M	projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
+M	projects/sfia-studio/app/lib/nora-cognitive-runtime/reasoningCapability.ts
+M	projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts
+M	projects/sfia-studio/app/lib/nora-cognitive-runtime/types.ts
+M	projects/sfia-studio/app/lib/nora-eval/capabilityBudget.ts
+M	projects/sfia-studio/app/lib/platform/observability/types.ts
+M	projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+
+```
+
+git diff --stat:
+```
+ .tmp-sfia-review/chatgpt-review.md                 | 172 +-----
+ .../automaticProjectResume.ui.test.tsx             |   5 +-
+ .../pre-m6-product-ui/ProductShell.module.css      | 294 +++++++---
+ .../features/pre-m6-product-ui/ProductShell.tsx    | 145 ++---
+ .../ProjectWorkspacePage.module.css                | 636 +++++++++++++++++----
+ .../pre-m6-product-ui/ProjectWorkspacePage.tsx     | 366 +++++++++---
+ .../hooks/useProductConversation.ts                |   9 +-
+ .../features/pre-m6-product-ui/product-tokens.css  |  74 ++-
+ .../surfaces/ConversationSurface.module.css        |  46 +-
+ .../pre-m6-product-ui/surfaces/LpsSurface.tsx      |  12 +-
+ .../features/project-assistant/orchestrateTurn.ts  |   4 +-
+ .../app/lib/nora-cognitive-runtime/index.ts        |  18 +
+ .../nora-cognitive-runtime/reasoningCapability.ts  |  25 +-
+ .../nora-cognitive-runtime/runNoraCognitiveTurn.ts | 143 ++++-
+ .../app/lib/nora-cognitive-runtime/types.ts        |   9 +
+ .../app/lib/nora-eval/capabilityBudget.ts          |  61 ++
+ .../app/lib/platform/observability/types.ts        |   3 +-
+ .../convergence/sfia-studio-convergence-roadmap.md |  25 +-
+ 18 files changed, 1468 insertions(+), 579 deletions(-)
+
+```
 
 ======================================================================
-PUSH
+P5 STATUS
 ======================================================================
-
-Command:
-git push -u origin docs/sfia-studio-p4-final-repository-truth-sync
-
-Result: SUCCESS (new remote branch)
-Force: NO
-main push: NO
-
-Local SHA:  891801ce86e4b3a4483568dabe69054cfcb7f6f1
-Remote SHA: 891801ce86e4b3a4483568dabe69054cfcb7f6f1
-origin/main after push: 17434de03585eb30d13d59d7ba5c249563f0b33c
-PUSH VERIFIED = YES
+BEFORE: P5 NOT AUTHORIZED / NOT STARTED (post P4 final truth-sync on main)
+AFTER:
+- P5 AUTHORIZED BY MORRIS = YES
+- P5 STARTED = YES
+- P5 IN PROGRESS = YES
+- P5-S01 = LOCAL CANDIDATE (visual reserves)
+- R1/R2/R3 = NOT STARTED
+- READY FOR REAL = NO
+- runtime v3 = NON ADOPTED
+- ZERO REAL = YES
 
 ======================================================================
-PR
+SOURCES READ (summary)
 ======================================================================
-
-Action: CREATED (no prior open PR)
-PR number: 554
-PR URL: https://github.com/mcleland147/sfia-workspace/pull/554
-PR title: docs(sfia-studio): finalize P4 repository truth sync
-Base: main
-Head: docs/sfia-studio-p4-final-repository-truth-sync
-PR head SHA: 891801ce86e4b3a4483568dabe69054cfcb7f6f1
-PR state: OPEN
-Auto-merge: NOT ENABLED
-Merge performed: NO
-MERGE AUTHORIZED = NO
-
-PR file list (exact):
-- projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-- projects/sfia-studio/product-simplification/04-chat-first-product-simplification-semantic-projection-cognitive-architecture.md
-
-PR diff scope verdict: PASS — exactly two authorized project files
-
-CI/check state: reported honestly at pack write (see Cursor report refresh)
+Build Doctrine · Roadmap · C1 · P1 · P2 · P3 · P4 · v3 30–37 applicable · Nora trajectory · Process templates · CURRENT code seams · Figma MCP Desktop 46:2 / Compact 190:44 / Mobile 190:306 / Meridian 179:2
+CKC Delivery coverage: SYNTHETIC / INCOMPLETE (canonical sources used; no invented CKC)
 
 ======================================================================
-CONSISTENCY MATRIX
+BUILD DOCTRINE APPLICATION
 ======================================================================
-
-P1 CLOSED = YES
-P2 CLOSED = YES
-P3 CLOSED = YES
-P4 GLOBAL VALIDATED = YES
-P4 INTEGRATED = YES
-P4 POST-MERGE VERIFIED = YES
-P4 CLOSED BY MORRIS = YES
-P4 closure patch integrated on main = YES
-P4 final repository verification = PASS
-P5 Entry Contract = DEFINED
-P5 REQUALIFIED BY CHATGPT = YES
-P5 AUTHORIZED = NO
-P5 STARTED = NO
-TARGET routing architecture validated = YES
-Production router implemented = NO
-REAL routing proven = NO
-Cognitive Completion proven = NO
-READY FOR REAL = NO
-runtime v3 ADOPTED = NO
-
-Reserves: NONE blocking for PR creation.
+R1–R26 applied: reuse Pre-M6 + Nora runtime; no parallel Product/Nora/Runner/RouterService; no third token family; Fake only at external LLM boundary; no REAL; no architecture pivot; logicalTurnId preferred for cognitive task identity.
 
 ======================================================================
-ANTI-CLAIMS
+FIGMA DESIGN EXTRACTION CONTRACT (Workspace P5-S01)
 ======================================================================
-
-Allowed:
-P4 GLOBAL VALIDATED = YES
-P4 INTEGRATED = YES
-P4 POST-MERGE VERIFIED = YES
-P4 CLOSED BY MORRIS = YES
-P4 CLOSURE PATCH INTEGRATED ON MAIN = YES
-P4 FINAL REPOSITORY VERIFICATION = PASS
-P5 REQUALIFIED BY CHATGPT = YES
-P4 FINAL TRUTH-SYNC COMMIT CREATED = YES
-P4 FINAL TRUTH-SYNC BRANCH PUSHED = YES
-P4 FINAL TRUTH-SYNC PR OPEN = YES (#554)
-
-Not allowed:
-P4 FINAL TRUTH-SYNC PATCH INTEGRATED ON MAIN = YES
-P4 FINAL TRUTH-SYNC PR MERGED = YES
-P5 AUTHORIZED = YES
-P5 STARTED = YES
-P5 IMPLEMENTATION STARTED = YES
-READY FOR REAL = YES
-runtime v3 ADOPTED = YES
-Production router implemented = YES
-REAL routing proven = YES
-Cognitive Completion proven = YES
+File key: m4g8j0gNbEzfIuH6S9AZJF
+Desktop canonical: 46:2 · 1440×1024
+Compact: 190:44 · 1024×768
+Mobile: 190:306 · 390×844
+Rail: 192×1024 · Meridian 192×390 @ y=250 opacity ~0.10
+Project App 1224 · Global header 54 · Project header 104 · Body 866 · Conversation 868 · Context 356 · Focus 50 · Transcript 638 · Composer 178
+Colors: canvas #fffdf9 · rail #f1ece5 · body #fbf7f2 · ink #1f1a16 · Nora #d9563b · ok #157a55
+Meridian asset: projects/sfia-studio/app/public/branding/meridian-emblem-product.png
+Provenance: Figma raw fill via download_assets(179:2) · truncated PNG recovered with Pillow LOAD_TRUNCATED_IMAGES · lion+compass content verified
+Reference screenshot: .tmp-sfia-review/visual/figma/workspace-desktop-46-2.png
+Runtime screenshots: NOT CAPTURED (Playwright auth bootstrap required) → Visual = CANDIDATE WITH RESERVES · NOT PIXEL-PERFECT PROVEN
 
 ======================================================================
-ROADMAP DIFF (COMPLETE USEFUL PATCH FROM PROJECT COMMIT)
+CURRENT→TARGET ASSET MATRIX (summary)
 ======================================================================
-
-diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-index db051da6..4d7997d4 100644
---- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-+++ b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-@@ -4,6 +4,7 @@
- | --- | --- |
- | **Rôle** | Roadmap **vivante** de convergence vers l’utilisation complète de la doctrine produit SFIA Studio v3 |
- | **Statut** | **VALIDATED — ACTIVE LIVING ROADMAP** |
-+| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P4 FINAL REPOSITORY TRUTH-SYNC** | 2026-10-05 03:32:06 +0200 — **STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P4 FINAL REPOSITORY TRUTH-SYNC COMPLETE AS LOCAL CANDIDATE — READY FOR MORRIS P4 FINAL TRUTH-SYNC GIT INTEGRATION GATE** · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **14 — Post-merge / repository truth-sync** · Milestone **P4** · Pass **P4 FINAL REPOSITORY TRUTH-SYNC** · CRITICAL · EVOL/DOC · PR **#552 MERGED** · architecture merge `d0b4836046911731605883364d9cc3bef4ac3e7f` · post-merge CI **#672** SUCCESS · PR **#553 MERGED** · closure patch merge `17434de03585eb30d13d59d7ba5c249563f0b33c` · parents `d0b48360…` + `332ee04d…` · post-merge SFIA Studio CI run **#674** / `37250512824` = **SUCCESS** · Detect / Build / Unit tests / **Required Gate** = **SUCCESS** · P4 GLOBAL VALIDATED / INTEGRATED / POST-MERGE VERIFIED / CLOSED BY MORRIS = **YES** · P4 closure patch INTEGRATED ON MAIN = **YES** · P4 FINAL REPOSITORY VERIFICATION = **PASS** · P5 REQUALIFIED BY CHATGPT = **YES** · P5 Entry Contract = **DEFINED** · **P5 AUTHORIZED = NO** · **P5 STARTED = NO** · READY FOR REAL = **NO** · runtime v3 = **NON ADOPTED** · production router IMPLEMENTED = **NO** · REAL routing PROVEN = **NO** · document = `projects/sfia-studio/product-simplification/04-chat-first-product-simplification-semantic-projection-cognitive-architecture.md` · branche `docs/sfia-studio-p4-final-repository-truth-sync` · base `origin/main` @ `17434de03585eb30d13d59d7ba5c249563f0b33c` · prior handoff `5533a05cbfe334aee7c799ed74f7669ef1a08004` / blob `988967391fd9437355d90611c14aba1b3d74887a` · next = **ChatGPT P4 final truth-sync review** → **DISTINCT Morris truth-sync Git integration gate** (commit/push/PR) → DISTINCT merge → post-merge verify → **CURRENT MORRIS GATE = P5 AUTHORIZATION** (NOT CONSUMED) · **≠** P5 AUTHORIZED · **≠** P5 STARTED · **≠** READY FOR REAL · **≠** runtime v3 ADOPTED · **≠** project commit/push/PR/merge this pass · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT / `origin/main` / PR evidence** |
- | **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P4 POST-MERGE VERIFICATION & CLOSURE** | 2026-10-05 02:49:04 +0200 — **STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P4 POST-MERGE VERIFICATION & CLOSURE COMPLETE AS LOCAL CANDIDATE — READY FOR MORRIS P4 CLOSURE PATCH GIT INTEGRATION GATE** · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **14 — Post-merge** · Milestone **P4 — SEMANTIC / PROJECTION / COGNITIVE ARCHITECTURE / TECHNICAL DELTA** · Pass **POST-MERGE VERIFICATION & CLOSURE** · CRITICAL · EVOL/DOC · PR **#552 MERGED** · merge `d0b4836046911731605883364d9cc3bef4ac3e7f` · parents `e19f8940…` + `e24747e1…` · post-merge SFIA Studio CI run **#672** / `37248128868` = **SUCCESS** · Detect / Build / Unit tests / **Required Gate** = **SUCCESS** · P4 GLOBAL VALIDATED BY MORRIS = **YES** · P4 INTEGRATED ON MAIN = **YES** · P4 POST-MERGE VERIFIED = **YES** · P4 CLOSED BY MORRIS = **YES** · P4 Exit Proof = **SATISFIED** · closure materialization = **LOCAL CANDIDATE** · closure patch INTEGRATED ON MAIN = **NO** · **P5 = NOT AUTHORIZED / NOT STARTED** (Entry Contract DEFINED by CLOSED P4 · DEFINED ≠ AUTHORIZED) · READY FOR REAL = **NO** · runtime v3 = **NON ADOPTED** · TARGET routing architecture = **VALIDATED / ADOPTED AS P4 TARGET CONTRACT** · production router IMPLEMENTED = **NO** · REAL routing PROVEN = **NO** · Cognitive Completion PROVEN = **NO** · document = `projects/sfia-studio/product-simplification/04-chat-first-product-simplification-semantic-projection-cognitive-architecture.md` · branche de clôture `docs/sfia-studio-chat-first-product-simplification-p4-post-merge-closure` · base `origin/main` @ `d0b4836046911731605883364d9cc3bef4ac3e7f` · prior handoff `59dbf0c2f5cfb804e3c21f83e94e56f688d91792` / blob `2f2b45206e71df859b6850b56c7ec8030c514dd2` · next = **ChatGPT P4 post-merge closure review** → **DISTINCT Morris closure-patch Git integration gate** (commit/push/PR) → DISTINCT merge → repository truth → **P5 REQUALIFICATION** → DISTINCT GO P5 if recommended · **≠** P5 AUTHORIZED · **≠** P5 STARTED · **≠** READY FOR REAL · **≠** runtime v3 ADOPTED · **≠** production router implemented · **≠** project commit/push/PR/merge this pass · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT / `origin/main` / PR evidence** |
- | **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P4 GIT INTEGRATION AUTHORIZED / IN PROGRESS** | 2026-10-05 02:23:24 +0200 — **STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P4 GLOBAL VALIDATED BY MORRIS — GIT INTEGRATION AUTHORIZED / IN PROGRESS (COMMIT / PUSH / PR)** · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **15 — Capitalisation / REX** · Milestone **P4** · Pass **GIT INTEGRATION — COMMIT / PUSH / PR** · CRITICAL · EVOL/DOC · Morris Git Integration GO = **YES** (commit/push/PR) · MERGE = **NOT AUTHORIZED** · ChatGPT materialization/truth-sync review = **PASS** · prior handoff `db3b7b93723847629b9e46eef2ac6b343737a8a1` / blob `63829146f51b609fba31d0436a3e9a400b1a1869` · document P4 = VALIDATED DOCUMENTARY CANDIDATE · Roadmap truth-sync included · **P4 INTEGRATED = NO** · **P4 CLOSED = NO** · **P5 = NOT AUTHORIZED / NOT STARTED** · READY FOR REAL = **NO** · runtime v3 = **NON ADOPTED** · branche `docs/sfia-studio-chat-first-product-simplification-p4-semantic-projection-cognitive-architecture` · base `origin/main` @ `e19f89409a5eb717838b9d7bffdc8c3d2ee02b18` · next after PR = **ChatGPT PR review** → **DISTINCT MORRIS MERGE GATE** · **≠** P4 MERGED · **≠** P4 CLOSED · **≠** P5 AUTHORIZED · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT / `origin/main` / PR evidence** |
- | **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P4 GLOBAL VALIDATION MATERIALIZATION + ROADMAP TRUTH-SYNC** | 2026-10-05 01:54:17 +0200 — **STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P4 GLOBAL VALIDATED BY MORRIS — VALIDATION MATERIALIZATION + ROADMAP TRUTH-SYNC LOCAL CANDIDATE** · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **15 — Capitalisation / REX** · Milestone **P4 — SEMANTIC / PROJECTION / COGNITIVE ARCHITECTURE / TECHNICAL DELTA** · Pass **GLOBAL VALIDATION MATERIALIZATION + ROADMAP TRUTH-SYNC** · CRITICAL · EVOL/DOC · Morris 2026-10-05 Europe/Paris = **P4 GLOBAL VALIDATED BY MORRIS = YES** · ChatGPT Final Targeted Coherence Verification = **PASS — P4 READY FOR MORRIS GLOBAL VALIDATION** · C1–C9 = **PASS** · MC1–MC4 = **PASS** · A–E = **PASS** · WP1–WP5 = **PASS / INCLUDED IN GLOBAL P4 VALIDATION** · document = `projects/sfia-studio/product-simplification/04-chat-first-product-simplification-semantic-projection-cognitive-architecture.md` = **VALIDATED DOCUMENTARY CANDIDATE** · canonical validation handoff `sfia/review-handoff` @ `e70a0615f68973079b2c5a9bb94e326842f9bfea` / blob `f3e9af22c95543ca82316c9c2fdeaaa0e99bcf18` · P1/P2/P3 = **CLOSED / INTEGRATED** · **P4 INTEGRATED = NO** · **P4 CLOSED = NO** · **P5 = NOT AUTHORIZED / NOT STARTED** (Entry Contract DEFINED ≠ AUTHORIZED) · READY FOR REAL = **NO** · runtime v3 = **NON ADOPTED** · TARGET routing architecture = **VALIDATED IN P4** · production router IMPLEMENTED/PROVEN = **NO** · REAL routing PROVEN = **NO** · Project Git integration = **NOT AUTHORIZED IN THIS RUN** · branche `docs/sfia-studio-chat-first-product-simplification-p4-semantic-projection-cognitive-architecture` · base `origin/main` @ `e19f89409a5eb717838b9d7bffdc8c3d2ee02b18` · next = **ChatGPT review of validation materialization + Roadmap truth-sync** → **DISTINCT Morris P4 Git Integration gate** (commit/push/PR) → PR review → DISTINCT merge gate → post-merge → P4 closure qualification → requalify → DISTINCT GO P5 · **≠** P4 INTEGRATED · **≠** P4 CLOSED · **≠** P5 AUTHORIZED · **≠** READY FOR REAL · **≠** runtime v3 ADOPTED · **≠** project commit/push/PR/merge this pass · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT / `origin/main` / PR evidence** |
-@@ -967,18 +968,18 @@ CRITICAL PATH:
-   → HISTORICAL / SUPERSEDED (P2 CP01 tip) — STRUCTURAL STEP was P2 CHECKPOINT 01 CORRECTION PASS 01 COMPLETE *(true then)*
-   → P2 — **VALIDATED BY MORRIS + INTEGRATED ON MAIN + POST-MERGE VERIFIED + CLOSED** (PR **#549** / merge `e99d9ad5…`)
-   → P3 — **VALIDATED BY MORRIS + INTEGRATED ON MAIN + POST-MERGE VERIFIED + CLOSED** (PR **#550** + closure **#551** / main `e19f8940…`)
--  → P4 — **GLOBAL VALIDATED BY MORRIS + INTEGRATED ON MAIN + POST-MERGE VERIFIED + CLOSED BY MORRIS** (PR **#552** / merge `d0b48360…` · post-merge CI **#672** SUCCESS)
--  → CURRENT NEXT CAPABILITY — **P5 REQUALIFICATION** (Entry Contract DEFINED by CLOSED P4) · P5 **NOT AUTHORIZED / NOT STARTED** · DISTINCT Morris GO required before any P5 start
--  → CURRENT STRUCTURAL STEP — STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P4 POST-MERGE VERIFIED + CLOSED BY MORRIS → PRODUCT SIMPLIFICATION P5 REQUALIFICATION · P1/P2/P3/P4 CLOSED · P5 Entry Contract DEFINED · P5 **≠** authorized · TARGET routing architecture validated/adopted as P4 target contract · production router **NOT IMPLEMENTED/PROVEN** · REAL **≠** authorized · runtime v3 **NON ADOPTED** · closure materialization LOCAL CANDIDATE · closure patch **≠** on main yet
-+  → P4 — **GLOBAL VALIDATED BY MORRIS + INTEGRATED ON MAIN + POST-MERGE VERIFIED + CLOSED BY MORRIS** (PR **#552** / `d0b48360…` · CI **#672** SUCCESS) + **CLOSURE PATCH INTEGRATED** (PR **#553** / `17434de0…` · CI **#674** SUCCESS) · FINAL REPOSITORY VERIFICATION = **PASS**
-+  → CURRENT NEXT CAPABILITY — **MORRIS P5 AUTHORIZATION GATE** · P5 REQUALIFIED BY CHATGPT · Entry Contract DEFINED · P5 **NOT AUTHORIZED / NOT STARTED**
-+  → CURRENT STRUCTURAL STEP — STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P4 CLOSED + FINAL REPOSITORY VERIFIED → P5 REQUALIFIED BY CHATGPT → AWAITING DISTINCT MORRIS P5 AUTHORIZATION GATE · P1/P2/P3/P4 CLOSED · P5 Entry Contract DEFINED · P5 **≠** authorized · TARGET routing architecture validated/adopted as P4 target contract · production router **NOT IMPLEMENTED/PROVEN** · REAL **≠** authorized · runtime v3 **NON ADOPTED** · final truth-sync materialization LOCAL CANDIDATE · truth-sync patch **≠** on main yet
-   → DYNAMIC PRODUCT TRAJECTORY — requalify after each capability *(method invariant)*
-
--CURRENT SIMPLIFICATION TRAJECTORY (living — P4 CLOSED · P5 NOT AUTHORIZED):
-+CURRENT SIMPLIFICATION TRAJECTORY (living — P4 CLOSED / FINAL REPOSITORY VERIFIED · P5 REQUALIFIED · P5 NOT AUTHORIZED):
-   Axes: (1) Product Interaction Simplification · (2) HumanDecision Materiality · (3) Cognitive Reliability / Adaptive Model & Reasoning Strategy · (4) Chat-first Operating / Workspace / Semantic Architecture trajectory
-   P1 Cadrage — VALIDATED / INTEGRATED / POST-MERGE VERIFIED / CLOSED (PR #548 / merge `642a10c8…`)
-   → P2 Functional Operating Model — VALIDATED / INTEGRATED / POST-MERGE VERIFIED / CLOSED (PR #549 / merge `e99d9ad5…`)
-   → P3 Workspace / Interaction Architecture — VALIDATED / INTEGRATED / POST-MERGE VERIFIED / CLOSED (PR #550 + closure #551 / main `e19f8940…`)
--  → P4 Semantic / Projection / Cognitive Architecture — GLOBAL VALIDATED / INTEGRATED / POST-MERGE VERIFIED / CLOSED BY MORRIS (PR #552 / merge `d0b48360…` · post-merge CI #672 SUCCESS) · closure materialization LOCAL CANDIDATE · closure patch ≠ on main yet
--  → P5 Integrated Delivery — Entry Contract DEFINED by CLOSED P4 · **NOT AUTHORIZED** · **NOT STARTED**
-+  → P4 Semantic / Projection / Cognitive Architecture — GLOBAL VALIDATED / INTEGRATED / POST-MERGE VERIFIED / CLOSED BY MORRIS (PR #552 / `d0b48360…` · CI #672 SUCCESS) · closure patch INTEGRATED (PR #553 / `17434de0…` · CI #674 SUCCESS) · FINAL REPOSITORY VERIFICATION = PASS · final truth-sync materialization LOCAL CANDIDATE · truth-sync patch ≠ on main yet
-+  → P5 Integrated Delivery — REQUALIFIED BY CHATGPT · Entry Contract DEFINED by CLOSED P4 · **NOT AUTHORIZED** · **NOT STARTED**
-   → P6 Global Integrated Product QA — NOT AUTHORIZED
-   → P7 Fresh Project End-to-End Product Replay — NOT AUTHORIZED · Project NOT SELECTED
-   → P8 Requalification — NOT AUTHORIZED
-@@ -1026,8 +1027,8 @@ HISTORICAL / CONSUMED (W2-era tip): NEXT CONVERGENCE CAPABILITY was W2 TRACK D /
- HISTORICAL / SUPERSEDED (P2 CP01 living tip): CURRENT STRUCTURAL STEP was P2 CHECKPOINT 01 CORRECTION PASS 01 COMPLETE — P2 AUTHORIZED/IN PROGRESS — P2 NOT VALIDATED — P3→P8 NOT AUTHORIZED — production model routing NOT SELECTED — Pilot–Nora–Studio semantic TARGET FOR P4 *(true then)*
- HISTORICAL / CONSUMED / SUPERSEDED: NEXT MORRIS GATE AFTER REQUALIFICATION was "selection / authorization of a future Studio capability — NOT STARTED" — SUPERSEDED by D-SIMP-01 (capability selected = Product Simplification C1)
- HISTORICAL / SUPERSEDED (P2 CP01 living tip): CURRENT MORRIS GATE was CHATGPT CLOSURE REVIEW CHECKPOINT 01 *(true then)*
--CURRENT STRUCTURAL STEP: STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P4 POST-MERGE VERIFIED + CLOSED BY MORRIS → PRODUCT SIMPLIFICATION P5 REQUALIFICATION — P1/P2/P3/P4 CLOSED — P5 Entry Contract DEFINED — P5 NOT AUTHORIZED / NOT STARTED — TARGET routing architecture VALIDATED / ADOPTED AS P4 TARGET CONTRACT — production router NOT IMPLEMENTED/PROVEN — REAL NOT AUTHORIZED — runtime v3 NON ADOPTED — READY FOR REAL NO — closure materialization LOCAL CANDIDATE — closure patch NOT INTEGRATED ON MAIN
--CURRENT MORRIS GATE: NONE consumed for P5 · next future structural gate = P5 REQUALIFICATION → ChatGPT qualification/recommendation → DISTINCT MORRIS GO P5 if recommended · prior P4 closure GO consumed for LOCAL materialization only · ≠ P5 AUTHORIZED · ≠ P5 STARTED · ≠ READY FOR REAL · ≠ runtime v3 ADOPTED · ≠ closure-patch commit/push/PR this pass
-+CURRENT STRUCTURAL STEP: STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P4 CLOSED + FINAL REPOSITORY VERIFIED → P5 REQUALIFIED BY CHATGPT → AWAITING DISTINCT MORRIS P5 AUTHORIZATION GATE — P1/P2/P3/P4 CLOSED — P5 Entry Contract DEFINED — P5 NOT AUTHORIZED / NOT STARTED — TARGET routing architecture VALIDATED / ADOPTED AS P4 TARGET CONTRACT — production router NOT IMPLEMENTED/PROVEN — REAL NOT AUTHORIZED — runtime v3 NON ADOPTED — READY FOR REAL NO — P4 closure patch INTEGRATED ON MAIN (PR #553) — final truth-sync materialization LOCAL CANDIDATE — truth-sync patch NOT INTEGRATED ON MAIN
-+CURRENT MORRIS GATE: P5 AUTHORIZATION — PENDING / NOT CONSUMED · prior P4 gates (validation / git integration / merge #552 / closure / closure-patch merge #553) CONSUMED · ChatGPT P5 requalification COMPLETED · ≠ P5 AUTHORIZED · ≠ P5 STARTED · ≠ READY FOR REAL · ≠ runtime v3 ADOPTED · ≠ truth-sync commit/push/PR this pass
- M6 / M7: HISTORICAL MILESTONES — SUPERSEDED / ABSORBED BY PRODUCT COMPLETION — traces conservées
- CKC COVERAGE: corpus Studio-native INTEGRATED · Phase A package-bound INTEGRATED via W1 · Phase B ≠ complete · `15` non structurel
- CKC→V2.6 CAPITALIZATION: FUTURE OPTION — DISTINCT METHOD GATE — NOT DECIDED — Studio doctrine remains v3-exclusive
-@@ -1044,7 +1045,7 @@ MAJOR GAP TREATMENT: ADOPTED AS OPTION A SCOPE (F1 entry · nav · workspace ·
- W1 ROADMAP REPOSITORY TRUTH: SATISFIED — PR #396 MERGED — PUSH/MAIN CI 32591909031 SUCCESS
- HISTORICAL / CONSUMED (duplicate W2-era tip block): NEXT REPO GATE / NEXT PRODUCT GATE / NEXT CONVERGENCE CAPABILITY Track D Phase B — CONSUMED by PR #403 + W2 CLOSED + subsequent W3/W4/PC trajectory
- HISTORICAL / SUPERSEDED (repeat tip): CURRENT STRUCTURAL STEP was P2 CHECKPOINT 01 CORRECTION PASS 01 COMPLETE — P2 NOT VALIDATED — P3→P8 NOT AUTHORIZED — production routing NOT SELECTED *(true then)*
--CURRENT STRUCTURAL STEP (repeat for local block coherence): STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P4 POST-MERGE VERIFIED + CLOSED BY MORRIS → P5 REQUALIFICATION — P1/P2/P3/P4 CLOSED — P5 NOT AUTHORIZED / NOT STARTED — TARGET routing VALIDATED / ADOPTED AS P4 TARGET CONTRACT — production router NOT PROVEN — runtime v3 NON ADOPTED — closure patch NOT ON MAIN
-+CURRENT STRUCTURAL STEP (repeat for local block coherence): STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P4 CLOSED + FINAL REPOSITORY VERIFIED → P5 REQUALIFIED BY CHATGPT → AWAITING MORRIS P5 AUTHORIZATION GATE — P1/P2/P3/P4 CLOSED — P5 NOT AUTHORIZED / NOT STARTED — TARGET routing VALIDATED / ADOPTED AS P4 TARGET CONTRACT — production router NOT PROVEN — runtime v3 NON ADOPTED — closure patch ON MAIN via PR #553 — truth-sync patch NOT ON MAIN
- M6 / M7: HISTORICAL / SUPERSEDED / ABSORBED — not forward milestones
- CKC COVERAGE: catalogue applicable evolvable — Phase A integrated · Phase B downstream — current 15-type baseline is a measure, not a structural invariant
- CKC→V2.6 CAPITALIZATION: FUTURE OPTION — DISTINCT METHOD GATE — NOT DECIDED — Studio doctrine remains v3-exclusive
+| Asset | Class | Action S01 |
+| ProductShell | HARVEST/ADAPT | P3 rail layout |
+| ProjectWorkspacePage | ADAPT | P3 workspace geometry |
+| ConversationSurface | ADAPT | flatter transcript / sticky composer |
+| ProjectContextSummary | NEW (projection UI) | Pilot context panel |
+| product-tokens --pm6-* | ADAPT | P3 colors/geometry |
+| --sfia-* | KEEP/AUDIT | dual-family TEMP WITH EXIT |
+| cognitiveWorkloadPolicy | KEEP | Strategy first |
+| cognitiveRoutingPolicy | NEW COMPLETE | P5 routing |
+| capabilityBudget MW0 | FREEZE | historical GPT-5.6 |
+| buildP5TargetCapabilityManifest | NEW | Luna/Sol/Astra |
+| runNoraCognitiveTurn | ADAPT | wire routing |
+| runNoraAgentsTurn | KEEP | same Runner |
+| FakeConversationProvider | KEEP | D0 external boundary |
+| logicalProductTurn / logicalTurnId | KEEP | cognitiveTaskId |
+| orchestrateTurn | ADAPT | correlationId←logicalTurnId |
+| F2 analyzeIntent | RETIRE LATER align | P5-DEBT-F2-ROUTING-ALIGNMENT |
+| Meridian | NEW asset | branding |
+| VsDemo | HARVEST honesty | not Product SoT |
 
 ======================================================================
-COMPLETE FINAL P4 DOCUMENT
+ARCHITECTURE PARALLELISM CHECK
 ======================================================================
+1 Existing Product model reused? YES
+2 Existing Product SQLite reused? YES
+3 Existing CWP reused? YES
+4 Existing Nora reused? YES
+5 Existing Agents Runner reused? YES
+6 Existing provider boundary reused? YES
+7 Studio Cognitive Context reused/adapted? YES
+8 logical Product turn reused? YES
+9 Product resolution reused? YES
+10 Pre-M6 frontend audited? YES
+11 Tokens audited? YES
+12 No third token family? YES
+13 No router service? YES
+14 No second Nora? YES
+15 No second Product model? YES
+16 No second persistence? YES
+17 No separate eval runtime? YES
+18 No fake Product path? YES
+19 No mobile Product semantics fork? YES
+20 No new cockpit? YES
+21 No universal validator? YES
+22 No metrics factory? YES
 
-Path: projects/sfia-studio/product-simplification/04-chat-first-product-simplification-semantic-projection-cognitive-architecture.md
-Lines: 2059
+======================================================================
+PIB / SIMPLIFICATION (S01 scope)
+======================================================================
+MATERIAL: PRESERVED
+PROTECTIVE: PRESERVED
+ACCIDENTAL: REDUCED at S01 scope (no model/effort/CKC selectors; Conversation primary; context panel)
+Pilot/runtime admin: NEAR ZERO
+parallel cockpit: NO
+new semantic truth: NO
+Net Complexity: IMPROVED AT S01 SCOPE (local) / NOT YET PROVEN globally
 
-# SFIA Studio — Chat-First Product Simplification — P4 Pilot–Nora–Studio Semantic, Projection & Cognitive Architecture / Technical Delta
+======================================================================
+TESTS / VALIDATION
+======================================================================
+Targeted P5: 22 PASS (routing 17 + integrated 1 + semantic 3 + workspace UI 1)
+Adjacent: MW2 CWP/modelSettings/nativeLiveBoundary PASS · pre-m6-product-ui suite 201 PASS in combined run
+typecheck: PASS
+lint: PASS
+build: PASS
+Playwright runtime visual: NOT RUN (auth bootstrap) — visual reserve
+git diff --check: trailing blank line only on .tmp review pack (rewritten below)
+Staged: EMPTY
+REAL calls: 0 · REAL spend: 0
+
+======================================================================
+DEBT / EXIT
+======================================================================
+P5-DEBT-F2-ROUTING-ALIGNMENT — F2 analyzeIntent still static provider model — Owner P5 — Exit before R3 / integrated completion — Proof: same Product cognitive policy/provenance
+OPENAI_MODEL / OPENAI_REASONING_EFFORT — RETIRE LATER from nominal Product routing — TEMP WITH EXIT for bootstrapping/eval
+Dual --sfia-* / --pm6-* — TEMP WITH EXIT — converge presentation without third family
+Escalation runtime loop — policy max=1 only — exercise before R1
+Visual runtime Figma comparison — capture after auth — before claiming Visual PASS
+Synthesis shortcut disabled — honest until Product synthesis projection exists
+Meridian asset truncated-recovery — replace with clean export if available — Owner P5 visual
+
+======================================================================
+GATES
+======================================================================
+Consumed: MORRIS P5 AUTHORIZATION
+Next after ChatGPT PASS: MORRIS P5-S01 GIT INTEGRATION GATE
+NOT consumed: REAL · MERGE · R1 · R2 · R3 · runtime v3 adoption
+
+======================================================================
+FINAL VERDICT (Cursor self)
+======================================================================
+READY FOR CHATGPT P5-S01 INTEGRATED DELIVERY REVIEW —
+P5 AUTHORIZED / P5 IN PROGRESS /
+FIRST PRODUCT VERTICAL SLICE LOCAL CANDIDATE /
+P3 WORKSPACE VISUAL CANDIDATE (WITH RESERVES) /
+COGNITIVE ROUTING D0 PROVEN /
+ZERO REAL
+
+≠ P5 COMPLETE · ≠ PIXEL-PERFECT GLOBAL PASS · ≠ READY FOR REAL · ≠ READY FOR PR/MERGE
+
+======================================================================
+FULL P5 DELIVERY DOCUMENT
+======================================================================
+# SFIA Studio — Chat-First Product Simplification — P5 Integrated Delivery (P5-S01 — First Integrated Product Vertical Slice)
 
 | Métadonnée | Valeur |
 | --- | --- |
 | **Projet** | SFIA Studio |
 | **Macro** | `STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01` |
-| **Milestone** | **P4 — PILOT–NORA–STUDIO SEMANTIC, PROJECTION & COGNITIVE ARCHITECTURE / TECHNICAL DELTA** |
-| **Cycle projet** | **14 — Post-merge** (P4 architecture = Cycle **15** historique · closure Git integration = historique consumé) |
-| **Pass** | **P4 FINAL REPOSITORY TRUTH-SYNC** |
-| **Profil SFIA** | **Capitalization** · profondeur **Critical** |
-| **Typologie** | **DOC** dans macro **EVOL** — post-merge / repository truth-sync |
-| **Base Git / Integration** | PR **#552** MERGED (`d0b48360…`) · PR **#553** MERGED · closure merge `17434de03585eb30d13d59d7ba5c249563f0b33c` · parents `d0b48360…` + `332ee04d…` · `origin/main` @ `17434de0…` |
-| **Branche truth-sync** | `docs/sfia-studio-p4-final-repository-truth-sync` |
+| **Milestone** | **P5 — INTEGRATED DELIVERY** (Delivery / Implementation / Evidence source) |
+| **Slice** | **P5-S01 — First Integrated Product Vertical Slice** |
+| **Pass** | **P5-S01 DELIVERY DOCUMENTATION** (evidence source, local) |
+| **Typologie** | Delivery evidence dans macro **EVOL** — **≠** doctrine · **≠** nouvelle architecture |
+| **Autorité architecture** | **P4** (`04-chat-first-product-simplification-semantic-projection-cognitive-architecture.md`) — **inchangée** |
+| **Branche** | `delivery/sfia-studio-product-simplification-p5-s01-integrated-product-vertical-slice` |
+| **Base / HEAD Git** | `04527bede4a3aad1853387b9eb39af3fe0615412` (changements P5-S01 = **working tree local non commité**) |
+| **Base d’intégration** | PR **#554** **MERGED** · CI **#676** **SUCCESS** · Required Gate **SUCCESS** |
 | **Worktree** | `/Users/morris/Projects/sfia-studio-chat-first-product-simplification-p3` |
-| **Statut P4** | **GLOBAL VALIDATED BY MORRIS** + **INTEGRATED ON MAIN** + **POST-MERGE VERIFIED** + **CLOSED BY MORRIS** + **CLOSURE PATCH INTEGRATED ON MAIN** + **FINAL REPOSITORY VERIFICATION = PASS** |
-| **Product Completion C1** | **VALIDATED / INTEGRATED / CLOSED** (macro Product Completion — distinct de Product Simplification) |
-| **Product Simplification P1** | **VALIDATED / INTEGRATED / CLOSED** — Cadrage Chat-First Product Simplification |
-| **P2** | **VALIDATED / INTEGRATED / CLOSED** (PR **#549**) |
-| **P3** | **VALIDATED / INTEGRATED / POST-MERGE VERIFIED / CLOSED** (PR **#550** + closure **#551**) |
-| **P5** | **REQUALIFIED BY CHATGPT** · Entry Contract **DEFINED** · **NOT AUTHORIZED** · **NOT STARTED** |
-| **runtime v3** | **NON ADOPTED** |
+| **P5 AUTHORIZED BY MORRIS** | **YES** (GO P5 consommé dans cette conversation) |
+| **P5 STARTED** | **YES** |
+| **P5 IN PROGRESS** | **YES** |
+| **P5-S01** | **LOCAL CANDIDATE** (réserves visuelles — voir §22 / §25) |
+| **R1 / R2 / R3** | **NOT STARTED** |
+| **ZERO REAL** | **YES** — aucun appel OpenAI réel dans P5-S01 |
 | **READY FOR REAL** | **NO** |
-| **Figma** | READ ONLY · contrat P3 préservé · **≠** mutation ce cycle |
-| **Roadmap** | Final repository truth-sync LOCAL CANDIDATE this pass · P4 architecture + closure patch already on main · **truth-sync patch ≠ integrated on main yet** |
-| **Langue** | Français (identifiants Product / runtime préservés) |
-| **Fichier** | `projects/sfia-studio/product-simplification/04-chat-first-product-simplification-semantic-projection-cognitive-architecture.md` |
+| **runtime v3** | **NON ADOPTED** |
+| **Git (ce pass)** | **NO** project commit · **NO** push · **NO** PR · **NO** merge |
+| **Langue** | Français (identifiants canoniques anglais préservés) |
+| **Fichier** | `projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md` |
 | **Date** | 2026-10-05 · Europe/Paris |
-| **Review path** | PR **#552** MERGED · CI **#672** SUCCESS · Morris Closure GO YES · PR **#553** MERGED · post-merge CI **#674** / `37250512824` SUCCESS · Required Gate SUCCESS · Pass = **P4 FINAL REPOSITORY TRUTH-SYNC** |
 
-> **Lecture rapide.** P4 = **comment** le monde Product défini par P1/P2/P3 est représenté, projeté, rendu current/durable/searchable et connecté à la cognition Nora — **sans** seconde vérité ni architecture parallèle. Cinq Work Products. **P4 GLOBAL VALIDATED / INTEGRATED / POST-MERGE VERIFIED / CLOSED BY MORRIS = YES**. **P4 CLOSURE PATCH INTEGRATED ON MAIN = YES** (PR **#553** / `17434de0…`) · **P4 FINAL REPOSITORY VERIFICATION = PASS** (CI **#674** / `37250512824`). Ce pass = **P4 FINAL REPOSITORY TRUTH-SYNC** (documentary living-truth candidate). **P5 REQUALIFIED BY CHATGPT = YES · P5 AUTHORIZED = NO.** **≠** P5 STARTED · **≠** READY FOR REAL · **≠** runtime v3 ADOPTED · **≠** production router implemented · **≠** this truth-sync patch integrated on main yet.
+> **Lecture rapide.** Ce document est la **source de livraison / implémentation / preuve** de P5-S01. Il **décrit ce qui a été construit et ce qui est prouvé**, avec ses limites. Il **ne redéfinit rien** : P4 reste l’autorité d’architecture, P3 l’autorité d’expérience/Figma, P2 l’autorité fonctionnelle, P1 l’autorité de simplification. **P5-S01 = LOCAL CANDIDATE avec réserves** : routage cognitif D0 + convergence Workspace/Conversation P3 implémentés et testés localement ; **fidélité visuelle runtime vs Figma NON prouvée** ; **ZERO REAL** ; **R1/R2/R3 NOT STARTED** ; **READY FOR REAL = NO**.
+
+> **Règle de lecture des preuves.** *Implémenté* ≠ *prouvé* ≠ *intégré* ≠ *REAL*. Chaque affirmation ci-dessous est qualifiée par son niveau de preuve. Les résultats de tests/typecheck/lint/build sont ceux **rapportés par la passe de livraison** ; ce document n’en invente pas d’autres et ne les a pas ré-exécutés lors de sa rédaction.
 
 ---
 
-## 1. Metadata / Status / Authority
+## 1. Metadata / authority
 
-### 1.1 Trajectoire CURRENT (construction)
+### 1.1 Trajectoire CURRENT
 
 ```text
-Product Completion C1 = VALIDATED / INTEGRATED / CLOSED
-  ≠ Product Simplification P1
-Product Simplification P1 = VALIDATED / INTEGRATED / CLOSED
-  (Chat-First Product Simplification Cadrage)
+P1 = VALIDATED / INTEGRATED / CLOSED
 P2 = VALIDATED / INTEGRATED / CLOSED          (PR #549)
-P3 = VALIDATED / INTEGRATED / POST-MERGE VERIFIED / CLOSED
-     (PR #550 merge b5fd3b54… · closure PR #551 merge e19f8940…)
+P3 = VALIDATED / INTEGRATED / POST-MERGE VERIFIED / CLOSED   (PR #550 + #551)
 P4 = GLOBAL VALIDATED / INTEGRATED / POST-MERGE VERIFIED / CLOSED BY MORRIS
-PR #552 = MERGED · architecture package ON MAIN
-merge = d0b4836046911731605883364d9cc3bef4ac3e7f
-post-merge CI #672 / 37248128868 = SUCCESS · Required Gate SUCCESS
-PR #553 = MERGED · closure patch ON MAIN
-closure merge = 17434de03585eb30d13d59d7ba5c249563f0b33c
-parents = d0b48360… + 332ee04d…
-post-merge CI #674 / 37250512824 = SUCCESS · Required Gate SUCCESS
-P4 FINAL REPOSITORY VERIFICATION = PASS
-P4 closure patch INTEGRATED ON MAIN = YES
-P4 final truth-sync materialization = LOCAL CANDIDATE this pass
-  (this documentary truth-sync patch ≠ integrated on main yet)
-P5 REQUALIFIED BY CHATGPT = YES
-P5 = NOT AUTHORIZED / NOT STARTED
-  (Entry Contract DEFINED by CLOSED P4 · DEFINED ≠ AUTHORIZED)
-runtime v3 = NON ADOPTED
-READY FOR REAL = NO
-P4 CLOSED ≠ P5 AUTHORIZED
+     (PR #552 · closure patch PR #553 · truth-sync PR #554 MERGED)
+main @ 04527bede4a3aad1853387b9eb39af3fe0615412
+CI #676 = SUCCESS · Required Gate = SUCCESS
+Morris P5 AUTHORIZATION = CONSUMED (GO P5)
+P5 = AUTHORIZED / STARTED / IN PROGRESS
+P5-S01 = LOCAL CANDIDATE (visual reserves) — working tree, NOT committed
 ```
 
-### 1.2 Roadmap / repository truth vs final truth-sync
+### 1.2 Hiérarchie d’autorité
 
-| Source | Statut | Rôle |
+| Domaine | Autorité | Rôle de ce document |
 | --- | --- | --- |
-| Convergence Roadmap / P4 tip before PR **#553** merge | Living tip still said closure materialization LOCAL CANDIDATE · closure patch ≠ on main | **HISTORICAL / SUPERSEDED** as living tip after PR **#553** / CI **#674** |
-| Convergence Roadmap this pass | Final repository truth-sync · P4 CLOSED + closure patch ON MAIN · P5 REQUALIFIED BY CHATGPT | Living construction truth · **LOCAL TRUTH-SYNC CANDIDATE** · this patch ≠ on main yet |
-| Morris P4 Global Validation | **YES** · 2026-10-05 Europe/Paris | Validates P4 architecture/document |
-| Morris P4 Git Integration / Merge / Closure | **YES** · consumed · PR **#552** / **#553** | Lifecycle evidence |
-| Morris P4 Final Repository Truth-Sync GO | **YES** · consumed this pass · local docs only | Removes last living CURRENT contradiction |
-| ChatGPT P5 requalification | **COMPLETED** · recommendation/qualification only | **≠** Morris P5 authorization |
+| Simplification (PIB, MATERIAL/PROTECTIVE/ACCIDENTAL) | P1 | Hérite |
+| Fonctionnel (FOM, Deliverable ≠ Artifact, HD) | P2 | Hérite |
+| Workspace / IA / Figma | P3 | Hérite · implémente un sous-ensemble |
+| Sémantique / Projection / Cognition / Routing / Entry Contract | **P4** | Hérite · **implémente un sous-ensemble D0** |
+| Delivery / implémentation / preuve | **P5 (ce document)** | **Source de preuve uniquement** |
 
-**Règle :** historical Roadmap rows remain historically accurate. P4 CLOSED ≠ P5 AUTHORIZED ≠ runtime implemented.
+### 1.3 Ce que ce document n’est pas
 
-### 1.3 Domaines d’autorité (pas de hiérarchie globale)
+- **≠** nouvelle doctrine Product ni architecture ;
+- **≠** décision d’architecture (toute divergence P4 exige un gate Morris) ;
+- **≠** preuve REAL, R1/R2/R3, ou pixel-perfect ;
+- **≠** intégration Git (aucun commit/push/PR/merge dans ce pass) ;
+- **≠** modification de la Build Doctrine ou de Figma (Figma = **READ ONLY**).
 
-Aligné P2 §2.1 / P3 §1.2 — **aucun rang de précédence global** entre domaines.
+---
 
-| Domaine | Autorité | Rôle |
+## 2. Morris P5 authorization
+
+| Élément | Statut |
+| --- | --- |
+| Requalification ChatGPT P5 (P4 §51) | **COMPLETED** (recommandation, ≠ autorisation) |
+| **Morris P5 AUTHORIZATION (GO P5)** | **YES — CONSUMED dans cette conversation** |
+| P5 AUTHORIZED BY MORRIS | **YES** |
+| P5 STARTED | **YES** |
+| P5 IN PROGRESS | **YES** |
+
+### 2.1 Ce que le GO P5 autorise / n’autorise pas
+
+| Autorisé | **Non** autorisé (gate distinct requis) |
+| --- | --- |
+| Implémentation locale P5 (code, tests, CSS, assets Product) | Commit / push / PR du projet |
+| Slice P5-S01 en working tree | Merge sur main |
+| Tests D0 / UI locaux | **REAL** (appel OpenAI réel) · R1/R2/R3 |
+| | Adoption runtime v3 |
+| | Mutation Figma |
+| | Revendication « READY FOR REAL » |
+
+**Le GO P5 est consommé ; il n’est pas un GO REAL ni un GO Git.**
+
+---
+
+## 3. P5 mission
+
+P5 = **livrer** progressivement, **sur le même chemin Product**, ce que P4 a rendu implémentable : un monde Product unique, des projections role-aware, la cognition Nora routée par Strategy-first bounded router, et l’expérience P3 — **sans** second Nora, **sans** SharedKnowledgeStore, **sans** router service, **sans** second modèle Product, **sans** nouvelle plateforme d’orchestration.
+
+**Règle cœur (P4 §52) :** *COGNITION AND PRODUCT EXPERIENCE CONVERGE EARLY.* Pas de programme « UI fixtures » + « laboratoire router » qui ne convergent qu’à la fin.
+
+**Mission de P5-S01 :** premier **vertical slice intégré** — politique de routage cognitif minimale branchée dans le runtime Nora existant **et** convergence du Workspace/Conversation Pre-M6 vers la structure P3, sur le **même** chemin (Project → Conversation → contexte sémantique → CWP → Strategy → Routing → Agents Runner).
+
+**Non-mission de P5-S01 :** REAL, R1/R2/R3, Aperçu/Exécution/Journal/Historique/Synthèses object-native complets, Auth visual, Activity/STOP, Deliverable/Artifact exercé, P6.
+
+---
+
+## 4. P1→P4 inheritance contract
+
+| Source | Contrat hérité (résumé) | Traitement P5-S01 |
 | --- | --- | --- |
-| Construction / gouvernance Studio | Décisions Morris · Build Doctrine · Roadmap | Gates, promotions, doctrine de build |
-| Runtime Project structural | HumanDecision du Pilote | Décisions structurantes Project |
-| CURRENT implementation / proofs | Git courant · runtime evidence qualifiée · PR/CI | Ce qui existe/fonctionne |
-| Destination doctrine Product | v3 framing 30–37 | CE QUE Studio doit devenir |
-| Product Completion framing | **Product Completion C1** | Cible / scope macro · **≠ Product Simplification P1** |
-| Functional Product behavior | P2 | HOW STUDIO FUNCTIONS |
-| Experience / Interaction | P3 + Figma (statut frame-by-frame) + décisions Morris P3 | HOW THE PRODUCT IS EXPERIENCED |
-| P4 target technical architecture | **Ce document — VALIDATED / INTEGRATED / CLOSED** (Morris global YES · PR **#552** + closure **#553**) · final repository verification PASS · **≠** runtime implemented | HOW P2+P3 sont représentés / projetés / routés cognitivement |
-| Processus externe | v2.6 ChatGPT↔Cursor | Operating model d’exécution |
-| Cognitive guidance | CKC | Authority **NONE** |
-| External OpenAI capabilities | Snapshot CURRENT daté / revalidable | ≠ doctrine permanente |
-| Hypothèses / conversation | Aucune | Candidates uniquement |
+| **P1** | Simplification : PIB heuristique ; MATERIAL préservé · PROTECTIVE protégé · ACCIDENTAL réduit ; admin burden ≈ 0 nominal ; Net Complexity Reduction à l’échelle intégrée ; pas de metrics factory | Évaluation **qualitative** (§23) ; **NCR NOT PROVEN** |
+| **P2** | Même sémantique d’autorité ; Deliverable ≠ Artifact ; Execution optionnelle ; recovery Product-truth-first ; pas de Universal Validator Engine | Aucune sémantique d’autorité élargie (tests P5-SEM, P5-D0-20) |
+| **P3** | Workspace/IA/Figma ; pas de déviation visuelle intentionnelle ; reduced-motion ; a11y ; pas de SoT UI-locale ; pas de redesign par convenance | Structure P3 implémentée par **convergence** de `ProductShell` / `ProjectWorkspacePage` ; **fidélité runtime NON prouvée** |
+| **P4** | Un monde Product ; projections bornées ; deterministic NO-LLM bypass avant routing ; Strategy-first bounded router ; cohort Luna/Sol/Astra ; quality floor avant FinOps ; escalation ≤ 1 ; same Nora/same Agents path ; REAL-FIRST dès que la frontière OpenAI est accessible ; OPENAI_MODEL/EFFORT TEMP WITH EXIT | Politique de routage implémentée (D0) ; **REAL-FIRST : frontière non exercée → ZERO REAL, déclaré** |
 
-#### CURRENT vs TARGET RULE
-
-- Git / runtime evidence prime pour **CURRENT**.
-- Doctrine / Product Completion C1 / Product Simplification P1 / P2 / P3 / P4 définissent des contrats **TARGET** selon domaine.
-- Aucun document TARGET ne prouve qu’une capacité runtime existe déjà.
-- Aucun code CURRENT n’annule silencieusement une décision produit cible.
-- Conflit CURRENT ↔ TARGET = **gap de convergence**.
-
-
-### 1.4 WP status — included in P4 GLOBAL VALIDATION
-
-| WP | Status |
-| --- | --- |
-| WP1 | **PASS / INCLUDED IN P4 GLOBAL VALIDATION** |
-| WP2 | **PASS / INCLUDED IN P4 GLOBAL VALIDATION** |
-| WP3 | **PASS / INCLUDED IN P4 GLOBAL VALIDATION** |
-| WP4 | **PASS / INCLUDED IN P4 GLOBAL VALIDATION** |
-| WP5 | **PASS / INCLUDED IN P4 GLOBAL VALIDATION** |
-
-One Morris global P4 decision covers WP1–WP5 (no separate per-WP Morris IDs).
-C1–C9 PASS · MC1–MC4 PASS · A–E PASS · ChatGPT Final Targeted Coherence Verification = PASS.
-**P4 INTEGRATED / POST-MERGE VERIFIED / CLOSED BY MORRIS = YES.** **≠** P5 AUTHORIZED.
+**Aucun contrat hérité n’a été réinterprété silencieusement.** Les écarts et réserves sont listés en §24–§25.
 
 ---
 
-## 2. Executive Summary
+## 5. P5 Entry Contract — six dimensions (statut P5-S01)
 
-P4 matérialise l’architecture technique **sémantique**, de **projection** et de **routing cognitif** nécessaire pour que P5 puisse délivrer, sans réinterprétation silencieuse :
+P4 §51 : satisfaire cinq dimensions sur six **≠** Product Simplification complète. P5-S01 ne revendique **aucune** dimension « complète » ; statut honnête par dimension :
 
-1. **Un seul monde Product** (objets gouvernés + projections dérivées + records d’interaction) — incl. Deliverable ≠ Artifact.
-2. **Des projections bornées** Pilote / Nora / Studio / Executor / surfaces P3 — sans SharedKnowledgeStore — frontend porte P3 sans vérité UI locale.
-3. **Synthèse** = materialized derived projection durable, rebuildable, searchable — **TARGET** physical persistence = existing Product SQLite (`oa-product.sqlite`) · **CURRENT** Synthesis Product-derived persistence = **NOT IMPLEMENTED** · classe sémantique = derived projection **≠ Truth C** — **≠** ProductSqliteSession — **≠** Artifact owner primaire.
-4. **Nora Cognitive Routing** = Strategy-first bounded router **intégré** au runtime Nora existant (même Agents Runner) — **deterministic NO-LLM bypass** avant routing — cohort GPT-6 Luna / GPT-6.1 Sol / GPT-6 Astra — quality floor avant FinOps — escalation ≤ 1 — REAL-FIRST dès P5.
-5. **Simplification proof** = Pilot Interaction Budget (heuristic) + Net Complexity Reduction dans le P5 Entry Contract — pas de PIBEngine.
-
-Cinq Work Products structurants (WP1–WP5) + complétions A–E forment le contrat d’entrée P5. **P4 GLOBAL VALIDATED / INTEGRATED / POST-MERGE VERIFIED / CLOSED BY MORRIS = YES**. **≠** P5 AUTHORIZED · **≠** runtime implemented · **≠** READY FOR REAL.
-
----
-
-## 3. P4 Mission / Scope / Relationship to P1–P3
-
-### 3.1 Mission
-
-Répondre à :
-
-> COMMENT le monde Product défini par P1/P2/P3 est-il représenté techniquement, projeté (Pilote/Nora/Studio/Executor/surfaces), maintenu current, rendu durable lorsque nécessaire, reconstruit après reprise, searchable, et connecté à la cognition Nora — **sans** deuxième vérité ni deuxième architecture ?
-
-### 3.2 Deux axes
-
-| Axe | Contenu |
-| --- | --- |
-| **A — Product Simplification Architecture** | Semantic world · ownership · currentness · projections · Conversation/Aperçu/Exécution · Journal/Historique/Synthèses · CURRENT→TARGET |
-| **B — Nora Cognitive Architecture** | Semantic context · CWP · Strategy · Quality floor · Model×Effort · cohort GPT-6 · bounded escalation · same Runner · observations |
-
-**Cross-cutting :** OBJECT-NATIVE OPERATION — Nora raisonne sur de vrais objets Product / projections gouvernées. Pas d’« agent world » parallèle.
-
-### 3.3 Trajectoire macro
-
-```text
-P1 Cadrage → P2 FOM → P3 Workspace/IA → P4 Semantic/Projection/Cognitive (ce document)
-→ P5 Delivery (NOT AUTHORIZED) → P6 QA → P7 Fresh Project → P8 Adoption gates
-```
-
-### 3.4 Hors scope P4 (ce document)
-
-Code · migrations · schéma SQL final · package · tests · Figma mutation · Roadmap truth-sync · Build Doctrine edit · sélection table routing production figée · P5 GO · REAL proof · runtime v3 adoption · pixel-perfect runtime proof.
-
----
-
-## 4. Source Domains / Epistemic Labels / Anti-claims
-
-### 4.1 Labels épistémiques
-
-| Label | Usage |
-| --- | --- |
-| **CURRENT FACT** | Observé dans Git/runtime |
-| **VALIDATED INPUT** | Product Simplification P1/P2/P3 · Product Completion C1 · doctrine validés |
-| **MORRIS DECISION / CONSUMED** | Arbitrage Morris P4 |
-| **DOCTRINE** | v3 / Build Doctrine |
-| **P4 TARGET** | Architecture cible P4 (pas encore runtime) |
-| **INFERENCE** | Inférence documentaire bornée |
-| **OPEN** | Détail volontairement non figé |
-| **EXTERNAL CURRENT INPUT** | Capacités OpenAI snapshot |
-| **HISTORICAL** | Campagnes/preuves passées immuables |
-
-### 4.2 Anti-claims (état de CE run)
-
-| Claim | Statut |
-| --- | --- |
-| P2 VALIDATED / INTEGRATED / CLOSED | **YES** (Git) |
-| P3 VALIDATED / INTEGRATED / POST-MERGE VERIFIED / CLOSED | **YES** (Git) |
-| P4 AUTHORIZED / STARTED | **YES** (historical GO) |
-| P4 architectural substance converged | **YES** |
-| P4 DOCUMENT = VALIDATED DOCUMENTARY CANDIDATE | **YES** |
-| P4 GLOBAL VALIDATED BY MORRIS | **YES** (2026-10-05 Europe/Paris) |
-| P4 INTEGRATED ON MAIN | **YES** (PR **#552** / merge `d0b48360…`) |
-| P4 POST-MERGE VERIFIED | **YES** (CI **#672** / `37248128868` SUCCESS · Required Gate SUCCESS) |
-| P4 CLOSED BY MORRIS | **YES** (closure GO consumed this pass) |
-| P4 closure status materialization LOCAL CANDIDATE | **YES** (historical at closure tip · now SUPERSEDED) |
-| P4 closure patch INTEGRATED ON MAIN | **YES** (PR **#553** / merge `17434de0…`) |
-| P4 FINAL REPOSITORY VERIFICATION | **PASS** (CI **#674** / `37250512824` SUCCESS · Required Gate SUCCESS) |
-| Roadmap truth-sync architecture package ON MAIN | **YES** (via PR **#552**) |
-| Roadmap closure patch INTEGRATED ON MAIN | **YES** (via PR **#553**) |
-| Roadmap final repository truth-sync LOCAL CANDIDATE | **YES** (this pass) |
-| P5 REQUALIFIED BY CHATGPT | **YES** |
-| P5 AUTHORIZED / STARTED | **NO** |
-| READY FOR REAL | **NO** |
-| runtime v3 ADOPTED | **NO** |
-| Cognitive Completion PROVEN | **NO** |
-| Production router IMPLEMENTED | **NO** |
-| GPT-6 cohort REAL runtime routing PROVEN | **NO** |
-| Synthèse Product implementation | **NO** |
-| Figma-to-runtime / pixel-perfect runtime PROVEN | **NO** |
-| SharedKnowledgeStore | **REJECT** |
-| Second Nora / second Product model | **REJECT** |
-| Documentary convergence = runtime convergence | **NO** |
-| Target architecture = CURRENT implementation | **NO** |
-| P4 CLOSED = P5 AUTHORIZED | **NO** |
-
----
-
-## 5. Inherited P1 Simplification Contracts
-
-**VALIDATED INPUT** — P1 cadrage.
-
-### 5.1 Simplification First · NON GREENFIELD
-
-Studio possède déjà un backbone fort. Problème principal = fuite de complexité interne dans l’expérience Pilote et la cognition Nora. Simplification **ciblée**.
-
-### 5.2 Préserver / réduire
-
-| Préserver (complexité essentielle) | Réduire (complexité accidentelle) |
-| --- | --- |
-| Gouvernance · autorité · preuve · provenance · réversibilité · fail-closed · auditabilité · reconstructibilité | Objets internes exposés · surfaces concurrentes · vocabulaire technique · micro-confirmations · désambiguïsation imposée · doubles chemins · chemins parallèles historiques |
-| Recommendation ≠ HumanDecision · Evidence/Review · Project ≠ Cycle · authority boundaries | |
-
-### 5.3 Chat-first opérationnel
-
-Chat = interaction primaire **effective**. Chat-first ≠ Chat-only. Chat-first presentation ≠ Chat-first operation. Interactions proportionnées à matérialité / effet / risque.
-
-### 5.4 Nora vs Studio (P1)
-
-| Nora (prioritaire) | Studio (prioritaire) |
-| --- | --- |
-| UNDERSTAND · REASON · CHALLENGE · RECOMMEND | RESOLVE · VALIDATE · MATERIALIZE · ENFORCE |
-
-### 5.5 Cognitive Reliability
-
-Axe Product structurant. Adaptive model/reasoning = **moyen**. OpenAI-native-first (R22) réutilisé. **Pas de second moteur Nora.**
-
-### 5.6 Pilot Interaction Budget / Simplification Proof Contract
-
-**PIB** (P1 §11) = **lightweight design heuristic**.
-
-PIB **n’est pas** : quota · SLA · runtime score · persistent KPI · PIBEngine · mandatory DB table · Goodhart optimization target.
-**Aucun seuil numérique en P4.**
-
-| Dimension | Sens |
-| --- | --- |
-| **A — Interaction load** | Explicit responses · confirmations · forced clarifications · surface changes |
-| **B — Cognitive load** | Jargon · internal IDs · runtime concepts · method mechanics Pilote must understand |
-| **C — Recovery load** | Effort to find current state · prior decisions/blockers · next action |
-
-**Indicateur spécifique :** METHOD / RUNTIME ADMINISTRATION BURDEN → **near zero nominally**, without removing useful human decisions.
-
-| Interaction class | Disposition |
-| --- | --- |
-| **MATERIAL** | Preserve when real judgment/input required |
-| **PROTECTIVE** | Preserve guarantee · simplify form when possible |
-| **ACCIDENTAL** | Remove first |
-
-**Net Complexity Reduction** (P1 SP-15) = exit criterion for Product Simplification delivery — considers Pilot burden · Nora burden · recovery · architectural duplication · maintainability · cognitive quality/cost/reliability.
-
-> Cognitive FinOps ≠ Product Simplification measurement.
-
----
-
-## 6. Inherited P2 Functional Contracts
-
-**VALIDATED INPUT** — P2 FOM. P4 **représente** ; **ne rouvre pas**.
-
-### 6.1 P2-D-01…04
-
-| ID | Contrat | Implication P4 |
-| --- | --- | --- |
-| **P2-D-01** | Recommendation disposition ≠ HumanDecision · phrase utilisateur ≠ HD auto | Projections Rec ≠ HD · object-native propose ≠ decide |
-| **P2-D-02** | Cycle close déterministe quand Exit Proof + critères · Execution success ≠ Cycle complete · Artifact ≠ Exit Proof · Result ≠ Evidence | Persistence/qualification séparées · projections honnêtes |
-| **P2-D-03** | Confirmation ≠ HD · conditionnelle · après effet inspectable · pas friction gratuite | Confirmation state Studio · ≠ fill missing HD |
-| **P2-D-04** | Cycle close ≠ next activation · Project closed distinct · Abandon = HD · ambiguïté fail-closed | Lifecycle Studio · Nora ne self-active pas |
-
-### 6.2 Autres invariants P2 à préserver
-
-Conversation peut produire zéro mutation · Execution branch optionnelle 0/1/N · read-only cognition ≠ execution · intention ≠ EC · EC ≠ authority · launch ≠ permission cognitive · executor claim ≠ fact · Review ≠ Validation · Artifact ≠ deliverable validé · replan signal ≠ replan décidé · recovery résout vérité actuelle avant session · Functional Routes ≠ runtime taxonomy · cognitive escalation ≠ authority escalation · pas de universal Validator Engine · pas de runtime universel CW0–CW3 imposé.
-
-### 6.3 Deliverable / Artifact / Validation (P2 §11 — carried into P4)
-
-| Concept | Contract |
-| --- | --- |
-| **Deliverable** | Functional result/obligation expected |
-| **Artifact** | Concrete manifestation that may satisfy all/part of a Deliverable |
-| Binding | Deliverable may bind **0..N** artifacts / versions / Evidence |
-| Suggested Deliverable | Ephemeral by default · durable only when continuity/materiality require |
-| Execution | **One** production mechanism · **NOT** a Deliverable lifecycle state |
-| Hard invariant | Artifact exists ≠ Artifact validated ≠ Exit Proof satisfied ≠ Cycle complete |
-| Validation | Compose applicable acceptance/exit/domain/Evidence/Review/Nora/Pilot judgment — **NO universal Validator Engine** |
-
-Nora may propose/draft/analyse/produce semantic candidate — **does NOT** gain durable-effect authority from producing it.
-
-### 6.4 Deterministic NO-LLM boundary (P1 SP-23 / P2 §19.2)
-
-Deterministic Studio mechanics (currentness · membership · authority · idempotence · protected boundaries · lifecycle invariants · fail-closed · schema/projection resolution when deterministic) **do NOT inherently require an LLM**.
-
-CW0–CW3 remain **candidate cognitive workload classes** — **NOT** mandatory runtime taxonomy.
-`CW0` may remain explanatory shorthand only.
-
-> DETERMINISTIC MECHANICS BYPASS COGNITIVE ROUTING.
-
----
-
-## 7. Inherited P3 Workspace / Interaction Contracts
-
-**VALIDATED INPUT** — P3 CLOSED. P4 **ne redesign pas** P3.
-
-### 7.1 North Star (résumé)
-
-Conversation-led · chat-first ≠ chat-only · conversation dominante · minimum Project context · progressive disclosure · Rec/Decision/Confirmation distinctes · Evidence contextuelle · nav globale minimale · journey ≠ rigid workflow · premium/calme/adulte · motion meaningful + reduced motion · FR fonctionnel · internals SFIA masqués.
-
-### 7.2 Navigation / continuité
-
-| Surface | Rôle P3 |
-| --- | --- |
-| Conversation / Aperçu / Exécution | Nav Project |
-| Journal / Historique / Synthèses | Continuité |
-| Evidence | Support contextuel Exécution/Synthèses · pas destination principale |
-
-### 7.3 ProjectTrajectory
-
-Past = Terminé · Present = En cours · Future = Proposé.
-Future proposed = Recommendation · ≠ next Cycle auto · ≠ decided.
-
-### 7.4 Journal / Historique / Synthèses (expérience)
-
-Journal onglets : Sujets · Réserves · Recommandations · Décisions.
-Historique ≠ current truth.
-Synthèses : 9 sections · Verdict avant recommendation · full-content search.
-
-### 7.5 Nora activity / Figma fidelity
-
-START · ACTIVITY · STREAMING · COMPLETE · STOPPED · no fake progress · no CoT.
-Figma = référence visuelle · **NO INTENTIONAL VISUAL DEVIATION** · 0–1 px target · runtime screenshot + comparison pour verdict fort. P4 **supporte** la fidélité ; **ne redesign pas**.
-
-### 7.6 Réserves P3 routées P4/P5 (non bloquantes architecture)
-
-Create/first Cycle simultané · full-content search mécanique · timings/easing · breakpoints CSS · tokens/components — **OPEN** implémentation · **≠** architecture parallèle.
-
-### 7.7 P3→P4 technical carrying (pointer)
-
-P3 §39.2 requires P4 to carry design-token · component · shared primitives · typography/spacing · radius/border/shadow · color · responsive · dynamic content · overflow/scroll · state · motion · reduced-motion · assets/icons · Meridian · GitHub icon · a11y · capture/testability — **without** CSS ad hoc screen-by-screen · duplicated styles · parallel responsive architecture · generic components degrading Figma · design system diverging from Figma · UI-local Product truth.
-
-Full technical boundary = **§27A**. Surface coverage = **§27**. Frontend CURRENT→TARGET families = **§30**.
-
----
-
-## 8. P4 Architecture Principles
-
-1. **ONE AUTHORITATIVE OWNER PER TRUTH DOMAIN, N PROJECTIONS.**
-2. **INFORMATION MAY BE DURABLE WITHOUT BECOMING PRODUCT TRUTH.**
-3. **OBJECT-NATIVE** — text → LLM → duplicate UI state **interdit** comme pattern nominal.
-4. **PRODUCT TRUTH BEFORE CONVERSATION REPLAY** (recovery).
-5. **STALE/DERIVED PROJECTION** may display honestly · **never alone authorize mutation**.
-6. **No SharedKnowledgeStore · no second Project model · no second Nora · no global event sourcing by default · no parallel router service.**
-7. **R22 OpenAI-native-first** — USE/KEEP → ADAPT → COMBINE → COMPLETE/BUILD → DEFER/REJECT.
-8. **Strategy ≠ Model ≠ Effort ≠ SFIA Profile ≠ Criticality.**
-9. **Quality floor before FinOps.**
-10. **Cognitive escalation ≠ authority escalation.**
-11. **REAL-FIRST** for cognition/routing slices when OpenAI boundary accessible (P5+).
-12. **Historical evidence immutable** — no GPT-5.6→GPT-6 rewrite.
-13. **DETERMINISTIC MECHANICS BYPASS COGNITIVE ROUTING** — NO LLM when probabilistic cognition is not materially required.
-14. **Deliverable ≠ Artifact** · Execution ≠ Deliverable lifecycle · Artifact exists ≠ validated ≠ Exit Proof ≠ Cycle complete.
-15. **NO UNIVERSAL VALIDATOR ENGINE** · NO UNIVERSAL MANDATORY DECISIONBASIS ARCHITECTURE.
-16. **P3 remains visual/interaction authority** — frontend consumes same Product projections · styling/state primitives ≠ Product truth · no intentional visual deviation.
-17. **CONVERGE EXISTING VISUAL ASSETS** toward one minimum-sufficient P3-capable presentation layer — **no** new design-system stack by default · **no** third token family as solution.
-18. **SIMPLIFICATION PROOF** — PIB heuristic + Net Complexity Reduction required for Product Simplification success claims · no metrics factory.
-
----
-
-## 9. WP1 — Semantic Connectivity Audit
-
-### 9.1 Objectif WP1
-
-Identifier objets sémantiques partagés · points d’entrée/lecture/écriture · relations · projections · ruptures CURRENT · duplications · gaps · risques de **parallel truth**.
-
-### 9.2 Monde sémantique cible (inventaire)
-
-| Concept | Famille | Notes |
-| --- | --- | --- |
-| Conversation / Pilot transcript | Interaction record | Durable possible · non autoritatif |
-| Project | Authoritative | Product SQLite |
-| Living Project State (LPS) | Authoritative | Product |
-| Cycle | Authoritative | Studio lifecycle |
-| ProjectTrajectory (decided/current) | Authoritative | Durable/reconstructible |
-| ProjectTrajectory (proposed future) | Recommendation / candidate | Non autoritatif jusqu’à HD/transition |
-| Recommendation | Epistemic / governed | ≠ HD |
-| Reservation / Risk / Epistemic items | Epistemic / governed | ≠ blocker auto sauf règles |
-| HumanDecision | Authoritative (scope) | Pilote |
-| Confirmation | Governed state | ≠ HD |
-| Deliverable Requirement | Governed Product semantic requirement | May be ephemeral or durable · ≠ Artifact |
-| Artifact / Version | Produced material/output | May satisfy Deliverable · existence ≠ validation |
-| Deliverable validation / qualification | Domain/exit/acceptance composition | NO universal Validator Engine |
-| ExecutionContract | Authoritative contractual | Studio |
-| Execution / Attempt | Execution facts | ≠ business success seul |
-| Executor Claim / Report | CLAIM | ≠ Evidence |
-| Result | Outcome record | ≠ Evidence |
-| Evidence | Governed epistemic | ≠ vérité absolue auto |
-| ReviewBundle | Governed review | Review ≠ Validation |
-| ClaimEvaluation / Contract Result | Studio qualification | Verdict canonic |
-| Product Resolution | Read composition | ≠ second store |
-| Journal | Derived projection | ≠ SoT |
-| History | Read projection | ≠ History truth |
-| Synthesis | Materialized derived projection | ≠ SoT · rebuildable |
-| CKC / Method context | Guidance | Authority NONE |
-| Nora cognitive context | Cognitive projection | Seed = studioCognitiveContext |
-| Routing telemetry / cost observations | Interaction/cognitive records | Durable ≠ authority |
-
-### 9.3 Flow conceptuel (branches — non linéaire)
-
-Un parcours représentatif **≠** workflow séquentiel obligatoire.
-
-```text
-Recommendation / intention / current Product state
-→ qualification de matérialité / besoin de jugement
-
-BRANCH A — HumanDecision (0 / 1 / N)
-  IF structural judgment required:
-    → HumanDecision du Pilote
-  ELSE:
-    → aucune HumanDecision
-
-BRANCH B — Execution (0 / 1 / N) —
-  orthogonale en cardinalité à HumanDecision ;
-  peut être gated par A lorsque l’autorité applicable l’exige.
-  IF exécution nécessaire:
-    → action préparée / ExecutionContract
-    → inspection
-    → Confirmation uniquement si requise/applicable (0 / 1 / N)
-    → effective-authority resolution & enforcement (Studio)
-    → Execution / Attempt
-    → executor Claim / Result
-    → Studio verification
-    → Evidence / Review
-    → Product qualification / Product Resolution
-  ELSE:
-    → aucune branche execution
-
-Relation BRANCH A ↔ BRANCH B :
-  CARDINALITY / EXISTENCE ARE ORTHOGONAL.
-  EFFECTIVE AUTHORITY MAY CREATE A DEPENDENCY WHEN APPLICABLE.
-  HD non requise → Execution may proceed without HD,
-    subject to all other applicable authority / Confirmation / EC / guardrails.
-  HD requise → Execution is gated until a valid applicable HumanDecision exists.
-
-AFTER (as applicable):
-→ Nora analysis / Recommendation / replan / continuation
-→ deterministic Cycle progression where applicable
-→ updated Project semantic context
-```
-
-**Cardinalités P2 :** HumanDecision = **0 / 1 / N** · Confirmation = **0 / 1 / N** · Execution branch = **0 / 1 / N**.
-Conversation peut produire **zéro** mutation.
-HumanDecision = seulement lorsqu’un jugement structurel est requis.
-Confirmation = conditionnelle.
-Execution = optionnelle.
-**≠** HumanDecision always required before Execution.
-**≠** Execution never depends on HumanDecision.
-
-**Invariant :** une surface UI **ne possède pas** ce graphe — elle le **projette**.
-
-### 9.4 Pre-Project conversation → Project materialization
-
-**CURRENT FACT :**
-
-- `CreateProject` crée atomiquement **Project + LPS v1** (`createProject.ts`).
-- Surfaces pre-M6 (`NewProjectIntentionPage` et héritages) exposent encore une création intention/formulaire provisoire.
-- **Aucune preuve** que *pre-project conversation + Project + first Cycle* = une transaction globale atomique.
-
-**TARGET conceptuel :**
-
-```text
-pre-Project conversational / intention context
-→ non-authoritative interaction / intention state
-→ Create Project intent
-→ Studio resolves doctrine / current requirements
-→ materializes Project + LPS
-→ interaction continuity rebound / continued against durable projectId
-→ fresh Product truth resolved
-→ first Cycle qualified / materialized SEPARATELY if applicable
-```
-
-**ANTI-CLAIM :**
-> CREATE PROJECT CONTINUITY ≠ ATOMIC PROJECT + FIRST CYCLE TRANSACTION.
-
-Simultanéité Create Project / first Cycle reste **OPEN / P5 implementation subject** sauf nouvelle preuve Git.
-Ne pas inventer un mécanisme de persistence pre-project conversation non prouvé par CURRENT.
-
----
-
-## 10. Canonical Semantic World / Object Topology
-
-```text
-PRODUCT WORLD (authoritative + governed facts)
-        │
-        ▼
-RESOLUTION / CURRENTNESS /
-EFFECTIVE-AUTHORITY RESOLUTION & ENFORCEMENT (Studio)
-        │
-        ▼
-ROLE-AWARE PROJECTIONS
-   ├─ Pilote (minimum-sufficient UX)
-   ├─ Nora Semantic Context (object-native)
-   ├─ Studio internals (deterministic)
-   ├─ Executor (EC-bounded)
-   └─ UI surfaces (Conversation / Aperçu / Exécution / Journal / Historique / Synthèses)
-```
-
-Pas de SharedKnowledgeStore. Pas de UI database. Pas d’agent semantic database.
-
----
-
-## 11. Authoritative Objects vs Derived Projections vs Interaction Records
-
-### 11.A AUTHORITATIVE / GOVERNED PRODUCT OBJECTS
-
-Project · LPS · Cycle · decided/current Trajectory · HumanDecision · Confirmation · **Deliverable Requirement (when durable/material)** · **Artifact / Version (as governed production output)** · ExecutionContract · Attempt/execution facts · Evidence · ReviewBundle · ClaimEvaluation · autres objets Product selon source CURRENT.
-
-**Nuance :** « authoritative » est **par domaine**. Evidence = objet gouverné ≠ vérité absolue de toute claim. Attempt = fait d’exécution ≠ décision. HD = autoritatif pour son sujet/scope selon statut. Deliverable Requirement ≠ Artifact. Suggested Deliverable ephemeral by default ≠ automatic durable aggregate.
-
-**Semantic world ≠ persistence schema.** Not every concept is a first-class persistent aggregate.
-
-### 11.B MATERIALIZED / DERIVED PROJECTIONS
-
-Cycle Journal · History read model · Execution continuity projection · Pilot Project projection · Nora semantic projection · UI surface projections · **Synthesis materialized projection**.
-
-**Règle :** projection durable ≠ Product truth.
-
-### 11.C INTERACTION / COGNITIVE RECORDS
-
-Pilot transcript · Session / Memory B · logical turn identity · CWP signals · routing telemetry · usage/cost · interaction records.
-
-**Règle :** durable ≠ authoritative.
-
-**INVARIANT :** *INFORMATION MAY BE DURABLE WITHOUT BECOMING PRODUCT TRUTH.*
-
----
-
-## 12. WP2 — Information Ownership / Authority Matrix
-
-**CORE INVARIANT :**
-> STUDIO WRITER / MATERIALIZER ≠ STUDIO HUMAN AUTHORITY.
-
-Dimensions distinctes (ne pas fusionner) :
-
-| Dimension | Sens |
-| --- | --- |
-| Canonical domain owner | Qui « possède » le type d’objet dans le monde Product |
-| Proposal / producer | Qui peut préparer / proposer |
-| Decision / authority source | Qui porte le jugement ou l’autorisation humaine lorsque requis |
-| Product writer / materializer | Qui persiste / matérialise (souvent Studio) |
-| Persistence | Où ça vit physiquement |
-| Consumers | Qui consomme la projection |
-| Currentness | Comment la fraîcheur est établie |
-| Disposition | KEEP / ADAPT / COMPLETE / … |
-| Anti-claims | Interdits de lecture |
-
-| Concept | Domain owner | Proposal/producer | Decision/authority source | Writer/materializer | Persistence | Consumers | Currentness | Disp. | Anti-claims |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Project | Product | Pilot via governed flow | Structural change → Pilote HD ; deterministic transitions → Studio rules | Studio | Product SQLite `oa-product` | All | Project id/version | KEEP | Nora ≠ owner · Studio writer ≠ Pilot judgment |
-| LPS | Product | Nora may recommend | Structural arbitration → Pilote HD when required ; else Studio rules | Studio materializes | Product SQLite | Pilote/Nora/Studio | LPS version | KEEP | |
-| Cycle | Studio lifecycle | Studio | Deterministic lifecycle Studio-owned/enforced ; HD only if structural arbitration required | Studio | Product SQLite | Surfaces | Cycle state | KEEP | No UI-local lifecycle · Nora cannot self-activate |
-| Trajectory decided/current | Product | Studio after HD/rules | HD/rules as applicable | Studio | Product SQLite + trajectory repo | Aperçu/Nora | version/fingerprint | KEEP/ADAPT | Display ≠ decide |
-| Trajectory proposed | Epistemic Rec | Nora produce · Studio may materialize Rec | HD/transition applicable | Studio materializes Rec | Epistemic/Rec path | Aperçu « Proposé » | Rec basis-currentness (§13.5) | KEEP/ADAPT | ≠ active Cycle |
-| Recommendation | Epistemic object | Nora produce | Disposition P2-D-01 (≠ HD) | Studio materializes | Product epistemic path | Journal Rec / Conversation | **basis/currentness** (§13.5) — **≠ id alone** | KEEP | ≠ HD |
-| Reservation | Epistemic/governed | Nora/Studio | Rules | Studio | Product | Journal Réserves | | KEEP | ≠ auto-blocker |
-| HumanDecision | Pilote | Nora may prepare/request | **Pilote** (judgment source) | **Studio** persists/materializes | Product SQLite | Journal Décisions | HD id/status | KEEP | Studio NEVER author of Pilot judgment · Nora cannot decide |
-| Confirmation | Governed Product Confirmation state | Nora may surface/request **only if** Studio resolved Confirmation applicable | **Pilote** against inspected prepared effect when applicable | Studio persists/applies governed state | Product | Conversation/Exec | Applicability = Studio-resolved from effect/boundary/rules | KEEP | ≠ HD · Nora ≠ decide applicability · cannot fill missing intention/HD · Studio writer ≠ Pilot authority |
-| Deliverable Requirement | Product semantic requirement | Nora/Pilote may propose | Materialization/durability per materiality · structural HD when required | Studio materializes when durable | **CURRENT first-class durable representation = NOT IDENTIFIED / GAP TO QUALIFY IN P5** · NEW STORE = **NOT ADOPTED** | Aperçu/Journal/Nora/Synthèses | Subject + status | COMPLETE / ADAPT | ≠ Artifact · Suggested ephemeral by default · no premature durable Suggested Deliverable |
-| Artifact / Version | Produced output material | Production mechanisms (Execution and others) | Validation ≠ existence · Studio governs durable materialization | Studio / production path | Artifact routing · review material · docs-write paths (CURRENT) · Product/FS as applicable | Exec/Review/Synthèses | Version/lineage | KEEP / ADAPT | Existence ≠ validated ≠ Exit Proof ≠ Cycle complete |
-| Deliverable validation / qualification | Applicable acceptance/exit/domain criteria | Evidence/Review/Nora/Pilot as applicable | Composition of applicable mechanisms | Studio composes · Pilote when judgment required | Reuse Evidence/Review/CE/Product qualification where applicable | Terminal/Exit/Synthèses | Criteria-bound | KEEP / COMPOSE | **NO universal Validator Engine** · do not universalize Generic Execution validation |
-| ExecutionContract | Studio | Nora may prepare candidate | Inputs/authority basis may include intention, HD, Confirmation, policy, capabilities **as applicable** | Studio materializes contractual object | Product SQLite | Exec/Nora/Executor | EC version | KEEP | **EC alone ≠ effective authority** · Execution ≠ Deliverable lifecycle state |
-| Attempt | Execution subsystem | Studio/executor path | N/A as human judgment | Studio/executor path | Product SQLite | Exec/Resolution | Attempt id + lifecycle | KEEP | See Attempt semantics below |
-| Executor report | Executor | Executor | N/A (claim) | Claim path | Review material / claim path | Resolution | | KEEP | CLAIM ≠ Evidence |
-| Result | Product pipeline | Studio | Qualification | Studio | Product | Exec/Synthèses | | KEEP | ≠ Evidence |
-| Evidence | Studio epistemic | Pipeline | Status/freshness | Studio | Product SQLite | Nora/Synthèses | Evidence status | KEEP | ≠ automatic truth |
-| ReviewBundle | Studio | Pipeline | Supersession | Studio | Product SQLite | Resolution/Synthèses | | KEEP | Review ≠ Validation |
-| ClaimEvaluation | Studio | Studio | Correct/supersede | Studio | Product SQLite M8 | Terminal/Resolution | | KEEP | No duplicate verdict truth |
-| Product Resolution | Studio read composer | N/A | N/A | Composer (not a store) | **Not a store** | Nora/Exec/Synthèses | Resolve-time | KEEP/COMPLETE | ≠ second aggregate |
-| Journal | Derived | Studio projection | Supersession of entries | Studio projection | **Session SQLite** journal tables | Journal UI | Entry lineage | KEEP/ADAPT | ≠ SoT |
-| History | Read projection | Composer | N/A | Composer | None dedicated | Historique UI | Resolve-time | HARVEST/ADAPT | No HistoryStore default |
-| Synthesis | Derived materialized | Builder from Resolution | Rebuild/successor | Builder | **TARGET: Product SQLite** (physical) · class = derived projection **≠ Truth C** | Synthèses UI/Nora | Source consistency | COMPLETE/BUILD | ≠ SoT · ≠ Session owner · co-location ≠ Truth C |
-| Transcript | Interaction | Session | Append | Session | Session SQLite | Nora continuity | Turn refs | KEEP | No authority alone |
-| CKC | Method | Guidance | N/A | N/A | DoctrinePackage/method | Nora context | | KEEP | Authority NONE |
-| Cognitive routing decision | Server cognitive config | Router policy | Policy version | Router/telemetry | Telemetry | Eval/ops | | COMPLETE | No business authority |
-
-### 12.1 Effective authority (conceptuel)
-
-Effective authority = intersection **as applicable** :
-
-```text
-valid human authorization when required
-∩ ExecutionContract scope
-∩ AgentCapability / policy
-∩ runtime guardrails
-∩ required confirmations / constraints
-```
-
-Ne fige **pas** une API d’implémentation. Tous les facteurs ne sont pas requis pour chaque action.
-
-### 12.2 Attempt semantics (explicit)
-
-- Attempt a une identité / lineage durable ;
-- Attempt status suit les transitions du lifecycle Execution ;
-- les faits d’exécution historiques ne doivent **pas** être réinterprétés comme HumanDecisions ;
-- Attempt ≠ succès Product / métier ;
-- la qualification Product courante se résout via Evidence / Review / ClaimEvaluation lineage.
-
-### 12.3 DecisionBasis disposition (P2 → P4)
-
-**NO UNIVERSAL MANDATORY DECISIONBASIS ARCHITECTURE REQUIRED AT P4.**
-
-CURRENT already has bounded/optional `DecisionBasis` types embeddable on HumanDecision (`lib/oa/decision/domain/types.ts`) plus snapshot/provenance/subject-integrity/currentness/fingerprint mechanisms.
-
-Reuse these **where materiality/auditability require**. DecisionBasis is **NOT** required for every ordinary Recommendation, Confirmation, or deterministic transition.
-
-COMPLETE only if P5 exposes a demonstrated auditability/reconstructibility gap not satisfied by current mechanisms.
-No new DecisionBasis store. Do not expose DecisionBasis to nominal Pilot UX.
-
-### 12.4 Work-class-specific validation disposition (P2 → P4)
-
-**NO UNIVERSAL VALIDATOR ENGINE.**
-
-Default target: compose existing applicable domain mechanisms — Evidence · Review · ClaimEvaluation · Product qualification · deterministic checks · Nora analysis · Pilot judgment when required.
-
-Do **NOT** universalize Generic Execution validation to all work classes.
-Specific validation mechanism may be designed **ONLY** if a concrete work-class gap demonstrates the need.
-If semantics change → functional requalification first · otherwise minimum-sufficient technical delta · Morris gate if architecture pivots.
-
----
-
-## 13. Currentness / Provenance / Invalidation Contract
-
-### 13.1 Questions de toute projection sensible
-
-1. Quelles sont mes sources ?
-2. Quelles versions / fingerprints ?
-3. Quand ai-je été dérivée ?
-4. Suis-je encore cohérente ?
-5. Suis-je historique ?
-6. Dois-je être re-résolue avant effet ?
-
-### 13.2 Métadonnées conceptuelles
-
-`sourceRefs` · `sourceVersions` / `semanticFingerprints` · `derivedAt` · `provenance` · `currentness`
-
-### 13.3 Vocabulaire
-
-| Terme | Sens |
-| --- | --- |
-| **CURRENT** | Sources toujours applicables |
-| **HISTORICAL** | Valide pour un passé · pas représentatif du présent |
-| **STALE** | Prétend refléter un état invalidé |
-| **UNAVAILABLE** | Studio ne peut pas qualifier honnêtement |
-
-**P4 :** sémantique de résolution d’abord — **≠** schéma persistant universel imposé.
-
-### 13.4 Invariant critique
-
-> A STALE OR DERIVED PROJECTION MAY BE DISPLAYED HONESTLY, BUT MUST NEVER ALONE AUTHORIZE A MUTATION.
-
-Avant effet structurant :
-
-```text
-projection/ref → resolve current authoritative object → project binding
-→ currentness/version → authority → materialize effect
-```
-
-Appliquer au moins à : chat cards · Recommendation · Trajectory proposal · Journal · History deep links · Synthesis · Nora semantic context · prepared actions.
-
----
-
-### 13.5 Recommendation currentness contract
-
-**CURRENT FACT — pattern à HARVEST / GENERALIZE :**
-
-- `trajectoryRecommendationCurrentness.ts`
-- `lifecycleRecommendation/currentness.ts`
-- `lifecycleRecommendation/basisFingerprint.ts`
-- `lifecycleRecommendation/resolveCanonicalBasis.ts`
-
-Pattern observé : material basis refs · `basisFingerprint` · `semanticKey` · current Product facts · HumanDecision / Evidence / blockers / trajectory / LPS / doctrine basis · supersession/disposition · **fail-closed** si basis matériel requis non rebuildable.
-
-**Families :** Lifecycle Recommendation et trajectory Recommendation ont déjà des mécanismes CURRENT. P4 **n’impose pas** un schéma unique concret pour toutes les Recommendations maintenant.
-
-**TARGET principle :**
-
-> REUSE / GENERALIZE CURRENT BASIS-CURRENTNESS PATTERN
-> BEFORE BUILDING A SECOND RECOMMENDATION CURRENTNESS MECHANISM.
-
-**Contract :**
-
-Recommendation identity alone **DOES NOT** establish currentness.
-
-Currentness conceptuelle utilise :
-
-```text
-semantic subject / key
-+ material basis refs
-+ basis fingerprint
-+ current Product facts
-+ disposition / supersession state
-+ fail-closed if required basis unreadable
-```
-
----
-
-## 14. ProjectTrajectory Semantics
-
-| Bande P3 | Sémantique | Owner |
-| --- | --- | --- |
-| **Terminé** (Past) | Cycles/steps completed durables | Product |
-| **En cours** (Present) | LPS + active Cycle + decided/current Trajectory | Product |
-| **Proposé** (Future) | Recommendation / candidate | Non autoritatif |
-
-Future proposed : affichable sans HD **comme Recommendation** · ≠ decided · ≠ active · ≠ guaranteed · ≠ next Cycle auto.
-
-Versioning Trajectory CURRENT = **KEEP / ADAPT**. Pas de second trajectory engine.
-
----
-
-## 15. Conversation / Transcript Contract
-
-### 15.1 CURRENT FACT
-
-- `canonicalConversationSession` / `productSqliteSession` / `cycleJournalStore` persistent désormais conversation/session material et Pilot transcript (Session SQLite).
-- `features/project-assistant/f2/proposalStore.ts` reste **process-local** (Map in-memory).
-- Le notice historique dans `proposalStore.ts` affirme encore en substance que transcript/Proposal sont « mémoire de processus » — **stale disclosure** par rapport à la durabilité transcript actuelle.
-- Le **effective decision subject** peut être durable / reconstructible tant qu’il reste valide via Product / Epistemic markers / snapshots / currentness.
-- Subject lost / changed / unreadable → **requalification explicite**, jamais d’invention.
-
-### 15.2 TARGET classification
-
-| Record | Class |
-| --- | --- |
-| Pilot transcript | Interaction record durable (Session) — **≠** Product authority |
-| Proposal store | Process-local helper — **≠** second Proposal truth |
-| Effective decision subject | Reconstructible depuis ancres Product/Epistemic **while valid** |
-
-**TARGET :**
-
-- no false-memory claim ;
-- no mandatory new durable Proposal aggregate unless P5 proves a real gap ;
-- reuse Product objects / Epistemic currentness / DecisionBasis / subject integrity mechanisms first.
-
-### 15.3 F2 Proposal / decision-subject continuity (debt)
-
-| | |
-| --- | --- |
-| CURRENT | Proposal store = process-local · transcript durability evolved beyond old disclosure · subject reconstructible while valid · lost subject → requalify · old process-local transcript wording in proposalStore notice = stale implementation/documentation debt |
-| Disposition | **HARVEST / ADAPT** · **TEMPORARY WITH EXIT** where applicable |
-| Debt owner | **P5** |
-| Exit proof (conceptuel) | no stale disclosure contradicting actual transcript durability · decision subject honestly reconstructible/current or requalified · no second Proposal truth/store without proof |
-
-**Ce cycle :** document only — **ne pas** éditer `proposalStore.ts`.
-
----
-
-## 16. Journal Architecture
-
-### 16.1 CURRENT FACT
-
-Cycle Journal projection dans Session SQLite : `journalEntryId` · `projectId` · `cycleInstanceId` · `topicOrdinal` · `title` · `currentSummary` · `stabilizedPoints` · `openPoints` · `sourceTurnRefs` · lineage/supersession · etc. Types : « NEVER Truth C / HD / Evidence / Recommendation authority ».
-
-Search CURRENT = filtre in-memory (`searchCycleJournalIndex`) — **pas FTS5**.
-
-### 16.2 TARGET
-
-**Materialized Continuity Projection.** Jamais Product SoT.
-
-### 16.3 Onglets P3 = COMPOSITE PROJECTION (pas aggregate unique)
-
-| Onglet | Projette |
-| --- | --- |
-| Sujets | Cycle Journal entries |
-| Réserves | vrais Reservation/Epistemic objects |
-| Recommandations | vrais Recommendation/Epistemic objects |
-| Décisions | HumanDecision |
-
-Disposition : **KEEP / ADAPT**.
-
----
-
-## 17. History Architecture
-
-### 17.1 CURRENT FACT
-
-`projectHistory.ts` = bounded read model — **HARVEST / ADAPT**. Pas de HistoryStore dédié par défaut.
-
-### 17.2 TARGET
-
-History = **read projection** from significant governed Product facts — **≠** event sourcing · **≠** dedicated truth · **≠** full conversation log by default.
-
-**Potential Product sources (as applicable) :**
-
-- Project / LPS anchors
-- Cycle lifecycle / transitions
-- ProjectTrajectory versions / transitions
-- HumanDecisions
-- ExecutionContracts
-- Attempts
-- qualified Result / Product Resolution anchors
-- relevant Synthesis references
-- other significant governed Product facts as needed
-
-**Important :** Transcript is **NOT** automatically converted into History.
-
----
-
-## 18. Synthesis Architecture
-
-### 18.1 MORRIS DECISION / CONSUMED
-
-Synthèse = **materialized derived projection** durable, traçable, recherchable.
-Synthèse ≠ Product SoT · ≠ ReviewBundle brut · ≠ Artifact générique.
-**Rebuildable** depuis sources Product.
-
-### 18.2 Pipeline TARGET (génération / dépendance)
-
-```text
-Execution / Attempt / Claim
-→ Evidence
-→ Review
-→ Product qualification / ClaimEvaluation
-→ canonical ContractResultVerdict
-→ Post-Evidence Recommendation when applicable
-→ Product Resolution
-→ Synthesis Builder
-→ Nora narrative enrichment if useful
-→ Materialized Synthesis Projection
-→ Product SQLite existing (physical persistence boundary)
-→ search / UI / Nora retrieval
-```
-
-Jamais d’un Cursor report seul. Jamais de la conversation seule.
-
-**Product Resolution** = governed input boundary for Synthesis.
-**Synthesis narrative** = downstream of qualified Product facts.
-**Product Recommendation** may already be part of Product Resolution — **MUST NOT** depend on Synthesis narrative.
-
-> VERDICT BEFORE RECOMMENDATION IN P3 SYNTHESIS **PRESENTATION**
-> ≠
-> SYNTHESIS NARRATIVE BEFORE PRODUCT RECOMMENDATION **GENERATION**.
-
-Synthesis never creates canonical Product verdict.
-Synthesis never owns the canonical Recommendation.
-Synthesis projects qualified Product information and may narratively consolidate it.
-
-### 18.3 Contenu P3 obligatoire (9 sections — présentation)
-
-1. Résumé
-2. Ce qui était prévu
-3. Ce qui a été réalisé
-4. Évaluation du résultat
-5. Écarts, réserves et blocages
-6. Impact sur le projet
-7. Verdict
-8. Recommandation / prochaine étape
-9. Éléments vérifiés
-
-Presentation ordering **does not** dictate generation dependency.
-
-### 18.4 Provenance conceptuelle
-
-| Section | Sources typiques |
-| --- | --- |
-| Prévu | EC / objective / expected outputs |
-| Réalisé | Attempt + verified effects / Result |
-| Évaluation | ClaimEvaluation / Review |
-| Écarts | Review / reservations / blockers |
-| Verdict | Studio/Product qualification (canonical ContractResultVerdict) |
-| Recommendation | post-Evidence Recommendation **from Product Resolution** when present |
-| Narrative | Nora enrichment **après** qualification des faits Product |
-
-**Interdit :** Nora narration → recherche a posteriori de faits.
-**Interdit :** Product Recommendation générée depuis le récit Synthèse.
-
-### 18.5 CURRENT FACT — Synthesis UI
-
-`SyntheseScreen.tsx` → `VsDemoRoot` / `VsSyntheseScreen` / fixtures vertical-slice. **REPLACE** cette représentation POC. Disposition : **HARVEST** UX honesty · **REJECT** comme SoT.
-
----
-
-## 19. Synthesis Persistence Decision
-
-### 19.1 MORRIS DECISION — OPTION A ADOPTED
-
-Persister la projection Synthèse dans le **PRODUCT SQLITE EXISTANT** (`oa-product.sqlite` / `SqliteProductStore`).
-
-| Placement | Statut |
-| --- | --- |
-| Product SQLite existing (`oa-product`) — **physical boundary** | **ADOPTED TARGET** |
-| ProductSqliteSession (`nora-session`) | **FORBIDDEN as primary owner** |
-| Artifact filesystem as primary owner | **FORBIDDEN** |
-| New DB | **FORBIDDEN** |
-| SharedKnowledgeStore | **REJECT** |
-| Event store | **REJECT** (absent need) |
-
-### 19.2 PHYSICAL PERSISTENCE BOUNDARY ≠ SEMANTIC / EPISTEMIC CLASS
-
-| Axis | Contract |
-| --- | --- |
-| **PHYSICAL PERSISTENCE BOUNDARY** | existing Product SQLite / `oa-product.sqlite` |
-| **SEMANTIC / EPISTEMIC CLASS (Synthesis)** | materialized derived projection · **NON-AUTHORITATIVE** · **NOT Truth C** |
-
-**INVARIANT :**
-
-> CO-LOCATION IN PRODUCT SQLITE
-> DOES NOT PROMOTE A DERIVED PROJECTION
-> TO PRODUCT TRUTH.
-
-**Storage location ≠ authority class.**
-
-| Horizon | What Product SQLite hosts |
-| --- | --- |
-| **CURRENT** | Physical host of current governed / authoritative Product persistence (Truth C objects: Project/LPS/Cycle/HD/EC/Attempt/Evidence/RB/Trajectory/CE…). **Synthesis Product-derived persistence = NOT IMPLEMENTED CURRENT.** |
-| **TARGET** | Same physical Product SQLite **additionally** hosts explicitly classified rebuildable Synthesis materialized projections. Those projections remain **NON-AUTHORITATIVE** · **NOT Truth C** · rebuildable from governed Product sources · do **not** gain authority from co-location. |
-
-Synthesis implementation target must preserve :
-- explicit projection classification ;
-- source bindings / provenance ;
-- rebuildability ;
-- no independent mutation authority ;
-- deletion / rebuild without loss of authoritative Product truth.
-
-### 19.3 CURRENT FACT — deux fichiers SQLite
-
-| Fichier | Rôle CURRENT |
-| --- | --- |
-| `oa-product.sqlite` | Physical host of current governed/authoritative Product persistence (Truth C objects: Project/LPS/Cycle/HD/EC/Attempt/Evidence/RB/Trajectory/CE…) · **≠** Synthesis derived persistence already implemented |
-| `nora-session.sqlite` | Session Agents + transcript + Cycle Journal |
-
-`sessionPaths` **interdit** d’utiliser `oa-product.sqlite` comme session. Ce split est **KEEP**.
-
-**TARGET (Option A ADOPTED) :** COMPLETE tables/ports de projection Synthèse **dans** le même Product SQLite physique — **pas** fusion Session↔Truth C · **pas** promotion Synthesis→Truth C par co-location · Synthesis class remains derived / rebuildable / **NOT Truth C**.
-
-### 19.4 Non-sélectionné (OPEN → P5)
-
-Nom exact de table · schéma SQL final · repository TypeScript exact · FTS5 · embeddings · vector DB.
-
-### 19.5 Test architectural fondamental
-
-> IF ALL SYNTHESIS PROJECTIONS ARE DELETED,
-> AUTHORITATIVE PRODUCT TRUTH MUST REMAIN RECONSTRUCTIBLE.
-
----
-
-## 20. Synthesis Search / Currentness / Supersession
-
-### 20.1 Full-content search (héritage P3)
-
-Couvrir au minimum : title · summary · planned · done · evaluation · gaps/reservations/blockers · impact · verdict · recommendation · verified elements · contenu textuel pertinent.
-
-P4 **n’adopte pas** Elasticsearch / vector DB / embedding store. Prefer minimum-sufficient **local Product DB search** en P5. FTS5 = candidat seulement si besoin. Jump/highlight = détail implémentation.
-
-### 20.2 Currentness Synthèse
-
-Ne pas marquer STALE uniquement parce que le Project continue.
-
-| Distinguer | |
-| --- | --- |
-| **SOURCE CONSISTENCY** | Lineage encore valide |
-| **CONTEXT RELEVANCE** | Pertinence pour le présent |
-
-Incohérence réelle si lineage invalidé : Evidence invalidated/superseded · ReviewBundle replaced · ClaimEvaluation corrected · bindings changed · Product Resolution verdict change.
-
-Alors : conserver historique/audit · produire successor/rebuild · **pas** mutation silencieuse du passé.
-
-### 20.3 Identité conceptuelle (non figée)
-
-`synthesisId` · `projectId` · `cycleInstanceId?` · `subject` · `sourceBindings` · `sourceFingerprint` · `content` · `generatedAt` · `generatedBy` · `cognitiveProvenance?` · `status` · `supersedes?`
-**OPEN** schéma TypeScript/SQL final.
-
----
-
-## 21. WP3 — Role / Agent / Surface Projection Architecture
-
-```text
-Authoritative Product World
-→ Resolution Layer (currentness / effective-authority resolution & enforcement)
-→ bounded role-aware projections
-```
-
-**REJECT :** SharedKnowledgeStore · UI database · agent semantic database.
-
----
-
-## 22. Pilot Projection Contract
-
-Minimum-sufficient (ordre conceptuel Pilote) :
-
-1. **Project identity**
-2. **Short objective / intention**
-3. current LPS / current Cycle
-4. Trajectory Terminé / En cours / Proposé
-5. Attention courante (reservations / blockers / decisions required)
-6. Current Recommendation
-7. Execution continuity when relevant
-8. Latest relevant Synthesis
-
-P3 exige que le Pilote comprenne : quel Project ? quelle objective/intention ? quel Cycle/état courant ? qu’est-ce qui compte maintenant ?
-
-**Ne pas exposer en UX nominale :** DecisionBasis · authority envelope · CKC internals · Truth C jargon · ReviewBundle raw · semantic fingerprints · model IDs · reasoning efforts · taxonomies machines · internals.
-
-Les distinctions internes restent dans le domain.
-
----
-
-## 23. Nora Semantic Projection Contract
-
-### 23.1 CURRENT FACT — seed
-
-`studioCognitiveContext.ts` = composer read-only riche : projectTruth · method · activeCycle · work items · trajectoryDecisionSupport · decisions · evidence · review · trajectory · lifecycleRecommendation · reservation blocks · limits.
-Invariants : `truthOutranksConversation` · composer ne score pas maturity · ne sélectionne pas trajectory.
-`activeCycleCognitiveContext.ts` composé — KEEP/ADAPT.
-
-### 23.2 TARGET — NoraSemanticContext (conceptuel)
-
-Current Project Truth · LPS · Cycle · Trajectory · Recommendations · Reservations/Risks · HumanDecisions · relevant Deliverable Requirements / Artifacts when applicable · Relevant Evidence/Review · Relevant Syntheses · Journal continuity · CKC/method guidance · Product Resolution · provenance/currentness · current task/intent · materiality/risk when deterministic.
-
-**MINIMUM-SUFFICIENT CONTEXT** — pas dump exhaustif permanent.
-
-Disposition seed : **KEEP / ADAPT** → object-native Nora Semantic Context.
-
----
-
-## 24. Nora Object-native Operations / Forbidden Operations
-
-### 24.1 Nora PEUT (cognitif)
-
-READ · RELATE · CHALLENGE · RECOMMEND · PROPOSE CHANGE · PREPARE · REQUEST DECISION · REQUEST CONFIRMATION · OBSERVE
-
-Exemples : lire HD · relier Evidence↔Recommendation · identifier contradiction · recommander trajectoire · préparer EC candidate · demander matérialisation · observer Execution/Result.
-
-**REQUEST CONFIRMATION — borne :**
-
-Nora may explain / surface / request Confirmation **ONLY** against a prepared/inspectable effect for which **Studio has deterministically resolved** that Confirmation is applicable/required.
-
-Nora does **NOT** autonomously decide « this needs a Confirmation ».
-
-| Role | Confirmation |
-| --- | --- |
-| Studio | Resolves applicability |
-| Nora | Communicates / challenges / prepares |
-| Pilote | Confirms |
-| Studio | Persists / enforces state |
-
-Confirmation still **≠** HumanDecision.
-
-### 24.2 Nora NE PEUT PAS
-
-ACCEPT HUMAN DECISION · CREATE PILOT JUDGMENT · ACTIVATE CYCLE BY JUDGMENT · PROMOTE PROPOSED TRAJECTORY AS DECIDED · GRANT CONFIRMATION · EXECUTE OUTSIDE AUTHORITY · VERIFY EVIDENCE BY ASSERTION · DECLARE PRODUCT PASS WITHOUT PRODUCT QUALIFICATION · CLOSE CYCLE BY COGNITIVE JUDGMENT · ARCHIVE/ABANDON PROJECT STRUCTURALLY
-
-### 24.3 Pattern object-native
-
-```text
-Pilot conversational intent
-→ Nora resolves semantic subject
-→ Nora reasons on actual Product object/projection
-→ Nora proposes semantic change
-→ Studio resolves current object
-→ currentness check → materiality/authority check
-→ governed Product materialization
-→ all surfaces re-project same world
-```
-
-Pas : text → LLM → duplicate UI text state.
-
----
-
-## 25. Studio Resolution / Materialization Contract
-
-Studio : **RESOLVE · VALIDATE · MATERIALIZE · ENFORCE**
-
-Currentness · identity · membership · subject binding · versioning · **effective-authority resolution & enforcement** · idempotence · persistence · Product qualification · projection building · guardrails.
-
-Studio peut stocker/enforce une HD — **n’est pas** l’auteur du jugement Pilote.
-Studio peut vérifier une claim — l’executor ne devient pas authority source.
-Studio resolves/enforces authority conditions — **≠** source of HumanDecision · **≠** source of Pilot Confirmation · **≠** gains authority by persisting a record.
-
-CURRENT seams KEEP/COMPLETE : `resolveProductExecutionContext` · `deriveGovernedExecutionContinuityProjection` · `reconcileGovernedExecution` · `w3bProductTerminalProjection`.
-
-Continuity stages (derived, not new persisted SM) : PRE_EXECUTION · ATTEMPT_ACCEPTED · RUNNING · PRODUCT_MATERIALIZATION_PENDING · POST_EVIDENCE_PENDING · POST_EVIDENCE_COMPLETE · RECOVERY_REQUIRED.
-
----
-
-## 26. Executor Projection / ExecutionContract Boundary
-
-Executor reçoit contexte **borné par ExecutionContract** :
-
-action · target · scope · inputs · expectedOutputs · requiredCapabilities · constraints · stopConditions · evidenceRequirements · reversibility · relevant contextual material.
-
-EC = contractual **scope / context / capability** boundary consumed inside **effective-authority resolution**.
-
-**ExecutionContract alone ≠ effective authority.**
-
-Cursor/agent **n’a pas** besoin d’un dump Project complet.
-
-Executor **ne décide pas** : Cycle complete · Project replan · Rec→HD · Evidence sufficient · Product PASS · runtime promotion.
-
-**Executor report = CLAIM.**
-
----
-
-## 27. Surface Projection Matrix
-
-| Surface | Projection source | Technical / currentness rule | Forbidden parallel truth |
+| # | Dimension | Contenu P5-S01 | Statut P5-S01 |
 | --- | --- | --- | --- |
-| **Projects** | Product Project list / currentness | Local Projects search only · no fake global Search | Local Projects store / UI-local inventory SoT |
-| **New Project** | Pre-Project intention → CreateProject (Project+LPS) | Continuity rebound to projectId · first Cycle separate | Fake atomic Project+first Cycle · form-as-truth |
-| **Conversation** | Transcript + Nora + Product object refs | Real/durable continuity · activity projection · interruption honesty · no CoT | Local `isAccepted=true` truth |
-| **Aperçu** | Project/LPS/Cycle/trajectory decided+proposed/attention/Deliverable attention/latest Synthesis | Same Product facts · minimum-sufficient | Cockpit local business model |
-| **Exécution** | Canonical continuity projection | No duplicate React business state | Second execution SM in UI |
-| **Journal** | Composite Product epistemic tabs | Derived continuity · not aggregate SoT | JournalStore SoT |
-| **Historique** | Read projection from Product history objects | Local History search · not transcript dump | HistoryStore / event sourcing default |
-| **Synthèses** | Materialized derived from Product Resolution lineage | Full-content local search · rebuildable | Fixture VsDemo as SoT |
-| **Auth** | GitHub-only TARGET UX · CURRENT functional GitHub OAuth reuse | Functional REAL capability ≠ P3 visual fidelity · no OAuth internals dump | Alternate auth product truth |
-| **Nora Activity** | Observable runtime/provider/tool activity | Pilot-facing START/ACTIVITY/STREAMING/COMPLETE/STOPPED · fallback « Nora travaille… » · no fake % · no CoT | UI state machine as Product authority |
-| **Responsive (cross-cutting)** | Same Product semantics across design bands | Projection of same semantics · no second mobile Product model/store | Parallel mobile workflow/SoT |
-| **Evidence** | Contextual from Exec/Synthèses | Support surface | Main nav destination |
+| 1 | **FUNCTIONAL** (P2) | Chemin Project → Conversation existant préservé ; aucun nouvel objet Product ; pas de nouvelle sémantique d’autorité | **PARTIEL — préservé, non étendu** |
+| 2 | **EXPERIENCE** (P3) | Rail 192px + Meridian ; Workspace : header global, onglets Conversation/Aperçu/Exécution, focus bar, Conversation + Contexte du projet 356px ; reduced-motion sur scroll conversation | **CANDIDATE AVEC RÉSERVES** — screenshots runtime vs Figma **non capturés** ; Compact/Mobile **non prouvés** |
+| 3 | **SEMANTIC INTEGRITY** (P4) | Contexte projet présenté depuis projections **déjà chargées** (présentation-only) ; routing ≠ HumanDecision ≠ Recommendation disposition ; modèle ne peut encoder de champ d’autorité | **D0 PASS (tests invariants)** — Journal/Historique/Synthèses/Aperçu object-native **non livrés** |
+| 4 | **COGNITION** (P4) | `cognitiveRoutingPolicy.ts` ; Quality Floor ; cohort ; escalation max = 1 (politique) ; télémetrie `COGNITIVE_ROUTING_SELECTED` ; câblage après Strategy | **D0 PASS** — **ZERO REAL** ; boucle d’escalade runtime **non exercée** ; F2 `analyzeIntent` **non aligné** |
+| 5 | **SIMPLIFICATION** (P1) | Pilote ne choisit ni modèle ni effort ; panneau contexte lecture seule ; pas de nouveau cockpit | **Évaluation qualitative uniquement** — **Net Complexity Reduction NOT PROVEN** |
+| 6 | **PROOF** | D0 sur chemin intégré (Fake, même Runner) ; UI test layout ; régressions | **D0 seulement** — R1/R2/R3 **NOT STARTED** ; visual fidelity **NON prouvée** |
 
-**Activity mapping note (CURRENT→P3) :** CURRENT `useProductConversation` UI states (`INITIAL`/`READY`/`SENDING`/`ASSISTANT_WORKING`/`SOURCE_LOOKUP`/`ANSWERED`/`ERROR_RECOVERABLE`/`BLOCKED`) are **implementation enums**. They must be **projected** to P3 Pilot-facing states — **not** mechanically equated and **not** elevated to a new authoritative Product state machine.
+**Verdict dimensionnel :** 0/6 dimensions « complètes » ; 6/6 touchées à périmètre S01 avec réserves explicites.
 
 ---
 
-## 27A. Frontend / Visual Projection Technical Boundary
+## 6. Current repository baseline
 
-**Purpose :** define HOW P5 can carry P3 faithfully without selecting final implementation details prematurely.
-
-1. **P3 remains visual/interaction authority.**
-2. Frontend consumes the **SAME Product projections** as the rest of Studio.
-3. Styling / layout / state primitives **never** become Product truth.
-4. Existing UI/token/component assets must be classified before construction: KEEP · ADAPT · HARVEST · COMPLETE · REPLACE · FREEZE · RETIRE LATER (§30).
-5. Do **NOT** adopt a new design-system stack merely because multiple legacy layers exist.
-6. **Target principle :** CONVERGE EXISTING VISUAL ASSETS TOWARD ONE MINIMUM-SUFFICIENT P3-CAPABLE FRONTEND PRESENTATION SYSTEM. (Architectural direction — **≠** framework/design-system implementation choice.)
-7. No screen-by-screen CSS architecture.
-8. No parallel mobile Product model — responsive = projection of same semantics.
-9. No generic abstraction that destroys Figma fidelity.
-10. Canonical P3 frames remain implementation reference even where historical Figma status is EXPLORATORY per P3 contract.
-11. **No intentional visual deviation.**
-12. Runtime screenshot + canonical Figma comparison required for strong visual PASS.
-13. **Reduced motion REQUIRED.** Existing `globals.css` `prefers-reduced-motion` = KEEP/HARVEST candidate — **≠** automatic final implementation proof.
-14. Accessibility constraints (carrying, not WCAG certification claim): keyboard · focus-visible · labels/errors · contrast verification · no hover-only mobile · touch target contract · motion accessibility.
-15. Dynamic-content support must preserve: long Synthesis · expanded Journal exchanges · 9+ execution items · natural scroll · wrapping · truncation · progressive disclosure.
-16. Meridian / branding: P3 contract must be supported · do not rename product · do not silently replace branding. CURRENT app tree: Meridian asset not observed as implemented UI — TARGET carry from P3.
-17. GitHub Auth: CURRENT functional GitHub OAuth (`lib/auth` · `login-client` · `/api/auth/github-start`) = **KEEP / ADAPT** reuse candidate · P3 visual contract = distinct projection · Auth REAL capability ≠ visual fidelity · do not expose OAuth internals unnecessarily. CURRENT CTA wording (« Se connecter avec GitHub ») ≠ automatic P3 wording fidelity (« Continuer avec GitHub »).
-18. Local search: Projects · History · Synthesis full-content · **NO fake global Search**. Local query/read contracts without global search platform.
-19. Nora activity: derives from observable real runtime/provider/tool activity · never CoT · never fake percentage · fallback « Nora travaille… » acceptable · STOPPED must correspond to a real interruption capability **or** honestly-qualified state.
-20. Streaming interruption: do not invent cancellation semantics. P5 must bind UI STOP to a real cancellable boundary if provided · otherwise qualify limitation honestly.
-21. Capture/testability: frontend architecture must support runtime screenshot/visual comparison at P3 target viewports.
-22. Exact CSS breakpoints / component hierarchy / token values / framework remain **P5 implementation detail** unless CURRENT reuse classification makes an architectural constraint necessary.
-
-**REJECT absent demonstrated need :** new Tailwind migration · new CSS-in-JS stack · new component library · new design-system service · new responsive framework · third token family as « solution ».
-
----
-
-## 28. Deep-link Identity Contract
-
-Deep link = **stable identity**, pas état autoritatif dupliqué.
-
-Conceptuel : `/project/:projectId` · `/decision/:decisionId` · `/execution/:executionContractId` · `/synthesis/:synthesisId` · `/journal/:journalEntryId`
-
-On load : stable id → resolve object → Project binding → current/historical → render projection.
-
-No authority in URL. Exact route naming = **OPEN** si conventions router diffèrent (P5).
-
----
-
-## 29. Recovery / Rehydration Contract
-
-```text
-session/history
-→ DO NOT TRUST AS CURRENT PRODUCT TRUTH
-→ resolve current Product objects
-→ rebuild projections
-→ rehydrate interaction continuity
-→ build fresh Nora Semantic Context
-→ continue conversation
-```
-
-**PRODUCT TRUTH BEFORE CONVERSATION REPLAY.**
-Transcript aide le sens — n’écrase pas le Product state.
-
-### 29.1 Next Nora turn after significant Product effect / Product Resolution
-
-```text
-next Nora cognitive turn
-→ re-resolve current Product truth
-→ re-evaluate relevant projections / currentness
-→ recompose NoraSemanticContext
-→ then reason
-```
-
-A Product Resolution copied into session must **NOT** become durable current truth merely because it was in conversation/session context.
-
-Use cached/derived context **only while** currentness remains established.
-
----
-
-## 30. WP4 — CURRENT→TARGET Integration Map
-
-### 30.1 Matrice (actifs structurants)
-
-| Asset | CURRENT role | Evidence | TARGET | Disposition | P5 delta | Exit / preuve | Risks |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| Product SQLite `oa-product` + `SqliteProductStore` | Physical Product persistence for current governed/authoritative records (Truth C objects) · Synthesis derived persistence **NOT IMPLEMENTED CURRENT** | `db.ts` M1–M8 · paths | Same physical DB + Synthesis as **derived projection** (**class ≠ Truth C**) | **KEEP / COMPLETE** | Synthesis tables/ports | Truth reconstructible w/o syntheses | Don’t merge session · don’t promote Synthesis→Truth C · don’t claim CURRENT Synthesis already stored |
-| `productSqliteSession` / `nora-session` | Session + transcript + Journal | NEVER Truth C comments | Session/transcript/journal only | **KEEP** | No Synthesis owner | Collision guards preserved | Expanding into Synthesis = leak |
-| `cycleJournalStore` / types | Journal projection | Session DB | Continuity projection | **KEEP / ADAPT** | Composite tabs wiring | Journal ≠ SoT tests | |
-| `studioCognitiveContext` | Rich RO composer | F2 | Nora Semantic Context object-native | **KEEP / ADAPT** | Formalize contract | Context minimum-sufficient | |
-| `activeCycleCognitiveContext` | Active cycle CKC | F2 | KEEP/ADAPT | **KEEP / ADAPT** | | | |
-| CKC cognitive projection | Method guidance | | KEEP | **KEEP** | | Authority NONE | |
-| `projectHistory` | Bounded read model | W2 | P3 History surface | **HARVEST / ADAPT** | Enrich projection | No HistoryStore | |
-| `resolveProductExecutionContext` | Shared Product Resolution | W2 | KEEP/COMPLETE | **KEEP / COMPLETE** | Synthesis inputs | Not a store | |
-| Continuity projection + reconciler | Derived stages + reconcile | W2 | KEEP/COMPLETE | **KEEP / COMPLETE** | UI wording | No second SM | |
-| Generic Execution Review Material | FS review payloads | f3 | Execution review only | **KEEP / ADAPT** | Don’t become Product truth | | |
-| VerifiedChangeSet / Evidence / RB / CE | Governed pipeline | OA | KEEP | **KEEP** | | | |
-| Synthese VsDemo | Fixture UI | synthese/* | Product-derived Synthesis | **REPLACE** | Builder + Product SQLite | Real Synthesis | |
-| `cognitiveWorkloadPolicy` | 4 Strategy Classes + envelopes | CWP | KEEP/ADAPT | **KEEP / ADAPT** | Quality floor inputs | UNKNOWN≠LOW | |
-| `runNoraCognitiveTurn` | CWP→telemetry→core | F1 | Principal seam for Product-native routing | **KEEP / COMPLETE** | Insert router | REAL R2 | |
-| `runNoraAgentsTurn` | Single Runner | F1 | KEEP | **KEEP** | Same path | No second Nora | |
-| `reasoningCapability` / `reasoningModelSettings` | Manifest + modelSettings | | KEEP/ADAPT | **KEEP / ADAPT** | Target cohort · mode=standard | No silent coercion | |
-| `config.ts` OPENAI_MODEL | Required live model | | Exit nominal Product routing | **RETIRE LATER** (nominal) · TEMP WITH EXIT override | Provenance+telemetry | Exit proof | |
-| OPENAI_REASONING_EFFORT | Optional static · F2 provider path | | Exit nominal | **RETIRE LATER** nominal | Align F2 structured calls under SAME Product cognitive routing policy / provenance (wiring = P5) | Dual path risk | |
-| `COGNITIVE_STRATEGY_SELECTED` | Telemetry | turn | KEEP + add ROUTING_* | **KEEP / COMPLETE** | New events | No CoT | |
-| Turn/Campaign/USD budgets | Safety/FinOps | | KEEP/ADAPT/COMPLETE | **KEEP / COMPLETE** | Cost/task metrics | Budget≠authority | |
-| `buildMw0CapabilityManifest` | Eval historical | nora-eval | FREEZE historical | **FREEZE** | New target manifest | Don’t rewrite | |
-| Global MR Stage A GPT-5.6 | Eval matrix | | FREEZE/HARVEST | **FREEZE / HARVEST** | Target cohort eval | Immutable history | |
-| F2 ProposalStore / decision-subject continuity | Process-local Proposal · durable transcript evolved · stale process-memory disclosure in notice | `proposalStore.ts` · session stores | No false-memory · reuse Product/Epistemic subject integrity · no mandatory new Proposal aggregate without gap | **HARVEST / ADAPT** · TEMP WITH EXIT | Fix stale disclosure · subject integrity | Exit: honest reconstructibility or requalify · no second Proposal truth | Don’t invent Proposal SoT |
-| `--sfia-*` tokens (`styles/tokens.css`) | Legacy/general Figma-extracted token family (older generation + some Pre-M6 forest bridges) | `tokens.css` imported by `globals.css` | Harvest/adapt into converged P3-capable layer | **AUDIT / HARVEST / ADAPT** | Converge · do not invent third family | Coherent tokens for implemented P3 slices | Parallel token SoT |
-| `--pm6-*` tokens (`product-tokens.css`) | Pre-M6 Option A presentation tokens · explicitly isolated from `--sfia-*` · Penpot/Inter reference | `pre-m6-product-ui/product-tokens.css` | Harvest/adapt/retire-later into same converged layer | **AUDIT / HARVEST / ADAPT / RETIRE LATER** | Convergence path | No dual-token Product UI | Third family / forever dual |
-| `globals.css` a11y/motion baseline | focus-visible · prefers-reduced-motion · imports `--sfia-*` | `app/globals.css` | Keep/adapt as baseline carrying | **KEEP / ADAPT** | Align with P3 reduced-motion/a11y | Baseline present + P3 fidelity | Treat as final proof |
-| Pre-M6 ProductShell / pages / surfaces | Product shell · Projects · NewProjectIntention · ProjectWorkspace · surfaces | `features/pre-m6-product-ui/**` | Semantic patterns HARVEST/ADAPT · visual/IA toward P3 | **HARVEST / ADAPT** | P3 rail/IA/surfaces | Object-native P3 surfaces | Shell = P3 target |
-| `components/ui/**` · `components/shell/**` | Legacy shell/UI primitives (Card/Cta/StatusPill/StudioShell/…) | `components/ui` · `components/shell` | Classify per P3 compatibility | **HARVEST / ADAPT / REPLACE** as fit | Shared primitives if P3-capable | No generic degradation | Premature DS |
-| Vertical-slice / VsDemo / synthese fixtures | Demo/fixture presentation | `vertical-slice*` · `features/synthese/*` | Honesty HARVEST · REPLACE as Product Synthesis/UI | **HARVEST / REPLACE** | Product-derived surfaces | No fixture SoT | Fixture permanence |
-| GitHub Auth functional | Real GitHub OAuth + allowlist + actor mapping | `lib/auth/**` · `app/login/**` · `/api/auth/**` | Reuse functional boundary · distinct P3 visual projection | **KEEP / ADAPT** (functional) · **REPLACE/ADAPT** (visual) | P3 Auth frame | Functional reuse + visual fidelity separate | Auth REAL = visual PASS |
-| Conversation UI state enums | Implementation states INITIAL…BLOCKED | `useProductConversation.ts` | Project to P3 START/ACTIVITY/STREAMING/COMPLETE/STOPPED | **ADAPT** | Honest activity/STOP binding | Observable activity · no CoT | Enum = Product SM |
-| Artifact CURRENT paths | Artifact target routing · docs-write artifact evidence/review · completeness/obligation proofs | `artifactTargetRouting.ts` · `f3/*Artifact*` · related W2/F3 | KEEP/ADAPT production/evidence mechanisms | **KEEP / ADAPT** | Bind to Deliverable semantics when applicable | Existence ≠ validation | Artifact = Deliverable |
-| Deliverable representation | UI focus helpers / cognitive mentions · **no first-class durable Deliverable aggregate identified** | LifecycleSurface focus helpers · tests/context mentions | TARGET semantic requirement · qualify minimum-sufficient representation in P5 | **COMPLETE (semantic) / GAP** | Prefer reuse Product/Epistemic/Artifact mechanisms | No unnecessary Deliverable store | Invent Deliverable DB |
-| DecisionBasis (optional) | Bounded optional types on HD + provenance/currentness | `lib/oa/decision/domain/types.ts` | Reuse when materiality/auditability require · not universal | **KEEP / ADAPT** · no universal mandate | Gap-only COMPLETE | Reconstructibility without mandatory universal basis | DecisionBasisEngine |
-| SharedKnowledgeStore | Absent | docs only | REJECT | **REJECT** | | | |
-| Parallel router service | Absent | | REJECT | **REJECT** | | | |
-| LLM-as-router | Absent | | DEFER/REJECT initial | **REJECT INITIAL** | | | |
-| Second Nora / second Project | Absent | | REJECT | **REJECT** | | | |
-| FTS5 | Absent | | Candidate only | **OPEN** | If search needs | Don’t default vector DB | |
-| Global event sourcing | Absent | | REJECT absent need | **REJECT** | | | |
-
----
-
-## 31. Asset Classification (rollup)
-
-| Disposition | Exemples |
+| Élément | Valeur |
 | --- | --- |
-| KEEP | Product SQLite-backed authoritative Product records · Session/Journal · W2 resolution · Runner · CWP classes · GitHub Auth functional mechanics · globals reduced-motion/focus baseline |
-| ADAPT | studioCognitiveContext → NoraSemanticContext · reasoning envelopes → eligible configs · History for P3 · conversation UI enums → P3 activity states · Auth visual to P3 |
-| COMPLETE | Synthesis Product projection · cognitiveRoutingPolicy · routing telemetry · F2 path alignment · deterministic NO-LLM bypass wiring · Deliverable semantic representation if gap persists · frontend token/primitive convergence |
-| HARVEST | VsDemo honesty · old eval evidence · History pattern · `--sfia-*` / `--pm6-*` / pre-M6 semantic patterns · shell/ui primitives if P3-capable |
-| FREEZE | GPT-5.6 Stage A · mw0 historical manifest semantics |
-| RETIRE LATER | OPENAI_MODEL / OPENAI_REASONING_EFFORT as **nominal** Product selectors · transitional dual-token presentation once converged |
-| REPLACE | Synthese fixture as Product Synthesis · non-P3 visual shells where incompatible |
-| REJECT | SharedKnowledgeStore · second Nora · router service · Synthesis-in-Session owner · vector DB by default · new DS/framework absent need · universal Validator Engine · universal mandatory DecisionBasis · fake global Search · third token family « solution » |
+| Base / HEAD | `04527bede4a3aad1853387b9eb39af3fe0615412` |
+| PR d’entrée | **#554 — MERGED** (P4 final repository truth-sync) |
+| CI | **#676 — SUCCESS** |
+| Required Gate | **SUCCESS** |
+| Branche P5-S01 | `delivery/sfia-studio-product-simplification-p5-s01-integrated-product-vertical-slice` |
+| État du working tree | Modifications P5-S01 **non commitées** (voir §9.4) |
+| Scratch non suivi | `.tmp-sfia-review/**` (exports Figma de référence, revue ChatGPT) — **hors livrable** |
+
+**Rappel :** la preuve CI #676 qualifie la **base**, pas les modifications P5-S01 locales. Aucune CI n’a été exécutée sur P5-S01 (pas de push).
 
 ---
 
-## 32. Persistence Delta
+## 7. Critical path
 
-| Concern | CURRENT | TARGET |
+Trajectoire P4 §52, avec statut P5-S01 :
+
+| # | Étape P4 §52 | Statut |
 | --- | --- | --- |
-| Product truth (authoritative) | `oa-product.sqlite` — physical host of current governed/authoritative Product records | KEEP |
-| Synthesis derived projection | **NOT IMPLEMENTED CURRENT** (fixture UI only) | COMPLETE in same physical Product SQLite · **class ≠ Truth C** · co-location ≠ Truth C |
-| Session/Journal/Transcript | `nora-session.sqlite` | KEEP · not Synthesis owner |
-| History | No dedicated store | Keep as read projection |
-| Synthesis UI (CURRENT) | Fixture UI (`VsDemo`) | TARGET: Product SQLite materialized derived projection (**≠ Truth C**) |
-| Execution review material | Filesystem | KEEP as review material · ≠ Product SoT |
+| 1 | Revalider la frontière de capacité du provider cible | **FAIT (snapshot daté, D0)** — `buildP5TargetCapabilityManifest` ; revalidation à refaire avant REAL |
+| 2 | Politique de routage minimale + deterministic NO-LLM bypass, câblée dans le runtime Nora existant | **FAIT (D0)** — bypass : aucune logique nouvelle (§19) |
+| 3 | Premier vertical slice Product object-native via le chemin frontend P3-capable | **PARTIEL** — Workspace/Conversation + contexte ; pas d’objet Product matérialisé nouveau |
+| 4 | R1 + R2 par ce même chemin | **NOT STARTED** |
+| 5 | Inspection PIB / charge accidentelle | **Qualitative seulement** (§23) |
+| 6 | Expansion projections (Aperçu, Exécution, Journal, Historique, Synthèses, Auth, Activity) | **NOT STARTED** (onglets présents, projections object-native non livrées) |
+| 7 | Deliverable / Artifact exercés | **NOT STARTED** |
+| 8 | R3 chemin Product intégré représentatif | **NOT STARTED** |
+| 9 | Comparaison visuelle runtime/Figma | **NON capturée** (réserve) |
+| 10 | P6 QA globale + NCR | **Hors périmètre** |
 
 ---
 
-## 33. Cognitive Runtime Delta
+## 8. Delivery slicing strategy
 
-### 33.1 CURRENT seam
+- **Slice = chemin vertical bout-en-bout minimal**, pas un sous-système isolé complet.
+- **Convergence précoce** : cognition (routing) + expérience (Workspace P3) dans la **même** slice.
+- **Réutilisation d’abord** : adapter `ProductShell`, `ProjectWorkspacePage`, `runNoraCognitiveTurn`, `capabilityBudget`, tokens `--pm6-*` existants ; **aucun** nouveau design system, **aucun** nouveau service.
+- **Honnêteté de statut** : une slice reste *LOCAL CANDIDATE* tant que les preuves listées ne sont pas complètes et que le gate Git Morris n’est pas passé.
 
-```text
-semantic assessment + factual turn context
-→ Cognitive Workload Profile
-→ Strategy Class
-→ dynamic reasoning effort (Agents path)
-→ static OPENAI_MODEL
-→ same Agents Runner
-```
+### 8.1 Découpage indicatif
 
-Telemetry : `COGNITIVE_STRATEGY_SELECTED`.
+| Slice | Contenu | Statut |
+| --- | --- | --- |
+| **P5-S01** | Routing policy D0 + Workspace/Conversation P3 + contexte projet | **LOCAL CANDIDATE (réserves visuelles)** |
+| P5-S02+ | À décomposer après gate S01 (cf. §26) — **non engagé** | **NOT STARTED** |
 
-### 33.2 TARGET seam (deterministic bypass + cognition)
-
-```text
-Task / requested operation
-→ resolve Product context / deterministic constraints
-
-IF deterministic mechanics sufficient:
-→ deterministic Studio path
-→ NO LLM
-→ no cognitive router invocation
-→ Product/projection result
-→ normal deterministic telemetry/authority semantics as applicable
-
-ELSE cognition materially required:
-→ minimum-sufficient Nora Semantic Context
-→ Cognitive Workload Assessment
-→ Strategy Class
-→ Quality Requirements / Floor
-→ eligible Model × Reasoning candidates
-→ provider capability validation
-→ FinOps/latency arbitration among sufficient candidates
-→ bounded Cognitive Routing Policy
-→ selected model + effort + mode
-→ same Nora Agents Runner
-→ tool/source use as authorized
-→ observations quality/latency/cost
-
-IF cognition insufficient:
-→ retrieve relevant context/source if available
-→ clarify when actual ambiguity remains
-→ challenge / re-evaluate
-→ adapt route/config if allowed
-→ ONE bounded escalation if warranted
-→ otherwise expose uncertainty / NOT PROVEN / abstain
-→ fail-closed ONLY on the authoritative/protected EFFECT that cannot honestly proceed
-→ NOT global Project STOP by default
-```
-
-**INVARIANT :** DETERMINISTIC MECHANICS BYPASS COGNITIVE ROUTING.
-Do **NOT** require label `CW0` in the runtime schema. `CW0` = explanatory shorthand only.
-
-**Do NOT create :** CW0 runtime enum mandatory · DeterministicRouter service · CognitiveTask orchestrator platform · new workflow engine.
-
-Router **INSERT INTO** existing path — **ne wrap pas** une plateforme séparée.
-Module conceptuel : `cognitiveRoutingPolicy` adjacent à CWP / reasoningCapability / reasoningModelSettings — **OPEN** nom de fichier exact.
-
-### 33.3 Gap CURRENT
-
-F2 `completeStructured` / `OpenAIConversationProvider` peut encore appliquer `OPENAI_REASONING_EFFORT` statique — **second surface**.
-
-**TARGET wording (implementation-neutral) :**
-
-Align F2 structured cognitive calls under the **SAME Product cognitive routing policy / provenance** where applicable.
-
-Objective : **one cognitive selection policy**, not necessarily one function entry point.
-
-P4 does **NOT** decide that every F2 call must literally pass through `runNoraCognitiveTurn`.
-
-Target :
-- no silent static `OPENAI_REASONING_EFFORT` competing with Product routing ;
-- same capability validation ;
-- same routing provenance ;
-- same authority separation ;
-- same telemetry/accounting semantics where applicable.
-
-Exact wiring = **P5**. Disposition : **ADAPT**.
+Le découpage S02+ est une **liste de travaux restants**, pas un engagement ni une doctrine.
 
 ---
 
-## 34. Provider / Configuration Delta
+## 9. P5-S01 scope
 
-| Item | Disposition |
+### 9.1 Inclus (implémenté localement)
+
+1. **Cognitive routing policy** (pure, non persistante, non autoritative).
+2. **Capability manifest** P5 TARGET (cohort), sans toucher au MW0 historique.
+3. **Câblage** du routing dans `runNoraCognitiveTurn` après Strategy.
+4. **Identité de tâche cognitive** : `correlationId` d’`orchestrateTurn` préfère `logicalTurnId`.
+5. **Télémétrie** `COGNITIVE_ROUTING_SELECTED` (sans CoT).
+6. **Shell Pre-M6** : rail P3 192px, emblème Meridian, « Projets récents » réels.
+7. **ProjectWorkspacePage** : structure P3 (header global, onglets, focus bar, Conversation + Contexte du projet 356px).
+8. **Tokens** `--pm6-*` convergés vers les couleurs P3.
+9. **Reduced-motion** pour l’auto-scroll de conversation.
+10. **Tests D0 + UI** (§21).
+
+### 9.2 Exclu
+
+REAL · R1/R2/R3 · Aperçu/Exécution/Journal/Historique/Synthèses object-native · Auth GitHub visual · Nora Activity/STOP · Deliverable/Artifact · Synthesis Product-derived · alignement F2 `analyzeIntent` · retrait OPENAI_MODEL/EFFORT · fusion des familles de tokens · preuve Compact/Mobile · P6.
+
+### 9.3 Non-changements explicites
+
+Pas de nouvelle table/store · pas de router service · pas de second Nora · pas de nouvelle plateforme · pas de modification Figma · pas de modification de la Build Doctrine.
+
+### 9.4 Fichiers touchés (working tree, non commités)
+
+| Zone | Fichiers |
 | --- | --- |
-| Target cohort GPT-6 Luna / GPT-6.1 Sol / GPT-6 Astra | **MORRIS DECISION** · EXTERNAL CURRENT INPUT revalidable |
-| GPT-5.6 nominal target path | Exit · historical FREEZE |
-| OPENAI_MODEL nominal Product selection | RETIRE LATER · TEMP WITH EXIT for dev/test/emergency |
-| OPENAI_REASONING_EFFORT nominal | RETIRE LATER · same |
-| Current provider capability manifest | ADAPT/BUILD for target cohort + currentness |
-| Unsupported model/effort | Fail closed · no silent coercion |
-| Account entitlement | NOT PROVEN until REAL |
+| Cognition | `lib/nora-cognitive-runtime/cognitiveRoutingPolicy.ts` (**nouveau**) · `runNoraCognitiveTurn.ts` · `reasoningCapability.ts` · `types.ts` · `index.ts` |
+| Capability / observabilité | `lib/nora-eval/capabilityBudget.ts` · `lib/platform/observability/types.ts` |
+| Orchestration | `features/project-assistant/orchestrateTurn.ts` |
+| Shell / Workspace | `ProductShell.tsx` / `.module.css` · `ProductRailRecents.tsx` (**nouveau**) · `ProjectWorkspacePage.tsx` / `.module.css` · `surfaces/ProjectContextSummary.tsx` / `.module.css` (**nouveaux**) · `workspaceContextPresentation.ts` (**nouveau**) |
+| Surfaces / hooks / tokens | `surfaces/ConversationSurface.module.css` · `surfaces/LpsSurface.tsx` · `hooks/useProductConversation.ts` · `product-tokens.css` |
+| Asset | `public/branding/meridian-emblem-product.png` (**nouveau**) |
+| Tests | `p5.s01.cognitiveRouting.d0.test.ts` · `p5.s01.integratedProduct.d0.test.ts` · `p5.s01.semanticInvariants.d0.test.ts` · `p5.s01.workspaceLayout.ui.test.tsx` (**nouveaux**) · `automaticProjectResume.ui.test.tsx` (**ajusté**) |
 
 ---
 
-## 35. Evaluation / FinOps Delta
+## 10. Product representative journey
 
-KEEP : turnBudget · campaignBudget · agentsUsdAccounting · nora-eval harness.
-ADAPT : campaign budgets / manifests for target cohort.
-COMPLETE : cost-per-successful-task metrics · routing observed costs.
-FREEZE/HARVEST : Stage A GPT-5.6 cells — **ne pas réécrire**.
-
-PRIMARY METRIC DIRECTION : **COST PER SUCCESSFUL TASK** (pas seulement cost/API call).
-Budget ≠ authority. Quality floor avant optimisation.
-Target eval harness = **SAME Product cognitive path** — no second eval runtime (§49.1).
-
-**Distinction :** Cognitive FinOps (cost/latency/tokens/escalation) **≠** Product Simplification measurement (PIB heuristic · Net Complexity Reduction · accidental interaction burden).
-Do not collapse the two into one score.
-
----
-
-## 36. WP5 — Nora Cognitive Routing Architecture
-
-### 36.1 MORRIS DECISION — OPTION A ADOPTED
-
-**Strategy-first bounded router** intégré au Nora runtime existant.
-
-| Non-cible | |
-| --- | --- |
-| Service de routing séparé | REJECT |
-| Second Nora / second agent runtime | REJECT |
-| LLM-router initial | REJECT INITIAL |
-| Nouveau planner | REJECT |
-| Deuxième orchestration cognitive | REJECT |
-| Fixed Strategy→Model mapping | REJECT as architecture |
-
----
-
-## 37. Cognitive Workload / Strategy Contract
-
-### 37.1 Signals (KEEP + enhance)
-
-ambiguity · reasoningDepth · sourceBreadth · toolDependency · contradictionRisk · contextSize · verificationNeed · multimodality · latencySensitivity · costBudget · rigorCriticality
-
-**Hard rules CURRENT :** UNKNOWN ≠ LOW · Routine requires sufficient KNOWN-low · tool capability ≠ tool dependency · multimodality from factual workload not availability.
-
-Enhance from Product semantics (verificationNeed ← criticality/materiality/Evidence ; contradictionRisk ← reservations/conflicts ; etc.).
-
-Semantic Nora assessment **MUST NEVER** override authoritative factual signals where factual constraints exist.
-
-### 37.2 Strategy Classes (KEEP)
-
-Routine · Focused · Deep · High-Assurance
-
-**STRATEGY ≠ MODEL.** Strategy définit exigences cognitives — pas un mapping rigide Luna/Sol/Astra.
-
-Enveloppes d’effort CURRENT (illustratives) = **Strategy reasoning-demand envelopes** / **Current policy reasoning envelopes** — **≠** « provider capability envelopes » :
-
-Provider capability validation happens **AFTER** strategy requirements and determines which model×effort combinations are actually eligible.
-
-
-| Strategy | Effort envelope CURRENT |
-| --- | --- |
-| Routine | none · low · medium |
-| Focused | low · medium · high |
-| Deep | medium · high · xhigh |
-| High-Assurance | high · xhigh · max |
-
----
-
-## 38. Strategy-first Bounded Router
-
-**Entry condition :** probabilistic cognition is materially required (§33.2). Otherwise deterministic Studio path — **no router invocation**.
-
-Pipeline when cognition required :
-
-```text
-Nora Semantic Context + task context + deterministic runtime constraints
-→ CognitiveWorkloadSignals
-→ CognitiveStrategyDecision
-→ quality requirements / floor
-→ eligible model×effort configurations
-→ provider capability validation
-→ FinOps/latency arbitration among sufficient candidates
-→ CognitiveRoutingDecision
-→ Nora Agents runtime
-```
-
-CognitiveRoutingDecision conceptuel : strategyClass · selectedModel · selectedReasoningEffort · reasoningMode · qualityFloor · toolPolicyRef · sourcePolicyRef · estimatedCostEnvelope · latencyPreference · escalationPolicy · reasonCodes · policyVersion — **OPEN** DTO final.
-
----
-
-## 39. Target Model Cohort
-
-**MORRIS DECISION / CONSUMED :**
-
-- **GPT-6 Luna**
-- **GPT-6.1 Sol**
-- **GPT-6 Astra**
-
-GPT-5.6 **sort** du nominal TARGET path.
-Preuves historiques GPT-5.6 = **HISTORICAL IMMUTABLE**.
-Provider capabilities = **EXTERNAL CURRENT INPUT** — revalidate when claims depend.
-Ce document **n’invente pas** pricing/capabilities détaillés non vérifiés.
-
-Eligible envelopes (CANDIDATES ≠ production table) :
-
-| Strategy | Candidate envelope (illustratif) |
-| --- | --- |
-| Routine | Primarily Luna low-cost configs |
-| Focused | Luna broader · Sol if needed |
-| Deep | High Luna effort may be evaluated · Sol central · Astra bounded hard cases |
-| High-Assurance | Sol high-capability · Astra advanced bounded |
-
-> THESE ARE CANDIDATE ELIGIBILITY ENVELOPES, NOT A PRODUCTION ROUTING TABLE.
-> P5/P6 evidence calibrates exact mapping.
-
----
-
-## 40. Model × Reasoning Independence
-
-**MORRIS DECISION / INVARIANT :**
-
-Model selection **≠** Reasoning effort selection.
-
-Configurations valides conceptuelles : Luna+higher effort · Sol+lower effort · Sol+higher · Astra+medium/high/etc.
-
-Ne pas conflater : Strategy · Model · Effort · SFIA Profile · Project criticality.
-
----
-
-## 41. Quality Floor
-
-**QUALITY FLOOR** = minimum acceptable cognitive capability for the workload — a **requirements contract**.
-
-**Non-requirement :** Quality Floor is **NOT** necessarily one scalar numeric score.
-P4 does **NOT** adopt : `qualityScore` 0–100 · opaque maturity number · black-box single score.
-
-Allowed future representation may be : categorical · rule-based · vector/requirements-based · or another reconstructible bounded policy.
-
-Requirements :
-- explainable reason codes ;
-- deterministic/factual inputs where available ;
-- reconstructible selection ;
-- no hidden quality downgrade.
-
-Inputs potentiels : rigorCriticality · verificationNeed · contradictionRisk · ambiguity · reasoningDepth · impact/materiality · challenge requirement · source complexity.
-
-**Selection order :**
-
-1. workload requirements
-2. strategy
-3. quality floor
-4. eliminate insufficient configs
-5. among remaining optimize cost/latency
-6. select minimum-sufficient
-
-**Hard rule :** BUDGET MUST NOT SILENTLY DOWNGRADE BELOW REQUIRED QUALITY.
-Sinon : STOP / limitation / tradeoff explicite.
-
----
-
-## 42. FinOps / Latency Arbitration
-
-Reuse CURRENT assets — **no new RoutingCostEngine**.
-
-Flow : existing cost estimation → candidate costs → select among cognitively sufficient → runtime → observed accounting.
-
-Metrics cibles : cost/turn · cost/successful task · cost/workload class · by model/effort · escalation cost · latency · tokens · tools · retries · escalation count · outcomes.
-
----
-
-## 43. Reasoning Mode Policy
-
-**MORRIS DECISION :**
-
-- Nominal P5 target : `reasoning.mode = standard`
-- `reasoning.mode = pro` : **evaluation candidate only** until evidence justifies adoption
-- Ne pas ouvrir immédiatement une matrice production model × effort × mode
-
----
-
-## 44. Bounded Escalation
-
-**MORRIS DECISION :** maximum **UNE** escalation cognitive par tâche.
-
-Valide : initial route → execute → explicit insufficiency → one stronger config → result OR honest limitation.
-Invalide : Luna→Sol→Astra→… loop.
-
-Escalation peut skip intermédiaires si faits Product le justifient.
-
-Trigger classes conceptuelles : UNRESOLVED_CONTRADICTION · QUALITY_REQUIREMENT_UNMET · REQUIRED_VERIFICATION_UNRESOLVED · CONTEXT_COMPLEXITY_EXCEEDS_ROUTE · TOOL_RESULT_REQUIRES_DEEPER_SYNTHESIS · EVAL_PROVEN_ESCALATION_CASE.
-
-« Model wants smarter model » ≠ preuve d’escalade seule.
-Provider failure ≠ cognitive insufficiency.
-
-**Cognitive escalation ≠ authority escalation.** Astra max reste Nora — jamais Pilote/Morris.
-
-### 44.1 Cognitive task / routing correlation identity (P5 requirement)
-
-Il doit exister une identité stable de tâche cognitive / corrélation de routing across :
-
-- model call ;
-- tool rounds ;
-- retries ;
-- escalation.
-
-Conceptuel : `cognitiveTaskId` · `routingCorrelationId` · or equivalent.
-Exact identifier/name remains **OPEN**.
-
-**Purpose :** a tool round or internal sub-call must **not** reset the escalation budget and allow accidental multi-escalation.
-
-### 44.2 Anti-oscillation / cross-task reselection
-
-One escalation maximum applies per **stable cognitive task / correlation identity**.
-
-It does **NOT** prohibit selecting a lower/different sufficient configuration for a **NEW subsequent** cognitive task.
-De-escalation/reselection across tasks remains policy-driven.
-**No autonomous repeated oscillation.**
-
----
-
-## 45. Tool / Source / Authority Separation
-
-| Concern | Owner |
-| --- | --- |
-| HOW TO REASON | Cognitive Router |
-| WHICH CAPABILITIES REQUIRED | Source Strategy / Tool Policy |
-| WHICH ACTIONS ALLOWED | Authority / EC / runtime guardrails |
-
-**Invalid :** Astra ⇒ more tools ⇒ more authority.
-Effective authority remains structurally independent of model strength.
-
----
-
-## 46. Failure Semantics
-
-Séparer explicitement :
-
-| Failure | ≠ |
-| --- | --- |
-| Provider failure / unavailability | Cognitive task failure auto |
-| Budget conflict | Silent downgrade |
-| Authority denied | Solvable by stronger model |
-| Tool failure | Poor model choice auto |
-| Product qualification fail | Provider error |
-| Cognitive insufficiency | Global Project STOP by default |
-| Missing source | Authority grant by stronger model |
-
-**Cognitive fallback (P2 carried) :** retrieve → clarify → challenge → adapt → bounded escalation → uncertainty/NOT PROVEN/abstain.
-Fail-closed **local** to the blocked authoritative/protected effect by default — not global Project STOP.
-
-Do **NOT** generate fluid false certainty.
-
----
-
-## 47. Telemetry / Observability
-
-KEEP : `COGNITIVE_STRATEGY_SELECTED`.
-
-COMPLETE conceptuel :
-
-**COGNITIVE_ROUTING_SELECTED** — `routingDecisionId` · `cognitiveTaskId` / correlationId · strategyClass · selectedModel · selectedEffort · reasoningMode · qualityFloor · reasonCodes · eligible summary · escalationEligible · cost envelope · budget state · latency preference · provider capability snapshot/version · routing policy version.
-
-**COGNITIVE_ROUTING_OBSERVED** — same correlation ids · initial model/effort/mode · final model/effort/mode · `escalationUsed` · `escalationReason` · actual usage · tokens · latency · tools · retries · estimated/observed cost · `failureClass` where applicable · task outcome linkage.
-
-**DO NOT** expose Chain of Thought / private reasoning.
-
----
-
-## 48. REAL-FIRST Proof Ladder
-
-**MORRIS DECISION :** REAL-FIRST COGNITIVE DELIVERY — P5 ne ferme pas une slice cognition/routing par Fake/D0 seul lorsque la frontière OpenAI réelle est accessible.
-
-| Step | Contenu |
-| --- | --- |
-| **D0** | Deterministic policy/invariants · Signals→Strategy→Routing decision · **≠ cognitive proof** |
-| **R1** | LIVE provider contract — real calls to target models/configs |
-| **R2** | REAL router — real task → assessment → router-selected model/effort → real provider → Nora result · **no manual production pin as principal proof** |
-| **R3** | INTEGRATED PRODUCT COGNITIVE PATH — real Project/LPS/Cycle/context/CKC/Journal/Evidence **as applicable to the workload** → Semantic Context → router → real OpenAI → authorized tools → governed Product result · minimum-sufficient semantic context remains invariant |
-
-Fake reste utile pour invariants / substitution d’adapter. Fake ≠ REAL.
-DETERMINISTIC PROVEN ≠ READY FOR REAL.
-
-P6 = comparative/global QA · P7 = fresh Project E2E · P8 = promotion/retirement gates.
-
----
-
-## 49. Historical Eval Harvest / Target Evaluation
-
-HARVEST workloads : W-Routine · W-Clarification · W-Analysis · W-High-Assurance · W-Memory · W-Sources.
-Ne pas réutiliser l’ancienne matrice GPT-5.6 comme décision de routing cible.
-Target cohort eval : Luna / Sol / Astra.
-Historical cells/model IDs : **FREEZE**.
-
-### 49.1 SAME PRODUCT PATH (mandatory)
-
-The target comparative/eval harness must reuse the **SAME Product cognitive path**, not create a second eval runtime.
-
-Target eval path reuses, as applicable :
-
-- same Cognitive Workload policy
-- same Cognitive Routing policy
-- same Nora runtime
-- same provider adapter/runtime
-- same Source Strategy
-- same Tool Policy
-- same authority boundaries
-- same telemetry schema
-- same accounting semantics
-
-Experimental model/effort pins remain allowed for controlled comparison cells.
-
-But :
-
-> MANUAL MODEL PIN ≠ R2 ROUTER PROOF.
-
-**No :** `EvalRouterRuntime` or separate cognitive implementation.
-
-**Eval dimensions (minimum) :**
-
-quality/task success · grounding · contradiction handling · challenge quality · authority compliance · latency · input/output/reasoning usage where available · tool usage · retries · escalation · estimated/observed cost · cost per successful task.
-
-P6 evaluates TARGET via the same Product path progressively proven in P5.
-
----
-
-## 50. Debt / Exit Map
-
-| Debt | Owner | Target | Exit proof |
-| --- | --- | --- | --- |
-| OPENAI_MODEL nominal selection | P5 | Router-selected nominal model | Normal Product path selects model without nominal env dependency |
-| OPENAI_REASONING_EFFORT nominal / F2 static path | P5 | Same Product cognitive routing policy / provenance | No silent static override on Product cognitive path |
-| GPT-5.6 nominal assumptions in comments/config | P5 | Target cohort naming where current | Historical refs preserved |
-| Capability manifest target gap | P5 | Current-target manifest for Luna/Sol/Astra + currentness | Fail-closed unsupported |
-| Old eval cohort as routing decision | P6 primarily | Target cohort comparative evidence | Mapping calibrated |
-| Synthesis fixture VsDemo | P5 | Product-derived Synthesis in Product SQLite | Rebuildable + searchable semantics |
-| History minimal read model | P5 | P3 History surface from Product read projection | No HistoryStore unless gap |
-| P3 runtime visual gap | P5/P6 | Screenshots vs canonical Figma | Visual Fidelity Gate |
-| Dual LLM surfaces (Agents vs F2 provider) | P5 | Align under Product cognitive policy / provenance | Single policy provenance · not necessarily one function entry |
-| F2 Proposal / decision-subject continuity | P5 | Honest subject reconstructibility · no stale transcript disclosure | No second Proposal store without proof |
-| **Frontend visual layer divergence** (`--sfia-*` + `--pm6-*` + shells/fixtures) | P5 | One minimum-sufficient P3-capable presentation layer via reuse/convergence | Implemented P3 slices use coherent shared tokens/primitives · legacy/transitional layers classified · no accidental parallel responsive/design architecture |
-| **Nora Activity CURRENT→P3 gap** | P5 | Honest observable activity projection · Pilot-facing states · STOP bound to real capability or qualified limitation | No CoT/fake progress · STOPPED honesty |
-| **Deliverable representation gap** | P5 | Minimum-sufficient Product representation · prefer reuse Artifact/Epistemic/Product mechanisms | Deliverable ≠ Artifact preserved · no unnecessary aggregate/store · Suggested Deliverable not prematurely durable |
-| **Pilot Simplification Proof** | P5/P6 | PIB-informed qualitative comparison + Net Complexity Reduction evidence at integrated scope | No PIBEngine/metrics factory · MATERIAL preserved · ACCIDENTAL removed · admin burden near-zero nominal |
-| DecisionBasis universalization risk | P5 | Reuse optional/bounded basis only when needed | No universal mandatory DecisionBasis architecture |
-| Universal Validator Engine risk | P5 | Compose domain mechanisms · work-class gap only | No universal Validator Engine |
-| `.tmp-sfia-review` historically tracked | Process debt | HORS SCOPE ce cycle | Future process regularization |
-
-Aucune dette « later » sans exit.
-
----
-
-## 51. P5 Entry Contract
-
-P5 Entry Contract covers **six** dimensions coherently. Satisfying five of six **≠** Product Simplification complete.
-
-> P5 implementation success ≠ P5 Product Simplification success
-> unless functionality + experience + semantic integrity + cognition + simplification + required evidence converge at tested scope.
-
-### 51.1 Functional (P2)
-
-P2 FOM integrated · same authority semantics · Deliverable ≠ Artifact · Execution optional production path · Confirmation/HD cardinalities · recovery Product-truth-first · no universal Validator Engine · real Product objects.
-
-### 51.2 Experience (P3)
-
-Implement against P3 Workspace/IA/Figma · no intentional visual deviation · runtime screenshot vs Figma for strong visual PASS · Auth GitHub-only UX · Nora activity honest · reduced-motion · a11y carrying · local searches · no UI-local SoT · no P3 redesign by convenience · frontend convergence path (§27A) not new fixture UI program.
-
-### 51.3 Semantic / Projection (P4)
-
-One Product world · bounded role-aware projections · Synthesis derived in Product SQLite (class ≠ Truth C) · Journal/History/Syntheses contracts · Deliverable/Artifact semantics · DecisionBasis optional/bounded · no SharedKnowledgeStore · no second truth.
-
-### 51.4 Cognitive (P4)
-
-Deterministic NO-LLM bypass · Strategy-first bounded router when cognition required · same Nora · same Agents path · dynamic Strategy/model/reasoning · target cohort · quality floor before FinOps · one escalation max per cognitive task · cognitive fallback retrieve/clarify/challenge/adapt/abstain · local fail-closed · same Product path eval · OPENAI_MODEL/EFFORT TEMP WITH EXIT.
-
-### 51.5 Simplification (P1)
-
-For any P5 slice claiming Product Simplification:
-
-1. identify representative Pilot journey ;
-2. compare against relevant CURRENT/baseline interaction burden ;
-3. do not increase accidental interaction load without explicit justification ;
-4. keep method/runtime administration burden near zero nominally ;
-5. preserve MATERIAL interactions ;
-6. preserve protection of PROTECTIVE interactions while reducing unnecessary ceremony where possible ;
-7. avoid or remove ACCIDENTAL interactions ;
-8. demonstrate no new parallel cockpit/workflow ;
-9. assess Nora/context burden where relevant ;
-10. assess architectural duplication/convergence ;
-11. demonstrate Net Complexity Reduction at meaningful integrated scope ;
-12. **no metrics factory** · PIB remains heuristic · no numeric PIB thresholds in P4/P5 as architecture.
-
-### 51.6 Proof
-
-D0 → R1 → R2 → R3 progressively · visual fidelity evidence · semantic continuity · no parallel architecture · Cognitive FinOps observations distinct from Simplification proof.
-Cannot claim complete from deterministic-only cognitive tests when OpenAI accessible for REAL-required slices.
-
-### 51.7 Architecture anti-parallelism
-
-No second Nora · no SharedKnowledgeStore · no router service · no second Product model · no parallel persistence · no event-sourcing initiative without demonstrated blocker · no new orchestration platform · no fixed Cycle→model mapping · no new design-system stack absent need · no architecture pivot without Morris gate.
-
-### 51.8 Explicit
-
-**P5 AUTHORIZED = NO** jusqu’à GO Morris distinct après requalification.
-
----
-
-## 52. Recommended P5 Critical-path Convergence
-
-**CORE RULE :**
-> COGNITION AND PRODUCT EXPERIENCE CONVERGE EARLY.
-
-**No :** pretty fixture UI program + router laboratory program that only converge at the end.
-
-Trajectoire **convergente** (pas ticket list · pas « finish router then Product UI ») :
-
-1. **Revalidate** target-provider capability boundary.
-2. Build **MINIMUM** cognitive routing policy **+ deterministic NO-LLM bypass** · wire into existing Nora runtime path.
-3. Build **FIRST object-native Product vertical slice early** using actual **P3-capable frontend convergence path** (not new fixture UI) :
-   - REAL Project semantic context ;
-   - P3 Conversation ;
-   - Nora Semantic Context ;
-   - CWP / Strategy when cognition required ;
-   - router-selected model/effort when applicable ;
-   - real provider call when authorized ;
-   - governed Product object/projection ;
-   - same object visible through relevant P3 surface(s).
-4. Prove **R1 + R2 THROUGH THAT SAME PATH**, not as isolated router demo.
-5. Inspect **Pilot interaction burden / accidental complexity** for that journey (PIB heuristic) — slice must not worsen ACCIDENTAL load vs baseline.
-6. Expand object-native projections — Aperçu · Exécution · Journal · Historique · Synthèses · Auth visual · Activity — prioritised by critical-path value and reuse.
-7. Exercise **Deliverable / Artifact** semantics when relevant (existence ≠ validation ≠ Exit Proof).
-8. Prove **R3** integrated representative Product path.
-9. Continue runtime/Figma visual comparison for implemented surfaces.
-10. **P6** comparative/global QA including **Net Complexity Reduction**.
-
-End-to-end > isolated subsystem completeness.
-
-### 52.1 First REAL Product Integration (anti-parallel)
-
-Representative journey cible :
+Journey cible P4 §52.1, tel que **couvert** par P5-S01 :
 
 ```text
 REAL Project → P3 Conversation → real Project semantic context
@@ -2127,248 +496,4499 @@ REAL Project → P3 Conversation → real Project semantic context
 → Nora governed cognitive outcome / deterministic Product result
 → Studio materializes/updates real Product object when applicable
 → same object in Conversation / Aperçu / Journal / …
-→ Evidence / Result / Deliverable·Artifact / Synthesis as applicable
-→ PIB/accidental-burden check for the journey
 ```
 
----
-
-## 53. P4 Exit Contract
-
-**P4 EXIT PROOF = SATISFIED.** **P4 CLOSED BY MORRIS = YES.**
-
-**P4 CLOSED ≠ P5 AUTHORIZED ≠ runtime implemented ≠ READY FOR REAL.**
-
-| Exit element | Status |
+| Maillon | P5-S01 |
 | --- | --- |
-| P4 architectural coherence | **SATISFIED** |
-| P4 P1/P2/P3 inheritance | **SATISFIED** |
-| P4 WP1–WP5 review | **SATISFIED** (PASS) |
-| C1–C9 / MC1–MC4 / A–E | **SATISFIED** (PASS) |
-| P4 GLOBAL MORRIS VALIDATION | **SATISFIED** (2026-10-05) |
-| P4 Git Integration (commit/push/PR) | **SATISFIED** · PR **#552** |
-| P4 document integrated on main | **SATISFIED** via PR **#552** / merge `d0b4836046911731605883364d9cc3bef4ac3e7f` |
-| Roadmap truth-sync architecture package on main | **SATISFIED** via same merge |
-| P4 post-merge verification | **SATISFIED** via CI **#672** / `37248128868` SUCCESS |
-| P4 Required Gate | **SATISFIED** (SUCCESS) |
-| Blocking reservation preventing documentary closure | **NONE** |
-| P4 CLOSED BY MORRIS | **YES** (GO consumed) |
-| P4 closure patch integrated on main | **YES** (PR **#553** / merge `17434de03585eb30d13d59d7ba5c249563f0b33c`) |
-| P4 FINAL REPOSITORY VERIFICATION | **PASS** (CI **#674** / `37250512824` SUCCESS · Required Gate SUCCESS) |
-| P4 final repository truth-sync materialization | **LOCAL CANDIDATE** this pass |
-| P4 final truth-sync patch integrated on main | **NO** |
-| P5 REQUALIFIED BY CHATGPT | **YES** |
-| P5 authorization | **NO** |
+| Project (local Product, vrai LPS) | **D0 — exercé** (test intégré) |
+| Conversation P3 (Workspace) | **Implémenté** — layout testé (UI) ; fidélité Figma non prouvée |
+| Contexte sémantique projet | **D0 — exercé** (`composeStudioCognitiveContext`) ; panneau « Contexte du projet » en lecture seule |
+| CWP → Strategy | **Existant, exercé** |
+| Product router | **Implémenté, exercé D0** |
+| OpenAI réel | **ZERO REAL** — Fake provider uniquement |
+| Matérialisation / mise à jour d’objet Product nouveau | **NON couvert** |
+| Même objet visible dans Aperçu/Journal/… | **NON couvert** (onglets = navigation/focus, pas projection object-native) |
+| Evidence / Result / Deliverable·Artifact / Synthesis | **NON couvert** |
+| PIB / charge accidentelle | **Qualitatif** (§23) |
 
-**Exit path (gates consommés) :**
-
-1. Global Morris validation — **DONE**
-2. Documentary materialization + Roadmap truth-sync candidate — **DONE**
-3. ChatGPT review of materialization / truth-sync — **PASS**
-4. Morris Git integration authorization (commit + push + PR) — **CONSUMED**
-5. PR review / ChatGPT PR assessment — **PASS**
-6. Morris merge gate — **CONSUMED** · PR **#552** MERGED
-7. Post-merge verification / repository truth — **SATISFIED** (CI **#672**)
-8. P4 closure qualification — **SATISFIED**
-9. Morris closure decision — **CONSUMED**
-10. Closure patch Git integration — **CONSUMED** · PR **#553** MERGED · CI **#674** SUCCESS
-11. Final repository truth-sync materialization — **THIS PASS** (local candidate)
-12. Final truth-sync patch Git integration — **NOT AUTHORIZED THIS RUN** (distinct future Morris gate)
-13. P5 REQUALIFIED BY CHATGPT — **YES** (qualification/recommendation)
-14. P5 only under **DISTINCT** Morris GO — **NOT CONSUMED**
-
-**Do NOT skip from P4 CLOSED to P5 AUTHORIZED.**
+**La journey est donc couverte en D0 sur son tronçon cognition + contexte + conversation, pas end-to-end Product.**
 
 ---
 
-## 54. Open Items / Non-blocking Reserves
+## 11. Current→Target reuse matrix
 
-| Item | Classe |
+| Asset | CURRENT | P5-S01 disposition | Delta réalisé | Dette / sortie |
+| --- | --- | --- | --- | --- |
+| `ProductShell` (Pre-M6) | Shell produit existant | **ADAPT** | Rail P3 192px · Meridian · Projets récents | Famille tokens double (§24) |
+| `ProjectWorkspacePage` | Page workspace Pre-M6 | **ADAPT** | Header global · onglets · focus bar · Conversation + Contexte 356px | Fidélité Figma non prouvée ; Aperçu/Exécution = focus/jump, pas projections |
+| `ConversationSurface` | Surface conversation | **REUSE + CSS adapt** | Ajustements CSS (`ConversationSurface.module.css`) | — |
+| `useProductConversation` | Hook conversation | **REUSE** | Reduced-motion sur auto-scroll | — |
+| `LpsSurface` | « État du projet » | **REUSE** | `lpsNextAction` exporté (source unique de formulation) | — |
+| `runNoraCognitiveTurn` | Runtime cognitif Nora | **ADAPT** | Routing après Strategy ; Fake garde adapter ; live utilise la chaîne modèle sélectionnée | Boucle escalade non exercée |
+| `cognitiveWorkloadPolicy` | CWP / Strategy | **REUSE (inchangé)** | Consommé par la politique de routage | — |
+| `capabilityBudget` | Manifests MW0 / courant | **ADAPT** | `buildP5TargetCapabilityManifest` ajouté ; **MW0 historique inchangé (FREEZE)** | Snapshot daté à revalider avant REAL |
+| `reasoningCapability` | Validation capability fail-closed | **ADAPT** | Manifest optionnel ; fallback manifest P5 TARGET | — |
+| `product-tokens.css` | `--pm6-*` | **ADAPT / converge** | Couleurs vers P3 ; **pas de `--p5-*`** | Dual `--sfia-*`/`--pm6-*` TEMP WITH EXIT |
+| Meridian | Emblème Figma | **RECOVER** | `/branding/meridian-emblem-product.png` (§24.4) | Provenance à garder |
+| `logicalProductTurn` | Identité de tour logique | **REUSE** | Fournit `logicalTurnId` | — |
+| `studioCognitiveContext` | Contexte cognitif Studio | **REUSE** | Exercé dans le test intégré D0 | — |
+| F2 `analyzeIntent` | Analyse d’intention F2 | **NON alignée** | Aucun | **P5-DEBT-F2-ROUTING-ALIGNMENT** (provider modèle statique) |
+
+---
+
+## 12. Frontend convergence plan
+
+Principe P4 §27A / §51.2 : **un** layer de présentation P3-capable minimum-suffisant par réutilisation/convergence ; pas de nouveau programme UI de fixtures.
+
+| Élément | Réalisé | Reste |
+| --- | --- | --- |
+| Famille de tokens canonique de convergence | `--pm6-*` (aucune famille `--p5-*` créée) | Retrait/fusion de `--sfia-*` |
+| Palette | Convergée vers couleurs P3 (canvas, ink, bordures, rail) | Vérification contre Figma runtime |
+| Shell | Rail 192px | Variantes Compact/Mobile à prouver |
+| Workspace | Structure P3 | Surfaces object-native |
+| Layouts `--pm6-*` | Largeurs LPS/Journal/contenu maintenues dans le même set | — |
+
+**Contrainte respectée :** pas de nouvelle stack design-system, pas de seconde architecture responsive.
+
+---
+
+## 13. Figma contract
+
+| Élément | Valeur |
 | --- | --- |
-| Exact Synthesis SQL schema / table name / repository ports | OPEN → P5 |
-| Exact full-content search implementation / FTS5 need | OPEN → P5 |
-| Exact deep-link technical routes | OPEN → P5 |
-| Exact production model×effort table | OPEN → P5/P6 evidence |
-| Exact per-workload quality thresholds / escalation thresholds | OPEN |
-| reasoning.mode=pro value | OPEN eval |
-| Current provider pricing/capabilities at implementation date | EXTERNAL CURRENT INPUT |
-| Final CSS breakpoints/tokens (P3 reserves) | OPEN → P5/P6 |
-| Exact frontend token convergence implementation / component hierarchy / shared primitive decomposition | OPEN → P5 |
-| Exact motion implementation/timings · activity event mapping · streaming cancellation mechanics | OPEN → P5 |
-| Exact local Projects/History search mechanism · GitHub Auth visual implementation | OPEN → P5 |
-| Exact Deliverable technical representation if CURRENT gap persists | OPEN → P5 · NEW STORE NOT ADOPTED |
-| Exact work-class validation mechanisms where domain-specific | OPEN · compose first |
-| DecisionBasis representation only if demonstrated need | OPEN · no universal mandate |
-| Precise P5 slice decomposition | OPEN after P4 closure · before any P5 start |
-| REAL/account entitlement | NOT PROVEN |
-| Production router implementation | **NOT IMPLEMENTED** → P5+ |
-| R1/R2/R3 REAL proof / GPT-6 routing REAL | **NOT PROVEN** → P5+ when authorized |
-| Synthesis Product-derived persistence | **NOT IMPLEMENTED** → P5 |
-| P3 runtime/Figma fidelity | **NOT PROVEN** → P5/P6 |
-| Net Complexity Reduction / PIB improvement | **NOT PROVEN** → P5/P6 |
-| Roadmap closure truth-sync patch | **INTEGRATED ON MAIN** via PR **#553** |
-| Roadmap / P4 final repository truth-sync patch | **LOCAL CANDIDATE** this pass · integration on main = DISTINCT Morris Git gate |
+| Fichier Figma | `m4g8j0gNbEzfIuH6S9AZJF` |
+| Workspace Desktop | node **`46:2`** |
+| Workspace Compact | node **`190:44`** |
+| Workspace Mobile | node **`190:306`** |
+| Mode d’accès | **READ ONLY** — aucune mutation Figma |
+| Contrat | P3 préservé (aucune déviation visuelle intentionnelle) |
 
-**Morris Global Validation + Git Integration + Merge + Closure + Closure-patch merge consumed.** ChatGPT P5 requalification = **COMPLETED**. Next structural Morris gate = **P5 AUTHORIZATION** (not consumed). Architecture substance unchanged.
+### 13.1 Statut de preuve
+
+- Des **exports Figma** (références) existent en scratch non suivi : `.tmp-sfia-review/visual/figma/*.png` (dont `workspace-desktop-46-2.png`, fichiers `meridian-*.png`). Ce sont des **références Figma**, **pas** des captures runtime.
+- **Aucune capture runtime comparative** n’a été produite (Playwright derrière auth). → **PAS de claim de fidélité** (§22).
 
 ---
 
-## 55. Morris Decisions Consumed During P4
+## 14. Workspace implementation status
 
-| Décision | Conséquence | N’autorise PAS | Implication P5 |
+| Zone P3 | Implémentation | Preuve |
+| --- | --- | --- |
+| Rail latéral 192px | ✔ | Test UI layout (rendu) |
+| Emblème Meridian | ✔ (`/branding/meridian-emblem-product.png`) | Asset présent ; fidélité visuelle non comparée |
+| Projets récents (max 5, projets réels) | ✔ (`ProductRailRecents`, via `listProjectsRuntimeAction`) | Pas d’entrée inventée ; état loading/unavailable/ready |
+| Header global | ✔ | UI test |
+| Onglets Conversation / Aperçu / Exécution | ✔ (navigation/focus) | UI test |
+| Focus bar | ✔ | UI test |
+| Conversation | ✔ (`ConversationSurface`) | Régression Pre-M6 PASS |
+| Contexte du projet 356px | ✔ (`ProjectContextSummary`, lecture seule) | UI test |
+| Reduced-motion (auto-scroll) | ✔ | Code ; pas de test dédié rapporté |
+| Compact / Mobile | **Non prouvé** | — |
+| Aperçu / Exécution object-native | **Non livré** | — |
+| Journal / Historique / Synthèses / Auth / Activity / STOP | **Non livré** | — |
+
+Précisions :
+
+- Tab **Aperçu** amène le panneau de contexte dans le champ de vision ; tab **Exécution** saute aux cartes d’exécution déjà présentes dans la conversation — **ce ne sont pas** de nouvelles surfaces/projections.
+- Le panneau de contexte **n’héberge aucune action** : décisions et détails restent dans la conversation/Journal/lifecycle existants.
+
+---
+
+## 15. Semantic integration
+
+- **Présentation uniquement** (`workspaceContextPresentation.ts`) : toutes les valeurs sont lues depuis des **projections déjà chargées** (état durable, projection lifecycle, journal de conversation, proposition active). Rien n’est persisté, rien n’est inféré au-delà.
+- **Currentness honnête** : « À jour » seulement si état durable **et** transcript lisibles ; sinon « À vérifier » / « Lecture en cours » (`presentCurrentness`).
+- **Trajectoire cycles** : bande « Terminé / En cours / Proposé » dérivée des instances de cycle (max 5 nœuds ; superseded/cancelled omis).
+- **Formulation unique** du prochain pas : `lpsNextAction` partagé entre « État du projet » et le panneau de contexte.
+- **Invariants D0** (`semanticInvariants`) : P5-SEM-05 (le choix de modèle n’encode aucun champ d’autorité) · P5-SEM-02/03 (routing ≠ HumanDecision ≠ Recommendation disposition) · P5-SEM-08 (sémantique Strategy Proposed hors router).
+
+**Non couvert :** Synthesis Product-derived (le raccourci synthèse reste **désactivé** — aucune surface de synthèse Product), Journal/History read models P3, Deliverable representation.
+
+---
+
+## 16. Nora Semantic Context integration
+
+- Le test intégré D0 exerce le **chemin réel local** : Project/LPS Product réels → `composeStudioCognitiveContext` (faits de contexte) → `runNoraCognitiveTurn` → CWP → Strategy → Routing → Fake provider → **même Agents Runner** → résultat Product-safe.
+- **Même Nora, même Runner** : aucun second chemin ni second runtime.
+- Le routing **ne lit pas** le contexte pour décider une autorité ; il consomme la **décision Strategy** (classe + signaux normalisés + `candidateEnvelope`).
+- **Non couvert :** projection sémantique Nora object-native élargie (P4 §23) au-delà de ce que le contexte Studio expose déjà.
+
+---
+
+## 17. Cognitive routing implementation
+
+### 17.1 `cognitiveRoutingPolicy.ts` (nouveau, pur)
+
+| Propriété | Implémentation |
+| --- | --- |
+| Nature | Fonction pure, non persistante, **non autoritative**, **≠ RouterService** |
+| Version de politique | `p5-s01-routing-v1` |
+| Pipeline | Strategy → **Quality Floor** → configs éligibles (model × effort) → filtre capability → **FinOps parmi les suffisants** → minimum-suffisant |
+| Cohort nominal | `gpt-6-luna` · `gpt-6.1-sol` · `gpt-6-astra` (GPT-5.6 **exclu** du routing nominal) |
+| Candidats | Enveloppe d’efforts de la Strategy × cohort — **pas** de mapping fixe Strategy→Modèle ; model × effort indépendants |
+| Reasoning mode nominal | `standard` |
+| Escalade | `P5_MAX_ESCALATIONS_PER_TASK = 1` (champ `escalationEligible` selon `escalationsUsed`) |
+| Identité de tâche | `cognitiveTaskId` stable obligatoire (sinon erreur `COGNITIVE_ROUTING_REQUIRES_STABLE_TASK_ID`) |
+| Reconstructibilité | `routingDecisionId`, `reasonCodes`, `policyVersion`, `providerSnapshotIdentity` (hash stable du contenu, hors `retrievedAt`) |
+| Échec | **Fail-closed** : `ok:false` avec `NO_SUFFICIENT_CONFIG` ou `BUDGET_EXCLUDES_ALL_SUFFICIENT` ; `BUDGET_MUST_NOT_DOWNGRADE_BELOW_FLOOR` |
+
+### 17.2 Quality Floor (catégoriel, explicable, **pas** un score 0–100)
+
+| Strategy | Catégorie | Plancher modèle | Plancher effort |
 | --- | --- | --- | --- |
-| **Morris GO P4** — AUTHORIZED/STARTED | Analyse/architecture P4 | P5 · Delivery · REAL · runtime v3 | Requalification + GO P5 distinct |
-| **P4 framing** — Semantic + Projection + Cognitive / Technical Delta | Scope WP1–WP5 | Redesign P3 · greenfield | Entry contract |
-| **Five WP coherent** | Substance P4 | Closure auto | Documentary consolidation |
-| **Target cohort** GPT-6 Luna / GPT-6.1 Sol / GPT-6 Astra · GPT-5.6 exits nominal | Router eligibility | Rewrite historical GPT-5.6 | Manifest + REAL proofs |
-| **Synthesis architecture** — materialized derived projection | Rebuildable searchable | SoT status | Builder + Product SQLite |
-| **Synthesis persistence Option A** — existing Product SQLite | Physical placement in Product SQLite · **class ≠ Truth C** | Session owner · new DB · Artifact primary · KnowledgeStore · Truth-C-by-colocation | Schema/ports OPEN |
-| **WP3 projection architecture** — one Product world, bounded projections | No SharedKnowledgeStore | Second agent world | Object-native UI |
-| **Nora routing Option A** — Strategy-first bounded router in existing runtime | Insert into path | Router service · second Nora · LLM-router initial | cognitiveRoutingPolicy |
-| **Model ≠ reasoning effort** | Independent selection | Fixed Strategy→Model | Config pairs |
-| **Quality floor before FinOps** | No silent downgrade | Cost-only routing | Thresholds OPEN |
-| **Max one cognitive escalation** | Bounded | Multi-escalation loops | Trigger classes OPEN |
-| **REAL-FIRST begins P5** | Proof ladder | Fake-only close when OpenAI accessible | D0/R1/R2/R3 |
-| **reasoning.mode nominal=standard** · pro=eval candidate | Limit matrix | Full mode matrix now | Eval gate for pro |
-| **OPENAI_MODEL/EFFORT exit nominal** | TEMP WITH EXIT overrides | Immediate env deletion | Exit proof |
-| **Full-content search semantics** · no vector DB default | Support P3 search | Elastic/vector adoption | Local search first |
-| **No SharedKnowledgeStore / no global ES / no second Project / no parallel architecture** | KEEP backbone | Parallel rebuild | Integration map |
-| **P4 GLOBAL VALIDATED BY MORRIS** (2026-10-05 Europe/Paris) | Validates WP1–WP5 + P4 decisions + P5 Entry Contract as target entry | Project Git integration auto · P5 · REAL · runtime v3 | Distinct Git integration then merge/closure then distinct GO P5 |
-| **P4 GIT INTEGRATION AUTHORIZATION** (commit/push/PR) | Project commit + source branch push + open PR authorized | Merge · main push · branch delete · P4 closure · P5 · REAL · runtime v3 | DISTINCT Morris merge gate after PR review |
-| **P4 MERGE AUTHORIZATION** (PR **#552**) | Merge of validated P4 package onto main | Branch delete · P4 closure auto · P5 · REAL · runtime v3 | Post-merge CI + distinct closure gate |
-| **P4 POST-MERGE VERIFICATION & CLOSURE** (2026-10-05) | Documentary/lifecycle P4 CLOSED BY MORRIS · Roadmap living tip truth-sync LOCAL CANDIDATE | P5 authorization · P5 start · REAL · runtime v3 · closure patch auto-integration | Distinct Morris GO for closure patch commit/push/PR · then DISTINCT merge · then P5 requalification |
-| **P4 CLOSURE-PATCH GIT INTEGRATION / MERGE** (PR **#553**) | Closure status + Roadmap living tip on main | P5 authorization · REAL · runtime v3 | Post-merge CI **#674** SUCCESS · then final repository truth-sync if needed |
-| **P4 FINAL REPOSITORY TRUTH-SYNC** (2026-10-05) | Removes stale living CURRENT claims · records P5 REQUALIFIED BY CHATGPT | Project commit/push/PR auto · P5 authorization · P5 start · REAL · runtime v3 | Distinct Morris GO for truth-sync patch commit/push/PR · then DISTINCT merge · then CURRENT Morris gate = P5 AUTHORIZATION |
+| Routine | `routine-sufficient` | Luna | ≥ none |
+| Focused | `focused-sufficient` | Luna | ≥ low (≥ medium si vérification/ambiguïté élevée) |
+| Deep | `deep-sufficient` | Luna (Sol si rigueur/vérification/contradiction élevée) | ≥ medium |
+| High-Assurance | `high-assurance-sufficient` | Sol minimum | ≥ high |
 
-**Basis of Global Validation :** ChatGPT Final Targeted Coherence Verification = PASS · C1–C9 PASS · MC1–MC4 PASS · A–E PASS · WP1–WP5 PASS · P1/P2/P3 inheritance PASS · architecture parallelism PASS · P5 Entry Contract PASS.
+Surcharges : `contradictionRisk` élevé → plancher Sol ; `criticalChallengeArmed` → plancher d’effort `high`. **Le budget ne peut jamais abaisser sous le plancher** ; il ne filtre qu’**au sein** de l’ensemble suffisant.
 
-**Basis of Closure :** PR **#552** MERGED · merge `d0b48360…` · post-merge CI **#672** / `37248128868` SUCCESS · Required Gate SUCCESS · Exit Contract SATISFIED · Morris Closure GO YES.
+### 17.3 `buildP5TargetCapabilityManifest` (`capabilityBudget.ts`)
 
-Pas d’IDs `D-P4-*` inventés.
+| Modèle | Efforts supportés (snapshot) |
+| --- | --- |
+| `gpt-6-luna` | none · low · medium · high · xhigh · max |
+| `gpt-6.1-sol` | low · medium · high · xhigh · max (**none non supporté**) |
+| `gpt-6-astra` | low · medium · high · xhigh · max (**none non supporté**) |
+
+- `minimal` reste **non admissible** pour le cohort cible.
+- Les lignes de prix sont des **indices d’ordonnancement FinOps datés**, remplaçables — **pas de doctrine**.
+- **`buildMw0CapabilityManifest` (GPT-5.6) non modifié — FREEZE historique** ; `buildCurrentOpenAiCapabilityManifest` non remplacé.
+- « Documented capability ≠ account/API entitlement » : **non vérifié** (ZERO REAL).
+
+### 17.4 Câblage `runNoraCognitiveTurn`
+
+1. Routing décidé **après Strategy** (`resolveProductCognitiveRouting`).
+2. **Pas de routing** si : pin d’éval (`evalModelReasoningControl`) ou Strategy non exécutée.
+3. **Limitation de routing** (`ok:false`) → `TechnicalError("CONFIG", …)` **fail-closed**, jamais de downgrade silencieux.
+4. **Fake** (provider adapter) : **garde l’adapter** (le modèle sélectionné reste identité/télémétrie) ; **live** : la **chaîne modèle sélectionnée** est passée à l’Agents Runner.
+5. Capability de l’effort sélectionné validée contre le manifest P5 TARGET (`validateRuntimeReasoningCapability` avec manifest).
+6. Résultat enrichi : `selectedModelId`, `cognitiveRoutingDecisionId`, `cognitiveRoutingPolicyVersion` ; `selectedReasoningEffort` effectif : pin d’éval > routing > CWP.
+7. Fallback legacy documenté : si Strategy a tourné mais routing absent, chemin historique (`OPENAI_MODEL` **TEMP WITH EXIT**).
+
+### 17.5 `orchestrateTurn`
+
+`correlationId` préfère **`logicalTurnId`** (identité cognitive stable sur tool rounds / retry / escalade unique), repli sur `f1:${projectId}`.
+
+### 17.6 Télémétrie
+
+Événement **`COGNITIVE_ROUTING_SELECTED`** (type ajouté à `TechnicalEventType`). Détails : `routingDecisionId`, `cognitiveTaskId`, `strategyClass`, modèle/effort sélectionnés, `reasoningMode`, `qualityFloor`, `reasonCodes`, résumé d’éligibles (≤ 12), `escalationEligible`, `maxEscalations`, `providerCapabilitySnapshot`, `routingPolicyVersion`, `estimatedCostUsdHint`. **Aucune Chain of Thought, aucune fausse confiance** (test P5-D0-21).
 
 ---
 
-## 56. Claims / Anti-claims Matrix
+## 18. Provider snapshot
 
-| Claim | Status |
+| Élément | Valeur |
 | --- | --- |
-| P4 VALIDATED DOCUMENTARY CANDIDATE | **YES** (this file) |
-| P4 TARGETED CORRECTION PASS 01 COMPLETE / REVIEWED | **YES** (C1–C9 PASS) |
-| P4 MICRO-CORRECTION PASS 02 COMPLETE | **YES** (MC1–MC4 PASS) |
-| P4 AUTONOMOUS REVIEW CORRECTION PASS 03 COMPLETE | **YES** (A–E PASS) |
-| ChatGPT Final Targeted Coherence Verification | **PASS** |
-| P4 GLOBAL VALIDATED BY MORRIS | **YES** (2026-10-05 Europe/Paris) |
-| P4 VALIDATION MATERIALIZATION LOCAL | **YES** (historical) |
-| Roadmap truth-sync LOCAL CANDIDATE (pre-merge) | **YES** (historical · now SUPERSEDED as tip) |
-| P4 GIT INTEGRATION AUTHORIZED (commit/push/PR) | **YES** (consumed) |
-| P4 GIT INTEGRATION COMPLETE | **YES** (PR **#552**) |
-| P4 MERGE AUTHORIZED / CONSUMED | **YES** (historical merge gate · consumed) |
-| P4 INTEGRATED ON MAIN | **YES** (PR **#552** / `d0b48360…`) |
-| Roadmap architecture truth-sync INTEGRATED ON MAIN | **YES** (via PR **#552**) |
-| P4 POST-MERGE VERIFIED | **YES** (CI **#672**) |
-| P4 CLOSED BY MORRIS | **YES** |
-| P4 closure materialization LOCAL CANDIDATE | **YES** (historical · SUPERSEDED as tip) |
-| P4 closure patch INTEGRATED ON MAIN | **YES** (PR **#553** / `17434de0…`) |
-| P4 FINAL REPOSITORY VERIFICATION | **PASS** (CI **#674**) |
-| P4 final repository truth-sync LOCAL CANDIDATE | **YES** (this pass) |
-| P5 REQUALIFIED BY CHATGPT | **YES** |
-| P5 AUTHORIZED | **NO** |
-| TARGET routing architecture validated in P4 | **YES** |
-| Production router IMPLEMENTED / PROVEN | **NO** |
-| GPT-6 REAL routing proven | **NO** |
-| Synthesis Product implemented | **NO** |
-| Deliverable Product representation implemented | **NO** (gap qualified) |
-| frontend P3 runtime fidelity PROVEN | **NO** |
-| Auth P3 visual fidelity PROVEN | **NO** |
-| Nora Activity runtime P3 parity PROVEN | **NO** |
-| Net Complexity Reduction PROVEN | **NO** |
-| Pilot Interaction Budget improvement PROVEN | **NO** |
-| runtime v3 ADOPTED | **NO** |
+| Type | Snapshot **daté** d’entrée externe (revalidé pour la livraison P5-S01, 2026-10-05) |
+| Cohort | Luna / Sol / Astra |
+| Efforts | Voir §17.3 |
+| Statut | **Non confirmé par appel réel** — **ZERO REAL** |
+| Valeur permanente ? | **Non** — snapshot ≠ doctrine ; **à revalider avant tout gate REAL** |
+| Entitlement compte/API | **Non vérifié** |
+
+**Aucun appel OpenAI réel n’a été effectué.** Les capacités ci-dessus sont des **données de manifest**, pas une preuve de disponibilité.
+
+---
+
+## 19. Deterministic bypass
+
+- P4 : **deterministic NO-LLM bypass avant routing**.
+- P5-S01 : **aucune logique de bypass nouvelle** ; les chemins déterministes Product existants sont **conservés**. **Pas de routeur par mots-clés.**
+- Le routing n’est invoqué que lorsque la Strategy a produit une décision (cognition requise) ; sans décision Strategy, `resolveProductCognitiveRouting` retourne `null`.
+- **Réserve :** l’inventaire exhaustif des chemins déterministes et leur ordonnancement par rapport au routing n’est pas ré-audité dans ce document.
+
+---
+
+## 20. Fake/Real qualification D0
+
+| Aspect | Qualification |
+| --- | --- |
+| Niveau de preuve | **D0** (déterministe/local) |
+| Provider | **Fake** (`FakeConversationProvider`) |
+| Appels live OpenAI | **0** (P5-D0-24) |
+| Même Agents Runner | Oui (P5-D0-23) |
+| Fake garde l’adapter | Oui (P5-D0-22) |
+| REAL-FIRST (P4 §48) | **Frontière OpenAI non exercée dans S01** — décision d’autorisation REAL **non consommée** ; la slice **ne peut pas** être déclarée close sur cognition/routing |
+| R1 / R2 / R3 | **NOT STARTED** |
+
+**D0 PASS ≠ REAL PASS.** Une slice cognition/routing ne se ferme pas par Fake/D0 seul lorsque la frontière OpenAI réelle est accessible : **S01 reste donc LOCAL CANDIDATE**.
+
+---
+
+## 21. Test/evidence matrix
+
+### 21.1 Tests ajoutés (22 cas)
+
+| Fichier | Cas | Couvre |
+| --- | --- | --- |
+| `p5.s01.cognitiveRouting.d0.test.ts` | **17** | P5-D0-01 … P5-D0-24 (certains cas regroupent plusieurs IDs) |
+| `p5.s01.integratedProduct.d0.test.ts` | **1** | Chemin intégré Product réel local + routing + Fake + même Runner |
+| `p5.s01.semanticInvariants.d0.test.ts` | **3** | P5-SEM-05 · P5-SEM-02/03 · P5-SEM-08 |
+| `p5.s01.workspaceLayout.ui.test.tsx` | **1** | Rail P3 + Workspace Conversation sans internals |
+
+### 21.2 Mapping P5-D0
+
+| ID(s) | Assertion |
+| --- | --- |
+| P5-D0-01 | Cohort nominal = Luna / Sol / Astra |
+| P5-D0-02 | Routing nominal exclut GPT-5.6 |
+| P5-D0-03 | Manifest historique MW0 GPT-5.6 inchangé |
+| P5-D0-04 | Strategy ne contient aucun mapping modèle fixe |
+| P5-D0-05 / 06 | Quality Floor avant FinOps ; configs insuffisantes exclues |
+| P5-D0-07 | Luna `none` accepté |
+| P5-D0-08 / 09 | Sol / Astra `none` rejeté |
+| P5-D0-10 | Modèle inconnu → fail-closed |
+| P5-D0-11 | Effort non supporté non coercé silencieusement |
+| P5-D0-12 | Le budget ne peut pas abaisser sous le plancher |
+| P5-D0-13 / 14 / 15 | Décision reconstructible · version de politique · reason codes |
+| P5-D0-16 | Escalade max = 1 |
+| P5-D0-17 | Identité de tâche cognitive stable requise |
+| P5-D0-18 / 19 | Le client ne peut sélectionner modèle/effort via le chemin Product |
+| P5-D0-20 | Un modèle plus fort n’élargit pas les champs d’autorité |
+| P5-D0-21 | Télémétrie sans CoT |
+| P5-D0-22 / 23 / 24 | Frontière Fake (adapter) · même Runner · zéro live |
+
+### 21.3 Régressions et portes qualité (rapportées par la passe de livraison)
+
+| Vérification | Résultat rapporté |
+| --- | --- |
+| Suites MW2 + régression UI Pre-M6 ciblées | **PASS (201+ tests ciblés)** |
+| `typecheck` | **PASS** |
+| `lint` | **PASS** |
+| `build` | **PASS** |
+| CI distante sur P5-S01 | **N/A** — aucun push |
+
+### 21.4 Ce que la matrice ne prouve pas
+
+Fidélité visuelle · REAL · R1/R2/R3 · exécution de la boucle d’escalade · alignement F2 · comportement Compact/Mobile · accessibilité mesurée (axe/clavier) · NCR.
+
+---
+
+## 22. Visual fidelity evidence
+
+**Verdict : CANDIDATE WITH RESERVES — NOT pixel-perfect PROVEN.**
+
+| Preuve | Statut |
+| --- | --- |
+| Structure P3 implémentée (rail, header, onglets, focus bar, Conversation + Contexte 356px) | **Oui** (code + test UI de layout) |
+| Palette `--pm6-*` convergée vers P3 | **Oui** (valeurs ; pas de comparaison pixel) |
+| Emblème Meridian | **Asset récupéré** (§24.4) — comparaison visuelle runtime **non faite** |
+| Captures **runtime** vs Figma Desktop `46:2` | **NON capturées** (Playwright derrière auth) |
+| Compact `190:44` / Mobile `190:306` | **NON prouvés** |
+| Motion / reduced-motion | Auto-scroll respecte `prefers-reduced-motion` (code) ; motion P3 complète **non prouvée** |
+| Accessibilité | Éléments sémantiques/`aria-label` présents ; **audit a11y non réalisé** |
+
+**Réserves (obligatoires dans toute citation de ce document) :** aucune formulation « conforme Figma », « pixel-perfect » ou « visual PASS » n’est autorisée tant que des captures runtime comparatives n’existent pas. Gate visuel P4 §51.2 / §51.6 : **non satisfait**.
+
+---
+
+## 23. PIB/Simplification assessment qualitative
+
+> Évaluation **heuristique et qualitative** (PIB reste heuristique ; pas de metrics factory ; pas de seuils numériques). **Net Complexity Reduction = NOT PROVEN.**
+
+| Critère P4 §51.5 | Observation P5-S01 |
+| --- | --- |
+| Journey représentative | Ouvrir un projet → converser avec Nora (tronçon couvert) |
+| Charge d’interaction accidentelle | **Non augmentée par conception** : aucune nouvelle action dans le panneau de contexte ; onglets = aides de navigation |
+| Admin burden méthode/runtime | **≈ 0 nominal côté Pilote** : modèle/effort choisis par la politique (client non habilité — P5-D0-18/19) |
+| MATERIAL préservé | Décisions/confirmations existantes inchangées (aucun changement de sémantique d’autorité) |
+| PROTECTIVE protégé | Fail-closed routing ; pas de downgrade silencieux |
+| ACCIDENTAL | Réduction **non mesurée** ; formulation du prochain pas dédupliquée (`lpsNextAction`) |
+| Pas de nouveau cockpit/workflow parallèle | Aucun ajouté |
+| Charge Nora/contexte | Digest lecture seule ; **non évalué en usage réel** |
+| Duplication architecturale | Dual tokens `--sfia-*`/`--pm6-*` **persiste** (TEMP WITH EXIT) |
+| NCR à l’échelle intégrée | **NOT PROVEN** (échelle S01 insuffisante) → P5 ultérieur / P6 |
+
+**FinOps cognitif ≠ preuve de simplification** : `estimatedCostUsdHint` est un indice d’ordonnancement, pas une preuve.
+
+---
+
+## 24. Debt + exits
+
+| ID / Actif | Dette | Exit | Statut |
+| --- | --- | --- | --- |
+| **P5-DEBT-F2-ROUTING-ALIGNMENT** | F2 `analyzeIntent` utilise encore le **modèle statique du provider** (hors politique Product de routage) → risque de double chemin LLM | Aligner F2 sous la même politique / provenance (P4 §30/§50 « dual LLM surfaces ») | **OPEN** |
+| `OPENAI_MODEL` | Sélection nominale encore référencée (chemin de repli / bootstrap) | **RETIRE LATER** du chemin nominal (router-selected) | **TEMP WITH EXIT** |
+| `OPENAI_REASONING_EFFORT` | Idem (aussi F2 statique) | **RETIRE LATER** du chemin nominal | **TEMP WITH EXIT** |
+| Familles de tokens `--sfia-*` / `--pm6-*` | Double famille | Convergence/retrait de `--sfia-*` quand les surfaces migrent | **TEMP WITH EXIT** |
+| Snapshot capability P5 TARGET | Daté, non confirmé REAL | Revalidation avant tout gate REAL | **OPEN** |
+| Escalade runtime | Politique `max = 1` uniquement, boucle non exercée | Exercer via R1/R2 sur le chemin intégré | **OPEN** |
+| Synthesis | Raccourci **désactivé** (pas de surface Product) | Synthesis Product-derived (P4 §18–§20) | **OPEN** |
+| Fallback legacy routing absent | Chemin historique encore présent si Strategy sans routing | Retirer quand tous les chemins Product sont routés | **OPEN** |
+
+### 24.4 Provenance de l’asset Meridian
+
+- `app/public/branding/meridian-emblem-product.png` (31 169 octets).
+- **Récupéré depuis le remplissage image brut Figma (raw fill)**, décodé avec `LOAD_TRUNCATED_IMAGES` (le fichier source étant tronqué).
+- Référence de provenance : exports scratch `.tmp-sfia-review/visual/figma/meridian-*.png` (non suivis, hors livrable).
+- **Réserve :** asset récupéré, fidélité de rendu runtime **non comparée** ; la chaîne de récupération (fill tronqué) doit rester documentée si l’asset est ré-exporté proprement depuis Figma.
+
+---
+
+## 25. Open gaps
+
+| # | Gap | Impact |
+| --- | --- | --- |
+| G1 | Captures runtime comparatives vs Figma **absentes** (auth-gated) | Visual = CANDIDATE WITH RESERVES |
+| G2 | Compact / Mobile **non prouvés par screenshot** | Fidélité responsive inconnue |
+| G3 | Boucle d’escalade **non exercée** (politique max = 1 seulement) | Comportement runtime inconnu |
+| G4 | **P5-DEBT-F2-ROUTING-ALIGNMENT** ouverte | Double surface LLM |
+| G5 | **ZERO REAL** ; R1/R2/R3 non démarrés | REAL-FIRST non satisfait |
+| G6 | Synthesis Product-derived non livrée ; raccourci désactivé | Pas de surface Synthèse |
+| G7 | Aperçu / Exécution / Journal / Historique : onglets de navigation sans projections object-native | Journey Product non bouclée |
+| G8 | Nora Activity / STOP / Auth visual / Deliverable-Artifact non livrés | Hors S01 |
+| G9 | Dual tokens `--sfia-*` / `--pm6-*` | Duplication temporaire |
+| G10 | `OPENAI_MODEL` / `OPENAI_REASONING_EFFORT` encore présents hors chemin nominal | Exit non exécuté |
+| G11 | Snapshot capability non confirmé par provider réel | Risque d’écart doc/entitlement |
+| G12 | NCR non prouvée ; PIB qualitatif seulement | Simplification non démontrée |
+| G13 | Audit a11y non réalisé | Qualité non mesurée |
+| G14 | Aucune CI distante sur P5-S01 | Intégration non vérifiée |
+
+---
+
+## 26. Remaining P5 slices
+
+Liste de **travaux restants** (non engagés ; décomposition formelle après gate S01) :
+
+1. **Preuve visuelle** : captures runtime Desktop/Compact/Mobile vs Figma, correction des écarts.
+2. **R1 / R2** sur le chemin intégré (nécessite gate REAL distinct) ; revalidation du snapshot provider.
+3. **Aperçu / Exécution** object-native depuis projections Product.
+4. **Journal / Historique / Synthèses** (dont Synthesis Product-derived dans Product SQLite).
+5. **Nora Activity / STOP**, **Auth GitHub visual**.
+6. **Deliverable / Artifact** (représentation minimum-suffisante, pas de nouveau store).
+7. **Alignement F2** (`P5-DEBT-F2-ROUTING-ALIGNMENT`) ; retrait nominal `OPENAI_MODEL`/`OPENAI_REASONING_EFFORT`.
+8. **Exercice de l’escalade** (≤ 1).
+9. **Convergence tokens** (`--sfia-*` → `--pm6-*`).
+10. **R3** sur chemin Product intégré représentatif.
+
+---
+
+## 27. P6 handoff conditions
+
+P6 (QA comparatif/global, NCR) **ne démarre pas** sur la base de S01. Conditions minimales de handoff (rappel, non exhaustif) :
+
+- P5 slices nécessaires livrées et **intégrées** (gates Git Morris passés) ;
+- **R1/R2/R3** exécutés sur le chemin Product intégré (si REAL autorisé) ;
+- **Preuves visuelles runtime vs Figma** pour les surfaces implémentées ;
+- Preuve de continuité sémantique et d’absence d’architecture parallèle ;
+- Évidence PIB/NCR à l’échelle intégrée (P6) ;
+- Dettes P5 classées avec exit ou acceptées explicitement.
+
+**Statut actuel : conditions NON remplies.**
+
+---
+
+## 28. Gates
+
+| Gate | Statut |
+| --- | --- |
+| Morris P5 AUTHORIZATION | **CONSUMED** |
+| Revue ChatGPT de la livraison P5-S01 | À faire (si requise par le process) |
+| **Prochain gate : MORRIS P5-S01 GIT INTEGRATION** (commit / push / PR) | **NON consommé — NEXT** |
+| Merge P5-S01 | **NON consommé** (gate distinct après revue PR) |
+| **REAL / R1 / R2 / R3** | **NON consommé / NOT STARTED** |
+| Adoption runtime v3 | **NON** |
+| Mutation Figma | **NON** |
+
+**Ce pass n’a produit aucun commit, push, PR ou merge.**
+
+---
+
+## 29. Claims / anti-claims
+
+### 29.1 Claims autorisés
+
+| Claim | Niveau |
+| --- | --- |
+| P5 AUTHORIZED BY MORRIS / STARTED / IN PROGRESS | **YES** |
+| Politique de routage cognitif implémentée (pure, D0) | **Implémenté + testé D0** |
+| `COGNITIVE_ROUTING_SELECTED` émis sans CoT | **Testé D0** |
+| Routing câblé après Strategy dans le runtime Nora existant, même Runner | **Testé D0** |
+| Structure Workspace/Shell P3 implémentée localement | **Implémenté + test layout UI** |
+| typecheck / lint / build / régressions ciblées PASS | **Rapporté par la passe de livraison** |
+| P5-S01 = LOCAL CANDIDATE (réserves visuelles) | **YES** |
+
+### 29.2 Anti-claims (interdits)
+
+| Anti-claim | Statut |
+| --- | --- |
+| P5-S01 COMPLETE / VALIDATED / INTEGRATED | **NON** |
+| P5 COMPLETE | **NON** |
+| Fidélité Figma / pixel-perfect / Visual PASS | **NON prouvé** |
+| Compact / Mobile conformes | **NON prouvé** |
+| REAL / R1 / R2 / R3 PASS | **NON** — ZERO REAL, NOT STARTED |
 | READY FOR REAL | **NO** |
-| Cognitive Completion PROVEN | **NO** |
-| Pixel-perfect / Figma-runtime proven | **NO** |
-| Roadmap truth-sync LOCAL | **YES** · INTEGRATED = **NO** |
-| Architecture parallelism introduced | **NO** (REJECT list explicit) |
-| New design-system stack selected | **NO** |
-| Universal Validator Engine / mandatory DecisionBasis | **NO** |
+| Escalade validée à l’exécution | **NON** (politique seulement) |
+| Router de production / RouterService | **NON** (fonction pure intégrée au runtime) |
+| F2 aligné sous la politique de routage | **NON** (dette ouverte) |
+| `OPENAI_MODEL`/`OPENAI_REASONING_EFFORT` retirés | **NON** (RETIRE LATER) |
+| Famille de tokens unique | **NON** (dual TEMP WITH EXIT) |
+| Synthesis Product-derived livrée | **NON** |
+| Net Complexity Reduction prouvée | **NON** |
+| Runtime v3 adopté | **NON** (NON ADOPTED) |
+| Intégré sur main / CI verte pour P5-S01 | **NON** (aucun push) |
+| Nouvelle doctrine / architecture P5 | **NON** (P4 reste autorité) |
 
 ---
 
-## 57. References / Source Map
+## 30. Current verdict
 
-| Source | Role |
-| --- | --- |
-| `sfia-studio-convergence-build-doctrine.md` | R4 dispositions · R22 OpenAI-native-first |
-| `sfia-studio-convergence-roadmap.md` | Living tip — P4 CLOSED + final repository verified · P5 REQUALIFIED · truth-sync LOCAL CANDIDATE this pass · historical rows preserved |
-| `product-completion/01-…cadrage.md` | **Product Completion C1** |
-| `product-simplification/01-…cadrage.md` | **Product Simplification P1** |
-| `product-simplification/02-…functional-operating-model.md` | P2 · P2-D-01…04 |
-| `product-simplification/03-…workspace-interaction-architecture.md` | P3 · fidelity · P3→P4 input |
-| `sfia-v3-framing/30`–`37` | Doctrine destination |
-| `nora-cognitive-completion/08-…trajectory.md` | OpenAI-native-first · historical GPT-5.6 |
-| `prompts/templates/sfia-cycle-execution-template.md` | Process v2.6 |
-| `method/.../sfia-cycle-routing-guide.md` + operating model + guardrails | Process |
-| `method/.../02-fifteen-cycles-synthetic-map.md` | Cycle 15 guidance · CKC detailed ABSENT |
-| Product SQLite / Session / Journal / W2 / F2 / CWP / Runner / synthese / eval paths | CURRENT FACT audit |
+```text
+P5 AUTHORIZED BY MORRIS = YES
+P5 STARTED              = YES
+P5 IN PROGRESS          = YES
 
-### 57.1 Architecture Parallelism Check
+P5-S01 = LOCAL CANDIDATE (visual reserves)
+         — NOT COMPLETE · NOT VALIDATED · NOT INTEGRATED
 
-| Question | Answer |
-| --- | --- |
-| SharedKnowledgeStore? | **NO** |
-| Second Product DB? | **NO** |
-| Global event sourcing? | **NO** demonstrated need |
-| Second Nora? | **NO** |
-| Routing service? | **NO** |
-| LLM router initial? | **NO** |
-| Another Project aggregate? | **NO** |
-| New execution orchestration? | **NO** |
-| Synthesis in ProductSqliteSession? | **NO** |
-| Artifact as Synthesis owner? | **NO** |
-| Vector DB merely for full-content search? | **NO** |
-| New design-system / CSS-in-JS / Tailwind migration absent need? | **NO** |
-| Universal Validator Engine? | **NO** |
-| Universal mandatory DecisionBasis? | **NO** |
-| Fake global Search platform? | **NO** |
-| CW0 mandatory runtime taxonomy? | **NO** |
+R1 / R2 / R3            = NOT STARTED
+ZERO REAL               = YES
+READY FOR REAL          = NO
+runtime v3              = NON ADOPTED
 
-### 57.2 R22 Capability Fit Check
+Visual fidelity         = CANDIDATE WITH RESERVES (≠ pixel-perfect PROVEN)
+Cognitive routing       = D0 IMPLEMENTED (policy max escalation = 1; loop not exercised)
+Net Complexity Reduction = NOT PROVEN
 
-| Primitive | Disposition |
-| --- | --- |
-| Agents / Responses runtime | USE / KEEP |
-| Reasoning effort | USE / ADAPT |
-| Model selection | COMPLETE with SFIA bounded Product routing policy |
-| Tool use | USE / ADAPT + SFIA authority |
-| Hosted source capabilities | USE / ADAPT under Source Strategy + authority |
-| Provider usage observations | USE / ADAPT FinOps |
-| Session/memory primitives | Within SFIA truth boundaries · Session ≠ Truth C |
-| Provider-native routing service | Not assumed / not required |
-| Internal LLM router | REJECT initial target |
-| SFIA delta to BUILD | Workload→quality · strategy-first router · Product semantic inputs · currentness · quality floor · FinOps arbitration · authority separation · bounded escalation · telemetry/eval · object-native integration |
+Git this pass           = NO commit · NO push · NO PR · NO merge
+Base                    = 04527bede4a3aad1853387b9eb39af3fe0615412
+                          (PR #554 MERGED · CI #676 SUCCESS · Required Gate SUCCESS)
 
-### 57.3 Fake / Real (ce cycle)
+NEXT GATE               = MORRIS P5-S01 GIT INTEGRATION (not consumed)
+REAL / merge            = NOT consumed
+```
 
-Applicable execution : **N/A**. Documentary / repo-informed only.
-Future P5 : D0/R1/R2/R3. Claims REAL/READY FOR REAL **interdits** ici.
+**Synthèse honnête.** P5-S01 livre localement un premier tronçon intégré : une politique de routage cognitif D0 branchée sur le runtime Nora existant, et un Workspace/Shell Pre-M6 convergé vers la structure P3. Les tests D0/UI ciblés, le typecheck, le lint et le build passent (rapportés). Restent ouverts : preuve visuelle runtime vs Figma, Compact/Mobile, exercice de l’escalade, alignement F2, retrait nominal des variables d’environnement de modèle, convergence des tokens, projections object-native, et toute preuve REAL. **P4 reste l’autorité d’architecture** ; ce document n’y ajoute aucune doctrine.
 
 ---
 
-*Fin du document P4 — VALIDATED DOCUMENTARY CANDIDATE — P4 GLOBAL VALIDATED / INTEGRATED / POST-MERGE VERIFIED / CLOSED BY MORRIS = YES — P4 CLOSURE PATCH INTEGRATED ON MAIN = YES (PR #553 / 17434de0…) — P4 FINAL REPOSITORY VERIFICATION = PASS (CI #674 / 37250512824) — P5 REQUALIFIED BY CHATGPT = YES — ≠ P5 AUTHORIZED — ≠ P5 STARTED — ≠ runtime v3 ADOPTED — ≠ READY FOR REAL — ≠ production router implemented — final truth-sync patch LOCAL CANDIDATE — next = ChatGPT truth-sync review → DISTINCT Morris truth-sync Git integration gate → then CURRENT Morris gate = P5 AUTHORIZATION.*
+*Fin du document P5 — Integrated Delivery (P5-S01) — P5 AUTHORIZED BY MORRIS = YES — P5 STARTED = YES — P5 IN PROGRESS = YES — P5-S01 = LOCAL CANDIDATE (visual reserves) — R1/R2/R3 NOT STARTED — ZERO REAL — READY FOR REAL = NO — runtime v3 NON ADOPTED — no project commit/push/PR/merge this pass — P4 remains architecture authority.*
 
 ======================================================================
-FINAL VERDICT
+NEW FILE — cognitiveRoutingPolicy.ts
+======================================================================
+```ts
+/**
+ * P5-S01 — Strategy-first bounded cognitive routing policy.
+ *
+ * Pure / non-persistent / non-authoritative. Not a RouterService.
+ * Pipeline: Strategy → Quality Floor → eligible model×effort → capability
+ * filter → FinOps among sufficient → minimum-sufficient selection.
+ *
+ * Nominal target cohort: gpt-6-luna · gpt-6.1-sol · gpt-6-astra.
+ * GPT-5.6 is excluded from nominal TARGET routing (historical evidence FREEZE).
+ */
+import { createHash, randomUUID } from "node:crypto";
+import type { OpenAiReasoningEffort } from "@/lib/platform/ai";
+import {
+  buildP5TargetCapabilityManifest,
+  estimateCostUsd,
+  modelCapabilitySet,
+  type CapabilityManifest,
+} from "@/lib/nora-eval/capabilityBudget";
+import type {
+  CognitiveStrategyDecision,
+  CognitiveWorkloadSignals,
+} from "./cognitiveWorkloadPolicy";
+
+export const P5_COGNITIVE_ROUTING_POLICY_VERSION = "p5-s01-routing-v1" as const;
+
+export const P5_TARGET_MODEL_COHORT = [
+  "gpt-6-luna",
+  "gpt-6.1-sol",
+  "gpt-6-astra",
+] as const;
+
+export type P5TargetModelId = (typeof P5_TARGET_MODEL_COHORT)[number];
+
+export const P5_REASONING_MODE_NOMINAL = "standard" as const;
+
+/** Max cognitive escalations per stable cognitive task (P4). */
+export const P5_MAX_ESCALATIONS_PER_TASK = 1 as const;
+
+const EFFORT_RANK: Record<OpenAiReasoningEffort, number> = {
+  none: 0,
+  minimal: 0,
+  low: 1,
+  medium: 2,
+  high: 3,
+  xhigh: 4,
+  max: 5,
+};
+
+/** Relative model capability rank for quality-floor comparison (not authority). */
+const MODEL_CAPABILITY_RANK: Record<P5TargetModelId, number> = {
+  "gpt-6-luna": 1,
+  "gpt-6.1-sol": 2,
+  "gpt-6-astra": 3,
+};
+
+export type CognitiveQualityFloor = {
+  /** Minimum model capability rank (1=Luna … 3=Astra). */
+  minModelRank: number;
+  /** Minimum reasoning effort rank. */
+  minEffortRank: number;
+  /** Categorical label for reconstructibility. */
+  category:
+    | "routine-sufficient"
+    | "focused-sufficient"
+    | "deep-sufficient"
+    | "high-assurance-sufficient";
+  reasonCodes: string[];
+};
+
+export type CognitiveRoutingConfig = {
+  modelId: P5TargetModelId;
+  reasoningEffort: OpenAiReasoningEffort;
+};
+
+export type CognitiveRoutingDecision = {
+  ok: true;
+  routingDecisionId: string;
+  cognitiveTaskId: string;
+  strategyClass: CognitiveStrategyDecision["strategyClass"];
+  qualityFloor: CognitiveQualityFloor;
+  eligibleConfigs: CognitiveRoutingConfig[];
+  selectedModel: P5TargetModelId;
+  selectedReasoningEffort: OpenAiReasoningEffort;
+  reasoningMode: typeof P5_REASONING_MODE_NOMINAL;
+  reasonCodes: string[];
+  escalationEligible: boolean;
+  maxEscalations: typeof P5_MAX_ESCALATIONS_PER_TASK;
+  providerSnapshotIdentity: string;
+  policyVersion: typeof P5_COGNITIVE_ROUTING_POLICY_VERSION;
+  estimatedCostUsdHint: number | null;
+};
+
+export type CognitiveRoutingLimitation = {
+  ok: false;
+  routingDecisionId: string;
+  cognitiveTaskId: string;
+  strategyClass: CognitiveStrategyDecision["strategyClass"];
+  qualityFloor: CognitiveQualityFloor;
+  reasonCodes: string[];
+  policyVersion: typeof P5_COGNITIVE_ROUTING_POLICY_VERSION;
+  providerSnapshotIdentity: string;
+};
+
+export type DecideCognitiveRoutingInput = {
+  strategy: CognitiveStrategyDecision;
+  /** Stable cognitive task identity — prefer logicalTurnId / correlation. */
+  cognitiveTaskId: string;
+  /** Optional workload signals for quality-floor reasons (already in strategy). */
+  signals?: CognitiveWorkloadSignals;
+  /** Override manifest (tests). Default: P5 target cohort snapshot. */
+  manifest?: CapabilityManifest;
+  /** Optional budget ceiling — never silently downgrades below quality floor. */
+  maxBudgetUsd?: number | null;
+  /** Prior escalations already consumed for this task. */
+  escalationsUsed?: number;
+};
+
+function signalRank(
+  value: CognitiveWorkloadSignals[keyof CognitiveWorkloadSignals] | undefined,
+): number {
+  if (value === "high") return 3;
+  if (value === "medium") return 2;
+  if (value === "low") return 1;
+  return 0; // unknown
+}
+
+/**
+ * Derive categorical Quality Floor from strategy + signals.
+ * Explainable / reconstructible — NOT a 0–100 score.
+ */
+export function deriveQualityFloor(
+  strategy: CognitiveStrategyDecision,
+  signals?: CognitiveWorkloadSignals,
+): CognitiveQualityFloor {
+  const s = signals ?? strategy.normalizedSignals;
+  const reasonCodes: string[] = [
+    `strategy:${strategy.strategyClass}`,
+    `reasoningDemand:${strategy.reasoningDemand}`,
+  ];
+
+  let minModelRank = 1;
+  let minEffortRank = EFFORT_RANK[strategy.reasoningDemand] ?? 1;
+  let category: CognitiveQualityFloor["category"] = "routine-sufficient";
+
+  switch (strategy.strategyClass) {
+    case "Routine":
+      category = "routine-sufficient";
+      minModelRank = 1;
+      minEffortRank = Math.max(minEffortRank, EFFORT_RANK.none);
+      break;
+    case "Focused":
+      category = "focused-sufficient";
+      minModelRank = 1;
+      minEffortRank = Math.max(minEffortRank, EFFORT_RANK.low);
+      if (signalRank(s.verificationNeed) >= 2 || signalRank(s.ambiguity) >= 2) {
+        minEffortRank = Math.max(minEffortRank, EFFORT_RANK.medium);
+        reasonCodes.push("focused:elevated-verification-or-ambiguity");
+      }
+      break;
+    case "Deep":
+      category = "deep-sufficient";
+      // Deep may still use Luna at high effort; Sol is preferred floor when rigor high.
+      minModelRank =
+        signalRank(s.rigorCriticality) >= 3 ||
+        signalRank(s.verificationNeed) >= 3 ||
+        signalRank(s.contradictionRisk) >= 3
+          ? 2
+          : 1;
+      minEffortRank = Math.max(minEffortRank, EFFORT_RANK.medium);
+      reasonCodes.push(
+        minModelRank >= 2
+          ? "deep:sol-floor-for-high-rigor"
+          : "deep:luna-eligible-at-sufficient-effort",
+      );
+      break;
+    case "High-Assurance":
+      category = "high-assurance-sufficient";
+      minModelRank = 2; // Sol minimum — Astra optional among sufficient
+      minEffortRank = Math.max(minEffortRank, EFFORT_RANK.high);
+      reasonCodes.push("high-assurance:sol-or-stronger");
+      break;
+  }
+
+  if (signalRank(s.contradictionRisk) >= 3) {
+    minModelRank = Math.max(minModelRank, 2);
+    reasonCodes.push("contradictionRisk:high→sol-floor");
+  }
+  if (strategy.criticalChallengeArmed) {
+    minEffortRank = Math.max(minEffortRank, EFFORT_RANK.high);
+    reasonCodes.push("criticalChallengeArmed→effort-floor-high");
+  }
+
+  return {
+    minModelRank,
+    minEffortRank,
+    category,
+    reasonCodes,
+  };
+}
+
+function meetsQualityFloor(
+  config: CognitiveRoutingConfig,
+  floor: CognitiveQualityFloor,
+): boolean {
+  const modelRank = MODEL_CAPABILITY_RANK[config.modelId];
+  const effortRank = EFFORT_RANK[config.reasoningEffort] ?? -1;
+  return modelRank >= floor.minModelRank && effortRank >= floor.minEffortRank;
+}
+
+/**
+ * Candidate generation: Strategy envelope × target cohort, NOT fixed Strategy→Model.
+ * Model × effort remain independent; capability filter applies next.
+ */
+export function generateCandidateConfigs(
+  strategy: CognitiveStrategyDecision,
+): CognitiveRoutingConfig[] {
+  const efforts = strategy.candidateEnvelope;
+  const configs: CognitiveRoutingConfig[] = [];
+  for (const modelId of P5_TARGET_MODEL_COHORT) {
+    for (const reasoningEffort of efforts) {
+      configs.push({ modelId, reasoningEffort });
+    }
+  }
+  return configs;
+}
+
+function filterByProviderCapability(
+  configs: CognitiveRoutingConfig[],
+  manifest: CapabilityManifest,
+): { eligible: CognitiveRoutingConfig[]; rejected: string[] } {
+  const eligible: CognitiveRoutingConfig[] = [];
+  const rejected: string[] = [];
+  for (const c of configs) {
+    const supported = modelCapabilitySet(manifest, c.modelId);
+    if (!supported) {
+      rejected.push(`unknown-model:${c.modelId}`);
+      continue;
+    }
+    if (c.reasoningEffort === "minimal") {
+      rejected.push(`unsupported-effort:${c.modelId}/minimal`);
+      continue;
+    }
+    if (!supported.includes(c.reasoningEffort)) {
+      rejected.push(`unsupported-effort:${c.modelId}/${c.reasoningEffort}`);
+      continue;
+    }
+    // Nominal cohort allowlist — GPT-5.6 never appears here.
+    if (
+      !(P5_TARGET_MODEL_COHORT as readonly string[]).includes(c.modelId)
+    ) {
+      rejected.push(`outside-target-cohort:${c.modelId}`);
+      continue;
+    }
+    eligible.push(c);
+  }
+  return { eligible, rejected };
+}
+
+function sortMinimumSufficient(
+  configs: CognitiveRoutingConfig[],
+  manifest: CapabilityManifest,
+): CognitiveRoutingConfig[] {
+  return [...configs].sort((a, b) => {
+    const costA = estimateCostUsd({
+      manifest,
+      modelId: a.modelId,
+      inputTokens: 4000,
+      outputTokens: 1200,
+    });
+    const costB = estimateCostUsd({
+      manifest,
+      modelId: b.modelId,
+      inputTokens: 4000,
+      outputTokens: 1200,
+    });
+    if (costA !== costB) return costA - costB;
+    const modelDiff =
+      MODEL_CAPABILITY_RANK[a.modelId] - MODEL_CAPABILITY_RANK[b.modelId];
+    if (modelDiff !== 0) return modelDiff;
+    return (
+      (EFFORT_RANK[a.reasoningEffort] ?? 0) -
+      (EFFORT_RANK[b.reasoningEffort] ?? 0)
+    );
+  });
+}
+
+function providerSnapshotIdentity(manifest: CapabilityManifest): string {
+  // Identity is content-stable: exclude retrievedAt (call-time) so the same
+  // cohort/capability set hashes identically across turns.
+  const payload = JSON.stringify({
+    sourceName: manifest.sourceName,
+    models: manifest.models.map((m) => ({
+      id: m.modelId,
+      efforts: m.reasoningEfforts,
+      inputUsdPerMTok: m.inputUsdPerMTok,
+      outputUsdPerMTok: m.outputUsdPerMTok,
+    })),
+    allowlist: manifest.campaignAllowlist,
+  });
+  return createHash("sha256").update(payload).digest("hex").slice(0, 16);
+}
+
+/**
+ * Decide nominal Product cognitive routing.
+ * Fail-closed when no sufficient config remains — never silently downgrade.
+ */
+export function decideCognitiveRouting(
+  input: DecideCognitiveRoutingInput,
+): CognitiveRoutingDecision | CognitiveRoutingLimitation {
+  const routingDecisionId = randomUUID();
+  const cognitiveTaskId = input.cognitiveTaskId.trim();
+  if (!cognitiveTaskId) {
+    throw new Error("COGNITIVE_ROUTING_REQUIRES_STABLE_TASK_ID");
+  }
+
+  const manifest =
+    input.manifest ??
+    buildP5TargetCapabilityManifest(new Date().toISOString());
+  const snapshotId = providerSnapshotIdentity(manifest);
+  const qualityFloor = deriveQualityFloor(input.strategy, input.signals);
+
+  const candidates = generateCandidateConfigs(input.strategy);
+  const { eligible: capabilityEligible, rejected } = filterByProviderCapability(
+    candidates,
+    manifest,
+  );
+
+  const qualityEligible = capabilityEligible.filter((c) =>
+    meetsQualityFloor(c, qualityFloor),
+  );
+
+  const reasonCodes = [
+    ...qualityFloor.reasonCodes,
+    `candidates:${candidates.length}`,
+    `capabilityEligible:${capabilityEligible.length}`,
+    `qualityEligible:${qualityEligible.length}`,
+    ...rejected.slice(0, 12).map((r) => `rejected:${r}`),
+  ];
+
+  if (qualityEligible.length === 0) {
+    return {
+      ok: false,
+      routingDecisionId,
+      cognitiveTaskId,
+      strategyClass: input.strategy.strategyClass,
+      qualityFloor,
+      reasonCodes: [
+        ...reasonCodes,
+        "NO_SUFFICIENT_CONFIG",
+        "BUDGET_MUST_NOT_DOWNGRADE_BELOW_FLOOR",
+      ],
+      policyVersion: P5_COGNITIVE_ROUTING_POLICY_VERSION,
+      providerSnapshotIdentity: snapshotId,
+    };
+  }
+
+  const ordered = sortMinimumSufficient(qualityEligible, manifest);
+  let selected = ordered[0]!;
+
+  // Budget may eliminate higher-cost options only among quality-sufficient set.
+  if (input.maxBudgetUsd != null && Number.isFinite(input.maxBudgetUsd)) {
+    const withinBudget = ordered.filter((c) => {
+      const est = estimateCostUsd({
+        manifest,
+        modelId: c.modelId,
+        inputTokens: 4000,
+        outputTokens: 1200,
+      });
+      return est <= input.maxBudgetUsd!;
+    });
+    if (withinBudget.length === 0) {
+      return {
+        ok: false,
+        routingDecisionId,
+        cognitiveTaskId,
+        strategyClass: input.strategy.strategyClass,
+        qualityFloor,
+        reasonCodes: [
+          ...reasonCodes,
+          "BUDGET_EXCLUDES_ALL_SUFFICIENT",
+          "BUDGET_MUST_NOT_DOWNGRADE_BELOW_FLOOR",
+        ],
+        policyVersion: P5_COGNITIVE_ROUTING_POLICY_VERSION,
+        providerSnapshotIdentity: snapshotId,
+      };
+    }
+    selected = withinBudget[0]!;
+    reasonCodes.push("budget:filtered-among-sufficient");
+  }
+
+  const escalationsUsed = input.escalationsUsed ?? 0;
+  const escalationEligible = escalationsUsed < P5_MAX_ESCALATIONS_PER_TASK;
+
+  const estimatedCostUsdHint = estimateCostUsd({
+    manifest,
+    modelId: selected.modelId,
+    inputTokens: 4000,
+    outputTokens: 1200,
+  });
+
+  reasonCodes.push(
+    `selected:${selected.modelId}/${selected.reasoningEffort}`,
+    "reasoningMode:standard",
+    "finops:among-sufficient-only",
+  );
+
+  return {
+    ok: true,
+    routingDecisionId,
+    cognitiveTaskId,
+    strategyClass: input.strategy.strategyClass,
+    qualityFloor,
+    eligibleConfigs: ordered,
+    selectedModel: selected.modelId,
+    selectedReasoningEffort: selected.reasoningEffort,
+    reasoningMode: P5_REASONING_MODE_NOMINAL,
+    reasonCodes,
+    escalationEligible,
+    maxEscalations: P5_MAX_ESCALATIONS_PER_TASK,
+    providerSnapshotIdentity: snapshotId,
+    policyVersion: P5_COGNITIVE_ROUTING_POLICY_VERSION,
+    estimatedCostUsdHint,
+  };
+}
+
+/** True when model id is outside the P5 nominal target cohort. */
+export function isOutsideP5TargetCohort(modelId: string): boolean {
+  return !(P5_TARGET_MODEL_COHORT as readonly string[]).includes(modelId);
+}
+
+```
+
+======================================================================
+NEW TESTS
 ======================================================================
 
-P4 FINAL TRUTH-SYNC PR OPEN —
-READY FOR CHATGPT PR REVIEW / MORRIS FINAL TRUTH-SYNC MERGE GATE PREPARATION
+### FILE projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p5.s01.cognitiveRouting.d0.test.ts
 
-Explicitly NOT:
-- READY FOR MERGE
-- P4 FINAL TRUTH-SYNC INTEGRATED
-- P5 AUTHORIZED
-- P5 STARTED
-- READY FOR REAL
-- runtime v3 ADOPTED
+```ts
+/** @vitest-environment node */
+/**
+ * P5-S01 D0 — Cognitive routing policy + Product-path wiring (ZERO REAL).
+ */
+import { describe, expect, it, vi } from "vitest";
+import {
+  ScriptedModel,
+  assistantMessage,
+} from "@openai/agents/testing";
+import {
+  buildMw0CapabilityManifest,
+  buildP5TargetCapabilityManifest,
+  modelCapabilitySet,
+} from "@/lib/nora-eval/capabilityBudget";
+import {
+  decideCognitiveRouting,
+  deriveQualityFloor,
+  generateCandidateConfigs,
+  isOutsideP5TargetCohort,
+  P5_COGNITIVE_ROUTING_POLICY_VERSION,
+  P5_MAX_ESCALATIONS_PER_TASK,
+  P5_TARGET_MODEL_COHORT,
+  decideCognitiveStrategy,
+  normalizeCognitiveWorkloadSignals,
+  runNoraCognitiveTurn,
+  sfiaBoundaryInstructions,
+} from "@/lib/nora-cognitive-runtime";
+import { FakeConversationProvider } from "@/lib/platform/ai/fakeProvider";
+import type { EventSink } from "@/lib/platform/observability/eventSink";
+import type { TechnicalEvent } from "@/lib/platform/observability/types";
 
-END OF FULL REVIEW PACK
+function strategyFor(
+  partial: Parameters<typeof normalizeCognitiveWorkloadSignals>[0],
+  profile = "trusted-profile",
+) {
+  return decideCognitiveStrategy({
+    signals: normalizeCognitiveWorkloadSignals(partial),
+    trustedSfiaProfile: profile,
+  });
+}
+
+describe("P5-S01 — cognitive routing D0", () => {
+  it("P5-D0-01 — nominal target cohort = Luna / Sol / Astra", () => {
+    expect([...P5_TARGET_MODEL_COHORT]).toEqual([
+      "gpt-6-luna",
+      "gpt-6.1-sol",
+      "gpt-6-astra",
+    ]);
+    const manifest = buildP5TargetCapabilityManifest("2026-10-05T00:00:00.000Z");
+    expect(manifest.models.map((m) => m.modelId).sort()).toEqual([
+      "gpt-6-astra",
+      "gpt-6-luna",
+      "gpt-6.1-sol",
+    ]);
+  });
+
+  it("P5-D0-02 — nominal routing excludes GPT-5.6", () => {
+    expect(isOutsideP5TargetCohort("gpt-5.6-luna")).toBe(true);
+    expect(isOutsideP5TargetCohort("gpt-5.6-sol")).toBe(true);
+    expect(isOutsideP5TargetCohort("gpt-6-luna")).toBe(false);
+    const strategy = strategyFor({
+      ambiguity: "low",
+      reasoningDepth: "low",
+      sourceBreadth: "low",
+      verificationNeed: "low",
+      contradictionRisk: "low",
+    });
+    const decision = decideCognitiveRouting({
+      strategy,
+      cognitiveTaskId: "p5-d0-02",
+    });
+    expect(decision.ok).toBe(true);
+    if (!decision.ok) return;
+    expect(decision.selectedModel.startsWith("gpt-5.6")).toBe(false);
+    expect(
+      decision.eligibleConfigs.every(
+        (c) => !c.modelId.startsWith("gpt-5.6"),
+      ),
+    ).toBe(true);
+  });
+
+  it("P5-D0-03 — historical GPT-5.6 MW0 manifest unchanged", () => {
+    const mw0 = buildMw0CapabilityManifest("2026-10-05T00:00:00.000Z");
+    expect(mw0.models.map((m) => m.modelId)).toEqual([
+      "gpt-5.6-sol",
+      "gpt-5.6-terra",
+      "gpt-5.6-luna",
+    ]);
+    expect(mw0.models.some((m) => m.modelId.startsWith("gpt-6"))).toBe(false);
+  });
+
+  it("P5-D0-04 — Strategy does not contain fixed model mapping", () => {
+    const strategy = strategyFor({
+      ambiguity: "medium",
+      reasoningDepth: "medium",
+      verificationNeed: "medium",
+    });
+    const candidates = generateCandidateConfigs(strategy);
+    const models = new Set(candidates.map((c) => c.modelId));
+    expect(models.has("gpt-6-luna")).toBe(true);
+    expect(models.has("gpt-6.1-sol")).toBe(true);
+    expect(models.has("gpt-6-astra")).toBe(true);
+    // Same strategy class yields multi-model candidates (not Strategy→Model fixed).
+    expect(models.size).toBe(3);
+  });
+
+  it("P5-D0-05 / P5-D0-06 — Quality Floor before FinOps; insufficient excluded", () => {
+    const strategy = strategyFor({
+      rigorCriticality: "high",
+      verificationNeed: "high",
+      contradictionRisk: "high",
+      ambiguity: "high",
+      reasoningDepth: "high",
+    });
+    expect(strategy.strategyClass).toBe("High-Assurance");
+    const floor = deriveQualityFloor(strategy);
+    expect(floor.minModelRank).toBeGreaterThanOrEqual(2);
+    const decision = decideCognitiveRouting({
+      strategy,
+      cognitiveTaskId: "p5-d0-05",
+    });
+    expect(decision.ok).toBe(true);
+    if (!decision.ok) return;
+    expect(decision.selectedModel).not.toBe("gpt-6-luna");
+    expect(
+      decision.eligibleConfigs.every((c) => c.modelId !== "gpt-6-luna" || false),
+    );
+    // Luna configs must not remain eligible under High-Assurance floor.
+    expect(
+      decision.eligibleConfigs.every((c) => c.modelId !== "gpt-6-luna"),
+    ).toBe(true);
+  });
+
+  it("P5-D0-07 — Luna none accepted", () => {
+    const manifest = buildP5TargetCapabilityManifest("2026-10-05T00:00:00.000Z");
+    const efforts = modelCapabilitySet(manifest, "gpt-6-luna");
+    expect(efforts).toContain("none");
+  });
+
+  it("P5-D0-08 / P5-D0-09 — Sol/Astra none rejected", () => {
+    const manifest = buildP5TargetCapabilityManifest("2026-10-05T00:00:00.000Z");
+    expect(modelCapabilitySet(manifest, "gpt-6.1-sol")).not.toContain("none");
+    expect(modelCapabilitySet(manifest, "gpt-6-astra")).not.toContain("none");
+  });
+
+  it("P5-D0-10 — unknown model fail-closed", () => {
+    const strategy = strategyFor({});
+    const manifest = buildP5TargetCapabilityManifest("2026-10-05T00:00:00.000Z");
+    expect(modelCapabilitySet(manifest, "gpt-unknown-xyz")).toBeNull();
+    const decision = decideCognitiveRouting({
+      strategy,
+      cognitiveTaskId: "p5-d0-10",
+      manifest,
+    });
+    expect(decision.ok).toBe(true);
+    if (!decision.ok) return;
+    expect(decision.selectedModel).not.toBe("gpt-unknown-xyz");
+  });
+
+  it("P5-D0-11 — unsupported effort not silently coerced", () => {
+    const manifest = buildP5TargetCapabilityManifest("2026-10-05T00:00:00.000Z");
+    const sol = modelCapabilitySet(manifest, "gpt-6.1-sol")!;
+    expect(sol.includes("none")).toBe(false);
+    // Routine envelope includes none — Sol none must be filtered, not coerced to low.
+    const strategy = strategyFor({
+      ambiguity: "low",
+      reasoningDepth: "low",
+      sourceBreadth: "low",
+      verificationNeed: "low",
+      contradictionRisk: "low",
+    });
+    const decision = decideCognitiveRouting({
+      strategy,
+      cognitiveTaskId: "p5-d0-11",
+      manifest,
+    });
+    expect(decision.ok).toBe(true);
+    if (!decision.ok) return;
+    expect(
+      decision.eligibleConfigs.some(
+        (c) => c.modelId === "gpt-6.1-sol" && c.reasoningEffort === "none",
+      ),
+    ).toBe(false);
+  });
+
+  it("P5-D0-12 — budget cannot downgrade below quality", () => {
+    const strategy = strategyFor({
+      rigorCriticality: "high",
+      verificationNeed: "high",
+      contradictionRisk: "high",
+      ambiguity: "high",
+      reasoningDepth: "high",
+    });
+    // Impossible budget among Sol/Astra → limitation, not Luna downgrade.
+    const decision = decideCognitiveRouting({
+      strategy,
+      cognitiveTaskId: "p5-d0-12",
+      maxBudgetUsd: 0.000001,
+    });
+    expect(decision.ok).toBe(false);
+    if (decision.ok) return;
+    expect(decision.reasonCodes).toContain(
+      "BUDGET_MUST_NOT_DOWNGRADE_BELOW_FLOOR",
+    );
+  });
+
+  it("P5-D0-13 / P5-D0-14 / P5-D0-15 — reconstructible + policy version + reason codes", () => {
+    const strategy = strategyFor({ ambiguity: "medium" });
+    const decision = decideCognitiveRouting({
+      strategy,
+      cognitiveTaskId: "p5-d0-13-task",
+    });
+    expect(decision.ok).toBe(true);
+    if (!decision.ok) return;
+    expect(decision.routingDecisionId.length).toBeGreaterThan(8);
+    expect(decision.cognitiveTaskId).toBe("p5-d0-13-task");
+    expect(decision.policyVersion).toBe(P5_COGNITIVE_ROUTING_POLICY_VERSION);
+    expect(decision.reasonCodes.length).toBeGreaterThan(0);
+    expect(decision.providerSnapshotIdentity.length).toBeGreaterThan(0);
+  });
+
+  it("P5-D0-16 — max escalation = 1", () => {
+    expect(P5_MAX_ESCALATIONS_PER_TASK).toBe(1);
+    const strategy = strategyFor({});
+    const decision = decideCognitiveRouting({
+      strategy,
+      cognitiveTaskId: "p5-d0-16",
+      escalationsUsed: 0,
+    });
+    expect(decision.ok).toBe(true);
+    if (!decision.ok) return;
+    expect(decision.maxEscalations).toBe(1);
+    expect(decision.escalationEligible).toBe(true);
+    const after = decideCognitiveRouting({
+      strategy,
+      cognitiveTaskId: "p5-d0-16",
+      escalationsUsed: 1,
+    });
+    expect(after.ok).toBe(true);
+    if (!after.ok) return;
+    expect(after.escalationEligible).toBe(false);
+  });
+
+  it("P5-D0-17 — stable cognitive task identity required", () => {
+    const strategy = strategyFor({});
+    expect(() =>
+      decideCognitiveRouting({ strategy, cognitiveTaskId: "   " }),
+    ).toThrow(/COGNITIVE_ROUTING_REQUIRES_STABLE_TASK_ID/);
+  });
+
+  it("P5-D0-18 / P5-D0-19 — client cannot select model/effort via Product path", async () => {
+    const provider = new FakeConversationProvider({
+      toolScript: [{ kind: "message", text: "[TEST/FAKE] P5 routing." }],
+    });
+    const result = await runNoraCognitiveTurn({
+      correlationId: "p5-d0-18",
+      projectId: "prj:p5",
+      messages: [
+        { role: "system", content: sfiaBoundaryInstructions() },
+        { role: "user", content: "probe routing" },
+      ],
+      provider,
+      enableTools: false,
+      cognitiveWorkloadSignals: {
+        ambiguity: "low",
+        reasoningDepth: "low",
+        sourceBreadth: "low",
+        verificationNeed: "low",
+        contradictionRisk: "low",
+      },
+      trustedSfiaProfile: "trusted-profile",
+      // Intentionally no client model/effort fields exist on the input type.
+    });
+    expect(result.selectedModelId).toBeTruthy();
+    expect(P5_TARGET_MODEL_COHORT).toContain(
+      result.selectedModelId as (typeof P5_TARGET_MODEL_COHORT)[number],
+    );
+    expect(result.selectedReasoningEffort).toBeTruthy();
+    expect(result.cognitiveRoutingPolicyVersion).toBe(
+      P5_COGNITIVE_ROUTING_POLICY_VERSION,
+    );
+  });
+
+  it("P5-D0-20 — stronger model does not widen authority fields", async () => {
+    const provider = new FakeConversationProvider({
+      toolScript: [{ kind: "message", text: "[TEST/FAKE] HA." }],
+    });
+    const result = await runNoraCognitiveTurn({
+      correlationId: "p5-d0-20",
+      projectId: "prj:p5",
+      messages: [
+        { role: "system", content: sfiaBoundaryInstructions() },
+        { role: "user", content: "high assurance probe" },
+      ],
+      provider,
+      enableTools: false,
+      cognitiveWorkloadSignals: {
+        rigorCriticality: "high",
+        verificationNeed: "high",
+        contradictionRisk: "high",
+        ambiguity: "high",
+        reasoningDepth: "high",
+      },
+      trustedSfiaProfile: "trusted-profile",
+    });
+    expect(result.selectedModelId).not.toBe("gpt-6-luna");
+    // No authority envelope / confirmation / HD fields introduced by routing.
+    expect(
+      Object.keys(result).some((k) =>
+        /authority|humanDecision|confirmation/i.test(k),
+      ),
+    ).toBe(false);
+  });
+
+  it("P5-D0-21 — routing telemetry contains no CoT", async () => {
+    const events: TechnicalEvent[] = [];
+    const sink: EventSink = {
+      emit(event) {
+        events.push(event);
+      },
+    };
+    const provider = new FakeConversationProvider({
+      toolScript: [{ kind: "message", text: "[TEST/FAKE] telemetry." }],
+    });
+    await runNoraCognitiveTurn({
+      correlationId: "p5-d0-21",
+      projectId: "prj:p5",
+      messages: [
+        { role: "system", content: sfiaBoundaryInstructions() },
+        { role: "user", content: "telemetry probe" },
+      ],
+      provider,
+      enableTools: false,
+      sink,
+      cognitiveWorkloadSignals: {
+        ambiguity: "low",
+        reasoningDepth: "low",
+        sourceBreadth: "low",
+        verificationNeed: "low",
+        contradictionRisk: "low",
+      },
+      trustedSfiaProfile: "trusted-profile",
+    });
+    const routing = events.find((e) => e.type === "COGNITIVE_ROUTING_SELECTED");
+    expect(routing).toBeTruthy();
+    const blob = JSON.stringify(routing?.detail ?? {});
+    expect(blob).not.toMatch(/chain of thought|private reasoning|confidencePercent|qualityScore/i);
+    expect(routing?.detail).toMatchObject({
+      routingPolicyVersion: P5_COGNITIVE_ROUTING_POLICY_VERSION,
+      selectedModel: expect.any(String),
+      selectedEffort: expect.any(String),
+    });
+  });
+
+  it("P5-D0-22 / P5-D0-23 / P5-D0-24 — Fake boundary + same Runner + zero live", async () => {
+    const model = new ScriptedModel([[assistantMessage("ok")]]);
+    const provider = new FakeConversationProvider({
+      toolScript: [{ kind: "message", text: "[TEST/FAKE] boundary." }],
+    });
+    const spy = vi.spyOn(globalThis, "fetch").mockImplementation(() => {
+      throw new Error("UNEXPECTED_LIVE_FETCH");
+    });
+    try {
+      const result = await runNoraCognitiveTurn({
+        correlationId: "p5-d0-22",
+        projectId: "prj:p5",
+        messages: [
+          { role: "system", content: sfiaBoundaryInstructions() },
+          { role: "user", content: "fake boundary" },
+        ],
+        provider,
+        enableTools: false,
+        cognitiveWorkloadSignals: {
+          ambiguity: "low",
+          reasoningDepth: "low",
+          sourceBreadth: "low",
+          verificationNeed: "low",
+          contradictionRisk: "low",
+        },
+        trustedSfiaProfile: "trusted-profile",
+        // Eval pin with ScriptedModel proves same Agents Runner path remains usable.
+        evalModelReasoningControl: {
+          modelId: "gpt-6-luna",
+          reasoningEffort: "low",
+          agentsModel: model,
+        },
+      });
+      expect(result.cognitiveRuntime).toBe("agents");
+      expect(result.evalPinnedModelId).toBe("gpt-6-luna");
+      expect(spy).not.toHaveBeenCalled();
+    } finally {
+      spy.mockRestore();
+    }
+  });
+});
+
+```
+
+
+### FILE projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p5.s01.integratedProduct.d0.test.ts
+
+```ts
+/** @vitest-environment node */
+/**
+ * P5-S01 — Integrated Product vertical slice D0 (ZERO REAL).
+ *
+ * Real local Product Project/LPS → studioCognitiveContext facts →
+ * runNoraCognitiveTurn → CWP → Strategy → P5 routing → Fake provider →
+ * SAME Agents Runner → Product-safe result. No live OpenAI.
+ */
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import {
+  P5_COGNITIVE_ROUTING_POLICY_VERSION,
+  P5_TARGET_MODEL_COHORT,
+  runNoraCognitiveTurn,
+  sfiaBoundaryInstructions,
+} from "@/lib/nora-cognitive-runtime";
+import { FakeConversationProvider } from "@/lib/platform/ai/fakeProvider";
+import {
+  getRuntimeApplicationService,
+  resetRuntimeApplicationServiceForTests,
+} from "@/lib/vertical-slice-runtime";
+import { composeStudioCognitiveContext } from "@/features/project-assistant/f2/studioCognitiveContext";
+import { resolveProductDoctrineRegistryRoot } from "@/lib/vertical-slice-runtime/paths";
+import { DEFAULT_PRODUCT_DOCTRINE_PIN } from "@/lib/oa/doctrine/product/constants";
+import type { ProjectAssistantContextDto } from "@/features/project-assistant/types";
+import type { IntentAnalysisDto } from "@/features/project-assistant/f2/types";
+
+function analysisStub(): IntentAnalysisDto {
+  return {
+    intentClass: "informative",
+    parseOk: true,
+    candidateCycleTypeId: null,
+    signals: null,
+    cognitiveWorkload: {
+      ambiguity: "low",
+      reasoningDepth: "low",
+      sourceBreadth: "low",
+      toolDependency: "low",
+      contradictionRisk: "low",
+      verificationNeed: "low",
+    },
+    contradictionCandidate: null,
+    challengeResponseAssessment: null,
+    objective: null,
+    scope: null,
+    rephrasedRequest: null,
+    outOfScope: [],
+    risks: [],
+    reservations: [],
+    stopConditions: [],
+    activatedBlocks: [],
+    expectedOutcome: null,
+    criticalJustification: null,
+    requestedOperation: null,
+    executionIntent: null,
+  };
+}
+
+describe("P5-S01 — integrated Product path D0", () => {
+  const tempDirs: string[] = [];
+  let projectId = "";
+  let lpsId = "";
+  let productDbPath = "";
+
+  beforeEach(async () => {
+    process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
+    process.env.OPS1_CONVERSATION_PROVIDER = "fake";
+    resetRuntimeApplicationServiceForTests();
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-p5-s01-"));
+    tempDirs.push(dir);
+    productDbPath = path.join(dir, "oa-product.sqlite");
+    const runtime = getRuntimeApplicationService({
+      productDbPath,
+      auditMode: "noop",
+      nowIso: "2026-10-05T08:00:00.000Z",
+    });
+    const created = await runtime.createProject({
+      name: "Product Simplification P5-S01",
+      objective:
+        "Premier slice intégré Conversation + contexte sémantique + routing",
+      context: "P5-S01 vertical slice D0",
+      criticality: "STANDARD",
+      constraints: ["ZERO REAL"],
+      shortReference: "P5S01",
+      idempotencyKey: `idem:p5-s01-${Date.now()}-${Math.random()}`,
+    });
+    expect(created.ok).toBe(true);
+    if (!created.ok) throw new Error("createProject failed");
+    projectId = created.projectId;
+    const project = await runtime.getProject(projectId);
+    expect(project.ok).toBe(true);
+    if (!project.ok) throw new Error("getProject failed");
+    lpsId = project.livingState.id;
+    expect(lpsId).toBeTruthy();
+  });
+
+  afterEach(() => {
+    resetRuntimeApplicationServiceForTests();
+    delete process.env.OPS1_CONVERSATION_PROVIDER;
+    while (tempDirs.length) {
+      const dir = tempDirs.pop();
+      if (dir) fs.rmSync(dir, { recursive: true, force: true });
+    }
+  });
+
+  it("uses real Product Project/LPS + routing + Fake boundary + same Runner", async () => {
+    const fetchSpy = vi.spyOn(globalThis, "fetch").mockImplementation(() => {
+      throw new Error("UNEXPECTED_LIVE_FETCH_P5_S01");
+    });
+
+    try {
+      const projectDto: ProjectAssistantContextDto = {
+        projectId,
+        name: "Product Simplification P5-S01",
+        shortReference: "P5S01",
+        objective:
+          "Premier slice intégré Conversation + contexte sémantique + routing",
+        contextSummary: "P5-S01 vertical slice D0",
+        criticality: "STANDARD",
+        constraints: ["ZERO REAL"],
+        lpsId,
+        lpsVersion: 1,
+        lpsCreatedAt: "2026-10-05T08:00:00.000Z",
+        doctrineId: DEFAULT_PRODUCT_DOCTRINE_PIN.doctrinePackageId,
+        doctrineVersion: DEFAULT_PRODUCT_DOCTRINE_PIN.version,
+        doctrineDigest: DEFAULT_PRODUCT_DOCTRINE_PIN.digest,
+        doctrineStatus: "product-studio-native",
+        runtimeMode: "local",
+        persistence: "product-sqlite",
+        readiness: "ready",
+      };
+
+      const runtime = getRuntimeApplicationService();
+      const composed = await composeStudioCognitiveContext({
+        analysis: analysisStub(),
+        project: projectDto,
+        registryRoot: resolveProductDoctrineRegistryRoot(),
+        truthCContext: "P5-S01 vertical slice D0",
+        oa: runtime.oa!,
+      });
+      expect(composed.ok).toBe(true);
+      if (!composed.ok) throw new Error("composeStudioCognitiveContext failed");
+      expect(composed.context.projectTruth.projectId).toBe(projectId);
+      expect(composed.context.projectTruth.lpsId).toBe(lpsId);
+      expect(composed.context.limits.truthOutranksConversation).toBe(true);
+      expect(fs.existsSync(productDbPath)).toBe(true);
+
+      const provider = new FakeConversationProvider({
+        toolScript: [
+          {
+            kind: "message",
+            text: "[TEST/FAKE] P5-S01 integrated Product path — zero durable mutation.",
+          },
+        ],
+      });
+
+      const result = await runNoraCognitiveTurn({
+        correlationId: `logical:${projectId}:p5-s01-turn-1`,
+        projectId,
+        messages: [
+          {
+            role: "system",
+            content: [
+              sfiaBoundaryInstructions(),
+              "",
+              `ProjectId=${projectId}`,
+              `LpsId=${lpsId}`,
+              `Objective=${projectDto.objective}`,
+            ].join("\n"),
+          },
+          {
+            role: "user",
+            content:
+              "Peux-tu me rappeler le contexte courant de ce projet sans rien modifier ?",
+          },
+        ],
+        provider,
+        enableTools: false,
+        turnWorkloadContext: {
+          userContentLength: 64,
+          historyMessageCount: 0,
+          projectCriticality: "STANDARD",
+        },
+        semanticCognitiveWorkload: analysisStub().cognitiveWorkload,
+        trustedSfiaProfile: "trusted-profile",
+      });
+
+      expect(result.cognitiveRuntime).toBe("agents");
+      expect(result.selectedModelId).toBeTruthy();
+      expect(P5_TARGET_MODEL_COHORT).toContain(
+        result.selectedModelId as (typeof P5_TARGET_MODEL_COHORT)[number],
+      );
+      expect(result.cognitiveRoutingPolicyVersion).toBe(
+        P5_COGNITIVE_ROUTING_POLICY_VERSION,
+      );
+      expect(result.cognitiveStrategyClass).toBeTruthy();
+      expect(result.selectedReasoningEffort).toBeTruthy();
+      expect(result.text).toMatch(/P5-S01|FAKE|contexte|projet/i);
+      // No HD/authority expansion fields from routing.
+      expect((result as { humanDecisionId?: string }).humanDecisionId).toBeUndefined();
+      expect(fetchSpy).not.toHaveBeenCalled();
+      // Same Product SQLite file still present — no second Product store.
+      expect(fs.existsSync(productDbPath)).toBe(true);
+    } finally {
+      fetchSpy.mockRestore();
+    }
+  });
+});
+
+```
+
+
+### FILE projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p5.s01.semanticInvariants.d0.test.ts
+
+```ts
+/** @vitest-environment node */
+/**
+ * P5-S01 — Product semantic invariants at tested D0 scope (ZERO REAL).
+ */
+import { describe, expect, it } from "vitest";
+import {
+  decideCognitiveRouting,
+  decideCognitiveStrategy,
+  normalizeCognitiveWorkloadSignals,
+  P5_TARGET_MODEL_COHORT,
+} from "@/lib/nora-cognitive-runtime";
+
+describe("P5-S01 — semantic invariants D0", () => {
+  it("P5-SEM-05 — model choice cannot encode Product authority fields", () => {
+    const strategy = decideCognitiveStrategy({
+      signals: normalizeCognitiveWorkloadSignals({
+        rigorCriticality: "high",
+        verificationNeed: "high",
+        contradictionRisk: "high",
+        ambiguity: "high",
+        reasoningDepth: "high",
+      }),
+      trustedSfiaProfile: "trusted-profile",
+    });
+    const decision = decideCognitiveRouting({
+      strategy,
+      cognitiveTaskId: "p5-sem-05",
+    });
+    expect(decision.ok).toBe(true);
+    if (!decision.ok) return;
+    expect(P5_TARGET_MODEL_COHORT).toContain(decision.selectedModel);
+    const keys = Object.keys(decision);
+    expect(keys.some((k) => /authority|humanDecision|confirmation/i.test(k))).toBe(
+      false,
+    );
+  });
+
+  it("P5-SEM-02/03 — routing decision is not HumanDecision / Recommendation disposition", () => {
+    const strategy = decideCognitiveStrategy({
+      signals: normalizeCognitiveWorkloadSignals({
+        ambiguity: "low",
+        reasoningDepth: "low",
+        sourceBreadth: "low",
+        verificationNeed: "low",
+        contradictionRisk: "low",
+      }),
+      trustedSfiaProfile: "trusted-profile",
+    });
+    const decision = decideCognitiveRouting({
+      strategy,
+      cognitiveTaskId: "p5-sem-02",
+    });
+    expect(decision.ok).toBe(true);
+    if (!decision.ok) return;
+    expect("humanDecisionId" in decision).toBe(false);
+    expect("recommendationDisposition" in decision).toBe(false);
+    expect(decision.reasoningMode).toBe("standard");
+  });
+
+  it("P5-SEM-08 — Strategy Proposed trajectory semantics remain outside router", () => {
+    // Router must not invent ProjectTrajectory decided/proposed states.
+    const strategy = decideCognitiveStrategy({
+      signals: normalizeCognitiveWorkloadSignals({}),
+      trustedSfiaProfile: null,
+    });
+    const decision = decideCognitiveRouting({
+      strategy,
+      cognitiveTaskId: "p5-sem-08",
+    });
+    expect(decision.ok).toBe(true);
+    if (!decision.ok) return;
+    expect(JSON.stringify(decision)).not.toMatch(/ProjectTrajectory|Terminé|Proposé/);
+  });
+});
+
+```
+
+
+### FILE projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s01.workspaceLayout.ui.test.tsx
+
+```ts
+/** @vitest-environment jsdom */
+/**
+ * P5-S01 — Workspace / Conversation P3 layout smoke (UI).
+ */
+import { cleanup, render, screen, waitFor } from "@testing-library/react";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { ProductShell } from "@/features/pre-m6-product-ui/ProductShell";
+import { ProjectWorkspacePage } from "@/features/pre-m6-product-ui/ProjectWorkspacePage";
+
+const { getProjectRuntimeActionMock, useProductConversationMock } = vi.hoisted(
+  () => ({
+    getProjectRuntimeActionMock: vi.fn(),
+    useProductConversationMock: vi.fn(),
+  }),
+);
+
+vi.mock("@/lib/vertical-slice-runtime/actions", () => ({
+  getProjectRuntimeAction: (...args: unknown[]) =>
+    getProjectRuntimeActionMock(...args),
+  setProjectRepositoryBindingAction: vi.fn(),
+}));
+
+vi.mock("@/features/pre-m6-product-ui/hooks/useProductConversation", () => ({
+  useProductConversation: (...args: unknown[]) =>
+    useProductConversationMock(...args),
+}));
+
+vi.mock("@/features/project-assistant/actions", () => ({
+  projectAssistantConversationContinuityAction: vi.fn(async () => ({
+    ok: true,
+    transcriptAvailability: "empty",
+    messages: [],
+    journal: { cycleInstanceId: null, entries: [] },
+  })),
+  projectAssistantActiveCycleWorkspaceAction: vi.fn().mockResolvedValue({
+    ok: true,
+    cycleTypeId: null,
+    repositoryWorkspaceSegment: null,
+  }),
+  projectAssistantConfirmReservationResolutionAction: vi.fn(),
+  projectAssistantDeferReservationAction: vi.fn(),
+  projectAssistantPilotLifecycleProjection: vi.fn(),
+  projectAssistantPilotLifecycleAction: vi.fn(),
+  projectAssistantRecordObligationPolicyAction: vi.fn(),
+  projectAssistantCompleteTrajectoryStepAction: vi.fn(),
+  projectAssistantResolveBlockingReservationAction: vi.fn(),
+  projectAssistantRehydrateEvidenceOutcomeAction: vi.fn().mockResolvedValue({
+    ok: false,
+  }),
+}));
+
+vi.mock("@/features/pre-m6-product-ui/surfaces/LifecycleSurface", () => ({
+  LifecycleSurface: () => <div data-testid="lifecycle-stub" />,
+}));
+
+vi.mock("@/features/pre-m6-product-ui/surfaces/TrajectorySurface", () => ({
+  TrajectorySurface: () => <div data-testid="trajectory-stub" />,
+}));
+
+vi.mock("@/features/pre-m6-product-ui/surfaces/HistorySurface", () => ({
+  HistorySurface: () => <div data-testid="history-stub" />,
+}));
+
+vi.mock("@/features/pre-m6-product-ui/surfaces/JournalSurface", () => ({
+  JournalSurface: () => <div data-testid="cycle-journal-rail" />,
+}));
+
+vi.mock("@/features/pre-m6-product-ui/surfaces/LpsSurface", () => ({
+  LpsSurface: () => <div data-testid="lps-stub" />,
+  lpsNextAction: () => null,
+}));
+
+vi.mock("@/features/pre-m6-product-ui/surfaces/RecoverySurface", () => ({
+  RecoverySurface: () => null,
+}));
+
+vi.mock(
+  "@/features/pre-m6-product-ui/surfaces/ProjectWorkspaceRoutingPanel",
+  () => ({
+    ProjectWorkspaceRoutingPanelLazy: () => null,
+  }),
+);
+
+vi.mock("@/features/pre-m6-product-ui/ProductRailRecents", () => ({
+  ProductRailRecents: () => (
+    <div data-testid="studio-rail-recents-stub">Projets récents</div>
+  ),
+}));
+
+vi.mock("@/features/pre-m6-product-ui/surfaces/ConversationSurface", () => ({
+  ConversationSurface: () => (
+    <div data-testid="project-assistant-panel">Conversation</div>
+  ),
+}));
+
+describe("P5-S01 Workspace layout", () => {
+  afterEach(() => {
+    cleanup();
+  });
+
+  beforeEach(() => {
+    vi.clearAllMocks();
+    getProjectRuntimeActionMock.mockResolvedValue({
+      ok: true,
+      project: {
+        projectId: "prj:p5-s01",
+        name: "Product Simplification",
+        shortReference: "P5",
+        objective:
+          "Simplifier le pilotage sans perdre gouvernance, preuve et maîtrise du Pilote.",
+        contextSummary: "ctx",
+        criticality: "STANDARD",
+        constraints: [],
+        localMode: true,
+        source: "REAL_LOCAL_CORE",
+        fixture: false,
+        projectWorkspaceKey: null,
+        repositoryBinding: null,
+      },
+      livingState: {
+        id: "lps:p5",
+        version: 3,
+        createdAt: "2026-10-05T00:00:00.000Z",
+        activeCycleInstanceId: null,
+      },
+      doctrine: { id: "d", version: "1", digest: "x", status: "RESOLVED" },
+      readiness: {
+        status: "NOT_READY",
+        hard: "OPEN",
+        tA6: "INCOMPLETE",
+        iam: "NOT_SELECTED",
+        productPersistence: "SQLITE_OA_PRODUCT_STORE",
+        realAgentExecution: "DISABLED",
+        delivery: "NOT_AUTHORIZED",
+        cutover: "NOT_AUTHORIZED",
+        runReady: false,
+        productReady: false,
+      },
+      disclosures: {},
+    });
+    useProductConversationMock.mockReturnValue({
+      listRef: { current: null },
+      messages: [],
+      draft: "",
+      setDraft: vi.fn(),
+      toolEvents: [],
+      busy: false,
+      error: null,
+      send: vi.fn(),
+      transcriptAvailability: "available",
+      openContinuityPresentation: { kind: "none" },
+      refreshConversationContinuity: vi.fn(),
+      journalEntries: [],
+      activeProposal: null,
+      f3Prepare: null,
+      f3M3Resolved: null,
+      f3Execute: null,
+      durableEvidenceOutcome: null,
+    });
+  });
+
+  it("renders P3 shell rail + Conversation workspace without internals", async () => {
+    render(
+      <ProductShell
+        activeNav="current"
+        currentProjectHref="/studio/projects/prj%3Ap5-s01"
+      >
+        <ProjectWorkspacePage projectId="prj:p5-s01" />
+      </ProductShell>,
+    );
+
+    expect(screen.getByTestId("studio-shell")).toBeTruthy();
+    expect(screen.getByTestId("studio-rail")).toBeTruthy();
+    expect(screen.getByTestId("studio-rail-meridian")).toBeTruthy();
+    expect(screen.getAllByText("SFIA Studio").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Pilote").length).toBeGreaterThan(0);
+
+    await waitFor(() => {
+      expect(screen.getByTestId("project-principal")).toBeTruthy();
+    });
+
+    expect(screen.getByTestId("project-tab-conversation")).toHaveAttribute(
+      "data-selected",
+      "true",
+    );
+    expect(screen.getByTestId("project-tab-overview").textContent).toMatch(
+      /Aperçu/,
+    );
+    expect(screen.getByTestId("project-tab-execution").textContent).toMatch(
+      /Exécution/,
+    );
+    expect(screen.getByTestId("project-conversation-main")).toBeTruthy();
+    expect(screen.getByTestId("project-lps-column")).toBeTruthy();
+
+    const body = document.body.textContent ?? "";
+    expect(body).not.toMatch(
+      /HumanDecision|ExecutionContract|\bCKC\b|reasoning effort|gpt-6|OPENAI_MODEL/i,
+    );
+    expect(screen.queryByLabelText(/modèle/i)).toBeNull();
+    expect(screen.queryByLabelText(/reasoning/i)).toBeNull();
+  });
+});
+
+```
+
+======================================================================
+USEFUL DIFF — ROUTING / RUNTIME
+======================================================================
+```diff
+diff --git a/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts b/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
+index 165c90be..7dcb49d2 100644
+--- a/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
++++ b/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
+@@ -397,7 +397,9 @@ export async function orchestrateProjectAssistantTurn(input: {
+
+   try {
+     const turn = await runNoraCognitiveTurn({
+-      correlationId: `f1:${project.projectId}`,
++      // P5-S01 — prefer durable logicalTurnId as stable cognitive task identity
++      // across tool rounds / retry / one escalation. Fallback keeps prior f1: key.
++      correlationId: logicalTurnId ?? `f1:${project.projectId}`,
+       projectId: project.projectId,
+       messages,
+       provider,
+diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
+index 8f444247..e56f07f0 100644
+--- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
++++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
+@@ -252,6 +252,24 @@ export {
+   buildRunnerModelSettingsForEffort,
+   type NoraRunnerModelSettings,
+ } from "./reasoningModelSettings";
++export {
++  decideCognitiveRouting,
++  deriveQualityFloor,
++  generateCandidateConfigs,
++  isOutsideP5TargetCohort,
++  P5_COGNITIVE_ROUTING_POLICY_VERSION,
++  P5_MAX_ESCALATIONS_PER_TASK,
++  P5_REASONING_MODE_NOMINAL,
++  P5_TARGET_MODEL_COHORT,
++} from "./cognitiveRoutingPolicy";
++export type {
++  CognitiveQualityFloor,
++  CognitiveRoutingConfig,
++  CognitiveRoutingDecision,
++  CognitiveRoutingLimitation,
++  DecideCognitiveRoutingInput,
++  P5TargetModelId,
++} from "./cognitiveRoutingPolicy";
+ export {
+   GROUNDING_REFS_TYPE,
+   acceptGroundingRefsForProject,
+diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/reasoningCapability.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/reasoningCapability.ts
+index 4e865ae5..567f8ae0 100644
+--- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/reasoningCapability.ts
++++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/reasoningCapability.ts
+@@ -1,20 +1,39 @@
+ /**
+  * Runtime model capability validation — fail-closed, no campaign allowlist.
+- * Uses CURRENT OpenAI provider snapshot (incl. Astra). MW0 historical snapshot untouched.
++ * Default: CURRENT OpenAI provider snapshot (incl. Astra). MW0 historical untouched.
++ * Callers on the P5 nominal Product path pass the P5 TARGET cohort manifest.
+  */
+ import type { OpenAiReasoningEffort } from "@/lib/platform/ai";
+ import { TechnicalError } from "@/lib/platform/ai/errors";
+ import {
+   buildCurrentOpenAiCapabilityManifest,
++  buildP5TargetCapabilityManifest,
+   modelCapabilitySet,
++  type CapabilityManifest,
+ } from "@/lib/nora-eval/capabilityBudget";
+
++function resolveCapabilitySet(
++  modelId: string,
++  manifest?: CapabilityManifest,
++): OpenAiReasoningEffort[] | null {
++  if (manifest) {
++    return modelCapabilitySet(manifest, modelId);
++  }
++  const now = new Date().toISOString();
++  // Prefer CURRENT provider universe; fall back to P5 TARGET cohort for
++  // nominal Product / eval pins that already use GPT-6 Luna/Sol/Astra.
++  return (
++    modelCapabilitySet(buildCurrentOpenAiCapabilityManifest(now), modelId) ??
++    modelCapabilitySet(buildP5TargetCapabilityManifest(now), modelId)
++  );
++}
++
+ export function validateRuntimeReasoningCapability(
+   modelId: string,
+   reasoningEffort: OpenAiReasoningEffort,
++  manifest?: CapabilityManifest,
+ ): void {
+-  const manifest = buildCurrentOpenAiCapabilityManifest(new Date().toISOString());
+-  const supported = modelCapabilitySet(manifest, modelId);
++  const supported = resolveCapabilitySet(modelId, manifest);
+   if (!supported) {
+     throw new TechnicalError(
+       "CONFIG",
+diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts
+index 8ccd697e..faa4c498 100644
+--- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts
++++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts
+@@ -35,6 +35,13 @@ import {
+ } from "./cognitiveWorkloadPolicy";
+ import { validateRuntimeReasoningCapability } from "./reasoningCapability";
+ import { buildRunnerModelSettingsForEffort } from "./reasoningModelSettings";
++import {
++  decideCognitiveRouting,
++  type CognitiveRoutingDecision,
++} from "./cognitiveRoutingPolicy";
++import {
++  buildP5TargetCapabilityManifest,
++} from "@/lib/nora-eval/capabilityBudget";
+ import {
+   disposeContradiction,
+   type ContradictionConflictInput,
+@@ -91,6 +98,7 @@ import type {
+ } from "./campaignBudget";
+ import type { NoraAgentsUsdAccounting } from "./agentsUsdAccounting";
+ import type { OpenAiReasoningEffort } from "@/lib/platform/ai";
++import { TechnicalError } from "@/lib/platform/ai/errors";
+ import type { Model } from "@openai/agents";
+
+ /**
+@@ -253,6 +261,43 @@ function emitCognitiveStrategyTelemetry(
+   });
+ }
+
++function emitCognitiveRoutingTelemetry(
++  sink: EventSink | undefined,
++  correlationId: string,
++  routing: CognitiveRoutingDecision,
++): void {
++  if (!sink) return;
++  sink.emit({
++    type: "COGNITIVE_ROUTING_SELECTED",
++    correlationId,
++    detail: {
++      routingDecisionId: routing.routingDecisionId,
++      cognitiveTaskId: routing.cognitiveTaskId,
++      strategyClass: routing.strategyClass,
++      selectedModel: routing.selectedModel,
++      selectedEffort: routing.selectedReasoningEffort,
++      reasoningMode: routing.reasoningMode,
++      qualityFloor: {
++        category: routing.qualityFloor.category,
++        minModelRank: routing.qualityFloor.minModelRank,
++        minEffortRank: routing.qualityFloor.minEffortRank,
++        reasonCodes: routing.qualityFloor.reasonCodes,
++      },
++      reasonCodes: routing.reasonCodes,
++      eligibleSummary: routing.eligibleConfigs.slice(0, 12).map((c) => ({
++        modelId: c.modelId,
++        reasoningEffort: c.reasoningEffort,
++      })),
++      escalationEligible: routing.escalationEligible,
++      maxEscalations: routing.maxEscalations,
++      providerCapabilitySnapshot: routing.providerSnapshotIdentity,
++      routingPolicyVersion: routing.policyVersion,
++      estimatedCostUsdHint: routing.estimatedCostUsdHint,
++      // Never emit Chain of Thought / private reasoning / fake confidence.
++    },
++  });
++}
++
+ function resolveCognitiveStrategyForTurn(
+   input: RunNoraCognitiveTurnInput,
+ ): ReturnType<typeof decideCognitiveStrategy> | null {
+@@ -286,20 +331,60 @@ function resolveCognitiveStrategyForTurn(
+
+ function resolveEvalAgentsModel(
+   input: RunNoraCognitiveTurnInput,
++  routing: CognitiveRoutingDecision | null,
+ ): Model | string | undefined {
+   const control = input.evalModelReasoningControl;
+-  if (!control) return undefined;
+-  if (control.agentsModel !== undefined) return control.agentsModel;
+-  // Fake/completeRound providers keep adapter path — modelId remains Evidence identity.
+-  if (input.provider && shouldUseProviderAgentsModelAdapter(input.provider)) {
+-    return undefined;
++  if (control) {
++    if (control.agentsModel !== undefined) return control.agentsModel;
++    // Fake/completeRound providers keep adapter path — modelId remains Evidence identity.
++    if (input.provider && shouldUseProviderAgentsModelAdapter(input.provider)) {
++      return undefined;
++    }
++    return control.modelId;
++  }
++
++  // P5 nominal Product path: router-owned model for live Agents; Fake keeps adapter.
++  if (routing) {
++    if (input.provider && shouldUseProviderAgentsModelAdapter(input.provider)) {
++      return undefined;
++    }
++    return routing.selectedModel;
++  }
++
++  return undefined;
++}
++
++function resolveProductCognitiveRouting(
++  input: RunNoraCognitiveTurnInput,
++  decision: ReturnType<typeof decideCognitiveStrategy> | null,
++): CognitiveRoutingDecision | null {
++  // Eval pin owns model×effort — no Product router arbitration.
++  if (input.evalModelReasoningControl) return null;
++  // Strategy skipped → no cognition routing (deterministic / isolated tests).
++  if (!decision) return null;
++
++  const cognitiveTaskId = input.correlationId.trim();
++  const routed = decideCognitiveRouting({
++    strategy: decision,
++    cognitiveTaskId,
++    signals: decision.normalizedSignals,
++  });
++
++  if (!routed.ok) {
++    throw new TechnicalError(
++      "CONFIG",
++      `P5 cognitive routing: aucune configuration suffisante (quality floor). Codes: ${routed.reasonCodes.join(", ")}`,
++    );
+   }
+-  return control.modelId;
++
++  emitCognitiveRoutingTelemetry(input.sink, input.correlationId, routed);
++  return routed;
+ }
+
+ function resolveRunnerModelSettings(
+   input: RunNoraCognitiveTurnInput,
+   decision: ReturnType<typeof decideCognitiveStrategy> | null,
++  routing: CognitiveRoutingDecision | null,
+ ): ReturnType<typeof buildRunnerModelSettingsForEffort> | undefined {
+   const evalControl = input.evalModelReasoningControl;
+   if (evalControl) {
+@@ -310,8 +395,22 @@ function resolveRunnerModelSettings(
+     return buildRunnerModelSettingsForEffort(evalControl.reasoningEffort);
+   }
+
++  if (routing) {
++    const p5Manifest = buildP5TargetCapabilityManifest(
++      new Date().toISOString(),
++    );
++    validateRuntimeReasoningCapability(
++      routing.selectedModel,
++      routing.selectedReasoningEffort,
++      p5Manifest,
++    );
++    return buildRunnerModelSettingsForEffort(routing.selectedReasoningEffort);
++  }
++
+   if (!decision) return undefined;
+
++  // Legacy fallback when strategy ran but routing was skipped (should be rare).
++  // OPENAI_MODEL remains TEMP WITH EXIT for non-routed paths / bootstrapping.
+   const model =
+     typeof input.provider?.providerId === "string" &&
+     input.provider.providerId.startsWith("fake")
+@@ -326,6 +425,7 @@ function withStrategyFields(
+   turn: NoraCognitiveTurnResult,
+   decision: ReturnType<typeof decideCognitiveStrategy> | null,
+   evalControl?: NoraEvalModelReasoningControl,
++  routing?: CognitiveRoutingDecision | null,
+ ): NoraCognitiveTurnResult {
+   const base: NoraCognitiveTurnResult = {
+     ...turn,
+@@ -336,15 +436,24 @@ function withStrategyFields(
+           selectedReasoningEffort: evalControl.reasoningEffort,
+         }
+       : {}),
++    ...(routing
++      ? {
++          selectedModelId: routing.selectedModel,
++          cognitiveRoutingDecisionId: routing.routingDecisionId,
++          cognitiveRoutingPolicyVersion: routing.policyVersion,
++        }
++      : {}),
+   };
+   if (!decision) return base;
+   return {
+     ...base,
+     cognitiveStrategyClass: decision.strategyClass,
+     cwpDerivedReasoningEffort: decision.reasoningEffort,
+-    // Effective effort: eval pin wins; else CWP.
++    // Effective effort: eval pin wins; else P5 router; else CWP.
+     selectedReasoningEffort:
+-      evalControl?.reasoningEffort ?? decision.reasoningEffort,
++      evalControl?.reasoningEffort ??
++      routing?.selectedReasoningEffort ??
++      decision.reasoningEffort,
+     criticalChallengeArmed: decision.criticalChallengeArmed,
+   };
+ }
+@@ -444,12 +553,14 @@ function finalizeTurn(
+   strategyDecision: ReturnType<typeof decideCognitiveStrategy> | null,
+   mw4Grounding?: Mw4GroundingTurnSurface,
+   mw6SourceIntelligence?: Mw6SourceIntelligenceSurface,
++  routing?: CognitiveRoutingDecision | null,
+ ): NoraCognitiveTurnResult {
+   const withMw3 = withMw3Fields(
+     withStrategyFields(
+       turn,
+       strategyDecision,
+       input.evalModelReasoningControl,
++      routing,
+     ),
+     input,
+     strategyDecision,
+@@ -670,7 +781,15 @@ export async function runNoraCognitiveTurn(
+       strategyDecision,
+     );
+   }
+-  const runnerModelSettings = resolveRunnerModelSettings(input, strategyDecision);
++  const routingDecision = resolveProductCognitiveRouting(
++    input,
++    strategyDecision,
++  );
++  const runnerModelSettings = resolveRunnerModelSettings(
++    input,
++    strategyDecision,
++    routingDecision,
++  );
+
+   const system = input.messages.find((m) => m.role === "system");
+   const userMessages = input.messages.filter((m) => m.role === "user");
+@@ -739,7 +858,7 @@ export async function runNoraCognitiveTurn(
+       sink: input.sink,
+       enableTools: input.enableTools,
+       provider: input.provider,
+-      model: resolveEvalAgentsModel(input),
++      model: resolveEvalAgentsModel(input, routingDecision),
+       runnerModelSettings,
+       usdAccounting: input.usdAccounting,
+       enableHostedWebSearch: attachHostedWebSearch,
+@@ -822,6 +941,7 @@ export async function runNoraCognitiveTurn(
+         strategyDecision,
+         mw4,
+         mw6,
++        routingDecision,
+       ),
+       // CORR-02B — factual hosted observation pass-through (no drop).
+       ...(hostedSearchObserve ? { hostedSearchObserve } : {}),
+@@ -907,7 +1027,7 @@ export async function runNoraCognitiveTurn(
+       sink: input.sink,
+       enableTools: input.enableTools,
+       provider: input.provider,
+-      model: resolveEvalAgentsModel(input),
++      model: resolveEvalAgentsModel(input, routingDecision),
+       runnerModelSettings,
+       usdAccounting: input.usdAccounting,
+       enableHostedWebSearch: attachHostedWebSearch,
+@@ -984,6 +1104,7 @@ export async function runNoraCognitiveTurn(
+       strategyDecision,
+       mw4Prep.surface ?? undefined,
+       mw6,
++      routingDecision,
+     );
+
+     // Persist Evidence IDs claimed/accepted this turn (non-authoritative).
+diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/types.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/types.ts
+index dec56300..096f8c5f 100644
+--- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/types.ts
++++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/types.ts
+@@ -54,6 +54,15 @@ export type NoraCognitiveTurnResult = {
+   /** Eval-only pin identity when Stage A / campaign cell control is active. */
+   evalPinnedModelId?: string;
+   evalPinnedReasoningEffort?: OpenAiReasoningEffort;
++  /**
++   * P5-S01 — router-selected model identity on nominal Product path.
++   * Absent when eval pin / skipCognitiveStrategy / routing limitation.
++   */
++  selectedModelId?: string;
++  /** P5-S01 routing decision id (telemetry / reconstructibility). */
++  cognitiveRoutingDecisionId?: string;
++  /** P5-S01 routing policy version. */
++  cognitiveRoutingPolicyVersion?: string;
+   criticalChallengeArmed?: boolean;
+   /** MW3 — present only when contradictionAssessment was supplied. */
+   contradictionDisposition?: ContradictionDispositionResult;
+diff --git a/projects/sfia-studio/app/lib/nora-eval/capabilityBudget.ts b/projects/sfia-studio/app/lib/nora-eval/capabilityBudget.ts
+index 8ffe2b3a..192a7558 100644
+--- a/projects/sfia-studio/app/lib/nora-eval/capabilityBudget.ts
++++ b/projects/sfia-studio/app/lib/nora-eval/capabilityBudget.ts
+@@ -121,6 +121,67 @@ export function buildCurrentOpenAiCapabilityManifest(
+   };
+ }
+
++/**
++ * P5 nominal TARGET routing cohort capability snapshot (dated external input).
++ * Cohort EXACT: gpt-6-luna · gpt-6.1-sol · gpt-6-astra.
++ * Does NOT mutate {@link buildMw0CapabilityManifest} (GPT-5.6 historical FREEZE).
++ * Does NOT replace {@link buildCurrentOpenAiCapabilityManifest} provider universe.
++ * Snapshot ≠ permanent SFIA doctrine; account entitlement ≠ documented capability.
++ *
++ * Effort sets (external input revalidated for P5-S01 Delivery, 2026-10-05):
++ * - gpt-6-luna: none · low · medium · high · xhigh · max
++ * - gpt-6.1-sol: low · medium · high · xhigh · max (none unsupported)
++ * - gpt-6-astra: low · medium · high · xhigh · max (none unsupported)
++ *
++ * Pricing rows are replaceable FinOps ordering hints only — not eternal doctrine.
++ */
++export function buildP5TargetCapabilityManifest(
++  retrievedAtIso: string,
++): CapabilityManifest {
++  return {
++    retrievedAt: retrievedAtIso,
++    provider: "openai",
++    sourceName:
++      "P5 nominal TARGET cohort capability snapshot (GPT-6 Luna / GPT-6.1 Sol / GPT-6 Astra)",
++    sourceNote:
++      "P5-S01 TARGET routing cohort only — ≠ MW0 historical · ≠ full provider universe · ≠ permanent doctrine · ZERO REAL in S01. Revalidate before REAL gates.",
++    sdkCodeCapabilitySet: OPENAI_REASONING_EFFORT_VALUES,
++    models: [
++      {
++        modelId: "gpt-6-luna",
++        inputUsdPerMTok: 0.2,
++        outputUsdPerMTok: 1.2,
++        reasoningEfforts: ["none", "low", "medium", "high", "xhigh", "max"],
++      },
++      {
++        modelId: "gpt-6.1-sol",
++        inputUsdPerMTok: 4,
++        outputUsdPerMTok: 20,
++        reasoningEfforts: ["low", "medium", "high", "xhigh", "max"],
++      },
++      {
++        modelId: "gpt-6-astra",
++        inputUsdPerMTok: 10,
++        cachedInputUsdPerMTok: 1,
++        outputUsdPerMTok: 50,
++        reasoningEfforts: ["low", "medium", "high", "xhigh", "max"],
++      },
++    ],
++    campaignAllowlist: {
++      modelIds: ["gpt-6-luna", "gpt-6.1-sol", "gpt-6-astra"],
++      reasoningEfforts: ["none", "low", "medium", "high", "xhigh", "max"],
++    },
++    caveats: [
++      "P5 TARGET cohort excludes GPT-5.6 from nominal Product routing.",
++      "Historical GPT-5.6 manifests/evidence remain IMMUTABLE (buildMw0CapabilityManifest).",
++      "Sol/Astra do not support reasoning.effort=none — do not silently coerce.",
++      "minimal remains non-admissible for target cohort.",
++      "Documented capability ≠ account/API entitlement — ZERO REAL in P5-S01.",
++      "Pricing is dated FinOps ordering input only — replaceable provider data.",
++    ],
++  };
++}
++
+ /**
+  * Distinct campaign capability policy for the Global Model × Reasoning Campaign.
+  * EXIT: campaign evaluation contract only — ≠ production model routing / ≠ multi-model router.
+diff --git a/projects/sfia-studio/app/lib/platform/observability/types.ts b/projects/sfia-studio/app/lib/platform/observability/types.ts
+index 0530dfaa..f1254ffc 100644
+--- a/projects/sfia-studio/app/lib/platform/observability/types.ts
++++ b/projects/sfia-studio/app/lib/platform/observability/types.ts
+@@ -15,7 +15,8 @@ export type TechnicalEventType =
+   | "STRUCTURED_OUTPUT_REJECTED"
+   | "TOOL_LOOP_COMPLETED"
+   | "TOOL_LOOP_LIMIT_REACHED"
+-  | "COGNITIVE_STRATEGY_SELECTED";
++  | "COGNITIVE_STRATEGY_SELECTED"
++  | "COGNITIVE_ROUTING_SELECTED";
+
+ export interface TechnicalEvent {
+   type: TechnicalEventType;
+
+```
+
+======================================================================
+USEFUL DIFF — FRONTEND
+======================================================================
+```diff
+diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/ProductShell.module.css b/projects/sfia-studio/app/features/pre-m6-product-ui/ProductShell.module.css
+index e02d3861..f5133272 100644
+--- a/projects/sfia-studio/app/features/pre-m6-product-ui/ProductShell.module.css
++++ b/projects/sfia-studio/app/features/pre-m6-product-ui/ProductShell.module.css
+@@ -1,7 +1,9 @@
++/* P3 Workspace Desktop 46:2 — Project Switcher Rail + main column. */
++
+ .shell {
+   min-height: 100vh;
+-  display: flex;
+-  flex-direction: column;
++  display: grid;
++  grid-template-columns: var(--pm6-rail-width) minmax(0, 1fr);
+   background: var(--pm6-canvas);
+   color: var(--pm6-ink);
+   font-family: var(--pm6-font);
+@@ -13,132 +15,269 @@
+   box-shadow: var(--pm6-focus-ring);
+ }
+
+-.header {
++/* ---------- rail ---------- */
++
++.rail {
+   position: sticky;
+   top: 0;
+-  z-index: 40;
+-  background: color-mix(in srgb, var(--pm6-canvas-raised) 88%, transparent);
+-  backdrop-filter: blur(10px);
+-  border-bottom: 1px solid var(--pm6-border-soft);
++  align-self: start;
++  height: 100vh;
++  overflow: hidden;
++  background: var(--pm6-rail);
++  border-right: 1px solid var(--pm6-rail-border);
++  z-index: 30;
+ }
+
+-.headerInner {
+-  max-width: var(--pm6-content-max);
+-  margin: 0 auto;
+-  padding: var(--pm6-space-3) var(--pm6-space-5);
++/* Meridian emblem — decorative only (192×390 at y≈250, opacity ≈ 0.10). */
++.meridian {
++  position: absolute;
++  inset-inline: 0;
++  top: 250px;
++  height: 390px;
++  background-image: url("/branding/meridian-emblem-product.png");
++  background-repeat: no-repeat;
++  background-position: center;
++  background-size: cover;
++  opacity: 0.1;
++  pointer-events: none;
++  user-select: none;
++}
++
++.railInner {
++  position: relative;
++  z-index: 1;
++  height: 100%;
+   display: flex;
+-  align-items: center;
+-  gap: var(--pm6-space-5);
++  flex-direction: column;
++  gap: var(--pm6-space-4);
++  padding: var(--pm6-space-3) var(--pm6-space-2) var(--pm6-space-4);
++  overflow-y: auto;
+ }
+
+ .brand {
+   display: inline-flex;
+   align-items: center;
+-  gap: var(--pm6-space-3);
++  gap: 10px;
++  padding: var(--pm6-space-1) var(--pm6-space-2);
++  min-height: 30px;
+   text-decoration: none;
+   color: inherit;
+ }
+
+ .brandMark {
+-  width: 34px;
+-  height: 34px;
+-  border-radius: var(--pm6-radius-md);
++  width: 22px;
++  height: 22px;
++  border-radius: 6px;
+   background: var(--pm6-forest);
+   color: var(--pm6-forest-ink);
+   display: grid;
+   place-items: center;
++  flex: 0 0 auto;
+ }
+
+ .brandGlyph {
+   display: block;
+ }
+
+-.brandText {
+-  display: flex;
+-  flex-direction: column;
+-  line-height: 1.2;
++.brandGlyphLetter {
++  display: block;
++  font-size: 11px;
++  font-weight: 500;
++  line-height: 1;
++  letter-spacing: 0.4px;
++  color: inherit;
+ }
+
+ .brandName {
+-  font-size: 0.98rem;
+-  font-weight: 600;
+-  color: var(--pm6-forest);
++  font-size: 0.8125rem;
++  font-weight: 500;
++  color: var(--pm6-ink);
++  white-space: nowrap;
+ }
+
+-.brandTagline {
+-  font-size: 0.76rem;
+-  color: var(--pm6-muted);
++.nav {
++  display: flex;
++  flex-direction: column;
++  gap: 2px;
+ }
+
+-.nav {
++.navItem {
+   display: flex;
+   align-items: center;
+-  gap: var(--pm6-space-2);
+-  margin-left: auto;
++  gap: 8px;
++  padding: 7px var(--pm6-space-2);
++  border-radius: 6px;
++  font-size: 0.75rem;
++  font-weight: 500;
++  color: var(--pm6-muted-strong);
++  text-decoration: none;
++  transition: background 120ms ease, color 120ms ease;
+ }
+
+-.navPill {
+-  display: inline-flex;
+-  align-items: center;
+-  padding: 7px 15px;
++.navItem:hover {
++  background: color-mix(in srgb, var(--pm6-border-soft) 55%, transparent);
++  color: var(--pm6-ink);
++}
++
++.navItem[data-active="true"] {
++  background: color-mix(in srgb, var(--pm6-border) 45%, transparent);
++  color: var(--pm6-ink);
++}
++
++.navDot {
++  width: 5px;
++  height: 5px;
+   border-radius: var(--pm6-radius-pill);
+-  border: 1px solid transparent;
+-  font-size: 0.86rem;
++  background: var(--pm6-muted-ghost);
++  flex: 0 0 auto;
++}
++
++.navItem[data-active="true"] .navDot,
++.recentsItem[data-active="true"] .navDot {
++  background: var(--pm6-ink);
++}
++
++/* ---------- recents ---------- */
++
++.recents {
++  display: flex;
++  flex-direction: column;
++  gap: var(--pm6-space-2);
++  min-height: 0;
++}
++
++.recentsTitle {
++  margin: 0;
++  padding-inline: var(--pm6-space-2);
++  font-size: 0.625rem;
++  font-weight: 500;
++  letter-spacing: 0.06em;
++  text-transform: uppercase;
++  color: var(--pm6-muted-faint);
++}
++
++.recentsList {
++  list-style: none;
++  margin: 0;
++  padding: 0;
++  display: flex;
++  flex-direction: column;
++  gap: 2px;
++}
++
++.recentsItem {
++  display: flex;
++  align-items: flex-start;
++  gap: 8px;
++  padding: 6px var(--pm6-space-2);
++  border-radius: 6px;
++  font-size: 0.75rem;
++  line-height: 1.25;
+   color: var(--pm6-muted-strong);
+   text-decoration: none;
+-  transition: background 120ms ease, color 120ms ease;
+ }
+
+-.navPill:hover {
+-  background: var(--pm6-surface);
++.recentsItem .navDot {
++  margin-top: 5px;
++}
++
++.recentsItem:hover {
++  background: color-mix(in srgb, var(--pm6-border-soft) 55%, transparent);
+   color: var(--pm6-ink);
+ }
+
+-.navPill[data-active="true"] {
+-  background: var(--pm6-forest);
+-  border-color: var(--pm6-forest);
+-  color: var(--pm6-forest-ink);
++.recentsItem[data-active="true"] {
++  color: var(--pm6-ink);
++  font-weight: 500;
+ }
+
+-.navPill[data-inert="true"] {
+-  color: var(--pm6-muted);
+-  cursor: default;
++.recentsLabel {
++  min-width: 0;
++  overflow-wrap: anywhere;
+ }
+
+-.navPill[data-inert="true"]:hover {
+-  background: transparent;
+-  color: var(--pm6-muted);
++.recentsEmpty {
++  margin: 0;
++  padding-inline: var(--pm6-space-2);
++  font-size: 0.6875rem;
++  line-height: 1.4;
++  color: var(--pm6-muted-faint);
+ }
+
+-.avatar {
+-  width: 34px;
+-  height: 34px;
++.railFoot {
++  margin-top: auto;
++  padding-top: var(--pm6-space-3);
++}
++
++.profile {
++  display: flex;
++  align-items: center;
++  gap: 8px;
++  padding: 6px var(--pm6-space-2);
++  font-size: 0.75rem;
++  color: var(--pm6-muted-strong);
++}
++
++.profileDot {
++  width: 5px;
++  height: 5px;
+   border-radius: var(--pm6-radius-pill);
+-  background: var(--pm6-forest-tint);
+-  border: 1px solid var(--pm6-border);
+-  color: var(--pm6-forest);
+-  display: grid;
+-  place-items: center;
+-  font-size: 0.85rem;
+-  font-weight: 600;
+-  flex: 0 0 auto;
++  background: var(--pm6-muted-faint);
++}
++
++/* ---------- main column ---------- */
++
++.column {
++  min-width: 0;
++  display: flex;
++  flex-direction: column;
+ }
+
+ .main {
+   flex: 1;
++  min-width: 0;
+   width: 100%;
++}
++
++/* Non-workspace pages (Projets, Nouveau projet): centered content column. */
++.mainPage {
+   max-width: var(--pm6-content-max);
+   margin: 0 auto;
+-  padding: var(--pm6-space-6) var(--pm6-space-4) var(--pm6-space-7);
++  padding: var(--pm6-space-6) var(--pm6-space-5) var(--pm6-space-7);
+ }
+
+-.mainWide {
+-  max-width: var(--pm6-content-max-workspace);
+-  padding-inline: var(--pm6-space-4);
++/* Workspace: full-bleed — the page owns its global/project headers. */
++.mainWorkspace {
++  padding: 0;
++  display: flex;
++  flex-direction: column;
++}
++
++/* ---------- mobile topbar (hidden ≥768) ---------- */
++
++.mobileBar {
++  display: none;
++}
++
++.mobileNavLink {
++  margin-left: auto;
++  font-size: 0.8125rem;
++  color: var(--pm6-muted-strong);
++  text-decoration: none;
+ }
+
+-.headerInnerWide {
+-  max-width: var(--pm6-content-max-workspace);
++.mobileProfile {
++  width: 28px;
++  height: 28px;
++  border-radius: var(--pm6-radius-pill);
++  background: var(--pm6-forest-tint);
++  border: 1px solid var(--pm6-border);
++  color: var(--pm6-ink);
++  display: grid;
++  place-items: center;
++  font-size: 0.75rem;
++  font-weight: 600;
++  flex: 0 0 auto;
+ }
+
+ .srOnly {
+@@ -153,17 +292,30 @@
+   border: 0;
+ }
+
++/* <768 — rail collapses into a compact topbar (190:306). */
+ @media (max-width: 767px) {
+-  .headerInner {
+-    padding: var(--pm6-space-3) var(--pm6-space-4);
+-    gap: var(--pm6-space-3);
++  .shell {
++    grid-template-columns: minmax(0, 1fr);
+   }
+
+-  .brandTagline {
++  .rail {
+     display: none;
+   }
+
+-  .main {
++  .mobileBar {
++    position: sticky;
++    top: 0;
++    z-index: 40;
++    display: flex;
++    align-items: center;
++    gap: var(--pm6-space-3);
++    height: var(--pm6-global-header-h);
++    padding-inline: var(--pm6-space-4);
++    background: var(--pm6-rail);
++    border-bottom: 1px solid var(--pm6-rail-border);
++  }
++
++  .mainPage {
+     padding: var(--pm6-space-5) var(--pm6-space-4) var(--pm6-space-6);
+   }
+ }
+diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/ProductShell.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/ProductShell.tsx
+index ac52f4d1..1d83c50d 100644
+--- a/projects/sfia-studio/app/features/pre-m6-product-ui/ProductShell.tsx
++++ b/projects/sfia-studio/app/features/pre-m6-product-ui/ProductShell.tsx
+@@ -1,107 +1,120 @@
+ import type { ReactNode } from "react";
+ import Link from "next/link";
+ import "./product-tokens.css";
++import { ProductRailRecents } from "./ProductRailRecents";
+ import styles from "./ProductShell.module.css";
+
+ export type ProductNav = "projects" | "current" | "new";
+
+ export type ProductShellProps = {
+   activeNav: ProductNav;
+-  /** Href for the "Projet courant" pill; omitted when no project is open. */
++  /**
++   * Href of the open project (workspace route). Used only to highlight the
++   * matching entry in « Projets récents »; omitted when no project is open.
++   */
+   currentProjectHref?: string;
+   children: ReactNode;
+ };
+
++function BrandMark() {
++  // P3 Figma 46:5 — ink square + “S” mark (not a decorative network glyph).
++  return (
++    <span className={styles.brandMark} aria-hidden>
++      <span className={styles.brandGlyphLetter}>S</span>
++    </span>
++  );
++}
++
+ /**
+- * Self-contained Pre-M6 product shell (brand header + canvas).
+- * `studio-shell` is kept as the stable E2E anchor for the shell root.
++ * Pre-M6 product shell — P3 Figma rail layout (Workspace Desktop 46:2).
++ *
++ * Left Project Switcher Rail (192px; 160px <1200; hidden <768 → compact
++ * topbar, 190:306) + main area for children. `studio-shell` is kept as the
++ * stable E2E anchor for the shell root.
++ *
++ * Honesty rules: « Projets récents » only lists real projects (client read of
++ * the existing list action); the profile entry is labelled « Pilote » — no
++ * personal persona is hardcoded. The Meridian emblem is decorative only.
+  */
+ export function ProductShell({
+   activeNav,
+   currentProjectHref,
+   children,
+ }: ProductShellProps) {
+-  const currentHref = currentProjectHref ?? null;
+-
+   return (
+-    <div className={styles.shell} data-testid="studio-shell">
+-      <header className={styles.header}>
+-        <div className={[
+-          styles.headerInner,
+-          activeNav === "current" ? styles.headerInnerWide : "",
+-        ].filter(Boolean).join(" ")}>
++    <div
++      className={styles.shell}
++      data-testid="studio-shell"
++      data-nav={activeNav}
++    >
++      <aside
++        className={styles.rail}
++        data-testid="studio-rail"
++        aria-label="Sélecteur de projet"
++      >
++        <div
++          className={styles.meridian}
++          data-testid="studio-rail-meridian"
++          aria-hidden
++        />
++
++        <div className={styles.railInner}>
+           <Link href="/studio" className={styles.brand}>
+-            <span className={styles.brandMark} aria-hidden>
+-              <svg
+-                className={styles.brandGlyph}
+-                viewBox="0 0 24 24"
+-                width="18"
+-                height="18"
+-                fill="none"
+-              >
+-                <circle cx="6" cy="12" r="2.2" fill="currentColor" />
+-                <circle cx="12" cy="6.5" r="2.2" fill="currentColor" />
+-                <circle cx="18" cy="12" r="2.2" fill="currentColor" />
+-                <path
+-                  d="M7.7 11.2 L10.4 7.8 M13.6 7.8 L16.3 11.2"
+-                  stroke="currentColor"
+-                  strokeWidth="1.4"
+-                  strokeLinecap="round"
+-                />
+-              </svg>
+-            </span>
+-            <span className={styles.brandText}>
+-              <span className={styles.brandName}>SFIA Studio</span>
+-              <span className={styles.brandTagline}>Pilotage assisté</span>
+-            </span>
++            <BrandMark />
++            <span className={styles.brandName}>SFIA Studio</span>
+           </Link>
+
+           <nav className={styles.nav} aria-label="Navigation principale">
+             <Link
+               href="/studio"
+-              className={styles.navPill}
++              className={styles.navItem}
+               data-active={activeNav === "projects"}
+               aria-current={activeNav === "projects" ? "page" : undefined}
+             >
++              <span className={styles.navDot} aria-hidden />
+               Projets
+             </Link>
+-            {currentHref ? (
+-              <Link
+-                href={currentHref}
+-                className={styles.navPill}
+-                data-active={activeNav === "current"}
+-                aria-current={activeNav === "current" ? "page" : undefined}
+-              >
+-                Projet courant
+-              </Link>
+-            ) : (
+-              <span
+-                className={styles.navPill}
+-                data-active={activeNav === "current"}
+-                data-inert="true"
+-              >
+-                Projet courant
+-              </span>
+-            )}
+           </nav>
+
+-          <span className={styles.avatar} title="Pilote">
++          <ProductRailRecents currentProjectHref={currentProjectHref} />
++
++          <div className={styles.railFoot}>
++            <span className={styles.profile} data-testid="studio-rail-profile">
++              <span className={styles.profileDot} aria-hidden />
++              Pilote
++            </span>
++          </div>
++        </div>
++      </aside>
++
++      <div className={styles.column}>
++        <header className={styles.mobileBar} data-testid="studio-mobile-bar">
++          <Link href="/studio" className={styles.brand}>
++            <BrandMark />
++            <span className={styles.brandName}>SFIA Studio</span>
++          </Link>
++          <Link
++            href="/studio"
++            className={styles.mobileNavLink}
++            aria-current={activeNav === "projects" ? "page" : undefined}
++          >
++            Projets
++          </Link>
++          <span className={styles.mobileProfile} title="Pilote">
+             <span aria-hidden>P</span>
+             <span className={styles.srOnly}>Pilote</span>
+           </span>
+-        </div>
+-      </header>
++        </header>
+
+-      <main
+-        className={[
+-          styles.main,
+-          activeNav === "current" ? styles.mainWide : "",
+-        ]
+-          .filter(Boolean)
+-          .join(" ")}
+-      >
+-        {children}
+-      </main>
++        <main
++          className={[
++            styles.main,
++            activeNav === "current" ? styles.mainWorkspace : styles.mainPage,
++          ].join(" ")}
++        >
++          {children}
++        </main>
++      </div>
+     </div>
+   );
+ }
+diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.module.css b/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.module.css
+index afc426f2..98b89e32 100644
+--- a/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.module.css
++++ b/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.module.css
+@@ -1,197 +1,492 @@
++/*
++ * P3 Workspace Desktop 46:2 (1440×1024) — main column of the product shell.
++ *
++ *   global header ........ 54px   (breadcrumb + currentness)
++ *   project header ....... ~104px (title/objective/chips + tabs)
++ *   body ................. conversation (dominant) | context 356px (280px <1200)
++ *   focus bar ............ 50px   (top of the conversation column)
++ *
++ * <900: single column; context becomes a sheet opened by .lpsToggle.
++ * Colours come from --pm6-* (product-tokens.css). No second token set.
++ */
++
+ .root {
++  --ws-global-h: var(--pm6-global-header-h, 54px);
++  --ws-project-h: 104px;
++  --ws-focus-h: var(--pm6-focus-bar-h, 50px);
++  --ws-context-w: var(--pm6-context-width, 356px);
++  --ws-pad-x: 24px;
++
+   display: flex;
+   flex-direction: column;
+-  gap: var(--pm6-space-4);
+-  max-width: var(--pm6-content-max-workspace);
+-  margin-inline: auto;
+   width: 100%;
++  min-width: 0;
++  min-height: 100vh;
++  background: var(--pm6-canvas);
++  color: var(--pm6-ink);
++  font-family: var(--pm6-font);
+ }
+
+ .loading {
+   margin: 0;
+-  padding: var(--pm6-space-7) 0;
++  padding: var(--pm6-space-7) var(--ws-pad-x, 24px);
+   font-size: 0.95rem;
+   color: var(--pm6-muted);
+ }
+
+-/* ---------- project header ---------- */
++/* ---------- global header (54px) ---------- */
++
++.globalHeader {
++  position: sticky;
++  top: 0;
++  z-index: 25;
++  box-sizing: border-box;
++  height: var(--ws-global-h);
++  flex: 0 0 auto;
++  display: flex;
++  align-items: center;
++  justify-content: space-between;
++  gap: var(--pm6-space-4);
++  padding-inline: var(--ws-pad-x);
++  background: var(--pm6-canvas);
++  border-bottom: 1px solid var(--pm6-border);
++}
++
++.breadcrumb {
++  display: flex;
++  align-items: center;
++  gap: var(--pm6-space-2);
++  min-width: 0;
++  font-size: 0.8125rem;
++  line-height: 1.2;
++}
++
++.breadcrumbLink {
++  color: var(--pm6-muted-strong);
++  text-decoration: none;
++  white-space: nowrap;
++}
++
++.breadcrumbLink:hover {
++  color: var(--pm6-ink);
++  text-decoration: underline;
++}
++
++.breadcrumbSep {
++  color: var(--pm6-muted-ghost);
++}
++
++.breadcrumbCurrent {
++  min-width: 0;
++  overflow: hidden;
++  text-overflow: ellipsis;
++  white-space: nowrap;
++  font-weight: 500;
++  color: var(--pm6-ink);
++}
++
++.currentness {
++  flex: 0 0 auto;
++  display: inline-flex;
++  align-items: center;
++  gap: 6px;
++  padding: 4px 10px;
++  border-radius: var(--pm6-radius-pill);
++  border: 1px solid var(--pm6-border);
++  background: var(--pm6-surface);
++  font-size: 0.6875rem;
++  font-weight: 600;
++  letter-spacing: 0.02em;
++  color: var(--pm6-muted-strong);
++  white-space: nowrap;
++}
++
++.currentness::before {
++  content: "";
++  width: 6px;
++  height: 6px;
++  border-radius: var(--pm6-radius-pill);
++  background: var(--pm6-muted-ghost);
++}
++
++.currentness[data-tone="ok"] {
++  color: var(--pm6-ok);
++  border-color: color-mix(in srgb, var(--pm6-ok) 25%, transparent);
++  background: var(--pm6-ok-tint);
++}
++
++.currentness[data-tone="ok"]::before {
++  background: var(--pm6-ok);
++}
++
++.currentness[data-tone="warn"] {
++  color: var(--pm6-warn);
++  border-color: var(--pm6-cream-border);
++  background: var(--pm6-warn-tint);
++}
++
++.currentness[data-tone="warn"]::before {
++  background: var(--pm6-warn);
++}
++
++/* ---------- project header (~104px, with tabs) ---------- */
+
+ .projectHeader {
++  box-sizing: border-box;
++  flex: 0 0 auto;
++  min-height: var(--ws-project-h);
++  display: flex;
++  flex-direction: column;
++  justify-content: space-between;
++  gap: var(--pm6-space-3);
++  padding: var(--pm6-space-4) var(--ws-pad-x) 0;
++  background: var(--pm6-canvas);
++  border-bottom: 1px solid var(--pm6-border);
++}
++
++.projectHeaderRow {
+   display: flex;
+   flex-wrap: wrap;
+   align-items: flex-start;
+   justify-content: space-between;
+-  gap: var(--pm6-space-4);
++  gap: var(--pm6-space-3) var(--pm6-space-4);
++  min-width: 0;
+ }
+
+ .projectHeaderText {
+   display: flex;
+   flex-direction: column;
+-  gap: var(--pm6-space-2);
++  gap: 2px;
+   min-width: 0;
++  flex: 1 1 320px;
+ }
+
+ .projectTitle {
+   margin: 0;
+-  font-size: 1.7rem;
++  font-size: 1.25rem;
+   font-weight: 600;
++  line-height: 1.25;
+   letter-spacing: -0.01em;
+-  color: var(--pm6-forest);
++  color: var(--pm6-ink);
+   overflow-wrap: anywhere;
+ }
+
+ .projectObjective {
+   margin: 0;
+-  font-size: 0.92rem;
+-  line-height: 1.6;
++  max-width: 72ch;
++  font-size: 0.8125rem;
++  line-height: 1.45;
+   color: var(--pm6-muted-strong);
+-  max-width: 68ch;
++  display: -webkit-box;
++  -webkit-line-clamp: 2;
++  -webkit-box-orient: vertical;
++  overflow: hidden;
+ }
+
++.projectChips {
++  display: flex;
++  flex-wrap: wrap;
++  align-items: center;
++  gap: var(--pm6-space-2);
++}
++
++.chipAccent,
++.chipMuted {
++  display: inline-flex;
++  align-items: center;
++  padding: 3px 10px;
++  border-radius: var(--pm6-radius-pill);
++  border: 1px solid transparent;
++  font-size: 0.6875rem;
++  font-weight: 600;
++  letter-spacing: 0.02em;
++  white-space: nowrap;
++}
++
++.chipAccent {
++  background: var(--pm6-accent-tint);
++  border-color: color-mix(in srgb, var(--pm6-accent) 28%, transparent);
++  color: var(--pm6-accent);
++}
++
++.chipMuted {
++  background: var(--pm6-surface-sunken);
++  border-color: var(--pm6-border);
++  color: var(--pm6-muted-strong);
++}
++
++/* Context sheet opener — only on single-column layouts (<900). */
+ .lpsToggle {
+   display: none;
+   align-items: center;
++  justify-content: center;
+   border-radius: var(--pm6-radius-pill);
+   border: 1px solid var(--pm6-border-strong);
+   background: var(--pm6-surface);
+   color: var(--pm6-ink-soft);
+-  padding: 9px 16px;
+-  font-size: 0.85rem;
++  padding: 6px 14px;
++  font: inherit;
++  font-size: 0.75rem;
+   font-weight: 600;
+   cursor: pointer;
++  transition: background 120ms ease, border-color 120ms ease;
+ }
+
+-.durabilityHint {
+-  margin: 0;
+-  border-radius: var(--pm6-radius-md);
+-  border: 1px solid var(--pm6-border-soft);
+-  background: var(--pm6-canvas-raised);
+-  padding: var(--pm6-space-3) var(--pm6-space-4);
+-  font-size: 0.83rem;
+-  line-height: 1.55;
+-  color: var(--pm6-muted-strong);
++.lpsToggle:hover {
++  background: var(--pm6-surface-sunken);
++  border-color: var(--pm6-ink-soft);
+ }
+
+-/* ---------- layout — Option A: Journal | Conversation | Pilotage ---------- */
++/* ---------- tabs ---------- */
+
+-.layout {
+-  display: grid;
+-  grid-template-columns: minmax(0, 1fr) var(--pm6-lps-width);
++.tabs {
++  display: flex;
++  align-items: flex-end;
+   gap: var(--pm6-space-5);
+-  align-items: start;
++  overflow-x: auto;
++  scrollbar-width: none;
+ }
+
+-.journalColumn {
++.tabs::-webkit-scrollbar {
+   display: none;
++}
++
++.tab {
++  position: relative;
++  margin: 0;
++  padding: 8px 0 10px;
++  border: 0;
++  background: transparent;
++  font: inherit;
++  font-size: 0.8125rem;
++  font-weight: 500;
++  color: var(--pm6-muted-strong);
++  cursor: pointer;
++  white-space: nowrap;
++  transition: color 120ms ease;
++}
++
++.tab::after {
++  content: "";
++  position: absolute;
++  inset-inline: 0;
++  bottom: -1px;
++  height: 2px;
++  border-radius: 2px 2px 0 0;
++  background: transparent;
++  transition: background 120ms ease;
++}
++
++.tab:hover:not(:disabled) {
++  color: var(--pm6-ink);
++}
++
++.tab[data-selected="true"] {
++  color: var(--pm6-ink);
++  font-weight: 600;
++}
++
++.tab[data-selected="true"]::after {
++  background: var(--pm6-ink);
++}
++
++.tab:disabled,
++.tab[aria-disabled="true"] {
++  color: var(--pm6-muted-ghost);
++  cursor: not-allowed;
++}
++
++.tab:focus-visible,
++.lpsToggle:focus-visible,
++.lpsClose:focus-visible,
++.errorCta:focus-visible,
++.breadcrumbLink:focus-visible {
++  outline: none;
++  box-shadow: var(--pm6-focus-ring);
++  border-radius: var(--pm6-radius-sm);
++}
++
++/* ---------- body layout: conversation | context ---------- */
++
++.layout {
++  flex: 1 1 auto;
+   min-width: 0;
++  display: grid;
++  grid-template-columns: minmax(0, 1fr);
++  align-items: start;
++  background: var(--pm6-body);
+ }
+
+ .main {
+   display: flex;
+   flex-direction: column;
+-  gap: var(--pm6-space-5);
+   min-width: 0;
++  min-height: 0;
+ }
+
+-.conversation {
++/* Focus bar — 50px, top of the conversation column. */
++.focusBar {
++  position: sticky;
++  top: var(--ws-global-h);
++  z-index: 15;
++  box-sizing: border-box;
++  height: var(--ws-focus-h);
++  flex: 0 0 auto;
++  display: flex;
++  align-items: center;
++  gap: var(--pm6-space-3);
++  padding-inline: var(--ws-pad-x);
++  background: var(--pm6-focus-bar);
++  border-bottom: 1px solid var(--pm6-border);
+   min-width: 0;
+ }
+
+-.lpsColumn {
+-  position: sticky;
+-  top: 88px;
++.focusLabel {
++  flex: 0 0 auto;
++  display: inline-flex;
++  align-items: center;
++  gap: 6px;
++  font-size: 0.625rem;
++  font-weight: 600;
++  letter-spacing: 0.06em;
++  text-transform: uppercase;
++  color: var(--pm6-muted-faint);
++  white-space: nowrap;
++}
++
++.focusDot {
++  width: 6px;
++  height: 6px;
++  border-radius: var(--pm6-radius-pill);
++  background: var(--pm6-accent);
++}
++
++.focusTitle {
++  flex: 1 1 auto;
+   min-width: 0;
++  overflow: hidden;
++  text-overflow: ellipsis;
++  white-space: nowrap;
++  font-size: 0.8125rem;
++  font-weight: 600;
++  color: var(--pm6-ink);
+ }
+
+-/* Desktop large: three zones — Journal rail + dominant conversation + pilotage */
+-@media (min-width: 1200px) {
+-  .layout {
+-    grid-template-columns:
+-      var(--pm6-journal-width)
+-      minmax(620px, 1fr)
+-      var(--pm6-lps-width);
+-    gap: var(--pm6-space-4);
+-  }
++.focusCounts {
++  flex: 0 0 auto;
++  display: inline-flex;
++  align-items: center;
++  gap: var(--pm6-space-2);
++}
+
+-  .journalColumn {
+-    display: block;
+-    position: sticky;
+-    top: 88px;
+-  }
++.focusCount {
++  display: inline-flex;
++  align-items: center;
++  padding: 2px 9px;
++  border-radius: var(--pm6-radius-pill);
++  border: 1px solid var(--pm6-cream-border);
++  background: var(--pm6-cream);
++  font-size: 0.6875rem;
++  font-weight: 600;
++  color: var(--pm6-gold-strong);
++  white-space: nowrap;
+ }
+
+-/* ~1440: journal 270–290 · conversation ≥620 · rail 510–550 */
+-@media (min-width: 1400px) {
+-  .layout {
+-    grid-template-columns:
+-      clamp(270px, 18vw, 290px)
+-      minmax(620px, 1fr)
+-      clamp(510px, 32vw, 550px);
+-  }
++.durabilityHint {
++  margin: var(--pm6-space-4) var(--ws-pad-x) 0;
++  padding: var(--pm6-space-3) var(--pm6-space-4);
++  border-radius: var(--pm6-radius-md);
++  border: 1px solid var(--pm6-border-soft);
++  background: var(--pm6-canvas-raised);
++  font-size: 0.8125rem;
++  line-height: 1.55;
++  color: var(--pm6-muted-strong);
+ }
+
+-/* ~1600: journal 270–290 · conversation ≥650 · rail 550–600 */
+-@media (min-width: 1600px) {
+-  .layout {
+-    grid-template-columns:
+-      clamp(270px, 18vw, 290px)
+-      minmax(650px, 1fr)
+-      clamp(550px, 34vw, 600px);
+-  }
++.conversation {
++  flex: 1 1 auto;
++  min-width: 0;
++  box-sizing: border-box;
++  width: 100%;
++  max-width: 880px;
++  margin-inline: auto;
++  padding: var(--pm6-space-5) var(--ws-pad-x) 0;
+ }
+
+-/* Above 1024px the project state is always alongside the conversation. */
+-.lpsClosed,
+-.lpsOpen {
+-  display: block;
++/* ---------- context column (sticky, independent scroll) ---------- */
++
++.lpsColumn {
++  min-width: 0;
++  box-sizing: border-box;
++  display: flex;
++  flex-direction: column;
++  background: var(--pm6-canvas-raised);
++  border-left: 1px solid var(--pm6-border);
+ }
+
+ .lpsSheet {
++  flex: 1 1 auto;
++  min-height: 0;
+   display: flex;
+   flex-direction: column;
+-  gap: var(--pm6-space-3);
+-  max-height: calc(100vh - 120px);
++  gap: var(--pm6-space-4);
++  padding: var(--pm6-space-5) var(--pm6-space-4) var(--pm6-space-4);
+   overflow-y: auto;
++  overscroll-behavior: contain;
++}
++
++/* Close button only exists for the <900 sheet. */
++.lpsClose {
++  display: none;
++  align-self: flex-end;
++  border-radius: var(--pm6-radius-pill);
++  border: 1px solid var(--pm6-border-strong);
++  background: var(--pm6-surface);
++  color: var(--pm6-ink-soft);
++  padding: 6px 14px;
++  font: inherit;
++  font-size: 0.75rem;
++  font-weight: 600;
++  cursor: pointer;
+ }
+
+-/* H-01 Option A — unified piloting region (LPS + Trajectory presentation) */
++/* Pilotage region (lifecycle · LPS · routing · trajectory) — flat, not a card. */
+ .stateTrajectoryRegion {
+   display: flex;
+   flex-direction: column;
+   gap: var(--pm6-space-4);
+   min-width: 0;
+-  padding: var(--pm6-space-3);
+-  background: var(--pm6-canvas-raised);
+-  border: 1px solid var(--pm6-border);
+-  border-radius: var(--pm6-radius-lg);
++  padding: var(--pm6-space-4) 0 0;
++  border-top: 1px solid var(--pm6-border-soft);
+ }
+
+ .stateTrajectoryHead {
+   display: flex;
+   flex-direction: column;
+-  gap: var(--pm6-space-1);
++  gap: 4px;
+   padding: 0;
+ }
+
+ .stateTrajectoryEyebrow {
+   margin: 0;
+-  font-size: 0.7rem;
+-  font-weight: 700;
+-  letter-spacing: 0.1em;
++  font-size: 0.625rem;
++  font-weight: 500;
++  letter-spacing: 0.06em;
+   text-transform: uppercase;
+-  color: var(--pm6-forest);
++  color: var(--pm6-muted-faint);
+ }
+
+ .stateTrajectoryTitle {
+   margin: 0;
+-  font-size: 1.05rem;
++  font-size: 0.9375rem;
+   font-weight: 600;
++  line-height: 1.25;
+   color: var(--pm6-ink);
+ }
+
+ .stateTrajectoryNote {
+   margin: 0;
+-  font-size: 0.8rem;
++  font-size: 0.75rem;
+   line-height: 1.5;
+   color: var(--pm6-muted-strong);
+ }
+@@ -203,61 +498,144 @@
+   min-width: 0;
+ }
+
+-.lpsClose {
+-  display: none;
+-  align-self: flex-end;
+-  border-radius: var(--pm6-radius-pill);
+-  border: 1px solid var(--pm6-border-strong);
+-  background: var(--pm6-surface);
+-  color: var(--pm6-ink-soft);
+-  padding: 7px 15px;
+-  font-size: 0.82rem;
+-  font-weight: 600;
+-  cursor: pointer;
++/*
++ * Journal now lives in the context column (inside the sheet): stays visible and
++ * stacks with the rest. Kept as a class for the project-journal-column testid.
++ */
++.journalColumn {
++  display: flex;
++  flex-direction: column;
++  gap: var(--pm6-space-3);
++  min-width: 0;
++  padding-top: var(--pm6-space-4);
++  border-top: 1px solid var(--pm6-border-soft);
+ }
+
+-/* ---------- <1200: Journal always accessible (stack); conversation dominant ---------- */
+-/* CR-CJ-05 — no dead zone between 1025–1199 (was hidden until 1200). */
++/* ---------- ≥900: two columns, context sticky + own scroll ---------- */
+
+-@media (max-width: 1199px) {
++@media (min-width: 900px) {
+   .layout {
+-    grid-template-columns: minmax(0, 1fr);
++    grid-template-columns: minmax(0, 1fr) var(--ws-context-w);
++  }
++
++  .lpsColumn {
++    position: sticky;
++    top: var(--ws-global-h);
++    align-self: start;
++    height: calc(100vh - var(--ws-global-h));
++    max-height: calc(100vh - var(--ws-global-h));
++  }
++
++  /* Always visible alongside the conversation. */
++  .lpsClosed,
++  .lpsOpen {
++    display: flex;
++  }
++}
++
++/* ---------- <1200: compact geometry (context 280px) ---------- */
++
++@media (max-width: 1199px) {
++  .root {
++    --ws-context-w: 280px;
++    --ws-pad-x: 20px;
++  }
++
++  .lpsSheet {
++    padding: var(--pm6-space-4) var(--pm6-space-3);
+   }
+
++  /* Journal stays accessible in the context stack (no 900–1199 dead zone). */
+   .journalColumn {
+     display: block;
+-    position: static;
+-    order: -1;
++  }
++}
++
++/* ---------- ≥1200: full geometry (context 356px, roomy gutters) ---------- */
++
++@media (min-width: 1200px) {
++  .root {
++    --ws-context-w: 356px;
++    --ws-pad-x: 32px;
++  }
++
++  .lpsSheet {
++    padding: var(--pm6-space-5) var(--pm6-space-5) var(--pm6-space-4);
++  }
++}
++
++/* ---------- <900: single column; context as sheet ---------- */
++
++@media (max-width: 899px) {
++  .root {
++    --ws-pad-x: 16px;
+   }
+
+   .lpsToggle {
++    display: inline-flex;
++  }
++
++  .layout {
++    grid-template-columns: minmax(0, 1fr);
++  }
++
++  .lpsClosed {
+     display: none;
+   }
+
+-  .lpsClose {
++  .lpsOpen {
++    position: fixed;
++    inset: auto 0 0 0;
++    z-index: 60;
++    max-height: min(85vh, 760px);
++    border-left: 0;
++    border-top: 1px solid var(--pm6-border-strong);
++    border-radius: var(--pm6-radius-lg) var(--pm6-radius-lg) 0 0;
++    background: var(--pm6-canvas-raised);
++    box-shadow: 0 -12px 40px rgba(31, 26, 22, 0.18),
++      0 0 0 100vmax rgba(31, 26, 22, 0.32);
++    animation: lpsSheetIn 180ms ease-out;
++  }
++
++  .lpsOpen .lpsClose {
++    display: inline-flex;
++  }
++
++  .lpsOpen .lpsSheet {
++    padding: var(--pm6-space-4);
++  }
++
++  .conversation {
++    padding-top: var(--pm6-space-4);
++  }
++
++  .projectTitle {
++    font-size: 1.125rem;
++  }
++
++  .focusLabel {
+     display: none;
+   }
++}
+
+-  .lpsColumn {
+-    position: static;
+-    top: auto;
+-    width: auto;
+-    z-index: auto;
+-    background: transparent;
+-    border-left: none;
+-    box-shadow: none;
+-    padding: 0;
+-    overflow: visible;
++@keyframes lpsSheetIn {
++  from {
++    transform: translateY(16px);
++    opacity: 0;
++  }
++  to {
++    transform: translateY(0);
++    opacity: 1;
+   }
++}
+
+-  .lpsClosed,
+-  .lpsOpen {
+-    display: block;
++@media (max-width: 767px) {
++  .lpsToggle {
++    width: 100%;
+   }
+
+-  .lpsSheet {
+-    max-height: none;
+-    overflow: visible;
++  .projectChips {
++    width: 100%;
+   }
+ }
+
+@@ -269,6 +647,7 @@
+   align-items: flex-start;
+   gap: var(--pm6-space-3);
+   max-width: 620px;
++  margin: var(--pm6-space-6) var(--ws-pad-x, 24px);
+   border-radius: var(--pm6-radius-lg);
+   border: 1px solid var(--pm6-border);
+   background: var(--pm6-surface);
+@@ -280,7 +659,7 @@
+   margin: 0;
+   font-size: 1.35rem;
+   font-weight: 600;
+-  color: var(--pm6-forest);
++  color: var(--pm6-ink);
+ }
+
+ .errorBody {
+@@ -300,8 +679,8 @@
+   display: inline-flex;
+   align-items: center;
+   border-radius: var(--pm6-radius-pill);
+-  border: 1px solid var(--pm6-forest);
+-  background: var(--pm6-forest);
++  border: 1px solid var(--pm6-ink);
++  background: var(--pm6-ink);
+   color: var(--pm6-forest-ink);
+   padding: 10px 18px;
+   font-size: 0.88rem;
+@@ -309,13 +688,18 @@
+   text-decoration: none;
+ }
+
+-@media (max-width: 767px) {
+-  .projectTitle {
+-    font-size: 1.4rem;
+-  }
++.errorCta:hover {
++  background: var(--pm6-forest-hover);
++}
+
+-  .lpsToggle {
+-    width: 100%;
+-    justify-content: center;
++/* ---------- motion ---------- */
++
++@media (prefers-reduced-motion: reduce) {
++  .root,
++  .root * {
++    scroll-behavior: auto !important;
++    transition-duration: 0.01ms !important;
++    animation-duration: 0.01ms !important;
++    animation-iteration-count: 1 !important;
+   }
+ }
+diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx
+index 360ca32a..66af4db1 100644
+--- a/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx
++++ b/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx
+@@ -18,6 +18,17 @@ import { LpsSurface } from "./surfaces/LpsSurface";
+ import { RecoverySurface } from "./surfaces/RecoverySurface";
+ import { LifecycleSurface } from "./surfaces/LifecycleSurface";
+ import { TrajectorySurface } from "./surfaces/TrajectorySurface";
++import { lpsNextAction } from "./surfaces/LpsSurface";
++import {
++  ProjectContextShortcuts,
++  ProjectContextSummary,
++} from "./surfaces/ProjectContextSummary";
++import {
++  deriveAttentionItems,
++  deriveCycleSummary,
++  deriveTrajectoryNodes,
++  presentCurrentness,
++} from "./workspaceContextPresentation";
+ import {
+   projectAssistantActiveCycleWorkspaceAction,
+   projectAssistantConfirmReservationResolutionAction,
+@@ -28,6 +39,18 @@ import { ProjectWorkspaceRoutingPanelLazy } from "./surfaces/ProjectWorkspaceRou
+ import type { GetProjectResult, GetProjectSuccess } from "./types";
+ import styles from "./ProjectWorkspacePage.module.css";
+
++/** prefers-reduced-motion: no smooth scrolling for in-page jumps. */
++function scrollBehaviorPref(): ScrollBehavior {
++  if (
++    typeof window !== "undefined" &&
++    typeof window.matchMedia === "function" &&
++    window.matchMedia("(prefers-reduced-motion: reduce)").matches
++  ) {
++    return "auto";
++  }
++  return "smooth";
++}
++
+ /**
+  * CYCLE-RESERVATION-PILOTING-01 — explicit Pilot draft about one Reservation.
+  * Prefill only: the Pilot reads, edits and sends. NEVER auto-sent.
+@@ -118,7 +141,7 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
+
+   const focusConversation = useCallback(() => {
+     conversationRef.current?.scrollIntoView({
+-      behavior: "smooth",
++      behavior: scrollBehaviorPref(),
+       block: "start",
+     });
+     const input = conversationRef.current?.querySelector(
+@@ -158,7 +181,7 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
+     setJournalCollapsed(false);
+     const rail = document.querySelector("[data-testid='cycle-journal-rail']");
+     if (rail instanceof HTMLElement) {
+-      rail.scrollIntoView({ behavior: "smooth", block: "start" });
++      rail.scrollIntoView({ behavior: scrollBehaviorPref(), block: "start" });
+     }
+   }, []);
+
+@@ -273,11 +296,50 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
+         `[data-testid='cycle-journal-entry-${journalEntryId}']`,
+       );
+       if (el instanceof HTMLElement) {
+-        el.scrollIntoView({ behavior: "smooth", block: "nearest" });
++        el.scrollIntoView({ behavior: scrollBehaviorPref(), block: "nearest" });
+       }
+     }, 0);
+   };
+
++  const scrollToTestId = useCallback((testId: string) => {
++    const el = document.querySelector(`[data-testid='${testId}']`);
++    if (el instanceof HTMLElement) {
++      el.scrollIntoView({ behavior: scrollBehaviorPref(), block: "start" });
++      return true;
++    }
++    return false;
++  }, []);
++
++  /** Shortcut « Journal du cycle » — opens the existing Journal rail. */
++  const openJournal = useCallback(() => {
++    setLpsOpen(true);
++    setJournalCollapsed(false);
++    window.setTimeout(() => scrollToTestId("cycle-journal-rail"), 0);
++  }, [scrollToTestId]);
++
++  /** Shortcut « Historique » — the existing durable history surface. */
++  const openHistory = useCallback(() => {
++    setLpsOpen(true);
++    window.setTimeout(() => scrollToTestId("project-history-panel"), 0);
++  }, [scrollToTestId]);
++
++  /** Tab « Aperçu » — brings the project context panel into view. */
++  const openOverview = useCallback(() => {
++    setLpsOpen(true);
++    window.setTimeout(() => scrollToTestId("project-lps-column"), 0);
++  }, [scrollToTestId]);
++
++  /** Tab « Exécution » — jumps to the governed execution cards already in the conversation. */
++  const openExecution = useCallback(() => {
++    for (const id of [
++      "project-assistant-f3-contract",
++      "project-assistant-f3-prepare",
++      "project-assistant-panel",
++    ]) {
++      if (scrollToTestId(id)) return;
++    }
++  }, [scrollToTestId]);
++
+   if (!result) {
+     return (
+       <p className={styles.loading} data-testid="project-workspace-loading">
+@@ -320,95 +382,191 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
+     proposalSubjectOwnership === "UNKNOWN" ||
+     proposalSubjectOwnership === "OWNED";
+
++  const lifecycle = lifecycleProjection;
++  const decisionPending =
++    controller.activeProposal?.status === "DECISION_REQUIRED";
++  const currentness = presentCurrentness({
++    transcriptAvailability: controller.transcriptAvailability,
++    stateVersion: success.livingState.version,
++  });
++  const cycleSummary = deriveCycleSummary(lifecycle);
++  const attention = deriveAttentionItems({ decisionPending, lifecycle });
++  const trajectoryNodes = deriveTrajectoryNodes(lifecycle);
++  const focusTopic =
++    controller.journalEntries.find((e) => e.isCurrentTopic)?.title ?? null;
++  const nextAction = lpsNextAction(success.readiness.status);
++  const decisionCount = attention.some((a) => a.key === "decision") ? 1 : 0;
++  const reserveCount = lifecycle?.reservationSummary?.activeCount ?? 0;
++  const executionAvailable = Boolean(
++    controller.f3Prepare ||
++      controller.f3M3Resolved ||
++      controller.f3Execute ||
++      controller.durableEvidenceOutcome,
++  );
++
+   return (
+     <div className={styles.root} data-testid="project-principal">
+-      <header className={styles.projectHeader}>
+-        <div className={styles.projectHeaderText}>
+-          <h1 className={styles.projectTitle}>{success.project.name}</h1>
+-          <p className={styles.projectObjective}>{success.project.objective}</p>
+-        </div>
+-        <button
+-          type="button"
+-          className={styles.lpsToggle}
+-          data-testid="lps-drawer-toggle"
+-          aria-expanded={lpsOpen}
+-          onClick={() => setLpsOpen((open) => !open)}
++      <div
++        className={styles.globalHeader}
++        data-testid="project-global-header"
++      >
++        <nav className={styles.breadcrumb} aria-label="Fil d’Ariane">
++          <Link href="/studio" className={styles.breadcrumbLink}>
++            Projets
++          </Link>
++          <span className={styles.breadcrumbSep} aria-hidden>
++            /
++          </span>
++          <span className={styles.breadcrumbCurrent} aria-current="page">
++            {success.project.name}
++          </span>
++        </nav>
++        <span
++          className={styles.currentness}
++          data-tone={currentness.tone}
++          data-testid="project-currentness-chip"
++          title={currentness.detail}
+         >
+-          {lpsOpen
+-            ? "Masquer l'état et la trajectoire"
+-            : "État du projet / Trajectoire"}
+-        </button>
+-      </header>
++          {currentness.label}
++        </span>
++      </div>
+
+-      {continuity.kind === "restored_hint" ? (
+-        <p
+-          className={styles.durabilityHint}
+-          data-testid="project-auto-resume-hint"
++      <header className={styles.projectHeader} data-testid="project-header">
++        <div className={styles.projectHeaderRow}>
++          <div className={styles.projectHeaderText}>
++            <h1 className={styles.projectTitle}>{success.project.name}</h1>
++            <p className={styles.projectObjective}>
++              {success.project.objective}
++            </p>
++          </div>
++          <div className={styles.projectChips}>
++            {lifecycle?.selectedCycleInstanceId ? (
++              <>
++                <span className={styles.chipAccent}>{cycleSummary.label}</span>
++                {cycleSummary.statusLabel ? (
++                  <span className={styles.chipMuted}>
++                    {cycleSummary.statusLabel}
++                  </span>
++                ) : null}
++              </>
++            ) : null}
++            <button
++              type="button"
++              className={styles.lpsToggle}
++              data-testid="lps-drawer-toggle"
++              aria-expanded={lpsOpen}
++              onClick={() => setLpsOpen((open) => !open)}
++            >
++              {lpsOpen
++                ? "Masquer l'état et la trajectoire"
++                : "État du projet / Trajectoire"}
++            </button>
++          </div>
++        </div>
++        <nav
++          className={styles.tabs}
++          aria-label="Vues du projet"
++          data-testid="project-tabs"
+         >
+-          {continuity.message}
+-        </p>
+-      ) : null}
+-      {continuity.kind === "transcript_unavailable" ? (
+-        <RecoverySurface
+-          message={continuity.message}
+-          onRetryTranscript={() => {
+-            void controller.refreshConversationContinuity();
+-          }}
+-        />
+-      ) : null}
++          <button
++            type="button"
++            className={styles.tab}
++            data-selected="true"
++            aria-current="true"
++            data-testid="project-tab-conversation"
++            onClick={focusConversation}
++          >
++            Conversation
++          </button>
++          <button
++            type="button"
++            className={styles.tab}
++            data-selected="false"
++            data-testid="project-tab-overview"
++            onClick={openOverview}
++          >
++            Aperçu
++          </button>
++          <button
++            type="button"
++            className={styles.tab}
++            data-selected="false"
++            data-testid="project-tab-execution"
++            disabled={!executionAvailable}
++            aria-disabled={!executionAvailable}
++            title={
++              executionAvailable
++                ? undefined
++                : "Aucune exécution à afficher pour l’instant"
++            }
++            onClick={openExecution}
++          >
++            Exécution
++          </button>
++        </nav>
++      </header>
+
+       <div className={styles.layout} data-testid="project-workspace-layout">
+-        <div className={styles.journalColumn} data-testid="project-journal-column">
+-          <JournalSurface
+-            entries={controller.journalEntries}
+-            cycleInstanceId={controller.journalCycleInstanceId}
+-            reservationsCycleInstanceId={reservationCycleInstanceId}
+-            selectedEntryId={controller.selectedJournalEntryId}
+-            onSelectEntry={controller.setSelectedJournalEntryId}
+-            onViewExchanges={controller.focusJournalExchanges}
+-            onFocusTurn={controller.focusTranscriptTurn}
+-            transcriptMessages={controller.messages}
+-            collapsed={journalCollapsed}
+-            onToggleCollapsed={() => setJournalCollapsed((v) => !v)}
+-            reservations={cycleReservations}
+-            memoryTab={memoryTab}
+-            onMemoryTabChange={setMemoryTab}
+-            onTreatWithNora={treatReservationWithNora}
+-            onConfirmResolve={confirmReservationResolution}
+-            onConfirmDefer={confirmReservationDefer}
+-            onViewJournalSubject={viewJournalSubject}
+-            reservationBusyId={reservationBusyId}
+-            recommendations={cycleRecommendations}
+-            decisions={cycleDecisions}
+-            onResumeRecommendationInChat={resumeRecommendationInChat}
+-          />
+-          {reservationNotice ? (
++        <div className={styles.main} ref={conversationRef}>
++          <div className={styles.focusBar} data-testid="project-focus-bar">
++            <span className={styles.focusLabel}>
++              <span className={styles.focusDot} aria-hidden />
++              Focus actuel
++            </span>
++            <span className={styles.focusTitle}>
++              {focusTopic ??
++                (lifecycle?.selectedCycleInstanceId
++                  ? cycleSummary.label
++                  : "Conversation avec Nora")}
++            </span>
++            <span className={styles.focusCounts}>
++              {decisionCount > 0 ? (
++                <span className={styles.focusCount}>1 décision</span>
++              ) : null}
++              {reserveCount > 0 ? (
++                <span className={styles.focusCount}>
++                  {reserveCount} réserve{reserveCount > 1 ? "s" : ""}
++                </span>
++              ) : null}
++            </span>
++          </div>
++
++          {continuity.kind === "restored_hint" ? (
+             <p
+               className={styles.durabilityHint}
+-              data-testid="cycle-reservation-notice"
+-              role="status"
++              data-testid="project-auto-resume-hint"
+             >
+-              {reservationNotice}
++              {continuity.message}
+             </p>
+           ) : null}
+-        </div>
++          {continuity.kind === "transcript_unavailable" ? (
++            <RecoverySurface
++              message={continuity.message}
++              onRetryTranscript={() => {
++                void controller.refreshConversationContinuity();
++              }}
++            />
++          ) : null}
+
+-        <div className={styles.main} ref={conversationRef}>
+-          <div className={styles.conversation} data-testid="project-conversation-main">
++          <div
++            className={styles.conversation}
++            data-testid="project-conversation-main"
++          >
+             <ConversationSurface
+               controller={controller}
+               onConfirmReservationResolve={confirmReservationResolution}
+               reservationConfirmBusyId={reservationBusyId}
+             />
+           </div>
+-          <HistorySurface result={success} durableOutcome={durableOutcome} />
+         </div>
+
+-        <div
+-          className={[styles.lpsColumn, lpsOpen ? styles.lpsOpen : styles.lpsClosed].join(
+-            " ",
+-          )}
++        <aside
++          className={[
++            styles.lpsColumn,
++            lpsOpen ? styles.lpsOpen : styles.lpsClosed,
++          ].join(" ")}
+           data-testid="project-lps-column"
++          aria-label="Contexte du projet"
+         >
+           <div className={styles.lpsSheet}>
+             <button
+@@ -419,6 +577,16 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
+             >
+               Fermer
+             </button>
++
++            <ProjectContextSummary
++              cycle={cycleSummary}
++              focus={nextAction}
++              focusTopic={focusTopic}
++              currentness={currentness}
++              trajectory={trajectoryNodes}
++              attention={attention}
++            />
++
+             <section
+               className={styles.stateTrajectoryRegion}
+               data-testid="project-state-trajectory-region"
+@@ -431,10 +599,6 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
+                 <h2 className={styles.stateTrajectoryTitle}>
+                   État actuel et trajectoire
+                 </h2>
+-                <p className={styles.stateTrajectoryNote}>
+-                  L&apos;état actuel et la trajectoire sont regroupés ici pour
+-                  faciliter le pilotage.
+-                </p>
+               </header>
+               <div
+                 className={styles.stateTrajectoryStack}
+@@ -449,12 +613,7 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
+                   onOpenReservations={openReservationsTab}
+                   onTreatReservationWithNora={treatReservationWithNora}
+                   onEscalateTrajectory={() => {
+-                    const el = document.querySelector(
+-                      "[data-testid='w2-trajectory-panel']",
+-                    );
+-                    if (el instanceof HTMLElement) {
+-                      el.scrollIntoView({ behavior: "smooth", block: "start" });
+-                    }
++                    scrollToTestId("w2-trajectory-panel");
+                   }}
+                 />
+                 <LpsSurface result={success} />
+@@ -498,8 +657,53 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
+                 />
+               </div>
+             </section>
++
++            <div
++              className={styles.journalColumn}
++              data-testid="project-journal-column"
++            >
++              <JournalSurface
++                entries={controller.journalEntries}
++                cycleInstanceId={controller.journalCycleInstanceId}
++                reservationsCycleInstanceId={reservationCycleInstanceId}
++                selectedEntryId={controller.selectedJournalEntryId}
++                onSelectEntry={controller.setSelectedJournalEntryId}
++                onViewExchanges={controller.focusJournalExchanges}
++                onFocusTurn={controller.focusTranscriptTurn}
++                transcriptMessages={controller.messages}
++                collapsed={journalCollapsed}
++                onToggleCollapsed={() => setJournalCollapsed((v) => !v)}
++                reservations={cycleReservations}
++                memoryTab={memoryTab}
++                onMemoryTabChange={setMemoryTab}
++                onTreatWithNora={treatReservationWithNora}
++                onConfirmResolve={confirmReservationResolution}
++                onConfirmDefer={confirmReservationDefer}
++                onViewJournalSubject={viewJournalSubject}
++                reservationBusyId={reservationBusyId}
++                recommendations={cycleRecommendations}
++                decisions={cycleDecisions}
++                onResumeRecommendationInChat={resumeRecommendationInChat}
++              />
++              {reservationNotice ? (
++                <p
++                  className={styles.durabilityHint}
++                  data-testid="cycle-reservation-notice"
++                  role="status"
++                >
++                  {reservationNotice}
++                </p>
++              ) : null}
++            </div>
++
++            <HistorySurface result={success} durableOutcome={durableOutcome} />
+           </div>
+-        </div>
++
++          <ProjectContextShortcuts
++            onOpenJournal={openJournal}
++            onOpenHistory={openHistory}
++          />
++        </aside>
+       </div>
+     </div>
+   );
+diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts b/projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
+index b6ba5d62..a581711f 100644
+--- a/projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
++++ b/projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
+@@ -312,7 +312,14 @@ export function useProductConversation({
+   useEffect(() => {
+     const el = listRef.current;
+     if (!el || typeof el.scrollTo !== "function") return;
+-    el.scrollTo({ top: el.scrollHeight, behavior: "smooth" });
++    const reduceMotion =
++      typeof window !== "undefined" &&
++      typeof window.matchMedia === "function" &&
++      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
++    el.scrollTo({
++      top: el.scrollHeight,
++      behavior: reduceMotion ? "auto" : "smooth",
++    });
+   }, [
+     messages,
+     toolEvents,
+diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/product-tokens.css b/projects/sfia-studio/app/features/pre-m6-product-ui/product-tokens.css
+index 46718967..84f468d5 100644
+--- a/projects/sfia-studio/app/features/pre-m6-product-ui/product-tokens.css
++++ b/projects/sfia-studio/app/features/pre-m6-product-ui/product-tokens.css
+@@ -1,44 +1,47 @@
+ /**
+  * Pre-M6 Option A product presentation tokens.
+  *
+- * Visual reference: Penpot file 63bdc57a… pages 03 + 06 (W4-D).
++ * Visual reference: P3 Figma Workspace Desktop 46:2 (1440×1024) and responsive
++ * 190:44 / 190:306. Values converge on the P3 extraction (warm paper canvas,
++ * ink primary, Nora vermilion accent) — same `--pm6-` family, no second set.
+  * Prefixed `--pm6-` so this layer never collides with the legacy `--sfia-` set.
+- * Inter is the Penpot typography reference — system fallback only (no font files).
++ * Typography: the app already loads Inter via next/font (`--font-inter`); no
++ * additional font is introduced (Geist is not available in this repo).
+  */
+
+ :root {
+   --pm6-font: Inter, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+-  --pm6-canvas: #f3f1ec;
+-  --pm6-canvas-raised: #f7f5f0;
++  --pm6-canvas: #fffdf9;
++  --pm6-canvas-raised: #fbf7f2;
+   --pm6-surface: #ffffff;
+-  --pm6-surface-sunken: #faf9f6;
++  --pm6-surface-sunken: #fcf8f3;
+
+-  --pm6-forest: #0b3d2e;
+-  --pm6-forest-hover: #0f5540;
+-  --pm6-forest-tint: #e8f2ed;
+-  --pm6-forest-ink: #f4f8f6;
++  --pm6-forest: #1f1a16;
++  --pm6-forest-hover: #3a322b;
++  --pm6-forest-tint: #f3ede5;
++  --pm6-forest-ink: #fffdf9;
+
+   --pm6-cream: #fdf6e3;
+   --pm6-cream-border: #e8d9a8;
+   --pm6-gold: #a8791c;
+   --pm6-gold-strong: #7d5810;
+
+-  --pm6-ink: #1b2320;
+-  --pm6-ink-soft: #3d4a45;
+-  --pm6-muted: #6b7671;
+-  --pm6-muted-strong: #55605c;
++  --pm6-ink: #1f1a16;
++  --pm6-ink-soft: #3d352e;
++  --pm6-muted: #7f766d;
++  --pm6-muted-strong: #6f665e;
+
+-  --pm6-border: #e3ded4;
+-  --pm6-border-soft: #ece8e0;
+-  --pm6-border-strong: #d3ccbe;
++  --pm6-border: #e6ded5;
++  --pm6-border-soft: #eae2d9;
++  --pm6-border-strong: #d8cfc4;
+
+-  --pm6-danger: #a63329;
++  --pm6-danger: #b8432b;
+   --pm6-danger-tint: #fbeeec;
+   --pm6-warn: #8a5a12;
+   --pm6-warn-tint: #fdf1de;
+-  --pm6-ok: #1f6b4f;
+-  --pm6-ok-tint: #e7f3ed;
++  --pm6-ok: #157a55;
++  --pm6-ok-tint: #eef7f2;
+   --pm6-info: #1f4f6b;
+   --pm6-info-tint: #e7f1f6;
+
+@@ -47,10 +50,10 @@
+   --pm6-radius-lg: 16px;
+   --pm6-radius-pill: 999px;
+
+-  --pm6-shadow-card: 0 1px 2px rgba(27, 35, 32, 0.04),
+-    0 8px 24px rgba(27, 35, 32, 0.05);
+-  --pm6-shadow-raised: 0 2px 4px rgba(27, 35, 32, 0.06),
+-    0 16px 40px rgba(27, 35, 32, 0.08);
++  --pm6-shadow-card: 0 1px 2px rgba(31, 26, 22, 0.04),
++    0 8px 24px rgba(31, 26, 22, 0.05);
++  --pm6-shadow-raised: 0 2px 4px rgba(31, 26, 22, 0.06),
++    0 16px 40px rgba(31, 26, 22, 0.08);
+
+   --pm6-focus-ring: 0 0 0 3px color-mix(in srgb, var(--pm6-forest) 35%, transparent);
+
+@@ -67,4 +70,29 @@
+   --pm6-journal-width: 280px;
+   --pm6-content-max: 1180px;
+   --pm6-content-max-workspace: 1800px;
++
++  /* ---- P3 Workspace Desktop (46:2) additions ---- */
++  --pm6-rail: #f1ece5;
++  --pm6-rail-border: #e6ded5;
++  --pm6-body: #fbf7f2;
++  --pm6-border-faint: #eee7df;
++  --pm6-muted-faint: #978c81;
++  --pm6-muted-ghost: #a69a8e;
++  --pm6-accent: #d9563b;
++  --pm6-accent-tint: #fff0ea;
++  --pm6-focus-bar: #fcf8f3;
++
++  /* Geometry — Figma 1440×1024 */
++  --pm6-rail-width: 192px;
++  --pm6-global-header-h: 54px;
++  --pm6-context-width: 356px;
++  --pm6-focus-bar-h: 50px;
++}
++
++/* Responsive geometry: <1200 compact (rail ~160, context ~280). */
++@media (max-width: 1199px) {
++  :root {
++    --pm6-rail-width: 160px;
++    --pm6-context-width: 280px;
++  }
+ }
+diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.module.css b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.module.css
+index 45e471c5..dace45e1 100644
+--- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.module.css
++++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.module.css
+@@ -2,11 +2,13 @@
+   display: flex;
+   flex-direction: column;
+   gap: var(--pm6-space-4);
+-  background: var(--pm6-surface);
+-  border: 1px solid var(--pm6-border-soft);
+-  border-radius: var(--pm6-radius-lg);
+-  box-shadow: var(--pm6-shadow-card);
+-  padding: var(--pm6-space-5);
++  /* P3: flat transcript — the page column carries the surface, no card chrome. */
++  background: transparent;
++  border: 0;
++  border-radius: 0;
++  box-shadow: none;
++  padding: 0 0 var(--pm6-space-4);
++  min-width: 0;
+ }
+
+ /* ---------- top bar ---------- */
+@@ -62,9 +64,7 @@
+   flex-direction: column;
+   gap: var(--pm6-space-4);
+   min-height: 220px;
+-  max-height: 52vh;
+-  overflow-y: auto;
+-  padding-right: var(--pm6-space-2);
++  /* Page scrolls (composer is sticky); no inner scroll box. */
+ }
+
+ .threadEmpty {
+@@ -140,11 +140,14 @@
+   background: var(--pm6-surface-sunken);
+   border: 1px solid var(--pm6-border-soft);
+   border-top-left-radius: var(--pm6-radius-sm);
++  background: transparent;
++  border-color: transparent;
++  padding-inline: 0;
+ }
+
+ .turnMine .bubble {
+-  background: var(--pm6-forest-tint);
+-  border: 1px solid var(--pm6-forest-tint);
++  background: var(--pm6-rail);
++  border: 1px solid var(--pm6-border-soft);
+   border-top-right-radius: var(--pm6-radius-sm);
+ }
+
+@@ -648,6 +651,9 @@
+ /* ---------- composer ---------- */
+
+ .composer {
++  position: sticky;
++  bottom: 0;
++  z-index: 10;
+   display: flex;
+   flex-direction: column;
+   gap: var(--pm6-space-2);
+@@ -655,7 +661,7 @@
+   border: 1px solid var(--pm6-border);
+   background: var(--pm6-surface);
+   padding: var(--pm6-space-3);
+-  box-shadow: var(--pm6-shadow-card);
++  box-shadow: var(--pm6-shadow-raised);
+ }
+
+ .composerInput {
+@@ -688,15 +694,20 @@
+
+ .sendButton {
+   border-radius: var(--pm6-radius-pill);
+-  border: 1px solid var(--pm6-forest);
+-  background: var(--pm6-forest);
++  border: 1px solid var(--pm6-ink);
++  background: var(--pm6-ink);
+   color: var(--pm6-forest-ink);
++  transition: background 120ms ease;
+   padding: 9px 20px;
+   font-size: 0.87rem;
+   font-weight: 600;
+   cursor: pointer;
+ }
+
++.sendButton:hover:not(:disabled) {
++  background: var(--pm6-forest-hover);
++}
++
+ .sendButton:disabled {
+   opacity: 0.45;
+   cursor: not-allowed;
+@@ -742,3 +753,12 @@
+     flex: 1 1 100%;
+   }
+ }
++
++@media (prefers-reduced-motion: reduce) {
++  .root,
++  .root * {
++    scroll-behavior: auto !important;
++    transition-duration: 0.01ms !important;
++    animation-duration: 0.01ms !important;
++  }
++}
+diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LpsSurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LpsSurface.tsx
+index a931ef3c..7ea46c65 100644
+--- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LpsSurface.tsx
++++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LpsSurface.tsx
+@@ -4,6 +4,13 @@ import type { GetProjectSuccess } from "../types";
+ import { projectContextForDisplay } from "@/features/project-assistant/presentationLabels";
+ import styles from "./LpsSurface.module.css";
+
++/** Shared with the Workspace context panel — same wording, one source. */
++export function lpsNextAction(readinessStatus: string): string {
++  return readinessStatus === "NOT_READY"
++    ? "Poursuivre la qualification avec Nora, puis décider."
++    : "Poursuivre avec Nora — la préparation enregistrée reste à décider.";
++}
++
+ /**
+  * "ÉTAT DU PROJET" — durable projection only.
+  * Every line comes from getProjectRuntimeAction; nothing is inferred or invented.
+@@ -17,10 +24,7 @@ export function LpsSurface({ result }: { result: GetProjectSuccess }) {
+       ? `Avancement enregistré · état v${livingState.version}`
+       : "Projet ouvert · état initial enregistré";
+
+-  const nextAction =
+-    readiness.status === "NOT_READY"
+-      ? "Poursuivre la qualification avec Nora, puis décider."
+-      : "Poursuivre avec Nora — la préparation enregistrée reste à décider.";
++  const nextAction = lpsNextAction(readiness.status);
+
+   return (
+     <aside
+
+```
+
+======================================================================
+USEFUL DIFF — ROADMAP
+======================================================================
+```diff
+diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+index 4d7997d4..a8e53a4d 100644
+--- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
++++ b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+@@ -4,6 +4,7 @@
+ | --- | --- |
+ | **Rôle** | Roadmap **vivante** de convergence vers l’utilisation complète de la doctrine produit SFIA Studio v3 |
+ | **Statut** | **VALIDATED — ACTIVE LIVING ROADMAP** |
++| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S01 INTEGRATED DELIVERY** | 2026-10-05 Europe/Paris — **STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5 AUTHORIZED BY MORRIS / STARTED / IN PROGRESS — P5-S01 FIRST INTEGRATED PRODUCT VERTICAL SLICE LOCAL CANDIDATE** · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **8 — Delivery / implémentation** · Milestone **P5 — Integrated Delivery** · Slice **P5-S01** · CRITICAL · EVOL · Morris P5 AUTHORIZATION = **CONSUMED** · P4 = **CLOSED / FINAL REPOSITORY VERIFIED / FINAL TRUTH-SYNC INTEGRATED ON MAIN** (PR **#554** MERGED · main `04527bede4a3aad1853387b9eb39af3fe0615412` · CI **#676** / `37269800594` SUCCESS · Required Gate SUCCESS) · branche locale `delivery/sfia-studio-product-simplification-p5-s01-integrated-product-vertical-slice` · base `origin/main` @ `04527bede4a3aad1853387b9eb39af3fe0615412` · document = `projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md` · CURRENT CAPABILITY = **P5-S01 Workspace/Conversation + Product Semantic Context + Cognitive Routing D0 + P3 Visual Fidelity foundation** · REAL = **NOT AUTHORIZED** · R1/R2/R3 = **NOT STARTED** · READY FOR REAL = **NO** · runtime v3 = **NON ADOPTED** · project commit/push/PR/merge = **NOT AUTHORIZED this pass** · next after ChatGPT PASS = **MORRIS P5-S01 GIT INTEGRATION GATE** · **≠** P5 COMPLETE · **≠** P5 CLOSED · **≠** READY FOR MERGE |
+ | **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P4 FINAL REPOSITORY TRUTH-SYNC** | 2026-10-05 03:32:06 +0200 — **STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P4 FINAL REPOSITORY TRUTH-SYNC COMPLETE AS LOCAL CANDIDATE — READY FOR MORRIS P4 FINAL TRUTH-SYNC GIT INTEGRATION GATE** · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **14 — Post-merge / repository truth-sync** · Milestone **P4** · Pass **P4 FINAL REPOSITORY TRUTH-SYNC** · CRITICAL · EVOL/DOC · PR **#552 MERGED** · architecture merge `d0b4836046911731605883364d9cc3bef4ac3e7f` · post-merge CI **#672** SUCCESS · PR **#553 MERGED** · closure patch merge `17434de03585eb30d13d59d7ba5c249563f0b33c` · parents `d0b48360…` + `332ee04d…` · post-merge SFIA Studio CI run **#674** / `37250512824` = **SUCCESS** · Detect / Build / Unit tests / **Required Gate** = **SUCCESS** · P4 GLOBAL VALIDATED / INTEGRATED / POST-MERGE VERIFIED / CLOSED BY MORRIS = **YES** · P4 closure patch INTEGRATED ON MAIN = **YES** · P4 FINAL REPOSITORY VERIFICATION = **PASS** · P5 REQUALIFIED BY CHATGPT = **YES** · P5 Entry Contract = **DEFINED** · **P5 AUTHORIZED = NO** · **P5 STARTED = NO** · READY FOR REAL = **NO** · runtime v3 = **NON ADOPTED** · production router IMPLEMENTED = **NO** · REAL routing PROVEN = **NO** · document = `projects/sfia-studio/product-simplification/04-chat-first-product-simplification-semantic-projection-cognitive-architecture.md` · branche `docs/sfia-studio-p4-final-repository-truth-sync` · base `origin/main` @ `17434de03585eb30d13d59d7ba5c249563f0b33c` · prior handoff `5533a05cbfe334aee7c799ed74f7669ef1a08004` / blob `988967391fd9437355d90611c14aba1b3d74887a` · next = **ChatGPT P4 final truth-sync review** → **DISTINCT Morris truth-sync Git integration gate** (commit/push/PR) → DISTINCT merge → post-merge verify → **CURRENT MORRIS GATE = P5 AUTHORIZATION** (NOT CONSUMED) · **≠** P5 AUTHORIZED · **≠** P5 STARTED · **≠** READY FOR REAL · **≠** runtime v3 ADOPTED · **≠** project commit/push/PR/merge this pass · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT / `origin/main` / PR evidence** |
+ | **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P4 POST-MERGE VERIFICATION & CLOSURE** | 2026-10-05 02:49:04 +0200 — **STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P4 POST-MERGE VERIFICATION & CLOSURE COMPLETE AS LOCAL CANDIDATE — READY FOR MORRIS P4 CLOSURE PATCH GIT INTEGRATION GATE** · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **14 — Post-merge** · Milestone **P4 — SEMANTIC / PROJECTION / COGNITIVE ARCHITECTURE / TECHNICAL DELTA** · Pass **POST-MERGE VERIFICATION & CLOSURE** · CRITICAL · EVOL/DOC · PR **#552 MERGED** · merge `d0b4836046911731605883364d9cc3bef4ac3e7f` · parents `e19f8940…` + `e24747e1…` · post-merge SFIA Studio CI run **#672** / `37248128868` = **SUCCESS** · Detect / Build / Unit tests / **Required Gate** = **SUCCESS** · P4 GLOBAL VALIDATED BY MORRIS = **YES** · P4 INTEGRATED ON MAIN = **YES** · P4 POST-MERGE VERIFIED = **YES** · P4 CLOSED BY MORRIS = **YES** · P4 Exit Proof = **SATISFIED** · closure materialization = **LOCAL CANDIDATE** · closure patch INTEGRATED ON MAIN = **NO** · **P5 = NOT AUTHORIZED / NOT STARTED** (Entry Contract DEFINED by CLOSED P4 · DEFINED ≠ AUTHORIZED) · READY FOR REAL = **NO** · runtime v3 = **NON ADOPTED** · TARGET routing architecture = **VALIDATED / ADOPTED AS P4 TARGET CONTRACT** · production router IMPLEMENTED = **NO** · REAL routing PROVEN = **NO** · Cognitive Completion PROVEN = **NO** · document = `projects/sfia-studio/product-simplification/04-chat-first-product-simplification-semantic-projection-cognitive-architecture.md` · branche de clôture `docs/sfia-studio-chat-first-product-simplification-p4-post-merge-closure` · base `origin/main` @ `d0b4836046911731605883364d9cc3bef4ac3e7f` · prior handoff `59dbf0c2f5cfb804e3c21f83e94e56f688d91792` / blob `2f2b45206e71df859b6850b56c7ec8030c514dd2` · next = **ChatGPT P4 post-merge closure review** → **DISTINCT Morris closure-patch Git integration gate** (commit/push/PR) → DISTINCT merge → repository truth → **P5 REQUALIFICATION** → DISTINCT GO P5 if recommended · **≠** P5 AUTHORIZED · **≠** P5 STARTED · **≠** READY FOR REAL · **≠** runtime v3 ADOPTED · **≠** production router implemented · **≠** project commit/push/PR/merge this pass · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT / `origin/main` / PR evidence** |
+ | **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P4 GIT INTEGRATION AUTHORIZED / IN PROGRESS** | 2026-10-05 02:23:24 +0200 — **STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P4 GLOBAL VALIDATED BY MORRIS — GIT INTEGRATION AUTHORIZED / IN PROGRESS (COMMIT / PUSH / PR)** · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **15 — Capitalisation / REX** · Milestone **P4** · Pass **GIT INTEGRATION — COMMIT / PUSH / PR** · CRITICAL · EVOL/DOC · Morris Git Integration GO = **YES** (commit/push/PR) · MERGE = **NOT AUTHORIZED** · ChatGPT materialization/truth-sync review = **PASS** · prior handoff `db3b7b93723847629b9e46eef2ac6b343737a8a1` / blob `63829146f51b609fba31d0436a3e9a400b1a1869` · document P4 = VALIDATED DOCUMENTARY CANDIDATE · Roadmap truth-sync included · **P4 INTEGRATED = NO** · **P4 CLOSED = NO** · **P5 = NOT AUTHORIZED / NOT STARTED** · READY FOR REAL = **NO** · runtime v3 = **NON ADOPTED** · branche `docs/sfia-studio-chat-first-product-simplification-p4-semantic-projection-cognitive-architecture` · base `origin/main` @ `e19f89409a5eb717838b9d7bffdc8c3d2ee02b18` · next after PR = **ChatGPT PR review** → **DISTINCT MORRIS MERGE GATE** · **≠** P4 MERGED · **≠** P4 CLOSED · **≠** P5 AUTHORIZED · **CURRENT REPOSITORY TRUTH = RESOLVE FROM GIT / `origin/main` / PR evidence** |
+@@ -969,23 +970,23 @@ CRITICAL PATH:
+   → P2 — **VALIDATED BY MORRIS + INTEGRATED ON MAIN + POST-MERGE VERIFIED + CLOSED** (PR **#549** / merge `e99d9ad5…`)
+   → P3 — **VALIDATED BY MORRIS + INTEGRATED ON MAIN + POST-MERGE VERIFIED + CLOSED** (PR **#550** + closure **#551** / main `e19f8940…`)
+   → P4 — **GLOBAL VALIDATED BY MORRIS + INTEGRATED ON MAIN + POST-MERGE VERIFIED + CLOSED BY MORRIS** (PR **#552** / `d0b48360…` · CI **#672** SUCCESS) + **CLOSURE PATCH INTEGRATED** (PR **#553** / `17434de0…` · CI **#674** SUCCESS) · FINAL REPOSITORY VERIFICATION = **PASS**
+-  → CURRENT NEXT CAPABILITY — **MORRIS P5 AUTHORIZATION GATE** · P5 REQUALIFIED BY CHATGPT · Entry Contract DEFINED · P5 **NOT AUTHORIZED / NOT STARTED**
+-  → CURRENT STRUCTURAL STEP — STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P4 CLOSED + FINAL REPOSITORY VERIFIED → P5 REQUALIFIED BY CHATGPT → AWAITING DISTINCT MORRIS P5 AUTHORIZATION GATE · P1/P2/P3/P4 CLOSED · P5 Entry Contract DEFINED · P5 **≠** authorized · TARGET routing architecture validated/adopted as P4 target contract · production router **NOT IMPLEMENTED/PROVEN** · REAL **≠** authorized · runtime v3 **NON ADOPTED** · final truth-sync materialization LOCAL CANDIDATE · truth-sync patch **≠** on main yet
++  → CURRENT NEXT CAPABILITY — **P5-S01 FIRST INTEGRATED PRODUCT VERTICAL SLICE** (LOCAL CANDIDATE) · next Morris gate after ChatGPT PASS = **P5-S01 GIT INTEGRATION**
++  → CURRENT STRUCTURAL STEP — STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — **P5 AUTHORIZED / STARTED / IN PROGRESS** · P5-S01 Workspace/Conversation + Semantic Context + Cognitive Routing D0 + P3 Visual Fidelity foundation · P1/P2/P3/P4 **CLOSED** · P4 FINAL TRUTH-SYNC **ON MAIN** (PR **#554** / `04527bed…` · CI **#676** SUCCESS) · REAL **≠** authorized · R1/R2/R3 **NOT STARTED** · runtime v3 **NON ADOPTED** · project commit/push/PR/merge **≠** this pass
+   → DYNAMIC PRODUCT TRAJECTORY — requalify after each capability *(method invariant)*
+
+-CURRENT SIMPLIFICATION TRAJECTORY (living — P4 CLOSED / FINAL REPOSITORY VERIFIED · P5 REQUALIFIED · P5 NOT AUTHORIZED):
++CURRENT SIMPLIFICATION TRAJECTORY (living — P5 AUTHORIZED / IN PROGRESS · P5-S01 LOCAL CANDIDATE):
+   Axes: (1) Product Interaction Simplification · (2) HumanDecision Materiality · (3) Cognitive Reliability / Adaptive Model & Reasoning Strategy · (4) Chat-first Operating / Workspace / Semantic Architecture trajectory
+   P1 Cadrage — VALIDATED / INTEGRATED / POST-MERGE VERIFIED / CLOSED (PR #548 / merge `642a10c8…`)
+   → P2 Functional Operating Model — VALIDATED / INTEGRATED / POST-MERGE VERIFIED / CLOSED (PR #549 / merge `e99d9ad5…`)
+   → P3 Workspace / Interaction Architecture — VALIDATED / INTEGRATED / POST-MERGE VERIFIED / CLOSED (PR #550 + closure #551 / main `e19f8940…`)
+-  → P4 Semantic / Projection / Cognitive Architecture — GLOBAL VALIDATED / INTEGRATED / POST-MERGE VERIFIED / CLOSED BY MORRIS (PR #552 / `d0b48360…` · CI #672 SUCCESS) · closure patch INTEGRATED (PR #553 / `17434de0…` · CI #674 SUCCESS) · FINAL REPOSITORY VERIFICATION = PASS · final truth-sync materialization LOCAL CANDIDATE · truth-sync patch ≠ on main yet
+-  → P5 Integrated Delivery — REQUALIFIED BY CHATGPT · Entry Contract DEFINED by CLOSED P4 · **NOT AUTHORIZED** · **NOT STARTED**
++  → P4 Semantic / Projection / Cognitive Architecture — GLOBAL VALIDATED / INTEGRATED / POST-MERGE VERIFIED / CLOSED BY MORRIS (PR #552 / `d0b48360…` · CI #672 SUCCESS) · closure patch INTEGRATED (PR #553 / `17434de0…` · CI #674 SUCCESS) · FINAL TRUTH-SYNC INTEGRATED (PR #554 / `04527bed…` · CI #676 SUCCESS) · FINAL REPOSITORY VERIFICATION = PASS
++  → P5 Integrated Delivery — **AUTHORIZED BY MORRIS / STARTED / IN PROGRESS** · P5-S01 = **LOCAL CANDIDATE** · document `05-chat-first-product-simplification-integrated-delivery.md` · **≠** P5 COMPLETE / CLOSED
+   → P6 Global Integrated Product QA — NOT AUTHORIZED
+   → P7 Fresh Project End-to-End Product Replay — NOT AUTHORIZED · Project NOT SELECTED
+   → P8 Requalification — NOT AUTHORIZED
+-  TARGET routing architecture — VALIDATED / ADOPTED AS P4 TARGET CONTRACT (Strategy-first bounded · GPT-6 Luna / GPT-6.1 Sol / GPT-6 Astra · GPT-5.6 exits nominal TARGET) · exact production workload→model/effort mapping = implementation/evidence subject
+-  Production router IMPLEMENTED / REAL routing PROVEN / Cognitive Completion PROVEN — **NO**
+-  Trajectory-significant P4 conclusions (detail owned by P4 doc): one Product world · P3-capable frontend convergence · no new DS stack by default · deterministic NO-LLM path · object-native projections · Synthesis derived projection target · Deliverable ≠ Artifact · REAL-FIRST begins in P5 when separately authorized · PIB / Net Complexity part of Product Simplification success · no parallel architecture
++  TARGET routing architecture — VALIDATED / ADOPTED AS P4 TARGET CONTRACT · P5-S01 implements Strategy-first bounded routing D0 (GPT-6 Luna / GPT-6.1 Sol / GPT-6 Astra) · ZERO REAL · GPT-5.6 historical FREEZE
++  Production router REAL PROVEN / Cognitive Completion PROVEN / READY FOR REAL — **NO**
++  Trajectory-significant P4 conclusions remain authority; P5 materializes them on the Product path without parallel architecture
+   → OPTIONAL CKC lessons → v2.6 capitalization — DISTINCT METHOD GATE — NOT DECIDED
+
+ M4 ARCHITECTURE GATE: CLOSED (D-M4-01→05)
+@@ -1027,8 +1028,8 @@ HISTORICAL / CONSUMED (W2-era tip): NEXT CONVERGENCE CAPABILITY was W2 TRACK D /
+ HISTORICAL / SUPERSEDED (P2 CP01 living tip): CURRENT STRUCTURAL STEP was P2 CHECKPOINT 01 CORRECTION PASS 01 COMPLETE — P2 AUTHORIZED/IN PROGRESS — P2 NOT VALIDATED — P3→P8 NOT AUTHORIZED — production model routing NOT SELECTED — Pilot–Nora–Studio semantic TARGET FOR P4 *(true then)*
+ HISTORICAL / CONSUMED / SUPERSEDED: NEXT MORRIS GATE AFTER REQUALIFICATION was "selection / authorization of a future Studio capability — NOT STARTED" — SUPERSEDED by D-SIMP-01 (capability selected = Product Simplification C1)
+ HISTORICAL / SUPERSEDED (P2 CP01 living tip): CURRENT MORRIS GATE was CHATGPT CLOSURE REVIEW CHECKPOINT 01 *(true then)*
+-CURRENT STRUCTURAL STEP: STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P4 CLOSED + FINAL REPOSITORY VERIFIED → P5 REQUALIFIED BY CHATGPT → AWAITING DISTINCT MORRIS P5 AUTHORIZATION GATE — P1/P2/P3/P4 CLOSED — P5 Entry Contract DEFINED — P5 NOT AUTHORIZED / NOT STARTED — TARGET routing architecture VALIDATED / ADOPTED AS P4 TARGET CONTRACT — production router NOT IMPLEMENTED/PROVEN — REAL NOT AUTHORIZED — runtime v3 NON ADOPTED — READY FOR REAL NO — P4 closure patch INTEGRATED ON MAIN (PR #553) — final truth-sync materialization LOCAL CANDIDATE — truth-sync patch NOT INTEGRATED ON MAIN
+-CURRENT MORRIS GATE: P5 AUTHORIZATION — PENDING / NOT CONSUMED · prior P4 gates (validation / git integration / merge #552 / closure / closure-patch merge #553) CONSUMED · ChatGPT P5 requalification COMPLETED · ≠ P5 AUTHORIZED · ≠ P5 STARTED · ≠ READY FOR REAL · ≠ runtime v3 ADOPTED · ≠ truth-sync commit/push/PR this pass
++CURRENT STRUCTURAL STEP: STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — **P5 AUTHORIZED / STARTED / IN PROGRESS** — P5-S01 FIRST INTEGRATED PRODUCT VERTICAL SLICE LOCAL CANDIDATE — Workspace/Conversation + Semantic Context + Cognitive Routing D0 + P3 Visual Fidelity foundation — P1/P2/P3/P4 CLOSED — P4 FINAL TRUTH-SYNC ON MAIN (PR #554 / `04527bed…` / CI #676 SUCCESS) — REAL NOT AUTHORIZED — R1/R2/R3 NOT STARTED — runtime v3 NON ADOPTED — READY FOR REAL NO — project commit/push/PR/merge NOT AUTHORIZED this pass
++CURRENT MORRIS GATE (after ChatGPT P5-S01 PASS): **P5-S01 GIT INTEGRATION** (commit + project branch push + PR only) · MORRIS P5 AUTHORIZATION = **CONSUMED** · REAL gate = **NOT CONSUMED** · MERGE gate = **NOT CONSUMED** · ≠ P5 COMPLETE · ≠ READY FOR REAL · ≠ runtime v3 ADOPTED
+ M6 / M7: HISTORICAL MILESTONES — SUPERSEDED / ABSORBED BY PRODUCT COMPLETION — traces conservées
+ CKC COVERAGE: corpus Studio-native INTEGRATED · Phase A package-bound INTEGRATED via W1 · Phase B ≠ complete · `15` non structurel
+ CKC→V2.6 CAPITALIZATION: FUTURE OPTION — DISTINCT METHOD GATE — NOT DECIDED — Studio doctrine remains v3-exclusive
+@@ -1045,7 +1046,7 @@ MAJOR GAP TREATMENT: ADOPTED AS OPTION A SCOPE (F1 entry · nav · workspace ·
+ W1 ROADMAP REPOSITORY TRUTH: SATISFIED — PR #396 MERGED — PUSH/MAIN CI 32591909031 SUCCESS
+ HISTORICAL / CONSUMED (duplicate W2-era tip block): NEXT REPO GATE / NEXT PRODUCT GATE / NEXT CONVERGENCE CAPABILITY Track D Phase B — CONSUMED by PR #403 + W2 CLOSED + subsequent W3/W4/PC trajectory
+ HISTORICAL / SUPERSEDED (repeat tip): CURRENT STRUCTURAL STEP was P2 CHECKPOINT 01 CORRECTION PASS 01 COMPLETE — P2 NOT VALIDATED — P3→P8 NOT AUTHORIZED — production routing NOT SELECTED *(true then)*
+-CURRENT STRUCTURAL STEP (repeat for local block coherence): STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P4 CLOSED + FINAL REPOSITORY VERIFIED → P5 REQUALIFIED BY CHATGPT → AWAITING MORRIS P5 AUTHORIZATION GATE — P1/P2/P3/P4 CLOSED — P5 NOT AUTHORIZED / NOT STARTED — TARGET routing VALIDATED / ADOPTED AS P4 TARGET CONTRACT — production router NOT PROVEN — runtime v3 NON ADOPTED — closure patch ON MAIN via PR #553 — truth-sync patch NOT ON MAIN
++CURRENT STRUCTURAL STEP (repeat for local block coherence): STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5 AUTHORIZED / STARTED / IN PROGRESS — P5-S01 LOCAL CANDIDATE — P1/P2/P3/P4 CLOSED — PR #554 ON MAIN (`04527bed…`) — REAL NOT AUTHORIZED — runtime v3 NON ADOPTED — next gate after ChatGPT PASS = MORRIS P5-S01 GIT INTEGRATION
+ M6 / M7: HISTORICAL / SUPERSEDED / ABSORBED — not forward milestones
+ CKC COVERAGE: catalogue applicable evolvable — Phase A integrated · Phase B downstream — current 15-type baseline is a measure, not a structural invariant
+ CKC→V2.6 CAPITALIZATION: FUTURE OPTION — DISTINCT METHOD GATE — NOT DECIDED — Studio doctrine remains v3-exclusive
+@@ -1202,7 +1203,7 @@ Ne pas mettre à jour pour chaque micro-commit sans impact de trajectoire.
+ - HISTORICAL / CONSUMED (post-C1 tip): NEXT PRODUCT GATE was **POST-MERGE REPO COHERENCE → MORRIS GATE FOR C2 EXECUTION** *(later CONSUMED by C2 PR #369)*
+ - HISTORICAL / CONSUMED (post-C1 tip): NEXT CAPABILITY was **Cycle 2 — Conception fonctionnelle — RECOMMENDED / NOT AUTHORIZED** *(later VALIDATED / INTEGRATED)*
+ - HISTORICAL / SUPERSEDED (living tip): CURRENT STRUCTURAL STEP was P2 CHECKPOINT 01 CORRECTION PASS 01 COMPLETE · P2 AUTHORIZED/IN PROGRESS · P2 NOT VALIDATED · P3→P8 NOT AUTHORIZED · production model routing NOT SELECTED · Pilot–Nora–Studio technical architecture NOT ADOPTED *(true then)*
+-- CURRENT STRUCTURAL STEP (living tip): **STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P4 GLOBAL VALIDATED BY MORRIS — GIT INTEGRATION AUTHORIZED / IN PROGRESS (COMMIT / PUSH / PR)** · P1/P2/P3 **CLOSED** · P4 **GLOBAL VALIDATED** · P4 **NOT INTEGRATED** · P4 **NOT CLOSED** · MERGE **NOT AUTHORIZED** · P5 Entry Contract **DEFINED** · P5 **NOT AUTHORIZED / NOT STARTED** · TARGET routing architecture **VALIDATED IN P4** · production router **NOT IMPLEMENTED/PROVEN** · REAL **NOT AUTHORIZED** · runtime v3 **NON ADOPTED** · READY FOR REAL **NO** · document `product-simplification/04-chat-first-product-simplification-semantic-projection-cognitive-architecture.md` · next after PR = **ChatGPT PR review** → **DISTINCT Morris merge gate**
++- CURRENT STRUCTURAL STEP (living tip): **STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5 AUTHORIZED BY MORRIS / STARTED / IN PROGRESS — P5-S01 LOCAL CANDIDATE** · P1/P2/P3/P4 **CLOSED** · P4 FINAL TRUTH-SYNC **ON MAIN** (PR **#554** / `04527bed…` / CI **#676** SUCCESS) · CURRENT CAPABILITY = **P5-S01** Workspace/Conversation + Semantic Context + Cognitive Routing D0 + P3 Visual Fidelity foundation · document `product-simplification/05-chat-first-product-simplification-integrated-delivery.md` · REAL **NOT AUTHORIZED** · R1/R2/R3 **NOT STARTED** · runtime v3 **NON ADOPTED** · READY FOR REAL **NO** · next after ChatGPT PASS = **MORRIS P5-S01 GIT INTEGRATION GATE** · **≠** P5 COMPLETE · **≠** READY FOR MERGE
+ - D-PRE-M6-UX-05 : Freeze `uUdLBElF2B4dOefaAYt4QY` · handoff `69106c82024158889f77e9d31508a222ea5f3a0f` / blob `3593ddbdc286cd244790f0ca1d2c421128202c5c` · **ADOPTED AS PRE-M6 VISUAL REFERENCE ON MAIN**
+ - CKC coverage : current **4/15** detailed pilots + **11/15** synthetic fallback · target = 100 % du catalogue applicable · `15` non structurel · optional later v2.6 capitalization under distinct method gate
+ - Audit handoff historique : `sfia/review-handoff` @ `c5b417dc13fa3700787d28571e5b5abe0599ae98` / `31a5db07fba2555a59ee8c65ad76b537bbd8a73d`
+
+```
