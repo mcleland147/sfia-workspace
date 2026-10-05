@@ -78,7 +78,7 @@ Same as §6 — exactly 3 versionable project files.
 | `gpt-6.1-sol` | `low` | **PASS** |
 | `gpt-6-astra` | `low` | **PASS** |
 
-Status: **PROVEN AT TESTED SCOPE** (historical; retained)
+Status: **R1 PASS** — **PROVEN AT TESTED SCOPE** (historical; retained)
 
 ## 13. R2 evidence
 
@@ -87,7 +87,7 @@ Status: **PROVEN AT TESTED SCOPE** (historical; retained)
 | R2-A | Routine | `gpt-6-luna` / `low` | `gpt-6-luna` / `low` | **PASS** |
 | R2-B | High-Assurance | `gpt-6.1-sol` / `high` | `gpt-6.1-sol` / `high` | **PASS** |
 
-Status: **PROVEN AT TESTED SCOPE** (historical; retained)
+Status: **R2 PASS** — **PROVEN AT TESTED SCOPE** (historical; retained)
 
 ## 14. selected == actual proof
 
