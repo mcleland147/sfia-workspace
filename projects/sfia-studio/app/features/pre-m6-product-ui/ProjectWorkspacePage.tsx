@@ -23,6 +23,13 @@ import {
   ProjectContextShortcuts,
   ProjectContextSummary,
 } from "./surfaces/ProjectContextSummary";
+import { OverviewSurface } from "./surfaces/OverviewSurface";
+import { ExecutionSurface } from "./surfaces/ExecutionSurface";
+import {
+  deriveExecutionTabBadge,
+  presentPilotExecution,
+  type PilotExecutionPresentation,
+} from "./surfaces/pilotExecutionPresentation";
 import {
   deriveAttentionItems,
   deriveCycleSummary,
@@ -34,10 +41,17 @@ import {
   projectAssistantConfirmReservationResolutionAction,
   projectAssistantDeferReservationAction,
 } from "@/features/project-assistant/actions";
+import {
+  w2DeriveGovernedExecutionContinuityAction,
+  w2ReadCurrentGovernedExecutionContinuityAction,
+} from "@/features/project-assistant/w2/actions";
 import type { PilotLifecycleProjection } from "@/lib/oa/cycle/application/lifecycleProjection";
 import { ProjectWorkspaceRoutingPanelLazy } from "./surfaces/ProjectWorkspaceRoutingPanel";
 import type { GetProjectResult, GetProjectSuccess } from "./types";
 import styles from "./ProjectWorkspacePage.module.css";
+
+/** Ephemeral presentation view — never persisted as Product state. */
+type WorkspaceView = "conversation" | "overview" | "execution";
 
 /** prefers-reduced-motion: no smooth scrolling for in-page jumps. */
 function scrollBehaviorPref(): ScrollBehavior {
@@ -88,6 +102,9 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
   const [durableOutcome, setDurableOutcome] =
     useState<ProjectAssistantRehydrateEvidenceOutcomeSuccess | null>(null);
   const [lpsOpen, setLpsOpen] = useState(false);
+  const [activeView, setActiveView] = useState<WorkspaceView>("conversation");
+  const [executionPresentation, setExecutionPresentation] =
+    useState<PilotExecutionPresentation | null>(null);
   const [journalCollapsed, setJournalCollapsed] = useState(false);
   const [trajectoryRefreshSignal, setTrajectoryRefreshSignal] = useState(0);
   /** B1 — bump so LifecycleSurface reloads after Trajectory (or other) durable mutations. */
@@ -139,15 +156,42 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
     };
   }, [projectId]);
 
+  /** Badge honesty — read canonical continuity without inventing a count. */
+  useEffect(() => {
+    let cancelled = false;
+    void (async () => {
+      const [derived, current] = await Promise.all([
+        w2DeriveGovernedExecutionContinuityAction({ projectId }),
+        w2ReadCurrentGovernedExecutionContinuityAction({ projectId }),
+      ]);
+      if (cancelled) return;
+      setExecutionPresentation(
+        presentPilotExecution({
+          continuityProjection: derived,
+          preExecutionContinuity: current.ok ? current : null,
+        }),
+      );
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [projectId]);
+
   const focusConversation = useCallback(() => {
-    conversationRef.current?.scrollIntoView({
-      behavior: scrollBehaviorPref(),
-      block: "start",
-    });
-    const input = conversationRef.current?.querySelector(
-      "[data-testid='project-assistant-input']",
-    );
-    if (input instanceof HTMLTextAreaElement) input.focus();
+    setActiveView("conversation");
+    window.setTimeout(() => {
+      const node = conversationRef.current;
+      if (node && typeof node.scrollIntoView === "function") {
+        node.scrollIntoView({
+          behavior: scrollBehaviorPref(),
+          block: "start",
+        });
+      }
+      const input = node?.querySelector(
+        "[data-testid='project-assistant-input']",
+      );
+      if (input instanceof HTMLTextAreaElement) input.focus();
+    }, 0);
   }, []);
 
   const controller = useProductConversation({
@@ -312,6 +356,9 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
 
   /** Shortcut « Journal du cycle » — opens the existing Journal rail. */
   const openJournal = useCallback(() => {
+    // Overview hides the permanent context rail — restore Conversation layout
+    // so Journal remains reachable without a second Product model.
+    setActiveView("conversation");
     setLpsOpen(true);
     setJournalCollapsed(false);
     window.setTimeout(() => scrollToTestId("cycle-journal-rail"), 0);
@@ -319,26 +366,31 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
 
   /** Shortcut « Historique » — the existing durable history surface. */
   const openHistory = useCallback(() => {
+    setActiveView("conversation");
     setLpsOpen(true);
     window.setTimeout(() => scrollToTestId("project-history-panel"), 0);
   }, [scrollToTestId]);
 
-  /** Tab « Aperçu » — brings the project context panel into view. */
+  /** Tab « Aperçu » — real object-native orientation projection (not scroll-only). */
   const openOverview = useCallback(() => {
-    setLpsOpen(true);
-    window.setTimeout(() => scrollToTestId("project-lps-column"), 0);
-  }, [scrollToTestId]);
+    setActiveView("overview");
+    // Keep the optional context sheet closed by default so Aperçu remains the
+    // main projection (especially on mobile, where the sheet would cover it).
+    setLpsOpen(false);
+  }, []);
 
-  /** Tab « Exécution » — jumps to the governed execution cards already in the conversation. */
+  /** Tab « Exécution » — real governed-execution projection (not scroll-only). */
   const openExecution = useCallback(() => {
-    for (const id of [
-      "project-assistant-f3-contract",
-      "project-assistant-f3-prepare",
-      "project-assistant-panel",
-    ]) {
-      if (scrollToTestId(id)) return;
-    }
-  }, [scrollToTestId]);
+    setActiveView("execution");
+    setLpsOpen(false);
+  }, []);
+
+  const handleExecutionPresentationChange = useCallback(
+    (presentation: PilotExecutionPresentation) => {
+      setExecutionPresentation(presentation);
+    },
+    [],
+  );
 
   if (!result) {
     return (
@@ -397,15 +449,19 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
   const nextAction = lpsNextAction(success.readiness.status);
   const decisionCount = attention.some((a) => a.key === "decision") ? 1 : 0;
   const reserveCount = lifecycle?.reservationSummary?.activeCount ?? 0;
-  const executionAvailable = Boolean(
-    controller.f3Prepare ||
-      controller.f3M3Resolved ||
-      controller.f3Execute ||
-      controller.durableEvidenceOutcome,
-  );
+  const executionBadge =
+    executionPresentation != null
+      ? deriveExecutionTabBadge(executionPresentation)
+      : null;
+  /** Overview owns its composition — no permanent sibling context rail. */
+  const showContextRail = activeView !== "overview";
 
   return (
-    <div className={styles.root} data-testid="project-principal">
+    <div
+      className={styles.root}
+      data-testid="project-principal"
+      data-active-view={activeView}
+    >
       <div
         className={styles.globalHeader}
         data-testid="project-global-header"
@@ -450,29 +506,32 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
                 ) : null}
               </>
             ) : null}
-            <button
-              type="button"
-              className={styles.lpsToggle}
-              data-testid="lps-drawer-toggle"
-              aria-expanded={lpsOpen}
-              onClick={() => setLpsOpen((open) => !open)}
-            >
-              {lpsOpen
-                ? "Masquer l'état et la trajectoire"
-                : "État du projet / Trajectoire"}
-            </button>
+            {showContextRail ? (
+              <button
+                type="button"
+                className={styles.lpsToggle}
+                data-testid="lps-drawer-toggle"
+                aria-expanded={lpsOpen}
+                onClick={() => setLpsOpen((open) => !open)}
+              >
+                {lpsOpen
+                  ? "Masquer l'état et la trajectoire"
+                  : "État du projet / Trajectoire"}
+              </button>
+            ) : null}
           </div>
         </div>
         <nav
           className={styles.tabs}
           aria-label="Vues du projet"
           data-testid="project-tabs"
+          data-active-view={activeView}
         >
           <button
             type="button"
             className={styles.tab}
-            data-selected="true"
-            aria-current="true"
+            data-selected={activeView === "conversation" ? "true" : "false"}
+            aria-current={activeView === "conversation" ? "true" : undefined}
             data-testid="project-tab-conversation"
             onClick={focusConversation}
           >
@@ -481,7 +540,8 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
           <button
             type="button"
             className={styles.tab}
-            data-selected="false"
+            data-selected={activeView === "overview" ? "true" : "false"}
+            aria-current={activeView === "overview" ? "true" : undefined}
             data-testid="project-tab-overview"
             onClick={openOverview}
           >
@@ -490,76 +550,117 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
           <button
             type="button"
             className={styles.tab}
-            data-selected="false"
+            data-selected={activeView === "execution" ? "true" : "false"}
+            aria-current={activeView === "execution" ? "true" : undefined}
             data-testid="project-tab-execution"
-            disabled={!executionAvailable}
-            aria-disabled={!executionAvailable}
-            title={
-              executionAvailable
-                ? undefined
-                : "Aucune exécution à afficher pour l’instant"
-            }
             onClick={openExecution}
           >
             Exécution
+            {executionBadge != null ? (
+              <span
+                className={styles.tabBadge}
+                data-testid="project-tab-execution-badge"
+              >
+                {executionBadge}
+              </span>
+            ) : null}
           </button>
         </nav>
       </header>
 
-      <div className={styles.layout} data-testid="project-workspace-layout">
+      <div
+        className={[
+          styles.layout,
+          activeView === "overview" ? styles.layoutOverview : "",
+        ]
+          .filter(Boolean)
+          .join(" ")}
+        data-testid="project-workspace-layout"
+        data-layout={activeView === "overview" ? "overview" : "split"}
+      >
         <div className={styles.main} ref={conversationRef}>
-          <div className={styles.focusBar} data-testid="project-focus-bar">
-            <span className={styles.focusLabel}>
-              <span className={styles.focusDot} aria-hidden />
-              Focus actuel
-            </span>
-            <span className={styles.focusTitle}>
-              {focusTopic ??
-                (lifecycle?.selectedCycleInstanceId
-                  ? cycleSummary.label
-                  : "Conversation avec Nora")}
-            </span>
-            <span className={styles.focusCounts}>
-              {decisionCount > 0 ? (
-                <span className={styles.focusCount}>1 décision</span>
-              ) : null}
-              {reserveCount > 0 ? (
-                <span className={styles.focusCount}>
-                  {reserveCount} réserve{reserveCount > 1 ? "s" : ""}
+          {activeView === "conversation" ? (
+            <>
+              <div className={styles.focusBar} data-testid="project-focus-bar">
+                <span className={styles.focusLabel}>
+                  <span className={styles.focusDot} aria-hidden />
+                  Focus actuel
                 </span>
+                <span className={styles.focusTitle}>
+                  {focusTopic ??
+                    (lifecycle?.selectedCycleInstanceId
+                      ? cycleSummary.label
+                      : "Conversation avec Nora")}
+                </span>
+                <span className={styles.focusCounts}>
+                  {decisionCount > 0 ? (
+                    <span className={styles.focusCount}>1 décision</span>
+                  ) : null}
+                  {reserveCount > 0 ? (
+                    <span className={styles.focusCount}>
+                      {reserveCount} réserve{reserveCount > 1 ? "s" : ""}
+                    </span>
+                  ) : null}
+                </span>
+              </div>
+
+              {continuity.kind === "restored_hint" ? (
+                <p
+                  className={styles.durabilityHint}
+                  data-testid="project-auto-resume-hint"
+                >
+                  {continuity.message}
+                </p>
               ) : null}
-            </span>
-          </div>
+              {continuity.kind === "transcript_unavailable" ? (
+                <RecoverySurface
+                  message={continuity.message}
+                  onRetryTranscript={() => {
+                    void controller.refreshConversationContinuity();
+                  }}
+                />
+              ) : null}
 
-          {continuity.kind === "restored_hint" ? (
-            <p
-              className={styles.durabilityHint}
-              data-testid="project-auto-resume-hint"
-            >
-              {continuity.message}
-            </p>
+              <div
+                className={styles.conversation}
+                data-testid="project-conversation-main"
+              >
+                <ConversationSurface
+                  controller={controller}
+                  onConfirmReservationResolve={confirmReservationResolution}
+                  reservationConfirmBusyId={reservationBusyId}
+                />
+              </div>
+            </>
           ) : null}
-          {continuity.kind === "transcript_unavailable" ? (
-            <RecoverySurface
-              message={continuity.message}
-              onRetryTranscript={() => {
-                void controller.refreshConversationContinuity();
-              }}
+
+          {activeView === "overview" ? (
+            <OverviewSurface
+              projectId={projectId}
+              projectName={success.project.name}
+              cycle={cycleSummary}
+              focus={nextAction}
+              focusTopic={focusTopic}
+              currentness={currentness}
+              trajectory={trajectoryNodes}
+              attention={attention}
+              onOpenConversation={focusConversation}
+              onOpenJournal={openJournal}
+              onOpenHistory={openHistory}
             />
           ) : null}
 
-          <div
-            className={styles.conversation}
-            data-testid="project-conversation-main"
-          >
-            <ConversationSurface
-              controller={controller}
-              onConfirmReservationResolve={confirmReservationResolution}
-              reservationConfirmBusyId={reservationBusyId}
+          {activeView === "execution" ? (
+            <ExecutionSurface
+              projectId={projectId}
+              onReturnToConversation={focusConversation}
+              onPresentationChange={handleExecutionPresentationChange}
+              onDurableFactsChanged={notifyDurableFactsChanged}
             />
-          </div>
+          ) : null}
         </div>
 
+        {showContextRail ? (
         <aside
           className={[
             styles.lpsColumn,
@@ -704,6 +805,7 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
             onOpenHistory={openHistory}
           />
         </aside>
+        ) : null}
       </div>
     </div>
   );

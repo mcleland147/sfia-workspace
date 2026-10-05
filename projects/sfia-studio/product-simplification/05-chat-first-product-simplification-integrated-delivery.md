@@ -5,29 +5,32 @@
 | **Projet** | SFIA Studio |
 | **Macro** | `STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01` |
 | **Milestone** | **P5 — INTEGRATED DELIVERY** (Delivery / Implementation / Evidence source) |
-| **Slice** | **P5-S01** (integrated) + **P5-S02 — Bounded REAL Product Cognitive Proof** |
-| **Pass** | **P5-S02 GIT INTEGRATION** — R1/R2 proof + Morris-accepted envelope deviation |
+| **Slice** | **P5-S01** + **P5-S02** (integrated) + **P5-S03 — Object-Native Product Views** |
+| **Pass** | **P5-S03 GIT INTEGRATION** — Object-Native Aperçu + Exécution (CP01+CP02) — **AUTHORIZED BY MORRIS / IN PROGRESS — NOT YET INTEGRATED** |
 | **Typologie** | Delivery evidence dans macro **EVOL** — **≠** doctrine · **≠** nouvelle architecture |
 | **Autorité architecture** | **P4** (`04-chat-first-product-simplification-semantic-projection-cognitive-architecture.md`) — **inchangée** |
 | **Branche S02** | `delivery/sfia-studio-product-simplification-p5-s02-bounded-real-r1-r2` |
-| **Base / HEAD Git** | `origin/main` = `8aaedfaea098827476157403cd0ba40a91ff7351` (PR **#555** merge) |
-| **P5-S01 integration** | PR **#555** **MERGED** · post-merge CI **#678** / `37288947823` **SUCCESS** · Required Gate **SUCCESS** · **INTEGRATED = YES** · **POST-MERGE VERIFIED = YES** |
+| **Base / HEAD Git** | `origin/main` = `1a7e80b20949a041b1edc279ffed735b04bda997` (PR **#556** merge) |
+| **P5-S01 integration** | PR **#555** **MERGED** · post-merge CI **#678** **SUCCESS** · **INTEGRATED / POST-MERGE VERIFIED** |
+| **P5-S02 integration** | PR **#556** **MERGED** · post-merge CI **#680** **SUCCESS** · Required Gate **SUCCESS** · **INTEGRATED / POST-MERGE VERIFIED** |
 | **Worktree** | `/Users/morris/Projects/sfia-studio-chat-first-product-simplification-p3` |
+| **Branche S03** | `delivery/sfia-studio-product-simplification-p5-s03-object-native-product-views` |
 | **P5 AUTHORIZED BY MORRIS** | **YES** |
 | **P5 STARTED** | **YES** |
 | **P5 IN PROGRESS** | **YES** |
-| **P5-S01** | **INTEGRATED / POST-MERGE VERIFIED** — D0 **PASS** · Visual **PASS WITH C/D RESERVES** · **A=0 / B=0** · B1 **CLOSED** |
-| **P5-S02** | **LOCAL CANDIDATE — GIT INTEGRATION IN PROGRESS** — R1/R2 **PROVEN AT TESTED SCOPE** · REAL envelope deviation **ACCEPTED BY MORRIS** |
+| **P5-S01** | **INTEGRATED / POST-MERGE VERIFIED** |
+| **P5-S02** | **INTEGRATED / POST-MERGE VERIFIED** — R1/R2 **PROVEN** · envelope deviation **ACCEPTED BY MORRIS** |
+| **P5-S03** | **LOCAL CANDIDATE — CRITICAL REVIEW PASS — GIT INTEGRATION AUTHORIZED BY MORRIS — NOT YET INTEGRATED** · CP01/CP02 closed at local candidate scope · A=0/B=0 · C-actionable=0 · content-honesty preserved |
 | **R1 / R2 / R3** | **R1 PASS** · **R2 PASS** · **R3 NOT STARTED** |
-| **ZERO REAL** | **historical for S01** — S02 used bounded REAL OpenAI (ledger in Review Pack) |
+| **ZERO REAL** | **YES for S03** — S02 used bounded REAL historically |
 | **READY FOR REAL** | **NO** (R3 / broader REAL gates not authorized) |
 | **runtime v3** | **NON ADOPTED** |
-| **Git (S02 pass)** | commit/push/PR **AUTHORIZED** under Git Integration Gate · merge **NOT AUTHORIZED** |
+| **Git (S03 pass)** | **AUTHORIZED** — commit/push/PR · **NO** merge · **NO** auto-merge |
 | **Langue** | Français (identifiants canoniques anglais préservés) |
 | **Fichier** | `projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md` |
 | **Date** | 2026-10-05 · Europe/Paris |
 
-> **Lecture rapide.** P5-S01 est **intégré sur main** (PR #555 / CI #678). P5-S02 prouve **R1 + R2 REAL** sur le **même Product path** (router-selected Model×Effort observé jusqu’à la frontière Agents/Responses). **≠ R3** · **≠ P5 COMPLETE** · **≠ runtime v3 ADOPTED** · **≠ PIXEL-PERFECT**. F2 routing debt **OPEN**.
+> **Lecture rapide.** P5-S01 et P5-S02 sont **intégrés sur main** (PR #555 / #556). P5-S03 matérialise les vues object-native **Aperçu** et **Exécution** dans le même Espace projet, sans nouvelle persistence ni architecture parallèle. **≠ R3** · **≠ P5 COMPLETE** · **≠ runtime v3 ADOPTED** · **≠ Synthèses**. F2 routing debt **OPEN**.
 
 > **Règle de lecture des preuves.** *Implémenté* ≠ *prouvé* ≠ *intégré* ≠ *REAL*. Chaque affirmation ci-dessous est qualifiée par son niveau de preuve. Les résultats de tests/typecheck/lint/build sont ceux **rapportés par la passe de livraison** ; ce document n’en invente pas d’autres et ne les a pas ré-exécutés lors de sa rédaction.
 
@@ -729,11 +732,60 @@ Visual / Git historical notes above for Correction Pass 01 are **SUPERSEDED** by
 | Future REAL-cycle corrective rule | All local Product/setup preconditions **MUST** be validated before the first provider call when reasonably possible, so the REAL envelope is not spent before local setup viability is known |
 | Estimated spend hint (successful ledger) | ≈ **$0.043** |
 | Evidence | `.tmp-sfia-review/p5-s02-evidence.json` (scratch — not committed) |
-| Project Git | commit/push/PR authorized under **MORRIS P5-S02 GIT INTEGRATION GATE** · merge **NOT** authorized |
+| Project Git | **INTEGRATED** via PR **#556** MERGED · main `1a7e80b2…` · CI **#680** SUCCESS |
 
 ---
 
-## 32. Current verdict
+## 32. P5-S03 — Object-native Aperçu + Exécution (factual)
+
+| Item | Result |
+| --- | --- |
+| Morris P5-S03 delivery authorization | **CONSUMED** |
+| Morris P5-S03 CP01 authorization | **CONSUMED** |
+| Morris P5-S03 CP02 authorization | **CONSUMED** |
+| View navigation | Conversation / Aperçu / Exécution = **real surfaces** (no scroll-only nominal path) |
+| Aperçu sources | LPS / lifecycle / trajectory nodes / attention / durable history |
+| Exécution sources | `w2DeriveGovernedExecutionContinuityAction` + `w2ReadCurrentGovernedExecutionContinuityAction` |
+| Presentation adapter | `pilotExecutionPresentation` (presentation-only) |
+| CP01 Axis 1 | Durable Exécution action continuity — Confirm via `w2ConfirmExecutionContractAction` · Execute via authorize + reconciler · **CONFIRM ≠ EXECUTE** · fresh-mount E1–E6 |
+| CP01 Axis 2 | B1 Overview owns desktop composition (no permanent context rail) · B2 mobile shell hierarchy simplified |
+| CP02 Axis 1 | Mounted + remount reconcile continuity — `shouldContinueReconcileNominally` / `shouldAutoResumeReconcileOnRemount` / `nextReconcileContinueDelayMs` · `intent=continue` only after execute · C01–C10 |
+| CP02 Axis 2 | Actionable C polish (composer ~60px / Overview+Execution spacing) · **EXPECTED PRODUCT CONTENT VARIANCE** preserved (no fake EC/Synthèses/counts) |
+| New persistence / state machine / Product objects | **NONE** |
+| Architecture parallelism | **NONE** |
+| Synthesis surface | **NOT BUILT** (honest unavailable) |
+| Journal / Historique | **KEEP** — already durable object-native (not rebuilt) |
+| REAL calls | **0** |
+| Project Git | **NONE** this pass |
+
+---
+
+## 32bis. P5-S03 Correction Pass 01 — status (closed locally)
+
+| Axis | Status |
+| --- | --- |
+| Axis 1 durable action continuity | **CLOSED locally** — process-local F3 gates removed from Exécution · W2 path reused |
+| Axis 2 B1 Aperçu desktop | **CLOSED locally** — composition corrected vs 51:2 |
+| Axis 2 B2 mobile shell | **CLOSED locally** — shared hierarchy corrected across Product views |
+| A / B visual blockers | **A=0 / B=0** |
+
+---
+
+## 32ter. P5-S03 Correction Pass 02 — status
+
+| Axis | Status |
+| --- | --- |
+| Axis 1 execution reconcile continuity | **LOCAL CANDIDATE** — mounted continue + remount auto-resume via canonical W2 policy |
+| Axis 2 actionable C polish | **LOCAL CANDIDATE** — composer 358×64 / send 36×38 · spacing polish |
+| Content-honesty | **PRESERVED** — not unresolved visual debt |
+| A / B visual blockers | **A=0 / B=0** |
+| P5-S03 INTEGRATED | **NO** |
+| P5 COMPLETE | **NO** |
+| R3 / P6 / runtime v3 | **NOT STARTED / NO / NON ADOPTED** |
+
+---
+
+## 33. Current verdict
 
 ```text
 P5 AUTHORIZED BY MORRIS = YES
@@ -741,26 +793,31 @@ P5 STARTED              = YES
 P5 IN PROGRESS          = YES
 
 P5-S01 = INTEGRATED / POST-MERGE VERIFIED
-         (PR #555 MERGED · main 8aaedfae… · CI #678 SUCCESS)
-         D0 PASS · Visual PASS WITH C/D RESERVES · A=0/B=0 · B1 CLOSED
+         (PR #555 MERGED · CI #678 SUCCESS)
 
-P5-S02 = LOCAL CANDIDATE — R1/R2 PROVEN AT TESTED SCOPE
-         GOVERNANCE DEVIATION (≈10 vs ≤8) = ACCEPTED BY MORRIS
-         GIT INTEGRATION = IN PROGRESS
-         — NOT COMPLETE · R3 NOT STARTED
+P5-S02 = INTEGRATED / POST-MERGE VERIFIED
+         (PR #556 MERGED · main 1a7e80b2… · CI #680 SUCCESS)
+         R1/R2 PROVEN · envelope deviation ACCEPTED BY MORRIS
+
+P5-S03 = LOCAL CANDIDATE — CRITICAL REVIEW PASS
+         GIT INTEGRATION AUTHORIZED BY MORRIS
+         OBJECT-NATIVE APERÇU + EXÉCUTION
+         CP01 durable continuity CLOSED locally
+         CP02 reconcile continuity + C polish CLOSED locally
+         — NOT INTEGRATED · R3 NOT STARTED
 
 READY FOR REAL          = NO
 runtime v3              = NON ADOPTED
 P5 COMPLETE             = NO
 P6 READY                = NO
 
-NEXT                   = CHATGPT PR REVIEW / CI QUALIFICATION
-NEXT MORRIS GATE       = P5-S02 MERGE GATE (after ChatGPT + CI)
-NEXT CAPABILITY HINT   = object-native Product expansion (Aperçu / Exécution)
+NEXT                   = COMMIT / PUSH / PR → CHATGPT PR REVIEW + CI
+NEXT MORRIS GATE       = P5-S03 MERGE GATE (only after ChatGPT PR review + required CI green)
+NEXT CAPABILITY HINT   = subsequent P5 capability requalification / later R3 / P6
 ```
 
-**Synthèse honnête.** P5-S01 est sur main. P5-S02 prouve entitlement + router Product-path REAL. Déviation envelope ≈10 vs ≤8 **acceptée par Morris** (preuve technique retenues · pas de rerun REAL). **≠ R3 / ≠ P5 COMPLETE / ≠ runtime v3 ADOPTED**. **P4 reste l’autorité d’architecture**.
+**Synthèse honnête.** P5-S01/S02 sont sur main. P5-S03 projette Aperçu + Exécution depuis le monde Product existant, avec continuation W2 canonique et polish C borné. **≠ R3 / ≠ P5 COMPLETE / ≠ runtime v3 ADOPTED / ≠ Synthèses**. **P4 reste l’autorité d’architecture**.
 
 ---
 
-*Fin du document P5 — Integrated Delivery — P5-S02 Git Integration — R1/R2 PROVEN · GOVERNANCE DEVIATION ACCEPTED BY MORRIS · R3 NOT STARTED · READY FOR REAL = NO · runtime v3 NON ADOPTED · merge NOT authorized this pass — P4 remains architecture authority.*
+*Fin du document P5 — Integrated Delivery — P5-S03 Object-Native Views — S01/S02 INTEGRATED · S03 LOCAL CANDIDATE GIT INTEGRATION AUTHORIZED — NOT YET INTEGRATED · R3 NOT STARTED · READY FOR REAL = NO · runtime v3 NON ADOPTED — P4 remains architecture authority.*

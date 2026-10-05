@@ -290,6 +290,22 @@
   background: var(--pm6-ink);
 }
 
+.tabBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 16px;
+  height: 16px;
+  margin-left: 6px;
+  padding: 0 4px;
+  border-radius: var(--pm6-radius-pill);
+  background: var(--pm6-danger);
+  color: #fff;
+  font-size: 0.625rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
 .tab:disabled,
 .tab[aria-disabled="true"] {
   color: var(--pm6-muted-ghost);
@@ -315,6 +331,11 @@
   grid-template-columns: minmax(0, 1fr);
   align-items: start;
   background: var(--pm6-body);
+}
+
+/* Aperçu owns principal width — no permanent sibling context rail. */
+.layoutOverview {
+  grid-template-columns: minmax(0, 1fr);
 }
 
 .main {
@@ -518,6 +539,10 @@
     grid-template-columns: minmax(0, 1fr) var(--ws-context-w);
   }
 
+  .layoutOverview {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
   .lpsColumn {
     position: sticky;
     top: var(--ws-global-h);
@@ -526,7 +551,7 @@
     max-height: calc(100vh - var(--ws-global-h));
   }
 
-  /* Always visible alongside the conversation. */
+  /* Always visible alongside the conversation / exécution. */
   .lpsClosed,
   .lpsOpen {
     display: flex;
@@ -630,12 +655,61 @@
 }
 
 @media (max-width: 767px) {
-  .lpsToggle {
-    width: 100%;
+  /*
+   * B2 — shared mobile Project shell (P3 192:2 / 190:337):
+   * brand/user (ProductShell) → project title → subtitle → tabs → surface.
+   * Desktop chrome (breadcrumb, freshness badge, chip cluster, LPS pill)
+   * leaves the main vertical flow; facts remain reachable via Aperçu.
+   */
+  .globalHeader {
+    display: none;
+  }
+
+  .projectHeader {
+    min-height: 0;
+    padding-top: 12px;
+    gap: var(--pm6-space-2);
+  }
+
+  .projectHeaderRow {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .projectHeaderText {
+    flex: 1 1 auto;
+  }
+
+  .projectTitle {
+    font-size: 1.25rem;
+    line-height: 1.2;
+  }
+
+  .projectObjective {
+    -webkit-line-clamp: 2;
+    font-size: 0.8125rem;
   }
 
   .projectChips {
-    width: 100%;
+    display: none;
+  }
+
+  .tabs {
+    gap: var(--pm6-space-4);
+  }
+
+  .tab {
+    min-height: 38px;
+    padding: 10px 0 12px;
+    font-size: 0.875rem;
+  }
+
+  .lpsToggle {
+    display: none;
+  }
+
+  .focusBar {
+    display: none;
   }
 }
 

@@ -1418,10 +1418,10 @@ export function ConversationSurface({
           id={`${fieldId}-message`}
           className={styles.composerInput}
           data-testid="project-assistant-input"
-          rows={3}
+          rows={2}
           value={draft}
           disabled={busy || blocked}
-          placeholder="Décrivez ce que vous voulez accomplir…"
+          placeholder="Écrire à Nora…"
           aria-describedby={liveRegionId}
           onChange={(event) => setDraft(event.target.value)}
           onKeyDown={(event) => {
@@ -1464,7 +1464,10 @@ export function ConversationSurface({
               canSend ? "Envoyer le message à Nora" : "Envoi indisponible"
             }
           >
-            Envoyer
+            <span className={styles.sendLabelFull}>Envoyer</span>
+            <span className={styles.sendLabelCompact} aria-hidden="true">
+              ↑
+            </span>
           </button>
         </div>
         <p className={styles.composerCaption}>

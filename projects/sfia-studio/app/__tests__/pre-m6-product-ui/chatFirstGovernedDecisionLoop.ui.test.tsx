@@ -64,6 +64,31 @@ vi.mock("@/features/project-assistant/w2/actions", () => ({
   w2GovernedExecuteCompleteAction: vi.fn(),
   w2ReadActiveDecisionSubjectAction: (...args: unknown[]) =>
     readActiveDecisionSubjectMock(...args),
+  w2DeriveGovernedExecutionContinuityAction: vi.fn().mockResolvedValue({
+    ok: true,
+    projection: {
+      projectId: "prj:mock",
+      activeCycleInstanceId: null,
+      executionContractId: null,
+      executionContractVersion: null,
+      executionContractStatus: null,
+      attemptId: null,
+      attemptStatus: null,
+      stage: "PRE_EXECUTION",
+      productOutcome: null,
+      evidenceId: null,
+      reviewBundleId: null,
+      claimEvaluationId: null,
+      claimEvaluationStatus: null,
+      postEvidencePresent: false,
+      nextDeterministicAction: "NONE",
+      humanDecisionRequired: false,
+      recoveryRequired: false,
+      reason: null,
+      blockingCode: null,
+      context: null,
+    },
+  }),
   w2ReadCurrentGovernedExecutionContinuityAction: (...args: unknown[]) =>
     readGovernedExecutionContinuityMock(...args),
   w2ReadRecoveryExecutionBindingAction: (...args: unknown[]) =>
