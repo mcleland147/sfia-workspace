@@ -397,7 +397,9 @@ export async function orchestrateProjectAssistantTurn(input: {
 
   try {
     const turn = await runNoraCognitiveTurn({
-      correlationId: `f1:${project.projectId}`,
+      // P5-S01 — prefer durable logicalTurnId as stable cognitive task identity
+      // across tool rounds / retry / one escalation. Fallback keeps prior f1: key.
+      correlationId: logicalTurnId ?? `f1:${project.projectId}`,
       projectId: project.projectId,
       messages,
       provider,

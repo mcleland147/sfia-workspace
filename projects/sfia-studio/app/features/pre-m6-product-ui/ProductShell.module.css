@@ -1,7 +1,9 @@
+/* P3 Workspace Desktop 46:2 — Project Switcher Rail + main column. */
+
 .shell {
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: var(--pm6-rail-width) minmax(0, 1fr);
   background: var(--pm6-canvas);
   color: var(--pm6-ink);
   font-family: var(--pm6-font);
@@ -13,132 +15,269 @@
   box-shadow: var(--pm6-focus-ring);
 }
 
-.header {
+/* ---------- rail ---------- */
+
+.rail {
   position: sticky;
   top: 0;
-  z-index: 40;
-  background: color-mix(in srgb, var(--pm6-canvas-raised) 88%, transparent);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--pm6-border-soft);
+  align-self: start;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--pm6-rail);
+  border-right: 1px solid var(--pm6-rail-border);
+  z-index: 30;
 }
 
-.headerInner {
-  max-width: var(--pm6-content-max);
-  margin: 0 auto;
-  padding: var(--pm6-space-3) var(--pm6-space-5);
+/* Meridian emblem — decorative only (192×390 at y≈250, opacity ≈ 0.10). */
+.meridian {
+  position: absolute;
+  inset-inline: 0;
+  top: 250px;
+  height: 390px;
+  background-image: url("/branding/meridian-emblem-product.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  opacity: 0.1;
+  pointer-events: none;
+  user-select: none;
+}
+
+.railInner {
+  position: relative;
+  z-index: 1;
+  height: 100%;
   display: flex;
-  align-items: center;
-  gap: var(--pm6-space-5);
+  flex-direction: column;
+  gap: var(--pm6-space-4);
+  padding: var(--pm6-space-3) var(--pm6-space-2) var(--pm6-space-4);
+  overflow-y: auto;
 }
 
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: var(--pm6-space-3);
+  gap: 10px;
+  padding: var(--pm6-space-1) var(--pm6-space-2);
+  min-height: 30px;
   text-decoration: none;
   color: inherit;
 }
 
 .brandMark {
-  width: 34px;
-  height: 34px;
-  border-radius: var(--pm6-radius-md);
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
   background: var(--pm6-forest);
   color: var(--pm6-forest-ink);
   display: grid;
   place-items: center;
+  flex: 0 0 auto;
 }
 
 .brandGlyph {
   display: block;
 }
 
-.brandText {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.2;
+.brandGlyphLetter {
+  display: block;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.4px;
+  color: inherit;
 }
 
 .brandName {
-  font-size: 0.98rem;
-  font-weight: 600;
-  color: var(--pm6-forest);
-}
-
-.brandTagline {
-  font-size: 0.76rem;
-  color: var(--pm6-muted);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--pm6-ink);
+  white-space: nowrap;
 }
 
 .nav {
   display: flex;
-  align-items: center;
-  gap: var(--pm6-space-2);
-  margin-left: auto;
+  flex-direction: column;
+  gap: 2px;
 }
 
-.navPill {
-  display: inline-flex;
+.navItem {
+  display: flex;
   align-items: center;
-  padding: 7px 15px;
-  border-radius: var(--pm6-radius-pill);
-  border: 1px solid transparent;
-  font-size: 0.86rem;
+  gap: 8px;
+  padding: 7px var(--pm6-space-2);
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 500;
   color: var(--pm6-muted-strong);
   text-decoration: none;
   transition: background 120ms ease, color 120ms ease;
 }
 
-.navPill:hover {
-  background: var(--pm6-surface);
+.navItem:hover {
+  background: color-mix(in srgb, var(--pm6-border-soft) 55%, transparent);
   color: var(--pm6-ink);
 }
 
-.navPill[data-active="true"] {
-  background: var(--pm6-forest);
-  border-color: var(--pm6-forest);
-  color: var(--pm6-forest-ink);
+.navItem[data-active="true"] {
+  background: color-mix(in srgb, var(--pm6-border) 45%, transparent);
+  color: var(--pm6-ink);
 }
 
-.navPill[data-inert="true"] {
-  color: var(--pm6-muted);
-  cursor: default;
-}
-
-.navPill[data-inert="true"]:hover {
-  background: transparent;
-  color: var(--pm6-muted);
-}
-
-.avatar {
-  width: 34px;
-  height: 34px;
+.navDot {
+  width: 5px;
+  height: 5px;
   border-radius: var(--pm6-radius-pill);
-  background: var(--pm6-forest-tint);
-  border: 1px solid var(--pm6-border);
-  color: var(--pm6-forest);
-  display: grid;
-  place-items: center;
-  font-size: 0.85rem;
-  font-weight: 600;
+  background: var(--pm6-muted-ghost);
   flex: 0 0 auto;
+}
+
+.navItem[data-active="true"] .navDot,
+.recentsItem[data-active="true"] .navDot {
+  background: var(--pm6-ink);
+}
+
+/* ---------- recents ---------- */
+
+.recents {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm6-space-2);
+  min-height: 0;
+}
+
+.recentsTitle {
+  margin: 0;
+  padding-inline: var(--pm6-space-2);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--pm6-muted-faint);
+}
+
+.recentsList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.recentsItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 6px var(--pm6-space-2);
+  border-radius: 6px;
+  font-size: 0.75rem;
+  line-height: 1.25;
+  color: var(--pm6-muted-strong);
+  text-decoration: none;
+}
+
+.recentsItem .navDot {
+  margin-top: 5px;
+}
+
+.recentsItem:hover {
+  background: color-mix(in srgb, var(--pm6-border-soft) 55%, transparent);
+  color: var(--pm6-ink);
+}
+
+.recentsItem[data-active="true"] {
+  color: var(--pm6-ink);
+  font-weight: 500;
+}
+
+.recentsLabel {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.recentsEmpty {
+  margin: 0;
+  padding-inline: var(--pm6-space-2);
+  font-size: 0.6875rem;
+  line-height: 1.4;
+  color: var(--pm6-muted-faint);
+}
+
+.railFoot {
+  margin-top: auto;
+  padding-top: var(--pm6-space-3);
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px var(--pm6-space-2);
+  font-size: 0.75rem;
+  color: var(--pm6-muted-strong);
+}
+
+.profileDot {
+  width: 5px;
+  height: 5px;
+  border-radius: var(--pm6-radius-pill);
+  background: var(--pm6-muted-faint);
+}
+
+/* ---------- main column ---------- */
+
+.column {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .main {
   flex: 1;
+  min-width: 0;
   width: 100%;
+}
+
+/* Non-workspace pages (Projets, Nouveau projet): centered content column. */
+.mainPage {
   max-width: var(--pm6-content-max);
   margin: 0 auto;
-  padding: var(--pm6-space-6) var(--pm6-space-4) var(--pm6-space-7);
+  padding: var(--pm6-space-6) var(--pm6-space-5) var(--pm6-space-7);
 }
 
-.mainWide {
-  max-width: var(--pm6-content-max-workspace);
-  padding-inline: var(--pm6-space-4);
+/* Workspace: full-bleed — the page owns its global/project headers. */
+.mainWorkspace {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
 }
 
-.headerInnerWide {
-  max-width: var(--pm6-content-max-workspace);
+/* ---------- mobile topbar (hidden ≥768) ---------- */
+
+.mobileBar {
+  display: none;
+}
+
+.mobileNavLink {
+  margin-left: auto;
+  font-size: 0.8125rem;
+  color: var(--pm6-muted-strong);
+  text-decoration: none;
+}
+
+.mobileProfile {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--pm6-radius-pill);
+  background: var(--pm6-forest-tint);
+  border: 1px solid var(--pm6-border);
+  color: var(--pm6-ink);
+  display: grid;
+  place-items: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  flex: 0 0 auto;
 }
 
 .srOnly {
@@ -153,17 +292,30 @@
   border: 0;
 }
 
+/* <768 — rail collapses into a compact topbar (190:306). */
 @media (max-width: 767px) {
-  .headerInner {
-    padding: var(--pm6-space-3) var(--pm6-space-4);
-    gap: var(--pm6-space-3);
+  .shell {
+    grid-template-columns: minmax(0, 1fr);
   }
 
-  .brandTagline {
+  .rail {
     display: none;
   }
 
-  .main {
+  .mobileBar {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    display: flex;
+    align-items: center;
+    gap: var(--pm6-space-3);
+    height: var(--pm6-global-header-h);
+    padding-inline: var(--pm6-space-4);
+    background: var(--pm6-rail);
+    border-bottom: 1px solid var(--pm6-rail-border);
+  }
+
+  .mainPage {
     padding: var(--pm6-space-5) var(--pm6-space-4) var(--pm6-space-6);
   }
 }

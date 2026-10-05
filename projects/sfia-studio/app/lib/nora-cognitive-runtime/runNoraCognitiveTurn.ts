@@ -36,6 +36,13 @@ import {
 import { validateRuntimeReasoningCapability } from "./reasoningCapability";
 import { buildRunnerModelSettingsForEffort } from "./reasoningModelSettings";
 import {
+  decideCognitiveRouting,
+  type CognitiveRoutingDecision,
+} from "./cognitiveRoutingPolicy";
+import {
+  buildP5TargetCapabilityManifest,
+} from "@/lib/nora-eval/capabilityBudget";
+import {
   disposeContradiction,
   type ContradictionConflictInput,
 } from "./contradictionDisposition";
@@ -91,6 +98,7 @@ import type {
 } from "./campaignBudget";
 import type { NoraAgentsUsdAccounting } from "./agentsUsdAccounting";
 import type { OpenAiReasoningEffort } from "@/lib/platform/ai";
+import { TechnicalError } from "@/lib/platform/ai/errors";
 import type { Model } from "@openai/agents";
 
 /**
@@ -253,6 +261,43 @@ function emitCognitiveStrategyTelemetry(
   });
 }
 
+function emitCognitiveRoutingTelemetry(
+  sink: EventSink | undefined,
+  correlationId: string,
+  routing: CognitiveRoutingDecision,
+): void {
+  if (!sink) return;
+  sink.emit({
+    type: "COGNITIVE_ROUTING_SELECTED",
+    correlationId,
+    detail: {
+      routingDecisionId: routing.routingDecisionId,
+      cognitiveTaskId: routing.cognitiveTaskId,
+      strategyClass: routing.strategyClass,
+      selectedModel: routing.selectedModel,
+      selectedEffort: routing.selectedReasoningEffort,
+      reasoningMode: routing.reasoningMode,
+      qualityFloor: {
+        category: routing.qualityFloor.category,
+        minModelRank: routing.qualityFloor.minModelRank,
+        minEffortRank: routing.qualityFloor.minEffortRank,
+        reasonCodes: routing.qualityFloor.reasonCodes,
+      },
+      reasonCodes: routing.reasonCodes,
+      eligibleSummary: routing.eligibleConfigs.slice(0, 12).map((c) => ({
+        modelId: c.modelId,
+        reasoningEffort: c.reasoningEffort,
+      })),
+      escalationEligible: routing.escalationEligible,
+      maxEscalations: routing.maxEscalations,
+      providerCapabilitySnapshot: routing.providerSnapshotIdentity,
+      routingPolicyVersion: routing.policyVersion,
+      estimatedCostUsdHint: routing.estimatedCostUsdHint,
+      // Never emit Chain of Thought / private reasoning / fake confidence.
+    },
+  });
+}
+
 function resolveCognitiveStrategyForTurn(
   input: RunNoraCognitiveTurnInput,
 ): ReturnType<typeof decideCognitiveStrategy> | null {
@@ -286,20 +331,60 @@ function resolveCognitiveStrategyForTurn(
 
 function resolveEvalAgentsModel(
   input: RunNoraCognitiveTurnInput,
+  routing: CognitiveRoutingDecision | null,
 ): Model | string | undefined {
   const control = input.evalModelReasoningControl;
-  if (!control) return undefined;
-  if (control.agentsModel !== undefined) return control.agentsModel;
-  // Fake/completeRound providers keep adapter path — modelId remains Evidence identity.
-  if (input.provider && shouldUseProviderAgentsModelAdapter(input.provider)) {
-    return undefined;
+  if (control) {
+    if (control.agentsModel !== undefined) return control.agentsModel;
+    // Fake/completeRound providers keep adapter path — modelId remains Evidence identity.
+    if (input.provider && shouldUseProviderAgentsModelAdapter(input.provider)) {
+      return undefined;
+    }
+    return control.modelId;
   }
-  return control.modelId;
+
+  // P5 nominal Product path: router-owned model for live Agents; Fake keeps adapter.
+  if (routing) {
+    if (input.provider && shouldUseProviderAgentsModelAdapter(input.provider)) {
+      return undefined;
+    }
+    return routing.selectedModel;
+  }
+
+  return undefined;
+}
+
+function resolveProductCognitiveRouting(
+  input: RunNoraCognitiveTurnInput,
+  decision: ReturnType<typeof decideCognitiveStrategy> | null,
+): CognitiveRoutingDecision | null {
+  // Eval pin owns model×effort — no Product router arbitration.
+  if (input.evalModelReasoningControl) return null;
+  // Strategy skipped → no cognition routing (deterministic / isolated tests).
+  if (!decision) return null;
+
+  const cognitiveTaskId = input.correlationId.trim();
+  const routed = decideCognitiveRouting({
+    strategy: decision,
+    cognitiveTaskId,
+    signals: decision.normalizedSignals,
+  });
+
+  if (!routed.ok) {
+    throw new TechnicalError(
+      "CONFIG",
+      `P5 cognitive routing: aucune configuration suffisante (quality floor). Codes: ${routed.reasonCodes.join(", ")}`,
+    );
+  }
+
+  emitCognitiveRoutingTelemetry(input.sink, input.correlationId, routed);
+  return routed;
 }
 
 function resolveRunnerModelSettings(
   input: RunNoraCognitiveTurnInput,
   decision: ReturnType<typeof decideCognitiveStrategy> | null,
+  routing: CognitiveRoutingDecision | null,
 ): ReturnType<typeof buildRunnerModelSettingsForEffort> | undefined {
   const evalControl = input.evalModelReasoningControl;
   if (evalControl) {
@@ -310,8 +395,22 @@ function resolveRunnerModelSettings(
     return buildRunnerModelSettingsForEffort(evalControl.reasoningEffort);
   }
 
+  if (routing) {
+    const p5Manifest = buildP5TargetCapabilityManifest(
+      new Date().toISOString(),
+    );
+    validateRuntimeReasoningCapability(
+      routing.selectedModel,
+      routing.selectedReasoningEffort,
+      p5Manifest,
+    );
+    return buildRunnerModelSettingsForEffort(routing.selectedReasoningEffort);
+  }
+
   if (!decision) return undefined;
 
+  // Legacy fallback when strategy ran but routing was skipped (should be rare).
+  // OPENAI_MODEL remains TEMP WITH EXIT for non-routed paths / bootstrapping.
   const model =
     typeof input.provider?.providerId === "string" &&
     input.provider.providerId.startsWith("fake")
@@ -326,6 +425,7 @@ function withStrategyFields(
   turn: NoraCognitiveTurnResult,
   decision: ReturnType<typeof decideCognitiveStrategy> | null,
   evalControl?: NoraEvalModelReasoningControl,
+  routing?: CognitiveRoutingDecision | null,
 ): NoraCognitiveTurnResult {
   const base: NoraCognitiveTurnResult = {
     ...turn,
@@ -336,15 +436,24 @@ function withStrategyFields(
           selectedReasoningEffort: evalControl.reasoningEffort,
         }
       : {}),
+    ...(routing
+      ? {
+          selectedModelId: routing.selectedModel,
+          cognitiveRoutingDecisionId: routing.routingDecisionId,
+          cognitiveRoutingPolicyVersion: routing.policyVersion,
+        }
+      : {}),
   };
   if (!decision) return base;
   return {
     ...base,
     cognitiveStrategyClass: decision.strategyClass,
     cwpDerivedReasoningEffort: decision.reasoningEffort,
-    // Effective effort: eval pin wins; else CWP.
+    // Effective effort: eval pin wins; else P5 router; else CWP.
     selectedReasoningEffort:
-      evalControl?.reasoningEffort ?? decision.reasoningEffort,
+      evalControl?.reasoningEffort ??
+      routing?.selectedReasoningEffort ??
+      decision.reasoningEffort,
     criticalChallengeArmed: decision.criticalChallengeArmed,
   };
 }
@@ -444,12 +553,14 @@ function finalizeTurn(
   strategyDecision: ReturnType<typeof decideCognitiveStrategy> | null,
   mw4Grounding?: Mw4GroundingTurnSurface,
   mw6SourceIntelligence?: Mw6SourceIntelligenceSurface,
+  routing?: CognitiveRoutingDecision | null,
 ): NoraCognitiveTurnResult {
   const withMw3 = withMw3Fields(
     withStrategyFields(
       turn,
       strategyDecision,
       input.evalModelReasoningControl,
+      routing,
     ),
     input,
     strategyDecision,
@@ -670,7 +781,15 @@ export async function runNoraCognitiveTurn(
       strategyDecision,
     );
   }
-  const runnerModelSettings = resolveRunnerModelSettings(input, strategyDecision);
+  const routingDecision = resolveProductCognitiveRouting(
+    input,
+    strategyDecision,
+  );
+  const runnerModelSettings = resolveRunnerModelSettings(
+    input,
+    strategyDecision,
+    routingDecision,
+  );
 
   const system = input.messages.find((m) => m.role === "system");
   const userMessages = input.messages.filter((m) => m.role === "user");
@@ -739,7 +858,7 @@ export async function runNoraCognitiveTurn(
       sink: input.sink,
       enableTools: input.enableTools,
       provider: input.provider,
-      model: resolveEvalAgentsModel(input),
+      model: resolveEvalAgentsModel(input, routingDecision),
       runnerModelSettings,
       usdAccounting: input.usdAccounting,
       enableHostedWebSearch: attachHostedWebSearch,
@@ -822,6 +941,7 @@ export async function runNoraCognitiveTurn(
         strategyDecision,
         mw4,
         mw6,
+        routingDecision,
       ),
       // CORR-02B — factual hosted observation pass-through (no drop).
       ...(hostedSearchObserve ? { hostedSearchObserve } : {}),
@@ -907,7 +1027,7 @@ export async function runNoraCognitiveTurn(
       sink: input.sink,
       enableTools: input.enableTools,
       provider: input.provider,
-      model: resolveEvalAgentsModel(input),
+      model: resolveEvalAgentsModel(input, routingDecision),
       runnerModelSettings,
       usdAccounting: input.usdAccounting,
       enableHostedWebSearch: attachHostedWebSearch,
@@ -984,6 +1104,7 @@ export async function runNoraCognitiveTurn(
       strategyDecision,
       mw4Prep.surface ?? undefined,
       mw6,
+      routingDecision,
     );
 
     // Persist Evidence IDs claimed/accepted this turn (non-authoritative).

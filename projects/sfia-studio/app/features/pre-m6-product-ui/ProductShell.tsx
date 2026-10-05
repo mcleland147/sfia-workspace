@@ -1,107 +1,120 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
 import "./product-tokens.css";
+import { ProductRailRecents } from "./ProductRailRecents";
 import styles from "./ProductShell.module.css";
 
 export type ProductNav = "projects" | "current" | "new";
 
 export type ProductShellProps = {
   activeNav: ProductNav;
-  /** Href for the "Projet courant" pill; omitted when no project is open. */
+  /**
+   * Href of the open project (workspace route). Used only to highlight the
+   * matching entry in « Projets récents »; omitted when no project is open.
+   */
   currentProjectHref?: string;
   children: ReactNode;
 };
 
+function BrandMark() {
+  // P3 Figma 46:5 — ink square + “S” mark (not a decorative network glyph).
+  return (
+    <span className={styles.brandMark} aria-hidden>
+      <span className={styles.brandGlyphLetter}>S</span>
+    </span>
+  );
+}
+
 /**
- * Self-contained Pre-M6 product shell (brand header + canvas).
- * `studio-shell` is kept as the stable E2E anchor for the shell root.
+ * Pre-M6 product shell — P3 Figma rail layout (Workspace Desktop 46:2).
+ *
+ * Left Project Switcher Rail (192px; 160px <1200; hidden <768 → compact
+ * topbar, 190:306) + main area for children. `studio-shell` is kept as the
+ * stable E2E anchor for the shell root.
+ *
+ * Honesty rules: « Projets récents » only lists real projects (client read of
+ * the existing list action); the profile entry is labelled « Pilote » — no
+ * personal persona is hardcoded. The Meridian emblem is decorative only.
  */
 export function ProductShell({
   activeNav,
   currentProjectHref,
   children,
 }: ProductShellProps) {
-  const currentHref = currentProjectHref ?? null;
-
   return (
-    <div className={styles.shell} data-testid="studio-shell">
-      <header className={styles.header}>
-        <div className={[
-          styles.headerInner,
-          activeNav === "current" ? styles.headerInnerWide : "",
-        ].filter(Boolean).join(" ")}>
+    <div
+      className={styles.shell}
+      data-testid="studio-shell"
+      data-nav={activeNav}
+    >
+      <aside
+        className={styles.rail}
+        data-testid="studio-rail"
+        aria-label="Sélecteur de projet"
+      >
+        <div
+          className={styles.meridian}
+          data-testid="studio-rail-meridian"
+          aria-hidden
+        />
+
+        <div className={styles.railInner}>
           <Link href="/studio" className={styles.brand}>
-            <span className={styles.brandMark} aria-hidden>
-              <svg
-                className={styles.brandGlyph}
-                viewBox="0 0 24 24"
-                width="18"
-                height="18"
-                fill="none"
-              >
-                <circle cx="6" cy="12" r="2.2" fill="currentColor" />
-                <circle cx="12" cy="6.5" r="2.2" fill="currentColor" />
-                <circle cx="18" cy="12" r="2.2" fill="currentColor" />
-                <path
-                  d="M7.7 11.2 L10.4 7.8 M13.6 7.8 L16.3 11.2"
-                  stroke="currentColor"
-                  strokeWidth="1.4"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </span>
-            <span className={styles.brandText}>
-              <span className={styles.brandName}>SFIA Studio</span>
-              <span className={styles.brandTagline}>Pilotage assisté</span>
-            </span>
+            <BrandMark />
+            <span className={styles.brandName}>SFIA Studio</span>
           </Link>
 
           <nav className={styles.nav} aria-label="Navigation principale">
             <Link
               href="/studio"
-              className={styles.navPill}
+              className={styles.navItem}
               data-active={activeNav === "projects"}
               aria-current={activeNav === "projects" ? "page" : undefined}
             >
+              <span className={styles.navDot} aria-hidden />
               Projets
             </Link>
-            {currentHref ? (
-              <Link
-                href={currentHref}
-                className={styles.navPill}
-                data-active={activeNav === "current"}
-                aria-current={activeNav === "current" ? "page" : undefined}
-              >
-                Projet courant
-              </Link>
-            ) : (
-              <span
-                className={styles.navPill}
-                data-active={activeNav === "current"}
-                data-inert="true"
-              >
-                Projet courant
-              </span>
-            )}
           </nav>
 
-          <span className={styles.avatar} title="Pilote">
+          <ProductRailRecents currentProjectHref={currentProjectHref} />
+
+          <div className={styles.railFoot}>
+            <span className={styles.profile} data-testid="studio-rail-profile">
+              <span className={styles.profileDot} aria-hidden />
+              Pilote
+            </span>
+          </div>
+        </div>
+      </aside>
+
+      <div className={styles.column}>
+        <header className={styles.mobileBar} data-testid="studio-mobile-bar">
+          <Link href="/studio" className={styles.brand}>
+            <BrandMark />
+            <span className={styles.brandName}>SFIA Studio</span>
+          </Link>
+          <Link
+            href="/studio"
+            className={styles.mobileNavLink}
+            aria-current={activeNav === "projects" ? "page" : undefined}
+          >
+            Projets
+          </Link>
+          <span className={styles.mobileProfile} title="Pilote">
             <span aria-hidden>P</span>
             <span className={styles.srOnly}>Pilote</span>
           </span>
-        </div>
-      </header>
+        </header>
 
-      <main
-        className={[
-          styles.main,
-          activeNav === "current" ? styles.mainWide : "",
-        ]
-          .filter(Boolean)
-          .join(" ")}
-      >
-        {children}
-      </main>
+        <main
+          className={[
+            styles.main,
+            activeNav === "current" ? styles.mainWorkspace : styles.mainPage,
+          ].join(" ")}
+        >
+          {children}
+        </main>
+      </div>
     </div>
   );
 }

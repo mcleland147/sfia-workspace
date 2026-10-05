@@ -54,6 +54,15 @@ export type NoraCognitiveTurnResult = {
   /** Eval-only pin identity when Stage A / campaign cell control is active. */
   evalPinnedModelId?: string;
   evalPinnedReasoningEffort?: OpenAiReasoningEffort;
+  /**
+   * P5-S01 — router-selected model identity on nominal Product path.
+   * Absent when eval pin / skipCognitiveStrategy / routing limitation.
+   */
+  selectedModelId?: string;
+  /** P5-S01 routing decision id (telemetry / reconstructibility). */
+  cognitiveRoutingDecisionId?: string;
+  /** P5-S01 routing policy version. */
+  cognitiveRoutingPolicyVersion?: string;
   criticalChallengeArmed?: boolean;
   /** MW3 — present only when contradictionAssessment was supplied. */
   contradictionDisposition?: ContradictionDispositionResult;

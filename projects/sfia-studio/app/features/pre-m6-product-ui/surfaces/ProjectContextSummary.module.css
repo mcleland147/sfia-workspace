@@ -1,0 +1,235 @@
+/* P3 Workspace Desktop 46:2 — Project Context panel digest (356px column). */
+
+.root {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 0 0 var(--pm6-space-4);
+}
+
+.eyebrow {
+  margin: 0;
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--pm6-muted-faint);
+}
+
+.title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--pm6-ink);
+}
+
+.section {
+  padding: var(--pm6-space-4) 0;
+  border-top: 1px solid var(--pm6-border-soft);
+  min-width: 0;
+}
+
+.sectionTitle {
+  margin: 0 0 var(--pm6-space-3);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--pm6-muted-faint);
+}
+
+.facts {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm6-space-3);
+}
+
+.fact {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.fact dt {
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--pm6-muted-faint);
+}
+
+.fact dd {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: var(--pm6-ink);
+  overflow-wrap: anywhere;
+}
+
+.sub {
+  font-size: 0.6875rem;
+  color: var(--pm6-muted-strong);
+}
+
+.currentness {
+  font-weight: 500;
+}
+
+.fact dd[data-tone="ok"] .currentness {
+  color: var(--pm6-ok);
+}
+
+.fact dd[data-tone="warn"] .currentness {
+  color: var(--pm6-accent);
+}
+
+.empty {
+  margin: 0;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: var(--pm6-muted-strong);
+}
+
+/* ---------- trajectory strip ---------- */
+
+.track {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+}
+
+.node {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  padding-top: 14px;
+  font-size: 0.6875rem;
+  color: var(--pm6-muted-strong);
+}
+
+/* connector between nodes */
+.node + .node::before {
+  content: "";
+  position: absolute;
+  top: 5px;
+  left: calc(-100% + 14px);
+  width: calc(100% - 18px);
+  border-top: 1px solid var(--pm6-border);
+}
+
+.nodeDot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: var(--pm6-radius-pill);
+  background: var(--pm6-ink);
+  border: 1px solid var(--pm6-ink);
+  z-index: 1;
+}
+
+.node[data-state="current"] .nodeDot {
+  background: var(--pm6-accent);
+  border-color: var(--pm6-accent);
+}
+
+.node[data-state="proposed"] .nodeDot {
+  background: var(--pm6-canvas);
+  border-color: var(--pm6-accent);
+}
+
+.nodeName {
+  font-weight: 500;
+  color: var(--pm6-ink);
+}
+
+.node[data-state="current"] .nodeState,
+.node[data-state="proposed"] .nodeState {
+  color: var(--pm6-accent);
+}
+
+/* ---------- attention ---------- */
+
+.attentionList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm6-space-3);
+}
+
+.attentionItem {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.attentionHead {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--pm6-ink);
+}
+
+.attentionDetail {
+  font-size: 0.6875rem;
+  line-height: 1.4;
+  color: var(--pm6-accent);
+}
+
+/* ---------- shortcuts (pinned to the panel foot) ---------- */
+
+.shortcuts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid var(--pm6-border);
+  background: var(--pm6-rail);
+}
+
+.shortcut {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--pm6-ink);
+  font: inherit;
+  font-size: 0.75rem;
+  padding: 14px var(--pm6-space-2);
+  text-align: center;
+  cursor: pointer;
+  transition: background 120ms ease;
+}
+
+.shortcut:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--pm6-border) 45%, transparent);
+}
+
+.shortcut:disabled {
+  color: var(--pm6-muted-ghost);
+  cursor: not-allowed;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shortcut {
+    transition: none;
+  }
+}
