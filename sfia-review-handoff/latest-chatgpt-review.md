@@ -1,11 +1,11 @@
-# P5-S06 CP02.1 — CANCELLATION CUT-LINES & EXIT PROOF COMPLETION — FULL REVIEW PACK
+# P5-S06 CP02.2 — F2 CANCELLATION CLOSURE — FULL REVIEW PACK
 
-**Cycle:** STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 · P5 · P5-S06 · CP02.1
+**Cycle:** STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 · P5 · P5-S06 · CP02.2
 **Profile:** Critical
 **CKC:** `ckc:studio:delivery` / `cyc:delivery` / VALIDATED — guidance only
-**Verdict candidate:** READY FOR CHATGPT FINAL CRITICAL RE-REVIEW — P5-S06 CP02.1 LOCAL CANDIDATE
+**Verdict candidate:** READY FOR CHATGPT FINAL CRITICAL RE-REVIEW — P5-S06 CP02.2 LOCAL CANDIDATE
 **P5-S06 FUNCTIONAL CLOSURE:** PASS LOCALLY
-**P5-S06 FINAL EXIT PROOF:** PASS LOCALLY
+**P5-S06 FULL CANONICAL SEND CANCELLATION EXIT PROOF:** PASS LOCALLY / DETERMINISTIC
 **≠ INTEGRATED · ≠ P5 COMPLETE · ≠ P6 READY · ≠ runtime v3 ADOPTED · ≠ REAL cancellation proven**
 
 ---
@@ -26,132 +26,181 @@
 ## 4. HEAD / base
 
 HEAD = origin/main = `16a8e2fd823d75d7c59ce1fb4d55cb862d112697`
-left/right = `0 0`
-Staged: empty
-Working tree: S06 Delivery + CP01 + CP02 + CP02.1 uncommitted
+left/right = 0 0
 
 ## 5. Local Git Truth initial
 
-MATCH. CP02 candidate intact (canonical send, route, AbortSignal Runner, STOP UI, CP01 New Project files). No reset/clean/stash.
+HEAD = origin/main. Staged empty. Working tree = S06 candidate CP01/CP02/CP02.1 + CP02.2 delta. No project commit.
 
-## 6. Morris CP02.1 GO consumed
+## 6. Morris CP02.2 GO consumed
 
-P5-S06 CP02.1 — Cancellation Cut-lines & Exit Proof Completion. D-S06-CANCEL-01 not re-decided.
+YES. D-S06-CANCEL-01 not re-decided.
 
 ## 7. Review input
 
-- commit `3d1fb1cc7b17082be4675f7b43400882236ebcd0`
-- blob `2aa0fa7e1608402f7ec33f8b5df85f02b39920e7`
-- size 141276 (reported by prompt)
+commit `eeed48116dd6d03a9ac59f7dca3f2ffa348dded7`
+blob `74485d7c4ae5e0dcd1021e46df9154eff1a578de`
+file `sfia-review-handoff/latest-chatgpt-review.md` @ `sfia/review-handoff`
 
 ## 8. Sources
 
-Cycle template v2.6 baseline; routing/operating-model/guardrails; CKC delivery VALIDATED guidance; Build Doctrine/Roadmap/P3 STOP/P4 boundary/P5; handoff 3d1fb1cc. Protected paths unread for mutation.
+Process template v2.6; routing/operating/guardrails; CKC delivery VALIDATED guidance only; Build Doctrine / Roadmap / cadrage READ; P1–P5 with P3/P4 priority; CP02.1 handoff eeed4811.
 
 ## 9. Cycle / profile / CKC
 
-Cycle 8 Correction. Critical. EVOL. ckc:studio:delivery. No ExecutionAuthority.
+Cycle 8 Delivery Correction · Critical · EVOL · `ckc:studio:delivery` cognitive only.
 
 ## 10. Convergence pre-check
 
-S01–S05 INTEGRATED. P5 IN PROGRESS. S07 NOT STARTED. runtime v3 NON ADOPTED. P6 READY NO.
+S01–S05 INTEGRATED. P5 IN PROGRESS. S07 NOT STARTED. runtime v3 NON ADOPTED. Git Integration NOT AUTHORIZED.
 
-## 11. CP02 accepted baseline
+## 11. Accepted CP02.1 baseline
 
-KEEP: thin POST route, sendProjectAssistantTurn, Server Action wrapper, Nora runtime, Runner signal, useProductConversation AbortController, STOPPED UI, retry envelope, visuals, Projects/Auth/New Project. Runner/provider/transport/UI frozen this pass except Route POST test `params` Promise typing.
+KEEP transport, canonical send, F1 Runner signal, F1 post-model cut-lines, UI STOP, visuals, retry.
 
-## 12. Durable Effect Ledger
-
-Post-`runNoraCognitiveTurn` in `orchestrateProjectAssistantTurn` (real code):
-
-| Effect block | Class | function | starts where | can await | rollback? | cut-line | reason |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| Logical turn mint | B SESSION | `resolveOrMintLogicalProductTurn` | **before** model | yes | no | none (pre-model) | D ALREADY-COMMITTED if abort after model |
-| OA reads for LR reuse / ACW eligibility | C/read | `listByProject` / `getCycle` / LPS | after model, before writes | yes | n/a | not a write | intermediate processing |
-| Active Cycle Work | A PRODUCT DURABLE | `materializeActiveCycleWork` | after eligibility | yes | no | **before helper** | independent write |
-| Reservation delta | A PRODUCT DURABLE | `materializeReservationDelta` | after ACW block | yes | no | **before helper** | independent write |
-| LifecycleRecommendation | A PRODUCT DURABLE | `materializeLifecycleRecommendationFromStructuredOutput` | after ACW/RSV | yes | no | **before helper** | independent write |
-| Read coverage | B SESSION | `rememberReadCoverage` | after collectToolTelemetry | yes | no | **before persist** | session honesty |
-| Transcript + journal delta | B SESSION / CONTINUITY | `appendPilotTranscriptTurn` / `materializeCycleJournalDelta` | same try block | sync/await | no | **before block** | one logical persist helper group |
-| Terminal ok | ephemeral result | `return { ok:true }` | after persist | n/a | n/a | **before return** | no late SUCCESS |
-| F2 Proposal `saveProposal` | process-local (F2) | after F1 on governed path | not in orchestrateTurn | — | — | not modified CP02.1 | F1 informative Fake path used for proof |
-
-MW6 execution: not in this function; Execution STOP out of scope.
-
-## 13. Cut-lines BEFORE
-
-After model: single `throwIfAborted(input.signal)` (CP02). No per-block cuts. Window: model OK → eligibility I/O → durable write could start after Pilot abort.
-
-## 14. Cut-lines AFTER
-
-Keep post-model `throwIfAborted`. Add `cutDurableEffect(signal, block, beforeDurableEffect?)` = optional TEST-ONLY await then `throwIfAborted`.
-
-Locations:
-1. immediately before `materializeActiveCycleWork`
-2. immediately before `materializeReservationDelta`
-3. immediately before `materializeLifecycleRecommendationFromStructuredOutput`
-4. immediately before `rememberReadCoverage` persist try
-5. immediately before transcript/journal try
-6. immediately before `return { ok:true }`
-
-Not 20 scattered checks. One per independent effect block.
-
-## 15. Justification of each check
-
-See ledger. Eligibility OA reads are not writes. Transcript+journal share one session try: one cut. Terminal success is last server-side success emission.
-
-## 16. Already-started effects
-
-Abort after transcript cut passed: rows remain; result STOPPED (P09). Logical turn minted pre-model is not rolled back. No transactional undo.
-
-## 17. Post-model abort scenario
-
-Fake provider completes. `beforeDurableEffect('transcriptJournal')` holds. Pilot abort. Release. `throwIfAborted` → `noraTurnStoppedFailure`. No assistant transcript row. Not the in-model T01 scenario.
-
-## 18. Direct request.signal bridge
-
-POST spy: `options.signal === request.signal`. Node `Request` may wrap `AbortController.signal` (not Object.is equal to controller.signal). `controller.abort()` still aborts `request.signal` and the forwarded options.signal. Body `signal` remains HOSTILE_FIELD.
-
-## 19. Test map
-
-| P | proof | test |
-| --- | --- | --- |
-| P01 | CP02 suite still green | p5.s06.cp02.cancellation.* + hook/ui |
-| P02 | request.signal identity | CP02.1 Request.signal bridge |
-| P03 | body cannot inject signal | same + parseBrowserSafe |
-| P04–P06 | ACW/RSV/LR cut-lines | code-present; Fake hello does not enter those blocks |
-| P07 | abort before transcript | CP02.1 P07/P10/P11 |
-| P08 | readCoverage | code-present; Fake no-tool path skipped the block |
-| P09 | no rollback | CP02.1 P09 |
-| P10 | STOPPED not provider_error | P07 |
-| P11 | no terminal ok | P07 and P09 |
-| P12 | retry unchanged | CP02 T07 still PASS |
-| P13 | UI STOP | CP02 UI tests PASS |
-| P14 | Cognitive STOP | existing tests in full suite PASS |
-| P15 | Execution cancel unaffected | MW6 path untouched |
-
-## 20. Files modified / created (this pass vs prior candidate)
-
-ADAPT:
-- `projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts`
-- `projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json` (orchestrateTurn sha256_16)
-- `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p5.s06.cp02.cancellation.d0.test.ts` (Promise params)
-- Roadmap + P5 truth-sync
-
-CREATE:
-- `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p5.s06.cp02.1.exitProof.d0.test.ts`
-
-NO CHANGE: Projects/Auth/NewProject/ConversationSurface/useProductConversation/runNoraAgentsTurn/providerAgentsModel/route.ts/sendProjectAssistantTurn.
-
-## 21. Full new files
-
-### `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p5.s06.cp02.1.exitProof.d0.test.ts`
+## 12. Full canonical send call graph
 
 ```
+Request.signal
+→ POST /api/studio/projects/[projectId]/assistant/send
+→ sendProjectAssistantTurn(..., { signal: request.signal })
+→ orchestrateAssistantSend({ signal })
+→ analyzeIntent({ signal })
+→ ConversationProvider.completeStructured({ signal })
+   Metered/eval wrappers forward `input` including signal
+   OpenAIConversationProvider.responses.create(body, { signal })
+→ throwIfAborted (postAnalyze)
+→ F2 governed effects OR F1 orchestrateProjectAssistantTurn({ signal })
+→ terminal STOPPED | ok
+```
+
+Second F2 provider call: `reasonWithResolvedCkcContext` → `provider.complete()` (no SDK signal on complete(); cut-line `ckcReasoning` before call).
+
+## 13. F2 Cancellation Ledger
+
+| operation | file/function | class | mutate? | vs model | async | abort before CP02.2 | CP02.2 cut-line | rollback |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| analyzeIntent / completeStructured | intentAnalysis.ts | provider | no | IS the F2 model | yes | none | throwIfAborted before/after + signal to provider | n/a |
+| Metered.completeStructured | meteredProvider.ts | wrapper | budget claim | before inner | yes | none | abort after preflight → no inner dispatch; forward signal | no FinOps redo |
+| OpenAI completeStructured | openaiProvider.ts | provider | no | model | yes | none | RequestOptions.signal; abort not TechnicalError | n/a |
+| Fake completeStructured | fakeProvider.ts | provider | no | model | yes | none | throw AbortError if already aborted | n/a |
+| resolveCognitiveIntentProjectSummary | orchestrateF2 | read | no | before | yes | none | none | n/a |
+| loadCanonicalConversationForAnalysis | canonicalConversationSession | session read | no | before | yes | none | none | n/a |
+| resolveF2ProductRoutedProvider | routing | ephemeral | no | before | no | none | none | n/a |
+| deriveProductPathMw3Assessment | read | no | after analyze | yes | none | after postAnalyze | n/a |
+| assessChatFirstWorkEligibility | read | no | after | yes | none | none | n/a |
+| resolveChatFirstPilotDecision | w2 | Product HD write possible | yes | after | yes | none | **chatFirstDecision** before call | no rollback if already recorded |
+| rememberMw5IssuedChallenge / clear | mw5ChallengeSessionStore | process-local | yes | after | no | none | **mw5ChallengeState** before evaluateF2Mw5 | no |
+| qualifyWithCkc | read/qualify | no durable cycle | after | yes | none | none | n/a |
+| reasonWithResolvedCkcContext | ckcCognitiveContext complete() | provider | no | after qualify | yes | none | **ckcReasoning** before helper | n/a |
+| createCycle.execute | OA | Product durable | yes | after | yes | none | **createCycle** | no |
+| saveProposal | proposalStore | process-local | yes | after | no | none | **saveProposal** | no |
+| commitPendingDecisionSubjectForDecisionRequired | marker write | Product | yes | after proposal | yes | none | **pendingDecisionSubject** before helper (not mid-helper) | no |
+| persistCanonicalF2AssistantTurn | session | session durable | yes | after | yes | none | **transcript** in f2ConversationalSuccess | no |
+| f2Success return | orchestrateF2 | ephemeral | no | terminal | no | none | **terminalSuccess** | n/a |
+| F1 orchestrateProjectAssistantTurn | KEEP CP02.1 | Product | mixed | after F2 analyze if not formalizationReady | yes | CP02.1 | unchanged | CP02.1 |
+
+## 14. ConversationProvider impact audit
+
+Implementors: OpenAIConversationProvider (ADAPT), FakeConversationProvider (ADAPT abort-if-already-aborted), MeteredConversationProvider (ADAPT forward + abort-before-inner).
+Decorators that pass `input` through unchanged: CallCap / IntentCapture / eval capturing (signal survives extra field).
+FakeIntakeConversationProvider: no completeStructured.
+Eval cell factory: wraps OpenAI+Metered — signal preserved.
+Test doubles with explicit `completeStructured(input)` remain compatible (optional signal).
+
+## 15. Installed OpenAI SDK abort signature
+
+Package `openai` ^6.48.0.
+`Responses.create(body: ResponseCreateParamsNonStreaming, options?: RequestOptions)`
+`RequestOptions.signal?: AbortSignal | undefined | null` in `node_modules/openai/internal/request-options.d.ts`.
+Abort error type: `APIUserAbortError`.
+
+## 16–17. F2 provider signal BEFORE / AFTER
+
+BEFORE: orchestrateAssistantSend had `signal` but `analyzeIntent(...)` omitted it; completeStructured had no signal field; OpenAI `responses.create(body)` only.
+AFTER: signal on analyzeIntent + completeStructured; OpenAI `create(body, { signal })` when present; no second client/fetch/Promise.race.
+
+## 18. OpenAI adapter signal proof
+
+`__tests__/ops1/openai-provider.test.ts` — second arg `{ signal: controller.signal }` identity; abort errors not wrapped as TechnicalError when `signal.aborted`.
+
+## 19. Wrapper propagation proof
+
+CP02.2 test ForwardingMeterStandIn: `lastSignal === controller.signal`.
+Metered: `inner.completeStructured(input)` after abort-if-aborted.
+
+## 20. Abort catch normalization
+
+analyzeIntent try already mapped isAbortLike → noraTurnStoppedFailure.
+Post-analyze remainder wrapped in try/catch: isAbortLike / NoraTurnAbortedError → STOPPED (not provider_error).
+`return await completeF2Turn` so async cut-line throws are caught.
+OpenAI layer rethrows abort; Product maps to STOPPED.
+
+## 21–22. F2 effect cut-lines
+
+postAnalyze · chatFirstDecision · mw5ChallengeState · ckcReasoning · createCycle · saveProposal · pendingDecisionSubject · transcript · terminalSuccess.
+TEST-ONLY `beforeF2Effect` suspends then throwIfAborted.
+
+## 23. HumanDecision
+
+STOP ≠ REFUSED/DEFERRED. Cut-line before resolveChatFirstPilotDecision. If HD already recorded, keep. Dedicated eligible-workGate HD abort fixture not constructed (cut-line code-present).
+
+## 24. createCycle
+
+Cut-line immediately before execute. If already launched/committed, no rollback. Proven: abort at createCycle → execute=0. Abort at saveProposal after execute=1 → cycle kept, proposal 0.
+
+## 25. Proposal / pending subject
+
+Cut-line before saveProposal and before commitPending helper (not mid-transaction). Abort at saveProposal → 0 proposals (pending not started).
+
+## 26. MW5 challenge state
+
+Cut-line before evaluateF2Mw5 (remember/clear live inside). Abort at postAnalyze → latest challenge null.
+
+## 27. f2ConversationalSuccess
+
+Same function; signal+beforeF2Effect via local completeF2Turn. throwIfAborted transcript → persist → throwIfAborted terminal. Persist-then-STOP keeps rows.
+
+## 28. Already-started / no rollback
+
+createCycle before saveProposal abort: kept. Transcript before terminal abort: kept.
+
+## 29. Provider in-flight abort proof
+
+T01 HoldStructuredProvider: started, same signal, abort, AbortError, STOPPED, 0 proposal, 0 assistant, no active cycle.
+
+## 30. Post-analysis / pre-effect proofs
+
+T postAnalyze, T03 createCycle=0, T04 saveProposal=0, T06 transcript=0.
+
+## 31. Terminal success proof
+
+T07/T08 abort at terminalSuccess → STOPPED not ok:true; assistant rows preserved.
+
+## 32. Files modified
+
+- orchestrateF2.ts
+- intentAnalysis.ts
+- types.ts
+- openaiProvider.ts
+- fakeProvider.ts
+- meteredProvider.ts
+- openai-provider.test.ts
+- Roadmap
+- P5 integrated delivery
+- PRR manifest hashes
+
+## 33. Files created
+
+`projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p5.s06.cp02.2.f2Cancellation.d0.test.ts`
+
+## 34. Full new-file contents
+
+```ts
 /** @vitest-environment node */
 /**
- * P5-S06 CP02.1 — post-model cut-lines + Request.signal identity.
- * ZERO REAL. Does not re-open Runner wiring.
+ * P5-S06 CP02.2 — F2 provider cancellation + F2 effect cut-lines.
+ * ZERO REAL. Does not re-open F1 Runner / UI / transport.
  */
 import fs from "node:fs";
 import os from "node:os";
@@ -160,90 +209,96 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   FakeConversationProvider,
   setConversationProviderForTests,
+  type ConversationProvider,
+  type ProviderChatMessage,
+  type ProviderCompletionResult,
 } from "@/lib/platform/ai";
-import { orchestrateProjectAssistantTurn } from "@/features/project-assistant/orchestrateTurn";
-import { parseBrowserSafeAssistantSendBody } from "@/features/project-assistant/browserSafeAssistantSend";
+import { orchestrateAssistantSend } from "@/features/project-assistant/f2/orchestrateF2";
+import {
+  listProposalsForProject,
+  resetF2ProposalStoreForTests,
+} from "@/features/project-assistant/f2/proposalStore";
+import {
+  getMw5ChallengeSession,
+  resetMw5ChallengeStoreForTests,
+} from "@/features/project-assistant/f2/mw5ChallengeSessionStore";
 import {
   ProductSqliteSession,
   listPilotTranscriptTurns,
 } from "@/lib/nora-cognitive-runtime";
 import { CANONICAL_CONVERSATION_SESSION_KEY } from "@/features/project-assistant/f2/canonicalConversationSession";
+import {
+  getRuntimeApplicationService,
+  resetRuntimeApplicationServiceForTests,
+} from "@/lib/vertical-slice-runtime";
 
-const { sendProjectAssistantTurnMock, getProjectRuntimeActionMock } =
-  vi.hoisted(() => ({
-    sendProjectAssistantTurnMock: vi.fn(),
-    getProjectRuntimeActionMock: vi.fn(),
-  }));
+class HoldStructuredProvider implements ConversationProvider {
+  readonly providerId = "fake-test";
+  started = false;
+  seenSignal: AbortSignal | undefined;
+  seenAbortedAtReject = false;
+  private readonly inner = new FakeConversationProvider();
+  constructor(private readonly hold: Promise<void>) {}
+  async complete(
+    messages: ProviderChatMessage[],
+  ): Promise<ProviderCompletionResult> {
+    return this.inner.complete(messages);
+  }
+  async completeStructured(input: {
+    messages: ProviderChatMessage[];
+    schemaName: string;
+    jsonSchema: Record<string, unknown>;
+    signal?: AbortSignal;
+  }): Promise<ProviderCompletionResult> {
+    this.started = true;
+    this.seenSignal = input.signal;
+    await this.hold;
+    this.seenAbortedAtReject = input.signal?.aborted === true;
+    if (input.signal?.aborted) {
+      const error = new Error("AbortError");
+      error.name = "AbortError";
+      throw error;
+    }
+    return this.inner.completeStructured(input);
+  }
+}
 
-vi.mock("@/features/project-assistant/sendProjectAssistantTurn", () => ({
-  sendProjectAssistantTurn: (
-    input: unknown,
-    options?: { signal?: AbortSignal },
-  ) => sendProjectAssistantTurnMock(input, options),
-}));
+class ForwardingMeterStandIn implements ConversationProvider {
+  readonly providerId: string;
+  lastSignal: AbortSignal | undefined;
+  constructor(private readonly inner: ConversationProvider) {
+    this.providerId = inner.providerId;
+  }
+  async complete(
+    messages: ProviderChatMessage[],
+  ): Promise<ProviderCompletionResult> {
+    return this.inner.complete(messages);
+  }
+  async completeRound(
+    input: Parameters<NonNullable<ConversationProvider["completeRound"]>>[0],
+  ) {
+    if (typeof this.inner.completeRound !== "function") {
+      throw new Error("completeRound missing");
+    }
+    return this.inner.completeRound(input);
+  }
+  async completeStructured(input: {
+    messages: ProviderChatMessage[];
+    schemaName: string;
+    jsonSchema: Record<string, unknown>;
+    signal?: AbortSignal;
+  }): Promise<ProviderCompletionResult> {
+    this.lastSignal = input.signal;
+    if (typeof this.inner.completeStructured !== "function") {
+      throw new Error("completeStructured missing");
+    }
+    return this.inner.completeStructured(input);
+  }
+}
 
-vi.mock("@/lib/vertical-slice-runtime/actions", () => ({
-  getProjectRuntimeAction: getProjectRuntimeActionMock,
-}));
-
-const SUCCESS = {
-  ok: true as const,
-  project: {
-    projectId: "prj:cp021",
-    name: "CP021",
-    shortReference: "C21",
-    objective: "Cut-lines.",
-    contextSummary: "Fixture.",
-    criticality: "STANDARD" as const,
-    constraints: [] as string[],
-    localMode: true as const,
-    source: "REAL_LOCAL_CORE" as const,
-    fixture: false as const,
-  },
-  doctrine: {
-    id: "pkg:studio-v3-oa",
-    version: "1.0.0",
-    digest: "digest:cp021",
-    status: "RESOLVED",
-  },
-  livingState: {
-    id: "lps:cp021",
-    version: 1 as const,
-    createdAt: "2026-10-06T12:00:00.000Z",
-  },
-  readiness: {
-    status: "NOT_READY" as const,
-    hard: "OPEN" as const,
-    tA6: "INCOMPLETE" as const,
-    iam: "NOT_SELECTED" as const,
-    productPersistence: "SQLITE_OA_PRODUCT_STORE" as const,
-    realAgentExecution: "DISABLED" as const,
-    delivery: "NOT_AUTHORIZED" as const,
-    cutover: "NOT_AUTHORIZED" as const,
-    runReady: false as const,
-    productReady: false as const,
-  },
-  disclosures: {
-    runtimeMode: "LOCAL_PROCESS" as const,
-    persistence: "PARTIAL_PROJECT_LPS_CYCLE_DECISION_CONTRACT_DURABLE" as const,
-    agentExecution: "DISABLED" as const,
-    iam: "NOT_SELECTED" as const,
-    productPersistence: "SQLITE_OA_PRODUCT_STORE" as const,
-    delivery: "NOT_AUTHORIZED" as const,
-    cutover: "NOT_AUTHORIZED" as const,
-    localDataVolatile: true as const,
-    restartMayLoseState: true as const,
-    projectLpsRestartSafe: true as const,
-    cycleInstanceRestartSafe: true as const,
-    humanDecisionRestartSafe: true as const,
-    executionContractRestartSafe: true as const,
-    messages: [] as const,
-  },
-};
-
-function listTranscript(sessionDbPath: string) {
+function listTranscript(projectId: string, sessionDbPath: string) {
   const session = new ProductSqliteSession({
-    projectId: "prj:cp021",
+    projectId,
     dbPath: sessionDbPath,
     sessionKey: CANONICAL_CONVERSATION_SESSION_KEY,
   });
@@ -254,340 +309,1102 @@ function listTranscript(sessionDbPath: string) {
   }
 }
 
-describe("P5-S06 CP02.1 Request.signal bridge", () => {
-  it("P02/P03 — POST forwards request.signal identity; body signal rejected", async () => {
-    const { POST } = await import(
-      "@/app/api/studio/projects/[projectId]/assistant/send/route"
-    );
-    sendProjectAssistantTurnMock.mockResolvedValue({
-      ok: false,
-      status: "stopped",
-      code: "NORA_TURN_STOPPED",
-      message: "Réponse interrompue.",
-      mode: "fixture",
-      retryable: true,
-    });
-    const controller = new AbortController();
-    const request = new Request(
-      "http://localhost/api/studio/projects/prj%3Acp021/assistant/send",
-      {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ content: "bonjour" }),
-        signal: controller.signal,
-      },
-    );
-    await POST(request, { params: Promise.resolve({ projectId: "prj:cp021" }) });
-    expect(sendProjectAssistantTurnMock).toHaveBeenCalledTimes(1);
-    const [input, options] = sendProjectAssistantTurnMock.mock.calls[0] as [
-      { projectId: string },
-      { signal?: AbortSignal },
-    ];
-    expect(input.projectId).toBe("prj:cp021");
-    expect(options.signal).toBe(request.signal);
-    expect(options.signal?.aborted).toBe(false);
-    controller.abort();
-    expect(request.signal.aborted).toBe(true);
-    expect(options.signal?.aborted).toBe(true);
+async function waitFor(
+  predicate: () => boolean,
+  timeoutMs = 8000,
+): Promise<void> {
+  const started = Date.now();
+  while (!predicate() && Date.now() - started < timeoutMs) {
+    await new Promise((r) => setTimeout(r, 10));
+  }
+  expect(predicate()).toBe(true);
+}
 
-    expect(
-      parseBrowserSafeAssistantSendBody({
-        content: "bonjour",
-        signal: "hostile",
-      }).ok,
-    ).toBe(false);
-  });
-});
-
-describe("P5-S06 CP02.1 post-model / pre-materialization", () => {
+describe("P5-S06 CP02.2 F2 cancellation", () => {
   const previousFake = process.env.OPS1_CONVERSATION_PROVIDER;
-  let sessionDir: string;
-  let sessionDbPath: string;
+  const tempDirs: string[] = [];
+  let projectId = "";
+  let sessionDbPath = "";
 
-  beforeEach(() => {
+  beforeEach(async () => {
     process.env.OPS1_CONVERSATION_PROVIDER = "fake";
-    getProjectRuntimeActionMock.mockReset();
-    getProjectRuntimeActionMock.mockResolvedValue(SUCCESS);
+    process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
+    delete process.env.OPENAI_API_KEY;
+    delete process.env.OPENAI_MODEL;
     setConversationProviderForTests(null);
-    sessionDir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-cp021-"));
-    sessionDbPath = path.join(sessionDir, "session.sqlite");
+    resetF2ProposalStoreForTests();
+    resetMw5ChallengeStoreForTests();
+    resetRuntimeApplicationServiceForTests();
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-cp022-"));
+    tempDirs.push(dir);
+    sessionDbPath = path.join(dir, "session.sqlite");
+    const runtime = getRuntimeApplicationService({
+      productDbPath: path.join(dir, "oa-product.sqlite"),
+      auditMode: "noop",
+      nowIso: "2026-10-06T12:00:00.000Z",
+    });
+    const created = await runtime.createProject({
+      name: "Projet CP022",
+      objective: "F2 cancellation.",
+      context: "Contexte F2 CP02.2.",
+      criticality: "STANDARD",
+      constraints: ["Lecture seule"],
+      shortReference: "C22",
+      idempotencyKey: `idem:cp022-${Date.now()}-${Math.random()}`,
+    });
+    expect(created.ok).toBe(true);
+    if (!created.ok) throw new Error("CP022 setup create failed");
+    projectId = created.projectId;
   });
 
   afterEach(() => {
     setConversationProviderForTests(null);
+    resetF2ProposalStoreForTests();
+    resetMw5ChallengeStoreForTests();
+    resetRuntimeApplicationServiceForTests();
+    while (tempDirs.length) {
+      const dir = tempDirs.pop();
+      if (dir) fs.rmSync(dir, { recursive: true, force: true });
+    }
     if (previousFake === undefined) {
       delete process.env.OPS1_CONVERSATION_PROVIDER;
     } else {
       process.env.OPS1_CONVERSATION_PROVIDER = previousFake;
     }
-    fs.rmSync(sessionDir, { recursive: true, force: true });
   });
 
-  it("P07/P10/P11 — abort after model before transcript: STOPPED, no assistant row", async () => {
+  it("T01 — abort during F2 completeStructured: STOPPED, no F2 effects, not provider_error", async () => {
+    let release!: () => void;
+    const hold = new Promise<void>((resolve) => {
+      release = resolve;
+    });
+    const provider = new HoldStructuredProvider(hold);
     const controller = new AbortController();
-    const seen: string[] = [];
-    let releaseTranscript!: () => void;
-    const holdTranscript = new Promise<void>((resolve) => {
-      releaseTranscript = resolve;
-    });
-    const pending = orchestrateProjectAssistantTurn({
-      projectId: "prj:cp021",
-      content: "Tour à interrompre après cognition",
+    const pending = orchestrateAssistantSend({
+      projectId,
+      content: "Prépare la prochaine étape __F2_ACTIONABLE__",
       sessionDbPath,
-      provider: new FakeConversationProvider(),
+      provider,
       signal: controller.signal,
-      beforeDurableEffect: async (block) => {
-        seen.push(block);
-        if (block === "transcriptJournal") {
-          await holdTranscript;
-        }
-      },
     });
-    const started = Date.now();
-    while (
-      !seen.includes("transcriptJournal") &&
-      Date.now() - started < 8000
-    ) {
-      await new Promise((r) => setTimeout(r, 20));
-    }
-    expect(seen).toContain("transcriptJournal");
-    expect(seen).not.toContain("terminalSuccess");
+    await waitFor(() => provider.started);
+    expect(provider.seenSignal).toBe(controller.signal);
     controller.abort();
-    releaseTranscript();
+    release();
     const result = await pending;
+    expect(provider.seenAbortedAtReject).toBe(true);
     expect(result.ok).toBe(false);
     if (result.ok) return;
     expect(result.status).toBe("stopped");
-    expect(result.status).not.toBe("provider_error");
+    expect(result.code).toBe("NORA_TURN_STOPPED");
+    expect(listProposalsForProject(projectId)).toHaveLength(0);
+    const rows = listTranscript(projectId, sessionDbPath);
+    expect(rows.filter((r) => r.role === "assistant")).toHaveLength(0);
+    const after = await getRuntimeApplicationService().getProject(projectId);
+    expect(after.ok).toBe(true);
+    if (after.ok) {
+      expect(after.livingState.activeCycleInstanceId ?? null).toBeNull();
+    }
+  });
+
+  it("wrapper does not drop completeStructured signal", async () => {
+    const controller = new AbortController();
+    const inner = new FakeConversationProvider();
+    const wrapper = new ForwardingMeterStandIn(inner);
+    const result = await orchestrateAssistantSend({
+      projectId,
+      content: "Résume l'objectif __F2_INFORMATIVE__",
+      sessionDbPath,
+      provider: wrapper,
+      signal: controller.signal,
+    });
+    expect(result.ok).toBe(true);
+    expect(wrapper.lastSignal).toBe(controller.signal);
+  });
+
+  it("T postAnalyze — abort after analyze before F2 mutators: createCycle/proposal/transcript = 0", async () => {
+    const runtime = getRuntimeApplicationService();
+    const createSpy = vi.spyOn(runtime.oa!.cycleServices.createCycle, "execute");
+    const controller = new AbortController();
+    const seen: string[] = [];
+    let release!: () => void;
+    const hold = new Promise<void>((resolve) => {
+      release = resolve;
+    });
+    const pending = orchestrateAssistantSend({
+      projectId,
+      content: "Prépare la prochaine étape __F2_ACTIONABLE__",
+      sessionDbPath,
+      provider: new FakeConversationProvider(),
+      signal: controller.signal,
+      beforeF2Effect: async (block) => {
+        seen.push(block);
+        if (block === "postAnalyze") await hold;
+      },
+    });
+    await waitFor(() => seen.includes("postAnalyze"));
+    controller.abort();
+    release();
+    const result = await pending;
     expect(controller.signal.aborted).toBe(true);
-    const turns = listTranscript(sessionDbPath);
-    expect(turns.filter((t) => t.role === "assistant")).toHaveLength(0);
+    expect(result.ok).toBe(false);
+    if (result.ok) return;
+    expect(result.status).toBe("stopped");
+    expect(result.code).toBe("NORA_TURN_STOPPED");
+    expect(createSpy).not.toHaveBeenCalled();
+    expect(listProposalsForProject(projectId)).toHaveLength(0);
+    expect(
+      listTranscript(projectId, sessionDbPath).filter((r) => r.role === "assistant"),
+    ).toHaveLength(0);
+    expect(getMw5ChallengeSession(projectId).latest).toBeNull();
   });
 
-  it("P09 — transcript already started is not rolled back; terminal abort still STOPPED", async () => {
+  it("T03 — abort after analyze before createCycle: execute = 0", async () => {
+    const runtime = getRuntimeApplicationService();
+    const createSpy = vi.spyOn(runtime.oa!.cycleServices.createCycle, "execute");
     const controller = new AbortController();
     const seen: string[] = [];
-    let releaseTerminal!: () => void;
-    const holdTerminal = new Promise<void>((resolve) => {
-      releaseTerminal = resolve;
+    let release!: () => void;
+    const hold = new Promise<void>((resolve) => {
+      release = resolve;
     });
-    const pending = orchestrateProjectAssistantTurn({
-      projectId: "prj:cp021",
-      content: "Tour avec transcript déjà écrit",
+    const pending = orchestrateAssistantSend({
+      projectId,
+      content: "Prépare la prochaine étape __F2_ACTIONABLE__",
       sessionDbPath,
       provider: new FakeConversationProvider(),
       signal: controller.signal,
-      beforeDurableEffect: async (block) => {
+      beforeF2Effect: async (block) => {
         seen.push(block);
-        if (block === "terminalSuccess") {
-          await holdTerminal;
-        }
+        if (block === "createCycle") await hold;
       },
     });
-    const started = Date.now();
-    while (!seen.includes("terminalSuccess") && Date.now() - started < 8000) {
-      await new Promise((r) => setTimeout(r, 20));
-    }
-    expect(seen).toContain("transcriptJournal");
-    expect(seen).toContain("terminalSuccess");
-    const beforeAbort = listTranscript(sessionDbPath);
-    expect(beforeAbort.some((t) => t.role === "assistant")).toBe(true);
+    await waitFor(() => seen.includes("createCycle"));
     controller.abort();
-    releaseTerminal();
+    release();
     const result = await pending;
     expect(result.ok).toBe(false);
     if (result.ok) return;
     expect(result.status).toBe("stopped");
-    const after = listTranscript(sessionDbPath);
-    expect(after.filter((t) => t.role === "assistant").length).toBe(
-      beforeAbort.filter((t) => t.role === "assistant").length,
-    );
+    expect(createSpy).not.toHaveBeenCalled();
+    expect(listProposalsForProject(projectId)).toHaveLength(0);
+  });
+
+  it("T04/T05/T06 — abort before saveProposal: no proposal, no transcript, createCycle already-started kept", async () => {
+    const runtime = getRuntimeApplicationService();
+    const createSpy = vi.spyOn(runtime.oa!.cycleServices.createCycle, "execute");
+    const controller = new AbortController();
+    const seen: string[] = [];
+    let release!: () => void;
+    const hold = new Promise<void>((resolve) => {
+      release = resolve;
+    });
+    const pending = orchestrateAssistantSend({
+      projectId,
+      content: "Prépare la prochaine étape __F2_ACTIONABLE__",
+      sessionDbPath,
+      provider: new FakeConversationProvider(),
+      signal: controller.signal,
+      beforeF2Effect: async (block) => {
+        seen.push(block);
+        if (block === "saveProposal") await hold;
+      },
+    });
+    await waitFor(() => seen.includes("saveProposal"));
+    expect(createSpy).toHaveBeenCalledTimes(1);
+    controller.abort();
+    release();
+    const result = await pending;
+    expect(result.ok).toBe(false);
+    if (result.ok) return;
+    expect(result.status).toBe("stopped");
+    expect(listProposalsForProject(projectId)).toHaveLength(0);
+    expect(
+      listTranscript(projectId, sessionDbPath).filter((r) => r.role === "assistant"),
+    ).toHaveLength(0);
+  });
+
+  it("T06/T08 — abort before F2 transcript: no assistant row, not ok:true", async () => {
+    const controller = new AbortController();
+    const seen: string[] = [];
+    let release!: () => void;
+    const hold = new Promise<void>((resolve) => {
+      release = resolve;
+    });
+    const pending = orchestrateAssistantSend({
+      projectId,
+      content: "Prépare la prochaine étape __F2_ACTIONABLE__",
+      sessionDbPath,
+      provider: new FakeConversationProvider(),
+      signal: controller.signal,
+      beforeF2Effect: async (block) => {
+        seen.push(block);
+        if (block === "transcript") await hold;
+      },
+    });
+    await waitFor(() => seen.includes("transcript"));
+    controller.abort();
+    release();
+    const result = await pending;
+    expect(result.ok).toBe(false);
+    if (result.ok) return;
+    expect(result.status).toBe("stopped");
+    expect(
+      listTranscript(projectId, sessionDbPath).filter((r) => r.role === "assistant"),
+    ).toHaveLength(0);
+  });
+
+  it("T07/T08 — abort after transcript committed: no rollback, terminal STOPPED", async () => {
+    const controller = new AbortController();
+    const seen: string[] = [];
+    let release!: () => void;
+    const hold = new Promise<void>((resolve) => {
+      release = resolve;
+    });
+    const pending = orchestrateAssistantSend({
+      projectId,
+      content: "Prépare la prochaine étape __F2_ACTIONABLE__",
+      sessionDbPath,
+      provider: new FakeConversationProvider(),
+      signal: controller.signal,
+      beforeF2Effect: async (block) => {
+        seen.push(block);
+        if (block === "terminalSuccess") await hold;
+      },
+    });
+    await waitFor(() => seen.includes("terminalSuccess"));
+    const assistantsBeforeAbort = listTranscript(
+      projectId,
+      sessionDbPath,
+    ).filter((r) => r.role === "assistant").length;
+    expect(assistantsBeforeAbort).toBeGreaterThan(0);
+    controller.abort();
+    release();
+    const result = await pending;
+    expect(result.ok).toBe(false);
+    if (result.ok) return;
+    expect(result.status).toBe("stopped");
+    expect(
+      listTranscript(projectId, sessionDbPath).filter((r) => r.role === "assistant")
+        .length,
+    ).toBe(assistantsBeforeAbort);
+  });
+
+  it("T09 — next turn after STOP still completes", async () => {
+    const controller = new AbortController();
+    const seen: string[] = [];
+    let release!: () => void;
+    const hold = new Promise<void>((resolve) => {
+      release = resolve;
+    });
+    const pending = orchestrateAssistantSend({
+      projectId,
+      content: "Prépare la prochaine étape __F2_ACTIONABLE__",
+      sessionDbPath,
+      provider: new FakeConversationProvider(),
+      signal: controller.signal,
+      beforeF2Effect: async (block) => {
+        seen.push(block);
+        if (block === "postAnalyze") await hold;
+      },
+    });
+    await waitFor(() => seen.includes("postAnalyze"));
+    controller.abort();
+    release();
+    const stopped = await pending;
+    expect(stopped.ok).toBe(false);
+    const next = await orchestrateAssistantSend({
+      projectId,
+      content: "Résume l'objectif __F2_INFORMATIVE__",
+      sessionDbPath,
+      provider: new FakeConversationProvider(),
+    });
+    expect(next.ok).toBe(true);
+    if (!next.ok) return;
+    expect(next.f2?.turnKind).toBe("f1_informative");
   });
 });
 
 ```
 
-## 22. Useful complete diffs
-
-### orchestrateTurn.ts (vs origin/main)
+## 35. Useful complete diffs (code / PRR)
 
 ```diff
-diff --git a/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts b/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
-index 7dcb49d2..f5823ff7 100644
---- a/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
-@@ -17,8 +17,14 @@ import {
-   type Mw3ContradictionAssessmentInput,
-   type NoraEvalModelReasoningControl,
-   type NoraAgentsUsdAccounting,
--  type NoraCampaignBudget,
-+  type   NoraCampaignBudget,
+diff --git a/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts b/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
+index 0bc2eab2..c5a01b22 100644
+--- a/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
++++ b/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
+@@ -13,6 +13,12 @@ import type {
+   NoraCampaignBudget,
+   NoraEvalModelReasoningControl,
  } from "@/lib/nora-cognitive-runtime";
 +import {
 +  isAbortLike,
 +  NoraTurnAbortedError,
 +  throwIfAborted,
 +} from "@/lib/nora-cognitive-runtime/noraTurnAbort";
-+import { noraTurnStoppedFailure } from "./noraTurnStopped";
++import { noraTurnStoppedFailure } from "../noraTurnStopped";
  import {
-   appendPilotTranscriptTurn,
-   materializeCycleJournalDelta,
-@@ -192,6 +198,30 @@ function toContextDto(
-   };
- }
+   resolveEvalCellConversationProvider,
+   type EvalCellProviderFactory,
+@@ -121,6 +127,31 @@ import {
+ /** Single source of persistence honesty for both the turn notice and the Proposal. */
+ const EPHEMERAL_NOTICE = F2_PROCESS_LOCAL_NOTICE;
 
 +/**
-+ * Independent post-model durable-effect blocks in this orchestration.
-+ * Abort observed before a block starts → do not start it.
++ * Independent F2 effect blocks. Abort observed before a block starts → do not start it.
 + * Abort after a block started → no artificial rollback.
++ * TEST-ONLY hook may suspend immediately before throwIfAborted.
 + */
-+export type ProductDurableEffectBlock =
-+  | "activeCycleWork"
-+  | "reservation"
-+  | "lifecycleRecommendation"
-+  | "readCoverage"
-+  | "transcriptJournal"
++export type F2EffectBlock =
++  | "postAnalyze"
++  | "chatFirstDecision"
++  | "mw5ChallengeState"
++  | "ckcReasoning"
++  | "createCycle"
++  | "saveProposal"
++  | "pendingDecisionSubject"
++  | "transcript"
 +  | "terminalSuccess";
 +
-+async function cutDurableEffect(
++async function cutF2Effect(
 +  signal: AbortSignal | undefined,
-+  block: ProductDurableEffectBlock,
-+  before?: (
-+    block: ProductDurableEffectBlock,
-+  ) => void | Promise<void>,
++  block: F2EffectBlock,
++  before?: (block: F2EffectBlock) => void | Promise<void>,
 +): Promise<void> {
 +  if (before) await before(block);
 +  throwIfAborted(signal);
 +}
 +
- /**
-  * Thin F1 orchestration — Option C single Agents Runner path (Fake + target).
-  * SFIA routeToolCall remains the tool authorization boundary.
-@@ -263,6 +293,15 @@ export async function orchestrateProjectAssistantTurn(input: {
-    * Prefer logicalTurnId for production and new tests.
-    */
-   turnCorrelationId?: string;
+ function normalizeOpaqueProposalId(raw: unknown): string | null {
+   if (typeof raw !== "string") return null;
+   const trimmed = raw.trim();
+@@ -938,7 +969,10 @@ async function f2ConversationalSuccess(input: {
+     | "f2_decision";
+   reinstructionTransition?: "superseded" | "not_consumed" | "not_applicable";
+   reinstructionOfProposalId?: string | null;
++  signal?: AbortSignal;
++  beforeF2Effect?: (block: F2EffectBlock) => void | Promise<void>;
+ }): Promise<ProjectAssistantSendResult> {
++  await cutF2Effect(input.signal, "transcript", input.beforeF2Effect);
+   await persistCanonicalF2AssistantTurn({
+     projectId: input.project.projectId,
+     sessionDbPath: input.sessionDbPath,
+@@ -946,6 +980,7 @@ async function f2ConversationalSuccess(input: {
+     assistantText: input.text,
+     cycleInstanceId: input.project.activeCycleInstanceId ?? null,
+   });
++  await cutF2Effect(input.signal, "terminalSuccess", input.beforeF2Effect);
+   return f2Success(input);
+ }
+
+@@ -997,6 +1032,13 @@ export async function orchestrateAssistantSend(input: {
+   usdAccounting?: NoraAgentsUsdAccounting;
+   /** INTERNAL / EVAL-ONLY — shared canonical campaign budget lease. */
+   campaignBudget?: NoraCampaignBudget;
 +  /** Request-scoped AbortSignal from cancellable Product transport. */
 +  signal?: AbortSignal;
 +  /**
-+   * TEST-ONLY — await immediately before each durable-effect cut-line.
-+   * Not Product-visible. Lets tests abort in the post-model / pre-write window.
++   * TEST-ONLY — suspend immediately before an F2 effect cut-line.
++   * Never Product truth; never a client DTO field.
 +   */
-+  beforeDurableEffect?: (
-+    block: ProductDurableEffectBlock,
-+  ) => void | Promise<void>;
++  beforeF2Effect?: (block: F2EffectBlock) => void | Promise<void>;
  }): Promise<ProjectAssistantSendResult> {
    const content = input.content.trim();
-   if (!content) {
-@@ -455,7 +494,9 @@ export async function orchestrateProjectAssistantTurn(input: {
-           });
-         },
-       },
+   const reinstructionOfProposalId = normalizeOpaqueProposalId(
+@@ -1060,6 +1102,18 @@ export async function orchestrateAssistantSend(input: {
+     };
+   }
+
++  const completeF2Turn = (
++    args: Omit<
++      Parameters<typeof f2ConversationalSuccess>[0],
++      "signal" | "beforeF2Effect"
++    >,
++  ) =>
++    f2ConversationalSuccess({
++      ...args,
++      signal: input.signal,
++      beforeF2Effect: input.beforeF2Effect,
++    });
++
+   let analysisResult: Awaited<ReturnType<typeof analyzeIntent>>;
+   let truthCContextForF1: string | undefined;
+   let reservationFocus: ValidatedReservationInteractionContext | null = null;
+@@ -1215,6 +1269,7 @@ export async function orchestrateAssistantSend(input: {
+               challengeSession.latest.structuralChallengeCount,
+           }
+         : { challengePresent: false as const };
++    throwIfAborted(input.signal);
+     analysisResult = await analyzeIntent({
+       userContent: content,
+       projectSummary: cognitive.projectSummary,
+@@ -1222,8 +1277,12 @@ export async function orchestrateAssistantSend(input: {
+       challengeContext,
+       provider: effectiveProvider,
+       evalModelReasoningControl: input.evalModelReasoningControl,
 +      signal: input.signal,
      });
-+    throwIfAborted(input.signal);
-
-     let assistantText = turn.text;
-     let lifecycleRecommendationMaterialized: boolean | null = null;
-@@ -871,6 +912,11 @@ export async function orchestrateProjectAssistantTurn(input: {
-           // Production key = durable logical turn id (no random f1-acw keys).
-           const turnCorrelationId = logicalTurnId!;
-           const producedAt = new Date().toISOString();
-+          await cutDurableEffect(
-+            input.signal,
-+            "activeCycleWork",
-+            input.beforeDurableEffect,
-+          );
-           const mat = await materializeActiveCycleWork({
-             items: acwItems,
-             facts: {
-@@ -965,6 +1011,11 @@ export async function orchestrateProjectAssistantTurn(input: {
-             } catch {
-               validJournalIds = undefined;
-             }
-+            await cutDurableEffect(
-+              input.signal,
-+              "reservation",
-+              input.beforeDurableEffect,
-+            );
-             const rsvMat = await materializeReservationDelta({
-               projectId: project.projectId,
-               cycleInstanceId: cycleIdForRsv,
-@@ -1087,6 +1138,11 @@ export async function orchestrateProjectAssistantTurn(input: {
-               (lps.ok ? lps.livingProjectState.doctrinePackageRef : undefined))
-             : undefined;
-           const producedAt = new Date().toISOString();
-+          await cutDurableEffect(
-+            input.signal,
-+            "lifecycleRecommendation",
-+            input.beforeDurableEffect,
-+          );
-           const mat =
-             await materializeLifecycleRecommendationFromStructuredOutput({
-               projectId: project.projectId,
-@@ -1139,6 +1195,11 @@ export async function orchestrateProjectAssistantTurn(input: {
-     );
-     // Persist read coverage for cross-turn honesty (existing session_items).
-     if (readCoverage.facts.length > 0 && !input.simulateMemoryBUnavailable) {
-+      await cutDurableEffect(
-+        input.signal,
-+        "readCoverage",
-+        input.beforeDurableEffect,
-+      );
-       try {
-         const dbPath = resolveNoraSessionSqlitePath(input.sessionDbPath);
-         const session = new ProductSqliteSession({
-@@ -1250,6 +1311,11 @@ export async function orchestrateProjectAssistantTurn(input: {
-       input.studioCognitiveContext?.activeCycle?.cycleInstanceId?.trim() ||
-       null;
-     if (!input.simulateMemoryBUnavailable) {
-+      await cutDurableEffect(
-+        input.signal,
-+        "transcriptJournal",
-+        input.beforeDurableEffect,
-+      );
-       try {
-         const dbPath = resolveNoraSessionSqlitePath(input.sessionDbPath);
-         const session = new ProductSqliteSession({
-@@ -1311,6 +1377,12 @@ export async function orchestrateProjectAssistantTurn(input: {
-         ? ("cognitive_stop" as const)
-         : ("ok" as const);
-
-+    await cutDurableEffect(
-+      input.signal,
-+      "terminalSuccess",
-+      input.beforeDurableEffect,
-+    );
-+
-     return {
-       ok: true,
-       status,
-@@ -1340,6 +1412,9 @@ export async function orchestrateProjectAssistantTurn(input: {
-       reservationProposedIds,
-     };
    } catch (error) {
 +    if (isAbortLike(error, input.signal) || error instanceof NoraTurnAbortedError) {
-+      return noraTurnStoppedFailure(modeResolution.mode, logicalTurnId);
++      return noraTurnStoppedFailure(modeResolution.mode);
 +    }
      const message =
-       error instanceof Error
-         ? error.message
+       error instanceof Error ? error.message : "Erreur provider inattendue.";
+     return {
+@@ -1250,7 +1309,9 @@ export async function orchestrateAssistantSend(input: {
+     };
+   }
+   const presentation = modeResolution.presentation;
+-  const contradictionAssessment = await deriveProductPathMw3Assessment(
++  try {
++    await cutF2Effect(input.signal, "postAnalyze", input.beforeF2Effect);
++    const contradictionAssessment = await deriveProductPathMw3Assessment(
+     analysis,
+     project.projectId,
+   );
+@@ -1275,7 +1336,7 @@ export async function orchestrateAssistantSend(input: {
+         workGate.eligible === false &&
+         workGate.kind === "ambiguous_subjects"
+       ) {
+-        return f2ConversationalSuccess({
++        return await completeF2Turn({
+           userText: content,
+           sessionDbPath: input.sessionDbPath,
+           text: [
+@@ -1295,6 +1356,11 @@ export async function orchestrateAssistantSend(input: {
+       }
+
+       if (workGate.eligible === true) {
++        await cutF2Effect(
++          input.signal,
++          "chatFirstDecision",
++          input.beforeF2Effect,
++        );
+         const resolved = await resolveChatFirstPilotDecision({
+           oa: oaForChatFirst,
+           projectId: project.projectId,
+@@ -1317,7 +1383,7 @@ export async function orchestrateAssistantSend(input: {
+             readyForNextGatedStep: resolved.readyForNextGatedStep,
+             executionPerformed: false,
+           };
+-          return f2ConversationalSuccess({
++          return await completeF2Turn({
+             userText: content,
+             sessionDbPath: input.sessionDbPath,
+             text: chatFirstDecisionText({
+@@ -1339,7 +1405,7 @@ export async function orchestrateAssistantSend(input: {
+         }
+
+         if (resolved.kind === "ambiguous_subjects") {
+-          return f2ConversationalSuccess({
++          return await completeF2Turn({
+             userText: content,
+             sessionDbPath: input.sessionDbPath,
+             text: [
+@@ -1358,7 +1424,7 @@ export async function orchestrateAssistantSend(input: {
+         }
+
+         if (resolved.kind === "defer_target_unresolved") {
+-          return f2ConversationalSuccess({
++          return await completeF2Turn({
+             userText: content,
+             sessionDbPath: input.sessionDbPath,
+             text: [
+@@ -1379,7 +1445,7 @@ export async function orchestrateAssistantSend(input: {
+           resolved.kind === "subject_read_failed" ||
+           resolved.kind === "decision_refused"
+         ) {
+-          return f2ConversationalSuccess({
++          return await completeF2Turn({
+             userText: content,
+             sessionDbPath: input.sessionDbPath,
+             text: [
+@@ -1399,7 +1465,7 @@ export async function orchestrateAssistantSend(input: {
+         }
+         // no_eligible_subject / no_decision → fall through
+       } else if (candidateDisposition === "defer") {
+-        return f2ConversationalSuccess({
++        return await completeF2Turn({
+           userText: content,
+           sessionDbPath: input.sessionDbPath,
+           text: [
+@@ -1485,6 +1551,7 @@ export async function orchestrateAssistantSend(input: {
+     // Keep methodContext for CORR-PROOF-03 compatibility surfaces when studio is present
+     // (studio supersedes in prompt builder).
+     const methodContext = studioCognitiveContext.method;
++    throwIfAborted(input.signal);
+     const f1 = await orchestrateProjectAssistantTurn({
+       ...input,
+       provider: effectiveProvider,
+@@ -1570,7 +1637,7 @@ export async function orchestrateAssistantSend(input: {
+   const formalizationSignals = analysis.signals;
+   if (!cycleTypeId || !formalizationSignals) {
+     // Defensive: readiness predicate already requires these; never invent defaults.
+-    return f2ConversationalSuccess({
++    return await completeF2Turn({
+       userText: content,
+       sessionDbPath: input.sessionDbPath,
+       text:
+@@ -1587,7 +1654,7 @@ export async function orchestrateAssistantSend(input: {
+   const runtime = getRuntimeApplicationService();
+   const oa = runtime.oa;
+   if (!oa) {
+-    return f2ConversationalSuccess({
++    return await completeF2Turn({
+       userText: content,
+       sessionDbPath: input.sessionDbPath,
+       text:
+@@ -1617,7 +1684,7 @@ export async function orchestrateAssistantSend(input: {
+       continuation.activeCycle?.cycleInstanceId ??
+       project.activeCycleInstanceId ??
+       null;
+-    return f2ConversationalSuccess({
++    return await completeF2Turn({
+       userText: content,
+       sessionDbPath: input.sessionDbPath,
+       text: [
+@@ -1684,7 +1751,7 @@ export async function orchestrateAssistantSend(input: {
+                       : "Le dépôt cible n'est pas encore projeté — configuration serveur requise, ou Project legacy sans binding.",
+                   "Votre décision et la préparation de l'action restent fermées tant que la cible n'est pas clarifiée.",
+                 ];
+-      return f2ConversationalSuccess({
++      return await completeF2Turn({
+         userText: content,
+         sessionDbPath: input.sessionDbPath,
+         text: [
+@@ -1714,7 +1781,13 @@ export async function orchestrateAssistantSend(input: {
+       !signals?.irreversible &&
+       !Boolean(analysis.contradictionCandidate?.conflictPresent);
+
+-    const mw5 = await evaluateF2Mw5({
++    const mw5 = await (async () => {
++      await cutF2Effect(
++        input.signal,
++        "mw5ChallengeState",
++        input.beforeF2Effect,
++      );
++      return evaluateF2Mw5({
+       content,
+       history: input.history,
+       analysis,
+@@ -1725,8 +1798,9 @@ export async function orchestrateAssistantSend(input: {
+       oa,
+       structurallyResolvedActiveCycleContinuation,
+     });
++    })();
+     if (!mw5.surface.recommendationAllowed) {
+-      return f2ConversationalSuccess({
++      return await completeF2Turn({
+         userText: content,
+         sessionDbPath: input.sessionDbPath,
+         text: mw5.text,
+@@ -1753,7 +1827,7 @@ export async function orchestrateAssistantSend(input: {
+     });
+     if (!reinstructionGate.ok) {
+       if (isChatFirstDisposableGateCode(reinstructionGate.code)) {
+-        return f2ConversationalSuccess({
++        return await completeF2Turn({
+           userText: content,
+           sessionDbPath: input.sessionDbPath,
+           text: pendingDispositionClarificationText({
+@@ -1780,6 +1854,7 @@ export async function orchestrateAssistantSend(input: {
+       };
+     }
+
++    await cutF2Effect(input.signal, "saveProposal", input.beforeF2Effect);
+     const proposal = saveProposal(
+       buildProposal({
+         intent: analysis,
+@@ -1795,6 +1870,11 @@ export async function orchestrateAssistantSend(input: {
+
+     // CORR-PROOF-10/11 — durable pending subject marker (write or explicit supersession).
+     {
++      await cutF2Effect(
++        input.signal,
++        "pendingDecisionSubject",
++        input.beforeF2Effect,
++      );
+       const marker = await commitPendingDecisionSubjectForDecisionRequired({
+         oa,
+         projectId: project.projectId,
+@@ -1820,7 +1900,7 @@ export async function orchestrateAssistantSend(input: {
+       "Nora n'émet pas de décision Pilote, GO, confirmation ou acte d'autorité.",
+     ];
+
+-    return f2ConversationalSuccess({
++    return await completeF2Turn({
+       userText: content,
+       sessionDbPath: input.sessionDbPath,
+       text: textParts.join(" "),
+@@ -1856,7 +1936,7 @@ export async function orchestrateAssistantSend(input: {
+   });
+
+   if (!qualified.ok) {
+-    return f2ConversationalSuccess({
++    return await completeF2Turn({
+       userText: content,
+       sessionDbPath: input.sessionDbPath,
+       text: `[Qualification échouée] ${qualified.message} AUCUNE EXÉCUTION.`,
+@@ -1895,6 +1975,11 @@ export async function orchestrateAssistantSend(input: {
+     });
+     let ckcCognitiveRecommendation: string | undefined;
+     if (ckcContent) {
++      await cutF2Effect(
++        input.signal,
++        "ckcReasoning",
++        input.beforeF2Effect,
++      );
+       const reasoning = await reasonWithResolvedCkcContext({
+         userContent: content,
+         projectSummary,
+@@ -1924,7 +2009,7 @@ export async function orchestrateAssistantSend(input: {
+     qualification.requiresJustificationForCritical &&
+     !(analysis.criticalJustification && analysis.criticalJustification.trim())
+   ) {
+-    return f2ConversationalSuccess({
++    return await completeF2Turn({
+       userText: content,
+       sessionDbPath: input.sessionDbPath,
+       text:
+@@ -1940,6 +2025,11 @@ export async function orchestrateAssistantSend(input: {
+     });
+   }
+
++  await cutF2Effect(
++    input.signal,
++    "mw5ChallengeState",
++    input.beforeF2Effect,
++  );
+   const mw5 = await evaluateF2Mw5({
+     content,
+     history: input.history,
+@@ -1951,7 +2041,7 @@ export async function orchestrateAssistantSend(input: {
+     oa,
+   });
+   if (!mw5.surface.recommendationAllowed) {
+-    return f2ConversationalSuccess({
++    return await completeF2Turn({
+       userText: content,
+       sessionDbPath: input.sessionDbPath,
+       text: mw5.text,
+@@ -1969,6 +2059,7 @@ export async function orchestrateAssistantSend(input: {
+   }
+
+   const cycleInstanceId = `cyc:f2-${randomBytes(8).toString("hex")}`;
++  await cutF2Effect(input.signal, "createCycle", input.beforeF2Effect);
+   const created = await oa.cycleServices.createCycle.execute({
+     cycleInstanceId,
+     cycleTypeId: qualification.cycleTypeId,
+@@ -1990,7 +2081,7 @@ export async function orchestrateAssistantSend(input: {
+   });
+
+   if (!created.ok) {
+-    return f2ConversationalSuccess({
++    return await completeF2Turn({
+       userText: content,
+       sessionDbPath: input.sessionDbPath,
+       text: `[Cycle] Création CycleInstance échouée (${created.error.detailCode}). Aucune mutation partielle. AUCUNE EXÉCUTION.`,
+@@ -2008,7 +2099,7 @@ export async function orchestrateAssistantSend(input: {
+   // Live context AFTER mutation — pre-mutation snapshot does not satisfy M2.
+   const live = await readLiveProjectContext(oa, project.projectId);
+   if (!live.ok) {
+-    return f2ConversationalSuccess({
++    return await completeF2Turn({
+       userText: content,
+       sessionDbPath: input.sessionDbPath,
+       text: `[Contexte] Relecture LPS post-mutation échouée. AUCUNE EXÉCUTION.`,
+@@ -2068,7 +2159,7 @@ export async function orchestrateAssistantSend(input: {
+     });
+     if (!reinstructionGate.ok) {
+       if (isChatFirstDisposableGateCode(reinstructionGate.code)) {
+-        return f2ConversationalSuccess({
++        return await completeF2Turn({
+           userText: content,
+           sessionDbPath: input.sessionDbPath,
+           text: pendingDispositionClarificationText({
+@@ -2097,6 +2188,7 @@ export async function orchestrateAssistantSend(input: {
+     newCycleReinstructionOf = reinstructionGate.reinstructionOfProposalId;
+   }
+
++  await cutF2Effect(input.signal, "saveProposal", input.beforeF2Effect);
+   const proposal = saveProposal(
+     buildProposal({
+       intent: analysis,
+@@ -2109,6 +2201,11 @@ export async function orchestrateAssistantSend(input: {
+   );
+
+   if (status === "DECISION_REQUIRED") {
++    await cutF2Effect(
++      input.signal,
++      "pendingDecisionSubject",
++      input.beforeF2Effect,
++    );
+     const marker = await commitPendingDecisionSubjectForDecisionRequired({
+       oa,
+       projectId: project.projectId,
+@@ -2148,7 +2245,7 @@ export async function orchestrateAssistantSend(input: {
+     "Nora n'émet pas de décision Pilote, GO, confirmation ou acte d'autorité.",
+   ];
+
+-  return f2ConversationalSuccess({
++  return await completeF2Turn({
+     userText: content,
+     sessionDbPath: input.sessionDbPath,
+     text: textParts.join(" "),
+@@ -2164,4 +2261,10 @@ export async function orchestrateAssistantSend(input: {
+     reinstructionOfProposalId,
+     reinstructionTransition: newCycleReinstructionOf ? "superseded" : undefined,
+   });
++  } catch (error) {
++    if (isAbortLike(error, input.signal) || error instanceof NoraTurnAbortedError) {
++      return noraTurnStoppedFailure(modeResolution.mode);
++    }
++    throw error;
++  }
+ }
+
+diff --git a/projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts b/projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts
+index e6c6da26..eb300ce1 100644
+--- a/projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts
++++ b/projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts
+@@ -10,6 +10,7 @@ import {
+   type ConversationProvider,
+   type ProviderChatMessage,
+ } from "@/lib/platform/ai";
++import { throwIfAborted } from "@/lib/nora-cognitive-runtime/noraTurnAbort";
+ import { validateRuntimeReasoningCapability } from "@/lib/nora-cognitive-runtime/reasoningCapability";
+ import type { NoraEvalModelReasoningControl } from "@/lib/nora-cognitive-runtime";
+ import { ADOPTED_CYCLE_TYPE_IDS, isKnownCycleTypeId } from "@/lib/oa/cycle";
+@@ -791,6 +792,8 @@ export async function analyzeIntent(input: {
+    * (USD preflight → claim → dispatch), not here.
+    */
+   evalModelReasoningControl?: NoraEvalModelReasoningControl;
++  /** Request-scoped AbortSignal from canonical send. */
++  signal?: AbortSignal;
+ }): Promise<{
+   analysis: IntentAnalysisDto;
+   presentation: "test_provider" | "openai_live";
+@@ -846,11 +849,14 @@ export async function analyzeIntent(input: {
+     );
+   }
+
++  throwIfAborted(input.signal);
+   const completion = await provider.completeStructured({
+     messages,
+     schemaName: F2_INTENT_SCHEMA_NAME,
+     jsonSchema: F2_INTENT_JSON_SCHEMA,
++    signal: input.signal,
+   });
++  throwIfAborted(input.signal);
+   const parsed = extractJsonObject(completion.text);
+   const analysis = validateIntentAnalysisPayload(parsed);
+
+
+diff --git a/projects/sfia-studio/app/lib/platform/ai/types.ts b/projects/sfia-studio/app/lib/platform/ai/types.ts
+index 6a8811d2..af56a432 100644
+--- a/projects/sfia-studio/app/lib/platform/ai/types.ts
++++ b/projects/sfia-studio/app/lib/platform/ai/types.ts
+@@ -70,6 +70,8 @@ export interface ConversationProvider {
+     messages: ProviderChatMessage[];
+     schemaName: string;
+     jsonSchema: Record<string, unknown>;
++    /** Request-scoped AbortSignal. Optional; omit on non-cancellable callers. */
++    signal?: AbortSignal;
+   }): Promise<ProviderCompletionResult>;
+ }
+
+
+diff --git a/projects/sfia-studio/app/lib/platform/ai/openaiProvider.ts b/projects/sfia-studio/app/lib/platform/ai/openaiProvider.ts
+index 13ffc70e..5262cd7a 100644
+--- a/projects/sfia-studio/app/lib/platform/ai/openaiProvider.ts
++++ b/projects/sfia-studio/app/lib/platform/ai/openaiProvider.ts
+@@ -11,6 +11,15 @@ import type {
+   ProviderToolCall,
+ } from "./types";
+
++function isOpenAiAbortError(error: unknown, signal?: AbortSignal): boolean {
++  if (signal?.aborted) return true;
++  if (error instanceof OpenAI.APIUserAbortError) return true;
++  if (error instanceof Error) {
++    return error.name === "AbortError" || error.name === "APIUserAbortError";
++  }
++  return false;
++}
++
+ /**
+  * OpenAI Responses adapter — server-only.
+  * Domain/UI must not import this module from client components.
+@@ -72,9 +81,10 @@ export class OpenAIConversationProvider implements ConversationProvider {
+     messages: ProviderChatMessage[];
+     schemaName: string;
+     jsonSchema: Record<string, unknown>;
++    signal?: AbortSignal;
+   }): Promise<ProviderCompletionResult> {
+     try {
+-      const response = await this.client.responses.create({
++      const body = {
+         model: this.model,
+         ...this.reasoningParam(),
+         input: input.messages.map((m) => ({
+@@ -83,13 +93,16 @@ export class OpenAIConversationProvider implements ConversationProvider {
+         })) as OpenAI.Responses.ResponseInput,
+         text: {
+           format: {
+-            type: "json_schema",
++            type: "json_schema" as const,
+             name: input.schemaName,
+             schema: input.jsonSchema,
+             strict: true,
+           },
+         },
+-      });
++      };
++      const response = input.signal
++        ? await this.client.responses.create(body, { signal: input.signal })
++        : await this.client.responses.create(body);
+
+       const usage = response.usage;
+       const inputTokens = usage?.input_tokens ?? null;
+@@ -118,6 +131,7 @@ export class OpenAIConversationProvider implements ConversationProvider {
+       };
+     } catch (error) {
+       if (error instanceof TechnicalError) throw error;
++      if (isOpenAiAbortError(error, input.signal)) throw error;
+       throw new TechnicalError(
+         "PROVIDER",
+         "Échec de l’appel fournisseur GPT. Réessayez manuellement.",
+
+diff --git a/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts b/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
+index ecf475fa..14bef383 100644
+--- a/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
++++ b/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
+@@ -432,9 +432,15 @@ export class FakeConversationProvider implements ConversationProvider {
+     messages: ProviderChatMessage[];
+     schemaName: string;
+     jsonSchema: Record<string, unknown>;
++    signal?: AbortSignal;
+   }): Promise<ProviderCompletionResult> {
+     void input.schemaName;
+     void input.jsonSchema;
++    if (input.signal?.aborted) {
++      const error = new Error("AbortError");
++      error.name = "AbortError";
++      throw error;
++    }
+     // Reuse F2 marker / analysis scripted JSON from complete().
+     return this.complete(input.messages);
+   }
+
+diff --git a/projects/sfia-studio/app/lib/nora-eval/meteredProvider.ts b/projects/sfia-studio/app/lib/nora-eval/meteredProvider.ts
+index 04d95485..7de11a4a 100644
+--- a/projects/sfia-studio/app/lib/nora-eval/meteredProvider.ts
++++ b/projects/sfia-studio/app/lib/nora-eval/meteredProvider.ts
+@@ -133,12 +133,18 @@ export class MeteredConversationProvider implements ConversationProvider {
+     messages: ProviderChatMessage[];
+     schemaName: string;
+     jsonSchema: Record<string, unknown>;
++    signal?: AbortSignal;
+   }): Promise<ProviderCompletionResult> {
+     if (typeof this.inner.completeStructured !== "function") {
+       throw new Error("completeStructured not available on wrapped provider");
+     }
+     this.preflight();
+     await this.afterPreflightBeforeDispatch();
++    if (input.signal?.aborted) {
++      const error = new Error("AbortError");
++      error.name = "AbortError";
++      throw error;
++    }
+     const result = await this.inner.completeStructured(input);
+     this.record("completeStructured", result.usage);
+     return result;
+
+diff --git a/projects/sfia-studio/app/__tests__/ops1/openai-provider.test.ts b/projects/sfia-studio/app/__tests__/ops1/openai-provider.test.ts
+index 4786a8a9..23873b58 100644
+--- a/projects/sfia-studio/app/__tests__/ops1/openai-provider.test.ts
++++ b/projects/sfia-studio/app/__tests__/ops1/openai-provider.test.ts
+@@ -113,4 +113,53 @@ describe("OpenAIConversationProvider mapping", () => {
+     ]);
+     expect(payload.tools).toBeUndefined();
+   });
++
++  it("completeStructured forwards AbortSignal as SDK RequestOptions.signal", async () => {
++    createMock.mockResolvedValue({
++      id: "resp_abort",
++      model: "gpt-test",
++      output_text: '{"intentClass":"informative"}',
++      usage: { input_tokens: 1, output_tokens: 1, total_tokens: 2 },
++    });
++    const { OpenAIConversationProvider } = await import(
++      "@/lib/platform/ai/openaiProvider"
++    );
++    const provider = new OpenAIConversationProvider("sk-test", "gpt-test");
++    const controller = new AbortController();
++    await provider.completeStructured({
++      messages: [{ role: "user", content: "ask" }],
++      schemaName: "f2_intent_analysis",
++      jsonSchema: { type: "object", additionalProperties: false, properties: {}, required: [] },
++      signal: controller.signal,
++    });
++    expect(createMock).toHaveBeenCalledTimes(1);
++    expect(createMock.mock.calls[0][1]).toEqual({ signal: controller.signal });
++    expect(createMock.mock.calls[0][1].signal).toBe(controller.signal);
++  });
++
++  it("completeStructured rethrows abort errors instead of TechnicalError", async () => {
++    const abort = new Error("Request was aborted.");
++    abort.name = "APIUserAbortError";
++    createMock.mockRejectedValue(abort);
++    const { OpenAIConversationProvider } = await import(
++      "@/lib/platform/ai/openaiProvider"
++    );
++    const { TechnicalError } = await import("@/lib/platform/ai/errors");
++    const provider = new OpenAIConversationProvider("sk-test", "gpt-test");
++    const controller = new AbortController();
++    controller.abort();
++    await expect(
++      provider.completeStructured({
++        messages: [{ role: "user", content: "ask" }],
++        schemaName: "f2_intent_analysis",
++        jsonSchema: { type: "object", additionalProperties: false, properties: {}, required: [] },
++        signal: controller.signal,
++      }),
++    ).rejects.toSatisfy(
++      (error: unknown) =>
++        error instanceof Error &&
++        error.name !== "TechnicalError" &&
++        !(error instanceof TechnicalError),
++    );
++  });
+ });
+
+diff --git a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
+index dc721daf..84e39f83 100644
+--- a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
++++ b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
+@@ -578,19 +578,19 @@
+   "trackedSources": [
+     {
+       "path": "projects/sfia-studio/app/features/project-assistant/actions.ts",
+-      "sha256_16": "8839aac183e38265"
++      "sha256_16": "40476bb2a7b35f9c"
+     },
+     {
+       "path": "projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts",
+-      "sha256_16": "28b6b3d32b754cec"
++      "sha256_16": "cba03a9222f5b6a6"
+     },
+     {
+       "path": "projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts",
+-      "sha256_16": "8c5c218b44267b5b"
++      "sha256_16": "66fc6947572fca3f"
+     },
+     {
+       "path": "projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts",
+-      "sha256_16": "94d908d10eb822f2"
++      "sha256_16": "aeb3359752700910"
+     },
+     {
+       "path": "projects/sfia-studio/app/features/project-assistant/f2/activeCycleGovernedContinuation.ts",
+@@ -622,7 +622,7 @@
+     },
+     {
+       "path": "projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts",
+-      "sha256_16": "b1d586c1784f8c75"
++      "sha256_16": "b4aaef8d204e35c7"
+     },
+     {
+       "path": "projects/sfia-studio/app/lib/nora-cognitive-runtime/productSqliteSession.ts",
+@@ -666,7 +666,7 @@
+     },
+     {
+       "path": "projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts",
+-      "sha256_16": "d8db5a73ecb35722"
++      "sha256_16": "5cdf31daac6a480f"
+     },
+     {
+       "path": "projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.tsx",
+@@ -678,7 +678,7 @@
+     },
+     {
+       "path": "projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts",
+-      "sha256_16": "02979a5b05a36ced"
++      "sha256_16": "04bb47dbd1e37a7f"
+     },
+     {
+       "path": "projects/sfia-studio/app/.env.example",
 
 ```
+
+## 36. Tests map
+
+| proof | test |
+| --- | --- |
+| T01 in-flight F2 structured | p5.s06.cp02.2 T01 |
+| wrapper signal identity | wrapper does not drop |
+| OpenAI RequestOptions.signal | openai-provider.test.ts |
+| abort after analyze | T postAnalyze |
+| createCycle=0 | T03 |
+| saveProposal=0 / already-started cycle | T04 |
+| transcript=0 | T06/T08 |
+| transcript kept + STOPPED | T07/T08 |
+| next turn | T09 |
+| F1 CP02/CP02.1 | existing tests PASS |
+| F2 routing AC | f2.orchestrate.test.ts PASS |
+
+## 37. Targeted tests
+
+CP02.2 + OpenAI + CP02 + CP02.1 + F2 orchestrate + platform-ai + UI/hook cancellation: **48 PASS** (targeted batch). Isolated liveManagedRepoComposition 8 PASS after load-flake.
+
+## 38. Full test results
+
+Test Files **480 passed** | 19 skipped
+Tests **5307 passed** | 139 skipped | **0 failed**
+(First full run under concurrent build: 1 timeout CASE EXIT liveManagedRepo — isolation PASS; second full run clean.)
+
+## 39. typecheck / lint / build
+
+typecheck PASS. lint PASS. build PASS (pre-existing better-sqlite3 warning).
+
+## 40. ZERO REAL
+
+YES. No live OpenAI. Fake + mocked SDK client.
+
+## 41. Fake/Real
+
+Entry: F1 deterministic proven, F2 incomplete (CP02.1).
+Expected/achieved: **DETERMINISTIC FULL CANONICAL SEND CANCELLATION PROVEN**.
+NOT REAL BOUNDARY / NOT READY FOR REAL.
+
+## 42. Architecture parallelism
+
+One canonical send. One Nora orchestration. One AbortSignal. No registry/store/queue/streaming.
+
+## 43. UI/Visual FREEZE
+
+No UI/CSS files in CP02.2 delta. CP02 six captures remain S06 visual evidence. No Figma.
+
+## 44. PRR
+
+`--write-digests` after content review of tracked orchestrateF2 / intentAnalysis / fakeProvider (and related tracked hashes that drifted with S06 candidate). Semantic review: abort cut-lines only.
+
+## 45. Docs truth-sync COMPLETE DIFF
 
 ### Roadmap (complete useful diff vs origin/main)
 
 ```diff
 diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-index 3b89bbcf..104e2ac7 100644
+index 3b89bbcf..27afcb79 100644
 --- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 +++ b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-@@ -4,7 +4,11 @@
+@@ -4,7 +4,12 @@
  | --- | --- |
  | **Rôle** | Roadmap **vivante** de convergence vers l’utilisation complète de la doctrine produit SFIA Studio v3 |
  | **Statut** | **VALIDATED — ACTIVE LIVING ROADMAP** |
 -| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S05 CP02 LOCAL CANDIDATE** | 2026-10-06 Europe/Paris — **STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S05 CORRECTION PASS 02 — LOCAL CANDIDATE PASS** · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **8 — Delivery / Implementation Correction** · Profile **Critical** · Typologie **EVOL** · Milestone **P5** · Slice **P5-S05** · Pass **CP02** · Morris P5-S05 CP02 GATE = **AUTHORIZED / CONSUMED** · prior Delivery+REAL/R3 + CP01 gates remain **CONSUMED** · base/main **`79a0e48a69c8dd634a8cecf972199bea8a4daeec`** · branche `delivery/sfia-studio-product-simplification-p5-s05-r3-f2-routing-alignment` · B1 F1 model = **SELECTED→DISPATCH CONFIG PROVEN** (`providerReturnedModel=NOT_OBSERVED`; REAL via `providerResponseId`) · B2 R3-19 = completed anti-secret observation (no stale pending) · campaign `p5-s05-r3-cp02-1791247484728` · productFP `35f31263…` (unchanged vs CP01) · harnessFP `a8049035…` (changed) · F2 Luna/low selected→configured→returned · F1 Luna/high selected→dispatched · CKC **N_A** · accounting BOUNDED (F1 modelInvocations=3) · R3 = **PASS AT TESTED SCOPE — LOCAL CANDIDATE AFTER CP02 FINAL EVIDENCE CORRECTION** · F2 EXIT PROOF PASS — LOCAL CANDIDATE · full npm test **5272 PASS** · P5 COMPLETE **NO** · P6 READY **NO** · runtime v3 **NON ADOPTED** · project Git = **NOT AUTHORIZED** · next = **ChatGPT Final Critical Re-Review** → **MORRIS P5-S05 GIT INTEGRATION GATE** if PASS · **≠** INTEGRATED · **≠** CLOSED ON MAIN |
-+| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S06 CP02.1 LOCAL CANDIDATE** | 2026-10-06 Europe/Paris — **STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S06 CP02.1 — LOCAL CANDIDATE / FINAL EXIT PROOF PASS** · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **8 — Delivery / Implementation Correction** · Profile **Critical** · Typologie **EVOL** · Milestone **P5** · Slice **P5-S06** · Pass **CP02.1** · Morris CP02.1 GO **CONSUMED** · D-S06-CANCEL-01 remains consumed · base/main **`16a8e2fd823d75d7c59ce1fb4d55cb862d112697`** · branche `delivery/sfia-studio-product-simplification-p5-s06-pilot-experience-completion` · post-model cut-lines **throwIfAborted** before ACW / Reservation / LR / readCoverage / transcriptJournal / terminalSuccess · Request.signal identity **PROVEN** · abort post-model pre-transcript **STOPPED / no new assistant row** · already-started transcript **not rolled back** · ZERO REAL · P5 COMPLETE **NO** · P6 READY **NO** · runtime v3 **NON ADOPTED** · project Git **NOT AUTHORIZED** · next = **ChatGPT Final Critical Re-Review CP02.1** · S07 **NOT STARTED** · **≠** INTEGRATED · **≠** S06 Git-complete |
++| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S06 CP02.2 LOCAL CANDIDATE** | 2026-10-06 Europe/Paris — **STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S06 CP02.2 — LOCAL CANDIDATE / FULL CANONICAL SEND CANCELLATION EXIT PROOF PASS** · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **8 — Delivery / Implementation Correction** · Profile **Critical** · Typologie **EVOL** · Milestone **P5** · Slice **P5-S06** · Pass **CP02.2** · Morris CP02.2 GO **CONSUMED** · D-S06-CANCEL-01 remains consumed · CP02.1 historical preserved · base/main **`16a8e2fd823d75d7c59ce1fb4d55cb862d112697`** · branche `delivery/sfia-studio-product-simplification-p5-s06-pilot-experience-completion` · F2 `completeStructured` AbortSignal **PROVEN** · F2 post-analyze / createCycle / proposal / transcript cut-lines **PROVEN** · already-started createCycle **not rolled back** · ZERO REAL · P5 COMPLETE **NO** · P6 READY **NO** · runtime v3 **NON ADOPTED** · project Git **NOT AUTHORIZED** · next = **ChatGPT Final Critical Re-Review CP02.2** · S07 **NOT STARTED** · **≠** INTEGRATED · **≠** S06 Git-complete |
++| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S06 CP02.1 LOCAL CANDIDATE** | 2026-10-06 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S06 CP02.1 — LOCAL CANDIDATE / FINAL EXIT PROOF PASS *(true then; superseded by P5-S06 CP02.2 tip)* · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **8 — Delivery / Implementation Correction** · Profile **Critical** · Typologie **EVOL** · Milestone **P5** · Slice **P5-S06** · Pass **CP02.1** · Morris CP02.1 GO **CONSUMED** · D-S06-CANCEL-01 remains consumed · base/main **`16a8e2fd823d75d7c59ce1fb4d55cb862d112697`** · branche `delivery/sfia-studio-product-simplification-p5-s06-pilot-experience-completion` · post-model cut-lines **throwIfAborted** before ACW / Reservation / LR / readCoverage / transcriptJournal / terminalSuccess · Request.signal identity **PROVEN** · abort post-model pre-transcript **STOPPED / no new assistant row** · already-started transcript **not rolled back** · ZERO REAL · P5 COMPLETE **NO** · P6 READY **NO** · runtime v3 **NON ADOPTED** · project Git **NOT AUTHORIZED** · next was **ChatGPT Final Critical Re-Review CP02.1** · S07 **NOT STARTED** · **≠** INTEGRATED · **≠** S06 Git-complete |
 +| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S06 CP02 LOCAL CANDIDATE** | 2026-10-06 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S06 CORRECTION PASS 02 — LOCAL CANDIDATE / FUNCTIONAL CLOSURE PASS *(true then; superseded by P5-S06 CP02.1 tip)* · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **8 — Delivery / Implementation Correction** · Profile **Critical** · Typologie **EVOL** · Milestone **P5** · Slice **P5-S06** · Pass **CP02** · Morris **D-S06-CANCEL-01 ADOPTED / CONSUMED** · prior Delivery+CP01 CONSUMED · base/main **`16a8e2fd823d75d7c59ce1fb4d55cb862d112697`** · branche `delivery/sfia-studio-product-simplification-p5-s06-pilot-experience-completion` · C2 STOP **DETERMINISTIC bounded AbortSignal / same Runner / same sendProjectAssistantTurn / thin HTTP transport** · Activity honesty **SOURCE_LOOKUP not live** · New Project mobile **title→Nora→composer** · Projects/Auth **frozen** · Visual **PASS AT S06 SCOPE** · ZERO REAL · P5 COMPLETE **NO** · P6 READY **NO** · runtime v3 **NON ADOPTED** · project Git **NOT AUTHORIZED** · next was **ChatGPT Final Critical Review CP02** · S07 **NOT STARTED** · **≠** INTEGRATED · **≠** S06 Git-complete |
 +| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S06 CP01 LOCAL CANDIDATE** | 2026-10-06 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — P5-S06 CORRECTION PASS 01 LOCAL CANDIDATE / STOP ARCHITECTURE DELTA ON NORA STOP *(true then; superseded by P5-S06 CP02 tip)* · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **8 — Delivery / Implementation Correction** · Profile **Critical** · Typologie **EVOL** · Milestone **P5** · Slice **P5-S06** · Pass **CP01** · Morris P5-S06 CP01 GATE = **AUTHORIZED / CONSUMED** · prior S06 DELIVERY CONSUMED · base/main **`16a8e2fd823d75d7c59ce1fb4d55cb862d112697`** · branche `delivery/sfia-studio-product-simplification-p5-s06-pilot-experience-completion` · A New Project **explicit phases / no regex NLP** · continuity **Project+LPS rebound via workspace projectId** · B Projects **récents ≠ À reprendre** · Orientation **honest new-project only** · C Activity **mapping proven** · STOP **ABSENT / no fake STOPPED** · D visual **structure improved / not Visual PASS** · ZERO REAL · P5 COMPLETE **NO** · P6 READY **NO** · runtime v3 **NON ADOPTED** · project Git **NOT AUTHORIZED** · next was **ChatGPT Critical Re-Review CP01** · S07 **NOT STARTED** · **≠** INTEGRATED · **≠** S06 COMPLETE |
 +| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S06 LOCAL CANDIDATE** | 2026-10-06 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S06 PILOT EXPERIENCE COMPLETION — LOCAL CANDIDATE *(true then; superseded by P5-S06 CP01 tip)* · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **8 — Delivery / Implementation** · Profile **Standard** · Typologie **EVOL** · Milestone **P5** · Slice **P5-S06** · Morris P5-S06 DELIVERY GATE = **AUTHORIZED / CONSUMED** (2026-10-06) · slicing P5 restant **S06/S07/S08** = **ADOPTED** · base/main **`16a8e2fd823d75d7c59ce1fb4d55cb862d112697`** (PR **#560** P5-S05 R3 · CI Studio **#688** SUCCESS) · branche `delivery/sfia-studio-product-simplification-p5-s06-pilot-experience-completion` · P5-S05 = **INTEGRATED / POST-MERGE VERIFIED** · F2 routing alignment = **CLOSED ON MAIN** · R3 = **PASS AT TESTED SCOPE / INTEGRATED / POST-MERGE VERIFIED** · Axes S06 : A Projects **ADAPT** · B Nouveau projet chat-first **ADAPT** (ephemeral client · createProjectRuntimeAction · D1 NOT nominal) · C Nora Activity **PARTIAL** (labels honnêtes · **STOP/■ absent** — no fake STOPPED) · D Auth GitHub visual **ADAPT** (backend KEEP) · E responsive/a11y touched surfaces · ZERO REAL · full npm test **5278 PASS / 139 skipped** · P5 COMPLETE **NO** · P6 READY **NO** · runtime v3 **NON ADOPTED** · project Git = **NOT AUTHORIZED** · next = **ChatGPT Review de S06** → gate Morris distinct si PASS · S07 = **NOT STARTED** · **≠** INTEGRATED · **≠** P5 COMPLETE |
@@ -602,17 +1419,17 @@ index 3b89bbcf..104e2ac7 100644
 
 ```diff
 diff --git a/projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md b/projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md
-index 5f23603b..b9e37ba6 100644
+index 5f23603b..8304b1fa 100644
 --- a/projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md
 +++ b/projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md
-@@ -5,40 +5,48 @@
+@@ -5,40 +5,49 @@
  | **Projet** | SFIA Studio |
  | **Macro** | `STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01` |
  | **Milestone** | **P5 — INTEGRATED DELIVERY** (Delivery / Implementation / Evidence source) |
 -| **Slice** | **P5-S01**…**P5-S04** (integrated) + **P5-S05** (local candidate) |
 -| **Pass** | **P5-S05 CORRECTION PASS 02 — LOCAL CANDIDATE PASS** |
 +| **Slice** | **P5-S01**…**P5-S05** (integrated) + **P5-S06** (local candidate) |
-+| **Pass** | **P5-S06 CP02.1 — LOCAL CANDIDATE / FINAL EXIT PROOF PASS** |
++| **Pass** | **P5-S06 CP02.2 — LOCAL CANDIDATE / FULL CANONICAL SEND CANCELLATION EXIT PROOF PASS** |
  | **Typologie** | Delivery evidence dans macro **EVOL** — **≠** doctrine · **≠** nouvelle architecture |
  | **Autorité architecture** | **P4** (`04-chat-first-product-simplification-semantic-projection-cognitive-architecture.md`) — **inchangée** |
 -| **Base / HEAD Git** | `origin/main` = `79a0e48a69c8dd634a8cecf972199bea8a4daeec` (PR **#559** POST-S04 TRUTH-SYNC · CI **#686** SUCCESS) |
@@ -639,11 +1456,12 @@ index 5f23603b..b9e37ba6 100644
 -| **ZERO REAL** | **NO for S05 R3** (bounded REAL OpenAI) · S04 ZERO REAL preserved historically |
 -| **READY FOR REAL** | **R3 CP02 executed under Morris S05 + CP01 + CP02 gates** |
 +| **P5-S05** | **INTEGRATED / POST-MERGE VERIFIED** — F2 routing CLOSED ON MAIN · R3 PASS AT TESTED SCOPE |
-+| **P5-S06** | **CP02.1 LOCAL CANDIDATE — FINAL EXIT PROOF PASS** · FUNCTIONAL CLOSURE **PASS LOCALLY** · C2 STOP **DETERMINISTIC + post-model cut-lines** · **≠ INTEGRATED** · **≠ COMPLETE until Git** |
++| **P5-S06** | **CP02.2 LOCAL CANDIDATE — FULL CANONICAL SEND CANCELLATION EXIT PROOF PASS** · FUNCTIONAL CLOSURE **PASS LOCALLY** · C2 STOP **DETERMINISTIC + F1 cut-lines + F2 provider/effects** · **≠ INTEGRATED** · **≠ COMPLETE until Git** |
 +| **P5-S06 DELIVERY** | **AUTHORIZED / CONSUMED** |
 +| **P5-S06 CP01** | **AUTHORIZED / CONSUMED** |
 +| **P5-S06 CP02** | **AUTHORIZED / CONSUMED** |
 +| **P5-S06 CP02.1** | **AUTHORIZED / CONSUMED** |
++| **P5-S06 CP02.2** | **AUTHORIZED / CONSUMED** |
 +| **P5 slicing restant** | **S06 / S07 / S08** — **ADOPTED BY MORRIS** (2026-10-06) · S07/S08 = **NOT STARTED** |
 +| **R1 / R2 / R3** | **R1 PASS** · **R2 PASS** · **R3 PASS AT TESTED SCOPE / INTEGRATED / POST-MERGE VERIFIED** (S05) |
 +| **ZERO REAL** | **YES for S06** · S05 R3 REAL historique préservé (bounded OpenAI sous gate S05) |
@@ -655,7 +1473,7 @@ index 5f23603b..b9e37ba6 100644
 -| **P5-S05 CP01** | **AUTHORIZED / CONSUMED** |
 -| **P5-S05 CP02** | **AUTHORIZED / CONSUMED** |
 +| **Git (S06)** | **NOT AUTHORIZED** — no project commit/push/PR/merge |
-+| **Next** | **ChatGPT Final Critical Re-Review of P5-S06 CP02.1** · Git integration **NOT AUTHORIZED** · S07 **NOT STARTED** |
++| **Next** | **ChatGPT Final Critical Re-Review of P5-S06 CP02.2** · Git integration **NOT AUTHORIZED** · S07 **NOT STARTED** |
 +| **P5-S05 DELIVERY** | **AUTHORIZED / CONSUMED** → **INTEGRATED** via PR **#560** |
 +| **P5-S05 REAL / R3** | **AUTHORIZED / CONSUMED** → **INTEGRATED** |
 +| **P5-S05 CP01 / CP02** | **AUTHORIZED / CONSUMED** (historique) |
@@ -665,11 +1483,11 @@ index 5f23603b..b9e37ba6 100644
  | **Date** | 2026-10-06 · Europe/Paris |
 
 -> **Lecture rapide.** P5-S01…S04 **intégrés**. P5-S05 CP02 = **LOCAL CANDIDATE PASS** (B1 F1 selected→dispatch · B2 R3-19 scan observation · CKC N_A · accounting borné). **≠ INTEGRATED** · **≠ P5 COMPLETE** · **≠ runtime v3 ADOPTED**. Project Git **NOT AUTHORIZED**.
-+> **Lecture rapide.** P5-S01…S05 **intégrés**. P5-S06 CP02.1 = **LOCAL CANDIDATE — FINAL EXIT PROOF PASS** (cancellation CP02 + post-model cut-lines + request.signal identity). **≠ INTEGRATED** · **≠ P5 COMPLETE** · Git **NOT AUTHORIZED**.
++> **Lecture rapide.** P5-S01…S05 **intégrés**. P5-S06 CP02.2 = **LOCAL CANDIDATE — FULL CANONICAL SEND CANCELLATION EXIT PROOF PASS** (transport + F2 structured provider + F2 cut-lines + F1 Runner + F1 post-model). **≠ INTEGRATED** · **≠ P5 COMPLETE** · Git **NOT AUTHORIZED**.
  > **Règle de lecture des preuves.** *Implémenté* ≠ *prouvé* ≠ *intégré* ≠ *REAL*. Chaque affirmation ci-dessous est qualifiée par son niveau de preuve. Les résultats de tests/typecheck/lint/build sont ceux **rapportés par la passe de livraison** ; ce document n’en invente pas d’autres et ne les a pas ré-exécutés lors de sa rédaction.
 
  ---
-@@ -972,4 +980,103 @@ Anti-claims explicites :
+@@ -972,4 +981,123 @@ Anti-claims explicites :
 
  ---
 
@@ -773,137 +1591,123 @@ index 5f23603b..b9e37ba6 100644
 +
 +---
 +
-+*Fin du document P5 — Integrated Delivery — S01…S05 INTEGRATED · S06 CP02.1 LOCAL CANDIDATE FINAL EXIT PROOF · project Git NOT AUTHORIZED · P5 COMPLETE NO · runtime v3 NON ADOPTED — P4 remains architecture authority.*
++## 43. P5-S06 CP02.2 — F2 cancellation closure (truth-sync)
++
++> **Qualification.** Morris CP02.2 GO consumed. Architecture D-S06-CANCEL-01 unchanged. Same request-scoped AbortSignal now reaches F2 `analyzeIntent` / `completeStructured` and F2 effect cut-lines. **≠ INTEGRATED**. **≠ REAL cancellation proven**.
++
++| Item | Statut CP02.2 |
++| --- | --- |
++| F2 `completeStructured` signal | **PROVEN** — test provider observes `input.signal`; abort in-flight → STOPPED not provider_error |
++| OpenAI adapter | **SDK RequestOptions.signal** (`openai` ^6.48.0 `responses.create(body, { signal })`) — ZERO REAL mock |
++| Wrapper forwarding | **PROVEN** — decorator passes same AbortSignal object |
++| Abort after analyze / before createCycle | **PROVEN** — `createCycle.execute` = 0 |
++| Abort before saveProposal | **PROVEN** — proposal absent; createCycle already started **kept** (no rollback) |
++| Abort before F2 transcript | **PROVEN** — 0 assistant rows · not ok:true |
++| Abort after F2 transcript | **PROVEN** — rows kept · terminal STOPPED |
++| Next turn after STOP | **PROVEN** |
++| HumanDecision write path | **CUT-LINE PRESENT** before `resolveChatFirstPilotDecision` — dedicated HD fixture not required this pass (eligible workGate) |
++| CKC `complete()` second call | **CUT-LINE BEFORE** `reasonWithResolvedCkcContext` — in-flight SDK abort not extended to `complete()` |
++| UI / F1 Runner / transport | **FROZEN** |
++
++---
++
++*Fin du document P5 — Integrated Delivery — S01…S05 INTEGRATED · S06 CP02.2 LOCAL CANDIDATE FULL CANONICAL SEND CANCELLATION EXIT PROOF · project Git NOT AUTHORIZED · P5 COMPLETE NO · runtime v3 NON ADOPTED — P4 remains architecture authority.*
 
 ```
 
-### PRR hashes
+## 46. Debt / exit
 
-```diff
-diff --git a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-index dc721daf..a002fd9a 100644
---- a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-+++ b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-@@ -578,15 +578,15 @@
-   "trackedSources": [
-     {
-       "path": "projects/sfia-studio/app/features/project-assistant/actions.ts",
--      "sha256_16": "8839aac183e38265"
-+      "sha256_16": "40476bb2a7b35f9c"
-     },
-     {
-       "path": "projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts",
--      "sha256_16": "28b6b3d32b754cec"
-+      "sha256_16": "cba03a9222f5b6a6"
-     },
-     {
-       "path": "projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts",
--      "sha256_16": "8c5c218b44267b5b"
-+      "sha256_16": "f9b863bbb0b7ff7b"
-     },
-     {
-       "path": "projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts",
-@@ -622,7 +622,7 @@
-     },
-     {
-       "path": "projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts",
--      "sha256_16": "b1d586c1784f8c75"
-+      "sha256_16": "b4aaef8d204e35c7"
-     },
-     {
-       "path": "projects/sfia-studio/app/lib/nora-cognitive-runtime/productSqliteSession.ts",
-@@ -678,7 +678,7 @@
-     },
-     {
-       "path": "projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts",
--      "sha256_16": "02979a5b05a36ced"
-+      "sha256_16": "04bb47dbd1e37a7f"
-     },
-     {
-       "path": "projects/sfia-studio/app/.env.example",
+P5-S06-DEBT-NORA-STOP = CLOSED LOCALLY — FULL CANONICAL SEND deterministic proof / awaiting Git Integration.
+
+## 47. Reserves (non-blocking)
+
+- HumanDecision write abort: cut-line present; dedicated eligible workGate fixture not added.
+- CKC `complete()` in-flight: pre-call cut-line only (complete() contract not expanded).
+- Continuation-path saveProposal/pending covered by same cut-line names; new-cycle fixture used for proofs.
+- load-flake liveManagedRepo CASE EXIT under concurrent Next build — not a CP02.2 product defect.
+
+## 48. Morris decisions required
+
+ChatGPT Final Critical Re-Review. Distinct GO for Git Integration — not consumed.
+
+## 49. Project Git effects
+
+NO add/commit/push/PR/merge.
+
+## 50. Review Handoff
+
+See publisher output after this pack. Input eeed4811.
+
+## 51. Unique readiness
+
+READY FOR CHATGPT FINAL CRITICAL RE-REVIEW — P5-S06 CP02.2 LOCAL CANDIDATE
+
+## 52. Verdict
+
+READY FOR CHATGPT FINAL CRITICAL RE-REVIEW — P5-S06 CP02.2 LOCAL CANDIDATE
+P5-S06 INTEGRATED = NO. Git Integration = NOT AUTHORIZED. P5 COMPLETE = NO.
+
+---
+
+## Appendix — git name-status / stat vs origin/main (whole S06 candidate)
+
+```
+M	.tmp-sfia-review/chatgpt-review.md
+M	projects/sfia-studio/app/__tests__/ops1/openai-provider.test.ts
+M	projects/sfia-studio/app/__tests__/pre-m6-product-ui/runningAttemptRefresh.ui.test.tsx
+M	projects/sfia-studio/app/app/login/login-client.tsx
+M	projects/sfia-studio/app/features/pre-m6-product-ui/NewProjectIntentionPage.module.css
+M	projects/sfia-studio/app/features/pre-m6-product-ui/NewProjectIntentionPage.tsx
+M	projects/sfia-studio/app/features/pre-m6-product-ui/ProjectsPage.module.css
+M	projects/sfia-studio/app/features/pre-m6-product-ui/ProjectsPage.tsx
+M	projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
+M	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.module.css
+M	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
+M	projects/sfia-studio/app/features/project-assistant/actions.ts
+M	projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts
+M	projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
+M	projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
+M	projects/sfia-studio/app/features/project-assistant/types.ts
+M	projects/sfia-studio/app/lib/nora-cognitive-runtime/providerAgentsModel.ts
+M	projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
+M	projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts
+M	projects/sfia-studio/app/lib/nora-eval/meteredProvider.ts
+M	projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
+M	projects/sfia-studio/app/lib/platform/ai/openaiProvider.ts
+M	projects/sfia-studio/app/lib/platform/ai/types.ts
+M	projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+M	projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md
+M	projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
 
 ```
 
-Untracked CP02 file already in prior handoff; CP02.1 only changed the Route test context to `params: Promise.resolve({ projectId: "prj:x" })` to match the Next.js POST signature.
+```
+ .tmp-sfia-review/chatgpt-review.md                 | 1015 +++++++++++++++++---
+ .../app/__tests__/ops1/openai-provider.test.ts     |   49 +
+ .../runningAttemptRefresh.ui.test.tsx              |    7 +
+ .../sfia-studio/app/app/login/login-client.tsx     |  161 ++--
+ .../NewProjectIntentionPage.module.css             |  311 ++++--
+ .../pre-m6-product-ui/NewProjectIntentionPage.tsx  |  481 +++++-----
+ .../pre-m6-product-ui/ProjectsPage.module.css      |  368 +++++--
+ .../features/pre-m6-product-ui/ProjectsPage.tsx    |  283 ++++--
+ .../hooks/useProductConversation.ts                |  110 ++-
+ .../surfaces/ConversationSurface.module.css        |   49 +
+ .../surfaces/ConversationSurface.tsx               |   69 +-
+ .../app/features/project-assistant/actions.ts      |  109 +--
+ .../project-assistant/f2/intentAnalysis.ts         |    6 +
+ .../features/project-assistant/f2/orchestrateF2.ts |  147 ++-
+ .../features/project-assistant/orchestrateTurn.ts  |   77 +-
+ .../app/features/project-assistant/types.ts        |    1 +
+ .../nora-cognitive-runtime/providerAgentsModel.ts  |   26 +-
+ .../nora-cognitive-runtime/runNoraAgentsTurn.ts    |   13 +
+ .../nora-cognitive-runtime/runNoraCognitiveTurn.ts |    7 +
+ .../app/lib/nora-eval/meteredProvider.ts           |    6 +
+ .../app/lib/platform/ai/fakeProvider.ts            |    6 +
+ .../app/lib/platform/ai/openaiProvider.ts          |   20 +-
+ projects/sfia-studio/app/lib/platform/ai/types.ts  |    2 +
+ .../convergence/sfia-studio-convergence-roadmap.md |    7 +-
+ ...t-product-simplification-integrated-delivery.md |  160 ++-
+ .../production-runtime-reference.manifest.json     |   14 +-
+ 26 files changed, 2591 insertions(+), 913 deletions(-)
 
-## 23. Targeted tests
-
-CP02.1 3 PASS. CP02 cancellation + UI + hook PASS. orchestrateTurn.test.ts 8 PASS.
-
-## 24. Full suite
-
-**PASS** — Test Files **479 passed** | 19 skipped (498) · Tests **5297 passed** | 139 skipped (5436) · failed **0** · ~76s
-
-## 25. typecheck / lint / build
-
-typecheck PASS (after Route params Promise fix in CP02 test). lint PASS. build PASS (pre-existing better-sqlite3 warning).
-
-## 26. ZERO REAL
-
-YES. FakeConversationProvider + mocked send. No OpenAI.
-
-## 27. Fake/Real
-
-DETERMINISTIC CANCELLATION EXIT PROOF COMPLETE.
-NOT REAL BOUNDARY PROVEN. NOT READY FOR REAL.
-
-## 28. Architecture parallelism
-
-Still one send, one Nora, one Runner. TEST-ONLY `beforeDurableEffect` is optional orchestrate input, same class as `simulateMemoryBUnavailable` / `turnCorrelationId`. No registry. No rollback engine.
-
-## 29. Product side-effect semantics
-
-Forward cut-line only. Combined protection: server cut-lines + client generation/AbortController guard (CP02). Physical race after HTTP bytes left the server remains client-guarded.
-
-## 30. Visual / UI freeze
-
-No UI/CSS files modified in CP02.1. Six CP02 captures remain S06 evidence. No Figma pass.
-
-## 31. Docs truth-sync diffs
-
-Complete diffs in §22 (Roadmap + P5). Not synthesis-only.
-
-## 32. Debt / exit
-
-P5-S06-DEBT-NORA-STOP remains CLOSED LOCALLY / awaiting Git Integration.
-P04–P06 ACW/RSV/LR: cut-lines present; independent Fake-path exercise not claimed. Non-blocking for S06 exit at tested transcript/terminal boundaries.
-
-## 33. Reserves
-
-- ACW/Reservation/LR write blocks not entered on Fake hello fixture
-- readCoverage skipped when no tool facts
-- Node Request wraps AbortController.signal (identity is request.signal, not controller.signal)
-- F2 saveProposal path not additionally cut in this micro-pass
-- STREAMING still unimplemented
-
-**No remaining S06 functional blocker identified locally.**
-
-## 34. Morris decisions required
-
-1. ChatGPT Final Critical Re-Review CP02.1
-2. Distinct P5-S06 Git Integration GO if PASS — not consumed
-
-## 35. Project Git effects
-
-NONE. No project add/commit/push/PR.
-
-## 36. Review Handoff publication
-
-Publisher `scripts/sfia/publish-review-handoff.sh`
-Message: `docs(review-handoff): publish P5 S06 CP02.1 exit proof`
-Input remote: `3d1fb1cc7b17082be4675f7b43400882236ebcd0`
-After: (filled after publish)
-
-## 37. Unique readiness
-
-READY FOR CHATGPT FINAL CRITICAL RE-REVIEW — P5-S06 CP02.1 LOCAL CANDIDATE
-
-## 38. Verdict
-
-**READY FOR CHATGPT FINAL CRITICAL RE-REVIEW — P5-S06 CP02.1 LOCAL CANDIDATE**
-
-P5-S06 FUNCTIONAL CLOSURE = PASS LOCALLY
-P5-S06 FINAL EXIT PROOF = PASS LOCALLY
-P5-S06 INTEGRATED = NO
-P5 COMPLETE = NO
-Git Integration = NOT AUTHORIZED
+```
