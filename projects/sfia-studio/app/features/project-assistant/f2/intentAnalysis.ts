@@ -10,6 +10,7 @@ import {
   type ConversationProvider,
   type ProviderChatMessage,
 } from "@/lib/platform/ai";
+import { throwIfAborted } from "@/lib/nora-cognitive-runtime/noraTurnAbort";
 import { validateRuntimeReasoningCapability } from "@/lib/nora-cognitive-runtime/reasoningCapability";
 import type { NoraEvalModelReasoningControl } from "@/lib/nora-cognitive-runtime";
 import { ADOPTED_CYCLE_TYPE_IDS, isKnownCycleTypeId } from "@/lib/oa/cycle";
@@ -791,6 +792,8 @@ export async function analyzeIntent(input: {
    * (USD preflight → claim → dispatch), not here.
    */
   evalModelReasoningControl?: NoraEvalModelReasoningControl;
+  /** Request-scoped AbortSignal from canonical send. */
+  signal?: AbortSignal;
 }): Promise<{
   analysis: IntentAnalysisDto;
   presentation: "test_provider" | "openai_live";
@@ -846,11 +849,14 @@ export async function analyzeIntent(input: {
     );
   }
 
+  throwIfAborted(input.signal);
   const completion = await provider.completeStructured({
     messages,
     schemaName: F2_INTENT_SCHEMA_NAME,
     jsonSchema: F2_INTENT_JSON_SCHEMA,
+    signal: input.signal,
   });
+  throwIfAborted(input.signal);
   const parsed = extractJsonObject(completion.text);
   const analysis = validateIntentAnalysisPayload(parsed);
 

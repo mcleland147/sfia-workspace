@@ -11,6 +11,16 @@ import type {
   ProviderToolCall,
 } from "./types";
 
+function isOpenAiAbortError(error: unknown, signal?: AbortSignal): boolean {
+  if (signal?.aborted) return true;
+  const abortCtor = OpenAI.APIUserAbortError;
+  if (typeof abortCtor === "function" && error instanceof abortCtor) return true;
+  if (error instanceof Error) {
+    return error.name === "AbortError" || error.name === "APIUserAbortError";
+  }
+  return false;
+}
+
 /**
  * OpenAI Responses adapter — server-only.
  * Domain/UI must not import this module from client components.
@@ -50,6 +60,7 @@ export class OpenAIConversationProvider implements ConversationProvider {
 
   async complete(
     messages: ProviderChatMessage[],
+    options?: { signal?: AbortSignal },
   ): Promise<ProviderCompletionResult> {
     const round = await this.completeRound({
       items: messages.map((m) => ({
@@ -58,6 +69,7 @@ export class OpenAIConversationProvider implements ConversationProvider {
         content: m.content,
       })),
       tools: [],
+      signal: options?.signal,
     });
     if (round.kind !== "message") {
       throw new TechnicalError(
@@ -72,9 +84,10 @@ export class OpenAIConversationProvider implements ConversationProvider {
     messages: ProviderChatMessage[];
     schemaName: string;
     jsonSchema: Record<string, unknown>;
+    signal?: AbortSignal;
   }): Promise<ProviderCompletionResult> {
     try {
-      const response = await this.client.responses.create({
+      const body = {
         model: this.model,
         ...this.reasoningParam(),
         input: input.messages.map((m) => ({
@@ -83,13 +96,16 @@ export class OpenAIConversationProvider implements ConversationProvider {
         })) as OpenAI.Responses.ResponseInput,
         text: {
           format: {
-            type: "json_schema",
+            type: "json_schema" as const,
             name: input.schemaName,
             schema: input.jsonSchema,
             strict: true,
           },
         },
-      });
+      };
+      const response = input.signal
+        ? await this.client.responses.create(body, { signal: input.signal })
+        : await this.client.responses.create(body);
 
       const usage = response.usage;
       const inputTokens = usage?.input_tokens ?? null;
@@ -118,6 +134,7 @@ export class OpenAIConversationProvider implements ConversationProvider {
       };
     } catch (error) {
       if (error instanceof TechnicalError) throw error;
+      if (isOpenAiAbortError(error, input.signal)) throw error;
       throw new TechnicalError(
         "PROVIDER",
         "Échec de l’appel fournisseur GPT. Réessayez manuellement.",
@@ -129,6 +146,7 @@ export class OpenAIConversationProvider implements ConversationProvider {
   async completeRound(input: {
     items: ProviderInputItem[];
     tools: ToolDefinition[];
+    signal?: AbortSignal;
   }): Promise<ProviderRoundResult> {
     try {
       const tools =
@@ -142,7 +160,7 @@ export class OpenAIConversationProvider implements ConversationProvider {
               strict: false,
             }));
 
-      const response = await this.client.responses.create({
+      const body = {
         model: this.model,
         ...this.reasoningParam(),
         input: input.items.map((item) => {
@@ -167,7 +185,10 @@ export class OpenAIConversationProvider implements ConversationProvider {
           };
         }) as OpenAI.Responses.ResponseInput,
         tools,
-      });
+      };
+      const response = input.signal
+        ? await this.client.responses.create(body, { signal: input.signal })
+        : await this.client.responses.create(body);
 
       const usage = response.usage;
       const inputTokens = usage?.input_tokens ?? null;
@@ -222,6 +243,7 @@ export class OpenAIConversationProvider implements ConversationProvider {
       return { kind: "message", text, usage: providerUsage };
     } catch (error) {
       if (error instanceof TechnicalError) throw error;
+      if (isOpenAiAbortError(error, input.signal)) throw error;
       throw new TechnicalError(
         "PROVIDER",
         "Échec de l’appel fournisseur GPT. Réessayez manuellement.",

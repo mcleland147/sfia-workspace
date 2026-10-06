@@ -1,0 +1,217 @@
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 40px 48px 32px;
+  background: var(--pm6-canvas, #fffdf9);
+  color: var(--pm6-ink, #1f1a16);
+  font-family: var(--pm6-font, Inter, "Segoe UI", sans-serif);
+  position: relative;
+}
+
+.topBrand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.layout {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 460px;
+  gap: 80px;
+  align-items: center;
+  width: 100%;
+  max-width: 1220px;
+  margin: 0 auto;
+  min-height: 620px;
+}
+
+.narrative {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 360px;
+  justify-self: start;
+  margin-left: 24px;
+}
+
+.card {
+  width: 460px;
+  max-width: 100%;
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 35px;
+  background: var(--pm6-surface, #fff);
+  border: 1px solid var(--pm6-border-soft, #eae2d9);
+  border-radius: 16px;
+  box-shadow: var(--pm6-shadow-card, 0 8px 24px rgba(31, 26, 22, 0.05));
+  justify-self: end;
+}
+
+.mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: var(--pm6-forest, #1f1a16);
+  color: var(--pm6-forest-ink, #fffdf9);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.brandText {
+  font-size: 0.95rem;
+  font-weight: 650;
+  color: var(--pm6-ink, #1f1a16);
+}
+
+.eyebrow {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--pm6-muted, #7f766d);
+}
+
+.narrativeTitle {
+  margin: 0;
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--pm6-ink, #1f1a16);
+}
+
+.narrativeBody {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.55;
+  color: var(--pm6-muted-strong, #6f665e);
+  max-width: 36ch;
+}
+
+.title {
+  margin: 0;
+  font-size: 1.55rem;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  color: var(--pm6-ink, #1f1a16);
+}
+
+.lead {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--pm6-muted-strong, #6f665e);
+}
+
+.error {
+  margin: 0;
+  padding: 0.75rem 1rem;
+  border-radius: var(--pm6-radius-md, 12px);
+  background: var(--pm6-danger-tint, #fbeeec);
+  border: 1px solid color-mix(in srgb, var(--pm6-danger, #b8432b) 35%, transparent);
+  color: var(--pm6-danger, #b8432b);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.githubCta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 44px;
+  box-sizing: border-box;
+  border: 1px solid var(--pm6-forest, #1f1a16);
+  border-radius: var(--pm6-radius-md, 12px);
+  padding: 0.85rem 1rem;
+  background: var(--pm6-forest, #1f1a16);
+  color: var(--pm6-forest-ink, #fffdf9);
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.githubCta:hover {
+  background: var(--pm6-forest-hover, #3a322b);
+}
+
+.githubCta:focus-visible {
+  outline: none;
+  box-shadow: var(--pm6-focus-ring, 0 0 0 3px rgba(31, 26, 22, 0.35));
+}
+
+.githubIcon {
+  flex: 0 0 auto;
+  display: block;
+}
+
+.note {
+  margin: 0;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--pm6-muted, #7f766d);
+  text-align: center;
+}
+
+.sessionHint {
+  margin: 0;
+  padding: 0.75rem 0.9rem;
+  border-radius: var(--pm6-radius-md, 12px);
+  background: var(--pm6-canvas-raised, #fbf7f2);
+  border: 1px solid var(--pm6-border-soft, #eae2d9);
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: var(--pm6-ink-soft, #3d352e);
+}
+
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+    align-items: start;
+    min-height: auto;
+    gap: 24px;
+  }
+
+  .narrative {
+    max-width: none;
+    margin-left: 0;
+  }
+
+  .card {
+    width: 100%;
+    min-height: 310px;
+    justify-self: stretch;
+    padding: 27px 23px;
+  }
+}
+
+@media (max-width: 767px) {
+  .page {
+    padding: 16px 20px;
+  }
+
+  .layout {
+    padding-top: 80px;
+  }
+
+  .narrativeTitle {
+    font-size: 1.55rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .githubCta {
+    transition: none;
+  }
+}

@@ -141,9 +141,12 @@ class CapturingOpenAiProvider implements ConversationProvider {
   readonly providerId = "openai";
   readonly captures: Capture[] = [];
   constructor(private readonly inner: ConversationProvider) {}
-  async complete(messages: ProviderChatMessage[]): Promise<ProviderCompletionResult> {
+  async complete(
+    messages: ProviderChatMessage[],
+    options?: { signal?: AbortSignal },
+  ): Promise<ProviderCompletionResult> {
     const t0 = Date.now();
-    const result = await this.inner.complete(messages);
+    const result = await this.inner.complete(messages, options);
     this.captures.push({
       at: new Date().toISOString(),
       method: "complete",

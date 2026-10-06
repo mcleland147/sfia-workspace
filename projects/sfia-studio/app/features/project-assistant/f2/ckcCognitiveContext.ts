@@ -13,6 +13,7 @@ import {
   resolveConversationProvider,
   type ConversationProvider,
 } from "@/lib/platform/ai";
+import { throwIfAborted } from "@/lib/nora-cognitive-runtime/noraTurnAbort";
 import type { CkcQualificationSuccessResult } from "@/lib/oa/cycle";
 import type { DoctrinePackagePin } from "@/lib/oa/doctrine";
 import { FilesystemDoctrinePackageRepository } from "@/lib/oa/doctrine/infrastructure/filesystemDoctrinePackageRepository";
@@ -473,6 +474,8 @@ export async function reasonWithResolvedCkcContext(input: {
   ckcPromptSection: string | null;
   /** Optional server-side provider injection (eval / tests). */
   provider?: ConversationProvider;
+  /** Request-scoped AbortSignal from canonical send. */
+  signal?: AbortSignal;
 }): Promise<{
   recommendation: string;
   presentation: "test_provider" | "openai_live";
@@ -487,13 +490,18 @@ export async function reasonWithResolvedCkcContext(input: {
     ? `${CKC_COGNITIVE_REASONING_SYSTEM_MARKER}\n${CKC_COGNITIVE_RECOMMENDATION_INTEGRITY_RULES}\nContexte CKC résolu (guidance seulement — pas d'autorité, pas de décision humaine):\n${input.ckcPromptSection.trim()}`
     : `${CKC_COGNITIVE_REASONING_SYSTEM_MARKER}\n${CKC_COGNITIVE_RECOMMENDATION_INTEGRITY_RULES}\nAucun contexte CKC package résolu — recommandation générique uniquement.`;
 
-  const completion = await provider.complete([
-    { role: "system", content: systemContent },
-    {
-      role: "user",
-      content: `Contexte projet:\n${input.projectSummary}\n\nIntention qualifiée:\n${input.intentSummary}\n\nDemande:\n${input.userContent}`,
-    },
-  ]);
+  throwIfAborted(input.signal);
+  const completion = await provider.complete(
+    [
+      { role: "system", content: systemContent },
+      {
+        role: "user",
+        content: `Contexte projet:\n${input.projectSummary}\n\nIntention qualifiée:\n${input.intentSummary}\n\nDemande:\n${input.userContent}`,
+      },
+    ],
+    { signal: input.signal },
+  );
+  throwIfAborted(input.signal);
 
   return {
     recommendation: completion.text,

@@ -57,10 +57,11 @@ export class CallCapConversationProvider implements ConversationProvider {
 
   async complete(
     messages: ProviderChatMessage[],
+    options?: { signal?: AbortSignal },
   ): Promise<ProviderCompletionResult> {
     this.assertCapacity();
     this.launchedCalls += 1;
-    return this.inner.complete(messages);
+    return this.inner.complete(messages, options);
   }
 
   async completeStructured(input: {
@@ -206,8 +207,9 @@ export class IntentCaptureConversationProvider implements ConversationProvider {
 
   async complete(
     messages: ProviderChatMessage[],
+    options?: { signal?: AbortSignal },
   ): Promise<ProviderCompletionResult> {
-    return this.inner.complete(messages);
+    return this.inner.complete(messages, options);
   }
 
   async completeStructured(input: {

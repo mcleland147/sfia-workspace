@@ -5,40 +5,51 @@
 | **Projet** | SFIA Studio |
 | **Macro** | `STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01` |
 | **Milestone** | **P5 — INTEGRATED DELIVERY** (Delivery / Implementation / Evidence source) |
-| **Slice** | **P5-S01**…**P5-S04** (integrated) + **P5-S05** (local candidate) |
-| **Pass** | **P5-S05 CORRECTION PASS 02 — LOCAL CANDIDATE PASS** |
+| **Slice** | **P5-S01**…**P5-S05** (integrated) + **P5-S06** (local candidate) |
+| **Pass** | **P5-S06 GIT INTEGRATION — AUTHORIZED / IN PROGRESS / MERGE NOT AUTHORIZED** |
 | **Typologie** | Delivery evidence dans macro **EVOL** — **≠** doctrine · **≠** nouvelle architecture |
 | **Autorité architecture** | **P4** (`04-chat-first-product-simplification-semantic-projection-cognitive-architecture.md`) — **inchangée** |
-| **Base / HEAD Git** | `origin/main` = `79a0e48a69c8dd634a8cecf972199bea8a4daeec` (PR **#559** POST-S04 TRUTH-SYNC · CI **#686** SUCCESS) |
+| **Base / HEAD Git** | `origin/main` = `16a8e2fd823d75d7c59ce1fb4d55cb862d112697` (PR **#560** P5-S05 R3 · CI Studio **#688** SUCCESS) |
 | **P5-S01 integration** | PR **#555** **MERGED** · post-merge CI **#678** **SUCCESS** · **INTEGRATED / POST-MERGE VERIFIED** |
 | **P5-S02 integration** | PR **#556** **MERGED** · post-merge CI **#680** **SUCCESS** · Required Gate **SUCCESS** · **INTEGRATED / POST-MERGE VERIFIED** |
 | **P5-S03 integration** | PR **#557** **MERGED** · post-merge CI **#682** **SUCCESS** · Required Gate **SUCCESS** · **INTEGRATED / POST-MERGE VERIFIED** |
 | **P5-S04 integration** | PR **#558** **MERGED** · post-merge CI **#684** / run **`37377995199`** **SUCCESS** · Required Gate **SUCCESS** · **INTEGRATED / POST-MERGE VERIFIED** |
+| **P5-S05 integration** | PR **#560** **MERGED** · post-merge CI Studio **#688** **SUCCESS** · **INTEGRATED / POST-MERGE VERIFIED** · F2 routing alignment **CLOSED ON MAIN** · R3 **PASS AT TESTED SCOPE / INTEGRATED / POST-MERGE VERIFIED** |
 | **Worktree** | `/Users/morris/Projects/sfia-studio-chat-first-product-simplification-p3` |
-| **Branche S05** | `delivery/sfia-studio-product-simplification-p5-s05-r3-f2-routing-alignment` (local · **NOT committed**) |
+| **Branche S06** | `delivery/sfia-studio-product-simplification-p5-s06-pilot-experience-completion` (Git Integration this gate · **MERGE NOT AUTHORIZED**) |
 | **P5 AUTHORIZED BY MORRIS** | **YES** |
 | **P5 STARTED** | **YES** |
 | **P5 IN PROGRESS** | **YES** |
+| **P5 COMPLETE** | **NO** |
+| **P6 READY** | **NO** |
 | **P5-S01** | **INTEGRATED / POST-MERGE VERIFIED** |
 | **P5-S02** | **INTEGRATED / POST-MERGE VERIFIED** — R1/R2 **PROVEN** · envelope deviation **ACCEPTED BY MORRIS** |
 | **P5-S03** | **INTEGRATED / POST-MERGE VERIFIED** · Object-Native Aperçu + Exécution · A=0/B=0 |
 | **P5-S04** | **INTEGRATED / POST-MERGE VERIFIED** · Product-derived Synthèses M9 · CP01/CP02 preserved · A=0/B=0 · B1/B2 CLOSED |
-| **P5-S05** | **LOCAL CANDIDATE PASS AFTER CP02** — F2 routing EXIT PROOF · R3 PASS AT TESTED SCOPE |
-| **R1 / R2 / R3** | **R1 PASS** · **R2 PASS** · **R3 PASS AT TESTED SCOPE — LOCAL CANDIDATE (CP02)** |
-| **ZERO REAL** | **NO for S05 R3** (bounded REAL OpenAI) · S04 ZERO REAL preserved historically |
-| **READY FOR REAL** | **R3 CP02 executed under Morris S05 + CP01 + CP02 gates** |
+| **P5-S05** | **INTEGRATED / POST-MERGE VERIFIED** — F2 routing CLOSED ON MAIN · R3 PASS AT TESTED SCOPE |
+| **P5-S06** | **GIT INTEGRATION IN PROGRESS** · Final Critical Re-Review CP02.3 **PASS** · FUNCTIONAL CLOSURE **PASS LOCALLY** · FULL CANONICAL SEND CANCELLATION **PASS LOCALLY / DETERMINISTIC** · Visual **PASS AT S06 SCOPE** · **≠ INTEGRATED** · **≠ MERGED** |
+| **P5-S06 DELIVERY** | **AUTHORIZED / CONSUMED** |
+| **P5-S06 CP01** | **AUTHORIZED / CONSUMED** |
+| **P5-S06 CP02** | **AUTHORIZED / CONSUMED** |
+| **P5-S06 CP02.1** | **AUTHORIZED / CONSUMED** |
+| **P5-S06 CP02.2** | **AUTHORIZED / CONSUMED** |
+| **P5-S06 CP02.3** | **AUTHORIZED / CONSUMED** |
+| **P5-S06 GIT INTEGRATION GATE** | **AUTHORIZED / CONSUMED** |
+| **P5 slicing restant** | **S06 / S07 / S08** — **ADOPTED BY MORRIS** (2026-10-06) · S07/S08 = **NOT STARTED** |
+| **R1 / R2 / R3** | **R1 PASS** · **R2 PASS** · **R3 PASS AT TESTED SCOPE / INTEGRATED / POST-MERGE VERIFIED** (S05) |
+| **ZERO REAL** | **YES for S06** · S05 R3 REAL historique préservé (bounded OpenAI sous gate S05) |
 | **runtime v3** | **NON ADOPTED** |
-| **Git (S05)** | **NOT AUTHORIZED** — no project commit/push/PR/merge |
-| **Next** | **ChatGPT Final Critical Re-Review** → **MORRIS P5-S05 GIT INTEGRATION GATE** if PASS |
-| **P5-S05 DELIVERY** | **AUTHORIZED / CONSUMED** |
-| **P5-S05 REAL / R3** | **AUTHORIZED / CONSUMED** |
-| **P5-S05 CP01** | **AUTHORIZED / CONSUMED** |
-| **P5-S05 CP02** | **AUTHORIZED / CONSUMED** |
+| **Git (S06)** | **THIS GATE** — project commit/push/PR **AUTHORIZED** · MERGE **NOT AUTHORIZED** — separate Morris GO required |
+| **Next** | **commit → push → PR → CI → STOP** · Merge **NOT AUTHORIZED** · S07 **NOT STARTED** |
+| **P5-S05 DELIVERY** | **AUTHORIZED / CONSUMED** → **INTEGRATED** via PR **#560** |
+| **P5-S05 REAL / R3** | **AUTHORIZED / CONSUMED** → **INTEGRATED** |
+| **P5-S05 CP01 / CP02** | **AUTHORIZED / CONSUMED** (historique) |
+| **P5-S06 DELIVERY** | **AUTHORIZED / CONSUMED** |
 | **Langue** | Français (identifiants canoniques anglais préservés) |
 | **Fichier** | `projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md` |
 | **Date** | 2026-10-06 · Europe/Paris |
 
-> **Lecture rapide.** P5-S01…S04 **intégrés**. P5-S05 CP02 = **LOCAL CANDIDATE PASS** (B1 F1 selected→dispatch · B2 R3-19 scan observation · CKC N_A · accounting borné). **≠ INTEGRATED** · **≠ P5 COMPLETE** · **≠ runtime v3 ADOPTED**. Project Git **NOT AUTHORIZED**.
+> **Lecture rapide.** P5-S01…S05 **intégrés**. P5-S06 = **GIT INTEGRATION IN PROGRESS** after ChatGPT Final Critical Re-Review CP02.3 **PASS**. Commit/push/PR **AUTHORIZED this gate**. MERGE **NOT AUTHORIZED**. **≠ INTEGRATED** · **≠ P5 COMPLETE**.
 > **Règle de lecture des preuves.** *Implémenté* ≠ *prouvé* ≠ *intégré* ≠ *REAL*. Chaque affirmation ci-dessous est qualifiée par son niveau de preuve. Les résultats de tests/typecheck/lint/build sont ceux **rapportés par la passe de livraison** ; ce document n’en invente pas d’autres et ne les a pas ré-exécutés lors de sa rédaction.
 
 ---
@@ -972,4 +983,165 @@ Anti-claims explicites :
 
 ---
 
-*Fin du document P5 — Integrated Delivery — S01/S02/S03/S04 INTEGRATED / POST-MERGE VERIFIED · S05 CP02 LOCAL CANDIDATE PASS · R3 PASS AT TESTED SCOPE LOCAL · project Git NOT AUTHORIZED · P5 COMPLETE NO · runtime v3 NON ADOPTED — P4 remains architecture authority.*
+---
+
+## 39. P5-S06 — Pilot Experience Completion — LOCAL CANDIDATE (truth-sync)
+
+> **Qualification.** Enregistrement factuel de la Delivery locale P5-S06 sous GO Morris DELIVERY consommé le 2026-10-06. **≠ INTEGRATED** · **≠ P5 COMPLETE** · project Git **NOT AUTHORIZED**.
+
+### 39.1 Git / gates
+
+| Item | Valeur |
+| --- | --- |
+| Base / HEAD | `16a8e2fd823d75d7c59ce1fb4d55cb862d112697` = `origin/main` |
+| Branche | `delivery/sfia-studio-product-simplification-p5-s06-pilot-experience-completion` |
+| P5-S05 | **INTEGRATED / POST-MERGE VERIFIED** — PR **#560** · CI Studio **#688** SUCCESS |
+| F2 routing | **CLOSED ON MAIN** |
+| R3 | **PASS AT TESTED SCOPE / INTEGRATED / POST-MERGE VERIFIED** |
+| Morris S06 DELIVERY | **CONSUMED** |
+| Slicing restant | **S06 / S07 / S08** ADOPTED · S07/S08 **NOT STARTED** |
+| ZERO REAL (S06) | **YES** |
+| runtime v3 | **NON ADOPTED** |
+| P5 COMPLETE / P6 READY | **NO** / **NO** |
+
+### 39.2 Axes livrés (honnêteté)
+
+| Axe | Statut | Notes |
+| --- | --- | --- |
+| A Projects | **ADAPT** | Recherche locale · À reprendre depuis `updatedAt` ≤14j · Orientation → `/studio/projects/new` · empty state · pas d’attention inventée |
+| B Nouveau projet | **ADAPT** | Conversation pré-Project éphémère client · `createProjectRuntimeAction` au CTA · D1 Intake **NOT** nominal · pas de store / pas d’auto-Cycle |
+| C Nora Activity / STOP | **PARTIAL** | Phases START/ACTIVITY/COMPLETE projetées depuis `uiState` réel · **■ STOP absent** (pas de seam Abort Product) — **pas de faux STOPPED** |
+| D Auth GitHub visual | **ADAPT** | Split narrative+card · « Continuer avec GitHub » · mark SVG · backend Better/Auth **KEEP** |
+| E Responsive / a11y | **ADAPT** (surfaces touchées) | Labels · focus · targets · reduced-motion conservé côté conversation |
+
+### 39.3 Preuves
+
+| Porte | Résultat |
+| --- | --- |
+| `p5.s06.pilotExperience.d0.test.tsx` | **6 PASS** |
+| Auth unit tests ciblés | **PASS** |
+| typecheck / lint / build | **PASS** |
+| full `npm test` | **5278 PASS / 139 skipped** |
+| Visual runtime | Auth + Projects `/studio` + New Project capturés sous `.tmp-sfia-review/p5-s06-visual/runtime/` vs Figma refs sous `…/figma/` — **pas de claim Visual PASS global** |
+
+### 39.4 Réserves
+
+| Classe | Réserve |
+| --- | --- |
+| **BLOCKING** (avant S06 COMPLETE) | P3 STOP/■ non satisfait sans architecture cancellation — décision Morris : accepter PARTIAL ou autoriser delta |
+| **NON-BLOCKING** | Écarts Class B Projects/New Project vs frames Figma EXPLORATORY (table Attention, quick-replies, layout 3-col) · STREAMING non projeté (non observable) · D1 HARVEST only |
+
+### 39.5 Next
+
+**ChatGPT Review de S06** → gate Morris distinct. **S07** reste **NOT STARTED**.
+
+---
+
+## 40. P5-S06 CP01 — Correction Pass 01 (truth-sync)
+
+> **Qualification.** Delivery S06 Critical Review = CORRECTION REQUIRED. CP01 = local candidate after semantic/visual correction. STOP Nora remains architecture-blocked. **≠ S06 COMPLETE** · **≠ INTEGRATED**.
+
+| Axe | Statut CP01 |
+| --- | --- |
+| A New Project | **PASS** — explicit phases INTENTION/NAME/OPTIONAL_CONTEXT · no NAME_HINT · factual preview · CTA unique |
+| A2 Continuity | **PASS min-sufficient** — createProjectRuntimeAction writes Project+LPS · router `/studio/projects/:id` · workspace `getProject` + `useProductConversation(projectId)` · no transcript store |
+| B Projects | **PASS** — « Projets récents » from updatedAt · no « À reprendre » as next-action · local search KEEP |
+| B2 Orientation | **PASS** — wording = start new project only · href `/studio/projects/new` |
+| C Activity | **PASS proven** — `projectNoraActivity` mapping + tests |
+| C2 STOP | **BLOCKED** — no Product conversation Abort seam · no fake ■/STOPPED |
+| D Visual | **PARTIEL** — structure closer to 63:39 / 67:39 / 130:3 / mobile 190:* · composer mobile first · no Attention invented · **≠ Visual PASS** |
+
+---
+
+## 41. P5-S06 CP02 — Nora Cancellation Closure (truth-sync)
+
+> **Qualification.** Morris D-S06-CANCEL-01 consumed. Bounded request-scoped AbortSignal through same `sendProjectAssistantTurn` → `orchestrateAssistantSend` → `runNoraAgentsTurn` → `Runner.run({ signal })`. Thin POST `/api/studio/projects/[projectId]/assistant/send`. **≠ INTEGRATED**. **≠ REAL cancellation proven**.
+
+| Axe | Statut CP02 |
+| --- | --- |
+| A / A2 / B | **PASS** (CP01 preserved) |
+| C Activity | **PASS** — SOURCE_LOOKUP no longer projected as live « consulte les sources » |
+| C2 STOP | **PASS DETERMINISTIC / BOUNDED CANCELLATION PROVEN** — ■ only when in-flight · native AbortSignal · STOPPED ≠ Error/Cognitive STOP/Execution STOP · no late success after abort in tested path |
+| D Visual | **PASS AT S06 SCOPE** — Projects/Auth freeze · New Project mobile order title→Nora→composer→preview · six recaptures |
+| P5-S06-DEBT-NORA-STOP | **CLOSED LOCALLY / awaiting Git Integration** |
+
+---
+
+## 42. P5-S06 CP02.1 — Cancellation cut-lines & exit proof (truth-sync)
+
+> **Qualification.** Morris CP02.1 GO consumed. Architecture D-S06-CANCEL-01 unchanged. Added forward `throwIfAborted` cut-lines after cognitive result and before independent durable blocks. **≠ INTEGRATED**. **≠ REAL cancellation proven**.
+
+| Item | Statut CP02.1 |
+| --- | --- |
+| Request.signal → sendProjectAssistantTurn | **PROVEN** (`options.signal === request.signal`; abort of initiator aborts forwarded signal) |
+| Post-model abort before transcript/journal | **PROVEN** — STOPPED · no new assistant transcript row |
+| Already-started transcript | **NOT ROLLED BACK** · terminal abort still STOPPED not ok |
+| ACW / Reservation / LR / readCoverage cut-lines | **CODE PRESENT** immediately before each materialize/persist helper |
+| UI / Projects / Auth / New Project | **FROZEN** |
+| Runner / providerAgentsModel | **FROZEN** |
+
+---
+
+## 43. P5-S06 CP02.2 — F2 cancellation closure (truth-sync)
+
+> **Qualification.** Morris CP02.2 GO consumed. Architecture D-S06-CANCEL-01 unchanged. Same request-scoped AbortSignal now reaches F2 `analyzeIntent` / `completeStructured` and F2 effect cut-lines. **≠ INTEGRATED**. **≠ REAL cancellation proven**.
+
+| Item | Statut CP02.2 |
+| --- | --- |
+| F2 `completeStructured` signal | **PROVEN** — test provider observes `input.signal`; abort in-flight → STOPPED not provider_error |
+| OpenAI adapter | **SDK RequestOptions.signal** (`openai` ^6.48.0 `responses.create(body, { signal })`) — ZERO REAL mock |
+| Wrapper forwarding | **PROVEN** — decorator passes same AbortSignal object |
+| Abort after analyze / before createCycle | **PROVEN** — `createCycle.execute` = 0 |
+| Abort before saveProposal | **PROVEN** — proposal absent; createCycle already started **kept** (no rollback) |
+| Abort before F2 transcript | **PROVEN** — 0 assistant rows · not ok:true |
+| Abort after F2 transcript | **PROVEN** — rows kept · terminal STOPPED |
+| Next turn after STOP | **PROVEN** |
+| HumanDecision write path | **CUT-LINE PRESENT** before `resolveChatFirstPilotDecision` — dedicated HD fixture not required this pass (eligible workGate) |
+| CKC `complete()` second call | **CUT-LINE BEFORE** `reasonWithResolvedCkcContext` — in-flight SDK abort **not** extended to `complete()` at CP02.2 (closed by CP02.3) |
+| UI / F1 Runner / transport | **FROZEN** |
+
+---
+
+## 44. P5-S06 CP02.3 — CKC provider cancellation closure (truth-sync)
+
+> **Qualification.** Morris CP02.3 GO consumed. Architecture D-S06-CANCEL-01 unchanged. Same request-scoped AbortSignal now reaches CKC `reasonWithResolvedCkcContext` → `ConversationProvider.complete` → OpenAI `completeRound` → `responses.create(..., { signal })`. **≠ INTEGRATED**. **≠ REAL cancellation proven**.
+
+| Item | Statut CP02.3 |
+| --- | --- |
+| CKC `provider.complete` in-flight | **PROVEN** — real `orchestrateAssistantSend` reaches `complete`; same AbortSignal; abort → STOPPED / `NORA_TURN_STOPPED` |
+| Downstream F2 effects after CKC abort | **PROVEN** — no proposal · no assistant transcript · no new cycle · not ok:true · not provider_error |
+| OpenAI `complete` SDK signal | **PROVEN** — mocked `responses.create` second arg `{ signal }` same object |
+| OpenAI abort normalization | **PROVEN** — `APIUserAbortError` not wrapped as TechnicalError |
+| Metered forwarding | **PROVEN** — inner receives same AbortSignal |
+| Metered abort after preflight / before inner | **PROVEN** — inner `complete` = 0 · no successful consumption record |
+| CP02.2 / CP02.1 / CP02 regressions | **PASS** |
+| UI / F1 / transport | **FROZEN** |
+| P5-S06 FUNCTIONAL CLOSURE | **PASS LOCALLY** |
+| FULL CANONICAL SEND CANCELLATION | **PASS LOCALLY / DETERMINISTIC** |
+| P5-S06-DEBT-NORA-STOP | **CLOSED LOCALLY / awaiting Git Integration** |
+| P5-S06 INTEGRATED | **NO** |
+
+---
+
+## 45. P5-S06 Git Integration Gate (truth-sync)
+
+> **Qualification.** ChatGPT Final Critical Re-Review CP02.3 = **PASS**. Morris P5-S06 GIT INTEGRATION GATE = **AUTHORIZED / CONSUMED**. Code candidate frozen. This cycle = commit + push + PR + CI observation. **MERGE NOT AUTHORIZED**.
+
+| Item | Statut Git Integration |
+| --- | --- |
+| Final Critical Re-Review CP02.3 | **PASS** |
+| Morris Git Integration Gate | **AUTHORIZED / CONSUMED** |
+| Project commit / push / PR | **AUTHORIZED this gate** |
+| MERGE | **NOT AUTHORIZED** — separate Morris GO |
+| P5-S06 INTEGRATED | **NO** until merge + post-merge |
+| P5 COMPLETE | **NO** |
+| S07 | **NOT STARTED** |
+| P6 READY | **NO** |
+| runtime v3 | **NON ADOPTED** |
+| ZERO REAL | **YES** |
+| FULL CANONICAL SEND CANCELLATION | **PASS LOCALLY / DETERMINISTIC** |
+| Next | CI observation → **MORRIS P5-S06 MERGE GO** if PASS |
+
+---
+
+*Fin du document P5 — Integrated Delivery — S01…S05 INTEGRATED · S06 GIT INTEGRATION IN PROGRESS · MERGE NOT AUTHORIZED · P5 COMPLETE NO · runtime v3 NON ADOPTED — P4 remains architecture authority.*

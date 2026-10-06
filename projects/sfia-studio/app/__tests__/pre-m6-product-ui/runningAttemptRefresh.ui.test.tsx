@@ -35,6 +35,13 @@ const {
   projectAssistantRehydrateEvidenceOutcomeActionMock: vi.fn(),
 }));
 
+vi.mock("@/features/pre-m6-product-ui/hooks/sendCancellableAssistantTurn", () => ({
+  sendCancellableAssistantTurn: (
+    input: unknown,
+    _signal?: AbortSignal,
+  ) => projectAssistantSendActionMock(input),
+}));
+
 vi.mock("@/features/project-assistant/actions", () => ({
   projectAssistantConversationContinuityAction: vi.fn(async () => ({
     ok: true,

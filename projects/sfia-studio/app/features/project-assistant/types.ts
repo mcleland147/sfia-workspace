@@ -22,6 +22,7 @@ export type AssistantUiMode = "fixture" | "live" | "unavailable" | "unconfirmed"
 export type AssistantTurnStatus =
   | "ok"
   | "cognitive_stop"
+  | "stopped"
   | "provider_unavailable"
   | "provider_error"
   | "project_not_found"

@@ -9,7 +9,6 @@ import {
   projectAssistantPrepareF3FixtureAction,
   projectAssistantPrepareResolvedM3Action,
   projectAssistantRehydrateEvidenceOutcomeAction,
-  projectAssistantSendAction,
 } from "@/features/project-assistant/actions";
 import type {
   AssistantHistoryMessage,
@@ -42,6 +41,7 @@ import {
   type PendingTurnRetryEnvelope,
 } from "@/features/project-assistant/turnPayloadCanonical";
 import { useRunningAttemptO3Observation } from "./useRunningAttemptO3Observation";
+import { sendCancellableAssistantTurn } from "./sendCancellableAssistantTurn";
 import type { JournalSurfaceEntry } from "../surfaces/JournalSurface";
 
 export type ProductMessage = {
@@ -64,7 +64,8 @@ export type ProductConversationUiState =
   | "SOURCE_LOOKUP"
   | "ANSWERED"
   | "ERROR_RECOVERABLE"
-  | "BLOCKED";
+  | "BLOCKED"
+  | "STOPPED";
 
 export type UseProductConversationInput = {
   projectId: string;
@@ -167,6 +168,10 @@ export function useProductConversation({
    * Retained until terminal client-observed success.
    */
   const pendingRetryEnvelopeRef = useRef<PendingTurnRetryEnvelope | null>(null);
+  const abortControllerRef = useRef<AbortController | null>(null);
+  const sendGenerationRef = useRef(0);
+  const mountedRef = useRef(true);
+  const [cancellable, setCancellable] = useState(false);
   /** CORR-PROOF-11 — armed opaque proposalId for explicit reinstruction send. */
   const [armedReinstructionOfProposalId, setArmedReinstructionOfProposalId] =
     useState<string | null>(null);
@@ -221,6 +226,16 @@ export function useProductConversation({
 
   useEffect(() => {
     setUiState((prev) => (prev === "INITIAL" ? "READY" : prev));
+  }, []);
+
+  useEffect(() => {
+    mountedRef.current = true;
+    return () => {
+      mountedRef.current = false;
+      abortControllerRef.current?.abort();
+      abortControllerRef.current = null;
+      setCancellable(false);
+    };
   }, []);
 
   useEffect(() => {
@@ -340,6 +355,11 @@ export function useProductConversation({
     uiState === "SOURCE_LOOKUP";
   const blocked = uiState === "BLOCKED";
   const canSend = !busy && !blocked && draft.trim().length > 0;
+  const stopAvailable = cancellable && !blocked && !f3Busy;
+
+  function stopCurrentResponse() {
+    abortControllerRef.current?.abort();
+  }
   const gateOpen =
     activeProposal?.morrisGateRequired === true &&
     activeProposal.status === "DECISION_REQUIRED";
@@ -492,31 +512,69 @@ export function useProductConversation({
 
     startTransition(async () => {
       setUiState("ASSISTANT_WORKING");
-      let result: Awaited<ReturnType<typeof projectAssistantSendAction>>;
+      const generation = ++sendGenerationRef.current;
+      const controller = new AbortController();
+      abortControllerRef.current = controller;
+      setCancellable(true);
+      let result: Awaited<ReturnType<typeof sendCancellableAssistantTurn>>;
       try {
-        result = await projectAssistantSendAction({
-          projectId,
-          content: envelope.content,
-          history: [...envelope.history],
-          turnRetryKey: envelope.turnRetryKey,
-          ...(presentedLogicalTurnId
-            ? { logicalTurnId: presentedLogicalTurnId }
-            : {}),
-          ...(reinstructionOfProposalId
-            ? { reinstructionOfProposalId }
-            : {}),
-          ...(reservationInteractionContext
-            ? { reservationInteractionContext }
-            : {}),
-        });
-      } catch {
-        // Transport / Server Action rejection before structured response.
-        // Retain pendingRetryEnvelopeRef so retry can recover server ltu binding.
+        result = await sendCancellableAssistantTurn(
+          {
+            projectId,
+            content: envelope.content,
+            history: [...envelope.history],
+            turnRetryKey: envelope.turnRetryKey,
+            ...(presentedLogicalTurnId
+              ? { logicalTurnId: presentedLogicalTurnId }
+              : {}),
+            ...(reinstructionOfProposalId
+              ? { reinstructionOfProposalId }
+              : {}),
+            ...(reservationInteractionContext
+              ? { reservationInteractionContext }
+              : {}),
+          },
+          controller.signal,
+        );
+      } catch (error) {
+        if (abortControllerRef.current === controller) {
+          abortControllerRef.current = null;
+        }
+        setCancellable(false);
+        if (!mountedRef.current || generation !== sendGenerationRef.current) {
+          return;
+        }
+        const aborted =
+          controller.signal.aborted ||
+          (error instanceof Error && error.name === "AbortError");
+        if (aborted) {
+          lastSendFailedRef.current = true;
+          setUiState("STOPPED");
+          setError(null);
+          return;
+        }
         lastSendFailedRef.current = true;
         setUiState("ERROR_RECOVERABLE");
         setError(
           "Échec de transport — réessayez. La corrélation de reprise est conservée.",
         );
+        return;
+      }
+
+      if (abortControllerRef.current === controller) {
+        abortControllerRef.current = null;
+      }
+      setCancellable(false);
+      if (
+        !mountedRef.current ||
+        generation !== sendGenerationRef.current ||
+        controller.signal.aborted
+      ) {
+        if (mountedRef.current && generation === sendGenerationRef.current) {
+          lastSendFailedRef.current = true;
+          setUiState("STOPPED");
+          setError(null);
+        }
         return;
       }
 
@@ -534,6 +592,11 @@ export function useProductConversation({
           // Stale/hostile Reservation binding — clear arm; do not retarget.
           setArmedReservationInteractionContext(null);
           setReservationResolutionProposal(null);
+        }
+        if (result.status === "stopped") {
+          setUiState("STOPPED");
+          setError(null);
+          return;
         }
         if (result.status === "provider_unavailable") {
           setUiState("BLOCKED");
@@ -597,9 +660,6 @@ export function useProductConversation({
       );
       setLrMaterializeCode(result.lifecycleRecommendationCode ?? null);
       setToolEvents((prev) => [...prev, ...result.toolEvents]);
-      if (result.toolEvents.length > 0) {
-        setUiState("SOURCE_LOOKUP");
-      }
       setMessages((prev) => [
         ...prev,
         {
@@ -923,6 +983,8 @@ export function useProductConversation({
     busy,
     blocked,
     canSend,
+    stopAvailable,
+    stopCurrentResponse,
     gateOpen,
     recommendationFreshness,
     qualificationFreshness,
