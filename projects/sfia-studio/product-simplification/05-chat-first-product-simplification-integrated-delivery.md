@@ -5,17 +5,17 @@
 | **Projet** | SFIA Studio |
 | **Macro** | `STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01` |
 | **Milestone** | **P5 — INTEGRATED DELIVERY** (Delivery / Implementation / Evidence source) |
-| **Slice** | **P5-S01** + **P5-S02** + **P5-S03** + **P5-S04** (integrated) |
-| **Pass** | **P5-S04 POST-MERGE VERIFIED / POST-S04 REQUALIFICATION** |
+| **Slice** | **P5-S01**…**P5-S04** (integrated) + **P5-S05** (local candidate) |
+| **Pass** | **P5-S05 CORRECTION PASS 02 — LOCAL CANDIDATE PASS** |
 | **Typologie** | Delivery evidence dans macro **EVOL** — **≠** doctrine · **≠** nouvelle architecture |
 | **Autorité architecture** | **P4** (`04-chat-first-product-simplification-semantic-projection-cognitive-architecture.md`) — **inchangée** |
-| **Base / HEAD Git** | `origin/main` = `c7b53b93d48e626e5ac1548886162936ce7e9eb3` (PR **#558** merge · P5-S04) |
+| **Base / HEAD Git** | `origin/main` = `79a0e48a69c8dd634a8cecf972199bea8a4daeec` (PR **#559** POST-S04 TRUTH-SYNC · CI **#686** SUCCESS) |
 | **P5-S01 integration** | PR **#555** **MERGED** · post-merge CI **#678** **SUCCESS** · **INTEGRATED / POST-MERGE VERIFIED** |
 | **P5-S02 integration** | PR **#556** **MERGED** · post-merge CI **#680** **SUCCESS** · Required Gate **SUCCESS** · **INTEGRATED / POST-MERGE VERIFIED** |
 | **P5-S03 integration** | PR **#557** **MERGED** · post-merge CI **#682** **SUCCESS** · Required Gate **SUCCESS** · **INTEGRATED / POST-MERGE VERIFIED** |
 | **P5-S04 integration** | PR **#558** **MERGED** · post-merge CI **#684** / run **`37377995199`** **SUCCESS** · Required Gate **SUCCESS** · **INTEGRATED / POST-MERGE VERIFIED** |
 | **Worktree** | `/Users/morris/Projects/sfia-studio-chat-first-product-simplification-p3` |
-| **Branche truth-sync** | `docs/sfia-studio-p5-s04-post-merge-truth-sync` (local · **NOT pushed**) |
+| **Branche S05** | `delivery/sfia-studio-product-simplification-p5-s05-r3-f2-routing-alignment` (local · **NOT committed**) |
 | **P5 AUTHORIZED BY MORRIS** | **YES** |
 | **P5 STARTED** | **YES** |
 | **P5 IN PROGRESS** | **YES** |
@@ -23,20 +23,22 @@
 | **P5-S02** | **INTEGRATED / POST-MERGE VERIFIED** — R1/R2 **PROVEN** · envelope deviation **ACCEPTED BY MORRIS** |
 | **P5-S03** | **INTEGRATED / POST-MERGE VERIFIED** · Object-Native Aperçu + Exécution · A=0/B=0 |
 | **P5-S04** | **INTEGRATED / POST-MERGE VERIFIED** · Product-derived Synthèses M9 · CP01/CP02 preserved · A=0/B=0 · B1/B2 CLOSED |
-| **R1 / R2 / R3** | **R1 PASS** · **R2 PASS** · **R3 NOT STARTED** |
-| **ZERO REAL** | **YES for S04** — S02 used bounded REAL historically (not revoked) |
-| **READY FOR REAL** | **NO** (R3 / broader REAL gates not authorized) |
+| **P5-S05** | **LOCAL CANDIDATE PASS AFTER CP02** — F2 routing EXIT PROOF · R3 PASS AT TESTED SCOPE |
+| **R1 / R2 / R3** | **R1 PASS** · **R2 PASS** · **R3 PASS AT TESTED SCOPE — LOCAL CANDIDATE (CP02)** |
+| **ZERO REAL** | **NO for S05 R3** (bounded REAL OpenAI) · S04 ZERO REAL preserved historically |
+| **READY FOR REAL** | **R3 CP02 executed under Morris S05 + CP01 + CP02 gates** |
 | **runtime v3** | **NON ADOPTED** |
-| **Git (S04)** | **MERGED** · post-merge CI **#684** **SUCCESS** · Required Gate **SUCCESS** |
-| **ChatGPT POST-S04 REQUALIFICATION** | **PASS** |
-| **Next RECOMMENDED capability** | **P5-S05 — R3 Integrated Product Cognitive Path + F2 Routing Alignment** |
-| **P5-S05 DELIVERY** | **NOT AUTHORIZED** |
-| **P5-S05 REAL / R3** | **NOT AUTHORIZED** |
+| **Git (S05)** | **NOT AUTHORIZED** — no project commit/push/PR/merge |
+| **Next** | **ChatGPT Final Critical Re-Review** → **MORRIS P5-S05 GIT INTEGRATION GATE** if PASS |
+| **P5-S05 DELIVERY** | **AUTHORIZED / CONSUMED** |
+| **P5-S05 REAL / R3** | **AUTHORIZED / CONSUMED** |
+| **P5-S05 CP01** | **AUTHORIZED / CONSUMED** |
+| **P5-S05 CP02** | **AUTHORIZED / CONSUMED** |
 | **Langue** | Français (identifiants canoniques anglais préservés) |
 | **Fichier** | `projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md` |
 | **Date** | 2026-10-06 · Europe/Paris |
 
-> **Lecture rapide.** P5-S01 / S02 / S03 / S04 sont **intégrés sur main** (PR #555 / #556 / #557 / #558). Synthèses Product-derived (M9 `oa_syntheses`) = projection dérivée non autoritative + Continuity Retrieval. **≠ R3** · **≠ P5 COMPLETE** · **≠ runtime v3 ADOPTED**. F2 routing debt **OPEN**. Next RECOMMENDED = **P5-S05** — **NOT AUTHORIZED**.
+> **Lecture rapide.** P5-S01…S04 **intégrés**. P5-S05 CP02 = **LOCAL CANDIDATE PASS** (B1 F1 selected→dispatch · B2 R3-19 scan observation · CKC N_A · accounting borné). **≠ INTEGRATED** · **≠ P5 COMPLETE** · **≠ runtime v3 ADOPTED**. Project Git **NOT AUTHORIZED**.
 > **Règle de lecture des preuves.** *Implémenté* ≠ *prouvé* ≠ *intégré* ≠ *REAL*. Chaque affirmation ci-dessous est qualifiée par son niveau de preuve. Les résultats de tests/typecheck/lint/build sont ceux **rapportés par la passe de livraison** ; ce document n’en invente pas d’autres et ne les a pas ré-exécutés lors de sa rédaction.
 
 ---
@@ -57,19 +59,18 @@ P5-S01 = INTEGRATED / POST-MERGE VERIFIED (PR #555)
 P5-S02 = INTEGRATED / POST-MERGE VERIFIED (PR #556) — R1 PASS · R2 PASS (bounded REAL historical)
 P5-S03 = INTEGRATED / POST-MERGE VERIFIED (PR #557)
 P5-S04 = INTEGRATED / POST-MERGE VERIFIED (PR #558 · main c7b53b93… · CI #684 SUCCESS)
+P5-S05 = LOCAL CANDIDATE PASS (base main 79a0e48a… · PR #559 tip)
 
-R3 = NOT STARTED
-F2 routing debt = OPEN
+R3 = PASS AT TESTED SCOPE — LOCAL CANDIDATE
+F2 routing alignment = EXIT PROOF PASS — LOCAL CANDIDATE
 P5 COMPLETE = NO
 P6 READY = NO
 runtime v3 = NON ADOPTED
-READY FOR REAL = NO
 
-POST-S04 CHATGPT REQUALIFICATION = PASS
-NEXT RECOMMENDED CAPABILITY =
-  P5-S05 — R3 Integrated Product Cognitive Path + F2 Routing Alignment
-P5-S05 DELIVERY = NOT AUTHORIZED
-P5-S05 REAL / R3 = NOT AUTHORIZED
+P5-S05 DELIVERY = AUTHORIZED / CONSUMED
+P5-S05 REAL / R3 = AUTHORIZED / CONSUMED
+PROJECT COMMIT/PUSH/PR/MERGE = NOT AUTHORIZED
+NEXT = CHATGPT CRITICAL REVIEW → MORRIS P5-S05 GIT INTEGRATION GATE
 ```
 ### 1.2 Hiérarchie d’autorité
 
@@ -823,12 +824,90 @@ Visual / Git historical notes above for Correction Pass 01 are **SUPERSEDED** by
 | Evidence — visual CP01 | `.tmp-sfia-review/p5-s04-visual/cp01/after/` · PRODUCT-PATH · FocusFlow `syn:fc44ff99449fd3b96f4500b60a2eeda7` · **A=0 / B=0** · B1/B2 **CLOSED** · preserved |
 | Evidence — visual CP02 | `.tmp-sfia-review/p5-s04-visual/cp02/after/` · PRODUCT-PATH · FocusFlow `syn:ed340d63e583ff51bc9a0cb7a6c35219` · **A=0 / B=0** · B1/B2 **CLOSED — NO REGRESSION** · **PILOT LEAKS = 0** · see `cp02/correction-design-note.md` |
 | Historical visual seed | `../_seed-synthesis.mjs` retained as historical only (direct materialize — **NOT** CP01/CP02 proof) |
-| Debts | F2 routing **OPEN** · R3 **NOT STARTED** · P6 **NOT READY** · runtime v3 **NON ADOPTED** |
-| Anti-claims | **≠** Truth C · **≠** authority mutation · **≠** UI-only fake synthesis · **≠** P5 COMPLETE · **≠** R3 PASS · **≠** P5-S05 AUTHORIZED |
+| Debts | F2 routing **OPEN at S04 tip** (exited locally by S05) · R3 **NOT STARTED at S04 tip** · P6 **NOT READY** · runtime v3 **NON ADOPTED** |
+| Anti-claims | **≠** Truth C · **≠** authority mutation · **≠** UI-only fake synthesis · **≠** P5 COMPLETE · **≠** R3 PASS on main · **≠** P5-S05 INTEGRATED |
 
 ---
 
-## 34. Current verdict
+## 34. P5-S05 — R3 Integrated Product Cognitive Path + F2 Routing Alignment (factual)
+
+| Item | Result |
+| --- | --- |
+| Morris P5-S05 DELIVERY + REAL/R3 | **AUTHORIZED / CONSUMED** |
+| Status | **LOCAL CANDIDATE PASS** |
+| Base main | `79a0e48a69c8dd634a8cecf972199bea8a4daeec` |
+| Branch | `delivery/sfia-studio-product-simplification-p5-s05-r3-f2-routing-alignment` |
+| Implementation delta | F2 `resolveF2ProductRoutedProvider` → same `decideCognitiveStrategy` + `decideCognitiveRouting` + `createRoutedOpenAiConversationProvider` (credentials ≠ OPENAI_MODEL authority) · wired in `orchestrateF2` before `analyzeIntent` · **not** via `runNoraCognitiveTurn` |
+| Reused seams | `cognitiveRoutingPolicy` · CWP factual signals · OpenAI Responses adapter · Agents Runner · Cycle Journal tools · Product SQLite Session |
+| Parallel architecture | **NONE** — no second Nora/router/service/persistence/Product model |
+| Deterministic matrix | `p5.s05.f2RoutingAlignment.d0.test.ts` D1–D13 **PASS** |
+| REAL campaign | `p5-s05-r3-1791242959473` · evidence `.tmp-sfia-review/p5-s05-r3/evidence.json` · fingerprint `39bc5907bff9cc23d1a150869c891ead04dc1fe5dd382f550ae91e76b0b5ee31` |
+| Product context | REAL Project/LPS · active Cycle `cyc:delivery` started via OA · Journal seeded (marker outside compact) · CKC type used; send DTO `ckcResolutionRef` null on informative turn (honest) |
+| F2 selected→actual | `gpt-6-luna` / `low` → `gpt-6-luna` · resp `resp_006a2b868f1c4655006ac432cfce6487d2aab14cdf13571b47` |
+| F1 selected→actual | `gpt-6-luna` / `high` → `gpt-6-luna` · resp `resp_06b20bdcd15a1363006ac432d9d22c87d2bcb3a731ced77b83` · Agents |
+| Tools | `cycle_journal_search` + `cycle_journal_get_entry` + `cycle_journal_get_sources` · toolCalls=2 · marker `R3-MARKER-ALPHA-7741` recovered |
+| Authority | HD=0 · no Confirmation · no execution · cognitive ≠ authority |
+| FinOps | **SUPERSEDED BY CP01** — initial pack incorrectly equated Agents run count with model invocations; see §35 |
+| PIB qualitative (S05 only) | Pilot selected model? **NO** · effort? **NO** · CKC IDs? **NO** · Product IDs? **NO** · extra gate? **NO** · routing internals to Pilot? **NO** · MATERIAL/PROTECTIVE preserved? **YES** · accidental cognitive admin? **absent** |
+| F2 debt exit | **EXIT PROOF PASS — LOCAL CANDIDATE** · **≠ CLOSED ON MAIN** |
+| Reserves | Critical Review A1/A2/A3 → CP01 · Project Git not authorized · OPENAI_MODEL TEMP WITH EXIT for legacy · P6/global NCR not claimed |
+| Anti-claims | **≠** INTEGRATED · **≠** CLOSED ON MAIN · **≠** P5 COMPLETE · **≠** P6 READY · **≠** runtime v3 ADOPTED · **≠** second router |
+
+---
+
+## 35. P5-S05 CP01 — Evidence Integrity + Accounting + Effort Dispatch (factual)
+
+| Item | Result |
+| --- | --- |
+| Morris P5-S05 CP01 | **AUTHORIZED / CONSUMED** |
+| Prior S05 Delivery+REAL/R3 | remains **CONSUMED** |
+| Status | **LOCAL CANDIDATE PASS** |
+| Prior R3 campaign | `p5-s05-r3-1791242959473` = **CORRECTION REQUIRED** (historical) |
+| New campaign | `p5-s05-r3-cp01-1791245552722` |
+| Evidence | `.tmp-sfia-review/p5-s05-r3-cp01/evidence.json` |
+| productCandidateFingerprint | `35f31263e49cb856fbc0340fdbe5606f305994f38c1d5c3f1e90a409c304e0b9` |
+| proofHarnessFingerprint | `fd10646ba95f3f53ff2c2ff432e3494b22da2df87cd3ec93e0ca1deb29e0342b` |
+| A1 CKC | **N_A** — journal retrieval workload; cycle **PASS**; no fabricated CKC |
+| A2 Accounting | F2 structured=1 · F1 Agents runs=1 · F1 **canonical modelInvocations=3** · toolRounds=2 · toolCalls=2 · raw HTTP total **NOT_OBSERVED** · pre-dispatch `acquireNoraCampaignBudget(max=6)` |
+| A3 Effort | F2 selected `low` → configured/dispatched `low` · F1 selected `high` → runnerModelSettings dispatched `high` · provider-returned effort **NOT_OBSERVED** |
+| F2 model | selected/configured/returned `gpt-6-luna` |
+| F1 model | **SUPERSEDED BY CP02** — CP01 treated `usage.model` as returned/actual; residual B1 |
+| Tools | `cycle_journal_search` + `get_entry` + `get_sources` · marker recovered |
+| Authority | HD=0 |
+| Validations | D0 S05 · S01 · accounting · typecheck/lint/build · full `npm test` **5272 PASS / 0 FAIL** |
+| F2 debt exit | **EXIT PROOF PASS — LOCAL CANDIDATE** · **≠ CLOSED ON MAIN** |
+| Residual | Critical Review B1 F1 model semantics + B2 R3-19 stale observation → **CP02** |
+| Anti-claims | **≠** false "2 calls" · **≠** CKC PASS with null · **≠** provider-returned effort claim · **≠** INTEGRATED |
+
+---
+
+## 36. P5-S05 CP02 — Final R3 Evidence Semantics (factual)
+
+| Item | Result |
+| --- | --- |
+| Morris P5-S05 CP02 | **AUTHORIZED / CONSUMED** |
+| Prior S05 Delivery+REAL/R3 + CP01 | remain **CONSUMED** |
+| Status | **LOCAL CANDIDATE PASS** |
+| Prior campaigns | initial R3 = **CORRECTION REQUIRED** · CP01 = **CORRECTION REQUIRED — residual F1 model semantics** |
+| New campaign | `p5-s05-r3-cp02-1791247484728` |
+| Evidence | `.tmp-sfia-review/p5-s05-r3-cp02/evidence.json` |
+| productCandidateFingerprint | `35f31263e49cb856fbc0340fdbe5606f305994f38c1d5c3f1e90a409c304e0b9` (unchanged vs CP01 — no Product runtime delta) |
+| proofHarnessFingerprint | `a8049035d82a5b8a2e77cafb2e214d898d1e99bf2ce36ee0844d2b6b518a747f` (changed) |
+| B1 F1 model | selected `gpt-6-luna` → dispatched `gpt-6-luna` (Agents `input.model`) · `providerReturnedModel=NOT_OBSERVED` · REAL via `providerResponseId` |
+| B2 R3-19 | observation = completed sanitize scan · **no** stale `pending sanitize scan` |
+| CKC | **N_A** — journal retrieval workload; cycle **PASS** |
+| F2 model | selected → configured → provider-returned `gpt-6-luna` |
+| F2 effort | selected `low` → dispatched `low` |
+| F1 effort | selected `high` → runnerModelSettings dispatched `high` |
+| Accounting | F2 structured=1 · F1 Agents runs=1 · F1 canonical modelInvocations=3 · toolRounds=2 · toolCalls=2 · raw HTTP **NOT_OBSERVED** · budget max=6 consumed=3 |
+| Authority | HD=0 |
+| Validations | targeted D0 · typecheck/lint/build · full `npm test` **5272 PASS / 0 FAIL** |
+| F2 debt exit | **EXIT PROOF PASS — LOCAL CANDIDATE** · **≠ CLOSED ON MAIN** |
+| Anti-claims | **≠** F1 provider-returned model · **≠** INTEGRATED · **≠** P5 COMPLETE |
+
+---
+
+## 37. Current verdict
 
 ```text
 P5 AUTHORIZED BY MORRIS = YES
@@ -838,28 +917,39 @@ P5 IN PROGRESS          = YES
 P5-S01 = INTEGRATED / POST-MERGE VERIFIED (PR #555)
 P5-S02 = INTEGRATED / POST-MERGE VERIFIED (PR #556) — R1/R2 PASS
 P5-S03 = INTEGRATED / POST-MERGE VERIFIED (PR #557)
-P5-S04 = INTEGRATED / POST-MERGE VERIFIED (PR #558 · main c7b53b93… · CI #684 SUCCESS)
-         CP01/CP02 preserved · A=0 / B=0 · B1/B2 CLOSED
-         ZERO REAL for S04
+P5-S04 = INTEGRATED / POST-MERGE VERIFIED (PR #558)
+P5-S05 = LOCAL CANDIDATE PASS AFTER CP02 (base 79a0e48a…)
 
-READY FOR REAL          = NO
+R1 = PASS historical
+R2 = PASS historical
+R3 = PASS AT TESTED SCOPE — LOCAL CANDIDATE AFTER CP02 FINAL EVIDENCE CORRECTION
+CKC = N_A FOR REPRESENTATIVE JOURNAL WORKLOAD
+F2 ROUTING ALIGNMENT = EXIT PROOF PASS — LOCAL CANDIDATE
+F2 MODEL = SELECTED → CONFIGURED → PROVIDER-RETURNED MODEL PROVEN
+F2 EFFORT = SELECTED → DISPATCH CONFIG PROVEN
+F1 MODEL = SELECTED → DISPATCH CONFIG PROVEN
+F1 PROVIDER-RETURNED MODEL = NOT_OBSERVED
+F1 PROVIDER RESPONSE = REAL / RESPONSE ID OBSERVED
+F1 EFFORT = SELECTED → DISPATCH CONFIG PROVEN
+REAL ACCOUNTING = BOUNDED / EVIDENCE-BASED
+ANTI-SECRET = PASS / OBSERVED
+
 runtime v3              = NON ADOPTED
 P5 COMPLETE             = NO
 P6 READY                = NO
-R3                      = NOT STARTED
-F2 routing debt         = OPEN
 
-POST-S04 CHATGPT REQUALIFICATION = PASS
-NEXT RECOMMENDED        = P5-S05 — R3 Integrated Product Cognitive Path + F2 Routing Alignment
-P5-S05 DELIVERY         = NOT AUTHORIZED
-P5-S05 REAL / R3        = NOT AUTHORIZED
+P5-S05 DELIVERY + REAL/R3 = CONSUMED
+P5-S05 CP01 = CONSUMED
+P5-S05 CP02 = CONSUMED
+PROJECT COMMIT/PUSH/PR/MERGE = NOT AUTHORIZED
+NEXT = CHATGPT FINAL CRITICAL RE-REVIEW → MORRIS P5-S05 GIT INTEGRATION GATE
 ```
 
-**Synthèse honnête.** P5-S04 est **intégré et post-merge vérifié**. P5 reste **IN PROGRESS**. **≠ R3 / ≠ P5 COMPLETE / ≠ runtime v3 ADOPTED / ≠ S05 AUTHORIZED**. **P4 reste l’autorité d’architecture**.
+**Synthèse honnête.** P5-S05 CP02 corrige B1/B2 et re-prouve R3. **≠ intégré sur main** · **≠ P5 COMPLETE** · **≠ runtime v3 ADOPTED**. **P4 reste l’autorité d’architecture**.
 
 ---
 
-## 35. Post-S04 requalification — RECOMMENDATION CHATGPT (≠ décision Morris)
+## 38. Post-S04 requalification — RECOMMENDATION CHATGPT (≠ décision Morris)
 
 > **Qualification.** Cette section enregistre une **recommandation ChatGPT** après intégration de P5-S04. Elle **n’autorise pas** P5-S05, R3, ni REAL. Elle **n’est pas** une décision Morris.
 
@@ -882,4 +972,4 @@ Anti-claims explicites :
 
 ---
 
-*Fin du document P5 — Integrated Delivery — S01/S02/S03/S04 INTEGRATED / POST-MERGE VERIFIED · POST-S04 REQUALIFICATION PASS · S05 RECOMMENDED NOT AUTHORIZED · R3 NOT STARTED · READY FOR REAL = NO · runtime v3 NON ADOPTED — P4 remains architecture authority.*
+*Fin du document P5 — Integrated Delivery — S01/S02/S03/S04 INTEGRATED / POST-MERGE VERIFIED · S05 CP02 LOCAL CANDIDATE PASS · R3 PASS AT TESTED SCOPE LOCAL · project Git NOT AUTHORIZED · P5 COMPLETE NO · runtime v3 NON ADOPTED — P4 remains architecture authority.*
