@@ -32,6 +32,8 @@ import type {
 import { orchestrateProjectAssistantTurn } from "../orchestrateTurn";
 import { resolveAssistantMode } from "../resolveAssistantMode";
 import { analyzeIntent } from "./intentAnalysis";
+import { resolveF2ProductRoutedProvider } from "./resolveF2ProductRoutedProvider";
+import { ProjectAssistantMemoryEventSink } from "../memoryEventSink";
 import { resolveAvailableContradictionPointers } from "../mw3AvailableEvidence";
 import {
   deriveMw3ContradictionAssessment,
@@ -1045,7 +1047,7 @@ export async function orchestrateAssistantSend(input: {
       retryable: false,
     };
   }
-  const effectiveProvider = cellProvider ?? input.provider;
+  let effectiveProvider = cellProvider ?? input.provider;
   const modeResolution = resolveMode(effectiveProvider);
   if (!modeResolution.canProceed) {
     return {
@@ -1172,6 +1174,32 @@ export async function orchestrateAssistantSend(input: {
       };
     }
     const canonicalConversationContext = canonicalLoad.contextText;
+
+    // P5-S05 — F2 Product routing (same cognitiveRoutingPolicy; not runNoraCognitiveTurn).
+    // Eval pin / explicit provider injection skip this seam (boundary / eval-only).
+    if (!input.evalModelReasoningControl && !effectiveProvider) {
+      const history = input.history ?? [];
+      const f2CorrelationId = `cor:f2-route-${randomBytes(8).toString("hex")}`;
+      const cognitiveTaskId =
+        typeof input.logicalTurnId === "string" && input.logicalTurnId.trim()
+          ? input.logicalTurnId.trim()
+          : `f2:${project.projectId}:${f2CorrelationId}`;
+      const f2Routed = resolveF2ProductRoutedProvider({
+        turnContext: {
+          projectCriticality: project.criticality,
+          userContentLength: content.length,
+          historyMessageCount: history.length,
+          historyTotalChars: history.reduce(
+            (sum, m) => sum + m.content.length,
+            0,
+          ),
+        },
+        cognitiveTaskId,
+        correlationId: f2CorrelationId,
+        sink: new ProjectAssistantMemoryEventSink(),
+      });
+      effectiveProvider = f2Routed.provider;
+    }
 
     const challengeSession = getMw5ChallengeSession(project.projectId);
     const challengeContext =

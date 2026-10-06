@@ -31,6 +31,16 @@ export class OpenAIConversationProvider implements ConversationProvider {
     this.reasoningEffort = reasoningEffort;
   }
 
+  /** Constructor-bound model — not client-authoritative; used for routed Product proof. */
+  get configuredModel(): string {
+    return this.model;
+  }
+
+  /** Constructor-bound reasoning effort (omit ⇒ provider default). */
+  get configuredReasoningEffort(): OpenAiReasoningEffort | undefined {
+    return this.reasoningEffort;
+  }
+
   private reasoningParam():
     | { reasoning: { effort: OpenAiReasoningEffort } }
     | Record<string, never> {

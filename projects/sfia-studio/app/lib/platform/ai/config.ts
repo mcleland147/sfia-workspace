@@ -44,7 +44,25 @@ export function parseOpenAiReasoningEffort(
   return normalized as OpenAiReasoningEffort;
 }
 
-/** Public availability probe — never returns secret values. */
+/**
+ * Credential-only availability for Product routed cognition (P5-S05).
+ * OPENAI_MODEL is NOT required — nominal model×effort comes from cognitiveRoutingPolicy.
+ * Never returns secret values.
+ */
+export function getLiveConversationCredentialAvailability():
+  | { available: true }
+  | { available: false; missing: Array<"OPENAI_API_KEY"> } {
+  if (!process.env.OPENAI_API_KEY?.trim()) {
+    return { available: false, missing: ["OPENAI_API_KEY"] };
+  }
+  return { available: true };
+}
+
+/**
+ * Legacy + Ops1 availability probe — key AND model present.
+ * Product routed F2/F1 must NOT use this as nominal selection authority.
+ * Never returns secret values.
+ */
 export function getLiveConversationAvailability(): LiveConfigStatus {
   const missing: Array<"OPENAI_API_KEY" | "OPENAI_MODEL"> = [];
   if (!process.env.OPENAI_API_KEY?.trim()) missing.push("OPENAI_API_KEY");
@@ -55,7 +73,25 @@ export function getLiveConversationAvailability(): LiveConfigStatus {
   return { available: true, modelConfigured: true };
 }
 
-/** Server-only resolved config — fail-closed, no silent defaults. */
+/**
+ * Server-only API key for Product routed OpenAI construction.
+ * Fail-closed. Never returns/logs the key to clients.
+ */
+export function requireLiveConversationApiKey(): string {
+  const availability = getLiveConversationCredentialAvailability();
+  if (!availability.available) {
+    throw new TechnicalError(
+      "CONFIG",
+      `Configuration live indisponible (variables manquantes : ${availability.missing.join(", ")}).`,
+    );
+  }
+  return process.env.OPENAI_API_KEY!.trim();
+}
+
+/**
+ * Legacy env-bound secrets — TEMP WITH EXIT for non-routed / Ops1 paths.
+ * Product nominal F2/F1 selection must use cognitiveRoutingPolicy instead.
+ */
 export function requireLiveConversationSecrets(): {
   apiKey: string;
   model: string;

@@ -358,7 +358,7 @@ describe.skipIf(!RUN)("P5-S02 bounded REAL R1+R2", () => {
           f1Calls,
           f2Calls,
           f2Note:
-            "F2 analyzeIntent uses constructor OPENAI_MODEL — P5-DEBT-F2-ROUTING-ALIGNMENT OPEN",
+            "Historical S02 observation — F2 env constructor debt later exited by P5-S05 local candidate (see p5.s05.*)",
           cognitiveRuntime:
             resolvedTurn?.cognitiveRuntime ??
             (result.ok ? result.cognitiveRuntime : null),
@@ -444,7 +444,8 @@ describe.skipIf(!RUN)("P5-S02 bounded REAL R1+R2", () => {
         budgetCumulativeFromR1Meter: budget.cumulativeUsd,
         classificationA:
           "router→Agents REAL body already wired (no production fix)",
-        f2Debt: "P5-DEBT-F2-ROUTING-ALIGNMENT OPEN",
+        f2Debt:
+          "P5-DEBT-F2-ROUTING-ALIGNMENT — historical S02 OPEN; S05 EXIT PROOF PASS LOCAL CANDIDATE (not CLOSED ON MAIN)",
         final: "PASS — P5-S02 BOUNDED REAL R1+R2 PROVEN",
       };
       fs.mkdirSync(path.dirname(OUT), { recursive: true });

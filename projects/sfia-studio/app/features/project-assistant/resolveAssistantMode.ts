@@ -4,7 +4,7 @@
  */
 
 import {
-  getLiveConversationAvailability,
+  getLiveConversationCredentialAvailability,
   isFakeConversationProviderForced,
   type ConversationProvider,
 } from "@/lib/platform/ai";
@@ -47,7 +47,8 @@ export function resolveAssistantMode(
       presentation: "test_provider",
     };
   }
-  const availability = getLiveConversationAvailability();
+  // Product assistant: credentials only. Nominal model×effort = cognitiveRoutingPolicy.
+  const availability = getLiveConversationCredentialAvailability();
   if (!availability.available) {
     return {
       mode: "unavailable",

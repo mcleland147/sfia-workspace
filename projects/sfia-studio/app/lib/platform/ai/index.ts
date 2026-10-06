@@ -13,6 +13,8 @@ export { TechnicalError } from "./errors";
 export type { TechnicalErrorCode } from "./errors";
 export {
   getLiveConversationAvailability,
+  getLiveConversationCredentialAvailability,
+  requireLiveConversationApiKey,
   requireLiveConversationSecrets,
   isFakeConversationProviderForced,
 } from "./config";
@@ -25,6 +27,8 @@ export { OpenAIConversationProvider } from "./openaiProvider";
 export { FakeConversationProvider } from "./fakeProvider";
 export type { FakeToolScriptRound } from "./fakeProvider";
 export {
+  createRoutedOpenAiConversationProvider,
+  getConversationProviderOverrideForTests,
   resolveConversationProvider,
   setConversationProviderForTests,
 } from "./provider";
