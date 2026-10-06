@@ -5,18 +5,19 @@
 | **Projet** | SFIA Studio |
 | **Macro** | `STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01` |
 | **Milestone** | **P5 — INTEGRATED DELIVERY** (Delivery / Implementation / Evidence source) |
-| **Slice** | **P5-S01**…**P5-S05** (integrated) + **P5-S06** (local candidate) |
-| **Pass** | **P5-S06 GIT INTEGRATION — AUTHORIZED / IN PROGRESS / MERGE NOT AUTHORIZED** |
+| **Slice** | **P5-S01**…**P5-S06** (integrated) · **P5-S07**/**P5-S08** remaining |
+| **Pass** | **P5-S06 INTEGRATED / POST-MERGE VERIFIED** · documentary truth-sync PR open · truth-sync merge **NOT AUTHORIZED** |
 | **Typologie** | Delivery evidence dans macro **EVOL** — **≠** doctrine · **≠** nouvelle architecture |
 | **Autorité architecture** | **P4** (`04-chat-first-product-simplification-semantic-projection-cognitive-architecture.md`) — **inchangée** |
-| **Base / HEAD Git** | `origin/main` = `16a8e2fd823d75d7c59ce1fb4d55cb862d112697` (PR **#560** P5-S05 R3 · CI Studio **#688** SUCCESS) |
+| **Base / HEAD Git** | `origin/main` = `9f586496f28b824b1a4938d497c148ba0c96596e` (PR **#561** P5-S06 · post-merge CI Studio **#690** SUCCESS) |
 | **P5-S01 integration** | PR **#555** **MERGED** · post-merge CI **#678** **SUCCESS** · **INTEGRATED / POST-MERGE VERIFIED** |
 | **P5-S02 integration** | PR **#556** **MERGED** · post-merge CI **#680** **SUCCESS** · Required Gate **SUCCESS** · **INTEGRATED / POST-MERGE VERIFIED** |
 | **P5-S03 integration** | PR **#557** **MERGED** · post-merge CI **#682** **SUCCESS** · Required Gate **SUCCESS** · **INTEGRATED / POST-MERGE VERIFIED** |
 | **P5-S04 integration** | PR **#558** **MERGED** · post-merge CI **#684** / run **`37377995199`** **SUCCESS** · Required Gate **SUCCESS** · **INTEGRATED / POST-MERGE VERIFIED** |
 | **P5-S05 integration** | PR **#560** **MERGED** · post-merge CI Studio **#688** **SUCCESS** · **INTEGRATED / POST-MERGE VERIFIED** · F2 routing alignment **CLOSED ON MAIN** · R3 **PASS AT TESTED SCOPE / INTEGRATED / POST-MERGE VERIFIED** |
+| **P5-S06 integration** | PR **#561** **MERGED** · feature `731fdd72…` · merge `9f586496…` · post-merge CI Studio **#690** / run **`37485457209`** **SUCCESS** · Required Gate **SUCCESS** · **INTEGRATED / POST-MERGE VERIFIED** |
 | **Worktree** | `/Users/morris/Projects/sfia-studio-chat-first-product-simplification-p3` |
-| **Branche S06** | `delivery/sfia-studio-product-simplification-p5-s06-pilot-experience-completion` (Git Integration this gate · **MERGE NOT AUTHORIZED**) |
+| **Branche S06** | `delivery/sfia-studio-product-simplification-p5-s06-pilot-experience-completion` — **MERGED / CLEANED UP** |
 | **P5 AUTHORIZED BY MORRIS** | **YES** |
 | **P5 STARTED** | **YES** |
 | **P5 IN PROGRESS** | **YES** |
@@ -27,29 +28,29 @@
 | **P5-S03** | **INTEGRATED / POST-MERGE VERIFIED** · Object-Native Aperçu + Exécution · A=0/B=0 |
 | **P5-S04** | **INTEGRATED / POST-MERGE VERIFIED** · Product-derived Synthèses M9 · CP01/CP02 preserved · A=0/B=0 · B1/B2 CLOSED |
 | **P5-S05** | **INTEGRATED / POST-MERGE VERIFIED** — F2 routing CLOSED ON MAIN · R3 PASS AT TESTED SCOPE |
-| **P5-S06** | **GIT INTEGRATION IN PROGRESS** · Final Critical Re-Review CP02.3 **PASS** · FUNCTIONAL CLOSURE **PASS LOCALLY** · FULL CANONICAL SEND CANCELLATION **PASS LOCALLY / DETERMINISTIC** · Visual **PASS AT S06 SCOPE** · **≠ INTEGRATED** · **≠ MERGED** |
-| **P5-S06 DELIVERY** | **AUTHORIZED / CONSUMED** |
+| **P5-S06** | **INTEGRATED / POST-MERGE VERIFIED** · FUNCTIONAL CLOSURE **PASS / INTEGRATED** · Visual **PASS AT S06 SCOPE** · FULL CANONICAL SEND CANCELLATION **PASS DETERMINISTIC / INTEGRATED** · STOP debt **CLOSED ON MAIN** · REAL cancellation **NOT PROVEN** |
+| **P5-S06 DELIVERY** | **AUTHORIZED / CONSUMED** → **INTEGRATED** via PR **#561** |
 | **P5-S06 CP01** | **AUTHORIZED / CONSUMED** |
 | **P5-S06 CP02** | **AUTHORIZED / CONSUMED** |
 | **P5-S06 CP02.1** | **AUTHORIZED / CONSUMED** |
 | **P5-S06 CP02.2** | **AUTHORIZED / CONSUMED** |
 | **P5-S06 CP02.3** | **AUTHORIZED / CONSUMED** |
 | **P5-S06 GIT INTEGRATION GATE** | **AUTHORIZED / CONSUMED** |
-| **P5 slicing restant** | **S06 / S07 / S08** — **ADOPTED BY MORRIS** (2026-10-06) · S07/S08 = **NOT STARTED** |
+| **P5-S06 MERGE GO** | **AUTHORIZED / CONSUMED** |
+| **P5 slicing restant** | **S07 / S08** — **ADOPTED BY MORRIS** (2026-10-06) · S07/S08 = **NOT STARTED** · S07 = **NEXT RECOMMENDED / NOT AUTHORIZED** |
 | **R1 / R2 / R3** | **R1 PASS** · **R2 PASS** · **R3 PASS AT TESTED SCOPE / INTEGRATED / POST-MERGE VERIFIED** (S05) |
 | **ZERO REAL** | **YES for S06** · S05 R3 REAL historique préservé (bounded OpenAI sous gate S05) |
 | **runtime v3** | **NON ADOPTED** |
-| **Git (S06)** | **THIS GATE** — project commit/push/PR **AUTHORIZED** · MERGE **NOT AUTHORIZED** — separate Morris GO required |
-| **Next** | **commit → push → PR → CI → STOP** · Merge **NOT AUTHORIZED** · S07 **NOT STARTED** |
+| **Git (S06)** | PR **#561** **MERGED** · post-merge CI **PASS** · delivery branch cleanup **COMPLETE** · documentary truth-sync merge **NOT AUTHORIZED** |
+| **Next** | **ChatGPT review / MORRIS P5 POST-S06 TRUTH-SYNC MERGE GATE** · S07 **NOT AUTHORIZED / NOT STARTED** |
 | **P5-S05 DELIVERY** | **AUTHORIZED / CONSUMED** → **INTEGRATED** via PR **#560** |
 | **P5-S05 REAL / R3** | **AUTHORIZED / CONSUMED** → **INTEGRATED** |
 | **P5-S05 CP01 / CP02** | **AUTHORIZED / CONSUMED** (historique) |
-| **P5-S06 DELIVERY** | **AUTHORIZED / CONSUMED** |
 | **Langue** | Français (identifiants canoniques anglais préservés) |
 | **Fichier** | `projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md` |
 | **Date** | 2026-10-06 · Europe/Paris |
 
-> **Lecture rapide.** P5-S01…S05 **intégrés**. P5-S06 = **GIT INTEGRATION IN PROGRESS** after ChatGPT Final Critical Re-Review CP02.3 **PASS**. Commit/push/PR **AUTHORIZED this gate**. MERGE **NOT AUTHORIZED**. **≠ INTEGRATED** · **≠ P5 COMPLETE**.
+> **Lecture rapide.** P5-S01…S06 **intégrés**. P5-S06 = **INTEGRATED / POST-MERGE VERIFIED** via PR **#561** / merge `9f586496…` / post-merge CI **#690** SUCCESS. FUNCTIONAL CLOSURE + deterministic cancellation **ON MAIN**. REAL cancellation **NOT PROVEN**. **≠ P5 COMPLETE** · S07 **NOT AUTHORIZED**.
 > **Règle de lecture des preuves.** *Implémenté* ≠ *prouvé* ≠ *intégré* ≠ *REAL*. Chaque affirmation ci-dessous est qualifiée par son niveau de preuve. Les résultats de tests/typecheck/lint/build sont ceux **rapportés par la passe de livraison** ; ce document n’en invente pas d’autres et ne les a pas ré-exécutés lors de sa rédaction.
 
 ---
@@ -70,18 +71,25 @@ P5-S01 = INTEGRATED / POST-MERGE VERIFIED (PR #555)
 P5-S02 = INTEGRATED / POST-MERGE VERIFIED (PR #556) — R1 PASS · R2 PASS (bounded REAL historical)
 P5-S03 = INTEGRATED / POST-MERGE VERIFIED (PR #557)
 P5-S04 = INTEGRATED / POST-MERGE VERIFIED (PR #558 · main c7b53b93… · CI #684 SUCCESS)
-P5-S05 = LOCAL CANDIDATE PASS (base main 79a0e48a… · PR #559 tip)
+P5-S05 = INTEGRATED / POST-MERGE VERIFIED (PR #560 · F2 CLOSED ON MAIN · R3 PASS AT TESTED SCOPE)
+P5-S06 = INTEGRATED / POST-MERGE VERIFIED (PR #561 · feature 731fdd72… · merge 9f586496… · CI #690 SUCCESS)
 
-R3 = PASS AT TESTED SCOPE — LOCAL CANDIDATE
-F2 routing alignment = EXIT PROOF PASS — LOCAL CANDIDATE
+FUNCTIONAL CLOSURE = PASS / INTEGRATED
+VISUAL = PASS AT S06 SCOPE
+FULL CANONICAL SEND CANCELLATION = PASS DETERMINISTIC / INTEGRATED
+P5-S06-DEBT-NORA-STOP = CLOSED ON MAIN / POST-MERGE VERIFIED
+REAL cancellation = NOT PROVEN
+ZERO REAL (S06) = YES
 P5 COMPLETE = NO
 P6 READY = NO
 runtime v3 = NON ADOPTED
 
-P5-S05 DELIVERY = AUTHORIZED / CONSUMED
-P5-S05 REAL / R3 = AUTHORIZED / CONSUMED
-PROJECT COMMIT/PUSH/PR/MERGE = NOT AUTHORIZED
-NEXT = CHATGPT CRITICAL REVIEW → MORRIS P5-S05 GIT INTEGRATION GATE
+NEXT RECOMMENDED = P5-S07 — Project Continuity & Work Representation Completion
+S07 = NOT AUTHORIZED / NOT STARTED
+S08 = NOT STARTED
+P5-S06 MERGE GO = AUTHORIZED / CONSUMED
+DOCUMENTARY TRUTH-SYNC MERGE = NOT AUTHORIZED
+NEXT = CHATGPT REVIEW → MORRIS P5 POST-S06 TRUTH-SYNC MERGE GATE
 ```
 ### 1.2 Hiérarchie d’autorité
 
@@ -929,34 +937,34 @@ P5-S01 = INTEGRATED / POST-MERGE VERIFIED (PR #555)
 P5-S02 = INTEGRATED / POST-MERGE VERIFIED (PR #556) — R1/R2 PASS
 P5-S03 = INTEGRATED / POST-MERGE VERIFIED (PR #557)
 P5-S04 = INTEGRATED / POST-MERGE VERIFIED (PR #558)
-P5-S05 = LOCAL CANDIDATE PASS AFTER CP02 (base 79a0e48a…)
+P5-S05 = INTEGRATED / POST-MERGE VERIFIED (PR #560) — F2 CLOSED ON MAIN · R3 PASS AT TESTED SCOPE
+P5-S06 = INTEGRATED / POST-MERGE VERIFIED (PR #561 · feature 731fdd72… · merge 9f586496… · CI #690 / 37485457209 SUCCESS)
 
-R1 = PASS historical
-R2 = PASS historical
-R3 = PASS AT TESTED SCOPE — LOCAL CANDIDATE AFTER CP02 FINAL EVIDENCE CORRECTION
-CKC = N_A FOR REPRESENTATIVE JOURNAL WORKLOAD
-F2 ROUTING ALIGNMENT = EXIT PROOF PASS — LOCAL CANDIDATE
-F2 MODEL = SELECTED → CONFIGURED → PROVIDER-RETURNED MODEL PROVEN
-F2 EFFORT = SELECTED → DISPATCH CONFIG PROVEN
-F1 MODEL = SELECTED → DISPATCH CONFIG PROVEN
-F1 PROVIDER-RETURNED MODEL = NOT_OBSERVED
-F1 PROVIDER RESPONSE = REAL / RESPONSE ID OBSERVED
-F1 EFFORT = SELECTED → DISPATCH CONFIG PROVEN
-REAL ACCOUNTING = BOUNDED / EVIDENCE-BASED
-ANTI-SECRET = PASS / OBSERVED
+FUNCTIONAL CLOSURE = PASS / INTEGRATED
+VISUAL = PASS AT S06 SCOPE
+FULL CANONICAL SEND CANCELLATION = PASS DETERMINISTIC / INTEGRATED
+P5-S06-DEBT-NORA-STOP = CLOSED ON MAIN / POST-MERGE VERIFIED
+REAL cancellation = NOT PROVEN
+ZERO REAL (S06) = YES
+
+R1 = PASS historical (S02)
+R2 = PASS historical (S02)
+R3 = PASS AT TESTED SCOPE / INTEGRATED / POST-MERGE VERIFIED (S05)
+F2 ROUTING ALIGNMENT = CLOSED ON MAIN (S05)
 
 runtime v3              = NON ADOPTED
 P5 COMPLETE             = NO
 P6 READY                = NO
 
-P5-S05 DELIVERY + REAL/R3 = CONSUMED
-P5-S05 CP01 = CONSUMED
-P5-S05 CP02 = CONSUMED
-PROJECT COMMIT/PUSH/PR/MERGE = NOT AUTHORIZED
-NEXT = CHATGPT FINAL CRITICAL RE-REVIEW → MORRIS P5-S05 GIT INTEGRATION GATE
+NEXT RECOMMENDED        = P5-S07 — Project Continuity & Work Representation Completion
+S07                     = NOT AUTHORIZED / NOT STARTED
+S08                     = NOT STARTED
+P5-S06 MERGE GO         = AUTHORIZED / CONSUMED
+DOCUMENTARY TRUTH-SYNC MERGE = NOT AUTHORIZED
+NEXT = CHATGPT REVIEW → MORRIS P5 POST-S06 TRUTH-SYNC MERGE GATE
 ```
 
-**Synthèse honnête.** P5-S05 CP02 corrige B1/B2 et re-prouve R3. **≠ intégré sur main** · **≠ P5 COMPLETE** · **≠ runtime v3 ADOPTED**. **P4 reste l’autorité d’architecture**.
+**Synthèse honnête.** P5-S01…S06 sont **intégrés / post-merge vérifiés**. Deterministic full canonical send cancellation est **ON MAIN**. REAL cancellation **NOT PROVEN**. **≠ P5 COMPLETE** · **≠ S07 AUTHORIZED** · **≠ runtime v3 ADOPTED**. **P4 reste l’autorité d’architecture**.
 
 ---
 
@@ -1125,23 +1133,44 @@ Anti-claims explicites :
 
 ## 45. P5-S06 Git Integration Gate (truth-sync)
 
-> **Qualification.** ChatGPT Final Critical Re-Review CP02.3 = **PASS**. Morris P5-S06 GIT INTEGRATION GATE = **AUTHORIZED / CONSUMED**. Code candidate frozen. This cycle = commit + push + PR + CI observation. **MERGE NOT AUTHORIZED**.
+> **Qualification.** ChatGPT Final Critical Re-Review CP02.3 = **PASS**. Morris P5-S06 GIT INTEGRATION GATE = **AUTHORIZED / CONSUMED**. Historical gate: commit + push + PR + CI observation. Superseded as tip by §46 after PR **#561** merge.
 
-| Item | Statut Git Integration |
+| Item | Statut Git Integration (historique) |
 | --- | --- |
 | Final Critical Re-Review CP02.3 | **PASS** |
 | Morris Git Integration Gate | **AUTHORIZED / CONSUMED** |
-| Project commit / push / PR | **AUTHORIZED this gate** |
-| MERGE | **NOT AUTHORIZED** — separate Morris GO |
-| P5-S06 INTEGRATED | **NO** until merge + post-merge |
-| P5 COMPLETE | **NO** |
-| S07 | **NOT STARTED** |
-| P6 READY | **NO** |
-| runtime v3 | **NON ADOPTED** |
-| ZERO REAL | **YES** |
-| FULL CANONICAL SEND CANCELLATION | **PASS LOCALLY / DETERMINISTIC** |
-| Next | CI observation → **MORRIS P5-S06 MERGE GO** if PASS |
+| Project commit / push / PR | **AUTHORIZED / DONE** (PR **#561**) |
+| MERGE | required separate Morris MERGE GO (consumed in §46) |
+| P5-S06 INTEGRATED at Git Integration tip | **NO** (awaiting merge + post-merge) |
 
 ---
 
-*Fin du document P5 — Integrated Delivery — S01…S05 INTEGRATED · S06 GIT INTEGRATION IN PROGRESS · MERGE NOT AUTHORIZED · P5 COMPLETE NO · runtime v3 NON ADOPTED — P4 remains architecture authority.*
+## 46. P5-S06 Merge + Post-Merge Verification (truth-sync)
+
+> **Qualification.** Morris P5-S06 MERGE GO consumed. PR **#561** merge commit + main push CI SUCCESS. Delivery branch cleaned up. Documentary truth-sync PR prepared this cycle; its merge requires a **distinct** Morris gate. **≠ P5 COMPLETE**. **≠ REAL cancellation proven**.
+
+| Item | Statut Post-Merge |
+| --- | --- |
+| PR #561 | **MERGED** |
+| Feature commit | `731fdd7247b37cd708a9496fb81a9986e78abcd1` |
+| Merge commit / main | `9f586496f28b824b1a4938d497c148ba0c96596e` |
+| Post-merge CI | Studio **#690** / run **`37485457209`** **SUCCESS** (push main) |
+| Detect / Build / Required Gate | **SUCCESS** |
+| P5-S06 | **INTEGRATED / POST-MERGE VERIFIED** |
+| Functional closure | **PASS / INTEGRATED** |
+| Visual | **PASS AT S06 SCOPE** |
+| Full canonical send cancellation | **PASS DETERMINISTIC / INTEGRATED** |
+| P5-S06-DEBT-NORA-STOP | **CLOSED ON MAIN / POST-MERGE VERIFIED** |
+| REAL cancellation | **NOT PROVEN** |
+| ZERO REAL (S06) | **YES** |
+| Delivery branch cleanup | **COMPLETE** |
+| P5 COMPLETE | **NO** |
+| S07 | **NEXT RECOMMENDED / NOT AUTHORIZED / NOT STARTED** |
+| S08 | **NOT STARTED** |
+| P6 READY | **NO** |
+| runtime v3 | **NON ADOPTED** |
+| Documentary truth-sync merge | **NOT AUTHORIZED** — distinct Morris POST-S06 TRUTH-SYNC MERGE GATE |
+
+---
+
+*Fin du document P5 — Integrated Delivery — S01…S06 INTEGRATED / POST-MERGE VERIFIED · S07 NEXT RECOMMENDED NOT AUTHORIZED · P5 COMPLETE NO · runtime v3 NON ADOPTED — P4 remains architecture authority.*
