@@ -697,8 +697,9 @@ Made with [Cursor](https://cursor.com)
 - Publisher: `scripts/sfia/publish-review-handoff.sh`
 - Message: `docs(review-handoff): publish P5 S07 git integration readiness`
 - Verdict: **HANDOFF UPDATED — REMOTE VERIFIED**
-- Remote handoff commit: `00b80f7f80797afd0e9a476547ca51f843f8c4a8`
-- Canonical blob SHA: `09cd0f54228e43206dc52ca34124b7d353599170`
+- Remote handoff commit: `ede950ebb28f9b1f82e946cc4f8ea4f9470766e9`
+- Canonical blob SHA: `257325c46e64b38dbedd1fd0fed8afabaec3f024`
+- Prior publish (intermediate): `00b80f7f80797afd0e9a476547ca51f843f8c4a8` / blob `09cd0f54…`
 - Canonical title: P5-S07 — Project Continuity & Work Representation Completion — GIT INTEGRATION / PR READINESS — FULL REVIEW PACK
 - Cycle identity: P5-S07 / Cycle 13 PR Readiness / CRITICAL
 - Project commit referenced: `8e02115eb0360e7e62c98646c7106ac87377f7e2`
