@@ -74,18 +74,17 @@
 .tabs {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--pm6-space-1);
-  border-bottom: 1px solid var(--pm6-border-soft);
+  gap: 6px;
   flex-shrink: 0;
 }
 
 .tab {
   appearance: none;
-  border: none;
-  border-bottom: 2px solid transparent;
-  background: transparent;
-  padding: 6px 8px;
-  margin-bottom: -1px;
+  border: 1px solid var(--pm6-border-strong);
+  border-radius: var(--pm6-radius-pill);
+  background: var(--pm6-surface);
+  padding: 7px 12px;
+  min-height: 38px;
   font-size: 0.78rem;
   font-weight: 600;
   color: var(--pm6-muted-strong);
@@ -99,12 +98,12 @@
 .tab:focus-visible {
   outline: none;
   box-shadow: var(--pm6-focus-ring);
-  border-radius: 2px;
 }
 
 .tabActive {
-  color: var(--pm6-forest);
-  border-bottom-color: var(--pm6-forest);
+  color: var(--pm6-ink);
+  border-color: color-mix(in srgb, var(--pm6-terracotta, #c45c26) 45%, var(--pm6-border));
+  background: color-mix(in srgb, var(--pm6-terracotta, #c45c26) 10%, var(--pm6-surface));
 }
 
 .list {
@@ -307,16 +306,35 @@
 }
 
 .exchangeRole {
-  font-size: 0.68rem;
-  font-weight: 700;
+  font-size: 0.6875rem;
+  font-weight: 650;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: var(--pm6-forest);
+  color: var(--pm6-muted-strong);
+}
+
+.exchangeRole[data-role="NORA"] {
+  color: var(--pm6-accent);
+}
+
+.exchangeWhen {
+  font-size: 0.6875rem;
+  font-weight: 650;
+  letter-spacing: 0.04em;
+  color: var(--pm6-muted);
+}
+
+.exchangeTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--pm6-space-3);
+  width: 100%;
 }
 
 .exchangeExcerpt {
-  font-size: 0.76rem;
-  line-height: 1.4;
+  font-size: 0.8125rem;
+  line-height: 1.5;
   color: var(--pm6-ink-soft);
   overflow-wrap: anywhere;
 }
@@ -456,4 +474,921 @@
   font-size: 0.8rem;
   font-weight: 700;
   color: var(--pm6-ink);
+}
+
+/* ---------- rail → principal shortcut ---------- */
+
+.openFull {
+  align-self: flex-start;
+  appearance: none;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  min-height: 38px;
+  display: inline-flex;
+  align-items: center;
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--pm6-accent);
+  cursor: pointer;
+}
+
+.openFull:hover {
+  text-decoration: underline;
+}
+
+.openFull:focus-visible {
+  outline: none;
+  box-shadow: var(--pm6-focus-ring);
+  border-radius: 4px;
+}
+
+/*
+ * ================= principal composition =================
+ * P3 Journal desktop 94:2 / expanded 94:222 (body 1226 = index ~440 | detail
+ * ~785), mobile list 192:41 → detail 192:81. The rail composition is untouched:
+ * `.body` / `.masterCol` dissolve when the variant is `rail`.
+ */
+
+.body {
+  display: contents;
+}
+
+.masterCol {
+  display: contents;
+}
+
+.principal {
+  max-height: none;
+  overflow: visible;
+  gap: 0;
+  padding: 0;
+  background: var(--pm6-body);
+  border: 0;
+  border-radius: 0;
+  flex: 1 1 auto;
+}
+
+.principal .body {
+  display: grid;
+  grid-template-columns: minmax(0, var(--pm6-journal-index-w, 440px)) minmax(0, 1fr);
+  align-items: stretch;
+  min-height: 0;
+  flex: 1 1 auto;
+}
+
+.principal .masterCol {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm6-space-2);
+  min-width: 0;
+  min-height: 0;
+  padding: var(--pm6-space-4) var(--pm6-space-4) var(--pm6-space-5);
+  border-right: 1px solid var(--pm6-border);
+}
+
+.principalHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px var(--ws-pad-x, 24px) 0;
+}
+
+.principalBack {
+  align-self: flex-start;
+  appearance: none;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  min-height: 38px;
+  display: inline-flex;
+  align-items: center;
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--pm6-accent);
+  cursor: pointer;
+}
+
+.principalBack:hover {
+  text-decoration: underline;
+}
+
+.principalBackShort {
+  display: none;
+}
+
+.principalBackFull {
+  display: inline;
+}
+
+.principalTitleRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 10px;
+  min-width: 0;
+}
+
+.principalTitle {
+  margin: 0;
+  flex: 0 1 auto;
+  font-size: 1.5rem;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: var(--pm6-ink);
+}
+
+.principalChip,
+.principalChipOk {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: var(--pm6-radius-pill);
+  border: 1px solid var(--pm6-border);
+  background: var(--pm6-surface-sunken);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: var(--pm6-muted-strong);
+  white-space: nowrap;
+}
+
+/* Freshness sits on the right of the title row (94:2). */
+.principalChipOk {
+  margin-left: auto;
+  color: var(--pm6-ok);
+  border-color: color-mix(in srgb, var(--pm6-ok) 26%, transparent);
+  background: var(--pm6-ok-tint);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.principalSubtitle {
+  display: none;
+  margin: 0;
+  max-width: 48ch;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--pm6-muted-strong);
+}
+
+.principal .tabs {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 8px;
+  align-items: center;
+  padding: var(--pm6-space-3) var(--ws-pad-x, 24px);
+  border-bottom: 1px solid var(--pm6-border);
+}
+
+.principal .tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border-radius: 7px;
+  border-color: var(--pm6-border);
+  background: var(--pm6-surface-sunken);
+  padding: 6px 12px;
+  min-height: 30px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.principal .tabActive {
+  color: #d9563b;
+  border-color: transparent;
+  background: #fff0ea;
+}
+
+.tabLabel {
+  min-width: 0;
+}
+
+/* Plain digit beside the label — never a large circle badge (192:41 / 94:2). */
+.tabCount {
+  display: inline;
+  min-width: 0;
+  height: auto;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  font-size: inherit;
+  font-weight: 500;
+  line-height: inherit;
+  color: inherit;
+  font-variant-numeric: tabular-nums;
+}
+
+.principal .tabActive .tabCount {
+  color: inherit;
+  border-color: transparent;
+}
+
+/* ---------- principal subjects index ---------- */
+
+.masterHead {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 0 2px var(--pm6-space-2);
+  border-bottom: 1px solid var(--pm6-border);
+}
+
+.masterHeadRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--pm6-space-2);
+}
+
+.masterTitle {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 650;
+  color: var(--pm6-ink);
+}
+
+.masterCount {
+  font-size: 0.75rem;
+  color: var(--pm6-muted);
+  white-space: nowrap;
+}
+
+.masterNote {
+  margin: 0;
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: var(--pm6-muted-strong);
+}
+
+.principal .list {
+  gap: var(--pm6-space-3);
+  overflow-y: auto;
+  padding: var(--pm6-space-2) 2px var(--pm6-space-2);
+}
+
+.principal .card {
+  gap: 6px;
+  padding: var(--pm6-space-3);
+  border-color: var(--pm6-border);
+}
+
+.principal .cardSelected {
+  border-color: color-mix(in srgb, var(--pm6-accent) 32%, var(--pm6-border));
+  background: var(--pm6-accent-tint);
+  box-shadow: none;
+}
+
+.principal .ordinal {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--pm6-muted-faint);
+}
+
+.principal .cardHeading {
+  justify-content: space-between;
+  margin-bottom: 0;
+}
+
+/* « En cours » reads as the live subject (accent), not as a neutral state. */
+.principal .currentBadge {
+  padding: 2px 8px;
+  border-radius: var(--pm6-radius-pill);
+  border: 1px solid color-mix(in srgb, var(--pm6-accent) 26%, transparent);
+  background: var(--pm6-accent-tint);
+  color: var(--pm6-accent);
+  letter-spacing: 0.06em;
+}
+
+.principal .cardTitle {
+  font-size: 0.9375rem;
+}
+
+.principal .cardMeta {
+  justify-content: space-between;
+  gap: var(--pm6-space-2);
+}
+
+.cardPoints {
+  margin-left: auto;
+  color: var(--pm6-accent);
+  white-space: nowrap;
+}
+
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: var(--pm6-radius-pill);
+  border: 1px solid var(--pm6-border);
+  background: var(--pm6-surface-sunken);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: var(--pm6-muted-strong);
+  white-space: nowrap;
+}
+
+.statusBadge[data-status="active"] {
+  color: var(--pm6-ok);
+  border-color: color-mix(in srgb, var(--pm6-ok) 26%, transparent);
+  background: var(--pm6-ok-tint);
+}
+
+/* ---------- principal subject detail ---------- */
+
+.detailCol {
+  min-width: 0;
+  min-height: 0;
+  overflow-y: auto;
+  background: var(--pm6-canvas);
+}
+
+.detailCol > .empty {
+  padding: var(--pm6-space-5);
+  max-width: 44ch;
+}
+
+.detailInner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm6-space-3);
+  padding: var(--pm6-space-4) var(--pm6-space-5) var(--pm6-space-5);
+}
+
+.detailBack {
+  display: none;
+  align-self: flex-start;
+  appearance: none;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  min-height: 38px;
+  align-items: center;
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--pm6-accent);
+  cursor: pointer;
+}
+
+.detailHead {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-bottom: var(--pm6-space-3);
+  border-bottom: 1px solid var(--pm6-border);
+}
+
+.detailHeadRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--pm6-space-2);
+}
+
+.detailBadges {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--pm6-space-2);
+}
+
+.detailUpdated {
+  font-size: 0.75rem;
+  color: var(--pm6-muted);
+  white-space: nowrap;
+}
+
+.detailTitle {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  color: var(--pm6-ink);
+  overflow-wrap: anywhere;
+}
+
+.detailSummary {
+  margin: 0;
+  max-width: 78ch;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--pm6-muted-strong);
+}
+
+.detailSection {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  padding-bottom: var(--pm6-space-3);
+  border-bottom: 1px solid var(--pm6-border);
+}
+
+.detailSection:last-of-type {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.detailSectionHead {
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--pm6-space-2);
+}
+
+.detailSectionLabel {
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--pm6-muted-faint);
+}
+
+.detailSectionCount {
+  font-size: 0.6875rem;
+  color: var(--pm6-muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.detailUnavailable {
+  margin: 0;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  font-style: italic;
+  color: var(--pm6-muted);
+}
+
+/* Marked lists — ✓ for stabilized, ○ for still-open points (94:2). */
+.markedList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--pm6-ink);
+}
+
+.markedList li {
+  display: grid;
+  grid-template-columns: 16px minmax(0, 1fr);
+  gap: var(--pm6-space-2);
+  align-items: baseline;
+}
+
+.markedList li::before {
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+
+.markedList[data-marker="stabilized"] li::before {
+  content: "✓";
+  color: var(--pm6-ok);
+}
+
+.markedList[data-marker="open"] li::before {
+  content: "○";
+  color: var(--pm6-accent);
+}
+
+.linkedPills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.linkedPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  appearance: none;
+  border-radius: 8px;
+  border: 0;
+  background: var(--pm6-surface-sunken);
+  padding: 5px 9px;
+  min-height: 30px;
+  font: inherit;
+  font-size: 0.6875rem;
+  font-weight: 650;
+  letter-spacing: 0.04em;
+  color: var(--pm6-muted-strong);
+  cursor: pointer;
+}
+
+.linkedPill[data-kind="reserve"],
+.linkedPill[data-kind="reserve-item"] {
+  background: #f2ede7;
+  color: #6d645c;
+}
+
+.linkedPill:focus-visible {
+  outline: none;
+  box-shadow: var(--pm6-focus-ring);
+}
+
+.linkedPillCount {
+  font-variant-numeric: tabular-nums;
+  font-weight: 650;
+  font-size: 0.8125rem;
+  letter-spacing: 0.015em;
+}
+
+.linkedPillLabel {
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+}
+
+.exchangePanel {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid var(--pm6-border);
+  border-radius: 8px;
+  background: #fbf7f2;
+  overflow: hidden;
+  max-height: 84px; /* ~2 dense rows preview (94:2) — keep compact panel */
+}
+
+.exchangePanel[data-expanded="true"] {
+  max-height: 168px; /* 94:222 dense rows + internal scroll */
+  overflow-y: auto;
+}
+
+.exchangePanel > li {
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+
+.exchangePanel > li:nth-child(odd) .exchangeRow {
+  background: #fcf8f3;
+}
+
+.exchangePanel > li:nth-child(even) .exchangeRow {
+  background: #fffdf9;
+}
+
+.exchangeRow {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  column-gap: 8px;
+  width: 100%;
+  text-align: left;
+  appearance: none;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  padding: 7px 10px;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  min-height: 36px;
+}
+
+.exchangeWho {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  flex: 0 0 auto;
+}
+
+.exchangeAvatar {
+  width: 20px;
+  height: 20px;
+  border-radius: var(--pm6-radius-pill);
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  font-size: 0.625rem;
+  font-weight: 650;
+  background: var(--pm6-surface-sunken);
+  color: var(--pm6-muted-strong);
+}
+
+.exchangeAvatar[data-role="NORA"] {
+  background: var(--pm6-accent-tint);
+  color: var(--pm6-accent);
+}
+
+.exchangeAvatar[data-role="VOUS"] {
+  background: #eee8e1;
+  color: #5f564e;
+}
+
+.exchangeRow .exchangeRole {
+  font-size: 0.6875rem;
+  font-weight: 650;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--pm6-muted-strong);
+  white-space: nowrap;
+}
+
+.exchangeRow .exchangeRole[data-role="NORA"] {
+  color: var(--pm6-accent);
+}
+
+.exchangeRow .exchangeExcerpt {
+  min-width: 0;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--pm6-ink-soft);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.exchangeRow .exchangeWhen {
+  flex: 0 0 auto;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--pm6-muted);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.exchangeRow:hover:not(:disabled) {
+  filter: brightness(0.985);
+}
+
+.exchangeRow:disabled {
+  cursor: not-allowed;
+  opacity: 0.72;
+}
+
+.exchangeRow:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--pm6-accent) 35%, transparent);
+}
+
+.detailFooter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--pm6-space-3);
+  padding-top: var(--pm6-space-2);
+}
+
+/* ---------- principal: compact ---------- */
+
+@media (max-width: 1199px) {
+  .principal .body {
+    grid-template-columns: minmax(0, 340px) minmax(0, 1fr);
+  }
+
+  .principal .masterCol {
+    padding: var(--pm6-space-3);
+  }
+
+  .detailInner {
+    padding: var(--pm6-space-3) var(--pm6-space-4) var(--pm6-space-4);
+  }
+}
+
+/* ---------- principal: mobile list ↔ detail (192:41 / 192:81) ---------- */
+
+@media (max-width: 767px) {
+  .principal .body {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .principal .masterCol {
+    border-right: 0;
+    padding: var(--pm6-space-3) var(--ws-pad-x, 16px) var(--pm6-space-4);
+  }
+
+  .principal .masterCol[data-mobile-hidden="true"] {
+    display: none;
+  }
+
+  .detailCol {
+    background: transparent;
+    overflow: visible;
+  }
+
+  .detailCol[data-mobile-hidden="true"] {
+    display: none;
+  }
+
+  .detailInner {
+    padding: var(--pm6-space-3) var(--ws-pad-x, 16px) var(--pm6-space-5);
+  }
+
+  .detailBack {
+    display: inline-flex;
+  }
+
+  /*
+   * The index head is the mobile page head — 192:41 shows neither a second
+   * title nor a duplicate count (the tab badge already carries it).
+   */
+  .masterHead {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .masterTitle,
+  .masterCount {
+    display: none;
+  }
+
+  .masterNote {
+    display: none;
+  }
+
+  .principalSubtitle {
+    display: block;
+    padding-bottom: 2px;
+  }
+
+  .principal .list {
+    overflow: visible;
+  }
+
+  .principalBackFull {
+    display: none;
+  }
+
+  .principalBackShort {
+    display: inline;
+  }
+
+  /* Context / freshness chips leave the focused mobile list (shell owns identity). */
+  .principalChip,
+  .principalChipOk {
+    display: none;
+  }
+
+  /*
+   * J3 HARD — 192:41: ONE ROW of 4 tabs at 390px.
+   * Filters row flex, gap 8, height ~36; each tab ≈82×30, radius 7, font 9px medium.
+   * Label may wrap INSIDE the tab; count is a plain digit (not a circle badge).
+   * flex-nowrap; no horizontal scroll.
+   */
+  .principal .tabs {
+    flex-wrap: nowrap;
+    gap: 8px;
+    height: 36px;
+    align-items: center;
+    overflow: hidden;
+    padding-inline: var(--ws-pad-x, 16px);
+  }
+
+  .principal .tab {
+    flex: 1 1 0;
+    width: 82px;
+    max-width: 82px;
+    min-width: 0;
+    height: 30px;
+    min-height: 30px;
+    padding: 2px 4px;
+    border-radius: 7px;
+    font-size: 9px;
+    font-weight: 500;
+    line-height: 1.15;
+    white-space: normal;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+  }
+
+  .principal .tab .tabLabel {
+    display: inline;
+  }
+
+  .principal .tabActive {
+    background: #fff0ea;
+    color: #d9563b;
+    border-color: transparent;
+  }
+
+  /*
+   * J4 HARD — 192:81: when mobile detail is focused, hide list chrome
+   * (← Conversation / title / subtitle + memory tabs). Detail owns the page.
+   */
+  .root[data-mobile-detail="true"] .principalHeader,
+  .root[data-mobile-detail="true"] .tabs {
+    display: none;
+  }
+
+  /* V3 — mobile list cards: single-line summary, ordinal-only heading. */
+  .principal .card {
+    padding: 14px 14px;
+    gap: 8px;
+  }
+
+  .principal .cardHeading .currentBadge,
+  .principal .cardHeading .statusBadge {
+    display: none;
+  }
+
+  .principal .cardSummary {
+    -webkit-line-clamp: 1;
+    font-size: 0.8125rem;
+  }
+
+  .principal .cardMeta {
+    justify-content: flex-start;
+    gap: 0;
+    color: #8a7f74;
+  }
+
+  .principal .cardMeta > span + span::before {
+    content: " · ";
+    color: #8a7f74;
+  }
+
+  .cardPoints {
+    margin-left: 0;
+    color: inherit;
+  }
+
+  /* Sparse mobile detail rhythm — no desktop section chrome (192:81). */
+  .detailHead {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .detailUpdated {
+    display: none;
+  }
+
+  .detailHead .ordinal {
+    display: none;
+  }
+
+  .detailSection {
+    border-bottom: 0;
+    padding-bottom: 0;
+    gap: 8px;
+  }
+
+  .detailInner {
+    gap: var(--pm6-space-4);
+  }
+
+  .detailTitle {
+    font-size: 1.375rem;
+  }
+
+  .linkedPills {
+    display: none;
+  }
+
+  .exchangePanel {
+    max-height: none;
+  }
+
+  .exchangePanel[data-expanded="true"] {
+    max-height: 190px;
+  }
+
+  .exchangeRow {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto auto;
+    row-gap: 2px;
+  }
+
+  .exchangeWho {
+    display: none;
+  }
+
+  .exchangeRow .exchangeWhen {
+    order: -1;
+  }
+
+  .exchangeRow .exchangeExcerpt {
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+
+  /* Mobile detail footer: expand exchanges CTA only (conversation CTA stays). */
+  .detailFooter {
+    justify-content: flex-start;
+  }
 }

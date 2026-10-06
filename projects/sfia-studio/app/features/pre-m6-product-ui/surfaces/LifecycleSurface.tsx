@@ -23,6 +23,13 @@ import {
   readyExceptFinalizeDecision,
   summarizeFinalizationReadiness,
 } from "./lifecyclePresentation";
+import {
+  workProductionPilotLabel,
+  workRequirementPilotLabel,
+  workTriStatePilotLabel,
+  workValidationPilotLabel,
+} from "@/features/project-assistant/w2/deriveWorkRepresentationProjection";
+import { deriveWorkRepresentationFromLifecycleProjection } from "./deriveWorkRepresentationFromLifecycle";
 import styles from "./LifecycleSurface.module.css";
 
 function cycleCatalogLabel(projection: PilotLifecycleProjection | null): string {
@@ -242,6 +249,8 @@ export function LifecycleSurface({
   const cycleTitle = cycleCatalogLabel(projection);
   const badge = lifecycleStatusBadge(projection);
   const cta = lifecycleCtaPresentation(projection);
+  const workRepresentation =
+    deriveWorkRepresentationFromLifecycleProjection(projection);
   const finalizeRec = primaryFinalizeRecommendation(projection);
   const nextRec = primaryNextCycleRecommendation(projection);
   const nonHd = nonHumanDecisionBlockers(projection.assessment);
@@ -300,6 +309,52 @@ export function LifecycleSurface({
           ) : null}
         </p>
       </header>
+
+      {workRepresentation ? (
+        <section
+          className={styles.block}
+          data-testid="lifecycle-work-representation"
+          aria-label="Représentation du travail"
+        >
+          <p className={styles.eyebrow}>LIVRABLE / TRAVAIL</p>
+          <p
+            className={styles.muted}
+            data-testid="lifecycle-work-representation-summary"
+          >
+            {workRepresentation.pilotSummary}
+          </p>
+          <ul className={styles.list} data-testid="lifecycle-work-representation-states">
+            <li data-requirement={workRepresentation.requirementState}>
+              Exigence ·{" "}
+              {workRequirementPilotLabel(workRepresentation.requirementState)}
+            </li>
+            <li data-production={workRepresentation.productionState}>
+              Production ·{" "}
+              {workProductionPilotLabel(workRepresentation.productionState)}
+            </li>
+            <li data-validation={workRepresentation.validationState}>
+              Qualification ·{" "}
+              {workValidationPilotLabel(workRepresentation.validationState)}
+            </li>
+            <li data-exit-proof={String(workRepresentation.exitProofSatisfied)}>
+              Preuve de sortie ·{" "}
+              {workTriStatePilotLabel(workRepresentation.exitProofSatisfied, {
+                true: "Satisfaite",
+                false: "Non satisfaite",
+                unknown: "Non déterminée",
+              })}
+            </li>
+            <li data-cycle-complete={String(workRepresentation.cycleComplete)}>
+              Cycle ·{" "}
+              {workTriStatePilotLabel(workRepresentation.cycleComplete, {
+                true: "Terminé",
+                false: "En cours",
+                unknown: "Non déterminé",
+              })}
+            </li>
+          </ul>
+        </section>
+      ) : null}
 
       {error ? (
         <p className={styles.error} role="alert">

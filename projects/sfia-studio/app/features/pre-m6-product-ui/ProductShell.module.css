@@ -292,6 +292,17 @@
   border: 0;
 }
 
+.mobileFocusName {
+  display: none;
+  min-width: 0;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--pm6-ink);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 /* <768 — rail collapses into a compact topbar (190:306). */
 @media (max-width: 767px) {
   .shell {
@@ -317,5 +328,33 @@
 
   .mainPage {
     padding: var(--pm6-space-5) var(--pm6-space-4) var(--pm6-space-6);
+  }
+
+  /*
+   * P5-S07 CP02 V4 — focused secondary mobile views (192:41 / 190:380):
+   * Mark + project name + Pilot avatar. No wordmark, no « Projets » link.
+   */
+  .shell:has([data-active-view="journal"]) .brandName,
+  .shell:has([data-active-view="history"]) .brandName,
+  .shell:has([data-active-view="syntheses"]) .brandName {
+    display: none;
+  }
+
+  .shell:has([data-active-view="journal"]) .mobileFocusName,
+  .shell:has([data-active-view="history"]) .mobileFocusName,
+  .shell:has([data-active-view="syntheses"]) .mobileFocusName {
+    display: inline;
+  }
+
+  .shell:has([data-active-view="journal"]) .mobileNavLink,
+  .shell:has([data-active-view="history"]) .mobileNavLink,
+  .shell:has([data-active-view="syntheses"]) .mobileNavLink {
+    display: none;
+  }
+
+  .shell:has([data-active-view="journal"]) .mobileProfile,
+  .shell:has([data-active-view="history"]) .mobileProfile,
+  .shell:has([data-active-view="syntheses"]) .mobileProfile {
+    margin-left: auto;
   }
 }

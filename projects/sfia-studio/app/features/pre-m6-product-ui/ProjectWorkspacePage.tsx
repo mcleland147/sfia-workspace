@@ -54,7 +54,21 @@ import type { GetProjectResult, GetProjectSuccess } from "./types";
 import styles from "./ProjectWorkspacePage.module.css";
 
 /** Ephemeral presentation view — never persisted as Product state. */
-type WorkspaceView = "conversation" | "overview" | "execution" | "syntheses";
+type WorkspaceView =
+  | "conversation"
+  | "overview"
+  | "execution"
+  | "syntheses"
+  | "history"
+  | "journal";
+
+/** Views that own the principal width — no permanent sibling context rail. */
+const PRINCIPAL_ONLY_VIEWS: ReadonlySet<WorkspaceView> = new Set([
+  "overview",
+  "syntheses",
+  "history",
+  "journal",
+]);
 
 /** prefers-reduced-motion: no smooth scrolling for in-page jumps. */
 function scrollBehaviorPref(): ScrollBehavior {
@@ -100,7 +114,14 @@ function reservationDraftForNora(card: JournalReservationCard | null): string {
  * H-01 Option A — LPS + ProjectTrajectory share one visual piloting region
  * (presentation composition only; domain objects remain distinct).
  */
-export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
+export function ProjectWorkspacePage({
+  projectId,
+  onProjectName,
+}: {
+  projectId: string;
+  /** P5-S07 CP02 — real project title for the focused mobile ProductShell topbar. */
+  onProjectName?: (name: string) => void;
+}) {
   const [result, setResult] = useState<GetProjectResult | null>(null);
   const [durableOutcome, setDurableOutcome] =
     useState<ProjectAssistantRehydrateEvidenceOutcomeSuccess | null>(null);
@@ -161,6 +182,12 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
       cancelled = true;
     };
   }, [projectId]);
+
+  useEffect(() => {
+    if (result?.ok && result.project.name) {
+      onProjectName?.(result.project.name);
+    }
+  }, [result, onProjectName]);
 
   /** Badge honesty — read canonical continuity without inventing a count. */
   useEffect(() => {
@@ -240,13 +267,12 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
       ? [...lifecycleProjection.cycleDecisions]
       : [];
 
+  /** « Voir les réserves » — the dedicated Journal on its Réserves rail. */
   const openReservationsTab = useCallback(() => {
+    setActiveView("journal");
     setMemoryTab("reserves");
     setJournalCollapsed(false);
-    const rail = document.querySelector("[data-testid='cycle-journal-rail']");
-    if (rail instanceof HTMLElement) {
-      rail.scrollIntoView({ behavior: scrollBehaviorPref(), block: "start" });
-    }
+    setLpsOpen(false);
   }, []);
 
   /** Prefill composer with an explicit Pilot draft — NEVER sendMessage. */
@@ -353,6 +379,7 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
   };
 
   const viewJournalSubject = (journalEntryId: string) => {
+    setActiveView("journal");
     setMemoryTab("sujets");
     controller.setSelectedJournalEntryId(journalEntryId);
     window.setTimeout(() => {
@@ -374,22 +401,22 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
     return false;
   }, []);
 
-  /** Shortcut « Journal du cycle » — opens the existing Journal rail. */
+  /**
+   * « Journal du cycle » — dedicated principal view (P3 94:2), like Historique.
+   * The context rail keeps only a compact shortcut into this same surface.
+   */
   const openJournal = useCallback(() => {
-    // Overview hides the permanent context rail — restore Conversation layout
-    // so Journal remains reachable without a second Product model.
-    setActiveView("conversation");
-    setLpsOpen(true);
+    setActiveView("journal");
+    setMemoryTab("sujets");
     setJournalCollapsed(false);
-    window.setTimeout(() => scrollToTestId("cycle-journal-rail"), 0);
-  }, [scrollToTestId]);
+    setLpsOpen(false);
+  }, []);
 
-  /** Shortcut « Historique » — the existing durable history surface. */
+  /** Shortcut « Historique » — dedicated Product-derived History surface (P3). */
   const openHistory = useCallback(() => {
-    setActiveView("conversation");
-    setLpsOpen(true);
-    window.setTimeout(() => scrollToTestId("project-history-panel"), 0);
-  }, [scrollToTestId]);
+    setActiveView("history");
+    setLpsOpen(false);
+  }, []);
 
   /** Tab « Aperçu » — real object-native orientation projection (not scroll-only). */
   const openOverview = useCallback(() => {
@@ -486,9 +513,8 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
     executionPresentation != null
       ? deriveExecutionTabBadge(executionPresentation)
       : null;
-  /** Overview / Synthèses own principal width — no permanent sibling context rail. */
-  const showContextRail =
-    activeView !== "overview" && activeView !== "syntheses";
+  const principalOnly = PRINCIPAL_ONLY_VIEWS.has(activeView);
+  const showContextRail = !principalOnly;
 
   return (
     <div
@@ -555,6 +581,21 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
             ) : null}
           </div>
         </div>
+        {/*
+         * H2 190:111 — compact History page head (title + short subtitle).
+         * Shown only in the compact band; LARGE keeps the project title block.
+         */}
+        {activeView === "history" ? (
+          <div
+            className={styles.historyPageHead}
+            data-testid="history-page-head"
+          >
+            <h1 className={styles.historyPageTitle}>Historique</h1>
+            <p className={styles.historyPageSubtitle}>
+              Retrouver les changements importants du projet et leur contexte.
+            </p>
+          </div>
+        ) : null}
         <nav
           className={styles.tabs}
           aria-label="Vues du projet"
@@ -603,20 +644,11 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
       </header>
 
       <div
-        className={[
-          styles.layout,
-          activeView === "overview" || activeView === "syntheses"
-            ? styles.layoutOverview
-            : "",
-        ]
+        className={[styles.layout, principalOnly ? styles.layoutOverview : ""]
           .filter(Boolean)
           .join(" ")}
         data-testid="project-workspace-layout"
-        data-layout={
-          activeView === "overview" || activeView === "syntheses"
-            ? "overview"
-            : "split"
-        }
+        data-layout={principalOnly ? "overview" : "split"}
       >
         <div className={styles.main} ref={conversationRef}>
           {activeView === "conversation" ? (
@@ -699,6 +731,51 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
               projectId={projectId}
               initialSynthesisId={synthesesFocusId}
               onReturnToOverview={openOverview}
+            />
+          ) : null}
+
+          {activeView === "history" ? (
+            <HistorySurface
+              result={success}
+              durableOutcome={durableOutcome}
+              onReturnToOverview={openOverview}
+              onAskNora={(draft) => {
+                controller.setDraft(draft);
+                focusConversation();
+              }}
+            />
+          ) : null}
+
+          {activeView === "journal" ? (
+            <JournalSurface
+              variant="principal"
+              entries={controller.journalEntries}
+              cycleInstanceId={controller.journalCycleInstanceId}
+              reservationsCycleInstanceId={reservationCycleInstanceId}
+              selectedEntryId={controller.selectedJournalEntryId}
+              onSelectEntry={controller.setSelectedJournalEntryId}
+              onViewExchanges={controller.focusJournalExchanges}
+              onFocusTurn={(turnId) => {
+                focusConversation();
+                controller.focusTranscriptTurn(turnId);
+              }}
+              transcriptMessages={controller.messages}
+              onReturnToConversation={focusConversation}
+              cycleLabel={
+                lifecycle?.selectedCycleInstanceId ? cycleSummary.label : null
+              }
+              currentnessLabel={currentness.label}
+              reservations={cycleReservations}
+              memoryTab={memoryTab}
+              onMemoryTabChange={setMemoryTab}
+              onTreatWithNora={treatReservationWithNora}
+              onConfirmResolve={confirmReservationResolution}
+              onConfirmDefer={confirmReservationDefer}
+              onViewJournalSubject={viewJournalSubject}
+              reservationBusyId={reservationBusyId}
+              recommendations={cycleRecommendations}
+              decisions={cycleDecisions}
+              onResumeRecommendationInChat={resumeRecommendationInChat}
             />
           ) : null}
 
@@ -817,6 +894,9 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
               data-testid="project-journal-column"
             >
               <JournalSurface
+                variant="rail"
+                onOpenFullJournal={openJournal}
+                railMaxEntries={3}
                 entries={controller.journalEntries}
                 cycleInstanceId={controller.journalCycleInstanceId}
                 reservationsCycleInstanceId={reservationCycleInstanceId}
@@ -849,8 +929,6 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
                 </p>
               ) : null}
             </div>
-
-            <HistorySurface result={success} durableOutcome={durableOutcome} />
           </div>
 
           <ProjectContextShortcuts

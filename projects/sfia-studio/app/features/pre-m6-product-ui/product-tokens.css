@@ -87,6 +87,11 @@
   --pm6-global-header-h: 54px;
   --pm6-context-width: 356px;
   --pm6-focus-bar-h: 50px;
+
+  /* P3 Historique 78:2 — body 1224 split master ~790 | detail ~434. */
+  --pm6-history-detail-w: 434px;
+  /* P3 Journal 94:2 — body 1226 split subjects index ~440 | detail ~785. */
+  --pm6-journal-index-w: 440px;
 }
 
 /* Responsive geometry: <1200 compact (rail ~160, context ~280). */

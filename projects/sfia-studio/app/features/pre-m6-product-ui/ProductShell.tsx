@@ -13,6 +13,12 @@ export type ProductShellProps = {
    * matching entry in « Projets récents »; omitted when no project is open.
    */
   currentProjectHref?: string;
+  /**
+   * P5-S07 CP02 — focused mobile topbar (Journal / Historique / Synthèses):
+   * Mark + real project name + Pilot avatar. Wordmark and « Projets » leave
+   * when a focused secondary view is active (`:has([data-active-view=…])`).
+   */
+  mobileFocusProjectName?: string | null;
   children: ReactNode;
 };
 
@@ -39,13 +45,16 @@ function BrandMark() {
 export function ProductShell({
   activeNav,
   currentProjectHref,
+  mobileFocusProjectName = null,
   children,
 }: ProductShellProps) {
+  const focusName = mobileFocusProjectName?.trim() || null;
   return (
     <div
       className={styles.shell}
       data-testid="studio-shell"
       data-nav={activeNav}
+      data-mobile-focus={focusName ? "ready" : "idle"}
     >
       <aside
         className={styles.rail}
@@ -92,6 +101,9 @@ export function ProductShell({
           <Link href="/studio" className={styles.brand}>
             <BrandMark />
             <span className={styles.brandName}>SFIA Studio</span>
+            {focusName ? (
+              <span className={styles.mobileFocusName}>{focusName}</span>
+            ) : null}
           </Link>
           <Link
             href="/studio"

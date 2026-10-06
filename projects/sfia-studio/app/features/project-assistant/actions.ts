@@ -936,7 +936,13 @@ export async function projectAssistantConversationContinuityAction(input: {
 }): Promise<{
   ok: true;
   transcriptAvailability: "available" | "empty" | "unavailable";
-  messages: { id: string; role: "user" | "assistant"; content: string }[];
+  messages: {
+    id: string;
+    role: "user" | "assistant";
+    content: string;
+    /** Durable Session timestamp when present — never invented for UI. */
+    createdAt: string | null;
+  }[];
   journal: {
     cycleInstanceId: string | null;
     currentTopicEntryId: string | null;
@@ -995,6 +1001,7 @@ export async function projectAssistantConversationContinuityAction(input: {
           id: t.turnId,
           role: t.role as "user" | "assistant",
           content: t.content,
+          createdAt: t.createdAt?.trim() || null,
         }));
       const cycleInstanceId = input.cycleInstanceId?.trim() || null;
       const listed = cycleInstanceId
@@ -1443,7 +1450,16 @@ async function buildAssistantPilotLifecycleProjection(
   }
 
   // CHAT-FIRST — Décisions Journal tab (HumanDecision history).
-  projection.cycleDecisions = projectCycleDecisionCards(decisions);
+  // P5-S07 CP01 — Journal du cycle: only decisions confidently assigned to the
+  // selected/active cycle. Decisions without cycleInstanceId are excluded
+  // (no guess). Cross-cycle inheritance is not invented.
+  const journalCycleId =
+    projection.selectedCycleInstanceId ?? projection.activeCycleInstanceId;
+  projection.cycleDecisions = projectCycleDecisionCards(
+    journalCycleId
+      ? decisions.filter((d) => d.cycleInstanceId === journalCycleId)
+      : [],
+  );
 
   // Morris correction + MD-WR-02 — Work Recommendations for Journal > Recommandations.
   // Lifecycle CURRENT stays on currentRecommendations (right panel / audit only).

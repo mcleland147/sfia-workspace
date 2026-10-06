@@ -116,6 +116,7 @@ export function ConversationSurface({
     lrMaterializeCode,
     f2,
     activeProposal,
+    decisionSubjectContinuity,
     reservesText,
     setReservesText,
     f3Prepare,
@@ -512,6 +513,43 @@ export function ConversationSurface({
         </section>
       ) : null}
 
+      {decisionSubjectContinuity &&
+      typeof decisionSubjectContinuity === "object" &&
+      "ok" in decisionSubjectContinuity &&
+      decisionSubjectContinuity.ok &&
+      decisionSubjectContinuity.kind === "pending_reinstruction_required" ? (
+        <aside
+          className={styles.proposalCard}
+          data-testid="decision-subject-reinstruction"
+          aria-label="Sujet de décision à reformuler"
+        >
+          <p className={styles.proposalTitle}>Reprise du sujet</p>
+          <p className={styles.proposalMeta}>
+            {decisionSubjectContinuity.message}
+          </p>
+          <p className={styles.proposalMeta}>
+            La proposition process-locale n&apos;est plus disponible. Reformulez
+            avec Nora — aucune proposition n&apos;est inventée.
+          </p>
+        </aside>
+      ) : null}
+      {decisionSubjectContinuity &&
+      typeof decisionSubjectContinuity === "object" &&
+      "ok" in decisionSubjectContinuity &&
+      decisionSubjectContinuity.ok &&
+      decisionSubjectContinuity.kind === "bound_awaiting_decision" ? (
+        <aside
+          className={styles.proposalCard}
+          data-testid="decision-subject-bound"
+          aria-label="Sujet de décision courant"
+        >
+          <p className={styles.proposalTitle}>Sujet de décision courant</p>
+          <p className={styles.proposalMeta}>
+            Options présentées reconstruites depuis le Product (Epistemic) —
+            pas depuis un store process-local.
+          </p>
+        </aside>
+      ) : null}
       {activeProposal && !reservationResolutionProposal ? (
         <section
           className={styles.card}

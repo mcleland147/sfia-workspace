@@ -43,7 +43,16 @@ export type JournalTranscriptMessage = {
   id: string;
   role: string;
   content: string;
+  /** Durable Session timestamp when known — omitted rather than invented. */
+  createdAt?: string | null;
 };
+
+/**
+ * `rail` — compact shortcut inside the context column (conversation layout).
+ * `principal` — dedicated Journal view owning the main column (P3 94:2 / 94:222).
+ * One component, two compositions: never a second Journal cockpit.
+ */
+export type JournalSurfaceVariant = "rail" | "principal";
 
 export type JournalSurfaceProps = {
   entries: JournalSurfaceEntry[];
@@ -97,6 +106,17 @@ export type JournalSurfaceProps = {
    * the conversation. MUST NOT send and MUST NOT record anything.
    */
   onResumeRecommendationInChat?: (recommendationId: string) => void;
+  variant?: JournalSurfaceVariant;
+  /** Principal only — « Retour à la conversation ». */
+  onReturnToConversation?: () => void;
+  /** Rail only — promotes the compact shortcut to the dedicated Journal view. */
+  onOpenFullJournal?: () => void;
+  /** Rail only — compact shortcut shows at most this many subjects. */
+  railMaxEntries?: number;
+  /** Honest cycle label for the principal header chip (never invented). */
+  cycleLabel?: string | null;
+  /** Honest currentness label for the principal header chip. */
+  currentnessLabel?: string | null;
 };
 
 function isOpenReservation(card: JournalReservationCard): boolean {
@@ -154,21 +174,44 @@ function statusLabel(status: string): string {
 }
 
 function roleLabel(role: string): string {
-  if (role === "user") return "Pilote";
-  if (role === "assistant") return "Nora";
+  // P3 94:2 / 94:222 canonical exchange authors.
+  if (role === "user") return "VOUS";
+  if (role === "assistant") return "NORA";
   return role;
+}
+
+function roleAvatarLetter(role: string): string {
+  if (role === "VOUS") return "V";
+  if (role === "NORA") return "N";
+  return "·";
+}
+function formatExchangeWhen(iso: string | null | undefined): string {
+  if (!iso?.trim()) return "Moment non enregistré";
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return "Moment non enregistré";
+  const dd = String(d.getDate()).padStart(2, "0");
+  const mm = String(d.getMonth() + 1).padStart(2, "0");
+  const hh = String(d.getHours()).padStart(2, "0");
+  const mi = String(d.getMinutes()).padStart(2, "0");
+  return `${dd}/${mm} · ${hh}:${mi}`;
 }
 
 function previewFor(
   turnId: string,
   messages: JournalTranscriptMessage[] | undefined,
-): { role: string; excerpt: string; resolvable: boolean } {
+): {
+  role: string;
+  excerpt: string;
+  when: string;
+  resolvable: boolean;
+} {
   const msg = messages?.find((m) => m.id === turnId);
   if (!msg) {
     // Never show raw pt:* as the nominal Pilot label — pending reconcile / missing.
     return {
       role: "échange",
       excerpt: "Échange en cours de synchronisation…",
+      when: "Moment non enregistré",
       resolvable: false,
     };
   }
@@ -179,12 +222,51 @@ function previewFor(
   return {
     role: roleLabel(msg.role),
     excerpt: excerpt || "(vide)",
+    when: formatExchangeWhen(msg.createdAt),
     resolvable: true,
   };
 }
 
+/** P3 94:2 ordinal — « SUJET 01 ». Falls back to the plain label without one. */
+function paddedOrdinalLabel(ordinal: number | null): string {
+  if (ordinal == null) return "Sujet";
+  return `Sujet ${ordinal < 10 ? `0${ordinal}` : ordinal}`;
+}
+
+/** Relative freshness from the durable projection — honest when unreadable. */
+function relativeUpdatedAt(iso: string): string {
+  const then = new Date(iso).getTime();
+  if (Number.isNaN(then)) return "Mise à jour non datée";
+  const minutes = Math.floor((Date.now() - then) / 60000);
+  if (minutes < 0) return "Mise à jour non datée";
+  if (minutes < 1) return "Mis à jour à l'instant";
+  if (minutes < 60) return `Mis à jour il y a ${minutes} min`;
+  const hours = Math.floor(minutes / 60);
+  if (hours < 24) return `Mis à jour il y a ${hours} h`;
+  const days = Math.floor(hours / 24);
+  return `Mis à jour il y a ${days} j`;
+}
+
+/** Exchanges shown before the Pilot expands the full linked index (94:2). */
+const PRINCIPAL_EXCHANGE_PREVIEW = 2;
+
+const MEMORY_TABS: ReadonlyArray<{
+  id: JournalMemoryTab;
+  label: string;
+  paneId: string;
+}> = [
+  { id: "sujets", label: "Sujets", paneId: "cycle-journal-list" },
+  { id: "reserves", label: "Réserves", paneId: "cycle-reservations-list" },
+  {
+    id: "recommandations",
+    label: "Recommandations",
+    paneId: "cycle-recommendations-list",
+  },
+  { id: "decisions", label: "Décisions", paneId: "cycle-decisions-list" },
+];
+
 /**
- * Cycle Journal rail — semantic projection only.
+ * Cycle Journal — semantic projection only, in a rail or principal composition.
  * NEVER presented as Truth C / History durable / HumanDecision.
  */
 export function JournalSurface({
@@ -209,7 +291,14 @@ export function JournalSurface({
   recommendations = [],
   decisions = [],
   onResumeRecommendationInChat,
+  variant = "rail",
+  onReturnToConversation,
+  onOpenFullJournal,
+  railMaxEntries,
+  cycleLabel = null,
+  currentnessLabel = null,
 }: JournalSurfaceProps) {
+  const principal = variant === "principal";
   const safeEntries = Array.isArray(entries) ? entries : [];
   const safeReservations = Array.isArray(reservations) ? reservations : [];
   const safeRecommendations = Array.isArray(recommendations)
@@ -230,6 +319,8 @@ export function JournalSurface({
   );
   /** Epistemic id awaiting explicit Pilot confirm for defer — zero writes until confirm. */
   const [deferConfirmId, setDeferConfirmId] = useState<string | null>(null);
+  /** Principal mobile only — one nav level: subjects index ↔ selected subject. */
+  const [mobileShowDetail, setMobileShowDetail] = useState(false);
   const tab: JournalMemoryTab = memoryTab ?? internalTab;
   const setTab = (next: JournalMemoryTab) => {
     if (memoryTab === undefined) setInternalTab(next);
@@ -268,34 +359,145 @@ export function JournalSurface({
           ? `${openRecommendationCount} en attente de votre réponse`
           : `${decisionCount} décision${decisionCount === 1 ? "" : "s"} enregistrée${decisionCount === 1 ? "" : "s"}`;
 
+  /** Rail stays a shortcut: it shows a bounded head of the subjects index. */
+  const listedEntries =
+    !principal && typeof railMaxEntries === "number" && railMaxEntries > 0
+      ? safeEntries.slice(0, railMaxEntries)
+      : safeEntries;
+  const hiddenEntryCount = safeEntries.length - listedEntries.length;
+
+  /**
+   * Principal detail falls back to the current topic then the first subject so
+   * the master/detail view is never empty while a subject exists.
+   */
+  const detailEntry: JournalSurfaceEntry | null = principal
+    ? (safeEntries.find((e) => e.journalEntryId === selectedEntryId) ??
+      safeEntries.find((e) => e.isCurrentTopic) ??
+      safeEntries[0] ??
+      null)
+    : null;
+  const detailTurnRefs = detailEntry?.sourceTurnRefs ?? [];
+  const exchangesExpanded =
+    detailEntry != null && expandedEntryId === detailEntry.journalEntryId;
+  const shownTurnRefs = exchangesExpanded
+    ? detailTurnRefs
+    : detailTurnRefs.slice(0, PRINCIPAL_EXCHANGE_PREVIEW);
+  const firstResolvableTurn =
+    detailTurnRefs.find(
+      (turnId) => previewFor(turnId, transcriptMessages).resolvable,
+    ) ?? null;
+  /** Only Reservations carry a durable Journal subject link in the projection. */
+  const detailLinkedReservations = detailEntry
+    ? safeReservations.filter((r) =>
+        r.journalEntryRefs.includes(detailEntry.journalEntryId),
+      )
+    : [];
+  const masterTitle =
+    tab === "sujets"
+      ? "Sujets"
+      : tab === "reserves"
+        ? "Réserves"
+        : tab === "recommandations"
+          ? "Recommandations"
+          : "Décisions";
+
+  const Root = (principal ? "section" : "aside") as "section";
+
   return (
-    <aside
-      className={[styles.root, collapsed ? styles.collapsed : ""].join(" ")}
-      data-testid="cycle-journal-rail"
+    <Root
+      className={[
+        styles.root,
+        principal ? styles.principal : "",
+        collapsed ? styles.collapsed : "",
+      ]
+        .filter(Boolean)
+        .join(" ")}
+      data-testid={principal ? "project-journal-surface" : "cycle-journal-rail"}
+      data-variant={variant}
       data-memory-tab={tab}
+      data-mobile-detail={
+        principal && mobileShowDetail && detailEntry ? "true" : "false"
+      }
       aria-label="Journal du cycle"
     >
-      <header className={styles.header}>
-        <div className={styles.headerText}>
-          <p className={styles.eyebrow}>Mémoire de cycle</p>
-          <h2 className={styles.title} id="cycle-journal-heading">
-            {railTitle}
-          </h2>
-          <p className={styles.meta}>{railMeta}</p>
-        </div>
-        {onToggleCollapsed ? (
-          <button
-            type="button"
-            className={styles.toggle}
-            data-testid="cycle-journal-toggle"
-            aria-expanded={!collapsed}
-            aria-controls={paneId}
-            onClick={onToggleCollapsed}
-          >
-            {collapsed ? "Ouvrir" : "Replier"}
-          </button>
-        ) : null}
-      </header>
+      {principal ? (
+        <header className={styles.principalHeader}>
+          {onReturnToConversation ? (
+            <button
+              type="button"
+              className={styles.principalBack}
+              data-testid="project-journal-return-conversation"
+              onClick={onReturnToConversation}
+            >
+              <span className={styles.principalBackFull}>
+                ← Retour à la conversation
+              </span>
+              <span className={styles.principalBackShort}>← Conversation</span>
+            </button>
+          ) : null}
+          <div className={styles.principalTitleRow}>
+            <h2 className={styles.principalTitle} id="cycle-journal-heading">
+              Journal du cycle
+            </h2>
+            {/*
+             * Context chip: honest cycleLabel when known; otherwise Pilot-facing
+             * surface-identity copy — never invent Product facts (no hardcoded P3 · …).
+             */}
+            <span
+              className={styles.principalChip}
+              data-testid="project-journal-cycle-chip"
+            >
+              {cycleLabel?.trim() || "Espace projet / interaction"}
+            </span>
+            {currentnessLabel ? (
+              <span
+                className={styles.principalChipOk}
+                data-testid="project-journal-currentness"
+              >
+                {currentnessLabel}
+              </span>
+            ) : null}
+          </div>
+          {tab === "sujets" ? (
+            <p className={styles.principalSubtitle}>
+              Les fils de travail du Cycle, mis à jour au fil de la conversation.
+            </p>
+          ) : null}
+        </header>
+      ) : (
+        <header className={styles.header}>
+          <div className={styles.headerText}>
+            <p className={styles.eyebrow}>Mémoire de cycle</p>
+            <h2 className={styles.title} id="cycle-journal-heading">
+              {railTitle}
+            </h2>
+            <p className={styles.meta}>{railMeta}</p>
+          </div>
+          {onToggleCollapsed ? (
+            <button
+              type="button"
+              className={styles.toggle}
+              data-testid="cycle-journal-toggle"
+              aria-expanded={!collapsed}
+              aria-controls={paneId}
+              onClick={onToggleCollapsed}
+            >
+              {collapsed ? "Ouvrir" : "Replier"}
+            </button>
+          ) : null}
+        </header>
+      )}
+
+      {!principal && !collapsed && onOpenFullJournal ? (
+        <button
+          type="button"
+          className={styles.openFull}
+          data-testid="cycle-journal-open-full"
+          onClick={onOpenFullJournal}
+        >
+          Ouvrir le Journal du cycle →
+        </button>
+      ) : null}
 
       {!collapsed ? (
         <div
@@ -304,65 +506,63 @@ export function JournalSurface({
           aria-label="Mémoire de cycle"
           data-testid="memory-rail-tabs"
         >
-          <button
-            type="button"
-            role="tab"
-            id="memory-rail-tab-sujets"
-            className={[styles.tab, tab === "sujets" ? styles.tabActive : ""]
-              .filter(Boolean)
-              .join(" ")}
-            data-testid="memory-rail-tab-sujets"
-            aria-selected={tab === "sujets"}
-            aria-controls="cycle-journal-list"
-            onClick={() => setTab("sujets")}
-          >
-            Sujets ({activeCount})
-          </button>
-          <button
-            type="button"
-            role="tab"
-            id="memory-rail-tab-reserves"
-            className={[styles.tab, tab === "reserves" ? styles.tabActive : ""]
-              .filter(Boolean)
-              .join(" ")}
-            data-testid="memory-rail-tab-reserves"
-            aria-selected={tab === "reserves"}
-            aria-controls="cycle-reservations-list"
-            onClick={() => setTab("reserves")}
-          >
-            Réserves ({openReservationCount})
-          </button>
-          <button
-            type="button"
-            role="tab"
-            id="memory-rail-tab-recommandations"
-            className={[
-              styles.tab,
-              tab === "recommandations" ? styles.tabActive : "",
-            ]
-              .filter(Boolean)
-              .join(" ")}
-            data-testid="memory-rail-tab-recommandations"
-            aria-selected={tab === "recommandations"}
-            aria-controls="cycle-recommendations-list"
-            onClick={() => setTab("recommandations")}
-          >
-            Recommandations ({openRecommendationCount})
-          </button>
-          <button
-            type="button"
-            role="tab"
-            id="memory-rail-tab-decisions"
-            className={[styles.tab, tab === "decisions" ? styles.tabActive : ""]
-              .filter(Boolean)
-              .join(" ")}
-            data-testid="memory-rail-tab-decisions"
-            aria-selected={tab === "decisions"}
-            aria-controls="cycle-decisions-list"
-            onClick={() => setTab("decisions")}
-          >
-            Décisions ({decisionCount})
-          </button>
+          {MEMORY_TABS.map((item) => {
+            const count =
+              item.id === "sujets"
+                ? activeCount
+                : item.id === "reserves"
+                  ? openReservationCount
+                  : item.id === "recommandations"
+                    ? openRecommendationCount
+                    : decisionCount;
+            return (
+              <button
+                key={item.id}
+                type="button"
+                role="tab"
+                id={`memory-rail-tab-${item.id}`}
+                className={[styles.tab, tab === item.id ? styles.tabActive : ""]
+                  .filter(Boolean)
+                  .join(" ")}
+                data-testid={`memory-rail-tab-${item.id}`}
+                aria-selected={tab === item.id}
+                aria-controls={item.paneId}
+                onClick={() => setTab(item.id)}
+              >
+                {/* Principal: plain digit beside label (192:41 / 94:2) — never a circle badge. */}
+                {principal ? (
+                  <>
+                    <span className={styles.tabLabel}>{item.label}</span>
+                    <span className={styles.tabCount}>{count}</span>
+                  </>
+                ) : (
+                  `${item.label} (${count})`
+                )}
+              </button>
+            );
+          })}
+        </div>
+      ) : null}
+
+      <div className={styles.body} data-variant={variant}>
+      <div
+        className={styles.masterCol}
+        data-mobile-hidden={
+          principal && mobileShowDetail && detailEntry ? "true" : "false"
+        }
+      >
+      {principal && !collapsed ? (
+        <div className={styles.masterHead}>
+          <div className={styles.masterHeadRow}>
+            <h3 className={styles.masterTitle}>{masterTitle}</h3>
+            <span className={styles.masterCount}>{railMeta}</span>
+          </div>
+          {tab === "sujets" ? (
+            <p className={styles.masterNote}>
+              Les fils de travail du Cycle, mis à jour au fil de la
+              conversation.
+            </p>
+          ) : null}
         </div>
       ) : null}
 
@@ -790,8 +990,10 @@ export function JournalSurface({
               ici comme index navigable.
             </p>
           ) : (
-            safeEntries.map((entry) => {
-              const selected = selectedEntryId === entry.journalEntryId;
+            listedEntries.map((entry) => {
+              const selected = principal
+                ? detailEntry?.journalEntryId === entry.journalEntryId
+                : selectedEntryId === entry.journalEntryId;
               const expanded = expandedEntryId === entry.journalEntryId;
               const pointsOpen = pointsOpenId === entry.journalEntryId;
               const hasPoints =
@@ -820,7 +1022,10 @@ export function JournalSurface({
                   <button
                     type="button"
                     className={styles.cardSelect}
-                    onClick={() => onSelectEntry(entry.journalEntryId)}
+                    onClick={() => {
+                      onSelectEntry(entry.journalEntryId);
+                      if (principal) setMobileShowDetail(true);
+                    }}
                     aria-pressed={selected}
                   >
                     <span className={styles.cardHeading}>
@@ -829,7 +1034,9 @@ export function JournalSurface({
                           className={styles.ordinal}
                           data-testid={`cycle-journal-ordinal-${entry.journalEntryId}`}
                         >
-                          Sujet {ordinal}
+                          {principal
+                            ? paddedOrdinalLabel(ordinal)
+                            : `Sujet ${ordinal}`}
                         </span>
                       ) : null}
                       {entry.isCurrentTopic ? (
@@ -838,6 +1045,14 @@ export function JournalSurface({
                           data-testid={`cycle-journal-current-${entry.journalEntryId}`}
                         >
                           En cours
+                        </span>
+                      ) : null}
+                      {principal && !entry.isCurrentTopic ? (
+                        <span
+                          className={styles.statusBadge}
+                          data-status={entry.status}
+                        >
+                          {statusLabel(entry.status)}
                         </span>
                       ) : null}
                     </span>
@@ -853,9 +1068,17 @@ export function JournalSurface({
                         {entry.sourceTurnCount} échange
                         {entry.sourceTurnCount === 1 ? "" : "s"}
                       </span>
+                      {principal ? (
+                        <span className={styles.cardPoints}>
+                          {entry.stabilizedPoints.length} stabilisé
+                          {entry.stabilizedPoints.length === 1 ? "" : "s"} ·{" "}
+                          {entry.openPoints.length} ouvert
+                          {entry.openPoints.length === 1 ? "" : "s"}
+                        </span>
+                      ) : null}
                     </span>
                   </button>
-                  {hasPoints ? (
+                  {!principal && hasPoints ? (
                     <button
                       type="button"
                       className={styles.viewExchanges}
@@ -874,7 +1097,7 @@ export function JournalSurface({
                         : "Points stabilisés / ouverts"}
                     </button>
                   ) : null}
-                  {pointsOpen && hasPoints ? (
+                  {!principal && pointsOpen && hasPoints ? (
                     <div
                       className={styles.pointsBlock}
                       data-testid={`cycle-journal-points-body-${entry.journalEntryId}`}
@@ -901,7 +1124,7 @@ export function JournalSurface({
                       ) : null}
                     </div>
                   ) : null}
-                  {entry.sourceTurnRefs.length > 0 ? (
+                  {!principal && entry.sourceTurnRefs.length > 0 ? (
                     <button
                       type="button"
                       className={styles.viewExchanges}
@@ -920,7 +1143,7 @@ export function JournalSurface({
                       {expanded ? "Masquer les échanges" : "Voir les échanges"}
                     </button>
                   ) : null}
-                  {expanded && entry.sourceTurnRefs.length > 0 ? (
+                  {!principal && expanded && entry.sourceTurnRefs.length > 0 ? (
                     <ul
                       id={`cycle-journal-exchanges-${entry.journalEntryId}`}
                       className={styles.exchangeList}
@@ -943,24 +1166,324 @@ export function JournalSurface({
                               }}
                               disabled={!preview.resolvable}
                             >
-                              <span className={styles.exchangeRole}>
-                                {preview.role}
+                              <span className={styles.exchangeTop}>
+                                <span
+                                  className={styles.exchangeRole}
+                                  data-role={preview.role}
+                                >
+                                  {preview.role}
+                                </span>
+                                <span className={styles.exchangeWhen}>
+                                  {preview.when}
+                                </span>
                               </span>
-                              <span className={styles.exchangeExcerpt}>
-                                {preview.excerpt}
-                              </span>
-                            </button>
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  ) : null}
+                            <span className={styles.exchangeExcerpt}>
+                              {preview.excerpt}
+                            </span>
+                          </button>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                ) : null}
                 </article>
               );
             })
           )}
+          {hiddenEntryCount > 0 && onOpenFullJournal ? (
+            <button
+              type="button"
+              className={styles.viewExchanges}
+              data-testid="cycle-journal-overflow"
+              onClick={onOpenFullJournal}
+            >
+              Voir les {safeEntries.length} sujets →
+            </button>
+          ) : null}
         </div>
       ) : null}
-    </aside>
+      </div>
+
+      {principal && !collapsed && tab === "sujets" ? (
+        <div
+          className={styles.detailCol}
+          data-testid="project-journal-detail"
+          data-mobile-hidden={mobileShowDetail && detailEntry ? "false" : "true"}
+          aria-live="polite"
+        >
+          {!detailEntry ? (
+            <p className={styles.empty} data-testid="project-journal-detail-empty">
+              Sélectionnez un sujet pour lire son état courant, ses points et
+              ses échanges liés.
+            </p>
+          ) : (
+            <div className={styles.detailInner}>
+              <button
+                type="button"
+                className={styles.detailBack}
+                data-testid="project-journal-back-to-subjects"
+                onClick={() => setMobileShowDetail(false)}
+              >
+                ← Sujets
+              </button>
+
+              <div className={styles.detailHead}>
+                <div className={styles.detailHeadRow}>
+                  <span className={styles.detailBadges}>
+                    {detailEntry.topicOrdinal > 0 ? (
+                      <span
+                        className={styles.ordinal}
+                        data-testid="project-journal-detail-ordinal"
+                      >
+                        {paddedOrdinalLabel(detailEntry.topicOrdinal)}
+                      </span>
+                    ) : null}
+                    {detailEntry.isCurrentTopic ? (
+                      <span className={styles.currentBadge}>En cours</span>
+                    ) : null}
+                    <span
+                      className={styles.statusBadge}
+                      data-status={detailEntry.status}
+                    >
+                      {statusLabel(detailEntry.status)}
+                    </span>
+                  </span>
+                  <span className={styles.detailUpdated}>
+                    {relativeUpdatedAt(detailEntry.updatedAt)}
+                  </span>
+                </div>
+                <h3
+                  className={styles.detailTitle}
+                  data-testid="project-journal-detail-title"
+                >
+                  {detailEntry.title}
+                </h3>
+                <p className={styles.detailSummary}>
+                  {detailEntry.currentSummary}
+                </p>
+              </div>
+
+              <section
+                className={styles.detailSection}
+                data-testid="project-journal-stabilized"
+              >
+                <p className={styles.detailSectionHead}>
+                  <span className={styles.detailSectionLabel}>
+                    Points stabilisés
+                  </span>
+                  <span className={styles.detailSectionCount}>
+                    {detailEntry.stabilizedPoints.length}
+                  </span>
+                </p>
+                {detailEntry.stabilizedPoints.length === 0 ? (
+                  <p className={styles.detailUnavailable}>
+                    Aucun point stabilisé enregistré sur ce sujet.
+                  </p>
+                ) : (
+                  <ul className={styles.markedList} data-marker="stabilized">
+                    {detailEntry.stabilizedPoints.map((point, i) => (
+                      <li key={`ds-${i}`}>{point}</li>
+                    ))}
+                  </ul>
+                )}
+              </section>
+
+              <section
+                className={styles.detailSection}
+                data-testid="project-journal-open"
+              >
+                <p className={styles.detailSectionHead}>
+                  <span className={styles.detailSectionLabel}>
+                    Points ouverts
+                  </span>
+                  <span className={styles.detailSectionCount}>
+                    {detailEntry.openPoints.length}
+                  </span>
+                </p>
+                {detailEntry.openPoints.length === 0 ? (
+                  <p className={styles.detailUnavailable}>
+                    Aucun point ouvert sur ce sujet.
+                  </p>
+                ) : (
+                  <ul className={styles.markedList} data-marker="open">
+                    {detailEntry.openPoints.map((point, i) => (
+                      <li key={`do-${i}`}>{point}</li>
+                    ))}
+                  </ul>
+                )}
+              </section>
+
+              <section
+                className={styles.detailSection}
+                data-testid="project-journal-linked"
+              >
+                <p className={styles.detailSectionHead}>
+                  <span className={styles.detailSectionLabel}>
+                    Éléments liés
+                  </span>
+                </p>
+                {detailLinkedReservations.length > 0 ? (
+                  <div className={styles.linkedPills}>
+                    <button
+                      type="button"
+                      className={styles.linkedPill}
+                      data-kind="reserve"
+                      data-testid="project-journal-linked-reservation-count"
+                      onClick={() => setTab("reserves")}
+                    >
+                      <span className={styles.linkedPillCount}>
+                        {detailLinkedReservations.length}
+                      </span>
+                      <span className={styles.linkedPillLabel}>
+                        {detailLinkedReservations.length === 1
+                          ? "réserve"
+                          : "réserves"}
+                      </span>
+                    </button>
+                    {detailLinkedReservations.map((card) => (
+                      <button
+                        key={card.epistemicItemId}
+                        type="button"
+                        className={styles.linkedPill}
+                        data-kind="reserve-item"
+                        data-testid={`project-journal-linked-reservation-${card.epistemicItemId}`}
+                        onClick={() => setTab("reserves")}
+                        title={card.title}
+                      >
+                        <span className={styles.linkedPillCount}>
+                          {card.ordinal > 0 ? card.ordinal : "·"}
+                        </span>
+                        <span className={styles.linkedPillLabel}>
+                          {card.presentationStateLabel}
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                ) : null}
+                <p className={styles.detailUnavailable}>
+                  {detailLinkedReservations.length > 0
+                    ? "Les décisions et recommandations ne portent pas de rattachement durable à un sujet — consultez leurs onglets."
+                    : "Aucun élément lié à ce sujet dans la projection : seules les réserves portent un rattachement durable au Journal."}
+                </p>
+              </section>
+
+              <section
+                className={styles.detailSection}
+                data-testid="project-journal-exchanges"
+              >
+                <p className={styles.detailSectionHead}>
+                  <span className={styles.detailSectionLabel}>
+                    Échanges liés
+                  </span>
+                  <span className={styles.detailSectionCount}>
+                    {detailTurnRefs.length === 0
+                      ? "0"
+                      : exchangesExpanded
+                        ? `${detailTurnRefs.length} échange${detailTurnRefs.length === 1 ? "" : "s"} affiché${detailTurnRefs.length === 1 ? "" : "s"}`
+                        : `${shownTurnRefs.length} sur ${detailTurnRefs.length} affichés`}
+                  </span>
+                </p>
+                {detailTurnRefs.length === 0 ? (
+                  <p className={styles.detailUnavailable}>
+                    Aucun échange durable n&apos;est rattaché à ce sujet.
+                  </p>
+                ) : (
+                  <ul
+                    id={`cycle-journal-exchanges-${detailEntry.journalEntryId}`}
+                    className={styles.exchangePanel}
+                    data-testid={`cycle-journal-exchanges-${detailEntry.journalEntryId}`}
+                    data-expanded={exchangesExpanded ? "true" : "false"}
+                    aria-label={`Échanges liés — ${detailEntry.title}`}
+                  >
+                    {shownTurnRefs.map((turnId, index) => {
+                      const preview = previewFor(turnId, transcriptMessages);
+                      return (
+                        <li key={`${turnId}-${index}`}>
+                          <button
+                            type="button"
+                            className={styles.exchangeRow}
+                            data-testid={`cycle-journal-exchange-${turnId}`}
+                            data-resolvable={
+                              preview.resolvable ? "true" : "false"
+                            }
+                            data-role={preview.role}
+                            onClick={() => {
+                              if (preview.resolvable) onFocusTurn(turnId);
+                            }}
+                            disabled={!preview.resolvable}
+                          >
+                            <span className={styles.exchangeWho}>
+                              <span
+                                className={styles.exchangeAvatar}
+                                data-role={preview.role}
+                                aria-hidden
+                              >
+                                {roleAvatarLetter(preview.role)}
+                              </span>
+                              <span
+                                className={styles.exchangeRole}
+                                data-role={preview.role}
+                              >
+                                {preview.role}
+                              </span>
+                            </span>
+                            <span className={styles.exchangeExcerpt}>
+                              {preview.excerpt}
+                            </span>
+                            <span className={styles.exchangeWhen}>
+                              {preview.when}
+                            </span>
+                          </button>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                )}
+                <div className={styles.detailFooter}>
+                  {detailTurnRefs.length > PRINCIPAL_EXCHANGE_PREVIEW ? (
+                    <button
+                      type="button"
+                      className={styles.viewExchanges}
+                      data-testid={`cycle-journal-view-${detailEntry.journalEntryId}`}
+                      aria-expanded={exchangesExpanded}
+                      aria-controls={`cycle-journal-exchanges-${detailEntry.journalEntryId}`}
+                      onClick={() => {
+                        onViewExchanges(detailEntry);
+                        setExpandedEntryId((prev) =>
+                          prev === detailEntry.journalEntryId
+                            ? null
+                            : detailEntry.journalEntryId,
+                        );
+                      }}
+                    >
+                      {exchangesExpanded
+                        ? "Réduire les échanges"
+                        : `Voir les ${detailTurnRefs.length} échanges`}
+                    </button>
+                  ) : (
+                    <span />
+                  )}
+                  {firstResolvableTurn ? (
+                    <button
+                      type="button"
+                      className={styles.viewExchanges}
+                      data-testid="project-journal-open-in-conversation"
+                      onClick={() => onFocusTurn(firstResolvableTurn)}
+                    >
+                      Voir dans la conversation →
+                    </button>
+                  ) : (
+                    <span className={styles.detailUnavailable}>
+                      Échanges non résolus — reprise impossible pour l&apos;instant.
+                    </span>
+                  )}
+                </div>
+              </section>
+            </div>
+          )}
+        </div>
+      ) : null}
+      </div>
+    </Root>
   );
 }
