@@ -1,5 +1,11 @@
 # P5-S07 CP01 — Continuity & Work Representation Exit Proof + Pixel-Perfect Journal/History — FULL REVIEW PACK
 
+## 0. Republish note (diffs-complete)
+**REPUBLISH Review Pack / Handoff only** — 2026-10-06T18:30:00Z
+Prior handoff tip consumed as input: commit `01ae693e474ac4e7bf574df863649ec7c36f68e4` · blob `642bcfe51e9a6b5edcfa9015c7753f0cae28f897`
+Purpose: include **complete useful diffs** of modified files required for B1–B5 (not synthesis-only §54).
+No project code change in this republish beyond pack content. Candidate remains local / uncommitted / staged empty.
+
 ## 1. Timestamp
 2026-10-06T18:15:00Z (Europe/Paris local authoring 2026-10-06)
 
@@ -1432,16 +1438,3919 @@ describe("P5-S07 CP01 durable continuity & work representation wiring", () => {
 
 (Additional created UI/tests remain in worktree untracked — content on disk at paths in §52.)
 
-## 54. Useful code diffs
-Key deltas (summary):
-- Journal principal WorkspaceView + pixel CSS (94:2/94:222/mobile)
-- History master/detail + Figma filters/labels + Éléments liés verification block
-- actions cycleDecisions filter
-- projectHistory evidence/review/syntheses + boundNote
-- useProductConversation subject rehydrate (dynamic import)
-- LifecycleSurface Option A block
 
-Full unified diffs available via `git diff` on modified paths (uncommitted).
+## 54. Useful code diffs (COMPLETE — B1–B5)
+Full unified diffs (`git diff` vs HEAD=`7a664d65157af9554de4d4da7e76ca0187020020`) for the modified Product files that close B1–B5. No truncation.
+
+### 54.A Primary files (Morris-requested)
+
+#### `useProductConversation.ts` — B1 client subject rehydrate
+```diff
+diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts b/projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
+index 8490c6d6..ecadd672 100644
+--- a/projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
++++ b/projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
+@@ -43,11 +43,19 @@ import {
+ import { useRunningAttemptO3Observation } from "./useRunningAttemptO3Observation";
+ import { sendCancellableAssistantTurn } from "./sendCancellableAssistantTurn";
+ import type { JournalSurfaceEntry } from "../surfaces/JournalSurface";
++import type { ActiveDecisionSubjectReadResult } from "@/features/project-assistant/w2/types";
++
++export type ProductDecisionSubjectContinuity =
++  | { readonly status: "pending" }
++  | { readonly status: "unavailable"; readonly message: string }
++  | Extract<ActiveDecisionSubjectReadResult, { ok: true }>;
+
+ export type ProductMessage = {
+   id: string;
+   role: "user" | "assistant" | "system";
+   content: string;
++  /** Durable Session turn timestamp when known — never synthesized client-side. */
++  createdAt?: string | null;
+ };
+
+ export type TranscriptAvailability =
+@@ -130,6 +138,12 @@ export function useProductConversation({
+   );
+   const [f2, setF2] = useState<F2TurnPayload | null>(null);
+   const [activeProposal, setActiveProposal] = useState<ProposalDto | null>(null);
++  /**
++   * P5-S07 CP01 — durable decision-subject continuity from server read on mount.
++   * Never fabricates a ProposalDto from thin air.
++   */
++  const [decisionSubjectContinuity, setDecisionSubjectContinuity] =
++    useState<ProductDecisionSubjectContinuity>({ status: "pending" });
+   const [reservesText, setReservesText] = useState("");
+   const [f3Prepare, setF3Prepare] = useState<F3PreparePayload | null>(null);
+   const [f3M3Resolved, setF3M3Resolved] = useState<F3M3ResolvedPayload | null>(
+@@ -262,6 +276,7 @@ export function useProductConversation({
+           id: m.id,
+           role: m.role,
+           content: m.content,
++          createdAt: m.createdAt ?? null,
+         })),
+       );
+       setJournalCycleInstanceId(result.journal.cycleInstanceId);
+@@ -276,6 +291,46 @@ export function useProductConversation({
+     };
+   }, [projectId, activeCycleInstanceId]);
+
++  // P5-S07 CP01 — rehydrate durable decision subject after process-local Proposal loss.
++  // Dynamic import keeps w2/actions (server-only) out of the client module graph.
++  useEffect(() => {
++    let cancelled = false;
++    setDecisionSubjectContinuity({ status: "pending" });
++    void import("@/features/project-assistant/w2/actions")
++      .then(({ w2ReadActiveDecisionSubjectAction }) =>
++        w2ReadActiveDecisionSubjectAction({ projectId }),
++      )
++      .then((result) => {
++        if (cancelled) return;
++        if (!result.ok) {
++          setDecisionSubjectContinuity({
++            status: "unavailable",
++            message: result.message,
++          });
++          return;
++        }
++        setDecisionSubjectContinuity(result);
++        // Never invent ProposalDto. Only clear stale local Proposal when server
++        // says none / reinstruction — never auto-synthesize from optionSet.
++        if (
++          result.kind === "none" ||
++          result.kind === "pending_reinstruction_required"
++        ) {
++          setActiveProposal(null);
++        }
++      })
++      .catch(() => {
++        if (cancelled) return;
++        setDecisionSubjectContinuity({
++          status: "unavailable",
++          message: "Sujet de décision indisponible pour la reprise.",
++        });
++      });
++    return () => {
++      cancelled = true;
++    };
++  }, [projectId]);
++
+   useEffect(() => {
+     let cancelled = false;
+     applyDurableEvidenceOutcome(null);
+@@ -394,6 +449,7 @@ export function useProductConversation({
+           id: m.id,
+           role: m.role,
+           content: m.content,
++          createdAt: m.createdAt ?? null,
+         })),
+       );
+     }
+@@ -962,6 +1018,7 @@ export function useProductConversation({
+     lrMaterializeCode,
+     f2,
+     activeProposal,
++    decisionSubjectContinuity,
+     reservesText,
+     setReservesText,
+     f3Prepare,
+```
+
+#### `actions.ts` — B3 Journal cycle-scoped decisions + transcript createdAt
+```diff
+diff --git a/projects/sfia-studio/app/features/project-assistant/actions.ts b/projects/sfia-studio/app/features/project-assistant/actions.ts
+index bb03f760..b6970355 100644
+--- a/projects/sfia-studio/app/features/project-assistant/actions.ts
++++ b/projects/sfia-studio/app/features/project-assistant/actions.ts
+@@ -936,7 +936,13 @@ export async function projectAssistantConversationContinuityAction(input: {
+ }): Promise<{
+   ok: true;
+   transcriptAvailability: "available" | "empty" | "unavailable";
+-  messages: { id: string; role: "user" | "assistant"; content: string }[];
++  messages: {
++    id: string;
++    role: "user" | "assistant";
++    content: string;
++    /** Durable Session timestamp when present — never invented for UI. */
++    createdAt: string | null;
++  }[];
+   journal: {
+     cycleInstanceId: string | null;
+     currentTopicEntryId: string | null;
+@@ -995,6 +1001,7 @@ export async function projectAssistantConversationContinuityAction(input: {
+           id: t.turnId,
+           role: t.role as "user" | "assistant",
+           content: t.content,
++          createdAt: t.createdAt?.trim() || null,
+         }));
+       const cycleInstanceId = input.cycleInstanceId?.trim() || null;
+       const listed = cycleInstanceId
+@@ -1443,7 +1450,16 @@ async function buildAssistantPilotLifecycleProjection(
+   }
+
+   // CHAT-FIRST — Décisions Journal tab (HumanDecision history).
+-  projection.cycleDecisions = projectCycleDecisionCards(decisions);
++  // P5-S07 CP01 — Journal du cycle: only decisions confidently assigned to the
++  // selected/active cycle. Decisions without cycleInstanceId are excluded
++  // (no guess). Cross-cycle inheritance is not invented.
++  const journalCycleId =
++    projection.selectedCycleInstanceId ?? projection.activeCycleInstanceId;
++  projection.cycleDecisions = projectCycleDecisionCards(
++    journalCycleId
++      ? decisions.filter((d) => d.cycleInstanceId === journalCycleId)
++      : [],
++  );
+
+   // Morris correction + MD-WR-02 — Work Recommendations for Journal > Recommandations.
+   // Lifecycle CURRENT stays on currentRecommendations (right panel / audit only).
+```
+
+#### `projectHistory.ts` — B4 History read-model completion
+```diff
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/projectHistory.ts b/projects/sfia-studio/app/features/project-assistant/w2/projectHistory.ts
+index 8079bc5c..9a4707b0 100644
+--- a/projects/sfia-studio/app/features/project-assistant/w2/projectHistory.ts
++++ b/projects/sfia-studio/app/features/project-assistant/w2/projectHistory.ts
+@@ -14,8 +14,11 @@ import { readLiveProjectContext } from "@/lib/vertical-slice-runtime";
+
+ /** Bounded lookback so the read model can never become a history platform. */
+ export const W2_HISTORY_MAX_TRAJECTORY_VERSIONS = 5;
+-export const W2_HISTORY_MAX_DECISIONS = 5;
+-export const W2_HISTORY_MAX_CONTRACTS = 5;
++export const W2_HISTORY_MAX_DECISIONS = 8;
++export const W2_HISTORY_MAX_CONTRACTS = 8;
++export const W2_HISTORY_MAX_EVIDENCE = 5;
++export const W2_HISTORY_MAX_REVIEW_BUNDLES = 5;
++export const W2_HISTORY_MAX_SYNTHESES = 3;
+
+ export type W2TrajectoryAnchor = {
+   readonly trajectoryId: string;
+@@ -50,6 +53,22 @@ export type W2ContractAnchor = {
+   readonly decisionRefs: readonly string[];
+ };
+
++export type W2EvidenceAnchor = {
++  readonly evidenceId: string;
++  readonly status: string;
++};
++
++export type W2ReviewBundleAnchor = {
++  readonly reviewBundleId: string;
++  readonly status: string;
++};
++
++export type W2SynthesisAnchor = {
++  readonly synthesisId: string;
++  readonly title: string;
++  readonly status: string;
++};
++
+ export type W2ProjectHistoryReadModel = {
+   readonly projectId: string;
+   readonly projectTitle: string;
+@@ -67,8 +86,13 @@ export type W2ProjectHistoryReadModel = {
+   };
+   readonly decisions: readonly W2DecisionAnchor[];
+   readonly contracts: readonly W2ContractAnchor[];
++  readonly evidence: readonly W2EvidenceAnchor[];
++  readonly reviewBundles: readonly W2ReviewBundleAnchor[];
++  readonly syntheses: readonly W2SynthesisAnchor[];
+   /** Explicit honesty about what this read model does NOT contain. */
+   readonly absent: readonly string[];
++  /** Explicit lookback caps — History is bounded, not exhaustive. */
++  readonly boundNote: string;
+ };
+
+ export type ReadW2ProjectHistoryResult =
+@@ -76,10 +100,11 @@ export type ReadW2ProjectHistoryResult =
+   | { readonly ok: false; readonly code: string; readonly message: string };
+
+ const ABSENT_BY_DESIGN: readonly string[] = Object.freeze([
+-  "Conversation (process-local, non rejouée)",
+-  "Proposition F2 process-local",
+-  "Confirmation demandée (process-local)",
++  "Conversation (interaction durable Session — ≠ Historique Product)",
++  "Proposition F2 process-local (reconstruite via Epistemic ou requalification)",
++  "Confirmation préparée process-locale (UAT-RECOVERY-03 — non-autorité)",
+   "Raisonnement interne non matérialisé",
++  "Historique borné — pas un dump exhaustif",
+ ]);
+
+ export async function readW2ProjectHistory(input: {
+@@ -194,6 +219,57 @@ export async function readW2ProjectHistory(input: {
+         }))
+     : [];
+
++  // P5-S07 CP01 — minimum-sufficient Evidence / Review / Synthesis anchors
++  // from existing OA list use cases (bounded; no HistoryStore).
++  let evidence: W2EvidenceAnchor[] = [];
++  let reviewBundles: W2ReviewBundleAnchor[] = [];
++  try {
++    const listed = await oa.evidenceReviewServices.repository.listByProject(
++      projectId,
++    );
++    evidence = listed
++      .slice(-W2_HISTORY_MAX_EVIDENCE)
++      .reverse()
++      .map((e) => ({
++        evidenceId: e.evidenceId,
++        status: e.status,
++      }));
++  } catch {
++    evidence = [];
++  }
++  try {
++    const listed =
++      await oa.evidenceReviewServices.reviewBundleRepository.listByProject(
++        projectId,
++      );
++    reviewBundles = listed
++      .slice(-W2_HISTORY_MAX_REVIEW_BUNDLES)
++      .reverse()
++      .map((rb) => ({
++        reviewBundleId: rb.reviewBundleId,
++        status: rb.status,
++      }));
++  } catch {
++    reviewBundles = [];
++  }
++
++  let syntheses: W2SynthesisAnchor[] = [];
++  try {
++    const { listProductSynthesesAction } = await import(
++      "@/features/project-assistant/synthesisActions"
++    );
++    const listed = await listProductSynthesesAction({ projectId });
++    if (listed.ok) {
++      syntheses = listed.items.slice(0, W2_HISTORY_MAX_SYNTHESES).map((s) => ({
++        synthesisId: s.synthesisId,
++        title: s.title,
++        status: s.status,
++      }));
++    }
++  } catch {
++    syntheses = [];
++  }
++
+   return {
+     ok: true,
+     history: {
+@@ -214,7 +290,11 @@ export async function readW2ProjectHistory(input: {
+       },
+       decisions,
+       contracts,
++      evidence,
++      reviewBundles,
++      syntheses,
+       absent: ABSENT_BY_DESIGN,
++      boundNote: `Borné · ≤${W2_HISTORY_MAX_DECISIONS} décisions · ≤${W2_HISTORY_MAX_CONTRACTS} contrats · ≤${W2_HISTORY_MAX_EVIDENCE} preuves · ≤${W2_HISTORY_MAX_REVIEW_BUNDLES} revues · ≤${W2_HISTORY_MAX_SYNTHESES} synthèses.`,
+     },
+   };
+ }
+```
+
+#### `LifecycleSurface.tsx` — B2 Work representation Product wiring
+```diff
+diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.tsx
+index 8d1cf279..773a5453 100644
+--- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.tsx
++++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.tsx
+@@ -23,6 +23,7 @@ import {
+   readyExceptFinalizeDecision,
+   summarizeFinalizationReadiness,
+ } from "./lifecyclePresentation";
++import { deriveWorkRepresentationFromLifecycleProjection } from "./deriveWorkRepresentationFromLifecycle";
+ import styles from "./LifecycleSurface.module.css";
+
+ function cycleCatalogLabel(projection: PilotLifecycleProjection | null): string {
+@@ -242,6 +243,8 @@ export function LifecycleSurface({
+   const cycleTitle = cycleCatalogLabel(projection);
+   const badge = lifecycleStatusBadge(projection);
+   const cta = lifecycleCtaPresentation(projection);
++  const workRepresentation =
++    deriveWorkRepresentationFromLifecycleProjection(projection);
+   const finalizeRec = primaryFinalizeRecommendation(projection);
+   const nextRec = primaryNextCycleRecommendation(projection);
+   const nonHd = nonHumanDecisionBlockers(projection.assessment);
+@@ -301,6 +304,39 @@ export function LifecycleSurface({
+         </p>
+       </header>
+
++      {workRepresentation ? (
++        <section
++          className={styles.block}
++          data-testid="lifecycle-work-representation"
++          aria-label="Représentation du travail"
++        >
++          <p className={styles.eyebrow}>LIVRABLE / TRAVAIL</p>
++          <p
++            className={styles.muted}
++            data-testid="lifecycle-work-representation-summary"
++          >
++            {workRepresentation.pilotSummary}
++          </p>
++          <ul className={styles.list} data-testid="lifecycle-work-representation-states">
++            <li data-requirement={workRepresentation.requirementState}>
++              Exigence · {workRepresentation.requirementState}
++            </li>
++            <li data-production={workRepresentation.productionState}>
++              Production · {workRepresentation.productionState}
++            </li>
++            <li data-validation={workRepresentation.validationState}>
++              Qualification · {workRepresentation.validationState}
++            </li>
++            <li data-exit-proof={String(workRepresentation.exitProofSatisfied)}>
++              Preuve de sortie · {String(workRepresentation.exitProofSatisfied)}
++            </li>
++            <li data-cycle-complete={String(workRepresentation.cycleComplete)}>
++              Cycle terminé · {String(workRepresentation.cycleComplete)}
++            </li>
++          </ul>
++        </section>
++      ) : null}
++
+       {error ? (
+         <p className={styles.error} role="alert">
+           {error}
+```
+
+#### `ProjectWorkspacePage.tsx` — Journal/History principal WorkspaceView
+```diff
+diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx
+index 0a6e0be3..8385541f 100644
+--- a/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx
++++ b/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx
+@@ -54,7 +54,21 @@ import type { GetProjectResult, GetProjectSuccess } from "./types";
+ import styles from "./ProjectWorkspacePage.module.css";
+
+ /** Ephemeral presentation view — never persisted as Product state. */
+-type WorkspaceView = "conversation" | "overview" | "execution" | "syntheses";
++type WorkspaceView =
++  | "conversation"
++  | "overview"
++  | "execution"
++  | "syntheses"
++  | "history"
++  | "journal";
++
++/** Views that own the principal width — no permanent sibling context rail. */
++const PRINCIPAL_ONLY_VIEWS: ReadonlySet<WorkspaceView> = new Set([
++  "overview",
++  "syntheses",
++  "history",
++  "journal",
++]);
+
+ /** prefers-reduced-motion: no smooth scrolling for in-page jumps. */
+ function scrollBehaviorPref(): ScrollBehavior {
+@@ -240,13 +254,12 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
+       ? [...lifecycleProjection.cycleDecisions]
+       : [];
+
++  /** « Voir les réserves » — the dedicated Journal on its Réserves rail. */
+   const openReservationsTab = useCallback(() => {
++    setActiveView("journal");
+     setMemoryTab("reserves");
+     setJournalCollapsed(false);
+-    const rail = document.querySelector("[data-testid='cycle-journal-rail']");
+-    if (rail instanceof HTMLElement) {
+-      rail.scrollIntoView({ behavior: scrollBehaviorPref(), block: "start" });
+-    }
++    setLpsOpen(false);
+   }, []);
+
+   /** Prefill composer with an explicit Pilot draft — NEVER sendMessage. */
+@@ -353,6 +366,7 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
+   };
+
+   const viewJournalSubject = (journalEntryId: string) => {
++    setActiveView("journal");
+     setMemoryTab("sujets");
+     controller.setSelectedJournalEntryId(journalEntryId);
+     window.setTimeout(() => {
+@@ -374,22 +388,22 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
+     return false;
+   }, []);
+
+-  /** Shortcut « Journal du cycle » — opens the existing Journal rail. */
++  /**
++   * « Journal du cycle » — dedicated principal view (P3 94:2), like Historique.
++   * The context rail keeps only a compact shortcut into this same surface.
++   */
+   const openJournal = useCallback(() => {
+-    // Overview hides the permanent context rail — restore Conversation layout
+-    // so Journal remains reachable without a second Product model.
+-    setActiveView("conversation");
+-    setLpsOpen(true);
++    setActiveView("journal");
++    setMemoryTab("sujets");
+     setJournalCollapsed(false);
+-    window.setTimeout(() => scrollToTestId("cycle-journal-rail"), 0);
+-  }, [scrollToTestId]);
++    setLpsOpen(false);
++  }, []);
+
+-  /** Shortcut « Historique » — the existing durable history surface. */
++  /** Shortcut « Historique » — dedicated Product-derived History surface (P3). */
+   const openHistory = useCallback(() => {
+-    setActiveView("conversation");
+-    setLpsOpen(true);
+-    window.setTimeout(() => scrollToTestId("project-history-panel"), 0);
+-  }, [scrollToTestId]);
++    setActiveView("history");
++    setLpsOpen(false);
++  }, []);
+
+   /** Tab « Aperçu » — real object-native orientation projection (not scroll-only). */
+   const openOverview = useCallback(() => {
+@@ -486,9 +500,8 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
+     executionPresentation != null
+       ? deriveExecutionTabBadge(executionPresentation)
+       : null;
+-  /** Overview / Synthèses own principal width — no permanent sibling context rail. */
+-  const showContextRail =
+-    activeView !== "overview" && activeView !== "syntheses";
++  const principalOnly = PRINCIPAL_ONLY_VIEWS.has(activeView);
++  const showContextRail = !principalOnly;
+
+   return (
+     <div
+@@ -603,20 +616,11 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
+       </header>
+
+       <div
+-        className={[
+-          styles.layout,
+-          activeView === "overview" || activeView === "syntheses"
+-            ? styles.layoutOverview
+-            : "",
+-        ]
++        className={[styles.layout, principalOnly ? styles.layoutOverview : ""]
+           .filter(Boolean)
+           .join(" ")}
+         data-testid="project-workspace-layout"
+-        data-layout={
+-          activeView === "overview" || activeView === "syntheses"
+-            ? "overview"
+-            : "split"
+-        }
++        data-layout={principalOnly ? "overview" : "split"}
+       >
+         <div className={styles.main} ref={conversationRef}>
+           {activeView === "conversation" ? (
+@@ -702,6 +706,51 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
+             />
+           ) : null}
+
++          {activeView === "history" ? (
++            <HistorySurface
++              result={success}
++              durableOutcome={durableOutcome}
++              onReturnToOverview={openOverview}
++              onAskNora={(draft) => {
++                controller.setDraft(draft);
++                focusConversation();
++              }}
++            />
++          ) : null}
++
++          {activeView === "journal" ? (
++            <JournalSurface
++              variant="principal"
++              entries={controller.journalEntries}
++              cycleInstanceId={controller.journalCycleInstanceId}
++              reservationsCycleInstanceId={reservationCycleInstanceId}
++              selectedEntryId={controller.selectedJournalEntryId}
++              onSelectEntry={controller.setSelectedJournalEntryId}
++              onViewExchanges={controller.focusJournalExchanges}
++              onFocusTurn={(turnId) => {
++                focusConversation();
++                controller.focusTranscriptTurn(turnId);
++              }}
++              transcriptMessages={controller.messages}
++              onReturnToConversation={focusConversation}
++              cycleLabel={
++                lifecycle?.selectedCycleInstanceId ? cycleSummary.label : null
++              }
++              currentnessLabel={currentness.label}
++              reservations={cycleReservations}
++              memoryTab={memoryTab}
++              onMemoryTabChange={setMemoryTab}
++              onTreatWithNora={treatReservationWithNora}
++              onConfirmResolve={confirmReservationResolution}
++              onConfirmDefer={confirmReservationDefer}
++              onViewJournalSubject={viewJournalSubject}
++              reservationBusyId={reservationBusyId}
++              recommendations={cycleRecommendations}
++              decisions={cycleDecisions}
++              onResumeRecommendationInChat={resumeRecommendationInChat}
++            />
++          ) : null}
++
+           {activeView === "execution" ? (
+             <ExecutionSurface
+               projectId={projectId}
+@@ -817,6 +866,9 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
+               data-testid="project-journal-column"
+             >
+               <JournalSurface
++                variant="rail"
++                onOpenFullJournal={openJournal}
++                railMaxEntries={3}
+                 entries={controller.journalEntries}
+                 cycleInstanceId={controller.journalCycleInstanceId}
+                 reservationsCycleInstanceId={reservationCycleInstanceId}
+@@ -849,8 +901,6 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
+                 </p>
+               ) : null}
+             </div>
+-
+-            <HistorySurface result={success} durableOutcome={durableOutcome} />
+           </div>
+
+           <ProjectContextShortcuts
+```
+
+#### `JournalSurface.tsx` — B5 Journal principal / expanded / mobile
+```diff
+diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/JournalSurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/JournalSurface.tsx
+index 3a772999..b2f38c9b 100644
+--- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/JournalSurface.tsx
++++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/JournalSurface.tsx
+@@ -43,8 +43,17 @@ export type JournalTranscriptMessage = {
+   id: string;
+   role: string;
+   content: string;
++  /** Durable Session timestamp when known — omitted rather than invented. */
++  createdAt?: string | null;
+ };
+
++/**
++ * `rail` — compact shortcut inside the context column (conversation layout).
++ * `principal` — dedicated Journal view owning the main column (P3 94:2 / 94:222).
++ * One component, two compositions: never a second Journal cockpit.
++ */
++export type JournalSurfaceVariant = "rail" | "principal";
++
+ export type JournalSurfaceProps = {
+   entries: JournalSurfaceEntry[];
+   cycleInstanceId: string | null;
+@@ -97,6 +106,17 @@ export type JournalSurfaceProps = {
+    * the conversation. MUST NOT send and MUST NOT record anything.
+    */
+   onResumeRecommendationInChat?: (recommendationId: string) => void;
++  variant?: JournalSurfaceVariant;
++  /** Principal only — « Retour à la conversation ». */
++  onReturnToConversation?: () => void;
++  /** Rail only — promotes the compact shortcut to the dedicated Journal view. */
++  onOpenFullJournal?: () => void;
++  /** Rail only — compact shortcut shows at most this many subjects. */
++  railMaxEntries?: number;
++  /** Honest cycle label for the principal header chip (never invented). */
++  cycleLabel?: string | null;
++  /** Honest currentness label for the principal header chip. */
++  currentnessLabel?: string | null;
+ };
+
+ function isOpenReservation(card: JournalReservationCard): boolean {
+@@ -154,21 +174,40 @@ function statusLabel(status: string): string {
+ }
+
+ function roleLabel(role: string): string {
+-  if (role === "user") return "Pilote";
+-  if (role === "assistant") return "Nora";
++  // P3 94:2 / 94:222 canonical exchange authors.
++  if (role === "user") return "VOUS";
++  if (role === "assistant") return "NORA";
+   return role;
+ }
+
++/** Exchange timestamp from durable Session only — never fabricated. */
++function formatExchangeWhen(iso: string | null | undefined): string {
++  if (!iso?.trim()) return "Moment non enregistré";
++  const d = new Date(iso);
++  if (Number.isNaN(d.getTime())) return "Moment non enregistré";
++  const dd = String(d.getDate()).padStart(2, "0");
++  const mm = String(d.getMonth() + 1).padStart(2, "0");
++  const hh = String(d.getHours()).padStart(2, "0");
++  const mi = String(d.getMinutes()).padStart(2, "0");
++  return `${dd}/${mm} · ${hh}:${mi}`;
++}
++
+ function previewFor(
+   turnId: string,
+   messages: JournalTranscriptMessage[] | undefined,
+-): { role: string; excerpt: string; resolvable: boolean } {
++): {
++  role: string;
++  excerpt: string;
++  when: string;
++  resolvable: boolean;
++} {
+   const msg = messages?.find((m) => m.id === turnId);
+   if (!msg) {
+     // Never show raw pt:* as the nominal Pilot label — pending reconcile / missing.
+     return {
+       role: "échange",
+       excerpt: "Échange en cours de synchronisation…",
++      when: "Moment non enregistré",
+       resolvable: false,
+     };
+   }
+@@ -179,12 +218,51 @@ function previewFor(
+   return {
+     role: roleLabel(msg.role),
+     excerpt: excerpt || "(vide)",
++    when: formatExchangeWhen(msg.createdAt),
+     resolvable: true,
+   };
+ }
+
++/** P3 94:2 ordinal — « SUJET 01 ». Falls back to the plain label without one. */
++function paddedOrdinalLabel(ordinal: number | null): string {
++  if (ordinal == null) return "Sujet";
++  return `Sujet ${ordinal < 10 ? `0${ordinal}` : ordinal}`;
++}
++
++/** Relative freshness from the durable projection — honest when unreadable. */
++function relativeUpdatedAt(iso: string): string {
++  const then = new Date(iso).getTime();
++  if (Number.isNaN(then)) return "Mise à jour non datée";
++  const minutes = Math.floor((Date.now() - then) / 60000);
++  if (minutes < 0) return "Mise à jour non datée";
++  if (minutes < 1) return "Mis à jour à l'instant";
++  if (minutes < 60) return `Mis à jour il y a ${minutes} min`;
++  const hours = Math.floor(minutes / 60);
++  if (hours < 24) return `Mis à jour il y a ${hours} h`;
++  const days = Math.floor(hours / 24);
++  return `Mis à jour il y a ${days} j`;
++}
++
++/** Exchanges shown before the Pilot expands the full linked index (94:2). */
++const PRINCIPAL_EXCHANGE_PREVIEW = 2;
++
++const MEMORY_TABS: ReadonlyArray<{
++  id: JournalMemoryTab;
++  label: string;
++  paneId: string;
++}> = [
++  { id: "sujets", label: "Sujets", paneId: "cycle-journal-list" },
++  { id: "reserves", label: "Réserves", paneId: "cycle-reservations-list" },
++  {
++    id: "recommandations",
++    label: "Recommandations",
++    paneId: "cycle-recommendations-list",
++  },
++  { id: "decisions", label: "Décisions", paneId: "cycle-decisions-list" },
++];
++
+ /**
+- * Cycle Journal rail — semantic projection only.
++ * Cycle Journal — semantic projection only, in a rail or principal composition.
+  * NEVER presented as Truth C / History durable / HumanDecision.
+  */
+ export function JournalSurface({
+@@ -209,7 +287,14 @@ export function JournalSurface({
+   recommendations = [],
+   decisions = [],
+   onResumeRecommendationInChat,
++  variant = "rail",
++  onReturnToConversation,
++  onOpenFullJournal,
++  railMaxEntries,
++  cycleLabel = null,
++  currentnessLabel = null,
+ }: JournalSurfaceProps) {
++  const principal = variant === "principal";
+   const safeEntries = Array.isArray(entries) ? entries : [];
+   const safeReservations = Array.isArray(reservations) ? reservations : [];
+   const safeRecommendations = Array.isArray(recommendations)
+@@ -230,6 +315,8 @@ export function JournalSurface({
+   );
+   /** Epistemic id awaiting explicit Pilot confirm for defer — zero writes until confirm. */
+   const [deferConfirmId, setDeferConfirmId] = useState<string | null>(null);
++  /** Principal mobile only — one nav level: subjects index ↔ selected subject. */
++  const [mobileShowDetail, setMobileShowDetail] = useState(false);
+   const tab: JournalMemoryTab = memoryTab ?? internalTab;
+   const setTab = (next: JournalMemoryTab) => {
+     if (memoryTab === undefined) setInternalTab(next);
+@@ -268,34 +355,133 @@ export function JournalSurface({
+           ? `${openRecommendationCount} en attente de votre réponse`
+           : `${decisionCount} décision${decisionCount === 1 ? "" : "s"} enregistrée${decisionCount === 1 ? "" : "s"}`;
+
++  /** Rail stays a shortcut: it shows a bounded head of the subjects index. */
++  const listedEntries =
++    !principal && typeof railMaxEntries === "number" && railMaxEntries > 0
++      ? safeEntries.slice(0, railMaxEntries)
++      : safeEntries;
++  const hiddenEntryCount = safeEntries.length - listedEntries.length;
++
++  /**
++   * Principal detail falls back to the current topic then the first subject so
++   * the master/detail view is never empty while a subject exists.
++   */
++  const detailEntry: JournalSurfaceEntry | null = principal
++    ? (safeEntries.find((e) => e.journalEntryId === selectedEntryId) ??
++      safeEntries.find((e) => e.isCurrentTopic) ??
++      safeEntries[0] ??
++      null)
++    : null;
++  const detailTurnRefs = detailEntry?.sourceTurnRefs ?? [];
++  const exchangesExpanded =
++    detailEntry != null && expandedEntryId === detailEntry.journalEntryId;
++  const shownTurnRefs = exchangesExpanded
++    ? detailTurnRefs
++    : detailTurnRefs.slice(0, PRINCIPAL_EXCHANGE_PREVIEW);
++  const firstResolvableTurn =
++    detailTurnRefs.find(
++      (turnId) => previewFor(turnId, transcriptMessages).resolvable,
++    ) ?? null;
++  /** Only Reservations carry a durable Journal subject link in the projection. */
++  const detailLinkedReservations = detailEntry
++    ? safeReservations.filter((r) =>
++        r.journalEntryRefs.includes(detailEntry.journalEntryId),
++      )
++    : [];
++  const masterTitle =
++    tab === "sujets"
++      ? "Sujets"
++      : tab === "reserves"
++        ? "Réserves"
++        : tab === "recommandations"
++          ? "Recommandations"
++          : "Décisions";
++
++  const Root = (principal ? "section" : "aside") as "section";
++
+   return (
+-    <aside
+-      className={[styles.root, collapsed ? styles.collapsed : ""].join(" ")}
+-      data-testid="cycle-journal-rail"
++    <Root
++      className={[
++        styles.root,
++        principal ? styles.principal : "",
++        collapsed ? styles.collapsed : "",
++      ]
++        .filter(Boolean)
++        .join(" ")}
++      data-testid={principal ? "project-journal-surface" : "cycle-journal-rail"}
++      data-variant={variant}
+       data-memory-tab={tab}
++      data-mobile-detail={
++        principal && mobileShowDetail && detailEntry ? "true" : "false"
++      }
+       aria-label="Journal du cycle"
+     >
+-      <header className={styles.header}>
+-        <div className={styles.headerText}>
+-          <p className={styles.eyebrow}>Mémoire de cycle</p>
+-          <h2 className={styles.title} id="cycle-journal-heading">
+-            {railTitle}
+-          </h2>
+-          <p className={styles.meta}>{railMeta}</p>
+-        </div>
+-        {onToggleCollapsed ? (
+-          <button
+-            type="button"
+-            className={styles.toggle}
+-            data-testid="cycle-journal-toggle"
+-            aria-expanded={!collapsed}
+-            aria-controls={paneId}
+-            onClick={onToggleCollapsed}
+-          >
+-            {collapsed ? "Ouvrir" : "Replier"}
+-          </button>
+-        ) : null}
+-      </header>
++      {principal ? (
++        <header className={styles.principalHeader}>
++          {onReturnToConversation ? (
++            <button
++              type="button"
++              className={styles.principalBack}
++              data-testid="project-journal-return-conversation"
++              onClick={onReturnToConversation}
++            >
++              <span className={styles.principalBackFull}>
++                ← Retour à la conversation
++              </span>
++              <span className={styles.principalBackShort}>← Conversation</span>
++            </button>
++          ) : null}
++          <div className={styles.principalTitleRow}>
++            <h2 className={styles.principalTitle} id="cycle-journal-heading">
++              Journal du cycle
++            </h2>
++            {cycleLabel ? (
++              <span className={styles.principalChip}>{cycleLabel}</span>
++            ) : null}
++            {currentnessLabel ? (
++              <span
++                className={styles.principalChipOk}
++                data-testid="project-journal-currentness"
++              >
++                {currentnessLabel}
++              </span>
++            ) : null}
++          </div>
++        </header>
++      ) : (
++        <header className={styles.header}>
++          <div className={styles.headerText}>
++            <p className={styles.eyebrow}>Mémoire de cycle</p>
++            <h2 className={styles.title} id="cycle-journal-heading">
++              {railTitle}
++            </h2>
++            <p className={styles.meta}>{railMeta}</p>
++          </div>
++          {onToggleCollapsed ? (
++            <button
++              type="button"
++              className={styles.toggle}
++              data-testid="cycle-journal-toggle"
++              aria-expanded={!collapsed}
++              aria-controls={paneId}
++              onClick={onToggleCollapsed}
++            >
++              {collapsed ? "Ouvrir" : "Replier"}
++            </button>
++          ) : null}
++        </header>
++      )}
++
++      {!principal && !collapsed && onOpenFullJournal ? (
++        <button
++          type="button"
++          className={styles.openFull}
++          data-testid="cycle-journal-open-full"
++          onClick={onOpenFullJournal}
++        >
++          Ouvrir le Journal du cycle →
++        </button>
++      ) : null}
+
+       {!collapsed ? (
+         <div
+@@ -304,65 +490,63 @@ export function JournalSurface({
+           aria-label="Mémoire de cycle"
+           data-testid="memory-rail-tabs"
+         >
+-          <button
+-            type="button"
+-            role="tab"
+-            id="memory-rail-tab-sujets"
+-            className={[styles.tab, tab === "sujets" ? styles.tabActive : ""]
+-              .filter(Boolean)
+-              .join(" ")}
+-            data-testid="memory-rail-tab-sujets"
+-            aria-selected={tab === "sujets"}
+-            aria-controls="cycle-journal-list"
+-            onClick={() => setTab("sujets")}
+-          >
+-            Sujets ({activeCount})
+-          </button>
+-          <button
+-            type="button"
+-            role="tab"
+-            id="memory-rail-tab-reserves"
+-            className={[styles.tab, tab === "reserves" ? styles.tabActive : ""]
+-              .filter(Boolean)
+-              .join(" ")}
+-            data-testid="memory-rail-tab-reserves"
+-            aria-selected={tab === "reserves"}
+-            aria-controls="cycle-reservations-list"
+-            onClick={() => setTab("reserves")}
+-          >
+-            Réserves ({openReservationCount})
+-          </button>
+-          <button
+-            type="button"
+-            role="tab"
+-            id="memory-rail-tab-recommandations"
+-            className={[
+-              styles.tab,
+-              tab === "recommandations" ? styles.tabActive : "",
+-            ]
+-              .filter(Boolean)
+-              .join(" ")}
+-            data-testid="memory-rail-tab-recommandations"
+-            aria-selected={tab === "recommandations"}
+-            aria-controls="cycle-recommendations-list"
+-            onClick={() => setTab("recommandations")}
+-          >
+-            Recommandations ({openRecommendationCount})
+-          </button>
+-          <button
+-            type="button"
+-            role="tab"
+-            id="memory-rail-tab-decisions"
+-            className={[styles.tab, tab === "decisions" ? styles.tabActive : ""]
+-              .filter(Boolean)
+-              .join(" ")}
+-            data-testid="memory-rail-tab-decisions"
+-            aria-selected={tab === "decisions"}
+-            aria-controls="cycle-decisions-list"
+-            onClick={() => setTab("decisions")}
+-          >
+-            Décisions ({decisionCount})
+-          </button>
++          {MEMORY_TABS.map((item) => {
++            const count =
++              item.id === "sujets"
++                ? activeCount
++                : item.id === "reserves"
++                  ? openReservationCount
++                  : item.id === "recommandations"
++                    ? openRecommendationCount
++                    : decisionCount;
++            return (
++              <button
++                key={item.id}
++                type="button"
++                role="tab"
++                id={`memory-rail-tab-${item.id}`}
++                className={[styles.tab, tab === item.id ? styles.tabActive : ""]
++                  .filter(Boolean)
++                  .join(" ")}
++                data-testid={`memory-rail-tab-${item.id}`}
++                aria-selected={tab === item.id}
++                aria-controls={item.paneId}
++                onClick={() => setTab(item.id)}
++              >
++                {/* Principal splits the count into a badge (94:2); the rail keeps one label. */}
++                {principal ? (
++                  <>
++                    {item.label}
++                    <span className={styles.tabCount}>{count}</span>
++                  </>
++                ) : (
++                  `${item.label} (${count})`
++                )}
++              </button>
++            );
++          })}
++        </div>
++      ) : null}
++
++      <div className={styles.body} data-variant={variant}>
++      <div
++        className={styles.masterCol}
++        data-mobile-hidden={
++          principal && mobileShowDetail && detailEntry ? "true" : "false"
++        }
++      >
++      {principal && !collapsed ? (
++        <div className={styles.masterHead}>
++          <div className={styles.masterHeadRow}>
++            <h3 className={styles.masterTitle}>{masterTitle}</h3>
++            <span className={styles.masterCount}>{railMeta}</span>
++          </div>
++          {tab === "sujets" ? (
++            <p className={styles.masterNote}>
++              Les fils de travail du Cycle, mis à jour au fil de la
++              conversation.
++            </p>
++          ) : null}
+         </div>
+       ) : null}
+
+@@ -790,8 +974,10 @@ export function JournalSurface({
+               ici comme index navigable.
+             </p>
+           ) : (
+-            safeEntries.map((entry) => {
+-              const selected = selectedEntryId === entry.journalEntryId;
++            listedEntries.map((entry) => {
++              const selected = principal
++                ? detailEntry?.journalEntryId === entry.journalEntryId
++                : selectedEntryId === entry.journalEntryId;
+               const expanded = expandedEntryId === entry.journalEntryId;
+               const pointsOpen = pointsOpenId === entry.journalEntryId;
+               const hasPoints =
+@@ -820,7 +1006,10 @@ export function JournalSurface({
+                   <button
+                     type="button"
+                     className={styles.cardSelect}
+-                    onClick={() => onSelectEntry(entry.journalEntryId)}
++                    onClick={() => {
++                      onSelectEntry(entry.journalEntryId);
++                      if (principal) setMobileShowDetail(true);
++                    }}
+                     aria-pressed={selected}
+                   >
+                     <span className={styles.cardHeading}>
+@@ -829,7 +1018,9 @@ export function JournalSurface({
+                           className={styles.ordinal}
+                           data-testid={`cycle-journal-ordinal-${entry.journalEntryId}`}
+                         >
+-                          Sujet {ordinal}
++                          {principal
++                            ? paddedOrdinalLabel(ordinal)
++                            : `Sujet ${ordinal}`}
+                         </span>
+                       ) : null}
+                       {entry.isCurrentTopic ? (
+@@ -840,6 +1031,14 @@ export function JournalSurface({
+                           En cours
+                         </span>
+                       ) : null}
++                      {principal && !entry.isCurrentTopic ? (
++                        <span
++                          className={styles.statusBadge}
++                          data-status={entry.status}
++                        >
++                          {statusLabel(entry.status)}
++                        </span>
++                      ) : null}
+                     </span>
+                     <span className={styles.cardTitle}>{entry.title}</span>
+                     <span className={styles.cardSummary}>
+@@ -853,9 +1052,17 @@ export function JournalSurface({
+                         {entry.sourceTurnCount} échange
+                         {entry.sourceTurnCount === 1 ? "" : "s"}
+                       </span>
++                      {principal ? (
++                        <span className={styles.cardPoints}>
++                          {entry.stabilizedPoints.length} stabilisé
++                          {entry.stabilizedPoints.length === 1 ? "" : "s"} ·{" "}
++                          {entry.openPoints.length} ouvert
++                          {entry.openPoints.length === 1 ? "" : "s"}
++                        </span>
++                      ) : null}
+                     </span>
+                   </button>
+-                  {hasPoints ? (
++                  {!principal && hasPoints ? (
+                     <button
+                       type="button"
+                       className={styles.viewExchanges}
+@@ -874,7 +1081,7 @@ export function JournalSurface({
+                         : "Points stabilisés / ouverts"}
+                     </button>
+                   ) : null}
+-                  {pointsOpen && hasPoints ? (
++                  {!principal && pointsOpen && hasPoints ? (
+                     <div
+                       className={styles.pointsBlock}
+                       data-testid={`cycle-journal-points-body-${entry.journalEntryId}`}
+@@ -901,7 +1108,7 @@ export function JournalSurface({
+                       ) : null}
+                     </div>
+                   ) : null}
+-                  {entry.sourceTurnRefs.length > 0 ? (
++                  {!principal && entry.sourceTurnRefs.length > 0 ? (
+                     <button
+                       type="button"
+                       className={styles.viewExchanges}
+@@ -920,7 +1127,7 @@ export function JournalSurface({
+                       {expanded ? "Masquer les échanges" : "Voir les échanges"}
+                     </button>
+                   ) : null}
+-                  {expanded && entry.sourceTurnRefs.length > 0 ? (
++                  {!principal && expanded && entry.sourceTurnRefs.length > 0 ? (
+                     <ul
+                       id={`cycle-journal-exchanges-${entry.journalEntryId}`}
+                       className={styles.exchangeList}
+@@ -943,24 +1150,318 @@ export function JournalSurface({
+                               }}
+                               disabled={!preview.resolvable}
+                             >
+-                              <span className={styles.exchangeRole}>
+-                                {preview.role}
++                              <span className={styles.exchangeTop}>
++                                <span
++                                  className={styles.exchangeRole}
++                                  data-role={preview.role}
++                                >
++                                  {preview.role}
++                                </span>
++                                <span className={styles.exchangeWhen}>
++                                  {preview.when}
++                                </span>
+                               </span>
+-                              <span className={styles.exchangeExcerpt}>
+-                                {preview.excerpt}
+-                              </span>
+-                            </button>
+-                          </li>
+-                        );
+-                      })}
+-                    </ul>
+-                  ) : null}
++                            <span className={styles.exchangeExcerpt}>
++                              {preview.excerpt}
++                            </span>
++                          </button>
++                        </li>
++                      );
++                    })}
++                  </ul>
++                ) : null}
+                 </article>
+               );
+             })
+           )}
++          {hiddenEntryCount > 0 && onOpenFullJournal ? (
++            <button
++              type="button"
++              className={styles.viewExchanges}
++              data-testid="cycle-journal-overflow"
++              onClick={onOpenFullJournal}
++            >
++              Voir les {safeEntries.length} sujets →
++            </button>
++          ) : null}
++        </div>
++      ) : null}
++      </div>
++
++      {principal && !collapsed && tab === "sujets" ? (
++        <div
++          className={styles.detailCol}
++          data-testid="project-journal-detail"
++          data-mobile-hidden={mobileShowDetail && detailEntry ? "false" : "true"}
++          aria-live="polite"
++        >
++          {!detailEntry ? (
++            <p className={styles.empty} data-testid="project-journal-detail-empty">
++              Sélectionnez un sujet pour lire son état courant, ses points et
++              ses échanges liés.
++            </p>
++          ) : (
++            <div className={styles.detailInner}>
++              <button
++                type="button"
++                className={styles.detailBack}
++                data-testid="project-journal-back-to-subjects"
++                onClick={() => setMobileShowDetail(false)}
++              >
++                ← Sujets
++              </button>
++
++              <div className={styles.detailHead}>
++                <div className={styles.detailHeadRow}>
++                  <span className={styles.detailBadges}>
++                    {detailEntry.topicOrdinal > 0 ? (
++                      <span
++                        className={styles.ordinal}
++                        data-testid="project-journal-detail-ordinal"
++                      >
++                        {paddedOrdinalLabel(detailEntry.topicOrdinal)}
++                      </span>
++                    ) : null}
++                    {detailEntry.isCurrentTopic ? (
++                      <span className={styles.currentBadge}>En cours</span>
++                    ) : null}
++                    <span
++                      className={styles.statusBadge}
++                      data-status={detailEntry.status}
++                    >
++                      {statusLabel(detailEntry.status)}
++                    </span>
++                  </span>
++                  <span className={styles.detailUpdated}>
++                    {relativeUpdatedAt(detailEntry.updatedAt)}
++                  </span>
++                </div>
++                <h3
++                  className={styles.detailTitle}
++                  data-testid="project-journal-detail-title"
++                >
++                  {detailEntry.title}
++                </h3>
++                <p className={styles.detailSummary}>
++                  {detailEntry.currentSummary}
++                </p>
++              </div>
++
++              <section
++                className={styles.detailSection}
++                data-testid="project-journal-stabilized"
++              >
++                <p className={styles.detailSectionHead}>
++                  <span className={styles.detailSectionLabel}>
++                    Points stabilisés
++                  </span>
++                  <span className={styles.detailSectionCount}>
++                    {detailEntry.stabilizedPoints.length}
++                  </span>
++                </p>
++                {detailEntry.stabilizedPoints.length === 0 ? (
++                  <p className={styles.detailUnavailable}>
++                    Aucun point stabilisé enregistré sur ce sujet.
++                  </p>
++                ) : (
++                  <ul className={styles.markedList} data-marker="stabilized">
++                    {detailEntry.stabilizedPoints.map((point, i) => (
++                      <li key={`ds-${i}`}>{point}</li>
++                    ))}
++                  </ul>
++                )}
++              </section>
++
++              <section
++                className={styles.detailSection}
++                data-testid="project-journal-open"
++              >
++                <p className={styles.detailSectionHead}>
++                  <span className={styles.detailSectionLabel}>
++                    Points ouverts
++                  </span>
++                  <span className={styles.detailSectionCount}>
++                    {detailEntry.openPoints.length}
++                  </span>
++                </p>
++                {detailEntry.openPoints.length === 0 ? (
++                  <p className={styles.detailUnavailable}>
++                    Aucun point ouvert sur ce sujet.
++                  </p>
++                ) : (
++                  <ul className={styles.markedList} data-marker="open">
++                    {detailEntry.openPoints.map((point, i) => (
++                      <li key={`do-${i}`}>{point}</li>
++                    ))}
++                  </ul>
++                )}
++              </section>
++
++              <section
++                className={styles.detailSection}
++                data-testid="project-journal-linked"
++              >
++                <p className={styles.detailSectionHead}>
++                  <span className={styles.detailSectionLabel}>
++                    Éléments liés
++                  </span>
++                </p>
++                {detailLinkedReservations.length > 0 ? (
++                  <div className={styles.linkedPills}>
++                    <button
++                      type="button"
++                      className={styles.linkedPill}
++                      data-kind="reserve"
++                      data-testid="project-journal-linked-reservation-count"
++                      onClick={() => setTab("reserves")}
++                    >
++                      <span className={styles.linkedPillCount}>
++                        {detailLinkedReservations.length}
++                      </span>
++                      <span className={styles.linkedPillLabel}>
++                        {detailLinkedReservations.length === 1
++                          ? "réserve"
++                          : "réserves"}
++                      </span>
++                    </button>
++                    {detailLinkedReservations.map((card) => (
++                      <button
++                        key={card.epistemicItemId}
++                        type="button"
++                        className={styles.linkedPill}
++                        data-kind="reserve-item"
++                        data-testid={`project-journal-linked-reservation-${card.epistemicItemId}`}
++                        onClick={() => setTab("reserves")}
++                        title={card.title}
++                      >
++                        <span className={styles.linkedPillCount}>
++                          {card.ordinal > 0 ? card.ordinal : "·"}
++                        </span>
++                        <span className={styles.linkedPillLabel}>
++                          {card.presentationStateLabel}
++                        </span>
++                      </button>
++                    ))}
++                  </div>
++                ) : null}
++                <p className={styles.detailUnavailable}>
++                  {detailLinkedReservations.length > 0
++                    ? "Les décisions et recommandations ne portent pas de rattachement durable à un sujet — consultez leurs onglets."
++                    : "Aucun élément lié à ce sujet dans la projection : seules les réserves portent un rattachement durable au Journal."}
++                </p>
++              </section>
++
++              <section
++                className={styles.detailSection}
++                data-testid="project-journal-exchanges"
++              >
++                <p className={styles.detailSectionHead}>
++                  <span className={styles.detailSectionLabel}>
++                    Échanges liés
++                  </span>
++                  <span className={styles.detailSectionCount}>
++                    {detailTurnRefs.length === 0
++                      ? "0"
++                      : exchangesExpanded
++                        ? `${detailTurnRefs.length} échange${detailTurnRefs.length === 1 ? "" : "s"} affiché${detailTurnRefs.length === 1 ? "" : "s"}`
++                        : `${shownTurnRefs.length} sur ${detailTurnRefs.length} affichés`}
++                  </span>
++                </p>
++                {detailTurnRefs.length === 0 ? (
++                  <p className={styles.detailUnavailable}>
++                    Aucun échange durable n&apos;est rattaché à ce sujet.
++                  </p>
++                ) : (
++                  <ul
++                    id={`cycle-journal-exchanges-${detailEntry.journalEntryId}`}
++                    className={styles.exchangePanel}
++                    data-testid={`cycle-journal-exchanges-${detailEntry.journalEntryId}`}
++                    data-expanded={exchangesExpanded ? "true" : "false"}
++                    aria-label={`Échanges liés — ${detailEntry.title}`}
++                  >
++                    {shownTurnRefs.map((turnId, index) => {
++                      const preview = previewFor(turnId, transcriptMessages);
++                      return (
++                        <li key={`${turnId}-${index}`}>
++                          <button
++                            type="button"
++                            className={styles.exchangeRow}
++                            data-testid={`cycle-journal-exchange-${turnId}`}
++                            data-resolvable={
++                              preview.resolvable ? "true" : "false"
++                            }
++                            onClick={() => {
++                              if (preview.resolvable) onFocusTurn(turnId);
++                            }}
++                            disabled={!preview.resolvable}
++                          >
++                            <span className={styles.exchangeTop}>
++                              <span
++                                className={styles.exchangeRole}
++                                data-role={preview.role}
++                              >
++                                {preview.role}
++                              </span>
++                              <span className={styles.exchangeWhen}>
++                                {preview.when}
++                              </span>
++                            </span>
++                            <span className={styles.exchangeExcerpt}>
++                              {preview.excerpt.startsWith("«")
++                                ? preview.excerpt
++                                : `« ${preview.excerpt} »`}
++                            </span>
++                          </button>
++                        </li>
++                      );
++                    })}
++                  </ul>
++                )}
++                <div className={styles.detailFooter}>
++                  {detailTurnRefs.length > PRINCIPAL_EXCHANGE_PREVIEW ? (
++                    <button
++                      type="button"
++                      className={styles.viewExchanges}
++                      data-testid={`cycle-journal-view-${detailEntry.journalEntryId}`}
++                      aria-expanded={exchangesExpanded}
++                      aria-controls={`cycle-journal-exchanges-${detailEntry.journalEntryId}`}
++                      onClick={() => {
++                        onViewExchanges(detailEntry);
++                        setExpandedEntryId((prev) =>
++                          prev === detailEntry.journalEntryId
++                            ? null
++                            : detailEntry.journalEntryId,
++                        );
++                      }}
++                    >
++                      {exchangesExpanded
++                        ? "Réduire les échanges"
++                        : `Voir les ${detailTurnRefs.length} échanges`}
++                    </button>
++                  ) : (
++                    <span />
++                  )}
++                  {firstResolvableTurn ? (
++                    <button
++                      type="button"
++                      className={styles.viewExchanges}
++                      data-testid="project-journal-open-in-conversation"
++                      onClick={() => onFocusTurn(firstResolvableTurn)}
++                    >
++                      Voir dans la conversation →
++                    </button>
++                  ) : (
++                    <span className={styles.detailUnavailable}>
++                      Échanges non résolus — reprise impossible pour l&apos;instant.
++                    </span>
++                  )}
++                </div>
++              </section>
++            </div>
++          )}
+         </div>
+       ) : null}
+-    </aside>
++      </div>
++    </Root>
+   );
+ }
+```
+
+#### `JournalSurface.module.css` — B5 Journal pixel CSS
+```diff
+diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/JournalSurface.module.css b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/JournalSurface.module.css
+index 9af31be2..da53a01e 100644
+--- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/JournalSurface.module.css
++++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/JournalSurface.module.css
+@@ -74,18 +74,17 @@
+ .tabs {
+   display: flex;
+   flex-wrap: wrap;
+-  gap: var(--pm6-space-1);
+-  border-bottom: 1px solid var(--pm6-border-soft);
++  gap: 6px;
+   flex-shrink: 0;
+ }
+
+ .tab {
+   appearance: none;
+-  border: none;
+-  border-bottom: 2px solid transparent;
+-  background: transparent;
+-  padding: 6px 8px;
+-  margin-bottom: -1px;
++  border: 1px solid var(--pm6-border-strong);
++  border-radius: var(--pm6-radius-pill);
++  background: var(--pm6-surface);
++  padding: 7px 12px;
++  min-height: 38px;
+   font-size: 0.78rem;
+   font-weight: 600;
+   color: var(--pm6-muted-strong);
+@@ -99,12 +98,12 @@
+ .tab:focus-visible {
+   outline: none;
+   box-shadow: var(--pm6-focus-ring);
+-  border-radius: 2px;
+ }
+
+ .tabActive {
+-  color: var(--pm6-forest);
+-  border-bottom-color: var(--pm6-forest);
++  color: var(--pm6-ink);
++  border-color: color-mix(in srgb, var(--pm6-terracotta, #c45c26) 45%, var(--pm6-border));
++  background: color-mix(in srgb, var(--pm6-terracotta, #c45c26) 10%, var(--pm6-surface));
+ }
+
+ .list {
+@@ -307,16 +306,35 @@
+ }
+
+ .exchangeRole {
+-  font-size: 0.68rem;
+-  font-weight: 700;
++  font-size: 0.6875rem;
++  font-weight: 650;
+   letter-spacing: 0.04em;
+   text-transform: uppercase;
+-  color: var(--pm6-forest);
++  color: var(--pm6-muted-strong);
++}
++
++.exchangeRole[data-role="NORA"] {
++  color: var(--pm6-accent);
++}
++
++.exchangeWhen {
++  font-size: 0.6875rem;
++  font-weight: 650;
++  letter-spacing: 0.04em;
++  color: var(--pm6-muted);
++}
++
++.exchangeTop {
++  display: flex;
++  align-items: center;
++  justify-content: space-between;
++  gap: var(--pm6-space-3);
++  width: 100%;
+ }
+
+ .exchangeExcerpt {
+-  font-size: 0.76rem;
+-  line-height: 1.4;
++  font-size: 0.8125rem;
++  line-height: 1.5;
+   color: var(--pm6-ink-soft);
+   overflow-wrap: anywhere;
+ }
+@@ -457,3 +475,661 @@
+   font-weight: 700;
+   color: var(--pm6-ink);
+ }
++
++/* ---------- rail → principal shortcut ---------- */
++
++.openFull {
++  align-self: flex-start;
++  appearance: none;
++  border: 0;
++  background: transparent;
++  padding: 0;
++  min-height: 38px;
++  display: inline-flex;
++  align-items: center;
++  font: inherit;
++  font-size: 0.78rem;
++  font-weight: 600;
++  color: var(--pm6-accent);
++  cursor: pointer;
++}
++
++.openFull:hover {
++  text-decoration: underline;
++}
++
++.openFull:focus-visible {
++  outline: none;
++  box-shadow: var(--pm6-focus-ring);
++  border-radius: 4px;
++}
++
++/*
++ * ================= principal composition =================
++ * P3 Journal desktop 94:2 / expanded 94:222 (body 1226 = index ~440 | detail
++ * ~785), mobile list 192:41 → detail 192:81. The rail composition is untouched:
++ * `.body` / `.masterCol` dissolve when the variant is `rail`.
++ */
++
++.body {
++  display: contents;
++}
++
++.masterCol {
++  display: contents;
++}
++
++.principal {
++  max-height: none;
++  overflow: visible;
++  gap: 0;
++  padding: 0;
++  background: var(--pm6-body);
++  border: 0;
++  border-radius: 0;
++  flex: 1 1 auto;
++}
++
++.principal .body {
++  display: grid;
++  grid-template-columns: minmax(0, var(--pm6-journal-index-w, 440px)) minmax(0, 1fr);
++  align-items: stretch;
++  min-height: 0;
++  flex: 1 1 auto;
++}
++
++.principal .masterCol {
++  display: flex;
++  flex-direction: column;
++  gap: var(--pm6-space-2);
++  min-width: 0;
++  min-height: 0;
++  padding: var(--pm6-space-4) var(--pm6-space-4) var(--pm6-space-5);
++  border-right: 1px solid var(--pm6-border);
++}
++
++.principalHeader {
++  display: flex;
++  flex-direction: column;
++  gap: 4px;
++  padding: 14px var(--ws-pad-x, 24px) 0;
++}
++
++.principalBack {
++  align-self: flex-start;
++  appearance: none;
++  border: 0;
++  background: transparent;
++  padding: 0;
++  min-height: 38px;
++  display: inline-flex;
++  align-items: center;
++  font: inherit;
++  font-size: 0.8125rem;
++  font-weight: 600;
++  color: var(--pm6-accent);
++  cursor: pointer;
++}
++
++.principalBack:hover {
++  text-decoration: underline;
++}
++
++.principalBackShort {
++  display: none;
++}
++
++.principalBackFull {
++  display: inline;
++}
++
++.principalTitleRow {
++  display: flex;
++  flex-wrap: wrap;
++  align-items: center;
++  gap: var(--pm6-space-2);
++  min-width: 0;
++}
++
++.principalTitle {
++  margin: 0;
++  flex: 1 1 auto;
++  font-size: 1.5rem;
++  font-weight: 650;
++  letter-spacing: -0.02em;
++  line-height: 1.2;
++  color: var(--pm6-ink);
++}
++
++.principalChip,
++.principalChipOk {
++  display: inline-flex;
++  align-items: center;
++  padding: 3px 10px;
++  border-radius: var(--pm6-radius-pill);
++  border: 1px solid var(--pm6-border);
++  background: var(--pm6-surface-sunken);
++  font-size: 0.6875rem;
++  font-weight: 600;
++  color: var(--pm6-muted-strong);
++  white-space: nowrap;
++}
++
++.principalChipOk {
++  color: var(--pm6-ok);
++  border-color: color-mix(in srgb, var(--pm6-ok) 26%, transparent);
++  background: var(--pm6-ok-tint);
++  text-transform: uppercase;
++  letter-spacing: 0.06em;
++}
++
++.principal .tabs {
++  gap: var(--pm6-space-2);
++  padding: var(--pm6-space-3) var(--ws-pad-x, 24px);
++  border-bottom: 1px solid var(--pm6-border);
++}
++
++.principal .tab {
++  display: inline-flex;
++  align-items: center;
++  gap: 8px;
++  border-color: var(--pm6-border);
++  background: var(--pm6-surface-sunken);
++}
++
++.principal .tabActive {
++  color: var(--pm6-accent);
++  border-color: color-mix(in srgb, var(--pm6-accent) 28%, transparent);
++  background: var(--pm6-accent-tint);
++}
++
++.tabCount {
++  display: inline-flex;
++  align-items: center;
++  justify-content: center;
++  min-width: 18px;
++  height: 18px;
++  padding: 0 5px;
++  border-radius: var(--pm6-radius-pill);
++  background: var(--pm6-surface);
++  border: 1px solid var(--pm6-border);
++  font-size: 0.625rem;
++  font-weight: 700;
++  line-height: 1;
++  color: var(--pm6-muted-strong);
++}
++
++.principal .tabActive .tabCount {
++  color: var(--pm6-accent);
++  border-color: color-mix(in srgb, var(--pm6-accent) 24%, transparent);
++}
++
++/* ---------- principal subjects index ---------- */
++
++.masterHead {
++  display: flex;
++  flex-direction: column;
++  gap: 4px;
++  padding: 0 2px var(--pm6-space-2);
++  border-bottom: 1px solid var(--pm6-border);
++}
++
++.masterHeadRow {
++  display: flex;
++  align-items: baseline;
++  justify-content: space-between;
++  gap: var(--pm6-space-2);
++}
++
++.masterTitle {
++  margin: 0;
++  font-size: 1rem;
++  font-weight: 650;
++  color: var(--pm6-ink);
++}
++
++.masterCount {
++  font-size: 0.75rem;
++  color: var(--pm6-muted);
++  white-space: nowrap;
++}
++
++.masterNote {
++  margin: 0;
++  font-size: 0.78rem;
++  line-height: 1.45;
++  color: var(--pm6-muted-strong);
++}
++
++.principal .list {
++  gap: var(--pm6-space-3);
++  overflow-y: auto;
++  padding: var(--pm6-space-2) 2px var(--pm6-space-2);
++}
++
++.principal .card {
++  gap: 6px;
++  padding: var(--pm6-space-3);
++  border-color: var(--pm6-border);
++}
++
++.principal .cardSelected {
++  border-color: color-mix(in srgb, var(--pm6-accent) 32%, var(--pm6-border));
++  background: var(--pm6-accent-tint);
++  box-shadow: none;
++}
++
++.principal .ordinal {
++  font-size: 0.6875rem;
++  font-weight: 600;
++  letter-spacing: 0.08em;
++  text-transform: uppercase;
++  color: var(--pm6-muted-faint);
++}
++
++.principal .cardHeading {
++  justify-content: space-between;
++  margin-bottom: 0;
++}
++
++/* « En cours » reads as the live subject (accent), not as a neutral state. */
++.principal .currentBadge {
++  padding: 2px 8px;
++  border-radius: var(--pm6-radius-pill);
++  border: 1px solid color-mix(in srgb, var(--pm6-accent) 26%, transparent);
++  background: var(--pm6-accent-tint);
++  color: var(--pm6-accent);
++  letter-spacing: 0.06em;
++}
++
++.principal .cardTitle {
++  font-size: 0.9375rem;
++}
++
++.principal .cardMeta {
++  justify-content: space-between;
++  gap: var(--pm6-space-2);
++}
++
++.cardPoints {
++  margin-left: auto;
++  color: var(--pm6-accent);
++  white-space: nowrap;
++}
++
++.statusBadge {
++  display: inline-flex;
++  align-items: center;
++  padding: 2px 8px;
++  border-radius: var(--pm6-radius-pill);
++  border: 1px solid var(--pm6-border);
++  background: var(--pm6-surface-sunken);
++  font-size: 0.6875rem;
++  font-weight: 600;
++  color: var(--pm6-muted-strong);
++  white-space: nowrap;
++}
++
++.statusBadge[data-status="active"] {
++  color: var(--pm6-ok);
++  border-color: color-mix(in srgb, var(--pm6-ok) 26%, transparent);
++  background: var(--pm6-ok-tint);
++}
++
++/* ---------- principal subject detail ---------- */
++
++.detailCol {
++  min-width: 0;
++  min-height: 0;
++  overflow-y: auto;
++  background: var(--pm6-canvas);
++}
++
++.detailCol > .empty {
++  padding: var(--pm6-space-5);
++  max-width: 44ch;
++}
++
++.detailInner {
++  display: flex;
++  flex-direction: column;
++  gap: var(--pm6-space-3);
++  padding: var(--pm6-space-4) var(--pm6-space-5) var(--pm6-space-5);
++}
++
++.detailBack {
++  display: none;
++  align-self: flex-start;
++  appearance: none;
++  border: 0;
++  background: transparent;
++  padding: 0;
++  min-height: 38px;
++  align-items: center;
++  font: inherit;
++  font-size: 0.8125rem;
++  font-weight: 600;
++  color: var(--pm6-accent);
++  cursor: pointer;
++}
++
++.detailHead {
++  display: flex;
++  flex-direction: column;
++  gap: 6px;
++  padding-bottom: var(--pm6-space-3);
++  border-bottom: 1px solid var(--pm6-border);
++}
++
++.detailHeadRow {
++  display: flex;
++  flex-wrap: wrap;
++  align-items: center;
++  justify-content: space-between;
++  gap: var(--pm6-space-2);
++}
++
++.detailBadges {
++  display: inline-flex;
++  flex-wrap: wrap;
++  align-items: center;
++  gap: var(--pm6-space-2);
++}
++
++.detailUpdated {
++  font-size: 0.75rem;
++  color: var(--pm6-muted);
++  white-space: nowrap;
++}
++
++.detailTitle {
++  margin: 0;
++  font-size: 1.5rem;
++  font-weight: 650;
++  letter-spacing: -0.02em;
++  line-height: 1.25;
++  color: var(--pm6-ink);
++  overflow-wrap: anywhere;
++}
++
++.detailSummary {
++  margin: 0;
++  max-width: 78ch;
++  font-size: 0.875rem;
++  line-height: 1.6;
++  color: var(--pm6-muted-strong);
++}
++
++.detailSection {
++  display: flex;
++  flex-direction: column;
++  gap: 6px;
++  min-width: 0;
++  padding-bottom: var(--pm6-space-3);
++  border-bottom: 1px solid var(--pm6-border);
++}
++
++.detailSection:last-of-type {
++  border-bottom: 0;
++  padding-bottom: 0;
++}
++
++.detailSectionHead {
++  margin: 0;
++  display: flex;
++  align-items: baseline;
++  justify-content: space-between;
++  gap: var(--pm6-space-2);
++}
++
++.detailSectionLabel {
++  font-size: 0.625rem;
++  font-weight: 600;
++  letter-spacing: 0.08em;
++  text-transform: uppercase;
++  color: var(--pm6-muted-faint);
++}
++
++.detailSectionCount {
++  font-size: 0.6875rem;
++  color: var(--pm6-muted);
++  font-variant-numeric: tabular-nums;
++  white-space: nowrap;
++}
++
++.detailUnavailable {
++  margin: 0;
++  font-size: 0.78rem;
++  line-height: 1.5;
++  font-style: italic;
++  color: var(--pm6-muted);
++}
++
++/* Marked lists — ✓ for stabilized, ○ for still-open points (94:2). */
++.markedList {
++  list-style: none;
++  margin: 0;
++  padding: 0;
++  display: flex;
++  flex-direction: column;
++  gap: 5px;
++  font-size: 0.875rem;
++  line-height: 1.5;
++  color: var(--pm6-ink);
++}
++
++.markedList li {
++  display: grid;
++  grid-template-columns: 16px minmax(0, 1fr);
++  gap: var(--pm6-space-2);
++  align-items: baseline;
++}
++
++.markedList li::before {
++  font-size: 0.8125rem;
++  line-height: 1.5;
++}
++
++.markedList[data-marker="stabilized"] li::before {
++  content: "✓";
++  color: var(--pm6-ok);
++}
++
++.markedList[data-marker="open"] li::before {
++  content: "○";
++  color: var(--pm6-accent);
++}
++
++.linkedPills {
++  display: flex;
++  flex-wrap: wrap;
++  gap: 6px;
++}
++
++.linkedPill {
++  display: inline-flex;
++  align-items: center;
++  gap: 6px;
++  appearance: none;
++  border-radius: 8px;
++  border: 0;
++  background: var(--pm6-surface-sunken);
++  padding: 5px 9px;
++  min-height: 30px;
++  font: inherit;
++  font-size: 0.6875rem;
++  font-weight: 650;
++  letter-spacing: 0.04em;
++  color: var(--pm6-muted-strong);
++  cursor: pointer;
++}
++
++.linkedPill[data-kind="reserve"],
++.linkedPill[data-kind="reserve-item"] {
++  background: #f2ede7;
++  color: #6d645c;
++}
++
++.linkedPill:focus-visible {
++  outline: none;
++  box-shadow: var(--pm6-focus-ring);
++}
++
++.linkedPillCount {
++  font-variant-numeric: tabular-nums;
++  font-weight: 650;
++  font-size: 0.8125rem;
++  letter-spacing: 0.015em;
++}
++
++.linkedPillLabel {
++  font-size: 0.6875rem;
++  letter-spacing: 0.04em;
++}
++
++.exchangePanel {
++  list-style: none;
++  margin: 0;
++  padding: 0;
++  display: flex;
++  flex-direction: column;
++  gap: 8px;
++  border: 0;
++  background: transparent;
++}
++
++.exchangePanel[data-expanded="true"] {
++  max-height: 260px;
++  overflow-y: auto;
++  padding-right: 2px;
++}
++
++.exchangeRow {
++  display: flex;
++  flex-direction: column;
++  gap: 5px;
++  width: 100%;
++  text-align: left;
++  appearance: none;
++  border: 0;
++  border-radius: 8px;
++  background: #fbf7f2;
++  padding: 10px 12px;
++  font: inherit;
++  color: inherit;
++  cursor: pointer;
++  min-height: 55px;
++}
++
++.exchangeRow:hover:not(:disabled) {
++  background: color-mix(in srgb, #fbf7f2 70%, var(--pm6-surface));
++}
++
++.exchangeRow:disabled {
++  cursor: not-allowed;
++  opacity: 0.72;
++}
++
++.exchangeRow:focus-visible {
++  outline: none;
++  box-shadow: var(--pm6-focus-ring);
++}
++
++.detailFooter {
++  display: flex;
++  flex-wrap: wrap;
++  align-items: center;
++  justify-content: space-between;
++  gap: var(--pm6-space-3);
++  padding-top: var(--pm6-space-2);
++}
++
++/* ---------- principal: compact ---------- */
++
++@media (max-width: 1199px) {
++  .principal .body {
++    grid-template-columns: minmax(0, 340px) minmax(0, 1fr);
++  }
++
++  .principal .masterCol {
++    padding: var(--pm6-space-3);
++  }
++
++  .detailInner {
++    padding: var(--pm6-space-3) var(--pm6-space-4) var(--pm6-space-4);
++  }
++}
++
++/* ---------- principal: mobile list ↔ detail (192:41 / 192:81) ---------- */
++
++@media (max-width: 899px) {
++  .principal .body {
++    grid-template-columns: minmax(0, 1fr);
++  }
++
++  .principal .masterCol {
++    border-right: 0;
++    padding: var(--pm6-space-3) var(--ws-pad-x, 16px) var(--pm6-space-4);
++  }
++
++  .principal .masterCol[data-mobile-hidden="true"] {
++    display: none;
++  }
++
++  .detailCol {
++    background: transparent;
++    overflow: visible;
++  }
++
++  .detailCol[data-mobile-hidden="true"] {
++    display: none;
++  }
++
++  .detailInner {
++    padding: var(--pm6-space-3) var(--ws-pad-x, 16px) var(--pm6-space-5);
++  }
++
++  .detailBack {
++    display: inline-flex;
++  }
++
++  /*
++   * The index head is the mobile page head — 192:41 shows neither a second
++   * title nor a duplicate count (the tab badge already carries it).
++   */
++  .masterHead {
++    border-bottom: 0;
++    padding-bottom: 0;
++  }
++
++  .masterTitle,
++  .masterCount {
++    display: none;
++  }
++
++  .principal .list {
++    overflow: visible;
++  }
++
++  .principal .tabs {
++    overflow-x: auto;
++    flex-wrap: nowrap;
++    scrollbar-width: none;
++  }
++
++  .principal .tabs::-webkit-scrollbar {
++    display: none;
++  }
++
++  .principalBackFull {
++    display: none;
++  }
++
++  .principalBackShort {
++    display: inline;
++  }
++
++  .exchangeRow {
++    gap: 5px;
++  }
++}
+```
+
+#### `HistorySurface.tsx` — B5 History master/detail + labels
+```diff
+diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/HistorySurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/HistorySurface.tsx
+index ab08623d..7f862cbd 100644
+--- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/HistorySurface.tsx
++++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/HistorySurface.tsx
+@@ -1,157 +1,123 @@
+ "use client";
+
+-import { useEffect, useState } from "react";
++import { useEffect, useMemo, useState } from "react";
+ import { w2ReadProjectHistoryAction } from "@/features/project-assistant/w2/actions";
+ import type { W2ProjectHistoryReadModel } from "@/features/project-assistant/w2/projectHistory";
++import {
++  deriveProjectHistoryEvents,
++  filterProjectHistoryEvents,
++  type PilotHistoryEvent,
++  type PilotHistoryFilter,
++} from "@/features/project-assistant/w2/deriveProjectHistoryEvents";
+ import type { ProjectAssistantRehydrateEvidenceOutcomeSuccess } from "@/features/project-assistant/types";
+ import type { GetProjectSuccess } from "../types";
+ import styles from "./HistorySurface.module.css";
+
+-type DurableAnchor = {
+-  id: string;
+-  kind: string;
+-  label: string;
+-  detail: string;
+-};
+-
+-function trajectoryAnchorDetail(
+-  anchor: W2ProjectHistoryReadModel["trajectory"]["versions"][number],
+-): string {
+-  if (anchor.isEffectiveCurrent) {
+-    return anchor.decidedByDecisionRef
+-      ? `Décidée et courante · décision ${anchor.decidedByDecisionRef}`
+-      : "Courante · antérieure au rattachement de décision";
+-  }
+-  if (anchor.status === "candidate") {
+-    return "Proposée · pas encore décidée, pas courante";
+-  }
+-  return `Statut ${anchor.status} · non courante`;
++function formatTime(iso: string | null): string {
++  if (!iso) return "Heure non enregistrée";
++  const d = new Date(iso);
++  if (Number.isNaN(d.getTime())) return "Heure non enregistrée";
++  return d.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" });
+ }
+
+-/** W2 durable anchors: trajectory versions, human decisions, contracts. */
+-function buildW2Anchors(history: W2ProjectHistoryReadModel): DurableAnchor[] {
+-  const anchors: DurableAnchor[] = [];
+-
+-  if (history.cycle.activeCycleInstanceId) {
+-    anchors.push({
+-      id: `cycle:${history.cycle.activeCycleInstanceId}`,
+-      kind: "Cycle",
+-      label: history.cycle.cycleTypeId
+-        ? `${history.cycle.cycleTypeId} · profil ${history.cycle.profile ?? "inconnu"}`
+-        : "Cycle rattaché",
+-      detail: history.cycle.status
+-        ? `Statut ${history.cycle.status}`
+-        : "Cycle distinct du projet",
+-    });
+-  }
++/** Day bucket key — stable per calendar day, or `undated` when no Product date. */
++function dayKey(iso: string | null): string {
++  if (!iso) return "undated";
++  const d = new Date(iso);
++  if (Number.isNaN(d.getTime())) return "undated";
++  return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
++}
+
+-  for (const version of history.trajectory.versions) {
+-    anchors.push({
+-      id: `trj:${version.trajectoryId}:${version.version}`,
+-      kind: "Trajectoire",
+-      label: `Version ${version.version} · ${version.stepCount} étapes`,
+-      detail: trajectoryAnchorDetail(version),
+-    });
+-  }
++function dayLabel(iso: string | null): string {
++  if (dayKey(iso) === "undated") return "Date non enregistrée";
++  const d = new Date(iso!);
++  const today = new Date();
++  const yesterday = new Date(today);
++  yesterday.setDate(today.getDate() - 1);
++  if (dayKey(iso) === dayKey(today.toISOString())) return "Aujourd'hui";
++  if (dayKey(iso) === dayKey(yesterday.toISOString())) return "Hier";
++  return d.toLocaleDateString("fr-FR", {
++    day: "2-digit",
++    month: "long",
++    year: "numeric",
++  });
++}
+
+-  for (const decision of history.decisions) {
+-    anchors.push({
+-      id: `dec:${decision.decisionId}`,
+-      kind: "Décision humaine",
+-      label: `Option retenue ${decision.selectedOptionRef}`,
+-      detail: `${decision.status} · décideur ${decision.actorRole} · base ${
+-        decision.basisSourceType ?? "absente"
+-      }${decision.basisTrajectoryRef ? ` · ${decision.basisTrajectoryRef}` : ""}`,
+-    });
+-  }
++function detailWhenLabel(event: PilotHistoryEvent): string {
++  if (!event.occurredAt) return "Moment non enregistré";
++  return `${dayLabel(event.occurredAt)} · ${formatTime(event.occurredAt)}`;
++}
+
+-  for (const contract of history.contracts) {
+-    anchors.push({
+-      id: `xct:${contract.executionContractId}`,
+-      kind: "Contrat d'exécution",
+-      label: `Version ${contract.version} · ${contract.status}`,
+-      detail: contract.decisionRefs.length
+-        ? `Rattaché à ${contract.decisionRefs.join(", ")}`
+-        : "Aucune décision rattachée",
+-    });
+-  }
++/**
++ * P3 78:2 filters — Tout / Décisions / Changements. « Vérifié » is an event-type
++ * chip inside the list, never a fourth filter.
++ */
++const FILTERS: ReadonlyArray<{ id: PilotHistoryFilter; label: string }> = [
++  { id: "all", label: "Tout" },
++  { id: "decisions", label: "Décisions" },
++  { id: "changes", label: "Changements" },
++];
+
+-  return anchors;
++/** Pilot-facing chip for the event bucket (tone drives the P3 colour). */
++function bucketTone(event: PilotHistoryEvent): "decision" | "verified" | "change" {
++  if (event.filterBucket === "decisions") return "decision";
++  if (event.filterBucket === "verified") return "verified";
++  return "change";
+ }
+
+-function buildAnchors(
+-  result: GetProjectSuccess,
+-  durableOutcome: ProjectAssistantRehydrateEvidenceOutcomeSuccess | null,
+-  history: W2ProjectHistoryReadModel | null,
+-): DurableAnchor[] {
+-  const anchors: DurableAnchor[] = [
+-    {
+-      id: "project",
+-      kind: "Projet",
+-      label: result.project.name,
+-      detail: "Identité projet enregistrée",
+-    },
+-    {
+-      id: "lps",
+-      kind: "État du projet",
+-      label: `Version ${result.livingState.version}`,
+-      detail: result.livingState.createdAt,
+-    },
+-  ];
+-
+-  if (history) {
+-    anchors.push(...buildW2Anchors(history));
+-  } else if (result.livingState.activeCycleInstanceId) {
+-    anchors.push({
+-      id: "cycle",
+-      kind: "Cycle",
+-      label: "Référence factuelle de cycle",
+-      detail: "Cycle distinct du projet",
+-    });
+-  }
+-
+-  if (durableOutcome) {
+-    for (const evidence of durableOutcome.evidence) {
+-      anchors.push({
+-        id: `evidence:${evidence.evidenceId}`,
+-        kind: "Preuve",
+-        label: evidence.status,
+-        detail: "Preuve enregistrée",
+-      });
+-    }
+-    for (const rb of durableOutcome.reviewBundles) {
+-      anchors.push({
+-        id: `rb:${rb.reviewBundleId}`,
+-        kind: "Dossier de revue",
+-        label: rb.status,
+-        detail: "Revue enregistrée",
+-      });
+-    }
+-    anchors.push({
+-      id: "recommendation",
+-      kind: "Recommandation",
+-      label: durableOutcome.recommendation.recommendationLabel,
+-      detail: "≠ Décision humaine",
+-    });
++function bucketChipLabel(event: PilotHistoryEvent): string {
++  switch (bucketTone(event)) {
++    case "decision":
++      return "Décision";
++    case "verified":
++      return "Vérifié";
++    default:
++      return "Changement";
+   }
++}
+
+-  return anchors;
++/** Honest Nora handoff draft — prefill only, never a Product mutation. */
++function askNoraDraft(event: PilotHistoryEvent): string {
++  return [
++    `Nora, explique-moi cet élément de l'historique : « ${event.title} ».`,
++    `Type : ${event.kindLabel} · source ${event.sourceKind}.`,
++    "Dis-moi ce qui est réellement établi et ce qui manque pour le comprendre.",
++  ].join("\n");
+ }
+
++const UNAVAILABLE_DECIDED =
++  "Aucun contenu de décision rattaché à cet événement dans les faits Product.";
++const UNAVAILABLE_WHY =
++  "Aucune base durable enregistrée pour cet événement — la raison n'est pas reconstituée ici.";
++const UNAVAILABLE_IMPACT =
++  "Aucun impact établi par un fait Product pour cet événement.";
++const UNAVAILABLE_VERIFICATION =
++  "Aucune vérification rattachée — cet événement n'est pas présenté comme vérifié.";
++
+ /**
+- * F9 — durable factual anchors only (never a replayed conversation transcript).
+- * Trajectory versions, human decisions and execution contracts are read from
+- * the W2 minimal read model; conversation, proposal and requested confirmation
+- * stay process-local and are reported as absent rather than reconstructed.
++ * P5-S07 / P3 Historique (78:2 · 190:111 · 190:380 · 190:412).
++ * Product-derived master/detail + local search. Never a transcript replay,
++ * never a HistoryStore, never an invented why / impact / verification.
+  */
+ export function HistorySurface({
+   result,
+   durableOutcome = null,
++  onReturnToOverview,
++  onAskNora,
+ }: {
+   result: GetProjectSuccess;
+   durableOutcome?: ProjectAssistantRehydrateEvidenceOutcomeSuccess | null;
++  onReturnToOverview?: () => void;
++  /** Prefill the conversation composer about one event. MUST NOT send. */
++  onAskNora?: (draft: string) => void;
+ }) {
+   const [history, setHistory] = useState<W2ProjectHistoryReadModel | null>(null);
++  const [filter, setFilter] = useState<PilotHistoryFilter>("all");
++  const [query, setQuery] = useState("");
++  const [selectedId, setSelectedId] = useState<string | null>(null);
++  const [mobileShowDetail, setMobileShowDetail] = useState(false);
++  const [askDraft, setAskDraft] = useState("");
++
+   const projectId = result.project.projectId;
+   const lpsVersion = result.livingState.version;
+
+@@ -166,34 +132,418 @@ export function HistorySurface({
+     };
+   }, [projectId, lpsVersion]);
+
+-  const anchors = buildAnchors(result, durableOutcome, history);
++  const events = useMemo(() => {
++    if (!history) {
++      // Minimum identity anchors while W2 history loads / fails closed.
++      const fallback: W2ProjectHistoryReadModel = {
++        projectId,
++        projectTitle: result.project.name,
++        lps: {
++          lpsId: result.livingState.id,
++          version: result.livingState.version,
++        },
++        cycle: {
++          activeCycleInstanceId:
++            result.livingState.activeCycleInstanceId ?? null,
++          cycleTypeId: null,
++          profile: null,
++          status: null,
++        },
++        trajectory: {
++          effectiveCurrent: null,
++          proposedNotYetDecided: null,
++          versions: [],
++        },
++        decisions: [],
++        contracts: [],
++        evidence: [],
++        reviewBundles: [],
++        syntheses: [],
++        absent: [],
++        boundNote: "Borné · chargement History en cours.",
++      };
++      return deriveProjectHistoryEvents({
++        history: fallback,
++        durable: durableOutcome,
++      });
++    }
++    return deriveProjectHistoryEvents({
++      history,
++      durable: durableOutcome,
++    });
++  }, [history, durableOutcome, projectId, result.project.name, result.livingState]);
++
++  const visible = useMemo(
++    () => filterProjectHistoryEvents(events, { filter, query }),
++    [events, filter, query],
++  );
++
++  /** Day groups in projection order — grouping is presentation only. */
++  const groups = useMemo(() => {
++    const out: Array<{ key: string; label: string; items: PilotHistoryEvent[] }> =
++      [];
++    for (const event of visible) {
++      const key = dayKey(event.occurredAt);
++      const last = out[out.length - 1];
++      if (last && last.key === key) {
++        last.items.push(event);
++        continue;
++      }
++      out.push({ key, label: dayLabel(event.occurredAt), items: [event] });
++    }
++    return out;
++  }, [visible]);
++
++  useEffect(() => {
++    if (visible.length === 0) {
++      setSelectedId(null);
++      return;
++    }
++    if (!selectedId || !visible.some((e) => e.eventId === selectedId)) {
++      setSelectedId(visible[0]!.eventId);
++    }
++  }, [visible, selectedId]);
++
++  const selected: PilotHistoryEvent | null =
++    visible.find((e) => e.eventId === selectedId) ?? null;
++
++  useEffect(() => {
++    setAskDraft("");
++  }, [selectedId]);
++
++  function selectEvent(eventId: string) {
++    setSelectedId(eventId);
++    setMobileShowDetail(true);
++  }
++
++  function submitAskNora() {
++    if (!selected || !onAskNora) return;
++    const draft = askDraft.trim() ? askDraft.trim() : askNoraDraft(selected);
++    onAskNora(draft);
++  }
+
+   return (
+     <section
+       className={styles.root}
+       data-testid="project-history-panel"
++      data-mobile-detail={mobileShowDetail && selected ? "true" : "false"}
+       aria-labelledby="pm6-history-title"
+     >
+-      <header className={styles.head}>
+-        <p className={styles.eyebrow}>Historique</p>
+-        <h2 id="pm6-history-title" className={styles.title}>
+-          Ce qui est réellement enregistré
+-        </h2>
+-        <p className={styles.note}>
+-          Repères factuels du projet seulement. Les détails techniques restent
+-          secondaires ; la conversation n&apos;est pas rejouée ici.
+-        </p>
+-      </header>
+-      <ol className={styles.timeline}>
+-        {anchors.map((anchor) => (
+-          <li key={anchor.id} className={styles.entry}>
+-            <span className={styles.marker} aria-hidden />
+-            <span className={styles.kind}>{anchor.kind}</span>
+-            <span className={styles.label}>{anchor.label}</span>
+-            <span className={styles.detail}>{anchor.detail}</span>
+-          </li>
+-        ))}
+-      </ol>
++      <div
++        className={styles.layout}
++        data-testid="history-master-detail"
++        data-mobile-detail={mobileShowDetail && selected ? "true" : "false"}
++      >
++        <div
++          className={styles.masterPane}
++          data-testid="history-list-pane"
++          data-mobile-hidden={mobileShowDetail && selected ? "true" : "false"}
++        >
++          <header className={styles.head}>
++            {onReturnToOverview ? (
++              <button
++                type="button"
++                className={styles.backLink}
++                data-testid="history-back-overview"
++                onClick={onReturnToOverview}
++              >
++                ← Retour à l&apos;Aperçu
++              </button>
++            ) : null}
++            <div className={styles.titleRow}>
++              <h2 id="pm6-history-title" className={styles.title}>
++                Historique
++              </h2>
++              <div
++                className={styles.filters}
++                role="toolbar"
++                aria-label="Filtrer l'historique"
++              >
++                {FILTERS.map((item) => (
++                  <button
++                    key={item.id}
++                    type="button"
++                    className={styles.filter}
++                    data-selected={filter === item.id ? "true" : "false"}
++                    data-filter={item.id}
++                    aria-pressed={filter === item.id}
++                    data-testid={`history-filter-${item.id}`}
++                    onClick={() => setFilter(item.id)}
++                  >
++                    {item.label}
++                  </button>
++                ))}
++              </div>
++            </div>
++            <p className={styles.note}>
++              Retrouve les changements importants du projet et le contexte lié à
++              chaque événement. Projection dérivée des faits Product — la
++              conversation n&apos;est pas rejouée ici.
++            </p>
++          </header>
++
++          <label className={styles.searchLabel}>
++            <span className={styles.srOnly}>
++              Rechercher dans l&apos;historique
++            </span>
++            <input
++              type="search"
++              className={styles.search}
++              placeholder="Rechercher dans l'historique…"
++              value={query}
++              onChange={(e) => setQuery(e.target.value)}
++              data-testid="history-search"
++              autoComplete="off"
++            />
++          </label>
++
++          <div className={styles.listScroll}>
++            {visible.length === 0 ? (
++              <p className={styles.empty} data-testid="history-empty">
++                Aucun événement ne correspond à ce filtre.
++              </p>
++            ) : (
++              groups.map((group) => (
++                <section
++                  key={group.key}
++                  className={styles.group}
++                  data-testid={`history-group-${group.key}`}
++                >
++                  <p className={styles.groupLabel}>{group.label}</p>
++                  <ol className={styles.timeline}>
++                    {group.items.map((event) => {
++                      const selectedRow = event.eventId === selectedId;
++                      return (
++                        <li key={event.eventId} className={styles.timelineItem}>
++                          <button
++                            type="button"
++                            className={styles.entry}
++                            data-selected={selectedRow ? "true" : "false"}
++                            data-tone={bucketTone(event)}
++                            data-testid={`history-event-${event.eventId}`}
++                            aria-current={selectedRow ? "true" : undefined}
++                            onClick={() => selectEvent(event.eventId)}
++                          >
++                            <span
++                              className={styles.marker}
++                              data-tone={bucketTone(event)}
++                              aria-hidden
++                            />
++                            <span className={styles.label}>{event.title}</span>
++                            <span
++                              className={styles.kind}
++                              data-tone={bucketTone(event)}
++                            >
++                              {bucketChipLabel(event)}
++                            </span>
++                            <span className={styles.chevron} aria-hidden>
++                              →
++                            </span>
++                            <span className={styles.metaRow}>
++                              <span className={styles.when}>
++                                {formatTime(event.occurredAt)}
++                              </span>
++                              <span className={styles.detail}>
++                                {event.summary}
++                              </span>
++                            </span>
++                          </button>
++                        </li>
++                      );
++                    })}
++                  </ol>
++                </section>
++              ))
++            )}
++            {history?.absent?.length ? (
++              <p className={styles.absent} data-testid="history-absent">
++                Non reconstitué ici : {history.absent.join(" · ")}
++              </p>
++            ) : null}
++          </div>
++        </div>
++
++        <aside
++          className={styles.detailPane}
++          data-testid="history-detail-pane"
++          data-mobile-hidden={mobileShowDetail && selected ? "false" : "true"}
++          aria-live="polite"
++        >
++          {selected ? (
++            <div className={styles.detailInner}>
++              <button
++                type="button"
++                className={styles.backMobile}
++                data-testid="history-back-to-list"
++                onClick={() => setMobileShowDetail(false)}
++              >
++                ← Historique
++              </button>
++
++              <div className={styles.detailHead}>
++                <div className={styles.detailHeadRow}>
++                  <span
++                    className={styles.detailKind}
++                    data-tone={bucketTone(selected)}
++                  >
++                    {bucketChipLabel(selected)}
++                  </span>
++                  <span className={styles.detailWhen}>
++                    {detailWhenLabel(selected)}
++                    {selected.isCurrent ? " · Courant" : ""}
++                  </span>
++                </div>
++                <h3 className={styles.detailTitle}>{selected.title}</h3>
++                <p className={styles.detailSummary}>{selected.summary}</p>
++              </div>
++
++              <div
++                className={styles.detailBlock}
++                data-testid="history-detail-decided"
++              >
++                <p className={styles.detailBlockLabel}>Ce qui a été décidé</p>
++                <p
++                  className={styles.detailBlockBody}
++                  data-available={selected.decidedWhat ? "true" : "false"}
++                >
++                  {selected.decidedWhat ?? UNAVAILABLE_DECIDED}
++                </p>
++              </div>
++
++              <div
++                className={styles.detailBlock}
++                data-testid="history-detail-why"
++              >
++                <p className={styles.detailBlockLabel}>Pourquoi</p>
++                <p
++                  className={styles.detailBlockBody}
++                  data-available={selected.why ? "true" : "false"}
++                >
++                  {selected.why ?? UNAVAILABLE_WHY}
++                </p>
++              </div>
++
++              <div
++                className={styles.detailBlock}
++                data-testid="history-detail-impact"
++              >
++                <p className={styles.detailBlockLabel}>Impact</p>
++                <p
++                  className={styles.detailBlockBody}
++                  data-available={selected.impact ? "true" : "false"}
++                >
++                  {selected.impact ?? UNAVAILABLE_IMPACT}
++                </p>
++              </div>
++
++              <div
++                className={styles.verification}
++                data-testid="history-detail-verification"
++                data-available={selected.verification ? "true" : "false"}
++              >
++                <p className={styles.verificationTitle}>
++                  <span className={styles.verificationDot} aria-hidden />
++                  Éléments liés
++                </p>
++                <p className={styles.verificationBody}>
++                  {selected.verification ?? UNAVAILABLE_VERIFICATION}
++                </p>
++                {selected.linked.length > 0 ? (
++                  <p className={styles.verificationLink}>
++                    {selected.linked.length} élément
++                    {selected.linked.length === 1 ? "" : "s"} lié
++                    {selected.linked.length === 1 ? "" : "s"} →
++                  </p>
++                ) : null}
++              </div>
++
++              <div
++                className={styles.detailBlock}
++                data-testid="history-detail-sources"
++              >
++                <p className={styles.detailBlockLabel}>Éléments liés</p>
++                <ul className={styles.linkedList}>
++                  <li className={styles.linkedItem}>
++                    <span className={styles.linkedKind}>
++                      {selected.sourceKind}
++                    </span>
++                    <span className={styles.linkedLabel}>
++                      {selected.sourceId}
++                    </span>
++                  </li>
++                  {selected.linked.map((link) => (
++                    <li
++                      key={`${link.kind}:${link.id}`}
++                      className={styles.linkedItem}
++                    >
++                      <span className={styles.linkedKind}>{link.kind}</span>
++                      <span className={styles.linkedLabel}>{link.label}</span>
++                    </li>
++                  ))}
++                </ul>
++                {selected.linked.length === 0 ? (
++                  <p className={styles.sourceMeta}>
++                    Aucun élément lié supplémentaire n&apos;est rattaché à cet
++                    événement.
++                  </p>
++                ) : null}
++              </div>
++
++              <div
++                className={styles.detailBlock}
++                data-testid="history-detail-ask-nora"
++              >
++                <p className={styles.detailBlockLabel}>Besoin de contexte ?</p>
++                {onAskNora ? (
++                  <>
++                    <p className={styles.detailBlockBody}>
++                      Demandez à Nora d&apos;expliquer ce changement, de comparer
++                      deux moments ou de retrouver ce qui a conduit à cette
++                      décision.
++                    </p>
++                    <form
++                      className={styles.askRow}
++                      onSubmit={(e) => {
++                        e.preventDefault();
++                        submitAskNora();
++                      }}
++                    >
++                      <label className={styles.srOnly} htmlFor="history-ask-nora">
++                        Demander à Nora à propos de cet événement
++                      </label>
++                      <input
++                        id="history-ask-nora"
++                        className={styles.askInput}
++                        data-testid="history-ask-nora-input"
++                        placeholder="Demander à Nora…"
++                        value={askDraft}
++                        onChange={(e) => setAskDraft(e.target.value)}
++                        autoComplete="off"
++                      />
++                      <button
++                        type="submit"
++                        className={styles.askSubmit}
++                        data-testid="history-ask-nora-submit"
++                        aria-label="Préparer la question pour Nora"
++                        title="Prépare un brouillon dans la conversation — rien n'est envoyé"
++                      >
++                        ↑
++                      </button>
++                    </form>
++                  </>
++                ) : (
++                  <p className={styles.detailBlockBody} data-available="false">
++                    La reprise dans la conversation n&apos;est pas disponible
++                    depuis cette vue.
++                  </p>
++                )}
++              </div>
++            </div>
++          ) : (
++            <p className={styles.empty}>Sélectionnez un événement.</p>
++          )}
++        </aside>
++      </div>
+     </section>
+   );
+ }
+```
+
+#### `HistorySurface.module.css` — B5 History pixel CSS
+```diff
+diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/HistorySurface.module.css b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/HistorySurface.module.css
+index d0b61c1b..cdfbcbfe 100644
+--- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/HistorySurface.module.css
++++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/HistorySurface.module.css
+@@ -1,103 +1,833 @@
++/*
++ * P5-S07 Historique — Figma 78:2 (1440×1024, body 1224 = master ~790 | detail ~434),
++ * 190:111 compact (narrow master panel | wide detail), 190:380 / 190:412 mobile.
++ * --pm6-* tokens only; no second token set, no utility framework.
++ */
++
+ .root {
+   display: flex;
+   flex-direction: column;
+-  gap: var(--pm6-space-4);
+-  background: var(--pm6-surface);
+-  border: 1px solid var(--pm6-border-soft);
+-  border-radius: var(--pm6-radius-lg);
+-  box-shadow: var(--pm6-shadow-card);
+-  padding: var(--pm6-space-5);
++  min-width: 0;
++  min-height: 0;
++  flex: 1 1 auto;
++  background: var(--pm6-body);
++}
++
++.layout {
++  display: grid;
++  grid-template-columns: minmax(0, 1fr) var(--pm6-history-detail-w, 434px);
++  align-items: stretch;
++  min-height: 0;
++  flex: 1 1 auto;
++}
++
++/* ---------- master (timeline) ---------- */
++
++.masterPane {
++  display: flex;
++  flex-direction: column;
++  min-width: 0;
++  min-height: 0;
++  gap: var(--pm6-space-3);
++  padding: 18px var(--ws-pad-x, 24px) 24px;
+ }
+
+ .head {
+   display: flex;
+   flex-direction: column;
+-  gap: var(--pm6-space-1);
++  gap: 6px;
++  min-width: 0;
+ }
+
+-.eyebrow {
++.backLink {
++  align-self: flex-start;
++  appearance: none;
++  border: 0;
++  background: transparent;
++  padding: 0;
+   margin: 0;
+-  font-size: 0.7rem;
+-  font-weight: 700;
+-  letter-spacing: 0.1em;
+-  text-transform: uppercase;
+-  color: var(--pm6-muted);
++  min-height: 38px;
++  display: inline-flex;
++  align-items: center;
++  font: inherit;
++  font-size: 0.8125rem;
++  font-weight: 600;
++  color: var(--pm6-accent);
++  cursor: pointer;
++}
++
++.backLink:hover {
++  text-decoration: underline;
++}
++
++.titleRow {
++  display: flex;
++  flex-wrap: wrap;
++  align-items: center;
++  justify-content: space-between;
++  gap: var(--pm6-space-3);
++  min-width: 0;
+ }
+
+ .title {
+   margin: 0;
+-  font-size: 1.02rem;
+-  font-weight: 600;
++  font-size: 1.5rem;
++  font-weight: 650;
++  letter-spacing: -0.02em;
++  line-height: 1.2;
+   color: var(--pm6-ink);
+ }
+
+ .note {
+   margin: 0;
+-  font-size: 0.84rem;
+-  line-height: 1.55;
++  max-width: 74ch;
++  font-size: 0.8125rem;
++  line-height: 1.5;
++  color: var(--pm6-muted-strong);
++}
++
++.filters {
++  display: flex;
++  flex-wrap: wrap;
++  gap: 6px;
++}
++
++.filter {
++  appearance: none;
++  display: inline-flex;
++  align-items: center;
++  border-radius: var(--pm6-radius-pill);
++  border: 1px solid var(--pm6-border);
++  background: var(--pm6-surface-sunken);
+   color: var(--pm6-muted-strong);
++  padding: 7px 14px;
++  min-height: 38px;
++  font: inherit;
++  font-size: 0.75rem;
++  font-weight: 600;
++  cursor: pointer;
++  white-space: nowrap;
++}
++
++.filter:hover {
++  color: var(--pm6-ink);
++  border-color: var(--pm6-border-strong);
++}
++
++.filter[data-selected="true"][data-filter="all"] {
++  color: var(--pm6-ink);
++  border-color: var(--pm6-border-strong);
++  background: var(--pm6-surface);
++}
++
++.filter[data-selected="true"][data-filter="decisions"] {
++  color: var(--pm6-accent);
++  border-color: color-mix(in srgb, var(--pm6-accent) 28%, transparent);
++  background: var(--pm6-accent-tint);
++}
++
++.filter[data-selected="true"][data-filter="changes"] {
++  color: var(--pm6-ok);
++  border-color: color-mix(in srgb, var(--pm6-ok) 28%, transparent);
++  background: var(--pm6-ok-tint);
++}
++
++.searchLabel {
++  display: block;
++  min-width: 0;
++}
++
++.search {
++  width: 100%;
++  box-sizing: border-box;
++  border-radius: var(--pm6-radius-sm);
++  border: 1px solid var(--pm6-border);
++  background: var(--pm6-surface);
++  color: var(--pm6-ink);
++  padding: 10px 14px;
++  min-height: 38px;
++  font: inherit;
++  font-size: 0.8125rem;
++}
++
++.search::placeholder {
++  color: var(--pm6-muted-faint);
++}
++
++.listScroll {
++  display: flex;
++  flex-direction: column;
++  gap: var(--pm6-space-4);
++  min-height: 0;
++  overflow-y: auto;
++  padding-right: 2px;
++}
++
++.group {
++  display: flex;
++  flex-direction: column;
++  gap: 6px;
++  min-width: 0;
++}
++
++.groupLabel {
++  margin: 0;
++  font-size: 0.625rem;
++  font-weight: 600;
++  letter-spacing: 0.08em;
++  text-transform: uppercase;
++  color: var(--pm6-muted-faint);
+ }
+
+ .timeline {
+   list-style: none;
+   margin: 0;
+-  padding: 0 0 0 var(--pm6-space-4);
++  padding: 0;
+   display: flex;
+   flex-direction: column;
+-  gap: var(--pm6-space-4);
+-  border-left: 1px solid var(--pm6-border);
++  gap: 2px;
++}
++
++.timelineItem {
++  position: relative;
++  padding-left: 20px;
++}
++
++/* Continuous rail behind the dots (desktop only — cards take over below 1200). */
++.timelineItem::before {
++  content: "";
++  position: absolute;
++  left: 3px;
++  top: 0;
++  bottom: 0;
++  width: 1px;
++  background: var(--pm6-border);
+ }
+
+ .entry {
+   position: relative;
+   display: grid;
+-  grid-template-columns: minmax(0, auto) minmax(0, 1fr);
+-  column-gap: var(--pm6-space-3);
+-  row-gap: 2px;
+-  align-items: baseline;
++  grid-template-columns: minmax(0, 1fr) auto auto;
++  grid-template-areas:
++    "label kind chevron"
++    "meta  meta meta";
++  column-gap: var(--pm6-space-2);
++  row-gap: 3px;
++  align-items: center;
++  width: 100%;
++  text-align: left;
++  appearance: none;
++  border: 1px solid transparent;
++  border-radius: var(--pm6-radius-md);
++  background: transparent;
++  padding: 11px 12px;
++  font: inherit;
++  color: inherit;
++  cursor: pointer;
++  min-height: 38px;
++}
++
++.entry:hover {
++  background: color-mix(in srgb, var(--pm6-accent) 5%, transparent);
++}
++
++.entry[data-selected="true"] {
++  border-color: color-mix(in srgb, var(--pm6-accent) 32%, var(--pm6-border));
++  background: var(--pm6-accent-tint);
+ }
+
+ .marker {
+   position: absolute;
+-  left: calc(-1 * var(--pm6-space-4) - 4px);
+-  top: 6px;
++  left: -20px;
++  top: 17px;
+   width: 7px;
+   height: 7px;
+   border-radius: var(--pm6-radius-pill);
+-  background: var(--pm6-forest);
++  background: var(--pm6-muted-ghost);
++  box-shadow: 0 0 0 3px var(--pm6-body);
++}
++
++.marker[data-tone="decision"] {
++  background: var(--pm6-accent);
++}
++
++.marker[data-tone="verified"] {
++  background: var(--pm6-ok);
++}
++
++.marker[data-tone="change"] {
++  background: var(--pm6-gold);
++}
++
++.label {
++  grid-area: label;
++  min-width: 0;
++  font-size: 0.875rem;
++  font-weight: 600;
++  line-height: 1.35;
++  color: var(--pm6-ink);
++  overflow-wrap: anywhere;
+ }
+
+ .kind {
+-  font-size: 0.7rem;
++  grid-area: kind;
++  justify-self: end;
++  display: inline-flex;
++  align-items: center;
++  padding: 3px 9px;
++  border-radius: var(--pm6-radius-pill);
++  border: 1px solid var(--pm6-border);
++  background: var(--pm6-surface-sunken);
++  font-size: 0.6875rem;
++  font-weight: 600;
++  color: var(--pm6-muted-strong);
++  white-space: nowrap;
++}
++
++.kind[data-tone="decision"] {
++  color: var(--pm6-accent);
++  border-color: color-mix(in srgb, var(--pm6-accent) 26%, transparent);
++  background: var(--pm6-accent-tint);
++}
++
++.kind[data-tone="verified"] {
++  color: var(--pm6-ok);
++  border-color: color-mix(in srgb, var(--pm6-ok) 26%, transparent);
++  background: var(--pm6-ok-tint);
++}
++
++.chevron {
++  grid-area: chevron;
++  justify-self: end;
++  font-size: 0.8125rem;
++  color: var(--pm6-muted-faint);
++}
++
++.metaRow {
++  grid-area: meta;
++  display: flex;
++  flex-wrap: wrap;
++  align-items: baseline;
++  gap: 5px;
++  min-width: 0;
++  font-size: 0.75rem;
++  line-height: 1.45;
++  color: var(--pm6-muted-strong);
++}
++
++.when {
++  flex: 0 0 auto;
++  color: var(--pm6-muted);
++  font-variant-numeric: tabular-nums;
++}
++
++.when::after {
++  content: "·";
++  margin-left: 5px;
++  color: var(--pm6-muted-ghost);
++}
++
++.detail {
++  min-width: 0;
++  overflow-wrap: anywhere;
++}
++
++/* ---------- detail pane ---------- */
++
++.detailPane {
++  min-width: 0;
++  min-height: 0;
++  overflow-y: auto;
++  background: var(--pm6-canvas-raised);
++  border-left: 1px solid var(--pm6-border);
++}
++
++.detailInner {
++  display: flex;
++  flex-direction: column;
++  gap: var(--pm6-space-3);
++  padding: 18px 20px 28px;
++}
++
++.detailHead {
++  display: flex;
++  flex-direction: column;
++  gap: 6px;
++  padding-bottom: var(--pm6-space-3);
++  border-bottom: 1px solid var(--pm6-border);
++}
++
++.detailHeadRow {
++  display: flex;
++  flex-wrap: wrap;
++  align-items: center;
++  justify-content: space-between;
++  gap: var(--pm6-space-2);
++}
++
++.detailKind {
++  font-size: 0.6875rem;
+   font-weight: 700;
+-  letter-spacing: 0.06em;
++  letter-spacing: 0.08em;
+   text-transform: uppercase;
+-  color: var(--pm6-forest);
++  color: var(--pm6-muted-strong);
+ }
+
+-.label {
+-  font-size: 0.89rem;
++.detailKind[data-tone="decision"] {
++  color: var(--pm6-accent);
++}
++
++.detailKind[data-tone="verified"] {
++  color: var(--pm6-ok);
++}
++
++.detailWhen {
++  font-size: 0.75rem;
++  color: var(--pm6-muted);
++  white-space: nowrap;
++}
++
++.detailTitle {
++  margin: 0;
++  font-size: 1.1875rem;
++  font-weight: 650;
++  line-height: 1.3;
+   color: var(--pm6-ink);
+   overflow-wrap: anywhere;
+ }
+
+-.detail {
+-  grid-column: 2;
+-  font-size: 0.78rem;
++.detailSummary {
++  margin: 0;
++  font-size: 0.8125rem;
++  line-height: 1.5;
++  color: var(--pm6-muted-strong);
++}
++
++.detailBlock {
++  display: flex;
++  flex-direction: column;
++  gap: 5px;
++  min-width: 0;
++}
++
++.detailBlockLabel {
++  margin: 0;
++  font-size: 0.625rem;
++  font-weight: 600;
++  letter-spacing: 0.08em;
++  text-transform: uppercase;
++  color: var(--pm6-muted-faint);
++}
++
++.detailBlockBody {
++  margin: 0;
++  font-size: 0.8125rem;
++  line-height: 1.5;
++  color: var(--pm6-ink);
++  overflow-wrap: anywhere;
++}
++
++/* Honest unavailable states read as absence, never as a fact. */
++.detailBlockBody[data-available="false"] {
++  color: var(--pm6-muted);
++  font-style: italic;
++}
++
++/* ---------- verification callout ---------- */
++
++.verification {
++  display: flex;
++  flex-direction: column;
++  gap: 5px;
++  padding: 12px 14px;
++  border-radius: var(--pm6-radius-md);
++  border: 1px solid color-mix(in srgb, var(--pm6-ok) 22%, var(--pm6-border));
++  background: var(--pm6-ok-tint);
++}
++
++.verification[data-available="false"] {
++  border-color: var(--pm6-border);
++  background: var(--pm6-surface-sunken);
++}
++
++.verificationTitle {
++  margin: 0;
++  display: inline-flex;
++  align-items: center;
++  gap: 7px;
++  font-size: 0.8125rem;
++  font-weight: 650;
++  color: var(--pm6-ok);
++}
++
++.verification[data-available="false"] .verificationTitle {
++  color: var(--pm6-muted-strong);
++}
++
++.verificationDot {
++  width: 7px;
++  height: 7px;
++  border-radius: var(--pm6-radius-pill);
++  background: var(--pm6-ok);
++}
++
++.verification[data-available="false"] .verificationDot {
++  background: var(--pm6-muted-ghost);
++}
++
++.verificationBody {
++  margin: 0;
++  font-size: 0.8125rem;
++  line-height: 1.5;
++  color: var(--pm6-ink-soft);
++}
++
++.verification[data-available="false"] .verificationBody {
++  color: var(--pm6-muted);
++  font-style: italic;
++}
++
++.verificationLink {
++  margin: 0;
++  font-size: 0.6875rem;
++  font-weight: 650;
++  letter-spacing: 0.04em;
++  color: var(--pm6-ok);
++}
++
++/* ---------- sources ---------- */
++
++.linkedList {
++  list-style: none;
++  margin: 0;
++  padding: 0;
++  display: flex;
++  flex-direction: column;
++  gap: 6px;
++}
++
++.linkedItem {
++  display: flex;
++  flex-direction: column;
++  gap: 2px;
++  border: 1px solid var(--pm6-border);
++  border-radius: var(--pm6-radius-sm);
++  padding: 9px 11px;
++  background: var(--pm6-surface);
++}
++
++.linkedKind {
++  font-size: 0.8125rem;
++  font-weight: 600;
++  color: var(--pm6-ink);
++}
++
++.linkedLabel {
++  font-size: 0.6875rem;
+   color: var(--pm6-muted);
+   overflow-wrap: anywhere;
+ }
+
+-@media (max-width: 767px) {
+-  .root {
+-    padding: var(--pm6-space-4);
++.sourceMeta {
++  margin: 0;
++  font-size: 0.6875rem;
++  line-height: 1.45;
++  color: var(--pm6-muted);
++}
++
++/* ---------- ask Nora ---------- */
++
++.askRow {
++  display: flex;
++  align-items: center;
++  gap: 6px;
++  margin-top: 2px;
++  padding: 4px 4px 4px 12px;
++  border: 1px solid var(--pm6-border);
++  border-radius: var(--pm6-radius-pill);
++  background: var(--pm6-surface);
++}
++
++.askInput {
++  flex: 1 1 auto;
++  min-width: 0;
++  border: 0;
++  background: transparent;
++  font: inherit;
++  font-size: 0.8125rem;
++  color: var(--pm6-ink);
++  min-height: 32px;
++}
++
++.askInput:focus-visible {
++  outline: none;
++}
++
++.askSubmit {
++  flex: 0 0 auto;
++  display: inline-flex;
++  align-items: center;
++  justify-content: center;
++  width: 30px;
++  height: 30px;
++  border-radius: var(--pm6-radius-pill);
++  border: 1px solid var(--pm6-border);
++  background: var(--pm6-surface-sunken);
++  color: var(--pm6-ink-soft);
++  font: inherit;
++  font-size: 0.8125rem;
++  cursor: pointer;
++}
++
++.askSubmit:hover {
++  background: var(--pm6-accent-tint);
++  border-color: color-mix(in srgb, var(--pm6-accent) 28%, transparent);
++  color: var(--pm6-accent);
++}
++
++/* ---------- shared ---------- */
++
++.empty,
++.absent {
++  margin: 0;
++  font-size: 0.8125rem;
++  line-height: 1.5;
++  color: var(--pm6-muted-strong);
++}
++
++.absent {
++  padding-top: var(--pm6-space-2);
++  font-size: 0.6875rem;
++  color: var(--pm6-muted);
++}
++
++.backMobile {
++  display: none;
++  align-self: flex-start;
++  appearance: none;
++  border: none;
++  background: transparent;
++  color: var(--pm6-accent);
++  font: inherit;
++  font-size: 0.8125rem;
++  font-weight: 600;
++  padding: 0;
++  min-height: 38px;
++  cursor: pointer;
++}
++
++.srOnly {
++  position: absolute;
++  width: 1px;
++  height: 1px;
++  padding: 0;
++  margin: -1px;
++  overflow: hidden;
++  clip: rect(0, 0, 0, 0);
++  white-space: nowrap;
++  border: 0;
++}
++
++.backLink:focus-visible,
++.backMobile:focus-visible,
++.filter:focus-visible,
++.search:focus-visible,
++.entry:focus-visible,
++.askSubmit:focus-visible {
++  outline: none;
++  box-shadow: var(--pm6-focus-ring);
++}
++
++.askRow:focus-within {
++  box-shadow: var(--pm6-focus-ring);
++  border-color: var(--pm6-border-strong);
++}
++
++/*
++ * ---------- 900–1199 compact (190:111) ----------
++ * Narrow master panel on its own surface, wide reading detail.
++ */
++@media (min-width: 900px) and (max-width: 1199px) {
++  .layout {
++    grid-template-columns: minmax(0, 320px) minmax(0, 1fr);
++  }
++
++  .masterPane {
++    background: var(--pm6-rail);
++    border-right: 1px solid var(--pm6-border);
++    padding: 16px 16px 20px;
++  }
++
++  .title {
++    font-size: 1.25rem;
++  }
++
++  .detailPane {
++    background: transparent;
++    border-left: 0;
++  }
++
++  .detailInner {
++    padding: 20px 28px 28px;
++    max-width: 64ch;
++  }
++
++  /* Compact rows read as cards (no timeline rail). */
++  .timelineItem {
++    padding-left: 0;
++  }
++
++  .timelineItem::before {
++    display: none;
++  }
++
++  .timeline {
++    gap: 8px;
+   }
+
+   .entry {
++    border-color: var(--pm6-border);
++    background: var(--pm6-surface);
++    grid-template-columns: minmax(0, 1fr) auto;
++    grid-template-areas:
++      "label kind"
++      "meta  meta";
++  }
++
++  .marker,
++  .chevron {
++    display: none;
++  }
++}
++
++/* ---------- <900: one column, list ↔ detail ---------- */
++
++@media (max-width: 899px) {
++  .layout {
+     grid-template-columns: minmax(0, 1fr);
+   }
+
++  .masterPane {
++    padding: 12px var(--ws-pad-x, 16px) 20px;
++  }
++
++  .masterPane[data-mobile-hidden="true"] {
++    display: none;
++  }
++
++  .detailPane {
++    background: transparent;
++    border-left: 0;
++    overflow: visible;
++  }
++
++  .detailPane[data-mobile-hidden="true"] {
++    display: none;
++  }
++
++  .detailInner {
++    padding: 12px var(--ws-pad-x, 16px) 28px;
++  }
++
++  .backMobile {
++    display: inline-flex;
++    align-items: center;
++  }
++
++  /* 190:380 — filters and search leave the focused mobile reading flow. */
++  .filters,
++  .searchLabel {
++    display: none;
++  }
++
++  .title {
++    font-size: 1.5rem;
++  }
++
++  .detailTitle {
++    font-size: 1.5rem;
++    letter-spacing: -0.02em;
++  }
++
++  /* Mobile rows are cards, like 190:380. */
++  .timelineItem {
++    padding-left: 0;
++  }
++
++  .timelineItem::before {
++    display: none;
++  }
++
++  .timeline {
++    gap: 10px;
++  }
++
++  /*
++   * 190:380 card: title + time on the first row, event type below the title.
++   * `.metaRow` dissolves so `.when` can occupy its own grid area.
++   */
++  .entry {
++    grid-template-columns: minmax(0, 1fr) auto;
++    grid-template-areas:
++      "label when"
++      "kind  kind";
++    border-color: var(--pm6-border);
++    background: var(--pm6-surface);
++    padding: 14px 14px;
++    row-gap: 6px;
++    align-items: start;
++  }
++
++  .marker,
++  .chevron {
++    display: none;
++  }
++
++  .metaRow {
++    display: contents;
++  }
++
++  .when {
++    grid-area: when;
++    justify-self: end;
++    font-size: 0.75rem;
++  }
++
++  .when::after {
++    content: none;
++  }
++
+   .detail {
+-    grid-column: 1;
++    display: none;
++  }
++
++  .kind {
++    grid-area: kind;
++    justify-self: start;
++    border: 0;
++    background: transparent;
++    padding: 0;
++    min-height: 0;
++    font-size: 0.75rem;
++    font-weight: 500;
++    color: var(--pm6-accent);
++  }
++
++  .kind[data-tone="verified"] {
++    background: transparent;
++    color: var(--pm6-ok);
++  }
++
++  .kind[data-tone="change"] {
++    background: transparent;
++    color: var(--pm6-gold);
++  }
++}
++
++@media (prefers-reduced-motion: reduce) {
++  .entry,
++  .filter,
++  .askSubmit {
++    transition: none;
+   }
+ }
+```
+
+### 54.B Supporting modified files in CP01 B1–B5 scope
+
+#### `ConversationSurface.tsx` — B1 continuity UX banners
+```diff
+diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
+index 81413a2e..ba1ca056 100644
+--- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
++++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
+@@ -116,6 +116,7 @@ export function ConversationSurface({
+     lrMaterializeCode,
+     f2,
+     activeProposal,
++    decisionSubjectContinuity,
+     reservesText,
+     setReservesText,
+     f3Prepare,
+@@ -512,6 +513,43 @@ export function ConversationSurface({
+         </section>
+       ) : null}
+
++      {decisionSubjectContinuity &&
++      typeof decisionSubjectContinuity === "object" &&
++      "ok" in decisionSubjectContinuity &&
++      decisionSubjectContinuity.ok &&
++      decisionSubjectContinuity.kind === "pending_reinstruction_required" ? (
++        <aside
++          className={styles.proposalCard}
++          data-testid="decision-subject-reinstruction"
++          aria-label="Sujet de décision à reformuler"
++        >
++          <p className={styles.proposalTitle}>Reprise du sujet</p>
++          <p className={styles.proposalMeta}>
++            {decisionSubjectContinuity.message}
++          </p>
++          <p className={styles.proposalMeta}>
++            La proposition process-locale n&apos;est plus disponible. Reformulez
++            avec Nora — aucune proposition n&apos;est inventée.
++          </p>
++        </aside>
++      ) : null}
++      {decisionSubjectContinuity &&
++      typeof decisionSubjectContinuity === "object" &&
++      "ok" in decisionSubjectContinuity &&
++      decisionSubjectContinuity.ok &&
++      decisionSubjectContinuity.kind === "bound_awaiting_decision" ? (
++        <aside
++          className={styles.proposalCard}
++          data-testid="decision-subject-bound"
++          aria-label="Sujet de décision courant"
++        >
++          <p className={styles.proposalTitle}>Sujet de décision courant</p>
++          <p className={styles.proposalMeta}>
++            Options présentées reconstruites depuis le Product (Epistemic) —
++            pas depuis un store process-local.
++          </p>
++        </aside>
++      ) : null}
+       {activeProposal && !reservationResolutionProposal ? (
+         <section
+           className={styles.card}
+```
+
+#### `ProjectWorkspacePage.module.css` — principal shell layout
+```diff
+diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.module.css b/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.module.css
+index cebe63f9..74e6509d 100644
+--- a/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.module.css
++++ b/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.module.css
+@@ -333,9 +333,14 @@
+   background: var(--pm6-body);
+ }
+
+-/* Aperçu owns principal width — no permanent sibling context rail. */
++/*
++ * Aperçu / Synthèses / Historique / Journal own principal width — no permanent
++ * sibling context rail. These surfaces own their own full-height master/detail,
++ * so the single grid row stretches instead of hugging its content.
++ */
+ .layoutOverview {
+   grid-template-columns: minmax(0, 1fr);
++  align-items: stretch;
+ }
+
+ .main {
+@@ -541,6 +546,7 @@
+
+   .layoutOverview {
+     grid-template-columns: minmax(0, 1fr);
++    align-items: stretch;
+   }
+
+   .lpsColumn {
+@@ -713,10 +719,13 @@
+   }
+
+   /*
+-   * P5-S04 CP01 B2 — Synthèses is a focused secondary mobile view:
+-   * hide project title + primary tabs; SynthesesSurface owns list/detail nav.
++   * P5-S04 CP01 B2 / P5-S07 CP01 — Synthèses, Historique and Journal are
++   * focused secondary mobile views (P3 190:380 / 192:41): hide project title +
++   * primary tabs; each surface owns its own list/detail nav and return link.
+    */
+-  .root[data-active-view="syntheses"] .projectHeader {
++  .root[data-active-view="syntheses"] .projectHeader,
++  .root[data-active-view="history"] .projectHeader,
++  .root[data-active-view="journal"] .projectHeader {
+     display: none;
+   }
+ }
+```
+
+#### `product-tokens.css` — history/journal tokens
+```diff
+diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/product-tokens.css b/projects/sfia-studio/app/features/pre-m6-product-ui/product-tokens.css
+index 84f468d5..779f2d17 100644
+--- a/projects/sfia-studio/app/features/pre-m6-product-ui/product-tokens.css
++++ b/projects/sfia-studio/app/features/pre-m6-product-ui/product-tokens.css
+@@ -87,6 +87,11 @@
+   --pm6-global-header-h: 54px;
+   --pm6-context-width: 356px;
+   --pm6-focus-bar-h: 50px;
++
++  /* P3 Historique 78:2 — body 1224 split master ~790 | detail ~434. */
++  --pm6-history-detail-w: 434px;
++  /* P3 Journal 94:2 — body 1226 split subjects index ~440 | detail ~785. */
++  --pm6-journal-index-w: 440px;
+ }
+
+ /* Responsive geometry: <1200 compact (rail ~160, context ~280). */
+```
+
+### 54.C Created files (full content in §53; not diffs)
+- `deriveProjectHistoryEvents.ts`
+- `deriveWorkRepresentationProjection.ts`
+- `deriveWorkRepresentationFromLifecycle.ts`
+- CP01 / S07 tests under `__tests__/…/p5.s07.*`
+
 
 ## 55. Project Git effects
 Local edits + new tests/modules only. **No** project git add/commit/push/PR/merge. Staged empty.
@@ -1451,7 +5360,11 @@ Local edits + new tests/modules only. **No** project git add/commit/push/PR/merg
 - If PASS → distinct Morris P5-S07 Git Integration Gate (not authorized now)
 
 ## 57. Review Handoff evidence
-Publisher: `scripts/sfia/publish-review-handoff.sh` · branch `sfia/review-handoff` · mode publish-in-cycle · input `90d165d9` / `3794d1bc`
+Publisher: `scripts/sfia/publish-review-handoff.sh` · branch `sfia/review-handoff` · mode publish-in-cycle
+
+- Original Critical Review input: `90d165d9` / blob `3794d1bc`
+- Prior CP01 handoff tip (this republish input): `01ae693e` / blob `642bcfe5`
+- This republish: COMPLETE useful diffs for B1–B5 modified files
 
 ## 58. Final Git truth
 Branch delivery S07 · HEAD=`7a664d65…` = origin/main · `0 0` · uncommitted candidate · staged empty.
