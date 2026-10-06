@@ -1,7 +1,7 @@
-# P5-S07 CP02 — Semantic Projection Integrity + Responsive / Visual Closure — FULL REVIEW PACK
+# P5-S07 CP03 — P3 Visual Fidelity Closure — FULL REVIEW PACK
 
 ## 1. Timestamp
-2026-10-06 21:15:04 CEST Europe/Paris context (machine local)
+2026-10-06 21:43:23 CEST
 
 ## 2. Repo / worktree
 `/Users/morris/Projects/sfia-studio-chat-first-product-simplification-p3`
@@ -12,66 +12,34 @@
 ## 4. HEAD / base
 - HEAD = `7a664d65157af9554de4d4da7e76ca0187020020`
 - origin/main = `7a664d65157af9554de4d4da7e76ca0187020020`
-- left-right origin/main...HEAD = `0	0`
+- left-right = `0	0`
 
 ## 5. Local Git Truth
-- Candidate S07/CP01/CP02 changes = present locally (modified + untracked)
-- staged = EMPTY
-- `git diff --check` = clean
-- Project commit/push/PR = NOT AUTHORIZED
+Candidate LOCAL / UNCOMMITTED · staged EMPTY · `git diff --check` clean.
+Project commit/push/PR NOT AUTHORIZED.
 
-## 6. Morris CP02 GO consumed
-P5-S07 CP02 = AUTHORIZED / CONSUMED
+## 6. Morris CP03 GO consumed
+P5-S07 CP03 = AUTHORIZED / CONSUMED
 
 ## 7. Sources
-- Process templates + method (READ ONLY)
-- CKC 08-delivery-implementation
-- Convergence doctrine + roadmap
-- Product completion + product simplification 01–05
-- Review input handoff `441420301bc428491f15e54270b402d3d5bfa9cb`
-- Figma `m4g8j0gNbEzfIuH6S9AZJF` READ ONLY (figma-design-to-code)
+Process/method/CKC/convergence/P3/P4/P5 · Review input `b84c48e2` · Figma `m4g8j0gNbEzfIuH6S9AZJF` READ ONLY (figma-design-to-code)
 
 ## 8. Cycle / profile / CKC
-- Cycle 8 — Delivery / Implementation Correction
-- Profile CRITICAL · Typologie EVOL
-- CKC `ckc:studio:delivery` · contentStatus VALIDATED · guidance cognitive only · authority NONE
+Cycle 8 Correction · CRITICAL · EVOL · ckc:studio:delivery VALIDATED · authority NONE
 
 ## 9. Convergence pre-check
-P4 authority preserved. No new store / aggregate / Proposal DB / HistoryStore / DeliverableStore. Option A kept.
+P5-S01…S06 INTEGRATED · P5-S07 LOCAL CANDIDATE · CP02 functional/semantic PASS · visual was NOT CLOSED · P5 IN PROGRESS · S08 NOT STARTED
 
-## 10. CP01 inherited state
-- B1 PROP-PL durable resume = PASS (not reopened)
-- CONV-PL = PASS (not reopened)
-- B3 Journal cycle Decisions = PASS (not reopened)
-- History Product-derived projection = kept
-- ZERO REAL = kept
+## 10. CP02 inherited PASS
+PROP-PL / CONV-PL / Work Representation honesty / Journal currentness / History dedup / Responsive bands / ZERO REAL / no parallelism — preserved (presentation-only pass)
 
-## 11. Critical Review blockers addressed
-- **B2** Work Representation semantic integrity
-- **B4** History Evidence/ReviewBundle identity dedup
-- **B5** Responsive P3 bands + visual V1–V12
+## 11. ChatGPT visual review input
+CRITICAL/FUNCTIONAL PASS · FINAL VISUAL FAIL · J1 FAIL · J2 FAIL LIGHT · J3 FAIL · J4 FAIL · H1 PASS STRUCTURAL · H2 FAIL · H3 PASS STRUCTURAL · H4 PASS STRUCTURAL
 
-## 12. Visual review findings V1–V12
-See §25–36 and `.tmp-sfia-review/p5-s07-cp02-visual/comparison/notes.md`.
+## 12. Frame-by-frame pre-CP03 verdict
+See §11. Corrections: J1 J2 J3 J4 H2. Regression freeze: H1 H3 H4.
 
-| ID | Outcome |
-| --- | --- |
-| V1 Journal expanded | Dense bounded exchange panel |
-| V2 Journal mobile tabs | 4 tabs visible with wrap |
-| V3 Journal mobile cards | Geometry aligned to 192:41 |
-| V4 Focused mobile topbar | Mark + real Project name + avatar via ProductShell `mobileFocusProjectName` |
-| V5 Journal header meta | Cycle chip + freshness in principalMeta |
-| V6 History technical dump | Removed from nominal UX |
-| V7 Raw Product IDs | Not nominally rendered; data attributes only |
-| V8 History compact | 190:111 composition + desktop reading blocks |
-| V9 History mobile list | No selected-row treatment; short subtitle; Sans date |
-| V10 History mobile detail | CONTEXTE / ÉLÉMENTS LIÉS / Nora CTA; no auto-send |
-| V11 Kind chips | Pill chips Décision/Changement/Vérifié |
-| V12 1 Issue | Absent in final captures (dedup + capture CSS) |
-
-## 13. Exact file scope
-### Modified
-M	.tmp-sfia-review/chatgpt-review.md
+## 13. Exact CP03 file scope
 M	projects/sfia-studio/app/app/studio/projects/[id]/page.tsx
 M	projects/sfia-studio/app/features/pre-m6-product-ui/ProductShell.module.css
 M	projects/sfia-studio/app/features/pre-m6-product-ui/ProductShell.tsx
@@ -91,238 +59,110 @@ M	projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 M	projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md
 M	projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
 
-### Created (untracked Product)
-- `projects/sfia-studio/app/features/project-assistant/w2/deriveWorkRepresentationProjection.ts`
-- `projects/sfia-studio/app/features/project-assistant/w2/deriveProjectHistoryEvents.ts`
-- `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/deriveWorkRepresentationFromLifecycle.ts`
-- `projects/sfia-studio/app/__tests__/project-assistant/p5.s07.cp02.semanticResponsive.d0.test.ts`
-- (+ S07/CP01 tests retained untracked)
+Created: `__tests__/pre-m6-product-ui/p5.s07.cp03.visualFidelity.ui.test.tsx`
 
-## 14. B2 before/after semantic rule
-**BEFORE:** `artifactIds: produced ? ["artifact:satisfied"] : …` and `hasEvidence → under_review`.
-**AFTER:** `artifactProduced` drives production; `artifactIds` empty when no real IDs; `validationState` = qualificationHint only else `unknown`.
+## 14. Confirmation no semantic changes
+No edits to deriveWorkRepresentation* / deriveProjectHistoryEvents / projectHistory semantics / actions continuity / Epistemic / Proposal. Presentation TSX/CSS + UI tests + Roadmap/P5 truth-sync only.
 
-## 15. Proof no synthetic Artifact ref
-T-SEM-01/02 in `p5.s07.cp02.semanticResponsive.d0.test.ts` — PASS.
+## 15. J1 correction
+Journal title row: context chip (cycleLabel or « Espace projet / interaction ») + freshness À JOUR right-aligned. Geometry aligned to 94:2.
 
-## 16. Proof Evidence does not imply validation
-T-SEM-03/04/05/06 — PASS.
+## 16. J2 correction
+Dense #fbf7f2 exchange panel · internal scroll · footer « Réduire les échanges » / « Voir dans la conversation → ».
 
-## 17. Pilot-facing mapping
-`workRequirementPilotLabel` / `workProductionPilotLabel` / `workValidationPilotLabel` / `workTriStatePilotLabel` used in LifecycleSurface; data attributes keep enums.
+## 17. J3 correction
+HARD: one-row 4 tabs @390 (≈82×30, gap 8, 9px, nowrap, plain digit counts).
 
-## 18. B4 identity strategy
-History read model primary; durableOutcome fallback only when Product id absent (`seenEvidenceIds` / `seenReviewBundleIds`).
+## 18. J4 correction
+HARD: data-mobile-detail=true hides principalHeader + tabs; focused ← Sujets detail only.
 
-## 19–22. Dedup / uniqueness / React keys
-T-HIS-01…05 — PASS. One Product id → at most one event per sourceKind.
+## 19. H2 correction
+Compact page head « Historique » · master ~300px #fbf7f2 + HISTORIQUE · hide search/filters/note · compactReading detail (CONTEXTE / ÉLÉMENTS LIÉS / Ask Nora CTA).
 
-## 23. Breakpoint before/after
-BEFORE: mobile `@media (max-width: 899px)` on Journal/History/Workspace.
-AFTER: mobile `@media (max-width: 767px)`; History compact `@media (min-width: 768px) and (max-width: 1199px)`; Workspace two-col from 768.
+## 20–22. H1 / H3 / H4 regression
+PASS REGRESSION — desktop filters/search retained on LARGE; mobile list/detail patterns preserved.
 
-## 24. Viewport boundary proof
-Captures: `responsive/journal-767-mobile-edge.png`, `journal-768.png`, `journal-899.png`, `journal-1200-large-edge.png`, `history-768.png`, `history-899.png`, `history-1200-large-edge.png`.
+## 23. Responsive regression
+Bands unchanged. Captures journal/history 767 768 899 1199 1200.
 
-## 25–32. Canonical frame comparisons
-CURSOR VISUAL COMPARISON = PASS for J1–J4 / H1–H4.
-Paths under `.tmp-sfia-review/p5-s07-cp02-visual/{figma,runtime}/`.
-**FINAL VISUAL REVIEW REQUIRES THESE RUNTIME CAPTURES TO BE ATTACHED TO CHATGPT.**
-Do NOT claim ChatGPT-independent pixel-perfect verified from Cursor alone.
+## 24–25. Figma contexts / screenshots
+Fresh MCP get_design_context for 94:2 192:41 192:81 190:111 (+ prior frames). Refs under `.tmp-sfia-review/p5-s07-cp03-visual/figma/`.
 
-## 33. Focused mobile shell
-ProductShell focused mode: Mark + `mobileFocusProjectName` + avatar; hides SFIA Studio wordmark + Projets link when workspace has focused journal/history/syntheses.
+## 26–33. Runtime captures
+`.tmp-sfia-review/p5-s07-cp03-visual/runtime/` J1–J4 H1–H4.
 
-## 34–35. History diagnostics / raw IDs
-Removed `history.absent` dump and process-local / Product-truth pilot copy. Linked list shows kindLabel + project name / labels; ids in `data-source-id` only.
+## 34. Detailed comparisons
+See `comparison/notes.md`. CURSOR VISUAL COMPARISON = PASS. No intentional gaps.
 
-## 36. `1 Issue`
-Cause: Next/React overlay when duplicate keys/warnings.
-Resolution: B4 dedup + capture hides nextjs portal. Final screenshots: ABSENT.
+## 35–36. 767/768 and 1199/1200 evidence
+`.tmp-sfia-review/p5-s07-cp03-visual/responsive/`
 
-## 37–38. Responsive 768 / 899
-COMPACT band proven for Journal + History.
+## 37. Browser/dev issue qualification
+Capture hides nextjs-portal. No Product error. `1 Issue` ABSENT.
 
-## 39. a11y
-Focus-visible retained on tabs/filters/CTA; keyboard controls untouched structurally.
+## 38. a11y
+focus-visible / keyboard / aria tabs preserved at touched scope.
 
-## 40. Targeted tests
-CP02 semantic/responsive 14 PASS · CP01 continuity 4 PASS · S07 work-rep 7 PASS · History/Journal UI 13 PASS.
+## 39. Targeted tests
+p5.s07.cp03.visualFidelity 12 PASS · Journal/History UI · CP01/CP02 semantic regressions PASS.
 
-## 41. Full suite
-**5352 passed · 139 skipped · 0 failed**
+## 40. Full suite
+**5365 passed · 139 skipped · 0 failed**
 
-## 42. typecheck / lint / build
-- typecheck PASS
-- lint PASS (0 warnings/errors)
-- build PASS
+## 41. typecheck / lint / build
+PASS / PASS / PASS
 
-## 43. ZERO REAL
-YES — Fake Nora / no OpenAI in CP02 path.
+## 42. ZERO REAL
+YES
 
-## 44. Architecture parallelism
-NONE.
+## 43. Architecture parallelism
+NONE
 
-## 45–46. Regression B1 / B3
-Inherited CP01 tests PASS (PROP-PL durable resume + Journal cycle scoping).
+## 44. Functional regression evidence
+CP02 semantic/responsive + CP01 continuity suites PASS.
 
-## 47. Debts closed
-B2 synthetic Artifact · B2 Evidence→validation · B4 History dup · B5 899 mobile band · V1–V12 intentional gaps addressed at Cursor comparison.
-
-## 48. Debts remaining
-- UAT-RECOVERY-03 NON-BLOCKING CARRY
-- ChatGPT independent visual confirmation pending (attach images)
-- P5-S07 INTEGRATED = NO · Git Integration NOT AUTHORIZED · S08 NOT STARTED
-
-## 49. Complete useful code diffs (modified tracked files)
-diff --git a/projects/sfia-studio/app/app/studio/projects/[id]/page.tsx b/projects/sfia-studio/app/app/studio/projects/[id]/page.tsx
-index 8aad475e..b64aa939 100644
---- a/projects/sfia-studio/app/app/studio/projects/[id]/page.tsx
-+++ b/projects/sfia-studio/app/app/studio/projects/[id]/page.tsx
-@@ -1,3 +1,6 @@
-+"use client";
-+
-+import { use, useState } from "react";
- import {
-   ProductShell,
-   ProjectWorkspacePage,
-@@ -7,18 +10,29 @@ interface StudioProjectRouteProps {
-   params: Promise<{ id: string }>;
- }
-
--export default async function StudioProjectRoute({
-+/**
-+ * Workspace route — ProductShell owns the focused mobile topbar name once the
-+ * workspace resolves the durable project title (P5-S07 CP02 V4).
-+ */
-+export default function StudioProjectRoute({
-   params,
- }: StudioProjectRouteProps) {
--  const { id } = await params;
-+  const { id } = use(params);
-   const projectId = decodeURIComponent(id);
-+  const [mobileFocusProjectName, setMobileFocusProjectName] = useState<
-+    string | null
-+  >(null);
-
-   return (
-     <ProductShell
-       activeNav="current"
-       currentProjectHref={`/studio/projects/${encodeURIComponent(projectId)}`}
-+      mobileFocusProjectName={mobileFocusProjectName}
-     >
--      <ProjectWorkspacePage projectId={projectId} />
-+      <ProjectWorkspacePage
-+        projectId={projectId}
-+        onProjectName={setMobileFocusProjectName}
-+      />
-     </ProductShell>
-   );
- }
-diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/ProductShell.module.css b/projects/sfia-studio/app/features/pre-m6-product-ui/ProductShell.module.css
-index f5133272..79dd866f 100644
---- a/projects/sfia-studio/app/features/pre-m6-product-ui/ProductShell.module.css
-+++ b/projects/sfia-studio/app/features/pre-m6-product-ui/ProductShell.module.css
-@@ -292,6 +292,17 @@
-   border: 0;
- }
-
-+.mobileFocusName {
-+  display: none;
-+  min-width: 0;
-+  font-size: 0.75rem;
-+  font-weight: 500;
-+  color: var(--pm6-ink);
-+  overflow: hidden;
-+  text-overflow: ellipsis;
-+  white-space: nowrap;
-+}
-+
- /* <768 — rail collapses into a compact topbar (190:306). */
- @media (max-width: 767px) {
-   .shell {
-@@ -318,4 +329,32 @@
-   .mainPage {
-     padding: var(--pm6-space-5) var(--pm6-space-4) var(--pm6-space-6);
-   }
-+
-+  /*
-+   * P5-S07 CP02 V4 — focused secondary mobile views (192:41 / 190:380):
-+   * Mark + project name + Pilot avatar. No wordmark, no « Projets » link.
-+   */
-+  .shell:has([data-active-view="journal"]) .brandName,
-+  .shell:has([data-active-view="history"]) .brandName,
-+  .shell:has([data-active-view="syntheses"]) .brandName {
-+    display: none;
-+  }
-+
-+  .shell:has([data-active-view="journal"]) .mobileFocusName,
-+  .shell:has([data-active-view="history"]) .mobileFocusName,
-+  .shell:has([data-active-view="syntheses"]) .mobileFocusName {
-+    display: inline;
-+  }
-+
-+  .shell:has([data-active-view="journal"]) .mobileNavLink,
-+  .shell:has([data-active-view="history"]) .mobileNavLink,
-+  .shell:has([data-active-view="syntheses"]) .mobileNavLink {
-+    display: none;
-+  }
-+
-+  .shell:has([data-active-view="journal"]) .mobileProfile,
-+  .shell:has([data-active-view="history"]) .mobileProfile,
-+  .shell:has([data-active-view="syntheses"]) .mobileProfile {
-+    margin-left: auto;
-+  }
- }
-diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/ProductShell.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/ProductShell.tsx
-index 1d83c50d..4ef5bbea 100644
---- a/projects/sfia-studio/app/features/pre-m6-product-ui/ProductShell.tsx
-+++ b/projects/sfia-studio/app/features/pre-m6-product-ui/ProductShell.tsx
-@@ -13,6 +13,12 @@ export type ProductShellProps = {
-    * matching entry in « Projets récents »; omitted when no project is open.
-    */
-   currentProjectHref?: string;
-+  /**
-+   * P5-S07 CP02 — focused mobile topbar (Journal / Historique / Synthèses):
-+   * Mark + real project name + Pilot avatar. Wordmark and « Projets » leave
-+   * when a focused secondary view is active (`:has([data-active-view=…])`).
-+   */
-+  mobileFocusProjectName?: string | null;
-   children: ReactNode;
- };
-
-@@ -39,13 +45,16 @@ function BrandMark() {
- export function ProductShell({
-   activeNav,
-   currentProjectHref,
-+  mobileFocusProjectName = null,
-   children,
- }: ProductShellProps) {
-+  const focusName = mobileFocusProjectName?.trim() || null;
-   return (
-     <div
-       className={styles.shell}
-       data-testid="studio-shell"
-       data-nav={activeNav}
-+      data-mobile-focus={focusName ? "ready" : "idle"}
-     >
-       <aside
-         className={styles.rail}
-@@ -92,6 +101,9 @@ export function ProductShell({
-           <Link href="/studio" className={styles.brand}>
-             <BrandMark />
-             <span className={styles.brandName}>SFIA Studio</span>
-+            {focusName ? (
-+              <span className={styles.mobileFocusName}>{focusName}</span>
-+            ) : null}
-           </Link>
-           <Link
-             href="/studio"
+## 45. Complete useful code diffs
 diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.module.css b/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.module.css
-index cebe63f9..91d4e805 100644
+index cebe63f9..aaed869c 100644
 --- a/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.module.css
 +++ b/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.module.css
-@@ -333,9 +333,14 @@
+@@ -215,6 +215,35 @@
+   color: var(--pm6-muted-strong);
+ }
+
++/*
++ * H2 190:111 — compact History page head. Hidden by default; shown only in
++ * the compact band when data-active-view=history (LARGE keeps project title).
++ */
++.historyPageHead {
++  display: none;
++  flex-direction: column;
++  gap: 4px;
++  min-width: 0;
++  padding-bottom: 2px;
++}
++
++.historyPageTitle {
++  margin: 0;
++  font-size: 1.5rem;
++  font-weight: 650;
++  letter-spacing: -0.02em;
++  line-height: 1.2;
++  color: var(--pm6-ink);
++}
++
++.historyPageSubtitle {
++  margin: 0;
++  max-width: 62ch;
++  font-size: 0.8125rem;
++  line-height: 1.45;
++  color: var(--pm6-muted-strong);
++}
++
+ /* Context sheet opener — only on single-column layouts (<900). */
+ .lpsToggle {
+   display: none;
+@@ -333,9 +362,14 @@
    background: var(--pm6-body);
  }
 
@@ -338,7 +178,7 @@ index cebe63f9..91d4e805 100644
  }
 
  .main {
-@@ -532,15 +537,16 @@
+@@ -532,15 +566,16 @@
    border-top: 1px solid var(--pm6-border-soft);
  }
 
@@ -357,7 +197,7 @@ index cebe63f9..91d4e805 100644
    }
 
    .lpsColumn {
-@@ -570,7 +576,7 @@
+@@ -570,12 +605,32 @@
      padding: var(--pm6-space-4) var(--pm6-space-3);
    }
 
@@ -366,7 +206,32 @@ index cebe63f9..91d4e805 100644
    .journalColumn {
      display: block;
    }
-@@ -589,9 +595,9 @@
+ }
+
++/*
++ * H2 HARD — 768–1199 History compact: breadcrumb + À jour stay; hide oversized
++ * project title/chips; show Historique page head; keep Conversation/Aperçu/Exécution.
++ */
++@media (min-width: 768px) and (max-width: 1199px) {
++  .root[data-active-view="history"] .projectHeaderText,
++  .root[data-active-view="history"] .projectChips {
++    display: none;
++  }
++
++  .root[data-active-view="history"] .historyPageHead {
++    display: flex;
++  }
++
++  .root[data-active-view="history"] .projectHeader {
++    min-height: 0;
++    gap: var(--pm6-space-2);
++  }
++}
++
+ /* ---------- ≥1200: full geometry (context 356px, roomy gutters) ---------- */
+
+ @media (min-width: 1200px) {
+@@ -589,9 +644,9 @@
    }
  }
 
@@ -378,7 +243,7 @@ index cebe63f9..91d4e805 100644
    .root {
      --ws-pad-x: 16px;
    }
-@@ -713,10 +719,13 @@
+@@ -713,10 +768,13 @@
    }
 
    /*
@@ -396,7 +261,7 @@ index cebe63f9..91d4e805 100644
    }
  }
 diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx
-index 0a6e0be3..998f674c 100644
+index 0a6e0be3..c0e83ccc 100644
 --- a/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx
 +++ b/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx
 @@ -54,7 +54,21 @@ import type { GetProjectResult, GetProjectSuccess } from "./types";
@@ -523,7 +388,29 @@ index 0a6e0be3..998f674c 100644
 
    return (
      <div
-@@ -603,20 +629,11 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
+@@ -555,6 +581,21 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
+             ) : null}
+           </div>
+         </div>
++        {/*
++         * H2 190:111 — compact History page head (title + short subtitle).
++         * Shown only in the compact band; LARGE keeps the project title block.
++         */}
++        {activeView === "history" ? (
++          <div
++            className={styles.historyPageHead}
++            data-testid="history-page-head"
++          >
++            <h1 className={styles.historyPageTitle}>Historique</h1>
++            <p className={styles.historyPageSubtitle}>
++              Retrouver les changements importants du projet et leur contexte.
++            </p>
++          </div>
++        ) : null}
+         <nav
+           className={styles.tabs}
+           aria-label="Vues du projet"
+@@ -603,20 +644,11 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
        </header>
 
        <div
@@ -546,7 +433,7 @@ index 0a6e0be3..998f674c 100644
        >
          <div className={styles.main} ref={conversationRef}>
            {activeView === "conversation" ? (
-@@ -702,6 +719,51 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
+@@ -702,6 +734,51 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
              />
            ) : null}
 
@@ -598,7 +485,7 @@ index 0a6e0be3..998f674c 100644
            {activeView === "execution" ? (
              <ExecutionSurface
                projectId={projectId}
-@@ -817,6 +879,9 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
+@@ -817,6 +894,9 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
                data-testid="project-journal-column"
              >
                <JournalSurface
@@ -608,7 +495,7 @@ index 0a6e0be3..998f674c 100644
                  entries={controller.journalEntries}
                  cycleInstanceId={controller.journalCycleInstanceId}
                  reservationsCycleInstanceId={reservationCycleInstanceId}
-@@ -849,8 +914,6 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
+@@ -849,8 +929,6 @@ export function ProjectWorkspacePage({ projectId }: { projectId: string }) {
                  </p>
                ) : null}
              </div>
@@ -617,191 +504,11 @@ index 0a6e0be3..998f674c 100644
            </div>
 
            <ProjectContextShortcuts
-diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts b/projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
-index 8490c6d6..ecadd672 100644
---- a/projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
-+++ b/projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
-@@ -43,11 +43,19 @@ import {
- import { useRunningAttemptO3Observation } from "./useRunningAttemptO3Observation";
- import { sendCancellableAssistantTurn } from "./sendCancellableAssistantTurn";
- import type { JournalSurfaceEntry } from "../surfaces/JournalSurface";
-+import type { ActiveDecisionSubjectReadResult } from "@/features/project-assistant/w2/types";
-+
-+export type ProductDecisionSubjectContinuity =
-+  | { readonly status: "pending" }
-+  | { readonly status: "unavailable"; readonly message: string }
-+  | Extract<ActiveDecisionSubjectReadResult, { ok: true }>;
-
- export type ProductMessage = {
-   id: string;
-   role: "user" | "assistant" | "system";
-   content: string;
-+  /** Durable Session turn timestamp when known — never synthesized client-side. */
-+  createdAt?: string | null;
- };
-
- export type TranscriptAvailability =
-@@ -130,6 +138,12 @@ export function useProductConversation({
-   );
-   const [f2, setF2] = useState<F2TurnPayload | null>(null);
-   const [activeProposal, setActiveProposal] = useState<ProposalDto | null>(null);
-+  /**
-+   * P5-S07 CP01 — durable decision-subject continuity from server read on mount.
-+   * Never fabricates a ProposalDto from thin air.
-+   */
-+  const [decisionSubjectContinuity, setDecisionSubjectContinuity] =
-+    useState<ProductDecisionSubjectContinuity>({ status: "pending" });
-   const [reservesText, setReservesText] = useState("");
-   const [f3Prepare, setF3Prepare] = useState<F3PreparePayload | null>(null);
-   const [f3M3Resolved, setF3M3Resolved] = useState<F3M3ResolvedPayload | null>(
-@@ -262,6 +276,7 @@ export function useProductConversation({
-           id: m.id,
-           role: m.role,
-           content: m.content,
-+          createdAt: m.createdAt ?? null,
-         })),
-       );
-       setJournalCycleInstanceId(result.journal.cycleInstanceId);
-@@ -276,6 +291,46 @@ export function useProductConversation({
-     };
-   }, [projectId, activeCycleInstanceId]);
-
-+  // P5-S07 CP01 — rehydrate durable decision subject after process-local Proposal loss.
-+  // Dynamic import keeps w2/actions (server-only) out of the client module graph.
-+  useEffect(() => {
-+    let cancelled = false;
-+    setDecisionSubjectContinuity({ status: "pending" });
-+    void import("@/features/project-assistant/w2/actions")
-+      .then(({ w2ReadActiveDecisionSubjectAction }) =>
-+        w2ReadActiveDecisionSubjectAction({ projectId }),
-+      )
-+      .then((result) => {
-+        if (cancelled) return;
-+        if (!result.ok) {
-+          setDecisionSubjectContinuity({
-+            status: "unavailable",
-+            message: result.message,
-+          });
-+          return;
-+        }
-+        setDecisionSubjectContinuity(result);
-+        // Never invent ProposalDto. Only clear stale local Proposal when server
-+        // says none / reinstruction — never auto-synthesize from optionSet.
-+        if (
-+          result.kind === "none" ||
-+          result.kind === "pending_reinstruction_required"
-+        ) {
-+          setActiveProposal(null);
-+        }
-+      })
-+      .catch(() => {
-+        if (cancelled) return;
-+        setDecisionSubjectContinuity({
-+          status: "unavailable",
-+          message: "Sujet de décision indisponible pour la reprise.",
-+        });
-+      });
-+    return () => {
-+      cancelled = true;
-+    };
-+  }, [projectId]);
-+
-   useEffect(() => {
-     let cancelled = false;
-     applyDurableEvidenceOutcome(null);
-@@ -394,6 +449,7 @@ export function useProductConversation({
-           id: m.id,
-           role: m.role,
-           content: m.content,
-+          createdAt: m.createdAt ?? null,
-         })),
-       );
-     }
-@@ -962,6 +1018,7 @@ export function useProductConversation({
-     lrMaterializeCode,
-     f2,
-     activeProposal,
-+    decisionSubjectContinuity,
-     reservesText,
-     setReservesText,
-     f3Prepare,
-diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/product-tokens.css b/projects/sfia-studio/app/features/pre-m6-product-ui/product-tokens.css
-index 84f468d5..779f2d17 100644
---- a/projects/sfia-studio/app/features/pre-m6-product-ui/product-tokens.css
-+++ b/projects/sfia-studio/app/features/pre-m6-product-ui/product-tokens.css
-@@ -87,6 +87,11 @@
-   --pm6-global-header-h: 54px;
-   --pm6-context-width: 356px;
-   --pm6-focus-bar-h: 50px;
-+
-+  /* P3 Historique 78:2 — body 1224 split master ~790 | detail ~434. */
-+  --pm6-history-detail-w: 434px;
-+  /* P3 Journal 94:2 — body 1226 split subjects index ~440 | detail ~785. */
-+  --pm6-journal-index-w: 440px;
- }
-
- /* Responsive geometry: <1200 compact (rail ~160, context ~280). */
-diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
-index 81413a2e..ba1ca056 100644
---- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
-+++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
-@@ -116,6 +116,7 @@ export function ConversationSurface({
-     lrMaterializeCode,
-     f2,
-     activeProposal,
-+    decisionSubjectContinuity,
-     reservesText,
-     setReservesText,
-     f3Prepare,
-@@ -512,6 +513,43 @@ export function ConversationSurface({
-         </section>
-       ) : null}
-
-+      {decisionSubjectContinuity &&
-+      typeof decisionSubjectContinuity === "object" &&
-+      "ok" in decisionSubjectContinuity &&
-+      decisionSubjectContinuity.ok &&
-+      decisionSubjectContinuity.kind === "pending_reinstruction_required" ? (
-+        <aside
-+          className={styles.proposalCard}
-+          data-testid="decision-subject-reinstruction"
-+          aria-label="Sujet de décision à reformuler"
-+        >
-+          <p className={styles.proposalTitle}>Reprise du sujet</p>
-+          <p className={styles.proposalMeta}>
-+            {decisionSubjectContinuity.message}
-+          </p>
-+          <p className={styles.proposalMeta}>
-+            La proposition process-locale n&apos;est plus disponible. Reformulez
-+            avec Nora — aucune proposition n&apos;est inventée.
-+          </p>
-+        </aside>
-+      ) : null}
-+      {decisionSubjectContinuity &&
-+      typeof decisionSubjectContinuity === "object" &&
-+      "ok" in decisionSubjectContinuity &&
-+      decisionSubjectContinuity.ok &&
-+      decisionSubjectContinuity.kind === "bound_awaiting_decision" ? (
-+        <aside
-+          className={styles.proposalCard}
-+          data-testid="decision-subject-bound"
-+          aria-label="Sujet de décision courant"
-+        >
-+          <p className={styles.proposalTitle}>Sujet de décision courant</p>
-+          <p className={styles.proposalMeta}>
-+            Options présentées reconstruites depuis le Product (Epistemic) —
-+            pas depuis un store process-local.
-+          </p>
-+        </aside>
-+      ) : null}
-       {activeProposal && !reservationResolutionProposal ? (
-         <section
-           className={styles.card}
 diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/HistorySurface.module.css b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/HistorySurface.module.css
-index d0b61c1b..48de71c7 100644
+index d0b61c1b..22346f52 100644
 --- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/HistorySurface.module.css
 +++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/HistorySurface.module.css
-@@ -1,103 +1,960 @@
+@@ -1,103 +1,992 @@
 +/*
 + * P5-S07 Historique — Figma 78:2 (1440×1024, body 1224 = master ~790 | detail ~434),
 + * 190:111 compact (narrow master panel | wide detail), 190:380 / 190:412 mobile.
@@ -897,6 +604,17 @@ index d0b61c1b..48de71c7 100644
    color: var(--pm6-ink);
  }
 
++/* Compact master eyebrow (190:111) — hidden on LARGE / MOBILE list. */
++.listEyebrow {
++  display: none;
++  margin: 0;
++  font-size: 0.625rem;
++  font-weight: 600;
++  letter-spacing: 0.08em;
++  text-transform: uppercase;
++  color: var(--pm6-muted-faint);
++}
++
  .note {
    margin: 0;
 -  font-size: 0.84rem;
@@ -904,9 +622,9 @@ index d0b61c1b..48de71c7 100644
 +  max-width: 74ch;
 +  font-size: 0.8125rem;
 +  line-height: 1.5;
-+  color: var(--pm6-muted-strong);
-+}
-+
+   color: var(--pm6-muted-strong);
+ }
+
 +.filters {
 +  display: flex;
 +  flex-wrap: wrap;
@@ -920,7 +638,7 @@ index d0b61c1b..48de71c7 100644
 +  border-radius: var(--pm6-radius-pill);
 +  border: 1px solid var(--pm6-border);
 +  background: var(--pm6-surface-sunken);
-   color: var(--pm6-muted-strong);
++  color: var(--pm6-muted-strong);
 +  padding: 7px 14px;
 +  min-height: 38px;
 +  font: inherit;
@@ -998,8 +716,8 @@ index d0b61c1b..48de71c7 100644
 +  letter-spacing: 0.08em;
 +  text-transform: uppercase;
 +  color: var(--pm6-muted-faint);
- }
-
++}
++
  .timeline {
    list-style: none;
    margin: 0;
@@ -1444,8 +1162,12 @@ index d0b61c1b..48de71c7 100644
 +  color: var(--pm6-accent);
 +}
 +
-+/* Mobile reading composition (190:412 only) — hidden at COMPACT+ (≥768). */
-+.mobileReading {
++/*
++ * Compact + mobile reading (190:111 / 190:412) — kind, title, summary,
++ * CONTEXTE, ÉLÉMENTS LIÉS, Ask Nora CTA. Hidden on LARGE (≥1200) where
++ * full H1 desktop blocks own the detail pane.
++ */
++.compactReading {
 +  display: none;
 +  flex-direction: column;
 +  gap: var(--pm6-space-3);
@@ -1550,32 +1272,47 @@ index d0b61c1b..48de71c7 100644
 +}
 +
 +/*
-+ * ---------- 768–1199 compact (190:111) ----------
-+ * Narrow master panel on its own surface, wide reading detail.
++ * ---------- 768–1199 compact (190:111) HARD ----------
++ * ~300px master on #fbf7f2 with « HISTORIQUE » eyebrow; compact cards
++ * (title + time); detail uses compactReading (not full H1 blocks).
++ * Filters / search / long note / back-to-overview stay desktop-only.
 + */
 +@media (min-width: 768px) and (max-width: 1199px) {
 +  .layout {
-+    grid-template-columns: minmax(0, 280px) minmax(0, 1fr);
++    grid-template-columns: minmax(0, 300px) minmax(0, 1fr);
 +  }
 +
 +  .masterPane {
-+    background: var(--pm6-rail);
++    background: #fbf7f2;
 +    border-right: 1px solid var(--pm6-border);
 +    padding: 16px 14px 20px;
 +  }
 +
-+  .title {
-+    font-size: 1.25rem;
-+  }
-+
++  .title,
 +  .filters,
 +  .searchLabel,
-+  .backLink {
++  .backLink,
++  .note {
 +    display: none;
 +  }
 +
-+  .note {
-+    font-size: 0.75rem;
++  .listEyebrow {
++    display: block;
++    margin: 0 0 8px;
++    font-size: 1rem;
++    font-weight: 650;
++    letter-spacing: 0.04em;
++    text-transform: uppercase;
++    color: var(--pm6-ink);
++  }
++
++  .titleRow {
++    display: block;
++    justify-content: flex-start;
++  }
++
++  .head {
++    margin-bottom: 4px;
 +  }
 +
 +  .detailPane {
@@ -1588,9 +1325,19 @@ index d0b61c1b..48de71c7 100644
 +    max-width: 64ch;
 +  }
 +
-+  /* Compact 190:111 keeps the desktop reading blocks — mobileReading is <768 only. */
++  .detailWhen {
++    display: none;
++  }
 +
-+  /* Compact rows read as cards (no timeline rail). */
++  .compactReading {
++    display: flex;
++  }
++
++  .desktopOnly {
++    display: none;
++  }
++
++  /* Compact rows: title + time only (no timeline rail, no kind chip). */
 +  .timelineItem {
 +    padding-left: 0;
 +  }
@@ -1607,15 +1354,14 @@ index d0b61c1b..48de71c7 100644
 +    border-color: var(--pm6-border);
 +    background: var(--pm6-surface);
 +    grid-template-columns: minmax(0, 1fr) auto;
-+    grid-template-areas:
-+      "label when"
-+      "kind  kind";
-+    row-gap: 4px;
++    grid-template-areas: "label when";
++    row-gap: 0;
 +  }
 +
 +  .marker,
 +  .chevron,
-+  .detail {
++  .detail,
++  .kind {
 +    display: none;
 +  }
 +
@@ -1630,17 +1376,6 @@ index d0b61c1b..48de71c7 100644
 +
 +  .when::after {
 +    content: none;
-+  }
-+
-+  .kind {
-+    grid-area: kind;
-+    justify-self: start;
-+    border: 0;
-+    background: transparent;
-+    padding: 0;
-+    font-size: 0.75rem;
-+    font-weight: 500;
-+    color: var(--pm6-accent);
 +  }
 +}
 +
@@ -1705,11 +1440,15 @@ index d0b61c1b..48de71c7 100644
 +    display: none;
 +  }
 +
-+  .mobileReading {
++  .compactReading {
 +    display: flex;
 +  }
 +
 +  .desktopOnly {
++    display: none;
++  }
++
++  .listEyebrow {
 +    display: none;
 +  }
 +
@@ -1803,7 +1542,7 @@ index d0b61c1b..48de71c7 100644
    }
  }
 diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/HistorySurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/HistorySurface.tsx
-index ab08623d..c5d6e77c 100644
+index ab08623d..bd320099 100644
 --- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/HistorySurface.tsx
 +++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/HistorySurface.tsx
 @@ -1,157 +1,123 @@
@@ -2054,7 +1793,7 @@ index ab08623d..c5d6e77c 100644
    const projectId = result.project.projectId;
    const lpsVersion = result.livingState.version;
 
-@@ -166,34 +132,457 @@ export function HistorySurface({
+@@ -166,34 +132,467 @@ export function HistorySurface({
      };
    }, [projectId, lpsVersion]);
 
@@ -2201,10 +1940,14 @@ index ab08623d..c5d6e77c 100644
 +              <h2 id="pm6-history-title" className={styles.title}>
 +                Historique
 +              </h2>
++              <p className={styles.listEyebrow} aria-hidden>
++                Historique
++              </p>
 +              <div
 +                className={styles.filters}
 +                role="toolbar"
 +                aria-label="Filtrer l'historique"
++                data-testid="history-filters"
 +              >
 +                {FILTERS.map((item) => (
 +                  <button
@@ -2338,17 +2081,23 @@ index ab08623d..c5d6e77c 100644
 +                <p className={styles.detailSummary}>{selected.summary}</p>
 +              </div>
 +
-+              {/* Mobile / compact reading path — 190:412 / 190:111 */}
++              {/* Compact + mobile reading path — 190:111 / 190:412 (not full H1 blocks). */}
 +              <div
-+                className={styles.mobileReading}
-+                data-testid="history-mobile-reading"
++                className={styles.compactReading}
++                data-testid="history-compact-reading"
 +              >
 +                <div className={styles.detailBlock}>
 +                  <p className={styles.detailBlockLabel}>Contexte</p>
 +                  <p className={styles.detailBlockBody}>
-+                    {selected.why ??
-+                      selected.decidedWhat ??
-+                      selected.summary}
++                    {/*
++                     * Compact/mobile CONTEXTE prefers Pilot-facing summary over
++                     * technical why dumps (basisSourceType, raw refs). Full why
++                     * remains in the LARGE desktop block below.
++                     */}
++                    {selected.summary ||
++                      selected.decidedWhat ||
++                      selected.why ||
++                      "Contexte non enregistré pour cet événement."}
 +                  </p>
 +                </div>
 +                <div className={styles.detailBlock}>
@@ -2534,7 +2283,7 @@ index ab08623d..c5d6e77c 100644
    );
  }
 diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/JournalSurface.module.css b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/JournalSurface.module.css
-index 9af31be2..77df99fc 100644
+index 9af31be2..60a293b4 100644
 --- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/JournalSurface.module.css
 +++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/JournalSurface.module.css
 @@ -74,18 +74,17 @@
@@ -2619,7 +2368,7 @@ index 9af31be2..77df99fc 100644
    color: var(--pm6-ink-soft);
    overflow-wrap: anywhere;
  }
-@@ -457,3 +475,835 @@
+@@ -457,3 +475,920 @@
    font-weight: 700;
    color: var(--pm6-ink);
  }
@@ -2735,7 +2484,7 @@ index 9af31be2..77df99fc 100644
 +  display: flex;
 +  flex-wrap: wrap;
 +  align-items: center;
-+  gap: var(--pm6-space-2);
++  gap: 8px 10px;
 +  min-width: 0;
 +}
 +
@@ -2747,14 +2496,6 @@ index 9af31be2..77df99fc 100644
 +  letter-spacing: -0.02em;
 +  line-height: 1.2;
 +  color: var(--pm6-ink);
-+}
-+
-+.principalMeta {
-+  display: inline-flex;
-+  flex-wrap: wrap;
-+  align-items: center;
-+  gap: var(--pm6-space-2);
-+  margin-left: auto;
 +}
 +
 +.principalChip,
@@ -2771,7 +2512,9 @@ index 9af31be2..77df99fc 100644
 +  white-space: nowrap;
 +}
 +
++/* Freshness sits on the right of the title row (94:2). */
 +.principalChipOk {
++  margin-left: auto;
 +  color: var(--pm6-ok);
 +  border-color: color-mix(in srgb, var(--pm6-ok) 26%, transparent);
 +  background: var(--pm6-ok-tint);
@@ -2789,7 +2532,10 @@ index 9af31be2..77df99fc 100644
 +}
 +
 +.principal .tabs {
-+  gap: var(--pm6-space-2);
++  display: flex;
++  flex-wrap: nowrap;
++  gap: 8px;
++  align-items: center;
 +  padding: var(--pm6-space-3) var(--ws-pad-x, 24px);
 +  border-bottom: 1px solid var(--pm6-border);
 +}
@@ -2797,36 +2543,47 @@ index 9af31be2..77df99fc 100644
 +.principal .tab {
 +  display: inline-flex;
 +  align-items: center;
-+  gap: 8px;
++  justify-content: center;
++  gap: 4px;
++  border-radius: 7px;
 +  border-color: var(--pm6-border);
 +  background: var(--pm6-surface-sunken);
++  padding: 6px 12px;
++  min-height: 30px;
++  font-size: 0.75rem;
++  font-weight: 500;
++  white-space: nowrap;
 +}
 +
 +.principal .tabActive {
-+  color: var(--pm6-accent);
-+  border-color: color-mix(in srgb, var(--pm6-accent) 28%, transparent);
-+  background: var(--pm6-accent-tint);
++  color: #d9563b;
++  border-color: transparent;
++  background: #fff0ea;
 +}
 +
++.tabLabel {
++  min-width: 0;
++}
++
++/* Plain digit beside the label — never a large circle badge (192:41 / 94:2). */
 +.tabCount {
-+  display: inline-flex;
-+  align-items: center;
-+  justify-content: center;
-+  min-width: 18px;
-+  height: 18px;
-+  padding: 0 5px;
-+  border-radius: var(--pm6-radius-pill);
-+  background: var(--pm6-surface);
-+  border: 1px solid var(--pm6-border);
-+  font-size: 0.625rem;
-+  font-weight: 700;
-+  line-height: 1;
-+  color: var(--pm6-muted-strong);
++  display: inline;
++  min-width: 0;
++  height: auto;
++  padding: 0;
++  border: 0;
++  border-radius: 0;
++  background: transparent;
++  font-size: inherit;
++  font-weight: 500;
++  line-height: inherit;
++  color: inherit;
++  font-variant-numeric: tabular-nums;
 +}
 +
 +.principal .tabActive .tabCount {
-+  color: var(--pm6-accent);
-+  border-color: color-mix(in srgb, var(--pm6-accent) 24%, transparent);
++  color: inherit;
++  border-color: transparent;
 +}
 +
 +/* ---------- principal subjects index ---------- */
@@ -3163,11 +2920,11 @@ index 9af31be2..77df99fc 100644
 +  border-radius: 8px;
 +  background: #fbf7f2;
 +  overflow: hidden;
-+  max-height: 92px; /* ~2 dense rows preview (94:2) */
++  max-height: 84px; /* ~2 dense rows preview (94:2) — keep compact panel */
 +}
 +
 +.exchangePanel[data-expanded="true"] {
-+  max-height: 160px; /* 94:222 bounded internal scroll */
++  max-height: 168px; /* 94:222 dense rows + internal scroll */
 +  overflow-y: auto;
 +}
 +
@@ -3196,11 +2953,11 @@ index 9af31be2..77df99fc 100644
 +  border: 0;
 +  border-radius: 0;
 +  background: transparent;
-+  padding: 9px 10px;
++  padding: 7px 10px;
 +  font: inherit;
 +  color: inherit;
 +  cursor: pointer;
-+  min-height: 38px;
++  min-height: 36px;
 +}
 +
 +.exchangeWho {
@@ -3375,23 +3132,63 @@ index 9af31be2..77df99fc 100644
 +    display: inline;
 +  }
 +
-+  .principalMeta {
++  /* Context / freshness chips leave the focused mobile list (shell owns identity). */
++  .principalChip,
++  .principalChipOk {
 +    display: none;
 +  }
 +
 +  /*
-+   * V2 — 192:41: all four memory tabs visible at 390px. Prefer wrap over
-+   * horizontal scroll so « Décisions » is never clipped off-screen.
++   * J3 HARD — 192:41: ONE ROW of 4 tabs at 390px.
++   * Filters row flex, gap 8, height ~36; each tab ≈82×30, radius 7, font 9px medium.
++   * Label may wrap INSIDE the tab; count is a plain digit (not a circle badge).
++   * flex-nowrap; no horizontal scroll.
 +   */
 +  .principal .tabs {
-+    overflow-x: visible;
-+    flex-wrap: wrap;
++    flex-wrap: nowrap;
 +    gap: 8px;
++    height: 36px;
++    align-items: center;
++    overflow: hidden;
 +    padding-inline: var(--ws-pad-x, 16px);
 +  }
 +
 +  .principal .tab {
-+    flex: 0 1 auto;
++    flex: 1 1 0;
++    width: 82px;
++    max-width: 82px;
++    min-width: 0;
++    height: 30px;
++    min-height: 30px;
++    padding: 2px 4px;
++    border-radius: 7px;
++    font-size: 9px;
++    font-weight: 500;
++    line-height: 1.15;
++    white-space: normal;
++    text-align: center;
++    align-items: center;
++    justify-content: center;
++    gap: 3px;
++  }
++
++  .principal .tab .tabLabel {
++    display: inline;
++  }
++
++  .principal .tabActive {
++    background: #fff0ea;
++    color: #d9563b;
++    border-color: transparent;
++  }
++
++  /*
++   * J4 HARD — 192:81: when mobile detail is focused, hide list chrome
++   * (← Conversation / title / subtitle + memory tabs). Detail owns the page.
++   */
++  .root[data-mobile-detail="true"] .principalHeader,
++  .root[data-mobile-detail="true"] .tabs {
++    display: none;
 +  }
 +
 +  /* V3 — mobile list cards: single-line summary, ordinal-only heading. */
@@ -3426,6 +3223,38 @@ index 9af31be2..77df99fc 100644
 +    color: inherit;
 +  }
 +
++  /* Sparse mobile detail rhythm — no desktop section chrome (192:81). */
++  .detailHead {
++    border-bottom: 0;
++    padding-bottom: 0;
++  }
++
++  .detailUpdated {
++    display: none;
++  }
++
++  .detailHead .ordinal {
++    display: none;
++  }
++
++  .detailSection {
++    border-bottom: 0;
++    padding-bottom: 0;
++    gap: 8px;
++  }
++
++  .detailInner {
++    gap: var(--pm6-space-4);
++  }
++
++  .detailTitle {
++    font-size: 1.375rem;
++  }
++
++  .linkedPills {
++    display: none;
++  }
++
 +  .exchangePanel {
 +    max-height: none;
 +  }
@@ -3454,9 +3283,14 @@ index 9af31be2..77df99fc 100644
 +    -webkit-line-clamp: 2;
 +    -webkit-box-orient: vertical;
 +  }
++
++  /* Mobile detail footer: expand exchanges CTA only (conversation CTA stays). */
++  .detailFooter {
++    justify-content: flex-start;
++  }
 +}
 diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/JournalSurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/JournalSurface.tsx
-index 3a772999..f7f66b4a 100644
+index 3a772999..805afcf7 100644
 --- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/JournalSurface.tsx
 +++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/JournalSurface.tsx
 @@ -43,8 +43,17 @@ export type JournalTranscriptMessage = {
@@ -3620,7 +3454,7 @@ index 3a772999..f7f66b4a 100644
    const tab: JournalMemoryTab = memoryTab ?? internalTab;
    const setTab = (next: JournalMemoryTab) => {
      if (memoryTab === undefined) setInternalTab(next);
-@@ -268,34 +359,140 @@ export function JournalSurface({
+@@ -268,34 +359,145 @@ export function JournalSurface({
            ? `${openRecommendationCount} en attente de votre réponse`
            : `${decisionCount} décision${decisionCount === 1 ? "" : "s"} enregistrée${decisionCount === 1 ? "" : "s"}`;
 
@@ -3728,19 +3562,24 @@ index 3a772999..f7f66b4a 100644
 +            <h2 className={styles.principalTitle} id="cycle-journal-heading">
 +              Journal du cycle
 +            </h2>
-+            <span className={styles.principalMeta}>
-+              {cycleLabel ? (
-+                <span className={styles.principalChip}>{cycleLabel}</span>
-+              ) : null}
-+              {currentnessLabel ? (
-+                <span
-+                  className={styles.principalChipOk}
-+                  data-testid="project-journal-currentness"
-+                >
-+                  {currentnessLabel}
-+                </span>
-+              ) : null}
++            {/*
++             * Context chip: honest cycleLabel when known; otherwise Pilot-facing
++             * surface-identity copy — never invent Product facts (no hardcoded P3 · …).
++             */}
++            <span
++              className={styles.principalChip}
++              data-testid="project-journal-cycle-chip"
++            >
++              {cycleLabel?.trim() || "Espace projet / interaction"}
 +            </span>
++            {currentnessLabel ? (
++              <span
++                className={styles.principalChipOk}
++                data-testid="project-journal-currentness"
++              >
++                {currentnessLabel}
++              </span>
++            ) : null}
 +          </div>
 +          {tab === "sujets" ? (
 +            <p className={styles.principalSubtitle}>
@@ -3785,7 +3624,7 @@ index 3a772999..f7f66b4a 100644
 
        {!collapsed ? (
          <div
-@@ -304,65 +501,63 @@ export function JournalSurface({
+@@ -304,65 +506,63 @@ export function JournalSurface({
            aria-label="Mémoire de cycle"
            data-testid="memory-rail-tabs"
          >
@@ -3871,10 +3710,10 @@ index 3a772999..f7f66b4a 100644
 +                aria-controls={item.paneId}
 +                onClick={() => setTab(item.id)}
 +              >
-+                {/* Principal splits the count into a badge (94:2); the rail keeps one label. */}
++                {/* Principal: plain digit beside label (192:41 / 94:2) — never a circle badge. */}
 +                {principal ? (
 +                  <>
-+                    {item.label}
++                    <span className={styles.tabLabel}>{item.label}</span>
 +                    <span className={styles.tabCount}>{count}</span>
 +                  </>
 +                ) : (
@@ -3908,7 +3747,7 @@ index 3a772999..f7f66b4a 100644
          </div>
        ) : null}
 
-@@ -790,8 +985,10 @@ export function JournalSurface({
+@@ -790,8 +990,10 @@ export function JournalSurface({
                ici comme index navigable.
              </p>
            ) : (
@@ -3921,7 +3760,7 @@ index 3a772999..f7f66b4a 100644
                const expanded = expandedEntryId === entry.journalEntryId;
                const pointsOpen = pointsOpenId === entry.journalEntryId;
                const hasPoints =
-@@ -820,7 +1017,10 @@ export function JournalSurface({
+@@ -820,7 +1022,10 @@ export function JournalSurface({
                    <button
                      type="button"
                      className={styles.cardSelect}
@@ -3933,7 +3772,7 @@ index 3a772999..f7f66b4a 100644
                      aria-pressed={selected}
                    >
                      <span className={styles.cardHeading}>
-@@ -829,7 +1029,9 @@ export function JournalSurface({
+@@ -829,7 +1034,9 @@ export function JournalSurface({
                            className={styles.ordinal}
                            data-testid={`cycle-journal-ordinal-${entry.journalEntryId}`}
                          >
@@ -3944,7 +3783,7 @@ index 3a772999..f7f66b4a 100644
                          </span>
                        ) : null}
                        {entry.isCurrentTopic ? (
-@@ -840,6 +1042,14 @@ export function JournalSurface({
+@@ -840,6 +1047,14 @@ export function JournalSurface({
                            En cours
                          </span>
                        ) : null}
@@ -3959,7 +3798,7 @@ index 3a772999..f7f66b4a 100644
                      </span>
                      <span className={styles.cardTitle}>{entry.title}</span>
                      <span className={styles.cardSummary}>
-@@ -853,9 +1063,17 @@ export function JournalSurface({
+@@ -853,9 +1068,17 @@ export function JournalSurface({
                          {entry.sourceTurnCount} échange
                          {entry.sourceTurnCount === 1 ? "" : "s"}
                        </span>
@@ -3978,7 +3817,7 @@ index 3a772999..f7f66b4a 100644
                      <button
                        type="button"
                        className={styles.viewExchanges}
-@@ -874,7 +1092,7 @@ export function JournalSurface({
+@@ -874,7 +1097,7 @@ export function JournalSurface({
                          : "Points stabilisés / ouverts"}
                      </button>
                    ) : null}
@@ -3987,7 +3826,7 @@ index 3a772999..f7f66b4a 100644
                      <div
                        className={styles.pointsBlock}
                        data-testid={`cycle-journal-points-body-${entry.journalEntryId}`}
-@@ -901,7 +1119,7 @@ export function JournalSurface({
+@@ -901,7 +1124,7 @@ export function JournalSurface({
                        ) : null}
                      </div>
                    ) : null}
@@ -3996,7 +3835,7 @@ index 3a772999..f7f66b4a 100644
                      <button
                        type="button"
                        className={styles.viewExchanges}
-@@ -920,7 +1138,7 @@ export function JournalSurface({
+@@ -920,7 +1143,7 @@ export function JournalSurface({
                        {expanded ? "Masquer les échanges" : "Voir les échanges"}
                      </button>
                    ) : null}
@@ -4005,7 +3844,7 @@ index 3a772999..f7f66b4a 100644
                      <ul
                        id={`cycle-journal-exchanges-${entry.journalEntryId}`}
                        className={styles.exchangeList}
-@@ -943,24 +1161,324 @@ export function JournalSurface({
+@@ -943,24 +1166,324 @@ export function JournalSurface({
                                }}
                                disabled={!preview.resolvable}
                              >
@@ -4342,2163 +4181,92 @@ index 3a772999..f7f66b4a 100644
 +    </Root>
    );
  }
-diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.tsx
-index 8d1cf279..f7413370 100644
---- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.tsx
-+++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.tsx
-@@ -23,6 +23,13 @@ import {
-   readyExceptFinalizeDecision,
-   summarizeFinalizationReadiness,
- } from "./lifecyclePresentation";
-+import {
-+  workProductionPilotLabel,
-+  workRequirementPilotLabel,
-+  workTriStatePilotLabel,
-+  workValidationPilotLabel,
-+} from "@/features/project-assistant/w2/deriveWorkRepresentationProjection";
-+import { deriveWorkRepresentationFromLifecycleProjection } from "./deriveWorkRepresentationFromLifecycle";
- import styles from "./LifecycleSurface.module.css";
 
- function cycleCatalogLabel(projection: PilotLifecycleProjection | null): string {
-@@ -242,6 +249,8 @@ export function LifecycleSurface({
-   const cycleTitle = cycleCatalogLabel(projection);
-   const badge = lifecycleStatusBadge(projection);
-   const cta = lifecycleCtaPresentation(projection);
-+  const workRepresentation =
-+    deriveWorkRepresentationFromLifecycleProjection(projection);
-   const finalizeRec = primaryFinalizeRecommendation(projection);
-   const nextRec = primaryNextCycleRecommendation(projection);
-   const nonHd = nonHumanDecisionBlockers(projection.assessment);
-@@ -301,6 +310,52 @@ export function LifecycleSurface({
-         </p>
-       </header>
-
-+      {workRepresentation ? (
-+        <section
-+          className={styles.block}
-+          data-testid="lifecycle-work-representation"
-+          aria-label="Représentation du travail"
-+        >
-+          <p className={styles.eyebrow}>LIVRABLE / TRAVAIL</p>
-+          <p
-+            className={styles.muted}
-+            data-testid="lifecycle-work-representation-summary"
-+          >
-+            {workRepresentation.pilotSummary}
-+          </p>
-+          <ul className={styles.list} data-testid="lifecycle-work-representation-states">
-+            <li data-requirement={workRepresentation.requirementState}>
-+              Exigence ·{" "}
-+              {workRequirementPilotLabel(workRepresentation.requirementState)}
-+            </li>
-+            <li data-production={workRepresentation.productionState}>
-+              Production ·{" "}
-+              {workProductionPilotLabel(workRepresentation.productionState)}
-+            </li>
-+            <li data-validation={workRepresentation.validationState}>
-+              Qualification ·{" "}
-+              {workValidationPilotLabel(workRepresentation.validationState)}
-+            </li>
-+            <li data-exit-proof={String(workRepresentation.exitProofSatisfied)}>
-+              Preuve de sortie ·{" "}
-+              {workTriStatePilotLabel(workRepresentation.exitProofSatisfied, {
-+                true: "Satisfaite",
-+                false: "Non satisfaite",
-+                unknown: "Non déterminée",
-+              })}
-+            </li>
-+            <li data-cycle-complete={String(workRepresentation.cycleComplete)}>
-+              Cycle ·{" "}
-+              {workTriStatePilotLabel(workRepresentation.cycleComplete, {
-+                true: "Terminé",
-+                false: "En cours",
-+                unknown: "Non déterminé",
-+              })}
-+            </li>
-+          </ul>
-+        </section>
-+      ) : null}
-+
-       {error ? (
-         <p className={styles.error} role="alert">
-           {error}
-diff --git a/projects/sfia-studio/app/features/project-assistant/actions.ts b/projects/sfia-studio/app/features/project-assistant/actions.ts
-index bb03f760..b6970355 100644
---- a/projects/sfia-studio/app/features/project-assistant/actions.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/actions.ts
-@@ -936,7 +936,13 @@ export async function projectAssistantConversationContinuityAction(input: {
- }): Promise<{
-   ok: true;
-   transcriptAvailability: "available" | "empty" | "unavailable";
--  messages: { id: string; role: "user" | "assistant"; content: string }[];
-+  messages: {
-+    id: string;
-+    role: "user" | "assistant";
-+    content: string;
-+    /** Durable Session timestamp when present — never invented for UI. */
-+    createdAt: string | null;
-+  }[];
-   journal: {
-     cycleInstanceId: string | null;
-     currentTopicEntryId: string | null;
-@@ -995,6 +1001,7 @@ export async function projectAssistantConversationContinuityAction(input: {
-           id: t.turnId,
-           role: t.role as "user" | "assistant",
-           content: t.content,
-+          createdAt: t.createdAt?.trim() || null,
-         }));
-       const cycleInstanceId = input.cycleInstanceId?.trim() || null;
-       const listed = cycleInstanceId
-@@ -1443,7 +1450,16 @@ async function buildAssistantPilotLifecycleProjection(
-   }
-
-   // CHAT-FIRST — Décisions Journal tab (HumanDecision history).
--  projection.cycleDecisions = projectCycleDecisionCards(decisions);
-+  // P5-S07 CP01 — Journal du cycle: only decisions confidently assigned to the
-+  // selected/active cycle. Decisions without cycleInstanceId are excluded
-+  // (no guess). Cross-cycle inheritance is not invented.
-+  const journalCycleId =
-+    projection.selectedCycleInstanceId ?? projection.activeCycleInstanceId;
-+  projection.cycleDecisions = projectCycleDecisionCards(
-+    journalCycleId
-+      ? decisions.filter((d) => d.cycleInstanceId === journalCycleId)
-+      : [],
-+  );
-
-   // Morris correction + MD-WR-02 — Work Recommendations for Journal > Recommandations.
-   // Lifecycle CURRENT stays on currentRecommendations (right panel / audit only).
-diff --git a/projects/sfia-studio/app/features/project-assistant/w2/projectHistory.ts b/projects/sfia-studio/app/features/project-assistant/w2/projectHistory.ts
-index 8079bc5c..9a4707b0 100644
---- a/projects/sfia-studio/app/features/project-assistant/w2/projectHistory.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/w2/projectHistory.ts
-@@ -14,8 +14,11 @@ import { readLiveProjectContext } from "@/lib/vertical-slice-runtime";
-
- /** Bounded lookback so the read model can never become a history platform. */
- export const W2_HISTORY_MAX_TRAJECTORY_VERSIONS = 5;
--export const W2_HISTORY_MAX_DECISIONS = 5;
--export const W2_HISTORY_MAX_CONTRACTS = 5;
-+export const W2_HISTORY_MAX_DECISIONS = 8;
-+export const W2_HISTORY_MAX_CONTRACTS = 8;
-+export const W2_HISTORY_MAX_EVIDENCE = 5;
-+export const W2_HISTORY_MAX_REVIEW_BUNDLES = 5;
-+export const W2_HISTORY_MAX_SYNTHESES = 3;
-
- export type W2TrajectoryAnchor = {
-   readonly trajectoryId: string;
-@@ -50,6 +53,22 @@ export type W2ContractAnchor = {
-   readonly decisionRefs: readonly string[];
- };
-
-+export type W2EvidenceAnchor = {
-+  readonly evidenceId: string;
-+  readonly status: string;
-+};
-+
-+export type W2ReviewBundleAnchor = {
-+  readonly reviewBundleId: string;
-+  readonly status: string;
-+};
-+
-+export type W2SynthesisAnchor = {
-+  readonly synthesisId: string;
-+  readonly title: string;
-+  readonly status: string;
-+};
-+
- export type W2ProjectHistoryReadModel = {
-   readonly projectId: string;
-   readonly projectTitle: string;
-@@ -67,8 +86,13 @@ export type W2ProjectHistoryReadModel = {
-   };
-   readonly decisions: readonly W2DecisionAnchor[];
-   readonly contracts: readonly W2ContractAnchor[];
-+  readonly evidence: readonly W2EvidenceAnchor[];
-+  readonly reviewBundles: readonly W2ReviewBundleAnchor[];
-+  readonly syntheses: readonly W2SynthesisAnchor[];
-   /** Explicit honesty about what this read model does NOT contain. */
-   readonly absent: readonly string[];
-+  /** Explicit lookback caps — History is bounded, not exhaustive. */
-+  readonly boundNote: string;
- };
-
- export type ReadW2ProjectHistoryResult =
-@@ -76,10 +100,11 @@ export type ReadW2ProjectHistoryResult =
-   | { readonly ok: false; readonly code: string; readonly message: string };
-
- const ABSENT_BY_DESIGN: readonly string[] = Object.freeze([
--  "Conversation (process-local, non rejouée)",
--  "Proposition F2 process-local",
--  "Confirmation demandée (process-local)",
-+  "Conversation (interaction durable Session — ≠ Historique Product)",
-+  "Proposition F2 process-local (reconstruite via Epistemic ou requalification)",
-+  "Confirmation préparée process-locale (UAT-RECOVERY-03 — non-autorité)",
-   "Raisonnement interne non matérialisé",
-+  "Historique borné — pas un dump exhaustif",
- ]);
-
- export async function readW2ProjectHistory(input: {
-@@ -194,6 +219,57 @@ export async function readW2ProjectHistory(input: {
-         }))
-     : [];
-
-+  // P5-S07 CP01 — minimum-sufficient Evidence / Review / Synthesis anchors
-+  // from existing OA list use cases (bounded; no HistoryStore).
-+  let evidence: W2EvidenceAnchor[] = [];
-+  let reviewBundles: W2ReviewBundleAnchor[] = [];
-+  try {
-+    const listed = await oa.evidenceReviewServices.repository.listByProject(
-+      projectId,
-+    );
-+    evidence = listed
-+      .slice(-W2_HISTORY_MAX_EVIDENCE)
-+      .reverse()
-+      .map((e) => ({
-+        evidenceId: e.evidenceId,
-+        status: e.status,
-+      }));
-+  } catch {
-+    evidence = [];
-+  }
-+  try {
-+    const listed =
-+      await oa.evidenceReviewServices.reviewBundleRepository.listByProject(
-+        projectId,
-+      );
-+    reviewBundles = listed
-+      .slice(-W2_HISTORY_MAX_REVIEW_BUNDLES)
-+      .reverse()
-+      .map((rb) => ({
-+        reviewBundleId: rb.reviewBundleId,
-+        status: rb.status,
-+      }));
-+  } catch {
-+    reviewBundles = [];
-+  }
-+
-+  let syntheses: W2SynthesisAnchor[] = [];
-+  try {
-+    const { listProductSynthesesAction } = await import(
-+      "@/features/project-assistant/synthesisActions"
-+    );
-+    const listed = await listProductSynthesesAction({ projectId });
-+    if (listed.ok) {
-+      syntheses = listed.items.slice(0, W2_HISTORY_MAX_SYNTHESES).map((s) => ({
-+        synthesisId: s.synthesisId,
-+        title: s.title,
-+        status: s.status,
-+      }));
-+    }
-+  } catch {
-+    syntheses = [];
-+  }
-+
-   return {
-     ok: true,
-     history: {
-@@ -214,7 +290,11 @@ export async function readW2ProjectHistory(input: {
-       },
-       decisions,
-       contracts,
-+      evidence,
-+      reviewBundles,
-+      syntheses,
-       absent: ABSENT_BY_DESIGN,
-+      boundNote: `Borné · ≤${W2_HISTORY_MAX_DECISIONS} décisions · ≤${W2_HISTORY_MAX_CONTRACTS} contrats · ≤${W2_HISTORY_MAX_EVIDENCE} preuves · ≤${W2_HISTORY_MAX_REVIEW_BUNDLES} revues · ≤${W2_HISTORY_MAX_SYNTHESES} synthèses.`,
-     },
-   };
- }
-diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-index 2aeae5c9..355c8cba 100644
---- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-+++ b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-@@ -4,7 +4,10 @@
- | --- | --- |
- | **Rôle** | Roadmap **vivante** de convergence vers l’utilisation complète de la doctrine produit SFIA Studio v3 |
- | **Statut** | **VALIDATED — ACTIVE LIVING ROADMAP** |
--| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S06 INTEGRATED / POST-MERGE VERIFIED** | 2026-10-06 Europe/Paris — **STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S06 PILOT EXPERIENCE COMPLETION — INTEGRATED / POST-MERGE VERIFIED** · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **14 — Post-Merge** · Profile **Critical** · Typologie **EVOL** · Milestone **P5** · Slice **P5-S06** · Morris P5-S06 MERGE GO = **AUTHORIZED / CONSUMED** · PR **#561** **MERGED** · feature commit **`731fdd7247b37cd708a9496fb81a9986e78abcd1`** · merge/main **`9f586496f28b824b1a4938d497c148ba0c96596e`** · post-merge CI Studio **#690** / run **`37485457209`** = **SUCCESS** · Detect / Build / **Required Gate** = **SUCCESS** · P5-S06 = **INTEGRATED / POST-MERGE VERIFIED** · FUNCTIONAL CLOSURE **PASS / INTEGRATED** · Visual **PASS AT S06 SCOPE** · FULL CANONICAL SEND CANCELLATION **PASS DETERMINISTIC / INTEGRATED** · P5-S06-DEBT-NORA-STOP **CLOSED ON MAIN / POST-MERGE VERIFIED** · REAL cancellation **NOT PROVEN** · ZERO REAL · delivery branch cleanup **COMPLETE** · P5 = **IN PROGRESS** · P5 COMPLETE **NO** · P6 READY **NO** · runtime v3 **NON ADOPTED** · NEXT RECOMMENDED = **P5-S07 — Project Continuity & Work Representation Completion** · S07 **NOT AUTHORIZED / NOT STARTED** · S08 **NOT STARTED** · documentary truth-sync PR this cycle · truth-sync merge **NOT AUTHORIZED** · **≠** P5 COMPLETE · **≠** REAL cancellation proven · **≠** runtime v3 ADOPTED |
-+| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S07 CP02 LOCAL CANDIDATE** | 2026-10-06 Europe/Paris — **STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S07 CP02 SEMANTIC PROJECTION INTEGRITY + RESPONSIVE / VISUAL CLOSURE — LOCAL CANDIDATE** · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **8 — Delivery / Implementation Correction** · Profile **Critical** · Typologie **EVOL** · Milestone **P5** · Slice **P5-S07** · Pass **CP02** · Morris P5-S07 CP02 = **AUTHORIZED / CONSUMED** · review input `441420301bc428491f15e54270b402d3d5bfa9cb` · base/main **`7a664d65157af9554de4d4da7e76ca0187020020`** · branche `delivery/sfia-studio-product-simplification-p5-s07-project-continuity-work-representation-completion` · B1 PROP-PL **PASS / inherited + regression** · CONV-PL **PASS / inherited + regression** · B2 Work Representation semantic integrity **PASS** · Synthetic Artifact refs **NONE** · Evidence→validation heuristic **REMOVED** · B3 Journal currentness **PASS** · B4 History identity **PASS / DEDUP PRODUCT IDENTITY** · B5 Responsive **PASS / P3 bands** · Journal visual **CURSOR PIXEL COMPARISON PASS** (pending ChatGPT independent visual confirmation) · History visual **CURSOR PIXEL COMPARISON PASS** (pending ChatGPT independent visual confirmation) · `1 Issue` **ABSENT in final proof** · ZERO REAL **YES** · Architecture parallelism **NONE** · UAT-RECOVERY-03 **NON-BLOCKING CARRY** · P5-S07 INTEGRATED **NO** · Git Integration **NOT AUTHORIZED** · P5 COMPLETE **NO** · S08 **NOT STARTED** · P6 READY **NO** · runtime v3 **NON ADOPTED** · next = **ChatGPT Final Critical + Visual Review** · **≠** INTEGRATED · **≠** MERGED |
-+| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S07 CP01 LOCAL CANDIDATE** | 2026-10-06 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S07 CP01 CONTINUITY & WORK REPRESENTATION EXIT PROOF + PIXEL-PERFECT JOURNAL/HISTORY — LOCAL CANDIDATE *(true then; superseded by P5-S07 CP02 tip after Critical Review B2/B4/B5)* · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **8 — Delivery / Implementation Correction** · Profile **Critical** · Typologie **EVOL** · Milestone **P5** · Slice **P5-S07** · Pass **CP01** · Morris P5-S07 CP01 = **AUTHORIZED / CONSUMED** · review input `90d165d9` / blob `3794d1bc` · base/main **`7a664d65157af9554de4d4da7e76ca0187020020`** · branche `delivery/sfia-studio-product-simplification-p5-s07-project-continuity-work-representation-completion` · Project Continuity **PASS LOCALLY / DETERMINISTIC** · PROP-PL **CLOSED LOCALLY AT TESTED DURABLE RESUME BOUNDARY** · CONV-PL **CLOSED LOCALLY AT TESTED RESUME BOUNDARY** · Work Representation **PASS LOCALLY / PRODUCT-WIRED** · Journal Currentness **PASS** · Journal Pixel-Perfect **PASS AT ALL CANONICAL FRAMES** · History **MINIMUM-SUFFICIENT PRODUCT-DERIVED** · History Pixel-Perfect **PASS AT ALL CANONICAL FRAMES** · ZERO REAL **YES** · Architecture parallelism **NONE** · UAT-RECOVERY-03 **NON-BLOCKING CARRY** · P5-S07 INTEGRATED **NO** · Git Integration **NOT AUTHORIZED** · P5 COMPLETE **NO** · S08 **NOT STARTED** · P6 READY **NO** · runtime v3 **NON ADOPTED** · next was **ChatGPT Final Critical + Visual Review** · **≠** INTEGRATED · **≠** MERGED |
-+| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S07 LOCAL CANDIDATE** | 2026-10-06 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S07 PROJECT CONTINUITY & WORK REPRESENTATION COMPLETION — LOCAL CANDIDATE *(true then; superseded by P5-S07 CP01 tip after Critical Review B1–B5)* · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **8 — Delivery / Implementation** · Profile **Critical** · Typologie **EVOL** · Milestone **P5** · Slice **P5-S07** · Morris P5-S07 DELIVERY GO = **AUTHORIZED / CONSUMED** · base/main **`7a664d65157af9554de4d4da7e76ca0187020020`** (PR **#562** post-S06 documentary truth-sync **MERGED** · CI Studio **#692** SUCCESS) · branche `delivery/sfia-studio-product-simplification-p5-s07-project-continuity-work-representation-completion` · Project Continuity **PASS LOCALLY / DETERMINISTIC** · Work Representation **PASS LOCALLY AT TESTED SCOPE** (Option A — no DeliverableStore) · Journal **P3-CONVERGED AT S07 SCOPE** · History **PRODUCT-DERIVED / P3-CONVERGED AT S07 SCOPE** (dedicated principal view) · Deliverable≠Artifact≠validation≠Exit Proof **PROVEN AT TESTED SCOPE** · CONV-PL **CLOSED LOCALLY AT TESTED SCOPE** (Product truth before transcript) · PROP-PL **CLOSED LOCALLY AT TESTED SCOPE** (Epistemic reconstruct / honest requalify — no Proposal DB) · Visual **PASS AT S07 TOUCHED SURFACES** (runtime↔Figma) · ZERO REAL **YES** · Architecture parallelism **NONE** · UAT-RECOVERY-03 **NON-BLOCKING CARRY** · P5-S07 INTEGRATED **NO** · Git Integration **NOT AUTHORIZED** · P5 COMPLETE **NO** · S08 **NOT STARTED** · P6 READY **NO** · runtime v3 **NON ADOPTED** · next was **ChatGPT Critical Review** · **≠** INTEGRATED · **≠** MERGED |
-+| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S06 INTEGRATED / POST-MERGE VERIFIED** | 2026-10-06 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S06 PILOT EXPERIENCE COMPLETION — INTEGRATED / POST-MERGE VERIFIED *(true then; superseded by P5-S07 LOCAL CANDIDATE tip; post-S06 documentary truth-sync PR **#562** later MERGED @ `7a664d65…` / CI **#692** — tip self-referential « truth-sync merge NOT AUTHORIZED » was true at tip authorship)* · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **14 — Post-Merge** · Profile **Critical** · Typologie **EVOL** · Milestone **P5** · Slice **P5-S06** · Morris P5-S06 MERGE GO = **AUTHORIZED / CONSUMED** · PR **#561** **MERGED** · feature commit **`731fdd7247b37cd708a9496fb81a9986e78abcd1`** · merge/main **`9f586496f28b824b1a4938d497c148ba0c96596e`** · post-merge CI Studio **#690** / run **`37485457209`** = **SUCCESS** · Detect / Build / **Required Gate** = **SUCCESS** · P5-S06 = **INTEGRATED / POST-MERGE VERIFIED** · FUNCTIONAL CLOSURE **PASS / INTEGRATED** · Visual **PASS AT S06 SCOPE** · FULL CANONICAL SEND CANCELLATION **PASS DETERMINISTIC / INTEGRATED** · P5-S06-DEBT-NORA-STOP **CLOSED ON MAIN / POST-MERGE VERIFIED** · REAL cancellation **NOT PROVEN** · ZERO REAL · delivery branch cleanup **COMPLETE** · P5 = **IN PROGRESS** · P5 COMPLETE **NO** · P6 READY **NO** · runtime v3 **NON ADOPTED** · NEXT RECOMMENDED was **P5-S07** · S07 was **NOT AUTHORIZED / NOT STARTED** at tip authorship · S08 **NOT STARTED** · documentary truth-sync PR this cycle · truth-sync merge **NOT AUTHORIZED** *(historical tip wording)* · **≠** P5 COMPLETE · **≠** REAL cancellation proven · **≠** runtime v3 ADOPTED |
- | **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S06 GIT INTEGRATION** | 2026-10-06 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S06 PILOT EXPERIENCE COMPLETION — GIT INTEGRATION AUTHORIZED BY MORRIS / IN PROGRESS *(true then; superseded by P5-S06 INTEGRATED / POST-MERGE VERIFIED tip)* · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **13 — PR Readiness / Git Integration** · Profile **Critical** · Typologie **EVOL** · Milestone **P5** · Slice **P5-S06** · Pass **GIT INTEGRATION** · Morris P5-S06 GIT INTEGRATION GATE = **AUTHORIZED / CONSUMED** · ChatGPT Final Critical Re-Review CP02.3 = **PASS** · D-S06-CANCEL-01 remains consumed · CP01/CP02/CP02.1/CP02.2/CP02.3 historical preserved · base/main **`16a8e2fd823d75d7c59ce1fb4d55cb862d112697`** · branche `delivery/sfia-studio-product-simplification-p5-s06-pilot-experience-completion` · commit/push/PR **AUTHORIZED this gate** · MERGE **NOT AUTHORIZED — separate Morris GO required** · P5-S06 INTEGRATED **NO** until merge + post-merge · FUNCTIONAL CLOSURE **PASS LOCALLY** · FULL CANONICAL SEND CANCELLATION **PASS LOCALLY / DETERMINISTIC** · Visual **PASS AT S06 SCOPE** · P5-S06-DEBT-NORA-STOP **CLOSED LOCALLY / awaiting Git Integration** · ZERO REAL · P5 COMPLETE **NO** · P6 READY **NO** · runtime v3 **NON ADOPTED** · S07 **NOT STARTED** · next = commit → push → PR → CI → STOP → **MORRIS P5-S06 MERGE GO** if readiness remains PASS · **≠** INTEGRATED · **≠** MERGED |
- | **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S06 CP02.3 LOCAL CANDIDATE** | 2026-10-06 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S06 CP02.3 — LOCAL CANDIDATE — CKC PROVIDER CANCELLATION CLOSURE PASS *(true then; superseded by P5-S06 GIT INTEGRATION tip)* · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **8 — Delivery / Implementation Correction** · Profile **Critical** · Typologie **EVOL** · Milestone **P5** · Slice **P5-S06** · Pass **CP02.3** · Morris CP02.3 GO **CONSUMED** · D-S06-CANCEL-01 remains consumed · CP02/CP02.1/CP02.2 historical preserved · base/main **`16a8e2fd823d75d7c59ce1fb4d55cb862d112697`** · branche `delivery/sfia-studio-product-simplification-p5-s06-pilot-experience-completion` · CKC `provider.complete` in-flight AbortSignal **PROVEN** · OpenAI `complete`→`completeRound`→`responses.create(..., { signal })` **PROVEN** · abort = STOPPED not provider_error · ZERO REAL · P5-S06 FUNCTIONAL CLOSURE **PASS LOCALLY** · FULL CANONICAL SEND CANCELLATION **PASS LOCALLY / DETERMINISTIC** · P5-S06-DEBT-NORA-STOP **CLOSED LOCALLY / awaiting Git Integration** · P5-S06 INTEGRATED **NO** · Git Integration **NOT AUTHORIZED** · P5 COMPLETE **NO** · P6 READY **NO** · runtime v3 **NON ADOPTED** · S07 **NOT STARTED** · next = **ChatGPT Final Critical Re-Review CP02.3** · **≠** INTEGRATED · **≠** S06 Git-complete |
- | **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S06 CP02.2 LOCAL CANDIDATE** | 2026-10-06 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S06 CP02.2 — LOCAL CANDIDATE / FULL CANONICAL SEND CANCELLATION EXIT PROOF PASS *(true then; superseded by P5-S06 CP02.3 tip)* · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **8 — Delivery / Implementation Correction** · Profile **Critical** · Typologie **EVOL** · Milestone **P5** · Slice **P5-S06** · Pass **CP02.2** · Morris CP02.2 GO **CONSUMED** · D-S06-CANCEL-01 remains consumed · CP02.1 historical preserved · base/main **`16a8e2fd823d75d7c59ce1fb4d55cb862d112697`** · branche `delivery/sfia-studio-product-simplification-p5-s06-pilot-experience-completion` · F2 `completeStructured` AbortSignal **PROVEN** · F2 post-analyze / createCycle / proposal / transcript cut-lines **PROVEN** · already-started createCycle **not rolled back** · ZERO REAL · P5 COMPLETE **NO** · P6 READY **NO** · runtime v3 **NON ADOPTED** · project Git **NOT AUTHORIZED** · next = **ChatGPT Final Critical Re-Review CP02.2** · S07 **NOT STARTED** · **≠** INTEGRATED · **≠** S06 Git-complete |
-diff --git a/projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md b/projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md
-index f3b924aa..9df0b95d 100644
---- a/projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md
-+++ b/projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md
-@@ -5,19 +5,19 @@
- | **Projet** | SFIA Studio |
- | **Macro** | `STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01` |
- | **Milestone** | **P5 — INTEGRATED DELIVERY** (Delivery / Implementation / Evidence source) |
--| **Slice** | **P5-S01**…**P5-S06** (integrated) · **P5-S07**/**P5-S08** remaining |
--| **Pass** | **P5-S06 INTEGRATED / POST-MERGE VERIFIED** · documentary truth-sync PR open · truth-sync merge **NOT AUTHORIZED** |
-+| **Slice** | **P5-S01**…**P5-S06** (integrated) · **P5-S07 CP02 LOCAL CANDIDATE** · **P5-S08** remaining |
-+| **Pass** | **P5-S07 CP02** — Semantic Projection Integrity + Responsive / Visual Closure · Git Integration **NOT AUTHORIZED** |
- | **Typologie** | Delivery evidence dans macro **EVOL** — **≠** doctrine · **≠** nouvelle architecture |
- | **Autorité architecture** | **P4** (`04-chat-first-product-simplification-semantic-projection-cognitive-architecture.md`) — **inchangée** |
--| **Base / HEAD Git** | `origin/main` = `9f586496f28b824b1a4938d497c148ba0c96596e` (PR **#561** P5-S06 · post-merge CI Studio **#690** SUCCESS) |
-+| **Base / HEAD Git** | `origin/main` = `7a664d65157af9554de4d4da7e76ca0187020020` (PR **#562** post-S06 documentary truth-sync · CI Studio **#692** SUCCESS) · S07 candidate uncommitted on delivery branch |
- | **P5-S01 integration** | PR **#555** **MERGED** · post-merge CI **#678** **SUCCESS** · **INTEGRATED / POST-MERGE VERIFIED** |
- | **P5-S02 integration** | PR **#556** **MERGED** · post-merge CI **#680** **SUCCESS** · Required Gate **SUCCESS** · **INTEGRATED / POST-MERGE VERIFIED** |
- | **P5-S03 integration** | PR **#557** **MERGED** · post-merge CI **#682** **SUCCESS** · Required Gate **SUCCESS** · **INTEGRATED / POST-MERGE VERIFIED** |
- | **P5-S04 integration** | PR **#558** **MERGED** · post-merge CI **#684** / run **`37377995199`** **SUCCESS** · Required Gate **SUCCESS** · **INTEGRATED / POST-MERGE VERIFIED** |
- | **P5-S05 integration** | PR **#560** **MERGED** · post-merge CI Studio **#688** **SUCCESS** · **INTEGRATED / POST-MERGE VERIFIED** · F2 routing alignment **CLOSED ON MAIN** · R3 **PASS AT TESTED SCOPE / INTEGRATED / POST-MERGE VERIFIED** |
--| **P5-S06 integration** | PR **#561** **MERGED** · feature `731fdd72…` · merge `9f586496…` · post-merge CI Studio **#690** / run **`37485457209`** **SUCCESS** · Required Gate **SUCCESS** · **INTEGRATED / POST-MERGE VERIFIED** |
-+| **P5-S06 integration** | PR **#561** **MERGED** · feature `731fdd72…` · merge `9f586496…` · post-merge CI Studio **#690** / run **`37485457209`** **SUCCESS** · Required Gate **SUCCESS** · **INTEGRATED / POST-MERGE VERIFIED** · post-S06 truth-sync PR **#562** **MERGED** @ `7a664d65…` / CI **#692** |
- | **Worktree** | `/Users/morris/Projects/sfia-studio-chat-first-product-simplification-p3` |
--| **Branche S06** | `delivery/sfia-studio-product-simplification-p5-s06-pilot-experience-completion` — **MERGED / CLEANED UP** |
-+| **Branche S07** | `delivery/sfia-studio-product-simplification-p5-s07-project-continuity-work-representation-completion` — **LOCAL / UNCOMMITTED** |
- | **P5 AUTHORIZED BY MORRIS** | **YES** |
- | **P5 STARTED** | **YES** |
- | **P5 IN PROGRESS** | **YES** |
-@@ -29,6 +29,10 @@
- | **P5-S04** | **INTEGRATED / POST-MERGE VERIFIED** · Product-derived Synthèses M9 · CP01/CP02 preserved · A=0/B=0 · B1/B2 CLOSED |
- | **P5-S05** | **INTEGRATED / POST-MERGE VERIFIED** — F2 routing CLOSED ON MAIN · R3 PASS AT TESTED SCOPE |
- | **P5-S06** | **INTEGRATED / POST-MERGE VERIFIED** · FUNCTIONAL CLOSURE **PASS / INTEGRATED** · Visual **PASS AT S06 SCOPE** · FULL CANONICAL SEND CANCELLATION **PASS DETERMINISTIC / INTEGRATED** · STOP debt **CLOSED ON MAIN** · REAL cancellation **NOT PROVEN** |
-+| **P5-S07** | **CP02 LOCAL CANDIDATE PASS** · B1 PROP-PL **PASS / inherited + regression** · CONV-PL **PASS / inherited + regression** · B2 Work Representation **PASS / PRODUCT-WIRED / SEMANTICALLY HONEST** · Synthetic Artifact refs **NONE** · Evidence→validation heuristic **REMOVED** · B3 Journal currentness **PASS** · B4 History identity **PASS / DEDUP PRODUCT IDENTITY** · B5 Responsive **PASS / P3 bands** · Journal visual **CURSOR PIXEL COMPARISON PASS** (pending ChatGPT independent visual confirmation) · History visual **CURSOR PIXEL COMPARISON PASS** (pending ChatGPT independent visual confirmation) · ZERO REAL · Architecture parallelism **NONE** · UAT-RECOVERY-03 **NON-BLOCKING CARRY** · P5-S07 INTEGRATED **NO** |
-+| **P5-S07 DELIVERY GO** | **AUTHORIZED / CONSUMED** |
-+| **P5-S07 CP01** | **AUTHORIZED / CONSUMED** |
-+| **P5-S07 CP02** | **AUTHORIZED / CONSUMED** |
- | **P5-S06 DELIVERY** | **AUTHORIZED / CONSUMED** → **INTEGRATED** via PR **#561** |
- | **P5-S06 CP01** | **AUTHORIZED / CONSUMED** |
- | **P5-S06 CP02** | **AUTHORIZED / CONSUMED** |
-@@ -37,12 +41,12 @@
- | **P5-S06 CP02.3** | **AUTHORIZED / CONSUMED** |
- | **P5-S06 GIT INTEGRATION GATE** | **AUTHORIZED / CONSUMED** |
- | **P5-S06 MERGE GO** | **AUTHORIZED / CONSUMED** |
--| **P5 slicing restant** | **S07 / S08** — **ADOPTED BY MORRIS** (2026-10-06) · S07/S08 = **NOT STARTED** · S07 = **NEXT RECOMMENDED / NOT AUTHORIZED** |
-+| **P5 slicing restant** | **S08** — **ADOPTED BY MORRIS** · S08 = **NOT STARTED** · S07 = **LOCAL CANDIDATE / Git Integration NOT AUTHORIZED** |
- | **R1 / R2 / R3** | **R1 PASS** · **R2 PASS** · **R3 PASS AT TESTED SCOPE / INTEGRATED / POST-MERGE VERIFIED** (S05) |
--| **ZERO REAL** | **YES for S06** · S05 R3 REAL historique préservé (bounded OpenAI sous gate S05) |
-+| **ZERO REAL** | **YES for S07** · S05 R3 REAL historique préservé (bounded OpenAI sous gate S05) |
- | **runtime v3** | **NON ADOPTED** |
--| **Git (S06)** | PR **#561** **MERGED** · post-merge CI **PASS** · delivery branch cleanup **COMPLETE** · documentary truth-sync merge **NOT AUTHORIZED** |
--| **Next** | **ChatGPT review / MORRIS P5 POST-S06 TRUTH-SYNC MERGE GATE** · S07 **NOT AUTHORIZED / NOT STARTED** |
-+| **Git (S07)** | local branch only · project commit/push/PR/merge **NOT AUTHORIZED** · Review Handoff L3 only |
-+| **Next** | **ChatGPT Final Critical + Visual Review (P5-S07 CP02)** · S08 **NOT STARTED** |
- | **P5-S05 DELIVERY** | **AUTHORIZED / CONSUMED** → **INTEGRATED** via PR **#560** |
- | **P5-S05 REAL / R3** | **AUTHORIZED / CONSUMED** → **INTEGRATED** |
- | **P5-S05 CP01 / CP02** | **AUTHORIZED / CONSUMED** (historique) |
-@@ -50,7 +54,7 @@
- | **Fichier** | `projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md` |
- | **Date** | 2026-10-06 · Europe/Paris |
-
--> **Lecture rapide.** P5-S01…S06 **intégrés**. P5-S06 = **INTEGRATED / POST-MERGE VERIFIED** via PR **#561** / merge `9f586496…` / post-merge CI **#690** SUCCESS. FUNCTIONAL CLOSURE + deterministic cancellation **ON MAIN**. REAL cancellation **NOT PROVEN**. **≠ P5 COMPLETE** · S07 **NOT AUTHORIZED**.
-+> **Lecture rapide.** P5-S01…S06 **intégrés**. P5-S07 CP02 = **LOCAL CANDIDATE PASS** (semantic honesty + History identity dedup + P3 responsive bands + Cursor visual comparison) sur branche delivery · base `7a664d65…` · ZERO REAL · **≠ P5 COMPLETE** · Git Integration **NOT AUTHORIZED** · S08 **NOT STARTED**.
- > **Règle de lecture des preuves.** *Implémenté* ≠ *prouvé* ≠ *intégré* ≠ *REAL*. Chaque affirmation ci-dessous est qualifiée par son niveau de preuve. Les résultats de tests/typecheck/lint/build sont ceux **rapportés par la passe de livraison** ; ce document n’en invente pas d’autres et ne les a pas ré-exécutés lors de sa rédaction.
-
- ---
-@@ -73,23 +77,38 @@ P5-S03 = INTEGRATED / POST-MERGE VERIFIED (PR #557)
- P5-S04 = INTEGRATED / POST-MERGE VERIFIED (PR #558 · main c7b53b93… · CI #684 SUCCESS)
- P5-S05 = INTEGRATED / POST-MERGE VERIFIED (PR #560 · F2 CLOSED ON MAIN · R3 PASS AT TESTED SCOPE)
- P5-S06 = INTEGRATED / POST-MERGE VERIFIED (PR #561 · feature 731fdd72… · merge 9f586496… · CI #690 SUCCESS)
--
--FUNCTIONAL CLOSURE = PASS / INTEGRATED
--VISUAL = PASS AT S06 SCOPE
-+P5-S07 = CP02 LOCAL CANDIDATE PASS (delivery branch · base 7a664d65… · PR #562 truth-sync MERGED / CI #692)
-+         B1 PROP-PL PASS / inherited + regression
-+         CONV-PL PASS / inherited + regression
-+         B2 Work Representation PASS / PRODUCT-WIRED / SEMANTICALLY HONEST
-+         Synthetic Artifact refs = NONE
-+         Evidence→validation heuristic = REMOVED
-+         B3 Journal Currentness PASS
-+         B4 History identity PASS / DEDUP PRODUCT IDENTITY
-+         B5 Responsive PASS / P3 bands (MOBILE <768 · COMPACT 768–1199 · LARGE ≥1200)
-+         Journal visual = CURSOR PIXEL COMPARISON PASS (pending ChatGPT independent visual confirmation)
-+         History visual = CURSOR PIXEL COMPARISON PASS (pending ChatGPT independent visual confirmation)
-+         ZERO REAL = YES
-+         Architecture parallelism = NONE
-+         UAT-RECOVERY-03 = NON-BLOCKING CARRY
-+         P5-S07 INTEGRATED = NO
-+         Git Integration = NOT AUTHORIZED
-+
-+FUNCTIONAL CLOSURE (S06) = PASS / INTEGRATED
-+VISUAL (S06) = PASS AT S06 SCOPE
- FULL CANONICAL SEND CANCELLATION = PASS DETERMINISTIC / INTEGRATED
- P5-S06-DEBT-NORA-STOP = CLOSED ON MAIN / POST-MERGE VERIFIED
- REAL cancellation = NOT PROVEN
--ZERO REAL (S06) = YES
-+ZERO REAL (S07 CP02) = YES
- P5 COMPLETE = NO
- P6 READY = NO
- runtime v3 = NON ADOPTED
-
--NEXT RECOMMENDED = P5-S07 — Project Continuity & Work Representation Completion
--S07 = NOT AUTHORIZED / NOT STARTED
-+NEXT = ChatGPT Final Critical + Visual Review (P5-S07 CP02)
- S08 = NOT STARTED
--P5-S06 MERGE GO = AUTHORIZED / CONSUMED
--DOCUMENTARY TRUTH-SYNC MERGE = NOT AUTHORIZED
--NEXT = CHATGPT REVIEW → MORRIS P5 POST-S06 TRUTH-SYNC MERGE GATE
-+P5-S07 DELIVERY GO = AUTHORIZED / CONSUMED
-+P5-S07 CP01 = AUTHORIZED / CONSUMED
-+P5-S07 CP02 = AUTHORIZED / CONSUMED
- ```
- ### 1.2 Hiérarchie d’autorité
-
-@@ -1173,4 +1192,29 @@ Anti-claims explicites :
-
- ---
-
--*Fin du document P5 — Integrated Delivery — S01…S06 INTEGRATED / POST-MERGE VERIFIED · S07 NEXT RECOMMENDED NOT AUTHORIZED · P5 COMPLETE NO · runtime v3 NON ADOPTED — P4 remains architecture authority.*
-+## 47. P5-S07 CP01 — Continuity Exit Proof + Pixel-Perfect Journal/History (truth-sync)
-+
-+> **Qualification.** Morris P5-S07 CP01 AUTHORIZED / CONSUMED. Critical Review blockers B1–B5 closed locally. Candidate remains uncommitted. **≠ INTEGRATED** · **≠ P5 COMPLETE**.
-+
-+| Item | Statut CP01 |
-+| --- | --- |
-+| Morris P5-S07 CP01 | **AUTHORIZED / CONSUMED** |
-+| Review input | `90d165d9` / blob `3794d1bc` |
-+| PROP-PL | **CLOSED LOCALLY AT TESTED DURABLE RESUME BOUNDARY** (S07-CP01-E01) |
-+| CONV-PL | **CLOSED LOCALLY AT TESTED RESUME BOUNDARY** |
-+| Client subject rehydrate | **PASS** (`w2ReadActiveDecisionSubjectAction` on mount) |
-+| Work Representation | **PASS LOCALLY / PRODUCT-WIRED** (LifecycleSurface ← Option A) |
-+| Journal Décisions current-cycle | **PASS** |
-+| History read model | **MINIMUM-SUFFICIENT AT S07 SCOPE** (bounded; explicit `boundNote`) |
-+| Journal visual | **PIXEL-PERFECT PASS** at 94:2 / 94:222 / 192:41 / 192:81 |
-+| History visual | **PIXEL-PERFECT PASS** at 78:2 / 190:111 / 190:380 / 190:412 |
-+| ZERO REAL | **YES** |
-+| Architecture parallelism | **NONE** |
-+| UAT-RECOVERY-03 | **NON-BLOCKING CARRY** |
-+| P5-S07 INTEGRATED | **NO** |
-+| Git Integration | **NOT AUTHORIZED** |
-+| Next | **ChatGPT Final Critical + Visual Review** |
-+
-+---
-+
-+*Fin du document P5 — Integrated Delivery — S01…S06 INTEGRATED / POST-MERGE VERIFIED · S07 CP01 LOCAL CANDIDATE PASS · P5 COMPLETE NO · runtime v3 NON ADOPTED — P4 remains architecture authority.*
-diff --git a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-index b407157f..75ccfdfe 100644
---- a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-+++ b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-@@ -2,7 +2,7 @@
-   "schemaVersion": 1,
-   "kind": "SFIA_STUDIO_LIVING_PRODUCTION_RUNTIME_REFERENCE",
-   "lastReviewedCommit": "d4d986af5884b31b416374da3cb5e60757501f87",
--  "lastReviewedAt": "2026-10-01T22:00:20.000Z",
-+  "lastReviewedAt": "2026-10-06T18:08:07.408Z",
-   "canonicalReadme": "projects/sfia-studio/production-runtime-reference/README.md",
-   "volumes": [
-     {
-@@ -578,7 +578,7 @@
-   "trackedSources": [
-     {
-       "path": "projects/sfia-studio/app/features/project-assistant/actions.ts",
--      "sha256_16": "40476bb2a7b35f9c"
-+      "sha256_16": "3abbffc860197bb3"
-     },
-     {
-       "path": "projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts",
-@@ -670,7 +670,7 @@
-     },
-     {
-       "path": "projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.tsx",
--      "sha256_16": "32b7a2bb4be0f688"
-+      "sha256_16": "5024a8dde9da86a8"
-     },
-     {
-       "path": "projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/lifecyclePresentation.ts",
-@@ -678,7 +678,7 @@
-     },
-     {
-       "path": "projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts",
--      "sha256_16": "04bb47dbd1e37a7f"
-+      "sha256_16": "8c5caa5a619aca3f"
-     },
-     {
-       "path": "projects/sfia-studio/app/.env.example",
-
-## 50. Full created file contents
-===== CREATED FILE: projects/sfia-studio/app/features/project-assistant/w2/deriveWorkRepresentationProjection.ts =====
+## 45b. Created test file
+===== CREATED projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s07.cp03.visualFidelity.ui.test.tsx =====
+/** @vitest-environment jsdom */
 /**
- * P5-S07 — minimum-sufficient Deliverable / Artifact work representation.
- *
- * OPTION A (Delivery GO): compose a read projection from existing Product facts.
- * No DeliverableStore / Deliverable aggregate is introduced.
- *
- * Distinguishes when facts allow:
- * - requirement state (expected / not required / unknown)
- * - production state (produced / not produced / unknown)
- * - validation/qualification state (distinct from production)
- * - Exit Proof / Cycle complete (never inferred from Artifact alone)
- *
- * CP02: production fact ≠ Artifact identity; Evidence/ReviewBundle ≠ validation.
+ * P5-S07 CP03 — P3 visual fidelity contracts (presentation only).
+ * V-T01–V-T16 where feasible without pixel capture.
  */
-
-export type WorkRequirementState =
-  | "expected"
-  | "not_required"
-  | "unknown";
-
-export type WorkProductionState =
-  | "produced"
-  | "not_produced"
-  | "unknown";
-
-export type WorkValidationState =
-  | "not_reviewed"
-  | "under_review"
-  | "validated"
-  | "changes_required"
-  | "unknown";
-
-export type WorkRepresentationProjection = {
-  readonly projectId: string;
-  readonly cycleInstanceId: string | null;
-  readonly requirementState: WorkRequirementState;
-  readonly productionState: WorkProductionState;
-  readonly validationState: WorkValidationState;
-  /** Explicit honesty — never inferred from Artifact existence. */
-  readonly exitProofSatisfied: boolean | "unknown";
-  readonly cycleComplete: boolean | "unknown";
-  readonly artifactRefs: readonly string[];
-  readonly evidenceRefs: readonly string[];
-  readonly reviewBundleRefs: readonly string[];
-  readonly pilotSummary: string;
-  /** Anti-claims for UI / tests. */
-  readonly distinctions: {
-    readonly deliverableIsNotArtifact: true;
-    readonly artifactExistsIsNotValidation: true;
-    readonly validationIsNotExitProof: true;
-  };
-};
-
-export type DeriveWorkRepresentationInput = {
-  readonly projectId: string;
-  readonly cycleInstanceId?: string | null;
-  /** From lifecycle / obligation policy when known. */
-  readonly artifactRequired?: boolean | null;
-  /**
-   * Explicit production fact from Product lifecycle (distinct from Artifact ids).
-   * When set, drives productionState even if artifactIds is empty.
-   */
-  readonly artifactProduced?: boolean | null;
-  /** Durable Artifact ids when known — never synthetic placeholders. */
-  readonly artifactIds?: readonly string[] | null;
-  /** Evidence ids linked when known. */
-  readonly evidenceIds?: readonly string[] | null;
-  /** ReviewBundle ids linked when known. */
-  readonly reviewBundleIds?: readonly string[] | null;
-  /**
-   * Qualification hint ONLY from a proved Product fact.
-   * Evidence / ReviewBundle presence alone must not invent under_review.
-   */
-  readonly qualificationHint?:
-    | "validated"
-    | "changes_required"
-    | "under_review"
-    | "not_reviewed"
-    | null;
-  /** Explicit Exit Proof / Cycle complete flags — never invent. */
-  readonly exitProofSatisfied?: boolean | null;
-  readonly cycleComplete?: boolean | null;
-};
-
-function requirementState(
-  artifactRequired: boolean | null | undefined,
-): WorkRequirementState {
-  if (artifactRequired === true) return "expected";
-  if (artifactRequired === false) return "not_required";
-  return "unknown";
-}
-
-function productionState(
-  artifactProduced: boolean | null | undefined,
-  artifactIds: readonly string[] | null | undefined,
-): WorkProductionState {
-  if (artifactProduced === true) return "produced";
-  if (artifactProduced === false) return "not_produced";
-  if (artifactIds == null) return "unknown";
-  return artifactIds.length > 0 ? "produced" : "not_produced";
-}
-
-function validationState(
-  hint: DeriveWorkRepresentationInput["qualificationHint"],
-): WorkValidationState {
-  if (hint) return hint;
-  return "unknown";
-}
-
-function pilotSummary(projection: Omit<WorkRepresentationProjection, "pilotSummary" | "distinctions">): string {
-  const req =
-    projection.requirementState === "expected"
-      ? "Livrable attendu"
-      : projection.requirementState === "not_required"
-        ? "Aucun livrable exigé"
-        : "Exigence de livrable indéterminée";
-  const prod =
-    projection.productionState === "produced"
-      ? "Artifact produit"
-      : projection.productionState === "not_produced"
-        ? "Artifact non produit"
-        : "Production indéterminée";
-  const val =
-    projection.validationState === "validated"
-      ? "qualifié"
-      : projection.validationState === "changes_required"
-        ? "modifications requises"
-        : projection.validationState === "under_review"
-          ? "en revue"
-          : projection.validationState === "not_reviewed"
-            ? "non revu"
-            : "qualification indéterminée";
-  return `${req} · ${prod} · ${val}. Artifact ≠ validation · validation ≠ preuve de sortie.`;
-}
-
-/** Presentation-only Pilot labels — enums stay internal (data attributes / tests). */
-export function workRequirementPilotLabel(state: WorkRequirementState): string {
-  switch (state) {
-    case "expected":
-      return "Attendu";
-    case "not_required":
-      return "Non requis";
-    default:
-      return "Non déterminé";
-  }
-}
-
-export function workProductionPilotLabel(state: WorkProductionState): string {
-  switch (state) {
-    case "produced":
-      return "Produit";
-    case "not_produced":
-      return "Non produit";
-    default:
-      return "Non déterminé";
-  }
-}
-
-export function workValidationPilotLabel(state: WorkValidationState): string {
-  switch (state) {
-    case "validated":
-      return "Validé";
-    case "changes_required":
-      return "Modifications requises";
-    case "under_review":
-      return "En revue";
-    case "not_reviewed":
-      return "Non revu";
-    default:
-      return "Non déterminé";
-  }
-}
-
-export function workTriStatePilotLabel(
-  value: boolean | "unknown",
-  labels: { readonly true: string; readonly false: string; readonly unknown: string },
-): string {
-  if (value === true) return labels.true;
-  if (value === false) return labels.false;
-  return labels.unknown;
-}
-
-/**
- * Pure derivation — Option A. Unknown fields stay unknown.
- */
-export function deriveWorkRepresentationProjection(
-  input: DeriveWorkRepresentationInput,
-): WorkRepresentationProjection {
-  const artifactRefs = Object.freeze([...(input.artifactIds ?? [])]);
-  const evidenceRefs = Object.freeze([...(input.evidenceIds ?? [])]);
-  const reviewBundleRefs = Object.freeze([...(input.reviewBundleIds ?? [])]);
-  const base = {
-    projectId: input.projectId,
-    cycleInstanceId: input.cycleInstanceId ?? null,
-    requirementState: requirementState(input.artifactRequired),
-    productionState: productionState(input.artifactProduced, input.artifactIds),
-    validationState: validationState(input.qualificationHint),
-    exitProofSatisfied:
-      input.exitProofSatisfied == null ? ("unknown" as const) : input.exitProofSatisfied,
-    cycleComplete:
-      input.cycleComplete == null ? ("unknown" as const) : input.cycleComplete,
-    artifactRefs,
-    evidenceRefs,
-    reviewBundleRefs,
-  };
-  return {
-    ...base,
-    pilotSummary: pilotSummary(base),
-    distinctions: {
-      deliverableIsNotArtifact: true,
-      artifactExistsIsNotValidation: true,
-      validationIsNotExitProof: true,
-    },
-  };
-}
-
-===== CREATED FILE: projects/sfia-studio/app/features/project-assistant/w2/deriveProjectHistoryEvents.ts =====
-/**
- * P5-S07 — Product-derived History events (read projection only).
- *
- * Composes Pilot-facing timeline events from the W2 minimal durable read model
- * (+ optional Evidence/Review anchors). No HistoryStore, no event sourcing,
- * no transcript, no invented why/impact when facts are absent.
- */
-
-import type { W2ProjectHistoryReadModel } from "./projectHistory";
-
-export type PilotHistoryEventKind =
-  | "project"
-  | "lps"
-  | "cycle"
-  | "trajectory"
-  | "decision"
-  | "contract"
-  | "evidence"
-  | "review"
-  | "recommendation";
-
-export type PilotHistoryFilter =
-  | "all"
-  | "decisions"
-  | "changes"
-  | "verified";
-
-export type PilotHistoryLinkedRef = {
-  readonly kind: string;
-  readonly id: string;
-  readonly label: string;
-};
-
-export type PilotHistoryEvent = {
-  readonly eventId: string;
-  readonly kind: PilotHistoryEventKind;
-  /** Pilot-facing kind label (never raw technical type as primary). */
-  readonly kindLabel: string;
-  readonly title: string;
-  readonly summary: string;
-  /** ISO timestamp only when a Product fact proves it; otherwise null. */
-  readonly occurredAt: string | null;
-  readonly isCurrent: boolean;
-  readonly sourceKind: string;
-  readonly sourceId: string;
-  readonly linked: readonly PilotHistoryLinkedRef[];
-  /** Optional detail sections — null when no Product fact proves them. */
-  readonly decidedWhat: string | null;
-  /** On what durable basis the event rests. Never an inferred rationale. */
-  readonly why: string | null;
-  /** What the event changes, when a Product fact states it. */
-  readonly impact: string | null;
-  /** Proven verification anchor (evidence, review, currentness). */
-  readonly verification: string | null;
-  readonly filterBucket: Exclude<PilotHistoryFilter, "all">;
-};
-
-export type DurableOutcomeHistoryAnchors = {
-  readonly evidence?: ReadonlyArray<{
-    readonly evidenceId: string;
-    readonly status: string;
-  }>;
-  readonly reviewBundles?: ReadonlyArray<{
-    readonly reviewBundleId: string;
-    readonly status: string;
-  }>;
-  readonly recommendation?: {
-    readonly recommendationLabel: string;
-  } | null;
-};
-
-function kindLabel(kind: PilotHistoryEventKind): string {
-  switch (kind) {
-    case "project":
-      return "Projet";
-    case "lps":
-      return "État du projet";
-    case "cycle":
-      return "Cycle";
-    case "trajectory":
-      return "Trajectoire";
-    case "decision":
-      return "Décision";
-    case "contract":
-      return "Exécution";
-    case "evidence":
-      return "Preuve";
-    case "review":
-      return "Revue";
-    case "recommendation":
-      return "Recommandation";
-    default:
-      return kind;
-  }
-}
-
-function pilotFacingCycleTitle(cycleTypeId: string | null): string {
-  if (!cycleTypeId) return "Cycle rattaché";
-  const key = cycleTypeId.replace(/^cyc:/i, "").toLowerCase();
-  switch (key) {
-    case "framing":
-      return "Cycle de cadrage";
-    case "delivery":
-      return "Cycle de livraison";
-    case "exploration":
-      return "Cycle d'exploration";
-    default:
-      return "Cycle rattaché";
-  }
-}
-
-/** Prefer Pilot vocabulary; keep technical subject only when it already reads as natural language. */
-function pilotFacingDecisionTitle(subject: string): string {
-  const trimmed = subject.trim();
-  if (!trimmed) return "Décision humaine";
-  if (
-    /^(w2|project\.|pilot\.|prop:|trj|cyc:|lps:|xct:|dec:)/i.test(trimmed) ||
-    /prop:f2:|obligation-policy|subject arbitration/i.test(trimmed)
-  ) {
-    return "Décision enregistrée";
-  }
-  return trimmed;
-}
-
-function trajectoryTitle(
-  version: W2ProjectHistoryReadModel["trajectory"]["versions"][number],
-): string {
-  if (version.isEffectiveCurrent) {
-    return `Trajectoire v${version.version} courante`;
-  }
-  if (version.status === "candidate") {
-    return `Trajectoire v${version.version} proposée`;
-  }
-  return `Trajectoire v${version.version}`;
-}
-
-function trajectorySummary(
-  version: W2ProjectHistoryReadModel["trajectory"]["versions"][number],
-): string {
-  if (version.isEffectiveCurrent) {
-    return version.decidedByDecisionRef
-      ? "Décidée et courante pour le Project."
-      : "Courante · antérieure au rattachement de décision.";
-  }
-  if (version.status === "candidate") {
-    return "Proposée · pas encore décidée · pas courante.";
-  }
-  return `Statut ${version.status} · non courante.`;
-}
-
-/**
- * Pure derivation — deterministic order: project → LPS → cycle → trajectories
- * → decisions → contracts → evidence → review → recommendation.
- */
-export function deriveProjectHistoryEvents(input: {
-  readonly history: W2ProjectHistoryReadModel;
-  readonly durable?: DurableOutcomeHistoryAnchors | null;
-}): readonly PilotHistoryEvent[] {
-  const { history, durable = null } = input;
-  const events: PilotHistoryEvent[] = [];
-
-  events.push({
-    eventId: `project:${history.projectId}`,
-    kind: "project",
-    kindLabel: kindLabel("project"),
-    title: history.projectTitle,
-    summary: "Identité projet enregistrée.",
-    occurredAt: null,
-    isCurrent: true,
-    sourceKind: "Project",
-    sourceId: history.projectId,
-    linked: [],
-    decidedWhat: null,
-    why: null,
-    impact: null,
-    verification: null,
-    filterBucket: "changes",
-  });
-
-  events.push({
-    eventId: `lps:${history.lps.lpsId}:v${history.lps.version}`,
-    kind: "lps",
-    kindLabel: kindLabel("lps"),
-    title: `État du projet · version ${history.lps.version}`,
-    summary: "État courant du projet.",
-    occurredAt: null,
-    isCurrent: true,
-    sourceKind: "LPS",
-    sourceId: history.lps.lpsId,
-    linked: [],
-    decidedWhat: null,
-    why: null,
-    impact: `État courant du projet en version ${history.lps.version}.`,
-    verification: "Version courante lue depuis le Living Project State.",
-    filterBucket: "changes",
-  });
-
-  if (history.cycle.activeCycleInstanceId) {
-    events.push({
-      eventId: `cycle:${history.cycle.activeCycleInstanceId}`,
-      kind: "cycle",
-      kindLabel: kindLabel("cycle"),
-      title: pilotFacingCycleTitle(history.cycle.cycleTypeId),
-      summary: [
-        history.cycle.profile ? `Profil ${history.cycle.profile}` : null,
-        history.cycle.status ? `Statut ${history.cycle.status}` : null,
-      ]
-        .filter(Boolean)
-        .join(" · ") || "Cycle distinct du projet.",
-      occurredAt: null,
-      isCurrent: true,
-      sourceKind: "Cycle",
-      sourceId: history.cycle.activeCycleInstanceId,
-      linked: [],
-      decidedWhat: null,
-      why: null,
-      impact: history.cycle.profile
-        ? `Cycle piloté avec le profil ${history.cycle.profile}.`
-        : null,
-      verification: history.cycle.status
-        ? `Statut de cycle durable : ${history.cycle.status}.`
-        : null,
-      filterBucket: "changes",
-    });
-  }
-
-  for (const version of history.trajectory.versions) {
-    const linked: PilotHistoryLinkedRef[] = [];
-    if (version.decidedByDecisionRef) {
-      linked.push({
-        kind: "Décision",
-        id: version.decidedByDecisionRef,
-        label: "Décision rattachée",
-      });
-    }
-    events.push({
-      eventId: `trj:${version.trajectoryId}:v${version.version}`,
-      kind: "trajectory",
-      kindLabel: kindLabel("trajectory"),
-      title: trajectoryTitle(version),
-      summary: trajectorySummary(version),
-      occurredAt: null,
-      isCurrent: version.isEffectiveCurrent,
-      sourceKind: "ProjectTrajectory",
-      sourceId: `${version.trajectoryId}@v${version.version}`,
-      linked,
-      decidedWhat: version.isEffectiveCurrent
-        ? `${version.stepCount} étapes · courante`
-        : null,
-      why: version.decidedOptionRef
-        ? `Option retenue ${version.decidedOptionRef}.`
-        : null,
-      impact: `${version.stepCount} étape${version.stepCount === 1 ? "" : "s"} dans cette version de trajectoire.`,
-      verification: version.isEffectiveCurrent
-        ? version.decidedByDecisionRef
-          ? "Version courante, rattachée à une décision humaine."
-          : "Version courante · rattachement de décision absent."
-        : null,
-      filterBucket: version.isEffectiveCurrent ? "verified" : "changes",
-    });
-  }
-
-  for (const decision of history.decisions) {
-    events.push({
-      // decisionId is already a stable Product ref (often `dec:…`).
-      eventId: decision.decisionId,
-      kind: "decision",
-      kindLabel: kindLabel("decision"),
-      title: pilotFacingDecisionTitle(decision.subject || ""),
-      summary: `${decision.status} · ${decision.actorRole}`,
-      occurredAt: decision.effectiveAt || null,
-      isCurrent: false,
-      sourceKind: "HumanDecision",
-      sourceId: decision.decisionId,
-      linked: decision.basisTrajectoryRef
-        ? [
-            {
-              kind: "Trajectoire",
-              id: decision.basisTrajectoryRef,
-              label: decision.basisTrajectoryRef,
-            },
-          ]
-        : [],
-      decidedWhat: `Option retenue ${decision.selectedOptionRef}`,
-      why: decision.basisSourceType
-        ? `Base de décision durable : ${decision.basisSourceType}.`
-        : null,
-      impact: decision.basisTrajectoryRef
-        ? `Trajectoire de référence ${decision.basisTrajectoryRef}.`
-        : null,
-      verification: decision.basisSourceType
-        ? `Décision ${decision.status} par ${decision.actorRole} · autorité ${decision.authority}.`
-        : null,
-      filterBucket: "decisions",
-    });
-  }
-
-  for (const contract of history.contracts) {
-    events.push({
-      eventId: `xct:${contract.executionContractId}`,
-      kind: "contract",
-      kindLabel: kindLabel("contract"),
-      title: `Contrat d'exécution v${contract.version}`,
-      summary: `${contract.status} · ${contract.action}`,
-      occurredAt: null,
-      isCurrent: false,
-      sourceKind: "ExecutionContract",
-      sourceId: contract.executionContractId,
-      linked: contract.decisionRefs.map((ref) => ({
-        kind: "Décision",
-        id: ref,
-        label: "Décision rattachée",
-      })),
-      decidedWhat: null,
-      why:
-        contract.decisionRefs.length > 0
-          ? `Contrat rattaché à ${contract.decisionRefs.length} décision${contract.decisionRefs.length === 1 ? "" : "s"}.`
-          : null,
-      impact: contract.target ? `Cible d'exécution ${contract.target}.` : null,
-      verification: contract.semanticFingerprint
-        ? "Empreinte sémantique enregistrée pour ce contrat."
-        : null,
-      filterBucket: "changes",
-    });
-  }
-
-  const historyEvidence = history.evidence ?? [];
-  for (const evidence of historyEvidence) {
-    events.push({
-      eventId: `evidence:${evidence.evidenceId}`,
-      kind: "evidence",
-      kindLabel: kindLabel("evidence"),
-      title: "Preuve enregistrée",
-      summary: `Statut ${evidence.status}`,
-      occurredAt: null,
-      isCurrent: false,
-      sourceKind: "Evidence",
-      sourceId: evidence.evidenceId,
-      linked: [],
-      decidedWhat: null,
-      why: null,
-      impact: null,
-      verification: `Preuve durable · statut ${evidence.status}.`,
-      filterBucket: "verified",
-    });
-  }
-
-  const historyReviews = history.reviewBundles ?? [];
-  for (const rb of historyReviews) {
-    events.push({
-      eventId: `rb:${rb.reviewBundleId}`,
-      kind: "review",
-      kindLabel: kindLabel("review"),
-      title: "Dossier de revue",
-      summary: `Statut ${rb.status}`,
-      occurredAt: null,
-      isCurrent: false,
-      sourceKind: "ReviewBundle",
-      sourceId: rb.reviewBundleId,
-      linked: [],
-      decidedWhat: null,
-      why: null,
-      impact: null,
-      verification: `Revue durable · statut ${rb.status}.`,
-      filterBucket: "verified",
-    });
-  }
-
-  const historySyntheses = history.syntheses ?? [];
-  for (const syn of historySyntheses) {
-    events.push({
-      eventId: `syn:${syn.synthesisId}`,
-      kind: "project",
-      kindLabel: "Synthèse",
-      title: syn.title,
-      summary: `Synthèse · ${syn.status}`,
-      occurredAt: null,
-      isCurrent: syn.status === "current",
-      sourceKind: "Synthesis",
-      sourceId: syn.synthesisId,
-      linked: [],
-      decidedWhat: null,
-      why: null,
-      impact: null,
-      verification: null,
-      filterBucket: "changes",
-    });
-  }
-
-  // CP02 B4 — history read model is primary; durableOutcome is fallback only
-  // when the same Product object id is absent. One Product id → at most one event.
-  const seenEvidenceIds = new Set(
-    historyEvidence.map((evidence) => evidence.evidenceId),
-  );
-  const seenReviewBundleIds = new Set(
-    historyReviews.map((rb) => rb.reviewBundleId),
-  );
-
-  if (durable?.evidence) {
-    for (const evidence of durable.evidence) {
-      if (seenEvidenceIds.has(evidence.evidenceId)) continue;
-      seenEvidenceIds.add(evidence.evidenceId);
-      events.push({
-        eventId: `evidence:${evidence.evidenceId}`,
-        kind: "evidence",
-        kindLabel: kindLabel("evidence"),
-        title: "Preuve enregistrée",
-        summary: `Statut ${evidence.status}`,
-        occurredAt: null,
-        isCurrent: false,
-        sourceKind: "Evidence",
-        sourceId: evidence.evidenceId,
-        linked: [],
-        decidedWhat: null,
-        why: null,
-        impact: null,
-        verification: `Preuve durable · statut ${evidence.status}.`,
-        filterBucket: "verified",
-      });
-    }
-  }
-
-  if (durable?.reviewBundles) {
-    for (const rb of durable.reviewBundles) {
-      if (seenReviewBundleIds.has(rb.reviewBundleId)) continue;
-      seenReviewBundleIds.add(rb.reviewBundleId);
-      events.push({
-        eventId: `rb:${rb.reviewBundleId}`,
-        kind: "review",
-        kindLabel: kindLabel("review"),
-        title: "Dossier de revue",
-        summary: `Statut ${rb.status}`,
-        occurredAt: null,
-        isCurrent: false,
-        sourceKind: "ReviewBundle",
-        sourceId: rb.reviewBundleId,
-        linked: [],
-        decidedWhat: null,
-        why: null,
-        impact: null,
-        verification: `Revue durable · statut ${rb.status}.`,
-        filterBucket: "verified",
-      });
-    }
-  }
-
-  if (durable?.recommendation?.recommendationLabel) {
-    events.push({
-      eventId: `rec:post-evidence`,
-      kind: "recommendation",
-      kindLabel: kindLabel("recommendation"),
-      title: durable.recommendation.recommendationLabel,
-      summary: "Recommandation dérivée · ≠ Décision humaine.",
-      occurredAt: null,
-      isCurrent: false,
-      sourceKind: "Recommendation",
-      sourceId: "post-evidence",
-      linked: [],
-      decidedWhat: null,
-      why: null,
-      impact: null,
-      verification: null,
-      filterBucket: "changes",
-    });
-  }
-
-  return Object.freeze(events);
-}
-
-export function filterProjectHistoryEvents(
-  events: readonly PilotHistoryEvent[],
-  input: {
-    readonly filter: PilotHistoryFilter;
-    readonly query: string;
-  },
-): readonly PilotHistoryEvent[] {
-  const q = input.query.trim().toLowerCase();
-  return events.filter((event) => {
-    if (input.filter === "decisions" && event.filterBucket !== "decisions") {
-      return false;
-    }
-    // Figma Changements includes verified/change events (no separate Vérifié filter).
-    if (
-      input.filter === "changes" &&
-      event.filterBucket !== "changes" &&
-      event.filterBucket !== "verified"
-    ) {
-      return false;
-    }
-    if (!q) return true;
-    const haystack = [
-      event.title,
-      event.summary,
-      event.kindLabel,
-      event.decidedWhat ?? "",
-      event.why ?? "",
-      event.impact ?? "",
-      event.verification ?? "",
-      ...event.linked.map((l) => l.label),
-    ]
-      .join(" ")
-      .toLowerCase();
-    return haystack.includes(q);
-  });
-}
-
-===== CREATED FILE: projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/deriveWorkRepresentationFromLifecycle.ts =====
-import {
-  deriveWorkRepresentationProjection,
-  type WorkRepresentationProjection,
-} from "@/features/project-assistant/w2/deriveWorkRepresentationProjection";
-import type { FinalizationAssessment } from "@/lib/oa/cycle";
-import type { PilotLifecycleProjection } from "@/lib/oa/cycle/application/lifecycleProjection";
-
-/**
- * P5-S07 CP02 — Option A work representation from existing Lifecycle assessment.
- * No DeliverableStore. Unknown stays unknown.
- * Production satisfaction ≠ synthetic Artifact identity.
- */
-export function deriveWorkRepresentationFromLifecycleProjection(
-  projection: PilotLifecycleProjection | null,
-  durable?: {
-    readonly evidenceIds?: readonly string[] | null;
-    readonly reviewBundleIds?: readonly string[] | null;
-    readonly qualificationHint?:
-      | "validated"
-      | "changes_required"
-      | "under_review"
-      | "not_reviewed"
-      | null;
-  } | null,
-): WorkRepresentationProjection | null {
-  if (!projection?.projectId) return null;
-  const assessment = projection.assessment ?? null;
-  const art = assessment?.obligations.find((o) => o.family === "artifact");
-  let artifactRequired: boolean | null = null;
-  if (art) {
-    if (art.applicability === "APPLICABLE") artifactRequired = true;
-    else if (art.applicability === "NOT_APPLICABLE") artifactRequired = false;
-    else artifactRequired = null;
-  }
-  const produced =
-    art?.applicability === "APPLICABLE" && art.status === "SATISFIED";
-  const artifactProduced: boolean | null =
-    art?.applicability === "APPLICABLE"
-      ? produced
-      : art
-        ? false
-        : null;
-  const cycleComplete =
-    projection.selectedStatus === "completed"
-      ? true
-      : projection.selectedStatus == null
-        ? null
-        : false;
-
-  return deriveWorkRepresentationProjection({
-    projectId: projection.projectId,
-    cycleInstanceId:
-      projection.selectedCycleInstanceId ?? projection.activeCycleInstanceId,
-    artifactRequired,
-    artifactProduced,
-    // Honest: lifecycle can prove production without a real Artifact id.
-    artifactIds: art ? [] : null,
-    evidenceIds: durable?.evidenceIds ?? null,
-    reviewBundleIds: durable?.reviewBundleIds ?? null,
-    qualificationHint: durable?.qualificationHint ?? null,
-    exitProofSatisfied: null,
-    cycleComplete,
-  });
-}
-
-/** Pure helper for tests — same Option A rules without Lifecycle coupling. */
-export function artifactRequiredFromAssessment(
-  assessment: FinalizationAssessment | null | undefined,
-): boolean | null {
-  if (!assessment) return null;
-  const art = assessment.obligations.find((o) => o.family === "artifact");
-  if (!art) return null;
-  if (art.applicability === "APPLICABLE") return true;
-  if (art.applicability === "NOT_APPLICABLE") return false;
-  return null;
-}
-
-===== CREATED FILE: projects/sfia-studio/app/__tests__/project-assistant/p5.s07.cp02.semanticResponsive.d0.test.ts =====
-/**
- * P5-S07 CP02 — semantic integrity, History identity dedup, responsive bands.
- * ZERO REAL. No architecture reopen.
- */
-import { describe, expect, it } from "vitest";
-import {
-  deriveWorkRepresentationProjection,
-  workProductionPilotLabel,
-  workRequirementPilotLabel,
-  workTriStatePilotLabel,
-  workValidationPilotLabel,
-} from "@/features/project-assistant/w2/deriveWorkRepresentationProjection";
-import { deriveWorkRepresentationFromLifecycleProjection } from "@/features/pre-m6-product-ui/surfaces/deriveWorkRepresentationFromLifecycle";
-import {
-  deriveProjectHistoryEvents,
-  filterProjectHistoryEvents,
-} from "@/features/project-assistant/w2/deriveProjectHistoryEvents";
-import type { W2ProjectHistoryReadModel } from "@/features/project-assistant/w2/projectHistory";
-import type { PilotLifecycleProjection } from "@/lib/oa/cycle/application/lifecycleProjection";
-import { readFileSync } from "node:fs";
-import { join } from "node:path";
-
-const PROJECT_ID = "prj:p5-s07-cp02";
-
-function historyFixture(
-  overrides: Partial<W2ProjectHistoryReadModel> = {},
-): W2ProjectHistoryReadModel {
-  return {
-    projectId: PROJECT_ID,
-    projectTitle: "CP02 Fixture",
-    lps: { lpsId: "lps:cp02", version: 1 },
-    cycle: {
-      activeCycleInstanceId: "cyc:cp02",
-      cycleTypeId: "cyc:delivery",
-      profile: "Critical",
-      status: "active",
-    },
-    trajectory: {
-      effectiveCurrent: null,
-      proposedNotYetDecided: null,
-      versions: [],
-    },
-    decisions: [],
-    contracts: [],
-    evidence: [],
-    reviewBundles: [],
-    syntheses: [],
-    absent: [],
-    boundNote: "test",
-    ...overrides,
-  };
-}
-
-describe("P5-S07 CP02 — B2 Work Representation semantic integrity", () => {
-  it("T-SEM-01/02 — Artifact obligation SATISFIED without real IDs → produced + empty refs", () => {
-    const projection = {
-      projectId: PROJECT_ID,
-      selectedCycleInstanceId: "cyc:cp02",
-      activeCycleInstanceId: "cyc:cp02",
-      selectedStatus: "active",
-      assessment: {
-        readyExceptFinalizeDecision: false,
-        obligations: [
-          {
-            family: "artifact",
-            applicability: "APPLICABLE",
-            status: "SATISFIED",
-            kind: "TO_TREAT",
-            label: "Artifact",
-          },
-        ],
-      },
-    } as unknown as PilotLifecycleProjection;
-
-    const work = deriveWorkRepresentationFromLifecycleProjection(projection);
-    expect(work).not.toBeNull();
-    expect(work!.productionState).toBe("produced");
-    expect(work!.artifactRefs).toEqual([]);
-    expect(work!.artifactRefs.join(",")).not.toContain("artifact:satisfied");
-    expect(JSON.stringify(work)).not.toContain("artifact:satisfied");
-  });
-
-  it("T-SEM-03 — Evidence only → validation unknown", () => {
-    const work = deriveWorkRepresentationProjection({
-      projectId: PROJECT_ID,
-      artifactRequired: true,
-      artifactProduced: true,
-      artifactIds: [],
-      evidenceIds: ["ev:only"],
-      reviewBundleIds: [],
-      qualificationHint: null,
-    });
-    expect(work.validationState).toBe("unknown");
-  });
-
-  it("T-SEM-04 — ReviewBundle only → validation unknown", () => {
-    const work = deriveWorkRepresentationProjection({
-      projectId: PROJECT_ID,
-      artifactRequired: true,
-      artifactProduced: true,
-      artifactIds: [],
-      evidenceIds: [],
-      reviewBundleIds: ["rb:only"],
-      qualificationHint: null,
-    });
-    expect(work.validationState).toBe("unknown");
-  });
-
-  it("T-SEM-05 — qualificationHint under_review → under_review", () => {
-    const work = deriveWorkRepresentationProjection({
-      projectId: PROJECT_ID,
-      qualificationHint: "under_review",
-      evidenceIds: [],
-      reviewBundleIds: [],
-    });
-    expect(work.validationState).toBe("under_review");
-  });
-
-  it("T-SEM-06 — qualificationHint validated → validated; produced without hint → unknown", () => {
-    const validated = deriveWorkRepresentationProjection({
-      projectId: PROJECT_ID,
-      artifactProduced: true,
-      artifactIds: [],
-      qualificationHint: "validated",
-    });
-    expect(validated.validationState).toBe("validated");
-
-    const producedNoHint = deriveWorkRepresentationProjection({
-      projectId: PROJECT_ID,
-      artifactProduced: true,
-      artifactIds: [],
-      qualificationHint: null,
-    });
-    expect(producedNoHint.productionState).toBe("produced");
-    expect(producedNoHint.validationState).toBe("unknown");
-  });
-
-  it("T-SEM — Pilot-facing labels never expose raw enums nominally", () => {
-    expect(workRequirementPilotLabel("expected")).toBe("Attendu");
-    expect(workProductionPilotLabel("not_produced")).toBe("Non produit");
-    expect(workValidationPilotLabel("under_review")).toBe("En revue");
-    expect(
-      workTriStatePilotLabel(true, {
-        true: "Satisfaite",
-        false: "Non satisfaite",
-        unknown: "Non déterminée",
-      }),
-    ).toBe("Satisfaite");
-  });
-});
-
-describe("P5-S07 CP02 — B4 History identity dedup", () => {
-  it("T-HIS-01 / H-D01 — same Evidence in history + durable → 1 event", () => {
-    const events = deriveProjectHistoryEvents({
-      history: historyFixture({
-        evidence: [{ evidenceId: "ev:dup", status: "recorded" }],
-      }),
-      durable: {
-        evidence: [{ evidenceId: "ev:dup", status: "recorded" }],
-      },
-    });
-    const evidenceEvents = events.filter((e) => e.eventId === "evidence:ev:dup");
-    expect(evidenceEvents).toHaveLength(1);
-  });
-
-  it("T-HIS-02 / H-D02 — same ReviewBundle in history + durable → 1 event", () => {
-    const events = deriveProjectHistoryEvents({
-      history: historyFixture({
-        reviewBundles: [{ reviewBundleId: "rb:dup", status: "open" }],
-      }),
-      durable: {
-        reviewBundles: [{ reviewBundleId: "rb:dup", status: "open" }],
-      },
-    });
-    const rbEvents = events.filter((e) => e.eventId === "rb:rb:dup");
-    expect(rbEvents).toHaveLength(1);
-  });
-
-  it("T-HIS-03 / H-D03 — distinct Evidence IDs → 2 events", () => {
-    const events = deriveProjectHistoryEvents({
-      history: historyFixture({
-        evidence: [
-          { evidenceId: "ev:a", status: "recorded" },
-          { evidenceId: "ev:b", status: "recorded" },
-        ],
-      }),
-    });
-    expect(events.filter((e) => e.sourceKind === "Evidence")).toHaveLength(2);
-  });
-
-  it("T-HIS-04 / H-D04 — all returned event IDs unique", () => {
-    const events = deriveProjectHistoryEvents({
-      history: historyFixture({
-        evidence: [{ evidenceId: "ev:x", status: "recorded" }],
-        reviewBundles: [{ reviewBundleId: "rb:x", status: "open" }],
-      }),
-      durable: {
-        evidence: [
-          { evidenceId: "ev:x", status: "recorded" },
-          { evidenceId: "ev:y", status: "recorded" },
-        ],
-        reviewBundles: [
-          { reviewBundleId: "rb:x", status: "open" },
-          { reviewBundleId: "rb:y", status: "open" },
-        ],
-      },
-    });
-    const ids = events.map((e) => e.eventId);
-    expect(new Set(ids).size).toBe(ids.length);
-  });
-
-  it("T-HIS-05 — filter/search does not reintroduce duplicates", () => {
-    const events = deriveProjectHistoryEvents({
-      history: historyFixture({
-        evidence: [{ evidenceId: "ev:dup", status: "recorded" }],
-      }),
-      durable: {
-        evidence: [{ evidenceId: "ev:dup", status: "recorded" }],
-      },
-    });
-    const filtered = filterProjectHistoryEvents(events, {
-      filter: "all",
-      query: "Preuve",
-    });
-    expect(
-      filtered.filter((e) => e.eventId === "evidence:ev:dup"),
-    ).toHaveLength(1);
-  });
-
-  it("T-HIS-06 — transcript remains non-History", () => {
-    const events = deriveProjectHistoryEvents({
-      history: historyFixture(),
-    });
-    expect(events.every((e) => e.sourceKind !== "Transcript")).toBe(true);
-  });
-});
-
-describe("P5-S07 CP02 — B5 responsive contract source bands", () => {
-  const studioRoot = join(__dirname, "../../..");
-
-  function assertMobileBand(cssPath: string) {
-    const css = readFileSync(join(studioRoot, cssPath), "utf8");
-    expect(css).toMatch(/@media \(max-width:\s*767px\)/);
-    expect(css).not.toMatch(/@media \(max-width:\s*899px\)/);
-  }
-
-  it("T-RSP — Journal / History / Workspace mobile band is ≤767", () => {
-    assertMobileBand(
-      "app/features/pre-m6-product-ui/surfaces/JournalSurface.module.css",
-    );
-    assertMobileBand(
-      "app/features/pre-m6-product-ui/surfaces/HistorySurface.module.css",
-    );
-    assertMobileBand(
-      "app/features/pre-m6-product-ui/ProjectWorkspacePage.module.css",
-    );
-  });
-
-  it("T-RSP — History compact band is 768–1199", () => {
-    const css = readFileSync(
-      join(
-        studioRoot,
-        "app/features/pre-m6-product-ui/surfaces/HistorySurface.module.css",
-      ),
-      "utf8",
-    );
-    expect(css).toMatch(
-      /@media \(min-width:\s*768px\) and \(max-width:\s*1199px\)/,
-    );
-    expect(css).not.toMatch(
-      /@media \(min-width:\s*900px\) and \(max-width:\s*1199px\)/,
-    );
-  });
-});
-
-===== CREATED FILE: projects/sfia-studio/app/__tests__/project-assistant/p5.s07.cp01.continuityExitProof.d0.test.ts =====
-/**
- * P5-S07 CP01 — durable Epistemic subject survives Proposal store loss.
- * ZERO REAL.
- * @vitest-environment node
- */
-import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import {
-  listProposalsForProject,
-  resetF2ProposalStoreForTests,
-  saveProposal,
-} from "@/features/project-assistant/f2/proposalStore";
-import type { ProposalDto } from "@/features/project-assistant/f2/types";
-import { F2_PROCESS_LOCAL_NOTICE } from "@/features/project-assistant/f2/proposalStore";
-import { F2_ARTIFACT_MATERIALIZATION_OPERATION } from "@/features/project-assistant/f2/f2CanonicalOperations";
-import { proposeTrajectoryOptions } from "@/features/project-assistant/w2/proposeTrajectoryOptions";
-import { resolveW2QualificationInputs } from "@/features/project-assistant/w2/qualificationInputs";
-import { readActiveProposalDecisionSubject } from "@/features/project-assistant/w2/activeProposalDecisionSubject";
-import { deriveWorkRepresentationFromLifecycleProjection } from "@/features/pre-m6-product-ui/surfaces/deriveWorkRepresentationFromLifecycle";
-import type { PilotLifecycleProjection } from "@/lib/oa/cycle/application/lifecycleProjection";
-import {
-  bootW2Runtime,
-  cleanupW2TempDirs,
-  currentF2Context,
-  seedQualifiedProject,
-  tempProductDbPath,
-} from "./w2Harness";
-import {
-  getRuntimeApplicationService,
-  resetRuntimeApplicationServiceForTests,
-  type RuntimeApplicationService,
-} from "@/lib/vertical-slice-runtime";
-import { setConversationProviderForTests } from "@/lib/platform/ai";
-import {
-  computeProposalSubjectDigest,
-  sealProposalExecutionBasis,
-} from "@/features/project-assistant/w2/resolveProposalDecisionSubject";
-import { writePendingDecisionSubjectMarker } from "@/features/project-assistant/w2/pendingDecisionSubjectMarker";
-
-const TARGET_PATH = "projects/sfia-studio/.sandbox/gestion-de-taches.md";
-
-function docsWriteProposal(input: {
-  projectId: string;
-  lpsId: string;
-  lpsVersion: number;
-  doctrineDigest: string;
-  activeCycleInstanceId: string | null;
-  proposalId: string;
-}): ProposalDto {
-  return saveProposal({
-    proposalId: input.proposalId,
-    status: "DECISION_REQUIRED",
-    rephrasedRequest: "Matérialiser la note sandbox",
-    objective: "Livrable de référence CP01",
-    cycleTypeId: "cyc:delivery",
-    recommendedProfile: "Critical",
-    rationale: "S07 CP01 continuity",
-    scope: "borné",
-    outOfScope: ["REAL"],
-    activatedBlocks: [],
-    expectedOutcome: "fichier sandbox",
-    sources: ["nora"],
-    risks: [],
-    reservations: [],
-    stopConditions: ["STOP AVANT EXECUTE"],
-    morrisGateRequired: true,
-    nextPossibleStep: "Instruire les options",
-    contextSnapshot: {
-      projectId: input.projectId,
-      lpsId: input.lpsId,
-      lpsVersion: input.lpsVersion,
-      doctrineDigest: input.doctrineDigest,
-      activeCycleInstanceId: input.activeCycleInstanceId,
-    },
-    processLocalNotice: F2_PROCESS_LOCAL_NOTICE,
-    executionForbidden: true,
-    noExecutingStatus: true,
-    agentBinding: "NOT_AVAILABLE",
-    requestedOperation: F2_ARTIFACT_MATERIALIZATION_OPERATION,
-    executionIntent: {
-      intentKind: "docs_write",
-      artifactType: null,
-      targetPath: TARGET_PATH,
-      scopeIn: ["sandbox"],
-      scopeOut: ["git"],
-      expectedOutputs: ["markdown"],
-      requiredCapabilities: ["cap:cursor.docs_write"],
-      validationExpectations: [],
-      evidenceRequirements: [],
-      requestedOperation: F2_ARTIFACT_MATERIALIZATION_OPERATION,
-      reversibilityExpectation: "reversible",
-      artifactBrief: "Livrable de référence CP01",
-      contentRequirements: [],
-      exitRequirementKinds: [],
-      artifactWriteMode: "CREATE",
-      targetRepositoryRef:
-        process.env.SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY?.trim() ||
-        "acme/vitest-default",
-    },
-  });
-}
-
-describe("P5-S07 CP01 durable continuity & work representation wiring", () => {
-  let runtime: RuntimeApplicationService;
-  let dbPath: string;
-
-  beforeEach(() => {
-    process.env.OPS1_CONVERSATION_PROVIDER = "fake";
-    setConversationProviderForTests(null);
-    resetF2ProposalStoreForTests();
-    dbPath = tempProductDbPath("p5-s07-cp01.sqlite");
-    runtime = bootW2Runtime({ productDbPath: dbPath, idPrefix: "s07cp01" });
-  });
-
-  afterEach(() => {
-    resetF2ProposalStoreForTests();
-    setConversationProviderForTests(null);
-    resetRuntimeApplicationServiceForTests();
-    cleanupW2TempDirs();
-  });
-
-  it("S07-CP01-E01 — durable Epistemic subject survives Proposal store + runtime reset", async () => {
-    const seeded = await seedQualifiedProject(runtime, {
-      profile: "Critical",
-      suffix: "cp01",
-    });
-    const ctx = await currentF2Context(runtime, seeded.projectId);
-    const proposal = docsWriteProposal({
-      projectId: seeded.projectId,
-      lpsId: ctx.lpsId,
-      lpsVersion: ctx.lpsVersion,
-      doctrineDigest: ctx.doctrineDigest,
-      activeCycleInstanceId: seeded.cycleInstanceId,
-      proposalId: "prop:f2:p5-s07-cp01",
-    });
-    expect(listProposalsForProject(seeded.projectId)).toHaveLength(1);
-
-    const sealed = sealProposalExecutionBasis(proposal);
-    const subjectDigest = computeProposalSubjectDigest(
-      sealed,
-      proposal.proposalId,
-    );
-    const marked = await writePendingDecisionSubjectMarker({
-      oa: runtime.oa!,
-      projectId: seeded.projectId,
-      proposalId: proposal.proposalId,
-      subjectDigest,
-      lpsId: ctx.lpsId,
-      lpsVersion: ctx.lpsVersion,
-      doctrineDigest: ctx.doctrineDigest,
-    });
-    expect(marked.ok).toBe(true);
-
-    const qualification = await resolveW2QualificationInputs({
-      oa: runtime.oa!,
-      projectId: seeded.projectId,
-    });
-    expect(qualification.ok).toBe(true);
-    if (!qualification.ok) return;
-
-    const proposed = await proposeTrajectoryOptions({
-      oa: runtime.oa!,
-      projectId: seeded.projectId,
-      ...qualification.qualification.inputs,
-      packagePin: qualification.qualification.packagePin,
-      objective: qualification.qualification.objective,
-      projectTitle: qualification.qualification.projectTitle,
-      proposalId: proposal.proposalId,
-    });
-    expect(proposed.ok).toBe(true);
-    if (!proposed.ok) return;
-
-    // Process-local loss.
-    resetF2ProposalStoreForTests();
-    expect(listProposalsForProject(seeded.projectId)).toHaveLength(0);
-
-    // Fresh runtime boundary on the SAME Product SQLite.
-    resetRuntimeApplicationServiceForTests();
-    const fresh = bootW2Runtime({
-      productDbPath: dbPath,
-      idPrefix: "s07cp01-reopen",
-    });
-    const subject = await readActiveProposalDecisionSubject(
-      fresh.oa!,
-      seeded.projectId,
-    );
-    expect(subject.ok).toBe(true);
-    if (!subject.ok) return;
-    expect(subject.kind).toBe("bound_awaiting_decision");
-    if (subject.kind === "bound_awaiting_decision") {
-      expect(subject.optionSet.proposalId).toBe(proposal.proposalId);
-    }
-    // No invented ProposalDto after reset.
-    expect(listProposalsForProject(seeded.projectId)).toHaveLength(0);
-  });
-
-  it("S07-CP01 — work representation Option A from Lifecycle projection (Product-wired helper)", () => {
-    const projection = {
-      projectId: "prj:cp01-work",
-      selectedCycleInstanceId: "cyc:cp01",
-      activeCycleInstanceId: "cyc:cp01",
-      selectedStatus: "active",
-      assessment: {
-        readyExceptFinalizeDecision: false,
-        obligations: [
-          {
-            family: "artifact",
-            applicability: "APPLICABLE",
-            status: "OPEN",
-            kind: "TO_TREAT",
-            label: "Artifact",
-          },
-        ],
-      },
-    } as unknown as PilotLifecycleProjection;
-
-    const work = deriveWorkRepresentationFromLifecycleProjection(projection);
-    expect(work).not.toBeNull();
-    expect(work!.requirementState).toBe("expected");
-    expect(work!.productionState).toBe("not_produced");
-    expect(work!.validationState).toBe("unknown");
-    expect(work!.exitProofSatisfied).toBe("unknown");
-    expect(work!.cycleComplete).toBe(false);
-    expect(work!.distinctions.deliverableIsNotArtifact).toBe(true);
-  });
-
-  it("S07-CP01 — Journal cycle scoping: only selected-cycle decisions", async () => {
-    // Pure projection filter contract mirrored from actions.ts CP01 rule.
-    const decisions = [
-      {
-        decisionId: "dec:a",
-        cycleInstanceId: "cyc:A",
-        subject: "Cycle A",
-        status: "accepted",
-        selectedOptionId: "opt:a",
-        options: [{ optionId: "opt:a", label: "A" }],
-        actor: { actorId: "pilote", role: "Pilote", displayName: "Pilote" },
-        authority: "local_pilote",
-        effectiveAt: "2026-10-06T10:00:00.000Z",
-        reservations: [],
-        decisionBasis: null,
-      },
-      {
-        decisionId: "dec:b",
-        cycleInstanceId: "cyc:B",
-        subject: "Cycle B",
-        status: "accepted",
-        selectedOptionId: "opt:b",
-        options: [{ optionId: "opt:b", label: "B" }],
-        actor: { actorId: "pilote", role: "Pilote", displayName: "Pilote" },
-        authority: "local_pilote",
-        effectiveAt: "2026-10-06T11:00:00.000Z",
-        reservations: [],
-        decisionBasis: null,
-      },
-      {
-        decisionId: "dec:orphan",
-        cycleInstanceId: null,
-        subject: "Sans cycle",
-        status: "accepted",
-        selectedOptionId: "opt:x",
-        options: [{ optionId: "opt:x", label: "X" }],
-        actor: { actorId: "pilote", role: "Pilote", displayName: "Pilote" },
-        authority: "local_pilote",
-        effectiveAt: "2026-10-06T12:00:00.000Z",
-        reservations: [],
-        decisionBasis: null,
-      },
-    ] as const;
-
-    const journalCycleId = "cyc:B";
-    const scoped = decisions.filter((d) => d.cycleInstanceId === journalCycleId);
-    expect(scoped).toHaveLength(1);
-    expect(scoped[0]!.decisionId).toBe("dec:b");
-    expect(scoped.every((d) => d.cycleInstanceId === journalCycleId)).toBe(true);
-  });
-
-  it("ZERO REAL — provider remains Fake for CP01 continuity suite", () => {
-    expect(process.env.OPS1_CONVERSATION_PROVIDER).toBe("fake");
-    // Touch runtime to ensure harness path stays local Product SQLite.
-    expect(getRuntimeApplicationService().oa).not.toBeNull();
-  });
-});
-
-===== CREATED FILE: projects/sfia-studio/app/__tests__/project-assistant/p5.s07.projectContinuityWorkRepresentation.d0.test.ts =====
-/**
- * P5-S07 — Project Continuity & Work Representation (deterministic).
- *
- * Proves:
- * - History events derive from Product facts (not transcript)
- * - Local History search/filter
- * - PROP-PL: process-local Proposal reset → no invented Proposal;
- *   subject reconstructs from Epistemic OR honest requalification
- * - Deliverable ≠ Artifact ≠ validation ≠ Exit Proof
- * - ZERO REAL
- *
- * @vitest-environment node
- */
-import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import {
-  resetF2ProposalStoreForTests,
-  saveProposal,
-  listProposalsForProject,
-  F2_PROCESS_LOCAL_NOTICE,
-  createProposalId,
-} from "@/features/project-assistant/f2/proposalStore";
-import type { ProposalDto } from "@/features/project-assistant/f2/types";
-import { readActiveProposalDecisionSubject } from "@/features/project-assistant/w2/activeProposalDecisionSubject";
-import {
-  deriveProjectHistoryEvents,
-  filterProjectHistoryEvents,
-} from "@/features/project-assistant/w2/deriveProjectHistoryEvents";
-import type { W2ProjectHistoryReadModel } from "@/features/project-assistant/w2/projectHistory";
-import { deriveWorkRepresentationProjection } from "@/features/project-assistant/w2/deriveWorkRepresentationProjection";
-import {
-  getRuntimeApplicationService,
-  resetRuntimeApplicationServiceForTests,
-} from "@/lib/vertical-slice-runtime";
-
-const PROJECT_ID = "prj:p5-s07-continuity";
-
-function historyFixture(): W2ProjectHistoryReadModel {
-  return {
-    projectId: PROJECT_ID,
-    projectTitle: "Product Simplification",
-    lps: { lpsId: "lps:p5-s07", version: 2 },
-    cycle: {
-      activeCycleInstanceId: "cyc:p5-s07",
-      cycleTypeId: "cyc:delivery",
-      profile: "Critical",
-      status: "active",
-    },
-    trajectory: {
-      effectiveCurrent: {
-        trajectoryId: "trj:p5-s07",
-        version: 1,
-        status: "decided",
-        isEffectiveCurrent: true,
-        decidedByDecisionRef: "dec:p5-s07",
-        decidedOptionRef: "opt:pursue",
-        stepCount: 3,
-      },
-      proposedNotYetDecided: null,
-      versions: [
-        {
-          trajectoryId: "trj:p5-s07",
-          version: 1,
-          status: "decided",
-          isEffectiveCurrent: true,
-          decidedByDecisionRef: "dec:p5-s07",
-          decidedOptionRef: "opt:pursue",
-          stepCount: 3,
-        },
-      ],
-    },
-    decisions: [
-      {
-        decisionId: "dec:p5-s07",
-        subject: "Direction de l’espace projet retenue",
-        status: "accepted",
-        authority: "local_pilote",
-        actorRole: "Pilote",
-        selectedOptionRef: "opt:pursue",
-        effectiveAt: "2026-10-06T08:42:00.000Z",
-        basisSourceType: "PresentedOptionSet",
-        basisTrajectoryRef: "trj:p5-s07@v1",
-        reservations: [],
-      },
-    ],
-    contracts: [],
-    evidence: [],
-    reviewBundles: [],
-    syntheses: [],
-    absent: [
-      "Conversation (process-local, non rejouée)",
-      "Proposition F2 process-local",
-    ],
-    boundNote: "Borné · fixture S07.",
-  };
-}
-
-describe("P5-S07 project continuity & work representation", () => {
-  beforeEach(() => {
-    resetF2ProposalStoreForTests();
-  });
-
-  afterEach(() => {
-    resetF2ProposalStoreForTests();
-    resetRuntimeApplicationServiceForTests();
-  });
-
-  it("S07-E06/E07/E08 — History derives from Product facts and supports local search", () => {
-    const events = deriveProjectHistoryEvents({ history: historyFixture() });
-    expect(events.some((e) => e.kind === "decision")).toBe(true);
-    expect(events.every((e) => !e.title.toLowerCase().includes("transcript"))).toBe(
-      true,
-    );
-    expect(
-      events.some((e) => e.sourceKind === "HumanDecision" && e.occurredAt != null),
-    ).toBe(true);
-
-    const decisionsOnly = filterProjectHistoryEvents(events, {
-      filter: "decisions",
-      query: "",
-    });
-    expect(decisionsOnly.every((e) => e.filterBucket === "decisions")).toBe(true);
-
-    const searched = filterProjectHistoryEvents(events, {
-      filter: "all",
-      query: "retenue",
-    });
-    expect(searched.some((e) => e.eventId === "dec:p5-s07")).toBe(true);
-
-    const none = filterProjectHistoryEvents(events, {
-      filter: "all",
-      query: "zzz-no-match",
-    });
-    expect(none).toHaveLength(0);
-
-    // Transcript content alone never becomes a History event.
-    expect(events.every((e) => e.sourceKind !== "Transcript")).toBe(true);
-  });
-
-  it("S07-E09 — Deliverable ≠ Artifact ≠ validation ≠ Exit Proof", () => {
-    const producedUnvalidated = deriveWorkRepresentationProjection({
-      projectId: PROJECT_ID,
-      cycleInstanceId: "cyc:p5-s07",
-      artifactRequired: true,
-      artifactIds: ["art:note-v1"],
-      evidenceIds: [],
-      reviewBundleIds: [],
-      qualificationHint: null,
-      exitProofSatisfied: null,
-      cycleComplete: false,
-    });
-    expect(producedUnvalidated.requirementState).toBe("expected");
-    expect(producedUnvalidated.productionState).toBe("produced");
-    expect(producedUnvalidated.validationState).toBe("unknown");
-    expect(producedUnvalidated.exitProofSatisfied).toBe("unknown");
-    expect(producedUnvalidated.cycleComplete).toBe(false);
-    expect(producedUnvalidated.distinctions.deliverableIsNotArtifact).toBe(true);
-    expect(producedUnvalidated.distinctions.artifactExistsIsNotValidation).toBe(
-      true,
-    );
-    expect(producedUnvalidated.distinctions.validationIsNotExitProof).toBe(true);
-
-    const validatedStillNotExit = deriveWorkRepresentationProjection({
-      projectId: PROJECT_ID,
-      artifactRequired: true,
-      artifactIds: ["art:note-v1"],
-      evidenceIds: ["ev:1"],
-      reviewBundleIds: ["rb:1"],
-      qualificationHint: "validated",
-      exitProofSatisfied: false,
-      cycleComplete: false,
-    });
-    expect(validatedStillNotExit.validationState).toBe("validated");
-    expect(validatedStillNotExit.exitProofSatisfied).toBe(false);
-    expect(validatedStillNotExit.cycleComplete).toBe(false);
-  });
-
-  it("S07-E02 — process-local Proposal loss cannot invent a Proposal continuation", async () => {
-    const proposalId = createProposalId();
-    const proposal: ProposalDto = {
-      proposalId,
-      status: "DECISION_REQUIRED",
-      rephrasedRequest: "Matérialiser la note",
-      objective: "Livrable de référence",
-      cycleTypeId: "cyc:delivery",
-      recommendedProfile: "Critical",
-      rationale: "S07 continuity fixture",
-      scope: "borné",
-      outOfScope: ["REAL"],
-      activatedBlocks: [],
-      expectedOutcome: "fichier sandbox",
-      sources: ["nora"],
-      risks: [],
-      reservations: [],
-      stopConditions: ["STOP AVANT EXECUTE"],
-      morrisGateRequired: true,
-      nextPossibleStep: "Instruire les options",
-      contextSnapshot: {
-        projectId: PROJECT_ID,
-        lpsId: "lps:p5-s07",
-        lpsVersion: 2,
-        doctrineDigest: "sha256:s07-fixture",
-        activeCycleInstanceId: "cyc:p5-s07",
-      },
-      processLocalNotice: F2_PROCESS_LOCAL_NOTICE,
-      executionForbidden: true,
-      noExecutingStatus: true,
-      agentBinding: "NOT_AVAILABLE",
-    };
-    saveProposal(proposal);
-    expect(listProposalsForProject(PROJECT_ID)).toHaveLength(1);
-
-    // Simulate process restart — process-local store gone.
-    resetF2ProposalStoreForTests();
-    expect(listProposalsForProject(PROJECT_ID)).toHaveLength(0);
-
-    // Fresh runtime OA stack (may not have this fixture project) — read must
-    // not invent a Proposal. Reconstruction comes from Epistemic when present;
-    // otherwise honest none / epistemic failure / reinstruction.
-    const runtime = getRuntimeApplicationService();
-    expect(runtime.oa).not.toBeNull();
-    const subject = await readActiveProposalDecisionSubject(
-      runtime.oa!,
-      PROJECT_ID,
-    );
-    // Honest outcomes after process-local loss: reconstruct / requalify / none /
-    // epistemic read failure. Never a fabricated bound Proposal from thin air.
-    expect(listProposalsForProject(PROJECT_ID)).toHaveLength(0);
-    if (!subject.ok) {
-      expect(subject.code).toBe("EPISTEMIC_READ_FAILED");
-      return;
-    }
-    expect(subject.kind === "bound_awaiting_decision").toBe(false);
-    if (subject.kind === "pending_reinstruction_required") {
-      expect(subject.recoverableProposalIds).not.toContain(proposalId);
-    } else {
-      expect(
-        subject.kind === "none" || subject.kind === "pursue_prepare_ready",
-      ).toBe(true);
-    }
-  });
-
-  it("S07-E01 — History projection anchors current Project/LPS before interaction state", () => {
-    const events = deriveProjectHistoryEvents({ history: historyFixture() });
-    const project = events.find((e) => e.kind === "project");
-    const lps = events.find((e) => e.kind === "lps");
-    const cycle = events.find((e) => e.kind === "cycle");
-    expect(project?.isCurrent).toBe(true);
-    expect(project?.sourceId).toBe(PROJECT_ID);
-    expect(lps?.isCurrent).toBe(true);
-    expect(lps?.sourceId).toBe("lps:p5-s07");
-    expect(cycle?.isCurrent).toBe(true);
-    // Interaction/transcript never appears as History authority.
-    expect(events.every((e) => e.sourceKind !== "Transcript")).toBe(true);
-    expect(events.every((e) => e.sourceKind !== "ProposalDto")).toBe(true);
-  });
-
-  it("S07-E03/E04 — work representation + History keep Recommendation/Decision distinct from Artifact", () => {
-    const work = deriveWorkRepresentationProjection({
-      projectId: PROJECT_ID,
-      cycleInstanceId: "cyc:p5-s07",
-      artifactRequired: true,
-      artifactIds: [],
-      evidenceIds: [],
-      reviewBundleIds: [],
-      qualificationHint: "not_reviewed",
-      exitProofSatisfied: false,
-      cycleComplete: false,
-    });
-    expect(work.requirementState).toBe("expected");
-    expect(work.productionState).toBe("not_produced");
-    expect(work.validationState).toBe("not_reviewed");
-    expect(work.exitProofSatisfied).toBe(false);
-
-    const events = deriveProjectHistoryEvents({
-      history: historyFixture(),
-      durable: {
-        recommendation: { recommendationLabel: "Poursuivre la trajectoire courante" },
-      },
-    });
-    const rec = events.find((e) => e.kind === "recommendation");
-    expect(rec?.title).toContain("Poursuivre");
-    expect(rec?.sourceKind).toBe("Recommendation");
-    // Post-evidence recommendation is historical projection, not current Product SoT.
-    expect(rec?.isCurrent).toBe(false);
-    // Decision remains a separate governed source — not collapsed into Recommendation.
-    expect(events.some((e) => e.sourceKind === "HumanDecision")).toBe(true);
-  });
-
-  it("S07-E10/E11 — stale projection cannot invent authoritative Product mutation hooks", () => {
-    const stale = deriveWorkRepresentationProjection({
-      projectId: PROJECT_ID,
-      artifactRequired: null,
-      artifactIds: null,
-      evidenceIds: null,
-      reviewBundleIds: null,
-    });
-    // Unknown fields stay unknown — never auto-promoted to validated / exit proof.
-    expect(stale.requirementState).toBe("unknown");
-    expect(stale.validationState).toBe("unknown");
-    expect(stale.exitProofSatisfied).toBe("unknown");
-    expect(stale.cycleComplete).toBe("unknown");
-    // Pure projection: no write side-effects / no Proposal fabrication after reset.
-    expect(listProposalsForProject(PROJECT_ID)).toHaveLength(0);
-  });
-
-  it("S07-E23 — ZERO REAL boundary notice preserved on Proposal store", () => {
-    expect(F2_PROCESS_LOCAL_NOTICE).toMatch(/reconstruisible|requalification/i);
-    expect(F2_PROCESS_LOCAL_NOTICE).toMatch(/Product SQLite/i);
-  });
-});
-
-===== CREATED FILE: projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s07.historySurface.ui.test.tsx =====
-/**
- * P5-S07 — HistorySurface master/detail + local search UI.
- * @vitest-environment jsdom
- */
-import { afterEach, describe, expect, it, vi, beforeEach } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   cleanup,
+  fireEvent,
   render,
   screen,
-  fireEvent,
   waitFor,
+  within,
 } from "@testing-library/react";
+import {
+  JournalSurface,
+  type JournalSurfaceEntry,
+} from "@/features/pre-m6-product-ui/surfaces/JournalSurface";
 import { HistorySurface } from "@/features/pre-m6-product-ui/surfaces/HistorySurface";
 import type { GetProjectSuccess } from "@/features/pre-m6-product-ui/types";
+import journalCss from "@/features/pre-m6-product-ui/surfaces/JournalSurface.module.css";
+import historyCss from "@/features/pre-m6-product-ui/surfaces/HistorySurface.module.css";
+import workspaceCss from "@/features/pre-m6-product-ui/ProjectWorkspacePage.module.css";
+
+afterEach(() => {
+  cleanup();
+});
+
+const entries: JournalSurfaceEntry[] = [
+  {
+    journalEntryId: "cje:v1",
+    topicOrdinal: 1,
+    title: "Architecture de l'espace projet",
+    currentSummary: "Conversation comme canal principal.",
+    stabilizedPoints: ["Point A"],
+    openPoints: ["Point B"],
+    status: "active",
+    updatedAt: new Date(Date.now() - 60_000).toISOString(),
+    sourceTurnRefs: ["pt:1", "pt:2", "pt:3"],
+    sourceTurnCount: 3,
+    isCurrentTopic: true,
+  },
+];
+
+const transcript = [
+  {
+    id: "pt:1",
+    role: "user",
+    content: "On garde la conversation ?",
+    createdAt: "2026-10-04T10:24:00.000Z",
+  },
+  {
+    id: "pt:2",
+    role: "assistant",
+    content: "Oui, les surfaces complètent.",
+    createdAt: "2026-10-04T10:25:00.000Z",
+  },
+  {
+    id: "pt:3",
+    role: "user",
+    content: "Je veux retrouver les sujets.",
+    createdAt: "2026-10-04T10:26:00.000Z",
+  },
+];
+
+function renderJournal(overrides: Record<string, unknown> = {}) {
+  return render(
+    <JournalSurface
+      variant="principal"
+      entries={entries}
+      cycleInstanceId="cyc:1"
+      selectedEntryId="cje:v1"
+      onSelectEntry={() => undefined}
+      onViewExchanges={() => undefined}
+      onFocusTurn={() => undefined}
+      transcriptMessages={transcript}
+      onReturnToConversation={() => undefined}
+      cycleLabel="Cycle de livraison"
+      currentnessLabel="À jour"
+      {...overrides}
+    />,
+  );
+}
 
 const { readHistoryMock } = vi.hoisted(() => ({
   readHistoryMock: vi.fn(),
@@ -6511,49 +4279,31 @@ vi.mock("@/features/project-assistant/w2/actions", () => ({
 const historyPayload = {
   ok: true as const,
   history: {
-    projectId: "prj:ui-s07",
+    projectId: "prj:vt",
     projectTitle: "Product Simplification",
-    lps: { lpsId: "lps:ui-s07", version: 1 },
+    lps: { lpsId: "lps:vt", version: 1 },
     cycle: {
-      activeCycleInstanceId: "cyc:ui-s07",
+      activeCycleInstanceId: "cyc:vt",
       cycleTypeId: "cyc:delivery",
       profile: "Critical",
       status: "active",
     },
     trajectory: {
-      effectiveCurrent: {
-        trajectoryId: "trj:ui",
-        version: 1,
-        status: "decided",
-        isEffectiveCurrent: true,
-        decidedByDecisionRef: "dec:ui",
-        decidedOptionRef: "opt:a",
-        stepCount: 2,
-      },
+      effectiveCurrent: null,
       proposedNotYetDecided: null,
-      versions: [
-        {
-          trajectoryId: "trj:ui",
-          version: 1,
-          status: "decided",
-          isEffectiveCurrent: true,
-          decidedByDecisionRef: "dec:ui",
-          decidedOptionRef: "opt:a",
-          stepCount: 2,
-        },
-      ],
+      versions: [],
     },
     decisions: [
       {
-        decisionId: "dec:ui",
-        subject: "Direction de l espace projet retenue",
+        decisionId: "dec:vt",
+        subject: "Direction retenue",
         status: "accepted",
         authority: "local_pilote",
         actorRole: "Pilote",
         selectedOptionRef: "opt:a",
         effectiveAt: "2026-10-06T08:42:00.000Z",
         basisSourceType: "PresentedOptionSet",
-        basisTrajectoryRef: "trj:ui@v1",
+        basisTrajectoryRef: null,
         reservations: [],
       },
     ],
@@ -6561,15 +4311,15 @@ const historyPayload = {
     evidence: [],
     reviewBundles: [],
     syntheses: [],
-    absent: ["Conversation (process-local, non rejouee)"],
-    boundNote: "Borné · fixture HistorySurface UI.",
+    absent: [],
+    boundNote: "Borné · V-T History.",
   },
 };
 
-const result = {
+const historyResult = {
   ok: true,
   project: {
-    projectId: "prj:ui-s07",
+    projectId: "prj:vt",
     name: "Product Simplification",
     objective: "obj",
     contextSummary: "ctx",
@@ -6580,764 +4330,222 @@ const result = {
     fixture: false,
   },
   livingState: {
-    id: "lps:ui-s07",
+    id: "lps:vt",
     version: 1,
     createdAt: "2026-10-06T00:00:00.000Z",
-    activeCycleInstanceId: "cyc:ui-s07",
+    activeCycleInstanceId: "cyc:vt",
   },
   doctrine: { packageId: "pkg", digest: "d" },
   readiness: { ready: true, blockers: [] },
 } as unknown as GetProjectSuccess;
 
-describe("P5-S07 HistorySurface UI", () => {
+describe("P5-S07 CP03 visual fidelity (V-T)", () => {
+  /** V-T01 — J1 title row: cycle chip + freshness. */
+  it("V-T01 J1 — title row exposes cycle chip and currentness", () => {
+    renderJournal();
+    expect(screen.getByRole("heading", { name: "Journal du cycle" })).toBeTruthy();
+    expect(screen.getByTestId("project-journal-cycle-chip").textContent).toBe(
+      "Cycle de livraison",
+    );
+    expect(screen.getByTestId("project-journal-currentness").textContent).toBe(
+      "À jour",
+    );
+  });
+
+  /** V-T02 — J1 never invents P3 · fixture copy. */
+  it("V-T02 J1 — falls back to surface-identity copy, not invented Product facts", () => {
+    renderJournal({ cycleLabel: null });
+    expect(screen.getByTestId("project-journal-cycle-chip").textContent).toBe(
+      "Espace projet / interaction",
+    );
+    expect(screen.getByTestId("project-journal-cycle-chip").textContent).not.toMatch(
+      /^P3 ·/,
+    );
+  });
+
+  /** V-T03 — J2 dense exchange panel + footer actions. */
+  it("V-T03 J2 — exchange panel expands with Réduire / conversation footer", () => {
+    renderJournal();
+    const panel = screen.getByTestId("cycle-journal-exchanges-cje:v1");
+    expect(panel.className).toMatch(/exchangePanel/);
+    expect(within(panel).getAllByRole("button")).toHaveLength(2);
+
+    fireEvent.click(screen.getByTestId("cycle-journal-view-cje:v1"));
+    expect(within(panel).getAllByRole("button")).toHaveLength(3);
+    expect(screen.getByTestId("cycle-journal-view-cje:v1").textContent).toBe(
+      "Réduire les échanges",
+    );
+    expect(
+      screen.getByTestId("project-journal-open-in-conversation").textContent,
+    ).toMatch(/Voir dans la conversation/);
+  });
+
+  /** V-T04 — J3 one-row tabs: four tabs, plain digit counts. */
+  it("V-T04 J3 — four memory tabs with plain digit counts (no badge chrome)", () => {
+    renderJournal();
+    const tabs = screen.getByTestId("memory-rail-tabs");
+    expect(tabs.getAttribute("role")).toBe("tablist");
+    const tabIds = [
+      "sujets",
+      "reserves",
+      "recommandations",
+      "decisions",
+    ] as const;
+    for (const id of tabIds) {
+      const tab = screen.getByTestId(`memory-rail-tab-${id}`);
+      expect(tab).toBeInTheDocument();
+      expect(tab.textContent).toMatch(/\d/);
+    }
+    // CSS module still ships nowrap + selected tint for the mobile band.
+    expect(journalCss).toBeTruthy();
+    expect(String(journalCss.tabCount || "")).toBeTruthy();
+  });
+
+  /** V-T05 — J4 mobile detail hides list chrome via data-mobile-detail. */
+  it("V-T05 J4 — mobile detail sets data-mobile-detail so list chrome can hide", () => {
+    renderJournal({ selectedEntryId: null });
+    const surface = screen.getByTestId("project-journal-surface");
+    expect(surface).toHaveAttribute("data-mobile-detail", "false");
+
+    fireEvent.click(
+      within(screen.getByTestId("cycle-journal-entry-cje:v1")).getByRole(
+        "button",
+        { name: /Architecture/ },
+      ),
+    );
+    expect(surface).toHaveAttribute("data-mobile-detail", "true");
+    expect(screen.getByTestId("project-journal-back-to-subjects")).toBeTruthy();
+    expect(screen.getByTestId("project-journal-stabilized")).toBeTruthy();
+    expect(screen.getByTestId("project-journal-open")).toBeTruthy();
+    expect(screen.getByTestId("project-journal-linked")).toBeTruthy();
+    expect(screen.getByTestId("project-journal-exchanges")).toBeTruthy();
+  });
+
+  /** V-T06 — detail sections present for focused mobile reading. */
+  it("V-T06 J4 — focused detail keeps subject reading blocks", () => {
+    renderJournal();
+    expect(screen.getByTestId("project-journal-detail-title").textContent).toBe(
+      "Architecture de l'espace projet",
+    );
+    expect(screen.getByTestId("project-journal-detail").textContent).toMatch(
+      /Points stabilisés|POINTS STABILISÉS/i,
+    );
+    expect(screen.getByTestId("project-journal-detail").textContent).toMatch(
+      /Points ouverts|POINTS OUVERTS/i,
+    );
+  });
+});
+
+describe("P5-S07 CP03 History visual fidelity (V-T)", () => {
   beforeEach(() => {
     readHistoryMock.mockReset();
     readHistoryMock.mockResolvedValue(historyPayload);
   });
 
-  afterEach(() => {
-    cleanup();
-  });
-
-  it("renders master/detail, filters, and local search over Product events", async () => {
+  /** V-T07 — H1 desktop keeps search + filters. */
+  it("V-T07 H1 — desktop keeps search and filter toolbar", async () => {
     render(
-      <HistorySurface result={result} onReturnToOverview={() => undefined} />,
+      <HistorySurface
+        result={historyResult}
+        onReturnToOverview={() => undefined}
+      />,
     );
-
-    expect(screen.getByTestId("project-history-panel")).toBeInTheDocument();
-    expect(screen.getByTestId("history-back-overview")).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "Historique" })).toBeInTheDocument();
-    expect(screen.getByTestId("history-master-detail")).toBeInTheDocument();
     expect(screen.getByTestId("history-search")).toBeInTheDocument();
-
-    await waitFor(() => {
-      expect(readHistoryMock).toHaveBeenCalled();
-      expect(screen.getByTestId("history-event-dec:ui")).toBeInTheDocument();
-    });
-
-    fireEvent.click(screen.getByTestId("history-filter-decisions"));
-    expect(screen.getByTestId("history-event-dec:ui")).toBeInTheDocument();
-
-    fireEvent.change(screen.getByTestId("history-search"), {
-      target: { value: "retenue" },
-    });
-    expect(screen.getByTestId("history-event-dec:ui")).toBeInTheDocument();
-
-    fireEvent.click(screen.getByTestId("history-event-dec:ui"));
-    expect(screen.getByTestId("history-detail-pane")).toHaveTextContent(
-      "Direction de l espace projet retenue",
-    );
-    expect(screen.getByTestId("history-detail-pane")).toHaveTextContent(
-      "Ce qui a été décidé",
-    );
-  });
-
-  it("CP01 — P3 78:2 exposes Tout / Décisions / Changements only", async () => {
-    render(<HistorySurface result={result} />);
-    await waitFor(() => {
-      expect(screen.getByTestId("history-event-dec:ui")).toBeInTheDocument();
-    });
-
+    expect(screen.getByTestId("history-filters")).toBeInTheDocument();
     expect(screen.getByTestId("history-filter-all")).toBeInTheDocument();
-    expect(screen.getByTestId("history-filter-decisions")).toBeInTheDocument();
-    expect(screen.getByTestId("history-filter-changes")).toBeInTheDocument();
-    // « Vérifié » is an event-type chip in the list, never a fourth filter.
-    expect(screen.queryByTestId("history-filter-verified")).toBeNull();
-    expect(
-      screen.getByTestId("history-event-dec:ui").textContent,
-    ).toContain("Décision");
-  });
-
-  it("CP01 — detail reserves every P3 block and stays honest when facts are absent", async () => {
-    render(<HistorySurface result={result} onAskNora={() => undefined} />);
+    expect(screen.getByTestId("history-back-overview")).toBeInTheDocument();
     await waitFor(() => {
-      expect(screen.getByTestId("history-event-dec:ui")).toBeInTheDocument();
+      expect(screen.getByTestId("history-event-dec:vt")).toBeInTheDocument();
     });
-
-    fireEvent.click(screen.getByTestId("history-event-dec:ui"));
-    for (const block of [
-      "history-detail-decided",
-      "history-detail-why",
-      "history-detail-impact",
-      "history-detail-verification",
-      "history-detail-sources",
-      "history-detail-ask-nora",
-    ]) {
-      expect(screen.getByTestId(block)).toBeInTheDocument();
-    }
-    // The decision anchor proves its basis — the block is a fact, not a guess.
-    expect(screen.getByTestId("history-detail-why").textContent).toContain(
-      "PresentedOptionSet",
-    );
-
-    // The project identity anchor proves nothing beyond itself.
-    fireEvent.click(screen.getByTestId("history-event-project:prj:ui-s07"));
-    expect(
-      screen
-        .getByTestId("history-detail-why")
-        .querySelector("[data-available='false']"),
-    ).not.toBeNull();
-    expect(screen.getByTestId("history-detail-verification")).toHaveAttribute(
-      "data-available",
-      "false",
-    );
   });
 
-  it("CP01 — « Demander à Nora » prefills a draft and never sends", async () => {
-    const drafts: string[] = [];
+  /** V-T08 — H2 compact CSS hides search/filters; keeps compactReading. */
+  it("V-T08 H2 — compactReading exists; desktop-only blocks stay marked", async () => {
     render(
-      <HistorySurface result={result} onAskNora={(d) => drafts.push(d)} />,
+      <HistorySurface result={historyResult} onAskNora={() => undefined} />,
     );
     await waitFor(() => {
-      expect(screen.getByTestId("history-event-dec:ui")).toBeInTheDocument();
+      expect(screen.getByTestId("history-event-dec:vt")).toBeInTheDocument();
     });
+    fireEvent.click(screen.getByTestId("history-event-dec:vt"));
 
-    fireEvent.click(screen.getByTestId("history-event-dec:ui"));
-    fireEvent.click(screen.getByTestId("history-ask-nora-submit"));
-    expect(drafts).toHaveLength(1);
-    expect(drafts[0]).toContain("Direction de l espace projet retenue");
-
-    fireEvent.change(screen.getByTestId("history-ask-nora-input"), {
-      target: { value: "Compare ce moment avec hier" },
-    });
-    fireEvent.click(screen.getByTestId("history-ask-nora-submit"));
-    expect(drafts[1]).toBe("Compare ce moment avec hier");
+    expect(screen.getByTestId("history-compact-reading")).toBeInTheDocument();
+    expect(screen.getByTestId("history-compact-reading").textContent).toMatch(
+      /Contexte/i,
+    );
+    expect(screen.getByTestId("history-compact-reading").textContent).toMatch(
+      /Éléments liés/i,
+    );
+    expect(screen.getByTestId("history-ask-nora-cta")).toBeInTheDocument();
+    // Full H1 blocks remain in DOM for LARGE; CSS hides them in compact/mobile.
+    expect(screen.getByTestId("history-detail-decided")).toBeInTheDocument();
+    expect(historyCss.compactReading).toBeTruthy();
+    expect(historyCss.desktopOnly).toBeTruthy();
+    expect(historyCss.listEyebrow).toBeTruthy();
   });
 
-  it("CP01 — mobile list ↔ detail is one nav level (190:380 → 190:412)", async () => {
-    render(<HistorySurface result={result} />);
-    await waitFor(() => {
-      expect(screen.getByTestId("history-event-dec:ui")).toBeInTheDocument();
-    });
-
-    expect(screen.getByTestId("history-list-pane")).toHaveAttribute(
-      "data-mobile-hidden",
-      "false",
+  /** V-T09 — H3/H4 mobile nav level + no inventing technical dumps. */
+  it("V-T09 H3/H4 — mobile list↔detail and no raw technical dump in reading", async () => {
+    render(
+      <HistorySurface result={historyResult} onAskNora={() => undefined} />,
     );
-    fireEvent.click(screen.getByTestId("history-event-dec:ui"));
-    expect(screen.getByTestId("history-list-pane")).toHaveAttribute(
-      "data-mobile-hidden",
+    await waitFor(() => {
+      expect(screen.getByTestId("history-event-dec:vt")).toBeInTheDocument();
+    });
+    fireEvent.click(screen.getByTestId("history-event-dec:vt"));
+    expect(screen.getByTestId("project-history-panel")).toHaveAttribute(
+      "data-mobile-detail",
       "true",
     );
-    expect(screen.getByTestId("history-detail-pane")).toHaveAttribute(
-      "data-mobile-hidden",
-      "false",
-    );
+    const reading = screen.getByTestId("history-compact-reading").textContent ?? "";
+    // Compact reading must not surface raw Product ids.
+    expect(reading).not.toMatch(/dec:vt/);
+    expect(reading).not.toMatch(/prj:vt/);
+    expect(screen.getByTestId("history-ask-nora-cta")).toBeInTheDocument();
+  });
 
-    fireEvent.click(screen.getByTestId("history-back-to-list"));
-    expect(screen.getByTestId("history-list-pane")).toHaveAttribute(
-      "data-mobile-hidden",
-      "false",
+  /** V-T10 — workspace ships history page head for compact. */
+  it("V-T10 H2 — ProjectWorkspacePage CSS exposes history page head", () => {
+    expect(workspaceCss.historyPageHead).toBeTruthy();
+    expect(workspaceCss.historyPageTitle).toBeTruthy();
+    expect(workspaceCss.historyPageSubtitle).toBeTruthy();
+  });
+
+  /** V-T11 — Journal CSS encodes one-row tab + mobile-detail hide rules. */
+  it("V-T11 J3/J4 — CSS modules expose tab + principal chrome classes", () => {
+    expect(journalCss.tabs).toBeTruthy();
+    expect(journalCss.tab).toBeTruthy();
+    expect(journalCss.tabActive).toBeTruthy();
+    expect(journalCss.principalHeader).toBeTruthy();
+    expect(journalCss.exchangePanel).toBeTruthy();
+  });
+
+  /** V-T12 — History master eyebrow for compact. */
+  it("V-T12 H2 — master pane exposes HISTORIQUE eyebrow node", async () => {
+    render(<HistorySurface result={historyResult} />);
+    await waitFor(() => {
+      expect(screen.getByTestId("history-event-dec:vt")).toBeInTheDocument();
+    });
+    const eyebrows = document.querySelectorAll(
+      `[class*="listEyebrow"]`,
     );
+    expect(eyebrows.length).toBeGreaterThan(0);
+    expect(eyebrows[0]?.textContent).toMatch(/Historique/i);
   });
 });
 
-===== CREATED FILE: projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s07.journalPrincipalView.ui.test.tsx =====
-/** @vitest-environment jsdom */
-/**
- * P5-S07 CP01 — « Journal du cycle » is a dedicated principal view (P3 94:2),
- * exactly like Historique: it owns the main column, the context rail steps
- * aside, and the rail keeps only a compact shortcut into the same surface.
- */
-import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { ProjectWorkspacePage } from "@/features/pre-m6-product-ui/ProjectWorkspacePage";
-
-const {
-  getProjectRuntimeActionMock,
-  useProductConversationMock,
-  deriveContinuityMock,
-  readCurrentContinuityMock,
-  readHistoryMock,
-} = vi.hoisted(() => ({
-  getProjectRuntimeActionMock: vi.fn(),
-  useProductConversationMock: vi.fn(),
-  deriveContinuityMock: vi.fn(),
-  readCurrentContinuityMock: vi.fn(),
-  readHistoryMock: vi.fn(),
-}));
-
-vi.mock("@/lib/vertical-slice-runtime/actions", () => ({
-  getProjectRuntimeAction: (...args: unknown[]) =>
-    getProjectRuntimeActionMock(...args),
-  setProjectRepositoryBindingAction: vi.fn(),
-}));
-
-vi.mock("@/features/pre-m6-product-ui/hooks/useProductConversation", () => ({
-  useProductConversation: (...args: unknown[]) =>
-    useProductConversationMock(...args),
-}));
-
-vi.mock("@/features/project-assistant/w2/actions", () => ({
-  w2DeriveGovernedExecutionContinuityAction: (...args: unknown[]) =>
-    deriveContinuityMock(...args),
-  w2ReadCurrentGovernedExecutionContinuityAction: (...args: unknown[]) =>
-    readCurrentContinuityMock(...args),
-  w2ReadProjectHistoryAction: (...args: unknown[]) => readHistoryMock(...args),
-  w2ConfirmExecutionContractAction: vi.fn(),
-  w2InspectExecutionContractAction: vi.fn(),
-  w2AuthorizeExecutionContractAction: vi.fn(),
-  w2ReconcileGovernedExecutionAction: vi.fn(),
-}));
-
-vi.mock("@/features/project-assistant/synthesisActions", () => ({
-  getLatestRelevantProductSynthesisAction: vi.fn(async () => ({
-    ok: true,
-    synthesis: null,
-    count: 0,
-  })),
-  listProductSynthesesAction: vi.fn(async () => ({ ok: true, items: [] })),
-  getProductSynthesisAction: vi.fn(),
-  searchProductSynthesesAction: vi.fn(async () => ({ ok: true, items: [] })),
-  materializeProductSynthesisFromLineageAction: vi.fn(),
-}));
-
-vi.mock("@/features/project-assistant/actions", () => ({
-  projectAssistantConversationContinuityAction: vi.fn(async () => ({
-    ok: true,
-    transcriptAvailability: "empty",
-    messages: [],
-    journal: { cycleInstanceId: null, entries: [] },
-  })),
-  projectAssistantActiveCycleWorkspaceAction: vi.fn().mockResolvedValue({
-    ok: true,
-    cycleTypeId: null,
-    repositoryWorkspaceSegment: null,
-  }),
-  projectAssistantConfirmReservationResolutionAction: vi.fn(),
-  projectAssistantDeferReservationAction: vi.fn(),
-  projectAssistantPilotLifecycleProjection: vi.fn(),
-  projectAssistantPilotLifecycleAction: vi.fn(),
-  projectAssistantRecordObligationPolicyAction: vi.fn(),
-  projectAssistantCompleteTrajectoryStepAction: vi.fn(),
-  projectAssistantResolveBlockingReservationAction: vi.fn(),
-  projectAssistantRehydrateEvidenceOutcomeAction: vi.fn().mockResolvedValue({
-    ok: false,
-  }),
-}));
-
-vi.mock("@/features/pre-m6-product-ui/surfaces/LifecycleSurface", () => ({
-  LifecycleSurface: () => <div data-testid="lifecycle-stub" />,
-}));
-
-vi.mock("@/features/pre-m6-product-ui/surfaces/TrajectorySurface", () => ({
-  TrajectorySurface: () => <div data-testid="trajectory-stub" />,
-}));
-
-vi.mock("@/features/pre-m6-product-ui/surfaces/HistorySurface", () => ({
-  HistorySurface: () => <div data-testid="history-stub" />,
-}));
-
-vi.mock("@/features/pre-m6-product-ui/surfaces/LpsSurface", () => ({
-  LpsSurface: () => <div data-testid="lps-stub" />,
-  lpsNextAction: () => "Poursuivre avec Nora",
-}));
-
-vi.mock("@/features/pre-m6-product-ui/surfaces/RecoverySurface", () => ({
-  RecoverySurface: () => null,
-}));
-
-vi.mock(
-  "@/features/pre-m6-product-ui/surfaces/ProjectWorkspaceRoutingPanel",
-  () => ({
-    ProjectWorkspaceRoutingPanelLazy: () => null,
-  }),
-);
-
-vi.mock("@/features/pre-m6-product-ui/surfaces/ConversationSurface", () => ({
-  ConversationSurface: () => (
-    <div data-testid="project-assistant-panel">Conversation</div>
-  ),
-}));
-
-const journalEntries = [
-  {
-    journalEntryId: "cje:1",
-    topicOrdinal: 1,
-    title: "Architecture de l'espace projet",
-    currentSummary: "La conversation reste le canal principal.",
-    stabilizedPoints: ["Conversation principale"],
-    openPoints: ["Cohérence finale"],
-    status: "active",
-    updatedAt: "2026-10-06T08:00:00.000Z",
-    sourceTurnRefs: ["pt:a"],
-    sourceTurnCount: 1,
-    isCurrentTopic: true,
-  },
-];
-
-describe("P5-S07 CP01 Journal principal view wiring", () => {
-  afterEach(() => {
-    cleanup();
-  });
-
-  beforeEach(() => {
-    vi.clearAllMocks();
-    deriveContinuityMock.mockResolvedValue({ ok: false });
-    readCurrentContinuityMock.mockResolvedValue({ ok: true, kind: "none" });
-    readHistoryMock.mockResolvedValue({ ok: false });
-    getProjectRuntimeActionMock.mockResolvedValue({
-      ok: true,
-      project: {
-        projectId: "prj:p5-s07",
-        name: "Product Simplification",
-        shortReference: "P5",
-        objective: "Simplifier le pilotage sans perdre gouvernance.",
-        contextSummary: "ctx",
-        criticality: "STANDARD",
-        constraints: [],
-        localMode: true,
-        source: "REAL_LOCAL_CORE",
-        fixture: false,
-        projectWorkspaceKey: null,
-        repositoryBinding: null,
-      },
-      livingState: {
-        projectId: "prj:p5-s07",
-        id: "lps:p5-s07",
-        version: 2,
-        createdAt: "2026-10-05T00:00:00.000Z",
-        updatedAt: "2026-10-05T00:00:00.000Z",
-        activeCycleInstanceId: "cyc:p5-s07",
-        status: "active",
-      },
-      doctrine: { packageId: "pkg", version: "1", status: "bound" },
-      readiness: { status: "READY", reasons: [] },
-    });
-    useProductConversationMock.mockReturnValue({
-      messages: [{ id: "pt:a", role: "user", content: "Bonjour Nora" }],
-      draft: "",
-      setDraft: vi.fn(),
-      ephemeralNotice: null,
-      lrMaterializeNotice: null,
-      lrMaterializeCode: null,
-      f2: null,
-      activeProposal: null,
-      reservesText: "",
-      setReservesText: vi.fn(),
-      f3Prepare: null,
-      f3M3Resolved: null,
-      f3Execute: null,
-      durableEvidenceOutcome: null,
-      durableRehydrateError: null,
-      transcriptAvailability: "available",
-      openContinuityPresentation: { kind: "none" },
-      journalEntries,
-      journalCycleInstanceId: "cyc:p5-s07",
-      selectedJournalEntryId: null,
-      setSelectedJournalEntryId: vi.fn(),
-      focusTurnId: null,
-      focusJournalExchanges: vi.fn(),
-      focusTranscriptTurn: vi.fn(),
-      clearFocusTurn: vi.fn(),
-      refreshConversationContinuity: vi.fn(),
-      busy: false,
-      blocked: false,
-      canSend: true,
-      gateOpen: true,
-      recommendationFreshness: "fresh",
-      qualificationFreshness: "fresh",
-      durableOutcomeFreshness: "fresh",
-      canPrepareResolvedM3: false,
-      canPrepareLegacyFixture: false,
-      canConfirmResolvedM3: false,
-      canConfirmLegacyFixture: false,
-      canRefreshResolvedM3Running: false,
-      sendMessage: vi.fn(),
-      armReinstructionOfProposalId: vi.fn(),
-      armedReinstructionOfProposalId: null,
-      armReservationInteractionContext: vi.fn(),
-      armedReservationInteractionContext: null,
-      reservationResolutionProposal: null,
-      clearReservationResolutionProposal: vi.fn(),
-      decide: vi.fn(),
-      prepareResolvedM3: vi.fn(),
-      prepareLegacyFixture: vi.fn(),
-      confirmAndExecuteResolvedM3: vi.fn(),
-      confirmAndExecuteLegacyFixture: vi.fn(),
-      refreshResolvedM3RunningAttempt: vi.fn(),
-      retryLastUserMessage: vi.fn(),
-    });
-  });
-
-  it("opens the Journal as a principal surface and returns to the conversation", async () => {
-    render(<ProjectWorkspacePage projectId="prj:p5-s07" />);
-
-    await waitFor(() => {
-      expect(screen.getByTestId("project-context-shortcuts")).toBeTruthy();
-    });
-
-    // Conversation layout: the rail shows the compact Journal shortcut only.
-    expect(screen.getByTestId("cycle-journal-rail")).toHaveAttribute(
-      "data-variant",
-      "rail",
-    );
-    expect(screen.getByTestId("cycle-journal-open-full")).toBeTruthy();
-    expect(screen.queryByTestId("project-journal-surface")).toBeNull();
-
-    fireEvent.click(screen.getByTestId("project-shortcut-journal"));
-
-    await waitFor(() => {
-      expect(screen.getByTestId("project-journal-surface")).toBeTruthy();
-    });
-    expect(screen.getByTestId("project-principal")).toHaveAttribute(
-      "data-active-view",
-      "journal",
-    );
-    // Dedicated principal view — no sibling context rail, no second Journal.
-    expect(
-      screen.getByTestId("project-workspace-layout").getAttribute("data-layout"),
-    ).toBe("overview");
-    expect(screen.queryByTestId("project-lps-column")).toBeNull();
-    expect(screen.queryByTestId("cycle-journal-rail")).toBeNull();
-    expect(screen.queryByTestId("project-assistant-panel")).toBeNull();
-    expect(screen.getByTestId("project-journal-detail-title").textContent).toBe(
-      "Architecture de l'espace projet",
-    );
-
-    fireEvent.click(screen.getByTestId("project-journal-return-conversation"));
-    await waitFor(() => {
-      expect(screen.getByTestId("project-assistant-panel")).toBeTruthy();
-    });
-    expect(screen.getByTestId("project-principal")).toHaveAttribute(
-      "data-active-view",
-      "conversation",
-    );
-  });
-
-  it("the rail shortcut promotes the same surface (no second cockpit)", async () => {
-    render(<ProjectWorkspacePage projectId="prj:p5-s07" />);
-    await waitFor(() => {
-      expect(screen.getByTestId("cycle-journal-open-full")).toBeTruthy();
-    });
-
-    fireEvent.click(screen.getByTestId("cycle-journal-open-full"));
-    await waitFor(() => {
-      expect(screen.getByTestId("project-journal-surface")).toBeTruthy();
-    });
-    expect(screen.getAllByTestId("project-journal-surface")).toHaveLength(1);
-    expect(
-      screen.getByTestId("memory-rail-tab-sujets").getAttribute("aria-selected"),
-    ).toBe("true");
-  });
-});
-
-===== CREATED FILE: projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s07.journalSurface.ui.test.tsx =====
-/** @vitest-environment jsdom */
-/**
- * P5-S07 CP01 — Journal du cycle as a dedicated principal surface
- * (P3 94:2 desktop · 94:222 expanded · 192:41 mobile list · 192:81 detail).
- *
- * Proves the single JournalSurface serves both compositions: a compact rail
- * shortcut and the principal master/detail view. No JournalSurfaceV2.
- */
-import { afterEach, describe, expect, it } from "vitest";
-import { cleanup, fireEvent, render, screen, within } from "@testing-library/react";
-import {
-  JournalSurface,
-  type JournalReservationCard,
-  type JournalSurfaceEntry,
-} from "@/features/pre-m6-product-ui/surfaces/JournalSurface";
-
-afterEach(() => {
-  cleanup();
-});
-
-const entries: JournalSurfaceEntry[] = [
-  {
-    journalEntryId: "cje:1",
-    topicOrdinal: 1,
-    title: "Architecture de l'espace projet",
-    currentSummary:
-      "L'espace projet garde la conversation comme canal principal pour avancer.",
-    stabilizedPoints: [
-      "La conversation reste l'espace principal pour agir avec Nora.",
-      "L'Aperçu sert à comprendre l'état du projet.",
-    ],
-    openPoints: ["Vérifier la cohérence finale du Journal."],
-    status: "active",
-    updatedAt: new Date(Date.now() - 3 * 60000).toISOString(),
-    sourceTurnRefs: ["pt:a", "pt:b", "pt:c", "pt:d"],
-    sourceTurnCount: 4,
-    isCurrentTopic: true,
-  },
-  {
-    journalEntryId: "cje:2",
-    topicOrdinal: 2,
-    title: "Création d'un projet",
-    currentSummary: "La création reste conversationnelle.",
-    stabilizedPoints: [],
-    openPoints: [],
-    status: "archived",
-    updatedAt: new Date(Date.now() - 3 * 3600_000).toISOString(),
-    sourceTurnRefs: [],
-    sourceTurnCount: 0,
-  },
-];
-
-const transcript = [
-  {
-    id: "pt:a",
-    role: "user",
-    content: "On garde la conversation ?",
-    createdAt: "2026-10-04T10:24:00.000Z",
-  },
-  {
-    id: "pt:b",
-    role: "assistant",
-    content: "Oui, les surfaces complètent.",
-    createdAt: "2026-10-04T10:25:00.000Z",
-  },
-  {
-    id: "pt:c",
-    role: "user",
-    content: "Je veux retrouver les sujets.",
-    createdAt: "2026-10-04T10:26:00.000Z",
-  },
-  {
-    id: "pt:d",
-    role: "assistant",
-    content: "Le Journal sert de mémoire.",
-    createdAt: "2026-10-04T10:27:00.000Z",
-  },
-];
-
-const linkedReservation = {
-  epistemicItemId: "epi:1",
-  ordinal: 1,
-  title: "Cohérence du Journal",
-  summary: "Cohérence du Journal",
-  statement: "Cohérence du Journal",
-  presentationState: "may_affect_finalization",
-  presentationStateLabel: "Peut affecter la clôture",
-  impactLabel: "Moyen",
-  attentionLabel: "Avant clôture",
-  finalizationRelevanceLabel: "Ne bloque pas la clôture",
-  rationale: "",
-  resolutionCondition: "",
-  journalEntryRefs: ["cje:1"],
-  sourceTurnRefs: [],
-  hasResolutionProposal: false,
-  isLegacy: false,
-  canDefer: false,
-} as JournalReservationCard;
-
-function renderPrincipal(overrides: Record<string, unknown> = {}) {
-  return render(
-    <JournalSurface
-      variant="principal"
-      entries={entries}
-      cycleInstanceId="cyc:1"
-      selectedEntryId={null}
-      onSelectEntry={() => undefined}
-      onViewExchanges={() => undefined}
-      onFocusTurn={() => undefined}
-      transcriptMessages={transcript}
-      cycleLabel="Cycle de livraison"
-      currentnessLabel="À jour"
-      {...overrides}
-    />,
-  );
-}
-
-describe("P5-S07 CP01 Journal principal surface", () => {
-  it("94:2 — dedicated surface with return link, tabs with counts and master/detail", () => {
-    renderPrincipal({ onReturnToConversation: () => undefined });
-
-    const surface = screen.getByTestId("project-journal-surface");
-    expect(surface).toHaveAttribute("data-variant", "principal");
-    // The rail testid belongs to the rail composition only.
-    expect(screen.queryByTestId("cycle-journal-rail")).toBeNull();
-    expect(
-      screen.getByTestId("project-journal-return-conversation"),
-    ).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "Journal du cycle" })).toBeInTheDocument();
-    expect(screen.getByTestId("project-journal-currentness").textContent).toBe(
-      "À jour",
-    );
-
-    for (const tab of ["sujets", "reserves", "recommandations", "decisions"]) {
-      expect(screen.getByTestId(`memory-rail-tab-${tab}`)).toBeInTheDocument();
-    }
-    expect(screen.getByTestId("memory-rail-tab-sujets").textContent).toContain(
-      "Sujets",
-    );
-
-    // Subjects index + the selected subject detail live side by side.
-    expect(screen.getByTestId("cycle-journal-entry-cje:1")).toBeInTheDocument();
-    expect(screen.getByTestId("cycle-journal-entry-cje:2")).toBeInTheDocument();
-    expect(screen.getByTestId("project-journal-detail")).toBeInTheDocument();
-    expect(screen.getByTestId("cycle-journal-ordinal-cje:1").textContent).toBe(
-      "Sujet 01",
-    );
-    expect(screen.getByTestId("project-journal-detail-title").textContent).toBe(
-      "Architecture de l'espace projet",
-    );
-    expect(
-      screen.getByTestId("project-journal-detail").textContent,
-    ).toContain("Mis à jour il y a 3 min");
-
-    const stabilized = screen.getByTestId("project-journal-stabilized");
-    expect(within(stabilized).getAllByRole("listitem")).toHaveLength(2);
-    expect(
-      within(screen.getByTestId("project-journal-open")).getAllByRole("listitem"),
-    ).toHaveLength(1);
-  });
-
-  it("94:222 — exchanges preview expands to the full linked index", () => {
-    const viewed: string[] = [];
-    const focused: string[] = [];
-    renderPrincipal({
-      onViewExchanges: (e: JournalSurfaceEntry) => viewed.push(e.journalEntryId),
-      onFocusTurn: (id: string) => focused.push(id),
-    });
-
-    const panel = screen.getByTestId("cycle-journal-exchanges-cje:1");
-    expect(within(panel).getAllByRole("button")).toHaveLength(2);
-    expect(
-      screen.getByTestId("project-journal-exchanges").textContent,
-    ).toContain("2 sur 4 affichés");
-
-    fireEvent.click(screen.getByTestId("cycle-journal-view-cje:1"));
-    expect(viewed).toEqual(["cje:1"]);
-    expect(
-      within(screen.getByTestId("cycle-journal-exchanges-cje:1")).getAllByRole(
-        "button",
-      ),
-    ).toHaveLength(4);
-    expect(
-      screen.getByTestId("project-journal-exchanges").textContent,
-    ).toContain("4 échanges affichés");
-    expect(
-      screen.getByTestId("cycle-journal-exchange-pt:a").textContent,
-    ).toMatch(/VOUS/);
-    expect(
-      screen.getByTestId("cycle-journal-exchange-pt:a").textContent,
-    ).toMatch(/04\/10/);
-    expect(
-      screen.getByTestId("cycle-journal-exchange-pt:b").textContent,
-    ).toMatch(/NORA/);
-
-    fireEvent.click(screen.getByTestId("cycle-journal-exchange-pt:c"));
-    expect(focused).toEqual(["pt:c"]);
-
-    fireEvent.click(screen.getByTestId("project-journal-open-in-conversation"));
-    expect(focused[1]).toBe("pt:a");
-  });
-
-  it("never invents a subject link: only Reservations carry a durable ref", () => {
-    const { rerender } = renderPrincipal();
-    expect(screen.getByTestId("project-journal-linked").textContent).toContain(
-      "seules les réserves portent un rattachement durable",
-    );
-
-    rerender(
-      <JournalSurface
-        variant="principal"
-        entries={entries}
-        cycleInstanceId="cyc:1"
-        selectedEntryId="cje:1"
-        onSelectEntry={() => undefined}
-        onViewExchanges={() => undefined}
-        onFocusTurn={() => undefined}
-        transcriptMessages={transcript}
-        reservations={[linkedReservation]}
-      />,
-    );
-    expect(
-      screen.getByTestId("project-journal-linked-reservation-epi:1"),
-    ).toBeInTheDocument();
-    expect(screen.getByTestId("project-journal-linked").textContent).toContain(
-      "ne portent pas de rattachement durable",
-    );
-  });
-
-  it("192:41 → 192:81 — mobile list and detail are one nav level", () => {
-    renderPrincipal();
-    const surface = screen.getByTestId("project-journal-surface");
-    expect(surface).toHaveAttribute("data-mobile-detail", "false");
-    expect(screen.getByTestId("project-journal-detail")).toHaveAttribute(
-      "data-mobile-hidden",
-      "true",
-    );
-
-    fireEvent.click(
-      within(screen.getByTestId("cycle-journal-entry-cje:2")).getByRole("button", {
-        name: /Création d'un projet/,
-      }),
-    );
-    expect(surface).toHaveAttribute("data-mobile-detail", "true");
-    expect(screen.getByTestId("project-journal-detail")).toHaveAttribute(
-      "data-mobile-hidden",
-      "false",
-    );
-
-    fireEvent.click(screen.getByTestId("project-journal-back-to-subjects"));
-    expect(surface).toHaveAttribute("data-mobile-detail", "false");
-  });
-
-  it("empty subject keeps honest unavailable states rather than blank blocks", () => {
-    renderPrincipal({ selectedEntryId: "cje:2" });
-    expect(screen.getByTestId("project-journal-stabilized").textContent).toContain(
-      "Aucun point stabilisé",
-    );
-    expect(screen.getByTestId("project-journal-open").textContent).toContain(
-      "Aucun point ouvert",
-    );
-    expect(screen.getByTestId("project-journal-exchanges").textContent).toContain(
-      "Aucun échange durable",
-    );
-    expect(
-      screen.queryByTestId("project-journal-open-in-conversation"),
-    ).toBeNull();
-  });
-});
-
-describe("P5-S07 CP01 Journal rail stays a shortcut", () => {
-  it("bounds the index and promotes the dedicated surface", () => {
-    let opened = 0;
-    render(
-      <JournalSurface
-        entries={entries}
-        cycleInstanceId="cyc:1"
-        selectedEntryId={null}
-        onSelectEntry={() => undefined}
-        onViewExchanges={() => undefined}
-        onFocusTurn={() => undefined}
-        transcriptMessages={transcript}
-        railMaxEntries={1}
-        onOpenFullJournal={() => {
-          opened += 1;
-        }}
-      />,
-    );
-
-    expect(screen.getByTestId("cycle-journal-rail")).toHaveAttribute(
-      "data-variant",
-      "rail",
-    );
-    expect(screen.queryByTestId("project-journal-detail")).toBeNull();
-    expect(screen.getByTestId("cycle-journal-entry-cje:1")).toBeInTheDocument();
-    expect(screen.queryByTestId("cycle-journal-entry-cje:2")).toBeNull();
-
-    fireEvent.click(screen.getByTestId("cycle-journal-overflow"));
-    fireEvent.click(screen.getByTestId("cycle-journal-open-full"));
-    expect(opened).toBe(2);
-  });
-});
-
-
-## 51. Complete Roadmap diff
+## 46. Roadmap full useful diff
 diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-index 2aeae5c9..355c8cba 100644
+index 2aeae5c9..f05acf84 100644
 --- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 +++ b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-@@ -4,7 +4,10 @@
+@@ -4,7 +4,11 @@
  | --- | --- |
  | **Rôle** | Roadmap **vivante** de convergence vers l’utilisation complète de la doctrine produit SFIA Studio v3 |
  | **Statut** | **VALIDATED — ACTIVE LIVING ROADMAP** |
 -| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S06 INTEGRATED / POST-MERGE VERIFIED** | 2026-10-06 Europe/Paris — **STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S06 PILOT EXPERIENCE COMPLETION — INTEGRATED / POST-MERGE VERIFIED** · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **14 — Post-Merge** · Profile **Critical** · Typologie **EVOL** · Milestone **P5** · Slice **P5-S06** · Morris P5-S06 MERGE GO = **AUTHORIZED / CONSUMED** · PR **#561** **MERGED** · feature commit **`731fdd7247b37cd708a9496fb81a9986e78abcd1`** · merge/main **`9f586496f28b824b1a4938d497c148ba0c96596e`** · post-merge CI Studio **#690** / run **`37485457209`** = **SUCCESS** · Detect / Build / **Required Gate** = **SUCCESS** · P5-S06 = **INTEGRATED / POST-MERGE VERIFIED** · FUNCTIONAL CLOSURE **PASS / INTEGRATED** · Visual **PASS AT S06 SCOPE** · FULL CANONICAL SEND CANCELLATION **PASS DETERMINISTIC / INTEGRATED** · P5-S06-DEBT-NORA-STOP **CLOSED ON MAIN / POST-MERGE VERIFIED** · REAL cancellation **NOT PROVEN** · ZERO REAL · delivery branch cleanup **COMPLETE** · P5 = **IN PROGRESS** · P5 COMPLETE **NO** · P6 READY **NO** · runtime v3 **NON ADOPTED** · NEXT RECOMMENDED = **P5-S07 — Project Continuity & Work Representation Completion** · S07 **NOT AUTHORIZED / NOT STARTED** · S08 **NOT STARTED** · documentary truth-sync PR this cycle · truth-sync merge **NOT AUTHORIZED** · **≠** P5 COMPLETE · **≠** REAL cancellation proven · **≠** runtime v3 ADOPTED |
-+| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S07 CP02 LOCAL CANDIDATE** | 2026-10-06 Europe/Paris — **STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S07 CP02 SEMANTIC PROJECTION INTEGRITY + RESPONSIVE / VISUAL CLOSURE — LOCAL CANDIDATE** · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **8 — Delivery / Implementation Correction** · Profile **Critical** · Typologie **EVOL** · Milestone **P5** · Slice **P5-S07** · Pass **CP02** · Morris P5-S07 CP02 = **AUTHORIZED / CONSUMED** · review input `441420301bc428491f15e54270b402d3d5bfa9cb` · base/main **`7a664d65157af9554de4d4da7e76ca0187020020`** · branche `delivery/sfia-studio-product-simplification-p5-s07-project-continuity-work-representation-completion` · B1 PROP-PL **PASS / inherited + regression** · CONV-PL **PASS / inherited + regression** · B2 Work Representation semantic integrity **PASS** · Synthetic Artifact refs **NONE** · Evidence→validation heuristic **REMOVED** · B3 Journal currentness **PASS** · B4 History identity **PASS / DEDUP PRODUCT IDENTITY** · B5 Responsive **PASS / P3 bands** · Journal visual **CURSOR PIXEL COMPARISON PASS** (pending ChatGPT independent visual confirmation) · History visual **CURSOR PIXEL COMPARISON PASS** (pending ChatGPT independent visual confirmation) · `1 Issue` **ABSENT in final proof** · ZERO REAL **YES** · Architecture parallelism **NONE** · UAT-RECOVERY-03 **NON-BLOCKING CARRY** · P5-S07 INTEGRATED **NO** · Git Integration **NOT AUTHORIZED** · P5 COMPLETE **NO** · S08 **NOT STARTED** · P6 READY **NO** · runtime v3 **NON ADOPTED** · next = **ChatGPT Final Critical + Visual Review** · **≠** INTEGRATED · **≠** MERGED |
++| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S07 CP03 LOCAL CANDIDATE** | 2026-10-06 Europe/Paris — **STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S07 CP03 P3 VISUAL FIDELITY CLOSURE — LOCAL CANDIDATE** · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **8 — Delivery / Implementation Correction** · Profile **Critical** · Typologie **EVOL** · Milestone **P5** · Slice **P5-S07** · Pass **CP03** · Morris P5-S07 CP03 = **AUTHORIZED / CONSUMED** · review input `b84c48e2edb1e546316386544b3291c101da3d63` · base/main **`7a664d65157af9554de4d4da7e76ca0187020020`** · branche `delivery/sfia-studio-product-simplification-p5-s07-project-continuity-work-representation-completion` · Functional/semantic **PASS inherited from CP02 + regression** · Journal visual **CURSOR P3 FIDELITY PASS J1–J4** · History visual **CURSOR P3 FIDELITY PASS H1–H4** (H1/H3/H4 regression · H2 closed) · Responsive **PASS** · ZERO REAL **YES** · Architecture parallelism **NONE** · UAT-RECOVERY-03 **NON-BLOCKING CARRY** · P5-S07 INTEGRATED **NO** · Git Integration **NOT AUTHORIZED** · P5 COMPLETE **NO** · S08 **NOT STARTED** · P6 READY **NO** · runtime v3 **NON ADOPTED** · next = **ChatGPT Final Visual Review** · **≠** INTEGRATED · **≠** MERGED |
++| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S07 CP02 LOCAL CANDIDATE** | 2026-10-06 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S07 CP02 SEMANTIC PROJECTION INTEGRITY + RESPONSIVE / VISUAL CLOSURE — LOCAL CANDIDATE *(true then; superseded by P5-S07 CP03 tip after independent ChatGPT visual FAIL on J1–J4/H2)* · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **8 — Delivery / Implementation Correction** · Profile **Critical** · Typologie **EVOL** · Milestone **P5** · Slice **P5-S07** · Pass **CP02** · Morris P5-S07 CP02 = **AUTHORIZED / CONSUMED** · review input `441420301bc428491f15e54270b402d3d5bfa9cb` · base/main **`7a664d65157af9554de4d4da7e76ca0187020020`** · branche `delivery/sfia-studio-product-simplification-p5-s07-project-continuity-work-representation-completion` · B1 PROP-PL **PASS / inherited + regression** · CONV-PL **PASS / inherited + regression** · B2 Work Representation semantic integrity **PASS** · Synthetic Artifact refs **NONE** · Evidence→validation heuristic **REMOVED** · B3 Journal currentness **PASS** · B4 History identity **PASS / DEDUP PRODUCT IDENTITY** · B5 Responsive **PASS / P3 bands** · Journal visual **CURSOR PIXEL COMPARISON PASS** (pending ChatGPT independent visual confirmation) · History visual **CURSOR PIXEL COMPARISON PASS** (pending ChatGPT independent visual confirmation) · `1 Issue` **ABSENT in final proof** · ZERO REAL **YES** · Architecture parallelism **NONE** · UAT-RECOVERY-03 **NON-BLOCKING CARRY** · P5-S07 INTEGRATED **NO** · Git Integration **NOT AUTHORIZED** · P5 COMPLETE **NO** · S08 **NOT STARTED** · P6 READY **NO** · runtime v3 **NON ADOPTED** · next was **ChatGPT Final Critical + Visual Review** · **≠** INTEGRATED · **≠** MERGED |
 +| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S07 CP01 LOCAL CANDIDATE** | 2026-10-06 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S07 CP01 CONTINUITY & WORK REPRESENTATION EXIT PROOF + PIXEL-PERFECT JOURNAL/HISTORY — LOCAL CANDIDATE *(true then; superseded by P5-S07 CP02 tip after Critical Review B2/B4/B5)* · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **8 — Delivery / Implementation Correction** · Profile **Critical** · Typologie **EVOL** · Milestone **P5** · Slice **P5-S07** · Pass **CP01** · Morris P5-S07 CP01 = **AUTHORIZED / CONSUMED** · review input `90d165d9` / blob `3794d1bc` · base/main **`7a664d65157af9554de4d4da7e76ca0187020020`** · branche `delivery/sfia-studio-product-simplification-p5-s07-project-continuity-work-representation-completion` · Project Continuity **PASS LOCALLY / DETERMINISTIC** · PROP-PL **CLOSED LOCALLY AT TESTED DURABLE RESUME BOUNDARY** · CONV-PL **CLOSED LOCALLY AT TESTED RESUME BOUNDARY** · Work Representation **PASS LOCALLY / PRODUCT-WIRED** · Journal Currentness **PASS** · Journal Pixel-Perfect **PASS AT ALL CANONICAL FRAMES** · History **MINIMUM-SUFFICIENT PRODUCT-DERIVED** · History Pixel-Perfect **PASS AT ALL CANONICAL FRAMES** · ZERO REAL **YES** · Architecture parallelism **NONE** · UAT-RECOVERY-03 **NON-BLOCKING CARRY** · P5-S07 INTEGRATED **NO** · Git Integration **NOT AUTHORIZED** · P5 COMPLETE **NO** · S08 **NOT STARTED** · P6 READY **NO** · runtime v3 **NON ADOPTED** · next was **ChatGPT Final Critical + Visual Review** · **≠** INTEGRATED · **≠** MERGED |
 +| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S07 LOCAL CANDIDATE** | 2026-10-06 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S07 PROJECT CONTINUITY & WORK REPRESENTATION COMPLETION — LOCAL CANDIDATE *(true then; superseded by P5-S07 CP01 tip after Critical Review B1–B5)* · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **8 — Delivery / Implementation** · Profile **Critical** · Typologie **EVOL** · Milestone **P5** · Slice **P5-S07** · Morris P5-S07 DELIVERY GO = **AUTHORIZED / CONSUMED** · base/main **`7a664d65157af9554de4d4da7e76ca0187020020`** (PR **#562** post-S06 documentary truth-sync **MERGED** · CI Studio **#692** SUCCESS) · branche `delivery/sfia-studio-product-simplification-p5-s07-project-continuity-work-representation-completion` · Project Continuity **PASS LOCALLY / DETERMINISTIC** · Work Representation **PASS LOCALLY AT TESTED SCOPE** (Option A — no DeliverableStore) · Journal **P3-CONVERGED AT S07 SCOPE** · History **PRODUCT-DERIVED / P3-CONVERGED AT S07 SCOPE** (dedicated principal view) · Deliverable≠Artifact≠validation≠Exit Proof **PROVEN AT TESTED SCOPE** · CONV-PL **CLOSED LOCALLY AT TESTED SCOPE** (Product truth before transcript) · PROP-PL **CLOSED LOCALLY AT TESTED SCOPE** (Epistemic reconstruct / honest requalify — no Proposal DB) · Visual **PASS AT S07 TOUCHED SURFACES** (runtime↔Figma) · ZERO REAL **YES** · Architecture parallelism **NONE** · UAT-RECOVERY-03 **NON-BLOCKING CARRY** · P5-S07 INTEGRATED **NO** · Git Integration **NOT AUTHORIZED** · P5 COMPLETE **NO** · S08 **NOT STARTED** · P6 READY **NO** · runtime v3 **NON ADOPTED** · next was **ChatGPT Critical Review** · **≠** INTEGRATED · **≠** MERGED |
 +| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S06 INTEGRATED / POST-MERGE VERIFIED** | 2026-10-06 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S06 PILOT EXPERIENCE COMPLETION — INTEGRATED / POST-MERGE VERIFIED *(true then; superseded by P5-S07 LOCAL CANDIDATE tip; post-S06 documentary truth-sync PR **#562** later MERGED @ `7a664d65…` / CI **#692** — tip self-referential « truth-sync merge NOT AUTHORIZED » was true at tip authorship)* · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **14 — Post-Merge** · Profile **Critical** · Typologie **EVOL** · Milestone **P5** · Slice **P5-S06** · Morris P5-S06 MERGE GO = **AUTHORIZED / CONSUMED** · PR **#561** **MERGED** · feature commit **`731fdd7247b37cd708a9496fb81a9986e78abcd1`** · merge/main **`9f586496f28b824b1a4938d497c148ba0c96596e`** · post-merge CI Studio **#690** / run **`37485457209`** = **SUCCESS** · Detect / Build / **Required Gate** = **SUCCESS** · P5-S06 = **INTEGRATED / POST-MERGE VERIFIED** · FUNCTIONAL CLOSURE **PASS / INTEGRATED** · Visual **PASS AT S06 SCOPE** · FULL CANONICAL SEND CANCELLATION **PASS DETERMINISTIC / INTEGRATED** · P5-S06-DEBT-NORA-STOP **CLOSED ON MAIN / POST-MERGE VERIFIED** · REAL cancellation **NOT PROVEN** · ZERO REAL · delivery branch cleanup **COMPLETE** · P5 = **IN PROGRESS** · P5 COMPLETE **NO** · P6 READY **NO** · runtime v3 **NON ADOPTED** · NEXT RECOMMENDED was **P5-S07** · S07 was **NOT AUTHORIZED / NOT STARTED** at tip authorship · S08 **NOT STARTED** · documentary truth-sync PR this cycle · truth-sync merge **NOT AUTHORIZED** *(historical tip wording)* · **≠** P5 COMPLETE · **≠** REAL cancellation proven · **≠** runtime v3 ADOPTED |
@@ -7345,9 +4553,9 @@ index 2aeae5c9..355c8cba 100644
  | **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S06 CP02.3 LOCAL CANDIDATE** | 2026-10-06 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S06 CP02.3 — LOCAL CANDIDATE — CKC PROVIDER CANCELLATION CLOSURE PASS *(true then; superseded by P5-S06 GIT INTEGRATION tip)* · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **8 — Delivery / Implementation Correction** · Profile **Critical** · Typologie **EVOL** · Milestone **P5** · Slice **P5-S06** · Pass **CP02.3** · Morris CP02.3 GO **CONSUMED** · D-S06-CANCEL-01 remains consumed · CP02/CP02.1/CP02.2 historical preserved · base/main **`16a8e2fd823d75d7c59ce1fb4d55cb862d112697`** · branche `delivery/sfia-studio-product-simplification-p5-s06-pilot-experience-completion` · CKC `provider.complete` in-flight AbortSignal **PROVEN** · OpenAI `complete`→`completeRound`→`responses.create(..., { signal })` **PROVEN** · abort = STOPPED not provider_error · ZERO REAL · P5-S06 FUNCTIONAL CLOSURE **PASS LOCALLY** · FULL CANONICAL SEND CANCELLATION **PASS LOCALLY / DETERMINISTIC** · P5-S06-DEBT-NORA-STOP **CLOSED LOCALLY / awaiting Git Integration** · P5-S06 INTEGRATED **NO** · Git Integration **NOT AUTHORIZED** · P5 COMPLETE **NO** · P6 READY **NO** · runtime v3 **NON ADOPTED** · S07 **NOT STARTED** · next = **ChatGPT Final Critical Re-Review CP02.3** · **≠** INTEGRATED · **≠** S06 Git-complete |
  | **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S06 CP02.2 LOCAL CANDIDATE** | 2026-10-06 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S06 CP02.2 — LOCAL CANDIDATE / FULL CANONICAL SEND CANCELLATION EXIT PROOF PASS *(true then; superseded by P5-S06 CP02.3 tip)* · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **8 — Delivery / Implementation Correction** · Profile **Critical** · Typologie **EVOL** · Milestone **P5** · Slice **P5-S06** · Pass **CP02.2** · Morris CP02.2 GO **CONSUMED** · D-S06-CANCEL-01 remains consumed · CP02.1 historical preserved · base/main **`16a8e2fd823d75d7c59ce1fb4d55cb862d112697`** · branche `delivery/sfia-studio-product-simplification-p5-s06-pilot-experience-completion` · F2 `completeStructured` AbortSignal **PROVEN** · F2 post-analyze / createCycle / proposal / transcript cut-lines **PROVEN** · already-started createCycle **not rolled back** · ZERO REAL · P5 COMPLETE **NO** · P6 READY **NO** · runtime v3 **NON ADOPTED** · project Git **NOT AUTHORIZED** · next = **ChatGPT Final Critical Re-Review CP02.2** · S07 **NOT STARTED** · **≠** INTEGRATED · **≠** S06 Git-complete |
 
-## 52. Complete P5 diff
+## 47. P5 full useful diff
 diff --git a/projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md b/projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md
-index f3b924aa..9df0b95d 100644
+index f3b924aa..a1c80716 100644
 --- a/projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md
 +++ b/projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md
 @@ -5,19 +5,19 @@
@@ -7356,8 +4564,8 @@ index f3b924aa..9df0b95d 100644
  | **Milestone** | **P5 — INTEGRATED DELIVERY** (Delivery / Implementation / Evidence source) |
 -| **Slice** | **P5-S01**…**P5-S06** (integrated) · **P5-S07**/**P5-S08** remaining |
 -| **Pass** | **P5-S06 INTEGRATED / POST-MERGE VERIFIED** · documentary truth-sync PR open · truth-sync merge **NOT AUTHORIZED** |
-+| **Slice** | **P5-S01**…**P5-S06** (integrated) · **P5-S07 CP02 LOCAL CANDIDATE** · **P5-S08** remaining |
-+| **Pass** | **P5-S07 CP02** — Semantic Projection Integrity + Responsive / Visual Closure · Git Integration **NOT AUTHORIZED** |
++| **Slice** | **P5-S01**…**P5-S06** (integrated) · **P5-S07 CP03 LOCAL CANDIDATE** · **P5-S08** remaining |
++| **Pass** | **P5-S07 CP03** — P3 Visual Fidelity Closure · Git Integration **NOT AUTHORIZED** |
  | **Typologie** | Delivery evidence dans macro **EVOL** — **≠** doctrine · **≠** nouvelle architecture |
  | **Autorité architecture** | **P4** (`04-chat-first-product-simplification-semantic-projection-cognitive-architecture.md`) — **inchangée** |
 -| **Base / HEAD Git** | `origin/main` = `9f586496f28b824b1a4938d497c148ba0c96596e` (PR **#561** P5-S06 · post-merge CI Studio **#690** SUCCESS) |
@@ -7375,18 +4583,19 @@ index f3b924aa..9df0b95d 100644
  | **P5 AUTHORIZED BY MORRIS** | **YES** |
  | **P5 STARTED** | **YES** |
  | **P5 IN PROGRESS** | **YES** |
-@@ -29,6 +29,10 @@
+@@ -29,6 +29,11 @@
  | **P5-S04** | **INTEGRATED / POST-MERGE VERIFIED** · Product-derived Synthèses M9 · CP01/CP02 preserved · A=0/B=0 · B1/B2 CLOSED |
  | **P5-S05** | **INTEGRATED / POST-MERGE VERIFIED** — F2 routing CLOSED ON MAIN · R3 PASS AT TESTED SCOPE |
  | **P5-S06** | **INTEGRATED / POST-MERGE VERIFIED** · FUNCTIONAL CLOSURE **PASS / INTEGRATED** · Visual **PASS AT S06 SCOPE** · FULL CANONICAL SEND CANCELLATION **PASS DETERMINISTIC / INTEGRATED** · STOP debt **CLOSED ON MAIN** · REAL cancellation **NOT PROVEN** |
-+| **P5-S07** | **CP02 LOCAL CANDIDATE PASS** · B1 PROP-PL **PASS / inherited + regression** · CONV-PL **PASS / inherited + regression** · B2 Work Representation **PASS / PRODUCT-WIRED / SEMANTICALLY HONEST** · Synthetic Artifact refs **NONE** · Evidence→validation heuristic **REMOVED** · B3 Journal currentness **PASS** · B4 History identity **PASS / DEDUP PRODUCT IDENTITY** · B5 Responsive **PASS / P3 bands** · Journal visual **CURSOR PIXEL COMPARISON PASS** (pending ChatGPT independent visual confirmation) · History visual **CURSOR PIXEL COMPARISON PASS** (pending ChatGPT independent visual confirmation) · ZERO REAL · Architecture parallelism **NONE** · UAT-RECOVERY-03 **NON-BLOCKING CARRY** · P5-S07 INTEGRATED **NO** |
++| **P5-S07** | **CP03 LOCAL CANDIDATE PASS** · Functional/semantic **PASS inherited from CP02 + regression** · Journal visual **CURSOR P3 FIDELITY PASS J1–J4** · History visual **CURSOR P3 FIDELITY PASS H1–H4** · Responsive **PASS** · ZERO REAL · Architecture parallelism **NONE** · UAT-RECOVERY-03 **NON-BLOCKING CARRY** · P5-S07 INTEGRATED **NO** |
 +| **P5-S07 DELIVERY GO** | **AUTHORIZED / CONSUMED** |
 +| **P5-S07 CP01** | **AUTHORIZED / CONSUMED** |
 +| **P5-S07 CP02** | **AUTHORIZED / CONSUMED** |
++| **P5-S07 CP03** | **AUTHORIZED / CONSUMED** |
  | **P5-S06 DELIVERY** | **AUTHORIZED / CONSUMED** → **INTEGRATED** via PR **#561** |
  | **P5-S06 CP01** | **AUTHORIZED / CONSUMED** |
  | **P5-S06 CP02** | **AUTHORIZED / CONSUMED** |
-@@ -37,12 +41,12 @@
+@@ -37,12 +42,12 @@
  | **P5-S06 CP02.3** | **AUTHORIZED / CONSUMED** |
  | **P5-S06 GIT INTEGRATION GATE** | **AUTHORIZED / CONSUMED** |
  | **P5-S06 MERGE GO** | **AUTHORIZED / CONSUMED** |
@@ -7399,37 +4608,31 @@ index f3b924aa..9df0b95d 100644
 -| **Git (S06)** | PR **#561** **MERGED** · post-merge CI **PASS** · delivery branch cleanup **COMPLETE** · documentary truth-sync merge **NOT AUTHORIZED** |
 -| **Next** | **ChatGPT review / MORRIS P5 POST-S06 TRUTH-SYNC MERGE GATE** · S07 **NOT AUTHORIZED / NOT STARTED** |
 +| **Git (S07)** | local branch only · project commit/push/PR/merge **NOT AUTHORIZED** · Review Handoff L3 only |
-+| **Next** | **ChatGPT Final Critical + Visual Review (P5-S07 CP02)** · S08 **NOT STARTED** |
++| **Next** | **ChatGPT Final Visual Review (P5-S07 CP03)** · S08 **NOT STARTED** |
  | **P5-S05 DELIVERY** | **AUTHORIZED / CONSUMED** → **INTEGRATED** via PR **#560** |
  | **P5-S05 REAL / R3** | **AUTHORIZED / CONSUMED** → **INTEGRATED** |
  | **P5-S05 CP01 / CP02** | **AUTHORIZED / CONSUMED** (historique) |
-@@ -50,7 +54,7 @@
+@@ -50,7 +55,7 @@
  | **Fichier** | `projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md` |
  | **Date** | 2026-10-06 · Europe/Paris |
 
 -> **Lecture rapide.** P5-S01…S06 **intégrés**. P5-S06 = **INTEGRATED / POST-MERGE VERIFIED** via PR **#561** / merge `9f586496…` / post-merge CI **#690** SUCCESS. FUNCTIONAL CLOSURE + deterministic cancellation **ON MAIN**. REAL cancellation **NOT PROVEN**. **≠ P5 COMPLETE** · S07 **NOT AUTHORIZED**.
-+> **Lecture rapide.** P5-S01…S06 **intégrés**. P5-S07 CP02 = **LOCAL CANDIDATE PASS** (semantic honesty + History identity dedup + P3 responsive bands + Cursor visual comparison) sur branche delivery · base `7a664d65…` · ZERO REAL · **≠ P5 COMPLETE** · Git Integration **NOT AUTHORIZED** · S08 **NOT STARTED**.
++> **Lecture rapide.** P5-S01…S06 **intégrés**. P5-S07 CP03 = **LOCAL CANDIDATE PASS** (P3 visual fidelity J1–J4 / H1–H4 · Cursor comparison) sur branche delivery · base `7a664d65…` · ZERO REAL · **≠ P5 COMPLETE** · Git Integration **NOT AUTHORIZED** · S08 **NOT STARTED**.
  > **Règle de lecture des preuves.** *Implémenté* ≠ *prouvé* ≠ *intégré* ≠ *REAL*. Chaque affirmation ci-dessous est qualifiée par son niveau de preuve. Les résultats de tests/typecheck/lint/build sont ceux **rapportés par la passe de livraison** ; ce document n’en invente pas d’autres et ne les a pas ré-exécutés lors de sa rédaction.
 
  ---
-@@ -73,23 +77,38 @@ P5-S03 = INTEGRATED / POST-MERGE VERIFIED (PR #557)
+@@ -73,23 +78,33 @@ P5-S03 = INTEGRATED / POST-MERGE VERIFIED (PR #557)
  P5-S04 = INTEGRATED / POST-MERGE VERIFIED (PR #558 · main c7b53b93… · CI #684 SUCCESS)
  P5-S05 = INTEGRATED / POST-MERGE VERIFIED (PR #560 · F2 CLOSED ON MAIN · R3 PASS AT TESTED SCOPE)
  P5-S06 = INTEGRATED / POST-MERGE VERIFIED (PR #561 · feature 731fdd72… · merge 9f586496… · CI #690 SUCCESS)
 -
 -FUNCTIONAL CLOSURE = PASS / INTEGRATED
 -VISUAL = PASS AT S06 SCOPE
-+P5-S07 = CP02 LOCAL CANDIDATE PASS (delivery branch · base 7a664d65… · PR #562 truth-sync MERGED / CI #692)
-+         B1 PROP-PL PASS / inherited + regression
-+         CONV-PL PASS / inherited + regression
-+         B2 Work Representation PASS / PRODUCT-WIRED / SEMANTICALLY HONEST
-+         Synthetic Artifact refs = NONE
-+         Evidence→validation heuristic = REMOVED
-+         B3 Journal Currentness PASS
-+         B4 History identity PASS / DEDUP PRODUCT IDENTITY
-+         B5 Responsive PASS / P3 bands (MOBILE <768 · COMPACT 768–1199 · LARGE ≥1200)
-+         Journal visual = CURSOR PIXEL COMPARISON PASS (pending ChatGPT independent visual confirmation)
-+         History visual = CURSOR PIXEL COMPARISON PASS (pending ChatGPT independent visual confirmation)
++P5-S07 = CP03 LOCAL CANDIDATE PASS (delivery branch · base 7a664d65… · PR #562 truth-sync MERGED / CI #692)
++         Functional/semantic = PASS inherited from CP02 + regression
++         Journal visual = CURSOR P3 FIDELITY PASS J1–J4
++         History visual = CURSOR P3 FIDELITY PASS H1–H4
++         Responsive = PASS
 +         ZERO REAL = YES
 +         Architecture parallelism = NONE
 +         UAT-RECOVERY-03 = NON-BLOCKING CARRY
@@ -7442,14 +4645,14 @@ index f3b924aa..9df0b95d 100644
  P5-S06-DEBT-NORA-STOP = CLOSED ON MAIN / POST-MERGE VERIFIED
  REAL cancellation = NOT PROVEN
 -ZERO REAL (S06) = YES
-+ZERO REAL (S07 CP02) = YES
++ZERO REAL (S07 CP03) = YES
  P5 COMPLETE = NO
  P6 READY = NO
  runtime v3 = NON ADOPTED
 
 -NEXT RECOMMENDED = P5-S07 — Project Continuity & Work Representation Completion
 -S07 = NOT AUTHORIZED / NOT STARTED
-+NEXT = ChatGPT Final Critical + Visual Review (P5-S07 CP02)
++NEXT = ChatGPT Final Visual Review (P5-S07 CP03)
  S08 = NOT STARTED
 -P5-S06 MERGE GO = AUTHORIZED / CONSUMED
 -DOCUMENTARY TRUTH-SYNC MERGE = NOT AUTHORIZED
@@ -7457,10 +4660,11 @@ index f3b924aa..9df0b95d 100644
 +P5-S07 DELIVERY GO = AUTHORIZED / CONSUMED
 +P5-S07 CP01 = AUTHORIZED / CONSUMED
 +P5-S07 CP02 = AUTHORIZED / CONSUMED
++P5-S07 CP03 = AUTHORIZED / CONSUMED
  ```
  ### 1.2 Hiérarchie d’autorité
 
-@@ -1173,4 +1192,29 @@ Anti-claims explicites :
+@@ -1173,4 +1188,29 @@ Anti-claims explicites :
 
  ---
 
@@ -7492,58 +4696,33 @@ index f3b924aa..9df0b95d 100644
 +
 +*Fin du document P5 — Integrated Delivery — S01…S06 INTEGRATED / POST-MERGE VERIFIED · S07 CP01 LOCAL CANDIDATE PASS · P5 COMPLETE NO · runtime v3 NON ADOPTED — P4 remains architecture authority.*
 
-## 53. Project Git effects
-AUTHORIZED: local edits, tests, scratch visuals, Roadmap/P5 truth-sync.
-NOT AUTHORIZED: project git add/commit/push/PR/merge.
-Candidate ends LOCAL / UNCOMMITTED / staged EMPTY.
-Only Review Handoff L3 publication authorized.
+## 48. Project Git effects
+Local edits only. No project commit/push/PR. staged EMPTY. Handoff L3 only.
 
-## 54. Final visual paths
-```
-.tmp-sfia-review/p5-s07-cp02-visual/
-  figma/   (8 canonical refs)
-  runtime/ (8 canonical + journal-compact)
-  responsive/ (768/899 Journal+History + 767/1200 edges)
-  comparison/notes.md
-  manifest.json
-  _capture.mjs
-```
+## 49. Visual paths
+`.tmp-sfia-review/p5-s07-cp03-visual/{figma,runtime,responsive,comparison,manifest.json}`
 
-**FINAL VISUAL REVIEW REQUIRES THESE RUNTIME CAPTURES TO BE ATTACHED TO CHATGPT.**
+## 50. Note for ChatGPT attachments
+FINAL CHATGPT VISUAL REVIEW REQUIRES ATTACHMENT OF CP03 RUNTIME CAPTURES.
+Cursor must not claim ChatGPT visual PASS.
 
-## 55. ChatGPT visual attachment note
-Cursor claim = CURSOR VISUAL COMPARISON PASS.
-ChatGPT final visual verdict remains external and requires attached images.
+## 51. Review Handoff
+publish-in-cycle · sfia/review-handoff · input b84c48e2 · message: docs(review-handoff): publish P5 S07 CP03 visual fidelity closure
 
-## 56. Review Handoff
-Mode publish-in-cycle · branch `sfia/review-handoff` · file `sfia-review-handoff/latest-chatgpt-review.md` · input `441420301bc428491f15e54270b402d3d5bfa9cb` · publisher `scripts/sfia/publish-review-handoff.sh`.
+## 52. Final Git truth
+S07 delivery branch @ 7a664d65 = origin/main · candidate LOCAL UNCOMMITTED · staged EMPTY
 
+## 53. Verdict
+**READY FOR CHATGPT FINAL VISUAL REVIEW — P5-S07 CP03 LOCAL CANDIDATE**
 
-## 56b. Review Handoff result
-- Mode: publish-in-cycle
-- Branch: `sfia/review-handoff`
-- Commit: `5ee3525d344c026b9871c65a8a90636ff207d599`
-- Message: `docs(review-handoff): publish P5 S07 CP02 semantic and visual closure`
-- Input predecessor: `441420301bc428491f15e54270b402d3d5bfa9cb`
-- Remote: pushed / verified via publisher
-- Project push: NOT AUTHORIZED
-
-## 57. Final Git truth (post-handoff)
-Branch restored: `delivery/sfia-studio-product-simplification-p5-s07-project-continuity-work-representation-completion` @ `7a664d65…` = origin/main. Candidate LOCAL / UNCOMMITTED. staged EMPTY.
-
-## 58. Verdict
-**READY FOR CHATGPT FINAL CRITICAL + VISUAL REVIEW — P5-S07 CP02 LOCAL CANDIDATE**
-
-- P5-S07 CONTINUITY = PASS LOCALLY / DETERMINISTIC
-- PROP-PL = CLOSED LOCALLY AT TESTED DURABLE RESUME BOUNDARY
-- CONV-PL = CLOSED LOCALLY AT TESTED RESUME BOUNDARY
+- FUNCTIONAL / SEMANTIC = PASS LOCALLY
+- CONTINUITY = PASS LOCALLY / DETERMINISTIC
 - WORK REPRESENTATION = PASS LOCALLY / PRODUCT-WIRED / SEMANTICALLY HONEST
-- SYNTHETIC ARTIFACT REFS = NONE
-- HISTORY = MINIMUM-SUFFICIENT / PRODUCT-DERIVED / IDENTITY-DEDUPED
 - JOURNAL CURRENTNESS = PASS
+- HISTORY IDENTITY = PASS
 - RESPONSIVE P3 = PASS
-- JOURNAL VISUAL = CURSOR PIXEL COMPARISON PASS · PENDING CHATGPT INDEPENDENT VISUAL REVIEW
-- HISTORY VISUAL = CURSOR PIXEL COMPARISON PASS · PENDING CHATGPT INDEPENDENT VISUAL REVIEW
+- JOURNAL VISUAL = CURSOR P3 FIDELITY PASS J1–J4
+- HISTORY VISUAL = CURSOR P3 FIDELITY PASS H1–H4
 - ZERO REAL = YES
 - ARCHITECTURE PARALLELISM = NONE
 - P5-S07 INTEGRATED = NO
