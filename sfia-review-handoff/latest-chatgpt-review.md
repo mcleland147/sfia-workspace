@@ -1,1106 +1,2118 @@
-# ChatGPT Review Pack — P5-S06 CP01 Critical Correction (FULL / HANDOFF)
+# P5-S06 CP02 — NORA CANCELLATION CLOSURE — FULL REVIEW PACK
+
+**Cycle:** STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 · P5 · P5-S06 · CORRECTION PASS 02
+**Profile:** Critical
+**CKC:** `ckc:studio:delivery` / `cyc:delivery` / contractVersion 0.1.0 / VALIDATED — guidance only, no ExecutionAuthority
+**Verdict candidate:** READY FOR CHATGPT FINAL CRITICAL REVIEW — P5-S06 CP02 LOCAL CANDIDATE
+**P5-S06 FUNCTIONAL CLOSURE:** PASS LOCALLY · **≠ INTEGRATED** · **≠ P5 COMPLETE** · **≠ P6 READY** · **≠ runtime v3 ADOPTED** · **≠ REAL cancellation proven** · **≠ global Visual PASS**
+
+---
 
 ## 1. Timestamp
-2026-10-06 09:57:17 CEST
+
+2026-10-06 Europe/Paris (capture ~11:00–11:05 CEST). Pack generated after typecheck/lint/full test/build.
 
 ## 2. Repo / worktree
-`/Users/morris/Projects/sfia-studio-chat-first-product-simplification-p3` (sfia-workspace)
 
-## 3. Branch
+- GitHub: `mcleland147/sfia-workspace`
+- Local worktree: `/Users/morris/Projects/sfia-studio-chat-first-product-simplification-p3`
+
+## 3. Project branch
+
 `delivery/sfia-studio-product-simplification-p5-s06-pilot-experience-completion`
 
 ## 4. HEAD / base
-- HEAD: `16a8e2fd823d75d7c59ce1fb4d55cb862d112697`
-- origin/main: `16a8e2fd823d75d7c59ce1fb4d55cb862d112697`
-- left-right origin/main...HEAD: 0 0
-- staged: VIDE
 
-## 5. Entry git truth
-S06 uncommitted candidate preserved then CP01 adapted in same working tree. No reset/stash.
+- HEAD = `16a8e2fd823d75d7c59ce1fb4d55cb862d112697`
+- origin/main = `16a8e2fd823d75d7c59ce1fb4d55cb862d112697`
+- `git rev-list --left-right --count origin/main...HEAD` = `0 0`
+- Staged: **empty**
+- Candidate: uncommitted S06 Delivery + CP01 + CP02 working tree
+
+## 5. Local git truth initial (this pass)
+
+Expected vs observed: **MATCH**.
+- pwd/toplevel = worktree above
+- branch/HEAD/origin/main as §4
+- CP01 artifacts present: `newProjectConversation.ts`, `noraActivityProjection.ts`, `login-client.module.css`, `p5.s06.pilotExperience.d0.test.tsx`
+- No reset/clean/stash/checkout main
+
+## 6. Morris CP02 decision consumed
+
+**D-S06-CANCEL-01 — BOUNDED REQUEST-SCOPED NORA CANCELLATION** ADOPTED 2026-10-06.
+
+Pilot STOP ■ → AbortController request-scoped → cancellable transport → same `sendProjectAssistantTurn` → same `orchestrateAssistantSend` → same Nora → `Runner.run(..., { signal })` → STOPPED.
+
+**Not consumed:** CancellationStore, registry, Redis, DB cancel, streaming engine, second Nora, REAL, project Git.
+
+## 7. Review input
+
+- Canonical handoff branch `sfia/review-handoff`
+- File `sfia-review-handoff/latest-chatgpt-review.md`
+- Commit **`b588c7de6c2d061aecd230860b88ac190cea86a8`**
+- Title: P5-S06 CP01 Critical Correction (FULL / HANDOFF)
+- ChatGPT CP01: A PASS · A2 PASS MIN-SUFFICIENT · B PASS · B2 PASS · C Activity PASS WITH MINOR HONESTY CLEANUP · **C2 Nora STOP BLOCKING** · D visual requalified PASS AT S06 SCOPE except New Project mobile minor UX reserve
+
+## 8. Sources read
+
+Templates/method/CKC delivery/convergence/roadmap/P3 §28/30/31/32/34 / P4 §27A / P5 integrated delivery / CP01 handoff. Figma READ ONLY `m4g8j0gNbEzfIuH6S9AZJF`. Protected paths not modified.
+
+## 9. CKC qualification
+
+`ckc:studio:delivery` VALIDATED — cognitive guidance only. No ExecutionAuthority. Cycle type `cyc:delivery`. Profile Critical.
+
+## 10. Convergence pre-check
+
+P5-S01…S05 INTEGRATED on main `16a8e2fd`. P5 IN PROGRESS. S07 NOT STARTED. runtime v3 NON ADOPTED. Roadmap tip updated to CP02 LOCAL CANDIDATE after evidence (historical CP01 tip preserved as SUPERSEDED).
+
+## 11. OpenAI-native Capability Fit Check
+
+R22 ACTIVE. Package `@openai/agents` **^0.17.0** declared; **installed 0.17.0**.
+
+Local type (`@openai/agents-core` `dist/run.d.ts` SharedRunOptions):
 
 ```
-M	projects/sfia-studio/app/app/login/login-client.tsx
-M	projects/sfia-studio/app/features/pre-m6-product-ui/NewProjectIntentionPage.module.css
-M	projects/sfia-studio/app/features/pre-m6-product-ui/NewProjectIntentionPage.tsx
-M	projects/sfia-studio/app/features/pre-m6-product-ui/ProjectsPage.module.css
-M	projects/sfia-studio/app/features/pre-m6-product-ui/ProjectsPage.tsx
-M	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
-M	projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-M	projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md
-
+signal?: AbortSignal;
 ```
 
-```
- .../sfia-studio/app/app/login/login-client.tsx     | 161 ++++---
- .../NewProjectIntentionPage.module.css             | 311 ++++++++-----
- .../pre-m6-product-ui/NewProjectIntentionPage.tsx  | 481 +++++++++++----------
- .../pre-m6-product-ui/ProjectsPage.module.css      | 368 +++++++++++-----
- .../features/pre-m6-product-ui/ProjectsPage.tsx    | 283 +++++++++---
- .../surfaces/ConversationSurface.tsx               |  28 +-
- .../convergence/sfia-studio-convergence-roadmap.md |   4 +-
- ...t-product-simplification-integrated-delivery.md | 108 ++++-
- 8 files changed, 1129 insertions(+), 615 deletions(-)
+Also `ModelRequest.signal?: AbortSignal` (`model.d.ts`).
+
+Disposition: **KEEP / ADAPT**. Delta SFIA = transport + application propagation + Product/UI STOPPED. COMPLETE/BUILD generic cancellation engine = **REJECT**.
+
+## 12. Installed Agents SDK signal proof
+
+- `runNoraAgentsTurn` calls `runner.run(agent, input.userContent, { ..., signal: input.signal })`
+- T01 hanging Model: `request.signal` observed, abort → `NoraTurnAbortedError`
+- Fake `providerAgentsModel.getResponse` races `completeRound` against abort listener with removeEventListener cleanup
+- **DETERMINISTIC CANCELLATION PROVEN**. **NOT** REAL BOUNDARY PROVEN.
+
+## 13. Cancellation architecture BEFORE
+
+Server Action `projectAssistantSendAction` only. Browser cannot abort in-flight Server Action honestly. UI had no ■. STOPPED not a recognized send status. Activity could imply SOURCE_LOOKUP post-return. C2 BLOCKING.
+
+## 14. Cancellation architecture AFTER
 
 ```
-
-Untracked product:
+ConversationSurface
+  → useProductConversation (AbortController per turn)
+  → sendCancellableAssistantTurn (fetch + signal)
+  → POST /api/studio/projects/[projectId]/assistant/send
+       ↘
+        sendProjectAssistantTurn(input, { signal })
+       ↗
+  projectAssistantSendAction(input)  // thin, no signal
+        → MW6 path if executionContractId (unchanged; Execution ≠ Nora STOP)
+        → else orchestrateAssistantSend({..., signal})
+           → orchestrateProjectAssistantTurn / F2
+           → runNoraCognitiveTurn({ signal })
+           → runNoraAgentsTurn({ signal })
+           → Runner.run(..., { signal })
 ```
-?? projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s06.pilotExperience.d0.test.tsx
-?? projects/sfia-studio/app/app/login/login-client.module.css
-?? projects/sfia-studio/app/features/pre-m6-product-ui/newProjectConversation.ts
-?? projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/noraActivityProjection.ts
+
+Transport ≠ application. One canonical send. One Nora runtime. One Runner.
+
+## 15. Application seam proof
+
+`sendProjectAssistantTurn` is SERVER-ONLY. Client imports only `sendCancellableAssistantTurn` + types. Route and Server Action both call the same function. Count of canonical send = **ONE**.
+
+## 16. Server Action / Route Handler relationship
+
+- `projectAssistantSendAction` → `return sendProjectAssistantTurn(input)` (no browser signal)
+- Route POST → parse browser-safe body → `sendProjectAssistantTurn(..., { signal: request.signal })`
+- Existing tests/callers of Server Action remain; refresh UI test mocks fetch helper onto the same mock
+
+## 17. Exact AbortSignal propagation chain
+
+1. `AbortController` in `useProductConversation` send transition
+2. `fetch(..., { signal })`
+3. Next.js `request.signal`
+4. `sendProjectAssistantTurn` options.signal
+5. `orchestrateAssistantSend({ signal })` (`orchestrateF2.ts`)
+6. `orchestrateTurn` input.signal → `runNoraCognitiveTurn`
+7. `runNoraAgentsTurn` input.signal → `runner.run({ signal })`
+8. SDK `ModelRequest.signal`
+9. `throwIfAborted` after cognitive core; abort catch → `noraTurnStoppedFailure` (`status: "stopped"`)
+
+MW6 governed execute path: **no signal** — Nora response STOP ≠ Execution STOP (T11).
+
+## 18. Abort normalization
+
+- Runtime: `NoraTurnAbortedError` / `isAbortLike`
+- Application: `noraTurnStoppedFailure` → `{ ok:false, status:"stopped", code:"NORA_TURN_STOPPED", message:"Réponse interrompue." }`
+- UI AbortError / `result.status==="stopped"` → `uiState STOPPED`, `error=null`
+- Distinct from `provider_error`, `ERROR_RECOVERABLE`, `cognitive_stop`, BLOCKED
+- **Not persisted as Product truth**
+
+## 19. UI STOP semantics
+
+- `stopAvailable` = request-scoped cancellable in-flight AND not blocked AND not f3Busy
+- ■ `aria-label="Arrêter la réponse de Nora"` · type=button · 38px mobile · not hover-only
+- STOPPED banner « Réponse interrompue » + Réessayer · no modal
+- Unmount aborts without setting STOPPED if unmounted (T16)
+
+## 20. Retry / idempotency
+
+Existing `logicalTurnId` / `turnRetryKey` / `pendingRetryEnvelopeRef`. STOP is not silent re-emit. Envelope retained until client-observed success. Explicit Réessayer reuses sealed content+key (T07). New send after stop uses new key (T08).
+
+## 21. Product side-effect semantics
+
+Abort after recognized signal: no late assistant SUCCESS append (T05). No transactional rollback architecture. Durable writes already committed before abort are not deleted. Cut-lines: throwIfAborted after cognitive core; ignore late fetch if aborted/generation mismatch. T13: hanging model abort produces `NoraTurnAbortedError`, not Proposal.
+
+## 22. Activity honesty correction
+
+`projectNoraActivity`: busy → « Nora travaille… ». SOURCE_LOOKUP not live phase. `useProductConversation` never `setUiState("SOURCE_LOOKUP")` (legacy panel path only). STREAMING = NOT OBSERVABLE / NOT IMPLEMENTED. No fake %.
+
+## 23. New Project mobile micro-change
+
+CSS `@media` order: hero 1 → thread 2 (max-height 22vh) → composer 3 sticky → preview 4. Desktop unchanged (sha256 SAME vs CP01). Semantics CP01 unchanged.
+
+## 24. Exact file list
+
+### CP02 created
+
+- `projects/sfia-studio/app/lib/nora-cognitive-runtime/noraTurnAbort.ts`
+- `projects/sfia-studio/app/features/project-assistant/noraTurnStopped.ts`
+- `projects/sfia-studio/app/features/project-assistant/sendProjectAssistantTurn.ts`
+- `projects/sfia-studio/app/features/project-assistant/browserSafeAssistantSend.ts`
+- `projects/sfia-studio/app/app/api/studio/projects/[projectId]/assistant/send/route.ts`
+- `projects/sfia-studio/app/features/pre-m6-product-ui/hooks/sendCancellableAssistantTurn.ts`
+- `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p5.s06.cp02.cancellation.d0.test.ts`
+- `projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s06.cp02.cancellation.ui.test.tsx`
+- `projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s06.cp02.cancellation.hook.test.tsx`
+
+### CP01 created (preserved, still untracked)
+
+- `projects/sfia-studio/app/features/pre-m6-product-ui/newProjectConversation.ts`
+- `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/noraActivityProjection.ts`
+- `projects/sfia-studio/app/app/login/login-client.module.css`
+- `projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s06.pilotExperience.d0.test.tsx`
+
+### Adapted (includes CP01+CP02 vs origin/main)
+See git name-status. CP02-specific: conversation hook/surface, assistant send/orchestration/Nora runtime, New Project CSS order, PRR hashes, runningAttemptRefresh mock, docs.
+
+### Frozen
+ProjectsPage / login CSS: **not further modified in CP02**. Remaining diffs vs main are CP01. Auth/Projects screenshots sha256 **identical** to CP01.
+
+### Docs
+- `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
+- `projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md`
+
+### Scratch
+`.tmp-sfia-review/p5-s06-visual/cp02/**`
+
+## 25. Full new files (CP02)
+
+
+### `projects/sfia-studio/app/lib/nora-cognitive-runtime/noraTurnAbort.ts`
+
 ```
-
-## 6. Review Handoff input
-- branch `sfia/review-handoff`
-- file `sfia-review-handoff/latest-chatgpt-review.md`
-- commit `72e412431936ad6d0fd58fe73f146f2d9fb168dc`
-- blob `ba72d82dac66a440c2625875e532ae736fc486a2`
-- title: ChatGPT Review Pack — P5-S06 Pilot Experience Completion (FULL / HANDOFF)
-- SUPERSEDED by this CP01 publication after remote verify
-
-## 7. Morris CP01 authorization
-P5-S06 CORRECTION PASS 01 = AUTHORIZED / CONSUMED (2026-10-06).
-Allows local CP01 + tests + Figma READ + truth-sync + FULL pack + L3 handoff.
-Forbids project git / REAL / new architecture / Figma mutation / P5 COMPLETE / P6 / runtime v3.
-
-## 8. Sources lues
-v2.6 template · routing · operating model · guardrails · Build Doctrine · Roadmap (local) · C1 · P1–P5 (P3 §§12–14,28–32,34.1 · P4 §§6.4,9.4,27A,28–29,50–52) · S06 handoff 72e41243 · Product UI/auth/create/list/conversation files · D1 HARVEST only · Figma MCP metadata nodes 63:39, 190:253, 67:39, 190:284, 130:3, 190:551.
-
-## 9. Convergence Pre-check
-- Capability: Pilot chat-first entry / Project create / Nora activity honesty / P3 visual
-- Milestone: P5
-- State: S06 after Critical Review = CORRECTION REQUIRED → CP01 candidate
-- KEEP: ProductShell, recents, SQLite Project owner, create/list actions, Better/Auth, workspace, conversation runtime, tokens
-- ADAPT: ProjectsPage, NewProject, helpers, Conversation projection, Auth CSS, tests
-- HARVEST: D1 concepts only
-- FREEZE: Journal/Historique/Deliverable/S05 routing
-- No parallel architecture: YES
-- Next: S07 NOT STARTED
-
-## 10. Asset classification
-See §9.
-
-## 11. Phase 0 discovery COMPLETE
-
-### D0-A Pre-Project semantics
-`useProductConversation` requires `projectId`. No pre-Project Nora/runtime seam. D1 is parallel — not used. REAL not required.
-**ADAPT:** explicit UI phases only. No regex NLP.
-
-### D0-B Continuity rebound
-createProjectRuntimeAction → Project + LPS (name/objective/context) → router.push workspace → getProjectRuntimeAction + projectAssistantConversationContinuityAction with durable projectId.
-Minimum-sufficient: durable Project truth, not pre-Project transcript. **No new store.**
-
-### D0-C Cancellation
-AbortController exists in OA **execution-run** only — not conversation send (`projectAssistantSendAction` awaits full result). No AbortSignal on Product Nora turn.
-**Do not implement fake STOP.** Decision note in §16.
-
-## 12–13. Pre-Project BEFORE / AFTER
-BEFORE: first free-text → intention, second → name, NAME_HINT regex, « Ce que Nora a compris ».
-AFTER: INTENTION_REQUIRED / NAME_REQUIRED / OPTIONAL_CONTEXT; absorb only asked slot; reopenField explicit; preview « Aperçu du projet / restitution factuelle ».
-
-## 14. Continuity call graph
-NewProjectIntentionPage.onCreate
-→ createProjectRuntimeAction (canonical)
-→ router.push `/studio/projects/` + encodeURIComponent(projectId)
-→ ProjectWorkspacePage(projectId)
-→ getProjectRuntimeAction
-→ useProductConversation with projectId
-→ projectAssistantConversationContinuityAction
-Fresh Product truth. Ephemeral draft discarded. No auto Cycle.
-
-## 15–16. Cancellation call graph + decision
-ConversationSurface → useProductConversation.sendMessage → projectAssistantSendAction → Nora orchestration → provider complete() (no stream, no signal).
-A. interruption needed at sendAction/provider complete
-B. AbortSignal would need to enter sendAction + provider
-C. layers: hook → server action → runtime → provider
-D. options: (1) Morris accept P3 STOP gap (2) dedicated cancellation architecture GO
-E. tests/provider impact if (2)
-F. debt P5-S06-DEBT-NORA-STOP
-G. recommend (1) until GO — Cursor must not invent architecture
-H. not a Cursor decision
-
-Result: **no stop button implemented**. stopAvailable always false.
-
-## 17. Projects BEFORE/AFTER
-BEFORE: « À reprendre » from updatedAt ≤14d.
-AFTER: « Projets récents » + hint « pas une prochaine action ». Table Tous: Projet / État / Dernière activité. No Attention column.
-
-## 18. Orientation BEFORE/AFTER
-BEFORE: Orientation Nora / Demander à Nora implying general orientation.
-AFTER: « Démarrer un nouveau projet avec Nora » / Commencer → `/studio/projects/new`. Explicit non-claim.
-
-## 19. Activity mapping matrix
-| Runtime | Observable | P3 | Wording | Test |
-| --- | --- | --- | --- | --- |
-| SENDING | send started | START | Nora travaille… | yes |
-| SOURCE_LOOKUP + busy | tool events path | ACTIVITY | Nora consulte les sources… | yes |
-| ASSISTANT_WORKING + busy | pending turn | ACTIVITY | Nora travaille… | yes |
-| ANSWERED | turn done | COMPLETE | Réponse prête | yes |
-| ERROR_RECOVERABLE | error | ERROR | retry | yes |
-| BLOCKED | config missing | blocked | indisponible | yes |
-| streaming | NOT OBSERVABLE | — | not projected | — |
-| STOPPED | no abort | — | not projected | no fake |
-
-## 20. Figma contract extracted (MCP get_metadata)
-
-### Projects desktop 63:39 1440×1024 EXPLORATORY canonical
-Rail 192×1024. App 1224. Header 54. Hero 24,26 1176×74. Orientation 24,120 1176×92. Resume 24,232 1176×248 (2 cards 565×196) — **content not used** (no next-action fact). All projects 24,500 table rows 50h columns Projet 300 / En cours 290 / État 160 / Activité 150 / Attention 276 — Attention/En cours **omitted** (no facts).
-
-### Projects mobile 190:253 390×844 VALIDATED
-Topbar 56. Head 16,18 358×48 title + Nouveau 110×38. Search 16,78 358×42. Cards 358×112.
-
-### New Project desktop 67:39 1440×1024
-Rail 192. Conversation 820×970 composer at y=775 h=195. Preview 820,0 404×970. CTA Créer in preview.
-
-### New Project mobile 190:284
-Head 56+90. Scroll. Draft card with Créer 334×38. Composer must be first-viewport — CP01 sticky/order composer after hero.
-
-### Auth desktop 130:3 VALIDATED
-Brand 48,40. Cue 72,380 360×150. Card 760,250 **460×420**. CTA 392×48.
-
-### Auth mobile 190:551
-Card 20,210 350×310. CTA 306×38.
-
-## 21–22. Files modified / created
-Created: listed below. Modified: code + docs in §5.
-
-## 23. FULL CONTENT — new files
-### CREATED `projects/sfia-studio/app/features/pre-m6-product-ui/newProjectConversation.ts`
-```ts
 /**
- * P5-S06 CP01 — non-authoritative pre-Project collection helpers.
- * Client-only ephemeral state. No Product store. No D1 Intake path.
- * Explicit phases only — ZERO semantic inference / regex slot guessing.
+ * P5-S06 CP02 — request-scoped Nora turn abort (not Cognitive STOP, not Execution STOP).
+ * AbortSignal is the only cancellation token. Not Product truth.
  */
 
-export type PreProjectDraft = {
-  name: string;
-  intention: string;
-  context: string;
-};
-
-export type ChatTurn = {
-  id: string;
-  role: "user" | "nora";
-  text: string;
-};
-
-/** Ephemeral UI collection phase — not a Product state machine. */
-export type CollectPhase =
-  | "INTENTION_REQUIRED"
-  | "NAME_REQUIRED"
-  | "OPTIONAL_CONTEXT";
-
-export type CollectField = "name" | "intention";
-
-const INTENTION_MAX = 4000;
-const NAME_MAX = 200;
-const CONTEXT_MAX = 4000;
-
-export function emptyDraft(): PreProjectDraft {
-  return { name: "", intention: "", context: "" };
-}
-
-export function isMinimumSufficient(draft: PreProjectDraft): boolean {
-  return draft.name.trim().length > 0 && draft.intention.trim().length > 0;
-}
-
-export function collectPhaseOf(draft: PreProjectDraft): CollectPhase {
-  if (!draft.intention.trim()) return "INTENTION_REQUIRED";
-  if (!draft.name.trim()) return "NAME_REQUIRED";
-  return "OPTIONAL_CONTEXT";
-}
-
-function sanitize(raw: string, max: number): string {
-  return raw.replace(/\u0000/g, "").trim().slice(0, max);
-}
-
-/**
- * Record the Pilot answer for the currently asked slot only.
- * `phase` must be the question Nora just asked — never inferred from text.
- */
-export function absorbUserTurn(
-  draft: PreProjectDraft,
-  raw: string,
-  phase: CollectPhase,
-): PreProjectDraft {
-  const text = sanitize(raw, INTENTION_MAX);
-  if (!text) return draft;
-  const next = { ...draft };
-
-  switch (phase) {
-    case "INTENTION_REQUIRED":
-      next.intention = next.intention.trim()
-        ? `${next.intention}\n${text}`.slice(0, INTENTION_MAX)
-        : text.slice(0, INTENTION_MAX);
-      return next;
-    case "NAME_REQUIRED":
-      next.name = sanitize(text, NAME_MAX);
-      return next;
-    case "OPTIONAL_CONTEXT":
-      next.context = next.context.trim()
-        ? `${next.context}\n${text}`.slice(0, CONTEXT_MAX)
-        : text.slice(0, CONTEXT_MAX);
-      return next;
-    default:
-      return draft;
+export class NoraTurnAbortedError extends Error {
+  readonly code = "NORA_TURN_STOPPED" as const;
+  constructor() {
+    super("NORA_TURN_STOPPED");
+    this.name = "NoraTurnAbortedError";
   }
 }
 
-/** Explicit correction — clears one captured field so Nora re-asks that slot. */
-export function reopenField(
-  draft: PreProjectDraft,
-  field: CollectField,
-): PreProjectDraft {
-  if (field === "name") return { ...draft, name: "" };
-  return { ...draft, intention: "" };
+export function isAbortLike(
+  error: unknown,
+  signal?: AbortSignal,
+): boolean {
+  if (signal?.aborted) return true;
+  if (error instanceof NoraTurnAbortedError) return true;
+  if (typeof DOMException !== "undefined" && error instanceof DOMException) {
+    return error.name === "AbortError";
+  }
+  if (error instanceof Error) {
+    return (
+      error.name === "AbortError" ||
+      error.message === "AbortError" ||
+      error.message === "NORA_TURN_STOPPED"
+    );
+  }
+  return false;
 }
 
-export function nextNoraPrompt(phase: CollectPhase): string {
-  switch (phase) {
-    case "INTENTION_REQUIRED":
-      return "Quel est l’objectif ou l’intention principale de ce projet ? Aucun projet durable n’est créé pour l’instant.";
-    case "NAME_REQUIRED":
-      return "Quel nom voulez-vous donner à ce projet ?";
-    case "OPTIONAL_CONTEXT":
-      return "Voici les informations que vous avez fournies. Vérifiez l’aperçu, puis créez le projet — ou ajoutez du contexte.";
+export function throwIfAborted(signal?: AbortSignal): void {
+  if (signal?.aborted) {
+    throw new NoraTurnAbortedError();
   }
 }
 
-export function composerPlaceholder(phase: CollectPhase): string {
-  switch (phase) {
-    case "INTENTION_REQUIRED":
-      return "Décrivez l’intention…";
-    case "NAME_REQUIRED":
-      return "Indiquez le nom du projet…";
-    case "OPTIONAL_CONTEXT":
-      return "Ajouter du contexte (optionnel)…";
-  }
+export function abortError(): Error {
+  const error = new Error("AbortError");
+  error.name = "AbortError";
+  return error;
 }
 
-export function openingNoraTurn(): ChatTurn {
+```
+
+
+### `projects/sfia-studio/app/features/project-assistant/noraTurnStopped.ts`
+
+```
+import type {
+  AssistantUiMode,
+  ProjectAssistantSendFailure,
+} from "./types";
+
+/** Voluntary Pilot STOP — not a Product durable state. */
+export function noraTurnStoppedFailure(
+  mode: AssistantUiMode,
+  logicalTurnId?: string | null,
+): ProjectAssistantSendFailure {
   return {
-    id: "nora-open",
-    role: "nora",
-    text: nextNoraPrompt("INTENTION_REQUIRED"),
+    ok: false,
+    status: "stopped",
+    code: "NORA_TURN_STOPPED",
+    message: "Réponse interrompue.",
+    mode,
+    retryable: true,
+    ...(logicalTurnId ? { logicalTurnId } : {}),
   };
 }
 
 ```
 
-### CREATED `projects/sfia-studio/app/app/login/login-client.module.css`
-```css
-.page {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  padding: 40px 48px 32px;
-  background: var(--pm6-canvas, #fffdf9);
-  color: var(--pm6-ink, #1f1a16);
-  font-family: var(--pm6-font, Inter, "Segoe UI", sans-serif);
-  position: relative;
-}
 
-.topBrand {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 24px;
-}
+### `projects/sfia-studio/app/features/project-assistant/sendProjectAssistantTurn.ts`
 
-.layout {
-  flex: 1;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 460px;
-  gap: 80px;
-  align-items: center;
-  width: 100%;
-  max-width: 1220px;
-  margin: 0 auto;
-  min-height: 620px;
-}
+```
+/**
+ * Canonical Project Assistant send APPLICATION seam.
+ * Used by the thin Server Action and the cancellable HTTP transport.
+ * Not a second Nora / not a second orchestrator.
+ */
 
-.narrative {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  max-width: 360px;
-  justify-self: start;
-  margin-left: 24px;
-}
+import { orchestrateAssistantSend } from "./f2/orchestrateF2";
+import {
+  runMw6GovernedNoraProductTurn,
+  type RunMw6GovernedNoraProductTurnInput,
+} from "./mw6GovernedNoraTurn";
+import type {
+  AssistantHistoryMessage,
+  ProjectAssistantSendResult,
+} from "./types";
 
-.card {
-  width: 460px;
-  max-width: 100%;
-  min-height: 420px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  padding: 35px;
-  background: var(--pm6-surface, #fff);
-  border: 1px solid var(--pm6-border-soft, #eae2d9);
-  border-radius: 16px;
-  box-shadow: var(--pm6-shadow-card, 0 8px 24px rgba(31, 26, 22, 0.05));
-  justify-self: end;
-}
+export type SendProjectAssistantTurnInput = {
+  projectId: string;
+  content: string;
+  history?: AssistantHistoryMessage[];
+  executionContractId?: string;
+  authorityEvidenceId?: unknown;
+  governedAuthority?: unknown;
+  actorId?: unknown;
+  getExecutionContract?: unknown;
+  checkExecutionAuthorization?: unknown;
+  authorityResolver?: unknown;
+  authorizedContract?: unknown;
+  currentExternalDiscoveryIntent?: unknown;
+  canActAsMorris?: unknown;
+  claimedAuthorityLevel?: unknown;
+  resolveAuthenticatedPilote?: RunMw6GovernedNoraProductTurnInput["resolveAuthenticatedPilote"];
+  provider?: import("@/lib/platform/ai").ConversationProvider;
+  sessionDbPath?: string;
+  logicalTurnId?: string;
+  turnRetryKey?: string;
+  reinstructionOfProposalId?: string | null;
+  reservationInteractionContext?: {
+    cycleInstanceId?: unknown;
+    epistemicItemId?: unknown;
+  } | null;
+};
 
-.mark {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 28px;
-  border-radius: 6px;
-  background: var(--pm6-forest, #1f1a16);
-  color: var(--pm6-forest-ink, #fffdf9);
-  font-size: 0.85rem;
-  font-weight: 700;
-}
+export type SendProjectAssistantTurnOptions = {
+  /** Request-scoped AbortSignal from cancellable transport. Never persisted. */
+  signal?: AbortSignal;
+};
 
-.brandText {
-  font-size: 0.95rem;
-  font-weight: 650;
-  color: var(--pm6-ink, #1f1a16);
-}
-
-.eyebrow {
-  margin: 0;
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--pm6-muted, #7f766d);
-}
-
-.narrativeTitle {
-  margin: 0;
-  font-size: clamp(1.8rem, 3vw, 2.4rem);
-  font-weight: 650;
-  letter-spacing: -0.02em;
-  line-height: 1.15;
-  color: var(--pm6-ink, #1f1a16);
-}
-
-.narrativeBody {
-  margin: 0;
-  font-size: 1rem;
-  line-height: 1.55;
-  color: var(--pm6-muted-strong, #6f665e);
-  max-width: 36ch;
-}
-
-.title {
-  margin: 0;
-  font-size: 1.55rem;
-  font-weight: 650;
-  letter-spacing: -0.02em;
-  color: var(--pm6-ink, #1f1a16);
-}
-
-.lead {
-  margin: 0;
-  font-size: 0.95rem;
-  line-height: 1.55;
-  color: var(--pm6-muted-strong, #6f665e);
-}
-
-.error {
-  margin: 0;
-  padding: 0.75rem 1rem;
-  border-radius: var(--pm6-radius-md, 12px);
-  background: var(--pm6-danger-tint, #fbeeec);
-  border: 1px solid color-mix(in srgb, var(--pm6-danger, #b8432b) 35%, transparent);
-  color: var(--pm6-danger, #b8432b);
-  font-size: 0.9rem;
-  line-height: 1.5;
-}
-
-.githubCta {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  width: 100%;
-  min-height: 44px;
-  box-sizing: border-box;
-  border: 1px solid var(--pm6-forest, #1f1a16);
-  border-radius: var(--pm6-radius-md, 12px);
-  padding: 0.85rem 1rem;
-  background: var(--pm6-forest, #1f1a16);
-  color: var(--pm6-forest-ink, #fffdf9);
-  font-weight: 600;
-  font-size: 0.95rem;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.githubCta:hover {
-  background: var(--pm6-forest-hover, #3a322b);
-}
-
-.githubCta:focus-visible {
-  outline: none;
-  box-shadow: var(--pm6-focus-ring, 0 0 0 3px rgba(31, 26, 22, 0.35));
-}
-
-.githubIcon {
-  flex: 0 0 auto;
-  display: block;
-}
-
-.note {
-  margin: 0;
-  font-size: 0.8rem;
-  line-height: 1.5;
-  color: var(--pm6-muted, #7f766d);
-  text-align: center;
-}
-
-.sessionHint {
-  margin: 0;
-  padding: 0.75rem 0.9rem;
-  border-radius: var(--pm6-radius-md, 12px);
-  background: var(--pm6-canvas-raised, #fbf7f2);
-  border: 1px solid var(--pm6-border-soft, #eae2d9);
-  font-size: 0.8rem;
-  line-height: 1.45;
-  color: var(--pm6-ink-soft, #3d352e);
-}
-
-@media (max-width: 900px) {
-  .layout {
-    grid-template-columns: 1fr;
-    align-items: start;
-    min-height: auto;
-    gap: 24px;
+export async function sendProjectAssistantTurn(
+  input: SendProjectAssistantTurnInput,
+  options?: SendProjectAssistantTurnOptions,
+): Promise<ProjectAssistantSendResult> {
+  const executionContractId =
+    typeof input.executionContractId === "string"
+      ? input.executionContractId.trim()
+      : "";
+  if (executionContractId.length > 0) {
+    return runMw6GovernedNoraProductTurn({
+      projectId: input.projectId,
+      content: input.content,
+      history: input.history,
+      executionContractId,
+      claimedAuthorityEvidenceId: input.authorityEvidenceId,
+      resolveAuthenticatedPilote: input.resolveAuthenticatedPilote,
+      provider: input.provider,
+      sessionDbPath: input.sessionDbPath,
+      governedAuthority: input.governedAuthority,
+      actorId: input.actorId,
+      authorityEvidenceId: input.authorityEvidenceId,
+      getExecutionContract: input.getExecutionContract,
+      checkExecutionAuthorization: input.checkExecutionAuthorization,
+      authorityResolver: input.authorityResolver,
+      authorizedContract: input.authorizedContract,
+      currentExternalDiscoveryIntent: input.currentExternalDiscoveryIntent,
+      canActAsMorris: input.canActAsMorris,
+      claimedAuthorityLevel: input.claimedAuthorityLevel,
+    });
   }
-
-  .narrative {
-    max-width: none;
-    margin-left: 0;
-  }
-
-  .card {
-    width: 100%;
-    min-height: 310px;
-    justify-self: stretch;
-    padding: 27px 23px;
-  }
-}
-
-@media (max-width: 767px) {
-  .page {
-    padding: 16px 20px;
-  }
-
-  .layout {
-    padding-top: 80px;
-  }
-
-  .narrativeTitle {
-    font-size: 1.55rem;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .githubCta {
-    transition: none;
-  }
+  const reinstructionOfProposalId =
+    typeof input.reinstructionOfProposalId === "string"
+      ? input.reinstructionOfProposalId.trim() || null
+      : null;
+  return orchestrateAssistantSend({
+    projectId: input.projectId,
+    content: input.content,
+    history: input.history,
+    provider: input.provider,
+    sessionDbPath: input.sessionDbPath,
+    logicalTurnId: input.logicalTurnId,
+    turnRetryKey: input.turnRetryKey,
+    reinstructionOfProposalId,
+    reservationInteractionContext: input.reservationInteractionContext,
+    signal: options?.signal,
+  });
 }
 
 ```
 
-### CREATED `projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s06.pilotExperience.d0.test.tsx`
-```tsx
+
+### `projects/sfia-studio/app/features/project-assistant/browserSafeAssistantSend.ts`
+
+```
+import type { AssistantHistoryMessage } from "./types";
+
+const ALLOWED_KEYS = new Set([
+  "content",
+  "history",
+  "logicalTurnId",
+  "turnRetryKey",
+  "reinstructionOfProposalId",
+  "reservationInteractionContext",
+]);
+
+const HOSTILE_KEYS = new Set([
+  "provider",
+  "sessionDbPath",
+  "resolveAuthenticatedPilote",
+  "governedAuthority",
+  "actorId",
+  "canActAsMorris",
+  "claimedAuthorityLevel",
+  "executionContractId",
+  "authorityEvidenceId",
+  "getExecutionContract",
+  "checkExecutionAuthorization",
+  "authorityResolver",
+  "authorizedContract",
+  "currentExternalDiscoveryIntent",
+  "model",
+  "reasoning",
+  "signal",
+]);
+
+export type BrowserSafeAssistantSendBody = {
+  content: string;
+  history?: AssistantHistoryMessage[];
+  logicalTurnId?: string;
+  turnRetryKey?: string;
+  reinstructionOfProposalId?: string | null;
+  reservationInteractionContext?: {
+    cycleInstanceId?: unknown;
+    epistemicItemId?: unknown;
+  } | null;
+};
+
+export function parseBrowserSafeAssistantSendBody(
+  raw: unknown,
+):
+  | { ok: true; value: BrowserSafeAssistantSendBody }
+  | { ok: false; code: string; message: string } {
+  if (raw == null || typeof raw !== "object" || Array.isArray(raw)) {
+    return {
+      ok: false,
+      code: "INPUT_INVALID",
+      message: "Corps JSON objet requis.",
+    };
+  }
+  const record = raw as Record<string, unknown>;
+  for (const key of Object.keys(record)) {
+    if (HOSTILE_KEYS.has(key)) {
+      return {
+        ok: false,
+        code: "HOSTILE_FIELD",
+        message: "Champ non autorisé sur ce transport.",
+      };
+    }
+    if (!ALLOWED_KEYS.has(key)) {
+      return {
+        ok: false,
+        code: "INPUT_INVALID",
+        message: "Champ inconnu rejeté.",
+      };
+    }
+  }
+  if (typeof record.content !== "string") {
+    return {
+      ok: false,
+      code: "INPUT_INVALID",
+      message: "content string requis.",
+    };
+  }
+  if (record.content.length > 20_000) {
+    return {
+      ok: false,
+      code: "INPUT_INVALID",
+      message: "Message trop long.",
+    };
+  }
+  let history: AssistantHistoryMessage[] | undefined;
+  if (record.history !== undefined) {
+    if (!Array.isArray(record.history)) {
+      return {
+        ok: false,
+        code: "INPUT_INVALID",
+        message: "history invalide.",
+      };
+    }
+    history = [];
+    for (const item of record.history) {
+      const role = (item as { role?: unknown }).role;
+      if (
+        item == null ||
+        typeof item !== "object" ||
+        (role !== "user" && role !== "assistant") ||
+        typeof (item as { content?: unknown }).content !== "string"
+      ) {
+        return {
+          ok: false,
+          code: "INPUT_INVALID",
+          message: "history invalide.",
+        };
+      }
+      history.push({
+        role: (item as { role: "user" | "assistant" }).role,
+        content: (item as { content: string }).content,
+      });
+    }
+  }
+  const logicalTurnId =
+    typeof record.logicalTurnId === "string"
+      ? record.logicalTurnId
+      : undefined;
+  const turnRetryKey =
+    typeof record.turnRetryKey === "string" ? record.turnRetryKey : undefined;
+  let reinstructionOfProposalId: string | null | undefined;
+  if (record.reinstructionOfProposalId === null) {
+    reinstructionOfProposalId = null;
+  } else if (typeof record.reinstructionOfProposalId === "string") {
+    reinstructionOfProposalId = record.reinstructionOfProposalId;
+  }
+  let reservationInteractionContext:
+    | { cycleInstanceId?: unknown; epistemicItemId?: unknown }
+    | null
+    | undefined;
+  if (record.reservationInteractionContext === null) {
+    reservationInteractionContext = null;
+  } else if (
+    record.reservationInteractionContext != null &&
+    typeof record.reservationInteractionContext === "object"
+  ) {
+    const ctx = record.reservationInteractionContext as Record<string, unknown>;
+    reservationInteractionContext = {
+      cycleInstanceId: ctx.cycleInstanceId,
+      epistemicItemId: ctx.epistemicItemId,
+    };
+  }
+  return {
+    ok: true,
+    value: {
+      content: record.content,
+      ...(history ? { history } : {}),
+      ...(logicalTurnId ? { logicalTurnId } : {}),
+      ...(turnRetryKey ? { turnRetryKey } : {}),
+      ...(reinstructionOfProposalId !== undefined
+        ? { reinstructionOfProposalId }
+        : {}),
+      ...(reservationInteractionContext !== undefined
+        ? { reservationInteractionContext }
+        : {}),
+    },
+  };
+}
+
+```
+
+
+### `projects/sfia-studio/app/app/api/studio/projects/[projectId]/assistant/send/route.ts`
+
+```
+/**
+ * Thin cancellable transport for Product Nora send.
+ * Same canonical application seam as projectAssistantSendAction.
+ * No client authority. AbortSignal = request.signal only.
+ */
+
+import { NextResponse } from "next/server";
+import { parseBrowserSafeAssistantSendBody } from "@/features/project-assistant/browserSafeAssistantSend";
+import { sendProjectAssistantTurn } from "@/features/project-assistant/sendProjectAssistantTurn";
+
+export const dynamic = "force-dynamic";
+
+export async function POST(
+  request: Request,
+  context: { params: Promise<{ projectId: string }> },
+): Promise<Response> {
+  const params = await context.params;
+  const projectId =
+    typeof params?.projectId === "string" ? params.projectId.trim() : "";
+  if (!projectId) {
+    return NextResponse.json(
+      {
+        ok: false,
+        status: "validation_error",
+        code: "PROJECT_ID_REQUIRED",
+        message: "Identifiant projet requis.",
+        mode: "unavailable",
+        retryable: false,
+      },
+      { status: 400 },
+    );
+  }
+
+  let raw: unknown;
+  try {
+    raw = await request.json();
+  } catch {
+    return NextResponse.json(
+      {
+        ok: false,
+        status: "validation_error",
+        code: "INPUT_INVALID",
+        message: "JSON invalide.",
+        mode: "unavailable",
+        retryable: false,
+      },
+      { status: 400 },
+    );
+  }
+
+  const parsed = parseBrowserSafeAssistantSendBody(raw);
+  if (!parsed.ok) {
+    return NextResponse.json(
+      {
+        ok: false,
+        status: "validation_error",
+        code: parsed.code,
+        message: parsed.message,
+        mode: "unavailable",
+        retryable: false,
+      },
+      { status: 400 },
+    );
+  }
+
+  const result = await sendProjectAssistantTurn(
+    {
+      projectId,
+      content: parsed.value.content,
+      history: parsed.value.history,
+      logicalTurnId: parsed.value.logicalTurnId,
+      turnRetryKey: parsed.value.turnRetryKey,
+      reinstructionOfProposalId: parsed.value.reinstructionOfProposalId,
+      reservationInteractionContext: parsed.value.reservationInteractionContext,
+    },
+    { signal: request.signal },
+  );
+  return NextResponse.json(result);
+}
+
+```
+
+
+### `projects/sfia-studio/app/features/pre-m6-product-ui/hooks/sendCancellableAssistantTurn.ts`
+
+```
+import type {
+  AssistantHistoryMessage,
+  ProjectAssistantSendResult,
+} from "@/features/project-assistant/types";
+
+export type CancellableAssistantSendInput = {
+  projectId: string;
+  content: string;
+  history?: AssistantHistoryMessage[];
+  logicalTurnId?: string;
+  turnRetryKey?: string;
+  reinstructionOfProposalId?: string | null;
+  reservationInteractionContext?: {
+    cycleInstanceId: string;
+    epistemicItemId: string;
+  } | null;
+};
+
+/**
+ * Browser fetch adapter — request-scoped AbortSignal only.
+ * Does not own Product orchestration.
+ */
+export async function sendCancellableAssistantTurn(
+  input: CancellableAssistantSendInput,
+  signal: AbortSignal,
+): Promise<ProjectAssistantSendResult> {
+  const response = await fetch(
+    `/api/studio/projects/${encodeURIComponent(input.projectId)}/assistant/send`,
+    {
+      method: "POST",
+      credentials: "same-origin",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({
+        content: input.content,
+        ...(input.history ? { history: input.history } : {}),
+        ...(input.logicalTurnId ? { logicalTurnId: input.logicalTurnId } : {}),
+        ...(input.turnRetryKey ? { turnRetryKey: input.turnRetryKey } : {}),
+        ...(input.reinstructionOfProposalId
+          ? { reinstructionOfProposalId: input.reinstructionOfProposalId }
+          : {}),
+        ...(input.reservationInteractionContext
+          ? {
+              reservationInteractionContext: input.reservationInteractionContext,
+            }
+          : {}),
+      }),
+      signal,
+    },
+  );
+  const payload = (await response.json()) as ProjectAssistantSendResult;
+  return payload;
+}
+
+```
+
+
+### `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p5.s06.cp02.cancellation.d0.test.ts`
+
+```
+/** @vitest-environment node */
+/**
+ * P5-S06 CP02 — bounded request-scoped Nora cancellation.
+ * ZERO REAL. Same runNoraAgentsTurn / canonical send seam.
+ */
+import { describe, expect, it } from "vitest";
+import type { Model, ModelRequest, ModelResponse } from "@openai/agents";
+import { runNoraAgentsTurn } from "@/lib/nora-cognitive-runtime/runNoraAgentsTurn";
+import { NoraTurnAbortedError } from "@/lib/nora-cognitive-runtime/noraTurnAbort";
+import { parseBrowserSafeAssistantSendBody } from "@/features/project-assistant/browserSafeAssistantSend";
+import { noraTurnStoppedFailure } from "@/features/project-assistant/noraTurnStopped";
+import { POST as assistantSendPost } from "@/app/api/studio/projects/[projectId]/assistant/send/route";
+
+function hangingAbortModel(observe: {
+  sawSignal?: AbortSignal;
+  aborted?: boolean;
+}): Model {
+  return {
+    async getResponse(request: ModelRequest): Promise<ModelResponse> {
+      observe.sawSignal = request.signal;
+      await new Promise<void>((_resolve, reject) => {
+        const fail = () => {
+          observe.aborted = true;
+          const error = new Error("AbortError");
+          error.name = "AbortError";
+          reject(error);
+        };
+        if (request.signal?.aborted) {
+          fail();
+          return;
+        }
+        request.signal?.addEventListener("abort", fail, { once: true });
+      });
+      throw new Error("unreachable");
+    },
+    async *getStreamedResponse(): AsyncIterable<never> {
+      throw new Error("streaming not used");
+    },
+  };
+}
+
+describe("P5-S06 CP02 Runner signal", () => {
+  it("T01 — Runner/model sees AbortSignal and settles as cancellation", async () => {
+    const observe: { sawSignal?: AbortSignal; aborted?: boolean } = {};
+    const controller = new AbortController();
+    const pending = runNoraAgentsTurn({
+      correlationId: "cp02-t01",
+      projectId: "prj:cp02",
+      systemInstructions: "Test",
+      userContent: "hello",
+      enableTools: false,
+      model: hangingAbortModel(observe),
+      signal: controller.signal,
+    });
+    const started = Date.now();
+    while (!observe.sawSignal && Date.now() - started < 3000) {
+      await new Promise((r) => setTimeout(r, 20));
+    }
+    expect(observe.sawSignal).toBeDefined();
+    controller.abort();
+    await expect(pending).rejects.toBeInstanceOf(NoraTurnAbortedError);
+    expect(observe.aborted).toBe(true);
+  });
+});
+
+describe("P5-S06 CP02 transport body", () => {
+  it("T02/T26 — browser-safe parse rejects hostile authority fields", () => {
+    expect(
+      parseBrowserSafeAssistantSendBody({
+        content: "ok",
+        provider: { complete: () => null },
+      }).ok,
+    ).toBe(false);
+    expect(
+      parseBrowserSafeAssistantSendBody({
+        content: "ok",
+        sessionDbPath: "/tmp/x",
+      }).ok,
+    ).toBe(false);
+    expect(
+      parseBrowserSafeAssistantSendBody({
+        content: "ok",
+        claimedAuthorityLevel: "morris",
+      }).ok,
+    ).toBe(false);
+    expect(parseBrowserSafeAssistantSendBody({ content: "hello" })).toEqual({
+      ok: true,
+      value: { content: "hello" },
+    });
+  });
+
+  it("route is POST-only and binds projectId from URL", async () => {
+    const get = (assistantSendPost as { GET?: unknown }).GET;
+    expect(get).toBeUndefined();
+    const res = await assistantSendPost(
+      new Request("http://localhost/api/studio/projects/prj%3Ax/assistant/send", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ content: 1 }),
+      }),
+      { params: { projectId: "prj:x" } },
+    );
+    expect(res.status).toBe(400);
+    const json = (await res.json()) as { code: string };
+    expect(json.code).toBe("INPUT_INVALID");
+  });
+});
+
+describe("P5-S06 CP02 STOPPED semantics", () => {
+  it("T04/T09/T10 — STOPPED is distinct from error and cognitive stop", () => {
+    const stopped = noraTurnStoppedFailure("fixture");
+    expect(stopped.ok).toBe(false);
+    expect(stopped.status).toBe("stopped");
+    expect(stopped.code).toBe("NORA_TURN_STOPPED");
+    expect(stopped.status).not.toBe("provider_error");
+    expect(stopped.status).not.toBe("cognitive_stop");
+  });
+});
+
+```
+
+
+### `projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s06.cp02.cancellation.ui.test.tsx`
+
+```
 /** @vitest-environment jsdom */
-import {
-  cleanup,
-  render,
-  screen,
-  waitFor,
-  within,
-} from "@testing-library/react";
+import { cleanup, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { ProjectsPage } from "@/features/pre-m6-product-ui/ProjectsPage";
+import { afterEach, describe, expect, it, vi } from "vitest";
+import { ConversationSurface } from "@/features/pre-m6-product-ui/surfaces/ConversationSurface";
+import type { ProductConversationController } from "@/features/pre-m6-product-ui/hooks/useProductConversation";
 import { NewProjectIntentionPage } from "@/features/pre-m6-product-ui/NewProjectIntentionPage";
-import { LoginClient } from "@/app/login/login-client";
-import {
-  absorbUserTurn,
-  collectPhaseOf,
-  emptyDraft,
-  isMinimumSufficient,
-  nextNoraPrompt,
-  reopenField,
-} from "@/features/pre-m6-product-ui/newProjectConversation";
-import { projectNoraActivity } from "@/features/pre-m6-product-ui/surfaces/noraActivityProjection";
-
-const { listProjectsRuntimeActionMock, createProjectRuntimeActionMock, pushMock } =
-  vi.hoisted(() => ({
-    listProjectsRuntimeActionMock: vi.fn(),
-    createProjectRuntimeActionMock: vi.fn(),
-    pushMock: vi.fn(),
-  }));
-
-vi.mock("@/lib/vertical-slice-runtime/actions", () => ({
-  listProjectsRuntimeAction: listProjectsRuntimeActionMock,
-  createProjectRuntimeAction: createProjectRuntimeActionMock,
-}));
 
 vi.mock("next/navigation", () => ({
-  useRouter: () => ({ push: pushMock }),
+  useRouter: () => ({ push: vi.fn() }),
 }));
 
 vi.mock("next/link", () => ({
   default: ({
-    children,
     href,
-    ...props
+    children,
+    ...rest
   }: {
-    children: React.ReactNode;
     href: string;
+    children: React.ReactNode;
   }) => (
-    <a href={href} {...props}>
+    <a href={href} {...rest}>
       {children}
     </a>
   ),
 }));
 
+vi.mock("@/lib/vertical-slice-runtime/actions", () => ({
+  createProjectRuntimeAction: vi.fn(),
+  listProjectsRuntimeAction: vi.fn(),
+}));
+
 afterEach(() => {
   cleanup();
-  listProjectsRuntimeActionMock.mockReset();
-  createProjectRuntimeActionMock.mockReset();
-  pushMock.mockReset();
 });
 
-describe("P5-S06 CP01 explicit-phase collection", () => {
-  it("records intention only while INTENTION_REQUIRED, never guesses name", () => {
-    const d0 = emptyDraft();
-    expect(collectPhaseOf(d0)).toBe("INTENTION_REQUIRED");
-    const extra = "Il faudrait aussi prendre en compte les avenants.";
-    const d1 = absorbUserTurn(d0, "Moderniser le reporting", "INTENTION_REQUIRED");
-    expect(d1.intention).toContain("Moderniser");
-    expect(d1.name).toBe("");
-    const stillIntention = absorbUserTurn(d1, extra, "INTENTION_REQUIRED");
-    expect(stillIntention.name).toBe("");
-    expect(stillIntention.intention).toContain("avenants");
-    expect(isMinimumSufficient(stillIntention)).toBe(false);
-  });
-
-  it("records name only after NAME_REQUIRED; later turns stay context", () => {
-    let d = absorbUserTurn(emptyDraft(), "Suivre les contrats", "INTENTION_REQUIRED");
-    expect(collectPhaseOf(d)).toBe("NAME_REQUIRED");
-    d = absorbUserTurn(d, "Contrats Q3", "NAME_REQUIRED");
-    expect(d.name).toBe("Contrats Q3");
-    expect(isMinimumSufficient(d)).toBe(true);
-    d = absorbUserTurn(d, "Inclure les avenants", "OPTIONAL_CONTEXT");
-    expect(d.name).toBe("Contrats Q3");
-    expect(d.context).toContain("avenants");
-  });
-
-  it("reopens a captured field explicitly without guessing", () => {
-    const d = absorbUserTurn(
-      absorbUserTurn(emptyDraft(), "Obj", "INTENTION_REQUIRED"),
-      "NomX",
-      "NAME_REQUIRED",
-    );
-    const reopened = reopenField(d, "name");
-    expect(reopened.name).toBe("");
-    expect(collectPhaseOf(reopened)).toBe("NAME_REQUIRED");
-    expect(nextNoraPrompt("NAME_REQUIRED")).toMatch(/nom/i);
-  });
-});
-
-describe("P5-S06 CP01 ProjectsPage", () => {
-  it("shows empty state without inventing projects", async () => {
-    listProjectsRuntimeActionMock.mockResolvedValue({
-      ok: true,
-      projects: [],
-      disclosures: {},
-    });
-    render(<ProjectsPage />);
-    await waitFor(() =>
-      expect(screen.getByTestId("studio-projects-empty")).toBeInTheDocument(),
-    );
-    expect(screen.queryByTestId("studio-projects-recent")).toBeNull();
-    expect(screen.queryByText("À reprendre")).toBeNull();
-  });
-
-  it("treats updatedAt as recent activity, not next action, and searches locally", async () => {
-    const recent = new Date().toISOString();
-    listProjectsRuntimeActionMock.mockResolvedValue({
-      ok: true,
-      projects: [
-        {
-          projectId: "prj:a",
-          title: "Alpha Reporting",
-          name: "Alpha Reporting",
-          status: "active",
-          objective: "Reporting",
-          updatedAt: recent,
-        },
-        {
-          projectId: "prj:b",
-          title: "Beta Archive",
-          name: "Beta Archive",
-          status: "archived",
-          objective: "Old",
-          updatedAt: "2020-01-01T00:00:00.000Z",
-        },
-      ],
-      disclosures: {},
-    });
-    const user = userEvent.setup();
-    render(<ProjectsPage />);
-    await waitFor(() =>
-      expect(screen.getByTestId("studio-projects-list")).toBeInTheDocument(),
-    );
-    expect(screen.queryByText("À reprendre")).toBeNull();
-    expect(screen.getByTestId("studio-projects-recent")).toHaveTextContent(
-      "Projets récents",
-    );
-    expect(
-      within(screen.getByTestId("studio-projects-recent")).getByText(
-        "Alpha Reporting",
-      ),
-    ).toBeInTheDocument();
-    await user.type(screen.getByTestId("studio-projects-search"), "beta");
-    expect(screen.getByTestId("studio-projects-list")).toHaveTextContent(
-      "Beta Archive",
-    );
-    expect(screen.getByTestId("studio-projects-ask-nora")).toHaveAttribute(
-      "href",
-      "/studio/projects/new",
-    );
-    expect(screen.getByTestId("studio-projects-orientation")).toHaveTextContent(
-      /nouveau projet/i,
-    );
-    expect(screen.getByTestId("studio-projects-orientation")).not.toHaveTextContent(
-      /retrouver un projet/i,
-    );
-  });
-});
-
-describe("P5-S06 CP01 NewProjectIntentionPage", () => {
-  beforeEach(() => {
-    vi.spyOn(globalThis.crypto, "randomUUID").mockReturnValue(
-      "00000000-0000-4000-8000-000000000099",
-    );
-  });
-
-  it("does not create a Project before explicit CTA and asks slots explicitly", async () => {
-    const user = userEvent.setup();
-    render(<NewProjectIntentionPage />);
-    expect(screen.getByTestId("create-project-submit")).toBeDisabled();
-    expect(screen.getByTestId("new-project-thread")).toHaveTextContent(
-      /intention principale/i,
-    );
-
-    await user.type(
-      screen.getByTestId("new-project-input"),
-      "Suivre les contrats fournisseurs",
-    );
-    await user.click(screen.getByTestId("new-project-send"));
-    expect(createProjectRuntimeActionMock).not.toHaveBeenCalled();
-    expect(screen.getByTestId("preview-intention")).toHaveTextContent(/contrats/i);
-    expect(screen.getByTestId("create-project-submit")).toBeDisabled();
-    expect(screen.getByTestId("new-project-thread")).toHaveTextContent(
-      /Quel nom/i,
-    );
-
-    await user.type(screen.getByTestId("new-project-input"), "Contrats Q3");
-    await user.click(screen.getByTestId("new-project-send"));
-    expect(createProjectRuntimeActionMock).not.toHaveBeenCalled();
-    expect(screen.getByTestId("preview-name")).toHaveTextContent("Contrats Q3");
-    expect(screen.getByTestId("create-project-submit")).toBeEnabled();
-  });
-
-  it("does not treat a follow-up precision as name before NAME_REQUIRED", async () => {
-    const user = userEvent.setup();
-    render(<NewProjectIntentionPage />);
-    await user.type(
-      screen.getByTestId("new-project-input"),
-      "Suivre les contrats",
-    );
-    await user.click(screen.getByTestId("new-project-send"));
-    expect(screen.getByTestId("preview-name")).toHaveTextContent(
-      /pas encore précisé/i,
-    );
-  });
-
-  it("creates exactly one Project via canonical action then opens workspace", async () => {
-    createProjectRuntimeActionMock.mockResolvedValue({
-      ok: true,
-      projectId: "prj:s06-1",
-      project: {
-        projectId: "prj:s06-1",
-        name: "Contrats Q3",
-        objective: "Suivre les contrats fournisseurs",
-        criticality: "STANDARD",
-      },
-      livingState: { version: 1 },
-      readiness: { status: "NOT_READY" },
-      reusedFromIdempotencyKey: false,
-    });
-    const user = userEvent.setup();
-    render(<NewProjectIntentionPage />);
-    await user.type(
-      screen.getByTestId("new-project-input"),
-      "Suivre les contrats fournisseurs",
-    );
-    await user.click(screen.getByTestId("new-project-send"));
-    await user.type(screen.getByTestId("new-project-input"), "Contrats Q3");
-    await user.click(screen.getByTestId("new-project-send"));
-    await user.click(screen.getByTestId("create-project-submit"));
-
-    await waitFor(() =>
-      expect(createProjectRuntimeActionMock).toHaveBeenCalledTimes(1),
-    );
-    const arg = createProjectRuntimeActionMock.mock.calls[0]![0];
-    expect(arg.name).toBe("Contrats Q3");
-    expect(arg.objective).toMatch(/contrats/i);
-    expect(arg.criticality).toBe("STANDARD");
-    expect(arg).not.toHaveProperty("cycleId");
-    expect(arg).not.toHaveProperty("humanDecision");
-    expect(pushMock).toHaveBeenCalledWith("/studio/projects/prj%3As06-1");
-  });
-});
-
-describe("P5-S06 CP01 Nora activity mapping", () => {
-  it("maps observable uiState without STOPPED or fake percent", () => {
-    expect(
-      projectNoraActivity({
-        blocked: false,
-        busy: true,
-        uiState: "SENDING",
-      }),
-    ).toMatchObject({ phase: "start", stopAvailable: false });
-    expect(
-      projectNoraActivity({
-        blocked: false,
-        busy: true,
-        uiState: "SOURCE_LOOKUP",
-      }),
-    ).toMatchObject({ phase: "activity", label: "Nora consulte les sources…" });
-    expect(
-      projectNoraActivity({
-        blocked: false,
-        busy: true,
-        uiState: "ASSISTANT_WORKING",
-      }),
-    ).toMatchObject({ phase: "activity", label: "Nora travaille…" });
-    expect(
-      projectNoraActivity({
-        blocked: false,
-        busy: false,
-        uiState: "ANSWERED",
-      }),
-    ).toMatchObject({ phase: "complete" });
-    expect(
-      projectNoraActivity({
-        blocked: false,
-        busy: false,
-        uiState: "ERROR_RECOVERABLE",
-      }),
-    ).toMatchObject({ phase: "error" });
-    expect(
-      projectNoraActivity({
-        blocked: true,
-        busy: false,
-        uiState: "BLOCKED",
-      }),
-    ).toMatchObject({ phase: "blocked" });
-    const idle = projectNoraActivity({
-      blocked: false,
-      busy: false,
-      uiState: "READY",
-    });
-    expect(idle.phase).not.toBe("stopped" as never);
-    expect(JSON.stringify(idle)).not.toMatch(/%|chain of thought|CoT/i);
-  });
-});
-
-describe("P5-S06 CP01 Auth", () => {
-  it("keeps GitHub-only Continuer avec GitHub and existing start href", () => {
-    render(<LoginClient fromPath="/studio" />);
-    const cta = screen.getByTestId("login-github");
-    expect(cta).toHaveTextContent("Continuer avec GitHub");
-    expect(cta).toHaveAttribute(
-      "href",
-      "/api/auth/github-start?from=%2Fstudio",
-    );
-  });
-});
-
-```
-
-### CREATED `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/noraActivityProjection.ts`
-```ts
-import type { ProductConversationUiState } from "../hooks/useProductConversation";
-
-export type NoraActivityPhase =
-  | "blocked"
-  | "start"
-  | "activity"
-  | "complete"
-  | "error"
-  | "idle";
-
-export type NoraActivityProjection = {
-  phase: NoraActivityPhase;
-  label: string;
-  stopAvailable: false;
-};
-
-/**
- * P3 START/ACTIVITY/COMPLETE projection from Product conversation uiState.
- * STREAMING and STOPPED are not projected — not observable on this path.
- */
-export function projectNoraActivity(input: {
-  blocked: boolean;
-  busy: boolean;
-  uiState: ProductConversationUiState;
-}): NoraActivityProjection {
-  if (input.blocked) {
-    return {
-      phase: "blocked",
-      label: "Assistant indisponible — configuration manquante.",
-      stopAvailable: false,
-    };
-  }
-  if (input.uiState === "SENDING") {
-    return { phase: "start", label: "Nora travaille…", stopAvailable: false };
-  }
-  if (input.busy && input.uiState === "SOURCE_LOOKUP") {
-    return {
-      phase: "activity",
-      label: "Nora consulte les sources…",
-      stopAvailable: false,
-    };
-  }
-  if (input.busy) {
-    return { phase: "activity", label: "Nora travaille…", stopAvailable: false };
-  }
-  if (input.uiState === "ERROR_RECOVERABLE") {
-    return {
-      phase: "error",
-      label: "Réponse interrompue — vous pouvez réessayer.",
-      stopAvailable: false,
-    };
-  }
-  if (input.uiState === "ANSWERED") {
-    return { phase: "complete", label: "Réponse prête", stopAvailable: false };
-  }
-  return { phase: "idle", label: "Prêt", stopAvailable: false };
+function stubController(
+  overrides: Partial<ProductConversationController>,
+): ProductConversationController {
+  return {
+    listRef: { current: null },
+    messages: [],
+    draft: "hello",
+    setDraft: vi.fn(),
+    toolEvents: [],
+    uiState: "READY",
+    error: null,
+    modeLabel: "fixture",
+    ephemeralNotice: "notice",
+    lrMaterializeNotice: null,
+    lrMaterializeCode: null,
+    f2: null,
+    activeProposal: null,
+    reservesText: "",
+    setReservesText: vi.fn(),
+    f3Prepare: null,
+    f3M3Resolved: null,
+    f3Execute: null,
+    durableEvidenceOutcome: null,
+    durableRehydrateError: null,
+    focusTurnId: null,
+    clearFocusTurn: vi.fn(),
+    busy: false,
+    blocked: false,
+    canSend: true,
+    stopAvailable: false,
+    stopCurrentResponse: vi.fn(),
+    gateOpen: false,
+    recommendationFreshness: "none",
+    qualificationFreshness: "none",
+    durableOutcomeFreshness: "none",
+    canPrepareResolvedM3: false,
+    canPrepareLegacyFixture: false,
+    canConfirmResolvedM3: false,
+    canConfirmLegacyFixture: false,
+    canRefreshResolvedM3Running: false,
+    sendMessage: vi.fn(),
+    decide: vi.fn(),
+    prepareResolvedM3: vi.fn(),
+    prepareLegacyFixture: vi.fn(),
+    confirmAndExecuteResolvedM3: vi.fn(),
+    confirmAndExecuteLegacyFixture: vi.fn(),
+    refreshResolvedM3RunningAttempt: vi.fn(),
+    retryLastUserMessage: vi.fn(),
+    reservationResolutionProposal: null,
+    transcriptAvailability: "empty",
+    openContinuityPresentation: null,
+    journalEntries: [],
+    journalCycleInstanceId: null,
+    selectedJournalEntryId: null,
+    setSelectedJournalEntryId: vi.fn(),
+    focusJournalExchanges: vi.fn(),
+    focusTranscriptTurn: vi.fn(),
+    refreshConversationContinuity: vi.fn(),
+    armReinstructionOfProposalId: vi.fn(),
+    armedReinstructionOfProposalId: null,
+    armReservationInteractionContext: vi.fn(),
+    armedReservationInteractionContext: null,
+    clearReservationResolutionProposal: vi.fn(),
+    ...overrides,
+  } as ProductConversationController;
 }
 
+describe("P5-S06 CP02 Conversation STOP UI", () => {
+  it("T15 — no stop control when not cancellable", () => {
+    render(
+      <ConversationSurface
+        controller={stubController({ stopAvailable: false, busy: false })}
+      />,
+    );
+    expect(screen.queryByTestId("project-assistant-stop")).toBeNull();
+    expect(screen.getByTestId("project-assistant-send")).toBeInTheDocument();
+    expect(screen.getByTestId("project-assistant-status")).toHaveAttribute(
+      "data-nora-stop",
+      "unavailable",
+    );
+  });
+
+  it("T03/T14 — ■ visible when cancellable and abort called once", async () => {
+    const stopCurrentResponse = vi.fn();
+    const user = userEvent.setup();
+    render(
+      <ConversationSurface
+        controller={stubController({
+          busy: true,
+          canSend: false,
+          stopAvailable: true,
+          uiState: "ASSISTANT_WORKING",
+          draft: "",
+          stopCurrentResponse,
+        })}
+      />,
+    );
+    const stop = screen.getByTestId("project-assistant-stop");
+    expect(stop).toHaveAttribute("aria-label", "Arrêter la réponse de Nora");
+    expect(screen.getByTestId("project-assistant-status")).toHaveAttribute(
+      "data-nora-phase",
+      "activity",
+    );
+    expect(screen.getByTestId("project-assistant-status")).toHaveAttribute(
+      "data-nora-stop",
+      "available",
+    );
+    await user.click(stop);
+    expect(stopCurrentResponse).toHaveBeenCalledTimes(1);
+  });
+
+  it("T04 — STOPPED projection is not ERROR", () => {
+    render(
+      <ConversationSurface
+        controller={stubController({
+          busy: false,
+          canSend: false,
+          stopAvailable: false,
+          uiState: "STOPPED",
+          draft: "",
+          error: null,
+        })}
+      />,
+    );
+    expect(screen.getByTestId("project-assistant-stopped")).toHaveTextContent(
+      "Réponse interrompue",
+    );
+    expect(screen.queryByTestId("project-assistant-error")).toBeNull();
+    expect(screen.getByTestId("project-assistant-status")).toHaveAttribute(
+      "data-nora-phase",
+      "stopped",
+    );
+  });
+});
+
+describe("P5-S06 CP02 New Project mobile order", () => {
+  it("keeps Nora question in the thread before composer in DOM", () => {
+    const { container } = render(<NewProjectIntentionPage />);
+    const thread = screen.getByTestId("new-project-thread");
+    const composer = screen.getByTestId("new-project-composer");
+    const page = container.querySelector("[data-testid='create-project-form']");
+    expect(page).toBeTruthy();
+    expect(
+      thread.compareDocumentPosition(composer) &
+        Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
+    expect(thread.textContent).toMatch(/objectif|intention|projet/i);
+  });
+});
+
 ```
 
-## 24. FULL DIFFS — modified code + docs
-### MODIFIED `projects/sfia-studio/app/app/login/login-client.tsx`
+
+### `projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s06.cp02.cancellation.hook.test.tsx`
+
+```
+/** @vitest-environment jsdom */
+import { act, cleanup, render, screen, waitFor } from "@testing-library/react";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import {
+  useProductConversation,
+  type ProductConversationController,
+} from "@/features/pre-m6-product-ui/hooks/useProductConversation";
+import type { ProjectAssistantSendResult } from "@/features/project-assistant/types";
+
+const { sendCancellableAssistantTurnMock } = vi.hoisted(() => ({
+  sendCancellableAssistantTurnMock: vi.fn(),
+}));
+
+vi.mock("@/features/pre-m6-product-ui/hooks/sendCancellableAssistantTurn", () => ({
+  sendCancellableAssistantTurn: (
+    input: unknown,
+    signal: AbortSignal,
+  ) => sendCancellableAssistantTurnMock(input, signal),
+}));
+
+vi.mock("@/features/project-assistant/actions", () => ({
+  projectAssistantConversationContinuityAction: vi.fn(async () => ({
+    ok: true,
+    transcriptAvailability: "empty",
+    messages: [],
+    journal: { cycleInstanceId: null, entries: [] },
+  })),
+  projectAssistantDecideAction: vi.fn(),
+  projectAssistantPrepareF3FixtureAction: vi.fn(),
+  projectAssistantConfirmAndExecuteF3FixtureAction: vi.fn(),
+  projectAssistantPrepareResolvedM3Action: vi.fn(),
+  projectAssistantConfirmAndExecuteResolvedM3Action: vi.fn(),
+  projectAssistantRehydrateEvidenceOutcomeAction: vi.fn(async () => ({
+    ok: false,
+    status: "rehydrate_error",
+    code: "NO_EVIDENCE_OUTCOME_REFS",
+    message: "none",
+    mode: "fixture",
+    retryable: false,
+  })),
+}));
+
+function successResult(text: string): ProjectAssistantSendResult {
+  return {
+    ok: true,
+    status: "ok",
+    text,
+    mode: "fixture",
+    presentation: "test_provider",
+    toolRounds: 0,
+    toolCalls: 0,
+    sources: [],
+    toolEvents: [],
+    project: { projectId: "prj:cp02-hook" },
+    ephemeralNotice: "",
+    logicalTurnId: "lt:cp02",
+  } as unknown as ProjectAssistantSendResult;
+}
+
+function Harness({
+  onReady,
+}: {
+  onReady: (c: ProductConversationController) => void;
+}) {
+  const controller = useProductConversation({ projectId: "prj:cp02-hook" });
+  onReady(controller);
+  return (
+    <div
+      data-testid="hook-state"
+      data-ui={controller.uiState}
+      data-stop={String(controller.stopAvailable)}
+      data-busy={String(controller.busy)}
+      data-assistants={controller.messages.filter((m) => m.role === "assistant").length}
+    />
+  );
+}
+
+describe("P5-S06 CP02 hook cancellation", () => {
+  afterEach(() => {
+    cleanup();
+    vi.clearAllMocks();
+  });
+
+  beforeEach(() => {
+    sendCancellableAssistantTurnMock.mockReset();
+  });
+
+  it("T05/T06 — abort ignores late assistant success", async () => {
+    let resolveSend!: (value: ProjectAssistantSendResult) => void;
+    sendCancellableAssistantTurnMock.mockImplementation(
+      (_input: unknown, signal: AbortSignal) =>
+        new Promise((resolve, reject) => {
+          resolveSend = resolve;
+          signal.addEventListener(
+            "abort",
+            () => {
+              const err = new Error("Aborted");
+              err.name = "AbortError";
+              reject(err);
+            },
+            { once: true },
+          );
+        }),
+    );
+    let latest!: ProductConversationController;
+    render(<Harness onReady={(c) => (latest = c)} />);
+    await waitFor(() => expect(latest.uiState).not.toBe("INITIAL"));
+    act(() => {
+      latest.sendMessage("bonjour");
+    });
+    await waitFor(() =>
+      expect(sendCancellableAssistantTurnMock).toHaveBeenCalled(),
+    );
+    act(() => {
+      latest.stopCurrentResponse();
+    });
+    await waitFor(() => expect(latest.uiState).toBe("STOPPED"));
+    act(() => {
+      resolveSend(successResult("late answer must not appear"));
+    });
+    await new Promise((r) => setTimeout(r, 30));
+    expect(latest.uiState).toBe("STOPPED");
+    expect(
+      latest.messages.filter((m) => m.role === "assistant"),
+    ).toHaveLength(0);
+    expect(screen.getByTestId("hook-state")).toHaveAttribute(
+      "data-assistants",
+      "0",
+    );
+  });
+
+  it("T07/T08 — explicit retry after stop yields one assistant; next send works", async () => {
+    const calls: AbortSignal[] = [];
+    sendCancellableAssistantTurnMock.mockImplementation(
+      (_input: unknown, signal: AbortSignal) => {
+        calls.push(signal);
+        if (calls.length === 1) {
+          return new Promise((_resolve, reject) => {
+            signal.addEventListener(
+              "abort",
+              () => {
+                const err = new Error("Aborted");
+                err.name = "AbortError";
+                reject(err);
+              },
+              { once: true },
+            );
+          });
+        }
+        return Promise.resolve(successResult(`reply-${calls.length}`));
+      },
+    );
+    let latest!: ProductConversationController;
+    render(<Harness onReady={(c) => (latest = c)} />);
+    await waitFor(() => expect(latest.uiState).not.toBe("INITIAL"));
+    act(() => {
+      latest.sendMessage("tour A");
+    });
+    await waitFor(() =>
+      expect(sendCancellableAssistantTurnMock).toHaveBeenCalled(),
+    );
+    act(() => {
+      latest.stopCurrentResponse();
+    });
+    await waitFor(() => expect(latest.uiState).toBe("STOPPED"));
+    act(() => {
+      latest.retryLastUserMessage();
+    });
+    await waitFor(() =>
+      expect(sendCancellableAssistantTurnMock).toHaveBeenCalledTimes(2),
+    );
+    const first = sendCancellableAssistantTurnMock.mock.calls[0][0] as {
+      content: string;
+      turnRetryKey: string;
+    };
+    const retry = sendCancellableAssistantTurnMock.mock.calls[1][0] as {
+      content: string;
+      turnRetryKey: string;
+    };
+    expect(retry.content).toBe("tour A");
+    expect(retry.turnRetryKey).toBe(first.turnRetryKey);
+    await waitFor(() => expect(latest.uiState).toBe("ANSWERED"));
+    act(() => {
+      latest.setDraft("tour B");
+      latest.sendMessage("tour B");
+    });
+    await waitFor(() =>
+      expect(sendCancellableAssistantTurnMock).toHaveBeenCalledTimes(3),
+    );
+    const next = sendCancellableAssistantTurnMock.mock.calls[2][0] as {
+      content: string;
+      turnRetryKey: string;
+    };
+    expect(next.content).toBe("tour B");
+    expect(next.turnRetryKey).not.toBe(first.turnRetryKey);
+  });
+
+  it("T09 — transport failure is ERROR_RECOVERABLE not STOPPED", async () => {
+    sendCancellableAssistantTurnMock.mockRejectedValue(new Error("network down"));
+    let latest!: ProductConversationController;
+    render(<Harness onReady={(c) => (latest = c)} />);
+    await waitFor(() => expect(latest.uiState).not.toBe("INITIAL"));
+    act(() => {
+      latest.sendMessage("bonjour");
+    });
+    await waitFor(() => expect(latest.uiState).toBe("ERROR_RECOVERABLE"));
+    expect(latest.uiState).not.toBe("STOPPED");
+  });
+
+  it("T16 — unmount abort does not surface Pilot STOPPED", async () => {
+    sendCancellableAssistantTurnMock.mockImplementation(
+      (_input: unknown, signal: AbortSignal) =>
+        new Promise((_resolve, reject) => {
+          signal.addEventListener(
+            "abort",
+            () => {
+              const err = new Error("Aborted");
+              err.name = "AbortError";
+              reject(err);
+            },
+            { once: true },
+          );
+        }),
+    );
+    let latest!: ProductConversationController;
+    const view = render(<Harness onReady={(c) => (latest = c)} />);
+    await waitFor(() => expect(latest.uiState).not.toBe("INITIAL"));
+    act(() => {
+      latest.sendMessage("bonjour");
+    });
+    await waitFor(() =>
+      expect(sendCancellableAssistantTurnMock).toHaveBeenCalled(),
+    );
+    view.unmount();
+    await new Promise((r) => setTimeout(r, 20));
+    expect(latest.uiState).not.toBe("STOPPED");
+  });
+});
+
+```
+
+
+## 26. Useful complete diffs (vs HEAD/main)
+
+
+### `projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts`
+
 ```diff
-diff --git a/projects/sfia-studio/app/app/login/login-client.tsx b/projects/sfia-studio/app/app/login/login-client.tsx
-index 9dea8ffa..3be4deca 100644
---- a/projects/sfia-studio/app/app/login/login-client.tsx
-+++ b/projects/sfia-studio/app/app/login/login-client.tsx
-@@ -1,22 +1,42 @@
- "use client";
+diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts b/projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
+index a581711f..8490c6d6 100644
+--- a/projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
++++ b/projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
+@@ -9,7 +9,6 @@ import {
+   projectAssistantPrepareF3FixtureAction,
+   projectAssistantPrepareResolvedM3Action,
+   projectAssistantRehydrateEvidenceOutcomeAction,
+-  projectAssistantSendAction,
+ } from "@/features/project-assistant/actions";
+ import type {
+   AssistantHistoryMessage,
+@@ -42,6 +41,7 @@ import {
+   type PendingTurnRetryEnvelope,
+ } from "@/features/project-assistant/turnPayloadCanonical";
+ import { useRunningAttemptO3Observation } from "./useRunningAttemptO3Observation";
++import { sendCancellableAssistantTurn } from "./sendCancellableAssistantTurn";
+ import type { JournalSurfaceEntry } from "../surfaces/JournalSurface";
 
- import { useMemo } from "react";
-+import "@/features/pre-m6-product-ui/product-tokens.css";
-+import styles from "./login-client.module.css";
+ export type ProductMessage = {
+@@ -64,7 +64,8 @@ export type ProductConversationUiState =
+   | "SOURCE_LOOKUP"
+   | "ANSWERED"
+   | "ERROR_RECOVERABLE"
+-  | "BLOCKED";
++  | "BLOCKED"
++  | "STOPPED";
 
- const ERROR_MESSAGES: Record<string, string> = {
-   github_user_not_allowlisted:
-     "Votre compte GitHub n'est pas autorisé à accéder à SFIA Studio.",
-   github_id_unparseable:
--    "Impossible de vérifier l'identité GitHub (identifiant manquant).",
-+    "Impossible de vérifier l'identité GitHub. Réessayez la connexion.",
-   ALLOWLIST_DENIED:
--    "Votre identité GitHub n'est plus dans la liste d'autorisation SFIA.",
-+    "Votre identité GitHub n'est plus autorisée pour SFIA Studio.",
-   NO_SESSION: "Authentification requise pour accéder à SFIA Studio.",
-   PROVIDER_ACCOUNT_MISSING:
-     "Session incomplète — reconnectez-vous avec GitHub.",
-   AUTH_CONFIG_ERROR:
--    "Configuration d'authentification indisponible (fail-closed).",
--  provider_not_allowed: "Seul GitHub OAuth est accepté.",
-+    "Connexion indisponible pour le moment. Réessayez plus tard.",
-+  provider_not_allowed: "Seul GitHub est accepté pour se connecter.",
- };
+ export type UseProductConversationInput = {
+   projectId: string;
+@@ -167,6 +168,10 @@ export function useProductConversation({
+    * Retained until terminal client-observed success.
+    */
+   const pendingRetryEnvelopeRef = useRef<PendingTurnRetryEnvelope | null>(null);
++  const abortControllerRef = useRef<AbortController | null>(null);
++  const sendGenerationRef = useRef(0);
++  const mountedRef = useRef(true);
++  const [cancellable, setCancellable] = useState(false);
+   /** CORR-PROOF-11 — armed opaque proposalId for explicit reinstruction send. */
+   const [armedReinstructionOfProposalId, setArmedReinstructionOfProposalId] =
+     useState<string | null>(null);
+@@ -223,6 +228,16 @@ export function useProductConversation({
+     setUiState((prev) => (prev === "INITIAL" ? "READY" : prev));
+   }, []);
 
-+function GitHubMark({ className }: { className?: string }) {
-+  return (
-+    <svg
-+      className={className}
-+      width="20"
-+      height="20"
-+      viewBox="0 0 16 16"
-+      aria-hidden="true"
-+      focusable="false"
-+    >
-+      <path
-+        fill="currentColor"
-+        d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"
-+      />
-+    </svg>
-+  );
-+}
++  useEffect(() => {
++    mountedRef.current = true;
++    return () => {
++      mountedRef.current = false;
++      abortControllerRef.current?.abort();
++      abortControllerRef.current = null;
++      setCancellable(false);
++    };
++  }, []);
 +
- export function LoginClient({
-   errorCode,
-   fromPath,
-@@ -40,91 +60,60 @@ export function LoginClient({
-   const githubStartHref = `/api/auth/github-start?from=${encodeURIComponent(callbackURL)}`;
+   useEffect(() => {
+     let cancelled = false;
+     setTranscriptAvailability("pending");
+@@ -340,6 +355,11 @@ export function useProductConversation({
+     uiState === "SOURCE_LOOKUP";
+   const blocked = uiState === "BLOCKED";
+   const canSend = !busy && !blocked && draft.trim().length > 0;
++  const stopAvailable = cancellable && !blocked && !f3Busy;
++
++  function stopCurrentResponse() {
++    abortControllerRef.current?.abort();
++  }
+   const gateOpen =
+     activeProposal?.morrisGateRequired === true &&
+     activeProposal.status === "DECISION_REQUIRED";
+@@ -492,26 +512,47 @@ export function useProductConversation({
+
+     startTransition(async () => {
+       setUiState("ASSISTANT_WORKING");
+-      let result: Awaited<ReturnType<typeof projectAssistantSendAction>>;
++      const generation = ++sendGenerationRef.current;
++      const controller = new AbortController();
++      abortControllerRef.current = controller;
++      setCancellable(true);
++      let result: Awaited<ReturnType<typeof sendCancellableAssistantTurn>>;
+       try {
+-        result = await projectAssistantSendAction({
+-          projectId,
+-          content: envelope.content,
+-          history: [...envelope.history],
+-          turnRetryKey: envelope.turnRetryKey,
+-          ...(presentedLogicalTurnId
+-            ? { logicalTurnId: presentedLogicalTurnId }
+-            : {}),
+-          ...(reinstructionOfProposalId
+-            ? { reinstructionOfProposalId }
+-            : {}),
+-          ...(reservationInteractionContext
+-            ? { reservationInteractionContext }
+-            : {}),
+-        });
+-      } catch {
+-        // Transport / Server Action rejection before structured response.
+-        // Retain pendingRetryEnvelopeRef so retry can recover server ltu binding.
++        result = await sendCancellableAssistantTurn(
++          {
++            projectId,
++            content: envelope.content,
++            history: [...envelope.history],
++            turnRetryKey: envelope.turnRetryKey,
++            ...(presentedLogicalTurnId
++              ? { logicalTurnId: presentedLogicalTurnId }
++              : {}),
++            ...(reinstructionOfProposalId
++              ? { reinstructionOfProposalId }
++              : {}),
++            ...(reservationInteractionContext
++              ? { reservationInteractionContext }
++              : {}),
++          },
++          controller.signal,
++        );
++      } catch (error) {
++        if (abortControllerRef.current === controller) {
++          abortControllerRef.current = null;
++        }
++        setCancellable(false);
++        if (!mountedRef.current || generation !== sendGenerationRef.current) {
++          return;
++        }
++        const aborted =
++          controller.signal.aborted ||
++          (error instanceof Error && error.name === "AbortError");
++        if (aborted) {
++          lastSendFailedRef.current = true;
++          setUiState("STOPPED");
++          setError(null);
++          return;
++        }
+         lastSendFailedRef.current = true;
+         setUiState("ERROR_RECOVERABLE");
+         setError(
+@@ -520,6 +561,23 @@ export function useProductConversation({
+         return;
+       }
+
++      if (abortControllerRef.current === controller) {
++        abortControllerRef.current = null;
++      }
++      setCancellable(false);
++      if (
++        !mountedRef.current ||
++        generation !== sendGenerationRef.current ||
++        controller.signal.aborted
++      ) {
++        if (mountedRef.current && generation === sendGenerationRef.current) {
++          lastSendFailedRef.current = true;
++          setUiState("STOPPED");
++          setError(null);
++        }
++        return;
++      }
++
+       if (!result.ok) {
+         lastSendFailedRef.current = true;
+         if (result.logicalTurnId) {
+@@ -535,6 +593,11 @@ export function useProductConversation({
+           setArmedReservationInteractionContext(null);
+           setReservationResolutionProposal(null);
+         }
++        if (result.status === "stopped") {
++          setUiState("STOPPED");
++          setError(null);
++          return;
++        }
+         if (result.status === "provider_unavailable") {
+           setUiState("BLOCKED");
+           setModeLabel("Assistant indisponible");
+@@ -597,9 +660,6 @@ export function useProductConversation({
+       );
+       setLrMaterializeCode(result.lifecycleRecommendationCode ?? null);
+       setToolEvents((prev) => [...prev, ...result.toolEvents]);
+-      if (result.toolEvents.length > 0) {
+-        setUiState("SOURCE_LOOKUP");
+-      }
+       setMessages((prev) => [
+         ...prev,
+         {
+@@ -923,6 +983,8 @@ export function useProductConversation({
+     busy,
+     blocked,
+     canSend,
++    stopAvailable,
++    stopCurrentResponse,
+     gateOpen,
+     recommendationFreshness,
+     qualificationFreshness,
+
+```
+
+
+### `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx`
+
+```diff
+diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
+index a423ec48..81413a2e 100644
+--- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
++++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
+@@ -26,6 +26,7 @@ import {
+   presentSynthesisVerdictLabel,
+   synthesisSummaryExcerpt,
+ } from "./synthesisPresentation";
++import { projectNoraActivity } from "./noraActivityProjection";
+ import styles from "./ConversationSurface.module.css";
+
+ /**
+@@ -137,6 +138,8 @@ export function ConversationSurface({
+     canConfirmLegacyFixture,
+     canRefreshResolvedM3Running,
+     sendMessage,
++    stopAvailable,
++    stopCurrentResponse,
+     decide,
+     prepareResolvedM3,
+     prepareLegacyFixture,
+@@ -242,6 +245,12 @@ export function ConversationSurface({
+     executeKind !== "deterministic_test" &&
+     executionSemanticKind(durableSemanticFacts) !== "cursor_real" &&
+     executionSemanticKind(durableSemanticFacts) !== "durable_read";
++  const noraActivity = projectNoraActivity({
++    blocked,
++    busy,
++    uiState,
++    stopAvailable,
++  });
 
    return (
--    <div
--      style={{
--        minHeight: "100vh",
--        display: "flex",
--        alignItems: "center",
--        justifyContent: "center",
--        padding: "2rem",
--        background:
--          "linear-gradient(160deg, #0f172a 0%, #1e293b 55%, #0f172a 100%)",
--        color: "#e2e8f0",
--        fontFamily: "var(--font-inter), system-ui, sans-serif",
--      }}
--    >
--      <main
--        style={{
--          width: "min(28rem, 100%)",
--          border: "1px solid rgba(148, 163, 184, 0.35)",
--          borderRadius: "12px",
--          padding: "2rem",
--          background: "rgba(15, 23, 42, 0.85)",
--        }}
--        data-testid="login-surface"
--      >
--        <p
--          style={{
--            letterSpacing: "0.12em",
--            fontSize: "0.75rem",
--            textTransform: "uppercase",
--            color: "#94a3b8",
--            margin: 0,
--          }}
--        >
--          SFIA Studio
--        </p>
--        <h1 style={{ margin: "0.75rem 0 0.5rem", fontSize: "1.75rem" }}>
--          Connexion
--        </h1>
--        <p style={{ margin: "0 0 1.5rem", color: "#cbd5e1", lineHeight: 1.5 }}>
--          Authentifiez-vous avec GitHub. L&apos;accès Studio est réservé aux
--          identités autorisées côté serveur (rôle runtime : Pilote).
--        </p>
-+    <div className={styles.page}>
-+      <header className={styles.topBrand} aria-hidden="false">
-+        <span className={styles.mark} aria-hidden="true">
-+          S
-+        </span>
-+        <span className={styles.brandText}>SFIA Studio</span>
-+      </header>
+     <section
+@@ -1362,6 +1371,24 @@ export function ConversationSurface({
+         </section>
+       ) : null}
 
--        {message ? (
--          <p
--            role="alert"
--            data-testid="login-error"
--            style={{
--              margin: "0 0 1.25rem",
--              padding: "0.75rem 1rem",
--              borderRadius: "8px",
--              background: "rgba(127, 29, 29, 0.45)",
--              border: "1px solid rgba(248, 113, 113, 0.45)",
--              color: "#fecaca",
--            }}
--          >
--            {message}
-+      <div className={styles.layout}>
-+        <section className={styles.narrative} aria-labelledby="login-narrative">
-+          <p className={styles.eyebrow}>Espace projet</p>
-+          <h1 id="login-narrative" className={styles.narrativeTitle}>
-+            Un espace de travail calme, continu et gouverné.
-+          </h1>
-+          <p className={styles.narrativeBody}>
-+            Retrouvez vos projets, leur contexte et votre conversation avec
-+            Nora.
-           </p>
--        ) : null}
-+        </section>
-
--        {/*
--          Native <a> — OAuth must work even when client chunks fail to hydrate
--          (observed: /_next/.../login/page.js → 404 left a dead <button>).
--          No preventDefault: href always navigates to public /api/auth/github-start.
--        */}
--        <a
--          href={githubStartHref}
--          data-testid="login-github"
--          style={{
--            display: "block",
--            width: "100%",
--            boxSizing: "border-box",
--            border: 0,
--            borderRadius: "8px",
--            padding: "0.85rem 1rem",
--            background: "#f8fafc",
--            color: "#0f172a",
--            fontWeight: 600,
--            cursor: "pointer",
--            textAlign: "center",
--            textDecoration: "none",
--          }}
--        >
--          Se connecter avec GitHub
--        </a>
--      </main>
-+        <main className={styles.card} data-testid="login-surface">
-+          <h2 className={styles.title}>Bienvenue dans SFIA Studio</h2>
-+          <p className={styles.lead}>
-+            Connectez-vous pour retrouver vos projets et reprendre votre
-+            travail.
-+          </p>
-+
-+          {message ? (
-+            <p role="alert" data-testid="login-error" className={styles.error}>
-+              {message}
-+            </p>
-+          ) : null}
-+
-+          {/*
-+            Native <a> — OAuth must work even when client chunks fail to hydrate.
-+            No preventDefault: href always navigates to public /api/auth/github-start.
-+          */}
-+          <a
-+            href={githubStartHref}
-+            data-testid="login-github"
-+            className={styles.githubCta}
++      {uiState === "STOPPED" && !error ? (
++        <div
++          className={styles.stoppedBanner}
++          role="status"
++          data-testid="project-assistant-stopped"
++        >
++          <p className={styles.stoppedText}>Réponse interrompue</p>
++          <button
++            type="button"
++            className={styles.quietButton}
++            data-testid="project-assistant-retry-stopped"
++            onClick={() => retryLastUserMessage()}
 +          >
-+            <GitHubMark className={styles.githubIcon} />
-+            Continuer avec GitHub
-+          </a>
++            Réessayer
++          </button>
++        </div>
++      ) : null}
 +
-+          <p className={styles.note}>
-+            L&apos;accès est réservé aux comptes autorisés.
-+          </p>
-+          <p className={styles.sessionHint}>
-+            Votre session vous ramène à votre espace de travail.
-+          </p>
-+        </main>
-+      </div>
-     </div>
-   );
- }
+       {error ? (
+         <div
+           className={styles.errorBox}
+@@ -1369,7 +1396,7 @@ export function ConversationSurface({
+           data-testid="project-assistant-error"
+         >
+           <p className={styles.errorText}>{error}</p>
+-          {uiState === "ERROR_RECOVERABLE" ? (
++          {uiState === "ERROR_RECOVERABLE" || uiState === "STOPPED" ? (
+             <button
+               type="button"
+               className={styles.quietButton}
+@@ -1449,6 +1476,7 @@ export function ConversationSurface({
+         data-testid="project-assistant-composer"
+         onSubmit={(event) => {
+           event.preventDefault();
++          if (stopAvailable) return;
+           sendMessage();
+         }}
+       >
+@@ -1477,15 +1505,27 @@ export function ConversationSurface({
+             className={styles.composerStatus}
+             aria-live="polite"
+             data-testid="project-assistant-status"
++            data-nora-phase={noraActivity.phase}
++            data-nora-stop={noraActivity.stopAvailable ? "available" : "unavailable"}
+           >
+-            {busy
+-              ? uiState === "SOURCE_LOOKUP"
+-                ? "Consultation des sources en cours…"
+-                : "Nora rédige sa réponse…"
+-              : blocked
+-                ? "Assistant indisponible — configuration manquante."
+-                : "Prêt"}
++            {noraActivity.label}
+           </span>
++          {/* P3 composer ↑ / ■ / ↑ — ■ only while the request is actually cancellable. */}
++          {stopAvailable ? (
++            <button
++              type="button"
++              className={styles.stopButton}
++              data-testid="project-assistant-stop"
++              onClick={() => stopCurrentResponse()}
++              title="Arrêter la réponse de Nora"
++              aria-label="Arrêter la réponse de Nora"
++            >
++              <span className={styles.sendLabelFull}>Arrêter</span>
++              <span className={styles.sendLabelCompact} aria-hidden="true">
++                ■
++              </span>
++            </button>
++          ) : (
+           <button
+             type="submit"
+             className={styles.sendButton}
+@@ -1496,20 +1536,27 @@ export function ConversationSurface({
+               blocked
+                 ? "Assistant indisponible"
+                 : busy
+-                  ? "Envoi en cours"
++                  ? "Nora travaille"
+                   : draft.trim().length === 0
+                     ? "Saisissez un message"
+                     : "Envoyer le message"
+             }
+             aria-label={
+-              canSend ? "Envoyer le message à Nora" : "Envoi indisponible"
++              canSend
++                ? "Envoyer le message à Nora"
++                : busy
++                  ? "Nora travaille"
++                  : "Envoi indisponible"
+             }
+           >
+-            <span className={styles.sendLabelFull}>Envoyer</span>
++            <span className={styles.sendLabelFull}>
++              {busy ? "Nora travaille…" : "Envoyer"}
++            </span>
+             <span className={styles.sendLabelCompact} aria-hidden="true">
+               ↑
+             </span>
+           </button>
++          )}
+         </div>
+         <p className={styles.composerCaption}>
+           Vous pilotez. La décision vous appartient toujours.
 
 ```
 
-### MODIFIED `projects/sfia-studio/app/features/pre-m6-product-ui/NewProjectIntentionPage.module.css`
+
+### `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.module.css`
+
+```diff
+diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.module.css b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.module.css
+index 49deaf31..484cc8b2 100644
+--- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.module.css
++++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.module.css
+@@ -721,6 +721,43 @@
+   cursor: not-allowed;
+ }
+
++.stopButton {
++  border-radius: var(--pm6-radius-pill);
++  border: 1px solid var(--pm6-ink);
++  background: var(--pm6-canvas);
++  color: var(--pm6-ink);
++  padding: 9px 20px;
++  font-size: 0.87rem;
++  font-weight: 600;
++  cursor: pointer;
++  min-height: 38px;
++}
++
++.stopButton:hover {
++  background: var(--pm6-forest-hover);
++}
++
++.stopButton:focus-visible,
++.sendButton:focus-visible {
++  outline: 2px solid var(--pm6-forest);
++  outline-offset: 2px;
++}
++
++.stoppedBanner {
++  display: flex;
++  flex-wrap: wrap;
++  align-items: center;
++  gap: 10px;
++  padding: 10px 12px;
++  border: 1px solid var(--pm6-border);
++  border-radius: 10px;
++}
++
++.stoppedText {
++  margin: 0;
++  font-size: 0.9rem;
++}
++
+ .composerCaption {
+   margin: 0;
+   font-size: 0.78rem;
+@@ -819,6 +856,18 @@
+     line-height: 1;
+   }
+
++  .stopButton {
++    display: inline-grid;
++    place-items: center;
++    width: 38px;
++    min-width: 38px;
++    height: 38px;
++    padding: 0;
++    border-radius: 8px;
++    font-size: 0.75rem;
++    line-height: 1;
++  }
++
+   .sendLabelFull {
+     display: none;
+   }
+
+```
+
+
+### `projects/sfia-studio/app/features/project-assistant/actions.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/features/project-assistant/actions.ts b/projects/sfia-studio/app/features/project-assistant/actions.ts
+index 4af97dc1..bb03f760 100644
+--- a/projects/sfia-studio/app/features/project-assistant/actions.ts
++++ b/projects/sfia-studio/app/features/project-assistant/actions.ts
+@@ -2,7 +2,6 @@
+
+ import { getRuntimeApplicationService } from "@/lib/vertical-slice-runtime";
+ import { loadProjectRuntimeForAssistant } from "@/features/vertical-slice-ui/ProjectWorkspaceView";
+-import { orchestrateAssistantSend } from "./f2/orchestrateF2";
+ import { recordF2Decision } from "./f2/recordDecision";
+ import {
+   executePilotLifecycleAction,
+@@ -56,9 +55,9 @@ import {
+   resolvePersistenceNotice,
+ } from "./presentationLabels";
+ import {
+-  runMw6GovernedNoraProductTurn,
+-  type RunMw6GovernedNoraProductTurnInput,
+-} from "./mw6GovernedNoraTurn";
++  sendProjectAssistantTurn,
++  type SendProjectAssistantTurnInput,
++} from "./sendProjectAssistantTurn";
+ import type {
+   AssistantHistoryMessage,
+   ProjectAssistantContextDto,
+@@ -77,104 +76,10 @@ import type {
+  * No OPS1 session. No Cursor REAL. No Git write.
+  * Persistence durability follows RuntimeOaStack.productDurablePath (Product SQLite vs Memory).
+  */
+-export async function projectAssistantSendAction(input: {
+-  projectId: string;
+-  content: string;
+-  history?: AssistantHistoryMessage[];
+-  /**
+-   * Untrusted ExecutionContract id reference for MW6 governed external discovery.
+-   * When present, server composes governedAuthority from Auth + OA and invokes
+-   * the real Nora product path. CONTENT/AUTHORITY of the contract are never
+-   * trusted from the client — only the id reference.
+-   */
+-  executionContractId?: string;
+-  /**
+-   * Optional untrusted evidence hint — verified only by server composition.
+-   */
+-  authorityEvidenceId?: unknown;
+-  /** Hostile — ignored (server builds governedAuthority). */
+-  governedAuthority?: unknown;
+-  /** Hostile — ignored (Auth resolver owns actor). */
+-  actorId?: unknown;
+-  getExecutionContract?: unknown;
+-  checkExecutionAuthorization?: unknown;
+-  authorityResolver?: unknown;
+-  authorizedContract?: unknown;
+-  currentExternalDiscoveryIntent?: unknown;
+-  canActAsMorris?: unknown;
+-  claimedAuthorityLevel?: unknown;
+-  /**
+-   * TEST-ONLY Auth session → Pilote seam. Production omits this and uses
+-   * resolveCurrentAuthenticatedPilote. AUTH REAL boundary carried forward.
+-   */
+-  resolveAuthenticatedPilote?: RunMw6GovernedNoraProductTurnInput["resolveAuthenticatedPilote"];
+-  provider?: import("@/lib/platform/ai").ConversationProvider;
+-  sessionDbPath?: string;
+-  /**
+-   * D-GF-ACW-02 — optional re-present of server-issued logical Product turn id.
+-   * Untrusted until Session lookup; client-invented ids fail LOGICAL_TURN_UNKNOWN.
+-   */
+-  logicalTurnId?: string;
+-  /**
+-   * Opaque client transport retry correlation (untrusted).
+-   * NOT Product turn identity / SFIA authority — Session-adjacent lookup only.
+-   */
+-  turnRetryKey?: string;
+-  /**
+-   * CORR-PROOF-11 — opaque prior pending proposalId for explicit reinstruction.
+-   * Untrusted until server validates against effective pending markers.
+-   */
+-  reinstructionOfProposalId?: string | null;
+-  /**
+-   * RESERVATION-CONTEXT-PILOT-CONFIRMATION-01 — untrusted client binding.
+-   * Server revalidates project/cycle/Reservation; invalid → fail-closed.
+-   */
+-  reservationInteractionContext?: {
+-    cycleInstanceId?: unknown;
+-    epistemicItemId?: unknown;
+-  } | null;
+-}): Promise<ProjectAssistantSendResult> {
+-  const executionContractId =
+-    typeof input.executionContractId === "string"
+-      ? input.executionContractId.trim()
+-      : "";
+-  if (executionContractId.length > 0) {
+-    return runMw6GovernedNoraProductTurn({
+-      projectId: input.projectId,
+-      content: input.content,
+-      history: input.history,
+-      executionContractId,
+-      claimedAuthorityEvidenceId: input.authorityEvidenceId,
+-      resolveAuthenticatedPilote: input.resolveAuthenticatedPilote,
+-      provider: input.provider,
+-      sessionDbPath: input.sessionDbPath,
+-      governedAuthority: input.governedAuthority,
+-      actorId: input.actorId,
+-      authorityEvidenceId: input.authorityEvidenceId,
+-      getExecutionContract: input.getExecutionContract,
+-      checkExecutionAuthorization: input.checkExecutionAuthorization,
+-      authorityResolver: input.authorityResolver,
+-      authorizedContract: input.authorizedContract,
+-      currentExternalDiscoveryIntent: input.currentExternalDiscoveryIntent,
+-      canActAsMorris: input.canActAsMorris,
+-      claimedAuthorityLevel: input.claimedAuthorityLevel,
+-    });
+-  }
+-  const reinstructionOfProposalId =
+-    typeof input.reinstructionOfProposalId === "string"
+-      ? input.reinstructionOfProposalId.trim() || null
+-      : null;
+-  return orchestrateAssistantSend({
+-    projectId: input.projectId,
+-    content: input.content,
+-    history: input.history,
+-    provider: input.provider,
+-    sessionDbPath: input.sessionDbPath,
+-    logicalTurnId: input.logicalTurnId,
+-    turnRetryKey: input.turnRetryKey,
+-    reinstructionOfProposalId,
+-    reservationInteractionContext: input.reservationInteractionContext,
+-  });
++export async function projectAssistantSendAction(
++  input: SendProjectAssistantTurnInput,
++): Promise<ProjectAssistantSendResult> {
++  return sendProjectAssistantTurn(input);
+ }
+
+ function toContextDto(
+
+```
+
+
+### `projects/sfia-studio/app/features/project-assistant/types.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/features/project-assistant/types.ts b/projects/sfia-studio/app/features/project-assistant/types.ts
+index daf8841d..2c9db212 100644
+--- a/projects/sfia-studio/app/features/project-assistant/types.ts
++++ b/projects/sfia-studio/app/features/project-assistant/types.ts
+@@ -22,6 +22,7 @@ export type AssistantUiMode = "fixture" | "live" | "unavailable" | "unconfirmed"
+ export type AssistantTurnStatus =
+   | "ok"
+   | "cognitive_stop"
++  | "stopped"
+   | "provider_unavailable"
+   | "provider_error"
+   | "project_not_found"
+
+```
+
+
+### `projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts b/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
+index 7dcb49d2..24ad0d1a 100644
+--- a/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
++++ b/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
+@@ -17,8 +17,14 @@ import {
+   type Mw3ContradictionAssessmentInput,
+   type NoraEvalModelReasoningControl,
+   type NoraAgentsUsdAccounting,
+-  type NoraCampaignBudget,
++  type   NoraCampaignBudget,
+ } from "@/lib/nora-cognitive-runtime";
++import {
++  isAbortLike,
++  NoraTurnAbortedError,
++  throwIfAborted,
++} from "@/lib/nora-cognitive-runtime/noraTurnAbort";
++import { noraTurnStoppedFailure } from "./noraTurnStopped";
+ import {
+   appendPilotTranscriptTurn,
+   materializeCycleJournalDelta,
+@@ -263,6 +269,8 @@ export async function orchestrateProjectAssistantTurn(input: {
+    * Prefer logicalTurnId for production and new tests.
+    */
+   turnCorrelationId?: string;
++  /** Request-scoped AbortSignal from cancellable Product transport. */
++  signal?: AbortSignal;
+ }): Promise<ProjectAssistantSendResult> {
+   const content = input.content.trim();
+   if (!content) {
+@@ -455,7 +463,9 @@ export async function orchestrateProjectAssistantTurn(input: {
+           });
+         },
+       },
++      signal: input.signal,
+     });
++    throwIfAborted(input.signal);
+
+     let assistantText = turn.text;
+     let lifecycleRecommendationMaterialized: boolean | null = null;
+@@ -1340,6 +1350,9 @@ export async function orchestrateProjectAssistantTurn(input: {
+       reservationProposedIds,
+     };
+   } catch (error) {
++    if (isAbortLike(error, input.signal) || error instanceof NoraTurnAbortedError) {
++      return noraTurnStoppedFailure(modeResolution.mode, logicalTurnId);
++    }
+     const message =
+       error instanceof Error
+         ? error.message
+
+```
+
+
+### `projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts b/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
+index 0bc2eab2..ea256edb 100644
+--- a/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
++++ b/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
+@@ -13,6 +13,12 @@ import type {
+   NoraCampaignBudget,
+   NoraEvalModelReasoningControl,
+ } from "@/lib/nora-cognitive-runtime";
++import {
++  isAbortLike,
++  NoraTurnAbortedError,
++  throwIfAborted,
++} from "@/lib/nora-cognitive-runtime/noraTurnAbort";
++import { noraTurnStoppedFailure } from "../noraTurnStopped";
+ import {
+   resolveEvalCellConversationProvider,
+   type EvalCellProviderFactory,
+@@ -997,6 +1003,8 @@ export async function orchestrateAssistantSend(input: {
+   usdAccounting?: NoraAgentsUsdAccounting;
+   /** INTERNAL / EVAL-ONLY — shared canonical campaign budget lease. */
+   campaignBudget?: NoraCampaignBudget;
++  /** Request-scoped AbortSignal from cancellable Product transport. */
++  signal?: AbortSignal;
+ }): Promise<ProjectAssistantSendResult> {
+   const content = input.content.trim();
+   const reinstructionOfProposalId = normalizeOpaqueProposalId(
+@@ -1224,6 +1232,9 @@ export async function orchestrateAssistantSend(input: {
+       evalModelReasoningControl: input.evalModelReasoningControl,
+     });
+   } catch (error) {
++    if (isAbortLike(error, input.signal) || error instanceof NoraTurnAbortedError) {
++      return noraTurnStoppedFailure(modeResolution.mode);
++    }
+     const message =
+       error instanceof Error ? error.message : "Erreur provider inattendue.";
+     return {
+@@ -1485,6 +1496,7 @@ export async function orchestrateAssistantSend(input: {
+     // Keep methodContext for CORR-PROOF-03 compatibility surfaces when studio is present
+     // (studio supersedes in prompt builder).
+     const methodContext = studioCognitiveContext.method;
++    throwIfAborted(input.signal);
+     const f1 = await orchestrateProjectAssistantTurn({
+       ...input,
+       provider: effectiveProvider,
+
+```
+
+
+### `projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
+index 5894cfc7..179a92cb 100644
+--- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
++++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
+@@ -56,6 +56,11 @@ import {
+   type NoraTurnBudget,
+ } from "./turnBudget";
+ import type { NoraCognitiveTurnResult } from "./types";
++import {
++  isAbortLike,
++  NoraTurnAbortedError,
++  throwIfAborted,
++} from "./noraTurnAbort";
+ import type { NoraRunnerModelSettings } from "./reasoningModelSettings";
+ import { withMaxToolCallsProviderData } from "./reasoningModelSettings";
+ import type { HostedWebSearchCallLike } from "./externalSourceNormalization";
+@@ -174,6 +179,8 @@ export type RunNoraAgentsTurnInput = {
+    * Used by post_execution Deep Review without enabling Memory B / hosted search.
+    */
+   executionReviewTools?: import("./executionReviewAgentsTools").ExecutionReviewToolContext | null;
++  /** Request-scoped AbortSignal from Product transport. Native Runner option. */
++  signal?: AbortSignal;
+ };
+
+ export type RunNoraAgentsTurnHostedSearchObserve = {
+@@ -595,8 +602,10 @@ export async function runNoraAgentsTurn(
+     }
+   } else {
+     try {
++      throwIfAborted(input.signal);
+       const result = await runner.run(agent, input.userContent, {
+         ...(session ? { session } : {}),
++        ...(input.signal ? { signal: input.signal } : {}),
+         maxTurns,
+         errorHandlers: {
+           maxTurns: ({ runData }) => {
+@@ -625,6 +634,7 @@ export async function runNoraAgentsTurn(
+           },
+         },
+       });
++      throwIfAborted(input.signal);
+
+       text =
+         typeof result.finalOutput === "string"
+@@ -710,6 +720,9 @@ export async function runNoraAgentsTurn(
+       usageAgg = result.state?.usage ?? null;
+       runNewItems = Array.isArray(result.newItems) ? [...result.newItems] : [];
+     } catch (error) {
++      if (isAbortLike(error, input.signal)) {
++        throw new NoraTurnAbortedError();
++      }
+       if (
+         error instanceof CampaignModelInvocationDeniedError ||
+         error instanceof CampaignUsdHardCapDeniedError
+
+```
+
+
+### `projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts
+index faa4c498..296b2016 100644
+--- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts
++++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts
+@@ -24,6 +24,7 @@ import {
+   type RunNoraAgentsTurnHostedSearchObserve,
+ } from "./runNoraAgentsTurn";
+ import { runNoraCognitiveCore } from "./noraCognitiveCompletion";
++import { throwIfAborted } from "./noraTurnAbort";
+ import type { NoraCognitiveTurnResult } from "./types";
+ import {
+   decideCognitiveStrategy,
+@@ -230,6 +231,8 @@ export type RunNoraCognitiveTurnInput = {
+    * Bound by caller to projectId; never inject foreign OA handles via model args.
+    */
+   productExecutionTools?: import("./productExecutionAgentsTools").ProductExecutionToolContext | null;
++  /** Request-scoped AbortSignal — forwarded to the same Agents Runner. */
++  signal?: AbortSignal;
+ };
+
+ /**
+@@ -882,7 +885,9 @@ export async function runNoraCognitiveTurn(
+           : undefined,
+       outputType: input.outputType,
+       cycleJournalTools: null,
++      signal: input.signal,
+     });
++    throwIfAborted(input.signal);
+     const observations = [
+       ...(input.sourceObservationFacts ?? []),
+       ...(turn.hostedSearchObserve?.observations ?? []),
+@@ -1060,7 +1065,9 @@ export async function runNoraCognitiveTurn(
+             }
+           : null,
+       productExecutionTools: input.productExecutionTools ?? null,
++      signal: input.signal,
+     });
++    throwIfAborted(input.signal);
+     const observations = [
+       ...(input.sourceObservationFacts ?? []),
+       ...(turn.hostedSearchObserve?.observations ?? []),
+
+```
+
+
+### `projects/sfia-studio/app/lib/nora-cognitive-runtime/providerAgentsModel.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/providerAgentsModel.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/providerAgentsModel.ts
+index 2e15bf83..f74cc8f6 100644
+--- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/providerAgentsModel.ts
++++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/providerAgentsModel.ts
+@@ -339,7 +339,9 @@ export function createProviderAgentsModel(
+   return {
+     async getResponse(request: ModelRequest): Promise<ModelResponse> {
+       if (request.signal?.aborted) {
+-        throw new Error("AbortError");
++        const aborted = new Error("AbortError");
++        aborted.name = "AbortError";
++        throw aborted;
+       }
+       const items = agentInputToProviderItems(request.input);
+       // Ensure Studio system instructions from the Runner filter are visible
+@@ -360,7 +362,27 @@ export function createProviderAgentsModel(
+         });
+       }
+       const tools = toolDefinitionsFromModelRequest(request);
+-      const round = await completeRound({ items, tools });
++      const work = completeRound({ items, tools });
++      const round = await (request.signal
++        ? new Promise<Awaited<typeof work>>((resolve, reject) => {
++            const onAbort = () => {
++              const aborted = new Error("AbortError");
++              aborted.name = "AbortError";
++              reject(aborted);
++            };
++            request.signal!.addEventListener("abort", onAbort, { once: true });
++            work.then(
++              (value) => {
++                request.signal!.removeEventListener("abort", onAbort);
++                resolve(value);
++              },
++              (error) => {
++                request.signal!.removeEventListener("abort", onAbort);
++                reject(error);
++              },
++            );
++          })
++        : work);
+       if (round.kind === "message") {
+         if (
+           productTurnOutputTypeName(request) ===
+
+```
+
+
+### `projects/sfia-studio/app/features/pre-m6-product-ui/NewProjectIntentionPage.module.css`
+
 ```diff
 diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/NewProjectIntentionPage.module.css b/projects/sfia-studio/app/features/pre-m6-product-ui/NewProjectIntentionPage.module.css
-index ad57ac05..709199f3 100644
+index ad57ac05..8a38d12c 100644
 --- a/projects/sfia-studio/app/features/pre-m6-product-ui/NewProjectIntentionPage.module.css
 +++ b/projects/sfia-studio/app/features/pre-m6-product-ui/NewProjectIntentionPage.module.css
 @@ -1,149 +1,147 @@
@@ -1490,8 +2502,15 @@ index ad57ac05..709199f3 100644
 +    padding: 14px 16px 8px;
 +  }
 +
-+  .composer {
++  .thread {
 +    order: 2;
++    min-height: 0;
++    max-height: 22vh;
++    padding: 8px 16px 4px;
++  }
++
++  .composer {
++    order: 3;
 +    border-top: 0;
 +    border-bottom: 1px solid var(--pm6-border-soft);
 +    padding: 12px 16px;
@@ -1499,13 +2518,6 @@ index ad57ac05..709199f3 100644
 +    bottom: auto;
 +    top: 0;
 +    z-index: 2;
-+  }
-+
-+  .thread {
-+    order: 3;
-+    min-height: 120px;
-+    max-height: 36vh;
-+    padding: 12px 16px;
 +  }
 +
 +  .preview {
@@ -1530,1817 +2542,212 @@ index ad57ac05..709199f3 100644
 
 ```
 
-### MODIFIED `projects/sfia-studio/app/features/pre-m6-product-ui/NewProjectIntentionPage.tsx`
+
+### `projects/sfia-studio/app/__tests__/pre-m6-product-ui/runningAttemptRefresh.ui.test.tsx`
+
 ```diff
-diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/NewProjectIntentionPage.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/NewProjectIntentionPage.tsx
-index a9e7eb9c..a37025a1 100644
---- a/projects/sfia-studio/app/features/pre-m6-product-ui/NewProjectIntentionPage.tsx
-+++ b/projects/sfia-studio/app/features/pre-m6-product-ui/NewProjectIntentionPage.tsx
-@@ -1,77 +1,109 @@
- "use client";
+diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/runningAttemptRefresh.ui.test.tsx b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/runningAttemptRefresh.ui.test.tsx
+index 52b93e56..7a3e29d7 100644
+--- a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/runningAttemptRefresh.ui.test.tsx
++++ b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/runningAttemptRefresh.ui.test.tsx
+@@ -35,6 +35,13 @@ const {
+   projectAssistantRehydrateEvidenceOutcomeActionMock: vi.fn(),
+ }));
 
--import { useEffect, useRef, useState, type FormEvent } from "react";
-+import { useEffect, useId, useRef, useState, type FormEvent } from "react";
- import Link from "next/link";
-+import { useRouter } from "next/navigation";
- import { createProjectRuntimeAction } from "@/lib/vertical-slice-runtime/actions";
-+import {
-+  absorbUserTurn,
-+  collectPhaseOf,
-+  composerPlaceholder,
-+  emptyDraft,
-+  isMinimumSufficient,
-+  nextNoraPrompt,
-+  openingNoraTurn,
-+  reopenField,
-+  type ChatTurn,
-+  type CollectField,
-+  type CollectPhase,
-+  type PreProjectDraft,
-+} from "./newProjectConversation";
- import styles from "./NewProjectIntentionPage.module.css";
-
- type CreateResult = Awaited<ReturnType<typeof createProjectRuntimeAction>>;
- type CreateSuccess = Extract<CreateResult, { ok: true }>;
-
--type FieldErrors = {
--  name?: string;
--  intention?: string;
--};
--
- function createIdempotencyKey(): string {
-   const uuid = globalThis.crypto?.randomUUID?.();
-   return `pm6-intent:${uuid ?? `${Date.now()}-${Math.random().toString(16).slice(2)}`}`;
- }
-
-+function turnId(prefix: string): string {
-+  return `${prefix}-${Date.now()}-${Math.random().toString(16).slice(2, 8)}`;
-+}
++vi.mock("@/features/pre-m6-product-ui/hooks/sendCancellableAssistantTurn", () => ({
++  sendCancellableAssistantTurn: (
++    input: unknown,
++    _signal?: AbortSignal,
++  ) => projectAssistantSendActionMock(input),
++}));
 +
- /**
-- * PROVISIONAL intention sheet — W4-BR aligns labels to UXR-01 (Nom / Intention /
-- * contexte optionnel / Créer + Annuler). Behavior Create/Resume unchanged.
-+ * P5-S06 CP01 — explicit-phase conversational New Project.
-+ * Durable create only via createProjectRuntimeAction. No D1, no regex NLP.
-  */
- export function NewProjectIntentionPage() {
--  const [name, setName] = useState("");
--  const [intention, setIntention] = useState("");
--  const [precisions, setPrecisions] = useState("");
-+  const router = useRouter();
-+  const fieldId = useId();
-+  const [draft, setDraft] = useState<PreProjectDraft>(() => emptyDraft());
-+  const [turns, setTurns] = useState<ChatTurn[]>(() => [openingNoraTurn()]);
-+  const [composer, setComposer] = useState("");
-   const [idempotencyKey, setIdempotencyKey] = useState("");
--  const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
-   const [submitError, setSubmitError] = useState<string | null>(null);
-   const [pending, setPending] = useState(false);
-   const [created, setCreated] = useState<CreateSuccess | null>(null);
-+  const threadRef = useRef<HTMLDivElement>(null);
-
--  const nameRef = useRef<HTMLInputElement>(null);
--  const intentionRef = useRef<HTMLTextAreaElement>(null);
-+  const phase: CollectPhase = collectPhaseOf(draft);
-+  const ready = isMinimumSufficient(draft);
-
-   useEffect(() => {
-     setIdempotencyKey(createIdempotencyKey());
-   }, []);
-
--  async function onSubmit(event: FormEvent<HTMLFormElement>) {
--    event.preventDefault();
--    if (pending) return;
-+  useEffect(() => {
-+    const el = threadRef.current;
-+    if (!el) return;
-+    el.scrollTop = el.scrollHeight;
-+  }, [turns, draft]);
-
-+  function onSend(event?: FormEvent) {
-+    event?.preventDefault();
-+    const text = composer.trim();
-+    if (!text || pending) return;
-+    const asked = phase;
-+    const nextDraft = absorbUserTurn(draft, text, asked);
-+    const userTurn: ChatTurn = { id: turnId("user"), role: "user", text };
-+    const noraTurn: ChatTurn = {
-+      id: turnId("nora"),
-+      role: "nora",
-+      text: nextNoraPrompt(collectPhaseOf(nextDraft)),
-+    };
-+    setDraft(nextDraft);
-+    setTurns((current) => [...current, userTurn, noraTurn]);
-+    setComposer("");
-     setSubmitError(null);
--    const errors: FieldErrors = {};
--    if (!name.trim()) {
--      errors.name = "Donnez un nom au projet.";
--    } else if (name.trim().length > 200) {
--      errors.name = "Le nom ne peut pas dépasser 200 caractères.";
--    }
--    if (!intention.trim()) {
--      errors.intention = "Décrivez l’intention du projet.";
--    }
--    setFieldErrors(errors);
--    if (errors.name) {
--      nameRef.current?.focus();
--      return;
--    }
--    if (errors.intention) {
--      intentionRef.current?.focus();
--      return;
--    }
-+  }
-+
-+  function onReopen(field: CollectField) {
-+    const nextDraft = reopenField(draft, field);
-+    setDraft(nextDraft);
-+    setTurns((current) => [
-+      ...current,
-+      {
-+        id: turnId("nora"),
-+        role: "nora",
-+        text: nextNoraPrompt(collectPhaseOf(nextDraft)),
-+      },
-+    ]);
-+  }
-
-+  async function onCreate() {
-+    if (pending || !ready) return;
-+    setSubmitError(null);
-     const stableKey = idempotencyKey || createIdempotencyKey();
-     if (!idempotencyKey) setIdempotencyKey(stableKey);
-     setPending(true);
-     try {
--      const trimmedIntention = intention.trim();
-+      const intention = draft.intention.trim();
-       const result = await createProjectRuntimeAction({
--        name: name.trim(),
--        objective: trimmedIntention,
--        context: precisions.trim() || trimmedIntention,
-+        name: draft.name.trim(),
-+        objective: intention,
-+        context: draft.context.trim() || intention,
-         criticality: "STANDARD",
-         constraints: [],
-         idempotencyKey: stableKey,
-@@ -79,250 +111,231 @@ export function NewProjectIntentionPage() {
-
-       if (result.ok) {
-         setCreated(result);
-+        router.push(
-+          `/studio/projects/${encodeURIComponent(result.projectId)}`,
-+        );
-         return;
-       }
-
--      if (result.error.code === "INPUT_INVALID") {
--        if (result.error.field === "name") {
--          setFieldErrors({ name: result.error.message });
--          nameRef.current?.focus();
--          return;
--        }
--        setFieldErrors({ intention: result.error.message });
--        intentionRef.current?.focus();
--        return;
--      }
-       if (result.error.code === "DOCTRINE_UNRESOLVED") {
-         setSubmitError(
-           "Le projet n’a pas pu être créé : le référentiel local n’a pas pu être validé. Rien n’a été enregistré.",
-         );
-         return;
-       }
-+      if (result.error.code === "INPUT_INVALID") {
-+        setSubmitError(
-+          result.error.message ||
-+            "Les informations fournies ne permettent pas de créer le projet.",
-+        );
-+        return;
-+      }
-       setSubmitError(
-         result.error.retryable
--          ? "La création n’a pas abouti. Vous pouvez réessayer : votre saisie est conservée."
--          : "La création n’a pas abouti. Vérifiez votre saisie avant de réessayer.",
-+          ? "La création n’a pas abouti. Vous pouvez réessayer : la conversation est conservée."
-+          : "La création n’a pas abouti. Précisez encore l’intention ou le nom avant de réessayer.",
-       );
-     } catch {
-       setSubmitError(
--        "Le service local n’a pas répondu. Votre saisie est conservée ; vous pouvez réessayer.",
-+        "Le service local n’a pas répondu. La conversation est conservée ; vous pouvez réessayer.",
-       );
-     } finally {
-       setPending(false);
-     }
-   }
-
--  function reset() {
--    setName("");
--    setIntention("");
--    setPrecisions("");
--    setFieldErrors({});
--    setSubmitError(null);
--    setCreated(null);
--    setIdempotencyKey(createIdempotencyKey());
--  }
--
-   if (created) {
-     return (
--      <div className={styles.page}>
-+      <div className={styles.page} data-testid="new-project-created">
-         <header className={styles.hero}>
-           <h1 className={styles.heroTitle}>Projet créé</h1>
-           <p className={styles.heroSubtitle}>
--            Nora peut maintenant ouvrir la conversation de qualification. La
--            décision vous appartient toujours.
-+            Ouverture du workspace durable. Nora reprend à partir du projet
-+            enregistré — pas du brouillon local.
-           </p>
-         </header>
--
--        <section className={styles.card}>
--          <dl className={styles.summary}>
--            <div>
--              <dt>Nom</dt>
--              <dd>{created.project.name}</dd>
--            </div>
--            <div>
--              <dt>Intention</dt>
--              <dd>{created.project.objective}</dd>
--            </div>
--            <div>
--              <dt>État du projet</dt>
--              <dd>Enregistré · v{created.livingState.version}</dd>
--            </div>
--          </dl>
--          <div className={styles.actions}>
--            <Link
--              href={`/studio/projects/${encodeURIComponent(created.projectId)}`}
--              className={styles.primaryLink}
--              data-testid="open-project-workspace"
--            >
--              Ouvrir le projet
--            </Link>
--            <button type="button" className={styles.quietButton} onClick={reset}>
--              Créer un autre projet
--            </button>
--          </div>
--          <details className={styles.details}>
--            <summary>Détails techniques</summary>
--            <dl className={styles.summary}>
--              <div>
--                <dt>Identifiant projet</dt>
--                <dd className={styles.code}>{created.projectId}</dd>
--              </div>
--              <div>
--                <dt>Criticité perçue</dt>
--                <dd>{created.project.criticality}</dd>
--              </div>
--              <div>
--                <dt>Préparation</dt>
--                <dd>{created.readiness.status}</dd>
--              </div>
--              <div>
--                <dt>Clé de tentative réutilisée</dt>
--                <dd>{String(created.reusedFromIdempotencyKey)}</dd>
--              </div>
--            </dl>
--          </details>
--        </section>
-+        <Link
-+          href={`/studio/projects/${encodeURIComponent(created.projectId)}`}
-+          className={styles.primaryButton}
-+          data-testid="open-project-workspace"
-+        >
-+          Ouvrir le projet
-+        </Link>
-       </div>
-     );
-   }
-
-   return (
--    <div className={styles.page}>
--      <header className={styles.hero}>
--        <p className={styles.heroEyebrow}>SFIA Studio</p>
--        <h1 className={styles.heroTitle}>Nouveau projet</h1>
--        <p className={styles.heroSubtitle}>
--          Nommez le projet et décrivez votre intention. Nora qualifiera ensuite —
--          vous gardez la décision.
--        </p>
--      </header>
-+    <div
-+      className={styles.page}
-+      data-testid="create-project-form"
-+      data-surface="new-project-chat"
-+      data-create-surface="conversational"
-+      data-collect-phase={phase}
-+    >
-+      <div className={styles.creationColumn}>
-+        <header className={styles.hero}>
-+          <p className={styles.heroEyebrow}>Projets / Nouveau projet</p>
-+          <h1 className={styles.heroTitle}>Créer un projet</h1>
-+          <p className={styles.heroSubtitle}>
-+            Nora pose seulement ce qui est nécessaire. Aucun projet durable
-+            n&apos;est créé tant que vous n&apos;avez pas choisi « Créer le
-+            projet ».
-+          </p>
-+        </header>
-
--      <form
--        className={styles.card}
--        onSubmit={onSubmit}
--        noValidate
--        aria-busy={pending}
--        data-testid="create-project-form"
--      >
--        <div className={styles.field}>
--          <label className={styles.label} htmlFor="project-name">
--            Nom du projet
--          </label>
--          <input
--            ref={nameRef}
--            id="project-name"
--            name="name"
--            className={styles.input}
--            maxLength={200}
--            value={name}
--            aria-invalid={Boolean(fieldErrors.name)}
--            aria-describedby={fieldErrors.name ? "project-name-error" : undefined}
--            onChange={(event) => {
--              setName(event.target.value);
--              setFieldErrors((current) => ({ ...current, name: undefined }));
--            }}
--          />
--          {fieldErrors.name ? (
--            <p className={styles.fieldError} id="project-name-error">
--              {fieldErrors.name}
--            </p>
--          ) : null}
-+        <div
-+          className={styles.thread}
-+          ref={threadRef}
-+          data-testid="new-project-thread"
-+          aria-live="polite"
-+        >
-+          {turns.map((turn) => (
-+            <div
-+              key={turn.id}
-+              className={
-+                turn.role === "user" ? styles.bubbleUser : styles.bubbleNora
-+              }
-+              data-role={turn.role}
-+            >
-+              <p className={styles.bubbleLabel}>
-+                {turn.role === "user" ? "Vous" : "Nora"}
-+              </p>
-+              <p className={styles.bubbleText}>{turn.text}</p>
-+            </div>
-+          ))}
-         </div>
-
--        <div className={styles.field}>
--          <label className={styles.label} htmlFor="project-objective">
--            Intention du projet
-+        <form
-+          className={styles.composer}
-+          onSubmit={onSend}
-+          data-testid="new-project-composer"
-+        >
-+          <label className={styles.srOnly} htmlFor={`${fieldId}-composer`}>
-+            Réponse à Nora
-           </label>
-           <textarea
--            ref={intentionRef}
--            id="project-objective"
--            name="objective"
-+            id={`${fieldId}-composer`}
-             className={styles.textarea}
--            rows={4}
--            value={intention}
--            placeholder="Décrivez ce que vous voulez accomplir…"
--            aria-invalid={Boolean(fieldErrors.intention)}
--            aria-describedby={
--              fieldErrors.intention
--                ? "project-objective-error project-objective-help"
--                : "project-objective-help"
--            }
--            onChange={(event) => {
--              setIntention(event.target.value);
--              setFieldErrors((current) => ({ ...current, intention: undefined }));
-+            rows={3}
-+            value={composer}
-+            disabled={pending}
-+            placeholder={composerPlaceholder(phase)}
-+            data-testid="new-project-input"
-+            onChange={(event) => setComposer(event.target.value)}
-+            onKeyDown={(event) => {
-+              if (event.key === "Enter" && !event.shiftKey) {
-+                event.preventDefault();
-+                onSend();
-+              }
-             }}
-           />
--          <p className={styles.help} id="project-objective-help">
--            Sans donnée personnelle ni secret. C&apos;est le point de départ de
--            la qualification, pas un engagement d&apos;exécution.
-+          <div className={styles.actions}>
-+            <button
-+              type="submit"
-+              className={styles.quietButton}
-+              disabled={pending || composer.trim().length === 0}
-+              data-testid="new-project-send"
-+            >
-+              Envoyer
-+            </button>
-+            <Link
-+              href="/studio"
-+              className={styles.quietButton}
-+              data-testid="create-project-cancel"
-+            >
-+              Annuler
-+            </Link>
-+          </div>
-+          <p className={styles.help}>
-+            Les réponses sont enregistrées telles que vous les écrivez, dans le
-+            champ demandé. Aucun projet n&apos;est créé avant le CTA.
-           </p>
--          {fieldErrors.intention ? (
--            <p className={styles.fieldError} id="project-objective-error">
--              {fieldErrors.intention}
--            </p>
--          ) : null}
--        </div>
-+        </form>
-+      </div>
-
--        <div className={styles.field}>
--          <label className={styles.label} htmlFor="project-context">
--            Contexte optionnel
--          </label>
--          <textarea
--            id="project-context"
--            name="context"
--            className={styles.textarea}
--            rows={3}
--            value={precisions}
--            placeholder="Ajoutez uniquement le contexte utile au projet."
--            aria-describedby="project-context-help"
--            onChange={(event) => setPrecisions(event.target.value)}
--          />
--          <p className={styles.help} id="project-context-help">
--            Sans contexte, votre intention suffit pour créer le projet. Vous
--            pourrez préciser la suite avec Nora ensuite.
-+      <aside
-+        className={styles.preview}
-+        data-testid="new-project-preview"
-+        aria-labelledby={`${fieldId}-preview`}
-+      >
-+        <p className={styles.previewEyebrow}>Projet en préparation</p>
-+        <h2 id={`${fieldId}-preview`} className={styles.previewTitle}>
-+          Aperçu du projet
-+        </h2>
-+        <p className={styles.previewHint}>
-+          Restitution factuelle de vos réponses — pas une interprétation.
-+        </p>
-+        <dl className={styles.previewList}>
-+          <div>
-+            <dt>Nom</dt>
-+            <dd data-testid="preview-name">
-+              {draft.name.trim() || "Pas encore précisé"}
-+            </dd>
-+          </div>
-+          <div>
-+            <dt>Intention</dt>
-+            <dd data-testid="preview-intention">
-+              {draft.intention.trim() || "Pas encore précisée"}
-+            </dd>
-+          </div>
-+          <div>
-+            <dt>Contexte</dt>
-+            <dd data-testid="preview-context">
-+              {draft.context.trim() || "Optionnel"}
-+            </dd>
-+          </div>
-+        </dl>
-+        {ready ? (
-+          <div className={styles.correctRow}>
-+            <button
-+              type="button"
-+              className={styles.textButton}
-+              data-testid="reopen-intention"
-+              onClick={() => onReopen("intention")}
-+            >
-+              Corriger l&apos;intention
-+            </button>
-+            <button
-+              type="button"
-+              className={styles.textButton}
-+              data-testid="reopen-name"
-+              onClick={() => onReopen("name")}
-+            >
-+              Corriger le nom
-+            </button>
-+          </div>
-+        ) : null}
-+        {!ready ? (
-+          <p className={styles.previewHint}>
-+            Intention et nom sont requis avant création.
-           </p>
--        </div>
--
-+        ) : (
-+          <p className={styles.previewHintReady}>
-+            Prêt à créer — aucun Cycle n&apos;est démarré automatiquement.
-+          </p>
-+        )}
-+        <button
-+          type="button"
-+          className={styles.primaryButton}
-+          disabled={pending || !ready}
-+          data-testid="create-project-submit"
-+          onClick={() => void onCreate()}
-+        >
-+          {pending ? "Création…" : "Créer le projet"}
-+        </button>
-         <div aria-live="assertive" aria-atomic="true">
-           {submitError ? (
--            <p className={styles.submitError} role="alert" data-testid="submit-error">
-+            <p
-+              className={styles.submitError}
-+              role="alert"
-+              data-testid="submit-error"
-+            >
-               {submitError}
-             </p>
-           ) : null}
-         </div>
--
--        <div className={styles.actions}>
--          <button
--            type="submit"
--            className={styles.primaryButton}
--            disabled={pending || !idempotencyKey}
--            data-testid="create-project-submit"
--          >
--            {pending ? "Création…" : "Créer le projet"}
--          </button>
--          <Link
--            href="/studio"
--            className={styles.quietButton}
--            data-testid="create-project-cancel"
--          >
--            Annuler
--          </Link>
--          <span className={styles.status} role="status" aria-live="polite">
--            {pending ? "Création en cours…" : ""}
--          </span>
--        </div>
--
--        <details className={styles.details}>
--          <summary>Détails techniques</summary>
--          <p className={styles.help}>
--            Clé de tentative stable pendant les réessais, renouvelée après « Créer
--            un autre projet ».
--          </p>
--          <p className={styles.code} data-testid="idempotency-key">
--            {idempotencyKey || "Génération locale…"}
--          </p>
--        </details>
--      </form>
-+      </aside>
-     </div>
-   );
- }
+ vi.mock("@/features/project-assistant/actions", () => ({
+   projectAssistantConversationContinuityAction: vi.fn(async () => ({
+     ok: true,
 
 ```
 
-### MODIFIED `projects/sfia-studio/app/features/pre-m6-product-ui/ProjectsPage.module.css`
+
+### `projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json`
+
 ```diff
-diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectsPage.module.css b/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectsPage.module.css
-index 62812b9a..c027640d 100644
---- a/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectsPage.module.css
-+++ b/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectsPage.module.css
-@@ -1,7 +1,7 @@
- .page {
-   display: flex;
-   flex-direction: column;
--  gap: var(--pm6-space-5);
-+  gap: 20px;
- }
-
- .hero {
-@@ -9,79 +9,166 @@
-   flex-wrap: wrap;
-   align-items: flex-end;
-   justify-content: space-between;
--  gap: var(--pm6-space-4);
--  padding: var(--pm6-space-5);
--  background: var(--pm6-surface);
--  border: 1px solid var(--pm6-border-soft);
--  border-radius: var(--pm6-radius-lg);
--  box-shadow: var(--pm6-shadow-card);
-+  gap: 16px;
-+  min-height: 74px;
- }
-
- .heroText {
-   display: flex;
-   flex-direction: column;
--  gap: var(--pm6-space-2);
-+  gap: 6px;
-   min-width: 0;
- }
-
--.heroEyebrow {
--  margin: 0;
--  font-size: 0.82rem;
--  font-weight: 600;
--  color: var(--pm6-forest);
--}
--
- .heroTitle {
-   margin: 0;
--  font-size: 1.85rem;
-+  font-size: 1.7rem;
-   font-weight: 650;
--  letter-spacing: -0.015em;
-+  letter-spacing: -0.02em;
-   color: var(--pm6-ink);
- }
-
- .heroSubtitle {
-   margin: 0;
--  font-size: 0.92rem;
-+  font-size: 0.9rem;
-   color: var(--pm6-muted-strong);
- }
-
-+.heroActions {
-+  display: flex;
-+  flex-wrap: wrap;
-+  align-items: center;
-+  gap: 10px;
-+}
-+
- .heroCta,
- .emptyCta,
--.cardPrimary,
--.cardSecondary {
-+.quietCta,
-+.orientationCta,
-+.recentOpen {
-   display: inline-flex;
-   align-items: center;
-   justify-content: center;
--  border-radius: var(--pm6-radius-md);
--  padding: 11px 18px;
--  font-size: 0.9rem;
-+  border-radius: 10px;
-+  padding: 8px 14px;
-+  min-height: 36px;
-+  font-size: 0.86rem;
-   font-weight: 600;
-   text-decoration: none;
--  transition: background 120ms ease, border-color 120ms ease;
- }
-
- .heroCta,
--.emptyCta,
--.cardPrimary {
-+.emptyCta {
-   background: var(--pm6-forest);
-   border: 1px solid var(--pm6-forest);
-   color: var(--pm6-forest-ink);
- }
-
--.heroCta:hover,
--.emptyCta:hover,
--.cardPrimary:hover {
--  background: var(--pm6-forest-hover);
-+.quietCta,
-+.orientationCta,
-+.recentOpen {
-+  background: var(--pm6-surface);
-+  border: 1px solid var(--pm6-border-strong);
-+  color: var(--pm6-ink);
-+}
-+
-+.heroCta:focus-visible,
-+.emptyCta:focus-visible,
-+.quietCta:focus-visible,
-+.orientationCta:focus-visible,
-+.search:focus-visible,
-+.rowTitle:focus-visible,
-+.recentTitle:focus-visible,
-+.recentOpen:focus-visible {
-+  outline: none;
-+  box-shadow: var(--pm6-focus-ring);
- }
-
--.cardSecondary {
--  background: var(--pm6-surface);
-+.orientation {
-+  display: flex;
-+  flex-wrap: wrap;
-+  align-items: center;
-+  justify-content: space-between;
-+  gap: 16px;
-+  min-height: 92px;
-+  padding: 15px 17px;
-+  background: var(--pm6-cream);
-+  border: 1px solid var(--pm6-cream-border);
-+  border-radius: 12px;
-+}
-+
-+.orientationText {
-+  display: flex;
-+  flex-direction: column;
-+  gap: 6px;
-+  min-width: 0;
-+  flex: 1;
-+}
-+
-+.orientationBody {
-+  margin: 0;
-+  font-size: 0.88rem;
-+  line-height: 1.4;
-+  color: var(--pm6-ink-soft);
-+  max-width: 68ch;
-+}
-+
-+.section,
-+.tableSection {
-+  display: flex;
-+  flex-direction: column;
-+  gap: 10px;
-+}
-+
-+.sectionHead,
-+.tableHead {
-+  display: flex;
-+  flex-wrap: wrap;
-+  align-items: flex-end;
-+  justify-content: space-between;
-+  gap: 12px;
-+}
-+
-+.sectionTitle {
-+  margin: 0;
-+  font-size: 1rem;
-+  font-weight: 650;
-+  color: var(--pm6-ink);
-+}
-+
-+.sectionHint {
-+  margin: 0;
-+  font-size: 0.78rem;
-+  color: var(--pm6-muted);
-+}
-+
-+.searchWrap {
-+  flex: 1 1 210px;
-+  max-width: 280px;
-+}
-+
-+.search {
-+  width: 100%;
-+  min-height: 34px;
-   border: 1px solid var(--pm6-border-strong);
-+  border-radius: 10px;
-+  padding: 7px 11px;
-+  font: inherit;
-+  font-size: 0.86rem;
-   color: var(--pm6-ink);
-+  background: var(--pm6-surface);
- }
-
--.cardSecondary:hover {
--  background: var(--pm6-surface-sunken);
-+.srOnly {
-+  position: absolute;
-+  width: 1px;
-+  height: 1px;
-+  padding: 0;
-+  margin: -1px;
-+  overflow: hidden;
-+  clip: rect(0, 0, 0, 0);
-+  white-space: nowrap;
-+  border: 0;
- }
-
- .hint {
-@@ -93,11 +180,11 @@
- .error {
-   display: flex;
-   flex-direction: column;
--  gap: var(--pm6-space-2);
--  border-radius: var(--pm6-radius-md);
-+  gap: 8px;
-+  border-radius: 12px;
-   border: 1px solid color-mix(in srgb, var(--pm6-danger) 32%, transparent);
-   background: var(--pm6-danger-tint);
--  padding: var(--pm6-space-4);
-+  padding: 16px;
- }
-
- .errorTitle {
-@@ -111,17 +198,16 @@
-   display: flex;
-   flex-direction: column;
-   align-items: flex-start;
--  gap: var(--pm6-space-3);
-+  gap: 12px;
-   border: 1px solid var(--pm6-border-soft);
--  border-radius: var(--pm6-radius-lg);
-+  border-radius: 16px;
-   background: var(--pm6-surface);
--  box-shadow: var(--pm6-shadow-card);
--  padding: var(--pm6-space-7) var(--pm6-space-5);
-+  padding: 28px 20px;
- }
-
- .emptyTitle {
-   margin: 0;
--  font-size: 1.25rem;
-+  font-size: 1.2rem;
-   font-weight: 650;
-   color: var(--pm6-ink);
- }
-@@ -129,56 +215,137 @@
- .emptyBody {
-   margin: 0;
-   font-size: 0.9rem;
--  line-height: 1.6;
-+  line-height: 1.55;
-   color: var(--pm6-muted-strong);
-   max-width: 46ch;
- }
-
--.cardList {
-+.recentGrid {
-   list-style: none;
-   margin: 0;
-   padding: 0;
-+  display: grid;
-+  grid-template-columns: repeat(2, minmax(0, 1fr));
-+  gap: 16px;
-+}
-+
-+.recentCard {
-   display: flex;
-   flex-direction: column;
--  gap: var(--pm6-space-3);
-+  gap: 10px;
-+  min-height: 112px;
-+  padding: 14px 16px;
-+  background: var(--pm6-surface);
-+  border: 1px solid var(--pm6-border-soft);
-+  border-radius: 12px;
- }
-
--.card {
-+.recentTop {
-   display: flex;
--  flex-wrap: wrap;
-   align-items: flex-start;
-   justify-content: space-between;
--  gap: var(--pm6-space-4);
--  padding: var(--pm6-space-4) var(--pm6-space-5);
--  background: var(--pm6-surface);
-+  gap: 8px;
-+}
-+
-+.recentTitle {
-+  font-size: 0.95rem;
-+  font-weight: 600;
-+  color: var(--pm6-ink);
-+  text-decoration: none;
-+  overflow-wrap: anywhere;
-+}
-+
-+.recentOpen {
-+  align-self: flex-start;
-+  min-height: 32px;
-+  padding: 4px 12px;
-+  font-size: 0.8rem;
-+}
-+
-+.cardMeta {
-+  margin: 0;
-+  font-size: 0.76rem;
-+  color: var(--pm6-muted);
-+}
-+
-+.tableSection {
-   border: 1px solid var(--pm6-border-soft);
--  border-radius: var(--pm6-radius-lg);
--  box-shadow: var(--pm6-shadow-card);
-+  border-radius: 12px;
-+  background: var(--pm6-surface);
-+  padding: 12px 0 8px;
- }
-
--.cardMain {
--  display: flex;
--  flex-direction: column;
--  align-items: flex-start;
--  gap: var(--pm6-space-2);
--  flex: 1;
--  min-width: 0;
-+.tableHead {
-+  padding: 0 16px 8px;
-+}
-+
-+.tableHeaderRow {
-+  display: grid;
-+  grid-template-columns: minmax(0, 1.6fr) 140px 160px;
-+  gap: 8px;
-+  padding: 8px 16px;
-+  border-top: 1px solid var(--pm6-border-soft);
-+  border-bottom: 1px solid var(--pm6-border-soft);
-+  font-size: 0.72rem;
-+  font-weight: 700;
-+  letter-spacing: 0.04em;
-+  text-transform: uppercase;
-+  color: var(--pm6-muted);
- }
-
--.cardTitle {
-+.rowList {
-+  list-style: none;
-   margin: 0;
--  font-size: 1.05rem;
-+  padding: 0;
-+}
-+
-+.row {
-+  display: grid;
-+  grid-template-columns: minmax(0, 1.6fr) 140px 160px;
-+  gap: 8px;
-+  align-items: center;
-+  min-height: 50px;
-+  padding: 8px 16px;
-+  border-bottom: 1px solid var(--pm6-border-soft);
-+}
-+
-+.row:last-child {
-+  border-bottom: 0;
-+}
-+
-+.rowProject {
-+  min-width: 0;
-+}
-+
-+.rowTitle {
-+  font-size: 0.92rem;
-   font-weight: 600;
-   color: var(--pm6-ink);
-+  text-decoration: none;
-   overflow-wrap: anywhere;
- }
-
-+.rowDescription {
-+  margin: 2px 0 0;
-+  font-size: 0.78rem;
-+  color: var(--pm6-muted-strong);
-+  overflow-wrap: anywhere;
-+}
-+
-+.rowMeta {
-+  margin: 0;
-+  font-size: 0.8rem;
-+  color: var(--pm6-muted);
-+}
-+
- .badge {
-   display: inline-flex;
-   align-items: center;
--  padding: 3px 10px;
--  border-radius: var(--pm6-radius-pill);
--  font-size: 0.72rem;
-+  justify-content: center;
-+  width: fit-content;
-+  padding: 3px 9px;
-+  border-radius: 999px;
-+  font-size: 0.7rem;
-   font-weight: 600;
-   border: 1px solid transparent;
- }
-@@ -191,67 +358,64 @@
-
- .badge[data-tone="active"] {
-   background: var(--pm6-forest-tint);
--  border-color: var(--pm6-forest-tint);
-   color: var(--pm6-forest);
- }
-
- .badge[data-tone="waiting"] {
-   background: var(--pm6-warn-tint);
--  border-color: var(--pm6-cream-border);
-   color: var(--pm6-warn);
- }
-
--.cardDescription {
--  margin: 0;
--  font-size: 0.88rem;
--  line-height: 1.5;
--  color: var(--pm6-muted-strong);
--  overflow-wrap: anywhere;
--}
--
--.cardMeta {
--  margin: 0;
--  font-size: 0.78rem;
--  color: var(--pm6-muted);
--}
--
--.cardActions {
--  display: flex;
--  flex-wrap: wrap;
--  gap: var(--pm6-space-2);
--  flex: 0 0 auto;
--}
--
- @media (max-width: 1024px) {
--  .heroTitle {
--    font-size: 1.6rem;
-+  .recentGrid {
-+    grid-template-columns: 1fr;
-   }
- }
-
- @media (max-width: 767px) {
--  .hero {
--    padding: var(--pm6-space-4);
--  }
--
-   .heroTitle {
-     font-size: 1.45rem;
-   }
-
--  .heroCta,
--  .emptyCta {
-+  .heroActions {
-     width: 100%;
-+    justify-content: flex-end;
-   }
-
--  .card {
--    padding: var(--pm6-space-4);
-+  .searchWrap {
-+    max-width: none;
-+    flex-basis: 100%;
-   }
-
--  .cardActions {
--    width: 100%;
-+  .tableHeaderRow {
-+    display: none;
-+  }
-+
-+  .row {
-+    grid-template-columns: 1fr auto;
-+    grid-template-areas: "title badge" "desc desc" "meta meta";
-+    min-height: 112px;
-+    align-items: start;
-+    padding: 13px;
-+  }
-+
-+  .rowProject {
-+    grid-area: title;
-+  }
-+
-+  .badge {
-+    grid-area: badge;
-+  }
-+
-+  .rowDescription {
-+    grid-area: desc;
-+  }
-+
-+  .rowMeta {
-+    grid-area: meta;
-   }
-
--  .cardPrimary,
--  .cardSecondary {
--    flex: 1 1 auto;
-+  .recentCard {
-+    min-height: 112px;
-   }
- }
-
+diff --git a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
+index dc721daf..8043e0cc 100644
+--- a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
++++ b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
+@@ -578,15 +578,15 @@
+   "trackedSources": [
+     {
+       "path": "projects/sfia-studio/app/features/project-assistant/actions.ts",
+-      "sha256_16": "8839aac183e38265"
++      "sha256_16": "40476bb2a7b35f9c"
+     },
+     {
+       "path": "projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts",
+-      "sha256_16": "28b6b3d32b754cec"
++      "sha256_16": "44bcd86fd4d51147"
+     },
+     {
+       "path": "projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts",
+-      "sha256_16": "8c5c218b44267b5b"
++      "sha256_16": "f9b863bbb0b7ff7b"
+     },
+     {
+       "path": "projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts",
+@@ -622,7 +622,7 @@
+     },
+     {
+       "path": "projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts",
+-      "sha256_16": "b1d586c1784f8c75"
++      "sha256_16": "b4aaef8d204e35c7"
+     },
+     {
+       "path": "projects/sfia-studio/app/lib/nora-cognitive-runtime/productSqliteSession.ts",
+@@ -678,7 +678,7 @@
+     },
+     {
+       "path": "projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts",
+-      "sha256_16": "02979a5b05a36ced"
++      "sha256_16": "04bb47dbd1e37a7f"
+     },
+     {
+       "path": "projects/sfia-studio/app/.env.example",
 ```
 
-### MODIFIED `projects/sfia-studio/app/features/pre-m6-product-ui/ProjectsPage.tsx`
-```diff
-diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectsPage.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectsPage.tsx
-index 54bf9c47..2277f8ab 100644
---- a/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectsPage.tsx
-+++ b/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectsPage.tsx
-@@ -1,6 +1,6 @@
- "use client";
+## 26. Useful complete diffs (vs HEAD/main)
 
--import { useEffect, useState } from "react";
-+import { useEffect, useMemo, useState } from "react";
- import Link from "next/link";
- import { listProjectsRuntimeAction } from "@/lib/vertical-slice-runtime/actions";
- import styles from "./ProjectsPage.module.css";
-@@ -16,10 +16,12 @@ type ListState =
+Diffs for adapted files are included above in this pack (hook, ConversationSurface, actions, types, orchestrateTurn, orchestrateF2, runNoraAgentsTurn, runNoraCognitiveTurn, providerAgentsModel, New Project CSS, runningAttemptRefresh mock, PRR hashes).
 
- type Badge = { label: string; tone: "neutral" | "active" | "waiting" };
+## 27. Tests cancellation
 
--function formatRelativeFr(iso: string | undefined): string {
--  if (!iso) return "Projet disponible";
-+const RECENT_WINDOW_MS = 14 * 24 * 60 * 60 * 1000;
-+
-+function formatRelativeFr(iso: string | undefined): string | null {
-+  if (!iso) return null;
-   const ts = Date.parse(iso);
--  if (Number.isNaN(ts)) return "Projet disponible";
-+  if (Number.isNaN(ts)) return null;
-   const deltaMs = Date.now() - ts;
-   const minutes = Math.floor(deltaMs / 60_000);
-   if (minutes < 1) return "À l’instant";
-@@ -29,7 +31,7 @@ function formatRelativeFr(iso: string | undefined): string {
-     const d = new Date(ts);
-     const hh = String(d.getHours()).padStart(2, "0");
-     const mm = String(d.getMinutes()).padStart(2, "0");
--    return hours < 18 ? `Aujourd’hui, ${hh}h${mm}` : `Hier, ${hh}h${mm}`;
-+    return `Aujourd’hui, ${hh}h${mm}`;
-   }
-   const days = Math.floor(hours / 24);
-   if (days === 1) return "Hier";
-@@ -44,7 +46,7 @@ function badgeFor(status: string): Badge {
-     case "active":
-       return { label: "Actif", tone: "active" };
-     case "paused":
--      return { label: "En attente de décision", tone: "waiting" };
-+      return { label: "En attente", tone: "waiting" };
-     case "closed":
-       return { label: "Clos", tone: "neutral" };
-     case "archived":
-@@ -54,9 +56,61 @@ function badgeFor(status: string): Badge {
-   }
- }
+| ID | Result |
+| --- | --- |
+| T01 Runner signal | PASS (`p5.s06.cp02.cancellation.d0.test.ts`) |
+| T02 transport body/hostile + POST 400 | PASS |
+| T03 ■ click abort once | PASS UI |
+| T04 STOPPED ≠ ERROR | PASS UI + noraTurnStoppedFailure |
+| T05/T06 late success ignored | PASS hook |
+| T07 retry same turnRetryKey | PASS hook |
+| T08 new send new key | PASS hook |
+| T09 transport error ≠ STOPPED | PASS hook |
+| T10 Cognitive STOP distinct | PASS status type + failure helper |
+| T11 Execution STOP not wired | MW6 path has no signal by design |
+| T12 SOURCE_LOOKUP honesty | PASS `p5.s06.pilotExperience.d0.test.tsx` + projection |
+| T13 no late Proposal on abort | PASS T01 abort before model completion |
+| T14 a11y name | PASS aria-label |
+| T15 no ■ when not cancellable | PASS |
+| T16 unmount no Pilot STOPPED | PASS hook |
 
--/** F1 — Projects entry point. Nora recommends, the Pilote decides. */
-+function matchesQuery(project: ProjectRow, query: string): boolean {
-+  const q = query.trim().toLowerCase();
-+  if (!q) return true;
-+  const hay = [
-+    project.title,
-+    project.name,
-+    project.objective,
-+    project.context,
-+    project.status,
-+  ]
-+    .filter(Boolean)
-+    .join(" ")
-+    .toLowerCase();
-+  return hay.includes(q);
-+}
-+
-+/** Recent activity only — not a next-action / « À reprendre » claim. */
-+function isRecentlyUpdated(project: ProjectRow): boolean {
-+  if (project.status === "closed" || project.status === "archived") return false;
-+  if (!project.updatedAt) return false;
-+  const ts = Date.parse(project.updatedAt);
-+  if (Number.isNaN(ts)) return false;
-+  return Date.now() - ts <= RECENT_WINDOW_MS;
-+}
-+
-+function ProjectRowView({ project }: { project: ProjectRow }) {
-+  const badge = badgeFor(project.status);
-+  const href = `/studio/projects/${encodeURIComponent(project.projectId)}`;
-+  const activity = formatRelativeFr(project.updatedAt);
-+  const description =
-+    project.objective?.trim() || project.context?.trim() || null;
-+  return (
-+    <li className={styles.row} data-testid="studio-projects-card">
-+      <div className={styles.rowProject}>
-+        <Link href={href} className={styles.rowTitle} data-testid="studio-projects-open">
-+          {project.title}
-+        </Link>
-+        {description ? (
-+          <p className={styles.rowDescription}>{description}</p>
-+        ) : null}
-+      </div>
-+      <span className={styles.badge} data-tone={badge.tone}>
-+        {badge.label}
-+      </span>
-+      <p className={styles.rowMeta} data-testid="studio-projects-activity">
-+        {activity ?? "—"}
-+      </p>
-+    </li>
-+  );
-+}
-+
-+/** F1 — Projects entry point. */
- export function ProjectsPage() {
-   const [state, setState] = useState<ListState>({ status: "loading" });
-+  const [query, setQuery] = useState("");
+Targeted: CP02 d0/ui/hook + S06 pilotExperience + previously flaky PRR/MW4/MW5/PJR isolated PASS.
 
-   useEffect(() => {
-     let cancelled = false;
-@@ -82,6 +136,23 @@ export function ProjectsPage() {
-     };
-   }, []);
+## 28. Targeted regressions
 
-+  const filtered = useMemo(() => {
-+    if (state.status !== "ready") return [];
-+    return state.projects.filter((p) => matchesQuery(p, query));
-+  }, [state, query]);
-+
-+  const recentProjects = useMemo(() => {
-+    if (state.status !== "ready") return [];
-+    return [...state.projects]
-+      .filter(isRecentlyUpdated)
-+      .sort((a, b) => {
-+        const ta = Date.parse(a.updatedAt ?? "") || 0;
-+        const tb = Date.parse(b.updatedAt ?? "") || 0;
-+        return tb - ta;
-+      })
-+      .slice(0, 4);
-+  }, [state]);
-+
-   const count =
-     state.status === "ready"
-       ? state.projects.length
-@@ -89,33 +160,63 @@ export function ProjectsPage() {
-         ? 0
-         : null;
+`runningAttemptRefresh.ui.test.tsx` mocks `sendCancellableAssistantTurn`. TrajectorySurface 3 timeouts under full-suite load: **PASS in isolation** (pre-existing load flake, not CP02 product bug). Second full `npm test` **0 failed**.
 
--  const subtitle =
--    count === null
--      ? "Entrée / reprise — Nora recommande, vous décidez"
--      : count === 0
--        ? "Aucun projet · créez pour démarrer"
--        : `${count} projet${count > 1 ? "s" : ""} · reprendre ou créer`;
--
--  const showHeroCreate = state.status !== "empty";
--
-   return (
-     <div className={styles.page} data-testid="studio-projects-home">
-       <header className={styles.hero}>
-         <div className={styles.heroText}>
--          <p className={styles.heroEyebrow}>SFIA Studio</p>
--          <h1 className={styles.heroTitle}>Projets — entrée / reprise</h1>
--          <p className={styles.heroSubtitle}>{subtitle}</p>
-+          <h1 className={styles.heroTitle}>Projets</h1>
-+          <p className={styles.heroSubtitle}>
-+            {count === null
-+              ? "Ouvrir un projet ou en créer un nouveau."
-+              : count === 0
-+                ? "Aucun projet pour le moment."
-+                : `${count} projet${count > 1 ? "s" : ""}`}
-+          </p>
-         </div>
--        {showHeroCreate ? (
-+        {state.status !== "empty" ? (
-+          <div className={styles.heroActions}>
-+            <Link
-+              href="/studio/projects/new"
-+              className={styles.quietCta}
-+              data-testid="studio-projects-ask-nora"
-+            >
-+              Nouveau avec Nora
-+            </Link>
-+            <Link
-+              href="/studio/projects/new"
-+              className={styles.heroCta}
-+              data-testid="studio-projects-create"
-+            >
-+              + Nouveau projet
-+            </Link>
-+          </div>
-+        ) : null}
-+      </header>
-+
-+      {state.status === "ready" ? (
-+        <section
-+          className={styles.orientation}
-+          data-testid="studio-projects-orientation"
-+          aria-label="Démarrer un nouveau projet avec Nora"
-+        >
-+          <div className={styles.orientationText}>
-+            <h2 className={styles.sectionTitle}>
-+              Démarrer un nouveau projet avec Nora
-+            </h2>
-+            <p className={styles.orientationBody}>
-+              Nora clarifie l&apos;intention et le nom avant toute création
-+              durable. Ce bloc n&apos;oriente pas entre vos projets existants.
-+            </p>
-+          </div>
-           <Link
-             href="/studio/projects/new"
--            className={styles.heroCta}
--            data-testid="studio-projects-create"
-+            className={styles.orientationCta}
-+            data-testid="studio-projects-start-new"
-           >
--            Créer un projet
-+            Commencer
-           </Link>
--        ) : null}
--      </header>
-+        </section>
-+      ) : null}
+## 29. Full npm test
 
-       {state.status === "loading" ? (
-         <p className={styles.hint} data-testid="studio-projects-loading">
-@@ -124,7 +225,11 @@ export function ProjectsPage() {
-       ) : null}
+**PASS** — Test Files **478 passed** | 19 skipped (497) · Tests **5294 passed** | 139 skipped (5433) · failed **0** · ~85s
+CP01 historical 5282/139 — counts grew (CP02 tests). Do not force exact historical count.
 
-       {state.status === "error" ? (
--        <div className={styles.error} role="alert" data-testid="studio-projects-error">
-+        <div
-+          className={styles.error}
-+          role="alert"
-+          data-testid="studio-projects-error"
-+        >
-           <p className={styles.errorTitle}>{state.message}</p>
-           <p className={styles.hint}>
-             Réessayez dans un instant. Aucune donnée n&apos;est inventée.
-@@ -134,58 +239,112 @@ export function ProjectsPage() {
+## 30. typecheck / lint / build
 
-       {state.status === "empty" ? (
-         <div className={styles.empty} data-testid="studio-projects-empty">
--          <p className={styles.emptyTitle}>Aucun projet.</p>
-+          <p className={styles.emptyTitle}>Aucun projet pour commencer</p>
-           <p className={styles.emptyBody}>
--            Créez un projet pour commencer avec Nora. Vous pourrez ensuite
--            préciser votre besoin et décider de la suite.
-+            Créez votre premier projet. Nora demandera l&apos;intention puis le
-+            nom avant toute matérialisation durable.
-           </p>
-           <Link
-             href="/studio/projects/new"
-             className={styles.emptyCta}
-             data-testid="studio-projects-create"
-           >
--            Créer un projet
-+            + Nouveau projet
-           </Link>
-         </div>
-       ) : null}
+- `npm run typecheck` PASS
+- `npm run lint` PASS (0 warnings/errors)
+- `npm run build` PASS — route `/api/studio/projects/[projectId]/assistant/send` listed
+- Pre-existing warning: `better-sqlite3` unresolved in `evaluateProductRealReadiness.ts` (unchanged, not CP02)
 
--      {state.status === "ready" ? (
--        <ul className={styles.cardList} data-testid="studio-projects-list">
--          {state.projects.map((project) => {
--            const badge = badgeFor(project.status);
--            const href = `/studio/projects/${encodeURIComponent(project.projectId)}`;
--            return (
--              <li key={project.projectId} className={styles.card}>
--                <div className={styles.cardMain}>
--                  <h2 className={styles.cardTitle}>{project.title}</h2>
--                  <span className={styles.badge} data-tone={badge.tone}>
--                    {badge.label}
--                  </span>
--                  <p className={styles.cardDescription}>
--                    {project.objective?.trim() ||
--                      project.context?.trim() ||
--                      "Ouvrez le projet pour poursuivre avec Nora."}
--                  </p>
--                  <p className={styles.cardMeta}>
--                    {formatRelativeFr(project.updatedAt)}
--                  </p>
--                </div>
--                <div className={styles.cardActions}>
-+      {state.status === "ready" && recentProjects.length > 0 ? (
-+        <section
-+          className={styles.section}
-+          data-testid="studio-projects-recent"
-+          aria-labelledby="projects-recent-heading"
-+        >
-+          <div className={styles.sectionHead}>
-+            <h2 id="projects-recent-heading" className={styles.sectionTitle}>
-+              Projets récents
-+            </h2>
-+            <p className={styles.sectionHint}>
-+              Dernière activité connue — pas une prochaine action.
-+            </p>
-+          </div>
-+          <ul className={styles.recentGrid}>
-+            {recentProjects.map((project) => (
-+              <li key={`recent-${project.projectId}`} className={styles.recentCard}>
-+                <div className={styles.recentTop}>
-                   <Link
--                    href={href}
--                    className={styles.cardPrimary}
--                    data-testid="studio-projects-open"
-+                    href={`/studio/projects/${encodeURIComponent(project.projectId)}`}
-+                    className={styles.recentTitle}
-                   >
--                    Reprendre
--                  </Link>
--                  <Link href={href} className={styles.cardSecondary}>
--                    Voir l&apos;état
-+                    {project.title}
-                   </Link>
-+                  <span className={styles.badge} data-tone={badgeFor(project.status).tone}>
-+                    {badgeFor(project.status).label}
-+                  </span>
-                 </div>
-+                <p className={styles.cardMeta} data-testid="studio-projects-activity">
-+                  {formatRelativeFr(project.updatedAt) ?? "Activité inconnue"}
-+                </p>
-+                <Link
-+                  href={`/studio/projects/${encodeURIComponent(project.projectId)}`}
-+                  className={styles.recentOpen}
-+                >
-+                  Ouvrir
-+                </Link>
-               </li>
--            );
--          })}
--        </ul>
-+            ))}
-+          </ul>
-+        </section>
-+      ) : null}
-+
-+      {state.status === "ready" ? (
-+        <section
-+          className={styles.tableSection}
-+          data-testid="studio-projects-all"
-+          aria-labelledby="projects-all-heading"
-+        >
-+          <div className={styles.tableHead}>
-+            <div>
-+              <h2 id="projects-all-heading" className={styles.sectionTitle}>
-+                Tous les projets
-+              </h2>
-+              <p className={styles.sectionHint}>
-+                {count} projet{count === 1 ? "" : "s"}
-+              </p>
-+            </div>
-+            <div className={styles.searchWrap}>
-+              <label className={styles.srOnly} htmlFor="projects-local-search">
-+                Rechercher dans vos projets
-+              </label>
-+              <input
-+                id="projects-local-search"
-+                className={styles.search}
-+                type="search"
-+                value={query}
-+                onChange={(event) => setQuery(event.target.value)}
-+                placeholder="Rechercher…"
-+                data-testid="studio-projects-search"
-+                autoComplete="off"
-+              />
-+            </div>
-+          </div>
-+          <div className={styles.tableHeaderRow} aria-hidden="true">
-+            <span>Projet</span>
-+            <span>État</span>
-+            <span>Dernière activité</span>
-+          </div>
-+          {filtered.length === 0 ? (
-+            <p className={styles.hint} data-testid="studio-projects-search-empty">
-+              Aucun projet ne correspond à « {query.trim()} ».
-+            </p>
-+          ) : (
-+            <ul className={styles.rowList} data-testid="studio-projects-list">
-+              {filtered.map((project) => (
-+                <ProjectRowView key={project.projectId} project={project} />
-+              ))}
-+            </ul>
-+          )}
-+        </section>
-       ) : null}
-     </div>
-   );
+## 31. ZERO REAL
 
-```
+YES. Fake/hanging Model only. `OPS1_CONVERSATION_PROVIDER=fake` for visual captures. No API key used.
 
-### MODIFIED `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx`
-```diff
-diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
-index a423ec48..36cd07fa 100644
---- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
-+++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
-@@ -26,6 +26,7 @@ import {
-   presentSynthesisVerdictLabel,
-   synthesisSummaryExcerpt,
- } from "./synthesisPresentation";
-+import { projectNoraActivity } from "./noraActivityProjection";
- import styles from "./ConversationSurface.module.css";
+## 32. Fake/Real qualification
 
- /**
-@@ -242,6 +243,7 @@ export function ConversationSurface({
-     executeKind !== "deterministic_test" &&
-     executionSemanticKind(durableSemanticFacts) !== "cursor_real" &&
-     executionSemanticKind(durableSemanticFacts) !== "durable_read";
-+  const noraActivity = projectNoraActivity({ blocked, busy, uiState });
+Applicable YES. External boundary OpenAI Agents. Deterministic hanging Model + Fake provider abort race. Same Runner / same Nora / same send.
+Proof level: **DETERMINISTIC CANCELLATION PROVEN**.
+Forbidden claims not made: REAL cancellation, READY FOR REAL, P5 COMPLETE.
 
-   return (
-     <section
-@@ -1477,15 +1479,15 @@ export function ConversationSurface({
-             className={styles.composerStatus}
-             aria-live="polite"
-             data-testid="project-assistant-status"
-+            data-nora-phase={noraActivity.phase}
-+            data-nora-stop={noraActivity.stopAvailable ? "available" : "unavailable"}
-           >
--            {busy
--              ? uiState === "SOURCE_LOOKUP"
--                ? "Consultation des sources en cours…"
--                : "Nora rédige sa réponse…"
--              : blocked
--                ? "Assistant indisponible — configuration manquante."
--                : "Prêt"}
-+            {noraActivity.label}
-           </span>
-+          {/*
-+            P3 composer ↑ / ■ / ↑ — STOPPED requires a real Abort/cancel seam.
-+            CURRENT Product path has no cancelable in-flight turn; do not fake ■.
-+          */}
-           <button
-             type="submit"
-             className={styles.sendButton}
-@@ -1496,16 +1498,22 @@ export function ConversationSurface({
-               blocked
-                 ? "Assistant indisponible"
-                 : busy
--                  ? "Envoi en cours"
-+                  ? "Nora travaille — arrêt non disponible sur ce chemin"
-                   : draft.trim().length === 0
-                     ? "Saisissez un message"
-                     : "Envoyer le message"
-             }
-             aria-label={
--              canSend ? "Envoyer le message à Nora" : "Envoi indisponible"
-+              canSend
-+                ? "Envoyer le message à Nora"
-+                : busy
-+                  ? "Nora travaille"
-+                  : "Envoi indisponible"
-             }
-           >
--            <span className={styles.sendLabelFull}>Envoyer</span>
-+            <span className={styles.sendLabelFull}>
-+              {busy ? "Nora travaille…" : "Envoyer"}
-+            </span>
-             <span className={styles.sendLabelCompact} aria-hidden="true">
-               ↑
-             </span>
+## 33. Six visual final screenshots
 
-```
+Folder `.tmp-sfia-review/p5-s06-visual/cp02/runtime/`
+Fixture: Playwright + auth storage `.tmp-sfia-review/auth/studio-storage-state.json` · BASE http://localhost:3020 · fake provider · 2026-10-06 ~08:58Z
 
-### MODIFIED `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
-```diff
-diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-index 3b89bbcf..32b39416 100644
---- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-+++ b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-@@ -4,7 +4,9 @@
- | --- | --- |
- | **Rôle** | Roadmap **vivante** de convergence vers l’utilisation complète de la doctrine produit SFIA Studio v3 |
- | **Statut** | **VALIDATED — ACTIVE LIVING ROADMAP** |
--| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S05 CP02 LOCAL CANDIDATE** | 2026-10-06 Europe/Paris — **STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S05 CORRECTION PASS 02 — LOCAL CANDIDATE PASS** · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **8 — Delivery / Implementation Correction** · Profile **Critical** · Typologie **EVOL** · Milestone **P5** · Slice **P5-S05** · Pass **CP02** · Morris P5-S05 CP02 GATE = **AUTHORIZED / CONSUMED** · prior Delivery+REAL/R3 + CP01 gates remain **CONSUMED** · base/main **`79a0e48a69c8dd634a8cecf972199bea8a4daeec`** · branche `delivery/sfia-studio-product-simplification-p5-s05-r3-f2-routing-alignment` · B1 F1 model = **SELECTED→DISPATCH CONFIG PROVEN** (`providerReturnedModel=NOT_OBSERVED`; REAL via `providerResponseId`) · B2 R3-19 = completed anti-secret observation (no stale pending) · campaign `p5-s05-r3-cp02-1791247484728` · productFP `35f31263…` (unchanged vs CP01) · harnessFP `a8049035…` (changed) · F2 Luna/low selected→configured→returned · F1 Luna/high selected→dispatched · CKC **N_A** · accounting BOUNDED (F1 modelInvocations=3) · R3 = **PASS AT TESTED SCOPE — LOCAL CANDIDATE AFTER CP02 FINAL EVIDENCE CORRECTION** · F2 EXIT PROOF PASS — LOCAL CANDIDATE · full npm test **5272 PASS** · P5 COMPLETE **NO** · P6 READY **NO** · runtime v3 **NON ADOPTED** · project Git = **NOT AUTHORIZED** · next = **ChatGPT Final Critical Re-Review** → **MORRIS P5-S05 GIT INTEGRATION GATE** if PASS · **≠** INTEGRATED · **≠** CLOSED ON MAIN |
-+| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S06 CP01 LOCAL CANDIDATE** | 2026-10-06 Europe/Paris — **STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S06 CORRECTION PASS 01 — LOCAL CANDIDATE / STOP ARCHITECTURE DELTA ON NORA STOP** · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **8 — Delivery / Implementation Correction** · Profile **Critical** · Typologie **EVOL** · Milestone **P5** · Slice **P5-S06** · Pass **CP01** · Morris P5-S06 CP01 GATE = **AUTHORIZED / CONSUMED** · prior S06 DELIVERY CONSUMED · base/main **`16a8e2fd823d75d7c59ce1fb4d55cb862d112697`** · branche `delivery/sfia-studio-product-simplification-p5-s06-pilot-experience-completion` · A New Project **explicit phases / no regex NLP** · continuity **Project+LPS rebound via workspace projectId** · B Projects **récents ≠ À reprendre** · Orientation **honest new-project only** · C Activity **mapping proven** · STOP **ABSENT / no fake STOPPED** · D visual **structure improved / not Visual PASS** · ZERO REAL · P5 COMPLETE **NO** · P6 READY **NO** · runtime v3 **NON ADOPTED** · project Git **NOT AUTHORIZED** · next = **ChatGPT Critical Re-Review CP01** · S07 **NOT STARTED** · **≠** INTEGRATED · **≠** S06 COMPLETE |
-+| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S06 LOCAL CANDIDATE** | 2026-10-06 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S06 PILOT EXPERIENCE COMPLETION — LOCAL CANDIDATE *(true then; superseded by P5-S06 CP01 tip)* · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **8 — Delivery / Implementation** · Profile **Standard** · Typologie **EVOL** · Milestone **P5** · Slice **P5-S06** · Morris P5-S06 DELIVERY GATE = **AUTHORIZED / CONSUMED** (2026-10-06) · slicing P5 restant **S06/S07/S08** = **ADOPTED** · base/main **`16a8e2fd823d75d7c59ce1fb4d55cb862d112697`** (PR **#560** P5-S05 R3 · CI Studio **#688** SUCCESS) · branche `delivery/sfia-studio-product-simplification-p5-s06-pilot-experience-completion` · P5-S05 = **INTEGRATED / POST-MERGE VERIFIED** · F2 routing alignment = **CLOSED ON MAIN** · R3 = **PASS AT TESTED SCOPE / INTEGRATED / POST-MERGE VERIFIED** · Axes S06 : A Projects **ADAPT** · B Nouveau projet chat-first **ADAPT** (ephemeral client · createProjectRuntimeAction · D1 NOT nominal) · C Nora Activity **PARTIAL** (labels honnêtes · **STOP/■ absent** — no fake STOPPED) · D Auth GitHub visual **ADAPT** (backend KEEP) · E responsive/a11y touched surfaces · ZERO REAL · full npm test **5278 PASS / 139 skipped** · P5 COMPLETE **NO** · P6 READY **NO** · runtime v3 **NON ADOPTED** · project Git = **NOT AUTHORIZED** · next = **ChatGPT Review de S06** → gate Morris distinct si PASS · S07 = **NOT STARTED** · **≠** INTEGRATED · **≠** P5 COMPLETE |
-+| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S05 CP02 LOCAL CANDIDATE** | 2026-10-06 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S05 CORRECTION PASS 02 — LOCAL CANDIDATE PASS *(true then; superseded by P5-S05 INTEGRATED via PR #560 then by P5-S06 LOCAL CANDIDATE tip)* · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **8 — Delivery / Implementation Correction** · Profile **Critical** · Typologie **EVOL** · Milestone **P5** · Slice **P5-S05** · Pass **CP02** · Morris P5-S05 CP02 GATE = **AUTHORIZED / CONSUMED** · prior Delivery+REAL/R3 + CP01 gates remain **CONSUMED** · base/main **`79a0e48a69c8dd634a8cecf972199bea8a4daeec`** · branche `delivery/sfia-studio-product-simplification-p5-s05-r3-f2-routing-alignment` · B1 F1 model = **SELECTED→DISPATCH CONFIG PROVEN** (`providerReturnedModel=NOT_OBSERVED`; REAL via `providerResponseId`) · B2 R3-19 = completed anti-secret observation (no stale pending) · campaign `p5-s05-r3-cp02-1791247484728` · productFP `35f31263…` (unchanged vs CP01) · harnessFP `a8049035…` (changed) · F2 Luna/low selected→configured→returned · F1 Luna/high selected→dispatched · CKC **N_A** · accounting BOUNDED (F1 modelInvocations=3) · R3 = **PASS AT TESTED SCOPE — LOCAL CANDIDATE AFTER CP02 FINAL EVIDENCE CORRECTION** · F2 EXIT PROOF PASS — LOCAL CANDIDATE · full npm test **5272 PASS** · P5 COMPLETE **NO** · P6 READY **NO** · runtime v3 **NON ADOPTED** · project Git = **NOT AUTHORIZED** · next = **ChatGPT Final Critical Re-Review** → **MORRIS P5-S05 GIT INTEGRATION GATE** if PASS · **≠** INTEGRATED · **≠** CLOSED ON MAIN |
- | **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S05 CP01 LOCAL CANDIDATE** | 2026-10-06 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S05 CORRECTION PASS 01 — LOCAL CANDIDATE PASS *(true then; superseded by P5-S05 CP02 tip after residual B1 F1 model semantics + B2 R3-19 observation)* · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **8 — Delivery / Implementation Correction** · Profile **Critical** · Typologie **EVOL** · Milestone **P5** · Slice **P5-S05** · Pass **CP01** · Morris P5-S05 CP01 GATE = **AUTHORIZED / CONSUMED** · prior Delivery+REAL/R3 gate remains **CONSUMED** · base/main **`79a0e48a69c8dd634a8cecf972199bea8a4daeec`** · branche `delivery/sfia-studio-product-simplification-p5-s05-r3-f2-routing-alignment` · A1 CKC = **N_A** · A2 accounting = **BOUNDED** · A3 effort = **SELECTED→DISPATCH CONFIG PROVEN** · campaign `p5-s05-r3-cp01-1791245552722` · productFP `35f31263…` · harnessFP `fd10646b…` · Critical Review residual = **CORRECTION REQUIRED** (B1 F1 usage.model ≠ provider-returned; B2 R3-19 stale observation) · **≠** INTEGRATED · **≠** CLOSED ON MAIN |
- | **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S05 LOCAL CANDIDATE** | 2026-10-06 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S05 R3 + F2 ROUTING ALIGNMENT — LOCAL CANDIDATE PASS *(true then; superseded by P5-S05 CP01 tip after Critical Review A1/A2/A3 correction)* · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **8 — Delivery / Implementation** · Profile **Critical** · Typologie **EVOL** · Milestone **P5** · Slice **P5-S05** · Morris P5-S05 DELIVERY + REAL/R3 GATE = **AUTHORIZED / CONSUMED** · base/main **`79a0e48a69c8dd634a8cecf972199bea8a4daeec`** (PR **#559** POST-S04 TRUTH-SYNC merge · CI **#686** SUCCESS) · branche `delivery/sfia-studio-product-simplification-p5-s05-r3-f2-routing-alignment` · F2 routing alignment = **EXIT PROOF PASS — LOCAL CANDIDATE** · R3 = **PASS AT TESTED SCOPE — LOCAL CANDIDATE** · campaign `p5-s05-r3-1791242959473` · fingerprint `39bc5907bff9cc23d1a150869c891ead04dc1fe5dd382f550ae91e76b0b5ee31` · F2 `gpt-6-luna/low` → actual match · F1 `gpt-6-luna/high` → actual match · journal tools `cycle_journal_search` + `get_entry` + `get_sources` · HD=0 · R1/R2 PASS historical · P5 = **IN PROGRESS** · P5 COMPLETE **NO** · P6 READY **NO** · runtime v3 **NON ADOPTED** · project commit/push/PR/merge = **NOT AUTHORIZED** · Critical Review = **CORRECTION REQUIRED** (A1/A2/A3) · **≠** INTEGRATED · **≠** CLOSED ON MAIN · **≠** P5 COMPLETE |
- | **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S04 INTEGRATED / POST-S04 TRUTH-SYNC** | 2026-10-06 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S04 PRODUCT-DERIVED SYNTHÈSES — INTEGRATED / POST-MERGE VERIFIED — POST-S04 TRUTH-SYNC *(true then; superseded by P5-S05 LOCAL CANDIDATE tip)* · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **14 — Post-merge** · Milestone **P5** · Slice **P5-S04** · Standard · DOC · Morris P5 POST-S04 TRUTH-SYNC GATE = **CONSUMED** · PR **#558** **MERGED** · merge/main **`c7b53b93d48e626e5ac1548886162936ce7e9eb3`** · post-merge CI **#684** / run **`37377995199`** = **SUCCESS** · Detect / Build / **Required Gate** = **SUCCESS** · P5-S04 = **INTEGRATED / POST-MERGE VERIFIED** · CP01/CP02 preserved · A=0 / B=0 preserved · ZERO REAL for S04 · P5 = **AUTHORIZED / STARTED / IN PROGRESS** · F2 routing debt **OPEN** · R1 **PASS** · R2 **PASS** · R3 **NOT STARTED** · P5 COMPLETE **NO** · P6 READY **NO** · runtime v3 **NON ADOPTED** · ChatGPT POST-S04 REQUALIFICATION = **PASS** · next RECOMMENDED capability = **P5-S05 — R3 Integrated Product Cognitive Path + F2 Routing Alignment** · P5-S05 DELIVERY = **NOT AUTHORIZED** · P5-S05 REAL / R3 = **NOT AUTHORIZED** · next = **MORRIS P5-S05 DELIVERY + REAL GATE** (distinct · only after review of this truth-sync) · **≠** P5 COMPLETE · **≠** R3 PASS · **≠** S05 STARTED · **≠** runtime v3 ADOPTED |
 
-```
+- `auth-desktop-1440x1024.png` sha256 `2b4b343c187308f693528ba90cb6cab5ee2f43049daf4d494aa7ab7ddb220181` vs CP01 `2b4b343c187308f693528ba90cb6cab5ee2f43049daf4d494aa7ab7ddb220181` → **SAME**
+- `auth-mobile-390x844.png` sha256 `ccba366710d9220fd1853905ec18dea5e8834b2ef8051fb01ec0a4684f656948` vs CP01 `ccba366710d9220fd1853905ec18dea5e8834b2ef8051fb01ec0a4684f656948` → **SAME**
+- `projects-desktop-1440x1024.png` sha256 `e8e61b2c6c716e26fc23d2867e6e998c78f521096b63f986a1ae6c5113122854` vs CP01 `e8e61b2c6c716e26fc23d2867e6e998c78f521096b63f986a1ae6c5113122854` → **SAME**
+- `projects-mobile-390x844.png` sha256 `488e89a39b97411f3f0a3b351ff4aa17382b64c12c53b770608aa9bd3fda2ae0` vs CP01 `488e89a39b97411f3f0a3b351ff4aa17382b64c12c53b770608aa9bd3fda2ae0` → **SAME**
+- `new-project-desktop-1440x1024.png` sha256 `54d36c5b70767cf65414e8631c4c9334adea6f1db34cc6f1b1616c84403c5529` vs CP01 `54d36c5b70767cf65414e8631c4c9334adea6f1db34cc6f1b1616c84403c5529` → **SAME**
+- `new-project-mobile-390x844.png` sha256 `16f5d7ce397522484efd3b591ce9665de4bd78cc5ea68230d4fe2b060839f357` vs CP01 `0e4300dae2fdbc81d5c0ba22c87bb43fda70130e722f7eb73eedec8820be1cf7` → **DIFF (expected New Project mobile)**
 
-### MODIFIED `projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md`
-```diff
-diff --git a/projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md b/projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md
-index 5f23603b..c3266054 100644
---- a/projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md
-+++ b/projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md
-@@ -5,40 +5,46 @@
- | **Projet** | SFIA Studio |
- | **Macro** | `STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01` |
- | **Milestone** | **P5 — INTEGRATED DELIVERY** (Delivery / Implementation / Evidence source) |
--| **Slice** | **P5-S01**…**P5-S04** (integrated) + **P5-S05** (local candidate) |
--| **Pass** | **P5-S05 CORRECTION PASS 02 — LOCAL CANDIDATE PASS** |
-+| **Slice** | **P5-S01**…**P5-S05** (integrated) + **P5-S06** (local candidate) |
-+| **Pass** | **P5-S06 CORRECTION PASS 01 — LOCAL CANDIDATE** |
- | **Typologie** | Delivery evidence dans macro **EVOL** — **≠** doctrine · **≠** nouvelle architecture |
- | **Autorité architecture** | **P4** (`04-chat-first-product-simplification-semantic-projection-cognitive-architecture.md`) — **inchangée** |
--| **Base / HEAD Git** | `origin/main` = `79a0e48a69c8dd634a8cecf972199bea8a4daeec` (PR **#559** POST-S04 TRUTH-SYNC · CI **#686** SUCCESS) |
-+| **Base / HEAD Git** | `origin/main` = `16a8e2fd823d75d7c59ce1fb4d55cb862d112697` (PR **#560** P5-S05 R3 · CI Studio **#688** SUCCESS) |
- | **P5-S01 integration** | PR **#555** **MERGED** · post-merge CI **#678** **SUCCESS** · **INTEGRATED / POST-MERGE VERIFIED** |
- | **P5-S02 integration** | PR **#556** **MERGED** · post-merge CI **#680** **SUCCESS** · Required Gate **SUCCESS** · **INTEGRATED / POST-MERGE VERIFIED** |
- | **P5-S03 integration** | PR **#557** **MERGED** · post-merge CI **#682** **SUCCESS** · Required Gate **SUCCESS** · **INTEGRATED / POST-MERGE VERIFIED** |
- | **P5-S04 integration** | PR **#558** **MERGED** · post-merge CI **#684** / run **`37377995199`** **SUCCESS** · Required Gate **SUCCESS** · **INTEGRATED / POST-MERGE VERIFIED** |
-+| **P5-S05 integration** | PR **#560** **MERGED** · post-merge CI Studio **#688** **SUCCESS** · **INTEGRATED / POST-MERGE VERIFIED** · F2 routing alignment **CLOSED ON MAIN** · R3 **PASS AT TESTED SCOPE / INTEGRATED / POST-MERGE VERIFIED** |
- | **Worktree** | `/Users/morris/Projects/sfia-studio-chat-first-product-simplification-p3` |
--| **Branche S05** | `delivery/sfia-studio-product-simplification-p5-s05-r3-f2-routing-alignment` (local · **NOT committed**) |
-+| **Branche S06** | `delivery/sfia-studio-product-simplification-p5-s06-pilot-experience-completion` (local · **NOT committed**) |
- | **P5 AUTHORIZED BY MORRIS** | **YES** |
- | **P5 STARTED** | **YES** |
- | **P5 IN PROGRESS** | **YES** |
-+| **P5 COMPLETE** | **NO** |
-+| **P6 READY** | **NO** |
- | **P5-S01** | **INTEGRATED / POST-MERGE VERIFIED** |
- | **P5-S02** | **INTEGRATED / POST-MERGE VERIFIED** — R1/R2 **PROVEN** · envelope deviation **ACCEPTED BY MORRIS** |
- | **P5-S03** | **INTEGRATED / POST-MERGE VERIFIED** · Object-Native Aperçu + Exécution · A=0/B=0 |
- | **P5-S04** | **INTEGRATED / POST-MERGE VERIFIED** · Product-derived Synthèses M9 · CP01/CP02 preserved · A=0/B=0 · B1/B2 CLOSED |
--| **P5-S05** | **LOCAL CANDIDATE PASS AFTER CP02** — F2 routing EXIT PROOF · R3 PASS AT TESTED SCOPE |
--| **R1 / R2 / R3** | **R1 PASS** · **R2 PASS** · **R3 PASS AT TESTED SCOPE — LOCAL CANDIDATE (CP02)** |
--| **ZERO REAL** | **NO for S05 R3** (bounded REAL OpenAI) · S04 ZERO REAL preserved historically |
--| **READY FOR REAL** | **R3 CP02 executed under Morris S05 + CP01 + CP02 gates** |
-+| **P5-S05** | **INTEGRATED / POST-MERGE VERIFIED** — F2 routing CLOSED ON MAIN · R3 PASS AT TESTED SCOPE |
-+| **P5-S06** | **CP01 LOCAL CANDIDATE** — A/B PASS · C Activity proven / STOP **BLOCKED** · D visual PARTIEL · **≠ COMPLETE** |
-+| **P5-S06 DELIVERY** | **AUTHORIZED / CONSUMED** |
-+| **P5-S06 CP01** | **AUTHORIZED / CONSUMED** |
-+| **P5 slicing restant** | **S06 / S07 / S08** — **ADOPTED BY MORRIS** (2026-10-06) · S07/S08 = **NOT STARTED** |
-+| **R1 / R2 / R3** | **R1 PASS** · **R2 PASS** · **R3 PASS AT TESTED SCOPE / INTEGRATED / POST-MERGE VERIFIED** (S05) |
-+| **ZERO REAL** | **YES for S06** · S05 R3 REAL historique préservé (bounded OpenAI sous gate S05) |
- | **runtime v3** | **NON ADOPTED** |
--| **Git (S05)** | **NOT AUTHORIZED** — no project commit/push/PR/merge |
--| **Next** | **ChatGPT Final Critical Re-Review** → **MORRIS P5-S05 GIT INTEGRATION GATE** if PASS |
--| **P5-S05 DELIVERY** | **AUTHORIZED / CONSUMED** |
--| **P5-S05 REAL / R3** | **AUTHORIZED / CONSUMED** |
--| **P5-S05 CP01** | **AUTHORIZED / CONSUMED** |
--| **P5-S05 CP02** | **AUTHORIZED / CONSUMED** |
-+| **Git (S06)** | **NOT AUTHORIZED** — no project commit/push/PR/merge |
-+| **Next** | **ChatGPT Critical Re-Review of P5-S06 CP01** · Git integration **NOT AUTHORIZED** · S07 **NOT STARTED** |
-+| **P5-S05 DELIVERY** | **AUTHORIZED / CONSUMED** → **INTEGRATED** via PR **#560** |
-+| **P5-S05 REAL / R3** | **AUTHORIZED / CONSUMED** → **INTEGRATED** |
-+| **P5-S05 CP01 / CP02** | **AUTHORIZED / CONSUMED** (historique) |
-+| **P5-S06 DELIVERY** | **AUTHORIZED / CONSUMED** |
- | **Langue** | Français (identifiants canoniques anglais préservés) |
- | **Fichier** | `projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md` |
- | **Date** | 2026-10-06 · Europe/Paris |
 
--> **Lecture rapide.** P5-S01…S04 **intégrés**. P5-S05 CP02 = **LOCAL CANDIDATE PASS** (B1 F1 selected→dispatch · B2 R3-19 scan observation · CKC N_A · accounting borné). **≠ INTEGRATED** · **≠ P5 COMPLETE** · **≠ runtime v3 ADOPTED**. Project Git **NOT AUTHORIZED**.
-+> **Lecture rapide.** P5-S01…S05 **intégrés**. P5-S06 CP01 = **LOCAL CANDIDATE** (A/B semantic PASS · Activity proven · STOP architecture-blocked · visual PARTIEL). **≠ S06 COMPLETE** · **≠ INTEGRATED** · **≠ P5 COMPLETE**.
- > **Règle de lecture des preuves.** *Implémenté* ≠ *prouvé* ≠ *intégré* ≠ *REAL*. Chaque affirmation ci-dessous est qualifiée par son niveau de preuve. Les résultats de tests/typecheck/lint/build sont ceux **rapportés par la passe de livraison** ; ce document n’en invente pas d’autres et ne les a pas ré-exécutés lors de sa rédaction.
+## 34. Figma comparisons
 
- ---
-@@ -972,4 +978,74 @@ Anti-claims explicites :
+READ ONLY copies in `cp02/figma/` (63:39, 190:253, 67:39, 190:284, 130:3, 190:551). Structural S06 scope only. No pixel-perfect global claim.
 
- ---
+## 35. STOPPED state proof
 
--*Fin du document P5 — Integrated Delivery — S01/S02/S03/S04 INTEGRATED / POST-MERGE VERIFIED · S05 CP02 LOCAL CANDIDATE PASS · R3 PASS AT TESTED SCOPE LOCAL · project Git NOT AUTHORIZED · P5 COMPLETE NO · runtime v3 NON ADOPTED — P4 remains architecture authority.*
-+---
-+
-+## 39. P5-S06 — Pilot Experience Completion — LOCAL CANDIDATE (truth-sync)
-+
-+> **Qualification.** Enregistrement factuel de la Delivery locale P5-S06 sous GO Morris DELIVERY consommé le 2026-10-06. **≠ INTEGRATED** · **≠ P5 COMPLETE** · project Git **NOT AUTHORIZED**.
-+
-+### 39.1 Git / gates
-+
-+| Item | Valeur |
-+| --- | --- |
-+| Base / HEAD | `16a8e2fd823d75d7c59ce1fb4d55cb862d112697` = `origin/main` |
-+| Branche | `delivery/sfia-studio-product-simplification-p5-s06-pilot-experience-completion` |
-+| P5-S05 | **INTEGRATED / POST-MERGE VERIFIED** — PR **#560** · CI Studio **#688** SUCCESS |
-+| F2 routing | **CLOSED ON MAIN** |
-+| R3 | **PASS AT TESTED SCOPE / INTEGRATED / POST-MERGE VERIFIED** |
-+| Morris S06 DELIVERY | **CONSUMED** |
-+| Slicing restant | **S06 / S07 / S08** ADOPTED · S07/S08 **NOT STARTED** |
-+| ZERO REAL (S06) | **YES** |
-+| runtime v3 | **NON ADOPTED** |
-+| P5 COMPLETE / P6 READY | **NO** / **NO** |
-+
-+### 39.2 Axes livrés (honnêteté)
-+
-+| Axe | Statut | Notes |
-+| --- | --- | --- |
-+| A Projects | **ADAPT** | Recherche locale · À reprendre depuis `updatedAt` ≤14j · Orientation → `/studio/projects/new` · empty state · pas d’attention inventée |
-+| B Nouveau projet | **ADAPT** | Conversation pré-Project éphémère client · `createProjectRuntimeAction` au CTA · D1 Intake **NOT** nominal · pas de store / pas d’auto-Cycle |
-+| C Nora Activity / STOP | **PARTIAL** | Phases START/ACTIVITY/COMPLETE projetées depuis `uiState` réel · **■ STOP absent** (pas de seam Abort Product) — **pas de faux STOPPED** |
-+| D Auth GitHub visual | **ADAPT** | Split narrative+card · « Continuer avec GitHub » · mark SVG · backend Better/Auth **KEEP** |
-+| E Responsive / a11y | **ADAPT** (surfaces touchées) | Labels · focus · targets · reduced-motion conservé côté conversation |
-+
-+### 39.3 Preuves
-+
-+| Porte | Résultat |
-+| --- | --- |
-+| `p5.s06.pilotExperience.d0.test.tsx` | **6 PASS** |
-+| Auth unit tests ciblés | **PASS** |
-+| typecheck / lint / build | **PASS** |
-+| full `npm test` | **5278 PASS / 139 skipped** |
-+| Visual runtime | Auth + Projects `/studio` + New Project capturés sous `.tmp-sfia-review/p5-s06-visual/runtime/` vs Figma refs sous `…/figma/` — **pas de claim Visual PASS global** |
-+
-+### 39.4 Réserves
-+
-+| Classe | Réserve |
-+| --- | --- |
-+| **BLOCKING** (avant S06 COMPLETE) | P3 STOP/■ non satisfait sans architecture cancellation — décision Morris : accepter PARTIAL ou autoriser delta |
-+| **NON-BLOCKING** | Écarts Class B Projects/New Project vs frames Figma EXPLORATORY (table Attention, quick-replies, layout 3-col) · STREAMING non projeté (non observable) · D1 HARVEST only |
-+
-+### 39.5 Next
-+
-+**ChatGPT Review de S06** → gate Morris distinct. **S07** reste **NOT STARTED**.
-+
-+---
-+
-+## 40. P5-S06 CP01 — Correction Pass 01 (truth-sync)
-+
-+> **Qualification.** Delivery S06 Critical Review = CORRECTION REQUIRED. CP01 = local candidate after semantic/visual correction. STOP Nora remains architecture-blocked. **≠ S06 COMPLETE** · **≠ INTEGRATED**.
-+
-+| Axe | Statut CP01 |
-+| --- | --- |
-+| A New Project | **PASS** — explicit phases INTENTION/NAME/OPTIONAL_CONTEXT · no NAME_HINT · factual preview · CTA unique |
-+| A2 Continuity | **PASS min-sufficient** — createProjectRuntimeAction writes Project+LPS · router `/studio/projects/:id` · workspace `getProject` + `useProductConversation(projectId)` · no transcript store |
-+| B Projects | **PASS** — « Projets récents » from updatedAt · no « À reprendre » as next-action · local search KEEP |
-+| B2 Orientation | **PASS** — wording = start new project only · href `/studio/projects/new` |
-+| C Activity | **PASS proven** — `projectNoraActivity` mapping + tests |
-+| C2 STOP | **BLOCKED** — no Product conversation Abort seam · no fake ■/STOPPED |
-+| D Visual | **PARTIEL** — structure closer to 63:39 / 67:39 / 130:3 / mobile 190:* · composer mobile first · no Attention invented · **≠ Visual PASS** |
-+
-+---
-+
-+*Fin du document P5 — Integrated Delivery — S01…S05 INTEGRATED · S06 CP01 LOCAL CANDIDATE · STOP architecture delta remaining · project Git NOT AUTHORIZED · P5 COMPLETE NO · runtime v3 NON ADOPTED — P4 remains architecture authority.*
+Runtime screenshot of in-flight STOP **not** captured (would require production delay flag — forbidden). Proof = UI tests + hook abort + Runner T01. Qualify: **STOPPED proven deterministically, not visually on live app screenshot**.
 
-```
+## 36. Accessibility
 
-## 25. P5/Roadmap
-See diffs above. Tip CP01 added. Historical S06 Delivery tip SUPERSEDED AS TIP. Section 40 CP01 recorded.
+Stop control keyboard (button) · accessible name · focus-visible CSS · non-color ■ glyph + Arrêter · ~38px · reduced-motion already on scroll; STOPPED is text. No WCAG certified claim.
 
-## 26. Targeted tests
-`npx vitest run __tests__/pre-m6-product-ui/p5.s06.pilotExperience.d0.test.tsx`
-**10 PASS**
+## 37. Architecture parallelism check
 
-## 27. Full tests
-`npm test` → Test Files 475 passed | 19 skipped · **Tests 5282 passed | 139 skipped** · failed 0 · ~74s
+Canonical send = 1. Nora runtime = 1. Orchestration = existing. Route = thin adapter. No CancellationStore. No second Product path.
 
-## 28. typecheck / lint / build
-`npm run typecheck` PASS · `npm run lint` PASS · `npm run build` PASS
+## 38. Security / input boundary (Route Handler)
 
-## 29. git diff --check
-PASS (re-run at pack time)
+POST only. `projectId` from URL. JSON parse fail-closed. Allowlist content/history/logicalTurnId/turnRetryKey/reinstruction/reservation. Hostile keys (provider, sessionDbPath, authority, model, executionContractId, signal from body, …) rejected `HOSTILE_FIELD`. No client actor/auth injection. Session cookies same-origin. Auth remains server-side.
 
-## 30. Visual hashes CP01
-| path | bytes | sha256 |
-| --- | --- | --- |
-| `.tmp-sfia-review/p5-s06-visual/cp01/figma/auth-desktop-130-3.png` | 45665 | `22657f8b80e1b60fb2edfafbc90abc7042238d7e98937d07c6b6ee7e17532cc4` |
-| `.tmp-sfia-review/p5-s06-visual/cp01/figma/auth-mobile-190-551.png` | 13112 | `b8a534cfcaa9b8d0f445c6c987e590c2eab7d6fc513e63aa4d4824d3d0838627` |
-| `.tmp-sfia-review/p5-s06-visual/cp01/figma/new-project-desktop-67-39.png` | 148342 | `85138e214c38cc026e166e5bc77d222a4a0e89f53df0151e951d68f6d428a78e` |
-| `.tmp-sfia-review/p5-s06-visual/cp01/figma/new-project-mobile-190-284.png` | 30336 | `8cd0279c620cc485a76c3bd5424f66f7fbc382ccbecf06af2df1d69b4f4dea3c` |
-| `.tmp-sfia-review/p5-s06-visual/cp01/figma/projects-desktop-63-39.png` | 105461 | `e00814d68e3a78eba909b8ad77d63a1e57e67300a1082d1116540daa9c40d375` |
-| `.tmp-sfia-review/p5-s06-visual/cp01/figma/projects-mobile-190-253.png` | 24023 | `e22753393234cff1c56249a8edd13f843032015e2e8d6423dda11ad818a22731` |
-| `.tmp-sfia-review/p5-s06-visual/cp01/runtime/auth-desktop-1440x1024.png` | 66369 | `2b4b343c187308f693528ba90cb6cab5ee2f43049daf4d494aa7ab7ddb220181` |
-| `.tmp-sfia-review/p5-s06-visual/cp01/runtime/auth-mobile-390x844.png` | 50283 | `ccba366710d9220fd1853905ec18dea5e8834b2ef8051fb01ec0a4684f656948` |
-| `.tmp-sfia-review/p5-s06-visual/cp01/runtime/new-project-desktop-1440x1024.png` | 118542 | `54d36c5b70767cf65414e8631c4c9334adea6f1db34cc6f1b1616c84403c5529` |
-| `.tmp-sfia-review/p5-s06-visual/cp01/runtime/new-project-mobile-390x844.png` | 57332 | `0e4300dae2fdbc81d5c0ba22c87bb43fda70130e722f7eb73eedec8820be1cf7` |
-| `.tmp-sfia-review/p5-s06-visual/cp01/runtime/projects-desktop-1440x1024.png` | 136552 | `e8e61b2c6c716e26fc23d2867e6e998c78f521096b63f986a1ae6c5113122854` |
-| `.tmp-sfia-review/p5-s06-visual/cp01/runtime/projects-mobile-390x844.png` | 53452 | `488e89a39b97411f3f0a3b351ff4aa17382b64c12c53b770608aa9bd3fda2ae0` |
+## 39. Debt / exit
 
-## 31. Figma/runtime comparison
-| Surface | SHELL | GEOMETRY | CONTENT | Verdict |
-| --- | --- | --- | --- | --- |
-| Projects 63:39 | rail KEEP | table+recent closer | no Attention/next-action | PARTIEL |
-| Projects 190:253 | topbar KEEP | denser cards | recent honest | PARTIEL |
-| New Project 67:39 | 820/404 split | composer in column | factual preview | PARTIEL |
-| New Project 190:284 | composer first viewport | PASS chat-first | same semantics | PARTIEL/improved |
-| Auth 130:3 | split | card 460 min-height 420 | GitHub CTA | PARTIEL |
-| Auth 190:551 | stack | card centered | GitHub-only | PARTIEL |
+- **P5-S06-DEBT-NORA-STOP** = CLOSED LOCALLY / awaiting Git Integration. Owner: Studio P5. Target: S06 GI when Morris authorizes. Exit: merge S06.
+- Thin HTTP adapter is **nominal** for browser abort of Server Actions, not temporary registry debt.
+- Visual residual: New Project mobile composer still uses Envoyer/Annuler (pre-Project collect, not conversation ■). Non-blocking. No invented polish ticket.
 
-No global Visual PASS. No intentional fake facts.
+## 40. Blocking / nonblocking reserves
 
-## 32. Visual before/after
-S06 Delivery: stacked huge cards, form-like chat, Auth card too small. CP01: table, split create, Auth 460px card.
+- STREAMING P3 not implemented — nonblocking if not claimed
+- REAL cancellation unproven — expected
+- S06 not Git-integrated
+- better-sqlite3 build warning pre-existing nonblocking
+- TrajectorySurface load flake isolated PASS
+- STOPPED runtime screenshot absent — honesty reserve, tests cover
 
-## 33. a11y / responsive
-Labels, focus-visible, 36–38px targets, reduced-motion untouched on conversation, mobile composer order.
+**No remaining S06 functional blocker identified locally.**
 
-## 34–35. Fake/Real · ZERO REAL
-Deterministic only. OPS1 fake for captures. No OpenAI.
+## 41. Docs truth-sync
 
-## 36. No parallel architecture
-No new store/Nora/router/D1 nominal/persistence/auth authority.
+Roadmap tip CP02 LOCAL CANDIDATE / FUNCTIONAL CLOSURE PASS. P5 doc P5-S06 CP02 status. Historical CP01 preserved as SUPERSEDED tip. P3/P4/doctrine untouched.
 
-## 37. Debt/exit
-| Debt | Owner | Target | Exit |
-| --- | --- | --- | --- |
-| P5-S06-DEBT-NORA-STOP | runtime | Morris gate | Abort architecture GO or accept P3 STOP gap |
-| Visual Class B remainder | frontend | S06 CP/S08 | geometry polish without invented facts |
+## 42. Project Git effects
 
-## 38. Reserves
-BLOCKING for S06 COMPLETE: Nora STOP architecture.
-NON-BLOCKING: Attention column absent; Figma resume focus box absent; STREAMING N/A; quick-replies not added (would look like recommendations); Auth green-dot not added (not a real session metric).
+NONE authorized. No commit, push, PR, merge on project branch. Staged empty. Working tree dirty with S06 candidate.
 
-## 39. Morris decisions
-1. Accept CP01 LOCAL CANDIDATE with STOP blocked **or** authorize cancellation architecture
-2. Visual PARTIEL acceptable?
-3. Git Integration later — not this pass
-4. S07 remains NOT STARTED
+## 43. Decisions Morris required
 
-## 40. Anti-claims
-≠ INTEGRATED · ≠ S06 COMPLETE · ≠ P5 COMPLETE · ≠ P6 READY · ≠ runtime v3 ADOPTED · ≠ Visual PASS · ≠ REAL proven · ≠ fake STOPPED
+1. ChatGPT Final Critical Review of this pack
+2. Distinct **P5-S06 Git Integration GO** if PASS — **not consumed**
+3. No S07/S08/P6 authorization requested
 
-## 41. Project Git effects
-NO add/commit/push/PR/merge. Staged empty.
+## 44. Review Handoff publication
 
-## 42. Handoff publication evidence
-Filled after publisher.
+Publisher `scripts/sfia/publish-review-handoff.sh`
+Message: `docs(review-handoff): publish P5 S06 CP02 cancellation closure`
+Input remote before: `b588c7de`
+(filled after publish)
 
-## 43. Unique readiness
-**STOP — S06 NORA STOP ARCHITECTURE DELTA REQUIRED** (A/B/Activity/visual-in-scope otherwise CP01-corrected)
+## 45. Unique readiness
 
-## 44. Verdict
-**STOP — S06 NORA STOP ARCHITECTURE DELTA REQUIRED**
+READY FOR CHATGPT FINAL CRITICAL REVIEW — P5-S06 CP02 LOCAL CANDIDATE
 
-A/B PASS. C Activity PASS. C2 STOP BLOCKED. D PARTIEL. Tests 5282 PASS. ZERO REAL. Pack FULL. Project git untouched.
+## 46. Verdict
+
+**READY FOR CHATGPT FINAL CRITICAL REVIEW — P5-S06 CP02 LOCAL CANDIDATE**
+
+P5-S06 FUNCTIONAL CLOSURE = PASS LOCALLY
+A PASS · A2 PASS · B PASS · C Activity PASS · C2 STOP PASS DETERMINISTIC / BOUNDED CANCELLATION PROVEN · D Visual PASS AT S06 SCOPE
+ZERO REAL YES
+S06 COMPLETE = NOT YET INTEGRATED
+P5 COMPLETE NO · P6 READY NO · S07 NOT STARTED · runtime v3 NON ADOPTED · Git NOT AUTHORIZED
