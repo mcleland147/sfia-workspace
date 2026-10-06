@@ -398,7 +398,10 @@ index 1d779bcb..9871832b 100644
 - Branch: `sfia/review-handoff`
 - Canonical: `sfia-review-handoff/latest-chatgpt-review.md`
 - Message: `docs(review-handoff): publish P5 S07 post-merge closure candidate`
-- (filled after publish)
+- Verdict: **HANDOFF UPDATED — REMOTE VERIFIED**
+- Remote handoff tip: `cf803bcd4b14375bf78ce5f880471f0f7f29d0c1`
+- Canonical blob: `29db3aad9f5d595f9761caf028f09a16897e9f85`
+- Title: P5-S07 — Project Continuity & Work Representation Completion — POST-MERGE DOCUMENTARY CLOSURE — LOCAL CANDIDATE — FULL REVIEW PACK
 
 ## 26. Final Git truth (project)
 | Item | Value |
