@@ -53,14 +53,23 @@ export type ProviderRoundResult =
       usage: ProviderUsage;
     };
 
+export type ProviderRequestOptions = {
+  /** Request-scoped AbortSignal. Optional; omit on non-cancellable callers. */
+  signal?: AbortSignal;
+};
+
 export interface ConversationProvider {
   readonly providerId: string;
   /** Legacy text-only completion (tools disabled). */
-  complete(messages: ProviderChatMessage[]): Promise<ProviderCompletionResult>;
+  complete(
+    messages: ProviderChatMessage[],
+    options?: ProviderRequestOptions,
+  ): Promise<ProviderCompletionResult>;
   /** Optional tool-aware round — default falls back to complete(). */
   completeRound?(input: {
     items: ProviderInputItem[];
     tools: ToolDefinition[];
+    signal?: AbortSignal;
   }): Promise<ProviderRoundResult>;
   /**
    * Optional schema-native structured completion (Responses API json_schema).
@@ -70,6 +79,8 @@ export interface ConversationProvider {
     messages: ProviderChatMessage[];
     schemaName: string;
     jsonSchema: Record<string, unknown>;
+    /** Request-scoped AbortSignal. Optional; omit on non-cancellable callers. */
+    signal?: AbortSignal;
   }): Promise<ProviderCompletionResult>;
 }
 

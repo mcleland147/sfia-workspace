@@ -578,19 +578,19 @@
   "trackedSources": [
     {
       "path": "projects/sfia-studio/app/features/project-assistant/actions.ts",
-      "sha256_16": "8839aac183e38265"
+      "sha256_16": "40476bb2a7b35f9c"
     },
     {
       "path": "projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts",
-      "sha256_16": "28b6b3d32b754cec"
+      "sha256_16": "cba03a9222f5b6a6"
     },
     {
       "path": "projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts",
-      "sha256_16": "8c5c218b44267b5b"
+      "sha256_16": "ca1e94f4711ad989"
     },
     {
       "path": "projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts",
-      "sha256_16": "94d908d10eb822f2"
+      "sha256_16": "aeb3359752700910"
     },
     {
       "path": "projects/sfia-studio/app/features/project-assistant/f2/activeCycleGovernedContinuation.ts",
@@ -622,7 +622,7 @@
     },
     {
       "path": "projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts",
-      "sha256_16": "b1d586c1784f8c75"
+      "sha256_16": "b4aaef8d204e35c7"
     },
     {
       "path": "projects/sfia-studio/app/lib/nora-cognitive-runtime/productSqliteSession.ts",
@@ -666,7 +666,7 @@
     },
     {
       "path": "projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts",
-      "sha256_16": "d8db5a73ecb35722"
+      "sha256_16": "fbf5e659a5261bc0"
     },
     {
       "path": "projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.tsx",
@@ -678,7 +678,7 @@
     },
     {
       "path": "projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts",
-      "sha256_16": "02979a5b05a36ced"
+      "sha256_16": "04bb47dbd1e37a7f"
     },
     {
       "path": "projects/sfia-studio/app/.env.example",

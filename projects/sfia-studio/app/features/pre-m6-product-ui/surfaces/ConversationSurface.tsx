@@ -26,6 +26,7 @@ import {
   presentSynthesisVerdictLabel,
   synthesisSummaryExcerpt,
 } from "./synthesisPresentation";
+import { projectNoraActivity } from "./noraActivityProjection";
 import styles from "./ConversationSurface.module.css";
 
 /**
@@ -137,6 +138,8 @@ export function ConversationSurface({
     canConfirmLegacyFixture,
     canRefreshResolvedM3Running,
     sendMessage,
+    stopAvailable,
+    stopCurrentResponse,
     decide,
     prepareResolvedM3,
     prepareLegacyFixture,
@@ -242,6 +245,12 @@ export function ConversationSurface({
     executeKind !== "deterministic_test" &&
     executionSemanticKind(durableSemanticFacts) !== "cursor_real" &&
     executionSemanticKind(durableSemanticFacts) !== "durable_read";
+  const noraActivity = projectNoraActivity({
+    blocked,
+    busy,
+    uiState,
+    stopAvailable,
+  });
 
   return (
     <section
@@ -1362,6 +1371,24 @@ export function ConversationSurface({
         </section>
       ) : null}
 
+      {uiState === "STOPPED" && !error ? (
+        <div
+          className={styles.stoppedBanner}
+          role="status"
+          data-testid="project-assistant-stopped"
+        >
+          <p className={styles.stoppedText}>Réponse interrompue</p>
+          <button
+            type="button"
+            className={styles.quietButton}
+            data-testid="project-assistant-retry-stopped"
+            onClick={() => retryLastUserMessage()}
+          >
+            Réessayer
+          </button>
+        </div>
+      ) : null}
+
       {error ? (
         <div
           className={styles.errorBox}
@@ -1369,7 +1396,7 @@ export function ConversationSurface({
           data-testid="project-assistant-error"
         >
           <p className={styles.errorText}>{error}</p>
-          {uiState === "ERROR_RECOVERABLE" ? (
+          {uiState === "ERROR_RECOVERABLE" || uiState === "STOPPED" ? (
             <button
               type="button"
               className={styles.quietButton}
@@ -1449,6 +1476,7 @@ export function ConversationSurface({
         data-testid="project-assistant-composer"
         onSubmit={(event) => {
           event.preventDefault();
+          if (stopAvailable) return;
           sendMessage();
         }}
       >
@@ -1477,15 +1505,27 @@ export function ConversationSurface({
             className={styles.composerStatus}
             aria-live="polite"
             data-testid="project-assistant-status"
+            data-nora-phase={noraActivity.phase}
+            data-nora-stop={noraActivity.stopAvailable ? "available" : "unavailable"}
           >
-            {busy
-              ? uiState === "SOURCE_LOOKUP"
-                ? "Consultation des sources en cours…"
-                : "Nora rédige sa réponse…"
-              : blocked
-                ? "Assistant indisponible — configuration manquante."
-                : "Prêt"}
+            {noraActivity.label}
           </span>
+          {/* P3 composer ↑ / ■ / ↑ — ■ only while the request is actually cancellable. */}
+          {stopAvailable ? (
+            <button
+              type="button"
+              className={styles.stopButton}
+              data-testid="project-assistant-stop"
+              onClick={() => stopCurrentResponse()}
+              title="Arrêter la réponse de Nora"
+              aria-label="Arrêter la réponse de Nora"
+            >
+              <span className={styles.sendLabelFull}>Arrêter</span>
+              <span className={styles.sendLabelCompact} aria-hidden="true">
+                ■
+              </span>
+            </button>
+          ) : (
           <button
             type="submit"
             className={styles.sendButton}
@@ -1496,20 +1536,27 @@ export function ConversationSurface({
               blocked
                 ? "Assistant indisponible"
                 : busy
-                  ? "Envoi en cours"
+                  ? "Nora travaille"
                   : draft.trim().length === 0
                     ? "Saisissez un message"
                     : "Envoyer le message"
             }
             aria-label={
-              canSend ? "Envoyer le message à Nora" : "Envoi indisponible"
+              canSend
+                ? "Envoyer le message à Nora"
+                : busy
+                  ? "Nora travaille"
+                  : "Envoi indisponible"
             }
           >
-            <span className={styles.sendLabelFull}>Envoyer</span>
+            <span className={styles.sendLabelFull}>
+              {busy ? "Nora travaille…" : "Envoyer"}
+            </span>
             <span className={styles.sendLabelCompact} aria-hidden="true">
               ↑
             </span>
           </button>
+          )}
         </div>
         <p className={styles.composerCaption}>
           Vous pilotez. La décision vous appartient toujours.

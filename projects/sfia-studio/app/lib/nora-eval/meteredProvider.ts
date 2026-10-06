@@ -121,10 +121,16 @@ export class MeteredConversationProvider implements ConversationProvider {
 
   async complete(
     messages: ProviderChatMessage[],
+    options?: { signal?: AbortSignal },
   ): Promise<ProviderCompletionResult> {
     this.preflight();
     await this.afterPreflightBeforeDispatch();
-    const result = await this.inner.complete(messages);
+    if (options?.signal?.aborted) {
+      const error = new Error("AbortError");
+      error.name = "AbortError";
+      throw error;
+    }
+    const result = await this.inner.complete(messages, options);
     this.record("complete", result.usage);
     return result;
   }
@@ -133,12 +139,18 @@ export class MeteredConversationProvider implements ConversationProvider {
     messages: ProviderChatMessage[];
     schemaName: string;
     jsonSchema: Record<string, unknown>;
+    signal?: AbortSignal;
   }): Promise<ProviderCompletionResult> {
     if (typeof this.inner.completeStructured !== "function") {
       throw new Error("completeStructured not available on wrapped provider");
     }
     this.preflight();
     await this.afterPreflightBeforeDispatch();
+    if (input.signal?.aborted) {
+      const error = new Error("AbortError");
+      error.name = "AbortError";
+      throw error;
+    }
     const result = await this.inner.completeStructured(input);
     this.record("completeStructured", result.usage);
     return result;
@@ -147,12 +159,18 @@ export class MeteredConversationProvider implements ConversationProvider {
   async completeRound(input: {
     items: ProviderInputItem[];
     tools: ToolDefinition[];
+    signal?: AbortSignal;
   }): Promise<ProviderRoundResult> {
     if (typeof this.inner.completeRound !== "function") {
       throw new Error("completeRound not available on wrapped provider");
     }
     this.preflight();
     await this.afterPreflightBeforeDispatch();
+    if (input.signal?.aborted) {
+      const error = new Error("AbortError");
+      error.name = "AbortError";
+      throw error;
+    }
     const result = await this.inner.completeRound(input);
     this.record("completeRound", result.usage);
     return result;

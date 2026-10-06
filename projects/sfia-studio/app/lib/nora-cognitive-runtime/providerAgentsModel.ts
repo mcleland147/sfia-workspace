@@ -339,7 +339,9 @@ export function createProviderAgentsModel(
   return {
     async getResponse(request: ModelRequest): Promise<ModelResponse> {
       if (request.signal?.aborted) {
-        throw new Error("AbortError");
+        const aborted = new Error("AbortError");
+        aborted.name = "AbortError";
+        throw aborted;
       }
       const items = agentInputToProviderItems(request.input);
       // Ensure Studio system instructions from the Runner filter are visible
@@ -360,7 +362,27 @@ export function createProviderAgentsModel(
         });
       }
       const tools = toolDefinitionsFromModelRequest(request);
-      const round = await completeRound({ items, tools });
+      const work = completeRound({ items, tools });
+      const round = await (request.signal
+        ? new Promise<Awaited<typeof work>>((resolve, reject) => {
+            const onAbort = () => {
+              const aborted = new Error("AbortError");
+              aborted.name = "AbortError";
+              reject(aborted);
+            };
+            request.signal!.addEventListener("abort", onAbort, { once: true });
+            work.then(
+              (value) => {
+                request.signal!.removeEventListener("abort", onAbort);
+                resolve(value);
+              },
+              (error) => {
+                request.signal!.removeEventListener("abort", onAbort);
+                reject(error);
+              },
+            );
+          })
+        : work);
       if (round.kind === "message") {
         if (
           productTurnOutputTypeName(request) ===

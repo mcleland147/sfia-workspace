@@ -113,4 +113,96 @@ describe("OpenAIConversationProvider mapping", () => {
     ]);
     expect(payload.tools).toBeUndefined();
   });
+
+  it("completeStructured forwards AbortSignal as SDK RequestOptions.signal", async () => {
+    createMock.mockResolvedValue({
+      id: "resp_abort",
+      model: "gpt-test",
+      output_text: '{"intentClass":"informative"}',
+      usage: { input_tokens: 1, output_tokens: 1, total_tokens: 2 },
+    });
+    const { OpenAIConversationProvider } = await import(
+      "@/lib/platform/ai/openaiProvider"
+    );
+    const provider = new OpenAIConversationProvider("sk-test", "gpt-test");
+    const controller = new AbortController();
+    await provider.completeStructured({
+      messages: [{ role: "user", content: "ask" }],
+      schemaName: "f2_intent_analysis",
+      jsonSchema: { type: "object", additionalProperties: false, properties: {}, required: [] },
+      signal: controller.signal,
+    });
+    expect(createMock).toHaveBeenCalledTimes(1);
+    expect(createMock.mock.calls[0][1]).toEqual({ signal: controller.signal });
+    expect(createMock.mock.calls[0][1].signal).toBe(controller.signal);
+  });
+
+  it("completeStructured rethrows abort errors instead of TechnicalError", async () => {
+    const abort = new Error("Request was aborted.");
+    abort.name = "APIUserAbortError";
+    createMock.mockRejectedValue(abort);
+    const { OpenAIConversationProvider } = await import(
+      "@/lib/platform/ai/openaiProvider"
+    );
+    const { TechnicalError } = await import("@/lib/platform/ai/errors");
+    const provider = new OpenAIConversationProvider("sk-test", "gpt-test");
+    const controller = new AbortController();
+    controller.abort();
+    await expect(
+      provider.completeStructured({
+        messages: [{ role: "user", content: "ask" }],
+        schemaName: "f2_intent_analysis",
+        jsonSchema: { type: "object", additionalProperties: false, properties: {}, required: [] },
+        signal: controller.signal,
+      }),
+    ).rejects.toSatisfy(
+      (error: unknown) =>
+        error instanceof Error &&
+        error.name !== "TechnicalError" &&
+        !(error instanceof TechnicalError),
+    );
+  });
+
+  it("complete forwards AbortSignal via completeRound to SDK RequestOptions", async () => {
+    createMock.mockResolvedValue({
+      id: "resp_complete_abort",
+      model: "gpt-test",
+      output_text: "  hello live  ",
+      usage: { input_tokens: 1, output_tokens: 1, total_tokens: 2 },
+    });
+    const { OpenAIConversationProvider } = await import(
+      "@/lib/platform/ai/openaiProvider"
+    );
+    const provider = new OpenAIConversationProvider("sk-test", "gpt-test");
+    const controller = new AbortController();
+    await provider.complete([{ role: "user", content: "ckc" }], {
+      signal: controller.signal,
+    });
+    expect(createMock).toHaveBeenCalledTimes(1);
+    expect(createMock.mock.calls[0][1]).toEqual({ signal: controller.signal });
+    expect(createMock.mock.calls[0][1].signal).toBe(controller.signal);
+  });
+
+  it("complete rethrows abort errors instead of TechnicalError", async () => {
+    const abort = new Error("Request was aborted.");
+    abort.name = "APIUserAbortError";
+    createMock.mockRejectedValue(abort);
+    const { OpenAIConversationProvider } = await import(
+      "@/lib/platform/ai/openaiProvider"
+    );
+    const { TechnicalError } = await import("@/lib/platform/ai/errors");
+    const provider = new OpenAIConversationProvider("sk-test", "gpt-test");
+    const controller = new AbortController();
+    controller.abort();
+    await expect(
+      provider.complete([{ role: "user", content: "ckc" }], {
+        signal: controller.signal,
+      }),
+    ).rejects.toSatisfy(
+      (error: unknown) =>
+        error instanceof Error &&
+        error.name !== "TechnicalError" &&
+        !(error instanceof TechnicalError),
+    );
+  });
 });

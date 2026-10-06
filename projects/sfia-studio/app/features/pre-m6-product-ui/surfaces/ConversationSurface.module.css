@@ -721,6 +721,43 @@
   cursor: not-allowed;
 }
 
+.stopButton {
+  border-radius: var(--pm6-radius-pill);
+  border: 1px solid var(--pm6-ink);
+  background: var(--pm6-canvas);
+  color: var(--pm6-ink);
+  padding: 9px 20px;
+  font-size: 0.87rem;
+  font-weight: 600;
+  cursor: pointer;
+  min-height: 38px;
+}
+
+.stopButton:hover {
+  background: var(--pm6-forest-hover);
+}
+
+.stopButton:focus-visible,
+.sendButton:focus-visible {
+  outline: 2px solid var(--pm6-forest);
+  outline-offset: 2px;
+}
+
+.stoppedBanner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--pm6-border);
+  border-radius: 10px;
+}
+
+.stoppedText {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
 .composerCaption {
   margin: 0;
   font-size: 0.78rem;
@@ -812,6 +849,18 @@
     place-items: center;
     width: 36px;
     min-width: 36px;
+    height: 38px;
+    padding: 0;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    line-height: 1;
+  }
+
+  .stopButton {
+    display: inline-grid;
+    place-items: center;
+    width: 38px;
+    min-width: 38px;
     height: 38px;
     padding: 0;
     border-radius: 8px;

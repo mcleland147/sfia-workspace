@@ -56,6 +56,11 @@ import {
   type NoraTurnBudget,
 } from "./turnBudget";
 import type { NoraCognitiveTurnResult } from "./types";
+import {
+  isAbortLike,
+  NoraTurnAbortedError,
+  throwIfAborted,
+} from "./noraTurnAbort";
 import type { NoraRunnerModelSettings } from "./reasoningModelSettings";
 import { withMaxToolCallsProviderData } from "./reasoningModelSettings";
 import type { HostedWebSearchCallLike } from "./externalSourceNormalization";
@@ -174,6 +179,8 @@ export type RunNoraAgentsTurnInput = {
    * Used by post_execution Deep Review without enabling Memory B / hosted search.
    */
   executionReviewTools?: import("./executionReviewAgentsTools").ExecutionReviewToolContext | null;
+  /** Request-scoped AbortSignal from Product transport. Native Runner option. */
+  signal?: AbortSignal;
 };
 
 export type RunNoraAgentsTurnHostedSearchObserve = {
@@ -595,8 +602,10 @@ export async function runNoraAgentsTurn(
     }
   } else {
     try {
+      throwIfAborted(input.signal);
       const result = await runner.run(agent, input.userContent, {
         ...(session ? { session } : {}),
+        ...(input.signal ? { signal: input.signal } : {}),
         maxTurns,
         errorHandlers: {
           maxTurns: ({ runData }) => {
@@ -625,6 +634,7 @@ export async function runNoraAgentsTurn(
           },
         },
       });
+      throwIfAborted(input.signal);
 
       text =
         typeof result.finalOutput === "string"
@@ -710,6 +720,9 @@ export async function runNoraAgentsTurn(
       usageAgg = result.state?.usage ?? null;
       runNewItems = Array.isArray(result.newItems) ? [...result.newItems] : [];
     } catch (error) {
+      if (isAbortLike(error, input.signal)) {
+        throw new NoraTurnAbortedError();
+      }
       if (
         error instanceof CampaignModelInvocationDeniedError ||
         error instanceof CampaignUsdHardCapDeniedError

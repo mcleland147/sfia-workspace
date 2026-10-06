@@ -1,21 +1,41 @@
 "use client";
 
 import { useMemo } from "react";
+import "@/features/pre-m6-product-ui/product-tokens.css";
+import styles from "./login-client.module.css";
 
 const ERROR_MESSAGES: Record<string, string> = {
   github_user_not_allowlisted:
     "Votre compte GitHub n'est pas autorisé à accéder à SFIA Studio.",
   github_id_unparseable:
-    "Impossible de vérifier l'identité GitHub (identifiant manquant).",
+    "Impossible de vérifier l'identité GitHub. Réessayez la connexion.",
   ALLOWLIST_DENIED:
-    "Votre identité GitHub n'est plus dans la liste d'autorisation SFIA.",
+    "Votre identité GitHub n'est plus autorisée pour SFIA Studio.",
   NO_SESSION: "Authentification requise pour accéder à SFIA Studio.",
   PROVIDER_ACCOUNT_MISSING:
     "Session incomplète — reconnectez-vous avec GitHub.",
   AUTH_CONFIG_ERROR:
-    "Configuration d'authentification indisponible (fail-closed).",
-  provider_not_allowed: "Seul GitHub OAuth est accepté.",
+    "Connexion indisponible pour le moment. Réessayez plus tard.",
+  provider_not_allowed: "Seul GitHub est accepté pour se connecter.",
 };
+
+function GitHubMark({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      width="20"
+      height="20"
+      viewBox="0 0 16 16"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <path
+        fill="currentColor"
+        d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"
+      />
+    </svg>
+  );
+}
 
 export function LoginClient({
   errorCode,
@@ -40,91 +60,60 @@ export function LoginClient({
   const githubStartHref = `/api/auth/github-start?from=${encodeURIComponent(callbackURL)}`;
 
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: "2rem",
-        background:
-          "linear-gradient(160deg, #0f172a 0%, #1e293b 55%, #0f172a 100%)",
-        color: "#e2e8f0",
-        fontFamily: "var(--font-inter), system-ui, sans-serif",
-      }}
-    >
-      <main
-        style={{
-          width: "min(28rem, 100%)",
-          border: "1px solid rgba(148, 163, 184, 0.35)",
-          borderRadius: "12px",
-          padding: "2rem",
-          background: "rgba(15, 23, 42, 0.85)",
-        }}
-        data-testid="login-surface"
-      >
-        <p
-          style={{
-            letterSpacing: "0.12em",
-            fontSize: "0.75rem",
-            textTransform: "uppercase",
-            color: "#94a3b8",
-            margin: 0,
-          }}
-        >
-          SFIA Studio
-        </p>
-        <h1 style={{ margin: "0.75rem 0 0.5rem", fontSize: "1.75rem" }}>
-          Connexion
-        </h1>
-        <p style={{ margin: "0 0 1.5rem", color: "#cbd5e1", lineHeight: 1.5 }}>
-          Authentifiez-vous avec GitHub. L&apos;accès Studio est réservé aux
-          identités autorisées côté serveur (rôle runtime : Pilote).
-        </p>
+    <div className={styles.page}>
+      <header className={styles.topBrand} aria-hidden="false">
+        <span className={styles.mark} aria-hidden="true">
+          S
+        </span>
+        <span className={styles.brandText}>SFIA Studio</span>
+      </header>
 
-        {message ? (
-          <p
-            role="alert"
-            data-testid="login-error"
-            style={{
-              margin: "0 0 1.25rem",
-              padding: "0.75rem 1rem",
-              borderRadius: "8px",
-              background: "rgba(127, 29, 29, 0.45)",
-              border: "1px solid rgba(248, 113, 113, 0.45)",
-              color: "#fecaca",
-            }}
-          >
-            {message}
+      <div className={styles.layout}>
+        <section className={styles.narrative} aria-labelledby="login-narrative">
+          <p className={styles.eyebrow}>Espace projet</p>
+          <h1 id="login-narrative" className={styles.narrativeTitle}>
+            Un espace de travail calme, continu et gouverné.
+          </h1>
+          <p className={styles.narrativeBody}>
+            Retrouvez vos projets, leur contexte et votre conversation avec
+            Nora.
           </p>
-        ) : null}
+        </section>
 
-        {/*
-          Native <a> — OAuth must work even when client chunks fail to hydrate
-          (observed: /_next/.../login/page.js → 404 left a dead <button>).
-          No preventDefault: href always navigates to public /api/auth/github-start.
-        */}
-        <a
-          href={githubStartHref}
-          data-testid="login-github"
-          style={{
-            display: "block",
-            width: "100%",
-            boxSizing: "border-box",
-            border: 0,
-            borderRadius: "8px",
-            padding: "0.85rem 1rem",
-            background: "#f8fafc",
-            color: "#0f172a",
-            fontWeight: 600,
-            cursor: "pointer",
-            textAlign: "center",
-            textDecoration: "none",
-          }}
-        >
-          Se connecter avec GitHub
-        </a>
-      </main>
+        <main className={styles.card} data-testid="login-surface">
+          <h2 className={styles.title}>Bienvenue dans SFIA Studio</h2>
+          <p className={styles.lead}>
+            Connectez-vous pour retrouver vos projets et reprendre votre
+            travail.
+          </p>
+
+          {message ? (
+            <p role="alert" data-testid="login-error" className={styles.error}>
+              {message}
+            </p>
+          ) : null}
+
+          {/*
+            Native <a> — OAuth must work even when client chunks fail to hydrate.
+            No preventDefault: href always navigates to public /api/auth/github-start.
+          */}
+          <a
+            href={githubStartHref}
+            data-testid="login-github"
+            className={styles.githubCta}
+          >
+            <GitHubMark className={styles.githubIcon} />
+            Continuer avec GitHub
+          </a>
+
+          <p className={styles.note}>
+            L&apos;accès est réservé aux comptes autorisés.
+          </p>
+          <p className={styles.sessionHint}>
+            Votre session vous ramène à votre espace de travail.
+          </p>
+        </main>
+      </div>
     </div>
   );
 }

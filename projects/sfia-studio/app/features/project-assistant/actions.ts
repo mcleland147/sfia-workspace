@@ -2,7 +2,6 @@
 
 import { getRuntimeApplicationService } from "@/lib/vertical-slice-runtime";
 import { loadProjectRuntimeForAssistant } from "@/features/vertical-slice-ui/ProjectWorkspaceView";
-import { orchestrateAssistantSend } from "./f2/orchestrateF2";
 import { recordF2Decision } from "./f2/recordDecision";
 import {
   executePilotLifecycleAction,
@@ -56,9 +55,9 @@ import {
   resolvePersistenceNotice,
 } from "./presentationLabels";
 import {
-  runMw6GovernedNoraProductTurn,
-  type RunMw6GovernedNoraProductTurnInput,
-} from "./mw6GovernedNoraTurn";
+  sendProjectAssistantTurn,
+  type SendProjectAssistantTurnInput,
+} from "./sendProjectAssistantTurn";
 import type {
   AssistantHistoryMessage,
   ProjectAssistantContextDto,
@@ -77,104 +76,10 @@ import type {
  * No OPS1 session. No Cursor REAL. No Git write.
  * Persistence durability follows RuntimeOaStack.productDurablePath (Product SQLite vs Memory).
  */
-export async function projectAssistantSendAction(input: {
-  projectId: string;
-  content: string;
-  history?: AssistantHistoryMessage[];
-  /**
-   * Untrusted ExecutionContract id reference for MW6 governed external discovery.
-   * When present, server composes governedAuthority from Auth + OA and invokes
-   * the real Nora product path. CONTENT/AUTHORITY of the contract are never
-   * trusted from the client — only the id reference.
-   */
-  executionContractId?: string;
-  /**
-   * Optional untrusted evidence hint — verified only by server composition.
-   */
-  authorityEvidenceId?: unknown;
-  /** Hostile — ignored (server builds governedAuthority). */
-  governedAuthority?: unknown;
-  /** Hostile — ignored (Auth resolver owns actor). */
-  actorId?: unknown;
-  getExecutionContract?: unknown;
-  checkExecutionAuthorization?: unknown;
-  authorityResolver?: unknown;
-  authorizedContract?: unknown;
-  currentExternalDiscoveryIntent?: unknown;
-  canActAsMorris?: unknown;
-  claimedAuthorityLevel?: unknown;
-  /**
-   * TEST-ONLY Auth session → Pilote seam. Production omits this and uses
-   * resolveCurrentAuthenticatedPilote. AUTH REAL boundary carried forward.
-   */
-  resolveAuthenticatedPilote?: RunMw6GovernedNoraProductTurnInput["resolveAuthenticatedPilote"];
-  provider?: import("@/lib/platform/ai").ConversationProvider;
-  sessionDbPath?: string;
-  /**
-   * D-GF-ACW-02 — optional re-present of server-issued logical Product turn id.
-   * Untrusted until Session lookup; client-invented ids fail LOGICAL_TURN_UNKNOWN.
-   */
-  logicalTurnId?: string;
-  /**
-   * Opaque client transport retry correlation (untrusted).
-   * NOT Product turn identity / SFIA authority — Session-adjacent lookup only.
-   */
-  turnRetryKey?: string;
-  /**
-   * CORR-PROOF-11 — opaque prior pending proposalId for explicit reinstruction.
-   * Untrusted until server validates against effective pending markers.
-   */
-  reinstructionOfProposalId?: string | null;
-  /**
-   * RESERVATION-CONTEXT-PILOT-CONFIRMATION-01 — untrusted client binding.
-   * Server revalidates project/cycle/Reservation; invalid → fail-closed.
-   */
-  reservationInteractionContext?: {
-    cycleInstanceId?: unknown;
-    epistemicItemId?: unknown;
-  } | null;
-}): Promise<ProjectAssistantSendResult> {
-  const executionContractId =
-    typeof input.executionContractId === "string"
-      ? input.executionContractId.trim()
-      : "";
-  if (executionContractId.length > 0) {
-    return runMw6GovernedNoraProductTurn({
-      projectId: input.projectId,
-      content: input.content,
-      history: input.history,
-      executionContractId,
-      claimedAuthorityEvidenceId: input.authorityEvidenceId,
-      resolveAuthenticatedPilote: input.resolveAuthenticatedPilote,
-      provider: input.provider,
-      sessionDbPath: input.sessionDbPath,
-      governedAuthority: input.governedAuthority,
-      actorId: input.actorId,
-      authorityEvidenceId: input.authorityEvidenceId,
-      getExecutionContract: input.getExecutionContract,
-      checkExecutionAuthorization: input.checkExecutionAuthorization,
-      authorityResolver: input.authorityResolver,
-      authorizedContract: input.authorizedContract,
-      currentExternalDiscoveryIntent: input.currentExternalDiscoveryIntent,
-      canActAsMorris: input.canActAsMorris,
-      claimedAuthorityLevel: input.claimedAuthorityLevel,
-    });
-  }
-  const reinstructionOfProposalId =
-    typeof input.reinstructionOfProposalId === "string"
-      ? input.reinstructionOfProposalId.trim() || null
-      : null;
-  return orchestrateAssistantSend({
-    projectId: input.projectId,
-    content: input.content,
-    history: input.history,
-    provider: input.provider,
-    sessionDbPath: input.sessionDbPath,
-    logicalTurnId: input.logicalTurnId,
-    turnRetryKey: input.turnRetryKey,
-    reinstructionOfProposalId,
-    reservationInteractionContext: input.reservationInteractionContext,
-  });
+export async function projectAssistantSendAction(
+  input: SendProjectAssistantTurnInput,
+): Promise<ProjectAssistantSendResult> {
+  return sendProjectAssistantTurn(input);
 }
 
 function toContextDto(

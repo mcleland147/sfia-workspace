@@ -432,9 +432,15 @@ export class FakeConversationProvider implements ConversationProvider {
     messages: ProviderChatMessage[];
     schemaName: string;
     jsonSchema: Record<string, unknown>;
+    signal?: AbortSignal;
   }): Promise<ProviderCompletionResult> {
     void input.schemaName;
     void input.jsonSchema;
+    if (input.signal?.aborted) {
+      const error = new Error("AbortError");
+      error.name = "AbortError";
+      throw error;
+    }
     // Reuse F2 marker / analysis scripted JSON from complete().
     return this.complete(input.messages);
   }
@@ -446,7 +452,13 @@ export class FakeConversationProvider implements ConversationProvider {
 
   async complete(
     messages: ProviderChatMessage[],
+    options?: { signal?: AbortSignal },
   ): Promise<ProviderCompletionResult> {
+    if (options?.signal?.aborted) {
+      const error = new Error("AbortError");
+      error.name = "AbortError";
+      throw error;
+    }
     this.callCount += 1;
     const lastUser = [...messages].reverse().find((m) => m.role === "user");
     if (
@@ -1485,7 +1497,13 @@ export class FakeConversationProvider implements ConversationProvider {
   async completeRound(input: {
     items: ProviderInputItem[];
     tools: ToolDefinition[];
+    signal?: AbortSignal;
   }): Promise<ProviderRoundResult> {
+    if (input.signal?.aborted) {
+      const error = new Error("AbortError");
+      error.name = "AbortError";
+      throw error;
+    }
     this.roundCount += 1;
     const usage = {
       inputTokens: 10 * this.roundCount,

@@ -1,77 +1,109 @@
 "use client";
 
-import { useEffect, useRef, useState, type FormEvent } from "react";
+import { useEffect, useId, useRef, useState, type FormEvent } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { createProjectRuntimeAction } from "@/lib/vertical-slice-runtime/actions";
+import {
+  absorbUserTurn,
+  collectPhaseOf,
+  composerPlaceholder,
+  emptyDraft,
+  isMinimumSufficient,
+  nextNoraPrompt,
+  openingNoraTurn,
+  reopenField,
+  type ChatTurn,
+  type CollectField,
+  type CollectPhase,
+  type PreProjectDraft,
+} from "./newProjectConversation";
 import styles from "./NewProjectIntentionPage.module.css";
 
 type CreateResult = Awaited<ReturnType<typeof createProjectRuntimeAction>>;
 type CreateSuccess = Extract<CreateResult, { ok: true }>;
-
-type FieldErrors = {
-  name?: string;
-  intention?: string;
-};
 
 function createIdempotencyKey(): string {
   const uuid = globalThis.crypto?.randomUUID?.();
   return `pm6-intent:${uuid ?? `${Date.now()}-${Math.random().toString(16).slice(2)}`}`;
 }
 
+function turnId(prefix: string): string {
+  return `${prefix}-${Date.now()}-${Math.random().toString(16).slice(2, 8)}`;
+}
+
 /**
- * PROVISIONAL intention sheet — W4-BR aligns labels to UXR-01 (Nom / Intention /
- * contexte optionnel / Créer + Annuler). Behavior Create/Resume unchanged.
+ * P5-S06 CP01 — explicit-phase conversational New Project.
+ * Durable create only via createProjectRuntimeAction. No D1, no regex NLP.
  */
 export function NewProjectIntentionPage() {
-  const [name, setName] = useState("");
-  const [intention, setIntention] = useState("");
-  const [precisions, setPrecisions] = useState("");
+  const router = useRouter();
+  const fieldId = useId();
+  const [draft, setDraft] = useState<PreProjectDraft>(() => emptyDraft());
+  const [turns, setTurns] = useState<ChatTurn[]>(() => [openingNoraTurn()]);
+  const [composer, setComposer] = useState("");
   const [idempotencyKey, setIdempotencyKey] = useState("");
-  const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
   const [created, setCreated] = useState<CreateSuccess | null>(null);
+  const threadRef = useRef<HTMLDivElement>(null);
 
-  const nameRef = useRef<HTMLInputElement>(null);
-  const intentionRef = useRef<HTMLTextAreaElement>(null);
+  const phase: CollectPhase = collectPhaseOf(draft);
+  const ready = isMinimumSufficient(draft);
 
   useEffect(() => {
     setIdempotencyKey(createIdempotencyKey());
   }, []);
 
-  async function onSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    if (pending) return;
+  useEffect(() => {
+    const el = threadRef.current;
+    if (!el) return;
+    el.scrollTop = el.scrollHeight;
+  }, [turns, draft]);
 
+  function onSend(event?: FormEvent) {
+    event?.preventDefault();
+    const text = composer.trim();
+    if (!text || pending) return;
+    const asked = phase;
+    const nextDraft = absorbUserTurn(draft, text, asked);
+    const userTurn: ChatTurn = { id: turnId("user"), role: "user", text };
+    const noraTurn: ChatTurn = {
+      id: turnId("nora"),
+      role: "nora",
+      text: nextNoraPrompt(collectPhaseOf(nextDraft)),
+    };
+    setDraft(nextDraft);
+    setTurns((current) => [...current, userTurn, noraTurn]);
+    setComposer("");
     setSubmitError(null);
-    const errors: FieldErrors = {};
-    if (!name.trim()) {
-      errors.name = "Donnez un nom au projet.";
-    } else if (name.trim().length > 200) {
-      errors.name = "Le nom ne peut pas dépasser 200 caractères.";
-    }
-    if (!intention.trim()) {
-      errors.intention = "Décrivez l’intention du projet.";
-    }
-    setFieldErrors(errors);
-    if (errors.name) {
-      nameRef.current?.focus();
-      return;
-    }
-    if (errors.intention) {
-      intentionRef.current?.focus();
-      return;
-    }
+  }
 
+  function onReopen(field: CollectField) {
+    const nextDraft = reopenField(draft, field);
+    setDraft(nextDraft);
+    setTurns((current) => [
+      ...current,
+      {
+        id: turnId("nora"),
+        role: "nora",
+        text: nextNoraPrompt(collectPhaseOf(nextDraft)),
+      },
+    ]);
+  }
+
+  async function onCreate() {
+    if (pending || !ready) return;
+    setSubmitError(null);
     const stableKey = idempotencyKey || createIdempotencyKey();
     if (!idempotencyKey) setIdempotencyKey(stableKey);
     setPending(true);
     try {
-      const trimmedIntention = intention.trim();
+      const intention = draft.intention.trim();
       const result = await createProjectRuntimeAction({
-        name: name.trim(),
-        objective: trimmedIntention,
-        context: precisions.trim() || trimmedIntention,
+        name: draft.name.trim(),
+        objective: intention,
+        context: draft.context.trim() || intention,
         criticality: "STANDARD",
         constraints: [],
         idempotencyKey: stableKey,
@@ -79,250 +111,231 @@ export function NewProjectIntentionPage() {
 
       if (result.ok) {
         setCreated(result);
+        router.push(
+          `/studio/projects/${encodeURIComponent(result.projectId)}`,
+        );
         return;
       }
 
-      if (result.error.code === "INPUT_INVALID") {
-        if (result.error.field === "name") {
-          setFieldErrors({ name: result.error.message });
-          nameRef.current?.focus();
-          return;
-        }
-        setFieldErrors({ intention: result.error.message });
-        intentionRef.current?.focus();
-        return;
-      }
       if (result.error.code === "DOCTRINE_UNRESOLVED") {
         setSubmitError(
           "Le projet n’a pas pu être créé : le référentiel local n’a pas pu être validé. Rien n’a été enregistré.",
         );
         return;
       }
+      if (result.error.code === "INPUT_INVALID") {
+        setSubmitError(
+          result.error.message ||
+            "Les informations fournies ne permettent pas de créer le projet.",
+        );
+        return;
+      }
       setSubmitError(
         result.error.retryable
-          ? "La création n’a pas abouti. Vous pouvez réessayer : votre saisie est conservée."
-          : "La création n’a pas abouti. Vérifiez votre saisie avant de réessayer.",
+          ? "La création n’a pas abouti. Vous pouvez réessayer : la conversation est conservée."
+          : "La création n’a pas abouti. Précisez encore l’intention ou le nom avant de réessayer.",
       );
     } catch {
       setSubmitError(
-        "Le service local n’a pas répondu. Votre saisie est conservée ; vous pouvez réessayer.",
+        "Le service local n’a pas répondu. La conversation est conservée ; vous pouvez réessayer.",
       );
     } finally {
       setPending(false);
     }
   }
 
-  function reset() {
-    setName("");
-    setIntention("");
-    setPrecisions("");
-    setFieldErrors({});
-    setSubmitError(null);
-    setCreated(null);
-    setIdempotencyKey(createIdempotencyKey());
-  }
-
   if (created) {
     return (
-      <div className={styles.page}>
+      <div className={styles.page} data-testid="new-project-created">
         <header className={styles.hero}>
           <h1 className={styles.heroTitle}>Projet créé</h1>
           <p className={styles.heroSubtitle}>
-            Nora peut maintenant ouvrir la conversation de qualification. La
-            décision vous appartient toujours.
+            Ouverture du workspace durable. Nora reprend à partir du projet
+            enregistré — pas du brouillon local.
           </p>
         </header>
-
-        <section className={styles.card}>
-          <dl className={styles.summary}>
-            <div>
-              <dt>Nom</dt>
-              <dd>{created.project.name}</dd>
-            </div>
-            <div>
-              <dt>Intention</dt>
-              <dd>{created.project.objective}</dd>
-            </div>
-            <div>
-              <dt>État du projet</dt>
-              <dd>Enregistré · v{created.livingState.version}</dd>
-            </div>
-          </dl>
-          <div className={styles.actions}>
-            <Link
-              href={`/studio/projects/${encodeURIComponent(created.projectId)}`}
-              className={styles.primaryLink}
-              data-testid="open-project-workspace"
-            >
-              Ouvrir le projet
-            </Link>
-            <button type="button" className={styles.quietButton} onClick={reset}>
-              Créer un autre projet
-            </button>
-          </div>
-          <details className={styles.details}>
-            <summary>Détails techniques</summary>
-            <dl className={styles.summary}>
-              <div>
-                <dt>Identifiant projet</dt>
-                <dd className={styles.code}>{created.projectId}</dd>
-              </div>
-              <div>
-                <dt>Criticité perçue</dt>
-                <dd>{created.project.criticality}</dd>
-              </div>
-              <div>
-                <dt>Préparation</dt>
-                <dd>{created.readiness.status}</dd>
-              </div>
-              <div>
-                <dt>Clé de tentative réutilisée</dt>
-                <dd>{String(created.reusedFromIdempotencyKey)}</dd>
-              </div>
-            </dl>
-          </details>
-        </section>
+        <Link
+          href={`/studio/projects/${encodeURIComponent(created.projectId)}`}
+          className={styles.primaryButton}
+          data-testid="open-project-workspace"
+        >
+          Ouvrir le projet
+        </Link>
       </div>
     );
   }
 
   return (
-    <div className={styles.page}>
-      <header className={styles.hero}>
-        <p className={styles.heroEyebrow}>SFIA Studio</p>
-        <h1 className={styles.heroTitle}>Nouveau projet</h1>
-        <p className={styles.heroSubtitle}>
-          Nommez le projet et décrivez votre intention. Nora qualifiera ensuite —
-          vous gardez la décision.
-        </p>
-      </header>
-
-      <form
-        className={styles.card}
-        onSubmit={onSubmit}
-        noValidate
-        aria-busy={pending}
-        data-testid="create-project-form"
-      >
-        <div className={styles.field}>
-          <label className={styles.label} htmlFor="project-name">
-            Nom du projet
-          </label>
-          <input
-            ref={nameRef}
-            id="project-name"
-            name="name"
-            className={styles.input}
-            maxLength={200}
-            value={name}
-            aria-invalid={Boolean(fieldErrors.name)}
-            aria-describedby={fieldErrors.name ? "project-name-error" : undefined}
-            onChange={(event) => {
-              setName(event.target.value);
-              setFieldErrors((current) => ({ ...current, name: undefined }));
-            }}
-          />
-          {fieldErrors.name ? (
-            <p className={styles.fieldError} id="project-name-error">
-              {fieldErrors.name}
-            </p>
-          ) : null}
-        </div>
-
-        <div className={styles.field}>
-          <label className={styles.label} htmlFor="project-objective">
-            Intention du projet
-          </label>
-          <textarea
-            ref={intentionRef}
-            id="project-objective"
-            name="objective"
-            className={styles.textarea}
-            rows={4}
-            value={intention}
-            placeholder="Décrivez ce que vous voulez accomplir…"
-            aria-invalid={Boolean(fieldErrors.intention)}
-            aria-describedby={
-              fieldErrors.intention
-                ? "project-objective-error project-objective-help"
-                : "project-objective-help"
-            }
-            onChange={(event) => {
-              setIntention(event.target.value);
-              setFieldErrors((current) => ({ ...current, intention: undefined }));
-            }}
-          />
-          <p className={styles.help} id="project-objective-help">
-            Sans donnée personnelle ni secret. C&apos;est le point de départ de
-            la qualification, pas un engagement d&apos;exécution.
+    <div
+      className={styles.page}
+      data-testid="create-project-form"
+      data-surface="new-project-chat"
+      data-create-surface="conversational"
+      data-collect-phase={phase}
+    >
+      <div className={styles.creationColumn}>
+        <header className={styles.hero}>
+          <p className={styles.heroEyebrow}>Projets / Nouveau projet</p>
+          <h1 className={styles.heroTitle}>Créer un projet</h1>
+          <p className={styles.heroSubtitle}>
+            Nora pose seulement ce qui est nécessaire. Aucun projet durable
+            n&apos;est créé tant que vous n&apos;avez pas choisi « Créer le
+            projet ».
           </p>
-          {fieldErrors.intention ? (
-            <p className={styles.fieldError} id="project-objective-error">
-              {fieldErrors.intention}
-            </p>
-          ) : null}
+        </header>
+
+        <div
+          className={styles.thread}
+          ref={threadRef}
+          data-testid="new-project-thread"
+          aria-live="polite"
+        >
+          {turns.map((turn) => (
+            <div
+              key={turn.id}
+              className={
+                turn.role === "user" ? styles.bubbleUser : styles.bubbleNora
+              }
+              data-role={turn.role}
+            >
+              <p className={styles.bubbleLabel}>
+                {turn.role === "user" ? "Vous" : "Nora"}
+              </p>
+              <p className={styles.bubbleText}>{turn.text}</p>
+            </div>
+          ))}
         </div>
 
-        <div className={styles.field}>
-          <label className={styles.label} htmlFor="project-context">
-            Contexte optionnel
+        <form
+          className={styles.composer}
+          onSubmit={onSend}
+          data-testid="new-project-composer"
+        >
+          <label className={styles.srOnly} htmlFor={`${fieldId}-composer`}>
+            Réponse à Nora
           </label>
           <textarea
-            id="project-context"
-            name="context"
+            id={`${fieldId}-composer`}
             className={styles.textarea}
             rows={3}
-            value={precisions}
-            placeholder="Ajoutez uniquement le contexte utile au projet."
-            aria-describedby="project-context-help"
-            onChange={(event) => setPrecisions(event.target.value)}
+            value={composer}
+            disabled={pending}
+            placeholder={composerPlaceholder(phase)}
+            data-testid="new-project-input"
+            onChange={(event) => setComposer(event.target.value)}
+            onKeyDown={(event) => {
+              if (event.key === "Enter" && !event.shiftKey) {
+                event.preventDefault();
+                onSend();
+              }
+            }}
           />
-          <p className={styles.help} id="project-context-help">
-            Sans contexte, votre intention suffit pour créer le projet. Vous
-            pourrez préciser la suite avec Nora ensuite.
+          <div className={styles.actions}>
+            <button
+              type="submit"
+              className={styles.quietButton}
+              disabled={pending || composer.trim().length === 0}
+              data-testid="new-project-send"
+            >
+              Envoyer
+            </button>
+            <Link
+              href="/studio"
+              className={styles.quietButton}
+              data-testid="create-project-cancel"
+            >
+              Annuler
+            </Link>
+          </div>
+          <p className={styles.help}>
+            Les réponses sont enregistrées telles que vous les écrivez, dans le
+            champ demandé. Aucun projet n&apos;est créé avant le CTA.
           </p>
-        </div>
+        </form>
+      </div>
 
+      <aside
+        className={styles.preview}
+        data-testid="new-project-preview"
+        aria-labelledby={`${fieldId}-preview`}
+      >
+        <p className={styles.previewEyebrow}>Projet en préparation</p>
+        <h2 id={`${fieldId}-preview`} className={styles.previewTitle}>
+          Aperçu du projet
+        </h2>
+        <p className={styles.previewHint}>
+          Restitution factuelle de vos réponses — pas une interprétation.
+        </p>
+        <dl className={styles.previewList}>
+          <div>
+            <dt>Nom</dt>
+            <dd data-testid="preview-name">
+              {draft.name.trim() || "Pas encore précisé"}
+            </dd>
+          </div>
+          <div>
+            <dt>Intention</dt>
+            <dd data-testid="preview-intention">
+              {draft.intention.trim() || "Pas encore précisée"}
+            </dd>
+          </div>
+          <div>
+            <dt>Contexte</dt>
+            <dd data-testid="preview-context">
+              {draft.context.trim() || "Optionnel"}
+            </dd>
+          </div>
+        </dl>
+        {ready ? (
+          <div className={styles.correctRow}>
+            <button
+              type="button"
+              className={styles.textButton}
+              data-testid="reopen-intention"
+              onClick={() => onReopen("intention")}
+            >
+              Corriger l&apos;intention
+            </button>
+            <button
+              type="button"
+              className={styles.textButton}
+              data-testid="reopen-name"
+              onClick={() => onReopen("name")}
+            >
+              Corriger le nom
+            </button>
+          </div>
+        ) : null}
+        {!ready ? (
+          <p className={styles.previewHint}>
+            Intention et nom sont requis avant création.
+          </p>
+        ) : (
+          <p className={styles.previewHintReady}>
+            Prêt à créer — aucun Cycle n&apos;est démarré automatiquement.
+          </p>
+        )}
+        <button
+          type="button"
+          className={styles.primaryButton}
+          disabled={pending || !ready}
+          data-testid="create-project-submit"
+          onClick={() => void onCreate()}
+        >
+          {pending ? "Création…" : "Créer le projet"}
+        </button>
         <div aria-live="assertive" aria-atomic="true">
           {submitError ? (
-            <p className={styles.submitError} role="alert" data-testid="submit-error">
+            <p
+              className={styles.submitError}
+              role="alert"
+              data-testid="submit-error"
+            >
               {submitError}
             </p>
           ) : null}
         </div>
-
-        <div className={styles.actions}>
-          <button
-            type="submit"
-            className={styles.primaryButton}
-            disabled={pending || !idempotencyKey}
-            data-testid="create-project-submit"
-          >
-            {pending ? "Création…" : "Créer le projet"}
-          </button>
-          <Link
-            href="/studio"
-            className={styles.quietButton}
-            data-testid="create-project-cancel"
-          >
-            Annuler
-          </Link>
-          <span className={styles.status} role="status" aria-live="polite">
-            {pending ? "Création en cours…" : ""}
-          </span>
-        </div>
-
-        <details className={styles.details}>
-          <summary>Détails techniques</summary>
-          <p className={styles.help}>
-            Clé de tentative stable pendant les réessais, renouvelée après « Créer
-            un autre projet ».
-          </p>
-          <p className={styles.code} data-testid="idempotency-key">
-            {idempotencyKey || "Génération locale…"}
-          </p>
-        </details>
-      </form>
+      </aside>
     </div>
   );
 }

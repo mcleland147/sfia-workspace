@@ -24,6 +24,7 @@ import {
   type RunNoraAgentsTurnHostedSearchObserve,
 } from "./runNoraAgentsTurn";
 import { runNoraCognitiveCore } from "./noraCognitiveCompletion";
+import { throwIfAborted } from "./noraTurnAbort";
 import type { NoraCognitiveTurnResult } from "./types";
 import {
   decideCognitiveStrategy,
@@ -230,6 +231,8 @@ export type RunNoraCognitiveTurnInput = {
    * Bound by caller to projectId; never inject foreign OA handles via model args.
    */
   productExecutionTools?: import("./productExecutionAgentsTools").ProductExecutionToolContext | null;
+  /** Request-scoped AbortSignal — forwarded to the same Agents Runner. */
+  signal?: AbortSignal;
 };
 
 /**
@@ -882,7 +885,9 @@ export async function runNoraCognitiveTurn(
           : undefined,
       outputType: input.outputType,
       cycleJournalTools: null,
+      signal: input.signal,
     });
+    throwIfAborted(input.signal);
     const observations = [
       ...(input.sourceObservationFacts ?? []),
       ...(turn.hostedSearchObserve?.observations ?? []),
@@ -1060,7 +1065,9 @@ export async function runNoraCognitiveTurn(
             }
           : null,
       productExecutionTools: input.productExecutionTools ?? null,
+      signal: input.signal,
     });
+    throwIfAborted(input.signal);
     const observations = [
       ...(input.sourceObservationFacts ?? []),
       ...(turn.hostedSearchObserve?.observations ?? []),

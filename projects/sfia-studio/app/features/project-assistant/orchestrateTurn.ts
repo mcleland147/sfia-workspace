@@ -17,8 +17,14 @@ import {
   type Mw3ContradictionAssessmentInput,
   type NoraEvalModelReasoningControl,
   type NoraAgentsUsdAccounting,
-  type NoraCampaignBudget,
+  type   NoraCampaignBudget,
 } from "@/lib/nora-cognitive-runtime";
+import {
+  isAbortLike,
+  NoraTurnAbortedError,
+  throwIfAborted,
+} from "@/lib/nora-cognitive-runtime/noraTurnAbort";
+import { noraTurnStoppedFailure } from "./noraTurnStopped";
 import {
   appendPilotTranscriptTurn,
   materializeCycleJournalDelta,
@@ -193,6 +199,30 @@ function toContextDto(
 }
 
 /**
+ * Independent post-model durable-effect blocks in this orchestration.
+ * Abort observed before a block starts → do not start it.
+ * Abort after a block started → no artificial rollback.
+ */
+export type ProductDurableEffectBlock =
+  | "activeCycleWork"
+  | "reservation"
+  | "lifecycleRecommendation"
+  | "readCoverage"
+  | "transcriptJournal"
+  | "terminalSuccess";
+
+async function cutDurableEffect(
+  signal: AbortSignal | undefined,
+  block: ProductDurableEffectBlock,
+  before?: (
+    block: ProductDurableEffectBlock,
+  ) => void | Promise<void>,
+): Promise<void> {
+  if (before) await before(block);
+  throwIfAborted(signal);
+}
+
+/**
  * Thin F1 orchestration — Option C single Agents Runner path (Fake + target).
  * SFIA routeToolCall remains the tool authorization boundary.
  */
@@ -263,6 +293,15 @@ export async function orchestrateProjectAssistantTurn(input: {
    * Prefer logicalTurnId for production and new tests.
    */
   turnCorrelationId?: string;
+  /** Request-scoped AbortSignal from cancellable Product transport. */
+  signal?: AbortSignal;
+  /**
+   * TEST-ONLY — await immediately before each durable-effect cut-line.
+   * Not Product-visible. Lets tests abort in the post-model / pre-write window.
+   */
+  beforeDurableEffect?: (
+    block: ProductDurableEffectBlock,
+  ) => void | Promise<void>;
 }): Promise<ProjectAssistantSendResult> {
   const content = input.content.trim();
   if (!content) {
@@ -455,7 +494,9 @@ export async function orchestrateProjectAssistantTurn(input: {
           });
         },
       },
+      signal: input.signal,
     });
+    throwIfAborted(input.signal);
 
     let assistantText = turn.text;
     let lifecycleRecommendationMaterialized: boolean | null = null;
@@ -871,6 +912,11 @@ export async function orchestrateProjectAssistantTurn(input: {
           // Production key = durable logical turn id (no random f1-acw keys).
           const turnCorrelationId = logicalTurnId!;
           const producedAt = new Date().toISOString();
+          await cutDurableEffect(
+            input.signal,
+            "activeCycleWork",
+            input.beforeDurableEffect,
+          );
           const mat = await materializeActiveCycleWork({
             items: acwItems,
             facts: {
@@ -965,6 +1011,11 @@ export async function orchestrateProjectAssistantTurn(input: {
             } catch {
               validJournalIds = undefined;
             }
+            await cutDurableEffect(
+              input.signal,
+              "reservation",
+              input.beforeDurableEffect,
+            );
             const rsvMat = await materializeReservationDelta({
               projectId: project.projectId,
               cycleInstanceId: cycleIdForRsv,
@@ -1087,6 +1138,11 @@ export async function orchestrateProjectAssistantTurn(input: {
               (lps.ok ? lps.livingProjectState.doctrinePackageRef : undefined))
             : undefined;
           const producedAt = new Date().toISOString();
+          await cutDurableEffect(
+            input.signal,
+            "lifecycleRecommendation",
+            input.beforeDurableEffect,
+          );
           const mat =
             await materializeLifecycleRecommendationFromStructuredOutput({
               projectId: project.projectId,
@@ -1139,6 +1195,11 @@ export async function orchestrateProjectAssistantTurn(input: {
     );
     // Persist read coverage for cross-turn honesty (existing session_items).
     if (readCoverage.facts.length > 0 && !input.simulateMemoryBUnavailable) {
+      await cutDurableEffect(
+        input.signal,
+        "readCoverage",
+        input.beforeDurableEffect,
+      );
       try {
         const dbPath = resolveNoraSessionSqlitePath(input.sessionDbPath);
         const session = new ProductSqliteSession({
@@ -1250,6 +1311,11 @@ export async function orchestrateProjectAssistantTurn(input: {
       input.studioCognitiveContext?.activeCycle?.cycleInstanceId?.trim() ||
       null;
     if (!input.simulateMemoryBUnavailable) {
+      await cutDurableEffect(
+        input.signal,
+        "transcriptJournal",
+        input.beforeDurableEffect,
+      );
       try {
         const dbPath = resolveNoraSessionSqlitePath(input.sessionDbPath);
         const session = new ProductSqliteSession({
@@ -1311,6 +1377,12 @@ export async function orchestrateProjectAssistantTurn(input: {
         ? ("cognitive_stop" as const)
         : ("ok" as const);
 
+    await cutDurableEffect(
+      input.signal,
+      "terminalSuccess",
+      input.beforeDurableEffect,
+    );
+
     return {
       ok: true,
       status,
@@ -1340,6 +1412,9 @@ export async function orchestrateProjectAssistantTurn(input: {
       reservationProposedIds,
     };
   } catch (error) {
+    if (isAbortLike(error, input.signal) || error instanceof NoraTurnAbortedError) {
+      return noraTurnStoppedFailure(modeResolution.mode, logicalTurnId);
+    }
     const message =
       error instanceof Error
         ? error.message

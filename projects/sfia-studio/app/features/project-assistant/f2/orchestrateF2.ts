@@ -14,6 +14,12 @@ import type {
   NoraEvalModelReasoningControl,
 } from "@/lib/nora-cognitive-runtime";
 import {
+  isAbortLike,
+  NoraTurnAbortedError,
+  throwIfAborted,
+} from "@/lib/nora-cognitive-runtime/noraTurnAbort";
+import { noraTurnStoppedFailure } from "../noraTurnStopped";
+import {
   resolveEvalCellConversationProvider,
   type EvalCellProviderFactory,
 } from "@/lib/nora-eval/evalCellProvider";
@@ -120,6 +126,31 @@ import {
 
 /** Single source of persistence honesty for both the turn notice and the Proposal. */
 const EPHEMERAL_NOTICE = F2_PROCESS_LOCAL_NOTICE;
+
+/**
+ * Independent F2 effect blocks. Abort observed before a block starts → do not start it.
+ * Abort after a block started → no artificial rollback.
+ * TEST-ONLY hook may suspend immediately before throwIfAborted.
+ */
+export type F2EffectBlock =
+  | "postAnalyze"
+  | "chatFirstDecision"
+  | "mw5ChallengeState"
+  | "ckcReasoning"
+  | "createCycle"
+  | "saveProposal"
+  | "pendingDecisionSubject"
+  | "transcript"
+  | "terminalSuccess";
+
+async function cutF2Effect(
+  signal: AbortSignal | undefined,
+  block: F2EffectBlock,
+  before?: (block: F2EffectBlock) => void | Promise<void>,
+): Promise<void> {
+  if (before) await before(block);
+  throwIfAborted(signal);
+}
 
 function normalizeOpaqueProposalId(raw: unknown): string | null {
   if (typeof raw !== "string") return null;
@@ -938,7 +969,10 @@ async function f2ConversationalSuccess(input: {
     | "f2_decision";
   reinstructionTransition?: "superseded" | "not_consumed" | "not_applicable";
   reinstructionOfProposalId?: string | null;
+  signal?: AbortSignal;
+  beforeF2Effect?: (block: F2EffectBlock) => void | Promise<void>;
 }): Promise<ProjectAssistantSendResult> {
+  await cutF2Effect(input.signal, "transcript", input.beforeF2Effect);
   await persistCanonicalF2AssistantTurn({
     projectId: input.project.projectId,
     sessionDbPath: input.sessionDbPath,
@@ -946,6 +980,7 @@ async function f2ConversationalSuccess(input: {
     assistantText: input.text,
     cycleInstanceId: input.project.activeCycleInstanceId ?? null,
   });
+  await cutF2Effect(input.signal, "terminalSuccess", input.beforeF2Effect);
   return f2Success(input);
 }
 
@@ -997,6 +1032,13 @@ export async function orchestrateAssistantSend(input: {
   usdAccounting?: NoraAgentsUsdAccounting;
   /** INTERNAL / EVAL-ONLY — shared canonical campaign budget lease. */
   campaignBudget?: NoraCampaignBudget;
+  /** Request-scoped AbortSignal from cancellable Product transport. */
+  signal?: AbortSignal;
+  /**
+   * TEST-ONLY — suspend immediately before an F2 effect cut-line.
+   * Never Product truth; never a client DTO field.
+   */
+  beforeF2Effect?: (block: F2EffectBlock) => void | Promise<void>;
 }): Promise<ProjectAssistantSendResult> {
   const content = input.content.trim();
   const reinstructionOfProposalId = normalizeOpaqueProposalId(
@@ -1059,6 +1101,18 @@ export async function orchestrateAssistantSend(input: {
       retryable: false,
     };
   }
+
+  const completeF2Turn = (
+    args: Omit<
+      Parameters<typeof f2ConversationalSuccess>[0],
+      "signal" | "beforeF2Effect"
+    >,
+  ) =>
+    f2ConversationalSuccess({
+      ...args,
+      signal: input.signal,
+      beforeF2Effect: input.beforeF2Effect,
+    });
 
   let analysisResult: Awaited<ReturnType<typeof analyzeIntent>>;
   let truthCContextForF1: string | undefined;
@@ -1215,6 +1269,7 @@ export async function orchestrateAssistantSend(input: {
               challengeSession.latest.structuralChallengeCount,
           }
         : { challengePresent: false as const };
+    throwIfAborted(input.signal);
     analysisResult = await analyzeIntent({
       userContent: content,
       projectSummary: cognitive.projectSummary,
@@ -1222,8 +1277,12 @@ export async function orchestrateAssistantSend(input: {
       challengeContext,
       provider: effectiveProvider,
       evalModelReasoningControl: input.evalModelReasoningControl,
+      signal: input.signal,
     });
   } catch (error) {
+    if (isAbortLike(error, input.signal) || error instanceof NoraTurnAbortedError) {
+      return noraTurnStoppedFailure(modeResolution.mode);
+    }
     const message =
       error instanceof Error ? error.message : "Erreur provider inattendue.";
     return {
@@ -1250,7 +1309,9 @@ export async function orchestrateAssistantSend(input: {
     };
   }
   const presentation = modeResolution.presentation;
-  const contradictionAssessment = await deriveProductPathMw3Assessment(
+  try {
+    await cutF2Effect(input.signal, "postAnalyze", input.beforeF2Effect);
+    const contradictionAssessment = await deriveProductPathMw3Assessment(
     analysis,
     project.projectId,
   );
@@ -1275,7 +1336,7 @@ export async function orchestrateAssistantSend(input: {
         workGate.eligible === false &&
         workGate.kind === "ambiguous_subjects"
       ) {
-        return f2ConversationalSuccess({
+        return await completeF2Turn({
           userText: content,
           sessionDbPath: input.sessionDbPath,
           text: [
@@ -1295,6 +1356,11 @@ export async function orchestrateAssistantSend(input: {
       }
 
       if (workGate.eligible === true) {
+        await cutF2Effect(
+          input.signal,
+          "chatFirstDecision",
+          input.beforeF2Effect,
+        );
         const resolved = await resolveChatFirstPilotDecision({
           oa: oaForChatFirst,
           projectId: project.projectId,
@@ -1317,7 +1383,7 @@ export async function orchestrateAssistantSend(input: {
             readyForNextGatedStep: resolved.readyForNextGatedStep,
             executionPerformed: false,
           };
-          return f2ConversationalSuccess({
+          return await completeF2Turn({
             userText: content,
             sessionDbPath: input.sessionDbPath,
             text: chatFirstDecisionText({
@@ -1339,7 +1405,7 @@ export async function orchestrateAssistantSend(input: {
         }
 
         if (resolved.kind === "ambiguous_subjects") {
-          return f2ConversationalSuccess({
+          return await completeF2Turn({
             userText: content,
             sessionDbPath: input.sessionDbPath,
             text: [
@@ -1358,7 +1424,7 @@ export async function orchestrateAssistantSend(input: {
         }
 
         if (resolved.kind === "defer_target_unresolved") {
-          return f2ConversationalSuccess({
+          return await completeF2Turn({
             userText: content,
             sessionDbPath: input.sessionDbPath,
             text: [
@@ -1379,7 +1445,7 @@ export async function orchestrateAssistantSend(input: {
           resolved.kind === "subject_read_failed" ||
           resolved.kind === "decision_refused"
         ) {
-          return f2ConversationalSuccess({
+          return await completeF2Turn({
             userText: content,
             sessionDbPath: input.sessionDbPath,
             text: [
@@ -1399,7 +1465,7 @@ export async function orchestrateAssistantSend(input: {
         }
         // no_eligible_subject / no_decision → fall through
       } else if (candidateDisposition === "defer") {
-        return f2ConversationalSuccess({
+        return await completeF2Turn({
           userText: content,
           sessionDbPath: input.sessionDbPath,
           text: [
@@ -1485,6 +1551,7 @@ export async function orchestrateAssistantSend(input: {
     // Keep methodContext for CORR-PROOF-03 compatibility surfaces when studio is present
     // (studio supersedes in prompt builder).
     const methodContext = studioCognitiveContext.method;
+    throwIfAborted(input.signal);
     const f1 = await orchestrateProjectAssistantTurn({
       ...input,
       provider: effectiveProvider,
@@ -1570,7 +1637,7 @@ export async function orchestrateAssistantSend(input: {
   const formalizationSignals = analysis.signals;
   if (!cycleTypeId || !formalizationSignals) {
     // Defensive: readiness predicate already requires these; never invent defaults.
-    return f2ConversationalSuccess({
+    return await completeF2Turn({
       userText: content,
       sessionDbPath: input.sessionDbPath,
       text:
@@ -1587,7 +1654,7 @@ export async function orchestrateAssistantSend(input: {
   const runtime = getRuntimeApplicationService();
   const oa = runtime.oa;
   if (!oa) {
-    return f2ConversationalSuccess({
+    return await completeF2Turn({
       userText: content,
       sessionDbPath: input.sessionDbPath,
       text:
@@ -1617,7 +1684,7 @@ export async function orchestrateAssistantSend(input: {
       continuation.activeCycle?.cycleInstanceId ??
       project.activeCycleInstanceId ??
       null;
-    return f2ConversationalSuccess({
+    return await completeF2Turn({
       userText: content,
       sessionDbPath: input.sessionDbPath,
       text: [
@@ -1684,7 +1751,7 @@ export async function orchestrateAssistantSend(input: {
                       : "Le dépôt cible n'est pas encore projeté — configuration serveur requise, ou Project legacy sans binding.",
                   "Votre décision et la préparation de l'action restent fermées tant que la cible n'est pas clarifiée.",
                 ];
-      return f2ConversationalSuccess({
+      return await completeF2Turn({
         userText: content,
         sessionDbPath: input.sessionDbPath,
         text: [
@@ -1714,7 +1781,13 @@ export async function orchestrateAssistantSend(input: {
       !signals?.irreversible &&
       !Boolean(analysis.contradictionCandidate?.conflictPresent);
 
-    const mw5 = await evaluateF2Mw5({
+    const mw5 = await (async () => {
+      await cutF2Effect(
+        input.signal,
+        "mw5ChallengeState",
+        input.beforeF2Effect,
+      );
+      return evaluateF2Mw5({
       content,
       history: input.history,
       analysis,
@@ -1725,8 +1798,9 @@ export async function orchestrateAssistantSend(input: {
       oa,
       structurallyResolvedActiveCycleContinuation,
     });
+    })();
     if (!mw5.surface.recommendationAllowed) {
-      return f2ConversationalSuccess({
+      return await completeF2Turn({
         userText: content,
         sessionDbPath: input.sessionDbPath,
         text: mw5.text,
@@ -1753,7 +1827,7 @@ export async function orchestrateAssistantSend(input: {
     });
     if (!reinstructionGate.ok) {
       if (isChatFirstDisposableGateCode(reinstructionGate.code)) {
-        return f2ConversationalSuccess({
+        return await completeF2Turn({
           userText: content,
           sessionDbPath: input.sessionDbPath,
           text: pendingDispositionClarificationText({
@@ -1780,6 +1854,7 @@ export async function orchestrateAssistantSend(input: {
       };
     }
 
+    await cutF2Effect(input.signal, "saveProposal", input.beforeF2Effect);
     const proposal = saveProposal(
       buildProposal({
         intent: analysis,
@@ -1795,6 +1870,11 @@ export async function orchestrateAssistantSend(input: {
 
     // CORR-PROOF-10/11 — durable pending subject marker (write or explicit supersession).
     {
+      await cutF2Effect(
+        input.signal,
+        "pendingDecisionSubject",
+        input.beforeF2Effect,
+      );
       const marker = await commitPendingDecisionSubjectForDecisionRequired({
         oa,
         projectId: project.projectId,
@@ -1820,7 +1900,7 @@ export async function orchestrateAssistantSend(input: {
       "Nora n'émet pas de décision Pilote, GO, confirmation ou acte d'autorité.",
     ];
 
-    return f2ConversationalSuccess({
+    return await completeF2Turn({
       userText: content,
       sessionDbPath: input.sessionDbPath,
       text: textParts.join(" "),
@@ -1856,7 +1936,7 @@ export async function orchestrateAssistantSend(input: {
   });
 
   if (!qualified.ok) {
-    return f2ConversationalSuccess({
+    return await completeF2Turn({
       userText: content,
       sessionDbPath: input.sessionDbPath,
       text: `[Qualification échouée] ${qualified.message} AUCUNE EXÉCUTION.`,
@@ -1895,6 +1975,11 @@ export async function orchestrateAssistantSend(input: {
     });
     let ckcCognitiveRecommendation: string | undefined;
     if (ckcContent) {
+      await cutF2Effect(
+        input.signal,
+        "ckcReasoning",
+        input.beforeF2Effect,
+      );
       const reasoning = await reasonWithResolvedCkcContext({
         userContent: content,
         projectSummary,
@@ -1904,6 +1989,7 @@ export async function orchestrateAssistantSend(input: {
           "Intention actionable",
         ckcPromptSection: buildCkcCognitivePromptSection(ckcContent),
         provider: input.provider,
+        signal: input.signal,
       });
       ckcCognitiveRecommendation = reasoning.recommendation;
     }
@@ -1924,7 +2010,7 @@ export async function orchestrateAssistantSend(input: {
     qualification.requiresJustificationForCritical &&
     !(analysis.criticalJustification && analysis.criticalJustification.trim())
   ) {
-    return f2ConversationalSuccess({
+    return await completeF2Turn({
       userText: content,
       sessionDbPath: input.sessionDbPath,
       text:
@@ -1940,6 +2026,11 @@ export async function orchestrateAssistantSend(input: {
     });
   }
 
+  await cutF2Effect(
+    input.signal,
+    "mw5ChallengeState",
+    input.beforeF2Effect,
+  );
   const mw5 = await evaluateF2Mw5({
     content,
     history: input.history,
@@ -1951,7 +2042,7 @@ export async function orchestrateAssistantSend(input: {
     oa,
   });
   if (!mw5.surface.recommendationAllowed) {
-    return f2ConversationalSuccess({
+    return await completeF2Turn({
       userText: content,
       sessionDbPath: input.sessionDbPath,
       text: mw5.text,
@@ -1969,6 +2060,7 @@ export async function orchestrateAssistantSend(input: {
   }
 
   const cycleInstanceId = `cyc:f2-${randomBytes(8).toString("hex")}`;
+  await cutF2Effect(input.signal, "createCycle", input.beforeF2Effect);
   const created = await oa.cycleServices.createCycle.execute({
     cycleInstanceId,
     cycleTypeId: qualification.cycleTypeId,
@@ -1990,7 +2082,7 @@ export async function orchestrateAssistantSend(input: {
   });
 
   if (!created.ok) {
-    return f2ConversationalSuccess({
+    return await completeF2Turn({
       userText: content,
       sessionDbPath: input.sessionDbPath,
       text: `[Cycle] Création CycleInstance échouée (${created.error.detailCode}). Aucune mutation partielle. AUCUNE EXÉCUTION.`,
@@ -2008,7 +2100,7 @@ export async function orchestrateAssistantSend(input: {
   // Live context AFTER mutation — pre-mutation snapshot does not satisfy M2.
   const live = await readLiveProjectContext(oa, project.projectId);
   if (!live.ok) {
-    return f2ConversationalSuccess({
+    return await completeF2Turn({
       userText: content,
       sessionDbPath: input.sessionDbPath,
       text: `[Contexte] Relecture LPS post-mutation échouée. AUCUNE EXÉCUTION.`,
@@ -2068,7 +2160,7 @@ export async function orchestrateAssistantSend(input: {
     });
     if (!reinstructionGate.ok) {
       if (isChatFirstDisposableGateCode(reinstructionGate.code)) {
-        return f2ConversationalSuccess({
+        return await completeF2Turn({
           userText: content,
           sessionDbPath: input.sessionDbPath,
           text: pendingDispositionClarificationText({
@@ -2097,6 +2189,7 @@ export async function orchestrateAssistantSend(input: {
     newCycleReinstructionOf = reinstructionGate.reinstructionOfProposalId;
   }
 
+  await cutF2Effect(input.signal, "saveProposal", input.beforeF2Effect);
   const proposal = saveProposal(
     buildProposal({
       intent: analysis,
@@ -2109,6 +2202,11 @@ export async function orchestrateAssistantSend(input: {
   );
 
   if (status === "DECISION_REQUIRED") {
+    await cutF2Effect(
+      input.signal,
+      "pendingDecisionSubject",
+      input.beforeF2Effect,
+    );
     const marker = await commitPendingDecisionSubjectForDecisionRequired({
       oa,
       projectId: project.projectId,
@@ -2148,7 +2246,7 @@ export async function orchestrateAssistantSend(input: {
     "Nora n'émet pas de décision Pilote, GO, confirmation ou acte d'autorité.",
   ];
 
-  return f2ConversationalSuccess({
+  return await completeF2Turn({
     userText: content,
     sessionDbPath: input.sessionDbPath,
     text: textParts.join(" "),
@@ -2164,4 +2262,10 @@ export async function orchestrateAssistantSend(input: {
     reinstructionOfProposalId,
     reinstructionTransition: newCycleReinstructionOf ? "superseded" : undefined,
   });
+  } catch (error) {
+    if (isAbortLike(error, input.signal) || error instanceof NoraTurnAbortedError) {
+      return noraTurnStoppedFailure(modeResolution.mode);
+    }
+    throw error;
+  }
 }
