@@ -2614,9 +2614,189 @@ index dc721daf..8043e0cc 100644
        "path": "projects/sfia-studio/app/.env.example",
 ```
 
-## 26. Useful complete diffs (vs HEAD/main)
 
-Diffs for adapted files are included above in this pack (hook, ConversationSurface, actions, types, orchestrateTurn, orchestrateF2, runNoraAgentsTurn, runNoraCognitiveTurn, providerAgentsModel, New Project CSS, runningAttemptRefresh mock, PRR hashes).
+### `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
+
+```diff
+diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+index 3b89bbcf..32a0a13b 100644
+--- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
++++ b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+@@ -4,7 +4,10 @@
+ | --- | --- |
+ | **Rôle** | Roadmap **vivante** de convergence vers l’utilisation complète de la doctrine produit SFIA Studio v3 |
+ | **Statut** | **VALIDATED — ACTIVE LIVING ROADMAP** |
+-| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S05 CP02 LOCAL CANDIDATE** | 2026-10-06 Europe/Paris — **STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S05 CORRECTION PASS 02 — LOCAL CANDIDATE PASS** · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **8 — Delivery / Implementation Correction** · Profile **Critical** · Typologie **EVOL** · Milestone **P5** · Slice **P5-S05** · Pass **CP02** · Morris P5-S05 CP02 GATE = **AUTHORIZED / CONSUMED** · prior Delivery+REAL/R3 + CP01 gates remain **CONSUMED** · base/main **`79a0e48a69c8dd634a8cecf972199bea8a4daeec`** · branche `delivery/sfia-studio-product-simplification-p5-s05-r3-f2-routing-alignment` · B1 F1 model = **SELECTED→DISPATCH CONFIG PROVEN** (`providerReturnedModel=NOT_OBSERVED`; REAL via `providerResponseId`) · B2 R3-19 = completed anti-secret observation (no stale pending) · campaign `p5-s05-r3-cp02-1791247484728` · productFP `35f31263…` (unchanged vs CP01) · harnessFP `a8049035…` (changed) · F2 Luna/low selected→configured→returned · F1 Luna/high selected→dispatched · CKC **N_A** · accounting BOUNDED (F1 modelInvocations=3) · R3 = **PASS AT TESTED SCOPE — LOCAL CANDIDATE AFTER CP02 FINAL EVIDENCE CORRECTION** · F2 EXIT PROOF PASS — LOCAL CANDIDATE · full npm test **5272 PASS** · P5 COMPLETE **NO** · P6 READY **NO** · runtime v3 **NON ADOPTED** · project Git = **NOT AUTHORIZED** · next = **ChatGPT Final Critical Re-Review** → **MORRIS P5-S05 GIT INTEGRATION GATE** if PASS · **≠** INTEGRATED · **≠** CLOSED ON MAIN |
++| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S06 CP02 LOCAL CANDIDATE** | 2026-10-06 Europe/Paris — **STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S06 CORRECTION PASS 02 — LOCAL CANDIDATE / FUNCTIONAL CLOSURE PASS** · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **8 — Delivery / Implementation Correction** · Profile **Critical** · Typologie **EVOL** · Milestone **P5** · Slice **P5-S06** · Pass **CP02** · Morris **D-S06-CANCEL-01 ADOPTED / CONSUMED** · prior Delivery+CP01 CONSUMED · base/main **`16a8e2fd823d75d7c59ce1fb4d55cb862d112697`** · branche `delivery/sfia-studio-product-simplification-p5-s06-pilot-experience-completion` · C2 STOP **DETERMINISTIC bounded AbortSignal / same Runner / same sendProjectAssistantTurn / thin HTTP transport** · Activity honesty **SOURCE_LOOKUP not live** · New Project mobile **title→Nora→composer** · Projects/Auth **frozen** · Visual **PASS AT S06 SCOPE** · ZERO REAL · P5 COMPLETE **NO** · P6 READY **NO** · runtime v3 **NON ADOPTED** · project Git **NOT AUTHORIZED** · next = **ChatGPT Final Critical Review CP02** · S07 **NOT STARTED** · **≠** INTEGRATED · **≠** S06 Git-complete |
++| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S06 CP01 LOCAL CANDIDATE** | 2026-10-06 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — P5-S06 CORRECTION PASS 01 LOCAL CANDIDATE / STOP ARCHITECTURE DELTA ON NORA STOP *(true then; superseded by P5-S06 CP02 tip)* · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **8 — Delivery / Implementation Correction** · Profile **Critical** · Typologie **EVOL** · Milestone **P5** · Slice **P5-S06** · Pass **CP01** · Morris P5-S06 CP01 GATE = **AUTHORIZED / CONSUMED** · prior S06 DELIVERY CONSUMED · base/main **`16a8e2fd823d75d7c59ce1fb4d55cb862d112697`** · branche `delivery/sfia-studio-product-simplification-p5-s06-pilot-experience-completion` · A New Project **explicit phases / no regex NLP** · continuity **Project+LPS rebound via workspace projectId** · B Projects **récents ≠ À reprendre** · Orientation **honest new-project only** · C Activity **mapping proven** · STOP **ABSENT / no fake STOPPED** · D visual **structure improved / not Visual PASS** · ZERO REAL · P5 COMPLETE **NO** · P6 READY **NO** · runtime v3 **NON ADOPTED** · project Git **NOT AUTHORIZED** · next was **ChatGPT Critical Re-Review CP01** · S07 **NOT STARTED** · **≠** INTEGRATED · **≠** S06 COMPLETE |
++| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S06 LOCAL CANDIDATE** | 2026-10-06 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S06 PILOT EXPERIENCE COMPLETION — LOCAL CANDIDATE *(true then; superseded by P5-S06 CP01 tip)* · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **8 — Delivery / Implementation** · Profile **Standard** · Typologie **EVOL** · Milestone **P5** · Slice **P5-S06** · Morris P5-S06 DELIVERY GATE = **AUTHORIZED / CONSUMED** (2026-10-06) · slicing P5 restant **S06/S07/S08** = **ADOPTED** · base/main **`16a8e2fd823d75d7c59ce1fb4d55cb862d112697`** (PR **#560** P5-S05 R3 · CI Studio **#688** SUCCESS) · branche `delivery/sfia-studio-product-simplification-p5-s06-pilot-experience-completion` · P5-S05 = **INTEGRATED / POST-MERGE VERIFIED** · F2 routing alignment = **CLOSED ON MAIN** · R3 = **PASS AT TESTED SCOPE / INTEGRATED / POST-MERGE VERIFIED** · Axes S06 : A Projects **ADAPT** · B Nouveau projet chat-first **ADAPT** (ephemeral client · createProjectRuntimeAction · D1 NOT nominal) · C Nora Activity **PARTIAL** (labels honnêtes · **STOP/■ absent** — no fake STOPPED) · D Auth GitHub visual **ADAPT** (backend KEEP) · E responsive/a11y touched surfaces · ZERO REAL · full npm test **5278 PASS / 139 skipped** · P5 COMPLETE **NO** · P6 READY **NO** · runtime v3 **NON ADOPTED** · project Git = **NOT AUTHORIZED** · next = **ChatGPT Review de S06** → gate Morris distinct si PASS · S07 = **NOT STARTED** · **≠** INTEGRATED · **≠** P5 COMPLETE |
++| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S05 CP02 LOCAL CANDIDATE** | 2026-10-06 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S05 CORRECTION PASS 02 — LOCAL CANDIDATE PASS *(true then; superseded by P5-S05 INTEGRATED via PR #560 then by P5-S06 LOCAL CANDIDATE tip)* · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **8 — Delivery / Implementation Correction** · Profile **Critical** · Typologie **EVOL** · Milestone **P5** · Slice **P5-S05** · Pass **CP02** · Morris P5-S05 CP02 GATE = **AUTHORIZED / CONSUMED** · prior Delivery+REAL/R3 + CP01 gates remain **CONSUMED** · base/main **`79a0e48a69c8dd634a8cecf972199bea8a4daeec`** · branche `delivery/sfia-studio-product-simplification-p5-s05-r3-f2-routing-alignment` · B1 F1 model = **SELECTED→DISPATCH CONFIG PROVEN** (`providerReturnedModel=NOT_OBSERVED`; REAL via `providerResponseId`) · B2 R3-19 = completed anti-secret observation (no stale pending) · campaign `p5-s05-r3-cp02-1791247484728` · productFP `35f31263…` (unchanged vs CP01) · harnessFP `a8049035…` (changed) · F2 Luna/low selected→configured→returned · F1 Luna/high selected→dispatched · CKC **N_A** · accounting BOUNDED (F1 modelInvocations=3) · R3 = **PASS AT TESTED SCOPE — LOCAL CANDIDATE AFTER CP02 FINAL EVIDENCE CORRECTION** · F2 EXIT PROOF PASS — LOCAL CANDIDATE · full npm test **5272 PASS** · P5 COMPLETE **NO** · P6 READY **NO** · runtime v3 **NON ADOPTED** · project Git = **NOT AUTHORIZED** · next = **ChatGPT Final Critical Re-Review** → **MORRIS P5-S05 GIT INTEGRATION GATE** if PASS · **≠** INTEGRATED · **≠** CLOSED ON MAIN |
+ | **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S05 CP01 LOCAL CANDIDATE** | 2026-10-06 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S05 CORRECTION PASS 01 — LOCAL CANDIDATE PASS *(true then; superseded by P5-S05 CP02 tip after residual B1 F1 model semantics + B2 R3-19 observation)* · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **8 — Delivery / Implementation Correction** · Profile **Critical** · Typologie **EVOL** · Milestone **P5** · Slice **P5-S05** · Pass **CP01** · Morris P5-S05 CP01 GATE = **AUTHORIZED / CONSUMED** · prior Delivery+REAL/R3 gate remains **CONSUMED** · base/main **`79a0e48a69c8dd634a8cecf972199bea8a4daeec`** · branche `delivery/sfia-studio-product-simplification-p5-s05-r3-f2-routing-alignment` · A1 CKC = **N_A** · A2 accounting = **BOUNDED** · A3 effort = **SELECTED→DISPATCH CONFIG PROVEN** · campaign `p5-s05-r3-cp01-1791245552722` · productFP `35f31263…` · harnessFP `fd10646b…` · Critical Review residual = **CORRECTION REQUIRED** (B1 F1 usage.model ≠ provider-returned; B2 R3-19 stale observation) · **≠** INTEGRATED · **≠** CLOSED ON MAIN |
+ | **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S05 LOCAL CANDIDATE** | 2026-10-06 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S05 R3 + F2 ROUTING ALIGNMENT — LOCAL CANDIDATE PASS *(true then; superseded by P5-S05 CP01 tip after Critical Review A1/A2/A3 correction)* · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **8 — Delivery / Implementation** · Profile **Critical** · Typologie **EVOL** · Milestone **P5** · Slice **P5-S05** · Morris P5-S05 DELIVERY + REAL/R3 GATE = **AUTHORIZED / CONSUMED** · base/main **`79a0e48a69c8dd634a8cecf972199bea8a4daeec`** (PR **#559** POST-S04 TRUTH-SYNC merge · CI **#686** SUCCESS) · branche `delivery/sfia-studio-product-simplification-p5-s05-r3-f2-routing-alignment` · F2 routing alignment = **EXIT PROOF PASS — LOCAL CANDIDATE** · R3 = **PASS AT TESTED SCOPE — LOCAL CANDIDATE** · campaign `p5-s05-r3-1791242959473` · fingerprint `39bc5907bff9cc23d1a150869c891ead04dc1fe5dd382f550ae91e76b0b5ee31` · F2 `gpt-6-luna/low` → actual match · F1 `gpt-6-luna/high` → actual match · journal tools `cycle_journal_search` + `get_entry` + `get_sources` · HD=0 · R1/R2 PASS historical · P5 = **IN PROGRESS** · P5 COMPLETE **NO** · P6 READY **NO** · runtime v3 **NON ADOPTED** · project commit/push/PR/merge = **NOT AUTHORIZED** · Critical Review = **CORRECTION REQUIRED** (A1/A2/A3) · **≠** INTEGRATED · **≠** CLOSED ON MAIN · **≠** P5 COMPLETE |
+ | **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S04 INTEGRATED / POST-S04 TRUTH-SYNC** | 2026-10-06 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S04 PRODUCT-DERIVED SYNTHÈSES — INTEGRATED / POST-MERGE VERIFIED — POST-S04 TRUTH-SYNC *(true then; superseded by P5-S05 LOCAL CANDIDATE tip)* · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **14 — Post-merge** · Milestone **P5** · Slice **P5-S04** · Standard · DOC · Morris P5 POST-S04 TRUTH-SYNC GATE = **CONSUMED** · PR **#558** **MERGED** · merge/main **`c7b53b93d48e626e5ac1548886162936ce7e9eb3`** · post-merge CI **#684** / run **`37377995199`** = **SUCCESS** · Detect / Build / **Required Gate** = **SUCCESS** · P5-S04 = **INTEGRATED / POST-MERGE VERIFIED** · CP01/CP02 preserved · A=0 / B=0 preserved · ZERO REAL for S04 · P5 = **AUTHORIZED / STARTED / IN PROGRESS** · F2 routing debt **OPEN** · R1 **PASS** · R2 **PASS** · R3 **NOT STARTED** · P5 COMPLETE **NO** · P6 READY **NO** · runtime v3 **NON ADOPTED** · ChatGPT POST-S04 REQUALIFICATION = **PASS** · next RECOMMENDED capability = **P5-S05 — R3 Integrated Product Cognitive Path + F2 Routing Alignment** · P5-S05 DELIVERY = **NOT AUTHORIZED** · P5-S05 REAL / R3 = **NOT AUTHORIZED** · next = **MORRIS P5-S05 DELIVERY + REAL GATE** (distinct · only after review of this truth-sync) · **≠** P5 COMPLETE · **≠** R3 PASS · **≠** S05 STARTED · **≠** runtime v3 ADOPTED |
+```
+
+### `projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md`
+
+```diff
+diff --git a/projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md b/projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md
+index 5f23603b..b81de8dd 100644
+--- a/projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md
++++ b/projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md
+@@ -5,40 +5,47 @@
+ | **Projet** | SFIA Studio |
+ | **Macro** | `STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01` |
+ | **Milestone** | **P5 — INTEGRATED DELIVERY** (Delivery / Implementation / Evidence source) |
+-| **Slice** | **P5-S01**…**P5-S04** (integrated) + **P5-S05** (local candidate) |
+-| **Pass** | **P5-S05 CORRECTION PASS 02 — LOCAL CANDIDATE PASS** |
++| **Slice** | **P5-S01**…**P5-S05** (integrated) + **P5-S06** (local candidate) |
++| **Pass** | **P5-S06 CORRECTION PASS 02 — LOCAL CANDIDATE** |
+ | **Typologie** | Delivery evidence dans macro **EVOL** — **≠** doctrine · **≠** nouvelle architecture |
+ | **Autorité architecture** | **P4** (`04-chat-first-product-simplification-semantic-projection-cognitive-architecture.md`) — **inchangée** |
+-| **Base / HEAD Git** | `origin/main` = `79a0e48a69c8dd634a8cecf972199bea8a4daeec` (PR **#559** POST-S04 TRUTH-SYNC · CI **#686** SUCCESS) |
++| **Base / HEAD Git** | `origin/main` = `16a8e2fd823d75d7c59ce1fb4d55cb862d112697` (PR **#560** P5-S05 R3 · CI Studio **#688** SUCCESS) |
+ | **P5-S01 integration** | PR **#555** **MERGED** · post-merge CI **#678** **SUCCESS** · **INTEGRATED / POST-MERGE VERIFIED** |
+ | **P5-S02 integration** | PR **#556** **MERGED** · post-merge CI **#680** **SUCCESS** · Required Gate **SUCCESS** · **INTEGRATED / POST-MERGE VERIFIED** |
+ | **P5-S03 integration** | PR **#557** **MERGED** · post-merge CI **#682** **SUCCESS** · Required Gate **SUCCESS** · **INTEGRATED / POST-MERGE VERIFIED** |
+ | **P5-S04 integration** | PR **#558** **MERGED** · post-merge CI **#684** / run **`37377995199`** **SUCCESS** · Required Gate **SUCCESS** · **INTEGRATED / POST-MERGE VERIFIED** |
++| **P5-S05 integration** | PR **#560** **MERGED** · post-merge CI Studio **#688** **SUCCESS** · **INTEGRATED / POST-MERGE VERIFIED** · F2 routing alignment **CLOSED ON MAIN** · R3 **PASS AT TESTED SCOPE / INTEGRATED / POST-MERGE VERIFIED** |
+ | **Worktree** | `/Users/morris/Projects/sfia-studio-chat-first-product-simplification-p3` |
+-| **Branche S05** | `delivery/sfia-studio-product-simplification-p5-s05-r3-f2-routing-alignment` (local · **NOT committed**) |
++| **Branche S06** | `delivery/sfia-studio-product-simplification-p5-s06-pilot-experience-completion` (local · **NOT committed**) |
+ | **P5 AUTHORIZED BY MORRIS** | **YES** |
+ | **P5 STARTED** | **YES** |
+ | **P5 IN PROGRESS** | **YES** |
++| **P5 COMPLETE** | **NO** |
++| **P6 READY** | **NO** |
+ | **P5-S01** | **INTEGRATED / POST-MERGE VERIFIED** |
+ | **P5-S02** | **INTEGRATED / POST-MERGE VERIFIED** — R1/R2 **PROVEN** · envelope deviation **ACCEPTED BY MORRIS** |
+ | **P5-S03** | **INTEGRATED / POST-MERGE VERIFIED** · Object-Native Aperçu + Exécution · A=0/B=0 |
+ | **P5-S04** | **INTEGRATED / POST-MERGE VERIFIED** · Product-derived Synthèses M9 · CP01/CP02 preserved · A=0/B=0 · B1/B2 CLOSED |
+-| **P5-S05** | **LOCAL CANDIDATE PASS AFTER CP02** — F2 routing EXIT PROOF · R3 PASS AT TESTED SCOPE |
+-| **R1 / R2 / R3** | **R1 PASS** · **R2 PASS** · **R3 PASS AT TESTED SCOPE — LOCAL CANDIDATE (CP02)** |
+-| **ZERO REAL** | **NO for S05 R3** (bounded REAL OpenAI) · S04 ZERO REAL preserved historically |
+-| **READY FOR REAL** | **R3 CP02 executed under Morris S05 + CP01 + CP02 gates** |
++| **P5-S05** | **INTEGRATED / POST-MERGE VERIFIED** — F2 routing CLOSED ON MAIN · R3 PASS AT TESTED SCOPE |
++| **P5-S06** | **CP02 LOCAL CANDIDATE — FUNCTIONAL CLOSURE PASS** · A/A2/B/C Activity PASS · C2 STOP **DETERMINISTIC / BOUNDED CANCELLATION PROVEN** · D Visual **PASS AT S06 SCOPE** · **≠ INTEGRATED** · **≠ COMPLETE until Git** |
++| **P5-S06 DELIVERY** | **AUTHORIZED / CONSUMED** |
++| **P5-S06 CP01** | **AUTHORIZED / CONSUMED** |
++| **P5-S06 CP02** | **AUTHORIZED / CONSUMED** |
++| **P5 slicing restant** | **S06 / S07 / S08** — **ADOPTED BY MORRIS** (2026-10-06) · S07/S08 = **NOT STARTED** |
++| **R1 / R2 / R3** | **R1 PASS** · **R2 PASS** · **R3 PASS AT TESTED SCOPE / INTEGRATED / POST-MERGE VERIFIED** (S05) |
++| **ZERO REAL** | **YES for S06** · S05 R3 REAL historique préservé (bounded OpenAI sous gate S05) |
+ | **runtime v3** | **NON ADOPTED** |
+-| **Git (S05)** | **NOT AUTHORIZED** — no project commit/push/PR/merge |
+-| **Next** | **ChatGPT Final Critical Re-Review** → **MORRIS P5-S05 GIT INTEGRATION GATE** if PASS |
+-| **P5-S05 DELIVERY** | **AUTHORIZED / CONSUMED** |
+-| **P5-S05 REAL / R3** | **AUTHORIZED / CONSUMED** |
+-| **P5-S05 CP01** | **AUTHORIZED / CONSUMED** |
+-| **P5-S05 CP02** | **AUTHORIZED / CONSUMED** |
++| **Git (S06)** | **NOT AUTHORIZED** — no project commit/push/PR/merge |
++| **Next** | **ChatGPT Final Critical Review of P5-S06 CP02** · Git integration **NOT AUTHORIZED** · S07 **NOT STARTED** |
++| **P5-S05 DELIVERY** | **AUTHORIZED / CONSUMED** → **INTEGRATED** via PR **#560** |
++| **P5-S05 REAL / R3** | **AUTHORIZED / CONSUMED** → **INTEGRATED** |
++| **P5-S05 CP01 / CP02** | **AUTHORIZED / CONSUMED** (historique) |
++| **P5-S06 DELIVERY** | **AUTHORIZED / CONSUMED** |
+ | **Langue** | Français (identifiants canoniques anglais préservés) |
+ | **Fichier** | `projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md` |
+ | **Date** | 2026-10-06 · Europe/Paris |
+
+-> **Lecture rapide.** P5-S01…S04 **intégrés**. P5-S05 CP02 = **LOCAL CANDIDATE PASS** (B1 F1 selected→dispatch · B2 R3-19 scan observation · CKC N_A · accounting borné). **≠ INTEGRATED** · **≠ P5 COMPLETE** · **≠ runtime v3 ADOPTED**. Project Git **NOT AUTHORIZED**.
++> **Lecture rapide.** P5-S01…S05 **intégrés**. P5-S06 CP02 = **LOCAL CANDIDATE — FUNCTIONAL CLOSURE PASS** (A/B PASS · Activity honest · STOP deterministic bounded · Visual PASS AT S06 SCOPE). **≠ INTEGRATED** · **≠ P5 COMPLETE** · Git **NOT AUTHORIZED**.
+ > **Règle de lecture des preuves.** *Implémenté* ≠ *prouvé* ≠ *intégré* ≠ *REAL*. Chaque affirmation ci-dessous est qualifiée par son niveau de preuve. Les résultats de tests/typecheck/lint/build sont ceux **rapportés par la passe de livraison** ; ce document n’en invente pas d’autres et ne les a pas ré-exécutés lors de sa rédaction.
+
+ ---
+@@ -972,4 +979,88 @@ Anti-claims explicites :
+
+ ---
+
+-*Fin du document P5 — Integrated Delivery — S01/S02/S03/S04 INTEGRATED / POST-MERGE VERIFIED · S05 CP02 LOCAL CANDIDATE PASS · R3 PASS AT TESTED SCOPE LOCAL · project Git NOT AUTHORIZED · P5 COMPLETE NO · runtime v3 NON ADOPTED — P4 remains architecture authority.*
++---
++
++## 39. P5-S06 — Pilot Experience Completion — LOCAL CANDIDATE (truth-sync)
++
++> **Qualification.** Enregistrement factuel de la Delivery locale P5-S06 sous GO Morris DELIVERY consommé le 2026-10-06. **≠ INTEGRATED** · **≠ P5 COMPLETE** · project Git **NOT AUTHORIZED**.
++
++### 39.1 Git / gates
++
++| Item | Valeur |
++| --- | --- |
++| Base / HEAD | `16a8e2fd823d75d7c59ce1fb4d55cb862d112697` = `origin/main` |
++| Branche | `delivery/sfia-studio-product-simplification-p5-s06-pilot-experience-completion` |
++| P5-S05 | **INTEGRATED / POST-MERGE VERIFIED** — PR **#560** · CI Studio **#688** SUCCESS |
++| F2 routing | **CLOSED ON MAIN** |
++| R3 | **PASS AT TESTED SCOPE / INTEGRATED / POST-MERGE VERIFIED** |
++| Morris S06 DELIVERY | **CONSUMED** |
++| Slicing restant | **S06 / S07 / S08** ADOPTED · S07/S08 **NOT STARTED** |
++| ZERO REAL (S06) | **YES** |
++| runtime v3 | **NON ADOPTED** |
++| P5 COMPLETE / P6 READY | **NO** / **NO** |
++
++### 39.2 Axes livrés (honnêteté)
++
++| Axe | Statut | Notes |
++| --- | --- | --- |
++| A Projects | **ADAPT** | Recherche locale · À reprendre depuis `updatedAt` ≤14j · Orientation → `/studio/projects/new` · empty state · pas d’attention inventée |
++| B Nouveau projet | **ADAPT** | Conversation pré-Project éphémère client · `createProjectRuntimeAction` au CTA · D1 Intake **NOT** nominal · pas de store / pas d’auto-Cycle |
++| C Nora Activity / STOP | **PARTIAL** | Phases START/ACTIVITY/COMPLETE projetées depuis `uiState` réel · **■ STOP absent** (pas de seam Abort Product) — **pas de faux STOPPED** |
++| D Auth GitHub visual | **ADAPT** | Split narrative+card · « Continuer avec GitHub » · mark SVG · backend Better/Auth **KEEP** |
++| E Responsive / a11y | **ADAPT** (surfaces touchées) | Labels · focus · targets · reduced-motion conservé côté conversation |
++
++### 39.3 Preuves
++
++| Porte | Résultat |
++| --- | --- |
++| `p5.s06.pilotExperience.d0.test.tsx` | **6 PASS** |
++| Auth unit tests ciblés | **PASS** |
++| typecheck / lint / build | **PASS** |
++| full `npm test` | **5278 PASS / 139 skipped** |
++| Visual runtime | Auth + Projects `/studio` + New Project capturés sous `.tmp-sfia-review/p5-s06-visual/runtime/` vs Figma refs sous `…/figma/` — **pas de claim Visual PASS global** |
++
++### 39.4 Réserves
++
++| Classe | Réserve |
++| --- | --- |
++| **BLOCKING** (avant S06 COMPLETE) | P3 STOP/■ non satisfait sans architecture cancellation — décision Morris : accepter PARTIAL ou autoriser delta |
++| **NON-BLOCKING** | Écarts Class B Projects/New Project vs frames Figma EXPLORATORY (table Attention, quick-replies, layout 3-col) · STREAMING non projeté (non observable) · D1 HARVEST only |
++
++### 39.5 Next
++
++**ChatGPT Review de S06** → gate Morris distinct. **S07** reste **NOT STARTED**.
++
++---
++
++## 40. P5-S06 CP01 — Correction Pass 01 (truth-sync)
++
++> **Qualification.** Delivery S06 Critical Review = CORRECTION REQUIRED. CP01 = local candidate after semantic/visual correction. STOP Nora remains architecture-blocked. **≠ S06 COMPLETE** · **≠ INTEGRATED**.
++
++| Axe | Statut CP01 |
++| --- | --- |
++| A New Project | **PASS** — explicit phases INTENTION/NAME/OPTIONAL_CONTEXT · no NAME_HINT · factual preview · CTA unique |
++| A2 Continuity | **PASS min-sufficient** — createProjectRuntimeAction writes Project+LPS · router `/studio/projects/:id` · workspace `getProject` + `useProductConversation(projectId)` · no transcript store |
++| B Projects | **PASS** — « Projets récents » from updatedAt · no « À reprendre » as next-action · local search KEEP |
++| B2 Orientation | **PASS** — wording = start new project only · href `/studio/projects/new` |
++| C Activity | **PASS proven** — `projectNoraActivity` mapping + tests |
++| C2 STOP | **BLOCKED** — no Product conversation Abort seam · no fake ■/STOPPED |
++| D Visual | **PARTIEL** — structure closer to 63:39 / 67:39 / 130:3 / mobile 190:* · composer mobile first · no Attention invented · **≠ Visual PASS** |
++
++---
++
++## 41. P5-S06 CP02 — Nora Cancellation Closure (truth-sync)
++
++> **Qualification.** Morris D-S06-CANCEL-01 consumed. Bounded request-scoped AbortSignal through same `sendProjectAssistantTurn` → `orchestrateAssistantSend` → `runNoraAgentsTurn` → `Runner.run({ signal })`. Thin POST `/api/studio/projects/[projectId]/assistant/send`. **≠ INTEGRATED**. **≠ REAL cancellation proven**.
++
++| Axe | Statut CP02 |
++| --- | --- |
++| A / A2 / B | **PASS** (CP01 preserved) |
++| C Activity | **PASS** — SOURCE_LOOKUP no longer projected as live « consulte les sources » |
++| C2 STOP | **PASS DETERMINISTIC / BOUNDED CANCELLATION PROVEN** — ■ only when in-flight · native AbortSignal · STOPPED ≠ Error/Cognitive STOP/Execution STOP · no late success after abort in tested path |
++| D Visual | **PASS AT S06 SCOPE** — Projects/Auth freeze · New Project mobile order title→Nora→composer→preview · six recaptures |
++| P5-S06-DEBT-NORA-STOP | **CLOSED LOCALLY / awaiting Git Integration** |
++
++---
++
++*Fin du document P5 — Integrated Delivery — S01…S05 INTEGRATED · S06 CP02 LOCAL CANDIDATE FUNCTIONAL CLOSURE · project Git NOT AUTHORIZED · P5 COMPLETE NO · runtime v3 NON ADOPTED — P4 remains architecture authority.*
+```
 
 ## 27. Tests cancellation
 
@@ -2719,7 +2899,195 @@ POST only. `projectId` from URL. JSON parse fail-closed. Allowlist content/histo
 
 ## 41. Docs truth-sync
 
-Roadmap tip CP02 LOCAL CANDIDATE / FUNCTIONAL CLOSURE PASS. P5 doc P5-S06 CP02 status. Historical CP01 preserved as SUPERSEDED tip. P3/P4/doctrine untouched.
+Historical CP01 preserved as SUPERSEDED tip. P3/P4/doctrine untouched.
+P3/P4/Build Doctrine/CKC sources not modified.
+
+Roadmap change is the living tip table only (new CP02 tip + historical CP01/S06 Delivery tips; prior S05 CP02 tip marked SUPERSEDED). Full useful diff:
+
+### Complete useful diff — Roadmap
+
+```diff
+diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+index 3b89bbcf..32a0a13b 100644
+--- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
++++ b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+@@ -4,7 +4,10 @@
+ | --- | --- |
+ | **Rôle** | Roadmap **vivante** de convergence vers l’utilisation complète de la doctrine produit SFIA Studio v3 |
+ | **Statut** | **VALIDATED — ACTIVE LIVING ROADMAP** |
+-| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S05 CP02 LOCAL CANDIDATE** | 2026-10-06 Europe/Paris — **STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S05 CORRECTION PASS 02 — LOCAL CANDIDATE PASS** · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **8 — Delivery / Implementation Correction** · Profile **Critical** · Typologie **EVOL** · Milestone **P5** · Slice **P5-S05** · Pass **CP02** · Morris P5-S05 CP02 GATE = **AUTHORIZED / CONSUMED** · prior Delivery+REAL/R3 + CP01 gates remain **CONSUMED** · base/main **`79a0e48a69c8dd634a8cecf972199bea8a4daeec`** · branche `delivery/sfia-studio-product-simplification-p5-s05-r3-f2-routing-alignment` · B1 F1 model = **SELECTED→DISPATCH CONFIG PROVEN** (`providerReturnedModel=NOT_OBSERVED`; REAL via `providerResponseId`) · B2 R3-19 = completed anti-secret observation (no stale pending) · campaign `p5-s05-r3-cp02-1791247484728` · productFP `35f31263…` (unchanged vs CP01) · harnessFP `a8049035…` (changed) · F2 Luna/low selected→configured→returned · F1 Luna/high selected→dispatched · CKC **N_A** · accounting BOUNDED (F1 modelInvocations=3) · R3 = **PASS AT TESTED SCOPE — LOCAL CANDIDATE AFTER CP02 FINAL EVIDENCE CORRECTION** · F2 EXIT PROOF PASS — LOCAL CANDIDATE · full npm test **5272 PASS** · P5 COMPLETE **NO** · P6 READY **NO** · runtime v3 **NON ADOPTED** · project Git = **NOT AUTHORIZED** · next = **ChatGPT Final Critical Re-Review** → **MORRIS P5-S05 GIT INTEGRATION GATE** if PASS · **≠** INTEGRATED · **≠** CLOSED ON MAIN |
++| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S06 CP02 LOCAL CANDIDATE** | 2026-10-06 Europe/Paris — **STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S06 CORRECTION PASS 02 — LOCAL CANDIDATE / FUNCTIONAL CLOSURE PASS** · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **8 — Delivery / Implementation Correction** · Profile **Critical** · Typologie **EVOL** · Milestone **P5** · Slice **P5-S06** · Pass **CP02** · Morris **D-S06-CANCEL-01 ADOPTED / CONSUMED** · prior Delivery+CP01 CONSUMED · base/main **`16a8e2fd823d75d7c59ce1fb4d55cb862d112697`** · branche `delivery/sfia-studio-product-simplification-p5-s06-pilot-experience-completion` · C2 STOP **DETERMINISTIC bounded AbortSignal / same Runner / same sendProjectAssistantTurn / thin HTTP transport** · Activity honesty **SOURCE_LOOKUP not live** · New Project mobile **title→Nora→composer** · Projects/Auth **frozen** · Visual **PASS AT S06 SCOPE** · ZERO REAL · P5 COMPLETE **NO** · P6 READY **NO** · runtime v3 **NON ADOPTED** · project Git **NOT AUTHORIZED** · next = **ChatGPT Final Critical Review CP02** · S07 **NOT STARTED** · **≠** INTEGRATED · **≠** S06 Git-complete |
++| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S06 CP01 LOCAL CANDIDATE** | 2026-10-06 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — P5-S06 CORRECTION PASS 01 LOCAL CANDIDATE / STOP ARCHITECTURE DELTA ON NORA STOP *(true then; superseded by P5-S06 CP02 tip)* · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **8 — Delivery / Implementation Correction** · Profile **Critical** · Typologie **EVOL** · Milestone **P5** · Slice **P5-S06** · Pass **CP01** · Morris P5-S06 CP01 GATE = **AUTHORIZED / CONSUMED** · prior S06 DELIVERY CONSUMED · base/main **`16a8e2fd823d75d7c59ce1fb4d55cb862d112697`** · branche `delivery/sfia-studio-product-simplification-p5-s06-pilot-experience-completion` · A New Project **explicit phases / no regex NLP** · continuity **Project+LPS rebound via workspace projectId** · B Projects **récents ≠ À reprendre** · Orientation **honest new-project only** · C Activity **mapping proven** · STOP **ABSENT / no fake STOPPED** · D visual **structure improved / not Visual PASS** · ZERO REAL · P5 COMPLETE **NO** · P6 READY **NO** · runtime v3 **NON ADOPTED** · project Git **NOT AUTHORIZED** · next was **ChatGPT Critical Re-Review CP01** · S07 **NOT STARTED** · **≠** INTEGRATED · **≠** S06 COMPLETE |
++| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S06 LOCAL CANDIDATE** | 2026-10-06 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S06 PILOT EXPERIENCE COMPLETION — LOCAL CANDIDATE *(true then; superseded by P5-S06 CP01 tip)* · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **8 — Delivery / Implementation** · Profile **Standard** · Typologie **EVOL** · Milestone **P5** · Slice **P5-S06** · Morris P5-S06 DELIVERY GATE = **AUTHORIZED / CONSUMED** (2026-10-06) · slicing P5 restant **S06/S07/S08** = **ADOPTED** · base/main **`16a8e2fd823d75d7c59ce1fb4d55cb862d112697`** (PR **#560** P5-S05 R3 · CI Studio **#688** SUCCESS) · branche `delivery/sfia-studio-product-simplification-p5-s06-pilot-experience-completion` · P5-S05 = **INTEGRATED / POST-MERGE VERIFIED** · F2 routing alignment = **CLOSED ON MAIN** · R3 = **PASS AT TESTED SCOPE / INTEGRATED / POST-MERGE VERIFIED** · Axes S06 : A Projects **ADAPT** · B Nouveau projet chat-first **ADAPT** (ephemeral client · createProjectRuntimeAction · D1 NOT nominal) · C Nora Activity **PARTIAL** (labels honnêtes · **STOP/■ absent** — no fake STOPPED) · D Auth GitHub visual **ADAPT** (backend KEEP) · E responsive/a11y touched surfaces · ZERO REAL · full npm test **5278 PASS / 139 skipped** · P5 COMPLETE **NO** · P6 READY **NO** · runtime v3 **NON ADOPTED** · project Git = **NOT AUTHORIZED** · next = **ChatGPT Review de S06** → gate Morris distinct si PASS · S07 = **NOT STARTED** · **≠** INTEGRATED · **≠** P5 COMPLETE |
++| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S05 CP02 LOCAL CANDIDATE** | 2026-10-06 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S05 CORRECTION PASS 02 — LOCAL CANDIDATE PASS *(true then; superseded by P5-S05 INTEGRATED via PR #560 then by P5-S06 LOCAL CANDIDATE tip)* · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **8 — Delivery / Implementation Correction** · Profile **Critical** · Typologie **EVOL** · Milestone **P5** · Slice **P5-S05** · Pass **CP02** · Morris P5-S05 CP02 GATE = **AUTHORIZED / CONSUMED** · prior Delivery+REAL/R3 + CP01 gates remain **CONSUMED** · base/main **`79a0e48a69c8dd634a8cecf972199bea8a4daeec`** · branche `delivery/sfia-studio-product-simplification-p5-s05-r3-f2-routing-alignment` · B1 F1 model = **SELECTED→DISPATCH CONFIG PROVEN** (`providerReturnedModel=NOT_OBSERVED`; REAL via `providerResponseId`) · B2 R3-19 = completed anti-secret observation (no stale pending) · campaign `p5-s05-r3-cp02-1791247484728` · productFP `35f31263…` (unchanged vs CP01) · harnessFP `a8049035…` (changed) · F2 Luna/low selected→configured→returned · F1 Luna/high selected→dispatched · CKC **N_A** · accounting BOUNDED (F1 modelInvocations=3) · R3 = **PASS AT TESTED SCOPE — LOCAL CANDIDATE AFTER CP02 FINAL EVIDENCE CORRECTION** · F2 EXIT PROOF PASS — LOCAL CANDIDATE · full npm test **5272 PASS** · P5 COMPLETE **NO** · P6 READY **NO** · runtime v3 **NON ADOPTED** · project Git = **NOT AUTHORIZED** · next = **ChatGPT Final Critical Re-Review** → **MORRIS P5-S05 GIT INTEGRATION GATE** if PASS · **≠** INTEGRATED · **≠** CLOSED ON MAIN |
+ | **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S05 CP01 LOCAL CANDIDATE** | 2026-10-06 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S05 CORRECTION PASS 01 — LOCAL CANDIDATE PASS *(true then; superseded by P5-S05 CP02 tip after residual B1 F1 model semantics + B2 R3-19 observation)* · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **8 — Delivery / Implementation Correction** · Profile **Critical** · Typologie **EVOL** · Milestone **P5** · Slice **P5-S05** · Pass **CP01** · Morris P5-S05 CP01 GATE = **AUTHORIZED / CONSUMED** · prior Delivery+REAL/R3 gate remains **CONSUMED** · base/main **`79a0e48a69c8dd634a8cecf972199bea8a4daeec`** · branche `delivery/sfia-studio-product-simplification-p5-s05-r3-f2-routing-alignment` · A1 CKC = **N_A** · A2 accounting = **BOUNDED** · A3 effort = **SELECTED→DISPATCH CONFIG PROVEN** · campaign `p5-s05-r3-cp01-1791245552722` · productFP `35f31263…` · harnessFP `fd10646b…` · Critical Review residual = **CORRECTION REQUIRED** (B1 F1 usage.model ≠ provider-returned; B2 R3-19 stale observation) · **≠** INTEGRATED · **≠** CLOSED ON MAIN |
+ | **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S05 LOCAL CANDIDATE** | 2026-10-06 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S05 R3 + F2 ROUTING ALIGNMENT — LOCAL CANDIDATE PASS *(true then; superseded by P5-S05 CP01 tip after Critical Review A1/A2/A3 correction)* · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **8 — Delivery / Implementation** · Profile **Critical** · Typologie **EVOL** · Milestone **P5** · Slice **P5-S05** · Morris P5-S05 DELIVERY + REAL/R3 GATE = **AUTHORIZED / CONSUMED** · base/main **`79a0e48a69c8dd634a8cecf972199bea8a4daeec`** (PR **#559** POST-S04 TRUTH-SYNC merge · CI **#686** SUCCESS) · branche `delivery/sfia-studio-product-simplification-p5-s05-r3-f2-routing-alignment` · F2 routing alignment = **EXIT PROOF PASS — LOCAL CANDIDATE** · R3 = **PASS AT TESTED SCOPE — LOCAL CANDIDATE** · campaign `p5-s05-r3-1791242959473` · fingerprint `39bc5907bff9cc23d1a150869c891ead04dc1fe5dd382f550ae91e76b0b5ee31` · F2 `gpt-6-luna/low` → actual match · F1 `gpt-6-luna/high` → actual match · journal tools `cycle_journal_search` + `get_entry` + `get_sources` · HD=0 · R1/R2 PASS historical · P5 = **IN PROGRESS** · P5 COMPLETE **NO** · P6 READY **NO** · runtime v3 **NON ADOPTED** · project commit/push/PR/merge = **NOT AUTHORIZED** · Critical Review = **CORRECTION REQUIRED** (A1/A2/A3) · **≠** INTEGRATED · **≠** CLOSED ON MAIN · **≠** P5 COMPLETE |
+ | **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S04 INTEGRATED / POST-S04 TRUTH-SYNC** | 2026-10-06 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S04 PRODUCT-DERIVED SYNTHÈSES — INTEGRATED / POST-MERGE VERIFIED — POST-S04 TRUTH-SYNC *(true then; superseded by P5-S05 LOCAL CANDIDATE tip)* · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **14 — Post-merge** · Milestone **P5** · Slice **P5-S04** · Standard · DOC · Morris P5 POST-S04 TRUTH-SYNC GATE = **CONSUMED** · PR **#558** **MERGED** · merge/main **`c7b53b93d48e626e5ac1548886162936ce7e9eb3`** · post-merge CI **#684** / run **`37377995199`** = **SUCCESS** · Detect / Build / **Required Gate** = **SUCCESS** · P5-S04 = **INTEGRATED / POST-MERGE VERIFIED** · CP01/CP02 preserved · A=0 / B=0 preserved · ZERO REAL for S04 · P5 = **AUTHORIZED / STARTED / IN PROGRESS** · F2 routing debt **OPEN** · R1 **PASS** · R2 **PASS** · R3 **NOT STARTED** · P5 COMPLETE **NO** · P6 READY **NO** · runtime v3 **NON ADOPTED** · ChatGPT POST-S04 REQUALIFICATION = **PASS** · next RECOMMENDED capability = **P5-S05 — R3 Integrated Product Cognitive Path + F2 Routing Alignment** · P5-S05 DELIVERY = **NOT AUTHORIZED** · P5-S05 REAL / R3 = **NOT AUTHORIZED** · next = **MORRIS P5-S05 DELIVERY + REAL GATE** (distinct · only after review of this truth-sync) · **≠** P5 COMPLETE · **≠** R3 PASS · **≠** S05 STARTED · **≠** runtime v3 ADOPTED |
+```
+
+P5 Integrated Delivery change is: metadata table + lecture rapide + new §§39–41 (S06 Delivery / CP01 / CP02 truth-sync) + closing line. Full useful diff:
+
+### Complete useful diff — P5 Integrated Delivery
+
+```diff
+diff --git a/projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md b/projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md
+index 5f23603b..b81de8dd 100644
+--- a/projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md
++++ b/projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md
+@@ -5,40 +5,47 @@
+ | **Projet** | SFIA Studio |
+ | **Macro** | `STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01` |
+ | **Milestone** | **P5 — INTEGRATED DELIVERY** (Delivery / Implementation / Evidence source) |
+-| **Slice** | **P5-S01**…**P5-S04** (integrated) + **P5-S05** (local candidate) |
+-| **Pass** | **P5-S05 CORRECTION PASS 02 — LOCAL CANDIDATE PASS** |
++| **Slice** | **P5-S01**…**P5-S05** (integrated) + **P5-S06** (local candidate) |
++| **Pass** | **P5-S06 CORRECTION PASS 02 — LOCAL CANDIDATE** |
+ | **Typologie** | Delivery evidence dans macro **EVOL** — **≠** doctrine · **≠** nouvelle architecture |
+ | **Autorité architecture** | **P4** (`04-chat-first-product-simplification-semantic-projection-cognitive-architecture.md`) — **inchangée** |
+-| **Base / HEAD Git** | `origin/main` = `79a0e48a69c8dd634a8cecf972199bea8a4daeec` (PR **#559** POST-S04 TRUTH-SYNC · CI **#686** SUCCESS) |
++| **Base / HEAD Git** | `origin/main` = `16a8e2fd823d75d7c59ce1fb4d55cb862d112697` (PR **#560** P5-S05 R3 · CI Studio **#688** SUCCESS) |
+ | **P5-S01 integration** | PR **#555** **MERGED** · post-merge CI **#678** **SUCCESS** · **INTEGRATED / POST-MERGE VERIFIED** |
+ | **P5-S02 integration** | PR **#556** **MERGED** · post-merge CI **#680** **SUCCESS** · Required Gate **SUCCESS** · **INTEGRATED / POST-MERGE VERIFIED** |
+ | **P5-S03 integration** | PR **#557** **MERGED** · post-merge CI **#682** **SUCCESS** · Required Gate **SUCCESS** · **INTEGRATED / POST-MERGE VERIFIED** |
+ | **P5-S04 integration** | PR **#558** **MERGED** · post-merge CI **#684** / run **`37377995199`** **SUCCESS** · Required Gate **SUCCESS** · **INTEGRATED / POST-MERGE VERIFIED** |
++| **P5-S05 integration** | PR **#560** **MERGED** · post-merge CI Studio **#688** **SUCCESS** · **INTEGRATED / POST-MERGE VERIFIED** · F2 routing alignment **CLOSED ON MAIN** · R3 **PASS AT TESTED SCOPE / INTEGRATED / POST-MERGE VERIFIED** |
+ | **Worktree** | `/Users/morris/Projects/sfia-studio-chat-first-product-simplification-p3` |
+-| **Branche S05** | `delivery/sfia-studio-product-simplification-p5-s05-r3-f2-routing-alignment` (local · **NOT committed**) |
++| **Branche S06** | `delivery/sfia-studio-product-simplification-p5-s06-pilot-experience-completion` (local · **NOT committed**) |
+ | **P5 AUTHORIZED BY MORRIS** | **YES** |
+ | **P5 STARTED** | **YES** |
+ | **P5 IN PROGRESS** | **YES** |
++| **P5 COMPLETE** | **NO** |
++| **P6 READY** | **NO** |
+ | **P5-S01** | **INTEGRATED / POST-MERGE VERIFIED** |
+ | **P5-S02** | **INTEGRATED / POST-MERGE VERIFIED** — R1/R2 **PROVEN** · envelope deviation **ACCEPTED BY MORRIS** |
+ | **P5-S03** | **INTEGRATED / POST-MERGE VERIFIED** · Object-Native Aperçu + Exécution · A=0/B=0 |
+ | **P5-S04** | **INTEGRATED / POST-MERGE VERIFIED** · Product-derived Synthèses M9 · CP01/CP02 preserved · A=0/B=0 · B1/B2 CLOSED |
+-| **P5-S05** | **LOCAL CANDIDATE PASS AFTER CP02** — F2 routing EXIT PROOF · R3 PASS AT TESTED SCOPE |
+-| **R1 / R2 / R3** | **R1 PASS** · **R2 PASS** · **R3 PASS AT TESTED SCOPE — LOCAL CANDIDATE (CP02)** |
+-| **ZERO REAL** | **NO for S05 R3** (bounded REAL OpenAI) · S04 ZERO REAL preserved historically |
+-| **READY FOR REAL** | **R3 CP02 executed under Morris S05 + CP01 + CP02 gates** |
++| **P5-S05** | **INTEGRATED / POST-MERGE VERIFIED** — F2 routing CLOSED ON MAIN · R3 PASS AT TESTED SCOPE |
++| **P5-S06** | **CP02 LOCAL CANDIDATE — FUNCTIONAL CLOSURE PASS** · A/A2/B/C Activity PASS · C2 STOP **DETERMINISTIC / BOUNDED CANCELLATION PROVEN** · D Visual **PASS AT S06 SCOPE** · **≠ INTEGRATED** · **≠ COMPLETE until Git** |
++| **P5-S06 DELIVERY** | **AUTHORIZED / CONSUMED** |
++| **P5-S06 CP01** | **AUTHORIZED / CONSUMED** |
++| **P5-S06 CP02** | **AUTHORIZED / CONSUMED** |
++| **P5 slicing restant** | **S06 / S07 / S08** — **ADOPTED BY MORRIS** (2026-10-06) · S07/S08 = **NOT STARTED** |
++| **R1 / R2 / R3** | **R1 PASS** · **R2 PASS** · **R3 PASS AT TESTED SCOPE / INTEGRATED / POST-MERGE VERIFIED** (S05) |
++| **ZERO REAL** | **YES for S06** · S05 R3 REAL historique préservé (bounded OpenAI sous gate S05) |
+ | **runtime v3** | **NON ADOPTED** |
+-| **Git (S05)** | **NOT AUTHORIZED** — no project commit/push/PR/merge |
+-| **Next** | **ChatGPT Final Critical Re-Review** → **MORRIS P5-S05 GIT INTEGRATION GATE** if PASS |
+-| **P5-S05 DELIVERY** | **AUTHORIZED / CONSUMED** |
+-| **P5-S05 REAL / R3** | **AUTHORIZED / CONSUMED** |
+-| **P5-S05 CP01** | **AUTHORIZED / CONSUMED** |
+-| **P5-S05 CP02** | **AUTHORIZED / CONSUMED** |
++| **Git (S06)** | **NOT AUTHORIZED** — no project commit/push/PR/merge |
++| **Next** | **ChatGPT Final Critical Review of P5-S06 CP02** · Git integration **NOT AUTHORIZED** · S07 **NOT STARTED** |
++| **P5-S05 DELIVERY** | **AUTHORIZED / CONSUMED** → **INTEGRATED** via PR **#560** |
++| **P5-S05 REAL / R3** | **AUTHORIZED / CONSUMED** → **INTEGRATED** |
++| **P5-S05 CP01 / CP02** | **AUTHORIZED / CONSUMED** (historique) |
++| **P5-S06 DELIVERY** | **AUTHORIZED / CONSUMED** |
+ | **Langue** | Français (identifiants canoniques anglais préservés) |
+ | **Fichier** | `projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md` |
+ | **Date** | 2026-10-06 · Europe/Paris |
+
+-> **Lecture rapide.** P5-S01…S04 **intégrés**. P5-S05 CP02 = **LOCAL CANDIDATE PASS** (B1 F1 selected→dispatch · B2 R3-19 scan observation · CKC N_A · accounting borné). **≠ INTEGRATED** · **≠ P5 COMPLETE** · **≠ runtime v3 ADOPTED**. Project Git **NOT AUTHORIZED**.
++> **Lecture rapide.** P5-S01…S05 **intégrés**. P5-S06 CP02 = **LOCAL CANDIDATE — FUNCTIONAL CLOSURE PASS** (A/B PASS · Activity honest · STOP deterministic bounded · Visual PASS AT S06 SCOPE). **≠ INTEGRATED** · **≠ P5 COMPLETE** · Git **NOT AUTHORIZED**.
+ > **Règle de lecture des preuves.** *Implémenté* ≠ *prouvé* ≠ *intégré* ≠ *REAL*. Chaque affirmation ci-dessous est qualifiée par son niveau de preuve. Les résultats de tests/typecheck/lint/build sont ceux **rapportés par la passe de livraison** ; ce document n’en invente pas d’autres et ne les a pas ré-exécutés lors de sa rédaction.
+
+ ---
+@@ -972,4 +979,88 @@ Anti-claims explicites :
+
+ ---
+
+-*Fin du document P5 — Integrated Delivery — S01/S02/S03/S04 INTEGRATED / POST-MERGE VERIFIED · S05 CP02 LOCAL CANDIDATE PASS · R3 PASS AT TESTED SCOPE LOCAL · project Git NOT AUTHORIZED · P5 COMPLETE NO · runtime v3 NON ADOPTED — P4 remains architecture authority.*
++---
++
++## 39. P5-S06 — Pilot Experience Completion — LOCAL CANDIDATE (truth-sync)
++
++> **Qualification.** Enregistrement factuel de la Delivery locale P5-S06 sous GO Morris DELIVERY consommé le 2026-10-06. **≠ INTEGRATED** · **≠ P5 COMPLETE** · project Git **NOT AUTHORIZED**.
++
++### 39.1 Git / gates
++
++| Item | Valeur |
++| --- | --- |
++| Base / HEAD | `16a8e2fd823d75d7c59ce1fb4d55cb862d112697` = `origin/main` |
++| Branche | `delivery/sfia-studio-product-simplification-p5-s06-pilot-experience-completion` |
++| P5-S05 | **INTEGRATED / POST-MERGE VERIFIED** — PR **#560** · CI Studio **#688** SUCCESS |
++| F2 routing | **CLOSED ON MAIN** |
++| R3 | **PASS AT TESTED SCOPE / INTEGRATED / POST-MERGE VERIFIED** |
++| Morris S06 DELIVERY | **CONSUMED** |
++| Slicing restant | **S06 / S07 / S08** ADOPTED · S07/S08 **NOT STARTED** |
++| ZERO REAL (S06) | **YES** |
++| runtime v3 | **NON ADOPTED** |
++| P5 COMPLETE / P6 READY | **NO** / **NO** |
++
++### 39.2 Axes livrés (honnêteté)
++
++| Axe | Statut | Notes |
++| --- | --- | --- |
++| A Projects | **ADAPT** | Recherche locale · À reprendre depuis `updatedAt` ≤14j · Orientation → `/studio/projects/new` · empty state · pas d’attention inventée |
++| B Nouveau projet | **ADAPT** | Conversation pré-Project éphémère client · `createProjectRuntimeAction` au CTA · D1 Intake **NOT** nominal · pas de store / pas d’auto-Cycle |
++| C Nora Activity / STOP | **PARTIAL** | Phases START/ACTIVITY/COMPLETE projetées depuis `uiState` réel · **■ STOP absent** (pas de seam Abort Product) — **pas de faux STOPPED** |
++| D Auth GitHub visual | **ADAPT** | Split narrative+card · « Continuer avec GitHub » · mark SVG · backend Better/Auth **KEEP** |
++| E Responsive / a11y | **ADAPT** (surfaces touchées) | Labels · focus · targets · reduced-motion conservé côté conversation |
++
++### 39.3 Preuves
++
++| Porte | Résultat |
++| --- | --- |
++| `p5.s06.pilotExperience.d0.test.tsx` | **6 PASS** |
++| Auth unit tests ciblés | **PASS** |
++| typecheck / lint / build | **PASS** |
++| full `npm test` | **5278 PASS / 139 skipped** |
++| Visual runtime | Auth + Projects `/studio` + New Project capturés sous `.tmp-sfia-review/p5-s06-visual/runtime/` vs Figma refs sous `…/figma/` — **pas de claim Visual PASS global** |
++
++### 39.4 Réserves
++
++| Classe | Réserve |
++| --- | --- |
++| **BLOCKING** (avant S06 COMPLETE) | P3 STOP/■ non satisfait sans architecture cancellation — décision Morris : accepter PARTIAL ou autoriser delta |
++| **NON-BLOCKING** | Écarts Class B Projects/New Project vs frames Figma EXPLORATORY (table Attention, quick-replies, layout 3-col) · STREAMING non projeté (non observable) · D1 HARVEST only |
++
++### 39.5 Next
++
++**ChatGPT Review de S06** → gate Morris distinct. **S07** reste **NOT STARTED**.
++
++---
++
++## 40. P5-S06 CP01 — Correction Pass 01 (truth-sync)
++
++> **Qualification.** Delivery S06 Critical Review = CORRECTION REQUIRED. CP01 = local candidate after semantic/visual correction. STOP Nora remains architecture-blocked. **≠ S06 COMPLETE** · **≠ INTEGRATED**.
++
++| Axe | Statut CP01 |
++| --- | --- |
++| A New Project | **PASS** — explicit phases INTENTION/NAME/OPTIONAL_CONTEXT · no NAME_HINT · factual preview · CTA unique |
++| A2 Continuity | **PASS min-sufficient** — createProjectRuntimeAction writes Project+LPS · router `/studio/projects/:id` · workspace `getProject` + `useProductConversation(projectId)` · no transcript store |
++| B Projects | **PASS** — « Projets récents » from updatedAt · no « À reprendre » as next-action · local search KEEP |
++| B2 Orientation | **PASS** — wording = start new project only · href `/studio/projects/new` |
++| C Activity | **PASS proven** — `projectNoraActivity` mapping + tests |
++| C2 STOP | **BLOCKED** — no Product conversation Abort seam · no fake ■/STOPPED |
++| D Visual | **PARTIEL** — structure closer to 63:39 / 67:39 / 130:3 / mobile 190:* · composer mobile first · no Attention invented · **≠ Visual PASS** |
++
++---
++
++## 41. P5-S06 CP02 — Nora Cancellation Closure (truth-sync)
++
++> **Qualification.** Morris D-S06-CANCEL-01 consumed. Bounded request-scoped AbortSignal through same `sendProjectAssistantTurn` → `orchestrateAssistantSend` → `runNoraAgentsTurn` → `Runner.run({ signal })`. Thin POST `/api/studio/projects/[projectId]/assistant/send`. **≠ INTEGRATED**. **≠ REAL cancellation proven**.
++
++| Axe | Statut CP02 |
++| --- | --- |
++| A / A2 / B | **PASS** (CP01 preserved) |
++| C Activity | **PASS** — SOURCE_LOOKUP no longer projected as live « consulte les sources » |
++| C2 STOP | **PASS DETERMINISTIC / BOUNDED CANCELLATION PROVEN** — ■ only when in-flight · native AbortSignal · STOPPED ≠ Error/Cognitive STOP/Execution STOP · no late success after abort in tested path |
++| D Visual | **PASS AT S06 SCOPE** — Projects/Auth freeze · New Project mobile order title→Nora→composer→preview · six recaptures |
++| P5-S06-DEBT-NORA-STOP | **CLOSED LOCALLY / awaiting Git Integration** |
++
++---
++
++*Fin du document P5 — Integrated Delivery — S01…S05 INTEGRATED · S06 CP02 LOCAL CANDIDATE FUNCTIONAL CLOSURE · project Git NOT AUTHORIZED · P5 COMPLETE NO · runtime v3 NON ADOPTED — P4 remains architecture authority.*
+```
 
 ## 42. Project Git effects
 
@@ -2735,9 +3103,11 @@ NONE authorized. No commit, push, PR, merge on project branch. Staged empty. Wor
 
 Publisher `scripts/sfia/publish-review-handoff.sh`
 Message: `docs(review-handoff): publish P5 S06 CP02 cancellation closure`
-Input remote before: `b588c7de6c2d061aecd230860b88ac190cea86a8`
-Remote after: `6fc7eceff133b174a70e029fb185ba6a51b934d9`
-Blob: `5c264bc51405aa2e4017c6f54526ce92a46e8d10`
+Input remote before (this republish): `9b2a45957b61a94f80ff867da2f95d3db3a5977f`
+Prior CP02 pack: `9b2a45957b61a94f80ff867da2f95d3db3a5977f`
+Original CP01 input: `b588c7de6c2d061aecd230860b88ac190cea86a8`
+Remote after: (filled after publish)
+Blob: (filled after publish)
 Reread title: P5-S06 CP02 — NORA CANCELLATION CLOSURE — FULL REVIEW PACK
 Handoff branch restored: `sfia/review-handoff`
 Project branch restored: `delivery/sfia-studio-product-simplification-p5-s06-pilot-experience-completion` @ `16a8e2fd`
