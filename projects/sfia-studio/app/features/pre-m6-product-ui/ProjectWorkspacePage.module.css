@@ -215,6 +215,35 @@
   color: var(--pm6-muted-strong);
 }
 
+/*
+ * H2 190:111 — compact History page head. Hidden by default; shown only in
+ * the compact band when data-active-view=history (LARGE keeps project title).
+ */
+.historyPageHead {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+  padding-bottom: 2px;
+}
+
+.historyPageTitle {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: var(--pm6-ink);
+}
+
+.historyPageSubtitle {
+  margin: 0;
+  max-width: 62ch;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--pm6-muted-strong);
+}
+
 /* Context sheet opener — only on single-column layouts (<900). */
 .lpsToggle {
   display: none;
@@ -333,9 +362,14 @@
   background: var(--pm6-body);
 }
 
-/* Aperçu owns principal width — no permanent sibling context rail. */
+/*
+ * Aperçu / Synthèses / Historique / Journal own principal width — no permanent
+ * sibling context rail. These surfaces own their own full-height master/detail,
+ * so the single grid row stretches instead of hugging its content.
+ */
 .layoutOverview {
   grid-template-columns: minmax(0, 1fr);
+  align-items: stretch;
 }
 
 .main {
@@ -532,15 +566,16 @@
   border-top: 1px solid var(--pm6-border-soft);
 }
 
-/* ---------- ≥900: two columns, context sticky + own scroll ---------- */
+/* ---------- ≥768: two columns (COMPACT+), context sticky + own scroll ---------- */
 
-@media (min-width: 900px) {
+@media (min-width: 768px) {
   .layout {
     grid-template-columns: minmax(0, 1fr) var(--ws-context-w);
   }
 
   .layoutOverview {
     grid-template-columns: minmax(0, 1fr);
+    align-items: stretch;
   }
 
   .lpsColumn {
@@ -570,9 +605,29 @@
     padding: var(--pm6-space-4) var(--pm6-space-3);
   }
 
-  /* Journal stays accessible in the context stack (no 900–1199 dead zone). */
+  /* Journal stays accessible in the context stack (no 768–1199 dead zone). */
   .journalColumn {
     display: block;
+  }
+}
+
+/*
+ * H2 HARD — 768–1199 History compact: breadcrumb + À jour stay; hide oversized
+ * project title/chips; show Historique page head; keep Conversation/Aperçu/Exécution.
+ */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .root[data-active-view="history"] .projectHeaderText,
+  .root[data-active-view="history"] .projectChips {
+    display: none;
+  }
+
+  .root[data-active-view="history"] .historyPageHead {
+    display: flex;
+  }
+
+  .root[data-active-view="history"] .projectHeader {
+    min-height: 0;
+    gap: var(--pm6-space-2);
   }
 }
 
@@ -589,9 +644,9 @@
   }
 }
 
-/* ---------- <900: single column; context as sheet ---------- */
+/* ---------- <768: MOBILE — single column; context as sheet ---------- */
 
-@media (max-width: 899px) {
+@media (max-width: 767px) {
   .root {
     --ws-pad-x: 16px;
   }
@@ -713,10 +768,13 @@
   }
 
   /*
-   * P5-S04 CP01 B2 — Synthèses is a focused secondary mobile view:
-   * hide project title + primary tabs; SynthesesSurface owns list/detail nav.
+   * P5-S04 CP01 B2 / P5-S07 CP01 — Synthèses, Historique and Journal are
+   * focused secondary mobile views (P3 190:380 / 192:41): hide project title +
+   * primary tabs; each surface owns its own list/detail nav and return link.
    */
-  .root[data-active-view="syntheses"] .projectHeader {
+  .root[data-active-view="syntheses"] .projectHeader,
+  .root[data-active-view="history"] .projectHeader,
+  .root[data-active-view="journal"] .projectHeader {
     display: none;
   }
 }

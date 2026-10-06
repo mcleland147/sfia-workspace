@@ -14,8 +14,11 @@ import { readLiveProjectContext } from "@/lib/vertical-slice-runtime";
 
 /** Bounded lookback so the read model can never become a history platform. */
 export const W2_HISTORY_MAX_TRAJECTORY_VERSIONS = 5;
-export const W2_HISTORY_MAX_DECISIONS = 5;
-export const W2_HISTORY_MAX_CONTRACTS = 5;
+export const W2_HISTORY_MAX_DECISIONS = 8;
+export const W2_HISTORY_MAX_CONTRACTS = 8;
+export const W2_HISTORY_MAX_EVIDENCE = 5;
+export const W2_HISTORY_MAX_REVIEW_BUNDLES = 5;
+export const W2_HISTORY_MAX_SYNTHESES = 3;
 
 export type W2TrajectoryAnchor = {
   readonly trajectoryId: string;
@@ -50,6 +53,22 @@ export type W2ContractAnchor = {
   readonly decisionRefs: readonly string[];
 };
 
+export type W2EvidenceAnchor = {
+  readonly evidenceId: string;
+  readonly status: string;
+};
+
+export type W2ReviewBundleAnchor = {
+  readonly reviewBundleId: string;
+  readonly status: string;
+};
+
+export type W2SynthesisAnchor = {
+  readonly synthesisId: string;
+  readonly title: string;
+  readonly status: string;
+};
+
 export type W2ProjectHistoryReadModel = {
   readonly projectId: string;
   readonly projectTitle: string;
@@ -67,8 +86,13 @@ export type W2ProjectHistoryReadModel = {
   };
   readonly decisions: readonly W2DecisionAnchor[];
   readonly contracts: readonly W2ContractAnchor[];
+  readonly evidence: readonly W2EvidenceAnchor[];
+  readonly reviewBundles: readonly W2ReviewBundleAnchor[];
+  readonly syntheses: readonly W2SynthesisAnchor[];
   /** Explicit honesty about what this read model does NOT contain. */
   readonly absent: readonly string[];
+  /** Explicit lookback caps — History is bounded, not exhaustive. */
+  readonly boundNote: string;
 };
 
 export type ReadW2ProjectHistoryResult =
@@ -76,10 +100,11 @@ export type ReadW2ProjectHistoryResult =
   | { readonly ok: false; readonly code: string; readonly message: string };
 
 const ABSENT_BY_DESIGN: readonly string[] = Object.freeze([
-  "Conversation (process-local, non rejouée)",
-  "Proposition F2 process-local",
-  "Confirmation demandée (process-local)",
+  "Conversation (interaction durable Session — ≠ Historique Product)",
+  "Proposition F2 process-local (reconstruite via Epistemic ou requalification)",
+  "Confirmation préparée process-locale (UAT-RECOVERY-03 — non-autorité)",
   "Raisonnement interne non matérialisé",
+  "Historique borné — pas un dump exhaustif",
 ]);
 
 export async function readW2ProjectHistory(input: {
@@ -194,6 +219,57 @@ export async function readW2ProjectHistory(input: {
         }))
     : [];
 
+  // P5-S07 CP01 — minimum-sufficient Evidence / Review / Synthesis anchors
+  // from existing OA list use cases (bounded; no HistoryStore).
+  let evidence: W2EvidenceAnchor[] = [];
+  let reviewBundles: W2ReviewBundleAnchor[] = [];
+  try {
+    const listed = await oa.evidenceReviewServices.repository.listByProject(
+      projectId,
+    );
+    evidence = listed
+      .slice(-W2_HISTORY_MAX_EVIDENCE)
+      .reverse()
+      .map((e) => ({
+        evidenceId: e.evidenceId,
+        status: e.status,
+      }));
+  } catch {
+    evidence = [];
+  }
+  try {
+    const listed =
+      await oa.evidenceReviewServices.reviewBundleRepository.listByProject(
+        projectId,
+      );
+    reviewBundles = listed
+      .slice(-W2_HISTORY_MAX_REVIEW_BUNDLES)
+      .reverse()
+      .map((rb) => ({
+        reviewBundleId: rb.reviewBundleId,
+        status: rb.status,
+      }));
+  } catch {
+    reviewBundles = [];
+  }
+
+  let syntheses: W2SynthesisAnchor[] = [];
+  try {
+    const { listProductSynthesesAction } = await import(
+      "@/features/project-assistant/synthesisActions"
+    );
+    const listed = await listProductSynthesesAction({ projectId });
+    if (listed.ok) {
+      syntheses = listed.items.slice(0, W2_HISTORY_MAX_SYNTHESES).map((s) => ({
+        synthesisId: s.synthesisId,
+        title: s.title,
+        status: s.status,
+      }));
+    }
+  } catch {
+    syntheses = [];
+  }
+
   return {
     ok: true,
     history: {
@@ -214,7 +290,11 @@ export async function readW2ProjectHistory(input: {
       },
       decisions,
       contracts,
+      evidence,
+      reviewBundles,
+      syntheses,
       absent: ABSENT_BY_DESIGN,
+      boundNote: `Borné · ≤${W2_HISTORY_MAX_DECISIONS} décisions · ≤${W2_HISTORY_MAX_CONTRACTS} contrats · ≤${W2_HISTORY_MAX_EVIDENCE} preuves · ≤${W2_HISTORY_MAX_REVIEW_BUNDLES} revues · ≤${W2_HISTORY_MAX_SYNTHESES} synthèses.`,
     },
   };
 }

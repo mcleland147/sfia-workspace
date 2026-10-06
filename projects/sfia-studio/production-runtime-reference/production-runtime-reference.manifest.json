@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "kind": "SFIA_STUDIO_LIVING_PRODUCTION_RUNTIME_REFERENCE",
   "lastReviewedCommit": "d4d986af5884b31b416374da3cb5e60757501f87",
-  "lastReviewedAt": "2026-10-01T22:00:20.000Z",
+  "lastReviewedAt": "2026-10-06T18:08:07.408Z",
   "canonicalReadme": "projects/sfia-studio/production-runtime-reference/README.md",
   "volumes": [
     {
@@ -578,7 +578,7 @@
   "trackedSources": [
     {
       "path": "projects/sfia-studio/app/features/project-assistant/actions.ts",
-      "sha256_16": "40476bb2a7b35f9c"
+      "sha256_16": "3abbffc860197bb3"
     },
     {
       "path": "projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts",
@@ -670,7 +670,7 @@
     },
     {
       "path": "projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.tsx",
-      "sha256_16": "32b7a2bb4be0f688"
+      "sha256_16": "5024a8dde9da86a8"
     },
     {
       "path": "projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/lifecyclePresentation.ts",
@@ -678,7 +678,7 @@
     },
     {
       "path": "projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts",
-      "sha256_16": "04bb47dbd1e37a7f"
+      "sha256_16": "8c5caa5a619aca3f"
     },
     {
       "path": "projects/sfia-studio/app/.env.example",

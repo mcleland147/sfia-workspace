@@ -43,11 +43,19 @@ import {
 import { useRunningAttemptO3Observation } from "./useRunningAttemptO3Observation";
 import { sendCancellableAssistantTurn } from "./sendCancellableAssistantTurn";
 import type { JournalSurfaceEntry } from "../surfaces/JournalSurface";
+import type { ActiveDecisionSubjectReadResult } from "@/features/project-assistant/w2/types";
+
+export type ProductDecisionSubjectContinuity =
+  | { readonly status: "pending" }
+  | { readonly status: "unavailable"; readonly message: string }
+  | Extract<ActiveDecisionSubjectReadResult, { ok: true }>;
 
 export type ProductMessage = {
   id: string;
   role: "user" | "assistant" | "system";
   content: string;
+  /** Durable Session turn timestamp when known — never synthesized client-side. */
+  createdAt?: string | null;
 };
 
 export type TranscriptAvailability =
@@ -130,6 +138,12 @@ export function useProductConversation({
   );
   const [f2, setF2] = useState<F2TurnPayload | null>(null);
   const [activeProposal, setActiveProposal] = useState<ProposalDto | null>(null);
+  /**
+   * P5-S07 CP01 — durable decision-subject continuity from server read on mount.
+   * Never fabricates a ProposalDto from thin air.
+   */
+  const [decisionSubjectContinuity, setDecisionSubjectContinuity] =
+    useState<ProductDecisionSubjectContinuity>({ status: "pending" });
   const [reservesText, setReservesText] = useState("");
   const [f3Prepare, setF3Prepare] = useState<F3PreparePayload | null>(null);
   const [f3M3Resolved, setF3M3Resolved] = useState<F3M3ResolvedPayload | null>(
@@ -262,6 +276,7 @@ export function useProductConversation({
           id: m.id,
           role: m.role,
           content: m.content,
+          createdAt: m.createdAt ?? null,
         })),
       );
       setJournalCycleInstanceId(result.journal.cycleInstanceId);
@@ -275,6 +290,46 @@ export function useProductConversation({
       cancelled = true;
     };
   }, [projectId, activeCycleInstanceId]);
+
+  // P5-S07 CP01 — rehydrate durable decision subject after process-local Proposal loss.
+  // Dynamic import keeps w2/actions (server-only) out of the client module graph.
+  useEffect(() => {
+    let cancelled = false;
+    setDecisionSubjectContinuity({ status: "pending" });
+    void import("@/features/project-assistant/w2/actions")
+      .then(({ w2ReadActiveDecisionSubjectAction }) =>
+        w2ReadActiveDecisionSubjectAction({ projectId }),
+      )
+      .then((result) => {
+        if (cancelled) return;
+        if (!result.ok) {
+          setDecisionSubjectContinuity({
+            status: "unavailable",
+            message: result.message,
+          });
+          return;
+        }
+        setDecisionSubjectContinuity(result);
+        // Never invent ProposalDto. Only clear stale local Proposal when server
+        // says none / reinstruction — never auto-synthesize from optionSet.
+        if (
+          result.kind === "none" ||
+          result.kind === "pending_reinstruction_required"
+        ) {
+          setActiveProposal(null);
+        }
+      })
+      .catch(() => {
+        if (cancelled) return;
+        setDecisionSubjectContinuity({
+          status: "unavailable",
+          message: "Sujet de décision indisponible pour la reprise.",
+        });
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [projectId]);
 
   useEffect(() => {
     let cancelled = false;
@@ -394,6 +449,7 @@ export function useProductConversation({
           id: m.id,
           role: m.role,
           content: m.content,
+          createdAt: m.createdAt ?? null,
         })),
       );
     }
@@ -962,6 +1018,7 @@ export function useProductConversation({
     lrMaterializeCode,
     f2,
     activeProposal,
+    decisionSubjectContinuity,
     reservesText,
     setReservesText,
     f3Prepare,
