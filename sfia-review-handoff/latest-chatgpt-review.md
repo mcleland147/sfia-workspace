@@ -336,7 +336,9 @@ No S07 GO in this cycle.
 | Input blob | `0daee7f16725ab941a8a4f557497eaf8b98d2be0` |
 | Commit message | `docs(review-handoff): publish P5 S06 truth-sync post-merge closure` |
 | Push | AUTHORIZED L3 bounded |
-| Result | filled after publish |
+| Result | **HANDOFF UPDATED — REMOTE VERIFIED** |
+| Remote commit | `b7cd77b35e2f91d425152735b64fc59d179c446f` |
+| Blob | `8319507ea6bc77fe1ad1220ed80bbc9ef6302529` |
 
 ## 38. Final Git truth
 
