@@ -675,8 +675,8 @@ P5 remains **IN PROGRESS**. S01…S06 integrated ≠ P5 COMPLETE.
 | Commit message | `docs(review-handoff): publish P5 S06 post-merge and truth-sync` |
 | Push | AUTHORIZED L3 bounded |
 | Result | **HANDOFF UPDATED — REMOTE VERIFIED** |
-| Remote commit | `4d90a4d1b2c8ed977b341bd097669de51f87c56a` |
-| Blob | `dfe0a2a7bbdb6ac04d4a91bfabcd5bb858ada3b1` |
+| Remote commit | `ac9e18a103ee3173cdd076038d7977e2fa9c3c87` |
+| Blob | `71f71a211a3eb8019365c8e064f0651c6851d392` |
 
 ## 47. Final local Git truth
 
