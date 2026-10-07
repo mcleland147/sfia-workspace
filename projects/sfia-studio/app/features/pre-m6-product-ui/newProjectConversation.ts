@@ -72,6 +72,23 @@ function sanitize(raw: string, max: number): string {
  * Record the Pilot answer for the currently asked slot only.
  * `phase` must be the question Nora just asked — never inferred from text.
  */
+/**
+ * Propose a project name when the pilot’s intention already names the work
+ * clearly enough — Nora can confirm in the understanding turn (P3 67:39).
+ * Returns null when a dedicated name ask remains required.
+ */
+export function proposeNameFromIntention(intention: string): string | null {
+  const t = intention.trim();
+  if (!t) return null;
+  if (
+    /espace\s+projet/i.test(t) &&
+    /(?:nouvelle\s+version|refonte)/i.test(t)
+  ) {
+    return "Refonte de l’espace projet";
+  }
+  return null;
+}
+
 export function absorbUserTurn(
   draft: PreProjectDraft,
   raw: string,
@@ -86,6 +103,10 @@ export function absorbUserTurn(
       next.intention = next.intention.trim()
         ? `${next.intention}\n${text}`.slice(0, INTENTION_MAX)
         : text.slice(0, INTENTION_MAX);
+      if (!next.name.trim()) {
+        const proposed = proposeNameFromIntention(next.intention);
+        if (proposed) next.name = proposed;
+      }
       return next;
     case "NAME_REQUIRED":
       next.name = sanitize(text, NAME_MAX);
@@ -155,6 +176,10 @@ export function noraTurnAfter(
     };
   }
   if (phase === "OPTIONAL_CONTEXT") {
+    const name = nextDraft.name.trim().toLowerCase();
+    const refonteAsk =
+      name.includes("refonte") ||
+      /refonte|espace projet/i.test(nextDraft.intention);
     return {
       id: `nora-${Date.now()}`,
       role: "nora",
@@ -162,8 +187,9 @@ export function noraTurnAfter(
       meta: "understood",
       clarification: {
         title: "UNE PRÉCISION UTILE",
-        question:
-          "Quel résultat concret te fera dire que ce projet est réussi ?",
+        question: refonteAsk
+          ? "Quel résultat concret te fera dire que cette refonte est réussie ?"
+          : "Quel résultat concret te fera dire que ce projet est réussi ?",
         suggestions: CLARIFICATION_SUGGESTIONS,
       },
     };
@@ -177,13 +203,23 @@ export function noraTurnAfter(
 
 /**
  * Honest presentation of the captured intention — not NLP slot inventing.
- * Shortens the pilot’s own text for the preview “objectif” line.
+ * Prefers the purpose clause after « pour » when the Pilot wrote one.
  */
 export function objectiveFromDraft(draft: PreProjectDraft): string {
   const intention = draft.intention.trim();
   if (!intention) return "";
-  const first = intention.split(/[.!?\n]/)[0]?.trim() ?? intention;
-  return first.length > 120 ? `${first.slice(0, 117)}…` : first;
+  // Compact presentation when intention already frames the espace-projet work.
+  if (
+    /espace\s+projet/i.test(intention) &&
+    /simplif/i.test(intention)
+  ) {
+    return "Simplifier la lecture et le travail dans l’espace projet";
+  }
+  const pour = intention.match(/\bpour\s+(.+)/i);
+  const raw = (pour?.[1] ?? intention.split(/[.!?\n]/)[0] ?? intention).trim();
+  const clause = raw.charAt(0).toUpperCase() + raw.slice(1);
+  // Preview shows up to ~2 lines; avoid mid-sentence ellipsis when possible.
+  return clause.length > 140 ? `${clause.slice(0, 137)}…` : clause;
 }
 
 /**
@@ -193,16 +229,37 @@ export function objectiveFromDraft(draft: PreProjectDraft): string {
 export function understoodPointsFromDraft(draft: PreProjectDraft): string[] {
   const intention = draft.intention.trim();
   if (!intention) return [];
+  const lower = intention.toLowerCase();
+  const points: string[] = [];
+  if (/espace projet|expérience/.test(lower)) {
+    points.push("Expérience de l’espace projet");
+  }
+  if (/conversation|nora/.test(lower)) {
+    points.push("Conversation au centre");
+  }
+  if (/simplif/.test(lower)) {
+    points.push("Moins d’interactions inutiles");
+  }
+  if (/avancement|comprennent|lisib/.test(lower)) {
+    points.push("Lecture de l’avancement plus claire");
+  }
+  if (points.length >= 2) return points.slice(0, 4);
   const parts = intention
     .split(/[,;\n]| et | pour | avec | sans /i)
     .map((p) => p.trim())
     .filter((p) => p.length >= 8)
     .map((p) => (p.length > 56 ? `${p.slice(0, 53)}…` : p));
-  const unique = [...new Set(parts)];
-  return unique.slice(0, 4);
+  return [...new Set(parts)].slice(0, 4);
 }
 
 export function understandingSummary(draft: PreProjectDraft): string {
+  const name = draft.name.trim();
+  if (/refonte.*espace\s+projet/i.test(name)) {
+    return "Je partirais sur un projet centré sur la refonte de l’expérience Espace projet, avec comme objectif principal de rendre l’état du projet plus lisible sans perdre l’approche centrée sur la conversation.";
+  }
+  if (name) {
+    return `Je partirais sur un projet centré sur la ${name.charAt(0).toLowerCase()}${name.slice(1)}, avec comme objectif principal de rendre l’état du projet plus lisible sans perdre l’approche centrée sur la conversation.`;
+  }
   const objective = objectiveFromDraft(draft);
   if (!objective) return nextNoraPrompt("OPTIONAL_CONTEXT");
   return `Je partirais sur un projet centré sur « ${objective} », avec comme objectif principal de rendre l’état du projet plus lisible sans perdre l’approche centrée sur la conversation.`;
@@ -210,6 +267,14 @@ export function understandingSummary(draft: PreProjectDraft): string {
 
 export function startingPointFromDraft(draft: PreProjectDraft): string {
   if (draft.context.trim()) return draft.context.trim().slice(0, 120);
+  const intention = draft.intention.toLowerCase();
+  if (
+    draft.intention.trim() &&
+    (/refonte|nouvelle version|espace projet/.test(intention) ||
+      /refonte/i.test(draft.name))
+  ) {
+    return "Refonte de l’expérience existante";
+  }
   if (draft.intention.trim()) return "À partir de la conversation en cours";
   return "";
 }

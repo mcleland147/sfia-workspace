@@ -84,6 +84,17 @@ describe("P5-S06 CP01 explicit-phase collection", () => {
     expect(d.context).toContain("avenants");
   });
 
+  it("proposes a name when intention already names espace-projet redesign work", () => {
+    const d = absorbUserTurn(
+      emptyDraft(),
+      "Je veux créer une nouvelle version de notre espace projet pour simplifier le pilotage.",
+      "INTENTION_REQUIRED",
+    );
+    expect(d.name).toBe("Refonte de l’espace projet");
+    expect(collectPhaseOf(d)).toBe("OPTIONAL_CONTEXT");
+    expect(isMinimumSufficient(d)).toBe(true);
+  });
+
   it("reopens a captured field explicitly without guessing", () => {
     const d = absorbUserTurn(
       absorbUserTurn(emptyDraft(), "Obj", "INTENTION_REQUIRED"),

@@ -542,19 +542,20 @@
 .principal .masterCol {
   display: flex;
   flex-direction: column;
-  gap: var(--pm6-space-2);
+  gap: 0;
   min-width: 0;
   min-height: 0;
-  /* Figma 94:2 Subjects Index — warmer panel #f6f1eb, pad-x 18. */
-  padding: 16px 18px 20px;
+  /* Figma 94:2 Subjects Index — #f6f1eb, own header/list pads. */
+  padding: 0;
   border-right: 1px solid var(--pm6-border);
-  background: color-mix(in srgb, var(--pm6-rail) 55%, var(--pm6-body));
+  background: var(--pm6-index-panel, #f6f1eb);
 }
 
 .principalHeader {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  /* Figma 94:2 Journal V2 Header — pt 16 / px 24 / h 126 with tabs. */
   padding: 16px var(--ws-pad-x, 24px) 0;
   background: var(--pm6-canvas);
 }
@@ -565,12 +566,14 @@
   border: 0;
   background: transparent;
   padding: 0;
-  min-height: 38px;
+  min-height: 16px;
   display: inline-flex;
   align-items: center;
   font: inherit;
-  font-size: 0.8125rem;
-  font-weight: 600;
+  font-size: var(--pm6-back-size, 0.6875rem);
+  font-weight: 500;
+  letter-spacing: var(--pm6-back-tracking, 0.4px);
+  line-height: 16px;
   color: var(--pm6-accent);
   cursor: pointer;
 }
@@ -598,10 +601,10 @@
 .principalTitle {
   margin: 0;
   flex: 0 1 auto;
-  font-size: 1.5rem;
-  font-weight: 650;
-  letter-spacing: -0.03em;
-  line-height: 1.33;
+  font-size: 1.5rem; /* 24 — Heading/02 */
+  font-weight: 600;
+  letter-spacing: -0.3px;
+  line-height: 32px;
   color: var(--pm6-ink);
 }
 
@@ -613,10 +616,10 @@
   min-height: 24px;
   border-radius: 6px;
   border: 0;
-  background: color-mix(in srgb, var(--pm6-rail) 80%, var(--pm6-border));
+  background: var(--pm6-chip-neutral, #f2ede7);
   font-size: var(--pm6-text-caption);
   font-weight: 500;
-  letter-spacing: 0.04em;
+  letter-spacing: var(--pm6-label-tracking, 0.4px);
   color: var(--pm6-muted-strong);
   white-space: nowrap;
 }
@@ -645,8 +648,8 @@
   flex-wrap: nowrap;
   gap: 8px;
   align-items: center;
-  /* Figma 94:2 — tabs live in the white header band, not below a heavy rule. */
-  padding: 0 var(--ws-pad-x, 24px) 14px;
+  /* Figma 94:2 — tabs close the 126px header band; rule is on .body. */
+  padding: 0 var(--ws-pad-x, 24px) 10px;
   border-bottom: 0;
 }
 
@@ -661,16 +664,16 @@
   padding: 0 10px;
   min-height: 34px;
   height: 34px;
-  font-size: 0.8125rem;
+  font-size: 0.8125rem; /* 13 — Label/Medium */
   font-weight: 500;
-  letter-spacing: 0.015em;
+  letter-spacing: 0.15px;
   color: var(--pm6-muted-strong);
   white-space: nowrap;
 }
 
 .principal .tabActive {
   color: var(--pm6-accent);
-  border-color: color-mix(in srgb, var(--pm6-accent) 32%, transparent);
+  border-color: #f2d7cb;
   background: var(--pm6-accent-tint);
 }
 
@@ -706,15 +709,15 @@
   height: 18px;
   padding: 0 5px;
   border-radius: 5px;
-  background: color-mix(in srgb, var(--pm6-rail) 70%, var(--pm6-border));
+  background: #eee8e1;
   font-size: var(--pm6-text-caption);
   font-weight: 500;
-  letter-spacing: 0.04em;
+  letter-spacing: var(--pm6-label-tracking, 0.4px);
   color: var(--pm6-muted);
 }
 
 .principal .tabActive .tabCount {
-  background: color-mix(in srgb, var(--pm6-accent) 18%, transparent);
+  background: #ffe3da;
   color: var(--pm6-accent);
   border-color: transparent;
 }
@@ -724,22 +727,28 @@
 .masterHead {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  padding: 0 2px var(--pm6-space-2);
+  gap: 6px;
+  box-sizing: border-box;
+  /* Figma 94:2 Subjects Header — h 92 / pt 16 / px 18. */
+  min-height: 92px;
+  padding: 16px 18px 0;
   border-bottom: 1px solid var(--pm6-border);
 }
 
 .masterHeadRow {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-between;
   gap: var(--pm6-space-2);
+  min-height: 28px;
 }
 
 .masterTitle {
   margin: 0;
-  font-size: 1rem;
-  font-weight: 650;
+  font-size: 1.125rem; /* 18 — Heading/03 */
+  font-weight: 600;
+  letter-spacing: -0.1px;
+  line-height: 26px;
   color: var(--pm6-ink);
 }
 
@@ -749,25 +758,26 @@
   padding: 4px 8px;
   min-height: 24px;
   border-radius: 6px;
-  background: color-mix(in srgb, var(--pm6-rail) 80%, var(--pm6-border));
+  background: var(--pm6-chip-neutral, #f2ede7);
   font-size: var(--pm6-text-caption);
   font-weight: 500;
-  letter-spacing: 0.04em;
+  letter-spacing: var(--pm6-label-tracking, 0.4px);
   color: var(--pm6-muted-strong);
   white-space: nowrap;
 }
 
 .masterNote {
   margin: 0;
-  font-size: 0.78rem;
-  line-height: 1.45;
+  font-size: 0.8125rem; /* 13 */
+  line-height: 20px;
   color: var(--pm6-muted-strong);
 }
 
 .principal .list {
-  gap: var(--pm6-space-3);
+  gap: 12px;
   overflow-y: auto;
-  padding: var(--pm6-space-2) 2px var(--pm6-space-2);
+  /* Figma 94:2 Subject List — px 18 / py 14 / gap 12. */
+  padding: 14px 18px 16px;
 }
 
 .principal .card {
@@ -779,17 +789,17 @@
 }
 
 .principal .cardSelected {
-  border-color: color-mix(in srgb, var(--pm6-accent) 55%, var(--pm6-border));
-  background: color-mix(in srgb, var(--pm6-accent-tint) 70%, var(--pm6-canvas));
+  border-color: var(--pm6-selected-border, #f0a18e);
+  background: var(--pm6-selected-fill, #fff8f4);
   box-shadow: none;
 }
 
 .principal .ordinal {
   font-size: 0.6875rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
+  font-weight: 500;
+  letter-spacing: var(--pm6-label-tracking, 0.4px);
   text-transform: uppercase;
-  color: var(--pm6-muted-faint);
+  color: #958a7f;
 }
 
 .principal .cardHeading {
@@ -797,18 +807,29 @@
   margin-bottom: 0;
 }
 
-/* « En cours » reads as the live subject (accent), not as a neutral state. */
+/* « En cours » — Figma chip radius 6 (not pill). */
 .principal .currentBadge {
-  padding: 2px 8px;
-  border-radius: var(--pm6-radius-pill);
-  border: 1px solid color-mix(in srgb, var(--pm6-accent) 26%, transparent);
+  padding: 4px 8px;
+  min-height: 24px;
+  border-radius: 6px;
+  border: 0;
   background: var(--pm6-accent-tint);
   color: var(--pm6-accent);
-  letter-spacing: 0.06em;
+  letter-spacing: var(--pm6-label-tracking, 0.4px);
+  font-weight: 500;
 }
 
 .principal .cardTitle {
-  font-size: 0.9375rem;
+  font-size: 0.8125rem; /* 13 */
+  font-weight: 500;
+  letter-spacing: 0.15px;
+  line-height: 18px;
+}
+
+.principal .cardSummary {
+  font-size: 0.8125rem;
+  line-height: 20px;
+  -webkit-line-clamp: 3;
 }
 
 .principal .cardMeta {
@@ -825,19 +846,21 @@
 .statusBadge {
   display: inline-flex;
   align-items: center;
-  padding: 2px 8px;
-  border-radius: var(--pm6-radius-pill);
-  border: 1px solid var(--pm6-border);
-  background: var(--pm6-surface-sunken);
+  padding: 4px 8px;
+  min-height: 24px;
+  border-radius: 6px;
+  border: 0;
+  background: var(--pm6-chip-neutral, #f2ede7);
   font-size: 0.6875rem;
-  font-weight: 600;
+  font-weight: 500;
+  letter-spacing: var(--pm6-label-tracking, 0.4px);
   color: var(--pm6-muted-strong);
   white-space: nowrap;
 }
 
 .statusBadge[data-status="active"] {
   color: var(--pm6-ok);
-  border-color: color-mix(in srgb, var(--pm6-ok) 26%, transparent);
+  border-color: transparent;
   background: var(--pm6-ok-tint);
 }
 
@@ -858,8 +881,9 @@
 .detailInner {
   display: flex;
   flex-direction: column;
-  gap: var(--pm6-space-3);
-  padding: var(--pm6-space-4) var(--pm6-space-5) var(--pm6-space-5);
+  /* Figma 94:2 Subject Detail Content — gap 6 after the header rule. */
+  gap: 6px;
+  padding: 12px 24px 24px;
 }
 
 .detailBack {
@@ -869,11 +893,12 @@
   border: 0;
   background: transparent;
   padding: 0;
-  min-height: 38px;
+  min-height: 16px;
   align-items: center;
   font: inherit;
-  font-size: 0.8125rem;
-  font-weight: 600;
+  font-size: var(--pm6-back-size, 0.6875rem);
+  font-weight: 500;
+  letter-spacing: var(--pm6-back-tracking, 0.4px);
   color: var(--pm6-accent);
   cursor: pointer;
 }
@@ -881,8 +906,12 @@
 .detailHead {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  padding-bottom: var(--pm6-space-3);
+  gap: 7px;
+  box-sizing: border-box;
+  /* Figma 94:2 Subject Detail Header — h 150 / pt 16 / px 24. */
+  min-height: 150px;
+  margin: -12px -24px 6px;
+  padding: 16px 24px;
   border-bottom: 1px solid var(--pm6-border);
 }
 
@@ -892,27 +921,30 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--pm6-space-2);
+  min-height: 24px;
 }
 
 .detailBadges {
   display: inline-flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: var(--pm6-space-2);
+  gap: 8px;
 }
 
 .detailUpdated {
-  font-size: 0.75rem;
-  color: var(--pm6-muted);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: var(--pm6-label-tracking, 0.4px);
+  color: #958a7f;
   white-space: nowrap;
 }
 
 .detailTitle {
   margin: 0;
-  font-size: 1.5rem;
-  font-weight: 650;
-  letter-spacing: -0.02em;
-  line-height: 1.25;
+  font-size: 1.5rem; /* 24 */
+  font-weight: 600;
+  letter-spacing: -0.3px;
+  line-height: 32px;
   color: var(--pm6-ink);
   overflow-wrap: anywhere;
 }
@@ -920,9 +952,9 @@
 .detailSummary {
   margin: 0;
   max-width: 78ch;
-  font-size: 0.875rem;
-  line-height: 1.6;
-  color: var(--pm6-muted-strong);
+  font-size: 0.8125rem; /* 13 */
+  line-height: 20px;
+  color: #4a433d;
 }
 
 .detailSection {
@@ -930,8 +962,8 @@
   flex-direction: column;
   gap: 6px;
   min-width: 0;
-  padding-bottom: var(--pm6-space-3);
-  border-bottom: 1px solid var(--pm6-border);
+  padding-bottom: 0;
+  border-bottom: 0;
 }
 
 .detailSection:last-of-type {
@@ -942,22 +974,25 @@
 .detailSectionHead {
   margin: 0;
   display: flex;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-between;
   gap: var(--pm6-space-2);
+  min-height: 24px;
 }
 
 .detailSectionLabel {
-  font-size: 0.625rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
+  font-size: 0.6875rem; /* 11 */
+  font-weight: 500;
+  letter-spacing: var(--pm6-label-tracking, 0.4px);
   text-transform: uppercase;
-  color: var(--pm6-muted-faint);
+  color: #958a7f;
 }
 
 .detailSectionCount {
   font-size: 0.6875rem;
-  color: var(--pm6-muted);
+  font-weight: 500;
+  letter-spacing: var(--pm6-label-tracking, 0.4px);
+  color: #958a7f;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
@@ -970,45 +1005,56 @@
   color: var(--pm6-muted);
 }
 
-/* Marked lists — ✓ for stabilized, ○ for still-open points (94:2). */
+/* Marked lists — 20px tinted marks (94:2 Point mark). */
 .markedList {
   list-style: none;
   margin: 0;
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 5px;
-  font-size: 0.875rem;
-  line-height: 1.5;
-  color: var(--pm6-ink);
+  gap: 0;
+  font-size: 0.8125rem;
+  line-height: 20px;
+  color: #2a241f;
 }
 
 .markedList li {
   display: grid;
-  grid-template-columns: 16px minmax(0, 1fr);
-  gap: var(--pm6-space-2);
-  align-items: baseline;
+  grid-template-columns: 20px minmax(0, 1fr);
+  gap: 10px;
+  align-items: center;
+  min-height: 28px;
 }
 
 .markedList li::before {
+  box-sizing: border-box;
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
   font-size: 0.8125rem;
-  line-height: 1.5;
+  font-weight: 500;
+  line-height: 18px;
+  letter-spacing: 0.15px;
 }
 
 .markedList[data-marker="stabilized"] li::before {
   content: "✓";
   color: var(--pm6-ok);
+  background: var(--pm6-ok-tint);
 }
 
 .markedList[data-marker="open"] li::before {
   content: "○";
   color: var(--pm6-accent);
+  background: var(--pm6-accent-tint);
 }
 
 .linkedPills {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 8px;
 }
 
 .linkedPill {
@@ -1018,20 +1064,35 @@
   appearance: none;
   border-radius: 8px;
   border: 0;
-  background: var(--pm6-surface-sunken);
-  padding: 5px 9px;
+  background: var(--pm6-chip-neutral, #f2ede7);
+  padding: 0 9px;
   min-height: 30px;
+  height: 30px;
   font: inherit;
   font-size: 0.6875rem;
-  font-weight: 650;
-  letter-spacing: 0.04em;
+  font-weight: 500;
+  letter-spacing: var(--pm6-label-tracking, 0.4px);
   color: var(--pm6-muted-strong);
   cursor: pointer;
 }
 
+.linkedPill[data-kind="decision"],
+.linkedPill[data-kind="decisions"] {
+  background: var(--pm6-accent-tint);
+  color: var(--pm6-accent);
+}
+
+.linkedPill[data-kind="recommendation"],
+.linkedPill[data-kind="recommandation"],
+.linkedPill[data-kind="recommandations"] {
+  background: #fff7e8;
+  color: #9b5d18;
+}
+
 .linkedPill[data-kind="reserve"],
-.linkedPill[data-kind="reserve-item"] {
-  background: var(--pm6-surface-sunken);
+.linkedPill[data-kind="reserve-item"],
+.linkedPill[data-kind="reserves"] {
+  background: var(--pm6-chip-neutral, #f2ede7);
   color: var(--pm6-muted-strong);
 }
 
@@ -1042,32 +1103,34 @@
 
 .linkedPillCount {
   font-variant-numeric: tabular-nums;
-  font-weight: 650;
+  font-weight: 500;
   font-size: 0.8125rem;
-  letter-spacing: 0.015em;
+  letter-spacing: 0.15px;
+  line-height: 18px;
 }
 
 .linkedPillLabel {
   font-size: 0.6875rem;
-  letter-spacing: 0.04em;
+  letter-spacing: var(--pm6-label-tracking, 0.4px);
 }
 
+/* Figma 94:2 — discrete 55px exchange cards (not a dense striped table). */
 .exchangePanel {
   list-style: none;
   margin: 0;
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 0;
-  border: 1px solid var(--pm6-border);
-  border-radius: 8px;
-  background: var(--pm6-body);
+  gap: 8px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
   overflow: hidden;
-  max-height: 84px; /* ~2 dense rows preview (94:2) — keep compact panel */
+  max-height: 118px; /* 2 × 55 + gap 8 */
 }
 
 .exchangePanel[data-expanded="true"] {
-  max-height: 168px; /* 94:222 dense rows + internal scroll */
+  max-height: 236px; /* ~4 cards + scroll */
   overflow-y: auto;
 }
 
@@ -1077,38 +1140,47 @@
   min-width: 0;
 }
 
-.exchangePanel > li:nth-child(odd) .exchangeRow {
-  background: var(--pm6-canvas-raised);
-}
-
+.exchangePanel > li:nth-child(odd) .exchangeRow,
 .exchangePanel > li:nth-child(even) .exchangeRow {
-  background: var(--pm6-canvas);
+  background: var(--pm6-body);
 }
 
 .exchangeRow {
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    "who when"
+    "excerpt excerpt";
   align-items: center;
+  row-gap: 5px;
   column-gap: 8px;
+  box-sizing: border-box;
   width: 100%;
   text-align: left;
   appearance: none;
   border: 0;
-  border-radius: 0;
-  background: transparent;
-  padding: 7px 10px;
+  border-radius: 8px;
+  background: var(--pm6-body);
+  padding: 10px 12px;
   font: inherit;
   color: inherit;
   cursor: pointer;
-  min-height: 36px;
+  min-height: 55px;
+  height: 55px;
 }
 
 .exchangeWho {
+  grid-area: who;
   display: inline-flex;
   align-items: center;
   gap: 6px;
   min-width: 0;
   flex: 0 0 auto;
+}
+
+/* Desktop 94:2 exchanges are role text only — avatars are product extras. */
+.principal .exchangeAvatar {
+  display: none;
 }
 
 .exchangeAvatar {
@@ -1136,8 +1208,8 @@
 
 .exchangeRow .exchangeRole {
   font-size: 0.6875rem;
-  font-weight: 650;
-  letter-spacing: 0.04em;
+  font-weight: 500;
+  letter-spacing: var(--pm6-label-tracking, 0.4px);
   text-transform: uppercase;
   color: var(--pm6-muted-strong);
   white-space: nowrap;
@@ -1148,22 +1220,24 @@
 }
 
 .exchangeRow .exchangeExcerpt {
+  grid-area: excerpt;
   min-width: 0;
-  font-size: 0.6875rem;
-  font-weight: 500;
-  line-height: 1.35;
-  color: var(--pm6-ink-soft);
+  font-size: 0.8125rem; /* 13 */
+  font-weight: 400;
+  line-height: 20px;
+  color: #4a433d;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .exchangeRow .exchangeWhen {
+  grid-area: when;
   flex: 0 0 auto;
   font-size: 0.6875rem;
   font-weight: 500;
-  letter-spacing: 0.04em;
-  color: var(--pm6-muted);
+  letter-spacing: var(--pm6-label-tracking, 0.4px);
+  color: #958a7f;
   white-space: nowrap;
   font-variant-numeric: tabular-nums;
 }
@@ -1188,7 +1262,19 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--pm6-space-3);
-  padding-top: var(--pm6-space-2);
+  min-height: 32px;
+  padding-top: 0;
+}
+
+.principal .viewExchanges,
+.detailFooter .viewExchanges,
+.detailFooter .openFull,
+.detailFooter a {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.15px;
+  color: var(--pm6-accent);
+  text-decoration: none;
 }
 
 /* ---------- principal: compact ---------- */
@@ -1198,12 +1284,23 @@
     grid-template-columns: minmax(0, 340px) minmax(0, 1fr);
   }
 
-  .principal .masterCol {
-    padding: var(--pm6-space-3);
+  .masterHead {
+    min-height: 0;
+    padding: 14px 14px 0;
+  }
+
+  .principal .list {
+    padding: 12px 14px 16px;
   }
 
   .detailInner {
-    padding: var(--pm6-space-3) var(--pm6-space-4) var(--pm6-space-4);
+    padding: 12px 18px 20px;
+  }
+
+  .detailHead {
+    margin: -12px -18px 6px;
+    padding: 14px 18px;
+    min-height: 0;
   }
 }
 
@@ -1216,6 +1313,17 @@
 
   .principal .masterCol {
     border-right: 0;
+    padding: 0;
+    background: transparent;
+  }
+
+  .masterHead {
+    min-height: 0;
+    padding: var(--pm6-space-3) var(--ws-pad-x, 16px) 0;
+    border-bottom: 0;
+  }
+
+  .principal .list {
     padding: var(--pm6-space-3) var(--ws-pad-x, 16px) var(--pm6-space-4);
   }
 
@@ -1234,6 +1342,13 @@
 
   .detailInner {
     padding: var(--pm6-space-3) var(--ws-pad-x, 16px) var(--pm6-space-5);
+  }
+
+  .detailHead {
+    margin: 0;
+    min-height: 0;
+    padding: 0;
+    border-bottom: 0;
   }
 
   .detailBack {

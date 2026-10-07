@@ -94,6 +94,27 @@
   --pm6-conversation-pad-x: 30px;
   /* Project Context column inset (46:2 Context Header x=18). */
   --pm6-context-pad-x: 18px;
+  /* 46:2 Project Header identity pad-top / tab row gap. */
+  --pm6-ws-header-pad-top: 14px;
+  --pm6-ws-tabs-gap: 28px;
+  --pm6-ws-tabs-gap-compact: 22px;
+  /* 46:2 Composer Input 96× radius 8; Send 30×30 radius 7. */
+  --pm6-ws-composer-input-h: 96px;
+  --pm6-ws-composer-input-h-compact: 64px;
+  --pm6-ws-composer-radius: 8px;
+  --pm6-ws-send-size: 30px;
+  --pm6-ws-send-radius: 7px;
+  /* 46:2 Contextual Objects — 748×82, gap 10, inset accent. */
+  --pm6-ws-object-max: 748px;
+  --pm6-ws-object-h: 82px;
+  --pm6-ws-object-gap: 10px;
+  --pm6-ws-object-accent: #f06a4b;
+  --pm6-ws-object-accent-prepared: #e97850;
+  /* Focus counts / attention meta (46:2) — gold, not cream pills. */
+  --pm6-focus-count: #b86a12;
+  /* Context rail fill + rules (46:2 Project Context). */
+  --pm6-context-fill: #f6f1eb;
+  --pm6-context-rule: #e9e1d8;
 
   /* P3 Synthèses 164:3 — body 1224 split list 360 | detail 864. */
   --pm6-syntheses-list-w: 360px;
@@ -106,6 +127,19 @@
   --pm6-history-detail-w: 434px;
   /* P3 Journal 94:2 — body 1226 split subjects index ~440 | detail ~785. */
   --pm6-journal-index-w: 440px;
+
+  /*
+   * S08-4 P2 secondary-surface density (94:2 / 78:2 / 164:3 / 51:2).
+   * Shared selected + warm index panel — not a second token family.
+   */
+  --pm6-index-panel: #f6f1eb;
+  --pm6-selected-bg: #fff4ef;
+  --pm6-selected-border: #f0a18e;
+  --pm6-selected-fill: #fff8f4;
+  --pm6-chip-neutral: #f2ede7;
+  --pm6-back-size: 0.6875rem; /* 11 — Label/Small */
+  --pm6-back-tracking: 0.4px;
+  --pm6-label-tracking: 0.4px;
 
   /* ---- S08-4B type scale (P3 Desktop frames) ---- */
   --pm6-text-display: 2rem; /* 32 */

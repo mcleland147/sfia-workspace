@@ -94,6 +94,7 @@ describe("S08-4 visual pairing contract", () => {
         "historique-desktop",
         "journal-desktop",
         "new-project-desktop",
+        "new-project-mobile",
         "projects-desktop",
         "projects-empty",
         "syntheses-desktop",

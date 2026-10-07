@@ -62,7 +62,8 @@
 .thread {
   display: flex;
   flex-direction: column;
-  gap: var(--pm6-space-4);
+  /* Figma 46:2 transcript turns pack tightly (continuity→pilot→nora). */
+  gap: 12px;
   min-height: 220px;
   /* Page scrolls (composer is sticky); no inner scroll box. */
 }
@@ -138,9 +139,11 @@
 }
 
 .turnMine .bubble {
-  background: var(--pm6-rail);
-  border: 1px solid var(--pm6-border-soft);
+  /* Figma 46:2 Pilot Turn — flat VOUS block (no raised bubble chrome). */
+  background: transparent;
+  border: 1px solid transparent;
   border-top-right-radius: var(--pm6-radius-sm);
+  padding-inline: 0;
 }
 
 .bubbleAuthor {
@@ -172,12 +175,12 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
-  /* Figma 46:2 Result Turn — cream raised card */
+  /* Figma 46:2 Result Turn — #fbf7f2 / #e6ded5 / radius 8 / pad 10×12 */
   padding: 10px 12px;
-  border-radius: 8px;
-  border: 1px solid #e8e0d7;
-  background: #f7f1ea;
-  max-width: 710px;
+  border-radius: var(--pm6-ws-composer-radius, 8px);
+  border: 1px solid var(--pm6-border);
+  background: var(--pm6-canvas-raised);
+  max-width: 808px;
 }
 
 .synthesisEyebrow {
@@ -561,32 +564,49 @@
 
 /* ---------- sub cards (F7/F8) ---------- */
 
-.subCard,
-.subCardGold {
+.subCard {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  /* P3 46:2 recommendation / prepared-action — 3px accent via border-left */
-  border-radius: 8px;
+  border-radius: var(--pm6-ws-composer-radius, 8px);
   border: 1px solid #e8e0d7;
-  border-left: 3px solid #f06a4b;
-  background: #fffdf9;
+  background: var(--pm6-canvas);
   padding: 13px 12px 13px 14px;
 }
 
 .subCardGold {
-  /* Figma RECOMMANDATION — white card, not cream fill */
-  background: #fffdf9;
-  border-color: #e8e0d7;
-  border-left-color: #f06a4b;
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  /* Figma 46:2 Object — h 82, pl 14 / pr 12 / py 13, inset 3×54 accent */
+  border-radius: var(--pm6-ws-composer-radius, 8px);
+  border: 1px solid #e8e0d7;
+  background: var(--pm6-canvas);
+  min-height: var(--pm6-ws-object-h, 82px);
+  padding: 13px 12px 13px 31px;
+  overflow: hidden;
+}
+
+.subCardGold::before,
+.subCardPrepared::before {
+  content: "";
+  position: absolute;
+  left: 14px;
+  top: 13px;
+  width: 3px;
+  height: 54px;
+  border-radius: 2px;
+  background: var(--pm6-ws-object-accent, #f06a4b);
 }
 
 .durableStack {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  /* Figma 46:2 contextual objects width ≈ 748 within conversation column */
-  max-width: 748px;
+  gap: var(--pm6-ws-object-gap, 10px);
+  /* Figma 46:2 Contextual Objects width 748 */
+  max-width: var(--pm6-ws-object-max, 748px);
 }
 
 .p3CardHead {
@@ -594,6 +614,7 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: 14px;
+  min-height: 54px;
 }
 
 .p3CardBody {
@@ -602,15 +623,19 @@
   gap: 3px;
   min-width: 0;
   flex: 1 1 auto;
+  min-height: 54px;
 }
 
 .p3CardRight {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+  justify-content: space-between;
   gap: 6px;
-  flex: 0 0 auto;
-  min-width: 120px;
+  flex: 0 0 126px;
+  width: 126px;
+  min-width: 126px;
+  min-height: 54px;
   text-align: right;
 }
 
@@ -683,14 +708,21 @@
 }
 
 .subCardPrepared {
+  position: relative;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  border-radius: 8px;
+  gap: 0;
+  border-radius: var(--pm6-ws-composer-radius, 8px);
   border: 1px solid #e8e0d7;
-  border-left: 3px solid #f0a04b;
-  background: #fffdf9;
-  padding: 13px 12px 13px 14px;
+  background: var(--pm6-canvas);
+  min-height: var(--pm6-ws-object-h, 82px);
+  padding: 13px 12px 13px 31px;
+  overflow: hidden;
+}
+
+.subCardPrepared::before {
+  background: var(--pm6-ws-object-accent-prepared, #e97850);
 }
 
 .durableDetails {
@@ -886,8 +918,8 @@
   z-index: 10;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  /* Figma 46:2 Composer — flat top rule, pad ~14×22; input chrome is its own box */
+  gap: 0;
+  /* Figma 46:2 Composer — flat top rule, pad 14×22; input chrome is its own box */
   border-radius: 0;
   border: 0;
   border-top: 1px solid var(--pm6-border-soft);
@@ -899,27 +931,32 @@
 .composerBox {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   gap: 8px;
   box-sizing: border-box;
   width: 100%;
+  min-height: var(--pm6-ws-composer-input-h, 96px);
+  height: var(--pm6-ws-composer-input-h, 96px);
   border: 1px solid #e2d8ce;
-  border-radius: 8px;
-  background: #fcf8f3;
+  border-radius: var(--pm6-ws-composer-radius, 8px);
+  background: var(--pm6-focus-bar);
   padding: 14px 14px 12px;
+  overflow: hidden;
 }
 
 .composerInput {
   box-sizing: border-box;
   width: 100%;
-  min-height: 48px;
-  resize: vertical;
+  min-height: 24px;
+  flex: 1 1 auto;
+  resize: none;
   border: 0;
   border-radius: 0;
   outline: none;
   background: transparent;
   color: var(--pm6-ink);
   font-size: 0.9375rem; /* 15 */
-  line-height: 1.6;
+  line-height: 24px;
   padding: 0;
 }
 
@@ -930,9 +967,12 @@
 .composerTools {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 12px;
   min-height: 34px;
-  flex-wrap: wrap;
+  height: 34px;
+  flex: 0 0 auto;
+  flex-wrap: nowrap;
 }
 
 .composerTool,
@@ -964,13 +1004,13 @@
 }
 
 .sendButton {
-  /* Figma 46:2 Send — circular dark control */
+  /* Figma 46:2 Send — 30×30, radius 7 (not a pill). */
   display: inline-grid;
   place-items: center;
-  width: 30px;
-  min-width: 30px;
-  height: 30px;
-  border-radius: 999px;
+  width: var(--pm6-ws-send-size, 30px);
+  min-width: var(--pm6-ws-send-size, 30px);
+  height: var(--pm6-ws-send-size, 30px);
+  border-radius: var(--pm6-ws-send-radius, 7px);
   border: 1px solid var(--pm6-ink);
   background: var(--pm6-ink);
   color: var(--pm6-forest-ink);
@@ -979,7 +1019,7 @@
   font-size: var(--pm6-text-body);
   font-weight: 500;
   cursor: pointer;
-  margin-left: 4px;
+  margin-left: auto;
 }
 
 /* Desktop P3 46:2 uses ↑ glyph; full “Envoyer” remains for aria / mobile swap. */
@@ -1061,6 +1101,92 @@
   border: 0;
 }
 
+/* ---------- COMPACT 768–1199 (Figma 190:44 composer / message rhythm) ---------- */
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .root {
+    gap: 12px;
+    padding-bottom: 12px;
+  }
+
+  .thread {
+    gap: 10px;
+  }
+
+  .bubbleText {
+    font-size: 0.75rem; /* 12 — 190:44 body */
+    line-height: 1.45;
+  }
+
+  .durableStack {
+    max-width: 100%;
+  }
+
+  .subCardGold,
+  .subCardPrepared {
+    min-height: 72px;
+    padding: 12px 12px 12px 28px;
+  }
+
+  .subCardGold::before,
+  .subCardPrepared::before {
+    left: 12px;
+    top: 12px;
+    height: 48px;
+  }
+
+  .synthesisTeaser {
+    max-width: 100%;
+  }
+
+  .composer {
+    padding: 12px 18px;
+  }
+
+  .composerBox {
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    min-height: var(--pm6-ws-composer-input-h-compact, 64px);
+    height: var(--pm6-ws-composer-input-h-compact, 64px);
+    padding: 12px;
+  }
+
+  .composerInput {
+    flex: 1 1 auto;
+    min-height: 0;
+    font-size: 0.75rem;
+    line-height: 1.35;
+  }
+
+  .composerTool,
+  .composerToolActive {
+    display: none;
+  }
+
+  .composerTools {
+    flex: 0 0 auto;
+    gap: 0;
+    min-height: 0;
+    height: auto;
+  }
+
+  .sendButton {
+    width: 36px;
+    min-width: 36px;
+    height: 38px;
+    border-radius: 8px;
+    margin-left: 0;
+  }
+
+  .stopButton {
+    width: 38px;
+    min-width: 38px;
+    height: 38px;
+    border-radius: 8px;
+  }
+}
+
 @media (max-width: 767px) {
   .root {
     /* Surface padding owned by ProjectWorkspacePage --ws-pad-x (Figma 16). */
@@ -1076,7 +1202,7 @@
     max-width: 100%;
   }
 
-  /* P3 190:306 — flat turns; no user card chrome on mobile. */
+  /* P3 190:306 — flat turns; no user card chrome on mobile (keep P1). */
   .turnMine .bubble {
     background: transparent;
     border-color: transparent;
@@ -1134,6 +1260,7 @@
     align-items: center;
     gap: 8px;
     min-height: 60px;
+    height: auto;
     padding: 8px 8px 8px 12px;
     border-radius: 8px;
     background: var(--pm6-canvas-raised);
@@ -1148,6 +1275,7 @@
     flex: 0 0 auto;
     gap: 0;
     min-height: 0;
+    height: auto;
   }
 
   .composerInput {

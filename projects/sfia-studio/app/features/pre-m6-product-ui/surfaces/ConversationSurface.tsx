@@ -1774,7 +1774,7 @@ export function ConversationSurface({
             rows={2}
             value={draft}
             disabled={busy || blocked}
-            placeholder="Écrire à Nora…"
+            placeholder="Demander à Nora à propos de ce projet…"
             aria-describedby={liveRegionId}
             onChange={(event) => setDraft(event.target.value)}
             onKeyDown={(event) => {

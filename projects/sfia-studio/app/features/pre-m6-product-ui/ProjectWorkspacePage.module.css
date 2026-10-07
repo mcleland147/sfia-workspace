@@ -141,7 +141,8 @@
   flex-direction: column;
   justify-content: space-between;
   gap: var(--pm6-space-3);
-  padding: var(--pm6-space-4) var(--ws-pad-x) 0;
+  /* Figma 46:2 Project Identity y=14 (not space-4/16). */
+  padding: var(--pm6-ws-header-pad-top, 14px) var(--ws-pad-x) 0;
   background: var(--pm6-canvas);
   border-bottom: 1px solid var(--pm6-border);
 }
@@ -165,10 +166,10 @@
 
 .projectTitle {
   margin: 0;
-  /* Figma 46:2 — 18 / 26 semibold */
+  /* Figma 46:2 live Heading/03 — 18 / 26 semibold (contract titleSize 22 is stale). */
   font-size: 1.125rem;
   font-weight: 600;
-  line-height: 1.444;
+  line-height: 26px;
   letter-spacing: -0.1px;
   color: var(--pm6-ink);
   overflow-wrap: anywhere;
@@ -280,7 +281,9 @@
 .tabs {
   display: flex;
   align-items: flex-end;
-  gap: var(--pm6-space-5);
+  /* Figma 46:2 Project Views — tab frame gap ≈ 28. */
+  gap: var(--pm6-ws-tabs-gap, 28px);
+  min-height: 38px;
   overflow-x: auto;
   scrollbar-width: none;
 }
@@ -292,11 +295,11 @@
 .tab {
   position: relative;
   margin: 0;
-  padding: 8px 0 10px;
+  padding: 10px 0 12px;
   border: 0;
   background: transparent;
   font: inherit;
-  font-size: 0.8125rem;
+  font-size: 0.8125rem; /* 13 — Figma tab */
   font-weight: 500;
   color: var(--pm6-muted-strong);
   cursor: pointer;
@@ -448,10 +451,12 @@
   flex: 0 0 auto;
   display: flex;
   align-items: center;
-  gap: var(--pm6-space-3);
-  padding-inline: var(--ws-pad-x);
+  justify-content: space-between;
+  gap: 10px;
+  /* Figma 46:2 Focus Bar — pl 24 / pr 18. */
+  padding: 0 18px 0 var(--ws-pad-x);
   background: var(--pm6-focus-bar);
-  border-bottom: 1px solid var(--pm6-border);
+  border-bottom: 1px solid var(--pm6-border-faint);
   min-width: 0;
 }
 
@@ -459,11 +464,11 @@
   flex: 0 0 auto;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  font-size: 0.625rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  gap: 10px;
+  /* Figma 46:2 — Label/Small 11 / 0.4, sentence case (not micro uppercase). */
+  font-size: var(--pm6-text-caption);
+  font-weight: 500;
+  letter-spacing: 0.4px;
   color: var(--pm6-muted-faint);
   white-space: nowrap;
 }
@@ -481,8 +486,9 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: 0.8125rem;
-  font-weight: 600;
+  font-size: 0.8125rem; /* 13 */
+  font-weight: 500;
+  letter-spacing: 0.15px;
   color: var(--pm6-ink);
 }
 
@@ -490,28 +496,31 @@
   flex: 0 0 auto;
   display: inline-flex;
   align-items: center;
-  gap: var(--pm6-space-2);
+  justify-content: flex-end;
+  gap: 14px;
 }
 
 .focusCount {
+  /* Figma 46:2 Focus Right — plain Label/Small gold, no cream pills. */
   display: inline-flex;
   align-items: center;
-  padding: 2px 9px;
-  border-radius: var(--pm6-radius-pill);
-  border: 1px solid var(--pm6-cream-border);
-  background: var(--pm6-cream);
-  font-size: 0.6875rem;
-  font-weight: 600;
-  color: var(--pm6-gold-strong);
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  font-size: var(--pm6-text-caption);
+  font-weight: 500;
+  letter-spacing: 0.4px;
+  color: var(--pm6-focus-count, #b86a12);
   white-space: nowrap;
 }
 
 .durabilityHint {
-  /* P3 46:2 — restored-context row: green dot + inline copy, no card chrome. */
+  /* P3 46:2 Continuity — aligned to transcript inset (x=30), not workspace pad. */
   display: flex;
   align-items: center;
   gap: 8px;
-  margin: 10px var(--ws-pad-x) 0;
+  margin: 18px var(--pm6-conversation-pad-x, 30px) 0;
   padding: 0;
   border: 0;
   border-radius: 0;
@@ -519,6 +528,11 @@
   font-size: 0.8125rem; /* 13 */
   line-height: 1.45;
   color: var(--pm6-muted-strong);
+}
+
+/* When continuity sits above the conversation, don't double the transcript top pad. */
+.durabilityHint + .conversation {
+  padding-top: 12px;
 }
 
 .durabilityHint::before {
@@ -548,8 +562,8 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  /* Figma 46:2 Project Context ~#f6f1eb */
-  background: color-mix(in srgb, var(--pm6-rail) 55%, var(--pm6-canvas));
+  /* Figma 46:2 Project Context #f6f1eb */
+  background: var(--pm6-context-fill, #f6f1eb);
   border-left: 1px solid var(--pm6-border-soft);
 }
 
@@ -558,9 +572,9 @@
   min-height: 0;
   display: flex;
   flex-direction: column;
-  gap: var(--pm6-space-4);
-  /* Figma 46:2 Context Header pad 18×18 */
-  padding: 18px var(--pm6-context-pad-x, 18px) var(--pm6-space-4);
+  gap: 0;
+  /* Figma 46:2 — pad owned by context sections (header/fields), not a second wrap. */
+  padding: 0;
   overflow-y: auto;
   overscroll-behavior: contain;
 }
@@ -691,12 +705,14 @@
   }
 
   .lpsSheet {
-    padding: 18px 16px var(--pm6-space-4);
-    gap: 14px;
+    padding: 0;
+    gap: 0;
   }
 
   .projectTitle {
+    /* Figma 190:44 — 19 / ~25 */
     font-size: 1.1875rem;
+    line-height: 25px;
   }
 
   .projectObjective {
@@ -704,16 +720,30 @@
   }
 
   .tabs {
-    gap: 22px;
+    gap: var(--pm6-ws-tabs-gap-compact, 22px);
+    min-height: 28px;
   }
 
   .tab {
     font-size: 0.625rem;
+    padding: 6px 0 10px;
+  }
+
+  .focusBar {
+    padding: 0 16px 0 var(--ws-pad-x);
+  }
+
+  .durabilityHint {
+    margin-inline: var(--ws-pad-x);
   }
 
   .conversation {
     max-width: none;
     padding: 16px var(--ws-pad-x) 0;
+  }
+
+  .durabilityHint + .conversation {
+    padding-top: 10px;
   }
 
   /* Journal stays accessible in the context stack (no 768–1199 dead zone). */
@@ -751,7 +781,7 @@
   }
 
   .lpsSheet {
-    padding: 18px var(--pm6-context-pad-x, 18px) var(--pm6-space-4);
+    padding: 0;
   }
 }
 
@@ -793,7 +823,12 @@
   }
 
   .lpsOpen .lpsSheet {
-    padding: var(--pm6-space-4);
+    /* Context summary owns pad-x; keep a small wrap for the close control. */
+    padding: var(--pm6-space-3) 0 0;
+  }
+
+  .lpsOpen .lpsClose {
+    margin-inline: var(--ws-pad-x, 16px);
   }
 
   .conversation {

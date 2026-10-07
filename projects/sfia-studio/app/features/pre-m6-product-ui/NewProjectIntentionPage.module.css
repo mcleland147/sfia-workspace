@@ -109,6 +109,13 @@
   color: var(--pm6-ink);
 }
 
+.heroTitleMobile,
+.heroSubtitleMobile,
+.previewEyebrowMobile,
+.previewTitleMobile {
+  display: none;
+}
+
 .heroSubtitle {
   margin: 0;
   font-size: 0.8125rem;
@@ -193,8 +200,9 @@
   max-width: 710px;
 }
 
-.bubbleNora[data-role="nora"] .bubbleText {
-  /* understood body uses 13/20 in Figma synthesis; keep 15 for opening */
+.bubbleText[data-meta="understood"] {
+  font-size: 0.8125rem; /* 13 — Figma Nora synthesis */
+  line-height: 20px;
 }
 
 .chipRow {
@@ -263,10 +271,14 @@
 }
 
 .composer {
+  /* Figma 67:255 — 195 band; sticky bottom of creation column */
   display: flex;
   flex-direction: column;
   gap: 10px;
-  padding: 14px 24px 20px;
+  box-sizing: border-box;
+  min-height: 195px;
+  padding: 14px 24px;
+  margin-top: auto;
   border-top: 1px solid #e8e0d7;
   background: var(--pm6-canvas);
 }
@@ -350,10 +362,15 @@
 }
 
 .primaryButton {
-  background: var(--pm6-forest);
-  border: 1px solid var(--pm6-forest);
-  color: var(--pm6-forest-ink);
+  /* Figma 71:14 — ink primary 150×38 */
+  background: #1f1a16;
+  border: 1px solid #1f1a16;
+  color: #fffdf9;
   width: 150px;
+}
+
+.primaryButton:hover:not(:disabled) {
+  background: #2a241f;
 }
 
 .primaryButton:disabled {
@@ -377,9 +394,9 @@
   min-height: 32px;
   padding: 0;
   border-radius: 8px;
-  background: var(--pm6-forest);
+  background: #1f1a16;
   border: 0;
-  color: var(--pm6-forest-ink);
+  color: #fffdf9;
   font-size: 0.8125rem;
   font-weight: 500;
   cursor: pointer;
@@ -468,7 +485,7 @@
   padding: 18px 22px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 10px;
 }
 
 .previewList dt {
@@ -487,6 +504,10 @@
   letter-spacing: 0.15px;
   color: var(--pm6-ink);
   overflow-wrap: anywhere;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
 }
 
 .previewWarn {
@@ -542,14 +563,15 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #c4b8ac;
+  /* Figma 67:293 — understood marks */
+  background: #2f9e6b;
   flex: 0 0 auto;
 }
 
 .createSection {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 9px;
   padding: 16px 22px 14px;
 }
 
@@ -563,7 +585,10 @@
 }
 
 .readyBox {
+  /* Figma 71:3 — 360×70 readiness card */
   margin: 0;
+  box-sizing: border-box;
+  min-height: 70px;
   padding: 10px 12px;
   border-radius: 8px;
   background: var(--pm6-ok-tint);
@@ -571,9 +596,21 @@
 
 .readyBoxTitle {
   margin: 0 0 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   font-size: 0.8125rem;
   font-weight: 500;
   color: #155f45;
+}
+
+.readyBoxTitle::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #2f9e6b;
+  flex: 0 0 auto;
 }
 
 .readyBoxBody {
@@ -584,7 +621,10 @@
 }
 
 .pendingBox {
+  /* Figma 71:8 — 360×70 startup pending card */
   margin: 0;
+  box-sizing: border-box;
+  min-height: 70px;
   padding: 10px 12px;
   border-radius: 8px;
   background: #fff7f2;
@@ -592,9 +632,21 @@
 
 .pendingBoxTitle {
   margin: 0 0 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   font-size: 0.8125rem;
   font-weight: 500;
   color: #9b5d18;
+}
+
+.pendingBoxTitle::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #d9563b;
+  flex: 0 0 auto;
 }
 
 .pendingBoxBody {
@@ -605,17 +657,38 @@
 }
 
 .createWrap {
-  padding: 8px 0 8px;
+  padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 9px;
 }
 
 .correctRow {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
+  /*
+   * P3 67:39 / 71:13 — first viewport has no “Corriger …” links.
+   * Keep in DOM for correction affordance / tests; visually deferred.
+   */
+  position: absolute;
+  width: 1px;
+  height: 1px;
   padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.correctRow .textButton {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  color: #958a7f;
+  text-decoration: none;
+}
+
+.correctRow .textButton:hover {
+  text-decoration: underline;
+  color: #6d645c;
 }
 
 .submitError {
@@ -673,12 +746,14 @@
   .composer {
     border-bottom: 1px solid var(--pm6-border-soft);
     padding: 12px 16px;
+    min-height: 0;
     position: sticky;
-    top: 0;
+    bottom: 0;
     z-index: 2;
   }
 
   .preview {
+    /* P3 190:284 — preparation stacks below conversation on mobile. */
     order: 2;
     width: auto;
     border-top: 1px solid var(--pm6-border-soft);
@@ -695,15 +770,229 @@
 }
 
 @media (max-width: 767px) {
-  .pageChrome {
-    padding: 0 16px;
+  /*
+   * P3 190:284 — mobile Nouveau projet progressive disclosure:
+   * topbar → Nouveau projet / short sub → VOUS + NORA → Project Draft card + CTA.
+   * Desktop clarification density collapses into the draft card when ready.
+   */
+  .page {
+    display: flex;
+    flex-direction: column;
+    background: #fffdf9;
   }
 
-  .chromeStatus {
+  .pageChrome {
+    display: none;
+  }
+
+  .creationColumn {
+    border-right: 0;
+    min-height: 0;
+    background: #fffdf9;
+  }
+
+  .hero {
+    padding: 14px 16px 10px;
+    min-height: 90px;
+    gap: 4px;
+  }
+
+  .heroTitle {
+    font-size: 1.375rem; /* 22 */
+    line-height: 1.25;
+    letter-spacing: 0;
+  }
+
+  .heroTitleDesktop,
+  .heroSubtitleDesktop {
+    display: none;
+  }
+
+  .heroTitleMobile,
+  .heroSubtitleMobile {
+    display: inline;
+  }
+
+  .heroSubtitle {
+    font-size: 0.6875rem; /* 11 */
+    line-height: 1.35;
+    max-width: 340px;
+  }
+
+  .thread {
+    max-height: none;
+    padding: 14px 16px 8px;
+    gap: 12px;
+    border-top: 0;
+  }
+
+  .bubbleUser,
+  .bubbleNora {
+    padding: 0;
+    gap: 4px;
+    border-bottom: 0;
+    max-width: none;
+  }
+
+  .bubbleLabel {
+    font-size: 0.5625rem; /* 9 */
+  }
+
+  .bubbleText {
+    font-size: 0.75rem; /* 12 */
+    line-height: 1.35;
+    max-width: 350px;
+    color: #3f3832;
+  }
+
+  .metaChipMuted,
+  .metaChipOk,
+  .clarification,
+  .clarificationHint,
+  .chipRow {
     display: none;
   }
 
   .composerHelpers {
+    display: none;
+  }
+
+  .composer {
+    min-height: 72px;
+    padding: 8px 16px 12px;
+    border-bottom: 0;
+    border-top: 1px solid #e8e0d7;
+  }
+
+  .composerBox {
+    min-height: 56px;
+    flex-direction: row;
+    align-items: center;
+    padding: 8px 8px 8px 12px;
+  }
+
+  .textarea {
+    min-height: 38px;
+    font-size: 0.8125rem;
+    line-height: 1.35;
+  }
+
+  .composerBottom {
+    flex: 0 0 auto;
+  }
+
+  .preview {
+    order: 2;
+    margin: 4px 16px 16px;
+    width: auto;
+    box-sizing: border-box;
+    border-radius: 9px;
+    border: 1px solid #e6ded5;
+    background: #fbf7f2;
+    min-height: 0;
+    padding: 12px;
+  }
+
+  .previewHeader {
+    padding: 0;
+    gap: 8px;
+  }
+
+  .previewMeta {
+    display: block;
+  }
+
+  .previewMeta .draftChip {
+    display: none;
+  }
+
+  .previewEyebrowDesktop,
+  .previewTitleDesktop {
+    display: none;
+  }
+
+  .previewEyebrowMobile,
+  .previewTitleMobile {
+    display: inline;
+  }
+
+  .previewEyebrow {
+    font-size: 0.5625rem; /* 9 */
+    letter-spacing: 0.4px;
+  }
+
+  .previewTitle {
+    font-size: 0.9375rem; /* 15 */
+    line-height: 1.25;
+    font-weight: 600;
+  }
+
+  .previewDivider {
+    display: none;
+  }
+
+  .previewList {
+    padding: 8px 0 0;
+    gap: 6px;
+  }
+
+  .previewList > div {
+    display: none;
+  }
+
+  .previewFieldName {
+    display: none !important;
+  }
+
+  .previewFieldObjective {
+    display: block !important;
+  }
+
+  .previewFieldObjective dt {
+    font-size: 0.6875rem;
+    letter-spacing: 0;
+    text-transform: none;
+    color: #5f564e;
+  }
+
+  .previewFieldObjective dd {
+    margin: 0;
+    font-size: 0.6875rem;
+    font-weight: 400;
+    line-height: 1.35;
+    color: #5f564e;
+    -webkit-line-clamp: 3;
+  }
+
+  .previewHintInline {
+    display: none;
+  }
+
+  .understood,
+  .readyBox,
+  .pendingBox,
+  .createSectionLabel,
+  .createWrap .help,
+  .correctRow {
+    display: none;
+  }
+
+  .createSection {
+    padding: 8px 0 0;
+  }
+
+  .primaryButton {
+    width: 100%;
+    max-width: 334px;
+    font-size: 0.75rem;
+  }
+
+  /* Ready: hide composer; opening Nora turn; keep user + understood. */
+  .page[data-ready="true"] .composer {
+    display: none;
+  }
+
+  .page[data-ready="true"] .thread > .bubbleNora:first-child {
     display: none;
   }
 }

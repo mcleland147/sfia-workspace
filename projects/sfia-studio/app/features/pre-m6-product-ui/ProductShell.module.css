@@ -364,7 +364,8 @@
   .shell:has([data-active-view="journal"]) .mobileNavLink,
   .shell:has([data-active-view="history"]) .mobileNavLink,
   .shell:has([data-active-view="syntheses"]) .mobileNavLink,
-  .shell:has([data-governed-moment="true"]) .mobileNavLink {
+  .shell:has([data-governed-moment="true"]) .mobileNavLink,
+  .shell:has([data-surface="new-project-chat"]) .mobileNavLink {
     display: none;
   }
 
@@ -372,7 +373,8 @@
   .shell:has([data-active-view="journal"]) .mobileProfile,
   .shell:has([data-active-view="history"]) .mobileProfile,
   .shell:has([data-active-view="syntheses"]) .mobileProfile,
-  .shell:has([data-governed-moment="true"]) .mobileProfile {
+  .shell:has([data-governed-moment="true"]) .mobileProfile,
+  .shell:has([data-surface="new-project-chat"]) .mobileProfile {
     margin-left: auto;
   }
 }

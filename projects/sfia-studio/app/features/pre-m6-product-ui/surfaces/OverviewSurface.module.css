@@ -131,10 +131,10 @@
 
 .statIntroValue {
   margin: 0;
-  font-size: 1.125rem;
-  font-weight: 650;
-  letter-spacing: -0.01em;
-  line-height: 1.35;
+  font-size: 1.125rem; /* 18 */
+  font-weight: 600;
+  letter-spacing: -0.1px;
+  line-height: 26px;
   color: var(--pm6-ink);
 }
 
@@ -163,20 +163,20 @@
 
 .statLabel {
   margin: 0;
-  font-size: var(--pm6-text-caption);
+  font-size: 0.6875rem; /* 11 */
   font-weight: 500;
-  letter-spacing: 0.04em;
+  letter-spacing: var(--pm6-label-tracking, 0.4px);
   text-transform: uppercase;
-  color: var(--pm6-muted-faint);
+  color: #958a7f;
 }
 
 .statValue {
   margin: 0;
-  font-size: 1.125rem;
-  font-weight: 650;
-  letter-spacing: -0.01em;
+  font-size: 1.125rem; /* 18 */
+  font-weight: 600;
+  letter-spacing: -0.1px;
   color: var(--pm6-ink);
-  line-height: 1.35;
+  line-height: 26px;
 }
 
 .statValue[data-tone="warn"] {
@@ -190,9 +190,10 @@
 .statSub {
   display: block;
   margin: 0;
-  font-size: var(--pm6-text-caption);
+  font-size: 0.6875rem;
   font-weight: 500;
-  letter-spacing: 0.04em;
+  letter-spacing: var(--pm6-label-tracking, 0.4px);
+  line-height: 16px;
   color: var(--pm6-muted);
 }
 
@@ -224,18 +225,19 @@
 
 .sectionHead {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   gap: 12px;
+  min-height: 38px;
 }
 
 .sectionTitle {
   margin: 0;
-  font-size: var(--pm6-text-caption);
+  font-size: 0.6875rem;
   font-weight: 500;
-  letter-spacing: 0.04em;
+  letter-spacing: var(--pm6-label-tracking, 0.4px);
   text-transform: uppercase;
-  color: var(--pm6-muted-faint);
+  color: #958a7f;
 }
 
 .sectionLead {
@@ -243,8 +245,16 @@
   font-size: 0.8125rem;
   font-weight: 500;
   color: var(--pm6-ink);
-  line-height: 1.35;
-  letter-spacing: 0.015em;
+  line-height: 18px;
+  letter-spacing: 0.15px;
+}
+
+/* Figma 51:2 — section shortcuts are muted Label/Small, not accent CTAs. */
+.sectionHead .nextStepCta {
+  color: var(--pm6-muted-strong);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: var(--pm6-label-tracking, 0.4px);
 }
 
 .empty {
@@ -261,9 +271,10 @@
   align-items: flex-start;
   gap: 0;
   margin: 0;
-  padding: 8px 0 0;
+  padding: 0;
   list-style: none;
   overflow-x: auto;
+  min-height: 54px;
 }
 
 .trackStep {
@@ -278,7 +289,7 @@
   align-self: flex-start;
   margin-top: 4px;
   height: 1px;
-  background: color-mix(in srgb, var(--pm6-muted) 90%, transparent);
+  background: rgba(141, 132, 123, 0.9);
 }
 
 .trackConnector[data-state="proposed"] {
@@ -333,9 +344,10 @@
 }
 
 .trackNote {
-  margin: 4px 0 0;
-  font-size: var(--pm6-text-caption);
-  line-height: 1.4;
+  margin: 0;
+  font-size: 0.6875rem;
+  line-height: 16px;
+  letter-spacing: var(--pm6-label-tracking, 0.4px);
   color: var(--pm6-muted);
 }
 
@@ -352,11 +364,12 @@
   gap: 10px;
   align-items: center;
   min-height: 38px;
+  height: 38px;
   padding: 0 18px;
-  background: color-mix(in srgb, var(--pm6-body) 70%, var(--pm6-surface));
-  font-size: var(--pm6-text-caption);
+  background: #f6f7f9;
+  font-size: 0.6875rem;
   font-weight: 500;
-  letter-spacing: 0.04em;
+  letter-spacing: var(--pm6-label-tracking, 0.4px);
   color: var(--pm6-muted);
 }
 
@@ -376,17 +389,19 @@
   gap: 10px;
   align-items: center;
   min-height: 48px;
-  padding: 10px 18px;
+  height: 48px;
+  padding: 0 18px;
   border-top: 1px solid var(--pm6-border-faint);
 }
 
 .activityItem {
   display: grid;
-  grid-template-columns: 72px 7px minmax(0, 1fr);
+  grid-template-columns: 52px 7px minmax(0, 1fr);
   column-gap: 12px;
   align-items: center;
   min-height: 62px;
-  padding: 8px 0;
+  height: 62px;
+  padding: 0 0;
   border-top: 1px solid var(--pm6-border-faint);
 }
 
@@ -398,31 +413,33 @@
 .activityHead {
   font-size: 0.8125rem;
   font-weight: 500;
-  letter-spacing: 0.015em;
+  letter-spacing: 0.15px;
   color: var(--pm6-ink);
-  line-height: 1.35;
+  line-height: 18px;
 }
 
 .attentionDetail,
 .activityDetail {
-  font-size: var(--pm6-text-caption);
+  font-size: 0.6875rem;
   font-weight: 500;
-  letter-spacing: 0.04em;
+  letter-spacing: var(--pm6-label-tracking, 0.4px);
   color: var(--pm6-muted);
-  line-height: 1.35;
+  line-height: 16px;
 }
 
 .activityMeta {
-  font-size: var(--pm6-text-caption);
-  color: var(--pm6-muted);
+  font-size: 0.8125rem;
+  color: #6c635b;
+  line-height: 20px;
 }
 
 .activityKind {
-  font-size: var(--pm6-text-caption);
+  font-size: 0.6875rem;
   font-weight: 500;
-  letter-spacing: 0.04em;
-  color: var(--pm6-muted-faint);
+  letter-spacing: var(--pm6-label-tracking, 0.4px);
+  color: #958a7f;
   white-space: nowrap;
+  width: 52px;
 }
 
 .activityDot {
@@ -467,6 +484,8 @@
   display: flex;
   flex-direction: column;
   gap: 5px;
+  box-sizing: border-box;
+  min-height: 82px;
   padding: 18px 18px 14px;
   border-bottom: 1px solid var(--pm6-border);
 }
@@ -474,16 +493,16 @@
 .detailsTitle {
   margin: 0;
   font-size: 1.125rem;
-  font-weight: 650;
-  letter-spacing: -0.01em;
+  font-weight: 600;
+  letter-spacing: -0.1px;
   color: var(--pm6-ink);
-  line-height: 1.35;
+  line-height: 26px;
 }
 
 .detailsFacts {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 2px;
   margin: 0;
   padding: 12px 18px;
   border-bottom: 1px solid var(--pm6-border);
@@ -494,23 +513,25 @@
   flex-direction: column;
   gap: 2px;
   min-width: 0;
+  min-height: 54px;
 }
 
 .detailsFact dt {
   margin: 0;
-  font-size: 0.625rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: var(--pm6-label-tracking, 0.4px);
   text-transform: uppercase;
-  color: var(--pm6-muted-faint);
+  color: #958a7f;
 }
 
 .detailsFact dd {
   margin: 0;
   font-size: 0.8125rem;
   font-weight: 500;
+  letter-spacing: 0.15px;
   color: var(--pm6-ink);
-  line-height: 1.35;
+  line-height: 18px;
 }
 
 .detailsKeys {
@@ -524,7 +545,7 @@
 .keyList {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 0;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -535,39 +556,44 @@
   align-items: center;
   justify-content: space-between;
   gap: 12px;
+  min-height: 32px;
   font-size: 0.8125rem;
-  color: var(--pm6-muted-strong);
+  line-height: 20px;
+  color: #625a52;
 }
 
 .keyList li span:last-child {
-  font-weight: 600;
+  font-weight: 500;
+  letter-spacing: 0.15px;
   color: var(--pm6-ink);
 }
 
 .keyList li span:last-child[data-tone="warn"] {
-  color: var(--pm6-danger);
+  color: var(--pm6-accent);
 }
 
 .nextStep {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 7px;
   padding: 14px 18px;
   border-bottom: 1px solid var(--pm6-border);
 }
 
 .nextStepTitle {
   margin: 0;
-  font-size: 0.875rem;
-  font-weight: 600;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.15px;
+  line-height: 18px;
   color: var(--pm6-ink);
 }
 
 .nextStepBody {
   margin: 0;
   font-size: 0.8125rem;
-  color: var(--pm6-muted-strong);
-  line-height: 1.4;
+  color: #6c635b;
+  line-height: 20px;
 }
 
 .nextStepCta {
@@ -576,10 +602,11 @@
   padding: 0;
   border: none;
   background: none;
-  color: var(--pm6-danger);
+  color: var(--pm6-accent);
   font: inherit;
-  font-size: 0.8125rem;
-  font-weight: 600;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: var(--pm6-label-tracking, 0.4px);
   cursor: pointer;
 }
 

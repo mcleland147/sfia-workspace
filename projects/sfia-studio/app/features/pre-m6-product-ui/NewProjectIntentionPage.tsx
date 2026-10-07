@@ -184,6 +184,7 @@ export function NewProjectIntentionPage() {
       data-surface="new-project-chat"
       data-create-surface="conversational"
       data-collect-phase={phase}
+      data-ready={ready ? "true" : "false"}
     >
       <div className={styles.pageChrome} data-testid="new-project-chrome">
         <div className={styles.chromeTrail}>
@@ -201,11 +202,20 @@ export function NewProjectIntentionPage() {
 
       <div className={styles.creationColumn}>
         <header className={styles.hero}>
-          <h1 className={styles.heroTitle}>Créer un projet</h1>
+          <h1 className={styles.heroTitle}>
+            <span className={styles.heroTitleDesktop}>Créer un projet</span>
+            <span className={styles.heroTitleMobile}>Nouveau projet</span>
+          </h1>
           <p className={styles.heroSubtitle}>
-            Décris simplement ce que tu veux accomplir. Nora t&apos;aidera à
-            préciser uniquement ce qui est nécessaire pour démarrer
-            correctement.
+            <span className={styles.heroSubtitleDesktop}>
+              Décris simplement ce que tu veux accomplir. Nora t&apos;aidera à
+              préciser uniquement ce qui est nécessaire pour démarrer
+              correctement.
+            </span>
+            <span className={styles.heroSubtitleMobile}>
+              Décris ce que tu veux accomplir. Nora t&apos;aide à préciser le
+              projet.
+            </span>
           </p>
         </header>
 
@@ -234,7 +244,12 @@ export function NewProjectIntentionPage() {
                   <span className={styles.metaChipOk}>J’ai compris</span>
                 ) : null}
               </div>
-              <p className={styles.bubbleText}>{turn.text}</p>
+              <p
+                className={styles.bubbleText}
+                data-meta={turn.meta ?? undefined}
+              >
+                {turn.text}
+              </p>
               {turn.meta === "opening" && phase === "INTENTION_REQUIRED" ? (
                 <div
                   className={styles.chipRow}
@@ -328,15 +343,14 @@ export function NewProjectIntentionPage() {
               </button>
             </div>
           </div>
-          <div className={styles.actions}>
-            <Link
-              href="/studio"
-              className={styles.quietButton}
-              data-testid="create-project-cancel"
-            >
-              Annuler
-            </Link>
-          </div>
+          {/* P3 67:255 — no Annuler in composer chrome; keep accessible escape. */}
+          <Link
+            href="/studio"
+            className={styles.srOnly}
+            data-testid="create-project-cancel"
+          >
+            Annuler et revenir aux projets
+          </Link>
           <p className={styles.help}>
             Tu n&apos;as rien à remplir : Nora construit le projet à partir de
             la conversation.
@@ -351,16 +365,24 @@ export function NewProjectIntentionPage() {
       >
         <div className={styles.previewHeader}>
           <div className={styles.previewMeta}>
-            <p className={styles.previewEyebrow}>Projet en préparation</p>
+            <p className={styles.previewEyebrow}>
+              <span className={styles.previewEyebrowDesktop}>
+                Projet en préparation
+              </span>
+              <span className={styles.previewEyebrowMobile}>Projet</span>
+            </p>
             <span className={styles.draftChip}>Non créé</span>
           </div>
           <h2 id={`${fieldId}-preview`} className={styles.previewTitle}>
-            Aperçu du projet
+            <span className={styles.previewTitleDesktop}>Aperçu du projet</span>
+            <span className={styles.previewTitleMobile}>
+              {draft.name.trim() || "Aperçu du projet"}
+            </span>
           </h2>
         </div>
         <hr className={styles.previewDivider} />
         <dl className={styles.previewList}>
-          <div>
+          <div className={styles.previewFieldName}>
             <dt>Nom proposé</dt>
             <dd data-testid="preview-name">
               {draft.name.trim() || "Pas encore précisé"}
@@ -369,7 +391,7 @@ export function NewProjectIntentionPage() {
               <p className={styles.previewHintInline}>Tu pourras le renommer</p>
             ) : null}
           </div>
-          <div>
+          <div className={styles.previewFieldObjective}>
             <dt>Objectif</dt>
             <dd data-testid="preview-intention">
               {objective || "Pas encore précisée"}
@@ -440,24 +462,6 @@ export function NewProjectIntentionPage() {
                   création du projet.
                 </p>
               </div>
-              <div className={styles.correctRow}>
-                <button
-                  type="button"
-                  className={styles.textButton}
-                  data-testid="reopen-intention"
-                  onClick={() => onReopen("intention")}
-                >
-                  Corriger l&apos;intention
-                </button>
-                <button
-                  type="button"
-                  className={styles.textButton}
-                  data-testid="reopen-name"
-                  onClick={() => onReopen("name")}
-                >
-                  Corriger le nom
-                </button>
-              </div>
             </>
           ) : (
             <div className={styles.pendingBox}>
@@ -484,6 +488,26 @@ export function NewProjectIntentionPage() {
               Après création, la conversation continue avec Nora pour préciser
               le démarrage du projet.
             </p>
+            {ready ? (
+              <div className={styles.correctRow}>
+                <button
+                  type="button"
+                  className={styles.textButton}
+                  data-testid="reopen-intention"
+                  onClick={() => onReopen("intention")}
+                >
+                  Corriger l&apos;intention
+                </button>
+                <button
+                  type="button"
+                  className={styles.textButton}
+                  data-testid="reopen-name"
+                  onClick={() => onReopen("name")}
+                >
+                  Corriger le nom
+                </button>
+              </div>
+            ) : null}
             <div aria-live="assertive" aria-atomic="true">
               {submitError ? (
                 <p
