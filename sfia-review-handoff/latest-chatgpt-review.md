@@ -1,187 +1,62 @@
-# P5-S08-4 — GOVERNED MOMENT CLOSURE + GLOBAL RE-PROOF
+# P5-S08-4 — FINAL CANONICAL DETAIL FIDELITY DELIVERY — Review Pack
 
-**Timestamp:** 2026-10-07 Europe/Paris
-**Repo:** mcleland147/sfia-workspace
-**Branch:** `delivery/sfia-studio-product-simplification-p5-s08-global-p3-visual-parity`
-**Base / origin/main:** `eed18bd572d65b6f5f4878ed24b195e4feeb5c7e`
-**Morris S08-4 Substantive Visual Delivery GO:** AUTHORIZED / CONSUMED / CONTINUED (S08-4D closure)
-**ChatGPT requalification:** Decision/Confirmation = **PRODUCT-PATH IMPLEMENTATION GAP**, not seed-only gap
-**Prior handoff tip:** `d96438460a4eef4d691c705a901b7615075779a2` · blob `d057f8ba73a101b3663c7e6e0662dfc5f49eb029`
-**Prior classification superseded:** P1 Decision/Confirmation runtime same-state — closed by this pass
+1. **timestamp Europe/Paris:** 2026-10-07 13:58 CEST
+2. **repository:** sfia-workspace (`/Users/morris/Projects/sfia-workspace`)
+3. **branch:** `delivery/sfia-studio-product-simplification-p5-s08-global-p3-visual-parity`
+4. **base SHA (origin/main):** `eed18bd572d65b6f5f4878ed24b195e4feeb5c7e`
+5. **current local commits (before this fidelity pass):**
+   - `0984a455` feat(sfia-studio): complete P3 governed moments and S08-4 visual proof
+   - `6b90beb3` test(sfia-studio): harden S08-4 P3 visual parity harness navigation
+   - `301f3645` feat(sfia-studio): converge S08-4 Product UI to P3 visual contract
+6. **Morris existing S08-4 GO:** AUTHORIZED / CONSUMED / CONTINUED (final detail fidelity)
+7. **ChatGPT prior visual rejection reason:** GLOBAL P3 VISUAL PARITY candidate/not accepted — Product structure stronger, but Figma vs runtime still too easy to distinguish (composition/spacing/density/geometry/typography/controls). Prior local “PASS” treated as CANDIDATE only.
+8. **sources read:** cycle execution template; routing guide; chatgpt-cursor operating model; rules/guardrails; convergence doctrine + roadmap; product-completion cadrage; product-simplification 01–05; ckc 04-ux-ui + 08-delivery; review handoff tip reviewed blob `e987f572…`
+9. **Figma frame inventory:** fileKey `m4g8j0gNbEzfIuH6S9AZJF` — desktop 63:39 / 184:2 / 67:39 / 46:2 / 51:2 / 94:2 / 94:222 / 78:2 / 164:3 / 59:2 / 61:2; compact 190:44 / 190:111 / 190:175; mobile 190:253…192:113 as listed in GO §8. Metadata extracted for 63:39 and 46:2 (rail 192, header 54, resume cards 565×196, conversation 868 | context 356).
+10. **canonical QA dataset:** `.tmp-sfia-review/visual/s08-4/final-fidelity/states/canonical-product.sqlite` + `companion-nora-session.sqlite` + `manifest.json`
+11. **QA dataset construction:** `S08_4_FIDELITY_SEED=1` vitest `__tests__/project-assistant/s08-4.seedFinalFidelity.d0.test.ts` — 4 Product projects (Product Simplification, Nora Completion, Knowledge Core, Runtime v3); Nora Completion W3 terminal + synthesis + journal companion; Knowledge Core bound decision; Runtime v3 confirmation_required; wall-clock `updated_at` bump for « À reprendre » density; OPS1 fake provider only.
+12. **proof no production visual bypass:** NONE — real `/studio` routes, real components, Playwright Chromium captures, no `?demo`, no Figma overlay in Product.
+13. **surface-by-surface initial differences (pre-pass residual):** Projects section label « Projets récents » vs Figma « À reprendre »; orientation copy drift; table missing Attention column; Synthèses empty/false-empty (instanceof SQLite + loading race); En cours column empty (list missing LPS objective); Workspace density/content-shape vs 46:2; New Project sparse vs rich Figma; Auth/mobile high Δ.
+14. **actual Product changes per surface:**
+    - **Projects:** « À reprendre » honest 14-day resume (max 2 cards); orientation « Besoin de t'orienter ? » + CTA; badge « En cours »; 5-col table + Attention; card/footer geometry; LPS objective enrichment for « En cours ».
+    - **Synthèses:** duck-type `ProductSqliteHandle` (Next server-action instanceof fix); loading gate so empty does not flash before load.
+    - **Workspace/Conversation/Syntheses CSS + tokens:** shared pad/list widths (subagent + local); context 356 / conversation pad 30.
+    - **Decision/Confirmation:** retained; re-captured (visible).
+15. **root causes corrected:** (a) S06-honest resume projection vs invented next-action; (b) Next bundling `instanceof SqliteProductStore` false negative; (c) Synthèses empty-before-ready race; (d) listProjects omitted LPS objective; (e) W2 frozen clock starved « À reprendre » until seed bump.
+16. **token changes:** `--pm6-workspace-pad-x`, `--pm6-conversation-pad-x`, `--pm6-context-pad-x`, `--pm6-syntheses-list-w` (and related).
+17. **shell changes:** none architectural; rail remains 192 / 160 / 0 bands.
+18. **responsive changes:** Projects table/card stacking preserved; no new breakpoint dialect.
+19–30. **final evidence paths:** `.tmp-sfia-review/visual/s08-4/final-fidelity/{figma,runtime,diff,geometry,contact-sheets}/` — Projects, New Project, Workspace, Aperçu, Execution, Journal, Historique, Synthèses (populated), Decision, Confirmation, Auth captures present. Projects-empty isolated capture still MISSING in compare (1 missing pair).
+31–32. **compact/mobile evidence:** contact sheets `compact-overview.png`, `mobile-overview.png`, per-surface sheets.
+33. **geometry measurements (Projects 1440):** rail w=192; orientation y=174 h=92 w=1176; first resume card y=326 h=196; all section y≈542 (Figma ≈554). Card width grid-equal ≈579 vs Figma 565 (QNG/layout remainder).
+34. **significant full-frame diff clusters:** high nonzero pixel ratios remain (≈0.57–0.99) driven by content-shape/wording/density — **NOT dismissed as noise**; classified as open P1/P2 fidelity work.
+35. **final contact-sheet paths:** `.tmp-sfia-review/visual/s08-4/final-fidelity/contact-sheets/{projects,new-project,workspace,apercu,execution,journal,historique,syntheses,decision,confirmation,auth,desktop-overview,compact-overview,mobile-overview}.png`
+36. **P0 final:** 0
+37. **P1 final:** ≥3 open — Workspace conversation density vs 46:2; New Project sparse vs canonical progression; Auth/mobile composition still obviously different; Synthèses populated but master/detail chrome still drifts from 164:3.
+38. **P2 final:** Projects residual (card width/hint/copy honesty vs Figma sample focus text); Historique/Journal/Aperçu density & timeline geometry; filter chips absent on Projects.
+39. **P3 final:** glyph/raster; minor wording honesty qualifiers (« aucune prochaine action inventée » vs Figma sample).
+40. **QNG final:** anti-aliasing/font raster; Figma app width 1224 vs runtime remainder 1248 (192+1224≠1440 in file).
+41. **accessibility:** preserved focus-visible/labels; no arb contradiction claimed.
+42. **architecture parallelism:** NONE
+43. **test results:** Vitest **5382 passed / 141 skipped / 0 failed** (clean env; seed file adds 1 skip when not seeding)
+44. **typecheck:** PASS
+45. **lint:** PASS
+46. **build:** PASS
+47. **visual E2E:** dedicated Playwright p3 suite not re-run this pass after `.env.local` restore; auth re-bootstrap required for suite — **NOT CLAIMED PASS this pass** (harness captures used authenticated storageState successfully for fidelity).
+48. **local commits:** (this delivery) `feat(sfia-studio): close S08-4 canonical detail fidelity` — Product fidelity progress + Roadmap truth correction to INCOMPLETE
+49–50. **git diff:** see commit `--stat` / `--name-status`
+51. **Roadmap/P5 local truth:** **CORRECTED TO INCOMPLETE** — S08-4D = INCOMPLETE · GLOBAL P3 VISUAL PARITY = NOT YET PROVEN
+52. **remaining carries:** continue detail fidelity loops on Workspace / New Project / Auth / secondary surfaces; projects-empty isolated capture; Playwright visual suite re-proof after auth bootstrap
+53. **S08-5:** NOT STARTED
+54. **P5 COMPLETE:** NO
+55. **P6 READY:** NO
+56. **runtime v3:** NON ADOPTED
+57. **final verdict:** **S08-4D DETAIL FIDELITY INCOMPLETE — NOT READY FOR CHATGPT FINAL VISUAL REVIEW** (progress delivered; gate not met)
+58. **exact recommendation:** Continue implementation loops on remaining P1/P2 clusters with same-state captures; do **not** Git Integrate; do **not** start S08-5; ChatGPT may inspect current contact sheets as progress evidence only.
 
----
+## Same-state / honesty notes
 
-## Verdict
+- « À reprendre » = recent activity projection (14 days), **not** invented next-actions (S06 preserved).
+- Synthèses proof requires Product SQLite handle duck-type under Next server actions + wait-for-ready capture.
+- Decision ≠ Recommendation; Confirmation ≠ Decision — unchanged.
 
-**P5-S08-4 GLOBAL P3 VISUAL PARITY — PASS — READY FOR GIT INTEGRATION**
-
-| Gate | Status |
-| --- | --- |
-| P0 | **0** |
-| P1 | **0** |
-| Decision 190:495 same-state | **PASS** |
-| Confirmation 190:520 same-state | **PASS** |
-| Desktop 59:2 / 61:2 | **STRUCTURALLY ALIGNED WITH P3 REFERENCE** (exploratory containers — not pixel-perfect claim) |
-| S08-4A / B / C | **COMPLETE** |
-| S08-4D | **PASS** |
-| GLOBAL P3 VISUAL PARITY | **PASS** |
-| Full Vitest | **5382 passed / 140 skipped / 0 failed** |
-| Typecheck / Lint / Build | **PASS** |
-| Playwright `p3-visual-parity` | **PASS** |
-| Provider REAL | **NONE** |
-| Production visual bypass | **NONE** |
-| Parallel authority path | **NONE** |
-| Legacy F2/F3 on `/studio` | **NOT ENABLED** |
-| Project push / PR | **NONE** |
-| Remaining P5 Exit blockers | **S08-5 ONLY** |
-| S08-5 | **NOT STARTED** |
-| P5 COMPLETE / P6 READY | **NO** |
-| runtime v3 | **NON ADOPTED** |
-
----
-
-## Chosen governed-moment architecture
-
-**OPTION B (bounded):** Conversation consumes the same W2 read/mutation actions as TrajectorySurface.
-
-1. Authoritative Product state via existing W2/W3 server actions
-2. Pure presentation: `GovernedDecisionCard` / `GovernedConfirmationCard`
-3. Conversation = primary inline Pilot interaction (P3 §17/§18)
-4. TrajectorySurface `chat_first` = state/inspection/audit; **no competing Decision/Confirmation CTA**
-5. `legacy_cta` harvest-only; `exposeLegacyAuthorityPath` remains false on `/studio`
-
-**Why no parallel authority path:** Decision mutates only through `w2DecideTrajectoryAction`. Confirmation mutates only through `w2ConfirmExecutionContractAction` after `w2InspectExecutionContractAction` when needed. Applicability of confirmation remains domain-owned (`contract.status === "confirmation_required"`).
-
----
-
-## Implementation
-
-### Decision
-
-| Item | Value |
-| --- | --- |
-| Component | `GovernedDecisionCard.tsx` + `.module.css` |
-| Mount | `ConversationSurface` when `decisionSubjectContinuity.kind === "bound_awaiting_decision"` |
-| Reads | `w2ReadActiveDecisionSubjectAction` (via `useProductConversation`) |
-| Mutates | `w2DecideTrajectoryAction` |
-| Secondary | « Voir l'autre option » = disclosure only (`decisionAlternateIndex`) — no HD |
-| Geometry (390) | card x=16 w=358 · buttons 334×38 |
-
-### Confirmation
-
-| Item | Value |
-| --- | --- |
-| Component | `GovernedConfirmationCard.tsx` + `.module.css` |
-| Mount | Conversation when EC continuity `active` + `confirmation_required` and Decision not pending |
-| Reads | `w2ReadCurrentGovernedExecutionContinuityAction` |
-| Inspect | `w2InspectExecutionContractAction` |
-| Mutates | `w2ConfirmExecutionContractAction` (confirm-only — CTA « Confirmer l'action ») |
-| Content | `presentPilotContract` → PORTÉE / IMPACT PRÉVU / RÉVERSIBILITÉ |
-| Geometry (390) | card x=16 w=358 h≈435 (ref 438) · buttons 334×38 · Annuler present |
-
-### TrajectorySurface
-
-- `w2-confirm-contract` visible **only** when `decisionWorkflowMode === "legacy_cta"`
-- chat_first Decision CTAs already hidden (prior S07)
-
-### Modified / new Product files
-
-- `hooks/useProductConversation.ts` — governed continuity + decide/inspect/confirm adapters
-- `ConversationSurface.tsx` / `.module.css`
-- `TrajectorySurface.tsx`
-- `ProjectWorkspacePage.tsx` — `durableRefreshSignal`
-- **NEW** `GovernedDecisionCard.*` / `GovernedConfirmationCard.*`
-- Tests: `governedMomentsInline.ui.test.tsx`, `chatFirstGovernedDecisionLoop.ui.test.tsx`, `p5.s04.synthesesSurface.ui.test.tsx`, `s08-4.seedGovernedMoments.d0.test.ts` (opt-in `S08_4_SEED=1`)
-- `production-runtime-reference.manifest.json` — digest for `useProductConversation.ts`
-- Roadmap + P5 integrated delivery — material truth sync (S08-4D PASS)
-
----
-
-## Deterministic QA state seed
-
-| Scenario | DB | Mechanism |
-| --- | --- | --- |
-| D — Decision | `.tmp-sfia-review/visual/s08-4/qa-dbs/decision.sqlite` | `bootW2Runtime` + docs_write Proposal + `proposeTrajectoryOptions(proposalId)` → durable `PresentedOptionSet` → `bound_awaiting_decision` (restart-safe Epistemic) |
-| C — Confirmation | `.tmp-sfia-review/visual/s08-4/qa-dbs/confirmation.sqlite` | propose → `decideTrajectory(GOVERNED_OPTION_REF)` → `prepareExecutionContractFromW2Decision(generate-temporary-artifact)` → `inspectExecutionContract` · **stop before confirm** |
-
-- Manifest: `governed-moments-manifest.json`
-- Seed runner: `S08_4_SEED=1 npx vitest run __tests__/project-assistant/s08-4.seedGovernedMoments.d0.test.ts`
-- Runtime: Next with `SFIA_STUDIO_PRODUCT_DB_PATH=<qa db>` · `OPS1_CONVERSATION_PROVIDER=fake`
-- **No** `VISUAL_TEST` UI branch · **No** demo query params · **No** OpenAI
-
----
-
-## Visual evidence
-
-| Artifact | Path |
-| --- | --- |
-| Figma Decision | `.tmp-sfia-review/visual/s08-4/figma/mobile-decision-190-495.png` |
-| Runtime Decision 390 | `.tmp-sfia-review/visual/s08-4/runtime/decision-390.png` |
-| Runtime Decision desktop | `.tmp-sfia-review/visual/s08-4/runtime/decision-desktop-1440.png` |
-| Diff Decision | `.tmp-sfia-review/visual/s08-4/diff/decision-390-diff.png` |
-| Figma Confirmation | `.tmp-sfia-review/visual/s08-4/figma/mobile-confirmation-190-520.png` |
-| Runtime Confirmation 390 | `.tmp-sfia-review/visual/s08-4/runtime/confirmation-390.png` |
-| Runtime Confirmation desktop | `.tmp-sfia-review/visual/s08-4/runtime/confirmation-desktop-1440.png` |
-| Diff Confirmation | `.tmp-sfia-review/visual/s08-4/diff/confirmation-390-diff.png` |
-| Geometry verdict | `.tmp-sfia-review/visual/s08-4/geometry/governed-moments-verdict.json` |
-| Final workspace re-proof | `.tmp-sfia-review/visual/s08-4/final/` (Playwright p3-visual-parity) |
-
-Full-frame pixelmatch % is high (different shell title / transcript / Issues overlay) — **card geometry + CTA hierarchy + section structure** are the PASS criteria for same-state governed moments. Desktop containers remain EXPLORATORY → structural alignment only.
-
----
-
-## Accessibility (minimum)
-
-- Cards use `<section>` + labelled headings (`aria-labelledby`)
-- Buttons are real `<button>` with visible labels · `focus-visible` ring via `--pm6-focus-ring`
-- Primary/secondary not hover-only · 38px height tap targets
-- Errors use `role="alert"`
-- No WCAG certification claim
-
----
-
-## Tests
-
-- Decision renders only on `bound_awaiting_decision`
-- Recommendation alone does not render Decision card
-- Alternate disclosure does not call decide
-- Confirmation only when `confirmation_required`
-- Confirmation absent when status not required
-- Inspect path when inspection insufficient
-- Trajectory chat_first hides `w2-confirm-contract`
-- Legacy path not enabled by default on Conversation
-
-**Full Vitest (clean env):** 5382 passed / 140 skipped / 0 failed
-
-**Baseline attribution notes:**
-- Earlier polluted run (QA env vars left set) caused createProject / authority false failures — **not Product regressions**; cleared env → green.
-- `p5.s04.synthesesSurface` T14 failed on this branch only (duplicate title in Continuity + Overview) — **fixed** by scoping assertion to preview testid. Proven PASS on origin/main worktree before fix.
-- `productionRuntimeReference` digest updated for `useProductConversation.ts` drift.
-
----
-
-## P2 / P3-QNG (non-blocking)
-
-- Product honesty « Projets récents » vs Figma « À reprendre » (S06 carry)
-- Journal / context rail density vs Figma exploratory frames
-- Full-frame pixel diff noise vs validated card geometry
-- Desktop governed containers remain EXPLORATORY in Figma status
-
----
-
-## Conditional Roadmap / P5 material sync
-
-**DONE** — S08-4A–D COMPLETE · GLOBAL P3 VISUAL PARITY PASS · remaining blocker S08-5 ONLY · S08-5 NOT STARTED · P5 COMPLETE NO · P6 READY NO · runtime v3 NON ADOPTED.
-
----
-
-## Local commits (this branch)
-
-1. `301f3645` — feat(sfia-studio): converge S08-4 Product UI to P3 visual contract
-2. `6b90beb3` — test(sfia-studio): harden S08-4 P3 visual parity harness navigation
-3. `0984a4559130907ac46d2c0457c0e420419a723d` — feat(sfia-studio): complete P3 governed moments and S08-4 visual proof
-
-**Project push:** NONE
-**Project PR:** NONE
-
-**Recommended next:** ONE CUMULATIVE S08-4 GIT INTEGRATION / PR READINESS PATH (Morris GO). STOP — do not start S08-5.
+STOP.
