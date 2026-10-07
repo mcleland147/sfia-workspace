@@ -2,8 +2,8 @@
 
 ## Authority
 
-Morris S08-4 GO = AUTHORIZED / CONSUMED / CONTINUED  
-Continuation: VISUAL QA PAIRING HARDENING (not a new SFIA cycle)  
+Morris S08-4 GO = AUTHORIZED / CONSUMED / CONTINUED
+Continuation: VISUAL QA PAIRING HARDENING (not a new SFIA cycle)
 Fidelity CSS tuning = FROZEN until same-state pairing proven
 
 ## Git truth
@@ -90,7 +90,7 @@ Documented: `.tmp-sfia-review/visual/s08-4/final-fidelity/PRODUCTION_CAPTURE.md`
 | Projects empty | PASS |
 | Auth mobile | PASS |
 
-Negative mismatch tests (Vitest): PASS  
+Negative mismatch tests (Vitest): PASS
 Invalid diff generation: BLOCKED (`DIFF_FORBIDDEN` when pairing FAIL)
 
 ## Gates
