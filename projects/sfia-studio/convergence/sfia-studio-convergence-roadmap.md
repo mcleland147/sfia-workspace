@@ -1223,7 +1223,7 @@ Ne pas mettre à jour pour chaque micro-commit sans impact de trajectoire.
 | P5 COMPLETE / P6 READY | **NO** / **NO** |
 | Next | **CHATGPT S08-3 RE-REVIEW + CUMULATIVE S08-1→S08-3 REVIEW** |
 
-### B12a.3 P5-S08-1→S08-3 Cumulative Git Integration (AUTHORIZED / THIS CYCLE)
+### B12a.3 P5-S08-1→S08-3 Cumulative Git Integration (HISTORICAL / SUPERSEDED)
 
 | Item | Valeur |
 | --- | --- |

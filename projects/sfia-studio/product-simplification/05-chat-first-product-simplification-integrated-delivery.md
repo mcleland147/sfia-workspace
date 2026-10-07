@@ -24,7 +24,8 @@
 | **P5-S08-3 GO** | **AUTHORIZED / CONSUMED** |
 | **P5-S08-3 CP01 GO** | **AUTHORIZED / CONSUMED** |
 | **P5-S08-1→S08-3 CUMULATIVE GIT INTEGRATION GO** | **AUTHORIZED / CONSUMED** |
-| **Worktree / branche S08** | `/Users/morris/Projects/sfia-workspace` · `audit/sfia-studio-product-simplification-p5-s08-convergence-exit-readiness` (cumulative S08-1→S08-3 · **NO push**) |
+| **S08 cumulative branch** | `audit/sfia-studio-product-simplification-p5-s08-convergence-exit-readiness` — PR **#565** **MERGED** · cleanup **COMPLETE** · deleted local + remote |
+| **Documentary truth-sync branch** | `docs/sfia-studio-p5-s08-s01-s03-post-merge-truth-sync` — **CURRENT DOCUMENTARY TRUTH-SYNC BRANCH** (PR **#566** Draft · Product runtime unchanged) |
 | **Branche S07** | `delivery/sfia-studio-product-simplification-p5-s07-project-continuity-work-representation-completion` — **PRESERVED** · cleanup **PENDING / NOT EXECUTED BY CURRENT GATE** |
 | **Branche truth-sync S07** | `docs/sfia-studio-p5-s07-post-merge-truth-sync` — **MERGED via PR #564** · remote branch still present · cleanup **PENDING** |
 | **P5 AUTHORIZED BY MORRIS** | **YES** |
@@ -50,7 +51,10 @@
 | **P5-S08-1 GO** | **AUTHORIZED / CONSUMED** · ChatGPT Review **PASS** |
 | **P5-S08-2 GO** | **AUTHORIZED / CONSUMED** · ChatGPT RE-REVIEW **PASS** |
 | **P5-S08-3 GO** | **AUTHORIZED / CONSUMED** |
-| **NO PROJECT GIT INTEGRATION BEFORE END OF S08-3** | **ADOPTED / ENFORCED / PERIOD COMPLETED BY REVIEW** · superseded for integration by **Morris Cumulative Git Integration GO** (merge still **NOT AUTHORIZED**) |
+| **NO PROJECT GIT INTEGRATION BEFORE END OF S08-3** | **ADOPTED / ENFORCED / PERIOD COMPLETED** |
+| **Morris Cumulative Git Integration GO** | **AUTHORIZED / CONSUMED** |
+| **Morris PR #565 READY + MERGE GO** | **AUTHORIZED / CONSUMED** |
+| **PR #565** | **MERGED / POST-MERGE VERIFIED** (main `7063fa3c…` · CI **#698** SUCCESS) |
 | **P5-S06 DELIVERY** | **AUTHORIZED / CONSUMED** → **INTEGRATED** via PR **#561** |
 | **P5-S06 CP01** | **AUTHORIZED / CONSUMED** |
 | **P5-S06 CP02** | **AUTHORIZED / CONSUMED** |
