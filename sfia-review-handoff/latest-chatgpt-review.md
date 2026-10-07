@@ -1,7 +1,9 @@
-# P5-S08-4 — FINAL P2 FIDELITY SWEEP + GLOBAL EXIT RE-PROOF
+# P5-S08-4 — SYNTHÈSES SCROLLED DETAIL + ÉLÉMENTS VÉRIFIÉS
 
+**Timestamp:** 2026-10-07 21:30:42 +0200
+**Profile:** CRITICAL · Review Pack = FULL
 **Branch:** `delivery/sfia-studio-product-simplification-p5-s08-global-p3-visual-parity`
-**Verdict:** **READY FOR CHATGPT FINAL VISUAL REVIEW** — S08-4D = **PASS CANDIDATE** · GLOBAL P3 VISUAL PARITY = **PASS CANDIDATE** · **≠** READY FOR GIT INTEGRATION · **≠** P5 COMPLETE
+**Sub-verdict:** **SYNTHÈSES — LOWER VERIFIED SCROLL STATE = PASS CANDIDATE**
 
 ---
 
@@ -9,146 +11,146 @@
 
 | Item | Value |
 | --- | --- |
-| origin/main | `eed18bd572d65b6f5f4878ed24b195e4feeb5c7e` (unchanged) |
 | Branch | `delivery/sfia-studio-product-simplification-p5-s08-global-p3-visual-parity` |
-| Entry HEAD (pre-pass) | `c13bd3aa6c714f7c566acda1da5debaa40bbccf2` |
-| New commits | `549c6a5f` feat(sfia-studio): close S08-4 remaining P2 visual fidelity · `a4bb481c` docs(sfia-studio): record S08-4D visual parity PASS CANDIDATE |
-| Tip HEAD | `a4bb481cd47352b445e43918e4f4c42c69242a78` |
-| Prior cumulative visual commits | `f84dc9cf` · `cb0109eb` · `e0d36c5a` · `c13bd3aa` |
+| Entry HEAD | `a4bb481cd47352b445e43918e4f4c42c69242a78` |
+| Exit HEAD | `d4d9cf70291788d11b9d27e55f95a3b34bc021dd` |
+| origin/main | `eed18bd572d65b6f5f4878ed24b195e4feeb5c7e` (unchanged) |
 | Main moved | **NO** |
-| Unexpected tracked conflict | **NO** |
-| Project push / PR / merge | **NONE** |
+| Project push / PR / merge | **NONE / NOT AUTHORIZED** |
+| Reset / rebase / discard | **NONE** |
 
-## 2. Source SHAs (read before edit)
+Local Git truth wins over older remote review handoffs. Prior uncommitted Aperçu/P2 corrections preserved and included in this scoped commit where cohesive.
 
-Mandatory sources consulted at current Git tip on this branch (templates, operating model, roadmap, P5 delivery, UX/delivery CKC, product-simplification 03–05). Prior ChatGPT handoff tip reviewed: `3cb2e4b7…` / blob `b47ba826…`.
+## 2. Sources read
 
-## 3. Entry S08-4 status → exit
+- `prompts/templates/sfia-cycle-execution-template.md`
+- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
+- `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md`
+- `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
+- `projects/sfia-studio/product-completion/01-product-completion-cadrage.md`
+- `projects/sfia-studio/product-simplification/03-chat-first-product-simplification-workspace-interaction-architecture.md`
+- `projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md`
+- `projects/sfia-studio/sfia-v3-framing/ckc/04-ux-ui.md`
+- `projects/sfia-studio/sfia-v3-framing/ckc/08-delivery-implementation.md`
+- `projects/sfia-studio/sfia-v3-framing/ckc/09-qa-validation.md`
 
-| Gate | Entry | Exit (this pass) |
+v2.6 = process only. P3 / Product Simplification remains Product visual/interaction authority.
+
+## 3. Figma references inspected
+
+| Node | Role | fileKey |
 | --- | --- | --- |
-| P0 | 0 | **0** |
-| P1 | 0 (Decision/Confirmation/Workspace mobile CLOSED) | **0 retained** |
-| Pairing | PASS | **PASS** (14 compared / 0 blocked) |
-| identityAligned / contentAligned | true | **true** |
-| S08-4D | INCOMPLETE | **PASS CANDIDATE** |
-| GLOBAL P3 VISUAL PARITY | NOT YET PROVEN | **PASS CANDIDATE** |
+| `164:3` | Canonical top / initial Synthèses state | `m4g8j0gNbEzfIuH6S9AZJF` |
+| `316:2` | Supplemental lower scrolled + Éléments vérifiés | `m4g8j0gNbEzfIuH6S9AZJF` |
 
-## 4. P1 closure retained
+Inspected via Figma MCP (`get_screenshot` + `get_design_context` + `use_figma` export metadata). **Figma not mutated.**
 
-| Surface | Status |
-| --- | --- |
-| Decision mobile | **MATCH / no regression** (Δ≈0.072 diagnostic) |
-| Confirmation mobile | **MATCH / no regression** (Δ≈0.059) |
-| Workspace mobile | **MATCH / no regression** (Δ≈0.057) |
+- `164:3` remains top-state authority.
+- `316:2` does **not** replace `164:3`; lower-state reference only.
+- No global design-system promotion.
 
-Regression-only; no reopen of pairing/snapshot/responsive architecture.
+## 4. Root cause of lower-state mismatch
 
-## 5. P2 implementation (surface-by-surface)
+1. **No height-bounded Synthesis Scroll** — detail content grew the page (`min-height: 100vh` root without max), so `overflow:auto` never constrained; lower sections were “reachable” only by growing the viewport, not by a real detail scroller matching Figma `Synthesis Scroll`.
+2. **Éléments vérifiés** rendered as a plain section body — missing 316:2 secondary card hierarchy (title + Product count right-aligned + secondary summary).
+3. **QA fixture section copy** was too short for a distinct scrolled composition after the height fix; enriched with Product-shaped longer sections without inventing Evidence counts.
 
-### A/B. New Project (67:39 / 190:284)
+## 5. Files modified
 
-**Root causes closed**
-- Extra name-ask turn vs Figma three-turn composition → `proposeNameFromIntention` when intention already names espace-projet redesign (still allows NAME_REQUIRED when unclear).
-- CTA band / readiness cards / preview density → CSS aligned to 67:39 (150×38 CTA, 70px status cards, understood dots, composer 195/112/32).
-- Mobile progressive disclosure missing → 190:284 composition: title « Nouveau projet », short subtitle, VOUS+NORA, Project Draft card + full-width CTA; composer hidden when ready; Projets nav hidden via ProductShell `:has([data-surface=new-project-chat])`.
+### Product / UI
+- `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/SynthesesSurface.tsx`
+- `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/SynthesesSurface.module.css`
+- `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/synthesisPresentation.ts` (`formatVerifiedElementsCount`)
+- `projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.module.css` (viewport pin for `data-active-view=syntheses`; Execution badge tokens retained)
+- Prior preserved Aperçu continuity: `OverviewSurface.*`, `ProjectWorkspacePage.tsx`, `product-tokens.css`, related tests
 
-**Before → after (desktop Δ)** ≈0.050 → **0.0476** (diagnostic; human composition MATCH).
-**Mobile** composition MATCH; Figma sample dialogue/name (« Refonte UX Studio ») ≠ Product truth → **QUALIFIED** (not fabricated).
+### Tests / harness
+- `projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s04.synthesesSurface.ui.test.tsx` (T17/T18 + count helper)
+- `projects/sfia-studio/app/__tests__/project-assistant/s08-4.seedFinalFidelity.d0.test.ts` (longer Product section copy for scroll proof)
+- `projects/sfia-studio/app/e2e/support/observeVisualPairing.mjs` (verified / detail-scroll markers)
+- `.tmp-sfia-review/visual/s08-4/final-fidelity/capture-canonical-unified.mjs`
+- `.tmp-sfia-review/visual/s08-4/final-fidelity/state-manifest.json` (`syntheses-verified-1440` ↔ `316:2`)
+- `.tmp-sfia-review/visual/s08-4/contracts/316-2-syntheses-verified-scrolled.json`
 
-### C/D. Workspace desktop / compact (46:2 / 190:44)
+### Evidence
+- Runtime: `…/runtime/syntheses-1440.png`, `…/runtime/syntheses-verified-1440.png`
+- Figma ref: `…/figma/syntheses-verified-1440.png` (MCP screenshot scaled to 1440×1024 — soft-scale QUALIFIED vs native export)
+- Diffs: `…/diff/syntheses-1440-diff.png`, `…/diff/syntheses-verified-1440-diff.png`
+- Pairing: `…/pairing-report.json`
 
-Tokens + ConversationSurface / ProjectContextSummary / ProjectWorkspacePage density: header/tabs gap, composer 96×/radius 8, send 30×7, object cards, context fill, placeholder « Demander à Nora à propos de ce projet… ».
-Δ desktop **0.0411** · compact **0.0452** — residual rhythm/AA/persona; no obvious material layout gap.
+## 6. Scroll implementation
 
-### E–H. Journal / Historique / Synthèses / Aperçu
+- Detail **header** stays structured (`detailHead`).
+- Body scrolls in `project-syntheses-detail-scroll` (Figma Synthesis Scroll).
+- Workspace root pinned to `100vh` **only** when `data-active-view="syntheses"` so the scroll region is height-bounded.
+- Affordance: **real styled native scrollbar** (4px, track `rgba(232,227,219,0.5)`, thumb `rgba(148,140,130,0.78)`) — bound to real overflow; not decorative.
+- Selection change resets `scrollTop = 0` (no auto-jump to lower sections).
+- Bottom padding leaves breathing room under the verified card.
 
-Shared selected/index tokens + surface CSS density (row heights, chips, splits).
-Δ journal **0.0326** · historique **0.0375** · syntheses **0.0362** · aperçu **0.0375** — residual P3 cosmetics; no obvious composition blockers.
+## 7. Éléments vérifiés / Product truth
 
-### I–N. Regressions
+- Secondary card chrome (border, `#fbf7f2` body wash, radius 9, min-height 150).
+- Title `ÉLÉMENTS VÉRIFIÉS` + count from `sourceBindings.evidenceIds.length` via `formatVerifiedElementsCount` (`0/1 élément`, `N éléments`).
+- Summary = `sections.verified` (builder-derived), never hardcoded Figma sample (`4 éléments` / sample artifacts).
+- Runtime proof fixture shows **`1 élément`** (truthful).
+- Zero-state covered by Vitest T18.
 
-| Surface | Status |
-| --- | --- |
-| Projects | MATCH / regression OK (Δ≈0.030) |
-| Projects empty | MATCH / regression OK (Δ≈0.011) |
-| Auth | MATCH / regression OK (Δ≈0.014) |
-| Execution | **CONTRACT-QUALIFIED** (mobile capture retained; no invented desktop canonical) |
+### « Voir le détail → »
 
-## 6. Valid diff-cluster ledger (final compare)
+**PRODUCT-HONEST QUALIFIED ABSENT** — no supported Product navigation/destination from Synthèses to inspect verified evidence elements. Dead CTA **not** added. Structured card retained without the action.
 
-All compared pairs: pairing=PASS · identityAligned=true · contentAligned=true · semantic/view/viewport aligned.
+## 8. Execution tab badge
 
-| captureId | Δ ratio | Notes |
-| --- | --- | --- |
-| new-project-390 | 0.1085 | Content QUALIFIED (sample copy) · composition MATCH |
-| decision-390 | 0.0719 | P1 retained |
-| confirmation-390 | 0.0586 | P1 retained |
-| workspace-390 | 0.0567 | P1 retained |
-| new-project-1440 | 0.0476 | Composition MATCH |
-| workspace-1024 | 0.0452 | Residual density P3 |
-| workspace-1440 | 0.0411 | Residual density P3 |
-| historique-1440 | 0.0375 | Residual P3 |
-| apercu-1440 | 0.0375 | Residual P3 |
-| syntheses-1440 | 0.0362 | Residual P3 |
-| journal-1440 | 0.0326 | Residual P3 |
-| projects-1440 | 0.0302 | Regression |
-| auth-390 | 0.0144 | Regression |
-| projects-empty-1440 | 0.0107 | Regression |
+Shared `.tabBadge` already matches canonical 24×20 / radius 6 / `#FFE8E0` / `#D9563B` / 11px. **Preserved** (no Synthèses-only badge). Visible on both captures.
 
-## 7. Persona / typography
-
-| Item | Disposition |
-| --- | --- |
-| PROFILE_PERSONA_FIGMA_VS_SESSION_LOGIN | **QUALIFIED LIMITATION** (runtime `mcleland147` vs Figma Morris) — not hardcoded |
-| Geist | **DEFERRED** — size/weight/line-height/tracking matched on authorized runtime font |
-
-## 8. Classification
-
-| Class | Count | Detail |
-| --- | --- | --- |
-| P0 | **0** | — |
-| P1 | **0** | — |
-| P2 | **0** obvious composition/layout blockers | New Project mobile sample-content difference QUALIFIED; not treated as composition fail |
-| P3 | residual cosmetics | secondary density, micro metrics, AA |
-| QNG | intrinsic | subpixel/raster/font family |
-
-## 9. Tests / gates
+## 9. Tests / gates (exact)
 
 | Gate | Result |
 | --- | --- |
-| Full Vitest (`env -i`) | **PASS** — 5396 passed / 143 skipped / 0 failed |
-| Typecheck | **PASS** |
-| Lint | **PASS** |
-| Build | **PASS** |
-| Visual E2E (`p3-visual-parity.spec.ts` vs production `:3020`) | **PASS** |
-| Pairing | **PASS** |
-| Production canonical capture | **PASS** |
+| Vitest `p5.s04.synthesesSurface.ui.test.tsx` | **6/6 PASS** (incl. T17 scroll + T18 zero + count helper) |
+| Production `next build` (lint + types) | **PASS** |
+| `next lint` | **PASS** (0 warnings/errors) |
+| `tsc --noEmit` | **PASS** |
+| Capture pairing `syntheses-1440` ↔ `164:3` | **PASS** |
+| Capture pairing `syntheses-verified-1440` ↔ `316:2` | **PASS** |
+| Compare (pairing-gated) | both **COMPARED** · Δ≈**0.0423** (top) · Δ≈**0.0473** (verified) |
+| Playwright `p3-visual-parity.spec.ts` | **FAIL env** — `forbiddenVisible=next-dev-issues-badge` under `next dev`; production capture harness remains authority for visual proof |
 
-## 10. Fresh final contact sheets
+## 10. Visual proof paths
 
-Under `.tmp-sfia-review/visual/s08-4/final-fidelity/contact-sheets/` (same final Product commit):
+| Capture | Figma | Runtime SHA256 (12) | Pairing |
+| --- | --- | --- | --- |
+| `syntheses-1440` | `164:3` | `d0802bf96189` | PASS · scrollTop≈0 · top composition |
+| `syntheses-verified-1440` | `316:2` | `6092ea407aed` | PASS · scrolled · Éléments vérifiés fully visible · Product count |
 
-- `projects.png` · `projects-empty.png` · `new-project.png` · `workspace.png` · `apercu.png` · `execution.png` · `journal.png` · `historique.png` · `syntheses.png` · `decision.png` · `confirmation.png` · `auth.png`
-- `new-project-390.png` · `workspace-1024.png` · `workspace-390.png`
-- `desktop-overview.png` · `compact-overview.png` · `mobile-overview.png`
+Distinct SHAs confirm top ≠ lower state.
 
-## 11. Local commits / Roadmap
+## 11. Residual gaps (P2 / QUALIFIED)
 
-Local Product commits authorized this pass (see git log after publish).
-Roadmap tip + P5 integrated delivery local truth moved to **PASS CANDIDATE**.
-Project push **NONE**. Project PR **NONE**.
+| Item | Class |
+| --- | --- |
+| Content/copy ≠ Figma sample narrative; Product truth wins | expected / QUALIFIED |
+| Verified figma PNG soft-scaled from MCP (not native 1× export bytes) | P2 residual on pixel Δ |
+| « Voir le détail » absent (no Product destination) | PRODUCT-HONEST QUALIFIED |
+| Playwright visual E2E under next-dev Issues badge | env / harness — not production P0 |
+| Compact/mobile Synthèses not redesigned (desktop primary) | in-scope non-goal |
+
+**P0:** 0 · **P1:** 0 · **P2:** residuals above
 
 ## 12. Explicit non-claims
 
-- S08-5 = **NOT STARTED**
-- P5 COMPLETE = **NO**
-- P6 READY = **NO**
-- runtime v3 = **NON ADOPTED**
+- **≠** S08-4D CLOSED
+- **≠** GLOBAL P3 VISUAL PARITY CLOSED
 - **≠** READY FOR GIT INTEGRATION
+- **≠** P5 COMPLETE / P6 READY
+- **≠** runtime v3 ADOPTED
+- **≠** Evidence architecture redesign
+- **≠** Figma mutation / new route / dead CTA
 
-## 13. Final verdict
+Those remain Morris/ChatGPT decisions after ongoing final visual review.
 
-**P5-S08-4 FINAL P2 FIDELITY SWEEP = PASS CANDIDATE**
-**GLOBAL P3 VISUAL PARITY = PASS CANDIDATE**
-**READY FOR CHATGPT FINAL VISUAL REVIEW**
+## 13. Final sub-verdict
+
+**SYNTHÈSES — LOWER VERIFIED SCROLL STATE = PASS CANDIDATE**
+
+Continuous Synthèses surface; top state preserved vs `164:3`; real detail scroll; Product-truth verified card; honest scrollbar; dual pairing PASS; no architecture parallelism.
