@@ -85,6 +85,7 @@ async function seedNamedQualifiedProject(
     readonly suffix: string;
     readonly objective?: string;
     readonly profile?: "Standard" | "Critical";
+    readonly cycleTypeId?: string;
     readonly reservations?: readonly { statement: string; blocking?: boolean }[];
   },
 ): Promise<SeededW2Project> {
@@ -112,9 +113,10 @@ async function seedNamedQualifiedProject(
   if (!oa) throw new Error("seedNamed: OA unavailable");
 
   const cycleInstanceId = `cyc:inst:w2-${suffix}`;
+  const cycleTypeId = input.cycleTypeId ?? "cyc:delivery";
   const cycle = await oa.cycleServices.createCycle.execute({
     cycleInstanceId,
-    cycleTypeId: "cyc:delivery",
+    cycleTypeId,
     projectId,
     signals: input.profile === "Critical" ? { irreversible: true } : {},
     justification:
@@ -294,28 +296,18 @@ function seedCompanionJournal(input: {
     sessionKey: "f1-default",
   });
   session.ensurePilotTranscriptAndJournalSchema();
+  // P3 46:2 density — one user turn + Nora analysis (extra Q&A qualified separately if needed).
   const t1 = appendPilotTranscriptTurn(session, {
     role: "user",
     content:
-      "Je veux que l’expérience reste centrée sur la conversation, avec des surfaces structurées seulement quand elles ajoutent de la valeur.",
+      "Je veux qu’on garde une expérience vraiment centrée sur la conversation, mais je veux pouvoir comprendre le projet, ouvrir les objets importants et garder la main sans avoir cinq panneaux sous les yeux.",
     logicalTurnId: "ltu:s084-nora-1",
   });
   appendPilotTranscriptTurn(session, {
     role: "assistant",
     content:
-      "Je proposerais d’adopter l’architecture conversation-first pour l’espace projet, puis de décider explicitement avant toute préparation d’action.",
+      "Je garderais la conversation comme canal de travail principal, avec des surfaces structurées uniquement lorsqu’elles apportent une vraie valeur pour comprendre ou agir.",
     logicalTurnId: "ltu:s084-nora-1",
-  });
-  appendPilotTranscriptTurn(session, {
-    role: "user",
-    content: "Où en sommes-nous sur la complétion Nora ?",
-    logicalTurnId: "ltu:s084-nora-2",
-  });
-  appendPilotTranscriptTurn(session, {
-    role: "assistant",
-    content:
-      "Le cycle actif couvre la continuité conversationnelle et les réservations ouvertes. Une recommandation et une synthèse Product sont disponibles pour relecture.",
-    logicalTurnId: "ltu:s084-nora-2",
   });
   const created = materializeCycleJournalDelta({
     session,
@@ -327,25 +319,17 @@ function seedCompanionJournal(input: {
         {
           op: "CREATE",
           targetEntryId: null,
-          title: "Complétion Nora",
-          currentSummary: "Aligner journal, décisions et synthèse Product",
-          sourceTurnRefs: [],
-          relatedEntryIds: [],
-        },
-        {
-          op: "CREATE",
-          targetEntryId: null,
-          title: "Continuité conversation",
-          currentSummary: "Transcript pilote et sujets de cycle persistants",
+          title: "Espace projet",
+          currentSummary: "Passe de conception — conversation et surfaces structurées",
           sourceTurnRefs: [],
           relatedEntryIds: [],
         },
       ],
     },
   });
-  expect(created.applied).toBe(2);
+  expect(created.applied).toBe(1);
   const entries = listCycleJournalEntries(session, input.cycleInstanceId);
-  expect(entries.length).toBeGreaterThanOrEqual(2);
+  expect(entries.length).toBeGreaterThanOrEqual(1);
   return entries.map((e) => e.journalEntryId);
 }
 
@@ -765,8 +749,11 @@ describe.runIf(runSeed)("S08-4 seed final fidelity canonical Product DB", () => 
       const project = await seedNamedQualifiedProject(runtime, {
         name: "Product Simplification",
         suffix: "ws",
-        objective: "Réduire la surface opératoire sans perdre la vérité Product",
+        objective:
+          "Simplifier le pilotage sans perdre gouvernance, preuve et maîtrise du Pilote.",
         profile: "Standard",
+        // P3 visual identity — UX/UI catalog label (honest Product cycle type).
+        cycleTypeId: "cyc:ux-ui",
         reservations: [
           {
             statement:
@@ -782,12 +769,25 @@ describe.runIf(runSeed)("S08-4 seed final fidelity canonical Product DB", () => 
             epistemicItemId: "epi:s084-rec-ws",
             type: "Recommendation",
             statement:
-              "Poursuivre la boucle post-preuve et matérialiser la synthèse dérivée.",
+              "Adopter l’architecture proposée pour l’espace projet",
             status: "active",
             authority: "none",
+            source: "active-cycle-work:nora",
+            relatedObjects: [project.cycleInstanceId],
           },
         ],
         createdBy: W2_TEST_ACTOR,
+      });
+      // Sibling projects so the rail recents match Figma density (3 entries).
+      await seedNamedQualifiedProject(runtime, {
+        name: "Nora Completion",
+        suffix: "ws2",
+        profile: "Standard",
+      });
+      await seedNamedQualifiedProject(runtime, {
+        name: "Runtime v3",
+        suffix: "ws3",
+        profile: "Standard",
       });
       const journalEntryIds = seedCompanionJournal({
         projectId: project.projectId,
@@ -812,6 +812,29 @@ describe.runIf(runSeed)("S08-4 seed final fidelity canonical Product DB", () => 
       );
       const currentSynthesis = syntheses.find((s) => s.status === "current");
       expect(currentSynthesis).toBeTruthy();
+      // Align synthesis title to P3 prepared-action / teaser copy.
+      if (currentSynthesis) {
+        const row = store.db
+          .prepare(
+            `SELECT payload_json FROM oa_syntheses WHERE synthesis_id = ?`,
+          )
+          .get(currentSynthesis.synthesisId) as
+          | { payload_json: string }
+          | undefined;
+        if (row?.payload_json) {
+          const payload = JSON.parse(row.payload_json) as Record<
+            string,
+            unknown
+          >;
+          payload.title = "Mise à jour de l’espace projet";
+          payload.subject = "Mise à jour de l’espace projet";
+          store.db
+            .prepare(
+              `UPDATE oa_syntheses SET payload_json = ? WHERE synthesis_id = ?`,
+            )
+            .run(JSON.stringify(payload), currentSynthesis.synthesisId);
+        }
+      }
       fs.writeFileSync(
         path.join(dir, "manifest.json"),
         JSON.stringify(

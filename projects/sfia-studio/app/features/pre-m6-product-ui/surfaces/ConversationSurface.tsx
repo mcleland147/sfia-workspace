@@ -22,6 +22,7 @@ import type { F2DecisionKind } from "@/features/project-assistant/f2/types";
 import { useEffect, useId } from "react";
 import type { ProductConversationController } from "../hooks/useProductConversation";
 import type { ProductSynthesisProjection } from "@/lib/oa/synthesis";
+import type { WorkRecommendationProjectionCard } from "@/lib/oa/cycle/application/deriveWorkRecommendations";
 import {
   presentSynthesisVerdictLabel,
   synthesisSummaryExcerpt,
@@ -86,6 +87,12 @@ export type ConversationSurfaceProps = {
   reservationConfirmBusyId?: string | null;
   latestSynthesis?: ProductSynthesisProjection | null;
   onOpenSynthesis?: (synthesisId: string) => void;
+  /**
+   * P3 46:2 — active Work Recommendations projected into the conversation
+   * (same durable cards as Journal › Recommandations). Presentation only.
+   */
+  workRecommendations?: readonly WorkRecommendationProjectionCard[];
+  onResumeRecommendation?: (recommendationId: string) => void;
 };
 
 /**
@@ -102,6 +109,8 @@ export function ConversationSurface({
   reservationConfirmBusyId = null,
   latestSynthesis = null,
   onOpenSynthesis,
+  workRecommendations = [],
+  onResumeRecommendation,
 }: ConversationSurfaceProps) {
   const fieldId = useId();
   const liveRegionId = useId();
@@ -328,7 +337,7 @@ export function ConversationSurface({
                   className={styles.bubbleAuthor}
                   data-role={message.role === "user" ? "user" : "assistant"}
                 >
-                  {message.role === "user" ? "Vous" : "Nora"}
+                  {message.role === "user" ? "Vous" : "Nora · Analyse"}
                 </p>
                 <p className={styles.bubbleText}>
                   {message.role === "assistant"
@@ -1320,132 +1329,268 @@ export function ConversationSurface({
         </section>
       ) : null}
 
-      {!f3Execute && durableEvidenceOutcome ? (
+      {!f3Execute &&
+      (workRecommendations.length > 0 || durableEvidenceOutcome) ? (
         <section
           className={styles.durableStack}
           data-testid="durable-evidence-outcome"
           aria-live="polite"
         >
-          {/* P3 46:2 — recommendation card leads; technical relecture stays available but collapsed. */}
-          <div
-            className={styles.subCardGold}
-            data-testid="durable-recommendation-card"
-          >
-            <div className={styles.p3CardHead}>
-              <h4 className={styles.subTitle}>Recommandation</h4>
-              <span className={styles.p3CardStatusWarn}>
-                En attente de décision
-              </span>
-            </div>
-            <p className={styles.subLead} data-testid="durable-recommendation-label">
-              {durableEvidenceOutcome.recommendation.recommendationLabel}
-            </p>
-            <p className={styles.subNote} data-testid="durable-next-action-user">
-              {durableSummary?.next}
-            </p>
-            {durableSummary?.analysis ? (
-              <p className={styles.subNote} data-testid="durable-recommendation-analysis">
-                {durableSummary.analysis}
-              </p>
-            ) : null}
-            <p className={styles.p3CardStamp}>RECOMMANDATION — PAS UNE DÉCISION</p>
-          </div>
-
-          <details className={styles.durableDetails} data-testid="durable-relecture-details">
-            <summary>
-              Relecture durable · dernier résultat enregistré
-            </summary>
-            <div className={styles.chipRow} data-testid="durable-outcome-labels">
-              <span className={styles.chipQuiet}>
-                {durableOutcomeFreshness.label}
-              </span>
-              <span className={styles.chip} data-testid="durable-outcome-semantic">
-                {durableSemantic}
-              </span>
-            </div>
-            <p className={styles.cardNote} data-testid="durable-lps-version">
-              LPS v{durableEvidenceOutcome.lpsVersion}
-            </p>
-            <p className={styles.noticeQuiet} data-testid="durable-ephemeral-notice">
-              {durableEvidenceOutcome.ephemeralNotice}
-            </p>
-            <p className={styles.subLead} data-testid="durable-result-user-summary">
-              {durableSummary?.result}
-            </p>
-
-            <div className={styles.subCard} data-testid="durable-evidence-card">
-              <h4 className={styles.subTitle}>Preuves</h4>
-              <p className={styles.subLead} data-testid="durable-evidence-user-summary">
-                {durableSummary?.evidence}
-              </p>
-              <dl className={styles.facts}>
-                <div className={styles.factWide}>
-                  <dt>Identifiants</dt>
-                  <dd className={styles.code} data-testid="durable-evidence-ids">
-                    {durableEvidenceOutcome.evidenceIds.join(", ") || "—"}
-                  </dd>
+          {/* P3 46:2 — pending Work Recommendations only (Figma RECOMMANDATION). */}
+          {workRecommendations.filter(
+            (card) => card.status === "active" && !card.dispositionDecisionId,
+          ).length > 0
+            ? workRecommendations
+                .filter(
+                  (card) =>
+                    card.status === "active" && !card.dispositionDecisionId,
+                )
+                .slice(0, 1)
+                .map((card) => (
+                  <div
+                    key={card.epistemicItemId}
+                    className={styles.subCardGold}
+                    data-testid="durable-recommendation-card"
+                  >
+                    <div className={styles.p3CardHead}>
+                      <p className={styles.p3CardEyebrow}>Recommandation</p>
+                      <span className={styles.p3CardStatusWarn}>
+                        {card.dispositionDecisionId
+                          ? "Décidée"
+                          : "En attente de décision"}
+                      </span>
+                    </div>
+                    <p
+                      className={styles.p3CardTitle}
+                      data-testid="durable-recommendation-label"
+                    >
+                      {card.statement}
+                    </p>
+                    <div className={styles.p3CardFoot}>
+                      <p className={styles.p3CardStamp}>
+                        RECOMMANDATION — PAS UNE DÉCISION
+                      </p>
+                      {onResumeRecommendation ? (
+                        <button
+                          type="button"
+                          className={styles.p3CardLink}
+                          data-testid="conversation-resume-recommendation"
+                          onClick={() =>
+                            onResumeRecommendation(card.epistemicItemId)
+                          }
+                        >
+                          Ouvrir →
+                        </button>
+                      ) : null}
+                    </div>
+                  </div>
+                ))
+            : durableEvidenceOutcome ? (
+                <div
+                  className={styles.subCardGold}
+                  data-testid="durable-recommendation-card"
+                >
+                  <div className={styles.p3CardHead}>
+                    <p className={styles.p3CardEyebrow}>Recommandation</p>
+                    <span className={styles.p3CardStatusWarn}>
+                      En attente de décision
+                    </span>
+                  </div>
+                  <p
+                    className={styles.p3CardTitle}
+                    data-testid="durable-recommendation-label"
+                  >
+                    {durableEvidenceOutcome.recommendation.recommendationLabel}
+                  </p>
+                  <p className={styles.p3CardStamp}>
+                    RECOMMANDATION — PAS UNE DÉCISION
+                  </p>
                 </div>
-                {durableEvidenceOutcome.evidence.map((ev) => (
-                  <div className={styles.factWide} key={ev.evidenceId}>
-                    <dt>{ev.evidenceId}</dt>
-                    <dd data-testid={`durable-evidence-status-${ev.evidenceId}`}>
-                      {ev.status}
+              ) : null}
+
+          {/* P3 46:2 — ACTION PRÉPARÉE from current synthesis when present. */}
+          {latestSynthesis ? (
+            <div
+              className={styles.subCardPrepared}
+              data-testid="conversation-prepared-action-card"
+            >
+              <div className={styles.p3CardHead}>
+                <p className={styles.p3CardEyebrow}>Action préparée</p>
+                <span className={styles.p3CardStatusReady}>
+                  Prête à examiner
+                </span>
+              </div>
+              <p className={styles.p3CardTitle}>
+                {latestSynthesis.title.replace(/^Synthèse\s*[—–-]\s*/i, "") ||
+                  latestSynthesis.title}
+              </p>
+              {onOpenSynthesis ? (
+                <div className={styles.p3CardFoot}>
+                  <span className={styles.p3CardStamp} aria-hidden>
+                    &nbsp;
+                  </span>
+                  <button
+                    type="button"
+                    className={styles.p3CardLink}
+                    data-testid="conversation-open-prepared-action"
+                    onClick={() =>
+                      onOpenSynthesis(latestSynthesis.synthesisId)
+                    }
+                  >
+                    Ouvrir →
+                  </button>
+                </div>
+              ) : null}
+            </div>
+          ) : null}
+
+          {/* P3 46:2 — when Work Recommendation cards lead, keep technical
+              relecture out of the conversation chrome (available in Historique). */}
+          {durableEvidenceOutcome &&
+          workRecommendations.filter(
+            (card) => card.status === "active" && !card.dispositionDecisionId,
+          ).length === 0 ? (
+            <details
+              className={styles.durableDetails}
+              data-testid="durable-relecture-details"
+            >
+              <summary>
+                Relecture durable · dernier résultat enregistré
+              </summary>
+              <div className={styles.chipRow} data-testid="durable-outcome-labels">
+                <span className={styles.chipQuiet}>
+                  {durableOutcomeFreshness.label}
+                </span>
+                <span
+                  className={styles.chip}
+                  data-testid="durable-outcome-semantic"
+                >
+                  {durableSemantic}
+                </span>
+              </div>
+              <p className={styles.cardNote} data-testid="durable-lps-version">
+                LPS v{durableEvidenceOutcome.lpsVersion}
+              </p>
+              <p
+                className={styles.noticeQuiet}
+                data-testid="durable-ephemeral-notice"
+              >
+                {durableEvidenceOutcome.ephemeralNotice}
+              </p>
+              <p
+                className={styles.subLead}
+                data-testid="durable-result-user-summary"
+              >
+                {durableSummary?.result}
+              </p>
+              <p
+                className={styles.subNote}
+                data-testid="durable-next-action-user"
+              >
+                {durableSummary?.next}
+              </p>
+              {durableSummary?.analysis ? (
+                <p
+                  className={styles.subNote}
+                  data-testid="durable-recommendation-analysis"
+                >
+                  {durableSummary.analysis}
+                </p>
+              ) : null}
+
+              <div className={styles.subCard} data-testid="durable-evidence-card">
+                <h4 className={styles.subTitle}>Preuves</h4>
+                <p
+                  className={styles.subLead}
+                  data-testid="durable-evidence-user-summary"
+                >
+                  {durableSummary?.evidence}
+                </p>
+                <dl className={styles.facts}>
+                  <div className={styles.factWide}>
+                    <dt>Identifiants</dt>
+                    <dd
+                      className={styles.code}
+                      data-testid="durable-evidence-ids"
+                    >
+                      {durableEvidenceOutcome.evidenceIds.join(", ") || "—"}
                     </dd>
                   </div>
-                ))}
-              </dl>
-            </div>
-
-            {durableEvidenceOutcome.reviewBundles.map((rb) => (
-              <div
-                key={rb.reviewBundleId}
-                className={styles.subCard}
-                data-testid="durable-review-bundle-card"
-              >
-                <h4 className={styles.subTitle}>Dossier de revue</h4>
-                <p className={styles.code} data-testid="durable-review-bundle-id">
-                  {rb.reviewBundleId}
-                </p>
-                <p className={styles.subNote} data-testid="durable-review-bundle-status">
-                  {rb.status}
-                </p>
+                  {durableEvidenceOutcome.evidence.map((ev) => (
+                    <div className={styles.factWide} key={ev.evidenceId}>
+                      <dt>{ev.evidenceId}</dt>
+                      <dd
+                        data-testid={`durable-evidence-status-${ev.evidenceId}`}
+                      >
+                        {ev.status}
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
               </div>
-            ))}
 
-            <details className={styles.details}>
-              <summary>Détails techniques</summary>
-              <p
-                className={styles.subNote}
-                data-testid="durable-recommendation-execution-authority"
-              >
-                executionAuthority:{" "}
-                {String(durableEvidenceOutcome.recommendation.executionAuthority)}
-              </p>
-              <p
-                className={styles.subNote}
-                data-testid="durable-recommendation-gate-consumed"
-              >
-                gateConsumed:{" "}
-                {String(durableEvidenceOutcome.recommendation.gateConsumed)}
-              </p>
-              <p
-                className={styles.subNote}
-                data-testid="durable-recommendation-decision-created"
-              >
-                decisionCreated:{" "}
-                {String(durableEvidenceOutcome.recommendation.decisionCreated)}
-              </p>
-              <p
-                className={styles.subNote}
-                data-testid="durable-recommendation-auto-launch"
-              >
-                attemptAutoLaunchNextCycle:{" "}
-                {String(
-                  durableEvidenceOutcome.recommendation.attemptAutoLaunchNextCycle,
-                )}
-              </p>
+              {durableEvidenceOutcome.reviewBundles.map((rb) => (
+                <div
+                  key={rb.reviewBundleId}
+                  className={styles.subCard}
+                  data-testid="durable-review-bundle-card"
+                >
+                  <h4 className={styles.subTitle}>Dossier de revue</h4>
+                  <p
+                    className={styles.code}
+                    data-testid="durable-review-bundle-id"
+                  >
+                    {rb.reviewBundleId}
+                  </p>
+                  <p
+                    className={styles.subNote}
+                    data-testid="durable-review-bundle-status"
+                  >
+                    {rb.status}
+                  </p>
+                </div>
+              ))}
+
+              <details className={styles.details}>
+                <summary>Détails techniques</summary>
+                <p
+                  className={styles.subNote}
+                  data-testid="durable-recommendation-execution-authority"
+                >
+                  executionAuthority:{" "}
+                  {String(
+                    durableEvidenceOutcome.recommendation.executionAuthority,
+                  )}
+                </p>
+                <p
+                  className={styles.subNote}
+                  data-testid="durable-recommendation-gate-consumed"
+                >
+                  gateConsumed:{" "}
+                  {String(durableEvidenceOutcome.recommendation.gateConsumed)}
+                </p>
+                <p
+                  className={styles.subNote}
+                  data-testid="durable-recommendation-decision-created"
+                >
+                  decisionCreated:{" "}
+                  {String(
+                    durableEvidenceOutcome.recommendation.decisionCreated,
+                  )}
+                </p>
+                <p
+                  className={styles.subNote}
+                  data-testid="durable-recommendation-auto-launch"
+                >
+                  attemptAutoLaunchNextCycle:{" "}
+                  {String(
+                    durableEvidenceOutcome.recommendation
+                      .attemptAutoLaunchNextCycle,
+                  )}
+                </p>
+              </details>
             </details>
-          </details>
+          ) : null}
         </section>
       ) : null}
 
@@ -1523,31 +1668,28 @@ export function ConversationSurface({
         </p>
       ) : null}
 
-      <details className={styles.detailsFlat}>
-        <summary>Sources et limites</summary>
-        <p className={styles.cardNote} data-testid="project-assistant-scope">
-          Qualification · proposition · décision humaine · contrat /
-          confirmation · tentative · recommandation. Aucune exécution
-          automatique. {ephemeralNotice}
-        </p>
-        {lrMaterializeCode ? (
-          <p
-            className={styles.cardNote}
-            data-testid="project-assistant-lr-materialize-code"
-          >
-            Code technique (diagnostic) : {lrMaterializeCode}
+      {/* P3 46:2 — sources disclosure only when Nora consulted tools this session. */}
+      {toolEvents.length > 0 || lrMaterializeCode ? (
+        <details className={styles.detailsFlat}>
+          <summary>Sources et limites</summary>
+          <p className={styles.cardNote} data-testid="project-assistant-scope">
+            Qualification · proposition · décision humaine · contrat /
+            confirmation · tentative · recommandation. Aucune exécution
+            automatique. {ephemeralNotice}
           </p>
-        ) : null}
-        <section
-          className={styles.sources}
-          aria-label="Sources consultées"
-          data-testid="project-assistant-sources"
-        >
-          {toolEvents.length === 0 ? (
-            <p className={styles.cardNote}>
-              Aucune source consultée pour l&apos;instant.
+          {lrMaterializeCode ? (
+            <p
+              className={styles.cardNote}
+              data-testid="project-assistant-lr-materialize-code"
+            >
+              Code technique (diagnostic) : {lrMaterializeCode}
             </p>
-          ) : (
+          ) : null}
+          <section
+            className={styles.sources}
+            aria-label="Sources consultées"
+            data-testid="project-assistant-sources"
+          >
             <ul className={styles.sourceList}>
               {toolEvents.map((event, index) => (
                 <li
@@ -1571,9 +1713,15 @@ export function ConversationSurface({
                 </li>
               ))}
             </ul>
-          )}
-        </section>
-      </details>
+          </section>
+        </details>
+      ) : (
+        <div
+          className={styles.srOnly}
+          data-testid="project-assistant-sources"
+          aria-hidden="true"
+        />
+      )}
 
       <form
         className={styles.composer}
@@ -1587,84 +1735,106 @@ export function ConversationSurface({
         <label className={styles.srOnly} htmlFor={`${fieldId}-message`}>
           Décrivez ce que vous voulez accomplir
         </label>
-        <textarea
-          id={`${fieldId}-message`}
-          className={styles.composerInput}
-          data-testid="project-assistant-input"
-          rows={2}
-          value={draft}
-          disabled={busy || blocked}
-          placeholder="Écrire à Nora…"
-          aria-describedby={liveRegionId}
-          onChange={(event) => setDraft(event.target.value)}
-          onKeyDown={(event) => {
-            if (event.key === "Enter" && !event.shiftKey) {
-              event.preventDefault();
-              sendMessage();
-            }
-          }}
-        />
-        <div className={styles.composerFoot}>
-          <span
-            className={styles.composerStatus}
-            aria-live="polite"
-            data-testid="project-assistant-status"
-            data-nora-phase={noraActivity.phase}
-            data-nora-stop={noraActivity.stopAvailable ? "available" : "unavailable"}
+        <div className={styles.composerBox}>
+          <textarea
+            id={`${fieldId}-message`}
+            className={styles.composerInput}
+            data-testid="project-assistant-input"
+            rows={2}
+            value={draft}
+            disabled={busy || blocked}
+            placeholder="Demander à Nora à propos de ce projet…"
+            aria-describedby={liveRegionId}
+            onChange={(event) => setDraft(event.target.value)}
+            onKeyDown={(event) => {
+              if (event.key === "Enter" && !event.shiftKey) {
+                event.preventDefault();
+                sendMessage();
+              }
+            }}
+          />
+          {/* P3 46:2 — tools row inside composer chrome (presentation anchors). */}
+          <div
+            className={styles.composerTools}
+            data-testid="project-assistant-composer-tools"
           >
-            {noraActivity.label}
-          </span>
-          {/* P3 composer ↑ / ■ / ↑ — ■ only while the request is actually cancellable. */}
-          {stopAvailable ? (
-            <button
-              type="button"
-              className={styles.stopButton}
-              data-testid="project-assistant-stop"
-              onClick={() => stopCurrentResponse()}
-              title="Arrêter la réponse de Nora"
-              aria-label="Arrêter la réponse de Nora"
-            >
-              <span className={styles.sendLabelFull}>Arrêter</span>
-              <span className={styles.sendLabelCompact} aria-hidden="true">
-                ■
+            <span className={styles.composerTool}>+ Contexte</span>
+            <span className={styles.composerTool}>@ Élément</span>
+            <span className={styles.composerToolActive}>
+              Contexte projet actif
+            </span>
+            {/* P3 46:2 — idle chrome uses « Contexte projet actif »; show Nora phase only when active. */}
+            {noraActivity.phase !== "idle" ? (
+              <span
+                className={styles.composerStatus}
+                aria-live="polite"
+                data-testid="project-assistant-status"
+                data-nora-phase={noraActivity.phase}
+                data-nora-stop={
+                  noraActivity.stopAvailable ? "available" : "unavailable"
+                }
+              >
+                {noraActivity.label}
               </span>
-            </button>
-          ) : (
-          <button
-            type="submit"
-            className={styles.sendButton}
-            data-testid="project-assistant-send"
-            disabled={!canSend}
-            aria-disabled={!canSend}
-            title={
-              blocked
-                ? "Assistant indisponible"
-                : busy
-                  ? "Nora travaille"
-                  : draft.trim().length === 0
-                    ? "Saisissez un message"
-                    : "Envoyer le message"
-            }
-            aria-label={
-              canSend
-                ? "Envoyer le message à Nora"
-                : busy
-                  ? "Nora travaille"
-                  : "Envoi indisponible"
-            }
-          >
-            <span className={styles.sendLabelFull}>
-              {busy ? "Nora travaille…" : "Envoyer"}
-            </span>
-            <span className={styles.sendLabelCompact} aria-hidden="true">
-              ↑
-            </span>
-          </button>
-          )}
+            ) : (
+              <span
+                className={styles.srOnly}
+                aria-live="polite"
+                data-testid="project-assistant-status"
+                data-nora-phase={noraActivity.phase}
+                data-nora-stop="unavailable"
+              >
+                {noraActivity.label}
+              </span>
+            )}
+            {stopAvailable ? (
+              <button
+                type="button"
+                className={styles.stopButton}
+                data-testid="project-assistant-stop"
+                onClick={() => stopCurrentResponse()}
+                title="Arrêter la réponse de Nora"
+                aria-label="Arrêter la réponse de Nora"
+              >
+                <span className={styles.sendLabelFull}>Arrêter</span>
+                <span className={styles.sendLabelCompact} aria-hidden="true">
+                  ■
+                </span>
+              </button>
+            ) : (
+              <button
+                type="submit"
+                className={styles.sendButton}
+                data-testid="project-assistant-send"
+                disabled={!canSend}
+                aria-disabled={!canSend}
+                title={
+                  blocked
+                    ? "Assistant indisponible"
+                    : busy
+                      ? "Nora travaille"
+                      : draft.trim().length === 0
+                        ? "Saisissez un message"
+                        : "Envoyer le message"
+                }
+                aria-label={
+                  canSend
+                    ? "Envoyer le message à Nora"
+                    : busy
+                      ? "Nora travaille"
+                      : "Envoi indisponible"
+                }
+              >
+                <span className={styles.sendLabelFull}>
+                  {busy ? "Nora travaille…" : "Envoyer"}
+                </span>
+                <span className={styles.sendLabelCompact} aria-hidden="true">
+                  ↑
+                </span>
+              </button>
+            )}
+          </div>
         </div>
-        <p className={styles.composerCaption}>
-          Vous pilotez. La décision vous appartient toujours.
-        </p>
       </form>
 
       <div className={styles.srOnly} data-testid="project-assistant-no-cursor" aria-hidden="true">

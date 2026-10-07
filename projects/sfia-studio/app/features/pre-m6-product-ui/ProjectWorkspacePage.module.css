@@ -165,12 +165,18 @@
 
 .projectTitle {
   margin: 0;
-  font-size: 1.25rem;
+  /* Figma 46:2 — 18 / 26 semibold */
+  font-size: 1.125rem;
   font-weight: 600;
-  line-height: 1.25;
-  letter-spacing: -0.01em;
+  line-height: 1.444;
+  letter-spacing: -0.1px;
   color: var(--pm6-ink);
   overflow-wrap: anywhere;
+}
+
+.projectTitleBrand {
+  font: inherit;
+  color: inherit;
 }
 
 .projectObjective {
@@ -500,14 +506,27 @@
 }
 
 .durabilityHint {
-  margin: var(--pm6-space-4) var(--ws-pad-x) 0;
-  padding: var(--pm6-space-3) var(--pm6-space-4);
-  border-radius: var(--pm6-radius-md);
-  border: 1px solid var(--pm6-border-soft);
-  background: var(--pm6-canvas-raised);
-  font-size: 0.8125rem;
-  line-height: 1.55;
+  /* P3 46:2 — restored-context row: green dot + inline copy, no card chrome. */
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 10px var(--ws-pad-x) 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  font-size: 0.8125rem; /* 13 */
+  line-height: 1.45;
   color: var(--pm6-muted-strong);
+}
+
+.durabilityHint::before {
+  content: "";
+  flex: 0 0 auto;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: #157a55;
 }
 
 .conversation {
@@ -568,6 +587,20 @@
   min-width: 0;
   padding: var(--pm6-space-4) 0 0;
   border-top: 1px solid var(--pm6-border-soft);
+}
+
+/*
+ * P3 46:2 Conversation — context rail is ProjectContextSummary only
+ * (cycle / priority / trajectory / attention / synthèse / footer links).
+ * The heavy Pilotage stack is reserved for structured views.
+ */
+.root[data-active-view="conversation"] .stateTrajectoryRegion {
+  display: none;
+}
+
+/* P3 46:2 — journal lives behind footer links, not as a second rail block. */
+.root[data-active-view="conversation"] .journalColumn {
+  display: none;
 }
 
 .stateTrajectoryHead {

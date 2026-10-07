@@ -77,9 +77,11 @@ export async function observeVisualPairing(page, viewport) {
     const headerH1 = document.querySelector(
       '[data-testid="project-header"] h1',
     );
+    // Prefer data-project-name (bare Product identity) over branded display text.
     const projectName =
-      titleEl?.textContent?.trim() ||
-      headerH1?.textContent?.trim() ||
+      titleEl?.getAttribute("data-project-name")?.trim() ||
+      titleEl?.textContent?.replace(/^SFIA Studio\s*—\s*/i, "").trim() ||
+      headerH1?.textContent?.replace(/^SFIA Studio\s*—\s*/i, "").trim() ||
       null;
     const activeView =
       document

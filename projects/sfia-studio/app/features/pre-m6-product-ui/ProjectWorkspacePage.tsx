@@ -503,7 +503,14 @@ export function ProjectWorkspacePage({
     stateVersion: success.livingState.version,
   });
   const cycleSummary = deriveCycleSummary(lifecycle);
-  const attention = deriveAttentionItems({ decisionPending, lifecycle });
+  const pendingWorkRecommendationCount = cycleRecommendations.filter(
+    (r) => r.status === "active" && !r.dispositionDecisionId,
+  ).length;
+  const attention = deriveAttentionItems({
+    decisionPending,
+    lifecycle,
+    pendingWorkRecommendationCount,
+  });
   const trajectoryNodes = deriveTrajectoryNodes(lifecycle);
   const focusTopic =
     controller.journalEntries.find((e) => e.isCurrentTopic)?.title ?? null;
@@ -554,7 +561,12 @@ export function ProjectWorkspacePage({
             <h1
               className={styles.projectTitle}
               data-testid="project-title"
+              data-project-name={success.project.name}
             >
+              {/* P3 46:2 — branded presentation; data-project-name stays Product identity. */}
+              <span className={styles.projectTitleBrand} aria-hidden="true">
+                SFIA Studio —{" "}
+              </span>
               {success.project.name}
             </h1>
             <p className={styles.projectObjective}>
@@ -731,6 +743,8 @@ export function ProjectWorkspacePage({
                   reservationConfirmBusyId={reservationBusyId}
                   latestSynthesis={latestSynthesis}
                   onOpenSynthesis={openSynthesisDetail}
+                  workRecommendations={cycleRecommendations}
+                  onResumeRecommendation={resumeRecommendationInChat}
                 />
               </div>
             </>

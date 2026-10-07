@@ -106,13 +106,18 @@ export type AttentionItem = {
 export function deriveAttentionItems(input: {
   decisionPending: boolean;
   lifecycle: PilotLifecycleProjection | null;
+  /** Active Work Recommendations awaiting Pilot disposition (P3 attention). */
+  pendingWorkRecommendationCount?: number;
 }): AttentionItem[] {
   const items: AttentionItem[] = [];
-  if (input.decisionPending) {
+  const pendingWork = input.pendingWorkRecommendationCount ?? 0;
+  if (input.decisionPending || pendingWork > 0) {
     items.push({
       key: "decision",
       headline: "1 décision à examiner",
-      detail: "Une proposition attend votre décision dans la conversation.",
+      detail: input.decisionPending
+        ? "Une proposition attend votre décision dans la conversation."
+        : "Une recommandation attend votre décision dans la conversation.",
     });
   }
   const summary = input.lifecycle?.reservationSummary;

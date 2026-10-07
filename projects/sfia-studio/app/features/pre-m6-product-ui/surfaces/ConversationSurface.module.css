@@ -172,20 +172,21 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
-  /* Figma 46:2 Result Turn — 120h, pad 10×12, radius 8 */
+  /* Figma 46:2 Result Turn — cream raised card */
   padding: 10px 12px;
-  border-radius: var(--pm6-radius-sm);
-  border: 1px solid var(--pm6-border);
-  background: var(--pm6-canvas-raised);
+  border-radius: 8px;
+  border: 1px solid #e8e0d7;
+  background: #f7f1ea;
+  max-width: 710px;
 }
 
 .synthesisEyebrow {
   margin: 0;
-  font-size: var(--pm6-text-meta);
-  font-weight: 500;
-  letter-spacing: 0.04em;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.4px;
   text-transform: uppercase;
-  color: var(--pm6-accent);
+  color: #d9563b;
 }
 
 .synthesisTitle {
@@ -565,17 +566,19 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
-  /* P3 46:2 recommendation / prepared-action cards */
-  border-radius: 10px;
-  border: 1px solid var(--pm6-border);
-  background: var(--pm6-canvas);
-  padding: 14px 16px;
+  /* P3 46:2 recommendation / prepared-action — 3px accent via border-left */
+  border-radius: 8px;
+  border: 1px solid #e8e0d7;
+  border-left: 3px solid #f06a4b;
+  background: #fffdf9;
+  padding: 13px 12px 13px 14px;
 }
 
 .subCardGold {
   /* Figma RECOMMANDATION — white card, not cream fill */
-  background: var(--pm6-canvas);
-  border-color: var(--pm6-border);
+  background: #fffdf9;
+  border-color: #e8e0d7;
+  border-left-color: #f06a4b;
 }
 
 .durableStack {
@@ -592,19 +595,83 @@
   gap: 12px;
 }
 
+.p3CardEyebrow {
+  margin: 0;
+  font-size: 0.6875rem; /* 11 */
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: var(--pm6-ink);
+}
+
 .p3CardStatusWarn {
   font-size: 0.6875rem;
   font-weight: 500;
   letter-spacing: 0.4px;
+  color: #d9563b;
+  white-space: nowrap;
+}
+
+.p3CardStatusReady {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.4px;
   color: #b86a12;
+  white-space: nowrap;
+}
+
+.p3CardTitle {
+  margin: 2px 0 0;
+  font-size: 0.875rem; /* 14 */
+  font-weight: 500;
+  line-height: 1.45;
+  letter-spacing: 0.15px;
+  color: var(--pm6-ink);
+}
+
+.p3CardFoot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 4px;
 }
 
 .p3CardStamp {
-  margin: 4px 0 0;
+  margin: 0;
   font-size: 0.6875rem;
   font-weight: 500;
   letter-spacing: 0.4px;
   color: var(--pm6-muted);
+}
+
+.p3CardLink {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.15px;
+  color: #d9563b;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.p3CardLink:hover {
+  text-decoration: underline;
+}
+
+.subCardPrepared {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border-radius: 8px;
+  border: 1px solid #e8e0d7;
+  border-left: 3px solid #f0a04b;
+  background: #fffdf9;
+  padding: 13px 12px 13px 14px;
 }
 
 .durableDetails {
@@ -800,8 +867,8 @@
   z-index: 10;
   display: flex;
   flex-direction: column;
-  gap: var(--pm6-space-2);
-  /* Figma 46:2 Composer — flat top rule, pad ~14×22, input radius 8 */
+  gap: 8px;
+  /* Figma 46:2 Composer — flat top rule, pad ~14×22; input chrome is its own box */
   border-radius: 0;
   border: 0;
   border-top: 1px solid var(--pm6-border-soft);
@@ -810,23 +877,57 @@
   box-shadow: none;
 }
 
+.composerBox {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-sizing: border-box;
+  width: 100%;
+  border: 1px solid #e2d8ce;
+  border-radius: 8px;
+  background: #fcf8f3;
+  padding: 14px 14px 12px;
+}
+
 .composerInput {
   box-sizing: border-box;
   width: 100%;
-  min-height: 96px;
+  min-height: 48px;
   resize: vertical;
-  border: 1px solid var(--pm6-border-strong);
-  border-radius: var(--pm6-radius-sm);
-  outline-offset: 4px;
-  background: var(--pm6-focus-bar);
+  border: 0;
+  border-radius: 0;
+  outline: none;
+  background: transparent;
   color: var(--pm6-ink);
-  font-size: var(--pm6-text-subtitle);
+  font-size: 0.9375rem; /* 15 */
   line-height: 1.6;
-  padding: 14px;
+  padding: 0;
 }
 
 .composerInput::placeholder {
-  color: var(--pm6-muted);
+  color: #a09589;
+}
+
+.composerTools {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 34px;
+  flex-wrap: wrap;
+}
+
+.composerTool,
+.composerToolActive {
+  font-size: 0.6875rem; /* 11 */
+  font-weight: 500;
+  letter-spacing: 0.4px;
+  color: #6d645c;
+  white-space: nowrap;
+}
+
+.composerToolActive {
+  color: #978c81;
+  margin-right: auto;
 }
 
 .composerFoot {
@@ -837,18 +938,20 @@
 }
 
 .composerStatus {
-  font-size: 0.78rem;
+  font-size: 0.6875rem;
+  letter-spacing: 0.4px;
   color: var(--pm6-muted);
+  margin-left: auto;
 }
 
 .sendButton {
-  /* Figma 46:2 Send — 30×30, radius 7 (desktop square control) */
+  /* Figma 46:2 Send — circular dark control */
   display: inline-grid;
   place-items: center;
   width: 30px;
   min-width: 30px;
   height: 30px;
-  border-radius: 7px;
+  border-radius: 999px;
   border: 1px solid var(--pm6-ink);
   background: var(--pm6-ink);
   color: var(--pm6-forest-ink);
@@ -857,6 +960,7 @@
   font-size: var(--pm6-text-body);
   font-weight: 500;
   cursor: pointer;
+  margin-left: 4px;
 }
 
 /* Desktop P3 46:2 uses ↑ glyph; full “Envoyer” remains for aria / mobile swap. */
@@ -873,7 +977,8 @@
 }
 
 .sendButton:disabled {
-  opacity: 0.45;
+  /* P3 46:2 — send stays ink circle even when empty (not washed out). */
+  opacity: 1;
   cursor: not-allowed;
 }
 
