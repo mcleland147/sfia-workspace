@@ -18,6 +18,7 @@ import {
   evaluateVisualPair,
   type VisualPairRecord,
 } from "./support/visualPairingContract";
+import { observeVisualPairing } from "./support/observeVisualPairing.mjs";
 
 const CAPTURE_ROOT = path.resolve(
   process.cwd(),
@@ -134,6 +135,10 @@ test.describe("P5-S08-4 P3 visual parity", () => {
     expect(
       await page.getByTestId("studio-projects-loading").count(),
     ).toBe(0);
+    await page
+      .getByTestId("studio-projects-recent")
+      .waitFor({ state: "visible", timeout: 15_000 })
+      .catch(() => null);
 
     // Fail-closed pairing smoke: Projects desktop must match state-manifest.
     if (fs.existsSync(STATE_MANIFEST_PATH)) {
@@ -144,31 +149,11 @@ test.describe("P5-S08-4 P3 visual parity", () => {
         (p) => (p as { captureId?: string }).captureId === "projects-1440",
       );
       if (projectsPair) {
-        const present: string[] = [];
-        for (const id of [
-          "studio-projects-home",
-          "studio-projects-list",
-          "studio-projects-recent",
-          "studio-projects-empty",
-          "studio-projects-loading",
-        ]) {
-          if ((await page.getByTestId(id).count()) > 0) present.push(id);
-        }
-        const issuesBadge = await page.evaluate(() => {
-          const el = [...document.querySelectorAll("button, a, div")].find(
-            (n) => {
-              const t = (n.textContent || "").trim();
-              return /^(?:\d+\s+)?Issues?$/i.test(t);
-            },
-          );
-          return Boolean(el);
+        const obs = await observeVisualPairing(page, {
+          width: 1440,
+          height: 1024,
         });
-        const pairing = evaluateVisualPair(projectsPair, {
-          url: page.url(),
-          viewport: { width: 1440, height: 1024 },
-          present,
-          forbiddenPresent: issuesBadge ? ["next-dev-issues-badge"] : [],
-        });
+        const pairing = evaluateVisualPair(projectsPair, obs);
         expect(pairing.ok, pairing.ok ? "" : pairing.reason).toBe(true);
       }
     }
