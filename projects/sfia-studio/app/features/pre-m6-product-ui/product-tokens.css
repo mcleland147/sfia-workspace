@@ -5,13 +5,12 @@
  * 190:44 / 190:306. Values converge on the P3 extraction (warm paper canvas,
  * ink primary, Nora vermilion accent) — same `--pm6-` family, no second set.
  * Prefixed `--pm6-` so this layer never collides with the legacy `--sfia-` set.
- * Typography: live P3 Figma uses Geist; runtime uses Inter already loaded via
- * next/font (`--font-inter`). Adding Geist would require a new package — not
- * introduced here. Controllable residual; not raster noise.
+ * Typography: P3 Figma primary family is Geist — same next/font load as
+ * `--sfia-font` (`--font-geist` from app/layout.tsx). No parallel stack.
  */
 
 :root {
-  --pm6-font: var(--font-inter), Inter, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --pm6-font: var(--font-geist, "Geist"), system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 
   --pm6-canvas: #fffdf9;
   --pm6-canvas-raised: #fbf7f2;

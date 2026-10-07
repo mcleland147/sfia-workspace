@@ -9,7 +9,7 @@
   /* Figma 130:3 canvas #fbf7f2 */
   background: var(--pm6-canvas-raised, #fbf7f2);
   color: var(--pm6-ink, #1f1a16);
-  font-family: var(--pm6-font, Inter, "Segoe UI", sans-serif);
+  font-family: var(--pm6-font, var(--font-geist, "Geist"), system-ui, sans-serif);
   position: relative;
 }
 

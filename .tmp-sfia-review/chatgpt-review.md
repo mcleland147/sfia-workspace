@@ -1,9 +1,9 @@
-# P5-S08-4D — WORKSPACE 1440 — CONTEXT RAIL FOOTER SHORTCUTS
+# P5-S08-4D — FIGMA TYPOGRAPHY FAMILY ALIGNMENT
 
-**Timestamp:** 2026-10-07 22:12:00 +0200
+**Timestamp:** 2026-10-07 22:56:00 +0200
 **Profile:** CRITICAL · Review Pack = LIGHT
 **Branch:** `delivery/sfia-studio-product-simplification-p5-s08-global-p3-visual-parity`
-**Verdict:** **WORKSPACE 1440 — CONTEXT RAIL FOOTER SHORTCUTS = CLOSED**
+**Verdict:** **FIGMA TYPOGRAPHY FAMILY ALIGNMENT = PASS**
 
 ---
 
@@ -11,50 +11,85 @@
 
 | Item | Value |
 | --- | --- |
+| Repository | `/Users/morris/Projects/sfia-workspace` |
 | Branch | `delivery/sfia-studio-product-simplification-p5-s08-global-p3-visual-parity` |
-| Entry HEAD | `c8dc4f710eeb21c612de159953166993186e5593` |
-| Exit HEAD | `debbd1e800b86be2f96a6b504fa02fdec9f2acf7` |
+| Entry HEAD | `e376e22383d819a5db35206c9d1cf9e776128b5e` |
+| Exit HEAD | *(commit tip)* |
 | origin/main | `eed18bd572d65b6f5f4878ed24b195e4feeb5c7e` |
 | Project push / PR | **NONE** |
 
-Current S08-4 work preserved. No reset / stash / unrelated cleanup.
+Working tree preserved (prior S08-4 visual corrections kept). No reset / stash / unrelated cleanup.
 
-## Root cause
+## Confirmed Figma font family
 
-Not a missing second nav implementation. `ProjectContextShortcuts` (Journal du cycle · Historique · Synthèses) was already mounted as a sibling under the context rail.
+**Geist** — MCP `get_variable_defs` / `get_design_context` on file `m4g8j0gNbEzfIuH6S9AZJF`:
 
-The prior sticky column height used `calc(100vh - global-header)` while the rail already sat below the project header, so the Quick Actions footer painted **past the fold**. At 1440×1024 the shortcuts looked absent (empty cream under Synthèse) — same class of clip later addressed for 1024 scroll. Stale review artifact `final/workspace-1440.png` still showed that clipped state.
+| Frame | Evidence |
+| --- | --- |
+| Workspace 46:2 | `Font(family: "Geist", …)` on Label/Body/Heading tokens |
+| Aperçu 51:2 | Geist |
+| Projects 63:39 | Geist |
+| Synthèses 164:3 | Geist |
+| Auth 190:551 | `font-['Geist:…']` in design context |
 
-## Responsive rule corrected
+≠ STOP — FIGMA TYPOGRAPHY TARGET MISMATCH
 
-- Conversation / Exécution viewport pin (`height: 100%` / `max-height: 100%` on `.lpsColumn`) keeps the whole rail — including the footer — inside the visible budget at **both** 1440 and 1024.
-- Explicit `.contextRailFooter` wrapper: `flex: 0 0 auto` + `margin-top: auto`, sibling of `.lpsScrollWrap` (not nested in `.lpsSheet`).
-- `@media (min-width: 1200px)` asserts `.contextRailFooter { display: block }` — no desktop-only hide.
-- Same `ProjectContextShortcuts` component reused (no desktop-only duplicate).
+## Loading mechanism
 
-## Files changed
+**A — `next/font/google` `Geist`** (natively present in Next 15.3 font-data).
 
-- `ProjectWorkspacePage.tsx` — `contextRailFooter` wrapper around existing shortcuts
-- `ProjectWorkspacePage.module.css` — footer pin + desktop display contract + column overflow
-- `p5.s01.workspaceLayout.ui.test.tsx` — 1440 footer placement contract
-- `capture-workspace-1440-context-footer.mjs` + runtime / `final/workspace-1440.png`
+- Variable: `--font-geist`
+- `subsets: ["latin"]`, `display: "swap"`
+- **New dependency: NO**
 
-## Captures
+## Tokens before → after
 
-| Viewport | Path | Result |
+| Token | Before | After |
 | --- | --- | --- |
-| 1440×1024 | `…/runtime/workspace-1440.png` (+ `workspace-1440-context-footer.png`) | Journal / Historique / Synthèses at rail foot · navTop 967 · navBottom 1024 · pinned · outside scroll |
-| 1024×768 | `…/runtime/workspace-1024.png` | footer + scroll structure preserved |
-| 390×844 | `…/runtime/workspace-390.png` | single shortcut nav · no duplicate |
+| layout load | `Inter` → `--font-inter` | `Geist` → `--font-geist` |
+| `--sfia-font` | `var(--font-inter, "Inter", system-ui, sans-serif)` | `var(--font-geist, "Geist", system-ui, sans-serif)` |
+| `--pm6-font` | `var(--font-inter), Inter, …` + deferred comment | `var(--font-geist, "Geist"), system-ui, …` (same load) |
 
-Harness: **CONTEXT_FOOTER_SHORTCUTS_OK**
+## Files modified
 
-## Tests
+- `app/layout.tsx`
+- `styles/tokens.css`
+- `features/pre-m6-product-ui/product-tokens.css`
+- `app/login/login-client.module.css`
+- `features/d1/d1-shell.module.css` (align to shared token)
+- `p5.s01.workspaceLayout.ui.test.tsx`
+- `capture-typography-geist.mjs` + runtime captures
 
-- Vitest `p5.s01.workspaceLayout` + `p5.s07.journalPrincipalView` — **6/6 PASS**
+## Runtime proof
+
+Computed on production `next start`:
+
+- `body` / sample: `Geist, "Geist Fallback"`
+- `--font-geist` / `--sfia-font` / `--pm6-font` resolve to Geist
+- `document.fonts` loaded Geist faces: **6**
+
+## Surfaces recaptured
+
+1440: Projects, Workspace, Aperçu, Journal, Historique, Synthèses, New Project
+1024: Workspace (context scroll still overflowing; footer shortcuts visible)
+390: Workspace, Auth/Login, Decision, Confirmation, New Project
+
+## Regressions
+
+None requiring redesign. Closed P0/P1/P2 compositions retained (Execution badge, context footer shortcuts, context scroll affordance). No scale/weight rewrite.
+
+## Tests / gates
+
+- Vitest workspace layout (Geist wiring) — **PASS**
 - `tsc --noEmit` — **PASS**
+- `next lint` — **PASS**
 - `next build` — **PASS**
+- Capture harness — **FIGMA_TYPOGRAPHY_GEIST_OK**
 
-## Remaining reserve
+## Residual typography P3/QNG
 
-None for this P2 gap. ≠ global S08-4D closed · ≠ Project push/PR.
+Raster/glyph-level QNG vs Figma may remain (anti-aliasing, tracking nuance). Family alignment closed; not a parallel stack.
+
+## Explicit non-claims
+
+≠ global S08-4D closed · ≠ Project push/PR · ≠ typography scale redesign

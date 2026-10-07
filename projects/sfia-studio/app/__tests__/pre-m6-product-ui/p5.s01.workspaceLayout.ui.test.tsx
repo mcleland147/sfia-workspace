@@ -286,6 +286,34 @@ describe("P5-S01 Workspace layout", () => {
     );
   });
 
+  it("wires P3 Figma Geist through the single application font path", () => {
+    const layout = readFileSync(
+      resolve(__dirname, "../../app/layout.tsx"),
+      "utf8",
+    );
+    const tokens = readFileSync(
+      resolve(__dirname, "../../styles/tokens.css"),
+      "utf8",
+    );
+    const pm6 = readFileSync(
+      resolve(
+        __dirname,
+        "../../features/pre-m6-product-ui/product-tokens.css",
+      ),
+      "utf8",
+    );
+    expect(layout).toMatch(/from\s+["']next\/font\/google["']/);
+    expect(layout).toMatch(/\bGeist\b/);
+    expect(layout).toMatch(/variable:\s*["']--font-geist["']/);
+    expect(layout).not.toMatch(/\bInter\b/);
+    expect(tokens).toMatch(
+      /--sfia-font:\s*var\(--font-geist,\s*"Geist",\s*system-ui,\s*sans-serif\)/,
+    );
+    expect(pm6).toMatch(/--pm6-font:\s*var\(--font-geist/);
+    expect(pm6).not.toMatch(/--font-inter/);
+    expect(pm6).not.toMatch(/deferred|not introduced/i);
+  });
+
   it("keeps Figma 46:2 context-rail footer shortcuts outside the scroll sheet (1440)", () => {
     const pageSrc = readFileSync(
       resolve(

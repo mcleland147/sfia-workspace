@@ -101,8 +101,8 @@
   --sfia-tab-underline-h: 3px;
   --sfia-tab-underline-w: 78px;
 
-  /* Typography */
-  --sfia-font: var(--font-inter, "Inter", system-ui, sans-serif);
+  /* Typography — P3 Figma primary family (Geist via next/font `--font-geist`) */
+  --sfia-font: var(--font-geist, "Geist", system-ui, sans-serif);
   --sfia-line-meta: 1.4;
   --sfia-line-body: 1.4;
   --sfia-line-hero: 1.22;
