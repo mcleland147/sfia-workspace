@@ -1,5 +1,5 @@
 {
-  "ts": "2026-10-07T19:29:00.744Z",
+  "ts": "2026-10-07T21:33:46.467Z",
   "results": [
     {
       "captureId": "auth-390",
@@ -29,7 +29,7 @@
           "surfaceKind": "login"
         }
       },
-      "ts": "2026-10-07T19:28:45.031Z"
+      "ts": "2026-10-07T21:33:31.553Z"
     },
     {
       "captureId": "projects-1440",
@@ -62,12 +62,12 @@
           "profileDisplayName": "mcleland147"
         }
       },
-      "ts": "2026-10-07T19:28:45.444Z"
+      "ts": "2026-10-07T21:33:31.929Z"
     },
     {
       "captureId": "projects-1024",
       "pairing": "UNMANIFESTED",
-      "ts": "2026-10-07T19:28:45.700Z"
+      "ts": "2026-10-07T21:33:32.166Z"
     },
     {
       "captureId": "new-project-1440",
@@ -100,7 +100,7 @@
           "profileDisplayName": "mcleland147"
         }
       },
-      "ts": "2026-10-07T19:28:46.557Z"
+      "ts": "2026-10-07T21:33:32.962Z"
     },
     {
       "captureId": "new-project-390",
@@ -133,7 +133,7 @@
           "profileDisplayName": "mcleland147"
         }
       },
-      "ts": "2026-10-07T19:28:46.809Z"
+      "ts": "2026-10-07T21:33:33.212Z"
     },
     {
       "captureId": "workspace-1440",
@@ -179,7 +179,7 @@
           "recommendationState": "pending"
         }
       },
-      "ts": "2026-10-07T19:28:49.386Z"
+      "ts": "2026-10-07T21:33:35.676Z"
     },
     {
       "captureId": "workspace-1024",
@@ -225,7 +225,7 @@
           "recommendationState": "pending"
         }
       },
-      "ts": "2026-10-07T19:28:49.687Z"
+      "ts": "2026-10-07T21:33:35.960Z"
     },
     {
       "captureId": "workspace-390",
@@ -271,7 +271,7 @@
           "recommendationState": "pending"
         }
       },
-      "ts": "2026-10-07T19:28:49.984Z"
+      "ts": "2026-10-07T21:33:36.244Z"
     },
     {
       "captureId": "apercu-1440",
@@ -313,12 +313,12 @@
           "activeView": "overview"
         }
       },
-      "ts": "2026-10-07T19:28:50.273Z"
+      "ts": "2026-10-07T21:33:36.526Z"
     },
     {
       "captureId": "apercu-390",
       "pairing": "UNMANIFESTED",
-      "ts": "2026-10-07T19:28:50.566Z"
+      "ts": "2026-10-07T21:33:36.822Z"
     },
     {
       "captureId": "journal-1440",
@@ -360,12 +360,12 @@
           "activeView": "journal"
         }
       },
-      "ts": "2026-10-07T19:28:50.902Z"
+      "ts": "2026-10-07T21:33:37.126Z"
     },
     {
       "captureId": "journal-390",
       "pairing": "UNMANIFESTED",
-      "ts": "2026-10-07T19:28:51.232Z"
+      "ts": "2026-10-07T21:33:37.422Z"
     },
     {
       "captureId": "historique-1440",
@@ -407,17 +407,17 @@
           "activeView": "history"
         }
       },
-      "ts": "2026-10-07T19:28:51.578Z"
+      "ts": "2026-10-07T21:33:37.725Z"
     },
     {
       "captureId": "historique-1024",
       "pairing": "UNMANIFESTED",
-      "ts": "2026-10-07T19:28:51.948Z"
+      "ts": "2026-10-07T21:33:38.055Z"
     },
     {
       "captureId": "historique-390",
       "pairing": "UNMANIFESTED",
-      "ts": "2026-10-07T19:28:52.298Z"
+      "ts": "2026-10-07T21:33:38.356Z"
     },
     {
       "captureId": "syntheses-1440",
@@ -463,22 +463,22 @@
           "synthesisState": "listed"
         }
       },
-      "ts": "2026-10-07T19:28:52.655Z"
+      "ts": "2026-10-07T21:33:38.676Z"
     },
     {
       "captureId": "syntheses-1024",
       "pairing": "UNMANIFESTED",
-      "ts": "2026-10-07T19:28:53.035Z"
+      "ts": "2026-10-07T21:33:39.025Z"
     },
     {
       "captureId": "syntheses-390",
       "pairing": "UNMANIFESTED",
-      "ts": "2026-10-07T19:28:53.420Z"
+      "ts": "2026-10-07T21:33:39.375Z"
     },
     {
       "captureId": "execution-390",
       "pairing": "UNMANIFESTED",
-      "ts": "2026-10-07T19:28:53.749Z"
+      "ts": "2026-10-07T21:33:39.689Z"
     },
     {
       "captureId": "syntheses-verified-1440",
@@ -524,12 +524,12 @@
           "synthesisState": "listed"
         }
       },
-      "ts": "2026-10-07T19:28:54.095Z"
+      "ts": "2026-10-07T21:33:40.002Z"
     },
     {
       "captureId": "projects-390",
       "pairing": "UNMANIFESTED",
-      "ts": "2026-10-07T19:28:54.403Z"
+      "ts": "2026-10-07T21:33:40.291Z"
     },
     {
       "captureId": "decision-390",
@@ -574,7 +574,7 @@
           "confirmationState": "decision"
         }
       },
-      "ts": "2026-10-07T19:28:56.935Z"
+      "ts": "2026-10-07T21:33:42.793Z"
     },
     {
       "captureId": "confirmation-390",
@@ -622,7 +622,37 @@
           "confirmationState": "required"
         }
       },
-      "ts": "2026-10-07T19:28:59.507Z"
+      "ts": "2026-10-07T21:33:45.239Z"
+    },
+    {
+      "captureId": "projects-empty-1440",
+      "pairId": "projects-empty",
+      "figmaNodeId": "184:2",
+      "fixtureId": "p3-projects-empty",
+      "identityAligned": true,
+      "contentAligned": true,
+      "pairing": "PASS",
+      "alignment": {
+        "identityAligned": true,
+        "contentAligned": true,
+        "semanticStateAligned": true,
+        "activeViewAligned": true,
+        "viewportAligned": true
+      },
+      "reason": null,
+      "observation": {
+        "url": "http://localhost:3021/studio",
+        "present": [
+          "studio-projects-home",
+          "studio-projects-empty"
+        ],
+        "forbiddenPresent": [],
+        "content": {
+          "surfaceKind": "projects-empty",
+          "profileDisplayName": "mcleland147"
+        }
+      },
+      "ts": "2026-10-07T21:33:47.539Z"
     }
   ]
 }

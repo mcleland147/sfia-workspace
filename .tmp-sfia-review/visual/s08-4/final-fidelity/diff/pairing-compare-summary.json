@@ -1,8 +1,8 @@
 {
-  "ts": "2026-10-07T19:30:13.139Z",
-  "compared": 14,
-  "blocked": 1,
-  "invalidDiffGeneration": "BLOCKED",
+  "ts": "2026-10-07T21:34:00.076Z",
+  "compared": 15,
+  "blocked": 0,
+  "invalidDiffGeneration": "NONE_INVALID",
   "results": [
     {
       "id": "projects-desktop",
@@ -12,17 +12,21 @@
       "status": "COMPARED",
       "width": 1440,
       "height": 1024,
-      "mismatched": 44542,
-      "ratio": 0.0302,
+      "mismatched": 43237,
+      "ratio": 0.0293,
       "diff": "projects-1440-diff.png"
     },
     {
       "id": "projects-empty",
       "captureId": "projects-empty-1440",
       "figmaNodeId": "184:2",
-      "pairing": "MISSING",
-      "status": "DIFF_FORBIDDEN",
-      "reason": "HARNESS_PAIRING_MISMATCH\npairing status missing — refuse diff"
+      "pairing": "PASS",
+      "status": "COMPARED",
+      "width": 1440,
+      "height": 1024,
+      "mismatched": 15729,
+      "ratio": 0.0107,
+      "diff": "projects-empty-1440-diff.png"
     },
     {
       "id": "new-project-desktop",
@@ -32,8 +36,8 @@
       "status": "COMPARED",
       "width": 1440,
       "height": 1024,
-      "mismatched": 70129,
-      "ratio": 0.0476,
+      "mismatched": 64561,
+      "ratio": 0.0438,
       "diff": "new-project-1440-diff.png"
     },
     {
@@ -44,8 +48,8 @@
       "status": "COMPARED",
       "width": 390,
       "height": 844,
-      "mismatched": 35719,
-      "ratio": 0.1085,
+      "mismatched": 35731,
+      "ratio": 0.1086,
       "diff": "new-project-390-diff.png"
     },
     {
@@ -56,8 +60,8 @@
       "status": "COMPARED",
       "width": 1440,
       "height": 1024,
-      "mismatched": 60802,
-      "ratio": 0.0412,
+      "mismatched": 59165,
+      "ratio": 0.0401,
       "diff": "workspace-1440-diff.png"
     },
     {
@@ -68,8 +72,8 @@
       "status": "COMPARED",
       "width": 1024,
       "height": 768,
-      "mismatched": 35257,
-      "ratio": 0.0448,
+      "mismatched": 37312,
+      "ratio": 0.0474,
       "diff": "workspace-1024-diff.png"
     },
     {
@@ -80,8 +84,8 @@
       "status": "COMPARED",
       "width": 390,
       "height": 844,
-      "mismatched": 18679,
-      "ratio": 0.0567,
+      "mismatched": 18368,
+      "ratio": 0.0558,
       "diff": "workspace-390-diff.png"
     },
     {
@@ -92,8 +96,8 @@
       "status": "COMPARED",
       "width": 1440,
       "height": 1024,
-      "mismatched": 46743,
-      "ratio": 0.0317,
+      "mismatched": 44878,
+      "ratio": 0.0304,
       "diff": "journal-1440-diff.png"
     },
     {
@@ -104,8 +108,8 @@
       "status": "COMPARED",
       "width": 1440,
       "height": 1024,
-      "mismatched": 54903,
-      "ratio": 0.0372,
+      "mismatched": 53820,
+      "ratio": 0.0365,
       "diff": "historique-1440-diff.png"
     },
     {
@@ -116,8 +120,8 @@
       "status": "COMPARED",
       "width": 1440,
       "height": 1024,
-      "mismatched": 62446,
-      "ratio": 0.0423,
+      "mismatched": 63914,
+      "ratio": 0.0433,
       "diff": "syntheses-1440-diff.png"
     },
     {
@@ -128,8 +132,8 @@
       "status": "COMPARED",
       "width": 1440,
       "height": 1024,
-      "mismatched": 69737,
-      "ratio": 0.0473,
+      "mismatched": 72180,
+      "ratio": 0.049,
       "diff": "syntheses-verified-1440-diff.png"
     },
     {
@@ -140,8 +144,8 @@
       "status": "COMPARED",
       "width": 390,
       "height": 844,
-      "mismatched": 23668,
-      "ratio": 0.0719,
+      "mismatched": 24666,
+      "ratio": 0.0749,
       "diff": "decision-390-diff.png"
     },
     {
@@ -152,8 +156,8 @@
       "status": "COMPARED",
       "width": 390,
       "height": 844,
-      "mismatched": 19276,
-      "ratio": 0.0586,
+      "mismatched": 19882,
+      "ratio": 0.0604,
       "diff": "confirmation-390-diff.png"
     },
     {
@@ -164,8 +168,8 @@
       "status": "COMPARED",
       "width": 390,
       "height": 844,
-      "mismatched": 4753,
-      "ratio": 0.0144,
+      "mismatched": 3032,
+      "ratio": 0.0092,
       "diff": "auth-390-diff.png"
     },
     {
@@ -176,8 +180,8 @@
       "status": "COMPARED",
       "width": 1440,
       "height": 1024,
-      "mismatched": 53843,
-      "ratio": 0.0365,
+      "mismatched": 51955,
+      "ratio": 0.0352,
       "diff": "apercu-1440-diff.png"
     }
   ]

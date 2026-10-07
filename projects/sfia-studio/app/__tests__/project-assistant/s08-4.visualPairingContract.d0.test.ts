@@ -98,6 +98,7 @@ describe("S08-4 visual pairing contract", () => {
         "projects-desktop",
         "projects-empty",
         "syntheses-desktop",
+        "syntheses-verified-desktop",
         "workspace-compact",
         "workspace-desktop",
         "workspace-mobile",

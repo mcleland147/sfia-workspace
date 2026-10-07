@@ -1,0 +1,21 @@
+{
+  "cycle": "P5-S08-4 FINAL VISUAL CLOSURE RE-PROOF",
+  "generatedAt": "2026-10-07T23:37:36+02:00",
+  "entryHead": "e692bf2335f3258e83bfc3eb7c7f7f82747265e6",
+  "branch": "delivery/sfia-studio-product-simplification-p5-s08-global-p3-visual-parity",
+  "originMain": "eed18bd572d65b6f5f4878ed24b195e4feeb5c7e",
+  "figmaFileKey": "m4g8j0gNbEzfIuH6S9AZJF",
+  "pairingPassCanonical": 15,
+  "pairingCompare": {
+    "compared": 15,
+    "blocked": 0,
+    "invalidDiffGeneration": "NONE_INVALID"
+  },
+  "vitest": "5402 passed / 143 skipped / 0 failed",
+  "visualE2E": "PASS (production next start + canonical-product.sqlite)",
+  "geist": "Geist, \"Geist Fallback\"",
+  "workspace1024Scroll": "CONTEXT_SCROLL_OK",
+  "workspace1440Footer": "CONTEXT_FOOTER_SHORTCUTS_OK",
+  "synthesesScroll": "SCROLL_AFFORDANCE_OK",
+  "typography": "FIGMA_TYPOGRAPHY_GEIST_OK"
+}
