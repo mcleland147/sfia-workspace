@@ -860,6 +860,15 @@
     display: none;
   }
 
+  /* P3 190:495 / 190:520 — focused Decision/Confirmation: project name only. */
+  .root[data-governed-moment="true"] .projectTitleBrand {
+    display: none;
+  }
+
+  .root[data-governed-moment="true"] .projectObjective {
+    display: none;
+  }
+
   .tabs {
     gap: var(--pm6-space-4);
   }

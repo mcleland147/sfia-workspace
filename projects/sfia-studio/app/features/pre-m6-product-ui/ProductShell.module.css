@@ -344,25 +344,29 @@
    */
   .shell:has([data-active-view="journal"]) .brandName,
   .shell:has([data-active-view="history"]) .brandName,
-  .shell:has([data-active-view="syntheses"]) .brandName {
+  .shell:has([data-active-view="syntheses"]) .brandName,
+  .shell:has([data-governed-moment="true"]) .brandName {
     display: none;
   }
 
   .shell:has([data-active-view="journal"]) .mobileFocusName,
   .shell:has([data-active-view="history"]) .mobileFocusName,
-  .shell:has([data-active-view="syntheses"]) .mobileFocusName {
+  .shell:has([data-active-view="syntheses"]) .mobileFocusName,
+  .shell:has([data-governed-moment="true"]) .mobileFocusName {
     display: inline;
   }
 
   .shell:has([data-active-view="journal"]) .mobileNavLink,
   .shell:has([data-active-view="history"]) .mobileNavLink,
-  .shell:has([data-active-view="syntheses"]) .mobileNavLink {
+  .shell:has([data-active-view="syntheses"]) .mobileNavLink,
+  .shell:has([data-governed-moment="true"]) .mobileNavLink {
     display: none;
   }
 
   .shell:has([data-active-view="journal"]) .mobileProfile,
   .shell:has([data-active-view="history"]) .mobileProfile,
-  .shell:has([data-active-view="syntheses"]) .mobileProfile {
+  .shell:has([data-active-view="syntheses"]) .mobileProfile,
+  .shell:has([data-governed-moment="true"]) .mobileProfile {
     margin-left: auto;
   }
 }

@@ -567,6 +567,7 @@ export function ProjectWorkspacePage({
       className={styles.root}
       data-testid="project-principal"
       data-active-view={activeView}
+      data-governed-moment={focusedGovernedMoment ? "true" : undefined}
       data-content-aligned-cycle-label={cycleSummary.workLabel}
       data-content-aligned-cycle-status={cycleSummary.statusLabel ?? ""}
       data-content-aligned-decision-count={String(decisionCount)}
