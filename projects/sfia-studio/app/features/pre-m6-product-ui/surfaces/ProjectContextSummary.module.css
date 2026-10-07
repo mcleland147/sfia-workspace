@@ -24,7 +24,7 @@
 
 .title {
   margin: 0;
-  font-size: 1rem;
+  font-size: 1.0625rem;
   font-weight: 600;
   line-height: 1.25;
   color: var(--pm6-ink);
@@ -210,9 +210,10 @@
   appearance: none;
   border: 0;
   background: transparent;
-  color: var(--pm6-ink);
+  color: var(--pm6-accent);
   font: inherit;
-  font-size: 0.75rem;
+  font-size: 0.625rem;
+  font-weight: 600;
   padding: 14px var(--pm6-space-2);
   text-align: center;
   cursor: pointer;

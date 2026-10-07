@@ -63,7 +63,7 @@ export function ProjectContextSummary({
             </dd>
           </div>
           <div className={styles.fact}>
-            <dt>Focus</dt>
+            <dt>Priorité</dt>
             <dd data-testid="project-context-focus">
               {focusTopic ?? focus}
               {focusTopic ? <span className={styles.sub}>{focus}</span> : null}

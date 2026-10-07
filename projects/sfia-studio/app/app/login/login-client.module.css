@@ -175,7 +175,8 @@
   color: var(--pm6-ink-soft, #3d352e);
 }
 
-@media (max-width: 900px) {
+/* S08-4B: Product auth aligns to compact/mobile dialect (not legacy 900). */
+@media (max-width: 1199px) {
   .layout {
     grid-template-columns: 1fr;
     align-items: start;

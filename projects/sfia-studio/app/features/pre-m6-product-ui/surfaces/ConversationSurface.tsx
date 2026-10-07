@@ -313,8 +313,11 @@ export function ConversationSurface({
                 {message.role === "user" ? "P" : "N"}
               </span>
               <div className={styles.bubble}>
-                <p className={styles.bubbleAuthor}>
-                  {message.role === "user" ? "Pilote" : "Nora"}
+                <p
+                  className={styles.bubbleAuthor}
+                  data-role={message.role === "user" ? "user" : "assistant"}
+                >
+                  {message.role === "user" ? "Vous" : "Nora"}
                 </p>
                 <p className={styles.bubbleText}>
                   {message.role === "assistant"
@@ -1379,28 +1382,22 @@ export function ConversationSurface({
 
       {latestSynthesis && onOpenSynthesis ? (
         <section
-          className={styles.card}
+          className={styles.synthesisTeaser}
           data-testid="conversation-synthesis-teaser"
           aria-live="polite"
         >
-          <header className={styles.cardHead}>
-            <p className={styles.cardEyebrow}>Synthèse produit dérivée</p>
-            <h3 className={styles.cardTitle}>{latestSynthesis.title}</h3>
-          </header>
-          <div className={styles.chipRow}>
-            <span className={styles.chip}>
-              {presentSynthesisVerdictLabel(latestSynthesis.verdictLabel)}
-            </span>
-          </div>
+          <p className={styles.synthesisEyebrow}>Nora · Synthèse disponible</p>
+          <p className={styles.synthesisTitle}>{latestSynthesis.title}</p>
           <p
-            className={styles.subLead}
+            className={styles.synthesisBody}
             data-testid="conversation-synthesis-summary"
           >
-            {synthesisSummaryExcerpt(latestSynthesis, 280)}
+            {presentSynthesisVerdictLabel(latestSynthesis.verdictLabel)} ·{" "}
+            {synthesisSummaryExcerpt(latestSynthesis, 120)}
           </p>
           <button
             type="button"
-            className={styles.primaryButton}
+            className={styles.synthesisLink}
             data-testid="conversation-open-synthesis"
             onClick={() => onOpenSynthesis(latestSynthesis.synthesisId)}
           >

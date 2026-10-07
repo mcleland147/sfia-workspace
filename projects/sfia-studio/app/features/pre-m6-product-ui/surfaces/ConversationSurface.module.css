@@ -11,10 +11,10 @@
   min-width: 0;
 }
 
-/* ---------- top bar ---------- */
+/* ---------- top bar (hidden on Product workspace — P3 46:2 flat feed) ---------- */
 
 .topBar {
-  display: flex;
+  display: none;
   align-items: center;
   gap: var(--pm6-space-3);
   padding-bottom: var(--pm6-space-4);
@@ -94,9 +94,10 @@
 .turnNora,
 .turnMine {
   display: flex;
-  gap: var(--pm6-space-3);
+  flex-direction: column;
+  gap: var(--pm6-space-2);
   align-items: flex-start;
-  max-width: 88%;
+  max-width: 100%;
 }
 
 .turnNora {
@@ -104,20 +105,11 @@
 }
 
 .turnMine {
-  align-self: flex-end;
-  flex-direction: row-reverse;
+  align-self: stretch;
 }
 
 .turnAvatar {
-  width: 28px;
-  height: 28px;
-  border-radius: var(--pm6-radius-pill);
-  display: grid;
-  place-items: center;
-  font-size: 0.72rem;
-  font-weight: 600;
-  flex: 0 0 auto;
-  margin-top: 2px;
+  display: none;
 }
 
 .turnNora .turnAvatar {
@@ -153,19 +145,82 @@
 
 .bubbleAuthor {
   margin: 0 0 var(--pm6-space-1);
-  font-size: 0.74rem;
+  font-size: 0.5625rem;
   font-weight: 600;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--pm6-muted);
+  color: var(--pm6-muted-faint);
+}
+
+.bubbleAuthor[data-role="assistant"] {
+  color: var(--pm6-accent);
 }
 
 .bubbleText {
   margin: 0;
-  font-size: 0.92rem;
-  line-height: 1.6;
+  font-size: 0.75rem;
+  line-height: 1.55;
   color: var(--pm6-ink-soft);
   white-space: pre-wrap;
+}
+
+/* ---------- synthesis teaser (P3 46:2 / 190:306) ---------- */
+
+.synthesisTeaser {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px 12px;
+  border-radius: var(--pm6-radius-sm);
+  border: 1px solid var(--pm6-border);
+  background: var(--pm6-canvas-raised);
+}
+
+.synthesisEyebrow {
+  margin: 0;
+  font-size: 0.5625rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--pm6-accent);
+}
+
+.synthesisTitle {
+  margin: 0;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--pm6-ink);
+  line-height: 1.35;
+}
+
+.synthesisBody {
+  margin: 0;
+  font-size: 0.6875rem;
+  line-height: 1.45;
+  color: var(--pm6-ink-soft);
+}
+
+.synthesisLink {
+  align-self: flex-start;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--pm6-accent);
+  font: inherit;
+  font-size: 0.625rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.synthesisLink:hover {
+  text-decoration: underline;
+}
+
+.synthesisLink:focus-visible {
+  outline: none;
+  box-shadow: var(--pm6-focus-ring);
+  border-radius: 4px;
 }
 
 /* ---------- chips ---------- */

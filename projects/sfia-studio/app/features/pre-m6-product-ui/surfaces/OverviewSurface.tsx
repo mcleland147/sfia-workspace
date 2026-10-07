@@ -141,8 +141,77 @@ export function OverviewSurface({
     ? reserveAttention.headline.match(/^\d+/)?.[0] ?? "—"
     : "—";
 
+  const trajectoryLine =
+    trajectory.length === 0
+      ? null
+      : trajectory
+          .map((node) => `C${node.ordinal} ${node.label.toLowerCase()}`)
+          .join(" · ");
+
   return (
     <div className={styles.root} data-testid="project-overview-surface">
+      <div
+        className={styles.mobileDigest}
+        data-testid="project-overview-mobile-digest"
+      >
+        <div className={styles.mobileStatus}>
+          <span className={styles.mobileCycle}>{cycle.label}</span>
+          {cycle.statusLabel ? (
+            <span className={styles.mobileChip}>{cycle.statusLabel}</span>
+          ) : null}
+        </div>
+        <section className={styles.mobileSection}>
+          <p className={styles.mobileLabel}>Priorité actuelle</p>
+          <p className={styles.mobileValue}>{focusTopic ?? focus}</p>
+        </section>
+        <section className={styles.mobileSection}>
+          <p className={styles.mobileLabel}>Trajectoire</p>
+          <p className={styles.mobileValue}>
+            {trajectoryLine ?? "Aucun cycle enregistré pour l’instant."}
+          </p>
+        </section>
+        <section className={styles.mobileSection}>
+          <p className={styles.mobileLabel}>Décisions</p>
+          <p className={styles.mobileValue}>
+            {decisionAttention
+              ? "1 décision à examiner"
+              : "Aucune décision en attente"}
+          </p>
+        </section>
+        <section className={styles.mobileSection}>
+          <p className={styles.mobileLabel}>Réserves</p>
+          <p className={styles.mobileValue}>
+            {reserveAttention
+              ? `${reserveCount} réserve${reserveCount !== "1" ? "s" : ""} ouverte${reserveCount !== "1" ? "s" : ""}`
+              : "Aucune réserve ouverte"}
+          </p>
+        </section>
+        <section className={styles.mobileSection}>
+          <p className={styles.mobileLabel}>Dernière synthèse</p>
+          <p className={styles.mobileValue}>
+            {latestSynthesis
+              ? `${latestSynthesis.title} · ${presentSynthesisVerdictLabel(latestSynthesis.verdictLabel).toLowerCase()}`
+              : "Aucune synthèse produit disponible"}
+          </p>
+        </section>
+        <nav
+          className={styles.mobileQuickLinks}
+          aria-label="Raccourcis Aperçu"
+          data-testid="project-overview-mobile-links"
+        >
+          <button type="button" onClick={onOpenJournal}>
+            Journal
+          </button>
+          <button type="button" onClick={onOpenHistory}>
+            Historique
+          </button>
+          <button type="button" onClick={onOpenSyntheses}>
+            Synthèses
+          </button>
+        </nav>
+      </div>
+
+      <div className={styles.desktopLayout}>
       <section
         className={styles.stats}
         aria-label="État du projet"
@@ -476,6 +545,7 @@ export function OverviewSurface({
             )}
           </section>
         </aside>
+      </div>
       </div>
     </div>
   );

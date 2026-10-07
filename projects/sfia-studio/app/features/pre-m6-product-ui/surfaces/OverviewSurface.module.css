@@ -11,6 +11,102 @@
   padding: 14px var(--ws-pad-x, 24px) 24px;
 }
 
+/* Figma 192:2 — mobile Aperçu digest (sections + quick links). */
+.mobileDigest {
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mobileStatus {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-height: 42px;
+  padding: 0 10px;
+  border-radius: 7px;
+  background: var(--pm6-canvas-raised);
+}
+
+.mobileCycle {
+  font-size: 0.625rem;
+  font-weight: 600;
+  color: var(--pm6-accent);
+}
+
+.mobileChip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 24px;
+  padding: 0 10px;
+  border-radius: 7px;
+  background: color-mix(in srgb, var(--pm6-rail) 55%, var(--pm6-canvas));
+  font-size: 0.625rem;
+  font-weight: 600;
+  color: var(--pm6-muted-strong);
+}
+
+.mobileSection {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.mobileLabel {
+  margin: 0;
+  font-size: 0.5625rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--pm6-muted-faint);
+}
+
+.mobileValue {
+  margin: 0;
+  font-size: 0.6875rem;
+  line-height: 1.4;
+  color: var(--pm6-ink-soft);
+}
+
+.mobileQuickLinks {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 42px;
+}
+
+.mobileQuickLinks button {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--pm6-accent);
+  font: inherit;
+  font-size: 0.625rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.mobileQuickLinks button:hover {
+  text-decoration: underline;
+}
+
+.mobileQuickLinks button:focus-visible {
+  outline: none;
+  box-shadow: var(--pm6-focus-ring);
+  border-radius: 4px;
+}
+
+.desktopLayout {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
 .stats {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -354,7 +450,8 @@
 }
 
 /* Desktop Overview composition — main + details (≥1100 inside app column). */
-@media (min-width: 1100px) {
+/* S08-4B: LARGE band starts at 1200 (not legacy 1100). */
+@media (min-width: 1200px) {
   .body {
     grid-template-columns: minmax(0, 1fr) minmax(280px, 352px);
   }
@@ -371,6 +468,14 @@
     gap: 12px;
     padding-top: 10px;
     padding-bottom: 20px;
+  }
+
+  .mobileDigest {
+    display: flex;
+  }
+
+  .desktopLayout {
+    display: none;
   }
 
   .stats {

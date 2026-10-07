@@ -659,9 +659,9 @@
 }
 
 .principal .tabActive {
-  color: #d9563b;
+  color: var(--pm6-accent);
   border-color: transparent;
-  background: #fff0ea;
+  background: var(--pm6-accent-tint);
 }
 
 .tabLabel {
@@ -991,8 +991,8 @@
 
 .linkedPill[data-kind="reserve"],
 .linkedPill[data-kind="reserve-item"] {
-  background: #f2ede7;
-  color: #6d645c;
+  background: var(--pm6-surface-sunken);
+  color: var(--pm6-muted-strong);
 }
 
 .linkedPill:focus-visible {
@@ -1021,7 +1021,7 @@
   gap: 0;
   border: 1px solid var(--pm6-border);
   border-radius: 8px;
-  background: #fbf7f2;
+  background: var(--pm6-body);
   overflow: hidden;
   max-height: 84px; /* ~2 dense rows preview (94:2) — keep compact panel */
 }
@@ -1038,11 +1038,11 @@
 }
 
 .exchangePanel > li:nth-child(odd) .exchangeRow {
-  background: #fcf8f3;
+  background: var(--pm6-canvas-raised);
 }
 
 .exchangePanel > li:nth-child(even) .exchangeRow {
-  background: #fffdf9;
+  background: var(--pm6-canvas);
 }
 
 .exchangeRow {
@@ -1090,8 +1090,8 @@
 }
 
 .exchangeAvatar[data-role="VOUS"] {
-  background: #eee8e1;
-  color: #5f564e;
+  background: var(--pm6-surface-sunken);
+  color: var(--pm6-muted-strong);
 }
 
 .exchangeRow .exchangeRole {
@@ -1280,8 +1280,8 @@
   }
 
   .principal .tabActive {
-    background: #fff0ea;
-    color: #d9563b;
+    background: var(--pm6-accent-tint);
+    color: var(--pm6-accent);
     border-color: transparent;
   }
 
@@ -1313,12 +1313,12 @@
   .principal .cardMeta {
     justify-content: flex-start;
     gap: 0;
-    color: #8a7f74;
+    color: var(--pm6-muted);
   }
 
   .principal .cardMeta > span + span::before {
     content: " · ";
-    color: #8a7f74;
+    color: var(--pm6-muted);
   }
 
   .cardPoints {

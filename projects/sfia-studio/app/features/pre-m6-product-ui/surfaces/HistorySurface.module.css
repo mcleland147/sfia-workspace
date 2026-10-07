@@ -733,7 +733,7 @@
   }
 
   .masterPane {
-    background: #fbf7f2;
+    background: var(--pm6-body);
     border-right: 1px solid var(--pm6-border);
     padding: 16px 14px 20px;
   }

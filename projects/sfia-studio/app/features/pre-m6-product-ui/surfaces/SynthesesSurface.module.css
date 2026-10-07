@@ -366,7 +366,7 @@
   }
 }
 
-@media (max-width: 899px) {
+@media (max-width: 767px) {
   .root {
     padding: 8px var(--ws-pad-x, 16px) 20px;
   }

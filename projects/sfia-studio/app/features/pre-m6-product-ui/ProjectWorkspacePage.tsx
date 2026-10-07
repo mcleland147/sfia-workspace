@@ -653,10 +653,32 @@ export function ProjectWorkspacePage({
         <div className={styles.main} ref={conversationRef}>
           {activeView === "conversation" ? (
             <>
+              <div
+                className={styles.mobileFocusStrip}
+                data-testid="project-mobile-focus-strip"
+              >
+                <span className={styles.mobileFocusLabel}>
+                  Priorité ·{" "}
+                  {focusTopic ??
+                    (lifecycle?.selectedCycleInstanceId
+                      ? cycleSummary.label
+                      : "Conversation avec Nora")}
+                </span>
+                <button
+                  type="button"
+                  className={styles.mobileFocusContext}
+                  data-testid="project-mobile-open-context"
+                  aria-expanded={lpsOpen}
+                  onClick={() => setLpsOpen(true)}
+                >
+                  Contexte →
+                </button>
+              </div>
+
               <div className={styles.focusBar} data-testid="project-focus-bar">
                 <span className={styles.focusLabel}>
                   <span className={styles.focusDot} aria-hidden />
-                  Focus actuel
+                  Priorité actuelle
                 </span>
                 <span className={styles.focusTitle}>
                   {focusTopic ??

@@ -233,7 +233,7 @@ export function SynthesesSurface({
                       setSelectedId(item.synthesisId);
                       if (
                         typeof window !== "undefined" &&
-                        window.matchMedia("(max-width: 899px)").matches
+                        window.matchMedia("(max-width: 767px)").matches
                       ) {
                         setMobileShowDetail(true);
                       }

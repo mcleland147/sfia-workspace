@@ -173,14 +173,28 @@ export function NewProjectIntentionPage() {
       data-create-surface="conversational"
       data-collect-phase={phase}
     >
+      <div className={styles.pageChrome} data-testid="new-project-chrome">
+        <div className={styles.chromeTrail}>
+          <Link href="/studio">Projets</Link>
+          <span className={styles.chromeSep} aria-hidden>
+            /
+          </span>
+          <span className={styles.chromeCurrent}>Nouveau projet</span>
+        </div>
+        <div className={styles.chromeRight}>
+          <p className={styles.chromeStatus}>Projet pas encore créé</p>
+          <span className={styles.draftChip}>Brouillon</span>
+        </div>
+      </div>
+
       <div className={styles.creationColumn}>
         <header className={styles.hero}>
-          <p className={styles.heroEyebrow}>Projets / Nouveau projet</p>
           <h1 className={styles.heroTitle}>Créer un projet</h1>
           <p className={styles.heroSubtitle}>
-            Nora pose seulement ce qui est nécessaire. Aucun projet durable
-            n&apos;est créé tant que vous n&apos;avez pas choisi « Créer le
-            projet ».
+            Décris simplement ce que tu veux accomplir. Nora t&apos;aidera à
+            préciser uniquement ce qui est nécessaire pour démarrer
+            correctement. Aucun projet durable n&apos;est créé tant que tu
+            n&apos;as pas choisi « Créer le projet ».
           </p>
         </header>
 
@@ -231,14 +245,6 @@ export function NewProjectIntentionPage() {
             }}
           />
           <div className={styles.actions}>
-            <button
-              type="submit"
-              className={styles.quietButton}
-              disabled={pending || composer.trim().length === 0}
-              data-testid="new-project-send"
-            >
-              Envoyer
-            </button>
             <Link
               href="/studio"
               className={styles.quietButton}
@@ -246,10 +252,19 @@ export function NewProjectIntentionPage() {
             >
               Annuler
             </Link>
+            <button
+              type="submit"
+              className={styles.sendIcon}
+              disabled={pending || composer.trim().length === 0}
+              data-testid="new-project-send"
+              aria-label="Envoyer"
+            >
+              ↑
+            </button>
           </div>
           <p className={styles.help}>
-            Les réponses sont enregistrées telles que vous les écrivez, dans le
-            champ demandé. Aucun projet n&apos;est créé avant le CTA.
+            Tu n&apos;as rien à remplir : Nora construit le projet à partir de
+            la conversation. Aucun projet n&apos;est créé avant le CTA.
           </p>
         </form>
       </div>
@@ -259,81 +274,101 @@ export function NewProjectIntentionPage() {
         data-testid="new-project-preview"
         aria-labelledby={`${fieldId}-preview`}
       >
-        <p className={styles.previewEyebrow}>Projet en préparation</p>
-        <h2 id={`${fieldId}-preview`} className={styles.previewTitle}>
-          Aperçu du projet
-        </h2>
-        <p className={styles.previewHint}>
-          Restitution factuelle de vos réponses — pas une interprétation.
-        </p>
+        <div className={styles.previewHeader}>
+          <div className={styles.previewMeta}>
+            <p className={styles.previewEyebrow}>Projet en préparation</p>
+            <span className={styles.draftChip}>Non créé</span>
+          </div>
+          <h2 id={`${fieldId}-preview`} className={styles.previewTitle}>
+            Aperçu du projet
+          </h2>
+        </div>
+        <hr className={styles.previewDivider} />
         <dl className={styles.previewList}>
           <div>
-            <dt>Nom</dt>
+            <dt>Nom proposé</dt>
             <dd data-testid="preview-name">
               {draft.name.trim() || "Pas encore précisé"}
             </dd>
           </div>
           <div>
-            <dt>Intention</dt>
+            <dt>Objectif</dt>
             <dd data-testid="preview-intention">
               {draft.intention.trim() || "Pas encore précisée"}
             </dd>
           </div>
           <div>
-            <dt>Contexte</dt>
+            <dt>Point de départ</dt>
             <dd data-testid="preview-context">
-              {draft.context.trim() || "Optionnel"}
+              {draft.context.trim() || "Pas de projet créé pour l’instant"}
             </dd>
           </div>
         </dl>
+        <hr className={styles.previewDivider} />
         {ready ? (
-          <div className={styles.correctRow}>
-            <button
-              type="button"
-              className={styles.textButton}
-              data-testid="reopen-intention"
-              onClick={() => onReopen("intention")}
-            >
-              Corriger l&apos;intention
-            </button>
-            <button
-              type="button"
-              className={styles.textButton}
-              data-testid="reopen-name"
-              onClick={() => onReopen("name")}
-            >
-              Corriger le nom
-            </button>
-          </div>
-        ) : null}
-        {!ready ? (
-          <p className={styles.previewHint}>
-            Intention et nom sont requis avant création.
-          </p>
+          <>
+            <div className={styles.readyBox}>
+              <p className={styles.readyBoxTitle}>Projet prêt à être créé</p>
+              <p className={styles.readyBoxBody}>
+                L&apos;intention et le nom sont suffisamment clairs pour créer
+                le contexte projet.
+              </p>
+            </div>
+            <div className={styles.correctRow}>
+              <button
+                type="button"
+                className={styles.textButton}
+                data-testid="reopen-intention"
+                onClick={() => onReopen("intention")}
+              >
+                Corriger l&apos;intention
+              </button>
+              <button
+                type="button"
+                className={styles.textButton}
+                data-testid="reopen-name"
+                onClick={() => onReopen("name")}
+              >
+                Corriger le nom
+              </button>
+            </div>
+          </>
         ) : (
-          <p className={styles.previewHintReady}>
-            Prêt à créer — aucun Cycle n&apos;est démarré automatiquement.
-          </p>
-        )}
-        <button
-          type="button"
-          className={styles.primaryButton}
-          disabled={pending || !ready}
-          data-testid="create-project-submit"
-          onClick={() => void onCreate()}
-        >
-          {pending ? "Création…" : "Créer le projet"}
-        </button>
-        <div aria-live="assertive" aria-atomic="true">
-          {submitError ? (
-            <p
-              className={styles.submitError}
-              role="alert"
-              data-testid="submit-error"
-            >
-              {submitError}
+          <div className={styles.pendingBox}>
+            <p className={styles.pendingBoxTitle}>
+              Démarrage · points à clarifier
             </p>
-          ) : null}
+            <p className={styles.pendingBoxBody}>
+              Intention et nom sont requis avant création. Nora continue à
+              préciser à partir de la conversation.
+            </p>
+          </div>
+        )}
+        <div className={styles.createWrap}>
+          <button
+            type="button"
+            className={styles.primaryButton}
+            disabled={pending || !ready}
+            data-testid="create-project-submit"
+            onClick={() => void onCreate()}
+          >
+            {pending ? "Création…" : "Créer le projet"}
+          </button>
+          <p className={styles.help}>
+            Après création, la conversation continue avec Nora pour préciser le
+            démarrage du projet.
+          </p>
+          <div aria-live="assertive" aria-atomic="true">
+            {submitError ? (
+              <p
+                className={styles.submitError}
+                role="alert"
+                data-testid="submit-error"
+              >
+                {submitError}
+              </p>
+            ) : null}
+          </div>
         </div>
       </aside>
     </div>
