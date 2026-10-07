@@ -13,7 +13,7 @@
 | --- | --- |
 | Branch | `delivery/sfia-studio-product-simplification-p5-s08-global-p3-visual-parity` |
 | Entry HEAD | `c8dc4f710eeb21c612de159953166993186e5593` |
-| Exit HEAD | *(commit tip)* |
+| Exit HEAD | `debbd1e800b86be2f96a6b504fa02fdec9f2acf7` |
 | origin/main | `eed18bd572d65b6f5f4878ed24b195e4feeb5c7e` |
 | Project push / PR | **NONE** |
 
