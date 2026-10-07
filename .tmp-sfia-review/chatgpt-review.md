@@ -1,8 +1,8 @@
 # P5-S08-4 — SYNTHÈSES SCROLLED DETAIL + ÉLÉMENTS VÉRIFIÉS
 
-**Timestamp:** 2026-10-07 21:30:42 +0200  
-**Profile:** CRITICAL · Review Pack = FULL  
-**Branch:** `delivery/sfia-studio-product-simplification-p5-s08-global-p3-visual-parity`  
+**Timestamp:** 2026-10-07 21:30:42 +0200
+**Profile:** CRITICAL · Review Pack = FULL
+**Branch:** `delivery/sfia-studio-product-simplification-p5-s08-global-p3-visual-parity`
 **Sub-verdict:** **SYNTHÈSES — LOWER VERIFIED SCROLL STATE = PASS CANDIDATE**
 
 ---
@@ -13,7 +13,7 @@
 | --- | --- |
 | Branch | `delivery/sfia-studio-product-simplification-p5-s08-global-p3-visual-parity` |
 | Entry HEAD | `a4bb481cd47352b445e43918e4f4c42c69242a78` |
-| Exit HEAD | `8874bf10e359f339d870f3b1df016688ca291688` |
+| Exit HEAD | `d4d9cf70291788d11b9d27e55f95a3b34bc021dd` |
 | origin/main | `eed18bd572d65b6f5f4878ed24b195e4feeb5c7e` (unchanged) |
 | Main moved | **NO** |
 | Project push / PR / merge | **NONE / NOT AUTHORIZED** |
@@ -139,13 +139,13 @@ Distinct SHAs confirm top ≠ lower state.
 
 ## 12. Explicit non-claims
 
-- **≠** S08-4D CLOSED  
-- **≠** GLOBAL P3 VISUAL PARITY CLOSED  
-- **≠** READY FOR GIT INTEGRATION  
-- **≠** P5 COMPLETE / P6 READY  
-- **≠** runtime v3 ADOPTED  
-- **≠** Evidence architecture redesign  
-- **≠** Figma mutation / new route / dead CTA  
+- **≠** S08-4D CLOSED
+- **≠** GLOBAL P3 VISUAL PARITY CLOSED
+- **≠** READY FOR GIT INTEGRATION
+- **≠** P5 COMPLETE / P6 READY
+- **≠** runtime v3 ADOPTED
+- **≠** Evidence architecture redesign
+- **≠** Figma mutation / new route / dead CTA
 
 Those remain Morris/ChatGPT decisions after ongoing final visual review.
 
