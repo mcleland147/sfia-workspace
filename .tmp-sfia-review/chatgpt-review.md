@@ -1,135 +1,89 @@
-# P5-S08-4 — VISUAL QA PAIRING HARDENING
+# P5-S08-4 — CANONICAL VISUAL SNAPSHOT UNIFICATION
 
 ## Authority
 
 Morris S08-4 GO = AUTHORIZED / CONSUMED / CONTINUED
-Continuation: VISUAL QA PAIRING HARDENING (not a new SFIA cycle)
-Fidelity CSS tuning = FROZEN until same-state pairing proven
+Continuation: CANONICAL VISUAL SNAPSHOT UNIFICATION
+CSS fidelity tuning = FROZEN (this pass)
 
 ## Git truth
 
 - origin/main = `eed18bd572d65b6f5f4878ed24b195e4feeb5c7e` (UNCHANGED)
 - branch = `delivery/sfia-studio-product-simplification-p5-s08-global-p3-visual-parity`
-- entry HEAD (before this commit) = `d722161e92f6cf366685f13830f53ecbdd23987e`
-- new local commits = `76d36330` (pairing contract) + `93a0231f` (review whitespace)
-- Review Handoff tip = `c8908155` blob = `0981804b`
+- entry HEAD = `8450fb70404db605b45bca052f347e978bf2f64d`
 - Project push = NONE
 - Project PR = NONE
-- Merge = NONE
 
-## Problem statement
+## Problem
 
-Final FIGMA | RUNTIME | DIFF contact sheets were previously generated from **semantically different** states (e.g. Figma Product Simplification Decision vs runtime Knowledge Core; Figma Confirmation vs Runtime v3). Pixel deltas from those pairs are **invalid** as fidelity evidence.
+Prior pairing PASS proved fixture match, not Figma Product identity.
+Several pairs had `identityAligned=false` (Nora Completion / Runtime v3).
+FINAL pixel fidelity requires `identityAligned=true`.
 
-Root cause: harness validated surface/route/viewport mainly, **not** Project identity + semantic state + content shape + forbidden overlays — and still emitted diffs.
+## Solution
 
-## Pairing root cause (exact)
+ONE canonical visual Product identity: **Product Simplification**
 
-`HARNESS_PAIRING_MISMATCH` class of defect: capture/compare allowed final screenshots/diffs without fail-closed same-state contract (expectedProject / expectedState / expectedView / forbiddenVisible).
+Isolated QA snapshots (`states/snapshots/`):
 
-## Canonical pairing manifest
+| Snapshot | States covered |
+|----------|----------------|
+| workspace-rich | workspace, journal, history, syntheses, aperçu |
+| decision-pending | Decision |
+| confirmation-required | Confirmation |
 
-Path: `.tmp-sfia-review/visual/s08-4/final-fidelity/state-manifest.json`
+Functional fixtures (Nora Completion / Knowledge Core / Runtime v3) remain for non-final tests.
 
-Binds per pair: Figma `nodeId` ↔ `fixtureId` ↔ Product projectId/name ↔ route ↔ view ↔ viewport ↔ `expectedVisible` / `expectedAbsent`.
+## Contract change
 
-Contract library (Product source):
+`evaluateVisualPair`: when a pair declares `identityAligned`, it MUST be `true` or → `HARNESS_PAIRING_MISMATCH`.
+Diff generators: `identityAligned !== true` → `DIFF_FORBIDDEN`.
 
-- `projects/sfia-studio/app/e2e/support/visualPairingContract.ts` (+ `.mjs`)
-- `projects/sfia-studio/app/e2e/support/observeVisualPairing.mjs`
-- Capture: `.tmp-sfia-review/visual/s08-4/final-fidelity/capture-final-fidelity.mjs` (shot only after PASS)
-- Diff: `compare-and-contact.py` + `compare-final-fidelity.mjs` (DIFF_FORBIDDEN when pairing ≠ PASS)
+## Manifest
 
-## Fixture strategy
+`.tmp-sfia-review/visual/s08-4/final-fidelity/state-manifest.json` v2
+All required final pairs: `identityAligned=true`, `expectedProjectName=Product Simplification`.
 
-- **Canonical Figma identity target:** Product Simplification
-- **Decision (`190:495`):** seeded on Product Simplification (`p3-decision-pending`) — `identityAligned: true`
-- **Workspace / Synthèses / Journal / Historique:** Nora Completion `rich_workspace` fixture — `identityAligned: false` (Figma label vs fixture name; pairing validates fixture, not Figma OCR)
-- **Confirmation (`190:520`):** Runtime v3 `confirmation_required` — `identityAligned: false` until snapshot unification
-- **Projects empty:** isolated empty Product sqlite + production start on :3021 (`BETTER_AUTH_URL` aligned; URL host `localhost` for cookies)
-- Knowledge Core retained as list-density only (no longer Decision visual fixture)
+## Capture
 
-## Same-state / expected-visible / expected-absent
+Production-build: `npm run build` + `next start` with snapshot DB switching
+Script: `capture-canonical-unified.mjs`
+Dev overlay: ABSENT
 
-Every manifested pair declares both. Global forbidden: Next Issues badge, next-dev-overlay, runtime-error-overlay, loading, sqlite-unavailable.
+## Results (representative)
 
-Failure classification: `HARNESS_PAIRING_MISMATCH` with exact expected/actual fields.
+| Case | identityAligned | Pairing | Project |
+|------|-----------------|---------|---------|
+| Workspace | true | PASS | Product Simplification |
+| Journal | true | PASS | Product Simplification |
+| Historique | true | PASS | Product Simplification |
+| Synthèses | true | PASS | Product Simplification |
+| Decision | true | PASS | Product Simplification |
+| Confirmation | true | PASS | Product Simplification |
 
-## Production-build capture strategy
-
-Preferred:
-
-1. `S08_4_FIDELITY_SEED=1` seed
-2. `npm run build`
-3. `npm run start:skip-preflight` with QA DB env
-4. `capture-final-fidelity.mjs`
-5. compare only pairing PASS
-
-Documented: `.tmp-sfia-review/visual/s08-4/final-fidelity/PRODUCTION_CAPTURE.md`
-
-## Dev overlay disposition
-
-**ABSENT** on production-clean capture (`next start`). No Product CSS hide. No crop.
-
-## Evidence requalification (not Product regression)
-
-| Surface | Product capability | Pixel fidelity |
-|---------|-------------------|----------------|
-| Decision | PROVEN | RECAPTURE REQUIRED (pairing now valid; geometry still open) |
-| Confirmation | PROVEN | RECAPTURE REQUIRED |
-| Workspace / New Project / others | implementation retained | final fidelity depends on valid same-state pairs |
-
-## Representative pairing results (production capture)
-
-| Case | Pairing |
-|------|---------|
-| Workspace desktop | PASS |
-| New Project desktop | PASS |
-| Decision mobile | PASS |
-| Confirmation mobile | PASS |
-| Synthèses desktop | PASS |
-| Projects desktop | PASS |
-| Projects empty | PASS |
-| Auth mobile | PASS |
-
-Negative mismatch tests (Vitest): PASS
-Invalid diff generation: BLOCKED (`DIFF_FORBIDDEN` when pairing FAIL)
+invalid identity pair → DIFF_FORBIDDEN: PROVEN
+negative identityAligned=false unit test: PASS
 
 ## Gates
 
-- Vitest pairing contract: 9/9 PASS
-- Seed fidelity: PASS (Decision on Product Simplification)
-- Seed empty Product: PASS
+- Vitest pairing contract: PASS
+- Seed (multi + snapshots): PASS
 - Typecheck: PASS
 - Lint: PASS
-- Visual E2E (`p3-visual-parity.spec.ts`): PASS
 
-## Figma / Product naming / bypass
+## Deferred / incomplete
 
-- Figma mutation = NONE
-- Product naming mutation for QA = NONE (only non-visual `data-testid="project-title"`)
-- Production visual bypass = NONE
 - Geist = DEFERRED — NO CHANGE
-
-## Modified files (this continuation)
-
-- `e2e/support/visualPairingContract.ts` / `.mjs`
-- `e2e/support/observeVisualPairing.mjs`
-- `e2e/p3-visual-parity.spec.ts`
-- `__tests__/project-assistant/s08-4.visualPairingContract.d0.test.ts`
-- `__tests__/project-assistant/s08-4.seedFinalFidelity.d0.test.ts`
-- `__tests__/project-assistant/s08-4.seedEmptyProduct.d0.test.ts`
-- `features/pre-m6-product-ui/ProjectWorkspacePage.tsx` (`project-title` testid)
-- `.tmp-sfia-review/visual/s08-4/final-fidelity/*` harness + `state-manifest.json` + `pairing-report.json`
-- `.tmp-sfia-review/chatgpt-review.md`
-
-## Remaining
-
+- Figma mutation = NONE
+- Product naming for QA = NONE
+- Production visual bypass = NONE
 - S08-4D = INCOMPLETE
 - GLOBAL P3 VISUAL PARITY = NOT YET PROVEN
-- Next: RESUME FINAL DETAIL FIDELITY USING ONLY VALID SAME-STATE PAIRS
-- Optional: snapshot-unify Workspace/Confirmation onto Product Simplification display identity
+
+## Next
+
+RESUME FINAL FIGMA ↔ RUNTIME DETAIL FIDELITY USING ONLY identityAligned=true PAIRS
 
 ## Verdict
 
-**S08-4 VISUAL QA PAIRING CONTRACT — PASS**
+**S08-4 CANONICAL VISUAL SNAPSHOT UNIFICATION — PASS**

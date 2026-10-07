@@ -75,6 +75,8 @@ describe("S08-4 visual pairing contract", () => {
         "auth-mobile",
         "confirmation-mobile",
         "decision-mobile",
+        "historique-desktop",
+        "journal-desktop",
         "new-project-desktop",
         "projects-desktop",
         "projects-empty",
@@ -82,6 +84,12 @@ describe("S08-4 visual pairing contract", () => {
         "workspace-desktop",
       ].sort(),
     );
+    for (const p of reps) {
+      expect(
+        (p as { identityAligned?: boolean }).identityAligned,
+        p.id,
+      ).toBe(true);
+    }
     expect(findPairById(manifest.pairs as never, "decision-mobile")?.figma.nodeId).toBe(
       "190:495",
     );
@@ -183,6 +191,19 @@ describe("S08-4 visual pairing contract", () => {
     expect(mayGenerateDiff(undefined)).toBe(false);
     expect(mayGenerateDiff("FAIL")).toBe(false);
     expect(mayGenerateDiff("PASS")).toBe(true);
+  });
+
+  it("rejects identityAligned=false for final fidelity pairs", () => {
+    const result = evaluateVisualPair(
+      { ...decisionPair, identityAligned: false, finalFidelity: true },
+      baseObs(),
+    );
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.reason).toContain("identityAligned=false");
+      expect(result.reason).toContain("expectedIdentityAligned=true");
+    }
+    expect(mayGenerateDiff("FAIL")).toBe(false);
   });
 
   it("validates new-project-rich collect phase", () => {

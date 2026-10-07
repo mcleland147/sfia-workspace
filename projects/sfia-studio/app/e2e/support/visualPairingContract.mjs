@@ -45,6 +45,15 @@ export function evaluateVisualPair(record, obs) {
     reason: formatPairingMismatch(reason),
   });
 
+  const enforceIdentityAligned =
+    record.finalFidelity === true ||
+    Object.prototype.hasOwnProperty.call(record, "identityAligned");
+  if (enforceIdentityAligned && record.identityAligned !== true) {
+    return fail(
+      `identityAligned=${String(record.identityAligned)}\nexpectedIdentityAligned=true\nfixtureId=${record.runtime.fixtureId}`,
+    );
+  }
+
   if (
     obs.viewport.width !== record.figma.viewport.width ||
     obs.viewport.height !== record.figma.viewport.height

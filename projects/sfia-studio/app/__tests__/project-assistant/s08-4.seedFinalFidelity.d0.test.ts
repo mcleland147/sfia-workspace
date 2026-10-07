@@ -284,11 +284,13 @@ async function seedGovernedExecuteThroughSuccess(
 function seedCompanionJournal(input: {
   projectId: string;
   cycleInstanceId: string;
+  sessionDbPath?: string;
 }): readonly string[] {
-  if (fs.existsSync(SESSION_DB)) fs.unlinkSync(SESSION_DB);
+  const sessionDbPath = input.sessionDbPath ?? SESSION_DB;
+  if (fs.existsSync(sessionDbPath)) fs.unlinkSync(sessionDbPath);
   const session = new ProductSqliteSession({
     projectId: input.projectId,
-    dbPath: SESSION_DB,
+    dbPath: sessionDbPath,
     sessionKey: "f1-default",
   });
   session.ensurePilotTranscriptAndJournalSchema();
@@ -691,35 +693,46 @@ describe.runIf(runSeed)("S08-4 seed final fidelity canonical Product DB", () => 
       },
       visualFixtures: {
         "p3-decision-pending": {
-          projectIdKey: "productSimplification",
           name: "Product Simplification",
+          snapshot: "decision-pending",
         },
         "p3-workspace-rich": {
-          projectIdKey: "noraCompletion",
-          name: "Nora Completion",
+          name: "Product Simplification",
+          snapshot: "workspace-rich",
         },
         "p3-confirmation-required": {
-          projectIdKey: "runtimeV3",
-          name: "Runtime v3",
+          name: "Product Simplification",
+          snapshot: "confirmation-required",
         },
         "p3-syntheses-rich": {
-          projectIdKey: "noraCompletion",
-          name: "Nora Completion",
+          name: "Product Simplification",
+          snapshot: "workspace-rich",
+        },
+        "p3-journal-rich": {
+          name: "Product Simplification",
+          snapshot: "workspace-rich",
+        },
+        "p3-history-rich": {
+          name: "Product Simplification",
+          snapshot: "workspace-rich",
+        },
+        "p3-apercu-rich": {
+          name: "Product Simplification",
+          snapshot: "workspace-rich",
         },
       },
       guarantees: [
         "≥4 Product projects including Product Simplification, Nora Completion, Runtime v3, Knowledge Core",
-        "Nora Completion: governed execute + W3-B terminal + W3-C (fake provider) + current Product synthesis row",
-        "Nora Completion: companion session journal subjects + pilot transcript (separate SQLite)",
-        "Product Simplification: bound_awaiting_decision with ≥2 trajectory options (Figma-aligned Decision fixture)",
-        "Runtime v3: active governed continuity at confirmation_required",
-        "Knowledge Core: list-density only (no Decision visual role)",
+        "Nora Completion: functional rich_workspace fixture (not final Figma identity)",
+        "Canonical visual snapshots under states/snapshots/* use Product Simplification only",
+        "Product Simplification (multi-project DB): bound_awaiting_decision for list+decision coexistence",
+        "Runtime v3: functional confirmation fixture (not final Figma identity)",
+        "Knowledge Core: list-density only",
       ],
       limitations: [
-        "Cycle journal and pilot transcript live in companion-nora-session.sqlite, not canonical-product.sqlite",
+        "Cycle journal / transcript for workspace-rich snapshot live in snapshots/workspace-rich/companion-nora-session.sqlite",
         "W3-C post-evidence uses OPS1_CONVERSATION_PROVIDER=fake (deterministic, not OpenAI REAL)",
-        "Workspace/Synthèses final visual fixture is Nora Completion (rich_workspace); Figma raster label Product Simplification — identityAligned=false until snapshot unification",
-        "Confirmation final visual fixture is Runtime v3; Figma raster label Product Simplification — identityAligned=false until snapshot unification",
+        "FINAL Figma pixel pairs must load the matching Product Simplification snapshot (identityAligned=true)",
         "Conversation turns beyond seeded transcript require live Nora turns (not seeded here)",
       ],
     };
@@ -727,5 +740,348 @@ describe.runIf(runSeed)("S08-4 seed final fidelity canonical Product DB", () => 
     fs.writeFileSync(MANIFEST_PATH, JSON.stringify(manifest, null, 2));
     expect(fs.existsSync(PRODUCT_DB)).toBe(true);
     expect(fs.statSync(PRODUCT_DB).size).toBeGreaterThan(0);
+  });
+
+  it("writes Product Simplification canonical visual snapshots", async () => {
+    const SNAPSHOTS = path.join(STATES_DIR, "snapshots");
+    fs.mkdirSync(SNAPSHOTS, { recursive: true });
+
+    // --- workspace-rich (also journal / history / syntheses / aperçu) ---
+    {
+      const dir = path.join(SNAPSHOTS, "workspace-rich");
+      fs.mkdirSync(dir, { recursive: true });
+      const productDb = path.join(dir, "product.sqlite");
+      const sessionDb = path.join(dir, "companion-nora-session.sqlite");
+      for (const p of [productDb, sessionDb]) {
+        if (fs.existsSync(p)) fs.unlinkSync(p);
+      }
+      resetRuntimeApplicationServiceForTests();
+      clearW3bBoundaryArm();
+      const runtime = bootW2Runtime({
+        productDbPath: productDb,
+        idPrefix: "s084ws",
+      });
+      const oa = runtime.oa!;
+      const project = await seedNamedQualifiedProject(runtime, {
+        name: "Product Simplification",
+        suffix: "ws",
+        objective: "Réduire la surface opératoire sans perdre la vérité Product",
+        profile: "Standard",
+        reservations: [
+          {
+            statement:
+              "La recommandation W3-C doit rester non autoritaire jusqu'à revue pilote.",
+            blocking: false,
+          },
+        ],
+      });
+      await oa.cycleServices.updateEpistemicState.execute({
+        projectId: project.projectId,
+        items: [
+          {
+            epistemicItemId: "epi:s084-rec-ws",
+            type: "Recommendation",
+            statement:
+              "Poursuivre la boucle post-preuve et matérialiser la synthèse dérivée.",
+            status: "active",
+            authority: "none",
+          },
+        ],
+        createdBy: W2_TEST_ACTOR,
+      });
+      const journalEntryIds = seedCompanionJournal({
+        projectId: project.projectId,
+        cycleInstanceId: project.cycleInstanceId,
+        sessionDbPath: sessionDb,
+      });
+      const executeFacts = await seedGovernedExecuteThroughSuccess(
+        runtime,
+        project.projectId,
+      );
+      const materialized = await materializeW3bProductTerminal({
+        oa,
+        projectId: project.projectId,
+        attemptId: executeFacts.attemptId,
+      });
+      expect(materialized.ok).toBe(true);
+      if (!materialized.ok) throw new Error("ws w3b");
+      const store = oa.projectServices.store as SqliteProductStore;
+      const synthesisSvc = createSqliteSynthesisServices({ productStore: store });
+      const syntheses = await synthesisSvc.repository.listByProject(
+        project.projectId,
+      );
+      const currentSynthesis = syntheses.find((s) => s.status === "current");
+      expect(currentSynthesis).toBeTruthy();
+      fs.writeFileSync(
+        path.join(dir, "manifest.json"),
+        JSON.stringify(
+          {
+            snapshot: "workspace-rich",
+            projectId: project.projectId,
+            projectName: "Product Simplification",
+            productDbPath: productDb,
+            companionSessionDbPath: sessionDb,
+            synthesisId: currentSynthesis!.synthesisId,
+            journalEntryIds,
+            attemptId: executeFacts.attemptId,
+            identityAligned: true,
+          },
+          null,
+          2,
+        ),
+      );
+    }
+
+    // --- decision-pending ---
+    {
+      const dir = path.join(SNAPSHOTS, "decision-pending");
+      fs.mkdirSync(dir, { recursive: true });
+      const productDb = path.join(dir, "product.sqlite");
+      if (fs.existsSync(productDb)) fs.unlinkSync(productDb);
+      resetRuntimeApplicationServiceForTests();
+      clearW3bBoundaryArm();
+      const runtime = bootW2Runtime({
+        productDbPath: productDb,
+        idPrefix: "s084dec",
+      });
+      const oa = runtime.oa!;
+      const project = await seedNamedQualifiedProject(runtime, {
+        name: "Product Simplification",
+        suffix: "dec",
+        objective: "Réduire la surface opératoire sans perdre la vérité Product",
+        profile: "Critical",
+      });
+      const ctx = await currentF2Context(runtime, project.projectId);
+      const proposal = saveProposal({
+        proposalId: "prop:f2:s084-visual-decision",
+        status: "DECISION_REQUIRED",
+        rephrasedRequest: "Choisir la direction de l'espace projet",
+        objective: "Conserver la conversation comme surface principale",
+        cycleTypeId: "cyc:delivery",
+        recommendedProfile: "Critical",
+        rationale:
+          "Deux directions plausibles — la première privilégie la conversation ; la seconde densifie le contexte persistant.",
+        scope: "docs_write borné — cycle actif",
+        outOfScope: ["nouveau cycle", "REAL"],
+        activatedBlocks: [],
+        expectedOutcome: "Direction retenue sans exécution",
+        sources: ["nora"],
+        risks: [],
+        reservations: [],
+        stopConditions: ["AUCUNE EXÉCUTION", "STOP AVANT EXECUTE"],
+        morrisGateRequired: true,
+        nextPossibleStep: "Décider la direction",
+        contextSnapshot: {
+          projectId: project.projectId,
+          lpsId: ctx.lpsId,
+          lpsVersion: ctx.lpsVersion,
+          doctrineDigest: ctx.doctrineDigest,
+          activeCycleInstanceId: project.cycleInstanceId,
+          ckcResolutionRef: "ckcres:w2-harness",
+        },
+        processLocalNotice: F2_PROCESS_LOCAL_NOTICE,
+        executionForbidden: true,
+        noExecutingStatus: true,
+        agentBinding: "NOT_AVAILABLE",
+        requestedOperation: null,
+        executionIntent: {
+          intentKind: "docs_write",
+          artifactType: null,
+          targetPath: TARGET_PATH,
+          scopeIn: ["sandbox"],
+          scopeOut: ["git"],
+          expectedOutputs: ["markdown"],
+          requiredCapabilities: ["cap:cursor.docs_write"],
+          validationExpectations: [],
+          evidenceRequirements: [],
+          requestedOperation: F2_ARTIFACT_MATERIALIZATION_OPERATION,
+          reversibilityExpectation: "reversible",
+          artifactBrief: "Note gestion de tâches",
+          contentRequirements: [],
+          exitRequirementKinds: [],
+          artifactWriteMode: "CREATE",
+          targetRepositoryRef:
+            process.env.SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY?.trim() ||
+            "acme/w2-harness",
+        },
+      });
+      const sealed = sealProposalExecutionBasis(proposal);
+      const digest = computeProposalSubjectDigest(sealed, proposal.proposalId);
+      await writePendingDecisionSubjectMarker({
+        oa,
+        projectId: project.projectId,
+        proposalId: proposal.proposalId,
+        subjectDigest: digest,
+        lpsId: ctx.lpsId,
+        lpsVersion: ctx.lpsVersion,
+        doctrineDigest: ctx.doctrineDigest,
+      });
+      const qual = await resolveW2QualificationInputs({
+        oa,
+        projectId: project.projectId,
+      });
+      expect(qual.ok).toBe(true);
+      if (!qual.ok) throw new Error(qual.code);
+      const proposed = await proposeTrajectoryOptions({
+        oa,
+        projectId: project.projectId,
+        ...qual.qualification.inputs,
+        packagePin: qual.qualification.packagePin,
+        objective: qual.qualification.objective,
+        projectTitle: qual.qualification.projectTitle,
+        proposalId: proposal.proposalId,
+      });
+      expect(proposed.ok).toBe(true);
+      const subject = await readActiveProposalDecisionSubject(
+        oa,
+        project.projectId,
+      );
+      expect(subject.ok && subject.kind === "bound_awaiting_decision").toBe(
+        true,
+      );
+      fs.writeFileSync(
+        path.join(dir, "manifest.json"),
+        JSON.stringify(
+          {
+            snapshot: "decision-pending",
+            projectId: project.projectId,
+            projectName: "Product Simplification",
+            productDbPath: productDb,
+            proposalId: proposal.proposalId,
+            subjectKind: subject.ok ? subject.kind : null,
+            identityAligned: true,
+          },
+          null,
+          2,
+        ),
+      );
+    }
+
+    // --- confirmation-required ---
+    {
+      const dir = path.join(SNAPSHOTS, "confirmation-required");
+      fs.mkdirSync(dir, { recursive: true });
+      const productDb = path.join(dir, "product.sqlite");
+      if (fs.existsSync(productDb)) fs.unlinkSync(productDb);
+      resetRuntimeApplicationServiceForTests();
+      clearW3bBoundaryArm();
+      const runtime = bootW2Runtime({
+        productDbPath: productDb,
+        idPrefix: "s084cf",
+      });
+      const oa = runtime.oa!;
+      const project = await seedNamedQualifiedProject(runtime, {
+        name: "Product Simplification",
+        suffix: "cf",
+        objective: "Réduire la surface opératoire sans perdre la vérité Product",
+        profile: "Critical",
+      });
+      const qual = await resolveW2QualificationInputs({
+        oa,
+        projectId: project.projectId,
+      });
+      expect(qual.ok).toBe(true);
+      if (!qual.ok) throw new Error(qual.code);
+      const proposed = await proposeTrajectoryOptions({
+        oa,
+        projectId: project.projectId,
+        ...qual.qualification.inputs,
+        packagePin: qual.qualification.packagePin,
+        objective: qual.qualification.objective,
+        projectTitle: qual.qualification.projectTitle,
+      });
+      expect(proposed.ok).toBe(true);
+      const decided = await decideTrajectory({
+        oa,
+        projectId: project.projectId,
+        optionSetRef: proposed.optionSetRef,
+        options: proposed.options,
+        recommendedOptionRef: proposed.recommendation.recommendedOptionRef,
+        selectedOptionRef: GOVERNED_OPTION_REF,
+        trajectoryId: proposed.proposedTrajectory!.trajectoryId,
+        candidateVersion: proposed.proposedTrajectory!.version,
+        forceLocalAuthority: true,
+      });
+      expect(decided.ok).toBe(true);
+      if (!decided.ok) throw new Error("cf decide");
+      const ctx = await currentF2Context(runtime, project.projectId);
+      const prepared = await prepareExecutionContractFromW2Decision({
+        oa,
+        projectId: project.projectId,
+        decisionId: decided.decision.decisionId,
+        currentContext: ctx,
+        forceLocalAuthority: true,
+        qualifiedOperationKind: "generate-temporary-artifact",
+        pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+      });
+      expect(prepared.ok).toBe(true);
+      if (!prepared.ok) throw new Error(prepared.code);
+      expect(prepared.contract.status).toBe("confirmation_required");
+      await inspectExecutionContract({
+        oa,
+        projectId: project.projectId,
+        executionContractId: prepared.contract.executionContractId,
+      });
+      const continuity = await readCurrentGovernedExecutionContinuity({
+        oa,
+        projectId: project.projectId,
+      });
+      expect(continuity.ok && continuity.kind === "active").toBe(true);
+      fs.writeFileSync(
+        path.join(dir, "manifest.json"),
+        JSON.stringify(
+          {
+            snapshot: "confirmation-required",
+            projectId: project.projectId,
+            projectName: "Product Simplification",
+            productDbPath: productDb,
+            executionContractId: prepared.contract.executionContractId,
+            contractStatus: prepared.contract.status,
+            identityAligned: true,
+          },
+          null,
+          2,
+        ),
+      );
+    }
+
+    // Index for capture harness
+    const index = {
+      canonicalVisualProjectName: "Product Simplification",
+      snapshots: {
+        "workspace-rich": {
+          productDb: path.join(SNAPSHOTS, "workspace-rich/product.sqlite"),
+          sessionDb: path.join(
+            SNAPSHOTS,
+            "workspace-rich/companion-nora-session.sqlite",
+          ),
+          projectName: "Product Simplification",
+        },
+        "decision-pending": {
+          productDb: path.join(SNAPSHOTS, "decision-pending/product.sqlite"),
+          projectName: "Product Simplification",
+        },
+        "confirmation-required": {
+          productDb: path.join(
+            SNAPSHOTS,
+            "confirmation-required/product.sqlite",
+          ),
+          projectName: "Product Simplification",
+        },
+      },
+    };
+    fs.writeFileSync(
+      path.join(SNAPSHOTS, "index.json"),
+      JSON.stringify(index, null, 2),
+    );
+    expect(fs.existsSync(index.snapshots["workspace-rich"].productDb)).toBe(
+      true,
+    );
+    expect(fs.existsSync(index.snapshots["decision-pending"].productDb)).toBe(
+      true,
+    );
+    expect(
+      fs.existsSync(index.snapshots["confirmation-required"].productDb),
+    ).toBe(true);
   });
 });

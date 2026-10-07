@@ -27,6 +27,14 @@ export type VisualPairRecord = {
     expectedVisible: string[];
     expectedAbsent: string[];
   };
+  /**
+   * FINAL Figma pixel-fidelity pairs MUST set identityAligned=true
+   * (runtime Product identity matches the canonical Figma Product identity).
+   * identityAligned !== true → HARNESS_PAIRING_MISMATCH → DIFF_FORBIDDEN.
+   */
+  identityAligned?: boolean;
+  /** When true (default for manifested final pairs), enforce identityAligned===true. */
+  finalFidelity?: boolean;
 };
 
 export type RuntimeObservation = {
@@ -100,6 +108,16 @@ export function evaluateVisualPair(
     id: record.id,
     reason: formatPairingMismatch(reason),
   });
+
+  // FINAL fidelity pairs declare identityAligned. It must be true — no exception.
+  const enforceIdentityAligned =
+    record.finalFidelity === true ||
+    Object.prototype.hasOwnProperty.call(record, "identityAligned");
+  if (enforceIdentityAligned && record.identityAligned !== true) {
+    return fail(
+      `identityAligned=${String(record.identityAligned)}\nexpectedIdentityAligned=true\nfixtureId=${record.runtime.fixtureId}`,
+    );
+  }
 
   if (
     obs.viewport.width !== record.figma.viewport.width ||
