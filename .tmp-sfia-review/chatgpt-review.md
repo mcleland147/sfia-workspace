@@ -7,7 +7,8 @@
 **Branch:** `delivery/sfia-studio-product-simplification-p5-s08-global-p3-visual-parity`
 **origin/main:** `eed18bd572d65b6f5f4878ed24b195e4feeb5c7e`
 **Entry HEAD:** `e692bf2335f3258e83bfc3eb7c7f7f82747265e6`
-**Exit HEAD:** `c5ff58d0d270985d03427575c08d78f673b5b3da` · proof `4b7a9469ae4808f3ed42dd27787781bdb8c71257`
+**Proof Exit HEAD:** `4b7a9469ae4808f3ed42dd27787781bdb8c71257`
+**Documentation tip HEAD:** `ae0048fcda76321e438755de1ac07f4362438527`
 
 **Verdict:**
 
