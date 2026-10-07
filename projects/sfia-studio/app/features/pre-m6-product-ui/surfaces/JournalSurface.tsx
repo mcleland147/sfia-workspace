@@ -529,7 +529,7 @@ export function JournalSurface({
                 aria-controls={item.paneId}
                 onClick={() => setTab(item.id)}
               >
-                {/* Principal: plain digit beside label (192:41 / 94:2) — never a circle badge. */}
+                {/* Principal 94:2: rectangular count chip; mobile 192:41 collapses to digit. */}
                 {principal ? (
                   <>
                     <span className={styles.tabLabel}>{item.label}</span>

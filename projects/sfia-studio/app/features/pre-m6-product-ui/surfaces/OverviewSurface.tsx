@@ -300,16 +300,21 @@ export function OverviewSurface({
               </p>
             ) : (
               <ol className={styles.track}>
-                {trajectory.map((node) => (
-                  <li
-                    key={node.key}
-                    className={styles.node}
-                    data-state={node.state}
-                  >
-                    <span className={styles.nodeDot} aria-hidden />
-                    <span className={styles.nodeName}>
-                      C{node.ordinal} · {node.label}
-                    </span>
+                {trajectory.map((node, index) => (
+                  <li key={node.key} className={styles.trackStep}>
+                    {index > 0 ? (
+                      <span
+                        className={styles.trackConnector}
+                        data-state={node.state}
+                        aria-hidden
+                      />
+                    ) : null}
+                    <div className={styles.node} data-state={node.state}>
+                      <span className={styles.nodeDot} aria-hidden />
+                      <span className={styles.nodeName}>
+                        C{node.ordinal} · {node.label}
+                      </span>
+                    </div>
                   </li>
                 ))}
               </ol>
