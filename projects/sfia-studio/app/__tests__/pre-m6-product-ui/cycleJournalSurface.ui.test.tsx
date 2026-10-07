@@ -161,7 +161,7 @@ describe("recovery transcript honesty", () => {
     const msg = w1RestartHonestyMessage({
       transcriptAvailability: "available",
     });
-    expect(msg).toMatch(/Projet restauré/);
+    expect(msg).toMatch(/Contexte du projet restauré/);
     expect(msg).not.toMatch(/Peut devoir être repris : conversation en cours/);
   });
 });
