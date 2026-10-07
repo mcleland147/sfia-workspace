@@ -157,11 +157,9 @@ test.describe("P5-S08-4 P3 visual parity", () => {
 
     await gotoAuthenticatedStudio(page, { path: "/studio" });
     await waitProjectsReady(page);
+    await page.setViewportSize({ width: 1440, height: 1024 });
     const open = page.getByTestId("studio-projects-open").first();
-    test.skip(
-      !(await open.isVisible().catch(() => false)),
-      "No populated project available for workspace visual proof",
-    );
+    await expect(open).toBeVisible({ timeout: 45_000 });
     await open.click();
     await expect(page.getByTestId("project-workspace-layout")).toBeVisible({
       timeout: 45_000,
