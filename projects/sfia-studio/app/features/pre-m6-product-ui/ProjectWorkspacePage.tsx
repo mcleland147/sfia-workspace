@@ -502,7 +502,9 @@ export function ProjectWorkspacePage({
     transcriptAvailability: controller.transcriptAvailability,
     stateVersion: success.livingState.version,
   });
-  const cycleSummary = deriveCycleSummary(lifecycle);
+  const cycleSummary = deriveCycleSummary(lifecycle, {
+    shortReference: success.project.shortReference,
+  });
   const pendingWorkRecommendationCount = cycleRecommendations.filter(
     (r) => r.status === "active" && !r.dispositionDecisionId,
   ).length;
@@ -529,6 +531,15 @@ export function ProjectWorkspacePage({
       className={styles.root}
       data-testid="project-principal"
       data-active-view={activeView}
+      data-content-aligned-cycle-label={cycleSummary.workLabel}
+      data-content-aligned-cycle-status={cycleSummary.statusLabel ?? ""}
+      data-content-aligned-decision-count={String(decisionCount)}
+      data-content-aligned-reserve-count={String(reserveCount)}
+      data-content-aligned-execution-badge={
+        executionBadge != null ? String(executionBadge) : "0"
+      }
+      data-content-aligned-trajectory-nodes={String(trajectoryNodes.length)}
+      data-content-aligned-focus-topic={focusTopic ?? ""}
     >
       <div
         className={styles.globalHeader}
@@ -569,16 +580,27 @@ export function ProjectWorkspacePage({
               </span>
               {success.project.name}
             </h1>
-            <p className={styles.projectObjective}>
+            <p
+              className={styles.projectObjective}
+              data-testid="project-subtitle"
+            >
               {success.project.objective}
             </p>
           </div>
           <div className={styles.projectChips}>
             {lifecycle?.selectedCycleInstanceId ? (
               <>
-                <span className={styles.chipAccent}>{cycleSummary.label}</span>
+                <span
+                  className={styles.chipAccent}
+                  data-testid="project-cycle-work-label"
+                >
+                  {cycleSummary.workLabel}
+                </span>
                 {cycleSummary.statusLabel ? (
-                  <span className={styles.chipMuted}>
+                  <span
+                    className={styles.chipMuted}
+                    data-testid="project-cycle-status-label"
+                  >
                     {cycleSummary.statusLabel}
                   </span>
                 ) : null}

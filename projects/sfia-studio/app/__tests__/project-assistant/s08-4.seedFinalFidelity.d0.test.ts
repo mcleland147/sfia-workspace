@@ -86,6 +86,9 @@ async function seedNamedQualifiedProject(
     readonly objective?: string;
     readonly profile?: "Standard" | "Critical";
     readonly cycleTypeId?: string;
+    readonly shortReference?: string;
+    /** START the cycle so status badge reads « En cours » (QA visual state). */
+    readonly startCycle?: boolean;
     readonly reservations?: readonly { statement: string; blocking?: boolean }[];
   },
 ): Promise<SeededW2Project> {
@@ -98,7 +101,8 @@ async function seedNamedQualifiedProject(
     context: "Seed fidélité S08-4 — aucune exécution REAL",
     criticality: input.profile === "Critical" ? "HIGH" : "STANDARD",
     constraints: ["AUCUNE EXÉCUTION REAL"],
-    shortReference: suffix.slice(0, 8).toUpperCase(),
+    shortReference:
+      input.shortReference ?? suffix.slice(0, 8).toUpperCase(),
     idempotencyKey: `s084-fidelity-${suffix}`,
   });
   expect(created.ok).toBe(true);
@@ -135,6 +139,68 @@ async function seedNamedQualifiedProject(
     throw new Error(
       `seedNamed: createCycle failed (${cycle.code}: ${cycle.message})`,
     );
+  }
+
+  if (input.startCycle) {
+    // QA visual state: promote the linked cycle to ACTIVE so the badge reads
+    // « En cours ». Full greenfield START requires a validated trajectory; the
+    // canonical visual snapshot uses durable CycleInstance status instead.
+    const currentRow = await oa.cycleServices.cycles.findById(cycleInstanceId);
+    expect(currentRow).toBeTruthy();
+    if (!currentRow) throw new Error("seedNamed: current cycle missing");
+    await oa.cycleServices.cycles.save({
+      ...currentRow,
+      status: "active",
+    });
+
+    // Prior completed cycles — honest Product trajectory (Terminé ×2).
+    for (const past of [
+      { id: `cyc:inst:w2-${suffix}-past-1`, type: "cyc:delivery" },
+      { id: `cyc:inst:w2-${suffix}-past-2`, type: "cyc:functional-design" },
+    ]) {
+      const pastCreated = await oa.cycleServices.createCycle.execute({
+        cycleInstanceId: past.id,
+        cycleTypeId: past.type,
+        projectId,
+        signals: {},
+        objective: "Cycle terminé — trajectoire P3",
+        scope: "s08-4-fidelity-history",
+        createdBy: W2_TEST_ACTOR,
+        linkAsActiveCycle: false,
+        ckcResolutionRef: "ckcres:w2-harness",
+      });
+      expect(pastCreated.ok).toBe(true);
+      if (!pastCreated.ok) {
+        throw new Error(`seedNamed: past cycle ${past.id} create failed`);
+      }
+      const pastRow = await oa.cycleServices.cycles.findById(past.id);
+      expect(pastRow).toBeTruthy();
+      if (!pastRow) throw new Error(`seedNamed: past cycle ${past.id} missing`);
+      await oa.cycleServices.cycles.save({
+        ...pastRow,
+        status: "completed",
+        closedAt: "2026-08-20T12:00:00.000Z",
+      });
+    }
+
+    // Future candidate — Proposé node on the trajectory strip.
+    const proposed = await oa.cycleServices.createCycle.execute({
+      cycleInstanceId: `cyc:inst:w2-${suffix}-proposed`,
+      cycleTypeId: "cyc:delivery",
+      projectId,
+      signals: {},
+      objective: "Cycle proposé — trajectoire P3",
+      scope: "s08-4-fidelity-future",
+      createdBy: W2_TEST_ACTOR,
+      linkAsActiveCycle: false,
+      ckcResolutionRef: "ckcres:w2-harness",
+    });
+    expect(proposed.ok).toBe(true);
+    if (!proposed.ok) {
+      throw new Error(
+        `seedNamed: proposed cycle failed (${proposed.code}: ${proposed.message})`,
+      );
+    }
   }
 
   if (input.reservations?.length) {
@@ -752,8 +818,10 @@ describe.runIf(runSeed)("S08-4 seed final fidelity canonical Product DB", () => 
         objective:
           "Simplifier le pilotage sans perdre gouvernance, preuve et maîtrise du Pilote.",
         profile: "Standard",
-        // P3 visual identity — UX/UI catalog label (honest Product cycle type).
+        // P3 visual identity — shortReference + UX/UI + started (« En cours »).
+        shortReference: "P3",
         cycleTypeId: "cyc:ux-ui",
+        startCycle: true,
         reservations: [
           {
             statement:
@@ -848,6 +916,16 @@ describe.runIf(runSeed)("S08-4 seed final fidelity canonical Product DB", () => 
             journalEntryIds,
             attemptId: executeFacts.attemptId,
             identityAligned: true,
+            contentAligned: true,
+            content: {
+              projectName: "Product Simplification",
+              currentWorkLabel: "P3 · UX/UI",
+              currentCycleStatus: "En cours",
+              trajectoryVisibleNodes: 4,
+              executionCount: "1",
+              reserveCount: "1",
+              focusTopic: "Espace projet",
+            },
           },
           null,
           2,
@@ -973,6 +1051,11 @@ describe.runIf(runSeed)("S08-4 seed final fidelity canonical Product DB", () => 
             proposalId: proposal.proposalId,
             subjectKind: subject.ok ? subject.kind : null,
             identityAligned: true,
+            contentAligned: true,
+            content: {
+              projectName: "Product Simplification",
+              confirmationState: "decision",
+            },
           },
           null,
           2,
@@ -1061,6 +1144,11 @@ describe.runIf(runSeed)("S08-4 seed final fidelity canonical Product DB", () => 
             executionContractId: prepared.contract.executionContractId,
             contractStatus: prepared.contract.status,
             identityAligned: true,
+            contentAligned: true,
+            content: {
+              projectName: "Product Simplification",
+              confirmationState: "required",
+            },
           },
           null,
           2,

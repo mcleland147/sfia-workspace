@@ -137,21 +137,47 @@ export function deriveAttentionItems(input: {
 }
 
 export type CycleSummary = {
+  /** Catalog cycle type label (Journal / context — never invent « P3 · »). */
   label: string;
+  /**
+   * Header work chip. When shortReference is set (e.g. « P3 »), composes
+   * `{shortReference} · {catalogLabel}` from durable project facts.
+   */
+  workLabel: string;
   statusLabel: string | null;
 };
 
+/**
+ * Cycle labels from lifecycle projection (+ optional project shortReference).
+ */
 export function deriveCycleSummary(
   lifecycle: PilotLifecycleProjection | null,
+  options?: { shortReference?: string | null },
 ): CycleSummary {
   if (!lifecycle) {
-    return { label: "Lecture du cycle…", statusLabel: null };
+    return {
+      label: "Lecture du cycle…",
+      workLabel: "Lecture du cycle…",
+      statusLabel: null,
+    };
   }
   if (!lifecycle.selectedCycleInstanceId) {
-    return { label: "Aucun cycle actif", statusLabel: null };
+    return {
+      label: "Aucun cycle actif",
+      workLabel: "Aucun cycle actif",
+      statusLabel: null,
+    };
   }
+  const catalog =
+    lifecycle.selectedCycleCatalogLabel?.trim() || "Cycle rattaché au projet";
+  const ref = options?.shortReference?.trim() || "";
+  const workLabel =
+    ref.length > 0 && !catalog.startsWith(`${ref} ·`)
+      ? `${ref} · ${catalog}`
+      : catalog;
   return {
-    label: lifecycle.selectedCycleCatalogLabel?.trim() || "Cycle rattaché au projet",
+    label: catalog,
+    workLabel,
     statusLabel: lifecycleStatusBadge(lifecycle).label,
   };
 }

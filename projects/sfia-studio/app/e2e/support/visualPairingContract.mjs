@@ -36,13 +36,43 @@ function routeMatches(expected, actualUrl) {
   }
 }
 
+function normalizeFact(value) {
+  if (value == null) return "";
+  return String(value).trim();
+}
+
+function contentFactsMatch(expected, actual) {
+  const keys = Object.keys(expected);
+  for (const key of keys) {
+    const exp = expected[key];
+    if (exp === undefined) continue;
+    const act = actual?.[key];
+    if (normalizeFact(exp) !== normalizeFact(act)) {
+      return {
+        ok: false,
+        reason: `contentMismatch field=${key}\nexpected=${normalizeFact(exp)}\nactual=${normalizeFact(act) || "(none)"}`,
+      };
+    }
+  }
+  return { ok: true };
+}
+
 export function evaluateVisualPair(record, obs) {
+  const alignment = {
+    identityAligned: false,
+    contentAligned: false,
+    semanticStateAligned: false,
+    activeViewAligned: false,
+    viewportAligned: false,
+  };
+
   const fail = (reason) => ({
     ok: false,
     pairing: "FAIL",
     code: HARNESS_PAIRING_MISMATCH,
     id: record.id,
     reason: formatPairingMismatch(reason),
+    alignment,
   });
 
   const enforceIdentityAligned =
@@ -51,6 +81,17 @@ export function evaluateVisualPair(record, obs) {
   if (enforceIdentityAligned && record.identityAligned !== true) {
     return fail(
       `identityAligned=${String(record.identityAligned)}\nexpectedIdentityAligned=true\nfixtureId=${record.runtime.fixtureId}`,
+    );
+  }
+  alignment.identityAligned =
+    record.identityAligned === true || !enforceIdentityAligned;
+
+  const enforceContentAligned =
+    record.finalFidelity === true ||
+    Object.prototype.hasOwnProperty.call(record, "contentAligned");
+  if (enforceContentAligned && record.contentAligned !== true) {
+    return fail(
+      `contentAligned=${String(record.contentAligned)}\nexpectedContentAligned=true\nfixtureId=${record.runtime.fixtureId}`,
     );
   }
 
@@ -62,6 +103,7 @@ export function evaluateVisualPair(record, obs) {
       `expectedViewport=${record.figma.viewport.width}x${record.figma.viewport.height}\nactualViewport=${obs.viewport.width}x${obs.viewport.height}`,
     );
   }
+  alignment.viewportAligned = true;
 
   if (!routeMatches(record.runtime.route, obs.url)) {
     return fail(`expectedRoute=${record.runtime.route}\nactualUrl=${obs.url}`);
@@ -95,6 +137,9 @@ export function evaluateVisualPair(record, obs) {
         `expectedView=${record.runtime.view}\nactualView=${actualView || "(none)"}`,
       );
     }
+    alignment.activeViewAligned = true;
+  } else {
+    alignment.activeViewAligned = true;
   }
 
   const semanticMarkers = record.state.expectedVisible.filter(
@@ -149,7 +194,34 @@ export function evaluateVisualPair(record, obs) {
     return fail(`forbiddenVisible=${marker}`);
   }
 
-  return { ok: true, pairing: "PASS", id: record.id };
+  alignment.semanticStateAligned = true;
+
+  if (enforceContentAligned) {
+    if (!record.content || Object.keys(record.content).length === 0) {
+      return fail(
+        `contentAligned=true but content facts missing\nfixtureId=${record.runtime.fixtureId}`,
+      );
+    }
+    const matched = contentFactsMatch(record.content, obs.content);
+    if (!matched.ok) {
+      return fail(matched.reason);
+    }
+    alignment.contentAligned = true;
+  } else {
+    alignment.contentAligned = true;
+  }
+
+  if (
+    !alignment.identityAligned ||
+    !alignment.contentAligned ||
+    !alignment.semanticStateAligned ||
+    !alignment.activeViewAligned ||
+    !alignment.viewportAligned
+  ) {
+    return fail(`alignmentGateFailed ${JSON.stringify(alignment)}`);
+  }
+
+  return { ok: true, pairing: "PASS", id: record.id, alignment };
 }
 
 export function mayGenerateDiff(pairing) {

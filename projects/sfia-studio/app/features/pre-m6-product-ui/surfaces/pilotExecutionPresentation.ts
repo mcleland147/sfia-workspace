@@ -565,5 +565,10 @@ export function deriveExecutionTabBadge(
   ) {
     return 1;
   }
+  // Completed execution with a verified result still warrants Exécution attention
+  // (P3 Workspace 46:2 — badge « 1 » alongside Synthèse disponible).
+  if (presentation.status === "terminee" && presentation.resultVerified) {
+    return 1;
+  }
   return null;
 }

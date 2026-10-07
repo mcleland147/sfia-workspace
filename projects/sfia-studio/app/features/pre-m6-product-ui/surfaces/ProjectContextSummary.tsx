@@ -56,7 +56,8 @@ export function ProjectContextSummary({
           <div className={styles.fact}>
             <dt>Cycle</dt>
             <dd>
-              {cycle.label}
+              {/* workLabel = shortReference · catalog when present (header chip parity). */}
+              {cycle.workLabel}
               {cycle.statusLabel ? (
                 <span className={styles.sub}>{cycle.statusLabel}</span>
               ) : null}

@@ -35,6 +35,13 @@ function baseObs(
     ],
     forbiddenPresent: [],
     collectPhase: null,
+    content: {
+      surfaceKind: "project-workspace",
+      projectName: "Product Simplification",
+      profileDisplayName: "mcleland147",
+      activeView: "conversation",
+      confirmationState: "decision",
+    },
     ...overrides,
   };
 }
@@ -60,6 +67,15 @@ const decisionPair: VisualPairRecord = {
       "governed-confirmation-card",
       "next-dev-issues-badge",
     ],
+  },
+  identityAligned: true,
+  contentAligned: true,
+  content: {
+    surfaceKind: "project-workspace",
+    projectName: "Product Simplification",
+    profileDisplayName: "mcleland147",
+    activeView: "conversation",
+    confirmationState: "decision",
   },
 };
 
@@ -89,6 +105,14 @@ describe("S08-4 visual pairing contract", () => {
         (p as { identityAligned?: boolean }).identityAligned,
         p.id,
       ).toBe(true);
+      expect(
+        (p as { contentAligned?: boolean }).contentAligned,
+        p.id,
+      ).toBe(true);
+      expect(
+        Object.keys((p as { content?: object }).content ?? {}).length,
+        `${p.id} content facts`,
+      ).toBeGreaterThan(0);
     }
     expect(findPairById(manifest.pairs as never, "decision-mobile")?.figma.nodeId).toBe(
       "190:495",
@@ -206,6 +230,39 @@ describe("S08-4 visual pairing contract", () => {
     expect(mayGenerateDiff("FAIL")).toBe(false);
   });
 
+  it("rejects contentAligned=false for final fidelity pairs", () => {
+    const result = evaluateVisualPair(
+      { ...decisionPair, contentAligned: false, finalFidelity: true },
+      baseObs(),
+    );
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.reason).toContain("contentAligned=false");
+      expect(result.reason).toContain("expectedContentAligned=true");
+    }
+  });
+
+  it("rejects mismatched content facts", () => {
+    const result = evaluateVisualPair(
+      decisionPair,
+      baseObs({
+        content: {
+          surfaceKind: "project-workspace",
+          projectName: "Product Simplification",
+          profileDisplayName: "Pilote",
+          activeView: "conversation",
+          confirmationState: "decision",
+        },
+      }),
+    );
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.reason).toContain("contentMismatch field=profileDisplayName");
+      expect(result.reason).toContain("expected=mcleland147");
+      expect(result.reason).toContain("actual=Pilote");
+    }
+  });
+
   it("validates new-project-rich collect phase", () => {
     const pair: VisualPairRecord = {
       id: "new-project-desktop",
@@ -226,6 +283,12 @@ describe("S08-4 visual pairing contract", () => {
         ],
         expectedAbsent: ["project-workspace-layout"],
       },
+      identityAligned: true,
+      contentAligned: true,
+      content: {
+        surfaceKind: "new-project",
+        profileDisplayName: "mcleland147",
+      },
     };
     const bad = evaluateVisualPair(pair, {
       url: "http://localhost:3020/studio/projects/new",
@@ -233,6 +296,10 @@ describe("S08-4 visual pairing contract", () => {
       present: ["create-project-form"],
       forbiddenPresent: [],
       collectPhase: "INTENTION",
+      content: {
+        surfaceKind: "new-project",
+        profileDisplayName: "mcleland147",
+      },
     });
     expect(bad.ok).toBe(false);
     if (!bad.ok) {
@@ -248,6 +315,10 @@ describe("S08-4 visual pairing contract", () => {
       ],
       forbiddenPresent: [],
       collectPhase: "OPTIONAL_CONTEXT",
+      content: {
+        surfaceKind: "new-project",
+        profileDisplayName: "mcleland147",
+      },
     });
     expect(good.ok).toBe(true);
   });

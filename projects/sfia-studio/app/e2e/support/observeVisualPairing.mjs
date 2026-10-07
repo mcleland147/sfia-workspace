@@ -93,7 +93,89 @@ export async function observeVisualPairing(page, viewport) {
         ?.getAttribute("data-collect-phase") || null;
     const m = location.pathname.match(/\/studio\/projects\/([^/]+)/);
     const projectId = m && m[1] !== "new" ? decodeURIComponent(m[1]) : null;
-    return { present, projectName, activeView, collectPhase, projectId };
+
+    const principal = document.querySelector('[data-testid="project-principal"]');
+    const profileEl =
+      document.querySelector('[data-testid="studio-rail-profile"]') ||
+      document.querySelector('[data-testid="studio-mobile-profile"]');
+    const subtitleEl = document.querySelector(
+      '[data-testid="project-subtitle"]',
+    );
+    let surfaceKind;
+    if (document.querySelector('[data-testid="login-surface"]')) {
+      surfaceKind = "login";
+    } else if (document.querySelector('[data-testid="studio-projects-empty"]')) {
+      surfaceKind = "projects-empty";
+    } else if (document.querySelector('[data-testid="create-project-form"]')) {
+      surfaceKind = "new-project";
+    } else if (document.querySelector('[data-testid="studio-projects-home"]')) {
+      surfaceKind = "projects-home";
+    } else if (document.querySelector('[data-testid="project-workspace-layout"]')) {
+      surfaceKind = "project-workspace";
+    }
+
+    const content = {
+      surfaceKind,
+      projectName: projectName || undefined,
+      projectSubtitle: subtitleEl?.textContent?.trim() || undefined,
+      currentCycleLabel:
+        principal?.getAttribute("data-content-aligned-cycle-label") || undefined,
+      currentCycleStatus:
+        principal?.getAttribute("data-content-aligned-cycle-status") || undefined,
+      currentWorkLabel:
+        principal?.getAttribute("data-content-aligned-cycle-label") || undefined,
+      profileDisplayName:
+        profileEl?.getAttribute("data-profile-name")?.trim() ||
+        profileEl?.textContent?.trim() ||
+        undefined,
+      trajectoryVisibleNodes: principal?.getAttribute(
+        "data-content-aligned-trajectory-nodes",
+      )
+        ? Number(
+            principal.getAttribute("data-content-aligned-trajectory-nodes"),
+          )
+        : undefined,
+      executionCount:
+        principal?.getAttribute("data-content-aligned-execution-badge") ||
+        undefined,
+      decisionCount:
+        principal?.getAttribute("data-content-aligned-decision-count") ||
+        undefined,
+      reserveCount:
+        principal?.getAttribute("data-content-aligned-reserve-count") ||
+        undefined,
+      focusTopic:
+        principal?.getAttribute("data-content-aligned-focus-topic") || undefined,
+      activeView: activeView || undefined,
+      synthesisState: document.querySelector(
+        '[data-testid="conversation-synthesis-teaser"]',
+      )
+        ? "available"
+        : document.querySelector('[data-testid="project-syntheses-item"]')
+          ? "listed"
+          : undefined,
+      recommendationState: document.querySelector(
+        '[data-testid="durable-recommendation-card"]',
+      )
+        ? "pending"
+        : undefined,
+      confirmationState: document.querySelector(
+        '[data-testid="governed-confirmation-card"]',
+      )
+        ? "required"
+        : document.querySelector('[data-testid="governed-decision-card"]')
+          ? "decision"
+          : undefined,
+    };
+
+    return {
+      present,
+      projectName,
+      activeView,
+      collectPhase,
+      projectId,
+      content,
+    };
   }, MARKER_SELECTORS);
 
   return {
@@ -105,5 +187,6 @@ export async function observeVisualPairing(page, viewport) {
     present: snap.present,
     forbiddenPresent,
     collectPhase: snap.collectPhase,
+    content: snap.content,
   };
 }
