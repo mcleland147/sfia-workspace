@@ -11,11 +11,7 @@ import type {
 } from "../workspaceContextPresentation";
 import type { ProductSynthesisProjection } from "@/lib/oa/synthesis";
 import { getLatestRelevantProductSynthesisAction } from "@/features/project-assistant/synthesisActions";
-import {
-  formatSynthesisGeneratedAt,
-  presentSynthesisVerdictLabel,
-  synthesisSummaryExcerpt,
-} from "./synthesisPresentation";
+import { presentSynthesisVerdictLabel } from "./synthesisPresentation";
 import styles from "./OverviewSurface.module.css";
 
 export type OverviewRecentActivityItem = {
@@ -73,11 +69,12 @@ export type OverviewSurfaceProps = {
   currentness: CurrentnessPresentation;
   trajectory: TrajectoryNode[];
   attention: AttentionItem[];
+  /** Durable work-recommendation count from Product projection — never invented. */
+  recommendationCount: number;
   onOpenConversation: () => void;
   onOpenJournal: () => void;
   onOpenHistory: () => void;
   onOpenSyntheses: () => void;
-  onOpenSynthesisDetail?: (synthesisId: string) => void;
 };
 
 /**
@@ -94,11 +91,11 @@ export function OverviewSurface({
   currentness,
   trajectory,
   attention,
+  recommendationCount,
   onOpenConversation,
   onOpenJournal,
   onOpenHistory,
   onOpenSyntheses,
-  onOpenSynthesisDetail,
 }: OverviewSurfaceProps) {
   const [history, setHistory] = useState<W2ProjectHistoryReadModel | null>(null);
   const [latestSynthesis, setLatestSynthesis] =
@@ -473,9 +470,16 @@ export function OverviewSurface({
             </div>
           </dl>
 
-          <div className={styles.detailsKeys}>
+          <div className={styles.detailsKeys} data-testid="project-overview-key-objects">
             <p className={styles.statLabel}>Éléments clés</p>
+            {/* P3 51:2 — four fixed Object Count rows; 0 is honest Product truth. */}
             <ul className={styles.keyList}>
+              <li>
+                <span>Recommandations</span>
+                <span data-testid="project-overview-recommendation-count">
+                  {recommendationCount}
+                </span>
+              </li>
               <li>
                 <span>Décisions</span>
                 <span data-tone={decisionAttention ? "warn" : undefined}>
@@ -522,60 +526,11 @@ export function OverviewSurface({
               Ouvrir le travail en cours →
             </button>
           </section>
-
-          <section
-            className={styles.detailsSynth}
-            data-testid="project-overview-synthesis"
-            aria-labelledby="overview-synthesis-title"
-          >
-            <div className={styles.sectionHead}>
-              <h3 className={styles.sectionTitle} id="overview-synthesis-title">
-                Synthèses
-              </h3>
-              <button
-                type="button"
-                className={styles.nextStepCta}
-                data-testid="project-overview-open-syntheses"
-                onClick={onOpenSyntheses}
-              >
-                Toutes les synthèses →
-              </button>
-            </div>
-            {latestSynthesis ? (
-              <div data-testid="project-overview-synthesis-preview">
-                <p className={styles.nextStepTitle}>{latestSynthesis.title}</p>
-                <p className={styles.statSub}>
-                  {presentSynthesisVerdictLabel(latestSynthesis.verdictLabel)} ·{" "}
-                  {formatSynthesisGeneratedAt(latestSynthesis.generatedAt)}
-                </p>
-                <p className={styles.nextStepBody}>
-                  {synthesisSummaryExcerpt(latestSynthesis)}
-                </p>
-                <button
-                  type="button"
-                  className={styles.nextStepCta}
-                  data-testid="project-overview-open-synthesis-detail"
-                  onClick={() => {
-                    if (onOpenSynthesisDetail) {
-                      onOpenSynthesisDetail(latestSynthesis.synthesisId);
-                    } else {
-                      onOpenSyntheses();
-                    }
-                  }}
-                >
-                  Ouvrir cette synthèse →
-                </button>
-              </div>
-            ) : (
-              <p
-                className={styles.empty}
-                data-testid="project-overview-synthesis-empty"
-              >
-                Aucune synthèse produit n’est encore disponible. Elle n’est pas
-                inventée depuis la conversation.
-              </p>
-            )}
-          </section>
+          {/*
+           * P3 51:2 Overview Inspector ends at « Prochaine étape importante ».
+           * Do not project a Synthèses preview block in this rail — count stays
+           * under Éléments clés; full list lives on the Synthèses surface.
+           */}
         </aside>
       </div>
       </div>

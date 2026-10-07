@@ -107,6 +107,15 @@ export function formatSynthesisGeneratedAt(iso: string): string {
   });
 }
 
+/**
+ * Product-truth count label for Éléments vérifiés (Figma 316:2 shape).
+ * Bound to sourceBindings.evidenceIds — never hardcoded sample counts.
+ */
+export function formatVerifiedElementsCount(count: number): string {
+  const n = Number.isFinite(count) && count > 0 ? Math.floor(count) : 0;
+  return n <= 1 ? `${n} élément` : `${n} éléments`;
+}
+
 /** Compact day label for context-rail synthèse (Figma 46:2 « Aujourd'hui »). */
 export function formatSynthesisDayLabel(iso: string, now = new Date()): string {
   const d = new Date(iso);

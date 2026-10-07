@@ -23,6 +23,10 @@ const MARKER_SELECTORS = {
     '[data-testid="governed-confirmation-reversibility"]',
   "project-syntheses-item": '[data-testid="project-syntheses-item"]',
   "project-syntheses-loading": '[data-testid="project-syntheses-loading"]',
+  "project-syntheses-section-verified":
+    '[data-testid="project-syntheses-section-verified"]',
+  "project-syntheses-detail-scroll":
+    '[data-testid="project-syntheses-detail-scroll"]',
   "login-surface": '[data-testid="login-surface"]',
 };
 

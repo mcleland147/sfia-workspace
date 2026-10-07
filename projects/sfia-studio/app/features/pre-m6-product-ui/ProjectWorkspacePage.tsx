@@ -824,11 +824,11 @@ export function ProjectWorkspacePage({
               currentness={currentness}
               trajectory={trajectoryNodes}
               attention={attention}
+              recommendationCount={cycleRecommendations.length}
               onOpenConversation={focusConversation}
               onOpenJournal={openJournal}
               onOpenHistory={openHistory}
               onOpenSyntheses={() => openSyntheses()}
-              onOpenSynthesisDetail={openSynthesisDetail}
             />
           ) : null}
 

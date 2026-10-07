@@ -332,19 +332,23 @@
 }
 
 .tabBadge {
+  /* P3 51:72 / 46:2 — Exécution count chip (not a saturated pill). */
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 16px;
-  height: 16px;
+  box-sizing: border-box;
+  width: var(--pm6-count-chip-w, 24px);
+  min-width: var(--pm6-count-chip-w, 24px);
+  height: var(--pm6-count-chip-h, 20px);
   margin-left: 6px;
-  padding: 0 4px;
-  border-radius: var(--pm6-radius-pill);
-  background: var(--pm6-danger);
-  color: #fff;
-  font-size: 0.625rem;
-  font-weight: 700;
-  line-height: 1;
+  padding: 0;
+  border-radius: var(--pm6-count-chip-radius, 6px);
+  background: var(--pm6-accent-chip-bg, #ffe8e0);
+  color: var(--pm6-accent, #d9563b);
+  font-size: 0.6875rem; /* 11 */
+  font-weight: 500;
+  letter-spacing: 0.4px;
+  line-height: 16px;
 }
 
 .tab:disabled,
@@ -382,6 +386,29 @@
 .layoutOverview {
   grid-template-columns: minmax(0, 1fr);
   align-items: stretch;
+}
+
+/*
+ * Synthèses desktop (164:3 / 316:2) — pin workspace to the viewport so the
+ * detail Synthesis Scroll region is height-bounded and truly overflow-scrolls.
+ * Conversation / Aperçu keep their existing growth behavior.
+ */
+.root[data-active-view="syntheses"] {
+  height: 100vh;
+  max-height: 100vh;
+  overflow: hidden;
+}
+
+.root[data-active-view="syntheses"] .layout {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.root[data-active-view="syntheses"] .main {
+  flex: 1 1 auto;
+  min-height: 0;
+  height: 100%;
+  overflow: hidden;
 }
 
 .main {

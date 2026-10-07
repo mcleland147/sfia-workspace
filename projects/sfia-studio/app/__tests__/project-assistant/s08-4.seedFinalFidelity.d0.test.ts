@@ -896,9 +896,37 @@ describe.runIf(runSeed)("S08-4 seed final fidelity canonical Product DB", () => 
             unknown
           >;
           payload.title = "Mise à jour de l’espace projet";
-          payload.subject = "Mise à jour de l’espace projet";
+          payload.subject = "Synthèse post-exécution complète";
           // Fresh relative « Vérifié… » / « Aujourd'hui » for visual capture.
           payload.generatedAt = new Date().toISOString();
+          // Expand Product-derived section copy so desktop detail must scroll
+          // to reach Éléments vérifiés (Figma 316:2 lower-state proof).
+          // Count remains bound to sourceBindings.evidenceIds at runtime.
+          const sections = (payload.sections ?? {}) as Record<string, string>;
+          payload.sections = {
+            ...sections,
+            summary:
+              "L’exécution avait pour objectif d’aligner l’espace projet avec la direction produit sans modifier le reste du périmètre. La mise à jour a été réalisée dans la portée prévue : la structure principale, l’Aperçu et les éléments de continuité ont été conservés ou réalignés. Aucun blocage n’a empêché l’aboutissement de l’action.",
+            planned:
+              "Mettre à jour la structure de l’espace projet.\nRéaligner l’Aperçu.\nActualiser la trajectoire projet.\nSimplifier la restitution des preuves.\nConserver le Journal du cycle et les interactions existantes.\nNe rien modifier hors de la portée autorisée.",
+            done:
+              "Les éléments prévus ont été traités. La structure de l’espace projet a été mise à jour, l’Aperçu a été réaligné, la trajectoire a été rendue cohérente avec l’état réel du projet et les surfaces de continuité ont été conservées. Les vérifications réalisées n’ont pas identifié de modification hors périmètre.",
+            evaluation:
+              "Le résultat attendu est présent et cohérent avec la direction produit. Les contrôles disponibles confirment la modification des éléments ciblés et l’absence de blocage sur cette exécution. Le résultat technique et la restitution produit sont cohérents.",
+            gaps:
+              "Aucun écart, réserve ou blocage Product explicite pour cette synthèse.",
+            impact:
+              "L’espace projet peut être considéré comme stabilisé pour cette passe. Au moment de cette synthèse, la navigation globale, les états transverses et l’adaptation aux différentes tailles d’écran restaient à traiter avant la revue de clôture.",
+            verdict:
+              sections.verdict?.trim() ||
+              "Le résultat évalué pour ce travail est atteint.",
+            recommendation:
+              sections.recommendation?.trim() ||
+              "Poursuivre la vérification d’intégrité des éléments de preuve avant toute nouvelle passe.",
+            verified:
+              sections.verified?.trim() ||
+              "1 élément de preuve rattaché (artifact).",
+          };
           store.db
             .prepare(
               `UPDATE oa_syntheses SET payload_json = ? WHERE synthesis_id = ?`,

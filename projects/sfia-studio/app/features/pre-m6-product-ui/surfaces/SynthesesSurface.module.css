@@ -12,9 +12,11 @@
   gap: 0;
   min-width: 0;
   min-height: 0;
+  height: 100%;
   padding: 0;
   flex: 1 1 auto;
   background: var(--pm6-canvas);
+  overflow: hidden;
 }
 
 .body {
@@ -23,8 +25,10 @@
   grid-template-columns: var(--pm6-syntheses-list-w, 360px) minmax(0, 1fr);
   gap: 0;
   min-height: 0;
+  height: 100%;
   align-items: stretch;
   flex: 1 1 auto;
+  overflow: hidden;
 }
 
 .listCol {
@@ -287,15 +291,20 @@
   border: 0;
   border-radius: 0;
   background: var(--pm6-canvas);
-  overflow: auto;
+  /* Scroll lives in .detailScroll (Figma Synthesis Scroll); header stays put. */
+  overflow: hidden;
   max-height: none;
+  display: flex;
+  flex-direction: column;
 }
 
 .detailInner {
   padding: 0;
   display: flex;
   flex-direction: column;
-  min-height: 100%;
+  flex: 1 1 auto;
+  min-height: 0;
+  min-width: 0;
 }
 
 .detailHead {
@@ -306,6 +315,35 @@
   padding: 18px 24px 20px;
   border-bottom: 1px solid var(--pm6-border);
   flex: 0 0 auto;
+}
+
+/*
+ * Figma 316:2 Synthesis Scroll — real vertical overflow + quiet warm scrollbar.
+ * Track rgba(232,227,219,0.5) · thumb rgba(148,140,130,0.78) · 4px.
+ */
+.detailScroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  min-width: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 140, 130, 0.78) rgba(232, 227, 219, 0.5);
+}
+
+.detailScroll::-webkit-scrollbar {
+  width: 4px;
+}
+
+.detailScroll::-webkit-scrollbar-track {
+  background: rgba(232, 227, 219, 0.5);
+  border-radius: 2px;
+  margin-block: 16px;
+}
+
+.detailScroll::-webkit-scrollbar-thumb {
+  background: rgba(148, 140, 130, 0.78);
+  border-radius: 2px;
 }
 
 .detailMeta {
@@ -372,9 +410,10 @@
   flex-direction: column;
   /* Figma 164:3 — rule+gap ≈ 18+1+18; avoid stacking flex-gap with padding-top. */
   gap: 0;
-  padding: 20px 24px 36px;
-  flex: 1 1 auto;
-  overflow: auto;
+  /* Extra bottom breathing room so verified card is not truncated at rest. */
+  padding: 20px 24px 48px;
+  flex: 0 0 auto;
+  overflow: visible;
 }
 
 .section {
@@ -383,7 +422,7 @@
   background: transparent;
 }
 
-.section + .section:not([data-testid="project-syntheses-section-verified"]) {
+.section + .section:not(.verifiedCard) {
   margin-top: 18px;
   padding-top: 18px;
   border-top: 1px solid var(--pm6-border);
@@ -394,8 +433,8 @@
   padding-bottom: 0;
 }
 
-/* 164:3 Éléments vérifiés — raised card chrome after inter-section rule rhythm. */
-.section[data-testid="project-syntheses-section-verified"] {
+/* 316:2 / 164:3 Éléments vérifiés — secondary raised card. */
+.verifiedCard {
   box-sizing: border-box;
   margin-top: 18px;
   padding: 14px;
@@ -403,6 +442,39 @@
   border-radius: 9px;
   background: var(--pm6-body);
   min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.verifiedTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 24px;
+}
+
+.verifiedTop .sectionTitle {
+  margin: 0;
+}
+
+.verifiedCount {
+  flex: 0 0 auto;
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: normal;
+  color: var(--pm6-ok);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.verifiedBody {
+  margin: 0;
+  font-size: 0.75rem;
+  line-height: normal;
+  color: #5f564e;
+  white-space: pre-wrap;
 }
 
 .sectionTitle {
@@ -595,18 +667,19 @@
     padding: 0 20px 24px;
   }
 
-  .section + .section:not([data-testid="project-syntheses-section-verified"]) {
+  .section + .section:not(.verifiedCard) {
     padding-top: 0;
     border-top: 0;
   }
 
-  .section[data-testid="project-syntheses-section-verified"] {
+  .verifiedCard {
     margin-top: 0;
     min-height: 0;
     padding: 0;
     border: 0;
     border-radius: 0;
     background: transparent;
+    gap: 6px;
   }
 
   .sectionTitle {
@@ -728,18 +801,19 @@
     padding: 0 0 16px;
   }
 
-  .section + .section:not([data-testid="project-syntheses-section-verified"]) {
+  .section + .section:not(.verifiedCard) {
     padding-top: 0;
     border-top: 0;
   }
 
-  .section[data-testid="project-syntheses-section-verified"] {
+  .verifiedCard {
     margin-top: 0;
     min-height: 0;
     padding: 0;
     border: 0;
     border-radius: 0;
     background: transparent;
+    gap: 6px;
   }
 
   .sectionTitle {

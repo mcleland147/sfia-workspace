@@ -81,6 +81,11 @@
   --pm6-muted-ghost: #a69a8e;
   --pm6-accent: #d9563b;
   --pm6-accent-tint: #fff0ea;
+  /* P3 51:72 — Exécution count chip (24×20 · radius 6 · soft coral). */
+  --pm6-accent-chip-bg: #ffe8e0;
+  --pm6-count-chip-w: 24px;
+  --pm6-count-chip-h: 20px;
+  --pm6-count-chip-radius: 6px;
   --pm6-focus-bar: #fcf8f3;
 
   /* Geometry — Figma 1440×1024 */

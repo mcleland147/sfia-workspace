@@ -1,0 +1,735 @@
+{
+  "campaign": "P5-S08-4",
+  "contract": "figma-runtime-same-state-pairing",
+  "version": 3,
+  "authority": {
+    "figmaFileKey": "m4g8j0gNbEzfIuH6S9AZJF",
+    "figmaMutation": "NONE",
+    "productNamingMutationForQa": "NONE",
+    "productionVisualBypass": "NONE",
+    "geist": "DEFERRED",
+    "profileDisplayName": "SESSION_GITHUB_LOGIN — Figma persona « Morris » tracked as PROFILE_PERSONA_FIGMA_VS_SESSION_LOGIN (not hardcoded in Product)"
+  },
+  "canonicalVisualProject": {
+    "strategy": "FINAL Figma pixel-fidelity pairs use ONE Product identity: Product Simplification, materialized via isolated QA sqlite snapshots (workspace-rich, decision-pending, confirmation-required). Functional fixtures (Nora Completion / Knowledge Core / Runtime v3) remain for non-final tests only.",
+    "displayNameTarget": "Product Simplification",
+    "seedManifest": "states/manifest.json",
+    "snapshotsIndex": "states/snapshots/index.json"
+  },
+  "captureRuntime": {
+    "preferredMode": "production-build",
+    "build": "npm run build",
+    "start": "npm run start:skip-preflight",
+    "port": 3020,
+    "devOverlay": "FORBIDDEN — Next Issues badge / nextjs-portal must be absent",
+    "forbiddenProductBypass": [
+      "visual-test JSX branch",
+      "screenshot-only fake Product state",
+      "Figma raster overlay",
+      "screenshot-only CSS"
+    ]
+  },
+  "globalForbidden": [
+    "next-dev-issues-badge",
+    "next-dev-overlay",
+    "runtime-error-overlay",
+    "studio-projects-loading",
+    "project-workspace-loading",
+    "sqlite-unavailable"
+  ],
+  "diffRule": "pairing PASS + identityAligned=true + contentAligned=true + semantic/activeView/viewport aligned → diff allowed; otherwise DIFF_FORBIDDEN (HARNESS_PAIRING_MISMATCH)",
+  "pairs": [
+    {
+      "id": "projects-desktop",
+      "representative": true,
+      "finalFidelity": true,
+      "identityAligned": true,
+      "snapshot": "projects-populated",
+      "figma": {
+        "nodeId": "63:39",
+        "viewport": {
+          "width": 1440,
+          "height": 1024
+        }
+      },
+      "runtime": {
+        "fixtureId": "p3-projects-populated",
+        "projectId": null,
+        "expectedProjectName": null,
+        "route": "/studio",
+        "view": null
+      },
+      "state": {
+        "semanticState": "projects-populated",
+        "expectedVisible": [
+          "studio-projects-home",
+          "studio-projects-list",
+          "studio-projects-recent"
+        ],
+        "expectedAbsent": [
+          "studio-projects-empty",
+          "studio-projects-loading",
+          "next-dev-issues-badge"
+        ]
+      },
+      "captureId": "projects-1440",
+      "contentAligned": true,
+      "content": {
+        "surfaceKind": "projects-home",
+        "profileDisplayName": "mcleland147"
+      }
+    },
+    {
+      "id": "projects-empty",
+      "representative": true,
+      "finalFidelity": true,
+      "identityAligned": true,
+      "snapshot": "projects-empty",
+      "figma": {
+        "nodeId": "184:2",
+        "viewport": {
+          "width": 1440,
+          "height": 1024
+        }
+      },
+      "runtime": {
+        "fixtureId": "p3-projects-empty",
+        "projectId": null,
+        "expectedProjectName": null,
+        "route": "/studio",
+        "view": null
+      },
+      "state": {
+        "semanticState": "projects-empty",
+        "expectedVisible": [
+          "studio-projects-empty"
+        ],
+        "expectedAbsent": [
+          "studio-projects-list",
+          "studio-projects-loading",
+          "next-dev-issues-badge"
+        ]
+      },
+      "captureId": "projects-empty-1440",
+      "contentAligned": true,
+      "content": {
+        "surfaceKind": "projects-empty",
+        "profileDisplayName": "mcleland147"
+      }
+    },
+    {
+      "id": "new-project-desktop",
+      "representative": true,
+      "finalFidelity": true,
+      "identityAligned": true,
+      "snapshot": "projects-populated",
+      "figma": {
+        "nodeId": "67:39",
+        "viewport": {
+          "width": 1440,
+          "height": 1024
+        }
+      },
+      "runtime": {
+        "fixtureId": "p3-new-project-rich",
+        "projectId": null,
+        "expectedProjectName": null,
+        "route": "/studio/projects/new",
+        "view": null
+      },
+      "state": {
+        "semanticState": "new-project-rich",
+        "expectedVisible": [
+          "create-project-form",
+          "new-project-clarification",
+          "create-project-submit",
+          "data-collect-phase=OPTIONAL_CONTEXT"
+        ],
+        "expectedAbsent": [
+          "project-workspace-layout",
+          "next-dev-issues-badge"
+        ]
+      },
+      "captureId": "new-project-1440",
+      "contentAligned": true,
+      "content": {
+        "surfaceKind": "new-project",
+        "profileDisplayName": "mcleland147"
+      }
+    },
+    {
+      "id": "new-project-mobile",
+      "representative": true,
+      "finalFidelity": true,
+      "identityAligned": true,
+      "snapshot": "projects-populated",
+      "figma": {
+        "nodeId": "190:284",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        }
+      },
+      "runtime": {
+        "fixtureId": "p3-new-project-rich",
+        "projectId": null,
+        "expectedProjectName": null,
+        "route": "/studio/projects/new",
+        "view": null
+      },
+      "state": {
+        "semanticState": "new-project-rich",
+        "expectedVisible": [
+          "create-project-form",
+          "create-project-submit",
+          "data-collect-phase=OPTIONAL_CONTEXT"
+        ],
+        "expectedAbsent": [
+          "project-workspace-layout",
+          "next-dev-issues-badge"
+        ]
+      },
+      "captureId": "new-project-390",
+      "contentAligned": true,
+      "content": {
+        "surfaceKind": "new-project",
+        "profileDisplayName": "mcleland147"
+      }
+    },
+    {
+      "id": "workspace-desktop",
+      "representative": true,
+      "finalFidelity": true,
+      "identityAligned": true,
+      "snapshot": "workspace-rich",
+      "figma": {
+        "nodeId": "46:2",
+        "viewport": {
+          "width": 1440,
+          "height": 1024
+        }
+      },
+      "runtime": {
+        "fixtureId": "p3-workspace-rich",
+        "expectedProjectName": "Product Simplification",
+        "route": "/studio/projects/:projectId",
+        "view": "conversation"
+      },
+      "state": {
+        "semanticState": "workspace-rich",
+        "expectedVisible": [
+          "project-workspace-layout",
+          "project-conversation-main",
+          "project-assistant-panel",
+          "data-active-view=conversation"
+        ],
+        "expectedAbsent": [
+          "governed-decision-card",
+          "governed-confirmation-card",
+          "studio-projects-empty",
+          "next-dev-issues-badge",
+          "project-workspace-loading"
+        ]
+      },
+      "captureId": "workspace-1440",
+      "contentAligned": true,
+      "content": {
+        "surfaceKind": "project-workspace",
+        "projectName": "Product Simplification",
+        "projectSubtitle": "Simplifier le pilotage sans perdre gouvernance.",
+        "currentWorkLabel": "P3 · UX/UI",
+        "currentCycleLabel": "P3 · UX/UI",
+        "currentCycleStatus": "En cours",
+        "profileDisplayName": "mcleland147",
+        "trajectoryVisibleNodes": 4,
+        "executionCount": "1",
+        "decisionCount": "1",
+        "reserveCount": "1",
+        "focusTopic": "Espace projet",
+        "synthesisState": "available",
+        "recommendationState": "pending",
+        "activeView": "conversation"
+      }
+    },
+    {
+      "id": "workspace-compact",
+      "representative": true,
+      "finalFidelity": true,
+      "identityAligned": true,
+      "snapshot": "workspace-rich",
+      "figma": {
+        "nodeId": "190:44",
+        "viewport": {
+          "width": 1024,
+          "height": 768
+        }
+      },
+      "runtime": {
+        "fixtureId": "p3-workspace-rich",
+        "expectedProjectName": "Product Simplification",
+        "route": "/studio/projects/:projectId",
+        "view": "conversation"
+      },
+      "state": {
+        "semanticState": "workspace-rich",
+        "expectedVisible": [
+          "project-workspace-layout",
+          "project-conversation-main",
+          "project-assistant-panel",
+          "data-active-view=conversation"
+        ],
+        "expectedAbsent": [
+          "governed-decision-card",
+          "governed-confirmation-card",
+          "studio-projects-empty",
+          "next-dev-issues-badge",
+          "project-workspace-loading"
+        ]
+      },
+      "captureId": "workspace-1024",
+      "contentAligned": true,
+      "content": {
+        "surfaceKind": "project-workspace",
+        "projectName": "Product Simplification",
+        "projectSubtitle": "Simplifier le pilotage sans perdre gouvernance.",
+        "currentWorkLabel": "P3 · UX/UI",
+        "currentCycleLabel": "P3 · UX/UI",
+        "currentCycleStatus": "En cours",
+        "profileDisplayName": "mcleland147",
+        "trajectoryVisibleNodes": 4,
+        "executionCount": "1",
+        "decisionCount": "1",
+        "reserveCount": "1",
+        "focusTopic": "Espace projet",
+        "synthesisState": "available",
+        "recommendationState": "pending",
+        "activeView": "conversation"
+      }
+    },
+    {
+      "id": "workspace-mobile",
+      "representative": true,
+      "finalFidelity": true,
+      "identityAligned": true,
+      "snapshot": "workspace-rich",
+      "figma": {
+        "nodeId": "190:306",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        }
+      },
+      "runtime": {
+        "fixtureId": "p3-workspace-rich",
+        "expectedProjectName": "Product Simplification",
+        "route": "/studio/projects/:projectId",
+        "view": "conversation"
+      },
+      "state": {
+        "semanticState": "workspace-rich",
+        "expectedVisible": [
+          "project-workspace-layout",
+          "project-conversation-main",
+          "project-assistant-panel",
+          "data-active-view=conversation"
+        ],
+        "expectedAbsent": [
+          "governed-decision-card",
+          "governed-confirmation-card",
+          "studio-projects-empty",
+          "next-dev-issues-badge",
+          "project-workspace-loading"
+        ]
+      },
+      "captureId": "workspace-390",
+      "contentAligned": true,
+      "content": {
+        "surfaceKind": "project-workspace",
+        "projectName": "Product Simplification",
+        "projectSubtitle": "Simplifier le pilotage sans perdre gouvernance.",
+        "currentWorkLabel": "P3 · UX/UI",
+        "currentCycleLabel": "P3 · UX/UI",
+        "currentCycleStatus": "En cours",
+        "profileDisplayName": "mcleland147",
+        "trajectoryVisibleNodes": 4,
+        "executionCount": "1",
+        "decisionCount": "1",
+        "reserveCount": "1",
+        "focusTopic": "Espace projet",
+        "synthesisState": "available",
+        "recommendationState": "pending",
+        "activeView": "conversation"
+      }
+    },
+    {
+      "id": "journal-desktop",
+      "representative": true,
+      "finalFidelity": true,
+      "identityAligned": true,
+      "snapshot": "workspace-rich",
+      "figma": {
+        "nodeId": "94:2",
+        "viewport": {
+          "width": 1440,
+          "height": 1024
+        }
+      },
+      "runtime": {
+        "fixtureId": "p3-journal-rich",
+        "expectedProjectName": "Product Simplification",
+        "route": "/studio/projects/:projectId",
+        "view": "journal"
+      },
+      "state": {
+        "semanticState": "journal-rich",
+        "expectedVisible": [
+          "project-workspace-layout",
+          "data-active-view=journal"
+        ],
+        "expectedAbsent": [
+          "next-dev-issues-badge"
+        ]
+      },
+      "captureId": "journal-1440",
+      "contentAligned": true,
+      "content": {
+        "surfaceKind": "project-workspace",
+        "projectName": "Product Simplification",
+        "projectSubtitle": "Simplifier le pilotage sans perdre gouvernance.",
+        "currentWorkLabel": "P3 · UX/UI",
+        "currentCycleLabel": "P3 · UX/UI",
+        "currentCycleStatus": "En cours",
+        "profileDisplayName": "mcleland147",
+        "trajectoryVisibleNodes": 4,
+        "executionCount": "1",
+        "decisionCount": "1",
+        "reserveCount": "1",
+        "focusTopic": "Espace projet",
+        "activeView": "journal"
+      }
+    },
+    {
+      "id": "historique-desktop",
+      "representative": true,
+      "finalFidelity": true,
+      "identityAligned": true,
+      "snapshot": "workspace-rich",
+      "figma": {
+        "nodeId": "78:2",
+        "viewport": {
+          "width": 1440,
+          "height": 1024
+        }
+      },
+      "runtime": {
+        "fixtureId": "p3-history-rich",
+        "expectedProjectName": "Product Simplification",
+        "route": "/studio/projects/:projectId",
+        "view": "history"
+      },
+      "state": {
+        "semanticState": "history-rich",
+        "expectedVisible": [
+          "project-workspace-layout",
+          "data-active-view=history"
+        ],
+        "expectedAbsent": [
+          "next-dev-issues-badge"
+        ]
+      },
+      "captureId": "historique-1440",
+      "contentAligned": true,
+      "content": {
+        "surfaceKind": "project-workspace",
+        "projectName": "Product Simplification",
+        "projectSubtitle": "Simplifier le pilotage sans perdre gouvernance.",
+        "currentWorkLabel": "P3 · UX/UI",
+        "currentCycleLabel": "P3 · UX/UI",
+        "currentCycleStatus": "En cours",
+        "profileDisplayName": "mcleland147",
+        "trajectoryVisibleNodes": 4,
+        "executionCount": "1",
+        "decisionCount": "1",
+        "reserveCount": "1",
+        "focusTopic": "Espace projet",
+        "activeView": "history"
+      }
+    },
+    {
+      "id": "syntheses-desktop",
+      "representative": true,
+      "finalFidelity": true,
+      "identityAligned": true,
+      "snapshot": "workspace-rich",
+      "figma": {
+        "nodeId": "164:3",
+        "viewport": {
+          "width": 1440,
+          "height": 1024
+        }
+      },
+      "runtime": {
+        "fixtureId": "p3-syntheses-rich",
+        "expectedProjectName": "Product Simplification",
+        "route": "/studio/projects/:projectId",
+        "view": "syntheses"
+      },
+      "state": {
+        "semanticState": "syntheses-rich",
+        "expectedVisible": [
+          "project-workspace-layout",
+          "project-syntheses-item",
+          "data-active-view=syntheses"
+        ],
+        "expectedAbsent": [
+          "sqlite-unavailable",
+          "project-syntheses-loading",
+          "next-dev-issues-badge"
+        ]
+      },
+      "captureId": "syntheses-1440",
+      "contentAligned": true,
+      "content": {
+        "surfaceKind": "project-workspace",
+        "projectName": "Product Simplification",
+        "projectSubtitle": "Simplifier le pilotage sans perdre gouvernance.",
+        "currentWorkLabel": "P3 · UX/UI",
+        "currentCycleLabel": "P3 · UX/UI",
+        "currentCycleStatus": "En cours",
+        "profileDisplayName": "mcleland147",
+        "trajectoryVisibleNodes": 4,
+        "executionCount": "1",
+        "decisionCount": "1",
+        "reserveCount": "1",
+        "focusTopic": "Espace projet",
+        "synthesisState": "listed",
+        "activeView": "syntheses"
+      }
+    },
+    {
+      "id": "syntheses-verified-desktop",
+      "representative": true,
+      "finalFidelity": true,
+      "identityAligned": true,
+      "snapshot": "workspace-rich",
+      "figma": {
+        "nodeId": "316:2",
+        "viewport": {
+          "width": 1440,
+          "height": 1024
+        }
+      },
+      "runtime": {
+        "fixtureId": "p3-syntheses-rich",
+        "expectedProjectName": "Product Simplification",
+        "route": "/studio/projects/:projectId",
+        "view": "syntheses"
+      },
+      "state": {
+        "semanticState": "syntheses-verified-scrolled",
+        "expectedVisible": [
+          "project-workspace-layout",
+          "project-syntheses-item",
+          "project-syntheses-section-verified",
+          "data-active-view=syntheses"
+        ],
+        "expectedAbsent": [
+          "sqlite-unavailable",
+          "project-syntheses-loading",
+          "next-dev-issues-badge"
+        ]
+      },
+      "captureId": "syntheses-verified-1440",
+      "contentAligned": true,
+      "content": {
+        "surfaceKind": "project-workspace",
+        "projectName": "Product Simplification",
+        "projectSubtitle": "Simplifier le pilotage sans perdre gouvernance.",
+        "currentWorkLabel": "P3 · UX/UI",
+        "currentCycleLabel": "P3 · UX/UI",
+        "currentCycleStatus": "En cours",
+        "profileDisplayName": "mcleland147",
+        "trajectoryVisibleNodes": 4,
+        "executionCount": "1",
+        "decisionCount": "1",
+        "reserveCount": "1",
+        "focusTopic": "Espace projet",
+        "synthesisState": "listed",
+        "activeView": "syntheses"
+      }
+    },
+    {
+      "id": "decision-mobile",
+      "representative": true,
+      "finalFidelity": true,
+      "identityAligned": true,
+      "snapshot": "decision-pending",
+      "figma": {
+        "nodeId": "190:495",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        }
+      },
+      "runtime": {
+        "fixtureId": "p3-decision-pending",
+        "expectedProjectName": "Product Simplification",
+        "route": "/studio/projects/:projectId",
+        "view": "conversation"
+      },
+      "state": {
+        "semanticState": "decision-pending",
+        "expectedVisible": [
+          "project-workspace-layout",
+          "governed-decision-card",
+          "data-active-view=conversation"
+        ],
+        "expectedAbsent": [
+          "governed-confirmation-card",
+          "studio-projects-empty",
+          "next-dev-issues-badge",
+          "project-workspace-loading"
+        ]
+      },
+      "captureId": "decision-390",
+      "contentAligned": true,
+      "content": {
+        "surfaceKind": "project-workspace",
+        "projectName": "Product Simplification",
+        "profileDisplayName": "mcleland147",
+        "activeView": "conversation",
+        "confirmationState": "decision"
+      }
+    },
+    {
+      "id": "confirmation-mobile",
+      "representative": true,
+      "finalFidelity": true,
+      "identityAligned": true,
+      "snapshot": "confirmation-required",
+      "figma": {
+        "nodeId": "190:520",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        }
+      },
+      "runtime": {
+        "fixtureId": "p3-confirmation-required",
+        "expectedProjectName": "Product Simplification",
+        "route": "/studio/projects/:projectId",
+        "view": "conversation"
+      },
+      "state": {
+        "semanticState": "confirmation-required",
+        "expectedVisible": [
+          "project-workspace-layout",
+          "governed-confirmation-card",
+          "governed-confirmation-scope",
+          "governed-confirmation-impact",
+          "governed-confirmation-reversibility",
+          "data-active-view=conversation"
+        ],
+        "expectedAbsent": [
+          "governed-decision-card",
+          "next-dev-issues-badge",
+          "project-workspace-loading"
+        ]
+      },
+      "captureId": "confirmation-390",
+      "contentAligned": true,
+      "content": {
+        "surfaceKind": "project-workspace",
+        "projectName": "Product Simplification",
+        "profileDisplayName": "mcleland147",
+        "activeView": "conversation",
+        "confirmationState": "required"
+      }
+    },
+    {
+      "id": "auth-mobile",
+      "representative": true,
+      "finalFidelity": true,
+      "identityAligned": true,
+      "snapshot": null,
+      "figma": {
+        "nodeId": "190:551",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        }
+      },
+      "runtime": {
+        "fixtureId": "p3-auth-logged-out",
+        "projectId": null,
+        "expectedProjectName": null,
+        "route": "/login",
+        "view": null
+      },
+      "state": {
+        "semanticState": "auth",
+        "expectedVisible": [
+          "login-surface"
+        ],
+        "expectedAbsent": [
+          "studio-projects-home",
+          "project-workspace-layout",
+          "next-dev-issues-badge"
+        ]
+      },
+      "captureId": "auth-390",
+      "contentAligned": true,
+      "content": {
+        "surfaceKind": "login"
+      }
+    },
+    {
+      "id": "apercu-desktop",
+      "representative": false,
+      "finalFidelity": true,
+      "identityAligned": true,
+      "snapshot": "workspace-rich",
+      "figma": {
+        "nodeId": "51:2",
+        "viewport": {
+          "width": 1440,
+          "height": 1024
+        }
+      },
+      "runtime": {
+        "fixtureId": "p3-apercu-rich",
+        "expectedProjectName": "Product Simplification",
+        "route": "/studio/projects/:projectId",
+        "view": "overview"
+      },
+      "state": {
+        "semanticState": "apercu-rich",
+        "expectedVisible": [
+          "project-workspace-layout",
+          "data-active-view=overview"
+        ],
+        "expectedAbsent": [
+          "next-dev-issues-badge",
+          "project-workspace-loading"
+        ]
+      },
+      "captureId": "apercu-1440",
+      "contentAligned": true,
+      "content": {
+        "surfaceKind": "project-workspace",
+        "projectName": "Product Simplification",
+        "projectSubtitle": "Simplifier le pilotage sans perdre gouvernance.",
+        "currentWorkLabel": "P3 · UX/UI",
+        "currentCycleLabel": "P3 · UX/UI",
+        "currentCycleStatus": "En cours",
+        "profileDisplayName": "mcleland147",
+        "trajectoryVisibleNodes": 4,
+        "executionCount": "1",
+        "decisionCount": "1",
+        "reserveCount": "1",
+        "focusTopic": "Espace projet",
+        "activeView": "overview"
+      }
+    }
+  ]
+}

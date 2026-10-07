@@ -272,7 +272,11 @@ describe("P5-S03 object-native views", () => {
       screen.getByTestId("project-tab-overview").getAttribute("data-selected"),
     ).toBe("true");
     expect(screen.queryByTestId("project-assistant-panel")).toBeNull();
-    expect(screen.getByTestId("project-overview-synthesis-empty")).toBeTruthy();
+    // P3 51:2 — no Synthèses preview in the Aperçu inspector rail.
+    expect(screen.queryByTestId("project-overview-synthesis")).toBeNull();
+    expect(screen.getByTestId("project-overview-key-objects")).toBeTruthy();
+    expect(screen.getByTestId("project-overview-recommendation-count")).toBeTruthy();
+    expect(screen.getByTestId("project-overview-synthesis-count")).toBeTruthy();
     // B1 — Overview owns composition; permanent context rail is not a sibling.
     expect(
       screen.getByTestId("project-workspace-layout").getAttribute("data-layout"),
@@ -303,10 +307,13 @@ describe("P5-S03 object-native views", () => {
     });
     fireEvent.click(screen.getByTestId("project-tab-overview"));
     await waitFor(() => {
-      expect(screen.getByTestId("project-overview-synthesis-empty").textContent).toMatch(
-        /Aucune synthèse produit/,
-      );
+      expect(screen.getByTestId("project-overview-surface")).toBeTruthy();
     });
+    // Count may be "—" with no product synthesis; never invent a rail preview.
+    expect(screen.queryByTestId("project-overview-synthesis")).toBeNull();
+    expect(screen.getByTestId("project-overview-synthesis-count").textContent).toMatch(
+      /—|0|[1-9]/,
+    );
     // Presentation-only: no Product write APIs invoked for view switch.
     expect(getProjectRuntimeActionMock).toHaveBeenCalled();
   });

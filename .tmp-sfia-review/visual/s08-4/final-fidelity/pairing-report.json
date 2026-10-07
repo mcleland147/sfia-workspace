@@ -1,0 +1,628 @@
+{
+  "ts": "2026-10-07T19:29:00.744Z",
+  "results": [
+    {
+      "captureId": "auth-390",
+      "pairId": "auth-mobile",
+      "figmaNodeId": "190:551",
+      "fixtureId": "p3-auth-logged-out",
+      "identityAligned": true,
+      "contentAligned": true,
+      "pairing": "PASS",
+      "alignment": {
+        "identityAligned": true,
+        "contentAligned": true,
+        "semanticStateAligned": true,
+        "activeViewAligned": true,
+        "viewportAligned": true
+      },
+      "reason": null,
+      "observation": {
+        "url": "http://localhost:3020/login",
+        "projectName": null,
+        "activeView": null,
+        "present": [
+          "login-surface"
+        ],
+        "forbiddenPresent": [],
+        "content": {
+          "surfaceKind": "login"
+        }
+      },
+      "ts": "2026-10-07T19:28:45.031Z"
+    },
+    {
+      "captureId": "projects-1440",
+      "pairId": "projects-desktop",
+      "figmaNodeId": "63:39",
+      "fixtureId": "p3-projects-populated",
+      "identityAligned": true,
+      "contentAligned": true,
+      "pairing": "PASS",
+      "alignment": {
+        "identityAligned": true,
+        "contentAligned": true,
+        "semanticStateAligned": true,
+        "activeViewAligned": true,
+        "viewportAligned": true
+      },
+      "reason": null,
+      "observation": {
+        "url": "http://localhost:3020/studio",
+        "projectName": null,
+        "activeView": null,
+        "present": [
+          "studio-projects-home",
+          "studio-projects-list",
+          "studio-projects-recent"
+        ],
+        "forbiddenPresent": [],
+        "content": {
+          "surfaceKind": "projects-home",
+          "profileDisplayName": "mcleland147"
+        }
+      },
+      "ts": "2026-10-07T19:28:45.444Z"
+    },
+    {
+      "captureId": "projects-1024",
+      "pairing": "UNMANIFESTED",
+      "ts": "2026-10-07T19:28:45.700Z"
+    },
+    {
+      "captureId": "new-project-1440",
+      "pairId": "new-project-desktop",
+      "figmaNodeId": "67:39",
+      "fixtureId": "p3-new-project-rich",
+      "identityAligned": true,
+      "contentAligned": true,
+      "pairing": "PASS",
+      "alignment": {
+        "identityAligned": true,
+        "contentAligned": true,
+        "semanticStateAligned": true,
+        "activeViewAligned": true,
+        "viewportAligned": true
+      },
+      "reason": null,
+      "observation": {
+        "url": "http://localhost:3020/studio/projects/new",
+        "projectName": null,
+        "activeView": null,
+        "present": [
+          "create-project-form",
+          "new-project-clarification",
+          "create-project-submit"
+        ],
+        "forbiddenPresent": [],
+        "content": {
+          "surfaceKind": "new-project",
+          "profileDisplayName": "mcleland147"
+        }
+      },
+      "ts": "2026-10-07T19:28:46.557Z"
+    },
+    {
+      "captureId": "new-project-390",
+      "pairId": "new-project-mobile",
+      "figmaNodeId": "190:284",
+      "fixtureId": "p3-new-project-rich",
+      "identityAligned": true,
+      "contentAligned": true,
+      "pairing": "PASS",
+      "alignment": {
+        "identityAligned": true,
+        "contentAligned": true,
+        "semanticStateAligned": true,
+        "activeViewAligned": true,
+        "viewportAligned": true
+      },
+      "reason": null,
+      "observation": {
+        "url": "http://localhost:3020/studio/projects/new",
+        "projectName": null,
+        "activeView": null,
+        "present": [
+          "create-project-form",
+          "new-project-clarification",
+          "create-project-submit"
+        ],
+        "forbiddenPresent": [],
+        "content": {
+          "surfaceKind": "new-project",
+          "profileDisplayName": "mcleland147"
+        }
+      },
+      "ts": "2026-10-07T19:28:46.809Z"
+    },
+    {
+      "captureId": "workspace-1440",
+      "pairId": "workspace-desktop",
+      "figmaNodeId": "46:2",
+      "fixtureId": "p3-workspace-rich",
+      "identityAligned": true,
+      "contentAligned": true,
+      "pairing": "PASS",
+      "alignment": {
+        "identityAligned": true,
+        "contentAligned": true,
+        "semanticStateAligned": true,
+        "activeViewAligned": true,
+        "viewportAligned": true
+      },
+      "reason": null,
+      "observation": {
+        "url": "http://localhost:3020/studio/projects/prj%3AREDACTED",
+        "projectName": "Product Simplification",
+        "activeView": "conversation",
+        "present": [
+          "project-workspace-layout",
+          "project-conversation-main",
+          "project-assistant-panel"
+        ],
+        "forbiddenPresent": [],
+        "content": {
+          "surfaceKind": "project-workspace",
+          "projectName": "Product Simplification",
+          "projectSubtitle": "Simplifier le pilotage sans perdre gouvernance.",
+          "currentCycleLabel": "P3 · UX/UI",
+          "currentCycleStatus": "En cours",
+          "currentWorkLabel": "P3 · UX/UI",
+          "profileDisplayName": "mcleland147",
+          "trajectoryVisibleNodes": 4,
+          "executionCount": "1",
+          "decisionCount": "1",
+          "reserveCount": "1",
+          "focusTopic": "Espace projet",
+          "activeView": "conversation",
+          "synthesisState": "available",
+          "recommendationState": "pending"
+        }
+      },
+      "ts": "2026-10-07T19:28:49.386Z"
+    },
+    {
+      "captureId": "workspace-1024",
+      "pairId": "workspace-compact",
+      "figmaNodeId": "190:44",
+      "fixtureId": "p3-workspace-rich",
+      "identityAligned": true,
+      "contentAligned": true,
+      "pairing": "PASS",
+      "alignment": {
+        "identityAligned": true,
+        "contentAligned": true,
+        "semanticStateAligned": true,
+        "activeViewAligned": true,
+        "viewportAligned": true
+      },
+      "reason": null,
+      "observation": {
+        "url": "http://localhost:3020/studio/projects/prj%3AREDACTED",
+        "projectName": "Product Simplification",
+        "activeView": "conversation",
+        "present": [
+          "project-workspace-layout",
+          "project-conversation-main",
+          "project-assistant-panel"
+        ],
+        "forbiddenPresent": [],
+        "content": {
+          "surfaceKind": "project-workspace",
+          "projectName": "Product Simplification",
+          "projectSubtitle": "Simplifier le pilotage sans perdre gouvernance.",
+          "currentCycleLabel": "P3 · UX/UI",
+          "currentCycleStatus": "En cours",
+          "currentWorkLabel": "P3 · UX/UI",
+          "profileDisplayName": "mcleland147",
+          "trajectoryVisibleNodes": 4,
+          "executionCount": "1",
+          "decisionCount": "1",
+          "reserveCount": "1",
+          "focusTopic": "Espace projet",
+          "activeView": "conversation",
+          "synthesisState": "available",
+          "recommendationState": "pending"
+        }
+      },
+      "ts": "2026-10-07T19:28:49.687Z"
+    },
+    {
+      "captureId": "workspace-390",
+      "pairId": "workspace-mobile",
+      "figmaNodeId": "190:306",
+      "fixtureId": "p3-workspace-rich",
+      "identityAligned": true,
+      "contentAligned": true,
+      "pairing": "PASS",
+      "alignment": {
+        "identityAligned": true,
+        "contentAligned": true,
+        "semanticStateAligned": true,
+        "activeViewAligned": true,
+        "viewportAligned": true
+      },
+      "reason": null,
+      "observation": {
+        "url": "http://localhost:3020/studio/projects/prj%3AREDACTED",
+        "projectName": "Product Simplification",
+        "activeView": "conversation",
+        "present": [
+          "project-workspace-layout",
+          "project-conversation-main",
+          "project-assistant-panel"
+        ],
+        "forbiddenPresent": [],
+        "content": {
+          "surfaceKind": "project-workspace",
+          "projectName": "Product Simplification",
+          "projectSubtitle": "Simplifier le pilotage sans perdre gouvernance.",
+          "currentCycleLabel": "P3 · UX/UI",
+          "currentCycleStatus": "En cours",
+          "currentWorkLabel": "P3 · UX/UI",
+          "profileDisplayName": "mcleland147",
+          "trajectoryVisibleNodes": 4,
+          "executionCount": "1",
+          "decisionCount": "1",
+          "reserveCount": "1",
+          "focusTopic": "Espace projet",
+          "activeView": "conversation",
+          "synthesisState": "available",
+          "recommendationState": "pending"
+        }
+      },
+      "ts": "2026-10-07T19:28:49.984Z"
+    },
+    {
+      "captureId": "apercu-1440",
+      "pairId": "apercu-desktop",
+      "figmaNodeId": "51:2",
+      "fixtureId": "p3-apercu-rich",
+      "identityAligned": true,
+      "contentAligned": true,
+      "pairing": "PASS",
+      "alignment": {
+        "identityAligned": true,
+        "contentAligned": true,
+        "semanticStateAligned": true,
+        "activeViewAligned": true,
+        "viewportAligned": true
+      },
+      "reason": null,
+      "observation": {
+        "url": "http://localhost:3020/studio/projects/prj%3AREDACTED",
+        "projectName": "Product Simplification",
+        "activeView": "overview",
+        "present": [
+          "project-workspace-layout"
+        ],
+        "forbiddenPresent": [],
+        "content": {
+          "surfaceKind": "project-workspace",
+          "projectName": "Product Simplification",
+          "projectSubtitle": "Simplifier le pilotage sans perdre gouvernance.",
+          "currentCycleLabel": "P3 · UX/UI",
+          "currentCycleStatus": "En cours",
+          "currentWorkLabel": "P3 · UX/UI",
+          "profileDisplayName": "mcleland147",
+          "trajectoryVisibleNodes": 4,
+          "executionCount": "1",
+          "decisionCount": "1",
+          "reserveCount": "1",
+          "focusTopic": "Espace projet",
+          "activeView": "overview"
+        }
+      },
+      "ts": "2026-10-07T19:28:50.273Z"
+    },
+    {
+      "captureId": "apercu-390",
+      "pairing": "UNMANIFESTED",
+      "ts": "2026-10-07T19:28:50.566Z"
+    },
+    {
+      "captureId": "journal-1440",
+      "pairId": "journal-desktop",
+      "figmaNodeId": "94:2",
+      "fixtureId": "p3-journal-rich",
+      "identityAligned": true,
+      "contentAligned": true,
+      "pairing": "PASS",
+      "alignment": {
+        "identityAligned": true,
+        "contentAligned": true,
+        "semanticStateAligned": true,
+        "activeViewAligned": true,
+        "viewportAligned": true
+      },
+      "reason": null,
+      "observation": {
+        "url": "http://localhost:3020/studio/projects/prj%3AREDACTED",
+        "projectName": "Product Simplification",
+        "activeView": "journal",
+        "present": [
+          "project-workspace-layout"
+        ],
+        "forbiddenPresent": [],
+        "content": {
+          "surfaceKind": "project-workspace",
+          "projectName": "Product Simplification",
+          "projectSubtitle": "Simplifier le pilotage sans perdre gouvernance.",
+          "currentCycleLabel": "P3 · UX/UI",
+          "currentCycleStatus": "En cours",
+          "currentWorkLabel": "P3 · UX/UI",
+          "profileDisplayName": "mcleland147",
+          "trajectoryVisibleNodes": 4,
+          "executionCount": "1",
+          "decisionCount": "1",
+          "reserveCount": "1",
+          "focusTopic": "Espace projet",
+          "activeView": "journal"
+        }
+      },
+      "ts": "2026-10-07T19:28:50.902Z"
+    },
+    {
+      "captureId": "journal-390",
+      "pairing": "UNMANIFESTED",
+      "ts": "2026-10-07T19:28:51.232Z"
+    },
+    {
+      "captureId": "historique-1440",
+      "pairId": "historique-desktop",
+      "figmaNodeId": "78:2",
+      "fixtureId": "p3-history-rich",
+      "identityAligned": true,
+      "contentAligned": true,
+      "pairing": "PASS",
+      "alignment": {
+        "identityAligned": true,
+        "contentAligned": true,
+        "semanticStateAligned": true,
+        "activeViewAligned": true,
+        "viewportAligned": true
+      },
+      "reason": null,
+      "observation": {
+        "url": "http://localhost:3020/studio/projects/prj%3AREDACTED",
+        "projectName": "Product Simplification",
+        "activeView": "history",
+        "present": [
+          "project-workspace-layout"
+        ],
+        "forbiddenPresent": [],
+        "content": {
+          "surfaceKind": "project-workspace",
+          "projectName": "Product Simplification",
+          "projectSubtitle": "Simplifier le pilotage sans perdre gouvernance.",
+          "currentCycleLabel": "P3 · UX/UI",
+          "currentCycleStatus": "En cours",
+          "currentWorkLabel": "P3 · UX/UI",
+          "profileDisplayName": "mcleland147",
+          "trajectoryVisibleNodes": 4,
+          "executionCount": "1",
+          "decisionCount": "1",
+          "reserveCount": "1",
+          "focusTopic": "Espace projet",
+          "activeView": "history"
+        }
+      },
+      "ts": "2026-10-07T19:28:51.578Z"
+    },
+    {
+      "captureId": "historique-1024",
+      "pairing": "UNMANIFESTED",
+      "ts": "2026-10-07T19:28:51.948Z"
+    },
+    {
+      "captureId": "historique-390",
+      "pairing": "UNMANIFESTED",
+      "ts": "2026-10-07T19:28:52.298Z"
+    },
+    {
+      "captureId": "syntheses-1440",
+      "pairId": "syntheses-desktop",
+      "figmaNodeId": "164:3",
+      "fixtureId": "p3-syntheses-rich",
+      "identityAligned": true,
+      "contentAligned": true,
+      "pairing": "PASS",
+      "alignment": {
+        "identityAligned": true,
+        "contentAligned": true,
+        "semanticStateAligned": true,
+        "activeViewAligned": true,
+        "viewportAligned": true
+      },
+      "reason": null,
+      "observation": {
+        "url": "http://localhost:3020/studio/projects/prj%3AREDACTED",
+        "projectName": "Product Simplification",
+        "activeView": "syntheses",
+        "present": [
+          "project-workspace-layout",
+          "project-syntheses-item",
+          "project-syntheses-section-verified",
+          "project-syntheses-detail-scroll"
+        ],
+        "forbiddenPresent": [],
+        "content": {
+          "surfaceKind": "project-workspace",
+          "projectName": "Product Simplification",
+          "projectSubtitle": "Simplifier le pilotage sans perdre gouvernance.",
+          "currentCycleLabel": "P3 · UX/UI",
+          "currentCycleStatus": "En cours",
+          "currentWorkLabel": "P3 · UX/UI",
+          "profileDisplayName": "mcleland147",
+          "trajectoryVisibleNodes": 4,
+          "executionCount": "1",
+          "decisionCount": "1",
+          "reserveCount": "1",
+          "focusTopic": "Espace projet",
+          "activeView": "syntheses",
+          "synthesisState": "listed"
+        }
+      },
+      "ts": "2026-10-07T19:28:52.655Z"
+    },
+    {
+      "captureId": "syntheses-1024",
+      "pairing": "UNMANIFESTED",
+      "ts": "2026-10-07T19:28:53.035Z"
+    },
+    {
+      "captureId": "syntheses-390",
+      "pairing": "UNMANIFESTED",
+      "ts": "2026-10-07T19:28:53.420Z"
+    },
+    {
+      "captureId": "execution-390",
+      "pairing": "UNMANIFESTED",
+      "ts": "2026-10-07T19:28:53.749Z"
+    },
+    {
+      "captureId": "syntheses-verified-1440",
+      "pairId": "syntheses-verified-desktop",
+      "figmaNodeId": "316:2",
+      "fixtureId": "p3-syntheses-rich",
+      "identityAligned": true,
+      "contentAligned": true,
+      "pairing": "PASS",
+      "alignment": {
+        "identityAligned": true,
+        "contentAligned": true,
+        "semanticStateAligned": true,
+        "activeViewAligned": true,
+        "viewportAligned": true
+      },
+      "reason": null,
+      "observation": {
+        "url": "http://localhost:3020/studio/projects/prj%3AREDACTED",
+        "projectName": "Product Simplification",
+        "activeView": "syntheses",
+        "present": [
+          "project-workspace-layout",
+          "project-syntheses-item",
+          "project-syntheses-section-verified",
+          "project-syntheses-detail-scroll"
+        ],
+        "forbiddenPresent": [],
+        "content": {
+          "surfaceKind": "project-workspace",
+          "projectName": "Product Simplification",
+          "projectSubtitle": "Simplifier le pilotage sans perdre gouvernance.",
+          "currentCycleLabel": "P3 · UX/UI",
+          "currentCycleStatus": "En cours",
+          "currentWorkLabel": "P3 · UX/UI",
+          "profileDisplayName": "mcleland147",
+          "trajectoryVisibleNodes": 4,
+          "executionCount": "1",
+          "decisionCount": "1",
+          "reserveCount": "1",
+          "focusTopic": "Espace projet",
+          "activeView": "syntheses",
+          "synthesisState": "listed"
+        }
+      },
+      "ts": "2026-10-07T19:28:54.095Z"
+    },
+    {
+      "captureId": "projects-390",
+      "pairing": "UNMANIFESTED",
+      "ts": "2026-10-07T19:28:54.403Z"
+    },
+    {
+      "captureId": "decision-390",
+      "pairId": "decision-mobile",
+      "figmaNodeId": "190:495",
+      "fixtureId": "p3-decision-pending",
+      "identityAligned": true,
+      "contentAligned": true,
+      "pairing": "PASS",
+      "alignment": {
+        "identityAligned": true,
+        "contentAligned": true,
+        "semanticStateAligned": true,
+        "activeViewAligned": true,
+        "viewportAligned": true
+      },
+      "reason": null,
+      "observation": {
+        "url": "http://localhost:3020/studio/projects/prj%3AREDACTED",
+        "projectName": "Product Simplification",
+        "activeView": "conversation",
+        "present": [
+          "project-workspace-layout",
+          "project-conversation-main",
+          "project-assistant-panel",
+          "governed-decision-card"
+        ],
+        "forbiddenPresent": [],
+        "content": {
+          "surfaceKind": "project-workspace",
+          "projectName": "Product Simplification",
+          "projectSubtitle": "Réduire la surface opératoire sans perdre la vérité Product",
+          "currentCycleLabel": "DEC · Delivery / implémentation",
+          "currentCycleStatus": "Cycle proposé",
+          "currentWorkLabel": "DEC · Delivery / implémentation",
+          "profileDisplayName": "mcleland147",
+          "trajectoryVisibleNodes": 2,
+          "executionCount": "0",
+          "decisionCount": "1",
+          "reserveCount": "0",
+          "activeView": "conversation",
+          "confirmationState": "decision"
+        }
+      },
+      "ts": "2026-10-07T19:28:56.935Z"
+    },
+    {
+      "captureId": "confirmation-390",
+      "pairId": "confirmation-mobile",
+      "figmaNodeId": "190:520",
+      "fixtureId": "p3-confirmation-required",
+      "identityAligned": true,
+      "contentAligned": true,
+      "pairing": "PASS",
+      "alignment": {
+        "identityAligned": true,
+        "contentAligned": true,
+        "semanticStateAligned": true,
+        "activeViewAligned": true,
+        "viewportAligned": true
+      },
+      "reason": null,
+      "observation": {
+        "url": "http://localhost:3020/studio/projects/prj%3AREDACTED",
+        "projectName": "Product Simplification",
+        "activeView": "conversation",
+        "present": [
+          "project-workspace-layout",
+          "project-conversation-main",
+          "project-assistant-panel",
+          "governed-confirmation-card",
+          "governed-confirmation-scope",
+          "governed-confirmation-impact",
+          "governed-confirmation-reversibility"
+        ],
+        "forbiddenPresent": [],
+        "content": {
+          "surfaceKind": "project-workspace",
+          "projectName": "Product Simplification",
+          "projectSubtitle": "Réduire la surface opératoire sans perdre la vérité Product",
+          "currentCycleLabel": "CF · Delivery / implémentation",
+          "currentCycleStatus": "Cycle proposé",
+          "currentWorkLabel": "CF · Delivery / implémentation",
+          "profileDisplayName": "mcleland147",
+          "trajectoryVisibleNodes": 2,
+          "executionCount": "1",
+          "decisionCount": "0",
+          "reserveCount": "0",
+          "activeView": "conversation",
+          "confirmationState": "required"
+        }
+      },
+      "ts": "2026-10-07T19:28:59.507Z"
+    }
+  ]
+}
