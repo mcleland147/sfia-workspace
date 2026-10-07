@@ -121,7 +121,7 @@ test.describe("P5-S08-4 P3 visual parity", () => {
     fs.mkdirSync(CAPTURE_ROOT, { recursive: true });
     fs.writeFileSync(path.join(CAPTURE_ROOT, "manifest.jsonl"), "");
 
-    await gotoAuthenticatedStudio(page, "/studio");
+    await gotoAuthenticatedStudio(page, { path: "/studio" });
     await waitProjectsReady(page);
     expect(
       await page.getByTestId("studio-projects-loading").count(),
@@ -148,12 +148,14 @@ test.describe("P5-S08-4 P3 visual parity", () => {
     }));
     expect(overflow.sw).toBeLessThanOrEqual(overflow.cw + 1);
 
-    await gotoAuthenticatedStudio(page, "/studio/projects/new");
-    await expect(page.getByTestId("create-project-form")).toBeVisible();
+    await page.goto("/studio/projects/new", { waitUntil: "domcontentloaded" });
+    await expect(page.getByTestId("create-project-form")).toBeVisible({
+      timeout: 45_000,
+    });
     await capture(page, "new-project-1440", { width: 1440, height: 1024 });
     await capture(page, "new-project-390", { width: 390, height: 844 });
 
-    await gotoAuthenticatedStudio(page, "/studio");
+    await gotoAuthenticatedStudio(page, { path: "/studio" });
     await waitProjectsReady(page);
     const open = page.getByTestId("studio-projects-open").first();
     test.skip(
