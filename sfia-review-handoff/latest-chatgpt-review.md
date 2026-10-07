@@ -1,15 +1,17 @@
 # P5-S08-4 — FINAL VISUAL CLOSURE RE-PROOF
 
-**Timestamp:** 2026-10-07 23:38:00 +0200
-**Cycle:** P5-S08-4 / S08-4D FINAL VISUAL CLOSURE RE-PROOF
+**Timestamp:** 2026-10-07 23:38:00 +0200 (proof)
+**Truth-sync timestamp:** 2026-10-07 23:53:57 +0200
+**Cycle:** P5-S08-4 / S08-4D FINAL VISUAL CLOSURE RE-PROOF + FINAL REVIEW HANDOFF TRUTH SYNC
 **Profile:** CRITICAL · Review Pack = FULL
 **Typologie:** EVOL / QA closure (Cycle 9 — QA / validation)
 **Branch:** `delivery/sfia-studio-product-simplification-p5-s08-global-p3-visual-parity`
 **origin/main:** `eed18bd572d65b6f5f4878ed24b195e4feeb5c7e`
 **Entry HEAD:** `e692bf2335f3258e83bfc3eb7c7f7f82747265e6`
-**Proof Exit HEAD:** `4b7a9469ae4808f3ed42dd27787781bdb8c71257`
-**Exit HEAD:** `07a99bc70af9db54f14c0ac2b556385643a9b488`
-**Documentation tip HEAD:** `07a99bc70af9db54f14c0ac2b556385643a9b488`
+**Proof HEAD:** `4b7a9469ae4808f3ed42dd27787781bdb8c71257`
+**Current Project HEAD:** `0ee5f2a656bc37efe939003df800c844f3ea2d1e`
+**Post-proof delta:** DOCUMENTATION-ONLY
+**Re-proof required:** NO
 
 **Verdict:**
 
@@ -38,6 +40,25 @@ READY FOR GIT INTEGRATION
 | Product source surprises | **NONE** |
 
 ≠ STOP — LOCAL GIT TRUTH DIVERGENCE
+
+---
+
+## Final Review Handoff Truth Sync
+
+| Field | Value |
+| --- | --- |
+| Proof HEAD | `4b7a9469ae4808f3ed42dd27787781bdb8c71257` — last commit covered by full Product/visual/technical proof |
+| Current Project HEAD | `0ee5f2a656bc37efe939003df800c844f3ea2d1e` — local tip at handoff publication (`git rev-parse HEAD`) |
+| Commits after Proof HEAD | `d44a1782`, `ae0048fc`, `da9f15aa`, `0ee5f2a6` |
+| Files changed after Proof HEAD | `.tmp-sfia-review/chatgpt-review.md` only |
+| Post-proof classification | **DOCUMENTATION-ONLY** (category A) |
+| Product / runtime changes after proof | **NO** |
+| Test / harness / QA contract changes after proof | **NO** |
+| Full re-proof required | **NO** |
+| Reason | no Product/runtime/test/harness changes after proof boundary; Exit HEAD self-reference loop corrected by distinguishing Proof HEAD vs Current Project HEAD |
+
+Obsolete remote fields `Exit HEAD = 07a99bc7` / mismatched Cursor tip are superseded by this model.
+No recursive documentation commit is created solely to make an Exit HEAD field equal its own SHA.
 
 ---
 
@@ -233,9 +254,19 @@ Prior “PASS CANDIDATE” tip marked **HISTORICAL / SUPERSEDED AS TIP**.
 
 ## Project commits this pass
 
-- `877c97431da7e3fc75a4f80fb4e49e88f63a7494` — docs(sfia-studio): finalize S08-4 closure Exit HEAD in review pack
-- `d44a1782fa4f7cf50e9bf9507f42a29da96a25ed` — docs(sfia-studio): record S08-4 final closure Exit HEAD in review pack
+**Proof boundary**
+
 - `4b7a9469ae4808f3ed42dd27787781bdb8c71257` — docs(sfia-studio): close P5-S08-4 final visual re-proof for Git Integration
+
+**Post-proof documentation-only (Current Project HEAD = `0ee5f2a656bc37efe939003df800c844f3ea2d1e`)**
+
+- `0ee5f2a656bc37efe939003df800c844f3ea2d1e` — docs(sfia-studio): sync S08-4 documentation tip HEAD in review pack
+- `da9f15aafd592b81ade842c83cbb7ca9d0227340` — docs(sfia-studio): record S08-4 proof Exit HEAD vs documentation tip
+- `ae0048fcda76321e438755de1ac07f4362438527` — docs(sfia-studio): finalize S08-4 closure Exit HEAD in review pack
+- `d44a1782fa4f7cf50e9bf9507f42a29da96a25ed` — docs(sfia-studio): record S08-4 final closure Exit HEAD in review pack
+
+This truth-sync updates the Review Pack working tree / Review Handoff only.
+It does **not** create another project commit to chase a self-referential Exit HEAD.
 
 
 ## Review Handoff
