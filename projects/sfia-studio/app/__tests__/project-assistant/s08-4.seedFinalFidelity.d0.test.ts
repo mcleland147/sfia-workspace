@@ -362,17 +362,17 @@ function seedCompanionJournal(input: {
     sessionKey: "f1-default",
   });
   session.ensurePilotTranscriptAndJournalSchema();
-  // P3 46:2 density — one user turn + Nora analysis (extra Q&A qualified separately if needed).
+  // P3 190:306 / 46:2 — one user turn + Nora reply (canonical Product Simplification copy).
   const t1 = appendPilotTranscriptTurn(session, {
     role: "user",
     content:
-      "Je veux qu’on garde une expérience vraiment centrée sur la conversation, mais je veux pouvoir comprendre le projet, ouvrir les objets importants et garder la main sans avoir cinq panneaux sous les yeux.",
+      "Je veux garder la conversation comme canal principal tout en comprenant rapidement l'état du projet.",
     logicalTurnId: "ltu:s084-nora-1",
   });
   appendPilotTranscriptTurn(session, {
     role: "assistant",
     content:
-      "Je garderais la conversation comme canal de travail principal, avec des surfaces structurées uniquement lorsqu’elles apportent une vraie valeur pour comprendre ou agir.",
+      "Le contexte reste accessible à la demande, sans occuper l'écran en permanence sur mobile.",
     logicalTurnId: "ltu:s084-nora-1",
   });
   const created = materializeCycleJournalDelta({
@@ -815,8 +815,7 @@ describe.runIf(runSeed)("S08-4 seed final fidelity canonical Product DB", () => 
       const project = await seedNamedQualifiedProject(runtime, {
         name: "Product Simplification",
         suffix: "ws",
-        objective:
-          "Simplifier le pilotage sans perdre gouvernance, preuve et maîtrise du Pilote.",
+        objective: "Simplifier le pilotage sans perdre gouvernance.",
         profile: "Standard",
         // P3 visual identity — shortReference + UX/UI + started (« En cours »).
         shortReference: "P3",
@@ -830,6 +829,8 @@ describe.runIf(runSeed)("S08-4 seed final fidelity canonical Product DB", () => 
           },
         ],
       });
+      // Recommendation remains durable Product truth for desktop / Aperçu;
+      // mobile Conversation progressively discloses synthèse instead (190:306).
       await oa.cycleServices.updateEpistemicState.execute({
         projectId: project.projectId,
         items: [

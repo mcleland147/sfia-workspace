@@ -1076,6 +1076,35 @@
     max-width: 100%;
   }
 
+  /* P3 190:306 — flat turns; no user card chrome on mobile. */
+  .turnMine .bubble {
+    background: transparent;
+    border-color: transparent;
+    padding-inline: 0;
+  }
+
+  .bubbleText {
+    font-size: 0.8125rem; /* 13 */
+    line-height: 1.45;
+  }
+
+  /*
+   * Progressive disclosure — when a synthèse teaser is present, recommendation
+   * density stays on desktop / context (P3 190:306 shows synthèse, not reco).
+   */
+  .root:has([data-testid="conversation-synthesis-teaser"]) .durableStack {
+    display: none;
+  }
+
+  .synthesisTitle {
+    display: none;
+  }
+
+  .synthesisTeaser {
+    max-width: none;
+    padding: 12px 14px;
+  }
+
   .decisionCard {
     padding: var(--pm6-space-4);
   }
@@ -1086,19 +1115,39 @@
 
   /*
    * C-polish — Conversation mobile composer (Figma 190:306):
-   * compact ~60px row; send ~36×38; secondary to conversation content.
-   * Multiline retained for Product typing; not a one-line-only redesign.
+   * compact ~60px row; send ~36×38; +Contexte/@Élément leave the chrome.
    */
   .composer {
+    flex-direction: column;
+    gap: 0;
+    min-height: 0;
+    max-height: none;
+    padding: 8px 0 4px;
+    border-top: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .composerBox {
     flex-direction: row;
     align-items: center;
     gap: 8px;
     min-height: 60px;
-    max-height: none;
     padding: 8px 8px 8px 12px;
     border-radius: 8px;
     background: var(--pm6-canvas-raised);
-    box-shadow: none;
+  }
+
+  .composerTool,
+  .composerToolActive {
+    display: none;
+  }
+
+  .composerTools {
+    flex: 0 0 auto;
+    gap: 0;
+    min-height: 0;
   }
 
   .composerInput {
@@ -1108,13 +1157,13 @@
     max-height: 96px;
     resize: none;
     padding: 8px 0;
-    font-size: 0.6875rem;
+    font-size: 0.8125rem;
     line-height: 1.35;
   }
 
   .composerFoot {
     flex: 0 0 auto;
-    margin-left: auto;
+    margin-left: 0;
   }
 
   .composerStatus {
@@ -1161,9 +1210,18 @@
     display: inline;
   }
 
-  /* Mobile keeps compact ↑; sizes already set above. */
-
   .composerCaption {
+    display: none;
+  }
+
+  /* P3 190:495 / 190:520 — governed card sits in 358px content column. */
+  .root[data-governed-moment="true"] .governedMomentSlot {
+    max-width: 358px;
+    margin-inline: 0;
+    padding-top: 12px;
+  }
+
+  .root[data-governed-moment="true"] .thread {
     display: none;
   }
 }

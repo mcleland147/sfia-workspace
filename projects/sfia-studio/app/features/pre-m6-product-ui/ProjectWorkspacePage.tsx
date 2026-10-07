@@ -708,7 +708,7 @@ export function ProjectWorkspacePage({
             onClick={openExecution}
           >
             Exécution
-            {executionBadge != null ? (
+            {executionBadge != null && !focusedGovernedMoment ? (
               <span
                 className={styles.tabBadge}
                 data-testid="project-tab-execution-badge"

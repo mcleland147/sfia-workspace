@@ -396,11 +396,11 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--pm6-space-3);
-  min-height: 40px;
-  margin: var(--pm6-space-3) var(--ws-pad-x) 0;
-  padding: 0 10px;
-  border-radius: 7px;
-  background: var(--pm6-canvas-raised);
+  min-height: 36px;
+  margin: 12px var(--ws-pad-x) 0;
+  padding: 0 12px;
+  border-radius: 8px;
+  background: #f7f1ea;
 }
 
 .mobileFocusLabel {
@@ -409,9 +409,9 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: 0.625rem;
-  font-weight: 600;
-  color: var(--pm6-muted-strong);
+  font-size: 0.6875rem; /* 11 */
+  font-weight: 500;
+  color: #6d645c;
 }
 
 .mobileFocusContext {
@@ -422,7 +422,7 @@
   background: none;
   color: var(--pm6-accent);
   font: inherit;
-  font-size: 0.625rem;
+  font-size: 0.6875rem;
   font-weight: 600;
   cursor: pointer;
   white-space: nowrap;
@@ -822,7 +822,7 @@
 
 @media (max-width: 767px) {
   /*
-   * B2 — shared mobile Project shell (P3 192:2 / 190:337):
+   * B2 — shared mobile Project shell (P3 190:306 / 190:495 / 190:520):
    * brand/user (ProductShell) → project title → subtitle → tabs → surface.
    * Desktop chrome (breadcrumb, freshness badge, chip cluster, LPS pill)
    * leaves the main vertical flow; facts remain reachable via Aperçu.
@@ -832,9 +832,10 @@
   }
 
   .projectHeader {
+    box-sizing: border-box;
     min-height: 0;
-    padding-top: 12px;
-    gap: var(--pm6-space-2);
+    padding: 12px var(--ws-pad-x, 16px) 10px;
+    gap: 6px;
   }
 
   .projectHeaderRow {
@@ -847,36 +848,57 @@
   }
 
   .projectTitle {
-    font-size: 1.25rem;
-    line-height: 1.2;
+    font-size: 1.125rem; /* 18 — Figma 190:529 */
+    line-height: 1.25;
   }
 
   .projectObjective {
     -webkit-line-clamp: 2;
-    font-size: 0.8125rem;
+    font-size: 0.75rem; /* 12 */
+    line-height: 1.35;
   }
 
   .projectChips {
     display: none;
   }
 
-  /* P3 190:495 / 190:520 — focused Decision/Confirmation: project name only. */
-  .root[data-governed-moment="true"] .projectTitleBrand {
+  /* P3 190:306 — project title is Product identity only (no SFIA Studio —). */
+  .projectTitleBrand {
     display: none;
   }
 
+  /* P3 190:495 / 190:520 — focused Decision/Confirmation: project name only. */
   .root[data-governed-moment="true"] .projectObjective {
     display: none;
   }
 
+  .root[data-governed-moment="true"] .projectHeader {
+    /* Figma 190:528 — title + tabs, 112px band under 56px topbar. */
+    min-height: 112px;
+    padding-bottom: 10px;
+  }
+
+  /* P3 190:306 — Exécution badge is desktop/compact attention chrome. */
+  .tabBadge {
+    display: none;
+  }
+
+  /* Continuity restored hint is desktop density; mobile keeps the strip. */
+  .durabilityHint {
+    display: none;
+  }
+
   .tabs {
-    gap: var(--pm6-space-4);
+    gap: 20px;
+    min-height: 30px;
+    align-items: flex-end;
   }
 
   .tab {
-    min-height: 38px;
-    padding: 10px 0 12px;
-    font-size: 0.875rem;
+    min-height: 30px;
+    padding: 0 0 8px;
+    font-size: 0.6875rem; /* 11 — Figma tab */
+    font-weight: 500;
   }
 
   .lpsToggle {

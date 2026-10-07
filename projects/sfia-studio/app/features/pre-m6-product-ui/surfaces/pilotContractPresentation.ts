@@ -12,6 +12,8 @@ export type PilotContractPresentationInput = {
   reversibility: string;
   targetPath?: string | null;
   targetRepositoryRef?: string | null;
+  /** Durable contract constraints — used only to derive Pilot effect class. */
+  constraints?: readonly string[];
 };
 
 export type PilotContractPresentation = {
@@ -19,8 +21,15 @@ export type PilotContractPresentation = {
   nowTitle: string;
   /** Short effect line (local write / reversible / etc.). */
   effectSummary: string;
+  /**
+   * Impact body for Confirmation sections — effect only, no reversibility
+   * (Réversibilité is its own block).
+   */
+  impactLine: string;
   /** Artifact path when known, else business target paraphrase. */
   artifactLine: string;
+  /** Pilot Portée line — never a technical agent/contract id. */
+  scopeLine: string;
   /** Human authority label — never leak MORRIS as Product runtime default. */
   authorityLabel: string;
   /** Whether this contract qualifies for one-CTA Exécuter orchestration. */
@@ -32,6 +41,41 @@ export type PilotContractPresentation = {
 function basenameFromPath(path: string): string {
   const parts = path.split("/").filter(Boolean);
   return parts[parts.length - 1] ?? path;
+}
+
+/** Technical channel / capability refs must not surface as Pilot Portée. */
+export function isTechnicalProductRef(value: string): boolean {
+  const v = value.trim();
+  if (!v) return true;
+  if (/^(studio\.|product:|cursor\.|workspace\.|cap:|evreq:|xct:)/i.test(v)) {
+    return true;
+  }
+  if (v.includes("authorized_contract")) return true;
+  if (v.includes(".") && !v.includes(" ")) return true;
+  return false;
+}
+
+function effectClassFromConstraints(
+  constraints: readonly string[] | undefined,
+): string | null {
+  if (!constraints) return null;
+  for (const c of constraints) {
+    if (c.startsWith("EFFECT_CLASS:")) {
+      return c.slice("EFFECT_CLASS:".length).trim() || null;
+    }
+  }
+  return null;
+}
+
+function isWorkspaceBoundEffect(input: PilotContractPresentationInput): boolean {
+  const effectClass = effectClassFromConstraints(input.constraints);
+  if (effectClass === "generate-temporary-artifact") return true;
+  const target = `${input.target} ${input.scope}`.toLowerCase();
+  return (
+    target.includes("workspace") ||
+    target.includes("project-workspace") ||
+    target.includes("generalist")
+  );
 }
 
 export function isSimplifiedPilotExecutePath(
@@ -48,25 +92,42 @@ export function presentPilotContract(
   const isDocsWrite =
     input.action.includes("docs_write") ||
     input.target.includes("docs_write");
+  const effectClass = effectClassFromConstraints(input.constraints);
+  const workspaceBound = isWorkspaceBoundEffect(input);
 
   const nowTitle = fileName
     ? `Créer / mettre à jour « ${fileName} »`
     : isDocsWrite
       ? "Écrire un livrable documentaire local"
-      : "Exécuter le travail préparé";
+      : workspaceBound
+        ? "Mettre à jour l'espace projet"
+        : "Exécuter le travail préparé";
 
-  const effectParts: string[] = [];
-  if (isDocsWrite) {
-    effectParts.push("1 fichier");
-    effectParts.push("Écriture locale");
-  } else {
-    effectParts.push("Effet borné");
-  }
+  const impactLine = isDocsWrite
+    ? "1 fichier · Écriture locale"
+    : effectClass === "generate-temporary-artifact"
+      ? "Artefact temporaire local"
+      : workspaceBound
+        ? "Mise à jour de l'espace projet"
+        : "Effet borné";
+
+  const effectParts: string[] = [impactLine];
   if (input.reversibility === "reversible") {
     effectParts.push("Réversible");
   } else if (input.reversibility === "irreversible") {
     effectParts.push("Non réversible");
   }
+
+  const rawScope = input.scope?.trim() || "";
+  const scopeLine = !isTechnicalProductRef(rawScope)
+    ? rawScope
+    : workspaceBound
+      ? "Interface du projet"
+      : path
+        ? path
+        : input.targetRepositoryRef
+          ? `Cible projet (${input.targetRepositoryRef})`
+          : "Espace projet";
 
   const authorityLabel =
     input.requiredAuthority === "N1" || input.requiredAuthority === "N2"
@@ -80,11 +141,13 @@ export function presentPilotContract(
   return {
     nowTitle,
     effectSummary: effectParts.join(" · "),
+    impactLine,
     artifactLine: path
       ? path
       : input.targetRepositoryRef
         ? `Cible projet (${input.targetRepositoryRef})`
-        : "Cible dérivée du contrat scellé",
+        : scopeLine,
+    scopeLine,
     authorityLabel,
     simplifiedExecutePath: isSimplifiedPilotExecutePath(
       input.requiredAuthority,

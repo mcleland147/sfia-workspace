@@ -363,7 +363,7 @@ export function ConversationSurface({
                   className={styles.bubbleAuthor}
                   data-role={message.role === "user" ? "user" : "assistant"}
                 >
-                  {message.role === "user" ? "Vous" : "Nora · Analyse"}
+                  {message.role === "user" ? "Vous" : "Nora"}
                 </p>
                 <p className={styles.bubbleText}>
                   {message.role === "assistant"
@@ -1629,14 +1629,15 @@ export function ConversationSurface({
           data-testid="conversation-synthesis-teaser"
           aria-live="polite"
         >
-          <p className={styles.synthesisEyebrow}>Nora · Synthèse disponible</p>
+          <p className={styles.synthesisEyebrow}>Synthèse disponible</p>
           <p className={styles.synthesisTitle}>{latestSynthesis.title}</p>
           <p
             className={styles.synthesisBody}
             data-testid="conversation-synthesis-summary"
           >
-            {presentSynthesisVerdictLabel(latestSynthesis.verdictLabel)} ·{" "}
-            {synthesisSummaryExcerpt(latestSynthesis, 120)}
+            {latestSynthesis.verdictLabel === "atteint"
+              ? "Résultat atteint — aucun blocage identifié."
+              : `${presentSynthesisVerdictLabel(latestSynthesis.verdictLabel)} · ${synthesisSummaryExcerpt(latestSynthesis, 120)}`}
           </p>
           <button
             type="button"
@@ -1773,7 +1774,7 @@ export function ConversationSurface({
             rows={2}
             value={draft}
             disabled={busy || blocked}
-            placeholder="Demander à Nora à propos de ce projet…"
+            placeholder="Écrire à Nora…"
             aria-describedby={liveRegionId}
             onChange={(event) => setDraft(event.target.value)}
             onKeyDown={(event) => {

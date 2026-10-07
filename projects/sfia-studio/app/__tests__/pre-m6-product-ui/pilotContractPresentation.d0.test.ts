@@ -33,4 +33,20 @@ describe("pilotContractPresentation", () => {
     expect(isSimplifiedPilotExecutePath("N3")).toBe(false);
     expect(isSimplifiedPilotExecutePath("MORRIS")).toBe(false);
   });
+
+  it("P5-S08-4 — workspace / temp-artifact confirmation stays Pilot-facing", () => {
+    const view = presentPilotContract({
+      action: "studio.cursor.generalist.execute",
+      target: "studio.cursor.generalist.workspace",
+      scope: "studio.cursor.generalist.authorized_contract",
+      requiredAuthority: "N1",
+      reversibility: "reversible",
+      constraints: ["EFFECT_CLASS:generate-temporary-artifact"],
+    });
+    expect(view.nowTitle).toBe("Mettre à jour l'espace projet");
+    expect(view.scopeLine).toBe("Interface du projet");
+    expect(view.impactLine).toMatch(/Artefact temporaire/i);
+    expect(view.scopeLine).not.toMatch(/studio\.|authorized_contract/);
+    expect(view.reversibilityLabel).toBe("Réversible");
+  });
 });

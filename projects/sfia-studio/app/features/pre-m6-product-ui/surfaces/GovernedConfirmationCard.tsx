@@ -10,7 +10,10 @@ import type {
   ContractInspectionStateDto,
   CurrentGovernedExecutionContinuityContractDto,
 } from "@/features/project-assistant/w2/types";
-import { presentPilotContract } from "./pilotContractPresentation";
+import {
+  isTechnicalProductRef,
+  presentPilotContract,
+} from "./pilotContractPresentation";
 import styles from "./GovernedConfirmationCard.module.css";
 
 export type GovernedConfirmationCardProps = {
@@ -41,6 +44,7 @@ export function GovernedConfirmationCard({
     targetPath: contract.inspectionDisclosure?.targetPath ?? null,
     targetRepositoryRef:
       contract.inspectionDisclosure?.targetRepositoryRef ?? null,
+    constraints: contract.constraints,
   });
 
   const confirmationRequired =
@@ -52,11 +56,12 @@ export function GovernedConfirmationCard({
   }
 
   const inspectionOk = inspection.inspectionSufficient === true;
+  const rawScope = contract.scope?.trim() || "";
   const scopeText =
-    contract.scope?.trim() ||
-    pilot.artifactLine ||
+    (rawScope && !isTechnicalProductRef(rawScope) ? rawScope : null) ||
+    pilot.scopeLine ||
     "Portée dérivée du contrat inspectable";
-  const impactText = pilot.effectSummary || pilot.nowTitle;
+  const impactText = pilot.impactLine || pilot.nowTitle;
   const reversibilityText = pilot.reversibilityLabel;
 
   return (

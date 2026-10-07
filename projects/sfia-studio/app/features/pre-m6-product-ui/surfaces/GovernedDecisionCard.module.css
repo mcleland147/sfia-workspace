@@ -7,10 +7,10 @@
   display: flex;
   flex-direction: column;
   gap: 9px;
-  /* 11px horizontal + 1px border ≈ Figma 12px inset → 334px buttons in 358 card. */
-  padding: 12px 11px;
-  background: var(--pm6-canvas-raised);
-  border: 1px solid var(--pm6-border);
+  /* Figma 190:512 — 12px pad; 334px buttons in 358 card. */
+  padding: 12px;
+  background: #fbf7f2;
+  border: 1px solid #e6ded5;
   border-radius: 9px;
   min-width: 0;
 }
@@ -78,6 +78,7 @@
   flex-direction: column;
   gap: 8px;
   margin-top: 2px;
+  width: 100%;
 }
 
 .primary,
@@ -100,12 +101,19 @@
 
 .primary {
   border: 0;
-  background: var(--pm6-forest);
-  color: var(--pm6-forest-ink);
+  /* Figma 190:516 — ink primary, not forest accent. */
+  background: #1f1a16;
+  color: #fffdf9;
 }
 
 .primary:hover:not(:disabled) {
-  background: var(--pm6-forest-hover);
+  background: #2a241f;
+}
+
+@media (max-width: 767px) {
+  .card {
+    max-width: 358px;
+  }
 }
 
 .secondary {
