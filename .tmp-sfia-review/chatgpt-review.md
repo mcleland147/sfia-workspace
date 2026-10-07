@@ -8,7 +8,8 @@
 **origin/main:** `eed18bd572d65b6f5f4878ed24b195e4feeb5c7e`
 **Entry HEAD:** `e692bf2335f3258e83bfc3eb7c7f7f82747265e6`
 **Proof Exit HEAD:** `4b7a9469ae4808f3ed42dd27787781bdb8c71257`
-**Documentation tip HEAD:** `ae0048fcda76321e438755de1ac07f4362438527`
+**Exit HEAD:** `07a99bc70af9db54f14c0ac2b556385643a9b488`
+**Documentation tip HEAD:** `07a99bc70af9db54f14c0ac2b556385643a9b488`
 
 **Verdict:**
 
