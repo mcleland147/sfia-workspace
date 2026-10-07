@@ -43,12 +43,20 @@ import {
 import { useRunningAttemptO3Observation } from "./useRunningAttemptO3Observation";
 import { sendCancellableAssistantTurn } from "./sendCancellableAssistantTurn";
 import type { JournalSurfaceEntry } from "../surfaces/JournalSurface";
-import type { ActiveDecisionSubjectReadResult } from "@/features/project-assistant/w2/types";
+import type {
+  ActiveDecisionSubjectReadResult,
+  CurrentGovernedExecutionContinuityResult,
+} from "@/features/project-assistant/w2/types";
 
 export type ProductDecisionSubjectContinuity =
   | { readonly status: "pending" }
   | { readonly status: "unavailable"; readonly message: string }
   | Extract<ActiveDecisionSubjectReadResult, { ok: true }>;
+
+export type ProductGovernedExecutionContinuity =
+  | { readonly status: "pending" }
+  | { readonly status: "unavailable"; readonly message: string }
+  | Extract<CurrentGovernedExecutionContinuityResult, { ok: true }>;
 
 export type ProductMessage = {
   id: string;
@@ -79,6 +87,11 @@ export type UseProductConversationInput = {
   projectId: string;
   /** Active cycle for Journal isolation (null → empty journal). */
   activeCycleInstanceId?: string | null;
+  /**
+   * Bumped by ProjectWorkspacePage after durable Product mutations so
+   * chat-first governed moments rehydrate with TrajectorySurface.
+   */
+  durableRefreshSignal?: number;
   /** Fired after a successful durable Product mutation (not process-local). */
   onDurableFactsChanged?: () => void;
   /** Mirrors the latest durable Evidence/ReviewBundle rehydrate for History. */
@@ -118,6 +131,7 @@ function modeFromResult(result: {
 export function useProductConversation({
   projectId,
   activeCycleInstanceId = null,
+  durableRefreshSignal = 0,
   onDurableFactsChanged,
   onDurableEvidenceOutcomeChange,
 }: UseProductConversationInput) {
@@ -144,6 +158,13 @@ export function useProductConversation({
    */
   const [decisionSubjectContinuity, setDecisionSubjectContinuity] =
     useState<ProductDecisionSubjectContinuity>({ status: "pending" });
+  const [governedExecutionContinuity, setGovernedExecutionContinuity] =
+    useState<ProductGovernedExecutionContinuity>({ status: "pending" });
+  const [decisionAlternateIndex, setDecisionAlternateIndex] = useState(-1);
+  const [governedMomentBusy, setGovernedMomentBusy] = useState(false);
+  const [governedMomentError, setGovernedMomentError] = useState<string | null>(
+    null,
+  );
   const [reservesText, setReservesText] = useState("");
   const [f3Prepare, setF3Prepare] = useState<F3PreparePayload | null>(null);
   const [f3M3Resolved, setF3M3Resolved] = useState<F3M3ResolvedPayload | null>(
@@ -291,45 +312,240 @@ export function useProductConversation({
     };
   }, [projectId, activeCycleInstanceId]);
 
-  // P5-S07 CP01 — rehydrate durable decision subject after process-local Proposal loss.
+  // P5-S07 CP01 / S08-4D — rehydrate durable decision subject + governed EC.
   // Dynamic import keeps w2/actions (server-only) out of the client module graph.
   useEffect(() => {
     let cancelled = false;
     setDecisionSubjectContinuity({ status: "pending" });
+    setGovernedExecutionContinuity({ status: "pending" });
+    setDecisionAlternateIndex(-1);
+    setGovernedMomentError(null);
     void import("@/features/project-assistant/w2/actions")
-      .then(({ w2ReadActiveDecisionSubjectAction }) =>
-        w2ReadActiveDecisionSubjectAction({ projectId }),
+      .then(
+        async ({
+          w2ReadActiveDecisionSubjectAction,
+          w2ReadCurrentGovernedExecutionContinuityAction,
+        }) => {
+          const subject = await w2ReadActiveDecisionSubjectAction({ projectId });
+          if (cancelled) return;
+          if (!subject.ok) {
+            setDecisionSubjectContinuity({
+              status: "unavailable",
+              message: subject.message,
+            });
+          } else {
+            setDecisionSubjectContinuity(subject);
+            if (
+              subject.kind === "none" ||
+              subject.kind === "pending_reinstruction_required"
+            ) {
+              setActiveProposal(null);
+            }
+          }
+          const continuity =
+            await w2ReadCurrentGovernedExecutionContinuityAction({ projectId });
+          if (cancelled) return;
+          if (!continuity.ok) {
+            setGovernedExecutionContinuity({
+              status: "unavailable",
+              message: continuity.message,
+            });
+            return;
+          }
+          setGovernedExecutionContinuity(continuity);
+        },
       )
-      .then((result) => {
-        if (cancelled) return;
-        if (!result.ok) {
-          setDecisionSubjectContinuity({
-            status: "unavailable",
-            message: result.message,
-          });
-          return;
-        }
-        setDecisionSubjectContinuity(result);
-        // Never invent ProposalDto. Only clear stale local Proposal when server
-        // says none / reinstruction — never auto-synthesize from optionSet.
-        if (
-          result.kind === "none" ||
-          result.kind === "pending_reinstruction_required"
-        ) {
-          setActiveProposal(null);
-        }
-      })
       .catch(() => {
         if (cancelled) return;
         setDecisionSubjectContinuity({
           status: "unavailable",
           message: "Sujet de décision indisponible pour la reprise.",
         });
+        setGovernedExecutionContinuity({
+          status: "unavailable",
+          message: "Continuité d'exécution indisponible pour la reprise.",
+        });
       });
     return () => {
       cancelled = true;
     };
-  }, [projectId]);
+  }, [projectId, durableRefreshSignal]);
+
+  async function refreshGovernedMoments() {
+    try {
+      const {
+        w2ReadActiveDecisionSubjectAction,
+        w2ReadCurrentGovernedExecutionContinuityAction,
+      } = await import("@/features/project-assistant/w2/actions");
+      const subject = await w2ReadActiveDecisionSubjectAction({ projectId });
+      if (!subject.ok) {
+        setDecisionSubjectContinuity({
+          status: "unavailable",
+          message: subject.message,
+        });
+      } else {
+        setDecisionSubjectContinuity(subject);
+      }
+      const continuity = await w2ReadCurrentGovernedExecutionContinuityAction({
+        projectId,
+      });
+      if (!continuity.ok) {
+        setGovernedExecutionContinuity({
+          status: "unavailable",
+          message: continuity.message,
+        });
+      } else {
+        setGovernedExecutionContinuity(continuity);
+      }
+    } catch {
+      setGovernedMomentError("Impossible de relire le moment gouverné.");
+    }
+  }
+
+  async function decideGovernedDirection(selectedOptionRef: string) {
+    if (governedMomentBusy) return;
+    const subject = decisionSubjectContinuity;
+    if (
+      !subject ||
+      !("ok" in subject) ||
+      !subject.ok ||
+      subject.kind !== "bound_awaiting_decision"
+    ) {
+      return;
+    }
+    const optionSet = subject.optionSet;
+    setGovernedMomentBusy(true);
+    setGovernedMomentError(null);
+    try {
+      const { w2DecideTrajectoryAction } = await import(
+        "@/features/project-assistant/w2/actions"
+      );
+      const isProposalSubject =
+        optionSet.decisionSubjectMode === "proposal" ||
+        Boolean(optionSet.proposalId);
+      const result = isProposalSubject
+        ? await w2DecideTrajectoryAction({
+            projectId,
+            optionSetRef: optionSet.optionSetRef,
+            selectedOptionRef,
+          })
+        : await w2DecideTrajectoryAction({
+            projectId,
+            optionSetRef: optionSet.optionSetRef,
+            trajectoryId: optionSet.proposedTrajectory?.trajectoryId,
+            candidateVersion: optionSet.proposedTrajectory?.version,
+            selectedOptionRef,
+          });
+      if (!result.ok) {
+        setGovernedMomentError(result.message);
+        return;
+      }
+      setDecisionAlternateIndex(-1);
+      notifyDurableFactsChanged();
+      await refreshGovernedMoments();
+    } catch {
+      setGovernedMomentError("Décision refusée — réessayez ou reformulez.");
+    } finally {
+      setGovernedMomentBusy(false);
+    }
+  }
+
+  function revealGovernedDecisionAlternate() {
+    const subject = decisionSubjectContinuity;
+    if (
+      !subject ||
+      !("ok" in subject) ||
+      !subject.ok ||
+      subject.kind !== "bound_awaiting_decision"
+    ) {
+      return;
+    }
+    const recommendedRef = subject.optionSet.recommendation.recommendedOptionRef;
+    const alternates = subject.optionSet.options.filter(
+      (o) => o.optionRef !== recommendedRef,
+    );
+    if (alternates.length === 0) return;
+    setDecisionAlternateIndex((prev) => {
+      if (prev < 0) return 0;
+      if (prev >= alternates.length - 1) return -1;
+      return prev + 1;
+    });
+  }
+
+  async function inspectGovernedContract() {
+    if (governedMomentBusy) return;
+    const continuity = governedExecutionContinuity;
+    if (
+      !continuity ||
+      !("ok" in continuity) ||
+      !continuity.ok ||
+      continuity.kind !== "active"
+    ) {
+      return;
+    }
+    setGovernedMomentBusy(true);
+    setGovernedMomentError(null);
+    try {
+      const { w2InspectExecutionContractAction } = await import(
+        "@/features/project-assistant/w2/actions"
+      );
+      const result = await w2InspectExecutionContractAction({
+        projectId,
+        executionContractId: continuity.contract.executionContractId,
+        expectedVersion: continuity.contract.version,
+      });
+      if (!result.ok) {
+        setGovernedMomentError(result.message);
+        return;
+      }
+      await refreshGovernedMoments();
+    } catch {
+      setGovernedMomentError("Inspection impossible.");
+    } finally {
+      setGovernedMomentBusy(false);
+    }
+  }
+
+  async function confirmGovernedContract() {
+    if (governedMomentBusy) return;
+    const continuity = governedExecutionContinuity;
+    if (
+      !continuity ||
+      !("ok" in continuity) ||
+      !continuity.ok ||
+      continuity.kind !== "active"
+    ) {
+      return;
+    }
+    if (continuity.contract.status !== "confirmation_required") return;
+    if (!continuity.inspection.inspectionSufficient) {
+      setGovernedMomentError(
+        "Inspection suffisante requise avant confirmation.",
+      );
+      return;
+    }
+    setGovernedMomentBusy(true);
+    setGovernedMomentError(null);
+    try {
+      const { w2ConfirmExecutionContractAction } = await import(
+        "@/features/project-assistant/w2/actions"
+      );
+      const result = await w2ConfirmExecutionContractAction({
+        projectId,
+        executionContractId: continuity.contract.executionContractId,
+      });
+      if (!result.ok) {
+        setGovernedMomentError(result.message);
+        return;
+      }
+      notifyDurableFactsChanged();
+      await refreshGovernedMoments();
+    } catch {
+      setGovernedMomentError("Confirmation refusée.");
+    } finally {
+      setGovernedMomentBusy(false);
+    }
+  }
 
   useEffect(() => {
     let cancelled = false;
@@ -1019,6 +1235,15 @@ export function useProductConversation({
     f2,
     activeProposal,
     decisionSubjectContinuity,
+    governedExecutionContinuity,
+    decisionAlternateIndex,
+    governedMomentBusy,
+    governedMomentError,
+    decideGovernedDirection,
+    revealGovernedDecisionAlternate,
+    inspectGovernedContract,
+    confirmGovernedContract,
+    refreshGovernedMoments,
     reservesText,
     setReservesText,
     f3Prepare,

@@ -304,7 +304,12 @@ describe("P5-S04 Synthèses UI", () => {
     expect(screen.getByTestId("project-overview-synthesis-count").textContent).toBe(
       "2",
     );
-    expect(screen.getByText(/Synthèse UI test/)).toBeTruthy();
+    // Title may also appear in Continuity / next-step projection — scope to preview.
+    expect(
+      screen
+        .getByTestId("project-overview-synthesis-preview")
+        .textContent,
+    ).toMatch(/Synthèse UI test/);
   });
 
   it("T15 — Conversation shows synthesis teaser and opens Synthèses view", async () => {

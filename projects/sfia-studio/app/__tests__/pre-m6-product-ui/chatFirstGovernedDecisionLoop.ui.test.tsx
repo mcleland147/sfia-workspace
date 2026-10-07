@@ -280,6 +280,80 @@ describe("TrajectorySurface — chat_first is the nominal mode", () => {
     ).toBeTruthy();
     expect(screen.queryByTestId("w2-chat-first-decision-hint")).toBeNull();
   });
+
+  it("chat_first hides competing Confirmation CTA (Conversation owns inline confirm)", async () => {
+    readActiveDecisionSubjectMock.mockResolvedValue({ ok: true, kind: "none" });
+    readGovernedExecutionContinuityMock.mockResolvedValue({
+      ok: true,
+      kind: "active",
+      decisionRef: "dec:chat-first-confirm",
+      contract: {
+        executionContractId: "xct:chat-first-confirm",
+        version: 1,
+        status: "confirmation_required",
+        action: "product:generate-temporary-artifact",
+        target: "product:temporary-local-artifact",
+        scope: "product:temporary-local-artifact",
+        requiredAuthority: "N2",
+        constraints: [],
+        stopConditions: [],
+        requiredCapabilities: ["cap:product-temp-artifact"],
+        reversibility: "reversible",
+        semanticFingerprint: "fp-chat-first",
+        effectConfirmationRequired: true,
+        inspectionDisclosure: {
+          action: "product:generate-temporary-artifact",
+          technicalTarget: "product:temporary-local-artifact",
+          scope: "product:temporary-local-artifact",
+          targetRepositoryRef: null,
+          targetPath: null,
+          scopeIn: null,
+          scopeOut: null,
+          createOrModify: null,
+          noDelete: null,
+          objective: null,
+          artifactType: null,
+          artifactBrief: null,
+          contentRequirements: null,
+          validationExpectations: null,
+          expectedOutputs: null,
+          sourceGrounding: null,
+          acceptanceCriteria: null,
+          validationPlan: null,
+          reportRequirements: null,
+          evidenceRequirements: [],
+          requiredAuthority: "N2",
+          requiredCapabilities: ["cap:product-temp-artifact"],
+          constraints: [],
+          stopConditions: [],
+          reversibility: "reversible",
+          contractVersion: 1,
+          executionContractId: "xct:chat-first-confirm",
+          semanticFingerprint: "fp-chat-first",
+          disclosureComplete: true,
+          incompletenessCode: null,
+        },
+      },
+      inspection: {
+        executionContractId: "xct:chat-first-confirm",
+        contractVersion: 1,
+        semanticFingerprint: "fp-chat-first",
+        statusLabel: "INSPECTÉ",
+        inspectionSufficient: true,
+        attestationRef: "att:chat-first",
+        attestedVersion: 1,
+        staleAttestationRef: null,
+        reinspectionRequired: false,
+        reason: "inspected",
+        grantsAuthority: false,
+      },
+    });
+
+    render(<TrajectorySurface projectId="prj:chat-first-confirm" />);
+    expect(await screen.findByTestId("w2-trajectory-panel")).toBeTruthy();
+    expect(await screen.findByTestId("w2-contract")).toBeTruthy();
+    expect(screen.queryByTestId("w2-confirm-contract")).toBeNull();
+  });
 });
 
 const RECOMMENDATION: JournalRecommendationCard = {

@@ -27,6 +27,8 @@ import {
   synthesisSummaryExcerpt,
 } from "./synthesisPresentation";
 import { projectNoraActivity } from "./noraActivityProjection";
+import { GovernedDecisionCard } from "./GovernedDecisionCard";
+import { GovernedConfirmationCard } from "./GovernedConfirmationCard";
 import styles from "./ConversationSurface.module.css";
 
 /**
@@ -88,9 +90,10 @@ export type ConversationSurfaceProps = {
 
 /**
  * Nora conversation + qualification surface.
- * Product authority path (HumanDecision / EC / Confirmation / Execute) lives on
- * TrajectorySurface (W2/W3). Legacy F2/F3 affordances stay behind
- * `exposeLegacyAuthorityPath` for harvest / RETIRE LATER proofs only.
+ * P3 chat-first: governed Decision / Confirmation project INLINE here via
+ * existing W2 reads/mutations. TrajectorySurface stays state/audit (and
+ * execute continuity). Legacy F2/F3 stays behind `exposeLegacyAuthorityPath`
+ * for harvest / RETIRE LATER proofs only — never enabled on nominal /studio.
  */
 export function ConversationSurface({
   controller,
@@ -117,6 +120,14 @@ export function ConversationSurface({
     f2,
     activeProposal,
     decisionSubjectContinuity,
+    governedExecutionContinuity,
+    decisionAlternateIndex,
+    governedMomentBusy,
+    governedMomentError,
+    decideGovernedDirection,
+    revealGovernedDecisionAlternate,
+    inspectGovernedContract,
+    confirmGovernedContract,
     reservesText,
     setReservesText,
     f3Prepare,
@@ -541,17 +552,69 @@ export function ConversationSurface({
       "ok" in decisionSubjectContinuity &&
       decisionSubjectContinuity.ok &&
       decisionSubjectContinuity.kind === "bound_awaiting_decision" ? (
-        <aside
-          className={styles.proposalCard}
+        <div
+          className={styles.governedMomentSlot}
           data-testid="decision-subject-bound"
-          aria-label="Sujet de décision courant"
         >
-          <p className={styles.proposalTitle}>Sujet de décision courant</p>
-          <p className={styles.proposalMeta}>
-            Options présentées reconstruites depuis le Product (Epistemic) —
-            pas depuis un store process-local.
+          <p className={styles.noraMomentLabel}>Nora</p>
+          <p className={styles.noraMomentBody}>
+            {decisionSubjectContinuity.optionSet.recommendation.rationale ||
+              "Deux directions sont possibles. Choisissez la direction à retenir."}
           </p>
-        </aside>
+          <GovernedDecisionCard
+            optionSet={decisionSubjectContinuity.optionSet}
+            alternateIndex={decisionAlternateIndex}
+            busy={governedMomentBusy}
+            error={governedMomentError}
+            onChooseRecommended={() => {
+              const ref =
+                decisionSubjectContinuity.optionSet.recommendation
+                  .recommendedOptionRef;
+              void decideGovernedDirection(ref);
+            }}
+            onRevealAlternate={revealGovernedDecisionAlternate}
+            onChooseAlternate={(optionRef) => {
+              void decideGovernedDirection(optionRef);
+            }}
+          />
+        </div>
+      ) : null}
+      {governedExecutionContinuity &&
+      typeof governedExecutionContinuity === "object" &&
+      "ok" in governedExecutionContinuity &&
+      governedExecutionContinuity.ok &&
+      governedExecutionContinuity.kind === "active" &&
+      governedExecutionContinuity.contract.status === "confirmation_required" &&
+      !(
+        decisionSubjectContinuity &&
+        typeof decisionSubjectContinuity === "object" &&
+        "ok" in decisionSubjectContinuity &&
+        decisionSubjectContinuity.ok &&
+        decisionSubjectContinuity.kind === "bound_awaiting_decision"
+      ) ? (
+        <div
+          className={styles.governedMomentSlot}
+          data-testid="governed-confirmation-slot"
+        >
+          <GovernedConfirmationCard
+            contract={governedExecutionContinuity.contract}
+            inspection={governedExecutionContinuity.inspection}
+            busy={governedMomentBusy}
+            error={governedMomentError}
+            onConfirm={() => {
+              void confirmGovernedContract();
+            }}
+            onInspect={() => {
+              void inspectGovernedContract();
+            }}
+            onCancel={() => {
+              const input = document.querySelector(
+                "[data-testid='project-assistant-input']",
+              );
+              if (input instanceof HTMLTextAreaElement) input.focus();
+            }}
+          />
+        </div>
       ) : null}
       {activeProposal && !reservationResolutionProposal ? (
         <section

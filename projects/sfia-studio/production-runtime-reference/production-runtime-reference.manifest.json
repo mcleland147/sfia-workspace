@@ -678,7 +678,7 @@
     },
     {
       "path": "projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts",
-      "sha256_16": "8c5caa5a619aca3f"
+      "sha256_16": "83dc7e3be704199d"
     },
     {
       "path": "projects/sfia-studio/app/.env.example",

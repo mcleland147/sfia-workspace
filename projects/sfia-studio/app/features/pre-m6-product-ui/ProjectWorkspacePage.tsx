@@ -246,6 +246,7 @@ export function ProjectWorkspacePage({
     activeCycleInstanceId: result?.ok
       ? result.livingState.activeCycleInstanceId
       : null,
+    durableRefreshSignal: trajectoryRefreshSignal,
     onDurableFactsChanged: notifyDurableFactsChanged,
     onDurableEvidenceOutcomeChange: setDurableOutcome,
   });
