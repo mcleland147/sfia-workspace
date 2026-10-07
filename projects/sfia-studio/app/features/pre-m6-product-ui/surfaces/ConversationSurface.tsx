@@ -1322,79 +1322,21 @@ export function ConversationSurface({
 
       {!f3Execute && durableEvidenceOutcome ? (
         <section
-          className={styles.card}
+          className={styles.durableStack}
           data-testid="durable-evidence-outcome"
           aria-live="polite"
         >
-          <header className={styles.cardHead}>
-            <p className={styles.cardEyebrow}>Relecture durable</p>
-            <h3 className={styles.cardTitle}>Dernier résultat enregistré</h3>
-          </header>
-          <div className={styles.chipRow} data-testid="durable-outcome-labels">
-            <span className={styles.chip}>
-              RECOMMANDATION — PAS UNE DÉCISION
-            </span>
-            <span className={styles.chipQuiet}>
-              {durableOutcomeFreshness.label}
-            </span>
-            <span className={styles.chip} data-testid="durable-outcome-semantic">
-              {durableSemantic}
-            </span>
-          </div>
-          <p className={styles.cardNote} data-testid="durable-lps-version">
-            LPS v{durableEvidenceOutcome.lpsVersion}
-          </p>
-          <p className={styles.noticeQuiet} data-testid="durable-ephemeral-notice">
-            {durableEvidenceOutcome.ephemeralNotice}
-          </p>
-          <p className={styles.subLead} data-testid="durable-result-user-summary">
-            {durableSummary?.result}
-          </p>
-
-          <div className={styles.subCard} data-testid="durable-evidence-card">
-            <h4 className={styles.subTitle}>Preuves</h4>
-            <p className={styles.subLead} data-testid="durable-evidence-user-summary">
-              {durableSummary?.evidence}
-            </p>
-            <dl className={styles.facts}>
-              <div className={styles.factWide}>
-                <dt>Identifiants</dt>
-                <dd className={styles.code} data-testid="durable-evidence-ids">
-                  {durableEvidenceOutcome.evidenceIds.join(", ") || "—"}
-                </dd>
-              </div>
-              {durableEvidenceOutcome.evidence.map((ev) => (
-                <div className={styles.factWide} key={ev.evidenceId}>
-                  <dt>{ev.evidenceId}</dt>
-                  <dd data-testid={`durable-evidence-status-${ev.evidenceId}`}>
-                    {ev.status}
-                  </dd>
-                </div>
-              ))}
-            </dl>
-          </div>
-
-          {durableEvidenceOutcome.reviewBundles.map((rb) => (
-            <div
-              key={rb.reviewBundleId}
-              className={styles.subCard}
-              data-testid="durable-review-bundle-card"
-            >
-              <h4 className={styles.subTitle}>Dossier de revue</h4>
-              <p className={styles.code} data-testid="durable-review-bundle-id">
-                {rb.reviewBundleId}
-              </p>
-              <p className={styles.subNote} data-testid="durable-review-bundle-status">
-                {rb.status}
-              </p>
-            </div>
-          ))}
-
+          {/* P3 46:2 — recommendation card leads; technical relecture stays available but collapsed. */}
           <div
             className={styles.subCardGold}
             data-testid="durable-recommendation-card"
           >
-            <h4 className={styles.subTitle}>Recommandation</h4>
+            <div className={styles.p3CardHead}>
+              <h4 className={styles.subTitle}>Recommandation</h4>
+              <span className={styles.p3CardStatusWarn}>
+                En attente de décision
+              </span>
+            </div>
             <p className={styles.subLead} data-testid="durable-recommendation-label">
               {durableEvidenceOutcome.recommendation.recommendationLabel}
             </p>
@@ -1406,6 +1348,70 @@ export function ConversationSurface({
                 {durableSummary.analysis}
               </p>
             ) : null}
+            <p className={styles.p3CardStamp}>RECOMMANDATION — PAS UNE DÉCISION</p>
+          </div>
+
+          <details className={styles.durableDetails} data-testid="durable-relecture-details">
+            <summary>
+              Relecture durable · dernier résultat enregistré
+            </summary>
+            <div className={styles.chipRow} data-testid="durable-outcome-labels">
+              <span className={styles.chipQuiet}>
+                {durableOutcomeFreshness.label}
+              </span>
+              <span className={styles.chip} data-testid="durable-outcome-semantic">
+                {durableSemantic}
+              </span>
+            </div>
+            <p className={styles.cardNote} data-testid="durable-lps-version">
+              LPS v{durableEvidenceOutcome.lpsVersion}
+            </p>
+            <p className={styles.noticeQuiet} data-testid="durable-ephemeral-notice">
+              {durableEvidenceOutcome.ephemeralNotice}
+            </p>
+            <p className={styles.subLead} data-testid="durable-result-user-summary">
+              {durableSummary?.result}
+            </p>
+
+            <div className={styles.subCard} data-testid="durable-evidence-card">
+              <h4 className={styles.subTitle}>Preuves</h4>
+              <p className={styles.subLead} data-testid="durable-evidence-user-summary">
+                {durableSummary?.evidence}
+              </p>
+              <dl className={styles.facts}>
+                <div className={styles.factWide}>
+                  <dt>Identifiants</dt>
+                  <dd className={styles.code} data-testid="durable-evidence-ids">
+                    {durableEvidenceOutcome.evidenceIds.join(", ") || "—"}
+                  </dd>
+                </div>
+                {durableEvidenceOutcome.evidence.map((ev) => (
+                  <div className={styles.factWide} key={ev.evidenceId}>
+                    <dt>{ev.evidenceId}</dt>
+                    <dd data-testid={`durable-evidence-status-${ev.evidenceId}`}>
+                      {ev.status}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+
+            {durableEvidenceOutcome.reviewBundles.map((rb) => (
+              <div
+                key={rb.reviewBundleId}
+                className={styles.subCard}
+                data-testid="durable-review-bundle-card"
+              >
+                <h4 className={styles.subTitle}>Dossier de revue</h4>
+                <p className={styles.code} data-testid="durable-review-bundle-id">
+                  {rb.reviewBundleId}
+                </p>
+                <p className={styles.subNote} data-testid="durable-review-bundle-status">
+                  {rb.status}
+                </p>
+              </div>
+            ))}
+
             <details className={styles.details}>
               <summary>Détails techniques</summary>
               <p
@@ -1439,7 +1445,7 @@ export function ConversationSurface({
                 )}
               </p>
             </details>
-          </div>
+          </details>
         </section>
       ) : null}
 

@@ -578,6 +578,59 @@
   border-color: var(--pm6-border);
 }
 
+.durableStack {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 710px;
+}
+
+.p3CardHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.p3CardStatusWarn {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.4px;
+  color: #b86a12;
+}
+
+.p3CardStamp {
+  margin: 4px 0 0;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.4px;
+  color: var(--pm6-muted);
+}
+
+.durableDetails {
+  border: 1px solid var(--pm6-border-soft);
+  border-radius: 10px;
+  background: var(--pm6-canvas-raised);
+  padding: 10px 14px;
+}
+
+.durableDetails > summary {
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.15px;
+  color: var(--pm6-muted-strong);
+  list-style: none;
+}
+
+.durableDetails > summary::-webkit-details-marker {
+  display: none;
+}
+
+.durableDetails[open] > summary {
+  margin-bottom: 10px;
+}
+
 .subTitle {
   margin: 0;
   font-size: 0.6875rem; /* 11 */

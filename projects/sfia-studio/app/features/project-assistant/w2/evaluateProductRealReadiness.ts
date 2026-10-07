@@ -107,7 +107,9 @@ function projectExistsInSqlite(dbPath: string, projectId: string): boolean {
   try {
     // eslint-disable-next-line @typescript-eslint/no-require-imports
     const { DatabaseSync } = require("node:sqlite") as typeof import("node:sqlite");
-    const db = new DatabaseSync(dbPath, { readOnly: true });
+    // Open briefly for a SELECT — do not use readOnly mode (can conflict with
+    // the Product write connection on the same fidelity SQLite file).
+    const db = new DatabaseSync(dbPath);
     try {
       const row = db
         .prepare("SELECT 1 AS ok FROM oa_projects WHERE project_id = ?")
