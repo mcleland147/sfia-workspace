@@ -231,6 +231,7 @@ Prior “PASS CANDIDATE” tip marked **HISTORICAL / SUPERSEDED AS TIP**.
 
 ## Project commits this pass
 
+-  — docs(sfia-studio): align S08-4 closure Exit HEAD to documentation tip
 - `4b7a9469ae4808f3ed42dd27787781bdb8c71257` — docs(sfia-studio): close P5-S08-4 final visual re-proof for Git Integration
 - prior truth-sync in same tip commit includes pairing-list update for syntheses-verified-desktop
 
