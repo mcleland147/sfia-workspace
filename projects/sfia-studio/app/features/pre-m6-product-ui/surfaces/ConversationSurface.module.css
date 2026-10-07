@@ -145,9 +145,10 @@
 
 .bubbleAuthor {
   margin: 0 0 var(--pm6-space-1);
-  font-size: 0.5625rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
+  /* Figma 46:2 Label/Small — 11 / tracking 0.4 */
+  font-size: var(--pm6-text-caption);
+  font-weight: 500;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--pm6-muted-faint);
 }
@@ -158,8 +159,9 @@
 
 .bubbleText {
   margin: 0;
-  font-size: 0.75rem;
-  line-height: 1.55;
+  /* Figma 46:2 Body/Medium — 15 / 24 */
+  font-size: var(--pm6-text-subtitle);
+  line-height: 1.6;
   color: var(--pm6-ink-soft);
   white-space: pre-wrap;
 }
@@ -170,6 +172,7 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
+  /* Figma 46:2 Result Turn — 120h, pad 10×12, radius 8 */
   padding: 10px 12px;
   border-radius: var(--pm6-radius-sm);
   border: 1px solid var(--pm6-border);
@@ -178,16 +181,16 @@
 
 .synthesisEyebrow {
   margin: 0;
-  font-size: 0.5625rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
+  font-size: var(--pm6-text-meta);
+  font-weight: 500;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--pm6-accent);
 }
 
 .synthesisTitle {
   margin: 0;
-  font-size: 0.8125rem;
+  font-size: var(--pm6-text-meta);
   font-weight: 600;
   color: var(--pm6-ink);
   line-height: 1.35;
@@ -195,7 +198,7 @@
 
 .synthesisBody {
   margin: 0;
-  font-size: 0.6875rem;
+  font-size: var(--pm6-text-meta);
   line-height: 1.45;
   color: var(--pm6-ink-soft);
 }
@@ -208,8 +211,8 @@
   background: none;
   color: var(--pm6-accent);
   font: inherit;
-  font-size: 0.625rem;
-  font-weight: 600;
+  font-size: var(--pm6-text-meta);
+  font-weight: 500;
   cursor: pointer;
 }
 
@@ -743,23 +746,28 @@
   display: flex;
   flex-direction: column;
   gap: var(--pm6-space-2);
-  border-radius: var(--pm6-radius-md);
-  border: 1px solid var(--pm6-border);
-  background: var(--pm6-surface);
-  padding: var(--pm6-space-3);
-  box-shadow: var(--pm6-shadow-raised);
+  /* Figma 46:2 Composer — flat top rule, pad ~14×22, input radius 8 */
+  border-radius: 0;
+  border: 0;
+  border-top: 1px solid var(--pm6-border-soft);
+  background: var(--pm6-canvas);
+  padding: 14px 22px;
+  box-shadow: none;
 }
 
 .composerInput {
+  box-sizing: border-box;
   width: 100%;
+  min-height: 96px;
   resize: vertical;
-  border: none;
+  border: 1px solid var(--pm6-border-strong);
+  border-radius: var(--pm6-radius-sm);
   outline-offset: 4px;
-  background: transparent;
+  background: var(--pm6-focus-bar);
   color: var(--pm6-ink);
-  font-size: 0.95rem;
+  font-size: var(--pm6-text-subtitle);
   line-height: 1.6;
-  padding: var(--pm6-space-2);
+  padding: 14px;
 }
 
 .composerInput::placeholder {
@@ -779,23 +787,30 @@
 }
 
 .sendButton {
-  border-radius: var(--pm6-radius-pill);
+  /* Figma 46:2 Send — 30×30, radius 7 (desktop square control) */
+  display: inline-grid;
+  place-items: center;
+  width: 30px;
+  min-width: 30px;
+  height: 30px;
+  border-radius: 7px;
   border: 1px solid var(--pm6-ink);
   background: var(--pm6-ink);
   color: var(--pm6-forest-ink);
   transition: background 120ms ease;
-  padding: 9px 20px;
-  font-size: 0.87rem;
-  font-weight: 600;
+  padding: 0;
+  font-size: var(--pm6-text-body);
+  font-weight: 500;
   cursor: pointer;
 }
 
+/* Desktop P3 46:2 uses ↑ glyph; full “Envoyer” remains for aria / mobile swap. */
 .sendLabelFull {
-  display: inline;
+  display: none;
 }
 
 .sendLabelCompact {
-  display: none;
+  display: inline;
 }
 
 .sendButton:hover:not(:disabled) {
@@ -808,15 +823,20 @@
 }
 
 .stopButton {
-  border-radius: var(--pm6-radius-pill);
+  display: inline-grid;
+  place-items: center;
+  width: auto;
+  min-width: 30px;
+  height: 30px;
+  border-radius: 7px;
   border: 1px solid var(--pm6-ink);
   background: var(--pm6-canvas);
   color: var(--pm6-ink);
-  padding: 9px 20px;
-  font-size: 0.87rem;
+  padding: 0 10px;
+  font-size: var(--pm6-text-caption);
   font-weight: 600;
   cursor: pointer;
-  min-height: 38px;
+  min-height: 30px;
 }
 
 .stopButton:hover {
@@ -961,6 +981,8 @@
   .sendLabelCompact {
     display: inline;
   }
+
+  /* Mobile keeps compact ↑; sizes already set above. */
 
   .composerCaption {
     display: none;

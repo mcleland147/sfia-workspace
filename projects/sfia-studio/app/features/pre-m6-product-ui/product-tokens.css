@@ -87,7 +87,15 @@
   --pm6-global-header-h: 54px;
   --pm6-context-width: 356px;
   --pm6-focus-bar-h: 50px;
+  /* Workspace body pad (46:2 Project Header / Focus Bar x=24). */
+  --pm6-workspace-pad-x: 24px;
+  /* Conversation transcript inset (46:2 Transcript x=30). */
+  --pm6-conversation-pad-x: 30px;
+  /* Project Context column inset (46:2 Context Header x=18). */
+  --pm6-context-pad-x: 18px;
 
+  /* P3 Synthèses 164:3 — body 1224 split list 360 | detail 864. */
+  --pm6-syntheses-list-w: 360px;
   /* P3 Historique 78:2 — body 1224 split master ~790 | detail ~434. */
   --pm6-history-detail-w: 434px;
   /* P3 Journal 94:2 — body 1226 split subjects index ~440 | detail ~785. */

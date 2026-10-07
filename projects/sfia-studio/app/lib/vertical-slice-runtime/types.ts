@@ -111,6 +111,7 @@ export type GetProjectRuntimeResult =
 
 /** User-facing serializable list row — no SQLite/adapter jargon. */
 export interface RuntimeProjectListItem {
+  /** Current LPS objective when available — Projects « En cours » column. */
   readonly projectId: string;
   readonly title: string;
   readonly name: string;

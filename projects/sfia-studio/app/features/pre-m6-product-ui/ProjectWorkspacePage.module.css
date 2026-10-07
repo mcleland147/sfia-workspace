@@ -15,7 +15,8 @@
   --ws-project-h: 104px;
   --ws-focus-h: var(--pm6-focus-bar-h, 50px);
   --ws-context-w: var(--pm6-context-width, 356px);
-  --ws-pad-x: 24px;
+  /* Figma 46:2 Project Header / Focus Bar pad-x = 24 (not 32). */
+  --ws-pad-x: var(--pm6-workspace-pad-x, 24px);
 
   display: flex;
   flex-direction: column;
@@ -47,7 +48,8 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--pm6-space-4);
-  padding-inline: var(--ws-pad-x);
+  /* Figma 46:2 / 164:3 Global Header breadcrumbs x=20 */
+  padding-inline: 20px;
   background: var(--pm6-canvas);
   border-bottom: 1px solid var(--pm6-border);
 }
@@ -513,9 +515,10 @@
   min-width: 0;
   box-sizing: border-box;
   width: 100%;
-  max-width: 880px;
-  margin-inline: auto;
-  padding: var(--pm6-space-5) var(--ws-pad-x) 0;
+  /* Figma 46:2 Conversation Surface fills remaining body (868 @ 1440); transcript inset 30. */
+  max-width: none;
+  margin-inline: 0;
+  padding: 18px var(--pm6-conversation-pad-x, 30px) 0;
 }
 
 /* ---------- context column (sticky, independent scroll) ---------- */
@@ -525,8 +528,9 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  background: color-mix(in srgb, var(--pm6-rail) 42%, var(--pm6-canvas));
-  border-left: 1px solid var(--pm6-border);
+  /* Figma 46:2 Project Context ~#f6f1eb */
+  background: color-mix(in srgb, var(--pm6-rail) 55%, var(--pm6-canvas));
+  border-left: 1px solid var(--pm6-border-soft);
 }
 
 .lpsSheet {
@@ -535,7 +539,8 @@
   display: flex;
   flex-direction: column;
   gap: var(--pm6-space-4);
-  padding: var(--pm6-space-5) var(--pm6-space-4) var(--pm6-space-4);
+  /* Figma 46:2 Context Header pad 18×18 */
+  padding: 18px var(--pm6-context-pad-x, 18px) var(--pm6-space-4);
   overflow-y: auto;
   overscroll-behavior: contain;
 }
@@ -674,7 +679,7 @@
 
   .conversation {
     max-width: none;
-    padding-top: 16px;
+    padding: 16px var(--ws-pad-x) 0;
   }
 
   /* Journal stays accessible in the context stack (no 768–1199 dead zone). */
@@ -703,16 +708,16 @@
   }
 }
 
-/* ---------- ≥1200: full geometry (context 356px, roomy gutters) ---------- */
+/* ---------- ≥1200: full geometry (context 356px, Figma pad-x 24) ---------- */
 
 @media (min-width: 1200px) {
   .root {
     --ws-context-w: 356px;
-    --ws-pad-x: 32px;
+    --ws-pad-x: var(--pm6-workspace-pad-x, 24px);
   }
 
   .lpsSheet {
-    padding: var(--pm6-space-5) var(--pm6-space-5) var(--pm6-space-4);
+    padding: 18px var(--pm6-context-pad-x, 18px) var(--pm6-space-4);
   }
 }
 

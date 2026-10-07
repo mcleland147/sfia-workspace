@@ -44,7 +44,8 @@ function badgeFor(status: string): Badge {
     case "draft":
       return { label: "Brouillon", tone: "neutral" };
     case "active":
-      return { label: "Actif", tone: "active" };
+      // P3 63:39 chip wording — status only, not a next-action claim.
+      return { label: "En cours", tone: "active" };
     case "paused":
       return { label: "En attente", tone: "waiting" };
     case "closed":
@@ -72,7 +73,10 @@ function matchesQuery(project: ProjectRow, query: string): boolean {
   return hay.includes(q);
 }
 
-/** Recent activity only — not a next-action / « À reprendre » claim. */
+/**
+ * Recent activity window for the P3 « À reprendre » resume section.
+ * Label matches Figma; facts remain updatedAt-only — never invents next action.
+ */
 function isRecentlyUpdated(project: ProjectRow): boolean {
   if (project.status === "closed" || project.status === "archived") return false;
   if (!project.updatedAt) return false;
@@ -85,6 +89,13 @@ function projectDescription(project: ProjectRow): string | null {
   return project.objective?.trim() || project.context?.trim() || null;
 }
 
+/** Honest attention cell — never invents “1 action prête”. */
+function attentionFor(project: ProjectRow): string {
+  if (project.status === "paused") return "En attente";
+  if (project.status === "archived" || project.status === "closed") return "Clos";
+  return "—";
+}
+
 function ProjectRowView({ project }: { project: ProjectRow }) {
   const badge = badgeFor(project.status);
   const href = `/studio/projects/${encodeURIComponent(project.projectId)}`;
@@ -93,6 +104,7 @@ function ProjectRowView({ project }: { project: ProjectRow }) {
   return (
     <li className={styles.row} data-testid="studio-projects-card">
       <div className={styles.rowProject}>
+        <span className={styles.rowDot} aria-hidden />
         <Link href={href} className={styles.rowTitle} data-testid="studio-projects-open">
           {project.title}
         </Link>
@@ -108,6 +120,9 @@ function ProjectRowView({ project }: { project: ProjectRow }) {
       </span>
       <p className={styles.rowMeta} data-testid="studio-projects-activity">
         {activity ?? "—"}
+      </p>
+      <p className={styles.rowAttention} data-testid="studio-projects-attention">
+        {attentionFor(project)}
       </p>
     </li>
   );
@@ -156,7 +171,7 @@ export function ProjectsPage() {
         const tb = Date.parse(b.updatedAt ?? "") || 0;
         return tb - ta;
       })
-      .slice(0, 4);
+      .slice(0, 2); // P3 63:39 — two resume cards
   }, [state]);
 
   const count =
@@ -213,18 +228,19 @@ export function ProjectsPage() {
           <section
             className={styles.orientation}
             data-testid="studio-projects-orientation"
-            aria-label="Démarrer un nouveau projet avec Nora"
+            aria-label="Besoin de t'orienter — démarrer avec Nora"
           >
             <span className={styles.orientationMark} aria-hidden>
               N
             </span>
             <div className={styles.orientationText}>
               <h2 className={styles.orientationTitle}>
-                Démarrer un nouveau projet avec Nora
+                Besoin de t&apos;orienter ?
               </h2>
               <p className={styles.orientationBody}>
                 Nora clarifie l&apos;intention et le nom avant toute création
-                durable. Ce bloc n&apos;oriente pas entre vos projets existants.
+                durable. Ce bloc ouvre uniquement un nouveau projet — il
+                n&apos;oriente pas entre vos projets existants.
               </p>
             </div>
             <Link
@@ -232,7 +248,7 @@ export function ProjectsPage() {
               className={styles.orientationCta}
               data-testid="studio-projects-start-new"
             >
-              Commencer
+              Ouvrir la conversation
             </Link>
           </section>
         ) : null}
@@ -281,10 +297,10 @@ export function ProjectsPage() {
           >
             <div className={styles.sectionHead}>
               <h2 id="projects-recent-heading" className={styles.sectionTitle}>
-                Projets récents
+                À reprendre
               </h2>
               <p className={styles.sectionHint}>
-                Dernière activité connue — pas une prochaine action.
+                Activité récente — aucune prochaine action inventée.
               </p>
             </div>
             <ul className={styles.recentGrid}>
@@ -298,9 +314,12 @@ export function ProjectsPage() {
                     className={styles.recentCard}
                   >
                     <div className={styles.recentTop}>
-                      <Link href={href} className={styles.recentTitle}>
-                        {project.title}
-                      </Link>
+                      <div className={styles.recentTitleWrap}>
+                        <span className={styles.rowDot} aria-hidden />
+                        <Link href={href} className={styles.recentTitle}>
+                          {project.title}
+                        </Link>
+                      </div>
                       <span className={styles.badge} data-tone={badge.tone}>
                         {badge.label}
                       </span>
@@ -318,9 +337,16 @@ export function ProjectsPage() {
                           "Activité inconnue"}
                       </p>
                     </div>
-                    <Link href={href} className={styles.recentOpen}>
-                      Ouvrir →
-                    </Link>
+                    <div className={styles.recentFooter}>
+                      <p className={styles.recentMeta}>
+                        {formatRelativeFr(project.updatedAt)
+                          ? `Mis à jour ${formatRelativeFr(project.updatedAt)?.toLowerCase()}`
+                          : "Activité inconnue"}
+                      </p>
+                      <Link href={href} className={styles.recentOpen}>
+                        Ouvrir →
+                      </Link>
+                    </div>
                   </li>
                 );
               })}
@@ -363,7 +389,8 @@ export function ProjectsPage() {
               <span>Projet</span>
               <span>En cours</span>
               <span>État</span>
-              <span>Activité</span>
+              <span>Dernière activité</span>
+              <span>Attention</span>
             </div>
             {filtered.length === 0 ? (
               <p

@@ -109,7 +109,6 @@ describe("P5-S06 CP01 ProjectsPage", () => {
       expect(screen.getByTestId("studio-projects-empty")).toBeInTheDocument(),
     );
     expect(screen.queryByTestId("studio-projects-recent")).toBeNull();
-    expect(screen.queryByText("À reprendre")).toBeNull();
   });
 
   it("treats updatedAt as recent activity, not next action, and searches locally", async () => {
@@ -141,10 +140,18 @@ describe("P5-S06 CP01 ProjectsPage", () => {
     await waitFor(() =>
       expect(screen.getByTestId("studio-projects-list")).toBeInTheDocument(),
     );
-    expect(screen.queryByText("À reprendre")).toBeNull();
+    // P3 section label « À reprendre »; content remains updatedAt-only (no invented next action).
     expect(screen.getByTestId("studio-projects-recent")).toHaveTextContent(
-      "Projets récents",
+      "À reprendre",
     );
+    expect(screen.getByTestId("studio-projects-recent")).toHaveTextContent(
+      "aucune prochaine action inventée",
+    );
+    expect(
+      within(screen.getByTestId("studio-projects-recent")).queryByText(
+        /Finaliser|Reprendre la trajectoire/i,
+      ),
+    ).toBeNull();
     expect(
       within(screen.getByTestId("studio-projects-recent")).getByText(
         "Alpha Reporting",

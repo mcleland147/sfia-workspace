@@ -47,6 +47,7 @@ export function SynthesesSurface({
   const [items, setItems] = useState<readonly ProductSynthesisListItem[]>([]);
   const [query, setQuery] = useState("");
   const [searchBusy, setSearchBusy] = useState(false);
+  const [listReady, setListReady] = useState(false);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [selectedId, setSelectedId] = useState<string | null>(
     initialSynthesisId ?? null,
@@ -59,10 +60,12 @@ export function SynthesesSurface({
 
   const loadFullList = useCallback(async () => {
     setLoadError(null);
+    setListReady(false);
     const result = await listProductSynthesesAction({ projectId });
     if (!result.ok) {
       setLoadError(result.message);
       setItems([]);
+      setListReady(true);
       return;
     }
     setItems(result.items);
@@ -72,6 +75,7 @@ export function SynthesesSurface({
       }
       return result.items[0]?.synthesisId ?? null;
     });
+    setListReady(true);
   }, [projectId]);
 
   useEffect(() => {
@@ -127,7 +131,8 @@ export function SynthesesSurface({
     return () => window.clearTimeout(handle);
   }, [projectId, query, loadFullList]);
 
-  const listEmpty = items.length === 0 && !searchBusy && !loadError;
+  const listEmpty =
+    listReady && items.length === 0 && !searchBusy && !loadError;
 
   const selectedListItem = useMemo(
     () => items.find((i) => i.synthesisId === selectedId) ?? null,
@@ -148,6 +153,12 @@ export function SynthesesSurface({
       {loadError ? (
         <p className={styles.empty} role="alert">
           {loadError}
+        </p>
+      ) : null}
+
+      {!listReady && !loadError ? (
+        <p className={styles.empty} data-testid="project-syntheses-loading">
+          Chargement des synthèses…
         </p>
       ) : null}
 
