@@ -7,7 +7,8 @@
 **Branch:** `delivery/sfia-studio-product-simplification-p5-s08-global-p3-visual-parity`
 **origin/main:** `eed18bd572d65b6f5f4878ed24b195e4feeb5c7e`
 **Entry HEAD:** `e692bf2335f3258e83bfc3eb7c7f7f82747265e6`
-**Exit HEAD:** `62e30722ec632754a3a7c1c2edc675e8070689a6` (proof commit `4b7a9469ae4808f3ed42dd27787781bdb8c71257`)
+**Proof Exit HEAD:** `4b7a9469ae4808f3ed42dd27787781bdb8c71257`
+**Documentation tip HEAD:** `ae0048fcda76321e438755de1ac07f4362438527`
 
 **Verdict:**
 
@@ -231,7 +232,7 @@ Prior “PASS CANDIDATE” tip marked **HISTORICAL / SUPERSEDED AS TIP**.
 
 ## Project commits this pass
 
-- `62e30722ec632754a3a7c1c2edc675e8070689a6` — docs(sfia-studio): finalize S08-4 closure Exit HEAD in review pack
+- `877c97431da7e3fc75a4f80fb4e49e88f63a7494` — docs(sfia-studio): finalize S08-4 closure Exit HEAD in review pack
 - `d44a1782fa4f7cf50e9bf9507f42a29da96a25ed` — docs(sfia-studio): record S08-4 final closure Exit HEAD in review pack
 - `4b7a9469ae4808f3ed42dd27787781bdb8c71257` — docs(sfia-studio): close P5-S08-4 final visual re-proof for Git Integration
 
