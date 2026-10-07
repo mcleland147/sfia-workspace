@@ -1,246 +1,166 @@
-# P5-S08-4 — FINAL VISUAL CLOSURE RE-PROOF
+# STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION C1 — FINAL GIT INTEGRATION REVIEW PACK
 
-**Timestamp:** 2026-10-07 23:38:00 +0200
-**Cycle:** P5-S08-4 / S08-4D FINAL VISUAL CLOSURE RE-PROOF
-**Profile:** CRITICAL · Review Pack = FULL
-**Typologie:** EVOL / QA closure (Cycle 9 — QA / validation)
-**Branch:** `delivery/sfia-studio-product-simplification-p5-s08-global-p3-visual-parity`
-**origin/main:** `eed18bd572d65b6f5f4878ed24b195e4feeb5c7e`
-**Entry HEAD:** `e692bf2335f3258e83bfc3eb7c7f7f82747265e6`
-**Proof Exit HEAD:** `4b7a9469ae4808f3ed42dd27787781bdb8c71257`
-**Exit HEAD:** `07a99bc70af9db54f14c0ac2b556385643a9b488`
-**Documentation tip HEAD:** `07a99bc70af9db54f14c0ac2b556385643a9b488`
-
-**Verdict:**
-
-```
-S08-4D DETAIL FIDELITY = PASS
-GLOBAL P3 VISUAL PARITY = PASS
-P0 = 0
-P1 = 0
-P2 = 0
-READY FOR GIT INTEGRATION
+```text
+TIMESTAMP: 2026-10-03 19:33:13 +0200
+MACRO: STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01
+CYCLE: Cycle 1 — Cadrage
+PASS: FINAL GIT INTEGRATION
+TYPOLOGY: EVOL / DOC / INTEGRATION
+PROFILE: CRITICAL
+AUTHORITY: D-SIMP-05 CONSUMED + Morris GO « intégration git complète directe »
 ```
 
----
+## 1. Local Git Truth (pre-commit)
 
-## Local Git Truth
+```text
+pwd: /Users/morris/Projects/sfia-studio-chat-first-product-simplification-c1
+toplevel: /Users/morris/Projects/sfia-studio-chat-first-product-simplification-c1
+branch: docs/sfia-studio-chat-first-product-simplification-c1
+HEAD: ac272df5270faae1d1bea6a78cd0cc11886e97f4
+origin/main: ac272df5270faae1d1bea6a78cd0cc11886e97f4
+left-right origin/main...HEAD: 0 0
+```
 
-| Item | Value |
-| --- | --- |
-| Repository | `/Users/morris/Projects/sfia-workspace` (`mcleland147/sfia-workspace`) |
-| Branch | `delivery/sfia-studio-product-simplification-p5-s08-global-p3-visual-parity` |
-| HEAD at entry | `e692bf23` (docs tip after Geist `6e8b7c37`) |
-| origin/main | `eed18bd57…` — **matches expected** |
-| Staged at entry | none |
-| Modified at entry | QA sqlite under `.tmp-sfia-review/.../workspace-rich/product.sqlite` (restored) |
-| Untracked | historical `.tmp-sfia-review/**` evidence trees — **qualified, not Product divergence** |
-| Product source surprises | **NONE** |
+MATCHES REMOTE TRUTH EXPECTED. Candidate was LOCAL / DIRTY / NON COMMITTÉ before this integration pass.
 
-≠ STOP — LOCAL GIT TRUTH DIVERGENCE
+## 2. Entry handoff / Closure Review
 
----
+```text
+entry review handoff SHA: efaaf11ae3d5e0e48006f03d9155b062430a04db
+entry handoff blob: 7a43e92864690ec404213ceb2b59b424f944e677
+Final ChatGPT Closure Review: PASS — C1 CONTENT READY FOR MORRIS VALIDATION
+Morris: "ok c'est validé" → D-SIMP-05 CONSUMED
+Morris GO: "intégration git complète directe" → Git integration AUTHORIZED
+```
 
-## Morris decisions consumed
+## 3. D-SIMP-05 — STATUS SYNC
 
-- P0/P1/P2 visual review = **0 / 0 / 0** (accepted)
-- TYPOGRAPHY FAMILY = **CLOSED** (Geist)
-- Visual fidelity ≠ fake data fidelity
-- Product honesty > sample copy
-- Accepted runtime compositions must not be reverted
-- Pixel Δ = evidence, not verdict
-- AA/subpixel after Geist = **QNG** unless geometry/readability fails
+```text
+D-SIMP-05 — VALIDATE STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION C1
+Authority: Morris
+Status: CONSUMED
 
----
+Meaning:
+- C1 content = VALIDATED BY MORRIS
+- Guided Review §§1–22 = COMPLETE
+- Final Documentary Consolidation = COMPLETE
+- Final Critical Review #1 historical NOT READY = PRESERVED
+- Correction Pass 01 = COMPLETE
+- Final Closure Review = PASS
+- C1 = VALIDATED
+- C1 NOT YET INTEGRATED ON MAIN until merge completes
 
-## Canonical Figma / manifest
+Does NOT authorize:
+- P2 / P3→P8
+- REAL
+- production routing
+- architecture adoption
+- runtime v3 adoption
+```
 
-| Item | Value |
-| --- | --- |
-| fileKey | `m4g8j0gNbEzfIuH6S9AZJF` |
-| Manifest | `.tmp-sfia-review/visual/s08-4/final-fidelity/state-manifest.json` |
-| Synthèses verified node | **316:2** (`syntheses-verified-desktop` / capture `syntheses-verified-1440`) |
-| Representative pairs | 15 (incl. `syntheses-verified-desktop`) |
+## 4. Exact status-sync (authorized files)
 
----
+### 4.1 `projects/sfia-studio/product-simplification/01-chat-first-product-simplification-cadrage.md`
 
-## Pairing contract
+Current live status statements updated to:
 
-| Gate | Result |
-| --- | --- |
-| Canonical final pairs | **15/15 PASS** |
-| identityAligned | **true** on all PASS pairs |
-| contentAligned | **true** on all PASS pairs |
-| compare-final-fidelity | **15 COMPARED · 0 blocked · invalidDiffGeneration=NONE_INVALID** |
-| Negative mismatch (Vitest) | **12/12 PASS** — wrong identity/content/view/badge → FAIL; missing pairing → no diff |
-| DIFF_FORBIDDEN | **PROVEN** (unit + fail-closed compare path) |
+- Pass = Final Git Integration (D-SIMP-05 CONSUMED)
+- Document status = C1 VALIDATED BY MORRIS · NOT YET INTEGRATED ON MAIN
+- Intégration Git = AUTHORIZED / IN PROGRESS
+- C1-01…C1-27 = PASS — C1 VALIDATED BY MORRIS
+- §22 = VALIDATED BY MORRIS → GIT INTEGRATION IN PROGRESS → P2 NOT AUTHORIZED
+- G-SIMP-03 = CONSUMED — C1 VALIDATED BY MORRIS
+- G-SIMP-04 = AUTHORIZED / IN PROGRESS
 
-PASS captureIds:
-`projects-1440`, `projects-empty-1440`, `new-project-1440`, `new-project-390`, `workspace-1440`, `workspace-1024`, `workspace-390`, `apercu-1440`, `journal-1440`, `historique-1440`, `syntheses-1440`, `syntheses-verified-1440`, `decision-390`, `confirmation-390`, `auth-390`
+Historical records preserved (Final Critical Review #1 NOT READY / Correction Pass 01).
 
----
+### 4.2 `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
 
-## Final P0 / P1 / P2 sweep (fresh evidence)
+Living tip updated minimally:
 
-| Severity | Count | Notes |
-| --- | --- | --- |
-| P0 | **0** | — |
-| P1 | **0** | — |
-| P2 | **0** | — |
-| P3 | residual density/rhythm vs Figma samples | accepted / non-blocking |
-| QNG | AA / subpixel / raster after Geist | non-actionable |
+- D-SIMP-05 CONSUMED
+- C1 = VALIDATED BY MORRIS
+- Git integration = AUTHORIZED / IN PROGRESS
+- P2 = NOT AUTHORIZED
+- P3→P8 = NOT AUTHORIZED
+- ZERO REAL
+- production routing = NOT SELECTED
+- Cognitive Completion = NOT PROVEN
+- runtime v3 = NON ADOPTED
 
-No new Product defect discovered that requires an implementation cycle inside this proof.
+Historical tip rows preserved.
 
----
+### 4.3 Scope
 
-## Surface matrix (production `next start`)
+```text
+AUTHORIZED ONLY:
+- projects/sfia-studio/product-simplification/01-chat-first-product-simplification-cadrage.md
+- projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+- .tmp-sfia-review/chatgpt-review.md
 
-| Surface | Viewport | Status |
-| --- | --- | --- |
-| Projects | 1440 | PASS / paired |
-| Projects empty | 1440 | PASS / paired (isolated empty DB) |
-| New Project | 1440 / 390 | PASS / paired (Product-honest dialogue QUALIFIED) |
-| Workspace | 1440 / 1024 / 390 | PASS / paired |
-| Aperçu | 1440 | PASS / paired (4 Éléments clés retained) |
-| Journal | 1440 | PASS / paired |
-| Historique | 1440 | PASS / paired |
-| Synthèses | 1440 + verified end | PASS / paired |
-| Decision | 390 | PASS / paired (accepted runtime composition retained) |
-| Confirmation | 390 | PASS / paired (Product-honest impact QUALIFIED) |
-| Auth | 390 | PASS / paired |
-| Execution | CONTRACT-QUALIFIED | no regression in governed composition / badge |
+NO product code.
+NO REAL.
+NO RETIRE.
+NO branch deletion.
+```
 
----
+## 5. Pre-commit validations
 
-## Geist verification
+```text
+1. D-SIMP-05 present — PASS
+2. C1 VALIDATED BY MORRIS — PASS
+3. C1 NOT YET INTEGRATED before merge — PASS
+4. P2 NOT AUTHORIZED — PASS
+5. P3→P8 NOT AUTHORIZED — PASS
+6. production routing NOT SELECTED — PASS
+7. Cognitive Completion NOT PROVEN — PASS
+8. runtime v3 NON ADOPTED — PASS
+9. no READY FOR REAL — PASS
+10. no architecture adopted accidentally — PASS
+11. no SharedKnowledgeStore selected — PASS
+12. no Canonical Orchestration Spine adopted — PASS
+13. historical review failure/correction preserved — PASS
+14. git diff --check — PASS
+15. authorized scope only — PASS
+```
 
-Computed on production runtime:
+## 6. Git diff evidence (pre-commit)
 
-- `body` / sample: **`Geist, "Geist Fallback"`**
-- `--font-geist` / `--sfia-font` / `--pm6-font` resolve to Geist
-- Loaded Geist faces: **6**
-- New npm dependency: **NO** (`next/font/google`)
-- Harness: `FIGMA_TYPOGRAPHY_GEIST_OK`
+```text
+name-status (authorized project + pack):
+A  projects/sfia-studio/product-simplification/01-chat-first-product-simplification-cadrage.md
+M  projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+M  .tmp-sfia-review/chatgpt-review.md
 
----
+git diff --check: PASS (exit 0)
+```
 
-## Workspace 1024 scroll
+## 7. Integration lifecycle (filled as executed)
 
-- Scroll owner: context rail `.lpsSheet` / `project-context-scroll`
-- Overflow metrics real; thin warm indicator present
-- Thumb moves with scroll (`translateY(0)` → `translateY(73px)` in proof run)
-- Footer shortcuts remain outside scroll sheet
-- Harness: **CONTEXT_SCROLL_OK**
+```text
+project commit SHA: PENDING
+pushed branch SHA: PENDING
+PR number/url: PENDING
+CI / Required Gate: PENDING
+merge method: PENDING
+merge SHA: PENDING
+merged_at: PENDING
+post-merge main SHA: PENDING
+post-merge Actions / checks: PENDING
+project Git effects: PENDING
+branch retained: YES (deletion unauthorized)
+P2 NOT AUTHORIZED: CONFIRMED
+```
 
-## Workspace 1440 footer shortcuts
+## 8. Unique verdict (pre-merge placeholder)
 
-- Journal du cycle / Historique / Synthèses visible
-- Pinned at column foot (`navBottom=1024`, outside scroll)
-- Same `ProjectContextShortcuts` component (no desktop-only duplicate)
-- Harness: **CONTEXT_FOOTER_SHORTCUTS_OK**
-
-## Synthèses verified + scroll
-
-- Enriched detail + **Éléments vérifiés** (Figma **316:2**)
-- Indicator only when overflow; bound to `scrollTop` / metrics
-- Top → end: scrollTop `0 → 245`, thumb `translateY(0) → translateY(175px)`
-- Harness: **SCROLL_AFFORDANCE_OK**
-
----
-
-## Technical gates
-
-| Gate | Result |
-| --- | --- |
-| Full Vitest | **5402 passed / 143 skipped / 0 failed** (clean env: `SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY` unset — agent shell pollution previously caused false D/E7 fail) |
-| Pairing unit tests | **12/12 PASS** (list updated for `syntheses-verified-desktop`) |
-| Visual E2E `e2e/p3-visual-parity.spec.ts` | **PASS** against production `next start` + `canonical-product.sqlite` |
-| Typecheck | **PASS** |
-| Lint | **PASS** |
-| Build | **PASS** |
-| Production canonical capture | **PASS** (`capture-canonical-unified.mjs` + empty pairing) |
-
-Env note: first full Vitest under polluted `SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY=1` falsely failed D/E7; re-run with env cleared = green. Not a Product defect.
-
----
-
-## Contact sheets / artifacts
-
-Under `.tmp-sfia-review/visual/s08-4/final-fidelity/`:
-
-- `runtime/*.png` — fresh production captures
-- `contact-sheets/desktop-overview.png`
-- `contact-sheets/compact-overview.png`
-- `contact-sheets/mobile-overview.png`
-- `contact-sheets/{projects,workspace,apercu,journal,historique,syntheses,decision,confirmation,auth}*.png`
-- `diff/pairing-compare-summary.json` — authoritative fail-closed compare
-- `CLOSURE_META.json`
-- synced copies under `.tmp-sfia-review/visual/s08-4/final/`
-
-Pixel Δ numbers are **evidence only** (Morris rule). Composition / pairing / honesty decide MATCH.
-
----
-
-## Files modified this closure cycle
-
-| File | Why |
-| --- | --- |
-| `app/__tests__/project-assistant/s08-4.visualPairingContract.d0.test.ts` | Truth-sync expected representative list to include intentional `syntheses-verified-desktop` |
-| `convergence/sfia-studio-convergence-roadmap.md` | LOCAL tip → READY FOR GIT INTEGRATION |
-| `.tmp-sfia-review/chatgpt-review.md` | This FULL pack (reset at cycle start) |
-| `.tmp-sfia-review/visual/s08-4/final-fidelity/**` | Fresh captures, pairing, contact sheets, meta |
-
-No Product UI architecture change in this proof cycle.
-
----
-
-## Roadmap / P5 local truth (modified tip — exploitable)
-
-New tip row (abridged; full row in roadmap file):
-
-> P5-S08-4 FINAL VISUAL CLOSURE RE-PROOF — S08-4D DETAIL FIDELITY = PASS / GLOBAL P3 VISUAL PARITY = PASS ON CURRENT S08-4 BRANCH PROOF / **READY FOR GIT INTEGRATION**
-> Vitest 5402/143/0 · Visual E2E PASS · Pairing 15/15 · Geist CLOSED · S08-5 NOT STARTED · P5 COMPLETE NO · P6 READY NO · runtime v3 NON ADOPTED · Project push/PR/merge NONE · **≠ INTEGRATED · ≠ POST-MERGE VERIFIED**
-
-Prior “PASS CANDIDATE” tip marked **HISTORICAL / SUPERSEDED AS TIP**.
-
----
-
-## Reservations / qualified differences (accepted)
-
-- Dataset richness vs Figma samples (Journal/History/Synthèses counts) — structural ability proven; not visual regression
-- Confirmation impact Product-honest vs sample “modifier 2 fichiers” — QUALIFIED
-- Persona = real session identity — QUALIFIED
-- Projects “À reprendre” only when eligible — Product honesty (canonical populated fixture includes recent)
-- Execution = CONTRACT-QUALIFIED (no fabricated desktop Figma if absent)
-- Raster/AA after Geist — QNG
-
----
-
-## Anti-claims
-
-| Claim | Status |
-| --- | --- |
-| S08-5 | **NOT STARTED** |
-| P5 COMPLETE | **NO** |
-| P6 READY | **NO** |
-| runtime v3 | **NON ADOPTED** |
-| Project push / PR / merge | **NONE** |
-| INTEGRATED / POST-MERGE VERIFIED | **NO** (Git Integration is a separate gate) |
-| READY FOR REAL / REAL BOUNDARY PROVEN | **NO** — DETERMINISTIC FINAL VISUAL PROOF only |
-
----
-
-## Project commits this pass
-
-- `877c97431da7e3fc75a4f80fb4e49e88f63a7494` — docs(sfia-studio): finalize S08-4 closure Exit HEAD in review pack
-- `d44a1782fa4f7cf50e9bf9507f42a29da96a25ed` — docs(sfia-studio): record S08-4 final closure Exit HEAD in review pack
-- `4b7a9469ae4808f3ed42dd27787781bdb8c71257` — docs(sfia-studio): close P5-S08-4 final visual re-proof for Git Integration
-
-
-## Review Handoff
-
-- Source: `.tmp-sfia-review/chatgpt-review.md`
-- Canonical: `sfia-review-handoff/latest-chatgpt-review.md`
-- Branch: `sfia/review-handoff`
-- Mode: publish-in-cycle · L3 BOUNDED only
+```text
+PRE-MERGE: D-SIMP-05 status sync COMPLETE · READY FOR COMMIT/PUSH/PR/CI/MERGE
+POST-MERGE TARGET VERDICT:
+STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION C1
+— VALIDATED BY MORRIS
+— INTEGRATED ON MAIN
+— POST-MERGE VERIFIED
+— CYCLE 1 CADRAGE CLOSED
+— P2 NOT YET AUTHORIZED
+```
