@@ -176,4 +176,84 @@ describe("W1 confirmation durability", () => {
     const afterConsume = await decisions2.confirmations.findById(confirmationId);
     expect(afterConsume?.status).toBe("consumed");
   });
+
+  it("S08-2 UAT-RECOVERY-03 — requested lost after restart fails closed (no grant / no consume / no invented authority)", async () => {
+    const dbPath = tempDbPath("conf-requested-failclosed.sqlite");
+    const { projects, decisions } = await boot(dbPath);
+    const confirmationId = "cfm:w1-requested-fc";
+    const requested = await decisions.requestConfirmation.execute({
+      confirmationId,
+      level: "N3",
+      scope: "w1-scope",
+      actionRef: "act:prepare",
+      requestedBy: ACTOR,
+      requestedTo: ACTOR,
+      idempotencyKey: "idem:cnf:w1-requested-fc",
+      expiresAt: "2026-12-31T23:59:59.000Z",
+    });
+    expect(requested.ok).toBe(true);
+    projects.dispose();
+    openServices.pop();
+
+    const { decisions: decisions2 } = await boot(dbPath, false);
+    expect(await decisions2.confirmations.findById(confirmationId)).toBeNull();
+
+    const grantAfterLoss = await decisions2.grantConfirmation.execute({
+      confirmationId,
+      actor: ACTOR,
+      authorityEvidenceId: "evd:morris-n3",
+    });
+    expect(grantAfterLoss.ok).toBe(false);
+    if (grantAfterLoss.ok) return;
+    expect(grantAfterLoss.error.detailCode).toBe("CONFIRMATION_NOT_FOUND");
+
+    const consumeAfterLoss = await decisions2.consumeConfirmation.execute({
+      confirmationId,
+      actor: ACTOR,
+    });
+    expect(consumeAfterLoss.ok).toBe(false);
+    if (consumeAfterLoss.ok) return;
+    expect(consumeAfterLoss.error.detailCode).toBe("CONFIRMATION_NOT_FOUND");
+  });
+
+  it("S08-2 UAT-RECOVERY-03 — consumed confirmation remains reconstructible after reopen (no second consume)", async () => {
+    const dbPath = tempDbPath("conf-consumed-reopen.sqlite");
+    const { projects, decisions } = await boot(dbPath);
+    const confirmationId = "cfm:w1-consumed-reopen";
+    await decisions.requestConfirmation.execute({
+      confirmationId,
+      level: "N3",
+      scope: "w1-scope",
+      actionRef: "act:prepare",
+      requestedBy: ACTOR,
+      requestedTo: ACTOR,
+      idempotencyKey: "idem:cnf:w1-consumed-reopen",
+      expiresAt: "2026-12-31T23:59:59.000Z",
+    });
+    const granted = await decisions.grantConfirmation.execute({
+      confirmationId,
+      actor: ACTOR,
+      authorityEvidenceId: "evd:morris-n3",
+    });
+    expect(granted.ok).toBe(true);
+    const consumed = await decisions.consumeConfirmation.execute({
+      confirmationId,
+      actor: ACTOR,
+    });
+    expect(consumed.ok).toBe(true);
+    projects.dispose();
+    openServices.pop();
+
+    const { decisions: decisions2 } = await boot(dbPath, false);
+    const loaded = await decisions2.confirmations.findById(confirmationId);
+    expect(loaded?.status).toBe("consumed");
+
+    const second = await decisions2.consumeConfirmation.execute({
+      confirmationId,
+      actor: ACTOR,
+    });
+    expect(second.ok).toBe(false);
+    if (second.ok) return;
+    expect(second.error.detailCode).toBe("CONFIRMATION_ALREADY_CONSUMED");
+  });
 });

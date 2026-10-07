@@ -135,6 +135,36 @@ export class CheckExecutionAuthorization {
         });
       }
 
+      // Confirmed status alone is NOT Confirmation authority.
+      // R-T-A3-2 / UAT-RECOVERY-03: require durable consumed Confirmation
+      // before authorize. N1 validated+NOT_REQUIRED path is unaffected
+      // (status !== "confirmed").
+      if (contract.status === "confirmed") {
+        const confirmationRef =
+          typeof contract.confirmationRef === "string"
+            ? contract.confirmationRef.trim()
+            : "";
+        if (!confirmationRef) {
+          return fail("CONFIRMATION_REQUIRED", "missing_confirmation_ref", {
+            projectId: contract.projectId,
+          });
+        }
+        const confirmation =
+          await this.decisionServices.confirmations.findById(confirmationRef);
+        if (!confirmation) {
+          return fail("CONFIRMATION_NOT_FOUND", "missing_confirmation", {
+            projectId: contract.projectId,
+          });
+        }
+        if (confirmation.status !== "consumed") {
+          return fail(
+            "CONFIRMATION_REQUIRED",
+            `confirmation_not_consumed_${confirmation.status}`,
+            { projectId: contract.projectId },
+          );
+        }
+      }
+
       // Current = no successor has superseded this contract.
       const successors = await this.contracts.listSuperseding(
         contract.executionContractId,
