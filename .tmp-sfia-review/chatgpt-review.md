@@ -14,7 +14,7 @@
 | Repository | `/Users/morris/Projects/sfia-workspace` |
 | Branch | `delivery/sfia-studio-product-simplification-p5-s08-global-p3-visual-parity` |
 | Entry HEAD | `e376e22383d819a5db35206c9d1cf9e776128b5e` |
-| Exit HEAD | *(commit tip)* |
+| Exit HEAD | `6e8b7c37bb481a879352d180fa9fc26607b970a4` |
 | origin/main | `eed18bd572d65b6f5f4878ed24b195e4feeb5c7e` |
 | Project push / PR | **NONE** |
 
