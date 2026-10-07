@@ -188,11 +188,14 @@ export function ProjectWorkspacePage({
     const el = contextScrollRef.current;
     if (!el) return;
     syncContextScrollUi();
-    const ro = new ResizeObserver(() => syncContextScrollUi());
-    ro.observe(el);
+    const ro =
+      typeof ResizeObserver !== "undefined"
+        ? new ResizeObserver(() => syncContextScrollUi())
+        : null;
+    ro?.observe(el);
     window.addEventListener("resize", syncContextScrollUi);
     return () => {
-      ro.disconnect();
+      ro?.disconnect();
       window.removeEventListener("resize", syncContextScrollUi);
     };
   }, [syncContextScrollUi, activeView, latestSynthesis]);

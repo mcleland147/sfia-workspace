@@ -449,9 +449,17 @@ describe("P5-S04 Synthèses UI", () => {
       configurable: true,
       value: 400,
     });
+    fireEvent.scroll(scroll);
     scroll.scrollTop = 1200;
+    fireEvent.scroll(scroll);
     expect(scroll.scrollTop).toBe(1200);
     expect(scroll.scrollHeight).toBeGreaterThan(scroll.clientHeight);
+    // Bound affordance appears only when overflow is real.
+    await waitFor(() => {
+      expect(
+        screen.getByTestId("project-syntheses-scroll-indicator"),
+      ).toBeTruthy();
+    });
   });
 
   it("T18 — verified zero state uses Product evidenceIds length", async () => {

@@ -72,8 +72,35 @@ export function SynthesesSurface({
   const [mobileShowDetail, setMobileShowDetail] = useState(
     Boolean(initialSynthesisId),
   );
+  const [detailScrollUi, setDetailScrollUi] = useState<{
+    active: boolean;
+    thumbTop: number;
+    thumbHeight: number;
+  }>({ active: false, thumbTop: 0, thumbHeight: 0 });
 
   const verifiedCount = detail?.sourceBindings.evidenceIds.length ?? 0;
+
+  const syncDetailScrollUi = useCallback(() => {
+    const el = detailScrollRef.current;
+    if (!el) {
+      setDetailScrollUi({ active: false, thumbTop: 0, thumbHeight: 0 });
+      return;
+    }
+    const { scrollTop, scrollHeight, clientHeight } = el;
+    const overflow = scrollHeight - clientHeight;
+    if (overflow <= 8 || clientHeight <= 0) {
+      setDetailScrollUi({ active: false, thumbTop: 0, thumbHeight: 0 });
+      return;
+    }
+    const track = Math.max(clientHeight - 32, 1);
+    const thumbHeight = Math.max(
+      32,
+      Math.round((clientHeight / scrollHeight) * track),
+    );
+    const maxTop = Math.max(track - thumbHeight, 0);
+    const thumbTop = Math.round((scrollTop / overflow) * maxTop);
+    setDetailScrollUi({ active: true, thumbTop, thumbHeight });
+  }, []);
 
   const loadFullList = useCallback(async () => {
     setLoadError(null);
@@ -110,7 +137,24 @@ export function SynthesesSurface({
   useEffect(() => {
     const el = detailScrollRef.current;
     if (el) el.scrollTop = 0;
-  }, [selectedId, detail?.synthesisId]);
+    syncDetailScrollUi();
+  }, [selectedId, detail?.synthesisId, syncDetailScrollUi]);
+
+  useEffect(() => {
+    const el = detailScrollRef.current;
+    if (!el) return;
+    syncDetailScrollUi();
+    const ro =
+      typeof ResizeObserver !== "undefined"
+        ? new ResizeObserver(() => syncDetailScrollUi())
+        : null;
+    ro?.observe(el);
+    window.addEventListener("resize", syncDetailScrollUi);
+    return () => {
+      ro?.disconnect();
+      window.removeEventListener("resize", syncDetailScrollUi);
+    };
+  }, [syncDetailScrollUi, detail?.synthesisId, detailBusy]);
 
   useEffect(() => {
     let cancelled = false;
@@ -349,77 +393,96 @@ export function SynthesesSurface({
 
                 {/*
                   Figma 316:2 / 164:3 — Synthesis Scroll: detail body scrolls;
-                  header stays structured. Real overflow (styled native scrollbar).
+                  header stays structured. Overlay OS scrollbars are often
+                  invisible — a thin indicator mirrors real scroll metrics.
                 */}
-                <div
-                  ref={detailScrollRef}
-                  className={styles.detailScroll}
-                  data-testid="project-syntheses-detail-scroll"
-                >
-                  <div className={styles.sections}>
-                    {BODY_SECTION_SPECS.map((spec) => (
-                      <section
-                        key={spec.key}
-                        className={styles.section}
-                        data-testid={`project-syntheses-section-${spec.testIdSuffix}`}
-                        aria-labelledby={`syn-section-${spec.key}`}
-                      >
-                        <h4
-                          className={styles.sectionTitle}
-                          id={`syn-section-${spec.key}`}
+                <div className={styles.detailScrollWrap}>
+                  <div
+                    ref={detailScrollRef}
+                    className={styles.detailScroll}
+                    data-testid="project-syntheses-detail-scroll"
+                    onScroll={syncDetailScrollUi}
+                  >
+                    <div className={styles.sections}>
+                      {BODY_SECTION_SPECS.map((spec) => (
+                        <section
+                          key={spec.key}
+                          className={styles.section}
+                          data-testid={`project-syntheses-section-${spec.testIdSuffix}`}
+                          aria-labelledby={`syn-section-${spec.key}`}
                         >
-                          <span
-                            className={styles.sectionOrdinal}
-                            aria-hidden="true"
+                          <h4
+                            className={styles.sectionTitle}
+                            id={`syn-section-${spec.key}`}
                           >
-                            {spec.ordinal}
-                          </span>
-                          {spec.label}
-                        </h4>
-                        <p className={styles.sectionBody}>
-                          {detail.sections[spec.key]}
-                        </p>
-                      </section>
-                    ))}
+                            <span
+                              className={styles.sectionOrdinal}
+                              aria-hidden="true"
+                            >
+                              {spec.ordinal}
+                            </span>
+                            {spec.label}
+                          </h4>
+                          <p className={styles.sectionBody}>
+                            {detail.sections[spec.key]}
+                          </p>
+                        </section>
+                      ))}
 
-                    <section
-                      className={`${styles.section} ${styles.verifiedCard}`}
-                      data-testid={`project-syntheses-section-${VERIFIED_SECTION_SPEC.testIdSuffix}`}
-                      aria-labelledby={`syn-section-${VERIFIED_SECTION_SPEC.key}`}
-                    >
-                      <div className={styles.verifiedTop}>
-                        <h4
-                          className={styles.sectionTitle}
-                          id={`syn-section-${VERIFIED_SECTION_SPEC.key}`}
-                        >
-                          <span
-                            className={styles.sectionOrdinal}
-                            aria-hidden="true"
-                          >
-                            {VERIFIED_SECTION_SPEC.ordinal}
-                          </span>
-                          {VERIFIED_SECTION_SPEC.label}
-                        </h4>
-                        <span
-                          className={styles.verifiedCount}
-                          data-testid="project-syntheses-verified-count"
-                        >
-                          {formatVerifiedElementsCount(verifiedCount)}
-                        </span>
-                      </div>
-                      <p
-                        className={styles.verifiedBody}
-                        data-testid="project-syntheses-verified-summary"
+                      <section
+                        className={`${styles.section} ${styles.verifiedCard}`}
+                        data-testid={`project-syntheses-section-${VERIFIED_SECTION_SPEC.testIdSuffix}`}
+                        aria-labelledby={`syn-section-${VERIFIED_SECTION_SPEC.key}`}
                       >
-                        {detail.sections.verified}
-                      </p>
-                      {/*
-                        PRODUCT-HONEST QUALIFIED DIFFERENCE vs Figma 316:2:
-                        no supported Product destination for "Voir le détail →"
-                        on verified evidence — omit dead CTA.
-                      */}
-                    </section>
+                        <div className={styles.verifiedTop}>
+                          <h4
+                            className={styles.sectionTitle}
+                            id={`syn-section-${VERIFIED_SECTION_SPEC.key}`}
+                          >
+                            <span
+                              className={styles.sectionOrdinal}
+                              aria-hidden="true"
+                            >
+                              {VERIFIED_SECTION_SPEC.ordinal}
+                            </span>
+                            {VERIFIED_SECTION_SPEC.label}
+                          </h4>
+                          <span
+                            className={styles.verifiedCount}
+                            data-testid="project-syntheses-verified-count"
+                          >
+                            {formatVerifiedElementsCount(verifiedCount)}
+                          </span>
+                        </div>
+                        <p
+                          className={styles.verifiedBody}
+                          data-testid="project-syntheses-verified-summary"
+                        >
+                          {detail.sections.verified}
+                        </p>
+                        {/*
+                          PRODUCT-HONEST QUALIFIED DIFFERENCE vs Figma 316:2:
+                          no supported Product destination for "Voir le détail →"
+                          on verified evidence — omit dead CTA.
+                        */}
+                      </section>
+                    </div>
                   </div>
+                  {detailScrollUi.active ? (
+                    <div
+                      className={styles.detailScrollTrack}
+                      data-testid="project-syntheses-scroll-indicator"
+                      aria-hidden="true"
+                    >
+                      <div
+                        className={styles.detailScrollThumb}
+                        style={{
+                          transform: `translateY(${detailScrollUi.thumbTop}px)`,
+                          height: detailScrollUi.thumbHeight,
+                        }}
+                      />
+                    </div>
+                  ) : null}
                 </div>
               </div>
             ) : selectedListItem && !detailBusy ? (
