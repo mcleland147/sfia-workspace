@@ -63,12 +63,12 @@
 | **P5-S06 CP02.3** | **AUTHORIZED / CONSUMED** |
 | **P5-S06 GIT INTEGRATION GATE** | **AUTHORIZED / CONSUMED** |
 | **P5-S06 MERGE GO** | **AUTHORIZED / CONSUMED** |
-| **P5 slicing restant** | **S08** — S08-1/S08-2/S08-3 **INTEGRATED / POST-MERGE VERIFIED** · S08-4 **IN PROGRESS / S08-4D INCOMPLETE** · S08-5…S08-6 **NOT STARTED** |
+| **P5 slicing restant** | **S08** — S08-1/S08-2/S08-3 **INTEGRATED / POST-MERGE VERIFIED** · S08-4 **LOCAL PASS CANDIDATE / NOT MERGED** · S08-5…S08-6 **NOT STARTED** |
 | **R1 / R2 / R3** | **R1 PASS** · **R2 PASS** · **R3 PASS AT TESTED SCOPE / INTEGRATED / POST-MERGE VERIFIED** (S05) |
 | **ZERO REAL** | **YES for S07/S08-1** · S05 R3 REAL historique préservé (bounded OpenAI sous gate S05) · S02 R1/R2 REAL historique préservé |
 | **runtime v3** | **NON ADOPTED** |
 | **Git (S08 cumulative)** | PR **#565** **MERGED** · main `7063fa3c…` · CI **#698** SUCCESS · S08 branch cleanup **COMPLETE** · Documentary truth-sync Draft PR **THIS CYCLE** · Documentary merge **NOT AUTHORIZED** |
-| **Next** | Continue S08-4D final detail fidelity until Figma≈runtime · then ChatGPT visual review · Git Integration only after ChatGPT+Morris · ≠ P5 COMPLETE |
+| **Next** | ChatGPT final visual review of S08-4 PASS CANDIDATE · Git Integration only after ChatGPT+Morris · then Exit pack → S08-5 · ≠ P5 COMPLETE |
 | **P5-S05 DELIVERY** | **AUTHORIZED / CONSUMED** → **INTEGRATED** via PR **#560** |
 | **P5-S05 REAL / R3** | **AUTHORIZED / CONSUMED** → **INTEGRATED** |
 | **P5-S05 CP01 / CP02** | **AUTHORIZED / CONSUMED** (historique) |
@@ -76,7 +76,7 @@
 | **Fichier** | `projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md` |
 | **Date** | 2026-10-07 · Europe/Paris |
 
-> **Lecture rapide.** P5-S01…S07 + **S08-1→S08-3** **technically integrated / post-merge verified** on main `eed18bd5…`. **S08-4D = INCOMPLETE** · **GLOBAL P3 VISUAL PARITY = NOT YET PROVEN** (prior local PASS superseded — ChatGPT not accepted; final detail fidelity still open). S08-4A–C structural/governed moments remain. Remaining P5 Exit blockers: **S08-4D detail fidelity** + Exit pack → **S08-5**. S08-5 **NOT STARTED**. **≠ P5 COMPLETE**.
+> **Lecture rapide.** P5-S01…S07 + **S08-1→S08-3** **technically integrated / post-merge verified** on main `eed18bd5…`. **S08-4D = PASS CANDIDATE** · **GLOBAL P3 VISUAL PARITY = PASS CANDIDATE** (local final P2 sweep + global re-proof · awaiting ChatGPT final visual review · ≠ Git Integration). Remaining P5 Exit blocker after ChatGPT+Morris accept: Exit pack → **S08-5**. S08-5 **NOT STARTED**. **≠ P5 COMPLETE**.
 > **Règle de lecture des preuves.** *Implémenté* ≠ *prouvé* ≠ *intégré* ≠ *REAL*. NCR ≠ GLOBAL SIMPLIFICATION FULLY QA-PROVEN · ≠ P6 PASS. This documentary truth-sync is docs-only; documentary PR merge requires a distinct Morris GO.
 
 ---
@@ -107,8 +107,8 @@ P5-S07 = INTEGRATED / POST-MERGE VERIFIED (PR #563 · feature 8e02115e… · mer
          Journal currentness = PASS
          History identity = PASS
          Responsive bands = PASS
-         GLOBAL P3 VISUAL PARITY = NOT YET PROVEN (S08-4D INCOMPLETE)
-         prior CP01/CP02/CP03 + prior S08-4D Cursor PASS claims = HISTORICAL / SUPERSEDED
+         GLOBAL P3 VISUAL PARITY = PASS CANDIDATE (S08-4D local · awaiting ChatGPT)
+         prior incomplete / superseded PASS claims = HISTORICAL
          ZERO REAL = YES
          Architecture parallelism = NONE
          UAT-RECOVERY-03 = NON-BLOCKING CARRY → S08-2
@@ -118,12 +118,12 @@ P5-S08 = STARTED · S08-1…S08-4 GO CONSUMED (S08-4 continued)
 P5-S08-1 = INTEGRATED / POST-MERGE VERIFIED
 P5-S08-2 = INTEGRATED / POST-MERGE VERIFIED
 P5-S08-3 = INTEGRATED / POST-MERGE VERIFIED
-P5-S08-4 = IN PROGRESS / NOT MERGED
+P5-S08-4 = LOCAL PASS CANDIDATE / NOT MERGED
   S08-4A = COMPLETE
   S08-4B = COMPLETE
   S08-4C = STRUCTURALLY / FUNCTIONALLY COMPLETE
-  S08-4D = INCOMPLETE
-  GLOBAL P3 VISUAL PARITY = NOT YET PROVEN
+  S08-4D = PASS CANDIDATE
+  GLOBAL P3 VISUAL PARITY = PASS CANDIDATE
   Decision / Confirmation = INLINE CONVERSATION via existing W2 actions (kept)
   legacy exposeLegacyAuthorityPath on /studio = NOT ENABLED
   Provider REAL = NONE
