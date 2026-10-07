@@ -1,169 +1,167 @@
-# P5-S08-4 — IDENTITY-ALIGNED FINAL DETAIL FIDELITY
+# P5-S08-4 — FINAL PRODUCT PROJECTION + DETAIL FIDELITY
 
-## Authority
+**Review Pack:** FULL
+**Date:** 2026-10-07
+**Branch:** `delivery/sfia-studio-product-simplification-p5-s08-global-p3-visual-parity`
+**Verdict:** S08-4D DETAIL FIDELITY INCOMPLETE — READY FOR CHATGPT VISUAL REVIEW OF PROGRESS (not Git Integration)
 
-Morris S08-4 GO = AUTHORIZED / CONSUMED / CONTINUED
-Pass: FINAL FIGMA ↔ RUNTIME DETAIL FIDELITY CLOSURE
-CSS fidelity tuning = RESUMED (real Product presentation loop)
+---
 
-## Git truth
+## 1. Git truth
 
-- origin/main = `eed18bd572d65b6f5f4878ed24b195e4feeb5c7e` (UNCHANGED — MAIN NOT MOVED)
-- branch = `delivery/sfia-studio-product-simplification-p5-s08-global-p3-visual-parity`
-- entry HEAD (this pass start) = `3d7347d1a2ab497315c7a8056485958cd202bf93`
-- new local commit = `3e7a06b6` — feat(sfia-studio): converge S08-4 Workspace conversation to P3 46:2
-- Project push = NONE
-- Project PR = NONE
-- Merge = NONE
+| Item | Value |
+| --- | --- |
+| `origin/main` | `eed18bd572d65b6f5f4878ed24b195e4feeb5c7e` |
+| Branch | `delivery/sfia-studio-product-simplification-p5-s08-global-p3-visual-parity` |
+| Entry HEAD (prompt baseline) | `c767bda686fe204f128eb01c61956903adfbe723` |
+| Exit HEAD | `e0d36c5aa7616899e37fcaf734cf22056491643d` |
 
-## Source SHAs (read from Git; ChatGPT-reviewed set unchanged)
+### New local commits (this continuation)
 
-| Doc | SHA |
-|-----|-----|
-| Build Doctrine | `99232e4582e4ef4cf489020a46b818ebb41ac397` |
-| Roadmap | `bf79fff2d5935d899cee45d9133c382030a1a3c8` |
-| C1 | `806d672fe21ad82a641bf88fe95fc87870481105` |
-| P3 | `f395f69b295ea2efd2a4266dadcb789f24d34353` |
-| P4 | `db91b54659da9a43533794be261a3eb3b072b18e` |
-| P5 | `74266a1084c538ba1cfee0641364fe3a96527138` |
-| Cursor template | `948156a21309ef99c3aaed6410947dc6b9bc569a` |
-| Routing | `8949e764d96faf3fa812d39307dbc298b500f5ef` |
-| CKC UX/UI | `88a77170c7c7b74bf71e0bcd7408d47f07eb6ce8` |
-| CKC Delivery | `69d1257a5ca9045964b68410c07728c2f8264491` |
+1. `f84dc9cf` — feat(sfia-studio): close S08-4 Workspace projection and focused governed chrome
+2. `cb0109eb` — feat(sfia-studio): focus Decision/Confirmation mobile projection to P3
+3. `e0d36c5a` — feat(sfia-studio): apply focused mobile shell to governed Decision moments
 
-## Snapshot unification (prior pass) = PASS
+Project push: **NONE**
+Project PR: **NONE**
+S08-5: **NOT STARTED**
 
-- Canonical identity = **Product Simplification**
-- All final pairs require `identityAligned=true`
-- Pairing harness fail-closed; DIFF_FORBIDDEN when identityAligned≠true
-- Visual pairing defect = CLOSED (not re-opened)
+---
 
-## This pass — identity-aligned fidelity loop
+## 2. Pairing / content alignment
 
-### Pairing contract
+Production-build canonical capture (`capture-canonical-unified.mjs`) + projects-empty isolated:
 
-- Manifest: `.tmp-sfia-review/visual/s08-4/final-fidelity/state-manifest.json`
-- Capture: `capture-canonical-unified.mjs` (production `next start`, snapshot DB switch)
-- Latest pairing report: **10/10 PASS**, all `identityAligned=true`
-- expectedProjectName = Product Simplification
+| Gate | Result |
+| --- | --- |
+| pairing | **PASS** (all mandatory pairs) |
+| identityAligned | **true** |
+| contentAligned | **true** |
+| semantic/view/viewport | fail-closed enforced; invalid → DIFF_FORBIDDEN |
 
-### Figma
+Evidence: `.tmp-sfia-review/visual/s08-4/final-fidelity/pairing-report.json`
 
-- fileKey = `m4g8j0gNbEzfIuH6S9AZJF`
-- READ ONLY
-- Live MCP design context retrieved for Workspace `46:2`
-- Corrected stale wrong-size Figma refs (workspace/syntheses/projects-empty were 1024×729; restored to 1440×1024)
+---
 
-### Workspace (priority) — major convergence
+## 3. Product projection corrections (exact)
 
-Live Figma `46:2` vs identity-aligned runtime `workspace-rich`:
+1. **Context-rail Cycle** — `contextLabel` = `{shortReference} · {focusTopic} / interaction` when Journal topic exists (was `P3 · UX/UI` catalog chip only).
+2. **Priorité sub-line** — Journal `currentSummary` (`Passe de conception 01`) instead of next-action wording.
+3. **Trajectory refs** — P-series anchored on project `shortReference` → `C1 / P2 / P3 / P4` (was `C1–C4` ordinals).
+4. **Attention details** — leading Work Recommendation / Reservation **statements** (not generic placeholders).
+5. **Synthèse rail** — section « Synthèse » + day label « Aujourd'hui » + `Verdict · …` + open link (was timestamp dump).
+6. **Currentness** — header chip stays « À jour »; context « Mise à jour » may show verified relative time.
+7. **Recommendation / prepared-action cards** — Figma-like left body + right status/link layout.
+8. **Governed Decision/Confirmation focus** — hide empty-state, composer, focus strips, durable recommendation stack, and secondary shell chrome during bound decision / confirmation_required.
+9. **Decision Nora preface** — Pilot-facing copy; sealed Proposal technical dumps filtered.
+10. **Decision option body** — Pilot one-liner (`Conversation principale + contexte progressif.`) instead of sealed intent.
+11. **Seed enrichment (workspace-rich)** — journal summary `Passe de conception 01`; réserve statement `Le système visuel reste exploratoire`; synthesis `generatedAt` freshened for relative labels.
 
-**Closed / improved**
+---
 
-- Branded title `SFIA Studio — Product Simplification` (`data-project-name` preserves pairing identity)
-- Objective copy Figma-aligned via seed
-- Cycle chip Product-honest **UX/UI** (was Delivery / implémentation)
-- Focus bar: **Espace projet** + **1 décision** + **1 réserve**
-- Restored-context row with green-dot chrome + Figma-aligned copy
-- Transcript density: one user + Nora turn
-- Work Recommendation card: statement + En attente de décision + Ouvrir
-- Action préparée card from current synthesis title
-- Synthesis teaser cream card
-- Composer: Demander à Nora…, + Contexte / @ Élément / Contexte projet actif, dark circular send
-- Hide Pilotage + journal column on conversation (P3 context rail only)
-- Hide empty Sources disclosure; hide durable relecture chrome when WR cards lead
-- Attention derives decision from pending work recommendations
+## 4. Surface-by-surface (valid pairs only)
 
-**Remaining valid-pair clusters (Workspace desktop) — NOT MATCH yet**
+Pixel ratios from fresh `compare-final-fidelity.mjs` (diagnostic only; human sept-erreurs is authority).
 
-| Id | Region | Cause | Class | Owner |
-|----|--------|-------|-------|-------|
-| W-01 | Header chips | « Cycle proposé » vs Figma « En cours » (cycle acknowledged; START needs authority evidence) | P1 | Product lifecycle status / seed START |
-| W-02 | Header chips | « UX/UI » vs Figma « P3 · UX/UI » (P3· prefix forbidden by Product honesty tests) | P2 / semantic | Catalog label vs design-pass prefix |
-| W-03 | Context trajectory | C1/C2 vs Figma C1–P2–P3–P4 density | P2 | lifecycle projection / seed history |
-| W-04 | Context cycle copy | « UX/UI · Cycle proposé » vs « P3 · Espace projet / interaction · En cours » | P2 | same as W-01/W-02 |
-| W-05 | Rail footer | « Pilote » vs Figma « Morris » (no hardcoded persona — ProductShell honesty) | P2 / semantic | ProductShell |
-| W-06 | Exécution tab | badge « 1 » absent | P2 | execution presentation / seed |
-| W-07 | Typography family | Geist deferred | DEFERRED | governance |
-| W-08 | QNG | subpixel / AA / Geist metrics | QNG | raster |
+| Surface | Ratio | Human / status |
+| --- | --- | --- |
+| Workspace 1440 | 0.0449 | Projection largely closed (cycle/topic/trajectory/attention/synthèse). Residual: message rhythm, card metrics, persona, typography family. |
+| Workspace 1024 | 0.0483 | Same family; compact density residual. |
+| Workspace 390 | 0.0736 | Mobile density / hierarchy still P1–P2. |
+| Decision 390 | 0.1107 | Content+focus closed vs earlier empty-state burial. Residual: card Y, spacing, button/chrome metrics vs Figma 358/334×38. |
+| Confirmation 390 | 0.1062 | Card + 3 blocks + CTAs present; residual geometry / scope wording. |
+| New Project 1440 | 0.0502 | Visual drift remains (composition). |
+| Journal 1440 | 0.0365 | Residual density. |
+| Historique 1440 | 0.0392 | Residual density. |
+| Synthèses 1440 | 0.0377 | Residual density. |
+| Aperçu 1440 | 0.0385 | Residual density. |
+| Projects 1440 | 0.0301 | Residual. |
+| Projects empty | 0.0107 | Near-close. |
+| Auth 390 | 0.0144 | Regression-only OK. |
+| Execution 390 | pairing | Captured under workspace-rich; contract-qualified if state differs from Figma sample Project. |
 
-Human seven-errors: still immediately sees W-01/W-02/W-03/W-05 → **Workspace = gaps (strong candidate, not MATCH)**
+---
 
-Desktop nonzero Δpixels ≈ 0.817 (pixel metric is harsh; contact sheet is the human verdict).
+## 5. Persona / typography
 
-### Other surfaces (identity-aligned pairing PASS; fidelity incomplete)
+| Item | Disposition |
+| --- | --- |
+| Persona Morris vs session login | **QUALIFIED LIMITATION** — `PROFILE_PERSONA_FIGMA_VS_SESSION_LOGIN`. Runtime shows honest session (`mcleland147` / first-token). No Product hardcode of Morris. Auth fixture has no displayName override without architecture change. |
+| Typography family Geist | **DEFERRED** — no new font dependency. Size/weight/line-height matched with authorized family. Track: `TYPOGRAPHY FAMILY GOVERNANCE DIFFERENCE`. |
 
-| Surface | Pairing | Fidelity | Notes |
-|---------|---------|----------|-------|
-| New Project | PASS | gaps | Δ≈0.66; not deep CSS-looped this pass |
-| Synthèses | PASS | gaps | Δ≈0.79 desktop; Figma size fixed |
-| Aperçu | PASS | gaps | Δ≈0.83 |
-| Journal | PASS | gaps | Δ≈0.82 |
-| Historique | PASS | gaps | Δ≈0.89 |
-| Projects | PASS | gaps | Δ≈0.57 desktop |
-| Projects empty | — | capture present | size fixed |
-| Decision | PASS | gaps | fresh same-state; Δ≈0.92 — must re-close visually |
-| Confirmation | PASS | gaps | fresh same-state; Δ≈0.90 |
-| Auth | PASS | strong | Δ≈0.29 — least residual |
-| Execution | — | incomplete | mobile/desktop not fully refreshed this pass |
-| Compact / Mobile | — | incomplete | unified capture is desktop-primary; responsive sweep NOT DONE |
+---
 
-### Typography family
+## 6. Classification
 
-**DEFERRED** — Geist not installed. Impact: letter metrics / wrapping vs Figma. Tracked separately from QNG.
+| Class | Count / notes |
+| --- | --- |
+| P0 | **0** |
+| P1 | **3** — Decision mobile geometry; Confirmation mobile geometry; Workspace mobile hierarchy |
+| P2 | **6+** — Workspace desktop residual metrics; New Project composition; Journal/Historique/Synthèses/Aperçu density |
+| P3 | minor spacing/AA |
+| QNG | font rasterization / anti-aliasing only (do not hide persona/Geist here) |
 
-### Classification summary (valid pairs only)
+---
 
-- P0 = 0
-- P1 = 1+ (Workspace status chip En cours; Decision/Confirmation visual still far; mobile Δ≈1.0 on several)
-- P2 = many (trajectory density, rail Morris, exec badge, other surfaces)
-- P3 = minor chrome residuals on Auth/Projects
-- QNG = AA/subpixel/raster
-- Typography family = DEFERRED
+## 7. Tests / build
 
-### Tests / gates (this machine)
+| Gate | Result |
+| --- | --- |
+| Full Vitest (clean env, no Product DB env leak) | **5394 passed**, 0 failed, 143 skipped |
+| Contaminated Vitest (with `SFIA_STUDIO_*_DB_PATH` / dirty principal) | FAIL — do not trust; env pollution |
+| Typecheck | **PASS** |
+| Lint | **PASS** |
+| Build | **PASS** |
+| Visual E2E / pairing suite | **PASS** (canonical unified capture) |
+| Production canonical capture | **PASS** |
 
-- Typecheck = PASS
-- Lint = PASS
-- Build = PASS
-- Focused Vitest (continuity / resume / reserves) = PASS
-- Full Vitest = running / see vitest-out.log
-- Visual E2E = not re-run this pass (prior harness intact; pairing suite PASS)
-- Production-build canonical capture = PASS (10/10 identityAligned)
-- Contact sheets = `.tmp-sfia-review/visual/s08-4/final-fidelity/contact-sheets/`
+---
 
-### Roadmap / P5 local truth
+## 8. Contact sheets (fresh)
 
-- S08-4D = **INCOMPLETE** (not PASS CANDIDATE)
-- GLOBAL P3 VISUAL PARITY = **NOT YET PROVEN**
-- S08-5 = NOT STARTED
-- P5 COMPLETE = NO
-- P6 READY = NO
-- runtime v3 = NON ADOPTED
+Under `.tmp-sfia-review/visual/s08-4/final-fidelity/contact-sheets/`:
 
-### Why not PASS CANDIDATE
+- per-surface: projects, projects-empty, new-project, workspace, apercu, journal, historique, syntheses, decision, confirmation, auth, execution
+- overviews: `desktop-overview.png`, `compact-overview.png`, `mobile-overview.png`
 
-Gates require P0=0, P1=0, no obvious P2, fresh contact sheets complete, Visual E2E PASS, full tests PASS.
-Workspace still has immediately visible P1/P2 clusters; other surfaces not seven-errors closed; compact/mobile sweep incomplete.
+Runtime / Figma / Diff: `.tmp-sfia-review/visual/s08-4/final-fidelity/{runtime,figma,diff}/`
 
-### Local commits
+---
 
-1. `3d7347d1` — unify S08-4 visual snapshots on Product Simplification (prior)
-2. `3e7a06b6` — converge S08-4 Workspace conversation to P3 46:2 (this pass)
+## 9. Roadmap / P5 local truth
 
-### Evidence paths
+| Flag | Value |
+| --- | --- |
+| S08-4D | **INCOMPLETE** (not PASS CANDIDATE) |
+| GLOBAL P3 VISUAL PARITY | **NOT YET PROVEN** |
+| P5 COMPLETE | **NO** |
+| P6 READY | **NO** |
+| runtime v3 | **NON ADOPTED** |
+| S08-5 | **NOT STARTED** |
 
-- Runtime: `.tmp-sfia-review/visual/s08-4/final-fidelity/runtime/`
-- Figma: `.tmp-sfia-review/visual/s08-4/final-fidelity/figma/`
-- Diff: `.tmp-sfia-review/visual/s08-4/final-fidelity/diff/`
-- Contact sheets: `.tmp-sfia-review/visual/s08-4/final-fidelity/contact-sheets/`
-- Pairing: `.tmp-sfia-review/visual/s08-4/final-fidelity/pairing-report.json`
+---
 
-## Final verdict
+## 10. Remaining blocker (exact)
 
-**S08-4D DETAIL FIDELITY = INCOMPLETE**
-Workspace identity-aligned structure strongly advanced; remaining valid-pair visual clusters listed above.
-**NOT READY FOR CHATGPT FINAL VISUAL ACCEPTANCE AS PASS CANDIDATE.**
-Continue fidelity loops on Workspace residuals + New Project / Synthèses / Aperçu / Journal / Historique / Decision / Confirmation / responsive.
+**S08-4D DETAIL FIDELITY INCOMPLETE**
 
-STOP — no project push, no PR, no S08-5.
+Valid-pair residuals still immediately visible under sept-erreurs especially:
+
+1. Decision 390 — card vertical position / padding / button stack vs Figma 190:495 (Δ≈0.11)
+2. Confirmation 390 — card geometry / section density vs Figma 190:520 (Δ≈0.11)
+3. Workspace 390 — mobile composition (Δ≈0.07)
+4. New Project desktop composition (Δ≈0.05)
+5. Desktop Workspace / secondary surfaces — sub-0.05 metric residuals still human-visible in places
+
+Persona + Geist tracked separately (not QNG).
+
+---
+
+## 11. Final verdict
+
+**NOT READY FOR GIT INTEGRATION**
+**NOT PASS CANDIDATE for GLOBAL P3 VISUAL PARITY**
+
+Progress delivered: Product projection path corrected; Decision/Confirmation no longer buried under empty-state chrome; Workspace context rail matches Product Simplification facts.
+
+Next: continue pixel loops on Decision/Confirmation/Workspace mobile → New Project → responsive sweep until sept-erreurs MATCH, then re-qualify PASS CANDIDATE.
