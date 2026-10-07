@@ -1,0 +1,233 @@
+/**
+ * @vitest-environment node
+ *
+ * P5-S08-4 — fail-closed visual pairing contract unit tests.
+ */
+import fs from "node:fs";
+import path from "node:path";
+import { describe, expect, it } from "vitest";
+import {
+  evaluateVisualPair,
+  findPairById,
+  HARNESS_PAIRING_MISMATCH,
+  mayGenerateDiff,
+  type RuntimeObservation,
+  type VisualPairRecord,
+} from "../../e2e/support/visualPairingContract";
+
+const STATE_MANIFEST = path.resolve(
+  __dirname,
+  "../../../../../.tmp-sfia-review/visual/s08-4/final-fidelity/state-manifest.json",
+);
+
+function baseObs(
+  overrides: Partial<RuntimeObservation> = {},
+): RuntimeObservation {
+  return {
+    url: "http://localhost:3020/studio/projects/prj%3As084f-1",
+    viewport: { width: 390, height: 844 },
+    projectName: "Product Simplification",
+    projectId: "prj:s084f-1",
+    activeView: "conversation",
+    present: [
+      "project-workspace-layout",
+      "governed-decision-card",
+    ],
+    forbiddenPresent: [],
+    collectPhase: null,
+    ...overrides,
+  };
+}
+
+const decisionPair: VisualPairRecord = {
+  id: "decision-mobile",
+  figma: { nodeId: "190:495", viewport: { width: 390, height: 844 } },
+  runtime: {
+    fixtureId: "p3-decision-pending",
+    projectId: "prj:s084f-1",
+    expectedProjectName: "Product Simplification",
+    route: "/studio/projects/:projectId",
+    view: "conversation",
+  },
+  state: {
+    semanticState: "decision-pending",
+    expectedVisible: [
+      "project-workspace-layout",
+      "governed-decision-card",
+      "data-active-view=conversation",
+    ],
+    expectedAbsent: [
+      "governed-confirmation-card",
+      "next-dev-issues-badge",
+    ],
+  },
+};
+
+describe("S08-4 visual pairing contract", () => {
+  it("loads canonical state-manifest with representative pairs", () => {
+    expect(fs.existsSync(STATE_MANIFEST)).toBe(true);
+    const manifest = JSON.parse(fs.readFileSync(STATE_MANIFEST, "utf8")) as {
+      pairs: Array<{ id: string; representative?: boolean; figma: { nodeId: string } }>;
+    };
+    const reps = manifest.pairs.filter((p) => p.representative);
+    expect(reps.map((p) => p.id).sort()).toEqual(
+      [
+        "auth-mobile",
+        "confirmation-mobile",
+        "decision-mobile",
+        "new-project-desktop",
+        "projects-desktop",
+        "projects-empty",
+        "syntheses-desktop",
+        "workspace-desktop",
+      ].sort(),
+    );
+    expect(findPairById(manifest.pairs as never, "decision-mobile")?.figma.nodeId).toBe(
+      "190:495",
+    );
+  });
+
+  it("accepts a valid Decision pair", () => {
+    const result = evaluateVisualPair(decisionPair, baseObs());
+    expect(result.ok).toBe(true);
+    if (result.ok) expect(result.pairing).toBe("PASS");
+    expect(mayGenerateDiff("PASS")).toBe(true);
+  });
+
+  it("rejects wrong project (HARNESS_PAIRING_MISMATCH)", () => {
+    const result = evaluateVisualPair(
+      decisionPair,
+      baseObs({ projectName: "Knowledge Core" }),
+    );
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.code).toBe(HARNESS_PAIRING_MISMATCH);
+      expect(result.reason).toContain("expectedProject=Product Simplification");
+      expect(result.reason).toContain("actualProject=Knowledge Core");
+    }
+    expect(mayGenerateDiff("FAIL")).toBe(false);
+  });
+
+  it("rejects wrong semantic state / missing Decision card", () => {
+    const result = evaluateVisualPair(
+      decisionPair,
+      baseObs({
+        present: ["project-workspace-layout"],
+      }),
+    );
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.reason).toContain("expectedVisible=governed-decision-card");
+    }
+  });
+
+  it("rejects wrong active view", () => {
+    const result = evaluateVisualPair(
+      decisionPair,
+      baseObs({ activeView: "execution" }),
+    );
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.reason).toContain("expectedView=conversation");
+      expect(result.reason).toContain("actualView=execution");
+    }
+  });
+
+  it("rejects Next.js dev Issues badge", () => {
+    const result = evaluateVisualPair(
+      decisionPair,
+      baseObs({ forbiddenPresent: ["next-dev-issues-badge"] }),
+    );
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.reason).toContain("forbiddenVisible=next-dev-issues-badge");
+    }
+  });
+
+  it("rejects confirmation fixture against decision expected state", () => {
+    const confirmation: VisualPairRecord = {
+      ...decisionPair,
+      id: "confirmation-mobile",
+      figma: { nodeId: "190:520", viewport: { width: 390, height: 844 } },
+      runtime: {
+        ...decisionPair.runtime,
+        fixtureId: "p3-confirmation-required",
+        expectedProjectName: "Runtime v3",
+      },
+      state: {
+        semanticState: "confirmation-required",
+        expectedVisible: [
+          "project-workspace-layout",
+          "governed-confirmation-card",
+          "data-active-view=conversation",
+        ],
+        expectedAbsent: ["governed-decision-card"],
+      },
+    };
+    const result = evaluateVisualPair(
+      confirmation,
+      baseObs({
+        projectName: "Runtime v3",
+        present: ["project-workspace-layout", "governed-decision-card"],
+      }),
+    );
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.reason).toContain(
+        "expectedVisible=governed-confirmation-card",
+      );
+    }
+  });
+
+  it("refuses diff when pairing status is missing", () => {
+    expect(mayGenerateDiff(undefined)).toBe(false);
+    expect(mayGenerateDiff("FAIL")).toBe(false);
+    expect(mayGenerateDiff("PASS")).toBe(true);
+  });
+
+  it("validates new-project-rich collect phase", () => {
+    const pair: VisualPairRecord = {
+      id: "new-project-desktop",
+      figma: { nodeId: "67:39", viewport: { width: 1440, height: 1024 } },
+      runtime: {
+        fixtureId: "p3-new-project-rich",
+        expectedProjectName: null,
+        route: "/studio/projects/new",
+        view: null,
+      },
+      state: {
+        semanticState: "new-project-rich",
+        expectedVisible: [
+          "create-project-form",
+          "new-project-clarification",
+          "create-project-submit",
+          "data-collect-phase=OPTIONAL_CONTEXT",
+        ],
+        expectedAbsent: ["project-workspace-layout"],
+      },
+    };
+    const bad = evaluateVisualPair(pair, {
+      url: "http://localhost:3020/studio/projects/new",
+      viewport: { width: 1440, height: 1024 },
+      present: ["create-project-form"],
+      forbiddenPresent: [],
+      collectPhase: "INTENTION",
+    });
+    expect(bad.ok).toBe(false);
+    if (!bad.ok) {
+      expect(bad.reason).toContain("expectedCollectPhase=OPTIONAL_CONTEXT");
+    }
+    const good = evaluateVisualPair(pair, {
+      url: "http://localhost:3020/studio/projects/new",
+      viewport: { width: 1440, height: 1024 },
+      present: [
+        "create-project-form",
+        "new-project-clarification",
+        "create-project-submit",
+      ],
+      forbiddenPresent: [],
+      collectPhase: "OPTIONAL_CONTEXT",
+    });
+    expect(good.ok).toBe(true);
+  });
+});

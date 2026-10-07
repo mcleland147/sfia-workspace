@@ -373,16 +373,14 @@ describe.runIf(runSeed)("S08-4 seed final fidelity canonical Product DB", () => 
     });
     const oa = runtime.oa!;
 
-    const productSimplification = await runtime.createProject({
+    // Product Simplification = Figma-aligned Decision fixture (canonical visual identity)
+    // + Projects-list density. Decision is NOT on Knowledge Core for final visual pairs.
+    const productSimplification = await seedNamedQualifiedProject(runtime, {
       name: "Product Simplification",
+      suffix: "simpl",
       objective: "Réduire la surface opératoire sans perdre la vérité Product",
-      context: "Liste projets — densité canonique S08-4",
-      criticality: "STANDARD",
-      constraints: [],
-      shortReference: "SIMPL",
-      idempotencyKey: "s084-fidelity-simpl",
+      profile: "Critical",
     });
-    expect(productSimplification.ok).toBe(true);
 
     const noraCompletion = await seedNamedQualifiedProject(runtime, {
       name: "Nora Completion",
@@ -439,15 +437,12 @@ describe.runIf(runSeed)("S08-4 seed final fidelity canonical Product DB", () => 
     const currentSynthesis = syntheses.find((s) => s.status === "current");
     expect(currentSynthesis).toBeTruthy();
 
-    const knowledgeCoreProject = await seedNamedQualifiedProject(runtime, {
-      name: "Knowledge Core",
-      suffix: "kcore",
-      profile: "Critical",
-    });
-
-    const kcCtx = await currentF2Context(runtime, knowledgeCoreProject.projectId);
-    const kcProposal = saveProposal({
-      proposalId: "prop:f2:s084-kcore-decision",
+    // Decision seeded on Product Simplification (Figma canonical identity).
+    const decisionProjectId = productSimplification.projectId;
+    const decisionCycleId = productSimplification.cycleInstanceId;
+    const psCtx = await currentF2Context(runtime, decisionProjectId);
+    const psProposal = saveProposal({
+      proposalId: "prop:f2:s084-simpl-decision",
       status: "DECISION_REQUIRED",
       rephrasedRequest: "Choisir la direction de l'espace projet",
       objective: "Conserver la conversation comme surface principale",
@@ -466,11 +461,11 @@ describe.runIf(runSeed)("S08-4 seed final fidelity canonical Product DB", () => 
       morrisGateRequired: true,
       nextPossibleStep: "Décider la direction",
       contextSnapshot: {
-        projectId: knowledgeCoreProject.projectId,
-        lpsId: kcCtx.lpsId,
-        lpsVersion: kcCtx.lpsVersion,
-        doctrineDigest: kcCtx.doctrineDigest,
-        activeCycleInstanceId: knowledgeCoreProject.cycleInstanceId,
+        projectId: decisionProjectId,
+        lpsId: psCtx.lpsId,
+        lpsVersion: psCtx.lpsVersion,
+        doctrineDigest: psCtx.doctrineDigest,
+        activeCycleInstanceId: decisionCycleId,
         ckcResolutionRef: "ckcres:w2-harness",
       },
       processLocalNotice: F2_PROCESS_LOCAL_NOTICE,
@@ -499,40 +494,47 @@ describe.runIf(runSeed)("S08-4 seed final fidelity canonical Product DB", () => 
           "acme/w2-harness",
       },
     });
-    const kcSealed = sealProposalExecutionBasis(kcProposal);
-    const kcDigest = computeProposalSubjectDigest(kcSealed, kcProposal.proposalId);
+    const psSealed = sealProposalExecutionBasis(psProposal);
+    const psDigest = computeProposalSubjectDigest(psSealed, psProposal.proposalId);
     await writePendingDecisionSubjectMarker({
       oa,
-      projectId: knowledgeCoreProject.projectId,
-      proposalId: kcProposal.proposalId,
-      subjectDigest: kcDigest,
-      lpsId: kcCtx.lpsId,
-      lpsVersion: kcCtx.lpsVersion,
-      doctrineDigest: kcCtx.doctrineDigest,
+      projectId: decisionProjectId,
+      proposalId: psProposal.proposalId,
+      subjectDigest: psDigest,
+      lpsId: psCtx.lpsId,
+      lpsVersion: psCtx.lpsVersion,
+      doctrineDigest: psCtx.doctrineDigest,
     });
-    const kcQual = await resolveW2QualificationInputs({
+    const psQual = await resolveW2QualificationInputs({
       oa,
-      projectId: knowledgeCoreProject.projectId,
+      projectId: decisionProjectId,
     });
-    expect(kcQual.ok).toBe(true);
-    if (!kcQual.ok) throw new Error(kcQual.code);
-    const kcProposed = await proposeTrajectoryOptions({
+    expect(psQual.ok).toBe(true);
+    if (!psQual.ok) throw new Error(psQual.code);
+    const psProposed = await proposeTrajectoryOptions({
       oa,
-      projectId: knowledgeCoreProject.projectId,
-      ...kcQual.qualification.inputs,
-      packagePin: kcQual.qualification.packagePin,
-      objective: kcQual.qualification.objective,
-      projectTitle: kcQual.qualification.projectTitle,
-      proposalId: kcProposal.proposalId,
+      projectId: decisionProjectId,
+      ...psQual.qualification.inputs,
+      packagePin: psQual.qualification.packagePin,
+      objective: psQual.qualification.objective,
+      projectTitle: psQual.qualification.projectTitle,
+      proposalId: psProposal.proposalId,
     });
-    expect(kcProposed.ok).toBe(true);
-    const kcSubject = await readActiveProposalDecisionSubject(
+    expect(psProposed.ok).toBe(true);
+    const psSubject = await readActiveProposalDecisionSubject(
       oa,
-      knowledgeCoreProject.projectId,
+      decisionProjectId,
     );
-    expect(kcSubject.ok && kcSubject.kind === "bound_awaiting_decision").toBe(
+    expect(psSubject.ok && psSubject.kind === "bound_awaiting_decision").toBe(
       true,
     );
+
+    // Knowledge Core remains list-density only (functional fixture, not Decision visual).
+    const knowledgeCoreProject = await seedNamedQualifiedProject(runtime, {
+      name: "Knowledge Core",
+      suffix: "kcore",
+      profile: "Standard",
+    });
 
     const runtimeV3 = await seedNamedQualifiedProject(runtime, {
       name: "Runtime v3",
@@ -650,15 +652,19 @@ describe.runIf(runSeed)("S08-4 seed final fidelity canonical Product DB", () => 
         OPS1_CONVERSATION_PROVIDER: "fake",
       },
       projectIds: {
-        productSimplification: productSimplification.project!.projectId,
+        productSimplification: productSimplification.projectId,
         noraCompletion: noraCompletion.projectId,
         knowledgeCore: knowledgeCoreProject.projectId,
         runtimeV3: runtimeV3.projectId,
       },
       scenarios: {
         productSimplification: {
-          role: "projects_list_density",
+          role: "decision",
           name: "Product Simplification",
+          subjectKind: psSubject.ok ? psSubject.kind : null,
+          proposalId: psProposal.proposalId,
+          optionCount: psProposed.options?.length ?? 0,
+          alsoProjectsListDensity: true,
         },
         noraCompletion: {
           role: "rich_workspace",
@@ -669,11 +675,8 @@ describe.runIf(runSeed)("S08-4 seed final fidelity canonical Product DB", () => 
           postEvidenceOk: materialized.postEvidence?.ok === true,
         },
         knowledgeCore: {
-          role: "decision",
+          role: "projects_list_density",
           name: "Knowledge Core",
-          subjectKind: kcSubject.ok ? kcSubject.kind : null,
-          proposalId: kcProposal.proposalId,
-          optionCount: kcProposed.options?.length ?? 0,
         },
         runtimeV3: {
           role: "confirmation",
@@ -686,17 +689,37 @@ describe.runIf(runSeed)("S08-4 seed final fidelity canonical Product DB", () => 
               : false,
         },
       },
+      visualFixtures: {
+        "p3-decision-pending": {
+          projectIdKey: "productSimplification",
+          name: "Product Simplification",
+        },
+        "p3-workspace-rich": {
+          projectIdKey: "noraCompletion",
+          name: "Nora Completion",
+        },
+        "p3-confirmation-required": {
+          projectIdKey: "runtimeV3",
+          name: "Runtime v3",
+        },
+        "p3-syntheses-rich": {
+          projectIdKey: "noraCompletion",
+          name: "Nora Completion",
+        },
+      },
       guarantees: [
         "≥4 Product projects including Product Simplification, Nora Completion, Runtime v3, Knowledge Core",
         "Nora Completion: governed execute + W3-B terminal + W3-C (fake provider) + current Product synthesis row",
         "Nora Completion: companion session journal subjects + pilot transcript (separate SQLite)",
-        "Knowledge Core: bound_awaiting_decision with ≥2 trajectory options",
+        "Product Simplification: bound_awaiting_decision with ≥2 trajectory options (Figma-aligned Decision fixture)",
         "Runtime v3: active governed continuity at confirmation_required",
+        "Knowledge Core: list-density only (no Decision visual role)",
       ],
       limitations: [
         "Cycle journal and pilot transcript live in companion-nora-session.sqlite, not canonical-product.sqlite",
         "W3-C post-evidence uses OPS1_CONVERSATION_PROVIDER=fake (deterministic, not OpenAI REAL)",
-        "Product Simplification is list-density only (no active cycle)",
+        "Workspace/Synthèses final visual fixture is Nora Completion (rich_workspace); Figma raster label Product Simplification — identityAligned=false until snapshot unification",
+        "Confirmation final visual fixture is Runtime v3; Figma raster label Product Simplification — identityAligned=false until snapshot unification",
         "Conversation turns beyond seeded transcript require live Nora turns (not seeded here)",
       ],
     };

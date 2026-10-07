@@ -1,166 +1,133 @@
-# STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION C1 — FINAL GIT INTEGRATION REVIEW PACK
+# P5-S08-4 — VISUAL QA PAIRING HARDENING
 
-```text
-TIMESTAMP: 2026-10-03 19:33:13 +0200
-MACRO: STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01
-CYCLE: Cycle 1 — Cadrage
-PASS: FINAL GIT INTEGRATION
-TYPOLOGY: EVOL / DOC / INTEGRATION
-PROFILE: CRITICAL
-AUTHORITY: D-SIMP-05 CONSUMED + Morris GO « intégration git complète directe »
-```
+## Authority
 
-## 1. Local Git Truth (pre-commit)
+Morris S08-4 GO = AUTHORIZED / CONSUMED / CONTINUED  
+Continuation: VISUAL QA PAIRING HARDENING (not a new SFIA cycle)  
+Fidelity CSS tuning = FROZEN until same-state pairing proven
 
-```text
-pwd: /Users/morris/Projects/sfia-studio-chat-first-product-simplification-c1
-toplevel: /Users/morris/Projects/sfia-studio-chat-first-product-simplification-c1
-branch: docs/sfia-studio-chat-first-product-simplification-c1
-HEAD: ac272df5270faae1d1bea6a78cd0cc11886e97f4
-origin/main: ac272df5270faae1d1bea6a78cd0cc11886e97f4
-left-right origin/main...HEAD: 0 0
-```
+## Git truth
 
-MATCHES REMOTE TRUTH EXPECTED. Candidate was LOCAL / DIRTY / NON COMMITTÉ before this integration pass.
+- origin/main = `eed18bd572d65b6f5f4878ed24b195e4feeb5c7e` (UNCHANGED)
+- branch = `delivery/sfia-studio-product-simplification-p5-s08-global-p3-visual-parity`
+- entry HEAD (before this commit) = `d722161e92f6cf366685f13830f53ecbdd23987e`
+- Project push = NONE
+- Project PR = NONE
+- Merge = NONE
 
-## 2. Entry handoff / Closure Review
+## Problem statement
 
-```text
-entry review handoff SHA: efaaf11ae3d5e0e48006f03d9155b062430a04db
-entry handoff blob: 7a43e92864690ec404213ceb2b59b424f944e677
-Final ChatGPT Closure Review: PASS — C1 CONTENT READY FOR MORRIS VALIDATION
-Morris: "ok c'est validé" → D-SIMP-05 CONSUMED
-Morris GO: "intégration git complète directe" → Git integration AUTHORIZED
-```
+Final FIGMA | RUNTIME | DIFF contact sheets were previously generated from **semantically different** states (e.g. Figma Product Simplification Decision vs runtime Knowledge Core; Figma Confirmation vs Runtime v3). Pixel deltas from those pairs are **invalid** as fidelity evidence.
 
-## 3. D-SIMP-05 — STATUS SYNC
+Root cause: harness validated surface/route/viewport mainly, **not** Project identity + semantic state + content shape + forbidden overlays — and still emitted diffs.
 
-```text
-D-SIMP-05 — VALIDATE STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION C1
-Authority: Morris
-Status: CONSUMED
+## Pairing root cause (exact)
 
-Meaning:
-- C1 content = VALIDATED BY MORRIS
-- Guided Review §§1–22 = COMPLETE
-- Final Documentary Consolidation = COMPLETE
-- Final Critical Review #1 historical NOT READY = PRESERVED
-- Correction Pass 01 = COMPLETE
-- Final Closure Review = PASS
-- C1 = VALIDATED
-- C1 NOT YET INTEGRATED ON MAIN until merge completes
+`HARNESS_PAIRING_MISMATCH` class of defect: capture/compare allowed final screenshots/diffs without fail-closed same-state contract (expectedProject / expectedState / expectedView / forbiddenVisible).
 
-Does NOT authorize:
-- P2 / P3→P8
-- REAL
-- production routing
-- architecture adoption
-- runtime v3 adoption
-```
+## Canonical pairing manifest
 
-## 4. Exact status-sync (authorized files)
+Path: `.tmp-sfia-review/visual/s08-4/final-fidelity/state-manifest.json`
 
-### 4.1 `projects/sfia-studio/product-simplification/01-chat-first-product-simplification-cadrage.md`
+Binds per pair: Figma `nodeId` ↔ `fixtureId` ↔ Product projectId/name ↔ route ↔ view ↔ viewport ↔ `expectedVisible` / `expectedAbsent`.
 
-Current live status statements updated to:
+Contract library (Product source):
 
-- Pass = Final Git Integration (D-SIMP-05 CONSUMED)
-- Document status = C1 VALIDATED BY MORRIS · NOT YET INTEGRATED ON MAIN
-- Intégration Git = AUTHORIZED / IN PROGRESS
-- C1-01…C1-27 = PASS — C1 VALIDATED BY MORRIS
-- §22 = VALIDATED BY MORRIS → GIT INTEGRATION IN PROGRESS → P2 NOT AUTHORIZED
-- G-SIMP-03 = CONSUMED — C1 VALIDATED BY MORRIS
-- G-SIMP-04 = AUTHORIZED / IN PROGRESS
+- `projects/sfia-studio/app/e2e/support/visualPairingContract.ts` (+ `.mjs`)
+- `projects/sfia-studio/app/e2e/support/observeVisualPairing.mjs`
+- Capture: `.tmp-sfia-review/visual/s08-4/final-fidelity/capture-final-fidelity.mjs` (shot only after PASS)
+- Diff: `compare-and-contact.py` + `compare-final-fidelity.mjs` (DIFF_FORBIDDEN when pairing ≠ PASS)
 
-Historical records preserved (Final Critical Review #1 NOT READY / Correction Pass 01).
+## Fixture strategy
 
-### 4.2 `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
+- **Canonical Figma identity target:** Product Simplification
+- **Decision (`190:495`):** seeded on Product Simplification (`p3-decision-pending`) — `identityAligned: true`
+- **Workspace / Synthèses / Journal / Historique:** Nora Completion `rich_workspace` fixture — `identityAligned: false` (Figma label vs fixture name; pairing validates fixture, not Figma OCR)
+- **Confirmation (`190:520`):** Runtime v3 `confirmation_required` — `identityAligned: false` until snapshot unification
+- **Projects empty:** isolated empty Product sqlite + production start on :3021 (`BETTER_AUTH_URL` aligned; URL host `localhost` for cookies)
+- Knowledge Core retained as list-density only (no longer Decision visual fixture)
 
-Living tip updated minimally:
+## Same-state / expected-visible / expected-absent
 
-- D-SIMP-05 CONSUMED
-- C1 = VALIDATED BY MORRIS
-- Git integration = AUTHORIZED / IN PROGRESS
-- P2 = NOT AUTHORIZED
-- P3→P8 = NOT AUTHORIZED
-- ZERO REAL
-- production routing = NOT SELECTED
-- Cognitive Completion = NOT PROVEN
-- runtime v3 = NON ADOPTED
+Every manifested pair declares both. Global forbidden: Next Issues badge, next-dev-overlay, runtime-error-overlay, loading, sqlite-unavailable.
 
-Historical tip rows preserved.
+Failure classification: `HARNESS_PAIRING_MISMATCH` with exact expected/actual fields.
 
-### 4.3 Scope
+## Production-build capture strategy
 
-```text
-AUTHORIZED ONLY:
-- projects/sfia-studio/product-simplification/01-chat-first-product-simplification-cadrage.md
-- projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-- .tmp-sfia-review/chatgpt-review.md
+Preferred:
 
-NO product code.
-NO REAL.
-NO RETIRE.
-NO branch deletion.
-```
+1. `S08_4_FIDELITY_SEED=1` seed
+2. `npm run build`
+3. `npm run start:skip-preflight` with QA DB env
+4. `capture-final-fidelity.mjs`
+5. compare only pairing PASS
 
-## 5. Pre-commit validations
+Documented: `.tmp-sfia-review/visual/s08-4/final-fidelity/PRODUCTION_CAPTURE.md`
 
-```text
-1. D-SIMP-05 present — PASS
-2. C1 VALIDATED BY MORRIS — PASS
-3. C1 NOT YET INTEGRATED before merge — PASS
-4. P2 NOT AUTHORIZED — PASS
-5. P3→P8 NOT AUTHORIZED — PASS
-6. production routing NOT SELECTED — PASS
-7. Cognitive Completion NOT PROVEN — PASS
-8. runtime v3 NON ADOPTED — PASS
-9. no READY FOR REAL — PASS
-10. no architecture adopted accidentally — PASS
-11. no SharedKnowledgeStore selected — PASS
-12. no Canonical Orchestration Spine adopted — PASS
-13. historical review failure/correction preserved — PASS
-14. git diff --check — PASS
-15. authorized scope only — PASS
-```
+## Dev overlay disposition
 
-## 6. Git diff evidence (pre-commit)
+**ABSENT** on production-clean capture (`next start`). No Product CSS hide. No crop.
 
-```text
-name-status (authorized project + pack):
-A  projects/sfia-studio/product-simplification/01-chat-first-product-simplification-cadrage.md
-M  projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-M  .tmp-sfia-review/chatgpt-review.md
+## Evidence requalification (not Product regression)
 
-git diff --check: PASS (exit 0)
-```
+| Surface | Product capability | Pixel fidelity |
+|---------|-------------------|----------------|
+| Decision | PROVEN | RECAPTURE REQUIRED (pairing now valid; geometry still open) |
+| Confirmation | PROVEN | RECAPTURE REQUIRED |
+| Workspace / New Project / others | implementation retained | final fidelity depends on valid same-state pairs |
 
-## 7. Integration lifecycle (filled as executed)
+## Representative pairing results (production capture)
 
-```text
-project commit SHA: PENDING
-pushed branch SHA: PENDING
-PR number/url: PENDING
-CI / Required Gate: PENDING
-merge method: PENDING
-merge SHA: PENDING
-merged_at: PENDING
-post-merge main SHA: PENDING
-post-merge Actions / checks: PENDING
-project Git effects: PENDING
-branch retained: YES (deletion unauthorized)
-P2 NOT AUTHORIZED: CONFIRMED
-```
+| Case | Pairing |
+|------|---------|
+| Workspace desktop | PASS |
+| New Project desktop | PASS |
+| Decision mobile | PASS |
+| Confirmation mobile | PASS |
+| Synthèses desktop | PASS |
+| Projects desktop | PASS |
+| Projects empty | PASS |
+| Auth mobile | PASS |
 
-## 8. Unique verdict (pre-merge placeholder)
+Negative mismatch tests (Vitest): PASS  
+Invalid diff generation: BLOCKED (`DIFF_FORBIDDEN` when pairing FAIL)
 
-```text
-PRE-MERGE: D-SIMP-05 status sync COMPLETE · READY FOR COMMIT/PUSH/PR/CI/MERGE
-POST-MERGE TARGET VERDICT:
-STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION C1
-— VALIDATED BY MORRIS
-— INTEGRATED ON MAIN
-— POST-MERGE VERIFIED
-— CYCLE 1 CADRAGE CLOSED
-— P2 NOT YET AUTHORIZED
-```
+## Gates
+
+- Vitest pairing contract: 9/9 PASS
+- Seed fidelity: PASS (Decision on Product Simplification)
+- Seed empty Product: PASS
+- Typecheck: PASS
+- Lint: PASS
+- Visual E2E (`p3-visual-parity.spec.ts`): PASS
+
+## Figma / Product naming / bypass
+
+- Figma mutation = NONE
+- Product naming mutation for QA = NONE (only non-visual `data-testid="project-title"`)
+- Production visual bypass = NONE
+- Geist = DEFERRED — NO CHANGE
+
+## Modified files (this continuation)
+
+- `e2e/support/visualPairingContract.ts` / `.mjs`
+- `e2e/support/observeVisualPairing.mjs`
+- `e2e/p3-visual-parity.spec.ts`
+- `__tests__/project-assistant/s08-4.visualPairingContract.d0.test.ts`
+- `__tests__/project-assistant/s08-4.seedFinalFidelity.d0.test.ts`
+- `__tests__/project-assistant/s08-4.seedEmptyProduct.d0.test.ts`
+- `features/pre-m6-product-ui/ProjectWorkspacePage.tsx` (`project-title` testid)
+- `.tmp-sfia-review/visual/s08-4/final-fidelity/*` harness + `state-manifest.json` + `pairing-report.json`
+- `.tmp-sfia-review/chatgpt-review.md`
+
+## Remaining
+
+- S08-4D = INCOMPLETE
+- GLOBAL P3 VISUAL PARITY = NOT YET PROVEN
+- Next: RESUME FINAL DETAIL FIDELITY USING ONLY VALID SAME-STATE PAIRS
+- Optional: snapshot-unify Workspace/Confirmation onto Product Simplification display identity
+
+## Verdict
+
+**S08-4 VISUAL QA PAIRING CONTRACT — PASS**

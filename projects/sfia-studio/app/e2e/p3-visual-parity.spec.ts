@@ -14,10 +14,18 @@ import {
   resolveAuthStorageStatePath,
 } from "./support/authenticatedStudioSession";
 import { openProjectWorkspaceView } from "./support/projectWorkspaceNavigation";
+import {
+  evaluateVisualPair,
+  type VisualPairRecord,
+} from "./support/visualPairingContract";
 
 const CAPTURE_ROOT = path.resolve(
   process.cwd(),
   "../../../.tmp-sfia-review/visual/s08-4/final",
+);
+const STATE_MANIFEST_PATH = path.resolve(
+  process.cwd(),
+  "../../../.tmp-sfia-review/visual/s08-4/final-fidelity/state-manifest.json",
 );
 const GEO_ROOT = path.resolve(
   process.cwd(),
@@ -126,6 +134,44 @@ test.describe("P5-S08-4 P3 visual parity", () => {
     expect(
       await page.getByTestId("studio-projects-loading").count(),
     ).toBe(0);
+
+    // Fail-closed pairing smoke: Projects desktop must match state-manifest.
+    if (fs.existsSync(STATE_MANIFEST_PATH)) {
+      const sm = JSON.parse(
+        fs.readFileSync(STATE_MANIFEST_PATH, "utf8"),
+      ) as { pairs: VisualPairRecord[] };
+      const projectsPair = sm.pairs.find(
+        (p) => (p as { captureId?: string }).captureId === "projects-1440",
+      );
+      if (projectsPair) {
+        const present: string[] = [];
+        for (const id of [
+          "studio-projects-home",
+          "studio-projects-list",
+          "studio-projects-recent",
+          "studio-projects-empty",
+          "studio-projects-loading",
+        ]) {
+          if ((await page.getByTestId(id).count()) > 0) present.push(id);
+        }
+        const issuesBadge = await page.evaluate(() => {
+          const el = [...document.querySelectorAll("button, a, div")].find(
+            (n) => {
+              const t = (n.textContent || "").trim();
+              return /^(?:\d+\s+)?Issues?$/i.test(t);
+            },
+          );
+          return Boolean(el);
+        });
+        const pairing = evaluateVisualPair(projectsPair, {
+          url: page.url(),
+          viewport: { width: 1440, height: 1024 },
+          present,
+          forbiddenPresent: issuesBadge ? ["next-dev-issues-badge"] : [],
+        });
+        expect(pairing.ok, pairing.ok ? "" : pairing.reason).toBe(true);
+      }
+    }
 
     const projects = await capture(page, "projects-1440", {
       width: 1440,

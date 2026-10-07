@@ -551,7 +551,12 @@ export function ProjectWorkspacePage({
       <header className={styles.projectHeader} data-testid="project-header">
         <div className={styles.projectHeaderRow}>
           <div className={styles.projectHeaderText}>
-            <h1 className={styles.projectTitle}>{success.project.name}</h1>
+            <h1
+              className={styles.projectTitle}
+              data-testid="project-title"
+            >
+              {success.project.name}
+            </h1>
             <p className={styles.projectObjective}>
               {success.project.objective}
             </p>
