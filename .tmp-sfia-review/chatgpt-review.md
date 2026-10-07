@@ -13,7 +13,7 @@
 | --- | --- |
 | Branch | `delivery/sfia-studio-product-simplification-p5-s08-global-p3-visual-parity` |
 | Entry HEAD | `a4bb481cd47352b445e43918e4f4c42c69242a78` |
-| Exit HEAD | `d4d9cf70291788d11b9d27e55f95a3b34bc021dd` |
+| Exit HEAD | `ebebc4c45a3f00e372de9d29cfa4cedd4749cde5` |
 | origin/main | `eed18bd572d65b6f5f4878ed24b195e4feeb5c7e` (unchanged) |
 | Main moved | **NO** |
 | Project push / PR / merge | **NONE / NOT AUTHORIZED** |
