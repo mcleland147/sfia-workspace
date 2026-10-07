@@ -156,8 +156,8 @@ describe("GovernedDecisionCard presentation", () => {
       />,
     );
     expect(screen.getByTestId("governed-decision-card")).toBeTruthy();
-    expect(screen.getByTestId("governed-decision-you-decide")).toHaveTextContent(
-      /À vous de décider/i,
+    expect(screen.getByTestId("governed-decision-title")).toHaveTextContent(
+      /Choisir la direction/i,
     );
     fireEvent.click(screen.getByTestId("governed-decision-see-alternate"));
     expect(onReveal).toHaveBeenCalledTimes(1);

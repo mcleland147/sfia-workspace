@@ -8,9 +8,8 @@ import type {
 } from "../workspaceContextPresentation";
 import type { ProductSynthesisProjection } from "@/lib/oa/synthesis";
 import {
-  formatSynthesisGeneratedAt,
+  formatSynthesisDayLabel,
   presentSynthesisVerdictLabel,
-  synthesisSummaryExcerpt,
 } from "./synthesisPresentation";
 import styles from "./ProjectContextSummary.module.css";
 
@@ -20,10 +19,13 @@ export type ProjectContextSummaryProps = {
   focus: string;
   /** Current conversation topic from the Journal, when one exists. */
   focusTopic: string | null;
+  /** Journal current-topic summary — Priorité sub-line when present. */
+  focusDetail?: string | null;
   currentness: CurrentnessPresentation;
   trajectory: TrajectoryNode[];
   attention: AttentionItem[];
   latestSynthesis?: ProductSynthesisProjection | null;
+  onOpenSynthesis?: (synthesisId: string) => void;
 };
 
 /**
@@ -35,11 +37,16 @@ export function ProjectContextSummary({
   cycle,
   focus,
   focusTopic,
+  focusDetail = null,
   currentness,
   trajectory,
   attention,
   latestSynthesis = null,
+  onOpenSynthesis,
 }: ProjectContextSummaryProps) {
+  const prioritySub = focusTopic
+    ? (focusDetail?.trim() || focus)
+    : null;
   return (
     <div className={styles.root} data-testid="project-context-summary">
       <header className={styles.head}>
@@ -56,8 +63,8 @@ export function ProjectContextSummary({
           <div className={styles.fact}>
             <dt>Cycle</dt>
             <dd>
-              {/* workLabel = shortReference · catalog when present (header chip parity). */}
-              {cycle.workLabel}
+              {/* contextLabel = shortReference · topic / interaction when Journal topic exists. */}
+              {cycle.contextLabel}
               {cycle.statusLabel ? (
                 <span className={styles.sub}>{cycle.statusLabel}</span>
               ) : null}
@@ -67,13 +74,17 @@ export function ProjectContextSummary({
             <dt>Priorité</dt>
             <dd data-testid="project-context-focus">
               {focusTopic ?? focus}
-              {focusTopic ? <span className={styles.sub}>{focus}</span> : null}
+              {prioritySub ? (
+                <span className={styles.sub}>{prioritySub}</span>
+              ) : null}
             </dd>
           </div>
           <div className={styles.fact}>
             <dt>Mise à jour</dt>
             <dd data-tone={currentness.tone}>
-              <span className={styles.currentness}>{currentness.label}</span>
+              <span className={styles.currentness}>
+                {currentness.contextLabel ?? currentness.label}
+              </span>
               <span className={styles.sub}>{currentness.detail}</span>
             </dd>
           </div>
@@ -99,7 +110,7 @@ export function ProjectContextSummary({
                 data-state={node.state}
               >
                 <span className={styles.nodeDot} aria-hidden />
-                <span className={styles.nodeName}>C{node.ordinal}</span>
+                <span className={styles.nodeName}>{node.ref}</span>
                 <span className={styles.nodeState}>{node.label}</span>
               </li>
             ))}
@@ -138,19 +149,33 @@ export function ProjectContextSummary({
         aria-labelledby="ctx-synthesis-title"
         data-testid="project-context-synthesis"
       >
-        <h3 className={styles.sectionTitle} id="ctx-synthesis-title">
-          Dernière synthèse
-        </h3>
+        <div className={styles.sectionTitleRow}>
+          <h3 className={styles.sectionTitle} id="ctx-synthesis-title">
+            Synthèse
+          </h3>
+          {latestSynthesis ? (
+            <span className={styles.sectionMetaOk}>
+              {formatSynthesisDayLabel(latestSynthesis.generatedAt)}
+            </span>
+          ) : null}
+        </div>
         {latestSynthesis ? (
           <div data-testid="project-context-synthesis-preview">
             <p className={styles.attentionHead}>{latestSynthesis.title}</p>
-            <p className={styles.attentionDetail}>
-              {presentSynthesisVerdictLabel(latestSynthesis.verdictLabel)} ·{" "}
-              {formatSynthesisGeneratedAt(latestSynthesis.generatedAt)}
+            <p className={styles.synthesisVerdict}>
+              Verdict ·{" "}
+              {presentSynthesisVerdictLabel(latestSynthesis.verdictLabel)}
             </p>
-            <p className={styles.empty}>
-              {synthesisSummaryExcerpt(latestSynthesis, 160)}
-            </p>
+            {onOpenSynthesis ? (
+              <button
+                type="button"
+                className={styles.synthesisLink}
+                data-testid="project-context-open-synthesis"
+                onClick={() => onOpenSynthesis(latestSynthesis.synthesisId)}
+              >
+                Voir la synthèse →
+              </button>
+            ) : null}
           </div>
         ) : (
           <p className={styles.empty} data-testid="project-context-synthesis-empty">

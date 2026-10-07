@@ -145,7 +145,7 @@ export function OverviewSurface({
     trajectory.length === 0
       ? null
       : trajectory
-          .map((node) => `C${node.ordinal} ${node.label.toLowerCase()}`)
+          .map((node) => `${node.ref} ${node.label.toLowerCase()}`)
           .join(" · ");
 
   return (

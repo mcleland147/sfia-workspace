@@ -106,3 +106,19 @@ export function formatSynthesisGeneratedAt(iso: string): string {
     timeStyle: "short",
   });
 }
+
+/** Compact day label for context-rail synthèse (Figma 46:2 « Aujourd'hui »). */
+export function formatSynthesisDayLabel(iso: string, now = new Date()): string {
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return formatSynthesisGeneratedAt(iso);
+  const startOfToday = new Date(now);
+  startOfToday.setHours(0, 0, 0, 0);
+  const startOfThat = new Date(d);
+  startOfThat.setHours(0, 0, 0, 0);
+  const dayDelta = Math.round(
+    (startOfToday.getTime() - startOfThat.getTime()) / 86_400_000,
+  );
+  if (dayDelta === 0) return "Aujourd'hui";
+  if (dayDelta === 1) return "Hier";
+  return d.toLocaleDateString("fr-FR", { dateStyle: "medium" });
+}

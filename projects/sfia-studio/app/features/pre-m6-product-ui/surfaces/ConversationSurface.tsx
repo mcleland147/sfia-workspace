@@ -273,31 +273,54 @@ export function ConversationSurface({
     stopAvailable,
   });
 
+  const boundAwaitingDecision =
+    !!decisionSubjectContinuity &&
+    typeof decisionSubjectContinuity === "object" &&
+    "ok" in decisionSubjectContinuity &&
+    decisionSubjectContinuity.ok &&
+    decisionSubjectContinuity.kind === "bound_awaiting_decision";
+  const confirmationRequiredMoment =
+    !!governedExecutionContinuity &&
+    typeof governedExecutionContinuity === "object" &&
+    "ok" in governedExecutionContinuity &&
+    governedExecutionContinuity.ok &&
+    governedExecutionContinuity.kind === "active" &&
+    governedExecutionContinuity.contract.status === "confirmation_required" &&
+    !boundAwaitingDecision;
+  const focusedGovernedMoment =
+    boundAwaitingDecision || confirmationRequiredMoment;
+
   return (
     <section
       className={styles.root}
       data-testid="project-assistant-panel"
       data-ui-state={uiState}
+      data-governed-moment={focusedGovernedMoment ? "true" : undefined}
     >
-      <div className={styles.topBar}>
-        <div className={styles.identity} data-testid="project-assistant-mode-pill">
-          <span className={styles.noraDot} aria-hidden>
-            N
-          </span>
-          <span className={styles.identityText}>
-            <span className={styles.identityName}>Nora</span>
-            <span
-              className={styles.identityRole}
-              data-testid="project-assistant-ephemeral"
-            >
-              Recommande — la décision vous appartient
+      {!focusedGovernedMoment ? (
+        <div className={styles.topBar}>
+          <div
+            className={styles.identity}
+            data-testid="project-assistant-mode-pill"
+          >
+            <span className={styles.noraDot} aria-hidden>
+              N
             </span>
-          </span>
+            <span className={styles.identityText}>
+              <span className={styles.identityName}>Nora</span>
+              <span
+                className={styles.identityRole}
+                data-testid="project-assistant-ephemeral"
+              >
+                Recommande — la décision vous appartient
+              </span>
+            </span>
+          </div>
+          {modeLabel.toLowerCase().includes("indisponible") ? (
+            <span className={styles.chipWarn}>{modeLabel}</span>
+          ) : null}
         </div>
-        {modeLabel.toLowerCase().includes("indisponible") ? (
-          <span className={styles.chipWarn}>{modeLabel}</span>
-        ) : null}
-      </div>
+      ) : null}
 
       <div
         ref={listRef}
@@ -306,7 +329,7 @@ export function ConversationSurface({
         aria-live="polite"
         id={liveRegionId}
       >
-        {messages.length === 0 ? (
+        {messages.length === 0 && !focusedGovernedMoment ? (
           <div className={styles.threadEmpty} data-testid="project-assistant-empty">
             <p className={styles.threadEmptyTitle}>
               Dites à Nora ce que vous voulez accomplir
@@ -316,7 +339,7 @@ export function ConversationSurface({
               vous propose une décision. Rien n&apos;est lancé sans votre accord.
             </p>
           </div>
-        ) : (
+        ) : messages.length === 0 ? null : (
               messages.map((message) => (
             <article
               key={message.id}
@@ -556,11 +579,7 @@ export function ConversationSurface({
           </p>
         </aside>
       ) : null}
-      {decisionSubjectContinuity &&
-      typeof decisionSubjectContinuity === "object" &&
-      "ok" in decisionSubjectContinuity &&
-      decisionSubjectContinuity.ok &&
-      decisionSubjectContinuity.kind === "bound_awaiting_decision" ? (
+      {boundAwaitingDecision ? (
         <div
           className={styles.governedMomentSlot}
           data-testid="decision-subject-bound"
@@ -575,6 +594,9 @@ export function ConversationSurface({
             alternateIndex={decisionAlternateIndex}
             busy={governedMomentBusy}
             error={governedMomentError}
+            decisionTitle={
+              activeProposal?.rephrasedRequest?.trim() || undefined
+            }
             onChooseRecommended={() => {
               const ref =
                 decisionSubjectContinuity.optionSet.recommendation
@@ -588,19 +610,7 @@ export function ConversationSurface({
           />
         </div>
       ) : null}
-      {governedExecutionContinuity &&
-      typeof governedExecutionContinuity === "object" &&
-      "ok" in governedExecutionContinuity &&
-      governedExecutionContinuity.ok &&
-      governedExecutionContinuity.kind === "active" &&
-      governedExecutionContinuity.contract.status === "confirmation_required" &&
-      !(
-        decisionSubjectContinuity &&
-        typeof decisionSubjectContinuity === "object" &&
-        "ok" in decisionSubjectContinuity &&
-        decisionSubjectContinuity.ok &&
-        decisionSubjectContinuity.kind === "bound_awaiting_decision"
-      ) ? (
+      {confirmationRequiredMoment ? (
         <div
           className={styles.governedMomentSlot}
           data-testid="governed-confirmation-slot"
@@ -625,7 +635,9 @@ export function ConversationSurface({
           />
         </div>
       ) : null}
-      {activeProposal && !reservationResolutionProposal ? (
+      {activeProposal &&
+      !reservationResolutionProposal &&
+      !focusedGovernedMoment ? (
         <section
           className={styles.card}
           data-testid="project-assistant-proposal"
@@ -1353,35 +1365,37 @@ export function ConversationSurface({
                     data-testid="durable-recommendation-card"
                   >
                     <div className={styles.p3CardHead}>
-                      <p className={styles.p3CardEyebrow}>Recommandation</p>
-                      <span className={styles.p3CardStatusWarn}>
-                        {card.dispositionDecisionId
-                          ? "Décidée"
-                          : "En attente de décision"}
-                      </span>
-                    </div>
-                    <p
-                      className={styles.p3CardTitle}
-                      data-testid="durable-recommendation-label"
-                    >
-                      {card.statement}
-                    </p>
-                    <div className={styles.p3CardFoot}>
-                      <p className={styles.p3CardStamp}>
-                        RECOMMANDATION — PAS UNE DÉCISION
-                      </p>
-                      {onResumeRecommendation ? (
-                        <button
-                          type="button"
-                          className={styles.p3CardLink}
-                          data-testid="conversation-resume-recommendation"
-                          onClick={() =>
-                            onResumeRecommendation(card.epistemicItemId)
-                          }
+                      <div className={styles.p3CardBody}>
+                        <p className={styles.p3CardEyebrow}>Recommandation</p>
+                        <p
+                          className={styles.p3CardTitle}
+                          data-testid="durable-recommendation-label"
                         >
-                          Ouvrir →
-                        </button>
-                      ) : null}
+                          {card.statement}
+                        </p>
+                        <p className={styles.p3CardStamp}>
+                          RECOMMANDATION — PAS UNE DÉCISION
+                        </p>
+                      </div>
+                      <div className={styles.p3CardRight}>
+                        <span className={styles.p3CardStatusWarn}>
+                          {card.dispositionDecisionId
+                            ? "Décidée"
+                            : "En attente de décision"}
+                        </span>
+                        {onResumeRecommendation ? (
+                          <button
+                            type="button"
+                            className={styles.p3CardLink}
+                            data-testid="conversation-resume-recommendation"
+                            onClick={() =>
+                              onResumeRecommendation(card.epistemicItemId)
+                            }
+                          >
+                            Ouvrir →
+                          </button>
+                        ) : null}
+                      </div>
                     </div>
                   </div>
                 ))
@@ -1391,20 +1405,27 @@ export function ConversationSurface({
                   data-testid="durable-recommendation-card"
                 >
                   <div className={styles.p3CardHead}>
-                    <p className={styles.p3CardEyebrow}>Recommandation</p>
-                    <span className={styles.p3CardStatusWarn}>
-                      En attente de décision
-                    </span>
+                    <div className={styles.p3CardBody}>
+                      <p className={styles.p3CardEyebrow}>Recommandation</p>
+                      <p
+                        className={styles.p3CardTitle}
+                        data-testid="durable-recommendation-label"
+                      >
+                        {
+                          durableEvidenceOutcome.recommendation
+                            .recommendationLabel
+                        }
+                      </p>
+                      <p className={styles.p3CardStamp}>
+                        RECOMMANDATION — PAS UNE DÉCISION
+                      </p>
+                    </div>
+                    <div className={styles.p3CardRight}>
+                      <span className={styles.p3CardStatusWarn}>
+                        En attente de décision
+                      </span>
+                    </div>
                   </div>
-                  <p
-                    className={styles.p3CardTitle}
-                    data-testid="durable-recommendation-label"
-                  >
-                    {durableEvidenceOutcome.recommendation.recommendationLabel}
-                  </p>
-                  <p className={styles.p3CardStamp}>
-                    RECOMMANDATION — PAS UNE DÉCISION
-                  </p>
                 </div>
               ) : null}
 
@@ -1415,32 +1436,33 @@ export function ConversationSurface({
               data-testid="conversation-prepared-action-card"
             >
               <div className={styles.p3CardHead}>
-                <p className={styles.p3CardEyebrow}>Action préparée</p>
-                <span className={styles.p3CardStatusReady}>
-                  Prête à examiner
-                </span>
-              </div>
-              <p className={styles.p3CardTitle}>
-                {latestSynthesis.title.replace(/^Synthèse\s*[—–-]\s*/i, "") ||
-                  latestSynthesis.title}
-              </p>
-              {onOpenSynthesis ? (
-                <div className={styles.p3CardFoot}>
-                  <span className={styles.p3CardStamp} aria-hidden>
-                    &nbsp;
-                  </span>
-                  <button
-                    type="button"
-                    className={styles.p3CardLink}
-                    data-testid="conversation-open-prepared-action"
-                    onClick={() =>
-                      onOpenSynthesis(latestSynthesis.synthesisId)
-                    }
-                  >
-                    Ouvrir →
-                  </button>
+                <div className={styles.p3CardBody}>
+                  <p className={styles.p3CardEyebrow}>Action préparée</p>
+                  <p className={styles.p3CardTitle}>
+                    {latestSynthesis.title.replace(
+                      /^Synthèse\s*[—–-]\s*/i,
+                      "",
+                    ) || latestSynthesis.title}
+                  </p>
                 </div>
-              ) : null}
+                <div className={styles.p3CardRight}>
+                  <span className={styles.p3CardStatusReady}>
+                    Prête à examiner
+                  </span>
+                  {onOpenSynthesis ? (
+                    <button
+                      type="button"
+                      className={styles.p3CardLink}
+                      data-testid="conversation-open-prepared-action"
+                      onClick={() =>
+                        onOpenSynthesis(latestSynthesis.synthesisId)
+                      }
+                    >
+                      Ouvrir →
+                    </button>
+                  ) : null}
+                </div>
+              </div>
             </div>
           ) : null}
 
@@ -1726,6 +1748,9 @@ export function ConversationSurface({
       <form
         className={styles.composer}
         data-testid="project-assistant-composer"
+        data-hidden-for-governed={focusedGovernedMoment ? "true" : undefined}
+        hidden={focusedGovernedMoment}
+        aria-hidden={focusedGovernedMoment || undefined}
         onSubmit={(event) => {
           event.preventDefault();
           if (stopAvailable) return;

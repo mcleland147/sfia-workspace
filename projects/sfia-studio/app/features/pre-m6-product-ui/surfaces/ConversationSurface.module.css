@@ -585,14 +585,33 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  max-width: 710px;
+  /* Figma 46:2 contextual objects width ≈ 748 within conversation column */
+  max-width: 748px;
 }
 
 .p3CardHead {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
-  gap: 12px;
+  gap: 14px;
+}
+
+.p3CardBody {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.p3CardRight {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  flex: 0 0 auto;
+  min-width: 120px;
+  text-align: right;
 }
 
 .p3CardEyebrow {
@@ -655,7 +674,6 @@
   font-weight: 500;
   letter-spacing: 0.4px;
   color: #6c635b;
-  color: #d9563b;
   cursor: pointer;
   white-space: nowrap;
 }

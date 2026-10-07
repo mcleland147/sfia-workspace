@@ -15,6 +15,8 @@ export type GovernedDecisionCardProps = {
   readonly alternateIndex: number;
   readonly busy: boolean;
   readonly error: string | null;
+  /** Honest Proposal rephrasedRequest when present (Figma decision title). */
+  readonly decisionTitle?: string | null;
   readonly onChooseRecommended: () => void;
   /** Disclosure only — must NOT mutate HumanDecision. */
   readonly onRevealAlternate: () => void;
@@ -38,6 +40,7 @@ export function GovernedDecisionCard({
   alternateIndex,
   busy,
   error,
+  decisionTitle = null,
   onChooseRecommended,
   onRevealAlternate,
   onChooseAlternate,
@@ -55,9 +58,7 @@ export function GovernedDecisionCard({
     (alternateIndex < 0 || alternateIndex < alternates.length - 1);
 
   const title =
-    optionSet.decisionSubjectMode === "proposal"
-      ? "Choisir la direction proposée"
-      : "Choisir la direction de l'espace projet";
+    decisionTitle?.trim() || "Choisir la direction de l'espace projet";
 
   const recommendedSummary =
     recommended?.label?.trim() ||
@@ -71,12 +72,13 @@ export function GovernedDecisionCard({
       aria-labelledby="governed-decision-title"
     >
       <p className={styles.label}>Décision</p>
-      <h3 id="governed-decision-title" className={styles.title}>
+      <h3
+        id="governed-decision-title"
+        className={styles.title}
+        data-testid="governed-decision-title"
+      >
         {title}
       </h3>
-      <p className={styles.youDecide} data-testid="governed-decision-you-decide">
-        À vous de décider
-      </p>
 
       {!showingAlternate ? (
         <div className={styles.optionBlock} data-testid="governed-decision-recommended">

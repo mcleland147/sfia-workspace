@@ -498,24 +498,60 @@ export function ProjectWorkspacePage({
   const lifecycle = lifecycleProjection;
   const decisionPending =
     controller.activeProposal?.status === "DECISION_REQUIRED";
+  const boundAwaitingDecision =
+    !!controller.decisionSubjectContinuity &&
+    typeof controller.decisionSubjectContinuity === "object" &&
+    "ok" in controller.decisionSubjectContinuity &&
+    controller.decisionSubjectContinuity.ok &&
+    controller.decisionSubjectContinuity.kind === "bound_awaiting_decision";
+  const confirmationRequiredMoment =
+    !!controller.governedExecutionContinuity &&
+    typeof controller.governedExecutionContinuity === "object" &&
+    "ok" in controller.governedExecutionContinuity &&
+    controller.governedExecutionContinuity.ok &&
+    controller.governedExecutionContinuity.kind === "active" &&
+    controller.governedExecutionContinuity.contract.status ===
+      "confirmation_required" &&
+    !boundAwaitingDecision;
+  const focusedGovernedMoment =
+    boundAwaitingDecision || confirmationRequiredMoment;
   const currentness = presentCurrentness({
     transcriptAvailability: controller.transcriptAvailability,
     stateVersion: success.livingState.version,
+    // Prefer latest synthèse clock when loaded; else LPS createdAt.
+    updatedAt:
+      latestSynthesis?.generatedAt ?? success.livingState.createdAt ?? null,
   });
+  const currentJournalTopic = controller.journalEntries.find(
+    (e) => e.isCurrentTopic,
+  );
+  const focusTopic = currentJournalTopic?.title ?? null;
+  const focusDetail = currentJournalTopic?.currentSummary?.trim() || null;
   const cycleSummary = deriveCycleSummary(lifecycle, {
     shortReference: success.project.shortReference,
+    focusTopic,
   });
-  const pendingWorkRecommendationCount = cycleRecommendations.filter(
+  const pendingWorkRecommendations = cycleRecommendations.filter(
     (r) => r.status === "active" && !r.dispositionDecisionId,
-  ).length;
+  );
+  const pendingWorkRecommendationCount = pendingWorkRecommendations.length;
+  const openReservations = cycleReservations.filter(
+    (r) =>
+      r.presentationState !== "resolved" &&
+      r.presentationState !== "rejected" &&
+      r.presentationState !== "deferred",
+  );
   const attention = deriveAttentionItems({
     decisionPending,
     lifecycle,
     pendingWorkRecommendationCount,
+    pendingWorkRecommendationDetail:
+      pendingWorkRecommendations[0]?.statement ?? null,
+    openReservationDetail: openReservations[0]?.statement ?? null,
   });
-  const trajectoryNodes = deriveTrajectoryNodes(lifecycle);
-  const focusTopic =
-    controller.journalEntries.find((e) => e.isCurrentTopic)?.title ?? null;
+  const trajectoryNodes = deriveTrajectoryNodes(lifecycle, {
+    shortReference: success.project.shortReference,
+  });
   const nextAction = lpsNextAction(success.readiness.status);
   const decisionCount = attention.some((a) => a.key === "decision") ? 1 : 0;
   const reserveCount = lifecycle?.reservationSummary?.activeCount ?? 0;
@@ -693,52 +729,57 @@ export function ProjectWorkspacePage({
         <div className={styles.main} ref={conversationRef}>
           {activeView === "conversation" ? (
             <>
-              <div
-                className={styles.mobileFocusStrip}
-                data-testid="project-mobile-focus-strip"
-              >
-                <span className={styles.mobileFocusLabel}>
-                  Priorité ·{" "}
-                  {focusTopic ??
-                    (lifecycle?.selectedCycleInstanceId
-                      ? cycleSummary.label
-                      : "Conversation avec Nora")}
-                </span>
-                <button
-                  type="button"
-                  className={styles.mobileFocusContext}
-                  data-testid="project-mobile-open-context"
-                  aria-expanded={lpsOpen}
-                  onClick={() => setLpsOpen(true)}
+              {/* P3 focused Decision/Confirmation — hide priority strip chrome. */}
+              {!focusedGovernedMoment ? (
+                <div
+                  className={styles.mobileFocusStrip}
+                  data-testid="project-mobile-focus-strip"
                 >
-                  Contexte →
-                </button>
-              </div>
+                  <span className={styles.mobileFocusLabel}>
+                    Priorité ·{" "}
+                    {focusTopic ??
+                      (lifecycle?.selectedCycleInstanceId
+                        ? cycleSummary.label
+                        : "Conversation avec Nora")}
+                  </span>
+                  <button
+                    type="button"
+                    className={styles.mobileFocusContext}
+                    data-testid="project-mobile-open-context"
+                    aria-expanded={lpsOpen}
+                    onClick={() => setLpsOpen(true)}
+                  >
+                    Contexte →
+                  </button>
+                </div>
+              ) : null}
 
-              <div className={styles.focusBar} data-testid="project-focus-bar">
-                <span className={styles.focusLabel}>
-                  <span className={styles.focusDot} aria-hidden />
-                  Priorité actuelle
-                </span>
-                <span className={styles.focusTitle}>
-                  {focusTopic ??
-                    (lifecycle?.selectedCycleInstanceId
-                      ? cycleSummary.label
-                      : "Conversation avec Nora")}
-                </span>
-                <span className={styles.focusCounts}>
-                  {decisionCount > 0 ? (
-                    <span className={styles.focusCount}>1 décision</span>
-                  ) : null}
-                  {reserveCount > 0 ? (
-                    <span className={styles.focusCount}>
-                      {reserveCount} réserve{reserveCount > 1 ? "s" : ""}
-                    </span>
-                  ) : null}
-                </span>
-              </div>
+              {!focusedGovernedMoment ? (
+                <div className={styles.focusBar} data-testid="project-focus-bar">
+                  <span className={styles.focusLabel}>
+                    <span className={styles.focusDot} aria-hidden />
+                    Priorité actuelle
+                  </span>
+                  <span className={styles.focusTitle}>
+                    {focusTopic ??
+                      (lifecycle?.selectedCycleInstanceId
+                        ? cycleSummary.label
+                        : "Conversation avec Nora")}
+                  </span>
+                  <span className={styles.focusCounts}>
+                    {decisionCount > 0 ? (
+                      <span className={styles.focusCount}>1 décision</span>
+                    ) : null}
+                    {reserveCount > 0 ? (
+                      <span className={styles.focusCount}>
+                        {reserveCount} réserve{reserveCount > 1 ? "s" : ""}
+                      </span>
+                    ) : null}
+                  </span>
+                </div>
+              ) : null}
 
-              {continuity.kind === "restored_hint" ? (
+              {continuity.kind === "restored_hint" && !focusedGovernedMoment ? (
                 <p
                   className={styles.durabilityHint}
                   data-testid="project-auto-resume-hint"
@@ -876,10 +917,12 @@ export function ProjectWorkspacePage({
               cycle={cycleSummary}
               focus={nextAction}
               focusTopic={focusTopic}
+              focusDetail={focusDetail}
               currentness={currentness}
               trajectory={trajectoryNodes}
               attention={attention}
               latestSynthesis={latestSynthesis}
+              onOpenSynthesis={openSynthesisDetail}
             />
 
             <section

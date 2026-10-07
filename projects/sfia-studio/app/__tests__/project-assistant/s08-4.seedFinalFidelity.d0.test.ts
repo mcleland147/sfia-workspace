@@ -386,7 +386,7 @@ function seedCompanionJournal(input: {
           op: "CREATE",
           targetEntryId: null,
           title: "Espace projet",
-          currentSummary: "Passe de conception — conversation et surfaces structurées",
+          currentSummary: "Passe de conception 01",
           sourceTurnRefs: [],
           relatedEntryIds: [],
         },
@@ -824,8 +824,8 @@ describe.runIf(runSeed)("S08-4 seed final fidelity canonical Product DB", () => 
         startCycle: true,
         reservations: [
           {
-            statement:
-              "La recommandation W3-C doit rester non autoritaire jusqu'à revue pilote.",
+            // Product Simplification attention copy (Figma 46:2 context rail).
+            statement: "Le système visuel reste exploratoire",
             blocking: false,
           },
         ],
@@ -896,6 +896,8 @@ describe.runIf(runSeed)("S08-4 seed final fidelity canonical Product DB", () => 
           >;
           payload.title = "Mise à jour de l’espace projet";
           payload.subject = "Mise à jour de l’espace projet";
+          // Fresh relative « Vérifié… » / « Aujourd'hui » for visual capture.
+          payload.generatedAt = new Date().toISOString();
           store.db
             .prepare(
               `UPDATE oa_syntheses SET payload_json = ? WHERE synthesis_id = ?`,

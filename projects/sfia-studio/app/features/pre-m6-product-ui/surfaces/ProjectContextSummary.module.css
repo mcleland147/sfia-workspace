@@ -45,6 +45,49 @@
   color: var(--pm6-muted-faint);
 }
 
+.sectionTitleRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--pm6-space-2);
+  margin-bottom: var(--pm6-space-3);
+}
+
+.sectionTitleRow .sectionTitle {
+  margin: 0;
+}
+
+.sectionMetaOk {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  color: var(--pm6-ok);
+}
+
+.synthesisVerdict {
+  margin: 2px 0 0;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  color: var(--pm6-ok);
+}
+
+.synthesisLink {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  padding: 6px 0 0;
+  margin: 0;
+  font: inherit;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  color: var(--pm6-accent);
+  cursor: pointer;
+  text-align: left;
+}
+
+.synthesisLink:hover {
+  text-decoration: underline;
+}
+
 .facts {
   margin: 0;
   display: flex;
@@ -149,8 +192,10 @@
 }
 
 .node[data-state="current"] .nodeDot {
+  /* Figma 46:2 — filled accent with outer ring */
   background: var(--pm6-accent);
-  border-color: var(--pm6-accent);
+  border: 2px solid var(--pm6-accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--pm6-accent) 28%, transparent);
 }
 
 .node[data-state="proposed"] .nodeDot {

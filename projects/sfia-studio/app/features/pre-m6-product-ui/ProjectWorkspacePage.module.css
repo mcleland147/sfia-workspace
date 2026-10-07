@@ -212,8 +212,9 @@
 }
 
 .chipAccent {
-  background: var(--pm6-accent-tint);
-  border-color: color-mix(in srgb, var(--pm6-accent) 28%, transparent);
+  /* Figma 46:2 — filled salmon chip (not outline-only). */
+  background: color-mix(in srgb, var(--pm6-accent) 16%, #fffdf9);
+  border-color: color-mix(in srgb, var(--pm6-accent) 40%, transparent);
   color: var(--pm6-accent);
 }
 
