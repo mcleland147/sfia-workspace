@@ -1,156 +1,88 @@
-# P5-S08-4 — SYNTHÈSES SCROLLED DETAIL + ÉLÉMENTS VÉRIFIÉS
+# P5-S08-4D — WORKSPACE 1024 CONTEXT RAIL CLOSURE / SCROLL AFFORDANCE
 
-**Timestamp:** 2026-10-07 21:30:42 +0200
-**Profile:** CRITICAL · Review Pack = FULL
+**Timestamp:** 2026-10-07 21:49:49 +0200
+**Profile:** CRITICAL · Review Pack = LIGHT
 **Branch:** `delivery/sfia-studio-product-simplification-p5-s08-global-p3-visual-parity`
-**Sub-verdict:** **SYNTHÈSES — LOWER VERIFIED SCROLL STATE = PASS CANDIDATE**
+**Verdict:** **WORKSPACE 1024 — CONTEXT RAIL SCROLL/CLOSURE AFFORDANCE = CLOSED**
 
 ---
 
-## 1. Git truth
+## Git truth
 
 | Item | Value |
 | --- | --- |
 | Branch | `delivery/sfia-studio-product-simplification-p5-s08-global-p3-visual-parity` |
-| Entry HEAD | `a4bb481cd47352b445e43918e4f4c42c69242a78` |
-| Exit HEAD | `ebebc4c45a3f00e372de9d29cfa4cedd4749cde5` |
-| origin/main | `eed18bd572d65b6f5f4878ed24b195e4feeb5c7e` (unchanged) |
-| Main moved | **NO** |
-| Project push / PR / merge | **NONE / NOT AUTHORIZED** |
-| Reset / rebase / discard | **NONE** |
+| Entry HEAD | `aa224d830bd4316de7adde3f90be7b42785bfb30` |
+| Exit HEAD | *(this commit tip)* |
+| origin/main | `eed18bd572d65b6f5f4878ed24b195e4feeb5c7e` |
+| Project push / PR | **NONE** |
 
-Local Git truth wins over older remote review handoffs. Prior uncommitted Aperçu/P2 corrections preserved and included in this scoped commit where cohesive.
+Prior S08-4 work preserved. No reset / stash / discard.
 
-## 2. Sources read
+## Scroll owner
 
-- `prompts/templates/sfia-cycle-execution-template.md`
-- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
-- `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md`
-- `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
-- `projects/sfia-studio/product-completion/01-product-completion-cadrage.md`
-- `projects/sfia-studio/product-simplification/03-chat-first-product-simplification-workspace-interaction-architecture.md`
-- `projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md`
-- `projects/sfia-studio/sfia-v3-framing/ckc/04-ux-ui.md`
-- `projects/sfia-studio/sfia-v3-framing/ckc/08-delivery-implementation.md`
-- `projects/sfia-studio/sfia-v3-framing/ckc/09-qa-validation.md`
+**RIGHT RAIL (CASE A)** — with a height-budget bug that produced CASE-C symptoms.
 
-v2.6 = process only. P3 / Product Simplification remains Product visual/interaction authority.
+Architecture already intended independent scroll:
+- `.lpsSheet` / `project-context-scroll` → `overflow-y: auto|scroll`
+- comment: “context sticky + own scroll”
 
-## 3. Figma references inspected
+## Root cause
 
-| Node | Role | fileKey |
+Sticky column height used `calc(100vh - global-header)` while the rail already sat below the project header. At 1024×768 the column extended past the fold; Synthèse looked truncated above the sticky footer shortcuts, with no perceptible scroll affordance (macOS/Chromium overlay scrollbars invisible).
+
+## Correction
+
+1. Pin Conversation/Exécution workspace to remaining viewport (`height/max-height: 100vh; overflow: hidden`) and stretch the context column to the layout row (`height/max-height: 100%`).
+2. Sticky fallback height now subtracts `--ws-project-h` as well.
+3. Real scroll metrics drive a thin warm custom indicator (`project-context-scroll-indicator`) — only when `scrollHeight > clientHeight`; thumb moves with `scrollTop`.
+4. Bottom padding retained so the last scrolled content has breathing room above sticky shortcuts.
+
+No Product content removed. No second shell / rail / fake scrollbar image.
+
+## Files modified
+
+- `ProjectWorkspacePage.tsx` — scroll ref, metrics sync, indicator
+- `ProjectWorkspacePage.module.css` — viewport pin, wrap, indicator styles
+- `p5.s01.workspaceLayout.ui.test.tsx` — contract assertions
+- capture helper `capture-workspace-1024-context-scroll.mjs`
+- runtime captures under `.tmp-sfia-review/visual/s08-4/final-fidelity/runtime/`
+
+## Behavior after correction
+
+At 1024×768:
+- column bottom = viewport bottom (no silent clip past fold)
+- `scrollHeight > clientHeight` → rail scrolls independently
+- indicator visible; thumb top moves on scroll (proof: 172 → 245)
+- end state shows complete Synthèse (Verdict + Voir la synthèse) above footer shortcuts
+
+## Captures
+
+| Capture | Path | Notes |
 | --- | --- | --- |
-| `164:3` | Canonical top / initial Synthèses state | `m4g8j0gNbEzfIuH6S9AZJF` |
-| `316:2` | Supplemental lower scrolled + Éléments vérifiés | `m4g8j0gNbEzfIuH6S9AZJF` |
+| 1024 top | `…/runtime/workspace-1024.png` (+ `workspace-1024-context-top.png`) | sha `3e8b8c8be4b8` · indicator present |
+| 1024 end | `…/runtime/workspace-1024-context-end.png` | sha `070234cb9a00` · thumb moved · Synthèse complete |
+| 1440 regression | `…/runtime/workspace-1440.png` | sha `6159a61fb441` · no composition break |
+| 390 regression | `…/runtime/workspace-390.png` | sha `ad4e3f93a3d7` · mobile sheet unchanged |
 
-Inspected via Figma MCP (`get_screenshot` + `get_design_context` + `use_figma` export metadata). **Figma not mutated.**
+## Tests
 
-- `164:3` remains top-state authority.
-- `316:2` does **not** replace `164:3`; lower-state reference only.
-- No global design-system promotion.
+- Vitest `p5.s01.workspaceLayout.ui.test.tsx` — **3/3 PASS**
+- `tsc --noEmit` — **PASS**
+- `next build` — **PASS**
+- Capture harness metrics — **CONTEXT_SCROLL_OK**
 
-## 4. Root cause of lower-state mismatch
+## Reserves
 
-1. **No height-bounded Synthesis Scroll** — detail content grew the page (`min-height: 100vh` root without max), so `overflow:auto` never constrained; lower sections were “reachable” only by growing the viewport, not by a real detail scroller matching Figma `Synthesis Scroll`.
-2. **Éléments vérifiés** rendered as a plain section body — missing 316:2 secondary card hierarchy (title + Product count right-aligned + secondary summary).
-3. **QA fixture section copy** was too short for a distinct scrolled composition after the height fix; enriched with Product-shaped longer sections without inventing Evidence counts.
+- Custom indicator used because native overlay scrollbars are not reliably visible in Product/runtime screenshots; still bound to real scroll metrics (not decorative).
+- Sticky footer shortcuts remain outside the scroll sheet (pre-existing). Rail scroll reveals the rest of Synthèse above them.
+- Accepted enriched Workspace composition preserved (not forced back to sparser Figma).
 
-## 5. Files modified
+## Non-regression
 
-### Product / UI
-- `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/SynthesesSurface.tsx`
-- `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/SynthesesSurface.module.css`
-- `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/synthesisPresentation.ts` (`formatVerifiedElementsCount`)
-- `projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.module.css` (viewport pin for `data-active-view=syntheses`; Execution badge tokens retained)
-- Prior preserved Aperçu continuity: `OverviewSurface.*`, `ProjectWorkspacePage.tsx`, `product-tokens.css`, related tests
+- Desktop 1440: no layout break; indicator only when overflow exists.
+- Mobile 390: no nested-scroll redesign; sheet pattern retained.
 
-### Tests / harness
-- `projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s04.synthesesSurface.ui.test.tsx` (T17/T18 + count helper)
-- `projects/sfia-studio/app/__tests__/project-assistant/s08-4.seedFinalFidelity.d0.test.ts` (longer Product section copy for scroll proof)
-- `projects/sfia-studio/app/e2e/support/observeVisualPairing.mjs` (verified / detail-scroll markers)
-- `.tmp-sfia-review/visual/s08-4/final-fidelity/capture-canonical-unified.mjs`
-- `.tmp-sfia-review/visual/s08-4/final-fidelity/state-manifest.json` (`syntheses-verified-1440` ↔ `316:2`)
-- `.tmp-sfia-review/visual/s08-4/contracts/316-2-syntheses-verified-scrolled.json`
+## Explicit non-claims
 
-### Evidence
-- Runtime: `…/runtime/syntheses-1440.png`, `…/runtime/syntheses-verified-1440.png`
-- Figma ref: `…/figma/syntheses-verified-1440.png` (MCP screenshot scaled to 1440×1024 — soft-scale QUALIFIED vs native export)
-- Diffs: `…/diff/syntheses-1440-diff.png`, `…/diff/syntheses-verified-1440-diff.png`
-- Pairing: `…/pairing-report.json`
-
-## 6. Scroll implementation
-
-- Detail **header** stays structured (`detailHead`).
-- Body scrolls in `project-syntheses-detail-scroll` (Figma Synthesis Scroll).
-- Workspace root pinned to `100vh` **only** when `data-active-view="syntheses"` so the scroll region is height-bounded.
-- Affordance: **real styled native scrollbar** (4px, track `rgba(232,227,219,0.5)`, thumb `rgba(148,140,130,0.78)`) — bound to real overflow; not decorative.
-- Selection change resets `scrollTop = 0` (no auto-jump to lower sections).
-- Bottom padding leaves breathing room under the verified card.
-
-## 7. Éléments vérifiés / Product truth
-
-- Secondary card chrome (border, `#fbf7f2` body wash, radius 9, min-height 150).
-- Title `ÉLÉMENTS VÉRIFIÉS` + count from `sourceBindings.evidenceIds.length` via `formatVerifiedElementsCount` (`0/1 élément`, `N éléments`).
-- Summary = `sections.verified` (builder-derived), never hardcoded Figma sample (`4 éléments` / sample artifacts).
-- Runtime proof fixture shows **`1 élément`** (truthful).
-- Zero-state covered by Vitest T18.
-
-### « Voir le détail → »
-
-**PRODUCT-HONEST QUALIFIED ABSENT** — no supported Product navigation/destination from Synthèses to inspect verified evidence elements. Dead CTA **not** added. Structured card retained without the action.
-
-## 8. Execution tab badge
-
-Shared `.tabBadge` already matches canonical 24×20 / radius 6 / `#FFE8E0` / `#D9563B` / 11px. **Preserved** (no Synthèses-only badge). Visible on both captures.
-
-## 9. Tests / gates (exact)
-
-| Gate | Result |
-| --- | --- |
-| Vitest `p5.s04.synthesesSurface.ui.test.tsx` | **6/6 PASS** (incl. T17 scroll + T18 zero + count helper) |
-| Production `next build` (lint + types) | **PASS** |
-| `next lint` | **PASS** (0 warnings/errors) |
-| `tsc --noEmit` | **PASS** |
-| Capture pairing `syntheses-1440` ↔ `164:3` | **PASS** |
-| Capture pairing `syntheses-verified-1440` ↔ `316:2` | **PASS** |
-| Compare (pairing-gated) | both **COMPARED** · Δ≈**0.0423** (top) · Δ≈**0.0473** (verified) |
-| Playwright `p3-visual-parity.spec.ts` | **FAIL env** — `forbiddenVisible=next-dev-issues-badge` under `next dev`; production capture harness remains authority for visual proof |
-
-## 10. Visual proof paths
-
-| Capture | Figma | Runtime SHA256 (12) | Pairing |
-| --- | --- | --- | --- |
-| `syntheses-1440` | `164:3` | `d0802bf96189` | PASS · scrollTop≈0 · top composition |
-| `syntheses-verified-1440` | `316:2` | `6092ea407aed` | PASS · scrolled · Éléments vérifiés fully visible · Product count |
-
-Distinct SHAs confirm top ≠ lower state.
-
-## 11. Residual gaps (P2 / QUALIFIED)
-
-| Item | Class |
-| --- | --- |
-| Content/copy ≠ Figma sample narrative; Product truth wins | expected / QUALIFIED |
-| Verified figma PNG soft-scaled from MCP (not native 1× export bytes) | P2 residual on pixel Δ |
-| « Voir le détail » absent (no Product destination) | PRODUCT-HONEST QUALIFIED |
-| Playwright visual E2E under next-dev Issues badge | env / harness — not production P0 |
-| Compact/mobile Synthèses not redesigned (desktop primary) | in-scope non-goal |
-
-**P0:** 0 · **P1:** 0 · **P2:** residuals above
-
-## 12. Explicit non-claims
-
-- **≠** S08-4D CLOSED
-- **≠** GLOBAL P3 VISUAL PARITY CLOSED
-- **≠** READY FOR GIT INTEGRATION
-- **≠** P5 COMPLETE / P6 READY
-- **≠** runtime v3 ADOPTED
-- **≠** Evidence architecture redesign
-- **≠** Figma mutation / new route / dead CTA
-
-Those remain Morris/ChatGPT decisions after ongoing final visual review.
-
-## 13. Final sub-verdict
-
-**SYNTHÈSES — LOWER VERIFIED SCROLL STATE = PASS CANDIDATE**
-
-Continuous Synthèses surface; top state preserved vs `164:3`; real detail scroll; Product-truth verified card; honest scrollbar; dual pairing PASS; no architecture parallelism.
+≠ S08-4D globally closed · ≠ GLOBAL P3 VISUAL PARITY closed · ≠ Project push/PR

@@ -154,7 +154,48 @@ export function ProjectWorkspacePage({
     useState<ProductSynthesisProjection | null>(null);
   const [synthesesFocusId, setSynthesesFocusId] = useState<string | null>(null);
   const conversationRef = useRef<HTMLDivElement | null>(null);
+  const contextScrollRef = useRef<HTMLDivElement | null>(null);
+  const [contextScrollUi, setContextScrollUi] = useState<{
+    active: boolean;
+    thumbTop: number;
+    thumbHeight: number;
+  }>({ active: false, thumbTop: 0, thumbHeight: 0 });
   const refreshInFlight = useRef(false);
+
+  const syncContextScrollUi = useCallback(() => {
+    const el = contextScrollRef.current;
+    if (!el) {
+      setContextScrollUi({ active: false, thumbTop: 0, thumbHeight: 0 });
+      return;
+    }
+    const { scrollTop, scrollHeight, clientHeight } = el;
+    const overflow = scrollHeight - clientHeight;
+    if (overflow <= 8 || clientHeight <= 0) {
+      setContextScrollUi({ active: false, thumbTop: 0, thumbHeight: 0 });
+      return;
+    }
+    const track = Math.max(clientHeight - 24, 1);
+    const thumbHeight = Math.max(
+      28,
+      Math.round((clientHeight / scrollHeight) * track),
+    );
+    const maxTop = Math.max(track - thumbHeight, 0);
+    const thumbTop = Math.round((scrollTop / overflow) * maxTop);
+    setContextScrollUi({ active: true, thumbTop, thumbHeight });
+  }, []);
+
+  useEffect(() => {
+    const el = contextScrollRef.current;
+    if (!el) return;
+    syncContextScrollUi();
+    const ro = new ResizeObserver(() => syncContextScrollUi());
+    ro.observe(el);
+    window.addEventListener("resize", syncContextScrollUi);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", syncContextScrollUi);
+    };
+  }, [syncContextScrollUi, activeView, latestSynthesis]);
 
   const loadProject = useCallback(async () => {
     if (refreshInFlight.current) return;
@@ -904,7 +945,13 @@ export function ProjectWorkspacePage({
           data-testid="project-lps-column"
           aria-label="Contexte du projet"
         >
-          <div className={styles.lpsSheet}>
+          <div className={styles.lpsScrollWrap}>
+          <div
+            ref={contextScrollRef}
+            className={styles.lpsSheet}
+            data-testid="project-context-scroll"
+            onScroll={syncContextScrollUi}
+          >
             <button
               type="button"
               className={styles.lpsClose}
@@ -1037,6 +1084,22 @@ export function ProjectWorkspacePage({
                 </p>
               ) : null}
             </div>
+          </div>
+          {contextScrollUi.active ? (
+            <div
+              className={styles.contextScrollTrack}
+              data-testid="project-context-scroll-indicator"
+              aria-hidden="true"
+            >
+              <div
+                className={styles.contextScrollThumb}
+                style={{
+                  transform: `translateY(${contextScrollUi.thumbTop}px)`,
+                  height: contextScrollUi.thumbHeight,
+                }}
+              />
+            </div>
+          ) : null}
           </div>
 
           <ProjectContextShortcuts

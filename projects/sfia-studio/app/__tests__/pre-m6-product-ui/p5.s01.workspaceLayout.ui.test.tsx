@@ -253,6 +253,7 @@ describe("P5-S01 Workspace layout", () => {
     );
     expect(screen.getByTestId("project-conversation-main")).toBeTruthy();
     expect(screen.getByTestId("project-lps-column")).toBeTruthy();
+    expect(screen.getByTestId("project-context-scroll")).toBeTruthy();
 
     const body = document.body.textContent ?? "";
     expect(body).not.toMatch(
@@ -260,6 +261,29 @@ describe("P5-S01 Workspace layout", () => {
     );
     expect(screen.queryByLabelText(/modèle/i)).toBeNull();
     expect(screen.queryByLabelText(/reasoning/i)).toBeNull();
+  });
+
+  it("context rail owns independent scroll with a viewport-bounded height (1024 closure)", () => {
+    const css = readFileSync(
+      resolve(
+        __dirname,
+        "../../features/pre-m6-product-ui/ProjectWorkspacePage.module.css",
+      ),
+      "utf8",
+    );
+    // Independent scroll surface.
+    expect(css).toMatch(/\.lpsSheet\s*\{[\s\S]*overflow-y:\s*auto;/);
+    // Conversation/Exécution pin the body so the rail is not silently clipped.
+    expect(css).toMatch(
+      /\.root\[data-active-view="conversation"\][\s\S]*height:\s*100vh;/,
+    );
+    expect(css).toMatch(
+      /\.root\[data-active-view="conversation"\]\s+\.lpsColumn[\s\S]*max-height:\s*100%;/,
+    );
+    // Sticky fallback subtracts project header (not only global header).
+    expect(css).toMatch(
+      /height:\s*calc\(100vh\s*-\s*var\(--ws-global-h\)\s*-\s*var\(--ws-project-h\)\)/,
+    );
   });
 
   it("hides Next.js floating « N » indicator (B1) and keeps Mobile Conversation primary", () => {

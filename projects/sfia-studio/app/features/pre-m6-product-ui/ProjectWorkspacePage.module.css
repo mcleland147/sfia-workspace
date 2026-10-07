@@ -594,6 +594,14 @@
   border-left: 1px solid var(--pm6-border-soft);
 }
 
+.lpsScrollWrap {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
 .lpsSheet {
   flex: 1 1 auto;
   min-height: 0;
@@ -601,9 +609,40 @@
   flex-direction: column;
   gap: 0;
   /* Figma 46:2 — pad owned by context sections (header/fields), not a second wrap. */
-  padding: 0;
+  padding: 0 0 18px;
+  overflow-x: hidden;
   overflow-y: auto;
   overscroll-behavior: contain;
+  /* Overlay OS scrollbars are often invisible — custom indicator mirrors real scroll. */
+  scrollbar-width: none;
+}
+
+.lpsSheet::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+/* Bound to scrollTop/scrollHeight/clientHeight — only rendered when overflow exists. */
+.contextScrollTrack {
+  pointer-events: none;
+  position: absolute;
+  top: 12px;
+  right: 4px;
+  bottom: 12px;
+  z-index: 2;
+  width: 4px;
+  border-radius: 2px;
+  background: rgba(232, 227, 219, 0.5);
+}
+
+.contextScrollThumb {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  border-radius: 2px;
+  background: rgba(148, 140, 130, 0.78);
+  will-change: transform;
 }
 
 /* Close button only exists for the <900 sheet. */
@@ -708,12 +747,52 @@
     align-items: stretch;
   }
 
+  /*
+   * Conversation / Exécution — pin the workspace body to the remaining viewport
+   * so the context rail gets a real height budget. Prior sticky height used
+   * `100vh - global-header` while the column already sat below the project
+   * header, so Synthèse could sit past the fold with no overflow scroll
+   * (silent clip / ambiguous truncation at 1024×768).
+   */
+  .root[data-active-view="conversation"],
+  .root[data-active-view="execution"] {
+    height: 100vh;
+    max-height: 100vh;
+    overflow: hidden;
+  }
+
+  .root[data-active-view="conversation"] .layout,
+  .root[data-active-view="execution"] .layout {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: hidden;
+    align-items: stretch;
+  }
+
+  .root[data-active-view="conversation"] .main,
+  .root[data-active-view="execution"] .main {
+    min-height: 0;
+    height: 100%;
+    overflow: auto;
+  }
+
+  .root[data-active-view="conversation"] .lpsColumn,
+  .root[data-active-view="execution"] .lpsColumn {
+    position: relative;
+    top: auto;
+    align-self: stretch;
+    height: 100%;
+    max-height: 100%;
+    min-height: 0;
+  }
+
+  /* Fallback for any other split layout that still uses sticky. */
   .lpsColumn {
     position: sticky;
     top: var(--ws-global-h);
     align-self: start;
-    height: calc(100vh - var(--ws-global-h));
-    max-height: calc(100vh - var(--ws-global-h));
+    height: calc(100vh - var(--ws-global-h) - var(--ws-project-h));
+    max-height: calc(100vh - var(--ws-global-h) - var(--ws-project-h));
   }
 
   /* Always visible alongside the conversation / exécution. */
@@ -732,8 +811,14 @@
   }
 
   .lpsSheet {
-    padding: 0;
+    /* Keep bottom breathing room for Synthèse; don't reset to 0. */
+    padding-bottom: 18px;
     gap: 0;
+    /*
+     * Compact: always reserve/show the thin scrollbar track so Synthèse
+     * never looks accidentally truncated when content continues below.
+     */
+    overflow-y: scroll;
   }
 
   .projectTitle {
@@ -808,7 +893,7 @@
   }
 
   .lpsSheet {
-    padding: 0;
+    padding-bottom: 18px;
   }
 }
 
