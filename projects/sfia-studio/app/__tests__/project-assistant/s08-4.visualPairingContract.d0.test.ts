@@ -97,7 +97,9 @@ describe("S08-4 visual pairing contract", () => {
         "projects-desktop",
         "projects-empty",
         "syntheses-desktop",
+        "workspace-compact",
         "workspace-desktop",
+        "workspace-mobile",
       ].sort(),
     );
     for (const p of reps) {
