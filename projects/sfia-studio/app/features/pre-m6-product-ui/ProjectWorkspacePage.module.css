@@ -589,6 +589,8 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  /* Keep Quick Actions inside the bounded rail (do not paint past the fold). */
+  overflow: hidden;
   /* Figma 46:2 Project Context #f6f1eb */
   background: var(--pm6-context-fill, #f6f1eb);
   border-left: 1px solid var(--pm6-border-soft);
@@ -600,6 +602,16 @@
   min-height: 0;
   display: flex;
   flex-direction: column;
+}
+
+/*
+ * Figma 46:2 Quick Actions (Journal · Historique · Synthèses) — pinned foot of
+ * the context rail at desktop 1440 and compact 1024. Sibling of the scroll
+ * wrap (not nested inside .lpsSheet). Same component at every ≥768 width.
+ */
+.contextRailFooter {
+  flex: 0 0 auto;
+  margin-top: auto;
 }
 
 .lpsSheet {
@@ -751,8 +763,8 @@
    * Conversation / Exécution — pin the workspace body to the remaining viewport
    * so the context rail gets a real height budget. Prior sticky height used
    * `100vh - global-header` while the column already sat below the project
-   * header, so Synthèse could sit past the fold with no overflow scroll
-   * (silent clip / ambiguous truncation at 1024×768).
+   * header, so both Synthèse and the 46:2 Quick Actions footer could sit past
+   * the fold (shortcuts looked absent at 1440×1024 and 1024×768).
    */
   .root[data-active-view="conversation"],
   .root[data-active-view="execution"] {
@@ -894,6 +906,11 @@
 
   .lpsSheet {
     padding-bottom: 18px;
+  }
+
+  /* Desktop 46:2 — Quick Actions footer stays mounted (no desktop-only hide). */
+  .contextRailFooter {
+    display: block;
   }
 }
 

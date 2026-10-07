@@ -286,6 +286,38 @@ describe("P5-S01 Workspace layout", () => {
     );
   });
 
+  it("keeps Figma 46:2 context-rail footer shortcuts outside the scroll sheet (1440)", () => {
+    const pageSrc = readFileSync(
+      resolve(
+        __dirname,
+        "../../features/pre-m6-product-ui/ProjectWorkspacePage.tsx",
+      ),
+      "utf8",
+    );
+    const css = readFileSync(
+      resolve(
+        __dirname,
+        "../../features/pre-m6-product-ui/ProjectWorkspacePage.module.css",
+      ),
+      "utf8",
+    );
+    // Same ProjectContextShortcuts component — not a desktop-only duplicate.
+    expect(pageSrc).toMatch(/ProjectContextShortcuts/);
+    expect(pageSrc).toMatch(/data-testid="project-context-rail-footer"/);
+    // Footer wrapper is a sibling after the scroll wrap, not nested in lpsSheet.
+    const footerIdx = pageSrc.indexOf('data-testid="project-context-rail-footer"');
+    const scrollClose = pageSrc.lastIndexOf("</div>", footerIdx);
+    expect(footerIdx).toBeGreaterThan(0);
+    expect(scrollClose).toBeGreaterThan(0);
+    expect(footerIdx).toBeGreaterThan(scrollClose);
+    expect(css).toMatch(
+      /\.contextRailFooter\s*\{[\s\S]*flex:\s*0\s+0\s+auto;/,
+    );
+    expect(css).toMatch(
+      /@media\s*\(min-width:\s*1200px\)[\s\S]*\.contextRailFooter\s*\{[\s\S]*display:\s*block;/,
+    );
+  });
+
   it("hides Next.js floating « N » indicator (B1) and keeps Mobile Conversation primary", () => {
     // B1 root cause: Next.js 15 `devIndicators` (default bottom-left black « N »),
     // not Product Nora chrome. P3 Mobile 190:306 has no such floating control.

@@ -1105,11 +1105,21 @@ export function ProjectWorkspacePage({
           ) : null}
           </div>
 
-          <ProjectContextShortcuts
-            onOpenJournal={openJournal}
-            onOpenHistory={openHistory}
-            onOpenSyntheses={() => openSyntheses()}
-          />
+          {/*
+            Figma 46:2 Quick Actions — same ProjectContextShortcuts at every
+            ≥768 width (1440 + 1024). Must stay outside the scroll sheet so the
+            footer remains viewport-visible when the rail is height-bounded.
+          */}
+          <div
+            className={styles.contextRailFooter}
+            data-testid="project-context-rail-footer"
+          >
+            <ProjectContextShortcuts
+              onOpenJournal={openJournal}
+              onOpenHistory={openHistory}
+              onOpenSyntheses={() => openSyntheses()}
+            />
+          </div>
         </aside>
         ) : null}
       </div>
