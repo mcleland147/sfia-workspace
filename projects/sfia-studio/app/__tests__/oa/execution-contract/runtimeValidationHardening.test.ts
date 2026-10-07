@@ -2,15 +2,20 @@
  * T-A4 RUNTIME VALIDATION — adversarial proofs for hardened blockers.
  * @vitest-environment node
  */
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
+import {
+  EXECUTION_CONFIRMATION_EVALUATED_NOT_REQUIRED,
+} from "@/lib/oa/execution-contract";
 import {
   baseBuildRequest,
   buildStack,
   buildValidatedContract,
   grantConfirmation,
   MORRIS_ACTOR,
+  N1_ACTOR,
   registerDelegate,
   registerMorris,
+  registerN1,
   seedAcceptedDecision,
   seedProject,
   seedStandardCycle,
@@ -448,5 +453,301 @@ describe("T-A4 runtime validation — Confirm Option B + failNextSave", () => {
     const cfm = await stack.decisions.confirmations.findById(cfmId);
     // Consume failed — confirmation not consumed.
     expect(cfm?.status).toBe("granted");
+  });
+});
+
+describe("S08-2 CP01 — CheckExecutionAuthorization consumed Confirmation gate", () => {
+  it("T1 — confirmed + confirmationRef consumed → authorization continues", async () => {
+    const stack = buildStack();
+    await seedProject(stack.projects);
+    registerMorris(stack.decisions.authority);
+    await seedAcceptedDecision(stack);
+    await seedStandardCycle(stack);
+    const { contractId, version } = await buildValidatedContract(stack, {
+      cycleInstanceId: "cyc:std-001",
+      executionContractId: "xct:s08-cp01-t1",
+      idempotencyKey: "idem-s08-cp01-t1",
+    });
+    const cfmId = await grantConfirmation(stack, {
+      confirmationId: "cfm:s08-cp01-t1",
+    });
+    const confirmed = await stack.execution.confirmExecutionContract.execute({
+      executionContractId: contractId,
+      confirmationId: cfmId,
+      actor: MORRIS_ACTOR,
+      authorityEvidenceId: "evd:morris-n3",
+      expectedVersion: version,
+    });
+    expect(confirmed.ok).toBe(true);
+    if (!confirmed.ok) return;
+    expect(confirmed.contract.confirmationRef).toBe(cfmId);
+    const cfm = await stack.decisions.confirmations.findById(cfmId);
+    expect(cfm?.status).toBe("consumed");
+
+    const check = await stack.execution.checkExecutionAuthorization.execute({
+      executionContractId: contractId,
+      action: confirmed.contract.action,
+      target: confirmed.contract.target,
+      scope: confirmed.contract.scope,
+      actor: MORRIS_ACTOR,
+      authorityEvidenceId: "evd:morris-n3",
+    });
+    expect(check.ok).toBe(true);
+    if (!check.ok) return;
+    expect(check.authorized).toBe(true);
+  });
+
+  it("T2 — confirmed + Confirmation granted but NOT consumed → DENIED", async () => {
+    const stack = buildStack();
+    await seedProject(stack.projects);
+    registerMorris(stack.decisions.authority);
+    await seedAcceptedDecision(stack);
+    await seedStandardCycle(stack);
+    const { contractId } = await buildValidatedContract(stack, {
+      cycleInstanceId: "cyc:std-001",
+      executionContractId: "xct:s08-cp01-t2",
+      idempotencyKey: "idem-s08-cp01-t2",
+    });
+    const cfmId = await grantConfirmation(stack, {
+      confirmationId: "cfm:s08-cp01-t2",
+    });
+    const current = await stack.execution.contracts.findById(contractId);
+    expect(current).toBeTruthy();
+    if (!current) return;
+    // Direct R-T-A3-2 residual state shape: confirmed EC + unconsumed Confirmation.
+    await stack.execution.contracts.save({
+      ...current,
+      status: "confirmed",
+      confirmationRef: cfmId,
+      immutableAfterConfirm: true,
+      version: current.version + 1,
+    });
+    const cfm = await stack.decisions.confirmations.findById(cfmId);
+    expect(cfm?.status).toBe("granted");
+
+    const check = await stack.execution.checkExecutionAuthorization.execute({
+      executionContractId: contractId,
+      action: current.action,
+      target: current.target,
+      scope: current.scope,
+      actor: MORRIS_ACTOR,
+      authorityEvidenceId: "evd:morris-n3",
+    });
+    expect(check.ok).toBe(false);
+    if (check.ok) return;
+    expect(check.authorized).toBe(false);
+    expect(check.error.detailCode).toBe("CONFIRMATION_REQUIRED");
+    expect(check.error.internalCauseRef).toBe(
+      "confirmation_not_consumed_granted",
+    );
+  });
+
+  it("T3 — confirmed + missing confirmationRef → DENIED", async () => {
+    const stack = buildStack();
+    await seedProject(stack.projects);
+    registerMorris(stack.decisions.authority);
+    await seedAcceptedDecision(stack);
+    await seedStandardCycle(stack);
+    const { contractId } = await buildValidatedContract(stack, {
+      cycleInstanceId: "cyc:std-001",
+      executionContractId: "xct:s08-cp01-t3",
+      idempotencyKey: "idem-s08-cp01-t3",
+    });
+    const current = await stack.execution.contracts.findById(contractId);
+    expect(current).toBeTruthy();
+    if (!current) return;
+    await stack.execution.contracts.save({
+      ...current,
+      status: "confirmed",
+      confirmationRef: undefined,
+      immutableAfterConfirm: true,
+      version: current.version + 1,
+    });
+
+    const check = await stack.execution.checkExecutionAuthorization.execute({
+      executionContractId: contractId,
+      action: current.action,
+      target: current.target,
+      scope: current.scope,
+      actor: MORRIS_ACTOR,
+      authorityEvidenceId: "evd:morris-n3",
+    });
+    expect(check.ok).toBe(false);
+    if (check.ok) return;
+    expect(check.authorized).toBe(false);
+    expect(check.error.detailCode).toBe("CONFIRMATION_REQUIRED");
+    expect(check.error.internalCauseRef).toBe("missing_confirmation_ref");
+  });
+
+  it("T4 — confirmed + confirmationRef not found → DENIED", async () => {
+    const stack = buildStack();
+    await seedProject(stack.projects);
+    registerMorris(stack.decisions.authority);
+    await seedAcceptedDecision(stack);
+    await seedStandardCycle(stack);
+    const { contractId } = await buildValidatedContract(stack, {
+      cycleInstanceId: "cyc:std-001",
+      executionContractId: "xct:s08-cp01-t4",
+      idempotencyKey: "idem-s08-cp01-t4",
+    });
+    const current = await stack.execution.contracts.findById(contractId);
+    expect(current).toBeTruthy();
+    if (!current) return;
+    await stack.execution.contracts.save({
+      ...current,
+      status: "confirmed",
+      confirmationRef: "cfm:does-not-exist",
+      immutableAfterConfirm: true,
+      version: current.version + 1,
+    });
+
+    const check = await stack.execution.checkExecutionAuthorization.execute({
+      executionContractId: contractId,
+      action: current.action,
+      target: current.target,
+      scope: current.scope,
+      actor: MORRIS_ACTOR,
+      authorityEvidenceId: "evd:morris-n3",
+    });
+    expect(check.ok).toBe(false);
+    if (check.ok) return;
+    expect(check.authorized).toBe(false);
+    expect(check.error.detailCode).toBe("CONFIRMATION_NOT_FOUND");
+  });
+
+  it("T5 — validated N1 + NOT_REQUIRED remains authorizable without Confirmation", async () => {
+    const stack = buildStack();
+    await seedProject(stack.projects);
+    registerN1(stack.decisions.authority);
+    stack.decisions.authority.register({
+      evidenceId: "evd:n1-subj-cp01",
+      actorId: "actor:n1",
+      level: "N1",
+      scope: "subj:n1-cp01",
+      issuedAt: "2026-07-01T00:00:00.000Z",
+      source: "registry",
+    });
+    const dec = await stack.decisions.recordHumanDecision.execute({
+      decisionId: "dec:n1-cp01",
+      projectId: "prj:campus360-oa",
+      subject: "subj:n1-cp01",
+      options: [
+        { optionId: "opt:go", label: "Go" },
+        { optionId: "opt:hold", label: "Hold" },
+      ],
+      selectedOptionId: "opt:go",
+      actor: N1_ACTOR,
+      authority: "system_non_structuring",
+      reversible: true,
+      nonStructuring: true,
+      authorityEvidenceId: "evd:n1-subj-cp01",
+    });
+    expect(dec.ok).toBe(true);
+
+    const built = await stack.execution.buildExecutionContract.execute(
+      baseBuildRequest({
+        executionContractId: "xct:s08-cp01-t5",
+        idempotencyKey: "idem-s08-cp01-t5",
+        decisionRefs: ["dec:n1-cp01"],
+        requiredAuthority: "N1",
+        actor: N1_ACTOR,
+        authorityEvidenceId: "evd:n1",
+        constraints: [
+          "docs-only",
+          EXECUTION_CONFIRMATION_EVALUATED_NOT_REQUIRED,
+        ],
+      }),
+    );
+    expect(built.ok).toBe(true);
+    if (!built.ok) return;
+    const validated = await stack.execution.validateExecutionContract.execute({
+      executionContractId: built.contract.executionContractId,
+      actor: N1_ACTOR,
+      authorityEvidenceId: "evd:n1",
+    });
+    expect(validated.ok).toBe(true);
+    if (!validated.ok) return;
+    expect(validated.contract.status).toBe("validated");
+    expect(validated.contract.confirmationRef).toBeUndefined();
+
+    const check = await stack.execution.checkExecutionAuthorization.execute({
+      executionContractId: validated.contract.executionContractId,
+      action: validated.contract.action,
+      target: validated.contract.target,
+      scope: validated.contract.scope,
+      actor: N1_ACTOR,
+      authorityEvidenceId: "evd:n1",
+    });
+    expect(check.ok).toBe(true);
+    if (!check.ok) return;
+    expect(check.authorized).toBe(true);
+  });
+
+  it("R-T-A3-2 compound: consume+cancel fail leaves confirmed/unconsumed → authz DENIED", async () => {
+    const stack = buildStack();
+    await seedProject(stack.projects);
+    registerMorris(stack.decisions.authority);
+    await seedAcceptedDecision(stack);
+    await seedStandardCycle(stack);
+    const { contractId, version } = await buildValidatedContract(stack, {
+      cycleInstanceId: "cyc:std-001",
+      executionContractId: "xct:s08-cp01-compound",
+      idempotencyKey: "idem-s08-cp01-compound",
+    });
+    const cfmId = await grantConfirmation(stack, {
+      confirmationId: "cfm:s08-cp01-compound",
+    });
+
+    // Persist confirmed succeeds; consume fails; cancel compensation also fails.
+    (
+      stack.decisions.store as import("@/lib/oa/decision").MemoryDecisionStore
+    ).failNextSave = "confirmation";
+    vi.spyOn(stack.execution.cancelExecutionContract, "execute").mockResolvedValue({
+      ok: false,
+      error: {
+        detailCode: "PERSISTENCE_FAILURE",
+        message: "forced cancel compensation failure",
+        timestamp: "2026-07-25T06:00:00.000Z",
+        correlationId: "cor:forced-cancel",
+      },
+      durationMs: 0,
+    } as never);
+
+    const result = await stack.execution.confirmExecutionContract.execute({
+      executionContractId: contractId,
+      confirmationId: cfmId,
+      actor: MORRIS_ACTOR,
+      authorityEvidenceId: "evd:morris-n3",
+      expectedVersion: version,
+    });
+    expect(result.ok).toBe(false);
+    if (result.ok) return;
+
+    const got = await stack.execution.getExecutionContract.execute({
+      executionContractId: contractId,
+    });
+    expect(got.ok).toBe(true);
+    if (!got.ok) return;
+    expect(got.contract.status).toBe("confirmed");
+    expect(got.contract.confirmationRef).toBe(cfmId);
+
+    const cfm = await stack.decisions.confirmations.findById(cfmId);
+    expect(cfm?.status).toBe("granted");
+
+    const check = await stack.execution.checkExecutionAuthorization.execute({
+      executionContractId: contractId,
+      action: got.contract.action,
+      target: got.contract.target,
+      scope: got.contract.scope,
+      actor: MORRIS_ACTOR,
+      authorityEvidenceId: "evd:morris-n3",
+    });
+    expect(check.ok).toBe(false);
+    if (check.ok) return;
+    expect(check.authorized).toBe(false);
+    expect(check.error.detailCode).toBe("CONFIRMATION_REQUIRED");
+    expect(check.error.internalCauseRef).toBe(
+      "confirmation_not_consumed_granted",
+    );
   });
 });
