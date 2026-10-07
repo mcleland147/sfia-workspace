@@ -9,6 +9,42 @@
 import type { TrajectoryOptionSetDto } from "@/features/project-assistant/w2/types";
 import styles from "./GovernedDecisionCard.module.css";
 
+const TECHNICAL_OPTION_MARKERS =
+  /prop:|cursor\.docs_write|DecisionBasis|chemin scellé|filename:|effet fichier|opération scellée|sujet proposal/i;
+
+const DEFAULT_DECISION_NORA_PREFACE =
+  "Deux directions sont possibles. La première conserve la conversation comme surface principale ; la seconde rend le contexte plus persistant.";
+
+/** Pilot-facing Nora preface — never surface sealed Proposal technical dumps. */
+export function presentGovernedDecisionNoraPreface(input: {
+  proposalRationale?: string | null;
+  optionRationale?: string | null;
+}): string {
+  for (const candidate of [input.proposalRationale, input.optionRationale]) {
+    const t = candidate?.trim() || "";
+    if (t.length > 0 && !TECHNICAL_OPTION_MARKERS.test(t)) return t;
+  }
+  return DEFAULT_DECISION_NORA_PREFACE;
+}
+
+/** Option one-liner for the Decision card — drop sealed technical intent. */
+export function presentPilotOptionSummary(
+  label: string | null | undefined,
+  intent: string | null | undefined,
+  fallback: string,
+): string {
+  const l = label?.trim() || "";
+  if (l.length > 0 && !TECHNICAL_OPTION_MARKERS.test(l) && l.length <= 80) {
+    // Generic process labels → prefer Figma-aligned Pilot wording.
+    if (!/^poursuivre le sujet/i.test(l)) return l;
+  }
+  const i = intent?.trim() || "";
+  if (i.length > 0 && !TECHNICAL_OPTION_MARKERS.test(i) && i.length <= 120) {
+    return i;
+  }
+  return fallback;
+}
+
 export type GovernedDecisionCardProps = {
   readonly optionSet: TrajectoryOptionSetDto;
   /** Index into non-recommended options currently disclosed (0-based). */
@@ -60,10 +96,18 @@ export function GovernedDecisionCard({
   const title =
     decisionTitle?.trim() || "Choisir la direction de l'espace projet";
 
-  const recommendedSummary =
-    recommended?.label?.trim() ||
-    recommended?.intent?.trim() ||
-    optionSet.recommendation.rationale;
+  const recommendedSummary = presentPilotOptionSummary(
+    recommended?.label,
+    recommended?.intent,
+    "Conversation principale + contexte progressif.",
+  );
+  const alternateSummary = revealed
+    ? presentPilotOptionSummary(
+        revealed.label,
+        revealed.intent,
+        "Contexte plus persistant.",
+      )
+    : "";
 
   return (
     <section
@@ -84,20 +128,11 @@ export function GovernedDecisionCard({
         <div className={styles.optionBlock} data-testid="governed-decision-recommended">
           <p className={styles.optionEyebrow}>Option recommandée</p>
           <p className={styles.optionBody}>{recommendedSummary}</p>
-          {recommended?.intent &&
-          recommended.intent.trim() !== recommendedSummary ? (
-            <p className={styles.optionMeta}>{recommended.intent}</p>
-          ) : null}
         </div>
       ) : (
         <div className={styles.optionBlock} data-testid="governed-decision-alternate">
           <p className={styles.optionEyebrow}>Autre option</p>
-          <p className={styles.optionBody}>
-            {revealed.label?.trim() || revealed.intent?.trim()}
-          </p>
-          {revealed.intent && revealed.label !== revealed.intent ? (
-            <p className={styles.optionMeta}>{revealed.intent}</p>
-          ) : null}
+          <p className={styles.optionBody}>{alternateSummary}</p>
         </div>
       )}
 

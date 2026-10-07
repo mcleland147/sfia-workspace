@@ -28,7 +28,10 @@ import {
   synthesisSummaryExcerpt,
 } from "./synthesisPresentation";
 import { projectNoraActivity } from "./noraActivityProjection";
-import { GovernedDecisionCard } from "./GovernedDecisionCard";
+import {
+  GovernedDecisionCard,
+  presentGovernedDecisionNoraPreface,
+} from "./GovernedDecisionCard";
 import { GovernedConfirmationCard } from "./GovernedConfirmationCard";
 import styles from "./ConversationSurface.module.css";
 
@@ -586,8 +589,11 @@ export function ConversationSurface({
         >
           <p className={styles.noraMomentLabel}>Nora</p>
           <p className={styles.noraMomentBody}>
-            {decisionSubjectContinuity.optionSet.recommendation.rationale ||
-              "Deux directions sont possibles. Choisissez la direction à retenir."}
+            {presentGovernedDecisionNoraPreface({
+              proposalRationale: activeProposal?.rationale,
+              optionRationale:
+                decisionSubjectContinuity.optionSet.recommendation.rationale,
+            })}
           </p>
           <GovernedDecisionCard
             optionSet={decisionSubjectContinuity.optionSet}
@@ -1341,7 +1347,8 @@ export function ConversationSurface({
         </section>
       ) : null}
 
-      {!f3Execute &&
+      {!focusedGovernedMoment &&
+      !f3Execute &&
       (workRecommendations.length > 0 || durableEvidenceOutcome) ? (
         <section
           className={styles.durableStack}
@@ -1745,12 +1752,10 @@ export function ConversationSurface({
         />
       )}
 
+      {!focusedGovernedMoment ? (
       <form
         className={styles.composer}
         data-testid="project-assistant-composer"
-        data-hidden-for-governed={focusedGovernedMoment ? "true" : undefined}
-        hidden={focusedGovernedMoment}
-        aria-hidden={focusedGovernedMoment || undefined}
         onSubmit={(event) => {
           event.preventDefault();
           if (stopAvailable) return;
@@ -1861,6 +1866,7 @@ export function ConversationSurface({
           </div>
         </div>
       </form>
+      ) : null}
 
       <div className={styles.srOnly} data-testid="project-assistant-no-cursor" aria-hidden="true">
         Aucune action Cursor
