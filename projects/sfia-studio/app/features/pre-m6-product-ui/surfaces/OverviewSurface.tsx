@@ -217,56 +217,60 @@ export function OverviewSurface({
         aria-label="État du projet"
         data-testid="project-overview-stats"
       >
-        <div className={styles.stat}>
+        {/* Figma 51:2 — intro cell + vertical rule + metric row (not 5-equal). */}
+        <div className={styles.statIntro}>
           <p className={styles.statLabel}>État du projet</p>
-          <p className={styles.statValue}>{cycle.label}</p>
+          <p className={styles.statIntroValue}>{cycle.label}</p>
           {cycle.statusLabel ? (
             <p className={styles.statSub}>{cycle.statusLabel}</p>
           ) : null}
         </div>
-        <div className={styles.stat}>
-          <p className={styles.statLabel}>Priorité</p>
-          <p className={styles.statValue} data-testid="project-overview-focus">
-            {focusTopic ?? focus}
-          </p>
-          {focusTopic ? <p className={styles.statSub}>{focus}</p> : null}
-        </div>
-        <div className={styles.stat}>
-          <p className={styles.statLabel}>Décisions</p>
-          <p
-            className={styles.statValue}
-            data-tone={decisionAttention ? "warn" : undefined}
-            data-testid="project-overview-decisions"
-          >
-            {decisionAttention ? "1" : "—"}
-          </p>
-          <p className={styles.statSub}>
-            {decisionAttention ? "à examiner" : "aucune en attente"}
-          </p>
-        </div>
-        <div className={styles.stat}>
-          <p className={styles.statLabel}>Réserves</p>
-          <p
-            className={styles.statValue}
-            data-tone={reserveAttention ? "warn" : undefined}
-            data-testid="project-overview-reserves"
-          >
-            {reserveCount}
-          </p>
-          <p className={styles.statSub}>
-            {reserveAttention ? "ouvertes" : "aucune ouverte"}
-          </p>
-        </div>
-        <div className={styles.stat}>
-          <p className={styles.statLabel}>Mise à jour</p>
-          <p
-            className={styles.statValue}
-            data-tone={currentness.tone === "ok" ? "ok" : "warn"}
-            data-testid="project-overview-currentness"
-          >
-            {currentness.label}
-          </p>
-          <p className={styles.statSub}>{currentness.detail}</p>
+        <div className={styles.statRule} aria-hidden />
+        <div className={styles.statMetrics}>
+          <div className={styles.stat}>
+            <p className={styles.statLabel}>Priorité</p>
+            <p className={styles.statValue} data-testid="project-overview-focus">
+              {focusTopic ?? focus}
+            </p>
+            {focusTopic ? <p className={styles.statSub}>{focus}</p> : null}
+          </div>
+          <div className={styles.stat}>
+            <p className={styles.statLabel}>Décisions</p>
+            <p
+              className={styles.statValue}
+              data-tone={decisionAttention ? "warn" : undefined}
+              data-testid="project-overview-decisions"
+            >
+              {decisionAttention ? "1" : "—"}
+            </p>
+            <p className={styles.statSub}>
+              {decisionAttention ? "à examiner" : "aucune en attente"}
+            </p>
+          </div>
+          <div className={styles.stat}>
+            <p className={styles.statLabel}>Réserves</p>
+            <p
+              className={styles.statValue}
+              data-tone={reserveAttention ? "warn" : undefined}
+              data-testid="project-overview-reserves"
+            >
+              {reserveCount}
+            </p>
+            <p className={styles.statSub}>
+              {reserveAttention ? "ouvertes" : "aucune ouverte"}
+            </p>
+          </div>
+          <div className={styles.stat}>
+            <p className={styles.statLabel}>Mise à jour</p>
+            <p
+              className={styles.statValue}
+              data-tone={currentness.tone === "ok" ? "ok" : "warn"}
+              data-testid="project-overview-currentness"
+            >
+              {currentness.label}
+            </p>
+            <p className={styles.statSub}>{currentness.detail}</p>
+          </div>
         </div>
       </section>
 
@@ -303,13 +307,14 @@ export function OverviewSurface({
                     data-state={node.state}
                   >
                     <span className={styles.nodeDot} aria-hidden />
-                    <span className={styles.nodeName}>C{node.ordinal}</span>
-                    <span className={styles.nodeState}>{node.label}</span>
+                    <span className={styles.nodeName}>
+                      C{node.ordinal} · {node.label}
+                    </span>
                   </li>
                 ))}
               </ol>
             )}
-            <p className={styles.empty}>
+            <p className={styles.trackNote}>
               « Proposé » désigne une recommandation / candidature — pas un
               cycle décidé automatiquement.
             </p>
@@ -343,21 +348,32 @@ export function OverviewSurface({
             {attention.length === 0 ? (
               <p className={styles.empty}>Rien ne demande votre attention.</p>
             ) : (
-              <ul className={styles.attentionList}>
-                {attention.map((item) => (
-                  <li
-                    key={item.key}
-                    className={styles.attentionItem}
-                    data-testid={`project-overview-attention-${item.key}`}
-                  >
-                    <span className={styles.attentionHead}>{item.headline}</span>
-                    <span className={styles.attentionDetail}>{item.detail}</span>
-                    <span className={styles.activityMeta}>
-                      {item.key === "decision" ? "Décision" : "Réserve"}
-                    </span>
-                  </li>
-                ))}
-              </ul>
+              <div className={styles.attentionTable}>
+                <div className={styles.attentionHeader} aria-hidden>
+                  <span>Élément</span>
+                  <span>Détail</span>
+                  <span>Type</span>
+                </div>
+                <ul className={styles.attentionList}>
+                  {attention.map((item) => (
+                    <li
+                      key={item.key}
+                      className={styles.attentionItem}
+                      data-testid={`project-overview-attention-${item.key}`}
+                    >
+                      <span className={styles.attentionHead}>
+                        {item.headline}
+                      </span>
+                      <span className={styles.attentionDetail}>
+                        {item.detail}
+                      </span>
+                      <span className={styles.activityMeta}>
+                        {item.key === "decision" ? "Décision" : "Réserve"}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             )}
           </section>
 
@@ -386,9 +402,20 @@ export function OverviewSurface({
               <ul className={styles.activityList}>
                 {activity.map((item) => (
                   <li key={item.id} className={styles.activityItem}>
-                    <span className={styles.activityHead}>{item.headline}</span>
-                    <span className={styles.activityDetail}>{item.detail}</span>
-                    <span className={styles.activityMeta}>{item.kind}</span>
+                    <span className={styles.activityKind}>{item.kind}</span>
+                    <span
+                      className={styles.activityDot}
+                      data-kind={item.kind}
+                      aria-hidden
+                    />
+                    <span className={styles.activityInfo}>
+                      <span className={styles.activityHead}>
+                        {item.headline}
+                      </span>
+                      <span className={styles.activityDetail}>
+                        {item.detail}
+                      </span>
+                    </span>
                   </li>
                 ))}
               </ul>
