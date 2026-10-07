@@ -6,10 +6,10 @@
 | **Macro** | `STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01` |
 | **Milestone** | **P5 — INTEGRATED DELIVERY** (Delivery / Implementation / Evidence source) |
 | **Slice** | **P5-S01**…**P5-S07** (technically integrated / post-merge verified) · **P5-S08** STARTED · Pass **S08-3** |
-| **Pass** | **P5-S08-1→S08-3 CUMULATIVE GIT INTEGRATION** = **AUTHORIZED / IN PROGRESS (DRAFT PR)** · S08-3 ChatGPT RE-REVIEW **PASS** · S08-3 CP01 **BASELINE ATTRIBUTION CORRECTED / PASS** · S08-3 CP02 **REVIEW HANDOFF COMPLETE** · S08-2 ChatGPT RE-REVIEW **PASS** · S08-1 ChatGPT Review **PASS** · Cumulative Review **PASS** · Project merge **NOT AUTHORIZED** |
+| **Pass** | **P5-S08-1→S08-3 POST-MERGE CLOSURE** = **INTEGRATED / POST-MERGE VERIFIED** · PR **#565** **MERGED** · merge `7063fa3c…` · CI **#698** SUCCESS · S08-1/S08-2/S08-3 **INTEGRATED / POST-MERGE VERIFIED** · NCR/PIB **CLOSED FOR P5 EXIT** · Documentary truth-sync Draft PR **THIS CYCLE** · Documentary merge **NOT AUTHORIZED** |
 | **Typologie** | Delivery evidence dans macro **EVOL** — **≠** doctrine · **≠** nouvelle architecture · S08-1 = **DOC / audit** |
 | **Autorité architecture** | **P4** (`04-chat-first-product-simplification-semantic-projection-cognitive-architecture.md`) — **inchangée** |
-| **Base / HEAD Git** | `origin/main` = `5ea5049d7c842a453e804dcc352641e79ac58520` (PR **#564** post-S07 truth-sync MERGED · post-merge CI Studio **#696** / run **`37546421421`** SUCCESS · Required Gate SUCCESS) · S07 feature merge `e4c9d2de…` / CI **#694** preserved |
+| **Base / HEAD Git** | `origin/main` = `7063fa3c64610787396f776c3f6f10a056a0400f` (PR **#565** S08-1→S08-3 MERGED · post-merge CI Studio **#698** / run **`37589112544`** SUCCESS · Required Gate SUCCESS) · prior PR **#564** `5ea5049d…` / CI **#696** preserved |
 | **P5-S01 integration** | PR **#555** **MERGED** · post-merge CI **#678** **SUCCESS** · **INTEGRATED / POST-MERGE VERIFIED** |
 | **P5-S02 integration** | PR **#556** **MERGED** · post-merge CI **#680** **SUCCESS** · Required Gate **SUCCESS** · **INTEGRATED / POST-MERGE VERIFIED** |
 | **P5-S03 integration** | PR **#557** **MERGED** · post-merge CI **#682** **SUCCESS** · Required Gate **SUCCESS** · **INTEGRATED / POST-MERGE VERIFIED** |
@@ -17,14 +17,15 @@
 | **P5-S05 integration** | PR **#560** **MERGED** · post-merge CI Studio **#688** **SUCCESS** · **INTEGRATED / POST-MERGE VERIFIED** · F2 routing alignment **CLOSED ON MAIN** · R3 **PASS AT TESTED SCOPE / INTEGRATED / POST-MERGE VERIFIED** |
 | **P5-S06 integration** | PR **#561** **MERGED** · feature `731fdd72…` · merge `9f586496…` · post-merge CI Studio **#690** / run **`37485457209`** **SUCCESS** · Required Gate **SUCCESS** · **INTEGRATED / POST-MERGE VERIFIED** · post-S06 truth-sync PR **#562** **MERGED** @ `7a664d65…` / CI **#692** |
 | **P5-S07 integration** | PR **#563** **MERGED** · feature `8e02115e…` · merge `e4c9d2de…` · post-merge CI Studio **#694** / run **`37528948916`** **SUCCESS** · Required Gate **SUCCESS** · **INTEGRATED / POST-MERGE VERIFIED** · documentary truth-sync PR **#564** **MERGED** @ `5ea5049…` / CI **#696** **SUCCESS** |
-| **P5-S08-1** | **CHATGPT REVIEW PASS / LOCAL CANDIDATE** (handoff tip `73b90c60…` / blob `bb047ea5…`) |
-| **P5-S08-2** | **CHATGPT RE-REVIEW PASS / LOCAL CANDIDATE** · CP01 CheckExecutionAuthorization fail-closed · handoff tip `ce09c3ff…` / blob `16c6876e…` |
+| **P5-S08-1** | **INTEGRATED / POST-MERGE VERIFIED** (PR #565) |
+| **P5-S08-2** | **INTEGRATED / POST-MERGE VERIFIED** · CP01 CheckExecutionAuthorization fail-closed (PR #565) |
 | **P5-S08-2 CP01 GO** | **AUTHORIZED / CONSUMED** |
-| **P5-S08-3** | **CHATGPT RE-REVIEW PASS** · CP01 **BASELINE ATTRIBUTION CORRECTED / PASS** · CP02 **REVIEW HANDOFF COMPLETE** · NCR **CLOSED FOR P5 EXIT** at representative integrated P5 scope with non-blocking carries · Product code during S08-3 **NONE** |
+| **P5-S08-3** | **INTEGRATED / POST-MERGE VERIFIED** · CP01 **BASELINE ATTRIBUTION CORRECTED / PASS** · CP02 **REVIEW HANDOFF COMPLETE** · NCR **CLOSED FOR P5 EXIT** · Product code during S08-3 **NONE** |
 | **P5-S08-3 GO** | **AUTHORIZED / CONSUMED** |
 | **P5-S08-3 CP01 GO** | **AUTHORIZED / CONSUMED** |
 | **P5-S08-1→S08-3 CUMULATIVE GIT INTEGRATION GO** | **AUTHORIZED / CONSUMED** |
-| **Worktree / branche S08** | `/Users/morris/Projects/sfia-workspace` · `audit/sfia-studio-product-simplification-p5-s08-convergence-exit-readiness` (cumulative S08-1→S08-3 · **NO push**) |
+| **S08 cumulative branch** | `audit/sfia-studio-product-simplification-p5-s08-convergence-exit-readiness` — PR **#565** **MERGED** · cleanup **COMPLETE** · deleted local + remote |
+| **Documentary truth-sync branch** | `docs/sfia-studio-p5-s08-s01-s03-post-merge-truth-sync` — **CURRENT DOCUMENTARY TRUTH-SYNC BRANCH** (PR **#566** Draft · Product runtime unchanged) |
 | **Branche S07** | `delivery/sfia-studio-product-simplification-p5-s07-project-continuity-work-representation-completion` — **PRESERVED** · cleanup **PENDING / NOT EXECUTED BY CURRENT GATE** |
 | **Branche truth-sync S07** | `docs/sfia-studio-p5-s07-post-merge-truth-sync` — **MERGED via PR #564** · remote branch still present · cleanup **PENDING** |
 | **P5 AUTHORIZED BY MORRIS** | **YES** |
@@ -50,7 +51,10 @@
 | **P5-S08-1 GO** | **AUTHORIZED / CONSUMED** · ChatGPT Review **PASS** |
 | **P5-S08-2 GO** | **AUTHORIZED / CONSUMED** · ChatGPT RE-REVIEW **PASS** |
 | **P5-S08-3 GO** | **AUTHORIZED / CONSUMED** |
-| **NO PROJECT GIT INTEGRATION BEFORE END OF S08-3** | **ADOPTED / ENFORCED / PERIOD COMPLETED BY REVIEW** · superseded for integration by **Morris Cumulative Git Integration GO** (merge still **NOT AUTHORIZED**) |
+| **NO PROJECT GIT INTEGRATION BEFORE END OF S08-3** | **ADOPTED / ENFORCED / PERIOD COMPLETED** |
+| **Morris Cumulative Git Integration GO** | **AUTHORIZED / CONSUMED** |
+| **Morris PR #565 READY + MERGE GO** | **AUTHORIZED / CONSUMED** |
+| **PR #565** | **MERGED / POST-MERGE VERIFIED** (main `7063fa3c…` · CI **#698** SUCCESS) |
 | **P5-S06 DELIVERY** | **AUTHORIZED / CONSUMED** → **INTEGRATED** via PR **#561** |
 | **P5-S06 CP01** | **AUTHORIZED / CONSUMED** |
 | **P5-S06 CP02** | **AUTHORIZED / CONSUMED** |
@@ -59,12 +63,12 @@
 | **P5-S06 CP02.3** | **AUTHORIZED / CONSUMED** |
 | **P5-S06 GIT INTEGRATION GATE** | **AUTHORIZED / CONSUMED** |
 | **P5-S06 MERGE GO** | **AUTHORIZED / CONSUMED** |
-| **P5 slicing restant** | **S08** — **STARTED** · S08-1 **CHATGPT REVIEW PASS** · S08-2 **CHATGPT RE-REVIEW PASS** · S08-3 **CHATGPT RE-REVIEW PASS** · S08-4…S08-6 **NOT STARTED** |
+| **P5 slicing restant** | **S08** — S08-1/S08-2/S08-3 **INTEGRATED / POST-MERGE VERIFIED** · S08-4…S08-6 **NOT STARTED** |
 | **R1 / R2 / R3** | **R1 PASS** · **R2 PASS** · **R3 PASS AT TESTED SCOPE / INTEGRATED / POST-MERGE VERIFIED** (S05) |
 | **ZERO REAL** | **YES for S07/S08-1** · S05 R3 REAL historique préservé (bounded OpenAI sous gate S05) · S02 R1/R2 REAL historique préservé |
 | **runtime v3** | **NON ADOPTED** |
-| **Git (S08 cumulative)** | Project commit/push/Draft PR **THIS CYCLE** · Merge **NOT AUTHORIZED** · Review Handoff L3 **AUTHORIZED** · Morris Cumulative Git Integration GO **AUTHORIZED / CONSUMED** |
-| **Next** | **CHATGPT PR READINESS REVIEW** (≠ merge · ≠ S08-4 auto-start · ≠ P5 COMPLETE) |
+| **Git (S08 cumulative)** | PR **#565** **MERGED** · main `7063fa3c…` · CI **#698** SUCCESS · S08 branch cleanup **COMPLETE** · Documentary truth-sync Draft PR **THIS CYCLE** · Documentary merge **NOT AUTHORIZED** |
+| **Next** | ChatGPT/Morris requalification for **S08-4** after documentary truth-sync integrates (≠ S08-4 auto-start · ≠ P5 COMPLETE) |
 | **P5-S05 DELIVERY** | **AUTHORIZED / CONSUMED** → **INTEGRATED** via PR **#560** |
 | **P5-S05 REAL / R3** | **AUTHORIZED / CONSUMED** → **INTEGRATED** |
 | **P5-S05 CP01 / CP02** | **AUTHORIZED / CONSUMED** (historique) |
@@ -72,8 +76,8 @@
 | **Fichier** | `projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md` |
 | **Date** | 2026-10-07 · Europe/Paris |
 
-> **Lecture rapide.** P5-S01…S07 **technically integrated / post-merge verified** on main `5ea5049…`. **S08** S08-1/S08-2/S08-3 **CHATGPT PASS** · NCR/Pilot Burden **CLOSED FOR P5 EXIT** at representative integrated P5 scope with non-blocking carries (corrected attribution: auto-resume / chat-first Work·PT / no-model-UI = **PRE-EXISTING KEEP**). **Morris Cumulative Git Integration GO CONSUMED** — Draft PR this cycle · **Merge NOT AUTHORIZED**. Remaining P5 Exit blockers: GLOBAL P3 VISUAL → **S08-4** · Exit pack → **S08-5**. **≠ P5 COMPLETE**.
-> **Règle de lecture des preuves.** *Implémenté* ≠ *prouvé* ≠ *intégré* ≠ *REAL*. NCR ≠ GLOBAL SIMPLIFICATION FULLY QA-PROVEN · ≠ P6 PASS. Product payload = Confirmation fail-closed authz + durability tests only.
+> **Lecture rapide.** P5-S01…S07 + **S08-1→S08-3** **technically integrated / post-merge verified** on main `7063fa3c…` (PR **#565** · CI **#698** SUCCESS). NCR/Pilot Burden **CLOSED FOR P5 EXIT** at representative integrated P5 scope (auto-resume / chat-first Work·PT / no-model-UI = **PRE-EXISTING KEEP**). Remaining P5 Exit blockers: GLOBAL P3 VISUAL → **S08-4** · Exit pack → **S08-5**. S08-4 **NOT STARTED**. **≠ P5 COMPLETE**.
+> **Règle de lecture des preuves.** *Implémenté* ≠ *prouvé* ≠ *intégré* ≠ *REAL*. NCR ≠ GLOBAL SIMPLIFICATION FULLY QA-PROVEN · ≠ P6 PASS. This documentary truth-sync is docs-only; documentary PR merge requires a distinct Morris GO.
 
 ---
 
@@ -132,12 +136,20 @@ P5-S08-3 CP02 = REVIEW HANDOFF COMPLETE
   Product code during S08-3/CP01/CP02 = NONE
 CUMULATIVE S08-1→S08-3 REVIEW = PASS
 P5-S08-1→S08-3 CUMULATIVE GIT INTEGRATION GO = AUTHORIZED / CONSUMED
-Project Git Integration = AUTHORIZED / THIS CYCLE · NOT MERGED
-P5-S08-4 = NOT STARTED
+Morris PR #565 READY + MERGE GO = AUTHORIZED / CONSUMED
+Morris Post-Merge Closure GO = AUTHORIZED / CONSUMED
+PR #565 = MERGED
+Feature commit = b7e9726dd7cf8429de68e3908ff8990ac2ba6338
+Merge / origin/main = 7063fa3c64610787396f776c3f6f10a056a0400f
+Post-merge CI = Studio #698 / run 37589112544 SUCCESS · Required Gate SUCCESS
+S08-1 = INTEGRATED / POST-MERGE VERIFIED
+S08-2 = INTEGRATED / POST-MERGE VERIFIED
+S08-3 = INTEGRATED / POST-MERGE VERIFIED
+S08 branch cleanup = COMPLETE
+P5-S08-4 = NEXT RECOMMENDED / NOT AUTHORIZED / NOT STARTED
 P5-S08-5 = NOT STARTED
 P5-S08-6 = NOT STARTED
 NO PROJECT GIT INTEGRATION BEFORE END OF S08-3 = ADOPTED / ENFORCED / PERIOD COMPLETED BY REVIEW
-  (Git Integration now authorized by distinct Morris GO — merge still NOT AUTHORIZED)
 
 UAT-RECOVERY-03 = A. CLOSED / PROVEN
 R-T-A3-2 authority risk = CLOSED / FAIL-CLOSED
@@ -160,12 +172,13 @@ P5 COMPLETE = NO
 P6 READY = NO
 runtime v3 = NON ADOPTED
 
-NEXT = CHATGPT PR READINESS REVIEW
-Project Git Integration = AUTHORIZED / THIS CYCLE · NOT MERGED
+NEXT = ChatGPT/Morris requalification for S08-4 after this documentary truth-sync integrates
+Project Git Integration S08 = MERGED / POST-MERGE VERIFIED (PR #565)
 GLOBAL P3 VISUAL PARITY = OPEN / BLOCKING P5 EXIT → S08-4
 Integrated Exit Readiness Pack = OPEN → S08-5
 NCR / Pilot Burden = CLOSED FOR P5 EXIT (representative integrated P5 scope)
 documentary truth-sync S07 = MERGED / POST-MERGE VERIFIED (PR #564)
+documentary truth-sync S08 = THIS CYCLE (Draft PR · merge NOT AUTHORIZED)
 ```
 ### 1.2 Hiérarchie d’autorité
 
@@ -1318,9 +1331,9 @@ S08 role remains **Integrated Convergence & P5 Exit Readiness**. Morris-adopted 
 
 | Step | Scope | Status |
 | --- | --- | --- |
-| **S08-1** | Integrated P5 Convergence Audit — Functional · Experience · Semantic/Projection · Cognitive · Simplification · Proof | **CHATGPT REVIEW PASS / LOCAL CANDIDATE** |
-| **S08-2** | Debt & Exit Closure — CLOSED / NON-BLOCKING CARRY with next owner / BLOCKING P5 EXIT (incl. UAT-RECOVERY-03 audit · anti-parallelism) | **CHATGPT RE-REVIEW PASS / LOCAL CANDIDATE** (CP01 fail-closed) |
-| **S08-3** | Simplification / NCR / Pilot Burden Exit Proof — qualitative; no metrics factory | **CHATGPT RE-REVIEW PASS** · CP01 **BASELINE ATTRIBUTION CORRECTED / PASS** · CP02 **REVIEW HANDOFF COMPLETE** · NCR **CLOSED FOR P5 EXIT** (representative scope) |
+| **S08-1** | Integrated P5 Convergence Audit — Functional · Experience · Semantic/Projection · Cognitive · Simplification · Proof | **INTEGRATED / POST-MERGE VERIFIED** (PR #565) |
+| **S08-2** | Debt & Exit Closure — CLOSED / NON-BLOCKING CARRY with next owner / BLOCKING P5 EXIT (incl. UAT-RECOVERY-03 audit · anti-parallelism) | **INTEGRATED / POST-MERGE VERIFIED** (PR #565 · CP01 fail-closed) |
+| **S08-3** | Simplification / NCR / Pilot Burden Exit Proof — qualitative; no metrics factory | **INTEGRATED / POST-MERGE VERIFIED** · CP01 **BASELINE ATTRIBUTION CORRECTED / PASS** · CP02 **REVIEW HANDOFF COMPLETE** · NCR **CLOSED FOR P5 EXIT** (representative scope) |
 | **S08-4** | **Global P3 Visual Parity Campaign** — A Baseline & Contract · B Presentation Primitives Convergence · C Canonical Surface Visual Parity · D Global Visual Exit Proof | **NOT STARTED** |
 | **S08-5** | Integrated P5 Exit Readiness Pack | **NOT STARTED** |
 | **S08-6** | Morris P5 COMPLETE Gate (only Morris decides) | **NOT STARTED** |
@@ -1536,7 +1549,7 @@ Was After ChatGPT RE-REVIEW PASS → **MORRIS P5-S08-3 … GO** — **CONSUMED**
 | S08-3 CP02 | **REVIEW HANDOFF COMPLETE** |
 | Cumulative S08-1→S08-3 Review | **PASS** |
 | Morris Cumulative Git Integration GO | **AUTHORIZED / CONSUMED** |
-| Project merge | **NOT AUTHORIZED / NOT EXECUTED** |
+| Project merge *(at §53 authorship)* | **NOT AUTHORIZED / NOT EXECUTED** — **HISTORICAL / SUPERSEDED** by PR **#565** MERGED (see §54) |
 
 > Primary factual correction: **AUTOMATIC PROJECT RESUME** already existed at PRE-P5 `04527bede…` (`ProjectWorkspacePage` comment + `automaticProjectResume.ui.test.tsx` AR-01…08). It is **PRE-EXISTING KEEP**, not a P5 ACCIDENTAL reduction.
 
@@ -1630,7 +1643,7 @@ Was After ChatGPT RE-REVIEW PASS → **MORRIS P5-S08-3 … GO** — **CONSUMED**
 
 ### 53.9 Remaining carries / P5 Exit blockers
 
-**Carries:** R-T-A3-2 cross-store · REAL cancellation · Ops1 OPENAI_* · STREAMING/SOURCE_LOOKUP → S08-4 · tokens → S08-4B · Nora real-usage · T3/P6 · S07 branch cleanup · residual H-01 context sheet.
+**Carries:** R-T-A3-2 cross-store · REAL cancellation · Ops1 OPENAI_* · STREAMING/SOURCE_LOOKUP → S08-4 · tokens → S08-4B · Nora real-usage · T3/P6 · S07 historical branch cleanup *(unchanged; not closed by S08 cleanup)* · residual H-01 context sheet. S08 audit branch cleanup = **COMPLETE** (see §54).
 
 **P5 Exit blockers (CURRENT):** (1) GLOBAL P3 VISUAL PARITY → **S08-4** · (2) Integrated six-dimension exit readiness pack → **S08-5**. NCR/Pilot Burden is **CLOSED FOR P5 EXIT** (not a CURRENT blocker).
 
@@ -1644,4 +1657,42 @@ Representative **212 PASS** · typecheck/lint/build **PASS** · npm test **5373 
 
 ---
 
-*Fin du document P5 — Integrated Delivery — S01…S07 TECHNICALLY INTEGRATED / POST-MERGE VERIFIED · S08-1/S08-2/S08-3 CHATGPT PASS · NCR/Pilot Burden CLOSED FOR P5 EXIT (representative scope · corrected attribution) · Cumulative Git Integration AUTHORIZED / THIS CYCLE · Merge NOT AUTHORIZED · GLOBAL P3 VISUAL OPEN → S08-4 · Exit pack → S08-5 · P5 COMPLETE NO · runtime v3 NON ADOPTED — P4 remains architecture authority.*
+## 54. P5-S08-1→S08-3 Merge + Post-Merge Verification
+
+> **Nature.** Post-merge closure + documentary truth-sync. Product runtime **unchanged** after PR #565. This section supersedes pre-merge « merge NOT AUTHORIZED » wording for CURRENT trajectory truth.
+
+| Item | Valeur |
+| --- | --- |
+| Morris Cumulative Git Integration GO | **AUTHORIZED / CONSUMED** |
+| Morris PR #565 READY + MERGE GO | **AUTHORIZED / CONSUMED** |
+| Morris Post-Merge Closure GO | **AUTHORIZED / CONSUMED** |
+| PR #565 | **MERGED** (`2026-10-07T07:43:36Z`) |
+| Feature commit | `b7e9726dd7cf8429de68e3908ff8990ac2ba6338` |
+| Merge commit / origin/main | `7063fa3c64610787396f776c3f6f10a056a0400f` |
+| Merge topology | Normal merge commit · parents `5ea5049d…` + `b7e9726d…` |
+| Feature ancestor of main | **YES** |
+| Integrated files | Exact five reviewed files (authz + 2 tests + Roadmap + P5) |
+| Post-merge CI | Studio **#698** / run **`37589112544`** · event `push` · head `7063fa3c…` · **SUCCESS** |
+| Detect / Build / Required Gate | **SUCCESS** |
+| S08-1 | **INTEGRATED / POST-MERGE VERIFIED** |
+| S08-2 | **INTEGRATED / POST-MERGE VERIFIED** |
+| S08-3 | **INTEGRATED / POST-MERGE VERIFIED** |
+| NCR / Pilot Burden | **CLOSED FOR P5 EXIT** at representative integrated P5 scope with non-blocking carries |
+| Automatic Resume / chat-first Work·PT / no-model-UI | **PRE-EXISTING KEEP** (attribution not regressed) |
+| R-T-A3-2 authority risk | **CLOSED / FAIL-CLOSED** |
+| R-T-A3-2 cross-store residue | **NON-BLOCKING CARRY** |
+| REAL added by S08 | **NONE** |
+| Architecture parallelism | **NONE** |
+| S08 branch cleanup | **COMPLETE** — `audit/sfia-studio-product-simplification-p5-s08-convergence-exit-readiness` deleted local + remote |
+| Remaining P5 Exit blockers | (1) GLOBAL P3 VISUAL PARITY → **S08-4** · (2) Integrated six-dimension Exit Readiness Pack → **S08-5** |
+| S08-4 | **NEXT RECOMMENDED CAPABILITY / NOT AUTHORIZED / NOT STARTED** |
+| S08-5 / S08-6 | **NOT STARTED** |
+| P5 COMPLETE | **NO** |
+| P6 READY | **NO** |
+| runtime v3 | **NON ADOPTED** |
+| Documentary truth-sync | This pass — Draft PR · merge **NOT AUTHORIZED** |
+| Next | ChatGPT review of documentary truth-sync PR → distinct Morris merge GO if READY → then ChatGPT/Morris requalification for S08-4 |
+
+---
+
+*Fin du document P5 — Integrated Delivery — S01…S07 + S08-1→S08-3 TECHNICALLY INTEGRATED / POST-MERGE VERIFIED (PR #565 · main `7063fa3c…` · CI #698 SUCCESS) · NCR/Pilot Burden CLOSED FOR P5 EXIT (representative scope · corrected attribution) · Remaining blockers GLOBAL P3 VISUAL → S08-4 · Exit pack → S08-5 · S08-4 NOT STARTED · P5 COMPLETE NO · P6 READY NO · runtime v3 NON ADOPTED — P4 remains architecture authority.*
