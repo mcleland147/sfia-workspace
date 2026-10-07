@@ -5,12 +5,13 @@
  * 190:44 / 190:306. Values converge on the P3 extraction (warm paper canvas,
  * ink primary, Nora vermilion accent) — same `--pm6-` family, no second set.
  * Prefixed `--pm6-` so this layer never collides with the legacy `--sfia-` set.
- * Typography: the app already loads Inter via next/font (`--font-inter`); no
- * additional font is introduced (Geist is not available in this repo).
+ * Typography: live P3 Figma uses Geist; runtime uses Inter already loaded via
+ * next/font (`--font-inter`). Adding Geist would require a new package — not
+ * introduced here. Controllable residual; not raster noise.
  */
 
 :root {
-  --pm6-font: Inter, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --pm6-font: var(--font-inter), Inter, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 
   --pm6-canvas: #fffdf9;
   --pm6-canvas-raised: #fbf7f2;
@@ -96,6 +97,11 @@
 
   /* P3 Synthèses 164:3 — body 1224 split list 360 | detail 864. */
   --pm6-syntheses-list-w: 360px;
+  /* P3 Synthèses compact 190:175 — body 864 split list 300 | detail 564. */
+  --pm6-syntheses-list-w-compact: 300px;
+  /* Selected summary row (164:3 Summary Item selected). */
+  --pm6-syntheses-selected-bg: #fff4ef;
+  --pm6-syntheses-selected-border: #f1d5c9;
   /* P3 Historique 78:2 — body 1224 split master ~790 | detail ~434. */
   --pm6-history-detail-w: 434px;
   /* P3 Journal 94:2 — body 1226 split subjects index ~440 | detail ~785. */

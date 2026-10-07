@@ -294,14 +294,26 @@ function seedCompanionJournal(input: {
   session.ensurePilotTranscriptAndJournalSchema();
   const t1 = appendPilotTranscriptTurn(session, {
     role: "user",
-    content: "Où en sommes-nous sur la complétion Nora ?",
+    content:
+      "Je veux que l’expérience reste centrée sur la conversation, avec des surfaces structurées seulement quand elles ajoutent de la valeur.",
     logicalTurnId: "ltu:s084-nora-1",
   });
   appendPilotTranscriptTurn(session, {
     role: "assistant",
     content:
-      "Le cycle actif couvre la continuité conversationnelle et les réservations ouvertes.",
+      "Je proposerais d’adopter l’architecture conversation-first pour l’espace projet, puis de décider explicitement avant toute préparation d’action.",
     logicalTurnId: "ltu:s084-nora-1",
+  });
+  appendPilotTranscriptTurn(session, {
+    role: "user",
+    content: "Où en sommes-nous sur la complétion Nora ?",
+    logicalTurnId: "ltu:s084-nora-2",
+  });
+  appendPilotTranscriptTurn(session, {
+    role: "assistant",
+    content:
+      "Le cycle actif couvre la continuité conversationnelle et les réservations ouvertes. Une recommandation et une synthèse Product sont disponibles pour relecture.",
+    logicalTurnId: "ltu:s084-nora-2",
   });
   const created = materializeCycleJournalDelta({
     session,

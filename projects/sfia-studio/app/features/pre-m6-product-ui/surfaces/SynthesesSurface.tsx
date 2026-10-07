@@ -10,7 +10,6 @@ import {
 import type { ProductSynthesisProjection } from "@/lib/oa/synthesis";
 import {
   formatSynthesisGeneratedAt,
-  presentSynthesisStatus,
   presentSynthesisVerdictLabel,
   SYNTHESIS_SECTION_SPECS,
 } from "./synthesisPresentation";
@@ -256,17 +255,27 @@ export function SynthesesSurface({
                       }
                     }}
                   >
-                    <span className={styles.itemTitle}>{item.title}</span>
-                    <span className={styles.itemMetaRow}>
+                    <span className={styles.itemTop}>
+                      <span className={styles.itemTitle}>{item.title}</span>
                       <span
                         className={styles.itemVerdict}
                         data-tone={verdictTone(item.verdictLabel)}
                       >
                         {presentSynthesisVerdictLabel(item.verdictLabel)}
                       </span>
-                      <span className={styles.itemMeta}>
-                        {formatSynthesisGeneratedAt(item.generatedAt)}
+                    </span>
+                    <span className={styles.itemMeta}>
+                      <span
+                        className={styles.itemMetaVerdict}
+                        data-tone={verdictTone(item.verdictLabel)}
+                      >
+                        {presentSynthesisVerdictLabel(item.verdictLabel)}
                       </span>
+                      <span className={styles.itemMetaSep} aria-hidden="true">
+                        {" "}
+                        ·{" "}
+                      </span>
+                      {formatSynthesisGeneratedAt(item.generatedAt)}
                     </span>
                   </button>
                 </li>
@@ -299,17 +308,14 @@ export function SynthesesSurface({
             {detail ? (
               <div className={styles.detailInner}>
                 <header className={styles.detailHead}>
-                  <div className={styles.detailChips}>
+                  <div className={styles.detailMeta}>
                     <span
                       className={styles.chip}
                       data-tone={verdictTone(detail.verdictLabel)}
                     >
                       {presentSynthesisVerdictLabel(detail.verdictLabel)}
                     </span>
-                    <span className={styles.chip}>
-                      {presentSynthesisStatus(detail.status)}
-                    </span>
-                    <span className={styles.chip}>
+                    <span className={styles.detailTime}>
                       {formatSynthesisGeneratedAt(detail.generatedAt)}
                     </span>
                   </div>

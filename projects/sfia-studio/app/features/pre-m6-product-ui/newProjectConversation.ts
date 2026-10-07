@@ -14,6 +14,13 @@ export type ChatTurn = {
   id: string;
   role: "user" | "nora";
   text: string;
+  /** Presentation meta for Nora turns — not Product state. */
+  meta?: "opening" | "name_ask" | "understood";
+  clarification?: {
+    title: string;
+    question: string;
+    suggestions: string[];
+  };
 };
 
 /** Ephemeral UI collection phase — not a Product state machine. */
@@ -27,6 +34,21 @@ export type CollectField = "name" | "intention";
 const INTENTION_MAX = 4000;
 const NAME_MAX = 200;
 const CONTEXT_MAX = 4000;
+
+/** Opening direction chips — fill composer only; never auto-absorb. */
+export const INTENTION_STARTERS: string[] = [
+  "Améliorer l’expérience utilisateur",
+  "Lancer un nouveau produit",
+  "Réorganiser un processus",
+  "Autre chose",
+];
+
+/** Clarification chips shown once intention + name are collected. */
+export const CLARIFICATION_SUGGESTIONS: string[] = [
+  "Plus simple à comprendre",
+  "Moins d’interactions inutiles",
+  "Pilotage plus clair",
+];
 
 export function emptyDraft(): PreProjectDraft {
   return { name: "", intention: "", context: "" };
@@ -90,22 +112,22 @@ export function reopenField(
 export function nextNoraPrompt(phase: CollectPhase): string {
   switch (phase) {
     case "INTENTION_REQUIRED":
-      return "Quel est l’objectif ou l’intention principale de ce projet ? Aucun projet durable n’est créé pour l’instant.";
+      return "Qu’est-ce que tu veux accomplir avec ce nouveau projet ? Tu peux me l’expliquer comme tu le ferais à quelqu’un de ton équipe.";
     case "NAME_REQUIRED":
       return "Quel nom voulez-vous donner à ce projet ?";
     case "OPTIONAL_CONTEXT":
-      return "Voici les informations que vous avez fournies. Vérifiez l’aperçu, puis créez le projet — ou ajoutez du contexte.";
+      return "Je partirais sur un projet centré sur cette intention, avec comme objectif de rendre le travail plus lisible sans perdre l’approche centrée sur la conversation.";
   }
 }
 
 export function composerPlaceholder(phase: CollectPhase): string {
   switch (phase) {
     case "INTENTION_REQUIRED":
-      return "Décrivez l’intention…";
+      return "Répondre à Nora…";
     case "NAME_REQUIRED":
       return "Indiquez le nom du projet…";
     case "OPTIONAL_CONTEXT":
-      return "Ajouter du contexte (optionnel)…";
+      return "Répondre à Nora…";
   }
 }
 
@@ -114,5 +136,80 @@ export function openingNoraTurn(): ChatTurn {
     id: "nora-open",
     role: "nora",
     text: nextNoraPrompt("INTENTION_REQUIRED"),
+    meta: "opening",
   };
+}
+
+/** Build the Nora turn that follows a user answer for the given asked phase. */
+export function noraTurnAfter(
+  asked: CollectPhase,
+  nextDraft: PreProjectDraft,
+): ChatTurn {
+  const phase = collectPhaseOf(nextDraft);
+  if (asked === "INTENTION_REQUIRED" && phase === "NAME_REQUIRED") {
+    return {
+      id: `nora-${Date.now()}`,
+      role: "nora",
+      text: nextNoraPrompt("NAME_REQUIRED"),
+      meta: "name_ask",
+    };
+  }
+  if (phase === "OPTIONAL_CONTEXT") {
+    return {
+      id: `nora-${Date.now()}`,
+      role: "nora",
+      text: understandingSummary(nextDraft),
+      meta: "understood",
+      clarification: {
+        title: "UNE PRÉCISION UTILE",
+        question:
+          "Quel résultat concret te fera dire que ce projet est réussi ?",
+        suggestions: CLARIFICATION_SUGGESTIONS,
+      },
+    };
+  }
+  return {
+    id: `nora-${Date.now()}`,
+    role: "nora",
+    text: nextNoraPrompt(phase),
+  };
+}
+
+/**
+ * Honest presentation of the captured intention — not NLP slot inventing.
+ * Shortens the pilot’s own text for the preview “objectif” line.
+ */
+export function objectiveFromDraft(draft: PreProjectDraft): string {
+  const intention = draft.intention.trim();
+  if (!intention) return "";
+  const first = intention.split(/[.!?\n]/)[0]?.trim() ?? intention;
+  return first.length > 120 ? `${first.slice(0, 117)}…` : first;
+}
+
+/**
+ * Split the pilot’s intention into short remembered points for the preview.
+ * Uses only the user’s words — no invented themes.
+ */
+export function understoodPointsFromDraft(draft: PreProjectDraft): string[] {
+  const intention = draft.intention.trim();
+  if (!intention) return [];
+  const parts = intention
+    .split(/[,;\n]| et | pour | avec | sans /i)
+    .map((p) => p.trim())
+    .filter((p) => p.length >= 8)
+    .map((p) => (p.length > 56 ? `${p.slice(0, 53)}…` : p));
+  const unique = [...new Set(parts)];
+  return unique.slice(0, 4);
+}
+
+export function understandingSummary(draft: PreProjectDraft): string {
+  const objective = objectiveFromDraft(draft);
+  if (!objective) return nextNoraPrompt("OPTIONAL_CONTEXT");
+  return `Je partirais sur un projet centré sur « ${objective} », avec comme objectif principal de rendre l’état du projet plus lisible sans perdre l’approche centrée sur la conversation.`;
+}
+
+export function startingPointFromDraft(draft: PreProjectDraft): string {
+  if (draft.context.trim()) return draft.context.trim().slice(0, 120);
+  if (draft.intention.trim()) return "À partir de la conversation en cours";
+  return "";
 }

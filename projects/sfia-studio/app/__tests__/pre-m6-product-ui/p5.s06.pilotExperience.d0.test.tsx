@@ -186,8 +186,9 @@ describe("P5-S06 CP01 NewProjectIntentionPage", () => {
     render(<NewProjectIntentionPage />);
     expect(screen.getByTestId("create-project-submit")).toBeDisabled();
     expect(screen.getByTestId("new-project-thread")).toHaveTextContent(
-      /intention principale/i,
+      /accomplir|intention/i,
     );
+    expect(screen.getByTestId("new-project-starters")).toBeInTheDocument();
 
     await user.type(
       screen.getByTestId("new-project-input"),
@@ -206,6 +207,8 @@ describe("P5-S06 CP01 NewProjectIntentionPage", () => {
     expect(createProjectRuntimeActionMock).not.toHaveBeenCalled();
     expect(screen.getByTestId("preview-name")).toHaveTextContent("Contrats Q3");
     expect(screen.getByTestId("create-project-submit")).toBeEnabled();
+    expect(screen.getByTestId("new-project-clarification")).toBeInTheDocument();
+    expect(screen.getByTestId("new-project-understood")).toBeInTheDocument();
   });
 
   it("does not treat a follow-up precision as name before NAME_REQUIRED", async () => {

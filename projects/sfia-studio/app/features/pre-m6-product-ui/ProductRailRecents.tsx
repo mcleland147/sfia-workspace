@@ -13,7 +13,8 @@ type RecentsState =
   | { status: "unavailable" }
   | { status: "ready"; projects: readonly ProjectRow[] };
 
-const MAX_RECENTS = 5;
+/** P3 rail (46:2 / 67:39) shows three recent entries. */
+const MAX_RECENTS = 3;
 
 /**
  * « PROJETS RÉCENTS » — real projects only, newest activity first.
