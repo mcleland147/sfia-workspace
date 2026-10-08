@@ -6,16 +6,17 @@
 | **Macro** | `STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01` |
 | **Milestone** | **P6 — GLOBAL INTEGRATED PRODUCT QA** |
 | **Cycle** | **8 — Audit projet** |
-| **Pass** | **P6 QA CONTRACT — CORRECTION PASS 02** |
+| **Pass** | **P6 QA CONTRACT ACCEPTANCE & GIT INTEGRATION** |
 | **Profile** | **CRITICAL** |
-| **Typologie** | **DOC / AUDIT / QA CONTRACT / CAMPAIGN DESIGN** |
-| **Morris CP02 GO** | **AUTHORIZED / CONSUMED** |
-| **ChatGPT Autonomous Review** | **STRUCTURALLY SOUND / TARGETED CORRECTIONS REQUIRED → THIS PASS** |
-| **Statut** | **CORRECTED LOCAL CANDIDATE / CHATGPT CLOSURE REVIEW REQUIRED** |
-| **P6-QA-CONTRACT-01** | **CLOSED** |
-| **P6-QA-CONTRACT-02…12** | **CLOSED CANDIDATE / READY FOR CHATGPT CLOSURE REVIEW** |
+| **Typologie** | **DOC / GOVERNANCE / PR READINESS / GIT INTEGRATION** |
+| **Morris CP02 GO** | **AUTHORIZED / CONSUMED** (prior) |
+| **ChatGPT Closure Review** | **PASS / CONSUMED** |
+| **Morris P6 QA Contract Acceptance** | **AUTHORIZED / CONSUMED** |
+| **Morris P6 QA Contract Git Integration GO** | **AUTHORIZED / CONSUMED** |
+| **Statut** | **MORRIS ACCEPTED / GIT INTEGRATION IN PROGRESS** |
+| **P6-QA-CONTRACT-01…12** | **CLOSED** |
 | **P6 campaign strategy** | **REAL-FIRST HYBRID GLOBAL INTEGRATED PRODUCT QA** |
-| **Phase 0** | **CONTRACT CORRECTION COMPLETE CANDIDATE** |
+| **Phase 0** | **CONTRACT ACCEPTED / READY FOR GIT INTEGRATION** |
 | **Phase 1** | **NOT STARTED** |
 | **GO P6 EXECUTION** | **NOT AUTHORIZED** |
 | **GO P6 REAL — BOUNDED CAMPAIGN** | **NOT AUTHORIZED** |
@@ -31,7 +32,7 @@
 | **Fichier canonique** | `projects/sfia-studio/product-simplification/07-chat-first-product-simplification-p6-global-integrated-product-qa.md` |
 | **Date** | 2026-10-08 · Europe/Paris |
 
-> **Lecture rapide.** Correction Pass 02 closes autonomous-review findings **P6-QA-CONTRACT-02…12** into this Phase 0 contract freeze. Strategy remains **REAL-FIRST HYBRID**. **GO P6 EXECUTION** and **GO P6 REAL — BOUNDED CAMPAIGN** are distinct and both **NOT AUTHORIZED**. **≠ P6 READY** · **≠ P6 STARTED** · **≠ P6 PASS** · **≠ REAL execution** · **≠ runtime v3 ADOPTED**. Next = ChatGPT Closure Review.
+> **Lecture rapide.** ChatGPT Closure Review = **PASS**. Morris P6 QA Contract Acceptance = **AUTHORIZED / CONSUMED**. Git Integration GO = **AUTHORIZED / CONSUMED**. P6-QA-CONTRACT-01…12 = **CLOSED**. Strategy = **REAL-FIRST HYBRID**. **GO P6 EXECUTION** / **GO P6 REAL — BOUNDED CAMPAIGN** = **NOT AUTHORIZED**. **≠ P6 READY** · **≠ P6 STARTED** · **≠ P6 PASS** · **≠ REAL execution** · **≠ runtime v3 ADOPTED**. Next = Draft PR / CI / Morris Merge Review.
 
 ---
 
@@ -63,7 +64,7 @@ A single future Morris message **MAY** consume both gates. They remain **semanti
 
 **This document is not:** P6 execution · Product mutation · provider REAL · P6 READY YES · routing adoption · runtime v3 adoption.
 
-**Maturity:** LOCAL CANDIDATE until ChatGPT Closure Review + Morris acceptance + future Git Integration.
+**Maturity:** MORRIS ACCEPTED · Git Integration IN PROGRESS this cycle · **≠** P6 READY · **≠** P6 STARTED · **≠** GO P6 EXECUTION.
 
 ---
 
@@ -71,10 +72,12 @@ A single future Morris message **MAY** consume both gates. They remain **semanti
 
 | Item | Verdict |
 | --- | --- |
-| **P6-QA-CONTRACT-01** | **CLOSED** |
-| **P6-QA-CONTRACT-02…12** | **CLOSED CANDIDATE** (see §AW closure matrix) |
-| **P6 QA CONTRACT** | **CORRECTED LOCAL CANDIDATE / CHATGPT CLOSURE REVIEW REQUIRED** |
-| **Phase 0** | **CONTRACT CORRECTION COMPLETE CANDIDATE** |
+| **P6-QA-CONTRACT-01…12** | **CLOSED** (see §AW) |
+| **P6 QA CONTRACT** | **MORRIS ACCEPTED / GIT INTEGRATION IN PROGRESS** |
+| **ChatGPT Closure Review** | **PASS / CONSUMED** |
+| **Morris Acceptance** | **AUTHORIZED / CONSUMED** |
+| **Git Integration GO** | **AUTHORIZED / CONSUMED** |
+| **Phase 0** | **CONTRACT ACCEPTED / READY FOR GIT INTEGRATION** |
 | **Phase 1…6** | **NOT STARTED** |
 | **P6 campaign strategy** | **REAL-FIRST HYBRID** |
 | **GO P6 EXECUTION** | **NOT AUTHORIZED** |
@@ -82,7 +85,7 @@ A single future Morris message **MAY** consume both gates. They remain **semanti
 | **P6 READY** | **NO** |
 | **P6 STARTED** | **NO** |
 | **Architecture parallelism** | **NONE** |
-| **Next gate** | **CHATGPT CLOSURE REVIEW** |
+| **Next gate** | **MORRIS MERGE REVIEW / MERGE GO** |
 
 ---
 
@@ -260,10 +263,10 @@ Outputs: authority map · proof taxonomy · Phase 1 gate · manifests **contract
 
 | Field | Value |
 | --- | --- |
-| Contract correction candidate | **YES** |
-| ChatGPT Closure Review | **REQUIRED** |
-| Morris acceptance | **PENDING** |
-| Git Integration | **NOT AUTHORIZED THIS PASS** |
+| Contract correction candidate | **YES — COMPLETE** |
+| ChatGPT Closure Review | **PASS / CONSUMED** |
+| Morris acceptance | **AUTHORIZED / CONSUMED** |
+| Git Integration | **AUTHORIZED / IN PROGRESS THIS CYCLE** |
 | GO P6 EXECUTION | **NOT AUTHORIZED** |
 | GO P6 REAL — BOUNDED CAMPAIGN | **NOT AUTHORIZED** |
 
@@ -783,15 +786,17 @@ Use §AQ severity — do not over-stop unrelated tracks for localized defects.
 | # | Decision | Status |
 | --- | --- | --- |
 | 1 | Morris CP02 consolidated closure GO | **CONSUMED** |
-| 2 | ChatGPT Closure Review of this corrected contract | **NEXT** |
-| 3 | Morris acceptance of corrected P6 QA contract | **PENDING** |
-| 4 | Project Git Integration of DOC07 | **NOT AUTHORIZED THIS PASS** |
-| 5 | **GO P6 EXECUTION** (G-SIMP-P6) | **NOT AUTHORIZED** |
-| 6 | **GO P6 REAL — BOUNDED CAMPAIGN** (G-SIMP-09 bounded) | **NOT AUTHORIZED** |
-| 7 | Production routing promotion (G-SIMP-12) | **P8** after P6(+P7) |
-| 8 | REAL BOUNDARY / E2E REAL claims | Not by decision alone |
-| 9 | runtime v3 adoption | **NOT AUTHORIZED** |
-| 10 | P6 READY / P6 PASS recording | After execution evidence only |
+| 2 | ChatGPT Closure Review | **PASS / CONSUMED** |
+| 3 | Morris P6 QA Contract Acceptance | **AUTHORIZED / CONSUMED** |
+| 4 | Morris P6 QA Contract Git Integration GO | **AUTHORIZED / CONSUMED** |
+| 5 | Project Draft PR / CI | **THIS CYCLE** |
+| 6 | Morris MERGE GO | **NOT AUTHORIZED YET** |
+| 7 | **GO P6 EXECUTION** (G-SIMP-P6) | **NOT AUTHORIZED** |
+| 8 | **GO P6 REAL — BOUNDED CAMPAIGN** (G-SIMP-09 bounded) | **NOT AUTHORIZED** |
+| 9 | Production routing promotion (G-SIMP-12) | **P8** after P6(+P7) |
+| 10 | REAL BOUNDARY / E2E REAL claims | Not by decision alone |
+| 11 | runtime v3 adoption | **NOT AUTHORIZED** |
+| 12 | P6 READY / P6 PASS recording | After execution evidence only |
 
 ---
 
@@ -831,10 +836,12 @@ P6 may recommend workload classes · eligibility · effort bands · escalation �
 
 | Field | Value |
 | --- | --- |
-| **P6-QA-CONTRACT-01** | **CLOSED** |
-| **P6-QA-CONTRACT-02…12** | **CLOSED CANDIDATE / READY FOR CHATGPT CLOSURE REVIEW** |
-| **P6 QA CONTRACT** | **CORRECTED LOCAL CANDIDATE / CHATGPT CLOSURE REVIEW REQUIRED** |
-| **Phase 0** | **CONTRACT CORRECTION COMPLETE CANDIDATE** |
+| **P6-QA-CONTRACT-01…12** | **CLOSED** |
+| **P6 QA CONTRACT** | **MORRIS ACCEPTED / GIT INTEGRATION IN PROGRESS** |
+| **ChatGPT Closure Review** | **PASS / CONSUMED** |
+| **Morris Acceptance** | **AUTHORIZED / CONSUMED** |
+| **Git Integration GO** | **AUTHORIZED / CONSUMED** |
+| **Phase 0** | **CONTRACT ACCEPTED / READY FOR GIT INTEGRATION** |
 | **Phase 1** | **NOT STARTED** |
 | **GO P6 EXECUTION** | **NOT AUTHORIZED** |
 | **GO P6 REAL — BOUNDED CAMPAIGN** | **NOT AUTHORIZED** |
@@ -843,7 +850,7 @@ P6 may recommend workload classes · eligibility · effort bands · escalation �
 | **REAL EXECUTION** | **NONE** |
 | **Product/runtime/tests** | **NONE** |
 | **runtime v3** | **NON ADOPTED** |
-| **Next** | **CHATGPT CLOSURE REVIEW** |
+| **Next** | **MORRIS MERGE REVIEW / MERGE GO** |
 
 ---
 
@@ -852,19 +859,19 @@ P6 may recommend workload classes · eligibility · effort bands · escalation �
 | ID | Finding | Closure section(s) | Status |
 | --- | --- | --- | --- |
 | **P6-QA-CONTRACT-01** | Prior incomplete contract / DOC15 placement | CP01 + this file under product-simplification/07 | **CLOSED** |
-| **P6-QA-CONTRACT-02** | Distinct GO P6 EXECUTION vs GO P6 REAL | §A · §AS · §AU · §AV | **CLOSED CANDIDATE** |
-| **P6-QA-CONTRACT-03** | Mandatory Phase-1 smokes | §V · §X | **CLOSED CANDIDATE** |
-| **P6-QA-CONTRACT-04** | Mode vs proof maturity | §J (Axis A/B + R21) | **CLOSED CANDIDATE** |
-| **P6-QA-CONTRACT-05** | Cognitive Evaluation & Adjudication | §AF · quality floor · LLM-as-judge | **CLOSED CANDIDATE** |
-| **P6-QA-CONTRACT-06** | Product Scenario + Cognitive Workload Manifest contracts | §AX | **CLOSED CANDIDATE** |
-| **P6-QA-CONTRACT-07** | Router-in-situ vs Controlled Candidate | §AD · §X seam field | **CLOSED CANDIDATE** |
-| **P6-QA-CONTRACT-08** | Semantic/role + method/CKC coverage | §AA | **CLOSED CANDIDATE** |
-| **P6-QA-CONTRACT-09** | Human QA Queue / batch | §S · §AI | **CLOSED CANDIDATE** |
-| **P6-QA-CONTRACT-10** | Raw evidence ledger / provenance | §T · §AP | **CLOSED CANDIDATE** |
-| **P6-QA-CONTRACT-11** | Phase-1 env: browser · rate limits · privacy · budget · drift | §O · §X | **CLOSED CANDIDATE** |
-| **P6-QA-CONTRACT-12** | Defect severity / unaffected-track continuation | §AQ · §AR | **CLOSED CANDIDATE** |
+| **P6-QA-CONTRACT-02** | Distinct GO P6 EXECUTION vs GO P6 REAL | §A · §AS · §AU · §AV | **CLOSED** |
+| **P6-QA-CONTRACT-03** | Mandatory Phase-1 smokes | §V · §X | **CLOSED** |
+| **P6-QA-CONTRACT-04** | Mode vs proof maturity | §J (Axis A/B + R21) | **CLOSED** |
+| **P6-QA-CONTRACT-05** | Cognitive Evaluation & Adjudication | §AF · quality floor · LLM-as-judge | **CLOSED** |
+| **P6-QA-CONTRACT-06** | Product Scenario + Cognitive Workload Manifest contracts | §AX | **CLOSED** |
+| **P6-QA-CONTRACT-07** | Router-in-situ vs Controlled Candidate | §AD · §X seam field | **CLOSED** |
+| **P6-QA-CONTRACT-08** | Semantic/role + method/CKC coverage | §AA | **CLOSED** |
+| **P6-QA-CONTRACT-09** | Human QA Queue / batch | §S · §AI | **CLOSED** |
+| **P6-QA-CONTRACT-10** | Raw evidence ledger / provenance | §T · §AP | **CLOSED** |
+| **P6-QA-CONTRACT-11** | Phase-1 env: browser · rate limits · privacy · budget · drift | §O · §X | **CLOSED** |
+| **P6-QA-CONTRACT-12** | Defect severity / unaffected-track continuation | §AQ · §AR | **CLOSED** |
 
-No finding is declared CLOSED from summary alone — substance lives in referenced sections. **CLOSED CANDIDATE** = ready for ChatGPT Closure Review; not yet Morris-accepted / Git-integrated.
+ChatGPT Closure Review = **PASS**. Morris Acceptance = **AUTHORIZED / CONSUMED**. Findings CLOSED with substance in referenced sections. Git Integration IN PROGRESS. **≠** GO P6 EXECUTION · **≠** P6 READY.
 
 ---
 
@@ -886,4 +893,4 @@ Before mass Phase 3: manifests complete enough for reproducibility/auditability.
 
 ---
 
-*Fin — P6 Global Integrated Product QA Campaign Contract — Correction Pass 02 — LOCAL CANDIDATE · findings 02–12 CLOSED CANDIDATE · GO P6 EXECUTION NOT AUTHORIZED · GO P6 REAL NOT AUTHORIZED · P6 READY NO · P6 STARTED NO · REAL NONE · runtime v3 NON ADOPTED.*
+*Fin — P6 Global Integrated Product QA Campaign Contract — Morris Accepted / Git Integration In Progress · ChatGPT Closure Review PASS · P6-QA-CONTRACT-01…12 CLOSED · GO P6 EXECUTION NOT AUTHORIZED · GO P6 REAL NOT AUTHORIZED · P6 READY NO · P6 STARTED NO · REAL NONE · runtime v3 NON ADOPTED.*
