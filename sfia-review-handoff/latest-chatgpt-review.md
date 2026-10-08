@@ -1,6 +1,6 @@
-# ChatGPT Review Pack — P6 MACRO CAMPAIGN EXECUTION
+# ChatGPT Review Pack — P6 MACRO CAMPAIGN CONTINUATION / REQUALIFICATION
 
-- timestamp: 2026-10-08T11:46:14Z
+- timestamp: 2026-10-08T14:43:03Z
 - cycle: 9 — QA / validation
 - profile: CRITICAL
 - campaignId: P6-GLOBAL-INTEGRATED-PRODUCT-QA-01
@@ -8,7 +8,10 @@
 - Morris GO P6 REAL — BOUNDED CAMPAIGN: AUTHORIZED / CONSUMED
 - branch: qa/sfia-studio-p6-global-integrated-product-qa
 - origin/main: aba6c4a617b6d0cb27f23b59de5bf0ac9360fab1
-- local HEAD: bc0eae04997ec6be58957b519fa6adac01c6a732
+- local HEAD (FINAL): 8a196be1a35ffa2d43e52beddc66b51eab56c99c
+- previous handoff claimed HEAD: bc0eae04997ec6be58957b519fa6adac01c6a732
+- handoff discrepancy: STALE_bc0eae04_VS_ACTUAL_38fb5eb9_THEN_THIS_CONTINUATION
+- resolution: THIS pack republishes at final HEAD 8a196be1a35ffa2d43e52beddc66b51eab56c99c
 - project push: NONE
 - PR: NONE
 - merge: NONE
@@ -19,191 +22,582 @@
 
 ```
 qa/sfia-studio-p6-global-integrated-product-qa
-bc0eae04997ec6be58957b519fa6adac01c6a732
+8a196be1a35ffa2d43e52beddc66b51eab56c99c
 aba6c4a617b6d0cb27f23b59de5bf0ac9360fab1
  M .tmp-sfia-review/chatgpt-review.md
 ?? projects/.tmp-sfia-review/
 ?? projects/sfia-studio/app/__tests__/p6-campaign/
+8a196be1 docs(sfia-studio): requalify P6 Phase 1 and continue campaign truth
+38fb5eb9 docs(sfia-studio): align DOC07 Phase 1 PASS current-state wording
 bc0eae04 docs(sfia-studio): record P6 campaign Phase 1 PASS and execution truth
+M	.tmp-sfia-review/chatgpt-review.md
 M	projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 M	projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md
 M	projects/sfia-studio/product-simplification/06-chat-first-product-simplification-integrated-exit-readiness-pack.md
 M	projects/sfia-studio/product-simplification/07-chat-first-product-simplification-p6-global-integrated-product-qa.md
- .../convergence/sfia-studio-convergence-roadmap.md |  3 +-
- ...t-product-simplification-integrated-delivery.md | 30 ++++----
- ...implification-integrated-exit-readiness-pack.md | 39 +++++-----
- ...mplification-p6-global-integrated-product-qa.md | 88 +++++++++++-----------
- 4 files changed, 84 insertions(+), 76 deletions(-)
+ .tmp-sfia-review/chatgpt-review.md                 | 1564 ++++++++++++++++++--
+ .../convergence/sfia-studio-convergence-roadmap.md |    4 +-
+ ...t-product-simplification-integrated-delivery.md |   30 +-
+ ...implification-integrated-exit-readiness-pack.md |   39 +-
+ ...mplification-p6-global-integrated-product-qa.md |   88 +-
+ 5 files changed, 1509 insertions(+), 216 deletions(-)
 ```
 
-## Phase 0
+## Finding P6-EXEC-01 — Handoff reconciliation
 
-- PR #571 MERGED · merge aba6c4a6 · CI #713 / 37765489559 SUCCESS · Required Gate SUCCESS
-- Phase 0 = COMPLETE / INTEGRATED / POST-MERGE VERIFIED
+- Previous remote handoff tip ff630809 claimed local HEAD bc0eae04
+- Actual local HEAD after prior cycle was 38fb5eb9; this continuation advances to 8a196be1a35ffa2d43e52beddc66b51eab56c99c
+- REMOTE_MATCHES_LOCAL was incorrectly claimed previously for bc0eae04 vs 38fb5eb9
+- Corrected by this publish-in-cycle at final HEAD
 
-## Phase 1 Exit Gate
+## Phase 1 requalification
 
-# P6 Phase 1 Exit Gate
+# P6 Phase 1 Exit Gate — REQUALIFIED
 
 | Dimension | Value |
 | --- | --- |
+| status before | REOPENED / EVIDENCE REQUALIFICATION |
 | QA ENVIRONMENT REPRODUCIBLE | YES |
 | MANDATORY RUNTIME CAPABILITIES | READY |
-| NON-BLOCKING QUALIFIED CARRIES | C-REAL-CANCEL (REAL cancel NOT PROVEN — historical) · C-NORA-CTX · C-NCR-SCOPE · C-PROOF-REAL-CEILING |
+| NON-BLOCKING QUALIFIED CARRIES | C-REAL-CANCEL · C-NORA-CTX · C-NCR-SCOPE · C-PROOF-REAL-CEILING |
 | QA PARALLELISM | NONE |
 | STATE PREPARATION | READY |
-| RESET / ISOLATION | READY (temp Product DB + SFIA_V2_RUNTIME_ALLOW_RESET test path) |
+| RESET / ISOLATION | READY |
 | CURSOR AUTOMATION | READY |
 | EVIDENCE CAPTURE / LEDGER | SUFFICIENT |
 | LUNA | ACCESSIBLE |
 | SOL | ACCESSIBLE |
 | ASTRA | ACCESSIBLE |
 | REASONING CAPABILITIES | REVALIDATED |
-| CONTROLLED CANDIDATE EVALUATION SEAM | AVAILABLE / SUFFICIENT (nora-eval evalCellProvider + Stage A; ≠ Product router proof) |
-| SMOKE-01 | PASS |
-| SMOKE-02 | PASS |
-| SMOKE-03 | PASS |
+| CONTROLLED CANDIDATE EVALUATION SEAM | AVAILABLE / SUFFICIENT |
+| BROWSER / CLIENT ENVIRONMENT | QUALIFIED |
+| PROVIDER SNAPSHOT | CAPTURED |
+| AUTHORITY ENV PROFILES | CONTROLLED / REPRODUCIBLE |
+| SMOKE-01 CURRENT P6 REAL | PASS (`P6-SMOKE-01-FRESH-*` · resp_0c7ed72d… · gpt-6-luna/medium) |
+| SMOKE-02 CURRENT P6 REAL | PASS / REQUALIFIED (`P6-SMOKE-02-REQUAL-*` · resp_002d865f… · cycle completed · EC NOT_APPLICABLE) |
+| SMOKE-03 CURRENT P6 REAL | PASS (`P6-SMOKE-03-REALSTOP-*` · NORA_TURN_STOPPED · sawCognitive=true · AUTO/REAL-BOUNDARY; W3-B DET-GUARD preserved) |
 | HUMAN QA TRACK / QUEUE | READY |
-| DETERMINISTIC BASELINE | GREEN (isolated; local M3 authority env contamination noted) |
-| PROVIDER OPERATING ENVELOPE | QUALIFIED |
-| PRIVACY / QA DATA SAFETY | READY |
-| BROWSER / CLIENT SNAPSHOT | READY (Playwright available; PE queued for Human QA bands) |
-| BUDGET READINESS | READY (observed spend tracked; no invented Morris monetary ceiling) |
-| PROVIDER DRIFT SNAPSHOT | READY (preflight timestamped) |
-| PHASE 1 BLOCKERS | NONE |
+| DETERMINISTIC BASELINE | GREEN under FAIL_CLOSED_NEGATIVE_AUTHORITY isolation |
+| PHASE-1 BLOCKERS | NONE |
 
-## Baseline detail
+## Historical support (not Phase-1 smoke substitutes)
 
-| Check | Result |
+| Asset | Disposition |
 | --- | --- |
-| typecheck | PASS |
-| lint | PASS |
-| build | PASS |
-| vitest (isolated authority env) | PASS — 5402 passed / 143 skipped |
-| vitest (with local M3 authority env) | 1 fail ENV contamination D/E7 — classified ENVIRONMENT-ISSUE |
-
-## Parallelism inspection
-
-No second Product engine · no second Nora · no QA-only authority engine · no parallel evidence store as Product SoT. Campaign ledger is external orchestration only.
-
-## Controlled candidate seam
-
-`createOpenAiEvalCellProviderFactory` / `evalCellProvider` + Global MR Stage A = AVAILABLE/SUFFICIENT for Mode B comparative cognition. Product router-in-situ = Mode A via F2/`decideCognitiveRouting`.
+| P5.S05 R3 | HISTORICAL SUPPORT ONLY |
+| W3-B STOP/FAIL DET | DET-GUARD PASS (separate from SMOKE-03 REAL) |
+| Prior SMOKE-02 run P6-SMOKE-02-1791458263509 | SUPERSEDED by requal rerun (providerResponseId now observed) |
 
 ## PHASE 1 VERDICT
 
-**P6 PHASE 1 = QA ENVIRONMENT & RUNTIME READY / PASS**
+**P6 PHASE 1 = PASS / REQUALIFIED WITH CURRENT P6 REAL SMOKES**
 
-P6 READY FOR BROAD QA = YES (campaign-internal). P6 PASS = NOT CLAIMED.
+## Browser / client snapshot
 
-## Environment Snapshot
+# Browser / Client Snapshot
 
-# P6 Environment Snapshot
+- **timestamp**: 2026-10-08T14:26:42.160Z
+- **os**: Darwin 27.2 arm64
+- **osProduct**: macOS 27.2
+- **browser**: Chromium (Playwright)
+- **browserVersion**: 149.0.7827.55
+- **userAgent**: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/149.0.7827.55 Safari/537.36
+- **viewportBands**: {"LargeDesktop":{"width":1440,"height":900,"ok":true},"Compact":{"width":1024,"height":768,"ok":true},"Mobile":{"width":390,"height":844,"ok":true}}
+- **reducedMotion**: {"emulateMedia":"reduce","capability":"AVAILABLE"}
+- **note**: Environment readiness capture — not Human UX QA completion.
+- **status**: QUALIFIED
 
-| Field | Value |
-| --- | --- |
-| timestamp | 2026-10-08T11:04:10Z (capture start) |
-| repo | mcleland147/sfia-workspace |
-| campaign branch | qa/sfia-studio-p6-global-integrated-product-qa |
-| baseline SHA | aba6c4a617b6d0cb27f23b59de5bf0ac9360fab1 |
-| OS | Darwin 27.2 |
-| Node | v24.16.0 |
-| npm | 11.13.0 |
-| package manager | npm (projects/sfia-studio/app) |
-| Product port | 3020 |
-| Product DB default | projects/sfia-studio/.sfia-exec/product/oa-product.sqlite |
-| Nora session DB | …/nora-session.sqlite |
-| ENV_LOCAL | YES |
-| OPENAI_API_KEY | PRESENT (value not recorded) |
-| BETTER_AUTH_SECRET | PRESENT |
-| GITHUB_CLIENT_ID | PRESENT |
-| secrets in evidence | FORBIDDEN |
-| browser (PE capture) | PENDING (Playwright when PE exercised) |
-| provider drift snapshot | PENDING after preflight |
+## Provider snapshot
 
-## Dependency / baseline commands
+# Provider Snapshot
 
+```json
+{
+  "timestamp": "2026-10-08T14:26:59.109243Z",
+  "campaignId": "P6-GLOBAL-INTEGRATED-PRODUCT-QA-01",
+  "status": "CAPTURED",
+  "cohort": [
+    "gpt-6-luna",
+    "gpt-6.1-sol",
+    "gpt-6-astra"
+  ],
+  "efforts": {
+    "gpt-6-luna": [
+      "none",
+      "low",
+      "medium",
+      "high",
+      "xhigh",
+      "max"
+    ],
+    "gpt-6.1-sol": [
+      "low",
+      "medium",
+      "high",
+      "xhigh",
+      "max"
+    ],
+    "gpt-6-astra": [
+      "low",
+      "medium",
+      "high",
+      "xhigh",
+      "max"
+    ]
+  },
+  "preflightEvidence": "phase1h-p5s02-evidence.json / P5_S02_RUN_REAL R1+R2 PASS",
+  "accessibility": {
+    "luna": "ACCESSIBLE",
+    "sol": "ACCESSIBLE",
+    "astra": "ACCESSIBLE"
+  },
+  "reasoningMode": "standard (nominal)",
+  "silentLegacyFallback": "NOT_OBSERVED on Product routed path (R2 selected/dispatched matched)",
+  "rateLimits": "NOT_OBSERVED_NUMERIC",
+  "concurrency": "campaign serial / bounded",
+  "materialDriftStatus": "NONE_OBSERVED_SINCE_PREFLIGHT",
+  "providerDriftBoundary": null,
+  "note": "Snapshot after Phase-1H preflight; refresh if mid-campaign capability changes."
+}
 ```
-cd projects/sfia-studio/app
-npm install          # up to date
-npm run typecheck    # PASS (exit 0)
-npm run lint         # PASS (exit 0)
-npm run build        # PASS (exit 0)
-npm test             # PENDING
-```
 
-## Manifests
+## Authority environment profiles
 
-- product scenarios: 64 (P6-MIN-01…09 all mandatory present)
-- cognitive workloads: 30
-- paths: .tmp-sfia-review/p6-global-integrated-qa/manifests/
-
-## Phase 2
-
-- DET suite isolated: 18 files / 260 tests PASS
-- log: raw-evidence/phase2-det-suite-isolated.log
-
-## Phase 3
+# Authority Environment Profiles
 
 {
-  "status": "SCREENING MATERIALLY COMPLETE / TEST HARNESS TIMEOUT BEFORE FINAL SUMMARY WRITE",
-  "mode": "CONTROLLED_CANDIDATE",
-  "completedRuns": 53,
-  "plannedRuns": 54,
-  "missing": [
-    [
-      "WL-FR-MULTI-01",
-      "gpt-6-astra",
-      "medium",
-      3
-    ]
-  ],
-  "sufficient": 53,
-  "inconclusive": 0,
-  "belowFloor": 0,
-  "failedOk": 0,
-  "byModel": {
-    "gpt-6-luna/low": {
-      "SUFFICIENT": 18
+  "profiles": [
+    {
+      "id": "QA_NOMINAL_AUTHORIZED",
+      "description": "Normal P6 QA / authorized Pilote lifecycle paths",
+      "env": {
+        "SFIA_STUDIO_LOCAL_PILOT_AUTHORITY": "may be set",
+        "SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY": "may be set (local .env.local)"
+      },
+      "rules": [
+        "lifecycle start/finalize with Pilote authority",
+        "no invented HumanDecision content",
+        "forceEnable only in campaign test seam for authority registration"
+      ]
     },
-    "gpt-6.1-sol/low": {
-      "SUFFICIENT": 18
-    },
-    "gpt-6-astra/medium": {
-      "SUFFICIENT": 17
+    {
+      "id": "FAIL_CLOSED_NEGATIVE_AUTHORITY",
+      "description": "Negative-authority / fail-closed tests (e.g. corrProof05 D/E7)",
+      "env": {
+        "SFIA_STUDIO_LOCAL_PILOT_AUTHORITY": "MUST_BE_UNSET",
+        "SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY": "MUST_BE_UNSET",
+        "SFIA_STUDIO_LOCAL_MORRIS_GATE_AUTHORITY": "MUST_BE_UNSET"
+      },
+      "rules": [
+        "isolate with env -u before running fail-closed suites",
+        "do not inherit Morris authority from .env.local"
+      ],
+      "evidence": "D/E7 fails when M3 authority present; PASS when unset"
     }
-  },
-  "avgLatencyMs": {
-    "gpt-6-luna/low": 14415,
-    "gpt-6.1-sol/low": 23120,
-    "gpt-6-astra/medium": 30015
-  },
-  "productionRoutingChanged": false,
-  "note": "Mode B only. Vitest timed out at 1200s during final Astra MULTI rep; ledger retains completed runs."
+  ],
+  "control": "CONTROLLED / REPRODUCIBLE",
+  "productionSemanticsChanged": false
 }
 
-- Mode B CONTROLLED CANDIDATE only — production routing changed = NO
-- Router-in-situ supporting evidence: P5.S02 R2 PASS + P5.S05 R3 PASS (Phase 1H/SMOKE-01)
+## Harness classification (untracked p6-campaign)
+
+# P6 Campaign Harness Classification
+
+{
+  "path": "projects/sfia-studio/app/__tests__/p6-campaign/",
+  "tracked": false,
+  "files": [
+    "smoke02.zeroExecution.real.test.ts",
+    "phase3.controlledCandidate.screening.real.test.ts",
+    "phase1.requal.smokes.real.test.ts"
+  ],
+  "classification": "THIN CAMPAIGN ORCHESTRATION",
+  "rationale": [
+    "Invokes existing Product seams only (getRuntimeApplicationService, orchestrateAssistantSend, pilotLifecycleActions, nora-eval cell factory)",
+    "Does not create second Nora/router/authority engine",
+    "Does not replace Product lifecycle",
+    "Opt-in env gates; not part of default CI suite",
+    "Prefer temporary campaign workspace for future orchestration; leave untracked; do not commit without Morris GO"
+  ],
+  "forceEnableUsage": "test-only authority registration seam (same pattern as P5 REAL proofs) \u2014 not Product path forceEnable",
+  "parallelProductPath": false,
+  "commitDisposition": "DO_NOT_COMMIT"
+}
+
+## Evidence requalification (Phase 2/3/4 prior)
+
+# Prior Phase 2/3/4 Evidence Requalification
+
+After Phase-1 PASS / REQUALIFIED:
+
+| Prior evidence | Count | Material env/provider change? | Disposition |
+| --- | --- | --- | --- |
+| Phase 2 DET suite (isolated) | 18 files / 260 PASS | NO | **VALID / REUSED** |
+| Phase 3 Mode B screening | 53/54 SUFFICIENT | NO | **VALID / REUSED** (complete missing Astra MULTI r3) |
+| Phase 4 adversarial DET | 6 files / 98 PASS | NO | **VALID / REUSED** |
+
+## Rationale
+
+- Same campaign branch / baseline `aba6c4a6`
+- Same provider cohort Luna/Sol/Astra accessible
+- Same Product runtime seams
+- Fresh Phase-1 smokes prove current environment REAL readiness
+- No PROVIDER DRIFT BOUNDARY observed
+
+## Bridge / replay
+
+- Fresh SMOKE-01/02/03 = continuity bridge for REAL Product path
+- Complete missing Phase-3 Astra MULTI r3
+- Add current P6 Router-in-situ runs (not only P5 historical)
+- Add Mode-B discrimination on harder workloads
+
+## Fresh smoke evidence
+
+### SMOKE-01
+{
+  "campaignId": "P6-GLOBAL-INTEGRATED-PRODUCT-QA-01",
+  "scenarioId": "SMOKE-01",
+  "runId": "P6-SMOKE-01-FRESH-1791469623368",
+  "startedAt": "2026-10-08T14:27:03.368Z",
+  "endedAt": "2026-10-08T14:27:33.729Z",
+  "executionMode": "AUTO",
+  "proofTarget": "REAL-BOUNDARY",
+  "authorityProfile": "QA_NOMINAL_AUTHORIZED",
+  "projectId": "prj:27ddff16-db2d-4cd8-ae93-bb703e301944",
+  "cycleInstanceId": "cyc:p6rq-s01-3e301944",
+  "selectedModel": "gpt-6-luna",
+  "selectedEffort": "medium",
+  "providerResponseId": "resp_0c7ed72daaf4e390006ac7a84ca6c487d2b619f6839d5f7985",
+  "latencyMs": 30304,
+  "markerRecovered": true,
+  "humanDecisionCount": 0,
+  "productOutcome": "COGNITION_RETURNED_NO_EXECUTION",
+  "historicalP5S05": "SUPPORTING_ONLY_NOT_THIS_SMOKE",
+  "verdict": "PASS",
+  "notes": "Fresh current-P6 REAL Product journey. P5.S05 retained as historical support only."
+}
+### SMOKE-02 requal
+{
+  "campaignId": "P6-GLOBAL-INTEGRATED-PRODUCT-QA-01",
+  "scenarioId": "SMOKE-02",
+  "runId": "P6-SMOKE-02-REQUAL-1791469653733",
+  "startedAt": "2026-10-08T14:27:33.733Z",
+  "endedAt": "2026-10-08T14:27:49.156Z",
+  "executionMode": "AUTO",
+  "proofTarget": "REAL-BOUNDARY",
+  "authorityProfile": "QA_NOMINAL_AUTHORIZED",
+  "projectId": "prj:207383d5-6a2f-4a25-8a15-753296e2584f",
+  "cycleInstanceId": "cyc:p6rq-s02-96e2584f",
+  "providerResponseId": "resp_002d865f683e4f31006ac7a85acb2487d2bba532fee9700393",
+  "cycleStatus": "completed",
+  "ecApplicability": "NOT_APPLICABLE",
+  "priorRunId": "P6-SMOKE-02-1791458263509",
+  "priorDisposition": "REQUALIFIED_BY_FRESH_RERUN",
+  "verdict": "PASS"
+}
+### SMOKE-03 REAL STOP
+{
+  "campaignId": "P6-GLOBAL-INTEGRATED-PRODUCT-QA-01",
+  "scenarioId": "SMOKE-03",
+  "runId": "P6-SMOKE-03-REALSTOP-1791469669158",
+  "startedAt": "2026-10-08T14:27:49.158Z",
+  "endedAt": "2026-10-08T14:27:54.900Z",
+  "executionMode": "AUTO",
+  "proofTarget": "REAL-BOUNDARY",
+  "proofClassification": "AUTO / REAL-BOUNDARY: OpenAI cognition + Product orchestration REAL; STOP observed via AbortSignal before protected executor effect; W3-B DET STOP/FAIL retained separately as DET-GUARD.",
+  "authorityProfile": "QA_NOMINAL_AUTHORIZED",
+  "projectId": "prj:7798be60-6f2b-4af2-aab9-9de56b15a6fc",
+  "cycleInstanceId": "cyc:p6rq-s03-6b15a6fc",
+  "sawCognitive": true,
+  "latencyMs": 5707,
+  "resultOk": false,
+  "resultStatus": "stopped",
+  "resultCode": "NORA_TURN_STOPPED",
+  "resultMessage": "Réponse interrompue.",
+  "notSilentSuccess": true,
+  "w3bDetGuard": "PRESERVED_SEPARATELY_AS_DET_GUARD_PASS",
+  "endToEndRealClaimed": false,
+  "verdict": "PASS"
+}
+## Phase 2 scenario disposition summary
+
+{
+  "timestamp": "2026-10-08T14:30:51.345511+00:00",
+  "total": 64,
+  "counts": {
+    "AUTO_COMPLETED": 43,
+    "HUMAN": 19,
+    "BLOCKED": 0,
+    "NOT-PROVEN": 2,
+    "N/A": 0
+  },
+  "p6Min": {
+    "P6-MIN-01": {
+      "disposition": "AUTO_COMPLETED",
+      "verdict": "PASS",
+      "scenarioId": "P6-SC-EX-04"
+    },
+    "P6-MIN-02": {
+      "disposition": "AUTO_COMPLETED",
+      "verdict": "PASS",
+      "scenarioId": "P6-SC-MIN-02"
+    },
+    "P6-MIN-03": {
+      "disposition": "HUMAN",
+      "verdict": "WAITING",
+      "scenarioId": "P6-SC-MIN-03"
+    },
+    "P6-MIN-04": {
+      "disposition": "HUMAN",
+      "verdict": "WAITING",
+      "scenarioId": "P6-SC-MIN-04"
+    },
+    "P6-MIN-05": {
+      "disposition": "HUMAN",
+      "verdict": "WAITING",
+      "scenarioId": "P6-SC-MIN-05"
+    },
+    "P6-MIN-06": {
+      "disposition": "AUTO_COMPLETED",
+      "verdict": "PASS",
+      "scenarioId": "P6-SC-CO-01"
+    },
+    "P6-MIN-07": {
+      "disposition": "AUTO_COMPLETED",
+      "verdict": "PASS",
+      "scenarioId": "P6-SC-AD-01"
+    },
+    "P6-MIN-08": {
+      "disposition": "AUTO_COMPLETED",
+      "verdict": "PASS",
+      "scenarioId": "P6-SC-AD-05"
+    },
+    "P6-MIN-09": {
+      "disposition": "HUMAN",
+      "verdict": "WAITING",
+      "scenarioId": "P6-SC-MIN-09"
+    }
+  },
+  "note": "AUTO_COMPLETED means evidence-backed via current P6 DET/REAL assets; not every scenario had a dedicated named run."
+}
+
+## Phase 3 Router-in-situ (CURRENT P6)
+
+{
+  "completed": 4,
+  "runs": [
+    {
+      "campaignId": "P6-GLOBAL-INTEGRATED-PRODUCT-QA-01",
+      "scenarioId": "PHASE3-RIS-RIS-ROUTINE-FR",
+      "workloadId": "RIS-ROUTINE-FR",
+      "runId": "P6-RIS-RIS-ROUTINE-FR-1791469867147",
+      "mode": "ROUTER_IN_SITU",
+      "executionMode": "AUTO",
+      "proofTarget": "REAL-BOUNDARY",
+      "strategyHint": "Routine",
+      "selectedModel": "gpt-6-luna",
+      "selectedEffort": "medium",
+      "providerResponseId": "resp_0f528bc5014e363f006ac7a923da6087d2a3ed7b3b446ef349",
+      "latencyMs": 13148,
+      "sendOk": true,
+      "historicalP5Support": "P5.S02/S05 remain SUPPORTING only",
+      "verdict": "PASS"
+    },
+    {
+      "campaignId": "P6-GLOBAL-INTEGRATED-PRODUCT-QA-01",
+      "scenarioId": "PHASE3-RIS-RIS-FOCUSED-CONTRA",
+      "workloadId": "RIS-FOCUSED-CONTRA",
+      "runId": "P6-RIS-RIS-FOCUSED-CONTRA-1791469914934",
+      "mode": "ROUTER_IN_SITU",
+      "executionMode": "AUTO",
+      "proofTarget": "REAL-BOUNDARY",
+      "strategyHint": "Focused",
+      "selectedModel": "gpt-6.1-sol",
+      "selectedEffort": "high",
+      "providerResponseId": "resp_0bea0b237fc49fb8006ac7a93a848887d28ebf1b709882c3da",
+      "latencyMs": 47740,
+      "sendOk": true,
+      "historicalP5Support": "P5.S02/S05 remain SUPPORTING only",
+      "verdict": "PASS"
+    },
+    {
+      "campaignId": "P6-GLOBAL-INTEGRATED-PRODUCT-QA-01",
+      "scenarioId": "PHASE3-RIS-RIS-DEEP-TRADEOFF",
+      "workloadId": "RIS-DEEP-TRADEOFF",
+      "runId": "P6-RIS-RIS-DEEP-TRADEOFF-1791469942138",
+      "mode": "ROUTER_IN_SITU",
+      "executionMode": "AUTO",
+      "proofTarget": "REAL-BOUNDARY",
+      "strategyHint": "Deep",
+      "selectedModel": "gpt-6-luna",
+      "selectedEffort": "medium",
+      "providerResponseId": "resp_0a7dea5d4c534ed9006ac7a960f0d087d2aded4736fe67e6e3",
+      "latencyMs": 27163,
+      "sendOk": true,
+      "historicalP5Support": "P5.S02/S05 remain SUPPORTING only",
+      "verdict": "PASS"
+    },
+    {
+      "campaignId": "P6-GLOBAL-INTEGRATED-PRODUCT-QA-01",
+      "scenarioId": "PHASE3-RIS-RIS-HA-AUTHORITY",
+      "workloadId": "RIS-HA-AUTHORITY",
+      "runId": "P6-RIS-RIS-HA-AUTHORITY-1791469967452",
+      "mode": "ROUTER_IN_SITU",
+      "executionMode": "AUTO",
+      "proofTarget": "REAL-BOUNDARY",
+      "strategyHint": "High-Assurance",
+      "selectedModel": "gpt-6-luna",
+      "selectedEffort": "medium",
+      "providerResponseId": "resp_03bcc8348e740be2006ac7a97eb64c87d2a88ca9f366493c4b",
+      "latencyMs": 25282,
+      "sendOk": true,
+      "historicalP5Support": "P5.S02/S05 remain SUPPORTING only",
+      "verdict": "PASS"
+    }
+  ]
+}
+## Phase 3 Discrimination + missing Astra r3
+
+{
+  "completed": 10,
+  "floors": {
+    "SUFFICIENT": 10
+  },
+  "runs": [
+    {
+      "workloadId": "WL-FR-MULTI-01",
+      "modelId": "gpt-6-astra",
+      "effort": "medium",
+      "floor": "SUFFICIENT",
+      "latencyMs": 44895,
+      "providerResponseId": "resp_0cd0e6d81332d5f6006ac7a9a3b46c87d2b867ce560b61bf6f",
+      "completesPriorScreeningMatrix": true,
+      "replicationTier": null
+    },
+    {
+      "workloadId": "DISC-CONTRA-CURRENT",
+      "modelId": "gpt-6-luna",
+      "effort": "medium",
+      "floor": "SUFFICIENT",
+      "latencyMs": 27694,
+      "providerResponseId": "resp_047f056c2ec29805006ac7a9c95cac87d2a28cf5872ebb904c",
+      "completesPriorScreeningMatrix": null,
+      "replicationTier": "DISCRIMINATION"
+    },
+    {
+      "workloadId": "DISC-CONTRA-CURRENT",
+      "modelId": "gpt-6.1-sol",
+      "effort": "medium",
+      "floor": "SUFFICIENT",
+      "latencyMs": 38604,
+      "providerResponseId": "resp_00b63e3ce9a1797b006ac7a9f2f62087d284186800fd0dbd4b",
+      "completesPriorScreeningMatrix": null,
+      "replicationTier": "DISCRIMINATION"
+    },
+    {
+      "workloadId": "DISC-CONTRA-CURRENT",
+      "modelId": "gpt-6-astra",
+      "effort": "high",
+      "floor": "SUFFICIENT",
+      "latencyMs": 77408,
+      "providerResponseId": "resp_07441f389c16e54d006ac7aa2ec61887d2a76599416396a708",
+      "completesPriorScreeningMatrix": null,
+      "replicationTier": "DISCRIMINATION"
+    },
+    {
+      "workloadId": "DISC-ABSTAIN-PROVEN",
+      "modelId": "gpt-6-luna",
+      "effort": "low",
+      "floor": "SUFFICIENT",
+      "latencyMs": 11814,
+      "providerResponseId": "resp_01ce84282a2a4aa2006ac7aa52925087d2af88a674804a0caf",
+      "completesPriorScreeningMatrix": null,
+      "replicationTier": "DISCRIMINATION"
+    },
+    {
+      "workloadId": "DISC-ABSTAIN-PROVEN",
+      "modelId": "gpt-6.1-sol",
+      "effort": "low",
+      "floor": "SUFFICIENT",
+      "latencyMs": 39083,
+      "providerResponseId": "resp_07dd882190750743006ac7aa754e6c87d2b7781df0e85fcb77",
+      "completesPriorScreeningMatrix": null,
+      "replicationTier": "DISCRIMINATION"
+    },
+    {
+      "workloadId": "DISC-ABSTAIN-PROVEN",
+      "modelId": "gpt-6-astra",
+      "effort": "medium",
+      "floor": "SUFFICIENT",
+      "latencyMs": 35004,
+      "providerResponseId": "resp_09aa316742246dc4006ac7aa94510087d2a9a8ac131c259c7d",
+      "completesPriorScreeningMatrix": null,
+      "replicationTier": "DISCRIMINATION"
+    },
+    {
+      "workloadId": "DISC-MULTI-AUTH",
+      "modelId": "gpt-6-luna",
+      "effort": "medium",
+      "floor": "SUFFICIENT",
+      "latencyMs": 54161,
+      "providerResponseId": "resp_05270fc404348abb006ac7aac3bf4c87d2b491fe8bfbcefada",
+      "completesPriorScreeningMatrix": null,
+      "replicationTier": "DISCRIMINATION"
+    },
+    {
+      "workloadId": "DISC-MULTI-AUTH",
+      "modelId": "gpt-6.1-sol",
+      "effort": "medium",
+      "floor": "SUFFICIENT",
+      "latencyMs": 71858,
+      "providerResponseId": "resp_0ac7122a04b996bc006ac7ab0557c087d2a5593e51bf27fff0",
+      "completesPriorScreeningMatrix": null,
+      "replicationTier": "DISCRIMINATION"
+    },
+    {
+      "workloadId": "DISC-MULTI-AUTH",
+      "modelId": "gpt-6-astra",
+      "effort": "high",
+      "floor": "SUFFICIENT",
+      "latencyMs": 111341,
+      "providerResponseId": "resp_0635bb09f97c48e8006ac7ab6c39c887d28298b5d9fce67396",
+      "completesPriorScreeningMatrix": null,
+      "replicationTier": "DISCRIMINATION"
+    }
+  ]
+}
+
+## Mode-B screening status
+
+- Prior 53/54 VALID/REUSED; missing Astra MULTI r3 completed SUFFICIENT → screening 54/54
+- Ledger CONTROLLED_CANDIDATE rows include screening + discrimination
+- Binary SUFFICIENT remains low-discrimination; latency shows Astra often slower
+- production routing changed = NO
 
 ## Phase 4
 
-- Adversarial/recovery/authz DET suite: 6 files / 98 tests PASS
+- Prior 98 DET PASS = VALID / REUSED
 
-## Phase 5 Human QA
+## Human QA final batch
 
-- queue count: 22
-- executedByMorris: NO
-- batch: .tmp-sfia-review/p6-global-integrated-qa/human-qa-batch.md
-- queue json: .tmp-sfia-review/p6-global-integrated-qa/human-qa-queue.json
+- previous: 22
+- final: 19
+- excluded auto-proven: 4
+- path: .tmp-sfia-review/p6-global-integrated-qa/human-qa-batch.md
 
-# P6 Human QA Batch — consolidated
+# P6 Human QA Batch — FINAL CONSOLIDATED
+
 campaignId: P6-GLOBAL-INTEGRATED-PRODUCT-QA-01
-queue count: 22
+previous queue: 22
+final queue: 19
+excluded (already AUTO proven): 4
 executedByMorris: NO
+Phase 1: PASS / REQUALIFIED
 
 ## A-blocking
 
 ### P6-HQ-01 — P6-SC-MIN-03: Required Deliverable produced → reviewed → validated → Exit Proof
+- P6-MIN: P6-MIN-03
 - Starting state: Cycle with required Deliverable acceptance criteria
 - Setup: CANONICAL PRODUCT PATH
 - Actions: Required Deliverable produced, reviewed, validated; Exit Proof satisfied only after validation; Cycle can close
@@ -214,7 +608,20 @@ executedByMorris: NO
 - Status: WAITING HUMAN QA
 - Verdict: _pending_
 
-### P6-HQ-02 — P6-SC-MIN-05: Correction → subsequent EC → re-review → validation → exit
+### P6-HQ-02 — P6-SC-MIN-04: SUCCESS + Artifact + blocking review → Exit NOT satisfied · Cycle OPEN
+- P6-MIN: P6-MIN-04
+- Starting state: Cycle with required Deliverable; EC executed to SUCCESS with artifact present; review has blocking findings
+- Setup: CANONICAL PRODUCT PATH
+- Actions: Execution SUCCESS and artifact existence do NOT close Cycle; blocking review keeps Exit Proof unsatisfied; Cycle remains OPEN
+- Expected: Execution SUCCESS and artifact existence do NOT close Cycle; blocking review keeps Exit Proof unsatisfied; Cycle remains OPEN
+- Observe: Attempt SUCCESS; artifact present; Exit Proof FAIL/unsatisfied; Cycle OPEN; blockers visible
+- Viewport: N/A unless PE
+- Blocking potential: PRODUCT-BLOCKER
+- Status: WAITING HUMAN QA
+- Verdict: _pending_
+
+### P6-HQ-03 — P6-SC-MIN-05: Correction → subsequent EC → re-review → validation → exit
+- P6-MIN: P6-MIN-05
 - Starting state: Post MIN-04 state: blocking review, Cycle OPEN, prior Attempt SUCCESS with blockers
 - Setup: CANONICAL PRODUCT PATH
 - Actions: Correction path produces new EC/Attempt as needed; re-review clears blockers; validation then Exit Proof; no silent reuse of stale Confirmation
@@ -225,40 +632,8 @@ executedByMorris: NO
 - Status: WAITING HUMAN QA
 - Verdict: _pending_
 
-### P6-HQ-03 — P6-SC-MIN-06: Interrupted conversation / Project recovery
-- Starting state: Active Project mid-conversation with open Cycle and pending Recommendation or Confirmation
-- Setup: CANONICAL PRODUCT PATH
-- Actions: After interrupt/reload, Product reconstructs authoritative truth before conversation replay; no invented HD/Confirmation; Nora resumes on governed context
-- Expected: After interrupt/reload, Product reconstructs authoritative truth before conversation replay; no invented HD/Confirmation; Nora resumes on governed context
-- Observe: Authoritative state restored; no invented decisions; conversation resume coherent; Journal/LPS consistent
-- Viewport: N/A unless PE
-- Blocking potential: PRODUCT-BLOCKER
-- Status: WAITING HUMAN QA
-- Verdict: _pending_
-
-### P6-HQ-04 — P6-SC-MIN-07: Recommendation / HD / currentness continuity
-- Starting state: Project with current Recommendation eligible for disposition; prior superseded Recommendation present
-- Setup: CANONICAL PRODUCT PATH
-- Actions: Only current Recommendation can materialize; HD requires intent+currentness+authority; superseded Rec cannot authorize protected effects
-- Expected: Only current Recommendation can materialize; HD requires intent+currentness+authority; superseded Rec cannot authorize protected effects
-- Observe: Current Rec marked current; superseded inactive; HD bound to current subject; stale Rec rejected for mutation
-- Viewport: N/A unless PE
-- Blocking potential: PRODUCT-BLOCKER
-- Status: WAITING HUMAN QA
-- Verdict: _pending_
-
-### P6-HQ-05 — P6-SC-MIN-08: Journal projection coherence
-- Starting state: Project with multi-turn Cycle activity producing Journal entries, History events, and at least one Synthesis candidate
-- Setup: CANONICAL PRODUCT PATH
-- Actions: Journal is derived projection linked to provenance; does not invent Truth C; History/Synthesis do not become current authoritative state; focus/inspect/resume remain non-authoritative
-- Expected: Journal is derived projection linked to provenance; does not invent Truth C; History/Synthesis do not become current authoritative state; focus/inspect/resume remain non-authoritative
-- Observe: Journal entries provenance-linked; no UI-local truth; actions from Journal do not bypass Confirmation/authority
-- Viewport: N/A unless PE
-- Blocking potential: PRODUCT-BLOCKER
-- Status: WAITING HUMAN QA
-- Verdict: _pending_
-
-### P6-HQ-06 — P6-SC-SM-01: No parallel cockpit for Cycle command surfaces
+### P6-HQ-04 — P6-SC-SM-01: No parallel cockpit for Cycle command surfaces
+- P6-MIN: None
 - Starting state: Representative Project mid-Cycle
 - Setup: CANONICAL PRODUCT PATH
 - Actions: Primary interaction remains conversation; supporting surfaces do not recreate pre-simplification cockpit
@@ -271,13 +646,47 @@ executedByMorris: NO
 
 ## B-cognitive
 
-### P6-HQ-07 — P6-SC-CK-01: Applicable CKC/method resolved without Pilote admin
-- Starting state: New Cycle needing method/CKC context
+### P6-HQ-05 — P6-SC-MIN-09: Guided Document Review representative cognitive/Product scenario
+- P6-MIN: P6-MIN-09
+- Starting state: Project with document/source set suitable for Guided Document Review
 - Setup: CANONICAL PRODUCT PATH
-- Actions: Product resolves applicable method/CKC; Pilote not forced to select CKC in nominal usage
-- Expected: Product resolves applicable method/CKC; Pilote not forced to select CKC in nominal usage
+- Actions: GDR runs as one representative cognitive+Product path: Nora challenges/extracts with sources; Product materializations remain governed; GDR ≠ full P6 scope
+- Expected: GDR runs as one representative cognitive+Product path: Nora challenges/extracts with sources; Product materializations remain governed; GDR ≠ full P6 scope
+- Observe: GDR completes with evidence citations; no invented HD; quality floor met; Product state coherent
+- Viewport: N/A unless PE
+- Blocking potential: MAJOR
+- Status: WAITING HUMAN QA
+- Verdict: _pending_
 
-## Defect Register
+## C-UX
+
+### P6-HQ-06 — P6-SC-PE-01: Desktop Large band primary conversation composition
+- P6-MIN: None
+- Starting state: Authenticated Project; viewport Desktop Large
+- Setup: CANONICAL PRODUCT PATH
+- Actions: Chat-first primary interaction; supporting surfaces secondary; usable Pilote flow
+- Expected: Chat-first primary interaction; supporting surfaces secondary; usable Pilote flow
+- Observe: Human PE checklist PASS (clarity, burden, no parallel cockpit)
+- Viewport: Large/Desktop + Compact + Mobile as applicable
+- Blocking potential: MAJOR
+- Status: WAITING HUMAN QA
+- Verdict: _pending_
+
+### P6-HQ-07 — P6-SC-PE-02: Compact band conversation and Aperçu usable
+- P6-MIN: None
+- Starting state: Same Project; Compact viewport
+- Setup: CANONICAL PRODUCT PATH
+- Actions: Compact layout remains operable for Conversation/Aperçu/Confirmation without losing governance cues
+- Expected: Compact layout remains operable for Conversation/Aperçu/Confirmation without losing governance cues
+- Observe: Human PASS on operability + governance visibility
+- Viewport: Large/Desktop + Compact + Mobile as applicable
+- Blocking potential: MAJOR
+- Status: WAITING HUMAN QA
+- Verdict: _pending_
+
+### P6-HQ-08 — P6-SC-PE-03: Mobile band critical Confirmation and STOP reachable
+
+## Defect register
 
 # P6 Defect Register
 
@@ -305,54 +714,38 @@ NONE recorded yet pending Phase 3 qualitative adjudication + Human QA.
 
 Do not mutate Product to greenwash. Failures retained in ledger.
 
-## Interim Summary
+## Interim summary
 
-# P6 Interim Consolidation (Phase 6 — NOT final PASS)
+# P6 Interim Consolidation — CONTINUATION / REQUALIFICATION
 
 | Field | Value |
 | --- | --- |
 | campaignId | P6-GLOBAL-INTEGRATED-PRODUCT-QA-01 |
-| Phase 0 | COMPLETE / INTEGRATED / POST-MERGE VERIFIED (PR #571 · CI #713) |
-| GO P6 EXECUTION | AUTHORIZED / CONSUMED |
-| GO P6 REAL | AUTHORIZED / CONSUMED |
-| Phase 1 | PASS |
-| Phase 2 AUTO DET | PASS at executed suite (260 tests isolated) |
-| Phase 3 | CONTROLLED CANDIDATE screening IN PROGRESS / see raw-evidence |
-| Phase 4 AUTO DET | PASS (98 tests adversarial/recovery/authz) |
-| Phase 5 | HUMAN QA BATCH READY (22 items) — executedByMorris = NO |
+| Phase 0 | COMPLETE / INTEGRATED / POST-MERGE VERIFIED |
+| Phase 1 | PASS / REQUALIFIED WITH CURRENT P6 REAL SMOKES |
+| Phase 2 | AUTO portion dispositioned (43 AUTO_COMPLETED · 19 HUMAN · 2 NOT-PROVEN · 0 BLOCKED) |
+| Phase 3 | Router-in-situ 4/4 PASS · Mode-B screening 54/54 · Discrimination 9 cells SUFFICIENT |
+| Phase 4 | AUTO DET reused VALID (98 PASS) |
+| Phase 5 | FINAL CONSOLIDATED HUMAN QA BATCH READY (19) |
 | Phase 6 | INTERIM ONLY |
 | P6 PASS | NOT CLAIMED |
+| production routing changed | NO |
+| runtime v3 | NON ADOPTED |
 
-## Bars currently satisfied (partial)
+## Router-in-situ current observations (not P5 historical)
 
-- Phase 1 readiness gate
-- Deterministic Product baseline (isolated)
-- Provider Luna/Sol/Astra accessibility
-- SMOKE-01/02/03
-- P6-MIN-01 exercised REAL (zero-exec finalize)
-- Scenario + cognitive manifests materialized
-- Evidence ledger operational
-- Human QA queue consolidated
+| Workload | Selected | Effort |
+| --- | --- | --- |
+| RIS-ROUTINE-FR | gpt-6-luna | medium |
+| RIS-FOCUSED-CONTRA | gpt-6.1-sol | high |
+| RIS-DEEP-TRADEOFF | gpt-6-luna | medium |
+| RIS-HA-AUTHORITY | gpt-6-luna | medium |
 
-## Bars remaining
+## Discrimination note
 
-- Full Human QA batch execution by Morris
-- Full Phase 2 AUTO scenario disposition for all 64 scenarios
-- Full Phase 3 discrimination/decision-critical replication
-- Router-in-situ calibration completeness vs Mode B
-- Adversarial REAL subset where provider boundary material
-- Final Morris P6 EXIT REVIEW
+Harder Mode-B cells remain binary-SUFFICIENT; latency differs materially (Astra high often slower). Do not over-interpret as routing adoption. Further qualitative Human adjudication may still be needed for decision-critical comparisons.
 
-## Anti-claims
-
-GO REAL consumed ≠ REAL BOUNDARY globally proven.
-High volume ≠ P6 PASS.
-Human QA queued ≠ Human QA passed.
-Controlled candidate ≠ Product router proof.
-P6 evidence ≠ production routing adoption.
-runtime v3 = NON ADOPTED.
-
-## FULL DOC07 (canonical living contract — modified this campaign)
+## FULL DOC07 (canonical living contract)
 
 # SFIA Studio — Chat-First Product Simplification — P6 Global Integrated Product QA
 
@@ -371,11 +764,11 @@ runtime v3 = NON ADOPTED.
 | **Morris P6 QA Contract Acceptance** | **AUTHORIZED / CONSUMED** |
 | **Morris P6 QA Contract Git Integration GO** | **AUTHORIZED / CONSUMED** (prior) |
 | **PR #571** | **MERGED** · merge `aba6c4a617b6d0cb27f23b59de5bf0ac9360fab1` · post-merge CI Studio **#713** / `37765489559` **SUCCESS** · Required Gate **SUCCESS** |
-| **Statut** | **PHASE 0 INTEGRATED · PHASE 1 PASS · BROAD QA IN PROGRESS** |
+| **Statut** | **PHASE 0 INTEGRATED · PHASE 1 PASS / REQUALIFIED · BROAD QA CONTINUATION** |
 | **P6-QA-CONTRACT-01…12** | **CLOSED** |
 | **P6 campaign strategy** | **REAL-FIRST HYBRID GLOBAL INTEGRATED PRODUCT QA** |
 | **Phase 0** | **COMPLETE / INTEGRATED / POST-MERGE VERIFIED** |
-| **Phase 1** | **PASS / QA ENVIRONMENT & RUNTIME READY** |
+| **Phase 1** | **PASS / REQUALIFIED WITH CURRENT P6 REAL SMOKES** |
 | **GO P6 EXECUTION** | **AUTHORIZED / CONSUMED** |
 | **GO P6 REAL — BOUNDED CAMPAIGN** | **AUTHORIZED / CONSUMED** |
 | **P6 READY** | **NO** (broad QA only after Phase 1 PASS) |
@@ -389,7 +782,7 @@ runtime v3 = NON ADOPTED.
 | **Fichier canonique** | `projects/sfia-studio/product-simplification/07-chat-first-product-simplification-p6-global-integrated-product-qa.md` |
 | **Date** | 2026-10-08 · Europe/Paris |
 
-> **Lecture rapide.** Phase 0 = **COMPLETE / INTEGRATED / POST-MERGE VERIFIED** (PR **#571** · CI **#713**). ChatGPT Closure Review = **PASS**. P6-QA-CONTRACT-01…12 = **CLOSED**. **GO P6 EXECUTION** = **AUTHORIZED / CONSUMED**. **GO P6 REAL — BOUNDED CAMPAIGN** = **AUTHORIZED / CONSUMED**. **P6 STARTED = YES**. Phase 1 = **IN PROGRESS**. Strategy = **REAL-FIRST HYBRID**. **≠ P6 PASS** · **≠ REAL BOUNDARY globally proven** · **≠ runtime v3 ADOPTED** · **≠ production routing adoption**. Project push/PR/merge = **NONE**.
+> **Lecture rapide.** Phase 0 = **COMPLETE / INTEGRATED / POST-MERGE VERIFIED** (PR **#571** · CI **#713**). **GO P6 EXECUTION / GO P6 REAL = AUTHORIZED / CONSUMED**. **P6 STARTED = YES**. Phase 1 = **PASS / REQUALIFIED** (fresh SMOKE-01/02/03 CURRENT P6 REAL). Phases 2–4 prior evidence = **VALID / REUSED**. Automated campaign continuation in progress. Human QA batch regenerating. Strategy = **REAL-FIRST HYBRID**. **≠ P6 PASS** · **≠ runtime v3 ADOPTED**. Project push/PR/merge = **NONE**.
 
 ---
 
@@ -417,11 +810,11 @@ runtime v3 = NON ADOPTED.
 
 A single future Morris message **MAY** consume both gates. They remain **semantically distinct**.
 
-**Current:** GO P6 EXECUTION = **AUTHORIZED / CONSUMED** · GO P6 REAL — BOUNDED CAMPAIGN = **AUTHORIZED / CONSUMED** · P6 STARTED = **YES** · Phase 1 = **IN PROGRESS**.
+**Current:** GO P6 EXECUTION = **AUTHORIZED / CONSUMED** · GO P6 REAL — BOUNDED CAMPAIGN = **AUTHORIZED / CONSUMED** · P6 STARTED = **YES** · Phase 1 = **PASS / REQUALIFIED**.
 
-**This document remains the campaign contract.** Living status advances only on evidence. **≠** P6 PASS · **≠** routing adoption · **≠** runtime v3 adoption · **≠** Phase 1 PASS until exit gate evidence.
+**This document remains the campaign contract.** Living status advances only on evidence. **≠** P6 PASS · **≠** routing adoption · **≠** runtime v3 adoption.
 
-**Maturity:** Phase 0 INTEGRATED / POST-MERGE VERIFIED · GOs consumed · campaign STARTED · Phase 1 evidence in progress.
+**Maturity:** Phase 0 INTEGRATED · GOs consumed · Phase 1 PASS/REQUALIFIED with current P6 REAL smokes · Phases 2–4 prior evidence VALID/REUSED · automated campaign continuation · Human QA batch not yet primary handoff.
 
 ---
 
@@ -435,8 +828,8 @@ A single future Morris message **MAY** consume both gates. They remain **semanti
 | **Morris Acceptance** | **AUTHORIZED / CONSUMED** |
 | **Git Integration GO** | **AUTHORIZED / CONSUMED** (PR **#571** MERGED) |
 | **Phase 0** | **COMPLETE / INTEGRATED / POST-MERGE VERIFIED** |
-| **Phase 1** | **PASS / QA ENVIRONMENT & RUNTIME READY** |
-| **Phases 2…4** | **IN PROGRESS** (AUTO / REAL under GO) |
+| **Phase 1** | **PASS / REQUALIFIED WITH CURRENT P6 REAL SMOKES** |
+| **Phases 2…4 prior evidence** | **VALID / REUSED** (requalification rationale recorded) |
 | **Phase 5** | **HUMAN QA BATCH PREPARING** |
 | **Phase 6** | **INTERIM CONSOLIDATION ONLY** (≠ P6 PASS) |
 | **P6 campaign strategy** | **REAL-FIRST HYBRID** |
@@ -445,7 +838,7 @@ A single future Morris message **MAY** consume both gates. They remain **semanti
 | **P6 READY** | **NO** |
 | **P6 STARTED** | **YES** |
 | **Architecture parallelism** | **NONE** |
-| **Next** | Phase 1 exit gate → if PASS continue Phases 2–4 AUTO · Human QA batch · interim consolidation |
+| **Next** | **MORRIS HUMAN QA BATCH** (final consolidated · 19 items) · then P6 FINAL CONSOLIDATION / EXIT REVIEW |
 
 ---
 
@@ -1202,15 +1595,15 @@ P6 may recommend workload classes · eligibility · effort bands · escalation �
 | **Morris Acceptance** | **AUTHORIZED / CONSUMED** |
 | **Git Integration GO** | **AUTHORIZED / CONSUMED** (PR **#571** MERGED · CI **#713** SUCCESS) |
 | **Phase 0** | **COMPLETE / INTEGRATED / POST-MERGE VERIFIED** |
-| **Phase 1** | **PASS / QA ENVIRONMENT & RUNTIME READY** |
+| **Phase 1** | **PASS / REQUALIFIED WITH CURRENT P6 REAL SMOKES** |
 | **GO P6 EXECUTION** | **AUTHORIZED / CONSUMED** |
 | **GO P6 REAL — BOUNDED CAMPAIGN** | **AUTHORIZED / CONSUMED** |
-| **P6 READY** | **YES for broad QA (campaign-internal after Phase 1 PASS)** · **≠ P6 PASS** |
+| **P6 READY** | **YES for broad QA (campaign-internal)** · **≠ P6 PASS** |
 | **P6 STARTED** | **YES** |
-| **REAL EXECUTION** | **IN PROGRESS under GO P6 REAL (bounded)** |
+| **REAL EXECUTION** | **BOUNDED UNDER GO P6 REAL — CURRENT SMOKES + PHASE-3 ADVANCED** |
 | **runtime v3** | **NON ADOPTED** |
 | **Project push / PR / merge** | **NONE** |
-| **Next** | Phases 2–4 AUTO · Human QA batch · interim consolidation · **≠ P6 PASS claimed** |
+| **Next** | **MORRIS HUMAN QA BATCH** (final consolidated · 19 items) · then P6 FINAL CONSOLIDATION / EXIT REVIEW · **≠ P6 PASS claimed** |
 
 ---
 
@@ -1255,12 +1648,18 @@ Before mass Phase 3: manifests complete enough for reproducibility/auditability.
 
 *Fin — P6 Global Integrated Product QA Campaign Contract — Phase 0 INTEGRATED / POST-MERGE VERIFIED (PR #571 · CI #713) · ChatGPT Closure Review PASS · P6-QA-CONTRACT-01…12 CLOSED · GO P6 EXECUTION AUTHORIZED / CONSUMED · GO P6 REAL AUTHORIZED / CONSUMED · P6 STARTED YES · Phase 1 IN PROGRESS · P6 READY NO · P6 PASS NOT CLAIMED · runtime v3 NON ADOPTED · project push/PR/merge NONE.*
 
-## Roadmap current tip (excerpt)
+## Roadmap tip (current)
 
-| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P6 MACRO CAMPAIGN EXECUTION** | 2026-10-08 Europe/Paris — **P6 GLOBAL INTEGRATED PRODUCT QA — MACRO CAMPAIGN EXECUTION / REAL-FIRST HYBRID** · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **9 — QA / validation** · Profile **Critical** · Typologie **QA / VALIDATION / INTEGRATED PRODUCT / REAL-FIRST HYBRID** · Milestone **P6** · campaignId **P6-GLOBAL-INTEGRATED-PRODUCT-QA-01** · origin/main baseline **`aba6c4a617b6d0cb27f23b59de5bf0ac9360fab1`** · PR **#571** = **MERGED** · merge **`aba6c4a6…`** · post-merge CI Studio **#713** / run **`37765489559`** **SUCCESS** · Required Gate **SUCCESS** · Phase 0 = **COMPLETE / INTEGRATED / POST-MERGE VERIFIED** · ChatGPT Closure Review = **PASS / CONSUMED** · P6-QA-CONTRACT-01…12 = **CLOSED** · Morris GO P6 EXECUTION = **AUTHORIZED / CONSUMED** · Morris GO P6 REAL — BOUNDED CAMPAIGN = **AUTHORIZED / CONSUMED** · Canonical = `product-simplification/07-…` · Campaign strategy = **REAL-FIRST HYBRID** · P6 STARTED = **YES** · Phase 1 = **PASS / QA ENVIRONMENT & RUNTIME READY** · SMOKE-01/02/03 = **PASS** · P6 READY FOR BROAD QA = **YES (campaign-internal)** · Phases 2–4 = **IN PROGRESS** · Phase 5 Human QA batch = **READY** · Phase 6 = **INTERIM CONSOLIDATION ONLY** · P6 PASS = **NOT CLAIMED** · runtime v3 = **NON ADOPTED** · production routing changed = **NO** · branche `qa/sfia-studio-p6-global-integrated-product-qa` · Project push / PR / merge = **NONE** · Next = **MORRIS HUMAN QA BATCH** → P6 FINAL CONSOLIDATION / EXIT REVIEW · **≠** P6 PASS · **≠** REAL BOUNDARY globally proven · **≠** runtime v3 ADOPTED · **≠** production routing adoption |
-| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P6 QA CONTRACT GIT INTEGRATION** | 2026-10-08 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — prior tip P6 GLOBAL INTEGRATED PRODUCT QA — QA CONTRACT ACCEPTANCE & GIT INTEGRATION *(true then; superseded by PR #571 MERGED + CI #713 + GO P6 EXECUTION/REAL consumed)* · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **13 — PR readiness / Git Integration** · Profile **Critical** · Typologie **DOC / GOVERNANCE / PR READINESS / GIT INTEGRATION** · Milestone **P6** · Entry main **`1e9d261a252ffb44c73614db5d501cb93ce55d8b`** · PR **#570** MERGED · CI **#711** SUCCESS · P5 COMPLETE = **YES / INTEGRATED / POST-MERGE VERIFIED** · ChatGPT Closure Review = **PASS / CONSUMED** · P6-QA-CONTRACT-01…12 = **CLOSED** · Morris P6 QA Contract Acceptance = **AUTHORIZED / CONSUMED** · Morris P6 QA Contract Git Integration GO = **AUTHORIZED / CONSUMED** · Canonical = `product-simplification/07-chat-first-product-simplification-p6-global-integrated-product-qa.md` · P6 QA CONTRACT = **MORRIS ACCEPTED / GIT INTEGRATION IN PROGRESS** · Phase 0 = **CONTRACT ACCEPTED / READY FOR GIT INTEGRATION** · Campaign strategy = **REAL-FIRST HYBRID** · GO P6 EXECUTION = **NOT AUTHORIZED** · GO P6 REAL — BOUNDED CAMPAIGN = **NOT AUTHORIZED** · P6 READY = **NO** · P6 STARTED = **NO** · runtime v3 = **NON ADOPTED** · entry candidate HEAD = **`29e91b348c1476156365c5d10fc3050823987916`** · branche `audit/sfia-studio-product-completion-p6-global-integrated-qa-qualification` · Project push / Draft PR = **AUTHORIZED THIS CYCLE** · Merge = **NOT AUTHORIZED** · Next then = Draft PR + CI → **MORRIS MERGE REVIEW / MERGE GO** *(superseded by PR #571 MERGED)* · **≠** P6 READY · **≠** P6 STARTED · **≠** GO P6 EXECUTION · **≠** GO P6 REAL · **≠** runtime v3 ADOPTED · **≠** merge |
+# SFIA Studio Convergence Roadmap
 
-## Delivery 05 current P6 fields (excerpt)
+| Métadonnée | Valeur |
+| --- | --- |
+| **Rôle** | Roadmap **vivante** de convergence vers l’utilisation complète de la doctrine produit SFIA Studio v3 |
+| **Statut** | **VALIDATED — ACTIVE LIVING ROADMAP** |
+| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P6 MACRO CAMPAIGN CONTINUATION** | 2026-10-08 Europe/Paris — **P6 GLOBAL INTEGRATED PRODUCT QA — MACRO CAMPAIGN CONTINUATION / PHASE-1 REQUALIFICATION** · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **9 — QA / validation** · Profile **Critical** · campaignId **P6-GLOBAL-INTEGRATED-PRODUCT-QA-01** · origin/main **`aba6c4a617b6d0cb27f23b59de5bf0ac9360fab1`** · PR **#571** MERGED · CI **#713** SUCCESS · Phase 0 = **COMPLETE / INTEGRATED / POST-MERGE VERIFIED** · GO P6 EXECUTION / GO P6 REAL = **AUTHORIZED / CONSUMED** · Phase 1 = **PASS / REQUALIFIED WITH CURRENT P6 REAL SMOKES** (fresh SMOKE-01/02/03 · browser QUALIFIED · provider CAPTURED · authority profiles CONTROLLED) · prior Phase 2/3/4 evidence = **VALID / REUSED** · Phase 2 scenario disposition + Phase 3 Router-in-situ/discrimination continuation · Phase 5 Human QA batch = **REGENERATING / NOT YET PRIMARY HANDOFF** · P6 PASS = **NOT CLAIMED** · runtime v3 = **NON ADOPTED** · production routing changed = **NO** · branche `qa/sfia-studio-p6-global-integrated-product-qa` · Project push / PR / merge = **NONE** · Next = exhaust AUTO → **MORRIS HUMAN QA BATCH** · **≠** P6 PASS · **≠** runtime v3 ADOPTED |
+| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P6 MACRO CAMPAIGN EXECUTION** | 2026-10-08 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — prior tip P6 MACRO CAMPAIGN EXECUTION *(true then; Phase-1 smokes later requalified as CURRENT P6 REAL)* · Phase 1 then claimed PASS with P5.S05 historical SMOKE-01 + DET-only SMOKE-03 · superseded by CONTINUATION / REQUALIFICATION tip · campaignId **P6-GLOBAL-INTEGRATED-PRODUCT-QA-01** · origin/main baseline **`aba6c4a617b6d0cb27f23b59de5bf0ac9360fab1`** · PR **#571** MERGED · CI **#713** SUCCESS · GO P6 EXECUTION / GO P6 REAL = **AUTHORIZED / CONSUMED** · P6 STARTED = **YES** · P6 PASS = **NOT CLAIMED** · runtime v3 = **NON ADOPTED** · branche `qa/sfia-studio-p6-global-integrated-product-qa` · Project push / PR / merge = **NONE** |
+
+## Delivery 05 / Pack 06 P6 excerpts
 
 # SFIA Studio — Chat-First Product Simplification — P5 Integrated Delivery
 
@@ -1300,60 +1699,13 @@ Before mass Phase 3: manifests complete enough for reproducibility/auditability.
 | **P5 STARTED** | **YES** |
 | **P5 IN PROGRESS** | **NO** (milestone closed) |
 | **P5 COMPLETE** | **YES / INTEGRATED / POST-MERGE VERIFIED** |
-| **P6** | **STARTED / PHASE 1 PASS / BROAD QA IN PROGRESS** (`07-…`) · Closure Review **PASS** · findings 01–12 **CLOSED** · **REAL-FIRST HYBRID** · Phase 0 = **INTEGRATED / POST-MERGE VERIFIED** (PR **#571**) · SMOKE-01/02/03 **PASS** · Human QA batch **READY** · P6 PASS **NOT CLAIMED** |
+| **P6** | **STARTED / PHASE 1 PASS / REQUALIFIED / BROAD QA CONTINUATION** (`07-…`) · Closure Review **PASS** · findings 01–12 **CLOSED** · **REAL-FIRST HYBRID** · Phase 0 = **INTEGRATED / POST-MERGE VERIFIED** (PR **#571**) · SMOKE-01/02/03 **CURRENT P6 REAL PASS** · Human QA batch **REGENERATING** · P6 PASS **NOT CLAIMED** |
 | **GO P6 EXECUTION** | **AUTHORIZED / CONSUMED** |
 | **GO P6 REAL — BOUNDED CAMPAIGN** | **AUTHORIZED / CONSUMED** |
 | **P6 READY** | **NO** |
 | **P5-S01** | **INTEGRATED / POST-MERGE VERIFIED** |
 | **P5-S02** | **INTEGRATED / POST-MERGE VERIFIED** — R1/R2 **PROVEN** · envelope deviation **ACCEPTED BY MORRIS** |
 | **P5-S03** | **INTEGRATED / POST-MERGE VERIFIED** · Object-Native Aperçu + Exécution · A=0/B=0 |
-| **P5-S04** | **INTEGRATED / POST-MERGE VERIFIED** · Product-derived Synthèses M9 · CP01/CP02 preserved · A=0/B=0 · B1/B2 CLOSED |
-| **P5-S05** | **INTEGRATED / POST-MERGE VERIFIED** — F2 routing CLOSED ON MAIN · R3 PASS AT TESTED SCOPE |
-| **P5-S06** | **INTEGRATED / POST-MERGE VERIFIED** · FUNCTIONAL CLOSURE **PASS / INTEGRATED** · Visual **PASS AT S06 SCOPE** · FULL CANONICAL SEND CANCELLATION **PASS DETERMINISTIC / INTEGRATED** · STOP debt **CLOSED ON MAIN** · REAL cancellation **NOT PROVEN** |
-| **P5-S07** | **INTEGRATED / POST-MERGE VERIFIED** · Functional/semantic **PASS / INTEGRATED** · Continuity **PASS / INTEGRATED** · Work Representation **PASS / INTEGRATED** · Journal currentness **PASS** · History identity **PASS** · Responsive **PASS** · GLOBAL P3 VISUAL PARITY **OPEN / INCOMPLETE → OWNER P5-S08** · ZERO REAL · Architecture parallelism **NONE** · UAT-RECOVERY-03 **NON-BLOCKING CARRY → S08-2** |
-| **P5-S07 DELIVERY GO** | **AUTHORIZED / CONSUMED** |
-| **P5-S07 CP01** | **AUTHORIZED / CONSUMED** |
-| **P5-S07 CP02** | **AUTHORIZED / CONSUMED** |
-| **P5-S07 CP03** | **AUTHORIZED / CONSUMED** |
-| **P5-S07 GIT INTEGRATION GATE** | **AUTHORIZED / CONSUMED** |
-| **P5-S07 MERGE GO** | **AUTHORIZED / CONSUMED** |
-| **P5-S07 POST-MERGE CLOSURE GO** | **AUTHORIZED / CONSUMED** |
-| **P5-S07 POST-MERGE TRUTH-SYNC** | PR **#564** **MERGED / POST-MERGE VERIFIED** (CI **#696** SUCCESS) — tip « LOCAL CANDIDATE / GI NOT AUTHORIZED » **SUPERSEDED** |
-| **P5-S08-1 GO** | **AUTHORIZED / CONSUMED** · ChatGPT Review **PASS** |
-| **P5-S08-2 GO** | **AUTHORIZED / CONSUMED** · ChatGPT RE-REVIEW **PASS** |
-| **P5-S08-3 GO** | **AUTHORIZED / CONSUMED** |
-| **NO PROJECT GIT INTEGRATION BEFORE END OF S08-3** | **ADOPTED / ENFORCED / PERIOD COMPLETED** |
-| **Morris Cumulative Git Integration GO** | **AUTHORIZED / CONSUMED** |
-| **Morris PR #565 READY + MERGE GO** | **AUTHORIZED / CONSUMED** |
-| **PR #565** | **MERGED / POST-MERGE VERIFIED** (main `7063fa3c…` · CI **#698** SUCCESS) |
-| **P5-S06 DELIVERY** | **AUTHORIZED / CONSUMED** → **INTEGRATED** via PR **#561** |
-| **P5-S06 CP01** | **AUTHORIZED / CONSUMED** |
-| **P5-S06 CP02** | **AUTHORIZED / CONSUMED** |
-| **P5-S06 CP02.1** | **AUTHORIZED / CONSUMED** |
-| **P5-S06 CP02.2** | **AUTHORIZED / CONSUMED** |
-| **P5-S06 CP02.3** | **AUTHORIZED / CONSUMED** |
-| **P5-S06 GIT INTEGRATION GATE** | **AUTHORIZED / CONSUMED** |
-| **P5-S06 MERGE GO** | **AUTHORIZED / CONSUMED** |
-| **P5 slicing restant** | **NONE** — S08-1→S08-6 **CLOSED** · P5 COMPLETE **YES / POST-MERGE VERIFIED** · P6 campaign **STARTED** · Phase 1 **IN PROGRESS** · ≠ P6 PASS / ≠ runtime v3 ADOPTED |
-| **R1 / R2 / R3** | **R1 PASS** · **R2 PASS** · **R3 PASS AT TESTED SCOPE / INTEGRATED / POST-MERGE VERIFIED** (S05) |
-| **ZERO REAL** | **YES for S07/S08-1** · S05 R3 REAL historique préservé (bounded OpenAI sous gate S05) · S02 R1/R2 REAL historique préservé |
-| **runtime v3** | **NON ADOPTED** |
-| **Git (S08 cumulative)** | PR **#565** **MERGED** · CI **#698** · PR **#567** **MERGED** · CI **#704** · PR **#568** **MERGED** · CI **#707** · PR **#569** **MERGED** · CI **#709** · PR **#570** **MERGED** · CI **#711** · PR **#571** **MERGED** · main `aba6c4a6…` · CI **#713** SUCCESS · P5 COMPLETE **YES / POST-MERGE VERIFIED** · P6 Phase 0 **INTEGRATED** |
-| **Next** | P6 Phase 1 exit gate → Phases 2–4 if PASS · Human QA batch · ≠ P6 PASS · ≠ runtime v3 ADOPTED · project push/PR/merge **NOT AUTHORIZED** |
-| **P5-S05 DELIVERY** | **AUTHORIZED / CONSUMED** → **INTEGRATED** via PR **#560** |
-| **P5-S05 REAL / R3** | **AUTHORIZED / CONSUMED** → **INTEGRATED** |
-| **P5-S05 CP01 / CP02** | **AUTHORIZED / CONSUMED** (historique) |
-| **Langue** | Français (identifiants canoniques anglais préservés) |
-| **Fichier** | `projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md` |
-| **Date** | 2026-10-07 · Europe/Paris |
-
-> **Lecture rapide.** P5-S01…S08-6 **technically integrated / post-merge verified**. **P5 COMPLETE = YES**. P6 contract on main via PR **#571** / CI **#713**. P6 = **STARTED / PHASE 1 IN PROGRESS** (`07-…`). **GO P6 EXECUTION / GO P6 REAL = AUTHORIZED / CONSUMED**. **P6 READY = NO** · **P6 PASS NOT CLAIMED** · **runtime v3 = NON ADOPTED**.
-> **Règle de lecture des preuves.** *Implémenté* ≠ *prouvé* ≠ *intégré* ≠ *REAL*. P5 COMPLETE ≠ P6 PASS ≠ runtime v3 ADOPTED ≠ GLOBAL SIMPLIFICATION FULLY QA-PROVEN.
-
----
-
-
-## Pack 06 current P6 fields (excerpt)
 
 # SFIA Studio — Chat-First Product Simplification — P5 Integrated Six-Dimension Exit Readiness Pack
 
@@ -1381,7 +1733,7 @@ Before mass Phase 3: manifests complete enough for reproducibility/auditability.
 | **S08-1→S08-3** | **INTEGRATED / POST-MERGE VERIFIED** (PR **#565** · CI **#698**) |
 | **S08-6** | **PASS / MORRIS GATE CONSUMED / POST-MERGE VERIFIED** |
 | **P5 COMPLETE** | **YES / INTEGRATED / POST-MERGE VERIFIED** |
-| **P6** | **STARTED / PHASE 1 PASS / BROAD QA IN PROGRESS** (`07-…`) · Closure Review **PASS** · findings 01–12 **CLOSED** · **REAL-FIRST HYBRID** · Phase 0 = **INTEGRATED / POST-MERGE VERIFIED** · Human QA batch **READY** · P6 PASS **NOT CLAIMED** |
+| **P6** | **STARTED / PHASE 1 PASS / REQUALIFIED / BROAD QA CONTINUATION** (`07-…`) · Closure Review **PASS** · findings 01–12 **CLOSED** · **REAL-FIRST HYBRID** · Phase 0 = **INTEGRATED / POST-MERGE VERIFIED** · Human QA batch **REGENERATING** · P6 PASS **NOT CLAIMED** |
 | **GO P6 EXECUTION** | **AUTHORIZED / CONSUMED** |
 | **GO P6 REAL — BOUNDED CAMPAIGN** | **AUTHORIZED / CONSUMED** |
 | **P6 READY** | **NO** |
@@ -1395,56 +1747,15 @@ Before mass Phase 3: manifests complete enough for reproducibility/auditability.
 
 > **Lecture rapide.** Ce Pack est l’artefact unique de readiness P5 sur les six dimensions canoniques. S08-5 / S08-6 / P5 COMPLETE post-merge verified (PR **#570** · CI **#711**). P6 contract integrated (PR **#571** · CI **#713**). Blocking OPEN = **NONE**. P6 = **STARTED / PHASE 1 IN PROGRESS** (`07-…`) · **GO P6 EXECUTION / GO P6 REAL = AUTHORIZED / CONSUMED** · **≠ P6 PASS** · **≠ runtime v3 ADOPTED**.
 
----
-
-## A. Metadata / authority
-
-| Domaine | Autorité |
-| --- | --- |
-| Architecture Product | **P4** (`04-…-semantic-projection-cognitive-architecture.md`) — inchangée |
-| Delivery / evidence historique | **P5** (`05-…-integrated-delivery.md`) — KEEP |
-| Exit readiness (ce document) | **P5-S08-5 Pack 06** — preuve consolidée de sortie |
-| Doctrine Studio | **v3** (framing 30–37) · SFIA v2.6 = PROCESS ONLY |
-| Build Doctrine | READ-ONLY · non modifiée |
-| Git | `origin/main` SoT pour intégration |
-
-**Ce document n’est pas :** une nouvelle doctrine · une promotion runtime · une preuve REAL nouvelle · un démarrage P6 QA execution · P6 READY YES. (S08-6 / P5 COMPLETE gate = **CONSUMED / POST-MERGE VERIFIED**.)
-
----
-
-## B. Executive verdict
-
-| Item | Verdict |
-| --- | --- |
-| **S08-5 global** | **INTEGRATED / POST-MERGE VERIFIED** |
-| **Six-dimension readiness** | **PASS / PASS-WITH-CARRY ONLY** |
-| **Blocking OPEN dimensions** | **NONE** |
-| **Blocking P5 carries** | **NONE** |
-| **Artifact Completeness (V3-F14)** | **PASS / INTEGRATED** |
-| **Architecture parallelism** | **NONE** |
-| **S08-6** | **PASS / MORRIS GATE CONSUMED** |
-| **Recommendation** | **P5 COMPLETE = YES / POST-MERGE VERIFIED** · P6 = **STARTED / PHASE 1 IN PROGRESS** (`07-…`) · next = Phase 1 exit gate · ≠ P6 PASS · ≠ runtime v3 ADOPTED |
-| **P5 COMPLETE** | **YES / INTEGRATED / POST-MERGE VERIFIED** |
-| **P6 READY** | **NO** |
-| **runtime v3** | **NON ADOPTED** |
-
-### Dimension summary
-
-| # | Dimension | Verdict |
-| --- | --- | --- |
-| 1 | **FUNCTIONAL** | **PASS-WITH-CARRY** |
-| 2 | **EXPERIENCE** | **PASS** |
-| 3 | **SEMANTIC INTEGRITY** | **PASS-WITH-CARRY** |
 
 ## Anti-claims
 
 - GO REAL consumed ≠ REAL BOUNDARY globally proven
-- High test volume ≠ P6 PASS
-- Human QA queued ≠ Human QA passed
-- Controlled candidate ≠ Product router proof
-- P6 evidence ≠ production routing adoption
-- P6/P7 ≠ runtime v3 ADOPTED
+- Controlled candidate SUFFICIENT ≠ Product router proof
+- Router-in-situ observations ≠ production routing adoption
+- Human QA ready ≠ Human QA passed
+- Phase 1 PASS / REQUALIFIED ≠ P6 PASS
 
 ## Next Morris gate
 
-MORRIS HUMAN QA BATCH → then P6 FINAL CONSOLIDATION / EXIT REVIEW
+MORRIS HUMAN QA BATCH (19 consolidated items)
