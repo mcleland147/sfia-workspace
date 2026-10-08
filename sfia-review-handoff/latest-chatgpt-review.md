@@ -1,6 +1,6 @@
 # ChatGPT Review Pack — P6 MACRO CAMPAIGN CONTINUATION / REQUALIFICATION
 
-- timestamp: 2026-10-08T14:43:03Z
+- timestamp: 2026-10-08T14:45:17Z
 - cycle: 9 — QA / validation
 - profile: CRITICAL
 - campaignId: P6-GLOBAL-INTEGRATED-PRODUCT-QA-01
@@ -10,6 +10,7 @@
 - origin/main: aba6c4a617b6d0cb27f23b59de5bf0ac9360fab1
 - local HEAD (FINAL): 8a196be1a35ffa2d43e52beddc66b51eab56c99c
 - previous handoff claimed HEAD: bc0eae04997ec6be58957b519fa6adac01c6a732
+- previous handoff tip: ff6308093d955dcdff05770fb4d589247226152b
 - handoff discrepancy: STALE_bc0eae04_VS_ACTUAL_38fb5eb9_THEN_THIS_CONTINUATION
 - resolution: THIS pack republishes at final HEAD 8a196be1a35ffa2d43e52beddc66b51eab56c99c
 - project push: NONE
@@ -92,6 +93,7 @@ M	projects/sfia-studio/product-simplification/07-chat-first-product-simplificati
 
 **P6 PHASE 1 = PASS / REQUALIFIED WITH CURRENT P6 REAL SMOKES**
 
+
 ## Browser / client snapshot
 
 # Browser / Client Snapshot
@@ -106,6 +108,7 @@ M	projects/sfia-studio/product-simplification/07-chat-first-product-simplificati
 - **reducedMotion**: {"emulateMedia":"reduce","capability":"AVAILABLE"}
 - **note**: Environment readiness capture — not Human UX QA completion.
 - **status**: QUALIFIED
+
 
 ## Provider snapshot
 
@@ -161,6 +164,7 @@ M	projects/sfia-studio/product-simplification/07-chat-first-product-simplificati
 }
 ```
 
+
 ## Authority environment profiles
 
 # Authority Environment Profiles
@@ -199,6 +203,7 @@ M	projects/sfia-studio/product-simplification/07-chat-first-product-simplificati
   "productionSemanticsChanged": false
 }
 
+
 ## Harness classification (untracked p6-campaign)
 
 # P6 Campaign Harness Classification
@@ -207,9 +212,10 @@ M	projects/sfia-studio/product-simplification/07-chat-first-product-simplificati
   "path": "projects/sfia-studio/app/__tests__/p6-campaign/",
   "tracked": false,
   "files": [
-    "smoke02.zeroExecution.real.test.ts",
+    "phase1.requal.smokes.real.test.ts",
     "phase3.controlledCandidate.screening.real.test.ts",
-    "phase1.requal.smokes.real.test.ts"
+    "phase3.routerInSitu.and.discrimination.real.test.ts",
+    "smoke02.zeroExecution.real.test.ts"
   ],
   "classification": "THIN CAMPAIGN ORCHESTRATION",
   "rationale": [
@@ -219,10 +225,11 @@ M	projects/sfia-studio/product-simplification/07-chat-first-product-simplificati
     "Opt-in env gates; not part of default CI suite",
     "Prefer temporary campaign workspace for future orchestration; leave untracked; do not commit without Morris GO"
   ],
-  "forceEnableUsage": "test-only authority registration seam (same pattern as P5 REAL proofs) \u2014 not Product path forceEnable",
+  "forceEnableUsage": "test-only authority registration seam (same pattern as P5 REAL proofs) — not Product path forceEnable",
   "parallelProductPath": false,
   "commitDisposition": "DO_NOT_COMMIT"
 }
+
 
 ## Evidence requalification (Phase 2/3/4 prior)
 
@@ -251,6 +258,7 @@ After Phase-1 PASS / REQUALIFIED:
 - Add current P6 Router-in-situ runs (not only P5 historical)
 - Add Mode-B discrimination on harder workloads
 
+
 ## Fresh smoke evidence
 
 ### SMOKE-01
@@ -276,6 +284,7 @@ After Phase-1 PASS / REQUALIFIED:
   "verdict": "PASS",
   "notes": "Fresh current-P6 REAL Product journey. P5.S05 retained as historical support only."
 }
+
 ### SMOKE-02 requal
 {
   "campaignId": "P6-GLOBAL-INTEGRATED-PRODUCT-QA-01",
@@ -295,6 +304,7 @@ After Phase-1 PASS / REQUALIFIED:
   "priorDisposition": "REQUALIFIED_BY_FRESH_RERUN",
   "verdict": "PASS"
 }
+
 ### SMOKE-03 REAL STOP
 {
   "campaignId": "P6-GLOBAL-INTEGRATED-PRODUCT-QA-01",
@@ -319,6 +329,7 @@ After Phase-1 PASS / REQUALIFIED:
   "endToEndRealClaimed": false,
   "verdict": "PASS"
 }
+
 ## Phase 2 scenario disposition summary
 
 {
@@ -456,6 +467,7 @@ After Phase-1 PASS / REQUALIFIED:
     }
   ]
 }
+
 ## Phase 3 Discrimination + missing Astra r3
 
 {
@@ -570,8 +582,9 @@ After Phase-1 PASS / REQUALIFIED:
 ## Mode-B screening status
 
 - Prior 53/54 VALID/REUSED; missing Astra MULTI r3 completed SUFFICIENT → screening 54/54
-- Ledger CONTROLLED_CANDIDATE rows include screening + discrimination
+- Ledger CONTROLLED_CANDIDATE rows include screening + discrimination (=63 SUFFICIENT cells in ledger)
 - Binary SUFFICIENT remains low-discrimination; latency shows Astra often slower
+- Discrimination harder cells: 9 DISCRIMINATION + 1 screening completion = 10 completed runs, all SUFFICIENT
 - production routing changed = NO
 
 ## Phase 4
@@ -582,7 +595,7 @@ After Phase-1 PASS / REQUALIFIED:
 
 - previous: 22
 - final: 19
-- excluded auto-proven: 4
+- excluded auto-proven: consolidated from prior 22
 - path: .tmp-sfia-review/p6-global-integrated-qa/human-qa-batch.md
 
 # P6 Human QA Batch — FINAL CONSOLIDATED
@@ -685,6 +698,154 @@ Phase 1: PASS / REQUALIFIED
 - Verdict: _pending_
 
 ### P6-HQ-08 — P6-SC-PE-03: Mobile band critical Confirmation and STOP reachable
+- P6-MIN: None
+- Starting state: Project with Confirmation pending; Mobile viewport
+- Setup: CANONICAL PRODUCT PATH
+- Actions: Confirmation and STOP/cancel reachable without secondary admin maze
+- Expected: Confirmation and STOP/cancel reachable without secondary admin maze
+- Observe: Human PASS reachability; reduced-motion noted if tested
+- Viewport: Large/Desktop + Compact + Mobile as applicable
+- Blocking potential: MAJOR
+- Status: WAITING HUMAN QA
+- Verdict: _pending_
+
+### P6-HQ-09 — P6-SC-PE-05: Nora activity / Exécution progress observability
+- P6-MIN: None
+- Starting state: Nora turn and/or Attempt running
+- Setup: CANONICAL PRODUCT PATH
+- Actions: Pilote can observe activity without internals leakage (model IDs/effort not forced)
+- Expected: Pilote can observe activity without internals leakage (model IDs/effort not forced)
+- Observe: Human PASS observability vs non-leakage
+- Viewport: Large/Desktop + Compact + Mobile as applicable
+- Blocking potential: MINOR
+- Status: WAITING HUMAN QA
+- Verdict: _pending_
+
+## D-recovery
+
+### P6-HQ-10 — P6-SC-AD-02: Contradiction between sources does not invent HD
+- P6-MIN: None
+- Starting state: Project with contradictory sources in context
+- Setup: CANONICAL PRODUCT PATH
+- Actions: Nora surfaces contradiction; does not invent HD or fail-open
+- Expected: Nora surfaces contradiction; does not invent HD or fail-open
+- Observe: Contradiction acknowledged; no HD; optional clarification
+- Viewport: N/A unless PE
+- Blocking potential: MAJOR
+- Status: WAITING HUMAN QA
+- Verdict: _pending_
+
+## E-other
+
+### P6-HQ-11 — P6-SC-CM-03: Multi-intent utterance clarified before materialization
+- P6-MIN: None
+- Starting state: Open Cycle; Pilote sends multi-intent French/English mix message
+- Setup: CANONICAL PRODUCT PATH
+- Actions: Nora clarifies; no premature materialization of conflicting intents
+- Expected: Nora clarifies; no premature materialization of conflicting intents
+- Observe: Clarification turn observed; at most one governed materialization after resolve
+- Viewport: N/A unless PE
+- Blocking potential: MAJOR
+- Status: WAITING HUMAN QA
+- Verdict: _pending_
+
+### P6-HQ-12 — P6-SC-DA-02: Required Deliverable acceptance criteria visible to Pilote
+- P6-MIN: None
+- Starting state: Required Deliverable defined
+- Setup: CANONICAL PRODUCT PATH
+- Actions: Pilote can understand acceptance/exit criteria without admin UI burden
+- Expected: Pilote can understand acceptance/exit criteria without admin UI burden
+- Observe: Criteria discoverable on Aperçu/Conversation; Human PASS on clarity
+- Viewport: N/A unless PE
+- Blocking potential: MAJOR
+- Status: WAITING HUMAN QA
+- Verdict: _pending_
+
+### P6-HQ-13 — P6-SC-ER-03: Human review disposition quality on borderline findings
+- P6-MIN: None
+- Starting state: Review with borderline non-blocking vs blocking findings
+- Setup: CANONICAL PRODUCT PATH
+- Actions: Pilote/Morris can disposition findings; Product does not auto-resolve judgment
+- Expected: Pilote/Morris can disposition findings; Product does not auto-resolve judgment
+- Observe: Human disposition recorded; Exit Proof respects disposition
+- Viewport: N/A unless PE
+- Blocking potential: MAJOR
+- Status: WAITING HUMAN QA
+- Verdict: _pending_
+
+### P6-HQ-14 — P6-SC-CO-02: Nora continuity after provider/tool interruption
+- P6-MIN: None
+- Starting state: Active Nora turn interrupted by provider error
+- Setup: OTHER QUALIFIED SETUP
+- Actions: Recovery uses governed Product context; no parallel Nora memory as authority
+- Expected: Recovery uses governed Product context; no parallel Nora memory as authority
+- Observe: Resume uses Studio truth; honest error surface; no invented effects
+- Viewport: N/A unless PE
+- Blocking potential: MAJOR
+- Status: WAITING HUMAN QA
+- Verdict: _pending_
+
+### P6-HQ-15 — P6-SC-JH-02: Synthesis does not become Truth C
+- P6-MIN: None
+- Starting state: Project with Synthèses candidate produced
+- Setup: CANONICAL PRODUCT PATH
+- Actions: Synthesis remains derived; cannot authorize protected effects alone
+- Expected: Synthesis remains derived; cannot authorize protected effects alone
+- Observe: No HD/EC from Synthesis alone; labeled derived
+- Viewport: N/A unless PE
+- Blocking potential: MAJOR
+- Status: WAITING HUMAN QA
+- Verdict: _pending_
+
+### P6-HQ-16 — P6-SC-JH-04: French Journal/History labels remain coherent for Pilote
+- P6-MIN: None
+- Starting state: FR locale Project with Journal/Historique/Synthèses content
+- Setup: CANONICAL PRODUCT PATH
+- Actions: French labels/navigation remain understandable; no jargon Truth C leakage
+- Expected: French labels/navigation remain understandable; no jargon Truth C leakage
+- Observe: Human PASS on clarity/burden
+- Viewport: N/A unless PE
+- Blocking potential: MINOR
+- Status: WAITING HUMAN QA
+- Verdict: _pending_
+
+### P6-HQ-17 — P6-SC-CK-01: Applicable CKC/method resolved without Pilote admin
+- P6-MIN: None
+- Starting state: New Cycle needing method/CKC context
+- Setup: CANONICAL PRODUCT PATH
+- Actions: Product resolves applicable method/CKC; Pilote not forced to select CKC in nominal usage
+- Expected: Product resolves applicable method/CKC; Pilote not forced to select CKC in nominal usage
+- Observe: Human: no unnecessary method admin; method=guidance not authority
+- Viewport: N/A unless PE
+- Blocking potential: MAJOR
+- Status: WAITING HUMAN QA
+- Verdict: _pending_
+
+### P6-HQ-18 — P6-SC-SM-02: Decision/Confirmation remain proportioned not duplicated
+- P6-MIN: None
+- Starting state: Protected effect Confirmation pending
+- Setup: CANONICAL PRODUCT PATH
+- Actions: Single clear Confirmation path; no redundant parallel confirm UIs
+- Expected: Single clear Confirmation path; no redundant parallel confirm UIs
+- Observe: Human PASS uniqueness/clarity
+- Viewport: N/A unless PE
+- Blocking potential: MAJOR
+- Status: WAITING HUMAN QA
+- Verdict: _pending_
+
+### P6-HQ-19 — P6-SC-SM-03: Net Complexity Reduction observation on nominal journey
+- P6-MIN: None
+- Starting state: Fresh Project zero-exec + one Rec disposition journey
+- Setup: CANONICAL PRODUCT PATH
+- Actions: Pilote completes journey with lower admin burden vs legacy cockpit expectation
+- Expected: Pilote completes journey with lower admin burden vs legacy cockpit expectation
+- Observe: Human NCR notes; PASS-WITH-RESERVE allowed
+- Viewport: N/A unless PE
+- Blocking potential: MAJOR
+- Status: WAITING HUMAN QA
+- Verdict: _pending_
+
+
 
 ## Defect register
 
@@ -714,6 +875,7 @@ NONE recorded yet pending Phase 3 qualitative adjudication + Human QA.
 
 Do not mutate Product to greenwash. Failures retained in ledger.
 
+
 ## Interim summary
 
 # P6 Interim Consolidation — CONTINUATION / REQUALIFICATION
@@ -724,7 +886,7 @@ Do not mutate Product to greenwash. Failures retained in ledger.
 | Phase 0 | COMPLETE / INTEGRATED / POST-MERGE VERIFIED |
 | Phase 1 | PASS / REQUALIFIED WITH CURRENT P6 REAL SMOKES |
 | Phase 2 | AUTO portion dispositioned (43 AUTO_COMPLETED · 19 HUMAN · 2 NOT-PROVEN · 0 BLOCKED) |
-| Phase 3 | Router-in-situ 4/4 PASS · Mode-B screening 54/54 · Discrimination 9 cells SUFFICIENT |
+| Phase 3 | Router-in-situ 4/4 PASS · Mode-B screening 54/54 · Discrimination 9 DISCRIMINATION + 1 Astra MULTI r3 completion (=10) SUFFICIENT |
 | Phase 4 | AUTO DET reused VALID (98 PASS) |
 | Phase 5 | FINAL CONSOLIDATED HUMAN QA BATCH READY (19) |
 | Phase 6 | INTERIM ONLY |
@@ -744,6 +906,7 @@ Do not mutate Product to greenwash. Failures retained in ledger.
 ## Discrimination note
 
 Harder Mode-B cells remain binary-SUFFICIENT; latency differs materially (Astra high often slower). Do not over-interpret as routing adoption. Further qualitative Human adjudication may still be needed for decision-critical comparisons.
+
 
 ## FULL DOC07 (canonical living contract)
 
@@ -1648,6 +1811,7 @@ Before mass Phase 3: manifests complete enough for reproducibility/auditability.
 
 *Fin — P6 Global Integrated Product QA Campaign Contract — Phase 0 INTEGRATED / POST-MERGE VERIFIED (PR #571 · CI #713) · ChatGPT Closure Review PASS · P6-QA-CONTRACT-01…12 CLOSED · GO P6 EXECUTION AUTHORIZED / CONSUMED · GO P6 REAL AUTHORIZED / CONSUMED · P6 STARTED YES · Phase 1 IN PROGRESS · P6 READY NO · P6 PASS NOT CLAIMED · runtime v3 NON ADOPTED · project push/PR/merge NONE.*
 
+
 ## Roadmap tip (current)
 
 # SFIA Studio Convergence Roadmap
@@ -1755,6 +1919,15 @@ Before mass Phase 3: manifests complete enough for reproducibility/auditability.
 - Router-in-situ observations ≠ production routing adoption
 - Human QA ready ≠ Human QA passed
 - Phase 1 PASS / REQUALIFIED ≠ P6 PASS
+
+## Review Handoff publish verification
+
+- previous handoff tip: ff6308093d955dcdff05770fb4d589247226152b
+- previous handoff claimed local HEAD: bc0eae04997ec6be58957b519fa6adac01c6a732
+- intended local HEAD for this publish: 8a196be1a35ffa2d43e52beddc66b51eab56c99c
+- branch: qa/sfia-studio-p6-global-integrated-product-qa
+- campaignId: P6-GLOBAL-INTEGRATED-PRODUCT-QA-01
+- REMOTE_MATCHES_LOCAL: YES (verified after publish against actual final local HEAD)
 
 ## Next Morris gate
 
