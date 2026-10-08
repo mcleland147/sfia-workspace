@@ -6,21 +6,24 @@
 | **Macro** | `STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01` |
 | **Milestone** | **P6 — GLOBAL INTEGRATED PRODUCT QA** |
 | **Cycle** | **8 — Audit projet** |
-| **Pass** | **P6 ENTRY QUALIFICATION — CORRECTION PASS 01** |
+| **Pass** | **P6 QA CONTRACT — CORRECTION PASS 02** |
 | **Profile** | **CRITICAL** |
 | **Typologie** | **DOC / AUDIT / QA CONTRACT / CAMPAIGN DESIGN** |
-| **Morris QA trajectory direction** | **APPROVED FOR DOCUMENTARY CONSOLIDATION / CONSUMED** |
-| **Statut** | **CORRECTED LOCAL CANDIDATE / CHATGPT RE-REVIEW REQUIRED** |
-| **P6-QA-CONTRACT-01** | **CLOSED CANDIDATE / READY FOR CHATGPT RE-REVIEW** |
+| **Morris CP02 GO** | **AUTHORIZED / CONSUMED** |
+| **ChatGPT Autonomous Review** | **STRUCTURALLY SOUND / TARGETED CORRECTIONS REQUIRED → THIS PASS** |
+| **Statut** | **CORRECTED LOCAL CANDIDATE / CHATGPT CLOSURE REVIEW REQUIRED** |
+| **P6-QA-CONTRACT-01** | **CLOSED** |
+| **P6-QA-CONTRACT-02…12** | **CLOSED CANDIDATE / READY FOR CHATGPT CLOSURE REVIEW** |
 | **P6 campaign strategy** | **REAL-FIRST HYBRID GLOBAL INTEGRATED PRODUCT QA** |
-| **Phase 0** | **CONTRACT FREEZE / DOCUMENTED LOCAL CANDIDATE** |
+| **Phase 0** | **CONTRACT CORRECTION COMPLETE CANDIDATE** |
 | **Phase 1** | **NOT STARTED** |
+| **GO P6 EXECUTION** | **NOT AUTHORIZED** |
+| **GO P6 REAL — BOUNDED CAMPAIGN** | **NOT AUTHORIZED** |
 | **P6 READY** | **NO** |
 | **P6 STARTED** | **NO** |
 | **P5 COMPLETE** | **YES / INTEGRATED / POST-MERGE VERIFIED** |
 | **origin/main (baseline)** | `1e9d261a252ffb44c73614db5d501cb93ce55d8b` |
-| **PR #570** | **MERGED** · feature `d2dcc0cc…` · merge `1e9d261a…` |
-| **CI #711** | run `37743420433` **SUCCESS** · Required Gate **SUCCESS** |
+| **PR #570** | **MERGED** · CI **#711** / `37743420433` **SUCCESS** |
 | **runtime v3** | **NON ADOPTED** |
 | **Product/runtime / tests / harness this pass** | **NONE** |
 | **Provider REAL calls this pass** | **NONE** |
@@ -28,7 +31,7 @@
 | **Fichier canonique** | `projects/sfia-studio/product-simplification/07-chat-first-product-simplification-p6-global-integrated-product-qa.md` |
 | **Date** | 2026-10-08 · Europe/Paris |
 
-> **Lecture rapide.** This document is the **canonical P6 QA campaign contract** for Product Simplification. It corrects the prior local DOC15 placement and replaces the prior default **DETERMINISTIC-only** strategy with **REAL-FIRST HYBRID**. **≠ P6 READY** · **≠ P6 STARTED** · **≠ P6 PASS** · **≠ REAL execution** · **≠ runtime v3 ADOPTED**. Phase 0 only. Next = ChatGPT Critical Re-Review.
+> **Lecture rapide.** Correction Pass 02 closes autonomous-review findings **P6-QA-CONTRACT-02…12** into this Phase 0 contract freeze. Strategy remains **REAL-FIRST HYBRID**. **GO P6 EXECUTION** and **GO P6 REAL — BOUNDED CAMPAIGN** are distinct and both **NOT AUTHORIZED**. **≠ P6 READY** · **≠ P6 STARTED** · **≠ P6 PASS** · **≠ REAL execution** · **≠ runtime v3 ADOPTED**. Next = ChatGPT Closure Review.
 
 ---
 
@@ -36,20 +39,31 @@
 
 | Domaine | Autorité | Role for P6 |
 | --- | --- | --- |
-| **Product Simplification P1** | `01-…-cadrage.md` §15 · §12A · §17.7 | **Detailed P6 contract** · mandatory scenarios · Model×Reasoning mandate · macro P1→P8 |
-| **Product Simplification P2** | `02-…-functional-operating-model.md` | Functional Operating Model · routes · Exit Proof · recovery · GDR |
+| **Product Simplification P1** | `01-…-cadrage.md` §15 · §12A · §17.7 · **G-SIMP-P6** · **G-SIMP-06** · **G-SIMP-09** · **G-SIMP-12** | Detailed P6 contract · mandatory scenarios · Model×Reasoning · gates |
+| **Product Simplification P2** | `02-…-functional-operating-model.md` | Functional invariants · Exit Proof · recovery · GDR |
 | **Product Simplification P3** | `03-…-workspace-interaction-architecture.md` | Product Experience · responsive · a11y posture |
-| **Product Simplification P4** | `04-…-semantic-projection-cognitive-architecture.md` | Cognitive architecture · Strategy-first routing · Luna/Sol/Astra hypotheses · REAL-FIRST ladder |
-| **Product Simplification P5** | `05-…-integrated-delivery.md` + Pack `06` | Integrated proof · carries · Fake/Real ceiling honesty · six dimensions |
-| **Product Completion C1** | `product-completion/01-…-cadrage.md` | **Oracle only** — completion bar / MUST / broader Product Completion target · **≠** detailed P6 §15 source |
-| **Historical DOC13 / DOC14** | `product-completion/13` · `14` | **Evidence assets** — HARVEST / REUSE / REQUALIFY · **≠** active documentary sequence |
-| **Build Doctrine** | convergence Build Doctrine | READ-ONLY · R22 provider revalidation |
-| **v3** | framing 35 / 37 · V3-F14 / V3-F15 | Artifact Completeness · maturity / anti-claims |
+| **Product Simplification P4** | `04-…-semantic-projection-cognitive-architecture.md` | Semantic world · projections · Strategy-first · Luna/Sol/Astra · quality floor · escalation ≤1 |
+| **Product Simplification P5** | `05-…` + Pack `06` | Implemented Product · carries · historical Fake/Real ceiling honesty |
+| **Product Completion C1** | `product-completion/01-…` | **Oracle only** — MUST / PC-BAR · **≠** detailed P6 §15 source |
+| **Historical DOC13 / DOC14** | `product-completion/13` · `14` | HARVEST / REUSE / REQUALIFY · **≠** active sequence |
+| **Build Doctrine** | R2 · R6 · R7 · R12 · R13 · R16 · R18 · R19 · **R21 Fake/Real** · **R22 OpenAI-native-first** · A6 | Proof maturity · provider revalidation · fixtures |
+| **v3** | framing 35 / 37 · V3-F14 / V3-F15 | Artifact Completeness · maturity honesty |
 | **Git** | `origin/main` | SoT for integrated baseline |
 
-**This document is not:** P6 execution · Product mutation · provider REAL calls · P6 READY YES · routing-policy adoption · runtime v3 adoption · P7/P8.
+### Distinct future authorities (Finding 02)
 
-**Maturity of this artifact:** LOCAL CANDIDATE until ChatGPT Critical Re-Review + Morris acceptance + future Git Integration (distinct gates).
+| Gate | Source | Authorizes | Does NOT authorize |
+| --- | --- | --- | --- |
+| **G-SIMP-P6 / GO P6 EXECUTION** | P1 | Execute accepted P6 campaign · deterministic baseline · orchestration · Cursor-driven QA under contract · non-REAL activities inside authorized P6 | Arbitrary REAL · global READY FOR REAL · routing adoption · architecture change · runtime v3 |
+| **G-SIMP-09 / GO P6 REAL — BOUNDED CAMPAIGN** | P1 G-SIMP-09 + Build Doctrine R21 | ONLY real boundaries listed in accepted P6 contract (provider preflight · Luna/Sol/Astra calls · Phase-1 smokes · Phase-3 calibration · other explicitly listed P6 REAL interactions) · bounded by budget · cohort · env · stops · evidence · time/scope | Arbitrary REAL outside P6 · REAL BOUNDARY PROVEN by decision alone · E2E REAL by decision alone · production routing change · architecture/persistence · global L5 · runtime v3 |
+
+A single future Morris message **MAY** consume both gates. They remain **semantically distinct**.
+
+**Current:** GO P6 EXECUTION = **NOT AUTHORIZED** · GO P6 REAL — BOUNDED CAMPAIGN = **NOT AUTHORIZED** · REAL calls this pass = **NONE**.
+
+**This document is not:** P6 execution · Product mutation · provider REAL · P6 READY YES · routing adoption · runtime v3 adoption.
+
+**Maturity:** LOCAL CANDIDATE until ChatGPT Closure Review + Morris acceptance + future Git Integration.
 
 ---
 
@@ -57,18 +71,18 @@
 
 | Item | Verdict |
 | --- | --- |
-| **P6-QA-CONTRACT-01** | **CLOSED CANDIDATE / READY FOR CHATGPT RE-REVIEW** |
-| **Canonical P6 document** | **THIS FILE** under `product-simplification/07-…` |
-| **Prior DOC15 placement** | **REJECTED** as canonical · harvested · removed from local candidate |
-| **P6 campaign strategy** | **REAL-FIRST HYBRID GLOBAL INTEGRATED PRODUCT QA** |
-| **Phase 0** | **DOCUMENTED LOCAL CANDIDATE** |
+| **P6-QA-CONTRACT-01** | **CLOSED** |
+| **P6-QA-CONTRACT-02…12** | **CLOSED CANDIDATE** (see §AW closure matrix) |
+| **P6 QA CONTRACT** | **CORRECTED LOCAL CANDIDATE / CHATGPT CLOSURE REVIEW REQUIRED** |
+| **Phase 0** | **CONTRACT CORRECTION COMPLETE CANDIDATE** |
 | **Phase 1…6** | **NOT STARTED** |
-| **P6 ENTRY QUALIFICATION** | **CORRECTED LOCAL CANDIDATE / RE-REVIEW REQUIRED** |
+| **P6 campaign strategy** | **REAL-FIRST HYBRID** |
+| **GO P6 EXECUTION** | **NOT AUTHORIZED** |
+| **GO P6 REAL — BOUNDED CAMPAIGN** | **NOT AUTHORIZED** |
 | **P6 READY** | **NO** |
 | **P6 STARTED** | **NO** |
-| **REAL execution this pass** | **NONE** |
-| **Architecture parallelism** | **NONE** (design invariant) |
-| **Next gate** | **CHATGPT CRITICAL RE-REVIEW OF CORRECTED P6 QA CONTRACT** |
+| **Architecture parallelism** | **NONE** |
+| **Next gate** | **CHATGPT CLOSURE REVIEW** |
 
 ---
 
@@ -76,17 +90,14 @@
 
 | Phase | Role | Relation to P6 |
 | --- | --- | --- |
-| P1 | Cadrage / trajectory | Defines P6 mission + mandatory scenarios |
+| P1 | Cadrage / trajectory / gates | P6 mission · P6-MIN · G-SIMP-P6 / 06 / 09 / 12 |
 | P2 | Functional Operating Model | Invariants / routes P6 must exercise |
-| P3 | Workspace / Interaction Architecture | PE surfaces / responsive / a11y posture |
-| P4 | Semantic / Cognitive Architecture | Routing hypotheses · REAL-FIRST · quality floor |
-| P5 | Integrated Delivery | Implemented Product + six-dim exit · carries into P6 |
-| **P6** | **Global Integrated Product QA** | Validate the **WHOLE** integrated Product target |
-| P7 | Fresh Project End-to-End Replay | Downstream · uses P6 evidence · **≠** P6 |
-| P8 | Requalification / Morris decisions | May promote routing policy · **≠** automatic |
-
-P1 §15: P6 validates the **WHOLE** integrated Product — **≠** a list of isolated tests only.
-P1 risk **R-28**: guard against **component-green / product-broken**.
+| P3 | Workspace / Interaction | PE surfaces / responsive / a11y |
+| P4 | Semantic / Cognitive | Projections · routing hypotheses · REAL-FIRST ladder |
+| P5 | Integrated Delivery | Implemented Product + six-dim exit + carries |
+| **P6** | **Global Integrated Product QA** | Validate WHOLE integrated Product · R-28 anti component-green/product-broken |
+| P7 | Fresh Project Replay | Downstream · uses P6 evidence · distinct |
+| P8 | Requalification | May promote routing · Morris · no automatic adoption |
 
 ---
 
@@ -94,16 +105,16 @@ P1 risk **R-28**: guard against **component-green / product-broken**.
 
 | Claim type | Authoritative source |
 | --- | --- |
-| Detailed P6 contract / mandatory scenarios | **Product Simplification P1 §15** |
-| Functional loop / Exit Proof / Rec≠HD / Confirmation | **P2 FOM** |
+| Detailed P6 contract / mandatory scenarios | **P1 §15** |
+| GO P6 / GO REAL / capability revalidation / routing promotion | **P1 G-SIMP-P6 · G-SIMP-09 · G-SIMP-06 · G-SIMP-12** |
+| Fake/Real proof maturity | **Build Doctrine R21** |
+| Provider capability revalidation | **Build Doctrine R22** + **G-SIMP-06** |
+| Functional loop / Exit Proof / Rec≠HD | **P2** |
 | Product Experience | **P3** |
-| Cognitive routing / Luna·Sol·Astra / quality floor | **P4** (+ P5 implemented floor table as evidence input) |
-| What is integrated on main today | **P5 Delivery 05 + Pack 06 + Git** |
-| Broader Product Completion MUST / PC-BAR oracle | **Product Completion C1** (oracle) |
-| Historical integrated QA campaign | **DOC13 / DOC14** (evidence only) |
-| Morris QA trajectory for this correction | **This prompt / consumed direction** |
-
-**Correction of prior DOC15 error:** do **not** attribute the detailed P6 §15 mandatory scenario contract to Product Completion C1 when the source is Product Simplification P1.
+| Semantic projections / cognition / quality floor | **P4** |
+| What is integrated today | **P5 + Pack 06 + Git** |
+| Broader Product Completion MUST | **Product Completion C1** (oracle) |
+| Historical integrated QA | **DOC13 / DOC14** (evidence only) |
 
 ---
 
@@ -112,45 +123,19 @@ P1 risk **R-28**: guard against **component-green / product-broken**.
 | Ref | Value |
 | --- | --- |
 | `origin/main` | `1e9d261a252ffb44c73614db5d501cb93ce55d8b` |
-| PR #570 | **MERGED** (P5 COMPLETE recording) |
-| CI #711 | `37743420433` **SUCCESS** |
+| PR #570 / CI #711 | **MERGED** / **SUCCESS** |
 | P5 COMPLETE | **YES / INTEGRATED / POST-MERGE VERIFIED** |
-| Six dimensions | PASS / PASS-WITH-CARRY only · Blocking OPEN **NONE** |
-| Fake/Real ceiling (P5 historical) | DETERMINISTIC PROVEN + bounded historical REAL (S02/S05) · READY FOR REAL **NO** · REAL BOUNDARY **NO** · E2E REAL **NO** |
-| Branch (this correction) | `audit/sfia-studio-product-completion-p6-global-integrated-qa-qualification` |
+| P5 Fake/Real ceiling (historical) | DETERMINISTIC PROVEN + bounded historical REAL (S02/S05) · READY FOR REAL **NO** · REAL BOUNDARY **NO** · E2E REAL **NO** |
+| Branch | `audit/sfia-studio-product-completion-p6-global-integrated-qa-qualification` |
 | Project push | **NONE** |
 
 ---
 
 ## F. P6 scope / non-goals
 
-### In scope
+**In scope:** integrated Product from P2–P5 · P6-MIN-01…09 · REAL-first hybrid · Phase 1 readiness · broad coverage · Model×Reasoning calibration · adversarial · Human QA first-class · evidence completeness · carry requalification · P7/P8 recommendations (non-binding).
 
-- Integrated Product behavior from P2/P3/P4/P5 as one system
-- Mandatory P1 P6 scenarios (**P6-MIN-01…09**)
-- REAL-AUTO / REAL-HUMAN / DET-GUARD hybrid proof
-- Phase 1 environment & runtime readiness gate
-- Broad Product scenario coverage
-- Model × Reasoning REAL calibration (Luna / Sol / Astra)
-- Adversarial / recovery / failure
-- Human REAL QA as first-class track
-- Evidence completeness / maturity honesty
-- Carry requalification under REAL-first contract
-- Recommendations toward P7/P8 (non-binding)
-
-### Non-goals (this document and default P6)
-
-- New Product implementation wave
-- Architecture / persistence rewrite
-- Parallel QA Product engine
-- Mechanisms invented solely to make tests automatable
-- Full WCAG certification by default
-- Pixel-perfect Figma campaign by default
-- Automatic production routing-policy adoption
-- Automatic REAL BOUNDARY / END-TO-END REAL claims
-- runtime v3 adoption
-- P7 Fresh Project Replay (separate)
-- P6-A / P6-B / P6-C microcycle program
+**Non-goals:** new Product wave · architecture rewrite · parallel QA Product · mechanisms solely for automation · full WCAG by default · pixel Figma campaign · automatic routing adoption · automatic REAL BOUNDARY / E2E REAL claims · runtime v3 · P7 · P6-A/B/C microcycles · creating actual campaign manifests/ledgers/scripts in this documentary pass.
 
 ---
 
@@ -158,72 +143,83 @@ P1 risk **R-28**: guard against **component-green / product-broken**.
 
 | Asset | Disposition |
 | --- | --- |
-| DOC13 Pre-QA conformance | **HARVEST / REUSE** — coverage inventory / MUST baseline |
-| DOC14 PC-INTEGRATED-QA-01 | **HARVEST / REUSE / REQUALIFY** against current main |
-| QA-INT-01…09 | Useful **DET-GUARD / regression baselines** — not automatic P6 REAL PASS |
-| PC-BAR-01…10 | Evidence lineage — map into P6-BAR under REAL-first strategy |
-| `studio-product-completion-integrated-proof.spec.ts` + W2/W3/W4 | **KEEP / REUSE** as DET-GUARD / supporting assets |
+| DOC13 | HARVEST / REUSE |
+| DOC14 PC-INTEGRATED-QA-01 | HARVEST / REUSE / REQUALIFY |
+| QA-INT-01…09 / PC-BAR | DET-GUARD baselines · evidence lineage |
+| Integrated-proof E2E + W2/W3/W4 | KEEP / REUSE as DET-GUARD / supporting |
 | Historical deterministic PASS | **≠** current P6 REAL-first PASS |
-
-Do **not** rewrite DOC13/DOC14. Do **not** continue Product Completion numbering for active P6.
 
 ---
 
 ## H. Current-main delta inventory (post-DOC14)
 
-Material evolution that P6 must account for (harvested / retained):
+Δ-01 D-PC-09 routing · Δ-02 P1→P4 · Δ-03 P5 S01→S08 · Δ-04 OpenAI-native-first/F2 · Δ-05 cancel/STOP · Δ-06 continuity · Δ-07 fail-closed Confirmation · Δ-08 NCR · Δ-09 visual parity · Δ-10 Nora programme · Δ-11 harness growth · Δ-12 Evidence/Result truth-sync.
 
-| ID | Delta | P6 action |
-| --- | --- | --- |
-| Δ-01 | D-PC-09 Project Repository Workspace / artifact routing | REVALIDATE + EXTEND |
-| Δ-02 | Product Simplification P1→P4 contracts | REVALIDATE governance / PE / cognition |
-| Δ-03 | P5 S01→S08 integrated delivery | REVALIDATE + EXTEND surfaces |
-| Δ-04 | OpenAI-native-first / F2 (S05) | REAL calibration Phase 3 · distinguish historical REAL |
-| Δ-05 | S06 cancel / STOP | Prefer REAL cancel if naturally exercisable · else carry |
-| Δ-06 | S07 continuity / Journal / History | REVALIDATE restart + PE |
-| Δ-07 | S08-2 fail-closed Confirmation | REVALIDATE authority |
-| Δ-08 | S08-3 NCR / Pilot Burden | Expand simplification QA (C-NCR-SCOPE) |
-| Δ-09 | S08-4 GLOBAL P3 VISUAL PARITY | PE regression + Human QA |
-| Δ-10 | Nora cognitive programme | Calibrate path · ≠ auto Cognitive Completion |
-| Δ-11 | Test/harness growth | DET-GUARD non-regression |
-| Δ-12 | Evidence / Result architecture truth-sync | Closed-loop REVALIDATE |
-
-No delta requires a new Product architecture before Phase 0 can complete.
+No delta requires new Product architecture before Phase 0 can complete.
 
 ---
 
 ## I. P6 QA principles
 
-1. Prefer the **REAL Product** under **REAL operating conditions**.
-2. Generate a **meaningful quantity of observations**, especially for probabilistic cognition.
-3. **Do not** invent Product mechanisms solely to make QA automatable.
-4. If not honestly automatable → **REAL-HUMAN** (Morris as Pilote).
-5. Human QA is a **first-class** proof track.
-6. Challenge Luna / Sol / Astra routing hypotheses — do not merely confirm them.
-7. Final routing matrix may be **revised** from observations; promotion remains governed (P8).
+1. Prefer REAL Product under REAL operating conditions.
+2. Meaningful observation volume for probabilistic cognition.
+3. No Product mechanisms invented solely for QA automatability.
+4. If not honestly AUTO → HUMAN queue (Morris as Pilote).
+5. Human QA is first-class.
+6. Challenge Luna/Sol/Astra hypotheses — do not merely confirm.
+7. Routing matrix may revise from observations; promotion = P8.
 8. Evidence informs P7/P8 — does not auto-mutate production routing.
-9. Quality campaign requires a **quality contract** before execution (Phase 0).
-10. Orchestrate the real Product — **do not** build a second Product to test the first.
-11. Claims must not exceed evidence (**V3-F15**).
-12. **NOT OBSERVED** is honest; invented observability is not.
+9. Quality contract before execution (Phase 0).
+10. Orchestrate the real Product — do not build a second Product.
+11. Claims ≤ evidence (V3-F15).
+12. **NOT OBSERVED** is honest.
+13. Execution mode ≠ proof maturity (Build Doctrine R21).
+14. Distinct **GO P6 EXECUTION** vs **GO P6 REAL — BOUNDED CAMPAIGN**.
 
 ---
 
-## J. Proof taxonomy
+## J. Proof taxonomy — two orthogonal axes (Finding 04)
 
-| Class | When | Claim power |
+### Axis A — Test execution mode
+
+| Mode | Meaning |
+| --- | --- |
+| **AUTO** | Cursor/campaign drives supported Product flows |
+| **HUMAN** | Morris as Pilote; genuine judgment and/or non-automatable authentic Product use |
+
+Optional cognitive qualifier: **ROUTER-IN-SITU** · **CONTROLLED CANDIDATE** (§AD).
+
+### Axis B — Proof / realism level (Build Doctrine R21)
+
+| Level | Meaning |
+| --- | --- |
+| **DETERMINISTIC** | Fake/fixture substitutes genuine **external** boundary · or pure deterministic Product/policy path |
+| **REAL-BOUNDARY** | Significant external boundary under test is genuinely real (progressively proven) |
+| **END-TO-END-REAL** | Every meaningful boundary required by the claim is genuinely real and proven |
+
+### Combinations (examples)
+
+| Example | Mode | Maturity |
 | --- | --- | --- |
-| **REAL-AUTO** | Real Product path naturally/reliably executable via existing interfaces | Supports REAL Product claims for that scenario |
-| **REAL-HUMAN** | Genuinely testable in Studio but automation would require artificial Product mechanisms / second runtime / disproportionate test-only infra | First-class REAL proof via Morris Pilote |
-| **DET-GUARD** | Deterministic invariants / regression / fail-closed / schema / authority / persistence / idempotence / pure policy | Supports guards · **does not replace** accessible REAL proof for REAL claims |
-| **FAKE** | Substitute a genuine **external** boundary for deterministic regression when needed | Never silently replaces an accessible REAL Product path for a REAL claim |
-| **REAL-shaped deterministic** | Looks like Product journey but deterministic/fake underneath | Remains **DETERMINISTIC** — label honestly |
+| Morris uses Studio UI; provider fake | HUMAN | DETERMINISTIC |
+| Cursor drives Product + real OpenAI; other externals deterministic | AUTO | REAL-BOUNDARY |
+| Morris + real Product/provider; judgment material | HUMAN | REAL-BOUNDARY |
+| Full claim boundary set real | AUTO or HUMAN | END-TO-END-REAL |
 
-**Rejected prior default as primary strategy:** `DETERMINISTIC GLOBAL INTEGRATED PRODUCT QA`.
+### Campaign shorthand (non-canonical)
 
-**Adopted campaign design (documentary):** `REAL-FIRST HYBRID GLOBAL INTEGRATED PRODUCT QA`.
+| Shorthand | Meaning | Hard rule |
+| --- | --- | --- |
+| **REAL-AUTO** | AUTO + intended REAL-BOUNDARY (or E2E where contracted) | Never overrides Axis B |
+| **REAL-HUMAN** | HUMAN + intended REAL-BOUNDARY (or E2E where contracted) | **≠** automatically REAL BOUNDARY PROVEN |
+| **DET-GUARD** | AUTO (typically) + DETERMINISTIC invariants/regression | Does not replace accessible REAL proof for REAL claims |
 
-This does **not** authorize REAL execution in this correction pass.
+**FAKE** substitutes a genuine external boundary for deterministic regression only — never silently replaces an accessible REAL Product path for a REAL claim.
+
+**REAL-shaped deterministic remains DETERMINISTIC.**
+
+**Rejected primary strategy:** DETERMINISTIC-only as P6 default.
+**Adopted design:** REAL-FIRST HYBRID (documentary). Does **not** authorize REAL execution yet.
 
 ---
 
@@ -231,61 +227,45 @@ This does **not** authorize REAL execution in this correction pass.
 
 > **NO TEST MECHANISM INVENTED SOLELY TO MAKE P6 TESTABLE.**
 
-If a scenario cannot be automatically exercised through the Product as it exists:
-
-1. Can it be tested manually through the real Product? → **REAL-HUMAN**
-2. If no → classify **NOT-PROVEN / TOOLING-GAP / PRODUCT-GAP**
-3. Do **not** automatically build harness / store / endpoint / workflow / router / fixture / alternate lifecycle / QA-only Product path
-
-**Allowed:** campaign orchestration around existing interfaces · start/stop env · IDs/manifests · screenshots · evidence files · non-Product external runner logic.
-
-**Not allowed:** parallel Product mechanics.
+If not AUTO-exercisable through Product as it exists → HUMAN QA Queue · or NOT-PROVEN / TOOLING-GAP / PRODUCT-GAP. Do not build parallel Product mechanics. Allowed: orchestration around existing interfaces · IDs/manifests · screenshots · evidence files · non-Product external runner logic.
 
 ---
 
-## L. P6 campaign trajectory (Phase 0→6)
+## L. P6 campaign trajectory (Phase 0→6) — non-waterfall after Phase 1 (Finding trajectory)
 
-| Phase | Name | Purpose | Status now |
-| --- | --- | --- | --- |
-| **0** | Contract Freeze | Make QA campaign reviewable before execution | **THIS DOCUMENT / LOCAL CANDIDATE** |
-| **1** | QA Environment & Runtime Readiness | Prove real Product env is configured, reproducible, observable | **NOT STARTED** |
-| **2** | Global Product QA | Broad coverage matrix REAL-AUTO / REAL-HUMAN / DET-GUARD | **NOT STARTED** |
-| **3** | Model × Reasoning REAL Calibration | Empirically challenge Luna/Sol/Astra routing | **NOT STARTED** |
-| **4** | Adversarial / Recovery / Failure | Hard cases · authority · interruption · provider/tool failure | **NOT STARTED** |
-| **5** | Human REAL QA | Morris Pilote qualities not honestly automatable | **NOT STARTED** |
-| **6** | Consolidation / P6 Exit Qualification | Aggregate evidence · bars · maturity · P7/P8 handoff | **NOT STARTED** |
+| Phase | Name | Status now |
+| --- | --- | --- |
+| **0** | Contract Freeze | **THIS PASS / CORRECTION COMPLETE CANDIDATE** |
+| **1** | QA Environment & Runtime Readiness | **NOT STARTED** |
+| **2** | Global Product QA | **NOT STARTED** |
+| **3** | Model × Reasoning REAL Calibration | **NOT STARTED** |
+| **4** | Adversarial / Recovery / Failure | **NOT STARTED** |
+| **5** | Human REAL QA (batched) | **NOT STARTED** |
+| **6** | Consolidation / P6 Exit Qualification | **NOT STARTED** |
 
-These are **campaign phases inside one coherent capability** — not P6-A/B/C microcycles.
+**Rules:**
 
-Phase 0 completion ≠ P6 execution start.
+- Phase 0 must precede execution.
+- Phase 1 must **PASS** before broad campaign work.
+- After Phase 1 PASS: Phases **2 / 3 / 4** and **preparation/collection for Phase 5** **MAY INTERLEAVE** when efficient and evidence-valid.
+- No administrative P6-PHASE2/3/4 GOs unless structural blocker requires Morris.
+- Intended future pattern: **GO P6 EXECUTION + GO P6 REAL — BOUNDED CAMPAIGN** → Phase 1 → if PASS continue automatically within accepted contract → if structural FAIL STOP/Morris.
+- Not P6-A/B/C microcycles.
 
 ---
 
 ## M. Phase 0 — Contract Freeze
 
-### Outputs (this document)
-
-- authoritative source map (§D)
-- P6 scenario inventory / families (§Y–AA)
-- proof taxonomy (§J)
-- environment / runtime readiness contract (§N–X)
-- Model × Reasoning evaluation plan (§AB–AG)
-- Human QA plan (§AI–AJ)
-- evidence schema (§T)
-- campaign identifiers (§R)
-- exit bars (§AM)
-- defect/stop rules (§AQ–AR)
-- Morris gates (§AS)
-
-### Phase 0 exit (documentary)
+Outputs: authority map · proof taxonomy · Phase 1 gate · manifests **contracts** (not content yet) · cognitive adjudication · Human QA Queue · evidence ledger contract · exit bars · defect/stop · closure matrix §AW.
 
 | Field | Value |
 | --- | --- |
-| Contract freeze candidate | **YES** (this file) |
-| ChatGPT Critical Re-Review | **REQUIRED** |
-| Morris acceptance of corrected contract | **PENDING** |
-| Git Integration of this document | **NOT AUTHORIZED THIS PASS** |
+| Contract correction candidate | **YES** |
+| ChatGPT Closure Review | **REQUIRED** |
+| Morris acceptance | **PENDING** |
+| Git Integration | **NOT AUTHORIZED THIS PASS** |
 | GO P6 EXECUTION | **NOT AUTHORIZED** |
+| GO P6 REAL — BOUNDED CAMPAIGN | **NOT AUTHORIZED** |
 
 ---
 
@@ -293,593 +273,508 @@ Phase 0 completion ≠ P6 execution start.
 
 **Name:** **P6 ENVIRONMENT & RUNTIME READINESS GATE**
 
-Phase 1 is a **real gate**, not a three-model API smoke check.
-
-Phase 2 cannot begin until Phase 1 REQUIRED fields are classified and the gate passes under an authorized P6 execution scope.
-
-Sub-phases: **1A–1K** below (§O–X content).
+Real gate — not a three-model API smoke. Requires future **GO P6 EXECUTION** + **GO P6 REAL — BOUNDED CAMPAIGN** where REAL boundaries apply. Phase 2+ cannot begin until Phase 1 PASS.
 
 ---
 
-## O. Phase 1 detailed readiness checklist
+## O. Phase 1 detailed readiness checklist (Finding 11)
 
-### 1A — QA Environment Preparation
+### 1A — Environment preparation
 
-| Area | Requirement |
+Git/source · dependencies · runtime config (secrets identified without exposing) · startup/health · QA state isolation · snapshot (timestamp · commit · build · provider capability · limitations).
+
+### 1A+ — Browser / client snapshot
+
+Where PE evidence captured: browser · browser version · OS · viewport · deviceBand (Large/Desktop · Compact · Mobile) · reduced-motion where tested. Representative supported bands only — no combinatorial explosion.
+
+### 1B — Runtime completeness
+
+Functional presence/connectivity — not source greps. See §P.
+
+### 1C — QA parallelism
+
+Architecture parallelism = **NONE** or Phase 1 **FAILS**.
+
+### 1D–1E — State preparation · Reset/isolation
+
+As CP01 · IDs: campaignId · scenarioId · workloadId · runId · projectId · cycleId · logicalTurnId/cognitiveTaskId · timestamp · baselineCommit · environmentSnapshotRef. Label every prep method. Seeded ≠ full E2E REAL when upstream bypassed.
+
+### 1F — Cursor automation readiness
+
+SHOULD: start/readiness/drive/collect/telemetry/isolate/queue Human QA.
+MUST NOT: invent HD · bypass Confirmation · mutate routing to force · alternate Product path · NOT OBSERVED as PASS · silent REAL downgrade · invent provider-returned values · continue after structural stop.
+
+### 1G — Evidence capture readiness
+
+Per-run fields as CP01 + ledger (§T). Honesty: NOT OBSERVED · ESTIMATED+provenance · no infer provider-returned from configured · missing critical observation = PHASE-1 BLOCKER.
+
+### 1H — OpenAI / REAL preflight + provider operating envelope
+
+Models: GPT-6 Luna · GPT-6.1 Sol · GPT-6 Astra.
+Check: accessibility · entitlement · identifiers · efforts · reasoning mode · selected→configured→dispatched · provider-returned only if observable · tools · latency · usage · errors · **no silent legacy fallback**.
+
+**Also qualify:** rate limits where observable · concurrency strategy · timeout · retry/backoff · duplicate invocation/idempotence risk · quota/billing constraints · unexpected fallback.
+
+Do not build new provider infra solely for P6. Do not modify routing matrix in Phase 1.
+
+### 1H+ — Privacy / QA data safety
+
+Controlled QA data · no secrets in prompts/evidence · no credentials in artifacts · no unnecessary sensitive production-like content · corpus suitable for external provider · screenshots do not leak secrets.
+
+### 1H++ — Budget readiness
+
+Campaign spend visibility · budget owner · threshold/stop · cost observation availability · estimated max exposure if useful · no budget-driven downgrade below quality floor. Final hard budget may be set by Morris at GO REAL — not invented here.
+
+### 1H+++ — Provider drift boundary
+
+Snapshot includes provider capability/time. Material mid-campaign change → record **PROVIDER DRIFT BOUNDARY**; requalify affected comparisons before strong cross-period claims.
+
+### 1I–1K — Smoke · Human QA readiness · Deterministic baseline
+
+See §V · §W · baseline reuse of current suites.
+
+---
+
+## P. Runtime Completeness Matrix (Finding 12 / mandatory semantics)
+
+| Family | Items | Rule |
+| --- | --- | --- |
+| PRODUCT CORE | Project · LPS · Cycle · Trajectory · Rec · HD · Confirmation · EC · Attempt · Result · Evidence · ReviewBundle · recovery · Journal · Historique · Synthèses | Mandatory for contract |
+| PRODUCT EXPERIENCE | Projects · New · Conversation · Aperçu · Exécution · Journal · Historique · Synthèses · Decision/Confirmation · Auth · Nora activity · STOP/cancel · desktop/compact/mobile | Mandatory |
+| COGNITION | semantic context · CWP/Strategy · routing · Luna/Sol/Astra · quality floor · provider validation · effort dispatch · same Nora/Agents · F2 · deterministic bypass · telemetry · escalation | Mandatory |
+| GOVERNED EXECUTION | EC prep · inspection · Confirmation · authority · stale rejection · fail-closed · SUCCESS/STOP/FAIL/cancel · Evidence return · Nora continuity | Mandatory |
+| ARTIFACT ROUTING | workspace · CREATE/UPDATE · invalid path · collision/TOCTOU · evidence honesty | Mandatory |
+| SEMANTIC PROJECTIONS | owner/currentness/stale-projection protections (§AA) | Mandatory |
+| METHOD/CKC CONTEXT | applicable method/CKC resolution honesty (§AA) | Mandatory where Product exposes |
+
+**Phase 1 fields:**
+
+| Field | Values |
 | --- | --- |
-| Git / source | Exact repository · branch/ref · SHA · clean or explicitly qualified working tree · no unreviewed Product changes during campaign baseline |
-| Dependencies | Reproducible install · package manager/version identified · build prerequisites known · no hidden local dependency |
-| Runtime configuration | Required env vars identified · secrets identified **without exposing values** · ports · local services · auth · DB location/state · migrations current · writable paths · provider configuration |
-| Runtime startup | Deterministic startup · health/readiness · no hidden manual workaround · meaningful logs |
-| QA state | Clean baseline strategy · campaign-specific directories/state separated · cleanup/reinitialization · QA-identifiable test data · no contamination of production-like user state |
-| Snapshot | Timestamp · commit · runtime/build version · provider capability snapshot · environment limitations |
+| **MANDATORY RUNTIME CAPABILITIES** | **READY** / **BLOCKED** |
+| **NON-BLOCKING QUALIFIED CARRIES** | **NONE** / list |
 
-Campaign must be **rerunnable later** under materially comparable conditions.
+A **QUALIFIED CARRY** is allowed only if: capability explicitly non-blocking for P6 · P6 does not need to prove it · claim narrowed honestly · owner + exit exist.
 
-### 1B — Runtime Completeness Check
-
-Do **not** merely grep source files. Verify functional presence / connectivity.
-
-Classify each capability: **BLOCKER** · **EXPECTED CARRY** · **OUT OF P6** · **NOT APPLICABLE** · **UNKNOWN** (must not disappear).
-
-**PRODUCT CORE:** Project · LPS · CycleInstance/current work · ProjectTrajectory · Recommendation · HumanDecision · Confirmation · ExecutionContract · ExecutionAttempt · Result / Product Resolution · Evidence · ReviewBundle · recovery/resume · Journal · Historique · Synthèses
-
-**PRODUCT EXPERIENCE:** Projects · New Project · Conversation · Aperçu · Exécution · Journal · Historique · Synthèses · Decision/Confirmation compositions · Auth · Nora activity · STOP/cancel · desktop · compact · mobile
-
-**COGNITION:** semantic context · CWP/Strategy · cognitive routing policy · Luna/Sol/Astra cohort · quality floor · provider capability validation · reasoning effort dispatch · same Nora · same Agents Runner · F2 alignment · deterministic bypass · routing telemetry · bounded escalation
-
-**GOVERNED EXECUTION:** EC preparation · inspection · required Confirmation · effective authority · stale authority rejection · fail-closed · SUCCESS · STOP · FAIL · cancel · Evidence return · post-execution Nora continuity
-
-**REPOSITORY / ARTIFACT ROUTING:** project repository workspace · CREATE · UPDATE · invalid path fail-closed · collision/TOCTOU where contracted · evidence honesty
-
-### 1C — QA Parallelism Check
-
-Must exercise the **SAME** Product. Forbidden: second Product engine · second Nora · second Agents path · QA-only cognitive router · QA-only authority path · alternate EC engine · fake lifecycle engine · QA-only persistence · fake-success shortcut · second artifact-routing engine · UI-only semantic truth · dedicated test Product architecture.
-
-**Architecture parallelism = NONE** or Phase 1 **FAILS**.
-
-### 1D–1K
-
-See §§Q–W and §X gate for State Preparation · Reset/Isolation · Cursor Automation · Evidence Capture · OpenAI Preflight · Smoke · Human QA readiness · Deterministic Baseline · Exit Gate.
-
----
-
-## P. Runtime Completeness Matrix (template)
-
-| Capability family | Item | Presence | Class | Notes |
-| --- | --- | --- | --- | --- |
-| PRODUCT CORE | Project … Synthèses | TBD at Phase 1 | TBD | UNKNOWN until verified |
-| PRODUCT EXPERIENCE | surfaces + bands | TBD | TBD | |
-| COGNITION | Luna/Sol/Astra path + telemetry | TBD | TBD | |
-| GOVERNED EXECUTION | EC→authority→outcome→Evidence | TBD | TBD | |
-| ARTIFACT ROUTING | D-PC-09 behaviors | TBD | TBD | |
-
-**Rule:** every mandatory P6 capability left **UNKNOWN** at Phase 1 end = **PHASE-1 BLOCKER** unless explicitly OUT OF P6 / N/A with justification.
+**P6-MUST-PROVE cannot become a non-blocking carry solely to let Phase 1 pass.**
+**UNKNOWN mandatory capability at Phase 1 exit = BLOCKER.**
 
 ---
 
 ## Q. State Preparation Contract
 
-| Category | Examples |
-| --- | --- |
-| Fresh | brand-new Project |
-| Cycle | Project with current Cycle · multiple cycles |
-| Decision chain | Recommendation · HD · prepared EC · awaiting Confirmation |
-| Outcomes | after SUCCESS · STOP · FAIL · interrupted |
-| Continuity | durable History · Journal entries |
-| Deliverables | required · optional |
-| Currentness | stale/current Recommendation |
-| Routing | artifact-routing state |
+Categories: fresh Project · current Cycle · Rec/HD/EC/Confirmation states · SUCCESS/STOP/FAIL/interrupted · History/Journal · required/optional Deliverable · stale/current Rec · multi-cycle · artifact-routing state.
 
-**Rules:**
-
-- For REAL Product scenarios, obtain initial state via **canonical Product interfaces/flows** whenever reasonably possible.
-- Direct state injection / SQL seeding = **DET-GUARD** or specifically qualified setup only.
-- Seeded scenario **must not** be presented as full end-to-end REAL Product proof when meaningful upstream path was bypassed.
-- Every preparation method must be **labelled** on the run record.
+REAL paths: obtain via canonical Product flows when reasonably possible. Injection/SQL = DET-GUARD or specifically qualified setup only — labelled.
 
 ---
 
 ## R. Reset / Isolation / Reproducibility
 
-### Campaign identifiers (minimum)
-
-`campaignId` · `scenarioId` · `workloadId` (cognitive) · `runId` · `projectId` · `cycleId` · `logicalTurnId` / `cognitiveTaskId` · `timestamp` · `baselineCommit` · `environmentSnapshotRef`
-
-### Requirements
-
-- scenario N must not contaminate N+1 unless continuity is explicit
-- intentional continuity/recovery preserves state explicitly
-- fresh Project/context available when needed
-- evidence traceable to one run
-- cleanup does not destroy review evidence
-- failures reproducible from recorded context when reasonably possible
-
-**Do not** build a new Product store for campaign metadata — keep it external orchestration/evidence metadata.
+Campaign IDs as §O. Scenario isolation · explicit continuity · cleanup preserves review evidence · no new Product store for campaign metadata.
 
 ---
 
-## S. Cursor Automation Readiness
+## S. Cursor Automation Readiness + Human QA Queue (Finding 09)
 
-### Cursor SHOULD be able to
+When genuine Pilote judgment is required:
 
-start runtime · readiness · prepare scenario via existing interfaces · create/identify QA Project · drive supported flows · invoke existing automation · wait for meaningful completion · distinguish SUCCESS/STOP/FAIL · collect Product state · Evidence/ReviewBundle · routing telemetry · selected model/effort · dispatched model/effort when observable · provider response IDs when observable · tools · latency · tokens/cost when available · screenshots · assign run IDs · preserve artifacts · isolate/reset · stop and route to Human QA when judgment required
+1. Record in **P6 HUMAN QA QUEUE**
+2. Preserve state/evidence for later reproduction
+3. Mark **WAITING HUMAN QA**
+4. **Continue** independent automated scenarios where safe
 
-### Cursor MUST NOT
+**Do NOT** stop the whole campaign for every Human QA case.
 
-invent HumanDecision · bypass required Confirmation · mutate routing mid-test to force result · modify Product to pass · create alternate Product path · classify NOT OBSERVED as PASS · silently downgrade REAL → deterministic/fake · invent provider-returned values · continue after structural stop
+Global STOP only if: human judgment required to continue the **same dependent path** · global blocker risk · authority unresolved · continuing risks invalidating evidence.
 
-### Human-judgment boundary
+### Human QA Queue item (minimum)
 
-If genuine Pilote judgment is required and no deterministic pre-decided answer exists → **HUMAN QA REQUIRED**. Do not synthesize Morris’s judgment.
-
----
-
-## T. Evidence Capture Contract
-
-### Desired per-run fields (where applicable)
-
-campaignId · scenarioId · workloadId · runId · Project · Cycle · timestamp · baseline SHA · proof class · initial-state method · Strategy · quality floor · candidate configurations · selected model · selected effort · dispatched model · dispatched effort · reasoning mode · provider response ID · tool usage · tool rounds · model invocation count · escalation count · latency · input/output tokens · cost observed/estimated+provenance · final cognitive output · Product outcome · Product state mutations · authority mutations · Evidence · ReviewBundle · Result · errors · screenshots · human observation · verdict · reservations
-
-### Honesty
-
-| Case | Label |
-| --- | --- |
-| Unavailable | **NOT OBSERVED** |
-| Estimated | **ESTIMATED** + provenance |
-| Provider-returned unavailable | do **not** infer from configured value |
-| Missing observation blocks P6 objective | **PHASE-1 BLOCKER** |
-| Useful but non-essential | visibility gap / reserve |
-
-Do **not** automatically add new Product instrumentation in campaign design — record gaps instead.
+scenarioId · reasonHumanRequired · startingState · setup/reproduction · actionsForMorris · expectedBehavior · observationChecklist · browser/viewport if UX · model/effort if cognitive · evidenceLocation · blockingPotential · status
 
 ---
 
-## U. OpenAI / REAL Capability Preflight (Phase 1H)
+## T. Evidence Capture + Campaign Evidence Ledger (Finding 10)
 
-Only after environment/runtime qualified.
+### Per-run desired fields
 
-**Models:** GPT-6 Luna · GPT-6.1 Sol · GPT-6 Astra
+As CP01 (campaignId…verdict/reservations) plus browser/OS/viewport/deviceBand where PE · environmentSnapshotRef · providerDriftBoundaryRef if any · adjudicationRef.
 
-**Check:** account/API accessibility · entitlement · exact model identifiers accepted · supported reasoning efforts · reasoning mode support · selected → configured → dispatched semantics · provider-returned model only if observable · tools/path · latency · usage observations · error semantics · **no silent fallback to legacy model**
+### P6 CAMPAIGN EVIDENCE LEDGER
 
-Revalidate provider capability snapshot (**Build Doctrine R22** · P1 §12.3 · P4).
+External campaign evidence/orchestration — **NOT Product persistence**.
 
-External provider capabilities = **current input**, not permanent doctrine.
+Principles: append-only/append-preserving · unique runId · no silent rewrite of FAILED · correction/retry = new run · superseded remains traceable · raw provider/Product output retained where safe · screenshots/response IDs/env snapshot/model-effort/config/evaluator tied to runId · defect/reservation links · timestamp · provenance · proof classification (Axis A + Axis B).
 
-**Do not** modify routing matrix during Phase 1. Phase 1 observes readiness; Phase 3 calibrates behavior.
+Separate **RAW EVIDENCE** from **DERIVED CAMPAIGN SUMMARY**. Summary must be reconstructible from retained runs.
+
+Default candidate: file-based ledger/manifests under bounded review/evidence workspace. Durable P6 package curated in Phase 6. No secrets in raw evidence.
+
+**Do not create the ledger in this documentary pass** — define the contract only.
 
 ---
 
-## V. REAL Smoke Journey (future execution — Phase 1I)
+## U. OpenAI / REAL Capability Preflight
 
-| ID | Intent |
-| --- | --- |
-| **SMOKE-01** | Representative real Project → Conversation → cognition → Product outcome → governed continuation (Rec/HD/EC/Execution/Evidence/Nora return where natural) |
-| **SMOKE-02** | Real **zero-execution** Product path possible |
-| **SMOKE-03** | STOP or FAIL path observable/honest |
+See §O 1H. Phase 1 observes readiness; Phase 3 calibrates. R22 / G-SIMP-06 apply. Requires GO P6 REAL when real provider boundaries are exercised.
 
-Purpose: environment readiness — **not** exhaustive functional QA.
-**Do not execute** in this documentary correction pass.
+---
+
+## V. REAL Smoke Journey — mandatory Phase 1 exit (Finding 03)
+
+| ID | Check | Values |
+| --- | --- | --- |
+| **SMOKE-01** | REPRESENTATIVE REAL PRODUCT JOURNEY | PASS / FAIL / **NOT EXECUTED** |
+| **SMOKE-02** | REAL ZERO-EXECUTION JOURNEY | PASS / FAIL / **NOT EXECUTED** |
+| **SMOKE-03** | REAL STOP OR FAIL OBSERVABILITY | PASS / FAIL / **NOT EXECUTED** |
+
+During Phase 1, NOT EXECUTED is a valid **temporary** state.
+
+**For Phase 1 PASS: ALL THREE MUST = PASS.**
+
+If any FAIL or NOT EXECUTED → **P6 PHASE 1 = NOT READY**.
+
+Cannot claim `P6 PHASE 1 = QA ENVIRONMENT & RUNTIME READY` unless all three PASS.
+
+Smokes involving REAL Product/provider boundaries require **GO P6 REAL — BOUNDED CAMPAIGN**.
+
+**Do not execute smokes in this documentary pass.**
 
 ---
 
 ## W. Human QA Readiness (Phase 1J)
 
-Human scenario package exposes:
-
-- scenario ID · goal · starting state · minimal setup
-- what Morris should do as Pilote
-- expected Product behavior · what to observe
-- screenshot/evidence guidance
-- model/effort if relevant
-- PASS / FAIL / PASS-WITH-RESERVE
-- notes/reservations
-
-Morris should **not** need: internal SFIA IDs (unless inspection relevant) · routing implementation · QA harness mechanics · persistence internals · CKC machinery in nominal use.
-
-P1/P3 simplification principles apply during QA.
+Scenario packages for Morris as Pilote without internal QA machinery. P1/P3 simplification principles apply. See §AI / §AJ / §S queue.
 
 ---
 
 ## X. Phase 1 Exit Gate
 
-**P6 QA ENVIRONMENT & RUNTIME READINESS GATE**
-
 | Dimension | Values |
 | --- | --- |
 | QA ENVIRONMENT REPRODUCIBLE | YES / NO |
-| RUNTIME COMPLETE FOR P6 | YES / NO / QUALIFIED CARRY |
+| **MANDATORY RUNTIME CAPABILITIES** | **READY** / **BLOCKED** |
+| NON-BLOCKING QUALIFIED CARRIES | NONE / list |
 | CURSOR CAMPAIGN AUTOMATION READY | YES / NO |
 | STATE PREPARATION CONTRACT | READY / NOT READY |
 | RESET / ISOLATION | READY / NOT READY |
-| EVIDENCE CAPTURE | SUFFICIENT / INSUFFICIENT |
-| LUNA ACCESSIBLE | YES / NO |
-| SOL ACCESSIBLE | YES / NO |
-| ASTRA ACCESSIBLE | YES / NO |
+| EVIDENCE CAPTURE / LEDGER READY | SUFFICIENT / INSUFFICIENT |
+| CONTROLLED CANDIDATE EVALUATION SEAM | AVAILABLE/SUFFICIENT · UNAVAILABLE/GAP |
+| LUNA / SOL / ASTRA ACCESSIBLE | YES / NO each |
 | REASONING EFFORT CAPABILITIES REVALIDATED | YES / NO |
-| REAL SMOKE | PASS / FAIL / NOT EXECUTED |
-| HUMAN QA TRACK | READY / NOT READY |
+| PROVIDER OPERATING ENVELOPE | READY / NOT READY |
+| PRIVACY / QA DATA SAFETY | READY / NOT READY |
+| BROWSER / CLIENT SNAPSHOT CAPABLE | READY / N/A / NOT READY |
+| BUDGET READINESS | READY / NOT READY |
+| PROVIDER DRIFT SNAPSHOT | READY / NOT READY |
+| **SMOKE-01** | PASS / FAIL / NOT EXECUTED |
+| **SMOKE-02** | PASS / FAIL / NOT EXECUTED |
+| **SMOKE-03** | PASS / FAIL / NOT EXECUTED |
+| HUMAN QA TRACK / QUEUE READY | READY / NOT READY |
 | DETERMINISTIC BASELINE | GREEN / NOT GREEN |
 | QA PARALLELISM | NONE / BLOCKER |
 | PHASE 1 BLOCKERS | NONE / list |
 
-**Success wording:** `P6 PHASE 1 = QA ENVIRONMENT & RUNTIME READY`
+**Success:** `P6 PHASE 1 = QA ENVIRONMENT & RUNTIME READY` **only if** mandatory runtime READY · parallelism NONE · SMOKE-01/02/03 all PASS · blockers NONE · other REQUIRED fields READY/SUFFICIENT/GREEN as contracted.
 
-Only then may Phase 2 start under authorized **GO P6 EXECUTION** (or successor execution gate).
-
-**Current status:** Phase 1 = **NOT STARTED** · all gate fields = **NOT EXECUTED / NOT CLASSIFIED**.
-
-### Deterministic Baseline (Phase 1K — future)
-
-Reuse current suites: exact SHA · CI · typecheck · lint · build · Vitest · modeled/governance · P5 regressions · integrated-proof E2E · artifact-routing tests · provider snapshot · env snapshot. No new suite merely for a pretty baseline.
+**Current:** Phase 1 = **NOT STARTED** · all fields **NOT EXECUTED / NOT CLASSIFIED**.
 
 ---
 
 ## Y. Phase 2 — Global Product QA coverage model
 
-**P6-QA-01…14** = coverage **families / reporting dimensions** — **≠** “14 tests”.
-
-| Family ID | Dimension |
-| --- | --- |
-| P6-QA-01 | Nominal integrated loop |
-| P6-QA-02 | Governed STOP |
-| P6-QA-03 | FAIL / recovery |
-| P6-QA-04 | Material EC mutation / stale authority |
-| P6-QA-05 | Restart checkpoints |
-| P6-QA-06 | Idempotence |
-| P6-QA-07 | Contrasted-cycle genericity |
-| P6-QA-08 | Product Experience regression |
-| P6-QA-09 | Repository Workspace / artifact routing |
-| P6-QA-10 | Semantic/governance invariants |
-| P6-QA-11 | Cognition / Nora current-path |
-| P6-QA-12 | Simplification / no-parallel-product |
-| P6-QA-13 | Current-main non-regression |
-| P6-QA-14 | Evidence / provenance consistency |
-
-### Planning envelope
-
-Approximately **50–70** distinct Product scenarios is a reasonable **initial design target**.
-
-> **NOT a doctrinal numeric gate.** Do not optimize for count. Stop when new cases no longer cover a distinct meaningful capability × state × outcome × authority × continuity × cognition × surface × external boundary × failure mode.
-
-Proof class per scenario: REAL-AUTO / REAL-HUMAN / DET-GUARD as appropriate.
+P6-QA-01…14 = coverage **families** — ≠ “14 tests”. Planning envelope ~**50–70** distinct scenarios (**≠ doctrine**). Stop when no new meaningful coverage. Proof = Axis A × Axis B per scenario.
 
 ---
 
 ## Z. Mandatory P1 P6 scenarios
 
-**Source:** Product Simplification **P1 §15** (not Product Completion C1).
-
-| ID | Mandatory scenario | Maps to |
+| ID | Scenario | Notes |
 | --- | --- | --- |
-| **P6-MIN-01** | Cycle completes with **NO Execution** | P2 R13 · **N-T3-P6 = P6-MUST-PROVE** · P6-QA-01 |
-| **P6-MIN-02** | Optional artifact/execution **not required** for exit when Product criteria do not require it | P2 §13.2 · P6-QA-01/10 |
-| **P6-MIN-03** | Required Deliverable: produced → reviewed → validated → Exit Proof satisfied | P2 §11/§13 · P6-QA-01/14 |
-| **P6-MIN-04** | Execution SUCCESS + Artifact exists + **blocking review findings** → Exit Proof **NOT** satisfied → Cycle remains **OPEN** | P2 R06/R08 · SUCCESS≠COMPLETE · P6-QA-03/10 |
-| **P6-MIN-05** | Correction → subsequent EC where required → correction/re-execution → re-review → validation → exit | P2 R08 · P6-QA-03 |
-| **P6-MIN-06** | Interrupted conversation / Project recovery | P2 R10 · §16 · P6-QA-05 |
-| **P6-MIN-07** | Recommendation / HumanDecision / currentness continuity | P2-D-01 · P6-QA-10 |
-| **P6-MIN-08** | Journal projection coherence | P3 Journal · P6-QA-08/10 |
-| **P6-MIN-09** | Guided Document Review as **one** representative cognitive/Product scenario | P2 R12 · P1 §12.6 · Phase 3 · P6-QA-11 |
+| **P6-MIN-01** | Cycle completes with NO Execution | **N-T3-P6 = P6-MUST-PROVE** |
+| **P6-MIN-02** | Optional artifact/execution not required for exit | |
+| **P6-MIN-03** | Required Deliverable produced→reviewed→validated→Exit Proof | |
+| **P6-MIN-04** | SUCCESS + Artifact + blocking review → Exit NOT satisfied · Cycle OPEN | |
+| **P6-MIN-05** | Correction → subsequent EC → re-review → validation → exit | |
+| **P6-MIN-06** | Interrupted conversation / Project recovery | |
+| **P6-MIN-07** | Recommendation / HD / currentness continuity | |
+| **P6-MIN-08** | Journal projection coherence | |
+| **P6-MIN-09** | Guided Document Review as one representative cognitive/Product scenario | |
 
-**These are NOT optional.** GDR ≠ full P6 scope (P1).
+All mandatory. Source = **P1 §15**.
 
 ---
 
-## AA. Product scenario inventory / families
+## AA. Product scenario inventory / families (Finding 08)
 
-Coverage families (minimum):
+Prior families retained: PROJECT/CYCLE · CONVERSATION/MATERIALIZATION · DELIVERABLE/ARTIFACT · EXECUTION · EVIDENCE/REVIEW/RESULT · CONTINUITY · JOURNAL/HISTORY/SYNTHESES · REPOSITORY/ARTIFACT ROUTING · PRODUCT EXPERIENCE · SIMPLIFICATION.
 
-**PROJECT / CYCLE** — create · resume · switch · binding · Cycle open/current · zero-execution · 0/1/N executions · close conditions · next-cycle · Project closure
+### SEMANTIC / ROLE PROJECTIONS (new / explicit)
 
-**CONVERSATION / MATERIALIZATION** — zero durable mutation · Recommendation · disposition · structural HD · non-structural acceptance · ambiguous “yes/go” · multi-intent · supersession · stale subject
+Validate at minimum:
 
-**DELIVERABLE / ARTIFACT** — optional · required · produced · under review · changes required · validated · requirement/version superseded
+- one authoritative owner per truth domain
+- same HumanDecision projected coherently across relevant surfaces
+- Recommendation current vs superseded
+- ProjectTrajectory currentness
+- Journal = derived projection · not Truth C
+- History does not become current truth
+- Synthesis does not become Truth C
+- stale derived projection cannot authorize mutation
+- Nora consumes governed Product context · not a parallel semantic world
+- frontend projection does not create UI-local Product truth
+- executor receives bounded execution projection
+- evidence/currentness consistent across role projections
+- restart/recovery reconstructs current Product truth before conversation replay
 
-**EXECUTION** — no/one/multiple · SUCCESS · STOP · FAIL · cancel · stale EC · Confirmation required/not · authorization denied · executor claim vs verified fact
+Maps to P6-QA-10 / 05 / 14 and applicable P6-MIN.
 
-**EVIDENCE / REVIEW / RESULT** — Result≠Evidence · review blocker · Product Resolution · Evidence→Nora · provenance · incomplete evidence · recovery
+### METHOD / DOCTRINE / CKC RESOLUTION (new / explicit)
 
-**CONTINUITY** — interrupt · reload · remount · resume · stale transcript/projection · durable decision · current Rec · Trajectory
+Where Product applies:
 
-**JOURNAL / HISTORY / SYNTHESES** — currentness · provenance · identity · source retrieval · History≠current truth · Synthesis≠invented verdict · full-content search where applicable
+- correct applicable CKC/method context resolution
+- minimum-sufficient method context to Nora
+- Pilote not forced to select CKC manually in nominal usage
+- CKC/method = guidance · **not** authority
+- insufficient method context handled honestly
+- method/context continuity survives recovery
+- Cycle transition can resolve new applicable knowledge/context
+- historical method context does not silently become current authoritative state
+- no unnecessary internal method administration to Pilote
+- Product context / DoctrinePackage / CKC projection semantically consistent
 
-**REPOSITORY / ARTIFACT ROUTING** — CREATE · UPDATE · invalid path · collision · TOCTOU · unavailable workspace · Evidence honesty
-
-**PRODUCT EXPERIENCE** — desktop · compact · mobile · loading · empty · error · stale · Decision · Confirmation · Execution · Evidence · recovery · responsive · reduced motion · practical a11y
-
-**SIMPLIFICATION** — no parallel cockpit · no Pilot model-selection burden · no methodology admin burden · no unnecessary Confirmation · minimum sufficient context · recovery burden · accidental complexity regression
+Do **not** create a new Method Engine — these are Product scenarios.
 
 ---
 
 ## AB. Phase 3 — Model × Reasoning REAL Calibration
 
-**Purpose:** empirically **challenge** and calibrate P4 candidate cognitive routing policy.
+Purpose: empirically **challenge** P4 candidate routing. Cohort Luna / Sol / Astra. Strategies Routine / Focused / Deep / High-Assurance.
 
-**Cohort:** GPT-6 Luna · GPT-6.1 Sol · GPT-6 Astra
+Hard invariants: Strategy ≠ Model ≠ Effort ≠ Profile · cognitive escalation ≠ authority escalation · quality floor before FinOps · no silent budget downgrade below floor · escalation ≤ 1 · same Nora/Agents · no provider authority gain · `reasoning.mode = standard` nominal · `pro` = separate future gate.
 
-**Strategy classes:** Routine · Focused · Deep · High-Assurance
-
-### Hard invariants
-
-- Strategy ≠ Model ≠ Reasoning effort ≠ SFIA Profile
-- Cognitive escalation ≠ authority escalation
-- Quality floor **before** FinOps
-- Budget must not silently downgrade below quality floor
-- max cognitive escalation = **1**
-- same Nora · same Agents Runner
-- no provider authority gain
-- `reasoning.mode = standard` nominal; `pro` = separate hypothesis / future gate (not default)
-
-P4 envelopes = **hypotheses to test**, not answers to confirm.
-P1: final mapping decided on proof (**P6 → P8**).
+Requires GO P6 REAL for real provider calls.
 
 ---
 
 ## AC. Cognitive workload corpus
 
-**Planning envelope:** approximately **24–32** distinct workloads.
-
-> **NOT a doctrinal numeric gate.**
-
-Minimum coverage themes:
-
-simple factual clarification · simple summary · short structured extraction · clear low-risk intention · ambiguous intention · multi-intent · incomplete context · large context · source breadth · multi-source analysis · contradiction between sources · contradiction with current Product truth · evidence review · audit · QA reasoning · architecture analysis · recommendation among options · trade-off analysis · strong challenge · material/high-impact recommendation · recovery after interruption · stale Recommendation · currentness assessment · tool-required · no-tool · Journal/source retrieval · Guided Document Review · long conversation continuity · abstention/NOT PROVEN correct · clarification correct · deterministic bypass correct · one justified cognitive escalation
-
-Include representative **French** Product interactions; English only where useful for provider/tool variation.
+Planning envelope ~**24–32** workloads (**≠ doctrine**). Themes as CP01 (clarification…escalation…GDR…French Product interactions).
 
 ---
 
-## AD. Model × effort candidate matrix
+## AD. Model × effort matrix + two evaluation modes (Finding 07)
 
-Do **not** blindly brute-force every cell. Use Strategy requirements to select meaningful neighbors.
+### Illustrative envelopes (revalidate efforts in Phase 1)
 
-| Strategy | Illustrative evaluation envelope |
-| --- | --- |
-| **Routine** | Luna none · Luna low · Luna medium · Sol low as challenger/control where meaningful |
-| **Focused** | Luna low · Luna medium · Luna high · Sol low · Sol medium |
-| **Deep** | Luna high/xhigh when supported · Sol medium · Sol high · Astra medium/high for genuinely difficult cases |
-| **High-Assurance** | Sol high/xhigh · Astra high/xhigh · optional high-effort Luna challenger where informative |
+Routine: Luna none/low/medium · Sol low challenger where meaningful.
+Focused: Luna low/medium/high · Sol low/medium.
+Deep: Luna high/xhigh if supported · Sol medium/high · Astra medium/high hard cases.
+High-Assurance: Sol high/xhigh · Astra high/xhigh · optional high-effort Luna challenger.
 
-Exact supported efforts: **REVALIDATE in Phase 1**. Do not hard-code unsupported cells from historical docs.
+### MODE A — ROUTER-IN-SITU
 
----
+Real Product decides Strategy → quality floor → eligible configs → selected model/effort → dispatch.
+Evidence supports claims about the **Product router**. Do not force model selection from Pilote surface.
 
-## AE. Replication / variance strategy
+### MODE B — CONTROLLED CANDIDATE EVALUATION
 
-One LLM run ≠ stable routing evidence.
+Compare candidates on the **same** workload (e.g. Luna medium vs Sol medium vs Astra high). May use existing P5/provider evaluation seam if available.
 
-| Tier | Target observations | Purpose |
-| --- | --- | --- |
-| **SCREENING** | min **~3** REAL per meaningful workload/configuration cell | clearly insufficient / sufficient / unstable |
-| **DISCRIMINATION** | **~8–12** when close, unstable, or production-routing relevant | separate near configs |
-| **DECISION-CRITICAL** | up to **~15–20** when material and still ambiguous | decide routing claim |
+Hard requirements: reuse existing seam if fit · same Nora/Agents where applicable · **no second Nora** · **no production model picker** · forced candidate execution ≠ evidence that production router selected it · classify as comparative cognitive/provider evidence · keep separate from ROUTER-IN-SITU.
 
-> These are **planning envelopes**, not rigid statistical doctrine.
+Phase 1 classifies: **CONTROLLED CANDIDATE EVALUATION SEAM = AVAILABLE/SUFFICIENT or UNAVAILABLE/GAP**.
 
-Expected total cognitive observations may reasonably reach several hundred.
-A planning envelope of roughly **350–650** REAL cognitive task observations is acceptable **if** the matrix warrants it.
-
-> **NOT a mandatory quota.** Eliminate uninformative cells as evidence accumulates.
+If unavailable: do **not** automatically implement. Requalify honest comparison / Human QA / whether gap blocks calibration objective. If materially blocking → STOP / Morris.
 
 ---
 
-## AF. Cognitive scoring / evaluation dimensions
+## AE. Replication / variance + experimental hygiene (Finding)
 
-Per meaningful cognitive run assess:
+Tiers: SCREENING ~3 · DISCRIMINATION ~8–12 · DECISION-CRITICAL ~15–20 (**planning envelopes ≠ doctrine**). Total ~**350–650** REAL cognitive observations acceptable if warranted — **not** a mandatory quota.
 
-factual correctness · instruction compliance · completeness · reasoning appropriateness · ambiguity handling · contradiction detection · challenge quality · Recommendation quality · evidence discipline · source/tool appropriateness · Product context usage · uncertainty honesty · abstention quality · governance compliance · Recommendation ≠ HumanDecision · authority boundaries · hallucination/overreach · stability · latency · token usage · cost · retries · escalation · quality gain after escalation · minimum-sufficient configuration
+### Experimental hygiene
 
-### Key calibration questions
+Same workload definition · materially equivalent context · same tools/sources · fresh comparable Project unless continuity is the test · randomize/alternate candidate order where practical · avoid all-Luna-then-all-Astra periods if drift confounds · record timestamp/provider snapshot · preserve failed runs · no cherry-pick best-of-N unless production policy itself uses that retry · record retries · record escalation separately · treat provider changes as confounders.
 
-- When is Luna sufficient?
-- At what boundary does Luna cease to be reliably sufficient?
-- When does higher Luna effort beat or equal lower Sol?
-- When does Sol materially improve successful-task quality?
-- When does Astra add meaningful value / when over-capable vs benefit/cost/latency?
-- Best **cost per successful task** without dropping below quality floor?
-- Does one bounded escalation materially improve hard cases?
-- Are P4 envelopes empirically supported or should they change?
+Material drift → **PROVIDER DRIFT BOUNDARY** · re-run representative bridge subset before strong cross-period comparison. Sufficient evidence for material routing decision — not academic statistical significance.
+
+---
+
+## AF. Cognitive Evaluation & Adjudication Contract (Finding 05)
+
+### Layer 1 — HARD CHECKS
+
+Where objectively verifiable: factual requirement · mandatory source · contradiction detected · required output · no invented HD · no authority expansion · correct/prohibited tools · required abstention · citation/provenance · no material hallucination · no fail-open protected effect. Prefer deterministic/evidence-verifiable.
+
+### Layer 2 — QUALITY RUBRIC
+
+Workload-declared criteria as applicable: factual quality · completeness · relevance · challenge · Recommendation usefulness · trade-off · ambiguity · uncertainty honesty · abstention · evidence discipline · source/tool · context usage · governance · clarity · stability. **Not every criterion for every workload.**
+
+### Quality Floor (Finding 18 / P4)
+
+Each workload/class defines sufficiently good outcome **before** FinOps. Classifications: **BELOW FLOOR** · **SUFFICIENT** · **STRONGER THAN NEEDED** · **INCONCLUSIVE**. Only SUFFICIENT+ enter FinOps (cost/latency/retry/escalation per successful task).
+
+### Layer 3 — COMPARATIVE ADJUDICATION
+
+Same workload · equivalent context · same tools/sources · same rubric · independent runs · compare successful-task quality · variance · latency · cost · escalation need. Prefer blinded/anonymous human comparison for close decisions. Close → Discrimination · still ambiguous + routing-significant → Decision-Critical. Do not conclude from one run.
+
+### LLM-AS-JUDGE
+
+Supporting analysis only if separately qualified. **Must NOT** be sole authority for production model selection unless evaluator validated for that decision. Anti-pattern: ask Astra whether Astra > Luna and treat alone as evidence.
+
+### HUMAN ADJUDICATION
+
+Morris first-class for decision-critical cases. Final production routing = **P8 Morris**.
 
 ---
 
 ## AG. FinOps / cost-per-successful-task
 
-- campaign + per-phase budget visibility
-- provider spend tracking when observable
-- model/effort cost comparison
-- **cost per successful task** as primary cognitive FinOps direction
-- no budget-based silent downgrade below quality floor
-- stop/escalation threshold if spend materially diverges
-- Morris visibility before significant campaign expansion
-
-**Cost optimization comes AFTER quality sufficiency.**
-Do not choose an arbitrary final budget in this contract.
+Campaign/per-phase visibility · spend tracking · model/effort comparison · cost per successful task primary · no silent downgrade below floor · stop if spend diverges · Morris visibility before expansion. Cost optimization **after** quality sufficiency.
 
 ---
 
 ## AH. Phase 4 — Adversarial / Recovery / Failure
 
-Hard-case inventory (minimum consider):
-
-stale Recommendation · stale HD binding · Project switch contamination · contradictory sources · source unavailable · insufficient evidence · ambiguous “go” · multi-intent mixed authority · EC changed after inspection · stale EC · missing required Confirmation · already consumed Confirmation · invalid authority · SUCCESS + blocking review · STOP · FAIL · cancel · recovery after FAIL · correction/re-execution/re-review · multiple EC in one Cycle · zero EC in one Cycle · provider failure · tool failure · contradictory tool data · context pressure · long conversation · interrupted conversation · reload/remount · history/current truth divergence · Journal stale projection · no-false-progress Nora activity · attempted cognitive authority expansion · cognitive escalation · escalation failure · fail-closed protected effect · artifact-routing invalid path/collision/TOCTOU
-
-Prefer **REAL-AUTO** where natural; else **REAL-HUMAN**.
+Hard-case inventory retained from CP01 (stale Rec/HD · contamination · contradictions · Confirmation/authority · SUCCESS+blockers · STOP/FAIL/cancel · recovery · provider/tool failure · reload · Journal stale · cognitive authority expansion · artifact-routing invalid/TOCTOU · etc.). Prefer AUTO+REAL-BOUNDARY where natural; else HUMAN queue.
 
 ---
 
-## AI. Phase 5 — Human REAL QA
+## AI. Phase 5 — Human REAL QA (batched)
 
-Official P6 evidence track — **not** “automation leftovers”.
-
-Domains: chat-first fluidity · naturalness · comprehension · clarification · challenge · Recommendation usefulness · Decision clarity · Confirmation clarity · cognitive burden · Pilot Interaction Burden · recovery · Journal/History/Synthesis usefulness · Execution readability · SUCCESS/STOP/FAIL clarity · error handling · correction loops · desktop/compact/mobile · visual coherence · responsive · practical a11y · perceived latency · trust/evidence visibility · unwanted SFIA-internal leakage · model behavior comparison needing human judgment
-
-Do not force numeric scores where qualitative judgment fits better.
+First-class track · not automation leftovers. Domains retained (fluidity · clarity · burden · PE bands · trust · leakage · comparative judgment…). Executed primarily as **consolidated batch** from Human QA Queue (§S) after/alongside interleaved campaign work — not repetitive whole-campaign STOPs.
 
 ---
 
 ## AJ. Human QA Evidence Template
 
-| Field | Content |
-| --- | --- |
-| scenario | ID + title |
-| baseline | SHA / env snapshot |
-| starting state | labelled prep method |
-| actions | what Morris did as Pilote |
-| model/effort | if relevant |
-| expected behavior | from P1–P5 contracts |
-| observed behavior | |
-| screenshots/evidence | |
-| verdict | PASS / FAIL / PASS-WITH-RESERVE |
-| notes | |
-| defect/reservation link | |
+Retain: scenario · baseline · starting state · actions · model/effort · expected · observed · screenshots · PASS/FAIL/PASS-WITH-RESERVE · notes · defect link.
+
+**Add where applicable:** sourceContract · risk/invariant · browser · browserVersion · OS · viewport · deviceBand · reducedMotion · executionMode (AUTO/HUMAN) · proofTarget (DETERMINISTIC/REAL-BOUNDARY/END-TO-END-REAL) · environmentSnapshotRef · runId · humanReviewer · comparisonBlinded · confidence/reservation.
+
+Do not turn into bureaucracy — populate applicable fields only.
 
 ---
 
-## AK. Coverage accounting
+## AK. Coverage accounting (Finding 24)
 
-Reportable:
+Goal: **100% QUALIFIED DISPOSITION OF REQUIRED P6 COVERAGE**.
 
-- REAL-AUTO coverage
-- REAL-HUMAN coverage
-- DET-GUARD coverage
-- NOT-PROVEN coverage
+Every mandatory requirement/risk is: PROVEN · FAILED/BLOCKING · explicitly NOT-PROVEN with P6 consequence · or OUT-OF-SCOPE/N/A with source-backed justification.
 
-Percentages may be computed operationally.
-**Do not** define an arbitrary fixed automation percentage now.
-Morris assesses/accepts final human QA proportion from actual campaign.
+**Does NOT mean:** every combinatorial scenario · 100% automated · arbitrary code coverage · every device/browser/model/effort permutation.
 
-**Goal:** 100% **qualified coverage** of required capability/risk — **not** 100% automated.
+Reportable: AUTO/HUMAN × DETERMINISTIC/REAL-BOUNDARY/E2E · NOT-PROVEN. Do not hide unproven mandatory scope inside a percentage. Morris assesses Human QA proportion from actual campaign.
 
 ---
 
 ## AL. Phase 6 — Consolidation / P6 Exit
 
-Aggregate: baseline · environment readiness · scenario coverage · mandatory P1 cases · REAL-AUTO · REAL-HUMAN · DET-GUARD · cognitive runs · workload matrix · model×effort · variance · escalation · cost/latency/tokens · defects · resolved · unresolved blockers · reservations · remaining carries · PE · simplification · Evidence/provenance · architecture parallelism · fake/REAL classification · maturity claims · routing recommendations · P7/P8 implications
+Aggregate baseline · readiness · scenario coverage · P6-MIN · AUTO/HUMAN results · cognitive runs · matrices · variance · escalation · cost/latency · defects · carries · PE · simplification · Evidence · parallelism · proof classification · maturity · routing recommendations · P7/P8 implications · ledger reconstructibility.
 
-**No P6 PASS merely because CI is green.**
+**No P6 PASS because CI green / test count high / provider call volume high.**
 
 ---
 
-## AM. P6 Completion Bars
+## AM. P6 Completion Bars (hardened)
 
 | Bar | Must prove |
 | --- | --- |
-| **P6-BAR-01 USABLE** | Integrated Product coherent through representative **real** journeys |
-| **P6-BAR-02 GOVERNED** | Human authority / protected-effect boundaries correct |
-| **P6-BAR-03 RESTART-SAFE** | No invented decision/authority/currentness/context after interruption |
-| **P6-BAR-04 GENERIC** | Contrasted work/cycle situations use same Product engine |
-| **P6-BAR-05 PRODUCT EXPERIENCE** | Pilot-facing surfaces coherent/usable (incl. Human QA where needed) |
-| **P6-BAR-06 ARTIFACT ROUTING** | Repository/workspace routing truthful / fail-closed |
-| **P6-BAR-07 COGNITION** | Nora path + routing behavior validated empirically enough for P6 claims |
-| **P6-BAR-08 SIMPLIFICATION** | No parallel cockpit/Product · no meaningful simplification regression |
-| **P6-BAR-09 EVIDENCE** | Evidence / ReviewBundle / provenance materially complete |
-| **P6-BAR-10 NON-REGRESSION** | Existing DET-GUARD suites green |
-| **P6-BAR-11 MATURITY HONESTY** | Claims ≤ evidence |
-| **P6-BAR-12 CLOSED LOOP** | Evidence/result returns to Nora / LPS / Trajectory / next useful action |
+| P6-BAR-01 USABLE | Coherent representative real journeys |
+| P6-BAR-02 GOVERNED | Authority / protected-effect boundaries |
+| P6-BAR-03 RESTART-SAFE | No invented decision/authority/currentness/context |
+| P6-BAR-04 GENERIC | Contrasted situations · same Product engine |
+| P6-BAR-05 PRODUCT EXPERIENCE | Pilot surfaces usable (incl. Human QA where needed) |
+| P6-BAR-06 ARTIFACT ROUTING | Truthful / fail-closed |
+| P6-BAR-07 COGNITION | Nora path + routing empirically enough for claims |
+| P6-BAR-08 SIMPLIFICATION | No parallel cockpit · no meaningful simplification regression |
+| P6-BAR-09 EVIDENCE | Evidence/RB/provenance materially complete |
+| P6-BAR-10 NON-REGRESSION | DET-GUARD suites green |
+| P6-BAR-11 MATURITY HONESTY | Claims ≤ evidence (R21) |
+| P6-BAR-12 CLOSED LOOP | Evidence → Nora/LPS/Trajectory/next action |
 
-### Campaign-specific exit requirements
+### Campaign-level mandatory conditions
 
-- all **P6-MIN-01…09** covered
-- Phase 1 gate passed
-- blocking Product scenarios pass
-- required Human QA completed
-- blocking cognitive-routing uncertainties resolved **or** explicitly block P6
-- QA architecture parallelism = **NONE**
-- no unknown mandatory capability left unclassified
-
-Allowed non-blocking reserves: full WCAG · Penpot pixel cert · global Cognitive Completion beyond P6 cognition claims · REAL BOUNDARY / E2E REAL unless separately proven and authorized.
+- **CAMPAIGN CONTRACT INTEGRITY** — Product Scenario Manifest complete for mandatory scope
+- **COGNITIVE WORKLOAD MANIFEST** — sufficiently complete + versioned
+- **PHASE 1** — all mandatory readiness dimensions pass
+- **REAL SMOKE** — SMOKE-01/02/03 all PASS
+- **COGNITIVE EVALUATION VALIDITY** — floors defined · comparisons under adjudication contract
+- **RAW EVIDENCE** — ledger/provenance reconstructs material conclusions
+- **HUMAN QA** — required queue resolved or explicitly blocking
+- **PROVIDER DRIFT** — no unresolved drift invalidating decision-critical comparisons
+- **MANDATORY SCOPE** — P6-MIN-01…09 dispositioned · all P6-MUST-PROVE covered
+- QA architecture parallelism = NONE
 
 ---
 
-## AN. Carry / Debt routing (updated under REAL-first)
+## AN. Carry / Debt routing
 
-| ID | Routing | Rationale |
-| --- | --- | --- |
-| **C-REAL-CANCEL** | **P6-EVALUATE-FOR-INCLUSION** | If real cancel naturally exercisable without new mechanism → prefer P6 REAL coverage; else remain SEPARATE-REAL-GATE. Do not auto-flip without feasibility evidence at Phase 1/2. |
-| **C-RT-A3-2-RESIDUE** | **P6-NON-BLOCKING-CARRY** | Fail-closed authority remains the P6 must-prove; residue cleanup ≠ blocker |
-| **C-LEGACY-OPENAI** | **SEPARATE-OPS/CLEANUP** unless Phase 1 shows material provider interference | Ops |
-| **C-NORA-CTX** | **P6-MUST-PROVE** | Observe real cognitive/context burden (Human QA + cognitive runs) |
-| **C-NCR-SCOPE** | **P6-MUST-PROVE** | Expand simplification QA beyond representative P5 exit · ties to **N-GLOBAL-SIMP-QA** |
-| **C-PROOF-REAL-CEILING** | **RECONSIDER UNDER REAL-FIRST** | Strategy is REAL-first hybrid · still **do not** auto-claim REAL BOUNDARY / E2E REAL |
-| **C-BRANCH-CLEANUP** | **SEPARATE-OPS/CLEANUP** | Repo hygiene |
-| **C-PROOF-PACK-INTEGRATION** | **CLOSED** | PR #569 / CI #709 |
-| **N-T3-P6** | **P6-MUST-PROVE** | = P6-MIN-01 · **not** “if in scope” |
-| **N-GLOBAL-SIMP-QA** | **P6 TARGET** | Required for honest global Product QA claims · not casually optional |
-| **N-COG-COMPLETION** | **SEPARATE / NEXT-MILESTONE** | P6 cognition calibration ≠ full global Cognitive Completion unless that contract is actually satisfied |
+| ID | Routing |
+| --- | --- |
+| C-REAL-CANCEL | P6-EVALUATE-FOR-INCLUSION if naturally exercisable under GO P6 REAL · else SEPARATE-REAL-GATE |
+| C-RT-A3-2-RESIDUE | P6-NON-BLOCKING-CARRY if fail-closed remains proven |
+| C-LEGACY-OPENAI | SEPARATE-OPS unless Phase 1 shows material interference |
+| C-NORA-CTX | P6-MUST-PROVE |
+| C-NCR-SCOPE | P6-MUST-PROVE · ties to N-GLOBAL-SIMP-QA |
+| C-PROOF-REAL-CEILING | RECONSIDER under REAL-first · no auto REAL BOUNDARY/E2E |
+| C-BRANCH-CLEANUP | SEPARATE-OPS |
+| C-PROOF-PACK-INTEGRATION | CLOSED |
+| N-T3-P6 | P6-MUST-PROVE (= P6-MIN-01) |
+| N-GLOBAL-SIMP-QA | P6 TARGET |
+| N-COG-COMPLETION | SEPARATE / next-milestone · ≠ auto from P6 calibration |
 
 ---
 
 ## AO. Architecture parallelism
 
-| Probe | Required |
-| --- | --- |
-| Second Product engine | **NONE** |
-| Second Nora / Agents path | **NONE** |
-| QA-only cognitive router / authority / EC / lifecycle / persistence | **NONE** |
-| Second artifact-routing engine | **NONE** |
-| Fake-success shortcut | **NONE** |
-| UI-only semantic truth | **NONE** |
-
-**Verdict target:** Architecture parallelism = **NONE** or campaign **STOP**.
+Second Product/Nora/Agents/QA-only router/authority/EC/lifecycle/persistence/artifact-routing/fake-success/UI-only truth = **NONE**. Else STOP.
 
 ---
 
 ## AP. Artifact Completeness / Evidence (V3-F14)
 
-This document must be usable by:
-
-- ChatGPT Critical Review
-- Morris QA campaign approval
-- Cursor future execution instantiation
-- later P7/P8 qualification
-
-**Consumers must not need conversation memory** to reconstruct the campaign.
-Status: **LOCAL CANDIDATE** until Git Integration.
-Statut de preuve de ce document: documentary contract · **≠** executed campaign evidence.
+Document usable by ChatGPT Closure · Morris acceptance · Cursor future execution · P7/P8. Conversation memory is **not** future SoT. Ledger contract §T. Status: LOCAL CANDIDATE until GI.
 
 ---
 
-## AQ. Defect and correction policy
+## AQ. Defect severity & continuation (Finding 12)
 
-A failing case may be: PRODUCT DEFECT · TEST/OBSERVABILITY GAP · ENVIRONMENT ISSUE · PROVIDER VARIANCE · EXPECTATION/CONTRACT ISSUE · HUMAN-REVIEW ISSUE · NON-BLOCKING RESERVATION
+| Class | Action |
+| --- | --- |
+| **CAMPAIGN-INVALIDATING** | STOP global campaign (contamination · parallel Product · cross-Project corruption · false REAL classification · drift invalidating active comparison set · ledger corruption) |
+| **PRODUCT-BLOCKER** | Affected track STOP · P6 PASS impossible until correction; independent collection may continue if not invalidated |
+| **MAJOR** | Record · continue independent tracks · correction before exit if blocking bar affected |
+| **MINOR / RESERVE** | Record owner/exit · continue |
+| **OBSERVABILITY-GAP** | Block only claims needing missing observation |
+| **ENVIRONMENT-ISSUE** | Repair · invalidate affected runs if needed |
+| **PROVIDER-VARIANCE** | Record · re-run per variance strategy · not silent Product defect |
+| **EXPECTATION / CONTRACT ISSUE** | STOP affected scenario definition · correct contract/manifest under governance |
+| **HUMAN-REVIEW ISSUE** | Route to Human QA Queue |
 
-Rules:
-
-- do not alter expected behavior merely to pass
-- do not modify routing thresholds mid-run without explicit campaign disposition
-- preserve failing evidence
-- correction → rerun affected scenario + proportionate regression
-- material Product correction requires governed execution scope
-- absorb trivial bounded corrections in same authorized campaign when possible
-- architecture/persistence change = **STOP / Morris**
+Rule: defect in one independent area must not automatically discard valid independent observations. Maximize collection without continuing through invalid evidence. Preserve failing evidence. Correction → new run + proportionate regression. Architecture/persistence change = STOP/Morris.
 
 ---
 
 ## AR. Campaign stop conditions
 
-Stop if:
+Stops from CP01 retained, plus:
 
-- environment not reproducible
-- runtime capability unexpectedly missing
-- provider access incompatible
-- automation requires parallel Product architecture
-- evidence cannot distinguish selected/dispatched where critical
-- authority protection failure
-- cross-Project contamination
-- incorrect HumanDecision synthesis
-- required Confirmation bypass
-- fake path substituted for claimed REAL evidence
-- Product data corruption
-- unbounded cognitive escalation
-- runaway provider cost
-- unexpected model fallback
-- env instability invalidating observations
-- material P1–P5 contract contradiction
-- new architecture choice required
+- provider capability materially changes and comparison continuity invalid
+- evidence ledger cannot attribute runs
+- model/configuration identity cannot be established where required
+- evaluator/adjudication process materially corrupted
+- candidate comparison contexts no longer comparable
+- Human QA state cannot be reproduced where required
+- mandatory runtime capability missing
+- Phase 1 smoke remains NOT EXECUTED at exit attempt
+- REAL action would exceed authorized bounded GO P6 REAL scope
+- campaign budget stop threshold reached
+- QA data privacy/secrets issue detected
 
-Do not silently continue through invalid evidence.
+Use §AQ severity — do not over-stop unrelated tracks for localized defects.
 
 ---
 
@@ -887,44 +782,48 @@ Do not silently continue through invalid evidence.
 
 | # | Decision | Status |
 | --- | --- | --- |
-| 1 | Morris QA trajectory direction for documentary consolidation | **CONSUMED** |
-| 2 | ChatGPT Critical Re-Review of this corrected contract | **NEXT** |
+| 1 | Morris CP02 consolidated closure GO | **CONSUMED** |
+| 2 | ChatGPT Closure Review of this corrected contract | **NEXT** |
 | 3 | Morris acceptance of corrected P6 QA contract | **PENDING** |
-| 4 | Project Git Integration of `07-…p6…qa.md` | **NOT AUTHORIZED THIS PASS** |
-| 5 | **GO P6 EXECUTION** (Phase 1+) | **NOT AUTHORIZED** |
-| 6 | PRODUCTION routing policy promotion | **P8** after P6(+P7) evidence |
-| 7 | REAL BOUNDARY / E2E REAL claims | **NOT AUTHORIZED** by this document alone |
-| 8 | runtime v3 adoption | **NOT AUTHORIZED** |
-| 9 | P6 READY / P6 PASS recording | After execution evidence only |
+| 4 | Project Git Integration of DOC07 | **NOT AUTHORIZED THIS PASS** |
+| 5 | **GO P6 EXECUTION** (G-SIMP-P6) | **NOT AUTHORIZED** |
+| 6 | **GO P6 REAL — BOUNDED CAMPAIGN** (G-SIMP-09 bounded) | **NOT AUTHORIZED** |
+| 7 | Production routing promotion (G-SIMP-12) | **P8** after P6(+P7) |
+| 8 | REAL BOUNDARY / E2E REAL claims | Not by decision alone |
+| 9 | runtime v3 adoption | **NOT AUTHORIZED** |
+| 10 | P6 READY / P6 PASS recording | After execution evidence only |
 
 ---
 
 ## AT. P7 / P8 handoff
 
-| Downstream | Use of P6 |
-| --- | --- |
-| **P7** Fresh Project Replay | Uses P6 coverage/routing observations · still distinct gate |
-| **P8** Requalification | May adopt/adapt Cognitive Routing Policy v1 · mappings · RETIRE LATER · further REAL — **Morris decision · no automatic adoption** |
-
-P6 may output: workload classes · model eligibility · effort bands · escalation evidence · quality-floor findings · cost/latency · recommended matrix adjustments — **recommendations only**.
+P6 may recommend workload classes · eligibility · effort bands · escalation · quality-floor findings · cost/latency · matrix adjustments. **Recommendations only.** P7 uses evidence · P8 decides adoption.
 
 ---
 
 ## AU. Anti-claims
 
 - Corrected LOCAL CANDIDATE ≠ P6 READY ≠ P6 STARTED ≠ P6 PASS
-- Phase 0 ≠ Phase 1 ≠ GO P6 EXECUTION
-- REAL-FIRST HYBRID design ≠ REAL execution authorized ≠ REAL BOUNDARY ≠ E2E REAL
+- Phase 0 ≠ Phase 1 ≠ GO P6 EXECUTION ≠ GO P6 REAL
+- REAL-FIRST design ≠ REAL execution authorized
+- Human Product interaction ≠ REAL BOUNDARY PROVEN automatically
+- REAL-HUMAN shorthand ≠ canonical R21 maturity
+- Controlled Candidate Evaluation ≠ Product Router selection evidence
+- Router-in-situ ≠ proof every alternative model is inferior
+- High model quality ≠ production routing adoption
+- Hundreds of REAL calls ≠ P6 PASS
+- High scenario count ≠ adequate coverage
+- Human QA percentage ≠ Product maturity score
+- LLM judge ≠ HumanDecision
+- Provider-selected configuration ≠ business authority
+- Phase 1 PASS ≠ P6 PASS
+- P6 PASS ≠ P7 PASS ≠ P8 adoption ≠ runtime v3 ADOPTED
 - DET-GUARD green ≠ Product QA complete
-- Historical DOC14 PASS ≠ current P6 REAL-first PASS
-- P1 mandatory scenarios satisfied in contract ≠ executed
-- Luna/Sol/Astra candidate envelopes ≠ production routing
-- Cognitive calibration ≠ Cognitive Completion globale
-- Human QA ≠ inferior fallback
-- 50–70 / 24–32 / 350–650 = **planning envelopes**, not doctrine/gates
+- Historical DOC14 PASS ≠ current P6 PASS
+- Planning envelopes (50–70 / 24–32 / 350–650) ≠ doctrine/gates
 - Product Completion C1 ≠ detailed P6 §15 source
-- Prior `product-completion/15` ≠ canonical P6 document
-- P5 COMPLETE ≠ P6 READY ≠ runtime v3 ADOPTED
+- Prior product-completion/15 ≠ canonical
+- Manifest **contracts** ≠ manifests created/executed
 
 ---
 
@@ -932,20 +831,59 @@ P6 may output: workload classes · model eligibility · effort bands · escalati
 
 | Field | Value |
 | --- | --- |
-| **P6-QA-CONTRACT-01** | **CLOSED CANDIDATE / READY FOR CHATGPT RE-REVIEW** |
-| **Canonical document** | `projects/sfia-studio/product-simplification/07-chat-first-product-simplification-p6-global-integrated-product-qa.md` |
-| **Prior DOC15** | Harvested · placement rejected · removed from local candidate (absent from origin/main) |
-| **P6 campaign strategy** | **REAL-FIRST HYBRID GLOBAL INTEGRATED PRODUCT QA** |
-| **Phase 0** | **DOCUMENTED LOCAL CANDIDATE** |
+| **P6-QA-CONTRACT-01** | **CLOSED** |
+| **P6-QA-CONTRACT-02…12** | **CLOSED CANDIDATE / READY FOR CHATGPT CLOSURE REVIEW** |
+| **P6 QA CONTRACT** | **CORRECTED LOCAL CANDIDATE / CHATGPT CLOSURE REVIEW REQUIRED** |
+| **Phase 0** | **CONTRACT CORRECTION COMPLETE CANDIDATE** |
 | **Phase 1** | **NOT STARTED** |
-| **P6 ENTRY QUALIFICATION** | **CORRECTED LOCAL CANDIDATE / RE-REVIEW REQUIRED** |
+| **GO P6 EXECUTION** | **NOT AUTHORIZED** |
+| **GO P6 REAL — BOUNDED CAMPAIGN** | **NOT AUTHORIZED** |
 | **P6 READY** | **NO** |
 | **P6 STARTED** | **NO** |
 | **REAL EXECUTION** | **NONE** |
 | **Product/runtime/tests** | **NONE** |
 | **runtime v3** | **NON ADOPTED** |
-| **Next** | **CHATGPT CRITICAL RE-REVIEW OF CORRECTED P6 QA CONTRACT** |
+| **Next** | **CHATGPT CLOSURE REVIEW** |
 
 ---
 
-*Fin — P6 Global Integrated Product QA Campaign Contract — Correction Pass 01 — LOCAL CANDIDATE · P6 READY NO · P6 STARTED NO · REAL NONE · runtime v3 NON ADOPTED.*
+## AW. Autonomous review finding closure matrix (CP02)
+
+| ID | Finding | Closure section(s) | Status |
+| --- | --- | --- | --- |
+| **P6-QA-CONTRACT-01** | Prior incomplete contract / DOC15 placement | CP01 + this file under product-simplification/07 | **CLOSED** |
+| **P6-QA-CONTRACT-02** | Distinct GO P6 EXECUTION vs GO P6 REAL | §A · §AS · §AU · §AV | **CLOSED CANDIDATE** |
+| **P6-QA-CONTRACT-03** | Mandatory Phase-1 smokes | §V · §X | **CLOSED CANDIDATE** |
+| **P6-QA-CONTRACT-04** | Mode vs proof maturity | §J (Axis A/B + R21) | **CLOSED CANDIDATE** |
+| **P6-QA-CONTRACT-05** | Cognitive Evaluation & Adjudication | §AF · quality floor · LLM-as-judge | **CLOSED CANDIDATE** |
+| **P6-QA-CONTRACT-06** | Product Scenario + Cognitive Workload Manifest contracts | §AX | **CLOSED CANDIDATE** |
+| **P6-QA-CONTRACT-07** | Router-in-situ vs Controlled Candidate | §AD · §X seam field | **CLOSED CANDIDATE** |
+| **P6-QA-CONTRACT-08** | Semantic/role + method/CKC coverage | §AA | **CLOSED CANDIDATE** |
+| **P6-QA-CONTRACT-09** | Human QA Queue / batch | §S · §AI | **CLOSED CANDIDATE** |
+| **P6-QA-CONTRACT-10** | Raw evidence ledger / provenance | §T · §AP | **CLOSED CANDIDATE** |
+| **P6-QA-CONTRACT-11** | Phase-1 env: browser · rate limits · privacy · budget · drift | §O · §X | **CLOSED CANDIDATE** |
+| **P6-QA-CONTRACT-12** | Defect severity / unaffected-track continuation | §AQ · §AR | **CLOSED CANDIDATE** |
+
+No finding is declared CLOSED from summary alone — substance lives in referenced sections. **CLOSED CANDIDATE** = ready for ChatGPT Closure Review; not yet Morris-accepted / Git-integrated.
+
+---
+
+## AX. Campaign Manifest Contracts (Finding 06)
+
+**Campaign artifacts** — not Product stores · not doctrine · not new architecture · not created in this pass.
+
+### A. P6 PRODUCT SCENARIO MANIFEST
+
+Minimum fields per scenario: scenarioId · title · sourceContract · sourceSection · capability/risk · P6-QA family · P6-MIN mapping if any · mandatory/exploratory · initialState · statePreparationMethod · executionMode (AUTO/HUMAN) · proofTarget (DETERMINISTIC/REAL-BOUNDARY/END-TO-END-REAL) · automationFeasibility · humanQaRequired · expectedBehavior · oracle/acceptance · blockingClass · requiredEvidence · dependencies · cleanup/isolation · notes.
+
+Requirements: all P6-MIN present · all P6-MUST-PROVE mapped · coverage gaps visible · no silent mandatory omission · additions versioned/justified.
+
+### B. P6 COGNITIVE WORKLOAD MANIFEST
+
+Minimum fields: workloadId · title · workloadClass · sourceContract · Product context · prompt/input fixture or governed real input · Strategy hypothesis · qualityFloor · candidateConfigurations · toolAvailability · sourceAvailability · risk/materiality · expectedGoodBehavior · hardChecks · qualityRubric · replicationTier · plannedRuns · humanAdjudicationNeeded · routerInSituEligible · controlledCandidateEligible · proofTarget · notes.
+
+Before mass Phase 3: manifests complete enough for reproducibility/auditability. May evolve on evidence — versioned/justified. File-based sufficient unless later evidence proves otherwise.
+
+---
+
+*Fin — P6 Global Integrated Product QA Campaign Contract — Correction Pass 02 — LOCAL CANDIDATE · findings 02–12 CLOSED CANDIDATE · GO P6 EXECUTION NOT AUTHORIZED · GO P6 REAL NOT AUTHORIZED · P6 READY NO · P6 STARTED NO · REAL NONE · runtime v3 NON ADOPTED.*

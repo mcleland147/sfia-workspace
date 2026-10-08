@@ -23,7 +23,9 @@
 | **S08-1→S08-3** | **INTEGRATED / POST-MERGE VERIFIED** (PR **#565** · CI **#698**) |
 | **S08-6** | **PASS / MORRIS GATE CONSUMED / POST-MERGE VERIFIED** |
 | **P5 COMPLETE** | **YES / INTEGRATED / POST-MERGE VERIFIED** |
-| **P6** | **CORRECTED LOCAL CANDIDATE / RE-REVIEW REQUIRED** (`07-…-p6-global-integrated-product-qa.md`) · **REAL-FIRST HYBRID** · Phase 0 · **≠ STARTED** |
+| **P6** | **CP02 CORRECTED LOCAL CANDIDATE / CLOSURE REVIEW REQUIRED** (`07-…`) · **REAL-FIRST HYBRID** · findings 02–12 CLOSED CANDIDATE · Phase 0 · **≠ STARTED** |
+| **GO P6 EXECUTION** | **NOT AUTHORIZED** |
+| **GO P6 REAL — BOUNDED CAMPAIGN** | **NOT AUTHORIZED** |
 | **P6 READY** | **NO** |
 | **runtime v3** | **NON ADOPTED** |
 | **Product/runtime changed** | **NONE** |
@@ -32,7 +34,7 @@
 | **Fichier** | `projects/sfia-studio/product-simplification/06-chat-first-product-simplification-integrated-exit-readiness-pack.md` |
 | **Date** | 2026-10-08 · Europe/Paris |
 
-> **Lecture rapide.** Ce Pack est l’artefact unique de readiness P5 sur les six dimensions canoniques. S08-5 = **INTEGRATED / POST-MERGE VERIFIED** (PR **#569** · CI **#709**). S08-6 = **PASS / MORRIS GATE CONSUMED / POST-MERGE VERIFIED** on main `1e9d261a…` (PR **#570** · CI **#711**). **P5 COMPLETE = YES / INTEGRATED / POST-MERGE VERIFIED**. Blocking OPEN = **NONE**. P6 = **CORRECTED LOCAL CANDIDATE** (`product-simplification/07-…` · REAL-FIRST HYBRID · Phase 0) · **≠ P6 READY** · **≠ P6 STARTED** · **≠ runtime v3 ADOPTED** · **≠ READY FOR REAL**.
+> **Lecture rapide.** Ce Pack est l’artefact unique de readiness P5 sur les six dimensions canoniques. S08-5 / S08-6 / P5 COMPLETE post-merge verified (PR **#570** · CI **#711**). Blocking OPEN = **NONE**. P6 = **CP02 CORRECTED LOCAL CANDIDATE** (`07-…` · REAL-FIRST HYBRID · findings 02–12 CLOSED CANDIDATE) · **GO P6 EXECUTION / GO P6 REAL = NOT AUTHORIZED** · **≠ P6 READY** · **≠ P6 STARTED** · **≠ runtime v3 ADOPTED**.
 
 ---
 
@@ -62,7 +64,7 @@
 | **Artifact Completeness (V3-F14)** | **PASS / INTEGRATED** |
 | **Architecture parallelism** | **NONE** |
 | **S08-6** | **PASS / MORRIS GATE CONSUMED** |
-| **Recommendation** | **P5 COMPLETE = YES / POST-MERGE VERIFIED** · P6 = **CORRECTED LOCAL CANDIDATE** (`07-…`) · next = **ChatGPT Critical Re-Review** · ≠ P6 READY · ≠ P6 STARTED · ≠ GO P6 EXECUTION yet |
+| **Recommendation** | **P5 COMPLETE = YES / POST-MERGE VERIFIED** · P6 = **CP02 LOCAL CANDIDATE** (`07-…`) · next = **ChatGPT Closure Review** · ≠ P6 READY · ≠ GO P6 EXECUTION · ≠ GO P6 REAL |
 | **P5 COMPLETE** | **YES / INTEGRATED / POST-MERGE VERIFIED** |
 | **P6 READY** | **NO** |
 | **runtime v3** | **NON ADOPTED** |
@@ -424,7 +426,7 @@ Therefore:
 | Field | Value |
 | --- | --- |
 | **S08-5** | **INTEGRATED / POST-MERGE VERIFIED** |
-| **Recommendation** | **P5 COMPLETE = YES / POST-MERGE VERIFIED** · P6 = **CORRECTED LOCAL CANDIDATE** (`07-…` · REAL-FIRST HYBRID) · next = ChatGPT Critical Re-Review |
+| **Recommendation** | **P5 COMPLETE = YES / POST-MERGE VERIFIED** · P6 = **CP02 LOCAL CANDIDATE** (`07-…`) · next = ChatGPT Closure Review |
 | **P5 COMPLETE** | **YES / INTEGRATED / POST-MERGE VERIFIED** |
 | **S08-6** | **PASS / MORRIS GATE CONSUMED / POST-MERGE VERIFIED** |
 
@@ -461,8 +463,9 @@ S08-6 input package minimally:
 | 4 | **P5-S08-6 / P5 COMPLETE GO** | **AUTHORIZED / CONSUMED** · **P5 COMPLETE = YES / POST-MERGE VERIFIED** (PR #570 · CI #711) |
 | 5 | Any REAL cancel / REAL boundary expansion | **NOT AUTHORIZED** |
 | 6 | runtime v3 adoption / P6 READY | **NOT AUTHORIZED** |
-| 7 | ChatGPT Critical Re-Review of corrected P6 QA contract (`07-…`) | **NEXT** |
-| 8 | **GO P6 EXECUTION** | **NOT AUTHORIZED** — requires accepted contract + distinct gate |
+| 7 | ChatGPT Closure Review of CP02 P6 QA contract (`07-…`) | **NEXT** |
+| 8 | **GO P6 EXECUTION** | **NOT AUTHORIZED** |
+| 9 | **GO P6 REAL — BOUNDED CAMPAIGN** | **NOT AUTHORIZED** |
 
 ---
 
@@ -484,7 +487,7 @@ S08-6 input package minimally:
 | Branch (S08-6 recording) | `docs/sfia-studio-p5-s08-6-p5-complete-gate` **MERGED** |
 | S08-5 project push / Draft PR / merge | **DONE** (PR #569 MERGED · CI #709) |
 | S08-6 recording Draft PR / merge | **DONE** (PR #570 MERGED · CI #711) |
-| P6 QA contract | `product-simplification/07-…-p6-global-integrated-product-qa.md` on branch `audit/sfia-studio-product-completion-p6-global-integrated-qa-qualification` · Correction Pass 01 · project push **NONE** |
+| P6 QA contract | `product-simplification/07-…` · Correction Pass 02 · project push **NONE** |
 
 ---
 
@@ -545,7 +548,9 @@ Morris P5-S08-6 / P5 COMPLETE GO = **AUTHORIZED / CONSUMED**.
 | S08-6 | **PASS / MORRIS GATE CONSUMED** |
 | P5 COMPLETE | **YES** |
 | Nature | Milestone / Product-Simplification completion decision on governed P5 scope |
-| P6 | **CORRECTED LOCAL CANDIDATE / RE-REVIEW REQUIRED** (`07-…`) · **REAL-FIRST HYBRID** · Phase 0 · **NOT STARTED** |
+| P6 | **CP02 CORRECTED LOCAL CANDIDATE / CLOSURE REVIEW REQUIRED** (`07-…`) · **REAL-FIRST HYBRID** · **NOT STARTED** |
+| GO P6 EXECUTION | **NOT AUTHORIZED** |
+| GO P6 REAL — BOUNDED CAMPAIGN | **NOT AUTHORIZED** |
 | P6 READY | **NO** |
 | runtime v3 | **NON ADOPTED** |
 
@@ -561,8 +566,8 @@ P5 COMPLETE = YES ≠ P6 READY ≠ runtime v3 ADOPTED ≠ READY FOR REAL ≠ REA
 | Prerequisites | P5 COMPLETE · six-dimension evidence chain · carry register honesty |
 | P5 carries moving forward | C-NORA-CTX · C-NCR-SCOPE · C-PROOF-REAL-CEILING · N-T3-P6 · N-GLOBAL-SIMP-QA · N-COG-COMPLETION |
 | Separate REAL/Ops gates | C-REAL-CANCEL · C-LEGACY-OPENAI · C-RT-A3-2-RESIDUE (EC reliability) · C-BRANCH-CLEANUP |
-| Entry proof | Canonical P6 contract = `product-simplification/07-…-p6-global-integrated-product-qa.md` · Correction Pass 01 LOCAL CANDIDATE · prior DOC15 placement REJECTED |
-| Morris gates | Next = **ChatGPT Critical Re-Review** · then Morris acceptance · GO P6 EXECUTION only after acceptance + distinct authorization · P6 READY remains **NO** |
+| Entry proof | Canonical P6 contract = `product-simplification/07-…` · **Correction Pass 02** LOCAL CANDIDATE · findings 02–12 CLOSED CANDIDATE · prior DOC15 REJECTED |
+| Morris gates | Next = **ChatGPT Closure Review** · then Morris acceptance · **GO P6 EXECUTION** + **GO P6 REAL — BOUNDED CAMPAIGN** only after distinct authorization · P6 READY remains **NO** |
 | P6 execution | **NOT STARTED / NOT AUTHORIZED** |
 
-*Fin Pack P5-S08-5/S08-6 — S08-5 INTEGRATED / POST-MERGE VERIFIED · S08-6 PASS / MORRIS GATE CONSUMED / POST-MERGE VERIFIED · P5 COMPLETE YES / INTEGRATED / POST-MERGE VERIFIED (PR #570 · CI #711) · six dimensions PASS/PASS-WITH-CARRY only · BLOCKING OPEN NONE · C-PROOF-PACK-INTEGRATION CLOSED · P6 CORRECTED LOCAL CANDIDATE (07 · REAL-FIRST HYBRID) · P6 READY NO · P6 STARTED NO · runtime v3 NON ADOPTED · READY FOR REAL NO.*
+*Fin Pack P5-S08-5/S08-6 — P5 COMPLETE YES / POST-MERGE VERIFIED (PR #570 · CI #711) · P6 CP02 LOCAL CANDIDATE (07 · REAL-FIRST HYBRID · findings 02–12 CLOSED CANDIDATE) · GO P6 EXECUTION / GO P6 REAL NOT AUTHORIZED · P6 READY NO · P6 STARTED NO · runtime v3 NON ADOPTED.*
