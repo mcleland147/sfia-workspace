@@ -44,7 +44,8 @@ function badgeFor(status: string): Badge {
     case "draft":
       return { label: "Brouillon", tone: "neutral" };
     case "active":
-      return { label: "Actif", tone: "active" };
+      // P3 63:39 chip wording — status only, not a next-action claim.
+      return { label: "En cours", tone: "active" };
     case "paused":
       return { label: "En attente", tone: "waiting" };
     case "closed":
@@ -72,7 +73,10 @@ function matchesQuery(project: ProjectRow, query: string): boolean {
   return hay.includes(q);
 }
 
-/** Recent activity only — not a next-action / « À reprendre » claim. */
+/**
+ * Recent activity window for the P3 « À reprendre » resume section.
+ * Label matches Figma; facts remain updatedAt-only — never invents next action.
+ */
 function isRecentlyUpdated(project: ProjectRow): boolean {
   if (project.status === "closed" || project.status === "archived") return false;
   if (!project.updatedAt) return false;
@@ -81,15 +85,26 @@ function isRecentlyUpdated(project: ProjectRow): boolean {
   return Date.now() - ts <= RECENT_WINDOW_MS;
 }
 
+function projectDescription(project: ProjectRow): string | null {
+  return project.objective?.trim() || project.context?.trim() || null;
+}
+
+/** Honest attention cell — never invents “1 action prête”. */
+function attentionFor(project: ProjectRow): string {
+  if (project.status === "paused") return "En attente";
+  if (project.status === "archived" || project.status === "closed") return "Clos";
+  return "—";
+}
+
 function ProjectRowView({ project }: { project: ProjectRow }) {
   const badge = badgeFor(project.status);
   const href = `/studio/projects/${encodeURIComponent(project.projectId)}`;
   const activity = formatRelativeFr(project.updatedAt);
-  const description =
-    project.objective?.trim() || project.context?.trim() || null;
+  const description = projectDescription(project);
   return (
     <li className={styles.row} data-testid="studio-projects-card">
       <div className={styles.rowProject}>
+        <span className={styles.rowDot} aria-hidden />
         <Link href={href} className={styles.rowTitle} data-testid="studio-projects-open">
           {project.title}
         </Link>
@@ -97,17 +112,23 @@ function ProjectRowView({ project }: { project: ProjectRow }) {
           <p className={styles.rowDescription}>{description}</p>
         ) : null}
       </div>
+      <p className={styles.rowCurrent} data-testid="studio-projects-current">
+        {description ?? "—"}
+      </p>
       <span className={styles.badge} data-tone={badge.tone}>
         {badge.label}
       </span>
       <p className={styles.rowMeta} data-testid="studio-projects-activity">
         {activity ?? "—"}
       </p>
+      <p className={styles.rowAttention} data-testid="studio-projects-attention">
+        {attentionFor(project)}
+      </p>
     </li>
   );
 }
 
-/** F1 — Projects entry point. */
+/** F1 — Projects entry point. P3 63:39 geometry; S06 honest labels. */
 export function ProjectsPage() {
   const [state, setState] = useState<ListState>({ status: "loading" });
   const [query, setQuery] = useState("");
@@ -150,7 +171,7 @@ export function ProjectsPage() {
         const tb = Date.parse(b.updatedAt ?? "") || 0;
         return tb - ta;
       })
-      .slice(0, 4);
+      .slice(0, 2); // P3 63:39 — two resume cards
   }, [state]);
 
   const count =
@@ -162,190 +183,232 @@ export function ProjectsPage() {
 
   return (
     <div className={styles.page} data-testid="studio-projects-home">
-      <header className={styles.hero}>
-        <div className={styles.heroText}>
-          <h1 className={styles.heroTitle}>Projets</h1>
-          <p className={styles.heroSubtitle}>
-            {count === null
-              ? "Ouvrir un projet ou en créer un nouveau."
-              : count === 0
-                ? "Aucun projet pour le moment."
-                : `${count} projet${count > 1 ? "s" : ""}`}
-          </p>
+      <div className={styles.pageChrome} data-testid="studio-projects-chrome">
+        <div className={styles.chromeTrail}>
+          <span className={styles.chromeCurrent}>Projets</span>
         </div>
-        {state.status !== "empty" ? (
-          <div className={styles.heroActions}>
+        <span className={styles.freshChip} data-testid="studio-projects-fresh">
+          À jour
+        </span>
+      </div>
+
+      <div className={styles.content}>
+        <header className={styles.hero}>
+          <div className={styles.heroText}>
+            <h1 className={styles.heroTitle}>Projets</h1>
+            <p className={styles.heroSubtitle}>
+              {count === null
+                ? "Ouvrir un projet ou en créer un nouveau."
+                : count === 0
+                  ? "Aucun projet pour le moment."
+                  : "Reprends un projet récent, ou démarre-en un nouveau avec Nora."}
+            </p>
+          </div>
+          {state.status !== "empty" ? (
+            <div className={styles.heroActions}>
+              <Link
+                href="/studio/projects/new"
+                className={styles.quietCta}
+                data-testid="studio-projects-ask-nora"
+              >
+                Demander à Nora
+              </Link>
+              <Link
+                href="/studio/projects/new"
+                className={styles.heroCta}
+                data-testid="studio-projects-create"
+              >
+                + Nouveau projet
+              </Link>
+            </div>
+          ) : null}
+        </header>
+
+        {state.status === "ready" ? (
+          <section
+            className={styles.orientation}
+            data-testid="studio-projects-orientation"
+            aria-label="Besoin de t'orienter — démarrer avec Nora"
+          >
+            <span className={styles.orientationMark} aria-hidden>
+              N
+            </span>
+            <div className={styles.orientationText}>
+              <h2 className={styles.orientationTitle}>
+                Besoin de t&apos;orienter ?
+              </h2>
+              <p className={styles.orientationBody}>
+                Nora clarifie l&apos;intention et le nom avant toute création
+                durable. Ce bloc ouvre uniquement un nouveau projet — il
+                n&apos;oriente pas entre vos projets existants.
+              </p>
+            </div>
             <Link
               href="/studio/projects/new"
-              className={styles.quietCta}
-              data-testid="studio-projects-ask-nora"
+              className={styles.orientationCta}
+              data-testid="studio-projects-start-new"
             >
-              Nouveau avec Nora
+              Ouvrir la conversation
             </Link>
+          </section>
+        ) : null}
+
+        {state.status === "loading" ? (
+          <p className={styles.hint} data-testid="studio-projects-loading">
+            Chargement en cours…
+          </p>
+        ) : null}
+
+        {state.status === "error" ? (
+          <div
+            className={styles.error}
+            role="alert"
+            data-testid="studio-projects-error"
+          >
+            <p className={styles.errorTitle}>{state.message}</p>
+            <p className={styles.hint}>
+              Réessayez dans un instant. Aucune donnée n&apos;est inventée.
+            </p>
+          </div>
+        ) : null}
+
+        {state.status === "empty" ? (
+          <div className={styles.empty} data-testid="studio-projects-empty">
+            <p className={styles.emptyTitle}>Aucun projet pour commencer</p>
+            <p className={styles.emptyBody}>
+              Créez votre premier projet. Nora demandera l&apos;intention puis le
+              nom avant toute matérialisation durable.
+            </p>
             <Link
               href="/studio/projects/new"
-              className={styles.heroCta}
+              className={styles.emptyCta}
               data-testid="studio-projects-create"
             >
               + Nouveau projet
             </Link>
           </div>
         ) : null}
-      </header>
 
-      {state.status === "ready" ? (
-        <section
-          className={styles.orientation}
-          data-testid="studio-projects-orientation"
-          aria-label="Démarrer un nouveau projet avec Nora"
-        >
-          <div className={styles.orientationText}>
-            <h2 className={styles.sectionTitle}>
-              Démarrer un nouveau projet avec Nora
-            </h2>
-            <p className={styles.orientationBody}>
-              Nora clarifie l&apos;intention et le nom avant toute création
-              durable. Ce bloc n&apos;oriente pas entre vos projets existants.
-            </p>
-          </div>
-          <Link
-            href="/studio/projects/new"
-            className={styles.orientationCta}
-            data-testid="studio-projects-start-new"
+        {state.status === "ready" && recentProjects.length > 0 ? (
+          <section
+            className={styles.section}
+            data-testid="studio-projects-recent"
+            aria-labelledby="projects-recent-heading"
           >
-            Commencer
-          </Link>
-        </section>
-      ) : null}
-
-      {state.status === "loading" ? (
-        <p className={styles.hint} data-testid="studio-projects-loading">
-          Chargement en cours…
-        </p>
-      ) : null}
-
-      {state.status === "error" ? (
-        <div
-          className={styles.error}
-          role="alert"
-          data-testid="studio-projects-error"
-        >
-          <p className={styles.errorTitle}>{state.message}</p>
-          <p className={styles.hint}>
-            Réessayez dans un instant. Aucune donnée n&apos;est inventée.
-          </p>
-        </div>
-      ) : null}
-
-      {state.status === "empty" ? (
-        <div className={styles.empty} data-testid="studio-projects-empty">
-          <p className={styles.emptyTitle}>Aucun projet pour commencer</p>
-          <p className={styles.emptyBody}>
-            Créez votre premier projet. Nora demandera l&apos;intention puis le
-            nom avant toute matérialisation durable.
-          </p>
-          <Link
-            href="/studio/projects/new"
-            className={styles.emptyCta}
-            data-testid="studio-projects-create"
-          >
-            + Nouveau projet
-          </Link>
-        </div>
-      ) : null}
-
-      {state.status === "ready" && recentProjects.length > 0 ? (
-        <section
-          className={styles.section}
-          data-testid="studio-projects-recent"
-          aria-labelledby="projects-recent-heading"
-        >
-          <div className={styles.sectionHead}>
-            <h2 id="projects-recent-heading" className={styles.sectionTitle}>
-              Projets récents
-            </h2>
-            <p className={styles.sectionHint}>
-              Dernière activité connue — pas une prochaine action.
-            </p>
-          </div>
-          <ul className={styles.recentGrid}>
-            {recentProjects.map((project) => (
-              <li key={`recent-${project.projectId}`} className={styles.recentCard}>
-                <div className={styles.recentTop}>
-                  <Link
-                    href={`/studio/projects/${encodeURIComponent(project.projectId)}`}
-                    className={styles.recentTitle}
-                  >
-                    {project.title}
-                  </Link>
-                  <span className={styles.badge} data-tone={badgeFor(project.status).tone}>
-                    {badgeFor(project.status).label}
-                  </span>
-                </div>
-                <p className={styles.cardMeta} data-testid="studio-projects-activity">
-                  {formatRelativeFr(project.updatedAt) ?? "Activité inconnue"}
-                </p>
-                <Link
-                  href={`/studio/projects/${encodeURIComponent(project.projectId)}`}
-                  className={styles.recentOpen}
-                >
-                  Ouvrir
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </section>
-      ) : null}
-
-      {state.status === "ready" ? (
-        <section
-          className={styles.tableSection}
-          data-testid="studio-projects-all"
-          aria-labelledby="projects-all-heading"
-        >
-          <div className={styles.tableHead}>
-            <div>
-              <h2 id="projects-all-heading" className={styles.sectionTitle}>
-                Tous les projets
+            <div className={styles.sectionHead}>
+              <h2 id="projects-recent-heading" className={styles.sectionTitle}>
+                À reprendre
               </h2>
               <p className={styles.sectionHint}>
-                {count} projet{count === 1 ? "" : "s"}
+                Activité récente — aucune prochaine action inventée.
               </p>
             </div>
-            <div className={styles.searchWrap}>
-              <label className={styles.srOnly} htmlFor="projects-local-search">
-                Rechercher dans vos projets
-              </label>
-              <input
-                id="projects-local-search"
-                className={styles.search}
-                type="search"
-                value={query}
-                onChange={(event) => setQuery(event.target.value)}
-                placeholder="Rechercher…"
-                data-testid="studio-projects-search"
-                autoComplete="off"
-              />
-            </div>
-          </div>
-          <div className={styles.tableHeaderRow} aria-hidden="true">
-            <span>Projet</span>
-            <span>État</span>
-            <span>Dernière activité</span>
-          </div>
-          {filtered.length === 0 ? (
-            <p className={styles.hint} data-testid="studio-projects-search-empty">
-              Aucun projet ne correspond à « {query.trim()} ».
-            </p>
-          ) : (
-            <ul className={styles.rowList} data-testid="studio-projects-list">
-              {filtered.map((project) => (
-                <ProjectRowView key={project.projectId} project={project} />
-              ))}
+            <ul className={styles.recentGrid}>
+              {recentProjects.map((project) => {
+                const description = projectDescription(project);
+                const badge = badgeFor(project.status);
+                const href = `/studio/projects/${encodeURIComponent(project.projectId)}`;
+                return (
+                  <li
+                    key={`recent-${project.projectId}`}
+                    className={styles.recentCard}
+                  >
+                    <div className={styles.recentTop}>
+                      <div className={styles.recentTitleWrap}>
+                        <span className={styles.rowDot} aria-hidden />
+                        <Link href={href} className={styles.recentTitle}>
+                          {project.title}
+                        </Link>
+                      </div>
+                      <span className={styles.badge} data-tone={badge.tone}>
+                        {badge.label}
+                      </span>
+                    </div>
+                    {description ? (
+                      <p className={styles.recentDesc}>{description}</p>
+                    ) : null}
+                    <div className={styles.focusBox}>
+                      <p className={styles.focusLabel}>Dernière activité</p>
+                      <p
+                        className={styles.focusBody}
+                        data-testid="studio-projects-activity"
+                      >
+                        {formatRelativeFr(project.updatedAt) ??
+                          "Activité inconnue"}
+                      </p>
+                    </div>
+                    <div className={styles.recentFooter}>
+                      <p className={styles.recentMeta}>
+                        {formatRelativeFr(project.updatedAt)
+                          ? `Mis à jour ${formatRelativeFr(project.updatedAt)?.toLowerCase()}`
+                          : "Activité inconnue"}
+                      </p>
+                      <Link href={href} className={styles.recentOpen}>
+                        Ouvrir →
+                      </Link>
+                    </div>
+                  </li>
+                );
+              })}
             </ul>
-          )}
-        </section>
-      ) : null}
+          </section>
+        ) : null}
+
+        {state.status === "ready" ? (
+          <section
+            className={styles.tableSection}
+            data-testid="studio-projects-all"
+            aria-labelledby="projects-all-heading"
+          >
+            <div className={styles.tableHead}>
+              <div>
+                <h2 id="projects-all-heading" className={styles.sectionTitle}>
+                  Tous les projets
+                </h2>
+                <p className={styles.sectionHint}>
+                  {count} projet{count === 1 ? "" : "s"}
+                </p>
+              </div>
+              <div className={styles.searchWrap}>
+                <label className={styles.srOnly} htmlFor="projects-local-search">
+                  Rechercher dans vos projets
+                </label>
+                <input
+                  id="projects-local-search"
+                  className={styles.search}
+                  type="search"
+                  value={query}
+                  onChange={(event) => setQuery(event.target.value)}
+                  placeholder="Rechercher un projet…"
+                  data-testid="studio-projects-search"
+                  autoComplete="off"
+                />
+              </div>
+            </div>
+            <div className={styles.tableHeaderRow} aria-hidden="true">
+              <span>Projet</span>
+              <span>En cours</span>
+              <span>État</span>
+              <span>Dernière activité</span>
+              <span>Attention</span>
+            </div>
+            {filtered.length === 0 ? (
+              <p
+                className={styles.hint}
+                data-testid="studio-projects-search-empty"
+              >
+                Aucun projet ne correspond à « {query.trim()} ».
+              </p>
+            ) : (
+              <ul className={styles.rowList} data-testid="studio-projects-list">
+                {filtered.map((project) => (
+                  <ProjectRowView key={project.projectId} project={project} />
+                ))}
+              </ul>
+            )}
+          </section>
+        ) : null}
+      </div>
     </div>
   );
 }

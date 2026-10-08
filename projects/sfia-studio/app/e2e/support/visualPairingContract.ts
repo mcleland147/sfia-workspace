@@ -1,0 +1,358 @@
+/**
+ * P5-S08-4 — fail-closed Figma ↔ runtime same-state visual pairing contract.
+ * Pure logic (no Playwright). Used by Vitest + capture/compare harnesses.
+ */
+
+export const HARNESS_PAIRING_MISMATCH = "HARNESS_PAIRING_MISMATCH" as const;
+
+export type PairingFailureCode = typeof HARNESS_PAIRING_MISMATCH;
+
+/** Material visible Product facts declared from Figma + P3 + QA fixture. */
+export type VisualContentFacts = {
+  /** Coarse surface kind for non-workspace pairs (login / projects / new-project). */
+  surfaceKind?: string;
+  projectName?: string;
+  projectSubtitle?: string;
+  currentCycleLabel?: string;
+  currentCycleStatus?: string;
+  currentWorkLabel?: string;
+  profileDisplayName?: string;
+  trajectoryVisibleNodes?: number;
+  executionCount?: number | string;
+  decisionCount?: number | string;
+  reserveCount?: number | string;
+  synthesisState?: string;
+  activeView?: string;
+  recommendationState?: string;
+  confirmationState?: string;
+  focusTopic?: string;
+};
+
+export type VisualPairRecord = {
+  id: string;
+  figma: {
+    nodeId: string;
+    viewport: { width: number; height: number };
+  };
+  runtime: {
+    fixtureId: string;
+    /** Stable QA project id when known (from seed manifest). */
+    projectId?: string | null;
+    /** Visible Product project name expected in header (null = no project shell). */
+    expectedProjectName?: string | null;
+    route: string;
+    view?: string | null;
+  };
+  state: {
+    semanticState: string;
+    expectedVisible: string[];
+    expectedAbsent: string[];
+  };
+  /**
+   * FINAL Figma pixel-fidelity pairs MUST set identityAligned=true
+   * (runtime Product identity matches the canonical Figma Product identity).
+   * identityAligned !== true → HARNESS_PAIRING_MISMATCH → DIFF_FORBIDDEN.
+   */
+  identityAligned?: boolean;
+  /**
+   * FINAL pairs MUST set contentAligned=true and declare `content` facts.
+   * contentAligned !== true → HARNESS_PAIRING_MISMATCH → DIFF_FORBIDDEN.
+   */
+  contentAligned?: boolean;
+  /** Expected material visible facts (Figma + P3 + QA fixture). */
+  content?: VisualContentFacts;
+  /** When true (default for manifested final pairs), enforce identityAligned===true. */
+  finalFidelity?: boolean;
+};
+
+export type RuntimeObservation = {
+  url: string;
+  viewport: { width: number; height: number };
+  projectName?: string | null;
+  projectId?: string | null;
+  activeView?: string | null;
+  /** testids / selectors found present in the DOM */
+  present: string[];
+  /** Forbidden markers found present */
+  forbiddenPresent: string[];
+  collectPhase?: string | null;
+  /** Observed material content facts from Product DOM. */
+  content?: VisualContentFacts | null;
+};
+
+export type AlignmentFlags = {
+  identityAligned: boolean;
+  contentAligned: boolean;
+  semanticStateAligned: boolean;
+  activeViewAligned: boolean;
+  viewportAligned: boolean;
+};
+
+export type PairingResult =
+  | {
+      ok: true;
+      pairing: "PASS";
+      id: string;
+      alignment: AlignmentFlags;
+    }
+  | {
+      ok: false;
+      pairing: "FAIL";
+      code: PairingFailureCode;
+      id: string;
+      reason: string;
+      alignment?: Partial<AlignmentFlags>;
+    };
+
+/** Global markers that invalidate any final visual capture. */
+export const GLOBAL_FORBIDDEN_MARKERS = [
+  "next-dev-issues-badge",
+  "next-dev-overlay",
+  "runtime-error-overlay",
+  "studio-projects-loading",
+  "project-workspace-loading",
+  "sqlite-unavailable",
+] as const;
+
+export function formatPairingMismatch(reason: string): string {
+  return `${HARNESS_PAIRING_MISMATCH}\n${reason}`;
+}
+
+function routeMatches(expected: string, actualUrl: string): boolean {
+  try {
+    const u = new URL(actualUrl, "http://localhost");
+    const path = u.pathname;
+    if (expected.includes(":projectId") || expected.includes("<id>")) {
+      const pattern = expected
+        .replace(/:projectId|<id>/g, "[^/]+")
+        .replace(/\//g, "\\/");
+      return new RegExp(`^${pattern}/?$`).test(path);
+    }
+    if (expected.endsWith("*")) {
+      return path.startsWith(expected.slice(0, -1));
+    }
+    return path === expected || path === `${expected}/`;
+  } catch {
+    return false;
+  }
+}
+
+function normalizeFact(value: unknown): string {
+  if (value == null) return "";
+  return String(value).trim();
+}
+
+function contentFactsMatch(
+  expected: VisualContentFacts,
+  actual: VisualContentFacts | null | undefined,
+): { ok: true } | { ok: false; reason: string } {
+  const keys = Object.keys(expected) as (keyof VisualContentFacts)[];
+  for (const key of keys) {
+    const exp = expected[key];
+    if (exp === undefined) continue;
+    const act = actual?.[key];
+    if (normalizeFact(exp) !== normalizeFact(act)) {
+      return {
+        ok: false,
+        reason: `contentMismatch field=${key}\nexpected=${normalizeFact(exp)}\nactual=${normalizeFact(act) || "(none)"}`,
+      };
+    }
+  }
+  return { ok: true };
+}
+
+/**
+ * Evaluate one canonical visual pair against a runtime observation.
+ * Fail-closed: any mismatch → HARNESS_PAIRING_MISMATCH (no screenshot/diff).
+ *
+ * Diff allowed only when:
+ * identityAligned ∧ contentAligned ∧ semanticStateAligned ∧
+ * activeViewAligned ∧ viewportAligned.
+ */
+export function evaluateVisualPair(
+  record: VisualPairRecord,
+  obs: RuntimeObservation,
+): PairingResult {
+  const alignment: AlignmentFlags = {
+    identityAligned: false,
+    contentAligned: false,
+    semanticStateAligned: false,
+    activeViewAligned: false,
+    viewportAligned: false,
+  };
+
+  const fail = (reason: string): PairingResult => ({
+    ok: false,
+    pairing: "FAIL",
+    code: HARNESS_PAIRING_MISMATCH,
+    id: record.id,
+    reason: formatPairingMismatch(reason),
+    alignment,
+  });
+
+  // FINAL fidelity pairs declare identityAligned. It must be true — no exception.
+  const enforceIdentityAligned =
+    record.finalFidelity === true ||
+    Object.prototype.hasOwnProperty.call(record, "identityAligned");
+  if (enforceIdentityAligned && record.identityAligned !== true) {
+    return fail(
+      `identityAligned=${String(record.identityAligned)}\nexpectedIdentityAligned=true\nfixtureId=${record.runtime.fixtureId}`,
+    );
+  }
+  alignment.identityAligned = record.identityAligned === true || !enforceIdentityAligned;
+
+  // FINAL fidelity pairs declare contentAligned. It must be true — no exception.
+  const enforceContentAligned =
+    record.finalFidelity === true ||
+    Object.prototype.hasOwnProperty.call(record, "contentAligned");
+  if (enforceContentAligned && record.contentAligned !== true) {
+    return fail(
+      `contentAligned=${String(record.contentAligned)}\nexpectedContentAligned=true\nfixtureId=${record.runtime.fixtureId}`,
+    );
+  }
+
+  if (
+    obs.viewport.width !== record.figma.viewport.width ||
+    obs.viewport.height !== record.figma.viewport.height
+  ) {
+    return fail(
+      `expectedViewport=${record.figma.viewport.width}x${record.figma.viewport.height}\nactualViewport=${obs.viewport.width}x${obs.viewport.height}`,
+    );
+  }
+  alignment.viewportAligned = true;
+
+  if (!routeMatches(record.runtime.route, obs.url)) {
+    return fail(
+      `expectedRoute=${record.runtime.route}\nactualUrl=${obs.url}`,
+    );
+  }
+
+  if (
+    record.runtime.expectedProjectName != null &&
+    record.runtime.expectedProjectName !== ""
+  ) {
+    const actual = (obs.projectName ?? "").trim();
+    if (actual !== record.runtime.expectedProjectName) {
+      return fail(
+        `expectedProject=${record.runtime.expectedProjectName}\nactualProject=${actual || "(none)"}`,
+      );
+    }
+  }
+
+  if (record.runtime.projectId) {
+    const actualId = obs.projectId ?? "";
+    if (actualId && actualId !== record.runtime.projectId) {
+      return fail(
+        `expectedProjectId=${record.runtime.projectId}\nactualProjectId=${actualId}`,
+      );
+    }
+  }
+
+  if (record.runtime.view) {
+    const actualView = obs.activeView ?? "";
+    if (actualView !== record.runtime.view) {
+      return fail(
+        `expectedView=${record.runtime.view}\nactualView=${actualView || "(none)"}`,
+      );
+    }
+    alignment.activeViewAligned = true;
+  } else {
+    alignment.activeViewAligned = true;
+  }
+
+  // Semantic markers first (state / view), then DOM anchors.
+  const semanticMarkers = record.state.expectedVisible.filter(
+    (m) =>
+      m.startsWith("data-collect-phase=") || m.startsWith("data-active-view="),
+  );
+  const anchorMarkers = record.state.expectedVisible.filter(
+    (m) =>
+      !m.startsWith("data-collect-phase=") &&
+      !m.startsWith("data-active-view="),
+  );
+
+  for (const marker of semanticMarkers) {
+    if (marker.startsWith("data-collect-phase=")) {
+      const phase = marker.slice("data-collect-phase=".length);
+      if (obs.collectPhase !== phase) {
+        return fail(
+          `expectedState=${record.state.semanticState}\nexpectedCollectPhase=${phase}\nactualCollectPhase=${obs.collectPhase ?? "(none)"}`,
+        );
+      }
+      continue;
+    }
+    if (marker.startsWith("data-active-view=")) {
+      const view = marker.slice("data-active-view=".length);
+      if (obs.activeView !== view) {
+        return fail(
+          `expectedSurface=${view}\nactualSurface=${obs.activeView ?? "(none)"}`,
+        );
+      }
+    }
+  }
+
+  for (const marker of anchorMarkers) {
+    if (!obs.present.includes(marker)) {
+      return fail(
+        `expectedVisible=${marker}\nactualPresent=[${obs.present.join(",")}]`,
+      );
+    }
+  }
+
+  const absentSet = new Set([
+    ...GLOBAL_FORBIDDEN_MARKERS,
+    ...record.state.expectedAbsent,
+  ]);
+  for (const marker of absentSet) {
+    if (obs.present.includes(marker) || obs.forbiddenPresent.includes(marker)) {
+      return fail(`forbiddenVisible=${marker}`);
+    }
+  }
+
+  for (const marker of obs.forbiddenPresent) {
+    return fail(`forbiddenVisible=${marker}`);
+  }
+
+  alignment.semanticStateAligned = true;
+
+  if (enforceContentAligned) {
+    if (!record.content || Object.keys(record.content).length === 0) {
+      return fail(
+        `contentAligned=true but content facts missing\nfixtureId=${record.runtime.fixtureId}`,
+      );
+    }
+    const matched = contentFactsMatch(record.content, obs.content);
+    if (!matched.ok) {
+      return fail(matched.reason);
+    }
+    alignment.contentAligned = true;
+  } else {
+    alignment.contentAligned = true;
+  }
+
+  if (
+    !alignment.identityAligned ||
+    !alignment.contentAligned ||
+    !alignment.semanticStateAligned ||
+    !alignment.activeViewAligned ||
+    !alignment.viewportAligned
+  ) {
+    return fail(
+      `alignmentGateFailed ${JSON.stringify(alignment)}`,
+    );
+  }
+
+  return { ok: true, pairing: "PASS", id: record.id, alignment };
+}
+
+/** Diff is allowed only when pairing === PASS (all alignment gates true). */
+export function mayGenerateDiff(pairing: "PASS" | "FAIL" | undefined): boolean {
+  return pairing === "PASS";
+}
+
+export function findPairById(
+  records: VisualPairRecord[],
+  id: string,
+): VisualPairRecord | undefined {
+  return records.find((r) => r.id === id);
+}

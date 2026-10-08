@@ -154,7 +154,51 @@ export function ProjectWorkspacePage({
     useState<ProductSynthesisProjection | null>(null);
   const [synthesesFocusId, setSynthesesFocusId] = useState<string | null>(null);
   const conversationRef = useRef<HTMLDivElement | null>(null);
+  const contextScrollRef = useRef<HTMLDivElement | null>(null);
+  const [contextScrollUi, setContextScrollUi] = useState<{
+    active: boolean;
+    thumbTop: number;
+    thumbHeight: number;
+  }>({ active: false, thumbTop: 0, thumbHeight: 0 });
   const refreshInFlight = useRef(false);
+
+  const syncContextScrollUi = useCallback(() => {
+    const el = contextScrollRef.current;
+    if (!el) {
+      setContextScrollUi({ active: false, thumbTop: 0, thumbHeight: 0 });
+      return;
+    }
+    const { scrollTop, scrollHeight, clientHeight } = el;
+    const overflow = scrollHeight - clientHeight;
+    if (overflow <= 8 || clientHeight <= 0) {
+      setContextScrollUi({ active: false, thumbTop: 0, thumbHeight: 0 });
+      return;
+    }
+    const track = Math.max(clientHeight - 24, 1);
+    const thumbHeight = Math.max(
+      28,
+      Math.round((clientHeight / scrollHeight) * track),
+    );
+    const maxTop = Math.max(track - thumbHeight, 0);
+    const thumbTop = Math.round((scrollTop / overflow) * maxTop);
+    setContextScrollUi({ active: true, thumbTop, thumbHeight });
+  }, []);
+
+  useEffect(() => {
+    const el = contextScrollRef.current;
+    if (!el) return;
+    syncContextScrollUi();
+    const ro =
+      typeof ResizeObserver !== "undefined"
+        ? new ResizeObserver(() => syncContextScrollUi())
+        : null;
+    ro?.observe(el);
+    window.addEventListener("resize", syncContextScrollUi);
+    return () => {
+      ro?.disconnect();
+      window.removeEventListener("resize", syncContextScrollUi);
+    };
+  }, [syncContextScrollUi, activeView, latestSynthesis]);
 
   const loadProject = useCallback(async () => {
     if (refreshInFlight.current) return;
@@ -246,6 +290,7 @@ export function ProjectWorkspacePage({
     activeCycleInstanceId: result?.ok
       ? result.livingState.activeCycleInstanceId
       : null,
+    durableRefreshSignal: trajectoryRefreshSignal,
     onDurableFactsChanged: notifyDurableFactsChanged,
     onDurableEvidenceOutcomeChange: setDurableOutcome,
   });
@@ -497,15 +542,60 @@ export function ProjectWorkspacePage({
   const lifecycle = lifecycleProjection;
   const decisionPending =
     controller.activeProposal?.status === "DECISION_REQUIRED";
+  const boundAwaitingDecision =
+    !!controller.decisionSubjectContinuity &&
+    typeof controller.decisionSubjectContinuity === "object" &&
+    "ok" in controller.decisionSubjectContinuity &&
+    controller.decisionSubjectContinuity.ok &&
+    controller.decisionSubjectContinuity.kind === "bound_awaiting_decision";
+  const confirmationRequiredMoment =
+    !!controller.governedExecutionContinuity &&
+    typeof controller.governedExecutionContinuity === "object" &&
+    "ok" in controller.governedExecutionContinuity &&
+    controller.governedExecutionContinuity.ok &&
+    controller.governedExecutionContinuity.kind === "active" &&
+    controller.governedExecutionContinuity.contract.status ===
+      "confirmation_required" &&
+    !boundAwaitingDecision;
+  const focusedGovernedMoment =
+    boundAwaitingDecision || confirmationRequiredMoment;
   const currentness = presentCurrentness({
     transcriptAvailability: controller.transcriptAvailability,
     stateVersion: success.livingState.version,
+    // Prefer latest synthèse clock when loaded; else LPS createdAt.
+    updatedAt:
+      latestSynthesis?.generatedAt ?? success.livingState.createdAt ?? null,
   });
-  const cycleSummary = deriveCycleSummary(lifecycle);
-  const attention = deriveAttentionItems({ decisionPending, lifecycle });
-  const trajectoryNodes = deriveTrajectoryNodes(lifecycle);
-  const focusTopic =
-    controller.journalEntries.find((e) => e.isCurrentTopic)?.title ?? null;
+  const currentJournalTopic = controller.journalEntries.find(
+    (e) => e.isCurrentTopic,
+  );
+  const focusTopic = currentJournalTopic?.title ?? null;
+  const focusDetail = currentJournalTopic?.currentSummary?.trim() || null;
+  const cycleSummary = deriveCycleSummary(lifecycle, {
+    shortReference: success.project.shortReference,
+    focusTopic,
+  });
+  const pendingWorkRecommendations = cycleRecommendations.filter(
+    (r) => r.status === "active" && !r.dispositionDecisionId,
+  );
+  const pendingWorkRecommendationCount = pendingWorkRecommendations.length;
+  const openReservations = cycleReservations.filter(
+    (r) =>
+      r.presentationState !== "resolved" &&
+      r.presentationState !== "rejected" &&
+      r.presentationState !== "deferred",
+  );
+  const attention = deriveAttentionItems({
+    decisionPending,
+    lifecycle,
+    pendingWorkRecommendationCount,
+    pendingWorkRecommendationDetail:
+      pendingWorkRecommendations[0]?.statement ?? null,
+    openReservationDetail: openReservations[0]?.statement ?? null,
+  });
+  const trajectoryNodes = deriveTrajectoryNodes(lifecycle, {
+    shortReference: success.project.shortReference,
+  });
   const nextAction = lpsNextAction(success.readiness.status);
   const decisionCount = attention.some((a) => a.key === "decision") ? 1 : 0;
   const reserveCount = lifecycle?.reservationSummary?.activeCount ?? 0;
@@ -521,6 +611,16 @@ export function ProjectWorkspacePage({
       className={styles.root}
       data-testid="project-principal"
       data-active-view={activeView}
+      data-governed-moment={focusedGovernedMoment ? "true" : undefined}
+      data-content-aligned-cycle-label={cycleSummary.workLabel}
+      data-content-aligned-cycle-status={cycleSummary.statusLabel ?? ""}
+      data-content-aligned-decision-count={String(decisionCount)}
+      data-content-aligned-reserve-count={String(reserveCount)}
+      data-content-aligned-execution-badge={
+        executionBadge != null ? String(executionBadge) : "0"
+      }
+      data-content-aligned-trajectory-nodes={String(trajectoryNodes.length)}
+      data-content-aligned-focus-topic={focusTopic ?? ""}
     >
       <div
         className={styles.globalHeader}
@@ -550,17 +650,38 @@ export function ProjectWorkspacePage({
       <header className={styles.projectHeader} data-testid="project-header">
         <div className={styles.projectHeaderRow}>
           <div className={styles.projectHeaderText}>
-            <h1 className={styles.projectTitle}>{success.project.name}</h1>
-            <p className={styles.projectObjective}>
+            <h1
+              className={styles.projectTitle}
+              data-testid="project-title"
+              data-project-name={success.project.name}
+            >
+              {/* P3 46:2 — branded presentation; data-project-name stays Product identity. */}
+              <span className={styles.projectTitleBrand} aria-hidden="true">
+                SFIA Studio —{" "}
+              </span>
+              {success.project.name}
+            </h1>
+            <p
+              className={styles.projectObjective}
+              data-testid="project-subtitle"
+            >
               {success.project.objective}
             </p>
           </div>
           <div className={styles.projectChips}>
             {lifecycle?.selectedCycleInstanceId ? (
               <>
-                <span className={styles.chipAccent}>{cycleSummary.label}</span>
+                <span
+                  className={styles.chipAccent}
+                  data-testid="project-cycle-work-label"
+                >
+                  {cycleSummary.workLabel}
+                </span>
                 {cycleSummary.statusLabel ? (
-                  <span className={styles.chipMuted}>
+                  <span
+                    className={styles.chipMuted}
+                    data-testid="project-cycle-status-label"
+                  >
                     {cycleSummary.statusLabel}
                   </span>
                 ) : null}
@@ -631,7 +752,7 @@ export function ProjectWorkspacePage({
             onClick={openExecution}
           >
             Exécution
-            {executionBadge != null ? (
+            {executionBadge != null && !focusedGovernedMoment ? (
               <span
                 className={styles.tabBadge}
                 data-testid="project-tab-execution-badge"
@@ -653,30 +774,57 @@ export function ProjectWorkspacePage({
         <div className={styles.main} ref={conversationRef}>
           {activeView === "conversation" ? (
             <>
-              <div className={styles.focusBar} data-testid="project-focus-bar">
-                <span className={styles.focusLabel}>
-                  <span className={styles.focusDot} aria-hidden />
-                  Focus actuel
-                </span>
-                <span className={styles.focusTitle}>
-                  {focusTopic ??
-                    (lifecycle?.selectedCycleInstanceId
-                      ? cycleSummary.label
-                      : "Conversation avec Nora")}
-                </span>
-                <span className={styles.focusCounts}>
-                  {decisionCount > 0 ? (
-                    <span className={styles.focusCount}>1 décision</span>
-                  ) : null}
-                  {reserveCount > 0 ? (
-                    <span className={styles.focusCount}>
-                      {reserveCount} réserve{reserveCount > 1 ? "s" : ""}
-                    </span>
-                  ) : null}
-                </span>
-              </div>
+              {/* P3 focused Decision/Confirmation — hide priority strip chrome. */}
+              {!focusedGovernedMoment ? (
+                <div
+                  className={styles.mobileFocusStrip}
+                  data-testid="project-mobile-focus-strip"
+                >
+                  <span className={styles.mobileFocusLabel}>
+                    Priorité ·{" "}
+                    {focusTopic ??
+                      (lifecycle?.selectedCycleInstanceId
+                        ? cycleSummary.label
+                        : "Conversation avec Nora")}
+                  </span>
+                  <button
+                    type="button"
+                    className={styles.mobileFocusContext}
+                    data-testid="project-mobile-open-context"
+                    aria-expanded={lpsOpen}
+                    onClick={() => setLpsOpen(true)}
+                  >
+                    Contexte →
+                  </button>
+                </div>
+              ) : null}
 
-              {continuity.kind === "restored_hint" ? (
+              {!focusedGovernedMoment ? (
+                <div className={styles.focusBar} data-testid="project-focus-bar">
+                  <span className={styles.focusLabel}>
+                    <span className={styles.focusDot} aria-hidden />
+                    Priorité actuelle
+                  </span>
+                  <span className={styles.focusTitle}>
+                    {focusTopic ??
+                      (lifecycle?.selectedCycleInstanceId
+                        ? cycleSummary.label
+                        : "Conversation avec Nora")}
+                  </span>
+                  <span className={styles.focusCounts}>
+                    {decisionCount > 0 ? (
+                      <span className={styles.focusCount}>1 décision</span>
+                    ) : null}
+                    {reserveCount > 0 ? (
+                      <span className={styles.focusCount}>
+                        {reserveCount} réserve{reserveCount > 1 ? "s" : ""}
+                      </span>
+                    ) : null}
+                  </span>
+                </div>
+              ) : null}
+
+              {continuity.kind === "restored_hint" && !focusedGovernedMoment ? (
                 <p
                   className={styles.durabilityHint}
                   data-testid="project-auto-resume-hint"
@@ -703,6 +851,8 @@ export function ProjectWorkspacePage({
                   reservationConfirmBusyId={reservationBusyId}
                   latestSynthesis={latestSynthesis}
                   onOpenSynthesis={openSynthesisDetail}
+                  workRecommendations={cycleRecommendations}
+                  onResumeRecommendation={resumeRecommendationInChat}
                 />
               </div>
             </>
@@ -718,11 +868,11 @@ export function ProjectWorkspacePage({
               currentness={currentness}
               trajectory={trajectoryNodes}
               attention={attention}
+              recommendationCount={cycleRecommendations.length}
               onOpenConversation={focusConversation}
               onOpenJournal={openJournal}
               onOpenHistory={openHistory}
               onOpenSyntheses={() => openSyntheses()}
-              onOpenSynthesisDetail={openSynthesisDetail}
             />
           ) : null}
 
@@ -798,7 +948,13 @@ export function ProjectWorkspacePage({
           data-testid="project-lps-column"
           aria-label="Contexte du projet"
         >
-          <div className={styles.lpsSheet}>
+          <div className={styles.lpsScrollWrap}>
+          <div
+            ref={contextScrollRef}
+            className={styles.lpsSheet}
+            data-testid="project-context-scroll"
+            onScroll={syncContextScrollUi}
+          >
             <button
               type="button"
               className={styles.lpsClose}
@@ -812,10 +968,12 @@ export function ProjectWorkspacePage({
               cycle={cycleSummary}
               focus={nextAction}
               focusTopic={focusTopic}
+              focusDetail={focusDetail}
               currentness={currentness}
               trajectory={trajectoryNodes}
               attention={attention}
               latestSynthesis={latestSynthesis}
+              onOpenSynthesis={openSynthesisDetail}
             />
 
             <section
@@ -930,12 +1088,38 @@ export function ProjectWorkspacePage({
               ) : null}
             </div>
           </div>
+          {contextScrollUi.active ? (
+            <div
+              className={styles.contextScrollTrack}
+              data-testid="project-context-scroll-indicator"
+              aria-hidden="true"
+            >
+              <div
+                className={styles.contextScrollThumb}
+                style={{
+                  transform: `translateY(${contextScrollUi.thumbTop}px)`,
+                  height: contextScrollUi.thumbHeight,
+                }}
+              />
+            </div>
+          ) : null}
+          </div>
 
-          <ProjectContextShortcuts
-            onOpenJournal={openJournal}
-            onOpenHistory={openHistory}
-            onOpenSyntheses={() => openSyntheses()}
-          />
+          {/*
+            Figma 46:2 Quick Actions — same ProjectContextShortcuts at every
+            ≥768 width (1440 + 1024). Must stay outside the scroll sheet so the
+            footer remains viewport-visible when the rail is height-bounded.
+          */}
+          <div
+            className={styles.contextRailFooter}
+            data-testid="project-context-rail-footer"
+          >
+            <ProjectContextShortcuts
+              onOpenJournal={openJournal}
+              onOpenHistory={openHistory}
+              onOpenSyntheses={() => openSyntheses()}
+            />
+          </div>
         </aside>
         ) : null}
       </div>

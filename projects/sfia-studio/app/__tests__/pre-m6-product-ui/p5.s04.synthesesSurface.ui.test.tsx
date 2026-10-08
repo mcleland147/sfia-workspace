@@ -6,6 +6,7 @@ import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/re
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { ProjectWorkspacePage } from "@/features/pre-m6-product-ui/ProjectWorkspacePage";
 import { SynthesesSurface } from "@/features/pre-m6-product-ui/surfaces/SynthesesSurface";
+import { formatVerifiedElementsCount } from "@/features/pre-m6-product-ui/surfaces/synthesisPresentation";
 import type { ProductSynthesisProjection } from "@/lib/oa/synthesis";
 
 const mockSynthesis: ProductSynthesisProjection = {
@@ -270,7 +271,7 @@ describe("P5-S04 Synthèses UI", () => {
     searchSynthesesMock.mockResolvedValue({ ok: true, items: [] });
   });
 
-  it("T14 — Overview shows latest synthesis preview and count", async () => {
+  it("T14 — Overview shows synthesis count without inspector preview block", async () => {
     latestSynthesisMock.mockResolvedValue({
       ok: true,
       synthesis: mockSynthesis,
@@ -299,12 +300,20 @@ describe("P5-S04 Synthèses UI", () => {
     fireEvent.click(screen.getByTestId("project-tab-overview"));
 
     await waitFor(() => {
-      expect(screen.getByTestId("project-overview-synthesis-preview")).toBeTruthy();
+      expect(screen.getByTestId("project-overview-synthesis-count").textContent).toBe(
+        "2",
+      );
     });
-    expect(screen.getByTestId("project-overview-synthesis-count").textContent).toBe(
-      "2",
+    // P3 51:2 — four key-object rows; recommendation count is Product truth (may be 0).
+    expect(screen.getByTestId("project-overview-key-objects").textContent).toMatch(
+      /Recommandations/,
     );
-    expect(screen.getByText(/Synthèse UI test/)).toBeTruthy();
+    expect(screen.getByTestId("project-overview-recommendation-count").textContent).toMatch(
+      /^\d+$/,
+    );
+    // Inspector ends at next step; no Synthèses preview rail block.
+    expect(screen.queryByTestId("project-overview-synthesis")).toBeNull();
+    expect(screen.queryByTestId("project-overview-synthesis-preview")).toBeNull();
   });
 
   it("T15 — Conversation shows synthesis teaser and opens Synthèses view", async () => {
@@ -384,5 +393,122 @@ describe("P5-S04 Synthèses UI", () => {
     await waitFor(() => {
       expect(searchSynthesesMock).toHaveBeenCalled();
     });
+  });
+
+  it("T17 — detail scroll + Product-truth verified count; no dead CTA", async () => {
+    listSynthesesMock.mockResolvedValue({
+      ok: true,
+      items: [
+        {
+          synthesisId: mockSynthesis.synthesisId,
+          title: mockSynthesis.title,
+          subject: mockSynthesis.subject,
+          status: "current",
+          verdictLabel: "atteint",
+          generatedAt: mockSynthesis.generatedAt,
+          authority: "none",
+        },
+      ],
+    });
+    getSynthesisMock.mockResolvedValue({ ok: true, synthesis: mockSynthesis });
+
+    render(
+      <SynthesesSurface
+        projectId="prj:p5-s04"
+        onReturnToOverview={vi.fn()}
+      />,
+    );
+
+    await waitFor(() => {
+      expect(screen.getByTestId("project-syntheses-detail-scroll")).toBeTruthy();
+    });
+
+    expect(screen.getByTestId("project-syntheses-section-gaps")).toBeTruthy();
+    expect(screen.getByTestId("project-syntheses-section-impact")).toBeTruthy();
+    expect(screen.getByTestId("project-syntheses-section-verdict")).toBeTruthy();
+    expect(
+      screen.getByTestId("project-syntheses-section-recommendation"),
+    ).toBeTruthy();
+    expect(screen.getByTestId("project-syntheses-section-verified")).toBeTruthy();
+    expect(screen.getByTestId("project-syntheses-verified-count").textContent).toBe(
+      "1 élément",
+    );
+    expect(
+      screen.getByTestId("project-syntheses-verified-summary").textContent,
+    ).toBe(mockSynthesis.sections.verified);
+    expect(screen.queryByText(/Voir le détail/i)).toBeNull();
+
+    const scroll = screen.getByTestId(
+      "project-syntheses-detail-scroll",
+    ) as HTMLDivElement;
+    Object.defineProperty(scroll, "scrollHeight", {
+      configurable: true,
+      value: 2000,
+    });
+    Object.defineProperty(scroll, "clientHeight", {
+      configurable: true,
+      value: 400,
+    });
+    fireEvent.scroll(scroll);
+    scroll.scrollTop = 1200;
+    fireEvent.scroll(scroll);
+    expect(scroll.scrollTop).toBe(1200);
+    expect(scroll.scrollHeight).toBeGreaterThan(scroll.clientHeight);
+    // Bound affordance appears only when overflow is real.
+    await waitFor(() => {
+      expect(
+        screen.getByTestId("project-syntheses-scroll-indicator"),
+      ).toBeTruthy();
+    });
+  });
+
+  it("T18 — verified zero state uses Product evidenceIds length", async () => {
+    const emptyEvidence: ProductSynthesisProjection = {
+      ...mockSynthesis,
+      synthesisId: "syn:ui-zero",
+      sourceBindings: {
+        ...mockSynthesis.sourceBindings,
+        evidenceIds: [],
+      },
+      sections: {
+        ...mockSynthesis.sections,
+        verified:
+          "Aucun élément de preuve détaillé n'est disponible pour cette synthèse.",
+      },
+    };
+    listSynthesesMock.mockResolvedValue({
+      ok: true,
+      items: [
+        {
+          synthesisId: emptyEvidence.synthesisId,
+          title: emptyEvidence.title,
+          subject: emptyEvidence.subject,
+          status: "current",
+          verdictLabel: "atteint",
+          generatedAt: emptyEvidence.generatedAt,
+          authority: "none",
+        },
+      ],
+    });
+    getSynthesisMock.mockResolvedValue({ ok: true, synthesis: emptyEvidence });
+
+    render(
+      <SynthesesSurface
+        projectId="prj:p5-s04"
+        onReturnToOverview={vi.fn()}
+      />,
+    );
+
+    await waitFor(() => {
+      expect(screen.getByTestId("project-syntheses-verified-count").textContent).toBe(
+        "0 élément",
+      );
+    });
+  });
+
+  it("formatVerifiedElementsCount — French singular/plural", () => {
+    expect(formatVerifiedElementsCount(0)).toBe("0 élément");
+    expect(formatVerifiedElementsCount(1)).toBe("1 élément");
+    expect(formatVerifiedElementsCount(4)).toBe("4 éléments");
   });
 });

@@ -103,38 +103,34 @@ export type ProductRealReadinessResult = {
 };
 
 function projectExistsInSqlite(dbPath: string, projectId: string): boolean {
-  // Prefer sqlite3 CLI (no native bundling) — better-sqlite3 is optional.
+  // Prefer node:sqlite (Product standard) — avoids bundling optional native deps.
   try {
-    const { execFileSync } = require("node:child_process") as typeof import("node:child_process");
-    const out = execFileSync(
-      "sqlite3",
-      [
-        dbPath,
-        `SELECT COUNT(*) FROM oa_projects WHERE project_id='${projectId.replace(/'/g, "''")}';`,
-      ],
-      { encoding: "utf8" },
-    ).trim();
-    return Number(out) > 0;
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const { DatabaseSync } = require("node:sqlite") as typeof import("node:sqlite");
+    // Open briefly for a SELECT — do not use readOnly mode (can conflict with
+    // the Product write connection on the same fidelity SQLite file).
+    const db = new DatabaseSync(dbPath);
+    try {
+      const row = db
+        .prepare("SELECT 1 AS ok FROM oa_projects WHERE project_id = ?")
+        .get(projectId) as { ok?: number } | undefined;
+      return Boolean(row?.ok);
+    } finally {
+      db.close();
+    }
   } catch {
     try {
-      // Optional native path — may be absent in some studio installs.
-      // eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
-      const Database = require("better-sqlite3") as new (
-        path: string,
-        opts?: { readonly?: boolean },
-      ) => {
-        prepare: (sql: string) => { get: (...args: unknown[]) => unknown };
-        close: () => void;
-      };
-      const db = new Database(dbPath, { readonly: true });
-      try {
-        const row = db
-          .prepare("SELECT 1 AS ok FROM oa_projects WHERE project_id = ?")
-          .get(projectId) as { ok?: number } | undefined;
-        return Boolean(row?.ok);
-      } finally {
-        db.close();
-      }
+      const { execFileSync: execSqlite } =
+        require("node:child_process") as typeof import("node:child_process");
+      const out = execSqlite(
+        "sqlite3",
+        [
+          dbPath,
+          `SELECT COUNT(*) FROM oa_projects WHERE project_id='${projectId.replace(/'/g, "''")}';`,
+        ],
+        { encoding: "utf8" },
+      ).trim();
+      return Number(out) > 0;
     } catch {
       return false;
     }

@@ -5,12 +5,12 @@
  * 190:44 / 190:306. Values converge on the P3 extraction (warm paper canvas,
  * ink primary, Nora vermilion accent) — same `--pm6-` family, no second set.
  * Prefixed `--pm6-` so this layer never collides with the legacy `--sfia-` set.
- * Typography: the app already loads Inter via next/font (`--font-inter`); no
- * additional font is introduced (Geist is not available in this repo).
+ * Typography: P3 Figma primary family is Geist — same next/font load as
+ * `--sfia-font` (`--font-geist` from app/layout.tsx). No parallel stack.
  */
 
 :root {
-  --pm6-font: Inter, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --pm6-font: var(--font-geist, "Geist"), system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 
   --pm6-canvas: #fffdf9;
   --pm6-canvas-raised: #fbf7f2;
@@ -80,6 +80,11 @@
   --pm6-muted-ghost: #a69a8e;
   --pm6-accent: #d9563b;
   --pm6-accent-tint: #fff0ea;
+  /* P3 51:72 — Exécution count chip (24×20 · radius 6 · soft coral). */
+  --pm6-accent-chip-bg: #ffe8e0;
+  --pm6-count-chip-w: 24px;
+  --pm6-count-chip-h: 20px;
+  --pm6-count-chip-radius: 6px;
   --pm6-focus-bar: #fcf8f3;
 
   /* Geometry — Figma 1440×1024 */
@@ -87,17 +92,90 @@
   --pm6-global-header-h: 54px;
   --pm6-context-width: 356px;
   --pm6-focus-bar-h: 50px;
+  /* Workspace body pad (46:2 Project Header / Focus Bar x=24). */
+  --pm6-workspace-pad-x: 24px;
+  /* Conversation transcript inset (46:2 Transcript x=30). */
+  --pm6-conversation-pad-x: 30px;
+  /* Project Context column inset (46:2 Context Header x=18). */
+  --pm6-context-pad-x: 18px;
+  /* 46:2 Project Header identity pad-top / tab row gap. */
+  --pm6-ws-header-pad-top: 14px;
+  --pm6-ws-tabs-gap: 28px;
+  --pm6-ws-tabs-gap-compact: 22px;
+  /* 46:2 Composer Input 96× radius 8; Send 30×30 radius 7. */
+  --pm6-ws-composer-input-h: 96px;
+  --pm6-ws-composer-input-h-compact: 64px;
+  --pm6-ws-composer-radius: 8px;
+  --pm6-ws-send-size: 30px;
+  --pm6-ws-send-radius: 7px;
+  /* 46:2 Contextual Objects — 748×82, gap 10, inset accent. */
+  --pm6-ws-object-max: 748px;
+  --pm6-ws-object-h: 82px;
+  --pm6-ws-object-gap: 10px;
+  --pm6-ws-object-accent: #f06a4b;
+  --pm6-ws-object-accent-prepared: #e97850;
+  /* Focus counts / attention meta (46:2) — gold, not cream pills. */
+  --pm6-focus-count: #b86a12;
+  /* Context rail fill + rules (46:2 Project Context). */
+  --pm6-context-fill: #f6f1eb;
+  --pm6-context-rule: #e9e1d8;
 
+  /* P3 Synthèses 164:3 — body 1224 split list 360 | detail 864. */
+  --pm6-syntheses-list-w: 360px;
+  /* P3 Synthèses compact 190:175 — body 864 split list 300 | detail 564. */
+  --pm6-syntheses-list-w-compact: 300px;
+  /* Selected summary row (164:3 Summary Item selected). */
+  --pm6-syntheses-selected-bg: #fff4ef;
+  --pm6-syntheses-selected-border: #f1d5c9;
   /* P3 Historique 78:2 — body 1224 split master ~790 | detail ~434. */
   --pm6-history-detail-w: 434px;
   /* P3 Journal 94:2 — body 1226 split subjects index ~440 | detail ~785. */
   --pm6-journal-index-w: 440px;
+
+  /*
+   * S08-4 P2 secondary-surface density (94:2 / 78:2 / 164:3 / 51:2).
+   * Shared selected + warm index panel — not a second token family.
+   */
+  --pm6-index-panel: #f6f1eb;
+  --pm6-selected-bg: #fff4ef;
+  --pm6-selected-border: #f0a18e;
+  --pm6-selected-fill: #fff8f4;
+  --pm6-chip-neutral: #f2ede7;
+  --pm6-back-size: 0.6875rem; /* 11 — Label/Small */
+  --pm6-back-tracking: 0.4px;
+  --pm6-label-tracking: 0.4px;
+
+  /* ---- S08-4B type scale (P3 Desktop frames) ---- */
+  --pm6-text-display: 2rem; /* 32 */
+  --pm6-text-title: 1.375rem; /* 22 */
+  --pm6-text-subtitle: 0.9375rem; /* 15 */
+  --pm6-text-body: 0.875rem; /* 14 */
+  --pm6-text-meta: 0.75rem; /* 12 */
+  --pm6-text-caption: 0.6875rem; /* 11 */
+  --pm6-text-micro: 0.625rem; /* 10 */
+  --pm6-leading-tight: 1.25;
+  --pm6-leading-body: 1.45;
+  --pm6-control-h: 36px;
+  --pm6-control-h-lg: 44px;
+  --pm6-mobile-topbar-h: 52px;
 }
 
-/* Responsive geometry: <1200 compact (rail ~160, context ~280). */
+/*
+ * S08-4B Product responsive bands (ONE dialect):
+ * LARGE ≥1200 · COMPACT 768–1199 · MOBILE <768
+ * Compact geometry: rail ~160, context ~280.
+ * Legacy --sfia-* remains non-Product; do not migrate Product onto it.
+ */
 @media (max-width: 1199px) {
   :root {
     --pm6-rail-width: 160px;
     --pm6-context-width: 280px;
+  }
+}
+
+@media (max-width: 767px) {
+  :root {
+    --pm6-rail-width: 0px;
+    --pm6-context-width: 100%;
   }
 }

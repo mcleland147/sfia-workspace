@@ -23,8 +23,8 @@ function GitHubMark({ className }: { className?: string }) {
   return (
     <svg
       className={className}
-      width="20"
-      height="20"
+      width="16"
+      height="16"
       viewBox="0 0 16 16"
       aria-hidden="true"
       focusable="false"
@@ -61,7 +61,7 @@ export function LoginClient({
 
   return (
     <div className={styles.page}>
-      <header className={styles.topBrand} aria-hidden="false">
+      <header className={styles.topBrand}>
         <span className={styles.mark} aria-hidden="true">
           S
         </span>
@@ -81,11 +81,31 @@ export function LoginClient({
         </section>
 
         <main className={styles.card} data-testid="login-surface">
-          <h2 className={styles.title}>Bienvenue dans SFIA Studio</h2>
+          {/* Mobile 190:551 — mark lives inside the card */}
+          <span className={styles.cardMark} aria-hidden="true">
+            S
+          </span>
+
+          <h2 className={styles.title}>
+            <span className={styles.titleDesktop}>
+              Bienvenue dans SFIA Studio
+            </span>
+            <span className={styles.titleMobile}>
+              Bienvenue sur SFIA Studio
+            </span>
+          </h2>
+
           <p className={styles.lead}>
-            Connectez-vous pour retrouver vos projets et reprendre votre
-            travail.
+            <span className={styles.leadDesktop}>
+              Connectez-vous pour retrouver vos projets et reprendre votre
+              travail.
+            </span>
+            <span className={styles.leadMobile}>
+              Connecte-toi pour retrouver tes projets et continuer avec Nora.
+            </span>
           </p>
+
+          <div className={styles.rule} aria-hidden="true" />
 
           {message ? (
             <p role="alert" data-testid="login-error" className={styles.error}>
@@ -102,7 +122,9 @@ export function LoginClient({
             data-testid="login-github"
             className={styles.githubCta}
           >
-            <GitHubMark className={styles.githubIcon} />
+            <span className={styles.githubMarkWrap} aria-hidden="true">
+              <GitHubMark className={styles.githubIcon} />
+            </span>
             Continuer avec GitHub
           </a>
 
@@ -110,10 +132,13 @@ export function LoginClient({
             L&apos;accès est réservé aux comptes autorisés.
           </p>
           <p className={styles.sessionHint}>
+            <span className={styles.sessionDot} aria-hidden="true" />
             Votre session vous ramène à votre espace de travail.
           </p>
         </main>
       </div>
+
+      <p className={styles.footerBrand}>SFIA Studio</p>
     </div>
   );
 }

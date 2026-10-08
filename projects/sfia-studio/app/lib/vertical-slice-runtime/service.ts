@@ -661,7 +661,23 @@ export class RuntimeApplicationService {
     if (!result.ok) {
       return toListProjectsRuntimeFailure(result.error);
     }
-    return toListProjectsRuntimeSuccess(result.projects);
+    // Enrich list rows with current LPS objective for Projects « En cours »
+    // (honest Product fact — never invents next-action).
+    const enriched = await Promise.all(
+      result.projects.map(async (project) => {
+        const lps =
+          await this.oa!.projectServices.getCurrentLivingProjectState.execute({
+            projectId: project.projectId,
+          });
+        if (!lps.ok) return project;
+        return Object.freeze({
+          ...project,
+          objective: lps.livingProjectState.objective,
+          context: lps.livingProjectState.context,
+        });
+      }),
+    );
+    return toListProjectsRuntimeSuccess(enriched);
   }
 
   /** CR-GCEC-03 — set explicit Project repository binding (no network). */

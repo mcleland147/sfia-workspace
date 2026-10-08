@@ -1,6 +1,7 @@
 "use server";
 
 import { getRuntimeApplicationService } from "@/lib/vertical-slice-runtime";
+import type { ProductSqliteHandle } from "@/lib/oa/project";
 import { SqliteProductStore } from "@/lib/oa/project/infrastructure/sqlite/sqliteProductStore";
 import {
   createSqliteSynthesisServices,
@@ -31,11 +32,35 @@ type SynthesisServicesContext =
     }
   | { readonly ok: false; readonly code: string; readonly message: string };
 
+/**
+ * Resolve Product SQLite for synthesis without relying solely on `instanceof`.
+ * Next server-action bundling can duplicate the SqliteProductStore class identity
+ * while the live store remains a valid ProductSqliteHandle on the durable path.
+ */
+function resolveProductSqliteHandle(
+  store: unknown,
+  productDurablePath: boolean,
+): ProductSqliteHandle | null {
+  if (store instanceof SqliteProductStore) return store;
+  if (!productDurablePath || !store || typeof store !== "object") return null;
+  const candidate = store as {
+    db?: unknown;
+    runInTransaction?: unknown;
+  };
+  if (!candidate.db || typeof candidate.runInTransaction !== "function") {
+    return null;
+  }
+  return store as ProductSqliteHandle;
+}
+
 function resolveSynthesisServices(): SynthesisServicesContext {
   const runtime = getRuntimeApplicationService();
   if (!runtime.oa) return OA_UNAVAILABLE;
-  const store = runtime.oa.projectServices.store;
-  if (!(store instanceof SqliteProductStore)) {
+  const store = resolveProductSqliteHandle(
+    runtime.oa.projectServices.store,
+    runtime.oa.productDurablePath === true,
+  );
+  if (!store) {
     return PRODUCT_SQLITE_UNAVAILABLE;
   }
   return {

@@ -15,7 +15,8 @@
   --ws-project-h: 104px;
   --ws-focus-h: var(--pm6-focus-bar-h, 50px);
   --ws-context-w: var(--pm6-context-width, 356px);
-  --ws-pad-x: 24px;
+  /* Figma 46:2 Project Header / Focus Bar pad-x = 24 (not 32). */
+  --ws-pad-x: var(--pm6-workspace-pad-x, 24px);
 
   display: flex;
   flex-direction: column;
@@ -47,7 +48,8 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--pm6-space-4);
-  padding-inline: var(--ws-pad-x);
+  /* Figma 46:2 / 164:3 Global Header breadcrumbs x=20 */
+  padding-inline: 20px;
   background: var(--pm6-canvas);
   border-bottom: 1px solid var(--pm6-border);
 }
@@ -139,7 +141,8 @@
   flex-direction: column;
   justify-content: space-between;
   gap: var(--pm6-space-3);
-  padding: var(--pm6-space-4) var(--ws-pad-x) 0;
+  /* Figma 46:2 Project Identity y=14 (not space-4/16). */
+  padding: var(--pm6-ws-header-pad-top, 14px) var(--ws-pad-x) 0;
   background: var(--pm6-canvas);
   border-bottom: 1px solid var(--pm6-border);
 }
@@ -163,12 +166,18 @@
 
 .projectTitle {
   margin: 0;
-  font-size: 1.25rem;
+  /* Figma 46:2 live Heading/03 — 18 / 26 semibold (contract titleSize 22 is stale). */
+  font-size: 1.125rem;
   font-weight: 600;
-  line-height: 1.25;
-  letter-spacing: -0.01em;
+  line-height: 26px;
+  letter-spacing: -0.1px;
   color: var(--pm6-ink);
   overflow-wrap: anywhere;
+}
+
+.projectTitleBrand {
+  font: inherit;
+  color: inherit;
 }
 
 .projectObjective {
@@ -204,8 +213,9 @@
 }
 
 .chipAccent {
-  background: var(--pm6-accent-tint);
-  border-color: color-mix(in srgb, var(--pm6-accent) 28%, transparent);
+  /* Figma 46:2 — filled salmon chip (not outline-only). */
+  background: color-mix(in srgb, var(--pm6-accent) 16%, #fffdf9);
+  border-color: color-mix(in srgb, var(--pm6-accent) 40%, transparent);
   color: var(--pm6-accent);
 }
 
@@ -271,7 +281,9 @@
 .tabs {
   display: flex;
   align-items: flex-end;
-  gap: var(--pm6-space-5);
+  /* Figma 46:2 Project Views — tab frame gap ≈ 28. */
+  gap: var(--pm6-ws-tabs-gap, 28px);
+  min-height: 38px;
   overflow-x: auto;
   scrollbar-width: none;
 }
@@ -283,11 +295,11 @@
 .tab {
   position: relative;
   margin: 0;
-  padding: 8px 0 10px;
+  padding: 10px 0 12px;
   border: 0;
   background: transparent;
   font: inherit;
-  font-size: 0.8125rem;
+  font-size: 0.8125rem; /* 13 — Figma tab */
   font-weight: 500;
   color: var(--pm6-muted-strong);
   cursor: pointer;
@@ -320,19 +332,23 @@
 }
 
 .tabBadge {
+  /* P3 51:72 / 46:2 — Exécution count chip (not a saturated pill). */
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 16px;
-  height: 16px;
+  box-sizing: border-box;
+  width: var(--pm6-count-chip-w, 24px);
+  min-width: var(--pm6-count-chip-w, 24px);
+  height: var(--pm6-count-chip-h, 20px);
   margin-left: 6px;
-  padding: 0 4px;
-  border-radius: var(--pm6-radius-pill);
-  background: var(--pm6-danger);
-  color: #fff;
-  font-size: 0.625rem;
-  font-weight: 700;
-  line-height: 1;
+  padding: 0;
+  border-radius: var(--pm6-count-chip-radius, 6px);
+  background: var(--pm6-accent-chip-bg, #ffe8e0);
+  color: var(--pm6-accent, #d9563b);
+  font-size: 0.6875rem; /* 11 */
+  font-weight: 500;
+  letter-spacing: 0.4px;
+  line-height: 16px;
 }
 
 .tab:disabled,
@@ -372,11 +388,84 @@
   align-items: stretch;
 }
 
+/*
+ * Synthèses desktop (164:3 / 316:2) — pin workspace to the viewport so the
+ * detail Synthesis Scroll region is height-bounded and truly overflow-scrolls.
+ * Conversation / Aperçu keep their existing growth behavior.
+ */
+.root[data-active-view="syntheses"] {
+  height: 100vh;
+  max-height: 100vh;
+  overflow: hidden;
+}
+
+.root[data-active-view="syntheses"] .layout {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.root[data-active-view="syntheses"] .main {
+  flex: 1 1 auto;
+  min-height: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
 .main {
   display: flex;
   flex-direction: column;
   min-width: 0;
   min-height: 0;
+}
+
+/* Mobile conversation strip (Figma 190:306) — replaces desktop focus bar. */
+.mobileFocusStrip {
+  display: none;
+  box-sizing: border-box;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--pm6-space-3);
+  min-height: 36px;
+  margin: 12px var(--ws-pad-x) 0;
+  padding: 0 12px;
+  border-radius: 8px;
+  background: #f7f1ea;
+}
+
+.mobileFocusLabel {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.6875rem; /* 11 */
+  font-weight: 500;
+  color: #6d645c;
+}
+
+.mobileFocusContext {
+  flex: 0 0 auto;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--pm6-accent);
+  font: inherit;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.mobileFocusContext:hover {
+  text-decoration: underline;
+}
+
+.mobileFocusContext:focus-visible {
+  outline: none;
+  box-shadow: var(--pm6-focus-ring);
+  border-radius: 4px;
 }
 
 /* Focus bar — 50px, top of the conversation column. */
@@ -389,10 +478,12 @@
   flex: 0 0 auto;
   display: flex;
   align-items: center;
-  gap: var(--pm6-space-3);
-  padding-inline: var(--ws-pad-x);
+  justify-content: space-between;
+  gap: 10px;
+  /* Figma 46:2 Focus Bar — pl 24 / pr 18. */
+  padding: 0 18px 0 var(--ws-pad-x);
   background: var(--pm6-focus-bar);
-  border-bottom: 1px solid var(--pm6-border);
+  border-bottom: 1px solid var(--pm6-border-faint);
   min-width: 0;
 }
 
@@ -400,11 +491,11 @@
   flex: 0 0 auto;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  font-size: 0.625rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  gap: 10px;
+  /* Figma 46:2 — Label/Small 11 / 0.4, sentence case (not micro uppercase). */
+  font-size: var(--pm6-text-caption);
+  font-weight: 500;
+  letter-spacing: 0.4px;
   color: var(--pm6-muted-faint);
   white-space: nowrap;
 }
@@ -422,8 +513,9 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: 0.8125rem;
-  font-weight: 600;
+  font-size: 0.8125rem; /* 13 */
+  font-weight: 500;
+  letter-spacing: 0.15px;
   color: var(--pm6-ink);
 }
 
@@ -431,31 +523,52 @@
   flex: 0 0 auto;
   display: inline-flex;
   align-items: center;
-  gap: var(--pm6-space-2);
+  justify-content: flex-end;
+  gap: 14px;
 }
 
 .focusCount {
+  /* Figma 46:2 Focus Right — plain Label/Small gold, no cream pills. */
   display: inline-flex;
   align-items: center;
-  padding: 2px 9px;
-  border-radius: var(--pm6-radius-pill);
-  border: 1px solid var(--pm6-cream-border);
-  background: var(--pm6-cream);
-  font-size: 0.6875rem;
-  font-weight: 600;
-  color: var(--pm6-gold-strong);
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  font-size: var(--pm6-text-caption);
+  font-weight: 500;
+  letter-spacing: 0.4px;
+  color: var(--pm6-focus-count, #b86a12);
   white-space: nowrap;
 }
 
 .durabilityHint {
-  margin: var(--pm6-space-4) var(--ws-pad-x) 0;
-  padding: var(--pm6-space-3) var(--pm6-space-4);
-  border-radius: var(--pm6-radius-md);
-  border: 1px solid var(--pm6-border-soft);
-  background: var(--pm6-canvas-raised);
-  font-size: 0.8125rem;
-  line-height: 1.55;
+  /* P3 46:2 Continuity — aligned to transcript inset (x=30), not workspace pad. */
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 18px var(--pm6-conversation-pad-x, 30px) 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  font-size: 0.8125rem; /* 13 */
+  line-height: 1.45;
   color: var(--pm6-muted-strong);
+}
+
+/* When continuity sits above the conversation, don't double the transcript top pad. */
+.durabilityHint + .conversation {
+  padding-top: 12px;
+}
+
+.durabilityHint::before {
+  content: "";
+  flex: 0 0 auto;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: #157a55;
 }
 
 .conversation {
@@ -463,9 +576,10 @@
   min-width: 0;
   box-sizing: border-box;
   width: 100%;
-  max-width: 880px;
-  margin-inline: auto;
-  padding: var(--pm6-space-5) var(--ws-pad-x) 0;
+  /* Figma 46:2 Conversation Surface fills remaining body (868 @ 1440); transcript inset 30. */
+  max-width: none;
+  margin-inline: 0;
+  padding: 18px var(--pm6-conversation-pad-x, 30px) 0;
 }
 
 /* ---------- context column (sticky, independent scroll) ---------- */
@@ -475,8 +589,29 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  background: var(--pm6-canvas-raised);
-  border-left: 1px solid var(--pm6-border);
+  /* Keep Quick Actions inside the bounded rail (do not paint past the fold). */
+  overflow: hidden;
+  /* Figma 46:2 Project Context #f6f1eb */
+  background: var(--pm6-context-fill, #f6f1eb);
+  border-left: 1px solid var(--pm6-border-soft);
+}
+
+.lpsScrollWrap {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/*
+ * Figma 46:2 Quick Actions (Journal · Historique · Synthèses) — pinned foot of
+ * the context rail at desktop 1440 and compact 1024. Sibling of the scroll
+ * wrap (not nested inside .lpsSheet). Same component at every ≥768 width.
+ */
+.contextRailFooter {
+  flex: 0 0 auto;
+  margin-top: auto;
 }
 
 .lpsSheet {
@@ -484,10 +619,42 @@
   min-height: 0;
   display: flex;
   flex-direction: column;
-  gap: var(--pm6-space-4);
-  padding: var(--pm6-space-5) var(--pm6-space-4) var(--pm6-space-4);
+  gap: 0;
+  /* Figma 46:2 — pad owned by context sections (header/fields), not a second wrap. */
+  padding: 0 0 18px;
+  overflow-x: hidden;
   overflow-y: auto;
   overscroll-behavior: contain;
+  /* Overlay OS scrollbars are often invisible — custom indicator mirrors real scroll. */
+  scrollbar-width: none;
+}
+
+.lpsSheet::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+/* Bound to scrollTop/scrollHeight/clientHeight — only rendered when overflow exists. */
+.contextScrollTrack {
+  pointer-events: none;
+  position: absolute;
+  top: 12px;
+  right: 4px;
+  bottom: 12px;
+  z-index: 2;
+  width: 4px;
+  border-radius: 2px;
+  background: rgba(232, 227, 219, 0.5);
+}
+
+.contextScrollThumb {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  border-radius: 2px;
+  background: rgba(148, 140, 130, 0.78);
+  will-change: transform;
 }
 
 /* Close button only exists for the <900 sheet. */
@@ -513,6 +680,20 @@
   min-width: 0;
   padding: var(--pm6-space-4) 0 0;
   border-top: 1px solid var(--pm6-border-soft);
+}
+
+/*
+ * P3 46:2 Conversation — context rail is ProjectContextSummary only
+ * (cycle / priority / trajectory / attention / synthèse / footer links).
+ * The heavy Pilotage stack is reserved for structured views.
+ */
+.root[data-active-view="conversation"] .stateTrajectoryRegion {
+  display: none;
+}
+
+/* P3 46:2 — journal lives behind footer links, not as a second rail block. */
+.root[data-active-view="conversation"] .journalColumn {
+  display: none;
 }
 
 .stateTrajectoryHead {
@@ -578,12 +759,52 @@
     align-items: stretch;
   }
 
+  /*
+   * Conversation / Exécution — pin the workspace body to the remaining viewport
+   * so the context rail gets a real height budget. Prior sticky height used
+   * `100vh - global-header` while the column already sat below the project
+   * header, so both Synthèse and the 46:2 Quick Actions footer could sit past
+   * the fold (shortcuts looked absent at 1440×1024 and 1024×768).
+   */
+  .root[data-active-view="conversation"],
+  .root[data-active-view="execution"] {
+    height: 100vh;
+    max-height: 100vh;
+    overflow: hidden;
+  }
+
+  .root[data-active-view="conversation"] .layout,
+  .root[data-active-view="execution"] .layout {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: hidden;
+    align-items: stretch;
+  }
+
+  .root[data-active-view="conversation"] .main,
+  .root[data-active-view="execution"] .main {
+    min-height: 0;
+    height: 100%;
+    overflow: auto;
+  }
+
+  .root[data-active-view="conversation"] .lpsColumn,
+  .root[data-active-view="execution"] .lpsColumn {
+    position: relative;
+    top: auto;
+    align-self: stretch;
+    height: 100%;
+    max-height: 100%;
+    min-height: 0;
+  }
+
+  /* Fallback for any other split layout that still uses sticky. */
   .lpsColumn {
     position: sticky;
     top: var(--ws-global-h);
     align-self: start;
-    height: calc(100vh - var(--ws-global-h));
-    max-height: calc(100vh - var(--ws-global-h));
+    height: calc(100vh - var(--ws-global-h) - var(--ws-project-h));
+    max-height: calc(100vh - var(--ws-global-h) - var(--ws-project-h));
   }
 
   /* Always visible alongside the conversation / exécution. */
@@ -598,11 +819,55 @@
 @media (max-width: 1199px) {
   .root {
     --ws-context-w: 280px;
-    --ws-pad-x: 20px;
+    --ws-pad-x: 18px;
   }
 
   .lpsSheet {
-    padding: var(--pm6-space-4) var(--pm6-space-3);
+    /* Keep bottom breathing room for Synthèse; don't reset to 0. */
+    padding-bottom: 18px;
+    gap: 0;
+    /*
+     * Compact: always reserve/show the thin scrollbar track so Synthèse
+     * never looks accidentally truncated when content continues below.
+     */
+    overflow-y: scroll;
+  }
+
+  .projectTitle {
+    /* Figma 190:44 — 19 / ~25 */
+    font-size: 1.1875rem;
+    line-height: 25px;
+  }
+
+  .projectObjective {
+    font-size: 0.6875rem;
+  }
+
+  .tabs {
+    gap: var(--pm6-ws-tabs-gap-compact, 22px);
+    min-height: 28px;
+  }
+
+  .tab {
+    font-size: 0.625rem;
+    padding: 6px 0 10px;
+  }
+
+  .focusBar {
+    padding: 0 16px 0 var(--ws-pad-x);
+  }
+
+  .durabilityHint {
+    margin-inline: var(--ws-pad-x);
+  }
+
+  .conversation {
+    max-width: none;
+    padding: 16px var(--ws-pad-x) 0;
+  }
+
+  .durabilityHint + .conversation {
+    padding-top: 10px;
   }
 
   /* Journal stays accessible in the context stack (no 768–1199 dead zone). */
@@ -631,16 +896,21 @@
   }
 }
 
-/* ---------- ≥1200: full geometry (context 356px, roomy gutters) ---------- */
+/* ---------- ≥1200: full geometry (context 356px, Figma pad-x 24) ---------- */
 
 @media (min-width: 1200px) {
   .root {
     --ws-context-w: 356px;
-    --ws-pad-x: 32px;
+    --ws-pad-x: var(--pm6-workspace-pad-x, 24px);
   }
 
   .lpsSheet {
-    padding: var(--pm6-space-5) var(--pm6-space-5) var(--pm6-space-4);
+    padding-bottom: 18px;
+  }
+
+  /* Desktop 46:2 — Quick Actions footer stays mounted (no desktop-only hide). */
+  .contextRailFooter {
+    display: block;
   }
 }
 
@@ -682,7 +952,12 @@
   }
 
   .lpsOpen .lpsSheet {
-    padding: var(--pm6-space-4);
+    /* Context summary owns pad-x; keep a small wrap for the close control. */
+    padding: var(--pm6-space-3) 0 0;
+  }
+
+  .lpsOpen .lpsClose {
+    margin-inline: var(--ws-pad-x, 16px);
   }
 
   .conversation {
@@ -711,7 +986,7 @@
 
 @media (max-width: 767px) {
   /*
-   * B2 — shared mobile Project shell (P3 192:2 / 190:337):
+   * B2 — shared mobile Project shell (P3 190:306 / 190:495 / 190:520):
    * brand/user (ProductShell) → project title → subtitle → tabs → surface.
    * Desktop chrome (breadcrumb, freshness badge, chip cluster, LPS pill)
    * leaves the main vertical flow; facts remain reachable via Aperçu.
@@ -721,9 +996,10 @@
   }
 
   .projectHeader {
+    box-sizing: border-box;
     min-height: 0;
-    padding-top: 12px;
-    gap: var(--pm6-space-2);
+    padding: 12px var(--ws-pad-x, 16px) 10px;
+    gap: 6px;
   }
 
   .projectHeaderRow {
@@ -736,27 +1012,57 @@
   }
 
   .projectTitle {
-    font-size: 1.25rem;
-    line-height: 1.2;
+    font-size: 1.125rem; /* 18 — Figma 190:529 */
+    line-height: 1.25;
   }
 
   .projectObjective {
     -webkit-line-clamp: 2;
-    font-size: 0.8125rem;
+    font-size: 0.75rem; /* 12 */
+    line-height: 1.35;
   }
 
   .projectChips {
     display: none;
   }
 
+  /* P3 190:306 — project title is Product identity only (no SFIA Studio —). */
+  .projectTitleBrand {
+    display: none;
+  }
+
+  /* P3 190:495 / 190:520 — focused Decision/Confirmation: project name only. */
+  .root[data-governed-moment="true"] .projectObjective {
+    display: none;
+  }
+
+  .root[data-governed-moment="true"] .projectHeader {
+    /* Figma 190:528 — title + tabs, 112px band under 56px topbar. */
+    min-height: 112px;
+    padding-bottom: 10px;
+  }
+
+  /* P3 190:306 — Exécution badge is desktop/compact attention chrome. */
+  .tabBadge {
+    display: none;
+  }
+
+  /* Continuity restored hint is desktop density; mobile keeps the strip. */
+  .durabilityHint {
+    display: none;
+  }
+
   .tabs {
-    gap: var(--pm6-space-4);
+    gap: 20px;
+    min-height: 30px;
+    align-items: flex-end;
   }
 
   .tab {
-    min-height: 38px;
-    padding: 10px 0 12px;
-    font-size: 0.875rem;
+    min-height: 30px;
+    padding: 0 0 8px;
+    font-size: 0.6875rem; /* 11 — Figma tab */
+    font-weight: 500;
   }
 
   .lpsToggle {
@@ -765,6 +1071,10 @@
 
   .focusBar {
     display: none;
+  }
+
+  .mobileFocusStrip {
+    display: flex;
   }
 
   /*

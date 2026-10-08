@@ -11,10 +11,10 @@
   min-width: 0;
 }
 
-/* ---------- top bar ---------- */
+/* ---------- top bar (hidden on Product workspace — P3 46:2 flat feed) ---------- */
 
 .topBar {
-  display: flex;
+  display: none;
   align-items: center;
   gap: var(--pm6-space-3);
   padding-bottom: var(--pm6-space-4);
@@ -62,7 +62,8 @@
 .thread {
   display: flex;
   flex-direction: column;
-  gap: var(--pm6-space-4);
+  /* Figma 46:2 transcript turns pack tightly (continuity→pilot→nora). */
+  gap: 12px;
   min-height: 220px;
   /* Page scrolls (composer is sticky); no inner scroll box. */
 }
@@ -94,9 +95,10 @@
 .turnNora,
 .turnMine {
   display: flex;
-  gap: var(--pm6-space-3);
+  flex-direction: column;
+  gap: var(--pm6-space-2);
   align-items: flex-start;
-  max-width: 88%;
+  max-width: 100%;
 }
 
 .turnNora {
@@ -104,20 +106,11 @@
 }
 
 .turnMine {
-  align-self: flex-end;
-  flex-direction: row-reverse;
+  align-self: stretch;
 }
 
 .turnAvatar {
-  width: 28px;
-  height: 28px;
-  border-radius: var(--pm6-radius-pill);
-  display: grid;
-  place-items: center;
-  font-size: 0.72rem;
-  font-weight: 600;
-  flex: 0 0 auto;
-  margin-top: 2px;
+  display: none;
 }
 
 .turnNora .turnAvatar {
@@ -146,26 +139,95 @@
 }
 
 .turnMine .bubble {
-  background: var(--pm6-rail);
-  border: 1px solid var(--pm6-border-soft);
+  /* Figma 46:2 Pilot Turn — flat VOUS block (no raised bubble chrome). */
+  background: transparent;
+  border: 1px solid transparent;
   border-top-right-radius: var(--pm6-radius-sm);
+  padding-inline: 0;
 }
 
 .bubbleAuthor {
   margin: 0 0 var(--pm6-space-1);
-  font-size: 0.74rem;
-  font-weight: 600;
+  /* Figma 46:2 Label/Small — 11 / tracking 0.4 */
+  font-size: var(--pm6-text-caption);
+  font-weight: 500;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: var(--pm6-muted);
+  color: var(--pm6-muted-faint);
+}
+
+.bubbleAuthor[data-role="assistant"] {
+  color: var(--pm6-accent);
 }
 
 .bubbleText {
   margin: 0;
-  font-size: 0.92rem;
+  /* Figma 46:2 Body/Medium — 15 / 24 */
+  font-size: var(--pm6-text-subtitle);
   line-height: 1.6;
   color: var(--pm6-ink-soft);
   white-space: pre-wrap;
+}
+
+/* ---------- synthesis teaser (P3 46:2 / 190:306) ---------- */
+
+.synthesisTeaser {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  /* Figma 46:2 Result Turn — #fbf7f2 / #e6ded5 / radius 8 / pad 10×12 */
+  padding: 10px 12px;
+  border-radius: var(--pm6-ws-composer-radius, 8px);
+  border: 1px solid var(--pm6-border);
+  background: var(--pm6-canvas-raised);
+  max-width: 808px;
+}
+
+.synthesisEyebrow {
+  margin: 0;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: #d9563b;
+}
+
+.synthesisTitle {
+  margin: 0;
+  font-size: var(--pm6-text-meta);
+  font-weight: 600;
+  color: var(--pm6-ink);
+  line-height: 1.35;
+}
+
+.synthesisBody {
+  margin: 0;
+  font-size: var(--pm6-text-meta);
+  line-height: 1.45;
+  color: var(--pm6-ink-soft);
+}
+
+.synthesisLink {
+  align-self: flex-start;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--pm6-accent);
+  font: inherit;
+  font-size: var(--pm6-text-meta);
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.synthesisLink:hover {
+  text-decoration: underline;
+}
+
+.synthesisLink:focus-visible {
+  outline: none;
+  box-shadow: var(--pm6-focus-ring);
+  border-radius: 4px;
 }
 
 /* ---------- chips ---------- */
@@ -219,6 +281,37 @@
   background: var(--pm6-warn-tint);
   border-color: var(--pm6-warn-tint);
   color: var(--pm6-warn);
+}
+
+/* ---------- P3 governed moments (inline Decision / Confirmation) ---------- */
+
+.governedMomentSlot {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 748px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.noraMomentLabel {
+  margin: 0;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--pm6-accent);
+}
+
+.noraMomentBody {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.45;
+  color: #3f3832;
+  max-width: 350px;
 }
 
 /* ---------- cards ---------- */
@@ -471,27 +564,196 @@
 
 /* ---------- sub cards (F7/F8) ---------- */
 
-.subCard,
-.subCardGold {
+.subCard {
   display: flex;
   flex-direction: column;
-  gap: var(--pm6-space-1);
-  border-radius: var(--pm6-radius-sm);
-  border: 1px solid var(--pm6-border-soft);
-  background: var(--pm6-surface);
-  padding: var(--pm6-space-3) var(--pm6-space-4);
+  gap: 6px;
+  border-radius: var(--pm6-ws-composer-radius, 8px);
+  border: 1px solid #e8e0d7;
+  background: var(--pm6-canvas);
+  padding: 13px 12px 13px 14px;
 }
 
 .subCardGold {
-  background: var(--pm6-cream);
-  border-color: var(--pm6-cream-border);
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  /* Figma 46:2 Object — h 82, pl 14 / pr 12 / py 13, inset 3×54 accent */
+  border-radius: var(--pm6-ws-composer-radius, 8px);
+  border: 1px solid #e8e0d7;
+  background: var(--pm6-canvas);
+  min-height: var(--pm6-ws-object-h, 82px);
+  padding: 13px 12px 13px 31px;
+  overflow: hidden;
+}
+
+.subCardGold::before,
+.subCardPrepared::before {
+  content: "";
+  position: absolute;
+  left: 14px;
+  top: 13px;
+  width: 3px;
+  height: 54px;
+  border-radius: 2px;
+  background: var(--pm6-ws-object-accent, #f06a4b);
+}
+
+.durableStack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm6-ws-object-gap, 10px);
+  /* Figma 46:2 Contextual Objects width 748 */
+  max-width: var(--pm6-ws-object-max, 748px);
+}
+
+.p3CardHead {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  min-height: 54px;
+}
+
+.p3CardBody {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+  flex: 1 1 auto;
+  min-height: 54px;
+}
+
+.p3CardRight {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 6px;
+  flex: 0 0 126px;
+  width: 126px;
+  min-width: 126px;
+  min-height: 54px;
+  text-align: right;
+}
+
+.p3CardEyebrow {
+  margin: 0;
+  font-size: 0.6875rem; /* 11 — Figma RECOMMANDATION / ACTION PRÉPARÉE */
+  font-weight: 500;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: #7f766d;
+}
+
+.p3CardStatusWarn {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.4px;
+  color: #f06a4b;
+  white-space: nowrap;
+}
+
+.p3CardStatusReady {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.4px;
+  color: #e97850;
+  white-space: nowrap;
+}
+
+.p3CardTitle {
+  margin: 3px 0 0;
+  font-size: 0.8125rem; /* 13 — Figma object body */
+  font-weight: 500;
+  line-height: 18px;
+  letter-spacing: 0.15px;
+  color: #1f1a16;
+}
+
+.p3CardFoot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 3px;
+}
+
+.p3CardStamp {
+  margin: 0;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.4px;
+  color: #7f766d;
+}
+
+.p3CardLink {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  font-size: 0.6875rem; /* 11 — Figma Ouvrir → */
+  font-weight: 500;
+  letter-spacing: 0.4px;
+  color: #6c635b;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.p3CardLink:hover {
+  text-decoration: underline;
+}
+
+.subCardPrepared {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border-radius: var(--pm6-ws-composer-radius, 8px);
+  border: 1px solid #e8e0d7;
+  background: var(--pm6-canvas);
+  min-height: var(--pm6-ws-object-h, 82px);
+  padding: 13px 12px 13px 31px;
+  overflow: hidden;
+}
+
+.subCardPrepared::before {
+  background: var(--pm6-ws-object-accent-prepared, #e97850);
+}
+
+.durableDetails {
+  border: 1px solid var(--pm6-border-soft);
+  border-radius: 10px;
+  background: var(--pm6-canvas-raised);
+  padding: 10px 14px;
+}
+
+.durableDetails > summary {
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.15px;
+  color: var(--pm6-muted-strong);
+  list-style: none;
+}
+
+.durableDetails > summary::-webkit-details-marker {
+  display: none;
+}
+
+.durableDetails[open] > summary {
+  margin-bottom: 10px;
 }
 
 .subTitle {
   margin: 0;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.07em;
+  font-size: 0.6875rem; /* 11 */
+  font-weight: 500;
+  letter-spacing: 0.4px;
   text-transform: uppercase;
   color: var(--pm6-muted);
 }
@@ -656,28 +918,75 @@
   z-index: 10;
   display: flex;
   flex-direction: column;
-  gap: var(--pm6-space-2);
-  border-radius: var(--pm6-radius-md);
-  border: 1px solid var(--pm6-border);
-  background: var(--pm6-surface);
-  padding: var(--pm6-space-3);
-  box-shadow: var(--pm6-shadow-raised);
+  gap: 0;
+  /* Figma 46:2 Composer — flat top rule, pad 14×22; input chrome is its own box */
+  border-radius: 0;
+  border: 0;
+  border-top: 1px solid var(--pm6-border-soft);
+  background: var(--pm6-canvas);
+  padding: 14px 22px;
+  box-shadow: none;
+}
+
+.composerBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 8px;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: var(--pm6-ws-composer-input-h, 96px);
+  height: var(--pm6-ws-composer-input-h, 96px);
+  border: 1px solid #e2d8ce;
+  border-radius: var(--pm6-ws-composer-radius, 8px);
+  background: var(--pm6-focus-bar);
+  padding: 14px 14px 12px;
+  overflow: hidden;
 }
 
 .composerInput {
+  box-sizing: border-box;
   width: 100%;
-  resize: vertical;
-  border: none;
-  outline-offset: 4px;
+  min-height: 24px;
+  flex: 1 1 auto;
+  resize: none;
+  border: 0;
+  border-radius: 0;
+  outline: none;
   background: transparent;
   color: var(--pm6-ink);
-  font-size: 0.95rem;
-  line-height: 1.6;
-  padding: var(--pm6-space-2);
+  font-size: 0.9375rem; /* 15 */
+  line-height: 24px;
+  padding: 0;
 }
 
 .composerInput::placeholder {
-  color: var(--pm6-muted);
+  color: #a09589;
+}
+
+.composerTools {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 34px;
+  height: 34px;
+  flex: 0 0 auto;
+  flex-wrap: nowrap;
+}
+
+.composerTool,
+.composerToolActive {
+  font-size: 0.6875rem; /* 11 */
+  font-weight: 500;
+  letter-spacing: 0.4px;
+  color: #6d645c;
+  white-space: nowrap;
+}
+
+.composerToolActive {
+  color: #978c81;
+  margin-right: auto;
 }
 
 .composerFoot {
@@ -688,28 +997,38 @@
 }
 
 .composerStatus {
-  font-size: 0.78rem;
+  font-size: 0.6875rem;
+  letter-spacing: 0.4px;
   color: var(--pm6-muted);
+  margin-left: auto;
 }
 
 .sendButton {
-  border-radius: var(--pm6-radius-pill);
+  /* Figma 46:2 Send — 30×30, radius 7 (not a pill). */
+  display: inline-grid;
+  place-items: center;
+  width: var(--pm6-ws-send-size, 30px);
+  min-width: var(--pm6-ws-send-size, 30px);
+  height: var(--pm6-ws-send-size, 30px);
+  border-radius: var(--pm6-ws-send-radius, 7px);
   border: 1px solid var(--pm6-ink);
   background: var(--pm6-ink);
   color: var(--pm6-forest-ink);
   transition: background 120ms ease;
-  padding: 9px 20px;
-  font-size: 0.87rem;
-  font-weight: 600;
+  padding: 0;
+  font-size: var(--pm6-text-body);
+  font-weight: 500;
   cursor: pointer;
+  margin-left: auto;
 }
 
+/* Desktop P3 46:2 uses ↑ glyph; full “Envoyer” remains for aria / mobile swap. */
 .sendLabelFull {
-  display: inline;
+  display: none;
 }
 
 .sendLabelCompact {
-  display: none;
+  display: inline;
 }
 
 .sendButton:hover:not(:disabled) {
@@ -717,20 +1036,26 @@
 }
 
 .sendButton:disabled {
-  opacity: 0.45;
+  /* P3 46:2 — send stays ink circle even when empty (not washed out). */
+  opacity: 1;
   cursor: not-allowed;
 }
 
 .stopButton {
-  border-radius: var(--pm6-radius-pill);
+  display: inline-grid;
+  place-items: center;
+  width: auto;
+  min-width: 30px;
+  height: 30px;
+  border-radius: 7px;
   border: 1px solid var(--pm6-ink);
   background: var(--pm6-canvas);
   color: var(--pm6-ink);
-  padding: 9px 20px;
-  font-size: 0.87rem;
+  padding: 0 10px;
+  font-size: var(--pm6-text-caption);
   font-weight: 600;
   cursor: pointer;
-  min-height: 38px;
+  min-height: 30px;
 }
 
 .stopButton:hover {
@@ -776,6 +1101,92 @@
   border: 0;
 }
 
+/* ---------- COMPACT 768–1199 (Figma 190:44 composer / message rhythm) ---------- */
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .root {
+    gap: 12px;
+    padding-bottom: 12px;
+  }
+
+  .thread {
+    gap: 10px;
+  }
+
+  .bubbleText {
+    font-size: 0.75rem; /* 12 — 190:44 body */
+    line-height: 1.45;
+  }
+
+  .durableStack {
+    max-width: 100%;
+  }
+
+  .subCardGold,
+  .subCardPrepared {
+    min-height: 72px;
+    padding: 12px 12px 12px 28px;
+  }
+
+  .subCardGold::before,
+  .subCardPrepared::before {
+    left: 12px;
+    top: 12px;
+    height: 48px;
+  }
+
+  .synthesisTeaser {
+    max-width: 100%;
+  }
+
+  .composer {
+    padding: 12px 18px;
+  }
+
+  .composerBox {
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    min-height: var(--pm6-ws-composer-input-h-compact, 64px);
+    height: var(--pm6-ws-composer-input-h-compact, 64px);
+    padding: 12px;
+  }
+
+  .composerInput {
+    flex: 1 1 auto;
+    min-height: 0;
+    font-size: 0.75rem;
+    line-height: 1.35;
+  }
+
+  .composerTool,
+  .composerToolActive {
+    display: none;
+  }
+
+  .composerTools {
+    flex: 0 0 auto;
+    gap: 0;
+    min-height: 0;
+    height: auto;
+  }
+
+  .sendButton {
+    width: 36px;
+    min-width: 36px;
+    height: 38px;
+    border-radius: 8px;
+    margin-left: 0;
+  }
+
+  .stopButton {
+    width: 38px;
+    min-width: 38px;
+    height: 38px;
+    border-radius: 8px;
+  }
+}
+
 @media (max-width: 767px) {
   .root {
     /* Surface padding owned by ProjectWorkspacePage --ws-pad-x (Figma 16). */
@@ -791,6 +1202,35 @@
     max-width: 100%;
   }
 
+  /* P3 190:306 — flat turns; no user card chrome on mobile (keep P1). */
+  .turnMine .bubble {
+    background: transparent;
+    border-color: transparent;
+    padding-inline: 0;
+  }
+
+  .bubbleText {
+    font-size: 0.8125rem; /* 13 */
+    line-height: 1.45;
+  }
+
+  /*
+   * Progressive disclosure — when a synthèse teaser is present, recommendation
+   * density stays on desktop / context (P3 190:306 shows synthèse, not reco).
+   */
+  .root:has([data-testid="conversation-synthesis-teaser"]) .durableStack {
+    display: none;
+  }
+
+  .synthesisTitle {
+    display: none;
+  }
+
+  .synthesisTeaser {
+    max-width: none;
+    padding: 12px 14px;
+  }
+
   .decisionCard {
     padding: var(--pm6-space-4);
   }
@@ -801,19 +1241,41 @@
 
   /*
    * C-polish — Conversation mobile composer (Figma 190:306):
-   * compact ~60px row; send ~36×38; secondary to conversation content.
-   * Multiline retained for Product typing; not a one-line-only redesign.
+   * compact ~60px row; send ~36×38; +Contexte/@Élément leave the chrome.
    */
   .composer {
+    flex-direction: column;
+    gap: 0;
+    min-height: 0;
+    max-height: none;
+    padding: 8px 0 4px;
+    border-top: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .composerBox {
     flex-direction: row;
     align-items: center;
     gap: 8px;
     min-height: 60px;
-    max-height: none;
+    height: auto;
     padding: 8px 8px 8px 12px;
     border-radius: 8px;
     background: var(--pm6-canvas-raised);
-    box-shadow: none;
+  }
+
+  .composerTool,
+  .composerToolActive {
+    display: none;
+  }
+
+  .composerTools {
+    flex: 0 0 auto;
+    gap: 0;
+    min-height: 0;
+    height: auto;
   }
 
   .composerInput {
@@ -823,13 +1285,13 @@
     max-height: 96px;
     resize: none;
     padding: 8px 0;
-    font-size: 0.6875rem;
+    font-size: 0.8125rem;
     line-height: 1.35;
   }
 
   .composerFoot {
     flex: 0 0 auto;
-    margin-left: auto;
+    margin-left: 0;
   }
 
   .composerStatus {
@@ -877,6 +1339,17 @@
   }
 
   .composerCaption {
+    display: none;
+  }
+
+  /* P3 190:495 / 190:520 — governed card sits in 358px content column. */
+  .root[data-governed-moment="true"] .governedMomentSlot {
+    max-width: 358px;
+    margin-inline: 0;
+    padding-top: 12px;
+  }
+
+  .root[data-governed-moment="true"] .thread {
     display: none;
   }
 }

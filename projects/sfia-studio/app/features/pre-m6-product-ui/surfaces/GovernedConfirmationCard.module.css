@@ -1,0 +1,147 @@
+/* P3 mobile Confirmation card — Figma 190:535 geometry (358×~438, sections ~82). */
+
+.card {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 748px;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  /* Figma 190:535 — 358×438, 12px pad, buttons 334×38. */
+  padding: 12px;
+  background: #fbf7f2;
+  border: 1px solid #e6ded5;
+  border-radius: 9px;
+  min-width: 0;
+}
+
+.label {
+  margin: 0;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--pm6-muted-faint);
+}
+
+.title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--pm6-ink);
+}
+
+.section {
+  /* Figma 190:538 — 330×82 section slab inside 358 card (12px inset). */
+  box-sizing: border-box;
+  width: 100%;
+  height: 82px;
+  min-height: 82px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 6px;
+  padding: 12px;
+  background: #fffdf9;
+  border-radius: 6px;
+}
+
+.sectionLabel {
+  margin: 0;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--pm6-muted-faint);
+}
+
+.sectionBody {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: #3f3832;
+}
+
+.notice {
+  margin: 0;
+  font-size: 11px;
+  color: var(--pm6-warn);
+}
+
+.error {
+  margin: 0;
+  font-size: 11px;
+  color: var(--pm6-danger);
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 2px;
+  width: 100%;
+}
+
+.primary,
+.secondary {
+  box-sizing: border-box;
+  width: 100%;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 120ms ease, border-color 120ms ease;
+}
+
+.primary {
+  border: 0;
+  /* Figma 190:547 — ink primary. */
+  background: #1f1a16;
+  color: #fffdf9;
+}
+
+.primary:hover:not(:disabled) {
+  background: #2a241f;
+}
+
+@media (max-width: 767px) {
+  .card {
+    max-width: 358px;
+  }
+}
+
+.secondary {
+  border: 1px solid #d8cec4;
+  background: var(--pm6-canvas);
+  color: var(--pm6-ink);
+}
+
+.secondary:hover:not(:disabled) {
+  border-color: var(--pm6-border-strong);
+}
+
+.primary:disabled,
+.secondary:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.primary:focus-visible,
+.secondary:focus-visible {
+  outline: none;
+  box-shadow: var(--pm6-focus-ring);
+}
+
+@media (min-width: 1200px) {
+  .card {
+    max-width: 748px;
+  }
+}

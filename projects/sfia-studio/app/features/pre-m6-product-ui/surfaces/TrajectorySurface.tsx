@@ -3291,7 +3291,8 @@ export function TrajectorySurface({
               Inspecter le contrat
             </button>
             {contract.status === "confirmation_required" &&
-            !wrongGenericReplaceableByRecoveryPrepare ? (
+            !wrongGenericReplaceableByRecoveryPrepare &&
+            decisionWorkflowMode === "legacy_cta" ? (
               <button
                 type="button"
                 className={styles.secondaryAction}

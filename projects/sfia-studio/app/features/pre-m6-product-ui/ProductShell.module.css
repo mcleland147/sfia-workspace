@@ -49,8 +49,9 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  gap: var(--pm6-space-4);
-  padding: var(--pm6-space-3) var(--pm6-space-2) var(--pm6-space-4);
+  gap: 8px;
+  /* P3 63:39 — rail padding 16×12 */
+  padding: 16px 12px;
   overflow-y: auto;
 }
 
@@ -65,9 +66,10 @@
 }
 
 .brandMark {
-  width: 22px;
-  height: 22px;
-  border-radius: 6px;
+  /* P3 63:39 / 46:2 — 28×28 mark, radius 7 */
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
   background: var(--pm6-forest);
   color: var(--pm6-forest-ink);
   display: grid;
@@ -89,8 +91,9 @@
 }
 
 .brandName {
-  font-size: 0.8125rem;
+  font-size: 0.8125rem; /* 13 */
   font-weight: 500;
+  letter-spacing: 0.15px;
   color: var(--pm6-ink);
   white-space: nowrap;
 }
@@ -105,10 +108,12 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 7px var(--pm6-space-2);
+  min-height: 36px;
+  padding: 0 10px;
   border-radius: 6px;
-  font-size: 0.75rem;
+  font-size: 0.8125rem; /* 13 */
   font-weight: 500;
+  letter-spacing: 0.15px;
   color: var(--pm6-muted-strong);
   text-decoration: none;
   transition: background 120ms ease, color 120ms ease;
@@ -120,7 +125,7 @@
 }
 
 .navItem[data-active="true"] {
-  background: color-mix(in srgb, var(--pm6-border) 45%, transparent);
+  background: #ede5dd;
   color: var(--pm6-ink);
 }
 
@@ -239,11 +244,14 @@
   width: 100%;
 }
 
-/* Non-workspace pages (Projets, Nouveau projet): centered content column. */
+/* Non-workspace pages — P3 body column on warm paper (#fbf7f2). */
 .mainPage {
-  max-width: var(--pm6-content-max);
-  margin: 0 auto;
-  padding: var(--pm6-space-6) var(--pm6-space-5) var(--pm6-space-7);
+  max-width: none;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background: var(--pm6-body);
+  min-height: 100%;
 }
 
 /* Workspace: full-bleed — the page owns its global/project headers. */
@@ -331,30 +339,42 @@
   }
 
   /*
-   * P5-S07 CP02 V4 — focused secondary mobile views (192:41 / 190:380):
-   * Mark + project name + Pilot avatar. No wordmark, no « Projets » link.
+   * P3 190:306 / 190:495 / 190:520 — workspace mobile topbar:
+   * Mark + durable project name + Pilot avatar. Wordmark and « Projets »
+   * leave whenever the open project name is known (data-mobile-focus=ready).
+   * Secondary focused views keep the same chrome.
    */
+  .shell[data-mobile-focus="ready"] .brandName,
   .shell:has([data-active-view="journal"]) .brandName,
   .shell:has([data-active-view="history"]) .brandName,
-  .shell:has([data-active-view="syntheses"]) .brandName {
+  .shell:has([data-active-view="syntheses"]) .brandName,
+  .shell:has([data-governed-moment="true"]) .brandName {
     display: none;
   }
 
+  .shell[data-mobile-focus="ready"] .mobileFocusName,
   .shell:has([data-active-view="journal"]) .mobileFocusName,
   .shell:has([data-active-view="history"]) .mobileFocusName,
-  .shell:has([data-active-view="syntheses"]) .mobileFocusName {
+  .shell:has([data-active-view="syntheses"]) .mobileFocusName,
+  .shell:has([data-governed-moment="true"]) .mobileFocusName {
     display: inline;
   }
 
+  .shell[data-mobile-focus="ready"] .mobileNavLink,
   .shell:has([data-active-view="journal"]) .mobileNavLink,
   .shell:has([data-active-view="history"]) .mobileNavLink,
-  .shell:has([data-active-view="syntheses"]) .mobileNavLink {
+  .shell:has([data-active-view="syntheses"]) .mobileNavLink,
+  .shell:has([data-governed-moment="true"]) .mobileNavLink,
+  .shell:has([data-surface="new-project-chat"]) .mobileNavLink {
     display: none;
   }
 
+  .shell[data-mobile-focus="ready"] .mobileProfile,
   .shell:has([data-active-view="journal"]) .mobileProfile,
   .shell:has([data-active-view="history"]) .mobileProfile,
-  .shell:has([data-active-view="syntheses"]) .mobileProfile {
+  .shell:has([data-active-view="syntheses"]) .mobileProfile,
+  .shell:has([data-governed-moment="true"]) .mobileProfile,
+  .shell:has([data-surface="new-project-chat"]) .mobileProfile {
     margin-left: auto;
   }
 }

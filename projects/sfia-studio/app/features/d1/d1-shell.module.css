@@ -8,7 +8,7 @@
   min-height: 100dvh;
   background: var(--sfia-bg);
   color: var(--sfia-ink);
-  font-family: var(--font-inter), system-ui, sans-serif;
+  font-family: var(--sfia-font, var(--font-geist, "Geist"), system-ui, sans-serif);
   box-sizing: border-box;
   gap: 0;
 }

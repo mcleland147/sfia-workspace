@@ -135,7 +135,7 @@ export type ProjectOpenContinuityPresentation =
   | { readonly kind: "transcript_unavailable"; readonly message: string };
 
 export const W1_AUTO_RESUME_RESTORED_HINT =
-  "Projet restauré · état courant, conversation et Journal chargés.";
+  "Contexte du projet restauré — état à jour";
 
 export const W1_TRANSCRIPT_UNAVAILABLE_DISCLOSURE =
   "Projet restauré depuis son état durable. L'historique de conversation n'est actuellement pas disponible.";

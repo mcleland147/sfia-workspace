@@ -17,6 +17,10 @@ projects/sfia-studio/.sfia-exec/**
 # Local Better Auth visual QA session (never commit)
 .tmp-sfia-review/auth/
 
+# Local SFIA review evidence / scratch
+.tmp-sfia-review/**
+!.tmp-sfia-review/chatgpt-review.md
+
 # Exports JSON — versionner les snapshots Notion
 exports/**
 !exports/notion/

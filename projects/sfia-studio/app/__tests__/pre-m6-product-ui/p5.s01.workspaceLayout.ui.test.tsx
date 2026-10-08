@@ -253,6 +253,7 @@ describe("P5-S01 Workspace layout", () => {
     );
     expect(screen.getByTestId("project-conversation-main")).toBeTruthy();
     expect(screen.getByTestId("project-lps-column")).toBeTruthy();
+    expect(screen.getByTestId("project-context-scroll")).toBeTruthy();
 
     const body = document.body.textContent ?? "";
     expect(body).not.toMatch(
@@ -260,6 +261,89 @@ describe("P5-S01 Workspace layout", () => {
     );
     expect(screen.queryByLabelText(/modèle/i)).toBeNull();
     expect(screen.queryByLabelText(/reasoning/i)).toBeNull();
+  });
+
+  it("context rail owns independent scroll with a viewport-bounded height (1024 closure)", () => {
+    const css = readFileSync(
+      resolve(
+        __dirname,
+        "../../features/pre-m6-product-ui/ProjectWorkspacePage.module.css",
+      ),
+      "utf8",
+    );
+    // Independent scroll surface.
+    expect(css).toMatch(/\.lpsSheet\s*\{[\s\S]*overflow-y:\s*auto;/);
+    // Conversation/Exécution pin the body so the rail is not silently clipped.
+    expect(css).toMatch(
+      /\.root\[data-active-view="conversation"\][\s\S]*height:\s*100vh;/,
+    );
+    expect(css).toMatch(
+      /\.root\[data-active-view="conversation"\]\s+\.lpsColumn[\s\S]*max-height:\s*100%;/,
+    );
+    // Sticky fallback subtracts project header (not only global header).
+    expect(css).toMatch(
+      /height:\s*calc\(100vh\s*-\s*var\(--ws-global-h\)\s*-\s*var\(--ws-project-h\)\)/,
+    );
+  });
+
+  it("wires P3 Figma Geist through the single application font path", () => {
+    const layout = readFileSync(
+      resolve(__dirname, "../../app/layout.tsx"),
+      "utf8",
+    );
+    const tokens = readFileSync(
+      resolve(__dirname, "../../styles/tokens.css"),
+      "utf8",
+    );
+    const pm6 = readFileSync(
+      resolve(
+        __dirname,
+        "../../features/pre-m6-product-ui/product-tokens.css",
+      ),
+      "utf8",
+    );
+    expect(layout).toMatch(/from\s+["']next\/font\/google["']/);
+    expect(layout).toMatch(/\bGeist\b/);
+    expect(layout).toMatch(/variable:\s*["']--font-geist["']/);
+    expect(layout).not.toMatch(/\bInter\b/);
+    expect(tokens).toMatch(
+      /--sfia-font:\s*var\(--font-geist,\s*"Geist",\s*system-ui,\s*sans-serif\)/,
+    );
+    expect(pm6).toMatch(/--pm6-font:\s*var\(--font-geist/);
+    expect(pm6).not.toMatch(/--font-inter/);
+    expect(pm6).not.toMatch(/deferred|not introduced/i);
+  });
+
+  it("keeps Figma 46:2 context-rail footer shortcuts outside the scroll sheet (1440)", () => {
+    const pageSrc = readFileSync(
+      resolve(
+        __dirname,
+        "../../features/pre-m6-product-ui/ProjectWorkspacePage.tsx",
+      ),
+      "utf8",
+    );
+    const css = readFileSync(
+      resolve(
+        __dirname,
+        "../../features/pre-m6-product-ui/ProjectWorkspacePage.module.css",
+      ),
+      "utf8",
+    );
+    // Same ProjectContextShortcuts component — not a desktop-only duplicate.
+    expect(pageSrc).toMatch(/ProjectContextShortcuts/);
+    expect(pageSrc).toMatch(/data-testid="project-context-rail-footer"/);
+    // Footer wrapper is a sibling after the scroll wrap, not nested in lpsSheet.
+    const footerIdx = pageSrc.indexOf('data-testid="project-context-rail-footer"');
+    const scrollClose = pageSrc.lastIndexOf("</div>", footerIdx);
+    expect(footerIdx).toBeGreaterThan(0);
+    expect(scrollClose).toBeGreaterThan(0);
+    expect(footerIdx).toBeGreaterThan(scrollClose);
+    expect(css).toMatch(
+      /\.contextRailFooter\s*\{[\s\S]*flex:\s*0\s+0\s+auto;/,
+    );
+    expect(css).toMatch(
+      /@media\s*\(min-width:\s*1200px\)[\s\S]*\.contextRailFooter\s*\{[\s\S]*display:\s*block;/,
+    );
   });
 
   it("hides Next.js floating « N » indicator (B1) and keeps Mobile Conversation primary", () => {

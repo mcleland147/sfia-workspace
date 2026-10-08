@@ -280,7 +280,8 @@ export function HistorySurface({
               </div>
             </div>
             <p className={styles.note}>
-              Retrouve les changements importants du projet.
+              Retrouve les changements importants du projet et le contexte lié à
+              chaque événement.
             </p>
           </header>
 

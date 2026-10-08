@@ -1,11 +1,15 @@
+/* S08-4 P1 Auth — desktop 130:3 · mobile 190:551 */
+
 .page {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   padding: 40px 48px 32px;
-  background: var(--pm6-canvas, #fffdf9);
+  box-sizing: border-box;
+  /* Figma 130:3 canvas #fbf7f2 */
+  background: var(--pm6-canvas-raised, #fbf7f2);
   color: var(--pm6-ink, #1f1a16);
-  font-family: var(--pm6-font, Inter, "Segoe UI", sans-serif);
+  font-family: var(--pm6-font, var(--font-geist, "Geist"), system-ui, sans-serif);
   position: relative;
 }
 
@@ -13,7 +17,8 @@
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 24px;
+  height: 32px;
+  flex: 0 0 auto;
 }
 
 .layout {
@@ -31,7 +36,7 @@
 .narrative {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
   max-width: 360px;
   justify-self: start;
   margin-left: 24px;
@@ -40,80 +45,134 @@
 .card {
   width: 460px;
   max-width: 100%;
+  height: 420px;
   min-height: 420px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  padding: 35px;
-  background: var(--pm6-surface, #fff);
-  border: 1px solid var(--pm6-border-soft, #eae2d9);
-  border-radius: 16px;
+  align-items: flex-start;
+  gap: 0;
+  padding: 34px 34px 30px;
+  box-sizing: border-box;
+  /* Figma 130:3 card fill #fffdf9 */
+  background: var(--pm6-canvas, #fffdf9);
+  border: 1px solid var(--pm6-border, #e6ded5);
+  border-radius: 18px;
   box-shadow: var(--pm6-shadow-card, 0 8px 24px rgba(31, 26, 22, 0.05));
   justify-self: end;
+  overflow: hidden;
 }
 
+/* Mobile-only mark inside card */
+.cardMark {
+  display: none;
+}
+
+/* Desktop brand mark — 130:3 Brand Mark 28×28 r8 */
 .mark {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   width: 28px;
   height: 28px;
-  border-radius: 6px;
+  border-radius: var(--pm6-radius-sm, 8px);
   background: var(--pm6-forest, #1f1a16);
   color: var(--pm6-forest-ink, #fffdf9);
-  font-size: 0.85rem;
-  font-weight: 700;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.15px;
+  line-height: 18px;
 }
 
 .brandText {
-  font-size: 0.95rem;
-  font-weight: 650;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.15px;
+  line-height: 18px;
   color: var(--pm6-ink, #1f1a16);
 }
 
 .eyebrow {
   margin: 0;
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.4px;
   text-transform: uppercase;
-  color: var(--pm6-muted, #7f766d);
+  line-height: 16px;
+  /* Figma 130:3 cue label #b7aca1 */
+  color: #b7aca1;
 }
 
 .narrativeTitle {
   margin: 0;
-  font-size: clamp(1.8rem, 3vw, 2.4rem);
-  font-weight: 650;
-  letter-spacing: -0.02em;
-  line-height: 1.15;
-  color: var(--pm6-ink, #1f1a16);
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.1px;
+  line-height: 26px;
+  max-width: 330px;
+  /* Figma 130:3 cue title #9c9186 */
+  color: #9c9186;
 }
 
 .narrativeBody {
   margin: 0;
-  font-size: 1rem;
-  line-height: 1.55;
-  color: var(--pm6-muted-strong, #6f665e);
-  max-width: 36ch;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 20px;
+  max-width: 330px;
+  color: #b7aca1;
 }
 
 .title {
   margin: 0;
-  font-size: 1.55rem;
-  font-weight: 650;
-  letter-spacing: -0.02em;
   color: var(--pm6-ink, #1f1a16);
+}
+
+.titleDesktop {
+  display: block;
+  font-size: 32px;
+  font-weight: 600;
+  letter-spacing: -0.7px;
+  line-height: 40px;
+  width: 100%;
+  max-width: 392px;
+}
+
+.titleMobile {
+  display: none;
 }
 
 .lead {
   margin: 0;
-  font-size: 0.95rem;
-  line-height: 1.55;
-  color: var(--pm6-muted-strong, #6f665e);
+}
+
+.leadDesktop {
+  display: block;
+  margin-top: 8px;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 24px;
+  max-width: 360px;
+  /* Figma #6d645c */
+  color: #6d645c;
+}
+
+.leadMobile {
+  display: none;
+}
+
+.rule {
+  display: block;
+  width: 100%;
+  max-width: 392px;
+  height: 1px;
+  margin-top: 22px;
+  background: #eee6de;
+  border: 0;
+  flex: 0 0 auto;
 }
 
 .error {
-  margin: 0;
+  margin: 12px 0 0;
   padding: 0.75rem 1rem;
   border-radius: var(--pm6-radius-md, 12px);
   background: var(--pm6-danger-tint, #fbeeec);
@@ -121,6 +180,8 @@
   color: var(--pm6-danger, #b8432b);
   font-size: 0.9rem;
   line-height: 1.5;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .githubCta {
@@ -129,17 +190,23 @@
   justify-content: center;
   gap: 10px;
   width: 100%;
-  min-height: 44px;
+  max-width: 392px;
+  height: 48px;
+  min-height: 48px;
+  margin-top: 22px;
   box-sizing: border-box;
-  border: 1px solid var(--pm6-forest, #1f1a16);
-  border-radius: var(--pm6-radius-md, 12px);
-  padding: 0.85rem 1rem;
+  border: none;
+  border-radius: 10px;
+  padding: 0 1rem;
   background: var(--pm6-forest, #1f1a16);
   color: var(--pm6-forest-ink, #fffdf9);
-  font-weight: 600;
-  font-size: 0.95rem;
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.15px;
+  line-height: 18px;
   text-decoration: none;
   cursor: pointer;
+  flex: 0 0 auto;
 }
 
 .githubCta:hover {
@@ -151,62 +218,201 @@
   box-shadow: var(--pm6-focus-ring, 0 0 0 3px rgba(31, 26, 22, 0.35));
 }
 
+/* Figma 130:3 GitHub Mark — white 24×24 plate, 16px logo */
+.githubMarkWrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 12px;
+  background: var(--pm6-canvas, #fffdf9);
+  color: var(--pm6-forest, #1f1a16);
+  flex: 0 0 auto;
+}
+
 .githubIcon {
   flex: 0 0 auto;
   display: block;
 }
 
 .note {
-  margin: 0;
-  font-size: 0.8rem;
-  line-height: 1.5;
-  color: var(--pm6-muted, #7f766d);
-  text-align: center;
+  margin: 12px 0 0;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.4px;
+  line-height: 16px;
+  max-width: 300px;
+  /* Figma #958a7f */
+  color: #958a7f;
+  text-align: left;
 }
 
 .sessionHint {
-  margin: 0;
-  padding: 0.75rem 0.9rem;
-  border-radius: var(--pm6-radius-md, 12px);
-  background: var(--pm6-canvas-raised, #fbf7f2);
-  border: 1px solid var(--pm6-border-soft, #eae2d9);
-  font-size: 0.8rem;
-  line-height: 1.45;
-  color: var(--pm6-ink-soft, #3d352e);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  max-width: 392px;
+  height: 48px;
+  margin: auto 0 0;
+  padding: 0 12px;
+  box-sizing: border-box;
+  border-radius: 9px;
+  /* Figma continuity #f6f1eb */
+  background: #f6f1eb;
+  border: none;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.4px;
+  line-height: 16px;
+  color: #6d645c;
 }
 
-@media (max-width: 900px) {
-  .layout {
-    grid-template-columns: 1fr;
-    align-items: start;
-    min-height: auto;
-    gap: 24px;
+.sessionDot {
+  flex: 0 0 auto;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--pm6-ok, #157a55);
+}
+
+.footerBrand {
+  margin: 0;
+  flex: 0 0 auto;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.4px;
+  line-height: 16px;
+  color: #b7aca1;
+  text-align: left;
+}
+
+/* ---- Compact + mobile: Figma 190:551 card dialect ---- */
+@media (max-width: 1199px) {
+  .page {
+    /* Figma Auth Background #f5f0ea */
+    background: #f5f0ea;
+    padding: 0;
+    align-items: center;
+    justify-content: flex-start;
   }
 
-  .narrative {
+  .topBrand,
+  .narrative,
+  .footerBrand {
+    display: none;
+  }
+
+  .layout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
     max-width: none;
-    margin-left: 0;
+    min-height: auto;
+    gap: 0;
+    /* Figma card top = 210 on 844 */
+    padding: 210px 20px 40px;
+    box-sizing: border-box;
   }
 
   .card {
-    width: 100%;
+    width: 350px;
+    max-width: 100%;
+    height: 310px;
     min-height: 310px;
-    justify-self: stretch;
-    padding: 27px 23px;
+    justify-self: center;
+    align-self: center;
+    padding: 26px 22px 24px;
+    gap: 12px;
+    border-radius: var(--pm6-radius-md, 12px);
+    /* Inset stroke so 350 frame + 22px pad yields Figma CTA width 306 */
+    border: none;
+    box-shadow: inset 0 0 0 1px var(--pm6-border, #e6ded5);
+    background: var(--pm6-canvas, #fffdf9);
+  }
+
+  .cardMark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: var(--pm6-radius-md, 12px);
+    background: var(--pm6-forest, #1f1a16);
+    color: var(--pm6-forest-ink, #fffdf9);
+    font-size: 15px;
+    font-weight: 500;
+    line-height: normal;
+    flex: 0 0 auto;
+  }
+
+  .titleDesktop,
+  .leadDesktop,
+  .rule,
+  .note,
+  .sessionHint {
+    display: none;
+  }
+
+  .titleMobile {
+    display: block;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: normal;
+    width: 300px;
+    max-width: 100%;
+  }
+
+  .leadMobile {
+    display: block;
+    margin-top: 0;
+    font-size: 11px;
+    font-weight: 400;
+    line-height: normal;
+    width: 300px;
+    max-width: 100%;
+    color: #6d645c;
+  }
+
+  .error {
+    margin: 0;
+  }
+
+  .githubCta {
+    width: 306px;
+    max-width: 100%;
+    height: 38px;
+    min-height: 38px;
+    margin-top: 0;
+    border-radius: var(--pm6-radius-sm, 8px);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: normal;
+  }
+
+  .githubMarkWrap {
+    display: none;
   }
 }
 
 @media (max-width: 767px) {
-  .page {
-    padding: 16px 20px;
+  .card {
+    width: min(350px, calc(100vw - 40px));
   }
 
-  .layout {
-    padding-top: 80px;
+  .githubCta {
+    width: min(306px, 100%);
   }
 
-  .narrativeTitle {
-    font-size: 1.55rem;
+  .titleMobile,
+  .leadMobile {
+    width: 100%;
+    max-width: 300px;
   }
 }
 

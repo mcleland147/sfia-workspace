@@ -94,7 +94,7 @@ export function toRuntimeProjectState(
 }
 
 export function toRuntimeProjectListItem(
-  project: Project,
+  project: Project & { objective?: string; context?: string },
 ): RuntimeProjectListItem {
   return Object.freeze({
     projectId: project.projectId,
@@ -102,6 +102,10 @@ export function toRuntimeProjectListItem(
     name: project.title,
     status: project.status,
     updatedAt: project.updatedAt ?? project.createdAt,
+    ...(project.objective !== undefined
+      ? { objective: project.objective }
+      : {}),
+    ...(project.context !== undefined ? { context: project.context } : {}),
   });
 }
 

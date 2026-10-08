@@ -84,6 +84,17 @@ describe("P5-S06 CP01 explicit-phase collection", () => {
     expect(d.context).toContain("avenants");
   });
 
+  it("proposes a name when intention already names espace-projet redesign work", () => {
+    const d = absorbUserTurn(
+      emptyDraft(),
+      "Je veux créer une nouvelle version de notre espace projet pour simplifier le pilotage.",
+      "INTENTION_REQUIRED",
+    );
+    expect(d.name).toBe("Refonte de l’espace projet");
+    expect(collectPhaseOf(d)).toBe("OPTIONAL_CONTEXT");
+    expect(isMinimumSufficient(d)).toBe(true);
+  });
+
   it("reopens a captured field explicitly without guessing", () => {
     const d = absorbUserTurn(
       absorbUserTurn(emptyDraft(), "Obj", "INTENTION_REQUIRED"),
@@ -109,7 +120,6 @@ describe("P5-S06 CP01 ProjectsPage", () => {
       expect(screen.getByTestId("studio-projects-empty")).toBeInTheDocument(),
     );
     expect(screen.queryByTestId("studio-projects-recent")).toBeNull();
-    expect(screen.queryByText("À reprendre")).toBeNull();
   });
 
   it("treats updatedAt as recent activity, not next action, and searches locally", async () => {
@@ -141,10 +151,18 @@ describe("P5-S06 CP01 ProjectsPage", () => {
     await waitFor(() =>
       expect(screen.getByTestId("studio-projects-list")).toBeInTheDocument(),
     );
-    expect(screen.queryByText("À reprendre")).toBeNull();
+    // P3 section label « À reprendre »; content remains updatedAt-only (no invented next action).
     expect(screen.getByTestId("studio-projects-recent")).toHaveTextContent(
-      "Projets récents",
+      "À reprendre",
     );
+    expect(screen.getByTestId("studio-projects-recent")).toHaveTextContent(
+      "aucune prochaine action inventée",
+    );
+    expect(
+      within(screen.getByTestId("studio-projects-recent")).queryByText(
+        /Finaliser|Reprendre la trajectoire/i,
+      ),
+    ).toBeNull();
     expect(
       within(screen.getByTestId("studio-projects-recent")).getByText(
         "Alpha Reporting",
@@ -179,8 +197,9 @@ describe("P5-S06 CP01 NewProjectIntentionPage", () => {
     render(<NewProjectIntentionPage />);
     expect(screen.getByTestId("create-project-submit")).toBeDisabled();
     expect(screen.getByTestId("new-project-thread")).toHaveTextContent(
-      /intention principale/i,
+      /accomplir|intention/i,
     );
+    expect(screen.getByTestId("new-project-starters")).toBeInTheDocument();
 
     await user.type(
       screen.getByTestId("new-project-input"),
@@ -199,6 +218,8 @@ describe("P5-S06 CP01 NewProjectIntentionPage", () => {
     expect(createProjectRuntimeActionMock).not.toHaveBeenCalled();
     expect(screen.getByTestId("preview-name")).toHaveTextContent("Contrats Q3");
     expect(screen.getByTestId("create-project-submit")).toBeEnabled();
+    expect(screen.getByTestId("new-project-clarification")).toBeInTheDocument();
+    expect(screen.getByTestId("new-project-understood")).toBeInTheDocument();
   });
 
   it("does not treat a follow-up precision as name before NAME_REQUIRED", async () => {

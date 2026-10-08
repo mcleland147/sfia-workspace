@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "kind": "SFIA_STUDIO_LIVING_PRODUCTION_RUNTIME_REFERENCE",
-  "lastReviewedCommit": "d4d986af5884b31b416374da3cb5e60757501f87",
+  "lastReviewedCommit": "0984a4559130907ac46d2c0457c0e420419a723d",
   "lastReviewedAt": "2026-10-06T18:08:07.408Z",
   "canonicalReadme": "projects/sfia-studio/production-runtime-reference/README.md",
   "volumes": [
@@ -662,7 +662,7 @@
     },
     {
       "path": "projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts",
-      "sha256_16": "0b11238665e07712"
+      "sha256_16": "5cc1d0ffd4760463"
     },
     {
       "path": "projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts",
@@ -678,7 +678,7 @@
     },
     {
       "path": "projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts",
-      "sha256_16": "8c5caa5a619aca3f"
+      "sha256_16": "83dc7e3be704199d"
     },
     {
       "path": "projects/sfia-studio/app/.env.example",

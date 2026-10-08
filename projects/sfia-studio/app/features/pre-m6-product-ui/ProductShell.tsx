@@ -2,6 +2,10 @@ import type { ReactNode } from "react";
 import Link from "next/link";
 import "./product-tokens.css";
 import { ProductRailRecents } from "./ProductRailRecents";
+import {
+  ProductMobileProfile,
+  ProductRailProfile,
+} from "./ProductRailProfile";
 import styles from "./ProductShell.module.css";
 
 export type ProductNav = "projects" | "current" | "new";
@@ -39,8 +43,9 @@ function BrandMark() {
  * stable E2E anchor for the shell root.
  *
  * Honesty rules: « Projets récents » only lists real projects (client read of
- * the existing list action); the profile entry is labelled « Pilote » — no
- * personal persona is hardcoded. The Meridian emblem is decorative only.
+ * the existing list action); the profile shows the authenticated session
+ * display name when present, otherwise « Pilote ». No hardcoded persona.
+ * The Meridian emblem is decorative only.
  */
 export function ProductShell({
   activeNav,
@@ -88,10 +93,7 @@ export function ProductShell({
           <ProductRailRecents currentProjectHref={currentProjectHref} />
 
           <div className={styles.railFoot}>
-            <span className={styles.profile} data-testid="studio-rail-profile">
-              <span className={styles.profileDot} aria-hidden />
-              Pilote
-            </span>
+            <ProductRailProfile />
           </div>
         </div>
       </aside>
@@ -112,10 +114,7 @@ export function ProductShell({
           >
             Projets
           </Link>
-          <span className={styles.mobileProfile} title="Pilote">
-            <span aria-hidden>P</span>
-            <span className={styles.srOnly}>Pilote</span>
-          </span>
+          <ProductMobileProfile />
         </header>
 
         <main
