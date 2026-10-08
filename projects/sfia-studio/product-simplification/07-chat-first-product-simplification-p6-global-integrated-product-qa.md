@@ -15,11 +15,11 @@
 | **Morris P6 QA Contract Acceptance** | **AUTHORIZED / CONSUMED** |
 | **Morris P6 QA Contract Git Integration GO** | **AUTHORIZED / CONSUMED** (prior) |
 | **PR #571** | **MERGED** · merge `aba6c4a617b6d0cb27f23b59de5bf0ac9360fab1` · post-merge CI Studio **#713** / `37765489559` **SUCCESS** · Required Gate **SUCCESS** |
-| **Statut** | **PHASE 0 INTEGRATED · PHASE 1 PASS · BROAD QA IN PROGRESS** |
+| **Statut** | **PHASE 0 INTEGRATED · PHASE 1 PASS / REQUALIFIED · BROAD QA CONTINUATION** |
 | **P6-QA-CONTRACT-01…12** | **CLOSED** |
 | **P6 campaign strategy** | **REAL-FIRST HYBRID GLOBAL INTEGRATED PRODUCT QA** |
 | **Phase 0** | **COMPLETE / INTEGRATED / POST-MERGE VERIFIED** |
-| **Phase 1** | **PASS / QA ENVIRONMENT & RUNTIME READY** |
+| **Phase 1** | **PASS / REQUALIFIED WITH CURRENT P6 REAL SMOKES** |
 | **GO P6 EXECUTION** | **AUTHORIZED / CONSUMED** |
 | **GO P6 REAL — BOUNDED CAMPAIGN** | **AUTHORIZED / CONSUMED** |
 | **P6 READY** | **NO** (broad QA only after Phase 1 PASS) |
@@ -33,7 +33,7 @@
 | **Fichier canonique** | `projects/sfia-studio/product-simplification/07-chat-first-product-simplification-p6-global-integrated-product-qa.md` |
 | **Date** | 2026-10-08 · Europe/Paris |
 
-> **Lecture rapide.** Phase 0 = **COMPLETE / INTEGRATED / POST-MERGE VERIFIED** (PR **#571** · CI **#713**). ChatGPT Closure Review = **PASS**. P6-QA-CONTRACT-01…12 = **CLOSED**. **GO P6 EXECUTION** = **AUTHORIZED / CONSUMED**. **GO P6 REAL — BOUNDED CAMPAIGN** = **AUTHORIZED / CONSUMED**. **P6 STARTED = YES**. Phase 1 = **PASS**. SMOKE-01/02/03 = **PASS**. Broad QA **IN PROGRESS**. Human QA batch **READY**. Strategy = **REAL-FIRST HYBRID**. **≠ P6 PASS** · **≠ REAL BOUNDARY globally proven** · **≠ runtime v3 ADOPTED** · **≠ production routing adoption**. Project push/PR/merge = **NONE**.
+> **Lecture rapide.** Phase 0 = **COMPLETE / INTEGRATED / POST-MERGE VERIFIED** (PR **#571** · CI **#713**). **GO P6 EXECUTION / GO P6 REAL = AUTHORIZED / CONSUMED**. **P6 STARTED = YES**. Phase 1 = **PASS / REQUALIFIED** (fresh SMOKE-01/02/03 CURRENT P6 REAL). Phases 2–4 prior evidence = **VALID / REUSED**. Automated campaign continuation in progress. Human QA batch regenerating. Strategy = **REAL-FIRST HYBRID**. **≠ P6 PASS** · **≠ runtime v3 ADOPTED**. Project push/PR/merge = **NONE**.
 
 ---
 
@@ -61,11 +61,11 @@
 
 A single future Morris message **MAY** consume both gates. They remain **semantically distinct**.
 
-**Current:** GO P6 EXECUTION = **AUTHORIZED / CONSUMED** · GO P6 REAL — BOUNDED CAMPAIGN = **AUTHORIZED / CONSUMED** · P6 STARTED = **YES** · Phase 1 = **PASS**.
+**Current:** GO P6 EXECUTION = **AUTHORIZED / CONSUMED** · GO P6 REAL — BOUNDED CAMPAIGN = **AUTHORIZED / CONSUMED** · P6 STARTED = **YES** · Phase 1 = **PASS / REQUALIFIED**.
 
 **This document remains the campaign contract.** Living status advances only on evidence. **≠** P6 PASS · **≠** routing adoption · **≠** runtime v3 adoption.
 
-**Maturity:** Phase 0 INTEGRATED / POST-MERGE VERIFIED · GOs consumed · campaign STARTED · Phase 1 PASS · Phases 2–4 AUTO advanced · Human QA batch READY · interim consolidation only.
+**Maturity:** Phase 0 INTEGRATED · GOs consumed · Phase 1 PASS/REQUALIFIED with current P6 REAL smokes · Phases 2–4 prior evidence VALID/REUSED · automated campaign continuation · Human QA batch not yet primary handoff.
 
 ---
 
@@ -79,8 +79,8 @@ A single future Morris message **MAY** consume both gates. They remain **semanti
 | **Morris Acceptance** | **AUTHORIZED / CONSUMED** |
 | **Git Integration GO** | **AUTHORIZED / CONSUMED** (PR **#571** MERGED) |
 | **Phase 0** | **COMPLETE / INTEGRATED / POST-MERGE VERIFIED** |
-| **Phase 1** | **PASS / QA ENVIRONMENT & RUNTIME READY** |
-| **Phases 2…4** | **IN PROGRESS** (AUTO / REAL under GO) |
+| **Phase 1** | **PASS / REQUALIFIED WITH CURRENT P6 REAL SMOKES** |
+| **Phases 2…4 prior evidence** | **VALID / REUSED** (requalification rationale recorded) |
 | **Phase 5** | **HUMAN QA BATCH PREPARING** |
 | **Phase 6** | **INTERIM CONSOLIDATION ONLY** (≠ P6 PASS) |
 | **P6 campaign strategy** | **REAL-FIRST HYBRID** |
@@ -89,7 +89,7 @@ A single future Morris message **MAY** consume both gates. They remain **semanti
 | **P6 READY** | **NO** |
 | **P6 STARTED** | **YES** |
 | **Architecture parallelism** | **NONE** |
-| **Next** | Phase 1 exit gate → if PASS continue Phases 2–4 AUTO · Human QA batch · interim consolidation |
+| **Next** | **MORRIS HUMAN QA BATCH** (final consolidated · 19 items) · then P6 FINAL CONSOLIDATION / EXIT REVIEW |
 
 ---
 
@@ -846,15 +846,15 @@ P6 may recommend workload classes · eligibility · effort bands · escalation �
 | **Morris Acceptance** | **AUTHORIZED / CONSUMED** |
 | **Git Integration GO** | **AUTHORIZED / CONSUMED** (PR **#571** MERGED · CI **#713** SUCCESS) |
 | **Phase 0** | **COMPLETE / INTEGRATED / POST-MERGE VERIFIED** |
-| **Phase 1** | **PASS / QA ENVIRONMENT & RUNTIME READY** |
+| **Phase 1** | **PASS / REQUALIFIED WITH CURRENT P6 REAL SMOKES** |
 | **GO P6 EXECUTION** | **AUTHORIZED / CONSUMED** |
 | **GO P6 REAL — BOUNDED CAMPAIGN** | **AUTHORIZED / CONSUMED** |
-| **P6 READY** | **YES for broad QA (campaign-internal after Phase 1 PASS)** · **≠ P6 PASS** |
+| **P6 READY** | **YES for broad QA (campaign-internal)** · **≠ P6 PASS** |
 | **P6 STARTED** | **YES** |
-| **REAL EXECUTION** | **IN PROGRESS under GO P6 REAL (bounded)** |
+| **REAL EXECUTION** | **BOUNDED UNDER GO P6 REAL — CURRENT SMOKES + PHASE-3 ADVANCED** |
 | **runtime v3** | **NON ADOPTED** |
 | **Project push / PR / merge** | **NONE** |
-| **Next** | Phases 2–4 AUTO · Human QA batch · interim consolidation · **≠ P6 PASS claimed** |
+| **Next** | **MORRIS HUMAN QA BATCH** (final consolidated · 19 items) · then P6 FINAL CONSOLIDATION / EXIT REVIEW · **≠ P6 PASS claimed** |
 
 ---
 
