@@ -155,13 +155,14 @@ P5 COMPLETE = NO
 P6 READY = NO
 runtime v3 = NON ADOPTED
 
-NEXT = ChatGPT/Morris requalification for S08-4 after this documentary truth-sync integrates
-Project Git Integration S08 = MERGED / POST-MERGE VERIFIED (PR #565)
-GLOBAL P3 VISUAL PARITY = OPEN / BLOCKING P5 EXIT → S08-4
-Integrated Exit Readiness Pack = OPEN → S08-5
+NEXT = Morris merge of this documentary truth-sync · then consolidated S08-5 macro-cycle
+Project Git Integration S08-1→S08-3 = MERGED / POST-MERGE VERIFIED (PR #565)
+Project Git Integration S08-4 = MERGED / POST-MERGE VERIFIED (PR #567 · CI #704)
+GLOBAL P3 VISUAL PARITY = PASS / CLOSED (S08-4 INTEGRATED / POST-MERGE VERIFIED)
+Integrated Exit Readiness Pack = OPEN → S08-5 (NEXT RECOMMENDED / NOT STARTED)
 NCR / Pilot Burden = CLOSED FOR P5 EXIT (representative integrated P5 scope)
 documentary truth-sync S07 = MERGED / POST-MERGE VERIFIED (PR #564)
-documentary truth-sync S08 = THIS CYCLE (Draft PR · merge NOT AUTHORIZED)
+documentary truth-sync S08-4 post-merge = THIS CYCLE (Draft PR · merge NOT AUTHORIZED)
 ```
 ### 1.2 Hiérarchie d’autorité
 
