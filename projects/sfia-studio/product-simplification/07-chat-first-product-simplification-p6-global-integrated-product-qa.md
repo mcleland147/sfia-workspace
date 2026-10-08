@@ -5,34 +5,35 @@
 | **Projet** | SFIA Studio |
 | **Macro** | `STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01` |
 | **Milestone** | **P6 — GLOBAL INTEGRATED PRODUCT QA** |
-| **Cycle** | **8 — Audit projet** |
-| **Pass** | **P6 QA CONTRACT ACCEPTANCE & GIT INTEGRATION** |
+| **Cycle** | **9 — QA / validation** |
+| **Pass** | **P6 MACRO CAMPAIGN EXECUTION — REAL-FIRST HYBRID** |
 | **Profile** | **CRITICAL** |
-| **Typologie** | **DOC / GOVERNANCE / PR READINESS / GIT INTEGRATION** |
+| **Typologie** | **QA / VALIDATION / INTEGRATED PRODUCT / REAL-FIRST HYBRID** |
+| **Campaign ID** | **P6-GLOBAL-INTEGRATED-PRODUCT-QA-01** |
 | **Morris CP02 GO** | **AUTHORIZED / CONSUMED** (prior) |
 | **ChatGPT Closure Review** | **PASS / CONSUMED** |
 | **Morris P6 QA Contract Acceptance** | **AUTHORIZED / CONSUMED** |
-| **Morris P6 QA Contract Git Integration GO** | **AUTHORIZED / CONSUMED** |
-| **Statut** | **MORRIS ACCEPTED / GIT INTEGRATION IN PROGRESS** |
+| **Morris P6 QA Contract Git Integration GO** | **AUTHORIZED / CONSUMED** (prior) |
+| **PR #571** | **MERGED** · merge `aba6c4a617b6d0cb27f23b59de5bf0ac9360fab1` · post-merge CI Studio **#713** / `37765489559` **SUCCESS** · Required Gate **SUCCESS** |
+| **Statut** | **PHASE 0 INTEGRATED · PHASE 1 PASS · BROAD QA IN PROGRESS** |
 | **P6-QA-CONTRACT-01…12** | **CLOSED** |
 | **P6 campaign strategy** | **REAL-FIRST HYBRID GLOBAL INTEGRATED PRODUCT QA** |
-| **Phase 0** | **CONTRACT ACCEPTED / READY FOR GIT INTEGRATION** |
-| **Phase 1** | **NOT STARTED** |
-| **GO P6 EXECUTION** | **NOT AUTHORIZED** |
-| **GO P6 REAL — BOUNDED CAMPAIGN** | **NOT AUTHORIZED** |
-| **P6 READY** | **NO** |
-| **P6 STARTED** | **NO** |
+| **Phase 0** | **COMPLETE / INTEGRATED / POST-MERGE VERIFIED** |
+| **Phase 1** | **PASS / QA ENVIRONMENT & RUNTIME READY** |
+| **GO P6 EXECUTION** | **AUTHORIZED / CONSUMED** |
+| **GO P6 REAL — BOUNDED CAMPAIGN** | **AUTHORIZED / CONSUMED** |
+| **P6 READY** | **NO** (broad QA only after Phase 1 PASS) |
+| **P6 STARTED** | **YES** |
 | **P5 COMPLETE** | **YES / INTEGRATED / POST-MERGE VERIFIED** |
-| **origin/main (baseline)** | `1e9d261a252ffb44c73614db5d501cb93ce55d8b` |
-| **PR #570** | **MERGED** · CI **#711** / `37743420433` **SUCCESS** |
+| **origin/main (baseline)** | `aba6c4a617b6d0cb27f23b59de5bf0ac9360fab1` |
+| **PR #570** | **MERGED** · CI **#711** / `37743420433` **SUCCESS** (historical P5 COMPLETE) |
 | **runtime v3** | **NON ADOPTED** |
-| **Product/runtime / tests / harness this pass** | **NONE** |
-| **Provider REAL calls this pass** | **NONE** |
-| **Project push / PR / merge** | **NONE** |
+| **Campaign branch** | `qa/sfia-studio-p6-global-integrated-product-qa` |
+| **Project push / PR / merge** | **NONE** (not authorized this campaign) |
 | **Fichier canonique** | `projects/sfia-studio/product-simplification/07-chat-first-product-simplification-p6-global-integrated-product-qa.md` |
 | **Date** | 2026-10-08 · Europe/Paris |
 
-> **Lecture rapide.** ChatGPT Closure Review = **PASS**. Morris P6 QA Contract Acceptance = **AUTHORIZED / CONSUMED**. Git Integration GO = **AUTHORIZED / CONSUMED**. P6-QA-CONTRACT-01…12 = **CLOSED**. Strategy = **REAL-FIRST HYBRID**. **GO P6 EXECUTION** / **GO P6 REAL — BOUNDED CAMPAIGN** = **NOT AUTHORIZED**. **≠ P6 READY** · **≠ P6 STARTED** · **≠ P6 PASS** · **≠ REAL execution** · **≠ runtime v3 ADOPTED**. Next = Draft PR / CI / Morris Merge Review.
+> **Lecture rapide.** Phase 0 = **COMPLETE / INTEGRATED / POST-MERGE VERIFIED** (PR **#571** · CI **#713**). ChatGPT Closure Review = **PASS**. P6-QA-CONTRACT-01…12 = **CLOSED**. **GO P6 EXECUTION** = **AUTHORIZED / CONSUMED**. **GO P6 REAL — BOUNDED CAMPAIGN** = **AUTHORIZED / CONSUMED**. **P6 STARTED = YES**. Phase 1 = **IN PROGRESS**. Strategy = **REAL-FIRST HYBRID**. **≠ P6 PASS** · **≠ REAL BOUNDARY globally proven** · **≠ runtime v3 ADOPTED** · **≠ production routing adoption**. Project push/PR/merge = **NONE**.
 
 ---
 
@@ -60,11 +61,11 @@
 
 A single future Morris message **MAY** consume both gates. They remain **semantically distinct**.
 
-**Current:** GO P6 EXECUTION = **NOT AUTHORIZED** · GO P6 REAL — BOUNDED CAMPAIGN = **NOT AUTHORIZED** · REAL calls this pass = **NONE**.
+**Current:** GO P6 EXECUTION = **AUTHORIZED / CONSUMED** · GO P6 REAL — BOUNDED CAMPAIGN = **AUTHORIZED / CONSUMED** · P6 STARTED = **YES** · Phase 1 = **IN PROGRESS**.
 
-**This document is not:** P6 execution · Product mutation · provider REAL · P6 READY YES · routing adoption · runtime v3 adoption.
+**This document remains the campaign contract.** Living status advances only on evidence. **≠** P6 PASS · **≠** routing adoption · **≠** runtime v3 adoption · **≠** Phase 1 PASS until exit gate evidence.
 
-**Maturity:** MORRIS ACCEPTED · Git Integration IN PROGRESS this cycle · **≠** P6 READY · **≠** P6 STARTED · **≠** GO P6 EXECUTION.
+**Maturity:** Phase 0 INTEGRATED / POST-MERGE VERIFIED · GOs consumed · campaign STARTED · Phase 1 evidence in progress.
 
 ---
 
@@ -73,19 +74,22 @@ A single future Morris message **MAY** consume both gates. They remain **semanti
 | Item | Verdict |
 | --- | --- |
 | **P6-QA-CONTRACT-01…12** | **CLOSED** (see §AW) |
-| **P6 QA CONTRACT** | **MORRIS ACCEPTED / GIT INTEGRATION IN PROGRESS** |
+| **P6 QA CONTRACT** | **ACCEPTED / INTEGRATED / POST-MERGE VERIFIED** |
 | **ChatGPT Closure Review** | **PASS / CONSUMED** |
 | **Morris Acceptance** | **AUTHORIZED / CONSUMED** |
-| **Git Integration GO** | **AUTHORIZED / CONSUMED** |
-| **Phase 0** | **CONTRACT ACCEPTED / READY FOR GIT INTEGRATION** |
-| **Phase 1…6** | **NOT STARTED** |
+| **Git Integration GO** | **AUTHORIZED / CONSUMED** (PR **#571** MERGED) |
+| **Phase 0** | **COMPLETE / INTEGRATED / POST-MERGE VERIFIED** |
+| **Phase 1** | **PASS / QA ENVIRONMENT & RUNTIME READY** |
+| **Phases 2…4** | **IN PROGRESS** (AUTO / REAL under GO) |
+| **Phase 5** | **HUMAN QA BATCH PREPARING** |
+| **Phase 6** | **INTERIM CONSOLIDATION ONLY** (≠ P6 PASS) |
 | **P6 campaign strategy** | **REAL-FIRST HYBRID** |
-| **GO P6 EXECUTION** | **NOT AUTHORIZED** |
-| **GO P6 REAL — BOUNDED CAMPAIGN** | **NOT AUTHORIZED** |
+| **GO P6 EXECUTION** | **AUTHORIZED / CONSUMED** |
+| **GO P6 REAL — BOUNDED CAMPAIGN** | **AUTHORIZED / CONSUMED** |
 | **P6 READY** | **NO** |
-| **P6 STARTED** | **NO** |
+| **P6 STARTED** | **YES** |
 | **Architecture parallelism** | **NONE** |
-| **Next gate** | **MORRIS MERGE REVIEW / MERGE GO** |
+| **Next** | Phase 1 exit gate → if PASS continue Phases 2–4 AUTO · Human QA batch · interim consolidation |
 
 ---
 
@@ -480,7 +484,7 @@ Scenario packages for Morris as Pilote without internal QA machinery. P1/P3 simp
 
 **Success:** `P6 PHASE 1 = QA ENVIRONMENT & RUNTIME READY` **only if** mandatory runtime READY · parallelism NONE · SMOKE-01/02/03 all PASS · blockers NONE · other REQUIRED fields READY/SUFFICIENT/GREEN as contracted.
 
-**Current:** Phase 1 = **NOT STARTED** · all fields **NOT EXECUTED / NOT CLASSIFIED**.
+**Current:** Phase 1 = **PASS** · SMOKE-01/02/03 = **PASS** · blockers = **NONE** · evidence under `.tmp-sfia-review/p6-global-integrated-qa/`.
 
 ---
 
@@ -837,20 +841,20 @@ P6 may recommend workload classes · eligibility · effort bands · escalation �
 | Field | Value |
 | --- | --- |
 | **P6-QA-CONTRACT-01…12** | **CLOSED** |
-| **P6 QA CONTRACT** | **MORRIS ACCEPTED / GIT INTEGRATION IN PROGRESS** |
+| **P6 QA CONTRACT** | **ACCEPTED / INTEGRATED / POST-MERGE VERIFIED** |
 | **ChatGPT Closure Review** | **PASS / CONSUMED** |
 | **Morris Acceptance** | **AUTHORIZED / CONSUMED** |
-| **Git Integration GO** | **AUTHORIZED / CONSUMED** |
-| **Phase 0** | **CONTRACT ACCEPTED / READY FOR GIT INTEGRATION** |
-| **Phase 1** | **NOT STARTED** |
-| **GO P6 EXECUTION** | **NOT AUTHORIZED** |
-| **GO P6 REAL — BOUNDED CAMPAIGN** | **NOT AUTHORIZED** |
-| **P6 READY** | **NO** |
-| **P6 STARTED** | **NO** |
-| **REAL EXECUTION** | **NONE** |
-| **Product/runtime/tests** | **NONE** |
+| **Git Integration GO** | **AUTHORIZED / CONSUMED** (PR **#571** MERGED · CI **#713** SUCCESS) |
+| **Phase 0** | **COMPLETE / INTEGRATED / POST-MERGE VERIFIED** |
+| **Phase 1** | **PASS / QA ENVIRONMENT & RUNTIME READY** |
+| **GO P6 EXECUTION** | **AUTHORIZED / CONSUMED** |
+| **GO P6 REAL — BOUNDED CAMPAIGN** | **AUTHORIZED / CONSUMED** |
+| **P6 READY** | **YES for broad QA (campaign-internal after Phase 1 PASS)** · **≠ P6 PASS** |
+| **P6 STARTED** | **YES** |
+| **REAL EXECUTION** | **IN PROGRESS under GO P6 REAL (bounded)** |
 | **runtime v3** | **NON ADOPTED** |
-| **Next** | **MORRIS MERGE REVIEW / MERGE GO** |
+| **Project push / PR / merge** | **NONE** |
+| **Next** | Phases 2–4 AUTO · Human QA batch · interim consolidation · **≠ P6 PASS claimed** |
 
 ---
 
@@ -871,7 +875,7 @@ P6 may recommend workload classes · eligibility · effort bands · escalation �
 | **P6-QA-CONTRACT-11** | Phase-1 env: browser · rate limits · privacy · budget · drift | §O · §X | **CLOSED** |
 | **P6-QA-CONTRACT-12** | Defect severity / unaffected-track continuation | §AQ · §AR | **CLOSED** |
 
-ChatGPT Closure Review = **PASS**. Morris Acceptance = **AUTHORIZED / CONSUMED**. Findings CLOSED with substance in referenced sections. Git Integration IN PROGRESS. **≠** GO P6 EXECUTION · **≠** P6 READY.
+ChatGPT Closure Review = **PASS**. Morris Acceptance = **AUTHORIZED / CONSUMED**. Findings CLOSED. PR **#571** MERGED · Phase 0 INTEGRATED. GO P6 EXECUTION / GO P6 REAL = **AUTHORIZED / CONSUMED**. **≠** P6 PASS · **≠** Phase 1 PASS until evidenced.
 
 ---
 
@@ -893,4 +897,4 @@ Before mass Phase 3: manifests complete enough for reproducibility/auditability.
 
 ---
 
-*Fin — P6 Global Integrated Product QA Campaign Contract — Morris Accepted / Git Integration In Progress · ChatGPT Closure Review PASS · P6-QA-CONTRACT-01…12 CLOSED · GO P6 EXECUTION NOT AUTHORIZED · GO P6 REAL NOT AUTHORIZED · P6 READY NO · P6 STARTED NO · REAL NONE · runtime v3 NON ADOPTED.*
+*Fin — P6 Global Integrated Product QA Campaign Contract — Phase 0 INTEGRATED / POST-MERGE VERIFIED (PR #571 · CI #713) · ChatGPT Closure Review PASS · P6-QA-CONTRACT-01…12 CLOSED · GO P6 EXECUTION AUTHORIZED / CONSUMED · GO P6 REAL AUTHORIZED / CONSUMED · P6 STARTED YES · Phase 1 IN PROGRESS · P6 READY NO · P6 PASS NOT CLAIMED · runtime v3 NON ADOPTED · project push/PR/merge NONE.*
