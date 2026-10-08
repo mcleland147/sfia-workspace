@@ -14,14 +14,18 @@
 | **Morris P5-S08-5 GIT INTEGRATION GO** | **AUTHORIZED / CONSUMED** |
 | **Morris P5-S08-5 MERGE GO** | **AUTHORIZED / CONSUMED** |
 | **Morris P5-S08-6 / P5 COMPLETE GO** | **AUTHORIZED / CONSUMED** |
-| **Statut** | **S08-5 INTEGRATED / POST-MERGE VERIFIED · S08-6 PASS · P5 COMPLETE = YES** |
-| **origin/main (current)** | `75ee32588359f0fe68bfa6c52dd37225a5c0d5cd` |
+| **Statut** | **S08-5 INTEGRATED / POST-MERGE VERIFIED · S08-6 PASS / POST-MERGE VERIFIED · P5 COMPLETE = YES / INTEGRATED / POST-MERGE VERIFIED** |
+| **origin/main (current)** | `1e9d261a252ffb44c73614db5d501cb93ce55d8b` |
+| **PR #570** | **MERGED** · feature `d2dcc0ccf777c18c18ed4ca3ac4a5509a8639ec8` · merge `1e9d261a252ffb44c73614db5d501cb93ce55d8b` · CI Studio **#711** / run **`37743420433`** **SUCCESS** · Required Gate **SUCCESS** |
 | **PR #569** | **MERGED** · feature `18bce849613a8e7fa14ba11278cfd62446e29661` · merge `75ee32588359f0fe68bfa6c52dd37225a5c0d5cd` · CI Studio **#709** / run **`37739742176`** **SUCCESS** · Required Gate **PASS** |
 | **PR #568** | **MERGED** · feature `0d11ed88afe0d465f325b607c7ca8a5d21e65272` · merge `dc93ddd2…` · post-merge CI Studio **#707** / run **`37732611679`** **SUCCESS** · Required Gate **SUCCESS** |
 | **S08-4** | **INTEGRATED / POST-MERGE VERIFIED** (PR **#567** · CI **#704**) |
 | **S08-1→S08-3** | **INTEGRATED / POST-MERGE VERIFIED** (PR **#565** · CI **#698**) |
-| **S08-6** | **PASS / MORRIS GATE CONSUMED** |
-| **P5 COMPLETE** | **YES** |
+| **S08-6** | **PASS / MORRIS GATE CONSUMED / POST-MERGE VERIFIED** |
+| **P5 COMPLETE** | **YES / INTEGRATED / POST-MERGE VERIFIED** |
+| **P6** | **MORRIS ACCEPTED / GIT INTEGRATION IN PROGRESS** (`07-…`) · Closure Review **PASS** · findings 01–12 **CLOSED** · **REAL-FIRST HYBRID** · Phase 0 · **≠ STARTED** |
+| **GO P6 EXECUTION** | **NOT AUTHORIZED** |
+| **GO P6 REAL — BOUNDED CAMPAIGN** | **NOT AUTHORIZED** |
 | **P6 READY** | **NO** |
 | **runtime v3** | **NON ADOPTED** |
 | **Product/runtime changed** | **NONE** |
@@ -30,7 +34,7 @@
 | **Fichier** | `projects/sfia-studio/product-simplification/06-chat-first-product-simplification-integrated-exit-readiness-pack.md` |
 | **Date** | 2026-10-08 · Europe/Paris |
 
-> **Lecture rapide.** Ce Pack est l’artefact unique de readiness P5 sur les six dimensions canoniques. S08-5 = **INTEGRATED / POST-MERGE VERIFIED** on main `75ee32588359…` (PR **#569** · CI **#709**). S08-6 = **PASS / MORRIS GATE CONSUMED**. **P5 COMPLETE = YES**. Blocking OPEN = **NONE**. **≠ P6 READY** · **≠ runtime v3 ADOPTED** · **≠ READY FOR REAL**.
+> **Lecture rapide.** Ce Pack est l’artefact unique de readiness P5 sur les six dimensions canoniques. S08-5 / S08-6 / P5 COMPLETE post-merge verified (PR **#570** · CI **#711**). Blocking OPEN = **NONE**. P6 = **MORRIS ACCEPTED / GIT INTEGRATION IN PROGRESS** (`07-…` · Closure Review PASS · findings 01–12 CLOSED) · **GO P6 EXECUTION / GO P6 REAL = NOT AUTHORIZED** · **≠ P6 READY** · **≠ P6 STARTED** · **≠ runtime v3 ADOPTED**.
 
 ---
 
@@ -45,7 +49,7 @@
 | Build Doctrine | READ-ONLY · non modifiée |
 | Git | `origin/main` SoT pour intégration |
 
-**Ce document n’est pas :** une nouvelle doctrine · une promotion runtime · un gate Morris P5 COMPLETE · un démarrage S08-6 · une preuve REAL nouvelle.
+**Ce document n’est pas :** une nouvelle doctrine · une promotion runtime · une preuve REAL nouvelle · un démarrage P6 QA execution · P6 READY YES. (S08-6 / P5 COMPLETE gate = **CONSUMED / POST-MERGE VERIFIED**.)
 
 ---
 
@@ -60,8 +64,8 @@
 | **Artifact Completeness (V3-F14)** | **PASS / INTEGRATED** |
 | **Architecture parallelism** | **NONE** |
 | **S08-6** | **PASS / MORRIS GATE CONSUMED** |
-| **Recommendation** | **P5 COMPLETE = YES** · next = **P6 QUALIFICATION** (Global Integrated Product QA) · ≠ P6 READY · ≠ P6 implementation |
-| **P5 COMPLETE** | **YES** |
+| **Recommendation** | **P5 COMPLETE = YES / POST-MERGE VERIFIED** · P6 = **MORRIS ACCEPTED / GI IN PROGRESS** (`07-…`) · next = Draft PR / CI → **Morris Merge Review** · ≠ P6 READY · ≠ GO P6 EXECUTION · ≠ GO P6 REAL |
+| **P5 COMPLETE** | **YES / INTEGRATED / POST-MERGE VERIFIED** |
 | **P6 READY** | **NO** |
 | **runtime v3** | **NON ADOPTED** |
 
@@ -110,11 +114,11 @@ All rows are **MERGED** on `main` with post-merge Studio CI **SUCCESS** and Requ
 | P5-S07 post-merge truth-sync | **#564** | `7d0c6562e05e350bf4f49aac39811b1d8a5ec669` | `5ea5049d7c842a453e804dcc352641e79ac58520` | **#696** | `37546421421` | SUCCESS | INTEGRATED / POST-MERGE VERIFIED | Docs |
 | P5-S08-1→S08-3 Convergence / debt / NCR | **#565** | `b7e9726dd7cf8429de68e3908ff8990ac2ba6338` | `7063fa3c64610787396f776c3f6f10a056a0400f` | **#698** | `37589112544` | SUCCESS | INTEGRATED / POST-MERGE VERIFIED | NCR CLOSED FOR P5 EXIT · cross-store residue carry |
 | P5-S08-4 Global P3 visual parity | **#567** | `31d9cf8900f505d74ade2c1d1a83917ea8a7b48e` | `a67e37e04d42506abb8716ba4d317e8304164a6a` | **#704** | `37708211020` | SUCCESS | INTEGRATED / POST-MERGE VERIFIED | DETERMINISTIC visual · Provider REAL NONE |
-| P5-S08-4 post-merge truth-sync | **#568** | `0d11ed88afe0d465f325b607c7ca8a5d21e65272` | `dc93ddd2d7561b1c778afe2a02eb3172705cd82f` | **#707** | `37732611679` | SUCCESS | INTEGRATED / POST-MERGE VERIFIED | Docs · current main tip |
+| P5-S08-4 post-merge truth-sync | **#568** | `0d11ed88afe0d465f325b607c7ca8a5d21e65272` | `dc93ddd2d7561b1c778afe2a02eb3172705cd82f` | **#707** | `37732611679` | SUCCESS | INTEGRATED / POST-MERGE VERIFIED | Docs |
 | **P5-S08-5 Exit Readiness Pack** | **#569** | `18bce849613a8e7fa14ba11278cfd62446e29661` | `75ee32588359f0fe68bfa6c52dd37225a5c0d5cd` | **#709** | `37739742176` | SUCCESS | **INTEGRATED / POST-MERGE VERIFIED** | C-PROOF-PACK-INTEGRATION **CLOSED** |
-| **P5-S08-6 Morris P5 COMPLETE Gate** | — | — | — | — | — | — | **PASS / MORRIS GATE CONSUMED** (recording LOCAL until this PR merges) | P5 COMPLETE **YES** · recording Draft PR merge **NOT AUTHORIZED** |
+| **P5-S08-6 Morris P5 COMPLETE Gate** | **#570** | `d2dcc0ccf777c18c18ed4ca3ac4a5509a8639ec8` | `1e9d261a252ffb44c73614db5d501cb93ce55d8b` | **#711** | `37743420433` | SUCCESS | **PASS / MORRIS GATE CONSUMED / POST-MERGE VERIFIED** | P5 COMPLETE **YES / INTEGRATED / POST-MERGE VERIFIED** |
 
-**Current repository tip:** `origin/main` = `dc93ddd2d7561b1c778afe2a02eb3172705cd82f`.
+**Current repository tip:** `origin/main` = `1e9d261a252ffb44c73614db5d501cb93ce55d8b`.
 
 ---
 
@@ -245,7 +249,7 @@ Central S08-5 dimension. Satisfied for P5 exit by:
 
 | Claim | Status |
 | --- | --- |
-| Integrated (not branch-only) proof chain | **YES** on `75ee32588359…` |
+| Integrated (not branch-only) proof chain | **YES** on `1e9d261a…` (via #569 + #570) |
 | Six dimensions qualified | **YES** — no OPEN |
 | Carry exits defined | **YES** |
 | Highest proof ceiling honesty | DETERMINISTIC for visual/cancel · bounded REAL historical for S02/S05 only |
@@ -422,9 +426,9 @@ Therefore:
 | Field | Value |
 | --- | --- |
 | **S08-5** | **INTEGRATED / POST-MERGE VERIFIED** |
-| **Recommendation** | **P5 COMPLETE = YES** · next = **P6 QUALIFICATION** |
-| **P5 COMPLETE** | **YES** |
-| **S08-6** | **PASS / MORRIS GATE CONSUMED** |
+| **Recommendation** | **P5 COMPLETE = YES / POST-MERGE VERIFIED** · P6 = **MORRIS ACCEPTED / GI IN PROGRESS** (`07-…`) · next = Draft PR / CI → Morris Merge Review |
+| **P5 COMPLETE** | **YES / INTEGRATED / POST-MERGE VERIFIED** |
+| **S08-6** | **PASS / MORRIS GATE CONSUMED / POST-MERGE VERIFIED** |
 
 ---
 
@@ -456,9 +460,15 @@ S08-6 input package minimally:
 | 1 | ChatGPT Critical Review of S08-5 Pack | **PASS WITH NON-BLOCKING EDITORIAL RESERVES / CONSUMED** |
 | 2 | **P5-S08-5 GIT INTEGRATION GO** (push / Draft PR) | **AUTHORIZED / CONSUMED** |
 | 3 | Merge GO for S08-5 PR (#569) | **AUTHORIZED / CONSUMED** |
-| 4 | **P5-S08-6 / P5 COMPLETE GO** | **AUTHORIZED / CONSUMED** · **P5 COMPLETE = YES** |
+| 4 | **P5-S08-6 / P5 COMPLETE GO** | **AUTHORIZED / CONSUMED** · **P5 COMPLETE = YES / POST-MERGE VERIFIED** (PR #570 · CI #711) |
 | 5 | Any REAL cancel / REAL boundary expansion | **NOT AUTHORIZED** |
 | 6 | runtime v3 adoption / P6 READY | **NOT AUTHORIZED** |
+| 7 | ChatGPT Closure Review of CP02 P6 QA contract (`07-…`) | **PASS / CONSUMED** |
+| 8 | Morris P6 QA Contract Acceptance | **AUTHORIZED / CONSUMED** |
+| 9 | Morris P6 QA Contract Git Integration GO | **AUTHORIZED / CONSUMED** |
+| 10 | Morris MERGE GO | **NOT AUTHORIZED YET** |
+| 11 | **GO P6 EXECUTION** | **NOT AUTHORIZED** |
+| 12 | **GO P6 REAL — BOUNDED CAMPAIGN** | **NOT AUTHORIZED** |
 
 ---
 
@@ -466,7 +476,8 @@ S08-6 input package minimally:
 
 | Ref | Value |
 | --- | --- |
-| Entry `origin/main` | `dc93ddd2d7561b1c778afe2a02eb3172705cd82f` |
+| Current `origin/main` | `1e9d261a252ffb44c73614db5d501cb93ce55d8b` (PR #570 · CI #711) |
+| Entry `origin/main` (S08-5 GI historical) | `dc93ddd2d7561b1c778afe2a02eb3172705cd82f` |
 | PR #568 MERGED | feature `0d11ed88afe0d465f325b607c7ca8a5d21e65272` · merge `dc93ddd2…` |
 | CI #707 | run `37732611679` SUCCESS · Required Gate SUCCESS |
 | PR #567 S08-4 | feature `31d9cf8900f505d74ade2c1d1a83917ea8a7b48e` · merge `a67e37e04d42506abb8716ba4d317e8304164a6a` · CI #704 / `37708211020` |
@@ -476,10 +487,10 @@ S08-6 input package minimally:
 | V3-F14 / V3-F15 | `sfia-v3-framing/35-artifact-evidence-debt-and-controlled-learning.md` |
 | Roadmap | `convergence/sfia-studio-convergence-roadmap.md` |
 | Branch (S08-5) | `docs/sfia-studio-p5-s08-5-integrated-exit-readiness-pack` (merged) |
-| Branch (S08-6 recording) | `docs/sfia-studio-p5-s08-6-p5-complete-gate` |
+| Branch (S08-6 recording) | `docs/sfia-studio-p5-s08-6-p5-complete-gate` **MERGED** |
 | S08-5 project push / Draft PR / merge | **DONE** (PR #569 MERGED · CI #709) |
-| S08-6 recording Draft PR | **AUTHORIZED IN THIS CYCLE** |
-| Merge of S08-6 recording PR | **NOT AUTHORIZED** |
+| S08-6 recording Draft PR / merge | **DONE** (PR #570 MERGED · CI #711) |
+| P6 QA contract | `product-simplification/07-…` · Morris Accepted / Git Integration In Progress · Draft PR this cycle |
 
 ---
 
@@ -540,8 +551,10 @@ Morris P5-S08-6 / P5 COMPLETE GO = **AUTHORIZED / CONSUMED**.
 | S08-6 | **PASS / MORRIS GATE CONSUMED** |
 | P5 COMPLETE | **YES** |
 | Nature | Milestone / Product-Simplification completion decision on governed P5 scope |
-| P6 | **NEXT QUALIFICATION TARGET** — **Global Integrated Product QA** (C1 §15) |
-| P6 READY | **NO** / requires separate convergence qualification |
+| P6 | **MORRIS ACCEPTED / GIT INTEGRATION IN PROGRESS** (`07-…`) · Closure Review **PASS** · **NOT STARTED** |
+| GO P6 EXECUTION | **NOT AUTHORIZED** |
+| GO P6 REAL — BOUNDED CAMPAIGN | **NOT AUTHORIZED** |
+| P6 READY | **NO** |
 | runtime v3 | **NON ADOPTED** |
 
 ### R.7 Anti-claims
@@ -556,8 +569,8 @@ P5 COMPLETE = YES ≠ P6 READY ≠ runtime v3 ADOPTED ≠ READY FOR REAL ≠ REA
 | Prerequisites | P5 COMPLETE · six-dimension evidence chain · carry register honesty |
 | P5 carries moving forward | C-NORA-CTX · C-NCR-SCOPE · C-PROOF-REAL-CEILING · N-T3-P6 · N-GLOBAL-SIMP-QA · N-COG-COMPLETION |
 | Separate REAL/Ops gates | C-REAL-CANCEL · C-LEGACY-OPENAI · C-RT-A3-2-RESIDUE (EC reliability) · C-BRANCH-CLEANUP |
-| Entry proof expected | Separate P6 convergence qualification (≠ automatic READY) |
-| Morris gates | Distinct P6 AUTHORIZATION / READY gates — **NOT THIS CYCLE** |
-| P6 implementation | **NOT STARTED / NOT AUTHORIZED** |
+| Entry proof | Canonical P6 contract = `product-simplification/07-…` · ChatGPT Closure Review **PASS** · Morris Acceptance **CONSUMED** · Git Integration **IN PROGRESS** · findings 01–12 **CLOSED** · prior DOC15 REJECTED |
+| Morris gates | Next = Draft PR / CI → **MERGE GO** · **GO P6 EXECUTION** + **GO P6 REAL — BOUNDED CAMPAIGN** remain **NOT AUTHORIZED** · P6 READY remains **NO** |
+| P6 execution | **NOT STARTED / NOT AUTHORIZED** |
 
-*Fin Pack P5-S08-5/S08-6 — S08-5 INTEGRATED / POST-MERGE VERIFIED · S08-6 PASS / MORRIS GATE CONSUMED · P5 COMPLETE YES · six dimensions PASS/PASS-WITH-CARRY only · BLOCKING OPEN NONE · C-PROOF-PACK-INTEGRATION CLOSED · P6 READY NO · runtime v3 NON ADOPTED · READY FOR REAL NO · recording PR merge NOT AUTHORIZED.*
+*Fin Pack P5-S08-5/S08-6 — P5 COMPLETE YES / POST-MERGE VERIFIED (PR #570 · CI #711) · P6 MORRIS ACCEPTED / GIT INTEGRATION IN PROGRESS (07 · REAL-FIRST HYBRID · findings 01–12 CLOSED) · GO P6 EXECUTION / GO P6 REAL NOT AUTHORIZED · P6 READY NO · P6 STARTED NO · runtime v3 NON ADOPTED.*
