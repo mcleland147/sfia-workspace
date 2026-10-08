@@ -1,297 +1,293 @@
-# ChatGPT Review Pack — P5-S08-5 GIT INTEGRATION (Critical Review PASS → Draft PR)
+# ChatGPT Review Pack — P5-S08-6 MORRIS P5 COMPLETE GATE
 
 ## Meta
-- Timestamp: 2026-10-08 08:13:46 +0200
-- Cycle: 13 — PR readiness / Git Integration
-- Profile: STANDARD
-- Typologie: DOC / PR READINESS / GIT INTEGRATION
+- Timestamp: 2026-10-08 09:18:38 +0200
+- Cycle: 9 — QA / validation
+- Profile: CRITICAL
+- Typologie: DOC / GOVERNANCE / MILESTONE GATE
 - Macro: STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01
 - Milestone: P5 — INTEGRATED DELIVERY
-- Slice: P5-S08-5 — Integrated Six-Dimension Exit Readiness Pack
-- Morris P5-S08-5 GIT INTEGRATION GO: AUTHORIZED / CONSUMED
-- Branch: `docs/sfia-studio-p5-s08-5-integrated-exit-readiness-pack`
-- Entry HEAD (pack authorship): `eea1bb55e82a44281c38f4131ab3d8fe4f024d0f`
-- Final local HEAD: `18bce849613a8e7fa14ba11278cfd62446e29661`
-- origin/main: `dc93ddd2d7561b1c778afe2a02eb3172705cd82f`
+- Slice: P5-S08-6 — Morris P5 COMPLETE Gate
+- Morris P5-S08-6 / P5 COMPLETE GO: AUTHORIZED / CONSUMED
+- Branch: `docs/sfia-studio-p5-s08-6-p5-complete-gate`
+- Entry HEAD (= origin/main at branch creation): `75ee32588359f0fe68bfa6c52dd37225a5c0d5cd`
+- Final local HEAD: `d2dcc0ccf777c18c18ed4ca3ac4a5509a8639ec8`
 - Project merge: NONE
 - Branch deletion: NONE
 
 ## Local Git Truth
-- Expected origin/main: `dc93ddd2d7561b1c778afe2a02eb3172705cd82f`
-- Observed origin/main: `dc93ddd2d7561b1c778afe2a02eb3172705cd82f`
+- Expected origin/main: `75ee32588359f0fe68bfa6c52dd37225a5c0d5cd`
+- Observed origin/main: `75ee32588359f0fe68bfa6c52dd37225a5c0d5cd`
 - Match: YES
-- Remote project branch before first push: ABSENT
-- Remote project SHA after push: `18bce849613a8e7fa14ba11278cfd62446e29661` = local HEAD
+- PR #569: MERGED · feature `18bce849613a8e7fa14ba11278cfd62446e29661` · merge `75ee3258…`
+- Parents: `dc93ddd2…` + `18bce849…`
+- Post-merge CI #709 / run `37739742176`: SUCCESS · Required Gate PASS
+  - Detect / Build / Typecheck / Lint / Build / Vitest / Governance / Secret scan / Whitespace: SUCCESS
 
-## ChatGPT Critical Review disposition
-- Result: **PASS WITH NON-BLOCKING EDITORIAL RESERVES**
-- S08-5: READY FOR MORRIS GIT INTEGRATION GO (consumed)
-- Blocking OPEN: NONE
-- Dimension verdicts unchanged: FUNCTIONAL / EXPERIENCE / SEMANTIC INTEGRITY / COGNITION / SIMPLIFICATION / PROOF = PASS-WITH-CARRY / PASS / PASS-WITH-CARRY / PASS-WITH-CARRY / PASS-WITH-CARRY / PASS-WITH-CARRY
+## S08-5 post-merge absorption (same cycle)
+- S08-5 = INTEGRATED / POST-MERGE VERIFIED
+- C-PROOF-PACK-INTEGRATION = CLOSED / PROVEN BY PR #569 + CI #709
+- Artifact Completeness = PASS / INTEGRATED
+- No separate post-merge micro-cycle created
 
-### Editorial reserve 01 — COGNITION matrix
-- Finding: N-T3-P6 listed in Material carries column
-- Resolution: Material carry = **C-NORA-CTX** only; **N-T3-P6** = next-milestone / P6 column; T3 NOT PROVEN / P6 · ≠ P5 OPEN
-
-### Editorial reserve 02 — PROOF matrix
-- Finding: C-PROOF-PACK-INTEGRATION not explicit beside C-PROOF-REAL-CEILING in §E
-- Resolution: Material carry = **C-PROOF-REAL-CEILING**; process/integration carry = **C-PROOF-PACK-INTEGRATION** (blocks S08-6 start until merge/post-merge; ≠ blocking OPEN; ≠ material Product carry)
-
-### Git Integration status wording
-- Aligned: GI GO = AUTHORIZED / CONSUMED · push/Draft PR AUTHORIZED THIS CYCLE · Merge NOT AUTHORIZED · S08-5 PASS CANDIDATE / NOT INTEGRATED YET
-- No INTEGRATED / POST-MERGE VERIFIED claim before merge
-
-## Cumulative project commits
-```
-18bce849 docs(sfia-studio): align S08-5 exit readiness classifications
-eea1bb55 docs(sfia-studio): complete P5-S08-5 integrated exit readiness pack
-```
-
-## Files (cumulative project diff)
-```
-M	projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-M	projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md
-A	projects/sfia-studio/product-simplification/06-chat-first-product-simplification-integrated-exit-readiness-pack.md
-```
-
-Diffstat:
-```
-.../convergence/sfia-studio-convergence-roadmap.md |   4 +-
- ...t-product-simplification-integrated-delivery.md |  52 ++-
- ...implification-integrated-exit-readiness-pack.md | 479 +++++++++++++++++++++
- 3 files changed, 515 insertions(+), 20 deletions(-)
-```
-
-Product/runtime changed: NONE
-Tests/harness changed: NONE
-Architecture changed: NONE
-
-## Draft PR
-- Number: #569
-- URL: https://github.com/mcleland147/sfia-workspace/pull/569
-- Base: main
-- Head: docs/sfia-studio-p5-s08-5-integrated-exit-readiness-pack @ `18bce849613a8e7fa14ba11278cfd62446e29661`
-- isDraft: true
-- state: OPEN
-- mergeable: MERGEABLE
-- mergeable_state / mergeStateStatus: CLEAN
-- Merge authorization: NONE
-
-## CI
-- Workflow: SFIA Studio CI
-- Run: #708 / `37735633013`
-- Attempt: 1
-- head SHA: `18bce849613a8e7fa14ba11278cfd62446e29661`
-- Detect SFIA Studio changes: SUCCESS
-- Build and validate SFIA Studio: SUCCESS
-  - Install dependencies: SUCCESS
-  - Typecheck: SUCCESS
-  - Lint: SUCCESS
-  - Build: SUCCESS
-  - Unit tests (Vitest): SUCCESS
-  - FinOps/T7 freeze notice: SUCCESS
-  - Modeled governance tests: SUCCESS
-  - Secret pattern scan (targeted): SUCCESS
-  - Trailing whitespace check: SUCCESS
-- SFIA Studio Required Gate: SUCCESS
-- CI final: GREEN
-
-## Six dimensions
+## Final six dimensions
 | Dimension | Verdict |
 | --- | --- |
 | FUNCTIONAL | PASS-WITH-CARRY (C-REAL-CANCEL) |
 | EXPERIENCE | PASS |
 | SEMANTIC INTEGRITY | PASS-WITH-CARRY (C-RT-A3-2-RESIDUE) |
-| COGNITION | PASS-WITH-CARRY (material C-NORA-CTX · next-milestone N-T3-P6) |
+| COGNITION | PASS-WITH-CARRY (C-NORA-CTX · next-milestone N-T3-P6) |
 | SIMPLIFICATION | PASS-WITH-CARRY (C-NCR-SCOPE · C-LEGACY-OPENAI) |
-| PROOF | PASS-WITH-CARRY (material C-PROOF-REAL-CEILING · process C-PROOF-PACK-INTEGRATION) |
+| PROOF | PASS-WITH-CARRY (C-PROOF-REAL-CEILING · C-PROOF-PACK-INTEGRATION CLOSED) |
 
 Blocking OPEN: NONE
-Artifact Completeness: PASS (LOCAL CANDIDATE until merge)
+Blocking P5 carries: NONE
+Remaining non-blocking: C-REAL-CANCEL · C-RT-A3-2-RESIDUE · C-LEGACY-OPENAI · C-NORA-CTX · C-NCR-SCOPE · C-PROOF-REAL-CEILING · C-BRANCH-CLEANUP
 Architecture parallelism: NONE
+Artifact Completeness: PASS / INTEGRATED
 
-## Fake / Real / Anti-claims
-- Highest proven: DETERMINISTIC PROVEN (+ bounded historical REAL S02/S05)
+## Fake / Real
+- Highest: DETERMINISTIC PROVEN (+ bounded historical REAL S02/S05)
 - READY FOR REAL: NO
 - REAL BOUNDARY: NO
 - END-TO-END REAL: NO
-- S08-5 PASS ≠ P5 COMPLETE ≠ P6 READY ≠ runtime v3 ADOPTED
-- S08-6: NOT STARTED
-- P5 COMPLETE: NO
+
+## Morris P5 COMPLETE decision
+- GO: AUTHORIZED / CONSUMED
+- S08-6: PASS / MORRIS GATE CONSUMED
+- P5 COMPLETE: YES (milestone / Product-Simplification completion decision)
+- P6: NEXT QUALIFICATION TARGET — Global Integrated Product QA (C1)
 - P6 READY: NO
 - runtime v3: NON ADOPTED
 
+## Anti-claims
+P5 COMPLETE YES ≠ P6 READY ≠ runtime v3 ADOPTED ≠ READY FOR REAL ≠ REAL BOUNDARY ≠ END-TO-END REAL ≠ GLOBAL SIMPLIFICATION FULLY QA-PROVEN ≠ Cognitive Completion globale ≠ global L5
+
+## Files / commits
+```
+d2dcc0cc docs(sfia-studio): record P5 complete gate
+```
+```
+M	projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+M	projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md
+M	projects/sfia-studio/product-simplification/06-chat-first-product-simplification-integrated-exit-readiness-pack.md
+```
+```
+.../convergence/sfia-studio-convergence-roadmap.md |   3 +-
+ ...t-product-simplification-integrated-delivery.md |  64 +++++-----
+ ...implification-integrated-exit-readiness-pack.md | 140 ++++++++++++++++-----
+ 3 files changed, 149 insertions(+), 58 deletions(-)
+```
+Product/runtime/tests/architecture: NONE
+
+## Draft PR
+- Number: #570
+- URL: https://github.com/mcleland147/sfia-workspace/pull/570
+- Base: main · Head: `d2dcc0ccf777c18c18ed4ca3ac4a5509a8639ec8` · isDraft: true
+- mergeable: MERGEABLE · mergeStateStatus: CLEAN (after CI)
+- Merge authorization: NONE
+
+## CI (this recording PR)
+- Workflow: SFIA Studio CI #710 / run `37741637599` attempt 1
+- head SHA: `d2dcc0ccf777c18c18ed4ca3ac4a5509a8639ec8`
+- Detect / Build/validate / Typecheck / Lint / Build / Vitest / Governance / Secret scan / Whitespace: SUCCESS
+- Required Gate: SUCCESS
+- CI final: GREEN
+
 ## Réserves
-- Merge NOT AUTHORIZED
-- C-PROOF-PACK-INTEGRATION open until merge/post-merge
-- Active non-blocking carries remain (REAL cancel, cross-store residue, legacy OPENAI_*, Nora ctx, NCR scope, proof ceiling)
+- Merge of this recording PR NOT AUTHORIZED
+- Non-blocking carries remain open with owners/exits
+- P6 NOT STARTED / NOT READY
 
 ## Final verdict
-P5-S08-5 CRITICAL REVIEW RESERVES = CLOSED
-PR READINESS = PASS
-PROJECT PUSH = DONE
-DRAFT PR = OPEN (#569)
-CI = GREEN
-S08-5 = READY FOR MORRIS MERGE REVIEW
-MERGE = NOT AUTHORIZED
-S08-6 = NOT STARTED
-P5 COMPLETE = NO
+S08-5 = INTEGRATED / POST-MERGE VERIFIED
+S08-6 = PASS / MORRIS GATE CONSUMED
+P5 COMPLETE = YES
+P6 = NEXT QUALIFICATION TARGET
 P6 READY = NO
 runtime v3 = NON ADOPTED
-STOP — do not merge · do not delete branches · do not start S08-6
+READY FOR REAL = NO
+BLOCKING OPEN = NONE
+S08-6 RECORD = DRAFT PR OPEN / CI GREEN
+READY FOR MORRIS MERGE REVIEW
+STOP — do not merge · do not delete branches · do not start P6 implementation
 
 ## Roadmap tip diff
 ```diff
 diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-index a8a82b66..a8d67e24 100644
+index a8d67e24..04778177 100644
 --- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 +++ b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-@@ -4,7 +4,9 @@
+@@ -4,7 +4,8 @@
  | --- | --- |
  | **Rôle** | Roadmap **vivante** de convergence vers l’utilisation complète de la doctrine produit SFIA Studio v3 |
  | **Statut** | **VALIDATED — ACTIVE LIVING ROADMAP** |
--| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S08-4 INTEGRATED / POST-MERGE VERIFIED** | 2026-10-08 Europe/Paris — **STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S08-4 GLOBAL P3 VISUAL PARITY — TECHNICALLY INTEGRATED / POST-MERGE VERIFIED** · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **14 — Post-merge** · Profile **Standard** · Typologie **DOC / POST-MERGE / TRUTH-SYNC** · Milestone **P5** · Slice **P5-S08-4** · Morris PR **#567** MERGE GO = **AUTHORIZED / CONSUMED** · Morris Post-Merge Closure GO = **AUTHORIZED / CONSUMED** · PR **#567** = **MERGED** · feature/head **`31d9cf8900f505d74ade2c1d1a83917ea8a7b48e`** · merge/main **`a67e37e04d42506abb8716ba4d317e8304164a6a`** · parents `eed18bd57…` + `31d9cf89…` · post-merge CI Studio **#704** / run **`37708211020`** **SUCCESS** · Detect / Build / Required Gate **SUCCESS** · S08-4D DETAIL FIDELITY = **PASS** · GLOBAL P3 VISUAL PARITY = **PASS** · P0/P1/P2 = **0 / 0 / 0** · Typography Geist = **CLOSED** · pairing fail-closed **15/15 PASS** · negative mismatch **12/12 PASS** · pairing contract = **CI-DURABLE** · human visual re-proof after CI correction = **NOT REQUIRED** · Architecture parallelism = **NONE** · Provider REAL = **NONE** · DETERMINISTIC FINAL VISUAL PROOF · **≠** READY FOR REAL · **≠** REAL BOUNDARY PROVEN · **≠** END-TO-END REAL PROVEN · S08-4 = **INTEGRATED / POST-MERGE VERIFIED** · Remaining P5 Exit blocker = Integrated six-dimension Exit Readiness Pack → **S08-5** · S08-5 = **NEXT RECOMMENDED CAPABILITY / NOT STARTED / NOT AUTHORIZED FOR IMPLEMENTATION BY THIS CYCLE** · S08-6 = **NOT STARTED** · P5 COMPLETE **NO** · P6 READY **NO** · runtime v3 **NON ADOPTED** · next = Morris merge of this documentary truth-sync · then consolidated **S08-5** macro-cycle · **≠** P5 COMPLETE · **≠** S08-5 started · **≠** P6 READY · **≠** runtime v3 ADOPTED |
-+| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S08-5 GIT INTEGRATION AUTHORIZED / IN PROGRESS** | 2026-10-08 Europe/Paris — **STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S08-5 INTEGRATED SIX-DIMENSION EXIT READINESS PACK — GIT INTEGRATION AUTHORIZED / IN PROGRESS (DRAFT PR)** · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **13 — PR readiness / Git Integration** · Profile **Standard** · Typologie **DOC / PR READINESS / GIT INTEGRATION** · Milestone **P5** · Slice **P5-S08-5** · ChatGPT Critical Review = **PASS WITH NON-BLOCKING EDITORIAL RESERVES / CONSUMED** · Morris P5-S08-5 GIT INTEGRATION GO = **AUTHORIZED / CONSUMED** · origin/main **`dc93ddd2d7561b1c778afe2a02eb3172705cd82f`** · entry pack commit **`eea1bb55e82a44281c38f4131ab3d8fe4f024d0f`** · Pack **`06-chat-first-product-simplification-integrated-exit-readiness-pack.md`** · Editorial reserves closed: COGNITION material = **C-NORA-CTX** · next-milestone **N-T3-P6** · PROOF material = **C-PROOF-REAL-CEILING** · process **C-PROOF-PACK-INTEGRATION** · FUNCTIONAL = **PASS-WITH-CARRY** · EXPERIENCE = **PASS** · SEMANTIC INTEGRITY = **PASS-WITH-CARRY** · COGNITION = **PASS-WITH-CARRY** · SIMPLIFICATION = **PASS-WITH-CARRY** · PROOF = **PASS-WITH-CARRY** · Blocking OPEN = **NONE** · Artifact Completeness = **PASS (LOCAL CANDIDATE until merge)** · Architecture parallelism = **NONE** · Fake/Real = DETERMINISTIC PROVEN · READY FOR REAL = **NO** · REAL BOUNDARY = **NO** · END-TO-END REAL = **NO** · S08-5 = **PASS CANDIDATE / NOT INTEGRATED YET** · Project push / Draft PR = **AUTHORIZED IN THIS CYCLE** · Merge = **NOT AUTHORIZED** · S08-6 = **NOT STARTED** · P5 COMPLETE **NO** · P6 READY **NO** · runtime v3 **NON ADOPTED** · branche `docs/sfia-studio-p5-s08-5-integrated-exit-readiness-pack` · **≠** INTEGRATED · **≠** POST-MERGE VERIFIED · **≠** P5 COMPLETE · **≠** S08-6 started · **≠** runtime v3 ADOPTED |
-+| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S08-5 INTEGRATED EXIT READINESS PACK LOCAL CANDIDATE** | 2026-10-08 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — prior tip STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S08-5 INTEGRATED SIX-DIMENSION EXIT READINESS PACK — LOCAL CANDIDATE / READY FOR CHATGPT CRITICAL REVIEW *(true then; superseded by GIT INTEGRATION AUTHORIZED / IN PROGRESS tip after ChatGPT Critical Review PASS + Morris GI GO)* · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **9 — QA / validation** · Profile **Critical** · Typologie **DOC / QA / EXIT READINESS** · Milestone **P5** · Slice **P5-S08-5** · Morris P5-S08-5 GO = **AUTHORIZED / CONSUMED** · origin/main **`dc93ddd2d7561b1c778afe2a02eb3172705cd82f`** · PR **#568** = **MERGED** · feature **`0d11ed88afe0d465f325b607c7ca8a5d21e65272`** · merge **`dc93ddd2…`** · post-merge CI Studio **#707** / run **`37732611679`** **SUCCESS** · Required Gate **SUCCESS** · S08-4 = **INTEGRATED / POST-MERGE VERIFIED** (PR **#567** · CI **#704**) · Pack **`06-chat-first-product-simplification-integrated-exit-readiness-pack.md`** · FUNCTIONAL = **PASS-WITH-CARRY** · EXPERIENCE = **PASS** · SEMANTIC INTEGRITY = **PASS-WITH-CARRY** · COGNITION = **PASS-WITH-CARRY** · SIMPLIFICATION = **PASS-WITH-CARRY** · PROOF = **PASS-WITH-CARRY** · Blocking OPEN = **NONE** · Artifact Completeness = **PASS (LOCAL CANDIDATE)** · Architecture parallelism = **NONE** · Fake/Real = DETERMINISTIC PROVEN · READY FOR REAL = **NO** · REAL BOUNDARY = **NO** · END-TO-END REAL = **NO** · S08-5 = **PASS CANDIDATE / LOCAL CANDIDATE / READY FOR CHATGPT CRITICAL REVIEW** · Recommendation = **READY FOR S08-6 PATH AFTER S08-5 GIT INTEGRATION** · S08-6 = **NOT STARTED** · P5 COMPLETE **NO** · P6 READY **NO** · runtime v3 **NON ADOPTED** · Project push/PR/merge = **NONE / NOT AUTHORIZED** · branche `docs/sfia-studio-p5-s08-5-integrated-exit-readiness-pack` · **≠** P5 COMPLETE · **≠** S08-6 started · **≠** runtime v3 ADOPTED · **≠** project Git Integration |
-+| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S08-4 INTEGRATED / POST-MERGE VERIFIED** | 2026-10-08 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — prior tip STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S08-4 GLOBAL P3 VISUAL PARITY — TECHNICALLY INTEGRATED / POST-MERGE VERIFIED *(true then; superseded by P5-S08-5 LOCAL CANDIDATE after Pack 06 + PR #568 MERGED / CI #707)* · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **14 — Post-merge** · Profile **Standard** · Typologie **DOC / POST-MERGE / TRUTH-SYNC** · Milestone **P5** · Slice **P5-S08-4** · Morris PR **#567** MERGE GO = **AUTHORIZED / CONSUMED** · Morris Post-Merge Closure GO = **AUTHORIZED / CONSUMED** · PR **#567** = **MERGED** · feature/head **`31d9cf8900f505d74ade2c1d1a83917ea8a7b48e`** · merge/main **`a67e37e04d42506abb8716ba4d317e8304164a6a`** · parents `eed18bd57…` + `31d9cf89…` · post-merge CI Studio **#704** / run **`37708211020`** **SUCCESS** · Detect / Build / Required Gate **SUCCESS** · S08-4D DETAIL FIDELITY = **PASS** · GLOBAL P3 VISUAL PARITY = **PASS** · P0/P1/P2 = **0 / 0 / 0** · Typography Geist = **CLOSED** · pairing fail-closed **15/15 PASS** · negative mismatch **12/12 PASS** · pairing contract = **CI-DURABLE** · human visual re-proof after CI correction = **NOT REQUIRED** · Architecture parallelism = **NONE** · Provider REAL = **NONE** · DETERMINISTIC FINAL VISUAL PROOF · **≠** READY FOR REAL · **≠** REAL BOUNDARY PROVEN · **≠** END-TO-END REAL PROVEN · S08-4 = **INTEGRATED / POST-MERGE VERIFIED** · Remaining P5 Exit blocker = Integrated six-dimension Exit Readiness Pack → **S08-5** · S08-5 = **NEXT RECOMMENDED CAPABILITY / NOT STARTED / NOT AUTHORIZED FOR IMPLEMENTATION BY THIS CYCLE** · S08-6 = **NOT STARTED** · P5 COMPLETE **NO** · P6 READY **NO** · runtime v3 **NON ADOPTED** · next = Morris merge of this documentary truth-sync · then consolidated **S08-5** macro-cycle · **≠** P5 COMPLETE · **≠** S08-5 started · **≠** P6 READY · **≠** runtime v3 ADOPTED |
+-| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S08-5 GIT INTEGRATION AUTHORIZED / IN PROGRESS** | 2026-10-08 Europe/Paris — **STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S08-5 INTEGRATED SIX-DIMENSION EXIT READINESS PACK — GIT INTEGRATION AUTHORIZED / IN PROGRESS (DRAFT PR)** · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **13 — PR readiness / Git Integration** · Profile **Standard** · Typologie **DOC / PR READINESS / GIT INTEGRATION** · Milestone **P5** · Slice **P5-S08-5** · ChatGPT Critical Review = **PASS WITH NON-BLOCKING EDITORIAL RESERVES / CONSUMED** · Morris P5-S08-5 GIT INTEGRATION GO = **AUTHORIZED / CONSUMED** · origin/main **`dc93ddd2d7561b1c778afe2a02eb3172705cd82f`** · entry pack commit **`eea1bb55e82a44281c38f4131ab3d8fe4f024d0f`** · Pack **`06-chat-first-product-simplification-integrated-exit-readiness-pack.md`** · Editorial reserves closed: COGNITION material = **C-NORA-CTX** · next-milestone **N-T3-P6** · PROOF material = **C-PROOF-REAL-CEILING** · process **C-PROOF-PACK-INTEGRATION** · FUNCTIONAL = **PASS-WITH-CARRY** · EXPERIENCE = **PASS** · SEMANTIC INTEGRITY = **PASS-WITH-CARRY** · COGNITION = **PASS-WITH-CARRY** · SIMPLIFICATION = **PASS-WITH-CARRY** · PROOF = **PASS-WITH-CARRY** · Blocking OPEN = **NONE** · Artifact Completeness = **PASS (LOCAL CANDIDATE until merge)** · Architecture parallelism = **NONE** · Fake/Real = DETERMINISTIC PROVEN · READY FOR REAL = **NO** · REAL BOUNDARY = **NO** · END-TO-END REAL = **NO** · S08-5 = **PASS CANDIDATE / NOT INTEGRATED YET** · Project push / Draft PR = **AUTHORIZED IN THIS CYCLE** · Merge = **NOT AUTHORIZED** · S08-6 = **NOT STARTED** · P5 COMPLETE **NO** · P6 READY **NO** · runtime v3 **NON ADOPTED** · branche `docs/sfia-studio-p5-s08-5-integrated-exit-readiness-pack` · **≠** INTEGRATED · **≠** POST-MERGE VERIFIED · **≠** P5 COMPLETE · **≠** S08-6 started · **≠** runtime v3 ADOPTED |
++| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S08-6 P5 COMPLETE** | 2026-10-08 Europe/Paris — **STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S08-6 MORRIS P5 COMPLETE GATE — PASS / MORRIS GATE CONSUMED · P5 COMPLETE = YES** · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **9 — QA / validation** · Profile **Critical** · Typologie **DOC / GOVERNANCE / MILESTONE GATE** · Milestone **P5** · Slice **P5-S08-6** · Entry main **`75ee32588359f0fe68bfa6c52dd37225a5c0d5cd`** · PR **#569** = **MERGED** · feature **`18bce849613a8e7fa14ba11278cfd62446e29661`** · merge/main **`75ee32588359f0fe68bfa6c52dd37225a5c0d5cd`** · post-merge CI Studio **#709** / run **`37739742176`** **SUCCESS** · Required Gate **PASS** · S08-5 = **INTEGRATED / POST-MERGE VERIFIED** · C-PROOF-PACK-INTEGRATION = **CLOSED / PROVEN BY PR #569 + CI #709** · FUNCTIONAL = **PASS-WITH-CARRY** · EXPERIENCE = **PASS** · SEMANTIC INTEGRITY = **PASS-WITH-CARRY** · COGNITION = **PASS-WITH-CARRY** · SIMPLIFICATION = **PASS-WITH-CARRY** · PROOF = **PASS-WITH-CARRY** · Blocking OPEN = **NONE** · Blocking P5 carries = **NONE** · Artifact Completeness = **PASS / INTEGRATED** · Architecture parallelism = **NONE** · Fake/Real = DETERMINISTIC PROVEN (+ bounded historical REAL S02/S05) · READY FOR REAL = **NO** · REAL BOUNDARY = **NO** · END-TO-END REAL = **NO** · Morris P5-S08-6 / P5 COMPLETE GO = **AUTHORIZED / CONSUMED** · S08-6 = **PASS / MORRIS GATE CONSUMED** · P5 COMPLETE = **YES** (milestone / Product-Simplification completion decision) · P6 = **NEXT QUALIFICATION TARGET** (**Global Integrated Product QA** per C1) · P6 READY = **NO** · runtime v3 = **NON ADOPTED** · Remaining non-blocking carries = C-REAL-CANCEL · C-RT-A3-2-RESIDUE · C-LEGACY-OPENAI · C-NORA-CTX · C-NCR-SCOPE · C-PROOF-REAL-CEILING · C-BRANCH-CLEANUP · Next-milestone = N-T3-P6 · N-GLOBAL-SIMP-QA · N-COG-COMPLETION · branche `docs/sfia-studio-p5-s08-6-p5-complete-gate` · Draft PR this cycle · Merge of this recording PR = **NOT AUTHORIZED** · **≠** P6 READY · **≠** runtime v3 ADOPTED · **≠** READY FOR REAL · **≠** REAL BOUNDARY · **≠** END-TO-END REAL · **≠** GLOBAL SIMPLIFICATION FULLY QA-PROVEN · **≠** Cognitive Completion globale · **≠** global L5 |
++| **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S08-5 GIT INTEGRATION AUTHORIZED / IN PROGRESS** | 2026-10-08 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — prior tip STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S08-5 INTEGRATED SIX-DIMENSION EXIT READINESS PACK — GIT INTEGRATION AUTHORIZED / IN PROGRESS (DRAFT PR) *(true then; superseded by P5-S08-6 P5 COMPLETE after PR #569 MERGED + CI #709 + Morris P5 COMPLETE GO)* · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **13 — PR readiness / Git Integration** · Profile **Standard** · Typologie **DOC / PR READINESS / GIT INTEGRATION** · Milestone **P5** · Slice **P5-S08-5** · ChatGPT Critical Review = **PASS WITH NON-BLOCKING EDITORIAL RESERVES / CONSUMED** · Morris P5-S08-5 GIT INTEGRATION GO = **AUTHORIZED / CONSUMED** · origin/main **`dc93ddd2d7561b1c778afe2a02eb3172705cd82f`** · entry pack commit **`eea1bb55e82a44281c38f4131ab3d8fe4f024d0f`** · Pack **`06-chat-first-product-simplification-integrated-exit-readiness-pack.md`** · Editorial reserves closed: COGNITION material = **C-NORA-CTX** · next-milestone **N-T3-P6** · PROOF material = **C-PROOF-REAL-CEILING** · process **C-PROOF-PACK-INTEGRATION** · FUNCTIONAL = **PASS-WITH-CARRY** · EXPERIENCE = **PASS** · SEMANTIC INTEGRITY = **PASS-WITH-CARRY** · COGNITION = **PASS-WITH-CARRY** · SIMPLIFICATION = **PASS-WITH-CARRY** · PROOF = **PASS-WITH-CARRY** · Blocking OPEN = **NONE** · Artifact Completeness = **PASS (LOCAL CANDIDATE until merge)** · Architecture parallelism = **NONE** · Fake/Real = DETERMINISTIC PROVEN · READY FOR REAL = **NO** · REAL BOUNDARY = **NO** · END-TO-END REAL = **NO** · S08-5 = **PASS CANDIDATE / NOT INTEGRATED YET** · Project push / Draft PR = **AUTHORIZED IN THIS CYCLE** · Merge = **NOT AUTHORIZED** · S08-6 = **NOT STARTED** · P5 COMPLETE **NO** · P6 READY **NO** · runtime v3 **NON ADOPTED** · branche `docs/sfia-studio-p5-s08-5-integrated-exit-readiness-pack` · **≠** INTEGRATED · **≠** POST-MERGE VERIFIED · **≠** P5 COMPLETE · **≠** S08-6 started · **≠** runtime v3 ADOPTED |
+ | **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S08-5 INTEGRATED EXIT READINESS PACK LOCAL CANDIDATE** | 2026-10-08 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — prior tip STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S08-5 INTEGRATED SIX-DIMENSION EXIT READINESS PACK — LOCAL CANDIDATE / READY FOR CHATGPT CRITICAL REVIEW *(true then; superseded by GIT INTEGRATION AUTHORIZED / IN PROGRESS tip after ChatGPT Critical Review PASS + Morris GI GO)* · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **9 — QA / validation** · Profile **Critical** · Typologie **DOC / QA / EXIT READINESS** · Milestone **P5** · Slice **P5-S08-5** · Morris P5-S08-5 GO = **AUTHORIZED / CONSUMED** · origin/main **`dc93ddd2d7561b1c778afe2a02eb3172705cd82f`** · PR **#568** = **MERGED** · feature **`0d11ed88afe0d465f325b607c7ca8a5d21e65272`** · merge **`dc93ddd2…`** · post-merge CI Studio **#707** / run **`37732611679`** **SUCCESS** · Required Gate **SUCCESS** · S08-4 = **INTEGRATED / POST-MERGE VERIFIED** (PR **#567** · CI **#704**) · Pack **`06-chat-first-product-simplification-integrated-exit-readiness-pack.md`** · FUNCTIONAL = **PASS-WITH-CARRY** · EXPERIENCE = **PASS** · SEMANTIC INTEGRITY = **PASS-WITH-CARRY** · COGNITION = **PASS-WITH-CARRY** · SIMPLIFICATION = **PASS-WITH-CARRY** · PROOF = **PASS-WITH-CARRY** · Blocking OPEN = **NONE** · Artifact Completeness = **PASS (LOCAL CANDIDATE)** · Architecture parallelism = **NONE** · Fake/Real = DETERMINISTIC PROVEN · READY FOR REAL = **NO** · REAL BOUNDARY = **NO** · END-TO-END REAL = **NO** · S08-5 = **PASS CANDIDATE / LOCAL CANDIDATE / READY FOR CHATGPT CRITICAL REVIEW** · Recommendation = **READY FOR S08-6 PATH AFTER S08-5 GIT INTEGRATION** · S08-6 = **NOT STARTED** · P5 COMPLETE **NO** · P6 READY **NO** · runtime v3 **NON ADOPTED** · Project push/PR/merge = **NONE / NOT AUTHORIZED** · branche `docs/sfia-studio-p5-s08-5-integrated-exit-readiness-pack` · **≠** P5 COMPLETE · **≠** S08-6 started · **≠** runtime v3 ADOPTED · **≠** project Git Integration |
+ | **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S08-4 INTEGRATED / POST-MERGE VERIFIED** | 2026-10-08 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — prior tip STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S08-4 GLOBAL P3 VISUAL PARITY — TECHNICALLY INTEGRATED / POST-MERGE VERIFIED *(true then; superseded by P5-S08-5 LOCAL CANDIDATE after Pack 06 + PR #568 MERGED / CI #707)* · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **14 — Post-merge** · Profile **Standard** · Typologie **DOC / POST-MERGE / TRUTH-SYNC** · Milestone **P5** · Slice **P5-S08-4** · Morris PR **#567** MERGE GO = **AUTHORIZED / CONSUMED** · Morris Post-Merge Closure GO = **AUTHORIZED / CONSUMED** · PR **#567** = **MERGED** · feature/head **`31d9cf8900f505d74ade2c1d1a83917ea8a7b48e`** · merge/main **`a67e37e04d42506abb8716ba4d317e8304164a6a`** · parents `eed18bd57…` + `31d9cf89…` · post-merge CI Studio **#704** / run **`37708211020`** **SUCCESS** · Detect / Build / Required Gate **SUCCESS** · S08-4D DETAIL FIDELITY = **PASS** · GLOBAL P3 VISUAL PARITY = **PASS** · P0/P1/P2 = **0 / 0 / 0** · Typography Geist = **CLOSED** · pairing fail-closed **15/15 PASS** · negative mismatch **12/12 PASS** · pairing contract = **CI-DURABLE** · human visual re-proof after CI correction = **NOT REQUIRED** · Architecture parallelism = **NONE** · Provider REAL = **NONE** · DETERMINISTIC FINAL VISUAL PROOF · **≠** READY FOR REAL · **≠** REAL BOUNDARY PROVEN · **≠** END-TO-END REAL PROVEN · S08-4 = **INTEGRATED / POST-MERGE VERIFIED** · Remaining P5 Exit blocker = Integrated six-dimension Exit Readiness Pack → **S08-5** · S08-5 = **NEXT RECOMMENDED CAPABILITY / NOT STARTED / NOT AUTHORIZED FOR IMPLEMENTATION BY THIS CYCLE** · S08-6 = **NOT STARTED** · P5 COMPLETE **NO** · P6 READY **NO** · runtime v3 **NON ADOPTED** · next = Morris merge of this documentary truth-sync · then consolidated **S08-5** macro-cycle · **≠** P5 COMPLETE · **≠** S08-5 started · **≠** P6 READY · **≠** runtime v3 ADOPTED |
  | **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S08-4 FINAL VISUAL CLOSURE RE-PROOF READY FOR GIT INTEGRATION** | 2026-10-07 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — prior tip STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION — P5-S08-4 FINAL VISUAL CLOSURE RE-PROOF — READY FOR GIT INTEGRATION *(true then; superseded by P5-S08-4 INTEGRATED / POST-MERGE VERIFIED after PR #567 MERGED + CI #704 SUCCESS)* — S08-4D DETAIL FIDELITY = PASS / GLOBAL P3 VISUAL PARITY = PASS ON BRANCH PROOF · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **9 — QA / validation** · Profile **Critical** · Typologie **EVOL / QA closure** · Milestone **P5** · Slice **P5-S08** · Pass **S08-4D cumulative production re-proof after Morris/ChatGPT P0→P2 + Geist** · Morris visual review consumed: **P0=0 · P1=0 · P2=0 · TYPOGRAPHY=CLOSED** · Pairing fail-closed **15/15 PASS** · identityAligned/contentAligned **true** · negative mismatch / DIFF_FORBIDDEN **PROVEN** · Geist runtime **`Geist, "Geist Fallback"`** (6 faces) · Workspace 1024 context scroll **CONTEXT_SCROLL_OK** · Workspace 1440 footer shortcuts **CONTEXT_FOOTER_SHORTCUTS_OK** · Synthèses verified + scroll **SCROLL_AFFORDANCE_OK** · Vitest **5402 passed / 143 skipped / 0 failed** · Visual E2E **PASS** (production `next start`) · typecheck/lint/build **PASS** · Production canonical capture **PASS** · contact sheets under `.tmp-sfia-review/visual/s08-4/final-fidelity/contact-sheets/` · Provider REAL = **NONE** · DETERMINISTIC FINAL VISUAL PROOF · **≠** READY FOR REAL · base/origin/main **`eed18bd572d65b6f5f4878ed24b195e4feeb5c7e`** · branche `delivery/sfia-studio-product-simplification-p5-s08-global-p3-visual-parity` · Project push/PR/merge = **NONE / NOT YET AUTHORIZED** · S08-5 = **NOT STARTED** · P5 COMPLETE **NO** · P6 READY **NO** · runtime v3 **NON ADOPTED** · next = **separate Git Integration gate** · **≠** INTEGRATED · **≠** POST-MERGE VERIFIED · **≠** P5 COMPLETE |
- | **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S08-4 FINAL P2 FIDELITY SWEEP PASS CANDIDATE** | 2026-10-07 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — prior S08-4D = PASS CANDIDATE / GLOBAL P3 VISUAL PARITY = PASS CANDIDATE (Typography Geist still DEFERRED; ≠ READY FOR GIT INTEGRATION) — **SUPERSEDED** by FINAL VISUAL CLOSURE RE-PROOF READY FOR GIT INTEGRATION · base/origin/main **`eed18bd572d65b6f5f4878ed24b195e4feeb5c7e`** · branche `delivery/sfia-studio-product-simplification-p5-s08-global-p3-visual-parity` |
- | **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P5-S08-4 FINAL DETAIL FIDELITY** | 2026-10-07 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — prior tip S08-4D = INCOMPLETE / GLOBAL P3 VISUAL PARITY = NOT YET PROVEN — **SUPERSEDED** by final P2 fidelity sweep PASS CANDIDATE · base/origin/main **`eed18bd572d65b6f5f4878ed24b195e4feeb5c7e`** · branche `delivery/sfia-studio-product-simplification-p5-s08-global-p3-visual-parity` · **≠** ChatGPT-accepted · **≠** Git Integration |
 
 ```
 
 ## Integrated Delivery diff
 ```diff
 diff --git a/projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md b/projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md
-index fe737b6b..080091c8 100644
+index 080091c8..9743f917 100644
 --- a/projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md
 +++ b/projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md
 @@ -5,11 +5,11 @@
  | **Projet** | SFIA Studio |
  | **Macro** | `STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01` |
  | **Milestone** | **P5 — INTEGRATED DELIVERY** (Delivery / Implementation / Evidence source) |
--| **Slice** | **P5-S01**…**P5-S07** + **S08-1→S08-4** (technically integrated / post-merge verified) · **P5-S08** STARTED · Pass **S08-4** |
--| **Pass** | **P5-S08-4 POST-MERGE CLOSURE** = **INTEGRATED / POST-MERGE VERIFIED** · PR **#567** **MERGED** · feature `31d9cf89…` · merge `a67e37e0…` · CI Studio **#704** / run **`37708211020`** SUCCESS · Required Gate SUCCESS · S08-4D / GLOBAL P3 VISUAL PARITY **PASS** · S08-1→S08-3 preserved (PR **#565**) · NCR/PIB **CLOSED FOR P5 EXIT** · Documentary truth-sync Draft PR **THIS CYCLE** · Documentary merge **NOT AUTHORIZED** |
-+| **Slice** | **P5-S01**…**P5-S07** + **S08-1→S08-4** (technically integrated / post-merge verified) · **P5-S08** STARTED · Pass **S08-5** |
-+| **Pass** | **P5-S08-5 EXIT READINESS PACK** = **PASS CANDIDATE / GIT INTEGRATION AUTHORIZED / IN PROGRESS** · Pack `06-…-integrated-exit-readiness-pack.md` · ChatGPT Critical Review = **PASS WITH NON-BLOCKING EDITORIAL RESERVES** · Morris GI GO = **AUTHORIZED / CONSUMED** · origin/main `dc93ddd2…` · PR **#568** **MERGED** · CI **#707** SUCCESS · S08-4 preserved · NCR/PIB **CLOSED FOR P5 EXIT** · Merge S08-5 = **NOT AUTHORIZED** · **≠ INTEGRATED** |
+-| **Slice** | **P5-S01**…**P5-S07** + **S08-1→S08-4** (technically integrated / post-merge verified) · **P5-S08** STARTED · Pass **S08-5** |
+-| **Pass** | **P5-S08-5 EXIT READINESS PACK** = **PASS CANDIDATE / GIT INTEGRATION AUTHORIZED / IN PROGRESS** · Pack `06-…-integrated-exit-readiness-pack.md` · ChatGPT Critical Review = **PASS WITH NON-BLOCKING EDITORIAL RESERVES** · Morris GI GO = **AUTHORIZED / CONSUMED** · origin/main `dc93ddd2…` · PR **#568** **MERGED** · CI **#707** SUCCESS · S08-4 preserved · NCR/PIB **CLOSED FOR P5 EXIT** · Merge S08-5 = **NOT AUTHORIZED** · **≠ INTEGRATED** |
++| **Slice** | **P5-S01**…**P5-S08-6** · **P5-S08** CLOSED · Pass **S08-6 / P5 COMPLETE** |
++| **Pass** | **P5-S08-6 MORRIS P5 COMPLETE GATE** = **PASS / MORRIS GATE CONSUMED** · P5 COMPLETE = **YES** · S08-5 = **INTEGRATED / POST-MERGE VERIFIED** (PR **#569** · feature `18bce849613a…` · merge `75ee32588359…` · CI **#709** / `37739742176` SUCCESS) · Pack 06 **INTEGRATED** · C-PROOF-PACK-INTEGRATION **CLOSED** · P6 READY = **NO** · runtime v3 = **NON ADOPTED** |
  | **Typologie** | Delivery evidence dans macro **EVOL** — **≠** doctrine · **≠** nouvelle architecture · S08-1 = **DOC / audit** |
  | **Autorité architecture** | **P4** (`04-chat-first-product-simplification-semantic-projection-cognitive-architecture.md`) — **inchangée** |
--| **Base / HEAD Git** | `origin/main` = `a67e37e04d42506abb8716ba4d317e8304164a6a` (PR **#567** S08-4 MERGED · post-merge CI Studio **#704** / run **`37708211020`** SUCCESS · Required Gate SUCCESS) · prior PR **#565** `7063fa3c…` / CI **#698** preserved |
-+| **Base / HEAD Git** | `origin/main` = `dc93ddd2d7561b1c778afe2a02eb3172705cd82f` (PR **#568** S08-4 truth-sync MERGED · post-merge CI Studio **#707** / run **`37732611679`** SUCCESS · Required Gate SUCCESS) · prior PR **#567** `a67e37e0…` / CI **#704** · PR **#565** `7063fa3c…` / CI **#698** preserved |
+-| **Base / HEAD Git** | `origin/main` = `dc93ddd2d7561b1c778afe2a02eb3172705cd82f` (PR **#568** S08-4 truth-sync MERGED · post-merge CI Studio **#707** / run **`37732611679`** SUCCESS · Required Gate SUCCESS) · prior PR **#567** `a67e37e0…` / CI **#704** · PR **#565** `7063fa3c…` / CI **#698** preserved |
++| **Base / HEAD Git** | `origin/main` = `75ee32588359f0fe68bfa6c52dd37225a5c0d5cd` (PR **#569** S08-5 MERGED · post-merge CI Studio **#709** / run **`37739742176`** SUCCESS · Required Gate SUCCESS) · prior PR **#568** `dc93ddd2…` / CI **#707** · PR **#567** / CI **#704** · PR **#565** / CI **#698** preserved |
  | **P5-S01 integration** | PR **#555** **MERGED** · post-merge CI **#678** **SUCCESS** · **INTEGRATED / POST-MERGE VERIFIED** |
  | **P5-S02 integration** | PR **#556** **MERGED** · post-merge CI **#680** **SUCCESS** · Required Gate **SUCCESS** · **INTEGRATED / POST-MERGE VERIFIED** |
  | **P5-S03 integration** | PR **#557** **MERGED** · post-merge CI **#682** **SUCCESS** · Required Gate **SUCCESS** · **INTEGRATED / POST-MERGE VERIFIED** |
-@@ -22,6 +22,8 @@
+@@ -22,7 +22,8 @@
  | **P5-S08-2 CP01 GO** | **AUTHORIZED / CONSUMED** |
  | **P5-S08-3** | **INTEGRATED / POST-MERGE VERIFIED** · CP01 **BASELINE ATTRIBUTION CORRECTED / PASS** · CP02 **REVIEW HANDOFF COMPLETE** · NCR **CLOSED FOR P5 EXIT** · Product code during S08-3 **NONE** |
  | **P5-S08-4** | **INTEGRATED / POST-MERGE VERIFIED** · PR **#567** · feature `31d9cf89…` · merge `a67e37e0…` · CI **#704** SUCCESS · S08-4D / GLOBAL P3 VISUAL PARITY **PASS** · pairing **CI-DURABLE** |
-+| **P5-S08-5** | **PASS CANDIDATE / GI AUTHORIZED / IN PROGRESS / NOT INTEGRATED YET** · Pack `06-…-integrated-exit-readiness-pack.md` · six dims PASS/PASS-WITH-CARRY · Blocking OPEN **NONE** · Morris GI GO **AUTHORIZED / CONSUMED** · Merge **NOT AUTHORIZED** |
-+| **P5-S08-4 truth-sync** | PR **#568** **MERGED** · merge `dc93ddd2…` · CI **#707** / run **`37732611679`** SUCCESS |
+-| **P5-S08-5** | **PASS CANDIDATE / GI AUTHORIZED / IN PROGRESS / NOT INTEGRATED YET** · Pack `06-…-integrated-exit-readiness-pack.md` · six dims PASS/PASS-WITH-CARRY · Blocking OPEN **NONE** · Morris GI GO **AUTHORIZED / CONSUMED** · Merge **NOT AUTHORIZED** |
++| **P5-S08-5** | **INTEGRATED / POST-MERGE VERIFIED** · PR **#569** · feature `18bce849613a…` · merge `75ee32588359…` · CI **#709** SUCCESS · Pack 06 on main · six dims PASS/PASS-WITH-CARRY · Blocking OPEN **NONE** · C-PROOF-PACK-INTEGRATION **CLOSED** |
++| **P5-S08-6** | **PASS / MORRIS GATE CONSUMED** · Morris P5-S08-6 / P5 COMPLETE GO = **AUTHORIZED / CONSUMED** |
+ | **P5-S08-4 truth-sync** | PR **#568** **MERGED** · merge `dc93ddd2…` · CI **#707** / run **`37732611679`** SUCCESS |
  | **P5-S08-3 GO** | **AUTHORIZED / CONSUMED** |
  | **P5-S08-3 CP01 GO** | **AUTHORIZED / CONSUMED** |
- | **P5-S08-1→S08-3 CUMULATIVE GIT INTEGRATION GO** | **AUTHORIZED / CONSUMED** |
-@@ -64,12 +66,12 @@
+@@ -33,8 +34,8 @@
+ | **Branche truth-sync S07** | `docs/sfia-studio-p5-s07-post-merge-truth-sync` — **MERGED via PR #564** · remote branch still present · cleanup **PENDING** |
+ | **P5 AUTHORIZED BY MORRIS** | **YES** |
+ | **P5 STARTED** | **YES** |
+-| **P5 IN PROGRESS** | **YES** |
+-| **P5 COMPLETE** | **NO** |
++| **P5 IN PROGRESS** | **NO** (milestone closed) |
++| **P5 COMPLETE** | **YES** |
+ | **P6 READY** | **NO** |
+ | **P5-S01** | **INTEGRATED / POST-MERGE VERIFIED** |
+ | **P5-S02** | **INTEGRATED / POST-MERGE VERIFIED** — R1/R2 **PROVEN** · envelope deviation **ACCEPTED BY MORRIS** |
+@@ -66,12 +67,12 @@
  | **P5-S06 CP02.3** | **AUTHORIZED / CONSUMED** |
  | **P5-S06 GIT INTEGRATION GATE** | **AUTHORIZED / CONSUMED** |
  | **P5-S06 MERGE GO** | **AUTHORIZED / CONSUMED** |
--| **P5 slicing restant** | **S08** — S08-1→S08-4 **INTEGRATED / POST-MERGE VERIFIED** · S08-5…S08-6 **NOT STARTED** |
-+| **P5 slicing restant** | **S08** — S08-1→S08-4 **INTEGRATED / POST-MERGE VERIFIED** · S08-5 **PASS CANDIDATE / GI IN PROGRESS** · S08-6 **NOT STARTED** |
+-| **P5 slicing restant** | **S08** — S08-1→S08-4 **INTEGRATED / POST-MERGE VERIFIED** · S08-5 **PASS CANDIDATE / GI IN PROGRESS** · S08-6 **NOT STARTED** |
++| **P5 slicing restant** | **NONE** — S08-1→S08-6 **CLOSED** · P5 COMPLETE **YES** · next = **P6 QUALIFICATION** (≠ P6 READY / ≠ P6 implementation) |
  | **R1 / R2 / R3** | **R1 PASS** · **R2 PASS** · **R3 PASS AT TESTED SCOPE / INTEGRATED / POST-MERGE VERIFIED** (S05) |
  | **ZERO REAL** | **YES for S07/S08-1** · S05 R3 REAL historique préservé (bounded OpenAI sous gate S05) · S02 R1/R2 REAL historique préservé |
  | **runtime v3** | **NON ADOPTED** |
--| **Git (S08 cumulative)** | PR **#565** **MERGED** · main `7063fa3c…` · CI **#698** SUCCESS · S08 branch cleanup **COMPLETE** · Documentary truth-sync Draft PR **THIS CYCLE** · Documentary merge **NOT AUTHORIZED** |
--| **Next** | Documentary truth-sync merge (distinct Morris GO) · then consolidated **S08-5** Integrated Exit Readiness Pack · ≠ P5 COMPLETE |
-+| **Git (S08 cumulative)** | PR **#565** **MERGED** · CI **#698** · PR **#567** **MERGED** · CI **#704** · PR **#568** **MERGED** · main `dc93ddd2…` · CI **#707** · S08-5 Pack **PASS CANDIDATE** · Morris GI GO **AUTHORIZED / CONSUMED** · push/Draft PR **AUTHORIZED THIS CYCLE** · Merge **NOT AUTHORIZED** |
-+| **Next** | Draft PR CI · ChatGPT/Morris merge review · distinct Morris **MERGE GO** · post-merge · then S08-6 · ≠ P5 COMPLETE · ≠ INTEGRATED yet |
+-| **Git (S08 cumulative)** | PR **#565** **MERGED** · CI **#698** · PR **#567** **MERGED** · CI **#704** · PR **#568** **MERGED** · main `dc93ddd2…` · CI **#707** · S08-5 Pack **PASS CANDIDATE** · Morris GI GO **AUTHORIZED / CONSUMED** · push/Draft PR **AUTHORIZED THIS CYCLE** · Merge **NOT AUTHORIZED** |
+-| **Next** | Draft PR CI · ChatGPT/Morris merge review · distinct Morris **MERGE GO** · post-merge · then S08-6 · ≠ P5 COMPLETE · ≠ INTEGRATED yet |
++| **Git (S08 cumulative)** | PR **#565** **MERGED** · CI **#698** · PR **#567** **MERGED** · CI **#704** · PR **#568** **MERGED** · CI **#707** · PR **#569** **MERGED** · main `75ee32588359…` · CI **#709** SUCCESS · S08-5 **INTEGRATED / POST-MERGE VERIFIED** · S08-6 recording Draft PR **THIS CYCLE** · Merge of recording PR **NOT AUTHORIZED** |
++| **Next** | ChatGPT/Morris merge review of this P5 COMPLETE recording · distinct Morris **MERGE GO** · then **P6 QUALIFICATION** · ≠ P6 READY · ≠ runtime v3 ADOPTED |
  | **P5-S05 DELIVERY** | **AUTHORIZED / CONSUMED** → **INTEGRATED** via PR **#560** |
  | **P5-S05 REAL / R3** | **AUTHORIZED / CONSUMED** → **INTEGRATED** |
  | **P5-S05 CP01 / CP02** | **AUTHORIZED / CONSUMED** (historique) |
-@@ -77,8 +79,8 @@
+@@ -79,8 +80,8 @@
  | **Fichier** | `projects/sfia-studio/product-simplification/05-chat-first-product-simplification-integrated-delivery.md` |
  | **Date** | 2026-10-07 · Europe/Paris |
 
--> **Lecture rapide.** P5-S01…S07 + **S08-1→S08-4** **technically integrated / post-merge verified** on main `a67e37e0…` (PR **#567** · CI **#704** SUCCESS). **S08-4D = PASS** · **GLOBAL P3 VISUAL PARITY = PASS**. Remaining P5 Exit blocker: Integrated six-dimension Exit Readiness Pack → **S08-5**. S08-5 **NOT STARTED**. **≠ P5 COMPLETE**.
--> **Règle de lecture des preuves.** *Implémenté* ≠ *prouvé* ≠ *intégré* ≠ *REAL*. NCR ≠ GLOBAL SIMPLIFICATION FULLY QA-PROVEN · ≠ P6 PASS. This documentary truth-sync is docs-only; documentary PR merge requires a distinct Morris GO.
-+> **Lecture rapide.** P5-S01…S07 + **S08-1→S08-4** **technically integrated / post-merge verified** on main `dc93ddd2…` (PR **#568** · CI **#707** · prior PR **#567** · CI **#704**). **S08-4D = PASS** · **GLOBAL P3 VISUAL PARITY = PASS**. **S08-5** = **PASS CANDIDATE / GI AUTHORIZED / IN PROGRESS** — Pack `06-…`. Merge = **NOT AUTHORIZED**. **≠ P5 COMPLETE**.
-+> **Règle de lecture des preuves.** *Implémenté* ≠ *prouvé* ≠ *intégré* ≠ *REAL*. NCR ≠ GLOBAL SIMPLIFICATION FULLY QA-PROVEN · ≠ P6 PASS. S08-5 merge requires a distinct Morris MERGE GO.
+-> **Lecture rapide.** P5-S01…S07 + **S08-1→S08-4** **technically integrated / post-merge verified** on main `dc93ddd2…` (PR **#568** · CI **#707** · prior PR **#567** · CI **#704**). **S08-4D = PASS** · **GLOBAL P3 VISUAL PARITY = PASS**. **S08-5** = **PASS CANDIDATE / GI AUTHORIZED / IN PROGRESS** — Pack `06-…`. Merge = **NOT AUTHORIZED**. **≠ P5 COMPLETE**.
+-> **Règle de lecture des preuves.** *Implémenté* ≠ *prouvé* ≠ *intégré* ≠ *REAL*. NCR ≠ GLOBAL SIMPLIFICATION FULLY QA-PROVEN · ≠ P6 PASS. S08-5 merge requires a distinct Morris MERGE GO.
++> **Lecture rapide.** P5-S01…S08-5 **technically integrated / post-merge verified** on main `75ee32588359…` (PR **#569** · CI **#709** SUCCESS). **S08-6** = **PASS / MORRIS GATE CONSUMED**. **P5 COMPLETE = YES**. Remaining carries = non-blocking only. **P6 READY = NO** · **runtime v3 = NON ADOPTED**. **≠ READY FOR REAL**.
++> **Règle de lecture des preuves.** *Implémenté* ≠ *prouvé* ≠ *intégré* ≠ *REAL*. P5 COMPLETE ≠ P6 READY ≠ runtime v3 ADOPTED ≠ GLOBAL SIMPLIFICATION FULLY QA-PROVEN. Recording PR merge requires a distinct Morris GO.
 
  ---
 
-@@ -115,7 +117,7 @@ P5-S07 = INTEGRATED / POST-MERGE VERIFIED (PR #563 · feature 8e02115e… · mer
+@@ -117,7 +118,7 @@ P5-S07 = INTEGRATED / POST-MERGE VERIFIED (PR #563 · feature 8e02115e… · mer
           UAT-RECOVERY-03 = NON-BLOCKING CARRY → S08-2
           delivery branch cleanup = PENDING / NOT EXECUTED BY CURRENT GATE
 
--P5-S08 = STARTED · S08-1…S08-4 INTEGRATED / POST-MERGE VERIFIED · S08-5 NEXT
-+P5-S08 = STARTED · S08-1…S08-4 INTEGRATED / POST-MERGE VERIFIED · S08-5 PASS CANDIDATE / GI IN PROGRESS
+-P5-S08 = STARTED · S08-1…S08-4 INTEGRATED / POST-MERGE VERIFIED · S08-5 PASS CANDIDATE / GI IN PROGRESS
++P5-S08 = CLOSED · S08-1…S08-5 INTEGRATED / POST-MERGE VERIFIED · S08-6 PASS / MORRIS GATE CONSUMED
  P5-S08-1 = INTEGRATED / POST-MERGE VERIFIED
  P5-S08-2 = INTEGRATED / POST-MERGE VERIFIED
  P5-S08-3 = INTEGRATED / POST-MERGE VERIFIED
-@@ -129,9 +131,18 @@ P5-S08-4 = INTEGRATED / POST-MERGE VERIFIED (PR #567 · feature 31d9cf89… · m
-   legacy exposeLegacyAuthorityPath on /studio = NOT ENABLED
+@@ -132,17 +133,20 @@ P5-S08-4 = INTEGRATED / POST-MERGE VERIFIED (PR #567 · feature 31d9cf89… · m
    Provider REAL = NONE
    pairing contract = CI-DURABLE
--  base/origin/main = a67e37e04d42506abb8716ba4d317e8304164a6a
--P5-S08-5 = NEXT RECOMMENDED CAPABILITY / NOT STARTED
--P5-S08-6 = NOT STARTED
-+  base/origin/main at S08-4 merge = a67e37e04d42506abb8716ba4d317e8304164a6a · current tip = dc93ddd2d7561b1c778afe2a02eb3172705cd82f
-+P5-S08-5 = PASS CANDIDATE / GIT INTEGRATION AUTHORIZED / IN PROGRESS / NOT INTEGRATED YET
-+  Pack = 06-chat-first-product-simplification-integrated-exit-readiness-pack.md
-+  ChatGPT Critical Review = PASS WITH NON-BLOCKING EDITORIAL RESERVES / CONSUMED
-+  Morris P5-S08-5 GIT INTEGRATION GO = AUTHORIZED / CONSUMED
-+  FUNCTIONAL = PASS-WITH-CARRY · EXPERIENCE = PASS · SEMANTIC INTEGRITY = PASS-WITH-CARRY
-+  COGNITION = PASS-WITH-CARRY (material C-NORA-CTX · next-milestone N-T3-P6)
-+  SIMPLIFICATION = PASS-WITH-CARRY · PROOF = PASS-WITH-CARRY (material C-PROOF-REAL-CEILING · process C-PROOF-PACK-INTEGRATION)
-+  Blocking OPEN = NONE · Artifact Completeness = PASS (LOCAL CANDIDATE until merge)
-+  Project push / Draft PR = AUTHORIZED IN THIS CYCLE
-+  Merge = NOT AUTHORIZED
-+P5-S08-6 = NOT STARTED / NOT AUTHORIZED BY THIS CYCLE
+   base/origin/main at S08-4 merge = a67e37e04d42506abb8716ba4d317e8304164a6a · current tip = dc93ddd2d7561b1c778afe2a02eb3172705cd82f
+-P5-S08-5 = PASS CANDIDATE / GIT INTEGRATION AUTHORIZED / IN PROGRESS / NOT INTEGRATED YET
++P5-S08-5 = INTEGRATED / POST-MERGE VERIFIED
+   Pack = 06-chat-first-product-simplification-integrated-exit-readiness-pack.md
++  PR #569 MERGED · feature 18bce849613a8e7fa14ba11278cfd62446e29661 · merge 75ee32588359f0fe68bfa6c52dd37225a5c0d5cd
++  CI #709 / 37739742176 SUCCESS · Required Gate PASS
+   ChatGPT Critical Review = PASS WITH NON-BLOCKING EDITORIAL RESERVES / CONSUMED
+   Morris P5-S08-5 GIT INTEGRATION GO = AUTHORIZED / CONSUMED
++  Morris P5-S08-5 MERGE GO = AUTHORIZED / CONSUMED
+   FUNCTIONAL = PASS-WITH-CARRY · EXPERIENCE = PASS · SEMANTIC INTEGRITY = PASS-WITH-CARRY
+   COGNITION = PASS-WITH-CARRY (material C-NORA-CTX · next-milestone N-T3-P6)
+-  SIMPLIFICATION = PASS-WITH-CARRY · PROOF = PASS-WITH-CARRY (material C-PROOF-REAL-CEILING · process C-PROOF-PACK-INTEGRATION)
+-  Blocking OPEN = NONE · Artifact Completeness = PASS (LOCAL CANDIDATE until merge)
+-  Project push / Draft PR = AUTHORIZED IN THIS CYCLE
+-  Merge = NOT AUTHORIZED
+-P5-S08-6 = NOT STARTED / NOT AUTHORIZED BY THIS CYCLE
++  SIMPLIFICATION = PASS-WITH-CARRY · PROOF = PASS-WITH-CARRY (material C-PROOF-REAL-CEILING)
++  C-PROOF-PACK-INTEGRATION = CLOSED / PROVEN BY PR #569 + CI #709
++  Blocking OPEN = NONE · Artifact Completeness = PASS / INTEGRATED
++P5-S08-6 = PASS / MORRIS GATE CONSUMED
++  Morris P5-S08-6 / P5 COMPLETE GO = AUTHORIZED / CONSUMED
  NO PROJECT GIT INTEGRATION BEFORE END OF S08-3 = ADOPTED / ENFORCED / PERIOD COMPLETED BY REVIEW
 
  UAT-RECOVERY-03 = A. CLOSED / PROVEN
-@@ -155,14 +166,16 @@ P5 COMPLETE = NO
+@@ -162,20 +166,22 @@ NEW STRUCTURAL COMPONENTS = NONE
+ Parallel cockpit = NONE
+
+ ZERO REAL (S07 / S08-1 / S08-2 / S08-3 / CP01) = YES
+-P5 COMPLETE = NO
++P5 COMPLETE = YES
  P6 READY = NO
  runtime v3 = NON ADOPTED
 
--NEXT = Morris merge of this documentary truth-sync · then consolidated S08-5 macro-cycle
-+NEXT = Draft PR CI · Morris MERGE GO (distinct) · post-merge · then S08-6
+-NEXT = Draft PR CI · Morris MERGE GO (distinct) · post-merge · then S08-6
++NEXT = Morris MERGE GO for this P5 COMPLETE recording · then P6 QUALIFICATION (Global Integrated Product QA) · ≠ P6 READY · ≠ P6 implementation
  Project Git Integration S08-1→S08-3 = MERGED / POST-MERGE VERIFIED (PR #565)
  Project Git Integration S08-4 = MERGED / POST-MERGE VERIFIED (PR #567 · CI #704)
-+Documentary truth-sync S08-4 = MERGED / POST-MERGE VERIFIED (PR #568 · merge dc93ddd2… · CI #707)
-+base/origin/main = dc93ddd2d7561b1c778afe2a02eb3172705cd82f
+-Documentary truth-sync S08-4 = MERGED / POST-MERGE VERIFIED (PR #568 · merge dc93ddd2… · CI #707)
+-base/origin/main = dc93ddd2d7561b1c778afe2a02eb3172705cd82f
++Documentary truth-sync S08-4 = MERGED / POST-MERGE VERIFIED (PR #568 · CI #707)
++Project Git Integration S08-5 = MERGED / POST-MERGE VERIFIED (PR #569 · CI #709)
++base/origin/main = 75ee32588359f0fe68bfa6c52dd37225a5c0d5cd
  GLOBAL P3 VISUAL PARITY = PASS / CLOSED (S08-4 INTEGRATED / POST-MERGE VERIFIED)
--Integrated Exit Readiness Pack = OPEN → S08-5 (NEXT RECOMMENDED / NOT STARTED)
-+Integrated Exit Readiness Pack = PASS CANDIDATE / GI IN PROGRESS → Pack 06
+-Integrated Exit Readiness Pack = PASS CANDIDATE / GI IN PROGRESS → Pack 06
++Integrated Exit Readiness Pack = INTEGRATED / POST-MERGE VERIFIED → Pack 06
  NCR / Pilot Burden = CLOSED FOR P5 EXIT (representative integrated P5 scope)
  documentary truth-sync S07 = MERGED / POST-MERGE VERIFIED (PR #564)
--documentary truth-sync S08-4 post-merge = THIS CYCLE (Draft PR · merge NOT AUTHORIZED)
-+S08-5 project Git Integration = AUTHORIZED / IN PROGRESS · Merge = NOT AUTHORIZED
+-S08-5 project Git Integration = AUTHORIZED / IN PROGRESS · Merge = NOT AUTHORIZED
++Remaining non-blocking carries = C-REAL-CANCEL · C-RT-A3-2-RESIDUE · C-LEGACY-OPENAI · C-NORA-CTX · C-NCR-SCOPE · C-PROOF-REAL-CEILING · C-BRANCH-CLEANUP
++P6 = NEXT QUALIFICATION TARGET · P6 READY = NO
  ```
  ### 1.2 Hiérarchie d’autorité
 
-@@ -1668,14 +1681,15 @@ Representative **212 PASS** · typecheck/lint/build **PASS** · npm test **5373
- | REAL added by S08 | **NONE** |
- | Architecture parallelism | **NONE** |
+@@ -1683,13 +1689,13 @@ Representative **212 PASS** · typecheck/lint/build **PASS** · npm test **5373
  | S08 branch cleanup | **COMPLETE** — `audit/sfia-studio-product-simplification-p5-s08-convergence-exit-readiness` deleted local + remote |
--| Remaining P5 Exit blockers | **S08-5 ONLY** (Integrated six-dimension Exit Readiness Pack) |
-+| Remaining P5 Exit blockers | **S08-5 Git Integration + S08-6 Morris Gate** (Pack 06 LOCAL CANDIDATE exists) |
+ | Remaining P5 Exit blockers | **S08-5 Git Integration + S08-6 Morris Gate** (Pack 06 LOCAL CANDIDATE exists) |
  | S08-4 | **INTEGRATED / POST-MERGE VERIFIED** · S08-4D **PASS** · GLOBAL P3 VISUAL PARITY **PASS** · pairing **CI-DURABLE** |
--| S08-5 / S08-6 | **NOT STARTED** (S08-5 = NEXT RECOMMENDED) |
-+| S08-5 | **PASS CANDIDATE / GI AUTHORIZED / IN PROGRESS / NOT INTEGRATED YET** — Pack `06-…` |
-+| S08-6 | **NOT STARTED** |
- | P5 COMPLETE | **NO** |
+-| S08-5 | **PASS CANDIDATE / GI AUTHORIZED / IN PROGRESS / NOT INTEGRATED YET** — Pack `06-…` |
+-| S08-6 | **NOT STARTED** |
+-| P5 COMPLETE | **NO** |
++| S08-5 | **INTEGRATED / POST-MERGE VERIFIED** (PR #569 · CI #709) |
++| S08-6 | **PASS / MORRIS GATE CONSUMED** |
++| P5 COMPLETE | **YES** |
  | P6 READY | **NO** |
  | runtime v3 | **NON ADOPTED** |
--| Next | Documentary truth-sync merge (this cycle Draft PR) · then consolidated **S08-5** macro-cycle |
-+| Next | Draft PR CI · distinct Morris **MERGE GO** · then S08-6 |
+-| Next | Draft PR CI · distinct Morris **MERGE GO** · then S08-6 |
++| Next | Merge review of P5 COMPLETE recording · then **P6 QUALIFICATION** |
 
  ---
 
--*Fin du document P5 — Integrated Delivery — S01…S07 + S08-1→S08-4 TECHNICALLY INTEGRATED / POST-MERGE VERIFIED · GLOBAL P3 VISUAL PARITY PASS / CLOSED · Remaining blocker Exit pack → S08-5 ONLY · S08-5 NOT STARTED · P5 COMPLETE NO · P6 READY NO · runtime v3 NON ADOPTED — P4 remains architecture authority.*
-+*Fin du document P5 — Integrated Delivery — S01…S07 + S08-1→S08-4 TECHNICALLY INTEGRATED / POST-MERGE VERIFIED · GLOBAL P3 VISUAL PARITY PASS / CLOSED · S08-5 PASS CANDIDATE / GI AUTHORIZED / IN PROGRESS / NOT INTEGRATED YET (Pack 06) · Merge NOT AUTHORIZED · S08-6 NOT STARTED · P5 COMPLETE NO · P6 READY NO · runtime v3 NON ADOPTED — P4 remains architecture authority · Exit Readiness Pack SoT = `06-…-integrated-exit-readiness-pack.md`.*
+-*Fin du document P5 — Integrated Delivery — S01…S07 + S08-1→S08-4 TECHNICALLY INTEGRATED / POST-MERGE VERIFIED · GLOBAL P3 VISUAL PARITY PASS / CLOSED · S08-5 PASS CANDIDATE / GI AUTHORIZED / IN PROGRESS / NOT INTEGRATED YET (Pack 06) · Merge NOT AUTHORIZED · S08-6 NOT STARTED · P5 COMPLETE NO · P6 READY NO · runtime v3 NON ADOPTED — P4 remains architecture authority · Exit Readiness Pack SoT = `06-…-integrated-exit-readiness-pack.md`.*
++*Fin du document P5 — Integrated Delivery — S01…S08-5 TECHNICALLY INTEGRATED / POST-MERGE VERIFIED · S08-6 PASS / MORRIS GATE CONSUMED · P5 COMPLETE YES · GLOBAL P3 VISUAL PARITY PASS / CLOSED · P6 READY NO · runtime v3 NON ADOPTED · READY FOR REAL NO — P4 remains architecture authority · Exit Readiness Pack SoT = `06-…-integrated-exit-readiness-pack.md` · next = P6 QUALIFICATION.*
 
 ```
 
-## Pack 06 — FULL CONTENT (mandatory consumable)
+## Pack 06 — FULL CONTENT
 
 ```markdown
 # SFIA Studio — Chat-First Product Simplification — P5 Integrated Six-Dimension Exit Readiness Pack
@@ -301,20 +297,23 @@ index fe737b6b..080091c8 100644
 | **Projet** | SFIA Studio |
 | **Macro** | `STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01` |
 | **Milestone** | **P5 — INTEGRATED DELIVERY** |
-| **Slice** | **P5-S08-5 — Integrated Six-Dimension Exit Readiness Pack** |
-| **Cycle** | **13 — PR readiness / Git Integration** (prior pack authorship = Cycle 9) |
-| **Profile** | **STANDARD** (GI) · prior Critical Review of Pack = **PASS WITH NON-BLOCKING EDITORIAL RESERVES** |
-| **Typologie** | **DOC / PR READINESS / GIT INTEGRATION** |
+| **Slice** | **P5-S08-5 Exit Readiness Pack** + **P5-S08-6 Morris P5 COMPLETE Gate** |
+| **Cycle** | **9 — QA / validation** (S08-6 gate) · prior GI = Cycle 13 · prior pack authorship = Cycle 9 |
+| **Profile** | **CRITICAL** (S08-6 milestone gate) · prior Critical Review of Pack = **PASS WITH NON-BLOCKING EDITORIAL RESERVES** · prior GI = Standard |
+| **Typologie** | **DOC / GOVERNANCE / MILESTONE GATE** |
 | **Capacité v3** | **V3-F14 Artifact Completeness** + **V3-F15 distributed maturity** applied to integrated P5 exit proof |
 | **Morris P5-S08-5 GO** | **AUTHORIZED / CONSUMED** (pack authorship) |
 | **Morris P5-S08-5 GIT INTEGRATION GO** | **AUTHORIZED / CONSUMED** |
-| **Statut** | **PASS CANDIDATE / GIT INTEGRATION AUTHORIZED / IN PROGRESS / NOT INTEGRATED YET** · ChatGPT Critical Review = **PASS WITH NON-BLOCKING EDITORIAL RESERVES** |
-| **origin/main (entry)** | `dc93ddd2d7561b1c778afe2a02eb3172705cd82f` |
+| **Morris P5-S08-5 MERGE GO** | **AUTHORIZED / CONSUMED** |
+| **Morris P5-S08-6 / P5 COMPLETE GO** | **AUTHORIZED / CONSUMED** |
+| **Statut** | **S08-5 INTEGRATED / POST-MERGE VERIFIED · S08-6 PASS · P5 COMPLETE = YES** |
+| **origin/main (current)** | `75ee32588359f0fe68bfa6c52dd37225a5c0d5cd` |
+| **PR #569** | **MERGED** · feature `18bce849613a8e7fa14ba11278cfd62446e29661` · merge `75ee32588359f0fe68bfa6c52dd37225a5c0d5cd` · CI Studio **#709** / run **`37739742176`** **SUCCESS** · Required Gate **PASS** |
 | **PR #568** | **MERGED** · feature `0d11ed88afe0d465f325b607c7ca8a5d21e65272` · merge `dc93ddd2…` · post-merge CI Studio **#707** / run **`37732611679`** **SUCCESS** · Required Gate **SUCCESS** |
 | **S08-4** | **INTEGRATED / POST-MERGE VERIFIED** (PR **#567** · CI **#704**) |
 | **S08-1→S08-3** | **INTEGRATED / POST-MERGE VERIFIED** (PR **#565** · CI **#698**) |
-| **S08-6** | **NOT STARTED** · **NOT AUTHORIZED BY THIS CYCLE** |
-| **P5 COMPLETE** | **NO** |
+| **S08-6** | **PASS / MORRIS GATE CONSUMED** |
+| **P5 COMPLETE** | **YES** |
 | **P6 READY** | **NO** |
 | **runtime v3** | **NON ADOPTED** |
 | **Product/runtime changed** | **NONE** |
@@ -323,7 +322,7 @@ index fe737b6b..080091c8 100644
 | **Fichier** | `projects/sfia-studio/product-simplification/06-chat-first-product-simplification-integrated-exit-readiness-pack.md` |
 | **Date** | 2026-10-08 · Europe/Paris |
 
-> **Lecture rapide.** Ce Pack est l’artefact unique de readiness P5 sur les six dimensions canoniques, construit exclusivement depuis la vérité Git intégrée sur `main` (`dc93ddd2…`). **Aucune dimension OPEN bloquante.** Verdict global S08-5 = **PASS CANDIDATE**. ChatGPT Critical Review = **PASS WITH NON-BLOCKING EDITORIAL RESERVES**. Git Integration = **AUTHORIZED / IN PROGRESS**. Merge = **NOT AUTHORIZED**. **≠ INTEGRATED** · **≠ P5 COMPLETE** · **≠ S08-6 started** · **≠ runtime v3 ADOPTED**.
+> **Lecture rapide.** Ce Pack est l’artefact unique de readiness P5 sur les six dimensions canoniques. S08-5 = **INTEGRATED / POST-MERGE VERIFIED** on main `75ee32588359…` (PR **#569** · CI **#709**). S08-6 = **PASS / MORRIS GATE CONSUMED**. **P5 COMPLETE = YES**. Blocking OPEN = **NONE**. **≠ P6 READY** · **≠ runtime v3 ADOPTED** · **≠ READY FOR REAL**.
 
 ---
 
@@ -346,14 +345,15 @@ index fe737b6b..080091c8 100644
 
 | Item | Verdict |
 | --- | --- |
-| **S08-5 global** | **PASS CANDIDATE** |
+| **S08-5 global** | **INTEGRATED / POST-MERGE VERIFIED** |
 | **Six-dimension readiness** | **PASS / PASS-WITH-CARRY ONLY** |
 | **Blocking OPEN dimensions** | **NONE** |
 | **Blocking P5 carries** | **NONE** |
-| **Artifact Completeness (V3-F14)** | **PASS** (LOCAL CANDIDATE until Git-integrated) |
+| **Artifact Completeness (V3-F14)** | **PASS / INTEGRATED** |
 | **Architecture parallelism** | **NONE** |
-| **Recommendation** | **READY FOR S08-6 PATH AFTER MERGE / POST-MERGE** · ChatGPT Critical Review **CONSUMED / PASS** · Morris **P5-S08-5 GIT INTEGRATION GO** = **AUTHORIZED / CONSUMED** · Merge = **NOT AUTHORIZED** (distinct later gate) |
-| **P5 COMPLETE** | **NO** (S08-6 Morris only) |
+| **S08-6** | **PASS / MORRIS GATE CONSUMED** |
+| **Recommendation** | **P5 COMPLETE = YES** · next = **P6 QUALIFICATION** (Global Integrated Product QA) · ≠ P6 READY · ≠ P6 implementation |
+| **P5 COMPLETE** | **YES** |
 | **P6 READY** | **NO** |
 | **runtime v3** | **NON ADOPTED** |
 
@@ -403,7 +403,8 @@ All rows are **MERGED** on `main` with post-merge Studio CI **SUCCESS** and Requ
 | P5-S08-1→S08-3 Convergence / debt / NCR | **#565** | `b7e9726dd7cf8429de68e3908ff8990ac2ba6338` | `7063fa3c64610787396f776c3f6f10a056a0400f` | **#698** | `37589112544` | SUCCESS | INTEGRATED / POST-MERGE VERIFIED | NCR CLOSED FOR P5 EXIT · cross-store residue carry |
 | P5-S08-4 Global P3 visual parity | **#567** | `31d9cf8900f505d74ade2c1d1a83917ea8a7b48e` | `a67e37e04d42506abb8716ba4d317e8304164a6a` | **#704** | `37708211020` | SUCCESS | INTEGRATED / POST-MERGE VERIFIED | DETERMINISTIC visual · Provider REAL NONE |
 | P5-S08-4 post-merge truth-sync | **#568** | `0d11ed88afe0d465f325b607c7ca8a5d21e65272` | `dc93ddd2d7561b1c778afe2a02eb3172705cd82f` | **#707** | `37732611679` | SUCCESS | INTEGRATED / POST-MERGE VERIFIED | Docs · current main tip |
-| **P5-S08-5 Exit Readiness Pack** | — | — | — | — | — | — | **PASS CANDIDATE / GI IN PROGRESS / NOT INTEGRATED YET** | Morris GI GO **AUTHORIZED / CONSUMED** · push/Draft PR **AUTHORIZED THIS CYCLE** · Merge **NOT AUTHORIZED** |
+| **P5-S08-5 Exit Readiness Pack** | **#569** | `18bce849613a8e7fa14ba11278cfd62446e29661` | `75ee32588359f0fe68bfa6c52dd37225a5c0d5cd` | **#709** | `37739742176` | SUCCESS | **INTEGRATED / POST-MERGE VERIFIED** | C-PROOF-PACK-INTEGRATION **CLOSED** |
+| **P5-S08-6 Morris P5 COMPLETE Gate** | — | — | — | — | — | — | **PASS / MORRIS GATE CONSUMED** (recording LOCAL until this PR merges) | P5 COMPLETE **YES** · recording Draft PR merge **NOT AUTHORIZED** |
 
 **Current repository tip:** `origin/main` = `dc93ddd2d7561b1c778afe2a02eb3172705cd82f`.
 
@@ -536,12 +537,12 @@ Central S08-5 dimension. Satisfied for P5 exit by:
 
 | Claim | Status |
 | --- | --- |
-| Integrated (not branch-only) proof chain | **YES** on `dc93ddd2…` |
+| Integrated (not branch-only) proof chain | **YES** on `75ee32588359…` |
 | Six dimensions qualified | **YES** — no OPEN |
 | Carry exits defined | **YES** |
 | Highest proof ceiling honesty | DETERMINISTIC for visual/cancel · bounded REAL historical for S02/S05 only |
 | End-to-end REAL / REAL boundary as P5 exit requirement | **NOT REQUIRED** by P5 Exit Contract sources |
-| This Pack Git-integrated | **NO** — LOCAL CANDIDATE → **CARRY C-PROOF-PACK-INTEGRATION** (process; closed by S08-5 GI) |
+| This Pack Git-integrated | **YES** — PR **#569** MERGED · CI **#709** SUCCESS → **C-PROOF-PACK-INTEGRATION CLOSED** |
 
 **CARRY C-PROOF-REAL-CEILING:** proof ceiling remains DETERMINISTIC + bounded historical REAL; not REAL BOUNDARY / not END-TO-END REAL. Owner = future REAL gates / P6 as authorized. Blocking P5 = **NO**.
 
@@ -559,7 +560,7 @@ Central S08-5 dimension. Satisfied for P5 exit by:
 | C-NORA-CTX | Nora real-usage context burden | UX / cognition | S08-2 | Residual cognitive load in real usage | **NO** | P6 / Nora completion | P6 | Burden reduced under P6 cognition/QA scope | Honesty CLOSED AT OBSERVABLE SCOPE | OPEN CARRY |
 | C-NCR-SCOPE | NCR only at representative integrated P5 scope | preuve / simplification | S08-3 | Not global simplification QA | **NO** | P6 QA | P6 | GLOBAL SIMPLIFICATION FULLY QA-PROVEN if/when required | S08-3 CLOSED FOR P5 EXIT | OPEN CARRY |
 | C-PROOF-REAL-CEILING | Proof ceiling ≠ REAL BOUNDARY / E2E REAL | preuve | S02/S05/S06/S08-4 | Maturity honesty | **NO** | Morris REAL / P6 | future REAL | Authorized REAL boundary proofs if claimed | Historical bounded REAL + DETERMINISTIC visual | OPEN CARRY |
-| C-PROOF-PACK-INTEGRATION | Pack 06 not yet on main | documentaire / process | this cycle | S08-5 local only | **NO** (blocks S08-6 start until GI) | Morris S08-5 GI GO | S08-5 Git Integration | Pack + Roadmap tip merged + post-merge CI | LOCAL CANDIDATE | OPEN CARRY (process) |
+| C-PROOF-PACK-INTEGRATION | Pack 06 not yet on main | documentaire / process | S08-5 | Was blocking S08-6 start until GI | **NO** | — | — | Pack + Roadmap tip merged + post-merge CI | PR **#569** + CI **#709** | **CLOSED / PROVEN** |
 | C-BRANCH-CLEANUP | S07 delivery / truth-sync remotes preserved | ops | S07/S08-2 | Repo hygiene | **NO** | Morris cleanup gate | distinct cleanup | Remotes deleted when authorized | Remotes may still exist | OPEN CARRY |
 
 ### G.2 Next-milestone conditions (not P5 blockers)
@@ -712,16 +713,16 @@ Therefore:
 
 | Field | Value |
 | --- | --- |
-| **S08-5** | **PASS CANDIDATE** |
-| **Recommendation** | **READY FOR S08-6 PATH AFTER MERGE / POST-MERGE** · ChatGPT Critical Review = **PASS / CONSUMED** · GI GO = **AUTHORIZED / CONSUMED** · Merge = **NOT AUTHORIZED** |
-| **P5 COMPLETE** | **NO** |
-| **S08-6** | **NOT STARTED** |
+| **S08-5** | **INTEGRATED / POST-MERGE VERIFIED** |
+| **Recommendation** | **P5 COMPLETE = YES** · next = **P6 QUALIFICATION** |
+| **P5 COMPLETE** | **YES** |
+| **S08-6** | **PASS / MORRIS GATE CONSUMED** |
 
 ---
 
 ## O. S08-6 input contract
 
-S08-6 (Morris P5 COMPLETE Gate) may start only when:
+S08-6 (Morris P5 COMPLETE Gate) **CONSUMED** after preconditions were met. Historical entry requirements were:
 
 1. This Pack has ChatGPT Critical Review disposition accepted by Morris
 2. S08-5 project Git Integration authorized, pushed, PR’d, merged
@@ -746,8 +747,8 @@ S08-6 input package minimally:
 | --- | --- | --- |
 | 1 | ChatGPT Critical Review of S08-5 Pack | **PASS WITH NON-BLOCKING EDITORIAL RESERVES / CONSUMED** |
 | 2 | **P5-S08-5 GIT INTEGRATION GO** (push / Draft PR) | **AUTHORIZED / CONSUMED** |
-| 3 | Merge GO for S08-5 PR | **NOT AUTHORIZED** · distinct later gate |
-| 4 | **P5-S08-6 / P5 COMPLETE GO** | **NOT STARTED** |
+| 3 | Merge GO for S08-5 PR (#569) | **AUTHORIZED / CONSUMED** |
+| 4 | **P5-S08-6 / P5 COMPLETE GO** | **AUTHORIZED / CONSUMED** · **P5 COMPLETE = YES** |
 | 5 | Any REAL cancel / REAL boundary expansion | **NOT AUTHORIZED** |
 | 6 | runtime v3 adoption / P6 READY | **NOT AUTHORIZED** |
 
@@ -766,11 +767,90 @@ S08-6 input package minimally:
 | Architecture authority | `04-chat-first-product-simplification-semantic-projection-cognitive-architecture.md` |
 | V3-F14 / V3-F15 | `sfia-v3-framing/35-artifact-evidence-debt-and-controlled-learning.md` |
 | Roadmap | `convergence/sfia-studio-convergence-roadmap.md` |
-| Branch (this cycle) | `docs/sfia-studio-p5-s08-5-integrated-exit-readiness-pack` |
-| Project push / Draft PR | **AUTHORIZED IN THIS CYCLE** (GI) |
-| Merge | **NOT AUTHORIZED** |
+| Branch (S08-5) | `docs/sfia-studio-p5-s08-5-integrated-exit-readiness-pack` (merged) |
+| Branch (S08-6 recording) | `docs/sfia-studio-p5-s08-6-p5-complete-gate` |
+| S08-5 project push / Draft PR / merge | **DONE** (PR #569 MERGED · CI #709) |
+| S08-6 recording Draft PR | **AUTHORIZED IN THIS CYCLE** |
+| Merge of S08-6 recording PR | **NOT AUTHORIZED** |
 
 ---
 
-*Fin Pack P5-S08-5 — PASS CANDIDATE · ChatGPT Critical Review PASS · GI AUTHORIZED / IN PROGRESS · NOT INTEGRATED YET · six dimensions PASS/PASS-WITH-CARRY only · BLOCKING OPEN NONE · Merge NOT AUTHORIZED · P5 COMPLETE NO · S08-6 NOT STARTED · runtime v3 NON ADOPTED.*
+
+
+---
+
+## R. P5-S08-6 — Morris P5 COMPLETE Gate Result
+
+### R.1 Preconditions (verified at gate entry)
+
+| Precondition | Result |
+| --- | --- |
+| origin/main = `75ee32588359f0fe68bfa6c52dd37225a5c0d5cd` | **YES** |
+| PR #569 MERGED · feature `18bce849613a8e7fa14ba11278cfd62446e29661` | **YES** |
+| Merge parents = `dc93ddd2…` + `18bce849…` | **YES** |
+| Post-merge CI #709 / `37739742176` SUCCESS | **YES** |
+| Required Gate PASS | **YES** |
+| S08-5 INTEGRATED / POST-MERGE VERIFIED | **YES** |
+| C-PROOF-PACK-INTEGRATION CLOSED | **YES** |
+| Six dimensions PASS / PASS-WITH-CARRY only | **YES** |
+| Blocking OPEN = NONE | **YES** |
+| Artifact Completeness PASS / INTEGRATED | **YES** |
+| Architecture parallelism = NONE | **YES** |
+| Fake/Real ceiling honest (DETERMINISTIC + bounded historical REAL) | **YES** |
+| READY FOR REAL / REAL BOUNDARY / E2E REAL = NO | **YES** |
+
+### R.2 Final six-dimension matrix
+
+| # | Dimension | Verdict | Material carry (P5) | Next-milestone / process |
+| --- | --- | --- | --- | --- |
+| 1 | FUNCTIONAL | **PASS-WITH-CARRY** | C-REAL-CANCEL | — |
+| 2 | EXPERIENCE | **PASS** | NONE | — |
+| 3 | SEMANTIC INTEGRITY | **PASS-WITH-CARRY** | C-RT-A3-2-RESIDUE | — |
+| 4 | COGNITION | **PASS-WITH-CARRY** | C-NORA-CTX | N-T3-P6 (P6) |
+| 5 | SIMPLIFICATION | **PASS-WITH-CARRY** | C-NCR-SCOPE · C-LEGACY-OPENAI | N-GLOBAL-SIMP-QA (P6) |
+| 6 | PROOF | **PASS-WITH-CARRY** | C-PROOF-REAL-CEILING | C-PROOF-PACK-INTEGRATION **CLOSED** |
+
+Blocking OPEN count = **0** · Blocking P5 carries = **NONE**.
+
+### R.3 Remaining non-blocking carries (forwarded)
+
+C-REAL-CANCEL · C-RT-A3-2-RESIDUE · C-LEGACY-OPENAI · C-NORA-CTX · C-NCR-SCOPE · C-PROOF-REAL-CEILING · C-BRANCH-CLEANUP
+
+### R.4 Fake / Real ceiling
+
+Highest proven = **DETERMINISTIC PROVEN** (+ bounded historical REAL at S02/S05 tested scopes).
+READY FOR REAL = **NO** · REAL BOUNDARY PROVEN = **NO** · END-TO-END REAL PROVEN = **NO**.
+
+### R.5 Morris decision
+
+Morris P5-S08-6 / P5 COMPLETE GO = **AUTHORIZED / CONSUMED**.
+
+### R.6 Result
+
+| Field | Value |
+| --- | --- |
+| S08-6 | **PASS / MORRIS GATE CONSUMED** |
+| P5 COMPLETE | **YES** |
+| Nature | Milestone / Product-Simplification completion decision on governed P5 scope |
+| P6 | **NEXT QUALIFICATION TARGET** — **Global Integrated Product QA** (C1 §15) |
+| P6 READY | **NO** / requires separate convergence qualification |
+| runtime v3 | **NON ADOPTED** |
+
+### R.7 Anti-claims
+
+P5 COMPLETE = YES ≠ P6 READY ≠ runtime v3 ADOPTED ≠ READY FOR REAL ≠ REAL BOUNDARY PROVEN ≠ END-TO-END REAL PROVEN ≠ GLOBAL SIMPLIFICATION FULLY QA-PROVEN ≠ Cognitive Completion globale ≠ global L5.
+
+### R.8 P6 qualification handoff
+
+| Item | Value |
+| --- | --- |
+| Intended milestone | **P6 — Global Integrated Product QA** |
+| Prerequisites | P5 COMPLETE · six-dimension evidence chain · carry register honesty |
+| P5 carries moving forward | C-NORA-CTX · C-NCR-SCOPE · C-PROOF-REAL-CEILING · N-T3-P6 · N-GLOBAL-SIMP-QA · N-COG-COMPLETION |
+| Separate REAL/Ops gates | C-REAL-CANCEL · C-LEGACY-OPENAI · C-RT-A3-2-RESIDUE (EC reliability) · C-BRANCH-CLEANUP |
+| Entry proof expected | Separate P6 convergence qualification (≠ automatic READY) |
+| Morris gates | Distinct P6 AUTHORIZATION / READY gates — **NOT THIS CYCLE** |
+| P6 implementation | **NOT STARTED / NOT AUTHORIZED** |
+
+*Fin Pack P5-S08-5/S08-6 — S08-5 INTEGRATED / POST-MERGE VERIFIED · S08-6 PASS / MORRIS GATE CONSUMED · P5 COMPLETE YES · six dimensions PASS/PASS-WITH-CARRY only · BLOCKING OPEN NONE · C-PROOF-PACK-INTEGRATION CLOSED · P6 READY NO · runtime v3 NON ADOPTED · READY FOR REAL NO · recording PR merge NOT AUTHORIZED.*
 ```
