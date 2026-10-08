@@ -24,9 +24,10 @@ const CAPTURE_ROOT = path.resolve(
   process.cwd(),
   "../../../.tmp-sfia-review/visual/s08-4/final",
 );
+/** Same durable pairing contract as Vitest (captures remain under `.tmp-sfia-review/**`). */
 const STATE_MANIFEST_PATH = path.resolve(
   process.cwd(),
-  "../../../.tmp-sfia-review/visual/s08-4/final-fidelity/state-manifest.json",
+  "e2e/fixtures/s08-4/visual-pairing-state-manifest.json",
 );
 const GEO_ROOT = path.resolve(
   process.cwd(),
@@ -140,23 +141,21 @@ test.describe("P5-S08-4 P3 visual parity", () => {
       .waitFor({ state: "visible", timeout: 15_000 })
       .catch(() => null);
 
-    // Fail-closed pairing smoke: Projects desktop must match state-manifest.
-    if (fs.existsSync(STATE_MANIFEST_PATH)) {
-      const sm = JSON.parse(
-        fs.readFileSync(STATE_MANIFEST_PATH, "utf8"),
-      ) as { pairs: VisualPairRecord[] };
-      const projectsPair = sm.pairs.find(
-        (p) => (p as { captureId?: string }).captureId === "projects-1440",
-      );
-      if (projectsPair) {
-        const obs = await observeVisualPairing(page, {
-          width: 1440,
-          height: 1024,
-        });
-        const pairing = evaluateVisualPair(projectsPair, obs);
-        expect(pairing.ok, pairing.ok ? "" : pairing.reason).toBe(true);
-      }
-    }
+    // Fail-closed pairing smoke: Projects desktop must match durable contract.
+    expect(fs.existsSync(STATE_MANIFEST_PATH)).toBe(true);
+    const sm = JSON.parse(
+      fs.readFileSync(STATE_MANIFEST_PATH, "utf8"),
+    ) as { pairs: VisualPairRecord[] };
+    const projectsPair = sm.pairs.find(
+      (p) => (p as { captureId?: string }).captureId === "projects-1440",
+    );
+    expect(projectsPair, "projects-1440 pair missing from durable manifest").toBeTruthy();
+    const obs = await observeVisualPairing(page, {
+      width: 1440,
+      height: 1024,
+    });
+    const pairing = evaluateVisualPair(projectsPair!, obs);
+    expect(pairing.ok, pairing.ok ? "" : pairing.reason).toBe(true);
 
     const projects = await capture(page, "projects-1440", {
       width: 1440,

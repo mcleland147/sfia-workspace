@@ -15,9 +15,10 @@ import {
   type VisualPairRecord,
 } from "../../e2e/support/visualPairingContract";
 
+/** Durable QA pairing contract (not generated scratch under `.tmp-sfia-review/**`). */
 const STATE_MANIFEST = path.resolve(
   __dirname,
-  "../../../../../.tmp-sfia-review/visual/s08-4/final-fidelity/state-manifest.json",
+  "../../e2e/fixtures/s08-4/visual-pairing-state-manifest.json",
 );
 
 function baseObs(
