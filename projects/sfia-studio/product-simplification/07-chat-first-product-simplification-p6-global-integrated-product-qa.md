@@ -33,7 +33,7 @@
 | **Fichier canonique** | `projects/sfia-studio/product-simplification/07-chat-first-product-simplification-p6-global-integrated-product-qa.md` |
 | **Date** | 2026-10-08 · Europe/Paris |
 
-> **Lecture rapide.** Phase 0 = **COMPLETE / INTEGRATED / POST-MERGE VERIFIED** (PR **#571** · CI **#713**). ChatGPT Closure Review = **PASS**. P6-QA-CONTRACT-01…12 = **CLOSED**. **GO P6 EXECUTION** = **AUTHORIZED / CONSUMED**. **GO P6 REAL — BOUNDED CAMPAIGN** = **AUTHORIZED / CONSUMED**. **P6 STARTED = YES**. Phase 1 = **IN PROGRESS**. Strategy = **REAL-FIRST HYBRID**. **≠ P6 PASS** · **≠ REAL BOUNDARY globally proven** · **≠ runtime v3 ADOPTED** · **≠ production routing adoption**. Project push/PR/merge = **NONE**.
+> **Lecture rapide.** Phase 0 = **COMPLETE / INTEGRATED / POST-MERGE VERIFIED** (PR **#571** · CI **#713**). ChatGPT Closure Review = **PASS**. P6-QA-CONTRACT-01…12 = **CLOSED**. **GO P6 EXECUTION** = **AUTHORIZED / CONSUMED**. **GO P6 REAL — BOUNDED CAMPAIGN** = **AUTHORIZED / CONSUMED**. **P6 STARTED = YES**. Phase 1 = **PASS**. SMOKE-01/02/03 = **PASS**. Broad QA **IN PROGRESS**. Human QA batch **READY**. Strategy = **REAL-FIRST HYBRID**. **≠ P6 PASS** · **≠ REAL BOUNDARY globally proven** · **≠ runtime v3 ADOPTED** · **≠ production routing adoption**. Project push/PR/merge = **NONE**.
 
 ---
 
@@ -61,11 +61,11 @@
 
 A single future Morris message **MAY** consume both gates. They remain **semantically distinct**.
 
-**Current:** GO P6 EXECUTION = **AUTHORIZED / CONSUMED** · GO P6 REAL — BOUNDED CAMPAIGN = **AUTHORIZED / CONSUMED** · P6 STARTED = **YES** · Phase 1 = **IN PROGRESS**.
+**Current:** GO P6 EXECUTION = **AUTHORIZED / CONSUMED** · GO P6 REAL — BOUNDED CAMPAIGN = **AUTHORIZED / CONSUMED** · P6 STARTED = **YES** · Phase 1 = **PASS**.
 
-**This document remains the campaign contract.** Living status advances only on evidence. **≠** P6 PASS · **≠** routing adoption · **≠** runtime v3 adoption · **≠** Phase 1 PASS until exit gate evidence.
+**This document remains the campaign contract.** Living status advances only on evidence. **≠** P6 PASS · **≠** routing adoption · **≠** runtime v3 adoption.
 
-**Maturity:** Phase 0 INTEGRATED / POST-MERGE VERIFIED · GOs consumed · campaign STARTED · Phase 1 evidence in progress.
+**Maturity:** Phase 0 INTEGRATED / POST-MERGE VERIFIED · GOs consumed · campaign STARTED · Phase 1 PASS · Phases 2–4 AUTO advanced · Human QA batch READY · interim consolidation only.
 
 ---
 
