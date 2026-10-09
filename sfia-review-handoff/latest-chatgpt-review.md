@@ -1,117 +1,605 @@
-# ChatGPT Review Pack — P6-HQA-NEWPROJECT-01 NORA REAL CONVERSATIONAL PROJECT ONBOARDING (COMPLETE — REPUBLISH)
+# ChatGPT Review Pack — P6-HQA-NEWPROJECT-01 TARGETED FUNCTIONAL CLOSURE (COMPLETE)
 
-- timestamp: 2026-10-09T08:48:44Z
-- republish reason: REVIEW HANDOFF INCOMPLETE — MODIFIED CONTENT MISSING
-- regularization: FULL content now included for previously summary-only files
-  (`fakeProvider.ts`, `p5.s06.pilotExperience.d0.test.tsx`) + unified diffs vs HEAD
+- timestamp: 2026-10-09T09:06:06Z
 - finding: P6-HQA-NEWPROJECT-01
 - cycle: 8 — Delivery / implémentation
 - profile: CRITICAL
 - typology: EVOL
-- Morris GO: GO BORNÉ — QUALIFICATION ET CORRECTION NEW PROJECT COGNITIVE ONBOARDING
-- GO P6 REAL provider calls by Cursor: NOT ACTIVATED / ZERO REAL CALLS
+- Morris GO: GO P6-HQA-NEWPROJECT-01 — TARGETED FUNCTIONAL CORRECTION
+- prior handoff: 52bceed2f94adc825ae7fd26fb4a234c8d6b0597
 - branch: qa/sfia-studio-p6-global-integrated-product-qa
 - HEAD: 8a196be1a35ffa2d43e52beddc66b51eab56c99c
 - origin/main: aba6c4a617b6d0cb27f23b59de5bf0ac9360fab1
-- prior incomplete handoff: e2a4b1f2c7c7986a7b1cf95cd66739889829df0f
-- activation readiness handoff: 5bba7449ab0415ca4e1f5df4c37e0bc9eb539caf
+- ZERO REAL provider calls
+- ZERO Product / HQ-01 mutation (hq01_cycles=5, projects=21)
 - project commit/push/PR: NONE
-- HQ-01 mutation: NONE
-- P6 PASS / Human QA PASS / runtime v3 ADOPTED / finding CLOSED: NOT CLAIMED
+- NEWPROJECT-01 CLOSED / HUMAN QA PASS / NATURAL CONVERSATION PASS / P6 PASS / runtime v3 ADOPTED: NOT CLAIMED
 
 ## Local Git Truth
 
 ```
 BRANCH=qa/sfia-studio-p6-global-integrated-product-qa
 HEAD=8a196be1a35ffa2d43e52beddc66b51eab56c99c
-ORIGIN_MAIN=aba6c4a617b6d0cb27f23b59de5bf0ac9360fab1
 ```
 
-Pre-existing local COG01/F01/UI-01…05 candidates preserved.
+Worktree dirty (COG01/F01/UI locals preserved). Baseline snapshot taken before this closure cycle under `.tmp-sfia-review/newproject-closure-baseline/`. Cycle-only diffs below isolate this correction from the prior New Project implementation.
 
-## Convergence / feasibility
+## Convergence
 
-**STOP structural? NO — ADAPT sufficient.**
+Capacité: Accueil → Nora → qualification minimale → consentement → Create → continuité LPS.
+STOP structurel: NON.
+Classification: ADAPT TARGETED on onboarding contract/runner; KEEP createProject; REUSE provider routing; REJECT new SessionStore/NLP/schema.
 
-| Asset | Classification |
-|-------|----------------|
-| NewProjectIntentionPage | ADAPT |
-| newProjectConversation | REPLACE targeted (scripted path demoted) |
-| ConversationProvider / resolveF2ProductRoutedProvider | REUSE |
-| createProjectRuntimeAction | KEEP |
-| Project Product fields name/objective/context | REUSE for continuity |
-| F2 / lifecycle / HD / START | KEEP untouched |
-| FakeConversationProvider | ADAPT (onboarding schema branch — Fake only) |
+## Diagnostic des quatre réserves (BEFORE)
 
-No durable fake projectId. No new SessionStore. No schema migration. No authority change. No parallel cognitive engine.
+| ID | Réserve | Cause |
+|----|---------|-------|
+| G1 | Refus non réversible | `explicitRefuseCreate = payload.refuse \|\| prev` sticky forever |
+| G2 | Gate syntaxique | `intention.length >= 3/12` as maturity |
+| G3 | Continuité insuffisante | marker-only claim; blind `.slice(0, CONTEXT_MAX)` could drop essentials; UI contextSummary=240 ≠ cognitive authority |
+| G4 | Budget REAL non démontré | `completion.usage` ignored; 10 EUR declared ≠ hard cap |
 
-## Diagnostic BEFORE
+## Corrections (AFTER)
 
-`newProjectConversation.ts` used explicit CollectPhase scripts (`nextNoraPrompt`, `noraTurnAfter`, regex name propose for one case). Client `onSend` never called ConversationProvider. Create required name+intention via local absorb. Continuity after create: router push only — no onboarding handoff in Product context.
+### G1 REFUS REVERSAL — PASS (deterministic)
+- Added `acceptCreateDetected` to structured payload.
+- Merge: refuse sticky until explicit accept; neutral turns preserve refuse; name confirm ≠ accept.
+- Fake + multi-turn tests cover refuse→accept unlock.
 
-## Design AFTER
+### G2 MINIMUM SUFFICIENT — PASS (deterministic)
+- Added `intentionKind`: project_direction | non_project | unclear.
+- `studioCanCreate` requires project_direction + non-empty intention + name + !refuse + ≥1 cognitive turn.
+- Length is NOT a maturity criterion.
+- Nora sufficient=true cannot authorize without project_direction.
+- Exploratory project_direction creatable even if sufficient=false.
 
-1. Opening welcome = presentation chrome (`meta=opening`) — not claimed as cognitive analysis.
-2. Each Pilot message → server action `newProjectOnboardingTurnAction` → `runNewProjectOnboardingTurn` → `resolveF2ProductRoutedProvider` + `completeStructured(schema=new_project_onboarding_turn_v1)`.
-3. Nora payload proposes intention/name/orientation/sufficient; Studio `studioCanCreate` validates independently; Create CTA remains Pilot-only.
-4. Create writes `context` via `buildProductContextHandoff` with `[[nora-onboarding-handoff]]` + abbreviated transcript + proposals labeled as such. No CycleInstance/HD.
-5. Navigate `?from=new-project-onboarding`. F2 later reads Product objective/context — honest continuity without fabricating messages.
+### G3 PRODUCT CONTINUITY — PASS WITH KNOWN LIMIT
+- `assembleProductContextHandoff` prioritizes essentials; transcript fills remainder; no blind whole-string slice.
+- Deterministic Product fixture: create → LPS full `context` read-back contains intention/unknowns/orientation.
+- Documented: UI `contextSummary` ≤240 chars projection; F2 cognitive authority = LPS full context via `readLiveProjectContext`.
+- FULL TRANSCRIPT REPLAY: explicitly **non**.
+- No Agents session import; no fabricated durable messages.
 
-## Figma
+### G4 REAL BUDGET READINESS — PASS WITH RESERVE (observability only)
+- `usageObservation` returned on success (tokens/model/responseId/selectedModel/effort when available).
+- `declaredHumanQaBudgetEur=10`, `hardCapEnforced=false`.
+- `campaignBudget.ts` is MW6 process-local lease — NOT wired as New Project FinOps (would be new authority surface).
+- Gap explicit: cost observable when provider returns usage; **no technical hard cap** on this path; restart/concurrency not governed by onboarding lease.
+- ZERO REAL calls this cycle.
 
-- fileKey `m4g8j0gNbEzfIuH6S9AZJF` node `67:39` desktop 1440×1024 captured to `.tmp-sfia-review/assets/figma-67-39-new-project.png`.
-- Composition KEEP: chat-first left, preview right, single CTA « Créer le projet », no big form.
-- Intentional deltas vs Figma copy: preview fields now distinguish provisional name / orientation / create-possible without « 4/4 champs ».
-- Runtime visual parity Human QA: NOT RUN.
-- FIGMA PARITY PASS: NOT CLAIMED.
+## Naturalité
+NOT PROVEN (Fake only). Human QA scenarios prepared but NOT executed.
 
-## Tests
+## Tests this cycle
 
 | Suite | Result |
 |-------|--------|
-| p6.hqa.newproject01.onboarding.d0.test.ts | PASS |
-| p5.s06.pilotExperience.d0.test.tsx | PASS |
+| p6.hqa.newproject01.closure.d0.test.ts | PASS (16) |
+| p6.hqa.newproject01.onboarding.d0.test.ts | PASS (19) |
+| p5.s06.pilotExperience.d0.test.tsx | PASS (8) |
 | p5.s06.cp02.cancellation.ui.test.tsx | PASS |
-| p6.hqa.f01… | PASS |
-| p6.hqa.cog01… | PASS |
-| p6.hqa.ui03/ui04/ui05 | PASS |
-| **Total prior run** | **85 PASS / 85** |
+| p6.hqa.f01 / cog01 / ui03 / ui04 / ui05 | PASS |
+| **Total** | **101 PASS / 101** |
 
-NATURAL CONVERSATION PASS: NOT CLAIMED. ZERO REAL CALLS this Cursor cycle.
+## Verdicts par bloc
 
-## Fake / Real
+- G1 REFUS REVERSAL: **PASS**
+- G2 MINIMUM SUFFICIENT: **PASS**
+- G3 PRODUCT CONTINUITY: **PASS WITH KNOWN LIMIT** (LPS full ≠ UI 240 projection; no Agents replay)
+- G4 REAL BUDGET READINESS: **PASS WITH RESERVE** (observation only; no hard cap)
 
-- Fake: provider substitution + onboarding schema branch in FakeConversationProvider.
-- REAL Nora: NOT called.
-- Gates remaining: ChatGPT Critical re-review (this republish); Human QA + GO REAL.
-
-## Risks / reserves
-
-1. Opening message remains static chrome — first reply is provider-backed.
-2. Continuity is Product context handoff, not full Agents session transcript replay.
-3. Fake onboarding heuristics ≠ naturalness proof.
-4. Live model×effort via F2 routing — cost only under REAL GO.
-
-## Inventaire documentaire de cette republication
-
-| Fichier | Statut pack précédent | Statut ce pack |
-|---------|----------------------|----------------|
-| newProjectOnboardingContract.ts | FULL | FULL |
-| runNewProjectOnboardingTurn.ts | FULL | FULL |
-| newProjectOnboardingAction.ts | FULL | FULL |
-| p6.hqa.newproject01.onboarding.d0.test.ts | FULL | FULL |
-| newProjectConversation.ts | FULL | FULL |
-| NewProjectIntentionPage.tsx | FULL | FULL |
-| fakeProvider.ts | SUMMARY ONLY (gap) | **FULL + unified diff vs HEAD** |
-| p5.s06.pilotExperience.d0.test.tsx | SUMMARY ONLY (gap) | **FULL + unified diff vs HEAD** |
-
-## Verdict
+## Verdict intégré
 
 **READY FOR CHATGPT CRITICAL RE-REVIEW**
 
+Statut: CORRECTION CANDIDATE — READY FOR REVIEW.
+
+Gates restants: ChatGPT Critical; Human QA REAL under distinct GO + ≤10 EUR envelope (not a Cursor REAL authorization).
+
 ---
 
-## Files created (FULL)
+## Files created this cycle (FULL)
+
+
+### `projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.hqa.newproject01.closure.d0.test.ts`
+
+```typescript
+/** @vitest-environment node */
+/**
+ * P6-HQA-NEWPROJECT-01 — targeted functional closure (G1–G4).
+ */
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import {
+  FakeConversationProvider,
+  setConversationProviderForTests,
+} from "@/lib/platform/ai";
+import {
+  assembleProductContextHandoff,
+  emptyDraft,
+  mergeCognitiveIntoDraft,
+  ONBOARDING_HANDOFF_MARKER,
+  parseOnboardingHandoffEssentials,
+  studioCanCreate,
+  type OnboardingCognitivePayload,
+  type PreProjectDraft,
+} from "@/features/pre-m6-product-ui/newProjectOnboardingContract";
+import { runNewProjectOnboardingTurn } from "@/features/pre-m6-product-ui/runNewProjectOnboardingTurn";
+import {
+  getRuntimeApplicationService,
+  resetRuntimeApplicationServiceForTests,
+} from "@/lib/vertical-slice-runtime";
+
+function payload(
+  partial: Partial<OnboardingCognitivePayload> & {
+    replyText: string;
+    intentionKind: OnboardingCognitivePayload["intentionKind"];
+  },
+): OnboardingCognitivePayload {
+  return {
+    intentionKnown: null,
+    objectiveProposal: null,
+    contextKnown: null,
+    nameProposal: null,
+    nameProvisional: true,
+    firstOrientationProposal: null,
+    unknowns: [],
+    sufficientForCreateProposal: false,
+    refuseCreateDetected: false,
+    acceptCreateDetected: false,
+    clarificationQuestion: null,
+    suggestions: [],
+    ...partial,
+  };
+}
+
+describe("G1 — reversible refuse", () => {
+  it("1 — refuse blocks create", () => {
+    const d = mergeCognitiveIntoDraft(
+      emptyDraft(),
+      payload({
+        replyText: "ok",
+        intentionKnown: "App de tâches",
+        nameProposal: "Tâches",
+        intentionKind: "project_direction",
+        sufficientForCreateProposal: true,
+        refuseCreateDetected: true,
+      }),
+      "ne crée pas",
+    );
+    expect(d.explicitRefuseCreate).toBe(true);
+    expect(studioCanCreate(d)).toBe(false);
+  });
+
+  it("2 — refuse then explicit accept unlocks when direction exists", () => {
+    let d = mergeCognitiveIntoDraft(
+      emptyDraft(),
+      payload({
+        replyText: "pas maintenant",
+        intentionKnown: "App de gestion de tâches",
+        nameProposal: "Tâches",
+        intentionKind: "project_direction",
+        refuseCreateDetected: true,
+      }),
+      "pas maintenant",
+    );
+    expect(studioCanCreate(d)).toBe(false);
+    d = mergeCognitiveIntoDraft(
+      d,
+      payload({
+        replyText: "allons-y",
+        intentionKnown: "App de gestion de tâches",
+        nameProposal: "Tâches",
+        intentionKind: "project_direction",
+        sufficientForCreateProposal: true,
+        acceptCreateDetected: true,
+      }),
+      "Finalement, allons-y, je veux créer le projet.",
+    );
+    expect(d.explicitRefuseCreate).toBe(false);
+    expect(studioCanCreate(d)).toBe(true);
+  });
+
+  it("3 — refuse then question does not unlock", () => {
+    let d = mergeCognitiveIntoDraft(
+      emptyDraft(),
+      payload({
+        replyText: "refuse",
+        intentionKnown: "Produit flou",
+        nameProposal: "Produit",
+        intentionKind: "project_direction",
+        refuseCreateDetected: true,
+      }),
+      "pas maintenant",
+    );
+    d = mergeCognitiveIntoDraft(
+      d,
+      payload({
+        replyText: "question",
+        intentionKnown: "Produit flou",
+        nameProposal: "Produit",
+        intentionKind: "project_direction",
+        // neutral turn — neither refuse nor accept
+      }),
+      "Tu peux préciser le nom ?",
+    );
+    expect(d.explicitRefuseCreate).toBe(true);
+    expect(studioCanCreate(d)).toBe(false);
+  });
+
+  it("4 — refuse then off-topic does not unlock", () => {
+    let d = mergeCognitiveIntoDraft(
+      emptyDraft(),
+      payload({
+        replyText: "refuse",
+        intentionKnown: "Organisation",
+        nameProposal: "Org",
+        intentionKind: "project_direction",
+        refuseCreateDetected: true,
+      }),
+      "attends",
+    );
+    d = mergeCognitiveIntoDraft(
+      d,
+      payload({
+        replyText: "hors sujet",
+        intentionKind: "non_project",
+      }),
+      "Quelle heure est-il ?",
+    );
+    expect(d.explicitRefuseCreate).toBe(true);
+    expect(studioCanCreate(d)).toBe(false);
+  });
+
+  it("5 — accept then refuse reblocks", () => {
+    let d = mergeCognitiveIntoDraft(
+      emptyDraft(),
+      payload({
+        replyText: "ok",
+        intentionKnown: "App tâches",
+        nameProposal: "Tâches",
+        intentionKind: "project_direction",
+        sufficientForCreateProposal: true,
+        acceptCreateDetected: true,
+      }),
+      "créons-le",
+    );
+    expect(studioCanCreate(d)).toBe(true);
+    d = mergeCognitiveIntoDraft(
+      d,
+      payload({
+        replyText: "stop",
+        intentionKnown: "App tâches",
+        nameProposal: "Tâches",
+        intentionKind: "project_direction",
+        refuseCreateDetected: true,
+      }),
+      "Finalement ne crée pas",
+    );
+    expect(studioCanCreate(d)).toBe(false);
+  });
+
+  it("6 — name agreement alone is not create consent", () => {
+    const base = mergeCognitiveIntoDraft(
+      emptyDraft(),
+      payload({
+        replyText: "propose nom",
+        intentionKnown: "App tâches",
+        nameProposal: "Tâches Pro",
+        intentionKind: "project_direction",
+        sufficientForCreateProposal: true,
+        refuseCreateDetected: true,
+      }),
+      "idée",
+    );
+    const afterName = mergeCognitiveIntoDraft(
+      base,
+      payload({
+        replyText: "nom ok",
+        intentionKnown: "App tâches",
+        nameProposal: "Tâches Pro",
+        intentionKind: "project_direction",
+        // acceptCreateDetected intentionally false (name confirm ≠ create)
+      }),
+      "ok pour le nom",
+    );
+    expect(afterName.explicitRefuseCreate).toBe(true);
+    expect(studioCanCreate(afterName)).toBe(false);
+  });
+});
+
+describe("G2 — minimum sufficient (non-syntactic)", () => {
+  it("9 — clear intention with project_direction can create", () => {
+    const d = mergeCognitiveIntoDraft(
+      emptyDraft(),
+      payload({
+        replyText: "ok",
+        intentionKnown: "Je veux créer une application de gestion de tâches.",
+        nameProposal: "Gestion de tâches",
+        intentionKind: "project_direction",
+        sufficientForCreateProposal: true,
+      }),
+      "Je veux créer une application de gestion de tâches.",
+    );
+    expect(studioCanCreate(d)).toBe(true);
+  });
+
+  it("10 — exploratory intention still project_direction", () => {
+    const d = mergeCognitiveIntoDraft(
+      emptyDraft(),
+      payload({
+        replyText: "exploratoire",
+        intentionKnown: "J’ai une idée de produit mais elle est encore floue.",
+        nameProposal: "Idée produit",
+        intentionKind: "project_direction",
+        sufficientForCreateProposal: false,
+      }),
+      "idée encore floue",
+    );
+    expect(studioCanCreate(d)).toBe(true);
+  });
+
+  it("14 — long off-topic cannot create even if Nora wrongly says sufficient", () => {
+    const d = mergeCognitiveIntoDraft(
+      emptyDraft(),
+      payload({
+        replyText: "recette",
+        intentionKnown:
+          "Voici une très longue recette de cuisine avec beaucoup d’ingrédients et d’étapes détaillées sans aucun projet.",
+        nameProposal: "Recette",
+        intentionKind: "non_project",
+        sufficientForCreateProposal: true,
+      }),
+      "long hors sujet",
+    );
+    expect(studioCanCreate(d)).toBe(false);
+  });
+
+  it("15 — short intelligible project direction can create", () => {
+    const d = mergeCognitiveIntoDraft(
+      emptyDraft(),
+      payload({
+        replyText: "ok",
+        intentionKnown: "CRM interne",
+        nameProposal: "CRM",
+        intentionKind: "project_direction",
+        sufficientForCreateProposal: true,
+      }),
+      "CRM",
+    );
+    expect(d.intention.length).toBeLessThan(12);
+    expect(studioCanCreate(d)).toBe(true);
+  });
+
+  it("17 — Nora sufficient=true without project_direction rejected", () => {
+    const d = mergeCognitiveIntoDraft(
+      emptyDraft(),
+      payload({
+        replyText: "bonjour",
+        intentionKnown: "Bonjour",
+        nameProposal: "Bonjour",
+        intentionKind: "non_project",
+        sufficientForCreateProposal: true,
+      }),
+      "Bonjour",
+    );
+    expect(studioCanCreate(d)).toBe(false);
+    expect(d.cognitiveCreateProposal).toBe(false);
+  });
+
+  it("18 — Nora sufficient=false but exploratory project_direction creatable", () => {
+    const d = mergeCognitiveIntoDraft(
+      emptyDraft(),
+      payload({
+        replyText: "incertain",
+        intentionKnown: "Améliorer notre organisation, on précisera après.",
+        nameProposal: "Organisation",
+        intentionKind: "project_direction",
+        sufficientForCreateProposal: false,
+      }),
+      "organisation",
+    );
+    expect(d.cognitiveCreateProposal).toBe(false);
+    expect(studioCanCreate(d)).toBe(true);
+  });
+});
+
+describe("G3 — continuity handoff assembly + Product read-back", () => {
+  const tempDirs: string[] = [];
+  const APP_ROOT = path.resolve(__dirname, "../..");
+  const SCHEMAS = path.resolve(
+    APP_ROOT,
+    "../sfia-v3-modeled/v3-native-option-a/schemas",
+  );
+  const FIXTURES = path.join(APP_ROOT, "lib/oa/doctrine/fixtures");
+
+  beforeEach(() => {
+    process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
+    process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY = "1";
+    delete process.env.SFIA_STUDIO_LOCAL_PILOT_AUTHORITY;
+    resetRuntimeApplicationServiceForTests();
+  });
+
+  afterEach(() => {
+    resetRuntimeApplicationServiceForTests();
+    while (tempDirs.length) {
+      const d = tempDirs.pop();
+      if (d) fs.rmSync(d, { recursive: true, force: true });
+    }
+  });
+
+  it("21/22/23 — essential fields preserved under tight budget; no silent intention loss", () => {
+    const draft: PreProjectDraft = {
+      ...emptyDraft(),
+      intention: "Intention critique à conserver absolument pour la continuité",
+      objective: "Objectif proposé",
+      name: "Projet Continuity",
+      nameProvisional: true,
+      context: "Contexte connu",
+      firstOrientation: "Orientation provisoire non autoritative",
+      unknowns: ["périmètre", "premier cycle"],
+      intentionKind: "project_direction",
+      cognitiveTurns: 2,
+    };
+    const longTranscript = Array.from({ length: 20 }, (_, i) => ({
+      role: (i % 2 === 0 ? "user" : "nora") as "user" | "nora",
+      text: `Tour ${i} `.repeat(40),
+    }));
+    const assembled = assembleProductContextHandoff(
+      draft,
+      longTranscript,
+      900,
+    );
+    expect(assembled.essentialPreserved).toBe(true);
+    expect(assembled.text).toContain(ONBOARDING_HANDOFF_MARKER);
+    expect(assembled.text).toContain("Intention critique à conserver");
+    expect(assembled.text).toContain("périmètre");
+    expect(assembled.text).toMatch(/FULL TRANSCRIPT REPLAY:\s*non/i);
+    expect(assembled.text.length).toBeLessThanOrEqual(900);
+    const parsed = parseOnboardingHandoffEssentials(assembled.text);
+    expect(parsed.markerPresent).toBe(true);
+    expect(parsed.intention).toMatch(/Intention critique/);
+    expect(parsed.claimsFullReplay).toBe(false);
+  });
+
+  it("24/25/26 — Product create stores handoff; LPS full context is cognitive authority", async () => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-np-cont-"));
+    tempDirs.push(dir);
+    const productDbPath = path.join(dir, "oa-product.sqlite");
+    const runtime = getRuntimeApplicationService({
+      productDbPath,
+      fixturesRoot: FIXTURES,
+      schemasRoot: SCHEMAS,
+    });
+    const draft = mergeCognitiveIntoDraft(
+      emptyDraft(),
+      payload({
+        replyText: "ok",
+        intentionKnown: "Moderniser le reporting commercial",
+        objectiveProposal: "Moderniser le reporting commercial",
+        nameProposal: "Reporting commercial",
+        nameProvisional: true,
+        firstOrientationProposal: "Clarifier le premier livrable",
+        unknowns: ["sources de données"],
+        intentionKind: "project_direction",
+        sufficientForCreateProposal: true,
+      }),
+      "Moderniser le reporting commercial",
+    );
+    const handoff = assembleProductContextHandoff(draft, [
+      { role: "user", text: "Moderniser le reporting commercial" },
+      { role: "nora", text: "ok" },
+    ]).text;
+    const created = await runtime.createProject({
+      name: draft.name,
+      objective: draft.objective || draft.intention,
+      context: handoff,
+      criticality: "STANDARD",
+      constraints: [],
+      idempotencyKey: "np-cont-1",
+    });
+    expect(created.ok).toBe(true);
+    if (!created.ok) return;
+    const got = await runtime.getProject(created.projectId);
+    expect(got.ok).toBe(true);
+    if (!got.ok) return;
+    expect(got.project.objective).toMatch(/reporting/i);
+    // UI projection is ≤240 chars — may truncate; marker+intention must lead.
+    expect(got.project.contextSummary).toContain(ONBOARDING_HANDOFF_MARKER);
+    expect(got.project.contextSummary.length).toBeLessThanOrEqual(240);
+    // Cognitive continuity authority = LPS full context (F2 readLiveProjectContext path).
+    const oa = runtime.oa;
+    expect(oa).toBeTruthy();
+    const lps = await oa!.projectServices.getCurrentLivingProjectState.execute({
+      projectId: created.projectId,
+    });
+    expect(lps.ok).toBe(true);
+    if (!lps.ok) return;
+    const fullContext = lps.livingProjectState.context ?? "";
+    expect(fullContext.length).toBeGreaterThan(240);
+    const parsed = parseOnboardingHandoffEssentials(fullContext);
+    expect(parsed.markerPresent).toBe(true);
+    expect(parsed.intention).toMatch(/reporting/i);
+    expect(parsed.orientation).toMatch(/livrable|Orientation|Clarifier/i);
+    expect(parsed.claimsFullReplay).toBe(false);
+    expect(fullContext).toMatch(/non Session Agents/i);
+  });
+});
+
+describe("G4 — usage observation without false hard cap", () => {
+  afterEach(() => {
+    setConversationProviderForTests(null);
+    delete process.env.OPS1_CONVERSATION_PROVIDER;
+  });
+
+  it("36 — usageObservation exposed; hardCapEnforced=false", async () => {
+    process.env.OPS1_CONVERSATION_PROVIDER = "fake";
+    const result = await runNewProjectOnboardingTurn({
+      userText: "Je veux créer une application de gestion de tâches.",
+      draft: emptyDraft(),
+      history: [],
+      provider: new FakeConversationProvider(),
+    });
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.usageObservation.hardCapEnforced).toBe(false);
+    expect(result.usageObservation.declaredHumanQaBudgetEur).toBe(10);
+    expect(result.usageObservation.model).toBeTruthy();
+    // Fake may leave token counts null — that is an honest observability gap, not a hard cap.
+  });
+});
+
+describe("Provider multi-turn Fake — refuse/accept path", () => {
+  afterEach(() => {
+    setConversationProviderForTests(null);
+  });
+
+  it("refuse then allons-y unlocks via Fake provider", async () => {
+    const provider = new FakeConversationProvider();
+    const first = await runNewProjectOnboardingTurn({
+      userText: "Je veux une app de tâches mais ne crée pas pour l’instant",
+      draft: emptyDraft(),
+      history: [],
+      provider,
+    });
+    expect(first.ok).toBe(true);
+    if (!first.ok) return;
+    // Force refuse if combined message didn't
+    const refused = first.draft.explicitRefuseCreate
+      ? first.draft
+      : mergeCognitiveIntoDraft(
+          first.draft,
+          payload({
+            replyText: "refuse",
+            intentionKnown: first.draft.intention || "App de tâches",
+            nameProposal: first.draft.name || "Tâches",
+            intentionKind: "project_direction",
+            refuseCreateDetected: true,
+          }),
+          "ne crée pas",
+        );
+    expect(studioCanCreate(refused)).toBe(false);
+    const second = await runNewProjectOnboardingTurn({
+      userText: "Finalement, allons-y, je veux créer le projet.",
+      draft: refused,
+      history: [
+        { role: "user", text: "ne crée pas" },
+        { role: "nora", text: "ok" },
+      ],
+      provider,
+    });
+    expect(second.ok).toBe(true);
+    if (!second.ok) return;
+    expect(second.draft.explicitRefuseCreate).toBe(false);
+    expect(studioCanCreate(second.draft)).toBe(true);
+  });
+});
+```
+
+
+## Files modified — FULL current sources (onboarding)
 
 
 ### `projects/sfia-studio/app/features/pre-m6-product-ui/newProjectOnboardingContract.ts`
@@ -122,6 +610,9 @@ NATURAL CONVERSATION PASS: NOT CLAIMED. ZERO REAL CALLS this Cursor cycle.
  *
  * Nora (provider) proposes; Studio validates and materializes.
  * No Product write, no CycleInstance, no HumanDecision here.
+ *
+ * Closure correction: reversible refuse, non-syntactic gate,
+ * prioritized handoff assembly, usage observation (no FinOps invent).
  */
 
 export const NEW_PROJECT_ONBOARDING_SCHEMA_NAME =
@@ -134,6 +625,13 @@ const NAME_MAX = 200;
 const CONTEXT_MAX = 4000;
 const ORIENTATION_MAX = 800;
 const REPLY_MAX = 4000;
+
+/** Studio-held view of whether the known intention is a project direction. */
+export type IntentionKind =
+  | "unset"
+  | "project_direction"
+  | "non_project"
+  | "unclear";
 
 export type PreProjectDraft = {
   name: string;
@@ -148,8 +646,13 @@ export type PreProjectDraft = {
   unknowns: string[];
   /** Nora recommendation only — never alone authorizes Create. */
   cognitiveCreateProposal: boolean;
-  /** Pilot explicitly refused creation in conversation. */
+  /**
+   * Current create-block from an explicit Pilot refuse/defer.
+   * Cleared only by a later explicit acceptCreateDetected — not by silence.
+   */
   explicitRefuseCreate: boolean;
+  /** Last Nora classification of whether a project direction is present. */
+  intentionKind: IntentionKind;
   /** Cognitive turns completed (provider-backed). */
   cognitiveTurns: number;
 };
@@ -176,7 +679,21 @@ export type OnboardingCognitivePayload = {
   firstOrientationProposal: string | null;
   unknowns: string[];
   sufficientForCreateProposal: boolean;
+  /**
+   * Explicit Pilot refuse/defer of creation for this turn.
+   * Sticky until acceptCreateDetected — absence does not clear.
+   */
   refuseCreateDetected: boolean;
+  /**
+   * Explicit Pilot accept/retract of a prior refuse ("allons-y", "créons-le").
+   * Name confirmation alone must NOT set this.
+   */
+  acceptCreateDetected: boolean;
+  /**
+   * Nora's classification — Studio uses this instead of message length.
+   * project_direction = exploitable even if exploratory.
+   */
+  intentionKind: "project_direction" | "non_project" | "unclear";
   clarificationQuestion: string | null;
   suggestions: string[];
 };
@@ -196,6 +713,8 @@ export const NEW_PROJECT_ONBOARDING_JSON_SCHEMA: Record<string, unknown> = {
     "unknowns",
     "sufficientForCreateProposal",
     "refuseCreateDetected",
+    "acceptCreateDetected",
+    "intentionKind",
     "clarificationQuestion",
     "suggestions",
   ],
@@ -210,6 +729,11 @@ export const NEW_PROJECT_ONBOARDING_JSON_SCHEMA: Record<string, unknown> = {
     unknowns: { type: "array", items: { type: "string" } },
     sufficientForCreateProposal: { type: "boolean" },
     refuseCreateDetected: { type: "boolean" },
+    acceptCreateDetected: { type: "boolean" },
+    intentionKind: {
+      type: "string",
+      enum: ["project_direction", "non_project", "unclear"],
+    },
     clarificationQuestion: { type: ["string", "null"] },
     suggestions: { type: "array", items: { type: "string" } },
   },
@@ -233,6 +757,7 @@ export function emptyDraft(): PreProjectDraft {
     unknowns: [],
     cognitiveCreateProposal: false,
     explicitRefuseCreate: false,
+    intentionKind: "unset",
     cognitiveTurns: 0,
   };
 }
@@ -248,6 +773,13 @@ function nullableString(value: unknown, max: number): string | null {
   return t.length > 0 ? t : null;
 }
 
+function parseIntentionKind(value: unknown): IntentionKind | null {
+  if (value === "project_direction") return "project_direction";
+  if (value === "non_project") return "non_project";
+  if (value === "unclear") return "unclear";
+  return null;
+}
+
 /** Deterministic provisional name from intention — labeled provisional by Studio. */
 export function provisionalNameFromIntention(intention: string): string {
   const t = intention.trim().replace(/\s+/g, " ");
@@ -259,19 +791,26 @@ export function provisionalNameFromIntention(intention: string): string {
 
 /**
  * Studio gate — independent of Nora's sufficient flag alone.
- * Requires exploitable intention + a name (proposed or provisional).
- * RefuseCreate blocks. Cognitive proposal strengthens readiness but is not sole authority.
+ *
+ * Requires:
+ * - no current explicit refuse;
+ * - Product-usable non-empty name (proposed or provisional);
+ * - at least one cognitive turn;
+ * - intentionKind === project_direction with non-empty intention text;
+ * - Nora create proposal OR exploratory path (project_direction without refuse).
+ *
+ * Length is NOT a maturity criterion (technical empty-check only).
+ * Nora sufficient=true cannot authorize Create without project_direction.
  */
 export function studioCanCreate(draft: PreProjectDraft): boolean {
   if (draft.explicitRefuseCreate) return false;
-  const intention = draft.intention.trim();
-  if (!draft.name.trim()) return false;
   if (draft.cognitiveTurns < 1) return false;
-  // Nora recommendation enables exploratory create with a short but real intention.
-  if (draft.cognitiveCreateProposal && intention.length >= 3) return true;
-  // Without Nora's create proposal, Studio still requires a usable intention phrase.
-  if (intention.length >= 12) return true;
-  return false;
+  if (!draft.name.trim()) return false;
+  if (draft.intentionKind !== "project_direction") return false;
+  if (!draft.intention.trim()) return false;
+  // Exploratory create allowed when direction is known, even if Nora was uncertain.
+  // Nora's cognitiveCreateProposal strengthens UX messaging but is not sole authority.
+  return true;
 }
 
 export function isMinimumSufficient(draft: PreProjectDraft): boolean {
@@ -285,6 +824,8 @@ export function parseOnboardingCognitivePayload(
   const o = raw as Record<string, unknown>;
   const replyText = nullableString(o.replyText, REPLY_MAX);
   if (!replyText) return null;
+  const intentionKind = parseIntentionKind(o.intentionKind);
+  if (!intentionKind || intentionKind === "unset") return null;
   const unknowns = Array.isArray(o.unknowns)
     ? o.unknowns
         .filter((u): u is string => typeof u === "string")
@@ -313,6 +854,8 @@ export function parseOnboardingCognitivePayload(
     unknowns,
     sufficientForCreateProposal: o.sufficientForCreateProposal === true,
     refuseCreateDetected: o.refuseCreateDetected === true,
+    acceptCreateDetected: o.acceptCreateDetected === true,
+    intentionKind,
     clarificationQuestion: nullableString(o.clarificationQuestion, 400),
     suggestions,
   };
@@ -337,18 +880,29 @@ export function extractJsonObject(text: string): unknown | null {
 
 /**
  * Merge Nora cognitive payload into ephemeral draft.
- * Studio may stamp a provisional name when intention exists and name is still empty.
+ *
+ * Refuse is sticky until acceptCreateDetected.
+ * AcceptCreateDetected does not invent intention — Studio still requires project_direction.
+ * Name confirmation alone must not arrive as acceptCreateDetected (prompt contract).
  */
 export function mergeCognitiveIntoDraft(
   prev: PreProjectDraft,
   payload: OnboardingCognitivePayload,
   userText: string,
 ): PreProjectDraft {
+  void userText;
+  let explicitRefuseCreate = prev.explicitRefuseCreate;
+  if (payload.refuseCreateDetected) {
+    explicitRefuseCreate = true;
+  } else if (payload.acceptCreateDetected) {
+    explicitRefuseCreate = false;
+  }
+
   const next: PreProjectDraft = {
     ...prev,
     cognitiveTurns: prev.cognitiveTurns + 1,
-    explicitRefuseCreate:
-      payload.refuseCreateDetected || prev.explicitRefuseCreate,
+    explicitRefuseCreate,
+    intentionKind: payload.intentionKind,
     cognitiveCreateProposal:
       payload.sufficientForCreateProposal && !payload.refuseCreateDetected,
     unknowns: payload.unknowns.length > 0 ? payload.unknowns : prev.unknowns,
@@ -356,13 +910,6 @@ export function mergeCognitiveIntoDraft(
 
   if (payload.intentionKnown) {
     next.intention = payload.intentionKnown;
-  } else if (
-    !next.intention.trim() &&
-    userText.trim().length >= 12 &&
-    payload.sufficientForCreateProposal
-  ) {
-    // Only adopt raw user text as intention when Nora also proposes create-readiness.
-    next.intention = sanitize(userText, INTENTION_MAX);
   }
 
   if (payload.objectiveProposal) {
@@ -384,13 +931,22 @@ export function mergeCognitiveIntoDraft(
     next.firstOrientation = payload.firstOrientationProposal;
   }
 
-  // Studio provisional name — does not invent semantic themes beyond the intention text.
-  if (!next.name.trim() && next.intention.trim()) {
+  // Studio provisional name when intention is a project direction and name empty.
+  if (
+    !next.name.trim() &&
+    next.intention.trim() &&
+    next.intentionKind === "project_direction"
+  ) {
     next.name = provisionalNameFromIntention(next.intention);
     next.nameProvisional = true;
   }
 
   if (payload.refuseCreateDetected) {
+    next.cognitiveCreateProposal = false;
+  }
+
+  // Nora claiming sufficient without project_direction cannot open Create.
+  if (next.intentionKind !== "project_direction") {
     next.cognitiveCreateProposal = false;
   }
 
@@ -430,12 +986,32 @@ export function understoodPointsFromDraft(draft: PreProjectDraft): string[] {
   return points.slice(0, 5);
 }
 
-/** Product context payload after Create — proposal markers kept honest. */
+export type HandoffAssemblyResult = {
+  readonly text: string;
+  readonly truncated: boolean;
+  readonly transcriptTurnsIncluded: number;
+  readonly essentialPreserved: boolean;
+};
+
+/**
+ * Prioritized Product context handoff.
+ * Essential block (marker, intention, unknowns, orientation) always first.
+ * Transcript fills remaining budget — never silently drops essentials via a
+ * final blind slice of the whole string.
+ */
 export function buildProductContextHandoff(
   draft: PreProjectDraft,
   transcript: ReadonlyArray<{ role: "user" | "nora"; text: string }>,
 ): string {
-  const lines: string[] = [
+  return assembleProductContextHandoff(draft, transcript).text;
+}
+
+export function assembleProductContextHandoff(
+  draft: PreProjectDraft,
+  transcript: ReadonlyArray<{ role: "user" | "nora"; text: string }>,
+  maxChars: number = CONTEXT_MAX,
+): HandoffAssemblyResult {
+  const essential = [
     ONBOARDING_HANDOFF_MARKER,
     "Synthèse d’accueil Nora (non autoritative — propositions et faits de conversation).",
     `Intention: ${draft.intention.trim() || "(non établie)"}`,
@@ -444,17 +1020,83 @@ export function buildProductContextHandoff(
     `Contexte: ${draft.context.trim() || "(à préciser)"}`,
     `Première orientation (proposition): ${draft.firstOrientation.trim() || "(aucune)"}`,
     `Incertitudes: ${draft.unknowns.length ? draft.unknowns.join(" · ") : "(aucune listée)"}`,
-    "Transcript d’accueil (abrégé):",
+    "Transcript d’accueil (abrégé, non Session Agents):",
   ];
+  const footer =
+    "Fin handoff. Aucun CycleInstance ni HumanDecision n’a été créé à l’accueil. FULL TRANSCRIPT REPLAY: non.";
+
+  let essentialText = essential.join("\n");
+  // Hard floor: if essentials alone exceed budget, truncate unknowns/context first
+  // while keeping marker + intention + refuse.
+  if (essentialText.length + 1 + footer.length > maxChars) {
+    const core = [
+      ONBOARDING_HANDOFF_MARKER,
+      `Intention: ${draft.intention.trim() || "(non établie)"}`,
+      `Objectif (proposition): ${(draft.objective.trim() || draft.intention.trim() || "(non établi)").slice(0, 400)}`,
+      `Nom: ${draft.name.trim() || "(non établi)"}${draft.nameProvisional ? " (provisoire)" : ""}`,
+      `Incertitudes: ${draft.unknowns.slice(0, 4).join(" · ") || "(aucune)"}`,
+      `Première orientation (proposition): ${draft.firstOrientation.trim().slice(0, 200) || "(aucune)"}`,
+      "Transcript d’accueil: (omis — budget)",
+    ].join("\n");
+    const text = `${core}\n${footer}`.slice(0, maxChars);
+    return {
+      text,
+      truncated: true,
+      transcriptTurnsIncluded: 0,
+      essentialPreserved: text.includes(ONBOARDING_HANDOFF_MARKER) &&
+        text.includes("Intention:"),
+    };
+  }
+
+  const budgetForTranscript =
+    maxChars - essentialText.length - footer.length - 2;
+  const turns: string[] = [];
+  let used = 0;
+  let included = 0;
   for (const turn of transcript.slice(-12)) {
     const label = turn.role === "user" ? "Pilote" : "Nora";
-    const text = turn.text.trim().slice(0, 400);
-    if (text) lines.push(`- ${label}: ${text}`);
+    const body = turn.text.trim().slice(0, 280);
+    if (!body) continue;
+    const line = `- ${label}: ${body}`;
+    if (used + line.length + 1 > budgetForTranscript) break;
+    turns.push(line);
+    used += line.length + 1;
+    included += 1;
   }
-  lines.push(
-    "Fin handoff. Aucun CycleInstance ni HumanDecision n’a été créé à l’accueil.",
-  );
-  return lines.join("\n").slice(0, CONTEXT_MAX);
+
+  const text = [essentialText, ...turns, footer].join("\n");
+  return {
+    text,
+    truncated: included < Math.min(transcript.length, 12),
+    transcriptTurnsIncluded: included,
+    essentialPreserved: true,
+  };
+}
+
+/** Read-back helper for continuity tests — parses essential fields from handoff text. */
+export function parseOnboardingHandoffEssentials(context: string): {
+  markerPresent: boolean;
+  intention: string | null;
+  unknownsLine: string | null;
+  orientation: string | null;
+  claimsFullReplay: boolean;
+} {
+  const markerPresent = context.includes(ONBOARDING_HANDOFF_MARKER);
+  const intention =
+    context.match(/^Intention:\s*(.+)$/m)?.[1]?.trim() ?? null;
+  const unknownsLine =
+    context.match(/^Incertitudes:\s*(.+)$/m)?.[1]?.trim() ?? null;
+  const orientation =
+    context
+      .match(/^Première orientation \(proposition\):\s*(.+)$/m)?.[1]
+      ?.trim() ?? null;
+  return {
+    markerPresent,
+    intention,
+    unknownsLine,
+    orientation,
+    claimsFullReplay: /FULL TRANSCRIPT REPLAY:\s*oui/i.test(context),
+  };
 }
 
 export function onboardingSystemPrompt(): string {
@@ -464,9 +1106,12 @@ export function onboardingSystemPrompt(): string {
     "Réponds en français courant, calme, naturel, proportionné. Pas de jargon inutile. Pas de questionnaire systématique.",
     "Ne prétends pas être humaine. N’invente pas de faits, d’autorité, ni de contexte non dit.",
     "Les champs intention/objectif/contexte/nom sont des repères — pas quatre questions obligatoires.",
-    "Si l’intention est exploitable même exploratoire, propose un nom (éventuellement provisoire) et indique sufficientForCreateProposal=true.",
-    "Si le Pilote refuse de créer, refuseCreateDetected=true et sufficientForCreateProposal=false.",
-    "Si le Pilote veut commencer vite avec peu d’infos, privilégie une création exploratoire honnête plutôt qu’un cadrage complet.",
+    "intentionKind: project_direction si une direction de projet (même exploratoire) est identifiable ; non_project si hors sujet / sans projet ; unclear sinon.",
+    "sufficientForCreateProposal=true seulement si intentionKind=project_direction.",
+    "refuseCreateDetected=true si le Pilote refuse ou reporte explicitement la création.",
+    "acceptCreateDetected=true seulement si le Pilote accepte explicitement de créer / revient sur un refus (« allons-y », « créons-le »). Confirmer un nom ≠ accepter de créer.",
+    "Un tour neutre (question, précision) ne doit activer ni refuseCreateDetected ni acceptCreateDetected.",
+    "Si le Pilote veut commencer vite avec peu d’infos, privilégie une création exploratoire honnête.",
     "firstOrientationProposal = direction de travail provisoire non autoritative (pas un démarrage de cycle).",
     "replyText = ton message conversationnel au Pilote (sans JSON visible).",
   ].join("\n");
@@ -477,6 +1122,9 @@ export function composerPlaceholder(draft: PreProjectDraft): string {
   if (studioCanCreate(draft)) return "Préciser, corriger, ou poser une question…";
   return "Répondre à Nora…";
 }
+
+/** Morris-declared Human QA envelope (documentary) — NOT a technical hard cap. */
+export const NEW_PROJECT_HUMAN_QA_BUDGET_EUR_DECLARED = 10 as const;
 ```
 
 
@@ -487,10 +1135,17 @@ export function composerPlaceholder(draft: PreProjectDraft): string {
  * P6-HQA-NEWPROJECT-01 — pre-Project Nora turn (server-safe).
  * Reuses ConversationProvider + F2 Product cognitive routing.
  * No projectId. No Product write. No Cycle/HD.
+ *
+ * Usage observation is returned when the provider supplies it.
+ * No hard EUR cap is enforced here (campaignBudget is MW6-scoped;
+ * declaring 10 EUR ≠ technical hard cap).
  */
 
 import { resolveF2ProductRoutedProvider } from "@/features/project-assistant/f2/resolveF2ProductRoutedProvider";
-import type { ConversationProvider } from "@/lib/platform/ai";
+import type {
+  ConversationProvider,
+  ProviderUsage,
+} from "@/lib/platform/ai";
 import {
   emptyDraft,
   extractJsonObject,
@@ -503,6 +1158,23 @@ import {
   type OnboardingCognitivePayload,
   type PreProjectDraft,
 } from "./newProjectOnboardingContract";
+
+export type OnboardingUsageObservation = {
+  readonly inputTokens: number | null;
+  readonly outputTokens: number | null;
+  readonly totalTokens: number | null;
+  readonly model: string | null;
+  readonly providerResponseId: string | null;
+  readonly selectedModel: string | null;
+  readonly selectedReasoningEffort: string | null;
+  readonly boundarySubstitution: boolean;
+  /**
+   * Documentary only — Morris envelope for future Human QA.
+   * NOT enforced as a technical hard stop in this path.
+   */
+  readonly declaredHumanQaBudgetEur: 10;
+  readonly hardCapEnforced: false;
+};
 
 export type NewProjectOnboardingTurnInput = {
   readonly userText: string;
@@ -521,6 +1193,7 @@ export type NewProjectOnboardingTurnResult =
       readonly clarification: ChatTurn["clarification"];
       readonly payload: OnboardingCognitivePayload;
       readonly boundarySubstitution: boolean;
+      readonly usageObservation: OnboardingUsageObservation;
     }
   | {
       readonly ok: false;
@@ -532,6 +1205,7 @@ export type NewProjectOnboardingTurnResult =
         | "ABORTED";
       readonly message: string;
       readonly draft: PreProjectDraft;
+      readonly usageObservation?: OnboardingUsageObservation;
     };
 
 function buildMessages(input: {
@@ -542,11 +1216,13 @@ function buildMessages(input: {
   const draftSnapshot = [
     "État brouillon actuel (éphémère, non Product) :",
     `- intention: ${input.draft.intention || "(vide)"}`,
+    `- intentionKind: ${input.draft.intentionKind}`,
     `- nom: ${input.draft.name || "(vide)"}${input.draft.nameProvisional ? " (provisoire)" : ""}`,
     `- objectif: ${input.draft.objective || "(vide)"}`,
     `- contexte: ${input.draft.context || "(vide)"}`,
     `- orientation: ${input.draft.firstOrientation || "(vide)"}`,
     `- incertitudes: ${input.draft.unknowns.join(" · ") || "(aucune)"}`,
+    `- refuseCreate sticky: ${input.draft.explicitRefuseCreate ? "oui" : "non"}`,
   ].join("\n");
 
   const messages: { role: "system" | "user" | "assistant"; content: string }[] =
@@ -564,6 +1240,27 @@ function buildMessages(input: {
   }
   messages.push({ role: "user", content: input.userText });
   return messages;
+}
+
+function toUsageObservation(input: {
+  usage: ProviderUsage | null | undefined;
+  selectedModel: string | null;
+  selectedReasoningEffort: string | null;
+  boundarySubstitution: boolean;
+}): OnboardingUsageObservation {
+  const usage = input.usage;
+  return {
+    inputTokens: usage?.inputTokens ?? null,
+    outputTokens: usage?.outputTokens ?? null,
+    totalTokens: usage?.totalTokens ?? null,
+    model: usage?.model ?? input.selectedModel,
+    providerResponseId: usage?.providerResponseId ?? null,
+    selectedModel: input.selectedModel,
+    selectedReasoningEffort: input.selectedReasoningEffort,
+    boundarySubstitution: input.boundarySubstitution,
+    declaredHumanQaBudgetEur: 10,
+    hardCapEnforced: false,
+  };
 }
 
 export async function runNewProjectOnboardingTurn(
@@ -590,6 +1287,8 @@ export async function runNewProjectOnboardingTurn(
 
   let provider = input.provider;
   let boundarySubstitution = Boolean(input.provider);
+  let selectedModel: string | null = null;
+  let selectedReasoningEffort: string | null = null;
   if (!provider) {
     try {
       const routed = resolveF2ProductRoutedProvider({
@@ -608,6 +1307,8 @@ export async function runNewProjectOnboardingTurn(
       });
       provider = routed.provider;
       boundarySubstitution = routed.boundarySubstitution;
+      selectedModel = routed.routing.selectedModel;
+      selectedReasoningEffort = routed.routing.selectedReasoningEffort;
     } catch (error) {
       return {
         ok: false,
@@ -631,6 +1332,7 @@ export async function runNewProjectOnboardingTurn(
   }
 
   let completionText: string;
+  let usage: ProviderUsage | undefined;
   try {
     const completion = await provider.completeStructured({
       messages: buildMessages({
@@ -643,6 +1345,7 @@ export async function runNewProjectOnboardingTurn(
       signal: input.signal,
     });
     completionText = completion.text;
+    usage = completion.usage;
   } catch (error) {
     if (
       input.signal?.aborted ||
@@ -685,6 +1388,12 @@ export async function runNewProjectOnboardingTurn(
   const parsed = parseOnboardingCognitivePayload(
     extractJsonObject(completionText),
   );
+  const usageObservation = toUsageObservation({
+    usage,
+    selectedModel,
+    selectedReasoningEffort,
+    boundarySubstitution,
+  });
   if (!parsed) {
     return {
       ok: false,
@@ -692,6 +1401,7 @@ export async function runNewProjectOnboardingTurn(
       message:
         "La réponse de Nora n’était pas exploitable. Aucune donnée n’a été inventée ; tu peux reformuler.",
       draft: input.draft,
+      usageObservation,
     };
   }
 
@@ -712,6 +1422,7 @@ export async function runNewProjectOnboardingTurn(
     clarification,
     payload: parsed,
     boundarySubstitution,
+    usageObservation,
   };
 }
 ```
@@ -757,364 +1468,6 @@ export async function newProjectOnboardingTurnAction(
   });
 }
 ```
-
-
-### `projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.hqa.newproject01.onboarding.d0.test.ts`
-
-```typescript
-/** @vitest-environment node */
-/**
- * P6-HQA-NEWPROJECT-01 — deterministic cognitive onboarding (Fake provider).
- */
-import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import {
-  FakeConversationProvider,
-  setConversationProviderForTests,
-} from "@/lib/platform/ai";
-import {
-  buildProductContextHandoff,
-  emptyDraft,
-  mergeCognitiveIntoDraft,
-  ONBOARDING_HANDOFF_MARKER,
-  parseOnboardingCognitivePayload,
-  provisionalNameFromIntention,
-  studioCanCreate,
-  type OnboardingCognitivePayload,
-} from "@/features/pre-m6-product-ui/newProjectOnboardingContract";
-import { runNewProjectOnboardingTurn } from "@/features/pre-m6-product-ui/runNewProjectOnboardingTurn";
-
-function payload(
-  partial: Partial<OnboardingCognitivePayload> & { replyText: string },
-): OnboardingCognitivePayload {
-  return {
-    intentionKnown: null,
-    objectiveProposal: null,
-    contextKnown: null,
-    nameProposal: null,
-    nameProvisional: true,
-    firstOrientationProposal: null,
-    unknowns: [],
-    sufficientForCreateProposal: false,
-    refuseCreateDetected: false,
-    clarificationQuestion: null,
-    suggestions: [],
-    ...partial,
-  };
-}
-
-describe("P6-HQA-NEWPROJECT-01 contract merge / studio gate", () => {
-  it("1 — clear intention can become creatable with provisional name", () => {
-    const merged = mergeCognitiveIntoDraft(
-      emptyDraft(),
-      payload({
-        replyText: "ok",
-        intentionKnown: "Moderniser le reporting Q3",
-        objectiveProposal: "Moderniser le reporting Q3",
-        nameProposal: "Reporting Q3",
-        nameProvisional: true,
-        sufficientForCreateProposal: true,
-      }),
-      "Moderniser le reporting Q3",
-    );
-    expect(studioCanCreate(merged)).toBe(true);
-    expect(merged.name).toBe("Reporting Q3");
-  });
-
-  it("2 — Nora name proposal is not mandatory from Pilot", () => {
-    const merged = mergeCognitiveIntoDraft(
-      emptyDraft(),
-      payload({
-        replyText: "Je propose un nom",
-        intentionKnown: "Lancer un atelier design",
-        nameProposal: "Atelier design",
-        sufficientForCreateProposal: true,
-      }),
-      "Lancer un atelier design",
-    );
-    expect(merged.name).toBe("Atelier design");
-    expect(studioCanCreate(merged)).toBe(true);
-  });
-
-  it("3 — Studio stamps provisional name when Nora omits one", () => {
-    const merged = mergeCognitiveIntoDraft(
-      emptyDraft(),
-      payload({
-        replyText: "ok",
-        intentionKnown: "Explorer une idée de produit",
-        nameProposal: null,
-        sufficientForCreateProposal: true,
-      }),
-      "Explorer une idée de produit",
-    );
-    expect(merged.nameProvisional).toBe(true);
-    expect(merged.name.length).toBeGreaterThan(0);
-    expect(merged.name).toBe(
-      provisionalNameFromIntention("Explorer une idée de produit"),
-    );
-  });
-
-  it("4 — unknown context remains empty honestly", () => {
-    const merged = mergeCognitiveIntoDraft(
-      emptyDraft(),
-      payload({
-        replyText: "ok",
-        intentionKnown: "Idée exploratoire",
-        contextKnown: null,
-        unknowns: ["contexte de départ"],
-        sufficientForCreateProposal: true,
-        nameProposal: "Idée exploratoire",
-      }),
-      "Idée exploratoire",
-    );
-    expect(merged.context).toBe("");
-    expect(merged.unknowns).toContain("contexte de départ");
-  });
-
-  it("5 — exploratory objective allowed", () => {
-    const merged = mergeCognitiveIntoDraft(
-      emptyDraft(),
-      payload({
-        replyText: "exploratoire",
-        intentionKnown: "Je ne sais pas encore exactement",
-        objectiveProposal: "Explorer le sujet sans cadrage complet",
-        nameProposal: "Exploration",
-        sufficientForCreateProposal: true,
-      }),
-      "Je ne sais pas encore exactement",
-    );
-    expect(studioCanCreate(merged)).toBe(true);
-  });
-
-  it("11 — explicit refuse blocks create", () => {
-    const merged = mergeCognitiveIntoDraft(
-      emptyDraft(),
-      payload({
-        replyText: "pas maintenant",
-        refuseCreateDetected: true,
-        sufficientForCreateProposal: false,
-        intentionKnown: "Un projet",
-        nameProposal: "Un projet",
-      }),
-      "ne crée pas",
-    );
-    expect(merged.explicitRefuseCreate).toBe(true);
-    expect(studioCanCreate(merged)).toBe(false);
-  });
-
-  it("12 — no create before cognitive turn", () => {
-    expect(studioCanCreate(emptyDraft())).toBe(false);
-  });
-
-  it("18 — handoff context preserves transcript without invention", () => {
-    const draft = mergeCognitiveIntoDraft(
-      emptyDraft(),
-      payload({
-        replyText: "ok",
-        intentionKnown: "Refondre l’accueil",
-        nameProposal: "Accueil",
-        sufficientForCreateProposal: true,
-        firstOrientationProposal: "Clarifier le premier livrable",
-      }),
-      "Refondre l’accueil",
-    );
-    const ctx = buildProductContextHandoff(draft, [
-      { role: "user", text: "Refondre l’accueil" },
-      { role: "nora", text: "ok" },
-    ]);
-    expect(ctx).toContain(ONBOARDING_HANDOFF_MARKER);
-    expect(ctx).toContain("Refondre l’accueil");
-    expect(ctx).toContain("Clarifier le premier livrable");
-    expect(ctx).toMatch(/Aucun CycleInstance/);
-  });
-
-  it("rejects invalid payload", () => {
-    expect(parseOnboardingCognitivePayload({})).toBeNull();
-    expect(parseOnboardingCognitivePayload({ replyText: "" })).toBeNull();
-  });
-});
-
-describe("P6-HQA-NEWPROJECT-01 provider-backed turns (Fake)", () => {
-  beforeEach(() => {
-    process.env.OPS1_CONVERSATION_PROVIDER = "fake";
-    setConversationProviderForTests(null);
-  });
-
-  afterEach(() => {
-    setConversationProviderForTests(null);
-    delete process.env.OPS1_CONVERSATION_PROVIDER;
-  });
-
-  it("1/2/7 — clear intention → create proposal + name via Fake", async () => {
-    const result = await runNewProjectOnboardingTurn({
-      userText:
-        "Je veux moderniser le reporting commercial pour le rendre plus lisible.",
-      draft: emptyDraft(),
-      history: [
-        {
-          role: "nora",
-          text: "Bonjour — dis-moi ce que tu veux accomplir.",
-        },
-      ],
-      provider: new FakeConversationProvider(),
-    });
-    expect(result.ok).toBe(true);
-    if (!result.ok) return;
-    expect(result.draft.intention.length).toBeGreaterThan(10);
-    expect(result.draft.name.length).toBeGreaterThan(0);
-    expect(studioCanCreate(result.draft)).toBe(true);
-    expect(result.replyText.length).toBeGreaterThan(10);
-  });
-
-  it("6 — hesitant short message does not force create", async () => {
-    const result = await runNewProjectOnboardingTurn({
-      userText: "euh",
-      draft: emptyDraft(),
-      history: [],
-      provider: new FakeConversationProvider(),
-    });
-    expect(result.ok).toBe(true);
-    if (!result.ok) return;
-    expect(studioCanCreate(result.draft)).toBe(false);
-  });
-
-  it("7 — want to start fast → exploratory create proposal", async () => {
-    const result = await runNewProjectOnboardingTurn({
-      userText: "On commence tout de suite, on verra le détail après",
-      draft: emptyDraft(),
-      history: [],
-      provider: new FakeConversationProvider(),
-    });
-    expect(result.ok).toBe(true);
-    if (!result.ok) return;
-    expect(result.payload.sufficientForCreateProposal).toBe(true);
-    expect(studioCanCreate(result.draft)).toBe(true);
-  });
-
-  it("8 — intention change updates draft", async () => {
-    const first = await runNewProjectOnboardingTurn({
-      userText: "Je veux un projet reporting",
-      draft: emptyDraft(),
-      history: [],
-      provider: new FakeConversationProvider(),
-    });
-    expect(first.ok).toBe(true);
-    if (!first.ok) return;
-    const second = await runNewProjectOnboardingTurn({
-      userText: "Finalement je préfère un projet formation équipe",
-      draft: first.draft,
-      history: [
-        { role: "user", text: "Je veux un projet reporting" },
-        { role: "nora", text: first.replyText },
-      ],
-      provider: new FakeConversationProvider(),
-    });
-    expect(second.ok).toBe(true);
-    if (!second.ok) return;
-    expect(second.draft.intention.toLowerCase()).toMatch(/formation/);
-  });
-
-  it("9 — off-topic does not invent a project", async () => {
-    const result = await runNewProjectOnboardingTurn({
-      userText: "Quelle est la météo demain ?",
-      draft: emptyDraft(),
-      history: [],
-      provider: new FakeConversationProvider(),
-    });
-    expect(result.ok).toBe(true);
-    if (!result.ok) return;
-    expect(result.payload.sufficientForCreateProposal).toBe(false);
-  });
-
-  it("11 — refuse create", async () => {
-    const result = await runNewProjectOnboardingTurn({
-      userText: "Ne crée pas pour l’instant",
-      draft: emptyDraft(),
-      history: [],
-      provider: new FakeConversationProvider(),
-    });
-    expect(result.ok).toBe(true);
-    if (!result.ok) return;
-    expect(result.draft.explicitRefuseCreate).toBe(true);
-    expect(studioCanCreate(result.draft)).toBe(false);
-  });
-
-  it("14 — provider error is honest and non-mutating", async () => {
-    const provider = new FakeConversationProvider({ failOnCall: 1 });
-    const before = emptyDraft();
-    const result = await runNewProjectOnboardingTurn({
-      userText: "Je veux un projet",
-      draft: before,
-      history: [],
-      provider,
-    });
-    expect(result.ok).toBe(false);
-    if (result.ok) return;
-    expect(result.code).toBe("PROVIDER_ERROR");
-    expect(result.draft).toEqual(before);
-  });
-
-  it("15 — abort / interruption", async () => {
-    const ac = new AbortController();
-    ac.abort();
-    const result = await runNewProjectOnboardingTurn({
-      userText: "Je veux un projet",
-      draft: emptyDraft(),
-      history: [],
-      provider: new FakeConversationProvider(),
-      signal: ac.signal,
-    });
-    expect(result.ok).toBe(false);
-    if (result.ok) return;
-    expect(result.code).toBe("ABORTED");
-  });
-
-  it("16 — conversation resume merges prior draft", async () => {
-    const first = await runNewProjectOnboardingTurn({
-      userText: "Projet pour clarifier le pilotage produit",
-      draft: emptyDraft(),
-      history: [],
-      provider: new FakeConversationProvider(),
-    });
-    expect(first.ok).toBe(true);
-    if (!first.ok) return;
-    const resumed = await runNewProjectOnboardingTurn({
-      userText: "Ajoute que le contexte est une équipe de 5 personnes",
-      draft: first.draft,
-      history: [
-        { role: "user", text: "Projet pour clarifier le pilotage produit" },
-        { role: "nora", text: first.replyText },
-      ],
-      provider: new FakeConversationProvider(),
-    });
-    expect(resumed.ok).toBe(true);
-    if (!resumed.ok) return;
-    expect(resumed.draft.cognitiveTurns).toBe(2);
-    expect(resumed.draft.intention.length).toBeGreaterThan(0);
-  });
-
-  it("23 — two concurrent drafts stay isolated", async () => {
-    const a = await runNewProjectOnboardingTurn({
-      userText: "Projet Alpha reporting",
-      draft: emptyDraft(),
-      history: [],
-      provider: new FakeConversationProvider(),
-    });
-    const b = await runNewProjectOnboardingTurn({
-      userText: "Projet Beta formation",
-      draft: emptyDraft(),
-      history: [],
-      provider: new FakeConversationProvider(),
-    });
-    expect(a.ok && b.ok).toBe(true);
-    if (!a.ok || !b.ok) return;
-    expect(a.draft.intention).not.toEqual(b.draft.intention);
-    expect(a.draft.name).not.toEqual(b.draft.name);
-  });
-});
-```
-
-
-## Files modified (FULL — all New Project cycle surfaces)
 
 
 ### `projects/sfia-studio/app/features/pre-m6-product-ui/newProjectConversation.ts`
@@ -1182,6 +1535,7 @@ export function absorbUserTurn(
     intention: draft.intention.trim()
       ? `${draft.intention}\n${text}`.slice(0, 4000)
       : text,
+    intentionKind: "project_direction",
     cognitiveTurns: Math.max(draft.cognitiveTurns, 1),
   };
   if (!next.objective.trim()) next.objective = next.intention;
@@ -1243,2764 +1597,598 @@ export function resetDraftForTests(): PreProjectDraft {
 ```
 
 
-### `projects/sfia-studio/app/features/pre-m6-product-ui/NewProjectIntentionPage.tsx`
+## Cycle-only unified diffs vs pre-closure baseline
 
-```tsx
-"use client";
 
-import { useEffect, useId, useRef, useState, type FormEvent } from "react";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { createProjectRuntimeAction } from "@/lib/vertical-slice-runtime/actions";
-import { newProjectOnboardingTurnAction } from "./newProjectOnboardingAction";
-import {
-  buildProductContextHandoff,
-  collectPhaseOf,
-  composerPlaceholder,
-  emptyDraft,
-  INTENTION_STARTERS,
-  isMinimumSufficient,
-  objectiveFromDraft,
-  openingNoraTurn,
-  reopenField,
-  startingPointFromDraft,
-  understoodPointsFromDraft,
-  type ChatTurn,
-  type CollectField,
-  type PreProjectDraft,
-} from "./newProjectConversation";
-import styles from "./NewProjectIntentionPage.module.css";
+### cycle diff — `newProjectOnboardingContract.ts`
 
-type CreateResult = Awaited<ReturnType<typeof createProjectRuntimeAction>>;
-type CreateSuccess = Extract<CreateResult, { ok: true }>;
+```diff
+--- a/b/projects/sfia-studio/app/features/pre-m6-product-ui/newProjectOnboardingContract.ts	2026-10-09 11:00:43
++++ b/projects/sfia-studio/app/features/pre-m6-product-ui/newProjectOnboardingContract.ts	2026-10-09 11:02:07
+@@ -3,6 +3,9 @@
+  *
+  * Nora (provider) proposes; Studio validates and materializes.
+  * No Product write, no CycleInstance, no HumanDecision here.
++ *
++ * Closure correction: reversible refuse, non-syntactic gate,
++ * prioritized handoff assembly, usage observation (no FinOps invent).
+  */
 
-function createIdempotencyKey(): string {
-  const uuid = globalThis.crypto?.randomUUID?.();
-  return `pm6-intent:${uuid ?? `${Date.now()}-${Math.random().toString(16).slice(2)}`}`;
-}
+ export const NEW_PROJECT_ONBOARDING_SCHEMA_NAME =
+@@ -16,6 +19,13 @@
+ const ORIENTATION_MAX = 800;
+ const REPLY_MAX = 4000;
 
-function turnId(prefix: string): string {
-  return `${prefix}-${Date.now()}-${Math.random().toString(16).slice(2, 8)}`;
-}
++/** Studio-held view of whether the known intention is a project direction. */
++export type IntentionKind =
++  | "unset"
++  | "project_direction"
++  | "non_project"
++  | "unclear";
++
+ export type PreProjectDraft = {
+   name: string;
+   /** True when Studio or Nora stamped a provisional label — Pilot may rename. */
+@@ -29,8 +39,13 @@
+   unknowns: string[];
+   /** Nora recommendation only — never alone authorizes Create. */
+   cognitiveCreateProposal: boolean;
+-  /** Pilot explicitly refused creation in conversation. */
++  /**
++   * Current create-block from an explicit Pilot refuse/defer.
++   * Cleared only by a later explicit acceptCreateDetected — not by silence.
++   */
+   explicitRefuseCreate: boolean;
++  /** Last Nora classification of whether a project direction is present. */
++  intentionKind: IntentionKind;
+   /** Cognitive turns completed (provider-backed). */
+   cognitiveTurns: number;
+ };
+@@ -57,7 +72,21 @@
+   firstOrientationProposal: string | null;
+   unknowns: string[];
+   sufficientForCreateProposal: boolean;
++  /**
++   * Explicit Pilot refuse/defer of creation for this turn.
++   * Sticky until acceptCreateDetected — absence does not clear.
++   */
+   refuseCreateDetected: boolean;
++  /**
++   * Explicit Pilot accept/retract of a prior refuse ("allons-y", "créons-le").
++   * Name confirmation alone must NOT set this.
++   */
++  acceptCreateDetected: boolean;
++  /**
++   * Nora's classification — Studio uses this instead of message length.
++   * project_direction = exploitable even if exploratory.
++   */
++  intentionKind: "project_direction" | "non_project" | "unclear";
+   clarificationQuestion: string | null;
+   suggestions: string[];
+ };
+@@ -77,6 +106,8 @@
+     "unknowns",
+     "sufficientForCreateProposal",
+     "refuseCreateDetected",
++    "acceptCreateDetected",
++    "intentionKind",
+     "clarificationQuestion",
+     "suggestions",
+   ],
+@@ -91,6 +122,11 @@
+     unknowns: { type: "array", items: { type: "string" } },
+     sufficientForCreateProposal: { type: "boolean" },
+     refuseCreateDetected: { type: "boolean" },
++    acceptCreateDetected: { type: "boolean" },
++    intentionKind: {
++      type: "string",
++      enum: ["project_direction", "non_project", "unclear"],
++    },
+     clarificationQuestion: { type: ["string", "null"] },
+     suggestions: { type: "array", items: { type: "string" } },
+   },
+@@ -114,6 +150,7 @@
+     unknowns: [],
+     cognitiveCreateProposal: false,
+     explicitRefuseCreate: false,
++    intentionKind: "unset",
+     cognitiveTurns: 0,
+   };
+ }
+@@ -129,6 +166,13 @@
+   return t.length > 0 ? t : null;
+ }
 
-/**
- * P6-HQA-NEWPROJECT-01 — cognitive New Project onboarding.
- * Nora turns via canonical ConversationProvider. Create only via createProjectRuntimeAction.
- */
-export function NewProjectIntentionPage() {
-  const router = useRouter();
-  const fieldId = useId();
-  const [draft, setDraft] = useState<PreProjectDraft>(() => emptyDraft());
-  const [turns, setTurns] = useState<ChatTurn[]>(() => [openingNoraTurn()]);
-  const [composer, setComposer] = useState("");
-  const [idempotencyKey, setIdempotencyKey] = useState("");
-  const [submitError, setSubmitError] = useState<string | null>(null);
-  const [pending, setPending] = useState(false);
-  const [thinking, setThinking] = useState(false);
-  const [created, setCreated] = useState<CreateSuccess | null>(null);
-  const threadRef = useRef<HTMLDivElement>(null);
-  const abortRef = useRef<AbortController | null>(null);
++function parseIntentionKind(value: unknown): IntentionKind | null {
++  if (value === "project_direction") return "project_direction";
++  if (value === "non_project") return "non_project";
++  if (value === "unclear") return "unclear";
++  return null;
++}
++
+ /** Deterministic provisional name from intention — labeled provisional by Studio. */
+ export function provisionalNameFromIntention(intention: string): string {
+   const t = intention.trim().replace(/\s+/g, " ");
+@@ -140,19 +184,26 @@
 
-  const ready = isMinimumSufficient(draft);
-  const phase = collectPhaseOf(draft);
-  const understood = understoodPointsFromDraft(draft);
-  const objective = objectiveFromDraft(draft);
-  const startingPoint = startingPointFromDraft(draft);
+ /**
+  * Studio gate — independent of Nora's sufficient flag alone.
+- * Requires exploitable intention + a name (proposed or provisional).
+- * RefuseCreate blocks. Cognitive proposal strengthens readiness but is not sole authority.
++ *
++ * Requires:
++ * - no current explicit refuse;
++ * - Product-usable non-empty name (proposed or provisional);
++ * - at least one cognitive turn;
++ * - intentionKind === project_direction with non-empty intention text;
++ * - Nora create proposal OR exploratory path (project_direction without refuse).
++ *
++ * Length is NOT a maturity criterion (technical empty-check only).
++ * Nora sufficient=true cannot authorize Create without project_direction.
+  */
+ export function studioCanCreate(draft: PreProjectDraft): boolean {
+   if (draft.explicitRefuseCreate) return false;
+-  const intention = draft.intention.trim();
++  if (draft.cognitiveTurns < 1) return false;
+   if (!draft.name.trim()) return false;
+-  if (draft.cognitiveTurns < 1) return false;
+-  // Nora recommendation enables exploratory create with a short but real intention.
+-  if (draft.cognitiveCreateProposal && intention.length >= 3) return true;
+-  // Without Nora's create proposal, Studio still requires a usable intention phrase.
+-  if (intention.length >= 12) return true;
+-  return false;
++  if (draft.intentionKind !== "project_direction") return false;
++  if (!draft.intention.trim()) return false;
++  // Exploratory create allowed when direction is known, even if Nora was uncertain.
++  // Nora's cognitiveCreateProposal strengthens UX messaging but is not sole authority.
++  return true;
+ }
 
-  useEffect(() => {
-    setIdempotencyKey(createIdempotencyKey());
-    return () => {
-      abortRef.current?.abort();
-    };
-  }, []);
+ export function isMinimumSufficient(draft: PreProjectDraft): boolean {
+@@ -166,6 +217,8 @@
+   const o = raw as Record<string, unknown>;
+   const replyText = nullableString(o.replyText, REPLY_MAX);
+   if (!replyText) return null;
++  const intentionKind = parseIntentionKind(o.intentionKind);
++  if (!intentionKind || intentionKind === "unset") return null;
+   const unknowns = Array.isArray(o.unknowns)
+     ? o.unknowns
+         .filter((u): u is string => typeof u === "string")
+@@ -194,6 +247,8 @@
+     unknowns,
+     sufficientForCreateProposal: o.sufficientForCreateProposal === true,
+     refuseCreateDetected: o.refuseCreateDetected === true,
++    acceptCreateDetected: o.acceptCreateDetected === true,
++    intentionKind,
+     clarificationQuestion: nullableString(o.clarificationQuestion, 400),
+     suggestions,
+   };
+@@ -218,18 +273,29 @@
 
-  useEffect(() => {
-    const el = threadRef.current;
-    if (!el) return;
-    el.scrollTop = el.scrollHeight;
-  }, [turns, draft, thinking]);
+ /**
+  * Merge Nora cognitive payload into ephemeral draft.
+- * Studio may stamp a provisional name when intention exists and name is still empty.
++ *
++ * Refuse is sticky until acceptCreateDetected.
++ * AcceptCreateDetected does not invent intention — Studio still requires project_direction.
++ * Name confirmation alone must not arrive as acceptCreateDetected (prompt contract).
+  */
+ export function mergeCognitiveIntoDraft(
+   prev: PreProjectDraft,
+   payload: OnboardingCognitivePayload,
+   userText: string,
+ ): PreProjectDraft {
++  void userText;
++  let explicitRefuseCreate = prev.explicitRefuseCreate;
++  if (payload.refuseCreateDetected) {
++    explicitRefuseCreate = true;
++  } else if (payload.acceptCreateDetected) {
++    explicitRefuseCreate = false;
++  }
++
+   const next: PreProjectDraft = {
+     ...prev,
+     cognitiveTurns: prev.cognitiveTurns + 1,
+-    explicitRefuseCreate:
+-      payload.refuseCreateDetected || prev.explicitRefuseCreate,
++    explicitRefuseCreate,
++    intentionKind: payload.intentionKind,
+     cognitiveCreateProposal:
+       payload.sufficientForCreateProposal && !payload.refuseCreateDetected,
+     unknowns: payload.unknowns.length > 0 ? payload.unknowns : prev.unknowns,
+@@ -237,13 +303,6 @@
 
-  async function onSend(event?: FormEvent) {
-    event?.preventDefault();
-    const text = composer.trim();
-    if (!text || pending || thinking) return;
+   if (payload.intentionKnown) {
+     next.intention = payload.intentionKnown;
+-  } else if (
+-    !next.intention.trim() &&
+-    userText.trim().length >= 12 &&
+-    payload.sufficientForCreateProposal
+-  ) {
+-    // Only adopt raw user text as intention when Nora also proposes create-readiness.
+-    next.intention = sanitize(userText, INTENTION_MAX);
+   }
 
-    const userTurn: ChatTurn = { id: turnId("user"), role: "user", text };
-    const historyForProvider = [...turns, userTurn].map((t) => ({
-      role: t.role,
-      text: t.text,
-    }));
-    setTurns((current) => [...current, userTurn]);
-    setComposer("");
-    setSubmitError(null);
-    setThinking(true);
+   if (payload.objectiveProposal) {
+@@ -265,8 +324,12 @@
+     next.firstOrientation = payload.firstOrientationProposal;
+   }
 
-    try {
-      const result = await newProjectOnboardingTurnAction({
-        userText: text,
-        draft,
-        history: historyForProvider.slice(0, -1),
-      });
+-  // Studio provisional name — does not invent semantic themes beyond the intention text.
+-  if (!next.name.trim() && next.intention.trim()) {
++  // Studio provisional name when intention is a project direction and name empty.
++  if (
++    !next.name.trim() &&
++    next.intention.trim() &&
++    next.intentionKind === "project_direction"
++  ) {
+     next.name = provisionalNameFromIntention(next.intention);
+     next.nameProvisional = true;
+   }
+@@ -275,6 +338,11 @@
+     next.cognitiveCreateProposal = false;
+   }
 
-      if (!result.ok) {
-        setTurns((current) => [
-          ...current,
-          {
-            id: turnId("nora"),
-            role: "nora",
-            text: result.message,
-            meta: "error",
-          },
-        ]);
-        return;
-      }
++  // Nora claiming sufficient without project_direction cannot open Create.
++  if (next.intentionKind !== "project_direction") {
++    next.cognitiveCreateProposal = false;
++  }
++
+   return next;
+ }
 
-      setDraft(result.draft);
-      setTurns((current) => [
-        ...current,
-        {
-          id: turnId("nora"),
-          role: "nora",
-          text: result.replyText,
-          meta: result.draft.cognitiveCreateProposal ? "understood" : "cognitive",
-          clarification: result.clarification,
-        },
-      ]);
-    } catch {
-      setTurns((current) => [
-        ...current,
-        {
-          id: turnId("nora"),
-          role: "nora",
-          text: "Le service n’a pas répondu. La conversation est conservée ; tu peux réessayer.",
-          meta: "error",
-        },
-      ]);
-    } finally {
-      setThinking(false);
-    }
-  }
+@@ -311,12 +379,32 @@
+   return points.slice(0, 5);
+ }
 
-  function onChip(text: string) {
-    if (pending || thinking) return;
-    setComposer(text);
-  }
+-/** Product context payload after Create — proposal markers kept honest. */
++export type HandoffAssemblyResult = {
++  readonly text: string;
++  readonly truncated: boolean;
++  readonly transcriptTurnsIncluded: number;
++  readonly essentialPreserved: boolean;
++};
++
++/**
++ * Prioritized Product context handoff.
++ * Essential block (marker, intention, unknowns, orientation) always first.
++ * Transcript fills remaining budget — never silently drops essentials via a
++ * final blind slice of the whole string.
++ */
+ export function buildProductContextHandoff(
+   draft: PreProjectDraft,
+   transcript: ReadonlyArray<{ role: "user" | "nora"; text: string }>,
+ ): string {
+-  const lines: string[] = [
++  return assembleProductContextHandoff(draft, transcript).text;
++}
++
++export function assembleProductContextHandoff(
++  draft: PreProjectDraft,
++  transcript: ReadonlyArray<{ role: "user" | "nora"; text: string }>,
++  maxChars: number = CONTEXT_MAX,
++): HandoffAssemblyResult {
++  const essential = [
+     ONBOARDING_HANDOFF_MARKER,
+     "Synthèse d’accueil Nora (non autoritative — propositions et faits de conversation).",
+     `Intention: ${draft.intention.trim() || "(non établie)"}`,
+@@ -325,19 +413,85 @@
+     `Contexte: ${draft.context.trim() || "(à préciser)"}`,
+     `Première orientation (proposition): ${draft.firstOrientation.trim() || "(aucune)"}`,
+     `Incertitudes: ${draft.unknowns.length ? draft.unknowns.join(" · ") : "(aucune listée)"}`,
+-    "Transcript d’accueil (abrégé):",
++    "Transcript d’accueil (abrégé, non Session Agents):",
+   ];
++  const footer =
++    "Fin handoff. Aucun CycleInstance ni HumanDecision n’a été créé à l’accueil. FULL TRANSCRIPT REPLAY: non.";
++
++  let essentialText = essential.join("\n");
++  // Hard floor: if essentials alone exceed budget, truncate unknowns/context first
++  // while keeping marker + intention + refuse.
++  if (essentialText.length + 1 + footer.length > maxChars) {
++    const core = [
++      ONBOARDING_HANDOFF_MARKER,
++      `Intention: ${draft.intention.trim() || "(non établie)"}`,
++      `Objectif (proposition): ${(draft.objective.trim() || draft.intention.trim() || "(non établi)").slice(0, 400)}`,
++      `Nom: ${draft.name.trim() || "(non établi)"}${draft.nameProvisional ? " (provisoire)" : ""}`,
++      `Incertitudes: ${draft.unknowns.slice(0, 4).join(" · ") || "(aucune)"}`,
++      `Première orientation (proposition): ${draft.firstOrientation.trim().slice(0, 200) || "(aucune)"}`,
++      "Transcript d’accueil: (omis — budget)",
++    ].join("\n");
++    const text = `${core}\n${footer}`.slice(0, maxChars);
++    return {
++      text,
++      truncated: true,
++      transcriptTurnsIncluded: 0,
++      essentialPreserved: text.includes(ONBOARDING_HANDOFF_MARKER) &&
++        text.includes("Intention:"),
++    };
++  }
++
++  const budgetForTranscript =
++    maxChars - essentialText.length - footer.length - 2;
++  const turns: string[] = [];
++  let used = 0;
++  let included = 0;
+   for (const turn of transcript.slice(-12)) {
+     const label = turn.role === "user" ? "Pilote" : "Nora";
+-    const text = turn.text.trim().slice(0, 400);
+-    if (text) lines.push(`- ${label}: ${text}`);
++    const body = turn.text.trim().slice(0, 280);
++    if (!body) continue;
++    const line = `- ${label}: ${body}`;
++    if (used + line.length + 1 > budgetForTranscript) break;
++    turns.push(line);
++    used += line.length + 1;
++    included += 1;
+   }
+-  lines.push(
+-    "Fin handoff. Aucun CycleInstance ni HumanDecision n’a été créé à l’accueil.",
+-  );
+-  return lines.join("\n").slice(0, CONTEXT_MAX);
++
++  const text = [essentialText, ...turns, footer].join("\n");
++  return {
++    text,
++    truncated: included < Math.min(transcript.length, 12),
++    transcriptTurnsIncluded: included,
++    essentialPreserved: true,
++  };
+ }
 
-  function onReopen(field: CollectField) {
-    const nextDraft = reopenField(draft, field);
-    setDraft(nextDraft);
-    setTurns((current) => [
-      ...current,
-      {
-        id: turnId("nora"),
-        role: "nora",
-        text:
-          field === "name"
-            ? "Ok — on reprend le nom. Comment veux-tu l’appeler, ou je peux proposer à nouveau ?"
-            : "Ok — reformule l’intention principale du projet.",
-        meta: "cognitive",
-      },
-    ]);
-  }
-
-  async function onCreate() {
-    if (pending || thinking || !ready) return;
-    setSubmitError(null);
-    const stableKey = idempotencyKey || createIdempotencyKey();
-    if (!idempotencyKey) setIdempotencyKey(stableKey);
-    setPending(true);
-    try {
-      const intention = draft.intention.trim();
-      const objectiveText = (draft.objective.trim() || intention).slice(0, 4000);
-      const contextText = buildProductContextHandoff(
-        draft,
-        turns.map((t) => ({ role: t.role, text: t.text })),
-      );
-      const result = await createProjectRuntimeAction({
-        name: draft.name.trim(),
-        objective: objectiveText,
-        context: contextText || intention,
-        criticality: "STANDARD",
-        constraints: [],
-        idempotencyKey: stableKey,
-      });
-
-      if (result.ok) {
-        setCreated(result);
-        router.push(
-          `/studio/projects/${encodeURIComponent(result.projectId)}?from=new-project-onboarding`,
-        );
-        return;
-      }
-
-      if (result.error.code === "DOCTRINE_UNRESOLVED") {
-        setSubmitError(
-          "Le projet n’a pas pu être créé : le référentiel local n’a pas pu être validé. Rien n’a été enregistré.",
-        );
-        return;
-      }
-      if (result.error.code === "INPUT_INVALID") {
-        setSubmitError(
-          result.error.message ||
-            "Les informations fournies ne permettent pas de créer le projet.",
-        );
-        return;
-      }
-      setSubmitError(
-        result.error.retryable
-          ? "La création n’a pas abouti. Vous pouvez réessayer : la conversation est conservée."
-          : "La création n’a pas abouti. Précisez encore l’intention ou le nom avant de réessayer.",
-      );
-    } catch {
-      setSubmitError(
-        "Le service local n’a pas répondu. La conversation est conservée ; vous pouvez réessayer.",
-      );
-    } finally {
-      setPending(false);
-    }
-  }
-
-  if (created) {
-    return (
-      <div className={styles.page} data-testid="new-project-created">
-        <header className={styles.hero}>
-          <h1 className={styles.heroTitle}>Projet créé</h1>
-          <p className={styles.heroSubtitle}>
-            Ouverture du workspace durable. Nora reprend à partir du projet
-            enregistré — l’accueil est conservé dans le contexte Product.
-          </p>
-        </header>
-        <Link
-          href={`/studio/projects/${encodeURIComponent(created.projectId)}?from=new-project-onboarding`}
-          className={styles.primaryButton}
-          data-testid="open-project-workspace"
-        >
-          Ouvrir le projet
-        </Link>
-      </div>
-    );
-  }
-
-  return (
-    <div
-      className={styles.page}
-      data-testid="create-project-form"
-      data-surface="new-project-chat"
-      data-create-surface="conversational"
-      data-collect-phase={phase}
-      data-ready={ready ? "true" : "false"}
-      data-cognitive="nora-provider"
-    >
-      <div className={styles.pageChrome} data-testid="new-project-chrome">
-        <div className={styles.chromeTrail}>
-          <Link href="/studio">Projets</Link>
-          <span className={styles.chromeSep} aria-hidden>
-            /
-          </span>
-          <span className={styles.chromeCurrent}>Nouveau projet</span>
-        </div>
-        <div className={styles.chromeRight}>
-          <p className={styles.chromeStatus}>Projet pas encore créé</p>
-          <span className={styles.draftChip}>Brouillon</span>
-        </div>
-      </div>
-
-      <div className={styles.creationColumn}>
-        <header className={styles.hero}>
-          <h1 className={styles.heroTitle}>
-            <span className={styles.heroTitleDesktop}>Créer un projet</span>
-            <span className={styles.heroTitleMobile}>Nouveau projet</span>
-          </h1>
-          <p className={styles.heroSubtitle}>
-            <span className={styles.heroSubtitleDesktop}>
-              Dis à Nora ce que tu veux accomplir. Elle clarifie seulement ce
-              qui est utile — la création reste ton choix.
-            </span>
-            <span className={styles.heroSubtitleMobile}>
-              Décris ce que tu veux accomplir. Nora t&apos;aide à démarrer.
-            </span>
-          </p>
-        </header>
-
-        <div
-          className={styles.thread}
-          ref={threadRef}
-          data-testid="new-project-thread"
-          aria-live="polite"
-        >
-          {turns.map((turn) => (
-            <div
-              key={turn.id}
-              className={
-                turn.role === "user" ? styles.bubbleUser : styles.bubbleNora
-              }
-              data-role={turn.role}
-            >
-              <div className={styles.bubbleHeader}>
-                <p className={styles.bubbleLabel}>
-                  {turn.role === "user" ? "Vous" : "Nora"}
-                </p>
-                {turn.meta === "opening" ? (
-                  <span className={styles.metaChipMuted}>Démarrage</span>
-                ) : null}
-                {turn.meta === "understood" ? (
-                  <span className={styles.metaChipOk}>J’ai compris</span>
-                ) : null}
-                {turn.meta === "error" ? (
-                  <span className={styles.metaChipMuted}>Indisponible</span>
-                ) : null}
-              </div>
-              <p
-                className={styles.bubbleText}
-                data-meta={turn.meta ?? undefined}
-              >
-                {turn.text}
-              </p>
-              {turn.meta === "opening" && !draft.intention.trim() ? (
-                <div
-                  className={styles.chipRow}
-                  data-testid="new-project-starters"
-                >
-                  {INTENTION_STARTERS.map((label) => (
-                    <button
-                      key={label}
-                      type="button"
-                      className={styles.suggestionChip}
-                      onClick={() => onChip(label)}
-                    >
-                      {label}
-                    </button>
-                  ))}
-                </div>
-              ) : null}
-              {turn.clarification ? (
-                <div
-                  className={styles.clarification}
-                  data-testid="new-project-clarification"
-                >
-                  <p className={styles.clarificationTitle}>
-                    {turn.clarification.title}
-                  </p>
-                  <p className={styles.clarificationQuestion}>
-                    {turn.clarification.question}
-                  </p>
-                  <div className={styles.chipRow}>
-                    {turn.clarification.suggestions.map((label) => (
-                      <button
-                        key={label}
-                        type="button"
-                        className={styles.suggestionChip}
-                        onClick={() => onChip(label)}
-                      >
-                        {label}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              ) : null}
-              {turn.clarification ? (
-                <p className={styles.clarificationHint}>
-                  Tu peux répondre librement ; ces suggestions ne sont là que
-                  pour t’aider à formuler.
-                </p>
-              ) : null}
-            </div>
-          ))}
-          {thinking ? (
-            <div
-              className={styles.bubbleNora}
-              data-role="nora"
-              data-testid="new-project-thinking"
-            >
-              <div className={styles.bubbleHeader}>
-                <p className={styles.bubbleLabel}>Nora</p>
-                <span className={styles.metaChipMuted}>Réflexion</span>
-              </div>
-              <p className={styles.bubbleText}>…</p>
-            </div>
-          ) : null}
-        </div>
-
-        <form
-          className={styles.composer}
-          onSubmit={(e) => void onSend(e)}
-          data-testid="new-project-composer"
-        >
-          <label className={styles.srOnly} htmlFor={`${fieldId}-composer`}>
-            Réponse à Nora
-          </label>
-          <div className={styles.composerBox}>
-            <textarea
-              id={`${fieldId}-composer`}
-              className={styles.textarea}
-              rows={3}
-              value={composer}
-              disabled={pending || thinking}
-              placeholder={composerPlaceholder(draft)}
-              data-testid="new-project-input"
-              onChange={(event) => setComposer(event.target.value)}
-              onKeyDown={(event) => {
-                if (event.key === "Enter" && !event.shiftKey) {
-                  event.preventDefault();
-                  void onSend();
-                }
-              }}
-            />
-            <div className={styles.composerBottom}>
-              <div className={styles.composerHelpers}>
-                <span>Conversation avec Nora</span>
-              </div>
-              <button
-                type="submit"
-                className={styles.sendIcon}
-                disabled={
-                  pending || thinking || composer.trim().length === 0
-                }
-                data-testid="new-project-send"
-                aria-label="Envoyer"
-              >
-                ↑
-              </button>
-            </div>
-          </div>
-          <Link
-            href="/studio"
-            className={styles.srOnly}
-            data-testid="create-project-cancel"
-          >
-            Annuler et revenir aux projets
-          </Link>
-          <p className={styles.help}>
-            Nora comprend et propose. La création du projet reste un acte
-            explicite de ta part.
-          </p>
-        </form>
-      </div>
-
-      <aside
-        className={styles.preview}
-        data-testid="new-project-preview"
-        aria-labelledby={`${fieldId}-preview`}
-      >
-        <div className={styles.previewHeader}>
-          <div className={styles.previewMeta}>
-            <p className={styles.previewEyebrow}>
-              <span className={styles.previewEyebrowDesktop}>
-                Projet en préparation
-              </span>
-              <span className={styles.previewEyebrowMobile}>Projet</span>
-            </p>
-            <span className={styles.draftChip}>Non créé</span>
-          </div>
-          <h2 id={`${fieldId}-preview`} className={styles.previewTitle}>
-            <span className={styles.previewTitleDesktop}>Aperçu du projet</span>
-            <span className={styles.previewTitleMobile}>
-              {draft.name.trim() || "Aperçu du projet"}
-            </span>
-          </h2>
-        </div>
-        <hr className={styles.previewDivider} />
-        <dl className={styles.previewList}>
-          <div className={styles.previewFieldName}>
-            <dt>Nom proposé</dt>
-            <dd data-testid="preview-name">
-              {draft.name.trim() || "Pas encore précisé"}
-            </dd>
-            {draft.name.trim() ? (
-              <p className={styles.previewHintInline}>
-                {draft.nameProvisional
-                  ? "Nom provisoire — tu pourras le renommer"
-                  : "Tu pourras le renommer"}
-              </p>
-            ) : null}
-          </div>
-          <div className={styles.previewFieldObjective}>
-            <dt>Intention / objectif</dt>
-            <dd data-testid="preview-intention">
-              {objective || "Pas encore précisée"}
-            </dd>
-          </div>
-          <div>
-            <dt>Contexte / point de départ</dt>
-            <dd data-testid="preview-context">
-              {startingPoint || "À préciser si besoin"}
-            </dd>
-          </div>
-          <div>
-            <dt>Première orientation</dt>
-            <dd data-testid="preview-orientation">
-              {draft.firstOrientation.trim() ||
-                "Proposition après création — non autoritative"}
-            </dd>
-          </div>
-          <div>
-            <dt>Création</dt>
-            <dd
-              className={ready ? styles.previewWarn : undefined}
-              data-testid="preview-startup"
-            >
-              {draft.explicitRefuseCreate
-                ? "Création refusée pour l’instant"
-                : ready
-                  ? "Possible — en attente de ton accord"
-                  : "En attente d’une intention exploitable"}
-            </dd>
-            {ready ? (
-              <p className={styles.previewHintInline}>
-                Le projet peut déjà être créé
-              </p>
-            ) : null}
-          </div>
-        </dl>
-        {understood.length > 0 ? (
-          <>
-            <hr className={styles.previewDivider} />
-            <div
-              className={styles.understood}
-              data-testid="new-project-understood"
-            >
-              <p className={styles.understoodTitle}>Repères de la conversation</p>
-              <ul className={styles.understoodList}>
-                {understood.map((point) => (
-                  <li key={point}>{point}</li>
-                ))}
-              </ul>
-            </div>
-          </>
-        ) : null}
-        <hr className={styles.previewDivider} />
-        <div className={styles.createSection}>
-          <p className={styles.createSectionLabel}>Création</p>
-          {ready ? (
-            <>
-              <div className={styles.readyBox}>
-                <p className={styles.readyBoxTitle}>Projet prêt à être créé</p>
-                <p className={styles.readyBoxBody}>
-                  L&apos;intention est exploitable. Studio a validé les entrées
-                  pour une création — Nora n&apos;a pas d&apos;autorité propre.
-                </p>
-              </div>
-              <div className={styles.pendingBox}>
-                <p className={styles.pendingBoxTitle}>
-                  Après création · orientation provisoire
-                </p>
-                <p className={styles.pendingBoxBody}>
-                  {draft.firstOrientation.trim() ||
-                    "Nora pourra proposer une première direction dans le projet. Aucun cycle ne démarre automatiquement."}
-                </p>
-              </div>
-            </>
-          ) : (
-            <div className={styles.pendingBox}>
-              <p className={styles.pendingBoxTitle}>Création pas encore possible</p>
-              <p className={styles.pendingBoxBody}>
-                {draft.explicitRefuseCreate
-                  ? "Tu as indiqué ne pas vouloir créer pour l’instant."
-                  : "Il faut une intention exploitable. Le nom peut être proposé ou provisoire."}
-              </p>
-            </div>
-          )}
-          <div className={styles.createWrap}>
-            <button
-              type="button"
-              className={styles.primaryButton}
-              disabled={pending || thinking || !ready}
-              data-testid="create-project-submit"
-              onClick={() => void onCreate()}
-            >
-              {pending ? "Création…" : "Créer le projet"}
-            </button>
-            <p className={styles.help}>
-              Après création, la conversation continue dans le projet. Aucun
-              cycle n&apos;est démarré automatiquement.
-            </p>
-            {ready ? (
-              <div className={styles.correctRow}>
-                <button
-                  type="button"
-                  className={styles.textButton}
-                  data-testid="reopen-intention"
-                  onClick={() => onReopen("intention")}
-                >
-                  Corriger l&apos;intention
-                </button>
-                <button
-                  type="button"
-                  className={styles.textButton}
-                  data-testid="reopen-name"
-                  onClick={() => onReopen("name")}
-                >
-                  Corriger le nom
-                </button>
-              </div>
-            ) : null}
-            <div aria-live="assertive" aria-atomic="true">
-              {submitError ? (
-                <p
-                  className={styles.submitError}
-                  role="alert"
-                  data-testid="submit-error"
-                >
-                  {submitError}
-                </p>
-              ) : null}
-            </div>
-          </div>
-        </div>
-      </aside>
-    </div>
-  );
-}
++/** Read-back helper for continuity tests — parses essential fields from handoff text. */
++export function parseOnboardingHandoffEssentials(context: string): {
++  markerPresent: boolean;
++  intention: string | null;
++  unknownsLine: string | null;
++  orientation: string | null;
++  claimsFullReplay: boolean;
++} {
++  const markerPresent = context.includes(ONBOARDING_HANDOFF_MARKER);
++  const intention =
++    context.match(/^Intention:\s*(.+)$/m)?.[1]?.trim() ?? null;
++  const unknownsLine =
++    context.match(/^Incertitudes:\s*(.+)$/m)?.[1]?.trim() ?? null;
++  const orientation =
++    context
++      .match(/^Première orientation \(proposition\):\s*(.+)$/m)?.[1]
++      ?.trim() ?? null;
++  return {
++    markerPresent,
++    intention,
++    unknownsLine,
++    orientation,
++    claimsFullReplay: /FULL TRANSCRIPT REPLAY:\s*oui/i.test(context),
++  };
++}
++
+ export function onboardingSystemPrompt(): string {
+   return [
+     "Tu es Nora, assistante de SFIA Studio. Tu accueilles un Pilote avant la création d’un projet.",
+@@ -345,9 +499,12 @@
+     "Réponds en français courant, calme, naturel, proportionné. Pas de jargon inutile. Pas de questionnaire systématique.",
+     "Ne prétends pas être humaine. N’invente pas de faits, d’autorité, ni de contexte non dit.",
+     "Les champs intention/objectif/contexte/nom sont des repères — pas quatre questions obligatoires.",
+-    "Si l’intention est exploitable même exploratoire, propose un nom (éventuellement provisoire) et indique sufficientForCreateProposal=true.",
+-    "Si le Pilote refuse de créer, refuseCreateDetected=true et sufficientForCreateProposal=false.",
+-    "Si le Pilote veut commencer vite avec peu d’infos, privilégie une création exploratoire honnête plutôt qu’un cadrage complet.",
++    "intentionKind: project_direction si une direction de projet (même exploratoire) est identifiable ; non_project si hors sujet / sans projet ; unclear sinon.",
++    "sufficientForCreateProposal=true seulement si intentionKind=project_direction.",
++    "refuseCreateDetected=true si le Pilote refuse ou reporte explicitement la création.",
++    "acceptCreateDetected=true seulement si le Pilote accepte explicitement de créer / revient sur un refus (« allons-y », « créons-le »). Confirmer un nom ≠ accepter de créer.",
++    "Un tour neutre (question, précision) ne doit activer ni refuseCreateDetected ni acceptCreateDetected.",
++    "Si le Pilote veut commencer vite avec peu d’infos, privilégie une création exploratoire honnête.",
+     "firstOrientationProposal = direction de travail provisoire non autoritative (pas un démarrage de cycle).",
+     "replyText = ton message conversationnel au Pilote (sans JSON visible).",
+   ].join("\n");
+@@ -358,3 +515,6 @@
+   if (studioCanCreate(draft)) return "Préciser, corriger, ou poser une question…";
+   return "Répondre à Nora…";
+ }
++
++/** Morris-declared Human QA envelope (documentary) — NOT a technical hard cap. */
++export const NEW_PROJECT_HUMAN_QA_BUDGET_EUR_DECLARED = 10 as const;
 ```
 
 
-### `projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts`
+### cycle diff — `runNewProjectOnboardingTurn.ts`
 
-```typescript
-import type { ToolDefinition } from "../tools/types";
-import type {
-  ConversationProvider,
-  ProviderChatMessage,
-  ProviderCompletionResult,
-  ProviderInputItem,
-  ProviderRoundResult,
-  ProviderToolCall,
-} from "./types";
+```diff
+--- a/b/projects/sfia-studio/app/features/pre-m6-product-ui/runNewProjectOnboardingTurn.ts	2026-10-09 11:00:43
++++ b/projects/sfia-studio/app/features/pre-m6-product-ui/runNewProjectOnboardingTurn.ts	2026-10-09 11:02:32
+@@ -2,10 +2,17 @@
+  * P6-HQA-NEWPROJECT-01 — pre-Project Nora turn (server-safe).
+  * Reuses ConversationProvider + F2 Product cognitive routing.
+  * No projectId. No Product write. No Cycle/HD.
++ *
++ * Usage observation is returned when the provider supplies it.
++ * No hard EUR cap is enforced here (campaignBudget is MW6-scoped;
++ * declaring 10 EUR ≠ technical hard cap).
+  */
 
-export type FakeToolScriptRound =
-  | { kind: "message"; text: string }
-  | { kind: "tool_calls"; toolCalls: ProviderToolCall[] };
+ import { resolveF2ProductRoutedProvider } from "@/features/project-assistant/f2/resolveF2ProductRoutedProvider";
+-import type { ConversationProvider } from "@/lib/platform/ai";
++import type {
++  ConversationProvider,
++  ProviderUsage,
++} from "@/lib/platform/ai";
+ import {
+   emptyDraft,
+   extractJsonObject,
+@@ -19,6 +26,23 @@
+   type PreProjectDraft,
+ } from "./newProjectOnboardingContract";
 
-type FakeChallengeAssessment =
-  | "sufficient"
-  | "insufficient"
-  | "unknown"
-  | null;
++export type OnboardingUsageObservation = {
++  readonly inputTokens: number | null;
++  readonly outputTokens: number | null;
++  readonly totalTokens: number | null;
++  readonly model: string | null;
++  readonly providerResponseId: string | null;
++  readonly selectedModel: string | null;
++  readonly selectedReasoningEffort: string | null;
++  readonly boundarySubstitution: boolean;
++  /**
++   * Documentary only — Morris envelope for future Human QA.
++   * NOT enforced as a technical hard stop in this path.
++   */
++  readonly declaredHumanQaBudgetEur: 10;
++  readonly hardCapEnforced: false;
++};
++
+ export type NewProjectOnboardingTurnInput = {
+   readonly userText: string;
+   readonly draft: PreProjectDraft;
+@@ -36,6 +60,7 @@
+       readonly clarification: ChatTurn["clarification"];
+       readonly payload: OnboardingCognitivePayload;
+       readonly boundarySubstitution: boolean;
++      readonly usageObservation: OnboardingUsageObservation;
+     }
+   | {
+       readonly ok: false;
+@@ -47,6 +72,7 @@
+         | "ABORTED";
+       readonly message: string;
+       readonly draft: PreProjectDraft;
++      readonly usageObservation?: OnboardingUsageObservation;
+     };
 
-/** F2 intent-analysis ownership — system messages only; never user content. */
-function isF2IntentAnalysisContext(messages: ProviderChatMessage[]): boolean {
-  return messages.some(
-    (m) => m.role === "system" && m.content.includes("SFIA Studio F2"),
-  );
-}
+ function buildMessages(input: {
+@@ -57,11 +83,13 @@
+   const draftSnapshot = [
+     "État brouillon actuel (éphémère, non Product) :",
+     `- intention: ${input.draft.intention || "(vide)"}`,
++    `- intentionKind: ${input.draft.intentionKind}`,
+     `- nom: ${input.draft.name || "(vide)"}${input.draft.nameProvisional ? " (provisoire)" : ""}`,
+     `- objectif: ${input.draft.objective || "(vide)"}`,
+     `- contexte: ${input.draft.context || "(vide)"}`,
+     `- orientation: ${input.draft.firstOrientation || "(vide)"}`,
+     `- incertitudes: ${input.draft.unknowns.join(" · ") || "(aucune)"}`,
++    `- refuseCreate sticky: ${input.draft.explicitRefuseCreate ? "oui" : "non"}`,
+   ].join("\n");
 
-/**
- * Bounded Unicode/case normalization for the natural materialization contract only.
- * Not a general NLP layer — only apostrophe variants + accents on recognized tokens.
- */
-function normalizeNaturalMaterializationProbe(raw: string): string {
-  return raw
-    .normalize("NFC")
-    .replace(/[\u2018\u2019\u02BC\u0060]/g, "'")
-    .toLowerCase()
-    .replace(/[àáâäã]/g, "a")
-    .replace(/[èéêë]/g, "e")
-    .replace(/[ìíîï]/g, "i")
-    .replace(/[òóôöõ]/g, "o")
-    .replace(/[ùúûü]/g, "u")
-    .replace(/ç/g, "c");
-}
+   const messages: { role: "system" | "user" | "assistant"; content: string }[] =
+@@ -81,6 +109,27 @@
+   return messages;
+ }
 
-/**
- * CHAT-FIRST-GOVERNED-DECISION-LOOP-01 / D3-EXT — deterministic NON-AUTHORITATIVE
- * disposition candidate, emitted on the SAME structured intent payload a live
- * provider would use. There is no parallel Fake decision writer: the server
- * still re-resolves the durable subject and owns every HumanDecision.
- *
- * targetKind is NEVER an optionRef — only a semantic target discriminator.
- */
-function matchPilotDecisionCandidate(
-  probe: string,
-): {
-  disposition: string;
-  targetKind: string;
-  rationale: string | null;
-} | null {
-  if (probe.includes("__F2_DECIDE_ACCEPT_CURRENT_REC__")) {
-    return {
-      disposition: "accept",
-      targetKind: "current_recommendation",
-      rationale: "Pilote valide explicitement la Recommendation courante.",
-    };
-  }
-  if (probe.includes("__F2_DECIDE_ACCEPT_ALT__")) {
-    return {
-      disposition: "accept",
-      targetKind: "specific_alternative",
-      rationale: "Pilote demande une option différente de la Recommendation.",
-    };
-  }
-  if (probe.includes("__F2_DECIDE_ACCEPT_SUBJECT__")) {
-    return {
-      disposition: "accept",
-      targetKind: "presented_subject",
-      rationale: "Pilote engage le sujet présenté.",
-    };
-  }
-  if (probe.includes("__F2_DECIDE_ACCEPT__")) {
-    // Proposal-compatible default: presented_subject (not current_recommendation).
-    return {
-      disposition: "accept",
-      targetKind: "presented_subject",
-      rationale: "Pilote engage le sujet présenté.",
-    };
-  }
-  if (probe.includes("__F2_DECIDE_REFUSE__")) {
-    return {
-      disposition: "refuse",
-      targetKind: "presented_subject",
-      rationale: "Pilote refuse le sujet présenté.",
-    };
-  }
-  if (probe.includes("__F2_DECIDE_AMEND__")) {
-    return {
-      disposition: "amend",
-      targetKind: "presented_subject",
-      rationale: "Pilote demande un amendement.",
-    };
-  }
-  if (probe.includes("__F2_DECIDE_DEFER__")) {
-    return {
-      disposition: "defer",
-      targetKind: "presented_subject",
-      rationale: "Pilote demande un report.",
-    };
-  }
-  if (probe.includes("__F2_DECIDE_AMBIGUOUS__")) {
-    return {
-      disposition: "ambiguous",
-      targetKind: "ambiguous",
-      rationale: "Cible du « oui » indéterminée.",
-    };
-  }
-  if (probe.includes("__F2_DECIDE_NONE__")) {
-    return { disposition: "none", targetKind: "ambiguous", rationale: null };
-  }
++function toUsageObservation(input: {
++  usage: ProviderUsage | null | undefined;
++  selectedModel: string | null;
++  selectedReasoningEffort: string | null;
++  boundarySubstitution: boolean;
++}): OnboardingUsageObservation {
++  const usage = input.usage;
++  return {
++    inputTokens: usage?.inputTokens ?? null,
++    outputTokens: usage?.outputTokens ?? null,
++    totalTokens: usage?.totalTokens ?? null,
++    model: usage?.model ?? input.selectedModel,
++    providerResponseId: usage?.providerResponseId ?? null,
++    selectedModel: input.selectedModel,
++    selectedReasoningEffort: input.selectedReasoningEffort,
++    boundarySubstitution: input.boundarySubstitution,
++    declaredHumanQaBudgetEur: 10,
++    hardCapEnforced: false,
++  };
++}
++
+ export async function runNewProjectOnboardingTurn(
+   input: NewProjectOnboardingTurnInput,
+ ): Promise<NewProjectOnboardingTurnResult> {
+@@ -105,6 +154,8 @@
 
-  // Natural-language Fake cues for D3-EXT deterministic proofs (no optionRef).
-  const normalized = probe.toLowerCase();
-  if (
-    /valide\s+ta\s+recommandation|option\s+que\s+tu\s+recommand|poursuis\s+avec\s+l['']option\s+que\s+tu\s+recommand/.test(
-      normalized,
-    )
-  ) {
-    return {
-      disposition: "accept",
-      targetKind: "current_recommendation",
-      rationale: "Acceptation explicite de la Recommendation courante.",
-    };
-  }
-  if (
-    /autre\s+option|plut[oô]t\s+(l['']autre|la\s+trajectoire\s+gouvern)|pas\s+celle\s+que\s+tu\s+recommand|je\s+choisis\s+la\s+trajectoire\s+gouvern/.test(
-      normalized,
-    )
-  ) {
-    return {
-      disposition: "accept",
-      targetKind: "specific_alternative",
-      rationale: "Demande explicite d'une option alternative.",
-    };
-  }
-  return null;
-}
+   let provider = input.provider;
+   let boundarySubstitution = Boolean(input.provider);
++  let selectedModel: string | null = null;
++  let selectedReasoningEffort: string | null = null;
+   if (!provider) {
+     try {
+       const routed = resolveF2ProductRoutedProvider({
+@@ -123,6 +174,8 @@
+       });
+       provider = routed.provider;
+       boundarySubstitution = routed.boundarySubstitution;
++      selectedModel = routed.routing.selectedModel;
++      selectedReasoningEffort = routed.routing.selectedReasoningEffort;
+     } catch (error) {
+       return {
+         ok: false,
+@@ -146,6 +199,7 @@
+   }
 
-/** Exactly one repository-relative `.md` path from CURRENT demand; else null. */
-function extractSingleRepoRelativeMdPath(probe: string): string | null {
-  const re =
-    /(?:^|[\s`"'(])((?:[A-Za-z0-9._-]+\/)+[A-Za-z0-9._-]+\.md)(?=$|[\s`"'),.])/g;
-  const hits: string[] = [];
-  let m: RegExpExecArray | null;
-  while ((m = re.exec(probe)) !== null) {
-    hits.push(m[1]!);
-  }
-  if (hits.length !== 1) return null;
-  const path = hits[0]!;
-  if (path.startsWith("/") || path.includes("..") || /:\/\//.test(path)) {
-    return null;
-  }
-  return path;
-}
+   let completionText: string;
++  let usage: ProviderUsage | undefined;
+   try {
+     const completion = await provider.completeStructured({
+       messages: buildMessages({
+@@ -158,6 +212,7 @@
+       signal: input.signal,
+     });
+     completionText = completion.text;
++    usage = completion.usage;
+   } catch (error) {
+     if (
+       input.signal?.aborted ||
+@@ -200,6 +255,12 @@
+   const parsed = parseOnboardingCognitivePayload(
+     extractJsonObject(completionText),
+   );
++  const usageObservation = toUsageObservation({
++    usage,
++    selectedModel,
++    selectedReasoningEffort,
++    boundarySubstitution,
++  });
+   if (!parsed) {
+     return {
+       ok: false,
+@@ -207,6 +268,7 @@
+       message:
+         "La réponse de Nora n’était pas exploitable. Aucune donnée n’a été inventée ; tu peux reformuler.",
+       draft: input.draft,
++      usageObservation,
+     };
+   }
 
-/** Exactly one safe Markdown leaf filename (no slash); else null. */
-function extractSingleMdFileNameLeaf(probe: string): string | null {
-  const re =
-    /(?:^|[\s`"'(])([A-Za-z0-9][A-Za-z0-9._-]{0,120}\.md)(?=$|[\s`"'),.])/g;
-  const hits: string[] = [];
-  let m: RegExpExecArray | null;
-  while ((m = re.exec(probe)) !== null) {
-    // Skip if the hit is part of a path (preceded by /)
-    const idx = m.index ?? 0;
-    if (idx > 0 && probe[idx] === "/") continue;
-    const before = probe.slice(Math.max(0, idx - 1), idx + 1);
-    if (before.includes("/")) continue;
-    hits.push(m[1]!);
-  }
-  // Filter out hits that appear as path suffixes already counted elsewhere
-  const leaves = hits.filter((h) => !probe.includes(`/${h}`));
-  if (leaves.length !== 1) return null;
-  return leaves[0]!;
-}
-
-/**
- * Narrow natural Pilot contract for artifact materialization (no synonym engine).
- *
- * Path-qualified form (historical):
- * 1) materialize wording family
- * 2) exactly one repo-relative .md path OR one safe .md leaf OR framing note cue
- * 3) explicit proposal / decision preparation
- * 4) explicit no-execution guard
- *
- * Active-cycle deliverable form (CORR-01 — path OPTIONAL):
- * 1) materialize wording family
- * 2) livrable / spécification framed as the active cycle's reference deliverable
- * 3) NOT a question / pure talk-about-the-deliverable
- * → may emit a non-authoritative Nora leaf candidate from semantic cues (D-PC-09);
- *   server composes exact targetPath. Null leaf only when no coherent cue exists.
- * Must NOT match generic docs_write ("écris dans le README") without materialize+livrable+cycle framing.
- */
-/**
- * Provider-neutral non-authoritative leaf candidate from Pilot wording.
- * Mirrors intentAnalysis contract (Nora MAY propose a coherent Markdown leaf).
- * NOT a catalog default naming policy — clarification remains when no cue exists.
- */
-function deriveNonAuthoritativeArtifactLeafCandidate(
-  normalized: string,
-): string | null {
-  if (/\bnote\b/.test(normalized) && /\bcadrage\b/.test(normalized)) {
-    return "note-de-cadrage.md";
-  }
-  if (
-    /\bspecification\b/.test(normalized) &&
-    /\bfonctionnelle\b/.test(normalized)
-  ) {
-    return "specification-fonctionnelle.md";
-  }
-  if (/\bcahier\b/.test(normalized) && /\bcharges\b/.test(normalized)) {
-    return "cahier-des-charges.md";
-  }
-  if (/\bspecification\b/.test(normalized)) {
-    return "specification.md";
-  }
-  if (/\blivrable\b/.test(normalized) && /\breference\b/.test(normalized)) {
-    return "livrable-de-reference.md";
-  }
-  return null;
-}
-
-function matchNaturalArtifactMaterialization(probe: string): {
-  targetPath: string | null;
-  artifactFileName: string | null;
-  artifactBrief: string;
-  contentRequirement: string;
-} | null {
-  const normalized = normalizeNaturalMaterializationProbe(probe);
-  if (!/\bmaterialis(?:e|er)\b/.test(normalized)) return null;
-
-  // Question / reference-only — never promote to materialization continuation.
-  if (
-    /\?\s*$/.test(normalized.trim()) ||
-    /\b(parlons|parler|qu'est[- ]ce|c'est quoi|explique|expliquer)\b/.test(
-      normalized,
-    )
-  ) {
-    return null;
-  }
-
-  const hasProposalOrDecision =
-    /\bproposition\b/.test(normalized) ||
-    /\bdecision\b/.test(normalized) ||
-    /\bprepar(?:e|er)\b/.test(normalized);
-  const hasNoExecution =
-    /n'execute\s+rien/.test(normalized) ||
-    /ne\s+rien\s+executer/.test(normalized) ||
-    /sans\s+executer/.test(normalized);
-
-  const targetPath = extractSingleRepoRelativeMdPath(probe);
-  const leafFromPath = targetPath
-    ? targetPath.split("/").pop() || null
-    : null;
-  const bareLeaf = extractSingleMdFileNameLeaf(probe);
-  const explicitLeaf = leafFromPath || bareLeaf || null;
-  const derivedLeaf = explicitLeaf
-    ? null
-    : deriveNonAuthoritativeArtifactLeafCandidate(normalized);
-  const artifactFileName: string | null = explicitLeaf || derivedLeaf;
-
-  const brief = probe.replace(/\s+/g, " ").trim().slice(0, 480);
-
-  // Active-cycle reference deliverable framing (path not required).
-  const hasCycleDeliverableFraming =
-    /\blivrable\b/.test(normalized) ||
-    /\bspecification\b/.test(normalized) ||
-    /\bcahier\b/.test(normalized) ||
-    (/\bnote\b/.test(normalized) && /\bcadrage\b/.test(normalized));
-  const hasActiveCycleReference =
-    /\bcycle\b/.test(normalized) ||
-    /\breference\b/.test(normalized) ||
-    /\bconsolidee?\b/.test(normalized) ||
-    /\battendu\b/.test(normalized);
-
-  if (explicitLeaf) {
-    // Historical path-qualified / explicit-leaf contract — keep proposal + no-execution guards.
-    if (!hasProposalOrDecision || !hasNoExecution) return null;
-    return {
-      targetPath,
-      artifactFileName: explicitLeaf,
-      artifactBrief: brief,
-      contentRequirement: brief,
-    };
-  }
-
-  // Path-less: only when clearly materializing the cycle's required deliverable.
-  // Do NOT require internals (continuationKind / docs_write / targetPath) from the Pilot.
-  if (!hasCycleDeliverableFraming || !hasActiveCycleReference) return null;
-  // Still refuse bare "matérialise" without prepare/decision OR no-execution OR
-  // explicit "livrable de référence / spécification … du cycle" prepare intent.
-  const hasReferenceDeliverablePhrase =
-    (/\blivrable\b/.test(normalized) &&
-      (/\breference\b/.test(normalized) ||
-        /\bdu cycle\b/.test(normalized) ||
-        /\bcycle actif\b/.test(normalized) ||
-        /\bconsolidee?\b/.test(normalized))) ||
-    (/\bnote\b/.test(normalized) &&
-      /\bcadrage\b/.test(normalized) &&
-      /\bcycle\b/.test(normalized));
-  if (
-    !hasProposalOrDecision &&
-    !hasNoExecution &&
-    !hasReferenceDeliverablePhrase
-  ) {
-    return null;
-  }
-
-  // Nora non-authoritative leaf when semantic cues exist (D-PC-09); else null → server clarify.
-  return {
-    targetPath: null,
-    artifactFileName,
-    artifactBrief: brief,
-    contentRequirement: brief,
-  };
-}
-
-/** Shared F2 artifact-materialization analysis payload (sentinel + natural). */
-function buildArtifactMaterializationAnalysis(input: {
-  targetPath?: string | null;
-  artifactFileName?: string | null;
-  challengeResponseAssessment?: FakeChallengeAssessment;
-  artifactBrief?: string;
-  contentRequirements?: string[];
-  cognitiveWorkload?: Record<string, string> | null;
-}): Record<string, unknown> {
-  const targetPath = input.targetPath ?? null;
-  const artifactFileName =
-    input.artifactFileName?.trim() ||
-    (targetPath ? targetPath.split("/").pop() || null : null);
-  const parentSlash = targetPath ? targetPath.lastIndexOf("/") : -1;
-  const scopeIn =
-    parentSlash > 0 ? [targetPath!.slice(0, parentSlash + 1)] : [];
-  return {
-    intentClass: "execution_request",
-    candidateCycleTypeId: "cyc:framing",
-    signals: {
-      structuralChange: false,
-      securityImpact: false,
-      architectureImpact: false,
-      dataImpact: false,
-      irreversible: false,
-      lowRiskBounded: true,
-    },
-    cognitiveWorkload: input.cognitiveWorkload ?? null,
-    contradictionCandidate: null,
-    // Do not pre-satisfy MW5 — product Fake must not mask structural challenge.
-    challengeResponseAssessment: input.challengeResponseAssessment ?? null,
-    continuationKind: "active_cycle_artifact_materialization",
-    artifactMaterializationOperation: "cursor.docs_write.apply",
-    objective: "Matérialiser le livrable requis du cycle actif",
-    scope: "docs_write borné — cycle actif — aucune exécution automatique",
-    rephrasedRequest: "Matérialisation gouvernée du livrable requis",
-    outOfScope: ["Nouveau CycleInstance", "Pilot START", "Cursor REAL"],
-    risks: ["Confusion continuation / nouvelle formalisation"],
-    reservations: [],
-    stopConditions: ["AUCUNE EXÉCUTION", "Décision Pilote requise"],
-    activatedBlocks: ["proposition", "gate"],
-    expectedOutcome: "Proposition de matérialisation liée au cycle actif",
-    criticalJustification: null,
-    requestedOperation: null,
-    executionIntent: {
-      intentKind: "docs_write",
-      artifactType: "deliverable_document",
-      targetRepositoryRef: null,
-      targetPath,
-      artifactFileName,
-      scopeIn,
-      scopeOut: [],
-      expectedOutputs: targetPath ? [targetPath] : artifactFileName ? [artifactFileName] : [],
-      requiredCapabilities: ["cap:cursor.docs_write"],
-      validationExpectations: [],
-      evidenceRequirements: [],
-      requestedOperation: null,
-      reversibilityExpectation: null,
-      artifactBrief:
-        input.artifactBrief ?? "Livrable requis du cycle actif",
-      contentRequirements:
-        input.contentRequirements ?? ["Contenu défini avec Nora"],
-      exitRequirementKinds: [],
-    },
-  };
-}
-
-function fakeF2JsonResult(
-  callCount: number,
-  analysis: Record<string, unknown>,
-): ProviderCompletionResult {
-  return {
-    text: `[TEST/FAKE · NON LIVE] ${JSON.stringify(analysis)}`,
-    usage: {
-      inputTokens: 10 * callCount,
-      outputTokens: 5 * callCount,
-      totalTokens: 15 * callCount,
-      model: "fake-test-model",
-      providerResponseId: `fake-resp-${callCount}`,
-    },
-  };
-}
-
-/**
- * Deterministic fake provider for unit/E2E non-live tests.
- * Never presented as live GPT; replies are tagged TEST/FAKE.
- */
-export class FakeConversationProvider implements ConversationProvider {
-  readonly providerId = "fake-test";
-  private callCount = 0;
-  private roundCount = 0;
-  private readonly scripted?: string[];
-  private readonly failOnCall?: number;
-  private readonly toolScript?: FakeToolScriptRound[];
-
-  constructor(options?: {
-    scripted?: string[];
-    failOnCall?: number;
-    toolScript?: FakeToolScriptRound[];
-  }) {
-    this.scripted = options?.scripted;
-    this.failOnCall = options?.failOnCall;
-    this.toolScript = options?.toolScript;
-  }
-
-  async completeStructured(input: {
-    messages: ProviderChatMessage[];
-    schemaName: string;
-    jsonSchema: Record<string, unknown>;
-    signal?: AbortSignal;
-  }): Promise<ProviderCompletionResult> {
-    void input.jsonSchema;
-    if (input.signal?.aborted) {
-      const error = new Error("AbortError");
-      error.name = "AbortError";
-      throw error;
-    }
-    // P6-HQA-NEWPROJECT-01 — deterministic onboarding structured payload (Fake only).
-    if (input.schemaName === "new_project_onboarding_turn_v1") {
-      return this.completeNewProjectOnboarding(input.messages, input.signal);
-    }
-    // Reuse F2 marker / analysis scripted JSON from complete().
-    return this.complete(input.messages);
-  }
-
-  private async completeNewProjectOnboarding(
-    messages: ProviderChatMessage[],
-    signal?: AbortSignal,
-  ): Promise<ProviderCompletionResult> {
-    if (signal?.aborted) {
-      const error = new Error("AbortError");
-      error.name = "AbortError";
-      throw error;
-    }
-    this.callCount += 1;
-    const lastUser = [...messages].reverse().find((m) => m.role === "user");
-    const text = lastUser?.content?.trim() ?? "";
-    if (
-      this.failOnCall !== undefined && this.callCount === this.failOnCall
-    ) {
-      throw new Error("FAKE_PROVIDER_ERROR");
-    }
-    if (text.includes("__OPS1_FORCE_PROVIDER_ERROR__")) {
-      throw new Error("FAKE_PROVIDER_ERROR");
-    }
-    if (this.scripted && this.scripted.length > 0) {
-      const next = this.scripted.shift()!;
-      return {
-        text: next,
-        usage: {
-          inputTokens: null,
-          outputTokens: null,
-          totalTokens: null,
-          model: "fake-test-model",
-          providerResponseId: null,
-        },
-      };
-    }
-
-    const refuse =
-      /\b(ne\s+cr[eé]e\s+pas|pas\s+maintenant|refuse|annule)\b/i.test(text);
-    const wantFast =
-      /\b(tout\s+de\s+suite|immédiat|sans\s+d[eé]tailler|on\s+verra)\b/i.test(
-        text,
-      );
-    const offTopic =
-      /\b(m[eé]t[eé]o|recette\s+de\s+cuisine|blague)\b/i.test(text) &&
-      !/\b(projet|cycle|livr|intention)\b/i.test(text);
-
-    let intentionKnown: string | null = text.slice(0, 400) || null;
-    let nameProposal: string | null = null;
-    let nameProvisional = true;
-    let sufficient = false;
-    let replyText: string;
-    let clarificationQuestion: string | null = null;
-    const suggestions: string[] = [];
-    const unknowns: string[] = [];
-
-    if (refuse) {
-      sufficient = false;
-      replyText =
-        "D’accord — on ne crée rien pour l’instant. Dis-moi quand tu voudras reprendre, ou précise ce qui te bloque.";
-      intentionKnown = null;
-    } else if (offTopic) {
-      sufficient = false;
-      replyText =
-        "Je reste centrée sur la création du projet. Qu’est-ce que tu voudrais accomplir dans Studio ?";
-      unknowns.push("intention du projet");
-    } else if (wantFast || text.length >= 12) {
-      sufficient = true;
-      const clause = text.split(/[.!?\n]/)[0]?.trim() || text;
-      nameProposal =
-        clause.length > 64 ? `${clause.slice(0, 61)}…` : clause;
-      nameProposal =
-        nameProposal.charAt(0).toUpperCase() + nameProposal.slice(1);
-      replyText = wantFast
-        ? `On peut ouvrir un projet exploratoire autour de « ${clause.slice(0, 80)} ». Je propose le nom « ${nameProposal} » (provisoire) — tu pourras le renommer. Le bouton Créer reste de ton côté.`
-        : `Si je comprends bien, tu veux : ${clause}. Je propose de l’appeler « ${nameProposal} » (provisoire). On peut créer le projet dès que tu es prêt ; on précisera le premier travail ensuite.`;
-      if (!wantFast) {
-        clarificationQuestion =
-          "Y a-t-il un résultat concret qui te ferait dire que c’est réussi ?";
-        suggestions.push(
-          "Plus simple à comprendre",
-          "Moins d’interactions inutiles",
-          "Pilotage plus clair",
-        );
-      } else {
-        unknowns.push("objectif détaillé");
-      }
-    } else {
-      sufficient = false;
-      intentionKnown = null;
-      replyText =
-        "Je vois une piste, mais elle reste un peu courte. Peux-tu dire en une phrase ce que tu voudrais accomplir ?";
-      unknowns.push("intention exploitable");
-    }
-
-    const payload = {
-      replyText,
-      intentionKnown,
-      objectiveProposal: intentionKnown,
-      contextKnown: null as string | null,
-      nameProposal,
-      nameProvisional,
-      firstOrientationProposal: sufficient
-        ? "Qualifier la première intention de travail dans le projet une fois créé"
-        : null,
-      unknowns,
-      sufficientForCreateProposal: sufficient && !refuse,
-      refuseCreateDetected: refuse,
-      clarificationQuestion,
-      suggestions,
-    };
-
-    return {
-      text: JSON.stringify(payload),
-      usage: {
-        inputTokens: null,
-        outputTokens: null,
-        totalTokens: null,
-        model: "fake-test-model",
-        providerResponseId: null,
-      },
-    };
-  }
-
-  /** Test helper — Nora/provider invocation counter. */
-  getCallCountForTests(): number {
-    return this.callCount;
-  }
-
-  async complete(
-    messages: ProviderChatMessage[],
-    options?: { signal?: AbortSignal },
-  ): Promise<ProviderCompletionResult> {
-    if (options?.signal?.aborted) {
-      const error = new Error("AbortError");
-      error.name = "AbortError";
-      throw error;
-    }
-    this.callCount += 1;
-    const lastUser = [...messages].reverse().find((m) => m.role === "user");
-    if (
-      this.failOnCall !== undefined && this.callCount === this.failOnCall
-    ) {
-      throw new Error("FAKE_PROVIDER_ERROR");
-    }
-    if (lastUser?.content.includes("__OPS1_FORCE_PROVIDER_ERROR__")) {
-      throw new Error("FAKE_PROVIDER_ERROR");
-    }
-
-    // Explicit scripted replies win over content-marker specialization (W3-C
-    // correction tests inject deterministic Nora strings).
-    if (this.scripted !== undefined) {
-      const historyLen = messages.length;
-      const text =
-        this.scripted[this.callCount - 1] ??
-        `[TEST/FAKE · NON LIVE] Réponse fake #${this.callCount} (historique=${historyLen}). Echo: « ${(lastUser?.content ?? "").slice(0, 80)} »`;
-      return {
-        text,
-        usage: {
-          inputTokens: 10 * this.callCount,
-          outputTokens: 5 * this.callCount,
-          totalTokens: 15 * this.callCount,
-          model: "fake-test-model",
-          providerResponseId: `fake-resp-${this.callCount}`,
-        },
-      };
-    }
-
-    if (
-      messages.some((m) =>
-        m.role === "system" &&
-        m.content.includes("SFIA Studio CKC COGNITIVE REASONING"),
-      )
-    ) {
-      // Specialized Fake CKC cognition keys off CONTENT markers only.
-      // CKC IDs (ckc:studio:*) must never trigger specialized behavior (R1-01).
-      const joined = messages.map((m) => m.content).join("\n").toLowerCase();
-      const hasFraming =
-        joined.includes("intention") &&
-        (joined.includes("périmètre") ||
-          joined.includes("perimetre") ||
-          joined.includes("besoin réel") ||
-          joined.includes("besoin reel"));
-      const hasQa =
-        joined.includes("verdict evidence-based") ||
-        joined.includes("claims interdits") ||
-        joined.includes("confirmation bias") ||
-        joined.includes("green ci");
-      const hasSecurity =
-        joined.includes("risque résiduel") ||
-        joined.includes("risque residuel") ||
-        joined.includes("adversarial") ||
-        joined.includes("secret en repo");
-      const hasDelivery =
-        joined.includes("anti scope creep") ||
-        joined.includes("scope creep") ||
-        joined.includes("implémentation bornée") ||
-        joined.includes("implementation bornee");
-      const hasExtensionProbe = joined.includes("w3d_extension_probe_marker");
-      if (hasExtensionProbe) {
-        return {
-          text: "[TEST/FAKE · NON LIVE] RECOMMANDATION CKC — W3D_EXTENSION_PROBE_MARKER : type d'extension test-only via même chemin cognitif. RECOMMANDATION — PAS UNE DÉCISION HUMAINE.",
-          usage: {
-            inputTokens: 10 * this.callCount,
-            outputTokens: 5 * this.callCount,
-            totalTokens: 15 * this.callCount,
-            model: "fake-test-model",
-            providerResponseId: `fake-resp-${this.callCount}`,
-          },
-        };
-      }
-      if (hasSecurity) {
-        return {
-          text: "[TEST/FAKE · NON LIVE] RECOMMANDATION CKC — posture adversarial : risque résiduel majeures → HumanDecision explicite ; secret en repo → STOP. RECOMMANDATION — PAS UNE DÉCISION HUMAINE.",
-          usage: {
-            inputTokens: 10 * this.callCount,
-            outputTokens: 5 * this.callCount,
-            totalTokens: 15 * this.callCount,
-            model: "fake-test-model",
-            providerResponseId: `fake-resp-${this.callCount}`,
-          },
-        };
-      }
-      if (hasDelivery) {
-        return {
-          text: "[TEST/FAKE · NON LIVE] RECOMMANDATION CKC — anti scope creep : borner le slice avant toute extension ; pas de silent REAL ; Evidence/done honnête. RECOMMANDATION — PAS UNE DÉCISION HUMAINE.",
-          usage: {
-            inputTokens: 10 * this.callCount,
-            outputTokens: 5 * this.callCount,
-            totalTokens: 15 * this.callCount,
-            model: "fake-test-model",
-            providerResponseId: `fake-resp-${this.callCount}`,
-          },
-        };
-      }
-      if (hasQa) {
-        return {
-          text: "[TEST/FAKE · NON LIVE] RECOMMANDATION CKC — verdict evidence-based : claims interdits sans preuve ; refuser confirmation bias / green CI = validé. RECOMMANDATION — PAS UNE DÉCISION HUMAINE.",
-          usage: {
-            inputTokens: 10 * this.callCount,
-            outputTokens: 5 * this.callCount,
-            totalTokens: 15 * this.callCount,
-            model: "fake-test-model",
-            providerResponseId: `fake-resp-${this.callCount}`,
-          },
-        };
-      }
-      if (hasFraming) {
-        return {
-          text: "[TEST/FAKE · NON LIVE] RECOMMANDATION CKC — cadrage : clarifier intention et périmètre utile avant conception ; séparer besoin réel et solution présumée. RECOMMANDATION — PAS UNE DÉCISION HUMAINE.",
-          usage: {
-            inputTokens: 10 * this.callCount,
-            outputTokens: 5 * this.callCount,
-            totalTokens: 15 * this.callCount,
-            model: "fake-test-model",
-            providerResponseId: `fake-resp-${this.callCount}`,
-          },
-        };
-      }
-      return {
-        text: "[TEST/FAKE · NON LIVE] RECOMMANDATION générique sans guidance CKC package résolu.",
-        usage: {
-          inputTokens: 10 * this.callCount,
-          outputTokens: 5 * this.callCount,
-          totalTokens: 15 * this.callCount,
-          model: "fake-test-model",
-          providerResponseId: `fake-resp-${this.callCount}`,
-        },
-      };
-    }
-
-    // F2 deterministic structured intent JSON (TEST/FAKE only).
-    // CORR-PROOF-01 D1: probe the current demand only — prior Session user text
-    // in canonical conversation context must not steal fixture-marker matching.
-    const markerProbe = (() => {
-      const raw = lastUser?.content ?? "";
-      const sep = "Demande courante (à évaluer):";
-      const i = raw.indexOf(sep);
-      return i >= 0 ? raw.slice(i + sep.length) : raw;
-    })();
-    /** Strip test markers so natural contracts can co-exist with MW5 fixtures. */
-    const naturalProbe = markerProbe
-      .replace(/__MW5_[A-Z0-9_]+__/g, " ")
-      .replace(/__F2_[A-Z0-9_]+__/g, " ");
-
-    // CHAT-FIRST-GOVERNED-DECISION-LOOP-01 — the disposition candidate rides on
-    // an otherwise ordinary informative analysis. It never carries a subject id:
-    // the server re-resolves the durable subject or records nothing.
-    if (isF2IntentAnalysisContext(messages)) {
-      const pilotDecisionCandidate = matchPilotDecisionCandidate(markerProbe);
-      if (pilotDecisionCandidate) {
-        return fakeF2JsonResult(this.callCount, {
-          intentClass: "informative",
-          candidateCycleTypeId: null,
-          signals: null,
-          cognitiveWorkload: null,
-          contradictionCandidate: null,
-          challengeResponseAssessment: null,
-          continuationKind: null,
-          artifactMaterializationOperation: null,
-          objective: null,
-          scope: null,
-          rephrasedRequest: naturalProbe.trim().slice(0, 200),
-          outOfScope: [],
-          risks: [],
-          reservations: [],
-          stopConditions: [],
-          activatedBlocks: [],
-          expectedOutcome: null,
-          criticalJustification: null,
-          requestedOperation: null,
-          executionIntent: null,
-          pilotDecisionCandidate,
-        });
-      }
-    }
-
-    if (markerProbe.includes("__MW5_HIGH_ASSURANCE__")) {
-      // Prefer natural materialization + HA CWP on the product continuation path
-      // over NEW_CYCLE High-Assurance fixture hijack.
-      if (isF2IntentAnalysisContext(messages)) {
-        const naturalHa = matchNaturalArtifactMaterialization(naturalProbe);
-        if (naturalHa) {
-          return fakeF2JsonResult(
-            this.callCount,
-            buildArtifactMaterializationAnalysis({
-              targetPath: naturalHa.targetPath,
-              artifactFileName: naturalHa.artifactFileName,
-              artifactBrief: naturalHa.artifactBrief,
-              contentRequirements: [naturalHa.contentRequirement],
-              challengeResponseAssessment: null,
-              cognitiveWorkload: {
-                ambiguity: "high",
-                reasoningDepth: "high",
-                sourceBreadth: "high",
-                toolDependency: "medium",
-                contradictionRisk: "high",
-                verificationNeed: "high",
-              },
-            }),
-          );
-        }
-      }
-      return {
-        text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
-          intentClass: "actionable",
-          candidateCycleTypeId: "cyc:delivery",
-          signals: {
-            structuralChange: false,
-            securityImpact: false,
-            architectureImpact: false,
-            dataImpact: false,
-            irreversible: false,
-            lowRiskBounded: true,
-          },
-          cognitiveWorkload: {
-            ambiguity: "high",
-            reasoningDepth: "high",
-            sourceBreadth: "high",
-            toolDependency: "medium",
-            contradictionRisk: "high",
-            verificationNeed: "high",
-          },
-          objective: "Préparer une proposition High-Assurance bornée",
-          scope: "Proposition Light/Standard sous stratégie High-Assurance",
-          rephrasedRequest: "Préparer une recommandation sous High-Assurance",
-          outOfScope: ["Exécution", "PR", "merge"],
-          risks: ["Rec avant challenge"],
-          reservations: [],
-          stopConditions: ["AUCUNE EXÉCUTION"],
-          activatedBlocks: ["qualification", "proposition"],
-          expectedOutcome: "Challenge avant Rec",
-          criticalJustification: null,
-          requestedOperation: null,
-        })}`,
-        usage: {
-          inputTokens: 10 * this.callCount,
-          outputTokens: 5 * this.callCount,
-          totalTokens: 15 * this.callCount,
-          model: "fake-test-model",
-          providerResponseId: `fake-resp-${this.callCount}`,
-        },
-      };
-    }
-
-    // Natural active-cycle materialization (pathless / leaf candidate) — before other markers.
-    if (isF2IntentAnalysisContext(messages)) {
-      const naturalMaterialization =
-        matchNaturalArtifactMaterialization(naturalProbe);
-      if (naturalMaterialization) {
-        return fakeF2JsonResult(
-          this.callCount,
-          buildArtifactMaterializationAnalysis({
-            targetPath: naturalMaterialization.targetPath,
-            artifactFileName: naturalMaterialization.artifactFileName,
-            artifactBrief: naturalMaterialization.artifactBrief,
-            contentRequirements: [naturalMaterialization.contentRequirement],
-            challengeResponseAssessment: null,
-          }),
-        );
-      }
-    }
-    if (markerProbe.includes("__MW5_COSMETIC__")) {
-      return {
-        text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
-          intentClass: "ambiguous",
-          candidateCycleTypeId: null,
-          signals: null,
-          cognitiveWorkload: null,
-          objective: null,
-          scope: null,
-          rephrasedRequest: "Peux-tu juste corriger l'orthographe cosmétique",
-          outOfScope: [],
-          risks: [],
-          reservations: [],
-          stopConditions: [],
-          activatedBlocks: [],
-          expectedOutcome: null,
-          criticalJustification: null,
-          requestedOperation: null,
-        })}`,
-        usage: {
-          inputTokens: 10 * this.callCount,
-          outputTokens: 5 * this.callCount,
-          totalTokens: 15 * this.callCount,
-          model: "fake-test-model",
-          providerResponseId: `fake-resp-${this.callCount}`,
-        },
-      };
-    }
-    if (markerProbe.includes("__MW5_CONTEXT_RESOLVED__")) {
-      return {
-        text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
-          intentClass: "ambiguous",
-          candidateCycleTypeId: null,
-          signals: null,
-          cognitiveWorkload: null,
-          objective: null,
-          scope: null,
-          rephrasedRequest: "Demande déjà couverte par le contexte projet",
-          outOfScope: [],
-          risks: [],
-          reservations: [],
-          stopConditions: [],
-          activatedBlocks: [],
-          expectedOutcome: null,
-          criticalJustification: null,
-          requestedOperation: null,
-        })}`,
-        usage: {
-          inputTokens: 10 * this.callCount,
-          outputTokens: 5 * this.callCount,
-          totalTokens: 15 * this.callCount,
-          model: "fake-test-model",
-          providerResponseId: `fake-resp-${this.callCount}`,
-        },
-      };
-    }
-    if (
-      markerProbe.includes("__MW5_TRUTH_C_ESTABLISHED__") ||
-      markerProbe.includes("__MW5_CONSUMED_HD__")
-    ) {
-      return {
-        text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
-          intentClass: "actionable",
-          candidateCycleTypeId: "cyc:functional-architecture",
-          signals: {
-            structuralChange: true,
-            securityImpact: false,
-            architectureImpact: true,
-            dataImpact: false,
-            irreversible: false,
-            lowRiskBounded: false,
-          },
-          cognitiveWorkload: null,
-          objective: "Faire évoluer l'architecture déjà tranchée",
-          scope: "Changement d'architecture déjà établi",
-          rephrasedRequest: "Reprendre une prémisse déjà établie",
-          outOfScope: ["Exécution"],
-          risks: [],
-          reservations: [],
-          stopConditions: ["AUCUNE EXÉCUTION"],
-          activatedBlocks: ["qualification", "proposition", "gate"],
-          expectedOutcome: "Pas de re-challenge gratuit",
-          criticalJustification: "Prémisse déjà établie / HD consommée",
-          requestedOperation: "architecture change",
-        })}`,
-        usage: {
-          inputTokens: 10 * this.callCount,
-          outputTokens: 5 * this.callCount,
-          totalTokens: 15 * this.callCount,
-          model: "fake-test-model",
-          providerResponseId: `fake-resp-${this.callCount}`,
-        },
-      };
-    }
-    if (markerProbe.includes("__MW5_QUESTIONNAIRE_ATTEMPT__")) {
-      return {
-        text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
-          intentClass: "ambiguous",
-          candidateCycleTypeId: null,
-          signals: null,
-          cognitiveWorkload: null,
-          objective: null,
-          scope: null,
-          rephrasedRequest: "Formulaire d'intake multi-questions",
-          outOfScope: [],
-          risks: [],
-          reservations: [],
-          stopConditions: [],
-          activatedBlocks: [],
-          expectedOutcome: null,
-          criticalJustification: null,
-          requestedOperation: null,
-        })}`,
-        usage: {
-          inputTokens: 10 * this.callCount,
-          outputTokens: 5 * this.callCount,
-          totalTokens: 15 * this.callCount,
-          model: "fake-test-model",
-          providerResponseId: `fake-resp-${this.callCount}`,
-        },
-      };
-    }
-    if (markerProbe.includes("__MW5_AUTHORITY__")) {
-      return {
-        text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
-          intentClass: "actionable",
-          candidateCycleTypeId: "cyc:delivery",
-          signals: {
-            structuralChange: false,
-            securityImpact: false,
-            architectureImpact: false,
-            dataImpact: false,
-            irreversible: false,
-            lowRiskBounded: true,
-          },
-          cognitiveWorkload: null,
-          objective: "Frontière d'autorité non résolue",
-          scope: "Décision humaine requise sans acte Nora",
-          rephrasedRequest: "Escalader l'autorité non résolue",
-          outOfScope: ["HumanDecision synthétisée"],
-          risks: ["Confusion Rec/HD"],
-          reservations: [],
-          stopConditions: ["AUCUNE EXÉCUTION"],
-          activatedBlocks: ["qualification", "proposition", "gate"],
-          expectedOutcome: "Escalade Pilote",
-          criticalJustification: null,
-          requestedOperation: null,
-        })}`,
-        usage: {
-          inputTokens: 10 * this.callCount,
-          outputTokens: 5 * this.callCount,
-          totalTokens: 15 * this.callCount,
-          model: "fake-test-model",
-          providerResponseId: `fake-resp-${this.callCount}`,
-        },
-      };
-    }
-    if (markerProbe.includes("__MW5_SYNTH_HD__")) {
-      return {
-        text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
-          intentClass: "actionable",
-          candidateCycleTypeId: "cyc:delivery",
-          signals: {
-            structuralChange: false,
-            securityImpact: false,
-            architectureImpact: false,
-            dataImpact: false,
-            irreversible: false,
-            lowRiskBounded: true,
-          },
-          cognitiveWorkload: null,
-          objective: "Tenter de faire synthétiser un GO Nora",
-          scope: "Anti-synthèse HumanDecision",
-          rephrasedRequest: "Décider GO maintenant",
-          outOfScope: ["Décision Nora"],
-          risks: ["Autorité usurpée"],
-          reservations: [],
-          stopConditions: ["AUCUNE EXÉCUTION"],
-          activatedBlocks: ["qualification"],
-          expectedOutcome: null,
-          criticalJustification: null,
-          requestedOperation: "go now",
-        })}`,
-        usage: {
-          inputTokens: 10 * this.callCount,
-          outputTokens: 5 * this.callCount,
-          totalTokens: 15 * this.callCount,
-          model: "fake-test-model",
-          providerResponseId: `fake-resp-${this.callCount}`,
-        },
-      };
-    }
-    if (markerProbe.includes("__F2_DOCS_WRITE_GCEC__")) {
-      return {
-        text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
-          intentClass: "actionable",
-          candidateCycleTypeId: "cyc:functional-design",
-          signals: {
-            structuralChange: false,
-            securityImpact: false,
-            architectureImpact: false,
-            dataImpact: false,
-            irreversible: false,
-            lowRiskBounded: true,
-          },
-          cognitiveWorkload: null,
-          contradictionCandidate: null,
-          challengeResponseAssessment: null,
-          objective: "Rédiger le design fonctionnel borné",
-          scope: "docs/functional-design.md uniquement",
-          rephrasedRequest:
-            "Produire docs/functional-design.md via cursor.docs_write.apply",
-          outOfScope: ["Cursor REAL hors fake", "commit/push/PR"],
-          risks: ["Contenu incomplet"],
-          reservations: [],
-          stopConditions: ["AUCUNE EXÉCUTION RÉELLE CURSOR"],
-          activatedBlocks: ["qualification", "proposition", "gate"],
-          expectedOutcome: "Artifact functional-design prêt pour revue",
-          criticalJustification: null,
-          requestedOperation: "cursor.docs_write.apply",
-          executionIntent: {
-            intentKind: "docs_write",
-            artifactType: "functional_design",
-            targetRepositoryRef: "acme/widget",
-            targetPath: "docs/functional-design.md",
-            scopeIn: ["docs/"],
-            scopeOut: ["src/", ".github/"],
-            expectedOutputs: ["docs/functional-design.md"],
-            requiredCapabilities: ["cap:cursor.docs_write"],
-            validationExpectations: ["path_allowlist", "no_delete"],
-            evidenceRequirements: [
-              "git:local_commit",
-              "git:remote_push",
-              "git:pull_request",
-              "git:ci_status",
-              "git:review_status",
-              "git:merge",
-              "git:post_merge_verification",
-            ],
-            requestedOperation: "cursor.docs_write.apply",
-            reversibilityExpectation: "reversible",
-            artifactBrief:
-              "Functional design covering goals, actors, flows, and constraints",
-            contentRequirements: [
-              "goals",
-              "actors",
-              "main_flows",
-              "constraints",
-              "out_of_scope",
-            ],
-            exitRequirementKinds: [
-              "artifact",
-              "validation",
-              "commit",
-              "push",
-              "pull_request",
-              "ci",
-              "review",
-              "merge",
-              "post_merge_verification",
-            ],
-          },
-        })}`,
-        usage: {
-          inputTokens: 10 * this.callCount,
-          outputTokens: 5 * this.callCount,
-          totalTokens: 15 * this.callCount,
-          model: "fake-test-model",
-          providerResponseId: `fake-resp-${this.callCount}`,
-        },
-      };
-    }
-    if (markerProbe.includes("__F2_INFORMATIVE__")) {
-      return {
-        text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
-          intentClass: "informative",
-          candidateCycleTypeId: null,
-          signals: null,
-          cognitiveWorkload: null,
-          objective: "Résumer le projet",
-          scope: null,
-          rephrasedRequest: "Résumer l'objectif du projet",
-          outOfScope: [],
-          risks: [],
-          reservations: [],
-          stopConditions: [],
-          activatedBlocks: [],
-          expectedOutcome: null,
-          criticalJustification: null,
-          requestedOperation: null,
-          executionIntent: null,
-        })}`,
-        usage: {
-          inputTokens: 10 * this.callCount,
-          outputTokens: 5 * this.callCount,
-          totalTokens: 15 * this.callCount,
-          model: "fake-test-model",
-          providerResponseId: `fake-resp-${this.callCount}`,
-        },
-      };
-    }
-    if (markerProbe.includes("__F2_ACTIONABLE__")) {
-      return {
-        text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
-          intentClass: "actionable",
-          candidateCycleTypeId: "cyc:delivery",
-          signals: {
-            structuralChange: false,
-            securityImpact: false,
-            architectureImpact: false,
-            dataImpact: false,
-            irreversible: false,
-            lowRiskBounded: true,
-          },
-          cognitiveWorkload: null,
-          objective: "Préparer la prochaine étape fonctionnelle",
-          scope: "Proposition bornée sans exécution",
-          rephrasedRequest: "Préparer une proposition de livraison bornée",
-          outOfScope: ["Cursor", "Git write", "PR"],
-          risks: ["Confusion reco/décision"],
-          reservations: [],
-          stopConditions: ["AUCUNE EXÉCUTION"],
-          activatedBlocks: ["qualification", "proposition"],
-          expectedOutcome: "Proposition structurée prête pour revue",
-          criticalJustification: null,
-          requestedOperation: null,
-          executionIntent: null,
-        })}`,
-        usage: {
-          inputTokens: 10 * this.callCount,
-          outputTokens: 5 * this.callCount,
-          totalTokens: 15 * this.callCount,
-          model: "fake-test-model",
-          providerResponseId: `fake-resp-${this.callCount}`,
-        },
-      };
-    }
-    /**
-     * Light/Standard gated path: Morris gate via structural op token ("create pr")
-     * without Critical profile — ZERO REAL Confirmation reachable.
-     * Critical architecture (__F2_STRUCTURING__) remains R-T-A3-1 fail-closed.
-     */
-    if (markerProbe.includes("__F2_GATED_STANDARD__")) {
-      return {
-        text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
-          intentClass: "actionable",
-          candidateCycleTypeId: "cyc:delivery",
-          signals: {
-            structuralChange: false,
-            securityImpact: false,
-            architectureImpact: false,
-            dataImpact: false,
-            irreversible: false,
-            lowRiskBounded: true,
-          },
-          cognitiveWorkload: null,
-          objective: "Préparer une livraison bornée avec gate Morris",
-          scope: "Proposition Standard gateable sans Critical",
-          rephrasedRequest: "Préparer une proposition de livraison gated",
-          outOfScope: ["Cursor REAL"],
-          risks: ["Confusion reco/décision"],
-          reservations: [],
-          stopConditions: ["AUCUNE EXÉCUTION"],
-          activatedBlocks: ["qualification", "proposition", "gate"],
-          expectedOutcome: "Gate Morris requis — profil Standard",
-          criticalJustification: null,
-          requestedOperation: "create pr",
-          executionIntent: null,
-        })}`,
-        usage: {
-          inputTokens: 10 * this.callCount,
-          outputTokens: 5 * this.callCount,
-          totalTokens: 15 * this.callCount,
-          model: "fake-test-model",
-          providerResponseId: `fake-resp-${this.callCount}`,
-        },
-      };
-    }
-    if (markerProbe.includes("__F2_STRUCTURING__")) {
-      const content = markerProbe;
-      let challengeResponseAssessment:
-        | "sufficient"
-        | "insufficient"
-        | "unknown"
-        | null = null;
-      if (
-        content.includes("__MW5_SATISFACTION_SUFFICIENT__") ||
-        content.includes("__MW5_CHALLENGE_SATISFIED__")
-      ) {
-        challengeResponseAssessment = "sufficient";
-      } else if (
-        content.includes("__MW5_SATISFACTION_INSUFFICIENT__") ||
-        /^\s*(ok|vas-y|go|d'accord|daccord)\b/i.test(
-          content.replace(/__MW5_[A-Z0-9_]+__/g, "").replace(/__F2_[A-Z0-9_]+__/g, "").trim(),
-        )
-      ) {
-        challengeResponseAssessment = "insufficient";
-      } else if (
-        /hors\s*sujet|off[\s-]?topic|couleur\s+pr[eé]f[eé]r[eé]e/i.test(content)
-      ) {
-        challengeResponseAssessment = "insufficient";
-      }
-      return {
-        text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
-          intentClass: "actionable",
-          candidateCycleTypeId: "cyc:functional-architecture",
-          signals: {
-            structuralChange: true,
-            securityImpact: false,
-            architectureImpact: true,
-            dataImpact: false,
-            irreversible: false,
-            lowRiskBounded: false,
-          },
-          cognitiveWorkload: null,
-          contradictionCandidate: null,
-          challengeResponseAssessment,
-          objective: "Faire évoluer l'architecture produit",
-          scope: "Changement d'architecture structurant",
-          rephrasedRequest: "Préparer une proposition d'architecture",
-          outOfScope: ["Exécution", "PR", "merge"],
-          risks: ["Impact architecture"],
-          reservations: [],
-          stopConditions: ["AUCUNE EXÉCUTION"],
-          activatedBlocks: ["qualification", "proposition", "gate"],
-          expectedOutcome: "Gate Morris requis",
-          criticalJustification: "Besoin métier structurant documenté",
-          requestedOperation: "architecture change",
-          executionIntent: null,
-        })}`,
-        usage: {
-          inputTokens: 10 * this.callCount,
-          outputTokens: 5 * this.callCount,
-          totalTokens: 15 * this.callCount,
-          model: "fake-test-model",
-          providerResponseId: `fake-resp-${this.callCount}`,
-        },
-      };
-    }
-    if (markerProbe.includes("__F2_AMBIGUOUS__")) {
-      return {
-        text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
-          intentClass: "ambiguous",
-          candidateCycleTypeId: null,
-          signals: null,
-          cognitiveWorkload: null,
-          objective: null,
-          scope: null,
-          rephrasedRequest: "Fais le nécessaire",
-          outOfScope: [],
-          risks: [],
-          reservations: [],
-          stopConditions: [],
-          activatedBlocks: [],
-          expectedOutcome: null,
-          criticalJustification: null,
-          requestedOperation: null,
-          executionIntent: null,
-        })}`,
-        usage: {
-          inputTokens: 10 * this.callCount,
-          outputTokens: 5 * this.callCount,
-          totalTokens: 15 * this.callCount,
-          model: "fake-test-model",
-          providerResponseId: `fake-resp-${this.callCount}`,
-        },
-      };
-    }
-    // CR-07-06 — must be checked BEFORE __F2_ARTIFACT_MATERIALIZE__ (substring risk).
-    if (markerProbe.includes("__F2_ARTIFACT_HOSTILE_MERGE_OP__")) {
-      return {
-        text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
-          intentClass: "execution_request",
-          candidateCycleTypeId: "cyc:framing",
-          signals: {
-            structuralChange: false,
-            securityImpact: false,
-            architectureImpact: false,
-            dataImpact: false,
-            irreversible: false,
-            lowRiskBounded: true,
-          },
-          cognitiveWorkload: null,
-          contradictionCandidate: null,
-          challengeResponseAssessment: "sufficient",
-          continuationKind: "active_cycle_artifact_materialization",
-          artifactMaterializationOperation: null,
-          objective: "Matérialiser le livrable requis du cycle actif",
-          scope: "docs_write borné — cycle actif — aucune exécution automatique",
-          rephrasedRequest: "Matérialisation gouvernée du livrable requis",
-          outOfScope: ["Nouveau CycleInstance", "Pilot START", "Cursor REAL"],
-          risks: ["Confusion action / classification"],
-          reservations: [],
-          stopConditions: ["AUCUNE EXÉCUTION"],
-          activatedBlocks: ["proposition", "gate"],
-          expectedOutcome: null,
-          criticalJustification: null,
-          requestedOperation: "github.pr.merge",
-          executionIntent: {
-            intentKind: "docs_write",
-            artifactType: "deliverable_document",
-            targetRepositoryRef: null,
-            targetPath: "docs/livrable-cycle.md",
-            scopeIn: ["docs/"],
-            scopeOut: [],
-            expectedOutputs: ["docs/livrable-cycle.md"],
-            requiredCapabilities: ["cap:github.pr.merge"],
-            validationExpectations: [],
-            evidenceRequirements: [],
-            requestedOperation: "github.pr.merge",
-            reversibilityExpectation: null,
-            artifactBrief: "Livrable requis du cycle actif",
-            contentRequirements: ["Contenu défini avec Nora"],
-            exitRequirementKinds: [],
-          },
-        })}`,
-        usage: {
-          inputTokens: 10 * this.callCount,
-          outputTokens: 5 * this.callCount,
-          totalTokens: 15 * this.callCount,
-          model: "fake-test-model",
-          providerResponseId: `fake-resp-${this.callCount}`,
-        },
-      };
-    }
-    if (markerProbe.includes("__F2_ARTIFACT_MATERIALIZE__")) {
-      // Historical sentinel fixture — same builder as natural Pilot contract.
-      const content = markerProbe;
-      let challengeResponseAssessment: FakeChallengeAssessment = "sufficient";
-      if (content.includes("__MW5_SATISFACTION_INSUFFICIENT__")) {
-        challengeResponseAssessment = "insufficient";
-      }
-      return fakeF2JsonResult(
-        this.callCount,
-        buildArtifactMaterializationAnalysis({
-          targetPath: "docs/livrable-cycle.md",
-          challengeResponseAssessment,
-        }),
-      );
-    }
-    if (markerProbe.includes("__F2_DOCS_WRITE_GENERIC__")) {
-      return {
-        text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
-          intentClass: "execution_request",
-          candidateCycleTypeId: "cyc:framing",
-          signals: {
-            structuralChange: false,
-            securityImpact: false,
-            architectureImpact: false,
-            dataImpact: false,
-            irreversible: false,
-            lowRiskBounded: true,
-          },
-          cognitiveWorkload: null,
-          contradictionCandidate: null,
-          challengeResponseAssessment: "sufficient",
-          continuationKind: null,
-          objective: "Modifier le README du dépôt",
-          scope: "docs_write générique indépendant",
-          rephrasedRequest: "Écrire dans le README",
-          outOfScope: [],
-          risks: [],
-          reservations: [],
-          stopConditions: ["AUCUNE EXÉCUTION"],
-          activatedBlocks: ["qualification", "proposition"],
-          expectedOutcome: "Proposition docs_write générique",
-          criticalJustification: null,
-          requestedOperation: "cursor.docs_write.apply",
-          executionIntent: {
-            intentKind: "docs_write",
-            artifactType: null,
-            targetRepositoryRef: null,
-            targetPath: "README.md",
-            scopeIn: ["projects/"],
-            scopeOut: [],
-            expectedOutputs: ["README.md"],
-            requiredCapabilities: ["cap:cursor.docs_write"],
-            validationExpectations: [],
-            evidenceRequirements: [],
-            requestedOperation: "cursor.docs_write.apply",
-            reversibilityExpectation: null,
-            artifactBrief: null,
-            contentRequirements: [],
-            exitRequirementKinds: [],
-          },
-        })}`,
-        usage: {
-          inputTokens: 10 * this.callCount,
-          outputTokens: 5 * this.callCount,
-          totalTokens: 15 * this.callCount,
-          model: "fake-test-model",
-          providerResponseId: `fake-resp-${this.callCount}`,
-        },
-      };
-    }
-    if (markerProbe.includes("__F2_ARTIFACT_DEFINE_ONLY__")) {
-      return {
-        text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
-          intentClass: "informative",
-          candidateCycleTypeId: "cyc:framing",
-          signals: null,
-          cognitiveWorkload: null,
-          contradictionCandidate: null,
-          challengeResponseAssessment: null,
-          continuationKind: null,
-          objective: "Définir la forme du livrable attendu",
-          scope: null,
-          rephrasedRequest: "Préciser la définition du livrable sans matérialiser",
-          outOfScope: [],
-          risks: [],
-          reservations: [],
-          stopConditions: [],
-          activatedBlocks: [],
-          expectedOutcome: null,
-          criticalJustification: null,
-          requestedOperation: null,
-          executionIntent: null,
-        })}`,
-        usage: {
-          inputTokens: 10 * this.callCount,
-          outputTokens: 5 * this.callCount,
-          totalTokens: 15 * this.callCount,
-          model: "fake-test-model",
-          providerResponseId: `fake-resp-${this.callCount}`,
-        },
-      };
-    }
-    if (markerProbe.includes("__F2_EXECUTION__")) {
-      const content = markerProbe;
-      let challengeResponseAssessment:
-        | "sufficient"
-        | "insufficient"
-        | "unknown"
-        | null = null;
-      if (
-        content.includes("__MW5_SATISFACTION_SUFFICIENT__") ||
-        content.includes("__MW5_CHALLENGE_SATISFIED__")
-      ) {
-        challengeResponseAssessment = "sufficient";
-      } else if (
-        content.includes("__MW5_SATISFACTION_INSUFFICIENT__") ||
-        /^\s*(ok|vas-y|go)\b/i.test(
-          content
-            .replace(/__MW5_[A-Z0-9_]+__/g, "")
-            .replace(/__F2_[A-Z0-9_]+__/g, "")
-            .trim(),
-        )
-      ) {
-        challengeResponseAssessment = "insufficient";
-      }
-      return {
-        text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
-          intentClass: "execution_request",
-          candidateCycleTypeId: "cyc:delivery",
-          signals: {
-            structuralChange: true,
-            securityImpact: false,
-            architectureImpact: true,
-            dataImpact: false,
-            irreversible: false,
-            lowRiskBounded: false,
-          },
-          cognitiveWorkload: null,
-          contradictionCandidate: null,
-          challengeResponseAssessment,
-          objective: "Lancer Cursor et créer une PR",
-          scope: "Exécution produit demandée — refusée en F2",
-          rephrasedRequest: "Demande d'exécution Cursor / PR",
-          outOfScope: ["Exécution réelle"],
-          risks: ["Exécution hors périmètre F2"],
-          reservations: [],
-          stopConditions: ["AUCUNE EXÉCUTION"],
-          activatedBlocks: ["qualification", "proposition", "gate"],
-          expectedOutcome: "Proposition sans exécution",
-          criticalJustification: "Demande d'exécution explicite à borner sans lancer d'agent",
-          requestedOperation: "cursor create pr",
-          executionIntent: null,
-        })}`,
-        usage: {
-          inputTokens: 10 * this.callCount,
-          outputTokens: 5 * this.callCount,
-          totalTokens: 15 * this.callCount,
-          model: "fake-test-model",
-          providerResponseId: `fake-resp-${this.callCount}`,
-        },
-      };
-    }
-    if (markerProbe.includes("__F2_CRITICAL_NO_JUSTIFICATION__")) {
-      return {
-        text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
-          intentClass: "actionable",
-          candidateCycleTypeId: "cyc:security",
-          signals: {
-            structuralChange: true,
-            securityImpact: true,
-            architectureImpact: true,
-            dataImpact: true,
-            irreversible: true,
-            lowRiskBounded: false,
-          },
-          cognitiveWorkload: null,
-          objective: "Changer l'architecture sécurité",
-          scope: "Impact structurant sécurité",
-          rephrasedRequest: "Modifier architecture sécurité",
-          outOfScope: ["Exécution"],
-          risks: ["Impact critique"],
-          reservations: [],
-          stopConditions: ["Justification Critical obligatoire"],
-          activatedBlocks: ["qualification"],
-          expectedOutcome: null,
-          criticalJustification: null,
-          requestedOperation: "architecture security change",
-          executionIntent: null,
-        })}`,
-        usage: {
-          inputTokens: 10 * this.callCount,
-          outputTokens: 5 * this.callCount,
-          totalTokens: 15 * this.callCount,
-          model: "fake-test-model",
-          providerResponseId: `fake-resp-${this.callCount}`,
-        },
-      };
-    }
-    // Natural Pilot artifact-materialization is F2 intent-analysis ONLY.
-    // Ordering: HOSTILE_MERGE → ARTIFACT_MATERIALIZE sentinel → … remaining markers
-    // Remaining F2 intents: informative fallback (natural materialization handled above).
-    if (isF2IntentAnalysisContext(messages)) {
-      return {
-        text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
-          intentClass: "informative",
-          candidateCycleTypeId: null,
-          signals: null,
-          cognitiveWorkload: null,
-          objective: null,
-          scope: null,
-          rephrasedRequest: (lastUser?.content ?? "").slice(0, 200),
-          outOfScope: [],
-          risks: [],
-          reservations: [],
-          stopConditions: [],
-          activatedBlocks: [],
-          expectedOutcome: null,
-          criticalJustification: null,
-          requestedOperation: null,
-        })}`,
-        usage: {
-          inputTokens: 10 * this.callCount,
-          outputTokens: 5 * this.callCount,
-          totalTokens: 15 * this.callCount,
-          model: "fake-test-model",
-          providerResponseId: `fake-resp-${this.callCount}`,
-        },
-      };
-    }
-
-    const historyLen = messages.length;
-    const text =
-      this.scripted?.[this.callCount - 1] ??
-      `[TEST/FAKE · NON LIVE] Réponse fake #${this.callCount} (historique=${historyLen}). Echo: « ${(lastUser?.content ?? "").slice(0, 80)} »`;
-    return {
-      text,
-      usage: {
-        inputTokens: 10 * this.callCount,
-        outputTokens: 5 * this.callCount,
-        totalTokens: 15 * this.callCount,
-        model: "fake-test-model",
-        providerResponseId: `fake-resp-${this.callCount}`,
-      },
-    };
-  }
-
-  async completeRound(input: {
-    items: ProviderInputItem[];
-    tools: ToolDefinition[];
-    signal?: AbortSignal;
-  }): Promise<ProviderRoundResult> {
-    if (input.signal?.aborted) {
-      const error = new Error("AbortError");
-      error.name = "AbortError";
-      throw error;
-    }
-    this.roundCount += 1;
-    const usage = {
-      inputTokens: 10 * this.roundCount,
-      outputTokens: 5 * this.roundCount,
-      totalTokens: 15 * this.roundCount,
-      model: "fake-test-model",
-      providerResponseId: `fake-round-${this.roundCount}`,
-    };
-
-    if (this.toolScript && this.toolScript.length > 0) {
-      const step =
-        this.toolScript[
-          Math.min(this.roundCount - 1, this.toolScript.length - 1)
-        ];
-      if (step.kind === "tool_calls" && input.tools.length > 0) {
-        return { kind: "tool_calls", toolCalls: step.toolCalls, usage };
-      }
-      if (step.kind === "message") {
-        return { kind: "message", text: step.text, usage };
-      }
-    }
-
-    // Auto: if last user asks for git/github and tools available, emit one tool call once
-    const lastUser = [...input.items]
-      .reverse()
-      .find((i) => i.type === "message" && i.role === "user");
-    const content =
-      lastUser && lastUser.type === "message" ? lastUser.content : "";
-
-    if (
-      this.roundCount === 1 &&
-      input.tools.length > 0 &&
-      /__CT_TOOL_GIT_STATUS__/i.test(content)
-    ) {
-      return {
-        kind: "tool_calls",
-        toolCalls: [
-          {
-            callId: "fake-call-git-status",
-            name: "git_local_get_status",
-            argumentsJson: "{}",
-          },
-        ],
-        usage,
-      };
-    }
-    if (
-      this.roundCount === 1 &&
-      input.tools.length > 0 &&
-      /__CT_TOOL_GITHUB_REPO__/i.test(content)
-    ) {
-      return {
-        kind: "tool_calls",
-        toolCalls: [
-          {
-            callId: "fake-call-gh-repo",
-            name: "github_get_repository",
-            argumentsJson: "{}",
-          },
-        ],
-        usage,
-      };
-    }
-    if (
-      this.roundCount === 1 &&
-      input.tools.length > 0 &&
-      /__CT_TOOL_DENIED_PATH__/i.test(content)
-    ) {
-      return {
-        kind: "tool_calls",
-        toolCalls: [
-          {
-            callId: "fake-call-env",
-            name: "git_local_read_file",
-            argumentsJson: JSON.stringify({ path: ".env" }),
-          },
-        ],
-        usage,
-      };
-    }
-
-    // After tools or default message
-    const toolOutputs = input.items.filter(
-      (i) => i.type === "function_call_output",
-    );
-    if (toolOutputs.length > 0) {
-      return {
-        kind: "message",
-        text: `[TEST/FAKE · NON LIVE] Analyse outils (${toolOutputs.length}) — aucun succès implicite déclaré.`,
-        usage,
-      };
-    }
-
-    const messages = input.items
-      .filter((i): i is Extract<ProviderInputItem, { type: "message" }> =>
-        i.type === "message",
-      )
-      .map((m) => ({ role: m.role, content: m.content }));
-    const completion = await this.complete(messages);
-    return { kind: "message", text: completion.text, usage: completion.usage };
-  }
-}
+@@ -227,5 +289,6 @@
+     clarification,
+     payload: parsed,
+     boundarySubstitution,
++    usageObservation,
+   };
+ }
 ```
 
 
-### `projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s06.pilotExperience.d0.test.tsx`
+### cycle diff — `newProjectConversation.ts`
 
-```tsx
-/** @vitest-environment jsdom */
-import {
-  cleanup,
-  render,
-  screen,
-  waitFor,
-  within,
-} from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { ProjectsPage } from "@/features/pre-m6-product-ui/ProjectsPage";
-import { NewProjectIntentionPage } from "@/features/pre-m6-product-ui/NewProjectIntentionPage";
-import { LoginClient } from "@/app/login/login-client";
-import {
-  absorbUserTurn,
-  collectPhaseOf,
-  emptyDraft,
-  isMinimumSufficient,
-  nextNoraPrompt,
-  reopenField,
-} from "@/features/pre-m6-product-ui/newProjectConversation";
-import { projectNoraActivity } from "@/features/pre-m6-product-ui/surfaces/noraActivityProjection";
-
-const {
-  listProjectsRuntimeActionMock,
-  createProjectRuntimeActionMock,
-  newProjectOnboardingTurnActionMock,
-  pushMock,
-} = vi.hoisted(() => ({
-  listProjectsRuntimeActionMock: vi.fn(),
-  createProjectRuntimeActionMock: vi.fn(),
-  newProjectOnboardingTurnActionMock: vi.fn(),
-  pushMock: vi.fn(),
-}));
-
-vi.mock("@/lib/vertical-slice-runtime/actions", () => ({
-  listProjectsRuntimeAction: listProjectsRuntimeActionMock,
-  createProjectRuntimeAction: createProjectRuntimeActionMock,
-}));
-
-vi.mock("@/features/pre-m6-product-ui/newProjectOnboardingAction", () => ({
-  newProjectOnboardingTurnAction: newProjectOnboardingTurnActionMock,
-}));
-
-vi.mock("next/navigation", () => ({
-  useRouter: () => ({ push: pushMock }),
-}));
-
-vi.mock("next/link", () => ({
-  default: ({
-    children,
-    href,
-    ...props
-  }: {
-    children: React.ReactNode;
-    href: string;
-  }) => (
-    <a href={href} {...props}>
-      {children}
-    </a>
-  ),
-}));
-
-afterEach(() => {
-  cleanup();
-  listProjectsRuntimeActionMock.mockReset();
-  createProjectRuntimeActionMock.mockReset();
-  newProjectOnboardingTurnActionMock.mockReset();
-  pushMock.mockReset();
-});
-
-describe("P5-S06 CP01 / P6-HQA-NEWPROJECT-01 draft helpers", () => {
-  it("absorbUserTurn stamps provisional name without blocking create after a turn", () => {
-    const d0 = emptyDraft();
-    expect(collectPhaseOf(d0)).toBe("INTENTION_REQUIRED");
-    const d1 = absorbUserTurn(d0, "Moderniser le reporting");
-    expect(d1.intention).toContain("Moderniser");
-    expect(d1.name.length).toBeGreaterThan(0);
-    expect(d1.nameProvisional).toBe(true);
-    expect(isMinimumSufficient(d1)).toBe(true);
-  });
-
-  it("reopens name explicitly", () => {
-    const d = absorbUserTurn(emptyDraft(), "Suivre les contrats");
-    const reopened = reopenField(d, "name");
-    expect(reopened.name).toBe("");
-    expect(collectPhaseOf(reopened)).toBe("NAME_REQUIRED");
-    expect(nextNoraPrompt("NAME_REQUIRED")).toMatch(/nom/i);
-  });
-});
-
-describe("P5-S06 CP01 ProjectsPage", () => {
-  it("shows empty state without inventing projects", async () => {
-    listProjectsRuntimeActionMock.mockResolvedValue({
-      ok: true,
-      projects: [],
-      disclosures: {},
-    });
-    render(<ProjectsPage />);
-    await waitFor(() =>
-      expect(screen.getByTestId("studio-projects-empty")).toBeInTheDocument(),
-    );
-    expect(screen.queryByTestId("studio-projects-recent")).toBeNull();
-  });
-
-  it("treats updatedAt as recent activity, not next action, and searches locally", async () => {
-    const recent = new Date().toISOString();
-    listProjectsRuntimeActionMock.mockResolvedValue({
-      ok: true,
-      projects: [
-        {
-          projectId: "prj:a",
-          title: "Alpha Reporting",
-          name: "Alpha Reporting",
-          status: "active",
-          objective: "Reporting",
-          updatedAt: recent,
-        },
-        {
-          projectId: "prj:b",
-          title: "Beta Archive",
-          name: "Beta Archive",
-          status: "archived",
-          objective: "Old",
-          updatedAt: "2020-01-01T00:00:00.000Z",
-        },
-      ],
-      disclosures: {},
-    });
-    const user = userEvent.setup();
-    render(<ProjectsPage />);
-    await waitFor(() =>
-      expect(screen.getByTestId("studio-projects-list")).toBeInTheDocument(),
-    );
-    // P3 section label « À reprendre »; content remains updatedAt-only (no invented next action).
-    expect(screen.getByTestId("studio-projects-recent")).toHaveTextContent(
-      "À reprendre",
-    );
-    expect(screen.getByTestId("studio-projects-recent")).toHaveTextContent(
-      "aucune prochaine action inventée",
-    );
-    expect(
-      within(screen.getByTestId("studio-projects-recent")).queryByText(
-        /Finaliser|Reprendre la trajectoire/i,
-      ),
-    ).toBeNull();
-    expect(
-      within(screen.getByTestId("studio-projects-recent")).getByText(
-        "Alpha Reporting",
-      ),
-    ).toBeInTheDocument();
-    await user.type(screen.getByTestId("studio-projects-search"), "beta");
-    expect(screen.getByTestId("studio-projects-list")).toHaveTextContent(
-      "Beta Archive",
-    );
-    expect(screen.getByTestId("studio-projects-ask-nora")).toHaveAttribute(
-      "href",
-      "/studio/projects/new",
-    );
-    expect(screen.getByTestId("studio-projects-orientation")).toHaveTextContent(
-      /nouveau projet/i,
-    );
-    expect(screen.getByTestId("studio-projects-orientation")).not.toHaveTextContent(
-      /retrouver un projet/i,
-    );
-  });
-});
-
-describe("P5-S06 CP01 NewProjectIntentionPage (cognitive onboarding)", () => {
-  beforeEach(() => {
-    vi.spyOn(globalThis.crypto, "randomUUID").mockReturnValue(
-      "00000000-0000-4000-8000-000000000099",
-    );
-    newProjectOnboardingTurnActionMock.mockImplementation(
-      async (input: {
-        userText: string;
-        draft: {
-          intention: string;
-          name: string;
-          nameProvisional: boolean;
-          objective: string;
-          context: string;
-          firstOrientation: string;
-          unknowns: string[];
-          cognitiveCreateProposal: boolean;
-          explicitRefuseCreate: boolean;
-          cognitiveTurns: number;
-        };
-      }) => {
-        const intention = input.userText;
-        const name =
-          intention.length > 48 ? `${intention.slice(0, 45)}…` : intention;
-        const draft = {
-          ...input.draft,
-          intention,
-          objective: intention,
-          name: name.charAt(0).toUpperCase() + name.slice(1),
-          nameProvisional: true,
-          cognitiveCreateProposal: true,
-          cognitiveTurns: input.draft.cognitiveTurns + 1,
-          firstOrientation:
-            "Qualifier la première intention de travail une fois le projet créé",
-          unknowns: [],
-        };
-        return {
-          ok: true as const,
-          draft,
-          replyText: `Si je comprends bien : ${intention}. Je propose « ${draft.name} » (provisoire).`,
-          clarification: {
-            title: "UNE PRÉCISION UTILE",
-            question: "Quel résultat concret te fera dire que c’est réussi ?",
-            suggestions: ["Plus simple à comprendre"],
-          },
-          payload: {
-            replyText: `ok`,
-            intentionKnown: intention,
-            objectiveProposal: intention,
-            contextKnown: null,
-            nameProposal: draft.name,
-            nameProvisional: true,
-            firstOrientationProposal: draft.firstOrientation,
-            unknowns: [],
-            sufficientForCreateProposal: true,
-            refuseCreateDetected: false,
-            clarificationQuestion: "Quel résultat ?",
-            suggestions: [],
-          },
-          boundarySubstitution: true,
-        };
-      },
-    );
-  });
-
-  it("does not create a Project before explicit CTA; one cognitive turn can enable create", async () => {
-    const user = userEvent.setup();
-    render(<NewProjectIntentionPage />);
-    expect(screen.getByTestId("create-project-submit")).toBeDisabled();
-    expect(screen.getByTestId("new-project-thread")).toHaveTextContent(
-      /accomplir|projet/i,
-    );
-    expect(screen.getByTestId("new-project-starters")).toBeInTheDocument();
-
-    await user.type(
-      screen.getByTestId("new-project-input"),
-      "Suivre les contrats fournisseurs",
-    );
-    await user.click(screen.getByTestId("new-project-send"));
-    expect(createProjectRuntimeActionMock).not.toHaveBeenCalled();
-    await waitFor(() =>
-      expect(screen.getByTestId("preview-intention")).toHaveTextContent(
-        /contrats/i,
-      ),
-    );
-    expect(screen.getByTestId("create-project-submit")).toBeEnabled();
-    expect(screen.getByTestId("preview-name")).not.toHaveTextContent(
-      /pas encore précisé/i,
-    );
-    expect(screen.getByTestId("new-project-clarification")).toBeInTheDocument();
-    expect(screen.getByTestId("new-project-understood")).toBeInTheDocument();
-  });
-
-  it("creates exactly one Project via canonical action then opens workspace", async () => {
-    createProjectRuntimeActionMock.mockResolvedValue({
-      ok: true,
-      projectId: "prj:s06-1",
-      project: {
-        projectId: "prj:s06-1",
-        name: "Contrats Q3",
-        objective: "Suivre les contrats fournisseurs",
-        criticality: "STANDARD",
-      },
-      livingState: { version: 1 },
-      readiness: { status: "NOT_READY" },
-      reusedFromIdempotencyKey: false,
-    });
-    const user = userEvent.setup();
-    render(<NewProjectIntentionPage />);
-    await user.type(
-      screen.getByTestId("new-project-input"),
-      "Suivre les contrats fournisseurs",
-    );
-    await user.click(screen.getByTestId("new-project-send"));
-    await waitFor(() =>
-      expect(screen.getByTestId("create-project-submit")).toBeEnabled(),
-    );
-    await user.click(screen.getByTestId("create-project-submit"));
-
-    await waitFor(() =>
-      expect(createProjectRuntimeActionMock).toHaveBeenCalledTimes(1),
-    );
-    const arg = createProjectRuntimeActionMock.mock.calls[0]![0];
-    expect(arg.name.length).toBeGreaterThan(0);
-    expect(arg.objective).toMatch(/contrats/i);
-    expect(arg.context).toMatch(/nora-onboarding-handoff/);
-    expect(arg.criticality).toBe("STANDARD");
-    expect(arg).not.toHaveProperty("cycleId");
-    expect(arg).not.toHaveProperty("humanDecision");
-    expect(pushMock).toHaveBeenCalledWith(
-      "/studio/projects/prj%3As06-1?from=new-project-onboarding",
-    );
-  });
-});
-
-describe("P5-S06 CP01 Nora activity mapping", () => {
-  it("maps observable uiState without STOPPED or fake percent", () => {
-    expect(
-      projectNoraActivity({
-        blocked: false,
-        busy: true,
-        uiState: "SENDING",
-      }),
-    ).toMatchObject({ phase: "start", stopAvailable: false });
-    expect(
-      projectNoraActivity({
-        blocked: false,
-        busy: true,
-        uiState: "SOURCE_LOOKUP",
-      }),
-    ).toMatchObject({ phase: "activity", label: "Nora travaille…" });
-    expect(
-      projectNoraActivity({
-        blocked: false,
-        busy: true,
-        uiState: "ASSISTANT_WORKING",
-      }),
-    ).toMatchObject({ phase: "activity", label: "Nora travaille…" });
-    expect(
-      projectNoraActivity({
-        blocked: false,
-        busy: false,
-        uiState: "ANSWERED",
-      }),
-    ).toMatchObject({ phase: "complete" });
-    expect(
-      projectNoraActivity({
-        blocked: false,
-        busy: true,
-        uiState: "ANSWERED",
-      }),
-    ).toMatchObject({ phase: "complete" });
-    expect(
-      projectNoraActivity({
-        blocked: false,
-        busy: false,
-        uiState: "ERROR_RECOVERABLE",
-      }),
-    ).toMatchObject({ phase: "error" });
-    expect(
-      projectNoraActivity({
-        blocked: true,
-        busy: false,
-        uiState: "BLOCKED",
-      }),
-    ).toMatchObject({ phase: "blocked" });
-    const idle = projectNoraActivity({
-      blocked: false,
-      busy: false,
-      uiState: "READY",
-    });
-    expect(idle.phase).not.toBe("stopped" as never);
-    expect(JSON.stringify(idle)).not.toMatch(/%|chain of thought|CoT/i);
-    expect(
-      projectNoraActivity({
-        blocked: false,
-        busy: false,
-        uiState: "STOPPED",
-      }),
-    ).toMatchObject({ phase: "stopped", label: "Réponse interrompue", stopAvailable: false });
-    expect(
-      projectNoraActivity({
-        blocked: false,
-        busy: true,
-        uiState: "ASSISTANT_WORKING",
-        stopAvailable: true,
-      }).stopAvailable,
-    ).toBe(true);
-  });
-});
-
-describe("P5-S06 CP01 Auth", () => {
-  it("keeps GitHub-only Continuer avec GitHub and existing start href", () => {
-    render(<LoginClient fromPath="/studio" />);
-    const cta = screen.getByTestId("login-github");
-    expect(cta).toHaveTextContent("Continuer avec GitHub");
-    expect(cta).toHaveAttribute(
-      "href",
-      "/api/auth/github-start?from=%2Fstudio",
-    );
-  });
-});
+```diff
+--- a/b/projects/sfia-studio/app/features/pre-m6-product-ui/newProjectConversation.ts	2026-10-09 11:00:43
++++ b/projects/sfia-studio/app/features/pre-m6-product-ui/newProjectConversation.ts	2026-10-09 11:03:00
+@@ -60,6 +60,7 @@
+     intention: draft.intention.trim()
+       ? `${draft.intention}\n${text}`.slice(0, 4000)
+       : text,
++    intentionKind: "project_direction",
+     cognitiveTurns: Math.max(draft.cognitiveTurns, 1),
+   };
+   if (!next.objective.trim()) next.objective = next.intention;
 ```
 
 
-## Unified diffs vs HEAD (previously missing modified content)
-
-These diffs isolate the New Project onboarding delta for regression audit of `fakeProvider.ts` and `p5.s06.pilotExperience.d0.test.tsx`.
+## Related diffs vs HEAD (Fake + S06 tests)
 
 
-### diff — `projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts`
+### diff — fakeProvider.ts
 
 ```diff
 diff --git a/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts b/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
-index fb53e855..e524b923 100644
+index fb53e855..79bf0087 100644
 --- a/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
 +++ b/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
-@@ -434,17 +434,141 @@ export class FakeConversationProvider implements ConversationProvider {
+@@ -434,17 +434,189 @@ export class FakeConversationProvider implements ConversationProvider {
      jsonSchema: Record<string, unknown>;
      signal?: AbortSignal;
    }): Promise<ProviderCompletionResult> {
@@ -4054,19 +2242,33 @@ index fb53e855..e524b923 100644
 +    }
 +
 +    const refuse =
-+      /\b(ne\s+cr[eé]e\s+pas|pas\s+maintenant|refuse|annule)\b/i.test(text);
++      /\b(ne\s+cr[eé]e\s+pas|pas\s+maintenant|refuse|annule|on\s+verra\s+plus\s+tard|attendre)\b/i.test(
++        text,
++      );
++    const acceptCreate =
++      /\b(allons[- ]y|cr[eé]ons[- ]le|je\s+veux\s+cr[eé]er|d['’]accord\s+pour\s+cr[eé]er|finalement.*(oui|allons|cr[eé]))\b/i.test(
++        text,
++      ) && !refuse;
 +    const wantFast =
 +      /\b(tout\s+de\s+suite|immédiat|sans\s+d[eé]tailler|on\s+verra)\b/i.test(
 +        text,
 +      );
 +    const offTopic =
-+      /\b(m[eé]t[eé]o|recette\s+de\s+cuisine|blague)\b/i.test(text) &&
-+      !/\b(projet|cycle|livr|intention)\b/i.test(text);
++      /\b(m[eé]t[eé]o|recette\s+de\s+cuisine|blague|quelle\s+heure)\b/i.test(
++        text,
++      ) && !/\b(projet|cycle|livr|intention|application|produit|organisation)\b/i.test(text);
++    const greetingOnly = /^(bonjour|salut|hello|hey)\.?$/i.test(text.trim());
++    const nameOnlyConfirm =
++      /\b(ok\s+pour\s+le\s+nom|le\s+nom\s+me\s+va|garde\s+ce\s+nom)\b/i.test(
++        text,
++      );
 +
 +    let intentionKnown: string | null = text.slice(0, 400) || null;
 +    let nameProposal: string | null = null;
 +    let nameProvisional = true;
 +    let sufficient = false;
++    let intentionKind: "project_direction" | "non_project" | "unclear" =
++      "unclear";
 +    let replyText: string;
 +    let clarificationQuestion: string | null = null;
 +    const suggestions: string[] = [];
@@ -4074,16 +2276,45 @@ index fb53e855..e524b923 100644
 +
 +    if (refuse) {
 +      sufficient = false;
++      intentionKind = "project_direction";
 +      replyText =
 +        "D’accord — on ne crée rien pour l’instant. Dis-moi quand tu voudras reprendre, ou précise ce qui te bloque.";
-+      intentionKnown = null;
-+    } else if (offTopic) {
-+      sufficient = false;
-+      replyText =
-+        "Je reste centrée sur la création du projet. Qu’est-ce que tu voudrais accomplir dans Studio ?";
-+      unknowns.push("intention du projet");
-+    } else if (wantFast || text.length >= 12) {
++      // Keep prior intention if any; do not wipe project direction on refuse alone.
++    } else if (acceptCreate) {
 +      sufficient = true;
++      intentionKind = "project_direction";
++      if (!intentionKnown || intentionKnown.length < 8) {
++        intentionKnown = "Projet exploratoire convenu avec le Pilote";
++      }
++      const clause = intentionKnown.split(/[.!?\n]/)[0]?.trim() || intentionKnown;
++      nameProposal =
++        clause.length > 64 ? `${clause.slice(0, 61)}…` : clause;
++      nameProposal =
++        nameProposal.charAt(0).toUpperCase() + nameProposal.slice(1);
++      replyText =
++        "Parfait — on peut créer le projet dès que tu cliques sur Créer. Je reste disponible pour préciser ensuite.";
++    } else if (nameOnlyConfirm) {
++      sufficient = false;
++      intentionKind = "project_direction";
++      replyText =
++        "Noté pour le nom. Dis-moi si tu veux effectivement créer le projet, ou continuer à préciser.";
++    } else if (offTopic || greetingOnly) {
++      sufficient = false;
++      intentionKind = "non_project";
++      intentionKnown = null;
++      replyText = greetingOnly
++        ? "Bonjour — qu’est-ce que tu voudrais accomplir avec ce projet ?"
++        : "Je reste centrée sur la création du projet. Qu’est-ce que tu voudrais accomplir dans Studio ?";
++      unknowns.push("intention du projet");
++    } else if (
++      wantFast ||
++      text.trim().length >= 16 ||
++      /\b(projet|application|produit|organisation|gestion|améliorer|moderniser|créer|idée|reporting|atelier)\b/i.test(
++        text,
++      )
++    ) {
++      sufficient = true;
++      intentionKind = "project_direction";
 +      const clause = text.split(/[.!?\n]/)[0]?.trim() || text;
 +      nameProposal =
 +        clause.length > 64 ? `${clause.slice(0, 61)}…` : clause;
@@ -4105,6 +2336,7 @@ index fb53e855..e524b923 100644
 +      }
 +    } else {
 +      sufficient = false;
++      intentionKind = "unclear";
 +      intentionKnown = null;
 +      replyText =
 +        "Je vois une piste, mais elle reste un peu courte. Peux-tu dire en une phrase ce que tu voudrais accomplir ?";
@@ -4118,12 +2350,16 @@ index fb53e855..e524b923 100644
 +      contextKnown: null as string | null,
 +      nameProposal,
 +      nameProvisional,
-+      firstOrientationProposal: sufficient
-+        ? "Qualifier la première intention de travail dans le projet une fois créé"
-+        : null,
++      firstOrientationProposal:
++        intentionKind === "project_direction"
++          ? "Qualifier la première intention de travail dans le projet une fois créé"
++          : null,
 +      unknowns,
-+      sufficientForCreateProposal: sufficient && !refuse,
++      sufficientForCreateProposal:
++        sufficient && !refuse && intentionKind === "project_direction",
 +      refuseCreateDetected: refuse,
++      acceptCreateDetected: acceptCreate,
++      intentionKind,
 +      clarificationQuestion,
 +      suggestions,
 +    };
@@ -4146,11 +2382,11 @@ index fb53e855..e524b923 100644
 ```
 
 
-### diff — `projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s06.pilotExperience.d0.test.tsx`
+### diff — p5.s06.pilotExperience.d0.test.tsx
 
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s06.pilotExperience.d0.test.tsx b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s06.pilotExperience.d0.test.tsx
-index 3e1458ff..5597f74a 100644
+index 3e1458ff..477aca89 100644
 --- a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s06.pilotExperience.d0.test.tsx
 +++ b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s06.pilotExperience.d0.test.tsx
 @@ -21,18 +21,27 @@ import {
@@ -4248,7 +2484,7 @@ index 3e1458ff..5597f74a 100644
      const reopened = reopenField(d, "name");
      expect(reopened.name).toBe("");
      expect(collectPhaseOf(reopened)).toBe("NAME_REQUIRED");
-@@ -185,19 +166,77 @@ describe("P5-S06 CP01 ProjectsPage", () => {
+@@ -185,19 +166,94 @@ describe("P5-S06 CP01 ProjectsPage", () => {
    });
  });
 
@@ -4271,6 +2507,7 @@ index 3e1458ff..5597f74a 100644
 +          unknowns: string[];
 +          cognitiveCreateProposal: boolean;
 +          explicitRefuseCreate: boolean;
++          intentionKind: string;
 +          cognitiveTurns: number;
 +        };
 +      }) => {
@@ -4284,6 +2521,8 @@ index 3e1458ff..5597f74a 100644
 +          name: name.charAt(0).toUpperCase() + name.slice(1),
 +          nameProvisional: true,
 +          cognitiveCreateProposal: true,
++          explicitRefuseCreate: false,
++          intentionKind: "project_direction" as const,
 +          cognitiveTurns: input.draft.cognitiveTurns + 1,
 +          firstOrientation:
 +            "Qualifier la première intention de travail une fois le projet créé",
@@ -4309,10 +2548,24 @@ index 3e1458ff..5597f74a 100644
 +            unknowns: [],
 +            sufficientForCreateProposal: true,
 +            refuseCreateDetected: false,
++            acceptCreateDetected: false,
++            intentionKind: "project_direction" as const,
 +            clarificationQuestion: "Quel résultat ?",
 +            suggestions: [],
 +          },
 +          boundarySubstitution: true,
++          usageObservation: {
++            inputTokens: null,
++            outputTokens: null,
++            totalTokens: null,
++            model: "fake-test-model",
++            providerResponseId: null,
++            selectedModel: null,
++            selectedReasoningEffort: null,
++            boundarySubstitution: true,
++            declaredHumanQaBudgetEur: 10 as const,
++            hardCapEnforced: false as const,
++          },
 +        };
 +      },
 +    );
@@ -4329,7 +2582,7 @@ index 3e1458ff..5597f74a 100644
      );
      expect(screen.getByTestId("new-project-starters")).toBeInTheDocument();
 
-@@ -207,32 +246,17 @@ describe("P5-S06 CP01 NewProjectIntentionPage", () => {
+@@ -207,32 +263,17 @@ describe("P5-S06 CP01 NewProjectIntentionPage", () => {
      );
      await user.click(screen.getByTestId("new-project-send"));
      expect(createProjectRuntimeActionMock).not.toHaveBeenCalled();
@@ -4369,7 +2622,7 @@ index 3e1458ff..5597f74a 100644
    });
 
    it("creates exactly one Project via canonical action then opens workspace", async () => {
-@@ -256,20 +280,24 @@ describe("P5-S06 CP01 NewProjectIntentionPage", () => {
+@@ -256,20 +297,24 @@ describe("P5-S06 CP01 NewProjectIntentionPage", () => {
        "Suivre les contrats fournisseurs",
      );
      await user.click(screen.getByTestId("new-project-send"));
@@ -4398,7 +2651,7 @@ index 3e1458ff..5597f74a 100644
    });
  });
 
-@@ -303,6 +331,13 @@ describe("P5-S06 CP01 Nora activity mapping", () => {
+@@ -303,6 +348,13 @@ describe("P5-S06 CP01 Nora activity mapping", () => {
          uiState: "ANSWERED",
        }),
      ).toMatchObject({ phase: "complete" });
@@ -4417,6 +2670,6 @@ index 3e1458ff..5597f74a 100644
 
 ## Actions NOT executed
 
-Provider REAL · create real Project · START · HD · HQ-01 write · .env edit · project git commit/push · doctrine/roadmap edits.
+Provider REAL · create real QA Project · START · HD · HQ-01 write · .env edit · FinOps persistence · project git commit/push.
 
-END OF COMPLETE REVIEW PACK — P6-HQA-NEWPROJECT-01 (REPUBLISH FULL)
+END OF COMPLETE REVIEW PACK — P6-HQA-NEWPROJECT-01 FUNCTIONAL CLOSURE
