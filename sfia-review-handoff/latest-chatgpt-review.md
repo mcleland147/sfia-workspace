@@ -1,11 +1,12 @@
-# ChatGPT Review Pack — P6 PR572 POST-MERGE STATUS
+# ChatGPT Review Pack — P6 HUMAN QA READINESS PRE-CHECK
 
 **Level:** FULL
-**Cycle type:** 14 — Post-merge
-**Profile:** STANDARD
-**Timestamp (UTC):** 2026-10-09T13:44:14Z
-**Status:** POST-MERGE VERIFIED — DOC SYNC CANDIDATE
-**GO Morris:** CYCLE 14 POST-MERGE AUTHORIZED — CONSUMED for verification + local doc candidate + handoff L3
+**Cycle type:** 9 — QA / validation — Human QA Pre-check
+**Profile:** CRITICAL
+**Timestamp (UTC):** 2026-10-09T14:14:22Z
+**GO Morris:** P6 HUMAN QA READINESS PRE-CHECK — AUTHORIZED / CONSUMED (inspection only)
+**GO REAL:** NOT GRANTED / NOT CONSUMED
+**Verdict:** PRECHECK BLOCKED — REMEDIATION REQUIRED
 
 ---
 
@@ -17,500 +18,233 @@
 | Local branch | `qa/sfia-studio-p6-global-integrated-product-qa` |
 | Local HEAD | `db45e9c4c17cbe35dff543eee0f366af81026c55` |
 | origin/main | `8581abbf98fc38a78ee05c306c33fc5aa3632d3f` |
-| PR | #572 MERGED |
-| Merge SHA | `8581abbf98fc38a78ee05c306c33fc5aa3632d3f` |
-| Prior merge handoff | `4eb6657be6cbaab26082430f7368a0330c5c231b` |
-| Project commit/push/PR this cycle | **NONE** |
+| Merge reference | `8581abbf98fc38a78ee05c306c33fc5aa3632d3f` (PR #572) |
+| Prior handoff | `55ffa22897d47c7f03d18e57ea66ec372a18fed6` |
+| Product mutations this cycle | **NONE** |
+| Paid provider calls | **NONE** |
+| Project create / START / HD | **NONE** |
 
 ---
 
 ## 1. Sources consulted
 
-Cycle template / routing / Source Routing Map / Operating Model v2.6 · Build Doctrine · Roadmap (READ-ONLY) · C1 · Product Simplification 01/05/06/07 · this P6 integration trace · Doctrine framing 30/32/33/35/37 pointers · CKC14 (CONTENT VALIDATED BY MORRIS; guidance only; Runtime v3 NON ADOPTED) · handoff @ 4eb6657b · PR #572 / CI 37931365413.
+Cycle template / routing / Source Routing Map / OM v2.6 · Build Doctrine · Roadmap (R/O) · C1 · Product Simplification 01–04, 07 · local Cycle-14 candidate of `p6-qa-integration-state-and-reserves.md` (preserved, not modified this cycle) · Doctrine framing 30/32/33/35/37 pointers · runtime files: `middleware.ts`, `lib/auth/resolveCurrentPilote.ts`, New Project onboarding path, `resolveF2ProductRoutedProvider.ts`, `campaignBudget.ts`, `lib/platform/ai/config.ts`, `lib/vertical-slice-runtime/actions.ts` · handoff @ 55ffa228 · process/port inspection · unauthenticated HTTP probe.
 
 ---
 
 ## 2. Convergence Pre-check
 
-- PR #572 MERGED; deterministic P6 corrections on main; post-merge CI SUCCESS.
-- Human QA REAL incomplete; **P6 NOT PASS**; Runtime v3 **NON ADOPTED**.
-- COG01/F01/UI03–05/New Project: **INTEGRATED / CANDIDATE**.
-- Trace document: **ADAPT STATUS ONLY** (local candidate).
-- Exit proof this cycle: Git verified + CI observed + honest doc candidate + reserves preserved + next capacity identified.
-- Next: Human QA P6 on integrated Studio (separate cycle; not executed here).
+- PR #572 INTEGRATED; post-merge CI SUCCESS; candidates on main.
+- Human QA not executed on this bundle; **P6 NOT PASS**; Runtime v3 **NON ADOPTED**.
+- Gaps G1–G8 inspected read-only.
+- Exit proof: documented preflight with PASS/PARTIAL/BLOCKED — no mutations.
+- Next capacity after remediations + Morris REAL GO: bounded Human QA on a new project.
 
 ---
 
-## 3. Post-merge Git verification (FACT)
+## 3. Gate matrix
 
-### Merge tip
+| Gate | Verdict | Evidence summary |
+|------|---------|------------------|
+| G1 Runtime revision | **PARTIAL / NOT PROVEN as served SHA** | Process identified; source tree == merge tree; no restart/build-id proof |
+| G2 Auth / Pilot authority | **PARTIAL** | Code+config present; unauth→NO_SESSION; session/authority **not** proven |
+| G3 Nora REAL provider | **PARTIAL** | Code routes to OpenAI when Fake unset; key SET; **no live call** |
+| G4 Budget / €10 | **PARTIAL → Morris** | Observability yes; **hardCapEnforced=false**; no NP cumulative enforcer |
+| G5 QA data isolation | **PARTIAL** | Campaign-scoped Product DB path; pre-existing ~8MB sqlite; not HQ-01 |
+| G6 Cursor REAL safety | **BLOCKED** | `SFIA_STUDIO_CURSOR_REAL=ON` in local env |
+| G7 Evidence readiness | **PASS (plan)** | Capture fields identified; no parallel ledger invented |
+| G8 Entry scenario | **PASS (proposal only)** | Short scenario drafted; not executed |
 
-```
-8581abbf98fc38a78ee05c306c33fc5aa3632d3f
-aba6c4a617b6d0cb27f23b59de5bf0ac9360fab1 db45e9c4c17cbe35dff543eee0f366af81026c55
-Merge pull request #572 from mcleland147/qa/sfia-studio-p6-global-integrated-product-qa
-```
+**Overall:** **PRECHECK BLOCKED — REMEDIATION REQUIRED**
+Primary blockers: Cursor REAL ON; runtime served revision not demonstrably tied to a restarted main tip; Pilot session not proven in-browser.
 
-| Check | Result |
+---
+
+## 4. G1 — Runtime revision identity
+
+| Fact | Value |
+|------|--------|
+| Listener | `localhost:3020` — `next-server (v15.5.20)` PID **41720** |
+| Parent | `next dev --port 3020 --hostname localhost` PID 41717 |
+| CWD | `…/projects/sfia-studio/app` |
+| Process start | 2026-10-09 07:51:42 local (~8h+ uptime at inspection) |
+| Worktree Git top | `/Users/morris/Projects/sfia-workspace` |
+| Worktree branch/HEAD | `qa/sfia-studio-p6-global-integrated-product-qa` / `db45e9c4c17cbe35dff543eee0f366af81026c55` |
+| Tree `db45e9c4` | `ffc00d752e52eb2f9eec13ccf466258103506dbf` |
+| Tree `8581abbf` (merge) | `ffc00d752e52eb2f9eec13ccf466258103506dbf` |
+| Tree equivalence | **IDENTICAL** (PR tip content == merge tip content) |
+| `8581abbf` ancestor of worktree HEAD? | **NO** (merge is child of PR tip) |
+| Served revision demonstrable | **NO** (no version endpoint / rebuild attestation; long-lived `next dev`) |
+
+Distinctions:
+1. Source Git known — YES (HEAD + identical tree to merge).
+2. Process identified — YES.
+3. Build/runtime attached — PARTIAL (`next dev`).
+4. Served revision demonstrable — **NOT PROVEN**.
+
+**Claim:** RUNTIME REVISION NOT PROVEN (for “serving main tip rebuild”).
+**Observation:** Source content of PR #572 is present in the worktree tree that equals the merge tree.
+
+**Separate GO required** for any restart/rebuild to prove served tip — not authorized here.
+
+---
+
+## 5. G2 — Authentication / Pilot authority
+
+| Class | Result |
 |-------|--------|
-| PR #572 state | MERGED |
-| mergedAt | 2026-10-09T12:38:24Z |
-| Method | MERGE COMMIT |
-| Merge SHA == origin/main | YES (`8581abbf98fc38a78ee05c306c33fc5aa3632d3f`) |
-| Parents | `aba6c4a6…` + `db45e9c4…` |
-| Ancestry `db45e9c4 ⊂ origin/main` | YES |
-| Commits on main after merge | **0** (tip still merge SHA) |
-| Files from merge range | **33** |
-| `.tmp-sfia-review/chatgpt-review.md` in merge | ABSENT |
-| PR branch remote | PRESERVED — `db45e9c4c17cbe35dff543eee0f366af81026c55	refs/heads/qa/sfia-studio-p6-global-integrated-product-qa` |
-| Branch cleanup | NONE |
-| D-PR572 | CONSUMED (prior merge cycle) |
+| AUTH CODE PRESENT | YES — Better Auth + middleware + `resolveCurrentAuthenticatedPilote` |
+| AUTH CONFIG PRESENT | YES — `BETTER_AUTH_*`, GitHub OAuth, allowlist keys **SET** (values not disclosed) |
+| AUTH SESSION PROVEN | **NO** |
+| PILOT AUTHORITY PROVEN | **NO** |
+
+Static facts:
+- Middleware fail-closed; public `/login`, `/api/auth/*` only.
+- Identity = verified session ∩ bound GitHub account ∩ allowlist (not cookie presence alone).
+- Unauthenticated probe `GET /studio` → **307** to `/login?error=NO_SESSION` (middleware live).
+
+Server actions:
+- `newProjectOnboardingTurnAction` / `createProjectRuntimeAction` are thin wrappers **without** re-asserting Pilote inside the action body; protection relies on Studio middleware for page access. Future Human QA must stay in authenticated browser surfaces.
+
+**Future verification (Morris):** login as allowlisted Pilote; confirm studio pages load; confirm New Project reachable; no credential capture in packs.
 
 ---
 
-## 4. CI post-merge (FACT)
+## 6. G3 — Nora REAL provider (no call)
 
-| Field | Value |
+| Item | Result |
+|------|--------|
+| New Project path | `runNewProjectOnboardingTurn` → `resolveF2ProductRoutedProvider` |
+| Fake forced? | `OPS1_CONVERSATION_PROVIDER` **ABSENT** → Fake **not** forced |
+| Live construction | `createRoutedOpenAiConversationProvider(model×effort from router)` when not Fake/override |
+| `OPENAI_API_KEY` | SET (value not disclosed) |
+| `OPENAI_MODEL` | SET (`gpt-5.6-luna`) — F2 Product routing selects model×effort independently for routed path |
+| Live completion | **NOT EXECUTED** |
+| REAL PROVIDER READY | **NOT CLAIMED** (key presence ≠ readiness) |
+
+Historical deterministic Fake proofs remain separate from REAL.
+
+---
+
+## 7. G4 — Real cost / budget safety
+
+| Class | Result |
 |-------|--------|
-| Run | https://github.com/mcleland147/sfia-workspace/actions/runs/37931365413 |
-| Event | push (main) |
-| headSha | `8581abbf98fc38a78ee05c306c33fc5aa3632d3f` |
-| Detect | SUCCESS |
-| Build and validate | SUCCESS |
-| Required Gate | SUCCESS |
-| Overall | **SUCCESS** |
+| OBSERVABILITY | YES — tokens / model / providerResponseId / selectedEffort / boundarySubstitution on onboarding result |
+| ESTIMATED COST | Router may emit `estimatedCostUsdHint` (F2 telemetry); New Project path does not enforce EUR |
+| CUMULATIVE SPEND | **NO** New Project campaign cumulative EUR tracker |
+| ENFORCED HARD CAP | **NO** — `hardCapEnforced: false`; `declaredHumanQaBudgetEur: 10` documentary only |
+| `campaignBudget.ts` | MW6-scoped process-local lease — **not** wired as New Project onboarding hard stop |
 
-Distinct from PR CI 37928931046 @ `db45e9c4`. No tests re-run in Cycle 14. No REAL proof from CI.
+**Operational protocol proposal (not authorized as sufficient by this agent):**
+1. Max envelope €10 documentary.
+2. Before each REAL turn: estimate from prior usageObservation.
+3. Keep cumulative manual ledger (tokens×rates or provider dashboard).
+4. Stop if projected spend ≥ envelope or observability missing.
+5. No concurrent onboarding tabs/retries storms.
+6. Human owner: Morris.
+7. Abort UI mid-turn if available.
 
----
-
-## 5. Documentary status sync — LOCAL CANDIDATE
-
-| Field | Value |
-|-------|--------|
-| Path | `projects/sfia-studio/product-simplification/p6-qa-integration-state-and-reserves.md` |
-| Scope | Status/Git/CI/reserves/next-capacity only |
-| Committed/pushed | **NO** |
-| Protected paths | Untouched (Doctrine, Roadmap, C1, Product code/tests) |
-| `git diff --check` | Clean |
-
-### Full candidate document (post-edit)
-
-```markdown
-# P6 QA — Integration State and Open Reserves
-
-**Document type:** campaign integration trace (not Build Doctrine, not Roadmap, not baseline)
-**Macro:** STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01
-**Milestone:** P6 — Global Integrated Product QA
-**Campaign:** P6-GLOBAL-INTEGRATED-PRODUCT-QA-01
-**Status:** INTEGRATED ON MAIN / POST-MERGE CI VERIFIED — DOCUMENTARY LOCAL CANDIDATE SYNC
-**Git integration:** INTEGRATED (PR #572 MERGED)
-**Product / P6 PASS:** NO
-**Runtime v3:** NON ADOPTED
-
-> **Documentary note (FACT):** This file body on `origin/main` still carried the pre-merge
-> “CANDIDATE INTEGRATION” wording after PR #572. The updates below are a **local candidate
-> status sync** prepared in Cycle 14. They are **not** committed or pushed to main in that
-> cycle. Until a separate documentary Git integration, main’s blob remains the pre-sync text.
+**REAL BUDGET:** cannot claim hard-cap safety. Morris must explicitly accept operational control **after** remediations, under a distinct **GO REAL**.
 
 ---
 
-## 1. Campaign identity
-
-| Field | Value |
-|-------|--------|
-| Repository | mcleland147/sfia-workspace |
-| Integration branch (historical) | `qa/sfia-studio-p6-global-integrated-product-qa` @ `db45e9c4c17cbe35dff543eee0f366af81026c55` |
-| PR | **#572 MERGED** — https://github.com/mcleland147/sfia-workspace/pull/572 |
-| Merge commit | `8581abbf98fc38a78ee05c306c33fc5aa3632d3f` |
-| Merge parents | `aba6c4a617b6d0cb27f23b59de5bf0ac9360fab1` + `db45e9c4c17cbe35dff543eee0f366af81026c55` |
-| Method | MERGE COMMIT |
-| mergedAt | 2026-10-09T12:38:24Z |
-| Post-merge CI | run **37931365413** SUCCESS (Detect + Build + Required Gate) on merge SHA |
-| D-PR572 | Roadmap factual tip **RATIFIED** + MERGE **AUTHORIZED / CONSUMED** |
-| Nature | Consolidated P6 corrections + tests + this integration trace |
-
-## 2. Classification legend (this document)
-
-| Tag | Meaning |
-|-----|---------|
-| FACT | Observable Git / code / CI fact |
-| OBSERVATION | Interpreted from evidence |
-| DETERMINISTIC PROVEN | Covered by isolated Fake/unit/jsdom tests |
-| REAL NOT PROVEN | Requires authenticated Human QA / live provider |
-| RECOMMENDATION | Non-binding next step |
-| MORRIS DECISION | Requires Morris gate |
-| OPEN RESERVE | Known limitation |
-| INTEGRATED | Present on `origin/main` via verified merge — ≠ Product PASS |
-
-## 3. Integrated scope on main (FACT)
-
-Functional statuses remain **CANDIDATE** for Product/Human QA. Git presence = **INTEGRATED**.
-
-### COG01 — pilot-facing narrative
-- `composeF2PilotFacingNarrative.ts` (new)
-- `orchestrateF2.ts` (wiring)
-- `presentationLabels.ts` (labels)
-- Tests: `p6.hqa.cog01.f2PilotFacingNarrative.d0.test.ts`, corrProof01 touch
-
-**Git:** INTEGRATED ON MAIN.
-**Product status:** CANDIDATE — DETERMINISTIC PROVEN at composer/F2 seam.
-**REAL NOT PROVEN:** naturalness of live Nora dialogue.
-
-### F01 — chat-first START gate / anti-duplication
-- `resolveChatFirstCycleStartGate.ts` (new)
-- `orchestrateF2.ts` (START routing)
-- Tests: `p6.hqa.f01.chatFirstCycleStartGate.d0.test.ts`
-
-**Git:** INTEGRATED ON MAIN.
-**Product status:** CANDIDATE — DETERMINISTIC PROVEN for prepared START / suppress mint / late negation.
-**REAL NOT PROVEN:** Human QA START on a fresh project under Pilot authority.
-
-### UI-01…UI-05 — conversation surfaces
-- `ConversationSurface.tsx` (+ CSS)
-- `noraActivityProjection.ts`
-- `product-tokens.css`, `ProjectWorkspacePage.module.css`
-- Tests: `p6.hqa.ui03`, `ui04`, `ui05`
-
-**Git:** INTEGRATED ON MAIN.
-**Product status:** CANDIDATE — SEMANTIC/DOM DETERMINISTIC PROVEN.
-**REAL NOT PROVEN / OPEN RESERVE:** Figma runtime visual parity.
-
-### New Project — cognitive onboarding + closure
-- `newProjectOnboardingContract.ts`, `runNewProjectOnboardingTurn.ts`, `newProjectOnboardingAction.ts`
-- `NewProjectIntentionPage.tsx`, `newProjectConversation.ts`
-- `fakeProvider.ts` (onboarding schema branch — Fake only)
-- Tests: `p6.hqa.newproject01.onboarding`, `closure`, P5-S06 adaptations
-
-**Git:** INTEGRATED ON MAIN.
-**Product status:** CANDIDATE — DETERMINISTIC PROVEN for refuse reversal, intentionKind gate, LPS handoff continuity, usageObservation.
-**REAL NOT PROVEN:** natural conversation; live provider; authenticated create path.
-
-## 4. Explicitly excluded from PR #572 integration (FACT)
-
-| Path / class | Class | Reason |
-|--------------|-------|--------|
-| `.tmp-sfia-review/**` | D | Ephemeral review packs / assets (restored out of PR diff; PR572-01 CLOSED) |
-| `projects/.tmp-sfia-review/**` including SQLite | D | Local visual/fixture DB — not Product source |
-| `__tests__/p6-campaign/*.real.test.ts` | F→D exclude | Opt-in REAL harness; known typecheck friction; deferred OPEN RESERVE |
-
-## 5. Corrections summary (OBSERVATION)
-
-1. Nora pilot-facing narrative composition (COG01).
-2. Chat-first START gate with anti-duplication and structured late-negation (F01).
-3. Compact conversational Product cards + synthesis ≠ ExecutionContract (UI05) and related UI03/UI04.
-4. New Project: provider-backed onboarding; Studio Create authority; reversible refuse; non-syntactic `intentionKind` gate; prioritized Product context handoff; usage observation without hard EUR cap.
-
-## 6. Proof posture (FACT)
-
-| Proof class | State |
-|-------------|--------|
-| Deterministic Vitest (historical consolidation) | **131 passed / 11 files** (Fake; REAL unset) — historical FACT; not re-run in Cycle 14 |
-| CI on Draft PR | run **37928931046** SUCCESS @ `db45e9c4` |
-| CI post-merge on main | run **37931365413** SUCCESS @ `8581abbf` — Detect + Build + Required Gate |
-| Git merge | VERIFIED — merge commit on `origin/main`; PR HEAD is ancestor |
-| Documentary status sync (this file) | **LOCAL CANDIDATE** in Cycle 14 — not yet on main |
-| Human QA REAL (Nora live, browser auth, new QA project) | NOT EXECUTED |
-| Natural conversation PASS | NOT CLAIMED |
-| Hard cap €10 onboarding | NOT TECHNICALLY ENFORCED (`hardCapEnforced=false`) |
-| FULL transcript Agents replay post-Create | NOT CLAIMED (LPS context handoff only) |
-| HQ-01 disposition | OPEN / BLOCKED for separate work — READ-ONLY preserved |
-| P6 PASS | NO |
-| Runtime v3 ADOPTED | NO |
-
-## 7. Open reserves (OPEN RESERVE)
-
-| ID | Reserve | State | Current proof | P6 consequence | Next action | Exit proof |
-|----|---------|-------|---------------|----------------|-------------|------------|
-| R1 | Human QA integrated (COG01/F01/UI05/New Project) | OPEN | Deterministic + post-merge CI only | Blocks P6 PASS | Authenticated Human QA campaigns | Human evidence pack PASS criteria |
-| R2 | Nora naturalness REAL | OPEN | Fake narrative only | Blocks conversational REAL claim | Live provider observations | Documented naturalness verdict |
-| R3 | New Project continuity via LPS ≠ Agents full replay | OPEN / BY DESIGN LIMIT | Closure tests LPS handoff | Continuity claims must stay LPS-scoped | Contextual resume QA | Resume-without-full-replay evidence |
-| R4 | €10 Human QA envelope; `hardCapEnforced=false` | OPEN | Documentary envelope | No technical spend hard-stop | Operational budget control; infra arbitration if needed | Enforced or accepted operational control |
-| R5 | UI Figma/runtime visual parity | OPEN | DOM/semantic tests | Visual PASS not claimed | Runtime captures vs frames | Parity evidence |
-| R6 | HQ-01 five Delivery / 21 historical projects | OPEN / BLOCKED | Prior disposition | Separate track | Dedicated disposition; no mutation here | Explicit HQ-01 decision |
-| R7 | p6-campaign REAL harness not integrated | OPEN / DEFERRED | Local untracked tests with tsc friction | Tooling debt | Qualify need vs retire | Integrated harness or accepted drop |
-| R8 | Cursor REAL safety + Pilot authority env | OPEN | Activation readiness reserves | Human QA env risk | Dedicated preflight before Human QA | Preflight PASS under gates |
-
-## 8. Findings not closed
-
-| Finding | Status |
-|---------|--------|
-| P6-HQA-COG01 | INTEGRATED / CANDIDATE — not CLOSED |
-| P6-HQA-F01 | INTEGRATED / CANDIDATE — not CLOSED |
-| P6-HQA-UI0x | INTEGRATED / CANDIDATES — not CLOSED |
-| P6-HQA-NEWPROJECT-01 | INTEGRATED / CANDIDATE — not CLOSED |
-| HQ-01 five Delivery legacy | OPEN / separate disposition |
-
-Merge did **not** close Product findings.
-
-## 9. Dependencies for next capacity — Human QA
-
-**RECOMMENDATION:** Resume Human QA on a Studio runtime whose applicable code is explicitly tied to merge SHA `8581abbf…` (or a later tip that still contains PR #572).
-
-Entry prechecks (not executed in Cycle 14):
-1. Authenticated Pilot session.
-2. Confirm runtime revision ↔ Git (do not assume local `:3020` is already on merge tip).
-3. Cursor REAL disabled unless under explicit REAL GO (`SFIA_STUDIO_CURSOR_REAL`).
-4. Distinct GO P6 REAL — BOUNDED for Nora spend (≤ €10 envelope) where provider REAL applies.
-5. Manual new QA project (not HQ-01).
-6. Capture evidence for COG01, F01 START, UI03–05, New Project create/handoff, authority frontiers (no auto-HD / auto-Cycle).
-
-If provider/authority/revision precheck fails: **Human QA PRECHECK REQUIRED** — not READY FOR REAL by default.
-
-## 10. Path critical
-
-~~Inventory → … → Morris merge gate~~ **DONE (PR #572).**
-
-Current: Post-merge verified → **documentary status sync candidate** → ChatGPT review → optional documentary Git integration (separate GO) → **Human QA P6** → P6 exit decision.
-
-Merge ≠ Product PASS. CI PASS ≠ Human QA PASS. Local doc candidate ≠ baseline Git.
-
-## 11. References
-
-- Product Simplification P6 contract: `07-chat-first-product-simplification-p6-global-integrated-product-qa.md`
-- PR #572 / merge `8581abbf…` / CI post-merge `37931365413`
-- Handoffs: consolidation `28784d2d…`; regularization `6efaaa6c…`; controlled merge `4eb6657b…`
-- CKC 13/14: guidance only; CONTENT VALIDATED BY MORRIS; ≠ execution authority; Runtime v3 NON ADOPTED
-
-```
-
-### Complete unified diff vs local HEAD/main blob
-
-```diff
-diff --git a/projects/sfia-studio/product-simplification/p6-qa-integration-state-and-reserves.md b/projects/sfia-studio/product-simplification/p6-qa-integration-state-and-reserves.md
-index a75be253..d39f92b1 100644
---- a/projects/sfia-studio/product-simplification/p6-qa-integration-state-and-reserves.md
-+++ b/projects/sfia-studio/product-simplification/p6-qa-integration-state-and-reserves.md
-@@ -4,9 +4,15 @@
- **Macro:** STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01
- **Milestone:** P6 — Global Integrated Product QA
- **Campaign:** P6-GLOBAL-INTEGRATED-PRODUCT-QA-01
--**Status:** CANDIDATE INTEGRATION — DETERMINISTIC LOCAL BUNDLE
-+**Status:** INTEGRATED ON MAIN / POST-MERGE CI VERIFIED — DOCUMENTARY LOCAL CANDIDATE SYNC
-+**Git integration:** INTEGRATED (PR #572 MERGED)
-+**Product / P6 PASS:** NO
- **Runtime v3:** NON ADOPTED
--**P6 PASS:** NO
-+
-+> **Documentary note (FACT):** This file body on `origin/main` still carried the pre-merge
-+> “CANDIDATE INTEGRATION” wording after PR #572. The updates below are a **local candidate
-+> status sync** prepared in Cycle 14. They are **not** committed or pushed to main in that
-+> cycle. Until a separate documentary Git integration, main’s blob remains the pre-sync text.
-
- ---
-
-@@ -15,9 +21,15 @@
- | Field | Value |
- |-------|--------|
- | Repository | mcleland147/sfia-workspace |
--| Integration branch | `qa/sfia-studio-p6-global-integrated-product-qa` |
--| Base | `origin/main` |
--| Nature | Consolidated P6 corrections + tests + this trace |
-+| Integration branch (historical) | `qa/sfia-studio-p6-global-integrated-product-qa` @ `db45e9c4c17cbe35dff543eee0f366af81026c55` |
-+| PR | **#572 MERGED** — https://github.com/mcleland147/sfia-workspace/pull/572 |
-+| Merge commit | `8581abbf98fc38a78ee05c306c33fc5aa3632d3f` |
-+| Merge parents | `aba6c4a617b6d0cb27f23b59de5bf0ac9360fab1` + `db45e9c4c17cbe35dff543eee0f366af81026c55` |
-+| Method | MERGE COMMIT |
-+| mergedAt | 2026-10-09T12:38:24Z |
-+| Post-merge CI | run **37931365413** SUCCESS (Detect + Build + Required Gate) on merge SHA |
-+| D-PR572 | Roadmap factual tip **RATIFIED** + MERGE **AUTHORIZED / CONSUMED** |
-+| Nature | Consolidated P6 corrections + tests + this integration trace |
-
- ## 2. Classification legend (this document)
-
-@@ -30,8 +42,11 @@
- | RECOMMENDATION | Non-binding next step |
- | MORRIS DECISION | Requires Morris gate |
- | OPEN RESERVE | Known limitation |
-+| INTEGRATED | Present on `origin/main` via verified merge — ≠ Product PASS |
-+
-+## 3. Integrated scope on main (FACT)
-
--## 3. Integrated candidate scope (FACT)
-+Functional statuses remain **CANDIDATE** for Product/Human QA. Git presence = **INTEGRATED**.
-
- ### COG01 — pilot-facing narrative
- - `composeF2PilotFacingNarrative.ts` (new)
-@@ -39,7 +54,8 @@
- - `presentationLabels.ts` (labels)
- - Tests: `p6.hqa.cog01.f2PilotFacingNarrative.d0.test.ts`, corrProof01 touch
-
--**Status:** CANDIDATE — DETERMINISTIC PROVEN at composer/F2 seam.
-+**Git:** INTEGRATED ON MAIN.
-+**Product status:** CANDIDATE — DETERMINISTIC PROVEN at composer/F2 seam.
- **REAL NOT PROVEN:** naturalness of live Nora dialogue.
-
- ### F01 — chat-first START gate / anti-duplication
-@@ -47,7 +63,8 @@
- - `orchestrateF2.ts` (START routing)
- - Tests: `p6.hqa.f01.chatFirstCycleStartGate.d0.test.ts`
-
--**Status:** CANDIDATE — DETERMINISTIC PROVEN for prepared START / suppress mint / late negation.
-+**Git:** INTEGRATED ON MAIN.
-+**Product status:** CANDIDATE — DETERMINISTIC PROVEN for prepared START / suppress mint / late negation.
- **REAL NOT PROVEN:** Human QA START on a fresh project under Pilot authority.
-
- ### UI-01…UI-05 — conversation surfaces
-@@ -56,7 +73,8 @@
- - `product-tokens.css`, `ProjectWorkspacePage.module.css`
- - Tests: `p6.hqa.ui03`, `ui04`, `ui05`
-
--**Status:** CANDIDATE — SEMANTIC/DOM DETERMINISTIC PROVEN.
-+**Git:** INTEGRATED ON MAIN.
-+**Product status:** CANDIDATE — SEMANTIC/DOM DETERMINISTIC PROVEN.
- **REAL NOT PROVEN / OPEN RESERVE:** Figma runtime visual parity.
-
- ### New Project — cognitive onboarding + closure
-@@ -65,16 +83,17 @@
- - `fakeProvider.ts` (onboarding schema branch — Fake only)
- - Tests: `p6.hqa.newproject01.onboarding`, `closure`, P5-S06 adaptations
-
--**Status:** CANDIDATE — DETERMINISTIC PROVEN for refuse reversal, intentionKind gate, LPS handoff continuity, usageObservation.
-+**Git:** INTEGRATED ON MAIN.
-+**Product status:** CANDIDATE — DETERMINISTIC PROVEN for refuse reversal, intentionKind gate, LPS handoff continuity, usageObservation.
- **REAL NOT PROVEN:** natural conversation; live provider; authenticated create path.
-
--## 4. Explicitly excluded from this integration (FACT)
-+## 4. Explicitly excluded from PR #572 integration (FACT)
-
- | Path / class | Class | Reason |
- |--------------|-------|--------|
--| `.tmp-sfia-review/**` | D | Ephemeral review packs / assets |
-+| `.tmp-sfia-review/**` | D | Ephemeral review packs / assets (restored out of PR diff; PR572-01 CLOSED) |
- | `projects/.tmp-sfia-review/**` including SQLite | D | Local visual/fixture DB — not Product source |
--| `__tests__/p6-campaign/*.real.test.ts` | F→D exclude | Opt-in REAL harness; known typecheck friction; not required for deterministic candidate merge; OPEN RESERVE for later campaign tooling |
-+| `__tests__/p6-campaign/*.real.test.ts` | F→D exclude | Opt-in REAL harness; known typecheck friction; deferred OPEN RESERVE |
-
- ## 5. Corrections summary (OBSERVATION)
-
-@@ -87,12 +106,12 @@
-
- | Proof class | State |
- |-------------|--------|
--| Deterministic Vitest (Fake / jsdom / isolated Product DB) | **131 passed / 11 files** in consolidation cycle (COG01, F01, UI03–05, New Project onboarding+closure, P5-S06, corrProof01, candidateTrajectoryCycleStart). REAL provider unset. |
--| Allowlist TypeScript | Clean for staged paths. Known residual `tsc` errors only in excluded `__tests__/p6-campaign/*.real.test.ts` (not in this PR). |
--| Targeted ESLint (allowlist sources) | Clean after prefer-const fixes; one non-blocking hooks warning on NewProject abort cleanup. |
--| `git diff --check` (allowlist) | Clean |
--| CI on Draft PR | Observed after push (see PR / §11) |
--| Human QA REAL (Nora live, browser auth, new QA project) | NOT EXECUTED in this Git cycle |
-+| Deterministic Vitest (historical consolidation) | **131 passed / 11 files** (Fake; REAL unset) — historical FACT; not re-run in Cycle 14 |
-+| CI on Draft PR | run **37928931046** SUCCESS @ `db45e9c4` |
-+| CI post-merge on main | run **37931365413** SUCCESS @ `8581abbf` — Detect + Build + Required Gate |
-+| Git merge | VERIFIED — merge commit on `origin/main`; PR HEAD is ancestor |
-+| Documentary status sync (this file) | **LOCAL CANDIDATE** in Cycle 14 — not yet on main |
-+| Human QA REAL (Nora live, browser auth, new QA project) | NOT EXECUTED |
- | Natural conversation PASS | NOT CLAIMED |
- | Hard cap €10 onboarding | NOT TECHNICALLY ENFORCED (`hardCapEnforced=false`) |
- | FULL transcript Agents replay post-Create | NOT CLAIMED (LPS context handoff only) |
-@@ -102,41 +121,54 @@
-
- ## 7. Open reserves (OPEN RESERVE)
-
--1. Human QA integrated (COG01 + F01 + UI05 + New Project) on authenticated Studio.
--2. Nora naturalness under REAL provider.
--3. UI05 Figma/runtime visual parity captures.
--4. New Project continuity is Product LPS context — not durable Agents session replay.
--5. Declared €10 Human QA envelope is documentary; no onboarding hard cap infrastructure.
--6. Cursor REAL safety (`SFIA_STUDIO_CURSOR_REAL`) remains an environment concern for Human QA operators.
--7. Canonical Pilot authority env vs legacy M3 alias — operational reserve from activation readiness.
--8. p6-campaign REAL opt-in harness left out of this PR pending type/CI hardening.
-+| ID | Reserve | State | Current proof | P6 consequence | Next action | Exit proof |
-+|----|---------|-------|---------------|----------------|-------------|------------|
-+| R1 | Human QA integrated (COG01/F01/UI05/New Project) | OPEN | Deterministic + post-merge CI only | Blocks P6 PASS | Authenticated Human QA campaigns | Human evidence pack PASS criteria |
-+| R2 | Nora naturalness REAL | OPEN | Fake narrative only | Blocks conversational REAL claim | Live provider observations | Documented naturalness verdict |
-+| R3 | New Project continuity via LPS ≠ Agents full replay | OPEN / BY DESIGN LIMIT | Closure tests LPS handoff | Continuity claims must stay LPS-scoped | Contextual resume QA | Resume-without-full-replay evidence |
-+| R4 | €10 Human QA envelope; `hardCapEnforced=false` | OPEN | Documentary envelope | No technical spend hard-stop | Operational budget control; infra arbitration if needed | Enforced or accepted operational control |
-+| R5 | UI Figma/runtime visual parity | OPEN | DOM/semantic tests | Visual PASS not claimed | Runtime captures vs frames | Parity evidence |
-+| R6 | HQ-01 five Delivery / 21 historical projects | OPEN / BLOCKED | Prior disposition | Separate track | Dedicated disposition; no mutation here | Explicit HQ-01 decision |
-+| R7 | p6-campaign REAL harness not integrated | OPEN / DEFERRED | Local untracked tests with tsc friction | Tooling debt | Qualify need vs retire | Integrated harness or accepted drop |
-+| R8 | Cursor REAL safety + Pilot authority env | OPEN | Activation readiness reserves | Human QA env risk | Dedicated preflight before Human QA | Preflight PASS under gates |
-
- ## 8. Findings not closed
-
- | Finding | Status |
- |---------|--------|
--| P6-HQA-COG01 | CANDIDATE — not CLOSED |
--| P6-HQA-F01 | CANDIDATE — not CLOSED |
--| P6-HQA-UI0x | CANDIDATES — not CLOSED |
--| P6-HQA-NEWPROJECT-01 | CANDIDATE — not CLOSED |
-+| P6-HQA-COG01 | INTEGRATED / CANDIDATE — not CLOSED |
-+| P6-HQA-F01 | INTEGRATED / CANDIDATE — not CLOSED |
-+| P6-HQA-UI0x | INTEGRATED / CANDIDATES — not CLOSED |
-+| P6-HQA-NEWPROJECT-01 | INTEGRATED / CANDIDATE — not CLOSED |
- | HQ-01 five Delivery legacy | OPEN / separate disposition |
-
--## 9. Dependencies for next capacity
-+Merge did **not** close Product findings.
-+
-+## 9. Dependencies for next capacity — Human QA
-
--**RECOMMENDATION / MORRIS DECISION:** After merge gate (separate cycle), resume Human QA on integrated tip with:
-+**RECOMMENDATION:** Resume Human QA on a Studio runtime whose applicable code is explicitly tied to merge SHA `8581abbf…` (or a later tip that still contains PR #572).
-+
-+Entry prechecks (not executed in Cycle 14):
- 1. Authenticated Pilot session.
--2. Cursor REAL disabled unless under explicit REAL GO.
--3. Distinct GO P6 REAL — BOUNDED for Nora spend (≤ €10 envelope).
--4. Manual new QA project (not HQ-01).
-+2. Confirm runtime revision ↔ Git (do not assume local `:3020` is already on merge tip).
-+3. Cursor REAL disabled unless under explicit REAL GO (`SFIA_STUDIO_CURSOR_REAL`).
-+4. Distinct GO P6 REAL — BOUNDED for Nora spend (≤ €10 envelope) where provider REAL applies.
-+5. Manual new QA project (not HQ-01).
-+6. Capture evidence for COG01, F01 START, UI03–05, New Project create/handoff, authority frontiers (no auto-HD / auto-Cycle).
-+
-+If provider/authority/revision precheck fails: **Human QA PRECHECK REQUIRED** — not READY FOR REAL by default.
-
- ## 10. Path critical
-
--Inventory → deterministic validation → commit/push → Draft PR → CI → ChatGPT Critical PR review → **Morris merge gate** → post-merge → Human QA REAL → P6 evidence consolidation.
-+~~Inventory → … → Morris merge gate~~ **DONE (PR #572).**
-+
-+Current: Post-merge verified → **documentary status sync candidate** → ChatGPT review → optional documentary Git integration (separate GO) → **Human QA P6** → P6 exit decision.
-
--Merge ≠ Product PASS. CI PASS ≠ Human QA PASS.
-+Merge ≠ Product PASS. CI PASS ≠ Human QA PASS. Local doc candidate ≠ baseline Git.
-
- ## 11. References
-
- - Product Simplification P6 contract: `07-chat-first-product-simplification-p6-global-integrated-product-qa.md`
--- Handoffs (historical): activation readiness `5bba7449…`; New Project `e2a4b1f2…` / `52bceed2…`; functional closure `57e3b869…`
--- CKC 13 PR readiness: guidance only; CONTENT VALIDATED BY MORRIS; ≠ execution authority
-+- PR #572 / merge `8581abbf…` / CI post-merge `37931365413`
-+- Handoffs: consolidation `28784d2d…`; regularization `6efaaa6c…`; controlled merge `4eb6657b…`
-+- CKC 13/14: guidance only; CONTENT VALIDATED BY MORRIS; ≠ execution authority; Runtime v3 NON ADOPTED
-
-```
+## 8. G5 — QA data isolation
+
+| Item | Result |
+|------|--------|
+| Product DB path (env) | under `.sfia-exec/new-project-campaign-01/product/` (campaign-scoped) |
+| DB exists | YES (~8.2 MB) — pre-existing campaign data |
+| HQ-01 | Not this path; **not opened / not mutated** |
+| Isolation | PARTIAL — dedicated campaign root; new UI creates still land in this Product store |
+| Reset | NOT performed; `SFIA_V2_RUNTIME_ALLOW_RESET` not activated |
+
+Risk: prior projects in the same sqlite may appear in lists; new Human QA project must be freshly created by Morris and clearly identified. Stop if UI would require HQ-01 mutation.
 
 ---
 
-## 6. Reserves R1–R8 (preserved)
+## 9. G6 — Cursor REAL safety — BLOCKER
 
-See candidate document §7. Summary: all OPEN (or OPEN/BLOCKED/DEFERRED as noted); none closed by merge or Cycle 14.
+| Item | Result |
+|------|--------|
+| `SFIA_STUDIO_CURSOR_REAL` | **ON** |
+| `OPS1_CURSOR_REAL` | OFF/ABSENT |
+| Activated this cycle | NO (read-only inspection) |
+| Safe for observation-only Human QA | **NO** while Cursor REAL remains ON |
 
----
-
-## 7. Next Human QA readiness (NOT EXECUTED)
-
-**Qualification:** Entry synthesis prepared; **Human QA PRECHECK REQUIRED** before claiming READY FOR REAL.
-
-Must verify on a runtime explicitly tied to merge SHA `8581abbf…` (do not assume `:3020` is already on tip). Cover New Project path, Nora REAL (under GO), Project transition, LPS continuity, COG01, F01 START, UI03–05, Pilot authority, no auto-HD/auto-Cycle, evidence capture, budget tracking, env safety (R8).
-
-No new QA project, no Nora REAL call, no CycleInstance create in this cycle.
+**Remediation required (separate GO):** set Cursor REAL **OFF**, restart Studio under controlled procedure, re-verify env classification OFF — **before** any Human QA REAL proposal execution.
 
 ---
 
-## 8. Fake / Real Qualification
+## 10. G7 — Evidence readiness
 
-| Class | State |
-|-------|--------|
-| Entry | DETERMINISTIC INTEGRATED + POST-MERGE CI PASS |
-| This cycle | POST-MERGE GIT/CI VERIFIED + DOCUMENTARY STATUS CANDIDATE |
-| Human QA / REAL E2E / natural conversation | NOT PROVEN |
-| P6 PASS / runtime v3 ADOPTED | NO |
+Capture plan for future Human QA (reuse existing QA assets; no new ledger):
+
+- Git/runtime identity after remediation restart
+- Pilote session proof (allowlisted; no secrets in pack)
+- Provider/model/effort + usageObservation + correlation-ish ids
+- Cost ledger (manual) vs €10 envelope
+- Screenshots of New Project / workspace / cards (UI03–05)
+- Draft→Create→LPS context (not Agents full replay)
+- CycleInstance / HD presence or absence
+- Errors / refusals / reversals
+- Reserves R1–R8 status updates
+
+Gaps: naturalness (R2), visual parity (R5), LPS≠Agents (R3) remain REAL NOT PROVEN until Human QA.
 
 ---
 
-## 9. Worktree preservation
+## 11. G8 — Proposed first Human QA scenario (NOT EXECUTED)
+
+1. Morris opens New Project (authenticated).
+2. Exploratory intention.
+3. Nora REAL reply (naturalness observe).
+4. Hesitation / change of mind.
+5. Nora requalifies.
+6. Explicit Create only.
+7. Durable Project created.
+8. Workspace opens.
+9. Context continuity (LPS) — not full Agents replay claim.
+10. First orientation.
+11. Governed START **only if** real conditions satisfied — **not** required to pass New Project welcome.
+12. Observe UI03–UI05 along the path.
+
+Criteria: natural exchange; reversible refuse; no rigid questionnaire; no auto-create; context preserved; no false replay; Pilot authority; no auto-HD; no undue Cycle START; traceability; REAL spend under accepted control.
+
+**Proposal only — Morris decides before execution.**
+
+---
+
+## 12. Fake / Real Qualification
+
+| Item | State |
+|------|--------|
+| Entry | DETERMINISTIC INTEGRATED + POST-MERGE CI SUCCESS |
+| This cycle | READ-ONLY READINESS EVIDENCE |
+| REAL-BOUNDARY / Human QA / E2E | NOT PROVEN |
+| P6 PASS / v3 ADOPTED / naturalness PASS / €10 HARD CAP | **FORBIDDEN / NOT CLAIMED** |
+
+---
+
+## 13. Remediations & Morris decisions remaining
+
+**Remediation (before READY FOR BOUNDED HUMAN QA PROPOSAL):**
+1. Turn **OFF** `SFIA_STUDIO_CURSOR_REAL`; controlled Studio restart (separate GO).
+2. Re-prove runtime identity after restart (process + optional tree/HEAD note).
+3. Morris browser session proof (allowlisted Pilote).
+
+**Morris decisions (gates):**
+1. Accept operational €10 control without technical hard cap — or refuse REAL until FinOps exists.
+2. Accept campaign Product DB with pre-existing rows for a **new** QA project — or require cleaner isolation.
+3. Issue **GO P6 REAL — BOUNDED** for Nora spend if remediations PASS.
+4. Approve/adapt the proposed scenario.
+
+---
+
+## 14. Worktree preservation
+
+Cycle-14 documentary candidate **preserved** (not modified this cycle).
+Local ephemeral / untracked items preserved. No project commit/push.
 
 ```
  M .tmp-sfia-review/chatgpt-review.md
@@ -520,26 +254,14 @@ No new QA project, no Nora REAL call, no CycleInstance create in this cycle.
 
 ```
 
-Preserved: review pack artifacts, `projects/.tmp-sfia-review/**` (incl. SQLite), untracked `p6-campaign` REAL tests. No stash/clean/reset.
-
 ---
 
-## 10. Gates remaining
+## 15. Verdict
 
-| Gate | State |
-|------|--------|
-| Documentary Git integration of this status sync | Pending separate GO (not this cycle) |
-| Human QA P6 | Next capacity |
-| P6 PASS / exit | NOT CLAIMED |
-| Branch cleanup | NOT AUTHORIZED |
+**PRECHECK BLOCKED — REMEDIATION REQUIRED**
 
----
-
-## 11. Verdict (Cursor)
-
-**POST-MERGE VERIFIED — DOC SYNC CANDIDATE**
-
-GO CYCLE 14 CONSUMED for verification + local doc candidate + handoff.
-Document **not** integrated on main. Not P6 PASS. Not runtime v3 ADOPTED.
+Not READY FOR BOUNDED HUMAN QA PROPOSAL.
+GO PRECHECK CONSUMED. GO REAL NOT CONSUMED.
+P6 NOT PASS. Runtime v3 NON ADOPTED.
 
 END OF REVIEW PACK
