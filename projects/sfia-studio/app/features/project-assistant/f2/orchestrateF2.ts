@@ -3,7 +3,7 @@
  * Stops before any execution. M2: Cycle/LPS/CKC linkage durable; conversation/proposal process-local.
  */
 
-import { randomBytes, randomUUID } from "node:crypto";
+import { randomBytes } from "node:crypto";
 import {
   isFakeConversationProviderForced,
   type ConversationProvider,
@@ -79,6 +79,11 @@ import {
   reasonWithResolvedCkcContext,
 } from "./ckcCognitiveContext";
 import { composeStudioCognitiveContext } from "./studioCognitiveContext";
+import { composeF2PilotFacingNarrative } from "./composeF2PilotFacingNarrative";
+import {
+  resolveChatFirstCycleStartGate,
+  resolveChatFirstStartRouting,
+} from "./resolveChatFirstCycleStartGate";
 import { resolveTrajectoryDecisionSupportProjection } from "../w2/resolveTrajectoryDecisionSupportProjection";
 import {
   parseReservationInteractionContextInput,
@@ -1298,7 +1303,8 @@ export async function orchestrateAssistantSend(input: {
     };
   }
 
-  let { analysis, model } = analysisResult;
+  const model = analysisResult.model;
+  let analysis = analysisResult.analysis;
   if (analysis.signals) {
     analysis = {
       ...analysis,
@@ -1887,23 +1893,39 @@ export async function orchestrateAssistantSend(input: {
       }
     }
 
-    const textParts = [
-      presentation === "test_provider" ? "[Mode test]" : "[Mode réel]",
-      "Le cycle en cours est conservé.",
-      "Une proposition pour matérialiser le livrable est prête à être examinée.",
-      "Nora recommande ; le Pilote décide.",
-      "Rien n'a encore été exécuté.",
-      "Votre décision est requise avant de préparer l'action.",
-      mw5.surface.disposition === "ESCALATE"
-        ? mw5.text
-        : mw5.surface.disclosure,
-      "Nora n'émet pas de décision Pilote, GO, confirmation ou acte d'autorité.",
-    ];
+    // P6-HQA-COG-01 — pilot-facing narrative at F2 source (persist == present).
+    // MW5 CONTINUE disclosure stays on mw5 DTO / audit, not in chat body.
+    const narrative = composeF2PilotFacingNarrative({
+      kind: "active_cycle_deliverable_proposal",
+      presentation,
+      userContent: content,
+      history: input.history,
+      intentClass: analysis.intentClass,
+      objective: analysis.objective,
+      rephrasedRequest: analysis.rephrasedRequest,
+      cycleLabel: qualification.cycleLabel,
+      recommendedProfile: qualification.recommendedProfile,
+      recommendationLabel: qualification.recommendationLabel,
+      ckcCognitiveRecommendation: qualification.ckcCognitiveRecommendation,
+      projectName: project.name,
+      projectObjective: project.objective,
+      activeCycleInstanceId: project.activeCycleInstanceId,
+      lpsUnchanged: true,
+      morrisGateRequired: true,
+      executionBlocked: true,
+      mw5Disposition: mw5.surface.disposition,
+      mw5EscalatePiloteText:
+        mw5.surface.disposition === "ESCALATE" ? mw5.text : null,
+      pilotDecisionCandidate: analysis.pilotDecisionCandidate ?? null,
+      // R2 — process-local proposal mint is not Product CURRENT subject verification.
+      productCurrentSubjectVerified: false,
+      priorSubjectStatus: null,
+    });
 
     return await completeF2Turn({
       userText: content,
       sessionDbPath: input.sessionDbPath,
-      text: textParts.join(" "),
+      text: narrative,
       mode: modeResolution.mode as "fixture" | "live",
       presentation,
       model,
@@ -2056,6 +2078,114 @@ export async function orchestrateAssistantSend(input: {
       executionBlocked: analysis.intentClass === "execution_request",
       mw5: mw5.surface,
       turnKind: mw5TurnKind(mw5.surface),
+    });
+  }
+
+  // P6-HQA-F01 — start-adjacent chat must not mint LEGACY_UNBOUND createCycle.
+  // accept_start → reuse startPreparedTrajectoryCycle (or honest block).
+  // refuse/defer/question/ambiguous confirm → suppress mint, no START.
+  const startRouting = resolveChatFirstStartRouting({
+    userContent: content,
+    cycleLabel: qualification.cycleLabel,
+    pilotDecisionCandidate: analysis.pilotDecisionCandidate,
+  });
+  if (startRouting.kind === "suppress_mint") {
+    await cutF2Effect(input.signal, "createCycle", input.beforeF2Effect);
+    return await completeF2Turn({
+      userText: content,
+      sessionDbPath: input.sessionDbPath,
+      text: startRouting.message,
+      mode: modeResolution.mode as "fixture" | "live",
+      presentation,
+      model,
+      project,
+      intentClass: analysis.intentClass,
+      reinstructionOfProposalId,
+      qualification,
+      executionBlocked: true,
+      mw5: mw5.surface,
+      turnKind: "f2_clarification",
+    });
+  }
+  if (startRouting.kind === "attempt_start") {
+    await cutF2Effect(input.signal, "createCycle", input.beforeF2Effect);
+    const startGate = await resolveChatFirstCycleStartGate({
+      oa,
+      projectId: project.projectId,
+      targetCycleTypeId: qualification.cycleTypeId,
+      cycleLabel: qualification.cycleLabel,
+    });
+
+    const reloadedAfterGate = await loadProjectRuntimeForAssistant(
+      project.projectId,
+    );
+    let conversationProjectionReloaded = false;
+    if (reloadedAfterGate.ok) {
+      project = toContextDto(reloadedAfterGate);
+      conversationProjectionReloaded = true;
+    }
+
+    if (startGate.kind === "started") {
+      // LPS verified inside startGate. If conversation projection reload fails,
+      // patch known activation fields — never claim the pre-START project DTO
+      // is current, and never claim START failed when Product activation succeeded.
+      if (!conversationProjectionReloaded) {
+        project = {
+          ...project,
+          activeCycleInstanceId: startGate.activeCycleInstanceId,
+          ...(typeof startGate.lpsVersionAfter === "number"
+            ? { lpsVersion: startGate.lpsVersionAfter }
+            : {}),
+        };
+      }
+      const text = conversationProjectionReloaded
+        ? startGate.message
+        : `${startGate.message} La projection conversationnelle n'a pas pu être rechargée ; l'activation a été vérifiée sur l'état vivant Product.`;
+      return await completeF2Turn({
+        userText: content,
+        sessionDbPath: input.sessionDbPath,
+        text,
+        mode: modeResolution.mode as "fixture" | "live",
+        presentation,
+        model,
+        project,
+        intentClass: analysis.intentClass,
+        reinstructionOfProposalId,
+        qualification: {
+          ...qualification,
+          cycleInstanceId: startGate.cycleInstanceId,
+          cycleStatus: "active",
+        },
+        executionBlocked: true,
+        mw5: mw5.surface,
+        turnKind: "f1_informative",
+      });
+    }
+
+    if (reloadedAfterGate.ok) {
+      // already applied
+    } else if (startGate.kind === "already_active") {
+      project = {
+        ...project,
+        activeCycleInstanceId: startGate.activeCycleInstanceId,
+      };
+    }
+
+    return await completeF2Turn({
+      userText: content,
+      sessionDbPath: input.sessionDbPath,
+      text: startGate.message,
+      mode: modeResolution.mode as "fixture" | "live",
+      presentation,
+      model,
+      project,
+      intentClass: analysis.intentClass,
+      reinstructionOfProposalId,
+      qualification,
+      executionBlocked: true,
+      mw5: mw5.surface,
+      turnKind:
+        startGate.kind === "already_active" ? "f2_blocked" : "f2_clarification",
     });
   }
 
@@ -2220,36 +2350,40 @@ export async function orchestrateAssistantSend(input: {
   }
 
   const executionBlocked = analysis.intentClass === "execution_request";
-  const textParts = [
-    presentation === "test_provider" ? "[Mode test]" : "[Mode réel]",
-    "Qualification SFIA et proposition structurée générées.",
-    `Cycle proposé: ${qualification.cycleLabel}.`,
-    "Un nouveau cycle est proposé et attend votre validation.",
-    `Profil recommandé: ${qualification.recommendedProfile}.`,
-    project.lpsVersion === preLpsVersion
-      ? "L'état vivant du projet est inchangé (pas d'activation avant démarrage)."
-      : "L'état vivant du projet a été mis à jour.",
-    qualification.recommendationLabel,
-    ...(qualification.ckcCognitiveRecommendation
-      ? [qualification.ckcCognitiveRecommendation]
-      : []),
-    "Recommandation ≠ décision Pilote — aucune activation d'autorité avant démarrage Pilote.",
-    morrisGateRequired
-      ? "Décision Pilote requise avant de poursuivre."
-      : "Pas de gate de construction supplémentaire — aucune exécution — F2 s'arrête ici.",
-    executionBlocked
-      ? "Demande d'exécution détectée — aucune exécution ne sera lancée."
-      : "Aucune exécution.",
-    mw5.surface.disposition === "ESCALATE"
-      ? mw5.text
-      : mw5.surface.disclosure,
-    "Nora n'émet pas de décision Pilote, GO, confirmation ou acte d'autorité.",
-  ];
+  // P6-HQA-COG-01 — one contextual pilot-facing narrative at F2 source.
+  // Engine CONTINUE / READY_NO_GATE / stacked authority footers stay off the body;
+  // mw5.surface.disclosure remains on the turn DTO for audit.
+  const narrative = composeF2PilotFacingNarrative({
+    kind: "new_cycle_proposal",
+    presentation,
+    userContent: content,
+    history: input.history,
+    intentClass: analysis.intentClass,
+    objective: analysis.objective,
+    rephrasedRequest: analysis.rephrasedRequest,
+    cycleLabel: qualification.cycleLabel,
+    recommendedProfile: qualification.recommendedProfile,
+    recommendationLabel: qualification.recommendationLabel,
+    ckcCognitiveRecommendation: qualification.ckcCognitiveRecommendation,
+    projectName: project.name,
+    projectObjective: project.objective,
+    activeCycleInstanceId: project.activeCycleInstanceId,
+    lpsUnchanged: project.lpsVersion === preLpsVersion,
+    morrisGateRequired,
+    executionBlocked,
+    mw5Disposition: mw5.surface.disposition,
+    mw5EscalatePiloteText:
+      mw5.surface.disposition === "ESCALATE" ? mw5.text : null,
+    pilotDecisionCandidate: analysis.pilotDecisionCandidate ?? null,
+    // R2 — newly created proposal status ≠ verified CURRENT continuity of a prior subject.
+    productCurrentSubjectVerified: false,
+    priorSubjectStatus: null,
+  });
 
   return await completeF2Turn({
     userText: content,
     sessionDbPath: input.sessionDbPath,
-    text: textParts.join(" "),
+    text: narrative,
     mode: modeResolution.mode as "fixture" | "live",
     presentation,
     model,

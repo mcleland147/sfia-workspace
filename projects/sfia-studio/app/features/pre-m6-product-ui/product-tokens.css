@@ -105,6 +105,10 @@
   /* 46:2 Composer Input 96× radius 8; Send 30×30 radius 7. */
   --pm6-ws-composer-input-h: 96px;
   --pm6-ws-composer-input-h-compact: 64px;
+  /* Autogrow ceiling — ~8×24px desktop / ~6 lines compact / mobile keeps 96px. */
+  --pm6-ws-composer-textarea-max-h: 192px;
+  --pm6-ws-composer-textarea-max-h-compact: 144px;
+  --pm6-ws-composer-textarea-max-h-mobile: 96px;
   --pm6-ws-composer-radius: 8px;
   --pm6-ws-send-size: 30px;
   --pm6-ws-send-radius: 7px;

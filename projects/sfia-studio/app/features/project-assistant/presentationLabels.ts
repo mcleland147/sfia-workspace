@@ -801,7 +801,18 @@ export function scrubPiloteFacingEngineJargon(text: string): string {
     .replace(/\bF1\b/g, "")
     .replace(/\bF2\b/g, "")
     .replace(/\bHumanDecision\b/g, "décision Pilote")
+    .replace(/\bExecutionContract\b/g, "contrat d'exécution")
+    .replace(/\bProduct SQLite\b/gi, "")
+    .replace(/\bTEMPORARY WITH EXIT\b/gi, "")
+    .replace(/\bREADY_NO_GATE\b/g, "")
+    .replace(/anti\s*scope\s*creep/gi, "dérive de périmètre")
+    .replace(/silent\s*REAL/gi, "exécution réelle non déclarée")
+    .replace(/«\s*done\s*»\s*sans\s*Evidence/gi, "livrable déclaré terminé sans preuve")
+    .replace(/\bdone\s+sans\s+Evidence\b/gi, "livrable déclaré terminé sans preuve")
+    .replace(/\bEvidence\b/g, "preuve")
     .replace(/[^\S\n]{2,}/g, " ")
+    .replace(/\s+([,.;:!?])/g, "$1")
+    .replace(/\s*[—–-]\s*[—–-]+/g, " — ")
     .trim();
 }
 
@@ -937,6 +948,42 @@ export function formatNoraAssistantDisplayText(text: string | null | undefined):
   out = out.replace(/\bDECISION_REQUIRED\b/g, "Votre décision est requise");
   out = out.replace(/\bpending_reinstruction_required\b/g, "reformulation requise");
   out = out.replace(/\bdocs_write\b/g, "écriture de document");
+  // P6-HQA-UI-04 — strip known F2/process footer jargon (presentation only).
+  // Targeted phrases only — not a blind keyword eraser; durable text unchanged.
+  out = out.replace(/\[Mode (?:réel|test)\]\s*/gi, "");
+  out = out.replace(
+    /Qualification SFIA et proposition structurée générées\.?\s*/gi,
+    "",
+  );
+  out = out.replace(
+    /RECOMMANDATION\s*[—–-]\s*PAS UNE DÉCISION HUMAINE\.?\s*/gi,
+    "",
+  );
+  out = out.replace(
+    /Recommandation\s*≠\s*décision Pilote[^.]*\.\s*/gi,
+    "",
+  );
+  out = out.replace(
+    /Pas de gate de construction supplémentaire[^.]*\.\s*/gi,
+    "",
+  );
+  out = out.replace(
+    /CONTINUE\s*[—–-]\s*cognition propose-only[^.]*\.\s*/gi,
+    "",
+  );
+  out = out.replace(
+    /Nora n'émet pas de décision Pilote[^.]*\.\s*/gi,
+    "",
+  );
+  out = out.replace(
+    /\bAUCUNE EXÉCUTION\s*[—–-]\s*F2\s*S['’]ARRÊTE ICI\b/gi,
+    "Rien n'a encore été exécuté",
+  );
+  out = out.replace(/\bREADY_NO_GATE\b/g, "");
+  out = out.replace(/\bTEMPORARY WITH EXIT\b/gi, "");
+  out = out.replace(/\bProduct SQLite\b/gi, "");
+  out = out.replace(/\bExecutionContract\b/g, "contrat d'exécution");
+  out = out.replace(/\bHumanDecision\b/g, "décision Pilote");
   // Soften markdown emphasis / headings leftovers without rendering HTML.
   out = out.replace(/\*\*([^*]+)\*\*/g, "$1");
   out = out.replace(/__([^_]+)__/g, "$1");
@@ -948,6 +995,240 @@ export function formatNoraAssistantDisplayText(text: string | null | undefined):
   out = out.replace(/\bevi:[a-z0-9:_-]+\b/gi, "");
   out = out.replace(/[^\S\n]{2,}/g, " ").replace(/ *\n */g, "\n").trim();
   return scrubPiloteFacingEngineJargon(out);
+}
+
+// ---------------------------------------------------------------------------
+// P6-HQA-UI-04 — pilot-facing Recommendation / Proposal / next-action cards
+// Presentation only. Does not merge domain objects or invent authority.
+// ---------------------------------------------------------------------------
+
+export type PilotRecommendationCardProjection = {
+  title: string;
+  recommendation: string;
+  why: string;
+  state: string | null;
+  showProfile: boolean;
+  profileLabel: string | null;
+  freshnessLabel: string | null;
+};
+
+export type PilotProposalCardProjection = {
+  title: string;
+  proposition: string;
+  why: string | null;
+  consequence: string | null;
+  agreement: string;
+  nextAction: string;
+  nextActionKind: "decision" | "conversation" | "amend" | "blocked";
+  outOfScope: string | null;
+};
+
+function textsMeaningfullyDistinct(a: string, b: string): boolean {
+  const norm = (s: string) =>
+    s
+      .toLowerCase()
+      .replace(/[^\p{L}\p{N}]+/gu, " ")
+      .trim();
+  const left = norm(a);
+  const right = norm(b);
+  if (!left || !right) return false;
+  if (left === right) return false;
+  if (left.includes(right) || right.includes(left)) return false;
+  return true;
+}
+
+function cycleNotStartedState(
+  cycleStatus: string | null | undefined,
+  cycleInstanceId: string | null | undefined,
+): string {
+  const status = (cycleStatus ?? "").toLowerCase();
+  if (status.includes("active") || status.includes("actif")) {
+    return "Le cycle est actif.";
+  }
+  void cycleInstanceId;
+  return "Le cycle n'a pas encore démarré.";
+}
+
+/**
+ * Compact Recommendation card for the nominal Pilote path.
+ */
+export function projectPilotRecommendationCard(input: {
+  cycleLabel: string | null | undefined;
+  recommendedProfile: string | null | undefined;
+  rationale: string | null | undefined;
+  criticalSignalsPresent?: boolean | null;
+  cycleStatus?: string | null;
+  cycleInstanceId?: string | null;
+  freshnessLabel?: string | null;
+}): PilotRecommendationCardProjection {
+  const cycle =
+    nonempty(input.cycleLabel) ?? "le cycle recommandé";
+  const profile = nonempty(input.recommendedProfile);
+  const showProfile =
+    input.criticalSignalsPresent === true ||
+    (profile != null &&
+      !/^standard$/i.test(profile) &&
+      profile.toLowerCase() !== "approche standard");
+  const why = scrubPiloteFacingEngineJargon(
+    profileRationalePiloteLabel(input.rationale),
+  );
+  const freshness = nonempty(input.freshnessLabel);
+  return {
+    title: "Ce que Nora recommande",
+    recommendation: `Démarrer le cycle ${cycle}.`,
+    why,
+    state: cycleNotStartedState(input.cycleStatus, input.cycleInstanceId),
+    showProfile,
+    profileLabel: showProfile && profile ? profile : null,
+    freshnessLabel:
+      freshness && /périm|non détermin/i.test(freshness) ? freshness : null,
+  };
+}
+
+function scrubProposalOutOfScopeItem(item: string): string | null {
+  const raw = item.trim();
+  if (!raw) return null;
+  if (/cursor\s*real/i.test(raw)) {
+    return "Exécution réelle hors périmètre de cette étape";
+  }
+  if (/READY_NO_GATE|F2|SQLite|HumanDecision|ExecutionContract|TEMPORARY/i.test(raw)) {
+    return null;
+  }
+  const scrubbed = scrubPiloteFacingEngineJargon(raw);
+  return scrubbed.length > 0 ? scrubbed : null;
+}
+
+/**
+ * Compact Proposal card — keeps Proposal identity distinct from Recommendation.
+ */
+export function projectPilotProposalCard(input: {
+  rephrasedRequest?: string | null;
+  objective?: string | null;
+  rationale?: string | null;
+  expectedOutcome?: string | null;
+  scope?: string | null;
+  outOfScope?: readonly string[] | null;
+  morrisGateRequired?: boolean | null;
+  status?: string | null;
+  nextPossibleStep?: string | null;
+  cycleLabel?: string | null;
+  cycleStatus?: string | null;
+  cycleInstanceId?: string | null;
+}): PilotProposalCardProjection {
+  const proposition =
+    nonempty(input.rephrasedRequest) ??
+    nonempty(input.objective) ??
+    "Proposition structurée disponible.";
+  const objective = nonempty(input.objective);
+  const whySource =
+    nonempty(input.rationale) &&
+    textsMeaningfullyDistinct(proposition, input.rationale ?? "")
+      ? scrubPiloteFacingEngineJargon(
+          profileRationalePiloteLabel(input.rationale),
+        )
+      : objective && textsMeaningfullyDistinct(proposition, objective)
+        ? scrubPiloteFacingEngineJargon(objective)
+        : null;
+  const gate = input.morrisGateRequired === true;
+  const status = (input.status ?? "").toUpperCase();
+  const step = (input.nextPossibleStep ?? "").trim();
+  const cycle =
+    nonempty(input.cycleLabel) ?? "Delivery";
+
+  const consequenceRaw = nonempty(input.expectedOutcome);
+  let consequence =
+    consequenceRaw && textsMeaningfullyDistinct(proposition, consequenceRaw)
+      ? scrubPiloteFacingEngineJargon(consequenceRaw)
+      : null;
+  // When no structured decision is required, drop engine copy that claims one.
+  if (
+    consequence &&
+    !gate &&
+    status !== "DECISION_REQUIRED" &&
+    /décision explicite|HumanDecision|attendre votre (GO|décision)/i.test(
+      consequence,
+    )
+  ) {
+    consequence =
+      nonempty(
+        scrubPiloteFacingEngineJargon(
+          consequence
+            .replace(/,?\s*en attente de décision explicite[^.]*/gi, "")
+            .replace(/soumises? à décision[^.]*/gi, ""),
+        ),
+      ) ?? null;
+  }
+  const outItems = (input.outOfScope ?? [])
+    .map((item) => scrubProposalOutOfScopeItem(item))
+    .filter((item): item is string => item != null);
+  const outOfScope = outItems.length > 0 ? outItems.join(" · ") : null;
+
+  if (status === "AMENDMENT_REQUIRED") {
+    return {
+      title: "Ce que Nora propose",
+      proposition,
+      why: whySource,
+      consequence,
+      agreement: "Une modification de la proposition est demandée.",
+      nextAction: G_UX_08_AMEND_DEFERRED_MESSAGE,
+      nextActionKind: "amend",
+      outOfScope,
+    };
+  }
+
+  if (gate || status === "DECISION_REQUIRED") {
+    return {
+      title: "Ce que Nora propose",
+      proposition,
+      why: whySource,
+      consequence,
+      agreement: "Votre décision sur cette proposition est requise.",
+      nextAction:
+        "Indiquez si vous approuvez, amendez ou refusez cette proposition. Aucune exécution ne démarre sans votre décision.",
+      nextActionKind: "decision",
+      outOfScope,
+    };
+  }
+
+  // READY_NO_GATE and similar — no structured Pilote decision at this stage.
+  const engineStop =
+    /F2\s*S['’]ARRÊTE|READY_NO_GATE|AUCUNE EXÉCUTION/i.test(step) ||
+    step.length === 0;
+  return {
+    title: "Ce que Nora propose",
+    proposition,
+    why: whySource,
+    consequence,
+    agreement: "Aucune décision structurée n'est requise pour l'instant.",
+    nextAction: engineStop
+      ? `Nora recommande de démarrer ${cycle}. ${cycleNotStartedState(
+          input.cycleStatus,
+          input.cycleInstanceId,
+        )} Vous pouvez poursuivre avec Nora pour préparer ce démarrage.`
+      : scrubPiloteFacingEngineJargon(step) ||
+        `Poursuivez avec Nora concernant ${cycle}.`,
+    nextActionKind: "conversation",
+    outOfScope,
+  };
+}
+
+/** Soften F2 chip copy on the nominal Pilote surface. */
+export function pilotFacingF2ChipLabel(raw: string | null | undefined): string {
+  const value = (raw ?? "").trim();
+  switch (value) {
+    case "RECOMMANDATION":
+      return "Recommandation";
+    case "PROPOSITION":
+      return "Proposition";
+    case "DÉCISION REQUISE":
+      return "Décision requise";
+    case "DÉCISION PRISE":
+      return "Décision enregistrée";
+    case "AUCUNE EXÉCUTION":
+      return "Rien exécuté pour l'instant";
+    default:
+      return scrubPiloteFacingEngineJargon(value) || value;
+  }
 }
 
 /** CustomEvent name: ConversationSurface → LifecycleSurface refresh after answer. */

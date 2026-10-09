@@ -44,8 +44,10 @@ export function projectNoraActivity(input: {
   if (input.uiState === "SENDING") {
     return { phase: "start", label: "Nora travaille…", stopAvailable };
   }
-  if (input.busy) {
-    return { phase: "activity", label: "Nora travaille…", stopAvailable };
+  // ANSWERED / ERROR win over a lingering busy latch so the transient
+  // in-thread activity block never overlays a completed reply.
+  if (input.uiState === "ANSWERED") {
+    return { phase: "complete", label: "Réponse prête", stopAvailable: false };
   }
   if (input.uiState === "ERROR_RECOVERABLE") {
     return {
@@ -54,8 +56,8 @@ export function projectNoraActivity(input: {
       stopAvailable: false,
     };
   }
-  if (input.uiState === "ANSWERED") {
-    return { phase: "complete", label: "Réponse prête", stopAvailable: false };
+  if (input.busy) {
+    return { phase: "activity", label: "Nora travaille…", stopAvailable };
   }
   return { phase: "idle", label: "Prêt", stopAvailable: false };
 }

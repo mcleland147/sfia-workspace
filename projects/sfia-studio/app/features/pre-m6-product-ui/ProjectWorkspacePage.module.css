@@ -788,6 +788,17 @@
     overflow: auto;
   }
 
+  /*
+   * Focus bar sticks inside `.main` (the column scrollport), not the viewport.
+   * `top: var(--ws-global-h)` was correct when the page scrolled under the global
+   * header; here it offsets the bar into the transcript and clips the empty-state
+   * intro (“Dites à Nora…”) under the sticky strip.
+   */
+  .root[data-active-view="conversation"] .focusBar,
+  .root[data-active-view="execution"] .focusBar {
+    top: 0;
+  }
+
   .root[data-active-view="conversation"] .lpsColumn,
   .root[data-active-view="execution"] .lpsColumn {
     position: relative;

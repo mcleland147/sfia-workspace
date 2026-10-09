@@ -4,14 +4,14 @@ import { useEffect, useId, useRef, useState, type FormEvent } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { createProjectRuntimeAction } from "@/lib/vertical-slice-runtime/actions";
+import { newProjectOnboardingTurnAction } from "./newProjectOnboardingAction";
 import {
-  absorbUserTurn,
+  buildProductContextHandoff,
   collectPhaseOf,
   composerPlaceholder,
   emptyDraft,
   INTENTION_STARTERS,
   isMinimumSufficient,
-  noraTurnAfter,
   objectiveFromDraft,
   openingNoraTurn,
   reopenField,
@@ -19,7 +19,6 @@ import {
   understoodPointsFromDraft,
   type ChatTurn,
   type CollectField,
-  type CollectPhase,
   type PreProjectDraft,
 } from "./newProjectConversation";
 import styles from "./NewProjectIntentionPage.module.css";
@@ -37,8 +36,8 @@ function turnId(prefix: string): string {
 }
 
 /**
- * P5-S06 CP01 — explicit-phase conversational New Project.
- * Durable create only via createProjectRuntimeAction. No D1, no regex NLP.
+ * P6-HQA-NEWPROJECT-01 — cognitive New Project onboarding.
+ * Nora turns via canonical ConversationProvider. Create only via createProjectRuntimeAction.
  */
 export function NewProjectIntentionPage() {
   const router = useRouter();
@@ -49,41 +48,93 @@ export function NewProjectIntentionPage() {
   const [idempotencyKey, setIdempotencyKey] = useState("");
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
+  const [thinking, setThinking] = useState(false);
   const [created, setCreated] = useState<CreateSuccess | null>(null);
   const threadRef = useRef<HTMLDivElement>(null);
+  const abortRef = useRef<AbortController | null>(null);
 
-  const phase: CollectPhase = collectPhaseOf(draft);
   const ready = isMinimumSufficient(draft);
+  const phase = collectPhaseOf(draft);
   const understood = understoodPointsFromDraft(draft);
   const objective = objectiveFromDraft(draft);
   const startingPoint = startingPointFromDraft(draft);
 
   useEffect(() => {
     setIdempotencyKey(createIdempotencyKey());
+    return () => {
+      abortRef.current?.abort();
+    };
   }, []);
 
   useEffect(() => {
     const el = threadRef.current;
     if (!el) return;
     el.scrollTop = el.scrollHeight;
-  }, [turns, draft]);
+  }, [turns, draft, thinking]);
 
-  function onSend(event?: FormEvent) {
+  async function onSend(event?: FormEvent) {
     event?.preventDefault();
     const text = composer.trim();
-    if (!text || pending) return;
-    const asked = phase;
-    const nextDraft = absorbUserTurn(draft, text, asked);
+    if (!text || pending || thinking) return;
+
     const userTurn: ChatTurn = { id: turnId("user"), role: "user", text };
-    const noraTurn = noraTurnAfter(asked, nextDraft);
-    setDraft(nextDraft);
-    setTurns((current) => [...current, userTurn, noraTurn]);
+    const historyForProvider = [...turns, userTurn].map((t) => ({
+      role: t.role,
+      text: t.text,
+    }));
+    setTurns((current) => [...current, userTurn]);
     setComposer("");
     setSubmitError(null);
+    setThinking(true);
+
+    try {
+      const result = await newProjectOnboardingTurnAction({
+        userText: text,
+        draft,
+        history: historyForProvider.slice(0, -1),
+      });
+
+      if (!result.ok) {
+        setTurns((current) => [
+          ...current,
+          {
+            id: turnId("nora"),
+            role: "nora",
+            text: result.message,
+            meta: "error",
+          },
+        ]);
+        return;
+      }
+
+      setDraft(result.draft);
+      setTurns((current) => [
+        ...current,
+        {
+          id: turnId("nora"),
+          role: "nora",
+          text: result.replyText,
+          meta: result.draft.cognitiveCreateProposal ? "understood" : "cognitive",
+          clarification: result.clarification,
+        },
+      ]);
+    } catch {
+      setTurns((current) => [
+        ...current,
+        {
+          id: turnId("nora"),
+          role: "nora",
+          text: "Le service n’a pas répondu. La conversation est conservée ; tu peux réessayer.",
+          meta: "error",
+        },
+      ]);
+    } finally {
+      setThinking(false);
+    }
   }
 
   function onChip(text: string) {
-    if (pending) return;
+    if (pending || thinking) return;
     setComposer(text);
   }
 
@@ -96,26 +147,31 @@ export function NewProjectIntentionPage() {
         id: turnId("nora"),
         role: "nora",
         text:
-          collectPhaseOf(nextDraft) === "NAME_REQUIRED"
-            ? "Quel nom voulez-vous donner à ce projet ?"
-            : "Quel est l’objectif ou l’intention principale de ce projet ?",
-        meta: collectPhaseOf(nextDraft) === "NAME_REQUIRED" ? "name_ask" : "opening",
+          field === "name"
+            ? "Ok — on reprend le nom. Comment veux-tu l’appeler, ou je peux proposer à nouveau ?"
+            : "Ok — reformule l’intention principale du projet.",
+        meta: "cognitive",
       },
     ]);
   }
 
   async function onCreate() {
-    if (pending || !ready) return;
+    if (pending || thinking || !ready) return;
     setSubmitError(null);
     const stableKey = idempotencyKey || createIdempotencyKey();
     if (!idempotencyKey) setIdempotencyKey(stableKey);
     setPending(true);
     try {
       const intention = draft.intention.trim();
+      const objectiveText = (draft.objective.trim() || intention).slice(0, 4000);
+      const contextText = buildProductContextHandoff(
+        draft,
+        turns.map((t) => ({ role: t.role, text: t.text })),
+      );
       const result = await createProjectRuntimeAction({
         name: draft.name.trim(),
-        objective: intention,
-        context: draft.context.trim() || intention,
+        objective: objectiveText,
+        context: contextText || intention,
         criticality: "STANDARD",
         constraints: [],
         idempotencyKey: stableKey,
@@ -124,7 +180,7 @@ export function NewProjectIntentionPage() {
       if (result.ok) {
         setCreated(result);
         router.push(
-          `/studio/projects/${encodeURIComponent(result.projectId)}`,
+          `/studio/projects/${encodeURIComponent(result.projectId)}?from=new-project-onboarding`,
         );
         return;
       }
@@ -163,11 +219,11 @@ export function NewProjectIntentionPage() {
           <h1 className={styles.heroTitle}>Projet créé</h1>
           <p className={styles.heroSubtitle}>
             Ouverture du workspace durable. Nora reprend à partir du projet
-            enregistré — pas du brouillon local.
+            enregistré — l’accueil est conservé dans le contexte Product.
           </p>
         </header>
         <Link
-          href={`/studio/projects/${encodeURIComponent(created.projectId)}`}
+          href={`/studio/projects/${encodeURIComponent(created.projectId)}?from=new-project-onboarding`}
           className={styles.primaryButton}
           data-testid="open-project-workspace"
         >
@@ -185,6 +241,7 @@ export function NewProjectIntentionPage() {
       data-create-surface="conversational"
       data-collect-phase={phase}
       data-ready={ready ? "true" : "false"}
+      data-cognitive="nora-provider"
     >
       <div className={styles.pageChrome} data-testid="new-project-chrome">
         <div className={styles.chromeTrail}>
@@ -208,13 +265,11 @@ export function NewProjectIntentionPage() {
           </h1>
           <p className={styles.heroSubtitle}>
             <span className={styles.heroSubtitleDesktop}>
-              Décris simplement ce que tu veux accomplir. Nora t&apos;aidera à
-              préciser uniquement ce qui est nécessaire pour démarrer
-              correctement.
+              Dis à Nora ce que tu veux accomplir. Elle clarifie seulement ce
+              qui est utile — la création reste ton choix.
             </span>
             <span className={styles.heroSubtitleMobile}>
-              Décris ce que tu veux accomplir. Nora t&apos;aide à préciser le
-              projet.
+              Décris ce que tu veux accomplir. Nora t&apos;aide à démarrer.
             </span>
           </p>
         </header>
@@ -243,6 +298,9 @@ export function NewProjectIntentionPage() {
                 {turn.meta === "understood" ? (
                   <span className={styles.metaChipOk}>J’ai compris</span>
                 ) : null}
+                {turn.meta === "error" ? (
+                  <span className={styles.metaChipMuted}>Indisponible</span>
+                ) : null}
               </div>
               <p
                 className={styles.bubbleText}
@@ -250,7 +308,7 @@ export function NewProjectIntentionPage() {
               >
                 {turn.text}
               </p>
-              {turn.meta === "opening" && phase === "INTENTION_REQUIRED" ? (
+              {turn.meta === "opening" && !draft.intention.trim() ? (
                 <div
                   className={styles.chipRow}
                   data-testid="new-project-starters"
@@ -300,11 +358,24 @@ export function NewProjectIntentionPage() {
               ) : null}
             </div>
           ))}
+          {thinking ? (
+            <div
+              className={styles.bubbleNora}
+              data-role="nora"
+              data-testid="new-project-thinking"
+            >
+              <div className={styles.bubbleHeader}>
+                <p className={styles.bubbleLabel}>Nora</p>
+                <span className={styles.metaChipMuted}>Réflexion</span>
+              </div>
+              <p className={styles.bubbleText}>…</p>
+            </div>
+          ) : null}
         </div>
 
         <form
           className={styles.composer}
-          onSubmit={onSend}
+          onSubmit={(e) => void onSend(e)}
           data-testid="new-project-composer"
         >
           <label className={styles.srOnly} htmlFor={`${fieldId}-composer`}>
@@ -316,26 +387,27 @@ export function NewProjectIntentionPage() {
               className={styles.textarea}
               rows={3}
               value={composer}
-              disabled={pending}
-              placeholder={composerPlaceholder(phase)}
+              disabled={pending || thinking}
+              placeholder={composerPlaceholder(draft)}
               data-testid="new-project-input"
               onChange={(event) => setComposer(event.target.value)}
               onKeyDown={(event) => {
                 if (event.key === "Enter" && !event.shiftKey) {
                   event.preventDefault();
-                  onSend();
+                  void onSend();
                 }
               }}
             />
             <div className={styles.composerBottom}>
               <div className={styles.composerHelpers}>
-                <span>+ Ajouter du contexte</span>
-                <span>Joindre un document</span>
+                <span>Conversation avec Nora</span>
               </div>
               <button
                 type="submit"
                 className={styles.sendIcon}
-                disabled={pending || composer.trim().length === 0}
+                disabled={
+                  pending || thinking || composer.trim().length === 0
+                }
                 data-testid="new-project-send"
                 aria-label="Envoyer"
               >
@@ -343,7 +415,6 @@ export function NewProjectIntentionPage() {
               </button>
             </div>
           </div>
-          {/* P3 67:255 — no Annuler in composer chrome; keep accessible escape. */}
           <Link
             href="/studio"
             className={styles.srOnly}
@@ -352,8 +423,8 @@ export function NewProjectIntentionPage() {
             Annuler et revenir aux projets
           </Link>
           <p className={styles.help}>
-            Tu n&apos;as rien à remplir : Nora construit le projet à partir de
-            la conversation.
+            Nora comprend et propose. La création du projet reste un acte
+            explicite de ta part.
           </p>
         </form>
       </div>
@@ -388,35 +459,43 @@ export function NewProjectIntentionPage() {
               {draft.name.trim() || "Pas encore précisé"}
             </dd>
             {draft.name.trim() ? (
-              <p className={styles.previewHintInline}>Tu pourras le renommer</p>
+              <p className={styles.previewHintInline}>
+                {draft.nameProvisional
+                  ? "Nom provisoire — tu pourras le renommer"
+                  : "Tu pourras le renommer"}
+              </p>
             ) : null}
           </div>
           <div className={styles.previewFieldObjective}>
-            <dt>Objectif</dt>
+            <dt>Intention / objectif</dt>
             <dd data-testid="preview-intention">
               {objective || "Pas encore précisée"}
             </dd>
           </div>
           <div>
-            <dt>Point de départ</dt>
+            <dt>Contexte / point de départ</dt>
             <dd data-testid="preview-context">
-              {startingPoint || "Pas de projet créé pour l’instant"}
+              {startingPoint || "À préciser si besoin"}
             </dd>
-            {startingPoint ? (
-              <p className={styles.previewHintInline}>
-                Pas de projet créé pour l’instant
-              </p>
-            ) : null}
           </div>
           <div>
-            <dt>Démarrage</dt>
+            <dt>Première orientation</dt>
+            <dd data-testid="preview-orientation">
+              {draft.firstOrientation.trim() ||
+                "Proposition après création — non autoritative"}
+            </dd>
+          </div>
+          <div>
+            <dt>Création</dt>
             <dd
               className={ready ? styles.previewWarn : undefined}
               data-testid="preview-startup"
             >
-              {ready
-                ? "1 point reste à clarifier"
-                : "Intention et nom requis avant création"}
+              {draft.explicitRefuseCreate
+                ? "Création refusée pour l’instant"
+                : ready
+                  ? "Possible — en attente de ton accord"
+                  : "En attente d’une intention exploitable"}
             </dd>
             {ready ? (
               <p className={styles.previewHintInline}>
@@ -432,7 +511,7 @@ export function NewProjectIntentionPage() {
               className={styles.understood}
               data-testid="new-project-understood"
             >
-              <p className={styles.understoodTitle}>Ce que Nora a compris</p>
+              <p className={styles.understoodTitle}>Repères de la conversation</p>
               <ul className={styles.understoodList}>
                 {understood.map((point) => (
                   <li key={point}>{point}</li>
@@ -449,28 +528,27 @@ export function NewProjectIntentionPage() {
               <div className={styles.readyBox}>
                 <p className={styles.readyBoxTitle}>Projet prêt à être créé</p>
                 <p className={styles.readyBoxBody}>
-                  L&apos;intention et l&apos;objectif sont suffisamment clairs
-                  pour créer le contexte projet.
+                  L&apos;intention est exploitable. Studio a validé les entrées
+                  pour une création — Nora n&apos;a pas d&apos;autorité propre.
                 </p>
               </div>
               <div className={styles.pendingBox}>
                 <p className={styles.pendingBoxTitle}>
-                  Démarrage · 1 point à clarifier
+                  Après création · orientation provisoire
                 </p>
                 <p className={styles.pendingBoxBody}>
-                  Nora continuera à préciser le premier travail après la
-                  création du projet.
+                  {draft.firstOrientation.trim() ||
+                    "Nora pourra proposer une première direction dans le projet. Aucun cycle ne démarre automatiquement."}
                 </p>
               </div>
             </>
           ) : (
             <div className={styles.pendingBox}>
-              <p className={styles.pendingBoxTitle}>
-                Démarrage · points à clarifier
-              </p>
+              <p className={styles.pendingBoxTitle}>Création pas encore possible</p>
               <p className={styles.pendingBoxBody}>
-                Intention et nom sont requis avant création. Nora continue à
-                préciser à partir de la conversation.
+                {draft.explicitRefuseCreate
+                  ? "Tu as indiqué ne pas vouloir créer pour l’instant."
+                  : "Il faut une intention exploitable. Le nom peut être proposé ou provisoire."}
               </p>
             </div>
           )}
@@ -478,15 +556,15 @@ export function NewProjectIntentionPage() {
             <button
               type="button"
               className={styles.primaryButton}
-              disabled={pending || !ready}
+              disabled={pending || thinking || !ready}
               data-testid="create-project-submit"
               onClick={() => void onCreate()}
             >
               {pending ? "Création…" : "Créer le projet"}
             </button>
             <p className={styles.help}>
-              Après création, la conversation continue avec Nora pour préciser
-              le démarrage du projet.
+              Après création, la conversation continue dans le projet. Aucun
+              cycle n&apos;est démarré automatiquement.
             </p>
             {ready ? (
               <div className={styles.correctRow}>

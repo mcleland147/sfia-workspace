@@ -14,12 +14,15 @@ import {
   executionSemanticUserLabel,
   formatNoraAssistantDisplayText,
   isBoundedRunningAttemptRefreshable,
+  pilotFacingF2ChipLabel,
   postExecutionUserSummary,
-  profileRationalePiloteLabel,
+  projectPilotProposalCard,
+  projectPilotRecommendationCard,
+  scrubPiloteFacingEngineJargon,
 } from "@/features/project-assistant/presentationLabels";
 import type { AssistantToolEventDto } from "@/features/project-assistant/types";
 import type { F2DecisionKind } from "@/features/project-assistant/f2/types";
-import { useEffect, useId } from "react";
+import { useEffect, useId, useLayoutEffect, useRef, useState } from "react";
 import type { ProductConversationController } from "../hooks/useProductConversation";
 import type { ProductSynthesisProjection } from "@/lib/oa/synthesis";
 import type { WorkRecommendationProjectionCard } from "@/lib/oa/cycle/application/deriveWorkRecommendations";
@@ -74,6 +77,45 @@ function sourceStatusLabel(status: AssistantToolEventDto["status"]): string {
   }
 }
 
+/** P6-HQA-UI05 — honest compact status (Figma 46:98 / 46:107). */
+function f2RecommendationStatusLabel(input: {
+  readonly proposalStatus?: string | null;
+  readonly cycleStatus?: string | null;
+  readonly state?: string | null;
+}): string {
+  const cycle = (input.cycleStatus ?? "").toLowerCase();
+  if (cycle === "active" || cycle === "executing") return "Cycle actif";
+  const status = (input.proposalStatus ?? "").toUpperCase();
+  if (status === "DECISION_REQUIRED") return "En attente de décision";
+  if (status === "READY_NO_GATE") return "Candidat prêt";
+  if (status === "AMENDMENT_REQUIRED") return "Modification demandée";
+  if (status === "REFUSED") return "Refusé";
+  const state = (input.state ?? "").trim();
+  if (state) return state.length > 42 ? `${state.slice(0, 39)}…` : state;
+  return "À examiner";
+}
+
+function f2ProposalStatusLabel(input: {
+  readonly proposalStatus?: string | null;
+  readonly nextActionKind?: string | null;
+}): string {
+  const status = (input.proposalStatus ?? "").toUpperCase();
+  if (status === "DECISION_REQUIRED") return "En attente de décision";
+  if (status === "READY_NO_GATE") return "Candidat prêt";
+  if (status === "AMENDMENT_REQUIRED") return "Modification demandée";
+  if (status === "REFUSED") return "Refusé";
+  if (input.nextActionKind === "decision") return "En attente de décision";
+  return "À examiner";
+}
+
+function f2ObjectMetaLine(parts: Array<string | null | undefined>): string {
+  const clean = parts
+    .map((p) => (p ?? "").replace(/\s+/g, " ").trim())
+    .filter((p) => p.length > 0);
+  if (clean.length === 0) return "Projet · selon la direction produit actuelle";
+  return clean.slice(0, 3).join(" · ");
+}
+
 export type ConversationSurfaceProps = {
   controller: ProductConversationController;
   /**
@@ -105,6 +147,18 @@ export type ConversationSurfaceProps = {
  * execute continuity). Legacy F2/F3 stays behind `exposeLegacyAuthorityPath`
  * for harvest / RETIRE LATER proofs only — never enabled on nominal /studio.
  */
+/** Sync textarea height to content up to CSS max-height; then scroll internally. */
+function syncComposerTextareaHeight(el: HTMLTextAreaElement | null): void {
+  if (!el) return;
+  el.style.height = "auto";
+  const maxRaw = getComputedStyle(el).maxHeight;
+  const maxPx = maxRaw === "none" ? Number.POSITIVE_INFINITY : parseFloat(maxRaw);
+  const next = Number.isFinite(maxPx)
+    ? Math.min(el.scrollHeight, maxPx)
+    : el.scrollHeight;
+  el.style.height = `${Math.max(next, 0)}px`;
+}
+
 export function ConversationSurface({
   controller,
   exposeLegacyAuthorityPath = false,
@@ -117,6 +171,13 @@ export function ConversationSurface({
 }: ConversationSurfaceProps) {
   const fieldId = useId();
   const liveRegionId = useId();
+  const composerInputRef = useRef<HTMLTextAreaElement | null>(null);
+  const [recommendationOpen, setRecommendationOpen] = useState(
+    exposeLegacyAuthorityPath,
+  );
+  const [proposalOpen, setProposalOpen] = useState(exposeLegacyAuthorityPath);
+  const [synthesisOpen, setSynthesisOpen] = useState(false);
+  const [executionContractOpen, setExecutionContractOpen] = useState(false);
   const {
     listRef,
     messages,
@@ -275,6 +336,52 @@ export function ConversationSurface({
     uiState,
     stopAvailable,
   });
+  /**
+   * DP06 / P3 §28 — transient Nora activity belongs in the transcript, not the
+   * composer. STREAMING is NOT OBSERVABLE on this Product path (no fake stream).
+   * start/activity only; STOPPED/ERROR keep their dedicated banners below.
+   */
+  const showNoraActivityInThread =
+    noraActivity.phase === "start" || noraActivity.phase === "activity";
+  const pilotRecommendationCard = f2?.qualification
+    ? projectPilotRecommendationCard({
+        cycleLabel: f2.qualification.cycleLabel,
+        recommendedProfile: f2.qualification.recommendedProfile,
+        rationale: f2.qualification.rationale,
+        criticalSignalsPresent: f2.qualification.criticalSignalsPresent,
+        cycleStatus: f2.qualification.cycleStatus,
+        cycleInstanceId: f2.qualification.cycleInstanceId,
+        freshnessLabel: qualificationFreshness.label,
+      })
+    : null;
+  const pilotProposalCard = activeProposal
+    ? projectPilotProposalCard({
+        rephrasedRequest: activeProposal.rephrasedRequest,
+        objective: activeProposal.objective,
+        rationale: activeProposal.rationale,
+        expectedOutcome: activeProposal.expectedOutcome,
+        scope: activeProposal.scope,
+        outOfScope: activeProposal.outOfScope,
+        morrisGateRequired: activeProposal.morrisGateRequired,
+        status: activeProposal.status,
+        nextPossibleStep: activeProposal.nextPossibleStep,
+        cycleLabel: f2?.qualification?.cycleLabel,
+        cycleStatus: f2?.qualification?.cycleStatus,
+        cycleInstanceId: f2?.qualification?.cycleInstanceId,
+      })
+    : null;
+  const pilotEphemeralNotice = (() => {
+    const raw = (ephemeralNotice ?? "").trim();
+    if (!raw) return "";
+    // Process-local F2 disclosure — keep full text on legacy/diagnostic only.
+    if (
+      !exposeLegacyAuthorityPath &&
+      /Product SQLite|TEMPORARY WITH EXIT|mémoire de processus/i.test(raw)
+    ) {
+      return "La recommandation et la proposition restent distinctes d'une décision. Rien n'est exécuté automatiquement.";
+    }
+    return scrubPiloteFacingEngineJargon(raw);
+  })();
 
   const boundAwaitingDecision =
     !!decisionSubjectContinuity &&
@@ -290,8 +397,44 @@ export function ConversationSurface({
     governedExecutionContinuity.kind === "active" &&
     governedExecutionContinuity.contract.status === "confirmation_required" &&
     !boundAwaitingDecision;
+  /** True ExecutionContract prepared (not a ProductSynthesis). */
+  const preparedExecutionContract =
+    !!governedExecutionContinuity &&
+    typeof governedExecutionContinuity === "object" &&
+    "ok" in governedExecutionContinuity &&
+    governedExecutionContinuity.ok &&
+    governedExecutionContinuity.kind === "active" &&
+    !confirmationRequiredMoment
+      ? governedExecutionContinuity.contract
+      : null;
   const focusedGovernedMoment =
     boundAwaitingDecision || confirmationRequiredMoment;
+
+  function executionContractStatusLabel(contract: {
+    readonly status: string;
+    readonly effectConfirmationRequired?: boolean;
+  }): string {
+    if (
+      contract.status === "confirmation_required" ||
+      contract.effectConfirmationRequired === true
+    ) {
+      return "Confirmation requise";
+    }
+    if (contract.status === "confirmed") return "Confirmé";
+    if (
+      contract.status === "validated" ||
+      contract.status === "proposed" ||
+      contract.status === "draft"
+    ) {
+      return "Prête à examiner";
+    }
+    return contract.status;
+  }
+
+  useLayoutEffect(() => {
+    if (focusedGovernedMoment) return;
+    syncComposerTextareaHeight(composerInputRef.current);
+  }, [draft, focusedGovernedMoment]);
 
   return (
     <section
@@ -332,7 +475,7 @@ export function ConversationSurface({
         aria-live="polite"
         id={liveRegionId}
       >
-        {messages.length === 0 && !focusedGovernedMoment ? (
+        {messages.length === 0 && !focusedGovernedMoment && !showNoraActivityInThread ? (
           <div className={styles.threadEmpty} data-testid="project-assistant-empty">
             <p className={styles.threadEmptyTitle}>
               Dites à Nora ce que vous voulez accomplir
@@ -342,7 +485,7 @@ export function ConversationSurface({
               vous propose une décision. Rien n&apos;est lancé sans votre accord.
             </p>
           </div>
-        ) : messages.length === 0 ? null : (
+        ) : messages.length === 0 && !showNoraActivityInThread ? null : (
               messages.map((message) => (
             <article
               key={message.id}
@@ -374,6 +517,34 @@ export function ConversationSurface({
             </article>
           ))
         )}
+        {showNoraActivityInThread ? (
+          <article
+            className={`${styles.turnNora} ${styles.noraActivityTurn}`}
+            data-testid="project-assistant-nora-activity"
+            data-nora-phase={noraActivity.phase}
+            data-nora-stop={
+              noraActivity.stopAvailable ? "available" : "unavailable"
+            }
+            aria-busy="true"
+          >
+            <div className={styles.bubble}>
+              <p
+                className={styles.bubbleAuthor}
+                data-role="assistant"
+                data-testid="project-assistant-nora-activity-heading"
+              >
+                Nora
+                <span className={styles.noraActivityBadge}>En cours</span>
+              </p>
+              <p
+                className={styles.noraActivityText}
+                data-testid="project-assistant-nora-activity-label"
+              >
+                {noraActivity.label}
+              </p>
+            </div>
+          </article>
+        ) : null}
       </div>
 
       {f2 ? (
@@ -383,18 +554,30 @@ export function ConversationSurface({
           aria-live="polite"
         >
           {f2.labels.recommendation ? (
-            <span className={styles.chip}>{f2.labels.recommendation}</span>
+            <span className={styles.chip}>
+              {pilotFacingF2ChipLabel(f2.labels.recommendation)}
+            </span>
           ) : null}
           {f2.labels.proposition ? (
-            <span className={styles.chip}>{f2.labels.proposition}</span>
+            <span className={styles.chip}>
+              {pilotFacingF2ChipLabel(f2.labels.proposition)}
+            </span>
           ) : null}
           {f2.labels.decisionRequired && !reservationResolutionProposal ? (
-            <span className={styles.chipGold}>{f2.labels.decisionRequired}</span>
+            <span className={styles.chipGold}>
+              {pilotFacingF2ChipLabel(f2.labels.decisionRequired)}
+            </span>
           ) : null}
           {f2.labels.decisionTaken ? (
-            <span className={styles.chipOk}>{f2.labels.decisionTaken}</span>
+            <span className={styles.chipOk}>
+              {pilotFacingF2ChipLabel(f2.labels.decisionTaken)}
+            </span>
           ) : null}
-          <span className={styles.chipQuiet}>{f2.labels.noExecution}</span>
+          {exposeLegacyAuthorityPath ? (
+            <span className={styles.chipQuiet}>
+              {pilotFacingF2ChipLabel(f2.labels.noExecution)}
+            </span>
+          ) : null}
         </div>
       ) : null}
 
@@ -478,87 +661,156 @@ export function ConversationSurface({
         </section>
       ) : null}
 
-      {f2?.qualification && !reservationResolutionProposal ? (
+      {f2?.qualification &&
+      pilotRecommendationCard &&
+      !reservationResolutionProposal ? (
         <section
-          className={styles.card}
+          className={styles.subCardGold}
           data-testid="project-assistant-qualification"
+          data-ui05-object="recommendation"
+          data-expanded={recommendationOpen ? "true" : "false"}
           aria-labelledby={`${fieldId}-qualification`}
         >
-          <header className={styles.cardHead}>
-            <p className={styles.cardEyebrow}>Lecture de Nora</p>
-            <h3 id={`${fieldId}-qualification`} className={styles.cardTitle}>
-              Ce que Nora comprend
-            </h3>
-            <p className={styles.cardNote} data-testid="f2-recommendation-freshness">
-              {f2.qualification.recommendationLabel} ·{" "}
-              {qualificationFreshness.label}
-            </p>
-            <p className={styles.cardNote}>
-              Une recommandation n&apos;est pas une décision humaine.
-            </p>
-          </header>
-          <dl className={styles.facts}>
-            <div className={styles.fact}>
-              <dt>Type de travail</dt>
-              <dd data-testid="f2-cycle">{f2.qualification.cycleLabel}</dd>
+          <div className={styles.p3CardHead}>
+            <div className={styles.p3CardBody}>
+              <p className={styles.p3CardEyebrow}>Recommandation</p>
+              <h3
+                id={`${fieldId}-qualification`}
+                className={styles.p3CardTitle}
+                data-testid="f2-cycle"
+              >
+                {pilotRecommendationCard.recommendation}
+              </h3>
+              <p className={styles.p3CardStamp} data-testid="f2-recommendation-meta">
+                {f2ObjectMetaLine([
+                  pilotRecommendationCard.freshnessLabel,
+                  pilotRecommendationCard.showProfile
+                    ? pilotRecommendationCard.profileLabel
+                    : null,
+                  "Une recommandation n'est pas une décision",
+                ])}
+              </p>
+              {pilotRecommendationCard.freshnessLabel ? (
+                <p
+                  className={styles.srOnly}
+                  data-testid="f2-recommendation-freshness"
+                >
+                  {pilotRecommendationCard.freshnessLabel}
+                </p>
+              ) : (
+                <p
+                  className={styles.srOnly}
+                  data-testid="f2-recommendation-freshness"
+                >
+                  {qualificationFreshness.label}
+                </p>
+              )}
             </div>
-            <div className={styles.fact}>
-              <dt>Approche recommandée</dt>
-              <dd data-testid="f2-profile">
-                {f2.qualification.recommendedProfile}
-              </dd>
+            <div className={styles.p3CardRight}>
+              <span
+                className={styles.p3CardStatusWarn}
+                data-testid="f2-recommendation-state"
+              >
+                {f2RecommendationStatusLabel({
+                  proposalStatus: activeProposal?.status,
+                  cycleStatus: f2.qualification.cycleStatus,
+                  state: pilotRecommendationCard.state,
+                })}
+              </span>
+              <button
+                type="button"
+                className={styles.p3CardLink}
+                data-testid="f2-recommendation-open"
+                aria-expanded={recommendationOpen}
+                onClick={() => setRecommendationOpen((v) => !v)}
+              >
+                {recommendationOpen ? "Fermer" : "Ouvrir →"}
+              </button>
             </div>
-            <div className={styles.factWide}>
-              <dt>Pourquoi</dt>
-              <dd data-testid="f2-rationale">
-                {profileRationalePiloteLabel(f2.qualification.rationale)}
-              </dd>
-            </div>
-          </dl>
-          <details className={styles.details}>
-            <summary>Détails techniques</summary>
-            <dl className={styles.facts}>
-              <div className={styles.factWide}>
-                <dt>Rationale technique</dt>
-                <dd data-testid="f2-rationale-technical">
-                  {f2.qualification.rationale}
-                </dd>
-              </div>
-              <div className={styles.factWide}>
-                <dt>Identifiant de cycle</dt>
-                <dd>{f2.qualification.cycleTypeId}</dd>
-              </div>
-              {f2.qualification.cycleInstanceId ? (
+          </div>
+          {recommendationOpen ? (
+            <div
+              className={styles.ui05ObjectDetails}
+              data-testid="f2-recommendation-details"
+            >
+              <p className={styles.srOnly}>{pilotRecommendationCard.title}</p>
+              <dl className={styles.facts}>
                 <div className={styles.factWide}>
-                  <dt>Cycle rattaché</dt>
-                  <dd data-testid="f2-cycle-instance">
-                    {f2.qualification.cycleInstanceId}
-                    {f2.qualification.cycleStatus
-                      ? ` · ${f2.qualification.cycleStatus}`
-                      : ""}
-                  </dd>
+                  <dt>Pourquoi</dt>
+                  <dd data-testid="f2-rationale">{pilotRecommendationCard.why}</dd>
                 </div>
-              ) : null}
-              {f2.qualification.ckcResolutionRef ? (
-                <div className={styles.factWide}>
-                  <dt>Réf. résolution</dt>
-                  <dd data-testid="f2-ckc-ref">
-                    {f2.qualification.ckcResolutionRef}
+                {pilotRecommendationCard.showProfile &&
+                pilotRecommendationCard.profileLabel ? (
+                  <div className={styles.fact}>
+                    <dt>Approche</dt>
+                    <dd data-testid="f2-profile">
+                      {pilotRecommendationCard.profileLabel}
+                    </dd>
+                  </div>
+                ) : (
+                  <dd className={styles.srOnly} data-testid="f2-profile">
+                    {f2.qualification.recommendedProfile}
                   </dd>
-                </div>
+                )}
+              </dl>
+              {exposeLegacyAuthorityPath ? (
+                <details className={styles.details}>
+                  <summary>Détails techniques</summary>
+                  <dl className={styles.facts}>
+                    <div className={styles.factWide}>
+                      <dt>Rationale technique</dt>
+                      <dd data-testid="f2-rationale-technical">
+                        {f2.qualification.rationale}
+                      </dd>
+                    </div>
+                    <div className={styles.factWide}>
+                      <dt>Identifiant de cycle</dt>
+                      <dd>{f2.qualification.cycleTypeId}</dd>
+                    </div>
+                    {f2.qualification.cycleInstanceId ? (
+                      <div className={styles.factWide}>
+                        <dt>Cycle rattaché</dt>
+                        <dd data-testid="f2-cycle-instance">
+                          {f2.qualification.cycleInstanceId}
+                          {f2.qualification.cycleStatus
+                            ? ` · ${f2.qualification.cycleStatus}`
+                            : ""}
+                        </dd>
+                      </div>
+                    ) : null}
+                    {f2.qualification.ckcResolutionRef ? (
+                      <div className={styles.factWide}>
+                        <dt>Réf. résolution</dt>
+                        <dd data-testid="f2-ckc-ref">
+                          {f2.qualification.ckcResolutionRef}
+                        </dd>
+                      </div>
+                    ) : null}
+                    <div className={styles.factWide}>
+                      <dt>Provenance</dt>
+                      <dd data-testid="f2-qualification-provenance">
+                        catalogue {f2.qualification.catalogVersion} ·{" "}
+                        {f2.qualification.detailedStatus}
+                        {f2.qualification.capitalizationViaCycleTypeId
+                          ? " · capitalisation via cycleType"
+                          : ""}
+                      </dd>
+                    </div>
+                  </dl>
+                </details>
               ) : null}
-              <div className={styles.factWide}>
-                <dt>Provenance</dt>
-                <dd data-testid="f2-qualification-provenance">
-                  catalogue {f2.qualification.catalogVersion} ·{" "}
-                  {f2.qualification.detailedStatus}
-                  {f2.qualification.capitalizationViaCycleTypeId
-                    ? " · capitalisation via cycleType"
-                    : ""}
-                </dd>
-              </div>
-            </dl>
-          </details>
+            </div>
+          ) : (
+            <>
+              <p className={styles.srOnly} data-testid="f2-rationale">
+                {pilotRecommendationCard.why}
+              </p>
+              <p className={styles.srOnly} data-testid="f2-profile">
+                {pilotRecommendationCard.profileLabel ??
+                  f2.qualification.recommendedProfile}
+              </p>
+            </>
+          )}
         </section>
       ) : null}
 
@@ -642,87 +894,203 @@ export function ConversationSurface({
         </div>
       ) : null}
       {activeProposal &&
+      pilotProposalCard &&
       !reservationResolutionProposal &&
       !focusedGovernedMoment ? (
         <section
-          className={styles.card}
+          className={styles.subCardGold}
           data-testid="project-assistant-proposal"
+          data-ui05-object="proposal"
+          data-expanded={proposalOpen ? "true" : "false"}
+          data-proposal-status={activeProposal.status}
           aria-labelledby={`${fieldId}-proposal`}
         >
-          <header className={styles.cardHead}>
-            <p className={styles.cardEyebrow}>Proposition</p>
-            <h3 id={`${fieldId}-proposal`} className={styles.cardTitle}>
-              Ce que Nora propose
-            </h3>
-            <p className={styles.cardNote} data-testid="f2-proposal-id">
-              Statut {activeProposal.status}
-            </p>
-          </header>
+          <div className={styles.p3CardHead}>
+            <div className={styles.p3CardBody}>
+              <p className={styles.p3CardEyebrow}>Proposition</p>
+              <h3
+                id={`${fieldId}-proposal`}
+                className={styles.p3CardTitle}
+                data-testid="f2-proposal-main"
+              >
+                {pilotProposalCard.proposition}
+              </h3>
+              <p className={styles.p3CardStamp} data-testid="f2-proposal-meta">
+                {f2ObjectMetaLine([
+                  activeProposal.scope
+                    ? scrubPiloteFacingEngineJargon(activeProposal.scope).slice(
+                        0,
+                        80,
+                      )
+                    : null,
+                  pilotProposalCard.nextActionKind === "decision"
+                    ? "Décision potentiellement requise"
+                    : "Aucune décision structurée requise pour l'instant",
+                ])}
+              </p>
+              <p
+                className={styles.srOnly}
+                data-testid="f2-proposal-id"
+                data-proposal-status={activeProposal.status}
+              >
+                Proposition structurée
+              </p>
+            </div>
+            <div className={styles.p3CardRight}>
+              <span
+                className={
+                  activeProposal.status === "DECISION_REQUIRED"
+                    ? styles.p3CardStatusWarn
+                    : styles.p3CardStatusReady
+                }
+                data-testid="f2-proposal-status-label"
+              >
+                {f2ProposalStatusLabel({
+                  proposalStatus: activeProposal.status,
+                  nextActionKind: pilotProposalCard.nextActionKind,
+                })}
+              </span>
+              <button
+                type="button"
+                className={styles.p3CardLink}
+                data-testid="f2-proposal-open"
+                aria-expanded={proposalOpen}
+                onClick={() => setProposalOpen((v) => !v)}
+              >
+                {proposalOpen ? "Fermer" : "Ouvrir →"}
+              </button>
+            </div>
+          </div>
           {activeProposal.status === "AMENDMENT_REQUIRED" ? (
             <p className={styles.noticeWarn} data-testid="f2-amend-deferred-notice">
               {G_UX_08_AMEND_DEFERRED_MESSAGE}
             </p>
           ) : null}
-          <dl className={styles.facts}>
-            <div className={styles.factWide}>
-              <dt>Demande reformulée</dt>
-              <dd>{activeProposal.rephrasedRequest}</dd>
-            </div>
-            <div className={styles.factWide}>
-              <dt>Objectif</dt>
-              <dd>{activeProposal.objective}</dd>
-            </div>
-            <div className={styles.factWide}>
-              <dt>Ce qui est couvert</dt>
-              <dd data-testid="f2-proposal-scope">{activeProposal.scope}</dd>
-            </div>
-            <div className={styles.factWide}>
-              <dt>Ce qui reste hors périmètre</dt>
-              <dd data-testid="f2-proposal-out-of-scope">
-                {activeProposal.outOfScope
-                  .map((item) =>
-                    /cursor\s*real/i.test(item)
-                      ? "Exécution réelle hors périmètre de cette étape"
-                      : item,
-                  )
-                  .join(" · ")}
-              </dd>
-            </div>
-            <div className={styles.fact}>
-              <dt>Votre accord</dt>
-              <dd data-testid="f2-gate-required">
-                {activeProposal.morrisGateRequired
-                  ? "Décision sur la proposition requise"
-                  : "Aucune décision requise pour l’instant"}
-              </dd>
-            </div>
-            <div className={styles.fact}>
-              <dt>Étape suivante possible</dt>
-              <dd>{activeProposal.nextPossibleStep}</dd>
-            </div>
-          </dl>
-          <details className={styles.details}>
-            <summary>Détails techniques</summary>
-            <dl className={styles.facts}>
-              <div className={styles.factWide}>
-                <dt>Contexte</dt>
-                <dd data-testid="f2-context-snapshot">
-                  {activeProposal.contextSnapshot.projectId} /{" "}
-                  {activeProposal.contextSnapshot.lpsId}@
-                  {activeProposal.contextSnapshot.lpsVersion}
-                  {activeProposal.contextSnapshot.activeCycleInstanceId
-                    ? ` · cycle ${activeProposal.contextSnapshot.activeCycleInstanceId}`
-                    : ""}
+          {proposalOpen ? (
+            <div
+              className={styles.ui05ObjectDetails}
+              data-testid="f2-proposal-details"
+            >
+              <p className={styles.srOnly}>{pilotProposalCard.title}</p>
+              <dl className={styles.facts}>
+                {pilotProposalCard.why ? (
+                  <div className={styles.factWide}>
+                    <dt>Pourquoi</dt>
+                    <dd data-testid="f2-proposal-why">{pilotProposalCard.why}</dd>
+                  </div>
+                ) : null}
+                {pilotProposalCard.consequence ? (
+                  <div className={styles.factWide}>
+                    <dt>Suite attendue</dt>
+                    <dd data-testid="f2-proposal-consequence">
+                      {pilotProposalCard.consequence}
+                    </dd>
+                  </div>
+                ) : null}
+                {pilotProposalCard.outOfScope ? (
+                  <div className={styles.factWide}>
+                    <dt>Hors périmètre</dt>
+                    <dd data-testid="f2-proposal-out-of-scope">
+                      {pilotProposalCard.outOfScope}
+                    </dd>
+                  </div>
+                ) : (
+                  <dd
+                    className={styles.srOnly}
+                    data-testid="f2-proposal-out-of-scope"
+                  />
+                )}
+                <div className={styles.factWide}>
+                  <dt>Votre accord</dt>
+                  <dd data-testid="f2-gate-required">
+                    {pilotProposalCard.agreement}
+                  </dd>
+                </div>
+                <div className={styles.factWide}>
+                  <dt>Prochaine étape</dt>
+                  <dd
+                    data-testid="f2-proposal-next-action"
+                    data-next-kind={pilotProposalCard.nextActionKind}
+                  >
+                    {pilotProposalCard.nextAction}
+                  </dd>
+                </div>
+                <dd className={styles.srOnly} data-testid="f2-proposal-scope">
+                  {activeProposal.scope}
                 </dd>
-              </div>
-            </dl>
-          </details>
-          <p className={styles.noticeQuiet} data-testid="f2-process-local-notice">
-            {activeProposal.processLocalNotice}
-          </p>
-          <p className={styles.stamp} data-testid="f2-no-execution">
-            AUCUNE EXÉCUTION
-          </p>
+              </dl>
+              {exposeLegacyAuthorityPath ? (
+                <>
+                  <details className={styles.details}>
+                    <summary>Détails techniques</summary>
+                    <dl className={styles.facts}>
+                      <div className={styles.factWide}>
+                        <dt>Contexte</dt>
+                        <dd data-testid="f2-context-snapshot">
+                          {activeProposal.contextSnapshot.projectId} /{" "}
+                          {activeProposal.contextSnapshot.lpsId}@
+                          {activeProposal.contextSnapshot.lpsVersion}
+                          {activeProposal.contextSnapshot.activeCycleInstanceId
+                            ? ` · cycle ${activeProposal.contextSnapshot.activeCycleInstanceId}`
+                            : ""}
+                        </dd>
+                      </div>
+                      <div className={styles.factWide}>
+                        <dt>Étape moteur</dt>
+                        <dd>{activeProposal.nextPossibleStep}</dd>
+                      </div>
+                    </dl>
+                  </details>
+                  <p
+                    className={styles.noticeQuiet}
+                    data-testid="f2-process-local-notice"
+                  >
+                    {activeProposal.processLocalNotice}
+                  </p>
+                  <p className={styles.stamp} data-testid="f2-no-execution">
+                    AUCUNE EXÉCUTION
+                  </p>
+                </>
+              ) : (
+                <>
+                  <p
+                    className={styles.srOnly}
+                    data-testid="f2-process-local-notice"
+                  >
+                    {activeProposal.processLocalNotice}
+                  </p>
+                  <p className={styles.srOnly} data-testid="f2-no-execution">
+                    Rien n&apos;a encore été exécuté
+                  </p>
+                </>
+              )}
+            </div>
+          ) : (
+            <>
+              <p className={styles.srOnly} data-testid="f2-gate-required">
+                {pilotProposalCard.agreement}
+              </p>
+              <p
+                className={styles.srOnly}
+                data-testid="f2-proposal-next-action"
+                data-next-kind={pilotProposalCard.nextActionKind}
+              >
+                {pilotProposalCard.nextAction}
+              </p>
+              <p className={styles.srOnly} data-testid="f2-proposal-scope">
+                {activeProposal.scope}
+              </p>
+              <p className={styles.srOnly} data-testid="f2-proposal-out-of-scope">
+                {pilotProposalCard.outOfScope ?? ""}
+              </p>
+              <p className={styles.srOnly} data-testid="f2-process-local-notice">
+                {activeProposal.processLocalNotice}
+              </p>
+              <p className={styles.srOnly} data-testid="f2-no-execution">
+                Rien n&apos;a encore été exécuté
+              </p>
+            </>
+          )}
         </section>
       ) : null}
 
@@ -1436,43 +1804,6 @@ export function ConversationSurface({
                 </div>
               ) : null}
 
-          {/* P3 46:2 — ACTION PRÉPARÉE from current synthesis when present. */}
-          {latestSynthesis ? (
-            <div
-              className={styles.subCardPrepared}
-              data-testid="conversation-prepared-action-card"
-            >
-              <div className={styles.p3CardHead}>
-                <div className={styles.p3CardBody}>
-                  <p className={styles.p3CardEyebrow}>Action préparée</p>
-                  <p className={styles.p3CardTitle}>
-                    {latestSynthesis.title.replace(
-                      /^Synthèse\s*[—–-]\s*/i,
-                      "",
-                    ) || latestSynthesis.title}
-                  </p>
-                </div>
-                <div className={styles.p3CardRight}>
-                  <span className={styles.p3CardStatusReady}>
-                    Prête à examiner
-                  </span>
-                  {onOpenSynthesis ? (
-                    <button
-                      type="button"
-                      className={styles.p3CardLink}
-                      data-testid="conversation-open-prepared-action"
-                      onClick={() =>
-                        onOpenSynthesis(latestSynthesis.synthesisId)
-                      }
-                    >
-                      Ouvrir →
-                    </button>
-                  ) : null}
-                </div>
-              </div>
-            </div>
-          ) : null}
-
           {/* P3 46:2 — when Work Recommendation cards lead, keep technical
               relecture out of the conversation chrome (available in Historique). */}
           {durableEvidenceOutcome &&
@@ -1623,31 +1954,139 @@ export function ConversationSurface({
         </section>
       ) : null}
 
-      {latestSynthesis && onOpenSynthesis ? (
-        <section
-          className={styles.synthesisTeaser}
-          data-testid="conversation-synthesis-teaser"
+      {/* P6-HQA-UI05 — ProductSynthesis compact object (never ExecutionContract). */}
+      {latestSynthesis ? (
+        <div
+          className={styles.subCardGold}
+          data-testid="conversation-synthesis-card"
+          data-ui05-object="synthesis"
+          data-expanded={synthesisOpen ? "true" : "false"}
           aria-live="polite"
         >
-          <p className={styles.synthesisEyebrow}>Synthèse disponible</p>
-          <p className={styles.synthesisTitle}>{latestSynthesis.title}</p>
-          <p
-            className={styles.synthesisBody}
-            data-testid="conversation-synthesis-summary"
-          >
-            {latestSynthesis.verdictLabel === "atteint"
-              ? "Résultat atteint — aucun blocage identifié."
-              : `${presentSynthesisVerdictLabel(latestSynthesis.verdictLabel)} · ${synthesisSummaryExcerpt(latestSynthesis, 120)}`}
-          </p>
-          <button
-            type="button"
-            className={styles.synthesisLink}
-            data-testid="conversation-open-synthesis"
-            onClick={() => onOpenSynthesis(latestSynthesis.synthesisId)}
-          >
-            Voir la synthèse complète →
-          </button>
-        </section>
+          <div className={styles.p3CardHead}>
+            <div className={styles.p3CardBody}>
+              <p className={styles.p3CardEyebrow}>Synthèse</p>
+              <p
+                className={styles.p3CardTitle}
+                data-testid="conversation-synthesis-summary"
+              >
+                {latestSynthesis.title.replace(/^Synthèse\s*[—–-]\s*/i, "") ||
+                  latestSynthesis.title}
+              </p>
+              <p className={styles.p3CardStamp}>
+                {f2ObjectMetaLine([
+                  "Résultat de cycle",
+                  latestSynthesis.verdictLabel
+                    ? presentSynthesisVerdictLabel(latestSynthesis.verdictLabel)
+                    : null,
+                  "consultation seule — pas un contrat d'exécution",
+                ])}
+              </p>
+            </div>
+            <div className={styles.p3CardRight}>
+              <span className={styles.p3CardStatusReady}>
+                {latestSynthesis.verdictLabel
+                  ? presentSynthesisVerdictLabel(latestSynthesis.verdictLabel)
+                  : "Disponible"}
+              </span>
+              <button
+                type="button"
+                className={styles.p3CardLink}
+                data-testid="conversation-open-synthesis"
+                aria-expanded={synthesisOpen}
+                onClick={() => {
+                  setSynthesisOpen((v) => !v);
+                  if (!synthesisOpen && onOpenSynthesis) {
+                    onOpenSynthesis(latestSynthesis.synthesisId);
+                  }
+                }}
+              >
+                {synthesisOpen ? "Fermer" : "Ouvrir →"}
+              </button>
+            </div>
+          </div>
+          {synthesisOpen ? (
+            <div
+              className={styles.ui05ObjectDetails}
+              data-testid="conversation-synthesis-details"
+            >
+              <p className={styles.cardNote}>
+                {synthesisSummaryExcerpt(latestSynthesis) ||
+                  "Synthèse disponible pour consultation. Ce n'est pas un contrat d'exécution."}
+              </p>
+            </div>
+          ) : null}
+        </div>
+      ) : null}
+
+      {/* P3 46:107 — Action préparée ONLY from a real ExecutionContract projection. */}
+      {preparedExecutionContract ? (
+        <div
+          className={styles.subCardPrepared}
+          data-testid="conversation-prepared-action-card"
+          data-ui05-object="execution-contract"
+          data-contract-status={preparedExecutionContract.status}
+          data-expanded={executionContractOpen ? "true" : "false"}
+        >
+          <div className={styles.p3CardHead}>
+            <div className={styles.p3CardBody}>
+              <p className={styles.p3CardEyebrow}>Action préparée</p>
+              <p className={styles.p3CardTitle}>
+                {preparedExecutionContract.action ||
+                  "Contrat d'exécution préparé"}
+              </p>
+              <p className={styles.p3CardStamp}>
+                {f2ObjectMetaLine([
+                  preparedExecutionContract.scope
+                    ? preparedExecutionContract.scope.slice(0, 80)
+                    : "Portée du contrat",
+                  preparedExecutionContract.effectConfirmationRequired
+                    ? "confirmation requise"
+                    : "examen du contrat",
+                ])}
+              </p>
+            </div>
+            <div className={styles.p3CardRight}>
+              <span className={styles.p3CardStatusReady}>
+                {executionContractStatusLabel(preparedExecutionContract)}
+              </span>
+              <button
+                type="button"
+                className={styles.p3CardLink}
+                data-testid="conversation-open-prepared-action"
+                aria-expanded={executionContractOpen}
+                onClick={() => setExecutionContractOpen((v) => !v)}
+              >
+                {executionContractOpen ? "Fermer" : "Ouvrir →"}
+              </button>
+            </div>
+          </div>
+          {executionContractOpen ? (
+            <div
+              className={styles.ui05ObjectDetails}
+              data-testid="conversation-prepared-action-details"
+            >
+              <dl className={styles.facts}>
+                <div className={styles.factWide}>
+                  <dt>Cible</dt>
+                  <dd>{preparedExecutionContract.target || "—"}</dd>
+                </div>
+                <div className={styles.factWide}>
+                  <dt>Autorité</dt>
+                  <dd>{preparedExecutionContract.requiredAuthority}</dd>
+                </div>
+                <div className={styles.factWide}>
+                  <dt>Réversibilité</dt>
+                  <dd>{preparedExecutionContract.reversibility}</dd>
+                </div>
+              </dl>
+              <p className={styles.cardNote}>
+                Ouvrir consulte le contrat préparé. Aucun démarrage ni
+                confirmation n&apos;est déclenché depuis cette carte.
+              </p>
+            </div>
+          ) : null}
+        </div>
       ) : null}
 
       {uiState === "STOPPED" && !error ? (
@@ -1703,9 +2142,9 @@ export function ConversationSurface({
         <details className={styles.detailsFlat}>
           <summary>Sources et limites</summary>
           <p className={styles.cardNote} data-testid="project-assistant-scope">
-            Qualification · proposition · décision humaine · contrat /
-            confirmation · tentative · recommandation. Aucune exécution
-            automatique. {ephemeralNotice}
+            Qualification · proposition · décision · confirmation ·
+            recommandation. Aucune exécution automatique.
+            {pilotEphemeralNotice ? ` ${pilotEphemeralNotice}` : ""}
           </p>
           {lrMaterializeCode ? (
             <p
@@ -1768,6 +2207,7 @@ export function ConversationSurface({
         </label>
         <div className={styles.composerBox}>
           <textarea
+            ref={composerInputRef}
             id={`${fieldId}-message`}
             className={styles.composerInput}
             data-testid="project-assistant-input"
@@ -1776,7 +2216,10 @@ export function ConversationSurface({
             disabled={busy || blocked}
             placeholder="Demander à Nora à propos de ce projet…"
             aria-describedby={liveRegionId}
-            onChange={(event) => setDraft(event.target.value)}
+            onChange={(event) => {
+              setDraft(event.target.value);
+              syncComposerTextareaHeight(event.currentTarget);
+            }}
             onKeyDown={(event) => {
               if (event.key === "Enter" && !event.shiftKey) {
                 event.preventDefault();
@@ -1794,30 +2237,6 @@ export function ConversationSurface({
             <span className={styles.composerToolActive}>
               Contexte projet actif
             </span>
-            {/* P3 46:2 — idle chrome uses « Contexte projet actif »; show Nora phase only when active. */}
-            {noraActivity.phase !== "idle" ? (
-              <span
-                className={styles.composerStatus}
-                aria-live="polite"
-                data-testid="project-assistant-status"
-                data-nora-phase={noraActivity.phase}
-                data-nora-stop={
-                  noraActivity.stopAvailable ? "available" : "unavailable"
-                }
-              >
-                {noraActivity.label}
-              </span>
-            ) : (
-              <span
-                className={styles.srOnly}
-                aria-live="polite"
-                data-testid="project-assistant-status"
-                data-nora-phase={noraActivity.phase}
-                data-nora-stop="unavailable"
-              >
-                {noraActivity.label}
-              </span>
-            )}
             {stopAvailable ? (
               <button
                 type="button"
@@ -1843,7 +2262,7 @@ export function ConversationSurface({
                   blocked
                     ? "Assistant indisponible"
                     : busy
-                      ? "Nora travaille"
+                      ? "Nora prépare une réponse"
                       : draft.trim().length === 0
                         ? "Saisissez un message"
                         : "Envoyer le message"
@@ -1852,19 +2271,32 @@ export function ConversationSurface({
                   canSend
                     ? "Envoyer le message à Nora"
                     : busy
-                      ? "Nora travaille"
+                      ? "Nora prépare une réponse"
                       : "Envoi indisponible"
                 }
               >
-                <span className={styles.sendLabelFull}>
-                  {busy ? "Nora travaille…" : "Envoyer"}
-                </span>
+                <span className={styles.sendLabelFull}>Envoyer</span>
                 <span className={styles.sendLabelCompact} aria-hidden="true">
                   ↑
                 </span>
               </button>
             )}
           </div>
+          {/*
+            DP06 / P3 §28 — Nora activity is in the transcript.
+            Keep a single sr-only status node for phase/stop machine tests.
+            Outside composerTools so tools chrome stays free of activity copy.
+          */}
+          <span
+            className={styles.srOnly}
+            data-testid="project-assistant-status"
+            data-nora-phase={noraActivity.phase}
+            data-nora-stop={
+              noraActivity.stopAvailable ? "available" : "unavailable"
+            }
+          >
+            {noraActivity.label}
+          </span>
         </div>
       </form>
       ) : null}

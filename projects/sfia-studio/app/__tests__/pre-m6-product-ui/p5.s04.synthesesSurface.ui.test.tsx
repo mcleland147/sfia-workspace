@@ -316,7 +316,7 @@ describe("P5-S04 Synthèses UI", () => {
     expect(screen.queryByTestId("project-overview-synthesis-preview")).toBeNull();
   });
 
-  it("T15 — Conversation shows synthesis teaser and opens Synthèses view", async () => {
+  it("T15 — Conversation shows UI05 synthesis card and opens Synthèses view", async () => {
     latestSynthesisMock.mockResolvedValue({
       ok: true,
       synthesis: mockSynthesis,
@@ -340,7 +340,11 @@ describe("P5-S04 Synthèses UI", () => {
     render(<ProjectWorkspacePage projectId="prj:p5-s04" />);
 
     await waitFor(() => {
-      expect(screen.getByTestId("conversation-synthesis-teaser")).toBeTruthy();
+      expect(screen.getByTestId("conversation-synthesis-card")).toBeTruthy();
+      expect(screen.getByTestId("conversation-synthesis-card")).toHaveAttribute(
+        "data-ui05-object",
+        "synthesis",
+      );
     });
     fireEvent.click(screen.getByTestId("conversation-open-synthesis"));
 
