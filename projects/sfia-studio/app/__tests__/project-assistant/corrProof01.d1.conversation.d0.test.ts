@@ -654,7 +654,10 @@ describe("CORR-PROOF-01 D1 shared-session hybrid", () => {
     expect(r.ok).toBe(true);
     if (!r.ok) return;
     expect(r.f2?.proposal).toBeTruthy();
-    expect(r.text).toMatch(/Qualification SFIA|proposition/i);
+    // P6-HQA-COG-01 — persisted body is pilot-facing (propose/proposition), not admin F2 lead.
+    expect(r.text).toMatch(/propos(e|ition)|cycle/i);
+    expect(r.text).not.toMatch(/Qualification SFIA et proposition structurée générées/i);
+    expect(r.text).not.toMatch(/CONTINUE\s*[—–-]\s*cognition propose-only/i);
 
     const after = await readSessionPairs(projectId, sessionDbPath);
     expect(after.users - before.users).toBe(1);
@@ -667,7 +670,8 @@ describe("CORR-PROOF-01 D1 shared-session hybrid", () => {
     expect(cont.ok).toBe(true);
     if (!cont.ok) return;
     expect(provider.lastAnalysisBlob).toMatch(/Contexte conversationnel canonique/);
-    expect(provider.lastAnalysisBlob).toContain("Qualification SFIA");
+    // Canonical context carries the persisted pilot-facing narrative (same as r.text).
+    expect(provider.lastAnalysisBlob).toMatch(/propos(e|ition)|Profil recommand/i);
   });
 
   it("T11 — F2 authority/execution-blocked surface: exactly one canonical pair", async () => {
