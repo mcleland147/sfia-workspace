@@ -1,13 +1,11 @@
-# ChatGPT Review Pack — P6 FIRST INTEGRATED HUMAN QA
+# ChatGPT Review Pack — P6 FIRST REAL HUMAN QA EXECUTION
 
 **Level:** FULL
-**Cycle type:** 9 — QA / validation — Human REAL QA (first journey)
+**Cycle type:** 9 — QA / validation — Phase 5 Human REAL QA
 **Profile:** CRITICAL
-**Timestamp (UTC):** 2026-10-09T14:31:13Z
-**GO Morris reprise:** REPRISE HUMAN QA P6 — AUTHORIZED
-**GO P6 HUMAN QA REAL — BOUNDED:** **NOT CONSUMED** (consolidated gate A–G pending Morris answers)
-**Cursor REAL config decision:** ON — **preserved** (not changed; not treated as automatic blocker)
-**Verdict:** HUMAN QA NOT EXECUTED — MORRIS REAL GATE PENDING
+**Timestamp (UTC):** 2026-10-09T14:41:24Z
+**GO:** D-P6-HQA-REAL-01 — EXPLICITLY AUTHORIZED / **CONSUMED FOR SCOPE** (A–G accepted; not re-asked)
+**Verdict:** STOP — OPERATIONAL PRECONDITION FAILED
 
 ---
 
@@ -19,124 +17,93 @@
 | Branch | `qa/sfia-studio-p6-global-integrated-product-qa` |
 | HEAD | `db45e9c4c17cbe35dff543eee0f366af81026c55` |
 | origin/main | `8581abbf98fc38a78ee05c306c33fc5aa3632d3f` |
-| Tree HEAD | `ffc00d752e52eb2f9eec13ccf466258103506dbf` |
-| Tree main | `ffc00d752e52eb2f9eec13ccf466258103506dbf` |
-| Trees equal | **YES** |
-| Prior precheck handoff | `c793af0825b6d421af2797277fe507dc0d2d64cd` |
-| Paid provider calls this cycle | **NONE** |
-| Project create / START / HD by Cursor | **NONE** |
+| Trees HEAD↔main | IDENTICAL (reconfirmed) |
+| Prior handoff | `a4028173f7bdc9fd1d1ebd82d38457d123318860` |
+| Paid Nora calls | **NONE** |
+| Project Create | **NONE** |
 | Product source mutations | **NONE** |
+| Cursor REAL env | **ON** — not modified |
 
 ---
 
-## 1. Sources consulted
+## 1. D-P6-HQA-REAL-01 — scope consumed (not reopened)
 
-Cycle template / routing / OM v2.6 · Build Doctrine · Roadmap (R/O) · C1 · Product Simplification 01–04, 07 · local Cycle-14 candidate of `p6-qa-integration-state-and-reserves.md` (**preserved, not modified**) · Doctrine framing pointers · prior handoff @ c793af08 · live process/env/HTTP preflight.
-
----
-
-## 2. Convergence Pre-check
-
-- PR #572 on main; CI 37931365413 SUCCESS; candidates integrated.
-- Human QA first REAL journey **not started** pending consolidated REAL gate.
-- Cursor REAL capability **ACTIVE** per Morris config decision; effects remain governed.
-- P6 NOT PASS · Runtime v3 NON ADOPTED.
-- Next: Morris answers gate A–G → if GO REAL borné → first journey under Pilot control.
+A Budget ≤€10 operational, no hard cap — ACCEPTED BY MORRIS
+B Cost ledger + STOP rules — ACCEPTED
+C Campaign DB + new project only; HQ-01 forbidden — ACCEPTED
+D Current instance attestation limit; no restart — ACCEPTED
+E Nora REAL for first journey — ACCEPTED
+F Cursor REAL ON permanent; ON ≠ auto external effect — ACCEPTED
+G Scenario P6-HQA-NEWPROJECT-01 + COG01 continuity — ACCEPTED
 
 ---
 
-## 3. Minimal preflight (gaps only)
+## 2. Minimal preflight (executed)
 
-### G1 Runtime
+| Check | Result |
+|-------|--------|
+| Studio :3020 | next-server PID 41720 up |
+| Fake forced | NO (`OPS1_CONVERSATION_PROVIDER` absent) |
+| OPENAI_API_KEY | SET |
+| OPENAI_MODEL | gpt-5.6-luna (router may override per turn) |
+| Cursor REAL | ON (preserved) |
+| Cost observability capability | Present in onboarding `usageObservation` (tokens/model/ids); EUR estimate requires tariff + manual ledger — no call yet |
+| Browser | Cursor IDE browser opened to login with `from=/studio/projects/new` |
+
+---
+
+## 3. Session Pilote — BLOCKER
+
 | Item | Result |
 |------|--------|
-| Process :3020 | YES — next-server v15.5.20 PID **41720** (uptime ~8h39 from 07:51) |
-| CWD | `projects/sfia-studio/app` |
-| Source tree vs main | **IDENTICAL** |
-| Served revision attestation | **LIMIT** — long-lived `next dev`; no rebuild/version endpoint proof |
-| Auto restart | **NOT DONE** (not authorized) |
+| Expected | Morris authenticates via GitHub allowlist |
+| Observed | Page remained `http://localhost:3020/login?from=%2Fstudio%2Fprojects%2Fnew` after invite + ~90s wait |
+| Unauth probe | Still NO_SESSION pattern |
+| Journey steps 1–9 | **NOT EXECUTED** |
 
-### G2 Auth / session
-| Item | Result |
-|------|--------|
-| Unauth `/studio` | 307 → `/login?error=NO_SESSION` |
-| AUTH SESSION PROVEN | **NO** — Morris must login in browser |
-| Credentials in pack | NONE |
+**Stop reason:** authenticated Pilote session not demonstrated → cannot start paid Nora REAL or Create under Pilot authority.
 
-### G3 Provider (no paid call)
-| Item | Result |
-|------|--------|
-| `OPS1_CONVERSATION_PROVIDER` | ABSENT → Fake **not** forced |
-| `OPENAI_API_KEY` | SET |
-| `OPENAI_MODEL` | `gpt-5.6-luna` (routing may select differently on F2 path) |
-| Live completion | **NOT EXECUTED** |
-
-### G6 Cursor REAL
-| Item | Result |
-|------|--------|
-| `SFIA_STUDIO_CURSOR_REAL` | **ON** (Morris decision: keep ON) |
-| Env changed this cycle | **NO** |
-| Implicit external Cursor effect | Not authorized; scenario does not require Cursor executor for New Project welcome |
-| Treated as Human QA blocker | **NO** (per this GO) |
-
-### Product DB (read-only)
-| Item | Result |
-|------|--------|
-| Campaign Product DB | EXISTS under `.sfia-exec/new-project-campaign-01/product/` (~8.2 MB) |
-| HQ-01 | Not targeted; not mutated |
+**Resolution (no new A–G):** Morris clicks **Continuer avec GitHub** in the open Studio browser tab (or equivalent personal browser session to the same host), reaches `/studio/projects/new`, then resume Human QA execution cycle without reopening gate A–G.
 
 ---
 
-## 4. Consolidated Morris REAL gate — AWAITING ANSWERS
+## 4. Cost ledger
 
-Per Block 2: **REPRISE HUMAN QA AUTHORIZED ≠ GO REAL for paid Nora calls.**
+| Call # | Model | Effort | Tokens | Est. EUR | Cumulative | Remaining |
+|--------|-------|--------|--------|----------|------------|-----------|
+| — | — | — | — | — | **€0.00** | ≤ €10 |
 
-Please confirm **explicitly** (one response covering A–G):
-
-| ID | Ask | Proposed default for this first journey |
-|----|-----|----------------------------------------|
-| **A. Budget** | Accept envelope ≤ **€10** for Nora REAL of this first journey, knowing **no technical hard cap** (`hardCapEnforced=false`)? | YES / NO + any lower cap |
-| **B. Operational control** | Accept: cumulative cost ledger (est./actual), no parallel tabs/retries storms, **STOP** if cost not observable / overrun likely / envelope reached? | YES / NO |
-| **C. Data** | Use existing campaign Product DB; create **only a NEW** project via UI; **no HQ-01** mutation? | YES / NO |
-| **D. Revision** | Accept Studio instance on tree-identical sources with **attestation limit** (long-lived next dev; no forced restart)? | YES / NO / require restart under separate GO |
-| **E. REAL scope** | Authorize Nora REAL **only** for first journey: New Project → Create → Workspace → LPS continuity → first orientation (+ COG01/UI observe; F01 only if stable)? | YES / NO |
-| **F. Safety** | No implicit Cursor external execution; Cursor REAL ON does not auto-authorize effects? | YES / NO |
-| **G. Scenario** | Confirm scenario P6-HQA-NEWPROJECT-01 + COG01 continuity as specified in the execution brief? | YES / NO + edits |
-
-**Until a clear YES covering A–G (or an explicit alternate GO text):**
-`STOP BEFORE REAL CALL`
-`GO P6 HUMAN QA REAL — BOUNDED` = **NOT CONSUMED**.
+No REAL provider call performed.
 
 ---
 
-## 5. Scenario prepared (NOT EXECUTED)
+## 5. Scenario status
 
-Steps 1–9 as in Morris brief (New Project → exploratory → refuse → reverse → Create → LPS continuity → workspace chat → UI03–05 observe → F01 only if conditions met).
-Morris drives browser; Cursor observes/collects after GO REAL.
+| Step | Status |
+|------|--------|
+| 1 New Project open | NOT EXECUTED (blocked on auth) |
+| 2 Exploratory intention | NOT EXECUTED |
+| 3 Hesitation/refuse | NOT EXECUTED |
+| 4 Reverse | NOT EXECUTED |
+| 5 Explicit Create | NOT EXECUTED |
+| 6 LPS continuity | NOT EXECUTED |
+| 7 Workspace COG01 | NOT EXECUTED |
+| 8 UI03–UI05 | NOT EXECUTED |
+| 9 F01 | NOT EXECUTED |
 
 ---
 
-## 6. Budget / stop protocol (proposed; not yet accepted)
-
-- Envelope ≤ €10 documentary; no hard cap assumed.
-- Before each paid turn: check cumulative estimate + remaining.
-- STOP on missing observability, likely overrun, concurrent uncontrolled calls, authority anomaly, unexpected Product effect, HQ-01 risk.
-- No automatic paid retries.
-
----
-
-## 7. Fake / Real Qualification
+## 6. Fake / Real
 
 | Item | State |
 |------|--------|
-| Entry | DETERMINISTIC INTEGRATED + post-merge CI SUCCESS |
-| This cycle | PREFLIGHT + GATE PRESENTATION ONLY |
-| REAL-BOUNDARY / Human QA | **NOT EXECUTED** |
-| P6 PASS / v3 ADOPTED / naturalness PASS / €10 HARD CAP | NOT CLAIMED |
+| GO REAL scope | Consumed for journey authorization |
+| REAL-BOUNDARY crossed | **NO** (no paid call, no Product create) |
+| P6 PASS / v3 ADOPTED / naturalness / hard cap | NOT CLAIMED |
 
 ---
 
-## 8. Worktree preservation
+## 7. Worktree
 
 ```
  M .tmp-sfia-review/chatgpt-review.md
@@ -146,14 +113,16 @@ Morris drives browser; Cursor observes/collects after GO REAL.
 
 ```
 
-C14 doc sync candidate preserved. No project commit/push/PR/merge. No Cursor REAL env flip.
+C14 doc candidate preserved. No project Git mutation.
 
 ---
 
-## 9. Verdict
+## 8. Verdict
 
-**HUMAN QA NOT EXECUTED — MORRIS REAL GATE PENDING**
+**STOP — OPERATIONAL PRECONDITION FAILED**
 
-Next: Morris replies to gate A–G → Cursor resumes journey under Pilot control with evidence capture → new Review Pack / handoff.
+Failed precondition: **Pilote authenticated session**.
+D-P6-HQA-REAL-01 remains the governing GO for the immediate resumption once session is proven.
+Next capacity: resume first Human QA REAL journey from Interaction 1 after login — no A–G re-gate.
 
 END OF REVIEW PACK
