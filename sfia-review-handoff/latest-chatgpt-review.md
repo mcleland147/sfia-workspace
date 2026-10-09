@@ -1,333 +1,265 @@
-# ChatGPT Review Pack — P6 HUMAN QA CONSOLIDATED ROOT CAUSE DIAGNOSTIC
+# ChatGPT Review Pack — P6-HQA-COG-01 Conversational Quality Correction
 
-- timestamp: 2026-10-08T20:20:00Z
+- timestamp: 2026-10-09T00:30:00Z
 - campaignId: P6-GLOBAL-INTEGRATED-PRODUCT-QA-01
-- typology: QA / AUDIT / PRODUCT EXPERIENCE / ROOT CAUSE ANALYSIS
+- finding: P6-HQA-COG-01
+- cycle: 8 — Delivery / implémentation
+- typology: EVOL / correction Product bornée
 - profile: CRITICAL
 - branch: qa/sfia-studio-p6-global-integrated-product-qa
 - origin/main: aba6c4a617b6d0cb27f23b59de5bf0ac9360fab1
-- local HEAD (FINAL): 8a196be1a35ffa2d43e52beddc66b51eab56c99c
-- previous handoff tip: 3f0171b7d9f02bf8664c989df685757bfae686b6
+- local HEAD (INITIAL=FINAL): 8a196be1a35ffa2d43e52beddc66b51eab56c99c
+- previous handoff tip: fa5048341524e9aaefcd0b23dd11a1b7a0f5435c
+- project commit: NONE
 - project push: NONE
 - PR: NONE
 - merge: NONE
-- Product files modified this pass: NONE
 - P6 PASS: NOT CLAIMED
-- HQ-01: BLOCKED / awaiting correction GO
 - runtime v3: NON ADOPTED
-- Morris GO consumed: DIAGNOSTIC ONLY (no Product correction)
+- Morris GO consumed: COG01 conversational correction (targeted)
+- F01: BLOCKED (unchanged — out of scope)
+- UI05: OPEN (unchanged — out of scope)
+- UI-01…UI-04: local CLOSED preserved (uncommitted)
+- COG01 status: CORRECTION CANDIDATE — READY FOR HUMAN QA (NOT CLOSED)
 
-## Local Git Truth
+## Local Git Truth (INITIAL)
 
 ```
-qa/sfia-studio-p6-global-integrated-product-qa
-8a196be1a35ffa2d43e52beddc66b51eab56c99c
-aba6c4a617b6d0cb27f23b59de5bf0ac9360fab1
+BRANCH=qa/sfia-studio-p6-global-integrated-product-qa
+HEAD=8a196be1a35ffa2d43e52beddc66b51eab56c99c
+ORIGIN_MAIN=aba6c4a617b6d0cb27f23b59de5bf0ac9360fab1
 ```
 
-Working tree preserves local Human-QA micro-fixes UI-01…UI-04 (uncommitted). Not overwritten. No reset/clean.
+Working tree already contained UI-01…UI-04 local fixes + prior review pack.
+No reset / clean / destructive stash. UI-01…UI-04 preserved.
 
 ## Sources consulted
 
-- Convergence Build Doctrine + Roadmap (paths under `projects/sfia-studio/convergence/`)
-- Product Completion C1; Product Simplification P1–P7 (esp. P3 § interaction, P4 cognitive, P6 DOC07)
-- v3 framing 30/32/33/37 (authority / LPS / epistemology)
-- Cycle routing guide + QA validation CKC pilot (candidate only)
-- Code: `f2/orchestrateF2.ts`, `createCycle.ts`, `startPreparedTrajectoryCycle.ts`, `lifecycleProjection.ts`, `workspaceContextPresentation.ts`, `ConversationSurface.tsx`, `presentationLabels.ts`, `TrajectorySurface.tsx`, MW5/cognitive routing
-- Tests skimmed: `candidateTrajectoryCycleStart.d0`, `candidateTrajectoryHumanDecision.d0`, `candidateTrajectoryBridge.d0`
-- Figma MCP: fileKey `m4g8j0gNbEzfIuH6S9AZJF` nodes `46:2` (DP01 v3 EXPLORATORY), `46:98` (Object / Recommendation 748×82), `46:107` (Object / ExecutionContract — distinct)
-- READ-ONLY SQLite: product DB + Nora session for `prj:6b1151f7-7369-434a-a967-bbfe88c76f53`
+- Convergence Build Doctrine + Roadmap (`projects/sfia-studio/convergence/`)
+- Product Completion C1; Product Simplification P2 (P2-D-01…04), P4 DOC04, P6 DOC07
+- v3 framing 30 / 32 / 33 / 37 (authority / LPS / epistemology)
+- Review handoff fa504834 COG01 root-cause section
+- HQ-01 local evidence index under `.tmp-sfia-review/p6-global-integrated-qa/human-qa/P6-HQ-01/`
+- Code: `f2/orchestrateF2.ts`, `f2/studioCognitiveContext.ts`, `f2/ckcCognitiveContext.ts`,
+  `criticalChallengeClarification.ts` (`formatMw5PiloteText` / `formatMw5MachineText`),
+  `presentationLabels.ts` (UI-04 scrub = presentation-only),
+  `canonicalConversationSession.ts` persist path
+- Cycle template / routing / operating model / guardrails v2.6 (resolved in-repo)
 
-## Fake / Real
+## Fake / Real Qualification
 
 | Claim | Class |
 |-------|--------|
-| Product object counts / LPS / cycles / HD=0 | REAL (READ-ONLY DB) |
-| Transcript acceptance language | REAL (session DB) |
-| Code path break points | REAL (source) |
-| Figma compact card contract | REAL (MCP metadata + screenshot) |
-| Improved Nora wording samples | DESIGN PROPOSAL only |
-| Provider raw vs model output | NOT OBSERVED (no new provider calls) |
-| Browser screenshot as authority proof | NOT CLAIMED |
+| F2 textParts + MW5 disclosure as primary mechanical cause | DETERMINISTIC / CODE (CONFIRMED) |
+| Composer produces contextual, non-admin narrative | DETERMINISTIC PROVEN (unit + corrProof01 persistence) |
+| UI-01…04 non-regression | DETERMINISTIC PROVEN (UI-03/UI-04 tests PASS) |
+| Naturalness / Human QA closure | NOT PROVEN — Human QA required |
+| Provider raw improvement / model routing cause | NOT CLAIMED (no new REAL provider calls) |
+| F01 unblocked / HQ-01 playable to PASS | NOT CLAIMED |
+| P6 PASS / runtime v3 ADOPTED | NOT CLAIMED |
 
 ---
 
-# A. Confirmed facts (OBSERVED)
+# A. Pre-modification analysis (AVANT)
 
-### Project
+## Seams
 
-- ID: `prj:6b1151f7-7369-434a-a967-bbfe88c76f53`
-- Title: P6-HQ-01 Deliverable Exit Proof 2026-10-08 15:05
-- LPS current: version **2**, `status=active`, **`activeCycleInstanceId = null`**
-- HumanDecision count: **0**
-- Confirmation rows: **0** (table empty for project)
-- CycleInstance count: **5**, all `cyc:delivery`, all status **`acknowledged`**, profiles Light/Standard
-- Trajectory binding on all 5 cycles: **`trajectoryId` / `trajectoryVersion` / `trajectoryStepId` = null** → unbound / legacy relative to `startPreparedTrajectoryCycle` guards
-- ProjectTrajectory current: `trj:prj:…` v1 status `active`, steps Clarify/Decide marked done (generic strip — not five Delivery steps)
-- Context LPS text still states campaign prep: “NO HumanDecision invented”
+1. **Deterministic F2 proposal assembly** in `orchestrateF2.ts` (`NEW_CYCLE_FORMALIZATION` and `ACTIVE_CYCLE_GOVERNED_CONTINUATION`) built `textParts` as stacked administrative strings.
+2. **MW5** `surface.disclosure` (`CONTINUE — cognition propose-only…`) was injected into the chat body for CONTINUE; DTO already carries disclosure for audit.
+3. **CKC cognitive** output (`reasonWithResolvedCkcContext` → `ckcCognitiveRecommendation`) existed but was buried under admin leads/footers.
+4. **F1 / Runner path** already produces contextual Nora prose when `formalizationReady=false` — preserved; not replaced.
+5. **UI-04** `formatNoraAssistantDisplayText` scrubbed jargon at presentation only — transcript/context still contaminated.
 
-### Transcript (session DB) — acceptance attempts
+## Confirmed causes (COG01)
 
-Morris (user) explicitly:
+- Primary: deterministic F2 `textParts` + MW5 CONTINUE disclosure injection.
+- Secondary: stacked governance footers (Recommendation ≠ / F2 s'arrête / Nora n'émet…).
+- Model/routing: secondary for these F2 turns; no new provider evidence this cycle.
 
-1. Retained Delivery as next cycle and asked to **start** it; asked which decisions/confirmations are needed.
-2. Later: “je décide de retenir… démarrage effectif… présente-moi l'action structurée…”
-3. Later: “Je confirme explicitement le démarrage… Je ne souhaite pas créer un nouveau cycle proposé, mais **activer** le cycle Delivery déjà identifié.”
+## Gap: context available vs used
 
-Nora (assistant) after each acceptance:
+Available at assembly: user content, history, analysis objective/rephrasedRequest, qualification, LPS unchanged, activeCycleInstanceId, MW5 disposition, optional CKC cognitive recommendation.
+Used before: almost none of intent/history/Product activation truth — fixed admin stack.
 
-- Ran **F2 new-cycle formalization** again (`Qualification SFIA et proposition structurée générées… Cycle proposé… L'état vivant du projet est inchangé… F2 s'arrête ici… CONTINUE — cognition propose-only…`).
-- Claimed (on last turn) that explicit confirmation **constitutes the launch decision**, while Product still has **no HD** and **no active cycle**.
-- Minted **additional** `acknowledged` CycleInstances instead of activating an existing one.
+## Minimal correction (GO-compatible)
 
-### UI-04 card behaviour (local, uncommitted)
-
-- When F2 cards show: Recommendation/Proposal simplified vs pre-UI-04, but still **permanently expanded** multi-field cards (not Figma 748×82 compact object).
-- READY_NO_GATE → “Aucune décision structurée… poursuivre avec Nora” — honest for F2 gate, but **no activation affordance**.
+- Compose one pilot-facing narrative at F2 source.
+- Persist that same text (`completeF2Turn` / `persistCanonicalF2AssistantTurn`).
+- Keep MW5 CONTINUE on DTO only.
+- Acknowledge reconfirm/start intent honestly without claiming activation (F01 remains BLOCKED).
+- No second LLM call; no new runner/router/store; no F01/UI05 changes.
 
 ---
 
-# B. F01 — Cycle activation root cause
+# B. Implementation (APRÈS)
 
-## Object counts (OBSERVED)
+## Files modified / created (COG01)
 
-| Object | Count / value |
-|--------|----------------|
-| CycleInstance | 5 (all `acknowledged`, Delivery) |
-| Active Cycle (status=`active`) | **0** |
-| LPS.activeCycleInstanceId | **null** |
-| HumanDecision | **0** |
-| Trajectory-bound prepared cycles | **0** (all unbound) |
-| F2 process-local Proposal | NOT OBSERVED after restart (process-local); session shows repeated F2 formalizations |
+| Path | Action |
+|------|--------|
+| `projects/sfia-studio/app/features/project-assistant/f2/composeF2PilotFacingNarrative.ts` | **CREATED** — pure narrative composer + invariants |
+| `projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts` | **MODIFIED** — both proposal `textParts` sites → composer |
+| `projects/sfia-studio/app/__tests__/project-assistant/p6.hqa.cog01.f2PilotFacingNarrative.d0.test.ts` | **CREATED** — invariants A–J |
+| `projects/sfia-studio/app/__tests__/project-assistant/corrProof01.d1.conversation.d0.test.ts` | **MODIFIED** — T10 expects pilot-facing persisted body |
 
-## Answers A–N (compressed)
+UI-01…UI-04 files **untouched** this cycle.
 
-| Q | Answer | Class |
-|---|--------|--------|
-| A. Product received agreement? | Agreement exists as **transcript text only** | OBSERVED |
-| B. Only conversation? | Yes — no HD / Confirmation / start mutation | OBSERVED |
-| C. Decision candidate? | No durable DecisionRef / HD subject for start | OBSERVED / INFERRED from HD=0 |
-| D. Structured HD required? | For Standard F2 `READY_NO_GATE`, F2 path **does not** open Morris gate; separate **pilotLifecycle.start** / trajectory-bound start is the activation mechanism | TARGET + CODE |
-| E. Why not presented? | Nominal ConversationSurface: no start CTA; `gateOpen` false; UI-04 conversational next-step | OBSERVED |
-| F. Activation mechanism? | `startPreparedTrajectoryCycle` → `pilotLifecycle.start` (+ authority), requires prepared **trajectory-bound** proposed/acknowledged cycle, LPS without active | CODE |
-| G. Disconnected from Conversation? | **Yes** — start wired on TrajectorySurface; Conversation acceptance re-enters F2 createCycle | OBSERVED |
-| H. Cycle defined not active? | Yes — 5 acknowledged candidates; none active | OBSERVED |
-| I. Rec/Proposal recreated? | Yes — each acceptance/requalify mints new CycleInstance via F2 `createCycle` with `linkAsActiveCycle: false` | OBSERVED (`orchestrateF2.ts` ~2063–2079) |
-| J. C1…C5? | **Five distinct CycleInstances** projected as candidate strip nodes (“Proposé”), labeled C1… via ordinal window — **not** five ProjectTrajectory steps | OBSERVED (`workspaceContextPresentation.ts` 135–164) |
-| K. Staleness rejecting? | Not the primary block; binding + missing start call dominate. Ambiguity (`selectionAmbiguous` with >1 candidate) also forces `canStart=false` | CODE + STATE |
-| L. F2 only qualify? | F2 creates candidacy (`acknowledged` for Standard) and stops (`READY_NO_GATE`); does not activate | CODE |
-| M. Capability gap vs P2/P4? | Capability to start **exists** in OA + Trajectory UI; **chat-first promotion path incomplete** for Delivery accept | COMBINED |
-| N. Verbal promise mismatch? | **Yes** — Nora text claims confirmation = launch while Product unchanged | OBSERVED |
+## Full new module
 
-## Root cause
+See repository file:
+`projects/sfia-studio/app/features/project-assistant/f2/composeF2PilotFacingNarrative.ts`
+(complete file — 242 lines — pure functions; no I/O; no provider).
 
-**F01 ROOT CAUSE = COMBINED**  
-**Confidence = CONFIRMED**
+## orchestrateF2 wiring (new-cycle site)
 
-1. **PRODUCT TRANSITION GAP** — Chat acceptance never invokes `pilotLifecycle.start` / `startPreparedTrajectoryCycle`. F2 invents more unbound `acknowledged` cycles (`linkAsActiveCycle: false`). Those cycles **cannot** pass trajectory-bound start guards (`LEGACY_UNBOUND`).
-2. **UI CONNECTION GAP** — Conversation has no structured “Démarrer le cycle” on nominal path after READY_NO_GATE; TrajectorySurface start is out-of-band for chat-first Pilote flow.
-3. **AUTHORITY / NARRATIVE GAP** — Verbal confirmation ≠ HumanDecision; Nora over-claims activation while Product remains inert (cognitive honesty failure compounding F01).
-4. **STATE/PROJECTION** — Five candidates → rail “Aucun cycle actif” + C1…C5 all “Proposé” is **accurate projection** of broken transition, not a display bug alone.
-
-Severity: **CRITICAL** (HQ-01 functionally blocked).
-
----
-
-# C. C1…C5 classification
-
-**OBSERVED:** Five `oa_cycle_instances` rows → lifecycle `candidateCycles` → context strip nodes with ordinals → labels C1…C5 / “Proposé”.
-
-**NOT** five ProjectTrajectory Delivery steps (trajectory payload only has Clarify/Decide steps).
-
----
-
-# D. Recommendation / HD / Confirmation path
-
-| Stage | HQ-01 reality |
-|-------|----------------|
-| Recommendation | Produced repeatedly (F2 + narrative) |
-| Proposal | Process-local F2; READY_NO_GATE / morrisGateRequired=false for Standard |
-| HumanDecision | **Never written** |
-| Confirmation (execution) | N/A — no ExecutionContract start path engaged |
-| Cycle start | **Never called**; LPS active null |
-
-TARGET: Recommendation ≠ HD ≠ Confirmation ≠ start. Chat-first must still offer an **honest governed next action** that maps to an existing start/prepare capability without inventing HD when READY_NO_GATE, **or** escalate to a real DecisionRef when the contract requires it.
-
----
-
-# E. UI05 — Figma / runtime delta
-
-### Figma (EXPLORATORY DP01 v3)
-
-- `46:98` Object / Recommendation: **748×82**, type label, title, one meta line, status right, **“Ouvrir →”**, details **not** expanded.
-- `46:107` Object / ExecutionContract: **sibling compact object** — must not be merged with Proposal domain-wise.
-
-### Runtime
-
-- Cards are full-width expanded `dl` stacks (even after UI-04 simplification).
-- Duplicate “Pourquoi” across Recommendation + Proposal.
-- No compact collapsed default + details-on-demand matching 46:98.
-- Proposal ≠ ExecutionContract — keep distinct if both shown.
-
-### Reuse
-
-KEEP: Geist tokens, card chrome, `details` disclosure primitive, UI-04 projections.  
-ADAPT: ConversationSurface card layout → compact summary + open details.  
-HARVEST: Figma 46:98 hierarchy as visual direction (not pixel canon).  
-NOT APPLICABLE: Merging Proposal into ExecutionContract object.
-
-### Minimum correction (no implement)
-
-Collapsed nominal: type · title · one meta · status · Ouvrir.  
-Expanded: why / out-of-scope / next action.  
-Status mapping: “En attente de décision” only when DECISION_REQUIRED; READY_NO_GATE → “À démarrer” / “Candidat” + honest action.
-
----
-
-# F. COG01 — Nora naturalness
-
-### Raw provider output
-
-**NOT OBSERVED** this pass (no new provider calls).
-
-### Display vs persisted
-
-- Persisted transcript retains raw F2 templates (`[Mode réel] Qualification SFIA…`, footers).
-- UI-04 `formatNoraAssistantDisplayText` scrub is **presentation-only**; history/context still contaminated.
-
-### Main root cause (CONFIRMED for F2 turns)
-
-**Deterministic F2 `textParts` composition + MW5 `surface.disclosure` injection**, not model prose.
-
-Primary evidence: `orchestrateF2.ts` new-cycle `textParts` (~2223–2247), `createCycle` with no activation, MW5 CONTINUE disclosure.
-
-Model/effort (Luna/Sol/Astra) is secondary for these turns.
-
-### Evaluation gap
-
-P6 Layer-2 cognitive rubrics: clarity/governance **SUFFICIENT**; naturalness / brevity / non-repetition / voice continuity = **GAP** (PARTIAL for burden via Human QA only).
-
-### Sample design proposals (not production changes)
-
-See COG01 table in diagnostic body: short Delivery propose; omit engine CONTINUE from narrative; one governance clause not three; never claim activation without Product mutation.
-
----
-
-# G. Shared dependencies / coherent map
-
-```
-Pilot intention (start Delivery)
-  → Nora/F2 interprets as NEW_CYCLE_FORMALIZATION
-  → createCycle (acknowledged, unbound, linkAsActive=false)
-  → READY_NO_GATE Proposal + verbose textParts
-  → Conversation cards (expanded) say “no structured decision”
-  → Pilot re-confirms in chat
-  → loop (more candidates; C1…Cn Proposé; LPS active null)
-  → startPreparedTrajectoryCycle never called / would fail unbound
+```ts
+const narrative = composeF2PilotFacingNarrative({
+  kind: "new_cycle_proposal",
+  presentation,
+  userContent: content,
+  history: input.history,
+  intentClass: analysis.intentClass,
+  objective: analysis.objective,
+  rephrasedRequest: analysis.rephrasedRequest,
+  cycleLabel: qualification.cycleLabel,
+  recommendedProfile: qualification.recommendedProfile,
+  recommendationLabel: qualification.recommendationLabel,
+  ckcCognitiveRecommendation: qualification.ckcCognitiveRecommendation,
+  projectName: project.name,
+  projectObjective: project.objective,
+  activeCycleInstanceId: project.activeCycleInstanceId,
+  lpsUnchanged: project.lpsVersion === preLpsVersion,
+  morrisGateRequired,
+  executionBlocked,
+  mw5Disposition: mw5.surface.disposition,
+  mw5EscalatePiloteText:
+    mw5.surface.disposition === "ESCALATE" ? mw5.text : null,
+});
+// text: narrative  — mw5.surface still attached on DTO
 ```
 
-One underlying failure: **missing chat-first transition from accepted Recommendation to Cycle start**, amplified by template verbosity (COG01) and expanded cards (UI05).
+Active-cycle deliverable proposal site uses `kind: "active_cycle_deliverable_proposal"` with the same pattern.
+
+## BEFORE (historical template — TEST / OBSERVED pattern)
+
+```
+[Mode réel] Qualification SFIA et proposition structurée générées. Cycle proposé: Delivery.
+Un nouveau cycle est proposé et attend votre validation. Profil recommandé: Standard.
+L'état vivant du projet est inchangé (pas d'activation avant démarrage).
+RECOMMANDATION — PAS UNE DÉCISION HUMAINE. Recommandation ≠ décision Pilote — …
+Pas de gate de construction supplémentaire — aucune exécution — F2 s'arrête ici.
+Aucune exécution. CONTINUE — cognition propose-only, pas d'escalade d'autorité.
+Nora n'émet pas de décision Pilote, GO, confirmation ou acte d'autorité.
+```
+
+## AFTER — propose (DETERMINISTIC TEST sample)
+
+```
+Je propose le cycle « Delivery » pour avancer sur : Formaliser un cycle Delivery pour la note.
+Un cycle candidat est prêt ; il attend votre validation avant tout démarrage.
+Profil recommandé : Standard.
+L'état vivant du projet est inchangé tant qu'aucun démarrage n'est enregistré.
+Ceci reste une recommandation — pas une décision Pilote, ni une activation, ni une exécution.
+Rien n'a encore été exécuté.
+```
+
+## AFTER — repeated confirm with prior proposal history (DETERMINISTIC TEST sample)
+
+```
+Je reconnais votre accord pour démarrer « Delivery ».
+Ce tour ne l'active pas : aucune activation de cycle n'est enregistrée sur le projet.
+La proposition reste disponible pour la suite — ce n'est pas un nouveau démarrage accompli.
+Profil recommandé : Standard.
+L'état vivant du projet est inchangé tant qu'aucun démarrage n'est enregistré.
+Ceci reste une recommandation — pas une décision Pilote, ni une activation, ni une exécution.
+Rien n'a encore été exécuté.
+```
+
+Note: Product still does not activate (F01 BLOCKED). Narrative no longer claims launch success.
 
 ---
 
-# H. Option A — Minimum viable correction (recommended)
+# C. Validations
 
-**Single coherent lot** after Morris GO:
+| Control | Result |
+|---------|--------|
+| COG01 D0 narrative unit (`p6.hqa.cog01.f2PilotFacingNarrative.d0.test.ts`) | PASS — 11 tests |
+| corrProof01 D1 conversation | PASS — 17 tests (T10 updated) |
+| UI-03 Nora activity thread | PASS — 6 tests |
+| UI-04 pilot-facing simplification | PASS — 9 tests |
+| qualToGovernedCycle.presentation.d0 | PASS — 21 tests |
+| `git diff --check` (COG01 files) | PASS |
+| typecheck | PASS for COG01 files; pre-existing errors in untracked `p6-campaign/*.real.test.ts` (DO_NOT_COMMIT) — NOT introduced by COG01 |
+| eslint on COG01 files | pre-existing prefer-const / unused import warnings in `orchestrateF2.ts` (not introduced); composer clean |
+| next build | NOT RUN — Studio next-dev historically on :3020; avoid webpack clash |
+| REAL provider calls | NONE (authorized) |
+| HQ-01 Product mutation | NONE |
 
-1. **F01 (unblock HQ-01)**  
-   - Stop treating Pilot “start/confirm Delivery” as another unbound F2 create when a Delivery candidate already exists.  
-   - Surface an honest Conversation next action that invokes existing **start** (or prepare→start) capability, **or** fail closed with explicit blocker (binding/ambiguity) instead of claiming success.  
-   - Prefer activating/selecting **one** existing candidate; supersede or ignore duplicate F2 mints.  
-   - If trajectory binding is mandatory for start: create/bind once correctly — do not leave LEGACY_UNBOUND pile.  
-   - Never claim “confirmation = activated” without LPS.activeCycleInstanceId set.
+Commands:
 
-2. **UI05**  
-   - Compact Recommendation (and Proposal) presentation aligned to 46:98 direction: collapsed default + Ouvrir/details.  
-   - Keep Recommendation ≠ Proposal ≠ ExecutionContract.
-
-3. **COG01**  
-   - Compose one pilot-facing narrative at F2 source; move engine footers off the chat body (keep on DTO/audit/cards).  
-   - Persist the same text Pilotes see.
-
-Scope sketch (after GO): ConversationSurface + presentationLabels (UI), orchestrateF2 narrative + accept/start wiring (assistant), thin OA start action already exists, tests candidateTrajectoryCycleStart + new conversation start continuity D0.
-
----
-
-# I. Option B — More complete (only if A insufficient)
-
-Full candidate-trajectory HD → prepare → start as in `candidateTrajectory*` tests: DecisionRef materialization, trajectory-bound prepare, then start. Heavier semantics; use if Product contract requires HD for Delivery start even when F2 READY_NO_GATE.
-
----
-
-# J–Q. Decision pack remainder
-
-### Recommended lot
-
-**Option A** as one implementation lot after Morris correction GO. Priority order: F01 unblock → conversation-to-action honesty → compact cards → narrative naturalness.
-
-### Morris structural decisions required
-
-1. For Standard Delivery candidacy: is **chat-confirmed start** allowed without HumanDecision row, provided `pilotLifecycle.start` + authority evidence run? Or must HD always be minted?  
-2. How to dispose **duplicate** acknowledged Delivery instances (keep latest / supersede / manual select)?  
-3. Confirm Figma 46:98 as **directional** compact UX (not pixel canon).
-
-### Tests / proof strategy
-
-- D0: accept/start message does not mint N+1 unbound cycles; either starts or surfaces honest blocker.  
-- D0: LPS.activeCycleInstanceId set after successful start path.  
-- UI: compact card collapsed/expanded; no READY_NO_GATE leak.  
-- Narrative: no CONTINUE propose-only / stacked AUCUNE EXÉCUTION in persisted text.  
-- Regression: UI-01…04; STOP; no invented HD when contract forbids.  
-- HQ-01 resume Human QA on preserved project after GO.
-
-### Risks / carries
-
-- Ambiguous candidates may require supersede policy.  
-- Trajectory binding retrofit for existing unbound cycles.  
-- Do not “SQL activate”.  
-- Cognitive eval rubric extension = recommendation only (P8 out of scope).
-
-### HQ-01 continuity
-
-- Data preserved; no mutation this pass.  
-- Resume after correction GO with same project; expect active Delivery or explicit structured gate — not another F2 create loop.
-
-### Assets classification
-
-| Asset | Class |
-|-------|--------|
-| Cycle / LPS / pilotLifecycle.start | KEEP |
-| startPreparedTrajectoryCycle | KEEP (needs binding) |
-| TrajectorySurface start CTA | KEEP / ADAPT into Conversation |
-| F2 qualify/createCycle | ADAPT (stop unbound spam; narrative) |
-| ConversationSurface / UI-04 projections | ADAPT (compact + start next-action) |
-| presentationLabels scrub | KEEP as secondary; not sole COG fix |
-| candidateTrajectory* tests | KEEP / HARVEST as proof seams |
-| Figma 46:98 | HARVEST visual direction |
-| New engine / harness | NOT APPLICABLE |
-
-### Architecture parallelism
-
-**None recommended.**
+```bash
+cd projects/sfia-studio/app
+npm test -- --run __tests__/project-assistant/p6.hqa.cog01.f2PilotFacingNarrative.d0.test.ts
+npm test -- --run __tests__/project-assistant/corrProof01.d1.conversation.d0.test.ts
+npm test -- --run __tests__/pre-m6-product-ui/p6.hqa.ui03.noraActivityThread.ui.test.tsx \
+  __tests__/pre-m6-product-ui/p6.hqa.ui04.pilotFacingSimplification.ui.test.tsx
+```
 
 ---
 
-## Explicit non-claims
+# D. Human QA preparation (required to close COG01)
 
-- No Product code/data/prompt/routing changes in this pass  
-- No Cycle activation / HumanDecision synthesis  
-- No project commit/push/PR  
-- P6 PASS NOT CLAIMED  
-- runtime v3 NON ADOPTED  
+Deterministic D0 ≠ Human QA CLOSED.
 
-## Ask for ChatGPT
+Replay on Studio (same or fresh project; **do not require HQ-01 unlock** — F01 still blocked):
 
-Validate F01 COMBINED root cause (CONFIRMED), UI05 compact-card delta, COG01 template-primary cause, Option A as single lot, and Morris gates before any implementation.
+1. Ask Nora to propose Delivery for a concrete objective → expect natural propose, no CONTINUE/admin stack in body or history.
+2. Different intention, same project → wording tracks intention.
+3. Repeat explicit “je confirme le démarrage” after a proposal → Nora acknowledges history and states cycle **not** activated.
+4. Exploratory Q&A (informative) → F1 path still conversational (no forced SFIA report).
+5. Push-back / contradiction → no automatic acquiescence; challenge/clarify when MW5 requires.
+6. Execution ask → blocked honestly, no invented HD/activation.
+7. Compare persisted transcript vs on-screen text → same conversational body.
+
+Criteria: naturalité, pertinence, continuité, challenge, concision, adaptation, fiabilité (no false activation).
 
 ---
+
+# E. Reserves / risks
+
+- F01 still causes createCycle-on-reconfirm Product loop — narrative now honest, activation still missing.
+- Heuristic activation-intent regex is FR-oriented; edge phrasings may fall through to generic propose (fail-safe: still no false activation claim).
+- CKC cognitive snippet still appended when present — quality of that snippet remains provider-dependent (no new REAL campaign this cycle).
+- Some secondary F2 clarification strings still use `[Mode réel]` (not the proposal body paths fixed here).
+
+---
+
+# F. Status map
+
+| Item | Status |
+|------|--------|
+| COG01 | CORRECTION CANDIDATE — READY FOR HUMAN QA (NOT CLOSED) |
+| F01 | BLOCKED |
+| UI05 | OPEN |
+| HQ-01 | BLOCKED (needs F01) |
+| UI-01…04 | local CLOSED preserved |
+| P6 PASS | NOT CLAIMED |
+| runtime v3 | NON ADOPTED |
+
+## Morris decisions still required
+
+1. Human QA observation GO / close COG01 after replay.
+2. Distinct GO for F01 (and UI05) remain outstanding for HQ-01 unlock.
+3. Structural F01 questions from prior diagnostic (HD required for Delivery start? duplicate candidate disposition?) unchanged.
 
 ## Verdict
 
-**DIAGNOSTIC COMPLETE — READY FOR CHATGPT REVIEW**
+**COG01 CORRECTION CANDIDATE — READY FOR HUMAN QA**
 
-NEXT: ChatGPT consolidated review → Morris correction GO if required → one coherent implementation lot → HQ-01 resume.
+**READY FOR CHATGPT CRITICAL REVIEW**
+
+Instruction ChatGPT: before answering Morris, re-read this handoff on `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md`.
+
+## Next capability
+
+ChatGPT Critical Review → Human QA COG01 → then F01 correction GO (separate) to unblock HQ-01.
