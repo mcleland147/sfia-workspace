@@ -1,47 +1,42 @@
-# ChatGPT Review Pack — P6-HQA-REC-01 CONTROLLED GIT INTEGRATION
+# ChatGPT Review Pack — P6-HQA-REC-01 CONTROLLED MERGE + POST-MERGE
 
 **Level:** FULL
-**Cycle type:** 13 — PR readiness
-**Typologie v2.4:** INC / EVOL — intégration d'un correctif borné
+**Cycle type:** 14 — Post-merge
+**Typologie v2.4:** INC / EVOL — intégration corrective contrôlée
 **Profile:** CRITICAL
-**Timestamp (UTC):** 2026-10-09T17:28:50Z
-**GO:** GO GIT INTEGRATION — P6-HQA-REC-01 — AUTHORIZED / **CONSUMED**
-**GO merge:** NOT AUTHORIZED
-**GO REAL:** NOT AUTHORIZED
-**Verdict:** DRAFT PR OPEN — CI SUCCESS — READY FOR CHATGPT CRITICAL PR REVIEW
-**Statut:** DRAFT PR CANDIDATE (not READY FOR MERGE)
+**Timestamp (UTC):** 2026-10-09T17:49:10Z
+**GO MERGE PR #573:** AUTHORIZED / **CONSUMED**
+**GO POST-MERGE VERIFICATION:** AUTHORIZED / **CONSUMED**
+**GO REAL / Product correction / branch cleanup:** NOT AUTHORIZED
+**Verdict:** MERGED — POST-MERGE CI SUCCESS — READY FOR CHATGPT POST-MERGE REVIEW
+**Statut:** MERGED (finding REAL retest still OPEN)
 
 ---
 
-## 0. Identity / Git
+## 0. Git Truth Check (campaign worktree)
 
 | Field | Value |
 |-------|--------|
 | Repository | mcleland147/sfia-workspace |
-| Campaign worktree | `/Users/morris/Projects/sfia-workspace` |
 | Campaign branch | `qa/sfia-studio-p6-global-integrated-product-qa` |
-| Campaign HEAD | `db45e9c4c17cbe35dff543eee0f366af81026c55` (PRESERVED) |
-| origin/main (base) | `8581abbf98fc38a78ee05c306c33fc5aa3632d3f` (UNCHANGED — matches expected) |
-| Corrective worktree | `/Users/morris/Projects/sfia-wt-p6-hqa-rec01` |
-| Corrective branch | `fix/studio-p6-hqa-rec01-qualification-signals` |
-| Commit | `de8573bdb6bfa4916c122cf91114f63e8a14c814` |
-| Parent | `8581abbf98fc38a78ee05c306c33fc5aa3632d3f` (= origin/main) |
-| Remote head | `de8573bdb6bfa4916c122cf91114f63e8a14c814` (match) |
-| Reviewed handoff ref | `d7c8a5ae2313367b3e064203af18072762459ad8` |
-| Content identity | sha256 source↔applied: prompt `d4a8b9a4…`, test `4494736d…` MATCH |
-| Studio :3020 | UP (http 200) — not restarted / not mutated by this cycle |
+| Campaign HEAD | `db45e9c4c17cbe35dff543eee0f366af81026c55` (UNCHANGED) |
+| origin/main **before** merge | `8581abbf98fc38a78ee05c306c33fc5aa3632d3f` |
+| origin/main **after** merge | `60247eb21074c5e7be76e09bcb66d850926ded1e` |
+| Corrective worktree | `/Users/morris/Projects/sfia-wt-p6-hqa-rec01` @ `de8573bd` — **PRESERVED** |
+| Studio :3020 | UP (http 200) — not restarted |
 | Cursor REAL | ON — not modified |
+| Product source edits this cycle | **NONE** |
 
-### Isolation rationale
+### Preserved local campaign artifacts
 
-Campaign branch already contains PR #572 history and local C14/tmp/QA artifacts. Corrective branch created from **origin/main** in a **sibling worktree** so Studio campaign worktree and :3020 remain untouched. Only the two reviewed file diffs were applied via patch.
-
-### Preserved on campaign worktree (not in PR)
-
-- `p6-qa-integration-state-and-reserves.md` (C14 M)
+- C14 `p6-qa-integration-state-and-reserves.md` (M)
+- Local uncommitted copies of the two corrected files
 - `.tmp-sfia-review/**`, `projects/.tmp-sfia-review/**`
-- untracked `p6-campaign` REAL tests
-- Product SQLite / Studio runtime
+- untracked `p6-campaign` REAL tests + SQLite
+- Remote branches still present:
+  - `fix/studio-p6-hqa-rec01-qualification-signals` → `de8573bd…`
+  - `qa/sfia-studio-p6-global-integrated-product-qa` → `db45e9c4…`
+- No `git branch -d`, no `--delete-branch`, no worktree remove
 
 ---
 
@@ -49,203 +44,132 @@ Campaign branch already contains PR #572 history and local C14/tmp/QA artifacts.
 
 | Item | State |
 |------|--------|
-| Capacity | Nora → Rec durable → traj → HD → prepare → START |
+| Capacity | Nora → durable Rec → traj → HD → prepare → START |
 | Milestone P6 | NOT PASS; runtime v3 NON ADOPTED |
-| Correctif | Prompt ADAPT + tests EXTEND — Critical-reviewed |
-| Validator/Schema/F01/LPS | KEEP |
-| This cycle exit | Draft PR + CI SUCCESS on exact HEAD |
-| Next | ChatGPT Critical PR review → Morris GO merge → post-merge → Human QA REAL retest |
+| Pre-merge | Investigation/Delivery/PR Critical PASS; CI PR SUCCESS |
+| This cycle | Merge + post-merge Git/CI proof |
+| Next | Morris GO Human QA REAL retest of Framing path |
 
 ---
 
-## 2. Scope confirmation
-
-| File | Δ |
-|------|---|
-| `buildProjectSystemPrompt.ts` | +23 / −0 |
-| `qualToGovernedCycle.presentation.d0.test.ts` | +62 / −0 |
-| **Total** | **2 files, +85 / −0** |
-
-Matches handoff `d7c8a5ae` §§6–7. No third file. No functional change beyond reviewed content.
-
----
-
-## 3. Validations (corrective worktree)
+## 2. Pre-merge revalidation (PR #573)
 
 | Check | Result |
 |-------|--------|
-| `git apply --check` + apply | OK |
-| Content sha256 vs campaign working tree | MATCH |
-| `git diff --check` | CLEAN |
-| Secrets scan on diff | OK |
-| Six-signal contract present in prompt | OK |
-| Governance line Recommendation ≠ HD ≠ START | OK |
-| `npm test -- __tests__/project-assistant/qualToGovernedCycle.presentation.d0.test.ts` | **22/22 PASS** |
-| `npm run typecheck` | **EXECUTED PASS** |
-| `eslint` on 2 files | **EXECUTED PASS** |
-| REAL / DB / p6-campaign / Playwright | NOT RUN |
+| URL | https://github.com/mcleland147/sfia-workspace/pull/573 |
+| state before | OPEN |
+| isDraft before | true |
+| merged | false |
+| base.ref | main |
+| base.sha | `8581abbf98fc38a78ee05c306c33fc5aa3632d3f` |
+| head.ref | `fix/studio-p6-hqa-rec01-qualification-signals` |
+| head.sha | `de8573bdb6bfa4916c122cf91114f63e8a14c814` |
+| commits | 1 |
+| files | 2 (authorized only) |
+| additions / deletions | 85 / 0 |
+| mergeable | MERGEABLE |
+| mergeStateStatus | CLEAN |
+| reviewDecision | (empty — no blocking review) |
+| Critical review handoff | `56522e3d2a35f9c6db9c30be64c1ddcdb71c1274` |
+
+### Authorized files (unchanged since Critical review)
+
+1. `projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts` (+23)
+2. `projects/sfia-studio/app/__tests__/project-assistant/qualToGovernedCycle.presentation.d0.test.ts` (+62)
+
+### Required checks on exact PR HEAD `de8573bd…`
+
+| Check | Conclusion | Run |
+|-------|------------|-----|
+| Detect SFIA Studio changes | SUCCESS | 37965527743 |
+| Build and validate SFIA Studio | SUCCESS | 37965527743 |
+| SFIA Studio Required Gate | SUCCESS | 37965527743 |
+
+No admin/bypass/force. No new blocking checks.
 
 ---
 
-## 4. Commit / push / PR
+## 3. Draft → Ready
 
-| Item | Value |
+| Step | Result |
 |------|--------|
-| Message | `fix(studio): align Nora NEXT_CYCLE qualification signals` |
-| Commits on branch | **1** |
-| Push | normal `-u origin HEAD` (no force) |
-| PR | **#573** https://github.com/mcleland147/sfia-workspace/pull/573 |
+| Command | `gh pr ready 573` |
+| isDraft after | **false** |
 | state | OPEN |
-| isDraft | **true** |
-| base | main |
-| headOid | `de8573bdb6bfa4916c122cf91114f63e8a14c814` |
-| files in PR | exactly the two authorized paths |
-| merge | **NOT PERFORMED** |
+| headOid | unchanged `de8573bd…` |
+| checks | still SUCCESS on same run |
+| mergeable | MERGEABLE / CLEAN |
+
+No new failing CI before merge.
 
 ---
 
-## 5. CI on exact HEAD
+## 4. Merge operation
 
 | Item | Value |
 |------|--------|
-| Run | https://github.com/mcleland147/sfia-workspace/actions/runs/37965527743 |
-| headSha | `de8573bdb6bfa4916c122cf91114f63e8a14c814` |
-| Workflow conclusion | **success** |
-| Detect SFIA Studio changes | success |
-| Build and validate SFIA Studio | success (typecheck, lint, build, vitest, secret scan, whitespace) |
-| SFIA Studio Required Gate | success |
-| Qualification | **CI SUCCESS ON EXACT HEAD** |
+| Method | **MERGE COMMIT CLASSIQUE** |
+| Command | `gh pr merge 573 --merge` |
+| Flags NOT used | `--admin`, `--auto`, `--delete-branch`, `--squash`, `--rebase` |
+| Exit | 0 |
+| mergedAt | 2026-10-09T17:40:40Z |
+| merge_commit_sha | `60247eb21074c5e7be76e09bcb66d850926ded1e` |
+| PR state after | **MERGED** |
+| head after | still `de8573bd…` |
 
-Not confused with PR #572 CI.
+Merge message: `Merge pull request #573 from mcleland147/fix/studio-p6-hqa-rec01-qualification-signals`
+
+Parents of merge commit:
+- `8581abbf98fc38a78ee05c306c33fc5aa3632d3f` (main)
+- `de8573bdb6bfa4916c122cf91114f63e8a14c814` (PR head)
 
 ---
 
-## 6–7. Complete commit diffs (exploitable)
+## 5. Post-merge Git coherence
 
-Full `git show de8573bd -- <two files>`:
+| Proof | Result |
+|-------|--------|
+| `git fetch origin` | main `8581abbf..60247eb2` |
+| `origin/main` == merge commit | **YES** `60247eb2…` |
+| `de8573bd` ancestor of `origin/main` | **YES** |
+| old main ancestor of new main | **YES** |
+| `git diff 8581abbf..origin/main --name-status` | exactly 2 files M |
+| `git diff --stat` | 2 files, +85 / −0 |
+| Foreign commits via this merge | **NONE** |
+| Direct push to main | **NONE** |
+| Branch deletion | **NONE** (remote heads still listed) |
 
-```diff
-commit de8573bdb6bfa4916c122cf91114f63e8a14c814
-Author: Morris Cleland <morris@macbook-air.home>
-Date:   Fri Oct 9 19:19:53 2026 +0200
+---
 
-    fix(studio): align Nora NEXT_CYCLE qualification signals
+## 6. CI post-merge (NOT the PR run)
 
-    Co-authored-by: Cursor <cursoragent@cursor.com>
+| Item | Value |
+|------|--------|
+| Workflow | SFIA Studio CI |
+| Event | **push** (main) |
+| Run ID | **37967964342** |
+| URL | https://github.com/mcleland147/sfia-workspace/actions/runs/37967964342 |
+| head_sha | `60247eb21074c5e7be76e09bcb66d850926ded1e` |
+| status | completed |
+| conclusion | **success** |
+| Detect | success |
+| Build and validate | success |
+| Required Gate | success |
+| Qualification | **POST-MERGE CI SUCCESS ON EXACT SHA** |
 
-diff --git a/projects/sfia-studio/app/__tests__/project-assistant/qualToGovernedCycle.presentation.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/qualToGovernedCycle.presentation.d0.test.ts
-index dcc35203..64caa7d9 100644
---- a/projects/sfia-studio/app/__tests__/project-assistant/qualToGovernedCycle.presentation.d0.test.ts
-+++ b/projects/sfia-studio/app/__tests__/project-assistant/qualToGovernedCycle.presentation.d0.test.ts
-@@ -80,6 +80,68 @@ describe("qual-to-governed-cycle — prompt + presentation contracts", () => {
-     expect(prompt).toMatch(/ne peux pas l'enregistrer dans Studio/);
-   });
+Distinct from PR CI `37965527743`.
 
-+  it("P6-HQA-REC-01 — prompt contracts six qualificationSignals for prepareable NEXT_CYCLE", () => {
-+    const prompt = buildProjectSystemPrompt(baseProject);
-+
-+    // T1 — six signal keys exposed
-+    for (const key of [
-+      "structuralChange",
-+      "securityImpact",
-+      "architectureImpact",
-+      "dataImpact",
-+      "irreversible",
-+      "lowRiskBounded",
-+    ] as const) {
-+      expect(prompt).toContain(key);
-+    }
-+
-+    // T2 — prepareable NEXT_CYCLE requires complete object (never null)
-+    expect(prompt).toMatch(/QUALIFICATION SIGNALS \(D-GF-START-01/);
-+    expect(prompt).toMatch(
-+      /NEXT_CYCLE préparable[\s\S]*qualificationSignals DOIT être l'objet complet des six booléens \(jamais null\)/,
-+    );
-+
-+    // T3 — no invention / no Light-by-default / no artificial Critical neutralization
-+    expect(prompt).toMatch(/Ne invente PAS de valeurs/);
-+    expect(prompt).toMatch(
-+      /Ne choisis PAS Light \/ lowRiskBounded=true par défaut/,
-+    );
-+    expect(prompt).toMatch(/Ne neutralise PAS Critical artificiellement/);
-+
-+    // T4 — incomplete qualification must not become artificially durable NEXT_CYCLE
-+    expect(prompt).toMatch(
-+      /Ne produis PAS un NEXT_CYCLE présenté comme durablement matérialisable sans les six signaux/,
-+    );
-+    expect(prompt).toMatch(
-+      /signaux non qualifiables[\s\S]*lifecycleRecommendation = null/,
-+    );
-+
-+    // T5 — cycle-owned unknowns (e.g. exploratory Framing) ≠ extra pre-cycle questionnaire
-+    //     and ≠ omitting the six signals
-+    expect(prompt).toMatch(
-+      /inconnues qui appartiennent normalement au cycle[\s\S]*NE justifient PAS[\s\S]*questionnaire pré-cycle artificiel/,
-+    );
-+    expect(prompt).toMatch(
-+      /qualification explicite des signaux N'EXIGE PAS que le Cadrage soit déjà réalisé/,
-+    );
-+
-+    // T6 — governance: Recommendation ≠ HD / prepare / START / execution
-+    expect(prompt).toMatch(
-+      /Recommendation ≠ HumanDecision ≠ préparation de trajectoire ≠ START ≠ exécution/,
-+    );
-+    expect(prompt).toMatch(
-+      /ne crée pas de CycleInstance \/ HD \/ START/,
-+    );
-+
-+    // T7 — FINALIZE may null signals; CURRENT continuity preserved
-+    expect(prompt).toMatch(
-+      /FINALIZE_CURRENT_CYCLE : qualificationSignals peut être null/,
-+    );
-+    expect(prompt).toMatch(
-+      /Recommendation CURRENT applicable : ne pas réémettre uniquement pour un nouveau message/,
-+    );
-+  });
-+
-   it("intent analysis treats lifecycle formalization as informative effect", () => {
-     expect(ANALYSIS_SYSTEM).toMatch(/Formalise maintenant dans Studio/);
-     expect(ANALYSIS_SYSTEM).toMatch(
-diff --git a/projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts b/projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts
-index f00ddf8e..ebc8c0ff 100644
---- a/projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts
-@@ -156,10 +156,33 @@ export function buildProjectSystemPrompt(
-         .join(", ") +
-       ".",
-     "targetCycleTypeId seulement s'il est supportable (jamais inventé ; jamais forcé cyc:framing).",
-+    "",
-+    "=== QUALIFICATION SIGNALS (D-GF-START-01 — même tour que lifecycleRecommendation) ===",
-+    "Six booléens explicites, chacun évalué honnêtement (jamais omis ni rempli par commodité) :",
-+    "structuralChange, securityImpact, architectureImpact, dataImpact, irreversible, lowRiskBounded.",
-+    "CAS A — NEXT_CYCLE préparable / supportable :",
-+    "Si tu émets lifecycleRecommendation NEXT_CYCLE destinée à être matérialisable,",
-+    "qualificationSignals DOIT être l'objet complet des six booléens (jamais null).",
-+    "Qualifie chaque signal selon le contexte projet et les effets envisagés du cycle recommandé.",
-+    "Les inconnues qui appartiennent normalement au cycle (ex. Cadrage exploratoire) NE justifient PAS",
-+    "un questionnaire pré-cycle artificiel NI l'omission des six signaux.",
-+    "Une qualification explicite des signaux N'EXIGE PAS que le Cadrage soit déjà réalisé.",
-+    "Ne choisis PAS Light / lowRiskBounded=true par défaut. Ne neutralise PAS Critical artificiellement.",
-+    "Ne présente PAS la Recommendation comme trajectoire préparée, CycleInstance créé, ou START.",
-+    "CAS B — signaux non qualifiables honnêtement :",
-+    "Ne invente PAS de valeurs (pas de false/true par défaut pour forcer une persistance).",
-+    "Ne produis PAS un NEXT_CYCLE présenté comme durablement matérialisable sans les six signaux.",
-+    "lifecycleRecommendation = null ; conserve une narrative utile ; explicite l'incertitude sans jargon ;",
-+    "clarification ciblée seulement si elle change réellement routage, risque, profil ou gate.",
-+    "CAS C — FINALIZE_CURRENT_CYCLE : qualificationSignals peut être null (ignoré à la matérialisation).",
-+    "CAS D — Recommendation CURRENT applicable : ne pas réémettre uniquement pour un nouveau message",
-+    "(continuité conversationGuidance) ; les règles ci-dessus s'appliquent à toute NOUVELLE émission NEXT_CYCLE.",
-+    "",
-     "Ne dis PAS « je ne peux pas l'enregistrer dans Studio » si le chemin structured Recommendation est disponible.",
-     "Si tu émets lifecycleRecommendation : le serveur peut la matérialiser ; ne prétends jamais qu'elle est",
-     "enregistrée si tu n'as pas de confirmation produit ; ne crée pas de CycleInstance / HD / START.",
-     "Une Recommendation CURRENT réutilisée reste une Recommendation — jamais une HumanDecision ni un cycle lancé.",
-+    "Recommendation ≠ HumanDecision ≠ préparation de trajectoire ≠ START ≠ exécution.",
-     "",
-     "=== CONTINUATION CONVERSATIONNELLE (conversationGuidance — même tour) ===",
-     "Après avoir répondu : UNDERSTAND → REASON → ANSWER → ORIENT.",
+---
 
-```
+## 7. Integrated content (reference)
+
+Corrective commit message: `fix(studio): align Nora NEXT_CYCLE qualification signals`
+
+Prompt adds `QUALIFICATION SIGNALS (D-GF-START-01)` CAS A–D (six bools required for prepareable NEXT_CYCLE; no invention; FINALIZE may null; CURRENT continuity).
+
+Test adds `P6-HQA-REC-01 — prompt contracts six qualificationSignals for prepareable NEXT_CYCLE` (T1–T7).
+
+Full diffs already verified in handoffs `d7c8a5ae` / `56522e3d` and present on main via merge parents. No product content rewritten this cycle.
 
 ---
 
@@ -253,25 +177,25 @@ index f00ddf8e..ebc8c0ff 100644
 
 | | |
 |--|--|
-| Boundary | Nora Product turn → LR materialization |
-| Fake | Prompt contract tests + CI unit suite — PASS |
-| REAL | Not retested; finding remains OPEN until Morris REAL GO |
-| Claims | Draft PR candidate + CI SUCCESS |
-| Forbidden claims | Incident closed, REAL PASS, P6 PASS, v3 ADOPTED, READY FOR MERGE |
+| Boundary | Nora Product Turn → durable LifecycleRecommendation |
+| Proven this cycle | Git merge on main + post-merge CI SUCCESS |
+| Prior Fake | Prompt contract 22/22 + PR CI SUCCESS |
+| REAL | **NOT executed**; finding remains OPEN for Human QA retest |
+| Forbidden claims | P6-HQA-REC-01 CLOSED, REAL PASS, P6 PASS, v3 ADOPTED |
 
 ---
 
-## 9. Réserves / décisions Morris
+## 9. Réserves / next gates
 
-1. ChatGPT Critical PR Readiness review of this handoff.
-2. **GO merge** — distinct, not granted.
-3. Post-merge Human QA REAL retest of Framing / P6-HQA-REC-01 path.
-4. Campaign worktree still holds uncommitted local delivery copies of the two files (expected; PR carries the canonical commit).
+1. ChatGPT post-merge Critical review of this handoff.
+2. Morris **GO Human QA REAL** retest of Framing / P6-HQA-REC-01 on a project using main baseline.
+3. Finding stays OPEN until REAL evidence.
+4. Campaign worktree still behind main for product files until explicit sync (not done here; local copies of fix remain).
 
 ---
 
 ## 10. Verdict
 
-**DRAFT PR OPEN — CI SUCCESS — READY FOR CHATGPT CRITICAL PR REVIEW**
+**MERGED — POST-MERGE CI SUCCESS — READY FOR CHATGPT POST-MERGE REVIEW**
 
-Instruction ChatGPT: Verify PR #573 base/head, atomic commit, exact two-file diffs above, CI run 37965527743 on `de8573bd…`, Draft state, no merge, campaign worktree preserved. Do not authorize merge or declare REAL/P6 PASS.
+Instruction ChatGPT: Verify PR #573 MERGED, merge commit `60247eb2…` = `origin/main`, ancestry of `de8573bd`, exactly two files +85, post-merge CI run `37967964342` SUCCESS on merge SHA, no branch cleanup, campaign preserved. Do not close the finding or authorize REAL without Morris GO.
