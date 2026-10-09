@@ -1,68 +1,66 @@
 # SFIA Review Pack — FULL CRITICAL
-# P6 Chat-First First Framing — Critical Correction Pass (CP-01 / CP-02 / CP-03)
+# P6 Chat-First First Framing — Continuity Complement (CC-01 / CC-02 / CC-03)
 
 ## Meta
-- Date / heure : 2026-10-09 22:34:43 CEST
+- Date / heure : 2026-10-09 22:50:26 CEST
 - Macro : STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01
 - Milestone : P6 — GLOBAL INTEGRATED PRODUCT QA
-- Campagne : P6-GLOBAL-INTEGRATED-PRODUCT-QA-01
 - Chantier : P6 Human QA — First Framing / Governed Lifecycle Continuity
 - Cycle type : 8 — Delivery / implémentation
 - Profil SFIA : Critical
-- Typologie : INC / EVOL — Correction Pass local
-- GO Morris consommé : Correction Pass ciblé AUTORISÉ ; REAL provider NON ; Human QA REAL NON ; push/PR/merge projet NON ; doctrine/Figma/Cursor REAL flag NON
-- Handoff parent : e81dd383950af191a07da435ba9213959979a9f2
-- Capacité : V3-F05 (+ F02 / F06 / F11-F12)
-- Lien Roadmap : P6 QA existant — pas de nouvelle vague Product
+- Typologie : INC / EVOL
+- GO Morris consommé : Complément local CC-01/02/03 AUTORISÉ ; REAL / HQA REAL / push projet / PR / merge / Figma / doctrine NON
+- Handoff parent : 74320685ff7f3d960dbe2a074cc21a0a730b9cf2
+- Capacité : V3-F05 (+ F02 / F06)
+- Lien Roadmap : P6 QA — pas de nouvelle vague
 
-## Git truth (entrée = inchangé vs handoff e81dd383)
-- Repository : /Users/morris/Projects/sfia-workspace
+## Git truth
 - Branche : qa/sfia-studio-p6-global-integrated-product-qa
 - HEAD : db45e9c4c17cbe35dff543eee0f366af81026c55
 - origin/main : 60247eb21074c5e7be76e09bcb66d850926ded1e
-- Handoff distant connu : e81dd383950af191a07da435ba9213959979a9f2
-- Status entrée : candidate Delivery Option 1 + PR573 locals + C14 + p6-campaign + tmp préservés ; aucun staged
-- Préservation : OUI — aucun reset/clean/stash
+- Handoff connu : 74320685ff7f3d960dbe2a074cc21a0a730b9cf2
+- Préservation : candidate Delivery + CP-01/02/03 + PR573 + C14 + p6-campaign + tmp — OUI
+- Aucun staged projet
 
-## Diagnostic CP-01 (confirmé puis corrigé)
-```
-projectAssistantSendAction
-  → orchestrateAssistantSend
-  → interpretPilotNarrativeStance / resolveChatFirstStartRouting
-  → readFramingContinuity (Product phase)
-  → [BUG antérieur] ready_to_start laissé à F01 « plus bas »
-       mais resolveTransitionReadiness exige candidateCycleTypeId + signals
-       → F1 advisory → F01 jamais atteint
-  → [FIX] si phase ready_to_start && attempt_start
-       → resolveChatFirstCycleStartGate (même gate F01)
-       → LPS reload → f1_informative
-```
-transitionReadiness.ts : **non modifié** (contrat général intact).
+## Diagnostic
+### CC-01 Réhydratation (confirmé puis corrigé)
+- `refreshFramingContinuity` existait mais **n'était pas appelée au montage**.
+- L'effet `[projectId, durableRefreshSignal]` ne chargeait que W2 subject/EC.
+- **FIX** : nouvel effet Product-read au mount / project change / durableRefresh, avec `cancelled` + ignore réponse stale cross-project.
+
+### CC-02 Sync post-START chat (confirmé puis corrigé)
+- START carte → `refreshFramingContinuity` + clear.
+- START message → succès `projectAssistantSendAction` **sans** relecture framing.
+- **FIX** : après succès Send, si `result.project.activeCycleInstanceId` ou `qualification.cycleStatus==="active"` → `refreshFramingContinuity()` + `notifyDurableFactsChanged()` si activation nouvelle. Source : DTO Product / LPS, pas parsing prose.
+
+### CC-03 Preuves
+- Front-door **cyc:framing** (Cadrage catalogue + CKC product) via `projectAssistantSendAction`.
+- Reprise Nora : corpus provider contient `activeCycleInstanceId`.
+- Env `SFIA_STUDIO_CURSOR_REAL` capturée/restaurée.
+- UI rehydrate harness + display projection.
 
 ## Findings
-| ID | Statut | Preuve |
-|---|---|---|
-| CP-01 START conversationnel | CORRIGÉ | early F01 sur ready_to_start ; front-door « Je souhaite démarrer… » avec signals=null |
-| CP-02 Preuve front-door | CORRIGÉ | chatFirstFramingContinuity.frontDoor.d0.test.ts via projectAssistantSendAction |
-| CP-03 Nora / UX | CORRIGÉ | jargon retiré ; carte « Vous décidez » ; active → surfaces LPS + notice system ; resume turn activeCycleInstanceId |
+| ID | Statut |
+|---|---|
+| CC-01 | CORRIGÉ + PROUVÉ |
+| CC-02 | CORRIGÉ + PROUVÉ |
+| CC-03 | CORRIGÉ + PROUVÉ — **CADRAGE FRONT-DOOR E2E PROVEN** |
 
-## Fichiers (Correction Pass)
+CP-01/02/03 : non refaits ; conservés fonctionnels.
+
+## Fichiers
 ### Modifiés
-- `orchestrateF2.ts` — CP-01 early F01 + messages pilot-facing
-- `chatFirstFramingContinuity.ts` — copy pilot-facing
-- `FramingContinuityCard.tsx` — dé-jargon
-- `ConversationSurface.tsx` — slot sans active/jargon
-- `useProductConversation.ts` — clear card on active ; system notice
+- `useProductConversation.ts` — CC-01 effet + CC-02 sync Send
+- `chatFirstFramingContinuity.ts` — `framingContinuityForConversationDisplay`
 
-### Nouveaux / étendus
-- `chatFirstFramingContinuity.frontDoor.d0.test.ts` (NEW)
-- tests d0 + UI mis à jour
+### Tests
+- `chatFirstFramingContinuity.frontDoor.d0.test.ts` — Cadrage + env + Nora corpus
+- `chatFirstFramingContinuity.d0.test.ts` — display helper
+- `framingContinuityRehydrate.ui.test.tsx` — NEW CC-01/02 UI
 
-### Non touchés (préservés)
-- buildProjectSystemPrompt / qualToGovernedCycle (PR573)
-- p6-qa-integration-state-and-reserves (C14)
-- transitionReadiness.ts
-- resolveChatFirstCycleStartGate.ts (REUSE)
+### Non touchés
+- orchestrateF2 / F01 gate / transitionReadiness / OA services
+- ConversationSurface / FramingContinuityCard (déjà conformes)
 
 ## Contenu modifié exploitable
 
@@ -130,6 +128,26 @@ export function framingContinuityPilotMessage(
 }
 
 /**
+ * Projection for ConversationSurface — hide idle / blocked / already-active.
+ * Pure; does not invent CURRENT. Active cycle is shown via LPS surfaces.
+ */
+export function framingContinuityForConversationDisplay(
+  snap: FramingContinuitySnapshot | null | undefined,
+): FramingContinuitySnapshot | null {
+  if (!snap) return null;
+  const phase = snap.phase;
+  if (
+    phase === "idle" ||
+    phase === "blocked_no_recommendation" ||
+    phase === "blocked_stale_or_incomplete" ||
+    phase === "active"
+  ) {
+    return null;
+  }
+  return snap;
+}
+
+/**
  * Deterministic phase from already-loaded Product facts.
  * Callers must not invent CURRENT / digest / prepared ids.
  */
@@ -156,434 +174,22 @@ export function classifyFramingContinuityPhase(input: {
 
 ```
 
-### FramingContinuityCard.tsx (FULL)
-```tsx
-"use client";
-
-/**
- * P6 chat-first Framing continuity card — inline ConversationSurface.
- * Pure projection + authorized callbacks. Does not invent HD / START.
- * Visual language aligns with P3 GovernedDecisionCard / Recommendation frames.
- * Pilot-facing copy only — no internal governance jargon.
- */
-
-import type { FramingContinuitySnapshot } from "@/features/project-assistant/f2/chatFirstFramingContinuity";
-import styles from "./GovernedDecisionCard.module.css";
-
-export type FramingContinuityCardProps = {
-  readonly continuity: FramingContinuitySnapshot;
-  readonly busy: boolean;
-  readonly error: string | null;
-  readonly onPrepareCandidate: () => void;
-  readonly onApproveCandidate: () => void;
-  readonly onPrepareCycle: () => void;
-  readonly onStartPrepared: () => void;
-  readonly onKeepExploring?: () => void;
-};
-
-export function FramingContinuityCard({
-  continuity,
-  busy,
-  error,
-  onPrepareCandidate,
-  onApproveCandidate,
-  onPrepareCycle,
-  onStartPrepared,
-  onKeepExploring,
-}: FramingContinuityCardProps) {
-  const cycle = (continuity.catalogLabel ?? "").trim() || "Cadrage";
-  const phase = continuity.phase;
-
-  if (
-    phase === "idle" ||
-    phase === "active" ||
-    phase === "blocked_no_recommendation" ||
-    phase === "blocked_stale_or_incomplete"
-  ) {
-    return null;
-  }
-
-  const title =
-    phase === "recommendation_ready"
-      ? `Commencer par un « ${cycle} » exploratoire`
-      : phase === "awaiting_trajectory_decision"
-        ? `Examiner la trajectoire pour « ${cycle} »`
-        : phase === "trajectory_decided_prepare_cycle"
-          ? `Préparer le cycle « ${cycle} »`
-          : phase === "ready_to_start"
-            ? `Démarrer « ${cycle} »`
-            : continuity.message || `Continuer vers « ${cycle} »`;
-
-  const optionBody =
-    phase === "awaiting_trajectory_decision"
-      ? continuity.approvalOptionLabel?.trim() ||
-        `Valider cette direction pour « ${cycle} ».`
-      : continuity.message;
-
-  const primaryLabel =
-    phase === "recommendation_ready"
-      ? busy
-        ? "Préparation…"
-        : "Préparer cette direction"
-      : phase === "awaiting_trajectory_decision"
-        ? busy
-          ? "Enregistrement…"
-          : "Valider cette direction"
-        : phase === "trajectory_decided_prepare_cycle"
-          ? busy
-            ? "Préparation…"
-            : "Préparer le cycle"
-          : phase === "ready_to_start"
-            ? busy
-              ? "Démarrage…"
-              : `Démarrer le ${cycle}`
-            : null;
-
-  const primaryDisabled =
-    busy ||
-    (phase === "awaiting_trajectory_decision" &&
-      !continuity.presentationDigest);
-
-  function onPrimary() {
-    if (phase === "recommendation_ready") onPrepareCandidate();
-    else if (phase === "awaiting_trajectory_decision") onApproveCandidate();
-    else if (phase === "trajectory_decided_prepare_cycle") onPrepareCycle();
-    else if (phase === "ready_to_start") onStartPrepared();
-  }
-
-  return (
-    <section
-      className={styles.card}
-      data-testid="framing-continuity-card"
-      data-phase={phase}
-      aria-labelledby="framing-continuity-title"
-    >
-      <p className={styles.label}>
-        {phase === "awaiting_trajectory_decision"
-          ? "Décision"
-          : phase === "ready_to_start"
-            ? "Démarrage"
-            : "Recommandation"}
-      </p>
-      <h3
-        id="framing-continuity-title"
-        className={styles.title}
-        data-testid="framing-continuity-title"
-      >
-        {title}
-      </h3>
-      <p className={styles.youDecide} data-testid="framing-continuity-authority">
-        Vous décidez
-      </p>
-      <div className={styles.optionBlock}>
-        <p className={styles.optionEyebrow}>Prochaine étape</p>
-        <p className={styles.optionBody} data-testid="framing-continuity-body">
-          {optionBody}
-        </p>
-      </div>
-      {error ? (
-        <p
-          className={styles.error}
-          role="alert"
-          data-testid="framing-continuity-error"
-        >
-          {error}
-        </p>
-      ) : null}
-      <div className={styles.actions}>
-        {primaryLabel ? (
-          <button
-            type="button"
-            className={styles.primary}
-            data-testid="framing-continuity-primary"
-            disabled={primaryDisabled}
-            onClick={onPrimary}
-          >
-            {primaryLabel}
-          </button>
-        ) : null}
-        {onKeepExploring &&
-        (phase === "recommendation_ready" ||
-          phase === "awaiting_trajectory_decision") ? (
-          <button
-            type="button"
-            className={styles.tertiary}
-            data-testid="framing-continuity-keep-exploring"
-            disabled={busy}
-            onClick={onKeepExploring}
-          >
-            Continuer à explorer
-          </button>
-        ) : null}
-      </div>
-    </section>
-  );
-}
-
-```
-
-### orchestrateF2.ts — Framing continuity / CP-01 diff
-```diff
-diff --git a/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts b/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
-index b8823e65..8c16dfe1 100644
---- a/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
-@@ -84,6 +84,7 @@ import {
-   resolveChatFirstCycleStartGate,
-   resolveChatFirstStartRouting,
- } from "./resolveChatFirstCycleStartGate";
-+import { interpretPilotNarrativeStance } from "./composeF2PilotFacingNarrative";
- import { resolveTrajectoryDecisionSupportProjection } from "../w2/resolveTrajectoryDecisionSupportProjection";
- import {
-   parseReservationInteractionContextInput,
-@@ -1493,6 +1494,229 @@ export async function orchestrateAssistantSend(input: {
-     }
-   }
- 
-+  // P6 chat-first Framing continuity — Rec→prepare without inventing HD.
-+  // CP-01: when a unique COMPLETE prepared cycle is ready, accept_start must
-+  // reach resolveChatFirstCycleStartGate HERE — transitionReadiness may still
-+  // be false (missing candidateCycleTypeId / signals) and must not strand START.
-+  {
-+    const oaForFraming = getRuntimeApplicationService().oa;
-+    if (oaForFraming) {
-+      const {
-+        projectAssistantReadFramingContinuityAction,
-+        projectAssistantAdvanceFramingContinuityAction,
-+      } = await import("../preCycleCandidateTrajectoryActions");
-+      const snap = await projectAssistantReadFramingContinuityAction({
-+        projectId: project.projectId,
-+      });
-+      if (snap.ok && snap.continuity) {
-+        const phase = snap.continuity.phase;
-+        const productCycleLabel =
-+          snap.continuity.catalogLabel ??
-+          (analysis.candidateCycleTypeId
-+            ? getCycleTypeById(analysis.candidateCycleTypeId)?.label
-+            : null) ??
-+          analysis.candidateCycleTypeId ??
-+          null;
-+        const framingStance = interpretPilotNarrativeStance({
-+          userContent: content,
-+          cycleLabel: productCycleLabel,
-+          pilotDecisionCandidate: analysis.pilotDecisionCandidate,
-+        });
-+        const startRoutingEarly = resolveChatFirstStartRouting({
-+          userContent: content,
-+          cycleLabel: productCycleLabel,
-+          pilotDecisionCandidate: analysis.pilotDecisionCandidate,
-+        });
-+
-+        // Already active + explicit START → honest no-op (do not strand on missing signals).
-+        if (phase === "active" && startRoutingEarly.kind === "attempt_start") {
-+          const cycle = productCycleLabel?.trim() || "Cadrage";
-+          const activeId = snap.continuity.activeCycleInstanceId;
-+          return await completeF2Turn({
-+            userText: content,
-+            sessionDbPath: input.sessionDbPath,
-+            text: activeId
-+              ? `Le cycle « ${cycle} » est déjà actif sur le projet (${activeId}). Aucun second démarrage n'a été engagé.`
-+              : `Un cycle « ${cycle} » est déjà actif. Aucun second démarrage n'a été engagé.`,
-+            mode: modeResolution.mode as "fixture" | "live",
-+            presentation,
-+            model,
-+            project,
-+            intentClass: analysis.intentClass,
-+            reinstructionOfProposalId,
-+            executionBlocked: true,
-+            turnKind: "f1_informative",
-+          });
-+        }
-+
-+        // CP-01 — prepared cycle + explicit START → same F01 gate as formalization path.
-+        if (
-+          phase === "ready_to_start" &&
-+          startRoutingEarly.kind === "attempt_start" &&
-+          snap.continuity.targetCycleTypeId
-+        ) {
-+          await cutF2Effect(input.signal, "createCycle", input.beforeF2Effect);
-+          const startGate = await resolveChatFirstCycleStartGate({
-+            oa: oaForFraming,
-+            projectId: project.projectId,
-+            targetCycleTypeId: snap.continuity.targetCycleTypeId,
-+            cycleLabel: productCycleLabel ?? "Cadrage",
-+          });
-+          const reloadedAfterGate = await loadProjectRuntimeForAssistant(
-+            project.projectId,
-+          );
-+          if (reloadedAfterGate.ok) project = toContextDto(reloadedAfterGate);
-+          if (startGate.kind === "started") {
-+            if (!reloadedAfterGate.ok) {
-+              project = {
-+                ...project,
-+                activeCycleInstanceId: startGate.activeCycleInstanceId,
-+                ...(typeof startGate.lpsVersionAfter === "number"
-+                  ? { lpsVersion: startGate.lpsVersionAfter }
-+                  : {}),
-+              };
-+            }
-+            return await completeF2Turn({
-+              userText: content,
-+              sessionDbPath: input.sessionDbPath,
-+              text: startGate.message,
-+              mode: modeResolution.mode as "fixture" | "live",
-+              presentation,
-+              model,
-+              project,
-+              intentClass: analysis.intentClass,
-+              reinstructionOfProposalId,
-+              executionBlocked: true,
-+              turnKind: "f1_informative",
-+            });
-+          }
-+          return await completeF2Turn({
-+            userText: content,
-+            sessionDbPath: input.sessionDbPath,
-+            text: startGate.message,
-+            mode: modeResolution.mode as "fixture" | "live",
-+            presentation,
-+            model,
-+            project,
-+            intentClass: analysis.intentClass,
-+            reinstructionOfProposalId,
-+            executionBlocked: true,
-+            turnKind: "f2_clarification",
-+          });
-+        }
-+
-+        // Prepared but not an explicit START — never auto-start from recommendation accept.
-+        if (
-+          phase === "ready_to_start" &&
-+          (framingStance.kind === "accept_recommendation" ||
-+            startRoutingEarly.kind === "suppress_mint")
-+        ) {
-+          const cycle = productCycleLabel?.trim() || "Cadrage";
-+          const text =
-+            startRoutingEarly.kind === "suppress_mint"
-+              ? startRoutingEarly.message
-+              : `Le cycle « ${cycle} » est préparé. Pour le démarrer, indiquez explicitement que vous souhaitez démarrer — un simple accord sur la recommandation ne démarre rien.`;
-+          return await completeF2Turn({
-+            userText: content,
-+            sessionDbPath: input.sessionDbPath,
-+            text: [
-+              presentation === "test_provider" ? "[Mode test]" : "[Mode réel]",
-+              text,
-+            ].join(" "),
-+            mode: modeResolution.mode as "fixture" | "live",
-+            presentation,
-+            model,
-+            project,
-+            intentClass: analysis.intentClass,
-+            reinstructionOfProposalId,
-+            executionBlocked: true,
-+            turnKind: "f2_clarification",
-+          });
-+        }
-+
-+        const wantsFramingProgress =
-+          framingStance.kind === "accept_start" ||
-+          framingStance.kind === "accept_recommendation";
-+        if (wantsFramingProgress) {
-+          if (phase === "recommendation_ready") {
-+            const advanced = await projectAssistantAdvanceFramingContinuityAction(
-+              {
-+                projectId: project.projectId,
-+                step: "prepare_candidate",
-+              },
-+            );
-+            return await completeF2Turn({
-+              userText: content,
-+              sessionDbPath: input.sessionDbPath,
-+              text: [
-+                presentation === "test_provider" ? "[Mode test]" : "[Mode réel]",
-+                advanced.ok
-+                  ? (advanced.continuity?.message ??
-+                    "Trajectoire proposée — validez-la dans la carte avant tout démarrage.")
-+                  : (advanced.message ??
-+                    "Préparation de trajectoire refusée — aucune décision inventée."),
-+              ].join(" "),
-+              mode: modeResolution.mode as "fixture" | "live",
-+              presentation,
-+              model,
-+              project,
-+              intentClass: analysis.intentClass,
-+              reinstructionOfProposalId,
-+              executionBlocked: true,
-+              turnKind: "f2_clarification",
-+            });
-+          }
-+          if (phase === "awaiting_trajectory_decision") {
-+            return await completeF2Turn({
-+              userText: content,
-+              sessionDbPath: input.sessionDbPath,
-+              text: [
-+                presentation === "test_provider" ? "[Mode test]" : "[Mode réel]",
-+                snap.continuity.message,
-+                "Validez cette direction dans la carte — un simple « ok » ne suffit pas.",
-+              ].join(" "),
-+              mode: modeResolution.mode as "fixture" | "live",
-+              presentation,
-+              model,
-+              project,
-+              intentClass: analysis.intentClass,
-+              reinstructionOfProposalId,
-+              executionBlocked: true,
-+              turnKind: "f2_clarification",
-+            });
-+          }
-+          if (phase === "trajectory_decided_prepare_cycle") {
-+            const advanced = await projectAssistantAdvanceFramingContinuityAction(
-+              {
-+                projectId: project.projectId,
-+                step: "prepare_cycle",
-+              },
-+            );
-+            return await completeF2Turn({
-+              userText: content,
-+              sessionDbPath: input.sessionDbPath,
-+              text: [
-+                presentation === "test_provider" ? "[Mode test]" : "[Mode réel]",
-+                advanced.ok
-+                  ? (advanced.continuity?.message ??
-+                    "Cycle préparé — vous pouvez le démarrer dans la conversation.")
-+                  : (advanced.message ?? "Préparation du cycle refusée."),
-+              ].join(" "),
-+              mode: modeResolution.mode as "fixture" | "live",
-+              presentation,
-+              model,
-+              project,
-+              intentClass: analysis.intentClass,
-+              reinstructionOfProposalId,
-+              executionBlocked: true,
-+              turnKind: "f2_clarification",
-+            });
-+          }
-+        }
-+      }
-+    }
-+  }
-+
-   // Repository read/search/Git-truth without mutation → F1 (no Cycle/LPS mutation).
-   // Deterministic override when the classifier drifts to ambiguous/actionable for pure reads.
-   const forceRepoInformative =
-
-```
-
-### useProductConversation.ts diff
+### useProductConversation.ts (diff CC)
 ```diff
 diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts b/projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
-index 73225dc7..b9c7ff94 100644
+index 73225dc7..d485db6c 100644
 --- a/projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
 +++ b/projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
-@@ -47,6 +47,7 @@ import type {
+@@ -47,6 +47,8 @@ import type {
    ActiveDecisionSubjectReadResult,
    CurrentGovernedExecutionContinuityResult,
  } from "@/features/project-assistant/w2/types";
 +import type { FramingContinuitySnapshot } from "@/features/project-assistant/f2/chatFirstFramingContinuity";
++import { framingContinuityForConversationDisplay } from "@/features/project-assistant/f2/chatFirstFramingContinuity";
  
  export type ProductDecisionSubjectContinuity =
    | { readonly status: "pending" }
-@@ -165,6 +166,13 @@ export function useProductConversation({
+@@ -165,6 +167,13 @@ export function useProductConversation({
    const [governedMomentError, setGovernedMomentError] = useState<string | null>(
      null,
    );
@@ -597,37 +203,73 @@ index 73225dc7..b9c7ff94 100644
    const [reservesText, setReservesText] = useState("");
    const [f3Prepare, setF3Prepare] = useState<F3PreparePayload | null>(null);
    const [f3M3Resolved, setF3M3Resolved] = useState<F3M3ResolvedPayload | null>(
-@@ -371,6 +379,95 @@ export function useProductConversation({
+@@ -221,6 +230,8 @@ export function useProductConversation({
+ 
+   const listRef = useRef<HTMLDivElement | null>(null);
+   const f3InFlightRef = useRef(false);
++  const projectIdRef = useRef(projectId);
++  projectIdRef.current = projectId;
+   const onDurableFactsChangedRef = useRef(onDurableFactsChanged);
+   const onDurableEvidenceOutcomeChangeRef = useRef(
+     onDurableEvidenceOutcomeChange,
+@@ -371,6 +382,122 @@ export function useProductConversation({
      };
    }, [projectId, durableRefreshSignal]);
  
++  // CC-01 — rehydrate Framing continuity from Product on mount / project change /
++  // durable refresh. Stale async responses for a prior projectId are ignored.
++  useEffect(() => {
++    let cancelled = false;
++    const requestProjectId = projectId;
++    setFramingContinuity(null);
++    setFramingContinuityError(null);
++    void (async () => {
++      try {
++        const { projectAssistantReadFramingContinuityAction } = await import(
++          "@/features/project-assistant/preCycleCandidateTrajectoryActions"
++        );
++        const result = await projectAssistantReadFramingContinuityAction({
++          projectId: requestProjectId,
++        });
++        if (cancelled || requestProjectId !== projectId) return;
++        if (!result.ok || !result.continuity) {
++          setFramingContinuity(null);
++          return;
++        }
++        setFramingContinuity(
++          framingContinuityForConversationDisplay(result.continuity),
++        );
++        setFramingContinuityError(null);
++      } catch {
++        if (cancelled || requestProjectId !== projectId) return;
++        setFramingContinuity(null);
++      }
++    })();
++    return () => {
++      cancelled = true;
++    };
++  }, [projectId, durableRefreshSignal]);
++
 +  async function refreshFramingContinuity() {
++    const requestProjectId = projectId;
 +    try {
 +      const { projectAssistantReadFramingContinuityAction } = await import(
 +        "@/features/project-assistant/preCycleCandidateTrajectoryActions"
 +      );
 +      const result = await projectAssistantReadFramingContinuityAction({
-+        projectId,
++        projectId: requestProjectId,
 +      });
++      if (requestProjectId !== projectIdRef.current) return;
 +      if (!result.ok || !result.continuity) {
 +        setFramingContinuity(null);
 +        return;
 +      }
-+      const phase = result.continuity.phase;
-+      if (
-+        phase === "idle" ||
-+        phase === "blocked_no_recommendation" ||
-+        phase === "blocked_stale_or_incomplete" ||
-+        phase === "active"
-+      ) {
-+        // Active cycle is reflected by LPS / Lifecycle surfaces + system notice.
-+        // Do not present a synthetic Nora analysis for the transition.
-+        setFramingContinuity(null);
-+        setFramingContinuityError(null);
-+        return;
-+      }
-+      setFramingContinuity(result.continuity);
++      setFramingContinuity(
++        framingContinuityForConversationDisplay(result.continuity),
++      );
++      setFramingContinuityError(null);
 +    } catch {
++      if (requestProjectId !== projectIdRef.current) return;
 +      setFramingContinuity(null);
 +    }
 +  }
@@ -693,7 +335,7 @@ index 73225dc7..b9c7ff94 100644
    async function refreshGovernedMoments() {
      try {
        const {
-@@ -397,6 +494,7 @@ export function useProductConversation({
+@@ -397,6 +524,7 @@ export function useProductConversation({
        } else {
          setGovernedExecutionContinuity(continuity);
        }
@@ -701,7 +343,7 @@ index 73225dc7..b9c7ff94 100644
      } catch {
        setGovernedMomentError("Impossible de relire le moment gouverné.");
      }
-@@ -931,6 +1029,12 @@ export function useProductConversation({
+@@ -931,6 +1059,26 @@ export function useProductConversation({
          }),
        );
        setLrMaterializeCode(result.lifecycleRecommendationCode ?? null);
@@ -711,10 +353,24 @@ index 73225dc7..b9c7ff94 100644
 +      ) {
 +        void refreshFramingContinuity();
 +      }
++      // CC-02 — after chat START (or already-active), re-read Product continuity
++      // so the obsolete START card disappears. Driven by LPS/project DTO, not prose.
++      const resultActiveId = (
++        result.project.activeCycleInstanceId ?? ""
++      ).trim();
++      const priorActiveId = (activeCycleInstanceId ?? "").trim();
++      const cycleMarkedActive =
++        result.f2?.qualification?.cycleStatus === "active";
++      if (resultActiveId || cycleMarkedActive) {
++        void refreshFramingContinuity();
++        if (!priorActiveId || priorActiveId !== resultActiveId) {
++          notifyDurableFactsChanged();
++        }
++      }
        setToolEvents((prev) => [...prev, ...result.toolEvents]);
        setMessages((prev) => [
          ...prev,
-@@ -1244,6 +1348,22 @@ export function useProductConversation({
+@@ -1244,6 +1392,22 @@ export function useProductConversation({
      inspectGovernedContract,
      confirmGovernedContract,
      refreshGovernedMoments,
@@ -737,308 +393,6 @@ index 73225dc7..b9c7ff94 100644
      reservesText,
      setReservesText,
      f3Prepare,
-```
-
-### ConversationSurface.tsx diff
-```diff
-diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
-index 7cfbcf82..ac65f9c9 100644
---- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
-+++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
-@@ -35,6 +35,7 @@ import {
-   GovernedDecisionCard,
-   presentGovernedDecisionNoraPreface,
- } from "./GovernedDecisionCard";
-+import { FramingContinuityCard } from "./FramingContinuityCard";
- import { GovernedConfirmationCard } from "./GovernedConfirmationCard";
- import styles from "./ConversationSurface.module.css";
- 
-@@ -201,6 +202,13 @@ export function ConversationSurface({
-     revealGovernedDecisionAlternate,
-     inspectGovernedContract,
-     confirmGovernedContract,
-+    framingContinuity,
-+    framingContinuityBusy,
-+    framingContinuityError,
-+    prepareFramingCandidate,
-+    approveFramingCandidate,
-+    prepareFramingCycle,
-+    startFramingPrepared,
-     reservesText,
-     setReservesText,
-     f3Prepare,
-@@ -834,6 +842,34 @@ export function ConversationSurface({
-           </p>
-         </aside>
-       ) : null}
-+      {framingContinuity &&
-+      framingContinuity.phase !== "idle" &&
-+      framingContinuity.phase !== "active" &&
-+      framingContinuity.phase !== "blocked_no_recommendation" &&
-+      framingContinuity.phase !== "blocked_stale_or_incomplete" ? (
-+        <div
-+          className={styles.governedMomentSlot}
-+          data-testid="framing-continuity-slot"
-+        >
-+          <p className={styles.noraMomentLabel}>Nora</p>
-+          <p className={styles.noraMomentBody}>
-+            {framingContinuity.message ||
-+              "Poursuivez dans la conversation pour préparer le prochain cycle."}
-+          </p>
-+          <FramingContinuityCard
-+            continuity={framingContinuity}
-+            busy={framingContinuityBusy}
-+            error={framingContinuityError}
-+            onPrepareCandidate={prepareFramingCandidate}
-+            onApproveCandidate={approveFramingCandidate}
-+            onPrepareCycle={prepareFramingCycle}
-+            onStartPrepared={startFramingPrepared}
-+            onKeepExploring={() => {
-+              composerInputRef.current?.focus();
-+            }}
-+          />
-+        </div>
-+      ) : null}
-       {boundAwaitingDecision ? (
-         <div
-           className={styles.governedMomentSlot}
-```
-
-### preCycleCandidateTrajectoryActions — framing Read/Advance (tail)
-```ts
-    trajectoryVersion: result.trajectoryVersion,
-    stepId: result.stepId,
-    activeCycleInstanceId: result.activeCycleInstanceId,
-    lpsVersionAfter: result.lpsVersionAfter,
-  };
-}
-
-/**
- * P6 chat-first Framing — read-only continuity snapshot for ConversationSurface.
- * Reuses prepare/read/approval/start readers. Never invents CURRENT or digests.
- */
-export async function projectAssistantReadFramingContinuityAction(input: {
-  projectId: string;
-}): Promise<{
-  ok: boolean;
-  code?: string;
-  message?: string;
-  continuity?: import("./f2/chatFirstFramingContinuity").FramingContinuitySnapshot;
-}> {
-  const {
-    classifyFramingContinuityPhase,
-    framingContinuityPilotMessage,
-  } = await import("./f2/chatFirstFramingContinuity");
-
-  const pre = await projectAssistantReadPreCycleCandidateTrajectoryAction({
-    projectId: input.projectId,
-  });
-  if (!pre.ok) {
-    return { ok: false, code: pre.code, message: pre.message };
-  }
-
-  const approval =
-    await projectAssistantReadCandidateTrajectoryApprovalPresentationAction({
-      projectId: input.projectId,
-    });
-
-  const prepared = await readPreparedTrajectoryCycleAction({
-    projectId: input.projectId,
-  });
-
-  const hasCurrent = pre.hasCurrentNextCycleRecommendation === true;
-  const candidate = pre.candidate ?? null;
-  const presentation =
-    approval.ok && approval.presentation ? approval.presentation : null;
-  const alreadyDecided =
-    approval.ok && approval.alreadyDecided ? approval.alreadyDecided : null;
-  const preparedCycle =
-    prepared.ok && prepared.prepared ? prepared.prepared : null;
-
-  const phase = classifyFramingContinuityPhase({
-    activeCycleInstanceId: pre.activeCycleInstanceId,
-    hasCurrentNextCycleRecommendation: hasCurrent,
-    candidatePresent: candidate != null,
-    candidateProvenanceResolved: candidate?.provenanceStatus === "RESOLVED",
-    awaitingDecisionPresentation: presentation != null,
-    decidedTrajectoryPresent:
-      alreadyDecided != null &&
-      alreadyDecided.prepareBlockedReason !== "cycle_type_already_completed",
-    preparedCompletePresent: preparedCycle != null,
-  });
-
-  const catalogLabel =
-    presentation?.catalogLabel ??
-    alreadyDecided?.catalogLabel ??
-    preparedCycle?.catalogLabel ??
-    candidate?.catalogLabel ??
-    null;
-  const targetCycleTypeId =
-    presentation?.targetCycleTypeId ??
-    alreadyDecided?.targetCycleTypeId ??
-    preparedCycle?.cycleTypeId ??
-    candidate?.targetCycleTypeId ??
-    null;
-
-  return {
-    ok: true,
-    continuity: {
-      phase,
-      catalogLabel,
-      targetCycleTypeId,
-      recommendationId:
-        presentation?.recommendationId ?? candidate?.recommendationId ?? null,
-      semanticKey: presentation?.semanticKey ?? candidate?.semanticKey ?? null,
-      trajectoryId:
-        presentation?.trajectoryId ??
-        alreadyDecided?.trajectoryId ??
-        preparedCycle?.trajectoryId ??
-        candidate?.trajectoryId ??
-        null,
-      trajectoryVersion:
-        presentation?.displayCandidateVersionHint ??
-        alreadyDecided?.version ??
-        preparedCycle?.trajectoryVersion ??
-        candidate?.version ??
-        null,
-      presentationDigest: presentation?.presentationDigest ?? null,
-      approvalOptionLabel: presentation?.approvalOptionLabel ?? null,
-      preparedCycleInstanceId: preparedCycle?.cycleInstanceId ?? null,
-      activeCycleInstanceId: pre.activeCycleInstanceId ?? null,
-      hasCurrentNextCycleRecommendation: hasCurrent,
-      message: framingContinuityPilotMessage(phase, catalogLabel),
-    },
-  };
-}
-
-/**
- * One deterministic advancement step for chat-first Framing continuity.
- * - prepare candidate from CURRENT Rec (no HD)
- * - prepare cycle from decided trajectory (no HD)
- * - start prepared cycle (Pilote authority via existing START facade)
- * Never auto-approves HumanDecision.
- */
-export async function projectAssistantAdvanceFramingContinuityAction(input: {
-  projectId: string;
-  /**
-   * Explicit step. Client must not invent digests.
-   * approve requires presentationDigest from server presentation.
-   */
-  step:
-    | "prepare_candidate"
-    | "approve_candidate"
-    | "prepare_cycle"
-    | "start_prepared";
-  presentationDigest?: string;
-}): Promise<{
-  ok: boolean;
-  code?: string;
-  message?: string;
-  continuity?: import("./f2/chatFirstFramingContinuity").FramingContinuitySnapshot;
-  decisionId?: string;
-  cycleInstanceId?: string;
-  activeCycleInstanceId?: string | null;
-}> {
-  if (input.step === "prepare_candidate") {
-    const prepared = await projectAssistantPrepareCandidateTrajectoryAction({
-      projectId: input.projectId,
-    });
-    if (!prepared.ok) {
-      return {
-        ok: false,
-        code: prepared.code,
-        message: prepared.message ?? "Préparation de trajectoire refusée.",
-      };
-    }
-  } else if (input.step === "approve_candidate") {
-    const digest = (input.presentationDigest ?? "").trim();
-    if (!digest) {
-      return {
-        ok: false,
-        code: "PRESENTATION_DIGEST_REQUIRED",
-        message:
-          "Digest d'approbation manquant — aucune HumanDecision n'a été inventée.",
-      };
-    }
-    const approved =
-      await projectAssistantApprovePreCycleCandidateTrajectoryAction({
-        projectId: input.projectId,
-        presentationDigest: digest,
-      });
-    if (!approved.ok) {
-      return {
-        ok: false,
-        code: approved.code,
-        message: approved.message ?? "Décision de trajectoire refusée.",
-      };
-    }
-    // Deterministic follow-up: prepare cycle when trajectory is decided.
-    const cyclePrep = await prepareCycleFromValidatedTrajectoryAction({
-      projectId: input.projectId,
-    });
-    if (!cyclePrep.ok) {
-      const snap = await projectAssistantReadFramingContinuityAction({
-        projectId: input.projectId,
-      });
-      return {
-        ok: true,
-        code: "DECISION_RECORDED_PREPARE_PENDING",
-        message:
-          cyclePrep.message ??
-          "Décision enregistrée — préparation du cycle encore requise.",
-        continuity: snap.ok ? snap.continuity : undefined,
-        decisionId: approved.decisionId,
-      };
-    }
-  } else if (input.step === "prepare_cycle") {
-    const cyclePrep = await prepareCycleFromValidatedTrajectoryAction({
-      projectId: input.projectId,
-    });
-    if (!cyclePrep.ok) {
-      return {
-        ok: false,
-        code: cyclePrep.code,
-        message: cyclePrep.message ?? "Préparation du cycle refusée.",
-      };
-    }
-  } else if (input.step === "start_prepared") {
-    const started = await startPreparedTrajectoryCycleAction({
-      projectId: input.projectId,
-    });
-    if (!started.ok) {
-      return {
-        ok: false,
-        code: started.code,
-        message: started.message ?? "Démarrage refusé.",
-      };
-    }
-    const snap = await projectAssistantReadFramingContinuityAction({
-      projectId: input.projectId,
-    });
-    return {
-      ok: true,
-      continuity: snap.ok ? snap.continuity : undefined,
-      cycleInstanceId: started.cycleInstanceId,
-      activeCycleInstanceId: started.activeCycleInstanceId ?? null,
-      message:
-        started.catalogLabel != null
-          ? `Cycle « ${started.catalogLabel} » démarré.`
-          : "Cycle démarré.",
-    };
-  } else {
-    return { ok: false, code: "UNKNOWN_STEP", message: "Étape inconnue." };
-  }
-
-  const snap = await projectAssistantReadFramingContinuityAction({
-    projectId: input.projectId,
-  });
-  return {
-    ok: true,
-    continuity: snap.ok ? snap.continuity : undefined,
-    message: snap.continuity?.message,
-    activeCycleInstanceId: snap.continuity?.activeCycleInstanceId ?? null,
-  };
-}
 ```
 
 ### frontDoor test (FULL)
@@ -1096,6 +450,7 @@ const VALID_PIN: DoctrinePackagePin = {
 const tempDirs: string[] = [];
 let previousPilot: string | undefined;
 let previousMorris: string | undefined;
+let previousCursorReal: string | undefined;
 
 class FixedIdSource implements LocalProjectIdSource {
   private n = 0;
@@ -1134,6 +489,8 @@ class FramingFrontDoorFakeProvider implements ConversationProvider {
   readonly providerId = "fake-test";
   private n = 0;
   lastUserBlobs: string[] = [];
+  /** Full message blobs seen by the provider (for Nora context assertions). */
+  lastMessageCorpus: string[] = [];
 
   async completeStructured(input: {
     messages: ProviderChatMessage[];
@@ -1149,6 +506,9 @@ class FramingFrontDoorFakeProvider implements ConversationProvider {
     this.n += 1;
     const current = demandeCourante(lastUserContent(messages));
     this.lastUserBlobs.push(current);
+    this.lastMessageCorpus.push(
+      messages.map((m) => `${m.role}:${m.content}`).join("\n"),
+    );
     const usage = {
       inputTokens: 10,
       outputTokens: 5,
@@ -1198,9 +558,8 @@ class FramingFrontDoorFakeProvider implements ConversationProvider {
 
     const actionable = {
       intentClass: isQuestion ? "informative" : "actionable",
-      // Delivery catalog — CKC fixture available for post-START Nora resume.
-      // Framing OA chain remains covered by chatFirstFramingContinuity.d0.
-      candidateCycleTypeId: isQuestion ? null : "cyc:delivery",
+      // Product catalog Cadrage — CKC ckc:studio:framing in W2 product doctrine.
+      candidateCycleTypeId: isQuestion ? null : "cyc:framing",
       signals: isQuestion
         ? null
         : {
@@ -1327,7 +686,7 @@ async function bootWithCurrentFramingRec(suffix: string) {
         statement: "Envisager un Cadrage.",
         subjectCycleInstanceId: null,
         targetCycleInstanceId: null,
-        targetCycleTypeId: "cyc:delivery",
+        targetCycleTypeId: "cyc:framing",
         rationale: "Prochain travail gouverné supportable.",
         authority: "none" as const,
         isHumanDecision: false as const,
@@ -1372,11 +731,13 @@ describe("chat-first Framing continuity — projectAssistantSendAction front-doo
   beforeEach(() => {
     previousPilot = process.env.SFIA_STUDIO_LOCAL_PILOT_AUTHORITY;
     previousMorris = process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY;
+    previousCursorReal = process.env.SFIA_STUDIO_CURSOR_REAL;
     process.env.SFIA_STUDIO_LOCAL_PILOT_AUTHORITY = "1";
     process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY = "1";
     process.env.SFIA_STUDIO_CURSOR_REAL = "0";
     setConversationProviderForTests(provider);
     provider.lastUserBlobs = [];
+    provider.lastMessageCorpus = [];
   });
 
   afterEach(() => {
@@ -1398,6 +759,11 @@ describe("chat-first Framing continuity — projectAssistantSendAction front-doo
     } else {
       process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY = previousMorris;
     }
+    if (previousCursorReal === undefined) {
+      delete process.env.SFIA_STUDIO_CURSOR_REAL;
+    } else {
+      process.env.SFIA_STUDIO_CURSOR_REAL = previousCursorReal;
+    }
   });
 
   it("Rec CURRENT → prepare → HD → prepare → START via send (no signals) → LPS + Nora resume context", async () => {
@@ -1414,7 +780,7 @@ describe("chat-first Framing continuity — projectAssistantSendAction front-doo
     // Progress intent — prepare candidate (no HD)
     const progress = await projectAssistantSendAction({
       projectId,
-      content: "OK, poursuivons la recommandation de Delivery.",
+      content: "OK, poursuivons la recommandation de Cadrage.",
       sessionDbPath,
       provider,
     });
@@ -1485,7 +851,7 @@ describe("chat-first Framing continuity — projectAssistantSendAction front-doo
     // Adversarial: hypothetical
     const maybe = await projectAssistantSendAction({
       projectId,
-      content: "Démarre peut-être le Delivery.",
+      content: "Démarre peut-être le Cadrage.",
       sessionDbPath,
       provider,
     });
@@ -1509,7 +875,7 @@ describe("chat-first Framing continuity — projectAssistantSendAction front-doo
     // Adversarial: question
     const question = await projectAssistantSendAction({
       projectId,
-      content: "Quel est l'état du Delivery ?",
+      content: "Quel est l'état du Cadrage ?",
       sessionDbPath,
       provider,
     });
@@ -1526,7 +892,7 @@ describe("chat-first Framing continuity — projectAssistantSendAction front-doo
     // CP-01 / CP-02 — explicit START through front-door with missing signals
     const start = await projectAssistantSendAction({
       projectId,
-      content: "Je souhaite démarrer le Delivery.",
+      content: "Je souhaite démarrer le Cadrage.",
       sessionDbPath,
       provider,
     });
@@ -1556,7 +922,7 @@ describe("chat-first Framing continuity — projectAssistantSendAction front-doo
     // Idempotent second START
     const again = await projectAssistantSendAction({
       projectId,
-      content: "Je souhaite démarrer le Delivery.",
+      content: "Je souhaite démarrer le Cadrage.",
       sessionDbPath,
       provider,
     });
@@ -1572,7 +938,7 @@ describe("chat-first Framing continuity — projectAssistantSendAction front-doo
     // CP-03 — next deterministic turn consumes active cycle context
     const resume = await projectAssistantSendAction({
       projectId,
-      content: "Quel est l'état du Delivery ?",
+      content: "Quel est l'état du Cadrage ?",
       sessionDbPath,
       provider,
     });
@@ -1584,13 +950,35 @@ describe("chat-first Framing continuity — projectAssistantSendAction front-doo
     expect(resume.project.activeCycleInstanceId).toBe(
       lps.livingProjectState.activeCycleInstanceId,
     );
+    // Nora resume: provider corpus for the resume turn must see the active cycle.
+    const resumeCorpus = provider.lastMessageCorpus.at(-1) ?? "";
+    expect(resumeCorpus.length).toBeGreaterThan(0);
+    expect(resumeCorpus).toMatch(
+      new RegExp(
+        (lps.livingProjectState.activeCycleInstanceId ?? "").replace(
+          /[.*+?^${}()|[\]\\]/g,
+          "\\$&",
+        ),
+      ),
+    );
+    // Display projection: active → no START card
+    const afterActive = await projectAssistantReadFramingContinuityAction({
+      projectId,
+    });
+    expect(afterActive.continuity?.phase).toBe("active");
+    const { framingContinuityForConversationDisplay } = await import(
+      "@/features/project-assistant/f2/chatFirstFramingContinuity"
+    );
+    expect(
+      framingContinuityForConversationDisplay(afterActive.continuity),
+    ).toBeNull();
   });
 
   it("START without prepared cycle fails closed via front-door", async () => {
     const { projectId, sessionDbPath } = await bootWithCurrentFramingRec("noprep");
     const start = await projectAssistantSendAction({
       projectId,
-      content: "Je souhaite démarrer le Delivery.",
+      content: "Je souhaite démarrer le Cadrage.",
       sessionDbPath,
       provider,
     });
@@ -1605,7 +993,7 @@ describe("chat-first Framing continuity — projectAssistantSendAction front-doo
     const { projectId, sessionDbPath } = await bootWithCurrentFramingRec("stale");
     await projectAssistantSendAction({
       projectId,
-      content: "OK, poursuivons la recommandation de Delivery.",
+      content: "OK, poursuivons la recommandation de Cadrage.",
       sessionDbPath,
       provider,
     });
@@ -1623,590 +1011,268 @@ describe("chat-first Framing continuity — projectAssistantSendAction front-doo
 
 ```
 
-### d0 continuity test (FULL)
-```ts
-/** @vitest-environment node */
-/**
- * P6 chat-first Framing continuity — pure phase + OA front-door reuse.
- * ZERO REAL / ZERO provider.
- */
-import fs from "node:fs";
-import os from "node:os";
-import path from "node:path";
-import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import {
-  materializeLifecycleRecommendationFromStructuredOutput,
-  NORA_LIFECYCLE_RECOMMENDATION_ACTOR,
-  resolveTrajectoryBootstrapPresence,
-} from "@/lib/oa/cycle";
-import { PRE_CYCLE_ROUTING_ASSESSMENT_READY_TO_EMIT } from "@/lib/nora-cognitive-runtime/noraProductTurnOutputType";
-import type { Digest, DoctrinePackagePin } from "@/lib/oa/doctrine";
-import {
-  getRuntimeApplicationService,
-  resetRuntimeApplicationServiceForTests,
-} from "@/lib/vertical-slice-runtime";
-import type { LocalProjectIdSource } from "@/lib/vertical-slice-core";
-import {
-  classifyFramingContinuityPhase,
-  framingContinuityPilotMessage,
-} from "@/features/project-assistant/f2/chatFirstFramingContinuity";
-import {
-  projectAssistantAdvanceFramingContinuityAction,
-  projectAssistantReadFramingContinuityAction,
-} from "@/features/project-assistant/preCycleCandidateTrajectoryActions";
-
-const APP_ROOT = path.resolve(__dirname, "../..");
-const FIXTURES = path.join(APP_ROOT, "lib/oa/doctrine/fixtures");
-const SCHEMAS = path.resolve(
-  APP_ROOT,
-  "../sfia-v3-modeled/v3-native-option-a/schemas",
-);
-
-const VALID_DIGEST =
-  "sha256:3b4507505ddad333cd16730fcddf466aae24bc123b48e6a8c956c2e5cd9ac622" as Digest;
-
-const VALID_PIN: DoctrinePackagePin = {
-  doctrinePackageId: "pkg:studio-v3-oa",
-  version: "1.0.0",
-  digest: VALID_DIGEST,
-};
-
-const tempDirs: string[] = [];
-let previousPilot: string | undefined;
-
-class FixedIdSource implements LocalProjectIdSource {
-  private n = 0;
-  constructor(private readonly prefix: string) {}
-  nextProjectId(): string {
-    this.n += 1;
-    return `prj:${this.prefix}-${this.n}`;
-  }
-  nextLpsVersionId(): string {
-    return `lps:${this.prefix}-${this.n}`;
-  }
-  nextCorrelationId(): string {
-    return `cor:${this.prefix}-${this.n}`;
-  }
-}
-
-function nextCycleLr(targetCycleTypeId: string, statement: string) {
-  return {
-    intent: "NEXT_CYCLE" as const,
-    statement,
-    subjectCycleInstanceId: null,
-    targetCycleInstanceId: null,
-    targetCycleTypeId,
-    rationale: "Prochain travail gouverné supportable.",
-    authority: "none" as const,
-    isHumanDecision: false as const,
-    qualificationSignals: {
-      structuralChange: false,
-      securityImpact: false,
-      architectureImpact: false,
-      dataImpact: false,
-      irreversible: false,
-      lowRiskBounded: true,
-    },
-  };
-}
-
-async function bootWithCurrentFramingRec(suffix: string) {
-  process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
-  process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY = "1";
-  process.env.SFIA_STUDIO_LOCAL_PILOT_AUTHORITY = "1";
-  resetRuntimeApplicationServiceForTests();
-  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "framing-cont-"));
-  tempDirs.push(dir);
-  const runtime = getRuntimeApplicationService({
-    registryRoot: FIXTURES,
-    schemasRoot: SCHEMAS,
-    nowIso: "2026-09-09T20:00:00.000Z",
-    idSource: new FixedIdSource(`frm-${suffix}`),
-    auditMode: "noop",
-    productDbPath: path.join(dir, `${suffix}.sqlite`),
-  });
-  if (!runtime.oa) throw new Error("oa missing");
-  const created = await runtime.createProject({
-    name: `Framing continuity ${suffix}`,
-    objective: "gestion de tâches",
-    context: "application web personnelle",
-    criticality: "STANDARD",
-    constraints: [],
-    shortReference: `FRM${suffix}`,
-    idempotencyKey: `idem:frm-${suffix}`,
-  });
-  if (!created.ok) throw new Error("create failed");
-  const projectId = created.projectId;
-  const oa = runtime.oa;
-  const cycles = await oa.cycleServices.cycles.listByProject(projectId);
-  const decisions = await oa.decisionServices.decisions.listByProject(projectId);
-  const lps = await oa.projectServices.getCurrentLivingProjectState.execute({
-    projectId,
-  });
-  if (!lps.ok) throw new Error("lps missing");
-  const presence = await resolveTrajectoryBootstrapPresence(
-    oa.cycleServices.trajectories,
-    projectId,
-  );
-  const project = await oa.projectServices.getProject.execute({ projectId });
-  const doctrine =
-    (project.ok ? project.project.doctrinePackageRef : null) ?? VALID_PIN;
-  const mat = await materializeLifecycleRecommendationFromStructuredOutput({
-    projectId,
-    structuredOutput: {
-      narrative: "Narrative Cadrage recommandée.",
-      preCycleRoutingAssessment: {
-        ...PRE_CYCLE_ROUTING_ASSESSMENT_READY_TO_EMIT,
-      },
-      lifecycleRecommendation: nextCycleLr(
-        "cyc:framing",
-        "Envisager un Cadrage.",
-      ),
-    },
-    updateEpistemicState: oa.cycleServices.updateEpistemicState,
-    facts: {
-      cycles,
-      lpsActiveCycleInstanceId: lps.livingProjectState.activeCycleInstanceId,
-      lpsVersion: lps.livingProjectState.version,
-      doctrinePackageId: doctrine.doctrinePackageId,
-      doctrinePackageVersion: doctrine.version,
-      doctrinePackageDigest: doctrine.digest,
-      trajectory: null,
-      trajectoryBootstrapPresence: presence,
-      decisions,
-      evidence: [],
-      epistemicItems: await oa.cycleServices.epistemic.listByProject(projectId),
-    },
-    producedAt: "2026-09-09T20:01:00.000Z",
-    createdBy: NORA_LIFECYCLE_RECOMMENDATION_ACTOR,
-  });
-  expect(mat.materialization?.ok).toBe(true);
-  return { runtime, projectId };
-}
-
-describe("classifyFramingContinuityPhase", () => {
-  it("orders active > prepared > decided > awaiting > recommendation", () => {
-    expect(
-      classifyFramingContinuityPhase({
-        activeCycleInstanceId: "cyc:1",
-        hasCurrentNextCycleRecommendation: true,
-        candidatePresent: true,
-        candidateProvenanceResolved: true,
-        awaitingDecisionPresentation: true,
-        decidedTrajectoryPresent: true,
-        preparedCompletePresent: true,
-      }),
-    ).toBe("active");
-    expect(
-      classifyFramingContinuityPhase({
-        activeCycleInstanceId: null,
-        hasCurrentNextCycleRecommendation: true,
-        candidatePresent: true,
-        candidateProvenanceResolved: true,
-        awaitingDecisionPresentation: false,
-        decidedTrajectoryPresent: false,
-        preparedCompletePresent: true,
-      }),
-    ).toBe("ready_to_start");
-    expect(
-      classifyFramingContinuityPhase({
-        activeCycleInstanceId: null,
-        hasCurrentNextCycleRecommendation: true,
-        candidatePresent: false,
-        candidateProvenanceResolved: false,
-        awaitingDecisionPresentation: false,
-        decidedTrajectoryPresent: true,
-        preparedCompletePresent: false,
-      }),
-    ).toBe("trajectory_decided_prepare_cycle");
-    expect(
-      classifyFramingContinuityPhase({
-        activeCycleInstanceId: null,
-        hasCurrentNextCycleRecommendation: true,
-        candidatePresent: true,
-        candidateProvenanceResolved: true,
-        awaitingDecisionPresentation: true,
-        decidedTrajectoryPresent: false,
-        preparedCompletePresent: false,
-      }),
-    ).toBe("awaiting_trajectory_decision");
-    expect(
-      classifyFramingContinuityPhase({
-        activeCycleInstanceId: null,
-        hasCurrentNextCycleRecommendation: true,
-        candidatePresent: false,
-        candidateProvenanceResolved: false,
-        awaitingDecisionPresentation: false,
-        decidedTrajectoryPresent: false,
-        preparedCompletePresent: false,
-      }),
-    ).toBe("recommendation_ready");
-    expect(
-      classifyFramingContinuityPhase({
-        activeCycleInstanceId: null,
-        hasCurrentNextCycleRecommendation: false,
-        candidatePresent: false,
-        candidateProvenanceResolved: false,
-        awaitingDecisionPresentation: false,
-        decidedTrajectoryPresent: false,
-        preparedCompletePresent: false,
-      }),
-    ).toBe("blocked_no_recommendation");
-  });
-
-  it("messages stay pilot-facing and never claim START from prose alone", () => {
-    const msg = framingContinuityPilotMessage(
-      "awaiting_trajectory_decision",
-      "Cadrage",
-    );
-    expect(msg).toMatch(/ok/);
-    expect(msg).not.toMatch(/HumanDecision|gate F01|Recommendation ≠/i);
-    expect(msg).not.toMatch(/est maintenant actif/i);
-    expect(
-      framingContinuityPilotMessage("ready_to_start", "Cadrage"),
-    ).toMatch(/démarrer/i);
-  });
-});
-
-describe("chat-first Framing continuity OA bridge", () => {
-  beforeEach(() => {
-    previousPilot = process.env.SFIA_STUDIO_LOCAL_PILOT_AUTHORITY;
-    process.env.SFIA_STUDIO_LOCAL_PILOT_AUTHORITY = "1";
-  });
-
-  afterEach(() => {
-    resetRuntimeApplicationServiceForTests();
-    while (tempDirs.length) {
-      const d = tempDirs.pop();
-      if (d) fs.rmSync(d, { recursive: true, force: true });
-    }
-    if (previousPilot === undefined) {
-      delete process.env.SFIA_STUDIO_LOCAL_PILOT_AUTHORITY;
-    } else {
-      process.env.SFIA_STUDIO_LOCAL_PILOT_AUTHORITY = previousPilot;
-    }
-  });
-
-  it("Rec CURRENT → prepare candidate → awaiting decision (no auto HD)", async () => {
-    const { projectId } = await bootWithCurrentFramingRec("prep");
-    const before = await projectAssistantReadFramingContinuityAction({
-      projectId,
-    });
-    expect(before.ok).toBe(true);
-    expect(before.continuity?.phase).toBe("recommendation_ready");
-    expect(before.continuity?.hasCurrentNextCycleRecommendation).toBe(true);
-
-    const prepared = await projectAssistantAdvanceFramingContinuityAction({
-      projectId,
-      step: "prepare_candidate",
-    });
-    expect(prepared.ok).toBe(true);
-    expect(prepared.continuity?.phase).toBe("awaiting_trajectory_decision");
-    expect(prepared.continuity?.presentationDigest).toBeTruthy();
-
-    const noDigest = await projectAssistantAdvanceFramingContinuityAction({
-      projectId,
-      step: "approve_candidate",
-    });
-    expect(noDigest.ok).toBe(false);
-    expect(noDigest.code).toBe("PRESENTATION_DIGEST_REQUIRED");
-  });
-
-  it("stale digest refuses HD; opening read does not mutate", async () => {
-    const { projectId } = await bootWithCurrentFramingRec("stale");
-    const r1 = await projectAssistantReadFramingContinuityAction({ projectId });
-    const r2 = await projectAssistantReadFramingContinuityAction({ projectId });
-    expect(r1.continuity?.phase).toBe(r2.continuity?.phase);
-    expect(r1.continuity?.phase).toBe("recommendation_ready");
-
-    await projectAssistantAdvanceFramingContinuityAction({
-      projectId,
-      step: "prepare_candidate",
-    });
-    const stale = await projectAssistantAdvanceFramingContinuityAction({
-      projectId,
-      step: "approve_candidate",
-      presentationDigest: "sha256:deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef",
-    });
-    expect(stale.ok).toBe(false);
-  });
-
-  it("approve digest → prepare cycle → ready_to_start → START → active", async () => {
-    const { projectId } = await bootWithCurrentFramingRec("e2e");
-    const prepared = await projectAssistantAdvanceFramingContinuityAction({
-      projectId,
-      step: "prepare_candidate",
-    });
-    expect(prepared.ok).toBe(true);
-    const digest = prepared.continuity?.presentationDigest;
-    expect(digest).toBeTruthy();
-
-    const approved = await projectAssistantAdvanceFramingContinuityAction({
-      projectId,
-      step: "approve_candidate",
-      presentationDigest: digest!,
-    });
-    expect(approved.ok).toBe(true);
-    expect(
-      approved.continuity?.phase === "ready_to_start" ||
-        approved.continuity?.phase === "trajectory_decided_prepare_cycle",
-    ).toBe(true);
-
-    if (approved.continuity?.phase === "trajectory_decided_prepare_cycle") {
-      const cyclePrep = await projectAssistantAdvanceFramingContinuityAction({
-        projectId,
-        step: "prepare_cycle",
-      });
-      expect(cyclePrep.ok).toBe(true);
-      expect(cyclePrep.continuity?.phase).toBe("ready_to_start");
-    }
-
-    const started = await projectAssistantAdvanceFramingContinuityAction({
-      projectId,
-      step: "start_prepared",
-    });
-    expect(started.ok).toBe(true);
-    expect(started.activeCycleInstanceId).toBeTruthy();
-
-    const after = await projectAssistantReadFramingContinuityAction({
-      projectId,
-    });
-    expect(after.continuity?.phase).toBe("active");
-    expect(after.continuity?.activeCycleInstanceId).toBe(
-      started.activeCycleInstanceId,
-    );
-
-    // Idempotent second START must not invent a second active cycle
-    const again = await projectAssistantAdvanceFramingContinuityAction({
-      projectId,
-      step: "start_prepared",
-    });
-    expect(again.ok === false || again.activeCycleInstanceId === started.activeCycleInstanceId).toBe(
-      true,
-    );
-  });
-
-  it("START without prepared cycle fails closed", async () => {
-    const { projectId } = await bootWithCurrentFramingRec("noprep");
-    const started = await projectAssistantAdvanceFramingContinuityAction({
-      projectId,
-      step: "start_prepared",
-    });
-    expect(started.ok).toBe(false);
-  });
-});
-
-```
-
-### UI card test (FULL)
+### framingContinuityRehydrate.ui.test.tsx (FULL)
 ```tsx
 /** @vitest-environment jsdom */
 /**
- * P6 FramingContinuityCard — presentation only. No OA mutations.
+ * CC-01 / CC-02 — Framing continuity rehydration + post-START display sync.
+ * Mirrors the Product-read → display projection used by useProductConversation.
  */
-import { describe, expect, it, vi } from "vitest";
-import { cleanup, fireEvent, render, screen } from "@testing-library/react";
-import { afterEach } from "vitest";
-import { FramingContinuityCard } from "@/features/pre-m6-product-ui/surfaces/FramingContinuityCard";
+import React, { useEffect, useState } from "react";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { cleanup, render, screen, waitFor } from "@testing-library/react";
 import type { FramingContinuitySnapshot } from "@/features/project-assistant/f2/chatFirstFramingContinuity";
+import { framingContinuityForConversationDisplay } from "@/features/project-assistant/f2/chatFirstFramingContinuity";
+import { FramingContinuityCard } from "@/features/pre-m6-product-ui/surfaces/FramingContinuityCard";
 
-afterEach(() => {
-  cleanup();
-});
+const readFraming = vi.fn();
+
+vi.mock(
+  "@/features/project-assistant/preCycleCandidateTrajectoryActions",
+  () => ({
+    projectAssistantReadFramingContinuityAction: (...args: unknown[]) =>
+      readFraming(...args),
+    projectAssistantAdvanceFramingContinuityAction: vi.fn(),
+  }),
+);
 
 function snap(
-  partial: Partial<FramingContinuitySnapshot> &
-    Pick<FramingContinuitySnapshot, "phase">,
+  phase: FramingContinuitySnapshot["phase"],
 ): FramingContinuitySnapshot {
   return {
+    phase,
     catalogLabel: "Cadrage",
     targetCycleTypeId: "cyc:framing",
     recommendationId: "rec:1",
     semanticKey: "sk:1",
     trajectoryId: "trj:1",
     trajectoryVersion: 1,
-    presentationDigest: "sha256:abc",
-    approvalOptionLabel: "Valider la trajectoire initiale Cadrage.",
-    preparedCycleInstanceId: null,
-    activeCycleInstanceId: null,
+    presentationDigest:
+      phase === "awaiting_trajectory_decision" ? "sha256:abc" : null,
+    approvalOptionLabel: "Valider cette direction pour « Cadrage ».",
+    preparedCycleInstanceId: phase === "ready_to_start" ? "cyc:prep" : null,
+    activeCycleInstanceId: phase === "active" ? "cyc:live" : null,
     hasCurrentNextCycleRecommendation: true,
-    message: "message",
-    ...partial,
+    message: `phase:${phase}`,
   };
 }
 
-describe("FramingContinuityCard", () => {
-  it("recommendation_ready exposes prepare CTA without inventing HD", () => {
-    const onPrepare = vi.fn();
-    render(
+/** Minimal rehydrate harness mirroring CC-01 effect in useProductConversation. */
+function FramingRehydrateHarness({
+  projectId,
+  refreshSignal = 0,
+}: {
+  projectId: string;
+  refreshSignal?: number;
+}) {
+  const [continuity, setContinuity] =
+    useState<FramingContinuitySnapshot | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    const requestProjectId = projectId;
+    setContinuity(null);
+    void (async () => {
+      const result = await readFraming({ projectId: requestProjectId });
+      if (cancelled) return;
+      if (!result.ok || !result.continuity) {
+        setContinuity(null);
+        return;
+      }
+      setContinuity(framingContinuityForConversationDisplay(result.continuity));
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [projectId, refreshSignal]);
+
+  if (!continuity) {
+    return <div data-testid="framing-empty">empty</div>;
+  }
+  return (
+    <div data-testid="framing-slot">
       <FramingContinuityCard
-        continuity={snap({ phase: "recommendation_ready" })}
+        continuity={continuity}
         busy={false}
         error={null}
-        onPrepareCandidate={onPrepare}
+        onPrepareCandidate={vi.fn()}
         onApproveCandidate={vi.fn()}
         onPrepareCycle={vi.fn()}
         onStartPrepared={vi.fn()}
-      />,
-    );
-    expect(screen.getByTestId("framing-continuity-card")).toHaveAttribute(
-      "data-phase",
-      "recommendation_ready",
-    );
-    expect(screen.getByTestId("framing-continuity-authority").textContent).toMatch(
-      /Vous décidez/,
-    );
-    expect(
-      screen.getByTestId("framing-continuity-card").textContent,
-    ).not.toMatch(/HumanDecision|gate F01|Recommendation ≠/i);
-    fireEvent.click(screen.getByTestId("framing-continuity-primary"));
-    expect(onPrepare).toHaveBeenCalledTimes(1);
+      />
+    </div>
+  );
+}
+
+afterEach(() => {
+  cleanup();
+  readFraming.mockReset();
+});
+
+describe("Framing continuity rehydrate / post-START sync", () => {
+  beforeEach(() => {
+    readFraming.mockReset();
   });
 
-  it("awaiting_trajectory_decision requires digest; keep exploring is non-mutating", () => {
-    const onApprove = vi.fn();
-    const onKeep = vi.fn();
-    const { rerender } = render(
-      <FramingContinuityCard
-        continuity={snap({
-          phase: "awaiting_trajectory_decision",
-          presentationDigest: null,
-        })}
-        busy={false}
-        error={null}
-        onPrepareCandidate={vi.fn()}
-        onApproveCandidate={onApprove}
-        onPrepareCycle={vi.fn()}
-        onStartPrepared={vi.fn()}
-        onKeepExploring={onKeep}
-      />,
+  it("CC-01 — mounts with ready_to_start card from Product read (no prior action)", async () => {
+    readFraming.mockResolvedValue({
+      ok: true,
+      continuity: snap("ready_to_start"),
+    });
+    render(<FramingRehydrateHarness projectId="prj:a" />);
+    await waitFor(() => {
+      expect(screen.getByTestId("framing-continuity-card")).toHaveAttribute(
+        "data-phase",
+        "ready_to_start",
+      );
+    });
+    expect(readFraming).toHaveBeenCalledWith({ projectId: "prj:a" });
+    expect(screen.getByTestId("framing-continuity-primary").textContent).toMatch(
+      /Démarrer/,
     );
-    expect(screen.getByTestId("framing-continuity-primary")).toBeDisabled();
-    fireEvent.click(screen.getByTestId("framing-continuity-keep-exploring"));
-    expect(onKeep).toHaveBeenCalledTimes(1);
-    expect(onApprove).not.toHaveBeenCalled();
-
-    rerender(
-      <FramingContinuityCard
-        continuity={snap({ phase: "awaiting_trajectory_decision" })}
-        busy={false}
-        error={null}
-        onPrepareCandidate={vi.fn()}
-        onApproveCandidate={onApprove}
-        onPrepareCycle={vi.fn()}
-        onStartPrepared={vi.fn()}
-        onKeepExploring={onKeep}
-      />,
-    );
-    fireEvent.click(screen.getByTestId("framing-continuity-primary"));
-    expect(onApprove).toHaveBeenCalledTimes(1);
   });
 
-  it("ready_to_start exposes START CTA; active renders nothing", () => {
-    const onStart = vi.fn();
+  it("CC-01 — remount / refreshSignal rebuilds awaiting decision from Product", async () => {
+    readFraming.mockResolvedValue({
+      ok: true,
+      continuity: snap("awaiting_trajectory_decision"),
+    });
     const { rerender } = render(
-      <FramingContinuityCard
-        continuity={snap({
-          phase: "ready_to_start",
-          preparedCycleInstanceId: "cyc:prep",
-        })}
-        busy={false}
-        error={null}
-        onPrepareCandidate={vi.fn()}
-        onApproveCandidate={vi.fn()}
-        onPrepareCycle={vi.fn()}
-        onStartPrepared={onStart}
-      />,
+      <FramingRehydrateHarness projectId="prj:a" refreshSignal={0} />,
     );
-    fireEvent.click(screen.getByTestId("framing-continuity-primary"));
-    expect(onStart).toHaveBeenCalledTimes(1);
+    await waitFor(() => {
+      expect(screen.getByTestId("framing-continuity-card")).toHaveAttribute(
+        "data-phase",
+        "awaiting_trajectory_decision",
+      );
+    });
+    readFraming.mockResolvedValue({
+      ok: true,
+      continuity: snap("recommendation_ready"),
+    });
+    rerender(<FramingRehydrateHarness projectId="prj:a" refreshSignal={1} />);
+    await waitFor(() => {
+      expect(screen.getByTestId("framing-continuity-card")).toHaveAttribute(
+        "data-phase",
+        "recommendation_ready",
+      );
+    });
+  });
 
-    rerender(
-      <FramingContinuityCard
-        continuity={snap({
-          phase: "active",
-          activeCycleInstanceId: "cyc:live",
-        })}
-        busy={false}
-        error={null}
-        onPrepareCandidate={vi.fn()}
-        onApproveCandidate={vi.fn()}
-        onPrepareCycle={vi.fn()}
-        onStartPrepared={vi.fn()}
-      />,
+  it("CC-02 — active Product phase clears START card after sync", async () => {
+    readFraming.mockResolvedValue({
+      ok: true,
+      continuity: snap("ready_to_start"),
+    });
+    const { rerender } = render(
+      <FramingRehydrateHarness projectId="prj:a" refreshSignal={0} />,
     );
+    await waitFor(() => {
+      expect(screen.getByTestId("framing-continuity-card")).toBeTruthy();
+    });
+    readFraming.mockResolvedValue({
+      ok: true,
+      continuity: snap("active"),
+    });
+    rerender(<FramingRehydrateHarness projectId="prj:a" refreshSignal={1} />);
+    await waitFor(() => {
+      expect(screen.getByTestId("framing-empty")).toBeTruthy();
+    });
     expect(screen.queryByTestId("framing-continuity-card")).toBeNull();
+  });
+
+  it("CC-01 — project change ignores stale late response from prior project", async () => {
+    let resolveA: (v: unknown) => void = () => {};
+    const pendingA = new Promise((resolve) => {
+      resolveA = resolve;
+    });
+    readFraming.mockImplementation(({ projectId }: { projectId: string }) => {
+      if (projectId === "prj:a") return pendingA;
+      return Promise.resolve({
+        ok: true,
+        continuity: snap("ready_to_start"),
+      });
+    });
+    const { rerender } = render(<FramingRehydrateHarness projectId="prj:a" />);
+    rerender(<FramingRehydrateHarness projectId="prj:b" />);
+    await waitFor(() => {
+      expect(screen.getByTestId("framing-continuity-card")).toHaveAttribute(
+        "data-phase",
+        "ready_to_start",
+      );
+    });
+    resolveA({
+      ok: true,
+      continuity: {
+        ...snap("awaiting_trajectory_decision"),
+        catalogLabel: "STALE-A",
+      },
+    });
+    await new Promise((r) => setTimeout(r, 30));
+    expect(
+      screen.getByTestId("framing-continuity-title").textContent,
+    ).not.toMatch(/STALE-A/);
   });
 });
 
 ```
 
-## Tests exécutés
+## Tests
 ```
 cd projects/sfia-studio/app
 npx vitest run \
   __tests__/project-assistant/chatFirstFramingContinuity.d0.test.ts \
   __tests__/project-assistant/chatFirstFramingContinuity.frontDoor.d0.test.ts \
   __tests__/pre-m6-product-ui/framingContinuityCard.ui.test.tsx \
+  __tests__/pre-m6-product-ui/framingContinuityRehydrate.ui.test.tsx \
   __tests__/project-assistant/p6.hqa.f01.chatFirstCycleStartGate.d0.test.ts \
   __tests__/project-assistant/candidateTrajectoryBridge.d0.test.ts \
   __tests__/project-assistant/candidateTrajectoryHumanDecision.d0.test.ts \
   __tests__/project-assistant/candidateTrajectoryCycleStart.d0.test.ts \
   __tests__/pre-m6-product-ui/chatFirstGovernedDecisionLoop.ui.test.tsx
 ```
-Résultat : **8 files / 89 tests PASS**
+Résultat : **9 files / 94 tests PASS**
 
-Typecheck : 0 erreur Delivery ; 4 erreurs préexistantes untracked `p6-campaign/` (baseline, non régression)
-`git diff --check` : whitespace uniquement dans ancien pack (réinitialisé ici)
+Typecheck Delivery : 0 erreur ; p6-campaign untracked : 4 erreurs baseline
 
-## Assertions d'autorité / currentness / F01
-- accept_recommendation ≠ START (front-door)
-- refuse / maybe / question ≠ START
-- digest stale refuse HD
-- START sans préparé fail-closed
-- START avec signals=null atteint F01 (CP-01)
-- LPS activeCycleInstanceId relu ; COMPLETE_TRAJECTORY_BOUND ; pas LEGACY_UNBOUND
-- second START → déjà actif
-- resume turn : project.activeCycleInstanceId = LPS
+## Preuves
+- **PERSISTENT CONTINUITY DETERMINISTIC PROVEN** (mount / refresh / stale race)
+- **START CHAT/UI SYNC PROVEN** (active → card null ; notifyDurable)
+- **CADRAGE FRONT-DOOR E2E PROVEN** (cyc:framing + « Je souhaite démarrer le Cadrage »)
+- Nora resume : activeCycleInstanceId dans corpus provider du tour suivant
+- Env isolation : CURSOR_REAL / PILOT / MORRIS restored
 
 ## Figma / runtime
-- Captures Figma locales : `.tmp-sfia-review/figma/p6-378-2-recommendation.png`, `p6-380-2-decision.png`
-- Runtime :3020 **down** → **REVIEW INCONCLUSIVE — RUNTIME SCREENSHOT REQUIRED** (conformité visuelle forte seulement)
-- Contrat code : shell P3, GovernedDecisionCard.module.css, « Vous décidez », CTA contextualisés
-
-## Preuve reprise Nora
-- Notice system honnête post-START (pas de prose Nora inventée)
-- Carte retirée quand phase=active
-- Tour déterministe suivant : `projectAssistantSendAction` avec activeCycleInstanceId présent dans le contexte projet
+- Captures Figma locales antérieures conservées sous `.tmp-sfia-review/figma/`
+- Runtime :3020 down → **REVIEW INCONCLUSIVE — RUNTIME SCREENSHOT REQUIRED** (visuel fort seulement)
 
 ## Fake / Real
-- Niveau : **FRONT-DOOR DETERMINISTIC E2E PROVEN**
-- REAL provider : aucun nouvel appel
-- SFIA_STUDIO_CURSOR_REAL : non modifié
+- Niveau : PERSISTENT CONTINUITY + START CHAT/UI SYNC + CADRAGE FRONT-DOOR DETERMINISTIC
+- REAL provider : aucun
+- SFIA_STUDIO_CURSOR_REAL config réelle : inchangée
+- REC-01 CURRENT REAL : OPEN
 - Hors scope : REAL BOUNDARY / E2E REAL / P6 PASS / Runtime v3 ADOPTED
-- REC-01 CURRENT REAL : **OPEN** (non revalidé)
 
 ## Réserves
 1. Screenshot runtime manquant
-2. REC-01 CURRENT persistence non prouvée
-3. Human QA REAL non rejoué
-4. Front-door nominal utilise cyc:delivery (CKC fixture) ; chaîne Framing OA reste couverte par d0 cyc:framing
+2. REC-01 REAL OPEN
+3. Human QA navigateur non rejoué
+4. Provider Nora REAL non rejoué
 
 ## Dette / exit
-Aucune architecture parallèle. Aucune nouvelle capacité Product.
+Aucune architecture parallèle. Aucune persistence cliente nouvelle.
 
-## Capacité suivante / Gates Morris
-1. Revue Critical de ce Correction Pass
-2. GO distinct Human QA REAL
-3. Décision intégration Git séparée
+## Gates Morris
+1. Revue Critical de cette candidate
+2. GO Human QA REAL distinct
+3. Intégration Git distincte
 
 ## Verdict
-**LOCAL CRITICAL CORRECTION CANDIDATE — READY FOR REVIEW**
+**LOCAL FRAMING CONTINUITY CANDIDATE — READY FOR CRITICAL REVIEW**
 
-Statut : READY WITH RESERVES (visuel runtime + REC-01 + REAL)
-Interdit : P6 PASS / REC-01 CLOSED / REAL E2E / Runtime v3 ADOPTED / READY FOR MERGE
+READY WITH RESERVES (visuel runtime + REC-01 + REAL)
 
-## Instruction ChatGPT finale (§9.1)
+## Instruction ChatGPT (§9.1)
 Lire exclusivement `sfia-review-handoff/latest-chatgpt-review.md` sur `sfia/review-handoff` au SHA publié.
-Qualifier CP-01/02/03, F01 non contourné, front-door projectAssistantSendAction, absence de jargon Pilote, absence d'architecture parallèle.
+Qualifier CC-01/02/03, CADRAGE front-door, sync START chat/UI, absence d'architecture parallèle.
 Pas de merge/PR/REAL sans nouveau GO Morris.
