@@ -1,24 +1,25 @@
-# ChatGPT Review Pack — P6-HQA-COG-01 CORRECTION PASS 02 (COMPLETE)
+# ChatGPT Review Pack — P6-HQA-F01 Lifecycle Activation Correction (COMPLETE)
 
-- timestamp: 2026-10-09T01:04:46Z
+- timestamp: 2026-10-09T04:56:56Z
 - campaignId: P6-GLOBAL-INTEGRATED-PRODUCT-QA-01
-- finding: P6-HQA-COG-01
-- pass: CORRECTION PASS 02
-- cycle: 8 — Delivery / implémentation
-- typology: EVOL / correction Product ciblée
+- finding: P6-HQA-F01
+- cycle: 8 — Delivery / implémentation corrective
+- typology: EVOL
 - profile: CRITICAL
 - branch: qa/sfia-studio-p6-global-integrated-product-qa
 - origin/main: aba6c4a617b6d0cb27f23b59de5bf0ac9360fab1
 - local HEAD (INITIAL=FINAL): 8a196be1a35ffa2d43e52beddc66b51eab56c99c
-- reference handoff CP01: 46c61d147ce3dd069fe12c39c963db9d6dcf0e17
+- prior handoff tip: 9c6ea373ed97af743489da3c0b16d43ce14f3743
 - project commit/push/PR/merge: NONE
 - P6 PASS: NOT CLAIMED
 - runtime v3: NON ADOPTED
-- Morris GO consumed: COG01 CP02 micro-correction R1/R2
-- F01: BLOCKED · UI05: OPEN · HQ-01: BLOCKED
-- UI-01…UI-04: local CLOSED preserved
-- COG01 CLOSED: NO
-- HUMAN QA NATURALNESS: NOT YET PROVEN
+- Morris GO consumed: F01 local bounded correction
+- HQ-01 data: NOT MUTATED this pass
+- UI-01…UI-04 / COG01 locals: PRESERVED
+- F01 status: CORRECTION CANDIDATE — READY FOR HUMAN QA (NOT CLOSED)
+- COG01: prior CP02 candidate preserved (label-match micro-fix shared)
+- UI05: OPEN
+- HQ-01: BLOCKED pending disposition of legacy candidates + Human QA
 
 ## Local Git Truth
 
@@ -28,79 +29,1015 @@ HEAD=8a196be1a35ffa2d43e52beddc66b51eab56c99c
 ORIGIN_MAIN=aba6c4a617b6d0cb27f23b59de5bf0ac9360fab1
 ```
 
-Preserved: UI-01…UI-04, COG01 CP00/CP01/CP02 locals, P6 campaign untracked proofs.
-No reset/clean/destructive stash.
+## Étape A — Cause (CONFIRMED)
 
-## Reserves closed (CP01 Critical)
+Verbal start confirm → ConversationSurface chat only → F2 `formalizationReady` →
+`NEW_CYCLE_FORMALIZATION` → `createCycle(linkAsActiveCycle:false)` → LEGACY_UNBOUND `cyc:f2-*`.
+`startPreparedTrajectoryCycle` / `pilotLifecycle.start` never called from F2.
+READY_NO_GATE ≠ START. Chat agreement ≠ HumanDecision ≠ activation.
 
-### R1 — accept ≠ accept_start
-AVANT: `disposition=accept` + `current_recommendation|presented_subject` → `accept_start`.
-APRÈS: same structured accept → `accept_recommendation` unless `hasExplicitStartIntentForSubject` for THIS cycleLabel.
-Alternative/ambiguous target → still not start. Negation/question/other-confirm override.
+START admissibility (reused, unchanged):
+- COMPLETE_TRAJECTORY_BOUND prepared cycle;
+- unique match (else PREPARED_CYCLE_AMBIGUOUS);
+- candidate_trajectory HD / assertTrajectoryBoundCycleStartReady;
+- local Pilote authority;
+- LPS re-read after start.
 
-### R2 — history ≠ Product CURRENT
-AVANT: history Delivery mention → `same_subject_current` → "Je reconnais votre accord…".
-APRÈS:
-- history alone → `same_subject_history_hint` (CONTEXT ONLY);
-- `same_subject_product_current` only if `productCurrentSubjectVerified === true`;
-- current-turn `proposalStatus` ignored for continuity;
-- `priorSubjectStatus` (Product) for REFUSED/STALE/SUPERSEDED;
-- orchestrateF2 passes `productCurrentSubjectVerified: false` (no F01 resolver invented).
+LEGACY_UNBOUND (HQ-01 five Delivery candidates) cannot be started via prepared START
+and must not be silently rebound (out of scope / Morris structural if needed).
+
+## Étape B — Correction
+
+Before F2 `createCycle`, if `isChatFirstCycleStartIntent`:
+1. classify LPS + CycleInstance inventory;
+2. unique COMPLETE prepared → `startPreparedTrajectoryCycle` (reuse) + LPS verify;
+3. already active / ambiguous / legacy-only / missing → honest block, **no mint**;
+4. non-start propose path unchanged (createCycle still allowed).
+
+Catalog label fix (shared with COG01): `Delivery / implémentation` matches user `Delivery`.
 
 ## Files
 
 | Path | Action |
 |------|--------|
-| `composeF2PilotFacingNarrative.ts` | MODIFIED (complete below) |
-| `orchestrateF2.ts` | MODIFIED — R2 flags (diff below) |
-| `p6.hqa.cog01.f2PilotFacingNarrative.d0.test.ts` | REWRITTEN CP02 (complete below) |
-| `corrProof01…` | unchanged this pass (prior COG01 T10) |
+| `f2/resolveChatFirstCycleStartGate.ts` | CREATED (complete below) |
+| `f2/orchestrateF2.ts` | MODIFIED — F01 gate before createCycle (diff below) |
+| `f2/composeF2PilotFacingNarrative.ts` | MODIFIED — catalog label match (diff vs working tree prior; full file below) |
+| `p6.hqa.f01.chatFirstCycleStartGate.d0.test.ts` | CREATED (complete below) |
 
-## Deterministic samples (TEST)
-
-ok pour la recommandation + structured accept:
-`Je note votre accord sur la recommandation concernant « Delivery ». Ce n'est pas encore un démarrage.`
-
-Je confirme le démarrage de Delivery + history Delivery + no Product verify:
-`Je comprends votre intention de démarrer « Delivery ». …` (NO "Je reconnais votre accord")
+No HQ-01 mutation. No UI05. No doctrine/persistence schema change.
 
 ## Validations
 
 | Control | Result |
 |---------|--------|
+| F01 D0 (8) | PASS |
 | COG01 CP02 D0 (18) | PASS |
-| corrProof01 / UI-03 / UI-04 / qualToGovernedCycle (53) | PASS |
-| eslint composer+tests | PASS |
+| corrProof01 D1 (17) | PASS |
+| UI-03/UI-04 (15) | PASS |
+| candidateTrajectoryCycleStart (13) | PASS |
+| eslint new F01 files | PASS |
 | next build | NOT RUN (:3020 risk) |
 | REAL provider | NONE |
+| HQ-01 mutation | NONE |
 
 ## Fake / Real
 
-DETERMINISTIC PROVEN for R1/R2 at composer seam.
-Human QA / COG01 CLOSED / P6 PASS / runtime v3: NOT CLAIMED.
+DETERMINISTIC PROVEN: anti-duplication on legacy unbound + classification + start intent.
+Human QA / HQ-01 unlock / prepared START chat success on REAL Studio: NOT YET PROVEN.
+P6 PASS / runtime v3: NOT CLAIMED.
 
-## Reserves remaining
+## Reserves / Morris
 
-- Product CURRENT verification wiring remains F01-adjacent; CP02 fail-closed (`verified=false`).
-- Known cycle label list for mismatch is bounded (not open NLU).
-- Human naturalness still requires Human QA.
+1. HQ-01 five LEGACY_UNBOUND Delivery candidates: not auto-cleaned; chat start blocks honestly.
+2. Chat START success path requires greenfield prepared COMPLETE cycle (Trajectory approve→prepare); proven by existing BAR-START tests + gate wiring; Human QA on isolated fixture recommended before HQ-01 replay.
+3. Disposition of historical HQ-01 candidates remains a distinct Morris decision.
 
 ## Verdict
 
-**COG01 CP02 CORRECTION CANDIDATE — READY FOR CHATGPT CRITICAL RE-REVIEW**
+**F01 CORRECTION CANDIDATE — READY FOR HUMAN QA**
 
-**HUMAN QA NATURALNESS — NOT YET PROVEN**
+**READY FOR CHATGPT CRITICAL REVIEW**
 
-Instruction ChatGPT: read this entire handoff including all code sections before answering Morris.
+Instruction ChatGPT: read this entire handoff including all code sections.
 
-Next: ChatGPT Critical re-review → Human QA COG01.
+Next: ChatGPT Critical → Human QA F01 on isolated prepared fixture → then HQ-01 disposition/replay under separate gate.
 
 ---
 
 # COMPLETE MODIFIED CONTENT
 
 
-## FILE 1/3 — COMPLETE composer
+## FILE 1/4 — CREATED resolveChatFirstCycleStartGate.ts
+
+### path: `projects/sfia-studio/app/features/project-assistant/f2/resolveChatFirstCycleStartGate.ts`
+
+```typescript
+/**
+ * P6-HQA-F01 — chat-first cycle START gate (bounded).
+ *
+ * When the Pilot explicitly intends to start a cycle already in play:
+ * - do NOT mint another F2 LEGACY_UNBOUND createCycle;
+ * - reuse startPreparedTrajectoryCycle when a unique COMPLETE prepared cycle exists;
+ * - otherwise fail closed with an honest blocker (no silent selection, no invented HD).
+ *
+ * Conversation agreement ≠ HumanDecision ≠ Confirmation ≠ activation.
+ */
+
+import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
+import {
+  classifyTrajectoryBinding,
+  startPreparedTrajectoryCycle,
+  type CycleInstance,
+} from "@/lib/oa/cycle";
+import { getCycleTypeById } from "@/lib/oa/cycle/domain/cycleTypeCatalog";
+import type { PilotDecisionCandidate } from "./types";
+import {
+  hasExplicitStartIntentForSubject,
+  interpretPilotNarrativeStance,
+} from "./composeF2PilotFacingNarrative";
+
+export type ChatFirstStartSituation =
+  | { readonly kind: "already_active"; readonly activeCycleInstanceId: string }
+  | { readonly kind: "unique_prepared"; readonly cycleInstanceId: string }
+  | { readonly kind: "ambiguous_prepared"; readonly count: number }
+  | { readonly kind: "legacy_unbound_only"; readonly count: number }
+  | { readonly kind: "no_prepared" };
+
+export type ChatFirstCycleStartGateResult =
+  | {
+      readonly kind: "started";
+      readonly cycleInstanceId: string;
+      readonly activeCycleInstanceId: string;
+      readonly catalogLabel: string | null;
+      readonly lpsVersionAfter: number | undefined;
+      readonly message: string;
+    }
+  | {
+      readonly kind: "already_active";
+      readonly activeCycleInstanceId: string;
+      readonly message: string;
+    }
+  | {
+      readonly kind: "blocked";
+      readonly code: string;
+      readonly message: string;
+    };
+
+function isPreparedStatus(status: CycleInstance["status"]): boolean {
+  return status === "proposed" || status === "acknowledged";
+}
+
+/** Detect explicit chat start intent for the subject cycle (COG01 stance + lexical). */
+export function isChatFirstCycleStartIntent(input: {
+  readonly userContent: string;
+  readonly cycleLabel: string | null | undefined;
+  readonly pilotDecisionCandidate?: PilotDecisionCandidate | null;
+}): boolean {
+  const stance = interpretPilotNarrativeStance({
+    userContent: input.userContent,
+    cycleLabel: input.cycleLabel,
+    pilotDecisionCandidate: input.pilotDecisionCandidate,
+  });
+  if (stance.kind === "accept_start") return true;
+  return hasExplicitStartIntentForSubject(input.userContent, input.cycleLabel);
+}
+
+/**
+ * Pure Product-shape classification — no mutation.
+ * History/conversation is not used; only LPS + CycleInstance inventory.
+ */
+export function classifyChatFirstStartSituation(input: {
+  readonly activeCycleInstanceId: string | null | undefined;
+  readonly cycles: readonly CycleInstance[];
+  readonly targetCycleTypeId: string;
+}): ChatFirstStartSituation {
+  const active = (input.activeCycleInstanceId ?? "").trim();
+  if (active) {
+    return { kind: "already_active", activeCycleInstanceId: active };
+  }
+
+  const target = input.targetCycleTypeId;
+  const preparedComplete = input.cycles.filter(
+    (c) =>
+      c.cycleTypeId === target &&
+      isPreparedStatus(c.status) &&
+      classifyTrajectoryBinding(c) === "COMPLETE_TRAJECTORY_BOUND",
+  );
+  if (preparedComplete.length > 1) {
+    return { kind: "ambiguous_prepared", count: preparedComplete.length };
+  }
+  if (preparedComplete.length === 1) {
+    return {
+      kind: "unique_prepared",
+      cycleInstanceId: preparedComplete[0]!.cycleInstanceId,
+    };
+  }
+
+  const legacy = input.cycles.filter(
+    (c) =>
+      c.cycleTypeId === target &&
+      isPreparedStatus(c.status) &&
+      classifyTrajectoryBinding(c) === "LEGACY_UNBOUND",
+  );
+  if (legacy.length > 0) {
+    return { kind: "legacy_unbound_only", count: legacy.length };
+  }
+  return { kind: "no_prepared" };
+}
+
+export function chatFirstStartBlockMessage(input: {
+  readonly code: string;
+  readonly cycleLabel: string;
+  readonly legacyCount?: number;
+  readonly preparedCount?: number;
+}): string {
+  const cycle = input.cycleLabel.trim()
+    ? `« ${input.cycleLabel.trim()} »`
+    : "ce cycle";
+  switch (input.code) {
+    case "ACTIVE_CYCLE_PRESENT":
+      return `Un cycle est déjà actif sur le projet. Aucun nouveau cycle n'a été créé et aucun second démarrage n'a été engagé.`;
+    case "PREPARED_CYCLE_AMBIGUOUS":
+      return `Plusieurs cycles ${cycle} préparés (liés à la trajectoire) sont disponibles (${input.preparedCount ?? "plusieurs"}). Studio ne sélectionne pas automatiquement lequel démarrer. Aucun nouveau cycle n'a été créé. Précisez le cycle dans Trajectoire, puis démarrez.`;
+    case "LEGACY_UNBOUND_NOT_STARTABLE_VIA_CHAT":
+      return `Des cycles ${cycle} existent déjà (${input.legacyCount ?? "plusieurs"}) mais ne sont pas liés à une trajectoire préparée — le démarrage Chat-first gouverné ne s'applique pas. Aucun cycle supplémentaire n'a été créé. Utilisez Trajectoire pour préparer puis démarrer un cycle lié, sans nouvelle qualification automatique.`;
+    case "PREPARED_CYCLE_MISSING":
+    case "NO_PREPARED_CYCLE":
+      return `Aucun cycle ${cycle} préparé et lié à la trajectoire n'est disponible au démarrage. Votre confirmation en conversation n'active rien à elle seule. Aucun nouveau cycle n'a été créé. Préparez d'abord le cycle depuis Trajectoire (après décision de trajectoire si requise), puis démarrez.`;
+    case "AUTHORITY_DENIED":
+    case "LOCAL_AUTHORITY_DISABLED":
+      return `Le démarrage de ${cycle} est refusé : autorité Pilote indisponible pour START. Aucun nouveau cycle n'a été créé. L'état vivant du projet reste inchangé.`;
+    case "CYCLE_DECISION_REQUIRED":
+      return `Le démarrage de ${cycle} nécessite encore une décision Pilote structurée sur la trajectoire. Aucun nouveau cycle n'a été créé et aucune décision n'a été inventée depuis la conversation.`;
+    default:
+      return `Le démarrage de ${cycle} n'a pas pu aboutir (${input.code}). Aucun nouveau cycle n'a été créé. Vérifiez Trajectoire / préconditions START — l'état vivant du projet n'est pas déclaré actif sans relecture Product.`;
+  }
+}
+
+export function chatFirstStartSuccessMessage(input: {
+  readonly cycleLabel: string | null;
+  readonly cycleInstanceId: string;
+}): string {
+  const label = (input.cycleLabel ?? "").trim();
+  const cycle = label ? `« ${label} »` : "le cycle";
+  return `Le cycle ${cycle} est maintenant actif sur le projet (${input.cycleInstanceId}). L'état vivant a été relu après démarrage. Aucune exécution n'a été lancée par ce tour.`;
+}
+
+/**
+ * Resolve chat-first start intent against Product inventory.
+ * May invoke startPreparedTrajectoryCycle (existing governed START) once.
+ * Never creates CycleInstances. Never invents HumanDecision.
+ */
+export async function resolveChatFirstCycleStartGate(input: {
+  readonly oa: RuntimeOaStack;
+  readonly projectId: string;
+  readonly targetCycleTypeId: string;
+  readonly cycleLabel: string;
+  readonly forceLocalAuthority?: boolean;
+}): Promise<ChatFirstCycleStartGateResult> {
+  const lps = await input.oa.projectServices.getCurrentLivingProjectState.execute(
+    { projectId: input.projectId },
+  );
+  if (!lps.ok) {
+    return {
+      kind: "blocked",
+      code: "LPS_UNAVAILABLE",
+      message: chatFirstStartBlockMessage({
+        code: "LPS_UNAVAILABLE",
+        cycleLabel: input.cycleLabel,
+      }),
+    };
+  }
+
+  let cycles: CycleInstance[] = [];
+  try {
+    cycles = await input.oa.cycleServices.cycles.listByProject(input.projectId);
+  } catch {
+    return {
+      kind: "blocked",
+      code: "CYCLES_UNAVAILABLE",
+      message: chatFirstStartBlockMessage({
+        code: "CYCLES_UNAVAILABLE",
+        cycleLabel: input.cycleLabel,
+      }),
+    };
+  }
+
+  const situation = classifyChatFirstStartSituation({
+    activeCycleInstanceId: lps.livingProjectState.activeCycleInstanceId,
+    cycles,
+    targetCycleTypeId: input.targetCycleTypeId,
+  });
+
+  if (situation.kind === "already_active") {
+    return {
+      kind: "already_active",
+      activeCycleInstanceId: situation.activeCycleInstanceId,
+      message: chatFirstStartBlockMessage({
+        code: "ACTIVE_CYCLE_PRESENT",
+        cycleLabel: input.cycleLabel,
+      }),
+    };
+  }
+
+  if (situation.kind === "ambiguous_prepared") {
+    return {
+      kind: "blocked",
+      code: "PREPARED_CYCLE_AMBIGUOUS",
+      message: chatFirstStartBlockMessage({
+        code: "PREPARED_CYCLE_AMBIGUOUS",
+        cycleLabel: input.cycleLabel,
+        preparedCount: situation.count,
+      }),
+    };
+  }
+
+  if (situation.kind === "legacy_unbound_only") {
+    return {
+      kind: "blocked",
+      code: "LEGACY_UNBOUND_NOT_STARTABLE_VIA_CHAT",
+      message: chatFirstStartBlockMessage({
+        code: "LEGACY_UNBOUND_NOT_STARTABLE_VIA_CHAT",
+        cycleLabel: input.cycleLabel,
+        legacyCount: situation.count,
+      }),
+    };
+  }
+
+  if (situation.kind === "no_prepared") {
+    return {
+      kind: "blocked",
+      code: "NO_PREPARED_CYCLE",
+      message: chatFirstStartBlockMessage({
+        code: "NO_PREPARED_CYCLE",
+        cycleLabel: input.cycleLabel,
+      }),
+    };
+  }
+
+  // unique_prepared — reuse existing START facade (no F2 createCycle).
+  const started = await startPreparedTrajectoryCycle({
+    oa: input.oa,
+    projectId: input.projectId,
+    cycleInstanceId: situation.cycleInstanceId,
+    forceLocalAuthority: input.forceLocalAuthority,
+  });
+
+  if (!started.ok) {
+    return {
+      kind: "blocked",
+      code: started.code,
+      message: chatFirstStartBlockMessage({
+        code: started.code,
+        cycleLabel: input.cycleLabel,
+      }),
+    };
+  }
+
+  // Re-read LPS before claiming activation.
+  const lpsAfter =
+    await input.oa.projectServices.getCurrentLivingProjectState.execute({
+      projectId: input.projectId,
+    });
+  const activeId = lpsAfter.ok
+    ? lpsAfter.livingProjectState.activeCycleInstanceId
+    : null;
+  if (!activeId || activeId !== started.activeCycleInstanceId) {
+    return {
+      kind: "blocked",
+      code: "LPS_ACTIVE_MISMATCH_AFTER_START",
+      message: chatFirstStartBlockMessage({
+        code: "LPS_ACTIVE_MISMATCH_AFTER_START",
+        cycleLabel: input.cycleLabel,
+      }),
+    };
+  }
+
+  const entry = getCycleTypeById(started.cycle.cycleTypeId);
+  return {
+    kind: "started",
+    cycleInstanceId: started.cycle.cycleInstanceId,
+    activeCycleInstanceId: activeId,
+    catalogLabel: started.catalogLabel ?? entry?.label ?? null,
+    lpsVersionAfter: started.lpsVersionAfter,
+    message: chatFirstStartSuccessMessage({
+      cycleLabel: input.cycleLabel || started.catalogLabel,
+      cycleInstanceId: started.cycle.cycleInstanceId,
+    }),
+  };
+}
+```
+
+## FILE 2/4 — CREATED F01 tests
+
+### path: `projects/sfia-studio/app/__tests__/project-assistant/p6.hqa.f01.chatFirstCycleStartGate.d0.test.ts`
+
+```typescript
+/** @vitest-environment node */
+/**
+ * P6-HQA-F01 — chat-first START gate (deterministic).
+ * Proves: start intent does not classify as free createCycle; legacy ≠ prepared;
+ * ambiguous prepared fail-closed; already-active recognized; anti-duplication via F2 send.
+ */
+
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import {
+  setConversationProviderForTests,
+  type ConversationProvider,
+  type ProviderChatMessage,
+  type ProviderCompletionResult,
+  type ProviderInputItem,
+  type ProviderRoundResult,
+} from "@/lib/platform/ai";
+import { orchestrateAssistantSend } from "@/features/project-assistant/f2/orchestrateF2";
+import { resetF2ProposalStoreForTests } from "@/features/project-assistant/f2/proposalStore";
+import { resetMw5ChallengeStoreForTests } from "@/features/project-assistant/f2/mw5ChallengeSessionStore";
+import {
+  chatFirstStartBlockMessage,
+  classifyChatFirstStartSituation,
+  isChatFirstCycleStartIntent,
+} from "@/features/project-assistant/f2/resolveChatFirstCycleStartGate";
+import type { CycleInstance } from "@/lib/oa/cycle";
+import {
+  getRuntimeApplicationService,
+  resetRuntimeApplicationServiceForTests,
+} from "@/lib/vertical-slice-runtime";
+
+function cycle(partial: Partial<CycleInstance> & { cycleInstanceId: string }): CycleInstance {
+  return {
+    schemaVersion: "0.1.0-oa",
+    cycleInstanceId: partial.cycleInstanceId,
+    cycleTypeId: partial.cycleTypeId ?? "cyc:delivery",
+    projectId: partial.projectId ?? "prj:test",
+    status: partial.status ?? "acknowledged",
+    profile: partial.profile ?? "Standard",
+    createdAt: partial.createdAt ?? "2026-01-01T00:00:00.000Z",
+    trajectoryId: partial.trajectoryId,
+    trajectoryVersion: partial.trajectoryVersion,
+    trajectoryStepId: partial.trajectoryStepId,
+    ckcResolutionRef: partial.ckcResolutionRef,
+    qualificationSignals: partial.qualificationSignals,
+  };
+}
+
+function lastUserContent(messages: ProviderChatMessage[]): string {
+  for (let i = messages.length - 1; i >= 0; i -= 1) {
+    if (messages[i]?.role === "user") return messages[i]!.content;
+  }
+  return "";
+}
+
+function demandeCourante(blob: string): string {
+  const marker = "Demande courante (à évaluer):";
+  const idx = blob.indexOf(marker);
+  if (idx < 0) return blob;
+  return blob.slice(idx + marker.length).trim();
+}
+
+class F01FakeProvider implements ConversationProvider {
+  readonly providerId = "fake-test";
+  private n = 0;
+
+  async completeStructured(input: {
+    messages: ProviderChatMessage[];
+    schemaName: string;
+    jsonSchema: Record<string, unknown>;
+  }): Promise<ProviderCompletionResult> {
+    void input.schemaName;
+    void input.jsonSchema;
+    return this.complete(input.messages);
+  }
+
+  async complete(messages: ProviderChatMessage[]): Promise<ProviderCompletionResult> {
+    this.n += 1;
+    const current = demandeCourante(lastUserContent(messages));
+    const usage = {
+      inputTokens: 10,
+      outputTokens: 5,
+      totalTokens: 15,
+      model: "fake-test-model",
+      providerResponseId: `f01-${this.n}`,
+    };
+    const actionable = {
+      intentClass: "actionable",
+      candidateCycleTypeId: "cyc:delivery",
+      signals: {
+        structuralChange: false,
+        securityImpact: false,
+        architectureImpact: false,
+        dataImpact: false,
+        irreversible: false,
+        lowRiskBounded: true,
+      },
+      cognitiveWorkload: null,
+      contradictionCandidate: null,
+      challengeResponseAssessment: null,
+      objective: "Livrer la note",
+      scope: "Sans exécution",
+      rephrasedRequest: current.slice(0, 120),
+      outOfScope: ["Cursor"],
+      risks: [],
+      reservations: [],
+      stopConditions: ["AUCUNE EXÉCUTION"],
+      activatedBlocks: ["qualification", "proposition"],
+      expectedOutcome: "Proposition",
+      criticalJustification: null,
+      requestedOperation: null,
+      executionIntent: null,
+      continuationKind: null,
+      artifactMaterializationOperation: null,
+      pilotDecisionCandidate: null,
+    };
+    return {
+      text: `[TEST/FAKE · NON LIVE] ${JSON.stringify(actionable)}`,
+      usage,
+    };
+  }
+
+  async completeRound(input: {
+    items: ProviderInputItem[];
+    tools: unknown[];
+  }): Promise<ProviderRoundResult> {
+    void input.tools;
+    return {
+      kind: "message",
+      text: "[TEST/FAKE · NON LIVE] f01",
+      usage: {
+        inputTokens: 1,
+        outputTokens: 1,
+        totalTokens: 2,
+        model: "fake-test-model",
+        providerResponseId: "f01-round",
+      },
+    };
+  }
+}
+
+describe("P6-HQA-F01 isChatFirstCycleStartIntent", () => {
+  it("explicit démarrage → true; propose / ok recommandation → false", () => {
+    expect(
+      isChatFirstCycleStartIntent({
+        userContent: "Je confirme le démarrage du cycle Delivery déjà proposé.",
+        cycleLabel: "Delivery",
+      }),
+    ).toBe(true);
+    // Catalog label form must still match user "Delivery".
+    expect(
+      isChatFirstCycleStartIntent({
+        userContent:
+          "Je confirme explicitement le démarrage du cycle Delivery déjà proposé.",
+        cycleLabel: "Delivery / implémentation",
+      }),
+    ).toBe(true);
+    expect(
+      isChatFirstCycleStartIntent({
+        userContent: "J'accepte de démarrer Delivery.",
+        cycleLabel: "Delivery",
+      }),
+    ).toBe(true);
+    expect(
+      isChatFirstCycleStartIntent({
+        userContent: "Prépare un cycle Delivery pour la note.",
+        cycleLabel: "Delivery",
+      }),
+    ).toBe(false);
+    expect(
+      isChatFirstCycleStartIntent({
+        userContent: "ok pour la recommandation",
+        cycleLabel: "Delivery",
+        pilotDecisionCandidate: {
+          disposition: "accept",
+          targetKind: "current_recommendation",
+          rationale: "ok",
+        },
+      }),
+    ).toBe(false);
+    expect(
+      isChatFirstCycleStartIntent({
+        userContent: "Non, ne démarre surtout pas Delivery.",
+        cycleLabel: "Delivery",
+      }),
+    ).toBe(false);
+  });
+});
+
+describe("P6-HQA-F01 classifyChatFirstStartSituation", () => {
+  it("already active", () => {
+    expect(
+      classifyChatFirstStartSituation({
+        activeCycleInstanceId: "cyc:trj-active",
+        targetCycleTypeId: "cyc:delivery",
+        cycles: [],
+      }),
+    ).toEqual({
+      kind: "already_active",
+      activeCycleInstanceId: "cyc:trj-active",
+    });
+  });
+
+  it("unique COMPLETE prepared Delivery", () => {
+    const s = classifyChatFirstStartSituation({
+      activeCycleInstanceId: null,
+      targetCycleTypeId: "cyc:delivery",
+      cycles: [
+        cycle({
+          cycleInstanceId: "cyc:trj-prep-1",
+          trajectoryId: "trj:1",
+          trajectoryVersion: 2,
+          trajectoryStepId: "step:delivery",
+          status: "acknowledged",
+        }),
+        cycle({
+          cycleInstanceId: "cyc:f2-legacy-1",
+          status: "acknowledged",
+        }),
+      ],
+    });
+    expect(s).toEqual({
+      kind: "unique_prepared",
+      cycleInstanceId: "cyc:trj-prep-1",
+    });
+  });
+
+  it("ambiguous prepared → no auto-select", () => {
+    const s = classifyChatFirstStartSituation({
+      activeCycleInstanceId: null,
+      targetCycleTypeId: "cyc:delivery",
+      cycles: [
+        cycle({
+          cycleInstanceId: "cyc:trj-a",
+          trajectoryId: "trj:1",
+          trajectoryVersion: 1,
+          trajectoryStepId: "step:a",
+        }),
+        cycle({
+          cycleInstanceId: "cyc:trj-b",
+          trajectoryId: "trj:1",
+          trajectoryVersion: 1,
+          trajectoryStepId: "step:b",
+        }),
+      ],
+    });
+    expect(s.kind).toBe("ambiguous_prepared");
+  });
+
+  it("legacy unbound only (HQ-01-like) → not startable via chat gate", () => {
+    const s = classifyChatFirstStartSituation({
+      activeCycleInstanceId: null,
+      targetCycleTypeId: "cyc:delivery",
+      cycles: [
+        cycle({ cycleInstanceId: "cyc:f2-1" }),
+        cycle({ cycleInstanceId: "cyc:f2-2" }),
+        cycle({ cycleInstanceId: "cyc:f2-3" }),
+        cycle({ cycleInstanceId: "cyc:f2-4" }),
+        cycle({ cycleInstanceId: "cyc:f2-5" }),
+      ],
+    });
+    expect(s).toEqual({ kind: "legacy_unbound_only", count: 5 });
+  });
+
+  it("no prepared", () => {
+    expect(
+      classifyChatFirstStartSituation({
+        activeCycleInstanceId: null,
+        targetCycleTypeId: "cyc:delivery",
+        cycles: [],
+      }).kind,
+    ).toBe("no_prepared");
+  });
+
+  it("block messages never claim activation / invent HD", () => {
+    for (const code of [
+      "LEGACY_UNBOUND_NOT_STARTABLE_VIA_CHAT",
+      "NO_PREPARED_CYCLE",
+      "PREPARED_CYCLE_AMBIGUOUS",
+      "ACTIVE_CYCLE_PRESENT",
+    ]) {
+      const msg = chatFirstStartBlockMessage({
+        code,
+        cycleLabel: "Delivery",
+        legacyCount: 5,
+        preparedCount: 2,
+      });
+      expect(msg).toMatch(/Aucun (nouveau )?cycle|déjà actif/i);
+      expect(msg).not.toMatch(/HumanDecision enregistr/i);
+      expect(msg).not.toMatch(/cycle est maintenant actif/i);
+    }
+  });
+});
+
+describe("P6-HQA-F01 F2 send anti-duplication (legacy unbound)", () => {
+  const tempDirs: string[] = [];
+  let projectId = "";
+  let sessionDbPath = "";
+  let provider: F01FakeProvider;
+  const previousFake = process.env.OPS1_CONVERSATION_PROVIDER;
+
+  beforeEach(async () => {
+    process.env.OPS1_CONVERSATION_PROVIDER = "fake";
+    process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
+    delete process.env.OPENAI_API_KEY;
+    delete process.env.OPENAI_MODEL;
+    provider = new F01FakeProvider();
+    setConversationProviderForTests(provider);
+    resetF2ProposalStoreForTests();
+    resetMw5ChallengeStoreForTests();
+    resetRuntimeApplicationServiceForTests();
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-f01-"));
+    tempDirs.push(dir);
+    sessionDbPath = path.join(dir, "nora-session.sqlite");
+    const runtime = getRuntimeApplicationService({
+      productDbPath: path.join(dir, "oa-product.sqlite"),
+      auditMode: "noop",
+      nowIso: "2026-09-06T15:00:00.000Z",
+    });
+    const created = await runtime.createProject({
+      name: "F01 Delivery start",
+      objective: "Exit proof Delivery",
+      context: "P6-HQA-F01",
+      criticality: "STANDARD",
+      constraints: [],
+      shortReference: "F01",
+      idempotencyKey: `idem:f01-${Date.now()}-${Math.random()}`,
+    });
+    expect(created.ok).toBe(true);
+    if (!created.ok) throw new Error("F01 setup failed");
+    projectId = created.projectId;
+  });
+
+  afterEach(() => {
+    setConversationProviderForTests(null);
+    resetF2ProposalStoreForTests();
+    resetMw5ChallengeStoreForTests();
+    resetRuntimeApplicationServiceForTests();
+    while (tempDirs.length) {
+      const d = tempDirs.pop();
+      if (d) fs.rmSync(d, { recursive: true, force: true });
+    }
+    if (previousFake === undefined) delete process.env.OPS1_CONVERSATION_PROVIDER;
+    else process.env.OPS1_CONVERSATION_PROVIDER = previousFake;
+  });
+
+  it("propose then start-confirm: no N+1 unbound cycle; honest block; LPS inactive", async () => {
+    const runtime = getRuntimeApplicationService();
+    const propose = await orchestrateAssistantSend({
+      projectId,
+      content: "Prépare un cycle Delivery pour livrer la note.",
+      sessionDbPath,
+      provider,
+    });
+    expect(propose.ok).toBe(true);
+    if (!propose.ok) return;
+
+    const cyclesAfterPropose = await runtime.oa!.cycleServices.cycles.listByProject(
+      projectId,
+    );
+    expect(cyclesAfterPropose.length).toBe(1);
+    expect(cyclesAfterPropose[0]!.cycleInstanceId.startsWith("cyc:f2-")).toBe(
+      true,
+    );
+
+    const confirm = await orchestrateAssistantSend({
+      projectId,
+      content:
+        "Je confirme explicitement le démarrage du cycle Delivery déjà proposé.",
+      sessionDbPath,
+      provider,
+    });
+    expect(confirm.ok).toBe(true);
+    if (!confirm.ok) return;
+
+    const cyclesAfterConfirm = await runtime.oa!.cycleServices.cycles.listByProject(
+      projectId,
+    );
+    expect(cyclesAfterConfirm.length).toBe(1);
+    expect(confirm.text).toMatch(/Aucun cycle supplémentaire n'a été créé|ne sont pas liés/i);
+    expect(confirm.text).not.toMatch(/est maintenant actif/i);
+
+    const lps = await runtime.oa!.projectServices.getCurrentLivingProjectState.execute(
+      { projectId },
+    );
+    expect(lps.ok).toBe(true);
+    if (lps.ok) {
+      expect(lps.livingProjectState.activeCycleInstanceId ?? null).toBeNull();
+    }
+
+    // Repeated confirm still does not mint.
+    const again = await orchestrateAssistantSend({
+      projectId,
+      content: "Je confirme le démarrage de Delivery.",
+      sessionDbPath,
+      provider,
+    });
+    expect(again.ok).toBe(true);
+    const cyclesFinal = await runtime.oa!.cycleServices.cycles.listByProject(
+      projectId,
+    );
+    expect(cyclesFinal.length).toBe(1);
+  });
+});
+```
+
+## FILE 3/4 — UNIFIED DIFF orchestrateF2.ts vs HEAD
+
+### path: `projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts b/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
+index 8788abe6..6f48b0d9 100644
+--- a/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
++++ b/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
+@@ -79,6 +79,11 @@ import {
+   reasonWithResolvedCkcContext,
+ } from "./ckcCognitiveContext";
+ import { composeStudioCognitiveContext } from "./studioCognitiveContext";
++import { composeF2PilotFacingNarrative } from "./composeF2PilotFacingNarrative";
++import {
++  isChatFirstCycleStartIntent,
++  resolveChatFirstCycleStartGate,
++} from "./resolveChatFirstCycleStartGate";
+ import { resolveTrajectoryDecisionSupportProjection } from "../w2/resolveTrajectoryDecisionSupportProjection";
+ import {
+   parseReservationInteractionContextInput,
+@@ -1887,23 +1892,39 @@ export async function orchestrateAssistantSend(input: {
+       }
+     }
+
+-    const textParts = [
+-      presentation === "test_provider" ? "[Mode test]" : "[Mode réel]",
+-      "Le cycle en cours est conservé.",
+-      "Une proposition pour matérialiser le livrable est prête à être examinée.",
+-      "Nora recommande ; le Pilote décide.",
+-      "Rien n'a encore été exécuté.",
+-      "Votre décision est requise avant de préparer l'action.",
+-      mw5.surface.disposition === "ESCALATE"
+-        ? mw5.text
+-        : mw5.surface.disclosure,
+-      "Nora n'émet pas de décision Pilote, GO, confirmation ou acte d'autorité.",
+-    ];
++    // P6-HQA-COG-01 — pilot-facing narrative at F2 source (persist == present).
++    // MW5 CONTINUE disclosure stays on mw5 DTO / audit, not in chat body.
++    const narrative = composeF2PilotFacingNarrative({
++      kind: "active_cycle_deliverable_proposal",
++      presentation,
++      userContent: content,
++      history: input.history,
++      intentClass: analysis.intentClass,
++      objective: analysis.objective,
++      rephrasedRequest: analysis.rephrasedRequest,
++      cycleLabel: qualification.cycleLabel,
++      recommendedProfile: qualification.recommendedProfile,
++      recommendationLabel: qualification.recommendationLabel,
++      ckcCognitiveRecommendation: qualification.ckcCognitiveRecommendation,
++      projectName: project.name,
++      projectObjective: project.objective,
++      activeCycleInstanceId: project.activeCycleInstanceId,
++      lpsUnchanged: true,
++      morrisGateRequired: true,
++      executionBlocked: true,
++      mw5Disposition: mw5.surface.disposition,
++      mw5EscalatePiloteText:
++        mw5.surface.disposition === "ESCALATE" ? mw5.text : null,
++      pilotDecisionCandidate: analysis.pilotDecisionCandidate ?? null,
++      // R2 — process-local proposal mint is not Product CURRENT subject verification.
++      productCurrentSubjectVerified: false,
++      priorSubjectStatus: null,
++    });
+
+     return await completeF2Turn({
+       userText: content,
+       sessionDbPath: input.sessionDbPath,
+-      text: textParts.join(" "),
++      text: narrative,
+       mode: modeResolution.mode as "fixture" | "live",
+       presentation,
+       model,
+@@ -2059,6 +2080,71 @@ export async function orchestrateAssistantSend(input: {
+     });
+   }
+
++  // P6-HQA-F01 — explicit start intent must not mint another LEGACY_UNBOUND createCycle.
++  // Reuse startPreparedTrajectoryCycle when a unique COMPLETE prepared cycle exists;
++  // otherwise honest block (no silent selection, no invented HD / activation claim).
++  if (
++    isChatFirstCycleStartIntent({
++      userContent: content,
++      cycleLabel: qualification.cycleLabel,
++      pilotDecisionCandidate: analysis.pilotDecisionCandidate,
++    })
++  ) {
++    await cutF2Effect(input.signal, "createCycle", input.beforeF2Effect);
++    const startGate = await resolveChatFirstCycleStartGate({
++      oa,
++      projectId: project.projectId,
++      targetCycleTypeId: qualification.cycleTypeId,
++      cycleLabel: qualification.cycleLabel,
++    });
++
++    const reloadedAfterGate = await loadProjectRuntimeForAssistant(
++      project.projectId,
++    );
++    if (reloadedAfterGate.ok) {
++      project = toContextDto(reloadedAfterGate);
++    }
++
++    if (startGate.kind === "started") {
++      return await completeF2Turn({
++        userText: content,
++        sessionDbPath: input.sessionDbPath,
++        text: startGate.message,
++        mode: modeResolution.mode as "fixture" | "live",
++        presentation,
++        model,
++        project,
++        intentClass: analysis.intentClass,
++        reinstructionOfProposalId,
++        qualification: {
++          ...qualification,
++          cycleInstanceId: startGate.cycleInstanceId,
++          cycleStatus: "active",
++        },
++        executionBlocked: analysis.intentClass === "execution_request",
++        mw5: mw5.surface,
++        turnKind: "f2_proposal",
++      });
++    }
++
++    return await completeF2Turn({
++      userText: content,
++      sessionDbPath: input.sessionDbPath,
++      text: startGate.message,
++      mode: modeResolution.mode as "fixture" | "live",
++      presentation,
++      model,
++      project,
++      intentClass: analysis.intentClass,
++      reinstructionOfProposalId,
++      qualification,
++      executionBlocked: true,
++      mw5: mw5.surface,
++      turnKind:
++        startGate.kind === "already_active" ? "f2_blocked" : "f2_clarification",
++    });
++  }
++
+   const cycleInstanceId = `cyc:f2-${randomBytes(8).toString("hex")}`;
+   await cutF2Effect(input.signal, "createCycle", input.beforeF2Effect);
+   const created = await oa.cycleServices.createCycle.execute({
+@@ -2220,36 +2306,40 @@ export async function orchestrateAssistantSend(input: {
+   }
+
+   const executionBlocked = analysis.intentClass === "execution_request";
+-  const textParts = [
+-    presentation === "test_provider" ? "[Mode test]" : "[Mode réel]",
+-    "Qualification SFIA et proposition structurée générées.",
+-    `Cycle proposé: ${qualification.cycleLabel}.`,
+-    "Un nouveau cycle est proposé et attend votre validation.",
+-    `Profil recommandé: ${qualification.recommendedProfile}.`,
+-    project.lpsVersion === preLpsVersion
+-      ? "L'état vivant du projet est inchangé (pas d'activation avant démarrage)."
+-      : "L'état vivant du projet a été mis à jour.",
+-    qualification.recommendationLabel,
+-    ...(qualification.ckcCognitiveRecommendation
+-      ? [qualification.ckcCognitiveRecommendation]
+-      : []),
+-    "Recommandation ≠ décision Pilote — aucune activation d'autorité avant démarrage Pilote.",
+-    morrisGateRequired
+-      ? "Décision Pilote requise avant de poursuivre."
+-      : "Pas de gate de construction supplémentaire — aucune exécution — F2 s'arrête ici.",
+-    executionBlocked
+-      ? "Demande d'exécution détectée — aucune exécution ne sera lancée."
+-      : "Aucune exécution.",
+-    mw5.surface.disposition === "ESCALATE"
+-      ? mw5.text
+-      : mw5.surface.disclosure,
+-    "Nora n'émet pas de décision Pilote, GO, confirmation ou acte d'autorité.",
+-  ];
++  // P6-HQA-COG-01 — one contextual pilot-facing narrative at F2 source.
++  // Engine CONTINUE / READY_NO_GATE / stacked authority footers stay off the body;
++  // mw5.surface.disclosure remains on the turn DTO for audit.
++  const narrative = composeF2PilotFacingNarrative({
++    kind: "new_cycle_proposal",
++    presentation,
++    userContent: content,
++    history: input.history,
++    intentClass: analysis.intentClass,
++    objective: analysis.objective,
++    rephrasedRequest: analysis.rephrasedRequest,
++    cycleLabel: qualification.cycleLabel,
++    recommendedProfile: qualification.recommendedProfile,
++    recommendationLabel: qualification.recommendationLabel,
++    ckcCognitiveRecommendation: qualification.ckcCognitiveRecommendation,
++    projectName: project.name,
++    projectObjective: project.objective,
++    activeCycleInstanceId: project.activeCycleInstanceId,
++    lpsUnchanged: project.lpsVersion === preLpsVersion,
++    morrisGateRequired,
++    executionBlocked,
++    mw5Disposition: mw5.surface.disposition,
++    mw5EscalatePiloteText:
++      mw5.surface.disposition === "ESCALATE" ? mw5.text : null,
++    pilotDecisionCandidate: analysis.pilotDecisionCandidate ?? null,
++    // R2 — newly created proposal status ≠ verified CURRENT continuity of a prior subject.
++    productCurrentSubjectVerified: false,
++    priorSubjectStatus: null,
++  });
+
+   return await completeF2Turn({
+     userText: content,
+     sessionDbPath: input.sessionDbPath,
+-    text: textParts.join(" "),
++    text: narrative,
+     mode: modeResolution.mode as "fixture" | "live",
+     presentation,
+     model,
+```
+
+## FILE 4/4 — COMPLETE composeF2PilotFacingNarrative.ts (COG01+label match used by F01)
 
 ### path: `projects/sfia-studio/app/features/project-assistant/f2/composeF2PilotFacingNarrative.ts`
 
@@ -238,6 +1175,21 @@ function normalizeLabel(label: string | null | undefined): string {
   return (label ?? "").trim().toLowerCase();
 }
 
+/** Catalog labels like "Delivery / implémentation" must match user "Delivery". */
+function labelsReferToSameCycle(
+  a: string | null | undefined,
+  b: string | null | undefined,
+): boolean {
+  const na = normalizeLabel(a);
+  const nb = normalizeLabel(b);
+  if (!na || !nb) return false;
+  if (na === nb) return true;
+  if (na.includes(nb) || nb.includes(na)) return true;
+  const ta = na.split(/[\s/=_|-]+/).find(Boolean) ?? "";
+  const tb = nb.split(/[\s/=_|-]+/).find(Boolean) ?? "";
+  return Boolean(ta && tb && ta === tb);
+}
+
 function cyclePhrase(label: string | null | undefined): string {
   const c = (label ?? "").trim();
   return c ? `« ${c} »` : "ce cycle";
@@ -272,8 +1224,14 @@ function messageMentionsCycle(
 ): boolean {
   const label = normalizeLabel(cycleLabel);
   if (!label) return false;
-  const escaped = label.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  return new RegExp(escaped, "i").test(content);
+  if (new RegExp(label.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "i").test(content)) {
+    return true;
+  }
+  const token = label.split(/[\s/=_|-]+/).find(Boolean);
+  if (!token || token.length < 3) return false;
+  return new RegExp(`\\b${token.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\b`, "i").test(
+    content,
+  );
 }
 
 /** Known Studio cycle labels for mismatch checks (quoted or bare). Not a NLU engine. */
@@ -311,27 +1269,44 @@ export function resolveNamedCycleRelativeToSubject(
   const label = normalizeLabel(cycleLabel);
   const quoted = extractQuotedLabels(text).map((q) => normalizeLabel(q));
   if (quoted.length > 0) {
-    if (label && quoted.some((q) => q === label)) return "match";
-    if (quoted.some((q) => q && q !== label)) return "mismatch";
-  }
-  const afterStart = text.match(
-    /(?:d[eé]marrage|lancement|activation|d[eé]marrer|lancer|activer)\s+(?:de\s+|du\s+|d['’])?([A-Za-zÀ-ÿ-]+)/i,
-  );
-  if (afterStart?.[1]) {
-    const named = normalizeLabel(afterStart[1]);
-    if (label && named === label) return "match";
+    if (label && quoted.some((q) => labelsReferToSameCycle(q, label))) {
+      return "match";
+    }
     if (
+      quoted.some(
+        (q) =>
+          q &&
+          !labelsReferToSameCycle(q, label) &&
+          (KNOWN_CYCLE_LABELS as readonly string[]).includes(q),
+      )
+    ) {
+      return "mismatch";
+    }
+  }
+  // Prefer "… démarrage de Delivery" / "… du cycle Delivery" over capturing "cycle".
+  const namedCycle = text.match(
+    /(?:d[eé]marrage|lancement|activation|d[eé]marrer|lancer|activer)(?:\s+(?:de|du|d['’])?\s*(?:cycle\s+)?)([A-Za-zÀ-ÿ][A-Za-zÀ-ÿ-]*)/i,
+  );
+  if (namedCycle?.[1]) {
+    const named = normalizeLabel(namedCycle[1]);
+    if (named === "cycle") {
+      // keep scanning — bare "cycle" is not a type name
+    } else if (label && labelsReferToSameCycle(named, label)) {
+      return "match";
+    } else if (
       (KNOWN_CYCLE_LABELS as readonly string[]).includes(named) &&
-      named !== label
+      !labelsReferToSameCycle(named, label)
     ) {
       return "mismatch";
     }
   }
   if (label && CLEAR_ACCEPT_START_RE.test(text)) {
     for (const k of KNOWN_CYCLE_LABELS) {
-      if (k === label) continue;
+      if (labelsReferToSameCycle(k, label)) continue;
       if (new RegExp(`\\b${k}\\b`, "i").test(text)) return "mismatch";
     }
+    // User said "Delivery" and catalog label contains Delivery → match.
+    if (messageMentionsCycle(text, cycleLabel)) return "match";
   }
   return "unspecified";
 }
@@ -870,560 +1845,5 @@ export function f2PilotNarrativeInvariants(text: string): {
 }
 ```
 
-## FILE 2/3 — COMPLETE tests
-
-### path: `projects/sfia-studio/app/__tests__/project-assistant/p6.hqa.cog01.f2PilotFacingNarrative.d0.test.ts`
-
-```typescript
-/**
- * P6-HQA-COG-01 CORRECTION PASS 02 — R1/R2 adversarial discrimination.
- * DETERMINISTIC PROVEN at composer seam. Human naturalness NOT CLOSED.
- */
-
-import { describe, expect, it } from "vitest";
-import {
-  assessHistoryContinuity,
-  composeF2PilotFacingNarrative,
-  f2PilotNarrativeInvariants,
-  hasExplicitStartIntentForSubject,
-  interpretPilotNarrativeStance,
-  resolveNamedCycleRelativeToSubject,
-  type ComposeF2PilotFacingNarrativeInput,
-} from "@/features/project-assistant/f2/composeF2PilotFacingNarrative";
-import type { PilotDecisionCandidate } from "@/features/project-assistant/f2/types";
-
-function base(
-  overrides: Partial<ComposeF2PilotFacingNarrativeInput> = {},
-): ComposeF2PilotFacingNarrativeInput {
-  return {
-    kind: "new_cycle_proposal",
-    presentation: "openai_live",
-    userContent: "Prépare un cycle Delivery pour livrer la note.",
-    history: [],
-    intentClass: "actionable",
-    objective: "Livrer la note de cadrage",
-    rephrasedRequest: "Formaliser un cycle Delivery pour la note",
-    cycleLabel: "Delivery",
-    recommendedProfile: "Standard",
-    recommendationLabel: "RECOMMANDATION — PAS UNE DÉCISION HUMAINE",
-    ckcCognitiveRecommendation: undefined,
-    projectName: "P6-HQ-01",
-    projectObjective: "Exit proof Delivery",
-    activeCycleInstanceId: null,
-    lpsUnchanged: true,
-    morrisGateRequired: false,
-    executionBlocked: false,
-    mw5Disposition: "CONTINUE",
-    mw5EscalatePiloteText: null,
-    pilotDecisionCandidate: null,
-    productCurrentSubjectVerified: false,
-    priorSubjectStatus: null,
-    ...overrides,
-  };
-}
-
-const acceptRec: PilotDecisionCandidate = {
-  disposition: "accept",
-  targetKind: "current_recommendation",
-  rationale: "ok for recommendation",
-};
-
-const acceptPresented: PilotDecisionCandidate = {
-  disposition: "accept",
-  targetKind: "presented_subject",
-  rationale: "ok for presented subject",
-};
-
-const acceptAlt: PilotDecisionCandidate = {
-  disposition: "accept",
-  targetKind: "specific_alternative",
-  rationale: "choose alternative",
-};
-
-describe("P6-HQA-COG-01 CP02 — R1 subject identity of accept", () => {
-  it("T1 — accept recommendation ≠ accept_start", () => {
-    const stance = interpretPilotNarrativeStance({
-      userContent: "ok pour la recommandation",
-      cycleLabel: "Delivery",
-      pilotDecisionCandidate: acceptRec,
-    });
-    expect(stance.kind).toBe("accept_recommendation");
-
-    const text = composeF2PilotFacingNarrative(
-      base({
-        userContent: "ok pour la recommandation",
-        pilotDecisionCandidate: acceptRec,
-      }),
-    );
-    expect(f2PilotNarrativeInvariants(text).acknowledgesAgreement).toBe(false);
-    expect(text).toMatch(/accord sur la recommandation/i);
-    expect(text).toMatch(/pas encore un démarrage/i);
-    expect(text).not.toMatch(/intention de démarrer/i);
-  });
-
-  it("T2 — accept presented_subject ≠ accept_start", () => {
-    expect(
-      interpretPilotNarrativeStance({
-        userContent: "d'accord pour ce sujet",
-        cycleLabel: "Delivery",
-        pilotDecisionCandidate: acceptPresented,
-      }).kind,
-    ).toBe("accept_recommendation");
-  });
-
-  it("T3 — explicit start intent is recognized as accept_start", () => {
-    expect(
-      hasExplicitStartIntentForSubject(
-        "Je confirme le démarrage de Delivery",
-        "Delivery",
-      ),
-    ).toBe(true);
-    expect(
-      interpretPilotNarrativeStance({
-        userContent: "Je confirme le démarrage de Delivery.",
-        cycleLabel: "Delivery",
-        pilotDecisionCandidate: acceptRec,
-      }).kind,
-    ).toBe("accept_start");
-    expect(
-      interpretPilotNarrativeStance({
-        userContent: "J'accepte de démarrer Delivery.",
-        cycleLabel: "Delivery",
-      }).kind,
-    ).toBe("accept_start");
-  });
-
-  it("T4 — different cycle name (quoted or bare) → no false Delivery start", () => {
-    expect(
-      resolveNamedCycleRelativeToSubject(
-        "Je confirme le démarrage de Cadrage",
-        "Delivery",
-      ),
-    ).toBe("mismatch");
-    expect(
-      interpretPilotNarrativeStance({
-        userContent: "Je confirme le démarrage de Cadrage.",
-        cycleLabel: "Delivery",
-      }).kind,
-    ).toBe("ambiguous");
-    expect(
-      interpretPilotNarrativeStance({
-        userContent: "Je confirme le démarrage de « Cadrage ».",
-        cycleLabel: "Delivery",
-        pilotDecisionCandidate: acceptRec,
-      }).kind,
-    ).not.toBe("accept_start");
-  });
-
-  it("T5 — accepted alternative ≠ démarrage", () => {
-    expect(
-      interpretPilotNarrativeStance({
-        userContent: "je prends l'autre option",
-        cycleLabel: "Delivery",
-        pilotDecisionCandidate: acceptAlt,
-      }).kind,
-    ).toBe("ambiguous");
-  });
-
-  it("T6 — refuse / question / defer never promoted to accept_start", () => {
-    expect(
-      interpretPilotNarrativeStance({
-        userContent: "Non, ne démarre surtout pas Delivery.",
-        cycleLabel: "Delivery",
-        pilotDecisionCandidate: acceptRec,
-      }).kind,
-    ).toBe("refuse_start");
-    expect(
-      interpretPilotNarrativeStance({
-        userContent: "Peux-tu confirmer que le cycle n'est pas actif ?",
-        cycleLabel: "Delivery",
-        pilotDecisionCandidate: acceptRec,
-      }).kind,
-    ).toBe("question_status");
-    expect(
-      interpretPilotNarrativeStance({
-        userContent: "Je préfère attendre avant de lancer Delivery.",
-        cycleLabel: "Delivery",
-      }).kind,
-    ).toBe("defer_start");
-  });
-
-  it("accept recommendation without cycle label stays non-start", () => {
-    const text = composeF2PilotFacingNarrative(
-      base({
-        cycleLabel: null,
-        userContent: "ok pour la recommandation",
-        pilotDecisionCandidate: acceptRec,
-      }),
-    );
-    expect(text).toMatch(/pas encore un démarrage/i);
-    expect(f2PilotNarrativeInvariants(text).acknowledgesAgreement).toBe(false);
-  });
-});
-
-describe("P6-HQA-COG-01 CP02 — R2 currentness of continuity", () => {
-  it("T7 — new-turn proposalStatus does not create Product CURRENT continuity", () => {
-    const c = assessHistoryContinuity({
-      cycleLabel: "Delivery",
-      proposalStatus: "STALE",
-      productCurrentSubjectVerified: false,
-      history: [
-        {
-          role: "assistant",
-          content: "Je propose le cycle « Delivery ».",
-        },
-      ],
-    });
-    // proposalStatus ignored — history alone → hint, not product current / not stale via status
-    expect(c.kind).toBe("same_subject_history_hint");
-    expect(c.kind).not.toBe("same_subject_product_current");
-  });
-
-  it("T8 — old Delivery history ≠ same object CURRENT", () => {
-    const c = assessHistoryContinuity({
-      cycleLabel: "Delivery",
-      productCurrentSubjectVerified: false,
-      history: [
-        {
-          role: "assistant",
-          content:
-            "Je propose le cycle « Delivery ». Un cycle candidat est prêt.",
-        },
-      ],
-    });
-    expect(c.kind).toBe("same_subject_history_hint");
-
-    const text = composeF2PilotFacingNarrative(
-      base({
-        userContent: "Je confirme le démarrage de Delivery.",
-        history: [
-          {
-            role: "assistant",
-            content: "Je propose le cycle « Delivery ».",
-          },
-        ],
-        productCurrentSubjectVerified: false,
-      }),
-    );
-    // Must NOT claim repeated CURRENT agreement from history alone.
-    expect(f2PilotNarrativeInvariants(text).acknowledgesAgreement).toBe(false);
-    expect(text).toMatch(/intention de démarrer/i);
-  });
-
-  it("T9 — refused / stale / superseded prior subject", () => {
-    expect(
-      assessHistoryContinuity({
-        cycleLabel: "Delivery",
-        priorSubjectStatus: "REFUSED",
-        productCurrentSubjectVerified: false,
-        history: [],
-      }).kind,
-    ).toBe("refused_or_stale_hint");
-    expect(
-      assessHistoryContinuity({
-        cycleLabel: "Delivery",
-        priorSubjectStatus: "SUPERSEDED",
-        productCurrentSubjectVerified: false,
-      }).kind,
-    ).toBe("refused_or_stale_hint");
-
-    const text = composeF2PilotFacingNarrative(
-      base({
-        userContent: "Je confirme le démarrage de Delivery.",
-        priorSubjectStatus: "STALE",
-        history: [
-          {
-            role: "assistant",
-            content: "Je propose le cycle « Delivery ».",
-          },
-          {
-            role: "user",
-            content: "Non, ne démarre surtout pas Delivery.",
-          },
-        ],
-      }),
-    );
-    expect(f2PilotNarrativeInvariants(text).acknowledgesAgreement).toBe(false);
-    expect(text).toMatch(/refus|obsolète/i);
-  });
-
-  it("T10 — multiple Delivery mentions remain history hint without Product verify", () => {
-    const c = assessHistoryContinuity({
-      cycleLabel: "Delivery",
-      productCurrentSubjectVerified: false,
-      history: [
-        {
-          role: "assistant",
-          content: "Je propose le cycle « Delivery » (première).",
-        },
-        { role: "user", content: "pas maintenant" },
-        {
-          role: "assistant",
-          content: "Je propose le cycle « Delivery » (seconde).",
-        },
-      ],
-    });
-    expect(c.kind).toBe("same_subject_history_hint");
-  });
-
-  it("T11 — absent context → neutral formulation", () => {
-    expect(
-      assessHistoryContinuity({
-        cycleLabel: "Delivery",
-        history: [],
-        productCurrentSubjectVerified: false,
-      }).kind,
-    ).toBe("none");
-    const text = composeF2PilotFacingNarrative(
-      base({ userContent: "ok", history: [], pilotDecisionCandidate: null }),
-    );
-    // "ok" alone → ambiguous or neutral, never agreement-of-start
-    expect(f2PilotNarrativeInvariants(text).acknowledgesAgreement).toBe(false);
-  });
-
-  it("T12 — Product-verified subject allows CURRENT continuity wording", () => {
-    expect(
-      assessHistoryContinuity({
-        cycleLabel: "Delivery",
-        productCurrentSubjectVerified: true,
-        history: [],
-      }).kind,
-    ).toBe("same_subject_product_current");
-
-    const text = composeF2PilotFacingNarrative(
-      base({
-        userContent: "Je confirme le démarrage de Delivery.",
-        productCurrentSubjectVerified: true,
-        history: [
-          {
-            role: "assistant",
-            content: "Je propose le cycle « Delivery ».",
-          },
-        ],
-      }),
-    );
-    expect(f2PilotNarrativeInvariants(text).acknowledgesAgreement).toBe(true);
-    expect(text).toMatch(/ne l'active pas|aucune activation/i);
-  });
-
-  it("Cadrage history + Delivery start → other_subject, no false CURRENT", () => {
-    expect(
-      assessHistoryContinuity({
-        cycleLabel: "Delivery",
-        history: [
-          {
-            role: "assistant",
-            content: "Je propose le cycle « Cadrage ».",
-          },
-        ],
-      }).kind,
-    ).toBe("other_subject");
-  });
-});
-
-describe("P6-HQA-COG-01 CP02 — governance / persistence / CP01 non-regression", () => {
-  it("T13 — no invented HD / activation / execution", () => {
-    const text = composeF2PilotFacingNarrative(
-      base({
-        userContent: "Je confirme le démarrage de Delivery.",
-        executionBlocked: true,
-        intentClass: "execution_request",
-      }),
-    );
-    const inv = f2PilotNarrativeInvariants(text);
-    expect(inv.claimsActivationAccomplished).toBe(false);
-    expect(text).not.toMatch(/HumanDecision enregistr/i);
-    expect(text).toMatch(/Rien n'a encore été exécuté/i);
-  });
-
-  it("T14 — live/test presentation parity", () => {
-    const live = composeF2PilotFacingNarrative(
-      base({ userContent: "ok pour la recommandation", pilotDecisionCandidate: acceptRec }),
-    );
-    const test = composeF2PilotFacingNarrative(
-      base({
-        presentation: "test_provider",
-        userContent: "ok pour la recommandation",
-        pilotDecisionCandidate: acceptRec,
-      }),
-    );
-    expect(test.replace(/^\[Mode test\]\s*/, "")).toBe(live);
-  });
-
-  it("T15 — CP01 refuse/question/defer/propose still correct", () => {
-    const refuse = composeF2PilotFacingNarrative(
-      base({ userContent: "Non, ne démarre surtout pas Delivery." }),
-    );
-    const question = composeF2PilotFacingNarrative(
-      base({
-        userContent: "Peux-tu confirmer que le cycle n'est pas actif ?",
-      }),
-    );
-    const defer = composeF2PilotFacingNarrative(
-      base({
-        userContent: "Je préfère attendre avant de lancer Delivery.",
-      }),
-    );
-    const propose = composeF2PilotFacingNarrative(base());
-    expect(f2PilotNarrativeInvariants(refuse).acknowledgesRefusal).toBe(true);
-    expect(question).toMatch(/aucun cycle n'est actuellement actif/i);
-    expect(defer).toMatch(/attendre|Aucun démarrage/i);
-    expect(propose).toMatch(/Je propose le cycle/i);
-    expect(f2PilotNarrativeInvariants(propose).hasEngineContinue).toBe(false);
-  });
-
-  it("same message, different Product active state", () => {
-    const msg = "Je confirme le démarrage de Delivery.";
-    const inactive = composeF2PilotFacingNarrative(
-      base({ userContent: msg, activeCycleInstanceId: null }),
-    );
-    const active = composeF2PilotFacingNarrative(
-      base({ userContent: msg, activeCycleInstanceId: "cycinst:1" }),
-    );
-    expect(inactive).toMatch(/pas actif|ne constitue pas/i);
-    expect(active).toMatch(/déjà actif/i);
-  });
-});
-```
-
-## FILE 3/3 — UNIFIED DIFF orchestrateF2.ts vs HEAD
-
-### path: `projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts`
-
-```diff
-diff --git a/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts b/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
-index 8788abe6..575058bd 100644
---- a/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
-@@ -79,6 +79,7 @@ import {
-   reasonWithResolvedCkcContext,
- } from "./ckcCognitiveContext";
- import { composeStudioCognitiveContext } from "./studioCognitiveContext";
-+import { composeF2PilotFacingNarrative } from "./composeF2PilotFacingNarrative";
- import { resolveTrajectoryDecisionSupportProjection } from "../w2/resolveTrajectoryDecisionSupportProjection";
- import {
-   parseReservationInteractionContextInput,
-@@ -1887,23 +1888,39 @@ export async function orchestrateAssistantSend(input: {
-       }
-     }
-
--    const textParts = [
--      presentation === "test_provider" ? "[Mode test]" : "[Mode réel]",
--      "Le cycle en cours est conservé.",
--      "Une proposition pour matérialiser le livrable est prête à être examinée.",
--      "Nora recommande ; le Pilote décide.",
--      "Rien n'a encore été exécuté.",
--      "Votre décision est requise avant de préparer l'action.",
--      mw5.surface.disposition === "ESCALATE"
--        ? mw5.text
--        : mw5.surface.disclosure,
--      "Nora n'émet pas de décision Pilote, GO, confirmation ou acte d'autorité.",
--    ];
-+    // P6-HQA-COG-01 — pilot-facing narrative at F2 source (persist == present).
-+    // MW5 CONTINUE disclosure stays on mw5 DTO / audit, not in chat body.
-+    const narrative = composeF2PilotFacingNarrative({
-+      kind: "active_cycle_deliverable_proposal",
-+      presentation,
-+      userContent: content,
-+      history: input.history,
-+      intentClass: analysis.intentClass,
-+      objective: analysis.objective,
-+      rephrasedRequest: analysis.rephrasedRequest,
-+      cycleLabel: qualification.cycleLabel,
-+      recommendedProfile: qualification.recommendedProfile,
-+      recommendationLabel: qualification.recommendationLabel,
-+      ckcCognitiveRecommendation: qualification.ckcCognitiveRecommendation,
-+      projectName: project.name,
-+      projectObjective: project.objective,
-+      activeCycleInstanceId: project.activeCycleInstanceId,
-+      lpsUnchanged: true,
-+      morrisGateRequired: true,
-+      executionBlocked: true,
-+      mw5Disposition: mw5.surface.disposition,
-+      mw5EscalatePiloteText:
-+        mw5.surface.disposition === "ESCALATE" ? mw5.text : null,
-+      pilotDecisionCandidate: analysis.pilotDecisionCandidate ?? null,
-+      // R2 — process-local proposal mint is not Product CURRENT subject verification.
-+      productCurrentSubjectVerified: false,
-+      priorSubjectStatus: null,
-+    });
-
-     return await completeF2Turn({
-       userText: content,
-       sessionDbPath: input.sessionDbPath,
--      text: textParts.join(" "),
-+      text: narrative,
-       mode: modeResolution.mode as "fixture" | "live",
-       presentation,
-       model,
-@@ -2220,36 +2237,40 @@ export async function orchestrateAssistantSend(input: {
-   }
-
-   const executionBlocked = analysis.intentClass === "execution_request";
--  const textParts = [
--    presentation === "test_provider" ? "[Mode test]" : "[Mode réel]",
--    "Qualification SFIA et proposition structurée générées.",
--    `Cycle proposé: ${qualification.cycleLabel}.`,
--    "Un nouveau cycle est proposé et attend votre validation.",
--    `Profil recommandé: ${qualification.recommendedProfile}.`,
--    project.lpsVersion === preLpsVersion
--      ? "L'état vivant du projet est inchangé (pas d'activation avant démarrage)."
--      : "L'état vivant du projet a été mis à jour.",
--    qualification.recommendationLabel,
--    ...(qualification.ckcCognitiveRecommendation
--      ? [qualification.ckcCognitiveRecommendation]
--      : []),
--    "Recommandation ≠ décision Pilote — aucune activation d'autorité avant démarrage Pilote.",
--    morrisGateRequired
--      ? "Décision Pilote requise avant de poursuivre."
--      : "Pas de gate de construction supplémentaire — aucune exécution — F2 s'arrête ici.",
--    executionBlocked
--      ? "Demande d'exécution détectée — aucune exécution ne sera lancée."
--      : "Aucune exécution.",
--    mw5.surface.disposition === "ESCALATE"
--      ? mw5.text
--      : mw5.surface.disclosure,
--    "Nora n'émet pas de décision Pilote, GO, confirmation ou acte d'autorité.",
--  ];
-+  // P6-HQA-COG-01 — one contextual pilot-facing narrative at F2 source.
-+  // Engine CONTINUE / READY_NO_GATE / stacked authority footers stay off the body;
-+  // mw5.surface.disclosure remains on the turn DTO for audit.
-+  const narrative = composeF2PilotFacingNarrative({
-+    kind: "new_cycle_proposal",
-+    presentation,
-+    userContent: content,
-+    history: input.history,
-+    intentClass: analysis.intentClass,
-+    objective: analysis.objective,
-+    rephrasedRequest: analysis.rephrasedRequest,
-+    cycleLabel: qualification.cycleLabel,
-+    recommendedProfile: qualification.recommendedProfile,
-+    recommendationLabel: qualification.recommendationLabel,
-+    ckcCognitiveRecommendation: qualification.ckcCognitiveRecommendation,
-+    projectName: project.name,
-+    projectObjective: project.objective,
-+    activeCycleInstanceId: project.activeCycleInstanceId,
-+    lpsUnchanged: project.lpsVersion === preLpsVersion,
-+    morrisGateRequired,
-+    executionBlocked,
-+    mw5Disposition: mw5.surface.disposition,
-+    mw5EscalatePiloteText:
-+      mw5.surface.disposition === "ESCALATE" ? mw5.text : null,
-+    pilotDecisionCandidate: analysis.pilotDecisionCandidate ?? null,
-+    // R2 — newly created proposal status ≠ verified CURRENT continuity of a prior subject.
-+    productCurrentSubjectVerified: false,
-+    priorSubjectStatus: null,
-+  });
-
-   return await completeF2Turn({
-     userText: content,
-     sessionDbPath: input.sessionDbPath,
--    text: textParts.join(" "),
-+    text: narrative,
-     mode: modeResolution.mode as "fixture" | "live",
-     presentation,
-     model,
-```
-
 ---
-END OF COMPLETE REVIEW PACK — P6-HQA-COG-01 CORRECTION PASS 02
+END OF COMPLETE REVIEW PACK — P6-HQA-F01
