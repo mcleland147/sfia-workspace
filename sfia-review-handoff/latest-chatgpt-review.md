@@ -1,28 +1,23 @@
-# ChatGPT Review Pack — P6-HQA-COG-01 CORRECTION PASS 01 (COMPLETE)
+# ChatGPT Review Pack — P6-HQA-COG-01 CORRECTION PASS 02 (COMPLETE)
 
-- timestamp: 2026-10-09T00:51:23Z
+- timestamp: 2026-10-09T01:04:46Z
 - campaignId: P6-GLOBAL-INTEGRATED-PRODUCT-QA-01
 - finding: P6-HQA-COG-01
-- pass: CORRECTION PASS 01
+- pass: CORRECTION PASS 02
 - cycle: 8 — Delivery / implémentation
-- typology: EVOL / correction Product bornée
+- typology: EVOL / correction Product ciblée
 - profile: CRITICAL
 - branch: qa/sfia-studio-p6-global-integrated-product-qa
 - origin/main: aba6c4a617b6d0cb27f23b59de5bf0ac9360fab1
 - local HEAD (INITIAL=FINAL): 8a196be1a35ffa2d43e52beddc66b51eab56c99c
-- reference handoff (prior): a0195c1c3ce9292806efcb825b843e5bcac5b906
-- project commit: NONE
-- project push: NONE
-- PR: NONE
-- merge: NONE
+- reference handoff CP01: 46c61d147ce3dd069fe12c39c963db9d6dcf0e17
+- project commit/push/PR/merge: NONE
 - P6 PASS: NOT CLAIMED
 - runtime v3: NON ADOPTED
-- Morris GO consumed: COG01 CORRECTION PASS 01 (targeted, local)
-- F01: BLOCKED
-- UI05: OPEN
-- HQ-01: BLOCKED
+- Morris GO consumed: COG01 CP02 micro-correction R1/R2
+- F01: BLOCKED · UI05: OPEN · HQ-01: BLOCKED
 - UI-01…UI-04: local CLOSED preserved
-- COG01 status: CP01 CORRECTION CANDIDATE — READY FOR CHATGPT CRITICAL RE-REVIEW
+- COG01 CLOSED: NO
 - HUMAN QA NATURALNESS: NOT YET PROVEN
 
 ## Local Git Truth
@@ -33,120 +28,90 @@ HEAD=8a196be1a35ffa2d43e52beddc66b51eab56c99c
 ORIGIN_MAIN=aba6c4a617b6d0cb27f23b59de5bf0ac9360fab1
 ```
 
-Preserved local worktree: UI-01…UI-04, COG01 composer + tests, P6 campaign untracked proofs.
-No reset/clean/destructive stash. Project HEAD unchanged.
+Preserved: UI-01…UI-04, COG01 CP00/CP01/CP02 locals, P6 campaign untracked proofs.
+No reset/clean/destructive stash.
 
-## ChatGPT Critical reserves addressed (from a0195c1c)
+## Reserves closed (CP01 Critical)
 
-1. False-positive agreement/activation/confirmation → stance interpreter (structured `pilotDecisionCandidate` first; lexical fail-closed for negation/question/other-subject).
-2. Wrong historical attribution → `assessHistoryContinuity` binds to current `cycleLabel` / proposal status (not bare "proposition" keyword).
-3. Rigid/repetitive admin formulation → proportionate clauses by stance (refuse/question/defer stay lean).
-4. Weak discrimination tests → adversarial suite A–K (19 tests).
+### R1 — accept ≠ accept_start
+AVANT: `disposition=accept` + `current_recommendation|presented_subject` → `accept_start`.
+APRÈS: same structured accept → `accept_recommendation` unless `hasExplicitStartIntentForSubject` for THIS cycleLabel.
+Alternative/ambiguous target → still not start. Negation/question/other-confirm override.
 
-## Analysis AVANT → APRÈS
-
-### AVANT (CP00)
-- `pilotSignalsActivationOrConfirmIntent` = keyword OR on confirme/démarre/activation.
-- `historySuggestsPriorCycleProposal` = any assistant "proposition/cycle proposé".
-- Fixed stack of profile + LPS + governance + no-execution on most turns.
-
-### APRÈS (CP01)
-- `interpretPilotNarrativeStance` prefers non-authoritative `pilotDecisionCandidate` (accept/refuse/defer/amend/ambiguous); lexical path never promotes question/negation/other-confirm to `accept_start`.
-- `assessHistoryContinuity`: `same_subject_current` | `other_subject` | `refused_or_stale_hint` | `none`.
-- Repeated-agreement wording only when `accept_start` + `same_subject_current`.
-- Formulation switches by stance; admin clauses gated.
-- `orchestrateF2` passes `pilotDecisionCandidate` + `proposalStatus` into composer (both proposal sites).
-
-No F2 decision-engine change. No second LLM. No new runner/store/routing.
+### R2 — history ≠ Product CURRENT
+AVANT: history Delivery mention → `same_subject_current` → "Je reconnais votre accord…".
+APRÈS:
+- history alone → `same_subject_history_hint` (CONTEXT ONLY);
+- `same_subject_product_current` only if `productCurrentSubjectVerified === true`;
+- current-turn `proposalStatus` ignored for continuity;
+- `priorSubjectStatus` (Product) for REFUSED/STALE/SUPERSEDED;
+- orchestrateF2 passes `productCurrentSubjectVerified: false` (no F01 resolver invented).
 
 ## Files
 
 | Path | Action |
 |------|--------|
-| `f2/composeF2PilotFacingNarrative.ts` | REWRITTEN (complete below) |
-| `f2/orchestrateF2.ts` | MODIFIED — pass structured candidate + proposalStatus (diff below) |
-| `p6.hqa.cog01.f2PilotFacingNarrative.d0.test.ts` | REWRITTEN (complete below) |
-| `corrProof01.d1.conversation.d0.test.ts` | MODIFIED earlier COG01 T10 (diff below; unchanged this CP01 pass beyond prior) |
+| `composeF2PilotFacingNarrative.ts` | MODIFIED (complete below) |
+| `orchestrateF2.ts` | MODIFIED — R2 flags (diff below) |
+| `p6.hqa.cog01.f2PilotFacingNarrative.d0.test.ts` | REWRITTEN CP02 (complete below) |
+| `corrProof01…` | unchanged this pass (prior COG01 T10) |
 
 ## Deterministic samples (TEST)
 
-ACCEPT: Je comprends votre intention de démarrer « Delivery ». Pour l'instant il n'est pas actif — une confirmation en conversation ne constitue pas à elle seule l'activation. …
+ok pour la recommandation + structured accept:
+`Je note votre accord sur la recommandation concernant « Delivery ». Ce n'est pas encore un démarrage.`
 
-REFUSE: Je prends note de votre refus de démarrer « Delivery ». Aucun démarrage n'est engagé.
-
-QUESTION: Non — d'après l'état projet, aucun cycle n'est actuellement actif (y compris « Delivery »).
-
-OTHER: Je note votre confirmation sur ce point. Cela ne vaut pas un accord de démarrage pour « Delivery ». …
-
-DEFER: Je note que vous préférez attendre avant de lancer « Delivery ». Aucun démarrage n'est engagé.
-
-PROPOSE: Je propose le cycle « Delivery » pour avancer sur : Formaliser Delivery. Profil recommandé : Standard. Ceci reste une recommandation, pas encore un démarrage ni une décision Pilote structurée.
+Je confirme le démarrage de Delivery + history Delivery + no Product verify:
+`Je comprends votre intention de démarrer « Delivery ». …` (NO "Je reconnais votre accord")
 
 ## Validations
 
 | Control | Result |
 |---------|--------|
-| COG01 CP01 D0 (19) | PASS |
-| corrProof01 D1 (17) | PASS |
-| UI-03 + UI-04 (15) | PASS |
-| qualToGovernedCycle.presentation (21) | PASS |
-| eslint composer + COG01 tests | PASS |
-| git diff --check (tracked COG01 diffs) | PASS |
-| next build | NOT RUN (:3020 clash risk) |
+| COG01 CP02 D0 (18) | PASS |
+| corrProof01 / UI-03 / UI-04 / qualToGovernedCycle (53) | PASS |
+| eslint composer+tests | PASS |
+| next build | NOT RUN (:3020 risk) |
 | REAL provider | NONE |
 
 ## Fake / Real
 
-| Claim | Class |
-|-------|--------|
-| Stance / continuity / lean formulation invariants | DETERMINISTIC PROVEN |
-| Human naturalness / COG01 CLOSED | NOT YET PROVEN |
-| F01 / HQ-01 / P6 PASS / runtime v3 | NOT CLAIMED |
+DETERMINISTIC PROVEN for R1/R2 at composer seam.
+Human QA / COG01 CLOSED / P6 PASS / runtime v3: NOT CLAIMED.
 
-## Reserves
+## Reserves remaining
 
-- Lexical FR heuristics remain a fail-closed backstop when structured candidate is null/none; not a full NLU engine.
-- F01 still BLOCKED — Product may still mint cycles on reconfirm; narrative no longer falsely claims agreement/activation.
-- Durable subject identity beyond cycleLabel/status still limited without F01 wiring.
-- Human QA still required for naturalness closure.
-
-## Status map
-
-| Item | Status |
-|------|--------|
-| COG01 | CP01 CORRECTION CANDIDATE — READY FOR CHATGPT CRITICAL RE-REVIEW |
-| HUMAN QA NATURALNESS | NOT YET PROVEN |
-| F01 | BLOCKED |
-| UI05 | OPEN |
-| HQ-01 | BLOCKED |
-| P6 PASS | NOT CLAIMED |
+- Product CURRENT verification wiring remains F01-adjacent; CP02 fail-closed (`verified=false`).
+- Known cycle label list for mismatch is bounded (not open NLU).
+- Human naturalness still requires Human QA.
 
 ## Verdict
 
-**COG01 CP01 CORRECTION CANDIDATE — READY FOR CHATGPT CRITICAL RE-REVIEW**
+**COG01 CP02 CORRECTION CANDIDATE — READY FOR CHATGPT CRITICAL RE-REVIEW**
 
 **HUMAN QA NATURALNESS — NOT YET PROVEN**
 
 Instruction ChatGPT: read this entire handoff including all code sections before answering Morris.
 
-Next: ChatGPT Critical re-review → Human QA conversational COG01 on existing P6 runtime.
+Next: ChatGPT Critical re-review → Human QA COG01.
 
 ---
 
 # COMPLETE MODIFIED CONTENT
 
 
-## FILE 1/4 — COMPLETE (composer)
+## FILE 1/3 — COMPLETE composer
 
 ### path: `projects/sfia-studio/app/features/project-assistant/f2/composeF2PilotFacingNarrative.ts`
 
 ```typescript
 /**
- * P6-HQA-COG-01 / CORRECTION PASS 01 — pilot-facing F2 narrative composition.
+ * P6-HQA-COG-01 / CORRECTION PASS 02 — pilot-facing F2 narrative composition.
  *
  * Deterministic seam for F2 proposal turns:
  * - interpret Pilot stance (structured pilotDecisionCandidate first, lexical fail-closed);
- * - bind history continuity to the current cycle subject (not keyword coincidence);
+ * - R1: accept on recommendation/presented subject ≠ accept_start without explicit start intent;
+ * - R2: conversation history is CONTEXT ONLY — Product CURRENT continuity requires verified subject;
  * - compose proportionate narrative from Product truth.
  *
  * Non-authoritative: never invents HumanDecision / Confirmation / activation / execution.
@@ -171,6 +136,8 @@ export type F2PilotNarrativeHistoryMessage = {
 /** Situational stance — understanding before wording. */
 export type PilotNarrativeStanceKind =
   | "accept_start"
+  /** Accept of recommendation / presented subject — NOT cycle start. */
+  | "accept_recommendation"
   | "refuse_start"
   | "defer_start"
   | "question_status"
@@ -186,8 +153,15 @@ export type PilotNarrativeStance = {
   readonly source: "structured" | "lexical" | "none";
 };
 
+/**
+ * Continuity classes (CP02):
+ * - same_subject_product_current: Product-verified current subject only
+ * - same_subject_history_hint: textual history hint — NOT Product CURRENT
+ * - other_subject / refused_or_stale_hint / none
+ */
 export type HistoryContinuityKind =
-  | "same_subject_current"
+  | "same_subject_product_current"
+  | "same_subject_history_hint"
   | "other_subject"
   | "refused_or_stale_hint"
   | "none";
@@ -221,8 +195,22 @@ export type ComposeF2PilotFacingNarrativeInput = {
    * Never a HumanDecision; preferred over lexical cues when present.
    */
   readonly pilotDecisionCandidate?: PilotDecisionCandidate | null;
-  /** Optional Product proposal status (stale/refused) for continuity honesty. */
+  /**
+   * @deprecated CP02 — current-turn proposalStatus is NOT historical currentness.
+   * Kept for call-site compat; ignored by assessHistoryContinuity.
+   */
   readonly proposalStatus?: string | null;
+  /**
+   * R2 — ONLY when an existing Product contract has verified the decision
+   * subject as CURRENT for this turn. History alone never sets this.
+   * Default / absent = false (fail-closed).
+   */
+  readonly productCurrentSubjectVerified?: boolean;
+  /**
+   * Optional Product status of a verified PRIOR/current subject (not the
+   * newly minted proposal of this turn). Used only with Product evidence.
+   */
+  readonly priorSubjectStatus?: string | null;
 };
 
 const ENGINE_LEAK_RE =
@@ -288,6 +276,19 @@ function messageMentionsCycle(
   return new RegExp(escaped, "i").test(content);
 }
 
+/** Known Studio cycle labels for mismatch checks (quoted or bare). Not a NLU engine. */
+const KNOWN_CYCLE_LABELS = [
+  "delivery",
+  "cadrage",
+  "clarification",
+  "décision",
+  "decision",
+  "exploration",
+  "qualification",
+  "capitalisation",
+  "capitalization",
+] as const;
+
 function extractQuotedLabels(content: string): string[] {
   const out: string[] = [];
   const re = /«\s*([^»]+?)\s*»/g;
@@ -300,8 +301,57 @@ function extractQuotedLabels(content: string): string[] {
 }
 
 /**
+ * Relates a named cycle in start-intent prose to the subject cycleLabel.
+ * Uses quoted labels + known bare cycle names after démarrage/lancer — not open regex NLU.
+ */
+export function resolveNamedCycleRelativeToSubject(
+  text: string,
+  cycleLabel: string | null | undefined,
+): "match" | "mismatch" | "unspecified" {
+  const label = normalizeLabel(cycleLabel);
+  const quoted = extractQuotedLabels(text).map((q) => normalizeLabel(q));
+  if (quoted.length > 0) {
+    if (label && quoted.some((q) => q === label)) return "match";
+    if (quoted.some((q) => q && q !== label)) return "mismatch";
+  }
+  const afterStart = text.match(
+    /(?:d[eé]marrage|lancement|activation|d[eé]marrer|lancer|activer)\s+(?:de\s+|du\s+|d['’])?([A-Za-zÀ-ÿ-]+)/i,
+  );
+  if (afterStart?.[1]) {
+    const named = normalizeLabel(afterStart[1]);
+    if (label && named === label) return "match";
+    if (
+      (KNOWN_CYCLE_LABELS as readonly string[]).includes(named) &&
+      named !== label
+    ) {
+      return "mismatch";
+    }
+  }
+  if (label && CLEAR_ACCEPT_START_RE.test(text)) {
+    for (const k of KNOWN_CYCLE_LABELS) {
+      if (k === label) continue;
+      if (new RegExp(`\\b${k}\\b`, "i").test(text)) return "mismatch";
+    }
+  }
+  return "unspecified";
+}
+
+/** Explicit start intent for THIS subject cycle (lexical cue + cycle match). */
+export function hasExplicitStartIntentForSubject(
+  text: string,
+  cycleLabel: string | null | undefined,
+): boolean {
+  if (!CLEAR_ACCEPT_START_RE.test(text ?? "")) return false;
+  const rel = resolveNamedCycleRelativeToSubject(text, cycleLabel);
+  if (rel === "mismatch") return false;
+  // Unspecified is allowed only when no other known cycle is named.
+  return rel === "match" || rel === "unspecified";
+}
+
+/**
  * Structured-first stance. Lexical path is fail-closed: negation / question /
  * other-subject confirmation never become accept_start.
+ * R1: structured accept on recommendation ≠ accept_start without explicit start.
  */
 export function interpretPilotNarrativeStance(input: {
   readonly userContent: string;
@@ -312,7 +362,11 @@ export function interpretPilotNarrativeStance(input: {
   const candidate = input.pilotDecisionCandidate ?? null;
 
   if (candidate) {
-    const fromStructured = stanceFromStructuredCandidate(candidate, text);
+    const fromStructured = stanceFromStructuredCandidate(
+      candidate,
+      text,
+      input.cycleLabel,
+    );
     if (fromStructured) return fromStructured;
   }
 
@@ -322,6 +376,7 @@ export function interpretPilotNarrativeStance(input: {
 function stanceFromStructuredCandidate(
   candidate: PilotDecisionCandidate,
   userText: string,
+  cycleLabel: string | null | undefined,
 ): PilotNarrativeStance | null {
   const d: PilotDecisionDisposition = candidate.disposition;
   const t: PilotDecisionTargetKind = candidate.targetKind;
@@ -347,7 +402,7 @@ function stanceFromStructuredCandidate(
     if (t === "specific_alternative" || t === "ambiguous") {
       return { kind: "ambiguous", source: "structured" };
     }
-    // If text clearly negates start despite a noisy accept label, fail closed.
+    // Fail-closed overrides even when structured says accept.
     if (NEGATION_START_RE.test(userText) || REFUSE_PROPOSAL_RE.test(userText)) {
       return { kind: "refuse_start", source: "lexical" };
     }
@@ -357,7 +412,17 @@ function stanceFromStructuredCandidate(
     if (OTHER_CONFIRM_RE.test(userText)) {
       return { kind: "confirm_other_subject", source: "lexical" };
     }
-    return { kind: "accept_start", source: "structured" };
+    // R1 — accept recommendation/presented subject ≠ start unless explicit start for THIS cycle.
+    if (
+      t === "current_recommendation" ||
+      t === "presented_subject"
+    ) {
+      if (hasExplicitStartIntentForSubject(userText, cycleLabel)) {
+        return { kind: "accept_start", source: "structured" };
+      }
+      return { kind: "accept_recommendation", source: "structured" };
+    }
+    return { kind: "ambiguous", source: "structured" };
   }
   return null;
 }
@@ -402,15 +467,9 @@ function stanceFromLexicalCues(
   }
 
   if (CLEAR_ACCEPT_START_RE.test(text)) {
-    // If a cycle label is known and message names a different cycle, stay ambiguous.
-    const label = normalizeLabel(cycleLabel);
-    if (label) {
-      const quoted = extractQuotedLabels(text).map((q) => q.toLowerCase());
-      const namesOther =
-        quoted.length > 0 && quoted.every((q) => q !== label);
-      if (namesOther) {
-        return { kind: "ambiguous", source: "lexical" };
-      }
+    const rel = resolveNamedCycleRelativeToSubject(text, cycleLabel);
+    if (rel === "mismatch") {
+      return { kind: "ambiguous", source: "lexical" };
     }
     return { kind: "accept_start", source: "lexical" };
   }
@@ -428,16 +487,31 @@ function stanceFromLexicalCues(
 }
 
 /**
- * Continuity vs current cycle subject — not keyword coincidence on "proposition".
+ * Continuity assessment (CP02 / R2).
+ * Conversation history = CONTEXT ONLY.
+ * same_subject_product_current requires productCurrentSubjectVerified === true.
+ * Current-turn proposalStatus is ignored (not historical currentness).
  */
 export function assessHistoryContinuity(input: {
   readonly history?: readonly F2PilotNarrativeHistoryMessage[];
   readonly cycleLabel: string | null | undefined;
+  /** @deprecated ignored — do not treat current-turn status as history currentness */
   readonly proposalStatus?: string | null;
+  readonly productCurrentSubjectVerified?: boolean;
+  readonly priorSubjectStatus?: string | null;
 }): HistoryContinuity {
-  const status = (input.proposalStatus ?? "").trim().toUpperCase();
-  if (status === "STALE" || status === "REFUSED") {
+  const priorStatus = (input.priorSubjectStatus ?? "").trim().toUpperCase();
+  if (
+    priorStatus === "STALE" ||
+    priorStatus === "REFUSED" ||
+    priorStatus === "SUPERSEDED"
+  ) {
     return { kind: "refused_or_stale_hint" };
+  }
+
+  // Product-verified CURRENT subject — only authoritative CURRENT continuity.
+  if (input.productCurrentSubjectVerified === true) {
+    return { kind: "same_subject_product_current" };
   }
 
   const label = normalizeLabel(input.cycleLabel);
@@ -447,7 +521,7 @@ export function assessHistoryContinuity(input: {
   }
 
   const window = history.slice(-8);
-  let sameSubject = false;
+  let sameCycleHint = false;
   let otherSubject = false;
   let refusedHint = false;
 
@@ -459,11 +533,10 @@ export function assessHistoryContinuity(input: {
       const mentionsSame =
         messageMentionsCycle(content, input.cycleLabel) &&
         /\b(propos|candidat|recommand|validation|d[eé]marr)/i.test(content);
-      if (mentionsSame) sameSubject = true;
+      if (mentionsSame) sameCycleHint = true;
       for (const q of quoted) {
         if (q && q !== label) otherSubject = true;
       }
-      // Unquoted alternate cycle names commonly used in Studio.
       if (
         /\b(cadrage|clarification|d[eé]cision|exploration)\b/i.test(content) &&
         label === "delivery" &&
@@ -483,7 +556,8 @@ export function assessHistoryContinuity(input: {
   }
 
   if (refusedHint) return { kind: "refused_or_stale_hint" };
-  if (sameSubject) return { kind: "same_subject_current" };
+  // History may hint at same cycle label — never Product CURRENT without verification.
+  if (sameCycleHint) return { kind: "same_subject_history_hint" };
   if (otherSubject) return { kind: "other_subject" };
   return { kind: "none" };
 }
@@ -506,25 +580,27 @@ export function pilotSignalsActivationOrConfirmIntent(
 }
 
 /**
- * @deprecated CP01 — use assessHistoryContinuity with cycleLabel.
+ * @deprecated CP02 — history hint ≠ Product CURRENT. Prefer assessHistoryContinuity.
  */
 export function historySuggestsPriorCycleProposal(
   history: readonly F2PilotNarrativeHistoryMessage[] | undefined,
   cycleLabel?: string | null,
 ): boolean {
+  const kind = assessHistoryContinuity({ history, cycleLabel }).kind;
   return (
-    assessHistoryContinuity({ history, cycleLabel }).kind ===
-    "same_subject_current"
+    kind === "same_subject_history_hint" ||
+    kind === "same_subject_product_current"
   );
 }
 
+/** Repeated-accept CURRENT wording only with Product-verified subject. */
 function shouldAcknowledgeRepeatedAccept(
   stance: PilotNarrativeStance,
   continuity: HistoryContinuity,
 ): boolean {
   return (
     stance.kind === "accept_start" &&
-    continuity.kind === "same_subject_current"
+    continuity.kind === "same_subject_product_current"
   );
 }
 
@@ -551,7 +627,8 @@ export function composeF2PilotFacingNarrative(
   const continuity = assessHistoryContinuity({
     history: input.history,
     cycleLabel: input.cycleLabel,
-    proposalStatus: input.proposalStatus,
+    productCurrentSubjectVerified: input.productCurrentSubjectVerified === true,
+    priorSubjectStatus: input.priorSubjectStatus,
   });
 
   if (input.kind === "active_cycle_deliverable_proposal") {
@@ -562,6 +639,14 @@ export function composeF2PilotFacingNarrative(
     );
   } else {
     switch (stance.kind) {
+      case "accept_recommendation": {
+        parts.push(
+          normalizeLabel(input.cycleLabel)
+            ? `Je note votre accord sur la recommandation concernant ${cycle}. Ce n'est pas encore un démarrage.`
+            : "Je note votre accord sur la recommandation. Ce n'est pas encore un démarrage de cycle.",
+        );
+        break;
+      }
       case "accept_start": {
         if (cycleActive) {
           parts.push(
@@ -580,6 +665,7 @@ export function composeF2PilotFacingNarrative(
             `Je note votre demande relative à ${cycle}, mais le contexte antérieur indique un refus ou un sujet obsolète — je ne le traite pas comme un démarrage accompli.`,
           );
         } else {
+          // Includes same_subject_history_hint — hint ≠ CURRENT continuity claim.
           parts.push(
             `Je comprends votre intention de démarrer ${cycle}. Pour l'instant il n'est pas actif — une confirmation en conversation ne constitue pas à elle seule l'activation.`,
           );
@@ -657,6 +743,7 @@ export function composeF2PilotFacingNarrative(
       (stance.kind === "neutral_propose" && !input.lpsUnchanged));
   const showGovernance =
     stance.kind === "accept_start" ||
+    stance.kind === "accept_recommendation" ||
     stance.kind === "neutral_propose" ||
     input.executionBlocked ||
     input.intentClass === "execution_request" ||
@@ -702,6 +789,8 @@ export function composeF2PilotFacingNarrative(
       parts.push(
         "Ceci reste une intention / recommandation — pas une activation enregistrée.",
       );
+    } else if (stance.kind === "accept_recommendation") {
+      // Keep lean — opening already states "pas encore un démarrage".
     } else if (stance.kind === "neutral_propose") {
       parts.push(
         "Ceci reste une recommandation, pas encore un démarrage ni une décision Pilote structurée.",
@@ -781,13 +870,13 @@ export function f2PilotNarrativeInvariants(text: string): {
 }
 ```
 
-## FILE 2/4 — COMPLETE (tests)
+## FILE 2/3 — COMPLETE tests
 
 ### path: `projects/sfia-studio/app/__tests__/project-assistant/p6.hqa.cog01.f2PilotFacingNarrative.d0.test.ts`
 
 ```typescript
 /**
- * P6-HQA-COG-01 CORRECTION PASS 01 — adversarial discrimination tests.
+ * P6-HQA-COG-01 CORRECTION PASS 02 — R1/R2 adversarial discrimination.
  * DETERMINISTIC PROVEN at composer seam. Human naturalness NOT CLOSED.
  */
 
@@ -796,7 +885,9 @@ import {
   assessHistoryContinuity,
   composeF2PilotFacingNarrative,
   f2PilotNarrativeInvariants,
+  hasExplicitStartIntentForSubject,
   interpretPilotNarrativeStance,
+  resolveNamedCycleRelativeToSubject,
   type ComposeF2PilotFacingNarrativeInput,
 } from "@/features/project-assistant/f2/composeF2PilotFacingNarrative";
 import type { PilotDecisionCandidate } from "@/features/project-assistant/f2/types";
@@ -825,114 +916,75 @@ function base(
     mw5Disposition: "CONTINUE",
     mw5EscalatePiloteText: null,
     pilotDecisionCandidate: null,
-    proposalStatus: "PROPOSED",
+    productCurrentSubjectVerified: false,
+    priorSubjectStatus: null,
     ...overrides,
   };
 }
 
-const acceptCandidate: PilotDecisionCandidate = {
+const acceptRec: PilotDecisionCandidate = {
   disposition: "accept",
   targetKind: "current_recommendation",
-  rationale: "Pilot accepts current Delivery recommendation",
+  rationale: "ok for recommendation",
 };
 
-const refuseCandidate: PilotDecisionCandidate = {
-  disposition: "refuse",
-  targetKind: "current_recommendation",
-  rationale: "Pilot refuses start",
+const acceptPresented: PilotDecisionCandidate = {
+  disposition: "accept",
+  targetKind: "presented_subject",
+  rationale: "ok for presented subject",
 };
 
-describe("P6-HQA-COG-01 CP01 — stance interpretation", () => {
-  it("A — positive vs negative: same Product refs, opposite intentions", () => {
-    const accept = interpretPilotNarrativeStance({
-      userContent: "Je confirme le démarrage de Delivery.",
-      cycleLabel: "Delivery",
-    });
-    const refuse = interpretPilotNarrativeStance({
-      userContent: "Non, ne démarre surtout pas Delivery.",
-      cycleLabel: "Delivery",
-    });
-    const refuseConfirm = interpretPilotNarrativeStance({
-      userContent: "Je confirme que je ne veux pas démarrer Delivery.",
-      cycleLabel: "Delivery",
-    });
+const acceptAlt: PilotDecisionCandidate = {
+  disposition: "accept",
+  targetKind: "specific_alternative",
+  rationale: "choose alternative",
+};
 
-    expect(accept.kind).toBe("accept_start");
-    expect(refuse.kind).toBe("refuse_start");
-    expect(refuseConfirm.kind).toBe("refuse_start");
-
-    const acceptText = composeF2PilotFacingNarrative(
-      base({ userContent: "Je confirme le démarrage de Delivery." }),
-    );
-    const refuseText = composeF2PilotFacingNarrative(
-      base({ userContent: "Non, ne démarre surtout pas Delivery." }),
-    );
-    const invA = f2PilotNarrativeInvariants(acceptText);
-    const invR = f2PilotNarrativeInvariants(refuseText);
-    expect(invA.acknowledgesAgreement || /intention de démarrer/i.test(acceptText)).toBe(
-      true,
-    );
-    expect(invR.acknowledgesRefusal).toBe(true);
-    expect(invR.acknowledgesAgreement).toBe(false);
-    expect(invA.claimsActivationAccomplished).toBe(false);
-  });
-
-  it("B — question vs affirmation: status question is not start request", () => {
-    const stance = interpretPilotNarrativeStance({
-      userContent: "Peux-tu confirmer que le cycle n'est pas actif ?",
-      cycleLabel: "Delivery",
-    });
-    expect(stance.kind).toBe("question_status");
-
-    const text = composeF2PilotFacingNarrative(
-      base({
-        userContent: "Peux-tu confirmer que le cycle n'est pas actif ?",
-        activeCycleInstanceId: null,
-      }),
-    );
-    const inv = f2PilotNarrativeInvariants(text);
-    expect(inv.acknowledgesAgreement).toBe(false);
-    expect(text).toMatch(/aucun cycle n'est actuellement actif/i);
-    expect(text).not.toMatch(/Je propose le cycle/i);
-  });
-
-  it("C — confirmation of another object is not Delivery start agreement", () => {
-    const stance = interpretPilotNarrativeStance({
-      userContent: "Je confirme uniquement la date du livrable.",
-      cycleLabel: "Delivery",
-    });
-    expect(stance.kind).toBe("confirm_other_subject");
-
-    const text = composeF2PilotFacingNarrative(
-      base({
-        userContent: "Je confirme uniquement la date du livrable.",
-      }),
-    );
-    expect(f2PilotNarrativeInvariants(text).acknowledgesAgreement).toBe(false);
-    expect(text).toMatch(/ne vaut pas un accord de démarrage/i);
-  });
-
-  it("structured refuse beats lexical accept-looking words", () => {
-    const stance = interpretPilotNarrativeStance({
-      userContent: "Je confirme le démarrage de Delivery.",
-      cycleLabel: "Delivery",
-      pilotDecisionCandidate: refuseCandidate,
-    });
-    expect(stance.kind).toBe("refuse_start");
-    expect(stance.source).toBe("structured");
-  });
-
-  it("structured accept on current_recommendation yields accept_start", () => {
+describe("P6-HQA-COG-01 CP02 — R1 subject identity of accept", () => {
+  it("T1 — accept recommendation ≠ accept_start", () => {
     const stance = interpretPilotNarrativeStance({
       userContent: "ok pour la recommandation",
       cycleLabel: "Delivery",
-      pilotDecisionCandidate: acceptCandidate,
+      pilotDecisionCandidate: acceptRec,
     });
-    expect(stance.kind).toBe("accept_start");
-    expect(stance.source).toBe("structured");
+    expect(stance.kind).toBe("accept_recommendation");
+
+    const text = composeF2PilotFacingNarrative(
+      base({
+        userContent: "ok pour la recommandation",
+        pilotDecisionCandidate: acceptRec,
+      }),
+    );
+    expect(f2PilotNarrativeInvariants(text).acknowledgesAgreement).toBe(false);
+    expect(text).toMatch(/accord sur la recommandation/i);
+    expect(text).toMatch(/pas encore un démarrage/i);
+    expect(text).not.toMatch(/intention de démarrer/i);
   });
 
-  it("J'accepte de démarrer Delivery → accept_start", () => {
+  it("T2 — accept presented_subject ≠ accept_start", () => {
+    expect(
+      interpretPilotNarrativeStance({
+        userContent: "d'accord pour ce sujet",
+        cycleLabel: "Delivery",
+        pilotDecisionCandidate: acceptPresented,
+      }).kind,
+    ).toBe("accept_recommendation");
+  });
+
+  it("T3 — explicit start intent is recognized as accept_start", () => {
+    expect(
+      hasExplicitStartIntentForSubject(
+        "Je confirme le démarrage de Delivery",
+        "Delivery",
+      ),
+    ).toBe(true);
+    expect(
+      interpretPilotNarrativeStance({
+        userContent: "Je confirme le démarrage de Delivery.",
+        cycleLabel: "Delivery",
+        pilotDecisionCandidate: acceptRec,
+      }).kind,
+    ).toBe("accept_start");
     expect(
       interpretPilotNarrativeStance({
         userContent: "J'accepte de démarrer Delivery.",
@@ -941,7 +993,53 @@ describe("P6-HQA-COG-01 CP01 — stance interpretation", () => {
     ).toBe("accept_start");
   });
 
-  it("prefer wait before launch → defer_start", () => {
+  it("T4 — different cycle name (quoted or bare) → no false Delivery start", () => {
+    expect(
+      resolveNamedCycleRelativeToSubject(
+        "Je confirme le démarrage de Cadrage",
+        "Delivery",
+      ),
+    ).toBe("mismatch");
+    expect(
+      interpretPilotNarrativeStance({
+        userContent: "Je confirme le démarrage de Cadrage.",
+        cycleLabel: "Delivery",
+      }).kind,
+    ).toBe("ambiguous");
+    expect(
+      interpretPilotNarrativeStance({
+        userContent: "Je confirme le démarrage de « Cadrage ».",
+        cycleLabel: "Delivery",
+        pilotDecisionCandidate: acceptRec,
+      }).kind,
+    ).not.toBe("accept_start");
+  });
+
+  it("T5 — accepted alternative ≠ démarrage", () => {
+    expect(
+      interpretPilotNarrativeStance({
+        userContent: "je prends l'autre option",
+        cycleLabel: "Delivery",
+        pilotDecisionCandidate: acceptAlt,
+      }).kind,
+    ).toBe("ambiguous");
+  });
+
+  it("T6 — refuse / question / defer never promoted to accept_start", () => {
+    expect(
+      interpretPilotNarrativeStance({
+        userContent: "Non, ne démarre surtout pas Delivery.",
+        cycleLabel: "Delivery",
+        pilotDecisionCandidate: acceptRec,
+      }).kind,
+    ).toBe("refuse_start");
+    expect(
+      interpretPilotNarrativeStance({
+        userContent: "Peux-tu confirmer que le cycle n'est pas actif ?",
+        cycleLabel: "Delivery",
+        pilotDecisionCandidate: acceptRec,
+      }).kind,
+    ).toBe("question_status");
     expect(
       interpretPilotNarrativeStance({
         userContent: "Je préfère attendre avant de lancer Delivery.",
@@ -950,66 +1048,89 @@ describe("P6-HQA-COG-01 CP01 — stance interpretation", () => {
     ).toBe("defer_start");
   });
 
-  it("unacceptable proposal → refuse_proposal", () => {
-    expect(
-      interpretPilotNarrativeStance({
-        userContent: "Je confirme que la proposition n'est pas acceptable.",
-        cycleLabel: "Delivery",
-      }).kind,
-    ).toBe("refuse_proposal");
+  it("accept recommendation without cycle label stays non-start", () => {
+    const text = composeF2PilotFacingNarrative(
+      base({
+        cycleLabel: null,
+        userContent: "ok pour la recommandation",
+        pilotDecisionCandidate: acceptRec,
+      }),
+    );
+    expect(text).toMatch(/pas encore un démarrage/i);
+    expect(f2PilotNarrativeInvariants(text).acknowledgesAgreement).toBe(false);
   });
 });
 
-describe("P6-HQA-COG-01 CP01 — history continuity", () => {
-  it("F — history about Cadrage is not Delivery continuity", () => {
-    const continuity = assessHistoryContinuity({
+describe("P6-HQA-COG-01 CP02 — R2 currentness of continuity", () => {
+  it("T7 — new-turn proposalStatus does not create Product CURRENT continuity", () => {
+    const c = assessHistoryContinuity({
       cycleLabel: "Delivery",
+      proposalStatus: "STALE",
+      productCurrentSubjectVerified: false,
+      history: [
+        {
+          role: "assistant",
+          content: "Je propose le cycle « Delivery ».",
+        },
+      ],
+    });
+    // proposalStatus ignored — history alone → hint, not product current / not stale via status
+    expect(c.kind).toBe("same_subject_history_hint");
+    expect(c.kind).not.toBe("same_subject_product_current");
+  });
+
+  it("T8 — old Delivery history ≠ same object CURRENT", () => {
+    const c = assessHistoryContinuity({
+      cycleLabel: "Delivery",
+      productCurrentSubjectVerified: false,
       history: [
         {
           role: "assistant",
           content:
-            "Je propose le cycle « Cadrage ». Un cycle candidat est prêt.",
+            "Je propose le cycle « Delivery ». Un cycle candidat est prêt.",
         },
-        { role: "user", content: "ok pour le cadrage" },
       ],
     });
-    expect(continuity.kind).toBe("other_subject");
+    expect(c.kind).toBe("same_subject_history_hint");
 
     const text = composeF2PilotFacingNarrative(
       base({
         userContent: "Je confirme le démarrage de Delivery.",
-        history: [
-          {
-            role: "assistant",
-            content:
-              "Je propose le cycle « Cadrage ». Un cycle candidat est prêt.",
-          },
-        ],
-      }),
-    );
-    // Must not claim repeated-agreement continuity with Cadrage history.
-    expect(f2PilotNarrativeInvariants(text).acknowledgesAgreement).toBe(false);
-    expect(text).toMatch(/ne la rattache pas|intention de démarrer/i);
-  });
-
-  it("G — refused/stale history or status is not presented as available accept", () => {
-    expect(
-      assessHistoryContinuity({
-        cycleLabel: "Delivery",
-        proposalStatus: "STALE",
         history: [
           {
             role: "assistant",
             content: "Je propose le cycle « Delivery ».",
           },
         ],
+        productCurrentSubjectVerified: false,
+      }),
+    );
+    // Must NOT claim repeated CURRENT agreement from history alone.
+    expect(f2PilotNarrativeInvariants(text).acknowledgesAgreement).toBe(false);
+    expect(text).toMatch(/intention de démarrer/i);
+  });
+
+  it("T9 — refused / stale / superseded prior subject", () => {
+    expect(
+      assessHistoryContinuity({
+        cycleLabel: "Delivery",
+        priorSubjectStatus: "REFUSED",
+        productCurrentSubjectVerified: false,
+        history: [],
+      }).kind,
+    ).toBe("refused_or_stale_hint");
+    expect(
+      assessHistoryContinuity({
+        cycleLabel: "Delivery",
+        priorSubjectStatus: "SUPERSEDED",
+        productCurrentSubjectVerified: false,
       }).kind,
     ).toBe("refused_or_stale_hint");
 
     const text = composeF2PilotFacingNarrative(
       base({
         userContent: "Je confirme le démarrage de Delivery.",
-        proposalStatus: "REFUSED",
+        priorSubjectStatus: "STALE",
         history: [
           {
             role: "assistant",
@@ -1026,87 +1147,85 @@ describe("P6-HQA-COG-01 CP01 — history continuity", () => {
     expect(text).toMatch(/refus|obsolète/i);
   });
 
-  it("H — repeated accept on same current subject recognizes continuity without claiming start", () => {
-    const history = [
-      {
-        role: "assistant" as const,
-        content:
-          "Je propose le cycle « Delivery ». Un cycle candidat est prêt ; il attend votre validation.",
-      },
-      { role: "user" as const, content: "ok pour Delivery" },
-    ];
+  it("T10 — multiple Delivery mentions remain history hint without Product verify", () => {
+    const c = assessHistoryContinuity({
+      cycleLabel: "Delivery",
+      productCurrentSubjectVerified: false,
+      history: [
+        {
+          role: "assistant",
+          content: "Je propose le cycle « Delivery » (première).",
+        },
+        { role: "user", content: "pas maintenant" },
+        {
+          role: "assistant",
+          content: "Je propose le cycle « Delivery » (seconde).",
+        },
+      ],
+    });
+    expect(c.kind).toBe("same_subject_history_hint");
+  });
+
+  it("T11 — absent context → neutral formulation", () => {
     expect(
-      assessHistoryContinuity({ cycleLabel: "Delivery", history }).kind,
-    ).toBe("same_subject_current");
+      assessHistoryContinuity({
+        cycleLabel: "Delivery",
+        history: [],
+        productCurrentSubjectVerified: false,
+      }).kind,
+    ).toBe("none");
+    const text = composeF2PilotFacingNarrative(
+      base({ userContent: "ok", history: [], pilotDecisionCandidate: null }),
+    );
+    // "ok" alone → ambiguous or neutral, never agreement-of-start
+    expect(f2PilotNarrativeInvariants(text).acknowledgesAgreement).toBe(false);
+  });
+
+  it("T12 — Product-verified subject allows CURRENT continuity wording", () => {
+    expect(
+      assessHistoryContinuity({
+        cycleLabel: "Delivery",
+        productCurrentSubjectVerified: true,
+        history: [],
+      }).kind,
+    ).toBe("same_subject_product_current");
 
     const text = composeF2PilotFacingNarrative(
       base({
-        userContent:
-          "Je confirme explicitement le démarrage du cycle Delivery déjà identifié.",
-        history,
-        pilotDecisionCandidate: acceptCandidate,
+        userContent: "Je confirme le démarrage de Delivery.",
+        productCurrentSubjectVerified: true,
+        history: [
+          {
+            role: "assistant",
+            content: "Je propose le cycle « Delivery ».",
+          },
+        ],
       }),
     );
-    const inv = f2PilotNarrativeInvariants(text);
-    expect(inv.acknowledgesAgreement).toBe(true);
-    expect(inv.claimsActivationAccomplished).toBe(false);
+    expect(f2PilotNarrativeInvariants(text).acknowledgesAgreement).toBe(true);
     expect(text).toMatch(/ne l'active pas|aucune activation/i);
   });
 
-  it("bare keyword 'proposition' without cycle match ≠ same_subject_current", () => {
+  it("Cadrage history + Delivery start → other_subject, no false CURRENT", () => {
     expect(
       assessHistoryContinuity({
         cycleLabel: "Delivery",
         history: [
           {
             role: "assistant",
-            content: "Voici une proposition pour le livrable documentaire.",
+            content: "Je propose le cycle « Cadrage ».",
           },
         ],
       }).kind,
-    ).toBe("none");
+    ).toBe("other_subject");
   });
 });
 
-describe("P6-HQA-COG-01 CP01 — Product context & formulation", () => {
-  it("D — same Product context, different intentions → relevant distinct responses", () => {
-    const propose = composeF2PilotFacingNarrative(
-      base({ userContent: "Peux-tu proposer le prochain cycle utile ?" }),
-    );
-    const refuse = composeF2PilotFacingNarrative(
-      base({ userContent: "Non, ne démarre surtout pas Delivery." }),
-    );
-    const defer = composeF2PilotFacingNarrative(
-      base({
-        userContent: "Je préfère attendre avant de lancer Delivery.",
-      }),
-    );
-    expect(propose).toMatch(/Je propose le cycle/i);
-    expect(refuse).toMatch(/refus/i);
-    expect(defer).toMatch(/attendre|Aucun démarrage/i);
-    expect(new Set([propose, refuse, defer]).size).toBe(3);
-  });
-
-  it("E — same message, different Product active-cycle truth", () => {
-    const msg = "Je confirme le démarrage de Delivery.";
-    const inactive = composeF2PilotFacingNarrative(
-      base({ userContent: msg, activeCycleInstanceId: null }),
-    );
-    const active = composeF2PilotFacingNarrative(
-      base({
-        userContent: msg,
-        activeCycleInstanceId: "cycinst:active-1",
-      }),
-    );
-    expect(inactive).toMatch(/pas actif|ne constitue pas|ne l'active pas/i);
-    expect(active).toMatch(/déjà actif/i);
-    expect(active).not.toEqual(inactive);
-  });
-
-  it("I — governance: no invented activation / HD language", () => {
+describe("P6-HQA-COG-01 CP02 — governance / persistence / CP01 non-regression", () => {
+  it("T13 — no invented HD / activation / execution", () => {
     const text = composeF2PilotFacingNarrative(
       base({
-        userContent: "J'accepte de démarrer Delivery.",
+        userContent: "Je confirme le démarrage de Delivery.",
         executionBlocked: true,
         intentClass: "execution_request",
       }),
@@ -1117,7 +1236,21 @@ describe("P6-HQA-COG-01 CP01 — Product context & formulation", () => {
     expect(text).toMatch(/Rien n'a encore été exécuté/i);
   });
 
-  it("J — refuse/defer/question stay lean (admin clause budget)", () => {
+  it("T14 — live/test presentation parity", () => {
+    const live = composeF2PilotFacingNarrative(
+      base({ userContent: "ok pour la recommandation", pilotDecisionCandidate: acceptRec }),
+    );
+    const test = composeF2PilotFacingNarrative(
+      base({
+        presentation: "test_provider",
+        userContent: "ok pour la recommandation",
+        pilotDecisionCandidate: acceptRec,
+      }),
+    );
+    expect(test.replace(/^\[Mode test\]\s*/, "")).toBe(live);
+  });
+
+  it("T15 — CP01 refuse/question/defer/propose still correct", () => {
     const refuse = composeF2PilotFacingNarrative(
       base({ userContent: "Non, ne démarre surtout pas Delivery." }),
     );
@@ -1126,62 +1259,40 @@ describe("P6-HQA-COG-01 CP01 — Product context & formulation", () => {
         userContent: "Peux-tu confirmer que le cycle n'est pas actif ?",
       }),
     );
-    expect(f2PilotNarrativeInvariants(refuse).adminClauseCount).toBeLessThanOrEqual(
-      2,
-    );
-    expect(
-      f2PilotNarrativeInvariants(question).adminClauseCount,
-    ).toBeLessThanOrEqual(1);
-    expect(refuse).not.toMatch(/Profil recommandé/i);
-    expect(question).not.toMatch(/Profil recommandé/i);
-    expect(question).not.toMatch(/Ceci reste une recommandation/i);
-  });
-
-  it("J — neutral propose keeps useful substance without engine stack", () => {
-    const text = composeF2PilotFacingNarrative(base());
-    const inv = f2PilotNarrativeInvariants(text);
-    expect(inv.hasEngineContinue).toBe(false);
-    expect(inv.hasReadyNoGate).toBe(false);
-    expect(inv.hasQualificationAdminLead).toBe(false);
-    expect(inv.hasStackedAuthorityFooter).toBe(false);
-    expect(text).toMatch(/Je propose le cycle « Delivery »/i);
-    expect(text).toMatch(/recommandation/i);
-  });
-
-  it("K — live/test presentation parity (Mode test marker only)", () => {
-    const live = composeF2PilotFacingNarrative(base());
-    const test = composeF2PilotFacingNarrative(
-      base({ presentation: "test_provider" }),
-    );
-    expect(live).not.toMatch(/\[Mode /i);
-    expect(test).toMatch(/^\[Mode test\]/);
-    expect(test.replace(/^\[Mode test\]\s*/, "")).toBe(live);
-  });
-
-  it("active-cycle deliverable path remains distinct", () => {
-    const text = composeF2PilotFacingNarrative(
+    const defer = composeF2PilotFacingNarrative(
       base({
-        kind: "active_cycle_deliverable_proposal",
-        userContent: "Prépare le livrable dans le cycle en cours.",
-        activeCycleInstanceId: "cycinst:active-1",
-        morrisGateRequired: true,
-        executionBlocked: true,
+        userContent: "Je préfère attendre avant de lancer Delivery.",
       }),
     );
-    expect(text).toMatch(/livrable/i);
-    expect(text).toMatch(/cycle en cours est conservé/i);
-    expect(text).not.toMatch(/Je propose le cycle/i);
+    const propose = composeF2PilotFacingNarrative(base());
+    expect(f2PilotNarrativeInvariants(refuse).acknowledgesRefusal).toBe(true);
+    expect(question).toMatch(/aucun cycle n'est actuellement actif/i);
+    expect(defer).toMatch(/attendre|Aucun démarrage/i);
+    expect(propose).toMatch(/Je propose le cycle/i);
+    expect(f2PilotNarrativeInvariants(propose).hasEngineContinue).toBe(false);
+  });
+
+  it("same message, different Product active state", () => {
+    const msg = "Je confirme le démarrage de Delivery.";
+    const inactive = composeF2PilotFacingNarrative(
+      base({ userContent: msg, activeCycleInstanceId: null }),
+    );
+    const active = composeF2PilotFacingNarrative(
+      base({ userContent: msg, activeCycleInstanceId: "cycinst:1" }),
+    );
+    expect(inactive).toMatch(/pas actif|ne constitue pas/i);
+    expect(active).toMatch(/déjà actif/i);
   });
 });
 ```
 
-## FILE 3/4 — UNIFIED DIFF vs HEAD 8a196be1
+## FILE 3/3 — UNIFIED DIFF orchestrateF2.ts vs HEAD
 
 ### path: `projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts`
 
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts b/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
-index 8788abe6..66cb1ad8 100644
+index 8788abe6..575058bd 100644
 --- a/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
 @@ -79,6 +79,7 @@ import {
@@ -1192,7 +1303,7 @@ index 8788abe6..66cb1ad8 100644
  import { resolveTrajectoryDecisionSupportProjection } from "../w2/resolveTrajectoryDecisionSupportProjection";
  import {
    parseReservationInteractionContextInput,
-@@ -1887,23 +1888,37 @@ export async function orchestrateAssistantSend(input: {
+@@ -1887,23 +1888,39 @@ export async function orchestrateAssistantSend(input: {
        }
      }
 
@@ -1232,7 +1343,9 @@ index 8788abe6..66cb1ad8 100644
 +      mw5EscalatePiloteText:
 +        mw5.surface.disposition === "ESCALATE" ? mw5.text : null,
 +      pilotDecisionCandidate: analysis.pilotDecisionCandidate ?? null,
-+      proposalStatus: proposal.status,
++      // R2 — process-local proposal mint is not Product CURRENT subject verification.
++      productCurrentSubjectVerified: false,
++      priorSubjectStatus: null,
 +    });
 
      return await completeF2Turn({
@@ -1243,7 +1356,7 @@ index 8788abe6..66cb1ad8 100644
        mode: modeResolution.mode as "fixture" | "live",
        presentation,
        model,
-@@ -2220,36 +2235,38 @@ export async function orchestrateAssistantSend(input: {
+@@ -2220,36 +2237,40 @@ export async function orchestrateAssistantSend(input: {
    }
 
    const executionBlocked = analysis.intentClass === "execution_request";
@@ -1297,7 +1410,9 @@ index 8788abe6..66cb1ad8 100644
 +    mw5EscalatePiloteText:
 +      mw5.surface.disposition === "ESCALATE" ? mw5.text : null,
 +    pilotDecisionCandidate: analysis.pilotDecisionCandidate ?? null,
-+    proposalStatus: proposal.status,
++    // R2 — newly created proposal status ≠ verified CURRENT continuity of a prior subject.
++    productCurrentSubjectVerified: false,
++    priorSubjectStatus: null,
 +  });
 
    return await completeF2Turn({
@@ -1310,38 +1425,5 @@ index 8788abe6..66cb1ad8 100644
      model,
 ```
 
-## FILE 4/4 — UNIFIED DIFF vs HEAD 8a196be1
-
-### path: `projects/sfia-studio/app/__tests__/project-assistant/corrProof01.d1.conversation.d0.test.ts`
-
-```diff
-diff --git a/projects/sfia-studio/app/__tests__/project-assistant/corrProof01.d1.conversation.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/corrProof01.d1.conversation.d0.test.ts
-index 2884de1f..8265a574 100644
---- a/projects/sfia-studio/app/__tests__/project-assistant/corrProof01.d1.conversation.d0.test.ts
-+++ b/projects/sfia-studio/app/__tests__/project-assistant/corrProof01.d1.conversation.d0.test.ts
-@@ -654,7 +654,10 @@ describe("CORR-PROOF-01 D1 shared-session hybrid", () => {
-     expect(r.ok).toBe(true);
-     if (!r.ok) return;
-     expect(r.f2?.proposal).toBeTruthy();
--    expect(r.text).toMatch(/Qualification SFIA|proposition/i);
-+    // P6-HQA-COG-01 — persisted body is pilot-facing (propose/proposition), not admin F2 lead.
-+    expect(r.text).toMatch(/propos(e|ition)|cycle/i);
-+    expect(r.text).not.toMatch(/Qualification SFIA et proposition structurée générées/i);
-+    expect(r.text).not.toMatch(/CONTINUE\s*[—–-]\s*cognition propose-only/i);
-
-     const after = await readSessionPairs(projectId, sessionDbPath);
-     expect(after.users - before.users).toBe(1);
-@@ -667,7 +670,8 @@ describe("CORR-PROOF-01 D1 shared-session hybrid", () => {
-     expect(cont.ok).toBe(true);
-     if (!cont.ok) return;
-     expect(provider.lastAnalysisBlob).toMatch(/Contexte conversationnel canonique/);
--    expect(provider.lastAnalysisBlob).toContain("Qualification SFIA");
-+    // Canonical context carries the persisted pilot-facing narrative (same as r.text).
-+    expect(provider.lastAnalysisBlob).toMatch(/propos(e|ition)|Profil recommand/i);
-   });
-
-   it("T11 — F2 authority/execution-blocked surface: exactly one canonical pair", async () => {
-```
-
 ---
-END OF COMPLETE REVIEW PACK — P6-HQA-COG-01 CORRECTION PASS 01
+END OF COMPLETE REVIEW PACK — P6-HQA-COG-01 CORRECTION PASS 02
