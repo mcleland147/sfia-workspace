@@ -1,16 +1,17 @@
-# ChatGPT Review Pack — P6 INTEGRATED F01+UI05 Correction (COMPLETE)
+# ChatGPT Review Pack — P6 F01+UI05 INTEGRATED CLOSURE CORRECTION (COMPLETE)
 
-- timestamp: 2026-10-09T05:19:23Z
+- timestamp: 2026-10-09T05:42:34Z
 - campaignId: P6-GLOBAL-INTEGRATED-PRODUCT-QA-01
 - findings: P6-HQA-F01 + P6-HQA-UI05
-- cycle: 8 — Delivery / implémentation corrective
+- pass: INTEGRATED CLOSURE CORRECTION
+- cycle: 8 — Delivery / implémentation
 - typology: EVOL
 - profile: CRITICAL
-- Morris GO consumed: LOCAL BORNÉ — P6 INTEGRATED CORRECTION F01 + UI05
+- Morris GO consumed: P6 F01+UI05 INTEGRATED CLOSURE CORRECTION — LOCAL BOUNDED GO
 - branch: qa/sfia-studio-p6-global-integrated-product-qa
 - origin/main: aba6c4a617b6d0cb27f23b59de5bf0ac9360fab1
 - local HEAD (INITIAL=FINAL): 8a196be1a35ffa2d43e52beddc66b51eab56c99c
-- prior F01 handoff: 4e9b2d7c811825b7c2be300972acc29c3cbe8f65
+- prior handoff: f020c9261c781fbece70e35707615974d55d1e88
 - project commit/push/PR/merge: NONE
 - HQ-01 data: NOT MUTATED
 - UI-01…UI-04 / COG01 locals: PRESERVED
@@ -25,115 +26,93 @@ HEAD=8a196be1a35ffa2d43e52beddc66b51eab56c99c
 ORIGIN_MAIN=aba6c4a617b6d0cb27f23b59de5bf0ac9360fab1
 ```
 
-Preserved locals: UI-01…04, COG01 CP02, prior F01 gate, P6 campaign fixtures, presentationLabels.
+## F01 — Diagnostic AVANT (from Critical f020c926)
 
-## Convergence / trajectory
+F01-R1: structured accept + `hasExplicitStartIntentForSubject` could return accept_start
+without the late-negation guards present on the lexical-only CLEAR_ACCEPT path.
+Case: PilotDecisionCandidate accept + "Je confirme… mais finalement non."
 
-Capacité: Pilot → Nora → governed START / compact objects → LPS truth.
-Milestone: P6 Global Integrated Product QA.
-Path: F01 secure + START proof → UI05 compact cards → Critical review → Human QA → HQ-01 disposition.
+F01-R2: "Peut-être démarrer Delivery" → ambiguous stance but not suppress_mint
+(confirmish-only) → createCycle parasite risk.
 
-## F01 — Diagnostic AVANT
-
-Cause Critical:
-`isChatFirstCycleStartIntent` returned true on `accept_start` **or** fell through to
-`hasExplicitStartIntentForSubject` even when stance was REFUSE/DEFER/QUESTION/AMBIGUOUS.
-Case: "Je confirme le démarrage de Delivery, mais finalement je refuse." → lexical confirm
-could neutralize refuse → START or mint risk.
-
-Also: successful START via F2 used `turnKind: "f2_proposal"` (misleading).
-Anti-duplication existed for legacy unbound; START success via `orchestrateAssistantSend`
-was insufficiently proven.
+F01-R3: after START, if `loadProjectRuntimeForAssistant` fails, pre-START project DTO
+could remain in the response while Product activation already succeeded.
 
 ## F01 — Correction
 
-1. Stance authoritative: only `accept_start` → attempt START.
-2. `resolveChatFirstStartRouting`: refuse/defer/question/ambiguous-confirm →
-   `suppress_mint` (no createCycle, no START, honest message).
-3. Late negation after positive cue in `stanceFromLexicalCues` fail-closed.
-4. START success → `turnKind: "f1_informative"` (not proposal).
-5. Deterministic E2E: seed COMPLETE Delivery prepared + HD →
-   `orchestrateAssistantSend` confirm → CycleInstance.active + LPS.active set;
-   repeat → already_active; no mint.
+1. `evaluateExplicitStartForSubject` — single contract for structured + lexical.
+   Late defer/refuse/question after positive cue always wins; structured accept informative only.
+2. `resolveChatFirstStartRouting` — ambiguous/hypothetical start discussion → suppress_mint;
+   legitimate "Prépare un nouveau cycle…" remains not_start_path.
+3. orchestrateF2 START success: patch `activeCycleInstanceId` / lpsVersion when projection
+   reload fails; honest note that Product activation was verified / conversation projection unavailable.
+4. Trivial eslint in orchestrateF2 (unused randomUUID + prefer-const) fixed in-scope
+   (proven present at HEAD for randomUUID; prefer-const was in worktree path).
 
 ## UI05 — Diagnostic AVANT
 
-F2 Recommendation / Proposal still used expanded `.card` + full `facts` by default
-(post UI-04). Durable Work Recommendation / Prepared Action already used P3 compact
-geometry (46:2). Figma 46:98 / 46:107: 748×82, accent, 3-line Type/Title/Meta,
-status + Ouvrir →, details closed by default.
+`latestSynthesis` rendered as `data-ui05-object="execution-contract"` with
+"Action préparée" / "Prête à examiner" / "confirmation potentiellement requise".
+ProductSynthesis ≠ ExecutionContract.
 
 ## UI05 — Correction
 
-Reuse `subCardGold` / `subCardPrepared` / `p3Card*` tokens.
-Recommendation + Proposal: compact closed-by-default progressive disclosure.
-Statuses: DECISION_REQUIRED → En attente de décision; READY_NO_GATE → Candidat prêt;
-active only if Product says so. Ouvrir = expand/consult only (no START mutation).
-Legacy diagnostic path defaults open when `exposeLegacyAuthorityPath`.
+- Synthesis → compact card `data-ui05-object="synthesis"` (Synthèse / consultation seule).
+- Action préparée ONLY from `governedExecutionContinuity.kind === "active"` real contract
+  (excluding confirmation_required which keeps GovernedConfirmationCard).
+- No phantom Action préparée without a contract.
+- Compact progressive disclosure preserved.
 
-Figma reference (read-only harvest):
-- fileKey m4g8j0gNbEzfIuH6S9AZJF
-- Recommendation 46:98 — 748×82, accent #f06a4b, Geist 11/13
-- ExecutionContract 46:107 — same geometry, accent #e97850, ACTION PRÉPARÉE / Prête à examiner
-
-Runtime captures: NOT RUN — VISUAL PROOF MISSING (Studio :3020 not serving for capture;
-login wall / no reliable runtime). DOM/responsive tests PASS. Do not claim FIGMA PARITY PASS.
+Figma 46:98 / 46:107 remain visual references. Runtime captures: NOT RUN — VISUAL PROOF MISSING (:3020 down).
 
 ## Files
 
 | Path | Action |
 |------|--------|
-| f2/resolveChatFirstCycleStartGate.ts | MODIFIED (routing + suppress_mint) — complete below |
-| f2/composeF2PilotFacingNarrative.ts | MODIFIED (late negation) — complete below |
-| f2/orchestrateF2.ts | MODIFIED — start routing + f1_informative on START (diff below) |
-| ConversationSurface.tsx | MODIFIED — UI05 compact cards (diff below) |
-| ConversationSurface.module.css | MODIFIED — ui05ObjectDetails |
-| p6.hqa.f01.chatFirstCycleStartGate.d0.test.ts | MODIFIED/extended — complete below |
-| p6.hqa.ui05.compactObjectCards.ui.test.tsx | CREATED — complete below |
-| p6.hqa.ui04…ui.test.tsx | MODIFIED — adapted to compact disclosure |
+| f2/composeF2PilotFacingNarrative.ts | MODIFIED — evaluateExplicitStartForSubject |
+| f2/resolveChatFirstCycleStartGate.ts | MODIFIED — ambiguous start suppress |
+| f2/orchestrateF2.ts | MODIFIED — START DTO coherence + eslint |
+| ConversationSurface.tsx | MODIFIED — synthesis vs EC semantic |
+| p6.hqa.f01…d0.test.ts | MODIFIED — adversarial cases |
+| p6.hqa.ui05…ui.test.tsx | MODIFIED — semantic truth cases |
 
 ## Validations
 
 | Control | Result |
 |---------|--------|
-| F01 D0 (intent/classify/anti-dup/refuse/START success) | PASS (11) |
-| UI05 DOM compact cards | PASS (6) |
-| UI04 non-regression | PASS (9) |
-| UI03 | PASS |
+| F01 D0 + adversarial + START E2E | PASS |
+| UI05 semantic/DOM | PASS |
+| UI03/UI04 | PASS |
 | COG01 CP02 | PASS |
 | corrProof01 | PASS |
-| candidateTrajectoryCycleStart | PASS (13+) |
-| p5.s06 | PASS |
-| eslint new/clean touched (excl. pre-existing orchestrateF2 prefer-const) | PASS |
-| eslint orchestrateF2 | FAIL pre-existing prefer-const / unused randomUUID |
-| next build | NOT RUN (:3020 / conflict risk) |
+| candidateTrajectoryCycleStart | PASS |
+| eslint all touched (incl. orchestrateF2) | PASS |
+| next build | NOT RUN |
 | UI05 runtime screenshots | NOT RUN — VISUAL PROOF MISSING |
 | REAL provider | NONE |
 | HQ-01 mutation | NONE |
-| git diff --check | WARN blank EOF on pack (normalized below) |
 
 ## Fake / Real
 
-F01 DETERMINISTIC END-TO-END PROVEN on isolated prepared Delivery via orchestrateAssistantSend.
-UI05 DOM/RESPONSIVE PROVEN; FIGMA RUNTIME PARITY NOT PROVEN (captures missing).
-Human QA / HQ-01 unlock / P6 PASS / runtime v3: NOT CLAIMED.
+F01 DETERMINISTIC E2E PROVEN including structured-accept adversarial + anti-mint.
+UI05 SEMANTIC/DOM PROVEN. VISUAL RUNTIME NOT PROVEN.
+Human QA / HQ-01 / P6 PASS / runtime v3: NOT CLAIMED.
 
-## Reserves / Morris
+## Reserves
 
-1. HQ-01 five LEGACY_UNBOUND: not migrated; chat start/refuse suppress mint honestly.
-2. UI05 visual runtime captures required before strong Figma parity claim.
-3. COG01 remains prior CP02 candidate (not CLOSED).
-4. Disposition HQ-01 = distinct Morris gate.
+1. UI05 visual runtime captures still missing.
+2. HQ-01 five LEGACY_UNBOUND disposition = distinct Morris gate.
+3. COG01 remains prior CP02 candidate (not CLOSED this pass).
 
 ## Verdicts
 
-- **F01:** F01 INTEGRATED CORRECTION CANDIDATE — READY FOR CHATGPT CRITICAL REVIEW
-- **UI05:** UI05 CORRECTION CANDIDATE — READY FOR VISUAL AND CRITICAL REVIEW (DOM proven; runtime captures missing → READY WITH RESERVES on visual)
-- **Global:** P6 F01+UI05 INTEGRATED CORRECTION CANDIDATE — READY FOR CHATGPT CRITICAL REVIEW
+- **F01:** F01 CORRECTION ACCEPTANCE CANDIDATE — READY FOR CHATGPT CRITICAL RE-REVIEW
+- **UI05:** UI05 SEMANTIC CORRECTION CANDIDATE — READY FOR CHATGPT CRITICAL RE-REVIEW
+- **Global:** P6 F01+UI05 INTEGRATED CLOSURE CANDIDATE — READY FOR CHATGPT CRITICAL RE-REVIEW
 
 **READY FOR CHATGPT CRITICAL REVIEW**
 
-Instruction ChatGPT: read entire handoff including all code sections below.
+Instruction ChatGPT: read entire handoff including all code sections.
 
 ---
 
@@ -141,7 +120,6 @@ Instruction ChatGPT: read entire handoff including all code sections below.
 
 
 ## FILE 1 — resolveChatFirstCycleStartGate.ts (COMPLETE)
-
 ```typescript
 /**
  * P6-HQA-F01 — chat-first cycle START gate (bounded).
@@ -245,13 +223,32 @@ export function resolveChatFirstStartRouting(input: {
     /\b(confirm\w*|j['’]?accepte\s+de\s+(d[eé]marr|lancer|activer)|d[eé]marrage\s+effectif)\b/i.test(
       text,
     );
+  const startTopic =
+    /\b(d[eé]marr\w*|lanc\w*|activ(?:er|ation))\b/i.test(text);
+  const legitimateNewQualification =
+    /\b(pr[eé]pare|qualifie|propose|nouveau\s+cycle|nouvelle?\s+qualification)\b/i.test(
+      text,
+    ) && !confirmish;
+  const hypotheticStart =
+    startTopic &&
+    /\b(peut[- ]?être|éventuellement|hypoth[eè]se|si\s+on|on\s+pourrait|pas\s+s[uû]r)\b/i.test(
+      text,
+    );
+  // Ambiguous / hypothetical start discussion must not mint a new CycleInstance.
+  // Legitimate new qualification ("Prépare un nouveau cycle…") stays open.
+  const ambiguousStartDiscussion =
+    stance.kind === "ambiguous" &&
+    startTopic &&
+    !legitimateNewQualification &&
+    (confirmish || hypotheticStart || !/\b(pr[eé]pare|qualifie|propose)\b/i.test(text));
   const suppress =
     stance.kind === "refuse_start" ||
     stance.kind === "refuse_proposal" ||
     stance.kind === "defer_start" ||
     stance.kind === "question_status" ||
     stance.kind === "confirm_other_subject" ||
-    (stance.kind === "ambiguous" && confirmish);
+    (stance.kind === "ambiguous" && confirmish) ||
+    ambiguousStartDiscussion;
   if (!suppress) {
     return { kind: "not_start_path", stance };
   }
@@ -504,7 +501,6 @@ export async function resolveChatFirstCycleStartGate(input: {
 ```
 
 ## FILE 2 — composeF2PilotFacingNarrative.ts (COMPLETE)
-
 ```typescript
 /**
  * P6-HQA-COG-01 / CORRECTION PASS 02 — pilot-facing F2 narrative composition.
@@ -775,16 +771,68 @@ export function resolveNamedCycleRelativeToSubject(
   return "unspecified";
 }
 
+/**
+ * Centralized evaluation of an explicit START cue for THIS subject cycle.
+ * Shared by structured accept and lexical paths — late negation/defer/question
+ * after a positive cue always wins (fail-closed). Structured accept is NOT
+ * authoritative when the Pilot's text contradicts it.
+ */
+export function evaluateExplicitStartForSubject(
+  text: string,
+  cycleLabel: string | null | undefined,
+):
+  | "accept_start"
+  | "refuse_start"
+  | "defer_start"
+  | "question_status"
+  | "ambiguous"
+  | "none" {
+  const raw = text ?? "";
+  if (!CLEAR_ACCEPT_START_RE.test(raw)) return "none";
+
+  const acceptMatch = CLEAR_ACCEPT_START_RE.exec(raw);
+  const after = raw.slice(
+    (acceptMatch?.index ?? 0) + (acceptMatch?.[0].length ?? 0),
+  );
+  // Defer before refuse-late so "mais pas maintenant" stays defer, not refuse.
+  if (DEFER_RE.test(after)) return "defer_start";
+  if (
+    NEGATION_START_RE.test(after) ||
+    REFUSE_PROPOSAL_RE.test(after) ||
+    /\b(mais|puis|ensuite|finalement)\b[\s\S]{0,48}\b(non|refuse|pas\s+(ça|cela|demarrer|démarrer))\b/i.test(
+      after,
+    )
+  ) {
+    return "refuse_start";
+  }
+  if (QUESTION_CUE_RE.test(after)) return "question_status";
+
+  // Whole-text fail-closed (covers "finalement non" overlapping accept span).
+  if (DEFER_RE.test(raw) && /\b(d[eé]marr|lanc|activ|delivery)\b/i.test(raw)) {
+    return "defer_start";
+  }
+  if (NEGATION_START_RE.test(raw) || REFUSE_PROPOSAL_RE.test(raw)) {
+    return "refuse_start";
+  }
+  if (
+    QUESTION_CUE_RE.test(raw) &&
+    /\b(d[eé]marr|activ|lanc|cycle\s+n['’]?est|pas\s+actif)\b/i.test(raw)
+  ) {
+    return "question_status";
+  }
+
+  const rel = resolveNamedCycleRelativeToSubject(raw, cycleLabel);
+  if (rel === "mismatch") return "ambiguous";
+  if (rel === "match" || rel === "unspecified") return "accept_start";
+  return "none";
+}
+
 /** Explicit start intent for THIS subject cycle (lexical cue + cycle match). */
 export function hasExplicitStartIntentForSubject(
   text: string,
   cycleLabel: string | null | undefined,
 ): boolean {
-  if (!CLEAR_ACCEPT_START_RE.test(text ?? "")) return false;
-  const rel = resolveNamedCycleRelativeToSubject(text, cycleLabel);
-  if (rel === "mismatch") return false;
-  // Unspecified is allowed only when no other known cycle is named.
-  return rel === "match" || rel === "unspecified";
+  return evaluateExplicitStartForSubject(text, cycleLabel) === "accept_start";
 }
 
 /**
@@ -841,22 +889,39 @@ function stanceFromStructuredCandidate(
     if (t === "specific_alternative" || t === "ambiguous") {
       return { kind: "ambiguous", source: "structured" };
     }
-    // Fail-closed overrides even when structured says accept.
-    if (NEGATION_START_RE.test(userText) || REFUSE_PROPOSAL_RE.test(userText)) {
+    // Text contradictions override structured accept (informative, not authoritative).
+    if (OTHER_CONFIRM_RE.test(userText)) {
+      return { kind: "confirm_other_subject", source: "lexical" };
+    }
+    const explicit = evaluateExplicitStartForSubject(userText, cycleLabel);
+    if (explicit === "refuse_start") {
       return { kind: "refuse_start", source: "lexical" };
     }
+    if (explicit === "defer_start") {
+      return { kind: "defer_start", source: "lexical" };
+    }
+    if (explicit === "question_status") {
+      return { kind: "question_status", source: "lexical" };
+    }
+    if (explicit === "ambiguous") {
+      return { kind: "ambiguous", source: "lexical" };
+    }
+    // Whole-text question / refuse without CLEAR_ACCEPT still block START.
     if (QUESTION_CUE_RE.test(userText)) {
       return { kind: "question_status", source: "lexical" };
     }
-    if (OTHER_CONFIRM_RE.test(userText)) {
-      return { kind: "confirm_other_subject", source: "lexical" };
+    if (NEGATION_START_RE.test(userText) || REFUSE_PROPOSAL_RE.test(userText)) {
+      return { kind: "refuse_start", source: "lexical" };
+    }
+    if (DEFER_RE.test(userText) && /\b(d[eé]marr|lanc|activ|delivery)\b/i.test(userText)) {
+      return { kind: "defer_start", source: "lexical" };
     }
     // R1 — accept recommendation/presented subject ≠ start unless explicit start for THIS cycle.
     if (
       t === "current_recommendation" ||
       t === "presented_subject"
     ) {
-      if (hasExplicitStartIntentForSubject(userText, cycleLabel)) {
+      if (explicit === "accept_start") {
         return { kind: "accept_start", source: "structured" };
       }
       return { kind: "accept_recommendation", source: "structured" };
@@ -905,31 +970,20 @@ function stanceFromLexicalCues(
     return { kind: "defer_start", source: "lexical" };
   }
 
-  if (CLEAR_ACCEPT_START_RE.test(text)) {
-    // Late negation / defer after an earlier positive start cue wins (fail-closed).
-    const acceptMatch = CLEAR_ACCEPT_START_RE.exec(text);
-    const after = text.slice(
-      (acceptMatch?.index ?? 0) + (acceptMatch?.[0].length ?? 0),
-    );
-    if (
-      NEGATION_START_RE.test(after) ||
-      REFUSE_PROPOSAL_RE.test(after) ||
-      /\b(mais|puis|ensuite|finalement)\b[\s\S]{0,48}\b(non|refuse|pas\s+(maintenant|ça|cela|demarrer|démarrer))\b/i.test(
-        after,
-      )
-    ) {
-      return { kind: "refuse_start", source: "lexical" };
-    }
-    if (DEFER_RE.test(after)) {
-      return { kind: "defer_start", source: "lexical" };
-    }
-    if (QUESTION_CUE_RE.test(after)) {
-      return { kind: "question_status", source: "lexical" };
-    }
-    const rel = resolveNamedCycleRelativeToSubject(text, cycleLabel);
-    if (rel === "mismatch") {
-      return { kind: "ambiguous", source: "lexical" };
-    }
+  const explicit = evaluateExplicitStartForSubject(text, cycleLabel);
+  if (explicit === "refuse_start") {
+    return { kind: "refuse_start", source: "lexical" };
+  }
+  if (explicit === "defer_start") {
+    return { kind: "defer_start", source: "lexical" };
+  }
+  if (explicit === "question_status") {
+    return { kind: "question_status", source: "lexical" };
+  }
+  if (explicit === "ambiguous") {
+    return { kind: "ambiguous", source: "lexical" };
+  }
+  if (explicit === "accept_start") {
     return { kind: "accept_start", source: "lexical" };
   }
 
@@ -1330,7 +1384,6 @@ export function f2PilotNarrativeInvariants(text: string): {
 ```
 
 ## FILE 3 — F01 tests (COMPLETE)
-
 ```typescript
 /** @vitest-environment node */
 /**
@@ -1358,7 +1411,9 @@ import {
   chatFirstStartBlockMessage,
   classifyChatFirstStartSituation,
   isChatFirstCycleStartIntent,
+  resolveChatFirstStartRouting,
 } from "@/features/project-assistant/f2/resolveChatFirstCycleStartGate";
+import { interpretPilotNarrativeStance } from "@/features/project-assistant/f2/composeF2PilotFacingNarrative";
 import type { CycleInstance } from "@/lib/oa/cycle";
 import {
   getRuntimeApplicationService,
@@ -1560,6 +1615,84 @@ describe("P6-HQA-F01 isChatFirstCycleStartIntent", () => {
         c.content,
       ).toBe(false);
     }
+  });
+
+  it("structured accept + late negation / defer / question → never START", () => {
+    const structuredAccept = {
+      disposition: "accept" as const,
+      targetKind: "current_recommendation" as const,
+      rationale: "ok",
+    };
+    const adversarial = [
+      {
+        content:
+          "Je confirme le démarrage de Delivery, mais finalement non.",
+        stance: "refuse_start",
+      },
+      {
+        content:
+          "Je confirme le démarrage de Delivery, mais finalement je refuse.",
+        stance: "refuse_start",
+      },
+      {
+        content:
+          "Je confirme le démarrage de Delivery, mais pas maintenant.",
+        stance: "defer_start",
+      },
+      {
+        content: "Je confirme le démarrage de Delivery ?",
+        stance: "question_status",
+      },
+      {
+        content: "Je confirme le démarrage de Cadrage.",
+        stance: "ambiguous",
+      },
+    ];
+    for (const c of adversarial) {
+      const stance = interpretPilotNarrativeStance({
+        userContent: c.content,
+        cycleLabel: "Delivery",
+        pilotDecisionCandidate: structuredAccept,
+      });
+      expect(stance.kind, c.content).toBe(c.stance);
+      expect(
+        isChatFirstCycleStartIntent({
+          userContent: c.content,
+          cycleLabel: "Delivery",
+          pilotDecisionCandidate: structuredAccept,
+        }),
+        c.content,
+      ).toBe(false);
+      expect(
+        resolveChatFirstStartRouting({
+          userContent: c.content,
+          cycleLabel: "Delivery",
+          pilotDecisionCandidate: structuredAccept,
+        }).kind,
+        c.content,
+      ).toBe("suppress_mint");
+    }
+  });
+
+  it("hypothetical / ambiguous start discussion suppresses mint; prepare stays open", () => {
+    expect(
+      resolveChatFirstStartRouting({
+        userContent: "Peut-être démarrer Delivery.",
+        cycleLabel: "Delivery",
+      }).kind,
+    ).toBe("suppress_mint");
+    expect(
+      resolveChatFirstStartRouting({
+        userContent: "Faut-il démarrer Delivery ?",
+        cycleLabel: "Delivery",
+      }).kind,
+    ).toBe("suppress_mint");
+    expect(
+      resolveChatFirstStartRouting({
+        userContent: "Prépare un nouveau cycle Delivery pour un autre livrable.",
+        cycleLabel: "Delivery",
+      }).kind,
+    ).toBe("not_start_path");
   });
 });
 
@@ -2087,7 +2220,6 @@ describe("P6-HQA-F01 START success via orchestrateAssistantSend (prepared)", () 
 ```
 
 ## FILE 4 — UI05 tests (COMPLETE)
-
 ```typescript
 /** @vitest-environment jsdom */
 /**
@@ -2365,31 +2497,71 @@ describe("P6-HQA-UI05 compact object cards", () => {
     );
   });
 
-  it("ExecutionContract-shaped prepared action is compact and distinct", () => {
+  it("ProductSynthesis alone is never an ExecutionContract / Action préparée", () => {
     const onOpen = vi.fn();
     render(
       <ConversationSurface
         controller={stubController({})}
-        workRecommendations={[
-          {
-            epistemicItemId: "epi:wr-ui05",
-            statement: "Poursuivre le travail recommandé",
-            status: "active",
-            dispositionDecisionId: null,
-          } as never,
-        ]}
         latestSynthesis={SYNTHESIS}
         onOpenSynthesis={onOpen}
       />,
     );
+    const synth = screen.getByTestId("conversation-synthesis-card");
+    expect(synth).toHaveAttribute("data-ui05-object", "synthesis");
+    expect(within(synth).getByText(/^Synthèse$/i)).toBeInTheDocument();
+    expect(screen.queryByTestId("conversation-prepared-action-card")).toBeNull();
+    expect(document.querySelector('[data-ui05-object="execution-contract"]')).toBeNull();
+    const visible = pilotVisibleText(synth);
+    expect(visible).not.toMatch(/Action préparée/i);
+    expect(visible).not.toMatch(/confirmation potentiellement requise/i);
+    fireEvent.click(screen.getByTestId("conversation-open-synthesis"));
+    expect(onOpen).toHaveBeenCalledWith("syn:ui05");
+    expect(screen.getByTestId("conversation-synthesis-details")).toBeInTheDocument();
+  });
+
+  it("true ExecutionContract projects Action préparée with Product status", () => {
+    render(
+      <ConversationSurface
+        controller={stubController({
+          governedExecutionContinuity: {
+            ok: true,
+            kind: "active",
+            decisionRef: "hd:ui05",
+            contract: {
+              executionContractId: "xct:ui05",
+              version: 1,
+              status: "validated",
+              action: "Mise à jour de l'espace projet",
+              target: "workspace",
+              scope: "Portée · 2 fichiers",
+              requiredAuthority: "N3",
+              constraints: [],
+              stopConditions: [],
+              requiredCapabilities: [],
+              reversibility: "réversible",
+              semanticFingerprint: "fp",
+              effectConfirmationRequired: false,
+              inspectionDisclosure: {},
+            },
+            inspection: { inspectionSufficient: true },
+          } as never,
+        })}
+      />,
+    );
     const card = screen.getByTestId("conversation-prepared-action-card");
     expect(card).toHaveAttribute("data-ui05-object", "execution-contract");
-    expect(card).toHaveAttribute("data-expanded", "false");
+    expect(card).toHaveAttribute("data-contract-status", "validated");
     expect(within(card).getByText(/Action préparée/i)).toBeInTheDocument();
     expect(within(card).getByText(/Prête à examiner/i)).toBeInTheDocument();
+    expect(within(card).getByText(/Mise à jour de l'espace projet/i)).toBeInTheDocument();
     fireEvent.click(screen.getByTestId("conversation-open-prepared-action"));
-    expect(onOpen).toHaveBeenCalledWith("syn:ui05");
     expect(screen.getByTestId("conversation-prepared-action-details")).toBeInTheDocument();
+  });
+
+  it("absence of contract yields no phantom Action préparée card", () => {
+    render(<ConversationSurface controller={stubController({})} />);
+    expect(screen.queryByTestId("conversation-prepared-action-card")).toBeNull();
+    expect(document.querySelector('[data-ui05-object="execution-contract"]')).toBeNull();
   });
 
   it("Ouvrir does not expose mutation START affordance", () => {
@@ -2403,13 +2575,21 @@ describe("P6-HQA-UI05 compact object cards", () => {
 });
 ```
 
-## FILE 5 — UNIFIED DIFF orchestrateF2.ts (F01 routing hunks vs HEAD)
-
+## FILE 5 — orchestrateF2.ts DIFF (vs HEAD)
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts b/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
-index 8788abe6..065f51e5 100644
+index 8788abe6..b8823e65 100644
 --- a/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
+@@ -3,7 +3,7 @@
+  * Stops before any execution. M2: Cycle/LPS/CKC linkage durable; conversation/proposal process-local.
+  */
+
+-import { randomBytes, randomUUID } from "node:crypto";
++import { randomBytes } from "node:crypto";
+ import {
+   isFakeConversationProviderForced,
+   type ConversationProvider,
 @@ -79,6 +79,11 @@ import {
    reasonWithResolvedCkcContext,
  } from "./ckcCognitiveContext";
@@ -2422,7 +2602,17 @@ index 8788abe6..065f51e5 100644
  import { resolveTrajectoryDecisionSupportProjection } from "../w2/resolveTrajectoryDecisionSupportProjection";
  import {
    parseReservationInteractionContextInput,
-@@ -1887,23 +1892,39 @@ export async function orchestrateAssistantSend(input: {
+@@ -1298,7 +1303,8 @@ export async function orchestrateAssistantSend(input: {
+     };
+   }
+
+-  let { analysis, model } = analysisResult;
++  const model = analysisResult.model;
++  let analysis = analysisResult.analysis;
+   if (analysis.signals) {
+     analysis = {
+       ...analysis,
+@@ -1887,23 +1893,39 @@ export async function orchestrateAssistantSend(input: {
        }
      }
 
@@ -2475,7 +2665,7 @@ index 8788abe6..065f51e5 100644
        mode: modeResolution.mode as "fixture" | "live",
        presentation,
        model,
-@@ -2059,6 +2080,89 @@ export async function orchestrateAssistantSend(input: {
+@@ -2059,6 +2081,114 @@ export async function orchestrateAssistantSend(input: {
      });
    }
 
@@ -2517,16 +2707,32 @@ index 8788abe6..065f51e5 100644
 +    const reloadedAfterGate = await loadProjectRuntimeForAssistant(
 +      project.projectId,
 +    );
++    let conversationProjectionReloaded = false;
 +    if (reloadedAfterGate.ok) {
 +      project = toContextDto(reloadedAfterGate);
++      conversationProjectionReloaded = true;
 +    }
 +
 +    if (startGate.kind === "started") {
-+      // Lifecycle transition verified via LPS re-read — not a new proposal turn.
++      // LPS verified inside startGate. If conversation projection reload fails,
++      // patch known activation fields — never claim the pre-START project DTO
++      // is current, and never claim START failed when Product activation succeeded.
++      if (!conversationProjectionReloaded) {
++        project = {
++          ...project,
++          activeCycleInstanceId: startGate.activeCycleInstanceId,
++          ...(typeof startGate.lpsVersionAfter === "number"
++            ? { lpsVersion: startGate.lpsVersionAfter }
++            : {}),
++        };
++      }
++      const text = conversationProjectionReloaded
++        ? startGate.message
++        : `${startGate.message} La projection conversationnelle n'a pas pu être rechargée ; l'activation a été vérifiée sur l'état vivant Product.`;
 +      return await completeF2Turn({
 +        userText: content,
 +        sessionDbPath: input.sessionDbPath,
-+        text: startGate.message,
++        text,
 +        mode: modeResolution.mode as "fixture" | "live",
 +        presentation,
 +        model,
@@ -2542,6 +2748,15 @@ index 8788abe6..065f51e5 100644
 +        mw5: mw5.surface,
 +        turnKind: "f1_informative",
 +      });
++    }
++
++    if (reloadedAfterGate.ok) {
++      // already applied
++    } else if (startGate.kind === "already_active") {
++      project = {
++        ...project,
++        activeCycleInstanceId: startGate.activeCycleInstanceId,
++      };
 +    }
 +
 +    return await completeF2Turn({
@@ -2565,7 +2780,7 @@ index 8788abe6..065f51e5 100644
    const cycleInstanceId = `cyc:f2-${randomBytes(8).toString("hex")}`;
    await cutF2Effect(input.signal, "createCycle", input.beforeF2Effect);
    const created = await oa.cycleServices.createCycle.execute({
-@@ -2220,36 +2324,40 @@ export async function orchestrateAssistantSend(input: {
+@@ -2220,36 +2350,40 @@ export async function orchestrateAssistantSend(input: {
    }
 
    const executionBlocked = analysis.intentClass === "execution_request";
@@ -2634,513 +2849,7 @@ index 8788abe6..065f51e5 100644
      model,
 ```
 
-## FILE 6 — UNIFIED DIFF ConversationSurface.tsx (UI05; truncated if huge — full file follows if needed)
-
-```diff
-diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
-index bb238783..19a07f6f 100644
---- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
-+++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
-@@ -15,10 +15,13 @@ import {
-   formatNoraAssistantDisplayText,
-   isBoundedRunningAttemptRefreshable,
-+  pilotFacingF2ChipLabel,
-   postExecutionUserSummary,
--  profileRationalePiloteLabel,
-+  projectPilotProposalCard,
-+  projectPilotRecommendationCard,
-+  scrubPiloteFacingEngineJargon,
- } from "@/features/project-assistant/presentationLabels";
- import type { AssistantToolEventDto } from "@/features/project-assistant/types";
- import type { F2DecisionKind } from "@/features/project-assistant/f2/types";
--import { useEffect, useId } from "react";
-+import { useEffect, useId, useLayoutEffect, useRef, useState } from "react";
- import type { ProductConversationController } from "../hooks/useProductConversation";
- import type { ProductSynthesisProjection } from "@/lib/oa/synthesis";
-@@ -75,4 +78,43 @@ function sourceStatusLabel(status: AssistantToolEventDto["status"]): string {
- }
-
-+/** P6-HQA-UI05 — honest compact status (Figma 46:98 / 46:107). */
-+function f2RecommendationStatusLabel(input: {
-+  readonly proposalStatus?: string | null;
-+  readonly cycleStatus?: string | null;
-+  readonly state?: string | null;
-+}): string {
-+  const cycle = (input.cycleStatus ?? "").toLowerCase();
-+  if (cycle === "active" || cycle === "executing") return "Cycle actif";
-+  const status = (input.proposalStatus ?? "").toUpperCase();
-+  if (status === "DECISION_REQUIRED") return "En attente de décision";
-+  if (status === "READY_NO_GATE") return "Candidat prêt";
-+  if (status === "AMENDMENT_REQUIRED") return "Modification demandée";
-+  if (status === "REFUSED") return "Refusé";
-+  const state = (input.state ?? "").trim();
-+  if (state) return state.length > 42 ? `${state.slice(0, 39)}…` : state;
-+  return "À examiner";
-+}
-+
-+function f2ProposalStatusLabel(input: {
-+  readonly proposalStatus?: string | null;
-+  readonly nextActionKind?: string | null;
-+}): string {
-+  const status = (input.proposalStatus ?? "").toUpperCase();
-+  if (status === "DECISION_REQUIRED") return "En attente de décision";
-+  if (status === "READY_NO_GATE") return "Candidat prêt";
-+  if (status === "AMENDMENT_REQUIRED") return "Modification demandée";
-+  if (status === "REFUSED") return "Refusé";
-+  if (input.nextActionKind === "decision") return "En attente de décision";
-+  return "À examiner";
-+}
-+
-+function f2ObjectMetaLine(parts: Array<string | null | undefined>): string {
-+  const clean = parts
-+    .map((p) => (p ?? "").replace(/\s+/g, " ").trim())
-+    .filter((p) => p.length > 0);
-+  if (clean.length === 0) return "Projet · selon la direction produit actuelle";
-+  return clean.slice(0, 3).join(" · ");
-+}
-+
- export type ConversationSurfaceProps = {
-   controller: ProductConversationController;
-@@ -106,4 +148,16 @@ export type ConversationSurfaceProps = {
-  * for harvest / RETIRE LATER proofs only — never enabled on nominal /studio.
-  */
-+/** Sync textarea height to content up to CSS max-height; then scroll internally. */
-+function syncComposerTextareaHeight(el: HTMLTextAreaElement | null): void {
-+  if (!el) return;
-+  el.style.height = "auto";
-+  const maxRaw = getComputedStyle(el).maxHeight;
-+  const maxPx = maxRaw === "none" ? Number.POSITIVE_INFINITY : parseFloat(maxRaw);
-+  const next = Number.isFinite(maxPx)
-+    ? Math.min(el.scrollHeight, maxPx)
-+    : el.scrollHeight;
-+  el.style.height = `${Math.max(next, 0)}px`;
-+}
-+
- export function ConversationSurface({
-   controller,
-@@ -118,4 +172,10 @@ export function ConversationSurface({
-   const fieldId = useId();
-   const liveRegionId = useId();
-+  const composerInputRef = useRef<HTMLTextAreaElement | null>(null);
-+  const [recommendationOpen, setRecommendationOpen] = useState(
-+    exposeLegacyAuthorityPath,
-+  );
-+  const [proposalOpen, setProposalOpen] = useState(exposeLegacyAuthorityPath);
-+  const [preparedActionOpen, setPreparedActionOpen] = useState(false);
-   const {
-     listRef,
-@@ -276,4 +336,50 @@ export function ConversationSurface({
-     stopAvailable,
-   });
-+  /**
-+   * DP06 / P3 §28 — transient Nora activity belongs in the transcript, not the
-+   * composer. STREAMING is NOT OBSERVABLE on this Product path (no fake stream).
-+   * start/activity only; STOPPED/ERROR keep their dedicated banners below.
-+   */
-+  const showNoraActivityInThread =
-+    noraActivity.phase === "start" || noraActivity.phase === "activity";
-+  const pilotRecommendationCard = f2?.qualification
-+    ? projectPilotRecommendationCard({
-+        cycleLabel: f2.qualification.cycleLabel,
-+        recommendedProfile: f2.qualification.recommendedProfile,
-+        rationale: f2.qualification.rationale,
-+        criticalSignalsPresent: f2.qualification.criticalSignalsPresent,
-+        cycleStatus: f2.qualification.cycleStatus,
-+        cycleInstanceId: f2.qualification.cycleInstanceId,
-+        freshnessLabel: qualificationFreshness.label,
-+      })
-+    : null;
-+  const pilotProposalCard = activeProposal
-+    ? projectPilotProposalCard({
-+        rephrasedRequest: activeProposal.rephrasedRequest,
-+        objective: activeProposal.objective,
-+        rationale: activeProposal.rationale,
-+        expectedOutcome: activeProposal.expectedOutcome,
-+        scope: activeProposal.scope,
-+        outOfScope: activeProposal.outOfScope,
-+        morrisGateRequired: activeProposal.morrisGateRequired,
-+        status: activeProposal.status,
-+        nextPossibleStep: activeProposal.nextPossibleStep,
-+        cycleLabel: f2?.qualification?.cycleLabel,
-+        cycleStatus: f2?.qualification?.cycleStatus,
-+        cycleInstanceId: f2?.qualification?.cycleInstanceId,
-+      })
-+    : null;
-+  const pilotEphemeralNotice = (() => {
-+    const raw = (ephemeralNotice ?? "").trim();
-+    if (!raw) return "";
-+    // Process-local F2 disclosure — keep full text on legacy/diagnostic only.
-+    if (
-+      !exposeLegacyAuthorityPath &&
-+      /Product SQLite|TEMPORARY WITH EXIT|mémoire de processus/i.test(raw)
-+    ) {
-+      return "La recommandation et la proposition restent distinctes d'une décision. Rien n'est exécuté automatiquement.";
-+    }
-+    return scrubPiloteFacingEngineJargon(raw);
-+  })();
-
-   const boundAwaitingDecision =
-@@ -294,4 +400,9 @@ export function ConversationSurface({
-     boundAwaitingDecision || confirmationRequiredMoment;
-
-+  useLayoutEffect(() => {
-+    if (focusedGovernedMoment) return;
-+    syncComposerTextareaHeight(composerInputRef.current);
-+  }, [draft, focusedGovernedMoment]);
-+
-   return (
-     <section
-@@ -333,5 +444,5 @@ export function ConversationSurface({
-         id={liveRegionId}
-       >
--        {messages.length === 0 && !focusedGovernedMoment ? (
-+        {messages.length === 0 && !focusedGovernedMoment && !showNoraActivityInThread ? (
-           <div className={styles.threadEmpty} data-testid="project-assistant-empty">
-             <p className={styles.threadEmptyTitle}>
-@@ -343,5 +454,5 @@ export function ConversationSurface({
-             </p>
-           </div>
--        ) : messages.length === 0 ? null : (
-+        ) : messages.length === 0 && !showNoraActivityInThread ? null : (
-               messages.map((message) => (
-             <article
-@@ -375,4 +486,32 @@ export function ConversationSurface({
-           ))
-         )}
-+        {showNoraActivityInThread ? (
-+          <article
-+            className={`${styles.turnNora} ${styles.noraActivityTurn}`}
-+            data-testid="project-assistant-nora-activity"
-+            data-nora-phase={noraActivity.phase}
-+            data-nora-stop={
-+              noraActivity.stopAvailable ? "available" : "unavailable"
-+            }
-+            aria-busy="true"
-+          >
-+            <div className={styles.bubble}>
-+              <p
-+                className={styles.bubbleAuthor}
-+                data-role="assistant"
-+                data-testid="project-assistant-nora-activity-heading"
-+              >
-+                Nora
-+                <span className={styles.noraActivityBadge}>En cours</span>
-+              </p>
-+              <p
-+                className={styles.noraActivityText}
-+                data-testid="project-assistant-nora-activity-label"
-+              >
-+                {noraActivity.label}
-+              </p>
-+            </div>
-+          </article>
-+        ) : null}
-       </div>
-
-@@ -384,16 +523,28 @@ export function ConversationSurface({
-         >
-           {f2.labels.recommendation ? (
--            <span className={styles.chip}>{f2.labels.recommendation}</span>
-+            <span className={styles.chip}>
-+              {pilotFacingF2ChipLabel(f2.labels.recommendation)}
-+            </span>
-           ) : null}
-           {f2.labels.proposition ? (
--            <span className={styles.chip}>{f2.labels.proposition}</span>
-+            <span className={styles.chip}>
-+              {pilotFacingF2ChipLabel(f2.labels.proposition)}
-+            </span>
-           ) : null}
-           {f2.labels.decisionRequired && !reservationResolutionProposal ? (
--            <span className={styles.chipGold}>{f2.labels.decisionRequired}</span>
-+            <span className={styles.chipGold}>
-+              {pilotFacingF2ChipLabel(f2.labels.decisionRequired)}
-+            </span>
-           ) : null}
-           {f2.labels.decisionTaken ? (
--            <span className={styles.chipOk}>{f2.labels.decisionTaken}</span>
-+            <span className={styles.chipOk}>
-+              {pilotFacingF2ChipLabel(f2.labels.decisionTaken)}
-+            </span>
-+          ) : null}
-+          {exposeLegacyAuthorityPath ? (
-+            <span className={styles.chipQuiet}>
-+              {pilotFacingF2ChipLabel(f2.labels.noExecution)}
-+            </span>
-           ) : null}
--          <span className={styles.chipQuiet}>{f2.labels.noExecution}</span>
-         </div>
-       ) : null}
-@@ -479,85 +630,154 @@ export function ConversationSurface({
-       ) : null}
-
--      {f2?.qualification && !reservationResolutionProposal ? (
-+      {f2?.qualification &&
-+      pilotRecommendationCard &&
-+      !reservationResolutionProposal ? (
-         <section
--          className={styles.card}
-+          className={styles.subCardGold}
-           data-testid="project-assistant-qualification"
-+          data-ui05-object="recommendation"
-+          data-expanded={recommendationOpen ? "true" : "false"}
-           aria-labelledby={`${fieldId}-qualification`}
-         >
--          <header className={styles.cardHead}>
--            <p className={styles.cardEyebrow}>Lecture de Nora</p>
--            <h3 id={`${fieldId}-qualification`} className={styles.cardTitle}>
--              Ce que Nora comprend
--            </h3>
--            <p className={styles.cardNote} data-testid="f2-recommendation-freshness">
--              {f2.qualification.recommendationLabel} ·{" "}
--              {qualificationFreshness.label}
--            </p>
--            <p className={styles.cardNote}>
--              Une recommandation n&apos;est pas une décision humaine.
--            </p>
--          </header>
--          <dl className={styles.facts}>
--            <div className={styles.fact}>
--              <dt>Type de travail</dt>
--              <dd data-testid="f2-cycle">{f2.qualification.cycleLabel}</dd>
--            </div>
--            <div className={styles.fact}>
--              <dt>Approche recommandée</dt>
--              <dd data-testid="f2-profile">
--                {f2.qualification.recommendedProfile}
--              </dd>
-+          <div className={styles.p3CardHead}>
-+            <div className={styles.p3CardBody}>
-+              <p className={styles.p3CardEyebrow}>Recommandation</p>
-+              <h3
-+                id={`${fieldId}-qualification`}
-+                className={styles.p3CardTitle}
-+                data-testid="f2-cycle"
-+              >
-+                {pilotRecommendationCard.recommendation}
-+              </h3>
-+              <p className={styles.p3CardStamp} data-testid="f2-recommendation-meta">
-+                {f2ObjectMetaLine([
-+                  pilotRecommendationCard.freshnessLabel,
-+                  pilotRecommendationCard.showProfile
-+                    ? pilotRecommendationCard.profileLabel
-+                    : null,
-+                  "Une recommandation n'est pas une décision",
-+                ])}
-+              </p>
-+              {pilotRecommendationCard.freshnessLabel ? (
-+                <p
-+                  className={styles.srOnly}
-+                  data-testid="f2-recommendation-freshness"
-+                >
-+                  {pilotRecommendationCard.freshnessLabel}
-+                </p>
-+              ) : (
-+                <p
-+                  className={styles.srOnly}
-+                  data-testid="f2-recommendation-freshness"
-+                >
-+                  {qualificationFreshness.label}
-+                </p>
-+              )}
-             </div>
--            <div className={styles.factWide}>
--              <dt>Pourquoi</dt>
--              <dd data-testid="f2-rationale">
--                {profileRationalePiloteLabel(f2.qualification.rationale)}
--              </dd>
-+            <div className={styles.p3CardRight}>
-+              <span
-+                className={styles.p3CardStatusWarn}
-+                data-testid="f2-recommendation-state"
-+              >
-+                {f2RecommendationStatusLabel({
-+                  proposalStatus: activeProposal?.status,
-+                  cycleStatus: f2.qualification.cycleStatus,
-+                  state: pilotRecommendationCard.state,
-+                })}
-+              </span>
-+              <button
-+                type="button"
-+                className={styles.p3CardLink}
-+                data-testid="f2-recommendation-open"
-+                aria-expanded={recommendationOpen}
-+                onClick={() => setRecommendationOpen((v) => !v)}
-+              >
-+                {recommendationOpen ? "Fermer" : "Ouvrir →"}
-+              </button>
-             </div>
--          </dl>
--          <details className={styles.details}>
--            <summary>Détails techniques</summary>
--            <dl className={styles.facts}>
--              <div className={styles.factWide}>
--                <dt>Rationale technique</dt>
--                <dd data-testid="f2-rationale-technical">
--                  {f2.qualification.rationale}
--                </dd>
--              </div>
--              <div className={styles.factWide}>
--                <dt>Identifiant de cycle</dt>
--                <dd>{f2.qualification.cycleTypeId}</dd>
--              </div>
--              {f2.qualification.cycleInstanceId ? (
-+          </div>
-+          {recommendationOpen ? (
-+            <div
-+              className={styles.ui05ObjectDetails}
-+              data-testid="f2-recommendation-details"
-+            >
-+              <p className={styles.srOnly}>{pilotRecommendationCard.title}</p>
-+              <dl className={styles.facts}>
-                 <div className={styles.factWide}>
--                  <dt>Cycle rattaché</dt>
--                  <dd data-testid="f2-cycle-instance">
--                    {f2.qualification.cycleInstanceId}
--                    {f2.qualification.cycleStatus
--                      ? ` · ${f2.qualification.cycleStatus}`
--                      : ""}
--                  </dd>
-+                  <dt>Pourquoi</dt>
-+                  <dd data-testid="f2-rationale">{pilotRecommendationCard.why}</dd>
-                 </div>
--              ) : null}
--              {f2.qualification.ckcResolutionRef ? (
--                <div className={styles.factWide}>
--                  <dt>Réf. résolution</dt>
--                  <dd data-testid="f2-ckc-ref">
--                    {f2.qualification.ckcResolutionRef}
-+                {pilotRecommendationCard.showProfile &&
-+                pilotRecommendationCard.profileLabel ? (
-+                  <div className={styles.fact}>
-+                    <dt>Approche</dt>
-+                    <dd data-testid="f2-profile">
-+                      {pilotRecommendationCard.profileLabel}
-+                    </dd>
-+                  </div>
-+                ) : (
-+                  <dd className={styles.srOnly} data-testid="f2-profile">
-+                    {f2.qualification.recommendedProfile}
-                   </dd>
--                </div>
-+                )}
-+              </dl>
-+              {exposeLegacyAuthorityPath ? (
-+                <details className={styles.details}>
-+                  <summary>Détails techniques</summary>
-+                  <dl className={styles.facts}>
-+                    <div className={styles.factWide}>
-+                      <dt>Rationale technique</dt>
-+                      <dd data-testid="f2-rationale-technical">
-+                        {f2.qualification.rationale}
-+                      </dd>
-+                    </div>
-+                    <div className={styles.factWide}>
-+                      <dt>Identifiant de cycle</dt>
-+                      <dd>{f2.qualification.cycleTypeId}</dd>
-+                    </div>
-+                    {f2.qualification.cycleInstanceId ? (
-+                      <div className={styles.factWide}>
-+                        <dt>Cycle rattaché</dt>
-+                        <dd data-testid="f2-cycle-instance">
-+                          {f2.qualification.cycleInstanceId}
-+                          {f2.qualification.cycleStatus
-+                            ? ` · ${f2.qualification.cycleStatus}`
-+                            : ""}
-+                        </dd>
-+                      </div>
-+                    ) : null}
-+                    {f2.qualification.ckcResolutionRef ? (
-+                      <div className={styles.factWide}>
-+                        <dt>Réf. résolution</dt>
-+                        <dd data-testid="f2-ckc-ref">
-+                          {f2.qualification.ckcResolutionRef}
-+                        </dd>
-+                      </div>
-+                    ) : null}
-+                    <div className={styles.factWide}>
-+                      <dt>Provenance</dt>
-+                      <dd data-testid="f2-qualification-provenance">
-+                        catalogue {f2.qualification.catalogVersion} ·{" "}
-+                        {f2.qualification.detailedStatus}
-+                        {f2.qualification.capitalizationViaCycleTypeId
-+                          ? " · capitalisation via cycleType"
-+                          : ""}
-+                      </dd>
-+                    </div>
-+                  </dl>
-+                </details>
-               ) : null}
--              <div className={styles.factWide}>
--                <dt>Provenance</dt>
--                <dd data-testid="f2-qualification-provenance">
--                  catalogue {f2.qualification.catalogVersion} ·{" "}
--                  {f2.qualification.detailedStatus}
--                  {f2.qualification.capitalizationViaCycleTypeId
--                    ? " · capitalisation via cycleType"
--                    : ""}
--                </dd>
--              </div>
--            </dl>
--          </details>
-+            </div>
-+          ) : (
-+            <>
-+              <p className={styles.srOnly} data-testid="f2-rationale">
-+                {pilotRecommendationCard.why}
-+              </p>
-+              <p className={styles.srOnly} data-testid="f2-profile">
-+                {pilotRecommendationCard.profileLabel ??
-+                  f2.qualification.recommendedProfile}
-+              </p>
-+            </>
-+          )}
-         </section>
-       ) : null}
-@@ -643,20 +863,71 @@ export function ConversationSurface({
-       ) : null}
-       {activeProposal &&
-+      pilotProposalCard &&
-       !reservationResolutionProposal &&
-       !focusedGovernedMoment ? (
-         <section
--          className={styles.card}
-+          className={styles.subCardGold}
-           data-testid="project-assistant-proposal"
-+          data-ui05-object="proposal"
-+          data-expanded={proposalOpen ? "true" : "false"}
-+          data-proposal-status={activeProposal.status}
-           aria-labelledby={`${fieldId}-proposal`}
-         >
--          <header className={styles.cardHead}>
--            <p className={styles.cardEyebrow}>Proposition</p>
--            <h3 id={`${fieldId}-proposal`} className={styles.cardTitle}>
--              Ce que Nora propose
--            </h3>
--            <p className={styles.cardNote} data-testid="f2-proposal-id">
--              Statut {activeProposal.status}
--            </p>
--          </header>
-+          <div className={styles.p3CardHead}>
-+            <div className={styles.p3CardBody}>
-+              <p className={styles.p3CardEyebrow}>Proposition</p>
-+              <h3
-+                id={`${fieldId}-proposal`}
-+                className={styles.p3CardTitle}
-+                data-testid="f2-proposal-main"
-+              >
-+                {pilotProposalCard.proposition}
-+              </h3>
-+              <p className={styles.p3CardStamp} data-testid="f2-proposal-meta">
-+                {f2ObjectMetaLine([
-+                  activeProposal.scope
-+                    ? scrubPiloteFacingEngineJargon(activeProposal.scope).slice(
-+                        0,
-+                        80,
-```
-
-## FILE 7 — ConversationSurface.tsx COMPLETE (runtime source of truth)
-
+## FILE 6 — ConversationSurface.tsx COMPLETE
 ```tsx
 "use client";
 
@@ -3320,7 +3029,8 @@ export function ConversationSurface({
     exposeLegacyAuthorityPath,
   );
   const [proposalOpen, setProposalOpen] = useState(exposeLegacyAuthorityPath);
-  const [preparedActionOpen, setPreparedActionOpen] = useState(false);
+  const [synthesisOpen, setSynthesisOpen] = useState(false);
+  const [executionContractOpen, setExecutionContractOpen] = useState(false);
   const {
     listRef,
     messages,
@@ -3540,8 +3250,39 @@ export function ConversationSurface({
     governedExecutionContinuity.kind === "active" &&
     governedExecutionContinuity.contract.status === "confirmation_required" &&
     !boundAwaitingDecision;
+  /** True ExecutionContract prepared (not a ProductSynthesis). */
+  const preparedExecutionContract =
+    !!governedExecutionContinuity &&
+    typeof governedExecutionContinuity === "object" &&
+    "ok" in governedExecutionContinuity &&
+    governedExecutionContinuity.ok &&
+    governedExecutionContinuity.kind === "active" &&
+    !confirmationRequiredMoment
+      ? governedExecutionContinuity.contract
+      : null;
   const focusedGovernedMoment =
     boundAwaitingDecision || confirmationRequiredMoment;
+
+  function executionContractStatusLabel(contract: {
+    readonly status: string;
+    readonly effectConfirmationRequired?: boolean;
+  }): string {
+    if (
+      contract.status === "confirmation_required" ||
+      contract.effectConfirmationRequired === true
+    ) {
+      return "Confirmation requise";
+    }
+    if (contract.status === "confirmed") return "Confirmé";
+    if (
+      contract.status === "validated" ||
+      contract.status === "proposed" ||
+      contract.status === "draft"
+    ) {
+      return "Prête à examiner";
+    }
+    return contract.status;
+  }
 
   useLayoutEffect(() => {
     if (focusedGovernedMoment) return;
@@ -4916,69 +4657,6 @@ export function ConversationSurface({
                 </div>
               ) : null}
 
-          {/* P3 46:107 — ACTION PRÉPARÉE (ExecutionContract-shaped object). */}
-          {latestSynthesis ? (
-            <div
-              className={styles.subCardPrepared}
-              data-testid="conversation-prepared-action-card"
-              data-ui05-object="execution-contract"
-              data-expanded={preparedActionOpen ? "true" : "false"}
-            >
-              <div className={styles.p3CardHead}>
-                <div className={styles.p3CardBody}>
-                  <p className={styles.p3CardEyebrow}>Action préparée</p>
-                  <p className={styles.p3CardTitle}>
-                    {latestSynthesis.title.replace(
-                      /^Synthèse\s*[—–-]\s*/i,
-                      "",
-                    ) || latestSynthesis.title}
-                  </p>
-                  <p className={styles.p3CardStamp}>
-                    {f2ObjectMetaLine([
-                      "Portée",
-                      latestSynthesis.verdictLabel
-                        ? presentSynthesisVerdictLabel(
-                            latestSynthesis.verdictLabel,
-                          )
-                        : null,
-                      "confirmation potentiellement requise",
-                    ])}
-                  </p>
-                </div>
-                <div className={styles.p3CardRight}>
-                  <span className={styles.p3CardStatusReady}>
-                    Prête à examiner
-                  </span>
-                  <button
-                    type="button"
-                    className={styles.p3CardLink}
-                    data-testid="conversation-open-prepared-action"
-                    aria-expanded={preparedActionOpen}
-                    onClick={() => {
-                      setPreparedActionOpen((v) => !v);
-                      if (!preparedActionOpen && onOpenSynthesis) {
-                        onOpenSynthesis(latestSynthesis.synthesisId);
-                      }
-                    }}
-                  >
-                    {preparedActionOpen ? "Fermer" : "Ouvrir →"}
-                  </button>
-                </div>
-              </div>
-              {preparedActionOpen ? (
-                <div
-                  className={styles.ui05ObjectDetails}
-                  data-testid="conversation-prepared-action-details"
-                >
-                  <p className={styles.cardNote}>
-                    {synthesisSummaryExcerpt(latestSynthesis) ||
-                      "Action préparée disponible pour examen. Ouvrir ne démarre aucune exécution."}
-                  </p>
-                </div>
-              ) : null}
-            </div>
-          ) : null}
-
           {/* P3 46:2 — when Work Recommendation cards lead, keep technical
               relecture out of the conversation chrome (available in Historique). */}
           {durableEvidenceOutcome &&
@@ -5129,31 +4807,139 @@ export function ConversationSurface({
         </section>
       ) : null}
 
-      {latestSynthesis && onOpenSynthesis ? (
-        <section
-          className={styles.synthesisTeaser}
-          data-testid="conversation-synthesis-teaser"
+      {/* P6-HQA-UI05 — ProductSynthesis compact object (never ExecutionContract). */}
+      {latestSynthesis ? (
+        <div
+          className={styles.subCardGold}
+          data-testid="conversation-synthesis-card"
+          data-ui05-object="synthesis"
+          data-expanded={synthesisOpen ? "true" : "false"}
           aria-live="polite"
         >
-          <p className={styles.synthesisEyebrow}>Synthèse disponible</p>
-          <p className={styles.synthesisTitle}>{latestSynthesis.title}</p>
-          <p
-            className={styles.synthesisBody}
-            data-testid="conversation-synthesis-summary"
-          >
-            {latestSynthesis.verdictLabel === "atteint"
-              ? "Résultat atteint — aucun blocage identifié."
-              : `${presentSynthesisVerdictLabel(latestSynthesis.verdictLabel)} · ${synthesisSummaryExcerpt(latestSynthesis, 120)}`}
-          </p>
-          <button
-            type="button"
-            className={styles.synthesisLink}
-            data-testid="conversation-open-synthesis"
-            onClick={() => onOpenSynthesis(latestSynthesis.synthesisId)}
-          >
-            Voir la synthèse complète →
-          </button>
-        </section>
+          <div className={styles.p3CardHead}>
+            <div className={styles.p3CardBody}>
+              <p className={styles.p3CardEyebrow}>Synthèse</p>
+              <p
+                className={styles.p3CardTitle}
+                data-testid="conversation-synthesis-summary"
+              >
+                {latestSynthesis.title.replace(/^Synthèse\s*[—–-]\s*/i, "") ||
+                  latestSynthesis.title}
+              </p>
+              <p className={styles.p3CardStamp}>
+                {f2ObjectMetaLine([
+                  "Résultat de cycle",
+                  latestSynthesis.verdictLabel
+                    ? presentSynthesisVerdictLabel(latestSynthesis.verdictLabel)
+                    : null,
+                  "consultation seule — pas un contrat d'exécution",
+                ])}
+              </p>
+            </div>
+            <div className={styles.p3CardRight}>
+              <span className={styles.p3CardStatusReady}>
+                {latestSynthesis.verdictLabel
+                  ? presentSynthesisVerdictLabel(latestSynthesis.verdictLabel)
+                  : "Disponible"}
+              </span>
+              <button
+                type="button"
+                className={styles.p3CardLink}
+                data-testid="conversation-open-synthesis"
+                aria-expanded={synthesisOpen}
+                onClick={() => {
+                  setSynthesisOpen((v) => !v);
+                  if (!synthesisOpen && onOpenSynthesis) {
+                    onOpenSynthesis(latestSynthesis.synthesisId);
+                  }
+                }}
+              >
+                {synthesisOpen ? "Fermer" : "Ouvrir →"}
+              </button>
+            </div>
+          </div>
+          {synthesisOpen ? (
+            <div
+              className={styles.ui05ObjectDetails}
+              data-testid="conversation-synthesis-details"
+            >
+              <p className={styles.cardNote}>
+                {synthesisSummaryExcerpt(latestSynthesis) ||
+                  "Synthèse disponible pour consultation. Ce n'est pas un contrat d'exécution."}
+              </p>
+            </div>
+          ) : null}
+        </div>
+      ) : null}
+
+      {/* P3 46:107 — Action préparée ONLY from a real ExecutionContract projection. */}
+      {preparedExecutionContract ? (
+        <div
+          className={styles.subCardPrepared}
+          data-testid="conversation-prepared-action-card"
+          data-ui05-object="execution-contract"
+          data-contract-status={preparedExecutionContract.status}
+          data-expanded={executionContractOpen ? "true" : "false"}
+        >
+          <div className={styles.p3CardHead}>
+            <div className={styles.p3CardBody}>
+              <p className={styles.p3CardEyebrow}>Action préparée</p>
+              <p className={styles.p3CardTitle}>
+                {preparedExecutionContract.action ||
+                  "Contrat d'exécution préparé"}
+              </p>
+              <p className={styles.p3CardStamp}>
+                {f2ObjectMetaLine([
+                  preparedExecutionContract.scope
+                    ? preparedExecutionContract.scope.slice(0, 80)
+                    : "Portée du contrat",
+                  preparedExecutionContract.effectConfirmationRequired
+                    ? "confirmation requise"
+                    : "examen du contrat",
+                ])}
+              </p>
+            </div>
+            <div className={styles.p3CardRight}>
+              <span className={styles.p3CardStatusReady}>
+                {executionContractStatusLabel(preparedExecutionContract)}
+              </span>
+              <button
+                type="button"
+                className={styles.p3CardLink}
+                data-testid="conversation-open-prepared-action"
+                aria-expanded={executionContractOpen}
+                onClick={() => setExecutionContractOpen((v) => !v)}
+              >
+                {executionContractOpen ? "Fermer" : "Ouvrir →"}
+              </button>
+            </div>
+          </div>
+          {executionContractOpen ? (
+            <div
+              className={styles.ui05ObjectDetails}
+              data-testid="conversation-prepared-action-details"
+            >
+              <dl className={styles.facts}>
+                <div className={styles.factWide}>
+                  <dt>Cible</dt>
+                  <dd>{preparedExecutionContract.target || "—"}</dd>
+                </div>
+                <div className={styles.factWide}>
+                  <dt>Autorité</dt>
+                  <dd>{preparedExecutionContract.requiredAuthority}</dd>
+                </div>
+                <div className={styles.factWide}>
+                  <dt>Réversibilité</dt>
+                  <dd>{preparedExecutionContract.reversibility}</dd>
+                </div>
+              </dl>
+              <p className={styles.cardNote}>
+                Ouvrir consulte le contrat préparé. Aucun démarrage ni
+                confirmation n&apos;est déclenché depuis cette carte.
+              </p>
+            </div>
+          ) : null}
+        </div>
       ) : null}
 
       {uiState === "STOPPED" && !error ? (
@@ -5420,171 +5206,5 @@ export function ConversationSurface({
 }
 ```
 
-## FILE 8 — ConversationSurface.module.css DIFF
-
-```diff
-diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.module.css b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.module.css
-index 90028b08..48a22ea7 100644
---- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.module.css
-+++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.module.css
-@@ -82,6 +82,7 @@
-   margin: 0;
-   font-size: 0.98rem;
-   font-weight: 600;
-+  line-height: 1.35;
-   color: var(--pm6-ink);
- }
-
-@@ -169,6 +170,59 @@
-   white-space: pre-wrap;
- }
-
-+/* ---------- Nora activity in-thread (DP06 / P3 §28) ---------- */
-+
-+.noraActivityTurn {
-+  animation: noraActivityIn 180ms ease-out;
-+}
-+
-+.noraActivityTurn .bubbleAuthor {
-+  display: inline-flex;
-+  align-items: baseline;
-+  gap: 8px;
-+}
-+
-+.noraActivityBadge {
-+  font-size: var(--pm6-text-caption);
-+  font-weight: 500;
-+  letter-spacing: 0.4px;
-+  text-transform: none;
-+  color: var(--pm6-accent);
-+}
-+
-+.noraActivityText {
-+  margin: 0;
-+  font-size: var(--pm6-text-subtitle);
-+  line-height: 1.6;
-+  color: var(--pm6-ink-soft);
-+}
-+
-+@keyframes noraActivityIn {
-+  from {
-+    opacity: 0;
-+    transform: translateY(4px);
-+  }
-+  to {
-+    opacity: 1;
-+    transform: translateY(0);
-+  }
-+}
-+
-+@media (prefers-reduced-motion: reduce) {
-+  .noraActivityTurn {
-+    animation: noraActivityInReduced 120ms ease-out;
-+  }
-+
-+  @keyframes noraActivityInReduced {
-+    from {
-+      opacity: 0;
-+    }
-+    to {
-+      opacity: 1;
-+    }
-+  }
-+}
-+
- /* ---------- synthesis teaser (P3 46:2 / 190:306) ---------- */
-
- .synthesisTeaser {
-@@ -725,6 +779,20 @@
-   background: var(--pm6-ws-object-accent-prepared, #e97850);
- }
-
-+/* P6-HQA-UI05 — progressive disclosure under compact Figma objects */
-+.ui05ObjectDetails {
-+  margin-top: 10px;
-+  padding-top: 10px;
-+  border-top: 1px solid #e8e0d7;
-+  display: flex;
-+  flex-direction: column;
-+  gap: var(--pm6-space-3, 12px);
-+}
-+
-+.ui05ObjectDetails .facts {
-+  margin: 0;
-+}
-+
- .durableDetails {
-   border: 1px solid var(--pm6-border-soft);
-   border-radius: 10px;
-@@ -936,19 +1004,20 @@
-   box-sizing: border-box;
-   width: 100%;
-   min-height: var(--pm6-ws-composer-input-h, 96px);
--  height: var(--pm6-ws-composer-input-h, 96px);
-+  height: auto;
-   border: 1px solid #e2d8ce;
-   border-radius: var(--pm6-ws-composer-radius, 8px);
-   background: var(--pm6-focus-bar);
-   padding: 14px 14px 12px;
--  overflow: hidden;
-+  overflow: visible;
- }
-
- .composerInput {
-   box-sizing: border-box;
-   width: 100%;
--  min-height: 24px;
--  flex: 1 1 auto;
-+  min-height: 48px; /* 2 × 24px — matches rows={2} compact empty state */
-+  max-height: var(--pm6-ws-composer-textarea-max-h, 192px);
-+  flex: 0 0 auto;
-   resize: none;
-   border: 0;
-   border-radius: 0;
-@@ -958,6 +1027,11 @@
-   font-size: 0.9375rem; /* 15 */
-   line-height: 24px;
-   padding: 0;
-+  overflow-x: hidden;
-+  overflow-y: auto;
-+  white-space: pre-wrap;
-+  overflow-wrap: break-word;
-+  word-break: break-word;
- }
-
- .composerInput::placeholder {
-@@ -1145,16 +1219,18 @@
-
-   .composerBox {
-     flex-direction: row;
--    align-items: center;
-+    align-items: flex-end;
-     gap: 8px;
-     min-height: var(--pm6-ws-composer-input-h-compact, 64px);
--    height: var(--pm6-ws-composer-input-h-compact, 64px);
-+    height: auto;
-     padding: 12px;
-   }
-
-   .composerInput {
-     flex: 1 1 auto;
--    min-height: 0;
-+    min-width: 0;
-+    min-height: 24px;
-+    max-height: var(--pm6-ws-composer-textarea-max-h-compact, 144px);
-     font-size: 0.75rem;
-     line-height: 1.35;
-   }
-@@ -1282,7 +1358,7 @@
-     flex: 1 1 auto;
-     min-width: 0;
-     min-height: 38px;
--    max-height: 96px;
-+    max-height: var(--pm6-ws-composer-textarea-max-h-mobile, 96px);
-     resize: none;
-     padding: 8px 0;
-     font-size: 0.8125rem;
-```
-
 ---
-END OF COMPLETE REVIEW PACK — P6 INTEGRATED F01+UI05
+END OF COMPLETE REVIEW PACK — P6 F01+UI05 INTEGRATED CLOSURE
