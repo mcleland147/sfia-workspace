@@ -1,11 +1,11 @@
 # P6 QA — Integration State and Open Reserves
 
-**Document type:** campaign integration trace (not Build Doctrine, not Roadmap, not baseline)  
-**Macro:** STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01  
-**Milestone:** P6 — Global Integrated Product QA  
-**Campaign:** P6-GLOBAL-INTEGRATED-PRODUCT-QA-01  
-**Status:** CANDIDATE INTEGRATION — DETERMINISTIC LOCAL BUNDLE  
-**Runtime v3:** NON ADOPTED  
+**Document type:** campaign integration trace (not Build Doctrine, not Roadmap, not baseline)
+**Macro:** STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01
+**Milestone:** P6 — Global Integrated Product QA
+**Campaign:** P6-GLOBAL-INTEGRATED-PRODUCT-QA-01
+**Status:** CANDIDATE INTEGRATION — DETERMINISTIC LOCAL BUNDLE
+**Runtime v3:** NON ADOPTED
 **P6 PASS:** NO
 
 ---
@@ -39,7 +39,7 @@
 - `presentationLabels.ts` (labels)
 - Tests: `p6.hqa.cog01.f2PilotFacingNarrative.d0.test.ts`, corrProof01 touch
 
-**Status:** CANDIDATE — DETERMINISTIC PROVEN at composer/F2 seam.  
+**Status:** CANDIDATE — DETERMINISTIC PROVEN at composer/F2 seam.
 **REAL NOT PROVEN:** naturalness of live Nora dialogue.
 
 ### F01 — chat-first START gate / anti-duplication
@@ -47,7 +47,7 @@
 - `orchestrateF2.ts` (START routing)
 - Tests: `p6.hqa.f01.chatFirstCycleStartGate.d0.test.ts`
 
-**Status:** CANDIDATE — DETERMINISTIC PROVEN for prepared START / suppress mint / late negation.  
+**Status:** CANDIDATE — DETERMINISTIC PROVEN for prepared START / suppress mint / late negation.
 **REAL NOT PROVEN:** Human QA START on a fresh project under Pilot authority.
 
 ### UI-01…UI-05 — conversation surfaces
@@ -56,7 +56,7 @@
 - `product-tokens.css`, `ProjectWorkspacePage.module.css`
 - Tests: `p6.hqa.ui03`, `ui04`, `ui05`
 
-**Status:** CANDIDATE — SEMANTIC/DOM DETERMINISTIC PROVEN.  
+**Status:** CANDIDATE — SEMANTIC/DOM DETERMINISTIC PROVEN.
 **REAL NOT PROVEN / OPEN RESERVE:** Figma runtime visual parity.
 
 ### New Project — cognitive onboarding + closure
@@ -65,7 +65,7 @@
 - `fakeProvider.ts` (onboarding schema branch — Fake only)
 - Tests: `p6.hqa.newproject01.onboarding`, `closure`, P5-S06 adaptations
 
-**Status:** CANDIDATE — DETERMINISTIC PROVEN for refuse reversal, intentionKind gate, LPS handoff continuity, usageObservation.  
+**Status:** CANDIDATE — DETERMINISTIC PROVEN for refuse reversal, intentionKind gate, LPS handoff continuity, usageObservation.
 **REAL NOT PROVEN:** natural conversation; live provider; authenticated create path.
 
 ## 4. Explicitly excluded from this integration (FACT)
