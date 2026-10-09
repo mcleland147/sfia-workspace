@@ -434,15 +434,187 @@ export class FakeConversationProvider implements ConversationProvider {
     jsonSchema: Record<string, unknown>;
     signal?: AbortSignal;
   }): Promise<ProviderCompletionResult> {
-    void input.schemaName;
     void input.jsonSchema;
     if (input.signal?.aborted) {
       const error = new Error("AbortError");
       error.name = "AbortError";
       throw error;
     }
+    // P6-HQA-NEWPROJECT-01 — deterministic onboarding structured payload (Fake only).
+    if (input.schemaName === "new_project_onboarding_turn_v1") {
+      return this.completeNewProjectOnboarding(input.messages, input.signal);
+    }
     // Reuse F2 marker / analysis scripted JSON from complete().
     return this.complete(input.messages);
+  }
+
+  private async completeNewProjectOnboarding(
+    messages: ProviderChatMessage[],
+    signal?: AbortSignal,
+  ): Promise<ProviderCompletionResult> {
+    if (signal?.aborted) {
+      const error = new Error("AbortError");
+      error.name = "AbortError";
+      throw error;
+    }
+    this.callCount += 1;
+    const lastUser = [...messages].reverse().find((m) => m.role === "user");
+    const text = lastUser?.content?.trim() ?? "";
+    if (
+      this.failOnCall !== undefined && this.callCount === this.failOnCall
+    ) {
+      throw new Error("FAKE_PROVIDER_ERROR");
+    }
+    if (text.includes("__OPS1_FORCE_PROVIDER_ERROR__")) {
+      throw new Error("FAKE_PROVIDER_ERROR");
+    }
+    if (this.scripted && this.scripted.length > 0) {
+      const next = this.scripted.shift()!;
+      return {
+        text: next,
+        usage: {
+          inputTokens: null,
+          outputTokens: null,
+          totalTokens: null,
+          model: "fake-test-model",
+          providerResponseId: null,
+        },
+      };
+    }
+
+    const refuse =
+      /\b(ne\s+cr[eé]e\s+pas|pas\s+maintenant|refuse|annule|on\s+verra\s+plus\s+tard|attendre)\b/i.test(
+        text,
+      );
+    const acceptCreate =
+      /\b(allons[- ]y|cr[eé]ons[- ]le|je\s+veux\s+cr[eé]er|d['’]accord\s+pour\s+cr[eé]er|finalement.*(oui|allons|cr[eé]))\b/i.test(
+        text,
+      ) && !refuse;
+    const wantFast =
+      /\b(tout\s+de\s+suite|immédiat|sans\s+d[eé]tailler|on\s+verra)\b/i.test(
+        text,
+      );
+    const offTopic =
+      /\b(m[eé]t[eé]o|recette\s+de\s+cuisine|blague|quelle\s+heure)\b/i.test(
+        text,
+      ) && !/\b(projet|cycle|livr|intention|application|produit|organisation)\b/i.test(text);
+    const greetingOnly = /^(bonjour|salut|hello|hey)\.?$/i.test(text.trim());
+    const nameOnlyConfirm =
+      /\b(ok\s+pour\s+le\s+nom|le\s+nom\s+me\s+va|garde\s+ce\s+nom)\b/i.test(
+        text,
+      );
+
+    let intentionKnown: string | null = text.slice(0, 400) || null;
+    let nameProposal: string | null = null;
+    const nameProvisional = true;
+    let sufficient = false;
+    let intentionKind: "project_direction" | "non_project" | "unclear" =
+      "unclear";
+    let replyText: string;
+    let clarificationQuestion: string | null = null;
+    const suggestions: string[] = [];
+    const unknowns: string[] = [];
+
+    if (refuse) {
+      sufficient = false;
+      intentionKind = "project_direction";
+      replyText =
+        "D’accord — on ne crée rien pour l’instant. Dis-moi quand tu voudras reprendre, ou précise ce qui te bloque.";
+      // Keep prior intention if any; do not wipe project direction on refuse alone.
+    } else if (acceptCreate) {
+      sufficient = true;
+      intentionKind = "project_direction";
+      if (!intentionKnown || intentionKnown.length < 8) {
+        intentionKnown = "Projet exploratoire convenu avec le Pilote";
+      }
+      const clause = intentionKnown.split(/[.!?\n]/)[0]?.trim() || intentionKnown;
+      nameProposal =
+        clause.length > 64 ? `${clause.slice(0, 61)}…` : clause;
+      nameProposal =
+        nameProposal.charAt(0).toUpperCase() + nameProposal.slice(1);
+      replyText =
+        "Parfait — on peut créer le projet dès que tu cliques sur Créer. Je reste disponible pour préciser ensuite.";
+    } else if (nameOnlyConfirm) {
+      sufficient = false;
+      intentionKind = "project_direction";
+      replyText =
+        "Noté pour le nom. Dis-moi si tu veux effectivement créer le projet, ou continuer à préciser.";
+    } else if (offTopic || greetingOnly) {
+      sufficient = false;
+      intentionKind = "non_project";
+      intentionKnown = null;
+      replyText = greetingOnly
+        ? "Bonjour — qu’est-ce que tu voudrais accomplir avec ce projet ?"
+        : "Je reste centrée sur la création du projet. Qu’est-ce que tu voudrais accomplir dans Studio ?";
+      unknowns.push("intention du projet");
+    } else if (
+      wantFast ||
+      text.trim().length >= 16 ||
+      /\b(projet|application|produit|organisation|gestion|améliorer|moderniser|créer|idée|reporting|atelier)\b/i.test(
+        text,
+      )
+    ) {
+      sufficient = true;
+      intentionKind = "project_direction";
+      const clause = text.split(/[.!?\n]/)[0]?.trim() || text;
+      nameProposal =
+        clause.length > 64 ? `${clause.slice(0, 61)}…` : clause;
+      nameProposal =
+        nameProposal.charAt(0).toUpperCase() + nameProposal.slice(1);
+      replyText = wantFast
+        ? `On peut ouvrir un projet exploratoire autour de « ${clause.slice(0, 80)} ». Je propose le nom « ${nameProposal} » (provisoire) — tu pourras le renommer. Le bouton Créer reste de ton côté.`
+        : `Si je comprends bien, tu veux : ${clause}. Je propose de l’appeler « ${nameProposal} » (provisoire). On peut créer le projet dès que tu es prêt ; on précisera le premier travail ensuite.`;
+      if (!wantFast) {
+        clarificationQuestion =
+          "Y a-t-il un résultat concret qui te ferait dire que c’est réussi ?";
+        suggestions.push(
+          "Plus simple à comprendre",
+          "Moins d’interactions inutiles",
+          "Pilotage plus clair",
+        );
+      } else {
+        unknowns.push("objectif détaillé");
+      }
+    } else {
+      sufficient = false;
+      intentionKind = "unclear";
+      intentionKnown = null;
+      replyText =
+        "Je vois une piste, mais elle reste un peu courte. Peux-tu dire en une phrase ce que tu voudrais accomplir ?";
+      unknowns.push("intention exploitable");
+    }
+
+    const payload = {
+      replyText,
+      intentionKnown,
+      objectiveProposal: intentionKnown,
+      contextKnown: null as string | null,
+      nameProposal,
+      nameProvisional,
+      firstOrientationProposal:
+        intentionKind === "project_direction"
+          ? "Qualifier la première intention de travail dans le projet une fois créé"
+          : null,
+      unknowns,
+      sufficientForCreateProposal:
+        sufficient && !refuse && intentionKind === "project_direction",
+      refuseCreateDetected: refuse,
+      acceptCreateDetected: acceptCreate,
+      intentionKind,
+      clarificationQuestion,
+      suggestions,
+    };
+
+    return {
+      text: JSON.stringify(payload),
+      usage: {
+        inputTokens: null,
+        outputTokens: null,
+        totalTokens: null,
+        model: "fake-test-model",
+        providerResponseId: null,
+      },
+    };
   }
 
   /** Test helper — Nora/provider invocation counter. */

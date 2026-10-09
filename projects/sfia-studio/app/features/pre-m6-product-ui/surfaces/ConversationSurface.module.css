@@ -82,6 +82,7 @@
   margin: 0;
   font-size: 0.98rem;
   font-weight: 600;
+  line-height: 1.35;
   color: var(--pm6-ink);
 }
 
@@ -167,6 +168,59 @@
   line-height: 1.6;
   color: var(--pm6-ink-soft);
   white-space: pre-wrap;
+}
+
+/* ---------- Nora activity in-thread (DP06 / P3 §28) ---------- */
+
+.noraActivityTurn {
+  animation: noraActivityIn 180ms ease-out;
+}
+
+.noraActivityTurn .bubbleAuthor {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.noraActivityBadge {
+  font-size: var(--pm6-text-caption);
+  font-weight: 500;
+  letter-spacing: 0.4px;
+  text-transform: none;
+  color: var(--pm6-accent);
+}
+
+.noraActivityText {
+  margin: 0;
+  font-size: var(--pm6-text-subtitle);
+  line-height: 1.6;
+  color: var(--pm6-ink-soft);
+}
+
+@keyframes noraActivityIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .noraActivityTurn {
+    animation: noraActivityInReduced 120ms ease-out;
+  }
+
+  @keyframes noraActivityInReduced {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 }
 
 /* ---------- synthesis teaser (P3 46:2 / 190:306) ---------- */
@@ -725,6 +779,20 @@
   background: var(--pm6-ws-object-accent-prepared, #e97850);
 }
 
+/* P6-HQA-UI05 — progressive disclosure under compact Figma objects */
+.ui05ObjectDetails {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #e8e0d7;
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm6-space-3, 12px);
+}
+
+.ui05ObjectDetails .facts {
+  margin: 0;
+}
+
 .durableDetails {
   border: 1px solid var(--pm6-border-soft);
   border-radius: 10px;
@@ -936,19 +1004,20 @@
   box-sizing: border-box;
   width: 100%;
   min-height: var(--pm6-ws-composer-input-h, 96px);
-  height: var(--pm6-ws-composer-input-h, 96px);
+  height: auto;
   border: 1px solid #e2d8ce;
   border-radius: var(--pm6-ws-composer-radius, 8px);
   background: var(--pm6-focus-bar);
   padding: 14px 14px 12px;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .composerInput {
   box-sizing: border-box;
   width: 100%;
-  min-height: 24px;
-  flex: 1 1 auto;
+  min-height: 48px; /* 2 × 24px — matches rows={2} compact empty state */
+  max-height: var(--pm6-ws-composer-textarea-max-h, 192px);
+  flex: 0 0 auto;
   resize: none;
   border: 0;
   border-radius: 0;
@@ -958,6 +1027,11 @@
   font-size: 0.9375rem; /* 15 */
   line-height: 24px;
   padding: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .composerInput::placeholder {
@@ -1145,16 +1219,18 @@
 
   .composerBox {
     flex-direction: row;
-    align-items: center;
+    align-items: flex-end;
     gap: 8px;
     min-height: var(--pm6-ws-composer-input-h-compact, 64px);
-    height: var(--pm6-ws-composer-input-h-compact, 64px);
+    height: auto;
     padding: 12px;
   }
 
   .composerInput {
     flex: 1 1 auto;
-    min-height: 0;
+    min-width: 0;
+    min-height: 24px;
+    max-height: var(--pm6-ws-composer-textarea-max-h-compact, 144px);
     font-size: 0.75rem;
     line-height: 1.35;
   }
@@ -1282,7 +1358,7 @@
     flex: 1 1 auto;
     min-width: 0;
     min-height: 38px;
-    max-height: 96px;
+    max-height: var(--pm6-ws-composer-textarea-max-h-mobile, 96px);
     resize: none;
     padding: 8px 0;
     font-size: 0.8125rem;

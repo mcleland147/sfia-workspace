@@ -21,16 +21,25 @@ import {
 } from "@/features/pre-m6-product-ui/newProjectConversation";
 import { projectNoraActivity } from "@/features/pre-m6-product-ui/surfaces/noraActivityProjection";
 
-const { listProjectsRuntimeActionMock, createProjectRuntimeActionMock, pushMock } =
-  vi.hoisted(() => ({
-    listProjectsRuntimeActionMock: vi.fn(),
-    createProjectRuntimeActionMock: vi.fn(),
-    pushMock: vi.fn(),
-  }));
+const {
+  listProjectsRuntimeActionMock,
+  createProjectRuntimeActionMock,
+  newProjectOnboardingTurnActionMock,
+  pushMock,
+} = vi.hoisted(() => ({
+  listProjectsRuntimeActionMock: vi.fn(),
+  createProjectRuntimeActionMock: vi.fn(),
+  newProjectOnboardingTurnActionMock: vi.fn(),
+  pushMock: vi.fn(),
+}));
 
 vi.mock("@/lib/vertical-slice-runtime/actions", () => ({
   listProjectsRuntimeAction: listProjectsRuntimeActionMock,
   createProjectRuntimeAction: createProjectRuntimeActionMock,
+}));
+
+vi.mock("@/features/pre-m6-product-ui/newProjectOnboardingAction", () => ({
+  newProjectOnboardingTurnAction: newProjectOnboardingTurnActionMock,
 }));
 
 vi.mock("next/navigation", () => ({
@@ -56,51 +65,23 @@ afterEach(() => {
   cleanup();
   listProjectsRuntimeActionMock.mockReset();
   createProjectRuntimeActionMock.mockReset();
+  newProjectOnboardingTurnActionMock.mockReset();
   pushMock.mockReset();
 });
 
-describe("P5-S06 CP01 explicit-phase collection", () => {
-  it("records intention only while INTENTION_REQUIRED, never guesses name", () => {
+describe("P5-S06 CP01 / P6-HQA-NEWPROJECT-01 draft helpers", () => {
+  it("absorbUserTurn stamps provisional name without blocking create after a turn", () => {
     const d0 = emptyDraft();
     expect(collectPhaseOf(d0)).toBe("INTENTION_REQUIRED");
-    const extra = "Il faudrait aussi prendre en compte les avenants.";
-    const d1 = absorbUserTurn(d0, "Moderniser le reporting", "INTENTION_REQUIRED");
+    const d1 = absorbUserTurn(d0, "Moderniser le reporting");
     expect(d1.intention).toContain("Moderniser");
-    expect(d1.name).toBe("");
-    const stillIntention = absorbUserTurn(d1, extra, "INTENTION_REQUIRED");
-    expect(stillIntention.name).toBe("");
-    expect(stillIntention.intention).toContain("avenants");
-    expect(isMinimumSufficient(stillIntention)).toBe(false);
+    expect(d1.name.length).toBeGreaterThan(0);
+    expect(d1.nameProvisional).toBe(true);
+    expect(isMinimumSufficient(d1)).toBe(true);
   });
 
-  it("records name only after NAME_REQUIRED; later turns stay context", () => {
-    let d = absorbUserTurn(emptyDraft(), "Suivre les contrats", "INTENTION_REQUIRED");
-    expect(collectPhaseOf(d)).toBe("NAME_REQUIRED");
-    d = absorbUserTurn(d, "Contrats Q3", "NAME_REQUIRED");
-    expect(d.name).toBe("Contrats Q3");
-    expect(isMinimumSufficient(d)).toBe(true);
-    d = absorbUserTurn(d, "Inclure les avenants", "OPTIONAL_CONTEXT");
-    expect(d.name).toBe("Contrats Q3");
-    expect(d.context).toContain("avenants");
-  });
-
-  it("proposes a name when intention already names espace-projet redesign work", () => {
-    const d = absorbUserTurn(
-      emptyDraft(),
-      "Je veux créer une nouvelle version de notre espace projet pour simplifier le pilotage.",
-      "INTENTION_REQUIRED",
-    );
-    expect(d.name).toBe("Refonte de l’espace projet");
-    expect(collectPhaseOf(d)).toBe("OPTIONAL_CONTEXT");
-    expect(isMinimumSufficient(d)).toBe(true);
-  });
-
-  it("reopens a captured field explicitly without guessing", () => {
-    const d = absorbUserTurn(
-      absorbUserTurn(emptyDraft(), "Obj", "INTENTION_REQUIRED"),
-      "NomX",
-      "NAME_REQUIRED",
-    );
+  it("reopens name explicitly", () => {
+    const d = absorbUserTurn(emptyDraft(), "Suivre les contrats");
     const reopened = reopenField(d, "name");
     expect(reopened.name).toBe("");
     expect(collectPhaseOf(reopened)).toBe("NAME_REQUIRED");
@@ -185,19 +166,94 @@ describe("P5-S06 CP01 ProjectsPage", () => {
   });
 });
 
-describe("P5-S06 CP01 NewProjectIntentionPage", () => {
+describe("P5-S06 CP01 NewProjectIntentionPage (cognitive onboarding)", () => {
   beforeEach(() => {
     vi.spyOn(globalThis.crypto, "randomUUID").mockReturnValue(
       "00000000-0000-4000-8000-000000000099",
     );
+    newProjectOnboardingTurnActionMock.mockImplementation(
+      async (input: {
+        userText: string;
+        draft: {
+          intention: string;
+          name: string;
+          nameProvisional: boolean;
+          objective: string;
+          context: string;
+          firstOrientation: string;
+          unknowns: string[];
+          cognitiveCreateProposal: boolean;
+          explicitRefuseCreate: boolean;
+          intentionKind: string;
+          cognitiveTurns: number;
+        };
+      }) => {
+        const intention = input.userText;
+        const name =
+          intention.length > 48 ? `${intention.slice(0, 45)}…` : intention;
+        const draft = {
+          ...input.draft,
+          intention,
+          objective: intention,
+          name: name.charAt(0).toUpperCase() + name.slice(1),
+          nameProvisional: true,
+          cognitiveCreateProposal: true,
+          explicitRefuseCreate: false,
+          intentionKind: "project_direction" as const,
+          cognitiveTurns: input.draft.cognitiveTurns + 1,
+          firstOrientation:
+            "Qualifier la première intention de travail une fois le projet créé",
+          unknowns: [],
+        };
+        return {
+          ok: true as const,
+          draft,
+          replyText: `Si je comprends bien : ${intention}. Je propose « ${draft.name} » (provisoire).`,
+          clarification: {
+            title: "UNE PRÉCISION UTILE",
+            question: "Quel résultat concret te fera dire que c’est réussi ?",
+            suggestions: ["Plus simple à comprendre"],
+          },
+          payload: {
+            replyText: `ok`,
+            intentionKnown: intention,
+            objectiveProposal: intention,
+            contextKnown: null,
+            nameProposal: draft.name,
+            nameProvisional: true,
+            firstOrientationProposal: draft.firstOrientation,
+            unknowns: [],
+            sufficientForCreateProposal: true,
+            refuseCreateDetected: false,
+            acceptCreateDetected: false,
+            intentionKind: "project_direction" as const,
+            clarificationQuestion: "Quel résultat ?",
+            suggestions: [],
+          },
+          boundarySubstitution: true,
+          usageObservation: {
+            inputTokens: null,
+            outputTokens: null,
+            totalTokens: null,
+            model: "fake-test-model",
+            providerResponseId: null,
+            selectedModel: null,
+            selectedReasoningEffort: null,
+            boundarySubstitution: true,
+            declaredHumanQaBudgetEur: 10 as const,
+            hardCapEnforced: false as const,
+          },
+        };
+      },
+    );
   });
 
-  it("does not create a Project before explicit CTA and asks slots explicitly", async () => {
+  it("does not create a Project before explicit CTA; one cognitive turn can enable create", async () => {
     const user = userEvent.setup();
     render(<NewProjectIntentionPage />);
     expect(screen.getByTestId("create-project-submit")).toBeDisabled();
     expect(screen.getByTestId("new-project-thread")).toHaveTextContent(
-      /accomplir|intention/i,
+      /accomplir|projet/i,
     );
     expect(screen.getByTestId("new-project-starters")).toBeInTheDocument();
 
@@ -207,32 +263,17 @@ describe("P5-S06 CP01 NewProjectIntentionPage", () => {
     );
     await user.click(screen.getByTestId("new-project-send"));
     expect(createProjectRuntimeActionMock).not.toHaveBeenCalled();
-    expect(screen.getByTestId("preview-intention")).toHaveTextContent(/contrats/i);
-    expect(screen.getByTestId("create-project-submit")).toBeDisabled();
-    expect(screen.getByTestId("new-project-thread")).toHaveTextContent(
-      /Quel nom/i,
+    await waitFor(() =>
+      expect(screen.getByTestId("preview-intention")).toHaveTextContent(
+        /contrats/i,
+      ),
     );
-
-    await user.type(screen.getByTestId("new-project-input"), "Contrats Q3");
-    await user.click(screen.getByTestId("new-project-send"));
-    expect(createProjectRuntimeActionMock).not.toHaveBeenCalled();
-    expect(screen.getByTestId("preview-name")).toHaveTextContent("Contrats Q3");
     expect(screen.getByTestId("create-project-submit")).toBeEnabled();
-    expect(screen.getByTestId("new-project-clarification")).toBeInTheDocument();
-    expect(screen.getByTestId("new-project-understood")).toBeInTheDocument();
-  });
-
-  it("does not treat a follow-up precision as name before NAME_REQUIRED", async () => {
-    const user = userEvent.setup();
-    render(<NewProjectIntentionPage />);
-    await user.type(
-      screen.getByTestId("new-project-input"),
-      "Suivre les contrats",
-    );
-    await user.click(screen.getByTestId("new-project-send"));
-    expect(screen.getByTestId("preview-name")).toHaveTextContent(
+    expect(screen.getByTestId("preview-name")).not.toHaveTextContent(
       /pas encore précisé/i,
     );
+    expect(screen.getByTestId("new-project-clarification")).toBeInTheDocument();
+    expect(screen.getByTestId("new-project-understood")).toBeInTheDocument();
   });
 
   it("creates exactly one Project via canonical action then opens workspace", async () => {
@@ -256,20 +297,24 @@ describe("P5-S06 CP01 NewProjectIntentionPage", () => {
       "Suivre les contrats fournisseurs",
     );
     await user.click(screen.getByTestId("new-project-send"));
-    await user.type(screen.getByTestId("new-project-input"), "Contrats Q3");
-    await user.click(screen.getByTestId("new-project-send"));
+    await waitFor(() =>
+      expect(screen.getByTestId("create-project-submit")).toBeEnabled(),
+    );
     await user.click(screen.getByTestId("create-project-submit"));
 
     await waitFor(() =>
       expect(createProjectRuntimeActionMock).toHaveBeenCalledTimes(1),
     );
     const arg = createProjectRuntimeActionMock.mock.calls[0]![0];
-    expect(arg.name).toBe("Contrats Q3");
+    expect(arg.name.length).toBeGreaterThan(0);
     expect(arg.objective).toMatch(/contrats/i);
+    expect(arg.context).toMatch(/nora-onboarding-handoff/);
     expect(arg.criticality).toBe("STANDARD");
     expect(arg).not.toHaveProperty("cycleId");
     expect(arg).not.toHaveProperty("humanDecision");
-    expect(pushMock).toHaveBeenCalledWith("/studio/projects/prj%3As06-1");
+    expect(pushMock).toHaveBeenCalledWith(
+      "/studio/projects/prj%3As06-1?from=new-project-onboarding",
+    );
   });
 });
 
@@ -300,6 +345,13 @@ describe("P5-S06 CP01 Nora activity mapping", () => {
       projectNoraActivity({
         blocked: false,
         busy: false,
+        uiState: "ANSWERED",
+      }),
+    ).toMatchObject({ phase: "complete" });
+    expect(
+      projectNoraActivity({
+        blocked: false,
+        busy: true,
         uiState: "ANSWERED",
       }),
     ).toMatchObject({ phase: "complete" });
