@@ -1,25 +1,25 @@
-# ChatGPT Review Pack — P6 HUMAN QA TECHNICAL PREFLIGHT (COMPLETE)
+# ChatGPT Review Pack — P6 HUMAN QA ACTIVATION READINESS (COMPLETE)
 
-- timestamp: 2026-10-09T07:10:04Z
+- timestamp: 2026-10-09T07:19:31Z
 - campaignId: P6-GLOBAL-INTEGRATED-PRODUCT-QA-01
 - scope: COG01 + F01 + UI05
 - cycle: 9 — QA / validation
-- typology: RUN — préflight opérationnel lecture seule
+- typology: RUN / QA readiness
 - profile: CRITICAL
-- Morris GO consumed: P6 HUMAN QA TECHNICAL PREFLIGHT — READ-ONLY
+- Morris GO consumed: GO P6 ACTIVATION READINESS — PHASE 1 NON-REAL BORNÉ
+- GO P6 REAL — BOUNDED: NOT ACTIVATED this execution
 - branch: qa/sfia-studio-p6-global-integrated-product-qa
+- HEAD (INITIAL=FINAL): 8a196be1a35ffa2d43e52beddc66b51eab56c99c
 - origin/main: aba6c4a617b6d0cb27f23b59de5bf0ac9360fab1
-- local HEAD (INITIAL=FINAL): 8a196be1a35ffa2d43e52beddc66b51eab56c99c
-- prior closure handoff: 7d1c0d51d6d80193fdfeb941e1f90b8fa2ef40ed
-- project commit/push/PR/merge: NONE
-- product mutation: NONE
-- provider REAL call: NONE
+- prior preflight handoff: 1320907656f0728642bb267eeefcde9500810f10
 - project creation: NONE
+- provider Nora REAL call: NONE
 - START / HumanDecision: NONE
-- HQ-01: READ-ONLY observed, NOT MUTATED
-- P6 PASS: NOT CLAIMED
-- runtime v3: NON ADOPTED
-- Human QA execution: NOT AUTHORIZED by this GO
+- Product mutation: NONE
+- .env.local edited: NO
+- server kill/restart: NO
+- P6 PASS / PHASE 1 PASS / runtime v3 ADOPTED: NOT CLAIMED
+- Human QA executed: NO
 
 ## Local Git Truth
 
@@ -27,292 +27,264 @@
 BRANCH=qa/sfia-studio-p6-global-integrated-product-qa
 HEAD=8a196be1a35ffa2d43e52beddc66b51eab56c99c
 ORIGIN_MAIN=aba6c4a617b6d0cb27f23b59de5bf0ac9360fab1
+PRIOR_HANDOFF=1320907656f0728642bb267eeefcde9500810f10
 STAGED=(empty)
 ```
 
-### Local corrections present (uncommitted / untracked — preserved)
+Continuity: PASS — matches prior preflight tip. Worktree remains dirty with local COG01/F01/UI05/UI-01…04 candidates (preserved; not committed).
 
-| Finding | Evidence on disk |
-|---------|------------------|
-| F01 | `f2/resolveChatFirstCycleStartGate.ts`, `f2/composeF2PilotFacingNarrative.ts`, `f2/orchestrateF2.ts`, `p6.hqa.f01…d0.test.ts` |
-| UI05 | `ConversationSurface.tsx` (+ CSS), `p6.hqa.ui05…ui.test.tsx` |
-| COG01 CP02 | `composeF2PilotFacingNarrative.ts`, `p6.hqa.cog01…d0.test.ts` |
-| UI-01…UI-04 | ConversationSurface / noraActivity / presentationLabels / ui03 / ui04 tests |
-| P6 campaign fixtures | `__tests__/p6-campaign/*` (untracked) |
+## Sources / continuity
 
-HEAD matches prior reported tip. Worktree is **dirty with candidate corrections** — not clean, not on origin/main tip for those files.
-
-## Sources consulted
-
-- `convergence/sfia-studio-convergence-build-doctrine.md` (path present)
-- `convergence/sfia-studio-convergence-roadmap.md` (P6 tip: MACRO CONTINUATION / Human QA batch regenerating; P6 PASS NOT CLAIMED)
-- `product-completion/01-product-completion-cadrage.md` (path present)
-- `product-simplification/07-chat-first-product-simplification-p6-global-integrated-product-qa.md`
-- Handoff `7d1c0d51` — F01+UI05 INTEGRATED CLOSURE (reserves: UI05 visual NOT RUN; HQ-01 disposition distinct)
-- `package.json` scripts; `scripts/studio-runtime-preflight.ts`; `playwright.config.ts`
-- Routes: `app/studio/projects/new/page.tsx` → `NewProjectIntentionPage`
-- Lifecycle: `startPreparedTrajectoryCycle.ts`; F01 gate in `orchestrateF2.ts`
-- Authority: `localSingleUserAuthority.ts` (canonical `SFIA_STUDIO_LOCAL_PILOT_AUTHORITY`; legacy `SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY`)
-- Product SQLite (read-only URI `mode=ro`) via configured `SFIA_STUDIO_PRODUCT_DB_PATH`
-
-## Convergence pre-check
-
-Capacité v3 ciblée: New Project → Nora → trajectory/HD → prepare COMPLETE → START → LPS verify → honest UI objects.
-Milestone: P6.
-État: corrections locales candidates (ChatGPT closure handoff 7d1c0d51); Human QA non exécutée.
-Exit proof de CE cycle: readiness matrix sans mutation.
+- Consumed preflight pack @ handoff `13209076` (READY WITH RESERVES).
+- Local corrections on disk preserved.
+- Convergence tip unchanged: P6 Human QA not executed; runtime v3 NON ADOPTED.
 
 ---
 
-## BLOC A — Runtime Studio
+## BLOC 1 — Runtime Version Verification
 
-| Check | Result | Evidence |
-|-------|--------|----------|
-| Node / npm | PASS | Node v24.16.0, npm 11.13.0 |
-| node_modules / next | PASS | PRESENT |
-| Port 3020 listener | PASS (observed) | PID 41720 `next-server (v15.5.20)` |
-| HTTP /login | PASS | 200 |
-| HTTP /studio | PASS (auth redirect) | 307 |
-| Dev server start this cycle | NOT RUN | GO forbids auto start; existing instance reused for observe-only |
-| npm run build / install | NOT RUN | effects on cache/worktree not authorized |
-| Runtime READY claim | NOT CLAIMED | observe ≠ campaign readiness |
+| Fact | Evidence |
+|------|----------|
+| Listener | PID **41720** `next-server (v15.5.20)` on `[::1]:3020` |
+| Parent | PID **41717** `node …/projects/sfia-studio/app/node_modules/.bin/next dev --port 3020 --hostname localhost` |
+| Grandparent | PID **41697** `npm run dev --hostname localhost --port 3020` |
+| Mode | **next dev** (HMR), NOT `next start` |
+| CWD | `/Users/morris/Projects/sfia-workspace/projects/sfia-studio/app` = expected workspace |
+| Started | Fri Oct 9 **07:51:42** 2026 |
+| Correction mtimes | F01/UI05 sources **07:40–07:41** (< server start) |
+| HTTP | /login **200**; /studio **307** → `/login?error=NO_SESSION`; /studio/projects/new **307** |
+| Product DB fd | open on configured `…/new-project-campaign-01/product/oa-product.sqlite` |
 
-**RUNTIME OBSERVED** — Studio already listening; login reachable; studio requires auth session.
+### Served-version proof (beyond port/HTTP)
 
-Proposed start (NOT executed this preflight), if instance down later:
-```
-cd projects/sfia-studio/app && npm run dev -- --hostname localhost --port 3020
-```
-Risks: port conflict; loads `.env.local` (includes `SFIA_STUDIO_CURSOR_REAL=1`); shares Product SQLite with HQ-01.
+Compiled Next bundle for project workspace contains local correction markers:
 
----
+| Marker | `.next/server/.../[id]/page.js` | client chunk |
+|--------|-----------------------------------|--------------|
+| `data-ui05-object` | 4 | 4 |
+| `suppress_mint` | 2 | 0 (server F01 path) |
+| `evaluateExplicitStartForSubject` | 6 | 0 |
+| `composeF2PilotFacingNarrative` | 17 | 0 |
+| `resolveChatFirstCycleStartGate` | 12 | 0 |
 
-## BLOC B — Provider / COG01
+**RUNTIME VERSION VERIFIED — LOCAL COG01/F01/UI05 SERVED** via `next dev` from the QA worktree, with compiled `.next` markers matching disk corrections.
 
-| Check | Result | Notes |
-|-------|--------|-------|
-| `.env.local` present | PASS | keys listed names-only |
-| OPENAI_API_KEY | PASS (present, redacted) | value not disclosed; NOT called |
-| OPENAI_MODEL | PASS | configured `gpt-5.6-luna` (static) |
-| OPS1_CONVERSATION_PROVIDER | ABSENT in .env.local | default live path unless forced fake |
-| Process env OPENAI_* | UNSET | Next loads .env.local at runtime |
-| Provider REAL call | NOT RUN | forbidden |
-| Fake provider for Human QA | UNKNOWN / GATE | Playwright webServer defaults fake; Product UI may use live key |
-| COG01 code on disk | PASS | compose + tests present |
-| Conversation ≠ Product truth | PASS (design) | F01/COG01 contracts enforce; Human QA still required |
+Caveat: verification is for this PID/session. If Morris restarts later without this worktree, re-verify.
 
-**CONFIGURATION INSPECTED** — secrets not printed; **PROVIDER REAL NOT VERIFIED**.
-
-Cost/risk note: live Nora with configured model will consume REAL tokens once Human QA GO allows; preflight made **zero** provider calls.
+Reconciliation if ever NOT VERIFIED (not needed now): Morris stops current `npm run dev` intentionally under a future GO, relaunches from `projects/sfia-studio/app` on :3020, re-check markers — **not executed this cycle**.
 
 ---
 
-## BLOC C — Lifecycle F01 preconditions
+## BLOC 2 — Cursor REAL Safety
 
-Native path identified (code/routes, no execution):
+| Item | Finding |
+|------|---------|
+| `.env.local` `SFIA_STUDIO_CURSOR_REAL` | **PRESENT = 1** (not edited) |
+| `OPS1_CURSOR_REAL` | ABSENT |
+| Contract | `isStudioCursorRealEnabled` ⇒ REAL boundary **composed** when flag === "1" (`composeStudioProductRealBoundary`) |
+| Launch | Still gated by HD → EC → Confirmation → agent → Gate D → StartExecution; construction ≠ spawn |
+| Nora REAL | Distinct — OpenAI/conversation provider; **not** Cursor REAL |
+| OFF behavior | Flag ≠ "1" ⇒ `composeStudioProductRealBoundary` returns `undefined` (no REAL wiring) |
+| Restart need | Yes — Next loads `.env.local` at process start; change requires Morris restart of `npm run dev` |
 
-1. `/studio/projects/new` → `NewProjectIntentionPage` → `createProjectRuntimeAction`
-2. Conversation / F2 qualification → CycleInstance candidate
-3. Trajectory prepare / approve (`approveCandidateTrajectory`, `prepareCycleFromValidatedTrajectory`)
-4. HumanDecision when required (Pilote authority)
-5. COMPLETE_TRAJECTORY_BOUND prepare
-6. START via `startPreparedTrajectoryCycle` / chat gate `resolveChatFirstCycleStartGate`
-7. LPS + CycleInstance re-read
-8. Resume via projectId workspace binding
+**Qualification: UNSAFE** for Human QA activation while flag remains 1.
 
-| Precondition | Status |
-|--------------|--------|
-| New Project UX route exists | PASS |
-| createProject OA service exists | PASS |
-| startPreparedTrajectoryCycle exists | PASS |
-| F01 chat gate + anti-mint + structured late-negation on disk | PASS |
-| Deterministic F01 START E2E (tests) | PASS (prior; not re-run this cycle) |
-| Local Pilote authority config | PASS WITH RESERVE | Canonical `SFIA_STUDIO_LOCAL_PILOT_AUTHORITY` ABSENT; legacy `SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY=1` PRESENT (enables Pilot helper when canonical undefined) |
-| HQ-01 NOT used for F01-05 | PROTOCOL REQUIRED | HQ-01 still has 5 Delivery cycles, LPS activeCycle=null |
-| COMPLETE prepared cycle for new QA project | NOT RUN | requires project creation + governed prepare |
-| START on new project | NOT RUN | GO forbids |
-| Product gap for user path | NONE identified in static inspection | TrajectorySurface + OA facades exist |
+Not SAFE merely because no Cursor action ran this cycle.
 
-### HQ-01 read-only observation (NOT mutated)
+### Morris procedure (manual; NOT executed by Cursor)
 
-- `prj:6b1151f7-7369-434a-a967-bbfe88c76f53` PRESENT in shared Product DB
-- 5 Delivery CycleInstances status `acknowledged`
-- Latest LPS activeCycleInstanceId = null
-- Must remain READ-ONLY; F01 Human QA must use a **new** project
+1. Edit `projects/sfia-studio/app/.env.local`: set `SFIA_STUDIO_CURSOR_REAL=0` (or remove/comment the line).
+2. Stop the current Studio process on :3020 (Morris).
+3. Restart: `cd projects/sfia-studio/app && npm run dev -- --hostname localhost --port 3020`.
+4. Confirm flag offline before any START / EC execution path.
+5. Keep Cursor REAL off until a distinct **GO P6 REAL — BOUNDED** covering Cursor effects is activated.
+
+Impact: disables product Cursor REAL boundary wiring; does not disable Nora/OpenAI by itself; does not mutate Product DB.
 
 ---
 
-## BLOC D — UI05 / Browser / Capture
+## BLOC 3 — Authentification / autorité Pilote
 
 | Check | Result |
 |-------|--------|
-| Playwright CLI | PASS — 1.61.1 |
-| @playwright/test | PASS |
-| Chromium cache | PASS — chromium-1228 present |
-| playwright.config baseURL | PASS — localhost:3020; reuseExistingServer true |
-| Desktop viewport config | PASS — 1440×1024 (Figma object ref 748×82 is card geometry, not full page) |
-| Mobile device profiles | AVAILABLE via Playwright devices (NOT exercised) |
-| cursor-ide-browser tooling | AVAILABLE in agent session |
-| Authenticated session for captures | UNKNOWN | /studio → 307; needs Pilot login |
-| UI05 synthesis≠EC code on disk | PASS |
-| UI05 runtime Figma parity | NOT RUN — VISUAL PROOF MISSING (prior reserve) |
-| Capture strategy next Human QA | Use existing Studio :3020 + auth; Playwright `reuseExistingServer`; capture Recommendation/Proposal/Synthesis/EC on **new QA project**; never fabricate EC from synthesis |
+| /login | 200 |
+| /studio without session | 307 → `/login?error=NO_SESSION&from=%2Fstudio` |
+| Authenticated session | **WAITING HUMAN LOGIN** |
+| Cookies/secrets read | NOT DONE (forbidden) |
+| Login bypass | NOT ATTEMPTED |
 
-**BROWSER/CAPTURE TOOLING AVAILABLE** — fidelity NOT proven.
+Authority config (static, no mutation):
 
-Figma refs (directional only): 46:98 Recommendation, 46:107 ExecutionContract, 748×82.
+| Env | Status |
+|-----|--------|
+| `SFIA_STUDIO_LOCAL_PILOT_AUTHORITY` (canonical) | ABSENT |
+| `SFIA_STUDIO_LOCAL_MORRIS_GATE_AUTHORITY` | ABSENT |
+| `SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY` (legacy) | PRESENT = 1 |
 
----
+Precedence (`localSingleUserAuthority.ts`): canonical if defined; else legacy may enable Pilot **or** Morris helper separately (single-grant each). Legacy=1 ⇒ Pilot helper enabled for START/HD paths. **≠** runtime v3 governance adoption.
 
-## BLOC E — Isolation / Safety QA (protocol proposed, NOT applied)
-
-Shared Product datastore:
-- `SFIA_STUDIO_PRODUCT_DB_PATH` → `…/product/oa-product.sqlite` (exists, ~8.2 MB)
-- `SFIA_STUDIO_NORA_SESSION_DB_PATH` → `…/product/nora-session.sqlite`
-- Same DB hosts HQ-01 + 20 other projects (count=21)
-
-### Proposed isolation protocol (do not execute in preflight)
-
-1. Create QA project **only** via `/studio/projects/new` with unique name/shortReference e.g. `P6-HQA-COG-F01-UI05-<date>`.
-2. Record `projectId` immediately; verify ≠ `prj:6b1151f7-…`.
-3. Before/after each scenario: read-only count of HQ-01 cycles (expect still 5; activeCycle null unless separately authorized).
-4. Never open HQ-01 workspace during this Human QA batch.
-5. Prefer naming convention + evidence ledger over DB fork.
-6. Optional stronger isolation (separate PRODUCT_DB) = **config change** → requires distinct Morris GO (NOT this preflight).
-7. Session: one Pilot browser profile; avoid parallel Playwright webServer spawning second Next if :3020 busy (`reuseExistingServer` already set).
-8. Preserve failures: screenshots + transcript + projectId in review evidence; no cleanup/reset of Product DB.
-9. Risk flag: `SFIA_STUDIO_CURSOR_REAL=1` in .env.local — Human QA should avoid Cursor REAL actions unless under explicit REAL GO; disable or confirm intent before execution.
+Human actions: Morris logs into Studio with authorized GitHub account; optionally set canonical `SFIA_STUDIO_LOCAL_PILOT_AUTHORITY=1` (requires restart) for clarity over legacy.
 
 ---
 
-## BLOC F — Readiness matrix
+## BLOC 4 — Deterministic validations (executed)
 
-| Precondition | Result | Class |
-|--------------|--------|-------|
-| Git identity / continuity | PASS | static |
-| Correction files COG01/F01/UI05 on disk | PASS | static |
-| Corrections committed/pushed | FAIL (local-only) | static |
-| Studio runtime observed | PASS | observed non-mutable |
-| Route New Project | PASS | static |
-| Auth possible | UNKNOWN | needs Pilot login |
-| Provider config present | PASS | static |
-| Provider REAL verified | NOT RUN | REAL gate |
-| Playwright/capture tooling | PASS | static/tooling |
-| UI05 visual runtime parity | NOT RUN | prior reserve |
-| F01 START path code | PASS | static |
-| F01 START on fresh project | NOT RUN | execution gate |
-| Pilote authority configured | PASS WITH RESERVE | legacy env |
-| HQ-01 isolation protocol defined | PASS (protocol) | documentary |
-| HQ-01 mutation absent this cycle | PASS | observed |
-| GO Human QA execution | NOT CONSUMED | Morris |
-| GO P6 REAL bounded campaign | NOT CONSUMED this cycle | Morris (distinct) |
-| Cost envelope REAL Nora | UNKNOWN until GO | REAL |
+Isolation demonstrated before run:
+- F01 / corrProof01 / candidateTrajectoryCycleStart: `fs.mkdtemp` product DB under `os.tmpdir()`; `OPS1_CONVERSATION_PROVIDER=fake`; OPENAI key deleted in hooks.
+- COG01: pure unit composer (no DB).
+- UI03/UI04/UI05: jsdom RTL (no Product DB, no provider).
+- Test process env forced: `SFIA_STUDIO_CURSOR_REAL=` / `OPS1_CURSOR_REAL=` / fake provider.
+- Product DB before/after: HQ-01 cycles **5→5**, projects **21→21**.
 
-**Do NOT declare HUMAN QA READY FOR EXECUTION** — campaign execution gates remain.
+### Results this cycle
+
+| File | Tests | Result |
+|------|------:|--------|
+| `p6.hqa.cog01.f2PilotFacingNarrative.d0.test.ts` | 18 | PASS |
+| `p6.hqa.ui03.noraActivityThread.ui.test.tsx` | 6 | PASS |
+| `p6.hqa.ui04.pilotFacingSimplification.ui.test.tsx` | 9 | PASS |
+| `p6.hqa.ui05.compactObjectCards.ui.test.tsx` | 8 | PASS |
+| `p6.hqa.f01.chatFirstCycleStartGate.d0.test.ts` | 13 | PASS |
+| `corrProof01.d1.conversation.d0.test.ts` | 17 | PASS |
+| `candidateTrajectoryCycleStart.d0.test.ts` | 13 | PASS |
+| **TOTAL** | **84** | **84 PASS** |
+
+Matches prior “84 PASS” claim **because re-run this cycle** (not inherited).
+
+NOT RUN: global suites; `p6-campaign/*.real.test.ts` (REAL naming / uncontrolled boundaries); Playwright e2e against live Studio; Nora live; any test touching Product DB path.
+
+Impact on readiness: deterministic regression gate **PASS** for COG01/F01/UI05 + trajectory START UoW + corrProof01.
+
+---
+
+## BLOC 5 — Browser / UI05 capture readiness
+
+| Tool | Status |
+|------|--------|
+| Playwright CLI | 1.61.1 PASS |
+| Chromium cache | chromium-1228 PRESENT |
+| Desktop viewport config | 1440×1024 PASS |
+| Mobile devices | AVAILABLE via Playwright (NOT exercised) |
+| reuseExistingServer | true (safe with :3020 up) |
+| Auth for captures | WAITING HUMAN LOGIN |
+| Figma parity | **NOT CLAIMED** — no runtime captures this cycle |
+
+Capture plan (next Human QA, after login + new project):
+1. Recommendation closed 2. Recommendation open 3. Proposal READY_NO_GATE 4. Proposal DECISION_REQUIRED 5. ProductSynthesis (`data-ui05-object=synthesis`) 6. True ExecutionContract only from governed continuity 7. Mobile 8. Long content.
+Figma refs: 46:98 / 46:107 / 748×82 — directional only.
+
+---
+
+## BLOC 6 — Isolation QA / HQ-01
+
+Shared Product DB (read-only recheck):
+- Path: `…/new-project-campaign-01/product/oa-product.sqlite` (same as process fd)
+- projects=21; HQ-01 `prj:6b1151f7-7369-434a-a967-bbfe88c76f53` PRESENT
+- HQ-01 cycles=5 Delivery `acknowledged`
+- LPS current active; `activeCycleInstanceId=null`
+
+**Logical isolation: SUFFICIENT** for bounded Human QA if protocol followed (new project via UX; never open HQ-01; before/after counts). No separate DB required for Phase 1 **if** discipline held.
+
+STOP — ISOLATION GATE REQUIRED: **NOT triggered**.
+
+Protocol (Morris creates; Cursor does not):
+1. Login → `/studio/projects/new`
+2. Name e.g. `P6-HQA-COG-F01-UI05-2026-10-09`
+3. Record `projectId`; assert ≠ HQ-01 id
+4. Baseline: HQ-01 cycles=5; projects=N; record N
+5. After scenarios: HQ-01 still 5; new project evidence retained; no delete/reset
+6. Second QA project allowed if initial state incompatible
+
+---
+
+## BLOC 7 — Human QA protocol (NOT executed)
+
+A. Morris creates QA project
+B. Note projectId + initial state
+C. COG01 recommendation + challenge
+D. UI05 inspect cards
+E. F01 hesitation then refuse without activation
+F. Cycle inventory + LPS
+G. Prepare trajectory via Product
+H. HumanDecision when required
+I. START only under applicable REAL/execution GO
+J. Verify LPS / CycleInstance / conversation / cards
+K. Desktop/mobile captures
+L. Session resume + per-finding verdicts
+
+Per-finding Human QA verdicts (future): COG01 / F01 / UI05 / E2E INTEGRATED — each PASS/FAIL/RESERVES. None equals P6 PASS.
 
 ---
 
 ## Fake / Real Qualification
 
-- Entry proof reused: F01 DETERMINISTIC E2E; UI05 SEMANTIC/DOM; COG01 CP02 candidate.
-- This preflight proof level: **STATIC/ENVIRONMENT READINESS INSPECTION**.
-- Out of scope: E2E REAL, Human QA PASS, Figma parity PASS, P6 PASS, runtime v3 ADOPTED.
-- Zero REAL calls performed.
+- Entry: preflight READY WITH RESERVES; deterministic candidates.
+- This proof: runtime version verified; Cursor REAL flagged UNSAFE; auth WAITING HUMAN LOGIN; 84 PASS isolated; capture tooling ready; isolation logical OK.
+- Out of scope: Human QA; Nora REAL; Cursor REAL execution; P6 PASS; CLOSED findings; HQ-01 disposition; runtime v3 ADOPTED.
+- Gates remaining: Cursor REAL mitigation (Morris); human login; **GO P6 REAL — BOUNDED** before Nora live / Cursor effects; execution GO before START/campaign play.
 
-## Actions executed vs not executed
+---
 
-**Executed (read-only):**
-- git truth commands
-- node/npm/module presence
-- lsof/curl observe :3020
-- env key-name inspection (no secret values in report)
-- sqlite `mode=ro` project/HQ-01 inventory
-- path/route/script/file presence checks
-- handoff 7d1c0d51 tip read
-- review pack write under `.tmp-sfia-review/` only
+## Readiness matrix
 
-**NOT executed:**
-- npm install/build/dev/start
-- kill/steal port
-- createProject
-- provider complete
-- START / HD / prepareCycle
-- Playwright e2e run
-- HQ-01 mutation
-- source code edits
+| Precondition | Result |
+|--------------|--------|
+| Git continuity | PASS |
+| Local corrections on disk | PASS |
+| Runtime serves local COG01/F01/UI05 | PASS (VERIFIED) |
+| Cursor REAL safe | FAIL / UNSAFE (flag=1) |
+| Auth session | WAITING HUMAN LOGIN |
+| Pilot authority usable (legacy) | PASS WITH RESERVE |
+| Deterministic 84 PASS | PASS (re-run) |
+| Playwright/capture tooling | PASS |
+| UI05 Figma parity | NOT RUN |
+| HQ-01 isolation protocol | PASS |
+| HQ-01 unchanged this cycle | PASS |
+| Nora REAL | NOT RUN / GO NOT ACTIVATED |
+| Project QA created | NOT RUN |
+| START | NOT RUN |
 
-## Gates Morris remaining (non-decision recommendations)
+---
 
-1. **GO P6 HUMAN QA INTEGRATED EXECUTION** (COG01+F01+UI05) — create new QA project manually; run scenarios; captures.
-2. If live Nora required: confirm **GO P6 REAL — BOUNDED** still in force / re-authorize spend envelope.
-3. Optional: GO for separate Product DB isolation (if shared DB unacceptable).
-4. HQ-01 five-candidate disposition remains **separate** after Human QA.
+## Actions executed vs not
+
+**Executed:** git truth; process/cwd/cmdline/lsof; .next marker counts; env key inspection (no secret values); RO SQLite HQ-01; vitest 7 files / 84 tests; Playwright version/cache; HTTP observe; pack + handoff publish.
+
+**Not executed:** edit .env; kill/restart Studio; createProject; Nora REAL; START; HD; Playwright browser Human QA; Product writes; source edits; project git commit/push.
+
+## Morris actions required (ordered)
+
+1. Set `SFIA_STUDIO_CURSOR_REAL=0` and restart Studio on :3020.
+2. Log in (authorized account) — clear WAITING HUMAN LOGIN.
+3. Optional: set `SFIA_STUDIO_LOCAL_PILOT_AUTHORITY=1` (canonical) + restart.
+4. Obtain/confirm **GO P6 REAL — BOUNDED** (spend envelope) before Nora live.
+5. Under execution GO: create QA project manually; run Human QA protocol.
 
 ## Verdict
 
-**P6 HUMAN QA TECHNICAL PREFLIGHT — READY WITH RESERVES.**
+**READY WITH RESERVES — MANUAL ACTIONS REQUIRED.**
 
-Reserves:
-- Corrections remain local-only (not integrated to origin/main).
-- Shared Product DB with HQ-01 (protocol isolation required).
-- Auth session not proven in this pass (/studio 307).
-- UI05 visual runtime proof still missing.
-- Canonical Pilot authority env unset (legacy Morris authority=1 compensates).
-- `SFIA_STUDIO_CURSOR_REAL=1` armed in local profile — handle carefully under Human QA.
-- Human QA execution / REAL campaign GOs not consumed by this READ-ONLY GO.
+Reserves that block “ready for manual project creation” without caveat:
+- Cursor REAL still armed (UNSAFE);
+- no authenticated Pilot session yet.
 
-This verdict is **preparation readiness for Morris gate review only**, not authorization to execute Human QA or REAL.
+After Morris completes (1)+(2), the environment is positioned for **manual project creation subject to Morris REAL gate** before Nora live / START.
 
 ---
 
-## Appendix — command outputs (sanitized)
+## Appendix — sanitized diagnostics
 
-### Git
 ```
-BRANCH=qa/sfia-studio-p6-global-integrated-product-qa
-HEAD=8a196be1a35ffa2d43e52beddc66b51eab56c99c
-ORIGIN_MAIN=aba6c4a617b6d0cb27f23b59de5bf0ac9360fab1
-```
-
-### Runtime observe
-```
-listener: node PID 41720 next-server (v15.5.20) localhost:3020
-login_http=200
-studio_http=307
-```
-
-### Env key names in .env.local (values redacted except non-secret flags)
-```
-BETTER_AUTH_SECRET=(redacted)
-BETTER_AUTH_URL=(present)
-GITHUB_CLIENT_ID=(redacted)
-GITHUB_CLIENT_SECRET=(redacted)
-OPENAI_API_KEY=(redacted)
-OPENAI_MODEL=gpt-5.6-luna
-SFIA_STUDIO_ALLOWED_GITHUB_USER_IDS=(present)
-SFIA_STUDIO_CURSOR_REAL=1
-SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY=1
-SFIA_STUDIO_LOCAL_PILOT_AUTHORITY=(absent)
-SFIA_STUDIO_MANAGED_REPO_ROOT_BASE=(present)
-SFIA_STUDIO_NORA_SESSION_DB_PATH=(present, file exists)
-SFIA_STUDIO_PRODUCT_DB_PATH=(present, file exists, basename oa-product.sqlite)
-SFIA_STUDIO_PROJECT_REPOSITORY_*=(present)
+PID=41720 next-server v15.5.20
+PARENT=41717 next dev --port 3020 --hostname localhost
+CWD=…/projects/sfia-studio/app
+STARTED=2026-10-09 07:51:42
+login=200 studio=307 NO_SESSION
+CURSOR_REAL=1 (UNSAFE)
+LOCAL_PILOT_AUTHORITY=(absent) M3_LOCAL_MORRIS_AUTHORITY=1
+PRODUCT_DB=oa-product.sqlite projects=21 hq01_cycles=5 activeCycle=null
+vitest=84 PASS (7 files) HQ-01 unchanged
+playwright=1.61.1 chromium-1228
 ```
 
-### Product DB read-only
-```
-project_count=21
-hq01_exact_id_present=True
-hq01_cycle_count=5 (all Delivery acknowledged)
-hq01_latest_lps_activeCycle=null
-```
-
-### Tooling
-```
-playwright 1.61.1
-chromium-1228 cache present
-New Project: /studio/projects/new → NewProjectIntentionPage
-```
-
----
-END OF COMPLETE REVIEW PACK — P6 HUMAN QA TECHNICAL PREFLIGHT
+END OF COMPLETE REVIEW PACK — P6 HUMAN QA ACTIVATION READINESS
