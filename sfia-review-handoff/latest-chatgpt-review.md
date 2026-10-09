@@ -1,1278 +1,331 @@
 # SFIA Review Pack — FULL CRITICAL
-# P6 Chat-First First Framing — Continuity Complement (CC-01 / CC-02 / CC-03)
+# P6 First Framing — REAL Human QA + UI Validation (REAL-FIRST cycle)
+# STOP — REAL OPERATING ENVELOPE NOT QUALIFIED
 
 ## Meta
-- Date / heure : 2026-10-09 22:50:26 CEST
+- Date / heure : **2026-10-09 23:12:00 CEST** (Europe/Paris)
 - Macro : STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01
 - Milestone : P6 — GLOBAL INTEGRATED PRODUCT QA
-- Chantier : P6 Human QA — First Framing / Governed Lifecycle Continuity
-- Cycle type : 8 — Delivery / implémentation
+- Campagne : P6-GLOBAL-INTEGRATED-PRODUCT-QA-01
+- Chantier : First Framing Chat-First — REAL Human QA + UI Validation
+- Type de cycle : 9 — QA / validation (Critical)
 - Profil SFIA : Critical
-- Typologie : INC / EVOL
-- GO Morris consommé : Complément local CC-01/02/03 AUTORISÉ ; REAL / HQA REAL / push projet / PR / merge / Figma / doctrine NON
-- Handoff parent : 74320685ff7f3d960dbe2a074cc21a0a730b9cf2
-- Capacité : V3-F05 (+ F02 / F06)
-- Lien Roadmap : P6 QA — pas de nouvelle vague
-
-## Git truth
-- Branche : qa/sfia-studio-p6-global-integrated-product-qa
-- HEAD : db45e9c4c17cbe35dff543eee0f366af81026c55
-- origin/main : 60247eb21074c5e7be76e09bcb66d850926ded1e
-- Handoff connu : 74320685ff7f3d960dbe2a074cc21a0a730b9cf2
-- Préservation : candidate Delivery + CP-01/02/03 + PR573 + C14 + p6-campaign + tmp — OUI
-- Aucun staged projet
-
-## Diagnostic
-### CC-01 Réhydratation (confirmé puis corrigé)
-- `refreshFramingContinuity` existait mais **n'était pas appelée au montage**.
-- L'effet `[projectId, durableRefreshSignal]` ne chargeait que W2 subject/EC.
-- **FIX** : nouvel effet Product-read au mount / project change / durableRefresh, avec `cancelled` + ignore réponse stale cross-project.
-
-### CC-02 Sync post-START chat (confirmé puis corrigé)
-- START carte → `refreshFramingContinuity` + clear.
-- START message → succès `projectAssistantSendAction` **sans** relecture framing.
-- **FIX** : après succès Send, si `result.project.activeCycleInstanceId` ou `qualification.cycleStatus==="active"` → `refreshFramingContinuity()` + `notifyDurableFactsChanged()` si activation nouvelle. Source : DTO Product / LPS, pas parsing prose.
-
-### CC-03 Preuves
-- Front-door **cyc:framing** (Cadrage catalogue + CKC product) via `projectAssistantSendAction`.
-- Reprise Nora : corpus provider contient `activeCycleInstanceId`.
-- Env `SFIA_STUDIO_CURSOR_REAL` capturée/restaurée.
-- UI rehydrate harness + display projection.
-
-## Findings
-| ID | Statut |
-|---|---|
-| CC-01 | CORRIGÉ + PROUVÉ |
-| CC-02 | CORRIGÉ + PROUVÉ |
-| CC-03 | CORRIGÉ + PROUVÉ — **CADRAGE FRONT-DOOR E2E PROVEN** |
-
-CP-01/02/03 : non refaits ; conservés fonctionnels.
-
-## Fichiers
-### Modifiés
-- `useProductConversation.ts` — CC-01 effet + CC-02 sync Send
-- `chatFirstFramingContinuity.ts` — `framingContinuityForConversationDisplay`
-
-### Tests
-- `chatFirstFramingContinuity.frontDoor.d0.test.ts` — Cadrage + env + Nora corpus
-- `chatFirstFramingContinuity.d0.test.ts` — display helper
-- `framingContinuityRehydrate.ui.test.tsx` — NEW CC-01/02 UI
-
-### Non touchés
-- orchestrateF2 / F01 gate / transitionReadiness / OA services
-- ConversationSurface / FramingContinuityCard (déjà conformes)
-
-## Contenu modifié exploitable
-
-### chatFirstFramingContinuity.ts (FULL)
-```ts
-/**
- * P6 chat-first first Framing continuity — pure phase classification.
- * Does not mutate Product. Does not invent HumanDecision / START.
- *
- * Phases map Rec CURRENT → candidate → decision → prepared → active
- * using existing OA objects only.
- */
-
-export type FramingContinuityPhase =
-  | "idle"
-  | "recommendation_ready"
-  | "awaiting_trajectory_decision"
-  | "trajectory_decided_prepare_cycle"
-  | "ready_to_start"
-  | "active"
-  | "blocked_no_recommendation"
-  | "blocked_stale_or_incomplete";
-
-export type FramingContinuitySnapshot = {
-  readonly phase: FramingContinuityPhase;
-  readonly catalogLabel: string | null;
-  readonly targetCycleTypeId: string | null;
-  readonly recommendationId: string | null;
-  readonly semanticKey: string | null;
-  readonly trajectoryId: string | null;
-  readonly trajectoryVersion: number | null;
-  readonly presentationDigest: string | null;
-  readonly approvalOptionLabel: string | null;
-  readonly preparedCycleInstanceId: string | null;
-  readonly activeCycleInstanceId: string | null;
-  readonly hasCurrentNextCycleRecommendation: boolean;
-  readonly message: string;
-};
-
-/** Pilot-facing copy — no internal governance jargon. */
-export function framingContinuityPilotMessage(
-  phase: FramingContinuityPhase,
-  catalogLabel: string | null,
-): string {
-  const cycle = (catalogLabel ?? "").trim() || "Cadrage";
-  switch (phase) {
-    case "recommendation_ready":
-      return `Je recommande de commencer par un « ${cycle} » exploratoire. Vous pouvez préparer cette direction, puis la valider avant tout démarrage.`;
-    case "awaiting_trajectory_decision":
-      return `La trajectoire proposée pour « ${cycle} » est prête à examiner. Validez cette direction pour continuer — un simple « ok » ne suffit pas.`;
-    case "trajectory_decided_prepare_cycle":
-      return `La direction pour « ${cycle} » est validée. Préparez le cycle, puis démarrez-le quand vous serez prêt.`;
-    case "ready_to_start":
-      return `Le cycle « ${cycle} » est prêt. Vous pouvez le démarrer dans la conversation.`;
-    case "active":
-      return `Le « ${cycle} » est maintenant actif.`;
-    case "blocked_no_recommendation":
-      return `Aucune recommandation courante n'est disponible pour préparer le premier cycle. Reformulez avec Nora.`;
-    case "blocked_stale_or_incomplete":
-      return `La recommandation ou la trajectoire n'est plus à jour. Aucun démarrage n'est engagé.`;
-    case "idle":
-    default:
-      return "";
-  }
-}
-
-/**
- * Projection for ConversationSurface — hide idle / blocked / already-active.
- * Pure; does not invent CURRENT. Active cycle is shown via LPS surfaces.
- */
-export function framingContinuityForConversationDisplay(
-  snap: FramingContinuitySnapshot | null | undefined,
-): FramingContinuitySnapshot | null {
-  if (!snap) return null;
-  const phase = snap.phase;
-  if (
-    phase === "idle" ||
-    phase === "blocked_no_recommendation" ||
-    phase === "blocked_stale_or_incomplete" ||
-    phase === "active"
-  ) {
-    return null;
-  }
-  return snap;
-}
-
-/**
- * Deterministic phase from already-loaded Product facts.
- * Callers must not invent CURRENT / digest / prepared ids.
- */
-export function classifyFramingContinuityPhase(input: {
-  readonly activeCycleInstanceId: string | null | undefined;
-  readonly hasCurrentNextCycleRecommendation: boolean;
-  readonly candidatePresent: boolean;
-  readonly candidateProvenanceResolved: boolean;
-  readonly awaitingDecisionPresentation: boolean;
-  readonly decidedTrajectoryPresent: boolean;
-  readonly preparedCompletePresent: boolean;
-}): FramingContinuityPhase {
-  const active = (input.activeCycleInstanceId ?? "").trim();
-  if (active) return "active";
-  if (input.preparedCompletePresent) return "ready_to_start";
-  if (input.decidedTrajectoryPresent) return "trajectory_decided_prepare_cycle";
-  if (input.awaitingDecisionPresentation) return "awaiting_trajectory_decision";
-  if (input.candidatePresent && !input.candidateProvenanceResolved) {
-    return "blocked_stale_or_incomplete";
-  }
-  if (input.hasCurrentNextCycleRecommendation) return "recommendation_ready";
-  return "blocked_no_recommendation";
-}
-
-```
-
-### useProductConversation.ts (diff CC)
-```diff
-diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts b/projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
-index 73225dc7..d485db6c 100644
---- a/projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
-+++ b/projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
-@@ -47,6 +47,8 @@ import type {
-   ActiveDecisionSubjectReadResult,
-   CurrentGovernedExecutionContinuityResult,
- } from "@/features/project-assistant/w2/types";
-+import type { FramingContinuitySnapshot } from "@/features/project-assistant/f2/chatFirstFramingContinuity";
-+import { framingContinuityForConversationDisplay } from "@/features/project-assistant/f2/chatFirstFramingContinuity";
- 
- export type ProductDecisionSubjectContinuity =
-   | { readonly status: "pending" }
-@@ -165,6 +167,13 @@ export function useProductConversation({
-   const [governedMomentError, setGovernedMomentError] = useState<string | null>(
-     null,
-   );
-+  /** P6 chat-first Framing continuity (Rec → traj decision → prepare → START). */
-+  const [framingContinuity, setFramingContinuity] =
-+    useState<FramingContinuitySnapshot | null>(null);
-+  const [framingContinuityBusy, setFramingContinuityBusy] = useState(false);
-+  const [framingContinuityError, setFramingContinuityError] = useState<
-+    string | null
-+  >(null);
-   const [reservesText, setReservesText] = useState("");
-   const [f3Prepare, setF3Prepare] = useState<F3PreparePayload | null>(null);
-   const [f3M3Resolved, setF3M3Resolved] = useState<F3M3ResolvedPayload | null>(
-@@ -221,6 +230,8 @@ export function useProductConversation({
- 
-   const listRef = useRef<HTMLDivElement | null>(null);
-   const f3InFlightRef = useRef(false);
-+  const projectIdRef = useRef(projectId);
-+  projectIdRef.current = projectId;
-   const onDurableFactsChangedRef = useRef(onDurableFactsChanged);
-   const onDurableEvidenceOutcomeChangeRef = useRef(
-     onDurableEvidenceOutcomeChange,
-@@ -371,6 +382,122 @@ export function useProductConversation({
-     };
-   }, [projectId, durableRefreshSignal]);
- 
-+  // CC-01 — rehydrate Framing continuity from Product on mount / project change /
-+  // durable refresh. Stale async responses for a prior projectId are ignored.
-+  useEffect(() => {
-+    let cancelled = false;
-+    const requestProjectId = projectId;
-+    setFramingContinuity(null);
-+    setFramingContinuityError(null);
-+    void (async () => {
-+      try {
-+        const { projectAssistantReadFramingContinuityAction } = await import(
-+          "@/features/project-assistant/preCycleCandidateTrajectoryActions"
-+        );
-+        const result = await projectAssistantReadFramingContinuityAction({
-+          projectId: requestProjectId,
-+        });
-+        if (cancelled || requestProjectId !== projectId) return;
-+        if (!result.ok || !result.continuity) {
-+          setFramingContinuity(null);
-+          return;
-+        }
-+        setFramingContinuity(
-+          framingContinuityForConversationDisplay(result.continuity),
-+        );
-+        setFramingContinuityError(null);
-+      } catch {
-+        if (cancelled || requestProjectId !== projectId) return;
-+        setFramingContinuity(null);
-+      }
-+    })();
-+    return () => {
-+      cancelled = true;
-+    };
-+  }, [projectId, durableRefreshSignal]);
-+
-+  async function refreshFramingContinuity() {
-+    const requestProjectId = projectId;
-+    try {
-+      const { projectAssistantReadFramingContinuityAction } = await import(
-+        "@/features/project-assistant/preCycleCandidateTrajectoryActions"
-+      );
-+      const result = await projectAssistantReadFramingContinuityAction({
-+        projectId: requestProjectId,
-+      });
-+      if (requestProjectId !== projectIdRef.current) return;
-+      if (!result.ok || !result.continuity) {
-+        setFramingContinuity(null);
-+        return;
-+      }
-+      setFramingContinuity(
-+        framingContinuityForConversationDisplay(result.continuity),
-+      );
-+      setFramingContinuityError(null);
-+    } catch {
-+      if (requestProjectId !== projectIdRef.current) return;
-+      setFramingContinuity(null);
-+    }
-+  }
-+
-+  async function advanceFramingContinuity(
-+    step:
-+      | "prepare_candidate"
-+      | "approve_candidate"
-+      | "prepare_cycle"
-+      | "start_prepared",
-+  ) {
-+    if (framingContinuityBusy) return;
-+    setFramingContinuityBusy(true);
-+    setFramingContinuityError(null);
-+    try {
-+      const { projectAssistantAdvanceFramingContinuityAction } = await import(
-+        "@/features/project-assistant/preCycleCandidateTrajectoryActions"
-+      );
-+      const digest =
-+        step === "approve_candidate"
-+          ? (framingContinuity?.presentationDigest ?? undefined)
-+          : undefined;
-+      const result = await projectAssistantAdvanceFramingContinuityAction({
-+        projectId,
-+        step,
-+        presentationDigest: digest,
-+      });
-+      if (!result.ok) {
-+        setFramingContinuityError(
-+          result.message ?? result.code ?? "Action refusée.",
-+        );
-+        await refreshFramingContinuity();
-+        return;
-+      }
-+      if (result.continuity) setFramingContinuity(result.continuity);
-+      else await refreshFramingContinuity();
-+      notifyDurableFactsChanged();
-+      await refreshGovernedMoments();
-+      if (result.activeCycleInstanceId) {
-+        const label =
-+          result.continuity?.catalogLabel?.trim() ||
-+          framingContinuity?.catalogLabel?.trim() ||
-+          "Cadrage";
-+        setMessages((prev) => [
-+          ...prev,
-+          {
-+            id: nextId("system"),
-+            role: "system",
-+            content:
-+              result.message?.trim() ||
-+              `Le « ${label} » est maintenant actif. Vous pouvez poursuivre dans la conversation.`,
-+          },
-+        ]);
-+        setFramingContinuity(null);
-+      }
-+    } catch {
-+      setFramingContinuityError("Impossible d'avancer la continuité de cadrage.");
-+    } finally {
-+      setFramingContinuityBusy(false);
-+    }
-+  }
-+
-   async function refreshGovernedMoments() {
-     try {
-       const {
-@@ -397,6 +524,7 @@ export function useProductConversation({
-       } else {
-         setGovernedExecutionContinuity(continuity);
-       }
-+      await refreshFramingContinuity();
-     } catch {
-       setGovernedMomentError("Impossible de relire le moment gouverné.");
-     }
-@@ -931,6 +1059,26 @@ export function useProductConversation({
-         }),
-       );
-       setLrMaterializeCode(result.lifecycleRecommendationCode ?? null);
-+      if (
-+        result.lifecycleRecommendationMaterialized === true ||
-+        result.lifecycleRecommendationCode
-+      ) {
-+        void refreshFramingContinuity();
-+      }
-+      // CC-02 — after chat START (or already-active), re-read Product continuity
-+      // so the obsolete START card disappears. Driven by LPS/project DTO, not prose.
-+      const resultActiveId = (
-+        result.project.activeCycleInstanceId ?? ""
-+      ).trim();
-+      const priorActiveId = (activeCycleInstanceId ?? "").trim();
-+      const cycleMarkedActive =
-+        result.f2?.qualification?.cycleStatus === "active";
-+      if (resultActiveId || cycleMarkedActive) {
-+        void refreshFramingContinuity();
-+        if (!priorActiveId || priorActiveId !== resultActiveId) {
-+          notifyDurableFactsChanged();
-+        }
-+      }
-       setToolEvents((prev) => [...prev, ...result.toolEvents]);
-       setMessages((prev) => [
-         ...prev,
-@@ -1244,6 +1392,22 @@ export function useProductConversation({
-     inspectGovernedContract,
-     confirmGovernedContract,
-     refreshGovernedMoments,
-+    framingContinuity,
-+    framingContinuityBusy,
-+    framingContinuityError,
-+    refreshFramingContinuity,
-+    prepareFramingCandidate: () => {
-+      void advanceFramingContinuity("prepare_candidate");
-+    },
-+    approveFramingCandidate: () => {
-+      void advanceFramingContinuity("approve_candidate");
-+    },
-+    prepareFramingCycle: () => {
-+      void advanceFramingContinuity("prepare_cycle");
-+    },
-+    startFramingPrepared: () => {
-+      void advanceFramingContinuity("start_prepared");
-+    },
-     reservesText,
-     setReservesText,
-     f3Prepare,
-```
-
-### frontDoor test (FULL)
-```ts
-/** @vitest-environment node */
-/**
- * P6 CP-02 — Chat-first Framing continuity via projectAssistantSendAction front-door.
- * Proves Rec → prepare → HD (server digest) → prepare cycle → START (F01) → LPS active
- * → next turn sees active cycle. ZERO REAL provider.
- *
- * Intentional: START analysis omits candidateCycleTypeId/signals so CP-01 is proven
- * (transitionReadiness alone would strand the turn).
- */
-import fs from "node:fs";
-import os from "node:os";
-import path from "node:path";
-import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import {
-  setConversationProviderForTests,
-  type ConversationProvider,
-  type ProviderChatMessage,
-  type ProviderCompletionResult,
-  type ProviderInputItem,
-  type ProviderRoundResult,
-} from "@/lib/platform/ai";
-import { projectAssistantSendAction } from "@/features/project-assistant/actions";
-import {
-  projectAssistantAdvanceFramingContinuityAction,
-  projectAssistantReadFramingContinuityAction,
-} from "@/features/project-assistant/preCycleCandidateTrajectoryActions";
-import { resetF2ProposalStoreForTests } from "@/features/project-assistant/f2/proposalStore";
-import { resetMw5ChallengeStoreForTests } from "@/features/project-assistant/f2/mw5ChallengeSessionStore";
-import {
-  materializeLifecycleRecommendationFromStructuredOutput,
-  NORA_LIFECYCLE_RECOMMENDATION_ACTOR,
-  resolveTrajectoryBootstrapPresence,
-  classifyTrajectoryBinding,
-} from "@/lib/oa/cycle";
-import { PRE_CYCLE_ROUTING_ASSESSMENT_READY_TO_EMIT } from "@/lib/nora-cognitive-runtime/noraProductTurnOutputType";
-import type { Digest, DoctrinePackagePin } from "@/lib/oa/doctrine";
-import {
-  getRuntimeApplicationService,
-  resetRuntimeApplicationServiceForTests,
-} from "@/lib/vertical-slice-runtime";
-import type { LocalProjectIdSource } from "@/lib/vertical-slice-core";
-import { W2_REGISTRY_ROOT, W2_SCHEMAS_ROOT } from "./w2Harness";
-const VALID_DIGEST =
-  "sha256:3b4507505ddad333cd16730fcddf466aae24bc123b48e6a8c956c2e5cd9ac622" as Digest;
-const VALID_PIN: DoctrinePackagePin = {
-  doctrinePackageId: "pkg:studio-v3-oa",
-  version: "1.0.0",
-  digest: VALID_DIGEST,
-};
-
-const tempDirs: string[] = [];
-let previousPilot: string | undefined;
-let previousMorris: string | undefined;
-let previousCursorReal: string | undefined;
-
-class FixedIdSource implements LocalProjectIdSource {
-  private n = 0;
-  constructor(private readonly prefix: string) {}
-  nextProjectId(): string {
-    this.n += 1;
-    return `prj:${this.prefix}-${this.n}`;
-  }
-  nextLpsVersionId(): string {
-    return `lps:${this.prefix}-${this.n}`;
-  }
-  nextCorrelationId(): string {
-    return `cor:${this.prefix}-${this.n}`;
-  }
-}
-
-function lastUserContent(messages: ProviderChatMessage[]): string {
-  for (let i = messages.length - 1; i >= 0; i -= 1) {
-    if (messages[i]?.role === "user") return messages[i]!.content;
-  }
-  return "";
-}
-
-function demandeCourante(blob: string): string {
-  const marker = "Demande courante (à évaluer):";
-  const idx = blob.indexOf(marker);
-  if (idx < 0) return blob;
-  return blob.slice(idx + marker.length).trim();
-}
-
-/**
- * Fake Nora — for START utterances deliberately omits cycle/signals
- * so formalization readiness fails and CP-01 early F01 path is required.
- */
-class FramingFrontDoorFakeProvider implements ConversationProvider {
-  readonly providerId = "fake-test";
-  private n = 0;
-  lastUserBlobs: string[] = [];
-  /** Full message blobs seen by the provider (for Nora context assertions). */
-  lastMessageCorpus: string[] = [];
-
-  async completeStructured(input: {
-    messages: ProviderChatMessage[];
-    schemaName: string;
-    jsonSchema: Record<string, unknown>;
-  }): Promise<ProviderCompletionResult> {
-    void input.schemaName;
-    void input.jsonSchema;
-    return this.complete(input.messages);
-  }
-
-  async complete(messages: ProviderChatMessage[]): Promise<ProviderCompletionResult> {
-    this.n += 1;
-    const current = demandeCourante(lastUserContent(messages));
-    this.lastUserBlobs.push(current);
-    this.lastMessageCorpus.push(
-      messages.map((m) => `${m.role}:${m.content}`).join("\n"),
-    );
-    const usage = {
-      inputTokens: 10,
-      outputTokens: 5,
-      totalTokens: 15,
-      model: "fake-test-model",
-      providerResponseId: `frm-fd-${this.n}`,
-    };
-
-    const isStart =
-      /\b(je\s+(veux|souhaite)\s+(d[eé]marrer|lancer)|je\s+confirm\w*.*d[eé]marr)/i.test(
-        current,
-      );
-    const isRefuse =
-      /\b(refuse|finalement\s+je\s+refuse|ne\s+d[eé]marre)\b/i.test(current);
-    const isMaybe = /\b(peut[- ]?être|éventuellement)\b/i.test(current);
-    const isQuestion = /\?/.test(current) || /\b(est[- ]ce|quel\s+est)\b/i.test(current);
-
-    // CP-01 proof: START without formalization fields.
-    if (isStart && !isRefuse) {
-      return {
-        text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
-          intentClass: "actionable",
-          candidateCycleTypeId: null,
-          signals: null,
-          cognitiveWorkload: null,
-          contradictionCandidate: null,
-          challengeResponseAssessment: null,
-          objective: null,
-          scope: null,
-          rephrasedRequest: current.slice(0, 120),
-          outOfScope: [],
-          risks: [],
-          reservations: [],
-          stopConditions: [],
-          activatedBlocks: [],
-          expectedOutcome: null,
-          criticalJustification: null,
-          requestedOperation: null,
-          executionIntent: null,
-          continuationKind: null,
-          artifactMaterializationOperation: null,
-          pilotDecisionCandidate: null,
-        })}`,
-        usage,
-      };
-    }
-
-    const actionable = {
-      intentClass: isQuestion ? "informative" : "actionable",
-      // Product catalog Cadrage — CKC ckc:studio:framing in W2 product doctrine.
-      candidateCycleTypeId: isQuestion ? null : "cyc:framing",
-      signals: isQuestion
-        ? null
-        : {
-            structuralChange: false,
-            securityImpact: false,
-            architectureImpact: false,
-            dataImpact: false,
-            irreversible: false,
-            lowRiskBounded: true,
-          },
-      cognitiveWorkload: null,
-      contradictionCandidate: null,
-      challengeResponseAssessment: null,
-      objective: "Explorer le cadrage",
-      scope: "Sans exécution",
-      rephrasedRequest: current.slice(0, 120),
-      outOfScope: ["Cursor"],
-      risks: [],
-      reservations: [],
-      stopConditions: ["AUCUNE EXÉCUTION"],
-      activatedBlocks: ["qualification"],
-      expectedOutcome: "Recommandation",
-      criticalJustification: null,
-      requestedOperation: null,
-      executionIntent: null,
-      continuationKind: null,
-      artifactMaterializationOperation: null,
-      pilotDecisionCandidate: isRefuse
-        ? {
-            disposition: "refuse",
-            targetKind: "current_recommendation",
-            rationale: "refuse",
-          }
-        : isMaybe
-          ? {
-              disposition: "ambiguous",
-              targetKind: "current_recommendation",
-              rationale: "maybe",
-            }
-          : {
-              disposition: "accept",
-              targetKind: "current_recommendation",
-              rationale: "ok",
-            },
-    };
-    return {
-      text: `[TEST/FAKE · NON LIVE] ${JSON.stringify(actionable)}`,
-      usage,
-    };
-  }
-
-  async completeRound(input: {
-    items: ProviderInputItem[];
-    tools: unknown[];
-  }): Promise<ProviderRoundResult> {
-    void input.tools;
-    return {
-      kind: "message",
-      text: "[TEST/FAKE · NON LIVE] framing-fd",
-      usage: {
-        inputTokens: 1,
-        outputTokens: 1,
-        totalTokens: 2,
-        model: "fake-test-model",
-        providerResponseId: "frm-fd-round",
-      },
-    };
-  }
-}
-
-async function bootWithCurrentFramingRec(suffix: string) {
-  process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
-  process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY = "1";
-  process.env.SFIA_STUDIO_LOCAL_PILOT_AUTHORITY = "1";
-  resetRuntimeApplicationServiceForTests();
-  resetF2ProposalStoreForTests();
-  resetMw5ChallengeStoreForTests();
-  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "frm-fd-"));
-  tempDirs.push(dir);
-  const runtime = getRuntimeApplicationService({
-    // Product doctrine registry — required for post-START Nora resume CKC.
-    registryRoot: W2_REGISTRY_ROOT,
-    schemasRoot: W2_SCHEMAS_ROOT,
-    nowIso: "2026-09-09T20:00:00.000Z",
-    idSource: new FixedIdSource(`fd-${suffix}`),
-    auditMode: "noop",
-    productDbPath: path.join(dir, `${suffix}.sqlite`),
-  });
-  if (!runtime.oa) throw new Error("oa missing");
-  const created = await runtime.createProject({
-    name: `Framing FD ${suffix}`,
-    objective: "gestion de tâches",
-    context: "application web personnelle",
-    criticality: "STANDARD",
-    constraints: [],
-    shortReference: `FD${suffix}`,
-    idempotencyKey: `idem:fd-${suffix}`,
-  });
-  if (!created.ok) throw new Error("create failed");
-  const projectId = created.projectId;
-  const oa = runtime.oa;
-  const cycles = await oa.cycleServices.cycles.listByProject(projectId);
-  const decisions = await oa.decisionServices.decisions.listByProject(projectId);
-  const lps = await oa.projectServices.getCurrentLivingProjectState.execute({
-    projectId,
-  });
-  if (!lps.ok) throw new Error("lps missing");
-  const presence = await resolveTrajectoryBootstrapPresence(
-    oa.cycleServices.trajectories,
-    projectId,
-  );
-  const project = await oa.projectServices.getProject.execute({ projectId });
-  const doctrine =
-    (project.ok ? project.project.doctrinePackageRef : null) ?? VALID_PIN;
-  const mat = await materializeLifecycleRecommendationFromStructuredOutput({
-    projectId,
-    structuredOutput: {
-      narrative: "Narrative Cadrage recommandée.",
-      preCycleRoutingAssessment: {
-        ...PRE_CYCLE_ROUTING_ASSESSMENT_READY_TO_EMIT,
-      },
-      lifecycleRecommendation: {
-        intent: "NEXT_CYCLE" as const,
-        statement: "Envisager un Cadrage.",
-        subjectCycleInstanceId: null,
-        targetCycleInstanceId: null,
-        targetCycleTypeId: "cyc:framing",
-        rationale: "Prochain travail gouverné supportable.",
-        authority: "none" as const,
-        isHumanDecision: false as const,
-        qualificationSignals: {
-          structuralChange: false,
-          securityImpact: false,
-          architectureImpact: false,
-          dataImpact: false,
-          irreversible: false,
-          lowRiskBounded: true,
-        },
-      },
-    },
-    updateEpistemicState: oa.cycleServices.updateEpistemicState,
-    facts: {
-      cycles,
-      lpsActiveCycleInstanceId: lps.livingProjectState.activeCycleInstanceId,
-      lpsVersion: lps.livingProjectState.version,
-      doctrinePackageId: doctrine.doctrinePackageId,
-      doctrinePackageVersion: doctrine.version,
-      doctrinePackageDigest: doctrine.digest,
-      trajectory: null,
-      trajectoryBootstrapPresence: presence,
-      decisions,
-      evidence: [],
-      epistemicItems: await oa.cycleServices.epistemic.listByProject(projectId),
-    },
-    producedAt: "2026-09-09T20:01:00.000Z",
-    createdBy: NORA_LIFECYCLE_RECOMMENDATION_ACTOR,
-  });
-  expect(mat.materialization?.ok).toBe(true);
-  return {
-    runtime,
-    projectId,
-    sessionDbPath: path.join(dir, `${suffix}-session.sqlite`),
-  };
-}
-
-describe("chat-first Framing continuity — projectAssistantSendAction front-door", () => {
-  const provider = new FramingFrontDoorFakeProvider();
-
-  beforeEach(() => {
-    previousPilot = process.env.SFIA_STUDIO_LOCAL_PILOT_AUTHORITY;
-    previousMorris = process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY;
-    previousCursorReal = process.env.SFIA_STUDIO_CURSOR_REAL;
-    process.env.SFIA_STUDIO_LOCAL_PILOT_AUTHORITY = "1";
-    process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY = "1";
-    process.env.SFIA_STUDIO_CURSOR_REAL = "0";
-    setConversationProviderForTests(provider);
-    provider.lastUserBlobs = [];
-    provider.lastMessageCorpus = [];
-  });
-
-  afterEach(() => {
-    setConversationProviderForTests(null);
-    resetRuntimeApplicationServiceForTests();
-    resetF2ProposalStoreForTests();
-    resetMw5ChallengeStoreForTests();
-    while (tempDirs.length) {
-      const d = tempDirs.pop();
-      if (d) fs.rmSync(d, { recursive: true, force: true });
-    }
-    if (previousPilot === undefined) {
-      delete process.env.SFIA_STUDIO_LOCAL_PILOT_AUTHORITY;
-    } else {
-      process.env.SFIA_STUDIO_LOCAL_PILOT_AUTHORITY = previousPilot;
-    }
-    if (previousMorris === undefined) {
-      delete process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY;
-    } else {
-      process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY = previousMorris;
-    }
-    if (previousCursorReal === undefined) {
-      delete process.env.SFIA_STUDIO_CURSOR_REAL;
-    } else {
-      process.env.SFIA_STUDIO_CURSOR_REAL = previousCursorReal;
-    }
-  });
-
-  it("Rec CURRENT → prepare → HD → prepare → START via send (no signals) → LPS + Nora resume context", async () => {
-    const { runtime, projectId, sessionDbPath } =
-      await bootWithCurrentFramingRec("e2e");
-    const oa = runtime.oa!;
-
-    const before = await projectAssistantReadFramingContinuityAction({
-      projectId,
-    });
-    expect(before.continuity?.phase).toBe("recommendation_ready");
-    expect(before.continuity?.hasCurrentNextCycleRecommendation).toBe(true);
-
-    // Progress intent — prepare candidate (no HD)
-    const progress = await projectAssistantSendAction({
-      projectId,
-      content: "OK, poursuivons la recommandation de Cadrage.",
-      sessionDbPath,
-      provider,
-    });
-    expect(progress.ok).toBe(true);
-    const afterPrep = await projectAssistantReadFramingContinuityAction({
-      projectId,
-    });
-    expect(afterPrep.continuity?.phase).toBe("awaiting_trajectory_decision");
-    expect(afterPrep.continuity?.presentationDigest).toBeTruthy();
-
-    // Accept recommendation again must NOT invent HD / START
-    const okRec = await projectAssistantSendAction({
-      projectId,
-      content: "OK, poursuivons la recommandation.",
-      sessionDbPath,
-      provider,
-    });
-    expect(okRec.ok).toBe(true);
-    if (okRec.ok) {
-      expect(okRec.text).not.toMatch(/est maintenant actif/i);
-    }
-    const lpsIdle = await oa.projectServices.getCurrentLivingProjectState.execute({
-      projectId,
-    });
-    expect(lpsIdle.ok).toBe(true);
-    if (lpsIdle.ok) {
-      expect(lpsIdle.livingProjectState.activeCycleInstanceId ?? null).toBeNull();
-    }
-
-    // Explicit HD via Product server action (same seam as the card) — digest from server
-    const approved = await projectAssistantAdvanceFramingContinuityAction({
-      projectId,
-      step: "approve_candidate",
-      presentationDigest: afterPrep.continuity!.presentationDigest!,
-    });
-    expect(approved.ok).toBe(true);
-    expect(
-      approved.continuity?.phase === "ready_to_start" ||
-        approved.continuity?.phase === "trajectory_decided_prepare_cycle",
-    ).toBe(true);
-    if (approved.continuity?.phase === "trajectory_decided_prepare_cycle") {
-      const prep = await projectAssistantAdvanceFramingContinuityAction({
-        projectId,
-        step: "prepare_cycle",
-      });
-      expect(prep.ok).toBe(true);
-      expect(prep.continuity?.phase).toBe("ready_to_start");
-    }
-
-    const ready = await projectAssistantReadFramingContinuityAction({
-      projectId,
-    });
-    expect(ready.continuity?.phase).toBe("ready_to_start");
-    expect(ready.continuity?.preparedCycleInstanceId).toBeTruthy();
-
-    // Adversarial: recommendation accept while ready → no START
-    const noStartFromRec = await projectAssistantSendAction({
-      projectId,
-      content: "OK, poursuivons la recommandation.",
-      sessionDbPath,
-      provider,
-    });
-    expect(noStartFromRec.ok).toBe(true);
-    if (noStartFromRec.ok) {
-      expect(noStartFromRec.text).not.toMatch(/est maintenant actif/i);
-    }
-
-    // Adversarial: hypothetical
-    const maybe = await projectAssistantSendAction({
-      projectId,
-      content: "Démarre peut-être le Cadrage.",
-      sessionDbPath,
-      provider,
-    });
-    expect(maybe.ok).toBe(true);
-    if (maybe.ok) {
-      expect(maybe.text).not.toMatch(/est maintenant actif/i);
-    }
-
-    // Adversarial: late refuse
-    const refuse = await projectAssistantSendAction({
-      projectId,
-      content: "Je confirme, mais finalement je refuse.",
-      sessionDbPath,
-      provider,
-    });
-    expect(refuse.ok).toBe(true);
-    if (refuse.ok) {
-      expect(refuse.text).not.toMatch(/est maintenant actif/i);
-    }
-
-    // Adversarial: question
-    const question = await projectAssistantSendAction({
-      projectId,
-      content: "Quel est l'état du Cadrage ?",
-      sessionDbPath,
-      provider,
-    });
-    expect(question.ok).toBe(true);
-    if (question.ok) {
-      expect(question.text).not.toMatch(/est maintenant actif/i);
-    }
-
-    const stillReady = await projectAssistantReadFramingContinuityAction({
-      projectId,
-    });
-    expect(stillReady.continuity?.phase).toBe("ready_to_start");
-
-    // CP-01 / CP-02 — explicit START through front-door with missing signals
-    const start = await projectAssistantSendAction({
-      projectId,
-      content: "Je souhaite démarrer le Cadrage.",
-      sessionDbPath,
-      provider,
-    });
-    expect(start.ok).toBe(true);
-    if (!start.ok) throw new Error("start failed");
-    expect(start.text).toMatch(/est maintenant actif/i);
-    expect(start.project.activeCycleInstanceId).toBeTruthy();
-    expect(start.f2?.turnKind).toBe("f1_informative");
-
-    const lps = await oa.projectServices.getCurrentLivingProjectState.execute({
-      projectId,
-    });
-    expect(lps.ok).toBe(true);
-    if (!lps.ok) throw new Error("lps");
-    expect(lps.livingProjectState.activeCycleInstanceId).toBe(
-      start.project.activeCycleInstanceId,
-    );
-
-    const cycles = await oa.cycleServices.cycles.listByProject(projectId);
-    expect(cycles).toHaveLength(1);
-    expect(cycles[0]!.status).toBe("active");
-    expect(classifyTrajectoryBinding(cycles[0]!)).toBe(
-      "COMPLETE_TRAJECTORY_BOUND",
-    );
-    expect(classifyTrajectoryBinding(cycles[0]!)).not.toBe("LEGACY_UNBOUND");
-
-    // Idempotent second START
-    const again = await projectAssistantSendAction({
-      projectId,
-      content: "Je souhaite démarrer le Cadrage.",
-      sessionDbPath,
-      provider,
-    });
-    if (!again.ok) {
-      throw new Error(
-        `second START unexpected failure: ${again.code ?? ""} ${again.message ?? again.status}`,
-      );
-    }
-    expect(again.text).toMatch(/déjà actif|maintenant actif/i);
-    const cyclesFinal = await oa.cycleServices.cycles.listByProject(projectId);
-    expect(cyclesFinal).toHaveLength(1);
-
-    // CP-03 — next deterministic turn consumes active cycle context
-    const resume = await projectAssistantSendAction({
-      projectId,
-      content: "Quel est l'état du Cadrage ?",
-      sessionDbPath,
-      provider,
-    });
-    if (!resume.ok) {
-      throw new Error(
-        `resume turn unexpected failure: ${resume.code ?? ""} ${resume.message ?? resume.status}`,
-      );
-    }
-    expect(resume.project.activeCycleInstanceId).toBe(
-      lps.livingProjectState.activeCycleInstanceId,
-    );
-    // Nora resume: provider corpus for the resume turn must see the active cycle.
-    const resumeCorpus = provider.lastMessageCorpus.at(-1) ?? "";
-    expect(resumeCorpus.length).toBeGreaterThan(0);
-    expect(resumeCorpus).toMatch(
-      new RegExp(
-        (lps.livingProjectState.activeCycleInstanceId ?? "").replace(
-          /[.*+?^${}()|[\]\\]/g,
-          "\\$&",
-        ),
-      ),
-    );
-    // Display projection: active → no START card
-    const afterActive = await projectAssistantReadFramingContinuityAction({
-      projectId,
-    });
-    expect(afterActive.continuity?.phase).toBe("active");
-    const { framingContinuityForConversationDisplay } = await import(
-      "@/features/project-assistant/f2/chatFirstFramingContinuity"
-    );
-    expect(
-      framingContinuityForConversationDisplay(afterActive.continuity),
-    ).toBeNull();
-  });
-
-  it("START without prepared cycle fails closed via front-door", async () => {
-    const { projectId, sessionDbPath } = await bootWithCurrentFramingRec("noprep");
-    const start = await projectAssistantSendAction({
-      projectId,
-      content: "Je souhaite démarrer le Cadrage.",
-      sessionDbPath,
-      provider,
-    });
-    expect(start.ok).toBe(true);
-    if (start.ok) {
-      expect(start.text).not.toMatch(/est maintenant actif/i);
-      expect(start.project.activeCycleInstanceId).toBeFalsy();
-    }
-  });
-
-  it("stale digest never records HD", async () => {
-    const { projectId, sessionDbPath } = await bootWithCurrentFramingRec("stale");
-    await projectAssistantSendAction({
-      projectId,
-      content: "OK, poursuivons la recommandation de Cadrage.",
-      sessionDbPath,
-      provider,
-    });
-    const stale = await projectAssistantAdvanceFramingContinuityAction({
-      projectId,
-      step: "approve_candidate",
-      presentationDigest:
-        "sha256:deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef",
-    });
-    expect(stale.ok).toBe(false);
-    const snap = await projectAssistantReadFramingContinuityAction({ projectId });
-    expect(snap.continuity?.phase).toBe("awaiting_trajectory_decision");
-  });
-});
-
-```
-
-### framingContinuityRehydrate.ui.test.tsx (FULL)
-```tsx
-/** @vitest-environment jsdom */
-/**
- * CC-01 / CC-02 — Framing continuity rehydration + post-START display sync.
- * Mirrors the Product-read → display projection used by useProductConversation.
- */
-import React, { useEffect, useState } from "react";
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { cleanup, render, screen, waitFor } from "@testing-library/react";
-import type { FramingContinuitySnapshot } from "@/features/project-assistant/f2/chatFirstFramingContinuity";
-import { framingContinuityForConversationDisplay } from "@/features/project-assistant/f2/chatFirstFramingContinuity";
-import { FramingContinuityCard } from "@/features/pre-m6-product-ui/surfaces/FramingContinuityCard";
-
-const readFraming = vi.fn();
-
-vi.mock(
-  "@/features/project-assistant/preCycleCandidateTrajectoryActions",
-  () => ({
-    projectAssistantReadFramingContinuityAction: (...args: unknown[]) =>
-      readFraming(...args),
-    projectAssistantAdvanceFramingContinuityAction: vi.fn(),
-  }),
-);
-
-function snap(
-  phase: FramingContinuitySnapshot["phase"],
-): FramingContinuitySnapshot {
-  return {
-    phase,
-    catalogLabel: "Cadrage",
-    targetCycleTypeId: "cyc:framing",
-    recommendationId: "rec:1",
-    semanticKey: "sk:1",
-    trajectoryId: "trj:1",
-    trajectoryVersion: 1,
-    presentationDigest:
-      phase === "awaiting_trajectory_decision" ? "sha256:abc" : null,
-    approvalOptionLabel: "Valider cette direction pour « Cadrage ».",
-    preparedCycleInstanceId: phase === "ready_to_start" ? "cyc:prep" : null,
-    activeCycleInstanceId: phase === "active" ? "cyc:live" : null,
-    hasCurrentNextCycleRecommendation: true,
-    message: `phase:${phase}`,
-  };
-}
-
-/** Minimal rehydrate harness mirroring CC-01 effect in useProductConversation. */
-function FramingRehydrateHarness({
-  projectId,
-  refreshSignal = 0,
-}: {
-  projectId: string;
-  refreshSignal?: number;
-}) {
-  const [continuity, setContinuity] =
-    useState<FramingContinuitySnapshot | null>(null);
-
-  useEffect(() => {
-    let cancelled = false;
-    const requestProjectId = projectId;
-    setContinuity(null);
-    void (async () => {
-      const result = await readFraming({ projectId: requestProjectId });
-      if (cancelled) return;
-      if (!result.ok || !result.continuity) {
-        setContinuity(null);
-        return;
-      }
-      setContinuity(framingContinuityForConversationDisplay(result.continuity));
-    })();
-    return () => {
-      cancelled = true;
-    };
-  }, [projectId, refreshSignal]);
-
-  if (!continuity) {
-    return <div data-testid="framing-empty">empty</div>;
-  }
-  return (
-    <div data-testid="framing-slot">
-      <FramingContinuityCard
-        continuity={continuity}
-        busy={false}
-        error={null}
-        onPrepareCandidate={vi.fn()}
-        onApproveCandidate={vi.fn()}
-        onPrepareCycle={vi.fn()}
-        onStartPrepared={vi.fn()}
-      />
-    </div>
-  );
-}
-
-afterEach(() => {
-  cleanup();
-  readFraming.mockReset();
-});
-
-describe("Framing continuity rehydrate / post-START sync", () => {
-  beforeEach(() => {
-    readFraming.mockReset();
-  });
-
-  it("CC-01 — mounts with ready_to_start card from Product read (no prior action)", async () => {
-    readFraming.mockResolvedValue({
-      ok: true,
-      continuity: snap("ready_to_start"),
-    });
-    render(<FramingRehydrateHarness projectId="prj:a" />);
-    await waitFor(() => {
-      expect(screen.getByTestId("framing-continuity-card")).toHaveAttribute(
-        "data-phase",
-        "ready_to_start",
-      );
-    });
-    expect(readFraming).toHaveBeenCalledWith({ projectId: "prj:a" });
-    expect(screen.getByTestId("framing-continuity-primary").textContent).toMatch(
-      /Démarrer/,
-    );
-  });
-
-  it("CC-01 — remount / refreshSignal rebuilds awaiting decision from Product", async () => {
-    readFraming.mockResolvedValue({
-      ok: true,
-      continuity: snap("awaiting_trajectory_decision"),
-    });
-    const { rerender } = render(
-      <FramingRehydrateHarness projectId="prj:a" refreshSignal={0} />,
-    );
-    await waitFor(() => {
-      expect(screen.getByTestId("framing-continuity-card")).toHaveAttribute(
-        "data-phase",
-        "awaiting_trajectory_decision",
-      );
-    });
-    readFraming.mockResolvedValue({
-      ok: true,
-      continuity: snap("recommendation_ready"),
-    });
-    rerender(<FramingRehydrateHarness projectId="prj:a" refreshSignal={1} />);
-    await waitFor(() => {
-      expect(screen.getByTestId("framing-continuity-card")).toHaveAttribute(
-        "data-phase",
-        "recommendation_ready",
-      );
-    });
-  });
-
-  it("CC-02 — active Product phase clears START card after sync", async () => {
-    readFraming.mockResolvedValue({
-      ok: true,
-      continuity: snap("ready_to_start"),
-    });
-    const { rerender } = render(
-      <FramingRehydrateHarness projectId="prj:a" refreshSignal={0} />,
-    );
-    await waitFor(() => {
-      expect(screen.getByTestId("framing-continuity-card")).toBeTruthy();
-    });
-    readFraming.mockResolvedValue({
-      ok: true,
-      continuity: snap("active"),
-    });
-    rerender(<FramingRehydrateHarness projectId="prj:a" refreshSignal={1} />);
-    await waitFor(() => {
-      expect(screen.getByTestId("framing-empty")).toBeTruthy();
-    });
-    expect(screen.queryByTestId("framing-continuity-card")).toBeNull();
-  });
-
-  it("CC-01 — project change ignores stale late response from prior project", async () => {
-    let resolveA: (v: unknown) => void = () => {};
-    const pendingA = new Promise((resolve) => {
-      resolveA = resolve;
-    });
-    readFraming.mockImplementation(({ projectId }: { projectId: string }) => {
-      if (projectId === "prj:a") return pendingA;
-      return Promise.resolve({
-        ok: true,
-        continuity: snap("ready_to_start"),
-      });
-    });
-    const { rerender } = render(<FramingRehydrateHarness projectId="prj:a" />);
-    rerender(<FramingRehydrateHarness projectId="prj:b" />);
-    await waitFor(() => {
-      expect(screen.getByTestId("framing-continuity-card")).toHaveAttribute(
-        "data-phase",
-        "ready_to_start",
-      );
-    });
-    resolveA({
-      ok: true,
-      continuity: {
-        ...snap("awaiting_trajectory_decision"),
-        catalogLabel: "STALE-A",
-      },
-    });
-    await new Promise((r) => setTimeout(r, 30));
-    expect(
-      screen.getByTestId("framing-continuity-title").textContent,
-    ).not.toMatch(/STALE-A/);
-  });
-});
-
-```
-
-## Tests
-```
-cd projects/sfia-studio/app
-npx vitest run \
-  __tests__/project-assistant/chatFirstFramingContinuity.d0.test.ts \
-  __tests__/project-assistant/chatFirstFramingContinuity.frontDoor.d0.test.ts \
-  __tests__/pre-m6-product-ui/framingContinuityCard.ui.test.tsx \
-  __tests__/pre-m6-product-ui/framingContinuityRehydrate.ui.test.tsx \
-  __tests__/project-assistant/p6.hqa.f01.chatFirstCycleStartGate.d0.test.ts \
-  __tests__/project-assistant/candidateTrajectoryBridge.d0.test.ts \
-  __tests__/project-assistant/candidateTrajectoryHumanDecision.d0.test.ts \
-  __tests__/project-assistant/candidateTrajectoryCycleStart.d0.test.ts \
-  __tests__/pre-m6-product-ui/chatFirstGovernedDecisionLoop.ui.test.tsx
-```
-Résultat : **9 files / 94 tests PASS**
-
-Typecheck Delivery : 0 erreur ; p6-campaign untracked : 4 erreurs baseline
-
-## Preuves
-- **PERSISTENT CONTINUITY DETERMINISTIC PROVEN** (mount / refresh / stale race)
-- **START CHAT/UI SYNC PROVEN** (active → card null ; notifyDurable)
-- **CADRAGE FRONT-DOOR E2E PROVEN** (cyc:framing + « Je souhaite démarrer le Cadrage »)
-- Nora resume : activeCycleInstanceId dans corpus provider du tour suivant
-- Env isolation : CURSOR_REAL / PILOT / MORRIS restored
-
-## Figma / runtime
-- Captures Figma locales antérieures conservées sous `.tmp-sfia-review/figma/`
-- Runtime :3020 down → **REVIEW INCONCLUSIVE — RUNTIME SCREENSHOT REQUIRED** (visuel fort seulement)
-
-## Fake / Real
-- Niveau : PERSISTENT CONTINUITY + START CHAT/UI SYNC + CADRAGE FRONT-DOOR DETERMINISTIC
-- REAL provider : aucun
-- SFIA_STUDIO_CURSOR_REAL config réelle : inchangée
-- REC-01 CURRENT REAL : OPEN
-- Hors scope : REAL BOUNDARY / E2E REAL / P6 PASS / Runtime v3 ADOPTED
-
-## Réserves
-1. Screenshot runtime manquant
-2. REC-01 REAL OPEN
-3. Human QA navigateur non rejoué
-4. Provider Nora REAL non rejoué
-
-## Dette / exit
-Aucune architecture parallèle. Aucune persistence cliente nouvelle.
-
-## Gates Morris
-1. Revue Critical de cette candidate
-2. GO Human QA REAL distinct
-3. Intégration Git distincte
-
-## Verdict
-**LOCAL FRAMING CONTINUITY CANDIDATE — READY FOR CRITICAL REVIEW**
-
-READY WITH RESERVES (visuel runtime + REC-01 + REAL)
-
-## Instruction ChatGPT (§9.1)
-Lire exclusivement `sfia-review-handoff/latest-chatgpt-review.md` sur `sfia/review-handoff` au SHA publié.
-Qualifier CC-01/02/03, CADRAGE front-door, sync START chat/UI, absence d'architecture parallèle.
-Pas de merge/PR/REAL sans nouveau GO Morris.
+- GO Morris : Validation UI + correction ciblée en REAL direct, First Framing P6 only
+- Correction intégrée : INC borné **uniquement si défaut réellement reproduit** — **aucun défaut UI/parcours reproduit** (parcours REAL non ouvert)
+- Product code change : **NO PRODUCT CODE CHANGE**
+- Review pack réinitialisé en début de cycle : **oui** (overwrite mono-cycle)
+- Review pack niveau : **FULL CRITICAL**
+- Review pack mono-cycle courant : **confirmé**
+- Synthesis only : **no**
+
+---
+
+## 1. Local Git Truth Check
+
+| Check | Result |
+|-------|--------|
+| `pwd` | `/Users/morris/Projects/sfia-workspace` |
+| toplevel | `/Users/morris/Projects/sfia-workspace` |
+| Branche | `qa/sfia-studio-p6-global-integrated-product-qa` |
+| HEAD | `db45e9c4c17cbe35dff543eee0f366af81026c55` |
+| `origin/main` | `60247eb21074c5e7be76e09bcb66d850926ded1e` |
+| Handoff tip connu (entrée) | `4bde7efce9b7a9cb6e902a754a572d583ebc7be6` (CC Continuity Complement) |
+| Cohérence attendue | **PASS** — HEAD + main + branche alignés avec le GO |
+| Reset / clean / stash | **NON** — préservation stricte |
+| Commit / push projet | **NON** |
+| PR / merge | **NON** |
+
+### Working tree (préservé — non intégré)
+
+Tracked modified (candidate Delivery Option 1 + CP + CC + C14) :
+- `.tmp-sfia-review/chatgpt-review.md` (ce pack)
+- `projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts`
+- `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx`
+- `projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts`
+- `projects/sfia-studio/app/features/project-assistant/preCycleCandidateTrajectoryActions.ts`
+- `projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts`
+- `projects/sfia-studio/app/__tests__/project-assistant/qualToGovernedCycle.presentation.d0.test.ts`
+- `projects/sfia-studio/product-simplification/p6-qa-integration-state-and-reserves.md`
+
+Untracked préservés :
+- `FramingContinuityCard.tsx`, `chatFirstFramingContinuity.ts`
+- tests CC / framing continuity / p6-campaign REAL harness
+- `projects/.tmp-sfia-review/visual/.../canonical-product.sqlite`
+
+**Aucune opération destructive. Candidate locale intacte.**
+
+---
+
+## 2. Sources lues (exploitées)
+
+Processus : cycle template · routing guide · operating model · rules/guardrails (échantillon opérationnel pour handoff L3 / stop conditions).
+
+Convergence / Product :
+- `product-simplification/07-…-p6-global-integrated-product-qa.md` (G-SIMP-P6 / G-SIMP-09)
+- `product-simplification/p6-qa-integration-state-and-reserves.md` (C14 — R4 budget, R5 visual, R8 Cursor REAL)
+- Handoff CC `4bde7efc` (Continuity Complement — 94 tests déterministes déclarés)
+
+Runtime / candidate (qualification lecture, pas de mutation code) :
+- seams First Framing (orchestrateF2, chatFirstFramingContinuity, useProductConversation, FramingContinuityCard, F01 gate)
+- Product DB `oa-product.sqlite` (read-only inventory)
+- `app/.env.local` (presence/config — secrets non exposés)
+- Figma MCP screenshots 378:2 / 380:2 / 380:381
+- Browser REAL → login NO_SESSION
+
+---
+
+## 3. Convergence pre-check
+
+| Item | State |
+|------|--------|
+| Capacité principale | V3-F05 conversation → décision → exécution gouvernée |
+| Contributrices | V3-F02 LPS · V3-F06 Trajectory · V3-F11/F12 autorité |
+| Milestone | P6 Global Integrated Product QA |
+| Front-door Product | KEEP / REUSE (runtime :3020 répond) |
+| Architecture parallèle | **NON** |
+| Dette permanente nouvelle | **NON** |
+| Exit proof ce cycle | Preflight STOP qualifié + preuves d’enveloppe + baselines Figma — **pas** parcours E2E REAL |
+
+---
+
+## 4. Préflight REAL (A) — résultats
+
+### 4.1 Contrat / GO / frontières
+
+| Check | Result |
+|-------|--------|
+| P6 contract G-SIMP-P6 / G-SIMP-09 | Documentaire **BOUNDED CAMPAIGN** — applicable au First Framing sous enveloppe |
+| GO Morris ce cycle | **OUI** — REAL-FIRST First Framing + UI + correction bornée |
+| Frontière Cursor agent REAL | **EXCLUE** — ne pas activer / ne pas modifier `SFIA_STUDIO_CURSOR_REAL` |
+| `SFIA_STUDIO_CURSOR_REAL` observé | **`=1`** dans `app/.env.local` — **non modifié** (interdit) · réserve R8 OPEN |
+| Provider routing production | **NON modifié** |
+| Fresh Project Replay P7 | **HORS SCOPE** |
+
+### 4.2 Budget / consommation
+
+| Check | Result |
+|-------|--------|
+| Enveloppe documentaire | ≤ €10 HQA · `hardCapEnforced=false` (C14 R4 OPEN) |
+| Ledger campagne | `.tmp-sfia-review/p6-hqa-real-execution/ledger.md` — GO `D-P6-HQA-REAL-01` started `2026-10-09T14:38:25Z` — **aucune ligne de dépense** |
+| Consommation restante | **NOT OBSERVED — NON INVENTÉE** |
+| Seuil d’arrêt technique | **ABSENT** (`hardCapEnforced=false`) |
+| Verdict budget | **NON CONTRÔLABLE** → **STOP AVANT APPEL REAL** |
+
+### 4.3 Environnement / provider / secrets
+
+| Check | Result |
+|-------|--------|
+| `OPENAI_API_KEY` | PRESENT (len observée, valeur non publiée) |
+| `OPENAI_MODEL` | `gpt-5.6-luna` |
+| Fallback silencieux | Non exercé (aucun appel provider ce cycle) |
+| Secrets exposés dans pack / captures | **NON** |
+| Auth Better Auth | URL `http://localhost:3020` · session browser **absente** |
+
+### 4.4 Runtime Studio
+
+| Check | Result |
+|-------|--------|
+| URL | `http://localhost:3020` |
+| Listen | `next-server (v15.5.20)` PID 41720 · parent `next dev --port 3020 --hostname localhost` |
+| Started | **Fri Oct 9 07:51:42 2026** — **antérieur** aux correctifs CC du soir |
+| HTTP `/studio` | **307** → `/login?error=NO_SESSION&from=%2Fstudio` |
+| Build ↔ candidate CC | **NON PROUVÉ** — runtime long-running ; hot-reload non vérifié pour ce GO |
+| `SFIA_STUDIO_PRODUCT_DB_PATH` | `…/new-project-campaign-01/product/oa-product.sqlite` (8 318 976 octets, mtime 2026-10-09 22:57) |
+| Navigateur REAL | Cursor IDE browser — **OUI** |
+| Auth Pilot | **NO_SESSION** — capture `runtime/login-no-session-desktop.png` |
+
+### 4.5 Projet Human QA — état initial (read-only)
+
+Candidat admissible First Framing (pas HQ-01 Delivery) :
+
+| Field | Value |
+|-------|--------|
+| projectId | `prj:60d7003d-3fbb-4298-a395-00f7704781a9` |
+| title | Gestion de projets pour petites entreprises |
+| created | 2026-10-09T15:04:44.206Z |
+| LPS | `lps:ec223dd5-1718-4bd0-949a-cbadaf3deb65` v1 active — **pas de cycle actif** |
+| CycleInstance | **0** |
+| HumanDecision | **0** |
+| ProjectTrajectory / current | **0 / none** |
+| Recommendation | `epi:lr:863b08150d06bc0d:20261009T180410386Z` active — Cadrage (`cyc:framing`) · source `lifecycle-recommendation:nora` · created 2026-10-09T18:04:10Z |
+| CURRENT marking explicite | Champ `currentness` top-level **absent** ; lifecycleRecommendation NEXT_CYCLE présente — **currentness runtime non rejouée** ce cycle |
+| HQ-01 | `prj:6b1151f7-…` — Delivery acknowledged ×5 — **exclu** (R6 / disposition séparée) |
+
+**Ne pas réécrire l’historique. Ne pas forcer REC par SQL. Ne pas inventer HD.**
+
+### 4.6 Préflight gate consolidée
+
+| Condition stop | Déclenchée |
+|----------------|------------|
+| Budget absent / non contrôlable | **OUI** |
+| Session Pilot absente | **OUI** |
+| Runtime ↔ candidate non prouvé | **OUI** (facteur aggravant) |
+| `SFIA_STUDIO_CURSOR_REAL=1` non modifiable + R8 | **OUI** (risque frontière agent) |
+| Git incohérent | NON |
+| Architecture parallèle requise | NON |
+
+→ **STOP AVANT APPEL REAL** (conforme GO + stop conditions).
+
+---
+
+## 5. Appels REAL ce cycle
+
+| Call | Provider / modèle / effort | Provenance | Cost |
+|------|----------------------------|------------|------|
+| *(aucun)* | — | — | **0 OBSERVED** — pas d’estimation inventée |
+
+**Actes Morris/Pilote ce cycle :** aucun (login non effectué ; aucune HumanDecision).
+
+---
+
+## 6. Scénario First Framing — exécution
+
+| Étape | Status |
+|-------|--------|
+| 1 Chargement Workspace | **BLOQUÉ** — NO_SESSION |
+| 2 Conversation Nora REAL | **NON EXÉCUTÉ** |
+| 3 REC CURRENT persistée | **PRÉEXISTANTE** en DB (tour antérieur) — **non rejouée** |
+| 4–17 Cartes / HD / START / LPS / reload / reprise | **NON EXÉCUTÉ** |
+| Scénario négatif | **NON EXÉCUTÉ** |
+| Correction locale | **N/A** — aucun défaut parcours reproduit sous observation contrôlée |
+| Revalidation REAL | **N/A** |
+
+### Runs
+
+| RunId | Phase | Result |
+|-------|-------|--------|
+| `p6-ff-real-preflight-20261009T2308CEST` | Préflight + auth gate + Figma baselines | **STOP — ENVELOPE** |
+
+---
+
+## 7. Preuves capturées
+
+Base : `.tmp-sfia-review/p6-first-framing-real-preflight/`
+
+| Asset | Rôle |
+|-------|------|
+| `evidence-manifest.json` | Manifeste run |
+| `figma/figma-378-2-recommendation.png` | Baseline Figma 378:2 (1440×1024) |
+| `figma/figma-380-2-decision.png` | Baseline Figma 380:2 (1440×1024) |
+| `figma/figma-380-381-mobile.png` | Baseline Figma 380:381 (390×844) |
+| `runtime/login-no-session-desktop.png` | Runtime REAL — auth gate |
+
+### Comparaison Figma / runtime
+
+| Aspect | Result |
+|--------|--------|
+| Dimensions Figma confirmées via MCP | **OUI** (378:2, 380:2, 380:381) |
+| Runtime Workspace / cartes First Framing | **NON COMPARABLE** — session absente |
+| Visual PASS | **NON DÉCLARÉ** |
+| R5 UI Figma/runtime | reste **OPEN** |
+
+---
+
+## 8. Défauts / corrections
+
+| ID | Observation | Sévérité | Correction |
+|----|-------------|----------|------------|
+| — | Aucun défaut First Framing UI/parcours reproduit sous enveloppe qualifiée | — | **NO PRODUCT CODE CHANGE** |
+
+Incidents préflight (non « bugs produit ») :
+1. Budget restant non observable.
+2. Session Pilot absente.
+3. Runtime démarré 07:51 vs candidate CC soir — fidélité code non prouvée.
+4. Flag Cursor REAL =1 (non touché) — risque frontière agent si parcours lancé sans garde.
+
+---
+
+## 9. Tests déterministes
+
+| Suite | Result |
+|-------|--------|
+| Rejouée ce cycle | **NON** — STOP avant REAL ; pas de correction code |
+| Déclaration handoff CC antérieur | 9 files / **94 PASS** (déterministe) — **non re-run** ici |
+| Typecheck | **NON** (pas de changement code) |
+
+---
+
+## 10. Fake / Real Qualification
+
+| Item | Value |
+|------|-------|
+| Applicable | **OUI** |
+| Fake/mock/fixture utilisés pour claim REAL | **NON** (aucun claim parcours REAL) |
+| Frontières REAL observées | Navigateur REAL · Studio HTTP · Product DB read · Figma MCP read |
+| Frontières REAL **non** exercées | Nora provider call · HumanDecision Pilot · Trajectory/Cycle/START mutations · LPS post-START · UI cards Workspace |
+| Niveau entrée | FRONT-DOOR CADRAGE DETERMINISTIC E2E PROVEN · PERSISTENT CONTINUITY DETERMINISTIC PROVEN (handoff CC) |
+| Niveau visé | REAL HUMAN QA BOUNDED — FIRST FRAMING |
+| Niveau atteint ce cycle | **PREFLIGHT ONLY — ENVELOPE NOT QUALIFIED** |
+| END-TO-END REAL PROVEN | **NON** |
+| REAL-BOUNDARY PROVEN | **partiel** — auth gate + runtime reachability seulement |
+| P6 PASS / runtime v3 ADOPTED | **HORS SCOPE / NON** |
+| REC-01 | reste **OPEN** (pas de preuve REAL de clôture ce cycle) |
+
+### Realism gaps (déclarés)
+
+1. Budget remaining NOT OBSERVED.
+2. Pilot session / HumanDecision absentes.
+3. Aucun appel Nora provider observé ce cycle.
+4. Runtime revision ≠ preuve candidate CC.
+5. Currentness REC non revalidée runtime.
+6. Aucune capture Workspace / cartes / START / reload.
+7. `SFIA_STUDIO_CURSOR_REAL=1` non désactivable dans ce GO.
+
+---
+
+## 11. REC-01 / START
+
+| Item | State |
+|------|-------|
+| REC-01 REAL CURRENT OPEN | **INCHANGÉ** — OPEN |
+| START First Framing REAL | **NON EXÉCUTÉ** |
+| Claim CLOSED | **INTERDIT / NON** |
+
+---
+
+## 12. Décisions Morris requises
+
+1. **Confirmer / fournir la consommation restante** sous enveloppe ≤ €10 (ou accepter contrôle opérationnel explicite malgré `hardCapEnforced=false`) — sans inventaire restant, aucun appel Nora REAL.
+2. **Login Pilot** (GitHub autorisé) sur `http://localhost:3020` pour ouvrir le Workspace.
+3. **Décider** si le runtime :3020 doit être redémarré proprement sur la candidate locale (CC) **sans** modifier `SFIA_STUDIO_CURSOR_REAL`, avant rejeu.
+4. **Confirmer** le projet `prj:60d7003d-…` comme instance Human QA First Framing (état : REC Cadrage, sans HD/Cycle/Trajectory).
+5. Après enveloppe OK : effectuer lui-même la **HumanDecision** de trajectoire (aucune simulation agent).
+6. Gate Git Integration : **distinct — NON AUTORISÉ** ce cycle.
+7. Ne pas ouvrir P7 / ne pas merger / ne pas promouvoir routing.
+
+---
+
+## 13. Review Handoff Git
+
+- decision : **required**
+- mode : **publish-in-cycle**
+- push : **oui — L3 borné**
+- source : `.tmp-sfia-review/chatgpt-review.md`
+- branch : `sfia/review-handoff`
+- file : `sfia-review-handoff/latest-chatgpt-review.md`
+- worktree : `/Users/morris/Projects/sfia-workspace/sfia-review-handoff`
+- remote before : `4bde7efce9b7a9cb6e902a754a572d583ebc7be6`
+- remote after : *(renseigné après publication)*
+- retour branche projet : *(après publication)*
+
+---
+
+## 14. Verdict
+
+# STOP — REAL OPERATING ENVELOPE NOT QUALIFIED
+
+**Pas** de FIRST FRAMING REAL HUMAN QA PASS.
+**Pas** de WAITING HUMAN QA comme substitut d’enveloppe (le Pilote est aussi requis, mais le stop budget/env prime).
+**Pas** de P6 GLOBAL PASS.
+**Pas** de READY FOR MERGE.
+**Pas** de E2E REAL PROVEN.
+**NO PRODUCT CODE CHANGE.**
+
+### Prochain gate Morris
+Revue Critical de ce préflight STOP + levée des conditions d’enveloppe (budget restant observable, session Pilot, runtime candidate) **avant** tout appel Nora REAL / parcours First Framing.
+
+### Capacité suivante
+Reprise REAL-FIRST First Framing **sous enveloppe qualifiée** — même chantier P6 — sans second moteur / cockpit / harness Product.
+
+### Fin de cycle
+Aucun second cycle automatique. Aucun P7. Attendre revue ChatGPT du handoff.
