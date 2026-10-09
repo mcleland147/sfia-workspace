@@ -4,13 +4,15 @@
 **Cycle type:** 8 — Delivery / implémentation
 **Typologie v2.4:** INC / EVOL — correction Product bornée
 **Profile:** CRITICAL
-**Timestamp (UTC):** 2026-10-09T17:06:08Z
+**Timestamp (UTC):** 2026-10-09T17:12:23Z
+**Pack note:** REPUBLISH — FULL test diff restored (ChatGPT blocking reserve: incomplete §7). Product diffs unchanged.
 **GO:** GO DELIVERY — OPTION 1 MINIMALE — AUTHORIZED / **CONSUMED**
 **GO Git Integration / push / PR / merge projet:** NOT AUTHORIZED
 **GO schema / validator / F01:** NOT AUTHORIZED
 **GO REAL supplémentaire:** NOT AUTHORIZED
 **Verdict:** MINIMAL DELIVERY IMPLEMENTED — DETERMINISTIC VALIDATION PASS — READY FOR CHATGPT CRITICAL REVIEW
 **Statut:** LOCAL PRODUCT CANDIDATE (not READY FOR MERGE)
+**Prior incomplete handoff:** `e8909f5a6ee2a19f5b5587a7879a5286dceb1527` (superseded by this republish)
 
 ---
 
@@ -134,20 +136,89 @@ Added section `=== QUALIFICATION SIGNALS (D-GF-START-01 …) ===` inside existin
 
 ---
 
-## 7. Diff — `qualToGovernedCycle.presentation.d0.test.ts`
+## 7. Diff — `qualToGovernedCycle.presentation.d0.test.ts` (COMPLETE)
 
 New test: `P6-HQA-REC-01 — prompt contracts six qualificationSignals for prepareable NEXT_CYCLE`
 
 Covers T1–T7 (keys present; NEXT_CYCLE never-null object; no invention; incomplete → no artificial durable NEXT_CYCLE; cycle-owned unknowns; governance; FINALIZE null + CURRENT continuity).
 
+Full `git diff` from working tree vs HEAD `db45e9c4` (exploitable independently — no worktree dependency):
+
 ```diff
+diff --git a/projects/sfia-studio/app/__tests__/project-assistant/qualToGovernedCycle.presentation.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/qualToGovernedCycle.presentation.d0.test.ts
+index dcc35203..64caa7d9 100644
+--- a/projects/sfia-studio/app/__tests__/project-assistant/qualToGovernedCycle.presentation.d0.test.ts
++++ b/projects/sfia-studio/app/__tests__/project-assistant/qualToGovernedCycle.presentation.d0.test.ts
+@@ -80,6 +80,68 @@ describe("qual-to-governed-cycle — prompt + presentation contracts", () => {
+     expect(prompt).toMatch(/ne peux pas l'enregistrer dans Studio/);
+   });
+
 +  it("P6-HQA-REC-01 — prompt contracts six qualificationSignals for prepareable NEXT_CYCLE", () => {
 +    const prompt = buildProjectSystemPrompt(baseProject);
-+    // T1…T7 assertions (six keys, CAS A/B/C/D, governance)
++
++    // T1 — six signal keys exposed
++    for (const key of [
++      "structuralChange",
++      "securityImpact",
++      "architectureImpact",
++      "dataImpact",
++      "irreversible",
++      "lowRiskBounded",
++    ] as const) {
++      expect(prompt).toContain(key);
++    }
++
++    // T2 — prepareable NEXT_CYCLE requires complete object (never null)
++    expect(prompt).toMatch(/QUALIFICATION SIGNALS \(D-GF-START-01/);
++    expect(prompt).toMatch(
++      /NEXT_CYCLE préparable[\s\S]*qualificationSignals DOIT être l'objet complet des six booléens \(jamais null\)/,
++    );
++
++    // T3 — no invention / no Light-by-default / no artificial Critical neutralization
++    expect(prompt).toMatch(/Ne invente PAS de valeurs/);
++    expect(prompt).toMatch(
++      /Ne choisis PAS Light \/ lowRiskBounded=true par défaut/,
++    );
++    expect(prompt).toMatch(/Ne neutralise PAS Critical artificiellement/);
++
++    // T4 — incomplete qualification must not become artificially durable NEXT_CYCLE
++    expect(prompt).toMatch(
++      /Ne produis PAS un NEXT_CYCLE présenté comme durablement matérialisable sans les six signaux/,
++    );
++    expect(prompt).toMatch(
++      /signaux non qualifiables[\s\S]*lifecycleRecommendation = null/,
++    );
++
++    // T5 — cycle-owned unknowns (e.g. exploratory Framing) ≠ extra pre-cycle questionnaire
++    //     and ≠ omitting the six signals
++    expect(prompt).toMatch(
++      /inconnues qui appartiennent normalement au cycle[\s\S]*NE justifient PAS[\s\S]*questionnaire pré-cycle artificiel/,
++    );
++    expect(prompt).toMatch(
++      /qualification explicite des signaux N'EXIGE PAS que le Cadrage soit déjà réalisé/,
++    );
++
++    // T6 — governance: Recommendation ≠ HD / prepare / START / execution
++    expect(prompt).toMatch(
++      /Recommendation ≠ HumanDecision ≠ préparation de trajectoire ≠ START ≠ exécution/,
++    );
++    expect(prompt).toMatch(
++      /ne crée pas de CycleInstance \/ HD \/ START/,
++    );
++
++    // T7 — FINALIZE may null signals; CURRENT continuity preserved
++    expect(prompt).toMatch(
++      /FINALIZE_CURRENT_CYCLE : qualificationSignals peut être null/,
++    );
++    expect(prompt).toMatch(
++      /Recommendation CURRENT applicable : ne pas réémettre uniquement pour un nouveau message/,
++    );
 +  });
++
+   it("intent analysis treats lifecycle formalization as informative effect", () => {
+     expect(ANALYSIS_SYSTEM).toMatch(/Formalise maintenant dans Studio/);
+     expect(ANALYSIS_SYSTEM).toMatch(
 ```
-
-(Full +62 lines in working tree; see `git diff` on project branch.)
 
 ---
 
