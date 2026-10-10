@@ -55,7 +55,7 @@ Allowlist Product = **19** chemins exacts. Hors allowlist préservés :
 | Fichiers intégrés | **19** (7 A + 12 M) |
 | Draft PR | **#574** — https://github.com/mcleland147/sfia-workspace/pull/574 |
 | `isDraft` | **true** |
-| CI | **CI_PENDING** au moment du pack (voir §6) |
+| CI | **FAIL** — Unit tests digest conformance (voir §6 + §13) |
 | C14 | **hors commit** — modification locale préservée |
 | Merge / Ready | **NON effectués** |
 
@@ -170,9 +170,12 @@ Harness **non modifiés** (instruction : ne pas « corriger » pour faire passer
 - URL : https://github.com/mcleland147/sfia-workspace/pull/574
 - Titre : `fix(studio): complete chat-first framing continuity and UX`
 - Base : `main` · Head : branche P6 · Draft : **oui**
-- CI au moment de publication du pack : **CI_PENDING**
-  - Check observé : `Detect SFIA Studio changes` = pending
-  - Run : https://github.com/mcleland147/sfia-workspace/actions/runs/38033467270/job/114158995284
+- CI finale observée : **FAIL**
+  - `Detect SFIA Studio changes` = **PASS** (8s)
+  - `Build and validate SFIA Studio` = **FAIL** (8m8s)
+  - `SFIA Studio Required Gate` = **FAIL**
+  - Run : https://github.com/mcleland147/sfia-workspace/actions/runs/38033467270
+  - Job build : https://github.com/mcleland147/sfia-workspace/actions/runs/38033467270/job/114159023470
 - Conversion Ready : **NON**
 - Merge : **NON**
 
@@ -3633,13 +3636,70 @@ index dcc35203..64caa7d9 100644
 
 1. Visual Figma / runtime Pilot — hors scope Git Integration.
 2. M-DISP matérialité — présentation neutre seulement ; pas de moteur.
-3. CI : **PENDING** au moment du handoff — à relire avant Ready.
+3. CI : **FAIL** — PRR digest conformance (`a718e67e…` vs `d064b36d…`) ; Typecheck/Lint/Build PASS.
 4. Merge / Ready : **GO Morris distinct requis**.
 5. Typecheck workspace bruité par harness REAL exclus — non bloquant Product.
 
 ## 12. Verdict
 
-# DRAFT PR CREATED — PENDING CRITICAL PR REVIEW
+# DRAFT PR OPEN — CI BLOCKED / REVIEW REQUIRED
 
 Gate suivant : ChatGPT Critical PR Review + CI Review.
 Puis GO Morris distinct pour merge. Aucun post-merge initié.
+
+---
+
+## 13. CI FINAL — EVIDENCE (2026-10-10 09:19:23 CEST)
+
+### Checks
+
+| Check | Status |
+|-------|--------|
+| Detect SFIA Studio changes | **PASS** |
+| Build and validate SFIA Studio | **FAIL** |
+| SFIA Studio Required Gate | **FAIL** |
+
+### Steps Build job (preuves)
+
+| Step | Status |
+|------|--------|
+| Install dependencies | PASS |
+| Typecheck | **PASS** |
+| Lint | **PASS** |
+| Build | **PASS** |
+| Unit tests (Vitest) | **FAIL** |
+| Secret / whitespace / governance | skipped (after fail) |
+
+### Vitest summary CI
+
+`Test Files  1 failed | 501 passed | 22 skipped (524)`
+
+### Unique failure
+
+```
+FAIL __tests__/architecture/productionRuntimeReference.conformance.d0.test.ts
+  > Living Production Runtime Reference conformance
+  > tracked source/test/volume digests match current tree
+
+AssertionError: expected 'a718e67e59895d23' to be 'd064b36ddc2f21cd'
+  at productionRuntimeReference.conformance.d0.test.ts:100
+```
+
+### Qualification
+
+- Cause : digests `sha256_16` du manifest Living Production Runtime Reference
+  (`projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json`)
+  ne correspondent plus aux sources Product modifiées/ajoutées par le commit `6a4374ed`.
+- Nature : **mécanique / référentiel** — le test lui-même indique
+  `digestMismatchMeans = REFERENCE REVIEW REQUIRED` et
+  `refreshDigestDoesNotValidateSemantics = true`.
+- Hors allowlist Product initiale (19 fichiers) — **non corrigé silencieusement**
+  dans ce cycle (instruction GO : pas de fix CI hors périmètre sans qualification).
+- Typecheck/Lint/Build CI Product : **PASS** — échec limité au digest conformance.
+- Product Framing/UX/F01 suites locales : **PASS** (inchangé).
+
+### Action requise (gate Morris)
+
+Arbitrage pour un commit de suivi **mécanique** de refresh digests PRR
+(hors merge / hors Ready), ou revue référence explicite.
+Aucun merge / Ready initié.
