@@ -514,3 +514,273 @@ export async function startPreparedTrajectoryCycleAction(input: {
     lpsVersionAfter: result.lpsVersionAfter,
   };
 }
+
+/**
+ * P6 chat-first Framing — read-only continuity snapshot for ConversationSurface.
+ * Reuses prepare/read/approval/start readers. Never invents CURRENT or digests.
+ */
+export async function projectAssistantReadFramingContinuityAction(input: {
+  projectId: string;
+}): Promise<{
+  ok: boolean;
+  code?: string;
+  message?: string;
+  continuity?: import("./f2/chatFirstFramingContinuity").FramingContinuitySnapshot;
+}> {
+  const {
+    buildFramingTrajectoryExamination,
+    classifyFramingContinuityPhase,
+    framingContinuityPilotMessage,
+  } = await import("./f2/chatFirstFramingContinuity");
+
+  const pre = await projectAssistantReadPreCycleCandidateTrajectoryAction({
+    projectId: input.projectId,
+  });
+  if (!pre.ok) {
+    return { ok: false, code: pre.code, message: pre.message };
+  }
+
+  const approval =
+    await projectAssistantReadCandidateTrajectoryApprovalPresentationAction({
+      projectId: input.projectId,
+    });
+
+  const prepared = await readPreparedTrajectoryCycleAction({
+    projectId: input.projectId,
+  });
+
+  const hasCurrent = pre.hasCurrentNextCycleRecommendation === true;
+  const candidate = pre.candidate ?? null;
+  const presentation =
+    approval.ok && approval.presentation ? approval.presentation : null;
+  const alreadyDecided =
+    approval.ok && approval.alreadyDecided ? approval.alreadyDecided : null;
+  const preparedCycle =
+    prepared.ok && prepared.prepared ? prepared.prepared : null;
+
+  const phase = classifyFramingContinuityPhase({
+    activeCycleInstanceId: pre.activeCycleInstanceId,
+    hasCurrentNextCycleRecommendation: hasCurrent,
+    candidatePresent: candidate != null,
+    candidateProvenanceResolved: candidate?.provenanceStatus === "RESOLVED",
+    awaitingDecisionPresentation: presentation != null,
+    decidedTrajectoryPresent:
+      alreadyDecided != null &&
+      alreadyDecided.prepareBlockedReason !== "cycle_type_already_completed",
+    preparedCompletePresent: preparedCycle != null,
+  });
+
+  const catalogLabel =
+    presentation?.catalogLabel ??
+    alreadyDecided?.catalogLabel ??
+    preparedCycle?.catalogLabel ??
+    candidate?.catalogLabel ??
+    null;
+  const targetCycleTypeId =
+    presentation?.targetCycleTypeId ??
+    alreadyDecided?.targetCycleTypeId ??
+    preparedCycle?.cycleTypeId ??
+    candidate?.targetCycleTypeId ??
+    null;
+
+  // FIX-01 — LPS project objective is context only; load Recommendation statement
+  // as trajectory-linked substance when Product provides it. Never invent text.
+  let lpsObjective: string | null = null;
+  let recommendationStatement: string | null = null;
+  const runtime = getRuntimeApplicationService();
+  const recommendationIdForExam =
+    presentation?.recommendationId ?? candidate?.recommendationId ?? null;
+  if (runtime.oa) {
+    const lps = await runtime.oa.projectServices.getCurrentLivingProjectState.execute(
+      { projectId: input.projectId },
+    );
+    if (lps.ok) {
+      lpsObjective = (lps.livingProjectState.objective ?? "").trim() || null;
+    }
+    if (recommendationIdForExam) {
+      try {
+        const items = await runtime.oa.cycleServices.epistemic.listByProject(
+          input.projectId,
+        );
+        const hit = items.find(
+          (i) => i.epistemicItemId === recommendationIdForExam,
+        );
+        recommendationStatement = (hit?.statement ?? "").trim() || null;
+      } catch {
+        recommendationStatement = null;
+      }
+    }
+  }
+
+  const examination =
+    phase === "awaiting_trajectory_decision"
+      ? buildFramingTrajectoryExamination({
+          projectObjective: lpsObjective,
+          catalogLabel,
+          steps: presentation?.steps ?? candidate?.steps ?? null,
+          presentationDigest: presentation?.presentationDigest ?? null,
+          approvalOptionLabel: presentation?.approvalOptionLabel ?? null,
+          recommendationStatement,
+        })
+      : null;
+
+  return {
+    ok: true,
+    continuity: {
+      phase,
+      catalogLabel,
+      targetCycleTypeId,
+      recommendationId:
+        presentation?.recommendationId ?? candidate?.recommendationId ?? null,
+      semanticKey: presentation?.semanticKey ?? candidate?.semanticKey ?? null,
+      trajectoryId:
+        presentation?.trajectoryId ??
+        alreadyDecided?.trajectoryId ??
+        preparedCycle?.trajectoryId ??
+        candidate?.trajectoryId ??
+        null,
+      trajectoryVersion:
+        presentation?.displayCandidateVersionHint ??
+        alreadyDecided?.version ??
+        preparedCycle?.trajectoryVersion ??
+        candidate?.version ??
+        null,
+      presentationDigest: presentation?.presentationDigest ?? null,
+      approvalOptionLabel: presentation?.approvalOptionLabel ?? null,
+      preparedCycleInstanceId: preparedCycle?.cycleInstanceId ?? null,
+      activeCycleInstanceId: pre.activeCycleInstanceId ?? null,
+      hasCurrentNextCycleRecommendation: hasCurrent,
+      message: framingContinuityPilotMessage(phase, catalogLabel),
+      examination,
+    },
+  };
+}
+
+/**
+ * One deterministic advancement step for chat-first Framing continuity.
+ * - prepare candidate from CURRENT Rec (no HD)
+ * - prepare cycle from decided trajectory (no HD)
+ * - start prepared cycle (Pilote authority via existing START facade)
+ * Never auto-approves HumanDecision.
+ */
+export async function projectAssistantAdvanceFramingContinuityAction(input: {
+  projectId: string;
+  /**
+   * Explicit step. Client must not invent digests.
+   * approve requires presentationDigest from server presentation.
+   */
+  step:
+    | "prepare_candidate"
+    | "approve_candidate"
+    | "prepare_cycle"
+    | "start_prepared";
+  presentationDigest?: string;
+}): Promise<{
+  ok: boolean;
+  code?: string;
+  message?: string;
+  continuity?: import("./f2/chatFirstFramingContinuity").FramingContinuitySnapshot;
+  decisionId?: string;
+  cycleInstanceId?: string;
+  activeCycleInstanceId?: string | null;
+}> {
+  if (input.step === "prepare_candidate") {
+    const prepared = await projectAssistantPrepareCandidateTrajectoryAction({
+      projectId: input.projectId,
+    });
+    if (!prepared.ok) {
+      return {
+        ok: false,
+        code: prepared.code,
+        message: prepared.message ?? "Préparation de trajectoire refusée.",
+      };
+    }
+  } else if (input.step === "approve_candidate") {
+    const digest = (input.presentationDigest ?? "").trim();
+    if (!digest) {
+      return {
+        ok: false,
+        code: "PRESENTATION_DIGEST_REQUIRED",
+        message:
+          "Digest d'approbation manquant — aucune HumanDecision n'a été inventée.",
+      };
+    }
+    const approved =
+      await projectAssistantApprovePreCycleCandidateTrajectoryAction({
+        projectId: input.projectId,
+        presentationDigest: digest,
+      });
+    if (!approved.ok) {
+      return {
+        ok: false,
+        code: approved.code,
+        message: approved.message ?? "Décision de trajectoire refusée.",
+      };
+    }
+    // Deterministic follow-up: prepare cycle when trajectory is decided.
+    const cyclePrep = await prepareCycleFromValidatedTrajectoryAction({
+      projectId: input.projectId,
+    });
+    if (!cyclePrep.ok) {
+      const snap = await projectAssistantReadFramingContinuityAction({
+        projectId: input.projectId,
+      });
+      return {
+        ok: true,
+        code: "DECISION_RECORDED_PREPARE_PENDING",
+        message:
+          cyclePrep.message ??
+          "Décision enregistrée — préparation du cycle encore requise.",
+        continuity: snap.ok ? snap.continuity : undefined,
+        decisionId: approved.decisionId,
+      };
+    }
+  } else if (input.step === "prepare_cycle") {
+    const cyclePrep = await prepareCycleFromValidatedTrajectoryAction({
+      projectId: input.projectId,
+    });
+    if (!cyclePrep.ok) {
+      return {
+        ok: false,
+        code: cyclePrep.code,
+        message: cyclePrep.message ?? "Préparation du cycle refusée.",
+      };
+    }
+  } else if (input.step === "start_prepared") {
+    const started = await startPreparedTrajectoryCycleAction({
+      projectId: input.projectId,
+    });
+    if (!started.ok) {
+      return {
+        ok: false,
+        code: started.code,
+        message: started.message ?? "Démarrage refusé.",
+      };
+    }
+    const snap = await projectAssistantReadFramingContinuityAction({
+      projectId: input.projectId,
+    });
+    return {
+      ok: true,
+      continuity: snap.ok ? snap.continuity : undefined,
+      cycleInstanceId: started.cycleInstanceId,
+      activeCycleInstanceId: started.activeCycleInstanceId ?? null,
+      message:
+        started.catalogLabel != null
+          ? `Cycle « ${started.catalogLabel} » démarré.`
+          : "Cycle démarré.",
+    };
+  } else {
+    return { ok: false, code: "UNKNOWN_STEP", message: "Étape inconnue." };
+  }
+
+  const snap = await projectAssistantReadFramingContinuityAction({
+    projectId: input.projectId,
+  });
+  return {
+    ok: true,
+    continuity: snap.ok ? snap.continuity : undefined,
+    message: snap.continuity?.message,
+    activeCycleInstanceId: snap.continuity?.activeCycleInstanceId ?? null,
+  };
+}

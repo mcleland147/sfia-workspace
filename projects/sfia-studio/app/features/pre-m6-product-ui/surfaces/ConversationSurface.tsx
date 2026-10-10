@@ -35,6 +35,7 @@ import {
   GovernedDecisionCard,
   presentGovernedDecisionNoraPreface,
 } from "./GovernedDecisionCard";
+import { FramingContinuityCard } from "./FramingContinuityCard";
 import { GovernedConfirmationCard } from "./GovernedConfirmationCard";
 import styles from "./ConversationSurface.module.css";
 
@@ -137,6 +138,12 @@ export type ConversationSurfaceProps = {
    * (same durable cards as Journal › Recommandations). Presentation only.
    */
   workRecommendations?: readonly WorkRecommendationProjectionCard[];
+  /**
+   * UX-02 — secondary only. Prefills a neutral discuss draft.
+   * Must NOT be wired to the primary « Ouvrir » control.
+   */
+  onDiscussRecommendation?: (recommendationId: string) => void;
+  /** @deprecated Prefer onDiscussRecommendation — kept for call-site compat. */
   onResumeRecommendation?: (recommendationId: string) => void;
 };
 
@@ -167,8 +174,11 @@ export function ConversationSurface({
   latestSynthesis = null,
   onOpenSynthesis,
   workRecommendations = [],
+  onDiscussRecommendation,
   onResumeRecommendation,
 }: ConversationSurfaceProps) {
+  const discussRecommendation =
+    onDiscussRecommendation ?? onResumeRecommendation;
   const fieldId = useId();
   const liveRegionId = useId();
   const composerInputRef = useRef<HTMLTextAreaElement | null>(null);
@@ -178,6 +188,10 @@ export function ConversationSurface({
   const [proposalOpen, setProposalOpen] = useState(exposeLegacyAuthorityPath);
   const [synthesisOpen, setSynthesisOpen] = useState(false);
   const [executionContractOpen, setExecutionContractOpen] = useState(false);
+  /** UX-02 — durable Work Recommendation inline details (Ouvrir ≠ composer). */
+  const [durableWorkRecOpenId, setDurableWorkRecOpenId] = useState<
+    string | null
+  >(null);
   const {
     listRef,
     messages,
@@ -201,6 +215,13 @@ export function ConversationSurface({
     revealGovernedDecisionAlternate,
     inspectGovernedContract,
     confirmGovernedContract,
+    framingContinuity,
+    framingContinuityBusy,
+    framingContinuityError,
+    prepareFramingCandidate,
+    approveFramingCandidate,
+    prepareFramingCycle,
+    startFramingPrepared,
     reservesText,
     setReservesText,
     f3Prepare,
@@ -833,6 +854,34 @@ export function ConversationSurface({
             avec Nora — aucune proposition n&apos;est inventée.
           </p>
         </aside>
+      ) : null}
+      {framingContinuity &&
+      framingContinuity.phase !== "idle" &&
+      framingContinuity.phase !== "active" &&
+      framingContinuity.phase !== "blocked_no_recommendation" &&
+      framingContinuity.phase !== "blocked_stale_or_incomplete" ? (
+        <div
+          className={styles.governedMomentSlot}
+          data-testid="framing-continuity-slot"
+        >
+          <p className={styles.noraMomentLabel}>Nora</p>
+          <p className={styles.noraMomentBody}>
+            {framingContinuity.message ||
+              "Poursuivez dans la conversation pour préparer le prochain cycle."}
+          </p>
+          <FramingContinuityCard
+            continuity={framingContinuity}
+            busy={framingContinuityBusy}
+            error={framingContinuityError}
+            onPrepareCandidate={prepareFramingCandidate}
+            onApproveCandidate={approveFramingCandidate}
+            onPrepareCycle={prepareFramingCycle}
+            onStartPrepared={startFramingPrepared}
+            onKeepExploring={() => {
+              composerInputRef.current?.focus();
+            }}
+          />
+        </div>
       ) : null}
       {boundAwaitingDecision ? (
         <div
@@ -1733,11 +1782,14 @@ export function ConversationSurface({
                     card.status === "active" && !card.dispositionDecisionId,
                 )
                 .slice(0, 1)
-                .map((card) => (
+                .map((card) => {
+                  const open = durableWorkRecOpenId === card.epistemicItemId;
+                  return (
                   <div
                     key={card.epistemicItemId}
                     className={styles.subCardGold}
                     data-testid="durable-recommendation-card"
+                    data-expanded={open ? "true" : "false"}
                   >
                     <div className={styles.p3CardHead}>
                       <div className={styles.p3CardBody}>
@@ -1753,27 +1805,72 @@ export function ConversationSurface({
                         </p>
                       </div>
                       <div className={styles.p3CardRight}>
-                        <span className={styles.p3CardStatusWarn}>
+                        <span
+                          className={styles.p3CardStatusWarn}
+                          data-testid="durable-recommendation-status"
+                        >
+                          {/* UX-03 — P2-D-01: Recommendation ≠ HumanDecision */}
                           {card.dispositionDecisionId
-                            ? "Décidée"
-                            : "En attente de décision"}
+                            ? "Dispositionnée"
+                            : "À examiner"}
                         </span>
-                        {onResumeRecommendation ? (
+                        <button
+                          type="button"
+                          className={styles.p3CardLink}
+                          data-testid="conversation-open-recommendation"
+                          aria-expanded={open}
+                          onClick={() =>
+                            setDurableWorkRecOpenId((cur) =>
+                              cur === card.epistemicItemId
+                                ? null
+                                : card.epistemicItemId,
+                            )
+                          }
+                        >
+                          {open ? "Fermer" : "Ouvrir →"}
+                        </button>
+                      </div>
+                    </div>
+                    {open ? (
+                      <div
+                        className={styles.ui05ObjectDetails}
+                        data-testid="durable-recommendation-details"
+                      >
+                        <dl className={styles.facts}>
+                          <div className={styles.factWide}>
+                            <dt>Proposition</dt>
+                            <dd>{card.statement}</dd>
+                          </div>
+                          <div className={styles.factWide}>
+                            <dt>Statut</dt>
+                            <dd data-testid="durable-recommendation-materiality">
+                              {/* FIX-03 / P2-D-01 — Recommendation ≠ Decision;
+                                  do not presume operational vs structural materiality. */}
+                              Une recommandation n&apos;est pas automatiquement
+                              une décision. Vous pouvez l&apos;examiner, en
+                              discuter, ou la laisser en suspens. Une décision
+                              structurelle reste requise seulement lorsque le
+                              sujet l&apos;exige vraiment.
+                            </dd>
+                          </div>
+                        </dl>
+                        {discussRecommendation ? (
                           <button
                             type="button"
                             className={styles.p3CardLink}
-                            data-testid="conversation-resume-recommendation"
+                            data-testid="conversation-discuss-recommendation"
                             onClick={() =>
-                              onResumeRecommendation(card.epistemicItemId)
+                              discussRecommendation(card.epistemicItemId)
                             }
                           >
-                            Ouvrir →
+                            En discuter avec Nora
                           </button>
                         ) : null}
                       </div>
-                    </div>
+                    ) : null}
                   </div>
-                ))
+                  );
+                })
             : durableEvidenceOutcome ? (
                 <div
                   className={styles.subCardGold}
@@ -1797,7 +1894,7 @@ export function ConversationSurface({
                     </div>
                     <div className={styles.p3CardRight}>
                       <span className={styles.p3CardStatusWarn}>
-                        En attente de décision
+                        À examiner
                       </span>
                     </div>
                   </div>

@@ -623,7 +623,7 @@ export function JournalSurface({
                           onResumeRecommendationInChat(card.epistemicItemId)
                         }
                       >
-                        Reprendre dans le chat
+                        En discuter avec Nora
                       </button>
                     </div>
                   ) : null}

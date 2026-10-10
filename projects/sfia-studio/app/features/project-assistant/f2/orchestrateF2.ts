@@ -84,6 +84,7 @@ import {
   resolveChatFirstCycleStartGate,
   resolveChatFirstStartRouting,
 } from "./resolveChatFirstCycleStartGate";
+import { interpretPilotNarrativeStance } from "./composeF2PilotFacingNarrative";
 import { resolveTrajectoryDecisionSupportProjection } from "../w2/resolveTrajectoryDecisionSupportProjection";
 import {
   parseReservationInteractionContextInput,
@@ -1477,7 +1478,8 @@ export async function orchestrateAssistantSend(input: {
           text: [
             presentation === "test_provider" ? "[Mode test]" : "[Mode réel]",
             "Aucun sujet de travail ouvert à reporter — précisez de quoi vous parlez.",
-            "Les transitions de cycle (démarrer / finaliser) se pilotent via les actions Studio du panneau d'état.",
+            // UX-06 — prefer conversational next action when chat-first path exists.
+            "Pour démarrer ou finaliser un cycle, utilisez la carte proposée dans la conversation lorsqu'elle est disponible.",
           ].join(" "),
           mode: modeResolution.mode as "fixture" | "live",
           presentation,
@@ -1490,6 +1492,228 @@ export async function orchestrateAssistantSend(input: {
       }
       // No eligible Work subject: ordinary orchestration. Lifecycle CURRENT
       // never receives START/FINALIZE from this conversational path.
+    }
+  }
+
+  // P6 chat-first Framing continuity — Rec→prepare without inventing HD.
+  // CP-01: when a unique COMPLETE prepared cycle is ready, accept_start must
+  // reach resolveChatFirstCycleStartGate HERE — transitionReadiness may still
+  // be false (missing candidateCycleTypeId / signals) and must not strand START.
+  {
+    const oaForFraming = getRuntimeApplicationService().oa;
+    if (oaForFraming) {
+      const {
+        projectAssistantReadFramingContinuityAction,
+        projectAssistantAdvanceFramingContinuityAction,
+      } = await import("../preCycleCandidateTrajectoryActions");
+      const snap = await projectAssistantReadFramingContinuityAction({
+        projectId: project.projectId,
+      });
+      if (snap.ok && snap.continuity) {
+        const phase = snap.continuity.phase;
+        const productCycleLabel =
+          snap.continuity.catalogLabel ??
+          (analysis.candidateCycleTypeId
+            ? getCycleTypeById(analysis.candidateCycleTypeId)?.label
+            : null) ??
+          analysis.candidateCycleTypeId ??
+          null;
+        const framingStance = interpretPilotNarrativeStance({
+          userContent: content,
+          cycleLabel: productCycleLabel,
+          pilotDecisionCandidate: analysis.pilotDecisionCandidate,
+        });
+        const startRoutingEarly = resolveChatFirstStartRouting({
+          userContent: content,
+          cycleLabel: productCycleLabel,
+          pilotDecisionCandidate: analysis.pilotDecisionCandidate,
+        });
+
+        // Already active + explicit START → honest no-op (do not strand on missing signals).
+        if (phase === "active" && startRoutingEarly.kind === "attempt_start") {
+          const cycle = productCycleLabel?.trim() || "Cadrage";
+          // FIX-02 — keep activeCycleInstanceId in Product/DTO only; never Pilot copy.
+          void snap.continuity.activeCycleInstanceId;
+          return await completeF2Turn({
+            userText: content,
+            sessionDbPath: input.sessionDbPath,
+            text: `Le cycle « ${cycle} » est déjà actif. Aucun second démarrage n'a été engagé.`,
+            mode: modeResolution.mode as "fixture" | "live",
+            presentation,
+            model,
+            project,
+            intentClass: analysis.intentClass,
+            reinstructionOfProposalId,
+            executionBlocked: true,
+            turnKind: "f1_informative",
+          });
+        }
+
+        // CP-01 — prepared cycle + explicit START → same F01 gate as formalization path.
+        if (
+          phase === "ready_to_start" &&
+          startRoutingEarly.kind === "attempt_start" &&
+          snap.continuity.targetCycleTypeId
+        ) {
+          await cutF2Effect(input.signal, "createCycle", input.beforeF2Effect);
+          const startGate = await resolveChatFirstCycleStartGate({
+            oa: oaForFraming,
+            projectId: project.projectId,
+            targetCycleTypeId: snap.continuity.targetCycleTypeId,
+            cycleLabel: productCycleLabel ?? "Cadrage",
+          });
+          const reloadedAfterGate = await loadProjectRuntimeForAssistant(
+            project.projectId,
+          );
+          if (reloadedAfterGate.ok) project = toContextDto(reloadedAfterGate);
+          if (startGate.kind === "started") {
+            if (!reloadedAfterGate.ok) {
+              project = {
+                ...project,
+                activeCycleInstanceId: startGate.activeCycleInstanceId,
+                ...(typeof startGate.lpsVersionAfter === "number"
+                  ? { lpsVersion: startGate.lpsVersionAfter }
+                  : {}),
+              };
+            }
+            return await completeF2Turn({
+              userText: content,
+              sessionDbPath: input.sessionDbPath,
+              text: startGate.message,
+              mode: modeResolution.mode as "fixture" | "live",
+              presentation,
+              model,
+              project,
+              intentClass: analysis.intentClass,
+              reinstructionOfProposalId,
+              executionBlocked: true,
+              turnKind: "f1_informative",
+            });
+          }
+          return await completeF2Turn({
+            userText: content,
+            sessionDbPath: input.sessionDbPath,
+            text: startGate.message,
+            mode: modeResolution.mode as "fixture" | "live",
+            presentation,
+            model,
+            project,
+            intentClass: analysis.intentClass,
+            reinstructionOfProposalId,
+            executionBlocked: true,
+            turnKind: "f2_clarification",
+          });
+        }
+
+        // Prepared but not an explicit START — never auto-start from recommendation accept.
+        if (
+          phase === "ready_to_start" &&
+          (framingStance.kind === "accept_recommendation" ||
+            startRoutingEarly.kind === "suppress_mint")
+        ) {
+          const cycle = productCycleLabel?.trim() || "Cadrage";
+          const text =
+            startRoutingEarly.kind === "suppress_mint"
+              ? startRoutingEarly.message
+              : `Le cycle « ${cycle} » est préparé. Pour le démarrer, indiquez explicitement que vous souhaitez démarrer — un simple accord sur la recommandation ne démarre rien.`;
+          return await completeF2Turn({
+            userText: content,
+            sessionDbPath: input.sessionDbPath,
+            text: [
+              presentation === "test_provider" ? "[Mode test]" : "[Mode réel]",
+              text,
+            ].join(" "),
+            mode: modeResolution.mode as "fixture" | "live",
+            presentation,
+            model,
+            project,
+            intentClass: analysis.intentClass,
+            reinstructionOfProposalId,
+            executionBlocked: true,
+            turnKind: "f2_clarification",
+          });
+        }
+
+        const wantsFramingProgress =
+          framingStance.kind === "accept_start" ||
+          framingStance.kind === "accept_recommendation";
+        if (wantsFramingProgress) {
+          if (phase === "recommendation_ready") {
+            const advanced = await projectAssistantAdvanceFramingContinuityAction(
+              {
+                projectId: project.projectId,
+                step: "prepare_candidate",
+              },
+            );
+            return await completeF2Turn({
+              userText: content,
+              sessionDbPath: input.sessionDbPath,
+              text: [
+                presentation === "test_provider" ? "[Mode test]" : "[Mode réel]",
+                advanced.ok
+                  ? (advanced.continuity?.message ??
+                    "Trajectoire proposée — validez-la dans la carte avant tout démarrage.")
+                  : (advanced.message ??
+                    "Préparation de trajectoire refusée — aucune décision inventée."),
+              ].join(" "),
+              mode: modeResolution.mode as "fixture" | "live",
+              presentation,
+              model,
+              project,
+              intentClass: analysis.intentClass,
+              reinstructionOfProposalId,
+              executionBlocked: true,
+              turnKind: "f2_clarification",
+            });
+          }
+          if (phase === "awaiting_trajectory_decision") {
+            return await completeF2Turn({
+              userText: content,
+              sessionDbPath: input.sessionDbPath,
+              text: [
+                presentation === "test_provider" ? "[Mode test]" : "[Mode réel]",
+                snap.continuity.message,
+                "Validez cette direction dans la carte — un simple « ok » ne suffit pas.",
+              ].join(" "),
+              mode: modeResolution.mode as "fixture" | "live",
+              presentation,
+              model,
+              project,
+              intentClass: analysis.intentClass,
+              reinstructionOfProposalId,
+              executionBlocked: true,
+              turnKind: "f2_clarification",
+            });
+          }
+          if (phase === "trajectory_decided_prepare_cycle") {
+            const advanced = await projectAssistantAdvanceFramingContinuityAction(
+              {
+                projectId: project.projectId,
+                step: "prepare_cycle",
+              },
+            );
+            return await completeF2Turn({
+              userText: content,
+              sessionDbPath: input.sessionDbPath,
+              text: [
+                presentation === "test_provider" ? "[Mode test]" : "[Mode réel]",
+                advanced.ok
+                  ? (advanced.continuity?.message ??
+                    "Cycle préparé — vous pouvez le démarrer dans la conversation.")
+                  : (advanced.message ?? "Préparation du cycle refusée."),
+              ].join(" "),
+              mode: modeResolution.mode as "fixture" | "live",
+              presentation,
+              model,
+              project,
+              intentClass: analysis.intentClass,
+              reinstructionOfProposalId,
+              executionBlocked: true,
+              turnKind: "f2_clarification",
+            });
+          }
+        }
+      }
     }
   }
 

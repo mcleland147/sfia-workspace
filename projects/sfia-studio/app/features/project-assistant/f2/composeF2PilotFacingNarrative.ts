@@ -826,6 +826,24 @@ export function composeF2PilotFacingNarrative(
     parts.push(input.mw5EscalatePiloteText!.trim());
   }
 
+  // UX-06 — contextual conversational next action (new messages only).
+  // Never point to a generic « action Studio » when the chat path exists.
+  if (
+    stance.kind === "neutral_propose" ||
+    stance.kind === "accept_recommendation" ||
+    stance.kind === "ambiguous"
+  ) {
+    if (input.morrisGateRequired || stance.kind === "accept_recommendation") {
+      parts.push(
+        "Prochaine étape : examinez la proposition dans la conversation, puis validez ou amendez explicitement si une décision est requise.",
+      );
+    } else if (stance.kind === "neutral_propose") {
+      parts.push(
+        "Prochaine étape : vous pouvez ouvrir la recommandation dans la conversation pour en discuter, sans en faire encore une décision.",
+      );
+    }
+  }
+
   return parts
     .map((p) => p.trim())
     .filter(Boolean)

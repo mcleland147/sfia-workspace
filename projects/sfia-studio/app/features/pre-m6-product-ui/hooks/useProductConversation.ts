@@ -47,6 +47,8 @@ import type {
   ActiveDecisionSubjectReadResult,
   CurrentGovernedExecutionContinuityResult,
 } from "@/features/project-assistant/w2/types";
+import type { FramingContinuitySnapshot } from "@/features/project-assistant/f2/chatFirstFramingContinuity";
+import { framingContinuityForConversationDisplay } from "@/features/project-assistant/f2/chatFirstFramingContinuity";
 
 export type ProductDecisionSubjectContinuity =
   | { readonly status: "pending" }
@@ -165,6 +167,13 @@ export function useProductConversation({
   const [governedMomentError, setGovernedMomentError] = useState<string | null>(
     null,
   );
+  /** P6 chat-first Framing continuity (Rec → traj decision → prepare → START). */
+  const [framingContinuity, setFramingContinuity] =
+    useState<FramingContinuitySnapshot | null>(null);
+  const [framingContinuityBusy, setFramingContinuityBusy] = useState(false);
+  const [framingContinuityError, setFramingContinuityError] = useState<
+    string | null
+  >(null);
   const [reservesText, setReservesText] = useState("");
   const [f3Prepare, setF3Prepare] = useState<F3PreparePayload | null>(null);
   const [f3M3Resolved, setF3M3Resolved] = useState<F3M3ResolvedPayload | null>(
@@ -221,6 +230,8 @@ export function useProductConversation({
 
   const listRef = useRef<HTMLDivElement | null>(null);
   const f3InFlightRef = useRef(false);
+  const projectIdRef = useRef(projectId);
+  projectIdRef.current = projectId;
   const onDurableFactsChangedRef = useRef(onDurableFactsChanged);
   const onDurableEvidenceOutcomeChangeRef = useRef(
     onDurableEvidenceOutcomeChange,
@@ -371,6 +382,122 @@ export function useProductConversation({
     };
   }, [projectId, durableRefreshSignal]);
 
+  // CC-01 — rehydrate Framing continuity from Product on mount / project change /
+  // durable refresh. Stale async responses for a prior projectId are ignored.
+  useEffect(() => {
+    let cancelled = false;
+    const requestProjectId = projectId;
+    setFramingContinuity(null);
+    setFramingContinuityError(null);
+    void (async () => {
+      try {
+        const { projectAssistantReadFramingContinuityAction } = await import(
+          "@/features/project-assistant/preCycleCandidateTrajectoryActions"
+        );
+        const result = await projectAssistantReadFramingContinuityAction({
+          projectId: requestProjectId,
+        });
+        if (cancelled || requestProjectId !== projectId) return;
+        if (!result.ok || !result.continuity) {
+          setFramingContinuity(null);
+          return;
+        }
+        setFramingContinuity(
+          framingContinuityForConversationDisplay(result.continuity),
+        );
+        setFramingContinuityError(null);
+      } catch {
+        if (cancelled || requestProjectId !== projectId) return;
+        setFramingContinuity(null);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [projectId, durableRefreshSignal]);
+
+  async function refreshFramingContinuity() {
+    const requestProjectId = projectId;
+    try {
+      const { projectAssistantReadFramingContinuityAction } = await import(
+        "@/features/project-assistant/preCycleCandidateTrajectoryActions"
+      );
+      const result = await projectAssistantReadFramingContinuityAction({
+        projectId: requestProjectId,
+      });
+      if (requestProjectId !== projectIdRef.current) return;
+      if (!result.ok || !result.continuity) {
+        setFramingContinuity(null);
+        return;
+      }
+      setFramingContinuity(
+        framingContinuityForConversationDisplay(result.continuity),
+      );
+      setFramingContinuityError(null);
+    } catch {
+      if (requestProjectId !== projectIdRef.current) return;
+      setFramingContinuity(null);
+    }
+  }
+
+  async function advanceFramingContinuity(
+    step:
+      | "prepare_candidate"
+      | "approve_candidate"
+      | "prepare_cycle"
+      | "start_prepared",
+  ) {
+    if (framingContinuityBusy) return;
+    setFramingContinuityBusy(true);
+    setFramingContinuityError(null);
+    try {
+      const { projectAssistantAdvanceFramingContinuityAction } = await import(
+        "@/features/project-assistant/preCycleCandidateTrajectoryActions"
+      );
+      const digest =
+        step === "approve_candidate"
+          ? (framingContinuity?.presentationDigest ?? undefined)
+          : undefined;
+      const result = await projectAssistantAdvanceFramingContinuityAction({
+        projectId,
+        step,
+        presentationDigest: digest,
+      });
+      if (!result.ok) {
+        setFramingContinuityError(
+          result.message ?? result.code ?? "Action refusée.",
+        );
+        await refreshFramingContinuity();
+        return;
+      }
+      if (result.continuity) setFramingContinuity(result.continuity);
+      else await refreshFramingContinuity();
+      notifyDurableFactsChanged();
+      await refreshGovernedMoments();
+      if (result.activeCycleInstanceId) {
+        const label =
+          result.continuity?.catalogLabel?.trim() ||
+          framingContinuity?.catalogLabel?.trim() ||
+          "Cadrage";
+        setMessages((prev) => [
+          ...prev,
+          {
+            id: nextId("system"),
+            role: "system",
+            content:
+              result.message?.trim() ||
+              `Le « ${label} » est maintenant actif. Vous pouvez poursuivre dans la conversation.`,
+          },
+        ]);
+        setFramingContinuity(null);
+      }
+    } catch {
+      setFramingContinuityError("Impossible d'avancer la continuité de cadrage.");
+    } finally {
+      setFramingContinuityBusy(false);
+    }
+  }
+
   async function refreshGovernedMoments() {
     try {
       const {
@@ -397,6 +524,7 @@ export function useProductConversation({
       } else {
         setGovernedExecutionContinuity(continuity);
       }
+      await refreshFramingContinuity();
     } catch {
       setGovernedMomentError("Impossible de relire le moment gouverné.");
     }
@@ -931,6 +1059,26 @@ export function useProductConversation({
         }),
       );
       setLrMaterializeCode(result.lifecycleRecommendationCode ?? null);
+      if (
+        result.lifecycleRecommendationMaterialized === true ||
+        result.lifecycleRecommendationCode
+      ) {
+        void refreshFramingContinuity();
+      }
+      // CC-02 — after chat START (or already-active), re-read Product continuity
+      // so the obsolete START card disappears. Driven by LPS/project DTO, not prose.
+      const resultActiveId = (
+        result.project.activeCycleInstanceId ?? ""
+      ).trim();
+      const priorActiveId = (activeCycleInstanceId ?? "").trim();
+      const cycleMarkedActive =
+        result.f2?.qualification?.cycleStatus === "active";
+      if (resultActiveId || cycleMarkedActive) {
+        void refreshFramingContinuity();
+        if (!priorActiveId || priorActiveId !== resultActiveId) {
+          notifyDurableFactsChanged();
+        }
+      }
       setToolEvents((prev) => [...prev, ...result.toolEvents]);
       setMessages((prev) => [
         ...prev,
@@ -1244,6 +1392,22 @@ export function useProductConversation({
     inspectGovernedContract,
     confirmGovernedContract,
     refreshGovernedMoments,
+    framingContinuity,
+    framingContinuityBusy,
+    framingContinuityError,
+    refreshFramingContinuity,
+    prepareFramingCandidate: () => {
+      void advanceFramingContinuity("prepare_candidate");
+    },
+    approveFramingCandidate: () => {
+      void advanceFramingContinuity("approve_candidate");
+    },
+    prepareFramingCycle: () => {
+      void advanceFramingContinuity("prepare_cycle");
+    },
+    startFramingPrepared: () => {
+      void advanceFramingContinuity("start_prepared");
+    },
     reservesText,
     setReservesText,
     f3Prepare,

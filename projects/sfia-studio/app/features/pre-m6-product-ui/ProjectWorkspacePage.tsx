@@ -405,19 +405,18 @@ export function ProjectWorkspacePage({
   );
 
   /**
-   * CHAT-FIRST-GOVERNED-DECISION-LOOP-01 — prefill only. Resuming a
-   * Recommendation in the chat writes nothing and decides nothing; the Pilot
-   * reads, edits and sends.
+   * UX-02 — secondary discuss only. Prefill a neutral question.
+   * Never presupposes a HumanDecision. Never sends. Writes nothing.
    */
-  const resumeRecommendationInChat = (recommendationId: string) => {
+  const discussRecommendationWithNora = (recommendationId: string) => {
     const card = cycleRecommendations.find(
       (r) => r.epistemicItemId === recommendationId,
     );
     if (!card) return;
     controller.setDraft(
       [
-        `Nora, reprenons cette recommandation : « ${card.statement} »`,
-        "Dis-moi ce qu'elle implique et ce qui manque pour que je tranche. Je décide.",
+        `Nora, regardons cette recommandation : « ${card.statement} ».`,
+        "Qu'est-ce qu'elle implique concrètement pour la suite, sans en faire encore une décision ?",
       ].join("\n"),
     );
     focusConversation();
@@ -852,7 +851,7 @@ export function ProjectWorkspacePage({
                   latestSynthesis={latestSynthesis}
                   onOpenSynthesis={openSynthesisDetail}
                   workRecommendations={cycleRecommendations}
-                  onResumeRecommendation={resumeRecommendationInChat}
+                  onDiscussRecommendation={discussRecommendationWithNora}
                 />
               </div>
             </>
@@ -925,7 +924,7 @@ export function ProjectWorkspacePage({
               reservationBusyId={reservationBusyId}
               recommendations={cycleRecommendations}
               decisions={cycleDecisions}
-              onResumeRecommendationInChat={resumeRecommendationInChat}
+              onResumeRecommendationInChat={discussRecommendationWithNora}
             />
           ) : null}
 
@@ -1075,7 +1074,7 @@ export function ProjectWorkspacePage({
                 reservationBusyId={reservationBusyId}
                 recommendations={cycleRecommendations}
                 decisions={cycleDecisions}
-                onResumeRecommendationInChat={resumeRecommendationInChat}
+                onResumeRecommendationInChat={discussRecommendationWithNora}
               />
               {reservationNotice ? (
                 <p
