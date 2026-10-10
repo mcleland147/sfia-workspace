@@ -1,616 +1,516 @@
 # SFIA Review Pack — FULL
-# P6-HQA-02 — REC-01 — PR READINESS + COMMIT + PUSH + PULL REQUEST
-# Cycle 13 — Critical (template v2.6 §7.5)
+# P6-HQA-02 / REC-01 — CI FIX — LIVING PRODUCTION RUNTIME REFERENCE SYNC
+# Cycle 8 Critical · RUN — correction CI documentaire
 
 ## 1. Horodatage
 
-- Generated: 2026-10-10T21:27:51+02:00
-- Cycle projet: 13 — PR readiness
-- Lot: P6-HQA-02 / REC-01
-- Macro: STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01
-- Campaign: P6-GLOBAL-INTEGRATED-PRODUCT-QA-01
+- Generated: 2026-10-10T21:49:53+02:00
+- Cycle: 8 — Delivery / implémentation
 - Profil: Critical
-- Typologie: EVOL corrective / Product completion
-- Prior handoff (minimal stabilization): `96550a9cd40f79372fd4909ec8b86f624628615f` blob `2c8f05dd9f8b77c64051f46931beb1cfcea4e5f1`
-- Local pack before overwrite: blob matched prior handoff exactly (`2c8f05dd…`) — mono-cycle replace
+- Typologie: RUN — correction CI documentaire
+- Lot: P6-HQA-02 / REC-01
+- PR: #576
+- Prior handoff: `ba3c3337de6cac49d73960f6cf4f3e425bca6611` blob `962e210afc9f210b3625cf1c05146e1f3f43d411`
+- Local pack before overwrite: blob matched prior handoff exactly
 
 ## 2. GO Morris
 
-GO explicite consommé: **"ok go commit push pr"**
+Synchronisation bornée Living Production Runtime Reference après revue d'impact, puis commit + push correctif sur la branche existante.
 
-Autorisé: PR readiness → commit projet → push branche → création PR → Review Pack FULL → Review Handoff L3.
+Autorisé: reference docs + manifest digests · commit · push · pack FULL · handoff L3.
+Interdit: Product code · tests · CI pipeline · merge · nouvelle PR · REAL · architecture rewrite.
 
-Non autorisé: merge · suppression de branche · promotion baseline/runtime · nouvelle Delivery · REAL Human QA dans ce cycle.
-
-## 3. Git Truth Check (initial)
+## 3. Local Git Truth Check
 
 | Check | Result |
 |-------|--------|
 | Worktree | `/Users/morris/Projects/sfia-workspace-p6-hqa-02` |
 | Branch | `fix/studio-p6-hqa-02-work-recommendation-materialization` |
-| HEAD (pre-commit) | `8ed61737df30db270bf871eedad1535020fd1c11` |
+| HEAD pre-fix | `b433d4316b1c8d04dc043e3ee46a6dc4dbff4da9` |
 | origin/main | `8ed61737df30db270bf871eedad1535020fd1c11` |
-| Staged initial | empty |
-| Remote branch pre-push | ABSENT |
-| Prior handoff | `96550a9c` / blob `2c8f05dd` VERIFIED |
+| PR head pre-fix | `b433d431…` |
+| Dirty pre-fix | `.tmp-sfia-review/chatgpt-review.md` only |
+| Staged | empty |
 | Destructive git | NONE |
 
-Candidate locale non commitée confirmée (tracked + untracked tests; pack local only).
+## 4. Qualification SFIA / Convergence
 
-## 4. Qualification SFIA
+- Macro STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 · Campaign P6-GLOBAL-INTEGRATED-PRODUCT-QA-01
+- Build Doctrine VALIDATED · Roadmap ACTIVE · C1 VALIDATED · P6 IN PROGRESS · P6 GLOBAL PASS NO · Runtime v3 NON ADOPTED
+- Capacités V3-F04/F05/F08/F02/F14
+- Trajectoire: REC-01 → PR #576 → CI fix → CI PASS → Review ChatGPT → Gate merge Morris → Human QA
 
-- Repository: mcleland147/sfia-workspace
-- Justification: publication évolution transverse contrat Nora/Studio/Product (matérialisation épistémique, persistance, continuité, idempotence, contradictions)
-- Blocs activés: Convergence Studio; Repo-informed PR readiness; Product integrity; Tests/non-régression; Git publication contrôlée; Fake/Real; Review Pack; Review Handoff
-- Blocs désactivés: Nouvelle Delivery; Refonte architecture; Nouvelle persistence; Migration; Modification doctrine; Déploiement; Human QA REAL; Merge; Post-merge; Cleanup
-- Capacités: V3-F04, V3-F05, V3-F08, V3-F02, V3-F14
-- Milestone: P6 Human QA
-- Capacité suivante: intégration gouvernée puis Human QA REC-01
-- Gate Morris: COMMIT + PUSH + PR AUTORISÉS
-- Gate merge: NON AUTORISÉ
-- CKC Cycle 13: fallback synthétique intra-v3 — sans autorité d'exécution
+## 5. Sources
 
-## 5. Convergence Pre-check
+Template / routing / OM v2.6 · Build Doctrine · Roadmap · C1 · P2/P4/P6 · doctrine 33 · production-runtime-reference README + 04 + manifest + volumes · conformance test + checker · handoff ba3c3337.
 
-| Signal | Status |
-|--------|--------|
-| Build Doctrine | VALIDATED — ACTIVE ON MAIN |
-| Roadmap P6 | applicable |
-| C1 / P2 | VALIDATED |
-| P6 Human QA | IN PROGRESS |
-| P6 GLOBAL PASS | NO |
-| Runtime v3 | NON ADOPTED |
+## 6. CI failure evidence
 
-Trajectoire: REC-01 local → PR readiness → commit/push/PR → review + Morris merge gate → intégration → Human QA → P6 continuation.
+- Actions run: `38079868269` — conclusion **failure**
+- Job: Build and validate SFIA Studio · step Unit tests (Vitest)
+- Test: `productionRuntimeReference.conformance.d0.test.ts` — tracked digests
+- Known: `orchestrateTurn.ts` manifest `cba03a9222f5b6a6` ≠ current `2495024ae952effe`
+- Known: `corrProof06.artifactObligation.d0.test.ts` also drifted
+- Aggregate CI Vitest reported: 5568 PASS / 1 FAIL / 143 SKIPPED · tsc/eslint/build PASS · Required Gate FAIL
+- Checker (exhaustive, no write): **exactly 2** digest drifts (source + test) — no other tracked path drift
 
-KEEP: Option B · Bounded Cognitive Trust · Option A · Product SQLite · WR materialization · Nora Structured Outputs · Typed CONTRADICTORY · UX-REC-02
-DEFER: DISTINCT_RELATED advanced durability · REC-02 RESERVED
-ACCEPTED RESERVATION: Coverage PARTIAL >12
+## 7. Impact architectural qualifié
 
-## 6. Sources
+### Components
 
-Gouvernance / Product / Doctrine / Processus (liste contrat §2) consultées. Handoff `96550a9c` lu: cycle stabilization, branche, HEAD/base 8ed61737, GO Morris stabilization, correctifs replay/currentness, tests PASS, verdict READY FOR CHATGPT RE-REVIEW — contenu exploitable confirmé.
+| Path | Component | Semantic? |
+|------|-----------|-----------|
+| `orchestrateTurn.ts` | OBJ-TURN-ORCH · F04/F05/F06 · INV-COG-NE-AUTH | **YES** — prospective WR gate before ACW mint |
+| `corrProof06…test.ts` | OBJ-FINALIZATION-ASSESS testPath · F05/F15 | **NO SEMANTIC IMPACT** — fixture adds `workRecommendationsContext: {coverage:COMPLETE, items:[]}` only |
 
-## 7. Scope complet — matrice fichiers
+### Flows / invariants / deps
 
-### Inclus (24 fichiers — commités)
+- Flows: F04 primary (WR mint on turn); F05/F06 adjacent via turn orch; F15 fixture-only
+- Invariants: INV-COG-NE-AUTH, INV-REC-NE-HD; coverage fail-closed; no auto-HD/disposition
+- Persistence: existing `oa_epistemic_items` / ACW UoW — no new table
+- Fake/Real: DETERMINISTIC at REC-01 scope; Human QA REAL NOT RUN
+- Other REC-01 Product files on PR are not in trackedSources/trackedTests — documented in volumes without expanding tracked set
 
-| Path | Qualification |
-|------|---------------|
-| `lib/oa/cycle/application/qualifyProspectiveWorkRecommendationMaterialization.ts` | REC-01 Product (NEW) |
-| `lib/oa/cycle/application/deriveWorkRecommendations.ts` | REC-01 Product |
-| `lib/oa/cycle/application/updateEpistemicState.ts` | REC-01 Product (clone envelope) |
-| `lib/oa/cycle/domain/types.ts` | REC-01 Product (Option A type) |
-| `lib/oa/cycle/index.ts` | REC-01 barrel export |
-| `lib/nora-cognitive-runtime/noraProductTurnOutputType.ts` | REC-01 Option B contract |
-| `features/project-assistant/materializeActiveCycleWork.ts` | REC-01 Product + replay fix |
-| `features/project-assistant/orchestrateTurn.ts` | REC-01 wiring |
-| `features/project-assistant/f2/studioCognitiveContext.ts` | REC-01 coverage/projection |
-| `features/project-assistant/buildProjectSystemPrompt.ts` | REC-01 bounded trust prompt |
-| `features/pre-m6-product-ui/surfaces/JournalSurface.tsx` | UX-REC-02 KEEP |
-| `*qualify*.d0.test.ts` / `*minimalStabilization*` / `*optionB*` / `*uxrec02*` | tests REC-01 (NEW) |
-| `activeCycleCognitiveWork.d0.test.ts` | tests Option A/B/replay |
-| fixture touch-ups (corrProof06, chatFirstGovernedDecisionLoop, rec03 label, ux continuity, noraConversationalInitiative, pilotNora*, studioCognitiveContext.test) | compatibilité Option B/A / UX-REC-02 — **pas** nouvelles features REC-03 |
+## 8. Documentation revue / sections modifiées
 
-### Exclus
+| Volume | Action | Delta |
+|--------|--------|-------|
+| README | UPDATE | reviewed commit → `b433d431`; REC-01 overlay line |
+| 02 | UPDATE | OBJ-RECOMMENDATION expanded (ACW / Option B / Option A / gates) |
+| 03 | UPDATE | F04 steps + REC-01 WR materialization + proof pointers |
+| 04 | UPDATE | Sample impact analysis C + OBJ-TURN-ORCH in summary |
+| 08 | UPDATE | F04 REC-01 test row |
+| 09 | UPDATE | P6-HQA-02 / REC-01 overlay reserves |
+| 01,05,06,07 | NO CHANGE | still accurate |
+| manifest | UPDATE | lastReviewed* + digests after content review |
 
-| Path | Reason |
-|------|--------|
-| `.tmp-sfia-review/**` | Review pack — never project-committed |
-| `sfia-review-handoff/**` | Handoff branch only |
-| convergence / product-completion / product-simplification / sfia-v3-framing / prompts / method / migrations / CI | protected / hors GO |
+### README head (complete current)
 
-Aucun fichier indépendant hors scope détecté → pas de STOP SCOPE REQUALIFICATION.
+```markdown
+# SFIA Studio — Living Production Runtime Reference
 
-## 8. PR readiness
+**Nature:** CURRENT AS-IMPLEMENTED / LIVING PRODUCTION RUNTIME REFERENCE
+**Reviewed commit:** `b433d4316b1c8d04dc043e3ee46a6dc4dbff4da9`
+**Reviewed at:** 2026-10-10T21:48:00+0200
+**Macro foundation:** SFIA-STUDIO-LIVING-PRODUCTION-RUNTIME-REFERENCE-01
+**Stabilization overlay:** PRODUCT-CYCLE-E2E-STABILIZATION-01 (deterministic Product server-action E2E oracle)
+**Last audit overlay:** SFIA-STUDIO-LEGACY-ARCHITECTURE-DECOMMISSION-01 (no SAFE removal; CURRENT clarifications only)
+**First Framing overlay:** STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 / P6 — conversational Framing START path documented in volumes 03 / 08 / 09 (PR #574)
+**REC-01 overlay:** P6-HQA-02 / REC-01 — governed Work Recommendation materialization + Option A CONTRADICTORY continuity (PR #576 @ `b433d431`) — volumes 02 / 03 / 04 / 08 / 09
 
-### Architecture
+## What this corpus is
+```
 
-- No new table / migration / RelationshipStore / Currentness Engine / semantic classifier / parallel architecture / doctrine edit / unauthorized DISTINCT_RELATED extension — CONFIRMED
+### OBJ-RECOMMENDATION (complete current section)
 
-### Product
+```markdown
+## OBJ-RECOMMENDATION — Recommendation / LifecycleRecommendation / Work Recommendation
 
-- Recommendation ≠ HD · no auto supersession/disposition · refs · Option A persist · provenance · Context Seal · atomicity · idempotence · sourceIndexes · historical replay · legacy compat · no false currentness — CONFIRMED via prior stabilization + re-run suites
-
-### Dernier correctif (stabilization)
-
-- existing-first replay · materialParity before reuse · live target only on new mint · no history rewrite · source∧target applicability · no global CURRENT · PARTIAL fail-closed — CONFIRMED
-
-### Réserves (non-blockers PR)
-
-Coverage PARTIAL>12 · CONTRADICTORY sous PARTIAL · DISTINCT_RELATED DEFER · paraphrase dups · Human QA REAL NOT RUN · P6 GLOBAL PASS=NO
-
-### Verdict readiness
-
-**READY FOR COMMIT PUSH PR**
-
-## 9. Tests exécutés
-
-| Validation | Result |
-|------------|--------|
-| qualifyProspectiveWorkRecommendationMaterialization | PASS |
-| Option B context | PASS |
-| Active Cycle Work (Option A SQLite reload + historical replay) | PASS |
-| REC-01 minimal stabilization | PASS |
-| chat-first WR continuity (+ ProjectTrajectory/TDS) | PASS |
-| Nora Lifecycle Recommendation continuity | PASS |
-| UX-REC-02 | PASS |
-| Journal fixtures / UX continuity / REC-03 label fixture | PASS |
-| studioCognitiveContext + Nora continuity fixtures | PASS |
-| Aggregate targeted: 14 files / 260 tests | PASS |
-| `tsc --noEmit` | PASS |
-| ESLint ciblé | PASS |
-| `git diff --check` | PASS |
-| REAL provider | NOT RUN |
-| Human QA REAL | NOT RUN |
-| Full CI GitHub | PENDING at PR open (see §15) |
-
-## 10. Fake / Real Qualification
-
-- Applicable: YES · External: Nora/OpenAI
-- Fake: structured fixtures — DETERMINISTIC PROVEN at REC-01 qualified scope
-- This cycle: PR readiness / repository publication
-- REAL: NOT RUN · Human QA: NEXT
-- Not claimed: REAL BOUNDARY PROVEN · E2E REAL · P6 GLOBAL PASS · runtime v3 ADOPTED
-- DETERMINISTIC ≠ READY FOR REAL
-
-## 11. Commit projet
-
-- SHA: `b433d4316b1c8d04dc043e3ee46a6dc4dbff4da9`
-- Message: `feat(studio): complete governed work recommendation materialization`
-- Files: 24 (2767 insertions / 18 deletions)
-- Review pack: NOT included
-- Protected paths: NONE
-
-### git show --name-status / --stat
+- **Purpose:** Non-authoritative next-step guidance (≠ HumanDecision).
+- **Families (AS-IMPLEMENTED):**
+  - **Lifecycle Recommendation** — typed lifecycle recommendation path (`lifecycleRecommendation/**`); not Journal Work.
+  - **Work Recommendation (ACW)** — durable EpistemicItem `type=Recommendation` with `source=active-cycle-work:nora`, minted only after Studio prospective qualification (P6-HQA-02 / REC-01).
+  - **conversationGuidance** — ordinary conversational suggestion; **never** an EpistemicItem.
+- **Nora structured candidate (Option B):** Recommendations may carry `trackingRationale`, `relationKind` (`NEW` | `ALREADY_COVERED` | `DISTINCT_RELATED` | `CONTRADICTORY` | `UNCERTAIN`), `relatedRecommendationRef`. Candidate judgment only — not Product authorization.
+- **Studio gates:** `qualifyProspectiveWorkRecommendationMaterialization` / `filterActiveCycleWorkItemsForProspectiveMaterialization` in `orchestrateTurn` before `materializeActiveCycleWork`. Coverage `PARTIAL`/`UNAVAILABLE` fail-closed for NEW (and CONTRADICTORY mint under current policy). Exact duplicate / ALREADY_COVERED may still use full Product open facts.
+- **Option A typed relation:** optional durable `workRecommendationRelation` on EpistemicItem (`kind`, `targetEpistemicItemId`, `judgmentOrigin=nora_structured_candidate`, `authority=none`) via existing Product SQLite payload — CONTRADICTORY planned for persist; DISTINCT_RELATED systematic durability deferred. Historical replay is existing-first (materialParity); live target applicability required only for **new** mints. Read-time `applicability` (source∧target open) ≠ persisted CURRENT.
+- **Paths:** `lifecycleRecommendation/**`, `qualifyProspectiveWorkRecommendationMaterialization.ts`, `materializeActiveCycleWork.ts`, `orchestrateTurn.ts`, `noraProductTurnOutputType.ts`, `deriveWorkRecommendations.ts`, Journal presentation.
+- **Invariant:** Recommendation ≠ HumanDecision; no auto-disposition / auto-supersession from CONTRADICTORY.
 
 ```
-commit b433d4316b1c8d04dc043e3ee46a6dc4dbff4da9
-Author: Morris Cleland <morris@macbook-air.home>
-Date:   Sat Oct 10 21:27:03 2026 +0200
 
-    feat(studio): complete governed work recommendation materialization
+### F04 (complete current section)
+
+```markdown
+## F04 — Nora conversation during active cycle
+- **Trigger:** Pilot message via product conversation
+- **Steps:** orchestrateTurn → provider analyze/respond → (optional) prospective Active Cycle Work / Work Recommendation materialization → session append → journal tools
+- **Paths:** `orchestrateTurn.ts`, `runNoraCognitiveTurn.ts`, Fake/OpenAI provider; Product UI `useProductConversation.ts` + `ConversationSurface` / `FramingContinuityCard`
+- **Work Recommendation materialization (P6-HQA-02 / REC-01):** after a coherent Nora Product turn, Studio may mint durable ACW EpistemicItems via `materializeActiveCycleWork`, but only after `filterActiveCycleWorkItemsForProspectiveMaterialization` (bounded cognitive trust). Nora coverage `COMPLETE`|`PARTIAL`|`UNAVAILABLE` is authoritative for novelty claims — Product reader available ≠ COMPLETE. Ordinary suggestions stay in `conversationGuidance` (zero WR). Historical WR never mutated on the prospective path. `itemSourceIndexes` preserve ACW identity under filter/replay. CONTRADICTORY may persist a typed relation envelope (Option A); never auto-HD / auto-disposition.
+- **Non-blocking conversation (CHAT-FIRST-GOVERNED-DECISION-LOOP-01):** a pending governed decision subject no longer turns an unrelated or informative turn into a transport error. `assertExplicitReinstructionGate` stays fail-closed (no competing `DECISION_REQUIRED` is minted) but `orchestrateF2` now renders `EXPLICIT_REINSTRUCTION_REQUIRED` / `AMBIGUOUS_PENDING_REINSTRUCTION` as a conversational clarification turn, so the composer never dead-ends.
+- **First Framing continuity (presentation):** conversation surface may project a Framing Continuity Card from server-owned snapshot (`projectAssistantReadFramingContinuityAction`) — examinable trajectory facts before HD; « Ouvrir » ≠ composer auto-send; recommendation details stay Recommendation≠Decision (P2-D-01; no presumed operational materiality)
+- **Status:** PARTIAL REAL linguistic; COMPLETE deterministic Fake scripts; Framing continuity UI DETERMINISTIC at tested scope; REC-01 WR path DETERMINISTIC at tested scope (ZERO REAL claim)
+- **Proof at tested scope:** `productChatFirstGovernedDecisionLoop.frontDoor.d0.test.ts` case A; `framingContinuityCard.ui.test.tsx`, `framingContinuityRehydrate.ui.test.tsx`, `p6.ux.recommendationContinuity.ui.test.tsx`; REC-01 — `qualifyProspectiveWorkRecommendationMaterialization.d0`, `activeCycleCognitiveWork.d0` (Option A reload + historical replay), `p6.hqa.rec01.minimalStabilization.d0`, Option B context tests
+
+```
+
+### Sample impact analysis C (complete)
+
+```markdown
+## Sample impact analysis C — P6-HQA-02 / REC-01 (PR #576 @ `b433d431`)
+
+**Changed tracked paths (digest drift):**
+- `features/project-assistant/orchestrateTurn.ts` → OBJ-TURN-ORCH
+- `__tests__/oa/cycle/corrProof06.artifactObligation.d0.test.ts` → OBJ-FINALIZATION-ASSESS testPath
+
+| Step | Result |
+|---|---|
+| Components | OBJ-TURN-ORCH (semantic); OBJ-FINALIZATION-ASSESS (**NO SEMANTIC IMPACT** — fixture adds `workRecommendationsContext` only) |
+| Direct deps | OBJ-MEMORY-B, OBJ-MW5-CHALLENGE; ACW writer / qualify module / Epistemic SQLite (via turn path; not all separately tracked) |
+| Transitive | Journal Work projection consumers; F07 disposition remains separate (no auto-HD) |
+| Flows | F04 primary (prospective WR mint); F05/F06 adjacent (shared turn orch); F15 tests fixture-only |
+| Invariants | INV-COG-NE-AUTH, INV-REC-NE-HD; coverage fail-closed; no auto-disposition from CONTRADICTORY |
+| Persistence | Durable WR via existing `oa_epistemic_items` / ACW UoW — no new table |
+| Authority | Nora candidate ≠ Product authorization; Studio qualifies |
+| Fake/Real | DETERMINISTIC proven at REC-01 scope; Human QA REAL NOT RUN |
+| Tests | qualify / ACW Option A+replay / minimalStabilization / Option B context / UX-REC-02 / chatFirst WR / Lifecycle WR / corrProof06 |
+| Docs | volumes 02, 03, 04, 08, 09 + README overlay |
+
+Many other REC-01 Product files exist on the PR but are **not** in `trackedSources`/`trackedTests`; this sync documents their as-implemented behavior without expanding the tracked set.
+
+```
+
+### P6-HQA-02 / REC-01 overlay (complete)
+
+```markdown
+## P6-HQA-02 / REC-01 overlay (PR #576 @ `b433d431`)
+
+| Item | Status |
+|---|---|
+| Option B structured WR candidate fields | AS-IMPLEMENTED — `trackingRationale` / `relationKind` / `relatedRecommendationRef` |
+| Bounded cognitive trust + prospective qualify | AS-IMPLEMENTED — Studio fail-closed mint; conversationGuidance ≠ WR |
+| Coverage PARTIAL (>12 open WR in Nora projection) | ACCEPTED RESERVATION — NEW (and CONTRADICTORY mint) blocked; exact dup / ALREADY_COVERED may still use Product facts |
+| Option A CONTRADICTORY durable envelope | AS-IMPLEMENTED — EpistemicItem `workRecommendationRelation`; SQLite reload DETERMINISTIC |
+| DISTINCT_RELATED systematic durable envelope | DEFERRED |
+| Historical replay after target superseded | AS-IMPLEMENTED — existing-first + materialParity; new mint still live-gated |
+| Applicability projection | AS-IMPLEMENTED — read-time source∧target open; durable ≠ CURRENT |
+| Auto HD / auto-disposition / auto-supersession from CONTRADICTORY | FORBIDDEN — preserved |
+| Human QA REAL / REAL BOUNDARY / E2E REAL | **NOT RUN / NOT CLAIMED** |
+| P6 GLOBAL PASS / runtime v3 ADOPTED | **NOT CLAIMED** |
+| REC-02 | RESERVED — out of this PR |
+
+```
+
+### Full commit diff (complete — 7 files)
+
+```diff
+commit 6f68ea24ac61a59235065d5984904c7e24c22157
+Author: Morris Cleland <morris@macbook-air.home>
+Date:   Sat Oct 10 21:49:14 2026 +0200
+
+    docs(studio): sync production runtime reference for REC-01
 
     Co-authored-by: Cursor <cursoragent@cursor.com>
 
-M	projects/sfia-studio/app/__tests__/oa/cycle/corrProof06.artifactObligation.d0.test.ts
-A	projects/sfia-studio/app/__tests__/oa/cycle/p6.hqa.rec01.minimalStabilization.d0.test.ts
-A	projects/sfia-studio/app/__tests__/oa/cycle/qualifyProspectiveWorkRecommendationMaterialization.d0.test.ts
-M	projects/sfia-studio/app/__tests__/pre-m6-product-ui/chatFirstGovernedDecisionLoop.ui.test.tsx
-M	projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.hqa.rec03.journalRecommendationLabel.ui.test.tsx
-A	projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.hqa.uxrec02.journalDisclaimer.ui.test.tsx
-M	projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.ux.recommendationContinuity.ui.test.tsx
-M	projects/sfia-studio/app/__tests__/project-assistant/activeCycleCognitiveWork.d0.test.ts
-M	projects/sfia-studio/app/__tests__/project-assistant/noraConversationalInitiative.d0.test.ts
-A	projects/sfia-studio/app/__tests__/project-assistant/p6.hqa.rec01.optionB.workRecommendationsContext.d0.test.ts
-M	projects/sfia-studio/app/__tests__/project-assistant/pilotNoraStudioSemanticContinuity.corr02.c2ProductTurn.d0.test.ts
-M	projects/sfia-studio/app/__tests__/project-assistant/pilotNoraStudioSemanticContinuity.d0.test.ts
-M	projects/sfia-studio/app/__tests__/project-assistant/studioCognitiveContext.test.ts
-M	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/JournalSurface.tsx
-M	projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts
-M	projects/sfia-studio/app/features/project-assistant/f2/studioCognitiveContext.ts
-M	projects/sfia-studio/app/features/project-assistant/materializeActiveCycleWork.ts
-M	projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
-M	projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts
-M	projects/sfia-studio/app/lib/oa/cycle/application/deriveWorkRecommendations.ts
-A	projects/sfia-studio/app/lib/oa/cycle/application/qualifyProspectiveWorkRecommendationMaterialization.ts
-M	projects/sfia-studio/app/lib/oa/cycle/application/updateEpistemicState.ts
-M	projects/sfia-studio/app/lib/oa/cycle/domain/types.ts
-M	projects/sfia-studio/app/lib/oa/cycle/index.ts
+diff --git a/projects/sfia-studio/production-runtime-reference/02-runtime-object-catalog.md b/projects/sfia-studio/production-runtime-reference/02-runtime-object-catalog.md
+index cf0a8f06..5d75994f 100644
+--- a/projects/sfia-studio/production-runtime-reference/02-runtime-object-catalog.md
++++ b/projects/sfia-studio/production-runtime-reference/02-runtime-object-catalog.md
+@@ -1,6 +1,6 @@
+ # 02 — Runtime Object Catalog
+
+-**As-implemented @ `b4aa09bdef29a635e624bb5c396711e75057df4d`**
++**As-implemented @ `b433d4316b1c8d04dc043e3ee46a6dc4dbff4da9` (REC-01 overlay; prior harvest retained)**
+
+ Convention: each card lists **SoT**, **persistence**, **key paths**, **tests**. Fields marked UNKNOWN when not confirmed in harvest.
+
+@@ -67,11 +67,18 @@ Convention: each card lists **SoT**, **persistence**, **key paths**, **tests**.
+ - **Maturity:** PARTIAL as standalone named aggregate — carried inside Proposal DTO / epistemic markers.
+ - **Paths:** proposal types, epistemic items table `oa_epistemic_items`.
+
+-## OBJ-RECOMMENDATION — Recommendation / LifecycleRecommendation
++## OBJ-RECOMMENDATION — Recommendation / LifecycleRecommendation / Work Recommendation
+
+ - **Purpose:** Non-authoritative next-step guidance (≠ HumanDecision).
+-- **Paths:** `lifecycleRecommendation/**`, presentation labels, conversationGuidance.
+-- **Invariant:** Recommendation ≠ HumanDecision.
++- **Families (AS-IMPLEMENTED):**
++  - **Lifecycle Recommendation** — typed lifecycle recommendation path (`lifecycleRecommendation/**`); not Journal Work.
++  - **Work Recommendation (ACW)** — durable EpistemicItem `type=Recommendation` with `source=active-cycle-work:nora`, minted only after Studio prospective qualification (P6-HQA-02 / REC-01).
++  - **conversationGuidance** — ordinary conversational suggestion; **never** an EpistemicItem.
++- **Nora structured candidate (Option B):** Recommendations may carry `trackingRationale`, `relationKind` (`NEW` | `ALREADY_COVERED` | `DISTINCT_RELATED` | `CONTRADICTORY` | `UNCERTAIN`), `relatedRecommendationRef`. Candidate judgment only — not Product authorization.
++- **Studio gates:** `qualifyProspectiveWorkRecommendationMaterialization` / `filterActiveCycleWorkItemsForProspectiveMaterialization` in `orchestrateTurn` before `materializeActiveCycleWork`. Coverage `PARTIAL`/`UNAVAILABLE` fail-closed for NEW (and CONTRADICTORY mint under current policy). Exact duplicate / ALREADY_COVERED may still use full Product open facts.
++- **Option A typed relation:** optional durable `workRecommendationRelation` on EpistemicItem (`kind`, `targetEpistemicItemId`, `judgmentOrigin=nora_structured_candidate`, `authority=none`) via existing Product SQLite payload — CONTRADICTORY planned for persist; DISTINCT_RELATED systematic durability deferred. Historical replay is existing-first (materialParity); live target applicability required only for **new** mints. Read-time `applicability` (source∧target open) ≠ persisted CURRENT.
++- **Paths:** `lifecycleRecommendation/**`, `qualifyProspectiveWorkRecommendationMaterialization.ts`, `materializeActiveCycleWork.ts`, `orchestrateTurn.ts`, `noraProductTurnOutputType.ts`, `deriveWorkRecommendations.ts`, Journal presentation.
++- **Invariant:** Recommendation ≠ HumanDecision; no auto-disposition / auto-supersession from CONTRADICTORY.
+
+ ## OBJ-RESERVATION — Reservation
+
+diff --git a/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md b/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
+index eb820f39..74bb5c7c 100644
+--- a/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
++++ b/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
+@@ -28,12 +28,13 @@ Status legend: COMPLETE | PARTIAL | NOT PROVEN | BREAK
+
+ ## F04 — Nora conversation during active cycle
+ - **Trigger:** Pilot message via product conversation
+-- **Steps:** orchestrateTurn → provider analyze/respond → session append → journal tools
++- **Steps:** orchestrateTurn → provider analyze/respond → (optional) prospective Active Cycle Work / Work Recommendation materialization → session append → journal tools
+ - **Paths:** `orchestrateTurn.ts`, `runNoraCognitiveTurn.ts`, Fake/OpenAI provider; Product UI `useProductConversation.ts` + `ConversationSurface` / `FramingContinuityCard`
++- **Work Recommendation materialization (P6-HQA-02 / REC-01):** after a coherent Nora Product turn, Studio may mint durable ACW EpistemicItems via `materializeActiveCycleWork`, but only after `filterActiveCycleWorkItemsForProspectiveMaterialization` (bounded cognitive trust). Nora coverage `COMPLETE`|`PARTIAL`|`UNAVAILABLE` is authoritative for novelty claims — Product reader available ≠ COMPLETE. Ordinary suggestions stay in `conversationGuidance` (zero WR). Historical WR never mutated on the prospective path. `itemSourceIndexes` preserve ACW identity under filter/replay. CONTRADICTORY may persist a typed relation envelope (Option A); never auto-HD / auto-disposition.
+ - **Non-blocking conversation (CHAT-FIRST-GOVERNED-DECISION-LOOP-01):** a pending governed decision subject no longer turns an unrelated or informative turn into a transport error. `assertExplicitReinstructionGate` stays fail-closed (no competing `DECISION_REQUIRED` is minted) but `orchestrateF2` now renders `EXPLICIT_REINSTRUCTION_REQUIRED` / `AMBIGUOUS_PENDING_REINSTRUCTION` as a conversational clarification turn, so the composer never dead-ends.
+ - **First Framing continuity (presentation):** conversation surface may project a Framing Continuity Card from server-owned snapshot (`projectAssistantReadFramingContinuityAction`) — examinable trajectory facts before HD; « Ouvrir » ≠ composer auto-send; recommendation details stay Recommendation≠Decision (P2-D-01; no presumed operational materiality)
+-- **Status:** PARTIAL REAL linguistic; COMPLETE deterministic Fake scripts; Framing continuity UI DETERMINISTIC at tested scope
+-- **Proof at tested scope:** `productChatFirstGovernedDecisionLoop.frontDoor.d0.test.ts` case A; `framingContinuityCard.ui.test.tsx`, `framingContinuityRehydrate.ui.test.tsx`, `p6.ux.recommendationContinuity.ui.test.tsx`
++- **Status:** PARTIAL REAL linguistic; COMPLETE deterministic Fake scripts; Framing continuity UI DETERMINISTIC at tested scope; REC-01 WR path DETERMINISTIC at tested scope (ZERO REAL claim)
++- **Proof at tested scope:** `productChatFirstGovernedDecisionLoop.frontDoor.d0.test.ts` case A; `framingContinuityCard.ui.test.tsx`, `framingContinuityRehydrate.ui.test.tsx`, `p6.ux.recommendationContinuity.ui.test.tsx`; REC-01 — `qualifyProspectiveWorkRecommendationMaterialization.d0`, `activeCycleCognitiveWork.d0` (Option A reload + historical replay), `p6.hqa.rec01.minimalStabilization.d0`, Option B context tests
+
+ ## F05 — Active-cycle Artifact materialization
+ - **Trigger:** Natural Pilot request to materialize the active-cycle deliverable (conversation front door / `projectAssistantSendAction`) — pathless OK when semantic cues suffice
+diff --git a/projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md b/projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md
+index 15bbaa43..4fc8d551 100644
+--- a/projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md
++++ b/projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md
+@@ -1,6 +1,6 @@
+ # 04 — Dependency & Impact Map
+
+-**As-implemented @ `b4aa09bdef29a635e624bb5c396711e75057df4d`**
++**As-implemented @ `b433d4316b1c8d04dc043e3ee46a6dc4dbff4da9` (impact sample C = REC-01; prior samples retained)**
+
+ ## Impact analysis procedure (mandatory for future changes)
+
+@@ -87,12 +87,34 @@ LifecycleSurface / lifecyclePresentation
+ | Tests | MW5-related nora-cognitive / project-assistant continuity tests; **oracle weakness:** local tests may pre-satisfy challenge |
+ | Docs | 02,03,04,08,09 |
+
++## Sample impact analysis C — P6-HQA-02 / REC-01 (PR #576 @ `b433d431`)
++
++**Changed tracked paths (digest drift):**
++- `features/project-assistant/orchestrateTurn.ts` → OBJ-TURN-ORCH
++- `__tests__/oa/cycle/corrProof06.artifactObligation.d0.test.ts` → OBJ-FINALIZATION-ASSESS testPath
++
++| Step | Result |
++|---|---|
++| Components | OBJ-TURN-ORCH (semantic); OBJ-FINALIZATION-ASSESS (**NO SEMANTIC IMPACT** — fixture adds `workRecommendationsContext` only) |
++| Direct deps | OBJ-MEMORY-B, OBJ-MW5-CHALLENGE; ACW writer / qualify module / Epistemic SQLite (via turn path; not all separately tracked) |
++| Transitive | Journal Work projection consumers; F07 disposition remains separate (no auto-HD) |
++| Flows | F04 primary (prospective WR mint); F05/F06 adjacent (shared turn orch); F15 tests fixture-only |
++| Invariants | INV-COG-NE-AUTH, INV-REC-NE-HD; coverage fail-closed; no auto-disposition from CONTRADICTORY |
++| Persistence | Durable WR via existing `oa_epistemic_items` / ACW UoW — no new table |
++| Authority | Nora candidate ≠ Product authorization; Studio qualifies |
++| Fake/Real | DETERMINISTIC proven at REC-01 scope; Human QA REAL NOT RUN |
++| Tests | qualify / ACW Option A+replay / minimalStabilization / Option B context / UX-REC-02 / chatFirst WR / Lifecycle WR / corrProof06 |
++| Docs | volumes 02, 03, 04, 08, 09 + README overlay |
++
++Many other REC-01 Product files exist on the PR but are **not** in `trackedSources`/`trackedTests`; this sync documents their as-implemented behavior without expanding the tracked set.
++
+ ## Component → flows (summary)
+
+ | Component | Flows |
+ |---|---|
+ | OBJ-ARTIFACT-CONTINUATION | F05, F06, F17 |
+ | OBJ-MW5-CHALLENGE | F04, F05, F06 |
++| OBJ-TURN-ORCH | F04, F05, F06 |
+ | OBJ-PROPOSAL | F06, F07, F17 |
+ | OBJ-EC | F08–F11, F18 |
+ | OBJ-MEMORY-B | F02, F04, F19 |
+diff --git a/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md b/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
+index eded8a19..f4a67bc5 100644
+--- a/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
++++ b/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
+@@ -17,6 +17,7 @@
+ | F03/F15 obligations | corrProof06.artifactObligation | policy HD + applicability |
+ | F03 First Framing START | p6.hqa.f01.chatFirstCycleStartGate, chatFirstFramingContinuity(.frontDoor) | explicit START; no auto-START; no technical id in Pilot copy |
+ | F04 Framing continuity UI | framingContinuityCard / Rehydrate / p6.ux.recommendationContinuity | examinable card; Recommendation≠Decision |
++| F04 Work Recommendation materialization (REC-01) | qualifyProspectiveWorkRecommendationMaterialization.d0; activeCycleCognitiveWork.d0 (Option A SQLite reload + historical replay); p6.hqa.rec01.minimalStabilization.d0; p6.hqa.rec01.optionB.workRecommendationsContext.d0; UX-REC-02 journalDisclaimer; chatFirstWorkRecommendationContinuity; noraLifecycleRecommendationContinuity | DETERMINISTIC at tested scope; coverage PARTIAL fail-closed; REAL NOT RUN |
+ | F06/F07 integrity | recommendationDecisionIntegrity*, recommendation-vs-decision | Proposal≠HD |
+ | F07 Framing HD / START boundary | chatFirstFramingContinuity* + F01 gate | HD structural when required; START gated |
+ | F01 greenfield | greenfield continuity tests on main | #531 |
+diff --git a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
+index aa7890d2..b9839f14 100644
+--- a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
++++ b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
+@@ -123,6 +123,22 @@ NoteLite bounded REAL re-proof — **PAUSED**. Gate Morris distinct. Not this de
+ | All Lifecycle transitions chat-first | **NOT CLAIMED** — First Framing START path only |
+ | P6 GLOBAL PASS / runtime v3 ADOPTED | **NOT CLAIMED** |
+
++## P6-HQA-02 / REC-01 overlay (PR #576 @ `b433d431`)
++
++| Item | Status |
++|---|---|
++| Option B structured WR candidate fields | AS-IMPLEMENTED — `trackingRationale` / `relationKind` / `relatedRecommendationRef` |
++| Bounded cognitive trust + prospective qualify | AS-IMPLEMENTED — Studio fail-closed mint; conversationGuidance ≠ WR |
++| Coverage PARTIAL (>12 open WR in Nora projection) | ACCEPTED RESERVATION — NEW (and CONTRADICTORY mint) blocked; exact dup / ALREADY_COVERED may still use Product facts |
++| Option A CONTRADICTORY durable envelope | AS-IMPLEMENTED — EpistemicItem `workRecommendationRelation`; SQLite reload DETERMINISTIC |
++| DISTINCT_RELATED systematic durable envelope | DEFERRED |
++| Historical replay after target superseded | AS-IMPLEMENTED — existing-first + materialParity; new mint still live-gated |
++| Applicability projection | AS-IMPLEMENTED — read-time source∧target open; durable ≠ CURRENT |
++| Auto HD / auto-disposition / auto-supersession from CONTRADICTORY | FORBIDDEN — preserved |
++| Human QA REAL / REAL BOUNDARY / E2E REAL | **NOT RUN / NOT CLAIMED** |
++| P6 GLOBAL PASS / runtime v3 ADOPTED | **NOT CLAIMED** |
++| REC-02 | RESERVED — out of this PR |
++
+ ## PRODUCT-CYCLE-E2E-STABILIZATION-01 overlay
+
+ | Item | Status |
+diff --git a/projects/sfia-studio/production-runtime-reference/README.md b/projects/sfia-studio/production-runtime-reference/README.md
+index fd93f21b..7b73fe00 100644
+--- a/projects/sfia-studio/production-runtime-reference/README.md
++++ b/projects/sfia-studio/production-runtime-reference/README.md
+@@ -1,12 +1,13 @@
+ # SFIA Studio — Living Production Runtime Reference
+
+ **Nature:** CURRENT AS-IMPLEMENTED / LIVING PRODUCTION RUNTIME REFERENCE
+-**Reviewed commit:** `6a4374ed54cf346d16c11b995eec772090c81807`
+-**Reviewed at:** 2026-10-10T09:35:00+0200
++**Reviewed commit:** `b433d4316b1c8d04dc043e3ee46a6dc4dbff4da9`
++**Reviewed at:** 2026-10-10T21:48:00+0200
+ **Macro foundation:** SFIA-STUDIO-LIVING-PRODUCTION-RUNTIME-REFERENCE-01
+ **Stabilization overlay:** PRODUCT-CYCLE-E2E-STABILIZATION-01 (deterministic Product server-action E2E oracle)
+ **Last audit overlay:** SFIA-STUDIO-LEGACY-ARCHITECTURE-DECOMMISSION-01 (no SAFE removal; CURRENT clarifications only)
+-**First Framing overlay:** STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 / P6 — conversational Framing START path documented in volumes 03 / 08 / 09 (Draft PR #574)
++**First Framing overlay:** STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 / P6 — conversational Framing START path documented in volumes 03 / 08 / 09 (PR #574)
++**REC-01 overlay:** P6-HQA-02 / REC-01 — governed Work Recommendation materialization + Option A CONTRADICTORY continuity (PR #576 @ `b433d431`) — volumes 02 / 03 / 04 / 08 / 09
+
+ ## What this corpus is
+
+diff --git a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
+index 6dd9de0b..59b98b70 100644
+--- a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
++++ b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
+@@ -1,13 +1,13 @@
+ {
+   "schemaVersion": 1,
+   "kind": "SFIA_STUDIO_LIVING_PRODUCTION_RUNTIME_REFERENCE",
+-  "lastReviewedCommit": "6a4374ed54cf346d16c11b995eec772090c81807",
+-  "lastReviewedAt": "2026-10-10T07:35:00.000Z",
++  "lastReviewedCommit": "b433d4316b1c8d04dc043e3ee46a6dc4dbff4da9",
++  "lastReviewedAt": "2026-10-10T19:48:00.000Z",
+   "canonicalReadme": "projects/sfia-studio/production-runtime-reference/README.md",
+   "volumes": [
+     {
+       "path": "projects/sfia-studio/production-runtime-reference/README.md",
+-      "sha256_16": "77ac0325a44e8590"
++      "sha256_16": "aaea587edf5a83d9"
+     },
+     {
+       "path": "projects/sfia-studio/production-runtime-reference/01-system-runtime-overview.md",
+@@ -15,15 +15,15 @@
+     },
+     {
+       "path": "projects/sfia-studio/production-runtime-reference/02-runtime-object-catalog.md",
+-      "sha256_16": "0899fb8fc72e30cc"
++      "sha256_16": "64e7a716758f799d"
+     },
+     {
+       "path": "projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md",
+-      "sha256_16": "f56c3eadbe7856b0"
++      "sha256_16": "3724cd42f8ff5012"
+     },
+     {
+       "path": "projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md",
+-      "sha256_16": "0269b99d4d6c6c5f"
++      "sha256_16": "3104b5187a2843e7"
+     },
+     {
+       "path": "projects/sfia-studio/production-runtime-reference/05-environments-configuration-and-boundaries.md",
+@@ -39,11 +39,11 @@
+     },
+     {
+       "path": "projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md",
+-      "sha256_16": "f35d6fa177e27ecb"
++      "sha256_16": "a770429e8c495738"
+     },
+     {
+       "path": "projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md",
+-      "sha256_16": "c27b2d9ac9de87c3"
++      "sha256_16": "fe20dea595a3ac89"
+     }
+   ],
+   "components": [
+@@ -582,7 +582,7 @@
+     },
+     {
+       "path": "projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts",
+-      "sha256_16": "cba03a9222f5b6a6"
++      "sha256_16": "2495024ae952effe"
+     },
+     {
+       "path": "projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts",
+@@ -700,7 +700,7 @@
+     },
+     {
+       "path": "projects/sfia-studio/app/__tests__/oa/cycle/corrProof06.artifactObligation.d0.test.ts",
+-      "sha256_16": "80a56713fcbf1c40"
++      "sha256_16": "8797f3e117cde1ee"
+     },
+     {
+       "path": "projects/sfia-studio/app/__tests__/platform/fakeProvider.userValidArtifactMaterialization.d0.test.ts",
 
 ```
 
-## 12. Push projet
-
-- Branch: `fix/studio-p6-hqa-02-work-recommendation-materialization`
-- Remote SHA: `b433d4316b1c8d04dc043e3ee46a6dc4dbff4da9`
-- Local HEAD == remote: YES
-- Force push: NO
-- Push main: NO
-
-## 13. Pull Request
-
-- Number: **#576**
-- URL: https://github.com/mcleland147/sfia-workspace/pull/576
-- Base: `main`
-- Head: `fix/studio-p6-hqa-02-work-recommendation-materialization`
-- Head SHA: `b433d4316b1c8d04dc043e3ee46a6dc4dbff4da9`
-- State: OPEN
-- Draft: false (aligned with prior P6 HQA PRs #574/#575; body denies READY FOR MERGE / merge authorization)
-- Mergeable: MERGEABLE (GitHub) · mergeStateStatus: BLOCKED (branch protection / checks) — **no merge performed**
-- Files in PR: 24 — matches commit exactly
-
-### PR body final
-
-```markdown
-## Context / Problem
-
-P6-HQA-02 / REC-01 closes the governed path for Nora Work Recommendations to become durable Product EpistemicItems: prospective materialization controls, bounded cognitive trust, typed CONTRADICTORY relation continuity (Option A), SQLite durability, historical replay, and honest applicability projection — without treating Recommendation as HumanDecision and without architectural expansion.
-
-## Scope REC-01
-
-- Lot: P6-HQA-02 / REC-01 — Work Recommendation Materialization
-- Macro: STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01
-- Campaign: P6-GLOBAL-INTEGRATED-PRODUCT-QA-01
-- Branch: `fix/studio-p6-hqa-02-work-recommendation-materialization`
-- Base: `main` @ `8ed61737df30db270bf871eedad1535020fd1c11`
-- Head: see PR head SHA after push
-- REC-02: RESERVED (out of this PR)
-
-## Nora Option B structured contract
-
-KEEP. Nora structured Recommendation candidates carry `trackingRationale`, `relationKind` (`NEW` | `ALREADY_COVERED` | `DISTINCT_RELATED` | `CONTRADICTORY` | `UNCERTAIN`), and `relatedRecommendationRef`, with open-WR context coverage `COMPLETE` | `PARTIAL` | `UNAVAILABLE`. Studio retains deterministic Product gates; Nora judgment remains candidate-only.
-
-## Bounded cognitive trust
-
-KEEP. No product-anchor pseudo-proof. `trackingRationale` / `relationKind=NEW` are semantic candidate judgment, not Product authorization. Coverage PARTIAL/UNAVAILABLE fail-closed for NEW (and CONTRADICTORY mint under current policy).
-
-## Option A typed relation on EpistemicItem
-
-KEEP. Optional durable envelope `workRecommendationRelation` on EpistemicItem (`kind`, `targetEpistemicItemId`, `judgmentOrigin: nora_structured_candidate`, `authority: none`) persisted via existing Product SQLite payload path. CONTRADICTORY planned for durable persist; DISTINCT_RELATED systematic durability DEFERRED.
-
-## SQLite durability / reload
-
-KEEP Product SQLite / UoW / LPS / provenance / idempotence. Option A SQLite reload and materialParity suites PASS under deterministic fixtures. No new table, no migration, no RelationshipStore.
-
-## Historical replay stabilization
-
-BLOCKING defect fixed: relation live-target validation previously ran before existing-identity reuse, so replaying a persisted CONTRADICTORY Recommendation failed after the target was superseded. Fix: existing-first replay with intended durable relation material for parity; live open-target validation only for **new** mints. No history rewrite, no identity change, no HD, no auto-disposition.
-
-## Currentness honesty
-
-`deriveWorkRecommendationRelationApplicability` is read-time tri-state (`applicable` | `not_applicable` | `unknown`) for source∧target open WR when source is supplied — not a global Currentness Engine / CURRENT claim. Prompt projection states durable ≠ CURRENT.
-
-## Existing Product invariants
-
-- Recommendation ≠ HumanDecision
-- No automatic supersession / disposition from CONTRADICTORY
-- ACW identity, Context Seal, atomic UoW, sourceIndexes, provenance preserved
-- Legacy Work Recommendations unchanged
-- Coverage PARTIAL >12 open WR: accepted functional reservation (fail-closed NEW)
-
-## UX-REC-02 preservation
-
-KEEP. Journal per-card methodological disclaimer removed; Product Recommendation ≠ HD remains server-side. Status + discuss-with-Nora actions retained. Fixture null `workRecommendationRelation` adaptations are compatibility only — not new REC-03 features.
-
-## Tests executed and results (local, deterministic)
-
-| Suite | Result |
-|-------|--------|
-| qualifyProspectiveWorkRecommendationMaterialization | PASS |
-| Option B workRecommendationsContext | PASS |
-| Active Cycle Work (incl. Option A SQLite reload + historical replay) | PASS |
-| REC-01 minimal stabilization | PASS |
-| chat-first Work Recommendation continuity (incl. ProjectTrajectory/TDS) | PASS |
-| Nora Lifecycle Recommendation continuity | PASS |
-| UX-REC-02 journal disclaimer | PASS |
-| Journal recommendation fixtures / UX continuity / REC-03 label fixture | PASS |
-| studioCognitiveContext + Nora continuity fixture adaptations | PASS |
-| `tsc --noEmit` | PASS |
-| ESLint (targeted) | PASS |
-| `git diff --check` | PASS |
-
-Aggregate targeted readiness run: **14 files / 260 tests PASS**.
-
-## Fake / Real Qualification
-
-- Applicable: YES (Nora / OpenAI boundary)
-- Fake: structured deterministic fixtures — **DETERMINISTIC PROVEN** at REC-01 qualified scope
-- REAL provider execution: **NOT RUN** in this publication cycle
-- Human QA: **NEXT PRODUCT PROOF** under Morris gates
-- Not claimed: REAL BOUNDARY PROVEN · END-TO-END REAL PROVEN · P6 GLOBAL PASS · Runtime v3 ADOPTED
-- DETERMINISTIC PROVEN ≠ READY FOR REAL
-
-## Known reserves
-
-1. Coverage PARTIAL beyond 12 open Work Recommendations (fail-closed NEW)
-2. CONTRADICTORY mint under PARTIAL remains blocked (intentional)
-3. DISTINCT_RELATED systematic durable envelope deferred
-4. Paraphrase semantic duplicates not solved by deterministic engine
-5. Human QA REAL not executed for this candidate
-6. P6 GLOBAL PASS = NO · runtime v3 NON ADOPTED
-
-## P6 / Human QA next steps
-
-After ChatGPT / Morris review and CI: Morris merge gate (explicit) → integration → Human QA rejeu REC-01 → P6 continuation. No automatic merge authorization from this PR.
-
-## Explicit anti-claims
-
-- No P6 Global PASS
-- No runtime v3 adoption
-- No READY FOR MERGE implied by PR openness
-- No merge in this cycle
-
-
-Made with [Cursor](https://cursor.com)
-
-```
-
-## 14. CI visible (instantané publication)
-
-| Check | Status |
-|-------|--------|
-| Detect SFIA Studio changes | **PENDING** |
-| Other checks | not yet reported at capture |
-
-CI not claimed PASS. Pending ≠ Pass.
-
-## 15. Absence de merge
-
-CONFIRMED: PR open, not merged, merge gate Morris only.
-
-## 16. Git Review Index (code consultable dans Git @ `b433d4316b1c8d04dc043e3ee46a6dc4dbff4da9`)
-
-| Path | Symbol / topic | Line |
-|------|----------------|------|
-| `projects/sfia-studio/app/lib/oa/cycle/domain/types.ts` | EpistemicWorkRecommendationRelation type | L335 |
-| `projects/sfia-studio/app/lib/oa/cycle/application/qualifyProspectiveWorkRecommendationMaterialization.ts` | qualifyProspectiveWorkRecommendationMaterialization | L172 |
-| `projects/sfia-studio/app/lib/oa/cycle/application/qualifyProspectiveWorkRecommendationMaterialization.ts` | planDurableWorkRecommendationRelation | L407 |
-| `projects/sfia-studio/app/lib/oa/cycle/application/qualifyProspectiveWorkRecommendationMaterialization.ts` | filterActiveCycleWorkItemsForProspectiveMaterialization | L314 |
-| `projects/sfia-studio/app/features/project-assistant/materializeActiveCycleWork.ts` | intendedWorkRecommendationRelationMaterial | L267 |
-| `projects/sfia-studio/app/features/project-assistant/materializeActiveCycleWork.ts` | resolveWorkRecommendationRelationForNewWrite | L285 |
-| `projects/sfia-studio/app/features/project-assistant/materializeActiveCycleWork.ts` | materialParity (relation key) | L230 |
-| `projects/sfia-studio/app/lib/oa/cycle/application/deriveWorkRecommendations.ts` | deriveWorkRecommendationRelationApplicability | L281 |
-| `projects/sfia-studio/app/lib/oa/cycle/application/deriveWorkRecommendations.ts` | isOpenWorkRecommendationRelationTarget | L252 |
-
-Existing-first replay loop: `materializeActiveCycleWork.ts` around existingById reuse → intended relation parity → `resolveWorkRecommendationRelationForNewWrite` only on new mint (commit tree).
-
-### Option A envelope type (complete committed excerpt)
-
-```typescript
-export type EpistemicWorkRecommendationRelationKind =
-  | "CONTRADICTORY"
-  | "DISTINCT_RELATED";
-
-export type EpistemicWorkRecommendationRelation = {
-  kind: EpistemicWorkRecommendationRelationKind;
-  targetEpistemicItemId: string;
-  judgmentOrigin: "nora_structured_candidate";
-  authority: "none";
-};
-
-```
-
-### New files (committed — consult Git; sizes)
-
-- `projects/sfia-studio/app/lib/oa/cycle/application/qualifyProspectiveWorkRecommendationMaterialization.ts` — 442 lines — committed at `b433d4316b1c8d04dc043e3ee46a6dc4dbff4da9` (consult Git; full content in commit tree)
-- `projects/sfia-studio/app/__tests__/oa/cycle/qualifyProspectiveWorkRecommendationMaterialization.d0.test.ts` — 504 lines — committed at `b433d4316b1c8d04dc043e3ee46a6dc4dbff4da9` (consult Git; full content in commit tree)
-- `projects/sfia-studio/app/__tests__/oa/cycle/p6.hqa.rec01.minimalStabilization.d0.test.ts` — 309 lines — committed at `b433d4316b1c8d04dc043e3ee46a6dc4dbff4da9` (consult Git; full content in commit tree)
-- `projects/sfia-studio/app/__tests__/project-assistant/p6.hqa.rec01.optionB.workRecommendationsContext.d0.test.ts` — 132 lines — committed at `b433d4316b1c8d04dc043e3ee46a6dc4dbff4da9` (consult Git; full content in commit tree)
-- `projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.hqa.uxrec02.journalDisclaimer.ui.test.tsx` — 51 lines — committed at `b433d4316b1c8d04dc043e3ee46a6dc4dbff4da9` (consult Git; full content in commit tree)
-
-### Complete new file — UX-REC-02 test
-
-```tsx
-/**
- * P6-HQA-02 UX-REC-02 — Journal Work Recommendation cards drop repeated disclaimer.
- * @vitest-environment jsdom
- */
-import { describe, expect, it, vi } from "vitest";
-import { render, screen } from "@testing-library/react";
-import { JournalSurface } from "@/features/pre-m6-product-ui/surfaces/JournalSurface";
-
-describe("P6-HQA-02 UX-REC-02 Journal recommendation disclaimer", () => {
-  it("omits per-card authority disclaimer while keeping status and discuss CTA", () => {
-    const onResume = vi.fn();
-    render(
-      <JournalSurface
-        entries={[]}
-        cycleInstanceId="cycinst:test"
-        selectedEntryId={null}
-        onSelectEntry={() => {}}
-        onViewExchanges={() => {}}
-        onFocusTurn={() => {}}
-        recommendations={[
-          {
-            epistemicItemId: "epi:acw:uxrec02",
-            statement: "Structurer le suivi des responsabilités",
-            status: "active",
-            source: "active-cycle-work:nora",
-            optionSetRef: null,
-            proposalId: null,
-            cycleInstanceId: "cycinst:test",
-            createdAt: "2026-10-10T10:00:00.000Z",
-            dispositionDecisionId: null,
-            workRecommendationEpistemicItemId: "epi:acw:uxrec02",
-            workRecommendationRelation: null,
-          },
-        ]}
-        decisions={[]}
-        reservations={[]}
-        memoryTab="recommandations"
-        onResumeRecommendationInChat={onResume}
-      />,
-    );
-    expect(screen.queryByText(/Disposez-en dans/i)).toBeNull();
-    expect(
-      screen.queryByText(/RECOMMANDATION — PAS UNE DÉCISION HUMAINE/i),
-    ).toBeNull();
-    expect(screen.getAllByText(/À examiner/i).length).toBeGreaterThanOrEqual(1);
-    expect(
-      screen.getByTestId("cycle-recommendation-resume-epi:acw:uxrec02"),
-    ).toBeTruthy();
-    expect(screen.getByText("Structurer le suivi des responsabilités")).toBeTruthy();
-  });
-});
-
-```
-
-### Complete new file — Option B context test
-
-```typescript
-/**
- * P6-HQA-02 REC-01 Option B — open Work Recommendations context coverage.
- * @vitest-environment node
- */
-import { describe, expect, it } from "vitest";
-import {
-  buildStudioCognitivePromptSections,
-  type StudioCognitiveContext,
-  type StudioOpenWorkRecommendationProjection,
-} from "@/features/project-assistant/f2/studioCognitiveContext";
-
-function baseContext(
-  wr: StudioCognitiveContext["workRecommendationsContext"],
-): StudioCognitiveContext {
-  return {
-    projectTruth: {
-      projectId: "proj:wr-ctx",
-      name: "WR Ctx",
-      objective: "obj",
-      context: "ctx",
-      constraints: [],
-      criticality: "STANDARD",
-      shortReference: null,
-      lpsId: "lps:1",
-      lpsVersion: 1,
-      activeCycleInstanceId: "cycinst:wr",
-      doctrineId: "pkg:x",
-      doctrineVersion: "1",
-      doctrineStatus: "resolved",
-    },
-    method: {
-      orientation: {
-        state: "UNRESOLVED" as const,
-        candidateCycleTypeId: null,
-      },
-      cycleLabel: null,
-      ckcLensSection: null,
-      ckcLoaded: false,
-      doctrinePinPresent: true,
-      sourceLimit: "none" as const,
-      trajectory: null,
-    } as StudioCognitiveContext["method"],
-    activeCycle: {
-      cycleInstanceId: "cycinst:wr",
-      cycleTypeId: "cyc:framing",
-      cycleLabel: "Cadrage",
-      profile: "Light",
-      status: "active",
-      workEligible: true,
-      trajectoryId: null,
-      trajectoryVersion: null,
-      trajectoryStepId: null,
-      ckcResolutionRef: null,
-    },
-    activeCycleWorkItems: { state: "NONE", items: [] },
-    workRecommendationsContext: wr,
-    trajectoryDecisionSupport: {
-      state: "NONE",
-      optionRefs: [],
-      optionLabels: [],
-      currentNoraRecommendedOptionRef: null,
-      currentRecommendationSource: null,
-    },
-    decisions: { state: "NONE", items: [] },
-    evidence: { state: "NONE", items: [] },
-    review: { state: "NONE", items: [] },
-    trajectory: { state: "ABSENT", current: null },
-    lifecycleRecommendation: {
-      state: "NONE",
-      current: null,
-      satisfiesPreCycleNextCycleTransition: false,
-    },
-    reservationCompactSection: null,
-    reservationFocusSection: null,
-    limits: {
-      oaAvailable: true,
-      truthOutranksConversation: true,
-      composerDoesNotScoreMaturity: true,
-      composerDoesNotSelectTrajectory: true,
-    },
-  };
-}
-
-describe("P6-HQA-02 REC-01 Option B workRecommendationsContext coverage", () => {
-  it("COMPLETE renders ids and does not invent coverage", () => {
-    const item: StudioOpenWorkRecommendationProjection = {
-      epistemicItemId: "epi:acw:open-1",
-      statement: "Prioriser le suivi avant la planification.",
-      status: "active",
-      cycleInstanceId: "cycinst:wr",
-      dispositionDecisionId: null,
-      family: "Work",
-      workRecommendationRelation: null,
-    };
-    const text = buildStudioCognitivePromptSections(
-      baseContext({ coverage: "COMPLETE", items: [item] }),
-    ).join("\n");
-    expect(text).toContain("coverage=COMPLETE");
-    expect(text).toContain("id=epi:acw:open-1");
-    expect(text).toContain("family=Work");
-    expect(text).not.toContain("coverage=PARTIAL");
-  });
-
-  it("PARTIAL warns against NEW-by-absence", () => {
-    const text = buildStudioCognitivePromptSections(
-      baseContext({
-        coverage: "PARTIAL",
-        items: [
-          {
-            epistemicItemId: "epi:acw:open-2",
-            statement: "Améliorer la visibilité.",
-            status: "active",
-            cycleInstanceId: "cycinst:wr",
-            dispositionDecisionId: null,
-            family: "Work",
-            workRecommendationRelation: null,
-          },
-        ],
-      }),
-    ).join("\n");
-    expect(text).toContain("coverage=PARTIAL");
-    expect(text).toMatch(/ne pas conclure NEW/i);
-  });
-
-  it("UNAVAILABLE forbids invented ids", () => {
-    const text = buildStudioCognitivePromptSections(
-      baseContext({ coverage: "UNAVAILABLE", items: [] }),
-    ).join("\n");
-    expect(text).toContain("coverage=UNAVAILABLE");
-    expect(text).toMatch(/ne pas inventer d'ids/i);
-  });
-});
-
-```
-
-Larger new Product/test files (`qualifyProspective…`, qualify tests, minimalStabilization, ACW suite delta) are fully present in commit `b433d4316b1c8d04dc043e3ee46a6dc4dbff4da9` — see Git Review Index + `git show b433d4316b1c8d04dc043e3ee46a6dc4dbff4da9:<path>`. Not duplicated wholesale here to avoid pack bloat; content is remote-verifiable on the project branch.
-
-## 17. Décisions Morris restantes
-
-1. Review ChatGPT of this PR publication pack
-2. Wait CI completion — treat outcomes honestly
-3. Explicit Morris merge gate (not automatic)
-4. Post-merge integration then Human QA REC-01
-5. DISTINCT_RELATED durability / PARTIAL reopen policy remain structural deferrals
-
-## 18. Handoff
-
-Publisher: `scripts/sfia/publish-review-handoff.sh`
-Message: `review-handoff: P6-HQA-02 REC-01 PR publication`
-Branch: `sfia/review-handoff` · path: `sfia-review-handoff/latest-chatgpt-review.md`
-(SHA/blob filled after publish)
-
-## 19. État final worktrees (pré-handoff publish)
+## 9. Digests avant / après
+
+| Path | Before | After |
+|------|--------|-------|
+| orchestrateTurn.ts | `cba03a9222f5b6a6` | `2495024ae952effe` |
+| corrProof06…test.ts | `80a56713fcbf1c40` | `8797f3e117cde1ee` |
+| lastReviewedCommit | `6a4374ed…` | `b433d431…` (code reviewed; not the docs commit) |
+| lastReviewedAt | 2026-10-10T07:35:00.000Z | 2026-10-10T19:48:00.000Z |
+
+### Volume digests after `--write-digests`
+
+| `README.md` | `aaea587edf5a83d9` |
+| `01-system-runtime-overview.md` | `669b0737f4cc5890` |
+| `02-runtime-object-catalog.md` | `64e7a716758f799d` |
+| `03-end-to-end-flow-catalog.md` | `3724cd42f8ff5012` |
+| `04-dependency-impact-map.md` | `3104b5187a2843e7` |
+| `05-environments-configuration-and-boundaries.md` | `101ec96a6908db71` |
+| `06-persistence-restart-and-recovery.md` | `0fc09ae3105d36ed` |
+| `07-authority-invariants-and-failure-modes.md` | `90a3ea63bda274bd` |
+| `08-test-proof-and-conformance-map.md` | `a770429e8c495738` |
+| `09-known-gaps-reserves-and-current-boundaries.md` | `fe20dea595a3ac89` |
+
+Algorithm unchanged: SHA-256 of exact file bytes, first 16 hex chars.
+No tracked entries deleted. Conformance test not modified.
+
+## 10. Tests
+
+| Control | Result |
+|---------|--------|
+| `check-production-runtime-reference.mjs` (pre) | FAIL — 2 drifts |
+| `check-production-runtime-reference.mjs --write-digests` | PASS (after content review) |
+| `check-production-runtime-reference.mjs` (post) | PASS |
+| `productionRuntimeReference.conformance.d0.test.ts` | PASS |
+| corrProof06 | PASS |
+| qualify + minimalStabilization + Option B + ACW + chatFirst WR + Lifecycle WR + UX-REC-02 | PASS (200 tests / 9 files) |
+| REAL provider | NOT RUN |
+| Full GitHub CI (new run) | PENDING at pack time |
+
+## 11. Commit / Push / PR
+
+- Commit: `6f68ea24ac61a59235065d5984904c7e24c22157` — `docs(studio): sync production runtime reference for REC-01`
+- Files: 7 under `production-runtime-reference/**` only
+- Product code: NONE
+- Push: remote SHA `6f68ea24ac61a59235065d5984904c7e24c22157` == local
+- PR: **#576** preserved — https://github.com/mcleland147/sfia-workspace/pull/576
+- Base: main · Head SHA: `6f68ea24ac61a59235065d5984904c7e24c22157` · mergedAt: null
+- New CI run: `38081313626` — Detect SFIA Studio changes **PENDING** / workflow **in_progress**
+- Force push: NO · New PR: NO · Merge: NO
+
+## 12. Fake / Real
+
+- DETERMINISTIC PROVEN at REC-01 qualified scope (unchanged Product)
+- This cycle: reference maintenance + CI fix only
+- REAL NOT RUN · not REAL BOUNDARY / E2E REAL / P6 PASS / v3 ADOPTED
+
+## 13. Réserves
+
+Coverage PARTIAL>12 · CONTRADICTORY sous PARTIAL · DISTINCT_RELATED DEFER · paraphrase dups · Human QA REAL NOT RUN · P6 PASS=NO · tracked set not expanded to all REC-01 paths
+
+## 14. Décisions Morris restantes
+
+1. Await CI completion on run `38081313626`
+2. ChatGPT review of this sync
+3. Explicit merge gate for #576
+4. Human QA REC-01 after integrate
+
+## 15. État final worktree
 
 ```
  M .tmp-sfia-review/chatgpt-review.md
 ```
 
-Product HEAD `b433d4316b1c8d04dc043e3ee46a6dc4dbff4da9` tracking origin; only local dirty: `.tmp-sfia-review/chatgpt-review.md` (this pack).
+## 16. Verdict
 
-## 20. Verdict
+**REC-01 PR #576 CI REFERENCE FIX — PUSHED / REMOTE VERIFIED / CI PENDING**
 
-**REC-01 PR OPENED — REMOTE VERIFIED — AWAITING REVIEW / CI / MORRIS MERGE GATE**
-
-Anti-claims: no merge · no post-merge · no cleanup · no P6 GLOBAL PASS · no runtime v3 adoption · DETERMINISTIC ≠ READY FOR REAL · no READY FOR MERGE implied.
+Anti-claims: no merge · no Product change · no P6 GLOBAL PASS · no runtime v3 adoption · CI not claimed PASS while pending.
 
 ---
 
 ## Instruction ChatGPT (obligatoire)
 
-Lire depuis `sfia/review-handoff` :
+Lire `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md`
 
-`sfia-review-handoff/latest-chatgpt-review.md`
-
-Vérifier: cycle, branche, HEAD/base, GO Morris, readiness, commit, push, PR, fichiers, tests, réserves, CI, handoff, verdict.
+Vérifier: cycle, branche, HEAD/base, GO, root cause, impact, documents, digests, tests, commit, push, PR #576, CI, handoff, réserves, verdict.
