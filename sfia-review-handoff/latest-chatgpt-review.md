@@ -1,12 +1,12 @@
-# Review Pack FULL — P6-HQA-02 / REC-01 — HQA-01 READ-ONLY Root Cause Investigation
+# Review Pack FULL — P6-HQA-02 / REC-01 — Controlled Runtime Restart + HQA-01 Re-execution Prep
 
-**Horodatage :** 2026-10-10T22:19:50Z
-**GO Morris :** "ok go" — investigation technique en lecture seule
+**Horodatage :** 2026-10-10T22:46:46Z
+**GO Morris :** "ok go" — controlled runtime restart + HQA-01 Human QA REAL prep
 **Cycle :** 9 — QA / validation — Critical
 **Campaign :** P6-GLOBAL-INTEGRATED-PRODUCT-QA-01
-**Milestone :** P6 Human QA — IN PROGRESS
-**Scenario :** HQA-01 — Guidance Only
-**Mode :** READ ONLY — aucune correction Product, aucun nouveau test REAL, aucune mutation Product
+**Lot :** P6-HQA-02 / REC-01
+**runId :** HQA-01-REC01-REQUAL-20261010T224411Z
+**Prior handoff (preserved as history) :** `4a999c2c` — HQA-01 read-only root cause (INVALID FOR REC-01 EVALUATION — HISTORICAL RUNTIME)
 
 ---
 
@@ -16,421 +16,337 @@
 |---|---|
 | Workspace | `/Users/morris/Projects/sfia-workspace-p6-rec01-human-qa` |
 | Branch | `qa/p6-hqa-02-rec01-human-qa` |
-| HEAD | `f31bb8f610802c102edbe68889fb8ecf0339ec28` |
-| `origin/main` | `f31bb8f610802c102edbe68889fb8ecf0339ec28` (identical) |
-| status | clean (no staged/unstaged Product diffs from this investigation) |
-| REC-01 on HEAD | PRESENT |
-| Baseline Product | COMPATIBLE with investigation contract |
+| HEAD | `f31bb8f610802c102edbe68889fb8ecf0339ec28` (PR #576 merge / `origin/main`) |
+| REC-01 qualify file | PRESENT |
+| Prospective filter in `orchestrateTurn.ts` | PRESENT |
+| Product source diffs | NONE (only local QA evidence / gitignored runtime files) |
 
-**Serving runtime at Human QA observation (separate worktree — not checked out):**
-
-| Check | Result |
-|---|---|
-| Live Studio pid | 30453 |
-| cwd | `/Users/morris/Projects/sfia-workspace/projects/sfia-studio/app` |
-| branch | `qa/sfia-studio-p6-global-integrated-product-qa` |
-| HEAD | `980064c05f1769f00d0ef85ef5284a899c6a0d73` |
-| REC-01 | **ABSENT** |
-
-No checkout of historical P6 branch. No reset/stash/clean/rebase. No other worktree sync.
+Baseline: **QA PRODUCT BASELINE QUALIFIED.**
 
 ---
 
-## 2. Convergence Pre-check
+## 2. Convergence
 
-- Convergence doctrine / roadmap consulted as routing context (read-only).
-- Product Completion C1 / P2–P6 Product Simplification / Doctrine v3 (V3-F04/F08) remain reference only.
-- No Convergence mutation. No runtime v3 promotion. No Delivery authorized.
-
----
-
-## 3. Baseline REC-01 (integrated at investigation HEAD)
-
-Central guards on `f31bb8f6`:
-
-- `filterActiveCycleWorkItemsForProspectiveMaterialization` before `materializeActiveCycleWork`
-- `qualifyProspectiveWorkRecommendationMaterialization` requires `relationKind`; missing → `missing_structured_contract` → no mint
-- Exact `conversationGuidance` match → `conversational_channel_exact`
-- Exact open duplicate → `exact_open_duplicate`
-- `UNCERTAIN` / `ALREADY_COVERED` fail-closed; mint paths need COMPLETE coverage + exploitable `trackingRationale`
-- Bounded cognitive trust: no second deterministic semantic materiality proof; no product-anchor pseudo-proof
-
-Historical serving runtime materializes ACW Recommendations **without** this prospective filter.
+- Build Doctrine VALIDATED (reference)
+- Roadmap ACTIVE
+- C1 VALIDATED
+- REC-01 INTEGRATED ON MAIN
+- P6 IN PROGRESS — GLOBAL PASS NO
+- Runtime v3 NON ADOPTED
+- No Convergence / doctrine / Product Delivery mutation
 
 ---
 
-## 4. Intent HQA-01
-
-Pilot asked a purely explanatory nuance (task progress vs global project progress).
-Expected: no unjustified durable Work Recommendation materialization.
-
----
-
-## 5. Observation 8 → 9
-
-UI: 8 → 9 Work Recommendations after the explanatory turn.
-Product proof below confirms a real create (not UI-only).
-
----
-
-## 6. Objet Epistemic + provenance
+## 3. Ancien runtime (confirmé puis arrêté)
 
 | Field | Value |
 |---|---|
-| epistemicItemId | `epi:acw:3879e9bc68c83f60d578` |
-| projectId | `prj:60d7003d-3fbb-4298-a395-00f7704781a9` |
-| cycleInstanceId | `cyc:trj-934f5d47cd06a233bb354fcc` |
-| type | Recommendation |
-| status | active |
-| source | `active-cycle-work:nora` |
-| createdAt | `2026-10-10T21:28:01.292Z` |
-| statement | Lors de l’examen d’épisodes réels de manque de visibilité, distinguer ce que les responsables savent de l’état des tâches et ce qu’ils savent de la progression ou des risques du projet entier. |
-| provenance.correlationId | `ltu:df0f94982562de55cf148802410240c0` |
-| provenance.actor | `actor:nora` (agent, N1) |
-| workRecommendationRelation | absent |
+| URL | `http://localhost:3020` (listen `[::1]:3020`) |
+| PID | 30453 (`next-server`) / parent 30449 (`next dev`) |
+| Owner | morris |
+| CWD | `/Users/morris/Projects/sfia-workspace/projects/sfia-studio/app` |
+| Branch / HEAD | `qa/sfia-studio-p6-global-integrated-product-qa` / `980064c0…` |
+| REC-01 | ABSENT |
+| Stop | SIGTERM gracieux — STOPPED; port freed |
+| kill -9 | NOT USED |
 
-Sibling Observation same LTU: `epi:acw:d9c0f7582448f1bd890b`.
-Active ACW Recommendations on project after turn: **9**.
-
-**EPISTEMIC CREATION VERIFIED.**
+Ownership: attributable (URL→listener→PID→CWD→HEAD). Not ambiguous.
 
 ---
 
-## 7. LogicalTurnId / transcript
+## 4. Nouveau runtime REC-01
 
-- `logicalTurnId` = `ltu:df0f94982562de55cf148802410240c0` (accepted)
-- User seq 28 = Pilot explanatory question (exact match to observed message)
-- Assistant seq 29 = relevant explanatory narrative
-- Correlation via provenance.correlationId ↔ logical_turn_id
-
-Transcript bodies not recopied beyond necessity; no secrets.
-
----
-
-## 8. Sortie Nora structurée
-
-**STRUCTURED NORA CANDIDATE OBSERVABLE** (session_items seq=7, output_text JSON).
-
-- `conversationGuidance.kind` = `RECOMMEND_NEXT_STEP` (soft keep-in-mind; rationale says no presumed follow-up type)
-- `activeCycleWork.items` = Observation + **Recommendation** (statement identical to durable WR)
-- Absent: `trackingRationale`, `relationKind`, `relatedRecommendationRef`
-- `recommendedOptionRef` = null
-- Guidance statement ≠ Recommendation statement → not an exact conversational-channel match
-
-No reconstructed narrative-only candidate used.
-
----
-
-## 9. Qualification Product
-
-| Topic | Finding |
+| Field | Value |
 |---|---|
-| Path that ran | Historical `orchestrateTurn` → `materializeActiveCycleWork(acwItems)` without prospective filter |
-| REC-01 qualify on serving tree | File absent |
-| Coverage COMPLETE/PARTIAL at turn | Not persisted as a decision record for this turn; irrelevant to historical path (no prospective gate) |
-| Exact duplicate vs prior 8 | Statement is new (mechanical exact match would not block) |
-| Decision record persisted | No separate qualify decision row; effect is the Epistemic write |
-
-**Attribution:** Case **A** demonstrated on historical runtime (Nora proposed durable WR; Product applied then-available guards = none for prospective WR). Cases B and C refuted. Observability sufficient for creation/turn/candidate/runtime.
-
-**REC-01 counterfactual (investigation HEAD code, not re-run):** missing `relationKind` → `materialize:false` / `missing_structured_contract`.
+| URL | `http://localhost:3020` |
+| PID | **81318** (`next-server` v15.5.20) / parent 81311 |
+| CWD | `/Users/morris/Projects/sfia-workspace-p6-rec01-human-qa/projects/sfia-studio/app` |
+| HEAD | `f31bb8f610802c102edbe68889fb8ecf0339ec28` |
+| REC-01 | PRESENT in served tree |
+| Health | `/login` 200; `/` 307 → NO_SESSION; `/api/auth/get-session` 200 |
+| Note | A concurrent start from the same QA WT occupied 3020 first; a second start attempt logged `EADDRINUSE` and was abandoned. Served process is the correct REC-01 instance. |
 
 ---
 
-## 10. Frontière provider (Fake/Real)
+## 5. Préservation historique
+
+- Online sqlite `.backup` before stop + post-stop file copy under `runtime-requal/HQA-01-REC01-REQUAL-20261010T224411Z/`
+- Historical originals untouched
+- 9th WR still present: `epi:acw:3879e9bc68c83f60d578`
+- Prior diagnostic proofs retained
+- First HQA-01 remains **INVALID FOR REC-01 EVALUATION — HISTORICAL RUNTIME** (not retroactively PASS)
+
+---
+
+## 6. Isolation QA (Option B)
+
+Fresh isolated DBs (not yet materialized until Product use):
+
+- Product: `…/.sfia-exec/hqa01-rec01-requal/product/oa-product.sqlite`
+- Session: `…/.sfia-exec/hqa01-rec01-requal/product/nora-session.sqlite`
+
+Historical DBs are read-preserved only; **no write reuse**.
+Not an identical conversational replay (first HQA-01 already in historical transcript).
+Comparison scope: intention + oracle parity.
+
+---
+
+## 7. Provider / budget preflight
 
 | Item | Result |
 |---|---|
-| Declared mode | HUMAN REAL QA |
-| Fake silent fallback | Not observed |
-| Provider-shaped ids | OpenAI Responses-like (`msg_…`, `rs_…` + encrypted_content) |
-| Model / effort | **NOT VERIFIED** in session rows |
-| Verdict | PROVIDER IDENTITY PARTIAL — REAL boundary likely; MODEL NOT VERIFIED |
-| New provider calls | None |
+| `SFIA_STUDIO_CURSOR_REAL` | `1` |
+| `OPENAI_MODEL` (env) | `gpt-5.6-luna` |
+| API key | present (not exposed) |
+| Fake fallback | not configured / not observed |
+| Envelope | documentary P6 Human QA ≤ €10; GO borné = single HQA-01 guidance turn |
+| Provider calls yet | NONE |
 
 ---
 
-## 11. Qualification du défaut (12 points)
+## 8. REAL entry check
 
-1. **Intent :** explanatory guidance-only question.
-2. **Attendu :** no unjustified durable WR.
-3. **Observé :** 9th WR created + relevant narrative.
-4. **Objet créé :** YES — `epi:acw:3879e9bc68c83f60d578`.
-5. **Candidat structuré :** YES — ACW Recommendation + conversationGuidance.
-6. **Qualification Product réelle :** historical materialize without REC-01 prospective filter.
-7. **Cause démontrée :** baseline-contaminated Studio (pre-REC-01) accepted Nora ACW Recommendation on a guidance-only turn.
-8. **Impact Pilote :** unjustified durable WR; trust in recommendation materiality reduced.
-9. **Impact REC-01 :** does **not** prove integrated REC-01 failed; suggests REC-01 would fail-closed on this payload shape; live re-proof required.
-10. **Sévérité P6 proposée :** **MAJOR** for Human QA validity / baseline control; **not** proven PRODUCT-BLOCKER on merged REC-01 baseline.
-11. **Limites :** model id unknown; REC-01 counterfactual not live-executed; no decision telemetry row.
-12. **Options (no impl) :** restart Studio on `f31bb8f6`; re-run HQA-01; no new semantic Product classifier; no HQA-02 this cycle; optional Pilot disposition of the 9th WR.
+Runtime gate: **PASS**.
+Human/project gate: **PENDING Morris login + isolated project/cycle setup**.
+See embedded `real-entry-check.md`.
 
 ---
 
-## 12. Cause démontrée / incertitudes
+## 9. HQA-01 interaction
 
-**Démontré :**
+**NOT EXECUTED by Cursor.**
+Pilot card prepared for Morris.
+Proposed message (intention Guidance Only) unchanged unless Morris must adapt to avoid same-history repetition (N/A on fresh project).
 
-- Durable WR created on the explanatory turn.
-- Structured Nora Recommendation emitted alongside conversationGuidance.
-- Serving runtime = historical P6 HEAD without REC-01.
-- Historical path has no prospective WR materialization filter.
+Oracle: **ZERO NEW UNJUSTIFIED WORK RECOMMENDATION**.
 
-**Incertain / non observé :**
-
-- Model/effort identity.
-- Live behavior of REC-01 schema-constrained Nora on the same Pilot question.
-- Whether coverage would be PARTIAL (budget 12) on REC-01 path for this project state.
+Status: **WAITING HUMAN QA**.
 
 ---
 
-## 13. Éléments non observables
+## 10. Fake/Real Qualification
 
-- Persisted prospective qualify decision object for the turn.
-- Provider model/effort fields in session_items.
-- Live REC-01 execution outcome (intentionally not re-run).
-
----
-
-## 14. Sévérité proposée
-
-**MAJOR** — Human QA baseline contamination + unjustified durable WR under pre-REC-01 runtime.
-Not escalated to global P6 STOP without wider contamination proof.
+- Declared: HUMAN REAL QA (bounded HQA-01)
+- Runtime REAL flag: on
+- Model env attested: `gpt-5.6-luna`
+- Turn-level provider response ids / costs: N/A until turn
+- REAL BOUNDARY PROVEN: **NOT declared**
 
 ---
 
-## 15. Options de traitement
+## 11. Jugement Morris
 
-1. Restart Studio from REC-01 investigation WT / `f31bb8f6`.
-2. Re-run HQA-01 Guidance Only (Morris=Pilot).
-3. Keep HQA-02…07 NOT RUN / HQA-02 suspended for this path.
-4. No Product code change from this cycle.
-5. Optional Pilot hygiene for the already-created 9th WR.
+Required next:
+1. Login at http://localhost:3020/login
+2. Create isolated QA project + active cycle via Product UI
+3. Capture before-state (projectId, cycleId, WR list)
+4. Send HQA-01 message as Pilote
+5. Return for evidence capture / ChatGPT review
 
----
-
-## 16. Aucun changement Product
-
-- No Product file edits.
-- No SQLite writes (read-only URI `mode=ro&immutable=1`).
-- No new Nora interaction / replay.
-- No new REAL test authored.
-- No project commit/push/PR/merge.
+HQA-02…07 remain NOT RUN.
 
 ---
 
-## 17. Réserves
+## 12. Verdict
 
-- Observation was taken against a non-REC-01 serving binary.
-- REC-01 effectiveness against this scenario remains a **re-QA** item, not a Delivery item.
-- Provider model not attested.
+**REC-01 HQA-01 — CORRECT RUNTIME VERIFIED — WAITING HUMAN QA**
 
 ---
 
-## 18. Décisions Morris requises
+## 13. Product source unchanged
 
-1. Accept verdict below.
-2. Authorize Studio restart on REC-01 baseline.
-3. Authorize HQA-01 re-run on correct baseline.
-4. Keep HQA-02 suspended until then.
-5. Decline Product change authorization from this investigation.
-
----
-
-## 19. Verdict
-
-**HQA-01 — ROOT CAUSE QUALIFIED — PRODUCT CHANGE NOT AUTHORIZED**
+- No Product code/config versioned edits
+- No schema/migration
+- No project commit/push/PR/merge
+- Local only: gitignored `.env.local`, `.sfia-exec/hqa01-rec01-requal/**`, QA evidence under `.tmp-sfia-review/`
 
 ---
 
-## 20. Preuve QA créée (contenu exploitable — template v2.6)
+## 14. Décision suivante
 
-### File: `.tmp-sfia-review/p6-global-integrated-qa/human-qa/rec01/hqa-01-root-cause-investigation.md`
-
-```markdown
-# HQA-01 — READ-ONLY Root Cause Investigation
-
-campaignId: P6-GLOBAL-INTEGRATED-PRODUCT-QA-01
-milestone: P6 Human QA — IN PROGRESS
-scenario: HQA-01 — Guidance Only
-investigationAt: 2026-10-10T22:19:50Z
-GO: Morris "ok go" — read-only technical investigation
-mode: HUMAN REAL QA (declared) — no new Nora turn, no Product mutation
+Morris executes HQA-01 on the verified REC-01 runtime; Cursor collects after-state; ChatGPT reviews.
 
 ---
 
-## RAW OBSERVATION
+## 15. Evidence files (exploitable contents)
 
-- Before Pilot message: 8 Work Recommendations to examine (UI).
-- Pilot message (explanatory only): nuance between task progress vs global project progress.
-- After: 9 Work Recommendations to examine (UI).
-- New displayed statement matches Product Recommendation below.
-- Nora conversational narrative judged relevant by Pilot.
-
-## TECHNICAL FACT
-
-### Git / runtime baseline at observation time
-
-| Surface | Value |
-|---|---|
-| Investigation WT | `/Users/morris/Projects/sfia-workspace-p6-rec01-human-qa` |
-| Investigation branch / HEAD | `qa/p6-hqa-02-rec01-human-qa` @ `f31bb8f610802c102edbe68889fb8ecf0339ec28` (= `origin/main`) |
-| REC-01 on investigation HEAD | PRESENT (`qualifyProspectiveWorkRecommendationMaterialization.ts`) |
-| Live Studio pid | 30453 |
-| Live Studio cwd | `/Users/morris/Projects/sfia-workspace/projects/sfia-studio/app` |
-| Live Studio Git | branch `qa/sfia-studio-p6-global-integrated-product-qa` @ `980064c05f1769f00d0ef85ef5284a899c6a0d73` |
-| REC-01 on live Studio tree | ABSENT (qualify file missing; orchestrateTurn materializes ACW without prospective filter) |
-| Product DB (read-only URI) | `…/.sfia-exec/new-project-campaign-01/product/oa-product.sqlite` |
-| Session DB (read-only URI) | `…/.sfia-exec/new-project-campaign-01/product/nora-session.sqlite` |
-
-### Durable Epistemic object (creation verified)
-
-| Field | Value |
-|---|---|
-| epistemicItemId | `epi:acw:3879e9bc68c83f60d578` |
-| projectId | `prj:60d7003d-3fbb-4298-a395-00f7704781a9` |
-| project title | Gestion de projets pour petites entreprises |
-| type | Recommendation |
-| status | active |
-| source | `active-cycle-work:nora` |
-| createdAt / updatedAt | `2026-10-10T21:28:01.292Z` |
-| statement | Lors de l’examen d’épisodes réels de manque de visibilité, distinguer ce que les responsables savent de l’état des tâches et ce qu’ils savent de la progression ou des risques du projet entier. |
-| provenance.actor | `actor:nora` / role agent / N1 |
-| provenance.correlationId | `ltu:df0f94982562de55cf148802410240c0` |
-| provenance.cycleInstanceId | `cyc:trj-934f5d47cd06a233bb354fcc` |
-| workRecommendationRelation | absent (null / empty) |
-| Active ACW Recommendations on project after turn | 9 (8 prior + this one) |
-
-Sibling item same correlationId:
-
-| Field | Value |
-|---|---|
-| epistemicItemId | `epi:acw:d9c0f7582448f1bd890b` |
-| type | Observation |
-| createdAt | `2026-10-10T21:28:01.291Z` |
-| source | `active-cycle-work:nora` |
-
-Prior 8 active ACW Recommendations on same project have earlier `created_at` (2026-10-09 … 2026-10-10T13:58:48Z). The 9th is exclusively this LTU.
-
-### Logical turn / transcript
-
-| Field | Value |
-|---|---|
-| logicalTurnId | `ltu:df0f94982562de55cf148802410240c0` |
-| logical_product_turns.status | accepted |
-| logical_product_turns.created_at | `2026-10-10T21:27:54.156Z` |
-| cycleInstanceId | `cyc:trj-934f5d47cd06a233bb354fcc` |
-| session_key | `f1-default` |
-| user seq 28 | matches Pilot explanatory question (154 chars) |
-| assistant seq 29 | explanatory narrative on task vs project progress (1032 chars) |
-
-Correlation is by `provenance.correlationId` = `logical_turn_id`, not by time proximity alone.
-
-### Structured Nora candidate (session_items seq=7 — OBSERVABLE)
-
-Top-level keys: narrative, conversationGuidance, activeCycleWork, journalDelta=null, lifecycleRecommendation=null, reservationDelta=null, preCycleRoutingAssessment.
-
-**conversationGuidance**
-
-- kind: `RECOMMEND_NEXT_STEP`
-- scope: `ACTIVE_CYCLE`
-- statement: soft keep-in-mind distinction for concrete episodes (conversational channel)
-- rationale: links nuance to ongoing exploration without presuming a follow-up type is needed
-
-**activeCycleWork.items**
-
-1. Observation (confidence high, blocking false) — conceptual distinction task vs project progress
-2. Recommendation (confidence medium, blocking false) — **same statement as durable WR**
-
-**Absent on Recommendation item (observed payload):**
-
-- `trackingRationale`
-- `relationKind`
-- `relatedRecommendationRef`
-- `recommendedOptionRef` = null
-
-Exact conversationGuidance statement ≠ Recommendation statement (REC-01 `conversational_channel_exact` would not fire).
-
-### Product path that actually ran (historical runtime)
-
-- `orchestrateTurn` @ historical HEAD calls `materializeActiveCycleWork({ items: acwItems, … })` with **no** `filterActiveCycleWorkItemsForProspectiveMaterialization`.
-- `qualifyProspectiveWorkRecommendationMaterialization.ts` **does not exist** on the live Studio tree.
-
-### REC-01 counterfactual (code on investigation HEAD `f31bb8f6` — not live re-run)
-
-For the observed candidate (relationKind absent):
-
-- `qualifyProspectiveWorkRecommendationMaterialization` → `{ materialize: false, reason: "missing_structured_contract" }`
-- Therefore the Recommendation would be stripped by `filterActiveCycleWorkItemsForProspectiveMaterialization` before materialize.
-- Observation would still be eligible (non-Recommendation items not blocked by WR coverage rules).
-
-This counterfactual is **code analysis**, not a new REAL execution.
-
-### Provider boundary
-
-| Check | Result |
-|---|---|
-| Fake silent fallback observed | NO |
-| OpenAI-shaped message id | YES (`msg_0039cd08…`) |
-| Reasoning item with encrypted_content | YES (`rs_0039cd08…`) — Responses API shaped |
-| Model / effort attested in session rows | NO |
-| OPENAI_API_KEY visible in `ps eww` | NO (not dispositive) |
-| Qualification | PROVIDER IDENTITY PARTIAL — OpenAI-shaped REAL likely; MODEL NOT VERIFIED |
-
-## INFERENCE
-
-1. The 8→9 UI observation corresponds to a real Product create of `epi:acw:3879e9bc68c83f60d578` on this turn.
-2. Nora dual-channelled: appropriate conversational guidance **and** an ACW Recommendation treated as durable work.
-3. Materialization succeeded because the **serving runtime lacked REC-01**, not because integrated `main`/`f31bb8f6` prospective guards failed in production.
-
-## HYPOTHESIS (not required for verdict)
-
-- On a REC-01 schema runtime, Nora might emit `relationKind`/`trackingRationale`; outcome would depend on those fields + coverage COMPLETE/PARTIAL. Not tested here.
-
-## Attribution case (contract A/B/C/D)
-
-| Case | Status |
-|---|---|
-| A — Nora proposed durable WR; Product applied its then-guards | **DEMONSTRATED** on historical runtime (guards = none for prospective WR) |
-| B — Nora guidance-only; Product invented WR | **REFUTED** (ACW Recommendation present in structured output) |
-| C — Historical/replay/projection only | **REFUTED** (new Epistemic ids + LTU correlation + created_at) |
-| D — Traces insufficient | **REFUTED** for creation/turn/candidate/runtime; PARTIAL only for model id |
-
-## RECOMMENDATION (no implementation)
-
-1. Treat HQA-01 observation as **baseline-contaminated** Human QA (Studio served pre-REC-01 code).
-2. Restart Studio from REC-01 baseline (`f31bb8f6` / investigation WT) before any further HQA scenario.
-3. Re-run HQA-01 Guidance Only on that baseline; do not claim REC-01 closed this defect until that re-run.
-4. Do **not** authorize a new Product semantic classifier / lexical rule from this cycle.
-5. Optional Pilot hygiene: the 9th WR is a durable artifact of the contaminated turn; disposition is a Pilot/Product UX decision outside this investigation.
-
-## MORRIS DECISION
-
-- Accept verdict: ROOT CAUSE QUALIFIED — PRODUCT CHANGE NOT AUTHORIZED
-- Authorize Studio restart on REC-01 baseline + HQA-01 re-run
-- Keep HQA-02 suspended for this path until HQA-01 re-qualified on correct baseline
-- No global P6 STOP from this local contamination alone
-
-## Verdict
-
-**HQA-01 — ROOT CAUSE QUALIFIED — PRODUCT CHANGE NOT AUTHORIZED**
-```
-
-### Append-only campaign ledger entry (historical evidence space)
-
-Path: `/Users/morris/Projects/sfia-workspace/.tmp-sfia-review/p6-global-integrated-qa/evidence-ledger.jsonl` (append only)
+### `environment-snapshot.json`
 
 ```json
-{"campaignId":"P6-GLOBAL-INTEGRATED-PRODUCT-QA-01","scenarioId":"HQA-01-GUIDANCE-ONLY","kind":"ROOT_CAUSE_INVESTIGATION_READONLY","at":"2026-10-10T22:19:50Z","epistemicItemId":"epi:acw:3879e9bc68c83f60d578","logicalTurnId":"ltu:df0f94982562de55cf148802410240c0","servingRuntimeHead":"980064c05f1769f00d0ef85ef5284a899c6a0d73","investigationHead":"f31bb8f610802c102edbe68889fb8ecf0339ec28","rec01OnServingRuntime":false,"verdict":"HQA-01 — ROOT CAUSE QUALIFIED — PRODUCT CHANGE NOT AUTHORIZED","evidencePath":"human-qa/HQA-01-REC01/hqa-01-root-cause-investigation.md","productMutation":false,"newNoraTurn":false}
+{
+  "timestamp": "2026-10-10T22:46:46Z",
+  "runId": "HQA-01-REC01-REQUAL-20261010T224411Z",
+  "campaignId": "P6-GLOBAL-INTEGRATED-PRODUCT-QA-01",
+  "lot": "P6-HQA-02 / REC-01",
+  "scenario": "HQA-01 — GUIDANCE ONLY (re-execution)",
+  "investigationWorkspace": "/Users/morris/Projects/sfia-workspace-p6-rec01-human-qa",
+  "branch": "qa/p6-hqa-02-rec01-human-qa",
+  "head": "f31bb8f610802c102edbe68889fb8ecf0339ec28",
+  "originMain": "f31bb8f610802c102edbe68889fb8ecf0339ec28",
+  "rec01QualifyPresent": true,
+  "prospectiveFilterInOrchestrateTurn": true,
+  "historicalRuntime": {
+    "pid": 30453,
+    "parentPid": 30449,
+    "cwd": "/Users/morris/Projects/sfia-workspace/projects/sfia-studio/app",
+    "head": "980064c05f1769f00d0ef85ef5284a899c6a0d73",
+    "branch": "qa/sfia-studio-p6-global-integrated-product-qa",
+    "port": 3020,
+    "url": "http://localhost:3020",
+    "rec01": false,
+    "stop": "SIGTERM graceful — STOPPED",
+    "portAfterStop": "free then reoccupied by REC-01 instance"
+  },
+  "newRuntime": {
+    "pid": 81318,
+    "parentPid": 81311,
+    "cwd": "/Users/morris/Projects/sfia-workspace-p6-rec01-human-qa/projects/sfia-studio/app",
+    "head": "f31bb8f610802c102edbe68889fb8ecf0339ec28",
+    "branch": "qa/p6-hqa-02-rec01-human-qa",
+    "port": 3020,
+    "listen": "[::1]:3020",
+    "url": "http://localhost:3020",
+    "loginHttp": 200,
+    "rootRedirect": "307 to /login?error=NO_SESSION",
+    "apiAuthGetSessionHttp": 200,
+    "command": "next dev --port 3020 --hostname localhost",
+    "rec01": true,
+    "secondStartAttempt": "EADDRINUSE — correct instance already listening"
+  },
+  "isolation": {
+    "strategy": "Option B — fresh isolated Product + Nora session DBs",
+    "productDbPath": "/Users/morris/Projects/sfia-workspace-p6-rec01-human-qa/projects/sfia-studio/.sfia-exec/hqa01-rec01-requal/product/oa-product.sqlite",
+    "sessionDbPath": "/Users/morris/Projects/sfia-workspace-p6-rec01-human-qa/projects/sfia-studio/.sfia-exec/hqa01-rec01-requal/product/nora-session.sqlite",
+    "dbsCreatedYet": false,
+    "historicalWrite": false,
+    "ninthRecommendationHistoricalId": "epi:acw:3879e9bc68c83f60d578",
+    "historicalPreserve": "historical-preserve/ + historical-post-stop-copy/"
+  },
+  "provider": {
+    "openaiModelEnv": "gpt-5.6-luna",
+    "cursorReal": "1",
+    "openaiKeyPresent": true,
+    "fakeFallbackConfigured": false,
+    "financialEnvelopeDocumentary": "P6 Human QA ≤ €10 (documentary; no hard cap infra)",
+    "boundedGo": "HQA-01 single guidance turn only"
+  },
+  "auth": {
+    "status": "MORRIS_LOGIN_REQUIRED_IN_BROWSER",
+    "loginUrl": "http://localhost:3020/login"
+  },
+  "productSourceUnchanged": true
+}
 ```
 
-Mirror path: `human-qa/HQA-01-REC01/hqa-01-root-cause-investigation.md` under the same historical campaign evidence root.
+### `isolation.md`
 
-HQA-02…07 remain NOT RUN. HQA-02 remains suspended for this path. No parallel campaign.
+```markdown
+# QA Isolation — HQA-01-REC01-REQUAL-20261010T224411Z
 
----
+strategy: Option B — isolated Product + Nora session DBs (fresh)
+reason: historical session already contains first HQA-01 turn; not an equivalent re-execution target
+historicalPreserveOnlineBackup: historical-preserve/
+historicalPostStopCopy: historical-post-stop-copy/
+isolatedProductDb: /Users/morris/Projects/sfia-workspace-p6-rec01-human-qa/projects/sfia-studio/.sfia-exec/hqa01-rec01-requal/product/oa-product.sqlite
+isolatedSessionDb: /Users/morris/Projects/sfia-workspace-p6-rec01-human-qa/projects/sfia-studio/.sfia-exec/hqa01-rec01-requal/product/nora-session.sqlite
+writeToHistorical: FORBIDDEN
+ninthRecommendationPreservedInHistorical: epi:acw:3879e9bc68c83f60d578
+comparisonScope: intention/oracle parity only — not identical conversational replay
+```
 
-## 21. Instruction ChatGPT
+### `real-entry-check.md`
 
-Lire : `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md`
-Vérifier preuves exploitables, causalité, qualification Product, incertitudes, sévérité, options, respect READ ONLY, verdict.
+```markdown
+# REAL Entry Check — HQA-01 REC-01 Requalification
+
+| # | Check | Result |
+|---|---|---|
+| 1 | Session Pilote authentifiée | PENDING — login required (`/login`, root 307 NO_SESSION) |
+| 2 | Projet QA identifié | PENDING — fresh isolated DB (not created until Product use) |
+| 3 | Cycle actif | PENDING — after project setup by Morris |
+| 4 | Contexte Product cohérent | PENDING — Option B isolation; comparable context to be built via Product UI |
+| 5 | WR ouvertes dénombrées | N/A until project exists (expect 0 at fresh project start) |
+| 6 | Journal accessible | PENDING |
+| 7 | Persistance QA opérationnelle | CONFIGURED — isolated paths in `.env.local` (gitignored); DBs not yet materialized |
+| 8 | Nora/OpenAI accessible | CONFIGURED — `OPENAI_API_KEY` present; `OPENAI_MODEL=gpt-5.6-luna`; `SFIA_STUDIO_CURSOR_REAL=1` |
+| 9 | Fake fallback | NOT CONFIGURED / NOT OBSERVED |
+| 10 | Model/effort observables | Model from env: `gpt-5.6-luna`; effort at turn TBD |
+| 11 | Enveloppe financière | Documentary P6 ≤ €10 Human QA; GO borné = 1 tour HQA-01 |
+| 12 | Captures/transcript collectables | YES — evidence dir ready |
+| 13 | Evidence Ledger P6 | YES — campaign space + rec01 runtime-requal |
+| 14 | Environnement parallèle non maîtrisé | Historical Studio STOPPED; single listener 3020 = REC-01 QA WT |
+
+Entry gate for provider calls: **blocked until Morris authenticates and prepares project/cycle**.
+Runtime gate: **PASS** (URL→PID→CWD→HEAD→REC-01).
+```
+
+### `morris-hqa01-pilot-card.md`
+
+```markdown
+# HQA-01 — Action Pilote Morris (REQUIRED)
+
+Runtime READY on REC-01 baseline.
+Cursor will **not** send the message.
+
+## 1) Login
+Open: http://localhost:3020/login
+Authenticate as Pilote Morris (GitHub allowlist).
+
+## 2) Prepare isolated QA project (Option B)
+Create/open a **new** project via Product UI on this runtime.
+Ensure an **active cycle** with a coherent Cadrage-like context.
+Do **not** reopen the historical contaminated project session for this re-run.
+Do **not** delete the historical 9th Recommendation (untouched in historical DB).
+
+## 3) Capture BEFORE (or confirm with Cursor)
+- projectId, cycleInstanceId
+- open WR count + identities
+- Journal visible
+
+## 4) Send exactly (or intention-equivalent if adaptation required):
+
+Petite question : quelle est la différence entre l'avancement d'une tâche et l'avancement global d'un projet ? J'aimerais simplement comprendre la nuance.
+
+Oracle: ZERO NEW UNJUSTIFIED WORK RECOMMENDATION.
+Narrative explanation OK. Durable WR not expected.
+
+## 5) After the turn
+Notify Cursor/ChatGPT. Do not proceed to HQA-02…07.
+```
+
+### `evidence-ledger-append.json`
+
+```json
+{
+  "campaignId": "P6-GLOBAL-INTEGRATED-PRODUCT-QA-01",
+  "scenarioId": "HQA-01-GUIDANCE-ONLY",
+  "kind": "RUNTIME_REQUALIFICATION",
+  "runId": "HQA-01-REC01-REQUAL-20261010T224411Z",
+  "at": "2026-10-10T22:46:46Z",
+  "historicalStop": {
+    "pid": 30453,
+    "method": "SIGTERM",
+    "result": "STOPPED"
+  },
+  "newRuntime": {
+    "pid": 81318,
+    "cwd": "qa-wt-app",
+    "head": "f31bb8f610802c102edbe68889fb8ecf0339ec28",
+    "url": "http://localhost:3020",
+    "rec01": true
+  },
+  "isolation": "Option B fresh DBs",
+  "hqa01Interaction": "NOT_EXECUTED",
+  "verdict": "REC-01 HQA-01 — CORRECT RUNTIME VERIFIED — WAITING HUMAN QA",
+  "productMutationVersioned": false
+}
+```
+
+### Historical preserve note
+
+Directories (binary sqlite — not inlined):
+- `…/runtime-requal/HQA-01-REC01-REQUAL-20261010T224411Z/historical-preserve/oa-product.sqlite`
+- `…/runtime-requal/HQA-01-REC01-REQUAL-20261010T224411Z/historical-preserve/nora-session.sqlite`
+- `…/runtime-requal/HQA-01-REC01-REQUAL-20261010T224411Z/historical-post-stop-copy/` (same pair)
+
+Verified contain `epi:acw:3879e9bc68c83f60d578`.
