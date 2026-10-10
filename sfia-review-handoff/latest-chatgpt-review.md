@@ -1,24 +1,24 @@
 # SFIA Review Pack — FULL
-# P6-HQA-01 — Controlled Merge PR #575 + Post-Merge Verification
-# Cycle 14 — Post-merge (template v2.6 §7.5)
+# P6-HQA-02 — Work Recommendation Materialization & UX
+# Local Bounded Prospective Delivery (template v2.6 §7.5)
 
 ## Meta
-- Date / heure : **2026-10-10 14:54:10 CEST** (Europe/Paris)
+- Date / heure : **2026-10-10 17:48:07 CEST** (Europe/Paris)
 - Macro : STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01
 - Campagne : P6-GLOBAL-INTEGRATED-PRODUCT-QA-01
-- Lot : **P6-HQA-01**
-- Milestone : P6 — Global Integrated Product QA
-- Cycle projet : **14 — Post-merge**
+- Lot : **P6-HQA-02** — Work Recommendation Materialization & UX
+- Milestone : P6 — Global Integrated Product QA / Phase 5 Human QA
+- Cycle projet : **8 — Delivery / implémentation**
 - Profil : **Standard**
-- Typologie : EVOL — integration / post-merge
+- Typologie : EVOL — corrective prospective
 - Capacités : V3-F05, V3-F04, V3-F02, V3-F14
-- GO Morris : **AUTHORIZED — CONTROLLED MERGE PR #575 + POST-MERGE VERIFICATION**
-- Nouvelle Delivery Product : **NON**
+- GO Morris : **AUTHORIZED — PROSPECTIVE PRODUCT RULE + BOUNDED LOCAL DELIVERY**
+- Commit / push / PR / merge projet : **NON**
 - P6 GLOBAL PASS : **NO**
 - Runtime v3 ADOPTED : **NO**
-- Human QA COMPLETE : **NO**
 - Synthesis only : **no**
-- Handoff précédent : `45848312b53e4f605b13b847d43068f5311651ba` (PR readiness #575)
+- Base main : `8ed61737df30db270bf871eedad1535020fd1c11` (PR #575 POST-MERGE VERIFIED)
+- Handoff précédent : `340577b39b7fe87310c4cfb924ed5596802ebf25`
 
 ---
 
@@ -26,226 +26,169 @@
 
 | Check | Result |
 |-------|--------|
-| Worktree correctif | `/Users/morris/Projects/sfia-workspace-p6-hqa-01` |
-| Branche | `fix/studio-p6-hqa-01-conversation-recommendations` |
-| HEAD correctif | `8f61da8fb3f2e77d698fa94a123971be57d8ff9d` |
-| `origin/main` avant merge | `73cc58b38a55f80b0a7eabdf9337f9f6e35577a3` |
-| Status / staged | **clean** / vide |
-| Worktree historique | `/Users/morris/Projects/sfia-workspace` @ `980064c0` — **préservé** (mods locales intactes) |
-| Handoff WT | `sfia/review-handoff` @ `45848312` pré-publication |
-
----
-
-## 2. Convergence Pre-check
-
-- Build Doctrine : VALIDATED — ACTIVE ON MAIN
-- Roadmap : P6 Global Integrated Product QA
-- C1 : VALIDATED
-- Classification : KEEP architecture/autorité ; ADAPT corrections déjà committées ; COMPLETE intégration Git
-- Gap fermé ici : preuve d'intégration PR #575 sur main
-- Exit proof : merge SHA + CI post-merge + handoff
-- Aucune clôture P6 ; runtime v3 NON ADOPTED
-
-CKC Cycle 14 : fallback synthétique autorisé (pas de CKC détaillé inventé).
-
----
-
-## 3. Gates pré-merge (requalifiés)
-
-| Gate | Result |
-|------|--------|
-| PR state | OPEN → (puis Ready) → MERGED |
-| draft avant Ready | **true** |
-| mergeable | **MERGEABLE** |
-| base | `main` / `73cc58b38a55f80b0a7eabdf9337f9f6e35577a3` |
-| head | `fix/studio-p6-hqa-01-conversation-recommendations` / `8f61da8fb3f2e77d698fa94a123971be57d8ff9d` |
-| commits | **1** |
-| files | **7** |
-| diff | **+391 / −10** |
-| CI pré-merge | run **38052033300** SUCCESS on head `8f61da8fb3f2e77d698fa94a123971be57d8ff9d` |
-| Required Gate pré-merge | SUCCESS (job 114214373394) |
-
-Aucun fichier hors allowlist ; pas de secret / tmp / C14 / doctrine / migration.
-
----
-
-## 4. Draft → Ready
-
-Commande : `gh pr ready 575`
-
-Résultat : PR marked ready for review ; `isDraft=false` ; base/head inchangés ; checks pré-merge toujours SUCCESS (pas de re-run bloquant).
-
----
-
-## 5. Merge contrôlé
-
-Commande : `gh pr merge 575 --merge`
-
-Flags **non** utilisés : `--delete-branch`, `--admin`, `--auto`, `--squash`, `--rebase`.
-
-| Item | Value |
-|------|-------|
-| PR | **#575** MERGED |
-| URL | https://github.com/mcleland147/sfia-workspace/pull/575 |
-| merge_commit_sha | `8ed61737df30db270bf871eedad1535020fd1c11` |
-| mergedAt | 2026-10-10T12:45:12Z |
-| Parents | `73cc58b38a55f80b0a7eabdf9337f9f6e35577a3` + `8f61da8fb3f2e77d698fa94a123971be57d8ff9d` |
-| Message | Merge pull request #575 from mcleland147/fix/studio-p6-hqa-01-conversation-recommendations |
-
----
-
-## 6. Vérification post-merge Git
-
-| Check | Result |
-|-------|--------|
+| Workspace historique | `/Users/morris/Projects/sfia-workspace` @ `980064c0` — **préservé** (C14/tmp/p6-campaign/HQA-01 locaux) |
+| Worktree isolé | `/Users/morris/Projects/sfia-workspace-p6-hqa-02` |
+| Branche | `fix/studio-p6-hqa-02-work-recommendation-materialization` |
+| HEAD worktree | `8ed61737df30db270bf871eedad1535020fd1c11` (= origin/main) |
 | `origin/main` | `8ed61737df30db270bf871eedad1535020fd1c11` |
-| `8f61da8f` ancestor of main | **YES** |
-| Périmètre vs first parent | **7 fichiers**, +391/−10 |
-| Contenu spot | « À examiner » + tests Human QA COG-01 présents sur main |
-| Branches non supprimées | corrective + QA historique **intactes** |
+| Staged | vide |
+| Collision | **NON** — travail sur worktree neuf depuis main |
 
-### Fichiers intégrés
+### `git status --short` (worktree correctif)
 
 ```
-A projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.hqa.rec03.journalRecommendationLabel.ui.test.tsx
-M projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.ux.recommendationContinuity.ui.test.tsx
-M projects/sfia-studio/app/__tests__/project-assistant/noraConversationalInitiative.d0.test.ts
-M projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
-M projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/JournalSurface.tsx
-M projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts
-M projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts
+ M projects/sfia-studio/app/__tests__/pre-m6-product-ui/chatFirstGovernedDecisionLoop.ui.test.tsx
+ M projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/JournalSurface.tsx
+ M projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts
+ M projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
+ M projects/sfia-studio/app/lib/oa/cycle/index.ts
+?? projects/sfia-studio/app/__tests__/oa/cycle/qualifyProspectiveWorkRecommendationMaterialization.d0.test.ts
+?? projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.hqa.uxrec02.journalDisclaimer.ui.test.tsx
+?? projects/sfia-studio/app/lib/oa/cycle/application/qualifyProspectiveWorkRecommendationMaterialization.ts
 ```
 
----
+### Diff stat (tracked)
 
-## 7. CI
-
-### Pré-merge (référence, insuffisante seule)
-
-- Workflow SFIA Studio CI
-- Run https://github.com/mcleland147/sfia-workspace/actions/runs/38052033300
-- event `pull_request` · head `8f61da8fb3f2e77d698fa94a123971be57d8ff9d` · **SUCCESS**
-- Required Gate SUCCESS
-
-### Post-merge (preuve d'intégration)
-
-- Workflow : **SFIA Studio CI**
-- Run : https://github.com/mcleland147/sfia-workspace/actions/runs/38053119338
-- event : **push**
-- headSha : **8ed61737df30db270bf871eedad1535020fd1c11** (= merge commit)
-- status/conclusion : **completed / success**
-
-| Job | ID | Conclusion |
-|-----|-----|------------|
-| Detect SFIA Studio changes | 114216100222 | success |
-| Build and validate SFIA Studio | 114216129640 | success |
-| SFIA Studio Required Gate | 114217536945 | success |
-
-Required Gate post-merge : **SUCCESS**.
-
----
-
-## 8. Fake / Real Qualification
-
-| Item | Value |
-|------|--------|
-| Applicable | OUI |
-| Frontière | Nora / fournisseur IA |
-| Déterministe | 35 tests ciblés PASS (PR readiness) + CI pré/post-merge SUCCESS |
-| Niveau | **DETERMINISTIC PROVEN AT TESTED SCOPE** + **POST-MERGE INTEGRATION VERIFIED** |
-| Hors scope | REAL BOUNDARY / E2E REAL / P6 PASS / v3 ADOPTED |
-
-Aucun appel REAL dans ce cycle. Human QA retest = travail ultérieur.
-
----
-
-## 9. Réserves conservées
-
-| Réserve | Statut |
-|---------|--------|
-| REC-01 | STRUCTURAL DECISION REQUIRED |
-| REC-02 | PARTIAL (présentation seulement) |
-| REC-03 / UX-REC-01 / COG-01 | Intégrés sur main ; rejeu Human QA REAL encore requis |
-| JRN-01 | HUMAN QA RETEST REQUIRED |
-| Figma fort | non revendiqué |
-| HQ-01 / P6-MIN-03 | Exit Proof Delivery encore à éprouver |
-
----
-
-## 10. Contenu Product intégré (exploitable)
-
-### 10.1 Fichier créé — REC-03 test (complet)
-
-```tsx
-/**
- * P6-HQA REC-03 — Journal Work Recommendation status label honesty.
- * @vitest-environment jsdom
- */
-import { describe, expect, it } from "vitest";
-import { render, screen } from "@testing-library/react";
-import { JournalSurface } from "@/features/pre-m6-product-ui/surfaces/JournalSurface";
-
-describe("P6-HQA REC-03 Journal recommendation label", () => {
-  it("active undipositioned Work Recommendation is « À examiner », not unanswered-chat wording", () => {
-    render(
-      <JournalSurface
-        entries={[]}
-        cycleInstanceId="cycinst:test"
-        selectedEntryId={null}
-        onSelectEntry={() => {}}
-        onViewExchanges={() => {}}
-        onFocusTurn={() => {}}
-        recommendations={[
-          {
-            epistemicItemId: "epi:acw:rec03",
-            statement: "Clarifier les responsabilités de suivi",
-            status: "active",
-            source: "active-cycle-work:nora",
-            optionSetRef: null,
-            proposalId: null,
-            cycleInstanceId: "cycinst:test",
-            createdAt: "2026-10-10T10:00:00.000Z",
-            dispositionDecisionId: null,
-            workRecommendationEpistemicItemId: "epi:acw:rec03",
-          },
-        ]}
-        decisions={[]}
-        reservations={[]}
-        memoryTab="recommandations"
-      />,
-    );
-    expect(screen.queryByText(/en attente de votre réponse/i)).toBeNull();
-    expect(screen.getAllByText(/À examiner/i).length).toBeGreaterThanOrEqual(1);
-    expect(
-      screen.getByText("Clarifier les responsabilités de suivi"),
-    ).toBeTruthy();
-  });
-});
+```
+ .../chatFirstGovernedDecisionLoop.ui.test.tsx      | 10 ++++---
+ .../pre-m6-product-ui/surfaces/JournalSurface.tsx  | 10 +++----
+ .../project-assistant/buildProjectSystemPrompt.ts  |  9 +++++++
+ .../features/project-assistant/orchestrateTurn.ts  | 31 ++++++++++++++++++++--
+ projects/sfia-studio/app/lib/oa/cycle/index.ts     |  8 ++++++
+ 5 files changed, 56 insertions(+), 12 deletions(-)
 ```
 
-### 10.2 COG-01 helpers + compose (section)
+Fichiers créés (untracked) :
+- `qualifyProspectiveWorkRecommendationMaterialization.ts`
+- `qualifyProspectiveWorkRecommendationMaterialization.d0.test.ts`
+- `p6.hqa.uxrec02.journalDisclaimer.ui.test.tsx`
+
+---
+
+## 2. Sources / Convergence
+
+Build Doctrine ACTIVE ON MAIN · Roadmap P6 · C1 VALIDATED · P6 Human QA IN PROGRESS · P6 PASS = NO · v3 NON ADOPTED.
+
+Mécanismes réutilisés : `activeCycleWork` → `materializeActiveCycleWork` · `projectCycleWorkRecommendations` · `conversationGuidance` · JournalSurface cards.
+
+KEEP architecture / ADAPT matérialisation + UI Journal · COMPLETE tests déterministes · NONE nouveau moteur/store/migration.
+
+CKC Cycle 8 : fallback synthétique autorisé.
+
+---
+
+## 3. Analyse du chemin actuel (avant correction)
+
+```
+Nora structured activeCycleWork
+→ orchestrateTurn eligibility / TDS validation
+→ materializeActiveCycleWork (id inclut turnCorrelationId)
+→ EpistemicItem source=active-cycle-work:nora
+→ LPS link → projectCycleWorkRecommendations → Journal / Conversation
+```
+
+Cause d'accumulation :
+1. Prompt encourageait l'émission ACW Recommendation chaque tour éligible.
+2. Identité `epi:acw:` inclut le turn id → chaque tour = nouvel item.
+3. Aucun gate prospectif « suggestion conversationnelle vs objet durable ».
+4. Dedup projection-only (optset), pas anti-reformulation cross-turn.
+
+---
+
+## 4. REC-01 — Règle prospective implémentée
+
+### Frontière serveur (pas prompt seul)
+
+`filterActiveCycleWorkItemsForProspectiveMaterialization` appelée dans `orchestrateTurn.ts`
+**après** lecture `existingItems`, **avant** `materializeActiveCycleWork`.
+
+### Critères déterministes (pas de score LOW/MEDIUM/HIGH)
+
+| Signal | Effet |
+|--------|-------|
+| `recommendedOptionRef` trajectoire + distinct | **materialize** |
+| statement ≈ `conversationGuidance.statement` | **suppress** `conversational_continuation` |
+| statement ≈ Work Recommendation ouverte du cycle | **suppress** `equivalent_open_exists` |
+| substance identifiable (cues structuraux / non-interrogatif dense) | **materialize** |
+| sinon | **suppress** `insufficient_substance` |
+
+Prompt `buildActiveCycleWorkOutputSection` : instruction REC-01 (suggestion → guidance only).
+
+### Strictement prospectif — preuves
+
+- Filtre uniquement `items` candidats à l'écriture.
+- `existingItems` jamais mutés (test I–N freeze JSON + ids/status).
+- Aucun backfill, migration, supersession, disposition, delete historique.
+- Journal continue de projeter le stock historique tel quel.
+
+---
+
+## 5. UX-REC-02
+
+Suppression du paragraphe répété sur chaque carte Journal :
+« RECOMMANDATION — PAS UNE DÉCISION HUMAINE. Disposez-en… »
+
+Conservé : statement, statut « À examiner », meta, CTA « En discuter avec Nora ».
+Authority Recommendation ≠ HD inchangée côté Product.
+
+Figma : changement de contenu uniquement (pas de nouveau layout). Conformité visuelle forte **non revendiquée**.
+
+---
+
+## 6. REC-02 — RESERVED
+
+ConversationSurface sélectionne toujours la première Work Recommendation active
+(`slice(0,1)`, newest-first) **sans** binding tour gouverné.
+
+Aucun `sourceTurnRef` fiable inventé. Stamp HQA-01 d'honnêteté conservé.
+
+**REC-02 = RESERVED — MORRIS DECISION / STRUCTURAL BINDING.**
+
+Ne bloque pas REC-01 / UX-REC-02.
+
+---
+
+## 7. Fichiers créés — contenu complet
+
+### 7.1 `qualifyProspectiveWorkRecommendationMaterialization.ts`
 
 ```typescript
-/** Normalize Pilot-facing prose for near-duplicate continuation detection. */
-function normalizePilotContinuationCompare(text: string): string {
-  return text
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/\p{M}/gu, "")
-    .replace(/[^\p{L}\p{N}\s]/gu, " ")
-    .replace(/\s+/g, " ")
-    .trim();
-}
-
 /**
- * Conversational closing-ask cues (FR). Includes Human QA paraphrases that do
- * not use « Souhaitez-vous » (imperatives, correspond-il, était-ce, trailing ?).
+ * P6-HQA-02 / REC-01 — prospective Work Recommendation materialization gate.
+ *
+ * A Work Recommendation is a durable Product object. Ordinary conversational
+ * suggestions stay in conversationGuidance and MUST NOT mint EpistemicItems.
+ *
+ * PROSPECTIVE ONLY: filters items about to be written. Never mutates, deletes,
+ * or reclassifies historical Recommendations.
+ *
+ * Deterministic structural gates (no numeric score, no semantic engine):
+ * - trajectory option-bound Recommendations remain durable;
+ * - statement ≈ conversationGuidance → conversational (no write);
+ * - statement ≈ an already-open Work Recommendation on the cycle → no new write;
+ * - otherwise durable when the statement carries identifiable work substance.
  */
-const CONTINUATION_INVITE_RE =
-  /\b(souhaitez[- ]vous|voulez[- ]vous|souhaites[- ]tu|que souhaitez|quelle est|quelles? |comment voulez|prefereriez[- ]vous|preferez[- ]vous|on peut|je (te|vous) propose|raconte[- ]moi|dis[- ]moi|explique[- ]moi|decrivons|decris|parle[- ]moi|correspond[- ]il|etait[- ]ce|est[- ]ce que|quest[- ]ce)\b/i;
 
-/** Discourse / filler tokens ignored when comparing ask payloads. */
-const CONTINUATION_COMPARE_STOP = new Set([
+import type { NoraActiveCycleWorkItem } from "@/lib/nora-cognitive-runtime/noraProductTurnOutputType";
+import {
+  projectCycleWorkRecommendations,
+  type TrajectoryDecisionSupportState,
+  type WorkRecommendationItemLike,
+} from "./deriveWorkRecommendations";
+
+export type ProspectiveWorkRecommendationSuppressReason =
+  | "conversational_continuation"
+  | "equivalent_open_exists"
+  | "insufficient_substance";
+
+export type ProspectiveWorkRecommendationMaterializationDecision =
+  | { readonly materialize: true; readonly reason: "justified_durable_work" }
+  | {
+      readonly materialize: false;
+      readonly reason: ProspectiveWorkRecommendationSuppressReason;
+    };
+
+const COMPARE_STOP = new Set([
   "le",
   "la",
   "les",
@@ -282,20 +225,9 @@ const CONTINUATION_COMPARE_STOP = new Set([
   "avec",
   "dans",
   "sur",
-  "aux",
-  "commencer",
-  "reprendre",
-  "premier",
-  "ensuite",
   "maintenant",
+  "ensuite",
   "alors",
-  "raconte",
-  "moi",
-  "decrivons",
-  "decris",
-  "dis",
-  "explique",
-  "parle",
   "seulement",
   "celles",
   "ceux",
@@ -310,943 +242,669 @@ const CONTINUATION_COMPARE_STOP = new Set([
   "elle",
   "ils",
   "elles",
+  "peux",
+  "peut",
+  "pouvez",
+  "voudrais",
+  "souhaite",
+  "souhaites",
+  "souhaitez",
+  "propose",
+  "recommande",
+  "recommander",
 ]);
 
-function isConversationalAsk(text: string): boolean {
-  const t = text.trim();
-  if (!t) return false;
-  if (/\?\s*$/.test(t)) return true;
-  return CONTINUATION_INVITE_RE.test(t);
+/** Work-orientation cues — structural, not a score. */
+const WORK_SUBSTANCE_RE =
+  /\b(structur|prioris|cadrer|cadrage|adopter|disposer|crit[eè]re|responsabilit|visibilit|avancement|p[eé]rim[eè]tre|objectif|livrable|trajec|option|examiner\s+(les|la|le|ce|cette)|clarifier\s+(les|la|le)|traiter\s+(le|la|les)|suivre|suivi|d[eé]marche|approche)\b/i;
+
+function normalizeCompare(text: string): string {
+  return text
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/\p{M}/gu, "")
+    .replace(/[^\p{L}\p{N}\s]/gu, " ")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
-/** Prefer the informational payload after a colon (common Human QA pattern). */
-function askComparePayload(text: string): string {
-  const raw = text.trim();
-  const colon = raw.lastIndexOf(":");
-  if (colon >= 0 && colon < raw.length - 3) {
-    const after = raw.slice(colon + 1).trim();
-    if (after.length >= 12) return after;
-  }
-  return raw;
-}
-
-function continuationContentTokens(text: string): Set<string> {
+function contentTokens(text: string): Set<string> {
   return new Set(
-    normalizePilotContinuationCompare(text)
+    normalizeCompare(text)
       .split(" ")
-      .filter((w) => w.length > 2 && !CONTINUATION_COMPARE_STOP.has(w)),
+      .filter((w) => w.length > 2 && !COMPARE_STOP.has(w)),
   );
 }
 
-/**
- * Overlap coefficient on content tokens — catches paraphrases of the same ask
- * without requiring identical invite phrasing (P6-HQA COG-01 Human QA cases).
- */
-function asksShareEquivalentContent(aRaw: string, bRaw: string): boolean {
-  const pairs: Array<[string, string]> = [
-    [aRaw, bRaw],
-    [askComparePayload(aRaw), askComparePayload(bRaw)],
-    [askComparePayload(aRaw), bRaw],
-    [aRaw, askComparePayload(bRaw)],
-  ];
-  for (const [left, right] of pairs) {
-    const a = continuationContentTokens(left);
-    const b = continuationContentTokens(right);
-    if (a.size === 0 || b.size === 0) continue;
-    let inter = 0;
-    for (const w of a) if (b.has(w)) inter += 1;
-    const smaller = Math.min(a.size, b.size);
-    const union = a.size + b.size - inter;
-    const jaccard = union === 0 ? 0 : inter / union;
-    const containment = smaller === 0 ? 0 : inter / smaller;
-    // Require enough shared substance; containment covers asymmetric paraphrases
-    // (e.g. « type d'entreprise » ↔ « entreprise de huit personnes » + same fork).
-    // inter >= 3 preserves the prior near-duplicate « Souhaitez-vous … » path.
-    if (inter >= 3 && (jaccard >= 0.45 || containment >= 0.55)) {
-      return true;
-    }
-  }
-  return false;
-}
-
-/** Closing ask candidates: question-like sentences in the last paragraph. */
-function extractClosingAskCandidates(narrative: string): string[] {
-  const paragraphs = narrative
-    .split(/\n\s*\n/)
-    .map((p) => p.trim())
-    .filter(Boolean);
-  const lastPara = paragraphs[paragraphs.length - 1] ?? narrative.trim();
-  const sentences = lastPara
-    .split(/(?<=[.!?…])\s+/)
-    .map((p) => p.trim())
-    .filter(Boolean);
-  const asks = sentences.filter(isConversationalAsk);
-  if (asks.length > 0) return asks;
-  // Fallback: whole last paragraph / last sentence when invite cues are weak.
-  if (sentences.length > 0) return [sentences[sentences.length - 1]!];
-  return lastPara ? [lastPara] : [];
-}
-
-/**
- * True when narrative already carries the same (or near-duplicate) continuation
- * as guidance.statement — avoids stacking two nearly identical closing invites.
- * Exact substring match remains the primary path; similarity covers distinct
- * phrasings of the same invitation (P6-HQA COG-01), including Human QA
- * paraphrases that do not share a « Souhaitez-vous » surface form.
- */
-export function narrativeAlreadyCarriesGuidanceContinuation(
-  narrative: string,
-  statement: string,
+/** Content overlap for paraphrase-equivalent statements (no semantic model). */
+export function workRecommendationStatementsEquivalent(
+  aRaw: string,
+  bRaw: string,
 ): boolean {
-  const nRaw = narrative.trim();
-  const sRaw = statement.trim();
-  if (!sRaw) return true;
-  if (!nRaw) return false;
-  if (nRaw.includes(sRaw)) return true;
-
-  const n = normalizePilotContinuationCompare(nRaw);
-  const s = normalizePilotContinuationCompare(sRaw);
-  if (!s || s.length < 12) return false;
-  if (n.includes(s)) return true;
-
-  const candidates = extractClosingAskCandidates(nRaw);
-  const guidanceIsAsk = isConversationalAsk(sRaw);
-
-  for (const candidate of candidates) {
-    const last = normalizePilotContinuationCompare(candidate);
-    if (!last) continue;
-    if (last.includes(s) || (last.length >= 12 && s.includes(last))) {
-      return true;
-    }
-
-    // Same (or near-same) conversational ask — paraphrase-tolerant, content-gated.
-    // Both sides must look like invites/questions so distinct body prose is never
-    // treated as a duplicate of guidance.statement.
-    if (
-      guidanceIsAsk &&
-      isConversationalAsk(candidate) &&
-      asksShareEquivalentContent(candidate, sRaw)
-    ) {
-      return true;
-    }
+  const aNorm = normalizeCompare(aRaw);
+  const bNorm = normalizeCompare(bRaw);
+  if (!aNorm || !bNorm) return false;
+  if (aNorm === bNorm) return true;
+  if (aNorm.includes(bNorm) || bNorm.includes(aNorm)) {
+    const shorter = aNorm.length <= bNorm.length ? aNorm : bNorm;
+    if (shorter.length >= 24) return true;
   }
+  const a = contentTokens(aRaw);
+  const b = contentTokens(bRaw);
+  if (a.size === 0 || b.size === 0) return false;
+  let inter = 0;
+  for (const w of a) if (b.has(w)) inter += 1;
+  const smaller = Math.min(a.size, b.size);
+  const union = a.size + b.size - inter;
+  const jaccard = union === 0 ? 0 : inter / union;
+  const containment = smaller === 0 ? 0 : inter / smaller;
+  return inter >= 3 && (jaccard >= 0.45 || containment >= 0.55);
+}
+
+function hasTrajectoryRecommendedOptionRef(
+  ref: string | null | undefined,
+): boolean {
+  if (typeof ref !== "string") return false;
+  const trimmed = ref.trim();
+  return /^opt:trajectory:/i.test(trimmed);
+}
+
+function hasIdentifiableWorkSubstance(statement: string): boolean {
+  const trimmed = statement.trim();
+  if (trimmed.length < 28) return false;
+  if (WORK_SUBSTANCE_RE.test(trimmed)) return true;
+  // Non-interrogative orientation statement of sufficient length.
+  if (!/\?\s*$/.test(trimmed) && contentTokens(trimmed).size >= 5) return true;
   return false;
 }
 
 /**
- * Compose Pilot-facing assistant text for history continuity.
- * narrative + conversationGuidance.statement — no internal field names,
- * no "PROCHAINE ÉTAPE :" label.
- * P6-HQA COG-01 — do not append a near-duplicate closing invitation.
+ * Qualify whether a single ACW Recommendation candidate should mint a durable
+ * Work Recommendation. Never inspects or mutates historical item rows.
  */
-export function composePilotFacingAssistantText(
-  narrative: string,
-  guidance: ConversationGuidance | null | undefined,
-  structuredRecommendation?: {
-    readonly optionLabel: string;
-    readonly recommendedOptionRef: string;
-  } | null,
-): string {
-  const n = narrative.trim();
-  let out = n;
-  if (guidance) {
-    const statement = guidance.statement.trim();
-    if (statement) {
-      if (!out) out = statement;
-      else if (!narrativeAlreadyCarriesGuidanceContinuation(out, statement)) {
-        out = `${out}\n\n${statement}`;
+export function qualifyProspectiveWorkRecommendationMaterialization(input: {
+  readonly statement: string;
+  readonly recommendedOptionRef?: string | null;
+  readonly conversationGuidanceStatement: string | null | undefined;
+  readonly openWorkRecommendationStatements: readonly string[];
+}): ProspectiveWorkRecommendationMaterializationDecision {
+  const statement = input.statement.trim();
+  if (!statement) {
+    return { materialize: false, reason: "insufficient_substance" };
+  }
+
+  // Trajectory-bound structured Recommendation remains durable Product work.
+  if (hasTrajectoryRecommendedOptionRef(input.recommendedOptionRef)) {
+    const open = input.openWorkRecommendationStatements;
+    for (const existing of open) {
+      if (workRecommendationStatementsEquivalent(statement, existing)) {
+        return { materialize: false, reason: "equivalent_open_exists" };
       }
     }
+    return { materialize: true, reason: "justified_durable_work" };
   }
-  if (structuredRecommendation?.optionLabel?.trim()) {
-    const label = structuredRecommendation.optionLabel.trim();
-    const block = `Recommandation structurée (pas une décision) : « ${label} ».`;
-    if (!out.includes(label) && !out.includes(block)) {
-      out = out ? `${out}\n\n${block}` : block;
+
+  const guidance = (input.conversationGuidanceStatement ?? "").trim();
+  if (
+    guidance &&
+    workRecommendationStatementsEquivalent(statement, guidance)
+  ) {
+    return { materialize: false, reason: "conversational_continuation" };
+  }
+
+  for (const existing of input.openWorkRecommendationStatements) {
+    if (workRecommendationStatementsEquivalent(statement, existing)) {
+      return { materialize: false, reason: "equivalent_open_exists" };
     }
   }
-  return out;
+
+  if (!hasIdentifiableWorkSubstance(statement)) {
+    return { materialize: false, reason: "insufficient_substance" };
+  }
+
+  return { materialize: true, reason: "justified_durable_work" };
+}
+
+export function openWorkRecommendationStatementsForCycle(input: {
+  readonly existingItems: ReadonlyArray<WorkRecommendationItemLike>;
+  readonly cycleInstanceId: string;
+  readonly trajectoryDecisionSupportState: TrajectoryDecisionSupportState;
+}): string[] {
+  const cards = projectCycleWorkRecommendations({
+    items: input.existingItems,
+    cycleInstanceId: input.cycleInstanceId,
+    fallbackCycleInstanceId: input.cycleInstanceId,
+    trajectoryDecisionSupportState: input.trajectoryDecisionSupportState,
+  });
+  return cards
+    .filter((c) => c.status === "active" && !c.dispositionDecisionId)
+    .map((c) => c.statement)
+    .filter((s) => s.trim().length > 0);
+}
+
+/**
+ * Prospective filter on ACW items before materializeActiveCycleWork.
+ * Non-Recommendation items pass through unchanged. Historical rows untouched.
+ */
+export function filterActiveCycleWorkItemsForProspectiveMaterialization(input: {
+  readonly items: ReadonlyArray<NoraActiveCycleWorkItem>;
+  readonly conversationGuidanceStatement: string | null | undefined;
+  readonly existingItems: ReadonlyArray<WorkRecommendationItemLike>;
+  readonly cycleInstanceId: string;
+  readonly trajectoryDecisionSupportState: TrajectoryDecisionSupportState;
+}): {
+  readonly items: NoraActiveCycleWorkItem[];
+  readonly suppressed: ReadonlyArray<{
+    readonly statement: string;
+    readonly reason: ProspectiveWorkRecommendationSuppressReason;
+  }>;
+} {
+  const openStatements = openWorkRecommendationStatementsForCycle({
+    existingItems: input.existingItems,
+    cycleInstanceId: input.cycleInstanceId,
+    trajectoryDecisionSupportState: input.trajectoryDecisionSupportState,
+  });
+
+  const kept: NoraActiveCycleWorkItem[] = [];
+  const suppressed: Array<{
+    statement: string;
+    reason: ProspectiveWorkRecommendationSuppressReason;
+  }> = [];
+
+  for (const item of input.items) {
+    if (item.type !== "Recommendation") {
+      kept.push(item);
+      continue;
+    }
+    const decision = qualifyProspectiveWorkRecommendationMaterialization({
+      statement: item.statement,
+      recommendedOptionRef: item.recommendedOptionRef,
+      conversationGuidanceStatement: input.conversationGuidanceStatement,
+      openWorkRecommendationStatements: openStatements,
+    });
+    if (decision.materialize) {
+      kept.push(item);
+      // Newly kept statement counts as open for later items in the same turn
+      // so two paraphrase Recommendations in one payload do not both mint.
+      openStatements.push(item.statement.trim());
+    } else {
+      suppressed.push({
+        statement: item.statement.trim(),
+        reason: decision.reason,
+      });
+    }
+  }
+
+  return { items: kept, suppressed };
 }
 ```
 
-### 10.3 COG-01 tests (bloc)
+### 7.2 Test REC-01
 
 ```typescript
-  it("COG-01 — near-duplicate closing invite is not stacked twice", () => {
-    const narrative =
-      "Le besoin est clair. Souhaitez-vous que l'on commence par les responsabilités et les retards ?";
-    const g = guidance(
-      "ASK_CLARIFICATION",
-      "ACTIVE_CYCLE",
-      "Souhaitez-vous commencer par les responsabilités et les retards ?",
-      null,
-    );
-    const pilot = composePilotFacingAssistantText(narrative, g);
-    const matches = pilot.match(/Souhaitez-vous/gi) ?? [];
-    expect(matches.length).toBe(1);
-    expect(pilot).toContain("Le besoin est clair");
-  });
+/**
+ * P6-HQA-02 / REC-01 — prospective Work Recommendation materialization gate.
+ * @vitest-environment node
+ */
+import { describe, expect, it } from "vitest";
+import {
+  filterActiveCycleWorkItemsForProspectiveMaterialization,
+  qualifyProspectiveWorkRecommendationMaterialization,
+  workRecommendationStatementsEquivalent,
+} from "@/lib/oa/cycle/application/qualifyProspectiveWorkRecommendationMaterialization";
+import type { NoraActiveCycleWorkItem } from "@/lib/nora-cognitive-runtime/noraProductTurnOutputType";
 
-  it("COG-01 — Human QA retard/responsabilité paraphrase is not stacked", () => {
-    // Exact Human QA formulations (P6-HQA-01) — same information ask, distinct phrasing.
-    const narrativeInvite =
-      "Pour commencer, raconte-moi un retard précis : quelle tâche était en jeu, et qu’est-ce que les personnes concernées pensaient à ce moment-là de qui devait s’en charger ?";
-    const guidanceInvite =
-      "Décrivons un retard précis : quelle tâche était en jeu, et qu’est-ce que les personnes concernées pensaient de la responsabilité à ce moment-là ?";
-    const narrative = `Les retards semblent liés à des responsabilités floues.\n\n${narrativeInvite}`;
-    const g = guidance("ASK_CLARIFICATION", "ACTIVE_CYCLE", guidanceInvite, null);
-    const pilot = composePilotFacingAssistantText(narrative, g);
-    expect(pilot).toContain("Les retards semblent liés");
-    expect(pilot).toContain(narrativeInvite);
-    expect(pilot).not.toContain(guidanceInvite);
-    expect((pilot.match(/\?/g) ?? []).length).toBe(1);
-  });
-
-  it("COG-01 — Human QA entreprise de huit personnes paraphrase is not stacked", () => {
-    const narrativeInvite =
-      "Pour reprendre le premier : ce type d’entreprise correspond-il à celles que tu souhaites étudier, ou était-ce seulement un exemple ?";
-    const guidanceInvite =
-      "L’exemple de l’entreprise de huit personnes correspond-il au type d’entreprise que tu souhaites étudier, ou était-ce seulement un scénario illustratif ?";
-    const narrative = `Tu as mentionné une entreprise de huit personnes.\n\n${narrativeInvite}`;
-    const g = guidance("ASK_CLARIFICATION", "ACTIVE_CYCLE", guidanceInvite, null);
-    const pilot = composePilotFacingAssistantText(narrative, g);
-    expect(pilot).toContain("entreprise de huit personnes");
-    expect(pilot).toContain(narrativeInvite);
-    expect(pilot).not.toContain(guidanceInvite);
-    expect((pilot.match(/\?/g) ?? []).length).toBe(1);
-  });
-
-  it("COG-01 — distinct continuation is still appended once", () => {
-    const narrative = "Voici la synthèse des difficultés observées.";
-    const g = guidance(
-      "RECOMMEND_NEXT_STEP",
-      "ACTIVE_CYCLE",
-      "Je te propose maintenant d'examiner la visibilité sur l'avancement.",
-      null,
-    );
-    const pilot = composePilotFacingAssistantText(narrative, g);
-    expect(pilot).toContain("synthèse des difficultés");
-    expect(pilot).toContain("visibilité sur l'avancement");
-  });
-
-  it("COG-01 — distinct asks on retard keep both (responsabilités ≠ conséquences)", () => {
-    const narrative =
-      "Le défaut de clarté est confirmé. Quelles étaient les responsabilités sur ce retard ?";
-    const g = guidance(
-      "ASK_CLARIFICATION",
-      "ACTIVE_CYCLE",
-      "Quelles ont été les conséquences de ce retard pour l’équipe ?",
-      null,
-    );
-    const pilot = composePilotFacingAssistantText(narrative, g);
-    expect(pilot).toContain("responsabilités sur ce retard");
-    expect(pilot).toContain("conséquences de ce retard");
-    expect((pilot.match(/\?/g) ?? []).length).toBe(2);
-  });
-
-  it("COG-01 — distinct asks on entreprise keep both (type ≠ nombre de projets)", () => {
-    const narrative =
-      "Reprenons. Ce type d’entreprise correspond-il à celles que tu souhaites étudier ?";
-    const g = guidance(
-      "ASK_CLARIFICATION",
-      "ACTIVE_CYCLE",
-      "Combien de projets mènent-ils en parallèle typiquement ?",
-      null,
-    );
-    const pilot = composePilotFacingAssistantText(narrative, g);
-    expect(pilot).toContain("type d’entreprise");
-    expect(pilot).toContain("Combien de projets");
-    expect((pilot.match(/\?/g) ?? []).length).toBe(2);
-  });
-
-  it("COG-01 — narrative without closing invite still receives useful continuation", () => {
-    const narrative =
-      "Les difficultés de gestion de projets sont bien identifiées pour ce Cadrage.";
-    const g = guidance(
-      "ASK_CLARIFICATION",
-      "ACTIVE_CYCLE",
-      "Peux-tu décrire un retard précis observé récemment ?",
-      null,
-    );
-    const pilot = composePilotFacingAssistantText(narrative, g);
-    expect(pilot.startsWith(narrative)).toBe(true);
-    expect(pilot).toContain("retard précis observé");
-    expect(pilot).not.toMatch(/conversationGuidance|preCycleRoutingAssessment/i);
-  });
-
-  it("COG-01 — absent guidance leaves narrative unchanged", () => {
-    const narrative = "Synthèse utile sans suite structurée.";
-    expect(composePilotFacingAssistantText(narrative, null)).toBe(narrative);
-    expect(composePilotFacingAssistantText(narrative, undefined)).toBe(narrative);
-  });
-```
-
-### 10.4 Journal REC-03 label
-
-```typescript
-function recommendationCurrentnessLabel(card: JournalRecommendationCard): string {
-  if (card.status === "resolved") return "Traitée";
-  if (card.status === "rejected") return "Écartée";
-  if (card.status === "superseded") return "Remplacée";
-  if (card.dispositionDecisionId) return "Dispositionnée";
-  // REC-03 — active ≠ « unanswered chat ». Align with Conversation « À examiner »:
-  // durable status without disposition; discussion alone does not dispose.
-  return "À examiner";
+function rec(
+  statement: string,
+  recommendedOptionRef: string | null = null,
+): NoraActiveCycleWorkItem {
+  return {
+    type: "Recommendation",
+    statement,
+    confidence: "medium",
+    blocking: null,
+    recommendedOptionRef,
+  };
 }
 
-/** A Work Recommendation still awaiting an explicit Pilot disposition. */
+describe("P6-HQA-02 REC-01 prospective Work Recommendation materialization", () => {
+  it("A — conversational continuation question does not materialize", () => {
+    const decision = qualifyProspectiveWorkRecommendationMaterialization({
+      statement:
+        "Peux-tu décrire un retard précis observé récemment dans l'équipe ?",
+      recommendedOptionRef: null,
+      conversationGuidanceStatement:
+        "Peux-tu décrire un retard précis observé récemment dans l'équipe ?",
+      openWorkRecommendationStatements: [],
+    });
+    expect(decision.materialize).toBe(false);
+    if (!decision.materialize) {
+      expect(decision.reason).toBe("conversational_continuation");
+    }
+  });
+
+  it("B — examine a concrete example stays conversational when tied to guidance", () => {
+    const guidance =
+      "Prenons un exemple concret : raconte un retard récent et qui devait s'en charger.";
+    const decision = qualifyProspectiveWorkRecommendationMaterialization({
+      statement:
+        "Prenons un exemple concret : raconte un retard récent et qui devait s'en charger.",
+      recommendedOptionRef: null,
+      conversationGuidanceStatement: guidance,
+      openWorkRecommendationStatements: [],
+    });
+    expect(decision.materialize).toBe(false);
+  });
+
+  it("C — significant durable work orientation materializes", () => {
+    const decision = qualifyProspectiveWorkRecommendationMaterialization({
+      statement:
+        "Structurer le cadrage autour des responsabilités de suivi et des retards récurrents.",
+      recommendedOptionRef: null,
+      conversationGuidanceStatement:
+        "Souhaites-tu préciser un retard précis pour commencer ?",
+      openWorkRecommendationStatements: [],
+    });
+    expect(decision).toEqual({
+      materialize: true,
+      reason: "justified_durable_work",
+    });
+  });
+
+  it("D — trajectory option-bound Recommendation materializes when distinct", () => {
+    const decision = qualifyProspectiveWorkRecommendationMaterialization({
+      statement: "Adopter l'option trajectoire gouvernée pour ce cycle.",
+      recommendedOptionRef: "opt:trajectory:governed-gated",
+      conversationGuidanceStatement: "Je te propose la trajectoire gouvernée.",
+      openWorkRecommendationStatements: [],
+    });
+    expect(decision.materialize).toBe(true);
+  });
+
+  it("E — reformulation of an already-open Recommendation does not mint again", () => {
+    const open =
+      "Clarifier les responsabilités de suivi des projets en cours.";
+    const decision = qualifyProspectiveWorkRecommendationMaterialization({
+      statement:
+        "Il faut clarifier les responsabilités de suivi des projets en cours.",
+      recommendedOptionRef: null,
+      conversationGuidanceStatement: "On peut en discuter maintenant.",
+      openWorkRecommendationStatements: [open],
+    });
+    expect(decision.materialize).toBe(false);
+    if (!decision.materialize) {
+      expect(decision.reason).toBe("equivalent_open_exists");
+    }
+  });
+
+  it("F — two distinct Recommendations are not collapsed by the gate", () => {
+    const open =
+      "Structurer le cadrage autour des responsabilités et des retards.";
+    const decision = qualifyProspectiveWorkRecommendationMaterialization({
+      statement:
+        "Améliorer la visibilité sur l'avancement des projets pour les parties prenantes.",
+      recommendedOptionRef: null,
+      conversationGuidanceStatement: null,
+      openWorkRecommendationStatements: [open],
+    });
+    expect(decision.materialize).toBe(true);
+  });
+
+  it("G — lexical cousin with different substance is not over-filtered", () => {
+    // Shares « retard » but asks consequences ≠ responsibilities.
+    expect(
+      workRecommendationStatementsEquivalent(
+        "Quelles étaient les responsabilités sur ce retard ?",
+        "Quelles ont été les conséquences de ce retard pour l'équipe ?",
+      ),
+    ).toBe(false);
+    const decision = qualifyProspectiveWorkRecommendationMaterialization({
+      statement:
+        "Documenter les conséquences opérationnelles des retards pour prioriser le cadrage.",
+      recommendedOptionRef: null,
+      conversationGuidanceStatement: null,
+      openWorkRecommendationStatements: [
+        "Clarifier les responsabilités de suivi sur les retards.",
+      ],
+    });
+    expect(decision.materialize).toBe(true);
+  });
+
+  it("H — short confirmation / clarification without substance does not materialize", () => {
+    const decision = qualifyProspectiveWorkRecommendationMaterialization({
+      statement: "D'accord, on continue ?",
+      recommendedOptionRef: null,
+      conversationGuidanceStatement: "Peux-tu confirmer le prochain point ?",
+      openWorkRecommendationStatements: [],
+    });
+    expect(decision.materialize).toBe(false);
+    if (!decision.materialize) {
+      expect(
+        decision.reason === "insufficient_substance" ||
+          decision.reason === "conversational_continuation",
+      ).toBe(true);
+    }
+  });
+
+  it("I–N — filter is prospective: existingItems are never mutated", () => {
+    const existing = Object.freeze([
+      Object.freeze({
+        type: "Recommendation",
+        status: "active",
+        epistemicItemId: "epi:acw:hist-1",
+        source: "active-cycle-work:nora",
+        statement: "Clarifier les responsabilités de suivi.",
+        createdAt: "2026-10-01T00:00:00.000Z",
+        relatedObjects: Object.freeze(["cycinst:qa"]),
+      }),
+    ]);
+    const before = JSON.stringify(existing);
+    const filtered = filterActiveCycleWorkItemsForProspectiveMaterialization({
+      items: [
+        rec(
+          "Clarifier les responsabilités de suivi des projets.",
+        ),
+        {
+          type: "Observation",
+          statement: "Les retards reviennent souvent.",
+          confidence: "medium",
+          blocking: null,
+          recommendedOptionRef: null,
+        },
+      ],
+      conversationGuidanceStatement: "On peut préciser un retard.",
+      existingItems: existing,
+      cycleInstanceId: "cycinst:qa",
+      trajectoryDecisionSupportState: "NONE",
+    });
+    expect(JSON.stringify(existing)).toBe(before);
+    expect(existing[0]!.epistemicItemId).toBe("epi:acw:hist-1");
+    expect(existing[0]!.status).toBe("active");
+    // Reformulation suppressed; Observation kept.
+    expect(filtered.items.map((i) => i.type)).toEqual(["Observation"]);
+    expect(filtered.suppressed.length).toBe(1);
+    expect(filtered.suppressed[0]!.reason).toBe("equivalent_open_exists");
+  });
+
+  it("same-turn paraphrase Recommendations: only first durable mint kept", () => {
+    const filtered = filterActiveCycleWorkItemsForProspectiveMaterialization({
+      items: [
+        rec(
+          "Structurer le cadrage autour des responsabilités de suivi et des retards.",
+        ),
+        rec(
+          "Il faut structurer le cadrage autour des responsabilités de suivi et des retards récurrents.",
+        ),
+      ],
+      conversationGuidanceStatement: "Par où veux-tu commencer ?",
+      existingItems: [],
+      cycleInstanceId: "cycinst:qa",
+      trajectoryDecisionSupportState: "NONE",
+    });
+    expect(filtered.items.filter((i) => i.type === "Recommendation")).toHaveLength(
+      1,
+    );
+    expect(filtered.suppressed.length).toBe(1);
+  });
+});
 ```
 
-### 10.5 ConversationSurface diff
+### 7.3 Test UX-REC-02
 
-```diff
-commit 8f61da8fb3f2e77d698fa94a123971be57d8ff9d
-Author: Morris Cleland <morris@macbook-air.home>
-Date:   Sat Oct 10 14:27:25 2026 +0200
+```tsx
+/**
+ * P6-HQA-02 UX-REC-02 — Journal Work Recommendation cards drop repeated disclaimer.
+ * @vitest-environment jsdom
+ */
+import { describe, expect, it, vi } from "vitest";
+import { render, screen } from "@testing-library/react";
+import { JournalSurface } from "@/features/pre-m6-product-ui/surfaces/JournalSurface";
 
-    fix(studio): address P6 Human QA conversation and recommendation issues
-
-    Co-authored-by: Cursor <cursoragent@cursor.com>
-
-diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
-index 1c1f8e68..efff6c9c 100644
---- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
-+++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
-@@ -1793,7 +1793,9 @@ export function ConversationSurface({
-                   >
-                     <div className={styles.p3CardHead}>
-                       <div className={styles.p3CardBody}>
--                        <p className={styles.p3CardEyebrow}>Recommandation</p>
-+                        <p className={styles.p3CardEyebrow}>
-+                          Recommandation active du cycle
-+                        </p>
-                         <p
-                           className={styles.p3CardTitle}
-                           data-testid="durable-recommendation-label"
-@@ -1801,7 +1803,8 @@ export function ConversationSurface({
-                           {card.statement}
-                         </p>
-                         <p className={styles.p3CardStamp}>
--                          RECOMMANDATION — PAS UNE DÉCISION
-+                          RECOMMANDATION DURABLE — PAS UNE DÉCISION · PAS LIÉE
-+                          UNIQUEMENT À CE TOUR
-                         </p>
-                       </div>
-                       <div className={styles.p3CardRight}>
-@@ -1837,10 +1840,8 @@ export function ConversationSurface({
-                         data-testid="durable-recommendation-details"
-                       >
-                         <dl className={styles.facts}>
--                          <div className={styles.factWide}>
--                            <dt>Proposition</dt>
--                            <dd>{card.statement}</dd>
--                          </div>
-+                          {/* UX-REC-01 — do not repeat card.statement under
-+                              « Proposition »; title already shows it once. */}
-                           <div className={styles.factWide}>
-                             <dt>Statut</dt>
-                             <dd data-testid="durable-recommendation-materiality">
-@@ -1850,7 +1851,9 @@ export function ConversationSurface({
-                               une décision. Vous pouvez l&apos;examiner, en
-                               discuter, ou la laisser en suspens. Une décision
-                               structurelle reste requise seulement lorsque le
--                              sujet l&apos;exige vraiment.
-+                              sujet l&apos;exige vraiment. Les recommandations
-+                              actives restent listées dans Journal ›
-+                              Recommandations.
-                             </dd>
-                           </div>
-                         </dl>
-```
-
-### 10.6 buildProjectSystemPrompt diff
-
-```diff
-commit 8f61da8fb3f2e77d698fa94a123971be57d8ff9d
-Author: Morris Cleland <morris@macbook-air.home>
-Date:   Sat Oct 10 14:27:25 2026 +0200
-
-    fix(studio): address P6 Human QA conversation and recommendation issues
-
-    Co-authored-by: Cursor <cursoragent@cursor.com>
-
-diff --git a/projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts b/projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts
-index 177a9ffc..ea46da10 100644
---- a/projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts
-@@ -215,6 +215,9 @@ export function buildProjectSystemPrompt(
-     "  → RECOMMEND_NEXT_STEP + LIFECYCLE_TRANSITION.",
-     "- Cognitive Stop → HOLD + BLOCKER_RESOLUTION (outranks transition / réutilisation).",
-     "UNE seule continuation principale par défaut. Pas de liste générique de cinq idées.",
-+    "COG-01 — Si la narrative se termine déjà par une invitation ou question de suite,",
-+    "ne reformule PAS une seconde question distincte dans conversationGuidance.statement ;",
-+    "réutilise la même formulation (ou laisse statement redondant volontairement).",
-     "Ne demande pas confirmation pour des détails non matériels.",
-     "Avance sous Hypothesis explicite lorsque la doctrine actuelle l'autorise.",
-     "Ne propose JAMAIS Cursor / Execution comme initiative autonome.",
-```
-
-### 10.7 UX continuity test diff
-
-```diff
-commit 8f61da8fb3f2e77d698fa94a123971be57d8ff9d
-Author: Morris Cleland <morris@macbook-air.home>
-Date:   Sat Oct 10 14:27:25 2026 +0200
-
-    fix(studio): address P6 Human QA conversation and recommendation issues
-
-    Co-authored-by: Cursor <cursoragent@cursor.com>
-
-diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.ux.recommendationContinuity.ui.test.tsx b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.ux.recommendationContinuity.ui.test.tsx
-index e80185ed..458ecea6 100644
---- a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.ux.recommendationContinuity.ui.test.tsx
-+++ b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.ux.recommendationContinuity.ui.test.tsx
-@@ -129,6 +129,17 @@ describe("P6 UX Recommendation Continuity + FIX-01/02/03", () => {
-     ).textContent;
-     expect(materiality).toMatch(/n'est pas automatiquement une décision/i);
-     expect(materiality).not.toMatch(/opérationnelle/i);
-+    // UX-REC-01 — statement shown once in title; not repeated under Proposition.
-+    expect(screen.queryByText("Proposition")).toBeNull();
-+    const statementHits = screen.getAllByText(
-+      /Commencer par recueillir des exemples concrets de difficultés vécues/,
-+    );
-+    expect(statementHits).toHaveLength(1);
-+    // REC-02 — durable cycle card, not implied as this-turn-only answer.
-+    expect(screen.getByText(/Recommandation active du cycle/i)).toBeTruthy();
-+    expect(
-+      screen.getByText(/PAS LIÉE\s+UNIQUEMENT À CE TOUR/i),
-+    ).toBeTruthy();
-     fireEvent.click(screen.getByTestId("conversation-discuss-recommendation"));
-     expect(onDiscuss).toHaveBeenCalledWith("epi:acw:ux02");
-   });
-```
-
-### 10.8 Patch complet du commit Product `8f61da8fb3f2e77d698fa94a123971be57d8ff9d`
-
-```diff
-diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.hqa.rec03.journalRecommendationLabel.ui.test.tsx b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.hqa.rec03.journalRecommendationLabel.ui.test.tsx
-new file mode 100644
-index 00000000..bd0144ad
---- /dev/null
-+++ b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.hqa.rec03.journalRecommendationLabel.ui.test.tsx
-@@ -0,0 +1,44 @@
-+/**
-+ * P6-HQA REC-03 — Journal Work Recommendation status label honesty.
-+ * @vitest-environment jsdom
-+ */
-+import { describe, expect, it } from "vitest";
-+import { render, screen } from "@testing-library/react";
-+import { JournalSurface } from "@/features/pre-m6-product-ui/surfaces/JournalSurface";
-+
-+describe("P6-HQA REC-03 Journal recommendation label", () => {
-+  it("active undipositioned Work Recommendation is « À examiner », not unanswered-chat wording", () => {
-+    render(
-+      <JournalSurface
-+        entries={[]}
-+        cycleInstanceId="cycinst:test"
-+        selectedEntryId={null}
-+        onSelectEntry={() => {}}
-+        onViewExchanges={() => {}}
-+        onFocusTurn={() => {}}
-+        recommendations={[
-+          {
-+            epistemicItemId: "epi:acw:rec03",
-+            statement: "Clarifier les responsabilités de suivi",
-+            status: "active",
-+            source: "active-cycle-work:nora",
-+            optionSetRef: null,
-+            proposalId: null,
-+            cycleInstanceId: "cycinst:test",
-+            createdAt: "2026-10-10T10:00:00.000Z",
-+            dispositionDecisionId: null,
-+            workRecommendationEpistemicItemId: "epi:acw:rec03",
-+          },
-+        ]}
-+        decisions={[]}
-+        reservations={[]}
-+        memoryTab="recommandations"
-+      />,
-+    );
-+    expect(screen.queryByText(/en attente de votre réponse/i)).toBeNull();
-+    expect(screen.getAllByText(/À examiner/i).length).toBeGreaterThanOrEqual(1);
-+    expect(
-+      screen.getByText("Clarifier les responsabilités de suivi"),
-+    ).toBeTruthy();
-+  });
-+});
-diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.ux.recommendationContinuity.ui.test.tsx b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.ux.recommendationContinuity.ui.test.tsx
-index e80185ed..458ecea6 100644
---- a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.ux.recommendationContinuity.ui.test.tsx
-+++ b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.ux.recommendationContinuity.ui.test.tsx
-@@ -129,6 +129,17 @@ describe("P6 UX Recommendation Continuity + FIX-01/02/03", () => {
-     ).textContent;
-     expect(materiality).toMatch(/n'est pas automatiquement une décision/i);
-     expect(materiality).not.toMatch(/opérationnelle/i);
-+    // UX-REC-01 — statement shown once in title; not repeated under Proposition.
-+    expect(screen.queryByText("Proposition")).toBeNull();
-+    const statementHits = screen.getAllByText(
-+      /Commencer par recueillir des exemples concrets de difficultés vécues/,
-+    );
-+    expect(statementHits).toHaveLength(1);
-+    // REC-02 — durable cycle card, not implied as this-turn-only answer.
-+    expect(screen.getByText(/Recommandation active du cycle/i)).toBeTruthy();
-+    expect(
-+      screen.getByText(/PAS LIÉE\s+UNIQUEMENT À CE TOUR/i),
-+    ).toBeTruthy();
-     fireEvent.click(screen.getByTestId("conversation-discuss-recommendation"));
-     expect(onDiscuss).toHaveBeenCalledWith("epi:acw:ux02");
-   });
-diff --git a/projects/sfia-studio/app/__tests__/project-assistant/noraConversationalInitiative.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/noraConversationalInitiative.d0.test.ts
-index 93d51614..a7b7900b 100644
---- a/projects/sfia-studio/app/__tests__/project-assistant/noraConversationalInitiative.d0.test.ts
-+++ b/projects/sfia-studio/app/__tests__/project-assistant/noraConversationalInitiative.d0.test.ts
-@@ -281,6 +281,114 @@ describe("NORA-CONVERSATIONAL-INITIATIVE-01 (deterministic)", () => {
-     expect(pilot).not.toMatch(/PROCHAINE ÉTAPE\s*:/i);
-   });
-
-+  it("COG-01 — near-duplicate closing invite is not stacked twice", () => {
-+    const narrative =
-+      "Le besoin est clair. Souhaitez-vous que l'on commence par les responsabilités et les retards ?";
-+    const g = guidance(
-+      "ASK_CLARIFICATION",
-+      "ACTIVE_CYCLE",
-+      "Souhaitez-vous commencer par les responsabilités et les retards ?",
-+      null,
-+    );
-+    const pilot = composePilotFacingAssistantText(narrative, g);
-+    const matches = pilot.match(/Souhaitez-vous/gi) ?? [];
-+    expect(matches.length).toBe(1);
-+    expect(pilot).toContain("Le besoin est clair");
-+  });
-+
-+  it("COG-01 — Human QA retard/responsabilité paraphrase is not stacked", () => {
-+    // Exact Human QA formulations (P6-HQA-01) — same information ask, distinct phrasing.
-+    const narrativeInvite =
-+      "Pour commencer, raconte-moi un retard précis : quelle tâche était en jeu, et qu’est-ce que les personnes concernées pensaient à ce moment-là de qui devait s’en charger ?";
-+    const guidanceInvite =
-+      "Décrivons un retard précis : quelle tâche était en jeu, et qu’est-ce que les personnes concernées pensaient de la responsabilité à ce moment-là ?";
-+    const narrative = `Les retards semblent liés à des responsabilités floues.\n\n${narrativeInvite}`;
-+    const g = guidance("ASK_CLARIFICATION", "ACTIVE_CYCLE", guidanceInvite, null);
-+    const pilot = composePilotFacingAssistantText(narrative, g);
-+    expect(pilot).toContain("Les retards semblent liés");
-+    expect(pilot).toContain(narrativeInvite);
-+    expect(pilot).not.toContain(guidanceInvite);
-+    expect((pilot.match(/\?/g) ?? []).length).toBe(1);
-+  });
-+
-+  it("COG-01 — Human QA entreprise de huit personnes paraphrase is not stacked", () => {
-+    const narrativeInvite =
-+      "Pour reprendre le premier : ce type d’entreprise correspond-il à celles que tu souhaites étudier, ou était-ce seulement un exemple ?";
-+    const guidanceInvite =
-+      "L’exemple de l’entreprise de huit personnes correspond-il au type d’entreprise que tu souhaites étudier, ou était-ce seulement un scénario illustratif ?";
-+    const narrative = `Tu as mentionné une entreprise de huit personnes.\n\n${narrativeInvite}`;
-+    const g = guidance("ASK_CLARIFICATION", "ACTIVE_CYCLE", guidanceInvite, null);
-+    const pilot = composePilotFacingAssistantText(narrative, g);
-+    expect(pilot).toContain("entreprise de huit personnes");
-+    expect(pilot).toContain(narrativeInvite);
-+    expect(pilot).not.toContain(guidanceInvite);
-+    expect((pilot.match(/\?/g) ?? []).length).toBe(1);
-+  });
-+
-+  it("COG-01 — distinct continuation is still appended once", () => {
-+    const narrative = "Voici la synthèse des difficultés observées.";
-+    const g = guidance(
-+      "RECOMMEND_NEXT_STEP",
-+      "ACTIVE_CYCLE",
-+      "Je te propose maintenant d'examiner la visibilité sur l'avancement.",
-+      null,
-+    );
-+    const pilot = composePilotFacingAssistantText(narrative, g);
-+    expect(pilot).toContain("synthèse des difficultés");
-+    expect(pilot).toContain("visibilité sur l'avancement");
-+  });
-+
-+  it("COG-01 — distinct asks on retard keep both (responsabilités ≠ conséquences)", () => {
-+    const narrative =
-+      "Le défaut de clarté est confirmé. Quelles étaient les responsabilités sur ce retard ?";
-+    const g = guidance(
-+      "ASK_CLARIFICATION",
-+      "ACTIVE_CYCLE",
-+      "Quelles ont été les conséquences de ce retard pour l’équipe ?",
-+      null,
-+    );
-+    const pilot = composePilotFacingAssistantText(narrative, g);
-+    expect(pilot).toContain("responsabilités sur ce retard");
-+    expect(pilot).toContain("conséquences de ce retard");
-+    expect((pilot.match(/\?/g) ?? []).length).toBe(2);
-+  });
-+
-+  it("COG-01 — distinct asks on entreprise keep both (type ≠ nombre de projets)", () => {
-+    const narrative =
-+      "Reprenons. Ce type d’entreprise correspond-il à celles que tu souhaites étudier ?";
-+    const g = guidance(
-+      "ASK_CLARIFICATION",
-+      "ACTIVE_CYCLE",
-+      "Combien de projets mènent-ils en parallèle typiquement ?",
-+      null,
-+    );
-+    const pilot = composePilotFacingAssistantText(narrative, g);
-+    expect(pilot).toContain("type d’entreprise");
-+    expect(pilot).toContain("Combien de projets");
-+    expect((pilot.match(/\?/g) ?? []).length).toBe(2);
-+  });
-+
-+  it("COG-01 — narrative without closing invite still receives useful continuation", () => {
-+    const narrative =
-+      "Les difficultés de gestion de projets sont bien identifiées pour ce Cadrage.";
-+    const g = guidance(
-+      "ASK_CLARIFICATION",
-+      "ACTIVE_CYCLE",
-+      "Peux-tu décrire un retard précis observé récemment ?",
-+      null,
-+    );
-+    const pilot = composePilotFacingAssistantText(narrative, g);
-+    expect(pilot.startsWith(narrative)).toBe(true);
-+    expect(pilot).toContain("retard précis observé");
-+    expect(pilot).not.toMatch(/conversationGuidance|preCycleRoutingAssessment/i);
-+  });
-+
-+  it("COG-01 — absent guidance leaves narrative unchanged", () => {
-+    const narrative = "Synthèse utile sans suite structurée.";
-+    expect(composePilotFacingAssistantText(narrative, null)).toBe(narrative);
-+    expect(composePilotFacingAssistantText(narrative, undefined)).toBe(narrative);
-+  });
-+
-   it("T2 — routing-blocking → ASK_CLARIFICATION + PRE_CYCLE", () => {
-     const g = guidance(
-       "ASK_CLARIFICATION",
-diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
-index 1c1f8e68..efff6c9c 100644
---- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
-+++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
-@@ -1793,7 +1793,9 @@ export function ConversationSurface({
-                   >
-                     <div className={styles.p3CardHead}>
-                       <div className={styles.p3CardBody}>
--                        <p className={styles.p3CardEyebrow}>Recommandation</p>
-+                        <p className={styles.p3CardEyebrow}>
-+                          Recommandation active du cycle
-+                        </p>
-                         <p
-                           className={styles.p3CardTitle}
-                           data-testid="durable-recommendation-label"
-@@ -1801,7 +1803,8 @@ export function ConversationSurface({
-                           {card.statement}
-                         </p>
-                         <p className={styles.p3CardStamp}>
--                          RECOMMANDATION — PAS UNE DÉCISION
-+                          RECOMMANDATION DURABLE — PAS UNE DÉCISION · PAS LIÉE
-+                          UNIQUEMENT À CE TOUR
-                         </p>
-                       </div>
-                       <div className={styles.p3CardRight}>
-@@ -1837,10 +1840,8 @@ export function ConversationSurface({
-                         data-testid="durable-recommendation-details"
-                       >
-                         <dl className={styles.facts}>
--                          <div className={styles.factWide}>
--                            <dt>Proposition</dt>
--                            <dd>{card.statement}</dd>
--                          </div>
-+                          {/* UX-REC-01 — do not repeat card.statement under
-+                              « Proposition »; title already shows it once. */}
-                           <div className={styles.factWide}>
-                             <dt>Statut</dt>
-                             <dd data-testid="durable-recommendation-materiality">
-@@ -1850,7 +1851,9 @@ export function ConversationSurface({
-                               une décision. Vous pouvez l&apos;examiner, en
-                               discuter, ou la laisser en suspens. Une décision
-                               structurelle reste requise seulement lorsque le
--                              sujet l&apos;exige vraiment.
-+                              sujet l&apos;exige vraiment. Les recommandations
-+                              actives restent listées dans Journal ›
-+                              Recommandations.
-                             </dd>
-                           </div>
-                         </dl>
-diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/JournalSurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/JournalSurface.tsx
-index 848927f4..cc318236 100644
---- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/JournalSurface.tsx
-+++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/JournalSurface.tsx
-@@ -133,7 +133,9 @@ function recommendationCurrentnessLabel(card: JournalRecommendationCard): string
-   if (card.status === "rejected") return "Écartée";
-   if (card.status === "superseded") return "Remplacée";
-   if (card.dispositionDecisionId) return "Dispositionnée";
--  return "En attente de votre réponse";
-+  // REC-03 — active ≠ « unanswered chat ». Align with Conversation « À examiner »:
-+  // durable status without disposition; discussion alone does not dispose.
-+  return "À examiner";
- }
-
- /** A Work Recommendation still awaiting an explicit Pilot disposition. */
-@@ -356,7 +358,7 @@ export function JournalSurface({
-           ? `${openReservationCount} réserve${openReservationCount === 1 ? "" : "s"} ouverte${openReservationCount === 1 ? "" : "s"}`
-           : "Aucun cycle sélectionné"
-         : tab === "recommandations"
--          ? `${openRecommendationCount} en attente de votre réponse`
-+          ? `${openRecommendationCount} à examiner`
-           : `${decisionCount} décision${decisionCount === 1 ? "" : "s"} enregistrée${decisionCount === 1 ? "" : "s"}`;
-
-   /** Rail stays a shortcut: it shows a bounded head of the subjects index. */
-diff --git a/projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts b/projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts
-index 177a9ffc..ea46da10 100644
---- a/projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts
-@@ -215,6 +215,9 @@ export function buildProjectSystemPrompt(
-     "  → RECOMMEND_NEXT_STEP + LIFECYCLE_TRANSITION.",
-     "- Cognitive Stop → HOLD + BLOCKER_RESOLUTION (outranks transition / réutilisation).",
-     "UNE seule continuation principale par défaut. Pas de liste générique de cinq idées.",
-+    "COG-01 — Si la narrative se termine déjà par une invitation ou question de suite,",
-+    "ne reformule PAS une seconde question distincte dans conversationGuidance.statement ;",
-+    "réutilise la même formulation (ou laisse statement redondant volontairement).",
-     "Ne demande pas confirmation pour des détails non matériels.",
-     "Avance sous Hypothesis explicite lorsque la doctrine actuelle l'autorise.",
-     "Ne propose JAMAIS Cursor / Execution comme initiative autonome.",
-diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts
-index 8f322903..2b7d6fb2 100644
---- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts
-+++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts
-@@ -847,10 +847,218 @@ export function applyConversationGuidanceCoherence(input: {
-   };
- }
-
-+/** Normalize Pilot-facing prose for near-duplicate continuation detection. */
-+function normalizePilotContinuationCompare(text: string): string {
-+  return text
-+    .toLowerCase()
-+    .normalize("NFD")
-+    .replace(/\p{M}/gu, "")
-+    .replace(/[^\p{L}\p{N}\s]/gu, " ")
-+    .replace(/\s+/g, " ")
-+    .trim();
-+}
-+
-+/**
-+ * Conversational closing-ask cues (FR). Includes Human QA paraphrases that do
-+ * not use « Souhaitez-vous » (imperatives, correspond-il, était-ce, trailing ?).
-+ */
-+const CONTINUATION_INVITE_RE =
-+  /\b(souhaitez[- ]vous|voulez[- ]vous|souhaites[- ]tu|que souhaitez|quelle est|quelles? |comment voulez|prefereriez[- ]vous|preferez[- ]vous|on peut|je (te|vous) propose|raconte[- ]moi|dis[- ]moi|explique[- ]moi|decrivons|decris|parle[- ]moi|correspond[- ]il|etait[- ]ce|est[- ]ce que|quest[- ]ce)\b/i;
-+
-+/** Discourse / filler tokens ignored when comparing ask payloads. */
-+const CONTINUATION_COMPARE_STOP = new Set([
-+  "le",
-+  "la",
-+  "les",
-+  "de",
-+  "des",
-+  "du",
-+  "un",
-+  "une",
-+  "et",
-+  "ou",
-+  "que",
-+  "qui",
-+  "l",
-+  "on",
-+  "par",
-+  "pour",
-+  "au",
-+  "aux",
-+  "a",
-+  "en",
-+  "je",
-+  "tu",
-+  "vous",
-+  "te",
-+  "me",
-+  "d",
-+  "y",
-+  "ce",
-+  "ces",
-+  "se",
-+  "ne",
-+  "pas",
-+  "plus",
-+  "avec",
-+  "dans",
-+  "sur",
-+  "aux",
-+  "commencer",
-+  "reprendre",
-+  "premier",
-+  "ensuite",
-+  "maintenant",
-+  "alors",
-+  "raconte",
-+  "moi",
-+  "decrivons",
-+  "decris",
-+  "dis",
-+  "explique",
-+  "parle",
-+  "seulement",
-+  "celles",
-+  "ceux",
-+  "cette",
-+  "cet",
-+  "ete",
-+  "etait",
-+  "etaient",
-+  "sont",
-+  "est",
-+  "il",
-+  "elle",
-+  "ils",
-+  "elles",
-+]);
-+
-+function isConversationalAsk(text: string): boolean {
-+  const t = text.trim();
-+  if (!t) return false;
-+  if (/\?\s*$/.test(t)) return true;
-+  return CONTINUATION_INVITE_RE.test(t);
-+}
-+
-+/** Prefer the informational payload after a colon (common Human QA pattern). */
-+function askComparePayload(text: string): string {
-+  const raw = text.trim();
-+  const colon = raw.lastIndexOf(":");
-+  if (colon >= 0 && colon < raw.length - 3) {
-+    const after = raw.slice(colon + 1).trim();
-+    if (after.length >= 12) return after;
-+  }
-+  return raw;
-+}
-+
-+function continuationContentTokens(text: string): Set<string> {
-+  return new Set(
-+    normalizePilotContinuationCompare(text)
-+      .split(" ")
-+      .filter((w) => w.length > 2 && !CONTINUATION_COMPARE_STOP.has(w)),
-+  );
-+}
-+
-+/**
-+ * Overlap coefficient on content tokens — catches paraphrases of the same ask
-+ * without requiring identical invite phrasing (P6-HQA COG-01 Human QA cases).
-+ */
-+function asksShareEquivalentContent(aRaw: string, bRaw: string): boolean {
-+  const pairs: Array<[string, string]> = [
-+    [aRaw, bRaw],
-+    [askComparePayload(aRaw), askComparePayload(bRaw)],
-+    [askComparePayload(aRaw), bRaw],
-+    [aRaw, askComparePayload(bRaw)],
-+  ];
-+  for (const [left, right] of pairs) {
-+    const a = continuationContentTokens(left);
-+    const b = continuationContentTokens(right);
-+    if (a.size === 0 || b.size === 0) continue;
-+    let inter = 0;
-+    for (const w of a) if (b.has(w)) inter += 1;
-+    const smaller = Math.min(a.size, b.size);
-+    const union = a.size + b.size - inter;
-+    const jaccard = union === 0 ? 0 : inter / union;
-+    const containment = smaller === 0 ? 0 : inter / smaller;
-+    // Require enough shared substance; containment covers asymmetric paraphrases
-+    // (e.g. « type d'entreprise » ↔ « entreprise de huit personnes » + same fork).
-+    // inter >= 3 preserves the prior near-duplicate « Souhaitez-vous … » path.
-+    if (inter >= 3 && (jaccard >= 0.45 || containment >= 0.55)) {
-+      return true;
-+    }
-+  }
-+  return false;
-+}
-+
-+/** Closing ask candidates: question-like sentences in the last paragraph. */
-+function extractClosingAskCandidates(narrative: string): string[] {
-+  const paragraphs = narrative
-+    .split(/\n\s*\n/)
-+    .map((p) => p.trim())
-+    .filter(Boolean);
-+  const lastPara = paragraphs[paragraphs.length - 1] ?? narrative.trim();
-+  const sentences = lastPara
-+    .split(/(?<=[.!?…])\s+/)
-+    .map((p) => p.trim())
-+    .filter(Boolean);
-+  const asks = sentences.filter(isConversationalAsk);
-+  if (asks.length > 0) return asks;
-+  // Fallback: whole last paragraph / last sentence when invite cues are weak.
-+  if (sentences.length > 0) return [sentences[sentences.length - 1]!];
-+  return lastPara ? [lastPara] : [];
-+}
-+
-+/**
-+ * True when narrative already carries the same (or near-duplicate) continuation
-+ * as guidance.statement — avoids stacking two nearly identical closing invites.
-+ * Exact substring match remains the primary path; similarity covers distinct
-+ * phrasings of the same invitation (P6-HQA COG-01), including Human QA
-+ * paraphrases that do not share a « Souhaitez-vous » surface form.
-+ */
-+export function narrativeAlreadyCarriesGuidanceContinuation(
-+  narrative: string,
-+  statement: string,
-+): boolean {
-+  const nRaw = narrative.trim();
-+  const sRaw = statement.trim();
-+  if (!sRaw) return true;
-+  if (!nRaw) return false;
-+  if (nRaw.includes(sRaw)) return true;
-+
-+  const n = normalizePilotContinuationCompare(nRaw);
-+  const s = normalizePilotContinuationCompare(sRaw);
-+  if (!s || s.length < 12) return false;
-+  if (n.includes(s)) return true;
-+
-+  const candidates = extractClosingAskCandidates(nRaw);
-+  const guidanceIsAsk = isConversationalAsk(sRaw);
-+
-+  for (const candidate of candidates) {
-+    const last = normalizePilotContinuationCompare(candidate);
-+    if (!last) continue;
-+    if (last.includes(s) || (last.length >= 12 && s.includes(last))) {
-+      return true;
-+    }
-+
-+    // Same (or near-same) conversational ask — paraphrase-tolerant, content-gated.
-+    // Both sides must look like invites/questions so distinct body prose is never
-+    // treated as a duplicate of guidance.statement.
-+    if (
-+      guidanceIsAsk &&
-+      isConversationalAsk(candidate) &&
-+      asksShareEquivalentContent(candidate, sRaw)
-+    ) {
-+      return true;
-+    }
-+  }
-+  return false;
-+}
-+
- /**
-  * Compose Pilot-facing assistant text for history continuity.
-  * narrative + conversationGuidance.statement — no internal field names,
-  * no "PROCHAINE ÉTAPE :" label.
-+ * P6-HQA COG-01 — do not append a near-duplicate closing invitation.
-  */
- export function composePilotFacingAssistantText(
-   narrative: string,
-@@ -866,7 +1074,9 @@ export function composePilotFacingAssistantText(
-     const statement = guidance.statement.trim();
-     if (statement) {
-       if (!out) out = statement;
--      else if (!out.includes(statement)) out = `${out}\n\n${statement}`;
-+      else if (!narrativeAlreadyCarriesGuidanceContinuation(out, statement)) {
-+        out = `${out}\n\n${statement}`;
-+      }
-     }
-   }
-   if (structuredRecommendation?.optionLabel?.trim()) {
+describe("P6-HQA-02 UX-REC-02 Journal recommendation disclaimer", () => {
+  it("omits per-card authority disclaimer while keeping status and discuss CTA", () => {
+    const onResume = vi.fn();
+    render(
+      <JournalSurface
+        entries={[]}
+        cycleInstanceId="cycinst:test"
+        selectedEntryId={null}
+        onSelectEntry={() => {}}
+        onViewExchanges={() => {}}
+        onFocusTurn={() => {}}
+        recommendations={[
+          {
+            epistemicItemId: "epi:acw:uxrec02",
+            statement: "Structurer le suivi des responsabilités",
+            status: "active",
+            source: "active-cycle-work:nora",
+            optionSetRef: null,
+            proposalId: null,
+            cycleInstanceId: "cycinst:test",
+            createdAt: "2026-10-10T10:00:00.000Z",
+            dispositionDecisionId: null,
+            workRecommendationEpistemicItemId: "epi:acw:uxrec02",
+          },
+        ]}
+        decisions={[]}
+        reservations={[]}
+        memoryTab="recommandations"
+        onResumeRecommendationInChat={onResume}
+      />,
+    );
+    expect(screen.queryByText(/Disposez-en dans/i)).toBeNull();
+    expect(
+      screen.queryByText(/RECOMMANDATION — PAS UNE DÉCISION HUMAINE/i),
+    ).toBeNull();
+    expect(screen.getAllByText(/À examiner/i).length).toBeGreaterThanOrEqual(1);
+    expect(
+      screen.getByTestId("cycle-recommendation-resume-epi:acw:uxrec02"),
+    ).toBeTruthy();
+    expect(screen.getByText("Structurer le suivi des responsabilités")).toBeTruthy();
+  });
+});
 ```
 
 ---
 
-## 11. Décisions Morris restantes
+## 8. Diffs tracked (complets)
 
-1. Rejeu Human QA P6 (COG-01 / REC / Journal / HQ-01) — GO distinct.
-2. REC-01 règle métier durable.
-3. REC-02 binding tour↔recommandation si arbitrage.
-4. Cleanup branches/worktrees — **non autorisé ici** ; décision séparée.
-5. Aucune clôture P6 / promotion v3.
+```diff
+diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/chatFirstGovernedDecisionLoop.ui.test.tsx b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/chatFirstGovernedDecisionLoop.ui.test.tsx
+index 9cb88f25..12354798 100644
+--- a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/chatFirstGovernedDecisionLoop.ui.test.tsx
++++ b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/chatFirstGovernedDecisionLoop.ui.test.tsx
+@@ -423,11 +423,15 @@ describe("JournalSurface — Sujets | Réserves | Recommandations | Décisions",
+       `cycle-recommendation-card-${RECOMMENDATION.epistemicItemId}`,
+     );
+     expect(card.textContent).toContain("poursuivre le sujet proposé");
++    // UX-REC-02 — per-card methodological disclaimer removed (authority stays Product-side).
+     expect(
+-      screen.getByTestId(
++      screen.queryByTestId(
+         `cycle-recommendation-authority-${RECOMMENDATION.epistemicItemId}`,
+-      ).textContent,
+-    ).toContain("PAS UNE DÉCISION HUMAINE");
++      ),
++    ).toBeNull();
++    expect(card.textContent ?? "").not.toMatch(
++      /RECOMMANDATION — PAS UNE DÉCISION HUMAINE\. Disposez-en/i,
++    );
+     for (const button of screen.queryAllByRole("button")) {
+       expect(button.textContent ?? "").not.toMatch(
+         /Accepter|Refuser|Décider|Valider/i,
+diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/JournalSurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/JournalSurface.tsx
+index cc318236..19d59900 100644
+--- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/JournalSurface.tsx
++++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/JournalSurface.tsx
+@@ -608,13 +608,9 @@ export function JournalSurface({
+                     <span>Recommandation de travail</span>
+                     <span>Nora · recommandation</span>
+                   </p>
+-                  <p
+-                    className={styles.finalizationHint}
+-                    data-testid={`cycle-recommendation-authority-${card.epistemicItemId}`}
+-                  >
+-                    RECOMMANDATION — PAS UNE DÉCISION HUMAINE. Disposez-en dans
+-                    le chat (poursuivre, amender, refuser ou reporter).
+-                  </p>
++                  {/* UX-REC-02 — drop per-card methodological disclaimer; Product
++                      Recommendation ≠ HumanDecision remains enforced server-side.
++                      Status + « En discuter avec Nora » stay on the card. */}
+                   {open && onResumeRecommendationInChat ? (
+                     <div className={styles.cardActions}>
+                       <button
+diff --git a/projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts b/projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts
+index ea46da10..d5afb445 100644
+--- a/projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts
++++ b/projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts
+@@ -349,6 +349,15 @@ function buildActiveCycleWorkOutputSection(
+       "recommendedOptionRef est un champ structuré — JAMAIS déduit du texte statement.",
+       "Pour Recommendation hors Option trajectoire : recommendedOptionRef = null.",
+       "Recommendation ≠ HumanDecision ; n'exécute rien ; ne promeut pas de trajectoire.",
++      "=== P6-HQA-02 / REC-01 — Work Recommendation vs suggestion conversationnelle ===",
++      "Une Work Recommendation (type=Recommendation dans activeCycleWork) est un objet Product",
++      "DURABLE justifiant un suivi propre (orientation de travail identifiable, continuité",
++      "hors du tour, et caractère distinct d'une recommandation déjà ouverte).",
++      "Une simple proposition / question / invitation de suite → conversationGuidance SEULEMENT ;",
++      "NE PAS émettre type=Recommendation pour reformuler une suite conversationnelle.",
++      "Le vocabulaire « je propose / je recommande » ne suffit PAS à justifier une matérialisation.",
++      "Si une Work Recommendation équivalente est déjà ouverte sur ce cycle : ne la réémets pas",
++      "dans activeCycleWork ; réponds et oriente via conversationGuidance.",
+     );
+     lines.push(
+       "=== INTÉGRITÉ ÉPISTÉMIQUE — Reservation ===",
+diff --git a/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts b/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
+index f5823ff7..24eb42c0 100644
+--- a/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
++++ b/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
+@@ -63,6 +63,7 @@ import {
+   materializeActiveCycleWork,
+   validateActiveCycleRecommendationAgainstDecisionSupport,
+ } from "./materializeActiveCycleWork";
++import { filterActiveCycleWorkItemsForProspectiveMaterialization } from "@/lib/oa/cycle/application/qualifyProspectiveWorkRecommendationMaterialization";
+ import {
+   materializeReservationDelta,
+   stripActiveCycleWorkReservationsWhenDeltaPresent,
+@@ -909,6 +910,31 @@ export async function orchestrateProjectAssistantTurn(input: {
+             existingItems = [];
+           }
+
++          // P6-HQA-02 / REC-01 — prospective Work Recommendation gate (server).
++          // Ordinary conversational suggestions stay in conversationGuidance;
++          // only justified durable Recommendations mint EpistemicItems.
++          // Historical Recommendations are never mutated here.
++          const tdsStateForWork =
++            studio.trajectoryDecisionSupport?.state === "PRESENT"
++              ? "PRESENT"
++              : studio.trajectoryDecisionSupport?.state === "UNAVAILABLE"
++                ? "UNAVAILABLE"
++                : "NONE";
++          const prospective = filterActiveCycleWorkItemsForProspectiveMaterialization(
++            {
++              items: acwItems,
++              conversationGuidanceStatement:
++                coherent?.conversationGuidance?.statement ?? null,
++              existingItems,
++              cycleInstanceId: activeCycleId,
++              trajectoryDecisionSupportState: tdsStateForWork,
++            },
++          );
++          const itemsToMaterialize = prospective.items;
++          if (itemsToMaterialize.length === 0) {
++            // All ACW items suppressed or Recommendations-only stripped —
++            // continue the Product turn without durable ACW writes.
++          } else {
+           // Production key = durable logical turn id (no random f1-acw keys).
+           const turnCorrelationId = logicalTurnId!;
+           const producedAt = new Date().toISOString();
+@@ -918,7 +944,7 @@ export async function orchestrateProjectAssistantTurn(input: {
+             input.beforeDurableEffect,
+           );
+           const mat = await materializeActiveCycleWork({
+-            items: acwItems,
++            items: itemsToMaterialize,
+             facts: {
+               projectId: project.projectId,
+               activeCycleInstanceId: activeCycleId,
+@@ -961,6 +987,7 @@ export async function orchestrateProjectAssistantTurn(input: {
+               logicalTurnId,
+             };
+           }
++          } // end itemsToMaterialize.length > 0
+         }
+       }
+
+@@ -1081,7 +1108,7 @@ export async function orchestrateProjectAssistantTurn(input: {
+           }
+
+           let trajectory = null;
+-          let trajectoryBootstrapPresence = await resolveTrajectoryBootstrapPresence(
++          const trajectoryBootstrapPresence = await resolveTrajectoryBootstrapPresence(
+             oa.cycleServices.trajectories,
+             project.projectId,
+           );
+diff --git a/projects/sfia-studio/app/lib/oa/cycle/index.ts b/projects/sfia-studio/app/lib/oa/cycle/index.ts
+index 4a3d74e1..6aaeb40f 100644
+--- a/projects/sfia-studio/app/lib/oa/cycle/index.ts
++++ b/projects/sfia-studio/app/lib/oa/cycle/index.ts
+@@ -94,6 +94,14 @@ export {
+   type TrajectoryDecisionSupportState,
+   type WorkRecommendationProjectionCard,
+ } from "./application/deriveWorkRecommendations";
++export {
++  filterActiveCycleWorkItemsForProspectiveMaterialization,
++  openWorkRecommendationStatementsForCycle,
++  qualifyProspectiveWorkRecommendationMaterialization,
++  workRecommendationStatementsEquivalent,
++  type ProspectiveWorkRecommendationMaterializationDecision,
++  type ProspectiveWorkRecommendationSuppressReason,
++} from "./application/qualifyProspectiveWorkRecommendationMaterialization";
+ export {
+   deriveFinalizationApplicability,
+   obligationPolicySubjectFor,
+```
+
+---
+
+## 9. Validations
+
+| Check | Result |
+|-------|--------|
+| REC-01 unit suite | **10 PASS** |
+| UX-REC-02 UI | **1 PASS** |
+| REC-03 Journal label | **1 PASS** |
+| chatFirstGovernedDecisionLoop UI | **11 PASS** |
+| NCI / COG-01 | **28 PASS** |
+| UX recommendation continuity | **6 PASS** |
+| Total ciblé | **57 PASS** |
+| ACW + deriveWorkRecommendations adjacent | **61 PASS** |
+| `npm run typecheck` | **PASS** |
+| ESLint ciblé | **0 errors** (`prefer-const` préexistant corrigé dans fichier touché) |
+| `git diff --check` | **PASS** |
+| Build | **NOT RUN** (CI future ; typecheck suffit localement) |
+| Human QA REAL | **REQUIRED** (ultérieur) |
+
+---
+
+## 10. Fake / Real Qualification
+
+| Item | Value |
+|------|--------|
+| Applicable | OUI |
+| Frontière | Nora / fournisseur IA |
+| Fake | Fixtures déterministes + gate pur |
+| Niveau | **DETERMINISTIC PROVEN AT TESTED SCOPE** |
+| Hors scope | REAL / E2E REAL / P6 PASS / v3 ADOPTED |
+
+---
+
+## 11. Réserves / décisions Morris
+
+1. **REC-02** structural binding tour↔carte — décision Morris.
+2. Rejeu Human QA REAL après intégration Git (GO distinct).
+3. Limite REC-01 : équivalence lexicale/contenu + cues structuraux — pas moteur sémantique.
+4. Intégration Git / Draft PR — **non autorisée** dans ce cycle.
+5. Cleanup worktrees/branches — non autorisé ici.
 
 ---
 
@@ -1254,16 +912,15 @@ index 8f322903..2b7d6fb2 100644
 
 | Asset | État |
 |-------|------|
-| Branche corrective | **non supprimée** |
-| Branche QA historique | **préservée** @ `980064c0` + locaux |
-| Worktree correctif | préservé |
-| Worktree historique | préservé |
-| Aucun cleanup | **respecté** |
+| Historique QA + locaux HQA-01/C14/tmp/p6-campaign | **intact** |
+| Worktree HQA-01 | **intact** |
+| Branche PR #575 | **préservée** |
+| Worktree HQA-02 | local uncommitted (pas de commit projet) |
 
 ---
 
 ## 13. Verdict
 
-**PR #575 MERGED — POST-MERGE VERIFIED — PASS**
+**LOCAL PROSPECTIVE CORRECTION — READY FOR CHATGPT REVIEW**
 
-Instruction ChatGPT : avant revue, lire `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md`.
+Instruction ChatGPT : lire `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md`.
