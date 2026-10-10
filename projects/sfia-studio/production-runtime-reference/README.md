@@ -1,11 +1,12 @@
 # SFIA Studio — Living Production Runtime Reference
 
 **Nature:** CURRENT AS-IMPLEMENTED / LIVING PRODUCTION RUNTIME REFERENCE
-**Reviewed commit:** `6beb8cc369bd9b82eebee97b70309838373b3dfa`
-**Reviewed at:** 2026-09-27T15:40:00+0200
+**Reviewed commit:** `6a4374ed54cf346d16c11b995eec772090c81807`
+**Reviewed at:** 2026-10-10T09:35:00+0200
 **Macro foundation:** SFIA-STUDIO-LIVING-PRODUCTION-RUNTIME-REFERENCE-01
 **Stabilization overlay:** PRODUCT-CYCLE-E2E-STABILIZATION-01 (deterministic Product server-action E2E oracle)
 **Last audit overlay:** SFIA-STUDIO-LEGACY-ARCHITECTURE-DECOMMISSION-01 (no SAFE removal; CURRENT clarifications only)
+**First Framing overlay:** STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 / P6 — conversational Framing START path documented in volumes 03 / 08 / 09 (Draft PR #574)
 
 ## What this corpus is
 

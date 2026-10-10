@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
   "kind": "SFIA_STUDIO_LIVING_PRODUCTION_RUNTIME_REFERENCE",
-  "lastReviewedCommit": "0984a4559130907ac46d2c0457c0e420419a723d",
-  "lastReviewedAt": "2026-10-06T18:08:07.408Z",
+  "lastReviewedCommit": "6a4374ed54cf346d16c11b995eec772090c81807",
+  "lastReviewedAt": "2026-10-10T07:35:00.000Z",
   "canonicalReadme": "projects/sfia-studio/production-runtime-reference/README.md",
   "volumes": [
     {
       "path": "projects/sfia-studio/production-runtime-reference/README.md",
-      "sha256_16": "0ba9591485795187"
+      "sha256_16": "77ac0325a44e8590"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/01-system-runtime-overview.md",
@@ -19,7 +19,7 @@
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md",
-      "sha256_16": "4059db411bb5a428"
+      "sha256_16": "f56c3eadbe7856b0"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md",
@@ -39,11 +39,11 @@
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md",
-      "sha256_16": "7c7596c841933c67"
+      "sha256_16": "f35d6fa177e27ecb"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md",
-      "sha256_16": "439b50db8e68633d"
+      "sha256_16": "c27b2d9ac9de87c3"
     }
   ],
   "components": [
@@ -586,7 +586,7 @@
     },
     {
       "path": "projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts",
-      "sha256_16": "a718e67e59895d23"
+      "sha256_16": "d064b36ddc2f21cd"
     },
     {
       "path": "projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts",
@@ -678,7 +678,7 @@
     },
     {
       "path": "projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts",
-      "sha256_16": "83dc7e3be704199d"
+      "sha256_16": "b9d52757c944c06b"
     },
     {
       "path": "projects/sfia-studio/app/.env.example",
