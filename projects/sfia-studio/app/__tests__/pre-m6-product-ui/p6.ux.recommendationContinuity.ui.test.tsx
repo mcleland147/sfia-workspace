@@ -113,6 +113,7 @@ describe("P6 UX Recommendation Continuity + FIX-01/02/03", () => {
             createdAt: "2026-10-10T00:00:00.000Z",
             dispositionDecisionId: null,
             workRecommendationEpistemicItemId: "epi:acw:ux02",
+            workRecommendationRelation: null,
           },
         ]}
         onDiscussRecommendation={onDiscuss}

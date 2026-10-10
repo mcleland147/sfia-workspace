@@ -23,6 +23,20 @@ const CYCLE_ID_PREFIX = "cycinst:";
 const CYCLE_INSTANCE_PREFIXES = ["cycinst:", "cycle:", "cyc:"] as const;
 const TRAJECTORY_OPTION_PREFIX = "opt:trajectory:";
 
+export type WorkRecommendationRelationApplicability =
+  | "applicable"
+  | "not_applicable"
+  | "unknown";
+
+export type WorkRecommendationRelationProjection = {
+  readonly kind: "CONTRADICTORY" | "DISTINCT_RELATED";
+  readonly targetEpistemicItemId: string;
+  readonly judgmentOrigin: "nora_structured_candidate";
+  readonly authority: "none";
+  /** Derived at read time — never persisted as CURRENT/STALE. */
+  readonly applicability: WorkRecommendationRelationApplicability;
+};
+
 export type WorkRecommendationItemLike = {
   readonly type: string;
   readonly status: string;
@@ -33,6 +47,12 @@ export type WorkRecommendationItemLike = {
   readonly relatedObjects?: readonly string[] | null;
   readonly lifecycleRecommendation?: unknown;
   readonly supersedes?: string | null;
+  readonly workRecommendationRelation?: {
+    readonly kind: "CONTRADICTORY" | "DISTINCT_RELATED";
+    readonly targetEpistemicItemId: string;
+    readonly judgmentOrigin: "nora_structured_candidate";
+    readonly authority: "none";
+  } | null;
 };
 
 export type WorkRecommendationProjectionCard = {
@@ -48,6 +68,8 @@ export type WorkRecommendationProjectionCard = {
   readonly dispositionDecisionId: string | null;
   /** ACW identity when this card is (or is linked to) an ACW Recommendation. */
   readonly workRecommendationEpistemicItemId: string | null;
+  /** Option A durable typed relation on source — optional / absent on legacy. */
+  readonly workRecommendationRelation: WorkRecommendationRelationProjection | null;
 };
 
 export function isLifecycleRecommendationItem(
@@ -224,6 +246,105 @@ function dispositionDecisionIdFromItems(
 }
 
 /**
+ * True when `item` is an open ACW Work Recommendation suitable as a typed
+ * relation target (active, non-lifecycle, undisposed, cycle-bound).
+ */
+export function isOpenWorkRecommendationRelationTarget(input: {
+  readonly item: WorkRecommendationItemLike;
+  readonly allItems: ReadonlyArray<WorkRecommendationItemLike>;
+  readonly cycleInstanceId: string;
+}): boolean {
+  const { item, allItems, cycleInstanceId } = input;
+  if (!isActiveCycleWorkRecommendationItem(item)) return false;
+  if (item.status !== "active") return false;
+  if (item.lifecycleRecommendation != null) return false;
+  if (dispositionDecisionIdFromItems(item, allItems)) return false;
+  if (
+    !workRecommendationBelongsToCycle(
+      item,
+      cycleInstanceId,
+      cycleInstanceId,
+    )
+  ) {
+    return false;
+  }
+  return true;
+}
+
+/**
+ * Derive relation applicability at read time (Identity ≠ currentness).
+ * Durable envelope remains; applicability is not persisted.
+ *
+ * "applicable" means both source (when provided) and target are still open
+ * active Work Recommendations — not a global Currentness Engine verdict.
+ */
+export function deriveWorkRecommendationRelationApplicability(input: {
+  readonly relation: NonNullable<
+    WorkRecommendationItemLike["workRecommendationRelation"]
+  >;
+  readonly allItems: ReadonlyArray<WorkRecommendationItemLike>;
+  readonly cycleInstanceId: string | null;
+  readonly contextAvailable?: boolean;
+  /** Source Recommendation carrying the envelope — required for honest applicability. */
+  readonly sourceItem?: WorkRecommendationItemLike | null;
+}): WorkRecommendationRelationApplicability {
+  if (input.contextAvailable === false) return "unknown";
+  if (!input.cycleInstanceId) return "unknown";
+  const targetId = input.relation.targetEpistemicItemId.trim();
+  if (!targetId) return "unknown";
+  const target = input.allItems.find((i) => i.epistemicItemId === targetId);
+  if (!target) return "unknown";
+
+  if (input.sourceItem) {
+    const sourceOpen = isOpenWorkRecommendationRelationTarget({
+      item: input.sourceItem,
+      allItems: input.allItems,
+      cycleInstanceId: input.cycleInstanceId,
+    });
+    if (!sourceOpen) return "not_applicable";
+  }
+
+  if (
+    isOpenWorkRecommendationRelationTarget({
+      item: target,
+      allItems: input.allItems,
+      cycleInstanceId: input.cycleInstanceId,
+    })
+  ) {
+    return "applicable";
+  }
+  return "not_applicable";
+}
+
+function projectWorkRecommendationRelation(
+  item: WorkRecommendationItemLike,
+  all: ReadonlyArray<WorkRecommendationItemLike>,
+  cycleInstanceId: string,
+): WorkRecommendationRelationProjection | null {
+  const rel = item.workRecommendationRelation;
+  if (!rel) return null;
+  if (rel.kind !== "CONTRADICTORY" && rel.kind !== "DISTINCT_RELATED") {
+    return null;
+  }
+  if (rel.judgmentOrigin !== "nora_structured_candidate") return null;
+  if (rel.authority !== "none") return null;
+  const targetId = rel.targetEpistemicItemId?.trim();
+  if (!targetId) return null;
+  return {
+    kind: rel.kind,
+    targetEpistemicItemId: targetId,
+    judgmentOrigin: "nora_structured_candidate",
+    authority: "none",
+    applicability: deriveWorkRecommendationRelationApplicability({
+      relation: rel,
+      allItems: all,
+      cycleInstanceId,
+      sourceItem: item,
+    }),
+  };
+}
+
+/**
  * Does this work Recommendation belong to the cycle being inspected?
  * Prefer explicit relatedObjects cycle binding. Legacy optset Recommendations
  * without a cycle id are attributed to `fallbackCycleInstanceId` when provided
@@ -307,6 +428,11 @@ export function projectCycleWorkRecommendations(input: {
       createdAt: item.createdAt ?? "",
       dispositionDecisionId: dispositionDecisionIdFromItems(item, input.items),
       workRecommendationEpistemicItemId: acwId,
+      workRecommendationRelation: projectWorkRecommendationRelation(
+        item,
+        input.items,
+        cycleId,
+      ),
     });
   }
   return cards.sort((a, b) => {

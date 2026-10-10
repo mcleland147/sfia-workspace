@@ -1,13 +1,14 @@
 /**
- * P6-HQA REC-03 — Journal Work Recommendation status label honesty.
+ * P6-HQA-02 UX-REC-02 — Journal Work Recommendation cards drop repeated disclaimer.
  * @vitest-environment jsdom
  */
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { JournalSurface } from "@/features/pre-m6-product-ui/surfaces/JournalSurface";
 
-describe("P6-HQA REC-03 Journal recommendation label", () => {
-  it("active undipositioned Work Recommendation is « À examiner », not unanswered-chat wording", () => {
+describe("P6-HQA-02 UX-REC-02 Journal recommendation disclaimer", () => {
+  it("omits per-card authority disclaimer while keeping status and discuss CTA", () => {
+    const onResume = vi.fn();
     render(
       <JournalSurface
         entries={[]}
@@ -18,8 +19,8 @@ describe("P6-HQA REC-03 Journal recommendation label", () => {
         onFocusTurn={() => {}}
         recommendations={[
           {
-            epistemicItemId: "epi:acw:rec03",
-            statement: "Clarifier les responsabilités de suivi",
+            epistemicItemId: "epi:acw:uxrec02",
+            statement: "Structurer le suivi des responsabilités",
             status: "active",
             source: "active-cycle-work:nora",
             optionSetRef: null,
@@ -27,19 +28,24 @@ describe("P6-HQA REC-03 Journal recommendation label", () => {
             cycleInstanceId: "cycinst:test",
             createdAt: "2026-10-10T10:00:00.000Z",
             dispositionDecisionId: null,
-            workRecommendationEpistemicItemId: "epi:acw:rec03",
+            workRecommendationEpistemicItemId: "epi:acw:uxrec02",
             workRecommendationRelation: null,
           },
         ]}
         decisions={[]}
         reservations={[]}
         memoryTab="recommandations"
+        onResumeRecommendationInChat={onResume}
       />,
     );
-    expect(screen.queryByText(/en attente de votre réponse/i)).toBeNull();
+    expect(screen.queryByText(/Disposez-en dans/i)).toBeNull();
+    expect(
+      screen.queryByText(/RECOMMANDATION — PAS UNE DÉCISION HUMAINE/i),
+    ).toBeNull();
     expect(screen.getAllByText(/À examiner/i).length).toBeGreaterThanOrEqual(1);
     expect(
-      screen.getByText("Clarifier les responsabilités de suivi"),
+      screen.getByTestId("cycle-recommendation-resume-epi:acw:uxrec02"),
     ).toBeTruthy();
+    expect(screen.getByText("Structurer le suivi des responsabilités")).toBeTruthy();
   });
 });

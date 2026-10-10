@@ -12,6 +12,7 @@ import type {
   EpistemicConfidence,
   EpistemicItem,
   EpistemicItemType,
+  EpistemicWorkRecommendationRelation,
 } from "@/lib/oa/cycle";
 import type { UpdateEpistemicState } from "@/lib/oa/cycle/application/updateEpistemicState";
 import type { AppendLivingProjectStateVersion } from "@/lib/oa/project/application/appendLivingProjectStateVersion";
@@ -19,8 +20,13 @@ import type { GetCurrentLivingProjectState } from "@/lib/oa/project/application/
 import type { CyclePersistenceUnitOfWorkPort } from "@/lib/oa/cycle/ports/cyclePersistenceUnitOfWorkPort";
 import type { GetCycle } from "@/lib/oa/cycle/application/getCycle";
 import type { NoraActiveCycleWorkItem } from "@/lib/nora-cognitive-runtime/noraProductTurnOutputType";
-import { normalizeActiveCycleRecommendedOptionRef } from "@/lib/nora-cognitive-runtime/noraProductTurnOutputType";
+import {
+  normalizeActiveCycleRecommendedOptionRef,
+  normalizeRelatedRecommendationRef,
+} from "@/lib/nora-cognitive-runtime/noraProductTurnOutputType";
 import { NORA_LIFECYCLE_RECOMMENDATION_ACTOR } from "@/lib/oa/cycle/application/lifecycleRecommendation/noraActor";
+import { planDurableWorkRecommendationRelation } from "@/lib/oa/cycle/application/qualifyProspectiveWorkRecommendationMaterialization";
+import { isOpenWorkRecommendationRelationTarget } from "@/lib/oa/cycle/application/deriveWorkRecommendations";
 import type { ActiveCycleWorkContextSeal } from "./f2/activeCycleCognitiveContext";
 
 /** Stable Product source for Nora active-cycle cognitive work. */
@@ -209,6 +215,18 @@ function buildProvenance(input: {
   };
 }
 
+function relationMaterialKey(
+  relation: EpistemicWorkRecommendationRelation | null | undefined,
+): string {
+  if (!relation) return "";
+  return [
+    relation.kind,
+    relation.targetEpistemicItemId,
+    relation.judgmentOrigin,
+    relation.authority,
+  ].join("|");
+}
+
 function materialParity(
   existing: EpistemicItem,
   next: {
@@ -217,6 +235,7 @@ function materialParity(
     confidence?: EpistemicConfidence;
     blocking?: boolean;
     recommendedOptionRef?: string | null;
+    workRecommendationRelation?: EpistemicWorkRecommendationRelation | null;
   },
 ): boolean {
   if (existing.type !== next.type) return false;
@@ -231,7 +250,87 @@ function materialParity(
   const existingRef = extractAcwRecommendedOptionRef(existing.relatedObjects);
   const nextRef = next.recommendedOptionRef?.trim() || null;
   if ((existingRef ?? null) !== (nextRef ?? null)) return false;
+  // Option A — same identity must not silently change typed relation material.
+  if (
+    relationMaterialKey(existing.workRecommendationRelation) !==
+    relationMaterialKey(next.workRecommendationRelation)
+  ) {
+    return false;
+  }
   return true;
+}
+
+/**
+ * Intended durable relation material from Nora candidate (no live applicability).
+ * Used for materialParity on historical replay — durable ≠ CURRENT.
+ */
+function intendedWorkRecommendationRelationMaterial(
+  item: NoraActiveCycleWorkItem,
+): EpistemicWorkRecommendationRelation | null {
+  if (item.type !== "Recommendation") return null;
+  const planned = planDurableWorkRecommendationRelation({
+    relationKind: item.relationKind,
+    relatedRecommendationRef: item.relatedRecommendationRef,
+  });
+  if (!planned.persist) return null;
+  return planned.relation;
+}
+
+/**
+ * Resolve durable typed WR relation for a **new** Recommendation mint inside UoW.
+ * CONTRADICTORY requires an open applicable Work Recommendation target now.
+ * Fail-closed: never mint CONTRADICTORY without a writable envelope.
+ * Not used for reuse of an already-persisted identity (see replay path).
+ */
+function resolveWorkRecommendationRelationForNewWrite(input: {
+  readonly item: NoraActiveCycleWorkItem;
+  readonly existingItems: readonly EpistemicItem[];
+  readonly cycleInstanceId: string;
+}):
+  | { readonly ok: true; readonly relation?: EpistemicWorkRecommendationRelation }
+  | { readonly ok: false; readonly reason: string } {
+  if (input.item.type !== "Recommendation") {
+    return { ok: true };
+  }
+  const planned = planDurableWorkRecommendationRelation({
+    relationKind: input.item.relationKind,
+    relatedRecommendationRef: input.item.relatedRecommendationRef,
+  });
+  if (!planned.persist) {
+    if (planned.reason === "contradictory_target_missing") {
+      return { ok: false, reason: "contradictory_relation_target_missing" };
+    }
+    return { ok: true };
+  }
+  const targetId = planned.relation.targetEpistemicItemId;
+  const target = input.existingItems.find((e) => e.epistemicItemId === targetId);
+  if (
+    !target ||
+    !isOpenWorkRecommendationRelationTarget({
+      item: target,
+      allItems: input.existingItems,
+      cycleInstanceId: input.cycleInstanceId,
+    })
+  ) {
+    return {
+      ok: false,
+      reason: "contradictory_relation_target_not_applicable",
+    };
+  }
+  // Normalize once more against Product id (not Nora text paraphrase).
+  const normalized = normalizeRelatedRecommendationRef(targetId);
+  if (!normalized || normalized !== target.epistemicItemId) {
+    return { ok: false, reason: "contradictory_relation_target_invalid" };
+  }
+  return {
+    ok: true,
+    relation: {
+      kind: "CONTRADICTORY",
+      targetEpistemicItemId: normalized,
+      judgmentOrigin: "nora_structured_candidate",
+      authority: "none",
+    },
+  };
 }
 
 function normNullable(value: string | null | undefined): string | null {
@@ -353,6 +452,14 @@ function assertContextSealAgainstLiveState(input: {
  */
 export async function materializeActiveCycleWork(input: {
   items: readonly NoraActiveCycleWorkItem[];
+  /**
+   * Optional original Nora ACW payload indexes parallel to `items`.
+   * When set, Epistemic identity uses these indexes instead of the filtered
+   * array position — required so prospective REC-01 suppression cannot shift
+   * identities of surviving items on logical-turn replay.
+   * Omit for legacy callers that pass the full unfiltered payload.
+   */
+  itemSourceIndexes?: readonly number[];
   facts: ActiveCycleWorkMaterializationFacts;
   updateEpistemicState: UpdateEpistemicState;
   appendLivingProjectStateVersion: AppendLivingProjectStateVersion;
@@ -378,6 +485,17 @@ export async function materializeActiveCycleWork(input: {
     };
   }
 
+  if (
+    input.itemSourceIndexes != null &&
+    input.itemSourceIndexes.length !== input.items.length
+  ) {
+    return {
+      ok: false,
+      code: "ACTIVE_CYCLE_WORK_INVALID",
+      reason: "source_indexes_length_mismatch",
+    };
+  }
+
   for (const item of input.items) {
     if (!ACTIVE_CYCLE_WORK_ALLOWED_TYPES.has(item.type as EpistemicItemType)) {
       return {
@@ -396,6 +514,19 @@ export async function materializeActiveCycleWork(input: {
         ok: false,
         code: "ACTIVE_CYCLE_WORK_INVALID",
         reason: "recommended_option_ref_only_on_recommendation",
+      };
+    }
+    // P6-HQA-02 REC-01 Option B — structured WR fields are Recommendation-only.
+    if (
+      item.type !== "Recommendation" &&
+      (item.trackingRationale !== undefined ||
+        item.relationKind !== undefined ||
+        item.relatedRecommendationRef !== undefined)
+    ) {
+      return {
+        ok: false,
+        code: "ACTIVE_CYCLE_WORK_INVALID",
+        reason: "option_b_fields_only_on_recommendation",
       };
     }
     if (
@@ -516,6 +647,7 @@ export async function materializeActiveCycleWork(input: {
         blocking?: boolean;
         relatedObjects: string[];
         provenance: ProvenanceRecord;
+        workRecommendationRelation?: EpistemicWorkRecommendationRelation;
         reuse: boolean;
       }> = [];
 
@@ -525,6 +657,9 @@ export async function materializeActiveCycleWork(input: {
 
       for (let index = 0; index < input.items.length; index += 1) {
         const raw = input.items[index]!;
+        // Prefer original ACW payload index when prospective filtering compacted
+        // the write list — identity must not depend on post-filter position.
+        const identityIndex = input.itemSourceIndexes?.[index] ?? index;
         const type = raw.type as EpistemicItemType;
         const statement = raw.statement.trim();
         if (!statement) {
@@ -543,7 +678,7 @@ export async function materializeActiveCycleWork(input: {
           projectId: facts.projectId,
           cycleInstanceId: facts.activeCycleInstanceId,
           turnCorrelationId: facts.turnCorrelationId,
-          index,
+          index: identityIndex,
           type,
           statement,
           recommendedOptionRef,
@@ -556,6 +691,10 @@ export async function materializeActiveCycleWork(input: {
         const blocking = resolveActiveCycleWorkBlockingFlag(type, raw.blocking);
 
         if (existing) {
+          // Historical replay: compare durable relation material only.
+          // Do NOT require the target to still be CURRENT/applicable.
+          const intendedRelation =
+            intendedWorkRecommendationRelationMaterial(raw);
           if (
             !materialParity(existing, {
               type,
@@ -563,6 +702,7 @@ export async function materializeActiveCycleWork(input: {
               confidence,
               blocking,
               recommendedOptionRef,
+              workRecommendationRelation: intendedRelation,
             })
           ) {
             throw new ActiveCycleWorkAtomicFailure(
@@ -586,12 +726,29 @@ export async function materializeActiveCycleWork(input: {
                   cycleInstanceId: facts.activeCycleInstanceId,
                   turnCorrelationId: facts.turnCorrelationId,
                   producedAt: input.producedAt,
-                  index,
+                  index: identityIndex,
                 }),
+            workRecommendationRelation: existing.workRecommendationRelation
+              ? structuredClone(existing.workRecommendationRelation)
+              : undefined,
             reuse: true,
           });
           continue;
         }
+
+        // New mint only: CONTRADICTORY target must be open/applicable now.
+        const relationPlan = resolveWorkRecommendationRelationForNewWrite({
+          item: raw,
+          existingItems: facts.existingItems,
+          cycleInstanceId: facts.activeCycleInstanceId,
+        });
+        if (!relationPlan.ok) {
+          throw new ActiveCycleWorkAtomicFailure(
+            "ACTIVE_CYCLE_WORK_RELATION_INVALID",
+            relationPlan.reason,
+          );
+        }
+        const workRecommendationRelation = relationPlan.relation;
 
         const relatedObjects = [
           facts.projectId,
@@ -613,8 +770,9 @@ export async function materializeActiveCycleWork(input: {
             cycleInstanceId: facts.activeCycleInstanceId,
             turnCorrelationId: facts.turnCorrelationId,
             producedAt: input.producedAt,
-            index,
+            index: identityIndex,
           }),
+          workRecommendationRelation,
           reuse: false,
         });
       }
@@ -635,6 +793,7 @@ export async function materializeActiveCycleWork(input: {
             blocking: p.blocking,
             relatedObjects: p.relatedObjects,
             provenance: p.provenance,
+            workRecommendationRelation: p.workRecommendationRelation,
           })),
         });
         if (!write.ok) {
@@ -702,6 +861,9 @@ export async function materializeActiveCycleWork(input: {
       relatedObjects: p.relatedObjects,
       blocking: p.blocking,
       provenance: p.provenance,
+      workRecommendationRelation: p.workRecommendationRelation
+        ? structuredClone(p.workRecommendationRelation)
+        : undefined,
     }));
 
     return {

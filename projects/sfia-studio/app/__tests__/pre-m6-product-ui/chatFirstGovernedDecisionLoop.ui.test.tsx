@@ -367,6 +367,7 @@ const RECOMMENDATION: JournalRecommendationCard = {
   createdAt: "2026-09-27T10:00:00.000Z",
   dispositionDecisionId: null,
   workRecommendationEpistemicItemId: null,
+  workRecommendationRelation: null,
 };
 
 const DECISION: JournalDecisionCard = {
@@ -423,11 +424,15 @@ describe("JournalSurface — Sujets | Réserves | Recommandations | Décisions",
       `cycle-recommendation-card-${RECOMMENDATION.epistemicItemId}`,
     );
     expect(card.textContent).toContain("poursuivre le sujet proposé");
+    // UX-REC-02 — per-card methodological disclaimer removed (authority stays Product-side).
     expect(
-      screen.getByTestId(
+      screen.queryByTestId(
         `cycle-recommendation-authority-${RECOMMENDATION.epistemicItemId}`,
-      ).textContent,
-    ).toContain("PAS UNE DÉCISION HUMAINE");
+      ),
+    ).toBeNull();
+    expect(card.textContent ?? "").not.toMatch(
+      /RECOMMANDATION — PAS UNE DÉCISION HUMAINE\. Disposez-en/i,
+    );
     for (const button of screen.queryAllByRole("button")) {
       expect(button.textContent ?? "").not.toMatch(
         /Accepter|Refuser|Décider|Valider/i,

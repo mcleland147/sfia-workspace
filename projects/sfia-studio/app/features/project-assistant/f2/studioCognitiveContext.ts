@@ -22,6 +22,8 @@ import {
   obligationPolicySubjectFor,
   OBLIGATION_POLICY_REQUIRE_ARTIFACT,
   getCycleTypeById,
+  projectCycleWorkRecommendations,
+  type TrajectoryDecisionSupportState,
 } from "@/lib/oa/cycle";
 import { deriveLifecycleBlockersFromEpistemicItems } from "@/lib/oa/cycle/application/deriveLifecycleBlockers";
 import {
@@ -64,6 +66,9 @@ export const STUDIO_COGNITIVE_CONTEXT_BUDGET = Object.freeze({
   maxEvidence: 8,
   maxReviewBundles: 4,
   maxActiveCycleWorkItems: 12,
+  /** Open Work Recommendations projected for Nora Option B referencing. */
+  maxOpenWorkRecommendations: 12,
+  workRecommendationStatementChars: 240,
   decisionSubjectChars: 160,
   decisionOptionChars: 120,
   evidenceLabelChars: 120,
@@ -74,6 +79,41 @@ export const STUDIO_COGNITIVE_CONTEXT_BUDGET = Object.freeze({
 });
 
 export type PresenceState = "PRESENT" | "NONE" | "UNAVAILABLE";
+
+/**
+ * P6-HQA-02 REC-01 Option B — coverage of open Work Recommendations projected
+ * to Nora. Never invent COMPLETE; empty successful read ≠ UNAVAILABLE.
+ */
+export type WorkRecommendationsContextCoverage =
+  | "COMPLETE"
+  | "PARTIAL"
+  | "UNAVAILABLE";
+
+export type StudioOpenWorkRecommendationRelationProjection = {
+  readonly kind: "CONTRADICTORY" | "DISTINCT_RELATED";
+  readonly targetEpistemicItemId: string;
+  readonly judgmentOrigin: "nora_structured_candidate";
+  readonly authority: "none";
+  /** Derived applicability — durable ≠ CURRENT. */
+  readonly applicability: "applicable" | "not_applicable" | "unknown";
+};
+
+export type StudioOpenWorkRecommendationProjection = {
+  readonly epistemicItemId: string;
+  readonly statement: string;
+  readonly status: string;
+  readonly cycleInstanceId: string | null;
+  readonly dispositionDecisionId: string | null;
+  /** Explicit family — never Lifecycle / Trajectory. */
+  readonly family: "Work";
+  /** Option A durable typed relation on source — absent on legacy. */
+  readonly workRecommendationRelation: StudioOpenWorkRecommendationRelationProjection | null;
+};
+
+export type StudioWorkRecommendationsContextProjection = {
+  readonly coverage: WorkRecommendationsContextCoverage;
+  readonly items: readonly StudioOpenWorkRecommendationProjection[];
+};
 export type TrajectoryPresenceState =
   | "PRESENT"
   | "ABSENT"
@@ -272,6 +312,12 @@ export type StudioCognitiveContext = {
     readonly state: PresenceState;
     readonly items: readonly StudioActiveCycleWorkProjection[];
   };
+  /**
+   * P6-HQA-02 REC-01 Option B — open Work Recommendations Nora may reference.
+   * Projection for cognition only — not Truth C. Studio re-resolves authoritatively
+   * at materialization time.
+   */
+  readonly workRecommendationsContext: StudioWorkRecommendationsContextProjection;
   readonly trajectoryDecisionSupport: StudioTrajectoryDecisionSupportProjection;
   readonly decisions: {
     readonly state: PresenceState;
@@ -541,6 +587,10 @@ export async function composeStudioCognitiveContext(input: {
           state: "UNAVAILABLE" as const,
           items: Object.freeze([]),
         }),
+        workRecommendationsContext: Object.freeze({
+          coverage: "UNAVAILABLE" as const,
+          items: Object.freeze([]),
+        }),
         trajectoryDecisionSupport: Object.freeze({
           state: "UNAVAILABLE" as const,
           optionRefs: Object.freeze([]),
@@ -656,6 +706,11 @@ export async function composeStudioCognitiveContext(input: {
 
   let acwState: PresenceState = "NONE";
   let acwItems: StudioActiveCycleWorkProjection[] = [];
+  let workRecommendationsContext: StudioWorkRecommendationsContextProjection =
+    Object.freeze({
+      coverage: activeCycle ? ("COMPLETE" as const) : ("UNAVAILABLE" as const),
+      items: Object.freeze([] as StudioOpenWorkRecommendationProjection[]),
+    });
   if (activeCycle) {
     try {
       const epistemic = await oa.cycleServices.epistemic.listByProject(projectId);
@@ -690,8 +745,54 @@ export async function composeStudioCognitiveContext(input: {
           .reverse()
           .map((item) => projectActiveCycleWorkItem(item, hdCutoff));
       }
+
+      // P6-HQA-02 REC-01 Option B — open Work Recommendations for referencing.
+      // Reuses the same Product read; COMPLETE only when the full open set fits.
+      const tdsStateForWork: TrajectoryDecisionSupportState =
+        input.trajectoryDecisionSupport?.state === "PRESENT"
+          ? "PRESENT"
+          : input.trajectoryDecisionSupport?.state === "UNAVAILABLE"
+            ? "UNAVAILABLE"
+            : "NONE";
+      const wrCards = projectCycleWorkRecommendations({
+        items: epistemic,
+        cycleInstanceId: activeCycle.cycleInstanceId,
+        fallbackCycleInstanceId: activeCycle.cycleInstanceId,
+        trajectoryDecisionSupportState: tdsStateForWork,
+      });
+      const openWr = wrCards.filter(
+        (c) => c.status === "active" && !c.dispositionDecisionId,
+      );
+      const truncated =
+        openWr.length > budget.maxOpenWorkRecommendations;
+      const selected = openWr.slice(0, budget.maxOpenWorkRecommendations);
+      workRecommendationsContext = Object.freeze({
+        coverage: truncated ? ("PARTIAL" as const) : ("COMPLETE" as const),
+        items: Object.freeze(
+          selected.map((c) =>
+            Object.freeze({
+              epistemicItemId: c.epistemicItemId,
+              statement: clip(
+                c.statement,
+                budget.workRecommendationStatementChars,
+              ),
+              status: c.status,
+              cycleInstanceId: c.cycleInstanceId,
+              dispositionDecisionId: c.dispositionDecisionId,
+              family: "Work" as const,
+              workRecommendationRelation: c.workRecommendationRelation
+                ? Object.freeze({ ...c.workRecommendationRelation })
+                : null,
+            }),
+          ),
+        ),
+      });
     } catch {
       acwState = "UNAVAILABLE";
+      workRecommendationsContext = Object.freeze({
+        coverage: "UNAVAILABLE" as const,
+        items: Object.freeze([]),
+      });
     }
   }
 
@@ -843,7 +944,7 @@ export async function composeStudioCognitiveContext(input: {
     }
   }
 
-  let trajectoryDecisionSupport: StudioTrajectoryDecisionSupportProjection =
+  const trajectoryDecisionSupport: StudioTrajectoryDecisionSupportProjection =
     input.trajectoryDecisionSupport ??
     Object.freeze({
       state: "NONE" as const,
@@ -863,6 +964,7 @@ export async function composeStudioCognitiveContext(input: {
         state: acwState,
         items: Object.freeze(acwItems),
       }),
+      workRecommendationsContext,
       trajectoryDecisionSupport,
       decisions: Object.freeze({
         state: decisionsState,
@@ -1043,6 +1145,55 @@ export function buildStudioCognitivePromptSections(
     } else if (tds.state === "NONE") {
       lines.push(
         "Options trajectoire (ProjectTrajectory) : non ouvertes pour ce travail — les Work Recommendations se disposent en chat (accepter / amender / refuser / reporter) ; ne pas proposer d'optionRefs trajectoire.",
+      );
+    }
+    lines.push("");
+    lines.push(
+      "=== Work Recommendations durables ouvertes (famille Work — ≠ Lifecycle ≠ Trajectory) ===",
+    );
+    const wrCtx = ctx.workRecommendationsContext;
+    lines.push(`coverage=${wrCtx.coverage}`);
+    if (wrCtx.coverage === "UNAVAILABLE") {
+      lines.push(
+        "Contexte Work Recommendations : UNAVAILABLE — ne pas inventer d'ids ; relationKind=UNCERTAIN ou conversationGuidance ; jamais NEW par défaut.",
+      );
+    } else if (wrCtx.items.length === 0) {
+      lines.push(
+        "Aucune Work Recommendation ouverte dans le périmètre couvert (liste vide ≠ licence d'invention).",
+      );
+      if (wrCtx.coverage === "PARTIAL") {
+        lines.push(
+          "coverage=PARTIAL — ne pas conclure NEW uniquement parce qu'aucune correspondance n'apparaît ici.",
+        );
+      }
+    } else {
+      if (wrCtx.coverage === "PARTIAL") {
+        lines.push(
+          "coverage=PARTIAL — vue tronquée ; ne pas conclure NEW uniquement par absence de correspondance ici.",
+        );
+      }
+      lines.push(
+        "Ids autorisés pour relatedRecommendationRef (copier EXACTEMENT ; ne jamais inventer) :",
+      );
+      for (const w of wrCtx.items) {
+        const disposition =
+          w.dispositionDecisionId != null
+            ? ` disposition=${w.dispositionDecisionId}`
+            : " disposition=none";
+        const cycle =
+          w.cycleInstanceId != null ? ` cycle=${w.cycleInstanceId}` : "";
+        const rel = w.workRecommendationRelation;
+        const relation =
+          rel != null
+            ? ` relation=${rel.kind}->${rel.targetEpistemicItemId} origin=${rel.judgmentOrigin} authority=${rel.authority} applicability=${rel.applicability}`
+            : " relation=none";
+        lines.push(
+          `• id=${w.epistemicItemId} family=Work status=${w.status}${cycle}${disposition}${relation} — ${w.statement}`,
+        );
+      }
+      lines.push(
+        "relation=* est une relation candidate durable admise par Studio (≠ HumanDecision ; ≠ contradiction tranchée par le Pilote).",
+        "applicability=applicable uniquement si source ET cible restent des Work Recommendations ouvertes ; durable ≠ CURRENT.",
       );
     }
     if (ctx.reservationFocusSection) {

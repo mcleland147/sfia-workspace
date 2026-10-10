@@ -608,13 +608,9 @@ export function JournalSurface({
                     <span>Recommandation de travail</span>
                     <span>Nora · recommandation</span>
                   </p>
-                  <p
-                    className={styles.finalizationHint}
-                    data-testid={`cycle-recommendation-authority-${card.epistemicItemId}`}
-                  >
-                    RECOMMANDATION — PAS UNE DÉCISION HUMAINE. Disposez-en dans
-                    le chat (poursuivre, amender, refuser ou reporter).
-                  </p>
+                  {/* UX-REC-02 — drop per-card methodological disclaimer; Product
+                      Recommendation ≠ HumanDecision remains enforced server-side.
+                      Status + « En discuter avec Nora » stay on the card. */}
                   {open && onResumeRecommendationInChat ? (
                     <div className={styles.cardActions}>
                       <button

@@ -114,12 +114,38 @@ const NORA_ACTIVE_CYCLE_WORK_ITEM_REQUIRED = [
 ] as const;
 
 /**
+ * P6-HQA-02 REC-01 Option B — Nora candidate relation to open Work Recommendations.
+ * Candidate signal only — never Product truth / never materialization authority.
+ */
+export const NORA_WORK_RECOMMENDATION_RELATION_KINDS = [
+  "NEW",
+  "ALREADY_COVERED",
+  "DISTINCT_RELATED",
+  "CONTRADICTORY",
+  "UNCERTAIN",
+] as const;
+
+export type NoraWorkRecommendationRelationKind =
+  (typeof NORA_WORK_RECOMMENDATION_RELATION_KINDS)[number];
+
+const NORA_RECOMMENDATION_ITEM_REQUIRED = [
+  ...NORA_ACTIVE_CYCLE_WORK_ITEM_REQUIRED,
+  "trackingRationale",
+  "relationKind",
+  "relatedRecommendationRef",
+] as const;
+
+/**
  * D-GF-ACW-01 — non-authoritative active-cycle cognitive work items (no ids).
  *
  * HABITFLOW-NORA-ACW-OPTION-REF-CONTRACT-CORR-01 — parity with
  * materializeActiveCycleWork `recommended_option_ref_only_on_recommendation`:
  * - Recommendation: recommendedOptionRef = string | null
  * - all other types: recommendedOptionRef = null only
+ *
+ * P6-HQA-02 REC-01 Option B — Recommendation-only structured materialization
+ * candidates: trackingRationale, relationKind, relatedRecommendationRef.
+ * Studio verifies references and decides materialization; Nora never authorizes.
  *
  * Discriminated via nested anyOf (OpenAI Responses json_schema strict:true).
  * Recommendation ≠ HumanDecision; never promotes trajectory.
@@ -129,7 +155,7 @@ export const NORA_ACTIVE_CYCLE_WORK_ITEM_SCHEMA = {
     {
       type: "object" as const,
       additionalProperties: false as const,
-      required: [...NORA_ACTIVE_CYCLE_WORK_ITEM_REQUIRED],
+      required: [...NORA_RECOMMENDATION_ITEM_REQUIRED],
       properties: {
         type: {
           type: "string" as const,
@@ -141,6 +167,23 @@ export const NORA_ACTIVE_CYCLE_WORK_ITEM_SCHEMA = {
          * trajectory/proposal Option. Structured field only (never from prose).
          */
         recommendedOptionRef: {
+          anyOf: [{ type: "string" as const }, { type: "null" as const }],
+        },
+        /**
+         * Why durable follow-up is needed — candidate signal, not authorization.
+         * Must not merely repeat statement.
+         */
+        trackingRationale: { type: "string" as const },
+        /** Candidate relation to open Work Recommendations — Studio verifies. */
+        relationKind: {
+          type: "string" as const,
+          enum: [...NORA_WORK_RECOMMENDATION_RELATION_KINDS],
+        },
+        /**
+         * Durable epistemicItemId of an open Work Recommendation from Studio
+         * context when relationKind requires a reference; otherwise null.
+         */
+        relatedRecommendationRef: {
           anyOf: [{ type: "string" as const }, { type: "null" as const }],
         },
       },
@@ -196,6 +239,13 @@ export type NoraActiveCycleWorkItem = {
    * Null / omitted for non-trajectory Recommendations. Never authority Alone.
    */
   recommendedOptionRef?: string | null;
+  /**
+   * P6-HQA-02 REC-01 Option B — Recommendation-only. Transient Nora signal;
+   * not persisted on EpistemicItem (no migration / no second store).
+   */
+  trackingRationale?: string;
+  relationKind?: NoraWorkRecommendationRelationKind;
+  relatedRecommendationRef?: string | null;
 };
 
 export type NoraActiveCycleWorkOutput = {
@@ -500,6 +550,26 @@ export function normalizeActiveCycleRecommendedOptionRef(
   return trimmed;
 }
 
+const NORA_WORK_RECOMMENDATION_RELATION_KIND_SET = new Set<string>(
+  NORA_WORK_RECOMMENDATION_RELATION_KINDS,
+);
+
+/**
+ * Normalize relatedRecommendationRef (durable EpistemicItem id from Studio context).
+ * Empty → null. Does not invent ids; Studio still verifies membership.
+ */
+export function normalizeRelatedRecommendationRef(
+  value: unknown,
+): string | null {
+  if (value === null || value === undefined) return null;
+  if (typeof value !== "string") return null;
+  const trimmed = value.trim();
+  if (!trimmed) return null;
+  // Fail-closed: must look like a durable epistemic id communicated by Studio.
+  if (!/^epi:[a-z0-9][a-z0-9:_-]*$/i.test(trimmed)) return null;
+  return trimmed;
+}
+
 export function isNoraActiveCycleWorkItem(
   value: unknown,
 ): value is NoraActiveCycleWorkItem {
@@ -528,6 +598,14 @@ export function isNoraActiveCycleWorkItem(
     if (rawRef !== undefined && rawRef !== null) {
       return false;
     }
+    // Option B fields are Recommendation-only.
+    if (
+      "trackingRationale" in o ||
+      "relationKind" in o ||
+      "relatedRecommendationRef" in o
+    ) {
+      return false;
+    }
     return true;
   }
   if (
@@ -536,6 +614,20 @@ export function isNoraActiveCycleWorkItem(
     rawRef !== undefined
   ) {
     if (normalizeActiveCycleRecommendedOptionRef(rawRef) === null) {
+      return false;
+    }
+  }
+  // P6-HQA-02 REC-01 Option B — required structured materialization contract.
+  if (typeof o.trackingRationale !== "string") return false;
+  if (
+    !NORA_WORK_RECOMMENDATION_RELATION_KIND_SET.has(String(o.relationKind))
+  ) {
+    return false;
+  }
+  if (!("relatedRecommendationRef" in o)) return false;
+  const related = o.relatedRecommendationRef;
+  if (related !== null && related !== undefined) {
+    if (normalizeRelatedRecommendationRef(related) === null) {
       return false;
     }
   }

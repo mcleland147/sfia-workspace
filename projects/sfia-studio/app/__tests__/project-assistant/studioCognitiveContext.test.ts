@@ -457,6 +457,10 @@ describe("CORR-PROOF-04 studioCognitiveContext composer", () => {
         state: "NONE" as const,
         items: [],
       },
+      workRecommendationsContext: {
+        coverage: "COMPLETE" as const,
+        items: [],
+      },
       trajectoryDecisionSupport: {
         state: "NONE" as const,
         optionRefs: [],
@@ -815,6 +819,10 @@ describe("HABITFLOW-SEMANTIC-OPTION-LABEL-CORR-01 — contextual bounded-direct 
         ckcResolutionRef: null,
       },
       activeCycleWorkItems: { state: "NONE" as const, items: [] },
+      workRecommendationsContext: {
+        coverage: "COMPLETE" as const,
+        items: [],
+      },
       trajectoryDecisionSupport: {
         state: "PRESENT" as const,
         optionRefs: Object.freeze([...optionRefs]),
