@@ -1,25 +1,26 @@
 # SFIA Review Pack — FULL
-# P6-HQA-02 — REC-01 — OPTION B DELIVERY
-# Structured Work Recommendation Materialization Contract (template v2.6 §7.5)
+# P6-HQA-02 — REC-01 — OPTION B CORRECTIVE PASS 02
+# Local Bounded Prospective Correction (template v2.6 §7.5)
 
 ## Meta
-- Date / heure : **2026-10-10 19:30:08 CEST** (Europe/Paris)
+- Date / heure : **2026-10-10 19:51:07 CEST** (Europe/Paris)
 - Macro : STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01
 - Campagne : P6-GLOBAL-INTEGRATED-PRODUCT-QA-01
-- Lot : **P6-HQA-02 — REC-01 Option B Structured Materialization Contract**
+- Lot : **P6-HQA-02 — REC-01 Option B Corrective Pass 02**
+- Findings : REC-B-01 · REC-B-02 · REC-B-03
 - Milestone : P6 — Global Integrated Product QA / Phase 5 Human QA
 - Cycle projet : **8 — Delivery / implémentation**
 - Profil : **Critical**
-- Typologie : EVOL — évolution corrective prospective
+- Typologie : EVOL — corrective prospective
 - Capacités : V3-F05, V3-F04, V3-F02, V3-F14
-- GO Morris : **Option B VALIDÉE + GO DELIVERY LOCALE BORNÉE**
+- GO Morris : **GO — CORRECTION LOCALE OPTION B**
 - Commit / push / PR / merge projet : **NON**
 - P6 GLOBAL PASS : **NO**
 - Runtime v3 ADOPTED : **NO**
 - Synthesis only : **no**
-- Base main / HEAD worktree : `8ed61737df30db270bf871eedad1535020fd1c11`
+- Base main / HEAD : `8ed61737df30db270bf871eedad1535020fd1c11`
 - Branche : `fix/studio-p6-hqa-02-work-recommendation-materialization`
-- Review Handoff précédent : `091f712af870c0eeb5ccf55286d03932d269deba` (Corrective Pass 01)
+- Review Handoff source : `844c105dc5a19fdd96cd6366b39d5bcc2293682e`
 
 ---
 
@@ -31,12 +32,11 @@
 | Branche | `fix/studio-p6-hqa-02-work-recommendation-materialization` |
 | HEAD | `8ed61737df30db270bf871eedad1535020fd1c11` |
 | origin/main | `8ed61737df30db270bf871eedad1535020fd1c11` |
-| HEAD == origin/main | **YES** |
-| Staged | **vide** |
-| Commit projet | **aucun** |
-| Candidate HQA-02 + Corrective Pass 01 | **préservée et étendue Option B** |
+| Staged | vide |
+| Commit projet | aucun |
+| Candidate Option B + CP01 + UX-REC-02 | **préservée** |
 
-### `git status --short`
+### status / diffstat
 
 ```
  M .tmp-sfia-review/chatgpt-review.md
@@ -60,227 +60,223 @@
 ?? projects/sfia-studio/app/lib/oa/cycle/application/qualifyProspectiveWorkRecommendationMaterialization.ts
 ```
 
-### `git diff --stat`
-
 ```
- .tmp-sfia-review/chatgpt-review.md                 | 1512 ++++++++++++++++++--
+ .tmp-sfia-review/chatgpt-review.md                 | 1907 ++++++++++++++++++--
  .../corrProof06.artifactObligation.d0.test.ts      |    4 +
  .../chatFirstGovernedDecisionLoop.ui.test.tsx      |   10 +-
- .../activeCycleCognitiveWork.d0.test.ts            |    9 +
+ .../activeCycleCognitiveWork.d0.test.ts            |  137 ++
  .../noraConversationalInitiative.d0.test.ts        |    3 +
  ...anticContinuity.corr02.c2ProductTurn.d0.test.ts |    9 +
  .../pilotNoraStudioSemanticContinuity.d0.test.ts   |    6 +
  .../studioCognitiveContext.test.ts                 |    8 +
  .../pre-m6-product-ui/surfaces/JournalSurface.tsx  |   10 +-
- .../project-assistant/buildProjectSystemPrompt.ts  |   15 +
+ .../project-assistant/buildProjectSystemPrompt.ts  |   19 +
  .../project-assistant/f2/studioCognitiveContext.ts |  130 +-
  .../materializeActiveCycleWork.ts                  |   41 +-
- .../features/project-assistant/orchestrateTurn.ts  |   38 +-
+ .../features/project-assistant/orchestrateTurn.ts  |   46 +-
  .../noraProductTurnOutputType.ts                   |   94 +-
- projects/sfia-studio/app/lib/oa/cycle/index.ts     |   11 +
- 15 files changed, 1746 insertions(+), 154 deletions(-)
+ projects/sfia-studio/app/lib/oa/cycle/index.ts     |   13 +
+ 15 files changed, 2284 insertions(+), 153 deletions(-)
 ```
 
-### `git diff --cached --stat`
+Cached: `(empty)`
 
-```
-(empty)
-```
+Handoff précédent Git : `844c105d` accessible — contenu local non publié préservé avant reset pack.
 
 ---
 
 ## 2. GO Morris / Qualification SFIA
 
-- Option B VALIDÉE (trackingRationale, relationKind, relatedRecommendationRef, couverture COMPLETE/PARTIAL/UNAVAILABLE, résolution Studio, abstention incertitude).
-- GO DELIVERY LOCALE BORNÉE uniquement.
-- Aucun GO commit/push/PR/merge/migration/doctrine/architecture/v3.
-- Profil **Critical** : aucun arbitrage architectural implicite.
-- Handoff L3 v2.6 autorisé.
+GO CORRECTION LOCALE OPTION B uniquement.
+Pas de nouveau classificateur / regex d'intention / moteur parallèle / persistence / migration / REAL.
+Profil Critical — aucun arbitrage architectural implicite.
 
 ---
 
-## 3. Sources / Convergence Pre-check
+## 3. Sources / Convergence
 
-Sources lues : Build Doctrine · Roadmap · C1 · P2/P3/P4/P6 · doctrine 30/33 · template v2.6 · routing · handoff `091f712a`.
-
-| Item | Status |
-|------|--------|
-| Build Doctrine | VALIDATED / ACTIVE ON MAIN |
-| Roadmap P6 | applicable |
-| C1 | VALIDATED |
-| P2 | VALIDATED |
-| P6 Human QA | IN PROGRESS |
-| P6 GLOBAL PASS | NO |
-| runtime v3 | NON ADOPTED |
-
-Actifs : conversationGuidance KEEP · activeCycleWork ADAPT · studioCognitiveContext ADAPT · Epistemic/LPS KEEP · materialize KEEP/ADAPT min · filtre lexical REPLACE · UX-REC-02 KEEP · REC-02 RESERVED.
-
+Doctrine ACTIVE · Roadmap P6 · C1/P2 validés · P6 Human QA IN PROGRESS · P6 PASS=NO · v3 NON ADOPTED.
 CKC Cycle 8 : fallback synthétique.
+Handoff lu : Option B initiale @ `844c105d`.
 
 ---
 
-## 4. État initial de la candidate
+## 4. État candidat initial (Option B avant CP02)
 
-Candidate P6-HQA-02 locale avec :
-- Corrective Pass 01 (fail-closed polarité/ordre, invites, sourceIndexes) ;
-- UX-REC-02 PASS ;
-- filtre lexical REC-01 encore responsable de la qualification métier.
-
-ChatGPT / Morris : Option B requise — remplacer la responsabilité de qualification lexicale par un contrat structuré.
+- Schéma Recommendation : trackingRationale / relationKind / relatedRecommendationRef
+- workRecommendationsContext COMPLETE/PARTIAL/UNAVAILABLE exposé à Nora
+- Qualification : NEW + rationale non-echo → mint possible **sans** ancrage Product ni couverture consommée
+- DISTINCT_RELATED / CONTRADICTORY → abstention systématique
+- sourceIndexes préservés (CP01)
 
 ---
 
-## 5. Contrat Nora — avant / après
+## 5. Matrice frontière Nora / Product / Studio
+
+| Couche | Rôle |
+|--------|------|
+| A. Jugement sémantique Nora | relationKind, trackingRationale, statement — **candidats** |
+| B. Donnée Product autoritative | open WR ids/statements, cycleInstanceId, coverage projection, disposition |
+| C. Contrôle déterministe Studio | schema, ref membership, exact duplicate, exact guidance match, Product-anchor citation, coverage gate |
+| D. Incertitude résiduelle | Nora peut mal labelliser NEW / DISTINCT — **non éliminée déterministiquement** |
+| E. Effet durable | mint EpistemicItem Recommendation **ou** abstention ; jamais mutation historique ; jamais HD inventée |
+
+---
+
+## 6. REC-B-01 — Matérialité
+
+### Reproduction
+statement « Je te propose d'examiner un exemple concret de retard. »
+trackingRationale « Cette proposition nécessite un suivi. »
+relationKind=NEW, coverage=COMPLETE → **avant** : materialize possible.
+
+### Cause
+trackingRationale non vide ≠ preuve de nécessité de suivi durable.
+
+### Correction
+Exiger un **ancrage Product vérifiable** dans trackingRationale :
+cite `cycleInstanceId` **ou** un `epi:…` ouvert **ou** `recommendedOptionRef`.
+Ce n'est **pas** une détection d'intention par regex/mots-clés.
++ garde mécanique : exact match conversationGuidance → `conversational_channel_exact`.
+
+### Limite explicite
+Politique de confiance bornée : même avec ancrage + COMPLETE, le jugement Nora reste candidat.
+**≠ preuve déterministe de pertinence sémantique.**
+
+### Après
+Boilerplate sans ancrage → `missing_product_anchor`.
+NEW légitime citant `cycinst:…` sous COMPLETE → mint possible.
+
+---
+
+## 7. REC-B-02 — Couverture / continuité
+
+### Reproduction
+15 opens, budget 12 → coverage=PARTIAL, NEW textuellement distinct → mint possible avant.
+
+### Cause
+Couverture Nora non consommée par la qualification serveur.
+
+### Correction
+`orchestrateTurn` passe `studio.workRecommendationsContext.coverage` au filtre.
+- UNAVAILABLE / Product unread → abstention WR
+- PARTIAL → `insufficient_context_coverage` pour NEW / DISTINCT / CONTRADICTORY
+- COMPLETE requis pour mint de nouveauté/distinctivité
+- ALREADY_COVERED résolvable sur faits Product même sous PARTIAL
+- Observations / autres ACW **non bloqués**
+
+Product reader available ≠ COMPLETE ≠ équivalence sémantique.
+
+---
+
+## 8. REC-B-03 — Distinctivité / contradiction
 
 ### Avant
-Recommendation ACW : `type`, `statement`, `confidence`, `blocking`, `recommendedOptionRef` seulement.
-Qualification Studio : heuristiques lexicales (Jaccard / tokens / invites).
+DISTINCT_RELATED / CONTRADICTORY → abstention systématique.
 
-### Après (Option B — Recommendation-only, strict schema)
-Champs requis sur la branche Recommendation de `NORA_ACTIVE_CYCLE_WORK_ITEM_SCHEMA` :
-- `trackingRationale` : string
-- `relationKind` : NEW | ALREADY_COVERED | DISTINCT_RELATED | CONTRADICTORY | UNCERTAIN
-- `relatedRecommendationRef` : string | null (forme `epi:…`)
+### Correction (contrats existants, pas de nouvelle taxonomie)
+Sous COMPLETE + ref ouverte valide + rationale ancrée Product + statement non exact-duplicate :
+- **DISTINCT_RELATED** → mint WR **coexistante** (liée par signal Nora ; Studio vérifie ref)
+- **CONTRADICTORY** → mint coexistante ; **≠ équivalence** ; **aucune disposition/remplacement** de l'existante
+Sous PARTIAL → abstention.
+Ref invalide → abstention (pas de similarité texte).
+UNCERTAIN → abstention.
+ALREADY_COVERED → pas de mint ; historique inchangé.
 
-Autres types ACW : inchangés ; champs Option B rejetés.
-
-`isNoraActiveCycleWorkItem` / AJV / normalize alignés.
-
----
-
-## 6. Contexte Nora — Work Recommendations ouvertes
-
-Nouveau `workRecommendationsContext` dans `StudioCognitiveContext` :
-- `coverage` : COMPLETE | PARTIAL | UNAVAILABLE
-- items : epistemicItemId, statement, status, cycleInstanceId, dispositionDecisionId, family=Work
-
-Règles :
-- COMPLETE uniquement si l'ensemble ouvert tient dans le budget (`maxOpenWorkRecommendations=12`) ;
-- PARTIAL si tronqué — jamais présenté comme COMPLETE ;
-- UNAVAILABLE si lecture Product impossible ;
-- liste vide après lecture réussie = COMPLETE vide (≠ preuve d'absence globale si PARTIAL/UNAVAILABLE).
-
-Projection via `projectCycleWorkRecommendations` (séparation Work / Lifecycle / Trajectory TDS).
-Prompt : ids exacts pour `relatedRecommendationRef` ; warnings PARTIAL/UNAVAILABLE.
-
-La projection Nora n'est pas Truth C — Studio re-résout au moment de la matérialisation.
+Aucune HumanDecision inventée pour Recommendation ordinaire.
 
 ---
 
-## 7. Qualification Studio (autorité Product)
+## 9. Currentness / références
 
-Pipeline :
-Nora structured → normalize/validate → open WR facts Product → resolve refs → qualify → materializeActiveCycleWork (itemSourceIndexes) | abstain.
-
-Séparation :
-- A Nora : signaux candidats
-- B Product : faits vérifiables (ids, status, disposition, cycle)
-- C Studio : décision de matérialisation
-
-Règles :
-| relationKind | Effet |
-|---|---|
-| UNCERTAIN | abstention |
-| ALREADY_COVERED | ref valide requise → pas de mint |
-| DISTINCT_RELATED | ref valide + abstention (distinction non prouvée déterministe) |
-| CONTRADICTORY | ref valide + abstention (pas de remplacement / pas d'équivalence) |
-| NEW | rationale exploitable + contexte Studio disponible + pas de doublon exact → mint possible |
-
-Éliminé comme preuve métier : Jaccard, bag-of-words, scores de longueur, corpus regex d'équivalence.
-Conservé : doublon exact mécanique ; sourceIndexes ; fail-closed open context ; TDS / Work separation.
-
-`trackingRationale` présent ≠ matérialité. `NEW` ≠ nouveauté prouvée.
+Réutilisation : open WR via `projectCycleWorkRecommendations` (status active, sans disposition).
+Pas de second Currentness Engine.
+Refs stale/invalides → pas de mint.
+Pas de mutation de l'objet référencé.
+Trajectory currentness modules lus pour qualification de réutilisation — non étendus (KEEP).
 
 ---
 
-## 8. Persistence / provenance
+## 10. Idempotence intégrée
 
-- Aucune migration / table / second store.
-- `trackingRationale` / `relationKind` / `relatedRecommendationRef` = **signaux transitoires Nora** — non persistés sur EpistemicItem.
-- Reconstructibilité historique de trackingRationale : **non** avec le modèle actuel (dette explicite ; pas de STOP car auditabilité minimale non exigée comme nouveau schéma dans ce GO — documentée).
-- `relatedObjects` non abusé pour stocker Option B.
-- Journal UI ≠ vérité durable.
-
----
-
-## 9. Idempotence / historique
-
-- `sourceIndexes` → `itemSourceIndexes` conservés (Corrective Pass 01).
-- Filter prospective ne mute jamais existingItems.
-- Aucun backfill / reclassification / supersession.
+Preuve exécutée : filter → materializeActiveCycleWork(+itemSourceIndexes) → EpistemicItem → LPS → rejeu même logicalTurnId.
+- Rec+Obs premier passage : 2 creates
+- Rejeu : Rec filtrée (exact open), Obs sourceIndex=1 stable, idempotent, createdIds=[]
+- Pas de doublon LPS
 
 ---
 
-## 10. Tests exécutés
+## 11. Préservation historique
+
+Prospective only. existingItems frozen dans tests contradiction.
+UX-REC-02 KEEP. REC-02 RESERVED.
+
+---
+
+## 12. Tests exécutés (ce cycle)
 
 | Suite | Result |
 |-------|--------|
-| qualifyProspective… Option B (17) | **PASS** |
-| p6.hqa.rec01.optionB.workRecommendationsContext (3) | **PASS** |
-| UX-REC-02 journal disclaimer | **PASS** |
+| qualify Option B CP02 (16) | **PASS** |
+| integrated idempotence filter→UoW→LPS | **PASS** |
+| workRecommendationsContext coverage (3) | **PASS** |
+| UX-REC-02 | **PASS** |
 | studioCognitiveContext (11) | **PASS** |
 | deriveWorkRecommendations (2) | **PASS** |
 | chatFirstGovernedDecisionLoop (11) | **PASS** |
-| activeCycleCognitiveWork (filtre schema/materialize/compose — 16) | **PASS** |
 | pilotNoraStudioSemanticContinuity.d0 (15) | **PASS** |
-| pilotNoraStudioSemanticContinuity.corr01 (5) | **PASS** |
-| pilotNoraStudioSemanticContinuity.corr02 (6) | **PASS** |
-| noraConversationalInitiative (28) | **PASS** |
+| CORR-ACW-OPTREF (schema) | **PASS** |
 | tsc --noEmit | **PASS** |
 | ESLint ciblé | **PASS** |
-| git diff --check | **PASS** |
-| COG-01 / UX-REC-01 / REC-03 / JRN-01 Human QA full | **NOT RUN** |
-| Campagne REAL provider | **NOT RUN** |
+| git diff --check | **PASS** (EOF fix) |
+| COG-01 / UX-REC-01 / REC-03 / JRN-01 Human QA | **NOT RUN** |
+| REAL provider | **NOT RUN** |
 
 ---
 
-## 11. Fake / Real Qualification
+## 13. Fake / Real
 
-- Entrée : DETERMINISTIC PROVEN AT CORRECTED SCOPE (+ réserve sémantique ChatGPT)
-- Atteint (si revue OK) : **DETERMINISTIC PROVEN AT OPTION B CONTRACTED SCOPE**
-- Hors scope : REAL BOUNDARY / E2E REAL / P6 PASS / v3 ADOPTED
-- Gaps REAL : qualité trackingRationale, relations, paraphrases, contradictions linguistiques
+Atteint : **DETERMINISTIC PROVEN AT CORRECTED SCOPE** (invariants testés).
+Hors scope : REAL BOUNDARY / E2E REAL / P6 PASS / v3 ADOPTED.
+Risque résiduel : Nora peut coller un cycleId et mal labelliser NEW — qualifié honnêtement, non « prouvé impossible ».
 
 ---
 
-## 12. Fichiers
+## 14. Fichiers
 
-Créés / réécrits :
-- `qualifyProspectiveWorkRecommendationMaterialization.ts` (Option B)
-- tests Option B qualify + workRecommendationsContext
-- (préservés) UX-REC-02 test / JournalSurface
-
-Modifiés :
-- `noraProductTurnOutputType.ts`
-- `studioCognitiveContext.ts`
-- `buildProjectSystemPrompt.ts`
-- `orchestrateTurn.ts` (filtre + sourceIndexes — déjà)
-- `materializeActiveCycleWork.ts` (itemSourceIndexes + Option B fields Recommendation-only)
+Modifiés / créés (cœur CP02) :
+- `qualifyProspectiveWorkRecommendationMaterialization.ts` (réécrit CP02)
+- tests qualify CP02
+- `orchestrateTurn.ts` (coverage wiring)
+- `buildProjectSystemPrompt.ts` (ancrage Product)
 - `lib/oa/cycle/index.ts`
-- fixtures ACW / continuity pour schéma Recommendation
+- `activeCycleCognitiveWork.d0.test.ts` (idempotence intégrée)
+
+Préservés : schéma Option B, studioCognitiveContext coverage, UX-REC-02, materialize sourceIndexes.
 
 ---
 
-## 13. Contenu complet — qualifyProspectiveWorkRecommendationMaterialization.ts
+## 15. Contenu complet — qualifyProspectiveWorkRecommendationMaterialization.ts
 
 ```typescript
 /**
- * P6-HQA-02 / REC-01 Option B — prospective Work Recommendation materialization.
+ * P6-HQA-02 / REC-01 Option B — Corrective Pass 02.
  *
- * Pipeline (Studio authority):
+ * Prospective Work Recommendation materialization (Studio authority):
  *   Nora structured Recommendation candidate
- *   → Product open Work Recommendation facts
- *   → reference resolution
+ *   → Product open Work Recommendation facts + coverage
+ *   → reference resolution / product-anchor check
  *   → materialize | abstain
  *
- * A Work Recommendation is exclusively a durable Product object.
- * Ordinary conversational suggestions stay in conversationGuidance.
+ * Corrective Pass 02 findings:
+ * - REC-B-01: NEW + non-empty rationale ≠ materiality proof; require Product anchor citation.
+ * - REC-B-02: consume COMPLETE/PARTIAL/UNAVAILABLE; PARTIAL/UNAVAILABLE ⇒ no new mint.
+ * - REC-B-03: DISTINCT_RELATED / CONTRADICTORY may mint as distinct coexisting items when
+ *   ref valid + coverage COMPLETE + product-anchored rationale; never mutate/dispose prior.
  *
- * PROSPECTIVE ONLY: never mutates historical Recommendations.
- * Lexical/Jaccard/bag-of-words/keyword scoring is NOT used as business proof.
- * Exact statement re-emission may still be suppressed as a mechanical guard.
- *
- * Corrective Pass 01 identity: preserve original ACW sourceIndexes.
+ * No lexical/Jaccard/keyword business classifier.
+ * Exact statement re-emission and exact conversationGuidance match are mechanical guards only.
+ * Corrective Pass 01: preserve original ACW sourceIndexes.
  */
 
 import type {
@@ -295,14 +291,22 @@ import {
   type WorkRecommendationProjectionCard,
 } from "./deriveWorkRecommendations";
 
+/** Coverage of the open-WR context presented to Nora / used for novelty claims. */
+export type OpenWorkRecommendationsCoverage =
+  | "COMPLETE"
+  | "PARTIAL"
+  | "UNAVAILABLE";
+
 export type ProspectiveWorkRecommendationSuppressReason =
   | "missing_structured_contract"
   | "insufficient_tracking_rationale"
+  | "missing_product_anchor"
+  | "insufficient_context_coverage"
   | "uncertain_relation"
   | "already_covered"
-  | "relation_unresolved"
   | "invalid_related_ref"
   | "exact_open_duplicate"
+  | "conversational_channel_exact"
   | "open_context_unavailable";
 
 export type ProspectiveWorkRecommendationMaterializationDecision =
@@ -335,8 +339,8 @@ function hasTrajectoryRecommendedOptionRef(
 }
 
 /**
- * trackingRationale is required for durable mint — but presence alone never
- * proves materiality. Reject empty / whitespace / mere statement echo.
+ * trackingRationale presence alone never proves materiality.
+ * Reject empty / whitespace / mere statement echo.
  */
 export function isExploitableTrackingRationale(
   trackingRationale: string | null | undefined,
@@ -347,6 +351,32 @@ export function isExploitableTrackingRationale(
   if (rationale.length < 8) return false;
   if (normalizeExact(rationale) === normalizeExact(statement)) return false;
   return true;
+}
+
+/**
+ * Product-verifiable anchor citation — not semantic intent detection.
+ * trackingRationale must cite at least one authoritative Product id from context:
+ * cycleInstanceId, an open Work Recommendation epistemicItemId, or recommendedOptionRef.
+ */
+export function trackingRationaleCitesProductAnchor(
+  trackingRationale: string | null | undefined,
+  anchors: {
+    readonly cycleInstanceId: string;
+    readonly openRecommendationIds: readonly string[];
+    readonly recommendedOptionRef?: string | null;
+  },
+): boolean {
+  if (typeof trackingRationale !== "string") return false;
+  const rationale = trackingRationale;
+  const optionRef = anchors.recommendedOptionRef?.trim();
+  if (optionRef && rationale.includes(optionRef)) return true;
+  const cycleId = anchors.cycleInstanceId.trim();
+  if (cycleId && rationale.includes(cycleId)) return true;
+  for (const id of anchors.openRecommendationIds) {
+    const trimmed = id.trim();
+    if (trimmed && rationale.includes(trimmed)) return true;
+  }
+  return false;
 }
 
 export function openWorkRecommendationFactsForCycle(input: {
@@ -394,9 +424,23 @@ function relationKindOf(
   return null;
 }
 
+function resolveCoverage(input: {
+  readonly openRecommendationsContextAvailable?: boolean;
+  readonly openWorkRecommendationsCoverage?: OpenWorkRecommendationsCoverage;
+}): OpenWorkRecommendationsCoverage {
+  if (input.openRecommendationsContextAvailable === false) {
+    return "UNAVAILABLE";
+  }
+  return input.openWorkRecommendationsCoverage ?? "UNAVAILABLE";
+}
+
 /**
  * Qualify whether a single ACW Recommendation candidate should mint a durable
- * Work Recommendation. Structured Option B contract — Studio authority only.
+ * Work Recommendation. Structured Option B + Corrective Pass 02.
+ *
+ * Bounded trust: Nora's relationKind/trackingRationale are candidate signals.
+ * Studio verifies Product facts, coverage, anchors, and exact mechanical guards.
+ * Residual semantic risk (Nora mis-labeling) is not deterministically eliminated.
  */
 export function qualifyProspectiveWorkRecommendationMaterialization(input: {
   readonly statement: string;
@@ -404,13 +448,17 @@ export function qualifyProspectiveWorkRecommendationMaterialization(input: {
   readonly trackingRationale?: string | null;
   readonly relationKind?: NoraWorkRecommendationRelationKind | null;
   readonly relatedRecommendationRef?: string | null;
-  /** @deprecated Option B — ignored; kept for call-site compatibility. */
   readonly conversationGuidanceStatement?: string | null | undefined;
   readonly openWorkRecommendationStatements?: readonly string[];
   readonly openWorkRecommendationFacts?: readonly OpenWorkRecommendationFact[];
+  readonly cycleInstanceId?: string;
   /**
-   * When false, open Recommendations could not be loaded — fail-closed:
-   * do not mint new Work Recommendations (absence of evidence ≠ no opens).
+   * Coverage of the open-WR context used for novelty / distinctness claims.
+   * PARTIAL / UNAVAILABLE never authorize NEW / DISTINCT / CONTRADICTORY mint.
+   */
+  readonly openWorkRecommendationsCoverage?: OpenWorkRecommendationsCoverage;
+  /**
+   * When false, open Recommendations could not be loaded — fail-closed.
    */
   readonly openRecommendationsContextAvailable?: boolean;
 }): ProspectiveWorkRecommendationMaterializationDecision {
@@ -419,7 +467,8 @@ export function qualifyProspectiveWorkRecommendationMaterialization(input: {
     return { materialize: false, reason: "missing_structured_contract" };
   }
 
-  if (input.openRecommendationsContextAvailable === false) {
+  const coverage = resolveCoverage(input);
+  if (coverage === "UNAVAILABLE") {
     return { materialize: false, reason: "open_context_unavailable" };
   }
 
@@ -436,8 +485,15 @@ export function qualifyProspectiveWorkRecommendationMaterialization(input: {
           statement: s,
         }));
 
-  // Exact re-emission guard (mechanical — not semantic equivalence).
   const statementKey = normalizeExact(statement);
+
+  // Exact conversationGuidance match → conversational channel, not durable WR.
+  const guidance = (input.conversationGuidanceStatement ?? "").trim();
+  if (guidance && normalizeExact(guidance) === statementKey) {
+    return { materialize: false, reason: "conversational_channel_exact" };
+  }
+
+  // Exact re-emission guard (mechanical — not semantic equivalence).
   for (const existing of openFacts) {
     if (normalizeExact(existing.statement) === statementKey) {
       return { materialize: false, reason: "exact_open_duplicate" };
@@ -459,30 +515,48 @@ export function qualifyProspectiveWorkRecommendationMaterialization(input: {
     String(relatedRaw).trim().length > 0;
 
   if (relationKind === "ALREADY_COVERED") {
-    if (!relatedProvided) {
-      return { materialize: false, reason: "invalid_related_ref" };
-    }
-    if (!relatedFact) {
+    // Disposition of "already covered" needs a resolvable open ref (server facts).
+    if (!relatedProvided || !relatedFact) {
       return { materialize: false, reason: "invalid_related_ref" };
     }
     return { materialize: false, reason: "already_covered" };
+  }
+
+  // Mint paths require COMPLETE coverage — PARTIAL ≠ novelty/distinctness proof.
+  if (coverage === "PARTIAL") {
+    return { materialize: false, reason: "insufficient_context_coverage" };
   }
 
   if (
     relationKind === "DISTINCT_RELATED" ||
     relationKind === "CONTRADICTORY"
   ) {
-    // Distinction / contradiction are Nora candidates — not deterministic Product
-    // proofs. Require a valid open ref, then abstain from automatic mint.
+    // Valid open ref required. Never treat as equivalence / never mutate prior.
+    // When COMPLETE + product-anchored rationale: mint as coexisting distinct item.
     if (!relatedProvided || !relatedFact) {
       return { materialize: false, reason: "invalid_related_ref" };
     }
-    return { materialize: false, reason: "relation_unresolved" };
+    if (
+      !isExploitableTrackingRationale(input.trackingRationale, statement)
+    ) {
+      return { materialize: false, reason: "insufficient_tracking_rationale" };
+    }
+    if (
+      !trackingRationaleCitesProductAnchor(input.trackingRationale, {
+        cycleInstanceId: input.cycleInstanceId ?? "",
+        openRecommendationIds: openFacts.map((f) => f.epistemicItemId),
+        recommendedOptionRef: input.recommendedOptionRef,
+      })
+    ) {
+      return { materialize: false, reason: "missing_product_anchor" };
+    }
+    // CONTRADICTORY ≠ equivalence; DISTINCT_RELATED ≠ auto-collapse.
+    // Coexisting durable candidate allowed; historical item unchanged.
+    return { materialize: true, reason: "justified_durable_work" };
   }
 
   // relationKind === "NEW"
   if (relatedProvided && !relatedFact) {
-    // Invented / stale ref must never authorize mint via similarity.
     return { materialize: false, reason: "invalid_related_ref" };
   }
 
@@ -492,12 +566,24 @@ export function qualifyProspectiveWorkRecommendationMaterialization(input: {
     return { materialize: false, reason: "insufficient_tracking_rationale" };
   }
 
-  // Trajectory-bound structured Recommendation remains durable Product work
-  // when Option B NEW + exploitable rationale (TDS membership checked elsewhere).
+  if (
+    !trackingRationaleCitesProductAnchor(input.trackingRationale, {
+      cycleInstanceId: input.cycleInstanceId ?? "",
+      openRecommendationIds: openFacts.map((f) => f.epistemicItemId),
+      recommendedOptionRef: input.recommendedOptionRef,
+    })
+  ) {
+    return { materialize: false, reason: "missing_product_anchor" };
+  }
+
+  // Trajectory-bound + NEW + COMPLETE + product-anchored rationale.
   if (hasTrajectoryRecommendedOptionRef(input.recommendedOptionRef)) {
     return { materialize: true, reason: "justified_durable_work" };
   }
 
+  // Bounded trust residual: Nora's NEW remains a candidate signal.
+  // Studio verified COMPLETE coverage + Product anchor + non-echo rationale.
+  // This is NOT deterministic proof of semantic materiality.
   return { materialize: true, reason: "justified_durable_work" };
 }
 
@@ -513,6 +599,7 @@ export function openWorkRecommendationStatementsForCycle(input: {
 /**
  * Prospective filter on ACW items before materializeActiveCycleWork.
  * Preserves original payload indexes for Epistemic identity stability.
+ * Non-Recommendation items are never blocked by WR coverage.
  */
 export function filterActiveCycleWorkItemsForProspectiveMaterialization(input: {
   readonly items: ReadonlyArray<NoraActiveCycleWorkItem>;
@@ -521,6 +608,7 @@ export function filterActiveCycleWorkItemsForProspectiveMaterialization(input: {
   readonly cycleInstanceId: string;
   readonly trajectoryDecisionSupportState: TrajectoryDecisionSupportState;
   readonly openRecommendationsContextAvailable?: boolean;
+  readonly openWorkRecommendationsCoverage?: OpenWorkRecommendationsCoverage;
 }): {
   readonly items: NoraActiveCycleWorkItem[];
   /** Parallel to `items` — original ACW payload indexes. */
@@ -533,6 +621,10 @@ export function filterActiveCycleWorkItemsForProspectiveMaterialization(input: {
   }>;
 } {
   const contextAvailable = input.openRecommendationsContextAvailable !== false;
+  const coverage: OpenWorkRecommendationsCoverage = !contextAvailable
+    ? "UNAVAILABLE"
+    : (input.openWorkRecommendationsCoverage ?? "UNAVAILABLE");
+
   const openFacts = contextAvailable
     ? openWorkRecommendationFactsForCycle({
         existingItems: input.existingItems,
@@ -547,7 +639,6 @@ export function filterActiveCycleWorkItemsForProspectiveMaterialization(input: {
     reason: ProspectiveWorkRecommendationSuppressReason;
     sourceIndex: number;
   }> = [];
-  // Same-turn exact duplicates among newly accepted Recommendations.
   const acceptedStatements: string[] = [];
 
   for (let sourceIndex = 0; sourceIndex < input.items.length; sourceIndex += 1) {
@@ -571,6 +662,8 @@ export function filterActiveCycleWorkItemsForProspectiveMaterialization(input: {
       relatedRecommendationRef: item.relatedRecommendationRef,
       conversationGuidanceStatement: input.conversationGuidanceStatement,
       openWorkRecommendationFacts: openWithAccepted,
+      cycleInstanceId: input.cycleInstanceId,
+      openWorkRecommendationsCoverage: coverage,
       openRecommendationsContextAvailable: contextAvailable,
     });
     if (decision.materialize) {
@@ -599,11 +692,11 @@ export type { WorkRecommendationProjectionCard };
 
 ---
 
-## 14. Contenu complet — qualifyProspectiveWorkRecommendationMaterialization.d0.test.ts
+## 16. Contenu complet — qualifyProspective…d0.test.ts
 
 ```typescript
 /**
- * P6-HQA-02 / REC-01 Option B — structured prospective Work Recommendation gate.
+ * P6-HQA-02 / REC-01 Option B — Corrective Pass 02.
  * @vitest-environment node
  */
 import { describe, expect, it } from "vitest";
@@ -612,6 +705,7 @@ import {
   filterActiveCycleWorkItemsForProspectiveMaterialization,
   isExploitableTrackingRationale,
   qualifyProspectiveWorkRecommendationMaterialization,
+  trackingRationaleCitesProductAnchor,
 } from "@/lib/oa/cycle/application/qualifyProspectiveWorkRecommendationMaterialization";
 import { activeCycleWorkEpistemicItemId } from "@/features/project-assistant/materializeActiveCycleWork";
 import {
@@ -620,6 +714,8 @@ import {
   type NoraActiveCycleWorkItem,
   type NoraWorkRecommendationRelationKind,
 } from "@/lib/nora-cognitive-runtime/noraProductTurnOutputType";
+
+const CYCLE = "cycinst:qa-rec01-b";
 
 function rec(
   statement: string,
@@ -638,7 +734,7 @@ function rec(
     recommendedOptionRef: opts.recommendedOptionRef ?? null,
     trackingRationale:
       opts.trackingRationale ??
-      "Nécessite un suivi durable distinct sur ce cycle.",
+      `Orientation durable pour ${CYCLE} — suivi propre hors tour.`,
     relationKind: opts.relationKind ?? "NEW",
     relatedRecommendationRef: opts.relatedRecommendationRef ?? null,
   };
@@ -661,12 +757,6 @@ describe("P6-HQA-02 REC-01 Option B structured schema", () => {
   it("Recommendation with Option B fields is schema-valid", () => {
     const item = rec(
       "Prioriser l'analyse du suivi d'avancement avant la planification.",
-      {
-        trackingRationale:
-          "Orientation de travail distincte nécessitant un suivi hors tour.",
-        relationKind: "NEW",
-        relatedRecommendationRef: null,
-      },
     );
     expect(validateItem(item)).toBe(true);
     expect(isNoraActiveCycleWorkItem(item)).toBe(true);
@@ -683,55 +773,41 @@ describe("P6-HQA-02 REC-01 Option B structured schema", () => {
     expect(validateItem(item)).toBe(false);
     expect(isNoraActiveCycleWorkItem(item)).toBe(false);
   });
-
-  it("non-Recommendation types reject Option B fields", () => {
-    const item = {
-      type: "Observation",
-      statement: "Les retards reviennent.",
-      confidence: "medium",
-      blocking: null,
-      recommendedOptionRef: null,
-      trackingRationale: "x",
-      relationKind: "NEW",
-      relatedRecommendationRef: null,
-    };
-    expect(validateItem(item)).toBe(false);
-    expect(isNoraActiveCycleWorkItem(item)).toBe(false);
-  });
-
-  it("invalid relatedRecommendationRef shape is rejected", () => {
-    const item = rec("Prioriser le suivi avant la planification.", {
-      relationKind: "ALREADY_COVERED",
-      relatedRecommendationRef: "not-an-epi-id",
-    });
-    expect(isNoraActiveCycleWorkItem(item)).toBe(false);
-  });
 });
 
-describe("P6-HQA-02 REC-01 Option B materialization qualification", () => {
-  it("A — conversational continuation stays non-durable when UNCERTAIN", () => {
+describe("P6-HQA-02 REC-B-01 materiality", () => {
+  it("NEW + boilerplate rationale without Product anchor does not mint", () => {
     const decision = qualifyProspectiveWorkRecommendationMaterialization({
       statement:
-        "Je te propose d'examiner un exemple concret de retard pour comprendre les blocages.",
-      trackingRationale: "Simple suite conversationnelle.",
-      relationKind: "UNCERTAIN",
+        "Je te propose d'examiner un exemple concret de retard.",
+      trackingRationale: "Cette proposition nécessite un suivi.",
+      relationKind: "NEW",
       relatedRecommendationRef: null,
+      cycleInstanceId: CYCLE,
+      openWorkRecommendationsCoverage: "COMPLETE",
       openWorkRecommendationFacts: [],
     });
     expect(decision).toEqual({
       materialize: false,
-      reason: "uncertain_relation",
+      reason: "missing_product_anchor",
     });
+    expect(
+      trackingRationaleCitesProductAnchor("Cette proposition nécessite un suivi.", {
+        cycleInstanceId: CYCLE,
+        openRecommendationIds: [],
+      }),
+    ).toBe(false);
   });
 
-  it("B — NEW durable orientation materializes with exploitable rationale", () => {
+  it("NEW + exploitable rationale citing cycleInstanceId may mint under COMPLETE", () => {
     const decision = qualifyProspectiveWorkRecommendationMaterialization({
       statement:
         "Je recommande de prioriser l'analyse du suivi d'avancement avant celle de la planification.",
-      trackingRationale:
-        "Orientation de travail distincte nécessitant un suivi propre hors tour.",
+      trackingRationale: `Orientation de travail distincte pour ${CYCLE} nécessitant un suivi propre hors tour.`,
       relationKind: "NEW",
       relatedRecommendationRef: null,
+      cycleInstanceId: CYCLE,
+      openWorkRecommendationsCoverage: "COMPLETE",
       openWorkRecommendationFacts: [],
     });
     expect(decision).toEqual({
@@ -740,13 +816,100 @@ describe("P6-HQA-02 REC-01 Option B materialization qualification", () => {
     });
   });
 
-  it("C — ALREADY_COVERED with valid ref does not mint", () => {
+  it("exact conversationGuidance match stays non-durable", () => {
+    const statement =
+      "Je te propose d'examiner un exemple concret de retard.";
+    const decision = qualifyProspectiveWorkRecommendationMaterialization({
+      statement,
+      trackingRationale: `Suite pour ${CYCLE}`,
+      relationKind: "NEW",
+      relatedRecommendationRef: null,
+      conversationGuidanceStatement: statement,
+      cycleInstanceId: CYCLE,
+      openWorkRecommendationsCoverage: "COMPLETE",
+      openWorkRecommendationFacts: [],
+    });
+    expect(decision).toEqual({
+      materialize: false,
+      reason: "conversational_channel_exact",
+    });
+  });
+
+  it("trackingRationale echo of statement is not exploitable", () => {
+    expect(
+      isExploitableTrackingRationale(
+        "Prioriser le suivi avant la planification.",
+        "Prioriser le suivi avant la planification.",
+      ),
+    ).toBe(false);
+  });
+});
+
+describe("P6-HQA-02 REC-B-02 coverage continuity", () => {
+  it("PARTIAL blocks NEW even when statement differs from all opens", () => {
+    const opens = Array.from({ length: 15 }, (_, i) => ({
+      epistemicItemId: `epi:acw:open-${i}`,
+      statement: `Recommandation ouverte numéro ${i} sur le suivi.`,
+    }));
+    const decision = qualifyProspectiveWorkRecommendationMaterialization({
+      statement:
+        "Documenter les responsabilités de livraison pour le prochain jalon.",
+      trackingRationale: `Nouvelle orientation pour ${CYCLE} — suivi distinct.`,
+      relationKind: "NEW",
+      relatedRecommendationRef: null,
+      cycleInstanceId: CYCLE,
+      openWorkRecommendationsCoverage: "PARTIAL",
+      openWorkRecommendationFacts: opens.slice(0, 12),
+    });
+    expect(decision).toEqual({
+      materialize: false,
+      reason: "insufficient_context_coverage",
+    });
+  });
+
+  it("UNAVAILABLE blocks mint", () => {
+    const decision = qualifyProspectiveWorkRecommendationMaterialization({
+      statement: "Structurer le cadrage autour des responsabilités.",
+      trackingRationale: `Suivi pour ${CYCLE}`,
+      relationKind: "NEW",
+      relatedRecommendationRef: null,
+      cycleInstanceId: CYCLE,
+      openWorkRecommendationsCoverage: "UNAVAILABLE",
+      openWorkRecommendationFacts: [],
+    });
+    expect(decision).toEqual({
+      materialize: false,
+      reason: "open_context_unavailable",
+    });
+  });
+
+  it("PARTIAL does not block non-Recommendation ACW items", () => {
+    const plan = filterActiveCycleWorkItemsForProspectiveMaterialization({
+      items: [
+        rec("Documenter les responsabilités de livraison.", {
+          trackingRationale: `Nouvelle orientation pour ${CYCLE}.`,
+        }),
+        observation("Observation indépendante du cycle."),
+      ],
+      existingItems: [],
+      cycleInstanceId: CYCLE,
+      trajectoryDecisionSupportState: "NONE",
+      openWorkRecommendationsCoverage: "PARTIAL",
+    });
+    expect(plan.items.map((i) => i.type)).toEqual(["Observation"]);
+    expect(plan.sourceIndexes).toEqual([1]);
+    expect(plan.suppressed[0]!.reason).toBe("insufficient_context_coverage");
+  });
+
+  it("ALREADY_COVERED still resolves against Product facts under PARTIAL", () => {
     const openId = "epi:acw:open-followup-1";
     const decision = qualifyProspectiveWorkRecommendationMaterialization({
       statement: "Commencer par analyser le suivi d'avancement.",
-      trackingRationale: "Reformulation candidate de l'existante.",
+      trackingRationale: `Déjà couvert par ${openId}`,
       relationKind: "ALREADY_COVERED",
       relatedRecommendationRef: openId,
+      cycleInstanceId: CYCLE,
+      openWorkRecommendationsCoverage: "PARTIAL",
       openWorkRecommendationFacts: [
         {
           epistemicItemId: openId,
@@ -759,59 +922,91 @@ describe("P6-HQA-02 REC-01 Option B materialization qualification", () => {
       reason: "already_covered",
     });
   });
+});
 
-  it("D — CONTRADICTORY never treated as equivalence; abstains without replace", () => {
-    const openId = "epi:acw:open-priority-1";
-    const decision = qualifyProspectiveWorkRecommendationMaterialization({
-      statement: "Prioriser la planification avant le suivi.",
-      trackingRationale: "Contradiction candidate avec l'orientation ouverte.",
-      relationKind: "CONTRADICTORY",
-      relatedRecommendationRef: openId,
-      openWorkRecommendationFacts: [
-        {
-          epistemicItemId: openId,
-          statement: "Prioriser le suivi avant la planification.",
-        },
-      ],
-    });
-    expect(decision).toEqual({
-      materialize: false,
-      reason: "relation_unresolved",
-    });
-  });
+describe("P6-HQA-02 REC-B-03 distinctiveness / contradiction", () => {
+  const openId = "epi:acw:open-priority-1";
+  const openFacts = [
+    {
+      epistemicItemId: openId,
+      statement: "Prioriser le suivi avant la planification.",
+    },
+  ];
 
-  it("E — DISTINCT_RELATED abstains (distinction not Product-proven)", () => {
-    const openId = "epi:acw:open-related-1";
+  it("DISTINCT_RELATED with valid ref + COMPLETE + anchor may mint coexisting WR", () => {
     const decision = qualifyProspectiveWorkRecommendationMaterialization({
       statement: "Documenter les responsabilités de suivi en parallèle.",
-      trackingRationale: "Proche mais potentiellement distinct — non prouvé.",
+      trackingRationale: `Distinct de ${openId} pour ${CYCLE} — suivi propre requis.`,
       relationKind: "DISTINCT_RELATED",
       relatedRecommendationRef: openId,
-      openWorkRecommendationFacts: [
-        {
-          epistemicItemId: openId,
-          statement: "Prioriser le suivi avant la planification.",
-        },
-      ],
+      cycleInstanceId: CYCLE,
+      openWorkRecommendationsCoverage: "COMPLETE",
+      openWorkRecommendationFacts: openFacts,
     });
     expect(decision).toEqual({
-      materialize: false,
-      reason: "relation_unresolved",
+      materialize: true,
+      reason: "justified_durable_work",
     });
   });
 
-  it("F — invalid related ref abstains (no text similarity fallback)", () => {
+  it("CONTRADICTORY is never equivalence; may mint coexisting without disposing prior", () => {
+    const existing = Object.freeze([
+      Object.freeze({
+        type: "Recommendation",
+        status: "active",
+        epistemicItemId: openId,
+        source: "active-cycle-work:nora",
+        statement: "Prioriser le suivi avant la planification.",
+        createdAt: "2026-10-01T00:00:00.000Z",
+        relatedObjects: Object.freeze([CYCLE]),
+      }),
+    ]);
+    const before = JSON.stringify(existing);
+    const filtered = filterActiveCycleWorkItemsForProspectiveMaterialization({
+      items: [
+        rec("Prioriser la planification avant le suivi.", {
+          relationKind: "CONTRADICTORY",
+          relatedRecommendationRef: openId,
+          trackingRationale: `Contradiction candidate vs ${openId} sur ${CYCLE}.`,
+        }),
+      ],
+      existingItems: existing,
+      cycleInstanceId: CYCLE,
+      trajectoryDecisionSupportState: "NONE",
+      openWorkRecommendationsCoverage: "COMPLETE",
+    });
+    expect(JSON.stringify(existing)).toBe(before);
+    expect(existing[0]!.status).toBe("active");
+    expect(existing[0]!.epistemicItemId).toBe(openId);
+    expect(filtered.items).toHaveLength(1);
+    expect(filtered.items[0]!.type).toBe("Recommendation");
+  });
+
+  it("CONTRADICTORY under PARTIAL abstains", () => {
     const decision = qualifyProspectiveWorkRecommendationMaterialization({
       statement: "Prioriser la planification avant le suivi.",
-      trackingRationale: "Référence inventée — doit échouer.",
-      relationKind: "ALREADY_COVERED",
+      trackingRationale: `Contradiction vs ${openId} sur ${CYCLE}.`,
+      relationKind: "CONTRADICTORY",
+      relatedRecommendationRef: openId,
+      cycleInstanceId: CYCLE,
+      openWorkRecommendationsCoverage: "PARTIAL",
+      openWorkRecommendationFacts: openFacts,
+    });
+    expect(decision).toEqual({
+      materialize: false,
+      reason: "insufficient_context_coverage",
+    });
+  });
+
+  it("invalid related ref abstains without text similarity fallback", () => {
+    const decision = qualifyProspectiveWorkRecommendationMaterialization({
+      statement: "Prioriser la planification avant le suivi.",
+      trackingRationale: `Réf inventée pour ${CYCLE}`,
+      relationKind: "DISTINCT_RELATED",
       relatedRecommendationRef: "epi:acw:does-not-exist",
-      openWorkRecommendationFacts: [
-        {
-          epistemicItemId: "epi:acw:real-open",
-          statement: "Prioriser le suivi avant la planification.",
-        },
-      ],
+      cycleInstanceId: CYCLE,
+      openWorkRecommendationsCoverage: "COMPLETE",
+      openWorkRecommendationFacts: openFacts,
     });
     expect(decision).toEqual({
       materialize: false,
@@ -819,121 +1014,31 @@ describe("P6-HQA-02 REC-01 Option B materialization qualification", () => {
     });
   });
 
-  it("G — trackingRationale alone / NEW alone insufficient without exploitable rationale", () => {
-    expect(
-      isExploitableTrackingRationale(
-        "Prioriser le suivi avant la planification.",
-        "Prioriser le suivi avant la planification.",
-      ),
-    ).toBe(false);
+  it("UNCERTAIN abstains", () => {
     const decision = qualifyProspectiveWorkRecommendationMaterialization({
-      statement: "Prioriser le suivi avant la planification.",
-      trackingRationale: "Prioriser le suivi avant la planification.",
-      relationKind: "NEW",
+      statement: "Peut-être prioriser le suivi.",
+      trackingRationale: `Incertain pour ${CYCLE}`,
+      relationKind: "UNCERTAIN",
       relatedRecommendationRef: null,
+      cycleInstanceId: CYCLE,
+      openWorkRecommendationsCoverage: "COMPLETE",
       openWorkRecommendationFacts: [],
     });
     expect(decision).toEqual({
       materialize: false,
-      reason: "insufficient_tracking_rationale",
+      reason: "uncertain_relation",
     });
-  });
-
-  it("H — open context unavailable fails closed", () => {
-    const decision = qualifyProspectiveWorkRecommendationMaterialization({
-      statement:
-        "Structurer le cadrage autour des responsabilités de suivi.",
-      trackingRationale: "Suivi durable nécessaire.",
-      relationKind: "NEW",
-      relatedRecommendationRef: null,
-      openRecommendationsContextAvailable: false,
-      openWorkRecommendationFacts: [],
-    });
-    expect(decision).toEqual({
-      materialize: false,
-      reason: "open_context_unavailable",
-    });
-  });
-
-  it("I — exact open duplicate suppressed without lexical equivalence engine", () => {
-    const decision = qualifyProspectiveWorkRecommendationMaterialization({
-      statement: "Prioriser le suivi avant la planification.",
-      trackingRationale: "Réémission exacte.",
-      relationKind: "NEW",
-      relatedRecommendationRef: null,
-      openWorkRecommendationFacts: [
-        {
-          epistemicItemId: "epi:acw:exact",
-          statement: "Prioriser le suivi avant la planification.",
-        },
-      ],
-    });
-    expect(decision).toEqual({
-      materialize: false,
-      reason: "exact_open_duplicate",
-    });
-  });
-
-  it("J — trajectory-bound NEW still materializes when Option B justified", () => {
-    const decision = qualifyProspectiveWorkRecommendationMaterialization({
-      statement: "Adopter l'option trajectoire gouvernée pour ce cycle.",
-      recommendedOptionRef: "opt:trajectory:governed-gated",
-      trackingRationale: "Choix trajectoire à suivre durablement.",
-      relationKind: "NEW",
-      relatedRecommendationRef: null,
-      openWorkRecommendationFacts: [],
-    });
-    expect(decision.materialize).toBe(true);
-  });
-
-  it("K — prospective filter never mutates historical items", () => {
-    const existing = Object.freeze([
-      Object.freeze({
-        type: "Recommendation",
-        status: "active",
-        epistemicItemId: "epi:acw:hist-1",
-        source: "active-cycle-work:nora",
-        statement: "Clarifier les responsabilités de suivi.",
-        createdAt: "2026-10-01T00:00:00.000Z",
-        relatedObjects: Object.freeze(["cycinst:qa"]),
-      }),
-    ]);
-    const before = JSON.stringify(existing);
-    const filtered = filterActiveCycleWorkItemsForProspectiveMaterialization({
-      items: [
-        rec("Commencer par clarifier qui suit les responsabilités.", {
-          relationKind: "ALREADY_COVERED",
-          relatedRecommendationRef: "epi:acw:hist-1",
-          trackingRationale: "Déjà couvert par l'ouverte.",
-        }),
-        observation("Les retards reviennent souvent."),
-      ],
-      existingItems: existing,
-      cycleInstanceId: "cycinst:qa",
-      trajectoryDecisionSupportState: "NONE",
-    });
-    expect(JSON.stringify(existing)).toBe(before);
-    expect(existing[0]!.epistemicItemId).toBe("epi:acw:hist-1");
-    expect(existing[0]!.status).toBe("active");
-    expect(filtered.items.map((i) => i.type)).toEqual(["Observation"]);
-    expect(filtered.sourceIndexes).toEqual([1]);
-    expect(filtered.suppressed[0]!.reason).toBe("already_covered");
   });
 });
 
-describe("P6-HQA-02 REC-01 Option B identity / replay (sourceIndexes)", () => {
+describe("P6-HQA-02 Option B identity / sourceIndexes", () => {
   const projectId = "proj:qa-rec01-b";
-  const cycleInstanceId = "cycinst:qa-rec01-b";
   const turnCorrelationId = "turn:logical:rec01-option-b";
 
   it("suppressing Recommendation preserves Observation source index", () => {
     const items: NoraActiveCycleWorkItem[] = [
       rec(
         "Structurer le cadrage autour des responsabilités de suivi et des retards.",
-        {
-          trackingRationale: "Orientation durable de cadrage.",
-          relationKind: "NEW",
-        },
       ),
       observation("Les retards reviennent souvent sur ce cycle."),
     ];
@@ -941,23 +1046,23 @@ describe("P6-HQA-02 REC-01 Option B identity / replay (sourceIndexes)", () => {
     const first = filterActiveCycleWorkItemsForProspectiveMaterialization({
       items,
       existingItems: [],
-      cycleInstanceId,
+      cycleInstanceId: CYCLE,
       trajectoryDecisionSupportState: "NONE",
+      openWorkRecommendationsCoverage: "COMPLETE",
     });
     expect(first.sourceIndexes).toEqual([0, 1]);
 
     const idObsFirst = activeCycleWorkEpistemicItemId({
       projectId,
-      cycleInstanceId,
+      cycleInstanceId: CYCLE,
       turnCorrelationId,
       index: first.sourceIndexes[1]!,
       type: "Observation",
       statement: first.items[1]!.statement,
     });
-
     const idRec = activeCycleWorkEpistemicItemId({
       projectId,
-      cycleInstanceId,
+      cycleInstanceId: CYCLE,
       turnCorrelationId,
       index: first.sourceIndexes[0]!,
       type: "Recommendation",
@@ -974,19 +1079,17 @@ describe("P6-HQA-02 REC-01 Option B identity / replay (sourceIndexes)", () => {
           source: "active-cycle-work:nora",
           statement: items[0]!.statement,
           createdAt: "2026-10-10T00:00:00.000Z",
-          relatedObjects: [cycleInstanceId],
+          relatedObjects: [CYCLE],
         },
       ],
-      cycleInstanceId,
+      cycleInstanceId: CYCLE,
       trajectoryDecisionSupportState: "NONE",
+      openWorkRecommendationsCoverage: "COMPLETE",
     });
-    expect(replay.items.map((i) => i.type)).toEqual(["Observation"]);
     expect(replay.sourceIndexes).toEqual([1]);
-    expect(replay.suppressed[0]!.reason).toBe("exact_open_duplicate");
-
     const idObsReplay = activeCycleWorkEpistemicItemId({
       projectId,
-      cycleInstanceId,
+      cycleInstanceId: CYCLE,
       turnCorrelationId,
       index: replay.sourceIndexes[0]!,
       type: "Observation",
@@ -994,196 +1097,151 @@ describe("P6-HQA-02 REC-01 Option B identity / replay (sourceIndexes)", () => {
     });
     expect(idObsReplay).toBe(idObsFirst);
   });
-
-  it("intermediate suppressions preserve original indexes", () => {
-    const openId = "epi:acw:open-x";
-    const items: NoraActiveCycleWorkItem[] = [
-      rec("Je te propose d'examiner un exemple.", {
-        relationKind: "UNCERTAIN",
-        trackingRationale: "Suite conversationnelle incertaine.",
-      }),
-      observation("Observation A."),
-      rec("Structurer le cadrage autour des responsabilités de suivi.", {
-        relationKind: "NEW",
-        trackingRationale: "Orientation durable de cadrage.",
-      }),
-      observation("Observation B."),
-      rec("Structurer le cadrage autour des responsabilités de suivi.", {
-        relationKind: "ALREADY_COVERED",
-        relatedRecommendationRef: openId,
-        trackingRationale: "Couvert.",
-      }),
-    ];
-    const plan = filterActiveCycleWorkItemsForProspectiveMaterialization({
-      items,
-      existingItems: [
-        {
-          type: "Recommendation",
-          status: "active",
-          epistemicItemId: openId,
-          source: "active-cycle-work:nora",
-          statement: "Autre recommandation ouverte.",
-          createdAt: "2026-10-01T00:00:00.000Z",
-          relatedObjects: [cycleInstanceId],
-        },
-      ],
-      cycleInstanceId,
-      trajectoryDecisionSupportState: "NONE",
-    });
-    // 0 UNCERTAIN suppressed; 1 obs; 2 NEW kept; 3 obs; 4 ALREADY_COVERED suppressed
-    // but item 4 statement equals item 2 → exact_open_duplicate via same-turn accepted
-    expect(plan.sourceIndexes).toEqual([1, 2, 3]);
-  });
 });
 ```
 
 ---
 
-## 15. Contenu complet — p6.hqa.rec01.optionB.workRecommendationsContext.d0.test.ts
+## 17. Section idempotence intégrée (extrait)
 
 ```typescript
-/**
- * P6-HQA-02 REC-01 Option B — open Work Recommendations context coverage.
- * @vitest-environment node
+filter → materializeActiveCycleWork → Product UoW → LPS → replay.
  */
-import { describe, expect, it } from "vitest";
-import {
-  buildStudioCognitivePromptSections,
-  type StudioCognitiveContext,
-  type StudioOpenWorkRecommendationProjection,
-} from "@/features/project-assistant/f2/studioCognitiveContext";
-
-function baseContext(
-  wr: StudioCognitiveContext["workRecommendationsContext"],
-): StudioCognitiveContext {
-  return {
-    projectTruth: {
-      projectId: "proj:wr-ctx",
-      name: "WR Ctx",
-      objective: "obj",
-      context: "ctx",
-      constraints: [],
-      criticality: "STANDARD",
-      shortReference: null,
-      lpsId: "lps:1",
-      lpsVersion: 1,
-      activeCycleInstanceId: "cycinst:wr",
-      doctrineId: "pkg:x",
-      doctrineVersion: "1",
-      doctrineStatus: "resolved",
-    },
-    method: {
-      orientation: {
-        state: "UNRESOLVED" as const,
-        candidateCycleTypeId: null,
-      },
-      cycleLabel: null,
-      ckcLensSection: null,
-      ckcLoaded: false,
-      doctrinePinPresent: true,
-      sourceLimit: "none" as const,
-      trajectory: null,
-    } as StudioCognitiveContext["method"],
-    activeCycle: {
-      cycleInstanceId: "cycinst:wr",
-      cycleTypeId: "cyc:framing",
-      cycleLabel: "Cadrage",
-      profile: "Light",
-      status: "active",
-      workEligible: true,
-      trajectoryId: null,
-      trajectoryVersion: null,
-      trajectoryStepId: null,
-      ckcResolutionRef: null,
-    },
-    activeCycleWorkItems: { state: "NONE", items: [] },
-    workRecommendationsContext: wr,
-    trajectoryDecisionSupport: {
-      state: "NONE",
-      optionRefs: [],
-      optionLabels: [],
-      currentNoraRecommendedOptionRef: null,
-      currentRecommendationSource: null,
-    },
-    decisions: { state: "NONE", items: [] },
-    evidence: { state: "NONE", items: [] },
-    review: { state: "NONE", items: [] },
-    trajectory: { state: "ABSENT", current: null },
-    lifecycleRecommendation: {
-      state: "NONE",
-      current: null,
-      satisfiesPreCycleNextCycleTransition: false,
-    },
-    reservationCompactSection: null,
-    reservationFocusSection: null,
-    limits: {
-      oaAvailable: true,
-      truthOutranksConversation: true,
-      composerDoesNotScoreMaturity: true,
-      composerDoesNotSelectTrajectory: true,
-    },
-  };
-}
-
-describe("P6-HQA-02 REC-01 Option B workRecommendationsContext coverage", () => {
-  it("COMPLETE renders ids and does not invent coverage", () => {
-    const item: StudioOpenWorkRecommendationProjection = {
-      epistemicItemId: "epi:acw:open-1",
-      statement: "Prioriser le suivi avant la planification.",
-      status: "active",
-      cycleInstanceId: "cycinst:wr",
-      dispositionDecisionId: null,
-      family: "Work",
+describe("P6-HQA-02 REC-01 Option B integrated idempotence (filter→UoW→LPS→replay)", () => {
+  function optionBRec(
+    statement: string,
+    cycleInstanceId: string,
+  ): NoraActiveCycleWorkItem {
+    return {
+      type: "Recommendation",
+      statement,
+      confidence: "medium",
+      blocking: null,
+      recommendedOptionRef: null,
+      trackingRationale: `Orientation durable pour ${cycleInstanceId} — suivi propre hors tour.`,
+      relationKind: "NEW",
+      relatedRecommendationRef: null,
     };
-    const text = buildStudioCognitivePromptSections(
-      baseContext({ coverage: "COMPLETE", items: [item] }),
-    ).join("\n");
-    expect(text).toContain("coverage=COMPLETE");
-    expect(text).toContain("id=epi:acw:open-1");
-    expect(text).toContain("family=Work");
-    expect(text).not.toContain("coverage=PARTIAL");
-  });
+  }
 
-  it("PARTIAL warns against NEW-by-absence", () => {
-    const text = buildStudioCognitivePromptSections(
-      baseContext({
-        coverage: "PARTIAL",
-        items: [
-          {
-            epistemicItemId: "epi:acw:open-2",
-            statement: "Améliorer la visibilité.",
-            status: "active",
-            cycleInstanceId: "cycinst:wr",
-            dispositionDecisionId: null,
-            family: "Work",
-          },
-        ],
-      }),
-    ).join("\n");
-    expect(text).toContain("coverage=PARTIAL");
-    expect(text).toMatch(/ne pas conclure NEW/i);
-  });
+  it("Recommendation+Observation: filter→write→LPS→replay keeps Observation id and no double mint", async () => {
+    const s = await seedStarted("rec01-idem");
+    const cycleId = s.cycle.cycleInstanceId;
+    const turnCorrelationId = "turn:logical:rec01-option-b-idem";
+    const payload: NoraActiveCycleWorkItem[] = [
+      optionBRec(
+        "Structurer le cadrage autour des responsabilités de suivi et des retards.",
+        cycleId,
+      ),
+      {
+        type: "Observation",
+        statement: "Les retards reviennent souvent sur ce cycle.",
+        confidence: "medium",
+        blocking: null,
+        recommendedOptionRef: null,
+      },
+    ];
 
-  it("UNAVAILABLE forbids invented ids", () => {
-    const text = buildStudioCognitivePromptSections(
-      baseContext({ coverage: "UNAVAILABLE", items: [] }),
-    ).join("\n");
-    expect(text).toContain("coverage=UNAVAILABLE");
-    expect(text).toMatch(/ne pas inventer d'ids/i);
+    const firstFilter = filterActiveCycleWorkItemsForProspectiveMaterialization({
+      items: payload,
+      existingItems: [],
+      cycleInstanceId: cycleId,
+      trajectoryDecisionSupportState: "NONE",
+      openWorkRecommendationsCoverage: "COMPLETE",
+    });
+    expect(firstFilter.sourceIndexes).toEqual([0, 1]);
+
+    const facts1 = await materializeFacts(
+      s.oa,
+      s.projectId,
+      cycleId,
+      turnCorrelationId,
+    );
+    const mat1 = await materializeActiveCycleWork({
+      ...acwMaterializeInput(s.oa, facts1, firstFilter.items),
+      itemSourceIndexes: firstFilter.sourceIndexes,
+    });
+    expect(mat1.ok).toBe(true);
+    if (!mat1.ok) throw new Error(mat1.reason);
+    expect(mat1.createdIds.length).toBe(2);
+
+    const afterFirst = await s.oa.cycleServices.epistemic.listByProject(
+      s.projectId,
+    );
+    const acwAfterFirst = afterFirst.filter(
+      (e) => e.source === ACTIVE_CYCLE_WORK_SOURCE,
+    );
+    expect(acwAfterFirst.length).toBeGreaterThanOrEqual(2);
+    const lps1 = await s.oa.projectServices.getCurrentLivingProjectState.execute({
+      projectId: s.projectId,
+    });
+    expect(lps1.ok).toBe(true);
+    if (!lps1.ok) throw new Error("lps");
+    const lpsIds1 = new Set(lps1.livingProjectState.epistemicItemIds ?? []);
+    for (const item of acwAfterFirst) {
+      expect(lpsIds1.has(item.epistemicItemId)).toBe(true);
+    }
+    const obsFirst = acwAfterFirst.find((e) => e.type === "Observation");
+    expect(obsFirst).toBeTruthy();
+
+    // Replay same logical turn: Recommendation already open → Observation @ sourceIndex 1.
+    const replayFilter = filterActiveCycleWorkItemsForProspectiveMaterialization({
+      items: payload,
+      existingItems: afterFirst,
+      cycleInstanceId: cycleId,
+      trajectoryDecisionSupportState: "NONE",
+      openWorkRecommendationsCoverage: "COMPLETE",
+    });
+    expect(replayFilter.items.map((i) => i.type)).toEqual(["Observation"]);
+    expect(replayFilter.sourceIndexes).toEqual([1]);
+
+    const facts2 = await materializeFacts(
+      s.oa,
+      s.projectId,
+      cycleId,
+      turnCorrelationId,
+    );
+    const mat2 = await materializeActiveCycleWork({
+      ...acwMaterializeInput(s.oa, facts2, replayFilter.items),
+      itemSourceIndexes: replayFilter.sourceIndexes,
+    });
+    expect(mat2.ok).toBe(true);
+    if (!mat2.ok) throw new Error(mat2.reason);
+    expect(mat2.idempotent).toBe(true);
+    expect(mat2.createdIds).toEqual([]);
+
+    const afterReplay = await s.oa.cycleServices.epistemic.listByProject(
+      s.projectId,
+    );
+    const acwAfterReplay = afterReplay.filter(
+      (e) => e.source === ACTIVE_CYCLE_WORK_SOURCE,
+    );
+    expect(acwAfterReplay).toHaveLength(acwAfterFirst.length);
+    const obsReplay = acwAfterReplay.find((e) => e.type === "Observation");
+    expect(obsReplay?.epistemicItemId).toBe(obsFirst!.epistemicItemId);
+
+    const lps2 = await s.oa.projectServices.getCurrentLivingProjectState.execute({
+      projectId: s.projectId,
+    });
+    expect(lps2.ok).toBe(true);
+    if (!lps2.ok) throw new Error("lps2");
+    const lpsIds2 = lps2.livingProjectState.epistemicItemIds ?? [];
+    expect(new Set(lpsIds2).size).toBe(lpsIds2.length);
   });
 });
+
 ```
 
 ---
 
-## 16. Diff utile — schéma / contexte / prompt / materialize / orchestrate / index
+## 18. Diff utile orchestrateTurn / prompt / index
 
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts b/projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts
-index ea46da10..9205f595 100644
+index ea46da10..aa5b21e4 100644
 --- a/projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts
-@@ -349,6 +349,21 @@ function buildActiveCycleWorkOutputSection(
+@@ -349,6 +349,25 @@ function buildActiveCycleWorkOutputSection(
        "recommendedOptionRef est un champ structuré — JAMAIS déduit du texte statement.",
        "Pour Recommendation hors Option trajectoire : recommendedOptionRef = null.",
        "Recommendation ≠ HumanDecision ; n'exécute rien ; ne promeut pas de trajectoire.",
@@ -1192,321 +1250,25 @@ index ea46da10..9205f595 100644
 +      "Suggestion conversationnelle ordinaire → conversationGuidance SEULEMENT (zéro Recommendation).",
 +      "Pour toute Recommendation, renseigne OBLIGATOIREMENT :",
 +      "- trackingRationale : pourquoi un suivi durable distinct est nécessaire (≠ simple copie de statement) ;",
++      "  DOIT citer au moins un ancrage Product du contexte : cycleInstanceId, id=epi:… ouvert, ou recommendedOptionRef ;",
 +      "- relationKind : NEW | ALREADY_COVERED | DISTINCT_RELATED | CONTRADICTORY | UNCERTAIN ;",
 +      "- relatedRecommendationRef : id=epi:… EXACT d'une Work Recommendation ouverte du contexte, ou null.",
 +      "Règles relationKind :",
 +      "- ALREADY_COVERED / DISTINCT_RELATED / CONTRADICTORY → relatedRecommendationRef requis (id réel du contexte) ;",
-+      "- NEW → relatedRecommendationRef = null en général ; ne PAS déclarer NEW si coverage=PARTIAL/UNAVAILABLE",
-+      "  sans certitude — préfère UNCERTAIN ou conversationGuidance ;",
-+      "- UNCERTAIN → aucune matérialisation automatique attendue ; poursuis en conversation.",
-+      "- CONTRADICTORY ≠ équivalence ; aucun remplacement automatique d'une recommandation existante.",
++      "- NEW → relatedRecommendationRef = null en général ; INTERDIT si coverage=PARTIAL ou UNAVAILABLE",
++      "  — préfère UNCERTAIN ou conversationGuidance ;",
++      "- UNCERTAIN → aucune matérialisation automatique ; poursuis en conversation.",
++      "- DISTINCT_RELATED : proposition liée mais potentiellement distincte — Studio peut matérialiser",
++      "  une nouvelle WR coexistant si couverture COMPLETE et ancrage Product ; jamais fusionner.",
++      "- CONTRADICTORY ≠ équivalence ; aucun remplacement / disposition automatique de l'existante ;",
++      "  coexistence durable possible sous contrôle Studio (coverage COMPLETE + ancrage).",
 +      "trackingRationale et relationKind=NEW ne sont PAS une autorisation Product — Studio décide.",
 +      "Ne jamais inventer d'identifiant. Ne jamais créer de HumanDecision pour une recommandation ordinaire.",
      );
      lines.push(
        "=== INTÉGRITÉ ÉPISTÉMIQUE — Reservation ===",
-diff --git a/projects/sfia-studio/app/features/project-assistant/f2/studioCognitiveContext.ts b/projects/sfia-studio/app/features/project-assistant/f2/studioCognitiveContext.ts
-index f3b01c17..87532474 100644
---- a/projects/sfia-studio/app/features/project-assistant/f2/studioCognitiveContext.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/f2/studioCognitiveContext.ts
-@@ -22,6 +22,8 @@ import {
-   obligationPolicySubjectFor,
-   OBLIGATION_POLICY_REQUIRE_ARTIFACT,
-   getCycleTypeById,
-+  projectCycleWorkRecommendations,
-+  type TrajectoryDecisionSupportState,
- } from "@/lib/oa/cycle";
- import { deriveLifecycleBlockersFromEpistemicItems } from "@/lib/oa/cycle/application/deriveLifecycleBlockers";
- import {
-@@ -64,6 +66,9 @@ export const STUDIO_COGNITIVE_CONTEXT_BUDGET = Object.freeze({
-   maxEvidence: 8,
-   maxReviewBundles: 4,
-   maxActiveCycleWorkItems: 12,
-+  /** Open Work Recommendations projected for Nora Option B referencing. */
-+  maxOpenWorkRecommendations: 12,
-+  workRecommendationStatementChars: 240,
-   decisionSubjectChars: 160,
-   decisionOptionChars: 120,
-   evidenceLabelChars: 120,
-@@ -74,6 +79,30 @@ export const STUDIO_COGNITIVE_CONTEXT_BUDGET = Object.freeze({
- });
-
- export type PresenceState = "PRESENT" | "NONE" | "UNAVAILABLE";
-+
-+/**
-+ * P6-HQA-02 REC-01 Option B — coverage of open Work Recommendations projected
-+ * to Nora. Never invent COMPLETE; empty successful read ≠ UNAVAILABLE.
-+ */
-+export type WorkRecommendationsContextCoverage =
-+  | "COMPLETE"
-+  | "PARTIAL"
-+  | "UNAVAILABLE";
-+
-+export type StudioOpenWorkRecommendationProjection = {
-+  readonly epistemicItemId: string;
-+  readonly statement: string;
-+  readonly status: string;
-+  readonly cycleInstanceId: string | null;
-+  readonly dispositionDecisionId: string | null;
-+  /** Explicit family — never Lifecycle / Trajectory. */
-+  readonly family: "Work";
-+};
-+
-+export type StudioWorkRecommendationsContextProjection = {
-+  readonly coverage: WorkRecommendationsContextCoverage;
-+  readonly items: readonly StudioOpenWorkRecommendationProjection[];
-+};
- export type TrajectoryPresenceState =
-   | "PRESENT"
-   | "ABSENT"
-@@ -272,6 +301,12 @@ export type StudioCognitiveContext = {
-     readonly state: PresenceState;
-     readonly items: readonly StudioActiveCycleWorkProjection[];
-   };
-+  /**
-+   * P6-HQA-02 REC-01 Option B — open Work Recommendations Nora may reference.
-+   * Projection for cognition only — not Truth C. Studio re-resolves authoritatively
-+   * at materialization time.
-+   */
-+  readonly workRecommendationsContext: StudioWorkRecommendationsContextProjection;
-   readonly trajectoryDecisionSupport: StudioTrajectoryDecisionSupportProjection;
-   readonly decisions: {
-     readonly state: PresenceState;
-@@ -541,6 +576,10 @@ export async function composeStudioCognitiveContext(input: {
-           state: "UNAVAILABLE" as const,
-           items: Object.freeze([]),
-         }),
-+        workRecommendationsContext: Object.freeze({
-+          coverage: "UNAVAILABLE" as const,
-+          items: Object.freeze([]),
-+        }),
-         trajectoryDecisionSupport: Object.freeze({
-           state: "UNAVAILABLE" as const,
-           optionRefs: Object.freeze([]),
-@@ -656,6 +695,11 @@ export async function composeStudioCognitiveContext(input: {
-
-   let acwState: PresenceState = "NONE";
-   let acwItems: StudioActiveCycleWorkProjection[] = [];
-+  let workRecommendationsContext: StudioWorkRecommendationsContextProjection =
-+    Object.freeze({
-+      coverage: activeCycle ? ("COMPLETE" as const) : ("UNAVAILABLE" as const),
-+      items: Object.freeze([] as StudioOpenWorkRecommendationProjection[]),
-+    });
-   if (activeCycle) {
-     try {
-       const epistemic = await oa.cycleServices.epistemic.listByProject(projectId);
-@@ -690,8 +734,51 @@ export async function composeStudioCognitiveContext(input: {
-           .reverse()
-           .map((item) => projectActiveCycleWorkItem(item, hdCutoff));
-       }
-+
-+      // P6-HQA-02 REC-01 Option B — open Work Recommendations for referencing.
-+      // Reuses the same Product read; COMPLETE only when the full open set fits.
-+      const tdsStateForWork: TrajectoryDecisionSupportState =
-+        input.trajectoryDecisionSupport?.state === "PRESENT"
-+          ? "PRESENT"
-+          : input.trajectoryDecisionSupport?.state === "UNAVAILABLE"
-+            ? "UNAVAILABLE"
-+            : "NONE";
-+      const wrCards = projectCycleWorkRecommendations({
-+        items: epistemic,
-+        cycleInstanceId: activeCycle.cycleInstanceId,
-+        fallbackCycleInstanceId: activeCycle.cycleInstanceId,
-+        trajectoryDecisionSupportState: tdsStateForWork,
-+      });
-+      const openWr = wrCards.filter(
-+        (c) => c.status === "active" && !c.dispositionDecisionId,
-+      );
-+      const truncated =
-+        openWr.length > budget.maxOpenWorkRecommendations;
-+      const selected = openWr.slice(0, budget.maxOpenWorkRecommendations);
-+      workRecommendationsContext = Object.freeze({
-+        coverage: truncated ? ("PARTIAL" as const) : ("COMPLETE" as const),
-+        items: Object.freeze(
-+          selected.map((c) =>
-+            Object.freeze({
-+              epistemicItemId: c.epistemicItemId,
-+              statement: clip(
-+                c.statement,
-+                budget.workRecommendationStatementChars,
-+              ),
-+              status: c.status,
-+              cycleInstanceId: c.cycleInstanceId,
-+              dispositionDecisionId: c.dispositionDecisionId,
-+              family: "Work" as const,
-+            }),
-+          ),
-+        ),
-+      });
-     } catch {
-       acwState = "UNAVAILABLE";
-+      workRecommendationsContext = Object.freeze({
-+        coverage: "UNAVAILABLE" as const,
-+        items: Object.freeze([]),
-+      });
-     }
-   }
-
-@@ -843,7 +930,7 @@ export async function composeStudioCognitiveContext(input: {
-     }
-   }
-
--  let trajectoryDecisionSupport: StudioTrajectoryDecisionSupportProjection =
-+  const trajectoryDecisionSupport: StudioTrajectoryDecisionSupportProjection =
-     input.trajectoryDecisionSupport ??
-     Object.freeze({
-       state: "NONE" as const,
-@@ -863,6 +950,7 @@ export async function composeStudioCognitiveContext(input: {
-         state: acwState,
-         items: Object.freeze(acwItems),
-       }),
-+      workRecommendationsContext,
-       trajectoryDecisionSupport,
-       decisions: Object.freeze({
-         state: decisionsState,
-@@ -1045,6 +1133,46 @@ export function buildStudioCognitivePromptSections(
-         "Options trajectoire (ProjectTrajectory) : non ouvertes pour ce travail — les Work Recommendations se disposent en chat (accepter / amender / refuser / reporter) ; ne pas proposer d'optionRefs trajectoire.",
-       );
-     }
-+    lines.push("");
-+    lines.push(
-+      "=== Work Recommendations durables ouvertes (famille Work — ≠ Lifecycle ≠ Trajectory) ===",
-+    );
-+    const wrCtx = ctx.workRecommendationsContext;
-+    lines.push(`coverage=${wrCtx.coverage}`);
-+    if (wrCtx.coverage === "UNAVAILABLE") {
-+      lines.push(
-+        "Contexte Work Recommendations : UNAVAILABLE — ne pas inventer d'ids ; relationKind=UNCERTAIN ou conversationGuidance ; jamais NEW par défaut.",
-+      );
-+    } else if (wrCtx.items.length === 0) {
-+      lines.push(
-+        "Aucune Work Recommendation ouverte dans le périmètre couvert (liste vide ≠ licence d'invention).",
-+      );
-+      if (wrCtx.coverage === "PARTIAL") {
-+        lines.push(
-+          "coverage=PARTIAL — ne pas conclure NEW uniquement parce qu'aucune correspondance n'apparaît ici.",
-+        );
-+      }
-+    } else {
-+      if (wrCtx.coverage === "PARTIAL") {
-+        lines.push(
-+          "coverage=PARTIAL — vue tronquée ; ne pas conclure NEW uniquement par absence de correspondance ici.",
-+        );
-+      }
-+      lines.push(
-+        "Ids autorisés pour relatedRecommendationRef (copier EXACTEMENT ; ne jamais inventer) :",
-+      );
-+      for (const w of wrCtx.items) {
-+        const disposition =
-+          w.dispositionDecisionId != null
-+            ? ` disposition=${w.dispositionDecisionId}`
-+            : " disposition=none";
-+        const cycle =
-+          w.cycleInstanceId != null ? ` cycle=${w.cycleInstanceId}` : "";
-+        lines.push(
-+          `• id=${w.epistemicItemId} family=Work status=${w.status}${cycle}${disposition} — ${w.statement}`,
-+        );
-+      }
-+    }
-     if (ctx.reservationFocusSection) {
-       lines.push("");
-       lines.push(ctx.reservationFocusSection);
-diff --git a/projects/sfia-studio/app/features/project-assistant/materializeActiveCycleWork.ts b/projects/sfia-studio/app/features/project-assistant/materializeActiveCycleWork.ts
-index 4ae0f934..f39a2a00 100644
---- a/projects/sfia-studio/app/features/project-assistant/materializeActiveCycleWork.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/materializeActiveCycleWork.ts
-@@ -353,6 +353,14 @@ function assertContextSealAgainstLiveState(input: {
-  */
- export async function materializeActiveCycleWork(input: {
-   items: readonly NoraActiveCycleWorkItem[];
-+  /**
-+   * Optional original Nora ACW payload indexes parallel to `items`.
-+   * When set, Epistemic identity uses these indexes instead of the filtered
-+   * array position — required so prospective REC-01 suppression cannot shift
-+   * identities of surviving items on logical-turn replay.
-+   * Omit for legacy callers that pass the full unfiltered payload.
-+   */
-+  itemSourceIndexes?: readonly number[];
-   facts: ActiveCycleWorkMaterializationFacts;
-   updateEpistemicState: UpdateEpistemicState;
-   appendLivingProjectStateVersion: AppendLivingProjectStateVersion;
-@@ -378,6 +386,17 @@ export async function materializeActiveCycleWork(input: {
-     };
-   }
-
-+  if (
-+    input.itemSourceIndexes != null &&
-+    input.itemSourceIndexes.length !== input.items.length
-+  ) {
-+    return {
-+      ok: false,
-+      code: "ACTIVE_CYCLE_WORK_INVALID",
-+      reason: "source_indexes_length_mismatch",
-+    };
-+  }
-+
-   for (const item of input.items) {
-     if (!ACTIVE_CYCLE_WORK_ALLOWED_TYPES.has(item.type as EpistemicItemType)) {
-       return {
-@@ -398,6 +417,19 @@ export async function materializeActiveCycleWork(input: {
-         reason: "recommended_option_ref_only_on_recommendation",
-       };
-     }
-+    // P6-HQA-02 REC-01 Option B — structured WR fields are Recommendation-only.
-+    if (
-+      item.type !== "Recommendation" &&
-+      (item.trackingRationale !== undefined ||
-+        item.relationKind !== undefined ||
-+        item.relatedRecommendationRef !== undefined)
-+    ) {
-+      return {
-+        ok: false,
-+        code: "ACTIVE_CYCLE_WORK_INVALID",
-+        reason: "option_b_fields_only_on_recommendation",
-+      };
-+    }
-     if (
-       item.type === "Recommendation" &&
-       item.recommendedOptionRef != null &&
-@@ -525,6 +557,9 @@ export async function materializeActiveCycleWork(input: {
-
-       for (let index = 0; index < input.items.length; index += 1) {
-         const raw = input.items[index]!;
-+        // Prefer original ACW payload index when prospective filtering compacted
-+        // the write list — identity must not depend on post-filter position.
-+        const identityIndex = input.itemSourceIndexes?.[index] ?? index;
-         const type = raw.type as EpistemicItemType;
-         const statement = raw.statement.trim();
-         if (!statement) {
-@@ -543,7 +578,7 @@ export async function materializeActiveCycleWork(input: {
-           projectId: facts.projectId,
-           cycleInstanceId: facts.activeCycleInstanceId,
-           turnCorrelationId: facts.turnCorrelationId,
--          index,
-+          index: identityIndex,
-           type,
-           statement,
-           recommendedOptionRef,
-@@ -586,7 +621,7 @@ export async function materializeActiveCycleWork(input: {
-                   cycleInstanceId: facts.activeCycleInstanceId,
-                   turnCorrelationId: facts.turnCorrelationId,
-                   producedAt: input.producedAt,
--                  index,
-+                  index: identityIndex,
-                 }),
-             reuse: true,
-           });
-@@ -613,7 +648,7 @@ export async function materializeActiveCycleWork(input: {
-             cycleInstanceId: facts.activeCycleInstanceId,
-             turnCorrelationId: facts.turnCorrelationId,
-             producedAt: input.producedAt,
--            index,
-+            index: identityIndex,
-           }),
-           reuse: false,
-         });
 diff --git a/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts b/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
-index f5823ff7..f943aac4 100644
+index f5823ff7..5c94a2da 100644
 --- a/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
 @@ -63,6 +63,7 @@ import {
@@ -1517,7 +1279,7 @@ index f5823ff7..f943aac4 100644
  import {
    materializeReservationDelta,
    stripActiveCycleWorkReservationsWhenDeltaPresent,
-@@ -901,14 +902,45 @@ export async function orchestrateProjectAssistantTurn(input: {
+@@ -901,14 +902,53 @@ export async function orchestrateProjectAssistantTurn(input: {
            let existingItems: Awaited<
              ReturnType<typeof oa.cycleServices.epistemic.listByProject>
            > = [];
@@ -1544,6 +1306,13 @@ index f5823ff7..f943aac4 100644
 +              : studio.trajectoryDecisionSupport?.state === "UNAVAILABLE"
 +                ? "UNAVAILABLE"
 +                : "NONE";
++          // REC-B-02: Nora projection coverage is authoritative for novelty claims.
++          // Product reader available ≠ COMPLETE. PARTIAL/UNAVAILABLE ⇒ no new WR mint.
++          const openWorkRecommendationsCoverage =
++            !openRecommendationsContextAvailable
++              ? ("UNAVAILABLE" as const)
++              : (studio.workRecommendationsContext?.coverage ??
++                ("UNAVAILABLE" as const));
 +          const prospective = filterActiveCycleWorkItemsForProspectiveMaterialization(
 +            {
 +              items: acwItems,
@@ -1553,6 +1322,7 @@ index f5823ff7..f943aac4 100644
 +              cycleInstanceId: activeCycleId,
 +              trajectoryDecisionSupportState: tdsStateForWork,
 +              openRecommendationsContextAvailable,
++              openWorkRecommendationsCoverage,
 +            },
 +          );
 +          const itemsToMaterialize = prospective.items;
@@ -1563,7 +1333,7 @@ index f5823ff7..f943aac4 100644
            // Production key = durable logical turn id (no random f1-acw keys).
            const turnCorrelationId = logicalTurnId!;
            const producedAt = new Date().toISOString();
-@@ -918,7 +950,8 @@ export async function orchestrateProjectAssistantTurn(input: {
+@@ -918,7 +958,8 @@ export async function orchestrateProjectAssistantTurn(input: {
              input.beforeDurableEffect,
            );
            const mat = await materializeActiveCycleWork({
@@ -1573,7 +1343,7 @@ index f5823ff7..f943aac4 100644
              facts: {
                projectId: project.projectId,
                activeCycleInstanceId: activeCycleId,
-@@ -961,6 +994,7 @@ export async function orchestrateProjectAssistantTurn(input: {
+@@ -961,6 +1002,7 @@ export async function orchestrateProjectAssistantTurn(input: {
                logicalTurnId,
              };
            }
@@ -1581,7 +1351,7 @@ index f5823ff7..f943aac4 100644
          }
        }
 
-@@ -1081,7 +1115,7 @@ export async function orchestrateProjectAssistantTurn(input: {
+@@ -1081,7 +1123,7 @@ export async function orchestrateProjectAssistantTurn(input: {
            }
 
            let trajectory = null;
@@ -1590,165 +1360,11 @@ index f5823ff7..f943aac4 100644
              oa.cycleServices.trajectories,
              project.projectId,
            );
-diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts
-index 2b7d6fb2..03581f3a 100644
---- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts
-+++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts
-@@ -113,6 +113,28 @@ const NORA_ACTIVE_CYCLE_WORK_ITEM_REQUIRED = [
-   "recommendedOptionRef",
- ] as const;
-
-+/**
-+ * P6-HQA-02 REC-01 Option B — Nora candidate relation to open Work Recommendations.
-+ * Candidate signal only — never Product truth / never materialization authority.
-+ */
-+export const NORA_WORK_RECOMMENDATION_RELATION_KINDS = [
-+  "NEW",
-+  "ALREADY_COVERED",
-+  "DISTINCT_RELATED",
-+  "CONTRADICTORY",
-+  "UNCERTAIN",
-+] as const;
-+
-+export type NoraWorkRecommendationRelationKind =
-+  (typeof NORA_WORK_RECOMMENDATION_RELATION_KINDS)[number];
-+
-+const NORA_RECOMMENDATION_ITEM_REQUIRED = [
-+  ...NORA_ACTIVE_CYCLE_WORK_ITEM_REQUIRED,
-+  "trackingRationale",
-+  "relationKind",
-+  "relatedRecommendationRef",
-+] as const;
-+
- /**
-  * D-GF-ACW-01 — non-authoritative active-cycle cognitive work items (no ids).
-  *
-@@ -121,6 +143,10 @@ const NORA_ACTIVE_CYCLE_WORK_ITEM_REQUIRED = [
-  * - Recommendation: recommendedOptionRef = string | null
-  * - all other types: recommendedOptionRef = null only
-  *
-+ * P6-HQA-02 REC-01 Option B — Recommendation-only structured materialization
-+ * candidates: trackingRationale, relationKind, relatedRecommendationRef.
-+ * Studio verifies references and decides materialization; Nora never authorizes.
-+ *
-  * Discriminated via nested anyOf (OpenAI Responses json_schema strict:true).
-  * Recommendation ≠ HumanDecision; never promotes trajectory.
-  */
-@@ -129,7 +155,7 @@ export const NORA_ACTIVE_CYCLE_WORK_ITEM_SCHEMA = {
-     {
-       type: "object" as const,
-       additionalProperties: false as const,
--      required: [...NORA_ACTIVE_CYCLE_WORK_ITEM_REQUIRED],
-+      required: [...NORA_RECOMMENDATION_ITEM_REQUIRED],
-       properties: {
-         type: {
-           type: "string" as const,
-@@ -143,6 +169,23 @@ export const NORA_ACTIVE_CYCLE_WORK_ITEM_SCHEMA = {
-         recommendedOptionRef: {
-           anyOf: [{ type: "string" as const }, { type: "null" as const }],
-         },
-+        /**
-+         * Why durable follow-up is needed — candidate signal, not authorization.
-+         * Must not merely repeat statement.
-+         */
-+        trackingRationale: { type: "string" as const },
-+        /** Candidate relation to open Work Recommendations — Studio verifies. */
-+        relationKind: {
-+          type: "string" as const,
-+          enum: [...NORA_WORK_RECOMMENDATION_RELATION_KINDS],
-+        },
-+        /**
-+         * Durable epistemicItemId of an open Work Recommendation from Studio
-+         * context when relationKind requires a reference; otherwise null.
-+         */
-+        relatedRecommendationRef: {
-+          anyOf: [{ type: "string" as const }, { type: "null" as const }],
-+        },
-       },
-     },
-     {
-@@ -196,6 +239,13 @@ export type NoraActiveCycleWorkItem = {
-    * Null / omitted for non-trajectory Recommendations. Never authority Alone.
-    */
-   recommendedOptionRef?: string | null;
-+  /**
-+   * P6-HQA-02 REC-01 Option B — Recommendation-only. Transient Nora signal;
-+   * not persisted on EpistemicItem (no migration / no second store).
-+   */
-+  trackingRationale?: string;
-+  relationKind?: NoraWorkRecommendationRelationKind;
-+  relatedRecommendationRef?: string | null;
- };
-
- export type NoraActiveCycleWorkOutput = {
-@@ -500,6 +550,26 @@ export function normalizeActiveCycleRecommendedOptionRef(
-   return trimmed;
- }
-
-+const NORA_WORK_RECOMMENDATION_RELATION_KIND_SET = new Set<string>(
-+  NORA_WORK_RECOMMENDATION_RELATION_KINDS,
-+);
-+
-+/**
-+ * Normalize relatedRecommendationRef (durable EpistemicItem id from Studio context).
-+ * Empty → null. Does not invent ids; Studio still verifies membership.
-+ */
-+export function normalizeRelatedRecommendationRef(
-+  value: unknown,
-+): string | null {
-+  if (value === null || value === undefined) return null;
-+  if (typeof value !== "string") return null;
-+  const trimmed = value.trim();
-+  if (!trimmed) return null;
-+  // Fail-closed: must look like a durable epistemic id communicated by Studio.
-+  if (!/^epi:[a-z0-9][a-z0-9:_-]*$/i.test(trimmed)) return null;
-+  return trimmed;
-+}
-+
- export function isNoraActiveCycleWorkItem(
-   value: unknown,
- ): value is NoraActiveCycleWorkItem {
-@@ -528,6 +598,14 @@ export function isNoraActiveCycleWorkItem(
-     if (rawRef !== undefined && rawRef !== null) {
-       return false;
-     }
-+    // Option B fields are Recommendation-only.
-+    if (
-+      "trackingRationale" in o ||
-+      "relationKind" in o ||
-+      "relatedRecommendationRef" in o
-+    ) {
-+      return false;
-+    }
-     return true;
-   }
-   if (
-@@ -539,6 +617,20 @@ export function isNoraActiveCycleWorkItem(
-       return false;
-     }
-   }
-+  // P6-HQA-02 REC-01 Option B — required structured materialization contract.
-+  if (typeof o.trackingRationale !== "string") return false;
-+  if (
-+    !NORA_WORK_RECOMMENDATION_RELATION_KIND_SET.has(String(o.relationKind))
-+  ) {
-+    return false;
-+  }
-+  if (!("relatedRecommendationRef" in o)) return false;
-+  const related = o.relatedRecommendationRef;
-+  if (related !== null && related !== undefined) {
-+    if (normalizeRelatedRecommendationRef(related) === null) {
-+      return false;
-+    }
-+  }
-   return true;
- }
-
 diff --git a/projects/sfia-studio/app/lib/oa/cycle/index.ts b/projects/sfia-studio/app/lib/oa/cycle/index.ts
-index 4a3d74e1..7cdd604f 100644
+index 4a3d74e1..99ad4a0f 100644
 --- a/projects/sfia-studio/app/lib/oa/cycle/index.ts
 +++ b/projects/sfia-studio/app/lib/oa/cycle/index.ts
-@@ -94,6 +94,17 @@ export {
+@@ -94,6 +94,19 @@ export {
    type TrajectoryDecisionSupportState,
    type WorkRecommendationProjectionCard,
  } from "./application/deriveWorkRecommendations";
@@ -1758,7 +1374,9 @@ index 4a3d74e1..7cdd604f 100644
 +  openWorkRecommendationFactsForCycle,
 +  openWorkRecommendationStatementsForCycle,
 +  qualifyProspectiveWorkRecommendationMaterialization,
++  trackingRationaleCitesProductAnchor,
 +  type OpenWorkRecommendationFact,
++  type OpenWorkRecommendationsCoverage,
 +  type ProspectiveMaterializationPlanItem,
 +  type ProspectiveWorkRecommendationMaterializationDecision,
 +  type ProspectiveWorkRecommendationSuppressReason,
@@ -1770,32 +1388,27 @@ index 4a3d74e1..7cdd604f 100644
 
 ---
 
-## 17. Réserves / dette / sortie
+## 19. Réserves / dette / exit
 
 Réserves :
-- Signaux Nora restent candidats ; Studio n'établit pas d'équivalence sémantique générale.
-- DISTINCT_RELATED / CONTRADICTORY → abstention automatique (pas de HD inventée).
-- trackingRationale non durable historiquement.
-- Qualité REAL Nora non prouvée.
+- Ancrage Product ≠ preuve sémantique de matérialité.
+- Nora peut citer cycleId mécaniquement.
+- Currentness Work reste basée sur projection open (active, non disposée) — pas un moteur universel P4.
 
 Dette / sortie :
-- Si auditabilité de trackingRationale devient obligatoire → arbitrage Morris schema (STOP structural).
-- Rejeu Human QA après intégration autorisée.
-- REC-02 reste RESERVED.
+- Qualité sémantique Nora → Human QA / REAL sous GO distinct.
+- Auditabilité trackingRationale transitoire inchangée (pas de persistence ajoutée).
+
+Décisions Morris :
+1. Re-revue ChatGPT CP02
+2. GO intégration projet distinct
+3. Rejeu Human QA
+4. GO REAL distinct si besoin
 
 ---
 
-## 18. Décisions Morris restantes
+## 20. Verdict
 
-1. Revue ChatGPT Option B.
-2. GO intégration projet distinct (commit/PR).
-3. Rejeu Human QA P6.
-4. GO REAL distinct si campagne fournisseur.
+**LOCAL CORRECTIVE CANDIDATE — READY FOR CHATGPT RE-REVIEW**
 
----
-
-## 19. Verdict
-
-**LOCAL OPTION B CANDIDATE — READY FOR CHATGPT REVIEW**
-
-Anti-claims : ≠ PR readiness · ≠ commit projet · ≠ P6 GLOBAL PASS · ≠ v3 ADOPTED · ≠ READY FOR REAL global.
+Anti-claims : ≠ PR readiness · ≠ commit projet · ≠ P6 PASS · ≠ v3 ADOPTED · ≠ READY FOR REAL global.
