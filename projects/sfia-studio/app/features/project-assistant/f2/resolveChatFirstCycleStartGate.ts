@@ -209,10 +209,10 @@ export function chatFirstStartBlockMessage(input: {
     case "PREPARED_CYCLE_AMBIGUOUS":
       return `Plusieurs cycles ${cycle} préparés (liés à la trajectoire) sont disponibles (${input.preparedCount ?? "plusieurs"}). Studio ne sélectionne pas automatiquement lequel démarrer. Aucun nouveau cycle n'a été créé. Précisez le cycle dans Trajectoire, puis démarrez.`;
     case "LEGACY_UNBOUND_NOT_STARTABLE_VIA_CHAT":
-      return `Des cycles ${cycle} existent déjà (${input.legacyCount ?? "plusieurs"}) mais ne sont pas liés à une trajectoire préparée — le démarrage Chat-first gouverné ne s'applique pas. Aucun cycle supplémentaire n'a été créé. Utilisez Trajectoire pour préparer puis démarrer un cycle lié, sans nouvelle qualification automatique.`;
+      return `Des cycles ${cycle} existent déjà (${input.legacyCount ?? "plusieurs"}) mais ne sont pas liés à une trajectoire préparée — le démarrage Chat-first gouverné ne s'applique pas. Aucun cycle supplémentaire n'a été créé. Préparez d'abord une trajectoire liée, puis utilisez la carte de préparation / démarrage dans la conversation.`;
     case "PREPARED_CYCLE_MISSING":
     case "NO_PREPARED_CYCLE":
-      return `Aucun cycle ${cycle} préparé et lié à la trajectoire n'est disponible au démarrage. Votre confirmation en conversation n'active rien à elle seule. Aucun nouveau cycle n'a été créé. Préparez d'abord le cycle depuis Trajectoire (après décision de trajectoire si requise), puis démarrez.`;
+      return `Aucun cycle ${cycle} préparé et lié à la trajectoire n'est disponible au démarrage. Votre confirmation en conversation n'active rien à elle seule. Aucun nouveau cycle n'a été créé. Préparez d'abord le cycle via la carte proposée dans la conversation (après décision de trajectoire si requise), puis démarrez.`;
     case "AUTHORITY_DENIED":
     case "LOCAL_AUTHORITY_DISABLED":
       return `Le démarrage de ${cycle} est refusé : autorité Pilote indisponible pour START. Aucun nouveau cycle n'a été créé. L'état vivant du projet reste inchangé.`;
@@ -228,8 +228,12 @@ export function chatFirstStartSuccessMessage(input: {
   readonly cycleInstanceId: string;
 }): string {
   const label = (input.cycleLabel ?? "").trim();
-  const cycle = label ? `« ${label} »` : "le cycle";
-  return `Le cycle ${cycle} est maintenant actif sur le projet (${input.cycleInstanceId}). L'état vivant a été relu après démarrage. Aucune exécution n'a été lancée par ce tour.`;
+  // UX-04 — keep cycleInstanceId for callers/logs; never expose in Pilot copy.
+  void input.cycleInstanceId;
+  if (label) {
+    return `Le ${label} est maintenant actif. L'état vivant a été relu après démarrage. Aucune exécution n'a été lancée par ce tour.`;
+  }
+  return `Le cycle est maintenant actif. L'état vivant a été relu après démarrage. Aucune exécution n'a été lancée par ce tour.`;
 }
 
 /**

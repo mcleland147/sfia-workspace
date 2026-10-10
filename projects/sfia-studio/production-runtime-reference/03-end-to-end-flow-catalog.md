@@ -1,6 +1,6 @@
 # 03 — End-to-End Flow Catalog
 
-**As-implemented @ `1162b36b14ca2f4f644dcd3da970b25113214b06`**
+**As-implemented @ `6a4374ed54cf346d16c11b995eec772090c81807`** (First Framing chat-first continuity overlay)
 
 Status legend: COMPLETE | PARTIAL | NOT PROVEN | BREAK
 
@@ -17,18 +17,23 @@ Status legend: COMPLETE | PARTIAL | NOT PROVEN | BREAK
 - **Status:** PARTIAL — transcript availability depends on session DB path colocation
 
 ## F03 — Cycle qualification / activation
-- **Trigger:** F2 qualification / Pilot lifecycle start
-- **Objects:** CycleInstance, CKC, LPS active pointer
-- **Paths:** `f2/qualify.ts`, `orchestrateF2.ts`, `pilotLifecycle.start`
-- **Status:** COMPLETE deterministic core
+- **Trigger (legacy / Studio):** F2 qualification / Pilot lifecycle start controls
+- **Trigger (First Framing chat-first, AS-IMPLEMENTED @ `6a4374ed`):** conversational continuity after a CURRENT Framing Recommendation — **descriptive chain, not automation**:
+  Recommendation CURRENT → candidate trajectory (prepare) → examinable presentation (`FramingTrajectoryExamination` / Framing Continuity Card) → HumanDecision when structural (trajectory approval) → prepare cycle → **explicit Pilot START** (intent `attempt_start`, never a bare recommendation accept) → LPS re-read → conversational continuity while active
+- **Objects:** CycleInstance, CKC, LPS active pointer; Framing continuity snapshot (phase projection only — ≠ Truth C)
+- **Paths:** `f2/qualify.ts`, `orchestrateF2.ts`, `f2/resolveChatFirstCycleStartGate.ts`, `f2/chatFirstFramingContinuity.ts`, `preCycleCandidateTrajectoryActions.ts`, `pilotLifecycle.start` (Studio KEEP)
+- **Authority:** no silent HD; no auto-START; already-active + START intent → honest no-op (no second CycleInstance); Pilot-facing START copy must not expose internal `cyc:…` / `activeCycleInstanceId`
+- **Status:** COMPLETE deterministic core + First Framing START gate DETERMINISTIC at tested scope (ZERO REAL claim)
+- **Proof at tested scope:** `p6.hqa.f01.chatFirstCycleStartGate.d0.test.ts`, `chatFirstFramingContinuity.frontDoor.d0.test.ts`, `chatFirstFramingContinuity.d0.test.ts`
 
 ## F04 — Nora conversation during active cycle
 - **Trigger:** Pilot message via product conversation
 - **Steps:** orchestrateTurn → provider analyze/respond → session append → journal tools
-- **Paths:** `orchestrateTurn.ts`, `runNoraCognitiveTurn.ts`, Fake/OpenAI provider
+- **Paths:** `orchestrateTurn.ts`, `runNoraCognitiveTurn.ts`, Fake/OpenAI provider; Product UI `useProductConversation.ts` + `ConversationSurface` / `FramingContinuityCard`
 - **Non-blocking conversation (CHAT-FIRST-GOVERNED-DECISION-LOOP-01):** a pending governed decision subject no longer turns an unrelated or informative turn into a transport error. `assertExplicitReinstructionGate` stays fail-closed (no competing `DECISION_REQUIRED` is minted) but `orchestrateF2` now renders `EXPLICIT_REINSTRUCTION_REQUIRED` / `AMBIGUOUS_PENDING_REINSTRUCTION` as a conversational clarification turn, so the composer never dead-ends.
-- **Status:** PARTIAL REAL linguistic; COMPLETE deterministic Fake scripts
-- **Proof at tested scope:** `productChatFirstGovernedDecisionLoop.frontDoor.d0.test.ts` case A (pending subject + unrelated topic → answered turn, ZERO HumanDecision, subject intact)
+- **First Framing continuity (presentation):** conversation surface may project a Framing Continuity Card from server-owned snapshot (`projectAssistantReadFramingContinuityAction`) — examinable trajectory facts before HD; « Ouvrir » ≠ composer auto-send; recommendation details stay Recommendation≠Decision (P2-D-01; no presumed operational materiality)
+- **Status:** PARTIAL REAL linguistic; COMPLETE deterministic Fake scripts; Framing continuity UI DETERMINISTIC at tested scope
+- **Proof at tested scope:** `productChatFirstGovernedDecisionLoop.frontDoor.d0.test.ts` case A; `framingContinuityCard.ui.test.tsx`, `framingContinuityRehydrate.ui.test.tsx`, `p6.ux.recommendationContinuity.ui.test.tsx`
 
 ## F05 — Active-cycle Artifact materialization
 - **Trigger:** Natural Pilot request to materialize the active-cycle deliverable (conversation front door / `projectAssistantSendAction`) — pathless OK when semantic cues suffice
@@ -51,16 +56,18 @@ Status legend: COMPLETE | PARTIAL | NOT PROVEN | BREAK
 - **UI role:** `TrajectorySurface` is read/inspection/audit on the nominal path (`decisionWorkflowMode="chat_first"`); « Instruire les options » and per-option « Décider » are only rendered under `decisionWorkflowMode="legacy_cta"` (harvest / RETIRE LATER proofs). Server actions `w2ProposeTrajectoryOptionsAction` / `w2DecideTrajectoryAction` are unchanged.
 - **Status:** COMPLETE for in-process; PARTIAL across restart
 
-## F07 — HumanDecision on Proposal
+## F07 — HumanDecision on Proposal / Framing trajectory
 - **Trigger (legacy):** Pilot accept/refuse via `projectAssistantDecideAction` → `recordDecision.ts`
-- **Trigger (nominal, chat-first Work only):** conversational disposition on `projectAssistantSendAction`. `analyzeIntent` emits a NON-AUTHORITATIVE `pilotDecisionCandidate` (accept|refuse|amend|defer|none|ambiguous). `orchestrateF2` resolves **Work / Proposal decision subjects only** via `resolveChatFirstPilotDecision` → existing `decideTrajectory`. Chat « oui » never START/FINALIZE a Lifecycle Recommendation.
+- **Trigger (nominal, chat-first Work):** conversational disposition on `projectAssistantSendAction`. `analyzeIntent` emits a NON-AUTHORITATIVE `pilotDecisionCandidate` (accept|refuse|amend|defer|none|ambiguous). `orchestrateF2` resolves **Work / Proposal decision subjects only** via `resolveChatFirstPilotDecision` → existing `decideTrajectory`. Chat « oui » on a Work Recommendation never START/FINALIZE.
 - **Work family:** sealed option ref (`PROPOSAL_SUBJECT_PURSUE_REF` / `REFUSE` / `AMEND`) via existing `decideTrajectory`; OptionSet Work Recommendation status synced (`disposeWorkRecommendationAfterDecision`). Journal > Recommandations projects **Work** Recommendations only.
-- **Lifecycle family:** explicit Studio actions preserved — prepareCandidateTrajectory / approval / prepareCycle / START / FINALIZE on the right-panel lifecycle surface. Not condensed into chat disposition.
+- **Lifecycle / Framing family (AS-IMPLEMENTED split):**
+  - **Studio KEEP:** prepareCandidateTrajectory / approve / prepareCycle / START / FINALIZE remain available on lifecycle controls.
+  - **First Framing conversational path (bounded):** Recommendation CURRENT → prepare candidate → **examinable** trajectory presentation → structural HumanDecision for trajectory when required → prepare cycle → **explicit** Pilot START intent (`resolveChatFirstCycleStartGate` / `attempt_start`). A bare recommendation accept at `ready_to_start` does **not** start. Not every Lifecycle transition is chat-first — FINALIZE and non-Framing Lifecycle dispositions remain explicit Studio / non-chat unless separately proven.
 - **Defer (Work):** durable Pilot HumanDecision + non-blocking Reservation stamp + Work Recommendation `resolved` + Proposal DecisionRef closure; honest target from CURRENT `NEXT_CYCLE` `targetCycleTypeId` or `resolveHonestReservationDeferTarget` (target lookup only). Missing target ⇒ `defer_target_unresolved` (conversation open). No `DEFERRED` enum invented.
-- **Authority boundary:** the candidate is never a HumanDecision. Model-supplied option/proposal/optionSet refs are never read. `none` / `ambiguous` / no unique eligible Work subject / multiple effective pending subjects ⇒ **ZERO HumanDecision**; the conversation stays open. Lifecycle CURRENT alone never yields a chat START/FINALIZE.
-- **Paths:** `f2/intentAnalysis.ts`, `f2/orchestrateF2.ts`, `w2/resolveChatFirstPilotDecision.ts`, `w2/deferWorkRecommendation.ts`, `w2/decideTrajectory.ts` → `oa_human_decisions`; lifecycle → existing `pilotLifecycle` / prepare-start actions
-- **Proof at tested scope:** `productChatFirstGovernedDecisionLoop.frontDoor.d0.test.ts` (Work + hybrid non-START proofs)
-- **Status:** COMPLETE durable Work path (deterministic); Lifecycle explicit Studio path preserved
+- **Authority boundary:** Recommendation / `pilotDecisionCandidate` never equals HumanDecision. Model-supplied option/proposal/optionSet refs are never read. `none` / `ambiguous` / no unique eligible Work subject / multiple effective pending subjects ⇒ **ZERO HumanDecision**. Lifecycle CURRENT alone never invents HD or auto-START. Trajectory examination insufficient ⇒ validation CTA disabled (no invented substance).
+- **Paths:** `f2/intentAnalysis.ts`, `f2/orchestrateF2.ts`, `f2/chatFirstFramingContinuity.ts`, `f2/resolveChatFirstCycleStartGate.ts`, `preCycleCandidateTrajectoryActions.ts`, `w2/resolveChatFirstPilotDecision.ts`, `w2/deferWorkRecommendation.ts`, `w2/decideTrajectory.ts` → `oa_human_decisions`; lifecycle → existing `pilotLifecycle` / prepare-start actions
+- **Proof at tested scope:** `productChatFirstGovernedDecisionLoop.frontDoor.d0.test.ts` (Work); Framing — `chatFirstFramingContinuity*.d0.test.ts`, `p6.hqa.f01.chatFirstCycleStartGate.d0.test.ts`, `p6.ux.recommendationContinuity.ui.test.tsx`
+- **Status:** COMPLETE durable Work path (deterministic); First Framing START conversational path DETERMINISTIC at tested scope; other Lifecycle transitions Studio-preserved; ZERO REAL claim
 
 ## F08 — EC PREPARE
 - **Trigger:** After required HD / authority path (`projectAssistantPrepareResolvedM3Action`)
@@ -104,8 +111,9 @@ Status legend: COMPLETE | PARTIAL | NOT PROVEN | BREAK
 - **Status:** DETERMINISTIC fresh + restart handoff proven at tested scope; REAL SprintBoard re-proof requires distinct Morris GO
 
 ## F14 — LPS / trajectory continuation or recovery
-- **Paths:** trajectory services; recovery ownership continuity; `projectAssistantRehydrateEvidenceOutcomeAction`
-- **Status:** PARTIAL (greenfield/recovery fixes integrated; front-door rehydrate proven at tested scope)
+- **Paths:** trajectory services; recovery ownership continuity; `projectAssistantRehydrateEvidenceOutcomeAction`; Framing continuity rehydrate via `projectAssistantReadFramingContinuityAction` after remount / send
+- **First Framing:** after governed START, LPS / `activeCycleInstanceId` are re-read from Product (Truth C); continuity snapshot phases (`recommendation_ready` → … → `ready_to_start` → `active`) are projections over existing OA objects — no parallel persistence
+- **Status:** PARTIAL (greenfield/recovery fixes integrated; front-door rehydrate proven at tested scope; Framing continuity rehydrate DETERMINISTIC UI at tested scope)
 
 ## F15 — Cycle finalization
 - **Paths:** `assessFinalization.ts`, `deriveUndisposedRecommendations.ts`, lifecycle finalize decision path

@@ -799,7 +799,11 @@ describe("P6-HQA-F01 START success via orchestrateAssistantSend (prepared)", () 
     if (!start.ok) return;
 
     expect(start.text).toMatch(/est maintenant actif/i);
-    expect(start.text).toMatch(new RegExp(preparedId.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
+    // UX-04 — technical cycle ids stay out of Pilot-facing START copy.
+    expect(start.text).not.toMatch(/cyc:trj-/);
+    expect(start.text).not.toMatch(
+      new RegExp(preparedId.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")),
+    );
     expect(start.ok && start.f2?.turnKind).toBe("f1_informative");
     expect(start.ok && start.f2?.turnKind).not.toBe("f2_proposal");
 
@@ -826,6 +830,11 @@ describe("P6-HQA-F01 START success via orchestrateAssistantSend (prepared)", () 
     expect(again.ok).toBe(true);
     if (!again.ok) return;
     expect(again.text).toMatch(/déjà actif/i);
+    // FIX-02 — no technical cycle instance id in Pilot-facing already-active copy.
+    expect(again.text).not.toMatch(/cyc:trj-/);
+    expect(again.text).not.toMatch(
+      new RegExp(preparedId.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")),
+    );
     const cyclesFinal = await oa.cycleServices.cycles.listByProject(projectId);
     expect(cyclesFinal.length).toBe(1);
   });

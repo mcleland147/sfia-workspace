@@ -165,12 +165,17 @@ export function deriveTrajectoryNodes(
 }
 
 export type AttentionItem = {
-  key: "decision" | "reserve";
+  /** UX-05 — recommendation ≠ structural decision (P2-D-01). */
+  key: "decision" | "recommendation" | "reserve";
   headline: string;
   detail: string;
 };
 
-/** « Attention » — pending decision on the active proposal + open reservations. */
+/**
+ * « Attention » — structural decision subjects vs Work Recommendations vs reserves.
+ * UX-05 / P2-D-01: a non-structural Work Recommendation must not read as
+ * « 1 décision à examiner ».
+ */
 export function deriveAttentionItems(input: {
   decisionPending: boolean;
   lifecycle: PilotLifecycleProjection | null;
@@ -182,18 +187,36 @@ export function deriveAttentionItems(input: {
   openReservationDetail?: string | null;
 }): AttentionItem[] {
   const items: AttentionItem[] = [];
-  const pendingWork = input.pendingWorkRecommendationCount ?? 0;
-  if (input.decisionPending || pendingWork > 0) {
-    const fromReco = input.pendingWorkRecommendationDetail?.trim() || "";
+  if (input.decisionPending) {
     items.push({
       key: "decision",
       headline: "1 décision à examiner",
+      detail: "Une proposition attend votre décision dans la conversation.",
+    });
+  }
+  const pendingWork = input.pendingWorkRecommendationCount ?? 0;
+  if (pendingWork > 0 && !input.decisionPending) {
+    const fromReco = input.pendingWorkRecommendationDetail?.trim() || "";
+    items.push({
+      key: "recommendation",
+      headline:
+        pendingWork === 1
+          ? "1 recommandation à examiner"
+          : `${pendingWork} recommandations à examiner`,
       detail: fromReco
         ? fromReco
-        : input.decisionPending
-          ? "Une proposition attend votre décision dans la conversation."
-          : "Une recommandation attend votre décision dans la conversation.",
+        : "Une recommandation de travail est proposée — ce n'est pas encore une décision structurelle.",
     });
+  } else if (pendingWork > 0 && input.decisionPending) {
+    // Structural decision already listed; keep Work Rec as secondary detail only.
+    const fromReco = input.pendingWorkRecommendationDetail?.trim() || "";
+    if (fromReco) {
+      items.push({
+        key: "recommendation",
+        headline: "Recommandation associée",
+        detail: fromReco,
+      });
+    }
   }
   const summary = input.lifecycle?.reservationSummary;
   const active = summary?.activeCount ?? 0;

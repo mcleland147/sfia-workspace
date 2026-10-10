@@ -105,10 +105,23 @@ NoteLite bounded REAL re-proof — **PAUSED**. Gate Morris distinct. Not this de
 | Journal Recommandations / Décisions tabs | AS-IMPLEMENTED projection from existing Epistemic / HumanDecision reads — never Truth C |
 | Finalization undisposed Recommendations | AS-IMPLEMENTED blocker `undisposed_recommendations` via existing `assessFinalization` blockers family (Work only) |
 | Defer disposition (Work) | AS-IMPLEMENTED at tested scope — durable HD + Reservation `may_affect` + Work Recommendation resolved; missing honest target ⇒ `defer_target_unresolved` |
-| Lifecycle transitions | EXPLICIT Studio actions preserved (prepare trajectory / approve / prepare cycle / START / FINALIZE) — NOT chat-first; candidate Lifecycle Chat-first resolver RETIRED |
+| Lifecycle transitions (general) | Studio actions KEEP (prepare / approve / prepare cycle / START / FINALIZE). Generic « Lifecycle Chat-first resolver » remains RETIRED — not every Lifecycle transition is conversational |
+| First Framing START (bounded) | AS-IMPLEMENTED @ `6a4374ed` — conversational Rec→candidate→examinable→HD→prepare→**explicit** Pilot START→LPS; no auto-START; already-active = honest no-op; DETERMINISTIC proven; ZERO REAL claim |
 | Unbound subject never disposed | RESERVE — stays unbound; chat-first materialises OptionSet lazily on disposition turn only |
 | REAL chat-first / PocketTasks parity | NOT PROVEN — ZERO REAL this macro; Gate Morris distinct required |
+| Visual Figma / Pilot runtime fidelity (First Framing UX) | RESERVE — residual Human QA / visual; not closed by PRR sync |
+| Recommendation materiality engine (M-DISP) | RESERVE — presentation-only neutrality (P2-D-01); no new materiality engine |
 | Legacy CTA / GO strip / reinstruction arm | KEEP compatibility — RETIRE LATER; #535 NO SAFE REMOVAL PROVEN still holds |
+
+## FIRST-FRAMING-CHAT-FIRST-CONTINUITY overlay (P6 @ `6a4374ed`)
+
+| Item | Status |
+|---|---|
+| Examinable trajectory before HD | AS-IMPLEMENTED — digest + trajectory substance (≠ generic Project objective / bare « Cadrage » label) |
+| HumanDecision inventée / START automatique | FORBIDDEN — preserved |
+| Conversational START when prepared | DETERMINISTIC at tested scope (`resolveChatFirstCycleStartGate`) |
+| All Lifecycle transitions chat-first | **NOT CLAIMED** — First Framing START path only |
+| P6 GLOBAL PASS / runtime v3 ADOPTED | **NOT CLAIMED** |
 
 ## PRODUCT-CYCLE-E2E-STABILIZATION-01 overlay
 
