@@ -129,6 +129,17 @@ describe("P6 UX Recommendation Continuity + FIX-01/02/03", () => {
     ).textContent;
     expect(materiality).toMatch(/n'est pas automatiquement une décision/i);
     expect(materiality).not.toMatch(/opérationnelle/i);
+    // UX-REC-01 — statement shown once in title; not repeated under Proposition.
+    expect(screen.queryByText("Proposition")).toBeNull();
+    const statementHits = screen.getAllByText(
+      /Commencer par recueillir des exemples concrets de difficultés vécues/,
+    );
+    expect(statementHits).toHaveLength(1);
+    // REC-02 — durable cycle card, not implied as this-turn-only answer.
+    expect(screen.getByText(/Recommandation active du cycle/i)).toBeTruthy();
+    expect(
+      screen.getByText(/PAS LIÉE\s+UNIQUEMENT À CE TOUR/i),
+    ).toBeTruthy();
     fireEvent.click(screen.getByTestId("conversation-discuss-recommendation"));
     expect(onDiscuss).toHaveBeenCalledWith("epi:acw:ux02");
   });

@@ -133,7 +133,9 @@ function recommendationCurrentnessLabel(card: JournalRecommendationCard): string
   if (card.status === "rejected") return "Écartée";
   if (card.status === "superseded") return "Remplacée";
   if (card.dispositionDecisionId) return "Dispositionnée";
-  return "En attente de votre réponse";
+  // REC-03 — active ≠ « unanswered chat ». Align with Conversation « À examiner »:
+  // durable status without disposition; discussion alone does not dispose.
+  return "À examiner";
 }
 
 /** A Work Recommendation still awaiting an explicit Pilot disposition. */
@@ -356,7 +358,7 @@ export function JournalSurface({
           ? `${openReservationCount} réserve${openReservationCount === 1 ? "" : "s"} ouverte${openReservationCount === 1 ? "" : "s"}`
           : "Aucun cycle sélectionné"
         : tab === "recommandations"
-          ? `${openRecommendationCount} en attente de votre réponse`
+          ? `${openRecommendationCount} à examiner`
           : `${decisionCount} décision${decisionCount === 1 ? "" : "s"} enregistrée${decisionCount === 1 ? "" : "s"}`;
 
   /** Rail stays a shortcut: it shows a bounded head of the subjects index. */

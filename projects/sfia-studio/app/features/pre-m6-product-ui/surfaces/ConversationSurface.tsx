@@ -1793,7 +1793,9 @@ export function ConversationSurface({
                   >
                     <div className={styles.p3CardHead}>
                       <div className={styles.p3CardBody}>
-                        <p className={styles.p3CardEyebrow}>Recommandation</p>
+                        <p className={styles.p3CardEyebrow}>
+                          Recommandation active du cycle
+                        </p>
                         <p
                           className={styles.p3CardTitle}
                           data-testid="durable-recommendation-label"
@@ -1801,7 +1803,8 @@ export function ConversationSurface({
                           {card.statement}
                         </p>
                         <p className={styles.p3CardStamp}>
-                          RECOMMANDATION — PAS UNE DÉCISION
+                          RECOMMANDATION DURABLE — PAS UNE DÉCISION · PAS LIÉE
+                          UNIQUEMENT À CE TOUR
                         </p>
                       </div>
                       <div className={styles.p3CardRight}>
@@ -1837,10 +1840,8 @@ export function ConversationSurface({
                         data-testid="durable-recommendation-details"
                       >
                         <dl className={styles.facts}>
-                          <div className={styles.factWide}>
-                            <dt>Proposition</dt>
-                            <dd>{card.statement}</dd>
-                          </div>
+                          {/* UX-REC-01 — do not repeat card.statement under
+                              « Proposition »; title already shows it once. */}
                           <div className={styles.factWide}>
                             <dt>Statut</dt>
                             <dd data-testid="durable-recommendation-materiality">
@@ -1850,7 +1851,9 @@ export function ConversationSurface({
                               une décision. Vous pouvez l&apos;examiner, en
                               discuter, ou la laisser en suspens. Une décision
                               structurelle reste requise seulement lorsque le
-                              sujet l&apos;exige vraiment.
+                              sujet l&apos;exige vraiment. Les recommandations
+                              actives restent listées dans Journal ›
+                              Recommandations.
                             </dd>
                           </div>
                         </dl>
