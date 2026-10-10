@@ -1,6 +1,6 @@
 # 02 — Runtime Object Catalog
 
-**As-implemented @ `b4aa09bdef29a635e624bb5c396711e75057df4d`**
+**As-implemented @ `b433d4316b1c8d04dc043e3ee46a6dc4dbff4da9` (REC-01 overlay; prior harvest retained)**
 
 Convention: each card lists **SoT**, **persistence**, **key paths**, **tests**. Fields marked UNKNOWN when not confirmed in harvest.
 
@@ -67,11 +67,18 @@ Convention: each card lists **SoT**, **persistence**, **key paths**, **tests**. 
 - **Maturity:** PARTIAL as standalone named aggregate — carried inside Proposal DTO / epistemic markers.
 - **Paths:** proposal types, epistemic items table `oa_epistemic_items`.
 
-## OBJ-RECOMMENDATION — Recommendation / LifecycleRecommendation
+## OBJ-RECOMMENDATION — Recommendation / LifecycleRecommendation / Work Recommendation
 
 - **Purpose:** Non-authoritative next-step guidance (≠ HumanDecision).
-- **Paths:** `lifecycleRecommendation/**`, presentation labels, conversationGuidance.
-- **Invariant:** Recommendation ≠ HumanDecision.
+- **Families (AS-IMPLEMENTED):**
+  - **Lifecycle Recommendation** — typed lifecycle recommendation path (`lifecycleRecommendation/**`); not Journal Work.
+  - **Work Recommendation (ACW)** — durable EpistemicItem `type=Recommendation` with `source=active-cycle-work:nora`, minted only after Studio prospective qualification (P6-HQA-02 / REC-01).
+  - **conversationGuidance** — ordinary conversational suggestion; **never** an EpistemicItem.
+- **Nora structured candidate (Option B):** Recommendations may carry `trackingRationale`, `relationKind` (`NEW` | `ALREADY_COVERED` | `DISTINCT_RELATED` | `CONTRADICTORY` | `UNCERTAIN`), `relatedRecommendationRef`. Candidate judgment only — not Product authorization.
+- **Studio gates:** `qualifyProspectiveWorkRecommendationMaterialization` / `filterActiveCycleWorkItemsForProspectiveMaterialization` in `orchestrateTurn` before `materializeActiveCycleWork`. Coverage `PARTIAL`/`UNAVAILABLE` fail-closed for NEW (and CONTRADICTORY mint under current policy). Exact duplicate / ALREADY_COVERED may still use full Product open facts.
+- **Option A typed relation:** optional durable `workRecommendationRelation` on EpistemicItem (`kind`, `targetEpistemicItemId`, `judgmentOrigin=nora_structured_candidate`, `authority=none`) via existing Product SQLite payload — CONTRADICTORY planned for persist; DISTINCT_RELATED systematic durability deferred. Historical replay is existing-first (materialParity); live target applicability required only for **new** mints. Read-time `applicability` (source∧target open) ≠ persisted CURRENT.
+- **Paths:** `lifecycleRecommendation/**`, `qualifyProspectiveWorkRecommendationMaterialization.ts`, `materializeActiveCycleWork.ts`, `orchestrateTurn.ts`, `noraProductTurnOutputType.ts`, `deriveWorkRecommendations.ts`, Journal presentation.
+- **Invariant:** Recommendation ≠ HumanDecision; no auto-disposition / auto-supersession from CONTRADICTORY.
 
 ## OBJ-RESERVATION — Reservation
 

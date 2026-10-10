@@ -1,6 +1,6 @@
 # 04 — Dependency & Impact Map
 
-**As-implemented @ `b4aa09bdef29a635e624bb5c396711e75057df4d`**
+**As-implemented @ `b433d4316b1c8d04dc043e3ee46a6dc4dbff4da9` (impact sample C = REC-01; prior samples retained)**
 
 ## Impact analysis procedure (mandatory for future changes)
 
@@ -87,12 +87,34 @@ LifecycleSurface / lifecyclePresentation
 | Tests | MW5-related nora-cognitive / project-assistant continuity tests; **oracle weakness:** local tests may pre-satisfy challenge |
 | Docs | 02,03,04,08,09 |
 
+## Sample impact analysis C — P6-HQA-02 / REC-01 (PR #576 @ `b433d431`)
+
+**Changed tracked paths (digest drift):**
+- `features/project-assistant/orchestrateTurn.ts` → OBJ-TURN-ORCH
+- `__tests__/oa/cycle/corrProof06.artifactObligation.d0.test.ts` → OBJ-FINALIZATION-ASSESS testPath
+
+| Step | Result |
+|---|---|
+| Components | OBJ-TURN-ORCH (semantic); OBJ-FINALIZATION-ASSESS (**NO SEMANTIC IMPACT** — fixture adds `workRecommendationsContext` only) |
+| Direct deps | OBJ-MEMORY-B, OBJ-MW5-CHALLENGE; ACW writer / qualify module / Epistemic SQLite (via turn path; not all separately tracked) |
+| Transitive | Journal Work projection consumers; F07 disposition remains separate (no auto-HD) |
+| Flows | F04 primary (prospective WR mint); F05/F06 adjacent (shared turn orch); F15 tests fixture-only |
+| Invariants | INV-COG-NE-AUTH, INV-REC-NE-HD; coverage fail-closed; no auto-disposition from CONTRADICTORY |
+| Persistence | Durable WR via existing `oa_epistemic_items` / ACW UoW — no new table |
+| Authority | Nora candidate ≠ Product authorization; Studio qualifies |
+| Fake/Real | DETERMINISTIC proven at REC-01 scope; Human QA REAL NOT RUN |
+| Tests | qualify / ACW Option A+replay / minimalStabilization / Option B context / UX-REC-02 / chatFirst WR / Lifecycle WR / corrProof06 |
+| Docs | volumes 02, 03, 04, 08, 09 + README overlay |
+
+Many other REC-01 Product files exist on the PR but are **not** in `trackedSources`/`trackedTests`; this sync documents their as-implemented behavior without expanding the tracked set.
+
 ## Component → flows (summary)
 
 | Component | Flows |
 |---|---|
 | OBJ-ARTIFACT-CONTINUATION | F05, F06, F17 |
 | OBJ-MW5-CHALLENGE | F04, F05, F06 |
+| OBJ-TURN-ORCH | F04, F05, F06 |
 | OBJ-PROPOSAL | F06, F07, F17 |
 | OBJ-EC | F08–F11, F18 |
 | OBJ-MEMORY-B | F02, F04, F19 |
