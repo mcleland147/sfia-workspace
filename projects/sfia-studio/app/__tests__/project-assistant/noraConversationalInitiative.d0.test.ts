@@ -281,6 +281,114 @@ describe("NORA-CONVERSATIONAL-INITIATIVE-01 (deterministic)", () => {
     expect(pilot).not.toMatch(/PROCHAINE ÉTAPE\s*:/i);
   });
 
+  it("COG-01 — near-duplicate closing invite is not stacked twice", () => {
+    const narrative =
+      "Le besoin est clair. Souhaitez-vous que l'on commence par les responsabilités et les retards ?";
+    const g = guidance(
+      "ASK_CLARIFICATION",
+      "ACTIVE_CYCLE",
+      "Souhaitez-vous commencer par les responsabilités et les retards ?",
+      null,
+    );
+    const pilot = composePilotFacingAssistantText(narrative, g);
+    const matches = pilot.match(/Souhaitez-vous/gi) ?? [];
+    expect(matches.length).toBe(1);
+    expect(pilot).toContain("Le besoin est clair");
+  });
+
+  it("COG-01 — Human QA retard/responsabilité paraphrase is not stacked", () => {
+    // Exact Human QA formulations (P6-HQA-01) — same information ask, distinct phrasing.
+    const narrativeInvite =
+      "Pour commencer, raconte-moi un retard précis : quelle tâche était en jeu, et qu’est-ce que les personnes concernées pensaient à ce moment-là de qui devait s’en charger ?";
+    const guidanceInvite =
+      "Décrivons un retard précis : quelle tâche était en jeu, et qu’est-ce que les personnes concernées pensaient de la responsabilité à ce moment-là ?";
+    const narrative = `Les retards semblent liés à des responsabilités floues.\n\n${narrativeInvite}`;
+    const g = guidance("ASK_CLARIFICATION", "ACTIVE_CYCLE", guidanceInvite, null);
+    const pilot = composePilotFacingAssistantText(narrative, g);
+    expect(pilot).toContain("Les retards semblent liés");
+    expect(pilot).toContain(narrativeInvite);
+    expect(pilot).not.toContain(guidanceInvite);
+    expect((pilot.match(/\?/g) ?? []).length).toBe(1);
+  });
+
+  it("COG-01 — Human QA entreprise de huit personnes paraphrase is not stacked", () => {
+    const narrativeInvite =
+      "Pour reprendre le premier : ce type d’entreprise correspond-il à celles que tu souhaites étudier, ou était-ce seulement un exemple ?";
+    const guidanceInvite =
+      "L’exemple de l’entreprise de huit personnes correspond-il au type d’entreprise que tu souhaites étudier, ou était-ce seulement un scénario illustratif ?";
+    const narrative = `Tu as mentionné une entreprise de huit personnes.\n\n${narrativeInvite}`;
+    const g = guidance("ASK_CLARIFICATION", "ACTIVE_CYCLE", guidanceInvite, null);
+    const pilot = composePilotFacingAssistantText(narrative, g);
+    expect(pilot).toContain("entreprise de huit personnes");
+    expect(pilot).toContain(narrativeInvite);
+    expect(pilot).not.toContain(guidanceInvite);
+    expect((pilot.match(/\?/g) ?? []).length).toBe(1);
+  });
+
+  it("COG-01 — distinct continuation is still appended once", () => {
+    const narrative = "Voici la synthèse des difficultés observées.";
+    const g = guidance(
+      "RECOMMEND_NEXT_STEP",
+      "ACTIVE_CYCLE",
+      "Je te propose maintenant d'examiner la visibilité sur l'avancement.",
+      null,
+    );
+    const pilot = composePilotFacingAssistantText(narrative, g);
+    expect(pilot).toContain("synthèse des difficultés");
+    expect(pilot).toContain("visibilité sur l'avancement");
+  });
+
+  it("COG-01 — distinct asks on retard keep both (responsabilités ≠ conséquences)", () => {
+    const narrative =
+      "Le défaut de clarté est confirmé. Quelles étaient les responsabilités sur ce retard ?";
+    const g = guidance(
+      "ASK_CLARIFICATION",
+      "ACTIVE_CYCLE",
+      "Quelles ont été les conséquences de ce retard pour l’équipe ?",
+      null,
+    );
+    const pilot = composePilotFacingAssistantText(narrative, g);
+    expect(pilot).toContain("responsabilités sur ce retard");
+    expect(pilot).toContain("conséquences de ce retard");
+    expect((pilot.match(/\?/g) ?? []).length).toBe(2);
+  });
+
+  it("COG-01 — distinct asks on entreprise keep both (type ≠ nombre de projets)", () => {
+    const narrative =
+      "Reprenons. Ce type d’entreprise correspond-il à celles que tu souhaites étudier ?";
+    const g = guidance(
+      "ASK_CLARIFICATION",
+      "ACTIVE_CYCLE",
+      "Combien de projets mènent-ils en parallèle typiquement ?",
+      null,
+    );
+    const pilot = composePilotFacingAssistantText(narrative, g);
+    expect(pilot).toContain("type d’entreprise");
+    expect(pilot).toContain("Combien de projets");
+    expect((pilot.match(/\?/g) ?? []).length).toBe(2);
+  });
+
+  it("COG-01 — narrative without closing invite still receives useful continuation", () => {
+    const narrative =
+      "Les difficultés de gestion de projets sont bien identifiées pour ce Cadrage.";
+    const g = guidance(
+      "ASK_CLARIFICATION",
+      "ACTIVE_CYCLE",
+      "Peux-tu décrire un retard précis observé récemment ?",
+      null,
+    );
+    const pilot = composePilotFacingAssistantText(narrative, g);
+    expect(pilot.startsWith(narrative)).toBe(true);
+    expect(pilot).toContain("retard précis observé");
+    expect(pilot).not.toMatch(/conversationGuidance|preCycleRoutingAssessment/i);
+  });
+
+  it("COG-01 — absent guidance leaves narrative unchanged", () => {
+    const narrative = "Synthèse utile sans suite structurée.";
+    expect(composePilotFacingAssistantText(narrative, null)).toBe(narrative);
+    expect(composePilotFacingAssistantText(narrative, undefined)).toBe(narrative);
+  });
+
   it("T2 — routing-blocking → ASK_CLARIFICATION + PRE_CYCLE", () => {
     const g = guidance(
       "ASK_CLARIFICATION",

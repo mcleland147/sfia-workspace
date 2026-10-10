@@ -847,10 +847,218 @@ export function applyConversationGuidanceCoherence(input: {
   };
 }
 
+/** Normalize Pilot-facing prose for near-duplicate continuation detection. */
+function normalizePilotContinuationCompare(text: string): string {
+  return text
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/\p{M}/gu, "")
+    .replace(/[^\p{L}\p{N}\s]/gu, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+/**
+ * Conversational closing-ask cues (FR). Includes Human QA paraphrases that do
+ * not use « Souhaitez-vous » (imperatives, correspond-il, était-ce, trailing ?).
+ */
+const CONTINUATION_INVITE_RE =
+  /\b(souhaitez[- ]vous|voulez[- ]vous|souhaites[- ]tu|que souhaitez|quelle est|quelles? |comment voulez|prefereriez[- ]vous|preferez[- ]vous|on peut|je (te|vous) propose|raconte[- ]moi|dis[- ]moi|explique[- ]moi|decrivons|decris|parle[- ]moi|correspond[- ]il|etait[- ]ce|est[- ]ce que|quest[- ]ce)\b/i;
+
+/** Discourse / filler tokens ignored when comparing ask payloads. */
+const CONTINUATION_COMPARE_STOP = new Set([
+  "le",
+  "la",
+  "les",
+  "de",
+  "des",
+  "du",
+  "un",
+  "une",
+  "et",
+  "ou",
+  "que",
+  "qui",
+  "l",
+  "on",
+  "par",
+  "pour",
+  "au",
+  "aux",
+  "a",
+  "en",
+  "je",
+  "tu",
+  "vous",
+  "te",
+  "me",
+  "d",
+  "y",
+  "ce",
+  "ces",
+  "se",
+  "ne",
+  "pas",
+  "plus",
+  "avec",
+  "dans",
+  "sur",
+  "aux",
+  "commencer",
+  "reprendre",
+  "premier",
+  "ensuite",
+  "maintenant",
+  "alors",
+  "raconte",
+  "moi",
+  "decrivons",
+  "decris",
+  "dis",
+  "explique",
+  "parle",
+  "seulement",
+  "celles",
+  "ceux",
+  "cette",
+  "cet",
+  "ete",
+  "etait",
+  "etaient",
+  "sont",
+  "est",
+  "il",
+  "elle",
+  "ils",
+  "elles",
+]);
+
+function isConversationalAsk(text: string): boolean {
+  const t = text.trim();
+  if (!t) return false;
+  if (/\?\s*$/.test(t)) return true;
+  return CONTINUATION_INVITE_RE.test(t);
+}
+
+/** Prefer the informational payload after a colon (common Human QA pattern). */
+function askComparePayload(text: string): string {
+  const raw = text.trim();
+  const colon = raw.lastIndexOf(":");
+  if (colon >= 0 && colon < raw.length - 3) {
+    const after = raw.slice(colon + 1).trim();
+    if (after.length >= 12) return after;
+  }
+  return raw;
+}
+
+function continuationContentTokens(text: string): Set<string> {
+  return new Set(
+    normalizePilotContinuationCompare(text)
+      .split(" ")
+      .filter((w) => w.length > 2 && !CONTINUATION_COMPARE_STOP.has(w)),
+  );
+}
+
+/**
+ * Overlap coefficient on content tokens — catches paraphrases of the same ask
+ * without requiring identical invite phrasing (P6-HQA COG-01 Human QA cases).
+ */
+function asksShareEquivalentContent(aRaw: string, bRaw: string): boolean {
+  const pairs: Array<[string, string]> = [
+    [aRaw, bRaw],
+    [askComparePayload(aRaw), askComparePayload(bRaw)],
+    [askComparePayload(aRaw), bRaw],
+    [aRaw, askComparePayload(bRaw)],
+  ];
+  for (const [left, right] of pairs) {
+    const a = continuationContentTokens(left);
+    const b = continuationContentTokens(right);
+    if (a.size === 0 || b.size === 0) continue;
+    let inter = 0;
+    for (const w of a) if (b.has(w)) inter += 1;
+    const smaller = Math.min(a.size, b.size);
+    const union = a.size + b.size - inter;
+    const jaccard = union === 0 ? 0 : inter / union;
+    const containment = smaller === 0 ? 0 : inter / smaller;
+    // Require enough shared substance; containment covers asymmetric paraphrases
+    // (e.g. « type d'entreprise » ↔ « entreprise de huit personnes » + same fork).
+    // inter >= 3 preserves the prior near-duplicate « Souhaitez-vous … » path.
+    if (inter >= 3 && (jaccard >= 0.45 || containment >= 0.55)) {
+      return true;
+    }
+  }
+  return false;
+}
+
+/** Closing ask candidates: question-like sentences in the last paragraph. */
+function extractClosingAskCandidates(narrative: string): string[] {
+  const paragraphs = narrative
+    .split(/\n\s*\n/)
+    .map((p) => p.trim())
+    .filter(Boolean);
+  const lastPara = paragraphs[paragraphs.length - 1] ?? narrative.trim();
+  const sentences = lastPara
+    .split(/(?<=[.!?…])\s+/)
+    .map((p) => p.trim())
+    .filter(Boolean);
+  const asks = sentences.filter(isConversationalAsk);
+  if (asks.length > 0) return asks;
+  // Fallback: whole last paragraph / last sentence when invite cues are weak.
+  if (sentences.length > 0) return [sentences[sentences.length - 1]!];
+  return lastPara ? [lastPara] : [];
+}
+
+/**
+ * True when narrative already carries the same (or near-duplicate) continuation
+ * as guidance.statement — avoids stacking two nearly identical closing invites.
+ * Exact substring match remains the primary path; similarity covers distinct
+ * phrasings of the same invitation (P6-HQA COG-01), including Human QA
+ * paraphrases that do not share a « Souhaitez-vous » surface form.
+ */
+export function narrativeAlreadyCarriesGuidanceContinuation(
+  narrative: string,
+  statement: string,
+): boolean {
+  const nRaw = narrative.trim();
+  const sRaw = statement.trim();
+  if (!sRaw) return true;
+  if (!nRaw) return false;
+  if (nRaw.includes(sRaw)) return true;
+
+  const n = normalizePilotContinuationCompare(nRaw);
+  const s = normalizePilotContinuationCompare(sRaw);
+  if (!s || s.length < 12) return false;
+  if (n.includes(s)) return true;
+
+  const candidates = extractClosingAskCandidates(nRaw);
+  const guidanceIsAsk = isConversationalAsk(sRaw);
+
+  for (const candidate of candidates) {
+    const last = normalizePilotContinuationCompare(candidate);
+    if (!last) continue;
+    if (last.includes(s) || (last.length >= 12 && s.includes(last))) {
+      return true;
+    }
+
+    // Same (or near-same) conversational ask — paraphrase-tolerant, content-gated.
+    // Both sides must look like invites/questions so distinct body prose is never
+    // treated as a duplicate of guidance.statement.
+    if (
+      guidanceIsAsk &&
+      isConversationalAsk(candidate) &&
+      asksShareEquivalentContent(candidate, sRaw)
+    ) {
+      return true;
+    }
+  }
+  return false;
+}
+
 /**
  * Compose Pilot-facing assistant text for history continuity.
  * narrative + conversationGuidance.statement — no internal field names,
  * no "PROCHAINE ÉTAPE :" label.
+ * P6-HQA COG-01 — do not append a near-duplicate closing invitation.
  */
 export function composePilotFacingAssistantText(
   narrative: string,
@@ -866,7 +1074,9 @@ export function composePilotFacingAssistantText(
     const statement = guidance.statement.trim();
     if (statement) {
       if (!out) out = statement;
-      else if (!out.includes(statement)) out = `${out}\n\n${statement}`;
+      else if (!narrativeAlreadyCarriesGuidanceContinuation(out, statement)) {
+        out = `${out}\n\n${statement}`;
+      }
     }
   }
   if (structuredRecommendation?.optionLabel?.trim()) {
