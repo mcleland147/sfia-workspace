@@ -1,146 +1,180 @@
 # SFIA Review Pack — FULL
-# P6-HQA-01 — Git Integration / Draft PR #575
-# Cycle 13 — PR readiness (template v2.6 §7.5)
+# P6-HQA-01 — Controlled Merge PR #575 + Post-Merge Verification
+# Cycle 14 — Post-merge (template v2.6 §7.5)
 
 ## Meta
-- Date / heure : **2026-10-10 14:36:46 CEST** (Europe/Paris)
+- Date / heure : **2026-10-10 14:54:10 CEST** (Europe/Paris)
 - Macro : STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01
 - Campagne : P6-GLOBAL-INTEGRATED-PRODUCT-QA-01
-- Lot : **P6-HQA-01** — Conversation, Recommendations & Journal Continuity
+- Lot : **P6-HQA-01**
 - Milestone : P6 — Global Integrated Product QA
-- Cycle projet : **13 — PR readiness / Git Integration**
+- Cycle projet : **14 — Post-merge**
 - Profil : **Standard**
-- Typologie : EVOL corrective bornée
-- Capacités v3 : V3-F05, V3-F04, V3-F02, V3-F14
-- GO Morris : commit / push / Draft PR / CI **AUTHORIZED** ; merge **NON**
+- Typologie : EVOL — integration / post-merge
+- Capacités : V3-F05, V3-F04, V3-F02, V3-F14
+- GO Morris : **AUTHORIZED — CONTROLLED MERGE PR #575 + POST-MERGE VERIFICATION**
+- Nouvelle Delivery Product : **NON**
 - P6 GLOBAL PASS : **NO**
 - Runtime v3 ADOPTED : **NO**
-- READY FOR MERGE : **NO**
+- Human QA COMPLETE : **NO**
 - Synthesis only : **no**
-- Prior handoffs supersédés pour ce cycle : `efba65eb` (HQA local), `30cd9152` (COG-01 local)
+- Handoff précédent : `45848312b53e4f605b13b847d43068f5311651ba` (PR readiness #575)
 
 ---
 
-## 1. Local Git Truth Check (pré-intégration)
+## 1. Local Git Truth Check
 
 | Check | Result |
 |-------|--------|
-| Workspace historique | `/Users/morris/Projects/sfia-workspace` |
-| Branche historique | `qa/sfia-studio-p6-global-integrated-product-qa` @ `980064c0` |
-| `origin/main` | `73cc58b38a55f80b0a7eabdf9337f9f6e35577a3` |
-| Staged historique | vide |
-| Collision | **NON** — C14 / tmp / p6-campaign / C14 reserves préservés |
-| Branche corrective préexistante | **absente** (local + remote) |
+| Worktree correctif | `/Users/morris/Projects/sfia-workspace-p6-hqa-01` |
+| Branche | `fix/studio-p6-hqa-01-conversation-recommendations` |
+| HEAD correctif | `8f61da8fb3f2e77d698fa94a123971be57d8ff9d` |
+| `origin/main` avant merge | `73cc58b38a55f80b0a7eabdf9337f9f6e35577a3` |
+| Status / staged | **clean** / vide |
+| Worktree historique | `/Users/morris/Projects/sfia-workspace` @ `980064c0` — **préservé** (mods locales intactes) |
+| Handoff WT | `sfia/review-handoff` @ `45848312` pré-publication |
 
 ---
 
-## 2. Sources
+## 2. Convergence Pre-check
 
-Gouvernance Build Doctrine / Roadmap / C1 ; doctrine 30/33 ; Product Simplification 02/03/04/06/07 ; routing + template v2.6 ; Review Handoff COG-01 `30cd9152`.
+- Build Doctrine : VALIDATED — ACTIVE ON MAIN
+- Roadmap : P6 Global Integrated Product QA
+- C1 : VALIDATED
+- Classification : KEEP architecture/autorité ; ADAPT corrections déjà committées ; COMPLETE intégration Git
+- Gap fermé ici : preuve d'intégration PR #575 sur main
+- Exit proof : merge SHA + CI post-merge + handoff
+- Aucune clôture P6 ; runtime v3 NON ADOPTED
 
-CKC Cycle 13 : fallback synthétique autorisé (pas de CKC détaillé inventé).
-
-Convergence : Build Doctrine ACTIVE ON MAIN ; P6 applicable ; Nora compositeur ADAPT ; ConversationSurface/JournalSurface ADAPT ; nouveau moteur NONE.
-
----
-
-## 3. Stratégie Git réellement utilisée
-
-1. Préserver workspace historique intact (`980064c0` + modifications locales).
-2. Créer worktree dédié depuis `origin/main` :
-   - path : `/Users/morris/Projects/sfia-workspace-p6-hqa-01`
-   - branche : `fix/studio-p6-hqa-01-conversation-recommendations`
-   - base : `73cc58b3` (merge #574)
-3. Patch Git limité aux 6 fichiers suivis (`git apply --check` puis apply).
-4. Copie séparée du nouveau test REC-03.
-5. Vérification `cmp` identité contenu historique ↔ worktree (7/7 OK).
-6. Aucun cherry-pick #574, aucun rebase, aucune mutation de la branche QA.
+CKC Cycle 14 : fallback synthétique autorisé (pas de CKC détaillé inventé).
 
 ---
 
-## 4. Commit projet
+## 3. Gates pré-merge (requalifiés)
+
+| Gate | Result |
+|------|--------|
+| PR state | OPEN → (puis Ready) → MERGED |
+| draft avant Ready | **true** |
+| mergeable | **MERGEABLE** |
+| base | `main` / `73cc58b38a55f80b0a7eabdf9337f9f6e35577a3` |
+| head | `fix/studio-p6-hqa-01-conversation-recommendations` / `8f61da8fb3f2e77d698fa94a123971be57d8ff9d` |
+| commits | **1** |
+| files | **7** |
+| diff | **+391 / −10** |
+| CI pré-merge | run **38052033300** SUCCESS on head `8f61da8fb3f2e77d698fa94a123971be57d8ff9d` |
+| Required Gate pré-merge | SUCCESS (job 114214373394) |
+
+Aucun fichier hors allowlist ; pas de secret / tmp / C14 / doctrine / migration.
+
+---
+
+## 4. Draft → Ready
+
+Commande : `gh pr ready 575`
+
+Résultat : PR marked ready for review ; `isDraft=false` ; base/head inchangés ; checks pré-merge toujours SUCCESS (pas de re-run bloquant).
+
+---
+
+## 5. Merge contrôlé
+
+Commande : `gh pr merge 575 --merge`
+
+Flags **non** utilisés : `--delete-branch`, `--admin`, `--auto`, `--squash`, `--rebase`.
 
 | Item | Value |
 |------|-------|
-| Message | `fix(studio): address P6 Human QA conversation and recommendation issues` |
-| SHA | `8f61da8fb3f2e77d698fa94a123971be57d8ff9d` |
-| Fichiers | **7** (allowlist exacte) |
-| Base | `origin/main` `73cc58b3` |
-| Ahead of main | **1** commit only |
-
-### `git diff --name-status origin/main...HEAD`
-
-```
-A	projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.hqa.rec03.journalRecommendationLabel.ui.test.tsx
-M	projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.ux.recommendationContinuity.ui.test.tsx
-M	projects/sfia-studio/app/__tests__/project-assistant/noraConversationalInitiative.d0.test.ts
-M	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
-M	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/JournalSurface.tsx
-M	projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts
-M	projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts
-```
-
-### Diff stat
-
-```
- 7 files changed, 391 insertions(+), 10 deletions(-)
-```
-
-Aucun fichier #574 hors périmètre ; C14/tmp/p6-campaign **exclus**.
-
-Correction typecheck locale (allowlist) : props Journal requises ajoutées au test REC-03 avant commit (`cycleInstanceId`, `selectedEntryId`, handlers).
-
----
-
-## 5. Push + Draft PR
-
-| Item | Value |
-|------|-------|
-| Push | `origin/fix/studio-p6-hqa-01-conversation-recommendations` @ `8f61da8fb3f2e77d698fa94a123971be57d8ff9d` |
-| PR | **#575** DRAFT |
+| PR | **#575** MERGED |
 | URL | https://github.com/mcleland147/sfia-workspace/pull/575 |
-| Base | `main` |
-| Head | `fix/studio-p6-hqa-01-conversation-recommendations` |
-| Merge | **NOT AUTHORIZED** |
+| merge_commit_sha | `8ed61737df30db270bf871eedad1535020fd1c11` |
+| mergedAt | 2026-10-10T12:45:12Z |
+| Parents | `73cc58b38a55f80b0a7eabdf9337f9f6e35577a3` + `8f61da8fb3f2e77d698fa94a123971be57d8ff9d` |
+| Message | Merge pull request #575 from mcleland147/fix/studio-p6-hqa-01-conversation-recommendations |
 
 ---
 
-## 6. CI GitHub — SUCCESS
+## 6. Vérification post-merge Git
 
-Workflow : **SFIA Studio CI**
-Run : https://github.com/mcleland147/sfia-workspace/actions/runs/38052033300
+| Check | Result |
+|-------|--------|
+| `origin/main` | `8ed61737df30db270bf871eedad1535020fd1c11` |
+| `8f61da8f` ancestor of main | **YES** |
+| Périmètre vs first parent | **7 fichiers**, +391/−10 |
+| Contenu spot | « À examiner » + tests Human QA COG-01 présents sur main |
+| Branches non supprimées | corrective + QA historique **intactes** |
+
+### Fichiers intégrés
+
+```
+A projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.hqa.rec03.journalRecommendationLabel.ui.test.tsx
+M projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.ux.recommendationContinuity.ui.test.tsx
+M projects/sfia-studio/app/__tests__/project-assistant/noraConversationalInitiative.d0.test.ts
+M projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
+M projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/JournalSurface.tsx
+M projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts
+M projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts
+```
+
+---
+
+## 7. CI
+
+### Pré-merge (référence, insuffisante seule)
+
+- Workflow SFIA Studio CI
+- Run https://github.com/mcleland147/sfia-workspace/actions/runs/38052033300
+- event `pull_request` · head `8f61da8fb3f2e77d698fa94a123971be57d8ff9d` · **SUCCESS**
+- Required Gate SUCCESS
+
+### Post-merge (preuve d'intégration)
+
+- Workflow : **SFIA Studio CI**
+- Run : https://github.com/mcleland147/sfia-workspace/actions/runs/38053119338
+- event : **push**
+- headSha : **8ed61737df30db270bf871eedad1535020fd1c11** (= merge commit)
+- status/conclusion : **completed / success**
 
 | Job | ID | Conclusion |
 |-----|-----|------------|
-| Detect SFIA Studio changes | 114212935567 | SUCCESS |
-| Build and validate SFIA Studio | 114212964336 | SUCCESS (~7m50s) |
-| SFIA Studio Required Gate | 114214373394 | SUCCESS |
+| Detect SFIA Studio changes | 114216100222 | success |
+| Build and validate SFIA Studio | 114216129640 | success |
+| SFIA Studio Required Gate | 114217536945 | success |
 
-Jobs Build : Typecheck, Lint, Build, Unit tests (Vitest), Modeled governance, Secret scan, Trailing whitespace — all PASS.
-
----
-
-## 7. Validations locales (worktree correctif)
-
-| Check | Result |
-|-------|--------|
-| NCI + COG-01 | **28 PASS** |
-| UX Recommendation Continuity | **6 PASS** |
-| REC-03 Journal label | **1 PASS** |
-| Total ciblé | **35 PASS** |
-| `npm run typecheck` | **PASS** |
-| ESLint allowlist | **0 errors** (2 warnings unused imports préexistants NCI) |
-| `git diff --check` | **PASS** |
-
-Fake/Real : **DETERMINISTIC PROVEN AT TESTED SCOPE**. Pas de REAL supplémentaire.
-
-UX/Figma : changements de contenu uniquement ; conformité Figma forte **non revendiquée** (réserve).
+Required Gate post-merge : **SUCCESS**.
 
 ---
 
-## 8. Fichier créé — contenu complet
+## 8. Fake / Real Qualification
 
-`projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.hqa.rec03.journalRecommendationLabel.ui.test.tsx`
+| Item | Value |
+|------|--------|
+| Applicable | OUI |
+| Frontière | Nora / fournisseur IA |
+| Déterministe | 35 tests ciblés PASS (PR readiness) + CI pré/post-merge SUCCESS |
+| Niveau | **DETERMINISTIC PROVEN AT TESTED SCOPE** + **POST-MERGE INTEGRATION VERIFIED** |
+| Hors scope | REAL BOUNDARY / E2E REAL / P6 PASS / v3 ADOPTED |
+
+Aucun appel REAL dans ce cycle. Human QA retest = travail ultérieur.
+
+---
+
+## 9. Réserves conservées
+
+| Réserve | Statut |
+|---------|--------|
+| REC-01 | STRUCTURAL DECISION REQUIRED |
+| REC-02 | PARTIAL (présentation seulement) |
+| REC-03 / UX-REC-01 / COG-01 | Intégrés sur main ; rejeu Human QA REAL encore requis |
+| JRN-01 | HUMAN QA RETEST REQUIRED |
+| Figma fort | non revendiqué |
+| HQ-01 / P6-MIN-03 | Exit Proof Delivery encore à éprouver |
+
+---
+
+## 10. Contenu Product intégré (exploitable)
+
+### 10.1 Fichier créé — REC-03 test (complet)
 
 ```tsx
 /**
@@ -189,11 +223,7 @@ describe("P6-HQA REC-03 Journal recommendation label", () => {
 });
 ```
 
----
-
-## 9. Sections Product modifiées (extraits complets utiles)
-
-### 9.1 COG-01 helpers + compose (`noraProductTurnOutputType.ts`)
+### 10.2 COG-01 helpers + compose (section)
 
 ```typescript
 /** Normalize Pilot-facing prose for near-duplicate continuation detection. */
@@ -439,7 +469,7 @@ export function composePilotFacingAssistantText(
 }
 ```
 
-### 9.2 COG-01 tests (bloc)
+### 10.3 COG-01 tests (bloc)
 
 ```typescript
   it("COG-01 — near-duplicate closing invite is not stacked twice", () => {
@@ -551,7 +581,7 @@ export function composePilotFacingAssistantText(
   });
 ```
 
-### 9.3 REC-03 Journal label
+### 10.4 Journal REC-03 label
 
 ```typescript
 function recommendationCurrentnessLabel(card: JournalRecommendationCard): string {
@@ -567,7 +597,7 @@ function recommendationCurrentnessLabel(card: JournalRecommendationCard): string
 /** A Work Recommendation still awaiting an explicit Pilot disposition. */
 ```
 
-### 9.4 ConversationSurface (diff commit)
+### 10.5 ConversationSurface diff
 
 ```diff
 commit 8f61da8fb3f2e77d698fa94a123971be57d8ff9d
@@ -629,7 +659,7 @@ index 1c1f8e68..efff6c9c 100644
                          </dl>
 ```
 
-### 9.5 buildProjectSystemPrompt (diff commit)
+### 10.6 buildProjectSystemPrompt diff
 
 ```diff
 commit 8f61da8fb3f2e77d698fa94a123971be57d8ff9d
@@ -656,7 +686,7 @@ index 177a9ffc..ea46da10 100644
      "Ne propose JAMAIS Cursor / Execution comme initiative autonome.",
 ```
 
-### 9.6 UX continuity test (diff commit)
+### 10.7 UX continuity test diff
 
 ```diff
 commit 8f61da8fb3f2e77d698fa94a123971be57d8ff9d
@@ -691,9 +721,7 @@ index e80185ed..458ecea6 100644
    });
 ```
 
----
-
-## 10. Patch commit complet (`git show 8f61da8fb3f2e77d698fa94a123971be57d8ff9d`)
+### 10.8 Patch complet du commit Product `8f61da8fb3f2e77d698fa94a123971be57d8ff9d`
 
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.hqa.rec03.journalRecommendationLabel.ui.test.tsx b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.hqa.rec03.journalRecommendationLabel.ui.test.tsx
@@ -1212,44 +1240,30 @@ index 8f322903..2b7d6fb2 100644
 
 ---
 
-## 11. Matrice findings (état PR)
+## 11. Décisions Morris restantes
 
-| Finding | Statut dans la PR |
-|---------|-------------------|
-| COG-01 | **FIXÉ** + tests Human QA |
-| UX-REC-01 | **FIXÉ** |
-| REC-02 | **PARTIEL** (présentation honnête) |
-| REC-03 | **FIXÉ** (« À examiner ») |
-| REC-01 | **STRUCTURAL DECISION REQUIRED** — hors PR |
-| JRN-01 | **HUMAN QA RETEST REQUIRED** — hors PR |
-
-Invariants : Recommendation ≠ HumanDecision ; discussion ≠ disposition ; pas de nouveau moteur / routing / persistence.
+1. Rejeu Human QA P6 (COG-01 / REC / Journal / HQ-01) — GO distinct.
+2. REC-01 règle métier durable.
+3. REC-02 binding tour↔recommandation si arbitrage.
+4. Cleanup branches/worktrees — **non autorisé ici** ; décision séparée.
+5. Aucune clôture P6 / promotion v3.
 
 ---
 
-## 12. Réserves / décisions Morris
+## 12. Préservation
 
-1. Merge #575 — GO distinct requis après revue ChatGPT.
-2. REC-01 règle métier supersession / dédup.
-3. REC-02 binding tour↔recommandation si arbitrage UX.
-4. JRN-01 + rejeu Human QA REAL (HQ-01 / P6-MIN-03) après merge.
-5. COG-01 limite lexicale assumée.
-6. Figma/runtime strong parity non prouvée.
-
----
-
-## 13. Préservation worktrees
-
-| Worktree | Branche | HEAD | Notes |
-|----------|---------|------|-------|
-| `/Users/morris/Projects/sfia-workspace` | `qa/sfia-studio-p6-global-integrated-product-qa` | `980064c0` | mods locales HQA + C14/tmp/p6-campaign **intactes** |
-| `/Users/morris/Projects/sfia-workspace-p6-hqa-01` | `fix/studio-p6-hqa-01-conversation-recommendations` | `8f61da8fb3f2e77d698fa94a123971be57d8ff9d` | clean après commit |
-| handoff WT | `sfia/review-handoff` | (publié ce cycle) | L3 only |
+| Asset | État |
+|-------|------|
+| Branche corrective | **non supprimée** |
+| Branche QA historique | **préservée** @ `980064c0` + locaux |
+| Worktree correctif | préservé |
+| Worktree historique | préservé |
+| Aucun cleanup | **respecté** |
 
 ---
 
-## 14. Verdict
+## 13. Verdict
 
-**DRAFT PR OPEN — CI SUCCESS — READY FOR CHATGPT PR REVIEW**
+**PR #575 MERGED — POST-MERGE VERIFIED — PASS**
 
 Instruction ChatGPT : avant revue, lire `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md`.
