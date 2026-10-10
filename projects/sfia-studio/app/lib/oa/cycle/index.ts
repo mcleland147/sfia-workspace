@@ -81,11 +81,13 @@ export {
   type UndisposedRecommendation,
 } from "./application/deriveUndisposedRecommendations";
 export {
+  deriveWorkRecommendationRelationApplicability,
   hasTrajectoryOptionRef,
   isAcwExcludedFromWorkByTrajectoryState,
   isAcwProjectTrajectoryRecommendationItem,
   isActiveCycleWorkRecommendationItem,
   isLifecycleRecommendationItem,
+  isOpenWorkRecommendationRelationTarget,
   isWorkRecommendationItem,
   projectCycleWorkRecommendations,
   workRecommendationAcwId,
@@ -93,7 +95,22 @@ export {
   workRecommendationOptionSetRef,
   type TrajectoryDecisionSupportState,
   type WorkRecommendationProjectionCard,
+  type WorkRecommendationRelationApplicability,
+  type WorkRecommendationRelationProjection,
 } from "./application/deriveWorkRecommendations";
+export {
+  filterActiveCycleWorkItemsForProspectiveMaterialization,
+  isExploitableTrackingRationale,
+  openWorkRecommendationFactsForCycle,
+  openWorkRecommendationStatementsForCycle,
+  planDurableWorkRecommendationRelation,
+  qualifyProspectiveWorkRecommendationMaterialization,
+  type OpenWorkRecommendationFact,
+  type OpenWorkRecommendationsCoverage,
+  type ProspectiveMaterializationPlanItem,
+  type ProspectiveWorkRecommendationMaterializationDecision,
+  type ProspectiveWorkRecommendationSuppressReason,
+} from "./application/qualifyProspectiveWorkRecommendationMaterialization";
 export {
   deriveFinalizationApplicability,
   obligationPolicySubjectFor,

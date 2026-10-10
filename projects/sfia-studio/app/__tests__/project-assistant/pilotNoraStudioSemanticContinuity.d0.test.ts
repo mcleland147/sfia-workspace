@@ -99,6 +99,9 @@ describe("PILOT-NORA-STUDIO-SEMANTIC-CONTINUITY-01", () => {
       confidence: "high",
       blocking: null,
       recommendedOptionRef: GOVERNED_OPTION_REF,
+      trackingRationale: "Suivi durable nécessaire pour ce cycle.",
+      relationKind: "NEW",
+      relatedRecommendationRef: null,
     };
     expect(isNoraActiveCycleWorkItem(item)).toBe(true);
     expect(normalizeActiveCycleRecommendedOptionRef(item.recommendedOptionRef)).toBe(
@@ -114,6 +117,9 @@ describe("PILOT-NORA-STUDIO-SEMANTIC-CONTINUITY-01", () => {
         confidence: null,
         blocking: null,
         recommendedOptionRef: "not-an-option",
+        trackingRationale: "Suivi durable nécessaire pour ce cycle.",
+        relationKind: "NEW",
+        relatedRecommendationRef: null,
       }),
     ).toBe(false);
     expect(normalizeActiveCycleRecommendedOptionRef("Préparer…")).toBe(null);

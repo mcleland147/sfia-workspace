@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
   "kind": "SFIA_STUDIO_LIVING_PRODUCTION_RUNTIME_REFERENCE",
-  "lastReviewedCommit": "6a4374ed54cf346d16c11b995eec772090c81807",
-  "lastReviewedAt": "2026-10-10T07:35:00.000Z",
+  "lastReviewedCommit": "b433d4316b1c8d04dc043e3ee46a6dc4dbff4da9",
+  "lastReviewedAt": "2026-10-10T19:48:00.000Z",
   "canonicalReadme": "projects/sfia-studio/production-runtime-reference/README.md",
   "volumes": [
     {
       "path": "projects/sfia-studio/production-runtime-reference/README.md",
-      "sha256_16": "77ac0325a44e8590"
+      "sha256_16": "aaea587edf5a83d9"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/01-system-runtime-overview.md",
@@ -15,15 +15,15 @@
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/02-runtime-object-catalog.md",
-      "sha256_16": "0899fb8fc72e30cc"
+      "sha256_16": "64e7a716758f799d"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md",
-      "sha256_16": "f56c3eadbe7856b0"
+      "sha256_16": "3724cd42f8ff5012"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md",
-      "sha256_16": "0269b99d4d6c6c5f"
+      "sha256_16": "3104b5187a2843e7"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/05-environments-configuration-and-boundaries.md",
@@ -39,11 +39,11 @@
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md",
-      "sha256_16": "f35d6fa177e27ecb"
+      "sha256_16": "a770429e8c495738"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md",
-      "sha256_16": "c27b2d9ac9de87c3"
+      "sha256_16": "fe20dea595a3ac89"
     }
   ],
   "components": [
@@ -582,7 +582,7 @@
     },
     {
       "path": "projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts",
-      "sha256_16": "cba03a9222f5b6a6"
+      "sha256_16": "2495024ae952effe"
     },
     {
       "path": "projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts",
@@ -700,7 +700,7 @@
     },
     {
       "path": "projects/sfia-studio/app/__tests__/oa/cycle/corrProof06.artifactObligation.d0.test.ts",
-      "sha256_16": "80a56713fcbf1c40"
+      "sha256_16": "8797f3e117cde1ee"
     },
     {
       "path": "projects/sfia-studio/app/__tests__/platform/fakeProvider.userValidArtifactMaterialization.d0.test.ts",

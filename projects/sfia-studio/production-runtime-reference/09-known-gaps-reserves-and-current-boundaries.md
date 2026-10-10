@@ -123,6 +123,22 @@ NoteLite bounded REAL re-proof — **PAUSED**. Gate Morris distinct. Not this de
 | All Lifecycle transitions chat-first | **NOT CLAIMED** — First Framing START path only |
 | P6 GLOBAL PASS / runtime v3 ADOPTED | **NOT CLAIMED** |
 
+## P6-HQA-02 / REC-01 overlay (PR #576 @ `b433d431`)
+
+| Item | Status |
+|---|---|
+| Option B structured WR candidate fields | AS-IMPLEMENTED — `trackingRationale` / `relationKind` / `relatedRecommendationRef` |
+| Bounded cognitive trust + prospective qualify | AS-IMPLEMENTED — Studio fail-closed mint; conversationGuidance ≠ WR |
+| Coverage PARTIAL (>12 open WR in Nora projection) | ACCEPTED RESERVATION — NEW (and CONTRADICTORY mint) blocked; exact dup / ALREADY_COVERED may still use Product facts |
+| Option A CONTRADICTORY durable envelope | AS-IMPLEMENTED — EpistemicItem `workRecommendationRelation`; SQLite reload DETERMINISTIC |
+| DISTINCT_RELATED systematic durable envelope | DEFERRED |
+| Historical replay after target superseded | AS-IMPLEMENTED — existing-first + materialParity; new mint still live-gated |
+| Applicability projection | AS-IMPLEMENTED — read-time source∧target open; durable ≠ CURRENT |
+| Auto HD / auto-disposition / auto-supersession from CONTRADICTORY | FORBIDDEN — preserved |
+| Human QA REAL / REAL BOUNDARY / E2E REAL | **NOT RUN / NOT CLAIMED** |
+| P6 GLOBAL PASS / runtime v3 ADOPTED | **NOT CLAIMED** |
+| REC-02 | RESERVED — out of this PR |
+
 ## PRODUCT-CYCLE-E2E-STABILIZATION-01 overlay
 
 | Item | Status |

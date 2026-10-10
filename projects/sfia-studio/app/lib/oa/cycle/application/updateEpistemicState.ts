@@ -139,6 +139,9 @@ export class UpdateEpistemicState {
             reservation: raw.reservation
               ? structuredClone(raw.reservation)
               : undefined,
+            workRecommendationRelation: raw.workRecommendationRelation
+              ? structuredClone(raw.workRecommendationRelation)
+              : undefined,
           };
 
           if (this.epistemic.saveForProject) {

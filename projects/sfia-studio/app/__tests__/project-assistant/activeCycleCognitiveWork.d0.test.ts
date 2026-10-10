@@ -57,6 +57,7 @@ import {
   activeCycleWorkEpistemicItemId,
   ACTIVE_CYCLE_WORK_SOURCE,
 } from "@/features/project-assistant/materializeActiveCycleWork";
+import { filterActiveCycleWorkItemsForProspectiveMaterialization } from "@/lib/oa/cycle/application/qualifyProspectiveWorkRecommendationMaterialization";
 import {
   buildActiveCycleWorkContextSeal,
   type ActiveCycleWorkContextSeal,
@@ -561,6 +562,9 @@ const MVP_OBS: NoraActiveCycleWorkItem[] = [
     statement: "Cadrer le MVP autour d'une liste priorisée datée.",
     confidence: null,
     blocking: null,
+    trackingRationale: "Suivi durable nécessaire pour ce cycle.",
+    relationKind: "NEW",
+    relatedRecommendationRef: null,
   },
 ];
 
@@ -891,6 +895,9 @@ describe("D-GF-ACW-01 schema (BAR-WORK-12..15)", () => {
       confidence: "high" as const,
       blocking: false,
       recommendedOptionRef: validOpt,
+      trackingRationale: "Suivi durable nécessaire pour ce cycle.",
+      relationKind: "NEW",
+      relatedRecommendationRef: null,
     };
     expect(validateItem(recWithRef)).toBe(true);
     expect(isNoraActiveCycleWorkItem(recWithRef)).toBe(true);
@@ -901,6 +908,9 @@ describe("D-GF-ACW-01 schema (BAR-WORK-12..15)", () => {
       confidence: null,
       blocking: null,
       recommendedOptionRef: null,
+      trackingRationale: "Suivi durable nécessaire pour ce cycle.",
+      relationKind: "NEW",
+      relatedRecommendationRef: null,
     };
     expect(validateItem(recWithNull)).toBe(true);
     expect(isNoraActiveCycleWorkItem(recWithNull)).toBe(true);
@@ -2762,5 +2772,634 @@ describe("CR-ACW-04 catalog-wide active-cycle cognitive context", () => {
     expect(acwSrc).not.toMatch(/cyc:framing|cyc:delivery|cyc:architecture/);
     expect(acwSrc).not.toMatch(/switch\s*\(\s*cycleTypeId\s*\)/);
     expect(acwSrc).not.toMatch(/if\s*\(\s*cycleTypeId\s*===/);
+  });
+});
+
+/**
+ * P6-HQA-02 REC-01 Bounded Cognitive Trust —
+ * integrated idempotence: filter → materializeActiveCycleWork → Product UoW → LPS → replay.
+ * trackingRationale has no Product id citation (pseudo-proof removed).
+ */
+describe("P6-HQA-02 REC-01 bounded trust integrated idempotence (filter→UoW→LPS→replay)", () => {
+  function optionBRec(statement: string): NoraActiveCycleWorkItem {
+    return {
+      type: "Recommendation",
+      statement,
+      confidence: "medium",
+      blocking: null,
+      recommendedOptionRef: null,
+      trackingRationale:
+        "Orientation de travail distincte nécessitant un suivi propre hors tour.",
+      relationKind: "NEW",
+      relatedRecommendationRef: null,
+    };
+  }
+
+  it("Recommendation+Observation: filter→write→LPS→replay keeps Observation id and no double mint", async () => {
+    const s = await seedStarted("rec01-idem");
+    const cycleId = s.cycle.cycleInstanceId;
+    const turnCorrelationId = "turn:logical:rec01-option-b-idem";
+    const payload: NoraActiveCycleWorkItem[] = [
+      optionBRec(
+        "Structurer le cadrage autour des responsabilités de suivi et des retards.",
+      ),
+      {
+        type: "Observation",
+        statement: "Les retards reviennent souvent sur ce cycle.",
+        confidence: "medium",
+        blocking: null,
+        recommendedOptionRef: null,
+      },
+    ];
+
+    const firstFilter = filterActiveCycleWorkItemsForProspectiveMaterialization({
+      items: payload,
+      existingItems: [],
+      cycleInstanceId: cycleId,
+      trajectoryDecisionSupportState: "NONE",
+      openWorkRecommendationsCoverage: "COMPLETE",
+    });
+    expect(firstFilter.sourceIndexes).toEqual([0, 1]);
+
+    const facts1 = await materializeFacts(
+      s.oa,
+      s.projectId,
+      cycleId,
+      turnCorrelationId,
+    );
+    const mat1 = await materializeActiveCycleWork({
+      ...acwMaterializeInput(s.oa, facts1, firstFilter.items),
+      itemSourceIndexes: firstFilter.sourceIndexes,
+    });
+    expect(mat1.ok).toBe(true);
+    if (!mat1.ok) throw new Error(mat1.reason);
+    expect(mat1.createdIds.length).toBe(2);
+
+    const afterFirst = await s.oa.cycleServices.epistemic.listByProject(
+      s.projectId,
+    );
+    const acwAfterFirst = afterFirst.filter(
+      (e) => e.source === ACTIVE_CYCLE_WORK_SOURCE,
+    );
+    expect(acwAfterFirst.length).toBeGreaterThanOrEqual(2);
+    const lps1 = await s.oa.projectServices.getCurrentLivingProjectState.execute({
+      projectId: s.projectId,
+    });
+    expect(lps1.ok).toBe(true);
+    if (!lps1.ok) throw new Error("lps");
+    const lpsIds1 = new Set(lps1.livingProjectState.epistemicItemIds ?? []);
+    for (const item of acwAfterFirst) {
+      expect(lpsIds1.has(item.epistemicItemId)).toBe(true);
+    }
+    const obsFirst = acwAfterFirst.find((e) => e.type === "Observation");
+    expect(obsFirst).toBeTruthy();
+
+    // Replay same logical turn: Recommendation already open → Observation @ sourceIndex 1.
+    const replayFilter = filterActiveCycleWorkItemsForProspectiveMaterialization({
+      items: payload,
+      existingItems: afterFirst,
+      cycleInstanceId: cycleId,
+      trajectoryDecisionSupportState: "NONE",
+      openWorkRecommendationsCoverage: "COMPLETE",
+    });
+    expect(replayFilter.items.map((i) => i.type)).toEqual(["Observation"]);
+    expect(replayFilter.sourceIndexes).toEqual([1]);
+
+    const facts2 = await materializeFacts(
+      s.oa,
+      s.projectId,
+      cycleId,
+      turnCorrelationId,
+    );
+    const mat2 = await materializeActiveCycleWork({
+      ...acwMaterializeInput(s.oa, facts2, replayFilter.items),
+      itemSourceIndexes: replayFilter.sourceIndexes,
+    });
+    expect(mat2.ok).toBe(true);
+    if (!mat2.ok) throw new Error(mat2.reason);
+    expect(mat2.idempotent).toBe(true);
+    expect(mat2.createdIds).toEqual([]);
+
+    const afterReplay = await s.oa.cycleServices.epistemic.listByProject(
+      s.projectId,
+    );
+    const acwAfterReplay = afterReplay.filter(
+      (e) => e.source === ACTIVE_CYCLE_WORK_SOURCE,
+    );
+    expect(acwAfterReplay).toHaveLength(acwAfterFirst.length);
+    const obsReplay = acwAfterReplay.find((e) => e.type === "Observation");
+    expect(obsReplay?.epistemicItemId).toBe(obsFirst!.epistemicItemId);
+
+    const lps2 = await s.oa.projectServices.getCurrentLivingProjectState.execute({
+      projectId: s.projectId,
+    });
+    expect(lps2.ok).toBe(true);
+    if (!lps2.ok) throw new Error("lps2");
+    const lpsIds2 = lps2.livingProjectState.epistemicItemIds ?? [];
+    expect(new Set(lpsIds2).size).toBe(lpsIds2.length);
+  });
+});
+
+/**
+ * P6-HQA-02 REC-01 Option A — durable typed CONTRADICTORY relation
+ * via Product SQLite write → close → reopen → reconstruct.
+ */
+describe("P6-HQA-02 REC-01 Option A durable typed relation (SQLite reload)", () => {
+  function wrRec(
+    statement: string,
+    opts: {
+      relationKind?: NoraActiveCycleWorkItem["relationKind"];
+      relatedRecommendationRef?: string | null;
+      trackingRationale?: string;
+    } = {},
+  ): NoraActiveCycleWorkItem {
+    return {
+      type: "Recommendation",
+      statement,
+      confidence: "medium",
+      blocking: null,
+      recommendedOptionRef: null,
+      trackingRationale:
+        opts.trackingRationale ??
+        "Orientation de travail distincte nécessitant un suivi propre hors tour.",
+      relationKind: opts.relationKind ?? "NEW",
+      relatedRecommendationRef: opts.relatedRecommendationRef ?? null,
+    };
+  }
+
+  it("CONTRADICTORY relation survives SQLite close/reopen with target unchanged", async () => {
+    const dbPath = tempDbPath("rec01-optA-contradictory.sqlite");
+    const s = await seedStarted("rec01-opta-c", { dbPath });
+    const cycleId = s.cycle.cycleInstanceId;
+
+    const rec001Payload = [
+      wrRec(
+        "Prioriser l'analyse du suivi d'avancement avant la planification.",
+      ),
+    ];
+    const filter1 = filterActiveCycleWorkItemsForProspectiveMaterialization({
+      items: rec001Payload,
+      existingItems: [],
+      cycleInstanceId: cycleId,
+      trajectoryDecisionSupportState: "NONE",
+      openWorkRecommendationsCoverage: "COMPLETE",
+    });
+    expect(filter1.items).toHaveLength(1);
+
+    const facts1 = await materializeFacts(
+      s.oa,
+      s.projectId,
+      cycleId,
+      "turn:logical:rec01-opta-001",
+    );
+    const mat1 = await materializeActiveCycleWork({
+      ...acwMaterializeInput(s.oa, facts1, filter1.items),
+      itemSourceIndexes: filter1.sourceIndexes,
+    });
+    expect(mat1.ok).toBe(true);
+    if (!mat1.ok) throw new Error(mat1.reason);
+    expect(mat1.createdIds).toHaveLength(1);
+    const rec001Id = mat1.createdIds[0]!;
+    const after001 = await s.oa.cycleServices.epistemic.listByProject(
+      s.projectId,
+    );
+    const rec001 = after001.find((e) => e.epistemicItemId === rec001Id);
+    expect(rec001?.type).toBe("Recommendation");
+    expect(rec001?.workRecommendationRelation).toBeUndefined();
+    expect(rec001?.status).toBe("active");
+    const rec001Snapshot = JSON.stringify(rec001);
+
+    const rec002Payload = [
+      wrRec("Prioriser la planification avant le suivi d'avancement.", {
+        relationKind: "CONTRADICTORY",
+        relatedRecommendationRef: rec001Id,
+        trackingRationale:
+          "Contradiction candidate sur l'ordre de priorité suivi/planification.",
+      }),
+    ];
+    const filter2 = filterActiveCycleWorkItemsForProspectiveMaterialization({
+      items: rec002Payload,
+      existingItems: after001,
+      cycleInstanceId: cycleId,
+      trajectoryDecisionSupportState: "NONE",
+      openWorkRecommendationsCoverage: "COMPLETE",
+    });
+    expect(filter2.items).toHaveLength(1);
+
+    const facts2 = await materializeFacts(
+      s.oa,
+      s.projectId,
+      cycleId,
+      "turn:logical:rec01-opta-002",
+    );
+    const mat2 = await materializeActiveCycleWork({
+      ...acwMaterializeInput(s.oa, facts2, filter2.items),
+      itemSourceIndexes: filter2.sourceIndexes,
+    });
+    expect(mat2.ok).toBe(true);
+    if (!mat2.ok) throw new Error(mat2.reason);
+    expect(mat2.createdIds).toHaveLength(1);
+    const rec002Id = mat2.createdIds[0]!;
+
+    const beforeClose = await s.oa.cycleServices.epistemic.listByProject(
+      s.projectId,
+    );
+    const rec002Before = beforeClose.find((e) => e.epistemicItemId === rec002Id);
+    expect(rec002Before?.workRecommendationRelation).toEqual({
+      kind: "CONTRADICTORY",
+      targetEpistemicItemId: rec001Id,
+      judgmentOrigin: "nora_structured_candidate",
+      authority: "none",
+    });
+    const rec001Before = beforeClose.find((e) => e.epistemicItemId === rec001Id);
+    expect(JSON.stringify(rec001Before)).toBe(rec001Snapshot);
+    expect(rec001Before?.status).toBe("active");
+    expect(rec001Before?.supersedes).toBeUndefined();
+
+    const hdBefore = await s.oa.decisionServices.decisions.listByProject(
+      s.projectId,
+    );
+
+    // Close persistence handles and reopen on the same SQLite file.
+    const reopened = await reopenRuntime("rec01-opta-c", dbPath);
+    const afterReload = await reopened.oa!.cycleServices.epistemic.listByProject(
+      s.projectId,
+    );
+    const rec002 = afterReload.find((e) => e.epistemicItemId === rec002Id);
+    const rec001Reload = afterReload.find((e) => e.epistemicItemId === rec001Id);
+    expect(rec002).toBeTruthy();
+    expect(rec002!.type).toBe("Recommendation");
+    expect(rec002!.source).toBe(ACTIVE_CYCLE_WORK_SOURCE);
+    expect(rec002!.workRecommendationRelation).toEqual({
+      kind: "CONTRADICTORY",
+      targetEpistemicItemId: rec001Id,
+      judgmentOrigin: "nora_structured_candidate",
+      authority: "none",
+    });
+    expect(rec002!.provenance).toBeTruthy();
+    expect(rec001Reload?.epistemicItemId).toBe(rec001Id);
+    expect(rec001Reload?.status).toBe("active");
+    expect(JSON.stringify(rec001Reload)).toBe(rec001Snapshot);
+
+    const hdAfter = await reopened.oa!.decisionServices.decisions.listByProject(
+      s.projectId,
+    );
+    expect(hdAfter.length).toBe(hdBefore.length);
+
+    const dto = await projectDtoFromOa(reopened.oa!, s.projectId);
+    const composed = await composeStudioCognitiveContext({
+      analysis: analysisStub({ intentClass: "informative", parseOk: true }),
+      project: dto,
+      registryRoot: PRODUCT_REGISTRY,
+      oa: reopened.oa!,
+    });
+    expect(composed.ok).toBe(true);
+    if (!composed.ok) throw new Error(composed.code);
+    const projected = composed.context.workRecommendationsContext.items.find(
+      (i) => i.epistemicItemId === rec002Id,
+    );
+    expect(projected?.workRecommendationRelation).toEqual({
+      kind: "CONTRADICTORY",
+      targetEpistemicItemId: rec001Id,
+      judgmentOrigin: "nora_structured_candidate",
+      authority: "none",
+      applicability: "applicable",
+    });
+    const prompt = buildStudioCognitivePromptSections(composed.context).join(
+      "\n",
+    );
+    expect(prompt).toContain(`relation=CONTRADICTORY->${rec001Id}`);
+    expect(prompt).toMatch(/≠ HumanDecision/i);
+  });
+
+  it("DISTINCT_RELATED may mint WR without durable typed relation envelope", async () => {
+    const s = await seedStarted("rec01-opta-dr");
+    const cycleId = s.cycle.cycleInstanceId;
+    const facts0 = await materializeFacts(
+      s.oa,
+      s.projectId,
+      cycleId,
+      "turn:logical:rec01-opta-dr-0",
+    );
+    const mat0 = await materializeActiveCycleWork({
+      ...acwMaterializeInput(s.oa, facts0, [
+        wrRec("Prioriser le suivi avant la planification."),
+      ]),
+      itemSourceIndexes: [0],
+    });
+    expect(mat0.ok).toBe(true);
+    if (!mat0.ok) throw new Error(mat0.reason);
+    const openId = mat0.createdIds[0]!;
+
+    const after0 = await s.oa.cycleServices.epistemic.listByProject(s.projectId);
+    const filter = filterActiveCycleWorkItemsForProspectiveMaterialization({
+      items: [
+        wrRec("Documenter les responsabilités de suivi en parallèle.", {
+          relationKind: "DISTINCT_RELATED",
+          relatedRecommendationRef: openId,
+          trackingRationale:
+            "Orientation liée mais distincte — suivi propre en parallèle.",
+        }),
+      ],
+      existingItems: after0,
+      cycleInstanceId: cycleId,
+      trajectoryDecisionSupportState: "NONE",
+      openWorkRecommendationsCoverage: "COMPLETE",
+    });
+    expect(filter.items).toHaveLength(1);
+    const facts = await materializeFacts(
+      s.oa,
+      s.projectId,
+      cycleId,
+      "turn:logical:rec01-opta-dr-1",
+    );
+    const mat = await materializeActiveCycleWork({
+      ...acwMaterializeInput(s.oa, facts, filter.items),
+      itemSourceIndexes: filter.sourceIndexes,
+    });
+    expect(mat.ok).toBe(true);
+    if (!mat.ok) throw new Error(mat.reason);
+    const created = (
+      await s.oa.cycleServices.epistemic.listByProject(s.projectId)
+    ).find((e) => e.epistemicItemId === mat.createdIds[0]!);
+    expect(created?.type).toBe("Recommendation");
+    // Proportionality: DISTINCT_RELATED mint ≠ systematic durable typed relation.
+    expect(created?.workRecommendationRelation).toBeUndefined();
+  });
+
+  it("legacy EpistemicItem without workRecommendationRelation remains readable", async () => {
+    const s = await seedStarted("rec01-opta-legacy");
+    const facts = await materializeFacts(
+      s.oa,
+      s.projectId,
+      s.cycle.cycleInstanceId,
+      "turn:logical:rec01-opta-legacy",
+    );
+    const mat = await materializeActiveCycleWork(
+      acwMaterializeInput(s.oa, facts, MVP_OBS.slice(0, 1)),
+    );
+    expect(mat.ok).toBe(true);
+    if (!mat.ok) throw new Error(mat.reason);
+    const items = await s.oa.cycleServices.epistemic.listByProject(s.projectId);
+    const obs = items.find((e) => e.epistemicItemId === mat.createdIds[0]!);
+    expect(obs?.workRecommendationRelation).toBeUndefined();
+    expect(obs?.type).toBe("Observation");
+  });
+
+  it("same ACW identity with different relationKind fails closed (no silent mutation)", async () => {
+    const s = await seedStarted("rec01-opta-parity");
+    const cycleId = s.cycle.cycleInstanceId;
+    const facts0 = await materializeFacts(
+      s.oa,
+      s.projectId,
+      cycleId,
+      "turn:logical:rec01-opta-parity-0",
+    );
+    const mat0 = await materializeActiveCycleWork({
+      ...acwMaterializeInput(s.oa, facts0, [
+        wrRec("Prioriser le suivi avant la planification."),
+      ]),
+      itemSourceIndexes: [0],
+    });
+    expect(mat0.ok).toBe(true);
+    if (!mat0.ok) throw new Error(mat0.reason);
+    const openId = mat0.createdIds[0]!;
+
+    const statement =
+      "Prioriser la planification avant le suivi d'avancement.";
+    const turnCorrelationId = "turn:logical:rec01-opta-parity-same";
+    const after0 = await s.oa.cycleServices.epistemic.listByProject(s.projectId);
+    const filterA = filterActiveCycleWorkItemsForProspectiveMaterialization({
+      items: [
+        wrRec(statement, {
+          relationKind: "CONTRADICTORY",
+          relatedRecommendationRef: openId,
+          trackingRationale:
+            "Contradiction candidate sur l'ordre de priorité suivi/planification.",
+        }),
+      ],
+      existingItems: after0,
+      cycleInstanceId: cycleId,
+      trajectoryDecisionSupportState: "NONE",
+      openWorkRecommendationsCoverage: "COMPLETE",
+    });
+    const factsA = await materializeFacts(
+      s.oa,
+      s.projectId,
+      cycleId,
+      turnCorrelationId,
+    );
+    const matA = await materializeActiveCycleWork({
+      ...acwMaterializeInput(s.oa, factsA, filterA.items),
+      itemSourceIndexes: filterA.sourceIndexes,
+    });
+    expect(matA.ok).toBe(true);
+    if (!matA.ok) throw new Error(matA.reason);
+
+    // Same logical turn identity (same statement/index/turn) but NEW instead of CONTRADICTORY.
+    const factsB = await materializeFacts(
+      s.oa,
+      s.projectId,
+      cycleId,
+      turnCorrelationId,
+    );
+    const matB = await materializeActiveCycleWork({
+      ...acwMaterializeInput(s.oa, factsB, [
+        wrRec(statement, { relationKind: "NEW" }),
+      ]),
+      itemSourceIndexes: filterA.sourceIndexes,
+    });
+    expect(matB.ok).toBe(false);
+    if (matB.ok) throw new Error("expected idem conflict");
+    expect(matB.code).toBe("ACTIVE_CYCLE_WORK_IDEM_CONFLICT");
+  });
+});
+
+/**
+ * P6-HQA-02 REC-01 minimal stabilization — historical replay after target disposition.
+ * New mint requires applicable target; replay of persisted identity must not.
+ */
+describe("P6-HQA-02 REC-01 historical replay after target status change", () => {
+  function wrRec(
+    statement: string,
+    opts: {
+      relationKind?: NoraActiveCycleWorkItem["relationKind"];
+      relatedRecommendationRef?: string | null;
+      trackingRationale?: string;
+    } = {},
+  ): NoraActiveCycleWorkItem {
+    return {
+      type: "Recommendation",
+      statement,
+      confidence: "medium",
+      blocking: null,
+      recommendedOptionRef: null,
+      trackingRationale:
+        opts.trackingRationale ??
+        "Orientation de travail distincte nécessitant un suivi propre hors tour.",
+      relationKind: opts.relationKind ?? "NEW",
+      relatedRecommendationRef: opts.relatedRecommendationRef ?? null,
+    };
+  }
+
+  it("replay same logical turn succeeds after CONTRADICTORY target is superseded", async () => {
+    const s = await seedStarted("rec01-replay-supersede");
+    const cycleId = s.cycle.cycleInstanceId;
+
+    const mat1 = await materializeActiveCycleWork({
+      ...acwMaterializeInput(
+        s.oa,
+        await materializeFacts(
+          s.oa,
+          s.projectId,
+          cycleId,
+          "turn:logical:rec01-replay-001",
+        ),
+        [wrRec("Prioriser l'analyse du suivi d'avancement avant la planification.")],
+      ),
+      itemSourceIndexes: [0],
+    });
+    expect(mat1.ok).toBe(true);
+    if (!mat1.ok) throw new Error(mat1.reason);
+    const targetId = mat1.createdIds[0]!;
+
+    const statement =
+      "Prioriser la planification avant le suivi d'avancement.";
+    const turnCorrelationId = "turn:logical:rec01-replay-002";
+    const after1 = await s.oa.cycleServices.epistemic.listByProject(s.projectId);
+    const filter2 = filterActiveCycleWorkItemsForProspectiveMaterialization({
+      items: [
+        wrRec(statement, {
+          relationKind: "CONTRADICTORY",
+          relatedRecommendationRef: targetId,
+          trackingRationale:
+            "Contradiction candidate sur l'ordre de priorité suivi/planification.",
+        }),
+      ],
+      existingItems: after1,
+      cycleInstanceId: cycleId,
+      trajectoryDecisionSupportState: "NONE",
+      openWorkRecommendationsCoverage: "COMPLETE",
+    });
+    const mat2 = await materializeActiveCycleWork({
+      ...acwMaterializeInput(
+        s.oa,
+        await materializeFacts(s.oa, s.projectId, cycleId, turnCorrelationId),
+        filter2.items,
+      ),
+      itemSourceIndexes: filter2.sourceIndexes,
+    });
+    expect(mat2.ok).toBe(true);
+    if (!mat2.ok) throw new Error(mat2.reason);
+    const sourceId = mat2.createdIds[0]!;
+    const before = await s.oa.cycleServices.epistemic.findById(sourceId);
+    expect(before?.workRecommendationRelation?.kind).toBe("CONTRADICTORY");
+
+    // Mark target superseded (historical context change — not via ACW writer).
+    await s.oa.cycleServices.epistemic.markSuperseded(targetId);
+    const targetAfter = await s.oa.cycleServices.epistemic.findById(targetId);
+    expect(targetAfter?.status).toBe("superseded");
+
+    // Replay same logical turn / same payload — must reuse, not fail relation gate.
+    const afterSupersede = await s.oa.cycleServices.epistemic.listByProject(
+      s.projectId,
+    );
+    const replayFilter = filterActiveCycleWorkItemsForProspectiveMaterialization({
+      items: [
+        wrRec(statement, {
+          relationKind: "CONTRADICTORY",
+          relatedRecommendationRef: targetId,
+          trackingRationale:
+            "Contradiction candidate sur l'ordre de priorité suivi/planification.",
+        }),
+      ],
+      existingItems: afterSupersede,
+      cycleInstanceId: cycleId,
+      trajectoryDecisionSupportState: "NONE",
+      openWorkRecommendationsCoverage: "COMPLETE",
+    });
+    // Exact statement already open → filter may suppress; force writer replay path
+    // with the original sourceIndexes if filter empties.
+    const replayItems =
+      replayFilter.items.length > 0
+        ? replayFilter.items
+        : [
+            wrRec(statement, {
+              relationKind: "CONTRADICTORY",
+              relatedRecommendationRef: targetId,
+              trackingRationale:
+                "Contradiction candidate sur l'ordre de priorité suivi/planification.",
+            }),
+          ];
+    const replayIndexes =
+      replayFilter.items.length > 0 ? replayFilter.sourceIndexes : [0];
+
+    const matReplay = await materializeActiveCycleWork({
+      ...acwMaterializeInput(
+        s.oa,
+        await materializeFacts(s.oa, s.projectId, cycleId, turnCorrelationId),
+        replayItems,
+      ),
+      itemSourceIndexes: replayIndexes,
+    });
+    expect(matReplay.ok).toBe(true);
+    if (!matReplay.ok) throw new Error(`${matReplay.code}:${matReplay.reason}`);
+    expect(matReplay.idempotent || matReplay.reusedIds.includes(sourceId)).toBe(
+      true,
+    );
+    expect(matReplay.createdIds).not.toContain(sourceId);
+
+    const afterReplay = await s.oa.cycleServices.epistemic.findById(sourceId);
+    expect(afterReplay?.workRecommendationRelation).toEqual(
+      before?.workRecommendationRelation,
+    );
+    expect(afterReplay?.status).toBe("active");
+    expect(afterReplay?.supersedes).toBeUndefined();
+  });
+
+  it("new CONTRADICTORY mint still fails when target is already superseded", async () => {
+    const s = await seedStarted("rec01-replay-new-stale");
+    const cycleId = s.cycle.cycleInstanceId;
+    const mat1 = await materializeActiveCycleWork({
+      ...acwMaterializeInput(
+        s.oa,
+        await materializeFacts(
+          s.oa,
+          s.projectId,
+          cycleId,
+          "turn:logical:rec01-new-stale-001",
+        ),
+        [wrRec("Prioriser l'analyse du suivi d'avancement avant la planification.")],
+      ),
+      itemSourceIndexes: [0],
+    });
+    expect(mat1.ok).toBe(true);
+    if (!mat1.ok) throw new Error(mat1.reason);
+    const targetId = mat1.createdIds[0]!;
+    await s.oa.cycleServices.epistemic.markSuperseded(targetId);
+
+    const mat2 = await materializeActiveCycleWork({
+      ...acwMaterializeInput(
+        s.oa,
+        await materializeFacts(
+          s.oa,
+          s.projectId,
+          cycleId,
+          "turn:logical:rec01-new-stale-002",
+        ),
+        [
+          wrRec("Prioriser la planification avant le suivi d'avancement.", {
+            relationKind: "CONTRADICTORY",
+            relatedRecommendationRef: targetId,
+            trackingRationale:
+              "Contradiction candidate sur l'ordre de priorité suivi/planification.",
+          }),
+        ],
+      ),
+      itemSourceIndexes: [0],
+    });
+    expect(mat2.ok).toBe(false);
+    if (mat2.ok) throw new Error("expected relation invalid");
+    expect(mat2.code).toBe("ACTIVE_CYCLE_WORK_RELATION_INVALID");
   });
 });

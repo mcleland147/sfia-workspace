@@ -326,6 +326,23 @@ export type EpistemicLifecycleRecommendation = {
   qualificationSignals?: ExplicitCycleQualificationSignals;
 };
 
+/**
+ * P6-HQA-02 REC-01 Option A — optional typed Work Recommendation relation.
+ * Persisted on the source Recommendation EpistemicItem (payload_json).
+ * Absent on historical / non-WR items. CURRENT/STALE never stored here.
+ * Candidate Nora judgment admitted by Studio — never Pilot HumanDecision.
+ */
+export type EpistemicWorkRecommendationRelationKind =
+  | "CONTRADICTORY"
+  | "DISTINCT_RELATED";
+
+export type EpistemicWorkRecommendationRelation = {
+  kind: EpistemicWorkRecommendationRelationKind;
+  targetEpistemicItemId: string;
+  judgmentOrigin: "nora_structured_candidate";
+  authority: "none";
+};
+
 export type EpistemicItem = {
   schemaVersion: "0.1.0-oa";
   epistemicItemId: string;
@@ -352,6 +369,11 @@ export type EpistemicItem = {
    * Absent on legacy MealFlow / pre-metadata Reservations.
    */
   reservation?: import("./reservationSemantics").EpistemicReservationMetadata;
+  /**
+   * P6-HQA-02 REC-01 Option A — optional typed WR–WR relation on source item.
+   * Work Recommendations (ACW) only. Absent on legacy / non-WR items.
+   */
+  workRecommendationRelation?: EpistemicWorkRecommendationRelation;
 };
 
 export type CkcResolution = {
@@ -479,6 +501,7 @@ export type UpdateEpistemicStateRequest = {
     provenance?: ProvenanceRecord;
     lifecycleRecommendation?: EpistemicLifecycleRecommendation;
     reservation?: import("./reservationSemantics").EpistemicReservationMetadata;
+    workRecommendationRelation?: EpistemicWorkRecommendationRelation;
     /**
      * Forbidden auto-promotion signal — if true and type is DecisionRef
      * while superseding a Hypothesis, refused.

@@ -63,6 +63,7 @@ import {
   materializeActiveCycleWork,
   validateActiveCycleRecommendationAgainstDecisionSupport,
 } from "./materializeActiveCycleWork";
+import { filterActiveCycleWorkItemsForProspectiveMaterialization } from "@/lib/oa/cycle/application/qualifyProspectiveWorkRecommendationMaterialization";
 import {
   materializeReservationDelta,
   stripActiveCycleWorkReservationsWhenDeltaPresent,
@@ -901,14 +902,53 @@ export async function orchestrateProjectAssistantTurn(input: {
           let existingItems: Awaited<
             ReturnType<typeof oa.cycleServices.epistemic.listByProject>
           > = [];
+          // Fail-closed: inability to load open Recommendations is not proof
+          // that none exist — suppress new Work Recommendations in that case.
+          let openRecommendationsContextAvailable = true;
           try {
             existingItems = await oa.cycleServices.epistemic.listByProject(
               project.projectId,
             );
           } catch {
             existingItems = [];
+            openRecommendationsContextAvailable = false;
           }
 
+          // P6-HQA-02 / REC-01 — prospective Work Recommendation gate (server).
+          // Ordinary conversational suggestions stay in conversationGuidance;
+          // only justified durable Recommendations mint EpistemicItems.
+          // Historical Recommendations are never mutated here.
+          // Source indexes are preserved so filtered replays keep ACW identities.
+          const tdsStateForWork =
+            studio.trajectoryDecisionSupport?.state === "PRESENT"
+              ? "PRESENT"
+              : studio.trajectoryDecisionSupport?.state === "UNAVAILABLE"
+                ? "UNAVAILABLE"
+                : "NONE";
+          // REC-B-02: Nora projection coverage is authoritative for novelty claims.
+          // Product reader available ≠ COMPLETE. PARTIAL/UNAVAILABLE ⇒ no new WR mint.
+          const openWorkRecommendationsCoverage =
+            !openRecommendationsContextAvailable
+              ? ("UNAVAILABLE" as const)
+              : (studio.workRecommendationsContext?.coverage ??
+                ("UNAVAILABLE" as const));
+          const prospective = filterActiveCycleWorkItemsForProspectiveMaterialization(
+            {
+              items: acwItems,
+              conversationGuidanceStatement:
+                coherent?.conversationGuidance?.statement ?? null,
+              existingItems,
+              cycleInstanceId: activeCycleId,
+              trajectoryDecisionSupportState: tdsStateForWork,
+              openRecommendationsContextAvailable,
+              openWorkRecommendationsCoverage,
+            },
+          );
+          const itemsToMaterialize = prospective.items;
+          if (itemsToMaterialize.length === 0) {
+            // All ACW items suppressed or Recommendations-only stripped —
+            // continue the Product turn without durable ACW writes.
+          } else {
           // Production key = durable logical turn id (no random f1-acw keys).
           const turnCorrelationId = logicalTurnId!;
           const producedAt = new Date().toISOString();
@@ -918,7 +958,8 @@ export async function orchestrateProjectAssistantTurn(input: {
             input.beforeDurableEffect,
           );
           const mat = await materializeActiveCycleWork({
-            items: acwItems,
+            items: itemsToMaterialize,
+            itemSourceIndexes: prospective.sourceIndexes,
             facts: {
               projectId: project.projectId,
               activeCycleInstanceId: activeCycleId,
@@ -961,6 +1002,7 @@ export async function orchestrateProjectAssistantTurn(input: {
               logicalTurnId,
             };
           }
+          } // end itemsToMaterialize.length > 0
         }
       }
 
@@ -1081,7 +1123,7 @@ export async function orchestrateProjectAssistantTurn(input: {
           }
 
           let trajectory = null;
-          let trajectoryBootstrapPresence = await resolveTrajectoryBootstrapPresence(
+          const trajectoryBootstrapPresence = await resolveTrajectoryBootstrapPresence(
             oa.cycleServices.trajectories,
             project.projectId,
           );
