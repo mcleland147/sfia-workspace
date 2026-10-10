@@ -1,132 +1,199 @@
 # SFIA Review Pack — FULL
-# P6-HQA-01 / COG-01 — Requalification et correction ciblée
-# Targeted Local Correction (template v2.6 §7.5)
+# P6-HQA-01 — Git Integration / Draft PR #575
+# Cycle 13 — PR readiness (template v2.6 §7.5)
 
 ## Meta
-- Date / heure : **2026-10-10 14:09:53 CEST** (Europe/Paris)
+- Date / heure : **2026-10-10 14:36:46 CEST** (Europe/Paris)
 - Macro : STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01
 - Campagne : P6-GLOBAL-INTEGRATED-PRODUCT-QA-01
-- Lot : **P6-HQA-01** — sous-passe **COG-01**
+- Lot : **P6-HQA-01** — Conversation, Recommendations & Journal Continuity
 - Milestone : P6 — Global Integrated Product QA
-- Phase : 5 — Human QA / Targeted Corrections
-- Cycle projet : **8 — Delivery / implémentation**
+- Cycle projet : **13 — PR readiness / Git Integration**
 - Profil : **Standard**
 - Typologie : EVOL corrective bornée
-- Capacité v3 primaire : **V3-F05** (préserve V3-F02 / V3-F04 / V3-F14)
-- GO Morris : **AUTHORIZED — TARGETED LOCAL CORRECTION** (allowlist étendue `noraProductTurnOutputType.ts`)
-- Commit / push / PR / merge projet : **NON**
+- Capacités v3 : V3-F05, V3-F04, V3-F02, V3-F14
+- GO Morris : commit / push / Draft PR / CI **AUTHORIZED** ; merge **NON**
 - P6 GLOBAL PASS : **NO**
 - Runtime v3 ADOPTED : **NO**
-- PR READY : **NO**
+- READY FOR MERGE : **NO**
 - Synthesis only : **no**
-- Handoff précédent supersédé : `efba65eb8db1bfe4aaec09339617cdf4c3993976` (lot HQA-01 initial ; COG-01 alors partiel)
+- Prior handoffs supersédés pour ce cycle : `efba65eb` (HQA local), `30cd9152` (COG-01 local)
 
 ---
 
-## 1. Local Git Truth Check
+## 1. Local Git Truth Check (pré-intégration)
 
 | Check | Result |
 |-------|--------|
-| Workspace | `/Users/morris/Projects/sfia-workspace` |
-| Remote | `origin` → `mcleland147/sfia-workspace` |
-| Branche | `qa/sfia-studio-p6-global-integrated-product-qa` |
-| HEAD | `980064c05f1769f00d0ef85ef5284a899c6a0d73` |
+| Workspace historique | `/Users/morris/Projects/sfia-workspace` |
+| Branche historique | `qa/sfia-studio-p6-global-integrated-product-qa` @ `980064c0` |
 | `origin/main` | `73cc58b38a55f80b0a7eabdf9337f9f6e35577a3` |
-| Ancestry | HEAD parent tip de merge PR #574 ; tip main = merge `73cc58b3` |
-| Staged | **vide** |
-| Collision | **NON** — corrections HQA-01 antérieures + C14 / tmp / p6-campaign **préservés** |
-| Fichiers Product touchés cette passe | **uniquement** les 2 chemins autorisés |
+| Staged historique | vide |
+| Collision | **NON** — C14 / tmp / p6-campaign / C14 reserves préservés |
+| Branche corrective préexistante | **absente** (local + remote) |
 
-### `git status --short` (état final attendu, hors pack)
+---
+
+## 2. Sources
+
+Gouvernance Build Doctrine / Roadmap / C1 ; doctrine 30/33 ; Product Simplification 02/03/04/06/07 ; routing + template v2.6 ; Review Handoff COG-01 `30cd9152`.
+
+CKC Cycle 13 : fallback synthétique autorisé (pas de CKC détaillé inventé).
+
+Convergence : Build Doctrine ACTIVE ON MAIN ; P6 applicable ; Nora compositeur ADAPT ; ConversationSurface/JournalSurface ADAPT ; nouveau moteur NONE.
+
+---
+
+## 3. Stratégie Git réellement utilisée
+
+1. Préserver workspace historique intact (`980064c0` + modifications locales).
+2. Créer worktree dédié depuis `origin/main` :
+   - path : `/Users/morris/Projects/sfia-workspace-p6-hqa-01`
+   - branche : `fix/studio-p6-hqa-01-conversation-recommendations`
+   - base : `73cc58b3` (merge #574)
+3. Patch Git limité aux 6 fichiers suivis (`git apply --check` puis apply).
+4. Copie séparée du nouveau test REC-03.
+5. Vérification `cmp` identité contenu historique ↔ worktree (7/7 OK).
+6. Aucun cherry-pick #574, aucun rebase, aucune mutation de la branche QA.
+
+---
+
+## 4. Commit projet
+
+| Item | Value |
+|------|-------|
+| Message | `fix(studio): address P6 Human QA conversation and recommendation issues` |
+| SHA | `8f61da8fb3f2e77d698fa94a123971be57d8ff9d` |
+| Fichiers | **7** (allowlist exacte) |
+| Base | `origin/main` `73cc58b3` |
+| Ahead of main | **1** commit only |
+
+### `git diff --name-status origin/main...HEAD`
 
 ```
- M .tmp-sfia-review/chatgpt-review.md
- M projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.ux.recommendationContinuity.ui.test.tsx
- M projects/sfia-studio/app/__tests__/project-assistant/noraConversationalInitiative.d0.test.ts
- M projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
- M projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/JournalSurface.tsx
- M projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts
- M projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts
- M projects/sfia-studio/product-simplification/p6-qa-integration-state-and-reserves.md
-?? projects/.tmp-sfia-review/
-?? projects/sfia-studio/app/__tests__/p6-campaign/
-?? projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.hqa.rec03.journalRecommendationLabel.ui.test.tsx
+A	projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.hqa.rec03.journalRecommendationLabel.ui.test.tsx
+M	projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.ux.recommendationContinuity.ui.test.tsx
+M	projects/sfia-studio/app/__tests__/project-assistant/noraConversationalInitiative.d0.test.ts
+M	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
+M	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/JournalSurface.tsx
+M	projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts
+M	projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts
 ```
 
-### Diff stat (fichiers autorisés cette passe)
+### Diff stat
 
 ```
- .../noraConversationalInitiative.d0.test.ts        | 108 +++++++++++
- .../noraProductTurnOutputType.ts                   | 212 ++++++++++++++++++++-
- 2 files changed, 319 insertions(+), 1 deletion(-)
+ 7 files changed, 391 insertions(+), 10 deletions(-)
+```
+
+Aucun fichier #574 hors périmètre ; C14/tmp/p6-campaign **exclus**.
+
+Correction typecheck locale (allowlist) : props Journal requises ajoutées au test REC-03 avant commit (`cycleInstanceId`, `selectedEntryId`, handlers).
+
+---
+
+## 5. Push + Draft PR
+
+| Item | Value |
+|------|-------|
+| Push | `origin/fix/studio-p6-hqa-01-conversation-recommendations` @ `8f61da8fb3f2e77d698fa94a123971be57d8ff9d` |
+| PR | **#575** DRAFT |
+| URL | https://github.com/mcleland147/sfia-workspace/pull/575 |
+| Base | `main` |
+| Head | `fix/studio-p6-hqa-01-conversation-recommendations` |
+| Merge | **NOT AUTHORIZED** |
+
+---
+
+## 6. CI GitHub — SUCCESS
+
+Workflow : **SFIA Studio CI**
+Run : https://github.com/mcleland147/sfia-workspace/actions/runs/38052033300
+
+| Job | ID | Conclusion |
+|-----|-----|------------|
+| Detect SFIA Studio changes | 114212935567 | SUCCESS |
+| Build and validate SFIA Studio | 114212964336 | SUCCESS (~7m50s) |
+| SFIA Studio Required Gate | 114214373394 | SUCCESS |
+
+Jobs Build : Typecheck, Lint, Build, Unit tests (Vitest), Modeled governance, Secret scan, Trailing whitespace — all PASS.
+
+---
+
+## 7. Validations locales (worktree correctif)
+
+| Check | Result |
+|-------|--------|
+| NCI + COG-01 | **28 PASS** |
+| UX Recommendation Continuity | **6 PASS** |
+| REC-03 Journal label | **1 PASS** |
+| Total ciblé | **35 PASS** |
+| `npm run typecheck` | **PASS** |
+| ESLint allowlist | **0 errors** (2 warnings unused imports préexistants NCI) |
+| `git diff --check` | **PASS** |
+
+Fake/Real : **DETERMINISTIC PROVEN AT TESTED SCOPE**. Pas de REAL supplémentaire.
+
+UX/Figma : changements de contenu uniquement ; conformité Figma forte **non revendiquée** (réserve).
+
+---
+
+## 8. Fichier créé — contenu complet
+
+`projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.hqa.rec03.journalRecommendationLabel.ui.test.tsx`
+
+```tsx
+/**
+ * P6-HQA REC-03 — Journal Work Recommendation status label honesty.
+ * @vitest-environment jsdom
+ */
+import { describe, expect, it } from "vitest";
+import { render, screen } from "@testing-library/react";
+import { JournalSurface } from "@/features/pre-m6-product-ui/surfaces/JournalSurface";
+
+describe("P6-HQA REC-03 Journal recommendation label", () => {
+  it("active undipositioned Work Recommendation is « À examiner », not unanswered-chat wording", () => {
+    render(
+      <JournalSurface
+        entries={[]}
+        cycleInstanceId="cycinst:test"
+        selectedEntryId={null}
+        onSelectEntry={() => {}}
+        onViewExchanges={() => {}}
+        onFocusTurn={() => {}}
+        recommendations={[
+          {
+            epistemicItemId: "epi:acw:rec03",
+            statement: "Clarifier les responsabilités de suivi",
+            status: "active",
+            source: "active-cycle-work:nora",
+            optionSetRef: null,
+            proposalId: null,
+            cycleInstanceId: "cycinst:test",
+            createdAt: "2026-10-10T10:00:00.000Z",
+            dispositionDecisionId: null,
+            workRecommendationEpistemicItemId: "epi:acw:rec03",
+          },
+        ]}
+        decisions={[]}
+        reservations={[]}
+        memoryTab="recommandations"
+      />,
+    );
+    expect(screen.queryByText(/en attente de votre réponse/i)).toBeNull();
+    expect(screen.getAllByText(/À examiner/i).length).toBeGreaterThanOrEqual(1);
+    expect(
+      screen.getByText("Clarifier les responsabilités de suivi"),
+    ).toBeTruthy();
+  });
+});
 ```
 
 ---
 
-## 2. Sources consultées
+## 9. Sections Product modifiées (extraits complets utiles)
 
-Gouvernance / roadmap / C1 (lecture) ; Product Simplification 02/04/07 ; doctrine v3 30/33 ; routing + template v2.6 ; code :
-- `noraProductTurnOutputType.ts` (modifiable)
-- `noraConversationalInitiative.d0.test.ts` (modifiable)
-- `buildProjectSystemPrompt.ts` (**lecture seule**)
-
-Convergence pre-check : Build Doctrine ACTIVE ON MAIN ; P6 Human QA IN PROGRESS ; moteur Nora KEEP ; compositeur ADAPT ; tests COMPLETE ; nouveau moteur INTERDIT.
-
----
-
-## 3. Reproduction avant correction
-
-### Cause démontrée
-
-`narrativeAlreadyCarriesGuidanceContinuation` (premier correctif) n’entrait dans le chemin de similarité **que** si `CONTINUATION_INVITE_RE` matchait narrative **et** statement.
-
-Les formulations Human QA (**raconte-moi / Décrivons / correspond-il / était-ce**) ne matchaient **pas** ce regex → overlap jamais évalué → `composePilotFacingAssistantText` **append** le `conversationGuidance.statement` → double invitation.
-
-Probe déterministe pré-fix :
-
-```
-retard → false  (inviteN=false, inviteS=false)
-huit   → false  (inviteN=false, inviteS=false)
-```
-
-### Tests de reproduction (ajoutés, exécutés sur code insuffisant)
-
-Commande :
-
-```
-cd projects/sfia-studio/app && npx vitest run __tests__/project-assistant/noraConversationalInitiative.d0.test.ts -t "COG-01 — Human QA"
-```
-
-Résultat **avant** correction :
-
-```
-FAIL  COG-01 — Human QA retard/responsabilité paraphrase is not stacked
-  expected pilot not to contain guidanceInvite — guidance was appended
-FAIL  COG-01 — Human QA entreprise de huit personnes paraphrase is not stacked
-  expected pilot not to contain guidanceInvite — guidance was appended
-Tests  2 failed | 24 skipped
-```
-
-Preuve : les deux défauts Human QA sont **reproduits** sur le chemin réel `composePilotFacingAssistantText`.
-
----
-
-## 4. Correction minimale
-
-Fichier : `projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts`
-
-Changements (composition seulement — pas de modèle / routing / persistence) :
-
-1. Élargir les cues d’invitation FR (impératifs, `correspond-il`, `était-ce`, trailing `?`).
-2. Extraire les **closing ask candidates** du dernier paragraphe.
-3. Comparer payload (après `:`) + contenu tokenisé avec Jaccard / containment (`inter >= 3` et `jaccard ≥ 0.45` ou `containment ≥ 0.55`).
-4. Exiger que **les deux côtés** soient des asks conversationnels (anti-surfiltrage du corps narratif).
-
-OpenAI Capability Fit : **aucune** nouvelle primitive ; composition locale uniquement.
-
----
-
-## 5. Code modifié — helpers + compose (contenu complet courant)
+### 9.1 COG-01 helpers + compose (`noraProductTurnOutputType.ts`)
 
 ```typescript
 /** Normalize Pilot-facing prose for near-duplicate continuation detection. */
@@ -372,9 +439,7 @@ export function composePilotFacingAssistantText(
 }
 ```
 
----
-
-## 6. Tests COG-01 (bloc complet courant)
+### 9.2 COG-01 tests (bloc)
 
 ```typescript
   it("COG-01 — near-duplicate closing invite is not stacked twice", () => {
@@ -486,13 +551,429 @@ export function composePilotFacingAssistantText(
   });
 ```
 
----
+### 9.3 REC-03 Journal label
 
-## 7. Diffs utiles (vs HEAD `980064c05f17`)
+```typescript
+function recommendationCurrentnessLabel(card: JournalRecommendationCard): string {
+  if (card.status === "resolved") return "Traitée";
+  if (card.status === "rejected") return "Écartée";
+  if (card.status === "superseded") return "Remplacée";
+  if (card.dispositionDecisionId) return "Dispositionnée";
+  // REC-03 — active ≠ « unanswered chat ». Align with Conversation « À examiner »:
+  // durable status without disposition; discussion alone does not dispose.
+  return "À examiner";
+}
 
-### Product (`noraProductTurnOutputType.ts`)
+/** A Work Recommendation still awaiting an explicit Pilot disposition. */
+```
+
+### 9.4 ConversationSurface (diff commit)
 
 ```diff
+commit 8f61da8fb3f2e77d698fa94a123971be57d8ff9d
+Author: Morris Cleland <morris@macbook-air.home>
+Date:   Sat Oct 10 14:27:25 2026 +0200
+
+    fix(studio): address P6 Human QA conversation and recommendation issues
+
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
+diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
+index 1c1f8e68..efff6c9c 100644
+--- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
++++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
+@@ -1793,7 +1793,9 @@ export function ConversationSurface({
+                   >
+                     <div className={styles.p3CardHead}>
+                       <div className={styles.p3CardBody}>
+-                        <p className={styles.p3CardEyebrow}>Recommandation</p>
++                        <p className={styles.p3CardEyebrow}>
++                          Recommandation active du cycle
++                        </p>
+                         <p
+                           className={styles.p3CardTitle}
+                           data-testid="durable-recommendation-label"
+@@ -1801,7 +1803,8 @@ export function ConversationSurface({
+                           {card.statement}
+                         </p>
+                         <p className={styles.p3CardStamp}>
+-                          RECOMMANDATION — PAS UNE DÉCISION
++                          RECOMMANDATION DURABLE — PAS UNE DÉCISION · PAS LIÉE
++                          UNIQUEMENT À CE TOUR
+                         </p>
+                       </div>
+                       <div className={styles.p3CardRight}>
+@@ -1837,10 +1840,8 @@ export function ConversationSurface({
+                         data-testid="durable-recommendation-details"
+                       >
+                         <dl className={styles.facts}>
+-                          <div className={styles.factWide}>
+-                            <dt>Proposition</dt>
+-                            <dd>{card.statement}</dd>
+-                          </div>
++                          {/* UX-REC-01 — do not repeat card.statement under
++                              « Proposition »; title already shows it once. */}
+                           <div className={styles.factWide}>
+                             <dt>Statut</dt>
+                             <dd data-testid="durable-recommendation-materiality">
+@@ -1850,7 +1851,9 @@ export function ConversationSurface({
+                               une décision. Vous pouvez l&apos;examiner, en
+                               discuter, ou la laisser en suspens. Une décision
+                               structurelle reste requise seulement lorsque le
+-                              sujet l&apos;exige vraiment.
++                              sujet l&apos;exige vraiment. Les recommandations
++                              actives restent listées dans Journal ›
++                              Recommandations.
+                             </dd>
+                           </div>
+                         </dl>
+```
+
+### 9.5 buildProjectSystemPrompt (diff commit)
+
+```diff
+commit 8f61da8fb3f2e77d698fa94a123971be57d8ff9d
+Author: Morris Cleland <morris@macbook-air.home>
+Date:   Sat Oct 10 14:27:25 2026 +0200
+
+    fix(studio): address P6 Human QA conversation and recommendation issues
+
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
+diff --git a/projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts b/projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts
+index 177a9ffc..ea46da10 100644
+--- a/projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts
++++ b/projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts
+@@ -215,6 +215,9 @@ export function buildProjectSystemPrompt(
+     "  → RECOMMEND_NEXT_STEP + LIFECYCLE_TRANSITION.",
+     "- Cognitive Stop → HOLD + BLOCKER_RESOLUTION (outranks transition / réutilisation).",
+     "UNE seule continuation principale par défaut. Pas de liste générique de cinq idées.",
++    "COG-01 — Si la narrative se termine déjà par une invitation ou question de suite,",
++    "ne reformule PAS une seconde question distincte dans conversationGuidance.statement ;",
++    "réutilise la même formulation (ou laisse statement redondant volontairement).",
+     "Ne demande pas confirmation pour des détails non matériels.",
+     "Avance sous Hypothesis explicite lorsque la doctrine actuelle l'autorise.",
+     "Ne propose JAMAIS Cursor / Execution comme initiative autonome.",
+```
+
+### 9.6 UX continuity test (diff commit)
+
+```diff
+commit 8f61da8fb3f2e77d698fa94a123971be57d8ff9d
+Author: Morris Cleland <morris@macbook-air.home>
+Date:   Sat Oct 10 14:27:25 2026 +0200
+
+    fix(studio): address P6 Human QA conversation and recommendation issues
+
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
+diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.ux.recommendationContinuity.ui.test.tsx b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.ux.recommendationContinuity.ui.test.tsx
+index e80185ed..458ecea6 100644
+--- a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.ux.recommendationContinuity.ui.test.tsx
++++ b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.ux.recommendationContinuity.ui.test.tsx
+@@ -129,6 +129,17 @@ describe("P6 UX Recommendation Continuity + FIX-01/02/03", () => {
+     ).textContent;
+     expect(materiality).toMatch(/n'est pas automatiquement une décision/i);
+     expect(materiality).not.toMatch(/opérationnelle/i);
++    // UX-REC-01 — statement shown once in title; not repeated under Proposition.
++    expect(screen.queryByText("Proposition")).toBeNull();
++    const statementHits = screen.getAllByText(
++      /Commencer par recueillir des exemples concrets de difficultés vécues/,
++    );
++    expect(statementHits).toHaveLength(1);
++    // REC-02 — durable cycle card, not implied as this-turn-only answer.
++    expect(screen.getByText(/Recommandation active du cycle/i)).toBeTruthy();
++    expect(
++      screen.getByText(/PAS LIÉE\s+UNIQUEMENT À CE TOUR/i),
++    ).toBeTruthy();
+     fireEvent.click(screen.getByTestId("conversation-discuss-recommendation"));
+     expect(onDiscuss).toHaveBeenCalledWith("epi:acw:ux02");
+   });
+```
+
+---
+
+## 10. Patch commit complet (`git show 8f61da8fb3f2e77d698fa94a123971be57d8ff9d`)
+
+```diff
+diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.hqa.rec03.journalRecommendationLabel.ui.test.tsx b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.hqa.rec03.journalRecommendationLabel.ui.test.tsx
+new file mode 100644
+index 00000000..bd0144ad
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.hqa.rec03.journalRecommendationLabel.ui.test.tsx
+@@ -0,0 +1,44 @@
++/**
++ * P6-HQA REC-03 — Journal Work Recommendation status label honesty.
++ * @vitest-environment jsdom
++ */
++import { describe, expect, it } from "vitest";
++import { render, screen } from "@testing-library/react";
++import { JournalSurface } from "@/features/pre-m6-product-ui/surfaces/JournalSurface";
++
++describe("P6-HQA REC-03 Journal recommendation label", () => {
++  it("active undipositioned Work Recommendation is « À examiner », not unanswered-chat wording", () => {
++    render(
++      <JournalSurface
++        entries={[]}
++        cycleInstanceId="cycinst:test"
++        selectedEntryId={null}
++        onSelectEntry={() => {}}
++        onViewExchanges={() => {}}
++        onFocusTurn={() => {}}
++        recommendations={[
++          {
++            epistemicItemId: "epi:acw:rec03",
++            statement: "Clarifier les responsabilités de suivi",
++            status: "active",
++            source: "active-cycle-work:nora",
++            optionSetRef: null,
++            proposalId: null,
++            cycleInstanceId: "cycinst:test",
++            createdAt: "2026-10-10T10:00:00.000Z",
++            dispositionDecisionId: null,
++            workRecommendationEpistemicItemId: "epi:acw:rec03",
++          },
++        ]}
++        decisions={[]}
++        reservations={[]}
++        memoryTab="recommandations"
++      />,
++    );
++    expect(screen.queryByText(/en attente de votre réponse/i)).toBeNull();
++    expect(screen.getAllByText(/À examiner/i).length).toBeGreaterThanOrEqual(1);
++    expect(
++      screen.getByText("Clarifier les responsabilités de suivi"),
++    ).toBeTruthy();
++  });
++});
+diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.ux.recommendationContinuity.ui.test.tsx b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.ux.recommendationContinuity.ui.test.tsx
+index e80185ed..458ecea6 100644
+--- a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.ux.recommendationContinuity.ui.test.tsx
++++ b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.ux.recommendationContinuity.ui.test.tsx
+@@ -129,6 +129,17 @@ describe("P6 UX Recommendation Continuity + FIX-01/02/03", () => {
+     ).textContent;
+     expect(materiality).toMatch(/n'est pas automatiquement une décision/i);
+     expect(materiality).not.toMatch(/opérationnelle/i);
++    // UX-REC-01 — statement shown once in title; not repeated under Proposition.
++    expect(screen.queryByText("Proposition")).toBeNull();
++    const statementHits = screen.getAllByText(
++      /Commencer par recueillir des exemples concrets de difficultés vécues/,
++    );
++    expect(statementHits).toHaveLength(1);
++    // REC-02 — durable cycle card, not implied as this-turn-only answer.
++    expect(screen.getByText(/Recommandation active du cycle/i)).toBeTruthy();
++    expect(
++      screen.getByText(/PAS LIÉE\s+UNIQUEMENT À CE TOUR/i),
++    ).toBeTruthy();
+     fireEvent.click(screen.getByTestId("conversation-discuss-recommendation"));
+     expect(onDiscuss).toHaveBeenCalledWith("epi:acw:ux02");
+   });
+diff --git a/projects/sfia-studio/app/__tests__/project-assistant/noraConversationalInitiative.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/noraConversationalInitiative.d0.test.ts
+index 93d51614..a7b7900b 100644
+--- a/projects/sfia-studio/app/__tests__/project-assistant/noraConversationalInitiative.d0.test.ts
++++ b/projects/sfia-studio/app/__tests__/project-assistant/noraConversationalInitiative.d0.test.ts
+@@ -281,6 +281,114 @@ describe("NORA-CONVERSATIONAL-INITIATIVE-01 (deterministic)", () => {
+     expect(pilot).not.toMatch(/PROCHAINE ÉTAPE\s*:/i);
+   });
+
++  it("COG-01 — near-duplicate closing invite is not stacked twice", () => {
++    const narrative =
++      "Le besoin est clair. Souhaitez-vous que l'on commence par les responsabilités et les retards ?";
++    const g = guidance(
++      "ASK_CLARIFICATION",
++      "ACTIVE_CYCLE",
++      "Souhaitez-vous commencer par les responsabilités et les retards ?",
++      null,
++    );
++    const pilot = composePilotFacingAssistantText(narrative, g);
++    const matches = pilot.match(/Souhaitez-vous/gi) ?? [];
++    expect(matches.length).toBe(1);
++    expect(pilot).toContain("Le besoin est clair");
++  });
++
++  it("COG-01 — Human QA retard/responsabilité paraphrase is not stacked", () => {
++    // Exact Human QA formulations (P6-HQA-01) — same information ask, distinct phrasing.
++    const narrativeInvite =
++      "Pour commencer, raconte-moi un retard précis : quelle tâche était en jeu, et qu’est-ce que les personnes concernées pensaient à ce moment-là de qui devait s’en charger ?";
++    const guidanceInvite =
++      "Décrivons un retard précis : quelle tâche était en jeu, et qu’est-ce que les personnes concernées pensaient de la responsabilité à ce moment-là ?";
++    const narrative = `Les retards semblent liés à des responsabilités floues.\n\n${narrativeInvite}`;
++    const g = guidance("ASK_CLARIFICATION", "ACTIVE_CYCLE", guidanceInvite, null);
++    const pilot = composePilotFacingAssistantText(narrative, g);
++    expect(pilot).toContain("Les retards semblent liés");
++    expect(pilot).toContain(narrativeInvite);
++    expect(pilot).not.toContain(guidanceInvite);
++    expect((pilot.match(/\?/g) ?? []).length).toBe(1);
++  });
++
++  it("COG-01 — Human QA entreprise de huit personnes paraphrase is not stacked", () => {
++    const narrativeInvite =
++      "Pour reprendre le premier : ce type d’entreprise correspond-il à celles que tu souhaites étudier, ou était-ce seulement un exemple ?";
++    const guidanceInvite =
++      "L’exemple de l’entreprise de huit personnes correspond-il au type d’entreprise que tu souhaites étudier, ou était-ce seulement un scénario illustratif ?";
++    const narrative = `Tu as mentionné une entreprise de huit personnes.\n\n${narrativeInvite}`;
++    const g = guidance("ASK_CLARIFICATION", "ACTIVE_CYCLE", guidanceInvite, null);
++    const pilot = composePilotFacingAssistantText(narrative, g);
++    expect(pilot).toContain("entreprise de huit personnes");
++    expect(pilot).toContain(narrativeInvite);
++    expect(pilot).not.toContain(guidanceInvite);
++    expect((pilot.match(/\?/g) ?? []).length).toBe(1);
++  });
++
++  it("COG-01 — distinct continuation is still appended once", () => {
++    const narrative = "Voici la synthèse des difficultés observées.";
++    const g = guidance(
++      "RECOMMEND_NEXT_STEP",
++      "ACTIVE_CYCLE",
++      "Je te propose maintenant d'examiner la visibilité sur l'avancement.",
++      null,
++    );
++    const pilot = composePilotFacingAssistantText(narrative, g);
++    expect(pilot).toContain("synthèse des difficultés");
++    expect(pilot).toContain("visibilité sur l'avancement");
++  });
++
++  it("COG-01 — distinct asks on retard keep both (responsabilités ≠ conséquences)", () => {
++    const narrative =
++      "Le défaut de clarté est confirmé. Quelles étaient les responsabilités sur ce retard ?";
++    const g = guidance(
++      "ASK_CLARIFICATION",
++      "ACTIVE_CYCLE",
++      "Quelles ont été les conséquences de ce retard pour l’équipe ?",
++      null,
++    );
++    const pilot = composePilotFacingAssistantText(narrative, g);
++    expect(pilot).toContain("responsabilités sur ce retard");
++    expect(pilot).toContain("conséquences de ce retard");
++    expect((pilot.match(/\?/g) ?? []).length).toBe(2);
++  });
++
++  it("COG-01 — distinct asks on entreprise keep both (type ≠ nombre de projets)", () => {
++    const narrative =
++      "Reprenons. Ce type d’entreprise correspond-il à celles que tu souhaites étudier ?";
++    const g = guidance(
++      "ASK_CLARIFICATION",
++      "ACTIVE_CYCLE",
++      "Combien de projets mènent-ils en parallèle typiquement ?",
++      null,
++    );
++    const pilot = composePilotFacingAssistantText(narrative, g);
++    expect(pilot).toContain("type d’entreprise");
++    expect(pilot).toContain("Combien de projets");
++    expect((pilot.match(/\?/g) ?? []).length).toBe(2);
++  });
++
++  it("COG-01 — narrative without closing invite still receives useful continuation", () => {
++    const narrative =
++      "Les difficultés de gestion de projets sont bien identifiées pour ce Cadrage.";
++    const g = guidance(
++      "ASK_CLARIFICATION",
++      "ACTIVE_CYCLE",
++      "Peux-tu décrire un retard précis observé récemment ?",
++      null,
++    );
++    const pilot = composePilotFacingAssistantText(narrative, g);
++    expect(pilot.startsWith(narrative)).toBe(true);
++    expect(pilot).toContain("retard précis observé");
++    expect(pilot).not.toMatch(/conversationGuidance|preCycleRoutingAssessment/i);
++  });
++
++  it("COG-01 — absent guidance leaves narrative unchanged", () => {
++    const narrative = "Synthèse utile sans suite structurée.";
++    expect(composePilotFacingAssistantText(narrative, null)).toBe(narrative);
++    expect(composePilotFacingAssistantText(narrative, undefined)).toBe(narrative);
++  });
++
+   it("T2 — routing-blocking → ASK_CLARIFICATION + PRE_CYCLE", () => {
+     const g = guidance(
+       "ASK_CLARIFICATION",
+diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
+index 1c1f8e68..efff6c9c 100644
+--- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
++++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
+@@ -1793,7 +1793,9 @@ export function ConversationSurface({
+                   >
+                     <div className={styles.p3CardHead}>
+                       <div className={styles.p3CardBody}>
+-                        <p className={styles.p3CardEyebrow}>Recommandation</p>
++                        <p className={styles.p3CardEyebrow}>
++                          Recommandation active du cycle
++                        </p>
+                         <p
+                           className={styles.p3CardTitle}
+                           data-testid="durable-recommendation-label"
+@@ -1801,7 +1803,8 @@ export function ConversationSurface({
+                           {card.statement}
+                         </p>
+                         <p className={styles.p3CardStamp}>
+-                          RECOMMANDATION — PAS UNE DÉCISION
++                          RECOMMANDATION DURABLE — PAS UNE DÉCISION · PAS LIÉE
++                          UNIQUEMENT À CE TOUR
+                         </p>
+                       </div>
+                       <div className={styles.p3CardRight}>
+@@ -1837,10 +1840,8 @@ export function ConversationSurface({
+                         data-testid="durable-recommendation-details"
+                       >
+                         <dl className={styles.facts}>
+-                          <div className={styles.factWide}>
+-                            <dt>Proposition</dt>
+-                            <dd>{card.statement}</dd>
+-                          </div>
++                          {/* UX-REC-01 — do not repeat card.statement under
++                              « Proposition »; title already shows it once. */}
+                           <div className={styles.factWide}>
+                             <dt>Statut</dt>
+                             <dd data-testid="durable-recommendation-materiality">
+@@ -1850,7 +1851,9 @@ export function ConversationSurface({
+                               une décision. Vous pouvez l&apos;examiner, en
+                               discuter, ou la laisser en suspens. Une décision
+                               structurelle reste requise seulement lorsque le
+-                              sujet l&apos;exige vraiment.
++                              sujet l&apos;exige vraiment. Les recommandations
++                              actives restent listées dans Journal ›
++                              Recommandations.
+                             </dd>
+                           </div>
+                         </dl>
+diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/JournalSurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/JournalSurface.tsx
+index 848927f4..cc318236 100644
+--- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/JournalSurface.tsx
++++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/JournalSurface.tsx
+@@ -133,7 +133,9 @@ function recommendationCurrentnessLabel(card: JournalRecommendationCard): string
+   if (card.status === "rejected") return "Écartée";
+   if (card.status === "superseded") return "Remplacée";
+   if (card.dispositionDecisionId) return "Dispositionnée";
+-  return "En attente de votre réponse";
++  // REC-03 — active ≠ « unanswered chat ». Align with Conversation « À examiner »:
++  // durable status without disposition; discussion alone does not dispose.
++  return "À examiner";
+ }
+
+ /** A Work Recommendation still awaiting an explicit Pilot disposition. */
+@@ -356,7 +358,7 @@ export function JournalSurface({
+           ? `${openReservationCount} réserve${openReservationCount === 1 ? "" : "s"} ouverte${openReservationCount === 1 ? "" : "s"}`
+           : "Aucun cycle sélectionné"
+         : tab === "recommandations"
+-          ? `${openRecommendationCount} en attente de votre réponse`
++          ? `${openRecommendationCount} à examiner`
+           : `${decisionCount} décision${decisionCount === 1 ? "" : "s"} enregistrée${decisionCount === 1 ? "" : "s"}`;
+
+   /** Rail stays a shortcut: it shows a bounded head of the subjects index. */
+diff --git a/projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts b/projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts
+index 177a9ffc..ea46da10 100644
+--- a/projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts
++++ b/projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts
+@@ -215,6 +215,9 @@ export function buildProjectSystemPrompt(
+     "  → RECOMMEND_NEXT_STEP + LIFECYCLE_TRANSITION.",
+     "- Cognitive Stop → HOLD + BLOCKER_RESOLUTION (outranks transition / réutilisation).",
+     "UNE seule continuation principale par défaut. Pas de liste générique de cinq idées.",
++    "COG-01 — Si la narrative se termine déjà par une invitation ou question de suite,",
++    "ne reformule PAS une seconde question distincte dans conversationGuidance.statement ;",
++    "réutilise la même formulation (ou laisse statement redondant volontairement).",
+     "Ne demande pas confirmation pour des détails non matériels.",
+     "Avance sous Hypothesis explicite lorsque la doctrine actuelle l'autorise.",
+     "Ne propose JAMAIS Cursor / Execution comme initiative autonome.",
 diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts
 index 8f322903..2b7d6fb2 100644
 --- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts
@@ -729,199 +1210,46 @@ index 8f322903..2b7d6fb2 100644
    if (structuredRecommendation?.optionLabel?.trim()) {
 ```
 
-### Tests (`noraConversationalInitiative.d0.test.ts`)
+---
 
-```diff
-diff --git a/projects/sfia-studio/app/__tests__/project-assistant/noraConversationalInitiative.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/noraConversationalInitiative.d0.test.ts
-index 93d51614..a7b7900b 100644
---- a/projects/sfia-studio/app/__tests__/project-assistant/noraConversationalInitiative.d0.test.ts
-+++ b/projects/sfia-studio/app/__tests__/project-assistant/noraConversationalInitiative.d0.test.ts
-@@ -281,6 +281,114 @@ describe("NORA-CONVERSATIONAL-INITIATIVE-01 (deterministic)", () => {
-     expect(pilot).not.toMatch(/PROCHAINE ÉTAPE\s*:/i);
-   });
+## 11. Matrice findings (état PR)
 
-+  it("COG-01 — near-duplicate closing invite is not stacked twice", () => {
-+    const narrative =
-+      "Le besoin est clair. Souhaitez-vous que l'on commence par les responsabilités et les retards ?";
-+    const g = guidance(
-+      "ASK_CLARIFICATION",
-+      "ACTIVE_CYCLE",
-+      "Souhaitez-vous commencer par les responsabilités et les retards ?",
-+      null,
-+    );
-+    const pilot = composePilotFacingAssistantText(narrative, g);
-+    const matches = pilot.match(/Souhaitez-vous/gi) ?? [];
-+    expect(matches.length).toBe(1);
-+    expect(pilot).toContain("Le besoin est clair");
-+  });
-+
-+  it("COG-01 — Human QA retard/responsabilité paraphrase is not stacked", () => {
-+    // Exact Human QA formulations (P6-HQA-01) — same information ask, distinct phrasing.
-+    const narrativeInvite =
-+      "Pour commencer, raconte-moi un retard précis : quelle tâche était en jeu, et qu’est-ce que les personnes concernées pensaient à ce moment-là de qui devait s’en charger ?";
-+    const guidanceInvite =
-+      "Décrivons un retard précis : quelle tâche était en jeu, et qu’est-ce que les personnes concernées pensaient de la responsabilité à ce moment-là ?";
-+    const narrative = `Les retards semblent liés à des responsabilités floues.\n\n${narrativeInvite}`;
-+    const g = guidance("ASK_CLARIFICATION", "ACTIVE_CYCLE", guidanceInvite, null);
-+    const pilot = composePilotFacingAssistantText(narrative, g);
-+    expect(pilot).toContain("Les retards semblent liés");
-+    expect(pilot).toContain(narrativeInvite);
-+    expect(pilot).not.toContain(guidanceInvite);
-+    expect((pilot.match(/\?/g) ?? []).length).toBe(1);
-+  });
-+
-+  it("COG-01 — Human QA entreprise de huit personnes paraphrase is not stacked", () => {
-+    const narrativeInvite =
-+      "Pour reprendre le premier : ce type d’entreprise correspond-il à celles que tu souhaites étudier, ou était-ce seulement un exemple ?";
-+    const guidanceInvite =
-+      "L’exemple de l’entreprise de huit personnes correspond-il au type d’entreprise que tu souhaites étudier, ou était-ce seulement un scénario illustratif ?";
-+    const narrative = `Tu as mentionné une entreprise de huit personnes.\n\n${narrativeInvite}`;
-+    const g = guidance("ASK_CLARIFICATION", "ACTIVE_CYCLE", guidanceInvite, null);
-+    const pilot = composePilotFacingAssistantText(narrative, g);
-+    expect(pilot).toContain("entreprise de huit personnes");
-+    expect(pilot).toContain(narrativeInvite);
-+    expect(pilot).not.toContain(guidanceInvite);
-+    expect((pilot.match(/\?/g) ?? []).length).toBe(1);
-+  });
-+
-+  it("COG-01 — distinct continuation is still appended once", () => {
-+    const narrative = "Voici la synthèse des difficultés observées.";
-+    const g = guidance(
-+      "RECOMMEND_NEXT_STEP",
-+      "ACTIVE_CYCLE",
-+      "Je te propose maintenant d'examiner la visibilité sur l'avancement.",
-+      null,
-+    );
-+    const pilot = composePilotFacingAssistantText(narrative, g);
-+    expect(pilot).toContain("synthèse des difficultés");
-+    expect(pilot).toContain("visibilité sur l'avancement");
-+  });
-+
-+  it("COG-01 — distinct asks on retard keep both (responsabilités ≠ conséquences)", () => {
-+    const narrative =
-+      "Le défaut de clarté est confirmé. Quelles étaient les responsabilités sur ce retard ?";
-+    const g = guidance(
-+      "ASK_CLARIFICATION",
-+      "ACTIVE_CYCLE",
-+      "Quelles ont été les conséquences de ce retard pour l’équipe ?",
-+      null,
-+    );
-+    const pilot = composePilotFacingAssistantText(narrative, g);
-+    expect(pilot).toContain("responsabilités sur ce retard");
-+    expect(pilot).toContain("conséquences de ce retard");
-+    expect((pilot.match(/\?/g) ?? []).length).toBe(2);
-+  });
-+
-+  it("COG-01 — distinct asks on entreprise keep both (type ≠ nombre de projets)", () => {
-+    const narrative =
-+      "Reprenons. Ce type d’entreprise correspond-il à celles que tu souhaites étudier ?";
-+    const g = guidance(
-+      "ASK_CLARIFICATION",
-+      "ACTIVE_CYCLE",
-+      "Combien de projets mènent-ils en parallèle typiquement ?",
-+      null,
-+    );
-+    const pilot = composePilotFacingAssistantText(narrative, g);
-+    expect(pilot).toContain("type d’entreprise");
-+    expect(pilot).toContain("Combien de projets");
-+    expect((pilot.match(/\?/g) ?? []).length).toBe(2);
-+  });
-+
-+  it("COG-01 — narrative without closing invite still receives useful continuation", () => {
-+    const narrative =
-+      "Les difficultés de gestion de projets sont bien identifiées pour ce Cadrage.";
-+    const g = guidance(
-+      "ASK_CLARIFICATION",
-+      "ACTIVE_CYCLE",
-+      "Peux-tu décrire un retard précis observé récemment ?",
-+      null,
-+    );
-+    const pilot = composePilotFacingAssistantText(narrative, g);
-+    expect(pilot.startsWith(narrative)).toBe(true);
-+    expect(pilot).toContain("retard précis observé");
-+    expect(pilot).not.toMatch(/conversationGuidance|preCycleRoutingAssessment/i);
-+  });
-+
-+  it("COG-01 — absent guidance leaves narrative unchanged", () => {
-+    const narrative = "Synthèse utile sans suite structurée.";
-+    expect(composePilotFacingAssistantText(narrative, null)).toBe(narrative);
-+    expect(composePilotFacingAssistantText(narrative, undefined)).toBe(narrative);
-+  });
-+
-   it("T2 — routing-blocking → ASK_CLARIFICATION + PRE_CYCLE", () => {
-     const g = guidance(
-       "ASK_CLARIFICATION",
-```
+| Finding | Statut dans la PR |
+|---------|-------------------|
+| COG-01 | **FIXÉ** + tests Human QA |
+| UX-REC-01 | **FIXÉ** |
+| REC-02 | **PARTIEL** (présentation honnête) |
+| REC-03 | **FIXÉ** (« À examiner ») |
+| REC-01 | **STRUCTURAL DECISION REQUIRED** — hors PR |
+| JRN-01 | **HUMAN QA RETEST REQUIRED** — hors PR |
+
+Invariants : Recommendation ≠ HumanDecision ; discussion ≠ disposition ; pas de nouveau moteur / routing / persistence.
 
 ---
 
-## 8. Validations exécutées
+## 12. Réserves / décisions Morris
 
-| Commande | Résultat |
-|----------|----------|
-| `vitest … -t "COG-01 — Human QA"` **avant** fix | **2 FAIL** (reproduction) |
-| `vitest … noraConversationalInitiative.d0.test.ts` après fix | **28 PASS** |
-| `vitest` suite COG + UX-REC + REC-03 adjacents | **35 PASS** (28+6+1) |
-| `eslint` ciblé sur les 2 fichiers | **0 error** (2 warnings préexistants unused imports hors COG) |
-| `git diff --check` (2 fichiers) | **PASS** |
-
-### Positifs couverts
-- Human QA retard/responsabilité : 1 seule `?`
-- Human QA entreprise huit personnes : 1 seule `?`
-- Near-duplicate « Souhaitez-vous » : 1 seule occurrence
-- Continuation distincte encore ajoutée
-- Narrative sans invite conserve la continuation
-- Guidance absente : narrative inchangée
-
-### Négatifs couverts
-- responsabilités ≠ conséquences → 2 questions
-- type d’entreprise ≠ nombre de projets → 2 questions
-- aucun champ interne Nora exposé
+1. Merge #575 — GO distinct requis après revue ChatGPT.
+2. REC-01 règle métier supersession / dédup.
+3. REC-02 binding tour↔recommandation si arbitrage UX.
+4. JRN-01 + rejeu Human QA REAL (HQ-01 / P6-MIN-03) après merge.
+5. COG-01 limite lexicale assumée.
+6. Figma/runtime strong parity non prouvée.
 
 ---
 
-## 9. Fake / Real Qualification
+## 13. Préservation worktrees
 
-| Item | Valeur |
-|------|--------|
-| Applicable | OUI |
-| Frontière | Nora / fournisseur IA |
-| Fake | Composition déterministe + fixtures suite NCI |
-| REAL correspondant | Formulations Human QA P6 exactes |
-| Niveau | **DETERMINISTIC PROVEN AT TESTED SCOPE** |
-| Hors scope | REAL BOUNDARY / E2E REAL / P6 GLOBAL PASS / runtime v3 ADOPTED |
-
-DETERMINISTIC PROVEN ≠ READY FOR REAL. Rejeu Human QA toujours requis après intégration éventuelle.
+| Worktree | Branche | HEAD | Notes |
+|----------|---------|------|-------|
+| `/Users/morris/Projects/sfia-workspace` | `qa/sfia-studio-p6-global-integrated-product-qa` | `980064c0` | mods locales HQA + C14/tmp/p6-campaign **intactes** |
+| `/Users/morris/Projects/sfia-workspace-p6-hqa-01` | `fix/studio-p6-hqa-01-conversation-recommendations` | `8f61da8fb3f2e77d698fa94a123971be57d8ff9d` | clean après commit |
+| handoff WT | `sfia/review-handoff` | (publié ce cycle) | L3 only |
 
 ---
 
-## 10. État des autres findings (inchangé cette passe)
+## 14. Verdict
 
-| Finding | Statut |
-|---------|--------|
-| UX-REC-01 | FIXÉ (passe précédente) — non modifié |
-| REC-02 | Présentation honnête partielle — non modifié |
-| REC-03 | « À examiner » — non modifié |
-| REC-01 | **STRUCTURAL DECISION REQUIRED** — intact |
-| JRN-01 | **NOT REPRODUCED / Human QA retest** — intact |
-| COG-01 | **CORRIGÉ** (cette passe) sur les 2 cas Human QA + non-régressions |
+**DRAFT PR OPEN — CI SUCCESS — READY FOR CHATGPT PR REVIEW**
 
-Aucun fichier UI / Journal / Recommendations / prompt touché dans cette sous-passe.
-
----
-
-## 11. Réserves / dettes / décisions Morris
-
-1. **REC-01** — règle métier supersession / dédup durable (STRUCTURAL).
-2. **REC-02** binding tour↔recommandation si arbitrage UX structurant.
-3. **JRN-01** — retest Human QA 2 axes distincts.
-4. **COG-01** — limite assumée : équivalence lexicale/contenu, pas moteur sémantique ; paraphrases sans overlap lexical suffisant peuvent encore doubler (hors cas Human QA démontrés).
-5. Rejeu Human QA COG-01 sur Project réel après intégration Git éventuelle (non autorisée ici).
-
----
-
-## 12. Verdict
-
-**LOCAL CORRECTION COG-01 — READY FOR CHATGPT REVIEW**
-
-Instruction ChatGPT : avant revue, lire sur Git `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md`.
+Instruction ChatGPT : avant revue, lire `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md`.
