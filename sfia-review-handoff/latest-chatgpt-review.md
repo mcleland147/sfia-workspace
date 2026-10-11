@@ -1,13 +1,13 @@
-# Review Pack FULL — P6-HQA-02 / REC-01 — HQA-01 REAL Evidence Consolidation
+# Review Pack FULL — P6-HQA-02 / REC-01 — HQA-02 First-Run Diagnosis
 
-**Horodatage :** 2026-10-11T05:06:45Z
-**GO Morris :** "ok go" — REAL evidence consolidation (read-only)
+**Horodatage :** 2026-10-11T05:26:01Z
+**GO Morris :** HQA-02 accorded — diagnostic READ ONLY only (no Delivery)
 **Cycle :** 9 — QA / validation — Critical
 **Campaign :** P6-GLOBAL-INTEGRATED-PRODUCT-QA-01
 **Lot :** P6-HQA-02 / REC-01
-**prepRunId :** HQA-01-REC01-REQUAL-20261010T224411Z (runtime prep only)
-**execRunId :** HQA-01-REC01-EXEC-20261010T233732Z (actual HQA-01 turn @ 2026-10-10T23:37:32Z)
-**Prior handoff :** 5154788c — CORRECT RUNTIME VERIFIED — WAITING HUMAN QA
+**Scenario :** HQA-02 — New Work Recommendation
+**Prior HQA-01 :** FUNCTIONAL PASS / PRODUCT EVIDENCE VERIFIED (unchanged)
+**Prior handoff :** 610be1ac
 
 ---
 
@@ -19,193 +19,148 @@
 | Branch | `qa/p6-hqa-02-rec01-human-qa` |
 | HEAD | `f31bb8f610802c102edbe68889fb8ecf0339ec28` (= origin/main) |
 | REC-01 | PRESENT |
-| Product source mutation this cycle | NONE |
+| Product source mutation | NONE |
 
 ---
 
-## 2. Convergence
+## 2. Convergence / trajectoire
 
-- Build Doctrine VALIDATED · Roadmap ACTIVE · C1 VALIDATED
-- REC-01 INTEGRATED · P6 IN PROGRESS · P6 GLOBAL PASS NO
-- Runtime v3 NON ADOPTED
-- No Delivery / architecture / doctrine change
+- C1 / Build Doctrine / Roadmap: reference only, unchanged
+- REC-01 integrated → HQA-01 PASS → HQA-02 diagnostic
+- P6 GLOBAL PASS NO · Runtime v3 NON ADOPTED
 
 ---
 
-## 3. Runtime / baseline
+## 3. Runtime / DB
 
 | Field | Value |
 |---|---|
 | PID | 81318 |
 | URL | http://localhost:3020 |
-| CWD | QA WT `projects/sfia-studio/app` |
 | HEAD | f31bb8f6 |
-| Product DB open by process | hqa01-rec01-requal/product/oa-product.sqlite |
-| Evidence method | coherent sqlite `.backup` (no WAL/SHM; no source mutation) |
-
-Historical contaminated run (980064c0 / ltu:df0f9498…) remains **INVALID FOR REC-01 EVALUATION** — not used as REC-01 proof.
+| DB | hqa01-rec01-requal/product (open by process) |
+| Evidence | coherent `.backup` snapshots under `hqa02-diagnosis/db-snapshot/` |
 
 ---
 
-## 4. Project / cycle / LTU
+## 4. HQA-02 first-run identity
 
 | Field | Value |
 |---|---|
 | projectId | prj:5d63119d-063e-43ab-bcb0-d1d45ac045f2 |
-| title | Difficultés de suivi de projets dans les petites entreprises |
 | cycleInstanceId | cyc:trj-8a649d1f2bf64c6eaaa11015 |
-| cycle | cyc:framing · Light · active |
-| logicalTurnId | ltu:58d78c6d8f0d418529ddf4bee29ce062 |
-| Pilot message | exact Guidance Only question (transcript seq 2) |
-| Nora narrative | explanatory nuance (transcript seq 3) |
+| logicalTurnId | **ltu:143ba6fa2470bc47a61ad2ca43779ec0** |
+| Pilot message | interviews 2–3 managers later + opinion ask (transcript match) |
+| Nora narrative | coherent piste / later collection / prepare questions when ready |
+
+Follow-up LTU (not first-run oracle): ltu:3474d2be78206e4e12a5366452040f05 — also Option, not Recommendation.
 
 ---
 
-## 5. Avant / après (Product-verified)
+## 5. Structured Nora output
 
-| Surface | Before HQA LTU | After HQA LTU |
-|---|---|---|
-| UI Work Recommendations (Morris) | 0 | 0 |
-| ACW Recommendations in store | 0 | **0** |
-| ACW Observation from HQA LTU | — | epi:acw:9f78e379be6b14781ba2 |
-| Journal subjects | 0 | 1 (cje:aa431df2013bd2f4) |
-| HumanDecision created by HQA | — | none (pre-existing trajectory HD at 23:31 only) |
+**OBSERVABLE**
 
-Lifecycle Recommendation `epi:lr:91f8b9b4b253c13f:…` exists from setup (23:25); **not** attributable to HQA-01; excluded from Journal Work family by `deriveWorkRecommendations`.
-
-**ZERO NEW WORK RECOMMENDATION ATTRIBUTABLE TO HQA-01 — CONFIRMED.**
+- conversationGuidance: soft keep-piste / prepare when ready
+- activeCycleWork: **Option only** (interview work statement)
+- **No Recommendation candidate**
+- journalDelta: UPDATE on HQA-01 subject
 
 ---
 
-## 6. Structured Nora candidate
+## 6. Product persistence / Journal projection
 
-**OBSERVABLE** (session_items seq=4):
+- New ACW Recommendation: **0**
+- New ACW Option: epi:acw:c732632579d4faaa6f1f (attributable to HQA-02 LTU)
+- Journal Work Recommendations remain 0 (Options ∉ WR family per deriveWorkRecommendations)
+- Journal subject enriched (UPDATE) — distinct from WR
 
-- conversationGuidance: RECOMMEND_NEXT_STEP (soft)
-- activeCycleWork: Observation only — **no Recommendation**
-- journalDelta: CREATE subject matching UI title
-- No relationKind / trackingRationale (N/A for Observation)
-
----
-
-## 7. Qualification REC-01 / Product
-
-- Nora did not propose a durable WR candidate → no mint to block.
-- Persisted qualify reason: NOT APPLICABLE / NOT OBSERVED.
-- Product materialized Observation + Journal CREATE; did not create ACW Recommendation.
-- No Product evidence contradiction with UI WR counters.
+CAUSE C refuted. CAUSE B refuted.
 
 ---
 
-## 8. Journal et priorité
+## 7. REC-01 filter
 
-- Journal subject created from journalDelta on HQA LTU — verified.
-- Priority UI evolution reported by Morris; LPS has no dedicated priority field; **NOT FULLY ATTRIBUTED** technically.
-- Treated as separate observation from WR materialization — **not** a REC-01 WR defect.
+- No Recommendation item → prospective filter **not applied**
+- Non-Recommendation items pass through (code: type !== Recommendation)
+- **Not** PRODUCT GUARD INCORRECT
 
 ---
 
-## 9. Provider / Fake-Real
+## 8. Causal qualification
+
+**CAUSE A — NORA DID NOT PROPOSE RECOMMENDATION — DEMONSTRATED**
+
+Classification:
+**FAIL — COGNITIVE UNDER-MATERIALIZATION** vs HQA-02 oracle.
+
+Reserve:
+**EXPECTATION / CONTRACT ISSUE** — Pilot "plus tard" + "Qu'est-ce que tu en penses ?" can legitimately steer Nora to Option/guidance rather than durable WR.
+
+Initial FAIL CANDIDATE preserved (not rewritten as PASS).
+
+---
+
+## 9. Fake / Real
 
 | Item | Status |
 |---|---|
-| msg_ id OpenAI-shaped | OBSERVED |
-| Model called | NOT OBSERVABLE (CONFIGURED ONLY gpt-5.6-luna) |
-| Effort / usage / cost | NOT OBSERVABLE |
-| Fake fallback | NOT OBSERVED |
-| MODEL VERIFIED / REAL BOUNDARY PROVEN | NO / NOT DECLARED |
+| Fake | NOT OBSERVED |
+| OpenAI-shaped ids | OBSERVED |
+| Model/effort/cost | NOT OBSERVABLE |
+| MODEL VERIFIED / REAL BOUNDARY PROVEN | NOT DECLARED |
 
 ---
 
-## 10. Jugement Morris
+## 10. HQA-03…07
 
-**MORRIS HUMAN QUALITY JUDGMENT — PASS**
-("L'échange est quali, c'est good.")
-No clarity reserve against this explicit judgment.
+**NOT RUN.** No automatic continuation.
 
 ---
 
-## 11. Evidence Index
+## 11. Product unchanged
 
-- `human-qa/rec01/hqa01-execution/hqa-01-real-evidence-consolidation.md`
-- `human-qa/rec01/hqa01-execution/hqa-01-evidence-summary.json`
-- `human-qa/rec01/hqa01-execution/db-snapshot/oa-product-20261011T050511Z.sqlite` (binary)
-- `human-qa/rec01/hqa01-execution/db-snapshot/nora-session-20261011T050511Z.sqlite` (binary)
-- `evidence-ledger.jsonl` append (QA WT campaign)
-- Prior: runtime-requal prep + historical INVALID diagnostic (unchanged)
-
-Local screenshots: NOT PRESENT (not invented).
+No Product code/config/SQLite mutation. No project Git. No provider replay.
 
 ---
 
-## 12. Réserves
+## 12. Décisions Morris
 
-1. Model/effort/cost not turn-attested.
-2. Priority UI shift not fully attributed in LPS.
-3. No persisted prospective-qualify decision row (N/A — no WR candidate).
-4. First historical HQA-01 remains invalid for REC-01 evaluation.
-
----
-
-## 13. HQA-02…07
-
-**NOT RUN.** No automatic start.
+1. ChatGPT review of this diagnosis.
+2. Arbitrate: cognitive under-materialization vs scenario/contract sharpening vs Product change (none authorized here).
+3. Authorize any corrective Delivery only by separate GO.
+4. HQA-03 only after HQA-02 disposition.
 
 ---
 
-## 14. Product source unchanged
+## 13. Verdict
 
-No Product code/config/SQLite mutation. No project Git. Read-only evidence only.
-
----
-
-## 15. Décisions Morris restantes
-
-1. ChatGPT final review of this pack/handoff.
-2. Authorize HQA-02 only after review.
-3. Optional later UX note on Journal auto-topic for explanatory questions (out of this cycle).
+**HQA-02 — ROOT CAUSE QUALIFIED — READY FOR CHATGPT REVIEW**
 
 ---
 
-## 16. Verdict
+## 14. Evidence files (exploitable)
 
-**REC-01 HQA-01 — FUNCTIONAL PASS — PRODUCT EVIDENCE VERIFIED — READY FOR CHATGPT FINAL REVIEW**
-
----
-
-## 17. Evidence file contents (exploitable)
-
-### `hqa-01-real-evidence-consolidation.md`
+### `hqa-02-first-run-diagnosis.md`
 
 ```markdown
-# HQA-01 — REAL Evidence Consolidation
+# HQA-02 — First-Run Diagnosis (READ ONLY)
 
 campaignId: P6-GLOBAL-INTEGRATED-PRODUCT-QA-01
 lot: P6-HQA-02 / REC-01
-scenario: HQA-01 — GUIDANCE ONLY
-prepRunId: HQA-01-REC01-REQUAL-20261010T224411Z
-execRunId: HQA-01-REC01-EXEC-20261010T233732Z
-consolidatedAt: 2026-10-11T05:06:45Z
+scenario: HQA-02 — New Work Recommendation
+diagnosedAt: 2026-10-11T05:26:01Z
 mode: READ ONLY — no Nora replay, no Product mutation
+initialObservationPreserved: FAIL CANDIDATE (UI WR 0→0)
 
 ---
 
-## RAW OBSERVATION (Morris / UI)
+## RAW OBSERVATION
 
-- Project title: Difficultés de suivi de projets dans les petites entreprises
-- Cycle: Cadrage — ACTIVE
-- Pilot message (exact): nuance tâche vs avancement global
-- UI before: Sujets 0 · Réserves 0 · Work Recommendations 0 · Décisions 0
-- UI after: Sujets 1 · Réserves 0 · Work Recommendations 0 · Décisions 0
-- Journal subject title: Distinguer l’avancement des tâches et celui du projet
-- Narrative: explanatory and relevant
-- Local screenshot files under campaign evidence: NOT PRESENT
-- Morris captures: referenced as human-reported UI observations only (not inventoried as local image files)
-
-## HUMAN JUDGMENT
-
-Morris: "L'échange est quali, c'est good."
-Recorded: MORRIS HUMAN QUALITY JUDGMENT — PASS
+- Pilot asked about interviewing 2–3 small-business managers later in cadrage; asked Nora's opinion.
+- UI Work Recommendations before: 0; after: 0.
+- Nora narrative was coherent and supportive.
+- Follow-up Pilot turn (same session, later): "bah on est deja en cadrage, autant préparer ces élements maintenant" — also observed; not substituted for the first-run diagnosis.
 
 ## TECHNICAL FACT
 
@@ -213,137 +168,123 @@ Recorded: MORRIS HUMAN QUALITY JUDGMENT — PASS
 
 | Field | Value |
 |---|---|
-| PID | 81318 (still serving at consolidation) |
+| PID | 81318 |
 | URL | http://localhost:3020 |
-| CWD | …/sfia-workspace-p6-rec01-human-qa/projects/sfia-studio/app |
+| CWD | sfia-workspace-p6-rec01-human-qa/projects/sfia-studio/app |
 | HEAD | f31bb8f610802c102edbe68889fb8ecf0339ec28 |
 | REC-01 | PRESENT |
-| Product DB | …/hqa01-rec01-requal/product/oa-product.sqlite (open by PID 81318) |
-| Session DB | …/hqa01-rec01-requal/product/nora-session.sqlite |
-| WAL/SHM | none observed |
-| Evidence read method | sqlite3 .backup → evidence snapshot (non-mutating) |
+| Product/Session DB | hqa01-rec01-requal/product/*.sqlite |
+| WAL/SHM | none |
+| Evidence method | sqlite3 .backup → evidence snapshot |
 
-### Identifiers
+### HQA-02 first-run identifiers
 
 | Field | Value |
 |---|---|
 | projectId | prj:5d63119d-063e-43ab-bcb0-d1d45ac045f2 |
 | cycleInstanceId | cyc:trj-8a649d1f2bf64c6eaaa11015 |
-| cycleType | cyc:framing / Light / active |
 | sessionKey | f1-default |
-| logicalTurnId (HQA-01) | ltu:58d78c6d8f0d418529ddf4bee29ce062 |
-| logical turn status | accepted |
-| logical turn created_at | 2026-10-10T23:37:26.351Z |
-| transcript user | pt:dd1925c54471f727 seq=2 |
-| transcript assistant | pt:2d41a281e2558e73 seq=3 |
-| Distinct from historical contaminated LTU | YES (not ltu:df0f9498…) |
+| logicalTurnId | ltu:143ba6fa2470bc47a61ad2ca43779ec0 |
+| status | accepted |
+| created_at | 2026-10-11T05:14:58.084Z |
+| user turn | pt:7970ef65929711ba seq=4 @ 2026-10-11T05:15:16.217Z |
+| assistant turn | pt:192e91598aef3613 seq=5 |
+| Message match | YES — interviews later + "Qu'est-ce que tu en penses ?" |
 
-### Work Recommendations
-
-| Check | Result |
-|---|---|
-| ACW Recommendation count on project (any status) | **0** |
-| Epistemic items with provenance.correlationId = HQA LTU | 1 Observation only (epi:acw:9f78e379be6b14781ba2) |
-| Lifecycle Recommendation on project | 1 (epi:lr:91f8b9b4b253c13f:20261010T232537878Z, source lifecycle-recommendation:nora, created 23:25 — setup, **not** HQA-01) |
-| deriveWorkRecommendations family | ACW Nora Recommendations only = Journal Work; lifecycle family excluded |
-| ZERO NEW WR attributable to HQA-01 | **CONFIRMED** |
-
-### Structured Nora candidate (session_items seq=4) — OBSERVABLE
-
-- conversationGuidance.kind = RECOMMEND_NEXT_STEP (keep distinction in mind for cadrage)
-- activeCycleWork.items = **[Observation only]** — no Recommendation item
-- Observation statement matches persisted epi:acw:9f78e379be6b14781ba2
-- relationKind / trackingRationale: absent on Observation (N/A — not a WR candidate)
-- journalDelta.operations[0].op = CREATE · title matches UI subject
-- lifecycleRecommendation = null · reservationDelta = null
-- message id: msg_0d88ad827559f57d006acacc379d9887d28078ecc94cc3ece2 (OpenAI-shaped)
-
-### Product qualification path
-
-- Nora did **not** propose a durable Recommendation candidate on this turn.
-- Therefore no REC-01 prospective WR mint decision was required to suppress a WR.
-- Product materialized the Observation (expected ACW non-WR path) and applied journalDelta CREATE.
-- Persisted qualify reason code: **NOT APPLICABLE / NOT OBSERVED** (no WR candidate).
-- Counterfactual code analysis not used as decision proof.
-
-### Journal / priority (separate from WR)
+### Product persistence for HQA-02 LTU
 
 | Field | Value |
 |---|---|
-| journal_entry_id | cje:aa431df2013bd2f4 |
-| title | Distinguer l’avancement des tâches et celui du projet |
-| status | active |
-| last_logical_turn_id | ltu:58d78c6d8f0d418529ddf4bee29ce062 |
-| topic_ordinal | 1 |
-| mutation ledger | CREATE op_index=0 at 2026-10-10T23:37:32.046Z |
-| LPS appended on same LTU | lps:93dd6c4b22609371 · epistemicItemIds=[Observation] · correlationId=HQA LTU |
-| Priority field in LPS payload | NOT PRESENT as dedicated priority key |
-| UI priority evolution | OBSERVED BY MORRIS — technical source beyond Journal topic/LPS append **NOT FULLY ATTRIBUTED** |
+| ACW Recommendation created | **0** |
+| ACW Option created | epi:acw:c732632579d4faaa6f1f (active) |
+| Other types for LTU | none |
+| Project ACW Recommendation total | **0** |
+| Lifecycle Recommendation (setup only) | epi:lr:91f8b9b4b253c13f:… (not HQA-02) |
 
-### HumanDecision
+### Structured Nora candidate (session_items seq=2) — OBSERVABLE
 
-- One accepted HD exists: trajectory approval at 23:31:17 (pre-HQA) — not created by HQA-01 turn.
-- UI Décisions 0 is consistent with no new decision on the guidance turn.
+- conversationGuidance: RECOMMEND_NEXT_STEP — keep piste for cadrage; prepare open questions when ready
+- activeCycleWork.items: **[Option only]** — statement about interviewing 2–3 managers
+- No Recommendation item
+- No trackingRationale / relationKind / relatedRecommendationRef
+- recommendedOptionRef: null
+- journalDelta: UPDATE on cje:aa431df2013bd2f4 (HQA-01 subject enriched)
+- message id: msg_0d88ad827559f57d006acb1b5eadac87d29cfbeb483fe8f7d5 (OpenAI-shaped)
+
+### REC-01 filter
+
+- Prospective filter applies only when `item.type === "Recommendation"` (non-Recommendations pass through).
+- No Recommendation candidate existed → **no REC-01 suppress decision applied**.
+- Persisted qualify reason: **NOT APPLICABLE / NOT OBSERVED**.
+- Option was materialized by Product as designed (not a Journal Work Recommendation).
+
+### Journal
+
+- Same subject "Distinguer l’avancement des tâches et celui du projet" UPDATED on HQA-02 LTU.
+- Mutation ledger: UPDATE op_index=0 @ 2026-10-11T05:15:16.218Z.
+- Journal enrichment ≠ Work Recommendation.
+
+### Follow-up turn (context only, not first-run oracle)
+
+- logicalTurnId: ltu:3474d2be78206e4e12a5366452040f05
+- Also emitted Option (interview guide prep), not Recommendation; Journal UPDATE again.
+- Confirms pattern: concrete interview work tracked as Option + guidance/journal, not WR.
 
 ### Provider
 
-| Field | Qualification |
+| Field | Status |
 |---|---|
-| OpenAI-shaped message id on HQA assistant | OBSERVED |
-| Reasoning item for HQA turn | NOT OBSERVABLE (no reasoning session_item between user seq3 and assistant seq4) |
-| Model actually called | NOT OBSERVABLE (env CONFIGURED ONLY: gpt-5.6-luna) |
-| Effort | NOT OBSERVABLE |
-| Usage / cost | NOT OBSERVABLE |
-| Fake silent fallback | NOT OBSERVED |
-| REAL BOUNDARY PROVEN | NOT DECLARED |
-| MODEL VERIFIED | NO |
+| OpenAI-shaped msg_/rs_ | OBSERVED |
+| Model / effort / cost | NOT OBSERVABLE |
+| Fake fallback | NOT OBSERVED |
+| MODEL VERIFIED / REAL BOUNDARY PROVEN | NOT DECLARED |
 
-## INFERENCE
+## Causal analysis (A/B/C)
 
-1. HQA-01 on REC-01 runtime produced guidance-appropriate behavior: narrative + conversationGuidance + Observation + Journal subject; **no** durable Work Recommendation.
-2. Functional oracle satisfied with Product-store confirmation, not UI counters alone.
-3. Journal auto-structuring of an explanatory question is a separate UX/Product observation, not a REC-01 WR defect.
+| Cause | Status |
+|---|---|
+| A — Nora did not propose Recommendation | **DEMONSTRATED** (structured output + persistence = Option only) |
+| B — Product suppressed Recommendation candidate | **REFUTED** (no Recommendation in candidate) |
+| C — Persisted but not projected | **REFUTED** (no Recommendation object; Option persisted and is not WR family) |
 
-## HYPOTHESIS
+## Classification
 
-- UI priority shift may be derived from Journal topic presence / LPS append; not proven as a separate durable Priority object.
+**FAIL — COGNITIVE UNDER-MATERIALIZATION** relative to HQA-02 oracle (expected durable New Work Recommendation; Nora emitted Option + conversationGuidance instead).
 
-## VERDICT (technical consolidation)
+**Reserve — EXPECTATION / CONTRACT ISSUE:** Pilot framed work as later ("plus tard") and solicited opinion ("Qu'est-ce que tu en penses ?"). Nora's Option/guidance path is coherent with that framing; scenario may under-discriminate obligatory WR materiality.
 
-REC-01 HQA-01 — FUNCTIONAL PASS — PRODUCT EVIDENCE VERIFIED — READY FOR CHATGPT FINAL REVIEW
+Not PRODUCT GUARD INCORRECT. Not JOURNAL PROJECTION defect.
 
-Historical first attempt remains INVALID FOR REC-01 EVALUATION — HISTORICAL RUNTIME.
+## HUMAN JUDGMENT
+
+Initial FAIL CANDIDATE observation preserved. No Morris quality PASS claimed for HQA-02 in this pack.
+
+## VERDICT
+
+**HQA-02 — ROOT CAUSE QUALIFIED — READY FOR CHATGPT REVIEW**
 ```
 
-### `hqa-01-evidence-summary.json`
+### `hqa-02-evidence-summary.json`
 
 ```json
 {
   "campaignId": "P6-GLOBAL-INTEGRATED-PRODUCT-QA-01",
-  "scenarioId": "HQA-01-GUIDANCE-ONLY",
-  "kind": "REAL_EVIDENCE_CONSOLIDATION",
-  "prepRunId": "HQA-01-REC01-REQUAL-20261010T224411Z",
-  "execRunId": "HQA-01-REC01-EXEC-20261010T233732Z",
-  "at": "2026-10-11T05:06:45Z",
+  "scenarioId": "HQA-02-NEW-WORK-RECOMMENDATION",
+  "kind": "FIRST_RUN_DIAGNOSIS_READONLY",
+  "at": "2026-10-11T05:26:01Z",
   "projectId": "prj:5d63119d-063e-43ab-bcb0-d1d45ac045f2",
   "cycleInstanceId": "cyc:trj-8a649d1f2bf64c6eaaa11015",
-  "logicalTurnId": "ltu:58d78c6d8f0d418529ddf4bee29ce062",
+  "logicalTurnId": "ltu:143ba6fa2470bc47a61ad2ca43779ec0",
+  "followUpLogicalTurnId": "ltu:3474d2be78206e4e12a5366452040f05",
+  "noraProposedRecommendation": false,
+  "noraProposedOptionId": "epi:acw:c732632579d4faaa6f1f",
   "acwRecommendationCount": 0,
-  "hqaAttributableWrCount": 0,
-  "hqaObservationId": "epi:acw:9f78e379be6b14781ba2",
-  "journalEntryId": "cje:aa431df2013bd2f4",
-  "noraProposedAcwRecommendation": false,
-  "structuredCandidateObservable": true,
-  "morrisHumanQualityJudgment": "PASS",
-  "verdict": "REC-01 HQA-01 — FUNCTIONAL PASS — PRODUCT EVIDENCE VERIFIED — READY FOR CHATGPT FINAL REVIEW",
+  "rootCause": "CAUSE_A_NORA_DID_NOT_PROPOSE_RECOMMENDATION",
+  "classification": "FAIL — COGNITIVE UNDER-MATERIALIZATION",
+  "reserve": "EXPECTATION / CONTRACT ISSUE (later + opinion framing)",
+  "rec01GuardApplied": false,
+  "verdict": "HQA-02 — ROOT CAUSE QUALIFIED — READY FOR CHATGPT REVIEW",
   "productMutation": false,
-  "newNoraTurn": false,
-  "localScreenshotsPresent": false
+  "newNoraTurn": false
 }
-```
-
-### Evidence ledger append (last line)
-
-```json
-{"campaignId": "P6-GLOBAL-INTEGRATED-PRODUCT-QA-01", "scenarioId": "HQA-01-GUIDANCE-ONLY", "kind": "REAL_EVIDENCE_CONSOLIDATION", "prepRunId": "HQA-01-REC01-REQUAL-20261010T224411Z", "execRunId": "HQA-01-REC01-EXEC-20261010T233732Z", "at": "2026-10-11T05:06:45Z", "projectId": "prj:5d63119d-063e-43ab-bcb0-d1d45ac045f2", "cycleInstanceId": "cyc:trj-8a649d1f2bf64c6eaaa11015", "logicalTurnId": "ltu:58d78c6d8f0d418529ddf4bee29ce062", "acwRecommendationCount": 0, "hqaAttributableWrCount": 0, "hqaObservationId": "epi:acw:9f78e379be6b14781ba2", "journalEntryId": "cje:aa431df2013bd2f4", "noraProposedAcwRecommendation": false, "structuredCandidateObservable": true, "morrisHumanQualityJudgment": "PASS", "verdict": "REC-01 HQA-01 — FUNCTIONAL PASS — PRODUCT EVIDENCE VERIFIED — READY FOR CHATGPT FINAL REVIEW", "productMutation": false, "newNoraTurn": false, "localScreenshotsPresent": false}
 ```
