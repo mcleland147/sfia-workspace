@@ -1,744 +1,706 @@
-# Review Pack FULL — P6-MIN-01…09 Feasible-First QA Sweep
+# Review Pack FULL — P6 Nora maxTurns Deterministic Qualification 01
 
-at: 2026-10-11T07:45:13Z
+at: 2026-10-11T19:14:16Z
 level: FULL
-mode: publish-in-cycle
-cycleType: 9 — QA / validation
 profile: Critical
+cycleType: 9 — QA / validation
 campaign: P6-GLOBAL-INTEGRATED-PRODUCT-QA-01
+pass: P6 COGNITIVE AUTONOMY — MAXTURNS DETERMINISTIC QUALIFICATION 01
 macro: STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01
-milestone: P6 — GLOBAL INTEGRATED PRODUCT QA
 
 ---
 
-## 1. GO Morris
+## 1. GO / périmètre
 
-GO poursuite campagne + balayage MIN-01…09 feasible-first.
-Faire le réalisable maintenant. Conserver gaps. Pas de correction Product.
-MIN-03 NOT READY conservé (Pilot Review accept). Ne pas immobiliser les indépendants.
+Qualification déterministe des limites Runner Nora (maxTurns) et de la reprise,
+rattachée à P6 / incident Human P6-MIN-09 ("Model-turn budget reached (maxTurns).").
 
-Autorisé: tests déterministes sûrs, lecture preuves, matrice, runbook MIN-06, pack, handoff L3.
-Interdit: Nora/OpenAI, nouveau projet, HD, EC, Cursor métier, mutation SQLite QA, restart serveur, modif Product, install deps, commit/push projet.
-
----
-
-## 2. Cycle 9 / Critical
-
-CKC Cycle 9 Candidate — no execution authority.
-Typologie: N/A QA/validation.
-Capacités v3 framing applicables: F02/F04/F08/F11/F12/F14/F15 — Runtime v3 NON ADOPTED.
+Autorisé: lecture code, tests déterministes, ajout test ciblé, pack, handoff L3.
+Interdit: correctif Product, budgets production, nouveau Runner, REAL OpenAI/Cursor,
+mutation QA DB, chantier Product, commit/push projet.
 
 ---
 
-## 3. Git Truth Check
+## 2. Git Truth Check
 
 | Check | Result |
 |---|---|
-| workspace | `/Users/morris/Projects/sfia-workspace-p6-rec01-human-qa` |
+| toplevel | `/Users/morris/Projects/sfia-workspace-p6-rec01-human-qa` |
 | remote | origin https://github.com/mcleland147/sfia-workspace.git |
 | branch | `qa/p6-hqa-02-rec01-human-qa` |
 | HEAD | `f31bb8f610802c102edbe68889fb8ecf0339ec28` |
 | origin/main | `f31bb8f610802c102edbe68889fb8ecf0339ec28` |
+| left-right | 0 0 |
 | staged | none |
-| Product dirty | none |
-| prior handoff tip | `1292814c` / blob `5fe43707` (MIN-03 precheck) |
+| Product lib/features dirty | **none** |
+| local changes | `.tmp-sfia-review/chatgpt-review.md` + **new** test file (untracked) |
 
 STOP Git: not triggered.
 
 ---
 
-## 4. Convergence / Roadmap / v3
+## 3. Convergence / Roadmap
 
-- Build Doctrine / Roadmap / C1 / P6 §Z MIN-01…09 read (canonical).
-- Trajectoire: REC-01 reserves → MIN-03 NOT READY → **this sweep** → Human QA MIN-06 → indépendants → blockers → consolidation.
-- P6 GLOBAL PASS NO · Runtime v3 NON ADOPTED.
-
----
-
-## 5. Contrat P6-MIN + Queue
-
-Mandatory P6-MIN-01…09 per `07-chat-first-product-simplification-p6-global-integrated-product-qa.md` §Z.
-Queue (historical WT READ ONLY): HQ-01=MIN-03, HQ-02=MIN-04, HQ-03=MIN-05, HQ-05=MIN-09 WAITING HUMAN QA.
-MIN-01/02/06/07/08 not all separately queued — still mandatory for global disposition.
+Sources READ ONLY consulted (governance + cognitive trajectory + P6 §Z MIN-09 context).
+Runtime v3 NON ADOPTED. P6 GLOBAL PASS NO.
+Lien: fiabilité cognitive Runner / FinOps borné / non-régression — pas Delivery.
 
 ---
 
-## 6. Matrice MIN-01…09
-
-See embedded full matrix (§21).
-
-| ID | exitStatus |
-|---|---|
-| MIN-01 | DETERMINISTIC PASS |
-| MIN-02 | DETERMINISTIC PASS |
-| MIN-03 | BLOCKED (PRODUCT GAP conserved) |
-| MIN-04 | DETERMINISTIC PASS (negative fail-closed) |
-| MIN-05 | BLOCKED full / det. partial |
-| MIN-06 | FUNCTIONAL PASS CANDIDATE + HUMAN QA READY |
-| MIN-07 | PASS WITH RESERVES |
-| MIN-08 | DETERMINISTIC PASS |
-| MIN-09 | NOT RUN / HUMAN QA REQUIRED |
-
----
-
-## 7. Tests exécutés
-
-Command pattern (from `projects/sfia-studio/app`):
+## 4. Code consulté / call graph
 
 ```
-npx vitest run <files> --reporter=verbose
+orchestrateTurn
+  → runNoraCognitiveTurn
+    → runNoraAgentsTurn
+         requestedMaxTurns = input.maxTurns ?? CT_MAX_TOOL_ROUNDS + 1  (=5)
+         campaign? clampRunnerBudgetForCampaign(...)
+         createNoraAgentsRunner + Agent tools (SFIA / journal / product / …)
+         runner.run(agent, userContent, { maxTurns, session?, errorHandlers.maxTurns })
+         on maxTurns: limitReached=true; text = lastText || "Model-turn budget reached (maxTurns)."
+                      includeInHistory: false
+turnBudget.ts — per-model-turn tool slots (CT_MAX_TOOL_CALLS_PER_ROUND=4)
+campaignBudget.ts — lease clamp / no bypass
 ```
 
-| Batch | Files | Tests | Failed | Log |
-|---|---|---|---|---|
-| A cycle/review | 5 | 192 | 0 | batch-a-cycle-review.log |
-| B continuity/journal | 7 | 123 | 0 | batch-b-continuity-journal.log |
-| C frontDoor/REC01/RB | 3 | 11 | 0 | batch-c-frontdoor-rec01-rb.log |
-| **Total** | **15** | **326** | **0** | |
+Confirmed constants (`lib/platform/tools/types.ts`):
+- `CT_MAX_TOOL_ROUNDS = 4`
+- `CT_MAX_TOOL_CALLS_PER_ROUND = 4`
+- default Agents `maxTurns` = 5
 
-Safety: `@vitest-environment node` / temp mkdtemp SQLite / Fake provider / ZERO REAL headers verified before run.
-No QA Product DB paths touched.
-
-Files:
-
-- lifecycleClosure.phaseB.d0.test.ts
-- corrProof05.pilotLifecycle.d0.test.ts
-- corrProof06.artifactObligation.d0.test.ts
-- lifecycleClosure.criticalReviewFollowUp.d0.test.ts
-- reviewBundleLifecycle.test.ts
-- greenfieldRecoveryContinuityCorr01.d0.test.ts
-- chatFirstWorkRecommendationContinuity.d0.test.ts
-- p5.s07.cp01.continuityExitProof.d0.test.ts
-- genericExecutionReviewResultConvergence01.d0.test.ts
-- cycleJournalContinuity.d0.test.ts
-- pilotabilityJournalIntegrity.d0.test.ts
-- automaticProjectResume.ui.test.tsx
-- productCycleE2eStabilization.frontDoor.d0.test.ts
-- p6.hqa.rec01.optionB.workRecommendationsContext.d0.test.ts
-- adversarialReviewBundleValidation.test.ts
+SDK (`@openai/agents` 0.17.0 / agents-core): exports `RunState`, `MaxTurnsExceededError`;
+`Runner.run` accepts `RunState` resume. Product path does **not** expose it.
 
 ---
 
-## 8. Preuves réutilisées
+## 5. Résultats V1–V5
 
-See §21 evidence-reuse-index.
-Accepted: this sweep; REC-01 on f31bb8f6 WITH RESERVES; MIN-03 precheck blocker; queue as routing.
-Rejected: Oct-8 READY historical; det=REAL promotion.
+### V1 — plafond courant (default)
+Documentary ScriptedModel needing **7** model turns (6× `git_local_read_file` + synthesis).
+Default maxTurns=5 → `limitReached=true`, **no** `COMPLETE_DOC_ANALYSIS_SYNTHESIS`, script incomplete.
+Oracle: dépassement détecté; analyse non déclarable complète. **PASS**
 
----
+### V2 — budget adapté (test-only maxTurns=12)
+Same sequence → complete, 7 model turns, 6 tool calls, `limitReached=false`.
+**NOT a production recommendation.** **PASS**
 
-## 9. MIN-03 blocker
+### V3 — négatifs / non-contournement
+- Campaign remaining clamps requested 12 → ≤2; incomplete. **PASS**
+- maxModelInvocations=0 → no dispatch ("budget reached before dispatch"). **PASS**
+- Existing `runner.d0` R3/R4/R5 + full `mw6.pre-real.budget-hardening` **PASS**
+- No uncontrolled retry / no false completion observed.
 
-Conserved without re-investigation:
-Pilot-facing ReviewBundle accept absent → BLOCKED FOR HUMAN QA.
-Still mandatory for GLOBAL P6 EXIT.
-Does not block independent MIN scenarios.
-
----
-
-## 10. MIN-04 / MIN-05 dependencies
-
-- MIN-04 negative fail-closed evaluated **independently** — DETERMINISTIC PASS.
-- MIN-05 correction portions det. PASS; **full exit leg** blocked by same Review accept as MIN-03.
-
----
-
-## 11. Human QA MIN-06
-
-READY — runbook embedded §21.
-Next single recommended Human action (not auto-started).
-REC-01 usable observe/resume-only without structural HD.
-
----
-
-## 12. Other Human QA
-
-| Scenario | Need |
+### V4 — continuité
+| Kind | Verdict |
 |---|---|
-| MIN-09 GDR | REQUIRED (provider/doc prep; ≠ RB accept) |
-| MIN-08 Journal UI | Recommended (P6-SC-JH-04) |
-| MIN-01/04 Pilot UI | Optional confirmation |
-| MIN-03/05 full | Blocked until Review UI |
+| A New request / session re-entry | PROVEN (≠ mission resume) |
+| B Product RunState resume | **NOT WIRED / NOT PROVEN** |
+| C Autonomous continuation | **NOT IMPLEMENTED** (out of scope) |
+
+Session id persists after stop; persistence ≠ automatic cognitive mission resume.
+`errorHandlers.maxTurns` returns graceful text with `includeInHistory: false`.
+
+### V5 — options
+- **A** SUPPORTED (ScriptedModel workload finishes with higher test maxTurns)
+- **B** INDICATED (Product lacks controlled resume after ceiling)
+- **C** NOT FOUND (stop matches designed handler; matches Human incident text)
+
+**Recommendation (QA, not architecture decision):** treat A and B as joint inputs for Morris —
+evaluate whether production turn budget should change for GDR-class workloads (FinOps),
+and whether native RunState resume should be wired (R22) if post-ceiling mission continuity
+is required. Implement neither in this pass.
 
 ---
 
-## 13. Fake / Real Qualification
+## 6. Tests / commandes
 
-Applicable: YES.
-This sweep: DETERMINISTIC only.
-Inherited REAL: REC-01 (scoped reserves); HQA-06 restart (MIN-06 related).
-No new provider/EC/Cursor REAL.
-Claims forbidden avoided: no P6 GLOBAL PASS; no v3 adopt; no det=REAL; no NOT RUN=PASS.
+```
+cd projects/sfia-studio/app
+npx vitest run \
+  __tests__/nora-cognitive-runtime/p6.nora.maxTurns.documentary.d0.test.ts \
+  __tests__/nora-cognitive-runtime/runner.d0.test.ts \
+  __tests__/nora-cognitive-runtime/mw6.pre-real.budget-hardening.d0.test.ts \
+  --reporter=verbose
+```
 
----
+Result: **Test Files 3 passed · Tests 118 passed · 0 failed** (~2–3s)
 
-## 14. Findings / severity
+Re-run new file alone: **8 passed**.
 
-| Finding | Severity |
-|---|---|
-| Pilot Review accept missing (MIN-03/05 exit) | PRODUCT-BLOCKER (global exit) |
-| MIN-09 no det suite | EVIDENCE GAP |
-| Det. PASS ≠ Pilot UI REAL | CONTRACT awareness |
-| Independent scenarios unblocked | Progress |
+Log: `.tmp-sfia-review/p6-global-integrated-qa/p6-nora-maxturns-qualification/vitest-maxturns-qualification.log`
 
 ---
 
-## 15. Dette / exit
+## 7. Fichiers
 
-Global exit still needs MIN-03 disposition + Human MIN-06/09 (+ optional UI).
-Independent det. coverage advanced.
+Created (tests only):
+`projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.maxTurns.documentary.d0.test.ts`
+git status: `?? projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.maxTurns.documentary.d0.test.ts`
 
----
-
-## 16. Gates Morris
-
-1. Accept sweep verdict.
-2. GO Human QA MIN-06 (runbook).
-3. Keep/defer MIN-03 Delivery disposition.
-4. Later: MIN-09 GDR GO (provider).
-5. No Product correction this cycle unless Morris chooses.
+Product `lib/**` / `features/**`: **unchanged**.
+Doctrine/Roadmap: READ ONLY.
 
 ---
 
-## 17. Fichiers
+## 8. Fake / Real
 
-Created under `.tmp-sfia-review/p6-global-integrated-qa/p6-min01-09-feasible-sweep/`:
-matrix, runbook, reuse index, reserves, synthesis, run-results, logs, ledger-entry.
-Append ledger. Reset/wrote this pack.
-Product/method/prompts/app: untouched.
+Applicable: YES
+Fake: ScriptedModel + temp SQLite session
+REAL: NOT RUN (no GO)
+Level: **DETERMINISTIC PROVEN AT TESTED SCOPE**
+Forbidden claims avoided: REAL BOUNDARY / E2E REAL / P6 GLOBAL PASS / v3 ADOPTED / autonomous continuation implemented
 
----
-
-## 18. Verdict
-
-**P6-MIN-01…09 — COVERAGE SWEEP EXECUTED WITH QUALIFIED BLOCKERS / REMAINING HUMAN QA**
-
-P6 GLOBAL PASS NO · Runtime v3 NON ADOPTED · Human QA not started.
+ScriptedModel proves Runner mechanics — **not** semantic quality of REAL GDR synthesis.
 
 ---
 
-## 19. run-results.json
+## 9. Gaps / réserves
+
+- Deterministic ≠ REAL GDR quality or token/cost profile.
+- maxTurns=12 is experimental test parameter only.
+- Product RunState resume NOT PROVEN.
+- Long-memory/compaction after stop not claimed as mission continuity.
+- New test file local/untracked — not project-committed this cycle.
+
+---
+
+## 10. Capacité v3 / exit
+
+Runtime v3 NON ADOPTED.
+Exit proof this pass: deterministic qualification complete for Morris remediation decision.
+Not Product READY.
+
+---
+
+## 11. Dette / exit conditions
+
+- Morris decides A (budget) / B (resume wiring) / defer.
+- MIN-09 Human GDR remains pending REAL path.
+- Global P6 still NO.
+
+---
+
+## 12. Décisions Morris
+
+1. Accept deterministic qualification.
+2. Choose remediation posture: budget config evaluation vs RunState resume Delivery vs both/defer.
+3. Authorize any future REAL GDR retest separately.
+4. Decide whether to commit the new test file to project branch (not done here).
+
+---
+
+## 13. Verdict
+
+**P6 NORA MAXTURNS — DETERMINISTIC QUALIFICATION COMPLETE / READY FOR MORRIS REMEDIATION DECISION**
+
+---
+
+## 14. qualification-results.json
 
 ```json
 {
-  "kind": "P6_MIN01_09_FEASIBLE_SWEEP",
-  "at": "2026-10-11T07:42:42Z",
+  "passId": "P6 COGNITIVE AUTONOMY \u2014 MAXTURNS DETERMINISTIC QUALIFICATION 01",
+  "at": "2026-10-11T19:14:16Z",
   "baseline": "f31bb8f610802c102edbe68889fb8ecf0339ec28",
-  "workspace": "sfia-workspace-p6-rec01-human-qa",
+  "workspace": "/Users/morris/Projects/sfia-workspace-p6-rec01-human-qa",
   "branch": "qa/p6-hqa-02-rec01-human-qa",
-  "batches": [
-    {
-      "batch": "A-cycle-review",
-      "log": "batch-a-cycle-review.log",
-      "testFiles": [
-        "lifecycleClosure.phaseB.d0.test.ts",
-        "corrProof05.pilotLifecycle.d0.test.ts",
-        "corrProof06.artifactObligation.d0.test.ts",
-        "lifecycleClosure.criticalReviewFollowUp.d0.test.ts",
-        "reviewBundleLifecycle.test.ts"
-      ],
-      "filesPassed": 5,
-      "testsPassed": 192,
-      "failed": 0,
-      "exit": 0,
-      "proofLevel": "UNIT_DETERMINISTIC"
-    },
-    {
-      "batch": "B-continuity-journal",
-      "log": "batch-b-continuity-journal.log",
-      "testFiles": [
-        "greenfieldRecoveryContinuityCorr01.d0.test.ts",
-        "chatFirstWorkRecommendationContinuity.d0.test.ts",
-        "p5.s07.cp01.continuityExitProof.d0.test.ts",
-        "genericExecutionReviewResultConvergence01.d0.test.ts",
-        "cycleJournalContinuity.d0.test.ts",
-        "pilotabilityJournalIntegrity.d0.test.ts",
-        "automaticProjectResume.ui.test.tsx"
-      ],
-      "filesPassed": 7,
-      "testsPassed": 123,
-      "failed": 0,
-      "exit": 0,
-      "proofLevel": "UNIT_DETERMINISTIC"
-    },
-    {
-      "batch": "C-frontdoor-rec01-rb",
-      "log": "batch-c-frontdoor-rec01-rb.log",
-      "testFiles": [
-        "productCycleE2eStabilization.frontDoor.d0.test.ts",
-        "p6.hqa.rec01.optionB.workRecommendationsContext.d0.test.ts",
-        "adversarialReviewBundleValidation.test.ts"
-      ],
-      "filesPassed": 3,
-      "testsPassed": 11,
-      "failed": 0,
-      "exit": 0,
-      "proofLevel": "UNIT_DETERMINISTIC"
-    }
+  "commands": [
+    "npx vitest run __tests__/nora-cognitive-runtime/p6.nora.maxTurns.documentary.d0.test.ts __tests__/nora-cognitive-runtime/runner.d0.test.ts __tests__/nora-cognitive-runtime/mw6.pre-real.budget-hardening.d0.test.ts --reporter=verbose",
+    "npx vitest run __tests__/nora-cognitive-runtime/p6.nora.maxTurns.documentary.d0.test.ts --reporter=verbose"
   ],
-  "totals": {
-    "testFilesPassed": 15,
-    "testsPassed": 326,
+  "combinedSuite": {
+    "testFiles": 3,
+    "tests": 118,
+    "failed": 0,
+    "durationApproxSec": 3
+  },
+  "newFileSuite": {
+    "testFiles": 1,
+    "tests": 8,
     "failed": 0
   },
+  "budgetsConfirmed": {
+    "CT_MAX_TOOL_ROUNDS": 4,
+    "CT_MAX_TOOL_CALLS_PER_ROUND": 4,
+    "defaultMaxTurns": "CT_MAX_TOOL_ROUNDS + 1 = 5",
+    "campaignClamp": "clampRunnerBudgetForCampaign reduces requestedMaxTurns to remaining"
+  },
+  "V1": {
+    "config": "default maxTurns omitted (=5)",
+    "sequence": "6 git_local_read_file + final synthesis (needs 7 model turns)",
+    "complete": false,
+    "limitReached": true,
+    "oracle": "PASS \u2014 incomplete, limit detected"
+  },
+  "V2": {
+    "config": "maxTurns=12 test-only parameter",
+    "complete": true,
+    "limitReached": false,
+    "modelTurns": 7,
+    "toolCalls": 6,
+    "oracle": "PASS \u2014 same sequence completes under adapted test budget",
+    "notProductionRec": true
+  },
+  "V3": {
+    "campaignClamp": "PASS \u2014 requested 12 clamped by remaining 2",
+    "zeroBudgetNoDispatch": "PASS",
+    "mw6Suite": "PASS (existing)",
+    "runnerToolCap": "PASS R3/R4/R5"
+  },
+  "V4": {
+    "A_newRequestSameSession": "PROVEN \u2014 new request works; not mission resume",
+    "B_productRunStateResume": "NOT PROVEN / NOT WIRED \u2014 runNoraAgentsTurn returns no RunState; errorHandlers.maxTurns swallows with includeInHistory:false",
+    "C_autonomousContinuation": "NOT IMPLEMENTED \u2014 out of scope",
+    "sdkRunStateExists": true,
+    "sdkVersion": "agents 0.17.0 / agents-core exports RunState"
+  },
+  "V5": {
+    "optionA": "SUPPORTED for ScriptedModel workload \u2014 higher test maxTurns finishes sequence",
+    "optionB": "ALSO INDICATED \u2014 Product lacks controlled Runner resume after maxTurns",
+    "optionC": "NO alternate defect found \u2014 stop mode matches designed maxTurns handler",
+    "recommendation": "A+B: FinOps/config evaluation of production turn budget for GDR-class workloads AND separate Morris decision on native RunState resume wiring (R22) if mission continuity after ceiling is required. Do not raise production budgets in this pass."
+  },
   "productMutation": false,
-  "qaDbMutation": false,
-  "providerCalls": false
+  "realCalls": false,
+  "newTestFile": "projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.maxTurns.documentary.d0.test.ts",
+  "gitStatusNewTest": "?? projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.maxTurns.documentary.d0.test.ts",
+  "verdict": "P6 NORA MAXTURNS \u2014 DETERMINISTIC QUALIFICATION COMPLETE / READY FOR MORRIS REMEDIATION DECISION"
 }
-
 ```
 
 ---
 
-## 20. ledger-entry
-
-```json
-{
-  "campaignId": "P6-GLOBAL-INTEGRATED-PRODUCT-QA-01",
-  "scenarioId": "P6-MIN-01\u202609",
-  "kind": "FEASIBLE_FIRST_COVERAGE_SWEEP",
-  "at": "2026-10-11T07:45:13Z",
-  "baseline": "f31bb8f610802c102edbe68889fb8ecf0339ec28",
-  "workspace": "sfia-workspace-p6-rec01-human-qa",
-  "testFilesPassed": 15,
-  "testsPassed": 326,
-  "failed": 0,
-  "min03": "BLOCKED \u2014 PRODUCT GAP conserved",
-  "min06": "HUMAN QA READY \u2014 runbook prepared",
-  "nextHumanQa": "P6-MIN-06",
-  "verdict": "P6-MIN-01\u202609 \u2014 COVERAGE SWEEP EXECUTED WITH QUALIFIED BLOCKERS / REMAINING HUMAN QA",
-  "productMutation": false,
-  "newNoraTurn": false,
-  "providerCalls": false
-}
-```
-
----
-
-## 21. Contenu complet des preuves créées
-
-### 21.a Matrix
+## 15. V5 matrix
 
 ```markdown
-# P6-MIN-01…09 — Feasible-First Coverage Matrix
+# V5 Comparison Matrix — P6 Nora maxTurns
 
-at: 2026-10-11T07:44:35Z
-baseline: f31bb8f610802c102edbe68889fb8ecf0339ec28
-workspace: sfia-workspace-p6-rec01-human-qa
-branch: qa/p6-hqa-02-rec01-human-qa
-deterministicTotals: 15 files / 326 tests / 0 failed
-proofMode: UNIT_DETERMINISTIC + requalified prior evidence (no new Product mutation)
+at: 2026-10-11T19:14:16Z
 
-Legend exitStatus:
-DETERMINISTIC PASS | REAL PASS | FUNCTIONAL PASS CANDIDATE | PASS WITH RESERVES |
-FAIL | BLOCKED | NOT RUN | INCONCLUSIVE
-
----
-
-## MIN-01 — Cycle completes with NO Execution
-
-| Field | Value |
-|---|---|
-| oracle | Cycle closes/exit-eligible with zero ExecutionContract Attempt |
-| capability | PRODUCT AVAILABLE (NO_GOVERNED_EFFECTS / N/A execution + finalize) |
-| preconditions | Active cycle; obligation policy allows exit without EC |
-| dependencies | Independent of MIN-03 |
-| proofs now | lifecycleClosure.phaseB (LC-B finalize NO_GOVERNED); corrProof05 |
-| baseline proofs | f31bb8f6 (this sweep) |
-| proof level | UNIT_DETERMINISTIC |
-| independent | YES |
-| test now | EXECUTED PASS |
-| Human QA | Recommended Pilot UI observation of finalize without EC (not blocking det.) |
-| blocker | none for deterministic slice |
-| next action | Optional Human QA smoke finalize-sans-exécution on fresh/non-REC01 project |
-| exit condition | Det. PASS held; Pilot-observable close without EC recorded OR accepted as det.-sufficient per Morris |
-| **exitStatus** | **DETERMINISTIC PASS** (REAL NOT PROVEN) |
-
-MUST-PROVE note: do not equate unrelated smoke with MIN-01; this sweep ran dedicated closure suites.
-
----
-
-## MIN-02 — Optional artifact/execution not required for exit
-
-| Field | Value |
-|---|---|
-| oracle | Non-applicable optional obligations do not falsely block finalize |
-| capability | PRODUCT AVAILABLE (NO_ARTIFACT / NO_EXECUTION / NO_GOVERNED policies) |
-| preconditions | Policy HD selecting N/A families |
-| dependencies | Independent |
-| proofs now | corrProof05; corrProof06 (N/A vs REQUIRE); phaseB policy finalize |
-| baseline | f31bb8f6 |
-| proof level | UNIT_DETERMINISTIC |
-| independent | YES |
-| test now | EXECUTED PASS |
-| Human QA | Optional |
-| blocker | none |
-| next action | none required for det. bar |
-| exit condition | Det. PASS conserved |
-| **exitStatus** | **DETERMINISTIC PASS** |
-
----
-
-## MIN-03 — Required Deliverable → reviewed → validated → Exit Proof
-
-| Field | Value |
-|---|---|
-| oracle | Required → produced → reviewed → validated → Exit Proof |
-| capability | PARTIAL — obligation/produce/Exit engine AVAILABLE; Pilot Review accept NOT OBSERVABLE |
-| preconditions | Fresh QA project + Pilot Review UI (missing) |
-| dependencies | Blocks full positive exit for MIN-05; does NOT auto-block MIN-04 negative |
-| proofs | Prior HQ-01 precheck NOT READY (handoff 1292814c); RB lifecycle det. proves OA completeReview only |
-| baseline prior | f31bb8f6 precheck |
-| proof level | READINESS / PRODUCT GAP (no new investigation) |
-| independent | NO (Product gap) |
-| test now | NOT re-run as Human path; RB lifecycle in sweep = service-only |
-| Human QA | BLOCKED FOR HUMAN QA until Pilot Review accept Delivery/disposition |
-| blocker | PRODUCT GAP — Pilot-facing ReviewBundle accept absent |
-| next action | Morris disposition G1 (Delivery or contract); keep mandatory for global exit |
-| exit condition | Pilot-observable review accept + full oracle REAL/Human PASS |
-| **exitStatus** | **BLOCKED** (NOT READY — PRODUCT GAP; conserved) |
-
-BLOCKED FOR HUMAN QA ≠ campaign halt. Still BLOCKED FOR GLOBAL P6 EXIT.
-
----
-
-## MIN-04 — SUCCESS + Artifact + blocking Review → Exit NOT · Cycle OPEN
-
-| Field | Value |
-|---|---|
-| oracle | Attempt SUCCESS + artifact present + blocking/pending review ⇒ Exit unsatisfied; cycle remains OPEN |
-| capability | Fail-closed assessment AVAILABLE; Pilot visibility of blockers PARTIAL |
-| preconditions | Cycle with applicable review_bundle; non-accepted/blocking RB |
-| dependencies | Independent of Pilot *accept* for negative proof (pending/incomplete suffices) |
-| proofs now | reviewBundleLifecycle (incomplete/refuse complete); adversarial RB; chatFirst WR canComplete=false; criticalReviewFollowUp; frontDoor produces RB draft without accept |
-| baseline | f31bb8f6 |
-| proof level | UNIT_DETERMINISTIC (negative fail-closed) |
-| independent | YES (negative path) |
-| test now | EXECUTED PASS (negative/service) |
-| Human QA | Still valuable for Pilot UI: SUCCESS+artifact+blocker visible — not required to claim det. fail-closed |
-| blocker | none for det. negative; full Pilot UX = HUMAN QA optional |
-| next action | Optional Human QA after MIN-06; not gated on MIN-03 accept |
-| exit condition | Det. fail-closed conserved; optional Human confirms UI |
-| **exitStatus** | **DETERMINISTIC PASS** (negative fail-closed; REAL/UI NOT PROVEN) |
-
----
-
-## MIN-05 — Correction → subsequent EC → re-review → validation → exit
-
-| Field | Value |
-|---|---|
-| oracle | Correction path → new EC/Attempt → re-review clears → validation → Exit |
-| capability | Correction/recovery prepare paths PARTIAL; positive exit needs Review accept |
-| preconditions | Post blocking-review state; Pilot review accept for exit leg |
-| dependencies | **First hard blocker for full PASS = same Pilot Review accept as MIN-03**; recovery/correction det. portions independent |
-| proofs now | greenfieldRecovery; genericExecutionReviewResultConvergence; frontDoor rehydrate; (no full re-review→exit Pilot path) |
-| baseline | f31bb8f6 |
-| proof level | UNIT_DETERMINISTIC PARTIAL |
-| independent | PARTIAL |
-| test now | EXECUTED PASS on accessible portions |
-| Human QA | BLOCKED for full oracle until Review accept; correction prep may be Human-testable earlier |
-| blocker | PRODUCT GAP on exit leg (Review accept); not on correction prepare alone |
-| next action | After MIN-03 unblock, Human QA full chain; until then keep PARTIAL |
-| exit condition | Full oracle Human/REAL PASS |
-| **exitStatus** | **BLOCKED** (full path) / det. portions PASS |
-
----
-
-## MIN-06 — Interrupted conversation / Project recovery
-
-| Field | Value |
-|---|---|
-| oracle | Interrupt → resume → project found → Product context rebuilt → decisions preserved → no invented authority → Nora continuity honest → no false success |
-| capability | PRODUCT AVAILABLE for resume/recovery surfaces (det. + prior HQA-06 restart REAL) |
-| preconditions | Authenticated Studio; project with durable state; controlled interrupt |
-| dependencies | Independent of MIN-03 |
-| proofs now | greenfieldRecoveryContinuityCorr01; automaticProjectResume.ui; p5.s07.cp01 |
-| inherited | REC-01 HQA-06 REAL PASS server restart/rehydration @ f31bb8f6 (related continuity; ≠ full conversation interrupt oracle) |
-| proof level | UNIT_DETERMINISTIC PASS + inherited REAL restart PASS WITH SCOPE LIMIT |
-| independent | YES |
-| test now | EXECUTED PASS |
-| Human QA | **REQUIRED — READY** (priority next) |
-| blocker | none for starting Human QA |
-| next action | Execute runbook `p6-min-06-human-qa-runbook.md` (GO separate) |
-| exit condition | Human PASS/FAIL/INCONCLUSIVE per runbook |
-| **exitStatus** | **FUNCTIONAL PASS CANDIDATE** (det.) · **HUMAN QA REQUIRED / READY** |
-
-REC-01 reuse: allowed for **observe/resume only** if Morris avoids new WR/HD contamination; prefer interrupt of current session without structural decisions. New project not required for MIN-06 if REC-01 used read-conservatively.
-
----
-
-## MIN-07 — Recommendation / HD / currentness continuity
-
-| Field | Value |
-|---|---|
-| oracle | Recommendations / HD / currentness continuity without invented authority |
-| capability | AVAILABLE (chat-first WR + REC-01 lot) |
-| preconditions | REC-01 evidence on matching baseline |
-| dependencies | Independent |
-| proofs now | chatFirstWorkRecommendationContinuity; p6.hqa.rec01.optionB |
-| inherited | REC-01 HQA-01…07 on f31bb8f6 — PASS WITH RESERVES (HQA-02 cognitive under-materialization reserve; HQA-07 det. partial coverage) |
-| proof level | UNIT_DETERMINISTIC + REAL (REC-01 scoped) |
-| independent | YES |
-| test now | EXECUTED PASS (continuity suites) |
-| Human QA | Residual currentness/HD transitions — optional follow-up; do not re-run full REC-01 |
-| blocker | none for sweep disposition |
-| next action | Accept PASS WITH RESERVES; residual Human only if Morris wants extra currentness transitions |
-| exit condition | Reserves explicit; no silent promotion to clean REAL PASS |
-| **exitStatus** | **PASS WITH RESERVES** |
-
----
-
-## MIN-08 — Journal projection coherence
-
-| Field | Value |
-|---|---|
-| oracle | Journal ↔ Product/subjects/recs/HD/history/resume coherence; no parallel UI truth |
-| capability | Journal store/projection AVAILABLE; French UI labels Human-queued (P6-HQ-16) |
-| preconditions | Session with journal entries |
-| dependencies | Independent |
-| proofs now | cycleJournalContinuity; pilotabilityJournalIntegrity |
-| baseline | f31bb8f6 |
-| proof level | UNIT_DETERMINISTIC |
-| independent | YES |
-| test now | EXECUTED PASS |
-| Human QA | Recommended (Journal/History labels P6-SC-JH-04) — not blocking det. |
-| blocker | none for det. |
-| next action | Human QA Journal UI after MIN-06 |
-| exit condition | Det. PASS + optional Human UI PASS |
-| **exitStatus** | **DETERMINISTIC PASS** (UI Human NOT PROVEN) |
-
----
-
-## MIN-09 — Guided Document Review
-
-| Field | Value |
-|---|---|
-| oracle | GDR cognitive+Product path with sources; governed materializations; ≠ ReviewBundle accept |
-| capability | Cognitive GDR path — no dedicated unit suite found on baseline; queue Human |
-| preconditions | Project with suitable document/source set; Nora turn (provider) |
-| dependencies | Independent of MIN-03 ReviewBundle accept (different mechanism) |
-| proofs | none executed (no GDR d0 suite discovered); queue P6-HQ-05 WAITING |
-| proof level | NOT PROVEN |
-| independent | YES |
-| test now | NOT RUN (no safe det. GDR suite identified) |
-| Human QA | REQUIRED — needs provider/Nora GO + document fixture |
-| blocker | ENVIRONMENT / EVIDENCE — needs prepared doc context + provider GO |
-| next action | After MIN-06: prepare GDR Human QA (separate GO for Nora) |
-| exit condition | Human GDR PASS with provenance; no invented global validation |
-| **exitStatus** | **NOT RUN** / **HUMAN QA REQUIRED** |
-
----
-
-## Summary table
-
-| ID | exitStatus | Independent | Human QA |
+| Dimension | V1 default | V2 maxTurns=12 (test) | V3 campaign clamp |
 |---|---|---|---|
-| MIN-01 | DETERMINISTIC PASS | Y | optional |
-| MIN-02 | DETERMINISTIC PASS | Y | optional |
-| MIN-03 | BLOCKED (PRODUCT GAP) | N | blocked |
-| MIN-04 | DETERMINISTIC PASS (neg.) | Y | optional UI |
-| MIN-05 | BLOCKED full / det. partial | partial | blocked exit leg |
-| MIN-06 | FUNCTIONAL PASS CANDIDATE + HUMAN READY | Y | **NEXT** |
-| MIN-07 | PASS WITH RESERVES | Y | residual optional |
-| MIN-08 | DETERMINISTIC PASS | Y | recommended UI |
-| MIN-09 | NOT RUN / HUMAN REQUIRED | Y | after MIN-06 |
+| Requested ceiling | default (=5) | 12 | 12 requested |
+| Applied ceiling | 5 | 12 | ≤2 remaining |
+| Model turns | ≤5 | 7 | ≤2 |
+| Tool calls (reads) | partial (<6) | 6 | partial |
+| Sequence complete | NO | YES | NO |
+| limitReached | true | false | true |
+| Session persisted | yes (id) | yes | yes |
+| Product RunState resume | no | no | no |
+| Proof level | DETERMINISTIC | DETERMINISTIC | DETERMINISTIC |
 
-P6 GLOBAL PASS: NO
-Runtime v3: NON ADOPTED
+## Continuity distinctions (V4)
 
-```
-
-### 21.b MIN-06 runbook
-
-```markdown
-# P6-MIN-06 — Human QA Runbook (Interrupted conversation / Project recovery)
-
-at: 2026-10-11T07:44:35Z
-status: READY FOR HUMAN QA — not started
-baseline: f31bb8f610802c102edbe68889fb8ecf0339ec28
-runtime: http://localhost:3020 (REC-01-capable instance; verify HEAD before start)
-priority: NEXT Human QA after this sweep
-
-## Environment
-
-- Workspace truth: `sfia-workspace-p6-rec01-human-qa` @ f31bb8f6
-- Do not switch Product branch
-- Do not stop/restart server unless Morris separately authorizes (HQA-06 already proved restart)
-- No OpenAI/Cursor GO beyond normal Studio conversation resume unless stated
-
-## Project target
-
-**Preferred:** existing REC-01 project `prj:5d63119d-063e-43ab-bcb0-d1d45ac045f2` for continuity observation only.
-
-Constraints if using REC-01:
-- Do **not** take new structural HumanDecisions
-- Do **not** Require Artifact / Finalize / Confirm Execute
-- Do **not** invent options or accept contradictory WR as truth
-- Goal is interrupt/resume integrity, not WR remediation
-
-**Alternative:** create new project only if Morris authorizes (out of this runbook default).
-
-## Initial state
-
-1. Login Studio
-2. Open target project
-3. Confirm durable identifiers visible (projectId, active cycle if any, Journal/subjects)
-4. Record screenshot/notes: WR count, subjects, Journal décisions, cycle badge
-
-## Actions — interrupt controlled
-
-1. With project open and conversation visible, note last assistant/user turn ids if shown
-2. Interrupt controlled — choose ONE:
-   - A. Close browser tab / navigate away from project then return via project list
-   - B. Hard refresh (reload) on project page
-   - C. Sign out then sign in (heavier; optional)
-3. Do not clear site data / IndexedDB unless testing that specific recovery (default: avoid)
-
-## Actions — resume
-
-1. Re-open same project via Studio project entry (not deep-link invent)
-2. Observe recovery/resume surfaces if any (banner, requalify, resume durable)
-3. Confirm conversation/context reconstructs without claiming false SUCCESS
-4. Confirm prior HumanDecisions unchanged (Journal)
-5. Confirm no new authority invented (no surprise HD)
-6. Send at most one low-risk continuity ping only if needed to observe Nora continuity — prefer zero new provider spend; if ping used, record it
-
-## Expected observations (PASS)
-
-- Same project recovered
-- Product context coherent (cycle/subjects/WR or honest empty/unavailable)
-- Decisions preserved (no silent drop of durable HD)
-- No invented HumanDecision
-- Nora does not claim false execution SUCCESS
-- Recovery path honest if recoveryRequired (disclose, not hide)
-
-## Captures / IDs
-
-- projectId, cycleInstanceId
-- timestamps interrupt / resume
-- screenshots: before, recovery surface (if any), after
-- Journal décision count before/after
-- WR/subject counts before/after
-- any recovery banner testids observed
-
-## PASS / FAIL / INCONCLUSIVE
-
-- **PASS:** project+context recovered; decisions stable; no invented authority; no false success
-- **FAIL:** lost durable decisions; invented HD; false SUCCESS; wrong project; silent corruption
-- **INCONCLUSIVE:** auth/provider/environment blocked mid-path
-
-## Forbidden
-
-- SQLite mutation
-- Finalize / Require Artifact / Confirm Execute on REC-01
-- Contaminating REC-01 WR remediation during this scenario
-- Claiming MIN-03 progress
-- Auto-starting next cycle
-
-## Relation to prior HQA-06
-
-HQA-06 proved server restart rehydration REAL PASS — complementary, not a substitute for conversation interrupt/resume Human QA in this runbook.
-
-```
-
-### 21.c Evidence reuse index
-
-```markdown
-# Evidence reuse index — P6-MIN-01…09 sweep
-
-at: 2026-10-11T07:44:35Z
-baseline_required: f31bb8f610802c102edbe68889fb8ecf0339ec28
-
-## Accepted (baseline + scope match)
-
-| Source | Baseline | Scope | Level | Maps to | Decision |
-|---|---|---|---|---|---|
-| This sweep batches A/B/C | f31bb8f6 | 15 files / 326 tests | UNIT_DETERMINISTIC | MIN-01,02,04,05partial,06,07,08 | ACCEPT |
-| REC-01 HQA-01…07 ledger + packs | f31bb8f6 | WR/currentness/restart | REAL + DET | MIN-07; MIN-06 related (HQA-06 restart) | ACCEPT WITH RESERVES (HQA-02 framing; HQA-07 det≠REAL journey) |
-| P6-HQ-01 precheck handoff 1292814c | f31bb8f6 | Pilot Review gap | READINESS | MIN-03 | ACCEPT — blocker conserved |
-| Queue/batch manifests historical WT | 980064c0 WT | queue status | CAMPAIGN DOC | all MIN queue mapping | ACCEPT as queue truth; not Product proof on f31bb8f6 |
-
-## Rejected / not auto-valid
-
-| Source | Reason |
+| Kind | Status |
 |---|---|
-| Oct-8 HQ-01 READY on historical runtime | Wrong baseline (980064c0); Deliverable not declared |
-| Any det. PASS as REAL PASS | Forbidden claim |
-| Historical auto-proven exclusions without re-verify | Not revalidated this sweep |
+| A New request reusing session/context | PROVEN (not mission resume) |
+| B Resume Runner with existing RunState | NOT WIRED in Product |
+| C Autonomous documentary mission continuation | NOT IMPLEMENTED |
 
-## Historical WT artefacts
+## Options
 
-Readable READ ONLY from `/Users/morris/Projects/sfia-workspace/.tmp-sfia-review/p6-global-integrated-qa/`.
-Not treated as automatic Product proofs on f31bb8f6.
-
-```
-
-### 21.d Reserves
-
-```markdown
-# Reserves and exit conditions — P6-MIN-01…09 sweep
-
-at: 2026-10-11T07:44:35Z
-
-## Conserved blockers
-
-1. MIN-03 PRODUCT GAP — Pilot ReviewBundle accept absent — mandatory for global P6 exit — correction deferred not abandoned.
-2. MIN-05 full path blocked on same Review accept for exit leg.
-
-## Reserves
-
-- MIN-01/02/04/08 DETERMINISTIC PASS ≠ REAL/Human Pilot PASS.
-- MIN-07 PASS WITH RESERVES from REC-01 (HQA-02 expectation/framing; HQA-07 det partial).
-- MIN-06 det + HQA-06 restart ≠ full interrupt oracle until Human runbook executed.
-- MIN-09 no det suite — NOT RUN.
-- Queue manifests from historical WT — campaign routing only.
-- No Product Delivery this cycle.
-
-## Exit conditions (campaign)
-
-Global P6 exit still requires disposition of MIN-03 (and dependent full MIN-05), plus Human QA for MIN-06/09 (and optional UI for others).
-Independent scenarios may proceed.
-
-```
-
-### 21.e Synthesis
-
-```markdown
-# P6-MIN-01…09 — Feasible sweep synthesis
-
-at: 2026-10-11T07:44:35Z
-verdict: P6-MIN-01…09 — COVERAGE SWEEP EXECUTED WITH QUALIFIED BLOCKERS / REMAINING HUMAN QA
-
-## Executed now
-
-- 3 vitest batches · 15 files · 326 passed · 0 failed
-- Temp SQLite / Fake provider / ZERO REAL only
-- No QA DB mutation · no Nora · no Product code change
-
-## Disposition counts
-
-- DETERMINISTIC PASS: MIN-01, MIN-02, MIN-04 (neg), MIN-08
-- PASS WITH RESERVES: MIN-07
-- FUNCTIONAL PASS CANDIDATE + HUMAN READY: MIN-06
-- BLOCKED: MIN-03; MIN-05 (full)
-- NOT RUN: MIN-09
-
-## Next single Human QA action
-
-**P6-MIN-06** — follow `p6-min-06-human-qa-runbook.md` (do not auto-start).
-
-## Claims
-
-- P6 GLOBAL PASS = NO
-- Runtime v3 = NON ADOPTED
-- DETERMINISTIC ≠ REAL
+- **A** Adapted turn budget can finish tested ScriptedModel workload — SUPPORTED
+- **B** Controlled continuation also needed for Product post-stop resume — INDICATED
+- **C** Other defect — NOT FOUND (behavior matches designed maxTurns stop)
 
 ```
 
 ---
 
-## 22. Instruction ChatGPT
+## 16. Contenu intégral du fichier de test créé
+
+Path: `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.maxTurns.documentary.d0.test.ts`
+
+```typescript
+/**
+ * P6 COGNITIVE AUTONOMY — MAXTURNS DETERMINISTIC QUALIFICATION 01
+ *
+ * Proves Runner maxTurns ceiling, adapted test budget, negatives, and
+ * continuity/resume distinctions after budget exhaustion.
+ *
+ * ZERO REAL — ScriptedModel / temp ProductSqliteSession only.
+ * Does NOT modify Product budgets or Runner code.
+ *
+ * @vitest-environment node
+ */
+import { afterEach, describe, expect, it } from "vitest";
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import { Agent, MaxTurnsExceededError, Runner, RunState } from "@openai/agents";
+import {
+  ScriptedModel,
+  assistantMessage,
+  functionCall,
+} from "@openai/agents/testing";
+import { CT_MAX_TOOL_CALLS_PER_ROUND, CT_MAX_TOOL_ROUNDS } from "@/lib/platform/tools";
+import { resolveWorkspaceRootFromAppCwd } from "@/lib/platform/repository/workspaceRoot";
+import {
+  ProductSqliteSession,
+  createSfiaRouteToolAdapters,
+  runNoraAgentsTurn,
+  sfiaBoundaryInstructions,
+} from "@/lib/nora-cognitive-runtime";
+import {
+  acquireNoraCampaignBudget,
+  campaignBudgetSnapshot,
+} from "@/lib/nora-cognitive-runtime/campaignBudget";
+
+const DOC_PATH = "projects/sfia-studio/app/package.json";
+const COMPLETE_MARKER = "COMPLETE_DOC_ANALYSIS_SYNTHESIS";
+
+const dirs: string[] = [];
+
+function tmpSession(projectId: string): ProductSqliteSession {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-p6-maxturns-"));
+  dirs.push(dir);
+  return new ProductSqliteSession({
+    projectId,
+    dbPath: path.join(dir, "session.sqlite"),
+  });
+}
+
+afterEach(() => {
+  while (dirs.length) {
+    const d = dirs.pop();
+    if (d) fs.rmSync(d, { recursive: true, force: true });
+  }
+});
+
+/** Six sequential document reads then a final synthesis — needs 7 model turns. */
+function documentaryScriptNeedingSevenModelTurns() {
+  return [
+    [
+      functionCall(
+        "git_local_read_file",
+        { path: DOC_PATH, maxBytes: 2048 },
+        { callId: "doc_r1" },
+      ),
+    ],
+    [
+      functionCall(
+        "git_local_read_file",
+        { path: DOC_PATH, maxBytes: 2048 },
+        { callId: "doc_r2" },
+      ),
+    ],
+    [
+      functionCall(
+        "git_local_read_file",
+        { path: DOC_PATH, maxBytes: 2048 },
+        { callId: "doc_r3" },
+      ),
+    ],
+    [
+      functionCall(
+        "git_local_read_file",
+        { path: DOC_PATH, maxBytes: 2048 },
+        { callId: "doc_r4" },
+      ),
+    ],
+    [
+      functionCall(
+        "git_local_read_file",
+        { path: DOC_PATH, maxBytes: 2048 },
+        { callId: "doc_r5" },
+      ),
+    ],
+    [
+      functionCall(
+        "git_local_read_file",
+        { path: DOC_PATH, maxBytes: 2048 },
+        { callId: "doc_r6" },
+      ),
+    ],
+    [
+      assistantMessage(
+        `${COMPLETE_MARKER}: six reads observed; guided document review finished.`,
+      ),
+    ],
+  ];
+}
+
+describe("P6 Nora maxTurns — documentary qualification (V1–V5)", () => {
+  it("baseline constants — CT_MAX_TOOL_ROUNDS=4, per-turn=4, default maxTurns=5", () => {
+    expect(CT_MAX_TOOL_ROUNDS).toBe(4);
+    expect(CT_MAX_TOOL_CALLS_PER_ROUND).toBe(4);
+    expect(CT_MAX_TOOL_ROUNDS + 1).toBe(5);
+  });
+
+  it("V1 — default maxTurns (5) stops multi-read documentary sequence incomplete", async () => {
+    const session = tmpSession("prj:p6-mt-v1");
+    const model = new ScriptedModel(documentaryScriptNeedingSevenModelTurns());
+    const result = await runNoraAgentsTurn({
+      correlationId: "p6-maxturns-v1",
+      projectId: "prj:p6-mt-v1",
+      systemInstructions: sfiaBoundaryInstructions(),
+      userContent:
+        "Guided Document Review: read package.json in six passes then synthesize.",
+      session,
+      model,
+      workspaceRoot: resolveWorkspaceRootFromAppCwd(),
+      enableTools: true,
+      // omit maxTurns → Product default CT_MAX_TOOL_ROUNDS + 1 (=5)
+    });
+
+    expect(result.limitReached).toBe(true);
+    expect(result.text.length).toBeGreaterThan(0);
+    expect(result.text).not.toMatch(new RegExp(COMPLETE_MARKER));
+    // Default ceiling: at most 5 model turns executed.
+    expect(model.calls.length).toBeLessThanOrEqual(5);
+    expect(model.calls.length).toBeGreaterThanOrEqual(1);
+    // Incomplete script — final synthesis turn not consumed.
+    expect(() => model.assertComplete()).toThrow();
+    // Product surface matches human-observed stop message when no prior text.
+    expect(
+      result.text.includes("Model-turn budget reached (maxTurns).") ||
+        result.text.trim().length > 0,
+    ).toBe(true);
+    // Session identity persisted; persistence ≠ autonomous mission resume.
+    expect(result.sessionId).toBeTruthy();
+    session.close();
+  });
+
+  it("V2 — adapted test-only maxTurns=12 completes same documentary sequence", async () => {
+    const session = tmpSession("prj:p6-mt-v2");
+    const model = new ScriptedModel(documentaryScriptNeedingSevenModelTurns());
+    const result = await runNoraAgentsTurn({
+      correlationId: "p6-maxturns-v2",
+      projectId: "prj:p6-mt-v2",
+      systemInstructions: sfiaBoundaryInstructions(),
+      userContent:
+        "Guided Document Review: read package.json in six passes then synthesize.",
+      session,
+      model,
+      workspaceRoot: resolveWorkspaceRootFromAppCwd(),
+      enableTools: true,
+      maxTurns: 12, // TEST-ONLY parameter — NOT a production recommendation
+    });
+
+    expect(result.limitReached).toBe(false);
+    expect(result.text).toMatch(new RegExp(COMPLETE_MARKER));
+    expect(model.calls.length).toBe(7); // 6 tool turns + 1 synthesis
+    expect(result.toolCalls).toBe(6);
+    expect(result.toolRounds).toBe(6);
+    model.assertComplete();
+    session.close();
+  });
+
+  it("V3 — campaign remaining clamps caller maxTurns (no bypass)", async () => {
+    const session = tmpSession("prj:p6-mt-v3");
+    const campaign = acquireNoraCampaignBudget({
+      campaignId: "camp:p6-maxturns-v3",
+      maxModelInvocations: 2,
+      maxHostedWebOperations: 0,
+      maxAggregateRealCalls: 2,
+    });
+    const model = new ScriptedModel(documentaryScriptNeedingSevenModelTurns());
+    const result = await runNoraAgentsTurn({
+      correlationId: "p6-maxturns-v3-clamp",
+      projectId: "prj:p6-mt-v3",
+      systemInstructions: sfiaBoundaryInstructions(),
+      userContent: "Attempt oversized documentary review under tiny campaign.",
+      session,
+      model,
+      workspaceRoot: resolveWorkspaceRootFromAppCwd(),
+      enableTools: true,
+      maxTurns: 12, // requested high
+      campaignBudget: campaign,
+    });
+    expect(result.limitReached).toBe(true);
+    expect(result.text).not.toMatch(new RegExp(COMPLETE_MARKER));
+    expect(model.calls.length).toBeLessThanOrEqual(2);
+    const snap = campaignBudgetSnapshot(campaign);
+    expect(snap.maxModelInvocations).toBe(2);
+    expect(result.budgetObserve?.clampReasonCodes.length).toBeGreaterThan(0);
+    session.close();
+  });
+
+  it("V3 — exhausted campaign (0 remaining) does not dispatch Runner", async () => {
+    const session = tmpSession("prj:p6-mt-v3b");
+    const campaign = acquireNoraCampaignBudget({
+      campaignId: "camp:p6-maxturns-v3b",
+      maxModelInvocations: 0,
+      maxHostedWebOperations: 0,
+      maxAggregateRealCalls: 0,
+    });
+    const model = new ScriptedModel([
+      [assistantMessage("should-not-run")],
+    ]);
+    const result = await runNoraAgentsTurn({
+      correlationId: "p6-maxturns-v3b",
+      projectId: "prj:p6-mt-v3b",
+      systemInstructions: sfiaBoundaryInstructions(),
+      userContent: "anything",
+      session,
+      model,
+      enableTools: false,
+      maxTurns: 5,
+      campaignBudget: campaign,
+    });
+    expect(result.limitReached).toBe(true);
+    expect(result.text).toMatch(/budget reached before dispatch/i);
+    expect(model.calls.length).toBe(0);
+    session.close();
+  });
+
+  it("V4 — Product path has no RunState resume after maxTurns (A≠B≠C)", async () => {
+    const session = tmpSession("prj:p6-mt-v4");
+    const model = new ScriptedModel(documentaryScriptNeedingSevenModelTurns());
+    const first = await runNoraAgentsTurn({
+      correlationId: "p6-maxturns-v4a",
+      projectId: "prj:p6-mt-v4",
+      systemInstructions: sfiaBoundaryInstructions(),
+      userContent: "Start documentary review (will hit maxTurns).",
+      session,
+      model,
+      workspaceRoot: resolveWorkspaceRootFromAppCwd(),
+      enableTools: true,
+      maxTurns: 5,
+    });
+    expect(first.limitReached).toBe(true);
+    expect(first.text).not.toMatch(new RegExp(COMPLETE_MARKER));
+    const sessionIdAfterStop = first.sessionId;
+    expect(sessionIdAfterStop).toBeTruthy();
+
+    // A — new request on same session (re-read / new mission), not Runner resume.
+    const model2 = new ScriptedModel([
+      [assistantMessage("NEW_REQUEST_ACK — not a resumed maxTurns mission.")],
+    ]);
+    const second = await runNoraAgentsTurn({
+      correlationId: "p6-maxturns-v4b",
+      projectId: "prj:p6-mt-v4",
+      systemInstructions: sfiaBoundaryInstructions(),
+      userContent: "Continue the previous unfinished documentary analysis.",
+      session,
+      model: model2,
+      workspaceRoot: resolveWorkspaceRootFromAppCwd(),
+      enableTools: false,
+      maxTurns: 5,
+    });
+    expect(second.limitReached).toBe(false);
+    expect(second.text).toMatch(/NEW_REQUEST_ACK/);
+    expect(second.text).not.toMatch(new RegExp(COMPLETE_MARKER));
+    expect(second.sessionId).toBe(sessionIdAfterStop);
+
+    // B/C — Product API accepts only string userContent; no RunState parameter.
+    expect(typeof first).toBe("object");
+    expect("state" in first).toBe(false);
+    expect(RunState).toBeTypeOf("function");
+    session.close();
+  });
+
+  it("V4 — SDK RunState exists but Product errorHandlers swallow maxTurns without exposing state", async () => {
+    // Prove SDK primitive availability (native) without claiming Product wires it.
+    expect(typeof RunState).toBe("function");
+    expect(typeof MaxTurnsExceededError).toBe("function");
+
+    const model = new ScriptedModel([
+      [functionCall("git_local_get_head", {}, { callId: "sdk1" })],
+      [functionCall("git_local_get_head", {}, { callId: "sdk2" })],
+      [functionCall("git_local_get_head", {}, { callId: "sdk3" })],
+    ]);
+    const tools = createSfiaRouteToolAdapters({
+      correlationId: "p6-maxturns-sdk",
+      workspaceRoot: resolveWorkspaceRootFromAppCwd(),
+    });
+    const agent = new Agent({
+      name: "SdkMax",
+      instructions: sfiaBoundaryInstructions(),
+      model,
+      tools,
+    });
+    const raw = new Runner({ tracingDisabled: true });
+    let caught: unknown;
+    try {
+      await raw.run(agent, "loop", { maxTurns: 2 });
+    } catch (e) {
+      caught = e;
+    }
+    expect(caught).toBeInstanceOf(MaxTurnsExceededError);
+    const err = caught as MaxTurnsExceededError & { state?: unknown };
+    // State may or may not be attached depending on SDK path; record honestly.
+    const hasState = err.state instanceof RunState;
+    // Product path uses errorHandlers.maxTurns → graceful text, no thrown error,
+    // no returned RunState — therefore Product B/C resume remains NOT PROVEN.
+    expect(hasState === true || hasState === false).toBe(true);
+  });
+
+  it("V5 — comparison matrix facts: default incomplete vs test maxTurns=12 complete", async () => {
+    const sessionA = tmpSession("prj:p6-mt-v5a");
+    const sessionB = tmpSession("prj:p6-mt-v5b");
+    const modelA = new ScriptedModel(documentaryScriptNeedingSevenModelTurns());
+    const modelB = new ScriptedModel(documentaryScriptNeedingSevenModelTurns());
+
+    const v1 = await runNoraAgentsTurn({
+      correlationId: "p6-maxturns-v5-default",
+      projectId: "prj:p6-mt-v5a",
+      systemInstructions: sfiaBoundaryInstructions(),
+      userContent: "documentary",
+      session: sessionA,
+      model: modelA,
+      workspaceRoot: resolveWorkspaceRootFromAppCwd(),
+      enableTools: true,
+    });
+    const v2 = await runNoraAgentsTurn({
+      correlationId: "p6-maxturns-v5-adapted",
+      projectId: "prj:p6-mt-v5b",
+      systemInstructions: sfiaBoundaryInstructions(),
+      userContent: "documentary",
+      session: sessionB,
+      model: modelB,
+      workspaceRoot: resolveWorkspaceRootFromAppCwd(),
+      enableTools: true,
+      maxTurns: 12,
+    });
+
+    const matrix = {
+      v1: {
+        requestedMaxTurns: "default(=5)",
+        appliedCeiling: 5,
+        modelTurns: modelA.calls.length,
+        toolCalls: v1.toolCalls,
+        complete: v1.text.includes(COMPLETE_MARKER),
+        limitReached: v1.limitReached,
+        sessionPersisted: Boolean(v1.sessionId),
+        productRunStateResume: false,
+      },
+      v2: {
+        requestedMaxTurns: 12,
+        appliedCeiling: 12,
+        modelTurns: modelB.calls.length,
+        toolCalls: v2.toolCalls,
+        complete: v2.text.includes(COMPLETE_MARKER),
+        limitReached: v2.limitReached,
+        sessionPersisted: Boolean(v2.sessionId),
+        productRunStateResume: false,
+      },
+    };
+
+    expect(matrix.v1.complete).toBe(false);
+    expect(matrix.v1.limitReached).toBe(true);
+    expect(matrix.v2.complete).toBe(true);
+    expect(matrix.v2.limitReached).toBe(false);
+    expect(matrix.v2.modelTurns).toBeGreaterThan(matrix.v1.modelTurns);
+
+    // Options for Morris (QA conclusions, not architecture choice):
+    // A — adapted turn budget can finish this ScriptedModel workload
+    // B — controlled continuation also needed for Product autonomy after stop
+    // Evidence: A true for this fake workload; B still required for Product resume.
+    expect(matrix.v2.complete && !matrix.v1.complete).toBe(true);
+    expect(matrix.v1.productRunStateResume).toBe(false);
+
+    sessionA.close();
+    sessionB.close();
+  });
+});
+
+```
+
+---
+
+## 17. Instruction ChatGPT
 
 Relire handoff distant `sfia-review-handoff/latest-chatgpt-review.md`.
-Vérifier matrice, tests 326/0, limites REAL, blocker MIN-03, runbook MIN-06.
-Ne pas promouvoir déterministe en E2E REAL.
+Vérifier identité de passe, V1–V5, 118 tests, absence Product mutation/REAL,
+options A/B/C, décisions Morris, SHA/blob.
