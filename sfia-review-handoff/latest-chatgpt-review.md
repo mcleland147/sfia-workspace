@@ -1,13 +1,11 @@
-# Review Pack FULL — P6-HQ-01 Deliverable Exit Proof Precheck
+# Review Pack FULL — P6-MIN-01…09 Feasible-First QA Sweep
 
-at: 2026-10-11T07:20:42Z
+at: 2026-10-11T07:45:13Z
 level: FULL
 mode: publish-in-cycle
 cycleType: 9 — QA / validation
 profile: Critical
 campaign: P6-GLOBAL-INTEGRATED-PRODUCT-QA-01
-tranche: P6-HQ-01
-scenario: P6-SC-MIN-03 / P6-MIN-03
 macro: STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01
 milestone: P6 — GLOBAL INTEGRATED PRODUCT QA
 
@@ -15,23 +13,20 @@ milestone: P6 — GLOBAL INTEGRATED PRODUCT QA
 
 ## 1. GO Morris
 
-GO: "ok go" — ouverture de P6-HQ-01.
+GO poursuite campagne + balayage MIN-01…09 feasible-first.
+Faire le réalisable maintenant. Conserver gaps. Pas de correction Product.
+MIN-03 NOT READY conservé (Pilot Review accept). Ne pas immobiliser les indépendants.
 
-Autorise: preflight QA + préparation du scénario Human QA.
-
-N'autorise PAS: création de livrable, exécution agent, mutation Product/SQLite,
-nouvelle conversation Nora, HumanDecision, Confirmation, ExecutionContract,
-clôture de cycle, modification code, commit/push projet, PR/merge.
+Autorisé: tests déterministes sûrs, lecture preuves, matrice, runbook MIN-06, pack, handoff L3.
+Interdit: Nora/OpenAI, nouveau projet, HD, EC, Cursor métier, mutation SQLite QA, restart serveur, modif Product, install deps, commit/push projet.
 
 ---
 
-## 2. Cycle 9 Critical QA
+## 2. Cycle 9 / Critical
 
-Typologie v2.4: N/A — QA / validation.
-Niveau QA: Integrated Product / Human QA / REAL-first hybrid.
-CKC Cycle 9: Candidate only — no execution authority.
-Justification: obligations de cycle, validation livrables, frontières d'autorité,
-Exit Proof, clôture gouvernée.
+CKC Cycle 9 Candidate — no execution authority.
+Typologie: N/A QA/validation.
+Capacités v3 framing applicables: F02/F04/F08/F11/F12/F14/F15 — Runtime v3 NON ADOPTED.
 
 ---
 
@@ -39,486 +34,711 @@ Exit Proof, clôture gouvernée.
 
 | Check | Result |
 |---|---|
-| pwd | `/Users/morris/Projects/sfia-workspace-p6-rec01-human-qa` |
-| remote | `origin https://github.com/mcleland147/sfia-workspace.git` |
+| workspace | `/Users/morris/Projects/sfia-workspace-p6-rec01-human-qa` |
+| remote | origin https://github.com/mcleland147/sfia-workspace.git |
 | branch | `qa/p6-hqa-02-rec01-human-qa` |
 | HEAD | `f31bb8f610802c102edbe68889fb8ecf0339ec28` |
 | origin/main | `f31bb8f610802c102edbe68889fb8ecf0339ec28` |
-| baseline match | YES |
-| status (pre-pack) | only `.tmp-sfia-review/chatgpt-review.md` dirty (Review Pack rewrite) |
-| Product files modified | NONE |
-| branch change / reset / stash / clean | NONE |
+| staged | none |
+| Product dirty | none |
+| prior handoff tip | `1292814c` / blob `5fe43707` (MIN-03 precheck) |
 
-### Worktrees P6 / QA pertinents
-
-| Worktree | HEAD | Branch | Note |
-|---|---|---|---|
-| `sfia-workspace-p6-rec01-human-qa` (this) | f31bb8f6 | qa/p6-hqa-02-rec01-human-qa | **Selected** — Product baseline + REC-01 capability |
-| `sfia-workspace` | 980064c0 | qa/sfia-studio-p6-global-integrated-product-qa | Historical P6 campaign WT — Oct-8 HQ-01 prep / queue; **not** REC-01 baseline |
-| `sfia-workspace/sfia-review-handoff` | 9e06b37c | sfia/review-handoff | Prior tip: REC-01 HQA-07 |
-
-STOP Git: not triggered — baseline compatible; no unexplained Product changes.
+STOP Git: not triggered.
 
 ---
 
-## 4. Build Doctrine / Roadmap / C1
+## 4. Convergence / Roadmap / v3
 
-Sources verified (READ ONLY):
-
-- `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md`
-- `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
-- `projects/sfia-studio/product-completion/01-product-completion-cadrage.md`
-- Product Simplification P2/P4/P6 applicable (Functional Operating Model §§7,11–13; P6 §Q/S/T/Z/AI/AJ/AM)
-- Doctrine v3 framing 32/34/35/37 applicable as capability framing — Runtime v3 NOT ADOPTED
-- CKC `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/04-qa-validation.md` — Candidate
-- Prior handoff tip: `9e06b37c688c0170a46a980593e801ab8ebfc7c9` (HQA-07)
-
-Trajectory: REC-01 Human QA done with reserves → P6-HQ-01 precheck (this) → Morris review → next P6 tranche by decision.
-
-P6 GLOBAL PASS: NO (unchanged).
-Runtime v3: NON ADOPTED (unchanged).
+- Build Doctrine / Roadmap / C1 / P6 §Z MIN-01…09 read (canonical).
+- Trajectoire: REC-01 reserves → MIN-03 NOT READY → **this sweep** → Human QA MIN-06 → indépendants → blockers → consolidation.
+- P6 GLOBAL PASS NO · Runtime v3 NON ADOPTED.
 
 ---
 
-## 5. Contrat P6-MIN-03 / Queue
+## 5. Contrat P6-MIN + Queue
 
-Queue source (historical campaign WT, READ ONLY):
-`/Users/morris/Projects/sfia-workspace/.tmp-sfia-review/p6-global-integrated-qa/human-qa-queue.json`
-
-P6-HQ-01 item:
-
-- scenarioId: P6-SC-MIN-03 / P6-MIN-03
-- title: Required Deliverable produced → reviewed → validated → Exit Proof
-- status: **WAITING HUMAN QA**
-- blockingPotential: PRODUCT-BLOCKER
-- batchSection: A-blocking
-- observationChecklist: Deliverable VALIDATED; ReviewBundle complete; Exit Proof PASS; Cycle CLOSED or exit-eligible
-- evidenceLocation target: `.tmp-sfia-review/p6-global-integrated-qa/human-qa/P6-SC-MIN-03/`
-- executedByMorris (batch): false
-
-Oracle A–G (contract): REQUIRED → before → production → review → validation → Exit Proof → closure (eligibility ≠ auto-close).
+Mandatory P6-MIN-01…09 per `07-chat-first-product-simplification-p6-global-integrated-product-qa.md` §Z.
+Queue (historical WT READ ONLY): HQ-01=MIN-03, HQ-02=MIN-04, HQ-03=MIN-05, HQ-05=MIN-09 WAITING HUMAN QA.
+MIN-01/02/06/07/08 not all separately queued — still mandatory for global disposition.
 
 ---
 
-## 6. Sources et chemins techniques vérifiés
+## 6. Matrice MIN-01…09
 
-| Area | Path / evidence |
+See embedded full matrix (§21).
+
+| ID | exitStatus |
 |---|---|
-| Require Artifact HD | `features/project-assistant/f2/pilotLifecycleActions.ts` · `recordObligationPolicyRequireArtifact` |
-| Lifecycle UI | `features/pre-m6-product-ui/surfaces/LifecycleSurface.tsx` — require-artifact + Finaliser |
-| Applicability | `lib/oa/cycle/application/deriveFinalizationApplicability.ts` — REQUIRE_ARTIFACT → artifact APPLICABLE |
-| GCEC FD | `lib/oa/cycle/application/deriveCycleObligationSnapshot.ts` — `cyc:functional-design` + repo ⇒ MUST set incl. review_bundle |
-| Exit assessment | `lib/oa/cycle/application/assessFinalization.ts` — review_bundle needs accepted/amended when applicable |
-| completeReview | OA services + **tests only** — zero Pilot feature callers |
-| Docs-write claim | `completeDocsWriteClaimEvidenceCompletion.ts` — freeze RB draft ≠ accept |
-| Det. proofs | `__tests__/oa/cycle/corrProof06.artifactObligation.d0.test.ts` |
-| Front-door E2E det. | `__tests__/project-assistant/productCycleE2eStabilization.frontDoor.d0.test.ts` |
-| Prior Oct-8 HQ-01 | historical WT `morris-hq01-brief-fr.md` / `human-qa-environment-readiness.json` — stale / wrong baseline |
+| MIN-01 | DETERMINISTIC PASS |
+| MIN-02 | DETERMINISTIC PASS |
+| MIN-03 | BLOCKED (PRODUCT GAP conserved) |
+| MIN-04 | DETERMINISTIC PASS (negative fail-closed) |
+| MIN-05 | BLOCKED full / det. partial |
+| MIN-06 | FUNCTIONAL PASS CANDIDATE + HUMAN QA READY |
+| MIN-07 | PASS WITH RESERVES |
+| MIN-08 | DETERMINISTIC PASS |
+| MIN-09 | NOT RUN / HUMAN QA REQUIRED |
 
 ---
 
-## 7. Capacité runtime réelle
+## 7. Tests exécutés
 
-| Stage | Qualification |
+Command pattern (from `projects/sfia-studio/app`):
+
+```
+npx vitest run <files> --reporter=verbose
+```
+
+| Batch | Files | Tests | Failed | Log |
+|---|---|---|---|---|
+| A cycle/review | 5 | 192 | 0 | batch-a-cycle-review.log |
+| B continuity/journal | 7 | 123 | 0 | batch-b-continuity-journal.log |
+| C frontDoor/REC01/RB | 3 | 11 | 0 | batch-c-frontdoor-rec01-rb.log |
+| **Total** | **15** | **326** | **0** | |
+
+Safety: `@vitest-environment node` / temp mkdtemp SQLite / Fake provider / ZERO REAL headers verified before run.
+No QA Product DB paths touched.
+
+Files:
+
+- lifecycleClosure.phaseB.d0.test.ts
+- corrProof05.pilotLifecycle.d0.test.ts
+- corrProof06.artifactObligation.d0.test.ts
+- lifecycleClosure.criticalReviewFollowUp.d0.test.ts
+- reviewBundleLifecycle.test.ts
+- greenfieldRecoveryContinuityCorr01.d0.test.ts
+- chatFirstWorkRecommendationContinuity.d0.test.ts
+- p5.s07.cp01.continuityExitProof.d0.test.ts
+- genericExecutionReviewResultConvergence01.d0.test.ts
+- cycleJournalContinuity.d0.test.ts
+- pilotabilityJournalIntegrity.d0.test.ts
+- automaticProjectResume.ui.test.tsx
+- productCycleE2eStabilization.frontDoor.d0.test.ts
+- p6.hqa.rec01.optionB.workRecommendationsContext.d0.test.ts
+- adversarialReviewBundleValidation.test.ts
+
+---
+
+## 8. Preuves réutilisées
+
+See §21 evidence-reuse-index.
+Accepted: this sweep; REC-01 on f31bb8f6 WITH RESERVES; MIN-03 precheck blocker; queue as routing.
+Rejected: Oct-8 READY historical; det=REAL promotion.
+
+---
+
+## 9. MIN-03 blocker
+
+Conserved without re-investigation:
+Pilot-facing ReviewBundle accept absent → BLOCKED FOR HUMAN QA.
+Still mandatory for GLOBAL P6 EXIT.
+Does not block independent MIN scenarios.
+
+---
+
+## 10. MIN-04 / MIN-05 dependencies
+
+- MIN-04 negative fail-closed evaluated **independently** — DETERMINISTIC PASS.
+- MIN-05 correction portions det. PASS; **full exit leg** blocked by same Review accept as MIN-03.
+
+---
+
+## 11. Human QA MIN-06
+
+READY — runbook embedded §21.
+Next single recommended Human action (not auto-started).
+REC-01 usable observe/resume-only without structural HD.
+
+---
+
+## 12. Other Human QA
+
+| Scenario | Need |
 |---|---|
-| A Required Deliverable | PRODUCT CAPABILITY AVAILABLE |
-| B Before production | PRODUCT CAPABILITY AVAILABLE |
-| C Production | PRODUCT CAPABILITY AVAILABLE (deterministic Fake path); REAL NOT PROVEN |
-| D Review | **PRODUCT CAPABILITY PARTIAL / DETERMINISTIC ONLY — Pilot NOT OBSERVABLE** |
-| E Validation | PARTIAL (integrity ≠ deliverable validation; UVE NOT IMPLEMENTED) |
-| F Exit Proof | Engine AVAILABLE; full required-chain REAL NOT PROVEN |
-| G Closure | Finaliser AVAILABLE when canComplete; REAL NOT PROVEN for MIN-03 |
-
-Primary gap: Pilot cannot `startReview` / `completeReview` — ReviewBundle accept not in Product UI/actions.
+| MIN-09 GDR | REQUIRED (provider/doc prep; ≠ RB accept) |
+| MIN-08 Journal UI | Recommended (P6-SC-JH-04) |
+| MIN-01/04 Pilot UI | Optional confirmation |
+| MIN-03/05 full | Blocked until Review UI |
 
 ---
 
-## 8. Actifs réutilisables
-
-- Product baseline f31bb8f6 with REC-01 capability (this WT).
-- Deterministic obligation/finalize proofs (corrProof06 et al.) — not REAL.
-- Campaign queue + batch manifests (historical WT).
-- REC-01 runtime on :3020 (PID 6378) — usable later for new project only.
-
-Not reusable as MIN-03 host:
-
-- REC-01 project (contradictory WR residue / wrong family).
-- Oct-8 HQ-01 project on 980064c0 (wrong baseline; Deliverable NOT declared; readiness stale).
-
----
-
-## 9. Gaps
-
-1. **PRODUCT GAP (blocking):** Pilot-facing Review accept / completeReview missing → cannot satisfy queue observation "ReviewBundle complete" via Human QA.
-2. **ENVIRONMENT:** No fresh isolated QA project prepared on f31bb8f6 for MIN-03 (by design — creation out of preflight scope).
-3. **EVIDENCE:** Prior READY claim (Oct-8) invalidated for current baseline/runtime.
-4. Validation engine incomplete (P2 OPEN) — even with RB accept, "validated" may remain PARTIAL vs Universal Validator.
-
-Impact: P6-MIN-03 Human QA cannot be declared READY. Campaign STOP is **targeted** to this path — not global campaign halt.
-
----
-
-## 10. Préconditions
-
-| ID | Precondition | Status |
-|---|---|---|
-| P1 | Baseline f31bb8f6 | SATISFIED |
-| P2 | Convergence / roadmap identifiable | SATISFIED |
-| P3 | Queue P6-HQ-01 WAITING HUMAN QA | SATISFIED |
-| P4 | Obligation mechanism (REQUIRE_ARTIFACT / GCEC) | SATISFIED |
-| P5 | Production path (EC/docs_write) exists | SATISFIED (det.) |
-| P6 | Pilot-observable Review accept | **UNSATISFIED** |
-| P7 | Fresh QA project on baseline | NOT PREPARED (deferred) |
-| P8 | Explicit GO for REAL/Cursor/provider | NOT GRANTED (correct) |
-
----
-
-## 11. Scénario recommandé (when unblocked)
-
-Single trajectory:
-
-1. New Studio project on REC-01-capable runtime @ f31bb8f6.
-2. Prefer `cyc:functional-design` + managed repository binding (full GCEC MUST set) **or** framing + Lifecycle REQUIRE_ARTIFACT for artifact force — noting review family still required by P6-MIN-03 observation.
-3. Pilot Require Artifact → observe Exit Proof blocked.
-4. Produce artifact via governed Product path (not SQLite inject).
-5. Pilot Review accept / Validation (requires Delivery).
-6. Exit Proof SATISFIED → Finaliser only if canComplete; no auto next cycle.
-
----
-
-## 12. Alternative rejetée
-
-| Alt | Motif de rejet |
-|---|---|
-| Reuse REC-01 project | Contamination / wrong scenario family |
-| Reuse Oct-8 HQ-01 | Wrong baseline; incomplete prep; stale READY |
-| Deterministic injection as Human REAL | Forbidden as REAL proof |
-| NO_GOVERNED_EFFECTS finalize | Fails REQUIRED deliverable oracle |
-| Service-only completeReview by operator/scripts | Not Pilot-observable Human QA |
-
----
-
-## 13. Oracle PASS / FAIL / INCONCLUSIVE (post-unblock)
-
-- **PASS:** required obligation → produced → reviewed → validated → Exit Proof satisfied → exit-eligible/closed without premature close; IDs captured.
-- **FAIL:** premature Exit Proof; missing validation; invented HD; close without Exit Proof; auto next cycle.
-- **INCONCLUSIVE:** env/provider/auth blocked mid-path with incomplete observation.
-
-This preflight does **not** execute the oracle.
-
----
-
-## 14. Plan de preuves (post-unblock)
-
-Collect: projectId, cycleId, obligation HD id/option, EC/Attempt ids, artifact Evidence id+digest+location, ReviewBundle id+status (accepted), validation signal, Exit Proof assessment snapshot, finalize HD if any, screenshots Lifecycle Exit Proof before/after.
-
-Preflight evidence written under:
-`.tmp-sfia-review/p6-global-integrated-qa/human-qa/p6-hq-01-precheck/`
-
-Ledger append (preparation event only): evidence-ledger.jsonl entry kind HUMAN_QA_PRECHECK.
-
----
-
-## 15. Risques REAL
-
-- Extending prior bounded REAL GO to unauthorized effects.
-- Contaminating REC-01 project state.
-- Treating RB freeze/docs-write as validation.
-- Claiming REAL BOUNDARY / E2E / P6 GLOBAL PASS without execution.
-- Running Human QA on historical 980064c0 runtime.
-
----
-
-## 16. Gates restants
-
-| Gate | Owner |
-|---|---|
-| G1 Disposition Pilot Review accept gap (Delivery vs contract reinterpretation) | Morris |
-| G2 Authorize new QA project creation | Morris |
-| G3 Authorize Human QA execution / REAL Cursor / provider | Morris |
-| G4 Do not start P6-MIN-04 until HQ-01 disposition | Morris |
-
----
-
-## 17. Runbook Human QA
-
-See full gated runbook below (section 21). Status: **DO NOT START** until G1 resolved.
-
----
-
-## 18. Périmètre fichiers
-
-Created (QA evidence only):
-
-- `.tmp-sfia-review/p6-global-integrated-qa/human-qa/p6-hq-01-precheck/p6-hq-01-precheck.md`
-- `.tmp-sfia-review/p6-global-integrated-qa/human-qa/p6-hq-01-precheck/p6-hq-01-runbook-gated.md`
-- `.tmp-sfia-review/p6-global-integrated-qa/human-qa/p6-hq-01-precheck/p6-hq-01-evidence-summary.json`
-- `.tmp-sfia-review/chatgpt-review.md` (this pack)
-- Append: `.tmp-sfia-review/p6-global-integrated-qa/evidence-ledger.jsonl`
-
-Modified Product / method / prompts / app / convergence / framing: **NONE**.
-
-Forbidden paths untouched.
-
----
-
-## 19. Fake / Real Qualification
+## 13. Fake / Real Qualification
 
 Applicable: YES.
-
-| Boundary | Status |
-|---|---|
-| Nora / OpenAI | Not called |
-| Cursor executor | Not launched |
-| Git artifact workspace | Not mutated for deliverable |
-| Review / Evidence | Inspected READ ONLY |
-| Deterministic Fake proofs | Exist; ≠ REAL |
-| Entry proof level | REC-01 done (qualified); P6 Phase 1 historically requalified |
-| This cycle proof level | **READINESS / SCENARIO QUALIFICATION ONLY** |
-| Claims forbidden | REAL BOUNDARY PROVEN; E2E REAL PROVEN; P6 GLOBAL PASS; Runtime v3 ADOPTED |
+This sweep: DETERMINISTIC only.
+Inherited REAL: REC-01 (scoped reserves); HQA-06 restart (MIN-06 related).
+No new provider/EC/Cursor REAL.
+Claims forbidden avoided: no P6 GLOBAL PASS; no v3 adopt; no det=REAL; no NOT RUN=PASS.
 
 ---
 
-## 20. Verdict
+## 14. Findings / severity
 
-**P6-HQ-01 — NOT READY — PRODUCT / EVIDENCE / ENVIRONMENT GAP**
-
-Human QA not started. P6-MIN-03 not PASS. P6 GLOBAL PASS not claimed. Runtime v3 not adopted.
+| Finding | Severity |
+|---|---|
+| Pilot Review accept missing (MIN-03/05 exit) | PRODUCT-BLOCKER (global exit) |
+| MIN-09 no det suite | EVIDENCE GAP |
+| Det. PASS ≠ Pilot UI REAL | CONTRACT awareness |
+| Independent scenarios unblocked | Progress |
 
 ---
 
-## 21. Contenu complet des preuves créées
+## 15. Dette / exit
 
-### 21.a p6-hq-01-precheck.md
-
-```markdown
-# P6-HQ-01 — Required Deliverable Exit Proof — Human QA Precheck
-
-campaignId: P6-GLOBAL-INTEGRATED-PRODUCT-QA-01
-tranche: P6-HQ-01
-scenario: P6-SC-MIN-03 / P6-MIN-03
-at: 2026-10-11T07:14:00Z
-baseline: f31bb8f610802c102edbe68889fb8ecf0339ec28
-workspace: /Users/morris/Projects/sfia-workspace-p6-rec01-human-qa
-branch: qa/p6-hqa-02-rec01-human-qa
-mode: READ ONLY preflight — no Nora, no project creation, no execution, no Product mutation
+Global exit still needs MIN-03 disposition + Human MIN-06/09 (+ optional UI).
+Independent det. coverage advanced.
 
 ---
 
-## RAW OBSERVATION
+## 16. Gates Morris
 
-- Human QA Queue: P6-HQ-01 WAITING HUMAN QA (PRODUCT-BLOCKER).
-- Prior Oct-8 readiness claimed READY FOR MORRIS HUMAN QA with project
-  prj:6b1151f7-… / cyc:delivery / Deliverable NOT declared — on historical P6 runtime.
-- REC-01 project (prj:5d63119d-…) must not be reused (contradictory WR residue).
-- Current Studio listener PID 6378 serves REC-01 baseline @ f31bb8f6.
+1. Accept sweep verdict.
+2. GO Human QA MIN-06 (runbook).
+3. Keep/defer MIN-03 Delivery disposition.
+4. Later: MIN-09 GDR GO (provider).
+5. No Product correction this cycle unless Morris chooses.
 
-## TECHNICAL FACT — Product mechanisms discovered
+---
 
-### A. Required Deliverable obligation
+## 17. Fichiers
 
-| Mechanism | Path | Status |
-|---|---|---|
-| Pilot HD `opt:require-artifact` | `pilotLifecycleActions.recordObligationPolicyRequireArtifact` · UI `lifecycle-require-artifact-*` | AVAILABLE |
-| GCEC `cyc:functional-design` + repo binding | `deriveCycleObligationSnapshot.ts` — MUST artifact/EC/evidence/review_bundle/git/exit | AVAILABLE |
-| EC expectedOutputs / artifact Evidence | `deriveFinalizationApplicability.ts` | AVAILABLE |
-| REQUIRE_ARTIFACT alone | makes **artifact** applicable only — not auto review_bundle | AVAILABLE (scoped) |
+Created under `.tmp-sfia-review/p6-global-integrated-qa/p6-min01-09-feasible-sweep/`:
+matrix, runbook, reuse index, reserves, synthesis, run-results, logs, ledger-entry.
+Append ledger. Reset/wrote this pack.
+Product/method/prompts/app: untouched.
 
-### B–C. Before production / Production
+---
 
-| Item | Status |
-|---|---|
-| Finalize blocked while artifact applicable & unsatisfied | AVAILABLE (corrProof06 det.) |
-| Lifecycle CTAs / Nora cognitive obligation context | AVAILABLE |
-| Front-door produce: Decide→PrepareM3→Confirm→docs_write→Evidence(+RB draft) | AVAILABLE DETERMINISTIC (Fake); REAL NOT PROVEN |
-| Managed repo artifact FS | AVAILABLE in E2E det. path |
+## 18. Verdict
 
-### D. Review
+**P6-MIN-01…09 — COVERAGE SWEEP EXECUTED WITH QUALIFIED BLOCKERS / REMAINING HUMAN QA**
 
-| Item | Status |
-|---|---|
-| OA `freezeReviewBundle` / `startReview` / `completeReview` services | AVAILABLE (server) |
-| Docs-write ingest creates/freezes ReviewBundle draft | AVAILABLE |
-| Pilot UI/actions calling `completeReview` | **NOT IMPLEMENTED / NOT OBSERVABLE** (grep: only tests) |
-| pre-m6-product-ui | no completeReview/startReview |
+P6 GLOBAL PASS NO · Runtime v3 NON ADOPTED · Human QA not started.
 
-### E. Validation
+---
 
-| Item | Status |
-|---|---|
-| Evidence integrity verify on ingest | PARTIAL (≠ Deliverable validation) |
-| ReviewBundle `accepted` via completeReview | REQUIRED for review_bundle SATISFIED when applicable; Pilot cannot trigger |
-| Universal Validator Engine | NOT IMPLEMENTED (P2 OPEN) |
-
-### F–G. Exit Proof / Closure
-
-| Item | Status |
-|---|---|
-| `assessFinalizationObligations` / `canComplete` | AVAILABLE |
-| Lifecycle Finaliser CTA | AVAILABLE when finalizeEnabled |
-| Proven close under REQUIRE_ARTIFACT + accepted RB | REAL NOT PROVEN; Pilot review gap blocks Human path |
-| SUCCESS/artifact alone closes cycle | FORBIDDEN (product invariant) |
-
-## Oracle stage qualification
-
-| Stage | Qualification |
-|---|---|
-| A Required Deliverable | PRODUCT CAPABILITY AVAILABLE |
-| B Before production | PRODUCT CAPABILITY AVAILABLE |
-| C Production | PRODUCT CAPABILITY AVAILABLE (det.) / REAL NOT PROVEN |
-| D Review | **PARTIAL / DETERMINISTIC ONLY — Pilot NOT OBSERVABLE** |
-| E Validation | PARTIAL |
-| F Exit Proof | AVAILABLE engine / REAL NOT PROVEN full required chain |
-| G Cycle Closure | AVAILABLE UI / REAL NOT PROVEN for MIN-03 full path |
-
-## Recommended trajectory (when unblocked)
-
-1. New QA project on baseline f31bb8f6 (NOT REC-01, NOT Oct-8 HQ-01 on historical runtime).
-2. Prefer `cyc:functional-design` + managed repo binding **or** framing + REQUIRE_ARTIFACT if review family not forced — but P6-MIN-03 oracle still needs Review≠Validation observable.
-3. Pilot: REQUIRE_ARTIFACT HD via Lifecycle.
-4. Produce artifact via governed EC / docs_write (Cursor REAL only with explicit GO).
-5. Review accept → Validation → Exit Proof → Finaliser.
-
-**Blocker for step 5:** no Pilot-facing ReviewBundle accept.
-
-## Alternative rejected
-
-- Reuse REC-01 project: contamination / wrong scenario family.
-- Reuse Oct-8 HQ-01 project on historical P6 WT: wrong baseline (no REC-01), delivery cycle prep incomplete, readiness stale.
-- Deterministic-only injection as Human QA REAL: forbidden as REAL proof.
-- NO_GOVERNED_EFFECTS finalize: fails P6-MIN-03 required-deliverable oracle.
-
-## Runbook (post-unblock — NOT authorized now)
-
-### Preconditions (gates)
-
-G1. Product Delivery or explicit Morris disposition of Pilot Review accept gap.
-G2. Fresh QA project on f31bb8f6 REC-01-capable runtime.
-G3. Explicit GO for any Cursor REAL / provider spend.
-G4. Do not execute until G1 resolved.
-
-### When READY — first human actions
-
-1. Login http://localhost:3020/login on REC-01 runtime.
-2. Create new project (canonical Studio path).
-3. Start suitable cycle (functional-design+repo preferred).
-4. Lifecycle → Require artifact (confirm HD).
-5. Observe Exit Proof blocked (artifact unsatisfied).
-6. Produce artifact via Product path (not SQLite inject).
-7. Complete Review/Validation via **Pilot-visible** mechanism (blocked today).
-8. Confirm Exit Proof SATISFIED then Finaliser only if canComplete.
-9. Capture IDs: projectId, cycleId, decisionIds, evidenceIds, reviewBundleIds, EC/Attempt, finalize HD.
-
-### PASS / FAIL / INCONCLUSIVE (when executable)
-
-- PASS: required obligation → produced → reviewed → validated → Exit Proof satisfied → exit-eligible/closed without premature close.
-- FAIL: premature Exit Proof; missing validation; invented HD; close without Exit Proof.
-- INCONCLUSIVE: environment/provider/auth blocked mid-path.
-
-## Fake / Real
-
-| Item | Status |
-|---|---|
-| Deterministic proofs | corrProof06, productCycleE2eStabilization, gcec monolithic (services) |
-| Pilot Human QA REAL for full MIN-03 | NOT READY |
-| Provider calls this preflight | NONE |
-| Claims | READINESS ONLY — not REAL BOUNDARY / E2E / P6 PASS |
-
-## Verdict
-
-**P6-HQ-01 — NOT READY — PRODUCT / EVIDENCE / ENVIRONMENT GAP**
-
-Primary gap: Pilot cannot accept/complete ReviewBundle; P6-MIN-03 observation requires ReviewBundle complete / validation before Exit Proof.
-Secondary: no fresh isolated project prepared on current baseline; prior HQ-01 prep is stale/wrong-runtime.
-
-## Décisions Morris
-
-1. Accept NOT READY (gap Pilot Review).
-2. Authorize Delivery for Pilot Review accept **or** contract/scenario disposition.
-3. After unblock: authorize new QA project + Human QA execution GO (separate).
-4. Do not start P6-MIN-04 until HQ-01 disposition.
-
-```
-
-### 21.b p6-hq-01-runbook-gated.md
-
-```markdown
-# P6-HQ-01 — Human QA Runbook (GATED — DO NOT START UNTIL UNBLOCKED)
-
-Status: NOT READY — blocked on Pilot ReviewBundle accept.
-
-## Do not start until Morris disposes
-
-- Gap: no Pilot UI/action for completeReview / startReview.
-- Do not use REC-01 project.
-- Do not use Oct-8 HQ-01 project on historical P6 runtime as proof baseline.
-
-## After unblock — first steps
-
-1. Confirm runtime HEAD = f31bb8f610802c102edbe68889fb8ecf0339ec28
-2. Login http://localhost:3020/login
-3. Create NEW project via Studio UI
-4. Prefer functional-design cycle + repository binding
-5. Lifecycle → Exiger un artifact (Require artifact) → confirm
-6. Verify Exit Proof / obligations show artifact applicable & unsatisfied
-7. Produce artifact via governed Product path (EC + Confirmation as required)
-8. Complete Review/Validation via Pilot-visible Review accept (requires Delivery)
-9. Confirm Exit Proof canComplete before Finaliser
-10. Record all Product IDs; return verdict PASS/FAIL/INCONCLUSIVE
-
-## Forbidden
-
-- SQLite injection as REAL proof
-- Invented HumanDecision
-- Close cycle because file exists
-- Auto-start next cycle
-- Contaminate REC-01 evidence project
-
-```
-
-### 21.c p6-hq-01-evidence-summary.json
+## 19. run-results.json
 
 ```json
 {
-  "campaignId": "P6-GLOBAL-INTEGRATED-PRODUCT-QA-01",
-  "scenarioId": "P6-HQ-01 / P6-SC-MIN-03",
-  "kind": "HUMAN_QA_PRECHECK",
-  "at": "2026-10-11T07:14:00Z",
+  "kind": "P6_MIN01_09_FEASIBLE_SWEEP",
+  "at": "2026-10-11T07:42:42Z",
   "baseline": "f31bb8f610802c102edbe68889fb8ecf0339ec28",
   "workspace": "sfia-workspace-p6-rec01-human-qa",
-  "primaryGap": "Pilot UI/actions lack completeReview/startReview — Review accept NOT OBSERVABLE",
-  "recommendedCycle": "cyc:functional-design + managed repo",
-  "reuseRec01Project": false,
-  "reuseOct8Hq01Project": false,
-  "verdict": "P6-HQ-01 — NOT READY — PRODUCT / EVIDENCE / ENVIRONMENT GAP",
+  "branch": "qa/p6-hqa-02-rec01-human-qa",
+  "batches": [
+    {
+      "batch": "A-cycle-review",
+      "log": "batch-a-cycle-review.log",
+      "testFiles": [
+        "lifecycleClosure.phaseB.d0.test.ts",
+        "corrProof05.pilotLifecycle.d0.test.ts",
+        "corrProof06.artifactObligation.d0.test.ts",
+        "lifecycleClosure.criticalReviewFollowUp.d0.test.ts",
+        "reviewBundleLifecycle.test.ts"
+      ],
+      "filesPassed": 5,
+      "testsPassed": 192,
+      "failed": 0,
+      "exit": 0,
+      "proofLevel": "UNIT_DETERMINISTIC"
+    },
+    {
+      "batch": "B-continuity-journal",
+      "log": "batch-b-continuity-journal.log",
+      "testFiles": [
+        "greenfieldRecoveryContinuityCorr01.d0.test.ts",
+        "chatFirstWorkRecommendationContinuity.d0.test.ts",
+        "p5.s07.cp01.continuityExitProof.d0.test.ts",
+        "genericExecutionReviewResultConvergence01.d0.test.ts",
+        "cycleJournalContinuity.d0.test.ts",
+        "pilotabilityJournalIntegrity.d0.test.ts",
+        "automaticProjectResume.ui.test.tsx"
+      ],
+      "filesPassed": 7,
+      "testsPassed": 123,
+      "failed": 0,
+      "exit": 0,
+      "proofLevel": "UNIT_DETERMINISTIC"
+    },
+    {
+      "batch": "C-frontdoor-rec01-rb",
+      "log": "batch-c-frontdoor-rec01-rb.log",
+      "testFiles": [
+        "productCycleE2eStabilization.frontDoor.d0.test.ts",
+        "p6.hqa.rec01.optionB.workRecommendationsContext.d0.test.ts",
+        "adversarialReviewBundleValidation.test.ts"
+      ],
+      "filesPassed": 3,
+      "testsPassed": 11,
+      "failed": 0,
+      "exit": 0,
+      "proofLevel": "UNIT_DETERMINISTIC"
+    }
+  ],
+  "totals": {
+    "testFilesPassed": 15,
+    "testsPassed": 326,
+    "failed": 0
+  },
   "productMutation": false,
-  "newNoraTurn": false,
-  "humanQaStarted": false
+  "qaDbMutation": false,
+  "providerCalls": false
 }
 
 ```
 
 ---
 
-## 22. Réserves
+## 20. ledger-entry
 
-- Queue/batch manifests live on historical P6 WT (980064c0); referenced READ ONLY — not relocated this cycle.
-- Universal Validator Engine absence may keep "validated" PARTIAL even after Review UI Delivery.
-- Server PID 6378 assumed REC-01 instance from prior lot; not re-probed as Human QA start (out of scope).
+```json
+{
+  "campaignId": "P6-GLOBAL-INTEGRATED-PRODUCT-QA-01",
+  "scenarioId": "P6-MIN-01\u202609",
+  "kind": "FEASIBLE_FIRST_COVERAGE_SWEEP",
+  "at": "2026-10-11T07:45:13Z",
+  "baseline": "f31bb8f610802c102edbe68889fb8ecf0339ec28",
+  "workspace": "sfia-workspace-p6-rec01-human-qa",
+  "testFilesPassed": 15,
+  "testsPassed": 326,
+  "failed": 0,
+  "min03": "BLOCKED \u2014 PRODUCT GAP conserved",
+  "min06": "HUMAN QA READY \u2014 runbook prepared",
+  "nextHumanQa": "P6-MIN-06",
+  "verdict": "P6-MIN-01\u202609 \u2014 COVERAGE SWEEP EXECUTED WITH QUALIFIED BLOCKERS / REMAINING HUMAN QA",
+  "productMutation": false,
+  "newNoraTurn": false,
+  "providerCalls": false
+}
+```
 
 ---
 
-## 23. Décisions Morris restantes
+## 21. Contenu complet des preuves créées
 
-1. Accept NOT READY (Pilot Review gap).
-2. Authorize Delivery for Pilot ReviewBundle accept **or** explicit scenario/contract disposition.
-3. After unblock: authorize new QA project + separate Human QA execution GO.
-4. Hold P6-MIN-04 / next tranche until HQ-01 disposition.
+### 21.a Matrix
+
+```markdown
+# P6-MIN-01…09 — Feasible-First Coverage Matrix
+
+at: 2026-10-11T07:44:35Z
+baseline: f31bb8f610802c102edbe68889fb8ecf0339ec28
+workspace: sfia-workspace-p6-rec01-human-qa
+branch: qa/p6-hqa-02-rec01-human-qa
+deterministicTotals: 15 files / 326 tests / 0 failed
+proofMode: UNIT_DETERMINISTIC + requalified prior evidence (no new Product mutation)
+
+Legend exitStatus:
+DETERMINISTIC PASS | REAL PASS | FUNCTIONAL PASS CANDIDATE | PASS WITH RESERVES |
+FAIL | BLOCKED | NOT RUN | INCONCLUSIVE
 
 ---
 
-## 24. Instruction ChatGPT
+## MIN-01 — Cycle completes with NO Execution
 
-Relire ce Review Handoff sur `sfia/review-handoff`, vérifier capacités runtime,
-préconditions, runbook gated et gates avant de guider Morris. Ne pas démarrer
-le parcours Human QA sans disposition G1.
+| Field | Value |
+|---|---|
+| oracle | Cycle closes/exit-eligible with zero ExecutionContract Attempt |
+| capability | PRODUCT AVAILABLE (NO_GOVERNED_EFFECTS / N/A execution + finalize) |
+| preconditions | Active cycle; obligation policy allows exit without EC |
+| dependencies | Independent of MIN-03 |
+| proofs now | lifecycleClosure.phaseB (LC-B finalize NO_GOVERNED); corrProof05 |
+| baseline proofs | f31bb8f6 (this sweep) |
+| proof level | UNIT_DETERMINISTIC |
+| independent | YES |
+| test now | EXECUTED PASS |
+| Human QA | Recommended Pilot UI observation of finalize without EC (not blocking det.) |
+| blocker | none for deterministic slice |
+| next action | Optional Human QA smoke finalize-sans-exécution on fresh/non-REC01 project |
+| exit condition | Det. PASS held; Pilot-observable close without EC recorded OR accepted as det.-sufficient per Morris |
+| **exitStatus** | **DETERMINISTIC PASS** (REAL NOT PROVEN) |
+
+MUST-PROVE note: do not equate unrelated smoke with MIN-01; this sweep ran dedicated closure suites.
+
+---
+
+## MIN-02 — Optional artifact/execution not required for exit
+
+| Field | Value |
+|---|---|
+| oracle | Non-applicable optional obligations do not falsely block finalize |
+| capability | PRODUCT AVAILABLE (NO_ARTIFACT / NO_EXECUTION / NO_GOVERNED policies) |
+| preconditions | Policy HD selecting N/A families |
+| dependencies | Independent |
+| proofs now | corrProof05; corrProof06 (N/A vs REQUIRE); phaseB policy finalize |
+| baseline | f31bb8f6 |
+| proof level | UNIT_DETERMINISTIC |
+| independent | YES |
+| test now | EXECUTED PASS |
+| Human QA | Optional |
+| blocker | none |
+| next action | none required for det. bar |
+| exit condition | Det. PASS conserved |
+| **exitStatus** | **DETERMINISTIC PASS** |
+
+---
+
+## MIN-03 — Required Deliverable → reviewed → validated → Exit Proof
+
+| Field | Value |
+|---|---|
+| oracle | Required → produced → reviewed → validated → Exit Proof |
+| capability | PARTIAL — obligation/produce/Exit engine AVAILABLE; Pilot Review accept NOT OBSERVABLE |
+| preconditions | Fresh QA project + Pilot Review UI (missing) |
+| dependencies | Blocks full positive exit for MIN-05; does NOT auto-block MIN-04 negative |
+| proofs | Prior HQ-01 precheck NOT READY (handoff 1292814c); RB lifecycle det. proves OA completeReview only |
+| baseline prior | f31bb8f6 precheck |
+| proof level | READINESS / PRODUCT GAP (no new investigation) |
+| independent | NO (Product gap) |
+| test now | NOT re-run as Human path; RB lifecycle in sweep = service-only |
+| Human QA | BLOCKED FOR HUMAN QA until Pilot Review accept Delivery/disposition |
+| blocker | PRODUCT GAP — Pilot-facing ReviewBundle accept absent |
+| next action | Morris disposition G1 (Delivery or contract); keep mandatory for global exit |
+| exit condition | Pilot-observable review accept + full oracle REAL/Human PASS |
+| **exitStatus** | **BLOCKED** (NOT READY — PRODUCT GAP; conserved) |
+
+BLOCKED FOR HUMAN QA ≠ campaign halt. Still BLOCKED FOR GLOBAL P6 EXIT.
+
+---
+
+## MIN-04 — SUCCESS + Artifact + blocking Review → Exit NOT · Cycle OPEN
+
+| Field | Value |
+|---|---|
+| oracle | Attempt SUCCESS + artifact present + blocking/pending review ⇒ Exit unsatisfied; cycle remains OPEN |
+| capability | Fail-closed assessment AVAILABLE; Pilot visibility of blockers PARTIAL |
+| preconditions | Cycle with applicable review_bundle; non-accepted/blocking RB |
+| dependencies | Independent of Pilot *accept* for negative proof (pending/incomplete suffices) |
+| proofs now | reviewBundleLifecycle (incomplete/refuse complete); adversarial RB; chatFirst WR canComplete=false; criticalReviewFollowUp; frontDoor produces RB draft without accept |
+| baseline | f31bb8f6 |
+| proof level | UNIT_DETERMINISTIC (negative fail-closed) |
+| independent | YES (negative path) |
+| test now | EXECUTED PASS (negative/service) |
+| Human QA | Still valuable for Pilot UI: SUCCESS+artifact+blocker visible — not required to claim det. fail-closed |
+| blocker | none for det. negative; full Pilot UX = HUMAN QA optional |
+| next action | Optional Human QA after MIN-06; not gated on MIN-03 accept |
+| exit condition | Det. fail-closed conserved; optional Human confirms UI |
+| **exitStatus** | **DETERMINISTIC PASS** (negative fail-closed; REAL/UI NOT PROVEN) |
+
+---
+
+## MIN-05 — Correction → subsequent EC → re-review → validation → exit
+
+| Field | Value |
+|---|---|
+| oracle | Correction path → new EC/Attempt → re-review clears → validation → Exit |
+| capability | Correction/recovery prepare paths PARTIAL; positive exit needs Review accept |
+| preconditions | Post blocking-review state; Pilot review accept for exit leg |
+| dependencies | **First hard blocker for full PASS = same Pilot Review accept as MIN-03**; recovery/correction det. portions independent |
+| proofs now | greenfieldRecovery; genericExecutionReviewResultConvergence; frontDoor rehydrate; (no full re-review→exit Pilot path) |
+| baseline | f31bb8f6 |
+| proof level | UNIT_DETERMINISTIC PARTIAL |
+| independent | PARTIAL |
+| test now | EXECUTED PASS on accessible portions |
+| Human QA | BLOCKED for full oracle until Review accept; correction prep may be Human-testable earlier |
+| blocker | PRODUCT GAP on exit leg (Review accept); not on correction prepare alone |
+| next action | After MIN-03 unblock, Human QA full chain; until then keep PARTIAL |
+| exit condition | Full oracle Human/REAL PASS |
+| **exitStatus** | **BLOCKED** (full path) / det. portions PASS |
+
+---
+
+## MIN-06 — Interrupted conversation / Project recovery
+
+| Field | Value |
+|---|---|
+| oracle | Interrupt → resume → project found → Product context rebuilt → decisions preserved → no invented authority → Nora continuity honest → no false success |
+| capability | PRODUCT AVAILABLE for resume/recovery surfaces (det. + prior HQA-06 restart REAL) |
+| preconditions | Authenticated Studio; project with durable state; controlled interrupt |
+| dependencies | Independent of MIN-03 |
+| proofs now | greenfieldRecoveryContinuityCorr01; automaticProjectResume.ui; p5.s07.cp01 |
+| inherited | REC-01 HQA-06 REAL PASS server restart/rehydration @ f31bb8f6 (related continuity; ≠ full conversation interrupt oracle) |
+| proof level | UNIT_DETERMINISTIC PASS + inherited REAL restart PASS WITH SCOPE LIMIT |
+| independent | YES |
+| test now | EXECUTED PASS |
+| Human QA | **REQUIRED — READY** (priority next) |
+| blocker | none for starting Human QA |
+| next action | Execute runbook `p6-min-06-human-qa-runbook.md` (GO separate) |
+| exit condition | Human PASS/FAIL/INCONCLUSIVE per runbook |
+| **exitStatus** | **FUNCTIONAL PASS CANDIDATE** (det.) · **HUMAN QA REQUIRED / READY** |
+
+REC-01 reuse: allowed for **observe/resume only** if Morris avoids new WR/HD contamination; prefer interrupt of current session without structural decisions. New project not required for MIN-06 if REC-01 used read-conservatively.
+
+---
+
+## MIN-07 — Recommendation / HD / currentness continuity
+
+| Field | Value |
+|---|---|
+| oracle | Recommendations / HD / currentness continuity without invented authority |
+| capability | AVAILABLE (chat-first WR + REC-01 lot) |
+| preconditions | REC-01 evidence on matching baseline |
+| dependencies | Independent |
+| proofs now | chatFirstWorkRecommendationContinuity; p6.hqa.rec01.optionB |
+| inherited | REC-01 HQA-01…07 on f31bb8f6 — PASS WITH RESERVES (HQA-02 cognitive under-materialization reserve; HQA-07 det. partial coverage) |
+| proof level | UNIT_DETERMINISTIC + REAL (REC-01 scoped) |
+| independent | YES |
+| test now | EXECUTED PASS (continuity suites) |
+| Human QA | Residual currentness/HD transitions — optional follow-up; do not re-run full REC-01 |
+| blocker | none for sweep disposition |
+| next action | Accept PASS WITH RESERVES; residual Human only if Morris wants extra currentness transitions |
+| exit condition | Reserves explicit; no silent promotion to clean REAL PASS |
+| **exitStatus** | **PASS WITH RESERVES** |
+
+---
+
+## MIN-08 — Journal projection coherence
+
+| Field | Value |
+|---|---|
+| oracle | Journal ↔ Product/subjects/recs/HD/history/resume coherence; no parallel UI truth |
+| capability | Journal store/projection AVAILABLE; French UI labels Human-queued (P6-HQ-16) |
+| preconditions | Session with journal entries |
+| dependencies | Independent |
+| proofs now | cycleJournalContinuity; pilotabilityJournalIntegrity |
+| baseline | f31bb8f6 |
+| proof level | UNIT_DETERMINISTIC |
+| independent | YES |
+| test now | EXECUTED PASS |
+| Human QA | Recommended (Journal/History labels P6-SC-JH-04) — not blocking det. |
+| blocker | none for det. |
+| next action | Human QA Journal UI after MIN-06 |
+| exit condition | Det. PASS + optional Human UI PASS |
+| **exitStatus** | **DETERMINISTIC PASS** (UI Human NOT PROVEN) |
+
+---
+
+## MIN-09 — Guided Document Review
+
+| Field | Value |
+|---|---|
+| oracle | GDR cognitive+Product path with sources; governed materializations; ≠ ReviewBundle accept |
+| capability | Cognitive GDR path — no dedicated unit suite found on baseline; queue Human |
+| preconditions | Project with suitable document/source set; Nora turn (provider) |
+| dependencies | Independent of MIN-03 ReviewBundle accept (different mechanism) |
+| proofs | none executed (no GDR d0 suite discovered); queue P6-HQ-05 WAITING |
+| proof level | NOT PROVEN |
+| independent | YES |
+| test now | NOT RUN (no safe det. GDR suite identified) |
+| Human QA | REQUIRED — needs provider/Nora GO + document fixture |
+| blocker | ENVIRONMENT / EVIDENCE — needs prepared doc context + provider GO |
+| next action | After MIN-06: prepare GDR Human QA (separate GO for Nora) |
+| exit condition | Human GDR PASS with provenance; no invented global validation |
+| **exitStatus** | **NOT RUN** / **HUMAN QA REQUIRED** |
+
+---
+
+## Summary table
+
+| ID | exitStatus | Independent | Human QA |
+|---|---|---|---|
+| MIN-01 | DETERMINISTIC PASS | Y | optional |
+| MIN-02 | DETERMINISTIC PASS | Y | optional |
+| MIN-03 | BLOCKED (PRODUCT GAP) | N | blocked |
+| MIN-04 | DETERMINISTIC PASS (neg.) | Y | optional UI |
+| MIN-05 | BLOCKED full / det. partial | partial | blocked exit leg |
+| MIN-06 | FUNCTIONAL PASS CANDIDATE + HUMAN READY | Y | **NEXT** |
+| MIN-07 | PASS WITH RESERVES | Y | residual optional |
+| MIN-08 | DETERMINISTIC PASS | Y | recommended UI |
+| MIN-09 | NOT RUN / HUMAN REQUIRED | Y | after MIN-06 |
+
+P6 GLOBAL PASS: NO
+Runtime v3: NON ADOPTED
+
+```
+
+### 21.b MIN-06 runbook
+
+```markdown
+# P6-MIN-06 — Human QA Runbook (Interrupted conversation / Project recovery)
+
+at: 2026-10-11T07:44:35Z
+status: READY FOR HUMAN QA — not started
+baseline: f31bb8f610802c102edbe68889fb8ecf0339ec28
+runtime: http://localhost:3020 (REC-01-capable instance; verify HEAD before start)
+priority: NEXT Human QA after this sweep
+
+## Environment
+
+- Workspace truth: `sfia-workspace-p6-rec01-human-qa` @ f31bb8f6
+- Do not switch Product branch
+- Do not stop/restart server unless Morris separately authorizes (HQA-06 already proved restart)
+- No OpenAI/Cursor GO beyond normal Studio conversation resume unless stated
+
+## Project target
+
+**Preferred:** existing REC-01 project `prj:5d63119d-063e-43ab-bcb0-d1d45ac045f2` for continuity observation only.
+
+Constraints if using REC-01:
+- Do **not** take new structural HumanDecisions
+- Do **not** Require Artifact / Finalize / Confirm Execute
+- Do **not** invent options or accept contradictory WR as truth
+- Goal is interrupt/resume integrity, not WR remediation
+
+**Alternative:** create new project only if Morris authorizes (out of this runbook default).
+
+## Initial state
+
+1. Login Studio
+2. Open target project
+3. Confirm durable identifiers visible (projectId, active cycle if any, Journal/subjects)
+4. Record screenshot/notes: WR count, subjects, Journal décisions, cycle badge
+
+## Actions — interrupt controlled
+
+1. With project open and conversation visible, note last assistant/user turn ids if shown
+2. Interrupt controlled — choose ONE:
+   - A. Close browser tab / navigate away from project then return via project list
+   - B. Hard refresh (reload) on project page
+   - C. Sign out then sign in (heavier; optional)
+3. Do not clear site data / IndexedDB unless testing that specific recovery (default: avoid)
+
+## Actions — resume
+
+1. Re-open same project via Studio project entry (not deep-link invent)
+2. Observe recovery/resume surfaces if any (banner, requalify, resume durable)
+3. Confirm conversation/context reconstructs without claiming false SUCCESS
+4. Confirm prior HumanDecisions unchanged (Journal)
+5. Confirm no new authority invented (no surprise HD)
+6. Send at most one low-risk continuity ping only if needed to observe Nora continuity — prefer zero new provider spend; if ping used, record it
+
+## Expected observations (PASS)
+
+- Same project recovered
+- Product context coherent (cycle/subjects/WR or honest empty/unavailable)
+- Decisions preserved (no silent drop of durable HD)
+- No invented HumanDecision
+- Nora does not claim false execution SUCCESS
+- Recovery path honest if recoveryRequired (disclose, not hide)
+
+## Captures / IDs
+
+- projectId, cycleInstanceId
+- timestamps interrupt / resume
+- screenshots: before, recovery surface (if any), after
+- Journal décision count before/after
+- WR/subject counts before/after
+- any recovery banner testids observed
+
+## PASS / FAIL / INCONCLUSIVE
+
+- **PASS:** project+context recovered; decisions stable; no invented authority; no false success
+- **FAIL:** lost durable decisions; invented HD; false SUCCESS; wrong project; silent corruption
+- **INCONCLUSIVE:** auth/provider/environment blocked mid-path
+
+## Forbidden
+
+- SQLite mutation
+- Finalize / Require Artifact / Confirm Execute on REC-01
+- Contaminating REC-01 WR remediation during this scenario
+- Claiming MIN-03 progress
+- Auto-starting next cycle
+
+## Relation to prior HQA-06
+
+HQA-06 proved server restart rehydration REAL PASS — complementary, not a substitute for conversation interrupt/resume Human QA in this runbook.
+
+```
+
+### 21.c Evidence reuse index
+
+```markdown
+# Evidence reuse index — P6-MIN-01…09 sweep
+
+at: 2026-10-11T07:44:35Z
+baseline_required: f31bb8f610802c102edbe68889fb8ecf0339ec28
+
+## Accepted (baseline + scope match)
+
+| Source | Baseline | Scope | Level | Maps to | Decision |
+|---|---|---|---|---|---|
+| This sweep batches A/B/C | f31bb8f6 | 15 files / 326 tests | UNIT_DETERMINISTIC | MIN-01,02,04,05partial,06,07,08 | ACCEPT |
+| REC-01 HQA-01…07 ledger + packs | f31bb8f6 | WR/currentness/restart | REAL + DET | MIN-07; MIN-06 related (HQA-06 restart) | ACCEPT WITH RESERVES (HQA-02 framing; HQA-07 det≠REAL journey) |
+| P6-HQ-01 precheck handoff 1292814c | f31bb8f6 | Pilot Review gap | READINESS | MIN-03 | ACCEPT — blocker conserved |
+| Queue/batch manifests historical WT | 980064c0 WT | queue status | CAMPAIGN DOC | all MIN queue mapping | ACCEPT as queue truth; not Product proof on f31bb8f6 |
+
+## Rejected / not auto-valid
+
+| Source | Reason |
+|---|---|
+| Oct-8 HQ-01 READY on historical runtime | Wrong baseline (980064c0); Deliverable not declared |
+| Any det. PASS as REAL PASS | Forbidden claim |
+| Historical auto-proven exclusions without re-verify | Not revalidated this sweep |
+
+## Historical WT artefacts
+
+Readable READ ONLY from `/Users/morris/Projects/sfia-workspace/.tmp-sfia-review/p6-global-integrated-qa/`.
+Not treated as automatic Product proofs on f31bb8f6.
+
+```
+
+### 21.d Reserves
+
+```markdown
+# Reserves and exit conditions — P6-MIN-01…09 sweep
+
+at: 2026-10-11T07:44:35Z
+
+## Conserved blockers
+
+1. MIN-03 PRODUCT GAP — Pilot ReviewBundle accept absent — mandatory for global P6 exit — correction deferred not abandoned.
+2. MIN-05 full path blocked on same Review accept for exit leg.
+
+## Reserves
+
+- MIN-01/02/04/08 DETERMINISTIC PASS ≠ REAL/Human Pilot PASS.
+- MIN-07 PASS WITH RESERVES from REC-01 (HQA-02 expectation/framing; HQA-07 det partial).
+- MIN-06 det + HQA-06 restart ≠ full interrupt oracle until Human runbook executed.
+- MIN-09 no det suite — NOT RUN.
+- Queue manifests from historical WT — campaign routing only.
+- No Product Delivery this cycle.
+
+## Exit conditions (campaign)
+
+Global P6 exit still requires disposition of MIN-03 (and dependent full MIN-05), plus Human QA for MIN-06/09 (and optional UI for others).
+Independent scenarios may proceed.
+
+```
+
+### 21.e Synthesis
+
+```markdown
+# P6-MIN-01…09 — Feasible sweep synthesis
+
+at: 2026-10-11T07:44:35Z
+verdict: P6-MIN-01…09 — COVERAGE SWEEP EXECUTED WITH QUALIFIED BLOCKERS / REMAINING HUMAN QA
+
+## Executed now
+
+- 3 vitest batches · 15 files · 326 passed · 0 failed
+- Temp SQLite / Fake provider / ZERO REAL only
+- No QA DB mutation · no Nora · no Product code change
+
+## Disposition counts
+
+- DETERMINISTIC PASS: MIN-01, MIN-02, MIN-04 (neg), MIN-08
+- PASS WITH RESERVES: MIN-07
+- FUNCTIONAL PASS CANDIDATE + HUMAN READY: MIN-06
+- BLOCKED: MIN-03; MIN-05 (full)
+- NOT RUN: MIN-09
+
+## Next single Human QA action
+
+**P6-MIN-06** — follow `p6-min-06-human-qa-runbook.md` (do not auto-start).
+
+## Claims
+
+- P6 GLOBAL PASS = NO
+- Runtime v3 = NON ADOPTED
+- DETERMINISTIC ≠ REAL
+
+```
+
+---
+
+## 22. Instruction ChatGPT
+
+Relire handoff distant `sfia-review-handoff/latest-chatgpt-review.md`.
+Vérifier matrice, tests 326/0, limites REAL, blocker MIN-03, runbook MIN-06.
+Ne pas promouvoir déterministe en E2E REAL.
