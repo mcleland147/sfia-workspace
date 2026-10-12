@@ -1,965 +1,822 @@
-# Review Pack FULL — P6 Nora P0 Product Status Honesty Correction 01
+# Review Pack FULL — P6 Nora P0 Chat-First Targeted Correction 01
 
-at: 2026-10-12T04:05:00Z
-local: 2026-10-12 06:05:00 CEST (Europe/Paris)
+at: 2026-10-12T05:50:00Z
+local: 2026-10-12 07:50:00 CEST (Europe/Paris)
 level: FULL
 profile: CRITICAL
 cycleType: 8 — Delivery / implémentation
 campaign: P6-GLOBAL-INTEGRATED-PRODUCT-QA-01
-increment: P0 — PRODUCT STATUS HONESTY CORRECTION 01
+increment: P0 — PRODUCT STATUS HONESTY
+pass: P0 TARGETED CORRECTION PASS 01 — CHAT-FIRST PRODUCT PATH
 macro: STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01
 incident: P6-MIN-09 — Guided Document Review interrupted by maxTurns
-GO Morris: P0 DELIVERY UNIQUEMENT — accordé 2026-10-12
-mode: IMPLEMENTATION + DETERMINISTIC VALIDATION — ZERO REAL
+GO Morris: P0 TARGETED CORRECTION PASS 01 — ACCORDÉ 2026-10-12
+mode: TARGETED UI PATH CORRECTION + DETERMINISTIC VALIDATION — ZERO REAL
+prior handoff: f4bf9bc3 / blob e5affaaacb — P0 Product Status Honesty Correction 01 (NOT superseded)
 
 ---
 
-## 1. Local Git Truth Check (initial / final-pre-handoff)
+## 1. Local Git Truth Check
 
 | Check | Result |
 |---|---|
 | workspace | `/Users/morris/Projects/sfia-workspace-p6-rec01-human-qa` |
 | remote | origin https://github.com/mcleland147/sfia-workspace.git |
-| expected repo | mcleland147/sfia-workspace — MATCH |
+| repo | mcleland147/sfia-workspace — MATCH |
 | branch | `qa/p6-hqa-02-rec01-human-qa` |
 | HEAD | `f31bb8f610802c102edbe68889fb8ecf0339ec28` |
 | origin/main | `f31bb8f610802c102edbe68889fb8ecf0339ec28` |
-| left-right origin/main...HEAD | `0	0` |
-| expected main tip (ChatGPT) | f31bb8f610802c102edbe68889fb8ecf0339ec28 — MATCH |
-| staged | none (`git diff --cached --name-status` empty) |
-| prior handoff tip (not superseded at start) | da18768c / blob 70706a41 — remediation scoping |
-| untracked preserved | `p6.nora.maxTurns.documentary.d0.test.ts` (NOT overwritten, NOT committed) |
+| left-right | `0	0` |
+| expected main tip | f31bb8f610802c102edbe68889fb8ecf0339ec28 — MATCH |
+| staged | none |
+| prior handoff tip | f4bf9bc3a17eebd2083fbda599689f1f13cd1915 — MATCH / not superseded before this publish |
 
 ```
 git status --short:
 M .tmp-sfia-review/chatgpt-review.md
+ M projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
+ M projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
  M projects/sfia-studio/app/features/project-assistant/ProjectAssistantPanel.tsx
  M projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
  M projects/sfia-studio/app/features/project-assistant/types.ts
 ?? projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.maxTurns.documentary.d0.test.ts
+?? projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.nora.p0.incomplete.chatFirst.ui.d0.test.tsx
 ?? projects/sfia-studio/app/__tests__/project-assistant/p6.nora.p0.incomplete.panel.ux.d0.test.tsx
 ?? projects/sfia-studio/app/__tests__/project-assistant/p6.nora.p0.productStatusHonesty.d0.test.ts
 
 git diff --name-status:
 M	.tmp-sfia-review/chatgpt-review.md
+M	projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
+M	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
 M	projects/sfia-studio/app/features/project-assistant/ProjectAssistantPanel.tsx
 M	projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
 M	projects/sfia-studio/app/features/project-assistant/types.ts
 
 git diff --stat:
 .tmp-sfia-review/chatgpt-review.md                 | 169 +--------------------
+ .../hooks/useProductConversation.ts                |  16 ++
+ .../surfaces/ConversationSurface.tsx               |  23 +++
  .../project-assistant/ProjectAssistantPanel.tsx    |  29 +++-
  .../features/project-assistant/orchestrateTurn.ts  |  41 ++++-
  .../app/features/project-assistant/types.ts        |  14 +-
- 4 files changed, 75 insertions(+), 178 deletions(-)
+ 6 files changed, 115 insertions(+), 177 deletions(-)
 
 git diff --cached --name-status:
 (none)
 ```
 
-STOP Git: not triggered. No reset/clean/stash/rebase/destructive checkout.
+Expected prior P0 local work PRESERVED (no rewrite of project-assistant P0 files this pass):
+
+```
+.../project-assistant/ProjectAssistantPanel.tsx    | 29 +++++++++++++--
+ .../features/project-assistant/orchestrateTurn.ts  | 41 +++++++++++++++++-----
+ .../app/features/project-assistant/types.ts        | 14 +++++++-
+ 3 files changed, 72 insertions(+), 12 deletions(-)
+```
+
+STOP Git: not triggered. No reset/clean/stash/rebase/destructive checkout. No project commit.
 
 ---
 
-## 2. Convergence / Sources / Capacité v3
+## 2. Convergence Pre-check
 
-READ ONLY (not modified):
-
-- Build Doctrine, Roadmap, product-completion cadrage
-- v3 framing 30 / 33 / 34
-- CKC 08 delivery / 09 QA
-- Product Simplification 01 / 04 / 07
-- Nora trajectory 08 (OpenAI-native-first)
-- External SFIA process templates (v2.6 process only — NOT Studio runtime doctrine)
+READ ONLY: Build Doctrine, Roadmap, product-completion, v3 framing 30/33/34, CKC 08/09, Nora trajectory 08, Product Simplification 01/04/07, external SFIA process templates.
 
 | Item | Value |
 |---|---|
-| Capacité v3 served | Fiabilité cognitive Nora — honesté des états / pas d'invention de réussite |
-| Milestone | P6 — GLOBAL INTEGRATED PRODUCT QA (IN PROGRESS) |
+| Capacité v3 | Fiabilité cognitive / honesty of states / conversational continuity |
+| Milestone | P6 GLOBAL INTEGRATED PRODUCT QA (IN PROGRESS) |
 | Runtime v3 | NON ADOPTED |
-| Roadmap link | P6-MIN-09 → maxTurns qualification → scoping P0/P1/P2 → GO Morris P0 → this delivery → ChatGPT review → reprise P6-MIN-09 |
-| Next capability | P1 Adaptive Runner Budget (hors scope) ; P2 Controlled Continuation conditionnel (hors scope) |
-
-KEEP (unchanged): OpenAI Agents Runner, runNoraAgentsTurn, runNoraCognitiveTurn, ProductSqliteSession, Memory B, Cycle Journal, campaignBudget, turnBudget, CognitiveWorkloadPolicy, CognitiveRoutingPolicy, existing Product guards.
-
-ADAPT/COMPLETE P0: limitReached → Product status + DTO + durable-effect suppress + Pilote UX.
+| Roadmap | MIN-09 → maxTurns qual → P0/P1/P2 scoping → P0 Delivery → ChatGPT Review (P0-UI-01) → **this targeted correction** → ChatGPT Review → Morris integration decision |
+| Next | P1 Adaptive Runner Budget (GO distinct); P2 Controlled Continuation hors scope |
 
 ---
 
-## 3. Diagnostic avant correction (P0 findings)
+## 3. Finding P0-UI-01 (before this pass)
 
-Chaîne tracée:
+ChatGPT Review of prior P0:
 
-```
-runNoraAgentsTurn (limitReached=true on maxTurns / tool-round cap / campaign)
-  → runNoraCognitiveTurn (propagates limitReached)
-    → orchestrateProjectAssistantTurn
-      BEFORE: ignored limitReached for status; forced status:"ok"
-      → ProjectAssistantSendSuccess (ok:true, status:"ok") — no limitReached field
-        → sendProjectAssistantTurn / projectAssistantSendAction (passthrough)
-          → ProjectAssistantPanel — presented as completed ANSWERED success
-```
-
-Validated defects (from prior scoping handoff da18768c):
-
-1. `limitReached` reached cognitive result but NOT Product status calculation.
-2. `ProjectAssistantSendSuccess` did not expose `limitReached`.
-3. `orchestrateTurn` could return `ok:true` + `status:"ok"` for interrupted analysis.
-4. Durable effects (LR / ACW / reservation / journalDelta-as-complete) were not gated on execution limit (only Cognitive STOP).
-
-Distinction required (contract):
-
-| Signal | Meaning |
-|---|---|
-| Transport ok | Request/response succeeded |
-| Model executed | Provider ran |
-| limitReached | Execution budget exhausted |
-| Analysis complete | NOT implied by limitReached |
-| Cognitive STOP | MW3 business stop ≠ budget |
-| Provider error / cancel | Distinct existing paths |
+- Backend Product status incomplete: ACCEPTABLE
+- ProjectAssistantPanel UI: DETERMINISTIC PASS
+- **Blocking:** main Studio chat path does NOT use ProjectAssistantPanel
+- Real path: `/studio/projects/[id]` → ProjectWorkspacePage → **useProductConversation** → **ConversationSurface**
+- Reserve P0-EFFECT-02: durable-effect proof strengthen if needed (server gates remain; this pass does not weaken)
 
 ---
 
-## 4. Contrat Product retenu
+## 4. Parcours frontend effectivement tracé
 
-Minimal compatible extension of existing success DTO:
-
-```ts
-status: "ok" | "cognitive_stop" | "incomplete"
-limitReached?: boolean
+```
+ProjectWorkspacePage
+  → useProductConversation
+    → sendCancellableAssistantTurn
+      → ProjectAssistantSendResult (ok + status + limitReached)
+    → controller.executionIncomplete (NEW)
+    → setUiState("ANSWERED")  // transport phase — NOT mission success claim
+  → ConversationSurface
+    → banner "Analyse inachevée" when executionIncomplete
+    → SFIA_ASSISTANT_ANSWERED_EVENT → LifecycleSurface.refresh only (re-read; no invent)
 ```
 
-Precedence: `cognitive_stop` > `incomplete` > `ok`.
-
-Pilote notice constant: `EXECUTION_LIMIT_INCOMPLETE_PILOTE_NOTICE`.
-
-Why not invent a new error category: `ok:true` remains (transport + recoverable partial text); status discloses non-completion. Matches Cognitive STOP pattern (`ok:true` + non-ok semantic status) already consumed by Panel.
-
-Compatibility: `AssistantTurnStatus` already had room; success union narrowed previously to ok|cognitive_stop — extended with incomplete. Panel is primary chat-first consumer; send path passthrough unchanged structurally.
+ANSWERED semantics: assistant turn available for UI / lifecycle reproject — **not** a business completion claim. Consumers checked: LifecycleSurface only listens to refresh projection.
 
 ---
 
 ## 5. Before / After
 
-| Aspect | Before | After |
+| Aspect | Before (post P0 backend, pre this pass) | After |
 |---|---|---|
-| status when limitReached | `"ok"` | `"incomplete"` |
-| DTO limitReached | absent | `true` |
-| ephemeralNotice | no execution-limit notice | includes EXECUTION_LIMIT_INCOMPLETE_PILOTE_NOTICE |
-| LR materialize | possible if structured candidate | suppressed (`suppressCompleteCognitiveEffects`) |
-| ACW / reservation / journalDelta complete | possible | blocked when `executionLimitReached` |
-| UI | treated as full answer | orange « Analyse inachevée » + `data-execution-incomplete=true` |
-| Cognitive STOP | ok | unchanged; outranks incomplete |
-| limitReached=false | ok | preserved |
-| Budgets / Runner ceilings | n/a | UNCHANGED |
-| RunState continuation | n/a | NOT implemented (P2) |
+| Chat-first incomplete signal | ignored; ANSWERED looks like full success | `executionIncomplete` on controller |
+| ConversationSurface | no incomplete banner | stoppedBanner-pattern « Analyse inachevée » |
+| Panel (legacy) | already fixed | PRESERVED |
+| Next nominal turn | n/a | clears stale incomplete on new send |
+| Cognitive STOP | n/a | does not show incomplete banner (outranks) |
+| Provider error / abort | distinct | remain distinct |
+| Budgets / Runner / RunState | unchanged | unchanged |
 
 ---
 
-## 6. Fichiers modifiés / créés
+## 6. Contrat hook retenu
 
-### Modified (Product authorized)
+```ts
+executionIncomplete: boolean
+// set true when result.status === "incomplete"
+//    OR (limitReached && status !== "cognitive_stop")
+// cleared on next user send and on decide()
+```
 
-1. `projects/sfia-studio/app/features/project-assistant/types.ts`
-2. `projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts`
-3. `projects/sfia-studio/app/features/project-assistant/ProjectAssistantPanel.tsx`
-
-### Created (tests)
-
-4. `projects/sfia-studio/app/__tests__/project-assistant/p6.nora.p0.productStatusHonesty.d0.test.ts`
-5. `projects/sfia-studio/app/__tests__/project-assistant/p6.nora.p0.incomplete.panel.ux.d0.test.tsx`
-
-### Preserved untracked (NOT modified this cycle)
-
-6. `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.maxTurns.documentary.d0.test.ts`
-
-### Explicitly NOT modified
-
-Budgets, Runner ceilings, RunState, Memory B stores, doctrine/roadmap/v3, Prompt Catalog, SDK deps, protected paths.
-
-No additional Product consumers required structural change beyond Panel (send/actions passthrough DTO as-is).
+Does NOT map incomplete → provider_error or Cognitive STOP.
+Preserves partial `result.text`.
+Does not invent HumanDecision / Confirmation.
 
 ---
 
-## 7. Diffs — fichiers modifiés (complet utile)
+## 7. Contrat ConversationSurface retenu
 
-### 7.1 types.ts
+- Reuse `.stoppedBanner` + `.stoppedText` + `.composerCaption` (no new CSS; no redesign)
+- `role="status"`
+- `data-testid="project-assistant-incomplete-surface"`
+- `data-execution-incomplete` on root
+- Visible without opening « Sources et limites »
+- Figma: no applicable frame change required; reuse existing tokens — no strong visual fidelity claim without runtime capture
+
+---
+
+## 8. Fichiers
+
+### Modified this pass (authorized)
+
+1. `projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts`
+2. `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx`
+
+### Created this pass
+
+3. `projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.nora.p0.incomplete.chatFirst.ui.d0.test.tsx`
+
+### Preserved prior P0 (NOT modified this pass)
+
+4. `features/project-assistant/types.ts`
+5. `features/project-assistant/orchestrateTurn.ts`
+6. `features/project-assistant/ProjectAssistantPanel.tsx`
+7. `__tests__/project-assistant/p6.nora.p0.productStatusHonesty.d0.test.ts`
+8. `__tests__/project-assistant/p6.nora.p0.incomplete.panel.ux.d0.test.tsx`
+9. `__tests__/nora-cognitive-runtime/p6.nora.maxTurns.documentary.d0.test.ts` (untracked preserved)
+
+### CSS
+
+`ConversationSurface.module.css` — **NOT modified** (reuse sufficient).
+
+---
+
+## 9. Diffs — fichiers modifiés cette passe
+
+### 9.1 useProductConversation.ts
 
 ```diff
-diff --git a/projects/sfia-studio/app/features/project-assistant/types.ts b/projects/sfia-studio/app/features/project-assistant/types.ts
-index 2c9db212..93d8530c 100644
---- a/projects/sfia-studio/app/features/project-assistant/types.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/types.ts
-@@ -22,6 +22,8 @@ export type AssistantUiMode = "fixture" | "live" | "unavailable" | "unconfirmed"
- export type AssistantTurnStatus =
-   | "ok"
-   | "cognitive_stop"
-+  /** Execution budget exhausted (e.g. maxTurns) — transport ok, analysis not complete. */
-+  | "incomplete"
-   | "stopped"
-   | "provider_unavailable"
-   | "provider_error"
-@@ -195,7 +197,12 @@ export type ReservationResolutionProposalDto = {
- 
- export type ProjectAssistantSendSuccess = {
-   ok: true;
--  status: "ok" | "cognitive_stop";
+diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts b/projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
+index d485db6c..6c1f0881 100644
+--- a/projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
++++ b/projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
+@@ -142,6 +142,12 @@ export function useProductConversation({
+   const [toolEvents, setToolEvents] = useState<AssistantToolEventDto[]>([]);
+   const [uiState, setUiState] = useState<ProductConversationUiState>("INITIAL");
+   const [error, setError] = useState<string | null>(null);
 +  /**
-+   * "ok" — cognitive turn completed under Runner budget.
-+   * "cognitive_stop" — MW3 business Cognitive STOP (≠ execution budget).
-+   * "incomplete" — Runner/campaign execution limit reached; analysis not complete.
++   * P0 — last successful send hit Runner/campaign execution limit
++   * (status incomplete / limitReached). Distinct from Cognitive STOP,
++   * provider error, and abort. Cleared on the next user send.
 +   */
-+  status: "ok" | "cognitive_stop" | "incomplete";
-   text: string;
-   mode: Exclude<AssistantUiMode, "unconfirmed">;
-   presentation: "test_provider" | "openai_live";
-@@ -207,6 +214,11 @@ export type ProjectAssistantSendSuccess = {
-   toolEvents: AssistantToolEventDto[];
-   project: ProjectAssistantContextDto;
-   ephemeralNotice: string;
-+  /**
-+   * P0 — true when NoraTurnBudget / campaign stop set limitReached.
-+   * Distinct from Cognitive STOP. Cause may be maxTurns or other Runner caps.
-+   */
-+  limitReached?: boolean;
-   /** OD-04 Option C: always Agents Runner after Nora legacy retirement. */
-   cognitiveRuntime?: "agents";
-   /** Product SQLite Session id (Option C F1). */
-```
-
-### 7.2 orchestrateTurn.ts
-
-```diff
-diff --git a/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts b/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
-index 5c94a2da..68aa1795 100644
---- a/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
-@@ -108,12 +108,14 @@ function buildEphemeralNotice(
-   stalePriorInvalidated?: boolean,
-   cognitiveStopNotice?: string | null,
-   lifecycleMaterializeNotice?: string | null,
-+  executionLimitNotice?: string | null,
- ): string {
-   const base = memoryBPiloteNotice(memoryBAvailability);
-   const compaction = memoryBCompactionPiloteNotice(memoryBCompactionState, {
-     stalePriorInvalidated,
-   });
-   const parts = [
-+    executionLimitNotice,
-     lifecycleMaterializeNotice,
-     cognitiveStopNotice,
-     compaction,
-@@ -122,6 +124,10 @@ function buildEphemeralNotice(
-   return parts.join(" ");
- }
- 
-+/** P0 — Pilote-facing notice when Runner/campaign execution limit stops analysis. */
-+export const EXECUTION_LIMIT_INCOMPLETE_PILOTE_NOTICE =
-+  "Limite d'exécution cognitive atteinte — l'analyse demandée n'est pas considérée comme achevée. Aucune décision Product n'a été inventée. Vous pouvez reformuler une nouvelle demande (aucune continuation automatique n'est garantie).";
-+
- function toMw3Surface(
-   turn: Awaited<ReturnType<typeof runNoraCognitiveTurn>>,
- ): Mw3CognitiveSurfaceDto | null {
-@@ -517,6 +523,11 @@ export async function orchestrateProjectAssistantTurn(input: {
-     // → LR only if stop=false → compose Pilot text from final coherent guidance.
-     const cognitiveStopActive =
-       turn.cognitiveStopDecision?.cognitiveStop === true;
-+    /** P0 — Runner/campaign execution budget exhausted (≠ Cognitive STOP). */
-+    const executionLimitReached = turn.limitReached === true;
-+    /** Suppress durable complete-cognitive effects (LR/ACW/reservation/journal-as-complete). */
-+    const suppressCompleteCognitiveEffects =
-+      cognitiveStopActive || executionLimitReached;
- 
-     const preModelLrCurrent =
-       input.studioCognitiveContext?.lifecycleRecommendation?.current ?? null;
-@@ -536,7 +547,7 @@ export async function orchestrateProjectAssistantTurn(input: {
- 
-     if (
-       turn.structuredOutput !== undefined &&
--      !cognitiveStopActive &&
-+      !suppressCompleteCognitiveEffects &&
-       turn.structuredOutput &&
-       typeof turn.structuredOutput === "object"
-     ) {
-@@ -691,7 +702,8 @@ export async function orchestrateProjectAssistantTurn(input: {
-     const coherentEarly =
-       turn.structuredOutput !== undefined
-         ? normalizeNoraProductTurnStructuredOutput(turn.structuredOutput, {
--            cognitiveStop: cognitiveStopActive,
-+            // Fail-closed HOLD/null deltas when Cognitive STOP *or* execution limit.
-+            cognitiveStop: suppressCompleteCognitiveEffects,
-             currentLifecycleRecommendationSatisfiesTransition:
-               postModelCurrentLrSatisfiesTransition,
-           })
-@@ -709,7 +721,7 @@ export async function orchestrateProjectAssistantTurn(input: {
-       const extracted = extractLifecycleCandidateFromStructuredOutput(
-         turn.structuredOutput,
-         {
--          cognitiveStop: cognitiveStopActive,
-+          cognitiveStop: suppressCompleteCognitiveEffects,
-           currentLifecycleRecommendationSatisfiesTransition:
-             postModelCurrentLrSatisfiesTransition,
-         },
-@@ -753,7 +765,8 @@ export async function orchestrateProjectAssistantTurn(input: {
-         reservationDelta: coherent?.reservationDelta ?? null,
-       });
-       const acwItems = strippedAcw?.items ?? [];
--      if (acwItems.length > 0) {
-+      // P0 — no ACW durable writes when execution budget stopped the turn.
-+      if (acwItems.length > 0 && !executionLimitReached) {
-         // CORR-01 C2 — validate structured recommendedOptionRef against server
-         // decision-support BEFORE any ACW write or Pilot structured display.
-         const studioForRec = input.studioCognitiveContext ?? null;
-@@ -1008,7 +1021,9 @@ export async function orchestrateProjectAssistantTurn(input: {
- 
-       // CYCLE-RESERVATION-PILOTING-01 — reservationDelta after ACW, same Product turn.
-       // Never auto-RESOLVE; CREATE/UPDATE/PROPOSE_RESOLUTION only.
-+      // P0 — no reservation durable writes when execution budget stopped the turn.
-       if (
-+        !executionLimitReached &&
-         coherent?.reservationDelta &&
-         coherent.reservationDelta.operations.length > 0 &&
-         logicalTurnId
-@@ -1090,7 +1105,7 @@ export async function orchestrateProjectAssistantTurn(input: {
-       // CR-NCI-03 — Cognitive Stop outranks NEW LR materialization this turn.
-       // Reload durable basis so currentness binds post-ACW LPS version / epistemic.
-       const lrCandidate =
--        !cognitiveStopActive &&
-+        !suppressCompleteCognitiveEffects &&
-         !coherent?.boundaryContradiction &&
-         coherent?.lifecycleRecommendation
-           ? coherent.lifecycleRecommendation
-@@ -1378,7 +1393,10 @@ export async function orchestrateProjectAssistantTurn(input: {
-             logicalTurnId,
-             cycleInstanceId: activeCycleIdForJournal,
-           });
-+          // P0 — do not materialize journalDelta as completed mission when limitReached.
-+          // Transcript of the interruption remains factual above.
-           if (
-+            !executionLimitReached &&
-             activeCycleIdForJournal &&
-             logicalTurnId &&
-             coherentEarly?.journalDelta
-@@ -1407,16 +1425,22 @@ export async function orchestrateProjectAssistantTurn(input: {
-         materialized: lifecycleRecommendationMaterialized,
-         code: lifecycleRecommendationCode,
-       });
-+    const executionLimitNotice = executionLimitReached
-+      ? EXECUTION_LIMIT_INCOMPLETE_PILOTE_NOTICE
-+      : null;
-     const ephemeralNotice = buildEphemeralNotice(
-       turn.memoryBAvailability,
-       turn.memoryBCompactionState,
-       turn.memoryBCompactionDetails?.stalePriorInvalidated === true,
-       stopNotice,
-       lrMaterializeNotice,
-+      executionLimitNotice,
-     );
--    const status =
--      turn.cognitiveStopDecision?.cognitiveStop === true
--        ? ("cognitive_stop" as const)
-+    // Cognitive STOP outranks incomplete; incomplete outranks ok.
-+    const status = cognitiveStopActive
-+      ? ("cognitive_stop" as const)
-+      : executionLimitReached
-+        ? ("incomplete" as const)
-         : ("ok" as const);
- 
-     await cutDurableEffect(
-@@ -1438,6 +1462,7 @@ export async function orchestrateProjectAssistantTurn(input: {
-       toolEvents,
-       project,
-       ephemeralNotice,
-+      limitReached: executionLimitReached,
-       cognitiveRuntime: turn.cognitiveRuntime,
-       sessionId: turn.sessionId,
-       memoryBAvailability: turn.memoryBAvailability,
-```
-
-### 7.3 ProjectAssistantPanel.tsx
-
-```diff
-diff --git a/projects/sfia-studio/app/features/project-assistant/ProjectAssistantPanel.tsx b/projects/sfia-studio/app/features/project-assistant/ProjectAssistantPanel.tsx
-index 25b70abe..0d0d4543 100644
---- a/projects/sfia-studio/app/features/project-assistant/ProjectAssistantPanel.tsx
-+++ b/projects/sfia-studio/app/features/project-assistant/ProjectAssistantPanel.tsx
-@@ -132,6 +132,8 @@ export function ProjectAssistantPanel({
-   const [mw3Surface, setMw3Surface] = useState<Mw3CognitiveSurfaceDto | null>(
-     null,
-   );
-+  /** P0 — last send hit Runner/campaign execution limit (status incomplete). */
 +  const [executionIncomplete, setExecutionIncomplete] = useState(false);
-   const [activeProposal, setActiveProposal] = useState<ProposalDto | null>(null);
-   const [reservesText, setReservesText] = useState("");
-   const [f3Prepare, setF3Prepare] = useState<F3PreparePayload | null>(null);
-@@ -414,6 +416,9 @@ export function ProjectAssistantPanel({
-       );
-       setLrMaterializeCode(result.lifecycleRecommendationCode ?? null);
-       setMw3Surface(result.mw3 ?? null);
-+      const incomplete =
-+        result.status === "incomplete" || result.limitReached === true;
-+      setExecutionIncomplete(incomplete);
-       setToolEvents((prev) => [...prev, ...result.toolEvents]);
-       if (result.toolEvents.length > 0) {
-         setUiState("SOURCE_LOOKUP");
-@@ -433,9 +438,8 @@ export function ProjectAssistantPanel({
-         setF2(null);
-         setActiveProposal(null);
-       }
--      setUiState(
--        result.status === "cognitive_stop" ? "ANSWERED" : "ANSWERED",
--      );
-+      // Incomplete remains ANSWERED transport-wise but surface discloses non-completion.
-+      setUiState("ANSWERED");
-     });
-   }
+   const [modeLabel, setModeLabel] = useState("MODE À CONFIRMER");
+   const [ephemeralNotice, setEphemeralNotice] = useState(
+     "Conversation, proposition et confirmation restent process-local (non durables). L’état projet enregistré peut être relu ; rien n’est inventé.",
+@@ -887,6 +893,8 @@ export function useProductConversation({
+     setMessages((prev) => [...prev, userMessage]);
+     setDraft("");
+     setError(null);
++    // Clear stale incomplete from a prior turn before this send settles.
++    setExecutionIncomplete(false);
+     setUiState("SENDING");
  
-@@ -683,6 +687,7 @@ export function ProjectAssistantPanel({
+     // New distinct send: do not auto-replay prior logicalTurnId unless retry opts in.
+@@ -1049,6 +1057,12 @@ export function useProductConversation({
+       pendingRetryEnvelopeRef.current = null;
+       setModeLabel(modeFromResult(result));
+       setEphemeralNotice(result.ephemeralNotice);
++      // P0 — incomplete ≠ Cognitive STOP; Cognitive STOP outranks incomplete UI.
++      const incomplete =
++        result.status === "incomplete" ||
++        (result.limitReached === true &&
++          result.status !== "cognitive_stop");
++      setExecutionIncomplete(incomplete);
+       setLrMaterializeNotice(
+         lifecycleRecommendationMaterializeFailurePiloteNotice({
+           recommendationAttempted:
+@@ -1108,6 +1122,7 @@ export function useProductConversation({
+     startTransition(async () => {
+       setUiState("ASSISTANT_WORKING");
+       setError(null);
++      setExecutionIncomplete(false);
+       const result = await projectAssistantDecideAction({
+         projectId,
+         proposalId: activeProposal.proposalId,
+@@ -1376,6 +1391,7 @@ export function useProductConversation({
+     toolEvents,
+     uiState,
+     error,
++    executionIncomplete,
+     modeLabel,
+     ephemeralNotice,
+     lrMaterializeNotice,
+```
+
+### 9.2 ConversationSurface.tsx
+
+```diff
+diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
+index efff6c9c..55a62bc7 100644
+--- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
++++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
+@@ -200,6 +200,7 @@ export function ConversationSurface({
+     toolEvents,
+     uiState,
+     error,
++    executionIncomplete,
+     modeLabel,
+     ephemeralNotice,
+     lrMaterializeNotice,
+@@ -462,6 +463,7 @@ export function ConversationSurface({
        className={styles.root}
        data-testid="project-assistant-panel"
        data-ui-state={uiState}
 +      data-execution-incomplete={executionIncomplete ? "true" : "false"}
+       data-governed-moment={focusedGovernedMoment ? "true" : undefined}
      >
-       <div className={styles.metaRow} data-testid="project-assistant-mode-pill">
-         <StatusPill tone="green">Nora</StatusPill>
-@@ -694,6 +699,24 @@ export function ProjectAssistantPanel({
-       <p className={styles.ephemeral} data-testid="project-assistant-ephemeral">
-         Morris pilote. Nora recommande — la décision vous appartient.
-       </p>
+       {!focusedGovernedMoment ? (
+@@ -2207,6 +2209,27 @@ export function ConversationSurface({
+         </div>
+       ) : null}
+ 
 +      {executionIncomplete ? (
 +        <div
-+          className={styles.scope}
-+          data-testid="project-assistant-incomplete-surface"
++          className={styles.stoppedBanner}
 +          role="status"
++          data-testid="project-assistant-incomplete-surface"
 +        >
-+          <StatusPill tone="orange">Analyse inachevée</StatusPill>
-+          <p
-+            className={styles.ephemeral}
-+            data-testid="project-assistant-incomplete-notice"
-+          >
-+            Limite d&apos;exécution atteinte — cette réponse n&apos;est pas une
-+            analyse complète. Aucune décision Product n&apos;a été inventée.
-+            Reformulez une nouvelle demande si besoin (pas de continuation
-+            automatique).
-+          </p>
++          <div>
++            <p className={styles.stoppedText}>Analyse inachevée</p>
++            <p
++              className={styles.composerCaption}
++              data-testid="project-assistant-incomplete-notice"
++            >
++              Limite d&apos;exécution atteinte — cette réponse n&apos;est pas
++              une analyse complète. Aucune décision Product n&apos;a été
++              inventée. Reformulez une nouvelle demande si besoin (pas de
++              continuation automatique).
++            </p>
++          </div>
 +        </div>
 +      ) : null}
-       {mw3Surface ? (
++
+       {error ? (
          <div
-           className={styles.scope}
+           className={styles.errorBox}
 ```
 
 ---
 
-## 8. Contenu complet — fichiers créés
+## 10. Contenu complet — fichier créé
 
-### 8.1 p6.nora.p0.productStatusHonesty.d0.test.ts
-
-```ts
-/**
- * P6 Nora P0 — Product Status Honesty (execution limit ≠ success).
- * Fake / mocked cognitive turn only — ZERO REAL.
- * @vitest-environment node
- */
-import fs from "node:fs";
-import os from "node:os";
-import path from "node:path";
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { setConversationProviderForTests } from "@/lib/platform/ai";
-import {
-  EXECUTION_LIMIT_INCOMPLETE_PILOTE_NOTICE,
-  orchestrateProjectAssistantTurn,
-} from "@/features/project-assistant/orchestrateTurn";
-
-const {
-  getProjectRuntimeActionMock,
-  runNoraCognitiveTurnMock,
-} = vi.hoisted(() => ({
-  getProjectRuntimeActionMock: vi.fn(),
-  runNoraCognitiveTurnMock: vi.fn(),
-}));
-
-vi.mock("@/lib/vertical-slice-runtime/actions", () => ({
-  getProjectRuntimeAction: getProjectRuntimeActionMock,
-}));
-
-vi.mock("@/lib/nora-cognitive-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("@/lib/nora-cognitive-runtime")>();
-  return {
-    ...actual,
-    runNoraCognitiveTurn: (...args: unknown[]) =>
-      runNoraCognitiveTurnMock(...args),
-  };
-});
-
-const SUCCESS = {
-  ok: true as const,
-  project: {
-    projectId: "prj:p0-honesty",
-    name: "Projet P0",
-    shortReference: "P0",
-    objective: "Status honesty under execution limit.",
-    contextSummary: "P0 D0",
-    criticality: "STANDARD" as const,
-    constraints: ["Lecture seule"],
-    localMode: true as const,
-    source: "REAL_LOCAL_CORE" as const,
-    fixture: false as const,
-  },
-  doctrine: {
-    id: "pkg:studio-v3-oa",
-    version: "1.0.0",
-    digest: "digest:p0",
-    status: "RESOLVED",
-  },
-  livingState: {
-    id: "lps:p0",
-    version: 1 as const,
-    createdAt: "2026-10-12T00:00:00.000Z",
-  },
-  readiness: {
-    status: "NOT_READY" as const,
-    hard: "OPEN" as const,
-    tA6: "INCOMPLETE" as const,
-    iam: "NOT_SELECTED" as const,
-    productPersistence: "SQLITE_OA_PRODUCT_STORE" as const,
-    realAgentExecution: "DISABLED" as const,
-    delivery: "NOT_AUTHORIZED" as const,
-    cutover: "NOT_AUTHORIZED" as const,
-    runReady: false as const,
-    productReady: false as const,
-  },
-  disclosures: {
-    runtimeMode: "LOCAL_PROCESS" as const,
-    persistence: "PARTIAL_PROJECT_LPS_CYCLE_DECISION_CONTRACT_DURABLE" as const,
-    agentExecution: "DISABLED" as const,
-    iam: "NOT_SELECTED" as const,
-    productPersistence: "SQLITE_OA_PRODUCT_STORE" as const,
-    delivery: "NOT_AUTHORIZED" as const,
-    cutover: "NOT_AUTHORIZED" as const,
-    localDataVolatile: true as const,
-    restartMayLoseState: true as const,
-    projectLpsRestartSafe: true as const,
-    cycleInstanceRestartSafe: true as const,
-    humanDecisionRestartSafe: true as const,
-    executionContractRestartSafe: true as const,
-    messages: [] as const,
-  },
-};
-
-function baseTurn(overrides: Record<string, unknown> = {}) {
-  return {
-    text: "Model-turn budget reached (maxTurns).",
-    usage: {
-      inputTokens: null,
-      outputTokens: null,
-      totalTokens: null,
-      model: "fake-test-model",
-      providerResponseId: null,
-    },
-    toolRounds: 2,
-    toolCalls: 2,
-    limitReached: true,
-    cognitiveRuntime: "agents" as const,
-    sessionId: "sess:p0",
-    memoryBAvailability: "unavailable" as const,
-    memoryBCompactionState: "none" as const,
-    memoryBCompactionDetails: null,
-    ...overrides,
-  };
-}
-
-describe("P6 Nora P0 — Product Status Honesty", () => {
-  const previousFake = process.env.OPS1_CONVERSATION_PROVIDER;
-  let sessionDir: string;
-  let sessionDbPath: string;
-
-  beforeEach(() => {
-    process.env.OPS1_CONVERSATION_PROVIDER = "fake";
-    getProjectRuntimeActionMock.mockReset();
-    getProjectRuntimeActionMock.mockResolvedValue(SUCCESS);
-    runNoraCognitiveTurnMock.mockReset();
-    setConversationProviderForTests(null);
-    sessionDir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-p0-orch-"));
-    sessionDbPath = path.join(sessionDir, "session.sqlite");
-  });
-
-  afterEach(() => {
-    setConversationProviderForTests(null);
-    if (previousFake === undefined) {
-      delete process.env.OPS1_CONVERSATION_PROVIDER;
-    } else {
-      process.env.OPS1_CONVERSATION_PROVIDER = previousFake;
-    }
-    fs.rmSync(sessionDir, { recursive: true, force: true });
-  });
-
-  it("T2/T3/T6/T12 — limitReached ⇒ status incomplete (not ok); DTO exposes limitReached", async () => {
-    runNoraCognitiveTurnMock.mockResolvedValue(baseTurn());
-    const result = await orchestrateProjectAssistantTurn({
-      projectId: "prj:p0-honesty",
-      content: "Guided Document Review multi-source.",
-      sessionDbPath,
-    });
-    expect(result.ok).toBe(true);
-    if (!result.ok) return;
-    expect(result.status).toBe("incomplete");
-    expect(result.status).not.toBe("ok");
-    expect(result.status).not.toBe("cognitive_stop");
-    expect(result.limitReached).toBe(true);
-    expect(result.text.length).toBeGreaterThan(0);
-    expect(result.ephemeralNotice).toContain(
-      EXECUTION_LIMIT_INCOMPLETE_PILOTE_NOTICE.slice(0, 40),
-    );
-    expect(result.lifecycleRecommendationMaterialized).not.toBe(true);
-  });
-
-  it("T5 — structured LR candidate is not materialized when limitReached", async () => {
-    runNoraCognitiveTurnMock.mockResolvedValue(
-      baseTurn({
-        text: "partial narrative before budget",
-        structuredOutput: {
-          narrative: "partial narrative before budget",
-          preCycleRoutingAssessment: {
-            intentClarity: "clear",
-            cycleTypeCandidatePresent: true,
-            activeCycleAlreadyCoversWork: false,
-            contradictionRisk: "none",
-            readyToRecommendLifecycle: true,
-          },
-          lifecycleRecommendation: {
-            kind: "NEXT_CYCLE",
-            targetCycleTypeId: "cyc:framing",
-            rationale: "should not materialize under limitReached",
-            confidence: "medium",
-          },
-          activeCycleWork: {
-            items: [
-              {
-                type: "WorkItem",
-                title: "Should not write",
-                summary: "blocked by P0",
-              },
-            ],
-          },
-          conversationGuidance: {
-            mode: "CONTINUE",
-            primaryAsk: null,
-            suggestedNextUserActs: [],
-          },
-          journalDelta: {
-            entries: [{ kind: "NOTE", text: "should not journal as complete" }],
-          },
-          reservationDelta: null,
-        },
-      }),
-    );
-    const result = await orchestrateProjectAssistantTurn({
-      projectId: "prj:p0-honesty",
-      content: "Propose next cycle despite budget stop.",
-      sessionDbPath,
-    });
-    expect(result.ok).toBe(true);
-    if (!result.ok) return;
-    expect(result.status).toBe("incomplete");
-    expect(result.limitReached).toBe(true);
-    expect(result.lifecycleRecommendationMaterialized).toBe(false);
-    expect(result.reservationProposedIds ?? []).toEqual([]);
-  });
-
-  it("T7 — limitReached=false preserves status ok", async () => {
-    runNoraCognitiveTurnMock.mockResolvedValue(
-      baseTurn({
-        text: "[TEST/FAKE] complete reply",
-        limitReached: false,
-        toolRounds: 0,
-        toolCalls: 0,
-        structuredOutput: undefined,
-      }),
-    );
-    const result = await orchestrateProjectAssistantTurn({
-      projectId: "prj:p0-honesty",
-      content: "Simple ping",
-      sessionDbPath,
-    });
-    expect(result.ok).toBe(true);
-    if (!result.ok) return;
-    expect(result.status).toBe("ok");
-    expect(result.limitReached).toBe(false);
-    expect(result.ephemeralNotice).not.toContain(
-      "Limite d'exécution cognitive atteinte",
-    );
-  });
-
-  it("T8 — Cognitive STOP remains distinct from incomplete", async () => {
-    runNoraCognitiveTurnMock.mockResolvedValue(
-      baseTurn({
-        text: "blocked by Cognitive STOP",
-        limitReached: false,
-        toolRounds: 0,
-        toolCalls: 0,
-        contradictionDisposition: {
-          disposition: "evidence_backed",
-          disclosure: "contradiction",
-          acceptedEvidenceIds: ["ev:1"],
-          acceptedSourceIds: ["src:a"],
-          insufficiencyReasons: [],
-        },
-        cognitiveStopDecision: {
-          progression: "cognitive_stop",
-          outcome: "COGNITIVE_STOP",
-          cognitiveStop: true,
-          anatomy: {
-            reason: "premise invalidated",
-            contradictionEvidenceIds: ["ev:1"],
-            sourceIds: ["src:a"],
-            governingPremise: "X",
-            nextAction: "replan",
-          },
-          surfacedDisposition: "evidence_backed",
-          allowsSilentSuccess: false,
-        },
-      }),
-    );
-    const result = await orchestrateProjectAssistantTurn({
-      projectId: "prj:p0-honesty",
-      content: "Evaluate contradiction",
-      sessionDbPath,
-    });
-    expect(result.ok).toBe(true);
-    if (!result.ok) return;
-    expect(result.status).toBe("cognitive_stop");
-    expect(result.limitReached).toBe(false);
-    expect(result.mw3?.cognitiveStop).toBe(true);
-  });
-
-  it("T8b — Cognitive STOP outranks incomplete when both true", async () => {
-    runNoraCognitiveTurnMock.mockResolvedValue(
-      baseTurn({
-        text: "stop and limit",
-        limitReached: true,
-        contradictionDisposition: {
-          disposition: "evidence_backed",
-          disclosure: "contradiction",
-          acceptedEvidenceIds: ["ev:1"],
-          acceptedSourceIds: [],
-          insufficiencyReasons: [],
-        },
-        cognitiveStopDecision: {
-          progression: "cognitive_stop",
-          outcome: "COGNITIVE_STOP",
-          cognitiveStop: true,
-          anatomy: {
-            reason: "premise invalidated",
-            contradictionEvidenceIds: ["ev:1"],
-            sourceIds: [],
-            governingPremise: "X",
-            nextAction: "replan",
-          },
-          surfacedDisposition: "evidence_backed",
-          allowsSilentSuccess: false,
-        },
-      }),
-    );
-    const result = await orchestrateProjectAssistantTurn({
-      projectId: "prj:p0-honesty",
-      content: "both",
-      sessionDbPath,
-    });
-    expect(result.ok).toBe(true);
-    if (!result.ok) return;
-    expect(result.status).toBe("cognitive_stop");
-    expect(result.limitReached).toBe(true);
-  });
-});
-
-```
-
-### 8.2 p6.nora.p0.incomplete.panel.ux.d0.test.tsx
+### p6.nora.p0.incomplete.chatFirst.ui.d0.test.tsx
 
 ```tsx
 /**
- * P6 Nora P0 — Panel surfaces incomplete execution limit (≠ full success).
- * Fake send action only — ZERO REAL.
+ * P6 Nora P0 — Chat-first path: useProductConversation + ConversationSurface
+ * surface incomplete (status honesty) without ProjectAssistantPanel.
+ * Fake send adapter only — ZERO REAL.
  * @vitest-environment jsdom
  */
-import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
+import {
+  act,
+  cleanup,
+  render,
+  screen,
+  waitFor,
+} from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { ProjectAssistantPanel } from "@/features/project-assistant/ProjectAssistantPanel";
+import { ConversationSurface } from "@/features/pre-m6-product-ui/surfaces/ConversationSurface";
+import {
+  useProductConversation,
+  type ProductConversationController,
+} from "@/features/pre-m6-product-ui/hooks/useProductConversation";
+import type { ProjectAssistantSendResult } from "@/features/project-assistant/types";
+import { SFIA_ASSISTANT_ANSWERED_EVENT } from "@/features/project-assistant/presentationLabels";
 
 const {
-  projectAssistantSendActionMock,
-  projectAssistantRehydrateEvidenceOutcomeActionMock,
+  sendCancellableAssistantTurnMock,
+  conversationContinuityMock,
 } = vi.hoisted(() => ({
-  projectAssistantSendActionMock: vi.fn(),
-  projectAssistantRehydrateEvidenceOutcomeActionMock: vi.fn(),
+  sendCancellableAssistantTurnMock: vi.fn(),
+  conversationContinuityMock: vi.fn(),
+}));
+
+/** Process-local transcript mirrored into Fake continuity so reconcile does not wipe. */
+const fakeTranscript: Array<{
+  id: string;
+  role: "user" | "assistant" | "system";
+  content: string;
+  createdAt: string | null;
+}> = [];
+
+vi.mock("@/features/pre-m6-product-ui/hooks/sendCancellableAssistantTurn", () => ({
+  sendCancellableAssistantTurn: (
+    input: unknown,
+    signal: AbortSignal,
+  ) => sendCancellableAssistantTurnMock(input, signal),
 }));
 
 vi.mock("@/features/project-assistant/actions", () => ({
-  projectAssistantConversationContinuityAction: vi.fn(async () => ({
-    ok: true,
-    transcriptAvailability: "empty",
-    messages: [],
-    journal: { cycleInstanceId: null, entries: [] },
-  })),
-  projectAssistantSendAction: (...args: unknown[]) =>
-    projectAssistantSendActionMock(...args),
+  projectAssistantConversationContinuityAction: (...args: unknown[]) =>
+    conversationContinuityMock(...args),
   projectAssistantDecideAction: vi.fn(),
   projectAssistantPrepareF3FixtureAction: vi.fn(),
   projectAssistantConfirmAndExecuteF3FixtureAction: vi.fn(),
   projectAssistantPrepareResolvedM3Action: vi.fn(),
   projectAssistantConfirmAndExecuteResolvedM3Action: vi.fn(),
-  projectAssistantRehydrateEvidenceOutcomeAction: (...args: unknown[]) =>
-    projectAssistantRehydrateEvidenceOutcomeActionMock(...args),
-  projectAssistantPilotLifecycleProjection: vi.fn(async () => ({
-    ok: true,
-    status: "ok",
-    selectedCycleInstanceId: null,
-    selectedStatus: null,
-    activeCycleInstanceId: null,
-    selectionAmbiguous: false,
-    cta: {
-      canStart: false,
-      canPause: false,
-      canResume: false,
-      canFinalize: false,
-      canCancel: false,
-    },
+  projectAssistantRehydrateEvidenceOutcomeAction: vi.fn(async () => ({
+    ok: false,
+    status: "rehydrate_error",
+    code: "NO_EVIDENCE_OUTCOME_REFS",
+    message: "none",
+    mode: "fixture",
+    retryable: false,
   })),
-  projectAssistantPilotLifecycleAction: vi.fn(),
-}));
-
-vi.mock("next/link", () => ({
-  default: ({
-    children,
-    href,
-    ...props
-  }: {
-    children: React.ReactNode;
-    href: string;
-  }) => (
-    <a href={href} {...props}>
-      {children}
-    </a>
-  ),
 }));
 
 const PROJECT = {
-  projectId: "prj:p0-ui",
-  name: "Projet P0 UI",
-  shortReference: "P0UI",
-  objective: "Surface incomplete.",
-  contextSummary: "P0 UX",
+  projectId: "prj:p0-chat-first",
+  name: "Projet P0 Chat-first",
+  shortReference: "P0CF",
+  objective: "Surface incomplete on chat-first path.",
+  contextSummary: "P0 UX chat-first",
   criticality: "STANDARD" as const,
   constraints: [] as string[],
-  lpsId: "lps:p0-ui",
+  lpsId: "lps:p0-cf",
   lpsVersion: 1,
   lpsCreatedAt: "2026-10-12T00:00:00.000Z",
   doctrineId: "pkg:studio-v3-oa",
   doctrineVersion: "1.0.0",
-  doctrineDigest: "digest:p0-ui",
+  doctrineDigest: "digest:p0-cf",
   doctrineStatus: "RESOLVED",
   runtimeMode: "LOCAL_PROCESS" as const,
   persistence: "PARTIAL_PROJECT_LPS_CYCLE_DECISION_CONTRACT_DURABLE" as const,
   readiness: "NOT_READY" as const,
 };
 
-describe("P6 Nora P0 — ProjectAssistantPanel incomplete UX", () => {
-  beforeEach(() => {
-    projectAssistantSendActionMock.mockReset();
-    projectAssistantRehydrateEvidenceOutcomeActionMock.mockReset();
-    projectAssistantRehydrateEvidenceOutcomeActionMock.mockResolvedValue({
-      ok: false,
-      status: "error",
-      code: "NO_EVIDENCE_OUTCOME_REFS",
-      message: "none",
-      mode: "fixture",
-      retryable: false,
+function incompleteResult(
+  overrides: Partial<Extract<ProjectAssistantSendResult, { ok: true }>> = {},
+): ProjectAssistantSendResult {
+  return {
+    ok: true,
+    status: "incomplete",
+    text: "Model-turn budget reached (maxTurns).",
+    mode: "fixture",
+    presentation: "test_provider",
+    toolRounds: 2,
+    toolCalls: 2,
+    sources: [],
+    toolEvents: [],
+    project: PROJECT,
+    ephemeralNotice:
+      "Limite d'exécution cognitive atteinte — l'analyse demandée n'est pas considérée comme achevée.",
+    limitReached: true,
+    cognitiveRuntime: "agents",
+    sessionId: "sess:p0-cf",
+    memoryBAvailability: "unavailable",
+    memoryBCompactionState: "none",
+    lifecycleRecommendationMaterialized: false,
+    logicalTurnId: "lt:p0-incomplete",
+    ...overrides,
+  } as ProjectAssistantSendResult;
+}
+
+function okResult(
+  text = "[TEST/FAKE] complete reply",
+): ProjectAssistantSendResult {
+  return {
+    ok: true,
+    status: "ok",
+    text,
+    mode: "fixture",
+    presentation: "test_provider",
+    toolRounds: 0,
+    toolCalls: 0,
+    sources: [],
+    toolEvents: [],
+    project: PROJECT,
+    ephemeralNotice: "Session ok.",
+    limitReached: false,
+    cognitiveRuntime: "agents",
+    sessionId: "sess:p0-cf",
+    memoryBAvailability: "unavailable",
+    memoryBCompactionState: "none",
+    logicalTurnId: "lt:p0-ok",
+  } as ProjectAssistantSendResult;
+}
+
+function cognitiveStopResult(
+  overrides: Partial<Extract<ProjectAssistantSendResult, { ok: true }>> = {},
+): ProjectAssistantSendResult {
+  return {
+    ok: true,
+    status: "cognitive_stop",
+    text: "Cognitive STOP — premise invalidated.",
+    mode: "fixture",
+    presentation: "test_provider",
+    toolRounds: 0,
+    toolCalls: 0,
+    sources: [],
+    toolEvents: [],
+    project: PROJECT,
+    ephemeralNotice: "Arrêt cognitif.",
+    limitReached: false,
+    cognitiveRuntime: "agents",
+    sessionId: "sess:p0-cf",
+    mw3: {
+      disposition: "evidence_backed",
+      progression: "COGNITIVE_STOP",
+      cognitiveStop: true,
+      allowsSilentSuccess: false,
+      evidenceIds: ["ev:1"],
+      sourceIds: [],
+      insufficiencyReasons: [],
+      anatomy: {
+        reason: "premise invalidated",
+        contradictionEvidenceIds: ["ev:1"],
+        sourceIds: [],
+        governingPremise: "X",
+        nextAction: "replan",
+      },
+    },
+    logicalTurnId: "lt:p0-stop",
+    ...overrides,
+  } as ProjectAssistantSendResult;
+}
+
+function mirrorSendIntoTranscript(
+  userContent: string,
+  result: ProjectAssistantSendResult,
+) {
+  fakeTranscript.push({
+    id: `pt:u-${fakeTranscript.length}`,
+    role: "user",
+    content: userContent,
+    createdAt: null,
+  });
+  if (result.ok) {
+    fakeTranscript.push({
+      id: `pt:a-${fakeTranscript.length}`,
+      role: "assistant",
+      content: result.text,
+      createdAt: null,
     });
+  }
+}
+
+function Harness({
+  onReady,
+}: {
+  onReady?: (c: ProductConversationController) => void;
+}) {
+  const controller = useProductConversation({ projectId: PROJECT.projectId });
+  onReady?.(controller);
+  return <ConversationSurface controller={controller} />;
+}
+
+describe("P6 Nora P0 — Chat-first incomplete surface (useProductConversation)", () => {
+  beforeEach(() => {
+    fakeTranscript.length = 0;
+    sendCancellableAssistantTurnMock.mockReset();
+    conversationContinuityMock.mockReset();
+    conversationContinuityMock.mockImplementation(async () => ({
+      ok: true,
+      transcriptAvailability: fakeTranscript.length > 0 ? "available" : "empty",
+      messages: fakeTranscript.map((m) => ({ ...m })),
+      journal: { cycleInstanceId: null, entries: [] },
+    }));
   });
 
   afterEach(() => {
     cleanup();
   });
 
-  it("T4 — incomplete status shows Analyse inachevée (not full success)", async () => {
-    projectAssistantSendActionMock.mockResolvedValue({
-      ok: true,
-      status: "incomplete",
-      text: "Model-turn budget reached (maxTurns).",
-      mode: "fixture",
-      presentation: "test_provider",
-      toolRounds: 2,
-      toolCalls: 2,
-      sources: [],
-      toolEvents: [],
-      project: PROJECT,
-      ephemeralNotice:
-        "Limite d'exécution cognitive atteinte — l'analyse demandée n'est pas considérée comme achevée.",
-      limitReached: true,
-      cognitiveRuntime: "agents",
-      sessionId: "sess:p0-ui",
-      memoryBAvailability: "unavailable",
-      memoryBCompactionState: "none",
-      lifecycleRecommendationMaterialized: false,
-    });
+  it("T01/T02/T03/T04/T10 — incomplete → hook + Analyse inachevée visible without Sources", async () => {
+    sendCancellableAssistantTurnMock.mockImplementation(
+      async (input: { content: string }) => {
+        const result = incompleteResult();
+        mirrorSendIntoTranscript(input.content, result);
+        return result;
+      },
+    );
+    let latest!: ProductConversationController;
+    render(<Harness onReady={(c) => (latest = c)} />);
+    await waitFor(() => expect(latest.uiState).not.toBe("INITIAL"));
 
-    render(<ProjectAssistantPanel projectId="prj:p0-ui" />);
-    const input = screen.getByTestId("project-assistant-input");
-    fireEvent.change(input, {
-      target: { value: "Continuer l'analyse documentaire." },
+    await act(async () => {
+      latest.sendMessage("Continuer l'analyse documentaire.");
     });
-    fireEvent.click(screen.getByTestId("project-assistant-send"));
 
     await waitFor(() => {
+      expect(latest.executionIncomplete).toBe(true);
       expect(
         screen.getByTestId("project-assistant-incomplete-surface"),
       ).toBeTruthy();
     });
+
+    expect(latest.uiState).toBe("ANSWERED");
     const panel = screen.getByTestId("project-assistant-panel");
     expect(panel.getAttribute("data-execution-incomplete")).toBe("true");
-    expect(screen.getByTestId("project-assistant-incomplete-notice").textContent).toMatch(
-      /Analyse|inachev|limite/i,
-    );
+    expect(panel.getAttribute("data-ui-state")).toBe("ANSWERED");
+    expect(
+      screen.getByTestId("project-assistant-incomplete-notice").textContent,
+    ).toMatch(/limite|inachev|analyse complète/i);
     expect(screen.getByText(/Model-turn budget reached/i)).toBeTruthy();
-    expect(screen.queryByTestId("project-assistant-mw3-surface")).toBeNull();
+    // Banner is outside "Sources et limites" disclosure
+    expect(
+      screen.getByTestId("project-assistant-incomplete-surface").closest(
+        "details",
+      ),
+    ).toBeNull();
+    expect(screen.queryByTestId("f2-decide-go")).toBeNull();
+    expect(screen.queryByTestId("project-assistant-error")).toBeNull();
+    expect(screen.queryByTestId("project-assistant-stopped")).toBeNull();
   });
 
-  it("T7 UI — ok status does not show incomplete surface", async () => {
-    projectAssistantSendActionMock.mockResolvedValue({
-      ok: true,
-      status: "ok",
-      text: "[TEST/FAKE] reply",
-      mode: "fixture",
-      presentation: "test_provider",
-      toolRounds: 0,
-      toolCalls: 0,
-      sources: [],
-      toolEvents: [],
-      project: PROJECT,
-      ephemeralNotice: "Session ok.",
-      limitReached: false,
-      cognitiveRuntime: "agents",
-      sessionId: "sess:p0-ui",
-      memoryBAvailability: "unavailable",
-      memoryBCompactionState: "none",
+  it("T05 — status ok does not show incomplete warning", async () => {
+    sendCancellableAssistantTurnMock.mockImplementation(
+      async (input: { content: string }) => {
+        const result = okResult();
+        mirrorSendIntoTranscript(input.content, result);
+        return result;
+      },
+    );
+    let latest!: ProductConversationController;
+    render(<Harness onReady={(c) => (latest = c)} />);
+    await waitFor(() => expect(latest.uiState).not.toBe("INITIAL"));
+    await act(async () => {
+      latest.sendMessage("ping");
     });
-
-    render(<ProjectAssistantPanel projectId="prj:p0-ui" />);
-    fireEvent.change(screen.getByTestId("project-assistant-input"), {
-      target: { value: "ping" },
-    });
-    fireEvent.click(screen.getByTestId("project-assistant-send"));
-
     await waitFor(() => {
+      expect(latest.uiState).toBe("ANSWERED");
       expect(screen.getByText(/TEST\/FAKE/i)).toBeTruthy();
     });
-    expect(screen.queryByTestId("project-assistant-incomplete-surface")).toBeNull();
+    expect(latest.executionIncomplete).toBe(false);
+    expect(
+      screen.queryByTestId("project-assistant-incomplete-surface"),
+    ).toBeNull();
     expect(
       screen.getByTestId("project-assistant-panel").getAttribute(
         "data-execution-incomplete",
       ),
     ).toBe("false");
+  });
+
+  it("T06 — next nominal turn clears stale incomplete", async () => {
+    sendCancellableAssistantTurnMock
+      .mockImplementationOnce(async (input: { content: string }) => {
+        const result = incompleteResult();
+        mirrorSendIntoTranscript(input.content, result);
+        return result;
+      })
+      .mockImplementationOnce(async (input: { content: string }) => {
+        const result = okResult("[TEST/FAKE] second turn complete");
+        mirrorSendIntoTranscript(input.content, result);
+        return result;
+      });
+    let latest!: ProductConversationController;
+    render(<Harness onReady={(c) => (latest = c)} />);
+    await waitFor(() => expect(latest.uiState).not.toBe("INITIAL"));
+
+    await act(async () => {
+      latest.sendMessage("first incomplete");
+    });
+    await waitFor(() => {
+      expect(latest.executionIncomplete).toBe(true);
+      expect(
+        screen.getByTestId("project-assistant-incomplete-surface"),
+      ).toBeTruthy();
+    });
+
+    await act(async () => {
+      latest.sendMessage("second ok");
+    });
+    await waitFor(() => {
+      expect(latest.executionIncomplete).toBe(false);
+      expect(screen.getByText(/second turn complete/i)).toBeTruthy();
+    });
+    expect(
+      screen.queryByTestId("project-assistant-incomplete-surface"),
+    ).toBeNull();
+    expect(
+      screen.getByTestId("project-assistant-panel").getAttribute(
+        "data-execution-incomplete",
+      ),
+    ).toBe("false");
+  });
+
+  it("T07 — provider error remains distinct from incomplete", async () => {
+    sendCancellableAssistantTurnMock.mockResolvedValue({
+      ok: false,
+      status: "provider_error",
+      message: "Provider failed",
+      mode: "unavailable",
+      retryable: true,
+      code: "PROVIDER_ERROR",
+    });
+    let latest!: ProductConversationController;
+    render(<Harness onReady={(c) => (latest = c)} />);
+    await waitFor(() => expect(latest.uiState).not.toBe("INITIAL"));
+    await act(async () => {
+      latest.sendMessage("will fail");
+    });
+    await waitFor(() => {
+      expect(screen.getByTestId("project-assistant-error")).toBeTruthy();
+    });
+    expect(latest.executionIncomplete).toBe(false);
+    expect(
+      screen.queryByTestId("project-assistant-incomplete-surface"),
+    ).toBeNull();
+    expect(screen.getByText(/Provider failed/i)).toBeTruthy();
+  });
+
+  it("T07b — abort remains STOPPED without incomplete banner", async () => {
+    sendCancellableAssistantTurnMock.mockImplementation(
+      (_input: unknown, signal: AbortSignal) =>
+        new Promise((_resolve, reject) => {
+          signal.addEventListener(
+            "abort",
+            () => {
+              const err = new Error("Aborted");
+              err.name = "AbortError";
+              reject(err);
+            },
+            { once: true },
+          );
+        }),
+    );
+    let latest!: ProductConversationController;
+    render(<Harness onReady={(c) => (latest = c)} />);
+    await waitFor(() => expect(latest.uiState).not.toBe("INITIAL"));
+    await act(async () => {
+      latest.sendMessage("will abort");
+    });
+    await waitFor(() =>
+      expect(sendCancellableAssistantTurnMock).toHaveBeenCalled(),
+    );
+    await act(async () => {
+      latest.stopCurrentResponse();
+    });
+    await waitFor(() => expect(latest.uiState).toBe("STOPPED"));
+    expect(latest.executionIncomplete).toBe(false);
+    expect(
+      screen.queryByTestId("project-assistant-incomplete-surface"),
+    ).toBeNull();
+  });
+
+  it("T08 — Cognitive STOP does not show Analyse inachevée", async () => {
+    sendCancellableAssistantTurnMock.mockImplementation(
+      async (input: { content: string }) => {
+        const result = cognitiveStopResult();
+        mirrorSendIntoTranscript(input.content, result);
+        return result;
+      },
+    );
+    let latest!: ProductConversationController;
+    render(<Harness onReady={(c) => (latest = c)} />);
+    await waitFor(() => expect(latest.uiState).not.toBe("INITIAL"));
+    await act(async () => {
+      latest.sendMessage("contradiction");
+    });
+    await waitFor(() => {
+      expect(latest.uiState).toBe("ANSWERED");
+      expect(screen.getByText(/Cognitive STOP/i)).toBeTruthy();
+    });
+    expect(latest.executionIncomplete).toBe(false);
+    expect(
+      screen.queryByTestId("project-assistant-incomplete-surface"),
+    ).toBeNull();
+  });
+
+  it("T08b — Cognitive STOP outranks limitReached for incomplete UI", async () => {
+    sendCancellableAssistantTurnMock.mockImplementation(
+      async (input: { content: string }) => {
+        const result = cognitiveStopResult({
+          text: "stop and limit",
+          limitReached: true,
+        });
+        mirrorSendIntoTranscript(input.content, result);
+        return result;
+      },
+    );
+    let latest!: ProductConversationController;
+    render(<Harness onReady={(c) => (latest = c)} />);
+    await waitFor(() => expect(latest.uiState).not.toBe("INITIAL"));
+    await act(async () => {
+      latest.sendMessage("both");
+    });
+    await waitFor(() => {
+      expect(screen.getByText(/stop and limit/i)).toBeTruthy();
+    });
+    expect(latest.executionIncomplete).toBe(false);
+    expect(
+      screen.queryByTestId("project-assistant-incomplete-surface"),
+    ).toBeNull();
+  });
+
+  it("T09/T12 — incomplete does not invent HumanDecision; ANSWERED is transport phase only", async () => {
+    const answeredEvents: Event[] = [];
+    const onAnswered = (e: Event) => answeredEvents.push(e);
+    window.addEventListener(SFIA_ASSISTANT_ANSWERED_EVENT, onAnswered);
+
+    sendCancellableAssistantTurnMock.mockImplementation(
+      async (input: { content: string }) => {
+        const result = incompleteResult({
+          f2: undefined,
+          lifecycleRecommendationMaterialized: false,
+          reservationProposedIds: [],
+        });
+        mirrorSendIntoTranscript(input.content, result);
+        return result;
+      },
+    );
+    let latest!: ProductConversationController;
+    render(<Harness onReady={(c) => (latest = c)} />);
+    await waitFor(() => expect(latest.uiState).not.toBe("INITIAL"));
+    await act(async () => {
+      latest.sendMessage("incomplete mission");
+    });
+    await waitFor(() => {
+      expect(latest.executionIncomplete).toBe(true);
+      expect(
+        screen.getByTestId("project-assistant-incomplete-surface"),
+      ).toBeTruthy();
+    });
+
+    expect(latest.uiState).toBe("ANSWERED");
+    await waitFor(() => {
+      expect(answeredEvents.length).toBeGreaterThanOrEqual(1);
+    });
+    expect(screen.queryByTestId("f2-decide-go")).toBeNull();
+    expect(latest.activeProposal).toBeNull();
+
+    window.removeEventListener(SFIA_ASSISTANT_ANSWERED_EVENT, onAnswered);
+  });
+
+  it("T11 — partial text preserved alongside incomplete surface", async () => {
+    sendCancellableAssistantTurnMock.mockImplementation(
+      async (input: { content: string }) => {
+        const result = incompleteResult({
+          text: "Partial documentary notes before budget stop.",
+        });
+        mirrorSendIntoTranscript(input.content, result);
+        return result;
+      },
+    );
+    let latest!: ProductConversationController;
+    render(<Harness onReady={(c) => (latest = c)} />);
+    await waitFor(() => expect(latest.uiState).not.toBe("INITIAL"));
+    await act(async () => {
+      latest.sendMessage("GDR");
+    });
+    await waitFor(() => {
+      expect(
+        screen.getByText(/Partial documentary notes before budget stop/i),
+      ).toBeTruthy();
+      expect(
+        screen.getByTestId("project-assistant-incomplete-surface"),
+      ).toBeTruthy();
+    });
+    expect(latest.executionIncomplete).toBe(true);
   });
 });
 
@@ -967,116 +824,82 @@ describe("P6 Nora P0 — ProjectAssistantPanel incomplete UX", () => {
 
 ---
 
-## 9. Classification KEEP / ADAPT / COMPLETE
-
-| Asset | Class |
-|---|---|
-| OpenAI Agents Runner / runNoraAgentsTurn | KEEP |
-| runNoraCognitiveTurn / turnBudget / campaignBudget | KEEP |
-| ProductSqliteSession / Memory B / Cycle Journal | KEEP |
-| CognitiveWorkloadPolicy / RoutingPolicy | KEEP |
-| ProjectAssistantSendSuccess status union | ADAPT — add `incomplete` |
-| ProjectAssistantSendSuccess fields | COMPLETE — `limitReached?` |
-| orchestrateTurn status + durable gates | ADAPT |
-| ProjectAssistantPanel incomplete surface | COMPLETE (reuse StatusPill/scope/ephemeral) |
-| Tests P0 honesty + panel UX | COMPLETE |
-
----
-
-## 10. Preuves T1–T12
+## 11. Preuves T01–T12
 
 | ID | Claim | Evidence | Result |
 |---|---|---|---|
-| T1 | Runner signals limitReached | runner.d0 R5 + documentary V1 | PASS (adjacent) |
-| T2 | Product frontier not status ok | p0.productStatusHonesty T2/T3 | PASS |
-| T3 | DTO explicit incompleteness | status incomplete + limitReached | PASS |
-| T4 | UI not full success | incomplete.panel.ux T4 | PASS |
-| T5 | No unjustified LR/ACW/reservation | honesty T5 + orch gates | PASS |
-| T6 | Partial text ≠ full success | honesty T2 text preserved + status incomplete | PASS |
-| T7 | limitReached=false preserves ok | honesty T7 + panel T7 UI | PASS |
-| T8 | Cognitive STOP distinct | honesty T8 + T8b + mw3 suites | PASS |
-| T9 | Campaign budget no bypass | documentary V3 (adjacent) | PASS |
-| T10 | Cancel/provider distinct | orchestrateTurn provider_error + existing cancel suites not regressed | PASS (orch suite); cancel suite not re-run this cycle — preexisting path untouched |
-| T11 | Persistence factual | journalDelta not written as complete; transcript text may remain | PASS (T5/orch gates) |
-| T12 | limitReached cause not assumed = only maxTurns | DTO comment + honesty T12 naming; no cause invention | PASS |
+| T01 | Product incomplete DTO | Fake send status=incomplete + limitReached | PASS |
+| T02 | Hook exposes incomplete | controller.executionIncomplete===true | PASS |
+| T03 | Surface visible | incomplete-surface without Sources details | PASS |
+| T04 | Partial text kept | message text rendered | PASS |
+| T05 | Nominal ok | no incomplete banner | PASS |
+| T06 | Next turn clears | incomplete then ok clears flag | PASS |
+| T07 | Provider / abort distinct | errorBox / STOPPED | PASS (+ T07b) |
+| T08 | Cognitive STOP distinct | no incomplete banner; T08b outranks | PASS |
+| T09 | No HumanDecision invented | no f2-decide; activeProposal null | PASS |
+| T10 | Accessible / testable | role=status + testids | PASS |
+| T11 | Continuity coherent | partial text + incomplete | PASS |
+| T12 | ANSWERED ≠ mission success | event fires; only Lifecycle refresh semantics documented | PASS |
 
 ---
 
-## 11. Tests exécutés (commandes exactes)
+## 12. Tests exécutés (commandes exactes)
 
 Working directory: `projects/sfia-studio/app`
 
 ```bash
 npx vitest run \
+  __tests__/pre-m6-product-ui/p6.nora.p0.incomplete.chatFirst.ui.d0.test.tsx \
   __tests__/project-assistant/p6.nora.p0.productStatusHonesty.d0.test.ts \
   __tests__/project-assistant/p6.nora.p0.incomplete.panel.ux.d0.test.tsx \
-  __tests__/project-assistant/orchestrateTurn.test.ts \
-  __tests__/project-assistant/mw3.cognitiveStop.surface.d0.test.ts \
-  __tests__/project-assistant/mw3.cognitiveStop.panel.ux.d0.test.tsx \
   __tests__/nora-cognitive-runtime/p6.nora.maxTurns.documentary.d0.test.ts \
   __tests__/nora-cognitive-runtime/runner.d0.test.ts \
-  --reporter=verbose
+  __tests__/project-assistant/mw3.cognitiveStop.surface.d0.test.ts \
+  __tests__/project-assistant/mw3.cognitiveStop.panel.ux.d0.test.tsx \
+  __tests__/project-assistant/orchestrateTurn.test.ts \
+  __tests__/pre-m6-product-ui/p5.s06.cp02.cancellation.hook.test.tsx \
+  __tests__/pre-m6-product-ui/p5.s06.cp02.cancellation.ui.test.tsx \
+  --reporter=dot
 ```
 
-Result: **7 files / 41 tests PASS**
-
-```bash
-npx vitest run __tests__/project-assistant/ProjectAssistantPanel.test.tsx --reporter=dot
-```
-
-Result: **1 file / 8 tests PASS**
+Result: **10 files / 58 tests PASS** (0 FAIL / 0 SKIP)
 
 ```bash
 npx tsc -p tsconfig.json --noEmit
 ```
 
-Result: **TSC_OK** (exit 0)
+Result: **TSC_OK** (exit 0, empty stderr)
 
 ```bash
 npx eslint --no-error-on-unmatched-pattern \
-  features/project-assistant/types.ts \
-  features/project-assistant/orchestrateTurn.ts \
-  features/project-assistant/ProjectAssistantPanel.tsx \
-  __tests__/project-assistant/p6.nora.p0.productStatusHonesty.d0.test.ts \
-  __tests__/project-assistant/p6.nora.p0.incomplete.panel.ux.d0.test.tsx
+  features/pre-m6-product-ui/hooks/useProductConversation.ts \
+  features/pre-m6-product-ui/surfaces/ConversationSurface.tsx \
+  __tests__/pre-m6-product-ui/p6.nora.p0.incomplete.chatFirst.ui.d0.test.tsx
 ```
 
-Result: **0 errors**, 2 pre-existing warnings in Panel (exhaustive-deps) — not introduced by P0 incomplete block.
+Result: **0 errors / 0 warnings** on targeted paths
 
-`git diff --check`: clean (no whitespace errors reported in prior check).
+`git diff --check` on pre-m6 paths: clean.
 
 ### Not executed (justified)
 
-- Global P6 campaign / REAL OpenAI — GO REAL NON
+- Full P6 campaign / REAL OpenAI — GO REAL NON
+- ProjectWorkspacePage full wiring suite — path composition verified via real hook+surface harness; page only passes controller
 - P1/P2 suites — hors scope
-- Full app vitest — disproportionate; targeted adjacent suites cover frontier
-- p5 cancellation suite — path not modified; T10 covered by existing provider_error in orchestrateTurn.test.ts
 
 ---
 
-## 12. Validation chemin frontend
+## 13. Effets Product / P0-EFFECT-02
 
-Path: Panel `projectAssistantSendAction` → on success reads `result.status` / `result.limitReached` → `executionIncomplete` state → surface `project-assistant-incomplete-surface` + `data-execution-incomplete`.
+Server P0 gates (prior delivery) remain: LR / ACW / reservation / journalDelta-as-complete suppressed when `limitReached`.
 
-No new modal / confirmation / resume flow. Reuses StatusPill (orange) + scope + ephemeral styles.
+This pass: client does not invent HumanDecision / Confirmation / durable promotion from incomplete.
 
-Figma: no structural redesign; no strong visual verdict without runtime capture — RESERVE minor.
+ANSWERED event → LifecycleSurface.refresh only (re-read durable state).
 
----
+Reserve: end-to-end assertion that Fake session has zero durable LR writes on chat-first incomplete remains covered by prior orchestrateTurn honesty T5; not re-expanded into RunState/store rewrite. P0-EFFECT-02 residual: acceptable as RESERVE if ChatGPT requires store-level proof beyond orchestrateTurn Fake — not blocking for UI path correction.
 
-## 13. Effets durables / guards
-
-When `executionLimitReached`:
-
-- structured complete-cognitive path suppressed (`suppressCompleteCognitiveEffects`)
-- LR candidate not materialized
-- ACW items not written
-- reservationDelta operations not applied
-- journalDelta not materialized as completed mission
-- Cognitive STOP path remains primary when both true
-- Conversation text / tool events / provenance still returnable (factual)
-
-Truth C / HumanDecision authority: unchanged.
+Distinction: tools already executed before limit may have side-effects (authorized reads) — not claimed as "zero effects of any kind".
 
 ---
 
@@ -1085,70 +908,61 @@ Truth C / HumanDecision authority: unchanged.
 | Item | Value |
 |---|---|
 | Applicable | YES |
-| Fake | ScriptedModel / mocked runNoraCognitiveTurn / Fake send action |
-| REAL boundary corresponding | OpenAI Agents Runner Product path |
-| Entry level | STATIC QUALIFIED + DETERMINISTIC MAXTURNS PROVEN |
-| Achieved | **DETERMINISTIC PROVEN AT P0 PRODUCT STATUS SCOPE** |
-| NOT demonstrated | REAL BOUNDARY PROVEN; REAL GDR QUALITY; AUTONOMOUS CONTINUATION; P6 GLOBAL PASS; RUNTIME V3 ADOPTED |
+| Fake | sendCancellableAssistantTurn mock + Fake continuity |
+| REAL corresponding | Nora Agents on Studio Product chat-first path |
+| Entry | P0 backend DETERMINISTIC PROVEN; UI target gap BLOCKING |
+| Achieved | **DETERMINISTIC PROVEN AT P0 CHAT-FIRST PATH** |
+| NOT | REAL BOUNDARY / E2E REAL / P6 GLOBAL PASS / Runtime v3 ADOPTED |
 | GO REAL | NON |
 | OpenAI REAL calls | ZERO |
-
-DETERMINISTIC PROVEN ≠ READY FOR REAL.
 
 ---
 
 ## 15. Dette / exit / réserves
 
-Dette acceptée (hors GO):
+Dette hors GO: P1 budget · P2 continuation · REAL GDR MIN-09 · Panel vs ConversationSurface dual surfaces both now honest (Panel preserved).
 
-- P1 Adaptive Runner Budget — workload-aware maxTurns still default 5
-- P2 Controlled Cognitive Continuation — RunState Product not wired
-- REAL GDR replay of MIN-09 — requires separate GO after review
-- Panel eslint exhaustive-deps warnings pre-existing
+Exit proof this pass: chat-first incomplete visible + cleared on next ok + STOP/error/Cognitive STOP distinct + prior P0 preserved + 58 deterministic tests PASS.
 
-Exit proof for P0: status incomplete + limitReached on DTO + UI surface + durable suppress + tests T1–T12 at deterministic scope.
-
----
-
-## 16. Décisions Morris restantes
-
-1. Review ChatGPT of this P0 local delivery.
-2. Decide integration/commit on project branch (GO not granted this cycle).
-3. Optional GO P1 Adaptive Runner Budget.
-4. Conditional GO P2 Controlled Continuation.
-5. Separate GO REAL for MIN-09 / GDR replay.
-6. P6 GLOBAL PASS remains NOT claimed.
+Réserves:
+- No strong Figma fidelity claim (reuse only)
+- No runtime screenshot
+- P0-EFFECT-02 residual store-level if demanded beyond orch T5
 
 ---
 
-## 17. P1 / P2 hors scope (explicit)
+## 16. P1 / P2 hors scope
 
-- P1 Adaptive Runner Budget — NOT implemented
-- P2 Controlled Cognitive Continuation / RunState Product — NOT implemented
-- Production ceilings unchanged
-- No cognitive architecture rewrite
-- No new REAL campaign
+Explicit: P1 Adaptive Runner Budget NOT implemented. P2 Controlled Continuation / RunState NOT implemented. Budgets unchanged.
+
+---
+
+## 17. Décisions Morris restantes
+
+1. ChatGPT Review of this targeted correction
+2. Integration/commit decision for combined P0 (backend+panel+chat-first)
+3. Optional GO P1 / conditional P2 / separate REAL
 
 ---
 
 ## 18. Review Handoff plan
 
-Mode: publish-in-cycle L3 borné
+Mode: publish-in-cycle L3
 Branch: `sfia/review-handoff`
 Canonical: `sfia-review-handoff/latest-chatgpt-review.md`
-Commit message: `docs(review-handoff): publish P6 Nora P0 product status honesty`
-No project commit / push / PR / merge / force-push.
+Commit: `docs(review-handoff): publish P6 Nora P0 chat-first correction`
+No project commit/push/PR/merge/force-push.
 
 ---
 
 ## 19. Verdict
 
-**P6 NORA P0 — LOCAL DELIVERY COMPLETE / READY FOR CHATGPT REVIEW**
+**P6 NORA P0 — CHAT-FIRST TARGETED CORRECTION COMPLETE / READY FOR CHATGPT REVIEW**
 
 Status: READY FOR REVIEW
 
-QA level: DETERMINISTIC AT P0 SCOPE
+QA level: DETERMINISTIC AT P0 CHAT-FIRST SCOPE
 
-Gate suivant: Revue ChatGPT + décision Morris d'intégration. REAL séparé.
+Gate suivant: ChatGPT Review → décision Morris d'intégration.
 
-Ne pas déclarer: P6 GLOBAL PASS · Product Completion READY · Runtime v3 ADOPTED · P1/P2 done · REAL GDR VALIDATED · READY FOR PR.
+Ne pas déclarer: P6 GLOBAL PASS · Runtime v3 ADOPTED · P1/P2 done · REAL GDR VALIDATED · Product global READY · READY FOR PR.
