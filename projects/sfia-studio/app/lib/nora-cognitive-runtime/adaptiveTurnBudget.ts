@@ -93,6 +93,11 @@ export function inferWorkloadHintsFromUserContent(
 /**
  * Resolve adaptive mission maxTurns.
  * Explicit caller maxTurns always wins (tests, eval). Otherwise strategy+signals.
+ *
+ * Historical FinOps contract: an *explicit* non-finite maxTurns (NaN / ±Infinity)
+ * must NOT fall back to the adaptive nominal budget. Preserve the invalid value
+ * so downstream `normalizeSafeNonNegativeInteger` fail-closes before Runner dispatch.
+ * Absent / null maxTurns remains the adaptive Product path.
  */
 export function resolveAdaptiveMaxTurns(input: {
   strategyClass?: CognitiveStrategyClass | null;
@@ -103,10 +108,18 @@ export function resolveAdaptiveMaxTurns(input: {
   const floor = ADAPTIVE_MAX_TURNS_FLOOR;
   const ceiling = ADAPTIVE_MAX_TURNS_CEILING;
 
-  if (
-    input.explicitMaxTurns != null &&
-    Number.isFinite(input.explicitMaxTurns)
-  ) {
+  if (input.explicitMaxTurns != null) {
+    if (!Number.isFinite(input.explicitMaxTurns)) {
+      reasonCodes.push("explicit_caller_maxTurns_non_finite");
+      return {
+        requestedMaxTurns: input.explicitMaxTurns,
+        strategyClass: input.strategyClass ?? null,
+        reasonCodes,
+        floor,
+        ceiling,
+        explicitOverride: true,
+      };
+    }
     const requestedMaxTurns = Math.max(0, Math.trunc(input.explicitMaxTurns));
     reasonCodes.push("explicit_caller_maxTurns");
     return {

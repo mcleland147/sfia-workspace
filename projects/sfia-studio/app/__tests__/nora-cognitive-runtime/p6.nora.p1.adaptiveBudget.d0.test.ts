@@ -106,4 +106,26 @@ describe("P6 Nora P1 — Adaptive maxTurns policy", () => {
       resolveAdaptiveMaxTurns({ strategyClass: null }).requestedMaxTurns,
     ).toBe(5);
   });
+
+  it("absent maxTurns uses adaptive; explicit NaN/Infinity preserved (no adaptive fallback)", () => {
+    const absent = resolveAdaptiveMaxTurns({ strategyClass: "Routine" });
+    expect(absent.explicitOverride).toBe(false);
+    expect(absent.requestedMaxTurns).toBe(5);
+
+    for (const bad of [
+      Number.NaN,
+      Number.POSITIVE_INFINITY,
+      Number.NEGATIVE_INFINITY,
+    ]) {
+      const d = resolveAdaptiveMaxTurns({
+        strategyClass: "Deep",
+        explicitMaxTurns: bad,
+      });
+      expect(d.explicitOverride).toBe(true);
+      expect(d.reasonCodes).toContain("explicit_caller_maxTurns_non_finite");
+      expect(Number.isFinite(d.requestedMaxTurns)).toBe(false);
+      // Must not silently substitute Deep adaptive ceiling (10).
+      expect(d.requestedMaxTurns).not.toBe(10);
+    }
+  });
 });

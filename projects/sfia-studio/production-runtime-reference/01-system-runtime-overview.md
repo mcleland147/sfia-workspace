@@ -12,6 +12,8 @@ Project Assistant (features/project-assistant)
         ↓
 Nora Cognitive Runtime (lib/nora-cognitive-runtime)
   ProductSqliteSession · Cycle Journal · MW5 critical challenge · CWP hooks
+  Adaptive mission maxTurns (P1) · Controlled same-turn RunState continuation (P2)
+  Session passed on every Runner segment (incl. RunState resume) · cognitive context ≠ Truth C
         ↓
 OA domain aggregates (lib/oa/{project,cycle,decision,execution-contract,
   execution-attempt,evidence-review,doctrine,git-ports})
@@ -46,8 +48,11 @@ Cursor / Git / GitHub adapters (execution-attempt composition /
 | Concern | Store | Authority |
 |---|---|---|
 | Transcript / Journal / Memory B session items | `nora-session.sqlite` | Working context ≠ Truth C |
+| In-process OpenAI RunState (P2) | process memory only | Same Product turn resume ≠ durable SoT |
 | Project / LPS / Cycle / HD / EC / Attempt / Evidence / RB | `oa-product.sqlite` | Truth C / durable product |
 | F2 Proposal map | process-local `proposalStore.ts` | Not sole restart authority |
+
+**Nora cognition ≠ Product authority.** Adaptive budgets and RunState continuation do not mint HumanDecision, ExecutionContract, or Truth C writes by themselves.
 
 ## Fake vs REAL boundary (overview)
 

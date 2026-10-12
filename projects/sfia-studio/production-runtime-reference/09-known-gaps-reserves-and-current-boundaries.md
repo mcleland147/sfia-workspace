@@ -4,6 +4,21 @@
 
 - Runtime v3 **NON ADOPTED**
 - This corpus does not change product behavior by itself (Living Reference is descriptive)
+
+## Overlay — Nora autonomy PR #577 (Draft candidate, not merged)
+
+| Item | Status |
+|---|---|
+| P0 incomplete Status Honesty (Chat-first + panel) | AS-IMPLEMENTED on PR #577 candidate — DETERMINISTIC |
+| P1 Adaptive Runner Budget (5/8/10, ceiling 10) | AS-IMPLEMENTED — DETERMINISTIC |
+| P2 Controlled Continuation (same-turn RunState) + Session-on-resume | AS-IMPLEMENTED — DETERMINISTIC |
+| Explicit non-finite `maxTurns` fail-closed (CI Correction) | AS-IMPLEMENTED locally → integrated on this sync commit |
+| **FPPC-RES-01** — prior user utterance not a Session `role:user` AgentInputItem under observed SDK prepare | OPEN residual / NON-BLOCKING |
+| **P0-EFFECT-02** store-level incomplete effects | NOT PROVEN |
+| Cross-restart RunState persistence | **DEFER** (architecture GO required) |
+| Eval/explicit `maxTurns` > adaptive ceiling 10 | NON-BLOCKING (tests/eval only; not Product DTO) |
+| Documentary quality REAL / P6 GLOBAL PASS / Product READY | **NOT PROVEN / NOT CLAIMED** |
+| Runtime v3 | **NON ADOPTED** |
 - PocketTasks-observed materialization / MW5 gaps are **mitigated at deterministic tested scope**; REAL OpenAI / PocketTasks parity is **not** re-proven
 - ZERO REAL in PRODUCT-CYCLE-E2E-STABILIZATION-01 — no READY FOR REAL / E2E REAL / Product global READY claimed
 - CHAT-FIRST-GOVERNED-DECISION-LOOP-01: DETERMINISTIC PRODUCT E2E proven at tested scope only — **NOT REAL PROVEN**, **NOT READY FOR REAL**, **NOT PRODUCT GLOBAL READY**

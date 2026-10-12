@@ -169,11 +169,23 @@ Convention: each card lists **SoT**, **persistence**, **key paths**, **tests**. 
 - **Paths:** intentAnalysis cognitive fields; nora-cognitive-runtime MW3 modules.
 - **Maturity:** modeled as signals; never silent HumanDecision.
 
+## OBJ-TURN-ORCH — Project assistant / Nora turn orchestration
+
+- **Purpose:** Product/Nora turn spine — `orchestrateTurn` → `runNoraCognitiveTurn` → Agents Runner (`runNoraAgentsTurn`).
+- **Paths:** `features/project-assistant/orchestrateTurn.ts`, `actions.ts`, `f2/orchestrateF2.ts`, `lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts` (+ Runner helpers `runNoraAgentsTurn.ts`, `adaptiveTurnBudget.ts`, `controlledContinuation.ts` — some untracked in manifest).
+- **Adaptive mission maxTurns (P1):** when Product omits `maxTurns`, `resolveAdaptiveMaxTurns` selects Routine=5 / Focused=8 / Deep|High-Assurance=10 (ceiling **10**, not experimental 12). Explicit **finite** `maxTurns` remains tests/eval override. Explicit **NaN / ±Infinity** fail-closed via existing `normalizeSafeNonNegativeInteger` before Runner dispatch (no adaptive fallback).
+- **Controlled continuation (P2):** within one Product turn, `MaxTurnsExceededError.state` may resume with absolute `maxTurns` raised toward mission budget; campaign clamps remain imperative.
+- **Status honesty (P0):** `limitReached` → Product status `incomplete` (≠ `ok`, ≠ `cognitive_stop`). Incomplete must not materialize durable LR/ACW illegitimately.
+- **Invariant:** INV-COG-NE-AUTH — Nora cognition ≠ Product authority.
+- **Non-claims:** no durable RunState across process restart; no Product client `maxTurns` DTO; Runtime v3 not adopted.
+
 ## OBJ-MEMORY-B — ProductSqliteSession / Memory B
 
 - **Purpose:** Session working memory, transcript, journal — ≠ Truth C.
 - **Persistence:** `nora-session.sqlite` tables: `session_items`, `logical_product_turns`, `pilot_transcript_turns`, `cycle_journal_*`.
 - **Paths:** `productSqliteSession.ts`, `sessionPaths.ts`, `cycleJournalStore.ts`
+- **Session-on-resume (P2 / TV01):** `ProductSqliteSession` is passed to the Agents Runner on **every** segment, including native RunState resume, so history persists for the next Product turn (close/reopen SQLite retains items when DB path is stable).
+- **Observed SDK limit (FPPC-RES-01):** under the installed Agents Session prepare path, the initial user utterance is often **not** stored as a Session `role:user` AgentInputItem; tool/assistant items and next-turn ModelRequest.input carry the conserved history. Session is not an exhaustive transcript SoT.
 - **Invariant:** Memory B ≠ Truth C.
 - **Ops note:** path defaults relative to worktree `cwd` unless `SFIA_STUDIO_NORA_SESSION_DB_PATH` is absolute — worktree switches can orphan transcript (observed in campaign ops).
 
