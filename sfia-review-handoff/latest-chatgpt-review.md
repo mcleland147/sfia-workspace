@@ -1,441 +1,476 @@
 # SFIA Review Pack — FULL
-# Pass: POST-MERGE DOCUMENTARY CLOSURE 01
-# Generated: 2026-10-12T15:24:39+02:00 (Europe/Paris)
+# Pass: P6 CAMPAIGN CONTINUATION AFTER NORA P0/P1/P2
+# Generated: 2026-10-12T16:03:13+02:00 (Europe/Paris)
 # Level: FULL
-# Cycle: 14 — Post-merge
-# Profile: STANDARD
+# Cycle: 9 — QA / validation
+# Profile: CRITICAL
 
 ---
 
 ## A. Horodatage / Identification
 
-- Timestamp: 2026-10-12T15:24:39+02:00 (Europe/Paris)
+- Timestamp: 2026-10-12T16:03:13+02:00 (Europe/Paris)
 - Project: SFIA Studio
 - Macro: STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01
-- Campagne: P6-GLOBAL-INTEGRATED-PRODUCT-QA-01
-- Chantier: NORA-ADAPTIVE-COGNITIVE-EXECUTION-CONTINUATION-01
-- Pass: POST-MERGE DOCUMENTARY CLOSURE 01
-- Cycle: 14 — Post-merge
-- Profile: STANDARD
-- Typologie: DOC / POST-MERGE / REFERENCE SYNC
-- CKC: projects/sfia-studio/sfia-v3-framing/ckc/14-post-merge.md
+- Milestone: P6 — GLOBAL INTEGRATED PRODUCT QA
+- Campaign ID: P6-GLOBAL-INTEGRATED-PRODUCT-QA-01
+- Pass: P6 CAMPAIGN CONTINUATION AFTER NORA P0/P1/P2
+- Cycle: 9 — QA / validation
+- Profile: CRITICAL
+- Typologie: QA / VALIDATION / REAL-FIRST HYBRID / PRODUCT
+- CKC: projects/sfia-studio/sfia-v3-framing/ckc/09-qa-validation.md
 - Runtime v3: NON ADOPTED
 
 ## B. GO Morris consommé
 
-GO Morris 2026-10-12 — clôture documentaire ciblée post-intégration Nora P0/P1/P2/TV01 sur main.
+GO Morris 2026-10-12 — reprise campagne P6 existante.
 
-Autorisé: lecture Git/CI ; mise à jour documentaire bornée (bloc 6) ; métadonnées référentiel ; digests ; conformance ; Review Pack FULL ; handoff L3 ; qualification P6-MIN-09.
+Autorisé: qualification Git; harvest preuves; QA sous contrat P6; test GDR; DET ciblés; REAL uniquement dans enveloppe G-SIMP-09 déjà consommée; artefacts QA temporaires; Human QA consolidation; Review Pack FULL; handoff L3.
 
-NON autorisé: push branche projet ; nouvelle PR ; merge ; suppression branche ; modification directe de main ; force push ; architecture/persistence/runtime Product ; Build Doctrine/Roadmap/C1/v3 ; REAL ; Runtime v3 promotion.
+Gates historiques vérifiés dans sources campagne:
+- G-SIMP-P6 GO P6 EXECUTION — AUTHORIZED / CONSUMED
+- G-SIMP-09 GO P6 REAL — BOUNDED CAMPAIGN — AUTHORIZED / CONSUMED
 
-Le GO documentaire **ne vaut pas** GO Git Integration.
+≠ autorisation REAL illimitée.
+
+NON autorisé: développement; architecture; moteur GDR; routing prod; budget REAL augmenté; runtime Product; persistence; doctrine; Build Doctrine/Roadmap/C1; commit/push/PR/merge projet; suppression branche; Runtime v3; P6 PASS sans Exit Proof.
 
 ## C. Local Git Truth Check
 
 ```
-pwd=/Users/morris/Projects/sfia-workspace-p6-rec01-human-qa
-remote=origin https://github.com/mcleland147/sfia-workspace.git
-working_branch=docs/pr577-post-merge-documentary-closure  (dédiée documentaire, créée depuis origin/main)
-HEAD=d8ceb8ad54d2e84aaa95cdbe3bef4e2814806edc  (= origin/main merge SHA)
+documentary_workspace=/Users/morris/Projects/sfia-workspace-p6-rec01-human-qa
+  branch=docs/pr577-post-merge-documentary-closure
+  HEAD=d8ceb8ad54d2e84aaa95cdbe3bef4e2814806edc
+  dirty=DOC-PR577-POSTMERGE-SYNC (7 production-runtime-reference files) + .tmp pack
+  preserved=YES (not mixed into QA; not committed; not pushed)
+
+qa_workspace=/Users/morris/Projects/sfia-workspace-p6-campaign-continuation-qa
+  mode=detached origin/main
+  HEAD=d8ceb8ad54d2e84aaa95cdbe3bef4e2814806edc
+  dirty=none (project files)
+  Nora P0/P1/P2=PRESENT
+
 origin/main=d8ceb8ad54d2e84aaa95cdbe3bef4e2814806edc
-prior_project_branch=qa/p6-hqa-02-rec01-human-qa @ b826526ce5531f73ec1f2013443c55e18155cbc2 (conservée, non supprimée)
-dirty_scope=7 fichiers production-runtime-reference uniquement
-staged=none
-push_projet=NON (ce cycle)
+historical_p6_branch=qa/sfia-studio-p6-global-integrated-product-qa @ 980064c0
+  adaptiveTurnBudget=ABSENT → REJECTED as GDR runtime baseline
+PR #577=MERGED
 ```
 
-Cohérence: OK. Workspace approprié = branche documentaire depuis `origin/main` (pas le HEAD historique PR).
-
-## D. Sources
+## D. Sources (consultées)
 
 - convergence build-doctrine / roadmap
 - product-completion cadrage
-- sfia-v3-framing 33/34/35/37 + ckc/14-post-merge.md
+- sfia-v3-framing 30–35, 37 + ckc/09-qa-validation.md
+- product-simplification 01 §12.6 · 02 §17 · 04 · 07 (contrat P6)
 - nora-cognitive-completion/08-…
-- product-simplification/07-… P6
-- process templates + method fast-track
-- Living Production Runtime Reference (README, volumes, manifest)
-- Prior handoff: commit 37d45933bfe6ae06465b0c426c65507a8f4d3c56 / blob 4bf37dfd6cf449b47ce3ba015b33b567f1a381ca
+- method/templates SFIA v2.6
+- Campaign evidence: /Users/morris/Projects/sfia-workspace/.tmp-sfia-review/p6-global-integrated-qa/
+- Prior feasible sweep: .tmp-sfia-review/p6-global-integrated-qa/p6-min01-09-feasible-sweep/
+- Prior handoff post-merge docs: 89739ce8 / blob 3859e272…
 
 ## E. Convergence Pre-check
 
-- Capacité: autonomie cognitive bornée Nora + Session + honesty Product. Runtime v3 NON ADOPTED.
-- Milestone: P6.
-- État: P0/P1/P2/TV01 sur main via PR #577 MERGED ; CI post-merge SUCCESS.
-- Actifs KEEP; Living Reference ADAPT descriptif (statut Git seulement).
-- Gap: métadonnées/overlays encore « candidate / Draft ».
-- Exit proof: référentiel cohérent localement + handoff FULL ; intégration Git différée.
-- Dette nouvelle: aucune. Réserves historiques KEEP.
-- Capacité suivante: P6-MIN-09 Guided Document Review (après GO intégration documentaire).
+- Capacité testée: Guided Document Review via Product loop existant (pas de moteur GDR).
+- Actifs KEEP: Operating Loop, Nora runtime, P0/P1/P2, ProductSqliteSession, Evidence/RB, campagne HARVEST/CONTINUE.
+- Gaps: qualité documentaire REAL; continuité inter-tour REAL; résolution docs/versions; contradictions; dispositions locales; couverture MIN-09.
+- Réserves: FPPC-RES-01; P0-EFFECT-02; RunState cross-restart DEFER; eval maxTurns>10 NON-BLOCKING.
+- Dette: DOC-PR577-POSTMERGE-SYNC reportée.
+- Exit proof ce passage: Evidence MIN-09 exploitable (oracles+DET+Human entry), classification honnête, queue mise à jour, verdict fondé.
+- Capacité suivante: Human QA Morris (P6-HQ-05) puis consolidation finale P6.
 
-## F. PR #577 merged identity
+## F. Baseline / CI
 
-- URL: https://github.com/mcleland147/sfia-workspace/pull/577
-- State: MERGED
-- mergeCommit: `d8ceb8ad54d2e84aaa95cdbe3bef4e2814806edc`
-- mergedAt: 2026-10-12T12:53:30Z
-- head (PR tip): b826526ce5531f73ec1f2013443c55e18155cbc2
-- base was: f31bb8f610802c102edbe68889fb8ecf0339ec28
+- baselineCommit: d8ceb8ad54d2e84aaa95cdbe3bef4e2814806edc
+- CI post-merge PR577: https://github.com/mcleland147/sfia-workspace/actions/runs/38251916421 SUCCESS
+- Vitest 5612 PASS / 143 SKIPPED / 0 FAIL; governance 73 PASS; Required Gate PASS
+- Note: CI ≠ preuve P6-MIN-09 REAL
 
-## G. CI post-merge
+## G. Reprise ledger historique
 
-- Run: https://github.com/mcleland147/sfia-workspace/actions/runs/38251916421
-- Workflow: SFIA Studio CI
-- Event: push on main
-- headSha: `d8ceb8ad54d2e84aaa95cdbe3bef4e2814806edc`
-- conclusion: **SUCCESS**
-- Detect SFIA Studio changes: PASS
-- Build and validate SFIA Studio: PASS
-- Vitest: **5612 PASS / 143 SKIPPED / 0 FAIL**
-- Modeled governance: **73 PASS / 0 FAIL**
+Canonical campaign dir: `/Users/morris/Projects/sfia-workspace/.tmp-sfia-review/p6-global-integrated-qa/`
+- campaign-status: Phase 0 COMPLETE; Phase 1 PASS; Phase 2 AUTO DET advanced; Phase 3 Mode-B advanced; Phase 4 AUTO DET PASS; Phase 5 HUMAN QA BATCH READY (19); Phase 6 INTERIM ONLY; P6 PASS NOT CLAIMED
+- evidence-ledger.jsonl: 76 historical lines (preserved; not rewritten)
+- human-qa-queue.json: finalQueueCount=19; executedByMorris=NO; all WAITING HUMAN QA
+- manifests: product-scenario + cognitive-workload present
+- Local continuation ledger (rec01 workspace): appended new run without erasing history
 
-## H. Required Gate
+## H. Requalification Phases 2–4
 
-- SFIA Studio Required Gate: **PASS** (même run 38251916421)
+- Phase 2 AUTO DET / scenario dispositions: QUALIFIED CARRY where independent of Nora autonomy changes
+- Phase 3 Mode-B / router-in-situ: QUALIFIED CARRY (cognitive screening ≠ GDR documentary quality)
+- Phase 4 adversarial DET: QUALIFIED CARRY
+- Effect PR #577: REQUALIFICATION REQUIRED specifically for Nora-facing Human items (MIN-06 continuity substrate improved; MIN-09 substrate now on main) — does not auto-PASS Human oracles
 
-## I. Inventaire mentions obsolètes (PR #577 seulement)
+## I. Matrice P6-MIN-01…09
 
-Corrigées:
-- README: « Nora autonomy overlay (candidate) / PR #577 (Draft, not merged) »
-- 03 F04: « PR #577 candidate »
-- 04 Sample D title + Fake/Real row: « PR #577 candidate »
-- 06 heading: « PR #577 candidate »
-- 08 flow row + oracles heading: « PR #577 candidate »
-- 09 overlay: « Draft candidate, not merged » + status rows
+See full matrix embedded below (section content).
 
-Préservées volontairement (autres chantiers):
-- 03 « Correction Pass 02 candidate »
-- 09 GENERIC-EXECUTION… local candidate / POST-EXECUTION… local candidate
-- mentions « Nora candidate ≠ Product authorization » (autorité, pas statut PR)
+### Full requalification matrix
 
-## J. Qualification sémantique
+# P6-MIN-01…09 Requalification — After Nora P0/P1/P2 (PR #577)
 
-**NO PRODUCT SEMANTIC CHANGE.**
+at: see pack timestamp
+baselineCommit: d8ceb8ad54d2e84aaa95cdbe3bef4e2814806edc
+priorSweepBaseline: f31bb8f610802c102edbe68889fb8ecf0339ec28
+priorSweepRef: .tmp-sfia-review/p6-global-integrated-qa/p6-min01-09-feasible-sweep/
+ciPostMerge: https://github.com/mcleland147/sfia-workspace/actions/runs/38251916421 SUCCESS
 
-Mise à jour descriptive du statut Git après merge uniquement.
-Mécanismes P0/P1/P2 inchangés. Aucun runtime Product modifié.
+Legend disposition: QUALIFIED CARRY | REQUALIFICATION REQUIRED | SUPERSEDED | NOT PROVEN
 
-## K. Manifest review metadata
+| Scenario | Historical state | Evidence | PR #577 effect | Disposition | Residual action |
+|---|---|---|---|---|---|
+| MIN-01 | DETERMINISTIC PASS | feasible-sweep batch A | Independent of Nora autonomy | QUALIFIED CARRY | optional Human smoke |
+| MIN-02 | DETERMINISTIC PASS | corrProof05/06 | Independent | QUALIFIED CARRY | none |
+| MIN-03 | BLOCKED PRODUCT GAP | HQ-01 precheck NOT READY | Unaffected (Review accept gap) | QUALIFIED CARRY (blocker conserved) | Morris G1 Delivery/contract |
+| MIN-04 | DETERMINISTIC PASS (neg) | RB lifecycle / adversarial | Unaffected | QUALIFIED CARRY | optional UI Human |
+| MIN-05 | BLOCKED full / det partial | recovery suites | Unaffected exit-leg gap | QUALIFIED CARRY | after MIN-03 |
+| MIN-06 | FUNCTIONAL CANDIDATE + HUMAN READY | det + HQA-06 related REAL restart | Continuity substrate improved (Session-on-resume TV01) but Human interrupt oracle still required | REQUALIFICATION REQUIRED (Human still READY; DET CARRY) | Human runbook still next for interrupt UX |
+| MIN-07 | PASS WITH RESERVES | REC-01 HQA + continuity det | WR path independent; Nora honesty improves incomplete surfacing | QUALIFIED CARRY + reserves kept | residual optional |
+| MIN-08 | DETERMINISTIC PASS | journal suites | Independent | QUALIFIED CARRY | optional Journal UI Human |
+| MIN-09 | NOT RUN / HUMAN REQUIRED | P6-HQ-05 WAITING; no GDR d0 suite | Substrate NOW on main (P0/P1/P2/TV01 DET PASS 142). GDR quality REAL still NOT PROVEN. Bound Product projects lack on-disk document corpus. | REQUALIFICATION REQUIRED → **NOT PROVEN (GDR quality)** / **HUMAN QA REQUIRED** | Prepare+execute Human GDR with identifiable sources |
 
-Sémantique retenue:
-- `lastReviewedCommit` = arbre Git couvert par **cette sync de statut scoped Nora post-merge** = merge SHA `d8ceb8ad54d2e84aaa95cdbe3bef4e2814806edc`.
-- Ce n'est **pas** une affirmation de réaudit intégral du corpus Living Reference.
-- README distingue désormais: corpus historical Reviewed commit (`b433d431…`) vs Nora post-merge status sync scoped.
+## PR #577 / Nora-specific carry
 
-Avant:
-- lastReviewedCommit = 95ebe42c5c4ecc5a662241171ee1e03eb3010b52
-- lastReviewedAt = 2026-10-12T14:23:24+02:00
-
-Après:
-- lastReviewedCommit = d8ceb8ad54d2e84aaa95cdbe3bef4e2814806edc
-- lastReviewedAt = 2026-10-12T15:23:44+02:00
-
-## L. Digests avant / après (volumes modifiés)
-
-| Volume | BEFORE sha256_16 | AFTER sha256_16 |
+| Proof | Level | Disposition |
 |---|---|---|
-| README.md | 5d82151d25ffcfca | c09cbc9ab915b0f5 |
-| 03-end-to-end-flow-catalog.md | cfb2e852e13ad587 | d53b7d0ef85c7dc9 |
-| 04-dependency-impact-map.md | 356689dccb46b102 | e35bf2999d5ede1b |
-| 06-persistence-restart-and-recovery.md | cae47e899f4d07cc | 175eaa3ab11a1795 |
-| 08-test-proof-and-conformance-map.md | 268f641ce0004f76 | a6c865cfc75373bb |
-| 09-known-gaps-reserves-and-current-boundaries.md | ee816d0da3ff7a63 | 84420a9d7b284814 |
+| P0 status honesty | DETERMINISTIC on main | QUALIFIED CARRY (new baseline) |
+| P1 adaptive budget 5/8/10 | DETERMINISTIC | QUALIFIED CARRY |
+| P2 RunState + Session-on-resume TV01 | DETERMINISTIC | QUALIFIED CARRY |
+| Numeric fail-closed maxTurns | DETERMINISTIC + CI post-merge | QUALIFIED CARRY |
+| Documentary mission ScriptedModel | DETERMINISTIC (GDR-adjacent mechanics) | QUALIFIED CARRY — ≠ GDR REAL quality |
+| GDR Product REAL cognitive quality | — | NOT PROVEN |
 
-TrackedSources inchangés (spot-check): orchestrateTurn `4b5dc69962b5a7ed` ; runNoraCognitiveTurn `0ae04ca7503de628` ; useProductConversation `17e442645cd02afb`.
+P6 GLOBAL PASS: NO
+Runtime v3: NON ADOPTED
+DOC-PR577-POSTMERGE-SYNC: deferred (not applied this cycle)
 
-Digests rafraîchis **après** revue du contenu via `check-production-runtime-reference.mjs --write-digests`.
 
-## M. Conformance
+## J. Contrat GDR / oracles (PREDECLARED BEFORE EXECUTION)
 
-- `node scripts/check-production-runtime-reference.mjs` → **PRODUCTION RUNTIME REFERENCE CONFORMANCE OK**
-- `vitest … productionRuntimeReference.conformance.d0.test.ts` → **5/5 PASS**
+# P6-MIN-09 Guided Document Review — Oracles (PREDECLARED)
 
-## N. Contenu exploitable — diffs Git utiles
+campaignId: P6-GLOBAL-INTEGRATED-PRODUCT-QA-01
+scenarioId: P6-SC-MIN-09 / P6-MIN-09
+baselineCommit: d8ceb8ad54d2e84aaa95cdbe3bef4e2814806edc
+declaredAt: before execution
+qualityFloorTarget: SUFFICIENT (representative first run; not global GDR parity claim)
 
-Chaque bloc = `git diff -- <path>` exact sur la branche documentaire locale.
-Reconstruction: NON. Placeholder: NON.
+## HARD CHECKS (must hold)
 
-### N.1 `projects/sfia-studio/production-runtime-reference/README.md`
+H1. Exact document identity resolvable (path/title/id) when sources are available.
+H2. Version / currentness identifiable OR honest ambiguity/clarification (no silent guess presented as fact).
+H3. Provenance: claims attributable to cited sources or explicitly marked inference.
+H4. No material hallucination about source content (when sources are in context).
+H5. No invented HumanDecision / no illegitimate durable LR/ACW materialization from GDR alone.
+H6. No unauthorized protected mutation.
+H7. Product status honest (including incomplete/limitReached when applicable).
+H8. No implicit Cycle closure from section/checkpoint disposition.
+H9. No confusion: section accepted ≠ document validated ≠ Deliverable validated ≠ Exit Proof.
+H10. Result attributable to the observed run (runId / evidenceRefs).
 
-- chemin exact: `projects/sfia-studio/production-runtime-reference/README.md`
-- base tree: `d8ceb8ad54d2e84aaa95cdbe3bef4e2814806edc` (origin/main)
-- reconstruction: NON — diff Git utile réel
+## QUALITY RUBRIC (floor = SUFFICIENT)
 
-```diff
-diff --git a/projects/sfia-studio/production-runtime-reference/README.md b/projects/sfia-studio/production-runtime-reference/README.md
-index ff1a1fa0..7d5c5c8d 100644
---- a/projects/sfia-studio/production-runtime-reference/README.md
-+++ b/projects/sfia-studio/production-runtime-reference/README.md
-@@ -1,14 +1,14 @@
- # SFIA Studio — Living Production Runtime Reference
+Q1. Source fidelity
+Q2. Useful completeness for Pilot
+Q3. Contradiction detection when contradiction is actually present in sources
+Q4. Reasoning quality (structured, not mere paraphrase)
+Q5. Challenge depth appropriate to stakes
+Q6. Actionable bounded recommendations
+Q7. Project context awareness
+Q8. Cross-turn conversational continuity
+Q9. Clarity for Pilot
+Q10. Uncertainty management (abstain/clarify when needed)
 
- **Nature:** CURRENT AS-IMPLEMENTED / LIVING PRODUCTION RUNTIME REFERENCE
--**Reviewed commit:** `b433d4316b1c8d04dc043e3ee46a6dc4dbff4da9`
--**Reviewed at:** 2026-10-10T21:48:00+0200
-+**Corpus historical Reviewed commit (REC-01 / prior overlays):** `b433d4316b1c8d04dc043e3ee46a6dc4dbff4da9` @ 2026-10-10T21:48:00+0200 — not a claim that the entire corpus was re-audited in this pass.
-+**Nora post-merge status sync (scoped):** merge `d8ceb8ad54d2e84aaa95cdbe3bef4e2814806edc` · reviewed at 2026-10-12 (Europe/Paris) — Git/status requalification of PR #577 overlays only; **not** a full Living Reference re-audit.
- **Macro foundation:** SFIA-STUDIO-LIVING-PRODUCTION-RUNTIME-REFERENCE-01
- **Stabilization overlay:** PRODUCT-CYCLE-E2E-STABILIZATION-01 (deterministic Product server-action E2E oracle)
- **Last audit overlay:** SFIA-STUDIO-LEGACY-ARCHITECTURE-DECOMMISSION-01 (no SAFE removal; CURRENT clarifications only)
- **First Framing overlay:** STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 / P6 — conversational Framing START path documented in volumes 03 / 08 / 09 (PR #574)
- **REC-01 overlay:** P6-HQA-02 / REC-01 — governed Work Recommendation materialization + Option A CONTRADICTORY continuity (PR #576 @ `b433d431`) — volumes 02 / 03 / 04 / 08 / 09
--**Nora autonomy overlay (candidate):** P6 / **PR #577 (Draft, not merged)** — P0 incomplete Status Honesty; P1 Adaptive Runner Budget (Routine 5 / Focused 8 / Deep·HA 10, ceiling 10); P2 native RunState Controlled Continuation + Session-on-resume (TV01); numeric fail-closed for explicit non-finite `maxTurns` restored (CI Correction Pass 01). Proof level: **DETERMINISTIC VERIFIED** at Product wiring + next-turn input scope. ZERO REAL. Runtime v3 **NON ADOPTED**. Volumes 01 / 02 / 03 / 04 / 06 / 08 / 09 + digests.
-+**Nora autonomy overlay (INTEGRATED ON MAIN):** P6 / **PR #577 MERGED** @ `d8ceb8ad54d2e84aaa95cdbe3bef4e2814806edc` (mergedAt 2026-10-12T12:53:30Z) — P0 incomplete Status Honesty; P1 Adaptive Runner Budget (Routine 5 / Focused 8 / Deep·HA 10, ceiling 10); P2 native RunState Controlled Continuation + Session-on-resume (TV01); numeric fail-closed for explicit non-finite `maxTurns`. Post-merge CI: [run 38251916421](https://github.com/mcleland147/sfia-workspace/actions/runs/38251916421) SUCCESS (Vitest 5612 PASS / 143 SKIPPED / 0 FAIL; governance 73 PASS; Required Gate PASS). Proof level: **DETERMINISTIC VERIFIED** at Product wiring + next-turn input scope. REAL **NOT PROVEN**. Runtime v3 **NON ADOPTED**. Volumes 01 / 02 / 03 / 04 / 06 / 08 / 09 + digests.
+Quality levels: BELOW FLOOR | SUFFICIENT | STRONGER THAN NEEDED | INCONCLUSIVE
 
- ## What this corpus is
+## CONTINUITY CHECKS
+
+C1. Initial context received
+C2. Session continuity across Product turns
+C3. Adaptive budget selection observed or deterministic-proven
+C4. Same-turn RunState continuation: OBSERVED only if naturally triggered — else NOT OBSERVED
+C5. No invented context
+C6. RunState ≠ Session distinction preserved
+C7. incomplete honesty if budget exhausted
+
+## NON-CLAIMS
+
+- Parity with ChatGPT Guided Review quality = NOT PROVEN by a single run
+- P6 GLOBAL PASS = NOT CLAIMED
+- END-TO-END REAL = only if all required frontiers are real and proven
+- Runtime v3 = NON ADOPTED
+
+
+## K. Exécutions et preuves brutes
+
+# P6-MIN-09 GDR — Execution attempt record
+
+timestamp: 2026-10-12T16:02:11+02:00
+baselineCommit: d8ceb8ad54d2e84aaa95cdbe3bef4e2814806edc
+qaWorkspace: /Users/morris/Projects/sfia-workspace-p6-campaign-continuation-qa (detached origin/main)
+documentaryWorkspacePreserved: /Users/morris/Projects/sfia-workspace-p6-rec01-human-qa @ docs/pr577-post-merge-documentary-closure (7 doc files dirty, untouched)
+
+## Preflight
+
+| Check | Result |
+|---|---|
+| Git main = merge SHA | PASS d8ceb8ad |
+| Nora P0/P1/P2 present | PASS |
+| Historical P6 branch 980064c0 | REJECTED for GDR runtime (no adaptiveTurnBudget) |
+| DOC debt mixed | AVOIDED (separate QA worktree) |
+| Oracles predeclared | PASS gdr-oracles-predeclared.md |
+| OPENAI_API_KEY in .env.local | PRESENT (value not recorded) |
+| Product server :3020 | NOT RUNNING |
+| Bound project pathRoots on disk | ABSENT (empty / missing) |
+| Managed-repos corpus | EMPTY |
+| Identifiable contradiction corpus | NOT FOUND (will not invent) |
+| GO G-SIMP-09 REAL bounded | HISTORICALLY CONSUMED for campaign; GDR item remains HUMAN-required in manifest |
+
+## Decision
+
+REAL Product GDR turn: **NOT EXECUTED**
+
+Classification: **ENVIRONMENT / EVIDENCE GAP** + **HUMAN QA REQUIRED**
+
+Rationale:
+1. Manifest P6-SC-MIN-09: executionMode=HUMAN, automationFeasibility=LOW, humanQaRequired=true.
+2. No on-disk document corpus under bound Product projects; inventing docs/contradictions forbidden.
+3. Starting Product + mutating shared REC-01 Product DB without isolated corpus would risk contamination and still lack Pilot quality judgment.
+4. DET Nora documentary/continuity substrate proven (142 PASS) — necessary but not sufficient for GDR quality floor.
+
+## Observed (DET only)
+
+- Nora DET suite PASS — see raw/nora-det-summary.json
+- Continuity RunState same-turn: proven DET in p6.nora.p1p2.*; natural REAL continuation: NOT OBSERVED this pass
+- FPPC-RES-01: remains OPEN
+- Cross-restart RunState: DEFER
+
+## Quality floor (GDR REAL)
+
+INCONCLUSIVE / NOT APPLICABLE — no REAL GDR run to score.
+
+
+### Nora DET summary JSON
+
+```json
+{
+  "runId": "P6-CONT-NORA-DET-20261012T140211Z",
+  "baselineCommit": "d8ceb8ad54d2e84aaa95cdbe3bef4e2814806edc",
+  "workspace": "sfia-workspace-p6-campaign-continuation-qa",
+  "executionMode": "AUTO",
+  "proofTarget": "DETERMINISTIC",
+  "providerCalls": false,
+  "files": [
+    {"path": "p6.nora.p1.adaptiveBudget.d0.test.ts", "tests": 7},
+    {"path": "p6.nora.p0.incomplete.panel.ux.d0.test.tsx", "tests": 2},
+    {"path": "p6.nora.p0.incomplete.chatFirst.ui.d0.test.tsx", "tests": 9},
+    {"path": "p6.nora.p1p2.documentary.mission.d0.test.ts", "tests": 5},
+    {"path": "p6.nora.p1p2.targetedVerification.d0.test.ts", "tests": 7},
+    {"path": "p6.nora.maxTurns.documentary.d0.test.ts", "tests": 8},
+    {"path": "p6.nora.p0.productStatusHonesty.d0.test.ts", "tests": 5},
+    {"path": "mw6.pre-real.budget-hardening.d0.test.ts", "tests": 99}
+  ],
+  "totals": {"testFiles": 8, "testsPassed": 142, "failed": 0},
+  "verdict": "PASS",
+  "notes": "Nora P0/P1/P2/TV01 + FinOps fail-closed DET proven on post-merge main baseline. Supports GDR substrate; does not prove GDR cognitive quality REAL."
+}
 
 ```
 
-### N.2 `projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md`
+### Nora DET suite log (tail)
 
-- chemin exact: `projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md`
-- base tree: `d8ceb8ad54d2e84aaa95cdbe3bef4e2814806edc` (origin/main)
-- reconstruction: NON — diff Git utile réel
+```text
 
-```diff
-diff --git a/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md b/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
-index bd6f379b..9dbc6b20 100644
---- a/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
-+++ b/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
-@@ -30,7 +30,7 @@ Status legend: COMPLETE | PARTIAL | NOT PROVEN | BREAK
- - **Trigger:** Pilot message via product conversation
- - **Steps:** Pilot content → Product orchestration (`orchestrateTurn`) → `runNoraCognitiveTurn` (strategy + **adaptive maxTurns**) → Agents Runner (`runNoraAgentsTurn`) → optional **same-turn** RunState continuation under mission/campaign budget → result + Session append → Product status → (optional) prospective Active Cycle Work / Work Recommendation materialization → journal tools
- - **Paths:** `orchestrateTurn.ts`, `runNoraCognitiveTurn.ts`, Fake/OpenAI provider; Product UI `useProductConversation.ts` + `ConversationSurface` / `FramingContinuityCard`
--- **Nora autonomy (PR #577 candidate — DETERMINISTIC):** multi-segment documentary missions may continue via native RunState **inside the same Product turn** only; total budget remains bounded; `incomplete` is honest (no false mission success; no illegitimate durable LR/ACW); a **new** Pilot Product turn reuses Session history — it is **not** a RunState resume; cross-restart RunState **DEFER**. Proof is deterministic ScriptedModel/Fake only — not REAL documentary quality.
-+- **Nora autonomy (PR #577 INTEGRATED ON MAIN — DETERMINISTIC):** multi-segment documentary missions may continue via native RunState **inside the same Product turn** only; total budget remains bounded; `incomplete` is honest (no false mission success; no illegitimate durable LR/ACW); a **new** Pilot Product turn reuses Session history — it is **not** a RunState resume; cross-restart RunState **DEFER**. Proof is deterministic ScriptedModel/Fake only — not REAL documentary quality. Merge `d8ceb8ad`.
- - **Work Recommendation materialization (P6-HQA-02 / REC-01):** after a coherent Nora Product turn, Studio may mint durable ACW EpistemicItems via `materializeActiveCycleWork`, but only after `filterActiveCycleWorkItemsForProspectiveMaterialization` (bounded cognitive trust). Nora coverage `COMPLETE`|`PARTIAL`|`UNAVAILABLE` is authoritative for novelty claims — Product reader available ≠ COMPLETE. Ordinary suggestions stay in `conversationGuidance` (zero WR). Historical WR never mutated on the prospective path. `itemSourceIndexes` preserve ACW identity under filter/replay. CONTRADICTORY may persist a typed relation envelope (Option A); never auto-HD / auto-disposition.
- - **Non-blocking conversation (CHAT-FIRST-GOVERNED-DECISION-LOOP-01):** a pending governed decision subject no longer turns an unrelated or informative turn into a transport error. `assertExplicitReinstructionGate` stays fail-closed (no competing `DECISION_REQUIRED` is minted) but `orchestrateF2` now renders `EXPLICIT_REINSTRUCTION_REQUIRED` / `AMBIGUOUS_PENDING_REINSTRUCTION` as a conversational clarification turn, so the composer never dead-ends.
- - **First Framing continuity (presentation):** conversation surface may project a Framing Continuity Card from server-owned snapshot (`projectAssistantReadFramingContinuityAction`) — examinable trajectory facts before HD; « Ouvrir » ≠ composer auto-send; recommendation details stay Recommendation≠Decision (P2-D-01; no presumed operational materiality)
+ RUN  v3.2.7 /Users/morris/Projects/sfia-workspace-p6-campaign-continuation-qa/projects/sfia-studio/app
+
+ ✓ __tests__/nora-cognitive-runtime/p6.nora.p1.adaptiveBudget.d0.test.ts (7 tests) 5ms
+ ✓ __tests__/project-assistant/p6.nora.p0.incomplete.panel.ux.d0.test.tsx (2 tests) 60ms
+ ✓ __tests__/pre-m6-product-ui/p6.nora.p0.incomplete.chatFirst.ui.d0.test.tsx (9 tests) 229ms
+ ✓ __tests__/nora-cognitive-runtime/mw6.pre-real.budget-hardening.d0.test.ts (99 tests) 41ms
+ ✓ __tests__/nora-cognitive-runtime/p6.nora.p1p2.targetedVerification.d0.test.ts (7 tests) 93ms
+ ✓ __tests__/nora-cognitive-runtime/p6.nora.p1p2.documentary.mission.d0.test.ts (5 tests) 97ms
+ ✓ __tests__/nora-cognitive-runtime/p6.nora.maxTurns.documentary.d0.test.ts (8 tests) 240ms
+ ✓ __tests__/project-assistant/p6.nora.p0.productStatusHonesty.d0.test.ts (5 tests) 46ms
+
+ Test Files  8 passed (8)
+      Tests  142 passed (142)
+   Start at  16:02:22
+   Duration  2.39s (transform 1.76s, setup 539ms, collect 5.79s, tests 809ms, environment 602ms, prepare 376ms)
+
 ```
 
-### N.3 `projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md`
+## L. Observations cognitives
 
-- chemin exact: `projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md`
-- base tree: `d8ceb8ad54d2e84aaa95cdbe3bef4e2814806edc` (origin/main)
-- reconstruction: NON — diff Git utile réel
+- DET documentary mission / TV01 / P0 honesty / P1 budget / P2 continuation: PASS on main.
+- Natural same-turn RunState continuation under REAL Product GDR: NOT OBSERVED (no REAL GDR run).
+- Session continuity across Product turns (GDR): NOT OBSERVED this pass.
+- Adaptive budget under REAL GDR: NOT OBSERVED; DET proven.
+- Incomplete honesty: DET proven; REAL GDR NOT OBSERVED.
+- Context invention: NOT OBSERVED (no REAL run to violate).
 
-```diff
-diff --git a/projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md b/projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md
-index 01afe429..4aa93846 100644
---- a/projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md
-+++ b/projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md
-@@ -108,7 +108,7 @@ LifecycleSurface / lifecyclePresentation
+## M. Qualité / quality floor
 
- Many other REC-01 Product files exist on the PR but are **not** in `trackedSources`/`trackedTests`; this sync documents their as-implemented behavior without expanding the tracked set.
+GDR REAL quality floor: **INCONCLUSIVE / NOT APPLICABLE** (no REAL Product GDR execution).
+Nora substrate DET: PASS (necessary, not sufficient).
 
--## Sample impact analysis D — Nora P0/P1/P2 (PR #577 candidate)
-+## Sample impact analysis D — Nora P0/P1/P2 (PR #577 INTEGRATED ON MAIN)
+## N. Continuité Session / RunState
 
- **Changed tracked paths (digest drift at sync):**
- - `features/project-assistant/orchestrateTurn.ts` → OBJ-TURN-ORCH
-@@ -125,7 +125,7 @@ Untracked but behaviorally central (documented, digests not expanded): `runNoraA
- | Invariants | INV-COG-NE-AUTH; INV-MEMB-NE-TRUTHC; INV-NO-SILENT-HD; FinOps numeric fail-closed; INV-FAKE-REAL-SM |
- | Persistence | Session SQLite history between Product turns; RunState **in-process same turn only**; cross-restart RunState DEFER |
- | Authority | Nora candidate ≠ Product authorization / HD |
--| Fake/Real | DETERMINISTIC proven at PR #577 scope; REAL documentary quality NOT PROVEN |
-+| Fake/Real | DETERMINISTIC proven at PR #577 scope (merged `d8ceb8ad`); REAL documentary quality NOT PROVEN |
- | Tests | `p6.nora.p0.*`, `p6.nora.p1.*`, `p6.nora.p1p2.*`, `mw6.pre-real.budget-hardening` NUM-CLAMP / R-PRE-REAL-08A, `runner.d0`, `orchestrateTurn.test` |
- | Docs | volumes 01, 02, 03, 04, 06, 08, 09 + README overlay |
- | Digests | refreshed **after** content review + Morris GO on this sync pass |
-```
+| Dimension | Status |
+|---|---|
+| Session-on-resume DET (TV01) | PROVEN |
+| RunState same-turn DET | PROVEN |
+| RunState cross-restart | DEFER |
+| FPPC-RES-01 | OPEN |
+| GDR multi-turn Product REAL | NOT OBSERVED |
 
-### N.4 `projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md`
+## O. Statuts Product / autorité
 
-- chemin exact: `projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md`
-- base tree: `d8ceb8ad54d2e84aaa95cdbe3bef4e2814806edc` (origin/main)
-- reconstruction: NON — diff Git utile réel
+- No invented HD in DET Nora incomplete paths (proven).
+- GDR section/checkpoint ≠ global validation: oracle declared; Human must verify on Product.
+- No Product mutations performed this pass (project code unchanged; shared Product DB not written by this agent for GDR).
 
-```diff
-diff --git a/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md b/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
-index 25f5c293..d143fb4b 100644
---- a/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
-+++ b/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
-@@ -21,7 +21,7 @@
+## P. Dépenses / limites REAL
 
- `session_items`, `logical_product_turns`, `logical_product_turn_retry_bindings`, `pilot_transcript_turns`, `cycle_journal_entries`, `cycle_journal_mutation_ledger`
+- REAL Product GDR calls this pass: **0**
+- Reason: ENVIRONMENT/EVIDENCE GAP (no on-disk corpus for bound projects) + Human-required scenario
+- GO G-SIMP-09 remains historically CONSUMED; not used to expand unlimited REAL
 
--## Nora Session vs RunState (PR #577 candidate)
-+## Nora Session vs RunState (PR #577 INTEGRATED ON MAIN)
+## Q. Défauts / réserves
 
- | Kind | Lifetime | Role |
- |---|---|---|
-```
+| Item | Severity | Notes |
+|---|---|---|
+| GDR Product corpus missing (bound pathRoots absent) | MAJOR (MIN-09) | ENVIRONMENT/EVIDENCE; not Product code defect per se |
+| MIN-03/05 Review accept gap | PRODUCT-BLOCKER (prior) | conserved |
+| FPPC-RES-01 | RESERVE | OPEN |
+| P0-EFFECT-02 | RESERVE | NOT PROVEN |
+| DOC-PR577-POSTMERGE-SYNC | DEBT | deferred; 7 local files preserved |
+| Provider variance | N/A | no REAL GDR |
 
-### N.5 `projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md`
+No CAMPAIGN-INVALIDATING issue observed.
+No code correction in this pass.
 
-- chemin exact: `projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md`
-- base tree: `d8ceb8ad54d2e84aaa95cdbe3bef4e2814806edc` (origin/main)
-- reconstruction: NON — diff Git utile réel
+## R. Human QA Queue
 
-```diff
-diff --git a/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md b/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
-index 2c8f37a1..87961928 100644
---- a/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
-+++ b/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
-@@ -18,7 +18,7 @@
- | F03 First Framing START | p6.hqa.f01.chatFirstCycleStartGate, chatFirstFramingContinuity(.frontDoor) | explicit START; no auto-START; no technical id in Pilot copy |
- | F04 Framing continuity UI | framingContinuityCard / Rehydrate / p6.ux.recommendationContinuity | examinable card; Recommendation≠Decision |
- | F04 Work Recommendation materialization (REC-01) | qualifyProspectiveWorkRecommendationMaterialization.d0; activeCycleCognitiveWork.d0 (Option A SQLite reload + historical replay); p6.hqa.rec01.minimalStabilization.d0; p6.hqa.rec01.optionB.workRecommendationsContext.d0; UX-REC-02 journalDisclaimer; chatFirstWorkRecommendationContinuity; noraLifecycleRecommendationContinuity | DETERMINISTIC at tested scope; coverage PARTIAL fail-closed; REAL NOT RUN |
--| F04 Nora autonomy P0/P1/P2 (PR #577 candidate) | `p6.nora.maxTurns.documentary.d0.test.ts`; `p6.nora.p1.adaptiveBudget.d0.test.ts`; `p6.nora.p1p2.documentary.mission.d0.test.ts`; `p6.nora.p1p2.targetedVerification.d0.test.ts`; `p6.nora.p0.productStatusHonesty.d0.test.ts`; `p6.nora.p0.incomplete.panel.ux.d0.test.tsx`; `p6.nora.p0.incomplete.chatFirst.ui.d0.test.tsx`; `mw6.pre-real.budget-hardening.d0.test.ts` (NUM-CLAMP / R-PRE-REAL-08A); `runner.d0.test.ts`; `orchestrateTurn.test.ts` | See proof oracles below — **DETERMINISTIC ONLY**; not Product UI E2E REAL; not documentary REAL quality |
-+| F04 Nora autonomy P0/P1/P2 (PR #577 INTEGRATED ON MAIN) | `p6.nora.maxTurns.documentary.d0.test.ts`; `p6.nora.p1.adaptiveBudget.d0.test.ts`; `p6.nora.p1p2.documentary.mission.d0.test.ts`; `p6.nora.p1p2.targetedVerification.d0.test.ts`; `p6.nora.p0.productStatusHonesty.d0.test.ts`; `p6.nora.p0.incomplete.panel.ux.d0.test.tsx`; `p6.nora.p0.incomplete.chatFirst.ui.d0.test.tsx`; `mw6.pre-real.budget-hardening.d0.test.ts` (NUM-CLAMP / R-PRE-REAL-08A); `runner.d0.test.ts`; `orchestrateTurn.test.ts` | See proof oracles below — **DETERMINISTIC ONLY**; not Product UI E2E REAL; not documentary REAL quality; merge `d8ceb8ad` |
- | F06/F07 integrity | recommendationDecisionIntegrity*, recommendation-vs-decision | Proposal≠HD |
- | F07 Framing HD / START boundary | chatFirstFramingContinuity* + F01 gate | HD structural when required; START gated |
- | F01 greenfield | greenfield continuity tests on main | #531 |
-@@ -45,7 +45,7 @@
- - REAL BOUNDARY / E2E REAL — require distinct Morris GO; **not claimed**
- - Runtime v3 **NON ADOPTED**; Product global READY **not claimed**
+- Historical batch: **19** items, executedByMorris=NO, statuses WAITING HUMAN QA (conserved).
+- Continuation snapshot: `p6-campaign-continuation-after-nora/human-qa-queue-continuation.json`
+- P6-HQ-05 refreshed entry:
 
--## Nora autonomy P0/P1/P2 oracles (PR #577 candidate)
-+## Nora autonomy P0/P1/P2 oracles (PR #577 INTEGRATED ON MAIN)
+# Human QA Entry — P6-HQ-05 / P6-SC-MIN-09 Guided Document Review
 
- | Oracle | Level | Notes |
- |---|---|---|
-```
+status: WAITING HUMAN QA
+campaignId: P6-GLOBAL-INTEGRATED-PRODUCT-QA-01
+scenarioId: P6-SC-MIN-09
+p6MinMapping: P6-MIN-09
+queueId: P6-HQ-05
+baselineCommit: d8ceb8ad54d2e84aaa95cdbe3bef4e2814806edc
+blockingPotential: MAJOR (for MIN-09 exit; not campaign-invalidating alone)
+executedByMorris: NO
 
-### N.6 `projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md`
+## Why Human required
 
-- chemin exact: `projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md`
-- base tree: `d8ceb8ad54d2e84aaa95cdbe3bef4e2814806edc` (origin/main)
-- reconstruction: NON — diff Git utile réel
+Cognitive documentary quality, Pilote usefulness, section/checkpoint disposition honesty, and contradiction judgment cannot be certified by DET ScriptedModel alone. Manifest marks HUMAN / REAL-BOUNDARY.
 
-```diff
-diff --git a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
-index 54c246cc..2a43d3ec 100644
---- a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
-+++ b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
-@@ -5,14 +5,14 @@
- - Runtime v3 **NON ADOPTED**
- - This corpus does not change product behavior by itself (Living Reference is descriptive)
+## Product / initial state
 
--## Overlay — Nora autonomy PR #577 (Draft candidate, not merged)
-+## Overlay — Nora autonomy PR #577 (INTEGRATED ON MAIN)
+1. Use **isolated** Product DB + managed-repo root (do not contaminate REC-01 hqa01-rec01-requal without explicit GO).
+2. Bind or create a Project whose workspace contains **existing** documents (prefer real project corpus; alternatively bind to existing `projects/sfia-studio/product-simplification/` as review target — no invented files).
+3. If contradiction check desired: select two **already conflicting** passages in existing sources; do not fabricate contradiction.
+4. Start Studio `npm run dev` on port 3020 with authorized local authority profile QA_NOMINAL_AUTHORIZED.
+5. Authenticate as Pilote; open the Project; ensure active Cycle if required by Product path.
 
- | Item | Status |
- |---|---|
--| P0 incomplete Status Honesty (Chat-first + panel) | AS-IMPLEMENTED on PR #577 candidate — DETERMINISTIC |
-+| P0 incomplete Status Honesty (Chat-first + panel) | AS-IMPLEMENTED on main @ `d8ceb8ad` — DETERMINISTIC |
- | P1 Adaptive Runner Budget (5/8/10, ceiling 10) | AS-IMPLEMENTED — DETERMINISTIC |
- | P2 Controlled Continuation (same-turn RunState) + Session-on-resume | AS-IMPLEMENTED — DETERMINISTIC |
--| Explicit non-finite `maxTurns` fail-closed (CI Correction) | AS-IMPLEMENTED locally → integrated on this sync commit |
-+| Explicit non-finite `maxTurns` fail-closed (CI Correction) | AS-IMPLEMENTED on main @ `d8ceb8ad` — DETERMINISTIC |
- | **FPPC-RES-01** — prior user utterance not a Session `role:user` AgentInputItem under observed SDK prepare | OPEN residual / NON-BLOCKING |
- | **P0-EFFECT-02** store-level incomplete effects | NOT PROVEN |
- | Cross-restart RunState persistence | **DEFER** (architecture GO required) |
-```
+## Exact actions for Morris
 
-### N.7 `projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json`
+A. Ask Nora (chat-first Product composer): identify exact document + version/currentness for review target.
+B. Request section-by-section guided review of a named section (not whole-doc waterfall).
+C. Ask for challenge of assumptions and bounded recommendations.
+D. If a real contradiction exists in sources: ask Nora to surface it with provenance.
+E. Perform a local disposition (accept/reject/amend section checkpoint) — verify Product does **not** invent HD / close Cycle / validate Deliverable globally.
+F. Second Product turn: return to a prior section; verify continuity (Session history accessible; no invented context).
+G. Optionally probe incomplete honesty only if mission naturally hits budget — do not force artificial exhaustion.
+H. Stop; capture screenshots + transcript excerpts + projectId/cycleId/run timestamps.
 
-- chemin exact: `projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json`
-- base tree: `d8ceb8ad54d2e84aaa95cdbe3bef4e2814806edc` (origin/main)
-- reconstruction: NON — diff Git utile réel
+## Observable criteria (map to predeclared oracles)
 
-```diff
-diff --git a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-index 030c43bd..80e69681 100644
---- a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-+++ b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-@@ -1,13 +1,13 @@
- {
-   "schemaVersion": 1,
-   "kind": "SFIA_STUDIO_LIVING_PRODUCTION_RUNTIME_REFERENCE",
--  "lastReviewedCommit": "95ebe42c5c4ecc5a662241171ee1e03eb3010b52",
--  "lastReviewedAt": "2026-10-12T14:23:24+02:00",
-+  "lastReviewedCommit": "d8ceb8ad54d2e84aaa95cdbe3bef4e2814806edc",
-+  "lastReviewedAt": "2026-10-12T15:23:44+02:00",
-   "canonicalReadme": "projects/sfia-studio/production-runtime-reference/README.md",
-   "volumes": [
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/README.md",
--      "sha256_16": "5d82151d25ffcfca"
-+      "sha256_16": "c09cbc9ab915b0f5"
-     },
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/01-system-runtime-overview.md",
-@@ -19,11 +19,11 @@
-     },
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md",
--      "sha256_16": "cfb2e852e13ad587"
-+      "sha256_16": "d53b7d0ef85c7dc9"
-     },
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md",
--      "sha256_16": "356689dccb46b102"
-+      "sha256_16": "e35bf2999d5ede1b"
-     },
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/05-environments-configuration-and-boundaries.md",
-@@ -31,7 +31,7 @@
-     },
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md",
--      "sha256_16": "cae47e899f4d07cc"
-+      "sha256_16": "175eaa3ab11a1795"
-     },
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md",
-@@ -39,11 +39,11 @@
-     },
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md",
--      "sha256_16": "268f641ce0004f76"
-+      "sha256_16": "a6c865cfc75373bb"
-     },
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md",
--      "sha256_16": "ee816d0da3ff7a63"
-+      "sha256_16": "84420a9d7b284814"
-     }
-   ],
-   "components": [
-```
+Hard: H1–H10 in `gdr-oracles-predeclared.md`
+Quality floor: SUFFICIENT on Q1–Q10 for this representative run (not ChatGPT parity claim)
 
-## O. Fichiers créés / modifiés
+## Expected
 
-Créés: aucun (hors Review Pack temporaire `.tmp-sfia-review/chatgpt-review.md`).
+- Faithful grounded review; honest ambiguity; no invented HD; section≠global validation; Product status coherent; continuity across ≥2 turns.
 
-Modifiés (7/7 max):
-- `projects/sfia-studio/production-runtime-reference/README.md`
-- `projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md`
-- `projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md`
-- `projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md`
-- `projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md`
-- `projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md`
-- `projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json`
+## Evidence already available
 
-## P. Réserves (KEEP)
+- DET Nora substrate PASS 142 tests @ d8ceb8ad
+- CI post-merge 38251916421 SUCCESS
+- Prior campaign Phases 1–4 evidence QUALIFIED CARRY where independent
+- Oracles predeclared before this Human run
 
-- FPPC-RES-01 OPEN residual / NON-BLOCKING
-- P0-EFFECT-02 NOT PROVEN
-- Cross-restart RunState DEFER
-- Eval maxTurns > 10 NON-BLOCKING
-- Documentary REAL quality NOT PROVEN
-- P6 GLOBAL PASS NOT CLAIMED
-- Runtime v3 NON ADOPTED
+## Model / effort
 
-## Q. Fake / Real Qualification
+Observe router selection (do not manually force). Record model/effort/providerResponseId if visible.
 
-- Applicable: OUI — reprise preuves PR #577
-- Fake: ScriptedModel / FakeConversationProvider
-- Niveau acquis: DETERMINISTIC PRODUCT WIRING VERIFIED
-- Niveau de ce cycle: POST-MERGE TECHNICAL CI VERIFIED + DOCUMENTARY SYNC REVIEWED LOCALLY
-- REAL: NON EXÉCUTÉ / Gate Morris REAL NON CONSOMMÉ
-- Interdit: REAL PROVEN ; P6 GLOBAL PASS ; Runtime v3 ADOPTED
+## Risks / reserves
 
-## R. Gates restants / décision Morris
+FPPC-RES-01; P0-EFFECT-02; RunState cross-restart DEFER; DOC-PR577-POSTMERGE-SYNC deferred; no dedicated GDR Product engine (by design).
 
-1. Revue documentaire ChatGPT (ce handoff).
-2. GO Morris **intégration documentaire** (push/PR/merge de la sync) — **non autorisé dans ce cycle**.
-3. Puis clôture post-merge formelle + reprise **P6-MIN-09**.
+## Decision expected from Morris
 
-Ne pas déclarer: POST-MERGE DOCUMENTARY SYNC INTEGRATED (pas encore sur main).
+PASS / FAIL / INCONCLUSIVE with quality floor rating; whether MIN-09 can exit; whether further REAL repeats needed within remaining GO envelope.
 
-## S. Verdict pack
 
-REVIEW PACK FULL — MODIFIED CONTENT PRESENT (7 diffs Git utiles).
-Conformance PASS. Scope OK. NO PRODUCT SEMANTIC CHANGE.
+## S. Fichiers / artefacts créés
 
-## T. Prochaine capacité
+Project versioned files modified: **NONE**.
+Documentary debt files: **UNTOUCHED** (still dirty locally).
 
-P6-MIN-09 — Guided Document Review, après intégration documentaire gouvernée.
+Temporary QA artefacts under `.tmp-sfia-review/p6-global-integrated-qa/p6-campaign-continuation-after-nora/`:
+- gdr-oracles-predeclared.md
+- gdr-execution-attempt.md
+- p6-min01-09-requalification-matrix.md
+- human-qa/P6-SC-MIN-09/human-qa-entry.md
+- human-qa-queue-continuation.json
+- raw/nora-det-summary.json
+- raw/nora-det-suite.log
+- evidence-ledger.jsonl append (local continuation ledger)
+
+QA worktree created: `/Users/morris/Projects/sfia-workspace-p6-campaign-continuation-qa` (detached main; not a project integration branch; not pushed).
+
+## T. Fake / Real Qualification
+
+- Fake/DET: ScriptedModel suites — DETERMINISTIC PRODUCT WIRING + Nora autonomy substrate VERIFIED @ d8ceb8ad
+- REAL GDR Product path: **NOT EXECUTED**
+- Proof Target achieved this pass: DETERMINISTIC (substrate) only
+- REAL-BOUNDARY / END-TO-END REAL for GDR: **NOT PROVEN**
+- P6 GLOBAL PASS: **NOT CLAIMED**
+- Runtime v3: **NON ADOPTED**
+
+## U. Gaps / dettes / owners / exit
+
+| Gap/Debt | Owner | Exit |
+|---|---|---|
+| P6-HQ-05 GDR Human QA | Morris | Human PASS/FAIL/INCONCLUSIVE per oracles |
+| Bound project document corpus | QA prep / Morris | Isolated Product+existing corpus under GO |
+| MIN-03/05 Review accept | Product/Morris G1 | Delivery or contract disposition |
+| DOC-PR577-POSTMERGE-SYNC | Morris GO intégration documentaire | separate corrective lot |
+| FPPC-RES-01 | future Nora/SDK proof | close only with demonstrated condition |
+
+## V. Trajectoire suivante
+
+1. Morris exécute Human QA P6-HQ-05 (entry préparée).
+2. Optionnel: bootstrap isolé Product avec corpus existant (product-simplification ou projet réel) sous GO explicite.
+3. Puis P6 Final Consolidation / Exit Review.
+4. DOC-PR577-POSTMERGE-SYNC reste hors de cette QA.
+
+## W. Verdict
+
+**P6 CAMPAIGN CONTINUED / GDR PARTIAL OR NOT PROVEN / HUMAN QA REQUIRED**
+
+Supporting nuance: Nora substrate DETERMINISTIC PROVEN on post-merge main; GDR cognitive quality REAL NOT PROVEN; independent prior MIN evidence preserved.
+
+## X. Instruction ChatGPT
+
+Lire le dernier handoff distant `sfia-review-handoff/latest-chatgpt-review.md` sur `sfia/review-handoff`.
+
+Vérifier: Git/baseline; harvest Phases 2–4; matrice MIN-01…09; oracles GDR pré-déclarés; DET 142; absence d'exécution REAL GDR et justification; Human QA entry; réserves; dette documentaire non mélangée; verdict.
+
+Qualifier le prochain mouvement: Human QA Morris / poursuite campagne / correction ciblée / consolidation finale — **sans transition structurante automatique**.
