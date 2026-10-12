@@ -17,7 +17,7 @@ origin_main: f31bb8f610802c102edbe68889fb8ecf0339ec28
 prior_proof_handoff: fa77892a7cf3b41538f986497eb95e2a941fd4ce / blob d288a792ef9d7d31d58b4c6da3a63818ba564d09
 project_commit: 95ebe42c5c4ecc5a662241171ee1e03eb3010b52
 draft_pr: https://github.com/mcleland147/sfia-workspace/pull/577 (#577)
-ci_observed: PENDING (Detect SFIA Studio changes QUEUED — run 38243235090)
+ci_observed: Detect SFIA Studio changes PASS; Build and validate SFIA Studio PENDING (run 38243235090)
 merge: NOT PERFORMED
 real: ZERO REAL
 runtime_v3: NON ADOPTED
@@ -161,10 +161,10 @@ main unchanged: `f31bb8f610802c102edbe68889fb8ecf0339ec28`.
 ## 10. CI observée
 
 Workflow: SFIA Studio CI
-Job: Detect SFIA Studio changes — **PENDING / QUEUED**
 Run: https://github.com/mcleland147/sfia-workspace/actions/runs/38243235090
-Observation time: cycle publish.
-Claim: CI PENDING only — not PASS, not FAIL yet.
+- Detect SFIA Studio changes — **PASS** (6s)
+- Build and validate SFIA Studio — **PENDING**
+Claim: partial progress only — overall CI not yet complete PASS/FAIL.
 
 ---
 
