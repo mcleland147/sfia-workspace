@@ -14,7 +14,7 @@ project_commit: b826526ce5531f73ec1f2013443c55e18155cbc2
 prior_head: 95ebe42c5c4ecc5a662241171ee1e03eb3010b52
 origin_main: f31bb8f610802c102edbe68889fb8ecf0339ec28
 prior_handoff: 615250941c38291d79b350ee1920b7716bede3b0 / blob 924ea3a4d562f1206fdcb769808488364cc5808e
-ci_observed: PENDING (checks not yet reported on new head at pack time)
+ci_observed: Detect SFIA Studio changes PASS; Build and validate SFIA Studio PENDING (run 38248825220)
 merge: NOT PERFORMED
 real: ZERO REAL
 runtime_v3: NON ADOPTED
@@ -172,8 +172,10 @@ Cumulative PR file count observed via `gh pr diff --name-only`: 27 (18 prior + r
 
 ## 8. CI observed
 
-At pack time after push: `gh pr checks 577` → **no checks reported yet** ⇒ **PENDING**.
-Do not claim Required Gate PASS.
+Run: https://github.com/mcleland147/sfia-workspace/actions/runs/38248825220
+- Detect SFIA Studio changes — **PASS** (6s)
+- Build and validate SFIA Studio — **PENDING**
+Overall Required Gate: **PENDING**. Do not claim PASS.
 
 ---
 
