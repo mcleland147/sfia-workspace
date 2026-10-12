@@ -200,6 +200,7 @@ export function ConversationSurface({
     toolEvents,
     uiState,
     error,
+    executionIncomplete,
     modeLabel,
     ephemeralNotice,
     lrMaterializeNotice,
@@ -462,6 +463,7 @@ export function ConversationSurface({
       className={styles.root}
       data-testid="project-assistant-panel"
       data-ui-state={uiState}
+      data-execution-incomplete={executionIncomplete ? "true" : "false"}
       data-governed-moment={focusedGovernedMoment ? "true" : undefined}
     >
       {!focusedGovernedMoment ? (
@@ -2204,6 +2206,27 @@ export function ConversationSurface({
           >
             Réessayer
           </button>
+        </div>
+      ) : null}
+
+      {executionIncomplete ? (
+        <div
+          className={styles.stoppedBanner}
+          role="status"
+          data-testid="project-assistant-incomplete-surface"
+        >
+          <div>
+            <p className={styles.stoppedText}>Analyse inachevée</p>
+            <p
+              className={styles.composerCaption}
+              data-testid="project-assistant-incomplete-notice"
+            >
+              Limite d&apos;exécution atteinte — cette réponse n&apos;est pas
+              une analyse complète. Aucune décision Product n&apos;a été
+              inventée. Reformulez une nouvelle demande si besoin (pas de
+              continuation automatique).
+            </p>
+          </div>
         </div>
       ) : null}
 

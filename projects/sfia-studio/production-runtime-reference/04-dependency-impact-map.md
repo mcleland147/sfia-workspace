@@ -108,6 +108,30 @@ LifecycleSurface / lifecyclePresentation
 
 Many other REC-01 Product files exist on the PR but are **not** in `trackedSources`/`trackedTests`; this sync documents their as-implemented behavior without expanding the tracked set.
 
+## Sample impact analysis D — Nora P0/P1/P2 (PR #577 candidate)
+
+**Changed tracked paths (digest drift at sync):**
+- `features/project-assistant/orchestrateTurn.ts` → OBJ-TURN-ORCH
+- `lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts` → OBJ-TURN-ORCH
+- `features/pre-m6-product-ui/hooks/useProductConversation.ts` → OBJ-UI-LIFECYCLE
+
+Untracked but behaviorally central (documented, digests not expanded): `runNoraAgentsTurn.ts`, `adaptiveTurnBudget.ts`, `controlledContinuation.ts`, P0 UI panel/surface files, P0/P1/P2/TV01 tests.
+
+| Step | Result |
+|---|---|
+| Components | OBJ-TURN-ORCH (**SEMANTIC IMPACT**); OBJ-UI-LIFECYCLE (incomplete Chat-first); OBJ-MEMORY-B adjacent (Session-on-resume); OBJ-MW5-CHALLENGE adjacent |
+| Direct deps | OBJ-MEMORY-B, OBJ-MW5-CHALLENGE; Runner/adaptive helpers |
+| Flows | F04 primary; F02 / F05 / F06 / F15 / F19 adjacent per manifest |
+| Invariants | INV-COG-NE-AUTH; INV-MEMB-NE-TRUTHC; INV-NO-SILENT-HD; FinOps numeric fail-closed; INV-FAKE-REAL-SM |
+| Persistence | Session SQLite history between Product turns; RunState **in-process same turn only**; cross-restart RunState DEFER |
+| Authority | Nora candidate ≠ Product authorization / HD |
+| Fake/Real | DETERMINISTIC proven at PR #577 scope; REAL documentary quality NOT PROVEN |
+| Tests | `p6.nora.p0.*`, `p6.nora.p1.*`, `p6.nora.p1p2.*`, `mw6.pre-real.budget-hardening` NUM-CLAMP / R-PRE-REAL-08A, `runner.d0`, `orchestrateTurn.test` |
+| Docs | volumes 01, 02, 03, 04, 06, 08, 09 + README overlay |
+| Digests | refreshed **after** content review + Morris GO on this sync pass |
+
+**SEMANTIC IMPACT = YES** (do not claim global NO SEMANTIC IMPACT).
+
 ## Component → flows (summary)
 
 | Component | Flows |

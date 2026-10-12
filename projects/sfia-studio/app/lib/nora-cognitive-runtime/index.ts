@@ -83,6 +83,25 @@ export {
 } from "./turnBudget";
 export type { NoraTurnBudget } from "./turnBudget";
 export {
+  resolveAdaptiveMaxTurns,
+  inferWorkloadHintsFromUserContent,
+  LEGACY_DEFAULT_MAX_TURNS,
+  ADAPTIVE_MAX_TURNS_FLOOR,
+  ADAPTIVE_MAX_TURNS_CEILING,
+  STRATEGY_BASE_MAX_TURNS,
+} from "./adaptiveTurnBudget";
+export type { AdaptiveMaxTurnsDecision } from "./adaptiveTurnBudget";
+export {
+  planContinuationSegments,
+  emptyContinuationObserve,
+  CONTINUATION_SEGMENT_MAX_TURNS,
+  CONTINUATION_MAX_SEGMENTS,
+} from "./controlledContinuation";
+export type {
+  ControlledContinuationObserve,
+  ContinuationStopReason,
+} from "./controlledContinuation";
+export {
   createNoraCampaignBudget,
   acquireNoraCampaignBudget,
   isCanonicalCampaignBudget,

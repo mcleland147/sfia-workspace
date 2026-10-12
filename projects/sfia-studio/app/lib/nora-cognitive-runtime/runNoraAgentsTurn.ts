@@ -13,13 +13,24 @@ import {
   MaxTurnsExceededError,
   Runner,
   type Model,
+  type RunState,
   type Session,
   type AgentOutputType,
 } from "@openai/agents";
 import type { ConversationProvider } from "@/lib/platform/ai";
 import type { EventSink } from "@/lib/platform/observability/eventSink";
-import { CT_MAX_TOOL_ROUNDS } from "@/lib/platform/tools";
 import { requireLiveConversationSecrets } from "@/lib/platform/ai/config";
+import {
+  resolveAdaptiveMaxTurns,
+  type AdaptiveMaxTurnsDecision,
+} from "./adaptiveTurnBudget";
+import type { CognitiveStrategyClass } from "./cognitiveWorkloadPolicy";
+import {
+  CONTINUATION_MAX_SEGMENTS,
+  emptyContinuationObserve,
+  planContinuationSegments,
+  type ControlledContinuationObserve,
+} from "./controlledContinuation";
 import {
   CampaignModelInvocationDeniedError,
   CampaignUsdHardCapDeniedError,
@@ -110,7 +121,20 @@ export type RunNoraAgentsTurnInput = {
   model?: Model | string;
   /** Provider used to resolve completeRound→Model adapter when model not injected. */
   provider?: ConversationProvider;
+  /**
+   * Explicit mission maxTurns override (tests/eval). When omitted, P1 adaptive
+   * policy selects a bounded budget from strategy class + signals.
+   */
   maxTurns?: number;
+  /** P1 — strategy class for adaptive budget (telemetry / policy). */
+  cognitiveStrategyClass?: CognitiveStrategyClass | null;
+  /** P1 — precomputed adaptive decision (cognitive turn). */
+  adaptiveMaxTurnsDecision?: AdaptiveMaxTurnsDecision | null;
+  /**
+   * P2 — when true (default), missions with budget > segment size may resume
+   * via native RunState within the same Product turn. Never resets campaign counters.
+   */
+  enableControlledContinuation?: boolean;
   /** When false, Agent receives no SFIA function tools. */
   enableTools?: boolean;
   /** Optional shared budget (tests). */
@@ -205,6 +229,29 @@ export type RunNoraAgentsTurnBudgetObserve = {
 export type RunNoraAgentsTurnUsdObserve = NoraAgentsUsdSettleResult & {
   reservedInvocations: number;
 };
+
+export type RunNoraAgentsTurnAdaptiveObserve = AdaptiveMaxTurnsDecision & {
+  /** Mission maxTurns after campaign clamp. */
+  effectiveMaxTurns: number;
+};
+
+function extractTextFromRunItems(items: unknown[]): string {
+  return (
+    [...items]
+      .reverse()
+      .map((item) => {
+        const anyItem = item as {
+          type?: string;
+          content?: string;
+        };
+        if (anyItem.type === "message_output_item") {
+          return String(anyItem.content ?? "");
+        }
+        return "";
+      })
+      .find((t) => t.trim().length > 0) ?? ""
+  );
+}
 
 export function createNoraAgentsRunner(
   systemInstructions: string,
@@ -401,7 +448,13 @@ export async function runNoraAgentsTurn(
     }
   }
 
-  const requestedMaxTurns = input.maxTurns ?? CT_MAX_TOOL_ROUNDS + 1;
+  const adaptiveDecision =
+    input.adaptiveMaxTurnsDecision ??
+    resolveAdaptiveMaxTurns({
+      strategyClass: input.cognitiveStrategyClass ?? null,
+      explicitMaxTurns: input.maxTurns ?? null,
+    });
+  const requestedMaxTurns = adaptiveDecision.requestedMaxTurns;
   let clamp: {
     maxTurns: number;
     maxToolCalls: number | null;
@@ -570,6 +623,22 @@ export async function runNoraAgentsTurn(
     input.memoryBAvailability ??
     (session ? "available_with_history" : "unavailable");
 
+  const continuationPlan = planContinuationSegments({
+    missionMaxTurns: maxTurns,
+    enableControlledContinuation: input.enableControlledContinuation,
+  });
+  let continuationObserve: ControlledContinuationObserve =
+    emptyContinuationObserve(
+      maxTurns,
+      continuationPlan.segmentMaxTurns,
+      maxTurns <= 0 ? "mission_budget_exhausted" : "disabled",
+      [
+        ...adaptiveDecision.reasonCodes,
+        ...clamp.reasonCodes,
+        ...continuationPlan.reasonCodes,
+      ],
+    );
+
   let text = "";
   let structuredOutput: unknown = undefined;
   let lastResponseId: string | null = null;
@@ -581,10 +650,106 @@ export async function runNoraAgentsTurn(
   let runNewItems: unknown[] = [];
   let budgetStop = false;
 
+  const softMaxTurnsHandler = ({
+    runData,
+  }: {
+    runData: { newItems: unknown[] };
+  }) => {
+    budget.limitReached = true;
+    const lastText = extractTextFromRunItems(runData.newItems);
+    return {
+      finalOutput: lastText.trim() || "Model-turn budget reached (maxTurns).",
+      includeInHistory: false,
+    };
+  };
+
+  const applyStructuredFinalOutput = (finalOutput: unknown) => {
+    text =
+      typeof finalOutput === "string"
+        ? finalOutput
+        : finalOutput == null
+          ? ""
+          : typeof finalOutput === "object"
+            ? JSON.stringify(finalOutput)
+            : String(finalOutput);
+    if (input.outputType && finalOutput != null) {
+      structuredOutput =
+        typeof finalOutput === "string"
+          ? (() => {
+              try {
+                return JSON.parse(finalOutput) as unknown;
+              } catch {
+                return finalOutput;
+              }
+            })()
+          : finalOutput;
+      const isProductTurnOutput =
+        input.outputType &&
+        typeof input.outputType === "object" &&
+        "name" in input.outputType &&
+        (input.outputType as { name?: string }).name ===
+          "nora_product_turn_with_optional_lr";
+      if (isProductTurnOutput && typeof structuredOutput === "string") {
+        structuredOutput = JSON.parse(
+          buildFailClosedProductTurnJson(structuredOutput),
+        ) as unknown;
+      } else if (isProductTurnOutput && structuredOutput) {
+        if (!isNoraProductTurnWithOptionalLr(structuredOutput)) {
+          const coherent =
+            normalizeNoraProductTurnStructuredOutput(structuredOutput);
+          if (coherent) {
+            structuredOutput = {
+              narrative: coherent.narrative,
+              preCycleRoutingAssessment: coherent.preCycleRoutingAssessment,
+              lifecycleRecommendation: coherent.lifecycleRecommendation,
+              activeCycleWork: coherent.activeCycleWork ?? null,
+              conversationGuidance: coherent.conversationGuidance,
+              journalDelta: coherent.journalDelta ?? null,
+            };
+          }
+        }
+      }
+      if (
+        isProductTurnOutput &&
+        structuredOutput &&
+        typeof structuredOutput === "object"
+      ) {
+        const so = structuredOutput as {
+          narrative?: unknown;
+          conversationGuidance?: unknown;
+        };
+        if (typeof so.narrative === "string") {
+          text = isConversationGuidance(so.conversationGuidance)
+            ? composePilotFacingAssistantText(
+                so.narrative,
+                so.conversationGuidance,
+              )
+            : so.narrative;
+        }
+      } else if (
+        structuredOutput &&
+        typeof structuredOutput === "object" &&
+        "narrative" in structuredOutput &&
+        typeof (structuredOutput as { narrative?: unknown }).narrative ===
+          "string"
+      ) {
+        text = (structuredOutput as { narrative: string }).narrative;
+      }
+    }
+  };
+
   if (maxTurns <= 0) {
     budget.limitReached = true;
     budgetStop = true;
     text = "Campaign/model-turn budget reached before dispatch.";
+    continuationObserve = {
+      ...continuationObserve,
+      stopReason: "mission_budget_exhausted",
+      reasonCodes: [
+        ...continuationObserve.reasonCodes,
+        "mission_maxTurns_zero",
+      ],
+    };
     if (campaign && !campaign.limitReached) {
       if (remainingAggregateRealCalls(campaign) <= 0) {
         markCampaignBudgetBlocked(
@@ -601,143 +766,146 @@ export async function runNoraAgentsTurn(
       }
     }
   } else {
-    try {
-      throwIfAborted(input.signal);
-      const result = await runner.run(agent, input.userContent, {
-        ...(session ? { session } : {}),
-        ...(input.signal ? { signal: input.signal } : {}),
-        maxTurns,
-        errorHandlers: {
-          maxTurns: ({ runData }) => {
-            budget.limitReached = true;
-            const lastText = [...runData.newItems]
-              .reverse()
-              .map((item) => {
-                const anyItem = item as {
-                  type?: string;
-                  rawItem?: { content?: unknown };
-                };
-                if (anyItem.type === "message_output_item") {
-                  return String(
-                    (item as { content?: string }).content ?? "",
-                  );
-                }
-                return "";
-              })
-              .find((t) => t.trim().length > 0);
-            return {
-              finalOutput:
-                lastText?.trim() ||
-                "Model-turn budget reached (maxTurns).",
-              includeInHistory: false,
-            };
-          },
-        },
-      });
-      throwIfAborted(input.signal);
+    // SDK maxTurns is ABSOLUTE against state._currentTurn (not remaining).
+    // Segment 1 may stop early; resume raises absolute cap toward missionMaxTurns.
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let runInput: string | RunState<any, Agent<any, any>> = input.userContent;
+    let absoluteCap = continuationPlan.enable
+      ? Math.min(maxTurns, continuationPlan.segmentMaxTurns)
+      : maxTurns;
+    let allottedTurns = 0;
+    let segmentsExecuted = 0;
+    let continued = false;
+    let stopReason: ControlledContinuationObserve["stopReason"] = "complete";
 
-      text =
-        typeof result.finalOutput === "string"
-          ? result.finalOutput
-          : result.finalOutput == null
-            ? ""
-            : typeof result.finalOutput === "object"
-              ? JSON.stringify(result.finalOutput)
-              : String(result.finalOutput);
-      if (input.outputType && result.finalOutput != null) {
-        structuredOutput =
-          typeof result.finalOutput === "string"
-            ? (() => {
-                try {
-                  return JSON.parse(result.finalOutput) as unknown;
-                } catch {
-                  return result.finalOutput;
+    try {
+      while (segmentsExecuted < CONTINUATION_MAX_SEGMENTS) {
+        throwIfAborted(input.signal);
+        const atMissionCeiling = absoluteCap >= maxTurns;
+
+        try {
+          const result = await runner.run(agent, runInput as never, {
+            // KEEP Session on every segment — including RunState resume — so
+            // ProductSqliteSession persists history across continuation (SDK
+            // prepareSessionHistoryTransactionsForRun requires options.session).
+            ...(session ? { session } : {}),
+            ...(input.signal ? { signal: input.signal } : {}),
+            maxTurns: absoluteCap,
+            // Soft handler only at mission ceiling — earlier segments throw for RunState.
+            ...(atMissionCeiling
+              ? {
+                  errorHandlers: {
+                    maxTurns: softMaxTurnsHandler,
+                  },
                 }
-              })()
-            : result.finalOutput;
-        // Plain-string / partial Fake responses under product-turn outputType →
-        // coerce to fail-closed assessment + null Recommendation (same turn).
-        const isProductTurnOutput =
-          input.outputType &&
-          typeof input.outputType === "object" &&
-          "name" in input.outputType &&
-          (input.outputType as { name?: string }).name ===
-            "nora_product_turn_with_optional_lr";
-        if (isProductTurnOutput && typeof structuredOutput === "string") {
-          structuredOutput = JSON.parse(
-            buildFailClosedProductTurnJson(structuredOutput),
-          ) as unknown;
-        } else if (isProductTurnOutput && structuredOutput) {
-          // NORA-LIFECYCLE-RECOMMENDATION-CONTINUITY-01 — do NOT rewrite a valid
-          // Product turn via normalize here: that path lacks server-derived
-          // CURRENT LR continuity and would coerce EMIT+null → HOLD guidance,
-          // then orchestrateTurn+continuity would fail as LIFECYCLE_MISMATCH.
-          // Preserve raw model output; orchestrateTurn owns boundary coherence.
-          if (!isNoraProductTurnWithOptionalLr(structuredOutput)) {
-            const coherent =
-              normalizeNoraProductTurnStructuredOutput(structuredOutput);
-            if (coherent) {
-              structuredOutput = {
-                narrative: coherent.narrative,
-                preCycleRoutingAssessment: coherent.preCycleRoutingAssessment,
-                lifecycleRecommendation: coherent.lifecycleRecommendation,
-                activeCycleWork: coherent.activeCycleWork ?? null,
-                conversationGuidance: coherent.conversationGuidance,
-                journalDelta: coherent.journalDelta ?? null,
-              };
-            }
+              : {}),
+          });
+          throwIfAborted(input.signal);
+
+          allottedTurns = absoluteCap;
+          segmentsExecuted += 1;
+          applyStructuredFinalOutput(result.finalOutput);
+          lastResponseId = result.lastResponseId ?? null;
+          usageAgg = result.state?.usage ?? null;
+          runNewItems = Array.isArray(result.newItems)
+            ? [...result.newItems]
+            : [];
+          stopReason = budget.limitReached
+            ? "mission_budget_exhausted"
+            : "complete";
+          break;
+        } catch (segmentError) {
+          if (isAbortLike(segmentError, input.signal)) {
+            stopReason = "abort";
+            throw new NoraTurnAbortedError();
           }
-        }
-        if (
-          isProductTurnOutput &&
-          structuredOutput &&
-          typeof structuredOutput === "object"
-        ) {
-          const so = structuredOutput as {
-            narrative?: unknown;
-            conversationGuidance?: unknown;
-          };
-          if (typeof so.narrative === "string") {
-            // Preview only — orchestrateTurn re-composes with full Product context.
-            text = isConversationGuidance(so.conversationGuidance)
-              ? composePilotFacingAssistantText(
-                  so.narrative,
-                  so.conversationGuidance,
+          if (
+            segmentError instanceof CampaignModelInvocationDeniedError ||
+            segmentError instanceof CampaignUsdHardCapDeniedError
+          ) {
+            budget.limitReached = true;
+            budgetStop = true;
+            text = segmentError.message;
+            stopReason = "campaign_or_provider_stop";
+            segmentsExecuted += 1;
+            allottedTurns = absoluteCap;
+            break;
+          }
+          if (segmentError instanceof MaxTurnsExceededError) {
+            segmentsExecuted += 1;
+            allottedTurns = absoluteCap;
+            const state = segmentError.state;
+            const partial =
+              extractTextFromRunItems(
+                Array.isArray(
+                  (segmentError as { newItems?: unknown[] }).newItems,
                 )
-              : so.narrative;
+                  ? ((segmentError as { newItems?: unknown[] })
+                      .newItems as unknown[])
+                  : [],
+              ) || "Model-turn budget reached (maxTurns).";
+
+            if (
+              continuationPlan.enable &&
+              !atMissionCeiling &&
+              state &&
+              segmentsExecuted < CONTINUATION_MAX_SEGMENTS
+            ) {
+              // Raise absolute cap toward mission budget — native RunState resume.
+              absoluteCap = Math.min(
+                maxTurns,
+                absoluteCap + continuationPlan.segmentMaxTurns,
+              );
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              runInput = state as RunState<any, Agent<any, any>>;
+              continued = true;
+              budget.limitReached = false;
+              continuationObserve.reasonCodes = [
+                ...continuationObserve.reasonCodes,
+                `resumed_absolute_cap_${absoluteCap}`,
+              ];
+              continue;
+            }
+
+            budget.limitReached = true;
+            text = partial;
+            stopReason = state
+              ? "mission_budget_exhausted"
+              : "segment_limit_no_state";
+            break;
           }
-        } else if (
-          structuredOutput &&
-          typeof structuredOutput === "object" &&
-          "narrative" in structuredOutput &&
-          typeof (structuredOutput as { narrative?: unknown }).narrative ===
-            "string"
-        ) {
-          text = (structuredOutput as { narrative: string }).narrative;
+          throw segmentError;
         }
       }
-      lastResponseId = result.lastResponseId ?? null;
-      usageAgg = result.state?.usage ?? null;
-      runNewItems = Array.isArray(result.newItems) ? [...result.newItems] : [];
-    } catch (error) {
-      if (isAbortLike(error, input.signal)) {
-        throw new NoraTurnAbortedError();
-      }
+
       if (
-        error instanceof CampaignModelInvocationDeniedError ||
-        error instanceof CampaignUsdHardCapDeniedError
+        segmentsExecuted >= CONTINUATION_MAX_SEGMENTS &&
+        budget.limitReached &&
+        stopReason === "complete"
       ) {
-        budget.limitReached = true;
-        budgetStop = true;
-        text = error.message;
-        // BYPASS-07: do not retry / re-dispatch.
-      } else if (error instanceof MaxTurnsExceededError) {
-        budget.limitReached = true;
-        text = "Model-turn budget reached (maxTurns).";
-      } else {
-        throw error;
+        stopReason = "max_segments";
       }
+    } catch (error) {
+      if (
+        isAbortLike(error, input.signal) ||
+        error instanceof NoraTurnAbortedError
+      ) {
+        throw error instanceof NoraTurnAbortedError
+          ? error
+          : new NoraTurnAbortedError();
+      }
+      throw error;
     }
+
+    continuationObserve = {
+      continued,
+      segmentsExecuted,
+      missionMaxTurns: maxTurns,
+      segmentMaxTurns: continuationPlan.segmentMaxTurns,
+      allottedTurns,
+      stopReason,
+      reasonCodes: continuationObserve.reasonCodes,
+    };
   }
 
   const usage = {
@@ -833,6 +1001,11 @@ export async function runNoraAgentsTurn(
       }
     : undefined;
 
+  const adaptiveObserve: RunNoraAgentsTurnAdaptiveObserve = {
+    ...adaptiveDecision,
+    effectiveMaxTurns: maxTurns,
+  };
+
   return {
     text,
     usage,
@@ -848,5 +1021,7 @@ export async function runNoraAgentsTurn(
     ...(hostedSearchObserve ? { hostedSearchObserve } : {}),
     ...(budgetObserve ? { budgetObserve } : {}),
     ...(usdObserve ? { usdObserve } : {}),
+    adaptiveObserve,
+    continuationObserve,
   };
 }

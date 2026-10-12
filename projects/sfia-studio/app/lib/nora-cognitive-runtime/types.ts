@@ -89,6 +89,26 @@ export type NoraCognitiveTurnResult = {
     realPreflightReasons: string[];
     eligible: boolean;
   };
+  /** P1 — adaptive mission maxTurns decision + effective clamp. */
+  adaptiveObserve?: {
+    requestedMaxTurns: number;
+    effectiveMaxTurns: number;
+    strategyClass: CognitiveStrategyClass | null;
+    reasonCodes: string[];
+    floor: number;
+    ceiling: number;
+    explicitOverride: boolean;
+  };
+  /** P2 — controlled continuation observability (same Product turn). */
+  continuationObserve?: {
+    continued: boolean;
+    segmentsExecuted: number;
+    missionMaxTurns: number;
+    segmentMaxTurns: number;
+    allottedTurns: number;
+    stopReason: string;
+    reasonCodes: string[];
+  };
 };
 
 export type { TruthCRevision, MemoryBCompactionState, MemoryBCompactionDetails };

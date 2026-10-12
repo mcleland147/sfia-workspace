@@ -8,6 +8,7 @@
 **Last audit overlay:** SFIA-STUDIO-LEGACY-ARCHITECTURE-DECOMMISSION-01 (no SAFE removal; CURRENT clarifications only)
 **First Framing overlay:** STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 / P6 — conversational Framing START path documented in volumes 03 / 08 / 09 (PR #574)
 **REC-01 overlay:** P6-HQA-02 / REC-01 — governed Work Recommendation materialization + Option A CONTRADICTORY continuity (PR #576 @ `b433d431`) — volumes 02 / 03 / 04 / 08 / 09
+**Nora autonomy overlay (candidate):** P6 / **PR #577 (Draft, not merged)** — P0 incomplete Status Honesty; P1 Adaptive Runner Budget (Routine 5 / Focused 8 / Deep·HA 10, ceiling 10); P2 native RunState Controlled Continuation + Session-on-resume (TV01); numeric fail-closed for explicit non-finite `maxTurns` restored (CI Correction Pass 01). Proof level: **DETERMINISTIC VERIFIED** at Product wiring + next-turn input scope. ZERO REAL. Runtime v3 **NON ADOPTED**. Volumes 01 / 02 / 03 / 04 / 06 / 08 / 09 + digests.
 
 ## What this corpus is
 
