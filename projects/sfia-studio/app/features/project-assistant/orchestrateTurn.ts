@@ -108,12 +108,14 @@ function buildEphemeralNotice(
   stalePriorInvalidated?: boolean,
   cognitiveStopNotice?: string | null,
   lifecycleMaterializeNotice?: string | null,
+  executionLimitNotice?: string | null,
 ): string {
   const base = memoryBPiloteNotice(memoryBAvailability);
   const compaction = memoryBCompactionPiloteNotice(memoryBCompactionState, {
     stalePriorInvalidated,
   });
   const parts = [
+    executionLimitNotice,
     lifecycleMaterializeNotice,
     cognitiveStopNotice,
     compaction,
@@ -121,6 +123,10 @@ function buildEphemeralNotice(
   ].filter((p): p is string => typeof p === "string" && p.trim().length > 0);
   return parts.join(" ");
 }
+
+/** P0 — Pilote-facing notice when Runner/campaign execution limit stops analysis. */
+export const EXECUTION_LIMIT_INCOMPLETE_PILOTE_NOTICE =
+  "Limite d'exécution cognitive atteinte — l'analyse demandée n'est pas considérée comme achevée. Aucune décision Product n'a été inventée. Vous pouvez reformuler une nouvelle demande (aucune continuation automatique n'est garantie).";
 
 function toMw3Surface(
   turn: Awaited<ReturnType<typeof runNoraCognitiveTurn>>,
@@ -517,6 +523,11 @@ export async function orchestrateProjectAssistantTurn(input: {
     // → LR only if stop=false → compose Pilot text from final coherent guidance.
     const cognitiveStopActive =
       turn.cognitiveStopDecision?.cognitiveStop === true;
+    /** P0 — Runner/campaign execution budget exhausted (≠ Cognitive STOP). */
+    const executionLimitReached = turn.limitReached === true;
+    /** Suppress durable complete-cognitive effects (LR/ACW/reservation/journal-as-complete). */
+    const suppressCompleteCognitiveEffects =
+      cognitiveStopActive || executionLimitReached;
 
     const preModelLrCurrent =
       input.studioCognitiveContext?.lifecycleRecommendation?.current ?? null;
@@ -536,7 +547,7 @@ export async function orchestrateProjectAssistantTurn(input: {
 
     if (
       turn.structuredOutput !== undefined &&
-      !cognitiveStopActive &&
+      !suppressCompleteCognitiveEffects &&
       turn.structuredOutput &&
       typeof turn.structuredOutput === "object"
     ) {
@@ -691,7 +702,8 @@ export async function orchestrateProjectAssistantTurn(input: {
     const coherentEarly =
       turn.structuredOutput !== undefined
         ? normalizeNoraProductTurnStructuredOutput(turn.structuredOutput, {
-            cognitiveStop: cognitiveStopActive,
+            // Fail-closed HOLD/null deltas when Cognitive STOP *or* execution limit.
+            cognitiveStop: suppressCompleteCognitiveEffects,
             currentLifecycleRecommendationSatisfiesTransition:
               postModelCurrentLrSatisfiesTransition,
           })
@@ -709,7 +721,7 @@ export async function orchestrateProjectAssistantTurn(input: {
       const extracted = extractLifecycleCandidateFromStructuredOutput(
         turn.structuredOutput,
         {
-          cognitiveStop: cognitiveStopActive,
+          cognitiveStop: suppressCompleteCognitiveEffects,
           currentLifecycleRecommendationSatisfiesTransition:
             postModelCurrentLrSatisfiesTransition,
         },
@@ -753,7 +765,8 @@ export async function orchestrateProjectAssistantTurn(input: {
         reservationDelta: coherent?.reservationDelta ?? null,
       });
       const acwItems = strippedAcw?.items ?? [];
-      if (acwItems.length > 0) {
+      // P0 — no ACW durable writes when execution budget stopped the turn.
+      if (acwItems.length > 0 && !executionLimitReached) {
         // CORR-01 C2 — validate structured recommendedOptionRef against server
         // decision-support BEFORE any ACW write or Pilot structured display.
         const studioForRec = input.studioCognitiveContext ?? null;
@@ -1008,7 +1021,9 @@ export async function orchestrateProjectAssistantTurn(input: {
 
       // CYCLE-RESERVATION-PILOTING-01 — reservationDelta after ACW, same Product turn.
       // Never auto-RESOLVE; CREATE/UPDATE/PROPOSE_RESOLUTION only.
+      // P0 — no reservation durable writes when execution budget stopped the turn.
       if (
+        !executionLimitReached &&
         coherent?.reservationDelta &&
         coherent.reservationDelta.operations.length > 0 &&
         logicalTurnId
@@ -1090,7 +1105,7 @@ export async function orchestrateProjectAssistantTurn(input: {
       // CR-NCI-03 — Cognitive Stop outranks NEW LR materialization this turn.
       // Reload durable basis so currentness binds post-ACW LPS version / epistemic.
       const lrCandidate =
-        !cognitiveStopActive &&
+        !suppressCompleteCognitiveEffects &&
         !coherent?.boundaryContradiction &&
         coherent?.lifecycleRecommendation
           ? coherent.lifecycleRecommendation
@@ -1378,7 +1393,10 @@ export async function orchestrateProjectAssistantTurn(input: {
             logicalTurnId,
             cycleInstanceId: activeCycleIdForJournal,
           });
+          // P0 — do not materialize journalDelta as completed mission when limitReached.
+          // Transcript of the interruption remains factual above.
           if (
+            !executionLimitReached &&
             activeCycleIdForJournal &&
             logicalTurnId &&
             coherentEarly?.journalDelta
@@ -1407,16 +1425,22 @@ export async function orchestrateProjectAssistantTurn(input: {
         materialized: lifecycleRecommendationMaterialized,
         code: lifecycleRecommendationCode,
       });
+    const executionLimitNotice = executionLimitReached
+      ? EXECUTION_LIMIT_INCOMPLETE_PILOTE_NOTICE
+      : null;
     const ephemeralNotice = buildEphemeralNotice(
       turn.memoryBAvailability,
       turn.memoryBCompactionState,
       turn.memoryBCompactionDetails?.stalePriorInvalidated === true,
       stopNotice,
       lrMaterializeNotice,
+      executionLimitNotice,
     );
-    const status =
-      turn.cognitiveStopDecision?.cognitiveStop === true
-        ? ("cognitive_stop" as const)
+    // Cognitive STOP outranks incomplete; incomplete outranks ok.
+    const status = cognitiveStopActive
+      ? ("cognitive_stop" as const)
+      : executionLimitReached
+        ? ("incomplete" as const)
         : ("ok" as const);
 
     await cutDurableEffect(
@@ -1438,6 +1462,7 @@ export async function orchestrateProjectAssistantTurn(input: {
       toolEvents,
       project,
       ephemeralNotice,
+      limitReached: executionLimitReached,
       cognitiveRuntime: turn.cognitiveRuntime,
       sessionId: turn.sessionId,
       memoryBAvailability: turn.memoryBAvailability,

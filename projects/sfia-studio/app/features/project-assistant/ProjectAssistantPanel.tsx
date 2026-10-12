@@ -132,6 +132,8 @@ export function ProjectAssistantPanel({
   const [mw3Surface, setMw3Surface] = useState<Mw3CognitiveSurfaceDto | null>(
     null,
   );
+  /** P0 — last send hit Runner/campaign execution limit (status incomplete). */
+  const [executionIncomplete, setExecutionIncomplete] = useState(false);
   const [activeProposal, setActiveProposal] = useState<ProposalDto | null>(null);
   const [reservesText, setReservesText] = useState("");
   const [f3Prepare, setF3Prepare] = useState<F3PreparePayload | null>(null);
@@ -414,6 +416,9 @@ export function ProjectAssistantPanel({
       );
       setLrMaterializeCode(result.lifecycleRecommendationCode ?? null);
       setMw3Surface(result.mw3 ?? null);
+      const incomplete =
+        result.status === "incomplete" || result.limitReached === true;
+      setExecutionIncomplete(incomplete);
       setToolEvents((prev) => [...prev, ...result.toolEvents]);
       if (result.toolEvents.length > 0) {
         setUiState("SOURCE_LOOKUP");
@@ -433,9 +438,8 @@ export function ProjectAssistantPanel({
         setF2(null);
         setActiveProposal(null);
       }
-      setUiState(
-        result.status === "cognitive_stop" ? "ANSWERED" : "ANSWERED",
-      );
+      // Incomplete remains ANSWERED transport-wise but surface discloses non-completion.
+      setUiState("ANSWERED");
     });
   }
 
@@ -683,6 +687,7 @@ export function ProjectAssistantPanel({
       className={styles.root}
       data-testid="project-assistant-panel"
       data-ui-state={uiState}
+      data-execution-incomplete={executionIncomplete ? "true" : "false"}
     >
       <div className={styles.metaRow} data-testid="project-assistant-mode-pill">
         <StatusPill tone="green">Nora</StatusPill>
@@ -694,6 +699,24 @@ export function ProjectAssistantPanel({
       <p className={styles.ephemeral} data-testid="project-assistant-ephemeral">
         Morris pilote. Nora recommande — la décision vous appartient.
       </p>
+      {executionIncomplete ? (
+        <div
+          className={styles.scope}
+          data-testid="project-assistant-incomplete-surface"
+          role="status"
+        >
+          <StatusPill tone="orange">Analyse inachevée</StatusPill>
+          <p
+            className={styles.ephemeral}
+            data-testid="project-assistant-incomplete-notice"
+          >
+            Limite d&apos;exécution atteinte — cette réponse n&apos;est pas une
+            analyse complète. Aucune décision Product n&apos;a été inventée.
+            Reformulez une nouvelle demande si besoin (pas de continuation
+            automatique).
+          </p>
+        </div>
+      ) : null}
       {mw3Surface ? (
         <div
           className={styles.scope}

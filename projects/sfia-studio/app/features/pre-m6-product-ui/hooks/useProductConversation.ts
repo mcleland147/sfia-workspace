@@ -142,6 +142,12 @@ export function useProductConversation({
   const [toolEvents, setToolEvents] = useState<AssistantToolEventDto[]>([]);
   const [uiState, setUiState] = useState<ProductConversationUiState>("INITIAL");
   const [error, setError] = useState<string | null>(null);
+  /**
+   * P0 — last successful send hit Runner/campaign execution limit
+   * (status incomplete / limitReached). Distinct from Cognitive STOP,
+   * provider error, and abort. Cleared on the next user send.
+   */
+  const [executionIncomplete, setExecutionIncomplete] = useState(false);
   const [modeLabel, setModeLabel] = useState("MODE À CONFIRMER");
   const [ephemeralNotice, setEphemeralNotice] = useState(
     "Conversation, proposition et confirmation restent process-local (non durables). L’état projet enregistré peut être relu ; rien n’est inventé.",
@@ -887,6 +893,8 @@ export function useProductConversation({
     setMessages((prev) => [...prev, userMessage]);
     setDraft("");
     setError(null);
+    // Clear stale incomplete from a prior turn before this send settles.
+    setExecutionIncomplete(false);
     setUiState("SENDING");
 
     // New distinct send: do not auto-replay prior logicalTurnId unless retry opts in.
@@ -1049,6 +1057,12 @@ export function useProductConversation({
       pendingRetryEnvelopeRef.current = null;
       setModeLabel(modeFromResult(result));
       setEphemeralNotice(result.ephemeralNotice);
+      // P0 — incomplete ≠ Cognitive STOP; Cognitive STOP outranks incomplete UI.
+      const incomplete =
+        result.status === "incomplete" ||
+        (result.limitReached === true &&
+          result.status !== "cognitive_stop");
+      setExecutionIncomplete(incomplete);
       setLrMaterializeNotice(
         lifecycleRecommendationMaterializeFailurePiloteNotice({
           recommendationAttempted:
@@ -1108,6 +1122,7 @@ export function useProductConversation({
     startTransition(async () => {
       setUiState("ASSISTANT_WORKING");
       setError(null);
+      setExecutionIncomplete(false);
       const result = await projectAssistantDecideAction({
         projectId,
         proposalId: activeProposal.proposalId,
@@ -1376,6 +1391,7 @@ export function useProductConversation({
     toolEvents,
     uiState,
     error,
+    executionIncomplete,
     modeLabel,
     ephemeralNotice,
     lrMaterializeNotice,

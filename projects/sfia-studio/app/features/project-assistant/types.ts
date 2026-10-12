@@ -22,6 +22,8 @@ export type AssistantUiMode = "fixture" | "live" | "unavailable" | "unconfirmed"
 export type AssistantTurnStatus =
   | "ok"
   | "cognitive_stop"
+  /** Execution budget exhausted (e.g. maxTurns) — transport ok, analysis not complete. */
+  | "incomplete"
   | "stopped"
   | "provider_unavailable"
   | "provider_error"
@@ -195,7 +197,12 @@ export type ReservationResolutionProposalDto = {
 
 export type ProjectAssistantSendSuccess = {
   ok: true;
-  status: "ok" | "cognitive_stop";
+  /**
+   * "ok" — cognitive turn completed under Runner budget.
+   * "cognitive_stop" — MW3 business Cognitive STOP (≠ execution budget).
+   * "incomplete" — Runner/campaign execution limit reached; analysis not complete.
+   */
+  status: "ok" | "cognitive_stop" | "incomplete";
   text: string;
   mode: Exclude<AssistantUiMode, "unconfirmed">;
   presentation: "test_provider" | "openai_live";
@@ -207,6 +214,11 @@ export type ProjectAssistantSendSuccess = {
   toolEvents: AssistantToolEventDto[];
   project: ProjectAssistantContextDto;
   ephemeralNotice: string;
+  /**
+   * P0 — true when NoraTurnBudget / campaign stop set limitReached.
+   * Distinct from Cognitive STOP. Cause may be maxTurns or other Runner caps.
+   */
+  limitReached?: boolean;
   /** OD-04 Option C: always Agents Runner after Nora legacy retirement. */
   cognitiveRuntime?: "agents";
   /** Product SQLite Session id (Option C F1). */

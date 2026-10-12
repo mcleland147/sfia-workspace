@@ -34,6 +34,10 @@ import {
   type SemanticCognitiveWorkloadAssessment,
   type TurnWorkloadContext,
 } from "./cognitiveWorkloadPolicy";
+import {
+  inferWorkloadHintsFromUserContent,
+  resolveAdaptiveMaxTurns,
+} from "./adaptiveTurnBudget";
 import { validateRuntimeReasoningCapability } from "./reasoningCapability";
 import { buildRunnerModelSettingsForEffort } from "./reasoningModelSettings";
 import {
@@ -233,6 +237,14 @@ export type RunNoraCognitiveTurnInput = {
   productExecutionTools?: import("./productExecutionAgentsTools").ProductExecutionToolContext | null;
   /** Request-scoped AbortSignal — forwarded to the same Agents Runner. */
   signal?: AbortSignal;
+  /**
+   * Explicit mission maxTurns (tests/eval). When omitted, P1 adaptive policy applies.
+   */
+  maxTurns?: number;
+  /**
+   * P2 — default true. Set false to force single-segment Runner (qualification tests).
+   */
+  enableControlledContinuation?: boolean;
 };
 
 /**
@@ -306,10 +318,20 @@ function resolveCognitiveStrategyForTurn(
 ): ReturnType<typeof decideCognitiveStrategy> | null {
   if (input.skipCognitiveStrategy) return null;
 
+  const lastUser = [...input.messages]
+    .reverse()
+    .find((m) => m.role === "user");
+  const contentHints = lastUser?.content
+    ? inferWorkloadHintsFromUserContent(lastUser.content)
+    : {};
+
   // Test/eval explicit override remains (not product R2 proof).
   if (input.cognitiveWorkloadSignals) {
     return decideCognitiveStrategy({
-      signals: normalizeCognitiveWorkloadSignals(input.cognitiveWorkloadSignals),
+      signals: normalizeCognitiveWorkloadSignals({
+        ...contentHints,
+        ...input.cognitiveWorkloadSignals,
+      }),
       trustedSfiaProfile: input.trustedSfiaProfile,
     });
   }
@@ -319,14 +341,17 @@ function resolveCognitiveStrategyForTurn(
     return decideCognitiveStrategy({
       signals: mergeCognitiveWorkloadSignals({
         turnContext: input.turnWorkloadContext,
-        semanticAssessment: input.semanticCognitiveWorkload,
+        semanticAssessment: {
+          ...contentHints,
+          ...(input.semanticCognitiveWorkload ?? {}),
+        },
       }),
       trustedSfiaProfile: input.trustedSfiaProfile,
     });
   }
 
   return decideCognitiveStrategy({
-    signals: normalizeCognitiveWorkloadSignals({}),
+    signals: normalizeCognitiveWorkloadSignals(contentHints),
     trustedSfiaProfile: input.trustedSfiaProfile,
   });
 }
@@ -784,6 +809,11 @@ export async function runNoraCognitiveTurn(
       strategyDecision,
     );
   }
+  const adaptiveMaxTurnsDecision = resolveAdaptiveMaxTurns({
+    strategyClass: strategyDecision?.strategyClass ?? null,
+    signals: strategyDecision?.normalizedSignals ?? null,
+    explicitMaxTurns: input.maxTurns ?? null,
+  });
   const routingDecision = resolveProductCognitiveRouting(
     input,
     strategyDecision,
@@ -886,6 +916,10 @@ export async function runNoraCognitiveTurn(
       outputType: input.outputType,
       cycleJournalTools: null,
       signal: input.signal,
+      maxTurns: input.maxTurns,
+      cognitiveStrategyClass: strategyDecision?.strategyClass ?? null,
+      adaptiveMaxTurnsDecision,
+      enableControlledContinuation: input.enableControlledContinuation,
     });
     throwIfAborted(input.signal);
     const observations = [
@@ -909,7 +943,13 @@ export async function runNoraCognitiveTurn(
       mw6 = composed.surface;
       turn.text = composed.governedText;
     }
-    const { hostedSearchObserve, budgetObserve, ...turnBase } = turn;
+    const {
+      hostedSearchObserve,
+      budgetObserve,
+      adaptiveObserve,
+      continuationObserve,
+      ...turnBase
+    } = turn;
     const mw6AuthorityBinding = budgetObserve
       ? {
           authorityBound: budgetObserve.authorityBound,
@@ -941,6 +981,8 @@ export async function runNoraCognitiveTurn(
           memoryBCompactionState: "none",
           memoryBCompactionDetails: null,
           ...(mw6AuthorityBinding ? { mw6AuthorityBinding } : {}),
+          ...(adaptiveObserve ? { adaptiveObserve } : {}),
+          ...(continuationObserve ? { continuationObserve } : {}),
         },
         input,
         strategyDecision,
@@ -1066,6 +1108,10 @@ export async function runNoraCognitiveTurn(
           : null,
       productExecutionTools: input.productExecutionTools ?? null,
       signal: input.signal,
+      maxTurns: input.maxTurns,
+      cognitiveStrategyClass: strategyDecision?.strategyClass ?? null,
+      adaptiveMaxTurnsDecision,
+      enableControlledContinuation: input.enableControlledContinuation,
     });
     throwIfAborted(input.signal);
     const observations = [
@@ -1089,7 +1135,13 @@ export async function runNoraCognitiveTurn(
       mw6 = composed.surface;
       turn.text = composed.governedText;
     }
-    const { hostedSearchObserve, budgetObserve, ...turnBase } = turn;
+    const {
+      hostedSearchObserve,
+      budgetObserve,
+      adaptiveObserve,
+      continuationObserve,
+      ...turnBase
+    } = turn;
     const mw6AuthorityBinding = budgetObserve
       ? {
           authorityBound: budgetObserve.authorityBound,
@@ -1106,6 +1158,8 @@ export async function runNoraCognitiveTurn(
         memoryBCompactionState: compactionState,
         memoryBCompactionDetails: compactionDetails,
         ...(mw6AuthorityBinding ? { mw6AuthorityBinding } : {}),
+        ...(adaptiveObserve ? { adaptiveObserve } : {}),
+        ...(continuationObserve ? { continuationObserve } : {}),
       },
       input,
       strategyDecision,
