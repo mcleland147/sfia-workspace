@@ -1,49 +1,49 @@
-# SFIA STUDIO — P6-MIN-09 DOCUMENTARY COGNITIVE RELIABILITY CORRECTION 01
+# SFIA STUDIO — P6-MIN-09 DOCUMENTARY COGNITIVE RELIABILITY CORRECTION 01 — CP02
 
 **Review Pack level:** FULL
+**Pass:** TARGETED CORRECTION PASS 02
 **Cycle:** 8 — Delivery / implémentation (parent QA: 9)
 **Profile:** CRITICAL
 **Typologie:** EVOL
 **Mode:** DETERMINISTIC ONLY — ZERO REAL OpenAI
 **Incident ref:** P6-MIN-09-REAL-DOC-FAILURE-RCD-01
-**Horodatage:** 2026-10-12 23:00:46 CEST
+**Prior handoff:** a717371c / blob 52700a92
+**Horodatage:** 2026-10-12 23:29:43 CEST
 
 ---
 
 ## A. Horodatage Europe/Paris
 
-2026-10-12 23:00:46 CEST
+2026-10-12 23:29:43 CEST
 
-## B. Identification et qualification
+## B. Identification
 
 | Champ | Valeur |
 | --- | --- |
-| Projet | SFIA Studio |
-| Macro | STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 |
+| Lot | DOCUMENTARY COGNITIVE RELIABILITY CORRECTION 01 |
+| Pass | TARGETED CORRECTION PASS 02 |
 | Campagne | P6-GLOBAL-INTEGRATED-PRODUCT-QA-01 |
-| Milestone | P6 — GLOBAL INTEGRATED PRODUCT QA |
-| Scénario | P6-MIN-09 — Guided Document Review |
-| Lot | P6-MIN-09 DOCUMENTARY COGNITIVE RELIABILITY CORRECTION 01 |
-| CKC Delivery | `sfia-v3-framing/ckc/08-delivery-implementation.md` |
+| Scénario | P6-MIN-09 Guided Document Review |
 | Runtime v3 | NON ADOPTED |
 
-## C. GO Morris consommé
+## C. GO Morris
 
-GO 2026-10-12 — lot correctif unique RCD-01.
+GO 2026-10-12 — Correction Pass 02 du lot RCD-01.
+Autorisé: R1/R2/R3, tests D0, pack FULL, handoff L3.
+Non autorisé: architecture, FinOps raise, REAL, commit/push/PR/merge projet.
 
-Autorisé: implémentation locale, tests D0, Review Pack FULL, handoff L3.
-Non autorisé: architecture nouvelle, FinOps ceiling raise, REAL T1, commit/push/PR/merge projet, PASS GDR.
+## D. Local Git Truth Check (observé maintenant)
 
-## D. Git Truth Check
-
-| Check | Observé |
+| Check | Valeur observée |
 | --- | --- |
-| Delivery worktree | `/Users/morris/Projects/sfia-workspace-p6-min09-documentary-cognitive-reliability-01` |
+| Workspace | `/Users/morris/Projects/sfia-workspace-p6-min09-documentary-cognitive-reliability-01` |
 | Branche | `fix/p6-min09-documentary-cognitive-reliability-01` |
-| HEAD / origin/main | `b826526ce5531f73ec1f2013443c55e18155cbc2` |
-| Baseline attendue | `d8ceb8ad54d2e84aaa95cdbe3bef4e2814806edc` — MATCH |
-| Campagne humaine :3020 | NON MODIFIÉE (Studio PID actif préservé) |
-| DOC-PR577 (rec01) | NON TOUCHÉE (DEFER) |
+| HEAD | `d8ceb8ad54d2e84aaa95cdbe3bef4e2814806edc` |
+| origin/main | `d8ceb8ad54d2e84aaa95cdbe3bef4e2814806edc` |
+| Cohérence HEAD==origin/main==d8ceb8ad | **OUI** |
+| Staged | (vide) |
+| Campagne :3020 | non modifié |
+| DOC-PR577 (rec01) | non touché |
 
 ```
 git status --short
@@ -82,68 +82,51 @@ projects/sfia-studio/app/lib/nora-cognitive-runtime/documentaryReadGuidance.ts
 
 ```
 
+**R3 fermé:** l'incohérence b826526c vs d8ceb8ad du pack CP01 est **observée comme résolue** sur ce worktree (valeurs ci-dessus, pas de copie du tableau erroné).
 
-**Note de reprise Git (même cycle):** un basculement involontaire du worktree vers `qa/p6-hqa-02-rec01-human-qa` @ `b826526c` a été détecté après publication initiale. Les fichiers cibles étaient **identiques** entre `b826526c` et `d8ceb8ad` (diff 0). Les modifications locales ont été rejouées sur `fix/p6-min09-documentary-cognitive-reliability-01` @ `d8ceb8ad` et revalidées (vitest + tsc). Aucun commit projet.
+## E. Sources / convergence
 
-## E. Sources et convergence
+Sources: Build Doctrine, Roadmap, C1, v3 30–37, Nora trajectory 08, P6 contract, GDR P1§12.6/P2§17, CKC 08/09, process v2.6, handoff CP01 `a717371c`.
 
-Sources lues: Build Doctrine, Roadmap, Product Completion C1, doctrine v3 30–35/37, Nora trajectory 08, Product Simplification P1§12.6 / P2§17 / P6§Z/AF/AQ/AR, CKC 08/09, processus v2.6, RCD-01 handoff `b1617c03` / blob `16210b07`.
-
-Capacité: analyse documentaire gouvernée Nora dans Product Operating Loop.
-KEEP: Product loop, Agents Runner, Session, P0, P2 (native RunState), campaign FinOps ceiling=10.
-ADAPT: AdaptiveTurnBudget hints, GitLocalReadAdapter signals, ToolRouter data, readCoverage, softMaxTurns restitution, EventSink observe.
+KEEP: Runner, RunState, Session, AdaptiveTurnBudget, P0/P1/P2, FinOps ceiling=10, CT_MAX=12000.
+ADAPT: GitLocalReadAdapter complete-line accounting; readCoverage parse; ToolRouter data fields; R2 integration tests.
 NONE: moteur documentaire parallèle.
 
-## F. Diagnostic RCD-01 de référence
+## F. État CP01 repris
 
-CONFIRMED: 8 lectures, 0 synthèse, maxTurns, incomplete, redondances, couverture partielle.
-STRONGLY SUPPORTED: Focused/8, stratégie lecture inefficace, cap 12k, budget brûlé sans restitution.
-NOT OBSERVABLE (pré-correctif): model/effort/strategyClass/segments persistés.
-REGRESSION: SUSPECTED / NOT DEMONSTRATED.
+Conservé: hints mono-doc, tool description, EventSink adaptive/continuation, documentary guidance, budget exhausted helper, softMaxTurns wiring.
 
-hasMore ≠ truncation (corrigé dans ce lot).
+## G. Correction R1 — RETURNED RANGE ACCURACY
 
-## G. OpenAI Capability Fit Check
+Problème CP01: `split("\n").length` crédait une ligne partiellement retournée.
 
-| Capacité | Qualification |
-| --- | --- |
-| Agents Runner | KEEP |
-| RunState resume (P2) | KEEP |
-| Session every segment | KEEP |
-| tool invocation git_local_read_file | ADAPT (richer result) |
-| model-turn limits / soft errorHandlers | ADAPT (honest disclosure) |
-| structured output | KEEP |
-| modelSettings / reasoning | KEEP |
-| Second orchestrator / doc engine | REJECT |
-| Ceiling >10 / durable RunState | DEFER — Morris FinOps/architecture |
+Correctif:
+- `countCompleteReturnedLines()` — match exact préfixe ligne par ligne
+- contenu modèle reconstruit **uniquement** depuis lignes complètes
+- `partialLineNumber` si coupure mid-line
+- `lineExceedsCap` si une ligne seule dépasse byte/char caps → hint avance explicitement (pas de boucle infinie, pas de crédit silencieux)
+- `returned none` / `completeLineCount=0` lorsque aucune ligne complète
+- `nextStartLineHint` = partialLine (retry) ou +1 si lineExceedsCap
 
-## H. Architecture conservée
+Plafonds inchangés.
 
-Aucun second orchestrateur. Aucune persistence RunState cross-restart. Aucune migration DB. Plafond FinOps 10 inchangé. CT_MAX_TOOL_RESULT_CHARS=12000 inchangé.
+## H. Correction R2 — MAXTURNS RESTITUTION INTEGRATION
 
-## I. Delta minimal retenu
+Vérifié sur chemin réel:
+Tool → routeToolCall → Agents tool result (`output: {type:text,text:JSON}`) → softMaxTurnsHandler newItems → `buildDocumentaryBudgetExhaustedText` → finalOutput.
 
-1. **A Observabilité** — EventSink `ADAPTIVE_BUDGET_OBSERVED` + `CONTINUATION_OBSERVED`.
-2. **B Qualification** — mono-fichier naturel → toolDependency=high + reasoningDepth=medium (pas sourceBreadth=high).
-3. **C Lecture** — requested/returned/truncated/documentHasMore/nextStartLineHint + tool description.
-4. **D Couverture** — parse nouveau summary; hasMore≠truncated; `unionReturnedLineSpans`.
-5. **E Budget/continuation** — plafond 10; P2 inchangé; guidance documentary.
-6. **F Restitution** — softMaxTurns / MaxTurnsExceeded → divulgation honnête des plages retournées (jamais synthèse inventée).
+Preuve: tests Runner `maxTurns=1` + outil Git réel ; multi-segment continued=true ; failed tool → stock sans faux périmètre.
 
-## J–O. Modifications par axe
+Aucune nouvelle persistence. Si newItems vides → stock générique (observabilité bornée, documentée).
 
-Voir sections P/R (fichiers + diffs complets). Résumé:
+## I. Régularisation R3
 
-- J Axe A: `observability/types.ts`, `runNoraAgentsTurn.ts` emit
-- K Axe B: `adaptiveTurnBudget.ts` (+ test P1)
-- L Axe C: `gitLocalReadAdapter.ts`, `toolRouter.ts`, `types.ts` tool description
-- M Axe D: `readCoverage.ts` (+ union)
-- N Axe E: guidance `documentaryReadGuidance.ts` via `runNoraCognitiveTurn.ts`; P2 KEEP
-- O Axe F: `documentaryBudgetExhausted.ts` branché soft/hard maxTurns
+HEAD/origin/main/branch alignés sur d8ceb8ad / fix/p6-min09-… (voir §D).
 
-## P. Fichiers créés/modifiés
+## J. Fichiers modifiés/créés
 
-### Créés (contenu complet ci-dessous)
+### Créés (contenu complet)
+
 
 #### `projects/sfia-studio/app/lib/nora-cognitive-runtime/documentaryReadGuidance.ts`
 
@@ -174,6 +157,7 @@ export function appendDocumentaryReadGuidance(
   if (base.includes("DOCUMENTARY READ GUIDANCE")) return systemInstructions;
   return `${base}\n\n${DOCUMENTARY_READ_GUIDANCE_BLOCK}`;
 }
+
 ```
 
 #### `projects/sfia-studio/app/lib/nora-cognitive-runtime/documentaryBudgetExhausted.ts`
@@ -373,6 +357,7 @@ export function buildDocumentaryBudgetExhaustedText(input: {
 
   return lines.join("\n");
 }
+
 ```
 
 #### `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.min09.documentaryReliability.d0.test.ts`
@@ -406,7 +391,10 @@ import {
   sfiaBoundaryInstructions,
   unionReturnedLineSpans,
 } from "@/lib/nora-cognitive-runtime";
-import { GitLocalReadAdapter } from "@/lib/platform/repository/gitLocalReadAdapter";
+import {
+  GitLocalReadAdapter,
+  countCompleteReturnedLines,
+} from "@/lib/platform/repository/gitLocalReadAdapter";
 import { CT_MAX_TOOL_RESULT_CHARS } from "@/lib/platform/tools/types";
 import {
   createToolCallId,
@@ -487,31 +475,65 @@ describe("P6-MIN-09 — Axe B natural mono-file qualification", () => {
   });
 });
 
-describe("P6-MIN-09 — Axe C/D git read truncation vs documentHasMore", () => {
-  it("Case A — full range received but document continues (documentHasMore, not truncated)", () => {
-    const root = tmpGitRepo(30, 20);
+describe("P6-MIN-09 — R1 returned-range accuracy + coverage flags", () => {
+  it("Case A — mid-line cut: partial line not credited; hint retries that line", () => {
+    // Fixed-width ASCII lines; byte cap cuts inside line 3.
+    const lineWidth = 40;
+    const root = tmpGitRepo(10, lineWidth);
     const adapter = new GitLocalReadAdapter(root);
-    const r = adapter.readFile("projects/sfia-studio/docs/min09-doc.md", 65536, {
-      startLine: 1,
-      endLine: 5,
-    });
-    expect(r.truncated).toBe(false);
-    expect(r.documentHasMore).toBe(true);
-    expect(r.hasMore).toBe(true);
-    expect(r.returnedStartLine).toBe(1);
-    expect(r.returnedEndLine).toBe(5);
-    expect(r.nextStartLineHint).toBe(6);
-    expect(r.summary).toMatch(/documentHasMore/);
-    expect(r.summary).not.toMatch(/\btruncated\b/);
-
-    const parsed = parseGitLocalReadCoverageSignals({ summary: r.summary });
-    expect(parsed?.truncated).toBe(false);
-    expect(parsed?.documentHasMore).toBe(true);
-    expect(parsed?.returnedEndLine).toBe(5);
+    // L1 + NL + L2 + NL + partial L3
+    const twoFull = `L1 ${"x".repeat(lineWidth - 4)}\nL2 ${"x".repeat(lineWidth - 4)}\n`;
+    const maxBytes = Buffer.byteLength(twoFull, "utf8") + 10; // mid line 3
+    const r = adapter.readFile(
+      "projects/sfia-studio/docs/min09-doc.md",
+      maxBytes,
+      { startLine: 1, endLine: 10 },
+    );
+    expect(r.truncated).toBe(true);
+    expect(r.completeLineCount).toBe(2);
+    expect(r.returnedEndLine).toBe(2);
+    expect(r.partialLineNumber).toBe(3);
+    expect(r.nextStartLineHint).toBe(3);
+    expect(r.content).toContain("L2 ");
+    expect(r.content).not.toContain("L3 ");
+    expect(r.summary).toMatch(/partialLine:3/);
   });
 
-  it("Case B — requested range truncated by char cap", () => {
-    // Wide lines so a small line window still exceeds CT_MAX_TOOL_RESULT_CHARS.
+  it("Case B — cut exactly between lines (no partial line)", () => {
+    const lineWidth = 30;
+    const root = tmpGitRepo(8, lineWidth);
+    const adapter = new GitLocalReadAdapter(root);
+    const twoFull = `L1 ${"x".repeat(lineWidth - 4)}\nL2 ${"x".repeat(lineWidth - 4)}`;
+    const maxBytes = Buffer.byteLength(twoFull, "utf8");
+    const r = adapter.readFile(
+      "projects/sfia-studio/docs/min09-doc.md",
+      maxBytes,
+      { startLine: 1, endLine: 8 },
+    );
+    expect(r.completeLineCount).toBe(2);
+    expect(r.returnedEndLine).toBe(2);
+    expect(r.partialLineNumber).toBeNull();
+    expect(r.nextStartLineHint).toBe(3);
+    expect(r.content).toContain("L2 ");
+    expect(r.content).not.toContain("L3 ");
+  });
+
+  it("Case C — truncation via maxBytes", () => {
+    const root = tmpGitRepo(20, 80);
+    const adapter = new GitLocalReadAdapter(root);
+    const r = adapter.readFile("projects/sfia-studio/docs/min09-doc.md", 120, {
+      startLine: 1,
+      endLine: 20,
+    });
+    expect(r.truncated).toBe(true);
+    expect(r.completeLineCount).toBeGreaterThan(0);
+    expect(r.returnedEndLine).toBeLessThan(20);
+    // Content only contains credited complete lines.
+    expect(r.content).toMatch(/^L1 /);
+    expect(r.content.includes(`L${r.returnedEndLine + 1} `)).toBe(false);
+  });
+
+  it("Case D — truncation via CT_MAX_TOOL_RESULT_CHARS", () => {
     const wide = Math.ceil(CT_MAX_TOOL_RESULT_CHARS / 3) + 20;
     const root = tmpGitRepo(20, wide);
     const adapter = new GitLocalReadAdapter(root);
@@ -521,37 +543,67 @@ describe("P6-MIN-09 — Axe C/D git read truncation vs documentHasMore", () => {
     });
     expect(r.truncated).toBe(true);
     expect(r.returnedEndLine).toBeLessThan(r.requestedEndLine);
-    expect(r.nextStartLineHint).toBe(r.returnedEndLine + 1);
+    expect(r.nextStartLineHint).toBeGreaterThanOrEqual(r.returnedEndLine + 1);
     expect(r.summary).toMatch(/\btruncated\b/);
-    const parsed = parseGitLocalReadCoverageSignals({ summary: r.summary });
-    expect(parsed?.truncated).toBe(true);
+    // No line beyond returnedEndLine appears complete in content.
+    expect(r.content.includes(`L${r.returnedEndLine + 1} `)).toBe(false);
   });
 
-  it("Case C — whole-document request truncated", () => {
-    const wide = Math.ceil(CT_MAX_TOOL_RESULT_CHARS / 2) + 40;
-    const root = tmpGitRepo(40, wide);
-    const adapter = new GitLocalReadAdapter(root);
-    const r = adapter.readFile("projects/sfia-studio/docs/min09-doc.md", 65536);
-    expect(r.requestedStartLine).toBe(1);
-    expect(r.requestedEndLine).toBe(40);
-    expect(r.truncated).toBe(true);
-    expect(r.returnedEndLine).toBeLessThan(40);
-    expect(r.summary).toMatch(/returned L1-/);
-  });
-
-  it("Case D — short range fully returned, no truncation", () => {
-    const root = tmpGitRepo(20, 20);
+  it("Case E — single line exceeds cap: not complete, no infinite loop hint", () => {
+    const huge = CT_MAX_TOOL_RESULT_CHARS + 500;
+    const root = tmpGitRepo(3, huge);
     const adapter = new GitLocalReadAdapter(root);
     const r = adapter.readFile("projects/sfia-studio/docs/min09-doc.md", 65536, {
-      startLine: 2,
-      endLine: 3,
+      startLine: 1,
+      endLine: 1,
     });
-    expect(r.truncated).toBe(false);
-    expect(r.returnedEndLine).toBe(3);
-    expect(r.documentHasMore).toBe(true);
+    expect(r.lineExceedsCap).toBe(true);
+    expect(r.completeLineCount).toBe(0);
+    expect(r.returnedEndLine).toBe(0); // startLine(1) - 1
+    expect(r.nextStartLineHint).toBe(2); // explicit skip past unblockable line
+    expect(r.content).toBe("…[truncated]");
+    expect(r.summary).toMatch(/returned none/);
+    expect(r.summary).toMatch(/lineExceedsCap/);
   });
 
-  it("Case E/F — overlapping returned spans union without false FULL", () => {
+  it("Case F/G — successive reads: no skipped fittable lines; finite progress", () => {
+    const lineWidth = 50;
+    const root = tmpGitRepo(12, lineWidth);
+    const adapter = new GitLocalReadAdapter(root);
+    const twoFull = `L1 ${"x".repeat(lineWidth - 4)}\nL2 ${"x".repeat(lineWidth - 4)}\n`;
+    const maxBytes = Buffer.byteLength(twoFull, "utf8") + 8;
+    const seen = new Set<number>();
+    let start = 1;
+    for (let step = 0; step < 20 && start <= 12; step++) {
+      const r = adapter.readFile(
+        "projects/sfia-studio/docs/min09-doc.md",
+        maxBytes,
+        { startLine: start, endLine: 12 },
+      );
+      if (r.completeLineCount > 0) {
+        for (let ln = r.returnedStartLine; ln <= r.returnedEndLine; ln++) {
+          expect(seen.has(ln)).toBe(false);
+          seen.add(ln);
+        }
+      }
+      if (r.lineExceedsCap) {
+        // Must advance hint to avoid infinite loop.
+        expect(r.nextStartLineHint).toBeGreaterThan(start);
+      }
+      const next = r.nextStartLineHint;
+      if (next == null || next <= start) break;
+      // Fittable partial line: retry same line once with smaller exclusive window.
+      if (r.partialLineNumber === next && r.completeLineCount > 0) {
+        start = next;
+      } else {
+        start = next;
+      }
+    }
+    // All fittable lines 1..12 must be coverable (none skipped silently).
+    expect(seen.size).toBe(12);
+  });
+
+  it("Case H — overlapping returned spans union without false FULL", () => {
     const facts = [
       {
         pathOrRef: "doc.md#L1-50",
@@ -581,7 +633,47 @@ describe("P6-MIN-09 — Axe C/D git read truncation vs documentHasMore", () => {
     expect(unions[0]?.provenFull).toBe(false);
   });
 
-  it("Case G — no FULL claim when L1-total requested but truncated", () => {
+  it("Case I — short range fully received", () => {
+    const root = tmpGitRepo(20, 20);
+    const adapter = new GitLocalReadAdapter(root);
+    const r = adapter.readFile("projects/sfia-studio/docs/min09-doc.md", 65536, {
+      startLine: 2,
+      endLine: 3,
+    });
+    expect(r.truncated).toBe(false);
+    expect(r.completeLineCount).toBe(2);
+    expect(r.returnedEndLine).toBe(3);
+    expect(r.documentHasMore).toBe(true);
+    expect(r.content).toContain("L2 ");
+    expect(r.content).toContain("L3 ");
+  });
+
+  it("Case J — full small document without truncation", () => {
+    const root = tmpGitRepo(5, 20);
+    const adapter = new GitLocalReadAdapter(root);
+    const r = adapter.readFile("projects/sfia-studio/docs/min09-doc.md", 65536);
+    expect(r.truncated).toBe(false);
+    expect(r.documentHasMore).toBe(false);
+    expect(r.completeLineCount).toBe(5);
+    expect(r.returnedEndLine).toBe(5);
+    expect(r.nextStartLineHint).toBeNull();
+  });
+
+  it("Case K/L — hasMore distinct from truncated; documentHasMore distinct", () => {
+    const root = tmpGitRepo(30, 20);
+    const adapter = new GitLocalReadAdapter(root);
+    const r = adapter.readFile("projects/sfia-studio/docs/min09-doc.md", 65536, {
+      startLine: 1,
+      endLine: 5,
+    });
+    expect(r.truncated).toBe(false);
+    expect(r.documentHasMore).toBe(true);
+    expect(r.hasMore).toBe(true);
+    expect(r.summary).toMatch(/documentHasMore/);
+    expect(r.summary).not.toMatch(/\btruncated\b/);
+  });
+
+  it("Case M — no FULL claim when L1-total requested but truncated", () => {
     const summary =
       "read doc.md L1-100/100 returned L1-12 (12013 chars) truncated hasMore";
     const parsed = parseGitLocalReadCoverageSignals({ summary });
@@ -589,6 +681,32 @@ describe("P6-MIN-09 — Axe C/D git read truncation vs documentHasMore", () => {
     expect(parsed?.returnedEndLine).toBe(12);
     expect(parsed?.startLine).toBe(1);
     expect(parsed?.endLine).toBe(100);
+  });
+
+  it("Case N — legacy summaries still parse", () => {
+    const full = parseGitLocalReadCoverageSignals({
+      summary: "read docs/a.md L1-10/10 (100 chars)",
+    });
+    expect(full?.returnedEndLine).toBe(10);
+    const legacyMore = parseGitLocalReadCoverageSignals({
+      summary: "read docs/e.md L1-10/50 (100 chars) hasMore",
+    });
+    expect(legacyMore?.hasMore).toBe(true);
+    expect(legacyMore?.truncated).toBe(false);
+    expect(legacyMore?.documentHasMore).toBe(true);
+  });
+
+  it("Case O — UTF-8 multibyte: mid-cut does not credit partial line", () => {
+    const lines = ["aa", "éééééééééé", "bb"]; // accented chars are 2 bytes
+    const body = "aa\néé"; // cuts inside second line
+    const counted = countCompleteReturnedLines({
+      lines,
+      startLine: 1,
+      endLine: 3,
+      body,
+    });
+    expect(counted.completeLineCount).toBe(1);
+    expect(counted.partialLineNumber).toBe(2);
   });
 
   it("ToolRouter usage.truncated is content-cut only (not documentHasMore)", async () => {
@@ -617,9 +735,11 @@ describe("P6-MIN-09 — Axe C/D git read truncation vs documentHasMore", () => {
         documentHasMore?: boolean;
         truncated?: boolean;
         nextStartLineHint?: number | null;
+        completeLineCount?: number;
       };
       expect(data.documentHasMore).toBe(true);
       expect(data.truncated).toBe(false);
+      expect(data.completeLineCount).toBe(3);
       expect(data.nextStartLineHint).toBe(4);
     }
   });
@@ -784,26 +904,186 @@ describe("P6-MIN-09 — Axe A/E/F observability + honest incomplete", () => {
     session.close();
   });
 });
+
+describe("P6-MIN-09 — R2 Runner maxTurns restitution integration", () => {
+  it("Runner soft maxTurns + real git tool → honest disclosure from newItems", async () => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "p6-min09-r2-"));
+    dirs.push(dir);
+    const session = new ProductSqliteSession({
+      projectId: "prj:min09-r2",
+      dbPath: path.join(dir, "session.sqlite"),
+    });
+    const model = new ScriptedModel([
+      [
+        functionCall(
+          "git_local_read_file",
+          {
+            path: "projects/sfia-studio/app/package.json",
+            startLine: 1,
+            endLine: 40,
+          },
+          { callId: "r2a" },
+        ),
+      ],
+      [
+        functionCall(
+          "git_local_read_file",
+          {
+            path: "projects/sfia-studio/app/package.json",
+            startLine: 1,
+            endLine: 40,
+          },
+          { callId: "r2b" },
+        ),
+      ],
+    ]);
+    const result = await runNoraAgentsTurn({
+      correlationId: "cor:min09-r2",
+      projectId: "prj:min09-r2",
+      systemInstructions: sfiaBoundaryInstructions(),
+      userContent:
+        "Consulte projects/sfia-studio/app/package.json et fais-en une synthèse.",
+      session,
+      model,
+      enableTools: true,
+      maxTurns: 1,
+      enableControlledContinuation: false,
+      workspaceRoot: resolveWorkspaceRootFromAppCwd(),
+    });
+    expect(result.limitReached).toBe(true);
+    expect(result.text).toContain("Model-turn budget reached (maxTurns).");
+    expect(result.text).toContain("Analyse documentaire inachevée");
+    expect(result.text).toContain("projects/sfia-studio/app/package.json");
+    expect(result.text).toMatch(/L1-\d+/);
+    expect(result.text).not.toMatch(/couverture intégrale prouvée/);
+    // Must not invent document body synthesis.
+    expect(result.text).not.toMatch(/\"name\"\s*:\s*\"sfia-studio\"/);
+    const items = await session.getItems();
+    const toolResults = items.filter(
+      (it) =>
+        (it as { type?: string }).type === "function_call_result" &&
+        (it as { name?: string }).name === "git_local_read_file",
+    );
+    expect(toolResults.length).toBeGreaterThanOrEqual(1);
+    const shaped = toolResults[0] as {
+      output?: { type?: string; text?: string };
+    };
+    expect(shaped.output?.type).toBe("text");
+    expect(typeof shaped.output?.text).toBe("string");
+    session.close();
+  });
+
+  it("Runner multi-segment continuation still surfaces tool coverage on exhaust", async () => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "p6-min09-r2c-"));
+    dirs.push(dir);
+    const session = new ProductSqliteSession({
+      projectId: "prj:min09-r2c",
+      dbPath: path.join(dir, "session.sqlite"),
+    });
+    const script = Array.from({ length: 8 }, (_, i) => [
+      functionCall(
+        "git_local_read_file",
+        {
+          path: "projects/sfia-studio/app/package.json",
+          startLine: 1,
+          endLine: 5,
+        },
+        { callId: `seg${i + 1}` },
+      ),
+    ]);
+    const result = await runNoraAgentsTurn({
+      correlationId: "cor:min09-r2c",
+      projectId: "prj:min09-r2c",
+      systemInstructions: sfiaBoundaryInstructions(),
+      userContent:
+        "Consulte projects/sfia-studio/app/package.json et fais-en une synthèse.",
+      session,
+      model: new ScriptedModel(script),
+      enableTools: true,
+      maxTurns: 8,
+      enableControlledContinuation: true,
+      cognitiveStrategyClass: "Focused",
+      workspaceRoot: resolveWorkspaceRootFromAppCwd(),
+    });
+    expect(result.continuationObserve?.continued).toBe(true);
+    expect(result.continuationObserve?.segmentsExecuted).toBeGreaterThanOrEqual(
+      2,
+    );
+    expect(result.limitReached).toBe(true);
+    expect(result.text).toContain("package.json");
+    expect(result.text).toContain("inachevée");
+    session.close();
+  });
+
+  it("failed tool / no readable facts → generic stock fallback preserved", async () => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "p6-min09-r2n-"));
+    dirs.push(dir);
+    const session = new ProductSqliteSession({
+      projectId: "prj:min09-r2n",
+      dbPath: path.join(dir, "session.sqlite"),
+    });
+    const result = await runNoraAgentsTurn({
+      correlationId: "cor:min09-r2n",
+      projectId: "prj:min09-r2n",
+      systemInstructions: sfiaBoundaryInstructions(),
+      userContent: "continue",
+      session,
+      model: new ScriptedModel([
+        [
+          functionCall(
+            "git_local_read_file",
+            {
+              path: "projects/sfia-studio/docs/does-not-exist-min09.md",
+            },
+            { callId: "missing" },
+          ),
+        ],
+      ]),
+      enableTools: true,
+      maxTurns: 1,
+      enableControlledContinuation: false,
+      workspaceRoot: resolveWorkspaceRootFromAppCwd(),
+    });
+    expect(result.limitReached).toBe(true);
+    // Failed tool must not invent coverage — stock-only (or stock without path spans).
+    expect(result.text).toContain("Model-turn budget reached (maxTurns).");
+    expect(result.text).not.toContain("Périmètre réellement remis");
+    session.close();
+  });
+});
+
 ```
 
-### Modifiés
-- `adaptiveTurnBudget.ts`
-- `index.ts`
-- `readCoverage.ts`
-- `runNoraAgentsTurn.ts`
-- `runNoraCognitiveTurn.ts`
-- `observability/types.ts`
-- `gitLocalReadAdapter.ts`
-- `toolRouter.ts`
-- `platform/tools/types.ts`
-- `__tests__/.../p6.nora.p1.adaptiveBudget.d0.test.ts`
+### Modifiés (CP01+CP02)
+- gitLocalReadAdapter.ts (R1)
+- toolRouter.ts / types.ts
+- readCoverage.ts
+- documentaryBudgetExhausted.ts / documentaryReadGuidance.ts
+- runNoraAgentsTurn.ts / runNoraCognitiveTurn.ts
+- adaptiveTurnBudget.ts / index.ts / observability/types.ts
+- tests MIN09 + P1 adaptive
 
-## Q. Git Review Index
+## K. Git Review Index
 
-Scope effectif = `projects/sfia-studio/app/**` uniquement (+ pack temporaire).
-Hors scope restauré si touché par erreur: `production-runtime-reference/**`.
+Scope: `projects/sfia-studio/app/**` + pack temporaire.
+Hors scope: convergence, product-*, framing, production-runtime-reference, prompts, method, scripts racine.
 
-## R. Diff complet utile (`projects/sfia-studio/app`)
+```
+ .../p6.nora.p1.adaptiveBudget.d0.test.ts           |  16 ++
+ .../nora-cognitive-runtime/adaptiveTurnBudget.ts   |  35 +++
+ .../app/lib/nora-cognitive-runtime/index.ts        |  11 +
+ .../app/lib/nora-cognitive-runtime/readCoverage.ts | 289 +++++++++++++++++++--
+ .../nora-cognitive-runtime/runNoraAgentsTurn.ts    |  69 ++++-
+ .../nora-cognitive-runtime/runNoraCognitiveTurn.ts |  10 +
+ .../app/lib/platform/observability/types.ts        |   4 +-
+ .../lib/platform/repository/gitLocalReadAdapter.ts | 201 ++++++++++++--
+ .../app/lib/platform/tools/toolRouter.ts           |  37 ++-
+ .../sfia-studio/app/lib/platform/tools/types.ts    |   2 +-
+ 10 files changed, 619 insertions(+), 55 deletions(-)
+
+```
+
+## L. Diff utile complet du lot RCD-01 (app)
 
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.p1.adaptiveBudget.d0.test.ts b/projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.p1.adaptiveBudget.d0.test.ts
@@ -929,7 +1209,7 @@ index 09f32abd..4bbc11a6 100644
  export type {
    ParsedReadRange,
 diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/readCoverage.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/readCoverage.ts
-index a9195bc4..bec0aa97 100644
+index a9195bc4..cf5ec23d 100644
 --- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/readCoverage.ts
 +++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/readCoverage.ts
 @@ -3,10 +3,16 @@
@@ -951,7 +1231,7 @@ index a9195bc4..bec0aa97 100644
   */
 
  export type ReadCoverageKind =
-@@ -21,10 +27,19 @@ export type ReadCoverageFact = {
+@@ -21,10 +27,22 @@ export type ReadCoverageFact = {
    /** Bare path without #L range suffix when known. */
    documentPath?: string;
    coverage: ReadCoverageKind;
@@ -963,6 +1243,9 @@ index a9195bc4..bec0aa97 100644
 +  returnedStartLine?: number;
 +  /** Returned range end (honest payload bounds). */
 +  returnedEndLine?: number;
++  completeLineCount?: number;
++  partialLineNumber?: number | null;
++  lineExceedsCap?: boolean;
    totalLines?: number;
    hasMore?: boolean;
 +  truncated?: boolean;
@@ -971,7 +1254,7 @@ index a9195bc4..bec0aa97 100644
    /** Optional signals observed in summary/pathOrRef. */
    signals?: string[];
    /** current_turn vs remembered prior-turn continuity. */
-@@ -39,18 +54,29 @@ export type ReadCoverageAggregate = {
+@@ -39,18 +57,36 @@ export type ReadCoverageAggregate = {
  /** Sole primitive that establishes document read coverage for MW4-S03. */
  export const MW4_DOCUMENT_READ_TOOL = "git_local_read_file" as const;
 
@@ -980,6 +1263,10 @@ index a9195bc4..bec0aa97 100644
 +/** Current summary with returned range + explicit flags. */
 +const READ_SUMMARY_RETURNED_RE =
 +  /^read\s+(\S+)\s+L(\d+)-(\d+)\/(\d+)\s+returned\s+L(\d+)-(\d+)\s*\(([^)]*)\)\s*(.*)$/i;
++
++/** Current summary when zero complete lines were credited. */
++const READ_SUMMARY_RETURNED_NONE_RE =
++  /^read\s+(\S+)\s+L(\d+)-(\d+)\/(\d+)\s+returned\s+none\s*\(([^)]*)\)\s*(.*)$/i;
 +
 +/** Legacy summary without returned range. */
 +const READ_SUMMARY_LEGACY_RE =
@@ -995,6 +1282,9 @@ index a9195bc4..bec0aa97 100644
    endLine: number;
 +  returnedStartLine: number;
 +  returnedEndLine: number;
++  completeLineCount?: number;
++  partialLineNumber?: number | null;
++  lineExceedsCap?: boolean;
    totalLines?: number;
    hasMore: boolean;
    truncated: boolean;
@@ -1003,7 +1293,7 @@ index a9195bc4..bec0aa97 100644
  };
 
  /**
-@@ -63,34 +89,92 @@ export function parseGitLocalReadCoverageSignals(input: {
+@@ -63,34 +99,148 @@ export function parseGitLocalReadCoverageSignals(input: {
    const summary = (input.summary ?? "").trim();
    const pathOrRef = (input.pathOrRef ?? "").trim();
 
@@ -1015,6 +1305,48 @@ index a9195bc4..bec0aa97 100644
 -    const totalLines = Number(fromSummary[4]);
 -    const paren = (fromSummary[5] ?? "").toLowerCase();
 -    const hasMoreToken = Boolean(fromSummary[6]);
++  const fromReturnedNone = READ_SUMMARY_RETURNED_NONE_RE.exec(summary);
++  if (fromReturnedNone) {
++    const documentPath = fromReturnedNone[1]!;
++    const startLine = Number(fromReturnedNone[2]);
++    const endLine = Number(fromReturnedNone[3]);
++    const totalLines = Number(fromReturnedNone[4]);
++    const paren = (fromReturnedNone[5] ?? "").toLowerCase();
++    const flags = (fromReturnedNone[6] ?? "").toLowerCase();
++    const truncated =
++      /\btruncated\b/.test(flags) ||
++      /\btruncat/.test(paren) ||
++      /\bcapped\b/.test(paren) ||
++      true;
++    const documentHasMore =
++      /\bdocumenthasmore\b/.test(flags) || endLine < totalLines;
++    const lineExceedsCap = /\blineexceedscap\b/.test(flags);
++    const partialMatch = /partialline:(\d+)/i.exec(flags);
++    const partialLineNumber = partialMatch
++      ? Number(partialMatch[1])
++      : startLine;
++    const nextStartLineHint = lineExceedsCap
++      ? startLine < totalLines
++        ? startLine + 1
++        : null
++      : partialLineNumber;
++    return {
++      documentPath,
++      startLine,
++      endLine,
++      returnedStartLine: startLine,
++      returnedEndLine: startLine - 1,
++      completeLineCount: 0,
++      partialLineNumber,
++      lineExceedsCap,
++      totalLines,
++      hasMore: true,
++      truncated,
++      documentHasMore,
++      nextStartLineHint,
++    };
++  }
++
 +  const fromReturned = READ_SUMMARY_RETURNED_RE.exec(summary);
 +  if (fromReturned) {
 +    const documentPath = fromReturned[1]!;
@@ -1025,8 +1357,7 @@ index a9195bc4..bec0aa97 100644
 +    const returnedEndLine = Number(fromReturned[6]);
 +    const paren = (fromReturned[7] ?? "").toLowerCase();
 +    const flags = (fromReturned[8] ?? "").toLowerCase();
-     const truncated =
--      /\btruncat/.test(paren) || /\bcapped\b/.test(paren) || hasMoreToken;
++    const truncated =
 +      /\btruncated\b/.test(flags) ||
 +      /\btruncat/.test(paren) ||
 +      /\bcapped\b/.test(paren);
@@ -1036,18 +1367,31 @@ index a9195bc4..bec0aa97 100644
 +    const hasMoreToken = /\bhasmore\b/.test(flags);
 +    const hasMore =
 +      hasMoreToken || truncated || documentHasMore || returnedEndLine < totalLines;
++    const lineExceedsCap = /\blineexceedscap\b/.test(flags);
++    const partialMatch = /partialline:(\d+)/i.exec(flags);
++    const partialLineNumber = partialMatch ? Number(partialMatch[1]) : null;
++    const completeLineCount =
++      returnedEndLine >= returnedStartLine
++        ? returnedEndLine - returnedStartLine + 1
++        : 0;
 +    const nextStartLineHint =
-+      returnedEndLine < totalLines ? returnedEndLine + 1 : null;
-     return {
-       documentPath,
-       startLine,
-       endLine,
++      partialLineNumber != null
++        ? partialLineNumber
++        : returnedEndLine < totalLines
++          ? returnedEndLine + 1
++          : null;
++    return {
++      documentPath,
++      startLine,
++      endLine,
 +      returnedStartLine,
 +      returnedEndLine,
-       totalLines,
--      hasMore: hasMoreToken || truncated || endLine < totalLines,
++      completeLineCount,
++      partialLineNumber,
++      lineExceedsCap,
++      totalLines,
 +      hasMore,
-       truncated,
++      truncated,
 +      documentHasMore,
 +      nextStartLineHint,
 +    };
@@ -1063,7 +1407,8 @@ index a9195bc4..bec0aa97 100644
 +    const flags = (fromLegacy[6] ?? "").toLowerCase();
 +    const hasMoreToken = /\bhasmore\b/.test(flags);
 +    // Explicit truncation only — do NOT treat bare hasMore as truncated.
-+    const truncated =
+     const truncated =
+-      /\btruncat/.test(paren) || /\bcapped\b/.test(paren) || hasMoreToken;
 +      /\btruncated\b/.test(flags) ||
 +      /\btruncat/.test(paren) ||
 +      /\bcapped\b/.test(paren) ||
@@ -1075,16 +1420,17 @@ index a9195bc4..bec0aa97 100644
 +      (hasMoreToken && endLine < totalLines && !truncated);
 +    const hasMore =
 +      hasMoreToken || truncated || documentHasMore || endLine < totalLines;
-+    return {
-+      documentPath,
-+      startLine,
-+      endLine,
+     return {
+       documentPath,
+       startLine,
+       endLine,
 +      // Legacy: cannot prove returned ≠ requested — treat requested as upper bound.
 +      returnedStartLine: startLine,
 +      returnedEndLine: endLine,
-+      totalLines,
+       totalLines,
+-      hasMore: hasMoreToken || truncated || endLine < totalLines,
 +      hasMore,
-+      truncated,
+       truncated,
 +      documentHasMore,
 +      nextStartLineHint: endLine < totalLines ? endLine + 1 : null,
      };
@@ -1108,7 +1454,7 @@ index a9195bc4..bec0aa97 100644
      };
    }
 
-@@ -100,8 +184,11 @@ export function parseGitLocalReadCoverageSignals(input: {
+@@ -100,8 +250,11 @@ export function parseGitLocalReadCoverageSignals(input: {
        documentPath: pathOrRef,
        startLine: 1,
        endLine: 1,
@@ -1120,7 +1466,7 @@ index a9195bc4..bec0aa97 100644
      };
    }
 
-@@ -111,18 +198,94 @@ export function parseGitLocalReadCoverageSignals(input: {
+@@ -111,18 +264,96 @@ export function parseGitLocalReadCoverageSignals(input: {
  export function classifyGitLocalReadCompleteness(
    parsed: ParsedReadRange,
  ): "full" | "partial" {
@@ -1172,8 +1518,10 @@ index a9195bc4..bec0aa97 100644
 +      typeof end !== "number" ||
 +      !Number.isFinite(start) ||
 +      !Number.isFinite(end) ||
-+      end < start
++      end < start ||
++      (typeof fact.completeLineCount === "number" && fact.completeLineCount <= 0)
 +    ) {
++      // Empty / non-proven span (e.g. mid-line cut with 0 complete lines).
 +      continue;
 +    }
 +    // Truncated facts still contribute the returned span only.
@@ -1220,7 +1568,7 @@ index a9195bc4..bec0aa97 100644
  /**
   * Infer coverage for a single tool event row against the real EventSink shape.
   */
-@@ -198,10 +361,16 @@ export function deriveReadCoverageFromToolEvent(input: {
+@@ -198,10 +429,16 @@ export function deriveReadCoverageFromToolEvent(input: {
      `L${parsed.startLine}-${parsed.endLine}${
        typeof parsed.totalLines === "number" ? `/${parsed.totalLines}` : ""
      }`,
@@ -1238,12 +1586,15 @@ index a9195bc4..bec0aa97 100644
      signals.push("suffix_range_not_full");
    }
 
-@@ -211,8 +380,13 @@ export function deriveReadCoverageFromToolEvent(input: {
+@@ -211,8 +448,16 @@ export function deriveReadCoverageFromToolEvent(input: {
      coverage,
      startLine: parsed.startLine,
      endLine: parsed.endLine,
 +    returnedStartLine: parsed.returnedStartLine,
 +    returnedEndLine: parsed.returnedEndLine,
++    completeLineCount: parsed.completeLineCount,
++    partialLineNumber: parsed.partialLineNumber,
++    lineExceedsCap: parsed.lineExceedsCap,
      totalLines: parsed.totalLines,
      hasMore: parsed.hasMore,
 +    truncated: parsed.truncated,
@@ -1408,10 +1759,10 @@ index f1254ffc..39bb2878 100644
  export interface TechnicalEvent {
    type: TechnicalEventType;
 diff --git a/projects/sfia-studio/app/lib/platform/repository/gitLocalReadAdapter.ts b/projects/sfia-studio/app/lib/platform/repository/gitLocalReadAdapter.ts
-index 4dda7c8c..1aca97f0 100644
+index 4dda7c8c..f86bef40 100644
 --- a/projects/sfia-studio/app/lib/platform/repository/gitLocalReadAdapter.ts
 +++ b/projects/sfia-studio/app/lib/platform/repository/gitLocalReadAdapter.ts
-@@ -60,10 +60,30 @@ export type GitReadFileResult = {
+@@ -60,12 +60,108 @@ export type GitReadFileResult = {
    path: string;
    content: string;
    summary: string;
@@ -1434,48 +1785,184 @@ index 4dda7c8c..1aca97f0 100644
 -  hasMore: boolean;
 +  requestedStartLine: number;
 +  requestedEndLine: number;
-+  /** Portion actually present in `content` (may be shorter when truncated). */
++  /**
++   * First line of the *complete* returned span.
++   * When completeLineCount=0, equals requested start (no proven span).
++   */
 +  returnedStartLine: number;
++  /**
++   * Last line fully present in content (never a mid-truncated line).
++   * When completeLineCount=0, equals returnedStartLine - 1 (empty proven span).
++   */
 +  returnedEndLine: number;
++  /** Number of fully returned lines credited for coverage. */
++  completeLineCount: number;
++  /**
++   * Line number that was cut mid-content (not credited), if any.
++   * Null when no partial line was observed.
++   */
++  partialLineNumber: number | null;
++  /**
++   * True when the line at nextStartLineHint (or requested start) cannot fit
++   * under current byte/char caps even alone — explicit skip, not silent loss.
++   */
++  lineExceedsCap: boolean;
 +  totalLines: number;
 +  /** Next line to request when more content remains; null when complete through EOF. */
 +  nextStartLineHint: number | null;
  };
 
++/**
++ * Count how many leading lines from `lines[startLine-1..endLine-1]` are fully
++ * present as an exact prefix of `body` (no truncation marker). A mid-cut line
++ * is NOT counted.
++ */
++export function countCompleteReturnedLines(input: {
++  lines: string[];
++  startLine: number;
++  endLine: number;
++  body: string;
++}): { completeLineCount: number; partialLineNumber: number | null } {
++  const { lines, startLine, endLine, body } = input;
++  let offset = 0;
++  let completeLineCount = 0;
++  for (let lineNo = startLine; lineNo <= endLine; lineNo++) {
++    const line = lines[lineNo - 1];
++    if (line === undefined) break;
++    if (completeLineCount > 0) {
++      if (offset >= body.length) {
++        // Clean boundary after a complete line — no partial next line.
++        return { completeLineCount, partialLineNumber: null };
++      }
++      if (body[offset] !== "\n") {
++        return { completeLineCount, partialLineNumber: lineNo };
++      }
++      offset += 1;
++    }
++    if (body.length < offset + line.length) {
++      // Prefix of this line may be present — never credit it as complete.
++      const remaining = body.length - offset;
++      if (remaining > 0 && body.slice(offset) === line.slice(0, remaining)) {
++        return { completeLineCount, partialLineNumber: lineNo };
++      }
++      return {
++        completeLineCount,
++        partialLineNumber: remaining > 0 ? lineNo : null,
++      };
++    }
++    if (body.slice(offset, offset + line.length) !== line) {
++      return { completeLineCount, partialLineNumber: lineNo };
++    }
++    offset += line.length;
++    completeLineCount += 1;
++  }
++  return { completeLineCount, partialLineNumber: null };
++}
++
++function lineFitsCaps(
++  line: string,
++  byteCap: number,
++  charCap: number,
++): boolean {
++  return (
++    Buffer.byteLength(line, "utf8") <= byteCap && line.length <= charCap
++  );
++}
++
  export type GitContentMatch = {
-@@ -290,7 +310,7 @@ export class GitLocalReadAdapter {
+   path: string;
+   line: number;
+@@ -290,30 +386,101 @@ export class GitLocalReadAdapter {
      const startLine = Math.min(startRequested, totalLines);
      const endLine = Math.max(startLine, Math.min(endRequested, totalLines));
      const ranged = lines.slice(startLine - 1, endLine).join("\n");
 -    const hasMoreLines = endLine < totalLines;
+-
+-    const cap = Math.min(maxBytes, CT_DEFAULT_READ_MAX_BYTES * 2);
+-    const byteSlice =
+-      Buffer.byteLength(ranged, "utf8") > cap
+-        ? Buffer.from(ranged, "utf8").subarray(0, cap).toString("utf8")
+-        : ranged;
+-    const byteTruncated = Buffer.byteLength(ranged, "utf8") > cap;
 +    const documentHasMore = endLine < totalLines;
-
-     const cap = Math.min(maxBytes, CT_DEFAULT_READ_MAX_BYTES * 2);
-     const byteSlice =
-@@ -304,16 +324,44 @@ export class GitLocalReadAdapter {
-       CT_MAX_TOOL_RESULT_CHARS,
-     );
-     const truncated = byteTruncated || charTruncated;
--    const hasMore = hasMoreLines || truncated;
 +
-+    // Count lines actually present in the model-visible payload (strip marker).
-+    const contentForLineCount = text.replace(/\n?…\[truncated\]\s*$/u, "");
-+    const returnedLineCount = contentForLineCount
-+      ? contentForLineCount.split("\n").length
-+      : 0;
++    const byteCap = Math.min(maxBytes, CT_DEFAULT_READ_MAX_BYTES * 2);
++    const charCap = CT_MAX_TOOL_RESULT_CHARS;
++    const byteTruncated = Buffer.byteLength(ranged, "utf8") > byteCap;
++    const byteSlice = byteTruncated
++      ? Buffer.from(ranged, "utf8").subarray(0, byteCap).toString("utf8")
++      : ranged;
+     const redacted = redactSecrets(byteSlice);
+-    const { text, truncated: charTruncated } = truncateText(
+-      redacted,
+-      CT_MAX_TOOL_RESULT_CHARS,
+-    );
+-    const truncated = byteTruncated || charTruncated;
+-    const hasMore = hasMoreLines || truncated;
++    // Apply char cap without marker first — marker must not inflate line counts.
++    const charTruncated = redacted.length > charCap;
++    const cappedBody = charTruncated ? redacted.slice(0, charCap) : redacted;
++    const sizeTruncated = byteTruncated || charTruncated;
++
++    const { completeLineCount, partialLineNumber } = countCompleteReturnedLines({
++      lines,
++      startLine,
++      endLine,
++      body: cappedBody,
++    });
++
 +    const returnedStartLine = startLine;
 +    const returnedEndLine =
-+      returnedLineCount > 0
-+        ? Math.min(endLine, startLine + returnedLineCount - 1)
-+        : startLine;
++      completeLineCount > 0 ? startLine + completeLineCount - 1 : startLine - 1;
++
++    // Rebuild model-visible content from complete lines only (never credit a partial line).
++    const completeContent =
++      completeLineCount > 0
++        ? lines.slice(startLine - 1, startLine - 1 + completeLineCount).join("\n")
++        : "";
++
++    const soleLine = lines[startLine - 1] ?? "";
++    const lineExceedsCap =
++      completeLineCount === 0 &&
++      !lineFitsCaps(soleLine, byteCap, charCap);
++
++    let nextStartLineHint: number | null = null;
++    if (completeLineCount > 0) {
++      nextStartLineHint =
++        returnedEndLine < totalLines ? returnedEndLine + 1 : null;
++    } else if (lineExceedsCap) {
++      // Explicit unblockable line under current caps — do not loop forever on it.
++      nextStartLineHint = startLine < totalLines ? startLine + 1 : null;
++    } else if (partialLineNumber != null) {
++      // Fittable line cut mid-way because a multi-line window hit the cap — retry that line.
++      nextStartLineHint = partialLineNumber;
++    } else if (documentHasMore) {
++      nextStartLineHint = endLine + 1;
++    }
++
++    const truncated =
++      sizeTruncated ||
++      completeLineCount < endLine - startLine + 1 ||
++      lineExceedsCap;
 +    const hasMore = documentHasMore || truncated;
-+    const nextStartLineHint =
-+      returnedEndLine < totalLines ? returnedEndLine + 1 : null;
++
++    const text = truncated
++      ? completeContent
++        ? `${completeContent}\n…[truncated]`
++        : "…[truncated]"
++      : completeContent;
++
++    const returnedLabel =
++      completeLineCount > 0
++        ? `returned L${returnedStartLine}-${returnedEndLine}`
++        : "returned none";
 +
 +    const flags = [
 +      truncated ? "truncated" : null,
 +      documentHasMore ? "documentHasMore" : null,
 +      hasMore ? "hasMore" : null,
++      lineExceedsCap ? "lineExceedsCap" : null,
++      partialLineNumber != null ? `partialLine:${partialLineNumber}` : null,
 +    ]
 +      .filter(Boolean)
 +      .join(" ");
@@ -1494,22 +1981,31 @@ index 4dda7c8c..1aca97f0 100644
 +      requestedEndLine: endLine,
 +      returnedStartLine,
 +      returnedEndLine,
++      completeLineCount,
++      partialLineNumber,
++      lineExceedsCap,
 +      totalLines,
 +      nextStartLineHint,
-+      summary: `read ${norm.normalized} L${startLine}-${endLine}/${totalLines} returned L${returnedStartLine}-${returnedEndLine} (${text.length} chars)${flags ? ` ${flags}` : ""}`,
++      summary: `read ${norm.normalized} L${startLine}-${endLine}/${totalLines} ${returnedLabel} (${text.length} chars)${flags ? ` ${flags}` : ""}`,
      };
    }
 
 diff --git a/projects/sfia-studio/app/lib/platform/tools/toolRouter.ts b/projects/sfia-studio/app/lib/platform/tools/toolRouter.ts
-index c57dc074..761cc4af 100644
+index c57dc074..dd199fa1 100644
 --- a/projects/sfia-studio/app/lib/platform/tools/toolRouter.ts
 +++ b/projects/sfia-studio/app/lib/platform/tools/toolRouter.ts
-@@ -230,8 +230,15 @@ export function resolveToolPathOrRef(
+@@ -230,9 +230,25 @@ export function resolveToolPathOrRef(
      case "git_local_read_file": {
        const p = asString(dataObj?.path) ?? asString(args.path);
        if (!p) return null;
 -      const start = dataObj?.startLine;
 -      const end = dataObj?.endLine;
+-      if (typeof start === "number" && typeof end === "number") {
++      const completeCount = dataObj?.completeLineCount;
++      if (typeof completeCount === "number" && completeCount <= 0) {
++        // No proven complete span — bare path (avoid false #L range).
++        return p;
++      }
 +      // Prefer returned range (honest coverage) over requested-only bounds.
 +      const start =
 +        typeof dataObj?.returnedStartLine === "number"
@@ -1519,10 +2015,15 @@ index c57dc074..761cc4af 100644
 +        typeof dataObj?.returnedEndLine === "number"
 +          ? dataObj.returnedEndLine
 +          : dataObj?.endLine;
-       if (typeof start === "number" && typeof end === "number") {
++      if (
++        typeof start === "number" &&
++        typeof end === "number" &&
++        end >= start
++      ) {
          return `${p}#L${start}-${end}`;
        }
-@@ -497,12 +504,20 @@ export async function routeToolCall(
+       return p;
+@@ -497,12 +513,23 @@ export async function routeToolCall(
            path: r.path,
            content: r.content,
            truncated: r.truncated,
@@ -1535,12 +2036,15 @@ index c57dc074..761cc4af 100644
 +          requestedEndLine: r.requestedEndLine,
 +          returnedStartLine: r.returnedStartLine,
 +          returnedEndLine: r.returnedEndLine,
++          completeLineCount: r.completeLineCount,
++          partialLineNumber: r.partialLineNumber,
++          lineExceedsCap: r.lineExceedsCap,
 +          totalLines: r.totalLines,
 +          nextStartLineHint: r.nextStartLineHint,
          };
          summary = r.summary;
 -        truncated = r.truncated || r.hasMore;
-+        // usage.truncated = content cut only — not documentHasMore.
++        // usage.truncated = content cut / incomplete delivery — not documentHasMore alone.
 +        truncated = r.truncated;
          break;
        }
@@ -1561,80 +2065,55 @@ index 00c5b8b3..042b53ff 100644
 
 ```
 
-## S. Tests et résultats
+## M. Tests ajoutés/modifiés
 
-Commandes (worktree Delivery, vitest local):
+- `p6.nora.min09.documentaryReliability.d0.test.ts` — R1 A–O + R2 Runner integration
+- `p6.nora.p1.adaptiveBudget.d0.test.ts` — mono-file hint (CP01)
+
+## N. Résultats des validations
 
 ```
-vitest run \
-  p6.nora.min09.documentaryReliability.d0.test.ts \
-  p6.nora.p1.adaptiveBudget.d0.test.ts \
-  mw4.s03.partiality.d0.test.ts \
-  mw4.corr01a.toolRouter.readCoverage.d0.test.ts \
-  p6.nora.p1p2.documentary.mission.d0.test.ts \
-  p6.nora.maxTurns.documentary.d0.test.ts \
-  p6.nora.p1p2.targetedVerification.d0.test.ts \
-  mw4.corr01b.persistedCoverage.d0.test.ts \
-  mw4.cumulative.mw0-mw4.d0.test.ts
+vitest: 69/69 PASS (MIN09 24 + P1 + P1P2 + maxTurns + MW4 + targeted)
+tsc --noEmit: PASS
+git diff --check: PASS
 ```
 
-Résultats:
-- MIN09 + P1 + MW4 + P1P2 maxTurns documentary: **52/52 PASS**
-- targetedVerification + corr01b + cumulative: **12/12 PASS**
-- `tsc --noEmit`: **PASS** (après fix typage test)
+## O. Fake/Real Qualification
 
-## T. Fake/Real Qualification
+DETERMINISTIC ONLY. ZERO REAL. Preuve: CORRECTION PASS 02 DETERMINISTIC VALIDATED AT TESTED SCOPE.
+Hors scope: REAL GDR PASS / P6 GLOBAL PASS.
 
-| Item | Valeur |
-| --- | --- |
-| Mode ce cycle | DETERMINISTIC ONLY |
-| Fake | ScriptedModel / temp git repos / EventSink memory |
-| REAL calls | ZERO |
-| Preuve | DETERMINISTIC CORRECTION PROVEN AT TESTED SCOPE |
-| Hors scope | REAL BOUNDARY / E2E GDR PASS / P6 GLOBAL PASS |
+## P. Invariants préservés
 
-## U. Budget / FinOps
+P0 incomplete/limitReached; P1 ceiling 10; P2 native continuation; Session; CT_MAX 12000; no HumanDecision; no runtime v3.
 
-- Ceiling **10** inchangé.
-- CT_MAX_TOOL_RESULT_CHARS **12000** inchangé.
-- Mono-doc bump max → 8 (dans plafond).
-- Pas de nouveau coût REAL.
+## Q. Réserves
 
-## V. Impacts et non-régression
+- FPPC-RES-01 OPEN
+- P0-EFFECT-02 NOT PROVEN
+- RunState cross-restart DEFER
+- lineExceedsCap skip explicite = perte déclarée sous plafond courant (pas de mid-line offset protocol)
+- Qualité cognitive REAL non prouvée
 
-- P0 incomplete préservé.
-- P1/P2 tests existants PASS.
-- MW4 FULL/PARTIAL contracts PASS (legacy summaries encore acceptés).
-- Routine courte: bare "document" non élevé.
-- Pas d'effet Product protégé / HumanDecision inventée.
+## R. Dette / exit
 
-## W. Réserves et dettes
+NONE nouvelle. Exit: R1/R2/R3 fermés localement → revue ChatGPT → GO Git Morris distinct.
 
-- FPPC-RES-01, P0-EFFECT-02, RunState cross-restart DEFER — inchangés.
-- Qualité REAL du modèle non prouvée par ScriptedModel.
-- DOC-PR577-POSTMERGE-SYNC DEFER (workspace rec01).
-- Observabilité EventSink nécessite sink branché Product (déjà path cognitif).
+## S. Décisions Morris restantes
 
-## X. Décisions Morris restantes
+1. GO intégration Git gouvernée (commit/PR) — non consommé
+2. GO retest REAL T1 post-intégration
+3. Protocole mid-line offset si lineExceedsCap doit être livré autrement → structural
 
-1. GO intégration Git gouvernée (commit/PR) — **non consommé ici**.
-2. GO retest REAL T1 humain post-intégration.
-3. Toute hausse ceiling FinOps / moteur doc structurant → STOP structurel.
+## T. Verdict
 
-## Y. Exit Proof
+### TARGETED CORRECTION CP02 COMPLETE LOCALLY / DETERMINISTIC QA PASS / READY FOR CHATGPT REVIEW
 
-- Correctif local borné dans architecture existante.
-- Tests D0 pertinents PASS.
-- Review Pack FULL avec diffs + fichiers créés complets.
-- Limitations explicites (pas de REAL GDR PASS).
+## U. Instruction ChatGPT
 
-## Z. Verdict et instruction ChatGPT
-
-### TARGETED CORRECTION IMPLEMENTED LOCALLY / DETERMINISTIC QA PASS / READY FOR CHATGPT REVIEW
-
-Ce verdict ≠ GDR REAL PASS ≠ Product READY ≠ P6 GLOBAL PASS ≠ intégration main.
-
-**Instruction ChatGPT:** lire le handoff distant `sfia/review-handoff` ; vérifier base Git, fichiers/diff, adéquation RCD-01, absence d'architecture parallèle, plafond FinOps, continuité native, tests, restitution, réserves, gates ; décider si prêt pour intégration Git gouvernée. Aucun GO d'intégration implicite.
+Lire `sfia-review-handoff/latest-chatgpt-review.md` sur `sfia/review-handoff`.
+Vérifier baseline Git, R1 troncature, R2 Runner, R3 cohérence, tests, diff cumulé, invariants, budget, réserves.
+Si PASS: qualifier readiness du lot RCD-01 pour **une seule** intégration Git gouvernée. Aucun GO Git implicite.
 
 ---
-FIN REVIEW PACK FULL — P6-MIN-09 DOCUMENTARY COGNITIVE RELIABILITY CORRECTION 01
+FIN REVIEW PACK FULL — P6-MIN-09 RCD-01 CP02
