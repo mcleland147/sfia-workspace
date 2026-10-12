@@ -1,206 +1,302 @@
-# Review Pack FULL — NORA Adaptive Cognitive Execution & Controlled Continuation 01
+# Review Pack FULL — NORA P1/P2 TARGETED VERIFICATION PASS 01
 
-at: 2026-10-12T06:15:00Z
-local: 2026-10-12 08:15:00 CEST (Europe/Paris)
+at_europe_paris: 2026-10-12 12:45:40 CEST
+at_utc: 2026-10-12T10:45:40Z
 level: FULL
 profile: CRITICAL
 cycleType: 8 — Delivery / implémentation
 campaign: P6-GLOBAL-INTEGRATED-PRODUCT-QA-01
-chantier: NORA-ADAPTIVE-COGNITIVE-EXECUTION-CONTINUATION-01
+pass: NORA P1/P2 — TARGETED VERIFICATION 01
 macro: STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01
-GO Morris: P1+P2 combined construction — ACCORDÉ 2026-10-12
-mode: COMBINED LOCAL DELIVERY P0(preserve)+P1+P2 — ZERO REAL
-prior handoff: fb2d7dcf / blob 876ae2a7 — P0 Chat-First Targeted Correction 01
+chantier: NORA-ADAPTIVE-COGNITIVE-EXECUTION-CONTINUATION-01
+workspace: /Users/morris/Projects/sfia-workspace-p6-rec01-human-qa
+repository: mcleland147/sfia-workspace
+branch: qa/p6-hqa-02-rec01-human-qa
+HEAD: f31bb8f610802c102edbe68889fb8ecf0339ec28
+origin/main: f31bb8f610802c102edbe68889fb8ecf0339ec28
+prior_combined_handoff_expected: c4eaa9cfe8a6a7a9c45287aee5daf887ac470e33 / blob 98dd0b9788b8b4cb569c91e9fbb77ea4da42ec97
+mode: PROOF FIRST — CORRECT ONLY IF DEFECT CONFIRMED
+git_integration: NONE (no project commit/push/PR/merge)
+real: NON (deterministic ScriptedModel only)
 
 ---
 
-## 1. Local Git Truth Check
+## 1. GO Morris consommé
+
+Autorisation: vérification déterministe ciblée + correction locale minimale **uniquement si défaut démontré**.
+
+GO n'autorise PAS: REAL OpenAI; refonte architecture; nouvelle persistence; commit/push projet; PR; merge; promotion baseline; Runtime v3 adoption.
+
+---
+
+## 2. Local Git Truth Check
 
 | Check | Result |
 |---|---|
-| workspace | `/Users/morris/Projects/sfia-workspace-p6-rec01-human-qa` |
-| remote | origin https://github.com/mcleland147/sfia-workspace.git |
+| pwd | `/Users/morris/Projects/sfia-workspace-p6-rec01-human-qa` |
+| remote | `origin https://github.com/mcleland147/sfia-workspace.git` |
 | branch | `qa/p6-hqa-02-rec01-human-qa` |
 | HEAD | `f31bb8f610802c102edbe68889fb8ecf0339ec28` |
 | origin/main | `f31bb8f610802c102edbe68889fb8ecf0339ec28` |
-| left-right | `0	0` |
-| prior handoff tip | fb2d7dcf32362fdf85649e24bbb68d076565c324 — MATCH |
-| staged | none |
-| project commit | NONE |
+| staged | **none** |
+| dirty | P0/P1/P2 candidate preserved (lib + features + tests untracked) + this pack |
+| STOP Git | **not triggered** |
 
-```
-git status --short:
-M .tmp-sfia-review/chatgpt-review.md
- M projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
- M projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
- M projects/sfia-studio/app/features/project-assistant/ProjectAssistantPanel.tsx
- M projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
- M projects/sfia-studio/app/features/project-assistant/types.ts
- M projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
- M projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
- M projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts
- M projects/sfia-studio/app/lib/nora-cognitive-runtime/types.ts
-?? projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.maxTurns.documentary.d0.test.ts
-?? projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.p1.adaptiveBudget.d0.test.ts
-?? projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.p1p2.documentary.mission.d0.test.ts
-?? projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.nora.p0.incomplete.chatFirst.ui.d0.test.tsx
-?? projects/sfia-studio/app/__tests__/project-assistant/p6.nora.p0.incomplete.panel.ux.d0.test.tsx
-?? projects/sfia-studio/app/__tests__/project-assistant/p6.nora.p0.productStatusHonesty.d0.test.ts
-?? projects/sfia-studio/app/lib/nora-cognitive-runtime/adaptiveTurnBudget.ts
-?? projects/sfia-studio/app/lib/nora-cognitive-runtime/controlledContinuation.ts
+Candidats P0/P1/P2 présents:
+- Modified: `runNoraAgentsTurn.ts`, `runNoraCognitiveTurn.ts`, `types.ts`, `index.ts`, Product orch/UI P0 files
+- Untracked created: `adaptiveTurnBudget.ts`, `controlledContinuation.ts`, P0/P1/P2 tests including `p6.nora.p1p2.targetedVerification.d0.test.ts`
 
-git diff --name-status:
-M	.tmp-sfia-review/chatgpt-review.md
-M	projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
-M	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
-M	projects/sfia-studio/app/features/project-assistant/ProjectAssistantPanel.tsx
-M	projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
-M	projects/sfia-studio/app/features/project-assistant/types.ts
-M	projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
-M	projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
-M	projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts
-M	projects/sfia-studio/app/lib/nora-cognitive-runtime/types.ts
-
-git diff --stat:
-.tmp-sfia-review/chatgpt-review.md                 | 169 +-------
- .../hooks/useProductConversation.ts                |  16 +
- .../surfaces/ConversationSurface.tsx               |  23 ++
- .../project-assistant/ProjectAssistantPanel.tsx    |  29 +-
- .../features/project-assistant/orchestrateTurn.ts  |  41 +-
- .../app/features/project-assistant/types.ts        |  14 +-
- .../app/lib/nora-cognitive-runtime/index.ts        |  19 +
- .../nora-cognitive-runtime/runNoraAgentsTurn.ts    | 427 +++++++++++++++------
- .../nora-cognitive-runtime/runNoraCognitiveTurn.ts |  64 ++-
- .../app/lib/nora-cognitive-runtime/types.ts        |  20 +
- 10 files changed, 513 insertions(+), 309 deletions(-)
-```
-
-P0 Product files PRESERVED (adapted only if needed — UI/DTO untouched this pass):
-- types.ts / orchestrateTurn.ts / ProjectAssistantPanel.tsx
-- useProductConversation.ts / ConversationSurface.tsx
-- four P0 tests preserved
-
-STOP Git: not triggered.
+Aucune modification étrangère hors chantier. Aucun fichier staged inattendu.
 
 ---
 
-## 2. Convergence / Capacité v3
+## 3. Sources canoniques consultées
 
-READ ONLY: Build Doctrine, Roadmap, product-completion, v3 framing 30/33/34, CKC 08/09, Nora trajectory 08, Product Simplification 01/04/07.
+Gouvernance Studio: convergence-build-doctrine, convergence-roadmap, product-completion C1.
+Doctrine v3: 33, 34, 35, 37 (cible — Runtime v3 NON ADOPTED).
+Trajectoire: `08-nora-openai-native-first-cognitive-trajectory.md`.
+Product P6: `07-chat-first-product-simplification-p6-global-integrated-product-qa.md`.
+CKC: `ckc/08-delivery-implementation.md` (contenu cible, pas d'autorité runtime).
+Processus v2.6: cycle-execution-template, routing-guide, chatgpt-cursor-operating-model, rules-and-guardrails.
+Review Handoff distant: consulté via branche `sfia/review-handoff` (publication ce cycle remplace le tip local).
+
+Règles structurantes respectées: v3=doctrine cible; DETERMINISTIC PROVEN ≠ REAL PROVEN; Recommandation ≠ décision Morris.
+
+---
+
+## 4. Qualification Convergence
+
+| Item | Qualifier |
+|---|---|
+| Capacité v3 (cible) | Nora peut poursuivre analyse documentaire complexe sans intervention Pilote artificielle, sans faux succès, sans perte/corruption contexte Product — **DETERMINISTIC VERIFIED AT TARGETED PRODUCT CONTINUITY SCOPE** après ce pass |
+| Milestone | P6 GLOBAL INTEGRATED PRODUCT QA |
+| Entrée | P0+P1+P2 locaux; 65 tests annoncés; TS OK; pas d'intégration Git projet |
+| Actifs | P0 KEEP; Adaptive Budget KEEP/ADAPT; Controlled Continuation KEEP/ADAPT; RunState USE; ProductSqliteSession KEEP; Memory B KEEP; Campaign Budget KEEP |
+| Trajectoire | P6-MIN-09 → P0/P1/P2 → **TV01** → ChatGPT Critical Review → Morris → Git unique → reprise P6 |
+| Exit proof | Comportements Product vérifiés par tests déterministes + réserves explicites |
+| Dette | Cross-restart RunState persistence **DEFER** |
+| Architecture parallèle | **aucune** |
+
+---
+
+## 5. V01 — P1 Adaptive Budget (Product wiring)
+
+### Résultat: PASS (après correction minimale de détection)
+
+### Chemin prouvé
+Pilot content → `inferWorkloadHintsFromUserContent` → `decideCognitiveStrategy` / `normalizeCognitiveWorkloadSignals` → `resolveAdaptiveMaxTurns` → `runNoraAgentsTurn` (sans `maxTurns` explicite) → Agents Runner + continuation.
+
+### Observations tests
+- `explicitOverride=false`
+- budget ≥8 et ≤10 pour wording multi-documentaire
+- plafond nominal 10
+- campaign clamp conservé (régression T-campaign)
+- UNKNOWN n'infle pas (régression adaptiveBudget)
+- bare "document" **ne** force **pas** Deep (V01b)
+
+### Défaut confirmé (pré-fix)
+Bare word `document` pouvait élever `sourceBreadth`/`toolDependency` via regex trop large.
+
+### Correction
+`adaptiveTurnBudget.ts` — regex documentaire exige multi-doc / analyse / compare sources (pas le mot seul).
+
+### Preuve
+`p6.nora.p1p2.targetedVerification.d0.test.ts` V01 / V01b / V01c PASS.
+
+Note: V01 exerce le wiring Product-like au seam Agents (même chaîne que `runNoraCognitiveTurn`) sans pin eval `fake-test-model` (capability manifest). Le cognitive turn Product nominal utilise la même chaîne hints→strategy→adaptive.
+
+---
+
+## 6. V02 — Override / FinOps boundary
+
+### Résultat: PASS — réserve NON-BLOCKING classée
+
+### Preuve
+- `features/project-assistant/types.ts` : aucun champ `maxTurns` input Product (commentaires status only)
+- `orchestrateTurn.ts` : aucun passage `maxTurns:` vers le runtime
+- `resolveAdaptiveMaxTurns({ explicitMaxTurns: 12 })` → `explicitOverride=true`, `requestedMaxTurns=12` (tests/eval)
+- Campaign clamp reste impératif (T-campaign / V3 documentary)
+
+### Qualification
+Un override interne tests/eval peut dépasser le plafond adaptatif nominal 10. **Ce n'est pas un bug Product.**
+**Ne pas affirmer "absolute hard ceiling"** tant que l'override interne contrôlé reste techniquement autorisé.
+Utilisateur Product ne peut pas fournir `maxTurns` via DTO/client.
+
+### Correction
+Aucune (frontière Product saine).
+
+---
+
+## 7. V03 — P2 Session continuity after RunState (CRITICAL)
+
+### Résultat: FAIL confirmé → CORRECTED → PASS
+
+### Défaut démontré (avant correction)
+Test V03: après mission multi-segments (`continued=true`, ≥2 segments, réponse finale OK), `ProductSqliteSession.getItems().length === 0`.
+Cause: `runner.run` ne recevait `session` que lorsque `typeof runInput === "string"` (premier segment). Les resumes `RunState` omettaient `options.session` → SDK `prepareSessionHistoryTransactionsForRun` n'écrit pas l'historique.
+
+### Correction minimale
+`runNoraAgentsTurn.ts` — passer `...(session ? { session } : {})` **sur chaque segment**, y compris resume RunState.
+Préserve ProductSqliteSession / Memory B / P0 honesty / campaign counters. Pas de seconde SoT.
+
+### Preuve post-fix (V03)
+1. Session temp créée
+2. Mission ≥7 tours, 2+ segments, RunState resume
+3. Réponse finale `COMPLETE_DOC_ANALYSIS_SYNTHESIS`
+4. Items persistés >0; contenu pertinent; pas de duplication runaway
+5. close/reopen Session → mêmes items
+6. Nouveau tour Product → items croissent; `RECALL_OK`
+Cross-restart RunState: **DEFER** (hors scope).
+
+### V03b observability
+`allottedTurns === 10` (dernier plafond absolu), **≠** 15 (somme 5+10). Contrat commenté aligné.
+
+---
+
+## 8. Observabilité P2
+
+| Champ | Contrat vérifié |
+|---|---|
+| continued | true quand resume segment exécuté |
+| segmentsExecuted | ≥2 sur mission 10/seg 5 |
+| missionMaxTurns | budget mission (après clamp) |
+| segmentMaxTurns | 5 (legacy) |
+| allottedTurns | **last absolute ceiling** (pas somme) — doc fix |
+| stopReason | complete / mission_budget_exhausted / campaign_or_provider_stop / abort / … |
+| reasonCodes | adaptive + clamp + continuation |
+
+Correction: commentaire `allottedTurns` dans `controlledContinuation.ts` aligné sur le calcul.
+
+---
+
+## 9. P0 non-régression
+
+Rejoué: panel incomplete UX, productStatusHonesty, T-legacy incomplete, runner R5, documentary V1.
+- incomplete / limitReached honesty: PASS
+- Chat-first honesty surfaces: PASS
+- pas de materialization LR illégitime: PASS (T5)
+- STOP ≠ incomplete: PASS (T8/T8b)
+- P0-EFFECT-02 (store-level): **réserve historique NOT PROVEN store-level** — NON élargi ce cycle (pas d'impact P2 démontré supplémentaire)
+
+---
+
+## 10. Bugs confirmés / Corrections
+
+| ID | Severity | Status |
+|---|---|---|
+| TV01-DOC-HINT | Medium | FIXED — bare "document" over-trigger |
+| TV01-SESSION-RESUME | Critical | FIXED — Session omitted on RunState resume |
+| TV01-ALLOTTED-DOC | Low/contract | FIXED — allottedTurns docs |
+| TV01-OVERRIDE-CEILING | Info | NON-BLOCKING — eval override may exceed adaptive 10 |
+
+---
+
+## 11. Tests exécutés et résultats exacts
+
+Commande régression:
+```
+npx vitest run \
+  p6.nora.p1.adaptiveBudget.d0.test.ts \
+  p6.nora.p1p2.targetedVerification.d0.test.ts \
+  p6.nora.p1p2.documentary.mission.d0.test.ts \
+  p6.nora.maxTurns.documentary.d0.test.ts \
+  runner.d0.test.ts \
+  p6.nora.p0.incomplete.panel.ux.d0.test.tsx \
+  p6.nora.p0.productStatusHonesty.d0.test.ts
+```
+
+**Result: 7 files passed, 43 tests passed, 0 failed.**
+
+Targeted verification alone: **6/6 PASS**.
+
+TypeScript: `npx tsc -p tsconfig.json --noEmit` → **exit 0**.
+
+`git diff --check` → clean.
+
+---
+
+## 12. Fake / Real Qualification
 
 | Item | Value |
 |---|---|
-| Capacité v3 | Analyse cognitive autonome, continuité, fiabilité sous gouvernance |
-| Milestone | P6 GLOBAL INTEGRATED PRODUCT QA |
-| Runtime v3 | NON ADOPTED |
-| Roadmap | MIN-09 → maxTurns → P0 → **P1+P2 unified** → ChatGPT → Morris intégration unique → P6 exit → P7 |
+| Applicable | OUI |
+| Frontière | OpenAI Agents Runner / Model |
+| Substitution | ScriptedModel + harness déterministe |
+| Parité | tours, RunState, Session, budgets, statuts |
+| Différences | modèle scripté ≠ raisonnement REAL |
+| Niveau entrée | DETERMINISTIC PROVEN AT COMBINED SCOPE |
+| Niveau sortie | **DETERMINISTIC VERIFIED AT TARGETED PRODUCT CONTINUITY SCOPE** |
+| Hors scope | REAL BOUNDARY / E2E REAL / P6 GLOBAL PASS / Runtime v3 ADOPTED |
+| GO REAL | NON |
 
 ---
 
-## 3. KEEP / ADAPT / COMPLETE
+## 13. Diff / périmètre
 
-| Asset | Class |
-|---|---|
-| OpenAI Agents Runner / runNoraAgentsTurn | ADAPT (adaptive budget + RunState continuation loop) |
-| runNoraCognitiveTurn | ADAPT (pass strategy/adaptive/continuation) |
-| CognitiveWorkloadPolicy | KEEP (+ light content hints ADAPT) |
-| turnBudget / campaignBudget | KEEP |
-| ProductSqliteSession / Memory B | KEEP |
-| P0 incomplete DTO + Chat-first UI | KEEP |
-| adaptiveTurnBudget.ts | COMPLETE (new) |
-| controlledContinuation.ts | COMPLETE (new) |
-| Durable serialized RunState across process restart | DEFER (Morris architecture) |
+### Modified (tracked)
+```
+M projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
+M projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
+M projects/sfia-studio/app/features/project-assistant/ProjectAssistantPanel.tsx
+M projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
+M projects/sfia-studio/app/features/project-assistant/types.ts
+M projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
+M projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
+M projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts
+M projects/sfia-studio/app/lib/nora-cognitive-runtime/types.ts
+```
 
----
+### Untracked (created this chantier incl. TV01)
+```
+?? adaptiveTurnBudget.ts
+?? controlledContinuation.ts
+?? p6.nora.p1*.test.ts / documentary / targetedVerification / maxTurns documentary
+?? p6.nora.p0*.test.ts(x) (panel + productStatusHonesty + chatFirst UI)
+```
 
-## 4. P1 — Adaptive Runner Budget
+### TV01 delta vs combined delivery
+1. Session always passed to Runner (incl. RunState resume)
+2. Document hint regex tightened
+3. allottedTurns contract comment
+4. New file `p6.nora.p1p2.targetedVerification.d0.test.ts`
 
-### Mechanism
-`resolveAdaptiveMaxTurns` maps CognitiveStrategyClass → bounded mission maxTurns:
-
-| Strategy | Base maxTurns |
-|---|---|
-| Routine | 5 (legacy) |
-| Focused | 8 |
-| Deep | 10 |
-| High-Assurance | 10 |
-
-Floor=3, **Ceiling=10** (NOT experimental 12). Explicit caller maxTurns wins. UNKNOWN ≠ inflate. Campaign clamp still binds.
-
-Content hints (`inferWorkloadHintsFromUserContent`) may set known-high sourceBreadth/toolDependency from explicit Pilot wording — never invent LOW.
-
-Wired: `runNoraCognitiveTurn` computes adaptive decision → `runNoraAgentsTurn` uses it when `maxTurns` omitted.
-
-### Observability
-`adaptiveObserve`: requestedMaxTurns, effectiveMaxTurns, strategyClass, reasonCodes, floor, ceiling, explicitOverride.
+Hors périmètre non touché: Build Doctrine, Roadmap, C1, Memory B architecture, FinOps model economics, UI redesign beyond P0, REAL.
 
 ---
 
-## 5. OpenAI Capability Fit Check (R22)
+## 14. Dette / réserves
 
-| Primitive | Qualification |
-|---|---|
-| SDK `@openai/agents` 0.17.0 / agents-core | installed |
-| `Runner.run(agent, input, {maxTurns})` | USE |
-| `MaxTurnsExceededError.state: RunState` | USE |
-| `Runner.run(agent, RunState, {maxTurns})` resume | USE/ADAPT |
-| `maxTurns` semantics | ABSOLUTE vs `state._currentTurn` (not remaining) — critical fix |
-| errorHandlers.maxTurns soft complete | KEEP on mission ceiling |
-| Session (ProductSqliteSession) | KEEP for CAS A |
-| Durable serialized RunState across restart | DEFER |
-
-CAS A (new user request): KEEP via Session.  
-CAS B (SDK RunState): USE inside Product turn.  
-CAS C (autonomous same-mission): COMBINE B — automatic resume raising absolute cap toward mission budget without Pilote reformulation.
+| Réserve | Verdict | Blocking? | Preuve / impact |
+|---|---|---|---|
+| Cross-restart RunState persistence | DEFER | No (scoped) | Architecture GO futur |
+| Eval maxTurns may exceed adaptive 10 | NON-BLOCKING | No | Product DTO sans maxTurns |
+| P0-EFFECT-02 store-level | NOT PROVEN | No (historique) | Pas d'élargissement TV01 |
+| REAL documentary quality | NOT PROVEN | N/A | GO REAL non consommé |
+| Absolute hard ceiling Product+eval | NOT CLAIMED | No | Override interne contrôlé conserve |
 
 ---
 
-## 6. P2 — Controlled Continuation
+## 15. Décisions Morris requises
 
-### Mechanism
-When missionMaxTurns > CONTINUATION_SEGMENT_MAX_TURNS (5):
-1. First Runner segment absoluteCap=min(mission,5), no soft handler → MaxTurnsExceededError with state
-2. Resume `runner.run(agent, state, {maxTurns: raisedAbsoluteCap})`
-3. At mission ceiling, soft handler → honest incomplete if still unfinished
-4. Same NoraTurnBudget + campaign counters — no reset
-
-Disabled when mission ≤ 5 or `enableControlledContinuation:false`.
-
-### Observability
-`continuationObserve`: continued, segmentsExecuted, missionMaxTurns, segmentMaxTurns, allottedTurns, stopReason, reasonCodes.
-
-### Not claimed
-- Continuity after process restart
-- Durable RunState store
-- New worker/orchestrator/persistence SoT
+1. **GO intégration Git unique** P0+P1+P2 (+ corrections TV01) après revue ChatGPT Critical.
+2. Pas de décision architecture persistence additionnelle requise (Session-on-resume corrigé au seam existant).
+3. Cross-restart RunState reste DEFER jusqu'à GO dédié.
 
 ---
 
-## 7. Product P0 non-régression
+## 16. Verdict pack
 
-- status incomplete / limitReached preserved
-- Chat-first + Panel surfaces preserved
-- Cognitive STOP distinct
-- Durable LR/ACW suppress on limitReached preserved
-- ANSWERED ≠ mission success
+**TARGETED CORRECTION COMPLETE / READY FOR CHATGPT CRITICAL RE-REVIEW**
 
----
-
-## 8. Consolidated documentary proofs
-
-| Case | Result |
-|---|---|
-| Legacy maxTurns=5, continuation off | incomplete, no COMPLETE marker |
-| P1 adaptive maxTurns=10, continuation off | COMPLETE without Pilote relaunch |
-| P2 mission=10, segment=5, RunState resume | continued=true, ≥2 segments, COMPLETE |
-| Campaign clamp remaining=4 | effective≤4, incomplete, no bypass |
-| Exhaust maxTurns=3 | incomplete honest |
+Niveau QA: DETERMINISTIC TARGETED PRODUCT PROOF.
+Statut: READY FOR REVIEW (après handoff distant vérifié).
+Ne pas annoncer: READY FOR PR; P6 GLOBAL PASS; REAL PROVEN; NORA COGNITIVE COMPLETION PROVEN; Runtime v3 ADOPTED.
 
 ---
 
-## 9. Fichiers créés (contenu complet)
+## 17. Git Review Index — fichiers créés (contenu complet)
 
-### adaptiveTurnBudget.ts
+### 17.1 adaptiveTurnBudget.ts (complet)
 
 ```ts
 /**
@@ -276,8 +372,9 @@ export function inferWorkloadHintsFromUserContent(
   const c = content.trim();
   if (!c) return {};
   const hints: Partial<CognitiveWorkloadSignals> = {};
+  // Require multi-doc / documentary-analysis cues — bare "document" alone must NOT elevate.
   if (
-    /document|documentary|multi[- ]?source|plusieurs\s+sources|guided\s+document|analys(?:e|er)\s+(?:plusieurs|les)\s+documents|cross[- ]?read|lire\s+(?:plusieurs|les)\s+fichiers/i.test(
+    /documentary|multi[- ]?source|plusieurs\s+sources|guided\s+document|analys(?:e|er)\s+(?:plusieurs|les)\s+documents|cross[- ]?read|lire\s+(?:plusieurs|les)\s+fichiers|plusieurs\s+documents|documents\s+du\s+projet|compar(?:e|er)\s+(?:les\s+)?sources/i.test(
       c,
     )
   ) {
@@ -380,11 +477,11 @@ export function resolveAdaptiveMaxTurns(input: {
   };
 }
 
-```
+\`\`\`
 
-### controlledContinuation.ts
+### 17.2 controlledContinuation.ts (complet)
 
-```ts
+\`\`\`ts
 /**
  * P2 — Controlled Cognitive Continuation helpers (OpenAI-native-first R22).
  *
@@ -424,7 +521,10 @@ export type ControlledContinuationObserve = {
   segmentsExecuted: number;
   missionMaxTurns: number;
   segmentMaxTurns: number;
-  /** Model turns allotted across segments (sum of segment maxTurns requested). */
+  /**
+   * Last absolute Runner maxTurns ceiling applied for this mission
+   * (SDK maxTurns is absolute vs state._currentTurn — not a sum of segment sizes).
+   */
   allottedTurns: number;
   stopReason: ContinuationStopReason;
   reasonCodes: string[];
@@ -474,137 +574,14 @@ export function emptyContinuationObserve(
   };
 }
 
-```
+\`\`\`
 
-### p6.nora.p1.adaptiveBudget.d0.test.ts
+### 17.3 p6.nora.p1p2.targetedVerification.d0.test.ts (complet)
 
-```ts
+\`\`\`ts
 /**
- * P6 Nora P1 — Adaptive Runner Budget (deterministic).
- * ZERO REAL.
- * @vitest-environment node
- */
-import { describe, expect, it } from "vitest";
-import {
-  ADAPTIVE_MAX_TURNS_CEILING,
-  ADAPTIVE_MAX_TURNS_FLOOR,
-  LEGACY_DEFAULT_MAX_TURNS,
-  STRATEGY_BASE_MAX_TURNS,
-  inferWorkloadHintsFromUserContent,
-  resolveAdaptiveMaxTurns,
-} from "@/lib/nora-cognitive-runtime/adaptiveTurnBudget";
-import { decideCognitiveStrategy } from "@/lib/nora-cognitive-runtime/cognitiveWorkloadPolicy";
-
-describe("P6 Nora P1 — Adaptive maxTurns policy", () => {
-  it("legacy default remains 5; ceiling is not experimental 12", () => {
-    expect(LEGACY_DEFAULT_MAX_TURNS).toBe(5);
-    expect(ADAPTIVE_MAX_TURNS_CEILING).toBe(10);
-    expect(ADAPTIVE_MAX_TURNS_CEILING).toBeLessThan(12);
-    expect(STRATEGY_BASE_MAX_TURNS.Routine).toBe(5);
-    expect(STRATEGY_BASE_MAX_TURNS.Focused).toBe(8);
-    expect(STRATEGY_BASE_MAX_TURNS.Deep).toBe(10);
-  });
-
-  it("explicit maxTurns wins (tests / eval)", () => {
-    const d = resolveAdaptiveMaxTurns({
-      strategyClass: "Deep",
-      explicitMaxTurns: 3,
-    });
-    expect(d.requestedMaxTurns).toBe(3);
-    expect(d.explicitOverride).toBe(true);
-    expect(d.reasonCodes).toContain("explicit_caller_maxTurns");
-  });
-
-  it("Routine → 5; Focused → 8; Deep → 10; never above ceiling", () => {
-    expect(
-      resolveAdaptiveMaxTurns({ strategyClass: "Routine" }).requestedMaxTurns,
-    ).toBe(5);
-    expect(
-      resolveAdaptiveMaxTurns({ strategyClass: "Focused" }).requestedMaxTurns,
-    ).toBe(8);
-    expect(
-      resolveAdaptiveMaxTurns({ strategyClass: "Deep" }).requestedMaxTurns,
-    ).toBe(10);
-    expect(
-      resolveAdaptiveMaxTurns({ strategyClass: "High-Assurance" })
-        .requestedMaxTurns,
-    ).toBeLessThanOrEqual(ADAPTIVE_MAX_TURNS_CEILING);
-  });
-
-  it("UNKNOWN signals do not inflate beyond strategy base", () => {
-    const d = resolveAdaptiveMaxTurns({
-      strategyClass: "Focused",
-      signals: {
-        sourceBreadth: "unknown",
-        verificationNeed: "unknown",
-        reasoningDepth: "unknown",
-      },
-    });
-    expect(d.requestedMaxTurns).toBe(8);
-    expect(d.reasonCodes.some((c) => c.includes("unknown_signals"))).toBe(
-      true,
-    );
-  });
-
-  it("known-high documentary hints elevate strategy class via CWP", () => {
-    const hints = inferWorkloadHintsFromUserContent(
-      "Analyse plusieurs documents du projet et croise les sources.",
-    );
-    expect(hints.sourceBreadth).toBe("high");
-    const strategy = decideCognitiveStrategy({
-      signals: {
-        ambiguity: "unknown",
-        reasoningDepth: "medium",
-        sourceBreadth: hints.sourceBreadth!,
-        toolDependency: hints.toolDependency ?? "unknown",
-        contradictionRisk: "unknown",
-        contextSize: "medium",
-        verificationNeed: hints.verificationNeed ?? "unknown",
-        multimodality: "unknown",
-        latencySensitivity: "unknown",
-        costBudget: "unknown",
-        rigorCriticality: "medium",
-      },
-    });
-    expect(["Deep", "Focused", "High-Assurance"]).toContain(
-      strategy.strategyClass,
-    );
-    const budget = resolveAdaptiveMaxTurns({
-      strategyClass: strategy.strategyClass,
-      signals: strategy.normalizedSignals,
-    });
-    expect(budget.requestedMaxTurns).toBeGreaterThanOrEqual(8);
-    expect(budget.requestedMaxTurns).toBeLessThanOrEqual(
-      ADAPTIVE_MAX_TURNS_CEILING,
-    );
-    expect(budget.requestedMaxTurns).toBeGreaterThanOrEqual(
-      ADAPTIVE_MAX_TURNS_FLOOR,
-    );
-  });
-
-  it("null strategy falls back to legacy 5", () => {
-    expect(
-      resolveAdaptiveMaxTurns({ strategyClass: null }).requestedMaxTurns,
-    ).toBe(5);
-  });
-});
-
-```
-
-### p6.nora.p1p2.documentary.mission.d0.test.ts
-
-```ts
-/**
- * P6 Nora P1+P2 — consolidated documentary mission (deterministic).
- *
- * Proves:
- * 1) Legacy ceiling maxTurns=5 + no continuation → incomplete (P0 honesty)
- * 2) Adaptive mission budget completes 7-turn script without Pilote relaunch
- * 3) Controlled continuation via native RunState when mission > segment
- * 4) Campaign clamp still binds
- * 5) Exhausted mission remains incomplete (no false ok)
- *
- * ZERO REAL — ScriptedModel / temp ProductSqliteSession.
+ * P6 Nora P1/P2 — TARGETED VERIFICATION 01 (deterministic).
+ * Proof-first. ZERO REAL.
  * @vitest-environment node
  */
 import { afterEach, describe, expect, it } from "vitest";
@@ -619,27 +596,24 @@ import {
 import { resolveWorkspaceRootFromAppCwd } from "@/lib/platform/repository/workspaceRoot";
 import {
   ProductSqliteSession,
+  inferWorkloadHintsFromUserContent,
+  resolveAdaptiveMaxTurns,
   runNoraAgentsTurn,
   sfiaBoundaryInstructions,
 } from "@/lib/nora-cognitive-runtime";
 import {
-  acquireNoraCampaignBudget,
-  campaignBudgetSnapshot,
-} from "@/lib/nora-cognitive-runtime/campaignBudget";
-import { CONTINUATION_SEGMENT_MAX_TURNS } from "@/lib/nora-cognitive-runtime/controlledContinuation";
+  decideCognitiveStrategy,
+  normalizeCognitiveWorkloadSignals,
+} from "@/lib/nora-cognitive-runtime/cognitiveWorkloadPolicy";
 
 const DOC_PATH = "projects/sfia-studio/app/package.json";
 const COMPLETE_MARKER = "COMPLETE_DOC_ANALYSIS_SYNTHESIS";
-
 const dirs: string[] = [];
 
-function tmpSession(projectId: string): ProductSqliteSession {
-  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-p6-p1p2-"));
+function tmpDb(): string {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-tv01-"));
   dirs.push(dir);
-  return new ProductSqliteSession({
-    projectId,
-    dbPath: path.join(dir, "session.sqlite"),
-  });
+  return path.join(dir, "session.sqlite");
 }
 
 afterEach(() => {
@@ -649,989 +623,340 @@ afterEach(() => {
   }
 });
 
-/** Six sequential document reads then a final synthesis — needs 7 model turns. */
 function documentaryScriptNeedingSevenModelTurns() {
   return [
-    [
-      functionCall(
-        "git_local_read_file",
-        { path: DOC_PATH, maxBytes: 2048 },
-        { callId: "doc_r1" },
-      ),
-    ],
-    [
-      functionCall(
-        "git_local_read_file",
-        { path: DOC_PATH, maxBytes: 2048 },
-        { callId: "doc_r2" },
-      ),
-    ],
-    [
-      functionCall(
-        "git_local_read_file",
-        { path: DOC_PATH, maxBytes: 2048 },
-        { callId: "doc_r3" },
-      ),
-    ],
-    [
-      functionCall(
-        "git_local_read_file",
-        { path: DOC_PATH, maxBytes: 2048 },
-        { callId: "doc_r4" },
-      ),
-    ],
-    [
-      functionCall(
-        "git_local_read_file",
-        { path: DOC_PATH, maxBytes: 2048 },
-        { callId: "doc_r5" },
-      ),
-    ],
-    [
-      functionCall(
-        "git_local_read_file",
-        { path: DOC_PATH, maxBytes: 2048 },
-        { callId: "doc_r6" },
-      ),
-    ],
+    [functionCall("git_local_read_file", { path: DOC_PATH, maxBytes: 2048 }, { callId: "tv_r1" })],
+    [functionCall("git_local_read_file", { path: DOC_PATH, maxBytes: 2048 }, { callId: "tv_r2" })],
+    [functionCall("git_local_read_file", { path: DOC_PATH, maxBytes: 2048 }, { callId: "tv_r3" })],
+    [functionCall("git_local_read_file", { path: DOC_PATH, maxBytes: 2048 }, { callId: "tv_r4" })],
+    [functionCall("git_local_read_file", { path: DOC_PATH, maxBytes: 2048 }, { callId: "tv_r5" })],
+    [functionCall("git_local_read_file", { path: DOC_PATH, maxBytes: 2048 }, { callId: "tv_r6" })],
     [assistantMessage(COMPLETE_MARKER)],
   ];
 }
 
-async function runDocumentary(opts: {
-  projectId: string;
-  maxTurns?: number;
-  enableControlledContinuation?: boolean;
-  cognitiveStrategyClass?: "Routine" | "Focused" | "Deep" | "High-Assurance";
-  campaign?: ReturnType<typeof acquireNoraCampaignBudget>;
-}) {
-  const session = tmpSession(opts.projectId);
-  const model = new ScriptedModel(documentaryScriptNeedingSevenModelTurns());
-  return runNoraAgentsTurn({
-    correlationId: `cor:${opts.projectId}`,
-    projectId: opts.projectId,
-    systemInstructions: sfiaBoundaryInstructions(),
-    userContent:
-      "Analyse plusieurs documents du projet et produis une synthèse argumentée.",
-    session,
-    model,
-    enableTools: true,
-    workspaceRoot: resolveWorkspaceRootFromAppCwd(),
-    maxTurns: opts.maxTurns,
-    enableControlledContinuation: opts.enableControlledContinuation,
-    cognitiveStrategyClass: opts.cognitiveStrategyClass ?? "Deep",
-    campaignBudget: opts.campaign,
-  });
-}
+describe("TARGETED VERIFICATION 01 — P1 Product adaptive wiring", () => {
+  it("V01 — Product-like wiring: content→strategy→adaptive (no maxTurns) completes mission", async () => {
+    // Mirrors runNoraCognitiveTurn: hints → decideCognitiveStrategy → resolveAdaptiveMaxTurns
+    // → runNoraAgentsTurn WITHOUT explicit maxTurns (explicitOverride=false).
+    const content =
+      "Analyse plusieurs documents du projet, compare les sources et produis une synthèse argumentée.";
+    const hints = inferWorkloadHintsFromUserContent(content);
+    const strategy = decideCognitiveStrategy({
+      signals: normalizeCognitiveWorkloadSignals({
+        ...hints,
+        rigorCriticality: "medium",
+        contextSize: "medium",
+      }),
+    });
+    const adaptive = resolveAdaptiveMaxTurns({
+      strategyClass: strategy.strategyClass,
+      signals: strategy.normalizedSignals,
+    });
+    expect(adaptive.explicitOverride).toBe(false);
+    expect(adaptive.requestedMaxTurns).toBeGreaterThanOrEqual(8);
+    expect(adaptive.requestedMaxTurns).toBeLessThanOrEqual(10);
 
-describe("P6 Nora P1+P2 — documentary mission consolidated", () => {
-  it("T-legacy — maxTurns=5 + continuation off → incomplete (P0 non-regression)", async () => {
-    const result = await runDocumentary({
-      projectId: "prj:p1p2-legacy",
-      maxTurns: 5,
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-tv01-"));
+    dirs.push(dir);
+    const session = new ProductSqliteSession({
+      projectId: "prj:tv01-p1",
+      dbPath: path.join(dir, "session.sqlite"),
+    });
+    const result = await runNoraAgentsTurn({
+      correlationId: "tv01-p1-wiring",
+      projectId: "prj:tv01-p1",
+      systemInstructions: sfiaBoundaryInstructions(),
+      userContent: content,
+      session,
+      model: new ScriptedModel(documentaryScriptNeedingSevenModelTurns()),
+      workspaceRoot: resolveWorkspaceRootFromAppCwd(),
+      enableTools: true,
+      // Product path: no maxTurns — adaptive decision only
+      cognitiveStrategyClass: strategy.strategyClass,
+      adaptiveMaxTurnsDecision: adaptive,
+      enableControlledContinuation: true,
+    });
+
+    expect(result.adaptiveObserve?.explicitOverride).toBe(false);
+    expect(result.adaptiveObserve?.effectiveMaxTurns).toBe(
+      adaptive.requestedMaxTurns,
+    );
+    expect(result.limitReached).toBe(false);
+    expect(result.text).toContain(COMPLETE_MARKER);
+    session.close();
+  });
+
+  it("V01b — bare word 'document' must NOT alone force Deep/high budget", () => {
+    const hints = inferWorkloadHintsFromUserContent(
+      "Please check this document briefly.",
+    );
+    expect(hints.sourceBreadth).not.toBe("high");
+    expect(hints.toolDependency).not.toBe("high");
+    const strategy = decideCognitiveStrategy({
+      signals: {
+        ambiguity: "unknown",
+        reasoningDepth: "unknown",
+        sourceBreadth: hints.sourceBreadth ?? "unknown",
+        toolDependency: hints.toolDependency ?? "unknown",
+        contradictionRisk: "unknown",
+        contextSize: "low",
+        verificationNeed: "unknown",
+        multimodality: "unknown",
+        latencySensitivity: "unknown",
+        costBudget: "unknown",
+        rigorCriticality: "medium",
+      },
+    });
+    // Bootstrap Focused is OK; Deep from bare "document" is not.
+    expect(strategy.strategyClass).not.toBe("Deep");
+    const budget = resolveAdaptiveMaxTurns({
+      strategyClass: strategy.strategyClass,
+      signals: strategy.normalizedSignals,
+    });
+    expect(budget.requestedMaxTurns).toBeLessThanOrEqual(8);
+  });
+
+  it("V01c — multi-document analysis wording still elevates", () => {
+    const hints = inferWorkloadHintsFromUserContent(
+      "Analyse plusieurs documents et croise les sources.",
+    );
+    expect(hints.sourceBreadth).toBe("high");
+  });
+});
+
+describe("TARGETED VERIFICATION 02 — override / FinOps boundary", () => {
+  it("V02 — explicit maxTurns remains test/eval only; Product DTO has no maxTurns field", async () => {
+    // Static Product boundary: send/orchestrate types do not expose maxTurns.
+    const typesSrc = fs.readFileSync(
+      path.join(
+        process.cwd(),
+        "features/project-assistant/types.ts",
+      ),
+      "utf8",
+    );
+    expect(typesSrc).not.toMatch(/maxTurns\s*[?:]/);
+    const orchSrc = fs.readFileSync(
+      path.join(
+        process.cwd(),
+        "features/project-assistant/orchestrateTurn.ts",
+      ),
+      "utf8",
+    );
+    expect(orchSrc).not.toMatch(/maxTurns\s*:/);
+    // Explicit override still works for internal harness and is marked.
+    const d = resolveAdaptiveMaxTurns({
+      strategyClass: "Routine",
+      explicitMaxTurns: 12,
+    });
+    expect(d.explicitOverride).toBe(true);
+    expect(d.requestedMaxTurns).toBe(12);
+    // Not claimed as Product absolute hard ceiling for internal eval paths.
+  });
+});
+
+describe("TARGETED VERIFICATION 03 — P2 Session after RunState", () => {
+  it("V03 — multi-segment mission persists history; reopen Session retains context for next turn", async () => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-tv03-"));
+    dirs.push(dir);
+    const dbPath = path.join(dir, "session.sqlite");
+    const projectId = "prj:tv03-session";
+
+    const session1 = new ProductSqliteSession({
+      projectId,
+      dbPath,
+    });
+    const model = new ScriptedModel(documentaryScriptNeedingSevenModelTurns());
+    const first = await runNoraAgentsTurn({
+      correlationId: "tv03-seg",
+      projectId,
+      systemInstructions: sfiaBoundaryInstructions(),
+      userContent:
+        "Analyse plusieurs documents du projet et produis une synthèse.",
+      session: session1,
+      model,
+      workspaceRoot: resolveWorkspaceRootFromAppCwd(),
+      enableTools: true,
+      maxTurns: 10,
+      enableControlledContinuation: true,
+      cognitiveStrategyClass: "Deep",
+    });
+
+    expect(first.continuationObserve?.continued).toBe(true);
+    expect(first.continuationObserve?.segmentsExecuted).toBeGreaterThanOrEqual(
+      2,
+    );
+    expect(first.limitReached).toBe(false);
+    expect(first.text).toContain(COMPLETE_MARKER);
+
+    const itemsAfterMission = await session1.getItems();
+    expect(itemsAfterMission.length).toBeGreaterThan(0);
+    const serialized = JSON.stringify(itemsAfterMission);
+    // User intent and completion marker should be represented in persisted history.
+    expect(serialized).toMatch(/plusieurs documents|synthèse|COMPLETE_DOC/i);
+    // No runaway duplication of the same user content string (>2 identical dumps).
+    const userHits = (serialized.match(/Analyse plusieurs documents/g) ?? [])
+      .length;
+    expect(userHits).toBeLessThanOrEqual(2);
+
+    const sessionId = await session1.getSessionId();
+    session1.close();
+
+    // Reopen same SQLite session — conversational history SoT (not RunState).
+    const session2 = new ProductSqliteSession({
+      projectId,
+      dbPath,
+    });
+    expect(await session2.getSessionId()).toBe(sessionId);
+    const reopened = await session2.getItems();
+    expect(reopened.length).toBe(itemsAfterMission.length);
+    expect(JSON.stringify(reopened)).toBe(serialized);
+
+    const followUp = await runNoraAgentsTurn({
+      correlationId: "tv03-next",
+      projectId,
+      systemInstructions: sfiaBoundaryInstructions(),
+      userContent: "Confirme que tu te souviens de la synthèse documentaire.",
+      session: session2,
+      model: new ScriptedModel([
+        [assistantMessage("RECALL_OK — prior documentary synthesis retained.")],
+      ]),
+      workspaceRoot: resolveWorkspaceRootFromAppCwd(),
+      enableTools: false,
+      maxTurns: 3,
       enableControlledContinuation: false,
       cognitiveStrategyClass: "Routine",
     });
-    expect(result.limitReached).toBe(true);
-    expect(result.text).not.toContain(COMPLETE_MARKER);
-    expect(result.continuationObserve?.continued).toBe(false);
-    expect(result.adaptiveObserve?.explicitOverride).toBe(true);
+    expect(followUp.limitReached).toBe(false);
+    expect(followUp.text).toMatch(/RECALL_OK/);
+    const afterFollowUp = await session2.getItems();
+    expect(afterFollowUp.length).toBeGreaterThan(reopened.length);
+    session2.close();
   });
 
-  it("T-P1 — adaptive Deep mission (≥7) completes without Pilote relaunch", async () => {
-    // Explicit 10 — within ceiling; proves adapted budget (not legacy 5).
-    const result = await runDocumentary({
-      projectId: "prj:p1p2-adaptive",
-      maxTurns: 10,
-      // Single segment with full mission budget — P1 alone can complete.
-      enableControlledContinuation: false,
-      cognitiveStrategyClass: "Deep",
+  it("V03b — allottedTurns is last absolute maxTurns ceiling applied (not sum)", async () => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-tv03b-"));
+    dirs.push(dir);
+    const session = new ProductSqliteSession({
+      projectId: "prj:tv03b",
+      dbPath: path.join(dir, "session.sqlite"),
     });
-    expect(result.limitReached).toBe(false);
-    expect(result.text).toContain(COMPLETE_MARKER);
-    expect(result.adaptiveObserve?.requestedMaxTurns).toBe(10);
-    expect(result.adaptiveObserve?.effectiveMaxTurns).toBe(10);
-  });
-
-  it("T-P2 — mission 10 with segment 5 continues via RunState and completes", async () => {
-    expect(CONTINUATION_SEGMENT_MAX_TURNS).toBe(5);
-    const result = await runDocumentary({
-      projectId: "prj:p1p2-continue",
+    const result = await runNoraAgentsTurn({
+      correlationId: "tv03b",
+      projectId: "prj:tv03b",
+      systemInstructions: sfiaBoundaryInstructions(),
+      userContent: "Analyse plusieurs documents.",
+      session,
+      model: new ScriptedModel(documentaryScriptNeedingSevenModelTurns()),
+      workspaceRoot: resolveWorkspaceRootFromAppCwd(),
+      enableTools: true,
       maxTurns: 10,
       enableControlledContinuation: true,
       cognitiveStrategyClass: "Deep",
     });
     expect(result.continuationObserve?.continued).toBe(true);
-    expect(result.continuationObserve?.segmentsExecuted).toBeGreaterThanOrEqual(
-      2,
-    );
-    expect(result.limitReached).toBe(false);
-    expect(result.text).toContain(COMPLETE_MARKER);
-    expect(result.continuationObserve?.stopReason).toBe("complete");
-  });
-
-  it("T-campaign — remaining model invocations clamp mission (no bypass)", async () => {
-    const campaign = acquireNoraCampaignBudget({
-      campaignId: "camp:p1p2-clamp",
-      maxModelInvocations: 4,
-      maxHostedWebOperations: 0,
-      maxAggregateRealCalls: 4,
-    });
-    const result = await runDocumentary({
-      projectId: "prj:p1p2-clamp",
-      maxTurns: 10,
-      enableControlledContinuation: true,
-      cognitiveStrategyClass: "Deep",
-      campaign,
-    });
-    expect(result.adaptiveObserve?.effectiveMaxTurns).toBeLessThanOrEqual(4);
-    expect(result.limitReached).toBe(true);
-    expect(result.text).not.toContain(COMPLETE_MARKER);
-    const snap = campaignBudgetSnapshot(campaign);
-    expect(snap.consumedModelInvocations).toBeLessThanOrEqual(4);
-  });
-
-  it("T-exhaust — mission budget too small remains incomplete (honest)", async () => {
-    const result = await runDocumentary({
-      projectId: "prj:p1p2-exhaust",
-      maxTurns: 3,
-      enableControlledContinuation: true,
-      cognitiveStrategyClass: "Routine",
-    });
-    expect(result.limitReached).toBe(true);
-    expect(result.text).not.toContain(COMPLETE_MARKER);
-    expect(result.continuationObserve?.stopReason).not.toBe("complete");
+    // Absolute ceiling raised 5 → 10; allottedTurns tracks that absolute cap.
+    expect(result.continuationObserve?.allottedTurns).toBe(10);
+    expect(result.continuationObserve?.allottedTurns).not.toBe(15); // not 5+10
+    session.close();
   });
 });
 
-```
+\`\`\`
 
 ---
 
-## 10. Diffs — fichiers modifiés runtime
+## 18. Fichiers modifiés — sections critiques TV01
 
-### runNoraAgentsTurn.ts
+### 18.1 runNoraAgentsTurn.ts — Session on every segment (CRITICAL FIX)
 
-```diff
-diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
-index 179a92cb..eaef2136 100644
---- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
-+++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
-@@ -13,13 +13,24 @@ import {
-   MaxTurnsExceededError,
-   Runner,
-   type Model,
-+  type RunState,
-   type Session,
-   type AgentOutputType,
- } from "@openai/agents";
- import type { ConversationProvider } from "@/lib/platform/ai";
- import type { EventSink } from "@/lib/platform/observability/eventSink";
--import { CT_MAX_TOOL_ROUNDS } from "@/lib/platform/tools";
- import { requireLiveConversationSecrets } from "@/lib/platform/ai/config";
-+import {
-+  resolveAdaptiveMaxTurns,
-+  type AdaptiveMaxTurnsDecision,
-+} from "./adaptiveTurnBudget";
-+import type { CognitiveStrategyClass } from "./cognitiveWorkloadPolicy";
-+import {
-+  CONTINUATION_MAX_SEGMENTS,
-+  emptyContinuationObserve,
-+  planContinuationSegments,
-+  type ControlledContinuationObserve,
-+} from "./controlledContinuation";
- import {
-   CampaignModelInvocationDeniedError,
-   CampaignUsdHardCapDeniedError,
-@@ -110,7 +121,20 @@ export type RunNoraAgentsTurnInput = {
-   model?: Model | string;
-   /** Provider used to resolve completeRound→Model adapter when model not injected. */
-   provider?: ConversationProvider;
-+  /**
-+   * Explicit mission maxTurns override (tests/eval). When omitted, P1 adaptive
-+   * policy selects a bounded budget from strategy class + signals.
-+   */
-   maxTurns?: number;
-+  /** P1 — strategy class for adaptive budget (telemetry / policy). */
-+  cognitiveStrategyClass?: CognitiveStrategyClass | null;
-+  /** P1 — precomputed adaptive decision (cognitive turn). */
-+  adaptiveMaxTurnsDecision?: AdaptiveMaxTurnsDecision | null;
-+  /**
-+   * P2 — when true (default), missions with budget > segment size may resume
-+   * via native RunState within the same Product turn. Never resets campaign counters.
-+   */
-+  enableControlledContinuation?: boolean;
-   /** When false, Agent receives no SFIA function tools. */
-   enableTools?: boolean;
-   /** Optional shared budget (tests). */
-@@ -206,6 +230,29 @@ export type RunNoraAgentsTurnUsdObserve = NoraAgentsUsdSettleResult & {
-   reservedInvocations: number;
- };
- 
-+export type RunNoraAgentsTurnAdaptiveObserve = AdaptiveMaxTurnsDecision & {
-+  /** Mission maxTurns after campaign clamp. */
-+  effectiveMaxTurns: number;
-+};
-+
-+function extractTextFromRunItems(items: unknown[]): string {
-+  return (
-+    [...items]
-+      .reverse()
-+      .map((item) => {
-+        const anyItem = item as {
-+          type?: string;
-+          content?: string;
-+        };
-+        if (anyItem.type === "message_output_item") {
-+          return String(anyItem.content ?? "");
-+        }
-+        return "";
-+      })
-+      .find((t) => t.trim().length > 0) ?? ""
-+  );
-+}
-+
- export function createNoraAgentsRunner(
-   systemInstructions: string,
-   budget?: NoraTurnBudget,
-@@ -401,7 +448,13 @@ export async function runNoraAgentsTurn(
-     }
-   }
- 
--  const requestedMaxTurns = input.maxTurns ?? CT_MAX_TOOL_ROUNDS + 1;
-+  const adaptiveDecision =
-+    input.adaptiveMaxTurnsDecision ??
-+    resolveAdaptiveMaxTurns({
-+      strategyClass: input.cognitiveStrategyClass ?? null,
-+      explicitMaxTurns: input.maxTurns ?? null,
-+    });
-+  const requestedMaxTurns = adaptiveDecision.requestedMaxTurns;
-   let clamp: {
-     maxTurns: number;
-     maxToolCalls: number | null;
-@@ -570,6 +623,22 @@ export async function runNoraAgentsTurn(
-     input.memoryBAvailability ??
-     (session ? "available_with_history" : "unavailable");
- 
-+  const continuationPlan = planContinuationSegments({
-+    missionMaxTurns: maxTurns,
-+    enableControlledContinuation: input.enableControlledContinuation,
-+  });
-+  let continuationObserve: ControlledContinuationObserve =
-+    emptyContinuationObserve(
-+      maxTurns,
-+      continuationPlan.segmentMaxTurns,
-+      maxTurns <= 0 ? "mission_budget_exhausted" : "disabled",
-+      [
-+        ...adaptiveDecision.reasonCodes,
-+        ...clamp.reasonCodes,
-+        ...continuationPlan.reasonCodes,
-+      ],
-+    );
-+
-   let text = "";
-   let structuredOutput: unknown = undefined;
-   let lastResponseId: string | null = null;
-@@ -581,10 +650,106 @@ export async function runNoraAgentsTurn(
-   let runNewItems: unknown[] = [];
-   let budgetStop = false;
- 
-+  const softMaxTurnsHandler = ({
-+    runData,
-+  }: {
-+    runData: { newItems: unknown[] };
-+  }) => {
-+    budget.limitReached = true;
-+    const lastText = extractTextFromRunItems(runData.newItems);
-+    return {
-+      finalOutput: lastText.trim() || "Model-turn budget reached (maxTurns).",
-+      includeInHistory: false,
-+    };
-+  };
-+
-+  const applyStructuredFinalOutput = (finalOutput: unknown) => {
-+    text =
-+      typeof finalOutput === "string"
-+        ? finalOutput
-+        : finalOutput == null
-+          ? ""
-+          : typeof finalOutput === "object"
-+            ? JSON.stringify(finalOutput)
-+            : String(finalOutput);
-+    if (input.outputType && finalOutput != null) {
-+      structuredOutput =
-+        typeof finalOutput === "string"
-+          ? (() => {
-+              try {
-+                return JSON.parse(finalOutput) as unknown;
-+              } catch {
-+                return finalOutput;
-+              }
-+            })()
-+          : finalOutput;
-+      const isProductTurnOutput =
-+        input.outputType &&
-+        typeof input.outputType === "object" &&
-+        "name" in input.outputType &&
-+        (input.outputType as { name?: string }).name ===
-+          "nora_product_turn_with_optional_lr";
-+      if (isProductTurnOutput && typeof structuredOutput === "string") {
-+        structuredOutput = JSON.parse(
-+          buildFailClosedProductTurnJson(structuredOutput),
-+        ) as unknown;
-+      } else if (isProductTurnOutput && structuredOutput) {
-+        if (!isNoraProductTurnWithOptionalLr(structuredOutput)) {
-+          const coherent =
-+            normalizeNoraProductTurnStructuredOutput(structuredOutput);
-+          if (coherent) {
-+            structuredOutput = {
-+              narrative: coherent.narrative,
-+              preCycleRoutingAssessment: coherent.preCycleRoutingAssessment,
-+              lifecycleRecommendation: coherent.lifecycleRecommendation,
-+              activeCycleWork: coherent.activeCycleWork ?? null,
-+              conversationGuidance: coherent.conversationGuidance,
-+              journalDelta: coherent.journalDelta ?? null,
-+            };
-+          }
-+        }
-+      }
-+      if (
-+        isProductTurnOutput &&
-+        structuredOutput &&
-+        typeof structuredOutput === "object"
-+      ) {
-+        const so = structuredOutput as {
-+          narrative?: unknown;
-+          conversationGuidance?: unknown;
-+        };
-+        if (typeof so.narrative === "string") {
-+          text = isConversationGuidance(so.conversationGuidance)
-+            ? composePilotFacingAssistantText(
-+                so.narrative,
-+                so.conversationGuidance,
-+              )
-+            : so.narrative;
-+        }
-+      } else if (
-+        structuredOutput &&
-+        typeof structuredOutput === "object" &&
-+        "narrative" in structuredOutput &&
-+        typeof (structuredOutput as { narrative?: unknown }).narrative ===
-+          "string"
-+      ) {
-+        text = (structuredOutput as { narrative: string }).narrative;
-+      }
-+    }
-+  };
-+
-   if (maxTurns <= 0) {
-     budget.limitReached = true;
-     budgetStop = true;
-     text = "Campaign/model-turn budget reached before dispatch.";
-+    continuationObserve = {
-+      ...continuationObserve,
-+      stopReason: "mission_budget_exhausted",
-+      reasonCodes: [
-+        ...continuationObserve.reasonCodes,
-+        "mission_maxTurns_zero",
-+      ],
-+    };
-     if (campaign && !campaign.limitReached) {
-       if (remainingAggregateRealCalls(campaign) <= 0) {
-         markCampaignBudgetBlocked(
-@@ -601,143 +766,144 @@ export async function runNoraAgentsTurn(
-       }
-     }
-   } else {
-+    // SDK maxTurns is ABSOLUTE against state._currentTurn (not remaining).
-+    // Segment 1 may stop early; resume raises absolute cap toward missionMaxTurns.
-+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-+    let runInput: string | RunState<any, Agent<any, any>> = input.userContent;
-+    let absoluteCap = continuationPlan.enable
-+      ? Math.min(maxTurns, continuationPlan.segmentMaxTurns)
-+      : maxTurns;
-+    let allottedTurns = 0;
-+    let segmentsExecuted = 0;
-+    let continued = false;
-+    let stopReason: ControlledContinuationObserve["stopReason"] = "complete";
-+
-     try {
--      throwIfAborted(input.signal);
--      const result = await runner.run(agent, input.userContent, {
--        ...(session ? { session } : {}),
--        ...(input.signal ? { signal: input.signal } : {}),
--        maxTurns,
--        errorHandlers: {
--          maxTurns: ({ runData }) => {
--            budget.limitReached = true;
--            const lastText = [...runData.newItems]
--              .reverse()
--              .map((item) => {
--                const anyItem = item as {
--                  type?: string;
--                  rawItem?: { content?: unknown };
--                };
--                if (anyItem.type === "message_output_item") {
--                  return String(
--                    (item as { content?: string }).content ?? "",
--                  );
--                }
--                return "";
--              })
--              .find((t) => t.trim().length > 0);
--            return {
--              finalOutput:
--                lastText?.trim() ||
--                "Model-turn budget reached (maxTurns).",
--              includeInHistory: false,
--            };
--          },
--        },
--      });
--      throwIfAborted(input.signal);
--
--      text =
--        typeof result.finalOutput === "string"
--          ? result.finalOutput
--          : result.finalOutput == null
--            ? ""
--            : typeof result.finalOutput === "object"
--              ? JSON.stringify(result.finalOutput)
--              : String(result.finalOutput);
--      if (input.outputType && result.finalOutput != null) {
--        structuredOutput =
--          typeof result.finalOutput === "string"
--            ? (() => {
--                try {
--                  return JSON.parse(result.finalOutput) as unknown;
--                } catch {
--                  return result.finalOutput;
-+      while (segmentsExecuted < CONTINUATION_MAX_SEGMENTS) {
-+        throwIfAborted(input.signal);
-+        const atMissionCeiling = absoluteCap >= maxTurns;
-+
-+        try {
-+          const result = await runner.run(agent, runInput as never, {
-+            // Session only on first string input — RunState resume owns history.
-+            ...(typeof runInput === "string" && session ? { session } : {}),
-+            ...(input.signal ? { signal: input.signal } : {}),
-+            maxTurns: absoluteCap,
-+            // Soft handler only at mission ceiling — earlier segments throw for RunState.
-+            ...(atMissionCeiling
-+              ? {
-+                  errorHandlers: {
-+                    maxTurns: softMaxTurnsHandler,
-+                  },
-                 }
--              })()
--            : result.finalOutput;
--        // Plain-string / partial Fake responses under product-turn outputType →
--        // coerce to fail-closed assessment + null Recommendation (same turn).
--        const isProductTurnOutput =
--          input.outputType &&
--          typeof input.outputType === "object" &&
--          "name" in input.outputType &&
--          (input.outputType as { name?: string }).name ===
--            "nora_product_turn_with_optional_lr";
--        if (isProductTurnOutput && typeof structuredOutput === "string") {
--          structuredOutput = JSON.parse(
--            buildFailClosedProductTurnJson(structuredOutput),
--          ) as unknown;
--        } else if (isProductTurnOutput && structuredOutput) {
--          // NORA-LIFECYCLE-RECOMMENDATION-CONTINUITY-01 — do NOT rewrite a valid
--          // Product turn via normalize here: that path lacks server-derived
--          // CURRENT LR continuity and would coerce EMIT+null → HOLD guidance,
--          // then orchestrateTurn+continuity would fail as LIFECYCLE_MISMATCH.
--          // Preserve raw model output; orchestrateTurn owns boundary coherence.
--          if (!isNoraProductTurnWithOptionalLr(structuredOutput)) {
--            const coherent =
--              normalizeNoraProductTurnStructuredOutput(structuredOutput);
--            if (coherent) {
--              structuredOutput = {
--                narrative: coherent.narrative,
--                preCycleRoutingAssessment: coherent.preCycleRoutingAssessment,
--                lifecycleRecommendation: coherent.lifecycleRecommendation,
--                activeCycleWork: coherent.activeCycleWork ?? null,
--                conversationGuidance: coherent.conversationGuidance,
--                journalDelta: coherent.journalDelta ?? null,
--              };
--            }
-+              : {}),
-+          });
-+          throwIfAborted(input.signal);
-+
-+          allottedTurns = absoluteCap;
-+          segmentsExecuted += 1;
-+          applyStructuredFinalOutput(result.finalOutput);
-+          lastResponseId = result.lastResponseId ?? null;
-+          usageAgg = result.state?.usage ?? null;
-+          runNewItems = Array.isArray(result.newItems)
-+            ? [...result.newItems]
-+            : [];
-+          stopReason = budget.limitReached
-+            ? "mission_budget_exhausted"
-+            : "complete";
-+          break;
-+        } catch (segmentError) {
-+          if (isAbortLike(segmentError, input.signal)) {
-+            stopReason = "abort";
-+            throw new NoraTurnAbortedError();
-           }
--        }
--        if (
--          isProductTurnOutput &&
--          structuredOutput &&
--          typeof structuredOutput === "object"
--        ) {
--          const so = structuredOutput as {
--            narrative?: unknown;
--            conversationGuidance?: unknown;
--          };
--          if (typeof so.narrative === "string") {
--            // Preview only — orchestrateTurn re-composes with full Product context.
--            text = isConversationGuidance(so.conversationGuidance)
--              ? composePilotFacingAssistantText(
--                  so.narrative,
--                  so.conversationGuidance,
-+          if (
-+            segmentError instanceof CampaignModelInvocationDeniedError ||
-+            segmentError instanceof CampaignUsdHardCapDeniedError
-+          ) {
-+            budget.limitReached = true;
-+            budgetStop = true;
-+            text = segmentError.message;
-+            stopReason = "campaign_or_provider_stop";
-+            segmentsExecuted += 1;
-+            allottedTurns = absoluteCap;
-+            break;
-+          }
-+          if (segmentError instanceof MaxTurnsExceededError) {
-+            segmentsExecuted += 1;
-+            allottedTurns = absoluteCap;
-+            const state = segmentError.state;
-+            const partial =
-+              extractTextFromRunItems(
-+                Array.isArray(
-+                  (segmentError as { newItems?: unknown[] }).newItems,
-                 )
--              : so.narrative;
-+                  ? ((segmentError as { newItems?: unknown[] })
-+                      .newItems as unknown[])
-+                  : [],
-+              ) || "Model-turn budget reached (maxTurns).";
-+
-+            if (
-+              continuationPlan.enable &&
-+              !atMissionCeiling &&
-+              state &&
-+              segmentsExecuted < CONTINUATION_MAX_SEGMENTS
-+            ) {
-+              // Raise absolute cap toward mission budget — native RunState resume.
-+              absoluteCap = Math.min(
-+                maxTurns,
-+                absoluteCap + continuationPlan.segmentMaxTurns,
-+              );
-+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-+              runInput = state as RunState<any, Agent<any, any>>;
-+              continued = true;
-+              budget.limitReached = false;
-+              continuationObserve.reasonCodes = [
-+                ...continuationObserve.reasonCodes,
-+                `resumed_absolute_cap_${absoluteCap}`,
-+              ];
-+              continue;
-+            }
-+
-+            budget.limitReached = true;
-+            text = partial;
-+            stopReason = state
-+              ? "mission_budget_exhausted"
-+              : "segment_limit_no_state";
-+            break;
-           }
--        } else if (
--          structuredOutput &&
--          typeof structuredOutput === "object" &&
--          "narrative" in structuredOutput &&
--          typeof (structuredOutput as { narrative?: unknown }).narrative ===
--            "string"
--        ) {
--          text = (structuredOutput as { narrative: string }).narrative;
-+          throw segmentError;
-         }
-       }
--      lastResponseId = result.lastResponseId ?? null;
--      usageAgg = result.state?.usage ?? null;
--      runNewItems = Array.isArray(result.newItems) ? [...result.newItems] : [];
--    } catch (error) {
--      if (isAbortLike(error, input.signal)) {
--        throw new NoraTurnAbortedError();
-+
-+      if (
-+        segmentsExecuted >= CONTINUATION_MAX_SEGMENTS &&
-+        budget.limitReached &&
-+        stopReason === "complete"
-+      ) {
-+        stopReason = "max_segments";
-       }
-+    } catch (error) {
-       if (
--        error instanceof CampaignModelInvocationDeniedError ||
--        error instanceof CampaignUsdHardCapDeniedError
-+        isAbortLike(error, input.signal) ||
-+        error instanceof NoraTurnAbortedError
-       ) {
--        budget.limitReached = true;
--        budgetStop = true;
--        text = error.message;
--        // BYPASS-07: do not retry / re-dispatch.
--      } else if (error instanceof MaxTurnsExceededError) {
--        budget.limitReached = true;
--        text = "Model-turn budget reached (maxTurns).";
--      } else {
--        throw error;
-+        throw error instanceof NoraTurnAbortedError
-+          ? error
-+          : new NoraTurnAbortedError();
-       }
-+      throw error;
-     }
-+
-+    continuationObserve = {
-+      continued,
-+      segmentsExecuted,
-+      missionMaxTurns: maxTurns,
-+      segmentMaxTurns: continuationPlan.segmentMaxTurns,
-+      allottedTurns,
-+      stopReason,
-+      reasonCodes: continuationObserve.reasonCodes,
-+    };
-   }
- 
-   const usage = {
-@@ -833,6 +999,11 @@ export async function runNoraAgentsTurn(
-       }
-     : undefined;
- 
-+  const adaptiveObserve: RunNoraAgentsTurnAdaptiveObserve = {
-+    ...adaptiveDecision,
-+    effectiveMaxTurns: maxTurns,
-+  };
-+
-   return {
-     text,
-     usage,
-@@ -848,5 +1019,7 @@ export async function runNoraAgentsTurn(
-     ...(hostedSearchObserve ? { hostedSearchObserve } : {}),
-     ...(budgetObserve ? { budgetObserve } : {}),
-     ...(usdObserve ? { usdObserve } : {}),
-+    adaptiveObserve,
-+    continuationObserve,
-   };
- }
-```
+\`\`\`ts
+          const result = await runner.run(agent, runInput as never, {
+            // KEEP Session on every segment — including RunState resume — so
+            // ProductSqliteSession persists history across continuation (SDK
+            // prepareSessionHistoryTransactionsForRun requires options.session).
+            ...(session ? { session } : {}),
+            ...(input.signal ? { signal: input.signal } : {}),
+            maxTurns: absoluteCap,
+            ...(atMissionCeiling
+              ? {
+                  errorHandlers: {
+                    maxTurns: softMaxTurnsHandler,
+                  },
+                }
+              : {}),
+          });
+\`\`\`
 
-### runNoraCognitiveTurn.ts
+Prior defect pattern (removed):
+\`...(typeof runInput === "string" && session ? { session } : {})\`
 
-```diff
-diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts
-index 296b2016..6e2d8633 100644
---- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts
-+++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts
-@@ -34,6 +34,10 @@ import {
-   type SemanticCognitiveWorkloadAssessment,
-   type TurnWorkloadContext,
- } from "./cognitiveWorkloadPolicy";
-+import {
-+  inferWorkloadHintsFromUserContent,
-+  resolveAdaptiveMaxTurns,
-+} from "./adaptiveTurnBudget";
- import { validateRuntimeReasoningCapability } from "./reasoningCapability";
- import { buildRunnerModelSettingsForEffort } from "./reasoningModelSettings";
- import {
-@@ -233,6 +237,14 @@ export type RunNoraCognitiveTurnInput = {
-   productExecutionTools?: import("./productExecutionAgentsTools").ProductExecutionToolContext | null;
-   /** Request-scoped AbortSignal — forwarded to the same Agents Runner. */
-   signal?: AbortSignal;
-+  /**
-+   * Explicit mission maxTurns (tests/eval). When omitted, P1 adaptive policy applies.
-+   */
-+  maxTurns?: number;
-+  /**
-+   * P2 — default true. Set false to force single-segment Runner (qualification tests).
-+   */
-+  enableControlledContinuation?: boolean;
- };
- 
- /**
-@@ -306,10 +318,20 @@ function resolveCognitiveStrategyForTurn(
- ): ReturnType<typeof decideCognitiveStrategy> | null {
-   if (input.skipCognitiveStrategy) return null;
- 
-+  const lastUser = [...input.messages]
-+    .reverse()
-+    .find((m) => m.role === "user");
-+  const contentHints = lastUser?.content
-+    ? inferWorkloadHintsFromUserContent(lastUser.content)
-+    : {};
-+
-   // Test/eval explicit override remains (not product R2 proof).
-   if (input.cognitiveWorkloadSignals) {
-     return decideCognitiveStrategy({
--      signals: normalizeCognitiveWorkloadSignals(input.cognitiveWorkloadSignals),
-+      signals: normalizeCognitiveWorkloadSignals({
-+        ...contentHints,
-+        ...input.cognitiveWorkloadSignals,
-+      }),
-       trustedSfiaProfile: input.trustedSfiaProfile,
-     });
-   }
-@@ -319,14 +341,17 @@ function resolveCognitiveStrategyForTurn(
-     return decideCognitiveStrategy({
-       signals: mergeCognitiveWorkloadSignals({
-         turnContext: input.turnWorkloadContext,
--        semanticAssessment: input.semanticCognitiveWorkload,
-+        semanticAssessment: {
-+          ...contentHints,
-+          ...(input.semanticCognitiveWorkload ?? {}),
-+        },
-       }),
-       trustedSfiaProfile: input.trustedSfiaProfile,
-     });
-   }
- 
-   return decideCognitiveStrategy({
--    signals: normalizeCognitiveWorkloadSignals({}),
-+    signals: normalizeCognitiveWorkloadSignals(contentHints),
-     trustedSfiaProfile: input.trustedSfiaProfile,
-   });
- }
-@@ -784,6 +809,11 @@ export async function runNoraCognitiveTurn(
-       strategyDecision,
-     );
-   }
-+  const adaptiveMaxTurnsDecision = resolveAdaptiveMaxTurns({
-+    strategyClass: strategyDecision?.strategyClass ?? null,
-+    signals: strategyDecision?.normalizedSignals ?? null,
-+    explicitMaxTurns: input.maxTurns ?? null,
-+  });
-   const routingDecision = resolveProductCognitiveRouting(
-     input,
-     strategyDecision,
-@@ -886,6 +916,10 @@ export async function runNoraCognitiveTurn(
-       outputType: input.outputType,
-       cycleJournalTools: null,
-       signal: input.signal,
-+      maxTurns: input.maxTurns,
-+      cognitiveStrategyClass: strategyDecision?.strategyClass ?? null,
-+      adaptiveMaxTurnsDecision,
-+      enableControlledContinuation: input.enableControlledContinuation,
-     });
-     throwIfAborted(input.signal);
-     const observations = [
-@@ -909,7 +943,13 @@ export async function runNoraCognitiveTurn(
-       mw6 = composed.surface;
-       turn.text = composed.governedText;
-     }
--    const { hostedSearchObserve, budgetObserve, ...turnBase } = turn;
-+    const {
-+      hostedSearchObserve,
-+      budgetObserve,
-+      adaptiveObserve,
-+      continuationObserve,
-+      ...turnBase
-+    } = turn;
-     const mw6AuthorityBinding = budgetObserve
-       ? {
-           authorityBound: budgetObserve.authorityBound,
-@@ -941,6 +981,8 @@ export async function runNoraCognitiveTurn(
-           memoryBCompactionState: "none",
-           memoryBCompactionDetails: null,
-           ...(mw6AuthorityBinding ? { mw6AuthorityBinding } : {}),
-+          ...(adaptiveObserve ? { adaptiveObserve } : {}),
-+          ...(continuationObserve ? { continuationObserve } : {}),
-         },
-         input,
-         strategyDecision,
-@@ -1066,6 +1108,10 @@ export async function runNoraCognitiveTurn(
-           : null,
-       productExecutionTools: input.productExecutionTools ?? null,
-       signal: input.signal,
-+      maxTurns: input.maxTurns,
-+      cognitiveStrategyClass: strategyDecision?.strategyClass ?? null,
-+      adaptiveMaxTurnsDecision,
-+      enableControlledContinuation: input.enableControlledContinuation,
-     });
-     throwIfAborted(input.signal);
-     const observations = [
-@@ -1089,7 +1135,13 @@ export async function runNoraCognitiveTurn(
-       mw6 = composed.surface;
-       turn.text = composed.governedText;
-     }
--    const { hostedSearchObserve, budgetObserve, ...turnBase } = turn;
-+    const {
-+      hostedSearchObserve,
-+      budgetObserve,
-+      adaptiveObserve,
-+      continuationObserve,
-+      ...turnBase
-+    } = turn;
-     const mw6AuthorityBinding = budgetObserve
-       ? {
-           authorityBound: budgetObserve.authorityBound,
-@@ -1106,6 +1158,8 @@ export async function runNoraCognitiveTurn(
-         memoryBCompactionState: compactionState,
-         memoryBCompactionDetails: compactionDetails,
-         ...(mw6AuthorityBinding ? { mw6AuthorityBinding } : {}),
-+        ...(adaptiveObserve ? { adaptiveObserve } : {}),
-+        ...(continuationObserve ? { continuationObserve } : {}),
-       },
-       input,
-       strategyDecision,
-```
+### 18.2 types.ts — continuationObserve allottedTurns field retained
 
-### types.ts
+\`\`\`ts
+  continuationObserve?: {
+    continued: boolean;
+    segmentsExecuted: number;
+    missionMaxTurns: number;
+    segmentMaxTurns: number;
+    allottedTurns: number;
+    stopReason: string;
+    reasonCodes: string[];
+  };
+\`\`\`
 
-```diff
-diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/types.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/types.ts
-index 096f8c5f..de836ca6 100644
---- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/types.ts
-+++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/types.ts
-@@ -89,6 +89,26 @@ export type NoraCognitiveTurnResult = {
-     realPreflightReasons: string[];
-     eligible: boolean;
-   };
-+  /** P1 — adaptive mission maxTurns decision + effective clamp. */
-+  adaptiveObserve?: {
-+    requestedMaxTurns: number;
-+    effectiveMaxTurns: number;
-+    strategyClass: CognitiveStrategyClass | null;
-+    reasonCodes: string[];
-+    floor: number;
-+    ceiling: number;
-+    explicitOverride: boolean;
-+  };
-+  /** P2 — controlled continuation observability (same Product turn). */
-+  continuationObserve?: {
-+    continued: boolean;
-+    segmentsExecuted: number;
-+    missionMaxTurns: number;
-+    segmentMaxTurns: number;
-+    allottedTurns: number;
-+    stopReason: string;
-+    reasonCodes: string[];
-+  };
- };
- 
- export type { TruthCRevision, MemoryBCompactionState, MemoryBCompactionDetails };
-```
+### 18.3 Diff stat (workspace dirty incl. P0/P1/P2 combined + TV01)
 
-### index.ts
+\`\`\`
+ .tmp-sfia-review/chatgpt-review.md                 | 1022 +++++++++++++++++---
+ .../hooks/useProductConversation.ts                |   16 +
+ .../surfaces/ConversationSurface.tsx               |   23 +
+ .../project-assistant/ProjectAssistantPanel.tsx    |   29 +-
+ .../features/project-assistant/orchestrateTurn.ts  |   41 +-
+ .../app/features/project-assistant/types.ts        |   14 +-
+ .../app/lib/nora-cognitive-runtime/index.ts        |   19 +
+ .../nora-cognitive-runtime/runNoraAgentsTurn.ts    |  429 +++++---
+ .../nora-cognitive-runtime/runNoraCognitiveTurn.ts |   64 +-
+ .../app/lib/nora-cognitive-runtime/types.ts        |   20 +
+ 10 files changed, 1394 insertions(+), 283 deletions(-)
+---UNTRACKED---
+projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.maxTurns.documentary.d0.test.ts
+projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.p1.adaptiveBudget.d0.test.ts
+projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.p1p2.documentary.mission.d0.test.ts
+projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.p1p2.targetedVerification.d0.test.ts
+projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.nora.p0.incomplete.chatFirst.ui.d0.test.tsx
+projects/sfia-studio/app/__tests__/project-assistant/p6.nora.p0.incomplete.panel.ux.d0.test.tsx
+projects/sfia-studio/app/__tests__/project-assistant/p6.nora.p0.productStatusHonesty.d0.test.ts
+projects/sfia-studio/app/lib/nora-cognitive-runtime/adaptiveTurnBudget.ts
+projects/sfia-studio/app/lib/nora-cognitive-runtime/controlledContinuation.ts
+\`\`\`
 
-```diff
-diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
-index e56f07f0..09f32abd 100644
---- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
-+++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
-@@ -82,6 +82,25 @@ export {
-   TOOL_TURN_BUDGET_EXCEEDED_RESULT,
- } from "./turnBudget";
- export type { NoraTurnBudget } from "./turnBudget";
-+export {
-+  resolveAdaptiveMaxTurns,
-+  inferWorkloadHintsFromUserContent,
-+  LEGACY_DEFAULT_MAX_TURNS,
-+  ADAPTIVE_MAX_TURNS_FLOOR,
-+  ADAPTIVE_MAX_TURNS_CEILING,
-+  STRATEGY_BASE_MAX_TURNS,
-+} from "./adaptiveTurnBudget";
-+export type { AdaptiveMaxTurnsDecision } from "./adaptiveTurnBudget";
-+export {
-+  planContinuationSegments,
-+  emptyContinuationObserve,
-+  CONTINUATION_SEGMENT_MAX_TURNS,
-+  CONTINUATION_MAX_SEGMENTS,
-+} from "./controlledContinuation";
-+export type {
-+  ControlledContinuationObserve,
-+  ContinuationStopReason,
-+} from "./controlledContinuation";
- export {
-   createNoraCampaignBudget,
-   acquireNoraCampaignBudget,
-```
+### 18.4 Diff name-status
+
+\`\`\`
+M	.tmp-sfia-review/chatgpt-review.md
+M	projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
+M	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
+M	projects/sfia-studio/app/features/project-assistant/ProjectAssistantPanel.tsx
+M	projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
+M	projects/sfia-studio/app/features/project-assistant/types.ts
+M	projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
+M	projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
+M	projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts
+M	projects/sfia-studio/app/lib/nora-cognitive-runtime/types.ts
+\`\`\`
 
 ---
 
-## 11. Tests exécutés
+## 19. Handoff publication (this cycle)
 
-```bash
-npx vitest run \
-  __tests__/nora-cognitive-runtime/p6.nora.p1.adaptiveBudget.d0.test.ts \
-  __tests__/nora-cognitive-runtime/p6.nora.p1p2.documentary.mission.d0.test.ts \
-  __tests__/nora-cognitive-runtime/p6.nora.maxTurns.documentary.d0.test.ts \
-  __tests__/nora-cognitive-runtime/runner.d0.test.ts \
-  __tests__/project-assistant/p6.nora.p0.productStatusHonesty.d0.test.ts \
-  __tests__/project-assistant/p6.nora.p0.incomplete.panel.ux.d0.test.tsx \
-  __tests__/pre-m6-product-ui/p6.nora.p0.incomplete.chatFirst.ui.d0.test.tsx \
-  __tests__/project-assistant/mw3.cognitiveStop.surface.d0.test.ts \
-  __tests__/project-assistant/mw3.cognitiveStop.panel.ux.d0.test.tsx \
-  __tests__/project-assistant/orchestrateTurn.test.ts \
-  __tests__/pre-m6-product-ui/p5.s06.cp02.cancellation.hook.test.tsx \
-  --reporter=dot
-```
-
-**11 files / 65 tests PASS**
-
-```bash
-npx tsc -p tsconfig.json --noEmit  # TSC_OK
-```
-
-### Not executed
-- REAL OpenAI — GO REAL NON
-- Process restart RunState persistence — DEFER
-- Full P6 campaign — disproportionate
+Publisher: \`scripts/sfia/publish-review-handoff.sh\`
+Branch: \`sfia/review-handoff\`
+Canonical: \`sfia-review-handoff/latest-chatgpt-review.md\`
+Commit message: \`docs(review-handoff): publish Nora P1 P2 targeted verification 01\`
+Project branch preserved: \`qa/p6-hqa-02-rec01-human-qa\`
+Project changes: preserved (no project commit)
 
 ---
 
-## 12. Fake / Real Qualification
-
-| Item | Value |
-|---|---|
-| Achieved | **DETERMINISTIC PROVEN AT COMBINED P0/P1/P2 SCOPE** |
-| Fake | ScriptedModel + Fake adapters |
-| NOT | REAL BOUNDARY / REAL GDR / P6 GLOBAL PASS / Runtime v3 ADOPTED |
-| GO REAL | NON |
-
----
-
-## 13. Dette / réserves / exit
-
-**P1 EXIT:** met — proportional budget, campaign clamp, ceiling 10, documentary improvement.
-
-**P2 EXIT:** met for same-process multi-segment RunState continuation — NOT for cross-restart.
-
-**P0 EXIT:** preserved.
-
-**Réserves:**
-- P0-EFFECT-02 residual store-level if demanded beyond orch T5
-- Cross-restart RunState persistence DEFER
-- REAL GDR quality NOT proven
-- No Figma redesign
-
-**Décisions Morris:**
-1. ChatGPT consolidated review
-2. Unique Git integration of P0+P1+P2
-3. Optional GO for durable RunState persistence
-4. Separate GO REAL
-
----
-
-## 14. Verdict
-
-**NORA COGNITIVE AUTONOMY — COMBINED LOCAL DELIVERY COMPLETE / READY FOR CHATGPT REVIEW**
-
-Status: READY FOR REVIEW  
-QA: DETERMINISTIC AT COMBINED SCOPE  
-
-Ne pas déclarer: P6 GLOBAL PASS · Product READY · Runtime v3 ADOPTED · REAL VALIDATED · READY FOR PR.
+## 20. END OF REVIEW PACK
