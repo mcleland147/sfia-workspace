@@ -82,6 +82,9 @@ projects/sfia-studio/app/lib/nora-cognitive-runtime/documentaryReadGuidance.ts
 
 ```
 
+
+**Note de reprise Git (même cycle):** un basculement involontaire du worktree vers `qa/p6-hqa-02-rec01-human-qa` @ `b826526c` a été détecté après publication initiale. Les fichiers cibles étaient **identiques** entre `b826526c` et `d8ceb8ad` (diff 0). Les modifications locales ont été rejouées sur `fix/p6-min09-documentary-cognitive-reliability-01` @ `d8ceb8ad` et revalidées (vitest + tsc). Aucun commit projet.
+
 ## E. Sources et convergence
 
 Sources lues: Build Doctrine, Roadmap, Product Completion C1, doctrine v3 30–35/37, Nora trajectory 08, Product Simplification P1§12.6 / P2§17 / P6§Z/AF/AQ/AR, CKC 08/09, processus v2.6, RCD-01 handoff `b1617c03` / blob `16210b07`.
