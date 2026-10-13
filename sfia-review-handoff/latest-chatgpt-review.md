@@ -1,121 +1,78 @@
-# SFIA STUDIO — P6 CONSOLIDATED DOCUMENTARY GIT INTEGRATION
-## Review Pack FULL — PR #577 + PR #578
+# SFIA STUDIO — P6 PR #579 GOVERNED DOCUMENTARY MERGE
+## Review Pack FULL
 
-**Horodatage:** 2026-10-13 11:53:33 CEST
-**Typologie:** DOC — CONSOLIDATED REFERENCE SYNC / Git Integration
-**Cycle projet:** 13 — PR readiness / Git Integration
+**Horodatage:** 2026-10-13 12:32:28 CEST
+**Typologie:** DOC — GOVERNED DOCUMENTARY INTEGRATION
+**Cycle:** 13 — PR readiness / Git Integration — MERGE GATE
 **Profil:** CRITICAL
-**Chantier:** CONSOLIDATED POST-MERGE DOCUMENTARY CLOSURE
-**Dettes:** DOC-PR577-POSTMERGE-SYNC + RCD-01-PRR-SEMANTIC-COHERENCE
-**Statut attendu:** DRAFT PR OPEN — AWAITING MORRIS MERGE GATE
+**PR:** #579
+**Statut:** MERGED ON MAIN / POST-MERGE VERIFIED
 
 ---
 
 ## A. Horodatage Europe/Paris
 
-2026-10-13 11:53:33 CEST
+2026-10-13 12:32:28 CEST
 
-## B. Identification / cycle / profil
+## B. Identification cycle/profil
 
 | Champ | Valeur |
 |------|--------|
 | Projet | SFIA Studio |
 | Macro | STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 |
 | Campagne | P6-GLOBAL-INTEGRATED-PRODUCT-QA-01 |
-| Milestone | P6 — GLOBAL INTEGRATED PRODUCT QA |
+| Milestone | P6 |
 | Chantier | CONSOLIDATED POST-MERGE DOCUMENTARY CLOSURE |
-| Cycle | 13 — PR readiness / Git Integration |
+| PR | #579 |
+| Cycle | 13 — MERGE GATE |
 | Profil | CRITICAL |
 | Runtime v3 | NON ADOPTED |
-| Processus | SFIA v2.6 |
 
 ## C. GO Morris
 
-**2026-10-13 — COMMIT + PUSH + DRAFT PR AUTORISÉS** pour les huit fichiers PRR consolidés uniquement.
+**2026-10-13 — MERGE PR #579 AUTORISÉ** (merge commit).
 
-- MERGE : NON AUTORISÉ
-- REAL : NON AUTORISÉ
-- CLEANUP : NON AUTORISÉ
+NON autorisé: Product edits, new project commit, cleanup, REAL, debt auto-closure, force push, branch delete.
 
-## D. Sources consultées
-
-- Convergence Build Doctrine / Roadmap
-- Product Completion C1
-- Doctrine Studio v3 (30–35, 37)
-- Nora trajectory `08-nora-openai-native-first-cognitive-trajectory.md`
-- Product Simplification 01 §12.6 / 02 §17 / P6 contrat 07
-- CKC `13-pr-readiness.md` / `14-post-merge.md`
-- Living PRR README + volume 04
-- Prior handoff `89bb39830ea47723fd635feec6273e12ad5a7dcc` / blob `d59aca9d3205daa81132e0fc8878abc60c600023`
-- CI workflow `.github/workflows/sfia-studio-ci.yml` + `package.json`
-
-## E. Convergence Pre-check
-
-| Item | État |
-|------|------|
-| PR #577 | MERGED @ `d8ceb8ad` / CI 38251916421 SUCCESS |
-| PR #578 | MERGED @ `44006648` / CI 38361885447 SUCCESS |
-| RCD-01 | INTEGRATED ON MAIN (DETERMINISTIC R1–R7) |
-| Consolidation locale | IMPLEMENTED |
-| Review ChatGPT préalable | PASS — READY FOR GOVERNED GIT INTEGRATION |
-| GDR REAL | NOT PROVEN |
-| P6 GLOBAL | NOT PASSED |
-| Runtime v3 | NON ADOPTED |
-| Architecture parallèle | NONE |
-
-Trajectoire: Draft PR → CI → ChatGPT review → Morris merge GO → post-merge debt closure → REAL T1 sous GO distinct.
-
-## F. Local Git Truth Check
+## D. Local Git Truth Check
 
 | Check | Résultat |
 |-------|----------|
 | Worktree | `/Users/morris/Projects/sfia-workspace-prr-consolidated-pr577-pr578` |
 | Branche | `docs/pr577-pr578-consolidated-prr-closure` |
-| HEAD pré-commit | `440066485eaae458ccca188b2c91f8f47bd4987f` (= origin/main) |
-| Remote | `https://github.com/mcleland147/sfia-workspace.git` |
-| Working tree | 8 PRR dirty + Review Pack temp (attendu) |
-| Staged pré-commit | vide |
+| HEAD | `0bbdee5585560bf335c91746d8f991db7fe37c66` |
+| origin/main pré-merge | `440066485eaae458ccca188b2c91f8f47bd4987f` |
+| Status | seul `.tmp-sfia-review/chatgpt-review.md` dirty |
+| Staged | vide |
 | Untracked | aucun |
-| PR existante même head | aucune |
-| Branche distante conflictuelle | absente (push new branch) |
 
-## G. Baseline
+## E. Sources consultées
 
-Runtime baseline revue / main: `440066485eaae458ccca188b2c91f8f47bd4987f`
+Build Doctrine; Roadmap; C1; doctrine v3 30–35/37; Nora trajectory 08; Product Simplification 01§12.6 / 02§17 / P6-07; CKC 13/14; PRR README+04; handoff `899b7518` / blob `a89aff83`; CI workflow.
 
-`lastReviewedCommit` manifeste **conservé** à cette baseline (scoped Nora #577+#578). **Non** remplacé par le SHA documentaire projet.
+## F. Convergence Pre-check
 
-## H. Préservation historique
+PR #577/#578 MERGED · RCD-01 INTEGRATED · PR #579 documentary sync · ChatGPT MERGE READINESS PASS · GDR REAL NOT PROVEN · P6 GLOBAL NOT PASSED · Runtime v3 NON ADOPTED · architecture parallèle NONE.
 
-| Item | État |
-|------|------|
-| WT historique | `/Users/morris/Projects/sfia-workspace-p6-rec01-human-qa` |
-| HEAD historique | `d8ceb8ad54d2e84aaa95cdbe3bef4e2814806edc` |
-| Index historique | 7 PRR + pack staged — **non modifié** |
-| Copie `/tmp/prr-hist-pr577-preserve/` | PRESERVE_OK |
-| Utilisé pour commit consolidé | NON |
+## G. Final Merge Gate
 
-## I. Revue documentaire (PR Readiness)
+PASS — OPEN · draft entry true · mergeable MERGEABLE · mergeStateStatus CLEAN · 1 commit · 8 files · CI 38378376935 SUCCESS · Required Gate SUCCESS · head/base exacts.
 
-Vérifications PASS:
+## H. État PR avant merge
 
-1. Exactement 8 fichiers PRR
-2. Aucune modification Product
-3. Aucun document parallèle créé
-4. PR #577 = MERGED / INTEGRATED ON MAIN
-5. P0/P1/P2/TV01 au niveau DETERMINISTIC acquis
-6. PR #578 = MERGED / INTEGRATED ON MAIN
-7. RCD-01 décrit sans surestimation cognitive
-8. Impact OBJ-TURN-ORCH / F04 documenté
-9. SEMANTIC IMPACT=YES (historique Product)
-10. NO NEW PRODUCT CODE CHANGE (ce PR)
-11–13. Pas d'autorité Product / HD inventée / runtime v3
-14–15. GDR REAL / P6 GLOBAL NOT PROVEN|PASSED
-16–17. Réserves FPPC-RES-01, P0-EFFECT-02, RunState DEFER, lineExceedsCap
-18. Dettes INTEGRATION PENDING
-19–20. Pas de secret / hors scope
+OPEN / Draft → Ready / head `0bbdee55…` / base `44006648…` / merged=false.
 
-## J. Scope exact
+## I. HEAD/base
+
+Head source: `0bbdee5585560bf335c91746d8f991db7fe37c66`
+Base: `440066485eaae458ccca188b2c91f8f47bd4987f`
+Branch: `docs/pr577-pr578-consolidated-prr-closure` → `main`
+
+## J. Contrôles CI PR
+
+Run [38378376935](https://github.com/mcleland147/sfia-workspace/actions/runs/38378376935) · headSha `0bbdee55…` · completed success · Detect/Build/Required Gate SUCCESS.
+
+## K. Liste exacte des huit fichiers
 
 ```
 projects/sfia-studio/production-runtime-reference/README.md
@@ -128,60 +85,15 @@ projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-cur
 projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
 ```
 
-Volumes 01 / 05 / 07 inchangés. `.tmp-sfia-review/chatgpt-review.md` **non stagé**.
+Volumes 01/05/07 unchanged. Product/app/doctrine/roadmap unchanged.
 
-## K. Git Review Index
+## L. Git Review Index
 
-| Path | Change |
-|------|--------|
-| README.md | M |
-| 02-runtime-object-catalog.md | M |
-| 03-end-to-end-flow-catalog.md | M |
-| 04-dependency-impact-map.md | M |
-| 06-persistence-restart-and-recovery.md | M |
-| 08-test-proof-and-conformance-map.md | M |
-| 09-known-gaps-reserves-and-current-boundaries.md | M |
-| production-runtime-reference.manifest.json | M |
+8 files modified · 88 insertions / 24 deletions · NO PRODUCT PATHS on `44006648..bd3f440c`.
 
-Stat: **8 files changed, 88 insertions(+), 24 deletions(-)**
+## M. Diff documentaire exploitable
 
-## L. Diff utile complet des huit fichiers
-
-### Commit identity
-
-```
-commit 0bbdee5585560bf335c91746d8f991db7fe37c66
-Author:     Morris Cleland <morris@macbook-air.home>
-AuthorDate: Tue Oct 13 11:43:07 2026 +0200
-Commit:     Morris Cleland <morris@macbook-air.home>
-CommitDate: Tue Oct 13 11:43:07 2026 +0200
-
-    docs(studio): consolidate PR577 and PR578 runtime reference
-
-    Consolidate post-merge Nora P0/P1/P2/TV01
-    and RCD-01 documentary reliability reference.
-
-    Document semantic impact for OBJ-TURN-ORCH/F04.
-
-    Preserve deterministic/REAL proof boundaries.
-
-    Debts remain pending integration and Morris closure.
-
-    Co-authored-by: Cursor <cursoragent@cursor.com>
-
- .../02-runtime-object-catalog.md                   | 13 ++++++++---
- .../03-end-to-end-flow-catalog.md                  |  3 ++-
- .../04-dependency-impact-map.md                    | 27 ++++++++++++++++++++--
- .../06-persistence-restart-and-recovery.md         |  4 +++-
- .../08-test-proof-and-conformance-map.md           | 17 ++++++++++++--
- ...9-known-gaps-reserves-and-current-boundaries.md | 22 +++++++++++++++---
- .../production-runtime-reference/README.md         |  8 ++++---
- .../production-runtime-reference.manifest.json     | 18 +++++++--------
- 8 files changed, 88 insertions(+), 24 deletions(-)
-
-```
-
-### Full patch (`git show 0bbdee55 -- production-runtime-reference/`)
+Source commit `0bbdee55` (integrated via merge `bd3f440c`):
 
 ```diff
 commit 0bbdee5585560bf335c91746d8f991db7fe37c66
@@ -484,157 +396,94 @@ index 4dd9057f..dd1d89b0 100644
 
 ```
 
-## M. Sections documentaires modifiées (synthèse exploitable)
+## N. Référence handoff précédent
 
-- **README:** overlays PR #577 / #578 INTEGRATED ON MAIN; scoped consolidated closure baseline `44006648`; debts PENDING.
-- **02:** RCD-01 object behaviours (coverage truth, redaction progression, envelope cap, lineExceedsCap, non-claims).
-- **03:** Flow F04 documentary reliability path (Git read → adapter → ToolRouter → Runner); honest maxTurns restitution.
-- **04:** Sample impact analyses D (PR #577) + E (RCD-01 SEMANTIC IMPACT YES OBJ-TURN-ORCH/F04).
-- **06:** Nora Session vs RunState overlay INTEGRATED; FPPC-RES-01 preserved.
-- **08:** F04 proof rows + RCD-01 R1–R7 oracles; DETERMINISTIC ONLY.
-- **09:** Overlays #577/#578; debts DOC-PR577 + RCD-01-PRR PENDING; reserves preserved.
-- **manifest:** lastReviewedCommit=`44006648`; lastReviewedAt=`2026-10-13T11:17:40+02:00`; volume digests refreshed; runNora digest `f4804915f8906eda` preserved.
+Commit `899b751845b7f544fe3eec3848ba2f6c5ca1560d` · blob `a89aff8320ac6a657e70d2e80590d8d5ea317445`
 
-## N. Manifest / digests
+## O. Draft → Ready
+
+`gh pr ready 579` · draft=false · head/base inchangés · checks SUCCESS · mergeable CLEAN.
+
+## P. Merge SHA
 
 | Champ | Valeur |
 |-------|--------|
-| lastReviewedCommit | `440066485eaae458ccca188b2c91f8f47bd4987f` |
-| lastReviewedAt | `2026-10-13T11:17:40+02:00` |
-| Review scope | SCOPED — Nora PR #577 + PR #578 (not full corpus re-audit) |
-| runNoraCognitiveTurn.ts sha256_16 | `f4804915f8906eda` — **MATCH** vs source Git |
-| Volume digests (7 modified + README) | OK vs file content (pre-commit check) |
-
-## O. Validations locales
-
-| Contrôle | Résultat |
-|----------|----------|
-| `node scripts/check-production-runtime-reference.mjs` | PASS |
-| vitest `productionRuntimeReference.conformance.d0.test.ts` | 5 PASS |
-| `git diff --check` | PASS |
-| `npm run typecheck` | PASS |
-| `npm run lint` | PASS |
-| `npm run build` | PASS |
-| `npm test` | 515 files / 5664 tests PASS (143 skipped) |
-
-## P. Fake / Real Qualification
-
-- Frontière: Studio → Nora → Git → OpenAI
-- Fakes historiques: ScriptedModel / FakeConversationProvider
-- Ce passage: **DOCUMENTARY GIT INTEGRATION ONLY**
-- OpenAI REAL calls: **ZERO**
-- Niveau: DOCUMENTARY CONTENT PUBLISHED / CI QUALIFIED
-- Hors scope: GDR REAL PASS · P6 GLOBAL PASS · PRODUCT READY · RUNTIME V3 ADOPTED
-
-## Q. Git commit SHA
-
-`0bbdee5585560bf335c91746d8f991db7fe37c66`
-
-Message: `docs(studio): consolidate PR577 and PR578 runtime reference`
-
-## R. Push SHA
-
-Branche distante: `origin/docs/pr577-pr578-consolidated-prr-closure`
-
-SHA distant = local = `0bbdee5585560bf335c91746d8f991db7fe37c66` (fast-forward / new branch)
-
-## S. Draft PR
-
-| Champ | Valeur |
-|-------|--------|
-| Number | **#579** |
+| Method | merge commit |
+| merge_commit_sha | `bd3f440c749a059d73fb76e09bb1d0ce91e27af4` |
+| merged_at | 2026-10-13T10:23:19Z |
+| PR state | MERGED / CLOSED |
 | URL | https://github.com/mcleland147/sfia-workspace/pull/579 |
-| state | OPEN |
-| draft | true |
-| base | main |
-| head | docs/pr577-pr578-consolidated-prr-closure |
-| head SHA | `0bbdee5585560bf335c91746d8f991db7fe37c66` |
-| files | 8 PRR only (verified via `gh pr view` + `gh pr diff --name-only`) |
 
-## T. Vérification base/head/Draft
+## Q. Preuve main
 
-PASS — Draft unique; base main; head exact; 8 fichiers; aucun Product.
+- `origin/main` = `bd3f440c749a059d73fb76e09bb1d0ce91e27af4`
+- source `0bbdee55` is ancestor of main
+- eight PRR paths present on main
+- diff main vs pre-merge base = eight PRR files only
 
-## U. CI run / jobs
+## R. Digests/manifeste (main)
+
+| Champ | Valeur |
+|-------|--------|
+| lastReviewedCommit | `440066485eaae458ccca188b2c91f8f47bd4987f` (runtime baseline — NOT replaced by merge SHA) |
+| lastReviewedAt | `2026-10-13T11:17:40+02:00` |
+| runNoraCognitiveTurn.ts sha256_16 | `f4804915f8906eda` |
+
+## S. CI post-merge
 
 | Champ | Valeur |
 |-------|--------|
 | Workflow | SFIA Studio CI |
-| Run ID | **38378376935** |
-| URL | https://github.com/mcleland147/sfia-workspace/actions/runs/38378376935 |
-| headSha | `0bbdee5585560bf335c91746d8f991db7fe37c66` |
+| Event | push (main) |
+| Run ID | **38383013250** |
+| URL | https://github.com/mcleland147/sfia-workspace/actions/runs/38383013250 |
+| headSha | `bd3f440c749a059d73fb76e09bb1d0ce91e27af4` |
 | status | completed |
 | conclusion | **success** |
 
-Jobs:
+Jobs: Detect SUCCESS · Build and validate SUCCESS · Required Gate SUCCESS.
 
-| Job | Conclusion |
-|-----|------------|
-| Detect SFIA Studio changes | success |
-| Build and validate SFIA Studio | success (typecheck/lint/build/unit tests/secret scan/whitespace) |
-| SFIA Studio Required Gate | **success** |
+## T. Required Gate
 
-## V. Required Gate
+**PASS** (post-merge run 38383013250).
 
-**PASS** — job `SFIA Studio Required Gate` conclusion success (run 38378376935).
+## U. Fake/Real Qualification
 
-## W. Dettes et réserves
+DOCUMENTARY MERGE ONLY · ZERO OpenAI REAL · DETERMINISTIC proofs historical for #577/#578 · GDR REAL / P6 GLOBAL / Product READY / Runtime v3 ADOPTED: **NOT CLAIMED**.
 
-| Item | Statut |
-|------|--------|
-| DOC-PR577-POSTMERGE-SYNC | OPEN — INTEGRATION PENDING (Draft ≠ closure) |
-| RCD-01-PRR-SEMANTIC-COHERENCE | OPEN — INTEGRATION PENDING (Owner Morris) |
+## V. Dettes et réserves
+
+| Item | Qualification |
+|------|---------------|
+| DOC-PR577-POSTMERGE-SYNC | DOCUMENTARY INTEGRATION PROVEN · DEBT EXIT EVIDENCE AVAILABLE — **MORRIS CLOSURE DECISION PENDING** (NOT auto-CLOSED) |
+| RCD-01-PRR-SEMANTIC-COHERENCE | DOCUMENTARY INTEGRATION PROVEN · DEBT EXIT EVIDENCE AVAILABLE — **MORRIS CLOSURE DECISION PENDING** (Owner Morris) |
+| SEMANTIC IMPACT (RCD-01 historical Product) | YES (OBJ-TURN-ORCH / F04) |
+| NO NEW PRODUCT CODE (#579) | YES |
 | FPPC-RES-01 | OPEN |
 | P0-EFFECT-02 | NOT PROVEN |
 | RunState cross-restart | DEFER |
-| lineExceedsCap | AS-IMPLEMENTED explicit skip |
+| lineExceedsCap | AS-IMPLEMENTED |
 | GDR REAL | NOT PROVEN |
 | P6 GLOBAL | NOT PASSED |
 | Runtime v3 | NON ADOPTED |
 
-## X. Exit proof local
+## W. Exit proof
 
-- Commit projet cohérent (8 fichiers)
-- Push distant vérifié
-- Draft PR #579 ouverte
-- Scope exact
-- CI SUCCESS + Required Gate PASS
-- Review Pack FULL (ce document)
-- Handoff L3 à publier
+PR merged · merge SHA identified · main tip = merge · source in ancestry · 8 files integrated · CI post-merge SUCCESS · Required Gate PASS · handoff to publish.
 
-## Y. Gates Morris restants
+## X. Gates restants
 
-1. **MERGE GATE** — non autorisé dans ce passage
-2. Décision de clôture des deux dettes **après** merge + post-merge proof
-3. Human QA REAL T1 — GO distinct
+1. Morris debt closure decision (DOC-PR577 + RCD-01-PRR)
+2. Human QA REAL T1 — GO distinct
+3. Cleanup branches/worktrees — NOT authorized this pass
 
-## Z. Verdict
+## Y. Verdict
 
-**DRAFT DOCUMENTARY PR OPEN / PROJECT COMMIT/PUSH VERIFIED / CI PASS / AWAITING MORRIS MERGE GATE**
+**PR #579 MERGED ON MAIN / DOCUMENTARY INTEGRATION VERIFIED / POST-MERGE CI PASS / DEBT CLOSURE AWAITING MORRIS**
 
-Ne signifie PAS: debts CLOSED · GDR REAL PASS · P6 GLOBAL PASS · Product READY · runtime v3 ADOPTED.
+## Z. Instruction ChatGPT
 
-## AA. Instruction ChatGPT
-
-Lire ce Review Handoff distant sur `sfia/review-handoff`.
-
-Vérifier:
-
-- commit projet `0bbdee55…`
-- push distant
-- Draft PR #579
-- base/head/draft
-- huit fichiers PRR uniquement
-- absence de changement Product
-- manifeste / digests (baseline `44006648`, runNora `f4804915f8906eda`)
-- CI run 38378376935 + Required Gate PASS
-- conservation du worktree historique
-- statut des deux dettes (OPEN / PENDING)
-- réserves
-- gates Morris
-
-Puis qualifier la readiness de merge **sans exécuter le merge**.
+Lire ce handoff distant. Vérifier PR #579 merged, merge SHA `bd3f440c…`, main HEAD, source `0bbdee55` intégré, 8 fichiers PRR, absence Product, manifeste/digests, CI post-merge 38383013250 + Required Gate, dettes (EXIT EVIDENCE / closure PENDING), réserves, absence cleanup. Préparer qualification de clôture documentaire **sans la consommer**. Aucun test REAL.
 
 ---
-
-FIN REVIEW PACK FULL — CONSOLIDATED DOCUMENTARY GIT INTEGRATION
+FIN REVIEW PACK FULL — PR #579 GOVERNED DOCUMENTARY MERGE
