@@ -1,139 +1,166 @@
-# SFIA STUDIO — P6 REAL OBSERVABILITY OPTION B
-## Review Pack FULL — BOUNDED PRODUCT DELIVERY (LOCAL)
+# STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION C1 — FINAL GIT INTEGRATION REVIEW PACK
 
-**Horodatage:** 2026-10-13 16:26:10 CEST
-**Cycle:** 8 — Delivery / implémentation
-**Profil:** CRITICAL
-**Typologie:** EVOL — PRODUCT OBSERVABILITY
-**Chantier:** P6-REAL-OBS-P0-RECEIPT-CONSERVATION
-**GO Morris:** 2026-10-13 — LOCAL DELIVERY AUTORISÉ (Option B)
-**Verdict:** **P6 REAL OBSERVABILITY OPTION B IMPLEMENTED LOCALLY / DETERMINISTIC PROVEN / READY FOR CHATGPT REVIEW**
+```text
+TIMESTAMP: 2026-10-03 19:33:13 +0200
+MACRO: STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01
+CYCLE: Cycle 1 — Cadrage
+PASS: FINAL GIT INTEGRATION
+TYPOLOGY: EVOL / DOC / INTEGRATION
+PROFILE: CRITICAL
+AUTHORITY: D-SIMP-05 CONSUMED + Morris GO « intégration git complète directe »
+```
 
----
+## 1. Local Git Truth (pre-commit)
 
-## 1–3. GO / Qualification / Git Truth
+```text
+pwd: /Users/morris/Projects/sfia-studio-chat-first-product-simplification-c1
+toplevel: /Users/morris/Projects/sfia-studio-chat-first-product-simplification-c1
+branch: docs/sfia-studio-chat-first-product-simplification-c1
+HEAD: ac272df5270faae1d1bea6a78cd0cc11886e97f4
+origin/main: ac272df5270faae1d1bea6a78cd0cc11886e97f4
+left-right origin/main...HEAD: 0 0
+```
 
-| Item | Value |
-|------|-------|
-| Worktree |  |
-| Branch |  |
-| HEAD (base) |  |
-| origin/main |  |
-| Runtime :3020 WT | untouched () |
-| Entry handoff |  / blob  |
-| OpenAI REAL this pass | **ZERO** |
-| Project commit/push/PR | **NONE** |
+MATCHES REMOTE TRUTH EXPECTED. Candidate was LOCAL / DIRTY / NON COMMITTÉ before this integration pass.
 
-Initial Git Truth: created isolated WT from  @ . Clean at start. Final local dirty tree = Option B delivery only (see §10).
+## 2. Entry handoff / Closure Review
 
-## 4–6. Sources / Convergence / Entry handoff
+```text
+entry review handoff SHA: efaaf11ae3d5e0e48006f03d9155b062430a04db
+entry handoff blob: 7a43e92864690ec404213ceb2b59b424f944e677
+Final ChatGPT Closure Review: PASS — C1 CONTENT READY FOR MORRIS VALIDATION
+Morris: "ok c'est validé" → D-SIMP-05 CONSUMED
+Morris GO: "intégration git complète directe" → Git integration AUTHORIZED
+```
 
-Sources consulted: Build Doctrine · Roadmap · product-completion cadrage · epistemology 33/35 · Nora trajectory 08 · P6 QA §S/T/U/AI/AJ/AK/AL · CKC delivery · PRR README/04/08/09/manifest · handoff Option B qualification.
+## 3. D-SIMP-05 — STATUS SYNC
 
-Convergence: P0/P1/P2/RCD-01 INTEGRATED · T1 FUNCTIONAL ACCEPTED WITH RESERVES · REAL NOT PROVEN · Option B AUTHORIZED · P6 GLOBAL NOT PASSED · Runtime v3 NON ADOPTED · Assets KEEP/ADAPT as contracted.
+```text
+D-SIMP-05 — VALIDATE STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION C1
+Authority: Morris
+Status: CONSUMED
 
-## 7–8. Proof contract retained
+Meaning:
+- C1 content = VALIDATED BY MORRIS
+- Guided Review §§1–22 = COMPLETE
+- Final Documentary Consolidation = COMPLETE
+- Final Critical Review #1 historical NOT READY = PRESERVED
+- Correction Pass 01 = COMPLETE
+- Final Closure Review = PASS
+- C1 = VALIDATED
+- C1 NOT YET INTEGRATED ON MAIN until merge completes
 
-**Seam:** reuse already-produced  fields → build redacted  → attach to Product send DTO → **conserve** via:
-1. process-local registry keyed by **server**  (survives request end in-process);
-2. existing external **P6 Campaign Evidence Ledger** () via helper + optional .
+Does NOT authorize:
+- P2 / P3→P8
+- REAL
+- production routing
+- architecture adoption
+- runtime v3 adoption
+```
 
-**Not used:** ProductSqliteSession as Evidence authority · new SQLite table/migration · external OpenAI tracing · FinOps policy change · parallel Nora engine.
+## 4. Exact status-sync (authorized files)
 
-**Honesty:** Fake →  · null id on openai_live →  · never invent providerResponseId · receipt  always  until a distinct REAL GO · historical T1 not retroactively REAL.
+### 4.1 `projects/sfia-studio/product-simplification/01-chat-first-product-simplification-cadrage.md`
 
-## 9. Assets reused
+Current live status statements updated to:
 
-Agents Runner · Nora Cognitive Runtime · EventSink (unchanged filter) · NoraCognitiveTurnResult · Product DTO (additive field) · P6 Evidence Ledger path · Fake provider tests.
+- Pass = Final Git Integration (D-SIMP-05 CONSUMED)
+- Document status = C1 VALIDATED BY MORRIS · NOT YET INTEGRATED ON MAIN
+- Intégration Git = AUTHORIZED / IN PROGRESS
+- C1-01…C1-27 = PASS — C1 VALIDATED BY MORRIS
+- §22 = VALIDATED BY MORRIS → GIT INTEGRATION IN PROGRESS → P2 NOT AUTHORIZED
+- G-SIMP-03 = CONSUMED — C1 VALIDATED BY MORRIS
+- G-SIMP-04 = AUTHORIZED / IN PROGRESS
 
-## 10. Files created / modified
+Historical records preserved (Final Critical Review #1 NOT READY / Correction Pass 01).
 
-2272505375 336 crw-rw-rw- 1 root wheel 50331650 0 "Oct 13 16:26:10 2026" "Oct 13 16:26:07 2026" "Oct 13 16:26:07 2026" "Jan  1 01:00:00 1970" 65536 0 0 (stdin)
+### 4.2 `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
 
-Diffstat:
- 0 files changed
+Living tip updated minimally:
 
-Name-status:
+- D-SIMP-05 CONSUMED
+- C1 = VALIDATED BY MORRIS
+- Git integration = AUTHORIZED / IN PROGRESS
+- P2 = NOT AUTHORIZED
+- P3→P8 = NOT AUTHORIZED
+- ZERO REAL
+- production routing = NOT SELECTED
+- Cognitive Completion = NOT PROVEN
+- runtime v3 = NON ADOPTED
 
+Historical tip rows preserved.
 
-## 11. Diffs / full new files
+### 4.3 Scope
 
-### NEW —  (complete)
+```text
+AUTHORIZED ONLY:
+- projects/sfia-studio/product-simplification/01-chat-first-product-simplification-cadrage.md
+- projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+- .tmp-sfia-review/chatgpt-review.md
 
+NO product code.
+NO REAL.
+NO RETIRE.
+NO branch deletion.
+```
 
+## 5. Pre-commit validations
 
-### NEW —  (complete)
+```text
+1. D-SIMP-05 present — PASS
+2. C1 VALIDATED BY MORRIS — PASS
+3. C1 NOT YET INTEGRATED before merge — PASS
+4. P2 NOT AUTHORIZED — PASS
+5. P3→P8 NOT AUTHORIZED — PASS
+6. production routing NOT SELECTED — PASS
+7. Cognitive Completion NOT PROVEN — PASS
+8. runtime v3 NON ADOPTED — PASS
+9. no READY FOR REAL — PASS
+10. no architecture adopted accidentally — PASS
+11. no SharedKnowledgeStore selected — PASS
+12. no Canonical Orchestration Spine adopted — PASS
+13. historical review failure/correction preserved — PASS
+14. git diff --check — PASS
+15. authorized scope only — PASS
+```
 
+## 6. Git diff evidence (pre-commit)
 
+```text
+name-status (authorized project + pack):
+A  projects/sfia-studio/product-simplification/01-chat-first-product-simplification-cadrage.md
+M  projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+M  .tmp-sfia-review/chatgpt-review.md
 
-### MOD —
+git diff --check: PASS (exit 0)
+```
 
+## 7. Integration lifecycle (filled as executed)
 
+```text
+project commit SHA: PENDING
+pushed branch SHA: PENDING
+PR number/url: PENDING
+CI / Required Gate: PENDING
+merge method: PENDING
+merge SHA: PENDING
+merged_at: PENDING
+post-merge main SHA: PENDING
+post-merge Actions / checks: PENDING
+project Git effects: PENDING
+branch retained: YES (deletion unauthorized)
+P2 NOT AUTHORIZED: CONFIRMED
+```
 
-### MOD —
+## 8. Unique verdict (pre-merge placeholder)
 
-
-
-### MOD — PRR volumes + mechanical digests
-
-
-
-## 12–16. DTO / provider / budget / continuation / status
-
-- DTO additive:  on success + failure (when logicalTurnId minted).
-- Existing fields (, , , , ) unchanged.
-- Provider:  +  +  + .
-- Model/effort: ,  (), .
-- Budget:  projected as-is (no new counters).
-- Continuation:  projected as-is.
-- Product terminal:  |  |  |  |  on receipt — ≠ .
-
-## 17. Capture / retrieval
-
-| Mechanism | After request? | Key |
-|-----------|----------------|-----|
-| DTO on HTTP JSON | yes (caller must retain) | in response |
-| Process registry  | yes (same process) | server logicalTurnId |
-| P6 ledger append/find | yes (file durable) | logicalTurnId in jsonl |
-
-## 18. Security / redaction
-
-No prompts, documents, CoT, auth headers, raw provider payloads. Metadata-only. Fake ids never PROVIDER_CONFIRMED as REAL campaign claim ().
-
-## 19–20. Tests
-
-Targeted:  — **13 passed** (T01–T20 coverage mapped into cases).
-Adjacent: P0 honesty + MW2 client boundary — **pass**.
-Global:  OK ·  OK ·  OK ·  → **5676 passed / 1 failed then fixed by PRR digests**; post-digest PRR conformance **5/5 pass**. ZERO OpenAI.
-
-## 21. PRR conformance
-
- → **CONFORMANCE OK** after mechanical  for  + volumes 04/08/09. Semantic note: additive observability only (analysis E in 04).
-
-## 22. Fake/Real Qualification
-
-DETERMINISTIC PROVEN AT OBSERVABILITY SEAM. REAL BOUNDARY NOT PROVEN. T1 historical NOT requalified. Claims forbidden: REAL PASS · E2E REAL · P6 GLOBAL · PRODUCT READY · runtime v3 ADOPTED.
-
-## 23–24. Reserves / debt
-
-- Process registry is in-process (not cross-restart). Durable campaign path = P6 ledger (env or explicit append).
-- Auto ledger capture off by default ( to enable).
-- UI readCoverage / 16vs17 reserves untouched (out of scope).
-- Debt exit for REAL: future Morris GO REAL Human QA using conserved receipts.
-
-Debt closed locally:  (DET seam). Remaining: REAL retest under distinct GO.
-
-## 25. Decisions not consumed
-
-- Project commit / push / PR / merge
-- REAL OpenAI retest
-- Studio restart / runtime WT change
-- FinOps / routing / model policy changes
-
-## 26. Verdict
-
-**P6 REAL OBSERVABILITY OPTION B IMPLEMENTED LOCALLY / DETERMINISTIC PROVEN / READY FOR CHATGPT REVIEW**
-
-## 27. Instruction ChatGPT
-
-Lire ce handoff distant. Vérifier scope borné, absence d'architecture parallèle, preuve récupérable après tour (registry + ledger), Fake vs REAL honesty, redaction, tests, PRR digests, Git local dirty only Option B, pas de REAL, readiness d'intégration sans commit/push/PR implicite. Ne pas autoriser un nouveau test REAL.
+```text
+PRE-MERGE: D-SIMP-05 status sync COMPLETE · READY FOR COMMIT/PUSH/PR/CI/MERGE
+POST-MERGE TARGET VERDICT:
+STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION C1
+— VALIDATED BY MORRIS
+— INTEGRATED ON MAIN
+— POST-MERGE VERIFIED
+— CYCLE 1 CADRAGE CLOSED
+— P2 NOT YET AUTHORIZED
+```
