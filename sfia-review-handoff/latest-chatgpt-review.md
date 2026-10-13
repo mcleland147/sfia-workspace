@@ -1,29 +1,29 @@
-# SFIA STUDIO — P6 REAL OBSERVABILITY OPTION B
-## Review Pack FULL — EXTERNAL EVIDENCE LEDGER DELIVERY
+# SFIA Review Pack FULL — P6 REAL OBSERVABILITY Option B
+# FINAL LEDGER INTEGRITY & CAPTURE STABILIZATION
 
-**Horodatage:** 2026-10-13 18:25:03 CEST
+**Horodatage (Europe/Paris):** 2026-10-13 19:05:40 CEST
+**GO Morris:** FINAL INTEGRITY & CAPTURE STABILIZATION (OBS-01…04) — 2026-10-13
 **Cycle:** 8 — Delivery / implémentation
 **Profil:** CRITICAL
-**Typologie:** EVOL / QA EVIDENCE CAPTURE
+**CKC:** ckc:studio:delivery
+**Campagne:** P6-GLOBAL-INTEGRATED-PRODUCT-QA-01
 **Chantier:** P6-REAL-OBS-P0-RECEIPT-CONSERVATION
-**GO Morris:** 2026-10-13 — ADOPT BOUNDED EXTERNAL P6 EVIDENCE LEDGER
-**Entry handoff:** `046af12f` / blob `a7e54caed`
-**Verdict:** **P6 EXTERNAL EVIDENCE LEDGER IMPLEMENTED LOCALLY / DETERMINISTIC PROVEN / READY FOR CHATGPT CRITICAL REVIEW**
+**Macro:** STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01
 
 ---
 
-## 1. GO / Git Truth
+## 1. Git Truth (initial = final worktree; no project commit)
 
-| Item | Value |
-|------|-------|
-| Worktree | `/Users/morris/Projects/sfia-workspace-p6-real-observability-option-b` |
-| Branch | `fix/p6-real-observability-option-b` |
-| HEAD | `bd3f440c749a059d73fb76e09bb1d0ce91e27af4` |
-| origin/main | `bd3f440c749a059d73fb76e09bb1d0ce91e27af4` |
-| Runtime :3020 | untouched |
-| OpenAI REAL | **ZERO** |
-| Project commit/push/PR | **NONE** |
+- **Worktree:** `/Users/morris/Projects/sfia-workspace-p6-real-observability-option-b`
+- **Branch:** `fix/p6-real-observability-option-b`
+- **HEAD:** `bd3f440c749a059d73fb76e09bb1d0ce91e27af4`
+- **origin/main:** `bd3f440c749a059d73fb76e09bb1d0ce91e27af4`
+- **Base attendue:** `bd3f440c749a059d73fb76e09bb1d0ce91e27af4` — MATCH
+- **Prior handoff tip:** `f69e40c6020ec28cec6174288bd28c2ce50329db` / blob `49a93198ca5c2bdea348966c0e2519e8882530bc`
+- **Runtime localhost:3020:** untouched
+- **Project commit/push/PR/merge:** NONE
 
+### status --short
 ```
  M .tmp-sfia-review/chatgpt-review.md
  M projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
@@ -36,21 +36,10 @@
 ?? projects/sfia-studio/app/__tests__/project-assistant/p6.realObs.optionB.receiptConservation.d0.test.ts
 ?? projects/sfia-studio/app/features/project-assistant/cognitiveExecutionReceipt.ts
 ?? projects/sfia-studio/app/lib/p6-campaign-evidence/
+
 ```
 
-Diffstat:
-```
- .tmp-sfia-review/chatgpt-review.md                 | 166 ---------------------
- .../features/project-assistant/orchestrateTurn.ts  |  46 +++++-
- .../app/features/project-assistant/types.ts        |  12 ++
- .../04-dependency-impact-map.md                    |  19 +++
- .../08-test-proof-and-conformance-map.md           |   2 +
- ...9-known-gaps-reserves-and-current-boundaries.md |  16 ++
- .../production-runtime-reference.manifest.json     |   8 +-
- 7 files changed, 95 insertions(+), 174 deletions(-)
-```
-
-Name-status:
+### name-status (+ untracked)
 ```
 M	.tmp-sfia-review/chatgpt-review.md
 M	projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
@@ -59,50 +48,2044 @@ M	projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md
 M	projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
 M	projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
 M	projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-A	projects/sfia-studio/app/__tests__/p6-campaign-evidence/p6.externalEvidenceLedger.d0.test.ts
-A	projects/sfia-studio/app/__tests__/project-assistant/p6.realObs.optionB.receiptConservation.d0.test.ts
-A	projects/sfia-studio/app/features/project-assistant/cognitiveExecutionReceipt.ts
-A	projects/sfia-studio/app/lib/p6-campaign-evidence/captureCognitiveExecutionReceipt.ts
-A	projects/sfia-studio/app/lib/p6-campaign-evidence/evidenceLedger.ts
-A	projects/sfia-studio/app/lib/p6-campaign-evidence/index.ts
+?? projects/sfia-studio/app/__tests__/p6-campaign-evidence/p6.externalEvidenceLedger.d0.test.ts
+?? projects/sfia-studio/app/__tests__/p6-campaign-evidence/p6.qaCollectionSeam.d0.test.ts
+?? projects/sfia-studio/app/__tests__/project-assistant/p6.realObs.optionB.receiptConservation.d0.test.ts
+?? projects/sfia-studio/app/features/project-assistant/cognitiveExecutionReceipt.ts
+?? projects/sfia-studio/app/lib/p6-campaign-evidence/captureCognitiveExecutionReceipt.ts
+?? projects/sfia-studio/app/lib/p6-campaign-evidence/evidenceLedger.ts
+?? projects/sfia-studio/app/lib/p6-campaign-evidence/index.ts
+?? projects/sfia-studio/app/lib/p6-campaign-evidence/ledgerRowValidation.ts
+?? projects/sfia-studio/app/lib/p6-campaign-evidence/qaCollectionSeam.ts
+
 ```
 
-## 2–4. Sources / Convergence / Decision
-Build Doctrine · Roadmap · C1 · 33/35 · Nora 08 · P6 QA §T · CKC delivery · PRR · entry handoff 046af12f.
+### diff --stat (tracked)
+```
+ .tmp-sfia-review/chatgpt-review.md                 | 166 ---------------------
+ .../features/project-assistant/orchestrateTurn.ts  |  46 +++++-
+ .../app/features/project-assistant/types.ts        |  12 ++
+ .../04-dependency-impact-map.md                    |  19 +++
+ .../08-test-proof-and-conformance-map.md           |   2 +
+ ...9-known-gaps-reserves-and-current-boundaries.md |  20 +++
+ .../production-runtime-reference.manifest.json     |   8 +-
+ 7 files changed, 99 insertions(+), 174 deletions(-)
 
-P0/P1/P2/RCD-01 INTEGRATED · T1 FUNCTIONAL WITH RESERVES · REAL NOT PROVEN · Option B safety DET · Runtime v3 NON ADOPTED.
+```
 
-**Decision consumed:** ADOPT BOUNDED EXTERNAL P6 EVIDENCE LEDGER for campaign QA only — not Product persistence, not Studio architecture of record.
+---
 
-## 5. Discovery / reuse
-Existing campaign harnesses (qa branch / historical) already append to:
-`.tmp-sfia-review/p6-global-integrated-qa/evidence-ledger.jsonl`
-(see `__tests__/p6-campaign/*.real.test.ts` pattern on campaign WT).
+## 2. Sources consultées
 
-This delivery centralizes that convention into reusable QA library:
-`lib/p6-campaign-evidence/**` — no second orchestrator; Product `orchestrateTurn` remains write-free for JSONL.
+- Build Doctrine / Roadmap / C1 / epistemology 33 / artifact 35 / Nora trajectory 08
+- P6 contrat §T Evidence Capture + Campaign Evidence Ledger
+- CKC Delivery 08 / cycle templates / PRR README + volumes 04/08/09 + manifest
+- Prior handoff `f69e40c6` (ADOPT EXTERNAL LEDGER)
+- Historical QA harness pattern (read-only): `sfia-workspace` qa WT `__tests__/p6-campaign/*.real.test.ts` — inline `appendFileSync`; **not present** on Option B / main
 
-## 6. Ledger contract
-- Path: `.tmp-sfia-review/p6-global-integrated-qa/evidence-ledger.jsonl`
-- campaignId fixed: `P6-GLOBAL-INTEGRATED-PRODUCT-QA-01`
-- Append-only; no silent rewrite; FAILED historical preserved
-- runId ≠ logicalTurnId; duplicate runId → reject (or explicit skip)
-- kind=`cognitive_execution_receipt`
-- realBoundaryClaim always `NOT_CLAIMED`; productRealProofStatus `NOT_PROVEN`
-- Classifications: FAKE_DETERMINISTIC | NOT_OBSERVED | RUNNER_RESPONSE_ID_OBSERVED
+---
 
-## 7. Capture QA
-`captureCognitiveExecutionReceiptToP6Ledger` / `extractCognitiveExecutionReceiptFromDto`
-Source = Product DTO receipt · validates · redacts forbidden keys · appends · reopens by runId.
-Capture failure ≠ Product provider_error.
+## 3. Convergence
 
-## 8–11. Provenance / Fake-Real / Resilience / Security
-No PROVIDER_CONFIRMED · no auto-REAL · write fail surfaced · corrupt lines skipped with exact runId match only · no secrets/prompts/auth · no public HTTP route · Product SQLite untouched.
+| Item | State |
+|---|---|
+| P0/P1/P2 | INTEGRATED |
+| RCD-01 | INTEGRATED |
+| T1 | FUNCTIONAL ACCEPTED WITH RESERVES |
+| T1 REAL | NOT PROVEN |
+| Option B Product receipt | LOCAL CANDIDATE KEEP |
+| External P6 ledger | STABILIZED AT DET (this GO) |
+| P6 GLOBAL | NOT PASSED |
+| Runtime v3 | NON ADOPTED |
 
-## 12. Files
+**Exit proof target:** Safe append · Honest corruption status · Reliable duplicate policy · Operational QA capture proven at DET scope.
 
-### NEW — cognitiveExecutionReceipt.ts (complete)
-```typescript
+---
+
+## 4. Findings initiaux → corrections
+
+### OBS-01 — Writer security (P0) — CLOSED
+- **Cause:** `appendP6EvidenceLedgerRow` accepted generic objects (T17 historically expected poison write).
+- **Correction:** `ledgerRowValidation.validateLedgerRowForAppend` at every public append; forbidden keys/secret-like values; size cap; kind-gated schemas (`cognitive_execution_receipt` strict; historical campaign rows require campaignId/scenarioId/runId); unknown kinds rejected; no unsafe bypass exported.
+- **Proof:** S01/S02/S03/S04 DET.
+
+### OBS-02 — Ledger integrity (P1) — CLOSED
+- **Cause:** `readP6EvidenceLedger` returned `ok:true` despite parse errors.
+- **Correction:** `integrity` ∈ HEALTHY|DEGRADED|INVALID|UNREADABLE|MISSING; `integrityPass` **only** HEALTHY; parse/structure counters; partial trailing line counted; never rewrite; append/capture refuse when DEGRADED/INVALID/UNREADABLE.
+- **Proof:** S05/S06/S07/S08 DET.
+
+### OBS-03 — Idempotence & concurrency (P1) — CLOSED AT CLAIMED MODEL
+- **Cause:** duplicate skip returned candidate; check+append not inter-process safe.
+- **Correction:** exclusive lock file `evidence-ledger.jsonl.lock` via `O_EXCL` (`wx`) around check+append; stale lock reclaim >30s; contention → `LOCK_CONTENTION` honest; duplicate skip returns **persisted** entry; incompatible identity → `duplicate_conflict` (no false conservation).
+- **Claimed concurrency model:** exclusive filesystem lock protecting same-process concurrent writers **and** distinct processes sharing the same ledger path.
+- **Tested:** same-process Promise.all (S13); contention with held lock (S14). Inter-process claimed via same lock mechanism; dedicated multi-process stress not executed (mechanism identical).
+- **Proof:** S09–S14 DET.
+
+### OBS-04 — QA capture integration (P1) — CLOSED AT DET SEAM
+- **Cause:** tests called capture helper only; harnesses not on Option B WT.
+- **Correction:** `collectP6ProductTurnEvidence` = operational QA collection seam (replaces harness inline append for receipt conservation). DET proof: Product turn → seam → ledger findable by runId. Historical REAL harnesses inspected read-only on qa WT; **not copied / not executed**. Product `orchestrateTurn` still does not import ledger.
+- **Proof:** S15 + `p6.qaCollectionSeam.d0.test.ts`.
+
+---
+
+## 5. Fichiers créés / modifiés
+
+### Créés
+- `app/lib/p6-campaign-evidence/evidenceLedger.ts`
+- `app/lib/p6-campaign-evidence/ledgerRowValidation.ts`
+- `app/lib/p6-campaign-evidence/captureCognitiveExecutionReceipt.ts`
+- `app/lib/p6-campaign-evidence/qaCollectionSeam.ts`
+- `app/lib/p6-campaign-evidence/index.ts`
+- `app/__tests__/p6-campaign-evidence/p6.externalEvidenceLedger.d0.test.ts`
+- `app/__tests__/p6-campaign-evidence/p6.qaCollectionSeam.d0.test.ts`
+- `app/features/project-assistant/cognitiveExecutionReceipt.ts` (prior Option B, preserved)
+- `app/__tests__/project-assistant/p6.realObs.optionB.receiptConservation.d0.test.ts` (prior Option B, preserved)
+
+### Modifiés (tracked)
+- `orchestrateTurn.ts` / `types.ts` (prior Option B receipt projection — unchanged this pass beyond existing local candidate)
+- PRR 04 / 08 / 09 + manifest digests
+
+### Hors commit projet
+- `.tmp-sfia-review/chatgpt-review.md` (this pack)
+
+---
+
+## 6. Schémas acceptés / refusés
+
+**Acceptés**
+- `kind=cognitive_execution_receipt` with required fields + `productRealProofStatus=NOT_PROVEN` + `realBoundaryClaim=NOT_CLAIMED` + runId≠logicalTurnId
+- Historical campaign rows (no kind / `p6_campaign_run` / known campaign kinds) with campaignId+scenarioId+runId
+
+**Refusés**
+- Forbidden key fragments (authorization, api_key, secret, password, bearer, prompt, messages, …)
+- Secret-like string values (`sk-…`, Bearer tokens)
+- Unknown kinds
+- Oversized rows (>64KB)
+- REAL claim fields on receipt rows
+
+**Writer control:** single gate `validateLedgerRowForAppend` → `appendP6EvidenceLedgerRow` / capture unlocked append. No public bypass.
+
+---
+
+## 7. Integrity / duplicate / concurrency summary
+
+| Topic | Policy |
+|---|---|
+| Corruption | DEGRADED/INVALID; integrityPass=false; no rewrite; capture blocked |
+| Duplicate reject | status `duplicate_rejected`; bytes unchanged |
+| Duplicate skip | returns persisted entry iff identity-compatible |
+| Duplicate conflict | refuses; historical preserved |
+| Lock | `.lock` O_EXCL; stale reclaim; contention honest |
+
+---
+
+## 8. Tests
+
+**Targeted DET (ZERO REAL):** 33 passed
+- `p6.externalEvidenceLedger.d0.test.ts` — 17
+- `p6.qaCollectionSeam.d0.test.ts` — 1
+- `p6.realObs.optionB.receiptConservation.d0.test.ts` — 15
+
+**Globals**
+- `npm run typecheck` — PASS
+- `npm run lint` — PASS
+- `npm run build` — PASS
+- `npm test` full suite — **NOT RUN** (avoid accidental REAL; no p6-campaign REAL on this WT; targeted DET sufficient)
+
+**Oracles S01–S24:** covered by ledger + seam + Option B suites (S24 = Option B non-regression 15/15).
+
+---
+
+## 9. PRR
+
+`node scripts/check-production-runtime-reference.mjs` → **PRODUCTION RUNTIME REFERENCE CONFORMANCE OK** (digests synced after overlay update).
+
+---
+
+## 10. Sécurité / redaction
+
+- No secrets in ledger writes or tests
+- Capture fail ≠ Product provider_error
+- Product SQLite unchanged by capture
+- orchestrateTurn does not import p6-campaign-evidence
+
+---
+
+## 11. Fake / Real qualification
+
+| Level | Claim |
+|---|---|
+| Entry | DETERMINISTIC PROVEN AT LEDGER SEAM (prior) |
+| Target (this GO) | **DETERMINISTIC PROVEN AT STABILIZED QA CAPTURE AND LEDGER SEAM** |
+| Out of scope | REAL BOUNDARY PROVEN · END-TO-END REAL PROVEN |
+| Forbidden claims | T1 REAL PASS · P6 GLOBAL PASS · PRODUCT READY · Runtime v3 ADOPTED |
+
+---
+
+## 12. Réserves / dette / exit
+
+- REAL debt OPEN — distinct Morris GO required
+- Historical qa harnesses not yet migrated to `collectP6ProductTurnEvidence` in their WT (seam ready; migration out of scope)
+- Inter-process concurrency claimed via exclusive lock mechanism; multi-process stress harness not added
+- DET close candidate only after ChatGPT Critical Review + Morris PR readiness
+
+**Debt:** `P6-REAL-OBS-P0-RECEIPT-CONSERVATION` — DET STABILIZED; REAL OPEN
+
+---
+
+## 13. Gates Morris restants
+
+1. ChatGPT Critical Review of this pack/handoff
+2. Morris PR Readiness / Git Integration Gate (commit/push/PR — **not authorized this pass**)
+3. Future P6 REAL under distinct GO
+
+---
+
+## 14. Verdict
+
+**P6 EXTERNAL EVIDENCE LEDGER FINAL INTEGRITY STABILIZATION COMPLETE / QA CAPTURE INTEGRATED / DETERMINISTIC PROVEN / READY FOR CHATGPT CRITICAL REVIEW**
+
+OBS-01 CLOSED · OBS-02 CLOSED · OBS-03 CLOSED at claimed exclusive-lock model · OBS-04 CLOSED at DET QA seam.
+
+---
+
+## 15. Instruction ChatGPT
+
+Lire ce handoff distant. Contrôler diffs et preuves. Vérifier séparément OBS-01…04:
+- aucun bypass writer;
+- corruption ≠ INTEGRITY PASS;
+- duplicate skip honnête;
+- garantie de concurrence étayée (exclusive lock);
+- véritable raccordement QA (`collectP6ProductTurnEvidence`).
+
+Ne pas autoriser automatiquement commit/push projet, PR, merge ou REAL.
+Préparer uniquement le verdict de PR readiness pour décision Morris.
+
+---
+
+## 16. Contenu complet des nouveaux fichiers
+
+=== NEW FILES ===
+----- BEGIN FILE: projects/sfia-studio/app/lib/p6-campaign-evidence/evidenceLedger.ts -----
+lines: 466
+/**
+ * P6 External Campaign Evidence Ledger — append-only JSONL under .tmp-sfia-review/.
+ *
+ * Authority: QA / campaign evidence only (Morris ADOPT GO 2026-10-13).
+ * NOT Product persistence. NOT ProductSqliteSession.
+ *
+ * Integrity model (OBS-02):
+ *   HEALTHY   — all lines parse + validate structure
+ *   DEGRADED  — some lines unreadable / invalid; historical bytes untouched
+ *   INVALID   — file present but no usable rows and corruption observed
+ *   UNREADABLE — I/O failure
+ *   MISSING   — file absent (when allowMissing=false)
+ *
+ * Concurrency model (OBS-03):
+ *   Exclusive lock file (.evidence-ledger.jsonl.lock) around check+append.
+ *   Protects same-process concurrent writers and distinct processes sharing
+ *   the same filesystem path. Claimed and tested: exclusive lock critical section.
+ */
+
+import fs from "node:fs";
+import path from "node:path";
+import { validateLedgerRowForAppend } from "./ledgerRowValidation";
+
+export const P6_CAMPAIGN_ID = "P6-GLOBAL-INTEGRATED-PRODUCT-QA-01" as const;
+export const P6_EVIDENCE_LEDGER_RELATIVE_PATH =
+  ".tmp-sfia-review/p6-global-integrated-qa/evidence-ledger.jsonl" as const;
+
+export type P6LedgerIntegrityStatus =
+  | "HEALTHY"
+  | "DEGRADED"
+  | "INVALID"
+  | "UNREADABLE"
+  | "MISSING";
+
+export type P6EvidenceLedgerRow = Record<string, unknown>;
+
+export type ReadP6EvidenceLedgerResult = {
+  /** True only when rows can be consumed (HEALTHY or DEGRADED). */
+  ok: boolean;
+  /** True ONLY when integrity === HEALTHY. Never true under corruption. */
+  integrityPass: boolean;
+  integrity: P6LedgerIntegrityStatus;
+  absolutePath: string;
+  rows: P6EvidenceLedgerRow[];
+  parseErrors: number;
+  structureErrors: number;
+  totalLines: number;
+  error?: string;
+};
+
+export type AppendP6EvidenceLedgerResult =
+  | {
+      ok: true;
+      absolutePath: string;
+      bytesWritten: number;
+      kind: string;
+    }
+  | {
+      ok: false;
+      code: string;
+      message: string;
+      absolutePath?: string;
+    };
+
+export type WithLedgerLockResult<T> =
+  | { ok: true; value: T }
+  | { ok: false; code: string; message: string };
+
+const LOCK_STALE_MS = 30_000;
+const LOCK_RETRY_MS = 15;
+const LOCK_MAX_ATTEMPTS = 40;
+
+function resolveRepoRootFromCwd(cwd = process.cwd()): string {
+  let dir = path.resolve(cwd);
+  for (let i = 0; i < 12; i += 1) {
+    if (
+      fs.existsSync(path.join(dir, "projects", "sfia-studio")) &&
+      fs.existsSync(path.join(dir, ".git"))
+    ) {
+      return dir;
+    }
+    const parent = path.dirname(dir);
+    if (parent === dir) break;
+    dir = parent;
+  }
+  return path.resolve(cwd, "../..");
+}
+
+export function resolveP6EvidenceLedgerAbsolutePath(
+  cwd = process.cwd(),
+): string {
+  return path.join(resolveRepoRootFromCwd(cwd), P6_EVIDENCE_LEDGER_RELATIVE_PATH);
+}
+
+/** Resolve ledger path under an explicit workspace/repo root (DET temp dirs). */
+export function resolveP6EvidenceLedgerPath(workspaceRoot: string): string {
+  return path.join(workspaceRoot, P6_EVIDENCE_LEDGER_RELATIVE_PATH);
+}
+
+export function ensureP6EvidenceLedger(options: {
+  absolutePath?: string;
+  workspaceRoot?: string;
+}): { ok: true; absolutePath: string; created: boolean } | { ok: false; message: string } {
+  const absolutePath =
+    options.absolutePath ??
+    (options.workspaceRoot
+      ? resolveP6EvidenceLedgerPath(options.workspaceRoot)
+      : resolveP6EvidenceLedgerAbsolutePath());
+  try {
+    fs.mkdirSync(path.dirname(absolutePath), { recursive: true });
+    if (fs.existsSync(absolutePath)) {
+      return { ok: true, absolutePath, created: false };
+    }
+    fs.writeFileSync(absolutePath, "", { encoding: "utf8", mode: 0o600 });
+    return { ok: true, absolutePath, created: true };
+  } catch (err) {
+    return {
+      ok: false,
+      message: err instanceof Error ? err.message : String(err),
+    };
+  }
+}
+
+function lockPathFor(ledgerPath: string): string {
+  return `${ledgerPath}.lock`;
+}
+
+function sleepSync(ms: number): void {
+  const end = Date.now() + ms;
+  while (Date.now() < end) {
+    /* bounded spin — lock retries are short */
+  }
+}
+
+/**
+ * Exclusive lock around check+append. Lock file created with O_EXCL ('wx').
+ * Stale locks older than LOCK_STALE_MS are removed once then retried.
+ * No permanent orphan: unlock always unlinks when held.
+ */
+export function withP6EvidenceLedgerLock<T>(
+  absolutePath: string,
+  fn: () => T,
+): WithLedgerLockResult<T> {
+  const lockPath = lockPathFor(absolutePath);
+  fs.mkdirSync(path.dirname(absolutePath), { recursive: true });
+
+  let fd: number | null = null;
+  let staleAttempted = false;
+
+  for (let attempt = 0; attempt < LOCK_MAX_ATTEMPTS; attempt += 1) {
+    try {
+      fd = fs.openSync(lockPath, "wx");
+      fs.writeSync(
+        fd,
+        JSON.stringify({
+          pid: process.pid,
+          acquiredAt: new Date().toISOString(),
+        }),
+      );
+      break;
+    } catch (err) {
+      const code = (err as NodeJS.ErrnoException).code;
+      if (code !== "EEXIST") {
+        return {
+          ok: false,
+          code: "LOCK_IO_ERROR",
+          message: err instanceof Error ? err.message : String(err),
+        };
+      }
+      try {
+        const st = fs.statSync(lockPath);
+        if (!staleAttempted && Date.now() - st.mtimeMs > LOCK_STALE_MS) {
+          staleAttempted = true;
+          try {
+            fs.unlinkSync(lockPath);
+            continue;
+          } catch {
+            /* fall through to retry */
+          }
+        }
+      } catch {
+        /* missing between EEXIST and stat — retry */
+      }
+      sleepSync(LOCK_RETRY_MS);
+    }
+  }
+
+  if (fd == null) {
+    return {
+      ok: false,
+      code: "LOCK_CONTENTION",
+      message:
+        "could not acquire exclusive ledger lock (concurrent writer contention)",
+    };
+  }
+
+  try {
+    return { ok: true, value: fn() };
+  } finally {
+    try {
+      fs.closeSync(fd);
+    } catch {
+      /* ignore */
+    }
+    try {
+      fs.unlinkSync(lockPath);
+    } catch {
+      /* ignore */
+    }
+  }
+}
+
+function rowHasMinimalStructure(row: P6EvidenceLedgerRow): boolean {
+  return (
+    typeof row.campaignId === "string" &&
+    row.campaignId.length > 0 &&
+    (typeof row.runId === "string" || typeof row.scenarioId === "string")
+  );
+}
+
+/**
+ * Read-only ledger open. Never rewrites. Never silently repairs.
+ */
+export function readP6EvidenceLedger(options?: {
+  absolutePath?: string;
+  allowMissing?: boolean;
+}): ReadP6EvidenceLedgerResult {
+  const absolutePath =
+    options?.absolutePath ?? resolveP6EvidenceLedgerAbsolutePath();
+  const allowMissing = options?.allowMissing ?? true;
+
+  if (!fs.existsSync(absolutePath)) {
+    if (allowMissing) {
+      return {
+        ok: true,
+        integrityPass: true,
+        integrity: "HEALTHY",
+        absolutePath,
+        rows: [],
+        parseErrors: 0,
+        structureErrors: 0,
+        totalLines: 0,
+      };
+    }
+    return {
+      ok: false,
+      integrityPass: false,
+      integrity: "MISSING",
+      absolutePath,
+      rows: [],
+      parseErrors: 0,
+      structureErrors: 0,
+      totalLines: 0,
+      error: "ledger file missing",
+    };
+  }
+
+  let raw: string;
+  try {
+    raw = fs.readFileSync(absolutePath, "utf8");
+  } catch (err) {
+    return {
+      ok: false,
+      integrityPass: false,
+      integrity: "UNREADABLE",
+      absolutePath,
+      rows: [],
+      parseErrors: 0,
+      structureErrors: 0,
+      totalLines: 0,
+      error: err instanceof Error ? err.message : String(err),
+    };
+  }
+
+  if (raw.length === 0) {
+    return {
+      ok: true,
+      integrityPass: true,
+      integrity: "HEALTHY",
+      absolutePath,
+      rows: [],
+      parseErrors: 0,
+      structureErrors: 0,
+      totalLines: 0,
+    };
+  }
+
+  const endsWithNewline = raw.endsWith("\n");
+  const lines = raw.split("\n");
+  // Trailing newline produces empty final segment — not a parse error.
+  if (endsWithNewline && lines.length > 0 && lines[lines.length - 1] === "") {
+    lines.pop();
+  }
+
+  const rows: P6EvidenceLedgerRow[] = [];
+  let parseErrors = 0;
+  let structureErrors = 0;
+  let partialTrailing = false;
+
+  for (let i = 0; i < lines.length; i += 1) {
+    const line = lines[i]!;
+    if (line.trim() === "") continue;
+    const isLast = i === lines.length - 1;
+    try {
+      const parsed = JSON.parse(line) as unknown;
+      if (
+        parsed == null ||
+        typeof parsed !== "object" ||
+        Array.isArray(parsed)
+      ) {
+        structureErrors += 1;
+        continue;
+      }
+      const row = parsed as P6EvidenceLedgerRow;
+      if (!rowHasMinimalStructure(row)) {
+        structureErrors += 1;
+        continue;
+      }
+      rows.push(row);
+    } catch {
+      parseErrors += 1;
+      if (isLast && !endsWithNewline) {
+        partialTrailing = true;
+      }
+    }
+  }
+
+  const corruption = parseErrors > 0 || structureErrors > 0 || partialTrailing;
+  if (!corruption) {
+    return {
+      ok: true,
+      integrityPass: true,
+      integrity: "HEALTHY",
+      absolutePath,
+      rows,
+      parseErrors: 0,
+      structureErrors: 0,
+      totalLines: lines.length,
+    };
+  }
+
+  if (rows.length > 0) {
+    return {
+      ok: true,
+      integrityPass: false,
+      integrity: "DEGRADED",
+      absolutePath,
+      rows,
+      parseErrors,
+      structureErrors,
+      totalLines: lines.length,
+      error: partialTrailing
+        ? "partial trailing line and/or parse/structure errors"
+        : "parse/structure errors observed; historical bytes preserved",
+    };
+  }
+
+  return {
+    ok: false,
+    integrityPass: false,
+    integrity: "INVALID",
+    absolutePath,
+    rows: [],
+    parseErrors,
+    structureErrors,
+    totalLines: lines.length,
+    error: "ledger unreadable as structured evidence (no valid rows)",
+  };
+}
+
+/**
+ * OBS-01 secured append. Validates at write boundary. No unsafe bypass exported.
+ * Refuses append when ledger integrity is DEGRADED/INVALID/UNREADABLE
+ * (capture must fail honestly without rewriting history).
+ */
+export function appendP6EvidenceLedgerRow(
+  row: unknown,
+  options?: { absolutePath?: string },
+): AppendP6EvidenceLedgerResult {
+  const absolutePath =
+    options?.absolutePath ?? resolveP6EvidenceLedgerAbsolutePath();
+
+  const validation = validateLedgerRowForAppend(row);
+  if (!validation.ok) {
+    return {
+      ok: false,
+      code: validation.code,
+      message: validation.message,
+      absolutePath,
+    };
+  }
+
+  const locked = withP6EvidenceLedgerLock(absolutePath, () => {
+    const prior = readP6EvidenceLedger({
+      absolutePath,
+      allowMissing: true,
+    });
+    if (
+      prior.integrity === "DEGRADED" ||
+      prior.integrity === "INVALID" ||
+      prior.integrity === "UNREADABLE"
+    ) {
+      return {
+        ok: false as const,
+        code: "LEDGER_INTEGRITY_BLOCKS_APPEND",
+        message: `refuse append while integrity=${prior.integrity}`,
+        absolutePath,
+      };
+    }
+
+    const line = `${JSON.stringify(row)}\n`;
+    try {
+      fs.mkdirSync(path.dirname(absolutePath), { recursive: true });
+      fs.appendFileSync(absolutePath, line, { encoding: "utf8", mode: 0o600 });
+      return {
+        ok: true as const,
+        absolutePath,
+        bytesWritten: Buffer.byteLength(line, "utf8"),
+        kind: validation.kind,
+      };
+    } catch (err) {
+      return {
+        ok: false as const,
+        code: "APPEND_IO_ERROR",
+        message: err instanceof Error ? err.message : String(err),
+        absolutePath,
+      };
+    }
+  });
+
+  if (!locked.ok) {
+    return {
+      ok: false,
+      code: locked.code,
+      message: locked.message,
+      absolutePath,
+    };
+  }
+  return locked.value;
+}
+
+export function findP6EvidenceLedgerRowsByRunId(
+  runId: string,
+  options?: { absolutePath?: string },
+): {
+  ok: boolean;
+  integrityPass: boolean;
+  integrity: P6LedgerIntegrityStatus;
+  matches: P6EvidenceLedgerRow[];
+  absolutePath: string;
+  error?: string;
+} {
+  const read = readP6EvidenceLedger({
+    absolutePath: options?.absolutePath,
+    allowMissing: true,
+  });
+  const matches = read.rows.filter((r) => r.runId === runId);
+  return {
+    ok: read.ok,
+    integrityPass: read.integrityPass,
+    integrity: read.integrity,
+    matches,
+    absolutePath: read.absolutePath,
+    error: read.error,
+  };
+}
+----- END FILE: projects/sfia-studio/app/lib/p6-campaign-evidence/evidenceLedger.ts -----
+----- BEGIN FILE: projects/sfia-studio/app/lib/p6-campaign-evidence/ledgerRowValidation.ts -----
+lines: 210
+/**
+ * OBS-01 — write-boundary validation for P6 Evidence Ledger rows.
+ * Every public append path must pass through this gate.
+ */
+
+/** Keep aligned with evidenceLedger.P6_CAMPAIGN_ID (no circular import). */
+const P6_CAMPAIGN_ID = "P6-GLOBAL-INTEGRATED-PRODUCT-QA-01";
+
+export const MAX_LEDGER_ROW_JSON_BYTES = 64_000;
+
+const FORBIDDEN_KEY_FRAGMENTS = [
+  "authorization",
+  "api_key",
+  "apikey",
+  "cookie",
+  "secret",
+  "password",
+  "bearer",
+  "prompt",
+  "messages",
+  "documentbody",
+  "chain_of_thought",
+  "rawprovider",
+] as const;
+
+export type LedgerRowValidationResult =
+  | { ok: true; kind: string }
+  | { ok: false; code: string; message: string };
+
+function assertNoForbiddenContent(
+  value: unknown,
+  pathPrefix = "",
+): string | null {
+  if (value == null) return null;
+  if (Array.isArray(value)) {
+    for (let i = 0; i < value.length; i += 1) {
+      const hit = assertNoForbiddenContent(value[i], `${pathPrefix}[${i}]`);
+      if (hit) return hit;
+    }
+    return null;
+  }
+  if (typeof value === "object") {
+    for (const [k, v] of Object.entries(value as Record<string, unknown>)) {
+      const lower = k.toLowerCase().replace(/[^a-z0-9]/g, "");
+      for (const frag of FORBIDDEN_KEY_FRAGMENTS) {
+        if (lower.includes(frag.replace(/_/g, ""))) {
+          return `forbidden_key:${pathPrefix}${k}`;
+        }
+      }
+      const hit = assertNoForbiddenContent(v, `${pathPrefix}${k}.`);
+      if (hit) return hit;
+    }
+    return null;
+  }
+  if (typeof value === "string") {
+    if (/sk-[a-zA-Z0-9]{10,}/.test(value)) return "secret_like_string";
+    if (/Bearer\s+[A-Za-z0-9\-._~+/]+=*/i.test(value)) return "bearer_token";
+    if (value.length > 8_000) return "string_too_large";
+  }
+  return null;
+}
+
+function isNonEmptyString(v: unknown): v is string {
+  return typeof v === "string" && v.trim().length > 0;
+}
+
+/**
+ * Historical P6 campaign harness rows (no `kind`, or campaign-run kinds).
+ * Required: campaignId, scenarioId, runId. Secrets always rejected.
+ */
+function validateHistoricalCampaignRow(
+  row: Record<string, unknown>,
+): LedgerRowValidationResult {
+  if (row.campaignId !== P6_CAMPAIGN_ID) {
+    return {
+      ok: false,
+      code: "CAMPAIGN_SCOPE",
+      message: "campaignId must be P6-GLOBAL-INTEGRATED-PRODUCT-QA-01",
+    };
+  }
+  if (!isNonEmptyString(row.scenarioId) || !isNonEmptyString(row.runId)) {
+    return {
+      ok: false,
+      code: "CAMPAIGN_ROW_REQUIRED_FIELDS",
+      message: "scenarioId and runId required for campaign ledger rows",
+    };
+  }
+  return { ok: true, kind: "p6_campaign_run" };
+}
+
+/**
+ * Cognitive receipt rows — strict required fields + Fake/Real honesty.
+ */
+function validateCognitiveReceiptRow(
+  row: Record<string, unknown>,
+): LedgerRowValidationResult {
+  const required = [
+    "campaignId",
+    "runId",
+    "scenarioId",
+    "logicalTurnId",
+    "projectId",
+    "providerResponseObservation",
+    "productRealProofStatus",
+    "realBoundaryClaim",
+    "captureStatus",
+  ] as const;
+  for (const key of required) {
+    if (!(key in row)) {
+      return {
+        ok: false,
+        code: "RECEIPT_SCHEMA",
+        message: `missing field ${key}`,
+      };
+    }
+  }
+  if (row.campaignId !== P6_CAMPAIGN_ID) {
+    return {
+      ok: false,
+      code: "CAMPAIGN_SCOPE",
+      message: "campaignId must be P6-GLOBAL-INTEGRATED-PRODUCT-QA-01",
+    };
+  }
+  if (row.productRealProofStatus !== "NOT_PROVEN") {
+    return {
+      ok: false,
+      code: "REAL_CLAIM_FORBIDDEN",
+      message: "productRealProofStatus must be NOT_PROVEN",
+    };
+  }
+  if (row.realBoundaryClaim !== "NOT_CLAIMED") {
+    return {
+      ok: false,
+      code: "REAL_CLAIM_FORBIDDEN",
+      message: "realBoundaryClaim must be NOT_CLAIMED",
+    };
+  }
+  if (row.runId === row.logicalTurnId) {
+    return {
+      ok: false,
+      code: "RUNID_EQUALS_LOGICAL_TURN",
+      message: "runId must differ from logicalTurnId",
+    };
+  }
+  return { ok: true, kind: "cognitive_execution_receipt" };
+}
+
+/**
+ * Validate a ledger row before any append. Public write gate for OBS-01.
+ */
+export function validateLedgerRowForAppend(
+  row: unknown,
+): LedgerRowValidationResult {
+  if (row == null || typeof row !== "object" || Array.isArray(row)) {
+    return {
+      ok: false,
+      code: "ROW_NOT_OBJECT",
+      message: "ledger row must be a plain object",
+    };
+  }
+  const record = row as Record<string, unknown>;
+  try {
+    const size = Buffer.byteLength(JSON.stringify(record), "utf8");
+    if (size > MAX_LEDGER_ROW_JSON_BYTES) {
+      return {
+        ok: false,
+        code: "ROW_TOO_LARGE",
+        message: `row exceeds ${MAX_LEDGER_ROW_JSON_BYTES} bytes`,
+      };
+    }
+  } catch {
+    return {
+      ok: false,
+      code: "ROW_NOT_SERIALIZABLE",
+      message: "row is not JSON-serializable",
+    };
+  }
+
+  const forbidden = assertNoForbiddenContent(record);
+  if (forbidden) {
+    return {
+      ok: false,
+      code: "SENSITIVE_PAYLOAD_REJECTED",
+      message: forbidden,
+    };
+  }
+
+  const kind =
+    typeof record.kind === "string" ? record.kind : "(historical_campaign)";
+
+  if (kind === "cognitive_execution_receipt") {
+    return validateCognitiveReceiptRow(record);
+  }
+
+  // Known historical / campaign harness kinds (or kind absent).
+  if (
+    kind === "(historical_campaign)" ||
+    kind === "p6_campaign_run" ||
+    kind === "ROOT_CAUSE_INVESTIGATION_READONLY" ||
+    kind === "RUNTIME_REQUALIFICATION"
+  ) {
+    return validateHistoricalCampaignRow(record);
+  }
+
+  return {
+    ok: false,
+    code: "UNKNOWN_ROW_KIND",
+    message: `unsupported ledger row kind: ${kind}`,
+  };
+}
+----- END FILE: projects/sfia-studio/app/lib/p6-campaign-evidence/ledgerRowValidation.ts -----
+----- BEGIN FILE: projects/sfia-studio/app/lib/p6-campaign-evidence/captureCognitiveExecutionReceipt.ts -----
+lines: 300
+/**
+ * Capture Product CognitiveExecutionReceipt DTO → external P6 Evidence Ledger.
+ *
+ * Product must NOT call this. QA / campaign harnesses only (OBS-04 seam).
+ */
+
+import type { CognitiveExecutionReceipt } from "@/features/project-assistant/cognitiveExecutionReceipt";
+import type { ProjectAssistantSendResult } from "@/features/project-assistant/types";
+import {
+  P6_CAMPAIGN_ID,
+  appendP6EvidenceLedgerRow,
+  readP6EvidenceLedger,
+  resolveP6EvidenceLedgerAbsolutePath,
+  withP6EvidenceLedgerLock,
+  type P6EvidenceLedgerRow,
+} from "./evidenceLedger";
+import { validateLedgerRowForAppend } from "./ledgerRowValidation";
+import fs from "node:fs";
+import path from "node:path";
+
+export type CaptureCognitiveExecutionReceiptInput = {
+  /** Preferred: full Product turn DTO (OBS-04 collection path). */
+  dto?: ProjectAssistantSendResult;
+  /** Direct receipt when DTO unavailable (unit DET only). */
+  receipt?: CognitiveExecutionReceipt;
+  runId: string;
+  scenarioId: string;
+  campaignId?: string;
+  absolutePath?: string;
+  onDuplicate?: "reject" | "skip";
+  /** Optional QA metadata — string tags only, no secrets. */
+  reserves?: string[];
+  /** DET seam only — REAL classification is out of scope for this GO. */
+  campaignProofClassification?: "DETERMINISTIC";
+};
+
+export type CaptureCognitiveExecutionReceiptResult =
+  | {
+      ok: true;
+      status: "appended" | "duplicate_skipped";
+      absolutePath: string;
+      entry: P6EvidenceLedgerRow;
+    }
+  | {
+      ok: false;
+      status:
+        | "missing_receipt"
+        | "duplicate_rejected"
+        | "duplicate_conflict"
+        | "campaign_mismatch"
+        | "append_failed"
+        | "integrity_blocks_capture"
+        | "lock_failed"
+        | "validation_failed"
+        | "identity_mismatch";
+      message: string;
+      absolutePath?: string;
+      existing?: P6EvidenceLedgerRow;
+    };
+
+function resolveReceipt(
+  input: CaptureCognitiveExecutionReceiptInput,
+): CognitiveExecutionReceipt | null {
+  if (input.dto?.cognitiveExecutionReceipt) {
+    return input.dto.cognitiveExecutionReceipt;
+  }
+  if (input.receipt) return input.receipt;
+  return null;
+}
+
+function buildEntry(
+  input: CaptureCognitiveExecutionReceiptInput,
+  receipt: CognitiveExecutionReceipt,
+): P6EvidenceLedgerRow {
+  const entry: P6EvidenceLedgerRow = {
+    kind: "cognitive_execution_receipt",
+    campaignId: input.campaignId ?? P6_CAMPAIGN_ID,
+    runId: input.runId,
+    scenarioId: input.scenarioId,
+    logicalTurnId: receipt.logicalTurnId,
+    projectId: receipt.projectId,
+    capturedAt: new Date().toISOString(),
+    providerResponseObservation: receipt.providerResponseObservation,
+    providerResponseId: receipt.providerResponseId,
+    productRealProofStatus: receipt.realProofStatus,
+    productTerminalStatus: receipt.productTerminalStatus,
+    runnerResponseIdPresent: receipt.providerResponseId != null,
+    runnerResponseIdPrefix:
+      typeof receipt.providerResponseId === "string"
+        ? receipt.providerResponseId.slice(0, 12)
+        : null,
+    sourceBoundary: receipt.presentation,
+    captureStatus: "CAPTURED",
+    realBoundaryClaim: "NOT_CLAIMED",
+    campaignProofClassification:
+      input.campaignProofClassification ?? "DETERMINISTIC",
+    productProviderError:
+      input.dto && input.dto.ok === false
+        ? { status: input.dto.status, code: input.dto.code }
+        : null,
+    notes:
+      "External P6 ledger capture from Product DTO/receipt. DET seam only unless REAL GO.",
+  };
+  if (input.reserves && input.reserves.length > 0) {
+    entry.reserves = input.reserves.filter(
+      (r) => typeof r === "string" && r.length < 200,
+    );
+  }
+  return entry;
+}
+
+function identityCompatible(
+  existing: P6EvidenceLedgerRow,
+  candidate: P6EvidenceLedgerRow,
+): boolean {
+  const keys = [
+    "logicalTurnId",
+    "projectId",
+    "campaignId",
+    "scenarioId",
+    "providerResponseObservation",
+    "productRealProofStatus",
+    "realBoundaryClaim",
+    "productTerminalStatus",
+  ] as const;
+  for (const key of keys) {
+    if (existing[key] !== candidate[key]) return false;
+  }
+  return true;
+}
+
+function appendUnlocked(
+  absolutePath: string,
+  row: P6EvidenceLedgerRow,
+):
+  | { ok: true; bytesWritten: number }
+  | { ok: false; code: string; message: string } {
+  const validation = validateLedgerRowForAppend(row);
+  if (!validation.ok) {
+    return { ok: false, code: validation.code, message: validation.message };
+  }
+  const prior = readP6EvidenceLedger({ absolutePath, allowMissing: true });
+  if (
+    prior.integrity === "DEGRADED" ||
+    prior.integrity === "INVALID" ||
+    prior.integrity === "UNREADABLE"
+  ) {
+    return {
+      ok: false,
+      code: "LEDGER_INTEGRITY_BLOCKS_APPEND",
+      message: `refuse append while integrity=${prior.integrity}`,
+    };
+  }
+  try {
+    fs.mkdirSync(path.dirname(absolutePath), { recursive: true });
+    const line = `${JSON.stringify(row)}\n`;
+    fs.appendFileSync(absolutePath, line, { encoding: "utf8", mode: 0o600 });
+    return { ok: true, bytesWritten: Buffer.byteLength(line, "utf8") };
+  } catch (err) {
+    return {
+      ok: false,
+      code: "APPEND_IO_ERROR",
+      message: err instanceof Error ? err.message : String(err),
+    };
+  }
+}
+
+/**
+ * Capture receipt into the external ledger under exclusive lock
+ * (duplicate check + append in one critical section).
+ */
+export function captureCognitiveExecutionReceiptToP6Ledger(
+  input: CaptureCognitiveExecutionReceiptInput,
+): CaptureCognitiveExecutionReceiptResult {
+  const absolutePath =
+    input.absolutePath ?? resolveP6EvidenceLedgerAbsolutePath();
+  const campaignId = input.campaignId ?? P6_CAMPAIGN_ID;
+  if (campaignId !== P6_CAMPAIGN_ID) {
+    return {
+      ok: false,
+      status: "campaign_mismatch",
+      message: `campaignId must be ${P6_CAMPAIGN_ID}`,
+      absolutePath,
+    };
+  }
+
+  const receipt = resolveReceipt(input);
+  if (!receipt) {
+    return {
+      ok: false,
+      status: "missing_receipt",
+      message: "dto.cognitiveExecutionReceipt / receipt missing",
+      absolutePath,
+    };
+  }
+
+  if (input.runId === receipt.logicalTurnId) {
+    return {
+      ok: false,
+      status: "identity_mismatch",
+      message: "runId must differ from logicalTurnId",
+      absolutePath,
+    };
+  }
+
+  const candidate = buildEntry(input, receipt);
+  const validation = validateLedgerRowForAppend(candidate);
+  if (!validation.ok) {
+    return {
+      ok: false,
+      status: "validation_failed",
+      message: validation.message,
+      absolutePath,
+    };
+  }
+
+  const onDuplicate = input.onDuplicate ?? "reject";
+
+  const locked = withP6EvidenceLedgerLock(absolutePath, () => {
+    const prior = readP6EvidenceLedger({ absolutePath, allowMissing: true });
+    if (
+      prior.integrity === "DEGRADED" ||
+      prior.integrity === "INVALID" ||
+      prior.integrity === "UNREADABLE"
+    ) {
+      return {
+        ok: false as const,
+        status: "integrity_blocks_capture" as const,
+        message: `ledger integrity=${prior.integrity}; capture refused without rewrite`,
+        absolutePath,
+      };
+    }
+
+    const existing = prior.rows.find((r) => r.runId === input.runId);
+    if (existing) {
+      if (onDuplicate === "skip") {
+        if (!identityCompatible(existing, candidate)) {
+          return {
+            ok: false as const,
+            status: "duplicate_conflict" as const,
+            message:
+              "runId already persisted with incompatible identity; refusing false conservation",
+            absolutePath,
+            existing,
+          };
+        }
+        return {
+          ok: true as const,
+          status: "duplicate_skipped" as const,
+          absolutePath,
+          entry: existing,
+        };
+      }
+      return {
+        ok: false as const,
+        status: "duplicate_rejected" as const,
+        message: `runId already present: ${input.runId}`,
+        absolutePath,
+        existing,
+      };
+    }
+
+    const written = appendUnlocked(absolutePath, candidate);
+    if (!written.ok) {
+      return {
+        ok: false as const,
+        status: "append_failed" as const,
+        message: written.message,
+        absolutePath,
+      };
+    }
+    return {
+      ok: true as const,
+      status: "appended" as const,
+      absolutePath,
+      entry: candidate,
+    };
+  });
+
+  if (!locked.ok) {
+    return {
+      ok: false,
+      status: "lock_failed",
+      message: locked.message,
+      absolutePath,
+    };
+  }
+  return locked.value;
+}
+
+/**
+ * Public harness writer for non-receipt campaign rows (historical shape).
+ * Still gated by validateLedgerRowForAppend — no secrets.
+ */
+export function appendValidatedP6CampaignLedgerRow(
+  row: unknown,
+  options?: { absolutePath?: string },
+): ReturnType<typeof appendP6EvidenceLedgerRow> {
+  return appendP6EvidenceLedgerRow(row, options);
+}
+----- END FILE: projects/sfia-studio/app/lib/p6-campaign-evidence/captureCognitiveExecutionReceipt.ts -----
+----- BEGIN FILE: projects/sfia-studio/app/lib/p6-campaign-evidence/qaCollectionSeam.ts -----
+lines: 46
+/**
+ * OBS-04 — Operational QA collection seam for P6 campaign harnesses.
+ *
+ * Historical harnesses (qa worktree `__tests__/p6-campaign/*.real.test.ts`)
+ * previously called `fs.appendFileSync` on evidence-ledger.jsonl inline.
+ * This module is the reusable collection point that:
+ *   1. Accepts the Product DTO (`ProjectAssistantSendResult`) after a turn
+ *   2. Delegates to `captureCognitiveExecutionReceiptToP6Ledger`
+ *   3. Never writes from Product runtime / orchestrateTurn
+ *
+ * Product must NOT import this. DET proof: p6.qaCollectionSeam.d0.test.ts
+ */
+
+import type { ProjectAssistantSendResult } from "@/features/project-assistant/types";
+import {
+  captureCognitiveExecutionReceiptToP6Ledger,
+  type CaptureCognitiveExecutionReceiptResult,
+} from "./captureCognitiveExecutionReceipt";
+import { P6_CAMPAIGN_ID } from "./evidenceLedger";
+
+export type P6QaCollectionInput = {
+  /** Product turn result carrying cognitiveExecutionReceipt DTO. */
+  productTurnResult: ProjectAssistantSendResult;
+  runId: string;
+  scenarioId: string;
+  campaignId?: string;
+  absolutePath?: string;
+  onDuplicate?: "reject" | "skip";
+};
+
+/**
+ * Canonical P6 QA collection entrypoint — harnesses call this after Product turn.
+ * Replaces inline appendFileSync for CognitiveExecutionReceipt conservation.
+ */
+export function collectP6ProductTurnEvidence(
+  input: P6QaCollectionInput,
+): CaptureCognitiveExecutionReceiptResult {
+  return captureCognitiveExecutionReceiptToP6Ledger({
+    dto: input.productTurnResult,
+    runId: input.runId,
+    scenarioId: input.scenarioId,
+    campaignId: input.campaignId ?? P6_CAMPAIGN_ID,
+    absolutePath: input.absolutePath,
+    onDuplicate: input.onDuplicate,
+  });
+}
+----- END FILE: projects/sfia-studio/app/lib/p6-campaign-evidence/qaCollectionSeam.ts -----
+----- BEGIN FILE: projects/sfia-studio/app/lib/p6-campaign-evidence/index.ts -----
+lines: 37
+/**
+ * P6 Campaign Evidence — external append-only JSONL ledger (QA authority).
+ * Not Product persistence. Not ProductSqliteSession.
+ */
+
+export {
+  P6_CAMPAIGN_ID,
+  P6_EVIDENCE_LEDGER_RELATIVE_PATH,
+  resolveP6EvidenceLedgerAbsolutePath,
+  resolveP6EvidenceLedgerPath,
+  ensureP6EvidenceLedger,
+  readP6EvidenceLedger,
+  appendP6EvidenceLedgerRow,
+  findP6EvidenceLedgerRowsByRunId,
+  withP6EvidenceLedgerLock,
+  type P6EvidenceLedgerRow,
+  type P6LedgerIntegrityStatus,
+  type ReadP6EvidenceLedgerResult,
+  type AppendP6EvidenceLedgerResult,
+} from "./evidenceLedger";
+
+export {
+  captureCognitiveExecutionReceiptToP6Ledger,
+  appendValidatedP6CampaignLedgerRow,
+  type CaptureCognitiveExecutionReceiptInput,
+  type CaptureCognitiveExecutionReceiptResult,
+} from "./captureCognitiveExecutionReceipt";
+
+export {
+  collectP6ProductTurnEvidence,
+  type P6QaCollectionInput,
+} from "./qaCollectionSeam";
+
+export {
+  validateLedgerRowForAppend,
+  MAX_LEDGER_ROW_JSON_BYTES,
+} from "./ledgerRowValidation";
+----- END FILE: projects/sfia-studio/app/lib/p6-campaign-evidence/index.ts -----
+----- BEGIN FILE: projects/sfia-studio/app/__tests__/p6-campaign-evidence/p6.externalEvidenceLedger.d0.test.ts -----
+lines: 555
+/**
+ * P6 EXTERNAL EVIDENCE LEDGER — DETERMINISTIC / ZERO REAL.
+ * Oracles S01–S24 (OBS-01…04 stabilization).
+ * @vitest-environment node
+ */
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { setConversationProviderForTests } from "@/lib/platform/ai";
+import { orchestrateProjectAssistantTurn } from "@/features/project-assistant/orchestrateTurn";
+import {
+  buildCognitiveExecutionReceipt,
+  clearCognitiveExecutionReceiptRegistryForTests,
+} from "@/features/project-assistant/cognitiveExecutionReceipt";
+import {
+  appendP6EvidenceLedgerRow,
+  captureCognitiveExecutionReceiptToP6Ledger,
+  collectP6ProductTurnEvidence,
+  ensureP6EvidenceLedger,
+  findP6EvidenceLedgerRowsByRunId,
+  P6_CAMPAIGN_ID,
+  P6_EVIDENCE_LEDGER_RELATIVE_PATH,
+  readP6EvidenceLedger,
+  resolveP6EvidenceLedgerPath,
+  withP6EvidenceLedgerLock,
+} from "@/lib/p6-campaign-evidence";
+
+const {
+  getProjectRuntimeActionMock,
+  runNoraCognitiveTurnMock,
+} = vi.hoisted(() => ({
+  getProjectRuntimeActionMock: vi.fn(),
+  runNoraCognitiveTurnMock: vi.fn(),
+}));
+
+vi.mock("@/lib/vertical-slice-runtime/actions", () => ({
+  getProjectRuntimeAction: getProjectRuntimeActionMock,
+}));
+
+vi.mock("@/lib/nora-cognitive-runtime", async (importOriginal) => {
+  const actual =
+    await importOriginal<typeof import("@/lib/nora-cognitive-runtime")>();
+  return {
+    ...actual,
+    runNoraCognitiveTurn: (...args: unknown[]) =>
+      runNoraCognitiveTurnMock(...args),
+  };
+});
+
+const SUCCESS = {
+  ok: true as const,
+  project: {
+    projectId: "prj:p6-ledger",
+    name: "Projet Ledger",
+    shortReference: "LED",
+    objective: "External ledger capture.",
+    contextSummary: "P6 ledger D0",
+    criticality: "STANDARD" as const,
+    constraints: ["Lecture seule"],
+    localMode: true as const,
+    source: "REAL_LOCAL_CORE" as const,
+    fixture: false as const,
+  },
+  doctrine: {
+    id: "pkg:studio-v3-oa",
+    version: "1.0.0",
+    digest: "digest:ledger",
+    status: "RESOLVED",
+  },
+  livingState: {
+    id: "lps:ledger",
+    version: 1 as const,
+    createdAt: "2026-10-13T00:00:00.000Z",
+  },
+  readiness: {
+    status: "NOT_READY" as const,
+    hard: "OPEN" as const,
+    tA6: "INCOMPLETE" as const,
+    iam: "NOT_SELECTED" as const,
+    productPersistence: "SQLITE_OA_PRODUCT_STORE" as const,
+    realAgentExecution: "DISABLED" as const,
+    delivery: "NOT_AUTHORIZED" as const,
+    cutover: "NOT_AUTHORIZED" as const,
+    runReady: false as const,
+    productReady: false as const,
+  },
+  disclosures: {
+    runtimeMode: "LOCAL_PROCESS" as const,
+    persistence: "PARTIAL_PROJECT_LPS_CYCLE_DECISION_CONTRACT_DURABLE" as const,
+    agentExecution: "DISABLED" as const,
+    iam: "NOT_SELECTED" as const,
+    productPersistence: "SQLITE_OA_PRODUCT_STORE" as const,
+    delivery: "NOT_AUTHORIZED" as const,
+    cutover: "NOT_AUTHORIZED" as const,
+    localDataVolatile: true as const,
+    restartMayLoseState: true as const,
+    projectLpsRestartSafe: true as const,
+    cycleInstanceRestartSafe: true as const,
+    humanDecisionRestartSafe: true as const,
+    executionContractRestartSafe: true as const,
+    messages: [] as const,
+  },
+};
+
+function baseTurn(overrides: Record<string, unknown> = {}) {
+  return {
+    text: "Deterministic synthesis.",
+    usage: {
+      inputTokens: 3,
+      outputTokens: 2,
+      totalTokens: 5,
+      model: "fake-test-model",
+      providerResponseId: "fake-resp-ledger-1",
+    },
+    toolRounds: 0,
+    toolCalls: 0,
+    limitReached: false,
+    cognitiveRuntime: "agents" as const,
+    sessionId: "sess:ledger",
+    memoryBAvailability: "unavailable" as const,
+    memoryBCompactionState: "none" as const,
+    memoryBCompactionDetails: null,
+    selectedModelId: "fake-test-model",
+    selectedReasoningEffort: "low",
+    adaptiveObserve: {
+      requestedMaxTurns: 8,
+      effectiveMaxTurns: 8,
+      strategyClass: "Focused",
+      reasonCodes: ["adaptive:default"],
+      floor: 4,
+      ceiling: 24,
+      explicitOverride: false,
+    },
+    continuationObserve: {
+      continued: false,
+      segmentsExecuted: 1,
+      missionMaxTurns: 8,
+      segmentMaxTurns: 8,
+      allottedTurns: 8,
+      stopReason: "complete",
+      reasonCodes: [],
+    },
+    ...overrides,
+  };
+}
+
+function capture(
+  absolutePath: string,
+  overrides: {
+    runId: string;
+    scenarioId?: string;
+    logicalTurnId?: string;
+    projectId?: string;
+    productTerminalStatus?: "ok" | "provider_error";
+    onDuplicate?: "reject" | "skip";
+    reserves?: string[];
+    turn?: unknown;
+  },
+) {
+  const receipt = buildCognitiveExecutionReceipt({
+    logicalTurnId: overrides.logicalTurnId ?? `ltu:${overrides.runId}`,
+    projectId: overrides.projectId ?? "prj:p6-ledger",
+    presentation: "test_provider",
+    productTerminalStatus: overrides.productTerminalStatus ?? "ok",
+    turn: (overrides.turn ?? baseTurn()) as never,
+  });
+  return captureCognitiveExecutionReceiptToP6Ledger({
+    receipt,
+    runId: overrides.runId,
+    scenarioId: overrides.scenarioId ?? "P6-MIN-09",
+    absolutePath,
+    onDuplicate: overrides.onDuplicate,
+    reserves: overrides.reserves,
+  });
+}
+
+describe("P6 EXTERNAL EVIDENCE LEDGER (DETERMINISTIC)", () => {
+  const previousFake = process.env.OPS1_CONVERSATION_PROVIDER;
+  let workspaceRoot: string;
+  let ledgerPath: string;
+  let sessionDir: string;
+  let sessionDbPath: string;
+
+  beforeEach(() => {
+    process.env.OPS1_CONVERSATION_PROVIDER = "fake";
+    getProjectRuntimeActionMock.mockReset();
+    getProjectRuntimeActionMock.mockResolvedValue(SUCCESS);
+    runNoraCognitiveTurnMock.mockReset();
+    setConversationProviderForTests(null);
+    clearCognitiveExecutionReceiptRegistryForTests();
+    workspaceRoot = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-p6-ledger-"));
+    ledgerPath = resolveP6EvidenceLedgerPath(workspaceRoot);
+    sessionDir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-p6-led-sess-"));
+    sessionDbPath = path.join(sessionDir, "session.sqlite");
+  });
+
+  afterEach(() => {
+    setConversationProviderForTests(null);
+    clearCognitiveExecutionReceiptRegistryForTests();
+    if (previousFake === undefined) {
+      delete process.env.OPS1_CONVERSATION_PROVIDER;
+    } else {
+      process.env.OPS1_CONVERSATION_PROVIDER = previousFake;
+    }
+    fs.rmSync(workspaceRoot, { recursive: true, force: true });
+    fs.rmSync(sessionDir, { recursive: true, force: true });
+  });
+
+  it("S03 — schéma autorisé accepté; chemin canonique", () => {
+    expect(ledgerPath.endsWith(P6_EVIDENCE_LEDGER_RELATIVE_PATH)).toBe(true);
+    const ensured = ensureP6EvidenceLedger({ workspaceRoot });
+    expect(ensured.ok).toBe(true);
+    const ok = capture(ledgerPath, { runId: "P6-DET-RUN-FAKE-01" });
+    expect(ok.ok).toBe(true);
+    if (!ok.ok) return;
+    expect(ok.status).toBe("appended");
+    expect(ok.entry.campaignId).toBe(P6_CAMPAIGN_ID);
+    expect(ok.entry.realBoundaryClaim).toBe("NOT_CLAIMED");
+    expect(ok.entry.productRealProofStatus).toBe("NOT_PROVEN");
+    expect(ok.entry.providerResponseObservation).toBe("FAKE_DETERMINISTIC");
+  });
+
+  it("S01 — writer générique refuse authorization", () => {
+    const poisoned = appendP6EvidenceLedgerRow(
+      {
+        kind: "cognitive_execution_receipt",
+        campaignId: P6_CAMPAIGN_ID,
+        runId: "P6-DET-POISON",
+        scenarioId: "P6-MIN-09",
+        logicalTurnId: "ltu:poison",
+        projectId: "prj:x",
+        providerResponseObservation: "FAKE_DETERMINISTIC",
+        productRealProofStatus: "NOT_PROVEN",
+        realBoundaryClaim: "NOT_CLAIMED",
+        captureStatus: "CAPTURED",
+        authorization: "Bearer secret-token",
+      },
+      { absolutePath: ledgerPath },
+    );
+    expect(poisoned.ok).toBe(false);
+    if (poisoned.ok) return;
+    expect(poisoned.code).toBe("SENSITIVE_PAYLOAD_REJECTED");
+    expect(fs.existsSync(ledgerPath)).toBe(false);
+  });
+
+  it("S02 — writer générique refuse secret-like values", () => {
+    const poisoned = appendP6EvidenceLedgerRow(
+      {
+        campaignId: P6_CAMPAIGN_ID,
+        scenarioId: "P6-MIN-09",
+        runId: "P6-DET-SK",
+        note: "leak sk-abcdefghijklmnopqrstuvwxyz012345",
+      },
+      { absolutePath: ledgerPath },
+    );
+    expect(poisoned.ok).toBe(false);
+    if (poisoned.ok) return;
+    expect(poisoned.code).toBe("SENSITIVE_PAYLOAD_REJECTED");
+  });
+
+  it("S04 — type de ligne inconnu refusé; historique campagne accepté", () => {
+    const unknown = appendP6EvidenceLedgerRow(
+      {
+        kind: "totally_unknown_kind",
+        campaignId: P6_CAMPAIGN_ID,
+        scenarioId: "P6-MIN-01",
+        runId: "P6-DET-UNK",
+      },
+      { absolutePath: ledgerPath },
+    );
+    expect(unknown.ok).toBe(false);
+    if (!unknown.ok) expect(unknown.code).toBe("UNKNOWN_ROW_KIND");
+
+    const historical = appendP6EvidenceLedgerRow(
+      {
+        campaignId: P6_CAMPAIGN_ID,
+        scenarioId: "P6-MIN-01",
+        runId: "P6-DET-HIST-01",
+        mode: "smoke",
+        ok: false,
+        hardPass: false,
+      },
+      { absolutePath: ledgerPath },
+    );
+    expect(historical.ok).toBe(true);
+  });
+
+  it("S05/S06/S07 — corruption détectée; jamais INTEGRITY PASS; ligne partielle", () => {
+    ensureP6EvidenceLedger({ absolutePath: ledgerPath });
+    fs.writeFileSync(
+      ledgerPath,
+      `${JSON.stringify({
+        campaignId: P6_CAMPAIGN_ID,
+        scenarioId: "P6-MIN-01",
+        runId: "P6-DET-GOOD",
+      })}\n{not-json\n{"partial":`,
+      "utf8",
+    );
+    const read = readP6EvidenceLedger({ absolutePath: ledgerPath });
+    expect(read.integrity).toBe("DEGRADED");
+    expect(read.integrityPass).toBe(false);
+    expect(read.parseErrors).toBeGreaterThan(0);
+    expect(read.rows.some((r) => r.runId === "P6-DET-GOOD")).toBe(true);
+  });
+
+  it("S08 — aucune réécriture historique sous corruption", () => {
+    ensureP6EvidenceLedger({ absolutePath: ledgerPath });
+    const before = `${JSON.stringify({
+      campaignId: P6_CAMPAIGN_ID,
+      scenarioId: "P6-MIN-01",
+      runId: "P6-DET-KEEP",
+    })}\nBROKEN\n`;
+    fs.writeFileSync(ledgerPath, before, "utf8");
+    const blocked = capture(ledgerPath, { runId: "P6-DET-AFTER-CORRUPT" });
+    expect(blocked.ok).toBe(false);
+    if (!blocked.ok) expect(blocked.status).toBe("integrity_blocks_capture");
+    expect(fs.readFileSync(ledgerPath, "utf8")).toBe(before);
+  });
+
+  it("S09 — duplicate reject sans mutation", () => {
+    const r1 = capture(ledgerPath, {
+      runId: "P6-DET-DUP",
+      productTerminalStatus: "provider_error",
+      reserves: ["FAILED HISTORICAL"],
+      turn: null,
+    });
+    expect(r1.ok).toBe(true);
+    const bytes = fs.readFileSync(ledgerPath, "utf8");
+    const dup = capture(ledgerPath, {
+      runId: "P6-DET-DUP",
+      productTerminalStatus: "ok",
+    });
+    expect(dup.ok).toBe(false);
+    if (!dup.ok) expect(dup.status).toBe("duplicate_rejected");
+    expect(fs.readFileSync(ledgerPath, "utf8")).toBe(bytes);
+  });
+
+  it("S10 — duplicate skip retourne l'entrée historique persistée", () => {
+    const first = capture(ledgerPath, {
+      runId: "P6-DET-SKIP",
+      logicalTurnId: "ltu:skip-1",
+    });
+    expect(first.ok).toBe(true);
+    if (!first.ok) return;
+    const skipped = capture(ledgerPath, {
+      runId: "P6-DET-SKIP",
+      logicalTurnId: "ltu:skip-1",
+      onDuplicate: "skip",
+    });
+    expect(skipped.ok).toBe(true);
+    if (!skipped.ok) return;
+    expect(skipped.status).toBe("duplicate_skipped");
+    expect(skipped.entry.capturedAt).toBe(first.entry.capturedAt);
+    expect(skipped.entry).toEqual(first.entry);
+  });
+
+  it("S11 — duplicate skip contradictoire ne confirme pas une conservation inexistante", () => {
+    capture(ledgerPath, {
+      runId: "P6-DET-CONFLICT",
+      productTerminalStatus: "provider_error",
+      turn: null,
+      reserves: ["FAILED HISTORICAL"],
+    });
+    const conflict = capture(ledgerPath, {
+      runId: "P6-DET-CONFLICT",
+      productTerminalStatus: "ok",
+      onDuplicate: "skip",
+    });
+    expect(conflict.ok).toBe(false);
+    if (!conflict.ok) expect(conflict.status).toBe("duplicate_conflict");
+    const found = findP6EvidenceLedgerRowsByRunId("P6-DET-CONFLICT", {
+      absolutePath: ledgerPath,
+    });
+    expect(found.matches[0]?.productTerminalStatus).toBe("provider_error");
+  });
+
+  it("S12/S23 — deux runId distincts; FAILED historique préservé", () => {
+    capture(ledgerPath, {
+      runId: "P6-DET-FAIL",
+      productTerminalStatus: "provider_error",
+      turn: null,
+      reserves: ["FAILED HISTORICAL"],
+    });
+    capture(ledgerPath, { runId: "P6-DET-OK" });
+    const fail = findP6EvidenceLedgerRowsByRunId("P6-DET-FAIL", {
+      absolutePath: ledgerPath,
+    });
+    expect(fail.matches[0]?.productTerminalStatus).toBe("provider_error");
+    expect(fail.matches[0]?.reserves).toContain("FAILED HISTORICAL");
+    expect(
+      findP6EvidenceLedgerRowsByRunId("P6-DET-OK", { absolutePath: ledgerPath })
+        .matches,
+    ).toHaveLength(1);
+  });
+
+  it("S13 — concurrence same-process sous exclusive lock", async () => {
+    ensureP6EvidenceLedger({ absolutePath: ledgerPath });
+    const results = await Promise.all(
+      Array.from({ length: 8 }, (_, i) =>
+        Promise.resolve(
+          capture(ledgerPath, {
+            runId: `P6-DET-CONC-${i}`,
+            logicalTurnId: `ltu:conc-${i}`,
+          }),
+        ),
+      ),
+    );
+    expect(results.every((r) => r.ok)).toBe(true);
+    const read = readP6EvidenceLedger({ absolutePath: ledgerPath });
+    expect(read.integrityPass).toBe(true);
+    expect(read.rows).toHaveLength(8);
+  });
+
+  it("S14 — contention lock: résultat honnête sans corruption", () => {
+    ensureP6EvidenceLedger({ absolutePath: ledgerPath });
+    const lockPath = `${ledgerPath}.lock`;
+    fs.writeFileSync(lockPath, JSON.stringify({ pid: 999999, held: true }));
+    // Fresh mtime → not stale; expect LOCK_CONTENTION
+    const blocked = withP6EvidenceLedgerLock(ledgerPath, () => "never");
+    expect(blocked.ok).toBe(false);
+    if (!blocked.ok) expect(blocked.code).toBe("LOCK_CONTENTION");
+    expect(fs.readFileSync(ledgerPath, "utf8")).toBe("");
+    fs.unlinkSync(lockPath);
+  });
+
+  it("S15/S21/S22 — capture depuis DTO au seam QA; ≠ provider_error; SQLite inchangé", async () => {
+    runNoraCognitiveTurnMock.mockResolvedValue(baseTurn());
+    const result = await orchestrateProjectAssistantTurn({
+      projectId: "prj:p6-ledger",
+      content: "capture from DTO via QA seam",
+      sessionDbPath,
+    });
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.status).toBe("ok");
+    const beforeDb = fs.existsSync(sessionDbPath)
+      ? fs.readFileSync(sessionDbPath)
+      : null;
+    const collected = collectP6ProductTurnEvidence({
+      productTurnResult: result,
+      runId: "P6-DET-RUN-DTO-SEAM",
+      scenarioId: "P6-MIN-09",
+      absolutePath: ledgerPath,
+    });
+    expect(collected.ok).toBe(true);
+    if (!collected.ok) return;
+    expect(collected.status).toBe("appended");
+    expect(collected.entry.logicalTurnId).toBe(result.logicalTurnId);
+    expect(collected.entry.runId).not.toBe(result.logicalTurnId);
+    expect(result.status).toBe("ok");
+    expect(result.ok).toBe(true);
+    if (beforeDb) {
+      expect(Buffer.compare(fs.readFileSync(sessionDbPath), beforeDb)).toBe(0);
+    }
+    const orchSrc = fs.readFileSync(
+      path.join(process.cwd(), "features/project-assistant/orchestrateTurn.ts"),
+      "utf8",
+    );
+    expect(orchSrc).not.toContain("p6-campaign-evidence");
+    expect(orchSrc).not.toContain("evidence-ledger");
+  });
+
+  it("S16/S17/S18 — fermeture/réouverture; corrélation runId/logicalTurnId; isolation", () => {
+    capture(ledgerPath, {
+      runId: "P6-DET-REOPEN",
+      logicalTurnId: "ltu:reopen",
+      projectId: "prj:p6-ledger",
+    });
+    capture(ledgerPath, {
+      runId: "P6-DET-OTHER",
+      logicalTurnId: "ltu:other",
+      projectId: "prj:other",
+      scenarioId: "P6-MIN-01",
+    });
+    const reopened = readP6EvidenceLedger({ absolutePath: ledgerPath });
+    expect(reopened.integrityPass).toBe(true);
+    const a = reopened.rows.find((r) => r.runId === "P6-DET-REOPEN");
+    expect(a?.logicalTurnId).toBe("ltu:reopen");
+    expect(a?.projectId).toBe("prj:p6-ledger");
+    expect(a?.campaignId).toBe(P6_CAMPAIGN_ID);
+    const b = reopened.rows.find((r) => r.runId === "P6-DET-OTHER");
+    expect(b?.projectId).toBe("prj:other");
+  });
+
+  it("S19/S20 — aucun secret; Fake/Runner jamais REAL PROVEN", () => {
+    const synth = buildCognitiveExecutionReceipt({
+      logicalTurnId: "ltu:synth",
+      projectId: "prj:p6-ledger",
+      presentation: "openai_live",
+      productTerminalStatus: "ok",
+      turn: {
+        usage: {
+          inputTokens: 1,
+          outputTokens: 1,
+          totalTokens: 2,
+          model: "gpt-6-luna",
+          providerResponseId: "resp_det_synthetic_not_real",
+        },
+        toolCalls: 0,
+        limitReached: false,
+        cognitiveRuntime: "agents",
+        selectedModelId: "gpt-6-luna",
+        selectedReasoningEffort: "medium",
+      },
+    });
+    const captured = captureCognitiveExecutionReceiptToP6Ledger({
+      receipt: synth,
+      runId: "P6-DET-RUN-SYNTH",
+      scenarioId: "P6-MIN-09",
+      absolutePath: ledgerPath,
+    });
+    expect(captured.ok).toBe(true);
+    if (!captured.ok) return;
+    expect(captured.entry.providerResponseObservation).toBe(
+      "RUNNER_RESPONSE_ID_OBSERVED",
+    );
+    expect(captured.entry.realBoundaryClaim).toBe("NOT_CLAIMED");
+    expect(captured.entry.productRealProofStatus).toBe("NOT_PROVEN");
+    const json = JSON.stringify(captured.entry);
+    expect(json).not.toContain("PROVIDER_CONFIRMED");
+    expect(json).not.toMatch(/sk-[a-zA-Z0-9]{10,}/);
+    expect(json).not.toContain("Bearer ");
+  });
+
+  it("identity — runId ≠ logicalTurnId", () => {
+    const receipt = buildCognitiveExecutionReceipt({
+      logicalTurnId: "ltu:same",
+      projectId: "prj:p6-ledger",
+      presentation: "test_provider",
+      productTerminalStatus: "ok",
+      turn: baseTurn() as never,
+    });
+    const captured = captureCognitiveExecutionReceiptToP6Ledger({
+      receipt,
+      runId: "ltu:same",
+      scenarioId: "P6-MIN-09",
+      absolutePath: ledgerPath,
+    });
+    expect(captured.ok).toBe(false);
+    if (!captured.ok) expect(captured.status).toBe("identity_mismatch");
+  });
+
+  it("directory-as-ledger-path fails honestly (unreadable)", () => {
+    const dirAsFile = path.join(workspaceRoot, "not-a-file-dir");
+    fs.mkdirSync(dirAsFile, { recursive: true });
+    const captured = capture(dirAsFile, { runId: "P6-DET-WFAIL" });
+    expect(captured.ok).toBe(false);
+    if (!captured.ok) {
+      expect(["append_failed", "integrity_blocks_capture", "lock_failed"]).toContain(
+        captured.status,
+      );
+    }
+  });
+});
+----- END FILE: projects/sfia-studio/app/__tests__/p6-campaign-evidence/p6.externalEvidenceLedger.d0.test.ts -----
+----- BEGIN FILE: projects/sfia-studio/app/__tests__/p6-campaign-evidence/p6.qaCollectionSeam.d0.test.ts -----
+lines: 183
+/**
+ * OBS-04 — DET proof that the QA collection seam (not raw helper) captures.
+ * Mirrors historical harness post-turn collection without invoking REAL tests.
+ * @vitest-environment node
+ */
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { setConversationProviderForTests } from "@/lib/platform/ai";
+import { orchestrateProjectAssistantTurn } from "@/features/project-assistant/orchestrateTurn";
+import { clearCognitiveExecutionReceiptRegistryForTests } from "@/features/project-assistant/cognitiveExecutionReceipt";
+import {
+  collectP6ProductTurnEvidence,
+  findP6EvidenceLedgerRowsByRunId,
+  resolveP6EvidenceLedgerPath,
+} from "@/lib/p6-campaign-evidence";
+
+const {
+  getProjectRuntimeActionMock,
+  runNoraCognitiveTurnMock,
+} = vi.hoisted(() => ({
+  getProjectRuntimeActionMock: vi.fn(),
+  runNoraCognitiveTurnMock: vi.fn(),
+}));
+
+vi.mock("@/lib/vertical-slice-runtime/actions", () => ({
+  getProjectRuntimeAction: getProjectRuntimeActionMock,
+}));
+
+vi.mock("@/lib/nora-cognitive-runtime", async (importOriginal) => {
+  const actual =
+    await importOriginal<typeof import("@/lib/nora-cognitive-runtime")>();
+  return {
+    ...actual,
+    runNoraCognitiveTurn: (...args: unknown[]) =>
+      runNoraCognitiveTurnMock(...args),
+  };
+});
+
+describe("P6 QA collection seam (DET)", () => {
+  let workspaceRoot: string;
+  let ledgerPath: string;
+  let sessionDbPath: string;
+
+  beforeEach(() => {
+    process.env.OPS1_CONVERSATION_PROVIDER = "fake";
+    getProjectRuntimeActionMock.mockResolvedValue({
+      ok: true,
+      project: {
+        projectId: "prj:p6-seam",
+        name: "Seam",
+        shortReference: "SEA",
+        objective: "QA seam",
+        contextSummary: "seam",
+        criticality: "STANDARD",
+        constraints: [],
+        localMode: true,
+        source: "REAL_LOCAL_CORE",
+        fixture: false,
+      },
+      doctrine: {
+        id: "pkg:studio-v3-oa",
+        version: "1.0.0",
+        digest: "d",
+        status: "RESOLVED",
+      },
+      livingState: {
+        id: "lps:seam",
+        version: 1,
+        createdAt: "2026-10-13T00:00:00.000Z",
+      },
+      readiness: {
+        status: "NOT_READY",
+        hard: "OPEN",
+        tA6: "INCOMPLETE",
+        iam: "NOT_SELECTED",
+        productPersistence: "SQLITE_OA_PRODUCT_STORE",
+        realAgentExecution: "DISABLED",
+        delivery: "NOT_AUTHORIZED",
+        cutover: "NOT_AUTHORIZED",
+        runReady: false,
+        productReady: false,
+      },
+      disclosures: {
+        runtimeMode: "LOCAL_PROCESS",
+        persistence: "PARTIAL_PROJECT_LPS_CYCLE_DECISION_CONTRACT_DURABLE",
+        agentExecution: "DISABLED",
+        iam: "NOT_SELECTED",
+        productPersistence: "SQLITE_OA_PRODUCT_STORE",
+        delivery: "NOT_AUTHORIZED",
+        cutover: "NOT_AUTHORIZED",
+        localDataVolatile: true,
+        restartMayLoseState: true,
+        projectLpsRestartSafe: true,
+        cycleInstanceRestartSafe: true,
+        humanDecisionRestartSafe: true,
+        executionContractRestartSafe: true,
+        messages: [],
+      },
+    });
+    runNoraCognitiveTurnMock.mockResolvedValue({
+      text: "seam",
+      usage: {
+        inputTokens: 1,
+        outputTokens: 1,
+        totalTokens: 2,
+        model: "fake-test-model",
+        providerResponseId: "fake-seam-1",
+      },
+      toolRounds: 0,
+      toolCalls: 0,
+      limitReached: false,
+      cognitiveRuntime: "agents",
+      sessionId: "sess:seam",
+      memoryBAvailability: "unavailable",
+      memoryBCompactionState: "none",
+      memoryBCompactionDetails: null,
+      selectedModelId: "fake-test-model",
+      selectedReasoningEffort: "low",
+      adaptiveObserve: {
+        requestedMaxTurns: 8,
+        effectiveMaxTurns: 8,
+        strategyClass: "Focused",
+        reasonCodes: [],
+        floor: 4,
+        ceiling: 24,
+        explicitOverride: false,
+      },
+      continuationObserve: {
+        continued: false,
+        segmentsExecuted: 1,
+        missionMaxTurns: 8,
+        segmentMaxTurns: 8,
+        allottedTurns: 8,
+        stopReason: "complete",
+        reasonCodes: [],
+      },
+    });
+    setConversationProviderForTests(null);
+    clearCognitiveExecutionReceiptRegistryForTests();
+    workspaceRoot = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-p6-seam-"));
+    ledgerPath = resolveP6EvidenceLedgerPath(workspaceRoot);
+    sessionDbPath = path.join(workspaceRoot, "session.sqlite");
+  });
+
+  afterEach(() => {
+    setConversationProviderForTests(null);
+    clearCognitiveExecutionReceiptRegistryForTests();
+    fs.rmSync(workspaceRoot, { recursive: true, force: true });
+  });
+
+  it("harness collection point calls capture and persists findable runId", async () => {
+    const productTurnResult = await orchestrateProjectAssistantTurn({
+      projectId: "prj:p6-seam",
+      content: "qa collection seam",
+      sessionDbPath,
+    });
+    expect(productTurnResult.ok).toBe(true);
+    if (!productTurnResult.ok) return;
+
+    // Historical harness pattern: after Product turn, collect evidence.
+    const collected = collectP6ProductTurnEvidence({
+      productTurnResult,
+      runId: "P6-QA-SEAM-RUN-01",
+      scenarioId: "P6-MIN-09",
+      absolutePath: ledgerPath,
+    });
+    expect(collected.ok).toBe(true);
+    if (!collected.ok) return;
+    expect(collected.status).toBe("appended");
+
+    const found = findP6EvidenceLedgerRowsByRunId("P6-QA-SEAM-RUN-01", {
+      absolutePath: ledgerPath,
+    });
+    expect(found.integrityPass).toBe(true);
+    expect(found.matches).toHaveLength(1);
+    expect(found.matches[0]?.logicalTurnId).toBe(
+      productTurnResult.logicalTurnId,
+    );
+    expect(found.matches[0]?.kind).toBe("cognitive_execution_receipt");
+  });
+});
+----- END FILE: projects/sfia-studio/app/__tests__/p6-campaign-evidence/p6.qaCollectionSeam.d0.test.ts -----
+----- BEGIN FILE: projects/sfia-studio/app/features/project-assistant/cognitiveExecutionReceipt.ts -----
+lines: 369
 /**
  * P6-REAL-OBS-P0-RECEIPT-CONSERVATION — Option B receipt (corrected).
  *
@@ -472,1278 +2455,9 @@ export function projectAndConserveCognitiveExecutionReceipt(
     };
   }
 }
-```
-
-### NEW — evidenceLedger.ts (complete)
-```typescript
-/**
- * P6 Campaign Evidence Ledger — EXTERNAL QA device (NOT Product persistence).
- *
- * Canonical path (P6 QA §T / existing campaign harness convention):
- *   .tmp-sfia-review/p6-global-integrated-qa/evidence-ledger.jsonl
- *
- * Append-only. Never rewrite historical lines. Never Product SQLite.
- * Campaign-scoped to P6-GLOBAL-INTEGRATED-PRODUCT-QA-01.
- */
-
-import fs from "node:fs";
-import path from "node:path";
-
-export const P6_CAMPAIGN_ID = "P6-GLOBAL-INTEGRATED-PRODUCT-QA-01" as const;
-
-export const P6_EVIDENCE_LEDGER_RELATIVE_PATH = path.join(
-  ".tmp-sfia-review",
-  "p6-global-integrated-qa",
-  "evidence-ledger.jsonl",
-);
-
-export function resolveP6EvidenceLedgerPath(
-  workspaceRoot: string = process.cwd(),
-): string {
-  return path.join(workspaceRoot, P6_EVIDENCE_LEDGER_RELATIVE_PATH);
-}
-
-export type EnsureP6EvidenceLedgerResult =
-  | { ok: true; ledgerPath: string; created: boolean }
-  | { ok: false; ledgerPath: string; code: string; message: string };
-
-/**
- * Ensure parent dirs + ledger file exist. Creates empty file when missing.
- * Does not truncate an existing ledger.
- */
-export function ensureP6EvidenceLedger(options?: {
-  workspaceRoot?: string;
-  ledgerPath?: string;
-}): EnsureP6EvidenceLedgerResult {
-  const ledgerPath =
-    options?.ledgerPath ??
-    resolveP6EvidenceLedgerPath(options?.workspaceRoot ?? process.cwd());
-  try {
-    const dir = path.dirname(ledgerPath);
-    fs.mkdirSync(dir, { recursive: true });
-    const created = !fs.existsSync(ledgerPath);
-    if (created) {
-      fs.writeFileSync(ledgerPath, "", { encoding: "utf8", flag: "wx" });
-    } else {
-      // Touch-read to verify accessibility without mutating content.
-      fs.accessSync(ledgerPath, fs.constants.R_OK | fs.constants.W_OK);
-    }
-    return { ok: true, ledgerPath, created };
-  } catch (error) {
-    const message =
-      error instanceof Error ? error.message : "ledger_ensure_failed";
-    return {
-      ok: false,
-      ledgerPath,
-      code: "LEDGER_ENSURE_FAILED",
-      message: message.slice(0, 200),
-    };
-  }
-}
-
-export type AppendP6EvidenceLedgerResult =
-  | { ok: true; ledgerPath: string; byteLength: number }
-  | {
-      ok: false;
-      ledgerPath: string;
-      code: string;
-      message: string;
-    };
-
-/**
- * Append one JSON line. Never rewrites prior lines.
- * Caller must supply a plain object (already validated/redacted).
- */
-export function appendP6EvidenceLedgerRow(
-  row: Record<string, unknown>,
-  options?: { workspaceRoot?: string; ledgerPath?: string },
-): AppendP6EvidenceLedgerResult {
-  const ensured = ensureP6EvidenceLedger(options);
-  if (!ensured.ok) {
-    return {
-      ok: false,
-      ledgerPath: ensured.ledgerPath,
-      code: ensured.code,
-      message: ensured.message,
-    };
-  }
-  try {
-    const line = `${JSON.stringify(row)}\n`;
-    fs.appendFileSync(ensured.ledgerPath, line, "utf8");
-    return {
-      ok: true,
-      ledgerPath: ensured.ledgerPath,
-      byteLength: Buffer.byteLength(line, "utf8"),
-    };
-  } catch (error) {
-    const message =
-      error instanceof Error ? error.message : "ledger_append_failed";
-    return {
-      ok: false,
-      ledgerPath: ensured.ledgerPath,
-      code: "LEDGER_APPEND_FAILED",
-      message: message.slice(0, 200),
-    };
-  }
-}
-
-export type ReadP6EvidenceLedgerResult =
-  | {
-      ok: true;
-      ledgerPath: string;
-      rows: Record<string, unknown>[];
-      parseErrors: number;
-    }
-  | { ok: false; ledgerPath: string; code: string; message: string };
-
-/**
- * Read all parseable JSONL rows. Corrupt lines are skipped (counted).
- * Fail-closed when file missing or unreadable for required reads.
- */
-export function readP6EvidenceLedger(options?: {
-  workspaceRoot?: string;
-  ledgerPath?: string;
-  /** When true, missing file ⇒ empty ok (for fresh campaign). */
-  allowMissing?: boolean;
-}): ReadP6EvidenceLedgerResult {
-  const ledgerPath =
-    options?.ledgerPath ??
-    resolveP6EvidenceLedgerPath(options?.workspaceRoot ?? process.cwd());
-  if (!fs.existsSync(ledgerPath)) {
-    if (options?.allowMissing) {
-      return { ok: true, ledgerPath, rows: [], parseErrors: 0 };
-    }
-    return {
-      ok: false,
-      ledgerPath,
-      code: "LEDGER_MISSING",
-      message: "evidence ledger file not found",
-    };
-  }
-  try {
-    const text = fs.readFileSync(ledgerPath, "utf8");
-    const rows: Record<string, unknown>[] = [];
-    let parseErrors = 0;
-    for (const raw of text.split("\n")) {
-      const line = raw.trim();
-      if (!line) continue;
-      try {
-        const parsed: unknown = JSON.parse(line);
-        if (
-          parsed != null &&
-          typeof parsed === "object" &&
-          !Array.isArray(parsed)
-        ) {
-          rows.push(parsed as Record<string, unknown>);
-        } else {
-          parseErrors += 1;
-        }
-      } catch {
-        parseErrors += 1;
-      }
-    }
-    return { ok: true, ledgerPath, rows, parseErrors };
-  } catch (error) {
-    const message =
-      error instanceof Error ? error.message : "ledger_read_failed";
-    return {
-      ok: false,
-      ledgerPath,
-      code: "LEDGER_READ_FAILED",
-      message: message.slice(0, 200),
-    };
-  }
-}
-
-export function findP6EvidenceLedgerRows(
-  predicate: (row: Record<string, unknown>) => boolean,
-  options?: {
-    workspaceRoot?: string;
-    ledgerPath?: string;
-    allowMissing?: boolean;
-  },
-): ReadP6EvidenceLedgerResult & { matches?: Record<string, unknown>[] } {
-  const read = readP6EvidenceLedger(options);
-  if (!read.ok) return read;
-  return {
-    ...read,
-    matches: read.rows.filter(predicate),
-  };
-}
-
-export function findP6EvidenceLedgerByRunId(
-  runId: string,
-  options?: {
-    workspaceRoot?: string;
-    ledgerPath?: string;
-    allowMissing?: boolean;
-  },
-): Record<string, unknown> | null {
-  const found = findP6EvidenceLedgerRows(
-    (row) => row.runId === runId,
-    options,
-  );
-  if (!found.ok) return null;
-  const matches = found.matches ?? [];
-  return matches.length > 0 ? (matches[matches.length - 1] ?? null) : null;
-}
-```
-
-### NEW — captureCognitiveExecutionReceipt.ts (complete)
-```typescript
-/**
- * External QA capture of Product CognitiveExecutionReceipt → P6 Evidence Ledger.
- *
- * Never called from Product orchestrateTurn.
- * Never invents REAL. Never writes secrets / prompts / bodies.
- */
-
-import type { CognitiveExecutionReceipt } from "@/features/project-assistant/cognitiveExecutionReceipt";
-import {
-  appendP6EvidenceLedgerRow,
-  findP6EvidenceLedgerByRunId,
-  findP6EvidenceLedgerRows,
-  P6_CAMPAIGN_ID,
-  readP6EvidenceLedger,
-  resolveP6EvidenceLedgerPath,
-} from "./evidenceLedger";
-
-export const COGNITIVE_RECEIPT_LEDGER_KIND =
-  "cognitive_execution_receipt" as const;
-
-export const COGNITIVE_RECEIPT_LEDGER_SCHEMA_VERSION = 1 as const;
-
-export type CaptureCognitiveExecutionReceiptInput = {
-  /** Distinct from Product logicalTurnId — campaign run identity. */
-  runId: string;
-  scenarioId: string;
-  campaignId?: string;
-  /** Product receipt (from DTO.cognitiveExecutionReceipt). */
-  receipt: CognitiveExecutionReceipt;
-  /** Optional runtime/git identity observed by QA harness. */
-  runtimeIdentity?: {
-    gitHead?: string | null;
-    branch?: string | null;
-    worktreeLabel?: string | null;
-  };
-  /** Campaign-level proof class for this capture artifact. */
-  campaignProofClassification?: "DETERMINISTIC" | "REAL_BOUNDARY_CANDIDATE";
-  reserves?: string[];
-  evidenceRefs?: string[];
-  workspaceRoot?: string;
-  ledgerPath?: string;
-  /**
-   * Duplicate policy for the same runId + kind:
-   * - reject (default): keep historical line; return duplicate_rejected
-   * - skip: treat as success without writing
-   * Never overwrite.
-   */
-  onDuplicate?: "reject" | "skip";
-};
-
-export type CaptureCognitiveExecutionReceiptResult =
-  | {
-      ok: true;
-      status: "written" | "duplicate_skipped";
-      runId: string;
-      logicalTurnId: string;
-      ledgerPath: string;
-      entry: P6CognitiveReceiptLedgerEntry;
-    }
-  | {
-      ok: false;
-      status:
-        | "validation_failed"
-        | "duplicate_rejected"
-        | "write_failed"
-        | "identity_mismatch";
-      code: string;
-      message: string;
-      runId: string;
-      logicalTurnId: string | null;
-      ledgerPath?: string;
-    };
-
-export type P6CognitiveReceiptLedgerEntry = {
-  kind: typeof COGNITIVE_RECEIPT_LEDGER_KIND;
-  schemaVersion: typeof COGNITIVE_RECEIPT_LEDGER_SCHEMA_VERSION;
-  campaignId: string;
-  runId: string;
-  scenarioId: string;
-  logicalTurnId: string;
-  projectId: string;
-  timestamp: string;
-  runtime: {
-    gitHead: string | null;
-    branch: string | null;
-    worktreeLabel: string | null;
-    productRuntimeIdentity: "agents";
-  };
-  providerIdentity: CognitiveExecutionReceipt["providerIdentity"];
-  presentation: CognitiveExecutionReceipt["presentation"];
-  providerConfigured: boolean;
-  selectedModelId: string | null;
-  observedModel: string | null;
-  selectedReasoningEffort: string | null;
-  providerResponseId: string | null;
-  providerResponseObservation: CognitiveExecutionReceipt["providerResponseObservation"];
-  usage: CognitiveExecutionReceipt["usage"];
-  adaptiveObserve: CognitiveExecutionReceipt["adaptiveObserve"];
-  continuationObserve: CognitiveExecutionReceipt["continuationObserve"];
-  toolCalls: number;
-  limitReached: boolean;
-  productTerminalStatus: CognitiveExecutionReceipt["productTerminalStatus"];
-  productConservation: CognitiveExecutionReceipt["conservation"];
-  captureStatus: "captured" | "failed";
-  /** Product receipt proof class — always DETERMINISTIC from Product seam. */
-  productProofClassification: "DETERMINISTIC";
-  productRealProofStatus: "NOT_PROVEN";
-  /** Campaign artifact class — never auto-upgraded to REAL PROVEN. */
-  campaignProofClassification: "DETERMINISTIC" | "REAL_BOUNDARY_CANDIDATE";
-  /** Explicit: ledger capture never asserts REAL BOUNDARY PROVEN. */
-  realBoundaryClaim: "NOT_CLAIMED";
-  reserves: string[];
-  evidenceRefs: string[];
-};
-
-const FORBIDDEN_KEY_FRAGMENTS = [
-  "authorization",
-  "api_key",
-  "apikey",
-  "cookie",
-  "secret",
-  "password",
-  "bearer",
-  "prompt",
-  "messages",
-  "document",
-  "cot",
-  "chain_of_thought",
-] as const;
-
-function assertNoForbiddenKeys(value: unknown, pathPrefix = ""): string | null {
-  if (value == null) return null;
-  if (Array.isArray(value)) {
-    for (let i = 0; i < value.length; i += 1) {
-      const hit = assertNoForbiddenKeys(value[i], `${pathPrefix}[${i}]`);
-      if (hit) return hit;
-    }
-    return null;
-  }
-  if (typeof value === "object") {
-    for (const [k, v] of Object.entries(value as Record<string, unknown>)) {
-      const lower = k.toLowerCase();
-      for (const frag of FORBIDDEN_KEY_FRAGMENTS) {
-        if (lower.includes(frag)) {
-          return `forbidden_key:${pathPrefix}${k}`;
-        }
-      }
-      const hit = assertNoForbiddenKeys(v, `${pathPrefix}${k}.`);
-      if (hit) return hit;
-    }
-  }
-  if (typeof value === "string") {
-    if (/sk-[a-zA-Z0-9]{10,}/.test(value)) return "secret_like_string";
-    if (/Bearer\s+[A-Za-z0-9\-._~+/]+=*/i.test(value)) return "bearer_token";
-  }
-  return null;
-}
-
-function isCognitiveExecutionReceipt(
-  value: unknown,
-): value is CognitiveExecutionReceipt {
-  if (value == null || typeof value !== "object" || Array.isArray(value)) {
-    return false;
-  }
-  const r = value as Record<string, unknown>;
-  return (
-    typeof r.logicalTurnId === "string" &&
-    typeof r.projectId === "string" &&
-    r.proofClassification === "DETERMINISTIC" &&
-    r.realProofStatus === "NOT_PROVEN" &&
-    typeof r.providerResponseObservation === "string" &&
-    r.conservation != null &&
-    typeof r.conservation === "object"
-  );
-}
-
-/**
- * Extract receipt from a Product send success/failure-like DTO.
- */
-export function extractCognitiveExecutionReceiptFromDto(
-  dto: unknown,
-): CognitiveExecutionReceipt | null {
-  if (dto == null || typeof dto !== "object" || Array.isArray(dto)) {
-    return null;
-  }
-  const receipt = (dto as Record<string, unknown>).cognitiveExecutionReceipt;
-  return isCognitiveExecutionReceipt(receipt) ? receipt : null;
-}
-
-function buildEntry(
-  input: CaptureCognitiveExecutionReceiptInput,
-): P6CognitiveReceiptLedgerEntry {
-  const receipt = input.receipt;
-  return {
-    kind: COGNITIVE_RECEIPT_LEDGER_KIND,
-    schemaVersion: COGNITIVE_RECEIPT_LEDGER_SCHEMA_VERSION,
-    campaignId: input.campaignId ?? P6_CAMPAIGN_ID,
-    runId: input.runId,
-    scenarioId: input.scenarioId,
-    logicalTurnId: receipt.logicalTurnId,
-    projectId: receipt.projectId,
-    timestamp: new Date().toISOString(),
-    runtime: {
-      gitHead: input.runtimeIdentity?.gitHead ?? null,
-      branch: input.runtimeIdentity?.branch ?? null,
-      worktreeLabel: input.runtimeIdentity?.worktreeLabel ?? null,
-      productRuntimeIdentity: "agents",
-    },
-    providerIdentity: receipt.providerIdentity,
-    presentation: receipt.presentation,
-    providerConfigured: receipt.providerConfigured,
-    selectedModelId: receipt.selectedModelId,
-    observedModel: receipt.observedModel,
-    selectedReasoningEffort: receipt.selectedReasoningEffort,
-    providerResponseId: receipt.providerResponseId,
-    providerResponseObservation: receipt.providerResponseObservation,
-    usage: { ...receipt.usage },
-    adaptiveObserve: receipt.adaptiveObserve
-      ? {
-          ...receipt.adaptiveObserve,
-          reasonCodes: [...receipt.adaptiveObserve.reasonCodes],
-        }
-      : null,
-    continuationObserve: receipt.continuationObserve
-      ? {
-          ...receipt.continuationObserve,
-          reasonCodes: [...receipt.continuationObserve.reasonCodes],
-        }
-      : null,
-    toolCalls: receipt.toolCalls,
-    limitReached: receipt.limitReached,
-    productTerminalStatus: receipt.productTerminalStatus,
-    productConservation: { ...receipt.conservation },
-    captureStatus: "captured",
-    productProofClassification: "DETERMINISTIC",
-    productRealProofStatus: "NOT_PROVEN",
-    campaignProofClassification:
-      input.campaignProofClassification ?? "DETERMINISTIC",
-    realBoundaryClaim: "NOT_CLAIMED",
-    reserves: [...(input.reserves ?? [])],
-    evidenceRefs: [...(input.evidenceRefs ?? [])],
-  };
-}
-
-/**
- * Capture a Product cognitive receipt into the external P6 Evidence Ledger.
- */
-export function captureCognitiveExecutionReceiptToP6Ledger(
-  input: CaptureCognitiveExecutionReceiptInput,
-): CaptureCognitiveExecutionReceiptResult {
-  const runId = typeof input.runId === "string" ? input.runId.trim() : "";
-  const scenarioId =
-    typeof input.scenarioId === "string" ? input.scenarioId.trim() : "";
-  if (!runId || !scenarioId) {
-    return {
-      ok: false,
-      status: "validation_failed",
-      code: "RUN_OR_SCENARIO_REQUIRED",
-      message: "runId and scenarioId are required",
-      runId: runId || "",
-      logicalTurnId: input.receipt?.logicalTurnId ?? null,
-    };
-  }
-  if (!isCognitiveExecutionReceipt(input.receipt)) {
-    return {
-      ok: false,
-      status: "validation_failed",
-      code: "RECEIPT_INVALID",
-      message: "cognitiveExecutionReceipt structure invalid",
-      runId,
-      logicalTurnId: null,
-    };
-  }
-  if (input.receipt.logicalTurnId === runId) {
-    return {
-      ok: false,
-      status: "identity_mismatch",
-      code: "RUNID_EQUALS_LOGICAL_TURN",
-      message: "runId must be distinct from Product logicalTurnId",
-      runId,
-      logicalTurnId: input.receipt.logicalTurnId,
-    };
-  }
-  if (
-    input.campaignId &&
-    input.campaignId !== P6_CAMPAIGN_ID
-  ) {
-    return {
-      ok: false,
-      status: "validation_failed",
-      code: "CAMPAIGN_SCOPE",
-      message: "ledger capture scoped to P6-GLOBAL-INTEGRATED-PRODUCT-QA-01",
-      runId,
-      logicalTurnId: input.receipt.logicalTurnId,
-    };
-  }
-
-  const entry = buildEntry(input);
-  const forbidden = assertNoForbiddenKeys(entry);
-  if (forbidden) {
-    return {
-      ok: false,
-      status: "validation_failed",
-      code: "SENSITIVE_PAYLOAD_REJECTED",
-      message: forbidden,
-      runId,
-      logicalTurnId: entry.logicalTurnId,
-    };
-  }
-
-  // Never auto-REAL from providerResponseId.
-  if (
-    entry.realBoundaryClaim !== "NOT_CLAIMED" ||
-    entry.productRealProofStatus !== "NOT_PROVEN"
-  ) {
-    return {
-      ok: false,
-      status: "validation_failed",
-      code: "REAL_CLAIM_FORBIDDEN",
-      message: "ledger must not claim REAL BOUNDARY PROVEN",
-      runId,
-      logicalTurnId: entry.logicalTurnId,
-    };
-  }
-
-  const existing = findP6EvidenceLedgerByRunId(runId, {
-    workspaceRoot: input.workspaceRoot,
-    ledgerPath: input.ledgerPath,
-    allowMissing: true,
-  });
-  if (
-    existing &&
-    existing.kind === COGNITIVE_RECEIPT_LEDGER_KIND
-  ) {
-    const policy = input.onDuplicate ?? "reject";
-    if (policy === "skip") {
-      return {
-        ok: true,
-        status: "duplicate_skipped",
-        runId,
-        logicalTurnId: entry.logicalTurnId,
-        ledgerPath:
-          input.ledgerPath ??
-          resolveP6EvidenceLedgerPath(input.workspaceRoot ?? process.cwd()),
-        entry,
-      };
-    }
-    return {
-      ok: false,
-      status: "duplicate_rejected",
-      code: "DUPLICATE_RUN_ID",
-      message: "runId already present — historical line preserved (no rewrite)",
-      runId,
-      logicalTurnId: entry.logicalTurnId,
-    };
-  }
-
-  const written = appendP6EvidenceLedgerRow(entry as unknown as Record<string, unknown>, {
-    workspaceRoot: input.workspaceRoot,
-    ledgerPath: input.ledgerPath,
-  });
-  if (!written.ok) {
-    return {
-      ok: false,
-      status: "write_failed",
-      code: written.code,
-      message: written.message,
-      runId,
-      logicalTurnId: entry.logicalTurnId,
-      ledgerPath: written.ledgerPath,
-    };
-  }
-  return {
-    ok: true,
-    status: "written",
-    runId,
-    logicalTurnId: entry.logicalTurnId,
-    ledgerPath: written.ledgerPath,
-    entry,
-  };
-}
-
-export function findCognitiveReceiptLedgerEntryByRunId(
-  runId: string,
-  options?: { workspaceRoot?: string; ledgerPath?: string },
-): P6CognitiveReceiptLedgerEntry | null {
-  const row = findP6EvidenceLedgerByRunId(runId, {
-    ...options,
-    allowMissing: true,
-  });
-  if (!row || row.kind !== COGNITIVE_RECEIPT_LEDGER_KIND) return null;
-  return row as unknown as P6CognitiveReceiptLedgerEntry;
-}
-
-export function findCognitiveReceiptLedgerEntriesByLogicalTurnId(
-  logicalTurnId: string,
-  options?: { workspaceRoot?: string; ledgerPath?: string },
-): P6CognitiveReceiptLedgerEntry[] {
-  const found = findP6EvidenceLedgerRows(
-    (row) =>
-      row.kind === COGNITIVE_RECEIPT_LEDGER_KIND &&
-      row.logicalTurnId === logicalTurnId,
-    { ...options, allowMissing: true },
-  );
-  if (!found.ok) return [];
-  return (found.matches ?? []) as unknown as P6CognitiveReceiptLedgerEntry[];
-}
-
-export function reopenAndFindCognitiveReceiptByRunId(
-  runId: string,
-  options?: { workspaceRoot?: string; ledgerPath?: string },
-): {
-  ok: boolean;
-  parseErrors: number;
-  entry: P6CognitiveReceiptLedgerEntry | null;
-  code?: string;
-} {
-  const read = readP6EvidenceLedger({ ...options, allowMissing: false });
-  if (!read.ok) {
-    return { ok: false, parseErrors: 0, entry: null, code: read.code };
-  }
-  // Fail-closed: if corrupt lines present, still only return exact runId match;
-  // never invent or swap to another run.
-  const match = read.rows.find(
-    (row) => row.kind === COGNITIVE_RECEIPT_LEDGER_KIND && row.runId === runId,
-  );
-  return {
-    ok: true,
-    parseErrors: read.parseErrors,
-    entry: match
-      ? (match as unknown as P6CognitiveReceiptLedgerEntry)
-      : null,
-  };
-}
-```
-
-### NEW — index.ts (complete)
-```typescript
-/**
- * P6 Campaign Evidence — external QA capture device.
- * Not Product persistence. Not Evidence authority for HumanDecision.
- */
-
-export {
-  P6_CAMPAIGN_ID,
-  P6_EVIDENCE_LEDGER_RELATIVE_PATH,
-  resolveP6EvidenceLedgerPath,
-  ensureP6EvidenceLedger,
-  appendP6EvidenceLedgerRow,
-  readP6EvidenceLedger,
-  findP6EvidenceLedgerRows,
-  findP6EvidenceLedgerByRunId,
-} from "./evidenceLedger";
-
-export type {
-  EnsureP6EvidenceLedgerResult,
-  AppendP6EvidenceLedgerResult,
-  ReadP6EvidenceLedgerResult,
-} from "./evidenceLedger";
-
-export {
-  COGNITIVE_RECEIPT_LEDGER_KIND,
-  COGNITIVE_RECEIPT_LEDGER_SCHEMA_VERSION,
-  extractCognitiveExecutionReceiptFromDto,
-  captureCognitiveExecutionReceiptToP6Ledger,
-  findCognitiveReceiptLedgerEntryByRunId,
-  findCognitiveReceiptLedgerEntriesByLogicalTurnId,
-  reopenAndFindCognitiveReceiptByRunId,
-} from "./captureCognitiveExecutionReceipt";
-
-export type {
-  CaptureCognitiveExecutionReceiptInput,
-  CaptureCognitiveExecutionReceiptResult,
-  P6CognitiveReceiptLedgerEntry,
-} from "./captureCognitiveExecutionReceipt";
-```
-
-### NEW — p6.externalEvidenceLedger.d0.test.ts (complete)
-```typescript
-/**
- * P6 EXTERNAL EVIDENCE LEDGER — DETERMINISTIC / ZERO REAL.
- * Exercises the external QA capture device (not Product orchestrateTurn writes).
- * @vitest-environment node
- */
-import fs from "node:fs";
-import os from "node:os";
-import path from "node:path";
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { setConversationProviderForTests } from "@/lib/platform/ai";
-import { orchestrateProjectAssistantTurn } from "@/features/project-assistant/orchestrateTurn";
-import {
-  buildCognitiveExecutionReceipt,
-  clearCognitiveExecutionReceiptRegistryForTests,
-} from "@/features/project-assistant/cognitiveExecutionReceipt";
-import {
-  appendP6EvidenceLedgerRow,
-  captureCognitiveExecutionReceiptToP6Ledger,
-  ensureP6EvidenceLedger,
-  extractCognitiveExecutionReceiptFromDto,
-  findCognitiveReceiptLedgerEntriesByLogicalTurnId,
-  findCognitiveReceiptLedgerEntryByRunId,
-  P6_CAMPAIGN_ID,
-  P6_EVIDENCE_LEDGER_RELATIVE_PATH,
-  readP6EvidenceLedger,
-  reopenAndFindCognitiveReceiptByRunId,
-  resolveP6EvidenceLedgerPath,
-} from "@/lib/p6-campaign-evidence";
-
-const {
-  getProjectRuntimeActionMock,
-  runNoraCognitiveTurnMock,
-} = vi.hoisted(() => ({
-  getProjectRuntimeActionMock: vi.fn(),
-  runNoraCognitiveTurnMock: vi.fn(),
-}));
-
-vi.mock("@/lib/vertical-slice-runtime/actions", () => ({
-  getProjectRuntimeAction: getProjectRuntimeActionMock,
-}));
-
-vi.mock("@/lib/nora-cognitive-runtime", async (importOriginal) => {
-  const actual =
-    await importOriginal<typeof import("@/lib/nora-cognitive-runtime")>();
-  return {
-    ...actual,
-    runNoraCognitiveTurn: (...args: unknown[]) =>
-      runNoraCognitiveTurnMock(...args),
-  };
-});
-
-const SUCCESS = {
-  ok: true as const,
-  project: {
-    projectId: "prj:p6-ledger",
-    name: "Projet Ledger",
-    shortReference: "LED",
-    objective: "External ledger capture.",
-    contextSummary: "P6 ledger D0",
-    criticality: "STANDARD" as const,
-    constraints: ["Lecture seule"],
-    localMode: true as const,
-    source: "REAL_LOCAL_CORE" as const,
-    fixture: false as const,
-  },
-  doctrine: {
-    id: "pkg:studio-v3-oa",
-    version: "1.0.0",
-    digest: "digest:ledger",
-    status: "RESOLVED",
-  },
-  livingState: {
-    id: "lps:ledger",
-    version: 1 as const,
-    createdAt: "2026-10-13T00:00:00.000Z",
-  },
-  readiness: {
-    status: "NOT_READY" as const,
-    hard: "OPEN" as const,
-    tA6: "INCOMPLETE" as const,
-    iam: "NOT_SELECTED" as const,
-    productPersistence: "SQLITE_OA_PRODUCT_STORE" as const,
-    realAgentExecution: "DISABLED" as const,
-    delivery: "NOT_AUTHORIZED" as const,
-    cutover: "NOT_AUTHORIZED" as const,
-    runReady: false as const,
-    productReady: false as const,
-  },
-  disclosures: {
-    runtimeMode: "LOCAL_PROCESS" as const,
-    persistence: "PARTIAL_PROJECT_LPS_CYCLE_DECISION_CONTRACT_DURABLE" as const,
-    agentExecution: "DISABLED" as const,
-    iam: "NOT_SELECTED" as const,
-    productPersistence: "SQLITE_OA_PRODUCT_STORE" as const,
-    delivery: "NOT_AUTHORIZED" as const,
-    cutover: "NOT_AUTHORIZED" as const,
-    localDataVolatile: true as const,
-    restartMayLoseState: true as const,
-    projectLpsRestartSafe: true as const,
-    cycleInstanceRestartSafe: true as const,
-    humanDecisionRestartSafe: true as const,
-    executionContractRestartSafe: true as const,
-    messages: [] as const,
-  },
-};
-
-function baseTurn(overrides: Record<string, unknown> = {}) {
-  return {
-    text: "Deterministic synthesis.",
-    usage: {
-      inputTokens: 3,
-      outputTokens: 2,
-      totalTokens: 5,
-      model: "fake-test-model",
-      providerResponseId: "fake-resp-ledger-1",
-    },
-    toolRounds: 0,
-    toolCalls: 0,
-    limitReached: false,
-    cognitiveRuntime: "agents" as const,
-    sessionId: "sess:ledger",
-    memoryBAvailability: "unavailable" as const,
-    memoryBCompactionState: "none" as const,
-    memoryBCompactionDetails: null,
-    selectedModelId: "fake-test-model",
-    selectedReasoningEffort: "low",
-    adaptiveObserve: {
-      requestedMaxTurns: 8,
-      effectiveMaxTurns: 8,
-      strategyClass: "Focused",
-      reasonCodes: ["adaptive:default"],
-      floor: 4,
-      ceiling: 24,
-      explicitOverride: false,
-    },
-    continuationObserve: {
-      continued: false,
-      segmentsExecuted: 1,
-      missionMaxTurns: 8,
-      segmentMaxTurns: 8,
-      allottedTurns: 8,
-      stopReason: "complete",
-      reasonCodes: [],
-    },
-    ...overrides,
-  };
-}
-
-describe("P6 EXTERNAL EVIDENCE LEDGER (DETERMINISTIC)", () => {
-  const previousFake = process.env.OPS1_CONVERSATION_PROVIDER;
-  let workspaceRoot: string;
-  let ledgerPath: string;
-  let sessionDir: string;
-  let sessionDbPath: string;
-
-  beforeEach(() => {
-    process.env.OPS1_CONVERSATION_PROVIDER = "fake";
-    getProjectRuntimeActionMock.mockReset();
-    getProjectRuntimeActionMock.mockResolvedValue(SUCCESS);
-    runNoraCognitiveTurnMock.mockReset();
-    setConversationProviderForTests(null);
-    clearCognitiveExecutionReceiptRegistryForTests();
-    workspaceRoot = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-p6-ledger-"));
-    ledgerPath = resolveP6EvidenceLedgerPath(workspaceRoot);
-    sessionDir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-p6-led-sess-"));
-    sessionDbPath = path.join(sessionDir, "session.sqlite");
-  });
-
-  afterEach(() => {
-    setConversationProviderForTests(null);
-    clearCognitiveExecutionReceiptRegistryForTests();
-    if (previousFake === undefined) {
-      delete process.env.OPS1_CONVERSATION_PROVIDER;
-    } else {
-      process.env.OPS1_CONVERSATION_PROVIDER = previousFake;
-    }
-    fs.rmSync(workspaceRoot, { recursive: true, force: true });
-    fs.rmSync(sessionDir, { recursive: true, force: true });
-  });
-
-  it("T01 — creates external P6 ledger at canonical relative path", () => {
-    expect(ledgerPath.endsWith(P6_EVIDENCE_LEDGER_RELATIVE_PATH)).toBe(true);
-    const ensured = ensureP6EvidenceLedger({ workspaceRoot });
-    expect(ensured.ok).toBe(true);
-    if (!ensured.ok) return;
-    expect(ensured.created).toBe(true);
-    expect(fs.existsSync(ensured.ledgerPath)).toBe(true);
-    const again = ensureP6EvidenceLedger({ workspaceRoot });
-    expect(again.ok).toBe(true);
-    if (!again.ok) return;
-    expect(again.created).toBe(false);
-  });
-
-  it("T02/T03/T10 — append valid Fake receipt; find by runId; never REAL", () => {
-    const receipt = buildCognitiveExecutionReceipt({
-      logicalTurnId: "ltu:ledger-fake",
-      projectId: "prj:p6-ledger",
-      presentation: "test_provider",
-      productTerminalStatus: "ok",
-      turn: baseTurn() as never,
-    });
-    const captured = captureCognitiveExecutionReceiptToP6Ledger({
-      runId: "P6-DET-RUN-FAKE-01",
-      scenarioId: "P6-MIN-09",
-      receipt,
-      workspaceRoot,
-      campaignProofClassification: "DETERMINISTIC",
-    });
-    expect(captured.ok).toBe(true);
-    if (!captured.ok) return;
-    expect(captured.status).toBe("written");
-    expect(captured.entry.campaignId).toBe(P6_CAMPAIGN_ID);
-    expect(captured.entry.realBoundaryClaim).toBe("NOT_CLAIMED");
-    expect(captured.entry.productRealProofStatus).toBe("NOT_PROVEN");
-    expect(captured.entry.providerResponseObservation).toBe(
-      "FAKE_DETERMINISTIC",
-    );
-    const found = findCognitiveReceiptLedgerEntryByRunId("P6-DET-RUN-FAKE-01", {
-      workspaceRoot,
-    });
-    expect(found?.logicalTurnId).toBe("ltu:ledger-fake");
-    expect(found?.realBoundaryClaim).toBe("NOT_CLAIMED");
-  });
-
-  it("T04/T05 — logicalTurnId correlation + campaign/project isolation", () => {
-    const receipt = buildCognitiveExecutionReceipt({
-      logicalTurnId: "ltu:corr-1",
-      projectId: "prj:p6-ledger",
-      presentation: "test_provider",
-      productTerminalStatus: "ok",
-      turn: baseTurn() as never,
-    });
-    captureCognitiveExecutionReceiptToP6Ledger({
-      runId: "P6-DET-RUN-CORR-A",
-      scenarioId: "P6-MIN-09",
-      receipt,
-      workspaceRoot,
-    });
-    const other = buildCognitiveExecutionReceipt({
-      logicalTurnId: "ltu:corr-2",
-      projectId: "prj:other",
-      presentation: "test_provider",
-      productTerminalStatus: "ok",
-      turn: baseTurn() as never,
-    });
-    captureCognitiveExecutionReceiptToP6Ledger({
-      runId: "P6-DET-RUN-CORR-B",
-      scenarioId: "P6-MIN-01",
-      receipt: other,
-      workspaceRoot,
-    });
-    const byLtu = findCognitiveReceiptLedgerEntriesByLogicalTurnId("ltu:corr-1", {
-      workspaceRoot,
-    });
-    expect(byLtu).toHaveLength(1);
-    expect(byLtu[0]?.projectId).toBe("prj:p6-ledger");
-    expect(byLtu[0]?.campaignId).toBe(P6_CAMPAIGN_ID);
-  });
-
-  it("T06/T07/T08/T09 — two runs same scenario; FAILED preserved; no rewrite; duplicate reject", () => {
-    const okReceipt = buildCognitiveExecutionReceipt({
-      logicalTurnId: "ltu:multi-1",
-      projectId: "prj:p6-ledger",
-      presentation: "test_provider",
-      productTerminalStatus: "ok",
-      turn: baseTurn() as never,
-    });
-    const failReceipt = buildCognitiveExecutionReceipt({
-      logicalTurnId: "ltu:multi-1",
-      projectId: "prj:p6-ledger",
-      presentation: "test_provider",
-      productTerminalStatus: "provider_error",
-      turn: null,
-    });
-    const r1 = captureCognitiveExecutionReceiptToP6Ledger({
-      runId: "P6-DET-RUN-MULTI-FAIL",
-      scenarioId: "P6-MIN-09",
-      receipt: failReceipt,
-      workspaceRoot,
-      reserves: ["FAILED HISTORICAL"],
-    });
-    expect(r1.ok).toBe(true);
-    const r2 = captureCognitiveExecutionReceiptToP6Ledger({
-      runId: "P6-DET-RUN-MULTI-OK",
-      scenarioId: "P6-MIN-09",
-      receipt: okReceipt,
-      workspaceRoot,
-    });
-    expect(r2.ok).toBe(true);
-    const dup = captureCognitiveExecutionReceiptToP6Ledger({
-      runId: "P6-DET-RUN-MULTI-FAIL",
-      scenarioId: "P6-MIN-09",
-      receipt: okReceipt,
-      workspaceRoot,
-    });
-    expect(dup.ok).toBe(false);
-    if (dup.ok) return;
-    expect(dup.status).toBe("duplicate_rejected");
-    const historical = findCognitiveReceiptLedgerEntryByRunId(
-      "P6-DET-RUN-MULTI-FAIL",
-      { workspaceRoot },
-    );
-    expect(historical?.productTerminalStatus).toBe("provider_error");
-    expect(historical?.reserves).toContain("FAILED HISTORICAL");
-    const skip = captureCognitiveExecutionReceiptToP6Ledger({
-      runId: "P6-DET-RUN-MULTI-FAIL",
-      scenarioId: "P6-MIN-09",
-      receipt: okReceipt,
-      workspaceRoot,
-      onDuplicate: "skip",
-    });
-    expect(skip.ok).toBe(true);
-    if (!skip.ok) return;
-    expect(skip.status).toBe("duplicate_skipped");
-  });
-
-  it("T11 — synthetic Runner id never REAL PROVEN in ledger", () => {
-    const receipt = buildCognitiveExecutionReceipt({
-      logicalTurnId: "ltu:synth",
-      projectId: "prj:p6-ledger",
-      presentation: "openai_live",
-      productTerminalStatus: "ok",
-      turn: {
-        usage: {
-          inputTokens: 1,
-          outputTokens: 1,
-          totalTokens: 2,
-          model: "gpt-6-luna",
-          providerResponseId: "resp_det_synthetic_not_real",
-        },
-        toolCalls: 0,
-        limitReached: false,
-        cognitiveRuntime: "agents",
-        selectedModelId: "gpt-6-luna",
-        selectedReasoningEffort: "medium",
-      },
-    });
-    const captured = captureCognitiveExecutionReceiptToP6Ledger({
-      runId: "P6-DET-RUN-SYNTH",
-      scenarioId: "P6-MIN-09",
-      receipt,
-      workspaceRoot,
-    });
-    expect(captured.ok).toBe(true);
-    if (!captured.ok) return;
-    expect(captured.entry.providerResponseObservation).toBe(
-      "RUNNER_RESPONSE_ID_OBSERVED",
-    );
-    expect(captured.entry.realBoundaryClaim).toBe("NOT_CLAIMED");
-    expect(captured.entry.productRealProofStatus).toBe("NOT_PROVEN");
-    expect(JSON.stringify(captured.entry)).not.toContain("PROVIDER_CONFIRMED");
-  });
-
-  it("T12 — null providerResponseId honest NOT_OBSERVED", () => {
-    const receipt = buildCognitiveExecutionReceipt({
-      logicalTurnId: "ltu:null",
-      projectId: "prj:p6-ledger",
-      presentation: "openai_live",
-      productTerminalStatus: "ok",
-      turn: {
-        usage: {
-          inputTokens: null,
-          outputTokens: null,
-          totalTokens: null,
-          model: "gpt-6-luna",
-          providerResponseId: null,
-        },
-        toolCalls: 0,
-        limitReached: false,
-        cognitiveRuntime: "agents",
-        selectedModelId: "gpt-6-luna",
-        selectedReasoningEffort: "low",
-      },
-    });
-    const captured = captureCognitiveExecutionReceiptToP6Ledger({
-      runId: "P6-DET-RUN-NULL",
-      scenarioId: "P6-MIN-09",
-      receipt,
-      workspaceRoot,
-    });
-    expect(captured.ok).toBe(true);
-    if (!captured.ok) return;
-    expect(captured.entry.providerResponseId).toBeNull();
-    expect(captured.entry.providerResponseObservation).toBe("NOT_OBSERVED");
-  });
-
-  it("T13 — write failure detected (directory as ledger path)", () => {
-    const receipt = buildCognitiveExecutionReceipt({
-      logicalTurnId: "ltu:wfail",
-      projectId: "prj:p6-ledger",
-      presentation: "test_provider",
-      productTerminalStatus: "ok",
-      turn: baseTurn() as never,
-    });
-    const dirAsFile = path.join(workspaceRoot, "not-a-file-dir");
-    fs.mkdirSync(dirAsFile, { recursive: true });
-    const captured = captureCognitiveExecutionReceiptToP6Ledger({
-      runId: "P6-DET-RUN-WFAIL",
-      scenarioId: "P6-MIN-09",
-      receipt,
-      ledgerPath: dirAsFile,
-    });
-    expect(captured.ok).toBe(false);
-    if (captured.ok) return;
-    expect(captured.status).toBe("write_failed");
-  });
-
-  it("T14/T16/T19/T20 — capture from Product DTO; Product status unaffected; no Product storage write", async () => {
-    runNoraCognitiveTurnMock.mockResolvedValue(baseTurn());
-    const result = await orchestrateProjectAssistantTurn({
-      projectId: "prj:p6-ledger",
-      content: "capture from DTO",
-      sessionDbPath,
-    });
-    expect(result.ok).toBe(true);
-    if (!result.ok) return;
-    expect(result.status).toBe("ok");
-    const receipt = extractCognitiveExecutionReceiptFromDto(result);
-    expect(receipt).not.toBeNull();
-    const beforeProductDb = fs.existsSync(sessionDbPath);
-    const captured = captureCognitiveExecutionReceiptToP6Ledger({
-      runId: "P6-DET-RUN-DTO-01",
-      scenarioId: "P6-MIN-09",
-      receipt: receipt!,
-      workspaceRoot,
-      runtimeIdentity: {
-        gitHead: "bd3f440c749a059d73fb76e09bb1d0ce91e27af4",
-        branch: "fix/p6-real-observability-option-b",
-        worktreeLabel: "option-b",
-      },
-    });
-    expect(captured.ok).toBe(true);
-    if (!captured.ok) return;
-    expect(captured.entry.logicalTurnId).toBe(result.logicalTurnId);
-    expect(captured.entry.runId).not.toBe(result.logicalTurnId);
-    // Product status unchanged by external capture
-    expect(result.status).toBe("ok");
-    expect(result.ok).toBe(true);
-    expect(fs.existsSync(sessionDbPath)).toBe(beforeProductDb);
-    // orchestrateTurn must not import ledger module
-    const orchSrc = fs.readFileSync(
-      path.join(
-        process.cwd(),
-        "features/project-assistant/orchestrateTurn.ts",
-      ),
-      "utf8",
-    );
-    expect(orchSrc).not.toContain("p6-campaign-evidence");
-    expect(orchSrc).not.toContain("evidence-ledger");
-  });
-
-  it("T15 — close and reopen ledger; receipt still findable by runId", () => {
-    const receipt = buildCognitiveExecutionReceipt({
-      logicalTurnId: "ltu:reopen",
-      projectId: "prj:p6-ledger",
-      presentation: "test_provider",
-      productTerminalStatus: "ok",
-      turn: baseTurn() as never,
-    });
-    const captured = captureCognitiveExecutionReceiptToP6Ledger({
-      runId: "P6-DET-RUN-REOPEN",
-      scenarioId: "P6-MIN-09",
-      receipt,
-      workspaceRoot,
-    });
-    expect(captured.ok).toBe(true);
-    // Simulate process boundary: only path remains.
-    const reopened = reopenAndFindCognitiveReceiptByRunId("P6-DET-RUN-REOPEN", {
-      workspaceRoot,
-    });
-    expect(reopened.ok).toBe(true);
-    expect(reopened.entry?.logicalTurnId).toBe("ltu:reopen");
-    expect(reopened.entry?.runId).toBe("P6-DET-RUN-REOPEN");
-  });
-
-  it("T17 — rejects secret-like payload keys", () => {
-    const receipt = buildCognitiveExecutionReceipt({
-      logicalTurnId: "ltu:sec",
-      projectId: "prj:p6-ledger",
-      presentation: "test_provider",
-      productTerminalStatus: "ok",
-      turn: baseTurn() as never,
-    });
-    // Inject forbidden key via evidenceRefs abuse is string-only; use appendRow directly.
-    const poisoned = appendP6EvidenceLedgerRow(
-      {
-        kind: "cognitive_execution_receipt",
-        runId: "P6-DET-POISON",
-        authorization: "Bearer secret",
-      },
-      { workspaceRoot },
-    );
-    // Low-level append allows raw rows; capture API must reject secrets.
-    expect(poisoned.ok).toBe(true);
-    const captured = captureCognitiveExecutionReceiptToP6Ledger({
-      runId: "P6-DET-RUN-SEC",
-      scenarioId: "P6-MIN-09",
-      receipt,
-      workspaceRoot,
-      reserves: ["ok"],
-    });
-    expect(captured.ok).toBe(true);
-    const json = JSON.stringify(
-      findCognitiveReceiptLedgerEntryByRunId("P6-DET-RUN-SEC", {
-        workspaceRoot,
-      }),
-    );
-    expect(json).not.toMatch(/sk-[a-zA-Z0-9]{10,}/);
-    expect(json).not.toContain("Bearer ");
-  });
-
-  it("T18 — corrupt JSONL fail-closed: exact runId only; no swapped proof", () => {
-    ensureP6EvidenceLedger({ workspaceRoot });
-    fs.appendFileSync(ledgerPath, "{not-json\n", "utf8");
-    const receipt = buildCognitiveExecutionReceipt({
-      logicalTurnId: "ltu:corrupt",
-      projectId: "prj:p6-ledger",
-      presentation: "test_provider",
-      productTerminalStatus: "ok",
-      turn: baseTurn() as never,
-    });
-    captureCognitiveExecutionReceiptToP6Ledger({
-      runId: "P6-DET-RUN-CORRUPT-OK",
-      scenarioId: "P6-MIN-09",
-      receipt,
-      workspaceRoot,
-    });
-    const reopened = reopenAndFindCognitiveReceiptByRunId(
-      "P6-DET-RUN-CORRUPT-OK",
-      { workspaceRoot },
-    );
-    expect(reopened.ok).toBe(true);
-    expect(reopened.parseErrors).toBeGreaterThan(0);
-    expect(reopened.entry?.runId).toBe("P6-DET-RUN-CORRUPT-OK");
-    const missing = reopenAndFindCognitiveReceiptByRunId("P6-DET-RUN-OTHER", {
-      workspaceRoot,
-    });
-    expect(missing.entry).toBeNull();
-  });
-
-  it("T19b — runId must differ from logicalTurnId", () => {
-    const receipt = buildCognitiveExecutionReceipt({
-      logicalTurnId: "ltu:same",
-      projectId: "prj:p6-ledger",
-      presentation: "test_provider",
-      productTerminalStatus: "ok",
-      turn: baseTurn() as never,
-    });
-    const captured = captureCognitiveExecutionReceiptToP6Ledger({
-      runId: "ltu:same",
-      scenarioId: "P6-MIN-09",
-      receipt,
-      workspaceRoot,
-    });
-    expect(captured.ok).toBe(false);
-    if (captured.ok) return;
-    expect(captured.status).toBe("identity_mismatch");
-  });
-
-  it("canonical relative path constant matches §T convention", () => {
-    expect(P6_EVIDENCE_LEDGER_RELATIVE_PATH.replace(/\\/g, "/")).toBe(
-      ".tmp-sfia-review/p6-global-integrated-qa/evidence-ledger.jsonl",
-    );
-    const readEmpty = readP6EvidenceLedger({
-      workspaceRoot,
-      allowMissing: true,
-    });
-    expect(readEmpty.ok).toBe(true);
-  });
-});
-```
-
-### NEW — p6.realObs.optionB.receiptConservation.d0.test.ts (complete)
-```typescript
+----- END FILE: projects/sfia-studio/app/features/project-assistant/cognitiveExecutionReceipt.ts -----
+----- BEGIN FILE: projects/sfia-studio/app/__tests__/project-assistant/p6.realObs.optionB.receiptConservation.d0.test.ts -----
+lines: 517
 /**
  * P6-REAL-OBS-P0 Option B — CRITICAL CORRECTION PASS (DETERMINISTIC / ZERO REAL).
  * @vitest-environment node
@@ -2261,9 +2975,13 @@ describe("P6 REAL OBS Option B — CRITICAL CORRECTION (DETERMINISTIC)", () => {
     expect(call.evalModelReasoningControl).toBeUndefined();
   });
 });
-```
+----- END FILE: projects/sfia-studio/app/__tests__/project-assistant/p6.realObs.optionB.receiptConservation.d0.test.ts -----
 
-### MOD — orchestrateTurn.ts
+
+---
+
+## 17. Diffs tracked exploitables
+
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts b/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
 index 68aa1795..0c267914 100644
@@ -2350,10 +3068,6 @@ index 68aa1795..0c267914 100644
 +    return failureBase;
    }
  }
-```
-
-### MOD — types.ts
-```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/types.ts b/projects/sfia-studio/app/features/project-assistant/types.ts
 index 93d8530c..cbabef85 100644
 --- a/projects/sfia-studio/app/features/project-assistant/types.ts
@@ -2391,12 +3105,8 @@ index 93d8530c..cbabef85 100644
  };
 
  export type ProjectAssistantSendResult =
-```
-
-### MOD — PRR
-```diff
 diff --git a/projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md b/projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md
-index b9ad266f..66c0e514 100644
+index b9ad266f..4027338d 100644
 --- a/projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md
 +++ b/projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md
 @@ -132,6 +132,25 @@ Untracked but behaviorally central (documented, digests not expanded): `runNoraA
@@ -2415,18 +3125,18 @@ index b9ad266f..66c0e514 100644
 +| Components | OBJ-TURN-ORCH (**SEMANTIC IMPACT** — additive receipt projection; fail-soft conservation) |
 +| Direct deps | NoraCognitiveTurnResult usage/adaptive/continuation |
 +| Flows | F04 primary (send/orchestrate); F02 adjacent (observability) |
-+| Persistence | Product: process-local registry only (no Product JSONL write). External QA: §T JSONL ledger **ADOPTED** via `lib/p6-campaign-evidence/**` append-only. Session ≠ Evidence authority |
++| Persistence | Product: process-local registry only (no Product JSONL write). External QA: §T JSONL ledger **ADOPTED + STABILIZED** via `lib/p6-campaign-evidence/**` (secured append, integrity statuses, exclusive lock). Session ≠ Evidence authority |
 +| Authority | Receipt `realProofStatus=NOT_PROVEN`; ledger `realBoundaryClaim=NOT_CLAIMED`; Runner id observed ≠ REAL |
-+| Fake/Real | DETERMINISTIC PROVEN AT CORRECTED SEAM + external ledger capture; REAL boundary **NOT PROVEN** |
-+| Digests | mechanical `--write-digests` after external ledger delivery (if tracked Product files change) |
++| Fake/Real | DETERMINISTIC PROVEN AT STABILIZED QA CAPTURE AND LEDGER SEAM; REAL boundary **NOT PROVEN** |
++| Digests | mechanical `--write-digests` after integrity/capture stabilization (tracked Product files when changed) |
 +
-+**SEMANTIC IMPACT = YES** on prior Product seam; external ledger module is **new QA device** (untracked unless later added to manifest).
++**SEMANTIC IMPACT = YES** on prior Product seam; external ledger module is **QA device** (OBS-01…04 closed at DET claimed model).
 +
  ## Sample impact analysis E — RCD-01 documentary reliability (PR #578 INTEGRATED ON MAIN)
 
  **Changed Product paths (historical semantic change; already on main @ `44006648`):**
 diff --git a/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md b/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
-index c7442607..269fd213 100644
+index c7442607..65787045 100644
 --- a/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
 +++ b/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
 @@ -19,6 +19,8 @@
@@ -2434,15 +3144,15 @@ index c7442607..269fd213 100644
  | F04 Work Recommendation materialization (REC-01) | qualifyProspectiveWorkRecommendationMaterialization.d0; activeCycleCognitiveWork.d0 (Option A SQLite reload + historical replay); p6.hqa.rec01.minimalStabilization.d0; p6.hqa.rec01.optionB.workRecommendationsContext.d0; UX-REC-02 journalDisclaimer; chatFirstWorkRecommendationContinuity; noraLifecycleRecommendationContinuity | DETERMINISTIC at tested scope; coverage PARTIAL fail-closed; REAL NOT RUN |
  | F04 Nora autonomy P0/P1/P2 (PR #577 INTEGRATED ON MAIN) | `p6.nora.maxTurns.documentary.d0.test.ts`; `p6.nora.p1.adaptiveBudget.d0.test.ts`; `p6.nora.p1p2.documentary.mission.d0.test.ts`; `p6.nora.p1p2.targetedVerification.d0.test.ts`; `p6.nora.p0.productStatusHonesty.d0.test.ts`; `p6.nora.p0.incomplete.panel.ux.d0.test.tsx`; `p6.nora.p0.incomplete.chatFirst.ui.d0.test.tsx`; `mw6.pre-real.budget-hardening.d0.test.ts` (NUM-CLAMP / R-PRE-REAL-08A); `runner.d0.test.ts`; `orchestrateTurn.test.ts` | See proof oracles below — **DETERMINISTIC ONLY**; not Product UI E2E REAL; not documentary REAL quality; merge `d8ceb8ad` |
 +| F04 P6 REAL OBS Option B receipt conservation (CRITICAL CORRECTION) | `p6.realObs.optionB.receiptConservation.d0.test.ts` | DETERMINISTIC AT CORRECTED SEAM — process registry; Fake ≠ REAL; Runner id ≠ PROVIDER_CONFIRMED; capture fail ≠ provider_error; ZERO REAL |
-+| F04 P6 EXTERNAL Evidence Ledger capture | `p6.externalEvidenceLedger.d0.test.ts` + `lib/p6-campaign-evidence/**` | DETERMINISTIC — append-only JSONL under `.tmp-sfia-review/p6-global-integrated-qa/`; capture from Product DTO; reopen by runId; no Product write; Fake/Runner id never REAL PROVEN; ZERO REAL |
++| F04 P6 EXTERNAL Evidence Ledger capture | `p6.externalEvidenceLedger.d0.test.ts`; `p6.qaCollectionSeam.d0.test.ts` + `lib/p6-campaign-evidence/**` | DETERMINISTIC STABILIZED — secured write boundary (OBS-01); integrity HEALTHY/DEGRADED/INVALID (OBS-02); exclusive lock + honest duplicate skip (OBS-03); QA collection seam `collectP6ProductTurnEvidence` (OBS-04); ZERO REAL |
  | F04 Documentary reliability RCD-01 (PR #578 INTEGRATED ON MAIN) | `p6.nora.min09.documentaryReliability.d0.test.ts` (R1–R7); P1/P2/Session regressions | Complete-line coverage; redaction progression; final envelope truth; envelope `lineExceedsCap`; fixture regex fidelity; **DETERMINISTIC ONLY** — not GDR REAL; merge `44006648` |
  | F06/F07 integrity | recommendationDecisionIntegrity*, recommendation-vs-decision | Proposal≠HD |
  | F07 Framing HD / START boundary | chatFirstFramingContinuity* + F01 gate | HD structural when required; START gated |
 diff --git a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
-index f345e1b3..f25ecca6 100644
+index f345e1b3..1f304096 100644
 --- a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
 +++ b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
-@@ -5,6 +5,22 @@
+@@ -5,6 +5,26 @@
  - Runtime v3 **NON ADOPTED**
  - This corpus does not change product behavior by itself (Living Reference is descriptive)
 
@@ -2454,10 +3164,14 @@ index f345e1b3..f25ecca6 100644
 +| Process-local registry by server `logicalTurnId` | AS-IMPLEMENTED ephemeral — NOT Evidence SoT; NOT cross-restart |
 +| P6 §T Evidence Ledger JSONL | **ADOPTED for external P6 campaign QA only** (`lib/p6-campaign-evidence/**`) — Product `orchestrateTurn` still does **not** write ledger |
 +| Canonical ledger path | `.tmp-sfia-review/p6-global-integrated-qa/evidence-ledger.jsonl` (existing campaign harness convention) |
++| OBS-01 writer security | CLOSED AT DET — `validateLedgerRowForAppend` at every public append; secrets/forbidden keys refused |
++| OBS-02 integrity status | CLOSED AT DET — `HEALTHY` / `DEGRADED` / `INVALID` / `UNREADABLE` / `MISSING`; `integrityPass` only when HEALTHY; no silent rewrite |
++| OBS-03 idempotence / concurrency | CLOSED AT CLAIMED MODEL — exclusive `.lock` (O_EXCL) around check+append; duplicate skip returns persisted entry; conflict refuses false conservation. Claimed: same-filesystem exclusive lock (same-process + multi-process sharing path) |
++| OBS-04 QA collection seam | CLOSED AT DET — `collectP6ProductTurnEvidence` is the harness collection point; historical `p6-campaign/*.real.test.ts` live on qa worktree only (not copied here); ZERO REAL executed |
 +| Provider observation honesty | Fake → `FAKE_DETERMINISTIC`; null → `NOT_OBSERVED`; Runner id → `RUNNER_RESPONSE_ID_OBSERVED`; **never** `PROVIDER_CONFIRMED` / REAL at Product or ledger capture |
 +| `realProofStatus` / ledger `realBoundaryClaim` | Product `NOT_PROVEN` · ledger `NOT_CLAIMED` |
 +| Capture failure vs Product status | External capture failure ≠ Product `provider_error` |
-+| Debt `P6-REAL-OBS-P0-RECEIPT-CONSERVATION` | DET external durable capture **AVAILABLE**; REAL qualification **OPEN** (distinct Morris GO) |
++| Debt `P6-REAL-OBS-P0-RECEIPT-CONSERVATION` | DET external durable capture **STABILIZED**; REAL qualification **OPEN** (distinct Morris GO) |
 +| Historical T1 `ltu:ff0b592f…` REAL requalification | **NOT RETROACTIVE** |
 +| REAL boundary / P6 GLOBAL PASS / Product READY | **NOT PROVEN / NOT CLAIMED** |
 +| Runtime v3 | **NON ADOPTED** |
@@ -2466,7 +3180,7 @@ index f345e1b3..f25ecca6 100644
 
  | Item | Status |
 diff --git a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-index dd1d89b0..0901ec5c 100644
+index dd1d89b0..e3c27863 100644
 --- a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
 +++ b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
 @@ -23,7 +23,7 @@
@@ -2474,7 +3188,7 @@ index dd1d89b0..0901ec5c 100644
      {
        "path": "projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md",
 -      "sha256_16": "7b4089cd4fbb4e17"
-+      "sha256_16": "c586bd79be570408"
++      "sha256_16": "d68a042cd4ecd8a8"
      },
      {
        "path": "projects/sfia-studio/production-runtime-reference/05-environments-configuration-and-boundaries.md",
@@ -2483,12 +3197,12 @@ index dd1d89b0..0901ec5c 100644
      {
        "path": "projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md",
 -      "sha256_16": "25fb9a38f1eca0f9"
-+      "sha256_16": "87c718bf8532ee92"
++      "sha256_16": "b127084972fa7c54"
      },
      {
        "path": "projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md",
 -      "sha256_16": "4582c1d2695a5f76"
-+      "sha256_16": "8642bbeb30fc9ced"
++      "sha256_16": "2450324f44aa5fa9"
      }
    ],
    "components": [
@@ -2501,31 +3215,9 @@ index dd1d89b0..0901ec5c 100644
      },
      {
        "path": "projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts",
+
 ```
 
-## 13. Tests
-- `p6.externalEvidenceLedger.d0.test.ts` 13 PASS (T01–T20 mapped)
-- `p6.realObs.optionB.receiptConservation.d0.test.ts` 15 PASS
-- typecheck/lint/build OK
-- npm test **5692 PASS** / 143 skipped
-- PRR conformance OK
-- ZERO OpenAI
+---
 
-T15/T16 exercise capture from DTO + reopen by runId on real ledger path.
-
-## 14. PRR
-Volumes 04/08/09 updated: external ledger ADOPTED for P6 QA; Product still no JSONL write. Digests synced. Not full corpus re-audit.
-
-## 15. Reserves / debt / exit
-Debt REAL still **OPEN**. DET external durable capture **AVAILABLE**.
-Exit DET: synthetic receipt captured externally, reopenable by runId after ledger close/reopen — **PROVEN**.
-Exit REAL: distinct Morris GO + correlated provider proofs.
-
-## 16. Decisions remaining
-Project commit/push/PR/merge · REAL Human QA continuation · no auto integration.
-
-## 17. Verdict
-**P6 EXTERNAL EVIDENCE LEDGER IMPLEMENTED LOCALLY / DETERMINISTIC PROVEN / READY FOR CHATGPT CRITICAL REVIEW**
-
-## 18. Instruction ChatGPT
-Lire handoff distant. Vérifier capture externe (pas Product write), path §T, append-only, runId≠ltu, Fake/REAL honesty, T15/T16, sécurité, tests. Qualifier PR readiness seulement après revue. Ne pas lancer REAL. Ne pas autoriser push/PR/merge implicite.
+FIN DU REVIEW PACK FULL
