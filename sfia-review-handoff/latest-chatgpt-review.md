@@ -1,14 +1,14 @@
 # SFIA Review Pack FULL — P6 REAL OBSERVABILITY Option B
-# FINAL LEDGER READ INTEGRITY + RUN UNIQUENESS
+# FINAL PR PREPARATION WITH READ-UNIQUENESS FIX
 
-**Horodatage (Europe/Paris):** 2026-10-13 19:55:42 CEST
-**GO Morris:** FINAL LEDGER READ INTEGRITY + RUN UNIQUENESS — 2026-10-13
-**Cycle:** 8 — Delivery / implémentation
+**Horodatage (Europe/Paris):** 2026-10-13 20:05:36 CEST
+**GO Morris:** FINAL PR PREPARATION WITH READ-UNIQUENESS FIX — 2026-10-13
+**Cycle:** 8 — Delivery / implémentation (PR readiness qualification ≠ Cycle 13 authorization)
 **Profil:** CRITICAL
 **CKC:** ckc:studio:delivery
 **Campagne:** P6-GLOBAL-INTEGRATED-PRODUCT-QA-01
 **Chantier:** P6-REAL-OBS-P0-RECEIPT-CONSERVATION
-**Prior handoff:** 50afb3fb / blob 52ba616b
+**Prior handoff:** fd82bc42 / blob 3f3343a3
 
 ---
 
@@ -18,7 +18,7 @@
 - Branch: `fix/p6-real-observability-option-b`
 - HEAD: `bd3f440c749a059d73fb76e09bb1d0ce91e27af4`
 - origin/main: `bd3f440c749a059d73fb76e09bb1d0ce91e27af4`
-- Project commit/push/PR/merge: NONE
+- Project commit/push/PR/merge: **NONE** (this pass)
 - Runtime :3020: untouched
 
 ### status --short
@@ -66,9 +66,9 @@ M	projects/sfia-studio/production-runtime-reference/production-runtime-reference
  .../app/features/project-assistant/types.ts        |  12 ++
  .../04-dependency-impact-map.md                    |  19 +++
  .../08-test-proof-and-conformance-map.md           |   2 +
- ...9-known-gaps-reserves-and-current-boundaries.md |  23 +++
+ ...9-known-gaps-reserves-and-current-boundaries.md |  24 +++
  .../production-runtime-reference.manifest.json     |   8 +-
- 7 files changed, 102 insertions(+), 174 deletions(-)
+ 7 files changed, 103 insertions(+), 174 deletions(-)
 
 ```
 
@@ -76,85 +76,147 @@ M	projects/sfia-studio/production-runtime-reference/production-runtime-reference
 
 ## 2. Sources / Convergence
 
-Doctrine/Roadmap/C1/§T/PRR/handoff 50afb3fb. Option B LOCAL CANDIDATE. Concurrency MONO_WRITER. QA seam DET proven / wiring PENDING. P6 GLOBAL / REAL / Runtime v3 unchanged.
+Build Doctrine / Roadmap / C1 / epistemology 33 / artifact 35 / Nora 08 / P6 §T / CKC Delivery / PRR / handoff fd82bc42.
 
-Findings d'entrée: READ-INTEGRITY-V2 · RUNID-UNIQUENESS.
-
----
-
-## 3. Correction A — Read integrity
-
-`classifyLedgerRowForRead` distinguishes:
-- historical_campaign (ok)
-- cognitive_receipt_v2 (full validateCognitiveReceiptRow — same as writer)
-- cognitive_receipt_incomplete (ok:false — kept for diagnostic)
-- unknown_kind / invalid_structure
-
-`readP6EvidenceLedger` increments `semanticErrors` for incomplete v2 / unknown kinds.
-integrityPass=true ONLY when parse+structure+semantic all clean.
-Incomplete v2 JSON never yields HEALTHY.
-Historical campaign rows not v2-promoted.
-No rewrite / no FAILED deletion.
+| Item | State |
+|---|---|
+| Option B | LOCAL CANDIDATE → PR READINESS CANDIDATE (pending Morris Git Integration) |
+| Receipt v2 | DET PROVEN |
+| Read integrity + read-uniqueness | DET PROVEN (this GO) |
+| Write uniqueness | DET PROVEN |
+| QA Collection Seam | DET PROVEN |
+| Operational Campaign Wiring | PENDING |
+| REAL / P6 GLOBAL / Runtime v3 | NOT PROVEN / NOT PASSED / NON ADOPTED |
 
 ---
 
-## 4. Correction B — Run uniqueness
+## 3. Correction READ-UNIQUENESS
 
-Writers publics:
-- `appendP6EvidenceLedgerRow` — DUPLICATE_RUN_ID under lock before append
-- `appendValidatedP6CampaignLedgerRow` — delegates to append
-- `captureCognitiveExecutionReceiptToP6Ledger` — duplicate check+append under same MONO_WRITER lock
+`readP6EvidenceLedger()` now counts runIds among preserved rows.
+If any runId appears >1:
+- `duplicateRunIds` lists them (sorted)
+- `integrityPass=false`, `integrity=DEGRADED`
+- **all** matching rows preserved (no silent single-truth selection)
+- append/capture continue to refuse writes while DEGRADED
 
-`durableLedgerContentEquivalent` compares durable fields (identities, provider, models, effort, tokens, adaptive, continuation, toolCalls, limitReached, terminal, conservation, productCapturedAt, schema). Excludes QA `capturedAt`.
-Incomplete historical ≠ v2 complete → conflict on skip.
-No silent second line. No multi-process claim. No age lock reclaim.
+Contract: unique runId across campaign historical rows and cognitive receipts (no legitimate multi-row same-runId in §T / harness pattern). No STOP — no contract conflict.
 
----
-
-## 5. Tests
-
-52/52 PASS DET (ledger 22 + completeness 14 + seam 1 + Option B 15).
-Oracles R01–R17 + R12–R15 durable skip conflicts covered.
-typecheck / lint / build: PASS
-npm test full: NOT EXECUTED — REAL SAFETY BOUNDARY
+Writers unchanged in policy: still reject duplicates under MONO_WRITER lock.
 
 ---
 
-## 6. PRR
+## 4. Integrated Option B review (lot complet)
 
-CONFORMANCE OK (digests synced).
+1. Product CognitiveExecutionReceipt — KEEP, Fake≠REAL, fail-soft process registry
+2. Product DTO field — KEEP
+3. External P6 ledger — ADOPTED QA-only JSONL
+4. Completeness v2 — CLOSED DET
+5. Writer security — CLOSED DET
+6. Read integrity (schema) — CLOSED DET
+7. Read uniqueness — CLOSED DET (this GO)
+8. Write uniqueness + durable skip — CLOSED DET
+9. Historical compatibility — preserved (no rewrite)
+10. MONO_WRITER lock — no age reclaim
+11. QA Collection Seam — DET proven; wiring PENDING
+12. Tests — 57/57 PASS DET
+13. PRR — CONFORMANCE OK
+14. Fake/Real — DETERMINISTIC only
+
+---
+
+## 5. MANIFEST PR CANDIDATE (qualification only — NOT executed)
+
+### Include in future project commit (Morris Git Integration GO)
+
+**New:**
+- `projects/sfia-studio/app/features/project-assistant/cognitiveExecutionReceipt.ts`
+- `projects/sfia-studio/app/lib/p6-campaign-evidence/evidenceLedger.ts`
+- `projects/sfia-studio/app/lib/p6-campaign-evidence/ledgerRowValidation.ts`
+- `projects/sfia-studio/app/lib/p6-campaign-evidence/captureCognitiveExecutionReceipt.ts`
+- `projects/sfia-studio/app/lib/p6-campaign-evidence/qaCollectionSeam.ts`
+- `projects/sfia-studio/app/lib/p6-campaign-evidence/index.ts`
+- `projects/sfia-studio/app/__tests__/p6-campaign-evidence/p6.externalEvidenceLedger.d0.test.ts`
+- `projects/sfia-studio/app/__tests__/p6-campaign-evidence/p6.receiptCompleteness.d0.test.ts`
+- `projects/sfia-studio/app/__tests__/p6-campaign-evidence/p6.qaCollectionSeam.d0.test.ts`
+- `projects/sfia-studio/app/__tests__/project-assistant/p6.realObs.optionB.receiptConservation.d0.test.ts`
+
+**Modified:**
+- `projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts`
+- `projects/sfia-studio/app/features/project-assistant/types.ts`
+- `projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md`
+- `projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md`
+- `projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md`
+- `projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json`
+
+### Exclude from future project commit
+
+- `.tmp-sfia-review/chatgpt-review.md` (Review Pack)
+- `.tmp-sfia-review/p6-global-integrated-qa/**` (campaign evidence artifacts)
+- credentials / raw provider dumps / local temp artifacts
+- handoff branch (separate L3)
+
+### Tests validated this pass
+
+- 57 DET tests PASS (ledger 27 + completeness 14 + seam 1 + Option B 15)
+- typecheck PASS / lint PASS / build PASS
+- PRR CONFORMANCE OK
+
+### Tests NOT EXECUTED
+
+- `npm test` full suite — REAL SAFETY BOUNDARY
+- Any `*.real.test.ts` / OpenAI REAL
+
+### Risks / reserves
+
+- OPERATIONAL CAMPAIGN WIRING PENDING (historical harnesses still inline appendFileSync on qa WT)
+- REAL BOUNDARY NOT PROVEN
+- Multi-process ledger durability NOT CLAIMED (MONO_WRITER only)
+
+### Debt
+
+- `P6-REAL-OBS-P0-RECEIPT-CONSERVATION` — DET close candidate after ChatGPT PR readiness review + Morris Git Integration
+
+### Remaining Morris gates
+
+1. ChatGPT PR readiness verdict (this handoff)
+2. Morris Git Integration Gate (commit/push/PR) — **NOT authorized this pass**
+3. Future operational harness wiring + REAL under distinct GO
+
+---
+
+## 6. Tests (U01–U08 + non-regression)
+
+U01/U02 identical dup runId → not HEALTHY
+U03/U05 contradictory dup → all matches + degraded
+U04 degraded blocks writes
+U06 distinct runIds HEALTHY
+U07/U08 FAILED historical preserved
+U09–U18 covered by prior suites (incomplete v2, writers, durable skip, lock, seam, SQLite, Fake)
 
 ---
 
 ## 7. Fake/Real / Security
 
-DETERMINISTIC PROVEN AT LEDGER READ INTEGRITY AND RUN UNIQUENESS SEAMS
-REAL / P6 GLOBAL / PRODUCT READY — NOT CLAIMED
-OPERATIONAL CAMPAIGN WIRING — PENDING
+**DETERMINISTIC PROVEN AT INTEGRATED OPTION B EVIDENCE SEAM**
+REAL / P6 GLOBAL / PRODUCT READY / Runtime v3 — NOT CLAIMED
+No secrets; Product SQLite unchanged; Product does not write ledger.
 
 ---
 
-## 8. Réserves / Dette / Gates
+## 8. Verdict
 
-Wiring harnesses historiques PENDING. REAL OPEN.
-Debt: P6-REAL-OBS-P0-RECEIPT-CONSERVATION
-Next: ChatGPT PR readiness → Morris Git Integration → future REAL GO
+**OPTION B FINAL READ-UNIQUENESS CORRECTED / DETERMINISTICALLY PROVEN / PR READINESS CANDIDATE FOR CHATGPT REVIEW**
 
 ---
 
-## 9. Verdict
+## 9. Instruction ChatGPT
 
-**P6 LEDGER READ INTEGRITY AND RUN UNIQUENESS CORRECTED / DETERMINISTIC PROVEN / READY FOR CHATGPT PR READINESS REVIEW**
-
----
-
-## 10. Instruction ChatGPT
-
-Vérifier lecteur v2 strict + historique compatible; integrityPass non trompeur; unicité runId toutes frontières; duplicate skip durable; no rewrite; ZERO REAL/commit projet. Verdict PR readiness only.
+Lire ce handoff. Vérifier détection doublons sur ledger existant; examiner manifest Option B complet; verdict PR readiness only.
+Ne pas autoriser automatiquement commit/push projet, PR, merge ou REAL.
 
 ---
 
-## 11. Contenu complet des fichiers
+## 10. Contenu complet des fichiers Option B (créations)
 
 ----- BEGIN FILE: projects/sfia-studio/app/lib/p6-campaign-evidence/evidenceLedger.ts -----
 /**
@@ -204,7 +266,7 @@ export type P6EvidenceLedgerRow = Record<string, unknown>;
 export type ReadP6EvidenceLedgerResult = {
   /** True only when rows can be consumed (HEALTHY or DEGRADED). */
   ok: boolean;
-  /** True ONLY when integrity === HEALTHY. Never true under corruption/semantic defects. */
+  /** True ONLY when integrity === HEALTHY. Never true under corruption/semantic/duplicate defects. */
   integrityPass: boolean;
   integrity: P6LedgerIntegrityStatus;
   absolutePath: string;
@@ -213,6 +275,8 @@ export type ReadP6EvidenceLedgerResult = {
   structureErrors: number;
   /** v2 incomplete / unknown-kind semantic defects (bytes preserved). */
   semanticErrors: number;
+  /** Distinct runIds that appear more than once (all matching rows preserved). */
+  duplicateRunIds: string[];
   totalLines: number;
   error?: string;
 };
@@ -393,9 +457,12 @@ export function forceRemoveOrphanP6EvidenceLedgerLock(
 }
 
 /**
+/**
  * Read-only ledger open. Never rewrites. Never silently repairs.
  * v2 cognitive receipts are validated with the same schema as writes;
  * incomplete v2 / unknown kinds set integrityPass=false (DEGRADED).
+ * Duplicate runIds (even among individually valid rows) set integrityPass=false.
+ * All matching rows are preserved — never silently pick one as truth.
  * Historical campaign rows keep their historical completeness level.
  */
 export function readP6EvidenceLedger(options?: {
@@ -417,6 +484,7 @@ export function readP6EvidenceLedger(options?: {
         parseErrors: 0,
         structureErrors: 0,
         semanticErrors: 0,
+        duplicateRunIds: [],
         totalLines: 0,
       };
     }
@@ -429,6 +497,7 @@ export function readP6EvidenceLedger(options?: {
       parseErrors: 0,
       structureErrors: 0,
       semanticErrors: 0,
+      duplicateRunIds: [],
       totalLines: 0,
       error: "ledger file missing",
     };
@@ -447,6 +516,7 @@ export function readP6EvidenceLedger(options?: {
       parseErrors: 0,
       structureErrors: 0,
       semanticErrors: 0,
+      duplicateRunIds: [],
       totalLines: 0,
       error: err instanceof Error ? err.message : String(err),
     };
@@ -462,6 +532,7 @@ export function readP6EvidenceLedger(options?: {
       parseErrors: 0,
       structureErrors: 0,
       semanticErrors: 0,
+      duplicateRunIds: [],
       totalLines: 0,
     };
   }
@@ -507,11 +578,23 @@ export function readP6EvidenceLedger(options?: {
     }
   }
 
+  // READ-UNIQUENESS: duplicate runIds among preserved rows → not HEALTHY.
+  const runIdCounts = new Map<string, number>();
+  for (const row of rows) {
+    if (typeof row.runId !== "string" || row.runId.length === 0) continue;
+    runIdCounts.set(row.runId, (runIdCounts.get(row.runId) ?? 0) + 1);
+  }
+  const duplicateRunIds = [...runIdCounts.entries()]
+    .filter(([, count]) => count > 1)
+    .map(([runId]) => runId)
+    .sort();
+
   const defects =
     parseErrors > 0 ||
     structureErrors > 0 ||
     semanticErrors > 0 ||
-    partialTrailing;
+    partialTrailing ||
+    duplicateRunIds.length > 0;
 
   if (!defects) {
     return {
@@ -523,11 +606,22 @@ export function readP6EvidenceLedger(options?: {
       parseErrors: 0,
       structureErrors: 0,
       semanticErrors: 0,
+      duplicateRunIds: [],
       totalLines: lines.length,
     };
   }
 
   if (rows.length > 0) {
+    const reasons: string[] = [];
+    if (parseErrors > 0 || structureErrors > 0 || partialTrailing) {
+      reasons.push("parse/structure defects");
+    }
+    if (semanticErrors > 0) reasons.push("semantic defects");
+    if (duplicateRunIds.length > 0) {
+      reasons.push(
+        `duplicate runId(s): ${duplicateRunIds.join(",")} (${duplicateRunIds.length})`,
+      );
+    }
     return {
       ok: true,
       integrityPass: false,
@@ -537,9 +631,9 @@ export function readP6EvidenceLedger(options?: {
       parseErrors,
       structureErrors,
       semanticErrors,
+      duplicateRunIds,
       totalLines: lines.length,
-      error:
-        "parse/structure/semantic defects observed; historical bytes preserved; integrityPass=false",
+      error: `${reasons.join("; ")}; historical bytes preserved; integrityPass=false`,
     };
   }
 
@@ -552,6 +646,7 @@ export function readP6EvidenceLedger(options?: {
     parseErrors,
     structureErrors,
     semanticErrors,
+    duplicateRunIds,
     totalLines: lines.length,
     error: "ledger unreadable as structured evidence (no valid rows)",
   };
@@ -1732,6 +1827,377 @@ export {
   type LedgerRowReadClassification,
 } from "./ledgerRowValidation";
 ----- END FILE: projects/sfia-studio/app/lib/p6-campaign-evidence/index.ts -----
+----- BEGIN FILE: projects/sfia-studio/app/features/project-assistant/cognitiveExecutionReceipt.ts -----
+/**
+ * P6-REAL-OBS-P0-RECEIPT-CONSERVATION — Option B receipt (corrected).
+ *
+ * Projects already-produced Nora/Runner observability into a redacted receipt
+ * and remembers it process-locally by server logicalTurnId.
+ *
+ * Durable P6 Campaign Evidence Ledger (JSONL under .tmp-sfia-review/…) is
+ * ADOPTED for **external P6 campaign QA only** (`lib/p6-campaign-evidence`).
+ * This Product module does NOT write that ledger — capture is QA-side from DTO.
+ *
+ * Fake never becomes REAL. Runner-returned ids are observations only.
+ * null providerResponseId is NOT_OBSERVED — never invented.
+ * Conservation failures never throw into the Product success path.
+ */
+
+import type { NoraCognitiveTurnResult } from "@/lib/nora-cognitive-runtime";
+import type { AssistantTurnStatus } from "./types";
+
+export const COGNITIVE_EXECUTION_RECEIPT_SCHEMA_VERSION = 1 as const;
+
+/**
+ * Honest provider observation at the Product seam.
+ * Never upgrades Fake / synthetic / Runner-observed ids into REAL PROVEN.
+ * PROVIDER_CONFIRMED is intentionally absent from this seam.
+ */
+export type ProviderResponseObservation =
+  | "FAKE_DETERMINISTIC"
+  | "NOT_OBSERVED"
+  /** Runner returned a non-null lastResponseId/usage id — observation only. */
+  | "RUNNER_RESPONSE_ID_OBSERVED";
+
+/** Always NOT_PROVEN at this Product seam — REAL is a P6 process claim. */
+export type RealProofStatus = "NOT_PROVEN";
+
+export type CognitiveExecutionReceiptAdaptive = {
+  requestedMaxTurns: number;
+  effectiveMaxTurns: number;
+  strategyClass: string | null;
+  reasonCodes: string[];
+  floor: number;
+  ceiling: number;
+  explicitOverride: boolean;
+};
+
+export type CognitiveExecutionReceiptContinuation = {
+  continued: boolean;
+  segmentsExecuted: number;
+  missionMaxTurns: number;
+  segmentMaxTurns: number;
+  allottedTurns: number;
+  stopReason: string;
+  reasonCodes: string[];
+};
+
+/**
+ * Conservation outcome — distinct from cognitive Product status.
+ * Durable ledger write is not authorized in this lot.
+ */
+export type ReceiptConservationStatus = {
+  /** Process-local Map keyed by logicalTurnId (ephemeral; ≠ Evidence SoT). */
+  processLocal: "remembered" | "failed" | "skipped";
+  /**
+   * Durable external ledger is QA-side (`lib/p6-campaign-evidence`), never written
+   * by Product orchestrateTurn. Product conservation remains process-local only.
+   */
+  durableLedger: "not_authorized_candidate" | "disabled";
+  ok: boolean;
+  failureCode: string | null;
+};
+
+export type CognitiveExecutionReceipt = {
+  schemaVersion: typeof COGNITIVE_EXECUTION_RECEIPT_SCHEMA_VERSION;
+  /** Campaign Axis B artifact class for this seam — never auto-REAL. */
+  proofClassification: "DETERMINISTIC";
+  /** Explicit: this receipt never asserts REAL BOUNDARY PROVEN. */
+  realProofStatus: RealProofStatus;
+  logicalTurnId: string;
+  projectId: string;
+  runtimeIdentity: "agents";
+  /** Identity boundary — Fake never becomes openai. */
+  providerIdentity: "fake" | "openai" | "unknown";
+  presentation: "test_provider" | "openai_live";
+  /** presentation === openai_live ⇒ configured for live path (≠ invoked/proven). */
+  providerConfigured: boolean;
+  selectedModelId: string | null;
+  /** usage.model as returned/projected by Runner (may be fake-test-model). */
+  observedModel: string | null;
+  selectedReasoningEffort: string | null;
+  providerResponseId: string | null;
+  providerResponseObservation: ProviderResponseObservation;
+  usage: {
+    inputTokens: number | null;
+    outputTokens: number | null;
+    totalTokens: number | null;
+  };
+  adaptiveObserve: CognitiveExecutionReceiptAdaptive | null;
+  continuationObserve: CognitiveExecutionReceiptContinuation | null;
+  toolCalls: number;
+  limitReached: boolean;
+  /** Product send terminal status — ≠ logical_product_turns.status=accepted. */
+  productTerminalStatus: AssistantTurnStatus;
+  conservation: ReceiptConservationStatus;
+  capturedAt: string;
+};
+
+const REGISTRY_MAX = 512;
+const registry = new Map<string, CognitiveExecutionReceipt>();
+
+function rememberCognitiveExecutionReceiptDefault(
+  receipt: CognitiveExecutionReceipt,
+): void {
+  if (registry.size >= REGISTRY_MAX) {
+    const oldest = registry.keys().next().value;
+    if (typeof oldest === "string") {
+      registry.delete(oldest);
+    }
+  }
+  registry.set(receipt.logicalTurnId, receipt);
+}
+
+/** Injectable remember for DET fault-injection only — never Product authority. */
+let rememberImpl: (receipt: CognitiveExecutionReceipt) => void =
+  rememberCognitiveExecutionReceiptDefault;
+
+export function clearCognitiveExecutionReceiptRegistryForTests(): void {
+  registry.clear();
+  rememberImpl = rememberCognitiveExecutionReceiptDefault;
+}
+
+export function setCognitiveExecutionReceiptRememberForTests(
+  impl: ((receipt: CognitiveExecutionReceipt) => void) | null,
+): void {
+  rememberImpl = impl ?? rememberCognitiveExecutionReceiptDefault;
+}
+
+export function rememberCognitiveExecutionReceipt(
+  receipt: CognitiveExecutionReceipt,
+): void {
+  rememberImpl(receipt);
+}
+
+export function getCognitiveExecutionReceipt(
+  logicalTurnId: string,
+): CognitiveExecutionReceipt | null {
+  return registry.get(logicalTurnId) ?? null;
+}
+
+export type BuildCognitiveExecutionReceiptInput = {
+  logicalTurnId: string;
+  projectId: string;
+  presentation: "test_provider" | "openai_live";
+  productTerminalStatus: AssistantTurnStatus;
+  turn?: Pick<
+    NoraCognitiveTurnResult,
+    | "usage"
+    | "toolCalls"
+    | "limitReached"
+    | "cognitiveRuntime"
+    | "selectedModelId"
+    | "selectedReasoningEffort"
+    | "adaptiveObserve"
+    | "continuationObserve"
+  > | null;
+  capturedAt?: string;
+  conservation?: ReceiptConservationStatus;
+};
+
+function classifyProvider(input: {
+  presentation: "test_provider" | "openai_live";
+  providerResponseId: string | null;
+}): {
+  providerIdentity: CognitiveExecutionReceipt["providerIdentity"];
+  providerResponseObservation: ProviderResponseObservation;
+  providerConfigured: boolean;
+} {
+  if (input.presentation === "test_provider") {
+    return {
+      providerIdentity: "fake",
+      providerResponseObservation: "FAKE_DETERMINISTIC",
+      providerConfigured: false,
+    };
+  }
+
+  const providerConfigured = true;
+  const id = input.providerResponseId;
+
+  if (typeof id !== "string" || id.length === 0) {
+    return {
+      providerIdentity: "openai",
+      providerResponseObservation: "NOT_OBSERVED",
+      providerConfigured,
+    };
+  }
+
+  // Explicit Fake markers — never promote, even on openai_live presentation.
+  if (id.startsWith("fake-") || id.startsWith("fake_")) {
+    return {
+      providerIdentity: "fake",
+      providerResponseObservation: "FAKE_DETERMINISTIC",
+      providerConfigured,
+    };
+  }
+
+  // Non-empty Runner-projected id is an observation only.
+  // Format resemblance to OpenAI ids is NEVER sufficient for REAL PROVEN /
+  // PROVIDER_CONFIRMED. Campaign REAL requires distinct Morris GO + correlation.
+  return {
+    providerIdentity: "openai",
+    providerResponseObservation: "RUNNER_RESPONSE_ID_OBSERVED",
+    providerConfigured,
+  };
+}
+
+const CONSERVATION_DISABLED: ReceiptConservationStatus = {
+  processLocal: "skipped",
+  durableLedger: "not_authorized_candidate",
+  ok: true,
+  failureCode: null,
+};
+
+export function buildCognitiveExecutionReceipt(
+  input: BuildCognitiveExecutionReceiptInput,
+): CognitiveExecutionReceipt {
+  const turn = input.turn ?? null;
+  const providerResponseId = turn?.usage?.providerResponseId ?? null;
+  const classified = classifyProvider({
+    presentation: input.presentation,
+    providerResponseId,
+  });
+  const adaptive = turn?.adaptiveObserve;
+  const continuation = turn?.continuationObserve;
+
+  return {
+    schemaVersion: COGNITIVE_EXECUTION_RECEIPT_SCHEMA_VERSION,
+    proofClassification: "DETERMINISTIC",
+    realProofStatus: "NOT_PROVEN",
+    logicalTurnId: input.logicalTurnId,
+    projectId: input.projectId,
+    runtimeIdentity: "agents",
+    providerIdentity: classified.providerIdentity,
+    presentation: input.presentation,
+    providerConfigured: classified.providerConfigured,
+    selectedModelId:
+      typeof turn?.selectedModelId === "string" ? turn.selectedModelId : null,
+    observedModel: turn?.usage?.model ?? null,
+    selectedReasoningEffort:
+      typeof turn?.selectedReasoningEffort === "string"
+        ? turn.selectedReasoningEffort
+        : null,
+    providerResponseId,
+    providerResponseObservation: classified.providerResponseObservation,
+    usage: {
+      inputTokens: turn?.usage?.inputTokens ?? null,
+      outputTokens: turn?.usage?.outputTokens ?? null,
+      totalTokens: turn?.usage?.totalTokens ?? null,
+    },
+    adaptiveObserve: adaptive
+      ? {
+          requestedMaxTurns: adaptive.requestedMaxTurns,
+          effectiveMaxTurns: adaptive.effectiveMaxTurns,
+          strategyClass: adaptive.strategyClass ?? null,
+          reasonCodes: [...adaptive.reasonCodes],
+          floor: adaptive.floor,
+          ceiling: adaptive.ceiling,
+          explicitOverride: adaptive.explicitOverride,
+        }
+      : null,
+    continuationObserve: continuation
+      ? {
+          continued: continuation.continued,
+          segmentsExecuted: continuation.segmentsExecuted,
+          missionMaxTurns: continuation.missionMaxTurns,
+          segmentMaxTurns: continuation.segmentMaxTurns,
+          allottedTurns: continuation.allottedTurns,
+          stopReason: continuation.stopReason,
+          reasonCodes: [...continuation.reasonCodes],
+        }
+      : null,
+    toolCalls: turn?.toolCalls ?? 0,
+    limitReached: turn?.limitReached === true,
+    productTerminalStatus: input.productTerminalStatus,
+    conservation: input.conservation ?? CONSERVATION_DISABLED,
+    capturedAt: input.capturedAt ?? new Date().toISOString(),
+  };
+}
+
+/**
+ * Conserve receipt process-locally only.
+ * Never writes durable JSONL / Product SQLite Evidence.
+ * Never throws — capture failure is returned as status.
+ */
+export function conserveCognitiveExecutionReceipt(
+  receipt: CognitiveExecutionReceipt,
+): ReceiptConservationStatus {
+  try {
+    const withStatus: CognitiveExecutionReceipt = {
+      ...receipt,
+      conservation: {
+        processLocal: "remembered",
+        durableLedger: "not_authorized_candidate",
+        ok: true,
+        failureCode: null,
+      },
+    };
+    rememberCognitiveExecutionReceipt(withStatus);
+    return withStatus.conservation;
+  } catch {
+    const failed: ReceiptConservationStatus = {
+      processLocal: "failed",
+      durableLedger: "not_authorized_candidate",
+      ok: false,
+      failureCode: "PROCESS_LOCAL_REMEMBER_FAILED",
+    };
+    // Best-effort: still expose failed status on a registry entry when possible.
+    try {
+      rememberCognitiveExecutionReceipt({
+        ...receipt,
+        conservation: failed,
+      });
+    } catch {
+      // Ignore secondary failure — caller keeps Product cognitive status.
+    }
+    return failed;
+  }
+}
+
+/**
+ * Build + conserve without throwing into Product orchestration.
+ * Returns receipt with honest conservation status always set.
+ */
+export function projectAndConserveCognitiveExecutionReceipt(
+  input: BuildCognitiveExecutionReceiptInput,
+): CognitiveExecutionReceipt {
+  const base = buildCognitiveExecutionReceipt(input);
+  try {
+    const conservation = conserveCognitiveExecutionReceipt(base);
+    const finalReceipt: CognitiveExecutionReceipt = {
+      ...base,
+      conservation,
+    };
+    // Re-remember final object so registry matches returned DTO.
+    if (conservation.processLocal === "remembered") {
+      try {
+        rememberCognitiveExecutionReceipt(finalReceipt);
+      } catch {
+        return {
+          ...finalReceipt,
+          conservation: {
+            processLocal: "failed",
+            durableLedger: "not_authorized_candidate",
+            ok: false,
+            failureCode: "PROCESS_LOCAL_REMEMBER_FAILED",
+          },
+        };
+      }
+    }
+    return finalReceipt;
+  } catch {
+    return {
+      ...base,
+      conservation: {
+        processLocal: "failed",
+        durableLedger: "not_authorized_candidate",
+        ok: false,
+        failureCode: "CONSERVATION_UNEXPECTED_FAILURE",
+      },
+    };
+  }
+}
+----- END FILE: projects/sfia-studio/app/features/project-assistant/cognitiveExecutionReceipt.ts -----
 ----- BEGIN FILE: projects/sfia-studio/app/__tests__/p6-campaign-evidence/p6.externalEvidenceLedger.d0.test.ts -----
 /**
  * P6 EXTERNAL EVIDENCE LEDGER — DETERMINISTIC / ZERO REAL.
@@ -2072,15 +2538,27 @@ describe("P6 EXTERNAL EVIDENCE LEDGER (DETERMINISTIC)", () => {
   });
 
   it("S10 — duplicate skip retourne l'entrée historique persistée", () => {
-    const first = capture(ledgerPath, {
-      runId: "P6-DET-SKIP",
+    // Same Product receipt object (stable productCapturedAt) — retry path.
+    const receipt = buildCognitiveExecutionReceipt({
       logicalTurnId: "ltu:skip-1",
+      projectId: "prj:p6-ledger",
+      presentation: "test_provider",
+      productTerminalStatus: "ok",
+      turn: baseTurn() as never,
+    });
+    const first = captureCognitiveExecutionReceiptToP6Ledger({
+      receipt,
+      runId: "P6-DET-SKIP",
+      scenarioId: "P6-MIN-09",
+      absolutePath: ledgerPath,
     });
     expect(first.ok).toBe(true);
     if (!first.ok) return;
-    const skipped = capture(ledgerPath, {
+    const skipped = captureCognitiveExecutionReceiptToP6Ledger({
+      receipt,
       runId: "P6-DET-SKIP",
-      logicalTurnId: "ltu:skip-1",
+      scenarioId: "P6-MIN-09",
+      absolutePath: ledgerPath,
       onDuplicate: "skip",
     });
     expect(skipped.ok).toBe(true);
@@ -2406,6 +2884,127 @@ describe("P6 EXTERNAL EVIDENCE LEDGER (DETERMINISTIC)", () => {
     const b = capture(ledgerPath, { runId: "P6-R10-A" });
     expect(b.ok).toBe(false);
     if (!b.ok) expect(b.status).toBe("duplicate_rejected");
+  });
+
+  it("U01/U02 — two valid identical rows same runId → not HEALTHY", () => {
+    ensureP6EvidenceLedger({ absolutePath: ledgerPath });
+    const row = {
+      campaignId: P6_CAMPAIGN_ID,
+      scenarioId: "P6-MIN-01",
+      runId: "P6-U01-DUP",
+      ok: true,
+      hardPass: true,
+    };
+    // Bypass writer (simulates pre-existing / corrupted legacy file).
+    fs.appendFileSync(ledgerPath, `${JSON.stringify(row)}\n`, "utf8");
+    fs.appendFileSync(ledgerPath, `${JSON.stringify(row)}\n`, "utf8");
+    const before = fs.readFileSync(ledgerPath, "utf8");
+    const read = readP6EvidenceLedger({ absolutePath: ledgerPath });
+    expect(read.integrityPass).toBe(false);
+    expect(read.integrity).toBe("DEGRADED");
+    expect(read.duplicateRunIds).toContain("P6-U01-DUP");
+    expect(read.rows.filter((r) => r.runId === "P6-U01-DUP")).toHaveLength(2);
+    expect(fs.readFileSync(ledgerPath, "utf8")).toBe(before);
+  });
+
+  it("U03/U05 — contradictory duplicates: all matches visible, degraded", () => {
+    ensureP6EvidenceLedger({ absolutePath: ledgerPath });
+    fs.appendFileSync(
+      ledgerPath,
+      `${JSON.stringify({
+        campaignId: P6_CAMPAIGN_ID,
+        scenarioId: "P6-MIN-01",
+        runId: "P6-U03-AMB",
+        ok: true,
+        modelId: "a",
+      })}\n`,
+      "utf8",
+    );
+    fs.appendFileSync(
+      ledgerPath,
+      `${JSON.stringify({
+        campaignId: P6_CAMPAIGN_ID,
+        scenarioId: "P6-MIN-01",
+        runId: "P6-U03-AMB",
+        ok: false,
+        modelId: "b",
+      })}\n`,
+      "utf8",
+    );
+    const found = findP6EvidenceLedgerRowsByRunId("P6-U03-AMB", {
+      absolutePath: ledgerPath,
+    });
+    expect(found.integrityPass).toBe(false);
+    expect(found.matches).toHaveLength(2);
+    expect(found.matches.map((m) => m.modelId).sort()).toEqual(["a", "b"]);
+  });
+
+  it("U04 — degraded-by-duplicate blocks new writes", () => {
+    ensureP6EvidenceLedger({ absolutePath: ledgerPath });
+    const row = {
+      campaignId: P6_CAMPAIGN_ID,
+      scenarioId: "P6-MIN-01",
+      runId: "P6-U04-DUP",
+      ok: true,
+    };
+    fs.appendFileSync(ledgerPath, `${JSON.stringify(row)}\n`, "utf8");
+    fs.appendFileSync(ledgerPath, `${JSON.stringify(row)}\n`, "utf8");
+    const before = fs.readFileSync(ledgerPath, "utf8");
+    const blocked = appendP6EvidenceLedgerRow(
+      {
+        campaignId: P6_CAMPAIGN_ID,
+        scenarioId: "P6-MIN-01",
+        runId: "P6-U04-NEW",
+        ok: true,
+      },
+      { absolutePath: ledgerPath },
+    );
+    expect(blocked.ok).toBe(false);
+    if (!blocked.ok) expect(blocked.code).toBe("LEDGER_INTEGRITY_BLOCKS_APPEND");
+    expect(fs.readFileSync(ledgerPath, "utf8")).toBe(before);
+  });
+
+  it("U06 — two distinct runIds remain HEALTHY", () => {
+    appendP6EvidenceLedgerRow(
+      {
+        campaignId: P6_CAMPAIGN_ID,
+        scenarioId: "P6-MIN-01",
+        runId: "P6-U06-A",
+        ok: true,
+      },
+      { absolutePath: ledgerPath },
+    );
+    appendP6EvidenceLedgerRow(
+      {
+        campaignId: P6_CAMPAIGN_ID,
+        scenarioId: "P6-MIN-01",
+        runId: "P6-U06-B",
+        ok: true,
+      },
+      { absolutePath: ledgerPath },
+    );
+    const read = readP6EvidenceLedger({ absolutePath: ledgerPath });
+    expect(read.integrityPass).toBe(true);
+    expect(read.duplicateRunIds).toEqual([]);
+  });
+
+  it("U07/U08 — historical FAILED preserved under uniqueness check", () => {
+    appendP6EvidenceLedgerRow(
+      {
+        campaignId: P6_CAMPAIGN_ID,
+        scenarioId: "P6-MIN-01",
+        runId: "P6-U08-FAIL",
+        ok: false,
+        hardPass: false,
+        error: "FAILED HISTORICAL",
+      },
+      { absolutePath: ledgerPath },
+    );
+    const before = fs.readFileSync(ledgerPath, "utf8");
+    const read = readP6EvidenceLedger({ absolutePath: ledgerPath });
+    expect(read.integrityPass).toBe(true);
+    expect(read.rows[0]?.error).toBe("FAILED HISTORICAL");
+    expect(fs.readFileSync(ledgerPath, "utf8")).toBe(before);
   });
 });
 ----- END FILE: projects/sfia-studio/app/__tests__/p6-campaign-evidence/p6.externalEvidenceLedger.d0.test.ts -----
@@ -3123,11 +3722,530 @@ describe("P6 QA collection seam (DET)", () => {
   });
 });
 ----- END FILE: projects/sfia-studio/app/__tests__/p6-campaign-evidence/p6.qaCollectionSeam.d0.test.ts -----
+----- BEGIN FILE: projects/sfia-studio/app/__tests__/project-assistant/p6.realObs.optionB.receiptConservation.d0.test.ts -----
+/**
+ * P6-REAL-OBS-P0 Option B — CRITICAL CORRECTION PASS (DETERMINISTIC / ZERO REAL).
+ * @vitest-environment node
+ */
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { setConversationProviderForTests } from "@/lib/platform/ai";
+import { orchestrateProjectAssistantTurn } from "@/features/project-assistant/orchestrateTurn";
+import * as receiptMod from "@/features/project-assistant/cognitiveExecutionReceipt";
+import {
+  buildCognitiveExecutionReceipt,
+  clearCognitiveExecutionReceiptRegistryForTests,
+  getCognitiveExecutionReceipt,
+  projectAndConserveCognitiveExecutionReceipt,
+  setCognitiveExecutionReceiptRememberForTests,
+} from "@/features/project-assistant/cognitiveExecutionReceipt";
+
+const {
+  getProjectRuntimeActionMock,
+  runNoraCognitiveTurnMock,
+} = vi.hoisted(() => ({
+  getProjectRuntimeActionMock: vi.fn(),
+  runNoraCognitiveTurnMock: vi.fn(),
+}));
+
+vi.mock("@/lib/vertical-slice-runtime/actions", () => ({
+  getProjectRuntimeAction: getProjectRuntimeActionMock,
+}));
+
+vi.mock("@/lib/nora-cognitive-runtime", async (importOriginal) => {
+  const actual =
+    await importOriginal<typeof import("@/lib/nora-cognitive-runtime")>();
+  return {
+    ...actual,
+    runNoraCognitiveTurn: (...args: unknown[]) =>
+      runNoraCognitiveTurnMock(...args),
+  };
+});
+
+const SUCCESS = {
+  ok: true as const,
+  project: {
+    projectId: "prj:obs-b",
+    name: "Projet Obs B",
+    shortReference: "OBS",
+    objective: "Receipt conservation.",
+    contextSummary: "Option B correction D0",
+    criticality: "STANDARD" as const,
+    constraints: ["Lecture seule"],
+    localMode: true as const,
+    source: "REAL_LOCAL_CORE" as const,
+    fixture: false as const,
+  },
+  doctrine: {
+    id: "pkg:studio-v3-oa",
+    version: "1.0.0",
+    digest: "digest:obs-b",
+    status: "RESOLVED",
+  },
+  livingState: {
+    id: "lps:obs-b",
+    version: 1 as const,
+    createdAt: "2026-10-13T00:00:00.000Z",
+  },
+  readiness: {
+    status: "NOT_READY" as const,
+    hard: "OPEN" as const,
+    tA6: "INCOMPLETE" as const,
+    iam: "NOT_SELECTED" as const,
+    productPersistence: "SQLITE_OA_PRODUCT_STORE" as const,
+    realAgentExecution: "DISABLED" as const,
+    delivery: "NOT_AUTHORIZED" as const,
+    cutover: "NOT_AUTHORIZED" as const,
+    runReady: false as const,
+    productReady: false as const,
+  },
+  disclosures: {
+    runtimeMode: "LOCAL_PROCESS" as const,
+    persistence: "PARTIAL_PROJECT_LPS_CYCLE_DECISION_CONTRACT_DURABLE" as const,
+    agentExecution: "DISABLED" as const,
+    iam: "NOT_SELECTED" as const,
+    productPersistence: "SQLITE_OA_PRODUCT_STORE" as const,
+    delivery: "NOT_AUTHORIZED" as const,
+    cutover: "NOT_AUTHORIZED" as const,
+    localDataVolatile: true as const,
+    restartMayLoseState: true as const,
+    projectLpsRestartSafe: true as const,
+    cycleInstanceRestartSafe: true as const,
+    humanDecisionRestartSafe: true as const,
+    executionContractRestartSafe: true as const,
+    messages: [] as const,
+  },
+};
+
+function baseTurn(overrides: Record<string, unknown> = {}) {
+  return {
+    text: "Deterministic synthesis.",
+    usage: {
+      inputTokens: 11,
+      outputTokens: 7,
+      totalTokens: 18,
+      model: "fake-test-model",
+      providerResponseId: "fake-resp-obs-b-1",
+    },
+    toolRounds: 1,
+    toolCalls: 3,
+    limitReached: false,
+    cognitiveRuntime: "agents" as const,
+    sessionId: "sess:obs-b",
+    memoryBAvailability: "unavailable" as const,
+    memoryBCompactionState: "none" as const,
+    memoryBCompactionDetails: null,
+    selectedModelId: "fake-test-model",
+    selectedReasoningEffort: "low",
+    adaptiveObserve: {
+      requestedMaxTurns: 8,
+      effectiveMaxTurns: 8,
+      strategyClass: "Focused",
+      reasonCodes: ["adaptive:default"],
+      floor: 4,
+      ceiling: 24,
+      explicitOverride: false,
+    },
+    continuationObserve: {
+      continued: false,
+      segmentsExecuted: 1,
+      missionMaxTurns: 8,
+      segmentMaxTurns: 8,
+      allottedTurns: 8,
+      stopReason: "complete",
+      reasonCodes: ["continuation:none"],
+    },
+    ...overrides,
+  };
+}
+
+describe("P6 REAL OBS Option B — CRITICAL CORRECTION (DETERMINISTIC)", () => {
+  const previousFake = process.env.OPS1_CONVERSATION_PROVIDER;
+  let sessionDir: string;
+  let sessionDbPath: string;
+
+  beforeEach(() => {
+    process.env.OPS1_CONVERSATION_PROVIDER = "fake";
+    getProjectRuntimeActionMock.mockReset();
+    getProjectRuntimeActionMock.mockResolvedValue(SUCCESS);
+    runNoraCognitiveTurnMock.mockReset();
+    setConversationProviderForTests(null);
+    clearCognitiveExecutionReceiptRegistryForTests();
+    sessionDir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-obs-b-corr-"));
+    sessionDbPath = path.join(sessionDir, "session.sqlite");
+  });
+
+  afterEach(() => {
+    setConversationProviderForTests(null);
+    clearCognitiveExecutionReceiptRegistryForTests();
+    vi.restoreAllMocks();
+    if (previousFake === undefined) {
+      delete process.env.OPS1_CONVERSATION_PROVIDER;
+    } else {
+      process.env.OPS1_CONVERSATION_PROVIDER = previousFake;
+    }
+    fs.rmSync(sessionDir, { recursive: true, force: true });
+  });
+
+  it("T01/T05/T06/T07/T08/T19 — Fake receipt not REAL; metadata projected; DTO additive", async () => {
+    runNoraCognitiveTurnMock.mockResolvedValue(baseTurn());
+    const result = await orchestrateProjectAssistantTurn({
+      projectId: "prj:obs-b",
+      content: "Guided Document Review.",
+      sessionDbPath,
+    });
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.status).toBe("ok");
+    const receipt = result.cognitiveExecutionReceipt!;
+    expect(receipt.providerResponseObservation).toBe("FAKE_DETERMINISTIC");
+    expect(receipt.realProofStatus).toBe("NOT_PROVEN");
+    expect(receipt.proofClassification).toBe("DETERMINISTIC");
+    expect(receipt.providerIdentity).toBe("fake");
+    expect(receipt.selectedModelId).toBe("fake-test-model");
+    expect(receipt.observedModel).toBe("fake-test-model");
+    expect(receipt.selectedReasoningEffort).toBe("low");
+    expect(receipt.usage.totalTokens).toBe(18);
+    expect(receipt.adaptiveObserve?.effectiveMaxTurns).toBe(8);
+    expect(receipt.continuationObserve?.continued).toBe(false);
+    expect(receipt.productTerminalStatus).toBe("ok");
+    expect(receipt.conservation.durableLedger).toBe("not_authorized_candidate");
+    expect(receipt.conservation.processLocal).toBe("remembered");
+    expect(result.model).toBe("fake-test-model");
+    expect(result.toolCalls).toBe(3);
+  });
+
+  it("T02 — synthetic OpenAI-shaped id never REAL / never PROVIDER_CONFIRMED", () => {
+    const receipt = buildCognitiveExecutionReceipt({
+      logicalTurnId: "ltu:synth",
+      projectId: "prj:obs-b",
+      presentation: "openai_live",
+      productTerminalStatus: "ok",
+      turn: {
+        usage: {
+          inputTokens: 2,
+          outputTokens: 2,
+          totalTokens: 4,
+          model: "gpt-6-luna",
+          providerResponseId: "resp_det_synthetic_not_real",
+        },
+        toolCalls: 1,
+        limitReached: false,
+        cognitiveRuntime: "agents",
+        selectedModelId: "gpt-6-luna",
+        selectedReasoningEffort: "high",
+      },
+    });
+    expect(receipt.providerResponseObservation).toBe(
+      "RUNNER_RESPONSE_ID_OBSERVED",
+    );
+    expect(receipt.realProofStatus).toBe("NOT_PROVEN");
+    expect(receipt.proofClassification).toBe("DETERMINISTIC");
+    expect(JSON.stringify(receipt)).not.toContain("PROVIDER_CONFIRMED");
+  });
+
+  it("T03 — null providerResponseId ⇒ NOT_OBSERVED", () => {
+    const receipt = buildCognitiveExecutionReceipt({
+      logicalTurnId: "ltu:null",
+      projectId: "prj:obs-b",
+      presentation: "openai_live",
+      productTerminalStatus: "ok",
+      turn: {
+        usage: {
+          inputTokens: null,
+          outputTokens: null,
+          totalTokens: null,
+          model: "gpt-6-luna",
+          providerResponseId: null,
+        },
+        toolCalls: 0,
+        limitReached: false,
+        cognitiveRuntime: "agents",
+        selectedModelId: "gpt-6-luna",
+        selectedReasoningEffort: "medium",
+      },
+    });
+    expect(receipt.providerResponseId).toBeNull();
+    expect(receipt.providerResponseObservation).toBe("NOT_OBSERVED");
+    expect(receipt.realProofStatus).toBe("NOT_PROVEN");
+    expect(receipt.providerConfigured).toBe(true);
+  });
+
+  it("T04 — Runner id observed ≠ REAL PROVEN (orchestrate path)", async () => {
+    // Force openai_live presentation via env/provider resolution: product uses
+    // Fake ConversationProvider when OPS1_CONVERSATION_PROVIDER=fake → test_provider.
+    // Builder-level observation path covered in T02; here Fake remains Fake.
+    runNoraCognitiveTurnMock.mockResolvedValue(
+      baseTurn({
+        usage: {
+          inputTokens: 1,
+          outputTokens: 1,
+          totalTokens: 2,
+          model: "fake-test-model",
+          providerResponseId: "resp_looks_like_openai_but_fake_path",
+        },
+      }),
+    );
+    const result = await orchestrateProjectAssistantTurn({
+      projectId: "prj:obs-b",
+      content: "observe id",
+      sessionDbPath,
+    });
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    // presentation test_provider ⇒ Fake wins over id shape
+    expect(result.presentation).toBe("test_provider");
+    expect(result.cognitiveExecutionReceipt!.providerResponseObservation).toBe(
+      "FAKE_DETERMINISTIC",
+    );
+    expect(result.cognitiveExecutionReceipt!.realProofStatus).toBe("NOT_PROVEN");
+  });
+
+  it("T09 — incomplete status on receipt", async () => {
+    runNoraCognitiveTurnMock.mockResolvedValue(
+      baseTurn({
+        text: "Model-turn budget reached (maxTurns).",
+        limitReached: true,
+      }),
+    );
+    const result = await orchestrateProjectAssistantTurn({
+      projectId: "prj:obs-b",
+      content: "budget probe",
+      sessionDbPath,
+    });
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.status).toBe("incomplete");
+    expect(result.cognitiveExecutionReceipt!.productTerminalStatus).toBe(
+      "incomplete",
+    );
+  });
+
+  it("T10 — cognitive_stop status on receipt", async () => {
+    runNoraCognitiveTurnMock.mockResolvedValue(
+      baseTurn({
+        text: "blocked by Cognitive STOP",
+        contradictionDisposition: {
+          disposition: "evidence_backed",
+          disclosure: "contradiction",
+          acceptedEvidenceIds: ["ev:1"],
+          acceptedSourceIds: ["src:a"],
+          insufficiencyReasons: [],
+        },
+        cognitiveStopDecision: {
+          progression: "cognitive_stop",
+          outcome: "COGNITIVE_STOP",
+          cognitiveStop: true,
+          anatomy: {
+            reason: "premise invalidated",
+            contradictionEvidenceIds: ["ev:1"],
+            sourceIds: ["src:a"],
+            governingPremise: "X",
+            nextAction: "replan",
+          },
+          surfacedDisposition: "evidence_backed",
+          allowsSilentSuccess: false,
+        },
+      }),
+    );
+    const result = await orchestrateProjectAssistantTurn({
+      projectId: "prj:obs-b",
+      content: "stop probe",
+      sessionDbPath,
+    });
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.status).toBe("cognitive_stop");
+    expect(result.cognitiveExecutionReceipt!.productTerminalStatus).toBe(
+      "cognitive_stop",
+    );
+  });
+
+  it("T11 — provider_error conserves honest failure receipt", async () => {
+    runNoraCognitiveTurnMock.mockRejectedValue(new Error("FAKE_PROVIDER_ERROR"));
+    const result = await orchestrateProjectAssistantTurn({
+      projectId: "prj:obs-b",
+      content: "error probe",
+      sessionDbPath,
+    });
+    expect(result.ok).toBe(false);
+    if (result.ok) return;
+    expect(result.status).toBe("provider_error");
+    expect(result.cognitiveExecutionReceipt!.productTerminalStatus).toBe(
+      "provider_error",
+    );
+    expect(result.cognitiveExecutionReceipt!.providerResponseId).toBeNull();
+    expect(result.cognitiveExecutionReceipt!.realProofStatus).toBe("NOT_PROVEN");
+  });
+
+  it("T12 — abort/stopped path projects stopped receipt", async () => {
+    const { NoraTurnAbortedError } = await import(
+      "@/lib/nora-cognitive-runtime/noraTurnAbort"
+    );
+    runNoraCognitiveTurnMock.mockRejectedValue(new NoraTurnAbortedError());
+    const result = await orchestrateProjectAssistantTurn({
+      projectId: "prj:obs-b",
+      content: "abort probe",
+      sessionDbPath,
+    });
+    expect(result.ok).toBe(false);
+    if (result.ok) return;
+    expect(result.status).toBe("stopped");
+    expect(result.cognitiveExecutionReceipt!.productTerminalStatus).toBe(
+      "stopped",
+    );
+  });
+
+  it("T13 — conservation remember failure does not invent provider_error", async () => {
+    runNoraCognitiveTurnMock.mockResolvedValue(baseTurn());
+    setCognitiveExecutionReceiptRememberForTests(() => {
+      throw new Error("simulated registry failure");
+    });
+    const result = await orchestrateProjectAssistantTurn({
+      projectId: "prj:obs-b",
+      content: "capture fail probe",
+      sessionDbPath,
+    });
+    setCognitiveExecutionReceiptRememberForTests(null);
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.status).toBe("ok");
+    expect(result.status).not.toBe("provider_error");
+    expect(result.cognitiveExecutionReceipt!.productTerminalStatus).toBe("ok");
+    expect(result.cognitiveExecutionReceipt!.conservation.processLocal).toBe(
+      "failed",
+    );
+    expect(result.cognitiveExecutionReceipt!.conservation.ok).toBe(false);
+    expect(result.cognitiveExecutionReceipt!.conservation.failureCode).toBe(
+      "PROCESS_LOCAL_REMEMBER_FAILED",
+    );
+    expect(
+      result.cognitiveExecutionReceipt!.conservation.durableLedger,
+    ).toBe("not_authorized_candidate");
+  });
+
+  it("T14 — durable ledger not authorized; honest conservation status", async () => {
+    runNoraCognitiveTurnMock.mockResolvedValue(baseTurn());
+    const result = await orchestrateProjectAssistantTurn({
+      projectId: "prj:obs-b",
+      content: "durable disabled",
+      sessionDbPath,
+    });
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(
+      result.cognitiveExecutionReceipt!.conservation.durableLedger,
+    ).toBe("not_authorized_candidate");
+    // No Product JSONL write helpers remain on the module surface for Product path.
+    expect(
+      Object.keys(receiptMod).includes("appendCognitiveExecutionReceiptToP6Ledger"),
+    ).toBe(false);
+  });
+
+  it("T15 — process-local retrieval after turn (not durable Evidence)", async () => {
+    runNoraCognitiveTurnMock.mockResolvedValue(baseTurn());
+    const result = await orchestrateProjectAssistantTurn({
+      projectId: "prj:obs-b",
+      content: "retrieve probe",
+      sessionDbPath,
+    });
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    const ltu = result.logicalTurnId!;
+    const fromRegistry = getCognitiveExecutionReceipt(ltu);
+    expect(fromRegistry).not.toBeNull();
+    expect(fromRegistry!.logicalTurnId).toBe(ltu);
+    expect(fromRegistry!.conservation.processLocal).toBe("remembered");
+    expect(fromRegistry!.conservation.durableLedger).toBe(
+      "not_authorized_candidate",
+    );
+  });
+
+  it("T16 — durable post-restart retrieval NOT authorized (candidate gap)", () => {
+    // Explicit non-claim: without Morris persistence GO, durable retrieval is N/A.
+    const receipt = projectAndConserveCognitiveExecutionReceipt({
+      logicalTurnId: "ltu:nodurable",
+      projectId: "prj:obs-b",
+      presentation: "test_provider",
+      productTerminalStatus: "ok",
+      turn: baseTurn() as never,
+    });
+    expect(receipt.conservation.durableLedger).toBe("not_authorized_candidate");
+    clearCognitiveExecutionReceiptRegistryForTests();
+    expect(getCognitiveExecutionReceipt("ltu:nodurable")).toBeNull();
+  });
+
+  it("T17 — isolation by logicalTurnId", async () => {
+    runNoraCognitiveTurnMock.mockResolvedValue(baseTurn());
+    const a = await orchestrateProjectAssistantTurn({
+      projectId: "prj:obs-b",
+      content: "turn a",
+      sessionDbPath,
+    });
+    runNoraCognitiveTurnMock.mockResolvedValue(
+      baseTurn({
+        usage: {
+          inputTokens: 1,
+          outputTokens: 1,
+          totalTokens: 2,
+          model: "fake-test-model",
+          providerResponseId: "fake-resp-obs-b-2",
+        },
+      }),
+    );
+    const b = await orchestrateProjectAssistantTurn({
+      projectId: "prj:obs-b",
+      content: "turn b",
+      sessionDbPath,
+    });
+    expect(a.ok && b.ok).toBe(true);
+    if (!a.ok || !b.ok) return;
+    expect(a.logicalTurnId).not.toBe(b.logicalTurnId);
+    expect(getCognitiveExecutionReceipt(a.logicalTurnId!)!.providerResponseId).toBe(
+      "fake-resp-obs-b-1",
+    );
+    expect(getCognitiveExecutionReceipt(b.logicalTurnId!)!.providerResponseId).toBe(
+      "fake-resp-obs-b-2",
+    );
+  });
+
+  it("T18 — no secrets / prompt bodies in receipt", async () => {
+    runNoraCognitiveTurnMock.mockResolvedValue(baseTurn());
+    const result = await orchestrateProjectAssistantTurn({
+      projectId: "prj:obs-b",
+      content: "secret probe with sk-test-should-not-echo",
+      sessionDbPath,
+    });
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    const json = JSON.stringify(result.cognitiveExecutionReceipt);
+    expect(json).not.toContain("sk-test");
+    expect(json).not.toContain("authorization");
+    expect(json).not.toContain("OPENAI_API_KEY");
+  });
+
+  it("T20 — no routing/FinOps/eval pin mutation by Option B", async () => {
+    runNoraCognitiveTurnMock.mockResolvedValue(baseTurn());
+    await orchestrateProjectAssistantTurn({
+      projectId: "prj:obs-b",
+      content: "authority probe",
+      sessionDbPath,
+    });
+    expect(runNoraCognitiveTurnMock).toHaveBeenCalledTimes(1);
+    const call = runNoraCognitiveTurnMock.mock.calls[0]?.[0] as {
+      evalModelReasoningControl?: unknown;
+    };
+    expect(call.evalModelReasoningControl).toBeUndefined();
+  });
+});
+----- END FILE: projects/sfia-studio/app/__tests__/project-assistant/p6.realObs.optionB.receiptConservation.d0.test.ts -----
 
 
 ---
 
-## 12. Diffs tracked
+## 11. Diffs tracked
 
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts b/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
@@ -3253,7 +4371,7 @@ index 93d8530c..cbabef85 100644
 
  export type ProjectAssistantSendResult =
 diff --git a/projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md b/projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md
-index b9ad266f..0b63ab17 100644
+index b9ad266f..07f2a6f9 100644
 --- a/projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md
 +++ b/projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md
 @@ -132,6 +132,25 @@ Untracked but behaviorally central (documented, digests not expanded): `runNoraA
@@ -3274,7 +4392,7 @@ index b9ad266f..0b63ab17 100644
 +| Flows | F04 primary (send/orchestrate); F02 adjacent (observability) |
 +| Persistence | Product: process-local registry only (no Product JSONL write). External QA: §T JSONL ledger **ADOPTED + STABILIZED** via `lib/p6-campaign-evidence/**` (secured append, integrity statuses, exclusive lock). Session ≠ Evidence authority |
 +| Authority | Receipt `realProofStatus=NOT_PROVEN`; ledger `realBoundaryClaim=NOT_CLAIMED`; Runner id observed ≠ REAL |
-+| Fake/Real | DETERMINISTIC PROVEN AT LEDGER READ INTEGRITY AND RUN UNIQUENESS SEAMS; REAL boundary **NOT PROVEN**; concurrency **MONO_WRITER** only |
++| Fake/Real | DETERMINISTIC PROVEN AT INTEGRATED OPTION B EVIDENCE SEAM (incl. read-uniqueness); REAL boundary **NOT PROVEN**; concurrency **MONO_WRITER** only |
 +| Digests | mechanical `--write-digests` after integrity/capture stabilization (tracked Product files when changed) |
 +
 +**SEMANTIC IMPACT = YES** on prior Product seam; external ledger module is **QA device** (OBS-01…04 closed at DET claimed model).
@@ -3283,7 +4401,7 @@ index b9ad266f..0b63ab17 100644
 
  **Changed Product paths (historical semantic change; already on main @ `44006648`):**
 diff --git a/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md b/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
-index c7442607..431b40c4 100644
+index c7442607..53be8f6a 100644
 --- a/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
 +++ b/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
 @@ -19,6 +19,8 @@
@@ -3291,15 +4409,15 @@ index c7442607..431b40c4 100644
  | F04 Work Recommendation materialization (REC-01) | qualifyProspectiveWorkRecommendationMaterialization.d0; activeCycleCognitiveWork.d0 (Option A SQLite reload + historical replay); p6.hqa.rec01.minimalStabilization.d0; p6.hqa.rec01.optionB.workRecommendationsContext.d0; UX-REC-02 journalDisclaimer; chatFirstWorkRecommendationContinuity; noraLifecycleRecommendationContinuity | DETERMINISTIC at tested scope; coverage PARTIAL fail-closed; REAL NOT RUN |
  | F04 Nora autonomy P0/P1/P2 (PR #577 INTEGRATED ON MAIN) | `p6.nora.maxTurns.documentary.d0.test.ts`; `p6.nora.p1.adaptiveBudget.d0.test.ts`; `p6.nora.p1p2.documentary.mission.d0.test.ts`; `p6.nora.p1p2.targetedVerification.d0.test.ts`; `p6.nora.p0.productStatusHonesty.d0.test.ts`; `p6.nora.p0.incomplete.panel.ux.d0.test.tsx`; `p6.nora.p0.incomplete.chatFirst.ui.d0.test.tsx`; `mw6.pre-real.budget-hardening.d0.test.ts` (NUM-CLAMP / R-PRE-REAL-08A); `runner.d0.test.ts`; `orchestrateTurn.test.ts` | See proof oracles below — **DETERMINISTIC ONLY**; not Product UI E2E REAL; not documentary REAL quality; merge `d8ceb8ad` |
 +| F04 P6 REAL OBS Option B receipt conservation (CRITICAL CORRECTION) | `p6.realObs.optionB.receiptConservation.d0.test.ts` | DETERMINISTIC AT CORRECTED SEAM — process registry; Fake ≠ REAL; Runner id ≠ PROVIDER_CONFIRMED; capture fail ≠ provider_error; ZERO REAL |
-+| F04 P6 EXTERNAL Evidence Ledger capture | `p6.externalEvidenceLedger.d0.test.ts`; `p6.qaCollectionSeam.d0.test.ts`; `p6.receiptCompleteness.d0.test.ts` + `lib/p6-campaign-evidence/**` | DETERMINISTIC — complete receipt v2; read integrity (incomplete v2 ≠ HEALTHY); runId uniqueness all writers; durable duplicate skip; MONO_WRITER; QA seam DET / wiring PENDING; ZERO REAL |
++| F04 P6 EXTERNAL Evidence Ledger capture | `p6.externalEvidenceLedger.d0.test.ts`; `p6.qaCollectionSeam.d0.test.ts`; `p6.receiptCompleteness.d0.test.ts` + `lib/p6-campaign-evidence/**` | DETERMINISTIC — complete receipt v2; read integrity + read-uniqueness (dup runId ≠ HEALTHY); write uniqueness; durable duplicate skip; MONO_WRITER; QA seam DET / wiring PENDING; ZERO REAL |
  | F04 Documentary reliability RCD-01 (PR #578 INTEGRATED ON MAIN) | `p6.nora.min09.documentaryReliability.d0.test.ts` (R1–R7); P1/P2/Session regressions | Complete-line coverage; redaction progression; final envelope truth; envelope `lineExceedsCap`; fixture regex fidelity; **DETERMINISTIC ONLY** — not GDR REAL; merge `44006648` |
  | F06/F07 integrity | recommendationDecisionIntegrity*, recommendation-vs-decision | Proposal≠HD |
  | F07 Framing HD / START boundary | chatFirstFramingContinuity* + F01 gate | HD structural when required; START gated |
 diff --git a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
-index f345e1b3..a219a483 100644
+index f345e1b3..07ebe1ef 100644
 --- a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
 +++ b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
-@@ -5,6 +5,29 @@
+@@ -5,6 +5,30 @@
  - Runtime v3 **NON ADOPTED**
  - This corpus does not change product behavior by itself (Living Reference is descriptive)
 
@@ -3317,7 +4435,8 @@ index f345e1b3..a219a483 100644
 +| OBS-04 QA collection seam | DET PROVEN — `collectP6ProductTurnEvidence`; **OPERATIONAL CAMPAIGN WIRING PENDING** (historical harnesses still inline `appendFileSync` on qa WT) |
 +| Receipt completeness (ledger schema v2) | CLOSED AT DET — full Product CognitiveExecutionReceipt projection (model/effort/tokens/adaptive/continuation/conservation); reopen field-by-field equality |
 +| Read integrity v2 | CLOSED AT DET — `classifyLedgerRowForRead` aligns reader with writer schema; incomplete v2 ⇒ `integrityPass=false` (DEGRADED); historical campaign rows not v2-promoted |
-+| RunId uniqueness | CLOSED AT DET — all public writers (`appendP6EvidenceLedgerRow` / capture) reject duplicate runId under MONO_WRITER lock; duplicate skip requires durable content equivalence (tokens/budget/model/…) |
++| RunId uniqueness (write) | CLOSED AT DET — all public writers reject duplicate runId under MONO_WRITER lock; duplicate skip requires durable content equivalence |
++| RunId uniqueness (read) | CLOSED AT DET — `readP6EvidenceLedger` detects duplicate runIds among preserved rows; `duplicateRunIds` diagnostic; never HEALTHY / never silent single-truth selection |
 +| Provider observation honesty | Fake → `FAKE_DETERMINISTIC`; null → `NOT_OBSERVED`; Runner id → `RUNNER_RESPONSE_ID_OBSERVED`; **never** `PROVIDER_CONFIRMED` / REAL at Product or ledger capture |
 +| `realProofStatus` / ledger `realBoundaryClaim` | Product `NOT_PROVEN` · ledger `NOT_CLAIMED` |
 +| Capture failure vs Product status | External capture failure ≠ Product `provider_error` |
@@ -3330,7 +4449,7 @@ index f345e1b3..a219a483 100644
 
  | Item | Status |
 diff --git a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-index dd1d89b0..d75ddb6b 100644
+index dd1d89b0..07604d03 100644
 --- a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
 +++ b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
 @@ -23,7 +23,7 @@
@@ -3338,7 +4457,7 @@ index dd1d89b0..d75ddb6b 100644
      {
        "path": "projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md",
 -      "sha256_16": "7b4089cd4fbb4e17"
-+      "sha256_16": "f05f40a3ffef8667"
++      "sha256_16": "5e4fa6128f75930f"
      },
      {
        "path": "projects/sfia-studio/production-runtime-reference/05-environments-configuration-and-boundaries.md",
@@ -3347,12 +4466,12 @@ index dd1d89b0..d75ddb6b 100644
      {
        "path": "projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md",
 -      "sha256_16": "25fb9a38f1eca0f9"
-+      "sha256_16": "074cd6b417373229"
++      "sha256_16": "1b7f254ef869dfc3"
      },
      {
        "path": "projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md",
 -      "sha256_16": "4582c1d2695a5f76"
-+      "sha256_16": "a0779aacf97f4beb"
++      "sha256_16": "57b2b177259d7c5b"
      }
    ],
    "components": [
