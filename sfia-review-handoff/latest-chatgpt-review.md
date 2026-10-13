@@ -1,22 +1,23 @@
-# SFIA STUDIO — P6-MIN-09 DOCUMENTARY COGNITIVE RELIABILITY CORRECTION 01 — CP03
+# SFIA STUDIO — P6-MIN-09 DOCUMENTARY COGNITIVE RELIABILITY CORRECTION 01 — CP04
 
 **Review Pack level:** FULL
-**Pass:** TARGETED CORRECTION PASS 03 — R4/R5
+**Pass:** FINAL EVIDENCE & EDGE-CASE CLOSURE — CP04
 **Cycle:** 8 — Delivery / implémentation (parent QA: 9)
 **Profil:** CRITICAL
 **Typologie:** EVOL — corrective delivery
-**Timestamp:** 2026-10-13 00:04:06 CEST
-**GO Morris:** GO CORRECTION LOCALE R4/R5 consommé
+**Timestamp:** 2026-10-13 07:48:49 CEST
+**GO Morris:** 2026-10-13 — correction locale R6/R7 autorisée (consommé)
 **GO intégration projet:** NON AUTORISÉ
+**GO REAL:** NON AUTORISÉ
 **Mode:** DETERMINISTIC ONLY — ZERO REAL OpenAI
 
 ---
 
 ## A. Horodatage Europe/Paris
 
-2026-10-13 00:04:06 CEST
+2026-10-13 07:48:49 CEST
 
-## B. Identification cycle / profil / GO
+## B. Identification, cycle, profil, GO
 
 | Champ | Valeur |
 |---|---|
@@ -25,10 +26,10 @@
 | Campagne | P6-GLOBAL-INTEGRATED-PRODUCT-QA-01 |
 | Milestone | P6 — GLOBAL INTEGRATED PRODUCT QA |
 | Scénario | P6-MIN-09 — Guided Document Review |
-| Lot | P6-MIN-09 DOCUMENTARY COGNITIVE RELIABILITY CORRECTION 01 |
-| Pass | TARGETED CORRECTION PASS 03 |
+| Lot | DOCUMENTARY COGNITIVE RELIABILITY CORRECTION 01 |
+| Pass | FINAL EVIDENCE & EDGE-CASE CLOSURE — CP04 |
 | Cycle | 8 Delivery / parent 9 QA |
-| GO | Correction locale R4/R5 |
+| GO | Correction locale R6/R7 |
 | Intégration Git projet | INTERDITE ce cycle |
 
 ## C. Local Git Truth Check
@@ -40,8 +41,8 @@ branch: fix/p6-min09-documentary-cognitive-reliability-01
 HEAD: d8ceb8ad54d2e84aaa95cdbe3bef4e2814806edc
 origin/main: d8ceb8ad54d2e84aaa95cdbe3bef4e2814806edc
 HEAD == origin/main: TRUE
-staged: none expected / verified empty via status
-working tree: MODIFIED (CP01+CP02+CP03 uncommitted — EXPECTED)
+staged: empty
+working tree: MODIFIED (CP01+CP02+CP03+CP04 uncommitted — EXPECTED)
 ```
 
 ### git status --short
@@ -93,18 +94,18 @@ projects/sfia-studio/app/lib/nora-cognitive-runtime/documentaryReadGuidance.ts
 ### git diff --stat
 
 ```
- .tmp-sfia-review/chatgpt-review.md                 | 166 ------------
- .../p6.nora.p1.adaptiveBudget.d0.test.ts           |  16 ++
+ .tmp-sfia-review/chatgpt-review.md                 | 166 ----------
+ .../p6.nora.p1.adaptiveBudget.d0.test.ts           |  16 +
  .../nora-cognitive-runtime/adaptiveTurnBudget.ts   |  35 +++
  .../app/lib/nora-cognitive-runtime/index.ts        |  11 +
- .../app/lib/nora-cognitive-runtime/readCoverage.ts | 289 +++++++++++++++++++--
+ .../app/lib/nora-cognitive-runtime/readCoverage.ts | 289 ++++++++++++++++--
  .../nora-cognitive-runtime/runNoraAgentsTurn.ts    |  69 ++++-
  .../nora-cognitive-runtime/runNoraCognitiveTurn.ts |  10 +
  .../app/lib/platform/observability/types.ts        |   4 +-
- .../lib/platform/repository/gitLocalReadAdapter.ts | 216 +++++++++++++--
- .../app/lib/platform/tools/toolRouter.ts           | 268 ++++++++++++++++++-
+ .../lib/platform/repository/gitLocalReadAdapter.ts | 216 +++++++++++--
+ .../app/lib/platform/tools/toolRouter.ts           | 333 ++++++++++++++++++++-
  .../sfia-studio/app/lib/platform/tools/types.ts    |   2 +-
- 11 files changed, 861 insertions(+), 225 deletions(-)
+ 11 files changed, 926 insertions(+), 225 deletions(-)
 
 ```
 
@@ -372,7 +373,7 @@ projects/sfia-studio/app/lib/nora-cognitive-runtime/documentaryReadGuidance.ts
 /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-f9349af8-03f1-4049-947d-b9ceb58d7230                                                                                                                                            27811e8f [ops1/action/ops1-xatt-f9349af8-03f1-4049-947d-b9ceb58d7230]
 /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-fc8ba3a6-097e-4d70-8d1f-f154c55080f0                                                                                                                                            4b279b8a [ops1/action/ops1-xatt-fc8ba3a6-097e-4d70-8d1f-f154c55080f0]
 /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/m4-worktrees/wt-0c457ce96317ed713224ac4b                                                                                                                                                                     66ffc0d2 (detached HEAD)
-/Users/morris/Projects/sfia-workspace/sfia-review-handoff                                                                                                                                                                                                                          98913b85 [sfia/review-handoff]
+/Users/morris/Projects/sfia-workspace/sfia-review-handoff                                                                                                                                                                                                                          f19cf8e4 [sfia/review-handoff]
 /Users/morris/Projects/sfia-wt-corr04-d-envelope                                                                                                                                                                                                                                   98170691 (detached HEAD)
 /Users/morris/Projects/sfia-wt-corr04-real-12d837fd                                                                                                                                                                                                                                98170691 (detached HEAD)
 /Users/morris/Projects/sfia-wt-corr04-real-locked-12d837fd                                                                                                                                                                                                                         1f48dd81 (detached HEAD)
@@ -395,173 +396,485 @@ projects/sfia-studio/app/lib/nora-cognitive-runtime/documentaryReadGuidance.ts
 
 ```
 
-**Protection:** Human QA Studio :3020, DOC-PR577, historical REAL T1 proofs — not mutated by this pass.
+**Prior handoff CP03:** commit `f19cf8e45f2c1f044613e502f894dfa90b3bf1d5` / blob `71d778320551eb62586a2206414514110f872037` (not project baseline).
 
-**Prior handoff CP02:** commit `98913b85942a7d196ba22e1ac03de220b09495a5` / blob `d6fa7c2342622cd05e08bc0023d9bd1aa4cd866d` (not used as new baseline).
+**Protection:** Human QA Studio :3020, DOC-PR577, REAL T1 proofs — not mutated.
 
-## D. Sources et convergence
+## D. Sources et Convergence Pre-check
 
-Canoniques lues / requalifiées (chemins Git) :
+Sources lues : Build Doctrine, Roadmap, C1, framing v3 33/34/35/37, trajectoire Nora 08, GDR P1§12.6 / P2§17, contrat P6, CKC 08/09, process v2.6, handoff CP03.
 
-- `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md`
-- `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
-- `projects/sfia-studio/product-completion/01-product-completion-cadrage.md`
-- `projects/sfia-studio/sfia-v3-framing/30-*.md` … `37-*.md` (framing v3 applicable)
-- `projects/sfia-studio/nora-cognitive-completion/08-nora-openai-native-first-cognitive-trajectory.md`
-- Product simplification §12.6 / §17 (GDR)
-- `projects/sfia-studio/product-simplification/07-chat-first-product-simplification-p6-global-integrated-product-qa.md`
-- CKC 08 Delivery / 09 QA
-- Process externe v2.6 (templates + routing) — process only
-- Review Handoff CP02 FULL (lecture, non-baseline)
-
-**Convergence P6 requalifiée :**
-- Capacité v3 : Analyse documentaire gouvernée par Nora dans le Product Operating Loop — KEEP primitives.
-- État entrée CP03 : RCD-01 CP01+CP02 locaux ; R1/R2/R3 corrigés au scope testé ; R4/R5 ouverts.
+**Convergence :**
+- Capacité : analyse documentaire gouvernée Nora — KEEP Runner/Session/Loop/Adapter ; ToolRouter ADAPT R6 ; tests ADAPT R6/R7.
+- État : R1–R5 corrigés au scope testé ; R6/R7 ouverts à l'entrée CP04.
 - GDR REAL NOT PROVEN ; P6 GLOBAL NOT PASSED ; Runtime v3 NON ADOPTED.
 - R21 DETERMINISTIC ≠ REAL ; R22 OpenAI-native-first.
 - Architecture parallèle : NONE.
-- Exit proof cible : invariant documentaire sur résultat effectivement remis au modèle.
+- Exit proof : R6/R7 fermés sans régression R1–R5.
 
-## E. État d'entrée CP02
+## E. État CP03 repris
 
-- 69 tests ciblés PASS rapportés (CP02).
-- Défauts R4/R5 encore ouverts :
-  - **R4** : comptage complete-lines vs lignes originales après `redactSecrets()` → faux partial / boucle possible ; rebuild depuis raw → réintroduction potentielle de secrets dans objet intermédiaire.
-  - **R5** : `prepareToolDataForModel` peut re-couper `content` sans recalculer `returnedEndLine` / hints / summary.
-- Cumul local non commité préservé (aucune perte CP01/CP02).
+- CP01–CP03 locaux préservés (3 fichiers créés toujours présents).
+- R4/R5 déterministes au scope testé.
+- Réserves ChatGPT CP03 : R6 (envelope oversized-line loop) ; R7 (pack placeholders ≠ regex).
 
-## F. Reproduction R4
+## F. Reproduction R6
 
-Chaîne défectueuse CP02 (avant fix) :
+Reproduit AVANT correction (fixture ~11900 chars) :
 
-1. `byteSlice` du ranged brut
-2. `redactSecrets(byteSlice)`
-3. `countCompleteReturnedLines` contre lignes originales
-4. rebuild `completeContent` depuis lignes originales
+| Surface | completeLineCount | lineExceedsCap | nextStartLineHint |
+|---|---|---|---|
+| Adapter | 1 | false | 2 |
+| prepareGitLocalReadDataForModel (pré-fix) | 0 | false | **1** (loop) |
+| routeToolCall / toolResultForModel | 0 | false | **1** |
 
-Conséquences (fixtures fictives uniquement) :
+Cause : `secondCut && count===0` re-hintait `returnedStartLine` tant que `adapterLineExceedsCap` était false.
 
-- Ligne contenant motifs OPENAI_API_KEY / sk- / ghp_ / Authorization Bearer : texte rédigé ≠ original → risque de partialLine et nextStartLineHint bloqué.
-- Rebuild raw après rédaction : secrets pouvaient réapparaître dans `GitReadFileResult.content`.
+## G. Correction R6
 
-## G. Correction R4
+Fichier : `toolRouter.ts` — `prepareGitLocalReadDataForModel`.
 
-Fichier : `gitLocalReadAdapter.ts` — adaptation minimale, `redactSecrets()` conservé.
+1. Si `secondCut && count===0` → `lineExceedsCap=true`, `nextStartLineHint=start+1` (ou null), jamais re-hint start.
+2. RESULT_CAPPED : `nextStartLineHint=null` (fail-closed, pas de progression inventée) ; shrink progressif de l'enveloppe jusqu'au plafond.
+3. Pas de mid-line offset ; plafond 12000 inchangé ; autres outils inchangés.
 
-Invariant retenu :
+Preuve post-fix : même ligne → `lineExceedsCap=true`, `nextStartLineHint=2` ; lecture suivante obtient `L2`.
 
-> Le modèle et les surfaces d'observation ne reçoivent jamais de secret non masqué.
-> La comptabilisation des lignes ne dépend pas d'une égalité original↔rédigé.
-> Couverture calculée sur contenu sûr et effectivement disponible.
+## H. Tests R6
 
-Implémentation :
+Describe `R6 final envelope oversized-line progression` : A–O (dont ToolRouter+Runner R6-O).
 
-1. Extraire `rangedOriginal` puis `rangedRedacted = map(redactSecrets)`.
-2. Appliquer caps byte/char sur le joint rédigé.
-3. `countCompleteReturnedLines` contre `rangedRedacted` (indices locaux, remap numéros document).
-4. Rebuild `completeContent` uniquement depuis `rangedRedacted`.
-5. Redact défensif final sur `text`.
-6. `lineExceedsCap` évalué sur la ligne rédigée.
+## I. Diagnostic de fidélité R7
 
-Aucune implémentation parallèle de rédaction. Aucun déplacement de secrets vers Session/logs.
+Comparaison sources :
 
-## H. Tests de confidentialité (R4)
-
-Suite : `p6.nora.min09.documentaryReliability.d0.test.ts` — describe R4.
-
-| ID | Couverture |
+| Élément | Constat |
 |---|---|
-| R4-A | Doc sans secret inchangé |
-| R4-B/C/D/E | OPENAI_API_KEY / sk- / ghp_ / Bearer fictifs → [redacted], lignes complètes créditées |
-| R4-F/G | Ligne rédigée milieu / début de plage |
-| R4-H/I | Truncation avant/sur ligne sensible — pas de fuite, hint honnête |
-| R4-J | Lectures successives — progression finie, pas de boucle |
-| R4-K | lineExceedsCap explicite |
-| R4-L/M | Absence secrets dans adapter / ToolRouter / toolResultForModel / Session items / events ; JSON.parse OK |
-| R4-N | UTF-8 multioctets |
+| Tests locaux CP03 | Fixtures `sk-fake…` / `ghp_fake…` **matchaient** `redaction.ts` et étaient réellement rédigées (vérifié runtime). |
+| Handoff CP03 publié | Anonymisation **publication-only** → `sk-[FIXTURE_REDACTED]` / `ghp_[FIXTURE_REDACTED]` qui **ne matchent pas** les regex (`[` hors charset ; longueur insuffisante). |
+| Cause | Transformation documentaire du pack, **pas** divergence du code exécuté vs code source local. |
+| Risque | Le handoff distant ne permettait pas de re-vérifier les assertions négatives fidèlement. |
 
-Assertions négatives : marqueurs fictifs absents des sorties vérifiées.
+## J. Correction / régularisation R7
 
-## I. Reproduction R5
+1. Fixtures reconstruites **programmatiquement** pour matcher exactement `redaction.ts` :
+   - `sk-${`"A".repeat(12)`}`
+   - `ghp_${`"B".repeat(20)`}`
+   - `OPENAI_API_KEY=` + sk fiction
+   - `Authorization: Bearer ` + `"C".repeat(24)`
+2. Assertions **positives** : `redactSecrets(fixture) === "[redacted]"`.
+3. Assertions **négatives** : tokens absents des sorties.
+4. Preuve de discrimination : redactor cassé (test-only) laisserait fuiter ; redactor réel non.
+5. **CP04 Review Pack publie le fichier de test LOCAL réel** (pas de rewrite hors-regex). Les tokens fiction `sk-AAAAAAAAAAAA` / `ghp_BBBB…` sont intentionnels, non sensibles, et regex-conformes.
 
-Chaîne : GitLocalReadAdapter.readFile → routeToolCall → prepareToolDataForModel → toolResultForModel → Runner.
+## K. Tests de sécurité R7
 
-prepareToolDataForModel priorisait LARGE_STRING_KEYS (content) puis pouvait :
+Describe `R7 security fixture / evidence fidelity` : A–I (adapter, ToolRouter, Session, EventSink, JSON).
 
-- couper content au milieu d'une ligne ;
-- omettre des métadonnées si budget restant < 32 ;
-- laisser returnedEndLine / completeLineCount / nextStartLineHint / summary désynchronisés du payload final.
+## L. Correspondance source / test / handoff
 
-Plafonds inchangés : CT_MAX_TOOL_RESULT_CHARS = 12000 ; Adaptive ceiling 10 inchangé.
-
-## J. Correction R5
-
-Fichier : `toolRouter.ts`.
-
-Option retenue (minimale, réutilise la chaîne) :
-
-- Helper exporté `prepareGitLocalReadDataForModel` pour `git_local_read_file` uniquement.
-- Budgétise l'enveloppe model-visible ok/summary/data/truncated (pas seulement data).
-- Réserve les métadonnées ; réduit content par lignes complètes uniquement.
-- Recalcule returnedEndLine, completeLineCount, partialLineNumber, nextStartLineHint, truncated, hasMore, summary.
-- documentHasMore sans coupe taille → truncated reste false (R5-J).
-- Si même 0 ligne ne tient pas : RESULT_CAPPED, completeLineCount=0, jamais FULL implicite.
-- Autres outils : chemin prepareToolDataForModel inchangé (R5-N).
-
-Justification vs alternatives :
-
-- Post-reconcile after generic prepare : risque que meta aient déjà disparu.
-- Augmenter le plafond : interdit FinOps.
-- Second adaptateur documentaire : interdit.
-
-## K. Tests du payload final (R5)
-
-| ID | Couverture |
+| Couche | Fidélité CP04 |
 |---|---|
-| R5-A | Petit doc — pas de 2e trunc ; meta = lignes content |
-| R5-B–F/H/I | Plafond JSON serré — meta finales = lignes complètes ; hint = returnedEnd+1 ; pas de saut |
-| R5-G | JSON.parse(toolResultForModel) ; ceiling 12000 |
-| R5-J | documentHasMore sans trunc |
-| R5-K | FULL impossible si totalLines non couvert |
-| R5-L/M | R4+R5 combinés — secret fictif + 2e plafond — zero leak |
-| R5-N | Non-régression autres outils |
-| R5-O | Chemin complet Git→Adapter→ToolRouter→model-visible→Runner/ScriptedModel/Session |
-
-## L. Fichiers créés et modifiés
-
-### Créés (contenu intégral ci-dessous §N)
-
-- `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.min09.documentaryReliability.d0.test.ts`
-- `projects/sfia-studio/app/lib/nora-cognitive-runtime/documentaryBudgetExhausted.ts` (CP01)
-- `projects/sfia-studio/app/lib/nora-cognitive-runtime/documentaryReadGuidance.ts` (CP01)
-
-### Modifiés (diffs utiles §N)
-
-- `gitLocalReadAdapter.ts` — R1+R4
-- `toolRouter.ts` — R5 (+ wiring)
-- `readCoverage.ts`, `runNoraAgentsTurn.ts`, `adaptiveTurnBudget.ts`, `runNoraCognitiveTurn.ts`, `index.ts`, `types` observability/tools, `p6.nora.p1.adaptiveBudget.d0.test.ts` — CP01/CP02 préservés
-
-### Interdits non touchés
-
-convergence/**, product-completion/**, product-simplification/**, sfia-v3-framing/**, production-runtime-reference/**, prompts/**, method/**, package.json, lockfiles, DB, provider/REAL config, UI, Human QA data.
+| Source test exécuté | = contenu §P N.CREATED (fichier réel) |
+| Regex redaction.ts | inchangées |
+| Pack CP03 | documenté comme anonymisé hors-regex (historique) |
+| Pack CP04 | copie fidèle du source testé |
 
 ## M. Git Review Index
 
-| Path | Role | Pass |
-|---|---|---|
-| gitLocalReadAdapter.ts | R1/R4 complete-line + redaction-safe accounting | CP02+CP03 |
-| toolRouter.ts | R5 final envelope truth | CP03 |
-| readCoverage.ts | Coverage signals / no false FULL | CP01/CP02 |
-| runNoraAgentsTurn.ts | R2 restitution / soft maxTurns disclosure | CP02 |
-| documentaryBudgetExhausted.ts | Honest budget-exhausted text | CP01 |
-| documentaryReadGuidance.ts | Documentary guidance | CP01 |
-| adaptiveTurnBudget.ts | P1 ceiling 10 / Focused ≥8 | CP01 |
-| p6.nora.min09.documentaryReliability.d0.test.ts | Oracles R1–R5 | CP01–CP03 |
-| .tmp-sfia-review/chatgpt-review.md | Review Pack FULL CP03 | CP03 |
+| Path | Role |
+|---|---|
+| toolRouter.ts | R5+R6 envelope |
+| gitLocalReadAdapter.ts | R1+R4 |
+| p6.nora.min09.documentaryReliability.d0.test.ts | R1–R7 oracles |
+| documentaryBudgetExhausted.ts / documentaryReadGuidance.ts | CP01 |
+| readCoverage / runNoraAgentsTurn / adaptiveTurnBudget | CP01/CP02 |
 
-## N. Diffs utiles complets + fichiers créés
+## N. Fichiers créés / modifiés
 
-### N.1 Diff — gitLocalReadAdapter.ts (cumul vs HEAD)
+**Créés :** 3 (inchangés en nom ; test enrichi R6/R7).
+**Modifiés ce CP04 :** `toolRouter.ts`, `p6.nora.min09.documentaryReliability.d0.test.ts`.
+**Cumul CP01–CP04 :** voir diffs §O.
+**Interdits :** non touchés.
+
+## O. Diff utile complet cumulatif CP01–CP04
+
+### O.1 toolRouter.ts
+
+```diff
+diff --git a/projects/sfia-studio/app/lib/platform/tools/toolRouter.ts b/projects/sfia-studio/app/lib/platform/tools/toolRouter.ts
+index c57dc074..0a4bcd18 100644
+--- a/projects/sfia-studio/app/lib/platform/tools/toolRouter.ts
++++ b/projects/sfia-studio/app/lib/platform/tools/toolRouter.ts
+@@ -113,6 +113,281 @@ function failResult(
+   };
+ }
+
++const GIT_READ_TRUNCATION_MARKER = "…[truncated]";
++const GIT_READ_TRUNCATION_SUFFIX = `\n${GIT_READ_TRUNCATION_MARKER}`;
++
++function stripGitReadTruncationMarker(content: string): string {
++  if (content.endsWith(GIT_READ_TRUNCATION_SUFFIX)) {
++    return content.slice(0, -GIT_READ_TRUNCATION_SUFFIX.length);
++  }
++  if (content === GIT_READ_TRUNCATION_MARKER) return "";
++  if (content.endsWith(GIT_READ_TRUNCATION_MARKER)) {
++    return content.slice(0, -GIT_READ_TRUNCATION_MARKER.length);
++  }
++  return content;
++}
++
++function asFiniteInt(v: unknown, fallback: number): number {
++  if (typeof v === "number" && Number.isFinite(v)) return Math.floor(v);
++  if (typeof v === "string" && /^-?\d+$/.test(v)) return parseInt(v, 10);
++  return fallback;
++}
++
++/**
++ * R5 — Prepare git_local_read_file for the model-visible envelope.
++ * Reserves metadata, caps content on complete-line boundaries only, and
++ * reconciles coverage fields to the FINAL payload (not the adapter-only view).
++ */
++export function prepareGitLocalReadDataForModel(
++  raw: Record<string, unknown>,
++  maxChars = CT_MAX_TOOL_RESULT_CHARS,
++): {
++  data: Record<string, unknown>;
++  truncated: boolean;
++  json: string;
++  summary: string;
++} {
++  const path = typeof raw.path === "string" ? raw.path : "";
++  const startLine = asFiniteInt(raw.startLine, 1);
++  const endLine = asFiniteInt(raw.endLine, startLine);
++  const requestedStartLine = asFiniteInt(raw.requestedStartLine, startLine);
++  const requestedEndLine = asFiniteInt(raw.requestedEndLine, endLine);
++  const returnedStartLine = asFiniteInt(raw.returnedStartLine, startLine);
++  const totalLines = asFiniteInt(raw.totalLines, 0);
++  const documentHasMore = Boolean(raw.documentHasMore);
++  const adapterLineExceedsCap = Boolean(raw.lineExceedsCap);
++  const adapterTruncated = Boolean(raw.truncated);
++  const adapterPartial =
++    raw.partialLineNumber == null || raw.partialLineNumber === undefined
++      ? null
++      : asFiniteInt(raw.partialLineNumber, returnedStartLine);
++  const adapterNext =
++    raw.nextStartLineHint == null || raw.nextStartLineHint === undefined
++      ? null
++      : asFiniteInt(raw.nextStartLineHint, returnedStartLine);
++
++  const body = redactSecrets(
++    stripGitReadTruncationMarker(
++      typeof raw.content === "string" ? raw.content : "",
++    ),
++  );
++  const lines = body.length === 0 ? [] : body.split("\n");
++
++  const buildAttempt = (count: number) => {
++    const secondCut = count < lines.length;
++    const finalTruncated = secondCut ? true : adapterTruncated;
++    const completeContent =
++      count > 0 ? lines.slice(0, count).join("\n") : "";
++    const text = finalTruncated
++      ? completeContent
++        ? `${completeContent}${GIT_READ_TRUNCATION_SUFFIX}`
++        : GIT_READ_TRUNCATION_MARKER
++      : completeContent;
++
++    const returnedEndLine =
++      count > 0 ? returnedStartLine + count - 1 : returnedStartLine - 1;
++
++    let partialLineNumber: number | null = null;
++    let nextStartLineHint: number | null = null;
++    let lineExceedsCap = false;
++
++    if (secondCut) {
++      if (count === 0) {
++        // R6 — First available line cannot fit the FINAL model envelope
++        // (even alone), or adapter already marked it unblockable.
++        // Explicit skip under existing lineExceedsCap protocol — never
++        // re-hint the same startLine (that loops Nora forever).
++        lineExceedsCap = true;
++        partialLineNumber = null;
++        nextStartLineHint =
++          returnedStartLine < totalLines ? returnedStartLine + 1 : null;
++      } else {
++        // Second ceiling cut mid-range — retry the first unavailable line.
++        partialLineNumber = returnedStartLine + count;
++        nextStartLineHint = returnedStartLine + count;
++      }
++    } else if (count > 0) {
++      nextStartLineHint =
++        returnedEndLine < totalLines ? returnedEndLine + 1 : null;
++      partialLineNumber = adapterPartial;
++      lineExceedsCap = false;
++      // Preserve adapter next hint when it already matches honest progression.
++      if (adapterNext != null && nextStartLineHint == null) {
++        nextStartLineHint = adapterNext;
++      }
++    } else {
++      // Empty body from adapter (lineExceedsCap / zero complete).
++      lineExceedsCap = adapterLineExceedsCap;
++      partialLineNumber = adapterPartial;
++      if (lineExceedsCap) {
++        nextStartLineHint =
++          returnedStartLine < totalLines ? returnedStartLine + 1 : null;
++      } else if (adapterPartial != null) {
++        nextStartLineHint = adapterPartial;
++      } else if (adapterNext != null) {
++        nextStartLineHint = adapterNext;
++      } else if (documentHasMore) {
++        nextStartLineHint = endLine + 1;
++      } else {
++        nextStartLineHint = null;
++      }
++    }
++
++    const hasMore = documentHasMore || finalTruncated;
++    const dataObj: Record<string, unknown> = {
++      path,
++      content: redactSecrets(text),
++      truncated: finalTruncated,
++      documentHasMore,
++      hasMore,
++      startLine,
++      endLine,
++      requestedStartLine,
++      requestedEndLine,
++      returnedStartLine,
++      returnedEndLine,
++      completeLineCount: count,
++      partialLineNumber,
++      lineExceedsCap,
++      totalLines,
++      nextStartLineHint,
++    };
++
++    const returnedLabel =
++      count > 0
++        ? `returned L${returnedStartLine}-${returnedEndLine}`
++        : "returned none";
++    const flags = [
++      finalTruncated ? "truncated" : null,
++      documentHasMore ? "documentHasMore" : null,
++      hasMore ? "hasMore" : null,
++      lineExceedsCap ? "lineExceedsCap" : null,
++      partialLineNumber != null ? `partialLine:${partialLineNumber}` : null,
++    ]
++      .filter(Boolean)
++      .join(" ");
++    const summary = `read ${path} L${startLine}-${endLine}/${totalLines} ${returnedLabel} (${text.length} chars)${flags ? ` ${flags}` : ""}`;
++
++    const envelope = redactSecrets(
++      JSON.stringify({
++        ok: true,
++        summary,
++        data: dataObj,
++        truncated: finalTruncated,
++      }),
++    );
++
++    return {
++      data: dataObj,
++      summary,
++      envelope,
++      truncated: finalTruncated,
++      json: redactSecrets(JSON.stringify(dataObj)),
++    };
++  };
++
++  // Prefer max complete lines whose FULL model envelope fits the ceiling.
++  for (let count = lines.length; count >= 0; count -= 1) {
++    const attempt = buildAttempt(count);
++    if (attempt.envelope.length <= maxChars) {
++      return {
++        data: attempt.data,
++        truncated: attempt.truncated,
++        json: attempt.json,
++        summary: attempt.summary,
++      };
++    }
++  }
++
++  // Last resort: even empty truncated content cannot fit with metadata.
++  // Fail-closed — do not invent progression (R6). Shrink until envelope fits.
++  const minimalCandidates: Array<{
++    summary: string;
++    data: Record<string, unknown>;
++  }> = [
++    {
++      summary: `read ${path} L${startLine}-${endLine}/${totalLines} returned none (0 chars) truncated RESULT_CAPPED`,
++      data: {
++        path,
++        content: GIT_READ_TRUNCATION_MARKER,
++        truncated: true,
++        documentHasMore,
++        hasMore: true,
++        note: "RESULT_CAPPED",
++        startLine,
++        endLine,
++        requestedStartLine,
++        requestedEndLine,
++        returnedStartLine,
++        returnedEndLine: returnedStartLine - 1,
++        completeLineCount: 0,
++        partialLineNumber: null,
++        lineExceedsCap: false,
++        totalLines,
++        nextStartLineHint: null,
++      },
++    },
++    {
++      summary: "read RESULT_CAPPED returned none",
++      data: {
++        truncated: true,
++        note: "RESULT_CAPPED",
++        completeLineCount: 0,
++        returnedStartLine,
++        returnedEndLine: returnedStartLine - 1,
++        nextStartLineHint: null,
++        totalLines,
++        content: GIT_READ_TRUNCATION_MARKER,
++        documentHasMore,
++        hasMore: true,
++        lineExceedsCap: false,
++      },
++    },
++    {
++      summary: "RESULT_CAPPED",
++      data: {
++        truncated: true,
++        note: "RESULT_CAPPED",
++        completeLineCount: 0,
++        nextStartLineHint: null,
++      },
++    },
++  ];
++
++  for (const candidate of minimalCandidates) {
++    const envelope = redactSecrets(
++      JSON.stringify({
++        ok: true,
++        summary: candidate.summary,
++        data: candidate.data,
++        truncated: true,
++      }),
++    );
++    if (envelope.length <= maxChars) {
++      return {
++        data: candidate.data,
++        truncated: true,
++        json: redactSecrets(JSON.stringify(candidate.data)),
++        summary: candidate.summary,
++      };
++    }
++  }
++
++  // Absolute floor — still honest, never claims coverage or progression.
++  const floorData = {
++    note: "RESULT_CAPPED",
++    completeLineCount: 0,
++    nextStartLineHint: null,
++    truncated: true,
++  };
++  return {
++    data: floorData,
++    truncated: true,
++    json: JSON.stringify(floorData),
++    summary: "RESULT_CAPPED",
++  };
++}
++
+ /**
+  * Cap large string fields BEFORE JSON serialization so the payload is always
+  * valid JSON. Never mid-truncate a serialized JSON string then re-parse it.
+@@ -230,9 +505,25 @@ export function resolveToolPathOrRef(
+     case "git_local_read_file": {
+       const p = asString(dataObj?.path) ?? asString(args.path);
+       if (!p) return null;
+-      const start = dataObj?.startLine;
+-      const end = dataObj?.endLine;
+-      if (typeof start === "number" && typeof end === "number") {
++      const completeCount = dataObj?.completeLineCount;
++      if (typeof completeCount === "number" && completeCount <= 0) {
++        // No proven complete span — bare path (avoid false #L range).
++        return p;
++      }
++      // Prefer returned range (honest coverage) over requested-only bounds.
++      const start =
++        typeof dataObj?.returnedStartLine === "number"
++          ? dataObj.returnedStartLine
++          : dataObj?.startLine;
++      const end =
++        typeof dataObj?.returnedEndLine === "number"
++          ? dataObj.returnedEndLine
++          : dataObj?.endLine;
++      if (
++        typeof start === "number" &&
++        typeof end === "number" &&
++        end >= start
++      ) {
+         return `${p}#L${start}-${end}`;
+       }
+       return p;
+@@ -497,12 +788,23 @@ export async function routeToolCall(
+           path: r.path,
+           content: r.content,
+           truncated: r.truncated,
++          documentHasMore: r.documentHasMore,
++          hasMore: r.hasMore,
+           startLine: r.startLine,
+           endLine: r.endLine,
+-          hasMore: r.hasMore,
++          requestedStartLine: r.requestedStartLine,
++          requestedEndLine: r.requestedEndLine,
++          returnedStartLine: r.returnedStartLine,
++          returnedEndLine: r.returnedEndLine,
++          completeLineCount: r.completeLineCount,
++          partialLineNumber: r.partialLineNumber,
++          lineExceedsCap: r.lineExceedsCap,
++          totalLines: r.totalLines,
++          nextStartLineHint: r.nextStartLineHint,
+         };
+         summary = r.summary;
+-        truncated = r.truncated || r.hasMore;
++        // usage.truncated = content cut / incomplete delivery — not documentHasMore alone.
++        truncated = r.truncated;
+         break;
+       }
+       case "git_local_get_diff": {
+@@ -830,8 +1132,25 @@ export async function routeToolCall(
+       }
+     }
+
+-    const prepared = prepareToolDataForModel(data, CT_MAX_TOOL_RESULT_CHARS);
+-    if (prepared.truncated) truncated = true;
++    let prepared: { data: unknown; truncated: boolean; json: string };
++    if (
++      name === "git_local_read_file" &&
++      data &&
++      typeof data === "object" &&
++      !Array.isArray(data)
++    ) {
++      // R5 — coverage metadata must describe the FINAL model-visible envelope.
++      const gitPrepared = prepareGitLocalReadDataForModel(
++        data as Record<string, unknown>,
++        CT_MAX_TOOL_RESULT_CHARS,
++      );
++      prepared = gitPrepared;
++      summary = gitPrepared.summary;
++      truncated = gitPrepared.truncated;
++    } else {
++      prepared = prepareToolDataForModel(data, CT_MAX_TOOL_RESULT_CHARS);
++      if (prepared.truncated) truncated = true;
++    }
+     if (prepared.json.length > CT_MAX_TOOL_RESULT_CHARS * 4) {
+       const result = failResult(
+         request.toolCallId,
+
+```
+
+### O.2 gitLocalReadAdapter.ts
 
 ```diff
 diff --git a/projects/sfia-studio/app/lib/platform/repository/gitLocalReadAdapter.ts b/projects/sfia-studio/app/lib/platform/repository/gitLocalReadAdapter.ts
@@ -813,317 +1126,7 @@ index 4dda7c8c..90e31385 100644
 
 ```
 
-### N.2 Diff — toolRouter.ts (cumul vs HEAD)
-
-```diff
-diff --git a/projects/sfia-studio/app/lib/platform/tools/toolRouter.ts b/projects/sfia-studio/app/lib/platform/tools/toolRouter.ts
-index c57dc074..393cde72 100644
---- a/projects/sfia-studio/app/lib/platform/tools/toolRouter.ts
-+++ b/projects/sfia-studio/app/lib/platform/tools/toolRouter.ts
-@@ -113,6 +113,216 @@ function failResult(
-   };
- }
-
-+const GIT_READ_TRUNCATION_MARKER = "…[truncated]";
-+const GIT_READ_TRUNCATION_SUFFIX = `\n${GIT_READ_TRUNCATION_MARKER}`;
-+
-+function stripGitReadTruncationMarker(content: string): string {
-+  if (content.endsWith(GIT_READ_TRUNCATION_SUFFIX)) {
-+    return content.slice(0, -GIT_READ_TRUNCATION_SUFFIX.length);
-+  }
-+  if (content === GIT_READ_TRUNCATION_MARKER) return "";
-+  if (content.endsWith(GIT_READ_TRUNCATION_MARKER)) {
-+    return content.slice(0, -GIT_READ_TRUNCATION_MARKER.length);
-+  }
-+  return content;
-+}
-+
-+function asFiniteInt(v: unknown, fallback: number): number {
-+  if (typeof v === "number" && Number.isFinite(v)) return Math.floor(v);
-+  if (typeof v === "string" && /^-?\d+$/.test(v)) return parseInt(v, 10);
-+  return fallback;
-+}
-+
-+/**
-+ * R5 — Prepare git_local_read_file for the model-visible envelope.
-+ * Reserves metadata, caps content on complete-line boundaries only, and
-+ * reconciles coverage fields to the FINAL payload (not the adapter-only view).
-+ */
-+export function prepareGitLocalReadDataForModel(
-+  raw: Record<string, unknown>,
-+  maxChars = CT_MAX_TOOL_RESULT_CHARS,
-+): {
-+  data: Record<string, unknown>;
-+  truncated: boolean;
-+  json: string;
-+  summary: string;
-+} {
-+  const path = typeof raw.path === "string" ? raw.path : "";
-+  const startLine = asFiniteInt(raw.startLine, 1);
-+  const endLine = asFiniteInt(raw.endLine, startLine);
-+  const requestedStartLine = asFiniteInt(raw.requestedStartLine, startLine);
-+  const requestedEndLine = asFiniteInt(raw.requestedEndLine, endLine);
-+  const returnedStartLine = asFiniteInt(raw.returnedStartLine, startLine);
-+  const totalLines = asFiniteInt(raw.totalLines, 0);
-+  const documentHasMore = Boolean(raw.documentHasMore);
-+  const adapterLineExceedsCap = Boolean(raw.lineExceedsCap);
-+  const adapterTruncated = Boolean(raw.truncated);
-+  const adapterPartial =
-+    raw.partialLineNumber == null || raw.partialLineNumber === undefined
-+      ? null
-+      : asFiniteInt(raw.partialLineNumber, returnedStartLine);
-+  const adapterNext =
-+    raw.nextStartLineHint == null || raw.nextStartLineHint === undefined
-+      ? null
-+      : asFiniteInt(raw.nextStartLineHint, returnedStartLine);
-+
-+  const body = redactSecrets(
-+    stripGitReadTruncationMarker(
-+      typeof raw.content === "string" ? raw.content : "",
-+    ),
-+  );
-+  const lines = body.length === 0 ? [] : body.split("\n");
-+
-+  const buildAttempt = (count: number) => {
-+    const secondCut = count < lines.length;
-+    const finalTruncated = secondCut ? true : adapterTruncated;
-+    const completeContent =
-+      count > 0 ? lines.slice(0, count).join("\n") : "";
-+    const text = finalTruncated
-+      ? completeContent
-+        ? `${completeContent}${GIT_READ_TRUNCATION_SUFFIX}`
-+        : GIT_READ_TRUNCATION_MARKER
-+      : completeContent;
-+
-+    const returnedEndLine =
-+      count > 0 ? returnedStartLine + count - 1 : returnedStartLine - 1;
-+
-+    let partialLineNumber: number | null = null;
-+    let nextStartLineHint: number | null = null;
-+    let lineExceedsCap = false;
-+
-+    if (secondCut) {
-+      // Second ceiling cut — never skip the first unavailable line.
-+      partialLineNumber = returnedStartLine + count;
-+      nextStartLineHint = returnedStartLine + count;
-+      if (count === 0 && adapterLineExceedsCap) {
-+        lineExceedsCap = true;
-+        nextStartLineHint =
-+          returnedStartLine < totalLines ? returnedStartLine + 1 : null;
-+        partialLineNumber = null;
-+      }
-+    } else if (count > 0) {
-+      nextStartLineHint =
-+        returnedEndLine < totalLines ? returnedEndLine + 1 : null;
-+      partialLineNumber = adapterPartial;
-+      lineExceedsCap = false;
-+      // Preserve adapter next hint when it already matches honest progression.
-+      if (adapterNext != null && nextStartLineHint == null) {
-+        nextStartLineHint = adapterNext;
-+      }
-+    } else {
-+      // Empty body from adapter (lineExceedsCap / zero complete).
-+      lineExceedsCap = adapterLineExceedsCap;
-+      partialLineNumber = adapterPartial;
-+      if (lineExceedsCap) {
-+        nextStartLineHint =
-+          returnedStartLine < totalLines ? returnedStartLine + 1 : null;
-+      } else if (adapterPartial != null) {
-+        nextStartLineHint = adapterPartial;
-+      } else if (adapterNext != null) {
-+        nextStartLineHint = adapterNext;
-+      } else if (documentHasMore) {
-+        nextStartLineHint = endLine + 1;
-+      } else {
-+        nextStartLineHint = null;
-+      }
-+    }
-+
-+    const hasMore = documentHasMore || finalTruncated;
-+    const dataObj: Record<string, unknown> = {
-+      path,
-+      content: redactSecrets(text),
-+      truncated: finalTruncated,
-+      documentHasMore,
-+      hasMore,
-+      startLine,
-+      endLine,
-+      requestedStartLine,
-+      requestedEndLine,
-+      returnedStartLine,
-+      returnedEndLine,
-+      completeLineCount: count,
-+      partialLineNumber,
-+      lineExceedsCap,
-+      totalLines,
-+      nextStartLineHint,
-+    };
-+
-+    const returnedLabel =
-+      count > 0
-+        ? `returned L${returnedStartLine}-${returnedEndLine}`
-+        : "returned none";
-+    const flags = [
-+      finalTruncated ? "truncated" : null,
-+      documentHasMore ? "documentHasMore" : null,
-+      hasMore ? "hasMore" : null,
-+      lineExceedsCap ? "lineExceedsCap" : null,
-+      partialLineNumber != null ? `partialLine:${partialLineNumber}` : null,
-+    ]
-+      .filter(Boolean)
-+      .join(" ");
-+    const summary = `read ${path} L${startLine}-${endLine}/${totalLines} ${returnedLabel} (${text.length} chars)${flags ? ` ${flags}` : ""}`;
-+
-+    const envelope = redactSecrets(
-+      JSON.stringify({
-+        ok: true,
-+        summary,
-+        data: dataObj,
-+        truncated: finalTruncated,
-+      }),
-+    );
-+
-+    return {
-+      data: dataObj,
-+      summary,
-+      envelope,
-+      truncated: finalTruncated,
-+      json: redactSecrets(JSON.stringify(dataObj)),
-+    };
-+  };
-+
-+  // Prefer max complete lines whose FULL model envelope fits the ceiling.
-+  for (let count = lines.length; count >= 0; count -= 1) {
-+    const attempt = buildAttempt(count);
-+    if (attempt.envelope.length <= maxChars) {
-+      return {
-+        data: attempt.data,
-+        truncated: attempt.truncated,
-+        json: attempt.json,
-+        summary: attempt.summary,
-+      };
-+    }
-+  }
-+
-+  // Last resort: metadata-only — never claim complete coverage.
-+  const capped: Record<string, unknown> = {
-+    path,
-+    content: GIT_READ_TRUNCATION_MARKER,
-+    truncated: true,
-+    documentHasMore,
-+    hasMore: true,
-+    note: "RESULT_CAPPED",
-+    startLine,
-+    endLine,
-+    requestedStartLine,
-+    requestedEndLine,
-+    returnedStartLine,
-+    returnedEndLine: returnedStartLine - 1,
-+    completeLineCount: 0,
-+    partialLineNumber: null,
-+    lineExceedsCap: adapterLineExceedsCap,
-+    totalLines,
-+    nextStartLineHint: returnedStartLine,
-+  };
-+  const summary = `read ${path} L${startLine}-${endLine}/${totalLines} returned none (0 chars) truncated RESULT_CAPPED`;
-+  return {
-+    data: capped,
-+    truncated: true,
-+    json: redactSecrets(JSON.stringify(capped)),
-+    summary,
-+  };
-+}
-+
- /**
-  * Cap large string fields BEFORE JSON serialization so the payload is always
-  * valid JSON. Never mid-truncate a serialized JSON string then re-parse it.
-@@ -230,9 +440,25 @@ export function resolveToolPathOrRef(
-     case "git_local_read_file": {
-       const p = asString(dataObj?.path) ?? asString(args.path);
-       if (!p) return null;
--      const start = dataObj?.startLine;
--      const end = dataObj?.endLine;
--      if (typeof start === "number" && typeof end === "number") {
-+      const completeCount = dataObj?.completeLineCount;
-+      if (typeof completeCount === "number" && completeCount <= 0) {
-+        // No proven complete span — bare path (avoid false #L range).
-+        return p;
-+      }
-+      // Prefer returned range (honest coverage) over requested-only bounds.
-+      const start =
-+        typeof dataObj?.returnedStartLine === "number"
-+          ? dataObj.returnedStartLine
-+          : dataObj?.startLine;
-+      const end =
-+        typeof dataObj?.returnedEndLine === "number"
-+          ? dataObj.returnedEndLine
-+          : dataObj?.endLine;
-+      if (
-+        typeof start === "number" &&
-+        typeof end === "number" &&
-+        end >= start
-+      ) {
-         return `${p}#L${start}-${end}`;
-       }
-       return p;
-@@ -497,12 +723,23 @@ export async function routeToolCall(
-           path: r.path,
-           content: r.content,
-           truncated: r.truncated,
-+          documentHasMore: r.documentHasMore,
-+          hasMore: r.hasMore,
-           startLine: r.startLine,
-           endLine: r.endLine,
--          hasMore: r.hasMore,
-+          requestedStartLine: r.requestedStartLine,
-+          requestedEndLine: r.requestedEndLine,
-+          returnedStartLine: r.returnedStartLine,
-+          returnedEndLine: r.returnedEndLine,
-+          completeLineCount: r.completeLineCount,
-+          partialLineNumber: r.partialLineNumber,
-+          lineExceedsCap: r.lineExceedsCap,
-+          totalLines: r.totalLines,
-+          nextStartLineHint: r.nextStartLineHint,
-         };
-         summary = r.summary;
--        truncated = r.truncated || r.hasMore;
-+        // usage.truncated = content cut / incomplete delivery — not documentHasMore alone.
-+        truncated = r.truncated;
-         break;
-       }
-       case "git_local_get_diff": {
-@@ -830,8 +1067,25 @@ export async function routeToolCall(
-       }
-     }
-
--    const prepared = prepareToolDataForModel(data, CT_MAX_TOOL_RESULT_CHARS);
--    if (prepared.truncated) truncated = true;
-+    let prepared: { data: unknown; truncated: boolean; json: string };
-+    if (
-+      name === "git_local_read_file" &&
-+      data &&
-+      typeof data === "object" &&
-+      !Array.isArray(data)
-+    ) {
-+      // R5 — coverage metadata must describe the FINAL model-visible envelope.
-+      const gitPrepared = prepareGitLocalReadDataForModel(
-+        data as Record<string, unknown>,
-+        CT_MAX_TOOL_RESULT_CHARS,
-+      );
-+      prepared = gitPrepared;
-+      summary = gitPrepared.summary;
-+      truncated = gitPrepared.truncated;
-+    } else {
-+      prepared = prepareToolDataForModel(data, CT_MAX_TOOL_RESULT_CHARS);
-+      if (prepared.truncated) truncated = true;
-+    }
-     if (prepared.json.length > CT_MAX_TOOL_RESULT_CHARS * 4) {
-       const result = failResult(
-         request.toolCallId,
-
-```
-
-### N.3 Diff — autres fichiers CP01/CP02 (cumul vs HEAD)
+### O.3 autres fichiers CP01/CP02
 
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.p1.adaptiveBudget.d0.test.ts b/projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.p1.adaptiveBudget.d0.test.ts
@@ -1814,7 +1817,7 @@ index 00c5b8b3..042b53ff 100644
 
 ```
 
-### N.CREATED — `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.min09.documentaryReliability.d0.test.ts`
+### P / N.CREATED — `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.min09.documentaryReliability.d0.test.ts` (contenu source réel testé)
 
 ```typescript
 /**
@@ -1889,13 +1892,42 @@ function tmpGitRepo(lineCount: number, lineWidth = 40): string {
   return dir;
 }
 
-/** Fiction-only secret markers — never real credentials. */
+/**
+ * R7 — Fiction-only secrets built programmatically so they MATCH redaction.ts
+ * regexes (length + charset) without embedding real credentials.
+ * Construction is intentional and reproducible in Review Pack evidence.
+ */
+function fictionSkToken(): string {
+  // /\bsk-[A-Za-z0-9_-]{10,}\b/
+  return `sk-${"A".repeat(12)}`;
+}
+function fictionGhpToken(): string {
+  // /\bghp_[A-Za-z0-9]{20,}\b/
+  return `ghp_${"B".repeat(20)}`;
+}
+function fictionOpenAiKeyLine(): string {
+  // /\bOPENAI_API_KEY\s*=\s*.+/gi
+  return `OPENAI_API_KEY=${fictionSkToken()}`;
+}
+function fictionBearerLine(): string {
+  // /\bAuthorization:\s*Bearer\s+\S+/gi
+  return `Authorization: Bearer ${"C".repeat(24)}`;
+}
+
 const FAKE = {
-  openaiKeyLine: "OPENAI_API_KEY=sk-[FIXTURE_REDACTED_KEY]",
-  skToken: "sk-[FIXTURE_REDACTED]",
-  ghpToken: "ghp_[FIXTURE_REDACTED]",
-  bearer: "Authorization: Bearer [FIXTURE_BEARER_REDACTED]",
-} as const;
+  get openaiKeyLine() {
+    return fictionOpenAiKeyLine();
+  },
+  get skToken() {
+    return fictionSkToken();
+  },
+  get ghpToken() {
+    return fictionGhpToken();
+  },
+  get bearer() {
+    return fictionBearerLine();
+  },
+};
 
 function tmpGitRepoWithLines(lines: string[], rel = "projects/sfia-studio/docs/min09-doc.md"): string {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), "p6-min09-sec-"));
@@ -1915,12 +1947,11 @@ function tmpGitRepoWithLines(lines: string[], rel = "projects/sfia-studio/docs/m
 }
 
 function assertNoFakeSecrets(text: string): void {
-  expect(text).not.toContain("sk-[FIXTURE_REDACTED]");
-  expect(text).not.toContain("ghp_[FIXTURE_REDACTED]");
-  expect(text).not.toContain("OPENAI_API_KEY=sk-");
-  expect(text).not.toContain("Bearer fake-min09");
   expect(text).not.toContain(FAKE.skToken);
   expect(text).not.toContain(FAKE.ghpToken);
+  expect(text).not.toContain(FAKE.openaiKeyLine);
+  expect(text).not.toContain(FAKE.bearer);
+  expect(text).not.toContain(`Bearer ${"C".repeat(24)}`);
 }
 
 function completeLinesFromContent(content: string): string[] {
@@ -3073,9 +3104,415 @@ describe("P6-MIN-09 — R5 double truncation / final payload truth", () => {
   });
 });
 
+describe("P6-MIN-09 — R6 final envelope oversized-line progression", () => {
+  const DOC = "projects/sfia-studio/docs/min09-doc.md";
+
+  it("R6-A — short line: full envelope, complete coverage", async () => {
+    const root = tmpGitRepoWithLines(["short line one", "short line two"]);
+    const result = await routeToolCall(
+      {
+        toolCallId: createToolCallId(),
+        sessionId: "cor:r6a",
+        name: "git_local_read_file",
+        arguments: { path: DOC, startLine: 1, endLine: 2 },
+      },
+      { workspaceRoot: root },
+    );
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    const mv = toolResultForModel(result);
+    expect(mv.length).toBeLessThanOrEqual(CT_MAX_TOOL_RESULT_CHARS);
+    const parsed = JSON.parse(mv) as {
+      data: {
+        completeLineCount: number;
+        returnedEndLine: number;
+        lineExceedsCap: boolean;
+        truncated: boolean;
+        content: string;
+      };
+    };
+    expect(parsed.data.completeLineCount).toBe(2);
+    expect(parsed.data.returnedEndLine).toBe(2);
+    expect(parsed.data.lineExceedsCap).toBe(false);
+    expect(parsed.data.truncated).toBe(false);
+    expect(parsed.data.content).toContain("short line one");
+  });
+
+  it("R6-B/C — line fits adapter (~11900) but not final envelope → explicit skip", async () => {
+    const longLine = `L1 ${"x".repeat(11900)}`;
+    const root = tmpGitRepoWithLines([longLine, "L2 ok", "L3 ok"]);
+    const adapter = new GitLocalReadAdapter(root);
+    const adapterRead = adapter.readFile(DOC, 32768, {
+      startLine: 1,
+      endLine: 1,
+    });
+    expect(adapterRead.completeLineCount).toBe(1);
+    expect(adapterRead.lineExceedsCap).toBe(false);
+    expect(adapterRead.content.length).toBeLessThanOrEqual(
+      CT_MAX_TOOL_RESULT_CHARS,
+    );
+
+    const result = await routeToolCall(
+      {
+        toolCallId: createToolCallId(),
+        sessionId: "cor:r6b",
+        name: "git_local_read_file",
+        arguments: { path: DOC, startLine: 1, endLine: 1 },
+      },
+      { workspaceRoot: root },
+    );
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    const mv = toolResultForModel(result);
+    expect(mv.length).toBeLessThanOrEqual(CT_MAX_TOOL_RESULT_CHARS);
+    const parsed = JSON.parse(mv) as {
+      data: {
+        completeLineCount: number;
+        returnedStartLine: number;
+        returnedEndLine: number;
+        lineExceedsCap: boolean;
+        nextStartLineHint: number | null;
+        truncated: boolean;
+        content: string;
+        documentHasMore: boolean;
+      };
+    };
+    // R6-F/G/H — never claim the oversized envelope line as received.
+    expect(parsed.data.completeLineCount).toBe(0);
+    expect(parsed.data.returnedEndLine).toBe(
+      parsed.data.returnedStartLine - 1,
+    );
+    expect(parsed.data.lineExceedsCap).toBe(true);
+    expect(parsed.data.truncated).toBe(true);
+    expect(completeLinesFromContent(parsed.data.content)).toHaveLength(0);
+    // R6-I — monotone skip; do not re-hint startLine.
+    expect(parsed.data.nextStartLineHint).toBe(2);
+    expect(parsed.data.nextStartLineHint).not.toBe(
+      parsed.data.returnedStartLine,
+    );
+    expect(CT_MAX_TOOL_RESULT_CHARS).toBe(12000);
+  });
+
+  it("R6-D — adapter lineExceedsCap still explicit and advances", async () => {
+    const huge = "Z".repeat(CT_MAX_TOOL_RESULT_CHARS + 800);
+    const root = tmpGitRepoWithLines([huge, "L2 ok"]);
+    const result = await routeToolCall(
+      {
+        toolCallId: createToolCallId(),
+        sessionId: "cor:r6d",
+        name: "git_local_read_file",
+        arguments: { path: DOC, startLine: 1, endLine: 1 },
+      },
+      { workspaceRoot: root },
+    );
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    const parsed = JSON.parse(toolResultForModel(result)) as {
+      data: {
+        completeLineCount: number;
+        lineExceedsCap: boolean;
+        nextStartLineHint: number | null;
+      };
+    };
+    expect(parsed.data.completeLineCount).toBe(0);
+    expect(parsed.data.lineExceedsCap).toBe(true);
+    expect(parsed.data.nextStartLineHint).toBe(2);
+  });
+
+  it("R6-E — RESULT_CAPPED fail-closed: no invented progression", () => {
+    const tightCap = 180;
+    const prepared = prepareGitLocalReadDataForModel(
+      {
+        path: `projects/${"p".repeat(20000)}/x.md`,
+        content: "tiny",
+        truncated: false,
+        documentHasMore: false,
+        hasMore: false,
+        startLine: 1,
+        endLine: 1,
+        requestedStartLine: 1,
+        requestedEndLine: 1,
+        returnedStartLine: 1,
+        returnedEndLine: 1,
+        completeLineCount: 1,
+        partialLineNumber: null,
+        lineExceedsCap: false,
+        totalLines: 1,
+        nextStartLineHint: null,
+      },
+      tightCap,
+    );
+    expect(prepared.data.completeLineCount).toBe(0);
+    expect(prepared.data.nextStartLineHint).toBeNull();
+    expect(prepared.data.note).toBe("RESULT_CAPPED");
+    expect(prepared.truncated).toBe(true);
+    // Must not claim the line was received.
+    expect(prepared.data.returnedEndLine == null || prepared.data.returnedEndLine === 0).toBe(
+      true,
+    );
+    const envelope = JSON.stringify({
+      ok: true,
+      summary: prepared.summary,
+      data: prepared.data,
+      truncated: true,
+    });
+    expect(envelope.length).toBeLessThanOrEqual(tightCap);
+  });
+
+  it("R6-J/K/L — repeated reads progress; no loop; no false FULL", async () => {
+    const longLine = `L1 ${"x".repeat(11900)}`;
+    const root = tmpGitRepoWithLines([longLine, "L2 ok", "L3 ok", "L4 ok"]);
+    const hints: Array<number | null> = [];
+    let start = 1;
+    for (let i = 0; i < 4; i++) {
+      const result = await routeToolCall(
+        {
+          toolCallId: createToolCallId(),
+          sessionId: `cor:r6j-${i}`,
+          name: "git_local_read_file",
+          arguments: { path: DOC, startLine: start, endLine: start },
+        },
+        { workspaceRoot: root },
+      );
+      expect(result.ok).toBe(true);
+      if (!result.ok) return;
+      const parsed = JSON.parse(toolResultForModel(result)) as {
+        data: {
+          completeLineCount: number;
+          returnedEndLine: number;
+          nextStartLineHint: number | null;
+          lineExceedsCap: boolean;
+          totalLines: number;
+        };
+      };
+      hints.push(parsed.data.nextStartLineHint);
+      if (parsed.data.completeLineCount === 0) {
+        expect(parsed.data.lineExceedsCap).toBe(true);
+        expect(parsed.data.nextStartLineHint).not.toBe(start);
+      }
+      // No FULL claim: never L1–total without truncation on a single-line window.
+      const claimedFull =
+        parsed.data.returnedEndLine === parsed.data.totalLines &&
+        start === 1 &&
+        parsed.data.completeLineCount === parsed.data.totalLines;
+      expect(claimedFull).toBe(false);
+      if (parsed.data.nextStartLineHint == null) break;
+      expect(parsed.data.nextStartLineHint).toBeGreaterThan(start);
+      start = parsed.data.nextStartLineHint;
+    }
+    expect(hints[0]).toBe(2);
+    expect(new Set(hints.filter((h) => h != null)).size).toBeGreaterThanOrEqual(
+      2,
+    );
+  });
+
+  it("R6-M/N — ceiling unchanged; other tools unaffected", () => {
+    expect(CT_MAX_TOOL_RESULT_CHARS).toBe(12000);
+    const prepared = prepareToolDataForModel(
+      { porcelain: " M other.txt\n", truncated: false },
+      CT_MAX_TOOL_RESULT_CHARS,
+    );
+    expect(() => JSON.parse(prepared.json)).not.toThrow();
+    expect((prepared.data as { porcelain: string }).porcelain).toContain(
+      "other.txt",
+    );
+  });
+
+  it("R6-O — ToolRouter integration path (model boundary substituted only)", async () => {
+    const longLine = `L1 ${"x".repeat(11900)}`;
+    const root = tmpGitRepoWithLines([longLine, "L2 after-skip"]);
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "p6-min09-r6o-"));
+    dirs.push(dir);
+    const session = new ProductSqliteSession({
+      projectId: "prj:min09-r6o",
+      dbPath: path.join(dir, "session.sqlite"),
+    });
+    const model = new ScriptedModel([
+      [
+        functionCall(
+          "git_local_read_file",
+          { path: DOC, startLine: 1, endLine: 1 },
+          { callId: "r6o1" },
+        ),
+      ],
+      [
+        functionCall(
+          "git_local_read_file",
+          { path: DOC, startLine: 2, endLine: 2 },
+          { callId: "r6o2" },
+        ),
+      ],
+      [assistantMessage("PARTIEL — ligne 1 skip envelope; ligne 2 lue.")],
+    ]);
+    const turn = await runNoraAgentsTurn({
+      correlationId: "cor:min09-r6o",
+      projectId: "prj:min09-r6o",
+      systemInstructions: sfiaBoundaryInstructions(),
+      userContent: `Consulte ${DOC}.`,
+      session,
+      model,
+      enableTools: true,
+      maxTurns: 6,
+      enableControlledContinuation: false,
+      workspaceRoot: root,
+    });
+    expect(turn.text).toMatch(/PARTIEL/);
+    const items = await session.getItems();
+    const toolResults = items.filter(
+      (it) =>
+        (it as { type?: string }).type === "function_call_result" &&
+        (it as { name?: string }).name === "git_local_read_file",
+    );
+    expect(toolResults.length).toBeGreaterThanOrEqual(2);
+    const first = JSON.parse(
+      (toolResults[0] as { output?: { text?: string } }).output!.text!,
+    ) as { data: { lineExceedsCap: boolean; nextStartLineHint: number } };
+    expect(first.data.lineExceedsCap).toBe(true);
+    expect(first.data.nextStartLineHint).toBe(2);
+    const second = JSON.parse(
+      (toolResults[1] as { output?: { text?: string } }).output!.text!,
+    ) as { data: { content: string; completeLineCount: number } };
+    expect(second.data.completeLineCount).toBe(1);
+    expect(second.data.content).toContain("L2 after-skip");
+    session.close();
+  });
+});
+
+describe("P6-MIN-09 — R7 security fixture / evidence fidelity", () => {
+  const DOC = "projects/sfia-studio/docs/min09-doc.md";
+
+  it("R7-A/B — fixtures match redaction.ts patterns and change under redactSecrets", () => {
+    expect(FAKE.skToken).toMatch(/^sk-[A-Za-z0-9_-]{10,}$/);
+    expect(FAKE.ghpToken).toMatch(/^ghp_[A-Za-z0-9]{20,}$/);
+    expect(FAKE.openaiKeyLine).toMatch(/^OPENAI_API_KEY=.+/);
+    expect(FAKE.bearer).toMatch(/^Authorization:\s*Bearer\s+\S+/);
+
+    expect(redactSecrets(FAKE.skToken)).toBe("[redacted]");
+    expect(redactSecrets(FAKE.skToken)).not.toBe(FAKE.skToken);
+    expect(redactSecrets(FAKE.ghpToken)).toBe("[redacted]");
+    expect(redactSecrets(FAKE.ghpToken)).not.toBe(FAKE.ghpToken);
+    expect(redactSecrets(FAKE.openaiKeyLine)).toBe("[redacted]");
+    expect(redactSecrets(FAKE.bearer)).toBe("[redacted]");
+
+    // Pack-style non-matching placeholders must NOT be treated as equivalent evidence.
+    expect(redactSecrets("sk-[FIXTURE_REDACTED]")).toBe("sk-[FIXTURE_REDACTED]");
+    expect(redactSecrets("ghp_[FIXTURE_REDACTED]")).toBe(
+      "ghp_[FIXTURE_REDACTED]",
+    );
+  });
+
+  it("R7-C/D — outputs redacted; progression through redacted lines", async () => {
+    const lines = [
+      "alpha",
+      FAKE.openaiKeyLine,
+      `mid ${FAKE.skToken}`,
+      FAKE.ghpToken,
+      FAKE.bearer,
+      "omega",
+    ];
+    const root = tmpGitRepoWithLines(lines);
+    const adapter = new GitLocalReadAdapter(root);
+    const r = adapter.readFile(DOC, 32768, { startLine: 1, endLine: 6 });
+    expect(r.completeLineCount).toBe(6);
+    expect(r.content).toContain("[redacted]");
+    assertNoFakeSecrets(r.content);
+    expect(r.content).not.toEqual(lines.join("\n"));
+
+    let start = 1;
+    const seen = new Set<number>();
+    for (let i = 0; i < 4; i++) {
+      const chunk = adapter.readFile(DOC, 180, {
+        startLine: start,
+        endLine: start + 1,
+      });
+      assertNoFakeSecrets(chunk.content);
+      if (chunk.completeLineCount > 0) {
+        for (let ln = chunk.returnedStartLine; ln <= chunk.returnedEndLine; ln++) {
+          seen.add(ln);
+        }
+      }
+      if (chunk.nextStartLineHint == null) break;
+      start = chunk.nextStartLineHint;
+    }
+    expect(seen.size).toBeGreaterThanOrEqual(3);
+  });
+
+  it("R7-E/F/G — Session + events expurgated; model-visible JSON valid", async () => {
+    const root = tmpGitRepoWithLines([
+      "head",
+      FAKE.openaiKeyLine,
+      `tok ${FAKE.skToken}`,
+      FAKE.bearer,
+      "tail",
+    ]);
+    const events: TechnicalEvent[] = [];
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "p6-min09-r7e-"));
+    dirs.push(dir);
+    const session = new ProductSqliteSession({
+      projectId: "prj:min09-r7e",
+      dbPath: path.join(dir, "session.sqlite"),
+    });
+    const turn = await runNoraAgentsTurn({
+      correlationId: "cor:min09-r7e",
+      projectId: "prj:min09-r7e",
+      systemInstructions: sfiaBoundaryInstructions(),
+      userContent: `Consulte ${DOC}.`,
+      session,
+      model: new ScriptedModel([
+        [
+          functionCall(
+            "git_local_read_file",
+            { path: DOC, startLine: 1, endLine: 5 },
+            { callId: "r7e" },
+          ),
+        ],
+        [assistantMessage("Synthèse partielle sans secret.")],
+      ]),
+      enableTools: true,
+      maxTurns: 4,
+      enableControlledContinuation: false,
+      workspaceRoot: root,
+      sink: { emit: (e) => events.push(e) },
+    });
+    assertNoFakeSecrets(turn.text);
+    for (const it of await session.getItems()) {
+      assertNoFakeSecrets(JSON.stringify(it));
+    }
+    for (const e of events) {
+      assertNoFakeSecrets(JSON.stringify(e));
+    }
+    const toolText = (
+      (await session.getItems()).find(
+        (it) =>
+          (it as { type?: string }).type === "function_call_result" &&
+          (it as { name?: string }).name === "git_local_read_file",
+      ) as { output?: { text?: string } } | undefined
+    )?.output?.text;
+    expect(typeof toolText).toBe("string");
+    expect(() => JSON.parse(toolText!)).not.toThrow();
+    assertNoFakeSecrets(toolText!);
+    session.close();
+  });
+
+  it("R7-H/I — evidence remains verifiable; controlled fail proves discrimination", () => {
+    // Positive discrimination: if redaction were a no-op, secrets would remain.
+    const raw = `prefix ${FAKE.skToken} suffix`;
+    const redacted = redactSecrets(raw);
+    expect(redacted).not.toContain(FAKE.skToken);
+    expect(redacted).toContain("[redacted]");
+    // Simulate a broken redactor (test-only) — assertion would catch leakage.
+    const broken = (s: string) => s;
+    expect(broken(raw)).toContain(FAKE.skToken);
+    expect(broken(raw)).not.toBe(redacted);
+    // Construction recipe published in source — no live credentials.
+    expect(fictionSkToken()).toBe(`sk-${"A".repeat(12)}`);
+    expect(fictionGhpToken()).toBe(`ghp_${"B".repeat(20)}`);
+  });
+});
+
 ```
 
-### N.CREATED — `projects/sfia-studio/app/lib/nora-cognitive-runtime/documentaryBudgetExhausted.ts`
+### P / N.CREATED — `projects/sfia-studio/app/lib/nora-cognitive-runtime/documentaryBudgetExhausted.ts` (contenu source réel testé)
 
 ```typescript
 /**
@@ -3275,7 +3712,7 @@ export function buildDocumentaryBudgetExhaustedText(input: {
 
 ```
 
-### N.CREATED — `projects/sfia-studio/app/lib/nora-cognitive-runtime/documentaryReadGuidance.ts`
+### P / N.CREATED — `projects/sfia-studio/app/lib/nora-cognitive-runtime/documentaryReadGuidance.ts` (contenu source réel testé)
 
 ```typescript
 /**
@@ -3307,101 +3744,57 @@ export function appendDocumentaryReadGuidance(
 
 ```
 
-## O. Résultats QA
+## Q. Résultats des validations
 
 | Contrôle | Résultat |
 |---|---|
-| `p6.nora.min09.documentaryReliability.d0.test.ts` | **40 PASS** |
-| `p6.nora.p1.adaptiveBudget.d0.test.ts` | 8 PASS |
-| `p6.nora.p1p2.targetedVerification.d0.test.ts` | 7 PASS |
-| `p6.nora.p1p2.documentary.mission.d0.test.ts` | 5 PASS |
-| `session.d0.test.ts` | 7 PASS |
-| Typecheck `tsc --noEmit` | PASS |
-| `git diff --check` | PASS |
-| REAL OpenAI calls | **ZERO** |
-| Project commit/push/PR | **NONE** |
+| MIN09 documentaryReliability | **51 PASS** |
+| P1 adaptiveBudget | 8 PASS |
+| P1P2 targetedVerification | 7 PASS |
+| P1P2 documentary.mission | 5 PASS |
+| session.d0 | 7 PASS |
+| tsc --noEmit | PASS |
+| git diff --check | PASS |
+| REAL OpenAI | ZERO |
+| Project commit/push/PR | NONE |
 
-## P. Fake/Real Qualification
+## R. Fake / Real Qualification
 
-- **Applicable:** OUI
-- **Mode:** DETERMINISTIC ONLY
-- **Fake:** ScriptedModel + fixtures contrôlées (frontière modèle)
-- **Frontière REAL:** Studio → Nora → Git → OpenAI — non exercée
-- **Parité:** même chemin outil + transformations avant frontière modèle
-- **Claim autorisé:** CP03 DETERMINISTIC VERIFIED AT TESTED SCOPE
-- **Claims interdits:** Product READY / GDR REAL PASS / E2E REAL PROVEN / P6 GLOBAL PASS
+- DETERMINISTIC ONLY ; ScriptedModel = frontière modèle seule.
+- Parité outil : Adapter → ToolRouter → redaction → envelope.
+- Claim : CP04 DETERMINISTIC VALIDATED AT TESTED SCOPE.
+- Interdit : GDR REAL PASS / P6 GLOBAL PASS / Product READY / Runtime v3 ADOPTED.
 
-## Q. Invariants et FinOps
+## S. Invariants / FinOps
 
-| Invariant | Statut |
-|---|---|
-| P0 limitReached → incomplete | PRESERVED (tests) |
-| P1 Adaptive Budget / ceiling 10 | PRESERVED |
-| P2 RunState continuation | PRESERVED |
-| TV01 Session | PRESERVED |
-| Git lecture seule | PRESERVED |
-| ToolRouter no extra authority | PRESERVED |
-| CT_MAX_TOOL_RESULT_CHARS = 12000 | PRESERVED |
-| maxTurns ≤ 10 | PRESERVED |
-| No HumanDecision inventée / Deliverable validé | PRESERVED |
-| Confidentialité sorties vérifiées | PASS (fictifs) |
+P0/P1/P2/TV01/Session/Git RO/ceiling 10 / CT_MAX_TOOL_RESULT_CHARS=12000 / no HumanDecision inventée — PRESERVED.
 
-## R. Réserves et dettes
+## T. Réserves et dette/exit
 
-- FPPC-RES-01 OPEN
-- P0-EFFECT-02 NOT PROVEN
-- RunState cross-restart DEFER
-- lineExceedsCap : skip explicite (pas de mid-line offset protocol)
-- GDR REAL NOT PROVEN
-- P6 GLOBAL NOT PASSED
-- Runtime v3 NON ADOPTED
-- Aucune nouvelle dette sans owner
+- FPPC-RES-01 OPEN ; P0-EFFECT-02 NOT PROVEN ; RunState cross-restart DEFER.
+- lineExceedsCap : skip explicite (adapter + envelope) ; pas de mid-line offset.
+- GDR REAL NOT PROVEN ; P6 GLOBAL NOT PASSED ; Runtime v3 NON ADOPTED.
+- **R6/R7 : FERMÉS au scope déterministe testé.**
+- Exit proof : progression bornée envelope + preuves sécurité fidèles/reproductibles.
 
-## S. Exit proof
+## U. Décisions Morris restantes
 
-Invariant documentaire vérifié sur résultat effectivement remis au modèle :
-
-- `toolResultForModel(routeToolCall(...))` JSON valide
-- `completeLineCount` == nombre de lignes intégrales dans `data.content` final
-- `returnedEndLine` / `nextStartLineHint` cohérents (pas de saut silencieux)
-- Secrets fictifs absents des surfaces vérifiées
-- Aucun faux FULL quand couverture non prouvable
-- Chemin Runner (R5-O) inclus
-
-## T. Décisions Morris restantes
-
-1. **GO intégration Git unique gouvernée** du cumul RCD-01 (CP01+CP02+CP03) — NON consommé.
-2. **GO retest Human QA T1 REAL** après intégration — NON autorisé ce cycle.
+1. GO intégration Git unique gouvernée RCD-01 (CP01–CP04) — NON consommé.
+2. GO retest Human QA T1 REAL après intégration — NON autorisé.
 3. Aucun GO commit/push/PR/merge projet implicite.
 
-## U. Verdict
+## V. Verdict
 
-**TARGETED CORRECTION CP03 COMPLETE LOCALLY / DETERMINISTIC QA PASS / READY FOR CHATGPT REVIEW**
+**TARGETED CORRECTION CP04 COMPLETE LOCALLY / DETERMINISTIC QA PASS / READY FOR CHATGPT REVIEW**
 
-Non-claims : GDR REAL PASS ; P6 GLOBAL PASS ; Runtime v3 ADOPTED.
+## W. Instruction ChatGPT
 
-## V. Instruction ChatGPT
+Lire le Review Handoff `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md`.
 
-Lire indépendamment le dernier Review Handoff sur `sfia/review-handoff`
-(`sfia-review-handoff/latest-chatgpt-review.md`).
+Vérifier : Git Truth ; diff CP01–CP04 ; R6 progression finie ; R7 fixtures regex-conformes + assertions positives ; payload model-visible ; confidentialité ; non-régression ; plafonds ; réserves ; verdict.
 
-Vérifier :
-
-- Git actuel (branche `fix/p6-min09-documentary-cognitive-reliability-01`, HEAD `d8ceb8ad…`)
-- Diff cumulé CP01+CP02+CP03
-- R4 rédaction et progression
-- R5 sérialisation finale / payload model-visible
-- Confidentialité
-- Couverture honnête
-- Non-régression R1/R2/R3
-- Résultats QA
-- Réserves
-- Décisions Morris
-- Verdict
-
-Si les preuves sont suffisantes : qualifier le lot RCD-01 pour une **intégration Git unique gouvernée**.
+Si suffisant : qualifier RCD-01 pour intégration Git unique gouvernée.
 Aucun GO commit/push/PR/merge projet implicite.
 
 ---
-
-FIN DU REVIEW PACK FULL — CP03
+FIN DU REVIEW PACK FULL — CP04
