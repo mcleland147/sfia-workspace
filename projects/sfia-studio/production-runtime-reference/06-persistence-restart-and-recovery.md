@@ -21,7 +21,9 @@
 
 `session_items`, `logical_product_turns`, `logical_product_turn_retry_bindings`, `pilot_transcript_turns`, `cycle_journal_entries`, `cycle_journal_mutation_ledger`
 
-## Nora Session vs RunState (PR #577 candidate)
+## Nora Session vs RunState (PR #577 INTEGRATED ON MAIN)
+
+**RCD-01 / PR #578 persistence note:** documentary reliability correction **does not** introduce new persistence. Coverage/redaction/envelope reconciliation are in-process tool + turn path behaviors. Session continues to store tool results as Agent items under existing `ProductSqliteSession` rules. RunState cross-restart remains **DEFER**. No new tables, migrations, or provider routing.
 
 | Kind | Lifetime | Role |
 |---|---|---|

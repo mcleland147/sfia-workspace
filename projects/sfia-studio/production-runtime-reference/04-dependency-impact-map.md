@@ -108,7 +108,7 @@ LifecycleSurface / lifecyclePresentation
 
 Many other REC-01 Product files exist on the PR but are **not** in `trackedSources`/`trackedTests`; this sync documents their as-implemented behavior without expanding the tracked set.
 
-## Sample impact analysis D — Nora P0/P1/P2 (PR #577 candidate)
+## Sample impact analysis D — Nora P0/P1/P2 (PR #577 INTEGRATED ON MAIN)
 
 **Changed tracked paths (digest drift at sync):**
 - `features/project-assistant/orchestrateTurn.ts` → OBJ-TURN-ORCH
@@ -125,12 +125,35 @@ Untracked but behaviorally central (documented, digests not expanded): `runNoraA
 | Invariants | INV-COG-NE-AUTH; INV-MEMB-NE-TRUTHC; INV-NO-SILENT-HD; FinOps numeric fail-closed; INV-FAKE-REAL-SM |
 | Persistence | Session SQLite history between Product turns; RunState **in-process same turn only**; cross-restart RunState DEFER |
 | Authority | Nora candidate ≠ Product authorization / HD |
-| Fake/Real | DETERMINISTIC proven at PR #577 scope; REAL documentary quality NOT PROVEN |
+| Fake/Real | DETERMINISTIC proven at PR #577 scope (merged `d8ceb8ad`); REAL documentary quality NOT PROVEN |
 | Tests | `p6.nora.p0.*`, `p6.nora.p1.*`, `p6.nora.p1p2.*`, `mw6.pre-real.budget-hardening` NUM-CLAMP / R-PRE-REAL-08A, `runner.d0`, `orchestrateTurn.test` |
 | Docs | volumes 01, 02, 03, 04, 06, 08, 09 + README overlay |
 | Digests | refreshed **after** content review + Morris GO on this sync pass |
 
 **SEMANTIC IMPACT = YES** (do not claim global NO SEMANTIC IMPACT).
+
+## Sample impact analysis E — RCD-01 documentary reliability (PR #578 INTEGRATED ON MAIN)
+
+**Changed Product paths (historical semantic change; already on main @ `44006648`):**
+- `lib/platform/repository/gitLocalReadAdapter.ts` → Git read / coverage accounting
+- `lib/platform/tools/toolRouter.ts` → final model-visible envelope (`prepareGitLocalReadDataForModel`)
+- `lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts` → OBJ-TURN-ORCH (documentary guidance hook); tracked digest `f4804915f8906eda`
+- `lib/nora-cognitive-runtime/readCoverage.ts`, `runNoraAgentsTurn.ts`, `adaptiveTurnBudget.ts`, `documentaryReadGuidance.ts`, `documentaryBudgetExhausted.ts` → coverage / restitution / Focused elevation (several untracked in manifest)
+
+**This documentary pass:** NO NEW PRODUCT CODE CHANGE — Living Reference sync only.
+
+| Step | Result |
+|---|---|
+| Components | OBJ-TURN-ORCH (**SEMANTIC IMPACT = YES** on F04 documentary acquisition); tool/Git adapter adjacent |
+| Direct deps | OBJ-MEMORY-B (Session tool results); OBJ-CWP/adaptive budget adjacent; platform tools/redaction |
+| Transitive | Product conversation UI consumers of incomplete / coverage disclosure; REC-01 coverage readers |
+| Flows | **F04 primary**; F02 / F15 / F19 adjacent (Session / tests) |
+| Invariants | INV-COG-NE-AUTH; INV-FAKE-REAL-SM; FinOps ceilings unchanged (≤10 / 12000); no silent HD / Deliverable invent |
+| Persistence | **None changed** — Session/tool results only; no new tables; RunState cross-restart still DEFER |
+| Authority | ToolRouter gains no Product authority; Nora candidate ≠ HD |
+| Fake/Real | DETERMINISTIC R1–R7 proven at tested scope; **GDR REAL NOT PROVEN** |
+| Tests | `p6.nora.min09.documentaryReliability.d0.test.ts` (+ P1/P2/Session regressions) |
+| Docs | volumes 02, 03, 04, 06, 08, 09 + README; debt `RCD-01-PRR-SEMANTIC-COHERENCE` documentary correction prepared / integration pending |
 
 ## Component → flows (summary)
 

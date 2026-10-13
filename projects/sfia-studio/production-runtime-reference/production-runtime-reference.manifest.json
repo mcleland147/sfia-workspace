@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
   "kind": "SFIA_STUDIO_LIVING_PRODUCTION_RUNTIME_REFERENCE",
-  "lastReviewedCommit": "95ebe42c5c4ecc5a662241171ee1e03eb3010b52",
-  "lastReviewedAt": "2026-10-12T14:23:24+02:00",
+  "lastReviewedCommit": "440066485eaae458ccca188b2c91f8f47bd4987f",
+  "lastReviewedAt": "2026-10-13T11:17:40+02:00",
   "canonicalReadme": "projects/sfia-studio/production-runtime-reference/README.md",
   "volumes": [
     {
       "path": "projects/sfia-studio/production-runtime-reference/README.md",
-      "sha256_16": "5d82151d25ffcfca"
+      "sha256_16": "b982c5cbfe20af6c"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/01-system-runtime-overview.md",
@@ -15,15 +15,15 @@
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/02-runtime-object-catalog.md",
-      "sha256_16": "efafc11154b86fe1"
+      "sha256_16": "cc17e518466f6b38"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md",
-      "sha256_16": "cfb2e852e13ad587"
+      "sha256_16": "87063a056923917c"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md",
-      "sha256_16": "356689dccb46b102"
+      "sha256_16": "7b4089cd4fbb4e17"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/05-environments-configuration-and-boundaries.md",
@@ -31,7 +31,7 @@
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md",
-      "sha256_16": "cae47e899f4d07cc"
+      "sha256_16": "a67fd0fb0c858962"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md",
@@ -39,11 +39,11 @@
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md",
-      "sha256_16": "268f641ce0004f76"
+      "sha256_16": "25fb9a38f1eca0f9"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md",
-      "sha256_16": "ee816d0da3ff7a63"
+      "sha256_16": "4582c1d2695a5f76"
     }
   ],
   "components": [
