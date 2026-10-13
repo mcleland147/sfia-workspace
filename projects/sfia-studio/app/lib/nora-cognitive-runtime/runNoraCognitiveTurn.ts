@@ -36,8 +36,10 @@ import {
 } from "./cognitiveWorkloadPolicy";
 import {
   inferWorkloadHintsFromUserContent,
+  isNaturalMonoFileDocumentaryRequest,
   resolveAdaptiveMaxTurns,
 } from "./adaptiveTurnBudget";
+import { appendDocumentaryReadGuidance } from "./documentaryReadGuidance";
 import { validateRuntimeReasoningCapability } from "./reasoningCapability";
 import { buildRunnerModelSettingsForEffort } from "./reasoningModelSettings";
 import {
@@ -879,6 +881,10 @@ export async function runNoraCognitiveTurn(
       systemInstructions,
       readDisclosure,
     );
+    systemInstructions = appendDocumentaryReadGuidance(
+      systemInstructions,
+      isNaturalMonoFileDocumentaryRequest(lastUser.content),
+    );
     const turn = await runNoraCognitiveCore({
       cognitiveMode: "conversation",
       correlationId: input.correlationId,
@@ -1047,6 +1053,10 @@ export async function runNoraCognitiveTurn(
   systemInstructions = appendReadCoverageDisclosure(
     systemInstructions,
     mw4Prep.readCoverageDisclosure,
+  );
+  systemInstructions = appendDocumentaryReadGuidance(
+    systemInstructions,
+    isNaturalMonoFileDocumentaryRequest(lastUser.content),
   );
   if (engageMw6 && sourceStrategy) {
     systemInstructions = appendSourceStrategyDisclosure(

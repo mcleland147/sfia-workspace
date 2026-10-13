@@ -65,6 +65,23 @@ function isKnownMediumOrHigh(value: SignalValue | undefined): boolean {
  * Light, observable hints from Pilot request text — never invents LOW for unknowns.
  * Used only to elevate known dimensions when wording is explicit.
  */
+/**
+ * True when Pilot wording requests reading/synthesizing a concrete repo path
+ * (mono-file documentary mission). Bare "document" alone remains non-elevating.
+ */
+export function isNaturalMonoFileDocumentaryRequest(content: string): boolean {
+  const c = content.trim();
+  if (!c) return false;
+  const hasRepoPath =
+    /(?:^|[\s`"'(])((?:projects|docs|method|prompts)\/[\w./+-]+\.(?:md|txt|markdown))\b/i.test(
+      c,
+    ) || /(?:^|[\s`"'(])([\w./+-]+\.(?:md|txt|markdown))\b/i.test(c);
+  if (!hasRepoPath) return false;
+  return /synth[eè]se|r[eé]sum(?:er|é|e)?|consulter|reten(?:ir|iens)|lire|analys(?:e|er)|review|guid(?:ed)?\s+document/i.test(
+    c,
+  );
+}
+
 export function inferWorkloadHintsFromUserContent(
   content: string,
 ): Partial<CognitiveWorkloadSignals> {
@@ -79,6 +96,13 @@ export function inferWorkloadHintsFromUserContent(
   ) {
     hints.sourceBreadth = "high";
     hints.toolDependency = "high";
+  }
+  // Mono-file natural synthesis: tool dependency + synthesis depth — NOT sourceBreadth=high.
+  if (isNaturalMonoFileDocumentaryRequest(c)) {
+    hints.toolDependency = "high";
+    if (hints.reasoningDepth !== "high") {
+      hints.reasoningDepth = "medium";
+    }
   }
   if (
     /v[ée]rif|cross[- ]?check|contradic|coherence|coh[ée]rence|entre\s+documents/i.test(
@@ -161,6 +185,17 @@ export function resolveAdaptiveMaxTurns(input: {
     const bumped = Math.min(ceiling, Math.max(base, 8));
     if (bumped > base) {
       reasonCodes.push("known_medium_doc_tool_bump");
+      base = bumped;
+    }
+  } else if (
+    // Mono-file documentary synthesis: high toolDependency + medium/high depth
+    // → at least Focused base (8), never invents sourceBreadth, never exceeds ceiling.
+    isKnownHigh(signals.toolDependency) &&
+    isKnownMediumOrHigh(signals.reasoningDepth)
+  ) {
+    const bumped = Math.min(ceiling, Math.max(base, 8));
+    if (bumped > base) {
+      reasonCodes.push("known_mono_doc_tool_synthesis_bump");
       base = bumped;
     }
   }

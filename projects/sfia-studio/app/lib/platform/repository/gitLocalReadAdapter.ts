@@ -60,11 +60,107 @@ export type GitReadFileResult = {
   path: string;
   content: string;
   summary: string;
+  /** True when the requested range content was cut by byte/char caps. */
   truncated: boolean;
+  /**
+   * True when lines exist after the *requested* endLine (document continues).
+   * Independent of truncation — a fully returned short range may still have
+   * later lines.
+   */
+  documentHasMore: boolean;
+  /**
+   * Compat aggregate: truncated || documentHasMore.
+   * Prefer the specific flags for new callers.
+   */
+  hasMore: boolean;
+  /** Requested range (clamped to document bounds). */
   startLine: number;
   endLine: number;
-  hasMore: boolean;
+  requestedStartLine: number;
+  requestedEndLine: number;
+  /**
+   * First line of the *complete* returned span.
+   * When completeLineCount=0, equals requested start (no proven span).
+   */
+  returnedStartLine: number;
+  /**
+   * Last line fully present in content (never a mid-truncated line).
+   * When completeLineCount=0, equals returnedStartLine - 1 (empty proven span).
+   */
+  returnedEndLine: number;
+  /** Number of fully returned lines credited for coverage. */
+  completeLineCount: number;
+  /**
+   * Line number that was cut mid-content (not credited), if any.
+   * Null when no partial line was observed.
+   */
+  partialLineNumber: number | null;
+  /**
+   * True when the line at nextStartLineHint (or requested start) cannot fit
+   * under current byte/char caps even alone — explicit skip, not silent loss.
+   */
+  lineExceedsCap: boolean;
+  totalLines: number;
+  /** Next line to request when more content remains; null when complete through EOF. */
+  nextStartLineHint: number | null;
 };
+
+/**
+ * Count how many leading lines from `lines[startLine-1..endLine-1]` are fully
+ * present as an exact prefix of `body` (no truncation marker). A mid-cut line
+ * is NOT counted.
+ */
+export function countCompleteReturnedLines(input: {
+  lines: string[];
+  startLine: number;
+  endLine: number;
+  body: string;
+}): { completeLineCount: number; partialLineNumber: number | null } {
+  const { lines, startLine, endLine, body } = input;
+  let offset = 0;
+  let completeLineCount = 0;
+  for (let lineNo = startLine; lineNo <= endLine; lineNo++) {
+    const line = lines[lineNo - 1];
+    if (line === undefined) break;
+    if (completeLineCount > 0) {
+      if (offset >= body.length) {
+        // Clean boundary after a complete line — no partial next line.
+        return { completeLineCount, partialLineNumber: null };
+      }
+      if (body[offset] !== "\n") {
+        return { completeLineCount, partialLineNumber: lineNo };
+      }
+      offset += 1;
+    }
+    if (body.length < offset + line.length) {
+      // Prefix of this line may be present — never credit it as complete.
+      const remaining = body.length - offset;
+      if (remaining > 0 && body.slice(offset) === line.slice(0, remaining)) {
+        return { completeLineCount, partialLineNumber: lineNo };
+      }
+      return {
+        completeLineCount,
+        partialLineNumber: remaining > 0 ? lineNo : null,
+      };
+    }
+    if (body.slice(offset, offset + line.length) !== line) {
+      return { completeLineCount, partialLineNumber: lineNo };
+    }
+    offset += line.length;
+    completeLineCount += 1;
+  }
+  return { completeLineCount, partialLineNumber: null };
+}
+
+function lineFitsCaps(
+  line: string,
+  byteCap: number,
+  charCap: number,
+): boolean {
+  return (
+    Buffer.byteLength(line, "utf8") <= byteCap && line.length <= charCap
+  );
+}
 
 export type GitContentMatch = {
   path: string;
@@ -289,31 +385,113 @@ export class GitLocalReadAdapter {
 
     const startLine = Math.min(startRequested, totalLines);
     const endLine = Math.max(startLine, Math.min(endRequested, totalLines));
-    const ranged = lines.slice(startLine - 1, endLine).join("\n");
-    const hasMoreLines = endLine < totalLines;
+    const documentHasMore = endLine < totalLines;
 
-    const cap = Math.min(maxBytes, CT_DEFAULT_READ_MAX_BYTES * 2);
-    const byteSlice =
-      Buffer.byteLength(ranged, "utf8") > cap
-        ? Buffer.from(ranged, "utf8").subarray(0, cap).toString("utf8")
-        : ranged;
-    const byteTruncated = Buffer.byteLength(ranged, "utf8") > cap;
-    const redacted = redactSecrets(byteSlice);
-    const { text, truncated: charTruncated } = truncateText(
-      redacted,
-      CT_MAX_TOOL_RESULT_CHARS,
-    );
-    const truncated = byteTruncated || charTruncated;
-    const hasMore = hasMoreLines || truncated;
+    // R4 — Redact per-line BEFORE size caps / complete-line accounting.
+    // Never compare redacted body to original lines; never rebuild from raw secrets.
+    const rangedOriginal = lines.slice(startLine - 1, endLine);
+    const rangedRedacted = rangedOriginal.map((line) => redactSecrets(line));
+    const redactedJoined = rangedRedacted.join("\n");
+
+    const byteCap = Math.min(maxBytes, CT_DEFAULT_READ_MAX_BYTES * 2);
+    const charCap = CT_MAX_TOOL_RESULT_CHARS;
+    const byteTruncated = Buffer.byteLength(redactedJoined, "utf8") > byteCap;
+    const byteSlice = byteTruncated
+      ? Buffer.from(redactedJoined, "utf8").subarray(0, byteCap).toString("utf8")
+      : redactedJoined;
+    // Defense: re-redact after byte slice (should be no-op if already clean).
+    const safeSlice = redactSecrets(byteSlice);
+    const charTruncated = safeSlice.length > charCap;
+    const cappedBody = charTruncated ? safeSlice.slice(0, charCap) : safeSlice;
+    const sizeTruncated = byteTruncated || charTruncated;
+
+    // Count against redacted line array (1-based within rangedRedacted).
+    const { completeLineCount, partialLineNumber: partialInRange } =
+      countCompleteReturnedLines({
+        lines: rangedRedacted,
+        startLine: 1,
+        endLine: rangedRedacted.length,
+        body: cappedBody,
+      });
+
+    const returnedStartLine = startLine;
+    const returnedEndLine =
+      completeLineCount > 0 ? startLine + completeLineCount - 1 : startLine - 1;
+    const partialLineNumber =
+      partialInRange != null ? startLine + partialInRange - 1 : null;
+
+    // Rebuild ONLY from redacted complete lines — secrets never re-enter content.
+    const completeContent =
+      completeLineCount > 0
+        ? rangedRedacted.slice(0, completeLineCount).join("\n")
+        : "";
+
+    const soleRedacted = rangedRedacted[0] ?? "";
+    const lineExceedsCap =
+      completeLineCount === 0 &&
+      !lineFitsCaps(soleRedacted, byteCap, charCap);
+
+    let nextStartLineHint: number | null = null;
+    if (completeLineCount > 0) {
+      nextStartLineHint =
+        returnedEndLine < totalLines ? returnedEndLine + 1 : null;
+    } else if (lineExceedsCap) {
+      // Explicit unblockable line under current caps — do not loop forever on it.
+      nextStartLineHint = startLine < totalLines ? startLine + 1 : null;
+    } else if (partialLineNumber != null) {
+      // Fittable line cut mid-way because a multi-line window hit the cap — retry that line.
+      nextStartLineHint = partialLineNumber;
+    } else if (documentHasMore) {
+      nextStartLineHint = endLine + 1;
+    }
+
+    const truncated =
+      sizeTruncated ||
+      completeLineCount < endLine - startLine + 1 ||
+      lineExceedsCap;
+    const hasMore = documentHasMore || truncated;
+
+    const textRaw = truncated
+      ? completeContent
+        ? `${completeContent}\n…[truncated]`
+        : "…[truncated]"
+      : completeContent;
+    // Final defensive redact — content must stay secret-safe.
+    const text = redactSecrets(textRaw);
+
+    const returnedLabel =
+      completeLineCount > 0
+        ? `returned L${returnedStartLine}-${returnedEndLine}`
+        : "returned none";
+
+    const flags = [
+      truncated ? "truncated" : null,
+      documentHasMore ? "documentHasMore" : null,
+      hasMore ? "hasMore" : null,
+      lineExceedsCap ? "lineExceedsCap" : null,
+      partialLineNumber != null ? `partialLine:${partialLineNumber}` : null,
+    ]
+      .filter(Boolean)
+      .join(" ");
 
     return {
       path: norm.normalized,
       content: text,
       truncated,
+      documentHasMore,
+      hasMore,
       startLine,
       endLine,
-      hasMore,
-      summary: `read ${norm.normalized} L${startLine}-${endLine}/${totalLines} (${text.length} chars)${hasMore ? " hasMore" : ""}`,
+      requestedStartLine: startLine,
+      requestedEndLine: endLine,
+      returnedStartLine,
+      returnedEndLine,
+      completeLineCount,
+      partialLineNumber,
+      lineExceedsCap,
+      totalLines,
+      nextStartLineHint,
+      summary: `read ${norm.normalized} L${startLine}-${endLine}/${totalLines} ${returnedLabel} (${text.length} chars)${flags ? ` ${flags}` : ""}`,
     };
   }
 

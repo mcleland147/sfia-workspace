@@ -85,12 +85,22 @@ export type { NoraTurnBudget } from "./turnBudget";
 export {
   resolveAdaptiveMaxTurns,
   inferWorkloadHintsFromUserContent,
+  isNaturalMonoFileDocumentaryRequest,
   LEGACY_DEFAULT_MAX_TURNS,
   ADAPTIVE_MAX_TURNS_FLOOR,
   ADAPTIVE_MAX_TURNS_CEILING,
   STRATEGY_BASE_MAX_TURNS,
 } from "./adaptiveTurnBudget";
 export type { AdaptiveMaxTurnsDecision } from "./adaptiveTurnBudget";
+export {
+  appendDocumentaryReadGuidance,
+  DOCUMENTARY_READ_GUIDANCE_BLOCK,
+} from "./documentaryReadGuidance";
+export {
+  buildDocumentaryBudgetExhaustedText,
+  collectReadFactsFromRunItems,
+  MODEL_TURN_BUDGET_REACHED_STOCK,
+} from "./documentaryBudgetExhausted";
 export {
   planContinuationSegments,
   emptyContinuationObserve,
@@ -332,6 +342,7 @@ export {
   MW4_DOCUMENT_READ_TOOL,
   overallToGroundingCoverageKind,
   parseGitLocalReadCoverageSignals,
+  unionReturnedLineSpans,
 } from "./readCoverage";
 export type {
   ParsedReadRange,

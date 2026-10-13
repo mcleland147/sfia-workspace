@@ -113,6 +113,281 @@ function failResult(
   };
 }
 
+const GIT_READ_TRUNCATION_MARKER = "…[truncated]";
+const GIT_READ_TRUNCATION_SUFFIX = `\n${GIT_READ_TRUNCATION_MARKER}`;
+
+function stripGitReadTruncationMarker(content: string): string {
+  if (content.endsWith(GIT_READ_TRUNCATION_SUFFIX)) {
+    return content.slice(0, -GIT_READ_TRUNCATION_SUFFIX.length);
+  }
+  if (content === GIT_READ_TRUNCATION_MARKER) return "";
+  if (content.endsWith(GIT_READ_TRUNCATION_MARKER)) {
+    return content.slice(0, -GIT_READ_TRUNCATION_MARKER.length);
+  }
+  return content;
+}
+
+function asFiniteInt(v: unknown, fallback: number): number {
+  if (typeof v === "number" && Number.isFinite(v)) return Math.floor(v);
+  if (typeof v === "string" && /^-?\d+$/.test(v)) return parseInt(v, 10);
+  return fallback;
+}
+
+/**
+ * R5 — Prepare git_local_read_file for the model-visible envelope.
+ * Reserves metadata, caps content on complete-line boundaries only, and
+ * reconciles coverage fields to the FINAL payload (not the adapter-only view).
+ */
+export function prepareGitLocalReadDataForModel(
+  raw: Record<string, unknown>,
+  maxChars = CT_MAX_TOOL_RESULT_CHARS,
+): {
+  data: Record<string, unknown>;
+  truncated: boolean;
+  json: string;
+  summary: string;
+} {
+  const path = typeof raw.path === "string" ? raw.path : "";
+  const startLine = asFiniteInt(raw.startLine, 1);
+  const endLine = asFiniteInt(raw.endLine, startLine);
+  const requestedStartLine = asFiniteInt(raw.requestedStartLine, startLine);
+  const requestedEndLine = asFiniteInt(raw.requestedEndLine, endLine);
+  const returnedStartLine = asFiniteInt(raw.returnedStartLine, startLine);
+  const totalLines = asFiniteInt(raw.totalLines, 0);
+  const documentHasMore = Boolean(raw.documentHasMore);
+  const adapterLineExceedsCap = Boolean(raw.lineExceedsCap);
+  const adapterTruncated = Boolean(raw.truncated);
+  const adapterPartial =
+    raw.partialLineNumber == null || raw.partialLineNumber === undefined
+      ? null
+      : asFiniteInt(raw.partialLineNumber, returnedStartLine);
+  const adapterNext =
+    raw.nextStartLineHint == null || raw.nextStartLineHint === undefined
+      ? null
+      : asFiniteInt(raw.nextStartLineHint, returnedStartLine);
+
+  const body = redactSecrets(
+    stripGitReadTruncationMarker(
+      typeof raw.content === "string" ? raw.content : "",
+    ),
+  );
+  const lines = body.length === 0 ? [] : body.split("\n");
+
+  const buildAttempt = (count: number) => {
+    const secondCut = count < lines.length;
+    const finalTruncated = secondCut ? true : adapterTruncated;
+    const completeContent =
+      count > 0 ? lines.slice(0, count).join("\n") : "";
+    const text = finalTruncated
+      ? completeContent
+        ? `${completeContent}${GIT_READ_TRUNCATION_SUFFIX}`
+        : GIT_READ_TRUNCATION_MARKER
+      : completeContent;
+
+    const returnedEndLine =
+      count > 0 ? returnedStartLine + count - 1 : returnedStartLine - 1;
+
+    let partialLineNumber: number | null = null;
+    let nextStartLineHint: number | null = null;
+    let lineExceedsCap = false;
+
+    if (secondCut) {
+      if (count === 0) {
+        // R6 — First available line cannot fit the FINAL model envelope
+        // (even alone), or adapter already marked it unblockable.
+        // Explicit skip under existing lineExceedsCap protocol — never
+        // re-hint the same startLine (that loops Nora forever).
+        lineExceedsCap = true;
+        partialLineNumber = null;
+        nextStartLineHint =
+          returnedStartLine < totalLines ? returnedStartLine + 1 : null;
+      } else {
+        // Second ceiling cut mid-range — retry the first unavailable line.
+        partialLineNumber = returnedStartLine + count;
+        nextStartLineHint = returnedStartLine + count;
+      }
+    } else if (count > 0) {
+      nextStartLineHint =
+        returnedEndLine < totalLines ? returnedEndLine + 1 : null;
+      partialLineNumber = adapterPartial;
+      lineExceedsCap = false;
+      // Preserve adapter next hint when it already matches honest progression.
+      if (adapterNext != null && nextStartLineHint == null) {
+        nextStartLineHint = adapterNext;
+      }
+    } else {
+      // Empty body from adapter (lineExceedsCap / zero complete).
+      lineExceedsCap = adapterLineExceedsCap;
+      partialLineNumber = adapterPartial;
+      if (lineExceedsCap) {
+        nextStartLineHint =
+          returnedStartLine < totalLines ? returnedStartLine + 1 : null;
+      } else if (adapterPartial != null) {
+        nextStartLineHint = adapterPartial;
+      } else if (adapterNext != null) {
+        nextStartLineHint = adapterNext;
+      } else if (documentHasMore) {
+        nextStartLineHint = endLine + 1;
+      } else {
+        nextStartLineHint = null;
+      }
+    }
+
+    const hasMore = documentHasMore || finalTruncated;
+    const dataObj: Record<string, unknown> = {
+      path,
+      content: redactSecrets(text),
+      truncated: finalTruncated,
+      documentHasMore,
+      hasMore,
+      startLine,
+      endLine,
+      requestedStartLine,
+      requestedEndLine,
+      returnedStartLine,
+      returnedEndLine,
+      completeLineCount: count,
+      partialLineNumber,
+      lineExceedsCap,
+      totalLines,
+      nextStartLineHint,
+    };
+
+    const returnedLabel =
+      count > 0
+        ? `returned L${returnedStartLine}-${returnedEndLine}`
+        : "returned none";
+    const flags = [
+      finalTruncated ? "truncated" : null,
+      documentHasMore ? "documentHasMore" : null,
+      hasMore ? "hasMore" : null,
+      lineExceedsCap ? "lineExceedsCap" : null,
+      partialLineNumber != null ? `partialLine:${partialLineNumber}` : null,
+    ]
+      .filter(Boolean)
+      .join(" ");
+    const summary = `read ${path} L${startLine}-${endLine}/${totalLines} ${returnedLabel} (${text.length} chars)${flags ? ` ${flags}` : ""}`;
+
+    const envelope = redactSecrets(
+      JSON.stringify({
+        ok: true,
+        summary,
+        data: dataObj,
+        truncated: finalTruncated,
+      }),
+    );
+
+    return {
+      data: dataObj,
+      summary,
+      envelope,
+      truncated: finalTruncated,
+      json: redactSecrets(JSON.stringify(dataObj)),
+    };
+  };
+
+  // Prefer max complete lines whose FULL model envelope fits the ceiling.
+  for (let count = lines.length; count >= 0; count -= 1) {
+    const attempt = buildAttempt(count);
+    if (attempt.envelope.length <= maxChars) {
+      return {
+        data: attempt.data,
+        truncated: attempt.truncated,
+        json: attempt.json,
+        summary: attempt.summary,
+      };
+    }
+  }
+
+  // Last resort: even empty truncated content cannot fit with metadata.
+  // Fail-closed — do not invent progression (R6). Shrink until envelope fits.
+  const minimalCandidates: Array<{
+    summary: string;
+    data: Record<string, unknown>;
+  }> = [
+    {
+      summary: `read ${path} L${startLine}-${endLine}/${totalLines} returned none (0 chars) truncated RESULT_CAPPED`,
+      data: {
+        path,
+        content: GIT_READ_TRUNCATION_MARKER,
+        truncated: true,
+        documentHasMore,
+        hasMore: true,
+        note: "RESULT_CAPPED",
+        startLine,
+        endLine,
+        requestedStartLine,
+        requestedEndLine,
+        returnedStartLine,
+        returnedEndLine: returnedStartLine - 1,
+        completeLineCount: 0,
+        partialLineNumber: null,
+        lineExceedsCap: false,
+        totalLines,
+        nextStartLineHint: null,
+      },
+    },
+    {
+      summary: "read RESULT_CAPPED returned none",
+      data: {
+        truncated: true,
+        note: "RESULT_CAPPED",
+        completeLineCount: 0,
+        returnedStartLine,
+        returnedEndLine: returnedStartLine - 1,
+        nextStartLineHint: null,
+        totalLines,
+        content: GIT_READ_TRUNCATION_MARKER,
+        documentHasMore,
+        hasMore: true,
+        lineExceedsCap: false,
+      },
+    },
+    {
+      summary: "RESULT_CAPPED",
+      data: {
+        truncated: true,
+        note: "RESULT_CAPPED",
+        completeLineCount: 0,
+        nextStartLineHint: null,
+      },
+    },
+  ];
+
+  for (const candidate of minimalCandidates) {
+    const envelope = redactSecrets(
+      JSON.stringify({
+        ok: true,
+        summary: candidate.summary,
+        data: candidate.data,
+        truncated: true,
+      }),
+    );
+    if (envelope.length <= maxChars) {
+      return {
+        data: candidate.data,
+        truncated: true,
+        json: redactSecrets(JSON.stringify(candidate.data)),
+        summary: candidate.summary,
+      };
+    }
+  }
+
+  // Absolute floor — still honest, never claims coverage or progression.
+  const floorData = {
+    note: "RESULT_CAPPED",
+    completeLineCount: 0,
+    nextStartLineHint: null,
+    truncated: true,
+  };
+  return {
+    data: floorData,
+    truncated: true,
+    json: JSON.stringify(floorData),
+    summary: "RESULT_CAPPED",
+  };
+}
+
 /**
  * Cap large string fields BEFORE JSON serialization so the payload is always
  * valid JSON. Never mid-truncate a serialized JSON string then re-parse it.
@@ -230,9 +505,25 @@ export function resolveToolPathOrRef(
     case "git_local_read_file": {
       const p = asString(dataObj?.path) ?? asString(args.path);
       if (!p) return null;
-      const start = dataObj?.startLine;
-      const end = dataObj?.endLine;
-      if (typeof start === "number" && typeof end === "number") {
+      const completeCount = dataObj?.completeLineCount;
+      if (typeof completeCount === "number" && completeCount <= 0) {
+        // No proven complete span — bare path (avoid false #L range).
+        return p;
+      }
+      // Prefer returned range (honest coverage) over requested-only bounds.
+      const start =
+        typeof dataObj?.returnedStartLine === "number"
+          ? dataObj.returnedStartLine
+          : dataObj?.startLine;
+      const end =
+        typeof dataObj?.returnedEndLine === "number"
+          ? dataObj.returnedEndLine
+          : dataObj?.endLine;
+      if (
+        typeof start === "number" &&
+        typeof end === "number" &&
+        end >= start
+      ) {
         return `${p}#L${start}-${end}`;
       }
       return p;
@@ -497,12 +788,23 @@ export async function routeToolCall(
           path: r.path,
           content: r.content,
           truncated: r.truncated,
+          documentHasMore: r.documentHasMore,
+          hasMore: r.hasMore,
           startLine: r.startLine,
           endLine: r.endLine,
-          hasMore: r.hasMore,
+          requestedStartLine: r.requestedStartLine,
+          requestedEndLine: r.requestedEndLine,
+          returnedStartLine: r.returnedStartLine,
+          returnedEndLine: r.returnedEndLine,
+          completeLineCount: r.completeLineCount,
+          partialLineNumber: r.partialLineNumber,
+          lineExceedsCap: r.lineExceedsCap,
+          totalLines: r.totalLines,
+          nextStartLineHint: r.nextStartLineHint,
         };
         summary = r.summary;
-        truncated = r.truncated || r.hasMore;
+        // usage.truncated = content cut / incomplete delivery — not documentHasMore alone.
+        truncated = r.truncated;
         break;
       }
       case "git_local_get_diff": {
@@ -830,8 +1132,25 @@ export async function routeToolCall(
       }
     }
 
-    const prepared = prepareToolDataForModel(data, CT_MAX_TOOL_RESULT_CHARS);
-    if (prepared.truncated) truncated = true;
+    let prepared: { data: unknown; truncated: boolean; json: string };
+    if (
+      name === "git_local_read_file" &&
+      data &&
+      typeof data === "object" &&
+      !Array.isArray(data)
+    ) {
+      // R5 — coverage metadata must describe the FINAL model-visible envelope.
+      const gitPrepared = prepareGitLocalReadDataForModel(
+        data as Record<string, unknown>,
+        CT_MAX_TOOL_RESULT_CHARS,
+      );
+      prepared = gitPrepared;
+      summary = gitPrepared.summary;
+      truncated = gitPrepared.truncated;
+    } else {
+      prepared = prepareToolDataForModel(data, CT_MAX_TOOL_RESULT_CHARS);
+      if (prepared.truncated) truncated = true;
+    }
     if (prepared.json.length > CT_MAX_TOOL_RESULT_CHARS * 4) {
       const result = failResult(
         request.toolCallId,

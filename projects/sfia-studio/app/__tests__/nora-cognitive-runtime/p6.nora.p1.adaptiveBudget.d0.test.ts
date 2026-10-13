@@ -101,6 +101,22 @@ describe("P6 Nora P1 — Adaptive maxTurns policy", () => {
     );
   });
 
+  it("natural mono-file synthèse does not set sourceBreadth=high", () => {
+    const hints = inferWorkloadHintsFromUserContent(
+      "Consulte projects/sfia-studio/docs/a.md et fais-en une synthèse.",
+    );
+    expect(hints.toolDependency).toBe("high");
+    expect(hints.reasoningDepth).toBe("medium");
+    expect(hints.sourceBreadth).toBeUndefined();
+    const budget = resolveAdaptiveMaxTurns({
+      strategyClass: "Routine",
+      signals: hints,
+    });
+    // Mono-doc tool+depth bump lifts Routine base to at least Focused floor (8).
+    expect(budget.requestedMaxTurns).toBe(8);
+    expect(budget.reasonCodes).toContain("known_mono_doc_tool_synthesis_bump");
+  });
+
   it("null strategy falls back to legacy 5", () => {
     expect(
       resolveAdaptiveMaxTurns({ strategyClass: null }).requestedMaxTurns,
