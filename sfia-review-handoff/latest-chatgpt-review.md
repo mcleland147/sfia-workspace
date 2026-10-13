@@ -1,507 +1,376 @@
-# SFIA STUDIO — P6-MIN-09 DOCUMENTARY COGNITIVE RELIABILITY CORRECTION 01 — CP04
+# SFIA STUDIO — P6-MIN-09 RCD-01 — SINGLE GOVERNED GIT INTEGRATION
 
 **Review Pack level:** FULL
-**Pass:** FINAL EVIDENCE & EDGE-CASE CLOSURE — CP04
-**Cycle:** 8 — Delivery / implémentation (parent QA: 9)
+**Cycle:** 13 — PR readiness
 **Profil:** CRITICAL
-**Typologie:** EVOL — corrective delivery
-**Timestamp:** 2026-10-13 07:48:49 CEST
-**GO Morris:** 2026-10-13 — correction locale R6/R7 autorisée (consommé)
-**GO intégration projet:** NON AUTORISÉ
-**GO REAL:** NON AUTORISÉ
-**Mode:** DETERMINISTIC ONLY — ZERO REAL OpenAI
+**Typologie:** EVOL / GIT INTEGRATION
+**Timestamp:** 2026-10-13 08:39:07 CEST
+**GO Morris:** 2026-10-13 — COMMIT + PUSH + PR AUTORISÉS (consommé)
+**MERGE:** NON AUTORISÉ
+**REAL OpenAI:** NON AUTORISÉ
+**POST-MERGE:** NON AUTORISÉ
 
 ---
 
 ## A. Horodatage Europe/Paris
 
-2026-10-13 07:48:49 CEST
+2026-10-13 08:39:07 CEST
 
-## B. Identification, cycle, profil, GO
+## B. Identification cycle / profil / GO
 
 | Champ | Valeur |
 |---|---|
 | Projet | SFIA Studio |
 | Macro | STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 |
 | Campagne | P6-GLOBAL-INTEGRATED-PRODUCT-QA-01 |
-| Milestone | P6 — GLOBAL INTEGRATED PRODUCT QA |
-| Scénario | P6-MIN-09 — Guided Document Review |
-| Lot | DOCUMENTARY COGNITIVE RELIABILITY CORRECTION 01 |
-| Pass | FINAL EVIDENCE & EDGE-CASE CLOSURE — CP04 |
-| Cycle | 8 Delivery / parent 9 QA |
-| GO | Correction locale R6/R7 |
-| Intégration Git projet | INTERDITE ce cycle |
+| Lot | RCD-01 CP01–CP04 |
+| Scénario | P6-MIN-09 Guided Document Review |
+| Incident | P6-MIN-09-REAL-DOC-FAILURE-RCD-01 |
+| Cycle | 13 PR readiness |
+| GO | COMMIT/PUSH/DRAFT PR |
+| Merge gate | NOT AUTHORIZED |
 
-## C. Local Git Truth Check
+## C. Repo-informed / Convergence Pre-check
+
+- Capacité v3 : analyse documentaire Nora dans Product Operating Loop — KEEP Runner/Session/Loop ; ADAPT Adapter/ToolRouter/ReadCoverage/AdaptiveTurnBudget.
+- Revue ChatGPT CP04 : PASS — READY FOR GOVERNED GIT INTEGRATION GATE.
+- R1–R7 CLOSED AT DETERMINISTIC TESTED SCOPE.
+- Architecture parallèle : NONE. Runtime v3 NON ADOPTED.
+- Gap restant : qualité analyse documentaire REAL.
+- Handoff CP04 consommé : commit `8eac9032…` / blob `ff0b276c…`.
+
+## D. Local Git Truth Check
 
 ```
 pwd: /Users/morris/Projects/sfia-workspace-p6-min09-documentary-cognitive-reliability-01
-remote: origin https://github.com/mcleland147/sfia-workspace.git
 branch: fix/p6-min09-documentary-cognitive-reliability-01
-HEAD: d8ceb8ad54d2e84aaa95cdbe3bef4e2814806edc
+HEAD (pre-commit base): d8ceb8ad54d2e84aaa95cdbe3bef4e2814806edc
 origin/main: d8ceb8ad54d2e84aaa95cdbe3bef4e2814806edc
-HEAD == origin/main: TRUE
-staged: empty
-working tree: MODIFIED (CP01+CP02+CP03+CP04 uncommitted — EXPECTED)
+post-commit HEAD: 9b855d8ddabd9bf9fffb8561f63d1138d8939be4
+remote branch SHA: 9b855d8ddabd9bf9fffb8561f63d1138d8939be4
+HEAD == remote branch: TRUE
+duplicate PR before create: NONE
+remote branch before push: NONE
 ```
 
-### git status --short
+### git status --short (final after commit; pack unstaged)
 
 ```
  M .tmp-sfia-review/chatgpt-review.md
- M projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.p1.adaptiveBudget.d0.test.ts
- M projects/sfia-studio/app/lib/nora-cognitive-runtime/adaptiveTurnBudget.ts
- M projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
- M projects/sfia-studio/app/lib/nora-cognitive-runtime/readCoverage.ts
- M projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
- M projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts
- M projects/sfia-studio/app/lib/platform/observability/types.ts
- M projects/sfia-studio/app/lib/platform/repository/gitLocalReadAdapter.ts
- M projects/sfia-studio/app/lib/platform/tools/toolRouter.ts
- M projects/sfia-studio/app/lib/platform/tools/types.ts
-?? projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.min09.documentaryReliability.d0.test.ts
-?? projects/sfia-studio/app/lib/nora-cognitive-runtime/documentaryBudgetExhausted.ts
-?? projects/sfia-studio/app/lib/nora-cognitive-runtime/documentaryReadGuidance.ts
 
 ```
 
-### git diff --name-status
+## E. Base et branche
 
-```
-M	.tmp-sfia-review/chatgpt-review.md
-M	projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.p1.adaptiveBudget.d0.test.ts
-M	projects/sfia-studio/app/lib/nora-cognitive-runtime/adaptiveTurnBudget.ts
-M	projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
-M	projects/sfia-studio/app/lib/nora-cognitive-runtime/readCoverage.ts
-M	projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
-M	projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts
-M	projects/sfia-studio/app/lib/platform/observability/types.ts
-M	projects/sfia-studio/app/lib/platform/repository/gitLocalReadAdapter.ts
-M	projects/sfia-studio/app/lib/platform/tools/toolRouter.ts
-M	projects/sfia-studio/app/lib/platform/tools/types.ts
+- Base: `main` @ `d8ceb8ad54d2e84aaa95cdbe3bef4e2814806edc`
+- Head: `fix/p6-min09-documentary-cognitive-reliability-01` @ `9b855d8ddabd9bf9fffb8561f63d1138d8939be4`
+- Fast-forward push only ; no force push.
 
-```
+## F. Handoff CP04 consommé
 
-### untracked
+Commit `8eac9032d0be422be804f55d81ad1917875a1483`
+Blob `ff0b276c7321b416e7c771483e91386652298c9e`
+Verdict CP04 : READY FOR CHATGPT REVIEW → gate Git Morris.
 
-```
-projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.min09.documentaryReliability.d0.test.ts
-projects/sfia-studio/app/lib/nora-cognitive-runtime/documentaryBudgetExhausted.ts
-projects/sfia-studio/app/lib/nora-cognitive-runtime/documentaryReadGuidance.ts
+## G. Scope de la PR
 
-```
+**13 fichiers RCD-01 attendus + 1 digest mécanique PRR :**
 
-### git diff --stat
-
-```
- .tmp-sfia-review/chatgpt-review.md                 | 166 ----------
- .../p6.nora.p1.adaptiveBudget.d0.test.ts           |  16 +
- .../nora-cognitive-runtime/adaptiveTurnBudget.ts   |  35 +++
- .../app/lib/nora-cognitive-runtime/index.ts        |  11 +
- .../app/lib/nora-cognitive-runtime/readCoverage.ts | 289 ++++++++++++++++--
- .../nora-cognitive-runtime/runNoraAgentsTurn.ts    |  69 ++++-
- .../nora-cognitive-runtime/runNoraCognitiveTurn.ts |  10 +
- .../app/lib/platform/observability/types.ts        |   4 +-
- .../lib/platform/repository/gitLocalReadAdapter.ts | 216 +++++++++++--
- .../app/lib/platform/tools/toolRouter.ts           | 333 ++++++++++++++++++++-
- .../sfia-studio/app/lib/platform/tools/types.ts    |   2 +-
- 11 files changed, 926 insertions(+), 225 deletions(-)
-
-```
-
-### git worktree list
-
-```
-/Users/morris/Projects/sfia-workspace                                                                                                                                                                                                                                              980064c0 [qa/sfia-studio-p6-global-integrated-product-qa]
-/Users/morris/Projects/sfia-codex-pilot                                                                                                                                                                                                                                            ec7f397a [method/codex-operating-model-pilot]
-/Users/morris/Projects/sfia-doc-od04-i01-truth                                                                                                                                                                                                                                     299cb617 [docs/sfia-studio-nora-od04-i01-boundary-truth-sync]
-/Users/morris/Projects/sfia-gcec-b-commit-target-binding-c481610c                                                                                                                                                                                                                  11a43d3d [delivery/sfia-studio-gcec-b-commit-target-binding-alignment]
-/Users/morris/Projects/sfia-gcec-c-remote-push-auth-env-11a43d3d                                                                                                                                                                                                                   ff267fdf [delivery/sfia-studio-gcec-c-remote-push-auth-env]
-/Users/morris/Projects/sfia-gcec-d-ephemeral-secret-bridge-ff267fdf                                                                                                                                                                                                                f4210388 [delivery/sfia-studio-gcec-d-ephemeral-secret-bridge]
-/Users/morris/Projects/sfia-gcec-d-post-merge-docs-76e2d786                                                                                                                                                                                                                        e90249b2 [docs/sfia-studio-gcec-d-post-merge-truth-sync]
-/Users/morris/Projects/sfia-gcec-d-remote-github-env-parity-ff267fdf                                                                                                                                                                                                               ff267fdf [delivery/sfia-studio-gcec-d-remote-github-env-parity]
-/Users/morris/Projects/sfia-gcec-real-ad-product-11a43d3d-20260913120301-96119                                                                                                                                                                                                     11a43d3d (detached HEAD)
-/Users/morris/Projects/sfia-gcec-real-ad-product-c481610c-20260913101736-44229                                                                                                                                                                                                     c481610c (detached HEAD)
-/Users/morris/Projects/sfia-gcec-real-ad-product-ff267fdf-20260913131834-26962                                                                                                                                                                                                     ff267fdf (detached HEAD)
-/Users/morris/Projects/sfia-studio-chat-first-product-simplification-c1                                                                                                                                                                                                            7044e1a6 [docs/sfia-studio-chat-first-product-simplification-c1]
-/Users/morris/Projects/sfia-studio-chat-first-product-simplification-p2                                                                                                                                                                                                            e99d9ad5 (detached HEAD)
-/Users/morris/Projects/sfia-studio-chat-first-product-simplification-p3                                                                                                                                                                                                            7d0c6562 [docs/sfia-studio-p5-s07-post-merge-truth-sync]
-/Users/morris/Projects/sfia-studio-chat-first-work-recommendation-continuity-01                                                                                                                                                                                                    193b79d6 (detached HEAD)
-/Users/morris/Projects/sfia-studio-chat-first-work-recommendation-continuity-delivery-01                                                                                                                                                                                           4edb9feb (detached HEAD)
-/Users/morris/Projects/sfia-studio-contract-result-extensibility-framing-01                                                                                                                                                                                                        1eabf9d7 (detached HEAD)
-/Users/morris/Projects/sfia-studio-corr-proof-06-artifact-obligation                                                                                                                                                                                                               adbdf1ac [fix/sfia-studio-corr-proof-06-artifact-obligation]
-/Users/morris/Projects/sfia-studio-corr-proof-07-artifact-materialization                                                                                                                                                                                                          e942af5f [fix/sfia-studio-corr-proof-07-artifact-materialization]
-/Users/morris/Projects/sfia-studio-corr-proof-09-materialization-intent-contract                                                                                                                                                                                                   85b1443e [fix/sfia-studio-corr-proof-09-materialization-intent-contract]
-/Users/morris/Projects/sfia-studio-corr-proof-10-decision-context-continuity                                                                                                                                                                                                       18b76752 (detached HEAD)
-/Users/morris/Projects/sfia-studio-corr-proof-11-reinstruction-pilot-language                                                                                                                                                                                                      9675bc4c (detached HEAD)
-/Users/morris/Projects/sfia-studio-docs-write-real-path-completion                                                                                                                                                                                                                 742339e5 (detached HEAD)
-/Users/morris/Projects/sfia-studio-ec-inspection-disclosure                                                                                                                                                                                                                        f51ad142 (detached HEAD)
-/Users/morris/Projects/sfia-studio-ec-inspection-disclosure-v2                                                                                                                                                                                                                     0f1b0a65 (detached HEAD)
-/Users/morris/Projects/sfia-studio-ec-rehydration-continuity                                                                                                                                                                                                                       b871ad7c (detached HEAD)
-/Users/morris/Projects/sfia-studio-fake-provider-user-valid-materialization                                                                                                                                                                                                        aaef6854 [fix/sfia-studio-fake-provider-user-valid-materialization]
-/Users/morris/Projects/sfia-studio-live-managed-repo-composition                                                                                                                                                                                                                   95c51d59 [delivery/sfia-studio-live-managed-repo-composition]
-/Users/morris/Projects/sfia-studio-nora-acw-option-ref-contract-01                                                                                                                                                                                                                 94b69178 (detached HEAD)
-/Users/morris/Projects/sfia-studio-product-docs-write-real-pass-capitalisation                                                                                                                                                                                                     9981483f (detached HEAD)
-/Users/morris/Projects/sfia-studio-product-docs-write-real-pass-post-merge-truth-sync                                                                                                                                                                                              65c9fcf3 (detached HEAD)
-/Users/morris/Projects/sfia-studio-product-journey-claim-evidence-completion-01                                                                                                                                                                                                    9c6ac909 [qa/sfia-studio-product-journey-claim-evidence-completion-01]
-/Users/morris/Projects/sfia-studio-product-journey-e2e-real-reconciliation-01                                                                                                                                                                                                      dda2fa34 (detached HEAD)
-/Users/morris/Projects/sfia-studio-product-journey-post-execution-replan-01                                                                                                                                                                                                        3d48ed70 (detached HEAD)
-/Users/morris/Projects/sfia-studio-product-legacy-m3-to-m4-successor                                                                                                                                                                                                               64aec8ea (detached HEAD)
-/Users/morris/Projects/sfia-studio-product-projection-coherence                                                                                                                                                                                                                    bc9b5fea [fix/sfia-studio-product-projection-coherence]
-/Users/morris/Projects/sfia-studio-product-proof-journey-integrity                                                                                                                                                                                                                 f51ad142 (detached HEAD)
-/Users/morris/Projects/sfia-studio-product-proof-preflight-35b1371d                                                                                                                                                                                                                a8a5dffa (detached HEAD)
-/Users/morris/Projects/sfia-studio-product-real-docs-write-wiring                                                                                                                                                                                                                  8bda5012 (detached HEAD)
-/Users/morris/Projects/sfia-studio-product-reproof-08-3a3a90f5                                                                                                                                                                                                                     3a3a90f5 (detached HEAD)
-/Users/morris/Projects/sfia-studio-product-reproof-09-74ad6d3e                                                                                                                                                                                                                     74ad6d3e (detached HEAD)
-/Users/morris/Projects/sfia-studio-product-reproof09-real-0052037c                                                                                                                                                                                                                 0052037c (detached HEAD)
-/Users/morris/Projects/sfia-studio-product-reproof09-real-04bcfecb                                                                                                                                                                                                                 04bcfecb (detached HEAD)
-/Users/morris/Projects/sfia-studio-product-reproof09-real-b739ddd                                                                                                                                                                                                                  742339e5 (detached HEAD)
-/Users/morris/Projects/sfia-studio-product-reproof09-real-post498-b739ddd                                                                                                                                                                                                          b739ddd3 (detached HEAD)
-/Users/morris/Projects/sfia-studio-remove-origin-gate-reproof09-real                                                                                                                                                                                                               2d4b09be (detached HEAD)
-/Users/morris/Projects/sfia-studio-stage-a-real-02                                                                                                                                                                                                                                 3a3a90f5 (detached HEAD)
-/Users/morris/Projects/sfia-studio-transmission-guide-integration                                                                                                                                                                                                                  f463bf9b [docs/sfia-studio-transmission-guide-integration]
-/Users/morris/Projects/sfia-task-tracker                                                                                                                                                                                                                                           b763a318 [cadrage/task-tracker-light]
-/Users/morris/Projects/sfia-workspace-a5-2-framing                                                                                                                                                                                                                                 bd3608c6 [framing/sfia-studio-v3-native-option-a-a5-2-reservations-authority-atomicity]
-/Users/morris/Projects/sfia-workspace-active-cycle-artifact-mat-01                                                                                                                                                                                                                 3f790345 (detached HEAD)
-/Users/morris/Projects/sfia-workspace-active-cycle-artifact-mat-corr-01                                                                                                                                                                                                            74e8ee46 (detached HEAD)
-/Users/morris/Projects/sfia-workspace-artifact-applicability-bridge-01                                                                                                                                                                                                             ccf4e7f5 (detached HEAD)
-/Users/morris/Projects/sfia-workspace-auth-better-auth-github-multi-user-foundation                                                                                                                                                                                                ebdae92a [delivery/sfia-studio-auth-better-auth-github-multi-user-foundation]
-/Users/morris/Projects/sfia-workspace-chat-first-governed-decision-loop-01                                                                                                                                                                                                         7d5f794b [feat/sfia-studio-chat-first-governed-decision-loop-01]
-/Users/morris/Projects/sfia-workspace-cycle-knowledge-contracts                                                                                                                                                                                                                    cae84151 [method/sfia-cycle-knowledge-contracts]
-/Users/morris/Projects/sfia-workspace-d1-conversational-convergence                                                                                                                                                                                                                7dc6f9fc [ux/sfia-studio-d1-conversational-convergence]
-/Users/morris/Projects/sfia-workspace-d1-platform-integration                                                                                                                                                                                                                      c2d39a7f [delivery/sfia-studio-d1-shared-platform-integration]
-/Users/morris/Projects/sfia-workspace-doc32-post-p3-m1                                                                                                                                                                                                                             dd2a68c6 [docs/sfia-studio-doc32-post-p3-m1-correction]
-/Users/morris/Projects/sfia-workspace-docs-recover                                                                                                                                                                                                                                 1a2fa31f [docs/sfia-studio-recover-unmerged-project-docs]
-/Users/morris/Projects/sfia-workspace-e2e-stabilization-01                                                                                                                                                                                                                         82148c0b [fix/sfia-studio-product-cycle-e2e-stabilization-01]
-/Users/morris/Projects/sfia-workspace-fa6-mitigated-clean                                                                                                                                                                                                                          67f140a1 [docs/sfia-studio-fa6-mitigated-from-main]
-/Users/morris/Projects/sfia-workspace-framing-next-increment                                                                                                                                                                                                                       88fa4658 [framing/sfia-studio-next-product-increment]
-/Users/morris/Projects/sfia-workspace-global-model-reasoning-campaign-contract                                                                                                                                                                                                     cf182c38 (detached HEAD)
-/Users/morris/Projects/sfia-workspace-global-model-reasoning-pre-campaign-harness                                                                                                                                                                                                  fa3f9a93 [delivery/sfia-studio-global-model-reasoning-pre-campaign-harness-hardening]
-/Users/morris/Projects/sfia-workspace-global-mr-campaign-contract-prep                                                                                                                                                                                                             3fb1624c [docs/sfia-studio-global-model-reasoning-campaign-contract]
-/Users/morris/Projects/sfia-workspace-global-mr-corr-04-mw6-memory-b                                                                                                                                                                                                               685b1645 [fix/sfia-studio-global-mr-corr-04-mw6-memory-b-session]
-/Users/morris/Projects/sfia-workspace-global-mr-stage-a-astra-challenger                                                                                                                                                                                                           a5ab44bc (detached HEAD)
-/Users/morris/Projects/sfia-workspace-global-mr-stage-a-post-merge-readiness                                                                                                                                                                                                       1b4f78ff (detached HEAD)
-/Users/morris/Projects/sfia-workspace-global-mr-stage-a-real                                                                                                                                                                                                                       1b4f78ff (detached HEAD)
-/Users/morris/Projects/sfia-workspace-global-mr-stage-a-real-cont-01                                                                                                                                                                                                               9ce5933c [run/sfia-studio-global-mr-stage-a-real-cont-01]
-/Users/morris/Projects/sfia-workspace-global-mr-stage-a-real-corr-01                                                                                                                                                                                                               e8583429 [fix/sfia-studio-global-mr-stage-a-real-corr-01]
-/Users/morris/Projects/sfia-workspace-global-mr-stage-a-real-wsources-02                                                                                                                                                                                                           586480af [run/sfia-studio-global-mr-stage-a-real-wsources-02]
-/Users/morris/Projects/sfia-workspace-global-mr-stage-a-real-wsources-neutral-03                                                                                                                                                                                                   586480af (detached HEAD)
-/Users/morris/Projects/sfia-workspace-legacy-decommission-01                                                                                                                                                                                                                       1162b36b (detached HEAD)
-/Users/morris/Projects/sfia-workspace-living-runtime-ref-01                                                                                                                                                                                                                        b4aa09bd (detached HEAD)
-/Users/morris/Projects/sfia-workspace-m1-bypass-probe                                                                                                                                                                                                                              f0f0e0f5 [qa/sfia-studio-m1-bypass-probe]
-/Users/morris/Projects/sfia-workspace-m1-bypass-probe-revert                                                                                                                                                                                                                       b502c006 [qa/sfia-studio-m1-bypass-probe-revert]
-/Users/morris/Projects/sfia-workspace-m1-capitalization                                                                                                                                                                                                                            fa0eebe0 [docs/sfia-studio-m1-capitalization-rex]
-/Users/morris/Projects/sfia-workspace-mw2-cwp-reachability-corr01                                                                                                                                                                                                                  4608b323 [corr/sfia-studio-nora-mw2-cwp-reachability]
-/Users/morris/Projects/sfia-workspace-mw2-real-exit-73fe3410                                                                                                                                                                                                                       dd21ab45 (detached HEAD)
-/Users/morris/Projects/sfia-workspace-mw2-real-exit-main-73fe3410                                                                                                                                                                                                                  73fe3410 (detached HEAD)
-/Users/morris/Projects/sfia-workspace-mw3-correction                                                                                                                                                                                                                               60ed29f0 [cursor/mw3-cognitive-correction-post-recovery]
-/Users/morris/Projects/sfia-workspace-mw3-correction-2                                                                                                                                                                                                                             da56ed29 [cursor/mw3-epistemic-boundary-correction]
-/Users/morris/Projects/sfia-workspace-mw3-real                                                                                                                                                                                                                                     339d583a [validation/mw3-real-boundary-339d583a]
-/Users/morris/Projects/sfia-workspace-mw3-recovery                                                                                                                                                                                                                                 db3a9b71 [recovery/mw3-delivery-rematerialization-ab61c18a]
-/Users/morris/Projects/sfia-workspace-mw6-auth-binding                                                                                                                                                                                                                             cf182c38 (detached HEAD)
-/Users/morris/Projects/sfia-workspace-nel-greenfield-continuity-01                                                                                                                                                                                                                 74e8ee46 (detached HEAD)
-/Users/morris/Projects/sfia-workspace-nora-c4-post-merge-roadmap-truth-sync                                                                                                                                                                                                        b6a1d5fa [docs/sfia-studio-nora-c4-post-merge-roadmap-truth-sync]
-/Users/morris/Projects/sfia-workspace-nora-c4-type14-post-merge-truth-sync                                                                                                                                                                                                         0888d6ff (detached HEAD)
-/Users/morris/Projects/sfia-workspace-nora-c5-source-locked-backlog                                                                                                                                                                                                                dba0d0a7 (detached HEAD)
-/Users/morris/Projects/sfia-workspace-nora-c5-type14-post-merge-truth-sync                                                                                                                                                                                                         77bf2a5f (detached HEAD)
-/Users/morris/Projects/sfia-workspace-nora-cognitive-c1                                                                                                                                                                                                                            cdfd5aec [docs/sfia-studio-nora-cognitive-completion-c1-cadrage]
-/Users/morris/Projects/sfia-workspace-nora-cognitive-c1-post-merge-sync                                                                                                                                                                                                            79effb32 (detached HEAD)
-/Users/morris/Projects/sfia-workspace-nora-cognitive-c2                                                                                                                                                                                                                            d406db41 [docs/sfia-studio-nora-cognitive-completion-c2-functional-design]
-/Users/morris/Projects/sfia-workspace-nora-cognitive-c2-post-merge-sync                                                                                                                                                                                                            1da8e306 [docs/sfia-studio-nora-cognitive-c2-post-merge-truth-sync]
-/Users/morris/Projects/sfia-workspace-nora-cognitive-c3                                                                                                                                                                                                                            d36619b1 (detached HEAD)
-/Users/morris/Projects/sfia-workspace-nora-cognitive-c3-post-merge-truth-sync                                                                                                                                                                                                      ac1b86fc [docs/sfia-studio-nora-cognitive-c3-post-merge-truth-sync]
-/Users/morris/Projects/sfia-workspace-nora-cognitive-runtime-gap-readiness                                                                                                                                                                                                         93c69d10 [docs/sfia-studio-nora-cognitive-runtime-gap-readiness]
-/Users/morris/Projects/sfia-workspace-nora-mw0-delivery                                                                                                                                                                                                                            67a00238 [feat/sfia-studio-nora-mw0-eval-harness]
-/Users/morris/Projects/sfia-workspace-nora-mw0-mw3-chain-real                                                                                                                                                                                                                      339d583a [validation/nora-mw0-mw3-integrated-real]
-/Users/morris/Projects/sfia-workspace-nora-mw0-mw3-chain-real-2                                                                                                                                                                                                                    339d583a [validation/nora-mw0-mw3-integrated-real-mw3-scope]
-/Users/morris/Projects/sfia-workspace-nora-mw0-option-c-parity                                                                                                                                                                                                                     7a5f1af7 (detached HEAD)
-/Users/morris/Projects/sfia-workspace-nora-mw0-option-c-regression-truth-sync                                                                                                                                                                                                      d9ab4832 (detached HEAD)
-/Users/morris/Projects/sfia-workspace-nora-mw0-postmerge-roadmap-sync                                                                                                                                                                                                              ab18f5c5 [docs/sfia-studio-nora-mw0-postmerge-roadmap-sync]
-/Users/morris/Projects/sfia-workspace-nora-mw0-readiness                                                                                                                                                                                                                           51465ab4 (detached HEAD)
-/Users/morris/Projects/sfia-workspace-nora-mw1-closure-truth-sync                                                                                                                                                                                                                  3785e271 [docs/sfia-studio-nora-mw1-closure-truth-sync]
-/Users/morris/Projects/sfia-workspace-nora-mw1-memory-b-compaction                                                                                                                                                                                                                 f0bf7f0c [delivery/sfia-studio-nora-mw1-memory-b-compaction]
-/Users/morris/Projects/sfia-workspace-nora-mw1-option-c-main-readiness                                                                                                                                                                                                             c4207003 (detached HEAD)
-/Users/morris/Projects/sfia-workspace-nora-mw1-option-c-migration                                                                                                                                                                                                                  949d5800 (detached HEAD)
-/Users/morris/Projects/sfia-workspace-nora-mw1-option-c-post-merge-truth-sync                                                                                                                                                                                                      166b4698 [docs/sfia-studio-nora-mw1-option-c-post-merge-truth-sync]
-/Users/morris/Projects/sfia-workspace-nora-mw1-option-c-recovered                                                                                                                                                                                                                  0fdf06a5 (detached HEAD)
-/Users/morris/Projects/sfia-workspace-nora-mw1-pr451-post-merge-truth-sync                                                                                                                                                                                                         d0f6526c [docs/sfia-studio-nora-mw1-pr451-post-merge-truth-sync]
-/Users/morris/Projects/sfia-workspace-nora-mw1-readiness-od03-truth-sync                                                                                                                                                                                                           949d5800 (detached HEAD)
-/Users/morris/Projects/sfia-workspace-nora-mw1-real-boundary                                                                                                                                                                                                                       d09e2148 [qa/sfia-studio-nora-mw1-real-boundary]
-/Users/morris/Projects/sfia-workspace-nora-mw1-s01-honest-memory-b                                                                                                                                                                                                                 dd21ab45 (detached HEAD)
-/Users/morris/Projects/sfia-workspace-nora-mw2-closure-truth-sync                                                                                                                                                                                                                  7b12b377 [docs/sfia-studio-nora-mw2-closure-truth-sync]
-/Users/morris/Projects/sfia-workspace-nora-mw2-readiness-requalification                                                                                                                                                                                                           ce719d7d [docs/sfia-studio-nora-mw2-readiness-requalification]
-/Users/morris/Projects/sfia-workspace-nora-mw3-closure                                                                                                                                                                                                                             deb34943 [validation/nora-mw3-final-deb34943]
-/Users/morris/Projects/sfia-workspace-nora-mw3-integration                                                                                                                                                                                                                         f5b9d083 [delivery/sfia-studio-nora-mw3-contradiction-stop]
-/Users/morris/Projects/sfia-workspace-nora-mw3-postmerge                                                                                                                                                                                                                           0220253a [validation/nora-mw3-postmerge-0220253a]
-/Users/morris/Projects/sfia-workspace-nora-mw4-grounding                                                                                                                                                                                                                           fa58b210 [delivery/sfia-studio-nora-mw4-grounding-durability]
-/Users/morris/Projects/sfia-workspace-nora-mw4-post-merge-closure                                                                                                                                                                                                                  f907d27c [docs/sfia-studio-nora-mw4-post-merge-closure]
-/Users/morris/Projects/sfia-workspace-nora-mw5-critical-challenge-clarification                                                                                                                                                                                                    642c502d (detached HEAD)
-/Users/morris/Projects/sfia-workspace-nora-mw5-post-merge-closure                                                                                                                                                                                                                  7b2359fa (detached HEAD)
-/Users/morris/Projects/sfia-workspace-nora-mw6-external-source-intelligence                                                                                                                                                                                                        ebdae92a [delivery/sfia-studio-nora-mw6-external-source-intelligence]
-/Users/morris/Projects/sfia-workspace-nora-od04-i01-boundary-truth-sync                                                                                                                                                                                                            4f00a2ad (detached HEAD)
-/Users/morris/Projects/sfia-workspace-nora-od04-i01-boundary-truth-sync-clean                                                                                                                                                                                                      949d5800 (detached HEAD)
-/Users/morris/Projects/sfia-workspace-nora-od04-i01-boundary-truth-sync-docs                                                                                                                                                                                                       949d5800 (detached HEAD)
-/Users/morris/Projects/sfia-workspace-nora-od04-openai-runtime-decision                                                                                                                                                                                                            a741a1ef (detached HEAD)
-/Users/morris/Projects/sfia-workspace-nora-openai-cognitive-runtime-ab                                                                                                                                                                                                             f0bf7f0c [spike/sfia-studio-nora-openai-cognitive-runtime-ab]
-/Users/morris/Projects/sfia-workspace-nora-openai-native-first-post-merge-truth-sync                                                                                                                                                                                               5dfc63ff [docs/sfia-studio-nora-openai-native-first-post-merge-truth-sync]
-/Users/morris/Projects/sfia-workspace-nora-openai-native-first-truth-sync                                                                                                                                                                                                          94edffe8 [docs/sfia-studio-nora-openai-native-first-truth-sync]
-/Users/morris/Projects/sfia-workspace-option-a-after-t-a6                                                                                                                                                                                                                          aef7fd6d [framing/sfia-studio-v3-native-option-a-after-t-a6]
-/Users/morris/Projects/sfia-workspace-option-a-ci-governance                                                                                                                                                                                                                       2f956053 [delivery/sfia-studio-v3-native-option-a-ci-merge-governance]
-/Users/morris/Projects/sfia-workspace-option-a-ci-governance-docs                                                                                                                                                                                                                  a42a85c0 [docs/sfia-studio-option-a-ci-governance-post-merge]
-/Users/morris/Projects/sfia-workspace-option-a-path-aware-required-check                                                                                                                                                                                                           9f039162 [delivery/sfia-studio-v3-native-option-a-path-aware-required-check-preparation]
-/Users/morris/Projects/sfia-workspace-p6-campaign-continuation-qa                                                                                                                                                                                                                  d8ceb8ad (detached HEAD)
-/Users/morris/Projects/sfia-workspace-p6-hqa-01                                                                                                                                                                                                                                    8f61da8f [fix/studio-p6-hqa-01-conversation-recommendations]
-/Users/morris/Projects/sfia-workspace-p6-hqa-02                                                                                                                                                                                                                                    6f68ea24 [fix/studio-p6-hqa-02-work-recommendation-materialization]
-/Users/morris/Projects/sfia-workspace-p6-min09-documentary-cognitive-reliability-01                                                                                                                                                                                                d8ceb8ad [fix/p6-min09-documentary-cognitive-reliability-01]
-/Users/morris/Projects/sfia-workspace-p6-rec01-human-qa                                                                                                                                                                                                                            d8ceb8ad (detached HEAD)
-/Users/morris/Projects/sfia-workspace-post-execution-handoff-01                                                                                                                                                                                                                    b0cbdfb0 [delivery/sfia-studio-habitflow-chat-first-projecttrajectory-hd-ec-continuity-01]
-/Users/morris/Projects/sfia-workspace-pre-mw2-main-b345f3b6                                                                                                                                                                                                                        ac26e901 [delivery/sfia-studio-nora-mw2-cwp-strategy]
-/Users/morris/Projects/sfia-workspace-product-cycle-e2e-01                                                                                                                                                                                                                         1162b36b (detached HEAD)
-/Users/morris/Projects/sfia-workspace-proof-corr-01-delivery                                                                                                                                                                                                                       98170691 (detached HEAD)
-/Users/morris/Projects/sfia-workspace-proof-corr-01-fit                                                                                                                                                                                                                            586480af (detached HEAD)
-/Users/morris/Projects/sfia-workspace-proof-corr-02-b1-delivery                                                                                                                                                                                                                    16a3e5a6 (detached HEAD)
-/Users/morris/Projects/sfia-workspace-proof-corr-02-b1-real                                                                                                                                                                                                                        1b93fca8 (detached HEAD)
-/Users/morris/Projects/sfia-workspace-proof-corr-02-design                                                                                                                                                                                                                         bf6c2104 (detached HEAD)
-/Users/morris/Projects/sfia-workspace-proof-corr-03-e1-delivery                                                                                                                                                                                                                    8c6715fe (detached HEAD)
-/Users/morris/Projects/sfia-workspace-proof-corr-03-e1-real                                                                                                                                                                                                                        1f48dd81 (detached HEAD)
-/Users/morris/Projects/sfia-workspace-proof-corr-04-context-envelope                                                                                                                                                                                                               98170691 (detached HEAD)
-/Users/morris/Projects/sfia-workspace-proof-corr-04-hybrid-envelope                                                                                                                                                                                                                98170691 (detached HEAD)
-/Users/morris/Projects/sfia-workspace-review-handoff-publisher                                                                                                                                                                                                                     5e20debd [tooling/review-handoff-canonical-publisher]
-/Users/morris/Projects/sfia-workspace-shared-platform-delivery                                                                                                                                                                                                                     08c282ab [delivery/sfia-studio-shared-technical-platform]
-/Users/morris/Projects/sfia-workspace-studio-dogfood-01                                                                                                                                                                                                                            bf6c2104 [run/sfia-studio-product-proof-real-retest-corr-01]
-/Users/morris/Projects/sfia-workspace-t-a6-post-merge                                                                                                                                                                                                                              1f258571 [post-merge/sfia-studio-v3-native-option-a-t-a6]
-/Users/morris/Projects/sfia-workspace-t-a7-f03-f11-f13-arbitration                                                                                                                                                                                                                 6849b6f7 [framing/sfia-studio-v3-native-option-a-t-a7-f03-f11-f13-arbitration]
-/Users/morris/Projects/sfia-workspace-t-a7-f03-f11-f13-readme-post-merge                                                                                                                                                                                                           960c90b3 [docs/sfia-studio-t-a7-f03-f11-f13-readme-post-merge-status]
-/Users/morris/Projects/sfia-workspace-t-a7-framing                                                                                                                                                                                                                                 b7a5e827 [framing/sfia-studio-v3-native-option-a-t-a7-cutover-preconditions]
-/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge                                                                                                                                                                                                                         08d6cd0d (detached HEAD)
-/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/delivery-d2-d1                                                                                                                                                                                         4e4db74f (detached HEAD)
-/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/delivery-t0-103-section-33-requalification                                                                                                                                                             4e4db74f (detached HEAD)
-/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/delivery-t0-103-section-33-requalification-clean                                                                                                                                                       489605cb [delivery/sfia-studio-assistant-sfia-native-openai-finops-technical-lot-t0-operational-backlog-103-section-33-requalification-clean]
-/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/main-post-merge                                                                                                                                                                                        52c1d753 [backlog/sfia-studio-v3-1-d2-d-integration-foundation]
-/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t1-execution-pack                                                                                                                                                                     8dc54db0 (detached HEAD)
-/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t1-execution-pack-clean                                                                                                                                                               8dc54db0 (detached HEAD)
-/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t1-pack                                                                                                                                                                               e1e00df2 (detached HEAD)
-/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t1-pack/.tmp-sfia-review/worktrees/finops-t6-post-t2-probe                                                                                                                            e1e00df2 (detached HEAD)
-/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main                                                                                                                                                                               4b1a0580 [main]
-/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main/.tmp-sfia-review/worktrees/f3-real-hard-prerequisites                                                                                                                         4b1a0580 [framing/sfia-studio-f3-real-hard-prerequisites]
-/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main/.tmp-sfia-review/worktrees/f3-real-prerequisites-delivery                                                                                                                     4b1a0580 [delivery/sfia-studio-f3-real-prerequisites]
-/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main/.tmp-sfia-review/worktrees/sfia-studio-convergence-foundations                                                                                                                da0618db (detached HEAD)
-/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main/.tmp-sfia-review/worktrees/sfia-studio-convergence-post-merge                                                                                                                 6bc39d4a [docs/sfia-studio-m3-post-merge]
-/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main/.tmp-sfia-review/worktrees/sfia-studio-m4-architecture-decisions                                                                                                              80a4bde4 (detached HEAD)
-/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main/.tmp-sfia-review/worktrees/sfia-studio-m4-real-off                                                                                                                            69cb915e [docs/sfia-studio-product-completion-rebaseline]
-/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main/.tmp-sfia-review/worktrees/sfia-studio-m4-real-off/.tmp-sfia-review/worktrees/sfia-fake-real-progressive-proof                                                                085828e1 [docs/sfia-fake-real-progressive-proof]
-/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main/.tmp-sfia-review/worktrees/sfia-studio-m4-real-off/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-6646a3b7-095e-44a9-873b-091173d26df7                          0d334785 [ops1/action/ops1-xatt-6646a3b7-095e-44a9-873b-091173d26df7]
-/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main/.tmp-sfia-review/worktrees/sfia-studio-m4-real-off/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-743f13d4-4c45-43c4-8d99-c6f374a03d92                          0d334785 [ops1/action/ops1-xatt-743f13d4-4c45-43c4-8d99-c6f374a03d92]
-/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main/.tmp-sfia-review/worktrees/sfia-studio-m4-real-off/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-8b0efe4f-fbe6-4a9a-8774-9154baac2e02                          0d334785 [ops1/action/ops1-xatt-8b0efe4f-fbe6-4a9a-8774-9154baac2e02]
-/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main/.tmp-sfia-review/worktrees/sfia-studio-m4-real-off/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-aeda2bd4-bdd8-4745-aeac-8f2f65b45d1e                          0d334785 [ops1/action/ops1-xatt-aeda2bd4-bdd8-4745-aeac-8f2f65b45d1e]
-/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main/.tmp-sfia-review/worktrees/sfia-studio-m4-real-off/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-b72aadbd-526f-421c-9b39-aa246ed257c0                          0d334785 [ops1/action/ops1-xatt-b72aadbd-526f-421c-9b39-aa246ed257c0]
-/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main/.tmp-sfia-review/worktrees/sfia-studio-m4-real-off/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-ba25f1bd-598d-4f55-8a72-67d41fc57686                          0d334785 [ops1/action/ops1-xatt-ba25f1bd-598d-4f55-8a72-67d41fc57686]
-/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main/.tmp-sfia-review/worktrees/sfia-studio-m4-real-off/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-c4df06ae-e7f1-4179-9a83-a6b9facf5f99                          0d334785 [ops1/action/ops1-xatt-c4df06ae-e7f1-4179-9a83-a6b9facf5f99]
-/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main/.tmp-sfia-review/worktrees/sfia-studio-m4-real-off/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-f40c2651-059f-41ce-91e4-af42cda39fa7                          0d334785 [ops1/action/ops1-xatt-f40c2651-059f-41ce-91e4-af42cda39fa7]
-/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main/.tmp-sfia-review/worktrees/sfia-studio-m4-real-off/projects/sfia-studio/.sfia-exec/m4-worktrees/wt-30a31b46c0cf5d2fc9c67369                                                   0d334785 (detached HEAD)
-/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main/.tmp-sfia-review/worktrees/sfia-studio-m4-real-off/projects/sfia-studio/.sfia-exec/m4-worktrees/wt-d9e8dc7862baeb281d215ffd                                                   0d334785 (detached HEAD)
-/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main/.tmp-sfia-review/worktrees/sfia-studio-m4-real-off/projects/sfia-studio/.sfia-exec/m4-worktrees/wt-xat_m3_m3-res_dec_f2_453ff36a-ac4b-459c-9d75-6f3-7dda85f19447a529bfe21555  0d334785 (detached HEAD)
-/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main/.tmp-sfia-review/worktrees/sfia-studio-m4-real-off/projects/sfia-studio/.sfia-exec/m4-worktrees/wt-xat_m3_m3-res_dec_f2_4a36c225-56e5-4654-bfbe-b86-67bf74b58c5f1b2fceb4eb6b  0d334785 (detached HEAD)
-/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t2-main/.tmp-sfia-review/worktrees/sfia-studio-m4-real-off/projects/sfia-studio/.sfia-exec/m4-worktrees/wt-xat_m3_m3-res_dec_f2_85c4d482-baea-4e19-8924-f81-e1a473939ed0a7076438ea15  0d334785 (detached HEAD)
-/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t3-preparation                                                                                                                                                                        2641263b [delivery/sfia-studio-assistant-sfia-native-openai-finops-t3-alert-morris-review-state]
-/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t4-preparation                                                                                                                                                                        fdc60f4c [delivery/sfia-studio-assistant-sfia-native-openai-finops-t4-s30-soft-enforcement-foundation]
-/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t4-projection-refresh                                                                                                                                                                 95cb95cd [delivery/sfia-studio-assistant-sfia-native-openai-finops-t4-projection-refresh]
-/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t6-foundation                                                                                                                                                                         093fd916 [delivery/sfia-studio-assistant-sfia-native-openai-finops-technical-lot-t6-foundation-audit]
-/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t6-foundation-post-t2-delivery                                                                                                                                                        3931a82e [delivery/sfia-studio-assistant-sfia-native-openai-finops-t6-foundation-post-t2-integration]
-/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t6-runtime-composition                                                                                                                                                                40cbff6a [delivery/sfia-studio-assistant-sfia-native-openai-finops-t6-runtime-composition]
-/Users/morris/Projects/sfia-workspace-t-a7-lot1-post-merge/.tmp-sfia-review/worktrees/finops-t7-preparation                                                                                                                                                                        137d3846 [implementation-preparation/sfia-studio-assistant-sfia-native-openai-finops-t7-rollout-activation-readiness]
-/Users/morris/Projects/sfia-workspace-t-a7-next-decision                                                                                                                                                                                                                           33ea3e87 [framing/sfia-studio-v3-native-option-a-t-a7-next-decision-step]
-/Users/morris/Projects/sfia-workspace-t-a7-technical-readiness                                                                                                                                                                                                                     b6a19335 [framing/sfia-studio-v3-native-option-a-t-a7-technical-readiness]
-/Users/morris/Projects/sfia-workspace-t-a7-wave-1-decisions                                                                                                                                                                                                                        f89ba5fb [record/sfia-studio-v3-native-option-a-t-a7-wave-1-decisions]
-/Users/morris/Projects/sfia-workspace-t-a7-wave-1-legacy-scope                                                                                                                                                                                                                     4fad47f7 [framing/sfia-studio-v3-native-option-a-t-a7-wave-1-legacy-scope]
-/Users/morris/Projects/sfia-workspace-template-handoff-fix                                                                                                                                                                                                                         134be301 (detached HEAD)
-/Users/morris/Projects/sfia-workspace-ux-reconciliation                                                                                                                                                                                                                            7bdabdcc [project/sfia-studio-ux-ui-reconciliation]
-/Users/morris/Projects/sfia-workspace-v3-doctrine-consolidation                                                                                                                                                                                                                    daf6f7d0 [method/sfia-studio-v3-doctrine-consolidation]
-/Users/morris/Projects/sfia-workspace-v3-native-audit                                                                                                                                                                                                                              56ddf32e [audit/sfia-studio-v3-native-dependencies]
-/Users/morris/Projects/sfia-workspace-v3-native-option-a-arch                                                                                                                                                                                                                      577ff0c2 [design/sfia-studio-v3-native-option-a-functional-architecture]
-/Users/morris/Projects/sfia-workspace-v3-native-option-a-design                                                                                                                                                                                                                    e22bc243 [design/sfia-studio-v3-native-option-a-functional]
-/Users/morris/Projects/sfia-workspace-v3-native-option-a-modeled                                                                                                                                                                                                                   52891e5c [modeled/sfia-studio-v3-native-option-a]
-/Users/morris/Projects/sfia-workspace-v3-native-option-a-tech                                                                                                                                                                                                                      0b696ed9 [framing/sfia-studio-v3-native-option-a-t-a6-evidence-review-claims-maturity]
-/Users/morris/Projects/sfia-workspace-v3-native-option-a-ux                                                                                                                                                                                                                        608d3d4c [design/sfia-studio-v3-native-option-a-ux-ui]
-/Users/morris/Projects/sfia-workspace-w3-post-closure-truth-sync                                                                                                                                                                                                                   967f4c2b [fix/sfia-studio-real-b-blocker-02]
-/Users/morris/Projects/sfia-workspace-w3-post-closure-truth-sync/.tmp-sfia-review/handoff-wt                                                                                                                                                                                       2b1cbed8 (detached HEAD)
-/Users/morris/Projects/sfia-workspace-w3b-architecture-addendum                                                                                                                                                                                                                    e3f59b17 [docs/sfia-studio-w3-b-post-merge-truth-sync]
-/Users/morris/Projects/sfia-workspace-w3b-bound-snapshot                                                                                                                                                                                                                           8c1f9b86 [delivery/sfia-studio-product-completion-w3-b-bound-snapshot]
-/Users/morris/Projects/sfia-workspace-w3b-delivery-restart                                                                                                                                                                                                                         756cda50 [delivery/sfia-studio-product-completion-w3-b-td-reconciled]
-/Users/morris/Projects/sfia-workspace-w3b-post-closure-sync                                                                                                                                                                                                                        d53afba2 [docs/sfia-studio-w3-b-post-closure-truth-sync]
-/Users/morris/Projects/sfia-workspace-w3b-td02-clarification                                                                                                                                                                                                                       f27e6eeb [docs/sfia-studio-w3-b-td-w3b-02-bound-material-clarification]
-/Users/morris/Projects/sfia-workspace-w3c-post-closure-truth-sync                                                                                                                                                                                                                  30b2f68b [docs/sfia-studio-w3-c-post-closure-truth-sync]
-/Users/morris/Projects/sfia-workspace-w3c-post-evidence-replan                                                                                                                                                                                                                     43ecc335 [delivery/sfia-studio-product-completion-w3-c-post-evidence-replan]
-/Users/morris/Projects/sfia-workspace-w3c-post-merge-coherence                                                                                                                                                                                                                     23a9eb6b [docs/sfia-studio-w3-c-post-merge-coherence]
-/Users/morris/Projects/sfia-workspace-w3d-full-ckc-catalog                                                                                                                                                                                                                         a42c488c [delivery/sfia-studio-product-completion-w3-d-full-ckc-catalog]
-/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-0446bc83-3035-4a0b-9e8d-4661ab748901                                                                                                                                            32e52718 [ops1/action/ops1-xatt-0446bc83-3035-4a0b-9e8d-4661ab748901]
-/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-05525a6a-0adf-4462-b129-c5fa182cdb68                                                                                                                                            32e52718 [ops1/action/ops1-xatt-05525a6a-0adf-4462-b129-c5fa182cdb68]
-/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-0d572b5f-d153-4240-b98d-d29e9c9b2a89                                                                                                                                            27811e8f [ops1/action/ops1-xatt-0d572b5f-d153-4240-b98d-d29e9c9b2a89]
-/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-2025ea48-d8af-436b-ae71-93923c5523b1                                                                                                                                            32e52718 [ops1/action/ops1-xatt-2025ea48-d8af-436b-ae71-93923c5523b1]
-/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-228160ae-0c4b-43c4-8f6e-50eac967ac6f                                                                                                                                            27811e8f [ops1/action/ops1-xatt-228160ae-0c4b-43c4-8f6e-50eac967ac6f]
-/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-266f3e0b-3bc0-48f7-8007-ef9d5b846f10                                                                                                                                            4b279b8a [ops1/action/ops1-xatt-266f3e0b-3bc0-48f7-8007-ef9d5b846f10]
-/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-280d622f-4bf1-402b-a11f-ea56eb4cdc29                                                                                                                                            32e52718 [ops1/action/ops1-xatt-280d622f-4bf1-402b-a11f-ea56eb4cdc29]
-/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-360cabed-4c08-4287-80a4-b3374d8bcb56                                                                                                                                            27811e8f [ops1/action/ops1-xatt-360cabed-4c08-4287-80a4-b3374d8bcb56]
-/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-4667d0cb-b88e-4d05-a347-500ee60a1f62                                                                                                                                            4b279b8a [ops1/action/ops1-xatt-4667d0cb-b88e-4d05-a347-500ee60a1f62]
-/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-4d15862f-ee7a-40a1-9122-5317fbda8928                                                                                                                                            27811e8f [ops1/action/ops1-xatt-4d15862f-ee7a-40a1-9122-5317fbda8928]
-/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-5209292d-9a66-44ed-9147-d643402bff14                                                                                                                                            32e52718 [ops1/action/ops1-xatt-5209292d-9a66-44ed-9147-d643402bff14]
-/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-5fa98d2a-e3e0-4938-a7f2-56b51452e2fd                                                                                                                                            27811e8f [ops1/action/ops1-xatt-5fa98d2a-e3e0-4938-a7f2-56b51452e2fd]
-/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-6a973429-907f-496a-bcbf-bbeb98ef1539                                                                                                                                            27811e8f [ops1/action/ops1-xatt-6a973429-907f-496a-bcbf-bbeb98ef1539]
-/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-6c1b45e4-ae53-40eb-9bd3-4fbde6a5dc61                                                                                                                                            4b279b8a [ops1/action/ops1-xatt-6c1b45e4-ae53-40eb-9bd3-4fbde6a5dc61]
-/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-71baf16b-92d7-47ae-9094-386fd2e0e66a                                                                                                                                            27811e8f [ops1/action/ops1-xatt-71baf16b-92d7-47ae-9094-386fd2e0e66a]
-/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-725e8c1a-a1dd-4dde-9849-a70b94ab3608                                                                                                                                            27811e8f [ops1/action/ops1-xatt-725e8c1a-a1dd-4dde-9849-a70b94ab3608]
-/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-7758d3ee-2fea-44f4-8fd3-4d4b0adfc3ce                                                                                                                                            27811e8f [ops1/action/ops1-xatt-7758d3ee-2fea-44f4-8fd3-4d4b0adfc3ce]
-/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-7b99ce34-67b0-41ef-8f69-00bab598178d                                                                                                                                            27811e8f [ops1/action/ops1-xatt-7b99ce34-67b0-41ef-8f69-00bab598178d]
-/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-7fcd2560-1298-4275-b771-efe52dd5bdb6                                                                                                                                            32e52718 [ops1/action/ops1-xatt-7fcd2560-1298-4275-b771-efe52dd5bdb6]
-/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-80872887-627f-4afa-8f12-a971136a8aa8                                                                                                                                            27811e8f [ops1/action/ops1-xatt-80872887-627f-4afa-8f12-a971136a8aa8]
-/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-8e1adf99-460d-4f61-be9c-fdb06ac287ca                                                                                                                                            4b279b8a [ops1/action/ops1-xatt-8e1adf99-460d-4f61-be9c-fdb06ac287ca]
-/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-91651fa1-4540-4108-adec-1a31768f89d4                                                                                                                                            32e52718 [ops1/action/ops1-xatt-91651fa1-4540-4108-adec-1a31768f89d4]
-/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-99be8189-55a3-4a3f-a58f-7ec1ddb64cc0                                                                                                                                            32e52718 [ops1/action/ops1-xatt-99be8189-55a3-4a3f-a58f-7ec1ddb64cc0]
-/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-9e7b9d80-d7b9-44dd-903c-aecbd1ae3187                                                                                                                                            27811e8f [ops1/action/ops1-xatt-9e7b9d80-d7b9-44dd-903c-aecbd1ae3187]
-/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-a0b14c48-f99e-4406-ab68-3eaeaef02de7                                                                                                                                            27811e8f [ops1/action/ops1-xatt-a0b14c48-f99e-4406-ab68-3eaeaef02de7]
-/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-bbe95b44-c568-4d95-974d-688efebe37b7                                                                                                                                            27811e8f [ops1/action/ops1-xatt-bbe95b44-c568-4d95-974d-688efebe37b7]
-/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-beed0515-1a82-452b-bdae-646d3c9e8846                                                                                                                                            32e52718 [ops1/action/ops1-xatt-beed0515-1a82-452b-bdae-646d3c9e8846]
-/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-bffb454e-caf5-4fec-ac8f-514e313d475e                                                                                                                                            32e52718 [ops1/action/ops1-xatt-bffb454e-caf5-4fec-ac8f-514e313d475e]
-/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-c9b1dda7-ad0d-4d41-bc16-e5f9c8a58700                                                                                                                                            27811e8f [ops1/action/ops1-xatt-c9b1dda7-ad0d-4d41-bc16-e5f9c8a58700]
-/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-ce0e117d-1c6d-4ac4-97a9-bb303bdead9c                                                                                                                                            32e52718 [ops1/action/ops1-xatt-ce0e117d-1c6d-4ac4-97a9-bb303bdead9c]
-/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-cfacc578-e3ce-4628-9a18-0c1f29ce0fa4                                                                                                                                            32e52718 [ops1/action/ops1-xatt-cfacc578-e3ce-4628-9a18-0c1f29ce0fa4]
-/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-d790f0e1-2a6b-40ab-8dc8-f3006efdbaca                                                                                                                                            27811e8f [ops1/action/ops1-xatt-d790f0e1-2a6b-40ab-8dc8-f3006efdbaca]
-/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-e8e66e7a-f871-40a2-b38d-3327a128a353                                                                                                                                            27811e8f [ops1/action/ops1-xatt-e8e66e7a-f871-40a2-b38d-3327a128a353]
-/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-ebfb42b9-b99d-4d49-9be3-e19fe1aef050                                                                                                                                            27811e8f [ops1/action/ops1-xatt-ebfb42b9-b99d-4d49-9be3-e19fe1aef050]
-/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-edde6803-63bb-440e-ab9d-1d5059e1379b                                                                                                                                            4b279b8a [ops1/action/ops1-xatt-edde6803-63bb-440e-ab9d-1d5059e1379b]
-/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-f3be6fd0-79ce-44fa-b5bc-0df452a468a2                                                                                                                                            27811e8f [ops1/action/ops1-xatt-f3be6fd0-79ce-44fa-b5bc-0df452a468a2]
-/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-f9349af8-03f1-4049-947d-b9ceb58d7230                                                                                                                                            27811e8f [ops1/action/ops1-xatt-f9349af8-03f1-4049-947d-b9ceb58d7230]
-/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/worktrees/ops1-xatt-fc8ba3a6-097e-4d70-8d1f-f154c55080f0                                                                                                                                            4b279b8a [ops1/action/ops1-xatt-fc8ba3a6-097e-4d70-8d1f-f154c55080f0]
-/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/m4-worktrees/wt-0c457ce96317ed713224ac4b                                                                                                                                                                     66ffc0d2 (detached HEAD)
-/Users/morris/Projects/sfia-workspace/sfia-review-handoff                                                                                                                                                                                                                          f19cf8e4 [sfia/review-handoff]
-/Users/morris/Projects/sfia-wt-corr04-d-envelope                                                                                                                                                                                                                                   98170691 (detached HEAD)
-/Users/morris/Projects/sfia-wt-corr04-real-12d837fd                                                                                                                                                                                                                                98170691 (detached HEAD)
-/Users/morris/Projects/sfia-wt-corr04-real-locked-12d837fd                                                                                                                                                                                                                         1f48dd81 (detached HEAD)
-/Users/morris/Projects/sfia-wt-corr04-real-main-12d837fd                                                                                                                                                                                                                           1f48dd81 (detached HEAD)
-/Users/morris/Projects/sfia-wt-corr04-recovery-ac7376d9                                                                                                                                                                                                                            7f7184ca [recovery/sfia-studio-proof-corr-04-option-d-ac7376d9]
-/Users/morris/Projects/sfia-wt-corr05-delivery-12d837fd                                                                                                                                                                                                                            1f48dd81 (detached HEAD)
-/Users/morris/Projects/sfia-wt-corr05-delivery-main-12d837fd                                                                                                                                                                                                                       1f48dd81 (detached HEAD)
-/Users/morris/Projects/sfia-wt-corr05-func-12d837fd                                                                                                                                                                                                                                12d837fd [run/sfia-studio-corr05-func-delta-01]
-/Users/morris/Projects/sfia-wt-corr05-impl-12d837fd                                                                                                                                                                                                                                105f6473 [delivery/sfia-studio-proof-corr-05-pilot-lifecycle]
-/Users/morris/Projects/sfia-wt-corr05-preflight-12d837fd                                                                                                                                                                                                                           12d837fd [run/sfia-studio-corr05-delivery-preflight-01]
-/Users/morris/Projects/sfia-wt-lifecycle-recommendation-delivery-e6d7c649                                                                                                                                                                                                          1f48dd81 (detached HEAD)
-/Users/morris/Projects/sfia-wt-lifecycle-recommendation-e6d7c649                                                                                                                                                                                                                   e6d7c649 [design/sfia-studio-lifecycle-recommendation-qualification]
-/Users/morris/Projects/sfia-wt-lifecycle-ux-e6d7c649                                                                                                                                                                                                                               e6d7c649 [ux/sfia-studio-product-proof-lifecycle-penpot]
-/Users/morris/Projects/sfia-wt-lifecycle-ux-impl-e6d7c649                                                                                                                                                                                                                          1f48dd81 (detached HEAD)
-/Users/morris/Projects/sfia-wt-lifecycle-ux-impl-from-e6d7c649                                                                                                                                                                                                                     e6d7c649 [delivery/sfia-studio-product-proof-lifecycle-ux-implementation]
-/Users/morris/Projects/sfia-wt-lr-deliv-clean-e6d7c649                                                                                                                                                                                                                             1f48dd81 (detached HEAD)
-/Users/morris/Projects/sfia-wt-lr-delivery-e6d7c649                                                                                                                                                                                                                                1f48dd81 (detached HEAD)
-/Users/morris/Projects/sfia-wt-lr-delivery-product-e6d7c649                                                                                                                                                                                                                        1f48dd81 (detached HEAD)
-/Users/morris/Projects/sfia-wt-p6-hqa-rec01                                                                                                                                                                                                                                        de8573bd [fix/studio-p6-hqa-rec01-qualification-signals]
-
-```
-
-**Prior handoff CP03:** commit `f19cf8e45f2c1f044613e502f894dfa90b3bf1d5` / blob `71d778320551eb62586a2206414514110f872037` (not project baseline).
-
-**Protection:** Human QA Studio :3020, DOC-PR577, REAL T1 proofs — not mutated.
-
-## D. Sources et Convergence Pre-check
-
-Sources lues : Build Doctrine, Roadmap, C1, framing v3 33/34/35/37, trajectoire Nora 08, GDR P1§12.6 / P2§17, contrat P6, CKC 08/09, process v2.6, handoff CP03.
-
-**Convergence :**
-- Capacité : analyse documentaire gouvernée Nora — KEEP Runner/Session/Loop/Adapter ; ToolRouter ADAPT R6 ; tests ADAPT R6/R7.
-- État : R1–R5 corrigés au scope testé ; R6/R7 ouverts à l'entrée CP04.
-- GDR REAL NOT PROVEN ; P6 GLOBAL NOT PASSED ; Runtime v3 NON ADOPTED.
-- R21 DETERMINISTIC ≠ REAL ; R22 OpenAI-native-first.
-- Architecture parallèle : NONE.
-- Exit proof : R6/R7 fermés sans régression R1–R5.
-
-## E. État CP03 repris
-
-- CP01–CP03 locaux préservés (3 fichiers créés toujours présents).
-- R4/R5 déterministes au scope testé.
-- Réserves ChatGPT CP03 : R6 (envelope oversized-line loop) ; R7 (pack placeholders ≠ regex).
-
-## F. Reproduction R6
-
-Reproduit AVANT correction (fixture ~11900 chars) :
-
-| Surface | completeLineCount | lineExceedsCap | nextStartLineHint |
-|---|---|---|---|
-| Adapter | 1 | false | 2 |
-| prepareGitLocalReadDataForModel (pré-fix) | 0 | false | **1** (loop) |
-| routeToolCall / toolResultForModel | 0 | false | **1** |
-
-Cause : `secondCut && count===0` re-hintait `returnedStartLine` tant que `adapterLineExceedsCap` était false.
-
-## G. Correction R6
-
-Fichier : `toolRouter.ts` — `prepareGitLocalReadDataForModel`.
-
-1. Si `secondCut && count===0` → `lineExceedsCap=true`, `nextStartLineHint=start+1` (ou null), jamais re-hint start.
-2. RESULT_CAPPED : `nextStartLineHint=null` (fail-closed, pas de progression inventée) ; shrink progressif de l'enveloppe jusqu'au plafond.
-3. Pas de mid-line offset ; plafond 12000 inchangé ; autres outils inchangés.
-
-Preuve post-fix : même ligne → `lineExceedsCap=true`, `nextStartLineHint=2` ; lecture suivante obtient `L2`.
-
-## H. Tests R6
-
-Describe `R6 final envelope oversized-line progression` : A–O (dont ToolRouter+Runner R6-O).
-
-## I. Diagnostic de fidélité R7
-
-Comparaison sources :
-
-| Élément | Constat |
+| Path | Type |
 |---|---|
-| Tests locaux CP03 | Fixtures `sk-fake…` / `ghp_fake…` **matchaient** `redaction.ts` et étaient réellement rédigées (vérifié runtime). |
-| Handoff CP03 publié | Anonymisation **publication-only** → `sk-[FIXTURE_REDACTED]` / `ghp_[FIXTURE_REDACTED]` qui **ne matchent pas** les regex (`[` hors charset ; longueur insuffisante). |
-| Cause | Transformation documentaire du pack, **pas** divergence du code exécuté vs code source local. |
-| Risque | Le handoff distant ne permettait pas de re-vérifier les assertions négatives fidèlement. |
+| p6.nora.min09.documentaryReliability.d0.test.ts | CREATED |
+| documentaryBudgetExhausted.ts | CREATED |
+| documentaryReadGuidance.ts | CREATED |
+| p6.nora.p1.adaptiveBudget.d0.test.ts | MODIFIED |
+| adaptiveTurnBudget.ts | MODIFIED |
+| index.ts | MODIFIED |
+| readCoverage.ts | MODIFIED |
+| runNoraAgentsTurn.ts | MODIFIED |
+| runNoraCognitiveTurn.ts | MODIFIED |
+| observability/types.ts | MODIFIED |
+| gitLocalReadAdapter.ts | MODIFIED |
+| toolRouter.ts | MODIFIED |
+| tools/types.ts | MODIFIED |
+| production-runtime-reference.manifest.json | MODIFIED (digest-only sha256_16 for runNoraCognitiveTurn.ts) |
 
-## J. Correction / régularisation R7
+**Note scope :** le 14e fichier est un sync digest PRR obligatoire pour `npm test` / Required Gate après modification d’une source tracked RCD-01. Aucune réécriture doctrinale des volumes markdown.
 
-1. Fixtures reconstruites **programmatiquement** pour matcher exactement `redaction.ts` :
-   - `sk-${`"A".repeat(12)`}`
-   - `ghp_${`"B".repeat(20)`}`
-   - `OPENAI_API_KEY=` + sk fiction
-   - `Authorization: Bearer ` + `"C".repeat(24)`
-2. Assertions **positives** : `redactSecrets(fixture) === "[redacted]"`.
-3. Assertions **négatives** : tokens absents des sorties.
-4. Preuve de discrimination : redactor cassé (test-only) laisserait fuiter ; redactor réel non.
-5. **CP04 Review Pack publie le fichier de test LOCAL réel** (pas de rewrite hors-regex). Les tokens fiction `sk-AAAAAAAAAAAA` / `ghp_BBBB…` sont intentionnels, non sensibles, et regex-conformes.
+**Exclus :** `.tmp-sfia-review/**`, doctrine, Human QA, package.json, REAL config, DOC-PR577.
 
-## K. Tests de sécurité R7
+## H. Git Review Index
 
-Describe `R7 security fixture / evidence fidelity` : A–I (adapter, ToolRouter, Session, EventSink, JSON).
+RCD-01 cumulative CP01–CP04 on native Agents path ; ceilings 10 / 12000 preserved ; R1–R7 deterministic.
 
-## L. Correspondance source / test / handoff
+## I. Diff cumulatif exploitable (`d8ceb8ad..HEAD`)
 
-| Couche | Fidélité CP04 |
-|---|---|
-| Source test exécuté | = contenu §P N.CREATED (fichier réel) |
-| Regex redaction.ts | inchangées |
-| Pack CP03 | documenté comme anonymisé hors-regex (historique) |
-| Pack CP04 | copie fidèle du source testé |
+```
+ ...p6.nora.min09.documentaryReliability.d0.test.ts | 1689 ++++++++++++++++++++
+ .../p6.nora.p1.adaptiveBudget.d0.test.ts           |   16 +
+ .../nora-cognitive-runtime/adaptiveTurnBudget.ts   |   35 +
+ .../documentaryBudgetExhausted.ts                  |  194 +++
+ .../documentaryReadGuidance.ts                     |   26 +
+ .../app/lib/nora-cognitive-runtime/index.ts        |   11 +
+ .../app/lib/nora-cognitive-runtime/readCoverage.ts |  289 +++-
+ .../nora-cognitive-runtime/runNoraAgentsTurn.ts    |   69 +-
+ .../nora-cognitive-runtime/runNoraCognitiveTurn.ts |   10 +
+ .../app/lib/platform/observability/types.ts        |    4 +-
+ .../lib/platform/repository/gitLocalReadAdapter.ts |  216 ++-
+ .../app/lib/platform/tools/toolRouter.ts           |  333 +++-
+ .../sfia-studio/app/lib/platform/tools/types.ts    |    2 +-
+ .../production-runtime-reference.manifest.json     |    2 +-
+ 14 files changed, 2836 insertions(+), 60 deletions(-)
 
-## M. Git Review Index
+```
 
-| Path | Role |
-|---|---|
-| toolRouter.ts | R5+R6 envelope |
-| gitLocalReadAdapter.ts | R1+R4 |
-| p6.nora.min09.documentaryReliability.d0.test.ts | R1–R7 oracles |
-| documentaryBudgetExhausted.ts / documentaryReadGuidance.ts | CP01 |
-| readCoverage / runNoraAgentsTurn / adaptiveTurnBudget | CP01/CP02 |
-
-## N. Fichiers créés / modifiés
-
-**Créés :** 3 (inchangés en nom ; test enrichi R6/R7).
-**Modifiés ce CP04 :** `toolRouter.ts`, `p6.nora.min09.documentaryReliability.d0.test.ts`.
-**Cumul CP01–CP04 :** voir diffs §O.
-**Interdits :** non touchés.
-
-## O. Diff utile complet cumulatif CP01–CP04
-
-### O.1 toolRouter.ts
+### I.1 Core diffs (adapter + toolRouter)
 
 ```diff
+diff --git a/projects/sfia-studio/app/lib/platform/repository/gitLocalReadAdapter.ts b/projects/sfia-studio/app/lib/platform/repository/gitLocalReadAdapter.ts
+index 4dda7c8c..90e31385 100644
+--- a/projects/sfia-studio/app/lib/platform/repository/gitLocalReadAdapter.ts
++++ b/projects/sfia-studio/app/lib/platform/repository/gitLocalReadAdapter.ts
+@@ -60,12 +60,108 @@ export type GitReadFileResult = {
+   path: string;
+   content: string;
+   summary: string;
++  /** True when the requested range content was cut by byte/char caps. */
+   truncated: boolean;
++  /**
++   * True when lines exist after the *requested* endLine (document continues).
++   * Independent of truncation — a fully returned short range may still have
++   * later lines.
++   */
++  documentHasMore: boolean;
++  /**
++   * Compat aggregate: truncated || documentHasMore.
++   * Prefer the specific flags for new callers.
++   */
++  hasMore: boolean;
++  /** Requested range (clamped to document bounds). */
+   startLine: number;
+   endLine: number;
+-  hasMore: boolean;
++  requestedStartLine: number;
++  requestedEndLine: number;
++  /**
++   * First line of the *complete* returned span.
++   * When completeLineCount=0, equals requested start (no proven span).
++   */
++  returnedStartLine: number;
++  /**
++   * Last line fully present in content (never a mid-truncated line).
++   * When completeLineCount=0, equals returnedStartLine - 1 (empty proven span).
++   */
++  returnedEndLine: number;
++  /** Number of fully returned lines credited for coverage. */
++  completeLineCount: number;
++  /**
++   * Line number that was cut mid-content (not credited), if any.
++   * Null when no partial line was observed.
++   */
++  partialLineNumber: number | null;
++  /**
++   * True when the line at nextStartLineHint (or requested start) cannot fit
++   * under current byte/char caps even alone — explicit skip, not silent loss.
++   */
++  lineExceedsCap: boolean;
++  totalLines: number;
++  /** Next line to request when more content remains; null when complete through EOF. */
++  nextStartLineHint: number | null;
+ };
+
++/**
++ * Count how many leading lines from `lines[startLine-1..endLine-1]` are fully
++ * present as an exact prefix of `body` (no truncation marker). A mid-cut line
++ * is NOT counted.
++ */
++export function countCompleteReturnedLines(input: {
++  lines: string[];
++  startLine: number;
++  endLine: number;
++  body: string;
++}): { completeLineCount: number; partialLineNumber: number | null } {
++  const { lines, startLine, endLine, body } = input;
++  let offset = 0;
++  let completeLineCount = 0;
++  for (let lineNo = startLine; lineNo <= endLine; lineNo++) {
++    const line = lines[lineNo - 1];
++    if (line === undefined) break;
++    if (completeLineCount > 0) {
++      if (offset >= body.length) {
++        // Clean boundary after a complete line — no partial next line.
++        return { completeLineCount, partialLineNumber: null };
++      }
++      if (body[offset] !== "\n") {
++        return { completeLineCount, partialLineNumber: lineNo };
++      }
++      offset += 1;
++    }
++    if (body.length < offset + line.length) {
++      // Prefix of this line may be present — never credit it as complete.
++      const remaining = body.length - offset;
++      if (remaining > 0 && body.slice(offset) === line.slice(0, remaining)) {
++        return { completeLineCount, partialLineNumber: lineNo };
++      }
++      return {
++        completeLineCount,
++        partialLineNumber: remaining > 0 ? lineNo : null,
++      };
++    }
++    if (body.slice(offset, offset + line.length) !== line) {
++      return { completeLineCount, partialLineNumber: lineNo };
++    }
++    offset += line.length;
++    completeLineCount += 1;
++  }
++  return { completeLineCount, partialLineNumber: null };
++}
++
++function lineFitsCaps(
++  line: string,
++  byteCap: number,
++  charCap: number,
++): boolean {
++  return (
++    Buffer.byteLength(line, "utf8") <= byteCap && line.length <= charCap
++  );
++}
++
+ export type GitContentMatch = {
+   path: string;
+   line: number;
+@@ -289,31 +385,113 @@ export class GitLocalReadAdapter {
+
+     const startLine = Math.min(startRequested, totalLines);
+     const endLine = Math.max(startLine, Math.min(endRequested, totalLines));
+-    const ranged = lines.slice(startLine - 1, endLine).join("\n");
+-    const hasMoreLines = endLine < totalLines;
+-
+-    const cap = Math.min(maxBytes, CT_DEFAULT_READ_MAX_BYTES * 2);
+-    const byteSlice =
+-      Buffer.byteLength(ranged, "utf8") > cap
+-        ? Buffer.from(ranged, "utf8").subarray(0, cap).toString("utf8")
+-        : ranged;
+-    const byteTruncated = Buffer.byteLength(ranged, "utf8") > cap;
+-    const redacted = redactSecrets(byteSlice);
+-    const { text, truncated: charTruncated } = truncateText(
+-      redacted,
+-      CT_MAX_TOOL_RESULT_CHARS,
+-    );
+-    const truncated = byteTruncated || charTruncated;
+-    const hasMore = hasMoreLines || truncated;
++    const documentHasMore = endLine < totalLines;
++
++    // R4 — Redact per-line BEFORE size caps / complete-line accounting.
++    // Never compare redacted body to original lines; never rebuild from raw secrets.
++    const rangedOriginal = lines.slice(startLine - 1, endLine);
++    const rangedRedacted = rangedOriginal.map((line) => redactSecrets(line));
++    const redactedJoined = rangedRedacted.join("\n");
++
++    const byteCap = Math.min(maxBytes, CT_DEFAULT_READ_MAX_BYTES * 2);
++    const charCap = CT_MAX_TOOL_RESULT_CHARS;
++    const byteTruncated = Buffer.byteLength(redactedJoined, "utf8") > byteCap;
++    const byteSlice = byteTruncated
++      ? Buffer.from(redactedJoined, "utf8").subarray(0, byteCap).toString("utf8")
++      : redactedJoined;
++    // Defense: re-redact after byte slice (should be no-op if already clean).
++    const safeSlice = redactSecrets(byteSlice);
++    const charTruncated = safeSlice.length > charCap;
++    const cappedBody = charTruncated ? safeSlice.slice(0, charCap) : safeSlice;
++    const sizeTruncated = byteTruncated || charTruncated;
++
++    // Count against redacted line array (1-based within rangedRedacted).
++    const { completeLineCount, partialLineNumber: partialInRange } =
++      countCompleteReturnedLines({
++        lines: rangedRedacted,
++        startLine: 1,
++        endLine: rangedRedacted.length,
++        body: cappedBody,
++      });
++
++    const returnedStartLine = startLine;
++    const returnedEndLine =
++      completeLineCount > 0 ? startLine + completeLineCount - 1 : startLine - 1;
++    const partialLineNumber =
++      partialInRange != null ? startLine + partialInRange - 1 : null;
++
++    // Rebuild ONLY from redacted complete lines — secrets never re-enter content.
++    const completeContent =
++      completeLineCount > 0
++        ? rangedRedacted.slice(0, completeLineCount).join("\n")
++        : "";
++
++    const soleRedacted = rangedRedacted[0] ?? "";
++    const lineExceedsCap =
++      completeLineCount === 0 &&
++      !lineFitsCaps(soleRedacted, byteCap, charCap);
++
++    let nextStartLineHint: number | null = null;
++    if (completeLineCount > 0) {
++      nextStartLineHint =
++        returnedEndLine < totalLines ? returnedEndLine + 1 : null;
++    } else if (lineExceedsCap) {
++      // Explicit unblockable line under current caps — do not loop forever on it.
++      nextStartLineHint = startLine < totalLines ? startLine + 1 : null;
++    } else if (partialLineNumber != null) {
++      // Fittable line cut mid-way because a multi-line window hit the cap — retry that line.
++      nextStartLineHint = partialLineNumber;
++    } else if (documentHasMore) {
++      nextStartLineHint = endLine + 1;
++    }
++
++    const truncated =
++      sizeTruncated ||
++      completeLineCount < endLine - startLine + 1 ||
++      lineExceedsCap;
++    const hasMore = documentHasMore || truncated;
++
++    const textRaw = truncated
++      ? completeContent
++        ? `${completeContent}\n…[truncated]`
++        : "…[truncated]"
++      : completeContent;
++    // Final defensive redact — content must stay secret-safe.
++    const text = redactSecrets(textRaw);
++
++    const returnedLabel =
++      completeLineCount > 0
++        ? `returned L${returnedStartLine}-${returnedEndLine}`
++        : "returned none";
++
++    const flags = [
++      truncated ? "truncated" : null,
++      documentHasMore ? "documentHasMore" : null,
++      hasMore ? "hasMore" : null,
++      lineExceedsCap ? "lineExceedsCap" : null,
++      partialLineNumber != null ? `partialLine:${partialLineNumber}` : null,
++    ]
++      .filter(Boolean)
++      .join(" ");
+
+     return {
+       path: norm.normalized,
+       content: text,
+       truncated,
++      documentHasMore,
++      hasMore,
+       startLine,
+       endLine,
+-      hasMore,
+-      summary: `read ${norm.normalized} L${startLine}-${endLine}/${totalLines} (${text.length} chars)${hasMore ? " hasMore" : ""}`,
++      requestedStartLine: startLine,
++      requestedEndLine: endLine,
++      returnedStartLine,
++      returnedEndLine,
++      completeLineCount,
++      partialLineNumber,
++      lineExceedsCap,
++      totalLines,
++      nextStartLineHint,
++      summary: `read ${norm.normalized} L${startLine}-${endLine}/${totalLines} ${returnedLabel} (${text.length} chars)${flags ? ` ${flags}` : ""}`,
+     };
+   }
+
 diff --git a/projects/sfia-studio/app/lib/platform/tools/toolRouter.ts b/projects/sfia-studio/app/lib/platform/tools/toolRouter.ts
 index c57dc074..0a4bcd18 100644
 --- a/projects/sfia-studio/app/lib/platform/tools/toolRouter.ts
@@ -874,259 +743,7 @@ index c57dc074..0a4bcd18 100644
 
 ```
 
-### O.2 gitLocalReadAdapter.ts
-
-```diff
-diff --git a/projects/sfia-studio/app/lib/platform/repository/gitLocalReadAdapter.ts b/projects/sfia-studio/app/lib/platform/repository/gitLocalReadAdapter.ts
-index 4dda7c8c..90e31385 100644
---- a/projects/sfia-studio/app/lib/platform/repository/gitLocalReadAdapter.ts
-+++ b/projects/sfia-studio/app/lib/platform/repository/gitLocalReadAdapter.ts
-@@ -60,12 +60,108 @@ export type GitReadFileResult = {
-   path: string;
-   content: string;
-   summary: string;
-+  /** True when the requested range content was cut by byte/char caps. */
-   truncated: boolean;
-+  /**
-+   * True when lines exist after the *requested* endLine (document continues).
-+   * Independent of truncation — a fully returned short range may still have
-+   * later lines.
-+   */
-+  documentHasMore: boolean;
-+  /**
-+   * Compat aggregate: truncated || documentHasMore.
-+   * Prefer the specific flags for new callers.
-+   */
-+  hasMore: boolean;
-+  /** Requested range (clamped to document bounds). */
-   startLine: number;
-   endLine: number;
--  hasMore: boolean;
-+  requestedStartLine: number;
-+  requestedEndLine: number;
-+  /**
-+   * First line of the *complete* returned span.
-+   * When completeLineCount=0, equals requested start (no proven span).
-+   */
-+  returnedStartLine: number;
-+  /**
-+   * Last line fully present in content (never a mid-truncated line).
-+   * When completeLineCount=0, equals returnedStartLine - 1 (empty proven span).
-+   */
-+  returnedEndLine: number;
-+  /** Number of fully returned lines credited for coverage. */
-+  completeLineCount: number;
-+  /**
-+   * Line number that was cut mid-content (not credited), if any.
-+   * Null when no partial line was observed.
-+   */
-+  partialLineNumber: number | null;
-+  /**
-+   * True when the line at nextStartLineHint (or requested start) cannot fit
-+   * under current byte/char caps even alone — explicit skip, not silent loss.
-+   */
-+  lineExceedsCap: boolean;
-+  totalLines: number;
-+  /** Next line to request when more content remains; null when complete through EOF. */
-+  nextStartLineHint: number | null;
- };
-
-+/**
-+ * Count how many leading lines from `lines[startLine-1..endLine-1]` are fully
-+ * present as an exact prefix of `body` (no truncation marker). A mid-cut line
-+ * is NOT counted.
-+ */
-+export function countCompleteReturnedLines(input: {
-+  lines: string[];
-+  startLine: number;
-+  endLine: number;
-+  body: string;
-+}): { completeLineCount: number; partialLineNumber: number | null } {
-+  const { lines, startLine, endLine, body } = input;
-+  let offset = 0;
-+  let completeLineCount = 0;
-+  for (let lineNo = startLine; lineNo <= endLine; lineNo++) {
-+    const line = lines[lineNo - 1];
-+    if (line === undefined) break;
-+    if (completeLineCount > 0) {
-+      if (offset >= body.length) {
-+        // Clean boundary after a complete line — no partial next line.
-+        return { completeLineCount, partialLineNumber: null };
-+      }
-+      if (body[offset] !== "\n") {
-+        return { completeLineCount, partialLineNumber: lineNo };
-+      }
-+      offset += 1;
-+    }
-+    if (body.length < offset + line.length) {
-+      // Prefix of this line may be present — never credit it as complete.
-+      const remaining = body.length - offset;
-+      if (remaining > 0 && body.slice(offset) === line.slice(0, remaining)) {
-+        return { completeLineCount, partialLineNumber: lineNo };
-+      }
-+      return {
-+        completeLineCount,
-+        partialLineNumber: remaining > 0 ? lineNo : null,
-+      };
-+    }
-+    if (body.slice(offset, offset + line.length) !== line) {
-+      return { completeLineCount, partialLineNumber: lineNo };
-+    }
-+    offset += line.length;
-+    completeLineCount += 1;
-+  }
-+  return { completeLineCount, partialLineNumber: null };
-+}
-+
-+function lineFitsCaps(
-+  line: string,
-+  byteCap: number,
-+  charCap: number,
-+): boolean {
-+  return (
-+    Buffer.byteLength(line, "utf8") <= byteCap && line.length <= charCap
-+  );
-+}
-+
- export type GitContentMatch = {
-   path: string;
-   line: number;
-@@ -289,31 +385,113 @@ export class GitLocalReadAdapter {
-
-     const startLine = Math.min(startRequested, totalLines);
-     const endLine = Math.max(startLine, Math.min(endRequested, totalLines));
--    const ranged = lines.slice(startLine - 1, endLine).join("\n");
--    const hasMoreLines = endLine < totalLines;
--
--    const cap = Math.min(maxBytes, CT_DEFAULT_READ_MAX_BYTES * 2);
--    const byteSlice =
--      Buffer.byteLength(ranged, "utf8") > cap
--        ? Buffer.from(ranged, "utf8").subarray(0, cap).toString("utf8")
--        : ranged;
--    const byteTruncated = Buffer.byteLength(ranged, "utf8") > cap;
--    const redacted = redactSecrets(byteSlice);
--    const { text, truncated: charTruncated } = truncateText(
--      redacted,
--      CT_MAX_TOOL_RESULT_CHARS,
--    );
--    const truncated = byteTruncated || charTruncated;
--    const hasMore = hasMoreLines || truncated;
-+    const documentHasMore = endLine < totalLines;
-+
-+    // R4 — Redact per-line BEFORE size caps / complete-line accounting.
-+    // Never compare redacted body to original lines; never rebuild from raw secrets.
-+    const rangedOriginal = lines.slice(startLine - 1, endLine);
-+    const rangedRedacted = rangedOriginal.map((line) => redactSecrets(line));
-+    const redactedJoined = rangedRedacted.join("\n");
-+
-+    const byteCap = Math.min(maxBytes, CT_DEFAULT_READ_MAX_BYTES * 2);
-+    const charCap = CT_MAX_TOOL_RESULT_CHARS;
-+    const byteTruncated = Buffer.byteLength(redactedJoined, "utf8") > byteCap;
-+    const byteSlice = byteTruncated
-+      ? Buffer.from(redactedJoined, "utf8").subarray(0, byteCap).toString("utf8")
-+      : redactedJoined;
-+    // Defense: re-redact after byte slice (should be no-op if already clean).
-+    const safeSlice = redactSecrets(byteSlice);
-+    const charTruncated = safeSlice.length > charCap;
-+    const cappedBody = charTruncated ? safeSlice.slice(0, charCap) : safeSlice;
-+    const sizeTruncated = byteTruncated || charTruncated;
-+
-+    // Count against redacted line array (1-based within rangedRedacted).
-+    const { completeLineCount, partialLineNumber: partialInRange } =
-+      countCompleteReturnedLines({
-+        lines: rangedRedacted,
-+        startLine: 1,
-+        endLine: rangedRedacted.length,
-+        body: cappedBody,
-+      });
-+
-+    const returnedStartLine = startLine;
-+    const returnedEndLine =
-+      completeLineCount > 0 ? startLine + completeLineCount - 1 : startLine - 1;
-+    const partialLineNumber =
-+      partialInRange != null ? startLine + partialInRange - 1 : null;
-+
-+    // Rebuild ONLY from redacted complete lines — secrets never re-enter content.
-+    const completeContent =
-+      completeLineCount > 0
-+        ? rangedRedacted.slice(0, completeLineCount).join("\n")
-+        : "";
-+
-+    const soleRedacted = rangedRedacted[0] ?? "";
-+    const lineExceedsCap =
-+      completeLineCount === 0 &&
-+      !lineFitsCaps(soleRedacted, byteCap, charCap);
-+
-+    let nextStartLineHint: number | null = null;
-+    if (completeLineCount > 0) {
-+      nextStartLineHint =
-+        returnedEndLine < totalLines ? returnedEndLine + 1 : null;
-+    } else if (lineExceedsCap) {
-+      // Explicit unblockable line under current caps — do not loop forever on it.
-+      nextStartLineHint = startLine < totalLines ? startLine + 1 : null;
-+    } else if (partialLineNumber != null) {
-+      // Fittable line cut mid-way because a multi-line window hit the cap — retry that line.
-+      nextStartLineHint = partialLineNumber;
-+    } else if (documentHasMore) {
-+      nextStartLineHint = endLine + 1;
-+    }
-+
-+    const truncated =
-+      sizeTruncated ||
-+      completeLineCount < endLine - startLine + 1 ||
-+      lineExceedsCap;
-+    const hasMore = documentHasMore || truncated;
-+
-+    const textRaw = truncated
-+      ? completeContent
-+        ? `${completeContent}\n…[truncated]`
-+        : "…[truncated]"
-+      : completeContent;
-+    // Final defensive redact — content must stay secret-safe.
-+    const text = redactSecrets(textRaw);
-+
-+    const returnedLabel =
-+      completeLineCount > 0
-+        ? `returned L${returnedStartLine}-${returnedEndLine}`
-+        : "returned none";
-+
-+    const flags = [
-+      truncated ? "truncated" : null,
-+      documentHasMore ? "documentHasMore" : null,
-+      hasMore ? "hasMore" : null,
-+      lineExceedsCap ? "lineExceedsCap" : null,
-+      partialLineNumber != null ? `partialLine:${partialLineNumber}` : null,
-+    ]
-+      .filter(Boolean)
-+      .join(" ");
-
-     return {
-       path: norm.normalized,
-       content: text,
-       truncated,
-+      documentHasMore,
-+      hasMore,
-       startLine,
-       endLine,
--      hasMore,
--      summary: `read ${norm.normalized} L${startLine}-${endLine}/${totalLines} (${text.length} chars)${hasMore ? " hasMore" : ""}`,
-+      requestedStartLine: startLine,
-+      requestedEndLine: endLine,
-+      returnedStartLine,
-+      returnedEndLine,
-+      completeLineCount,
-+      partialLineNumber,
-+      lineExceedsCap,
-+      totalLines,
-+      nextStartLineHint,
-+      summary: `read ${norm.normalized} L${startLine}-${endLine}/${totalLines} ${returnedLabel} (${text.length} chars)${flags ? ` ${flags}` : ""}`,
-     };
-   }
-
-
-```
-
-### O.3 autres fichiers CP01/CP02
+### I.2 Other modified files (+ PRR digest)
 
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.p1.adaptiveBudget.d0.test.ts b/projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.p1.adaptiveBudget.d0.test.ts
@@ -1216,6 +833,238 @@ index c08d4306..0772901a 100644
    }
 
    // Unknown-heavy path: do not elevate beyond strategy base (UNKNOWN ≠ LOW inflate).
+diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/documentaryBudgetExhausted.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/documentaryBudgetExhausted.ts
+new file mode 100644
+index 00000000..7b5aded4
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/documentaryBudgetExhausted.ts
+@@ -0,0 +1,194 @@
++/**
++ * Honest Product text when mission maxTurns is exhausted without extractable
++ * assistant synthesis. Never invents document content from reasoning/tools.
++ */
++import {
++  parseGitLocalReadCoverageSignals,
++  unionReturnedLineSpans,
++  type ReadCoverageFact,
++} from "./readCoverage";
++
++export const MODEL_TURN_BUDGET_REACHED_STOCK =
++  "Model-turn budget reached (maxTurns).";
++
++type ToolLikeItem = {
++  type?: string;
++  name?: string;
++  rawItem?: { name?: string; type?: string };
++  output?: unknown;
++};
++
++function asRecord(value: unknown): Record<string, unknown> | null {
++  return value && typeof value === "object"
++    ? (value as Record<string, unknown>)
++    : null;
++}
++
++function extractToolResultPayload(item: ToolLikeItem): {
++  summary?: string;
++  data?: Record<string, unknown>;
++} | null {
++  const output = item.output;
++  if (typeof output === "string") {
++    try {
++      const parsed = JSON.parse(output) as Record<string, unknown>;
++      return {
++        summary: typeof parsed.summary === "string" ? parsed.summary : undefined,
++        data: asRecord(parsed.data) ?? undefined,
++      };
++    } catch {
++      return null;
++    }
++  }
++  const outObj = asRecord(output);
++  if (!outObj) return null;
++  if (typeof outObj.text === "string") {
++    try {
++      const parsed = JSON.parse(outObj.text) as Record<string, unknown>;
++      return {
++        summary: typeof parsed.summary === "string" ? parsed.summary : undefined,
++        data: asRecord(parsed.data) ?? undefined,
++      };
++    } catch {
++      return { summary: outObj.text.slice(0, 240) };
++    }
++  }
++  return {
++    summary: typeof outObj.summary === "string" ? outObj.summary : undefined,
++    data: asRecord(outObj.data) ?? outObj,
++  };
++}
++
++/**
++ * Build coverage facts from Runner newItems / Session-like tool results.
++ */
++export function collectReadFactsFromRunItems(
++  items: unknown[],
++): ReadCoverageFact[] {
++  const facts: ReadCoverageFact[] = [];
++  for (const raw of items) {
++    const item = asRecord(raw) as ToolLikeItem | null;
++    if (!item) continue;
++    const name =
++      item.name ??
++      item.rawItem?.name ??
++      (typeof (item as { toolName?: string }).toolName === "string"
++        ? (item as { toolName?: string }).toolName
++        : undefined);
++    const type = item.type ?? item.rawItem?.type;
++    const isResult =
++      type === "function_call_result" ||
++      type === "tool_call_output_item" ||
++      type === "function_call_output";
++    if (!isResult && name !== "git_local_read_file") continue;
++    if (name && name !== "git_local_read_file") continue;
++    if (name !== "git_local_read_file" && !isResult) continue;
++
++    const payload = extractToolResultPayload(item);
++    if (!payload) continue;
++    const data = payload.data ?? {};
++    const summary =
++      payload.summary ??
++      (typeof data.summary === "string" ? data.summary : undefined);
++    const path =
++      (typeof data.path === "string" && data.path) ||
++      (summary ? parseGitLocalReadCoverageSignals({ summary })?.documentPath : null);
++    if (!path && !summary) continue;
++
++    const parsed = parseGitLocalReadCoverageSignals({
++      summary: summary ?? null,
++      pathOrRef:
++        typeof data.returnedStartLine === "number" &&
++        typeof data.returnedEndLine === "number"
++          ? `${path}#L${data.returnedStartLine}-${data.returnedEndLine}`
++          : path,
++    });
++    if (!parsed) continue;
++
++    const truncated =
++      data.truncated === true || parsed.truncated === true;
++    const documentHasMore =
++      data.documentHasMore === true || parsed.documentHasMore === true;
++    const returnedStartLine =
++      typeof data.returnedStartLine === "number"
++        ? data.returnedStartLine
++        : parsed.returnedStartLine;
++    const returnedEndLine =
++      typeof data.returnedEndLine === "number"
++        ? data.returnedEndLine
++        : parsed.returnedEndLine;
++
++    facts.push({
++      pathOrRef: `${parsed.documentPath}#L${returnedStartLine}-${returnedEndLine}`,
++      documentPath: parsed.documentPath,
++      // Budget-exhausted disclosure never promotes FULL from tool crumbs alone.
++      coverage: "partial",
++      startLine: parsed.startLine,
++      endLine: parsed.endLine,
++      returnedStartLine,
++      returnedEndLine,
++      totalLines: parsed.totalLines,
++      hasMore: truncated || documentHasMore || parsed.hasMore,
++      truncated,
++      documentHasMore,
++      nextStartLineHint:
++        typeof data.nextStartLineHint === "number"
++          ? data.nextStartLineHint
++          : parsed.nextStartLineHint,
++      signals: [
++        truncated ? "truncated" : null,
++        documentHasMore ? "documentHasMore" : null,
++      ].filter(Boolean) as string[],
++      origin: "current_turn",
++    });
++  }
++  return facts;
++}
++
++/**
++ * Honest incomplete narrative — never fabricates document synthesis.
++ */
++export function buildDocumentaryBudgetExhaustedText(input: {
++  items: unknown[];
++  stockMessage?: string;
++}): string {
++  const stock = input.stockMessage ?? MODEL_TURN_BUDGET_REACHED_STOCK;
++  const facts = collectReadFactsFromRunItems(input.items);
++  if (facts.length === 0) {
++    return stock;
++  }
++
++  const unions = unionReturnedLineSpans(facts);
++  const lines: string[] = [
++    stock,
++    "",
++    "Analyse documentaire inachevée — budget model-turn atteint avant une synthèse finalisée.",
++    "Périmètre réellement remis par l'outil (plages retournées, pas le contenu inventé) :",
++  ];
++
++  for (const u of unions) {
++    const spanTxt = u.spans
++      .map((s) => `L${s.start}-${s.end}`)
++      .join(", ");
++    const total =
++      typeof u.totalLines === "number" ? ` / ${u.totalLines}` : "";
++    lines.push(
++      `- ${u.documentPath}: ${spanTxt}${total}${u.provenFull ? " (couverture intégrale prouvée)" : " (couverture partielle)"}`,
++    );
++  }
++
++  const hints = facts
++    .map((f) => f.nextStartLineHint)
++    .filter((n): n is number => typeof n === "number");
++  if (hints.length > 0) {
++    lines.push(
++      `Reprise possible depuis la ligne ${Math.min(...hints)} (nextStartLineHint observé) — aucune HumanDecision ni Deliverable inventés.`,
++    );
++  } else {
++    lines.push(
++      "Aucune HumanDecision ni Deliverable inventés ; statut Product incomplete.",
++    );
++  }
++
++  return lines.join("\n");
++}
+diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/documentaryReadGuidance.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/documentaryReadGuidance.ts
+new file mode 100644
+index 00000000..f0e982e1
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/documentaryReadGuidance.ts
+@@ -0,0 +1,26 @@
++/**
++ * Bounded documentary-read guidance appended to system instructions when the
++ * Pilot request is a natural mono-file Git synthesis mission.
++ *
++ * Not a parallel document engine — advisory only. OpenAI-native-first (R22).
++ */
++
++export const DOCUMENTARY_READ_GUIDANCE_BLOCK = [
++  "=== DOCUMENTARY READ GUIDANCE (bounded / native tools) ===",
++  "- Prefer startLine/endLine windows sized to stay under the tool character cap.",
++  "- truncated=true ⇒ the requested range was cut; continue from nextStartLineHint.",
++  "- documentHasMore=true with truncated=false ⇒ the range was fully returned; later lines remain.",
++  "- Do not re-read already returned prefixes; advance with nextStartLineHint.",
++  "- Before the mission model-turn budget ends, write a clearly PARTIAL synthesis of portions actually returned.",
++  "- Never claim full-document analysis without FULL returned coverage L1–total and no truncation.",
++].join("\n");
++
++export function appendDocumentaryReadGuidance(
++  systemInstructions: string,
++  enabled: boolean,
++): string {
++  if (!enabled) return systemInstructions;
++  const base = systemInstructions.trim();
++  if (base.includes("DOCUMENTARY READ GUIDANCE")) return systemInstructions;
++  return `${base}\n\n${DOCUMENTARY_READ_GUIDANCE_BLOCK}`;
++}
 diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
 index 09f32abd..4bbc11a6 100644
 --- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
@@ -1814,10 +1663,23 @@ index 00c5b8b3..042b53ff 100644
      parameters: {
        type: "object",
        properties: {
+diff --git a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
+index 030c43bd..4dd9057f 100644
+--- a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
++++ b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
+@@ -622,7 +622,7 @@
+     },
+     {
+       "path": "projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts",
+-      "sha256_16": "0ae04ca7503de628"
++      "sha256_16": "f4804915f8906eda"
+     },
+     {
+       "path": "projects/sfia-studio/app/lib/nora-cognitive-runtime/productSqliteSession.ts",
 
 ```
 
-### P / N.CREATED — `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.min09.documentaryReliability.d0.test.ts` (contenu source réel testé)
+### J/K — CREATED `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.min09.documentaryReliability.d0.test.ts` (contenu complet commit `9b855d8ddabd`)
 
 ```typescript
 /**
@@ -3512,7 +3374,7 @@ describe("P6-MIN-09 — R7 security fixture / evidence fidelity", () => {
 
 ```
 
-### P / N.CREATED — `projects/sfia-studio/app/lib/nora-cognitive-runtime/documentaryBudgetExhausted.ts` (contenu source réel testé)
+### J/K — CREATED `projects/sfia-studio/app/lib/nora-cognitive-runtime/documentaryBudgetExhausted.ts` (contenu complet commit `9b855d8ddabd`)
 
 ```typescript
 /**
@@ -3712,7 +3574,7 @@ export function buildDocumentaryBudgetExhaustedText(input: {
 
 ```
 
-### P / N.CREATED — `projects/sfia-studio/app/lib/nora-cognitive-runtime/documentaryReadGuidance.ts` (contenu source réel testé)
+### J/K — CREATED `projects/sfia-studio/app/lib/nora-cognitive-runtime/documentaryReadGuidance.ts` (contenu complet commit `9b855d8ddabd`)
 
 ```typescript
 /**
@@ -3744,57 +3606,112 @@ export function appendDocumentaryReadGuidance(
 
 ```
 
-## Q. Résultats des validations
+## L. Validations locales
 
 | Contrôle | Résultat |
 |---|---|
-| MIN09 documentaryReliability | **51 PASS** |
-| P1 adaptiveBudget | 8 PASS |
-| P1P2 targetedVerification | 7 PASS |
-| P1P2 documentary.mission | 5 PASS |
-| session.d0 | 7 PASS |
-| tsc --noEmit | PASS |
 | git diff --check | PASS |
+| MIN09 + P1/P2/Session (78 tests) | PASS |
+| npm run typecheck | PASS |
+| npm run lint | PASS |
+| npm run build | PASS |
+| PRR conformance (après digest sync) | PASS |
+| Secret scan local (fiction fixtures) | PASS |
 | REAL OpenAI | ZERO |
-| Project commit/push/PR | NONE |
 
-## R. Fake / Real Qualification
+## M. Fake/Real Qualification
 
-- DETERMINISTIC ONLY ; ScriptedModel = frontière modèle seule.
-- Parité outil : Adapter → ToolRouter → redaction → envelope.
-- Claim : CP04 DETERMINISTIC VALIDATED AT TESTED SCOPE.
-- Interdit : GDR REAL PASS / P6 GLOBAL PASS / Product READY / Runtime v3 ADOPTED.
+- Fake: ScriptedModel @ model boundary only.
+- Entry: DETERMINISTIC PROVEN AT TESTED SCOPE.
+- This cycle: CODE PUBLISHED + CI QUALIFIED.
+- Hors scope: REAL BOUNDARY / E2E GDR REAL / P6 GLOBAL PASS.
 
-## S. Invariants / FinOps
+## N. Commit SHA
 
-P0/P1/P2/TV01/Session/Git RO/ceiling 10 / CT_MAX_TOOL_RESULT_CHARS=12000 / no HumanDecision inventée — PRESERVED.
+`9b855d8ddabd9bf9fffb8561f63d1138d8939be4`
 
-## T. Réserves et dette/exit
+```
+9b855d8d fix(studio): improve Nora documentary analysis reliability
+ ...p6.nora.min09.documentaryReliability.d0.test.ts | 1689 ++++++++++++++++++++
+ .../p6.nora.p1.adaptiveBudget.d0.test.ts           |   16 +
+ .../nora-cognitive-runtime/adaptiveTurnBudget.ts   |   35 +
+ .../documentaryBudgetExhausted.ts                  |  194 +++
+ .../documentaryReadGuidance.ts                     |   26 +
+ .../app/lib/nora-cognitive-runtime/index.ts        |   11 +
+ .../app/lib/nora-cognitive-runtime/readCoverage.ts |  289 +++-
+ .../nora-cognitive-runtime/runNoraAgentsTurn.ts    |   69 +-
+ .../nora-cognitive-runtime/runNoraCognitiveTurn.ts |   10 +
+ .../app/lib/platform/observability/types.ts        |    4 +-
+ .../lib/platform/repository/gitLocalReadAdapter.ts |  216 ++-
+ .../app/lib/platform/tools/toolRouter.ts           |  333 +++-
+ .../sfia-studio/app/lib/platform/tools/types.ts    |    2 +-
+ .../production-runtime-reference.manifest.json     |    2 +-
+ 14 files changed, 2836 insertions(+), 60 deletions(-)
 
-- FPPC-RES-01 OPEN ; P0-EFFECT-02 NOT PROVEN ; RunState cross-restart DEFER.
-- lineExceedsCap : skip explicite (adapter + envelope) ; pas de mid-line offset.
-- GDR REAL NOT PROVEN ; P6 GLOBAL NOT PASSED ; Runtime v3 NON ADOPTED.
-- **R6/R7 : FERMÉS au scope déterministe testé.**
-- Exit proof : progression bornée envelope + preuves sécurité fidèles/reproductibles.
+```
 
-## U. Décisions Morris restantes
+## O. Push SHA
 
-1. GO intégration Git unique gouvernée RCD-01 (CP01–CP04) — NON consommé.
-2. GO retest Human QA T1 REAL après intégration — NON autorisé.
-3. Aucun GO commit/push/PR/merge projet implicite.
+`9b855d8ddabd9bf9fffb8561f63d1138d8939be4` — equals local HEAD (verified via fetch + ls-remote).
 
-## V. Verdict
+## P. Draft PR
 
-**TARGETED CORRECTION CP04 COMPLETE LOCALLY / DETERMINISTIC QA PASS / READY FOR CHATGPT REVIEW**
+- Number: **578**
+- URL: https://github.com/mcleland147/sfia-workspace/pull/578
+- Draft: **true**
+- Base: `main`
+- Head: `fix/p6-min09-documentary-cognitive-reliability-01`
+- head SHA: `9b855d8ddabd9bf9fffb8561f63d1138d8939be4`
 
-## W. Instruction ChatGPT
+## Q. CI run / jobs / status / conclusion
 
-Lire le Review Handoff `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md`.
+- Workflow: **SFIA Studio CI**
+- Run ID: **38357286682**
+- URL: https://github.com/mcleland147/sfia-workspace/actions/runs/38357286682
+- Status: completed
+- Conclusion: **success**
 
-Vérifier : Git Truth ; diff CP01–CP04 ; R6 progression finie ; R7 fixtures regex-conformes + assertions positives ; payload model-visible ; confidentialité ; non-régression ; plafonds ; réserves ; verdict.
+Jobs:
+- Detect SFIA Studio changes — success (7s) — ID 115163003253
+- Build and validate SFIA Studio — success (5m34s) — ID 115163050501
+  - Typecheck, Lint, Build, Unit tests (Vitest), Modeled governance, Secret scan, Trailing whitespace — all success
+- SFIA Studio Required Gate — success (2s) — ID 115164740786
 
-Si suffisant : qualifier RCD-01 pour intégration Git unique gouvernée.
-Aucun GO commit/push/PR/merge projet implicite.
+## R. Required Gate
+
+**PASS** — SFIA Studio Required Gate conclusion=success on run 38357286682.
+
+## S. Architecture / FinOps
+
+KEEP Runner/Session/Loop. ADAPT Adapter/ToolRouter/coverage/budget. Ceiling 10. CT_MAX_TOOL_RESULT_CHARS=12000. No provider/routing/persistence change.
+
+## T. Réserves
+
+FPPC-RES-01 · P0-EFFECT-02 · RunState cross-restart · lineExceedsCap skip · DOC-PR577 séparée · GDR REAL NOT PROVEN · P6 GLOBAL NOT PASSED · Runtime v3 NON ADOPTED
+
+## U. Dette / exit
+
+Exit proof ce cycle : Draft PR créée, commit/push distants vérifiés, scope conforme (+digest PRR documenté), CI Required Gate PASS, Review Handoff exploitable.
+
+Capacité suivante : Human QA REAL GDR T1 après merge + GO distinct.
+
+## V. Décisions Morris restantes
+
+1. **GO MERGE** PR #578 — NON consommé.
+2. **GO post-merge / Human QA REAL T1** — NON autorisé.
+3. Aucun auto-merge.
+
+## W. Verdict
+
+**DRAFT PR OPEN — PROJECT COMMIT/PUSH VERIFIED — CI PASS — AWAITING MORRIS MERGE GATE**
+
+## X. Instruction ChatGPT
+
+Lire le dernier Review Handoff distant sur `sfia/review-handoff`.
+
+Vérifier : SHA commit projet `9b855d8ddabd9bf9fffb8561f63d1138d8939be4` ; SHA push ; PR #578 URL Draft ; base/head ; diff PR ; CI run 38357286682 ; Required Gate PASS ; réserves ; gates Morris.
+
+Préparer la revue de merge **sans exécuter le merge**.
 
 ---
-FIN DU REVIEW PACK FULL — CP04
+FIN DU REVIEW PACK FULL — RCD-01 GIT INTEGRATION
