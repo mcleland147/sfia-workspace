@@ -1,242 +1,188 @@
-# SFIA STUDIO — P6-MIN-09 HUMAN QA REAL T1
-## Review Pack FULL — EXECUTION EVIDENCE AUDIT (READ-ONLY)
+# SFIA STUDIO — P6-MIN-09 NORA REAL OBSERVABILITY
+## Review Pack FULL — TARGETED QUALIFICATION (READ-ONLY)
 
-**Horodatage:** 2026-10-13 15:28:30 CEST
-**ScenarioId:** P6-MIN-09
-**Test:** Human QA REAL T1 — Post-RCD-01 Retest
+**Horodatage:** 2026-10-13 15:46:30 CEST
 **Cycle:** 9 — QA / validation
 **Profil:** CRITICAL
-**Typologie:** QA / EVIDENCE AUDIT
-**GO Morris:** 2026-10-13 — AUDIT READ-ONLY AUTORISÉ
-**Verdict technique Cursor:** **P6-MIN-09 T1 — FUNCTIONAL RESPONSE OBSERVED / REAL EXECUTION NOT FULLY PROVEN**
+**Typologie:** RUN / QA AUDIT — READ ONLY
+**Chantier:** T1 REAL OBSERVABILITY QUALIFICATION
+**GO Morris:** 2026-10-13 — ACCEPT T1 FUNCTIONAL WITH RESERVES + AUTHORIZE TARGETED REAL OBSERVABILITY QUALIFICATION
+**Verdict:** **P6-MIN-09 — T1 FUNCTIONAL ACCEPTED WITH RESERVES / REAL OBSERVABILITY GAP QUALIFIED / READY FOR CHATGPT REVIEW**
 
 ---
 
-## A. GO / Scope
+## 1–3. GO / Qualification / Git Truth
 
-Lecture seule uniquement. Aucun nouvel appel OpenAI. Aucun renvoi T1. Aucune mutation Product/SQLite/config. Write Git borné = Review Handoff L3 uniquement.
-
-## B. Git Truth Check
-
-| Item | Valeur |
-|------|--------|
+| Item | Value |
+|------|-------|
 | Runtime WT | `/Users/morris/Projects/sfia-workspace-studio-runtime-main-bd3f440c` |
-| HEAD | `bd3f440c749a059d73fb76e09bb1d0ce91e27af4` |
-| origin/main | `bd3f440c749a059d73fb76e09bb1d0ce91e27af4` |
+| HEAD / origin/main | `bd3f440c749a059d73fb76e09bb1d0ce91e27af4` |
+| PR #578 / #579 | present (ancestors) |
 | Status | clean |
-| RCD-01 files | PRESENT |
-| runNora sha256_16 | `f4804915f8906eda` |
-| :3020 | PID 63574 · CWD = runtime WT · started 2026-10-13 14:57:38 CEST |
+| Mutations Product | **NONE** |
+| OpenAI calls this pass | **ZERO** |
+| T1 replay | **NONE** |
 
-Handoff env antérieur `edd8e232` = realignment only — **not** T1 proof.
+## 4–6. Sources / Convergence / T1 reference
 
-## C. Convergence Pre-check
+Handoff T1 audit: `efa5f1e0` / blob `2394f988` (latest on `sfia/review-handoff` at entry — no newer T1 pack).
 
-P0/P1/P2 + RCD-01 + PR #579 INTEGRATED. GDR REAL was NOT PROVEN pre-audit. P6 GLOBAL NOT PASSED. Runtime v3 NON ADOPTED.
+T1: `ltu:ff0b592f20f22452a59161655d07a433` · FUNCTIONAL ACCEPTED WITH RESERVES · Git acquisition proven · Provider REAL **NOT PROVEN** · logical status `accepted` · Runner DTO complete status NOT OBSERVED in durable store.
 
-## D. T1 Run Identity — PROVEN
+P0/P1/P2/RCD-01 INTEGRATED · P6 GLOBAL NOT PASSED · Runtime v3 NON ADOPTED.
 
-| Champ | Valeur |
-|-------|--------|
-| projectId | `prj:e66fd58c-03f6-41df-90c8-4ae267926212` |
-| title | Simplification des interactions avec l’IA |
-| session_key | `f1-default` |
-| logicalTurnId | **`ltu:ff0b592f20f22452a59161655d07a433`** |
-| cycleInstanceId | `cyc:trj-255a8418ee8a735f23738c46` |
-| status (logical_product_turns) | **accepted** |
-| created_at (logical) | 2026-10-13T13:07:08.350Z |
-| transcript user | `pt:af713d584fa2e28c` @ 2026-10-13T13:07:56.593Z |
-| transcript assistant | `pt:72f6f510bfab6b3a` @ 2026-10-13T13:07:56.595Z |
-| journal | `cje:3d46b816bdf4c44d` (active) linked to same pts |
-
-Distinct from FAILED historique `ltu:fe4526f3e425b133a8187433f2b23d6f` (2026-10-12).
-
-## E. Runtime provenance for this T1
-
-| Evidence | Observation |
-|----------|-------------|
-| Server start | 14:57:38 CEST (LaunchAgent on main RCD-01 WT) |
-| T1 timestamp | 15:07:56 CEST (~10 min after start) |
-| Dev log | `POST /api/studio/projects/.../assistant/send 200 in 60555ms` after compile of send route |
-| Checkout HEAD | `bd3f440c` + RCD-01 digest match |
-
-**Correlation:** strong that this T1 was served by the post-realignment RCD-01 instance. Not a cryptographic runtime attestation, but temporally consistent (NOT the pre-RCD-01 campaign server).
-
-## F. Requête exacte
+## 7–8. Product → Runner → provider map
 
 ```
-Nora, j'ai un document dans notre dépôt Git qui pourrait nous être utile pour ce projet :
-projects/sfia-studio/product-simplification/01-chat-first-product-simplification-cadrage.md
-Tu peux le consulter et m'en faire une synthèse de ce que tu en retiens ?
+Browser POST /assistant/send
+  → sendProjectAssistantTurn / orchestrateProjectAssistantTurn
+    → ProjectAssistantMemoryEventSink (ephemeral)
+    → runNoraCognitiveTurn (routing + Agents path)
+      → runNoraAgentsTurn (Runner.run)
+        → @openai/agents 0.17.0
+        → result.lastResponseId / result.state.usage
+      ← NoraCognitiveTurnResult {usage, adaptiveObserve, continuationObserve, limitReached, toolCalls, …}
+    → collectToolTelemetry(sink.events)  // TOOL_* only
+    → rememberReadCoverage(partial facts)
+    → ProjectAssistantSendSuccess DTO {status ok|incomplete|cognitive_stop, model, toolCalls, …}
+  → HTTP JSON to UI
+  → GC of in-memory sink + full Nora result
 ```
 
-## G. Réponse Nora (transcript durable — intégrale)
+`logical_product_turns.status=accepted` is minted **before/around** turn acceptance binding (`logicalProductTurn.ts` ~247–277) — **Product logical-turn lifecycle**, not Runner terminal status.
 
-```
-J’ai lu le document complet : **« SFIA Studio — Chat-First Product Simplification — Cycle 1 Cadrage »**. Voici ce que j’en retiens.
+## 9. Existing field inventory
 
-- **Le problème visé n’est pas un manque de fonctionnalités**, mais la complexité interne qui remonte dans l’expérience : trop de navigation, de désambiguïsation, de jargon ou d’étapes que le Pilote et Nora doivent compenser.
-- **La cible est un pilotage réellement centré sur la conversation, pas exclusivement par le chat.** Le Journal, l’état du projet, les preuves ou l’inspection d’un effet peuvent rester des surfaces de soutien spécialisées.
-- **Simplifier ne signifie pas affaiblir la gouvernance.** Le document veut réduire les interactions inutiles tout en préservant les décisions humaines nécessaires, la traçabilité et le traitement prudent des ambiguïtés. Nora interprète et conseille ; Studio conserve les contrôles déterministes et la matérialisation des effets.
-- **C’est un cadrage, pas un plan d’implémentation.** Il privilégie la réutilisation de l’existant, écarte le greenfield et ne tranche ni la politique de décision, ni l’architecture technique, ni le routage des modèles. Les frictions évoquées sont en partie des hypothèses à vérifier, pas des constats tous démontrés.
+### A. `NoraCognitiveTurnResult` (`lib/nora-cognitive-runtime/types.ts` L23–112)
 
-Le document présente son C1 comme validé, mais précise aussi que son intégration Git était encore en cours et que P2 n’était pas autorisé. Ce sont les statuts rapportés par le document, **pas une vérification de l’état Git actuel**, ni des décisions automatiquement applicables à notre projet. Pour notre cadrage, son apport le plus concret est une méthode : partir d’un parcours réel, observer les manipulations et distinguer ce qui est inutile de ce qui protège réellement l’utilisateur ou le projet. Quel parcours actuel te semble le plus pénible à examiner en premier ?
-```
+| Field | Built in Runner? | Propagated in cognitive turn? | On Product DTO? | Persisted durable? | T1 retrievable? |
+|-------|------------------|-------------------------------|-----------------|--------------------|-----------------|
+| usage.input/output/totalTokens | YES (`runNoraAgentsTurn` L917–920 from `result.state?.usage`) | YES | **NO** | **NO** | **NOT OBSERVED** |
+| usage.model | YES (configured projection L921–926; Fake→fake-test-model) | YES | YES (`model`) | **NO** (HTTP only) | **NOT OBSERVED** post-hoc |
+| usage.providerResponseId | YES (`lastResponseId` L815→L927) | YES | **NO** | **NO** | **NOT OBSERVED** |
+| selectedModelId / selectedReasoningEffort / routing ids | YES (cognitive turn) | YES on result | **NO** (client boundary tests assert absence) | **NO** | **NOT OBSERVED** |
+| adaptiveObserve | YES L1010–1013 + sink emit L1017–1038 | YES (`runNoraCognitiveTurn` L990–991) | **NO** | **NO** (sink discarded) | **NOT OBSERVED** |
+| continuationObserve | YES L906–914 + emit L1040–1057 | YES | **NO** | **NO** | **NOT OBSERVED** |
+| limitReached / toolCalls / toolRounds | YES | YES | YES | **NO** durable correlated | toolCalls partially via UI/session tools only |
 
-## H. FAILED historique (référence)
+### B. EventSink
 
-logicalTurnId `ltu:fe4526f3…` assistant head:
+| Item | Finding |
+|------|---------|
+| File | `features/project-assistant/memoryEventSink.ts` L24–33 |
+| Kind | **In-memory array only** — no DB/file |
+| Product wiring | `orchestrateTurn.ts` L439 `new ProjectAssistantMemoryEventSink()` |
+| Consumer | `collectToolTelemetry` keeps **TOOL_SUCCEEDED/DENIED/FAILED only** (`collectToolTelemetry.ts` L45–48) |
+| Dropped | `ADAPTIVE_BUDGET_OBSERVED`, `CONTINUATION_OBSERVED`, `COGNITIVE_*` after request ends |
+| Persist | Only **readCoverage** aggregate via `rememberReadCoverage` (L1268+) — not provider receipt |
 
-```
-Model-turn budget reached (maxTurns).
+### C. SDK
 
-La suite n'a pas pu être déterminée de manière fiable à partir de cette sortie.
-```
+| Item | Finding |
+|------|---------|
+| Package | `@openai/agents` **0.17.0** (installed runtime) |
+| Capture | `result.lastResponseId ?? null` (`runNoraAgentsTurn.ts` L815) |
+| Guarantee for T1 | **HYPOTHESIS** populated when Runner returns id — **NOT VERIFIED** for `ltu:ff0b592f` because never persisted |
+| Fake path | usage.model forced `fake-test-model`; providerResponseId null on some early-return paths L347/L520 |
 
-Contrast: budget maxTurns / no synthesis vs retest synthesis accepted.
+## 10. First loss-of-proof frontier (confirmed)
 
-## I. Git reads inventory (session_items)
+**Primary frontier (P0):** mapping `NoraCognitiveTurnResult` → `ProjectAssistantSendSuccess` (`orchestrateTurn.ts` L1452–1480) **omits** `usage.providerResponseId`, token usage, `adaptiveObserve`, `continuationObserve`, `selectedModelId`.
 
-Tool: `git_local_read_file` · path = P1 cadrage · **17** call/result pairs (UI capture said 16 — **trace count = 17**).
+**Concurrent frontier (P0):** `ProjectAssistantMemoryEventSink` is request-scoped; budget/continuation events are emitted then **not** selected by `collectToolTelemetry` and **not** written to SQLite.
 
-Document total reported by tool: **1664** lines (wc -l on Git blob = **1663**; off-by-one counting reserve).
+**Secondary semantic confusion (P1):** durable `logical_product_turns.status=accepted` ≠ Product send `status=ok|incomplete|cognitive_stop`. Auditors reading only SQLite see “accepted”, not Runner terminal honesty.
 
-| # | Requested | Returned (summary) | Flags |
-|---|-----------|--------------------|-------|
-| 1 | `[1400, 1664]` | incomplete / hasMore (no `returned Lx-y`; ~55 content lines ⇒ ~L1400-1454) | hasMore |
-| 2 | `[1, 180]` | `[1, 123]` | documentHasMore, hasMore, partialLine, truncated |
-| 3 | `[181, 360]` | `[181, 338]` | documentHasMore, hasMore, partialLine, truncated |
-| 4 | `[361, 540]` | `[361, 527]` | documentHasMore, hasMore, partialLine, truncated |
-| 5 | `[541, 720]` | `[541, 687]` | documentHasMore, hasMore, partialLine, truncated |
-| 6 | `[124, 180]` | `[124, 180]` | documentHasMore, hasMore |
-| 7 | `[339, 360]` | `[339, 360]` | documentHasMore, hasMore |
-| 8 | `[528, 540]` | `[528, 540]` | documentHasMore, hasMore |
-| 9 | `[688, 850]` | `[688, 850]` | documentHasMore, hasMore |
-| 10 | `[851, 1010]` | `[851, 1004]` | documentHasMore, hasMore, partialLine, truncated |
-| 11 | `[1011, 1170]` | `[1011, 1170]` | documentHasMore, hasMore |
-| 12 | `[1171, 1330]` | `[1171, 1268]` | documentHasMore, hasMore, partialLine, truncated |
-| 13 | `[1331, 1490]` | `[1331, 1470]` | documentHasMore, hasMore, partialLine, truncated |
-| 14 | `[1005, 1010]` | `[1005, 1010]` | documentHasMore, hasMore |
-| 15 | `[1269, 1330]` | `[1269, 1330]` | documentHasMore, hasMore |
-| 16 | `[1471, 1664]` | `[1471, 1628]` | hasMore, partialLine, truncated |
-| 17 | `[1629, 1664]` | `[1629, 1664]` | — |
+After HTTP response returns, the full Nora result object is **not retrievable** for T1. Session retains tool `function_call_result` crumbs (Git proof) + transcript text + journal — enough for documentary functional proof, **insufficient for provider receipt**.
 
-### Coverage calculation (returned ranges union)
-
-- Read #1 summary lacks `returned Lx-y` (only `hasMore`); coverage union relies on later gap-fills #13–#17 for the tail, not on treating req as returned.
-- Unique lines in returned ranges: **1664 / 1664**
-- Missing intervals: **none**
-- Reads with `truncated`+`partialLine`: **8** (gap-fill follow-ups observed)
-- Final read L1629–1664: complete (no truncated/partialLine)
-
-**Distinctions:**
-- REQUESTED ≠ always fully RETURNED (envelope truncation)
-- UNION of returned complete ranges ⇒ full L1–1664
-- Grounding `readCoverage` crumb still lists **partial** entries (including `#L1629-1664`) — **stale/under-specified vs union**
-- Nora claim « document complet » aligns with union-of-returned-lines, **not** with every individual tool crumb nor grounding aggregate
-
-## J. Provider / Model REAL
+## 11. Provider REAL analysis
 
 | Layer | Status |
 |-------|--------|
-| CONFIGURED | OPENAI_MODEL=`gpt-5.6-luna` · SFIA_STUDIO_CURSOR_REAL=1 |
-| REQUESTED | assistant/send invoked (log) |
-| OBSERVED | ~60.6s server duration; 17 tool calls; reasoning items; durable assistant synthesis |
-| PROVIDER CONFIRMED | **NOT OBSERVED** — no response/request id, token usage ledger, or provider receipt bound to `ltu:ff0b592f…` |
-| Fake markers | **NOT OBSERVED** (no ScriptedModel/FakeConversationProvider identity in turn artifacts) |
+| CONFIGURED | YES (`CURSOR_REAL=1`, OPENAI_MODEL) |
+| REQUESTED | YES (assistant/send ~60s) |
+| INVOKED (circumstantial) | plausible (latency + 17 tools + synthesis) |
+| PROVIDER CONFIRMED | **NOT PROVEN** — no durable `providerResponseId` / token ledger / FinOps capture on F1 path |
+| Fake | no Fake identity in durable T1 artifacts |
 
-Occurrences of the string `openai` inside tool payloads are **document content**, not provider receipts.
+Cannot retroactively confirm OpenAI invocation for T1 without a conserved receipt. This pass does **not** invent one.
 
-**REAL BOUNDARY NOT FULLY PROVEN.**
+## 12. Budget / continuation
 
-## K. Budget / continuation
+Produced on Runner path: `requestedMaxTurns`, `effectiveMaxTurns`, `continued`, `segmentsExecuted`, `stopReason`, `limitReached`, `toolCalls`.
 
-| Item | Status |
-|------|--------|
-| requestedMaxTurns / effectiveMaxTurns | **NOT OBSERVED** |
-| stopReason / limitReached | **NOT OBSERVED** (no maxTurns failure text on retest) |
-| Continuation RunState | **NOT OBSERVED** / not required to explain 17 tools (multi-tool single logical turn) |
-| Contrast FAILED | FAILED explicit `Model-turn budget reached (maxTurns)` |
+For T1: **NOT OBSERVED** in durable store. Inference only: no maxTurns failure text; status likely `ok` path (≠ FAILED). 17 tool calls ≠ 17 model turns (**confirmed distinction** in code: toolCalls counted separately from maxTurns segments).
 
-Inference only (non-proof): turn completed with accepted status + synthesis.
+## 13. Final Product status
 
-## L. Product status
+| Signal | Meaning | T1 |
+|--------|---------|-----|
+| logical `accepted` | logical-turn row minted | YES |
+| send `status` | ok / incomplete / cognitive_stop | **NOT OBSERVED** durable (would have been in HTTP JSON only) |
+| UI no incompleteness banner | consistent with ok | observation only |
 
-| Item | Evidence |
-|------|----------|
-| logical_product_turns.status | `accepted` |
-| Journal entry | created/active with source turn refs |
-| oa.epistemic.updated | correlationId=ltu… result ok |
-| HumanDecision created this turn | **none** (query empty) |
-| Incomplete banner / cognitive_stop text | **NOT OBSERVED** in transcript |
-| Backend orchestrateTurn enum beyond accepted | **NOT OBSERVED** |
+## 14. Other T1 reserves (scoped)
 
-UI absence of incompleteness banner = observation consistent with accepted, not independent proof of `status=ok` DTO.
+| Issue | Confirmed? | Cause | Impact T1 | Priority |
+|-------|------------|-------|-----------|----------|
+| UI 16 vs trace 17 reads | YES | counting/UI aggregation vs session_items | non-blocking | P2 |
+| readCoverage partial vs union full | YES | rememberReadCoverage stores coarse/partial crumbs | honesty metadata lag | P1 |
+| wc -l 1663 vs tool 1664 | YES | line-count convention | non-blocking | P2 |
+| ~60.6s duration | YES | multi-read REAL-like latency | supports circumstantial REAL only | P2 |
 
-## M. Semantic quality (vs source)
+## 15. Gap matrix (summary)
 
-Source title and axes present in Git cadrage (chat-first ≠ chat-only; gouvernance préservée; non-greenfield; C1 statuses ≠ P2; frictions partly hypotheses). Nora’s synthesis matches these axes and explicitly separates document-reported statuses from current Git/project decisions.
+| Signal | Producer | Carrier | Consumer | Persisted? | Retrievable T1? | Gap | Sev | Minimal remediation |
+|--------|----------|---------|----------|------------|-----------------|-----|-----|---------------------|
+| providerResponseId | runNoraAgentsTurn L815/927 | Nora result | **dropped** at orchestrate return | NO | NO | mapping/export | **P0** | Option B: expose+persist correlated to logicalTurnId |
+| tokens usage | Runner state.usage | Nora result | dropped | NO | NO | mapping/export | **P0** | Option B |
+| adaptiveObserve | runNoraAgentsTurn + sink | memory sink | collectToolTelemetry ignores | NO | NO | sink not durable / filter | **P0** | Option B: persist event or DTO field |
+| continuationObserve | same | same | same | NO | NO | same | **P1** | Option B |
+| send status ok/incomplete | orchestrateTurn L1440–1444 | HTTP DTO | UI | NO durable | NO | no ledger | **P1** | Option B: store beside logicalTurnId |
+| Git tool results | ToolRouter→Session | session_items | audit | YES | YES | — | — | KEEP |
+| readCoverage | rememberReadCoverage | session grounding | UI Sources | YES (coarse) | YES | under-specified | P1 | optional honesty fix (separate GO) |
 
-| Axis | Verdict |
-|------|---------|
-| A–F object/problem/chat-first/governance/reuse/cadrage | PASS (content-aligned) |
-| G historical statuses contextualized | PASS |
-| H limits recognized | PASS |
-| I no material invention observed in sampled axes | PASS (bounded review) |
-| J useful for Pilot | PASS (ends with actionable next question) |
-| Coverage claim wording | RESERVE — « complet » vs grounding partial crumbs |
+## 16. Options
 
-## N. Fake/Real Qualification
+**OPTION A — extract-only (no Product change):**
+Improve campaign capture of **future** HTTP responses / in-process harness. **Cannot** recover T1 provider receipt. **Insufficient alone** for REAL proof standard.
 
-Frontière Studio→Nora→Runner→provider: **CONFIGURED + BEHAVIORALLY PLAUSIBLE; PROVIDER RECEIPT ABSENT.**
+**OPTION B — bounded Product seam (recommended):**
+Without new engine/architecture: (1) include `providerResponseId` + token usage + `adaptiveObserve`/`continuationObserve`/`limitReached` on send success DTO **or** append a single durable evidence record keyed by `logicalTurnId`; (2) optionally persist `ADAPTIVE_BUDGET_OBSERVED`/`CONTINUATION_OBSERVED` (or stop relying on ephemeral sink for P0 proofs). Reuse existing types/events. Exit: post-turn query by logicalTurnId returns non-null receipt **or** explicit null with honest NOT_OBSERVED.
 
-Frontière Nora→git_local_read_file→Git: **PROVEN** (17 tool results with path/ranges/flags).
+**OPTION C — structural:**
+Only if B fails because SDK never yields ids / need external tracing. **Not justified yet** (capture path exists; conservation missing).
 
-Level claimed: **FUNCTIONAL / DOCUMENTARY ACQUISITION PROVEN AT T1 SCOPE**.
-Level **not** claimed: REAL BOUNDARY PROVEN · END-TO-END REAL PROVEN · GDR REAL PASS · P6 GLOBAL PASS · PRODUCT READY · runtime v3 ADOPTED.
+## 17. Recommendation
 
-## O. Verdict matrix
+**Prefer OPTION B** under a **distinct Morris implementation GO**.
+Do **not** implement in this pass.
+Do **not** activate OpenAI tracing to third parties.
+Do **not** re-qualify T1 as REAL PROVEN.
 
-| # | Critère | Observation | Preuve | Limite | Verdict |
-|---|---------|-------------|--------|--------|---------|
-| 1 | Run identity | ltu:ff0b592f… | SQLite transcript+logical | — | **PASS** |
-| 2 | Runtime RCD-01 | HEAD+digest+timing | Git+process+log | no signed runtime id | **PASS WITH RESERVES** |
-| 3 | Provider REAL | config+latency | .env keys + 60s send | no provider receipt | **NOT PROVEN** |
-| 4 | Git acquisition | 17 reads | session_items | UI said 16 | **PASS** |
-| 5 | Doc coverage | union 1664/1664 | returned ranges | tool total vs wc -l 1663 | **PASS WITH RESERVES** |
-| 6 | Truncation handling | 8 truncated then gap-fill | summaries | grounding still partial | **PASS WITH RESERVES** |
-| 7 | Budget/continuation | completed; no maxTurns text | contrast FAILED | telemetry absent | **NOT OBSERVED** (no FAIL signal) |
-| 8 | Product status | accepted + journal | SQLite | DTO enum NOT OBSERVED | **PASS WITH RESERVES** |
-| 9 | Synthesis quality | substantive+faithful | transcript vs source | selective by design | **PASS** |
-| 10 | Pilot experience | usable next question | transcript/journal | subjective | **PASS WITH RESERVES** |
-| 11 | Authority | no HD invented | HD query empty | — | **PASS** |
-| 12 | Reserves | listed | this pack | — | **OPEN** |
+Debt if B deferred: `P6-REAL-OBS-P0-RECEIPT-CONSERVATION` — target: durable correlation logicalTurnId↔providerResponseId/usage/budget; exit: audited REAL T1 with PROVIDER CONFIRMED or explicit SDK null.
 
-### Aggregate
+## 18. Fake/Real Qualification (this pass)
 
-**FUNCTIONAL RESPONSE OBSERVED / REAL EXECUTION NOT FULLY PROVEN**
+ZERO NEW REAL. Observability gap **QUALIFIED**. T1 remains FUNCTIONAL ACCEPTED WITH RESERVES · REAL BOUNDARY NOT PROVEN.
 
-Human QA judgment of Morris remains distinct and not auto-consumed here.
+Claims forbidden remain: T1 REAL PASS · E2E REAL PROVEN · P6 GLOBAL PASS · PRODUCT READY · runtime v3 ADOPTED.
 
-## P. Reserves
+## 19. Non-mutation proof
 
-1. Provider receipt / model id / effort / tokens: NOT OBSERVED.
-2. UI 16 vs trace 17 tool calls.
-3. Document line total 1664 (tool) vs 1663 (`wc -l`).
-4. Grounding readCoverage remains partial despite full union.
-5. Nora « complet » is union-level; individual reads truncated.
-6. maxTurns telemetry NOT OBSERVED.
-7. P6 GLOBAL / Product READY / v3: NOT CLAIMED.
+No Product file edits · no SQLite writes · no config changes · no server restart · no commit/push/PR project · handoff L3 only forthcoming.
 
-## Q. P6 consequences / next Morris gates
+## 20. Gates remaining
 
-- Do **not** declare GDR REAL PASS solely from this audit.
-- Options: accept functional progress with REAL receipt gap; require observability hardening; authorize T2 only under new GO.
-- No automatic Product correction. No T2 auto-start.
+1. Morris decision: authorize Option B implementation GO (or accept A-only for campaign process).
+2. After B: bounded retest / next Human QA under separate GO.
+3. No automatic T2.
 
-## R. Project Git effects
+## 21. Verdict
 
-**NONE** (except forthcoming handoff L3). SQLite opened `mode=ro` + `query_only`.
+**P6-MIN-09 — T1 FUNCTIONAL ACCEPTED WITH RESERVES / REAL OBSERVABILITY GAP QUALIFIED / READY FOR CHATGPT REVIEW**
+
+Root cause class: **propagation / non-persistence of already-produced Runner observability**, not absence of producers, and not proven SDK incapacity.
 
 ---
-FIN REVIEW PACK FULL — P6-MIN-09 T1 EVIDENCE AUDIT
+FIN REVIEW PACK FULL — REAL OBSERVABILITY QUALIFICATION
