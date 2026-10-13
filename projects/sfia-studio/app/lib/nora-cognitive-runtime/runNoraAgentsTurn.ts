@@ -24,6 +24,10 @@ import {
   resolveAdaptiveMaxTurns,
   type AdaptiveMaxTurnsDecision,
 } from "./adaptiveTurnBudget";
+import {
+  buildDocumentaryBudgetExhaustedText,
+  MODEL_TURN_BUDGET_REACHED_STOCK,
+} from "./documentaryBudgetExhausted";
 import type { CognitiveStrategyClass } from "./cognitiveWorkloadPolicy";
 import {
   CONTINUATION_MAX_SEGMENTS,
@@ -657,8 +661,11 @@ export async function runNoraAgentsTurn(
   }) => {
     budget.limitReached = true;
     const lastText = extractTextFromRunItems(runData.newItems);
+    const fallback = buildDocumentaryBudgetExhaustedText({
+      items: Array.isArray(runData.newItems) ? runData.newItems : [],
+    });
     return {
-      finalOutput: lastText.trim() || "Model-turn budget reached (maxTurns).",
+      finalOutput: lastText.trim() || fallback,
       includeInHistory: false,
     };
   };
@@ -835,15 +842,14 @@ export async function runNoraAgentsTurn(
             segmentsExecuted += 1;
             allottedTurns = absoluteCap;
             const state = segmentError.state;
+            const segmentItems = Array.isArray(
+              (segmentError as { newItems?: unknown[] }).newItems,
+            )
+              ? ((segmentError as { newItems?: unknown[] }).newItems as unknown[])
+              : [];
             const partial =
-              extractTextFromRunItems(
-                Array.isArray(
-                  (segmentError as { newItems?: unknown[] }).newItems,
-                )
-                  ? ((segmentError as { newItems?: unknown[] })
-                      .newItems as unknown[])
-                  : [],
-              ) || "Model-turn budget reached (maxTurns).";
+              extractTextFromRunItems(segmentItems) ||
+              buildDocumentaryBudgetExhaustedText({ items: segmentItems });
 
             if (
               continuationPlan.enable &&
@@ -1005,6 +1011,51 @@ export async function runNoraAgentsTurn(
     ...adaptiveDecision,
     effectiveMaxTurns: maxTurns,
   };
+
+  // Axe A — bounded observability (no secrets, no document body, no CoT).
+  if (input.sink) {
+    input.sink.emit({
+      type: "ADAPTIVE_BUDGET_OBSERVED",
+      correlationId: input.correlationId,
+      detail: {
+        projectId: input.projectId,
+        strategyClass: adaptiveObserve.strategyClass,
+        requestedMaxTurns: adaptiveObserve.requestedMaxTurns,
+        effectiveMaxTurns: adaptiveObserve.effectiveMaxTurns,
+        floor: adaptiveObserve.floor,
+        ceiling: adaptiveObserve.ceiling,
+        explicitOverride: adaptiveObserve.explicitOverride,
+        reasonCodes: adaptiveObserve.reasonCodes,
+        limitReached: budget.limitReached || budgetStop,
+        toolCalls: budget.executedToolCalls,
+        model:
+          typeof model === "string"
+            ? model
+            : usage.model ?? null,
+        provenance: adaptiveObserve.explicitOverride
+          ? "explicit_override"
+          : "adaptive_policy",
+      },
+    });
+    input.sink.emit({
+      type: "CONTINUATION_OBSERVED",
+      correlationId: input.correlationId,
+      detail: {
+        projectId: input.projectId,
+        continued: continuationObserve.continued,
+        segmentsExecuted: continuationObserve.segmentsExecuted,
+        missionMaxTurns: continuationObserve.missionMaxTurns,
+        segmentMaxTurns: continuationObserve.segmentMaxTurns,
+        allottedTurns: continuationObserve.allottedTurns,
+        stopReason: continuationObserve.stopReason,
+        reasonCodes: continuationObserve.reasonCodes,
+        limitReached: budget.limitReached || budgetStop,
+        stockFallbackUsed:
+          typeof text === "string" &&
+          text.includes(MODEL_TURN_BUDGET_REACHED_STOCK),
+      },
+    });
+  }
 
   return {
     text,

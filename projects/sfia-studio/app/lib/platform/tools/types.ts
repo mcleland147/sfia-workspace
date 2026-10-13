@@ -173,7 +173,7 @@ export const CONTROL_TOWER_TOOL_DEFINITIONS: ToolDefinition[] = [
   {
     name: "git_local_read_file",
     description:
-      "Read a UTF-8 text file relative to repo root. Optional startLine/endLine (1-based inclusive) for deep/ranged reads. truncated/hasMore mean the document was not fully obtained. Paths validated server-side. Read-only.",
+      "Read a UTF-8 text file relative to repo root. Optional startLine/endLine (1-based inclusive). Result fields: requested vs returned line ranges; truncated=true means the requested range was cut by size caps; documentHasMore=true means later lines exist after the requested end; nextStartLineHint is the next line to request. Prefer small windows that fit under the char cap; continue from nextStartLineHint; do not re-read already returned prefixes; leave a turn for a clearly PARTIAL synthesis before the mission turn budget ends. Paths validated server-side. Read-only.",
     parameters: {
       type: "object",
       properties: {
