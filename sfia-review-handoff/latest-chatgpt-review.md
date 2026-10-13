@@ -103,7 +103,7 @@ Document total reported by tool: **1664** lines (wc -l on Git blob = **1663**; o
 
 | # | Requested | Returned (summary) | Flags |
 |---|-----------|--------------------|-------|
-| 1 | `[1400, 1664]` | `[1400, 1664]` | hasMore |
+| 1 | `[1400, 1664]` | incomplete / hasMore (no `returned Lx-y`; ~55 content lines ⇒ ~L1400-1454) | hasMore |
 | 2 | `[1, 180]` | `[1, 123]` | documentHasMore, hasMore, partialLine, truncated |
 | 3 | `[181, 360]` | `[181, 338]` | documentHasMore, hasMore, partialLine, truncated |
 | 4 | `[361, 540]` | `[361, 527]` | documentHasMore, hasMore, partialLine, truncated |
@@ -123,6 +123,7 @@ Document total reported by tool: **1664** lines (wc -l on Git blob = **1663**; o
 
 ### Coverage calculation (returned ranges union)
 
+- Read #1 summary lacks `returned Lx-y` (only `hasMore`); coverage union relies on later gap-fills #13–#17 for the tail, not on treating req as returned.
 - Unique lines in returned ranges: **1664 / 1664**
 - Missing intervals: **none**
 - Reads with `truncated`+`partialLine`: **8** (gap-fill follow-ups observed)
