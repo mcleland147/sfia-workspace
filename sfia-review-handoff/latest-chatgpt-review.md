@@ -41,7 +41,7 @@
 
 Sources lues (Git @ aee4878d): Build Doctrine, Roadmap, C1, 33/35 doctrine, Nora trajectory, P6 contrat §J/K/S/T, template, routing, CKC 08/09, PRR README/04/08/09/manifest, handoff 572fec04.
 
-**Convergence entry:** Option B GIT-INTEGRATED/DET PROVEN · Seam DET · O2 principle+D1+D2 validated by Morris · wiring NOT IMPLEMENTED → **now DET IMPLEMENTED locally** · REAL OPEN · P6 GLOBAL NOT PASSED · Runtime v3 NON ADOIDED.
+**Convergence entry:** Option B GIT-INTEGRATED/DET PROVEN · Seam DET · O2 principle+D1+D2 validated by Morris · wiring NOT IMPLEMENTED → **now DET IMPLEMENTED locally** · REAL OPEN · P6 GLOBAL NOT PASSED · Runtime v3 NON ADOPTED.
 
 **Baseline O2:** detached `aee4878d` — unchanged as HEAD (local dirty only).
 
