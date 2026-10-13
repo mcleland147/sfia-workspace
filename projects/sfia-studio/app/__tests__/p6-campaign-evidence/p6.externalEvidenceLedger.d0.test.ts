@@ -805,4 +805,257 @@ describe("P6 EXTERNAL EVIDENCE LEDGER (DETERMINISTIC)", () => {
     expect(read.rows[0]?.error).toBe("FAILED HISTORICAL");
     expect(fs.readFileSync(ledgerPath, "utf8")).toBe(before);
   });
+
+  function validV2Row(overrides: Record<string, unknown> = {}) {
+    const receipt = buildCognitiveExecutionReceipt({
+      logicalTurnId: "ltu:v2-valid",
+      projectId: "prj:p6-ledger",
+      presentation: "test_provider",
+      productTerminalStatus: "ok",
+      turn: baseTurn() as never,
+    });
+    const built = captureCognitiveExecutionReceiptToP6Ledger({
+      receipt,
+      runId: "P6-V-BUILD-TMP",
+      scenarioId: "P6-MIN-09",
+      absolutePath: path.join(workspaceRoot, "scratch-ledger.jsonl"),
+    });
+    // Prefer constructing from capture entry shape without depending on scratch success.
+    const base: Record<string, unknown> = {
+      kind: "cognitive_execution_receipt",
+      ledgerSchemaVersion: 2,
+      campaignId: P6_CAMPAIGN_ID,
+      runId: "P6-V-VALID",
+      scenarioId: "P6-MIN-09",
+      logicalTurnId: receipt.logicalTurnId,
+      projectId: receipt.projectId,
+      runtimeIdentity: receipt.runtimeIdentity,
+      providerIdentity: receipt.providerIdentity,
+      presentation: receipt.presentation,
+      providerConfigured: receipt.providerConfigured,
+      providerResponseId: receipt.providerResponseId,
+      providerResponseObservation: receipt.providerResponseObservation,
+      proofClassification: receipt.proofClassification,
+      productRealProofStatus: receipt.realProofStatus,
+      selectedModelId: receipt.selectedModelId,
+      observedModel: receipt.observedModel,
+      selectedReasoningEffort: receipt.selectedReasoningEffort,
+      usage: { ...receipt.usage },
+      adaptiveObserve: receipt.adaptiveObserve,
+      continuationObserve: receipt.continuationObserve,
+      toolCalls: receipt.toolCalls,
+      limitReached: receipt.limitReached,
+      productTerminalStatus: receipt.productTerminalStatus,
+      productConservation: { ...receipt.conservation },
+      productCapturedAt: receipt.capturedAt,
+      capturedAt: new Date().toISOString(),
+      captureStatus: "CAPTURED",
+      realBoundaryClaim: "NOT_CLAIMED",
+      campaignProofClassification: "DETERMINISTIC",
+    };
+    void built;
+    return { ...base, ...overrides };
+  }
+
+  it("V01/V02/V03/V04 — null/empty/wrong-type identities rejected on write", () => {
+    for (const [key, value] of [
+      ["logicalTurnId", null],
+      ["projectId", null],
+      ["runId", ""],
+      ["scenarioId", ""],
+      ["logicalTurnId", 42],
+      ["projectId", {}],
+    ] as const) {
+      const row = validV2Row({ [key]: value, runId: `P6-V-ID-${key}` });
+      if (key === "runId") row.runId = value as never;
+      const result = appendP6EvidenceLedgerRow(row, { absolutePath: ledgerPath });
+      expect(result.ok).toBe(false);
+      if (!result.ok) {
+        expect(["RECEIPT_IDENTITY", "RECEIPT_SCHEMA", "CAMPAIGN_ROW_REQUIRED_FIELDS"]).toContain(
+          result.code,
+        );
+      }
+    }
+  });
+
+  it("V05/V06 — unknown terminal rejected; legitimate Product statuses accepted", () => {
+    const bad = appendP6EvidenceLedgerRow(
+      validV2Row({
+        runId: "P6-V05-BAD",
+        productTerminalStatus: "UNKNOWN_STATUS",
+      }),
+      { absolutePath: ledgerPath },
+    );
+    expect(bad.ok).toBe(false);
+    if (!bad.ok) expect(bad.code).toBe("RECEIPT_STATUS");
+
+    for (const status of ["ok", "provider_error", "incomplete", "cognitive_stop"] as const) {
+      const receipt = buildCognitiveExecutionReceipt({
+        logicalTurnId: `ltu:v06-${status}`,
+        projectId: "prj:p6-ledger",
+        presentation: "test_provider",
+        productTerminalStatus: status,
+        turn: status === "provider_error" ? null : (baseTurn() as never),
+      });
+      const captured = captureCognitiveExecutionReceiptToP6Ledger({
+        receipt,
+        runId: `P6-V06-${status}`,
+        scenarioId: "P6-MIN-09",
+        absolutePath: ledgerPath,
+      });
+      expect(captured.ok).toBe(true);
+    }
+  });
+
+  it("V07/V08 — unknown observation/captureStatus rejected", () => {
+    const obs = appendP6EvidenceLedgerRow(
+      validV2Row({
+        runId: "P6-V07",
+        providerResponseObservation: "PROVIDER_CONFIRMED",
+      }),
+      { absolutePath: ledgerPath },
+    );
+    expect(obs.ok).toBe(false);
+    if (!obs.ok) expect(obs.code).toBe("RECEIPT_STATUS");
+
+    const cap = appendP6EvidenceLedgerRow(
+      validV2Row({ runId: "P6-V08", captureStatus: "MAYBE" }),
+      { absolutePath: ledgerPath },
+    );
+    expect(cap.ok).toBe(false);
+    if (!cap.ok) expect(cap.code).toBe("RECEIPT_STATUS");
+  });
+
+  it("V09/V10/V11 — Fake accepted; null id with NOT_OBSERVED; provenance contradictions rejected", () => {
+    const fake = capture(ledgerPath, { runId: "P6-V09-FAKE" });
+    expect(fake.ok).toBe(true);
+    if (fake.ok) {
+      expect(fake.entry.providerResponseObservation).toBe("FAKE_DETERMINISTIC");
+      expect(fake.entry.productRealProofStatus).toBe("NOT_PROVEN");
+    }
+
+    const nullId = appendP6EvidenceLedgerRow(
+      validV2Row({
+        runId: "P6-V10",
+        providerResponseId: null,
+        providerResponseObservation: "NOT_OBSERVED",
+        providerIdentity: "openai",
+        presentation: "openai_live",
+        providerConfigured: true,
+      }),
+      { absolutePath: ledgerPath },
+    );
+    expect(nullId.ok).toBe(true);
+
+    const contradiction = appendP6EvidenceLedgerRow(
+      validV2Row({
+        runId: "P6-V11",
+        providerResponseObservation: "NOT_OBSERVED",
+        providerResponseId: "resp_should_not_exist",
+      }),
+      { absolutePath: ledgerPath },
+    );
+    expect(contradiction.ok).toBe(false);
+    if (!contradiction.ok) expect(contradiction.code).toBe("PROVENANCE_INVARIANT");
+  });
+
+  it("V12/V13/V14 — invalid counters refused; null tokens OK; bad conservation refused", () => {
+    const neg = appendP6EvidenceLedgerRow(
+      validV2Row({ runId: "P6-V12", toolCalls: -1 }),
+      { absolutePath: ledgerPath },
+    );
+    expect(neg.ok).toBe(false);
+
+    const nullTok = appendP6EvidenceLedgerRow(
+      validV2Row({
+        runId: "P6-V13",
+        usage: { inputTokens: null, outputTokens: null, totalTokens: null },
+        providerResponseId: null,
+        providerResponseObservation: "NOT_OBSERVED",
+        providerIdentity: "openai",
+        presentation: "openai_live",
+        providerConfigured: true,
+      }),
+      { absolutePath: ledgerPath },
+    );
+    expect(nullTok.ok).toBe(true);
+
+    const badCons = appendP6EvidenceLedgerRow(
+      validV2Row({
+        runId: "P6-V14",
+        productConservation: {
+          ok: true,
+          processLocal: "invented",
+          durableLedger: "disabled",
+          failureCode: null,
+        },
+      }),
+      { absolutePath: ledgerPath },
+    );
+    expect(badCons.ok).toBe(false);
+  });
+
+  it("V15/V16 — valid v2 write + HEALTHY reopen", () => {
+    const ok = appendP6EvidenceLedgerRow(validV2Row({ runId: "P6-V15" }), {
+      absolutePath: ledgerPath,
+    });
+    expect(ok.ok).toBe(true);
+    const read = readP6EvidenceLedger({ absolutePath: ledgerPath });
+    expect(read.integrityPass).toBe(true);
+    expect(read.rows.some((r) => r.runId === "P6-V15")).toBe(true);
+  });
+
+  it("V17/V18 — invalid status/identity on disk → integrityPass=false", () => {
+    ensureP6EvidenceLedger({ absolutePath: ledgerPath });
+    fs.appendFileSync(
+      ledgerPath,
+      `${JSON.stringify(
+        validV2Row({
+          runId: "P6-V17",
+          productTerminalStatus: "UNKNOWN_STATUS",
+        }),
+      )}\n`,
+      "utf8",
+    );
+    const r1 = readP6EvidenceLedger({ absolutePath: ledgerPath });
+    expect(r1.integrityPass).toBe(false);
+    expect(r1.semanticErrors).toBeGreaterThan(0);
+
+    fs.writeFileSync(ledgerPath, "", "utf8");
+    fs.appendFileSync(
+      ledgerPath,
+      `${JSON.stringify(validV2Row({ runId: "P6-V18", logicalTurnId: null }))}\n`,
+      "utf8",
+    );
+    const r2 = readP6EvidenceLedger({ absolutePath: ledgerPath });
+    expect(r2.integrityPass).toBe(false);
+    expect(r2.semanticErrors).toBeGreaterThan(0);
+  });
+
+  it("V19/V20 — historical campaign + FAILED preserved beside invalidated v2", () => {
+    appendP6EvidenceLedgerRow(
+      {
+        campaignId: P6_CAMPAIGN_ID,
+        scenarioId: "P6-MIN-01",
+        runId: "P6-V19-HIST",
+        ok: false,
+        error: "FAILED HISTORICAL",
+      },
+      { absolutePath: ledgerPath },
+    );
+    const before = fs.readFileSync(ledgerPath, "utf8");
+    fs.appendFileSync(
+      ledgerPath,
+      `${JSON.stringify(validV2Row({ runId: "P6-V20-BAD", projectId: null }))}\n`,
+      "utf8",
+    );
+    const read = readP6EvidenceLedger({ absolutePath: ledgerPath });
+    expect(read.integrityPass).toBe(false);
+    expect(read.rows.find((r) => r.runId === "P6-V19-HIST")?.error).toBe(
+      "FAILED HISTORICAL",
+    );
+    expect(fs.readFileSync(ledgerPath, "utf8").startsWith(before.trimEnd())).toBe(
+      true,
+    );
+  });
 });

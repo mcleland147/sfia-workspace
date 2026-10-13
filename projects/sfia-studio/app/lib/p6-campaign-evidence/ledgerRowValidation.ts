@@ -65,12 +65,58 @@ function isNonEmptyString(v: unknown): v is string {
   return typeof v === "string" && v.trim().length > 0;
 }
 
-function isNullOrNumber(v: unknown): boolean {
-  return v === null || (typeof v === "number" && Number.isFinite(v));
+function isNullOrNonNegNumber(v: unknown): boolean {
+  return (
+    v === null ||
+    (typeof v === "number" && Number.isFinite(v) && (v as number) >= 0)
+  );
 }
 
 function isNullOrString(v: unknown): boolean {
   return v === null || typeof v === "string";
+}
+
+/** Product AssistantTurnStatus — from features/project-assistant/types.ts */
+const PRODUCT_TERMINAL_STATUSES = new Set([
+  "ok",
+  "cognitive_stop",
+  "incomplete",
+  "stopped",
+  "provider_unavailable",
+  "provider_error",
+  "project_not_found",
+  "validation_error",
+  "stale",
+  "decision_error",
+  "prepare_error",
+  "execute_error",
+]);
+
+/** ProviderResponseObservation — from cognitiveExecutionReceipt.ts */
+const PROVIDER_RESPONSE_OBSERVATIONS = new Set([
+  "FAKE_DETERMINISTIC",
+  "NOT_OBSERVED",
+  "RUNNER_RESPONSE_ID_OBSERVED",
+]);
+
+const CAPTURE_STATUSES = new Set(["CAPTURED"]);
+
+const CONSERVATION_PROCESS_LOCAL = new Set([
+  "remembered",
+  "failed",
+  "skipped",
+]);
+
+const CONSERVATION_DURABLE_LEDGER = new Set([
+  "not_authorized_candidate",
+  "disabled",
+]);
+
+function oneOf(value: unknown, allowed: Set<string>, label: string): string | null {
+  if (typeof value !== "string" || !allowed.has(value)) {
+    return `${label} invalid`;
+  }
+  return null;
 }
 
 function validateHistoricalCampaignRow(
@@ -156,9 +202,13 @@ function validateProductConservation(value: unknown): string | null {
   }
   const o = value as Record<string, unknown>;
   if (typeof o.ok !== "boolean") return "productConservation.ok";
-  if (typeof o.processLocal !== "string") return "productConservation.processLocal";
-  if (typeof o.durableLedger !== "string") {
-    return "productConservation.durableLedger";
+  if (oneOf(o.processLocal, CONSERVATION_PROCESS_LOCAL, "productConservation.processLocal")) {
+    return "productConservation.processLocal invalid";
+  }
+  if (
+    oneOf(o.durableLedger, CONSERVATION_DURABLE_LEDGER, "productConservation.durableLedger")
+  ) {
+    return "productConservation.durableLedger invalid";
   }
   if (!(o.failureCode === null || typeof o.failureCode === "string")) {
     return "productConservation.failureCode";
@@ -166,9 +216,46 @@ function validateProductConservation(value: unknown): string | null {
   return null;
 }
 
+function validateNonNegCountFields(adaptive: unknown, continuation: unknown): string | null {
+  if (adaptive != null && typeof adaptive === "object" && !Array.isArray(adaptive)) {
+    const o = adaptive as Record<string, unknown>;
+    for (const key of [
+      "requestedMaxTurns",
+      "effectiveMaxTurns",
+      "floor",
+      "ceiling",
+    ] as const) {
+      const n = o[key];
+      if (typeof n !== "number" || !Number.isFinite(n) || n < 0) {
+        return `adaptiveObserve.${key} must be non-negative finite number`;
+      }
+    }
+  }
+  if (
+    continuation != null &&
+    typeof continuation === "object" &&
+    !Array.isArray(continuation)
+  ) {
+    const o = continuation as Record<string, unknown>;
+    for (const key of [
+      "segmentsExecuted",
+      "missionMaxTurns",
+      "segmentMaxTurns",
+      "allottedTurns",
+    ] as const) {
+      const n = o[key];
+      if (typeof n !== "number" || !Number.isFinite(n) || n < 0) {
+        return `continuationObserve.${key} must be non-negative finite number`;
+      }
+    }
+  }
+  return null;
+}
+
 /**
  * Cognitive receipt rows — schema v2 complete projection required for new writes
  * and for read-integrity of rows that declare ledgerSchemaVersion=2.
+ * Presence alone is insufficient: identities and enums must hold valid values.
  */
 export function validateCognitiveReceiptRow(
   row: Record<string, unknown>,
@@ -211,6 +298,23 @@ export function validateCognitiveReceiptRow(
       };
     }
   }
+
+  // Identities — non-null, non-empty strings (null is NOT acceptable).
+  for (const key of [
+    "runId",
+    "scenarioId",
+    "logicalTurnId",
+    "projectId",
+  ] as const) {
+    if (!isNonEmptyString(row[key])) {
+      return {
+        ok: false,
+        code: "RECEIPT_IDENTITY",
+        message: `${key} must be a non-empty string`,
+      };
+    }
+  }
+
   if (row.campaignId !== P6_CAMPAIGN_ID) {
     return {
       ok: false,
@@ -288,6 +392,28 @@ export function validateCognitiveReceiptRow(
       message: "providerConfigured must be boolean",
     };
   }
+
+  const obsErr = oneOf(
+    row.providerResponseObservation,
+    PROVIDER_RESPONSE_OBSERVATIONS,
+    "providerResponseObservation",
+  );
+  if (obsErr) {
+    return { ok: false, code: "RECEIPT_STATUS", message: obsErr };
+  }
+  const termErr = oneOf(
+    row.productTerminalStatus,
+    PRODUCT_TERMINAL_STATUSES,
+    "productTerminalStatus",
+  );
+  if (termErr) {
+    return { ok: false, code: "RECEIPT_STATUS", message: termErr };
+  }
+  const capErr = oneOf(row.captureStatus, CAPTURE_STATUSES, "captureStatus");
+  if (capErr) {
+    return { ok: false, code: "RECEIPT_STATUS", message: capErr };
+  }
+
   if (!isNullOrString(row.providerResponseId)) {
     return {
       ok: false,
@@ -295,6 +421,45 @@ export function validateCognitiveReceiptRow(
       message: "providerResponseId must be string or null",
     };
   }
+  // Empty string id is not a real observation.
+  if (row.providerResponseId === "") {
+    return {
+      ok: false,
+      code: "RECEIPT_SCHEMA",
+      message: "providerResponseId empty string not allowed (use null)",
+    };
+  }
+
+  // Provenance invariants from Product CognitiveExecutionReceipt contract.
+  if (row.providerResponseObservation === "NOT_OBSERVED") {
+    if (row.providerResponseId !== null) {
+      return {
+        ok: false,
+        code: "PROVENANCE_INVARIANT",
+        message: "NOT_OBSERVED requires providerResponseId=null",
+      };
+    }
+  }
+  if (row.providerResponseObservation === "RUNNER_RESPONSE_ID_OBSERVED") {
+    if (!isNonEmptyString(row.providerResponseId)) {
+      return {
+        ok: false,
+        code: "PROVENANCE_INVARIANT",
+        message: "RUNNER_RESPONSE_ID_OBSERVED requires non-null providerResponseId",
+      };
+    }
+  }
+  if (row.providerResponseObservation === "FAKE_DETERMINISTIC") {
+    if (row.providerIdentity !== "fake" || row.presentation !== "test_provider") {
+      return {
+        ok: false,
+        code: "PROVENANCE_INVARIANT",
+        message:
+          "FAKE_DETERMINISTIC requires providerIdentity=fake and presentation=test_provider",
+      };
+    }
+  }
+
   if (!isNullOrString(row.selectedModelId) || !isNullOrString(row.observedModel)) {
     return {
       ok: false,
@@ -318,14 +483,14 @@ export function validateCognitiveReceiptRow(
   }
   const usage = row.usage as Record<string, unknown>;
   if (
-    !isNullOrNumber(usage.inputTokens) ||
-    !isNullOrNumber(usage.outputTokens) ||
-    !isNullOrNumber(usage.totalTokens)
+    !isNullOrNonNegNumber(usage.inputTokens) ||
+    !isNullOrNonNegNumber(usage.outputTokens) ||
+    !isNullOrNonNegNumber(usage.totalTokens)
   ) {
     return {
       ok: false,
       code: "RECEIPT_SCHEMA",
-      message: "usage tokens must be number or null (null ≠ 0)",
+      message: "usage tokens must be null or non-negative finite number (null ≠ 0)",
     };
   }
   const adaptiveErr = validateAdaptiveObserve(row.adaptiveObserve);
@@ -336,11 +501,22 @@ export function validateCognitiveReceiptRow(
   if (contErr) {
     return { ok: false, code: "RECEIPT_SCHEMA", message: contErr };
   }
-  if (typeof row.toolCalls !== "number" || !Number.isFinite(row.toolCalls)) {
+  const countErr = validateNonNegCountFields(
+    row.adaptiveObserve,
+    row.continuationObserve,
+  );
+  if (countErr) {
+    return { ok: false, code: "RECEIPT_SCHEMA", message: countErr };
+  }
+  if (
+    typeof row.toolCalls !== "number" ||
+    !Number.isFinite(row.toolCalls) ||
+    row.toolCalls < 0
+  ) {
     return {
       ok: false,
       code: "RECEIPT_SCHEMA",
-      message: "toolCalls must be finite number",
+      message: "toolCalls must be non-negative finite number",
     };
   }
   if (typeof row.limitReached !== "boolean") {
