@@ -172,12 +172,19 @@ Convention: each card lists **SoT**, **persistence**, **key paths**, **tests**. 
 ## OBJ-TURN-ORCH — Project assistant / Nora turn orchestration
 
 - **Purpose:** Product/Nora turn spine — `orchestrateTurn` → `runNoraCognitiveTurn` → Agents Runner (`runNoraAgentsTurn`).
-- **Paths:** `features/project-assistant/orchestrateTurn.ts`, `actions.ts`, `f2/orchestrateF2.ts`, `lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts` (+ Runner helpers `runNoraAgentsTurn.ts`, `adaptiveTurnBudget.ts`, `controlledContinuation.ts` — some untracked in manifest).
-- **Adaptive mission maxTurns (P1):** when Product omits `maxTurns`, `resolveAdaptiveMaxTurns` selects Routine=5 / Focused=8 / Deep|High-Assurance=10 (ceiling **10**, not experimental 12). Explicit **finite** `maxTurns` remains tests/eval override. Explicit **NaN / ±Infinity** fail-closed via existing `normalizeSafeNonNegativeInteger` before Runner dispatch (no adaptive fallback).
+- **Paths:** `features/project-assistant/orchestrateTurn.ts`, `actions.ts`, `f2/orchestrateF2.ts`, `lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts` (+ Runner helpers `runNoraAgentsTurn.ts`, `adaptiveTurnBudget.ts`, `controlledContinuation.ts`, `readCoverage.ts`, `documentaryReadGuidance.ts`, `documentaryBudgetExhausted.ts` — some untracked in manifest). Tool path: `lib/platform/repository/gitLocalReadAdapter.ts`, `lib/platform/tools/toolRouter.ts` (`prepareGitLocalReadDataForModel`), `lib/platform/security/redaction.ts`.
+- **Adaptive mission maxTurns (P1):** when Product omits `maxTurns`, `resolveAdaptiveMaxTurns` selects Routine=5 / Focused=8 / Deep|High-Assurance=10 (ceiling **10**, not experimental 12). Explicit **finite** `maxTurns` remains tests/eval override. Explicit **NaN / ±Infinity** fail-closed via existing `normalizeSafeNonNegativeInteger` before Runner dispatch (no adaptive fallback). Natural mono-file documentary synthesis prompts may elevate Focused (≥8, ≤10) without raising the FinOps ceiling.
 - **Controlled continuation (P2):** within one Product turn, `MaxTurnsExceededError.state` may resume with absolute `maxTurns` raised toward mission budget; campaign clamps remain imperative.
 - **Status honesty (P0):** `limitReached` → Product status `incomplete` (≠ `ok`, ≠ `cognitive_stop`). Incomplete must not materialize durable LR/ACW illegitimately.
+- **Documentary reliability (RCD-01 / PR #578 INTEGRATED ON MAIN):**
+  - Mono-file documentary guidance may be appended to system instructions (bounded; not a dedicated GDR engine).
+  - `git_local_read_file` returns complete-line coverage only; `truncated` ≠ `documentHasMore`; `hasMore` = document remainder **or** content cut.
+  - Secrets are redacted **before** complete-line accounting; content is never rebuilt from raw secret lines.
+  - Final model-visible JSON envelope is budgeted; coverage fields are reconciled to the payload actually returned (no silent mid-line credit; no false FULL).
+  - Envelope-only oversized lines emit `lineExceedsCap` and advance `nextStartLineHint` (bounded skip; no mid-line offset protocol).
+  - Soft maxTurns exhaustion discloses honest incomplete documentary perimeter from tool results when facts exist.
 - **Invariant:** INV-COG-NE-AUTH — Nora cognition ≠ Product authority.
-- **Non-claims:** no durable RunState across process restart; no Product client `maxTurns` DTO; Runtime v3 not adopted.
+- **Non-claims:** no durable RunState across process restart; no Product client `maxTurns` DTO; no dedicated documentary engine; Runtime v3 not adopted; GDR REAL quality not proven.
 
 ## OBJ-MEMORY-B — ProductSqliteSession / Memory B
 

@@ -5,20 +5,36 @@
 - Runtime v3 **NON ADOPTED**
 - This corpus does not change product behavior by itself (Living Reference is descriptive)
 
-## Overlay — Nora autonomy PR #577 (Draft candidate, not merged)
+## Overlay — Nora autonomy PR #577 (INTEGRATED ON MAIN)
 
 | Item | Status |
 |---|---|
-| P0 incomplete Status Honesty (Chat-first + panel) | AS-IMPLEMENTED on PR #577 candidate — DETERMINISTIC |
+| P0 incomplete Status Honesty (Chat-first + panel) | AS-IMPLEMENTED on main @ `d8ceb8ad` — DETERMINISTIC |
 | P1 Adaptive Runner Budget (5/8/10, ceiling 10) | AS-IMPLEMENTED — DETERMINISTIC |
 | P2 Controlled Continuation (same-turn RunState) + Session-on-resume | AS-IMPLEMENTED — DETERMINISTIC |
-| Explicit non-finite `maxTurns` fail-closed (CI Correction) | AS-IMPLEMENTED locally → integrated on this sync commit |
+| Explicit non-finite `maxTurns` fail-closed (CI Correction) | AS-IMPLEMENTED on main @ `d8ceb8ad` — DETERMINISTIC |
 | **FPPC-RES-01** — prior user utterance not a Session `role:user` AgentInputItem under observed SDK prepare | OPEN residual / NON-BLOCKING |
 | **P0-EFFECT-02** store-level incomplete effects | NOT PROVEN |
 | Cross-restart RunState persistence | **DEFER** (architecture GO required) |
 | Eval/explicit `maxTurns` > adaptive ceiling 10 | NON-BLOCKING (tests/eval only; not Product DTO) |
 | Documentary quality REAL / P6 GLOBAL PASS / Product READY | **NOT PROVEN / NOT CLAIMED** |
 | Runtime v3 | **NON ADOPTED** |
+| Debt **DOC-PR577-POSTMERGE-SYNC** | DOCUMENTARY CORRECTION PREPARED locally — **integration PENDING** |
+
+## Overlay — Documentary reliability RCD-01 / PR #578 (INTEGRATED ON MAIN)
+
+| Item | Status |
+|---|---|
+| Complete-line Git coverage + honest `truncated`/`documentHasMore` | AS-IMPLEMENTED on main @ `44006648` — DETERMINISTIC |
+| Secret redaction before coverage accounting | AS-IMPLEMENTED — DETERMINISTIC |
+| Final model-visible envelope coverage truth (cap 12000) | AS-IMPLEMENTED — DETERMINISTIC |
+| Envelope oversized-line skip (`lineExceedsCap`) | AS-IMPLEMENTED — explicit skip; **no mid-line offset protocol** |
+| Soft maxTurns honest documentary disclosure | AS-IMPLEMENTED — DETERMINISTIC |
+| FinOps ceilings (≤10 / 12000) | UNCHANGED |
+| R1–R7 | CLOSED AT DETERMINISTIC TESTED SCOPE |
+| Dedicated GDR engine / parallel architecture | **NONE** |
+| GDR REAL T1 / P6 GLOBAL PASS / Product READY | **NOT PROVEN / NOT CLAIMED** |
+| Debt **RCD-01-PRR-SEMANTIC-COHERENCE** (OBJ-TURN-ORCH / F04; SEMANTIC IMPACT=YES) | DOCUMENTARY CORRECTION PREPARED locally — **integration PENDING** (digest ≠ semantic closure until Git-integrated + Morris accept) |
 - PocketTasks-observed materialization / MW5 gaps are **mitigated at deterministic tested scope**; REAL OpenAI / PocketTasks parity is **not** re-proven
 - ZERO REAL in PRODUCT-CYCLE-E2E-STABILIZATION-01 — no READY FOR REAL / E2E REAL / Product global READY claimed
 - CHAT-FIRST-GOVERNED-DECISION-LOOP-01: DETERMINISTIC PRODUCT E2E proven at tested scope only — **NOT REAL PROVEN**, **NOT READY FOR REAL**, **NOT PRODUCT GLOBAL READY**
