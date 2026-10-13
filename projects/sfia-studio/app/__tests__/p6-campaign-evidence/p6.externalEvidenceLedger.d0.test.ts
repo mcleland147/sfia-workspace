@@ -13,6 +13,7 @@ import {
   buildCognitiveExecutionReceipt,
   clearCognitiveExecutionReceiptRegistryForTests,
 } from "@/features/project-assistant/cognitiveExecutionReceipt";
+import type { ProjectAssistantSendResult } from "@/features/project-assistant/types";
 import {
   appendP6EvidenceLedgerRow,
   captureCognitiveExecutionReceiptToP6Ledger,
@@ -1057,5 +1058,393 @@ describe("P6 EXTERNAL EVIDENCE LEDGER (DETERMINISTIC)", () => {
     expect(fs.readFileSync(ledgerPath, "utf8").startsWith(before.trimEnd())).toBe(
       true,
     );
+  });
+
+  function productDtoWithReceipt(
+    receipt: ReturnType<typeof buildCognitiveExecutionReceipt>,
+  ): ProjectAssistantSendResult {
+    return {
+      ok: true,
+      status: "ok",
+      text: "fake provenance parity",
+      mode: "fixture",
+      presentation: receipt.presentation,
+      toolRounds: 0,
+      toolCalls: receipt.toolCalls,
+      sources: [],
+      toolEvents: [],
+      project: {
+        projectId: receipt.projectId,
+        name: "Parity",
+        shortReference: "PAR",
+        objective: "Fake provenance parity",
+        contextSummary: "FP",
+        criticality: "STANDARD",
+        constraints: [],
+        lpsId: "lps:fp",
+        lpsVersion: 1,
+        lpsCreatedAt: "2026-10-13T00:00:00.000Z",
+        doctrineId: "pkg:studio-v3-oa",
+        doctrineVersion: "1.0.0",
+        doctrineDigest: "digest:fp",
+        doctrineStatus: "RESOLVED",
+        runtimeMode: "LOCAL_PROCESS",
+        persistence: "PARTIAL",
+        readiness: "NOT_READY",
+      },
+      ephemeralNotice: "",
+      logicalTurnId: receipt.logicalTurnId,
+      cognitiveExecutionReceipt: receipt,
+    };
+  }
+
+  it("FP01/FP02/FP03 — Product openai_live + fake- id → QA seam → HEALTHY readback (no REAL)", () => {
+    const receipt = buildCognitiveExecutionReceipt({
+      logicalTurnId: "ltu:fp01-live-fake",
+      projectId: "prj:p6-ledger",
+      presentation: "openai_live",
+      productTerminalStatus: "ok",
+      turn: baseTurn({
+        usage: {
+          inputTokens: 3,
+          outputTokens: 2,
+          totalTokens: 5,
+          model: "fake-test-model",
+          providerResponseId: "fake-resp-det-01",
+        },
+      }) as never,
+    });
+    expect(receipt.providerIdentity).toBe("fake");
+    expect(receipt.providerResponseObservation).toBe("FAKE_DETERMINISTIC");
+    expect(receipt.presentation).toBe("openai_live");
+    expect(receipt.providerConfigured).toBe(true);
+    expect(receipt.realProofStatus).toBe("NOT_PROVEN");
+    expect(receipt.proofClassification).toBe("DETERMINISTIC");
+
+    const beforeDb = fs.existsSync(sessionDbPath)
+      ? fs.readFileSync(sessionDbPath)
+      : null;
+    const collected = collectP6ProductTurnEvidence({
+      productTurnResult: productDtoWithReceipt(receipt),
+      runId: "P6-FP01-LIVE-FAKE",
+      scenarioId: "P6-MIN-09",
+      absolutePath: ledgerPath,
+    });
+    expect(collected.ok).toBe(true);
+    if (!collected.ok) return;
+    expect(collected.status).toBe("appended");
+    expect(collected.entry.providerIdentity).toBe("fake");
+    expect(collected.entry.providerResponseObservation).toBe(
+      "FAKE_DETERMINISTIC",
+    );
+    expect(collected.entry.presentation).toBe("openai_live");
+    expect(collected.entry.providerResponseId).toBe("fake-resp-det-01");
+    expect(collected.entry.productRealProofStatus).toBe("NOT_PROVEN");
+    expect(collected.entry.realBoundaryClaim).toBe("NOT_CLAIMED");
+    expect(collected.entry.proofClassification).toBe("DETERMINISTIC");
+
+    const reopened = readP6EvidenceLedger({ absolutePath: ledgerPath });
+    expect(reopened.integrityPass).toBe(true);
+    const row = reopened.rows.find((r) => r.runId === "P6-FP01-LIVE-FAKE");
+    expect(row?.providerResponseObservation).toBe("FAKE_DETERMINISTIC");
+    expect(row?.presentation).toBe("openai_live");
+    expect(row?.providerIdentity).toBe("fake");
+    expect(row?.productRealProofStatus).toBe("NOT_PROVEN");
+    expect(row?.realBoundaryClaim).toBe("NOT_CLAIMED");
+    expect(row?.logicalTurnId).toBe("ltu:fp01-live-fake");
+    if (beforeDb) {
+      expect(Buffer.compare(fs.readFileSync(sessionDbPath), beforeDb)).toBe(0);
+    } else {
+      expect(fs.existsSync(sessionDbPath)).toBe(false);
+    }
+  });
+
+  it("FP04 — openai_live + fake_ id accepted via Product→QA→ledger", () => {
+    const receipt = buildCognitiveExecutionReceipt({
+      logicalTurnId: "ltu:fp04-underscore",
+      projectId: "prj:p6-ledger",
+      presentation: "openai_live",
+      productTerminalStatus: "ok",
+      turn: baseTurn({
+        usage: {
+          inputTokens: 1,
+          outputTokens: 1,
+          totalTokens: 2,
+          model: "fake-test-model",
+          providerResponseId: "fake_resp_det_underscore",
+        },
+      }) as never,
+    });
+    expect(receipt.providerResponseObservation).toBe("FAKE_DETERMINISTIC");
+    expect(receipt.providerIdentity).toBe("fake");
+
+    const collected = collectP6ProductTurnEvidence({
+      productTurnResult: productDtoWithReceipt(receipt),
+      runId: "P6-FP04-FAKE-UNDERSCORE",
+      scenarioId: "P6-MIN-09",
+      absolutePath: ledgerPath,
+    });
+    expect(collected.ok).toBe(true);
+    const read = readP6EvidenceLedger({ absolutePath: ledgerPath });
+    expect(read.integrityPass).toBe(true);
+    expect(
+      read.rows.find((r) => r.runId === "P6-FP04-FAKE-UNDERSCORE")
+        ?.providerResponseId,
+    ).toBe("fake_resp_det_underscore");
+  });
+
+  it("FP05 — test_provider Fake historique toujours accepté", () => {
+    const ok = capture(ledgerPath, { runId: "P6-FP05-TEST-PROVIDER" });
+    expect(ok.ok).toBe(true);
+    if (!ok.ok) return;
+    expect(ok.entry.presentation).toBe("test_provider");
+    expect(ok.entry.providerResponseObservation).toBe("FAKE_DETERMINISTIC");
+    expect(ok.entry.providerConfigured).toBe(false);
+    expect(ok.entry.productRealProofStatus).toBe("NOT_PROVEN");
+  });
+
+  it("FP06/FP07 — openai_live Fake unmarked + FAKE/openai identity refused", () => {
+    const unmarked = appendP6EvidenceLedgerRow(
+      validV2Row({
+        runId: "P6-FP06-UNMARKED",
+        presentation: "openai_live",
+        providerIdentity: "fake",
+        providerResponseObservation: "FAKE_DETERMINISTIC",
+        providerConfigured: true,
+        providerResponseId: "resp_not_an_explicit_fake_marker",
+      }),
+      { absolutePath: ledgerPath },
+    );
+    expect(unmarked.ok).toBe(false);
+    if (!unmarked.ok) expect(unmarked.code).toBe("PROVENANCE_INVARIANT");
+
+    const wrongIdentity = appendP6EvidenceLedgerRow(
+      validV2Row({
+        runId: "P6-FP07-OPENAI-ID",
+        presentation: "openai_live",
+        providerIdentity: "openai",
+        providerResponseObservation: "FAKE_DETERMINISTIC",
+        providerConfigured: true,
+        providerResponseId: "fake-resp-should-be-fake-identity",
+      }),
+      { absolutePath: ledgerPath },
+    );
+    expect(wrongIdentity.ok).toBe(false);
+    if (!wrongIdentity.ok) expect(wrongIdentity.code).toBe("PROVENANCE_INVARIANT");
+  });
+
+  it("FP08/FP09/FP10 — RUNNER not REAL; NOT_OBSERVED+null OK; invalid v2 refused", () => {
+    const runner = buildCognitiveExecutionReceipt({
+      logicalTurnId: "ltu:fp08-runner",
+      projectId: "prj:p6-ledger",
+      presentation: "openai_live",
+      productTerminalStatus: "ok",
+      turn: baseTurn({
+        usage: {
+          inputTokens: 1,
+          outputTokens: 1,
+          totalTokens: 2,
+          model: "gpt-6-luna",
+          providerResponseId: "resp_runner_observed_not_real",
+        },
+      }) as never,
+    });
+    expect(runner.providerResponseObservation).toBe(
+      "RUNNER_RESPONSE_ID_OBSERVED",
+    );
+    const runnerCap = captureCognitiveExecutionReceiptToP6Ledger({
+      receipt: runner,
+      runId: "P6-FP08-RUNNER",
+      scenarioId: "P6-MIN-09",
+      absolutePath: ledgerPath,
+    });
+    expect(runnerCap.ok).toBe(true);
+    if (runnerCap.ok) {
+      expect(runnerCap.entry.productRealProofStatus).toBe("NOT_PROVEN");
+      expect(runnerCap.entry.realBoundaryClaim).toBe("NOT_CLAIMED");
+      expect(runnerCap.entry.proofClassification).toBe("DETERMINISTIC");
+    }
+
+    const notObs = appendP6EvidenceLedgerRow(
+      validV2Row({
+        runId: "P6-FP09-NOT-OBS",
+        providerResponseId: null,
+        providerResponseObservation: "NOT_OBSERVED",
+        providerIdentity: "openai",
+        presentation: "openai_live",
+        providerConfigured: true,
+      }),
+      { absolutePath: ledgerPath },
+    );
+    expect(notObs.ok).toBe(true);
+
+    const bad = appendP6EvidenceLedgerRow(
+      validV2Row({
+        runId: "P6-FP10-BAD",
+        productTerminalStatus: "NOT_A_STATUS",
+      }),
+      { absolutePath: ledgerPath },
+    );
+    expect(bad.ok).toBe(false);
+  });
+
+  it("FP11/FP12/FP13 — reader/writer align; historique + FAILED préservés", () => {
+    const receipt = buildCognitiveExecutionReceipt({
+      logicalTurnId: "ltu:fp11",
+      projectId: "prj:p6-ledger",
+      presentation: "openai_live",
+      productTerminalStatus: "ok",
+      turn: baseTurn({
+        usage: {
+          inputTokens: 1,
+          outputTokens: 1,
+          totalTokens: 2,
+          model: "fake-test-model",
+          providerResponseId: "fake-fp11-rw",
+        },
+      }) as never,
+    });
+    const write = collectP6ProductTurnEvidence({
+      productTurnResult: productDtoWithReceipt(receipt),
+      runId: "P6-FP11-RW",
+      scenarioId: "P6-MIN-09",
+      absolutePath: ledgerPath,
+    });
+    expect(write.ok).toBe(true);
+
+    appendP6EvidenceLedgerRow(
+      {
+        campaignId: P6_CAMPAIGN_ID,
+        scenarioId: "P6-MIN-01",
+        runId: "P6-FP12-HIST",
+        ok: true,
+      },
+      { absolutePath: ledgerPath },
+    );
+    appendP6EvidenceLedgerRow(
+      {
+        campaignId: P6_CAMPAIGN_ID,
+        scenarioId: "P6-MIN-01",
+        runId: "P6-FP13-FAIL",
+        ok: false,
+        error: "FAILED FP HISTORICAL",
+      },
+      { absolutePath: ledgerPath },
+    );
+
+    // Writer refuses unmarked openai_live Fake; reader detects same on disk.
+    const refuse = appendP6EvidenceLedgerRow(
+      validV2Row({
+        runId: "P6-FP11-REFUSE",
+        presentation: "openai_live",
+        providerIdentity: "fake",
+        providerResponseObservation: "FAKE_DETERMINISTIC",
+        providerConfigured: true,
+        providerResponseId: "resp_unmarked",
+      }),
+      { absolutePath: ledgerPath },
+    );
+    expect(refuse.ok).toBe(false);
+
+    const beforeCorrupt = fs.readFileSync(ledgerPath, "utf8");
+    fs.appendFileSync(
+      ledgerPath,
+      `${JSON.stringify(
+        validV2Row({
+          runId: "P6-FP11-DISK-BAD",
+          presentation: "openai_live",
+          providerIdentity: "fake",
+          providerResponseObservation: "FAKE_DETERMINISTIC",
+          providerConfigured: true,
+          providerResponseId: "resp_unmarked_on_disk",
+        }),
+      )}\n`,
+      "utf8",
+    );
+    const read = readP6EvidenceLedger({ absolutePath: ledgerPath });
+    expect(read.integrityPass).toBe(false);
+    expect(read.rows.find((r) => r.runId === "P6-FP11-RW")).toBeTruthy();
+    expect(read.rows.find((r) => r.runId === "P6-FP12-HIST")).toBeTruthy();
+    expect(read.rows.find((r) => r.runId === "P6-FP13-FAIL")?.error).toBe(
+      "FAILED FP HISTORICAL",
+    );
+    expect(fs.readFileSync(ledgerPath, "utf8").startsWith(beforeCorrupt.trimEnd())).toBe(
+      true,
+    );
+  });
+
+  it("FP14/FP15/FP16 — unicité + duplicate skip + SQLite inchangé", () => {
+    const receipt = buildCognitiveExecutionReceipt({
+      logicalTurnId: "ltu:fp14",
+      projectId: "prj:p6-ledger",
+      presentation: "openai_live",
+      productTerminalStatus: "ok",
+      turn: baseTurn({
+        usage: {
+          inputTokens: 1,
+          outputTokens: 1,
+          totalTokens: 2,
+          model: "fake-test-model",
+          providerResponseId: "fake-fp14-uniq",
+        },
+      }) as never,
+    });
+    const first = collectP6ProductTurnEvidence({
+      productTurnResult: productDtoWithReceipt(receipt),
+      runId: "P6-FP14-UNIQ",
+      scenarioId: "P6-MIN-09",
+      absolutePath: ledgerPath,
+    });
+    expect(first.ok).toBe(true);
+
+    const dupReject = collectP6ProductTurnEvidence({
+      productTurnResult: productDtoWithReceipt(receipt),
+      runId: "P6-FP14-UNIQ",
+      scenarioId: "P6-MIN-09",
+      absolutePath: ledgerPath,
+      onDuplicate: "reject",
+    });
+    expect(dupReject.ok).toBe(false);
+
+    const beforeDb = Buffer.from("sqlite-fp16-sentinel");
+    fs.writeFileSync(sessionDbPath, beforeDb);
+    const skip = collectP6ProductTurnEvidence({
+      productTurnResult: productDtoWithReceipt(receipt),
+      runId: "P6-FP14-UNIQ",
+      scenarioId: "P6-MIN-09",
+      absolutePath: ledgerPath,
+      onDuplicate: "skip",
+    });
+    expect(skip.ok).toBe(true);
+    if (skip.ok) expect(skip.status).toBe("duplicate_skipped");
+
+    const other = collectP6ProductTurnEvidence({
+      productTurnResult: productDtoWithReceipt(
+        buildCognitiveExecutionReceipt({
+          logicalTurnId: "ltu:fp14-b",
+          projectId: "prj:p6-ledger",
+          presentation: "openai_live",
+          productTerminalStatus: "ok",
+          turn: baseTurn({
+            usage: {
+              inputTokens: 1,
+              outputTokens: 1,
+              totalTokens: 2,
+              model: "fake-test-model",
+              providerResponseId: "fake-fp14-other",
+            },
+          }) as never,
+        }),
+      ),
+      runId: "P6-FP14-OTHER",
+      scenarioId: "P6-MIN-09",
+      absolutePath: ledgerPath,
+    });
+    expect(other.ok).toBe(true);
+    expect(Buffer.compare(fs.readFileSync(sessionDbPath), beforeDb)).toBe(0);
+
+    const healthy = readP6EvidenceLedger({ absolutePath: ledgerPath });
+    expect(healthy.integrityPass).toBe(true);
+    expect(healthy.duplicateRunIds).toEqual([]);
   });
 });

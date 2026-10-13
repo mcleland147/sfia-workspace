@@ -76,6 +76,18 @@ function isNullOrString(v: unknown): boolean {
   return v === null || typeof v === "string";
 }
 
+/**
+ * Explicit Fake markers — mirrors Product classifyProvider()
+ * (cognitiveExecutionReceipt.ts). Do not invent additional patterns.
+ */
+function isExplicitFakeProviderResponseId(id: unknown): boolean {
+  return (
+    typeof id === "string" &&
+    id.length > 0 &&
+    (id.startsWith("fake-") || id.startsWith("fake_"))
+  );
+}
+
 /** Product AssistantTurnStatus — from features/project-assistant/types.ts */
 const PRODUCT_TERMINAL_STATUSES = new Set([
   "ok",
@@ -449,13 +461,48 @@ export function validateCognitiveReceiptRow(
       };
     }
   }
+  // FAKE_DETERMINISTIC — Product classifyProvider parity (never promote to REAL):
+  //   A. test_provider → fake (id may be null; providerConfigured=false)
+  //   B. openai_live + explicit fake-/fake_ id → fake (providerConfigured=true)
   if (row.providerResponseObservation === "FAKE_DETERMINISTIC") {
-    if (row.providerIdentity !== "fake" || row.presentation !== "test_provider") {
+    if (row.providerIdentity !== "fake") {
       return {
         ok: false,
         code: "PROVENANCE_INVARIANT",
-        message:
-          "FAKE_DETERMINISTIC requires providerIdentity=fake and presentation=test_provider",
+        message: "FAKE_DETERMINISTIC requires providerIdentity=fake",
+      };
+    }
+    if (row.presentation === "test_provider") {
+      if (row.providerConfigured !== false) {
+        return {
+          ok: false,
+          code: "PROVENANCE_INVARIANT",
+          message:
+            "FAKE_DETERMINISTIC on test_provider requires providerConfigured=false",
+        };
+      }
+    } else if (row.presentation === "openai_live") {
+      if (!isExplicitFakeProviderResponseId(row.providerResponseId)) {
+        return {
+          ok: false,
+          code: "PROVENANCE_INVARIANT",
+          message:
+            "FAKE_DETERMINISTIC on openai_live requires explicit fake-/fake_ providerResponseId",
+        };
+      }
+      if (row.providerConfigured !== true) {
+        return {
+          ok: false,
+          code: "PROVENANCE_INVARIANT",
+          message:
+            "FAKE_DETERMINISTIC on openai_live requires providerConfigured=true",
+        };
+      }
+    } else {
+      return {
+        ok: false,
+        code: "PROVENANCE_INVARIANT",
+        message: "FAKE_DETERMINISTIC presentation invalid",
       };
     }
   }
