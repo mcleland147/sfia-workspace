@@ -1,371 +1,257 @@
-# SFIA Review Pack FULL — P6 REAL OBSERVABILITY Option B
-# PR #580 MERGE + POST-MERGE VERIFICATION
+# SFIA Review Pack FULL — P6 HUMAN QA EVIDENCE CAPTURE
+# OPERATIONAL WIRING — POST PR #580
 
-**Horodatage (Europe/Paris):** 2026-10-13 21:39:05 CEST
-**GO Morris:** PR #580 MERGE + POST-MERGE VERIFICATION — 2026-10-13
-**Cycle:** 13 — PR readiness / intégration Git + post-merge obligatoire
+**Horodatage (Europe/Paris):** 2026-10-13 22:20:38 CEST
+**GO Morris:** P6 HUMAN QA EVIDENCE CAPTURE OPERATIONAL WIRING — 2026-10-13
+**Cycle:** 8 — Delivery / implémentation
 **Profil:** CRITICAL
-**CKC:** routing v2.6 + méthode (guidance cognitive, jamais autorité)
+**CKC:** ckc:studio:delivery (+ guidance ckc:studio:qa-validation) — guidance, non-autorité
 **Campagne:** P6-GLOBAL-INTEGRATED-PRODUCT-QA-01
-**Chantier:** P6-REAL-OBS-P0-RECEIPT-CONSERVATION
-**Entry handoff:** c1157813 / blob 0337debb
-**Verdict:** PR #580 MERGED / MAIN CONTENT VERIFIED / POST-MERGE CI REQUIRED GATE PASS / OPTION B GIT-INTEGRATED AT DET SCOPE
+**Chantier:** P6-HUMAN-QA-EVIDENCE-CAPTURE-WIRING
+**Entry handoff:** 89ae2a63 / blob 618f9104
+**Verdict:** STOP — QA HARNESS SOURCE/BASELINE NOT QUALIFIED
 
 ---
 
 ## 1. Git Truth initial
 
-- Worktree: `/Users/morris/Projects/sfia-workspace-p6-real-observability-option-b`
+### Worktree A — Option B (clôturé — NON MODIFIÉ)
+- Path: `/Users/morris/Projects/sfia-workspace-p6-real-observability-option-b`
 - Branch: `fix/p6-real-observability-option-b`
 - HEAD: `b6eb7862affa6a70e9d750135b067e2c0b15015b`
-- origin/main (pré-merge): `bd3f440c749a059d73fb76e09bb1d0ce91e27af4`
+- origin/main: `aee4878d00f76cbb444977bf7ca370fb9b43fc83` (PR #580 MERGED)
+- Evidence lib: **YES** (PR #580)
+- `__tests__/p6-campaign/`: **ABSENT**
 - Dirty: Review Pack only
 - Runtime :3020: INTOUCHABLE
-- Aucun reset / stash / rebase / clean / changement de worktree
+
+### Worktree B — QA P6 (cible opérationnelle)
+- Path: `/Users/morris/Projects/sfia-workspace`
+- Branch: `qa/sfia-studio-p6-global-integrated-product-qa`
+- HEAD / remote tip: `980064c05f1769f00d0ef85ef5284a899c6a0d73`
+- `origin/main` ahead of QA HEAD: **20 commits** (incl. PR #580 merge `aee4878d`)
+- MAIN_MERGE_IN_QA_HEAD: **NO**
+- Evidence lib `lib/p6-campaign-evidence`: **ABSENT** on QA HEAD
+- Product `cognitiveExecutionReceipt.ts`: **ABSENT** on QA HEAD
+- Dirty tracked (hors scope wiring, non touchés): UI/Nora/docs divers
+- Untracked: `projects/sfia-studio/app/__tests__/p6-campaign/` (4 fichiers)
+
+### Handoff tip d'entrée
+- Commit: `89ae2a63e4ab05c53ef7bf884e5f4b9ea50da6b0`
+- Blob: `618f91041fceae2fdc568b7fcb86b4999ed3eb0e`
+
+Aucune modification de code. Aucun reset/stash/clean/rebase. Aucun push projet.
 
 ---
 
 ## 2. Sources / Convergence
 
-Build Doctrine / Roadmap / C1 / epistemology 33 / artifact 35 / Nora 08 / P6 §T / template cycle / routing v2.6 / PRR / entry handoff c1157813.
+Build Doctrine / Roadmap / C1 / 33 / 35 / Nora 08 / P6 §T / CKC delivery+qa / PRR / entry handoff 89ae2a63.
 
-**État d'entrée:** Option B GIT CANDIDATE — DET proven (receipt, ledger, integrity, uniqueness, Fake parity, QA seam). Wiring PENDING. REAL NOT PROVEN. P6 GLOBAL NOT PASSED. Runtime v3 NON ADOPTED.
+**État:**
+- Option B: MERGED ON MAIN — PR #580
+- Receipt / Ledger / Schema / Integrity / Uniqueness / Fake parity / QA Seam: DETERMINISTICALLY PROVEN (DET, Git-integrated)
+- **Operational Campaign Wiring: PENDING** (inchangé — non démontrable dans ce passage)
+- REAL: NOT PROVEN · P6 GLOBAL: NOT PASSED · Runtime v3: NON ADOPTED
 
-**Post-merge attendu:** DETERMINISTICALLY PROVEN AND GIT-INTEGRATED ON MAIN (DET scope).
+**Gap:** harnesses opérationnels ne consomment pas le seam canonique — et ne sont **pas** sur une baseline contenant le seam.
 
 ---
 
-## 3. Préconditions merge
+## 3. Inventaire harnesses
 
-| Check | Result |
+### Localisation
+`/Users/morris/Projects/sfia-workspace/projects/sfia-studio/app/__tests__/p6-campaign/`
+
+| File | Tracked | Ignored rule | Bytes | Product API | Writer Evidence |
+|---|---|---|---|---|---|
+| phase1.requal.smokes.real.test.ts | **UNTRACKED** | none (??) | 18755 | `orchestrateAssistantSend` (F2) | inline `fs.appendFileSync(.../evidence-ledger.jsonl)` |
+| phase3.controlledCandidate.screening.real.test.ts | **UNTRACKED** | none | 12007 | idem | inline appendFileSync |
+| phase3.routerInSitu.and.discrimination.real.test.ts | **UNTRACKED** | none | 16851 | idem | inline appendFileSync |
+| smoke02.zeroExecution.real.test.ts | **UNTRACKED** | none | 8594 | idem | inline appendFileSync |
+
+Remote QA tree / main tree: **0** fichiers `p6-campaign`.
+
+Classification locale documentée (`.tmp-sfia-review/p6-global-integrated-qa/harness-classification.md`):
+- `tracked: false`
+- `commitDisposition: DO_NOT_COMMIT`
+- rationale: leave untracked; temporary campaign workspace
+
+### Artefacts campagne (non versionnés)
+- Ledger: `.tmp-sfia-review/p6-global-integrated-qa/evidence-ledger.jsonl` — **76 rows**
+- Kinds: 74 sans `kind` (historique campagne) + 1 ROOT_CAUSE + 1 RUNTIME_REQUALIFICATION
+- **0** receipt v2 (`cognitive_execution_receipt`)
+- Dup runIds dans ledger actuel: **0**
+- Human QA queue / batch présents (WAITING HUMAN — non inventoriés comme verdict)
+
+### Classification des actifs
+
+| Actif | Class |
 |---|---|
-| PR #580 OPEN | YES |
-| Draft (pré Ready) | true |
-| Base main @ bd3f440c | YES |
-| Head b6eb7862 | YES |
-| Commits | 3 (bfef30db, 62692972, b6eb7862) |
-| Files | 16 exact |
-| mergeable / CLEAN | YES |
-| Required Gate PASS @ b6eb7862 | YES (run 38451774116) |
-| Review blockers | none (reviewDecision empty) |
-| .tmp-sfia-review in PR | NO |
-| Secrets / protected paths | OK |
-| main drift | NO |
-| REAL CI risk | opt-in skipIf; no RUN_REAL env |
+| Product Receipt (main) | KEEP — présent sur main, absent QA HEAD |
+| QA Collection Seam (main) | REUSE — non disponible sur QA HEAD |
+| External Ledger lib (main) | REUSE — non disponible sur QA HEAD |
+| Harnesses `*.real.test.ts` | **BLOCKED** — untracked, DO_NOT_COMMIT, baseline pré-#580 |
+| Historical ledger JSONL | KEEP HISTORICAL — ne pas réécrire |
+| Human QA Queue | REUSE — hors wiring code ce cycle |
+| Product SQLite | KEEP |
+| Option B WT | OUT OF SCOPE / CLOSED |
 
 ---
 
-## 4. PR description avant / après
+## 4. Matrice de raccordement (diagnostic)
 
-### Avant (extrait obsolète)
-```
-## Summary
+| Scenario harness | Product invocation | DTO Receipt? | runId owner | Writer actuel | Seam cible | Evidence existante | Collision | Action |
+|---|---|---|---|---|---|---|---|---|
+| SMOKE-01/02/03 (phase1) | orchestrateAssistantSend + OPENAI_API_KEY | **NO on QA baseline** (receipt module absent) | harness (`P6-SMOKE-*`) | appendFileSync campaign row | collectP6ProductTurnEvidence | rows historiques sans kind | **OUI** si même runId + receipt v2 | **BLOCKED** |
+| SMOKE-02 zero exec | idem | NO | harness | appendFileSync | seam | historique | OUI | **BLOCKED** |
+| PHASE3 CC / RIS / DISC | idem REAL | NO | harness | appendFileSync | seam | historique | OUI | **BLOCKED** |
 
-- Adds Product `CognitiveExecutionReceipt` (provider/usage/budget/continuation provenance; Fake ≠ REAL; fail-soft process-local conservation).
-- Adopts external P6 campaign Evidence Ledger (QA-only JSONL under `.tmp-sfia-review/…`) with secured write boundary, schema v2 completeness, read integrity, and runId uniqueness (write + read).
-- QA Collection Seam `collectP6ProductTurnEvidence` proven DET; Product runtime does **not** write the ledger; Product SQLite is not Evidence authority.
-
-## Scope
-
-16 files (manifest exact):
-- New: `cognitiveExecutionReceipt.ts`, `lib/p6-campaign-evidence/**` (5), DET tests (4)
-- Modified: `orchestrateTurn.ts`, `types.ts`, PRR 04/08/09 + manifest
-
-## Tests
-
-- Targeted DET: **57 PASS** (ledger / completeness / QA seam / Option B receipt)
-- `npm run typecheck` PASS
-- `npm run lint` PASS
-- `npm run build` PASS
-- PRR conformance OK
-- Full `npm test` locally: **NOT EXECUTED — REAL SAFETY BOUNDARY** (CI `npm test` uses opt-in REAL gates via `describe.skipIf`)
-
-## Evidence
-
-- Entry Review Handoff: `698916d1` / blob `7f6e69f9`
-- Project commit: `bfef30db0828b066b3f414499ef0fab0419b5cf6`
-- Branch: `fix/p6-real-observability-option-b` → `main`
-
-## Fake / Real
-
-- **DETERMINISTIC PROVEN** at integrated Option B evidence seam
-- **REAL BOUNDARY NOT PROVEN**
-- Claims forbidden: T1 REAL PASS · P6 GLOBAL PASS · PRODUCT READY · Runtime v3 ADOPTED · MERGED
-
-## Reserves
-
-- Operational campaign wiring **PENDING** (historical harnesses not migrated)
-- Multi-process ledger durability **NOT CLAIMED** (MONO_WRITER)
-- REAL debt **OPEN** under distinct Morris GO
-- P6 GLOBAL **NOT PASSED**
-- Runtime v3 **NON ADOPTED**
-
-## Explicit exclusions
-
-- No REAL harness migration / no REAL execution
-- No Product persistence architecture change
-- No merge in this GO
-- No doctrine / runtime v3 promotion
-- `.tmp-sfia-review/**` excluded from commit
-
-## Next gate
-
-**MORRIS MERGE REVIEW / DISTINCT MERGE GO** — Draft only; merge not authorized.
-
-
-Made with [Cursor](https://cursor.com)
-```
-
-### Après (mise à jour métadonnées — aucun code)
-```
-## Summary
-
-- Adds Product `CognitiveExecutionReceipt` (provider/usage/budget/continuation provenance; Fake ≠ REAL; fail-soft process-local conservation).
-- Adopts external P6 campaign Evidence Ledger (QA-only JSONL under `.tmp-sfia-review/…`) with secured write boundary, schema v2 completeness, read integrity, runId uniqueness (write + read), and Product/ledger Fake provenance parity.
-- QA Collection Seam `collectP6ProductTurnEvidence` proven DET; Product runtime does **not** write the ledger; Product SQLite is not Evidence authority.
-
-## Scope
-
-16 files (manifest exact):
-- New: `cognitiveExecutionReceipt.ts`, `lib/p6-campaign-evidence/**` (5), DET tests (4)
-- Modified: `orchestrateTurn.ts`, `types.ts`, PRR 04/08/09 + manifest
-
-## Commits
-
-1. `bfef30db` — `fix(studio): add bounded P6 cognitive evidence capture` (Option B delivery)
-2. `62692972` — `fix(studio): validate P6 receipt v2 semantics` (schema semantic validation)
-3. `b6eb7862` — `fix(studio): align P6 fake provenance validation` (Product/ledger Fake parity)
-
-**HEAD:** `b6eb7862affa6a70e9d750135b067e2c0b15015b`
-
-## Correctifs inclus
-
-- receipt v2 completeness
-- read integrity
-- runId uniqueness (write + read)
-- schema semantics (null identities / unknown statuses rejected)
-- Fake provenance parity (`openai_live` + explicit `fake-`/`fake_` markers; never REAL promotion)
-
-## Tests
-
-- Targeted DET: **72 PASS** (ledger / completeness / QA seam / Option B receipt; includes V01–V25 + FP01–FP16)
-- `npm run typecheck` PASS
-- `npm run lint` PASS
-- `npm run build` PASS
-- PRR conformance OK
-- Full `npm test` locally: **NOT EXECUTED — REAL SAFETY BOUNDARY** (CI `npm test` uses opt-in REAL gates via `describe.skipIf`)
-
-## CI (pré-merge)
-
-- Workflow: SFIA Studio CI
-- Run: https://github.com/mcleland147/sfia-workspace/actions/runs/38451774116
-- Detect SFIA Studio changes — **PASS**
-- Build and validate SFIA Studio — **PASS**
-- SFIA Studio Required Gate — **PASS** (on HEAD `b6eb7862`)
-
-## Evidence
-
-- Entry Review Handoff (Fake parity): `c1157813` / blob `0337debb`
-- Branch: `fix/p6-real-observability-option-b` → `main`
-
-## Fake / Real
-
-- **DETERMINISTICALLY PROVEN** Product/ledger Fake provenance parity at Option B evidence seam
-- **REAL BOUNDARY NOT PROVEN**
-- Claims forbidden until post-merge confirmation: T1 REAL PASS · P6 GLOBAL PASS · PRODUCT READY · Runtime v3 ADOPTED
-
-## Reserves
-
-- Operational campaign wiring **PENDING** (historical harnesses not migrated)
-- Multi-process ledger durability **NOT CLAIMED** (**MONO_WRITER ONLY**)
-- REAL debt **OPEN** under distinct Morris GO
-- P6 GLOBAL **NOT PASSED**
-- Runtime v3 **NON ADOPTED**
-
-## Explicit exclusions
-
-- No REAL harness migration / no REAL execution
-- No Product persistence architecture change
-- No doctrine / runtime v3 promotion
-- `.tmp-sfia-review/**` excluded from commit
-- No branch deletion / no cleanup in this GO
-
-## Merge gate
-
-**GO MORRIS MERGE + POST-MERGE VERIFICATION — 2026-10-13.**
-
-Made with [Cursor](https://cursor.com)
-```
-
-Points actualisés: 3 commits + HEAD b6eb7862; 72 DET PASS; CI 38451774116; handoff c1157813; correctifs schema/Fake parity; GO MERGE + POST-MERGE VERIFICATION; réserves Wiring/MONO_WRITER/REAL/P6 GLOBAL/v3.
+**Product API gap additionnel:** harnesses appellent `orchestrateAssistantSend` (F2), alors que le seam Option B a été prouvé DET via `orchestrateProjectAssistantTurn` / DTO `cognitiveExecutionReceipt`. Même après rebase sur main, la présence du receipt sur le chemin F2 doit être **requalifiée** (sans modifier Product hors GO).
 
 ---
 
-## 5. Manifest PR (16 fichiers)
+## 5. Contrat runId / collision
 
-```
-projects/sfia-studio/app/__tests__/p6-campaign-evidence/p6.externalEvidenceLedger.d0.test.ts
-projects/sfia-studio/app/__tests__/p6-campaign-evidence/p6.qaCollectionSeam.d0.test.ts
-projects/sfia-studio/app/__tests__/p6-campaign-evidence/p6.receiptCompleteness.d0.test.ts
-projects/sfia-studio/app/__tests__/project-assistant/p6.realObs.optionB.receiptConservation.d0.test.ts
-projects/sfia-studio/app/features/project-assistant/cognitiveExecutionReceipt.ts
-projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
-projects/sfia-studio/app/features/project-assistant/types.ts
-projects/sfia-studio/app/lib/p6-campaign-evidence/captureCognitiveExecutionReceipt.ts
-projects/sfia-studio/app/lib/p6-campaign-evidence/evidenceLedger.ts
-projects/sfia-studio/app/lib/p6-campaign-evidence/index.ts
-projects/sfia-studio/app/lib/p6-campaign-evidence/ledgerRowValidation.ts
-projects/sfia-studio/app/lib/p6-campaign-evidence/qaCollectionSeam.ts
-projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md
-projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
-projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
-projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-```
+P6 §T + ledger PR #580: **unique runId**; writers publics refusent les doublons; pas de réécriture FAILED.
 
-Post-merge `git diff bd3f440c...aee4878d --name-only` → **MANIFEST_MATCH=YES** (16).
+Risque structurant:
+1. Harness écrit déjà une ligne campagne (kind absent / campaign run) pour runId X.
+2. Seam écrit ensuite un receipt v2 pour le **même** runId X → `DUPLICATE_RUN_ID` / integrity fail.
+
+Alternatives **non autorisées** sans GO Morris:
+- désactiver unicité;
+- écraser historique;
+- inventer un second namespace d'identité sans contrat;
+- `duplicate_skipped` sur contenus différents;
+- deuxième persistence.
+
+Options pour décision Morris (aucune choisie ici):
+
+| Option | Description | Impact |
+|---|---|---|
+| O1 | Baseline neuve = worktree depuis `main@aee4878d` + import contrôlé des harnesses (GO provenance) + remplacer writer campagne par seam **ou** cesser l'append campagne au profit du receipt pour scénarios cognitifs | Compatible unicité; migration harness explicite |
+| O2 | Coexistence contractuelle campagne-row + receipt sous **deux** identités liées (ex. runId vs receiptRunId) — **évolution de contrat** | Requiert GO Morris structurante |
+| O3 | Garder append campagne historique; receipt uniquement sur nouveaux runIds post-wiring | Pas de collision; double instrumentation partielle |
+
+**Ce cycle:** aucune option implémentée — STOP avant écriture.
 
 ---
 
-## 6. CI pré-merge (HEAD b6eb7862)
+## 6. Pourquoi STOP (conditions du GO)
 
-Run: https://github.com/mcleland147/sfia-workspace/actions/runs/38451774116
+1. **Harnesses introuvables sur Git** (untracked / absents remote) — provenance non versionnée.
+2. **Baseline QA obsolète** — 20 commits derrière main; PR #580 non contenue; pas de seam/receipt Product.
+3. Raccordement exigerait **migration de sources locales non versionnées** + **changement de baseline** non autorisé dans ce GO.
+4. Interdit: rebase/cherry-pick auto, copie incontrôlée, modification Option B, exécution `*.real.test.ts`, REAL/OpenAI.
+5. Harness classification locale: **DO_NOT_COMMIT**.
 
-| Check | Result |
+→ **STOP — QA HARNESS SOURCE/BASELINE NOT QUALIFIED**
+
+---
+
+## 7. Implémentation
+
+**NOT EXECUTED** — aucune modification de harness, aucun test W01–W20, aucun typecheck/build de wiring.
+
+Fichiers créés/modifiés (projet): **aucun**.
+
+Manifest exact avant écriture: **N/A** (STOP).
+
+---
+
+## 8. Chemin de résolution le plus simple (décision Morris)
+
+**Recommandation (non exécutée):**
+
+1. **Nouveau worktree** depuis `origin/main` @ `aee4878d` (contient PR #580).
+2. GO Morris distinct pour **qualification/provenance** des 4 harnesses untracked (copier/adopter sous contrôle, ou re-créer DET wrappers).
+3. Adapter writers: après Product DTO, appeler `collectP6ProductTurnEvidence`; traiter collision runId via option Morris (O1/O2/O3).
+4. Oracles DET W01–W20 sur ce worktree — **ZERO REAL**.
+5. Puis GO Git Integration / PR distinct.
+
+Interdit sans GO: commit des harnesses untracked « en l'état », rebase silencieux de la branche QA, REAL.
+
+---
+
+## 9. Tests / Validations / PRR / Sécurité
+
+| Item | Result |
 |---|---|
-| Detect SFIA Studio changes | PASS |
-| Build and validate SFIA Studio | PASS |
-| SFIA Studio Required Gate | PASS |
-
-Ne qualifie **pas** le post-merge.
-
----
-
-## 7. Draft → Ready
-
-- `gh pr ready 580` → Draft=false
-- HEAD inchangé: b6eb7862
-- Base inchangée: main
-- Required Gate toujours PASS
-- mergeable CLEAN
-- Aucun review blocker supplémentaire
+| Tests wiring DET | **NOT EXECUTED** |
+| Tests REAL / OpenAI | **NOT EXECUTED** (interdit) |
+| typecheck/lint/build wiring | **NOT EXECUTED** |
+| PRR | **NOT RE-RUN** (pas de changement code) — main déjà conforme post-#580 |
+| Secrets | aucun secret introduit; harnesses lisent `.env.local` / OPENAI_API_KEY — **non exécutés** |
+| Historique ledger | préservé (aucune écriture) |
+| Runtime :3020 | untouched |
+| Push/PR/merge projet | **NONE** |
 
 ---
 
-## 8. Méthode de merge
+## 10. Fake / Real
 
-- Méthode: **merge commit** (`gh pr merge --merge`) — conforme à l'historique récent (`Merge pull request #NNN`)
-- `--match-head-commit b6eb7862affa6a70e9d750135b067e2c0b15015b`
-- **Pas** de `--delete-branch`
-- **Pas** de `--admin` / bypass
-- **Pas** de squash / rebase
-- Traçabilité des 3 commits préservée (parent 2 = b6eb7862)
-
----
-
-## 9. Merge GitHub
-
-| Item | Value |
+| Claim | Status |
 |---|---|
-| PR | #580 |
-| State | **MERGED** |
-| mergedAt | 2026-10-13T19:29:00Z |
-| Merge commit | `aee4878d00f76cbb444977bf7ca370fb9b43fc83` |
-| Parent 1 (main) | `bd3f440c749a059d73fb76e09bb1d0ce91e27af4` |
-| Parent 2 (PR head) | `b6eb7862affa6a70e9d750135b067e2c0b15015b` |
-| URL | https://github.com/mcleland147/sfia-workspace/pull/580 |
-| Source branch deleted | **NO** (encore `origin/fix/p6-real-observability-option-b` @ b6eb7862) |
+| Option B DET Git-integrated | YES (préalable) |
+| Operational Wiring DET at harness scope | **NOT PROVEN** — STOP |
+| REAL BOUNDARY / E2E REAL / P6 GLOBAL | **NOT CLAIMED** |
+| FULL HARNESS COVERAGE | **NOT CLAIMED** |
 
 ---
 
-## 10. Main SHA final / contenu
+## 11. Réserves / Dette / Exit / Gates
 
-- `origin/main` = `aee4878d00f76cbb444977bf7ca370fb9b43fc83`
-- `b6eb7862` ancestor of main: **YES**
-- 16 fichiers intégrés: **YES**
-- Product DTO / receipt / ledger / tests / PRR: **YES**
-- Fake parity (`isExplicitFakeProviderResponseId`) présent sur main: **YES**
-- `.tmp-sfia-review` leak: **NO**
-- Chemins protégés hors scope: **OK**
+**Réserves:** Wiring PENDING · harnesses untracked · baseline QA pré-#580 · chemin F2 vs Product receipt à requalifier · MONO_WRITER · REAL OPEN · Human QA WAITING non simulé
 
----
+**Dette:** P6-HUMAN-QA-EVIDENCE-CAPTURE-WIRING OPEN
 
-## 11. PRR
+**Exit proof ce passage:** diagnostic Git Truth + inventaire + matrice + options Morris — **pas** de wiring opérationnel
 
-`node scripts/check-production-runtime-reference.mjs` → **PRODUCTION RUNTIME REFERENCE CONFORMANCE OK**
-Aucune modification documentaire post-merge dans ce passage.
+**Décisions Morris requises:**
+1. Autoriser worktree baseline `main@aee4878d` pour wiring.
+2. Qualifier provenance/adoption des 4 harnesses untracked.
+3. Trancher collision runId (O1/O2/O3).
+4. GO Delivery/wiring suivant après qualification.
 
----
-
-## 12. CI post-merge (distincte de la PR CI)
-
-Run: https://github.com/mcleland147/sfia-workspace/actions/runs/38455184215
-Event: `push` @ `aee4878d`
-Conclusion: **success**
-
-| Check | Qualification |
-|---|---|
-| Detect SFIA Studio changes | **PASS** |
-| Build and validate SFIA Studio | **PASS** |
-| SFIA Studio Required Gate | **PASS** (observé sur merge SHA) |
-
-Pré-merge run 38451774116 ≠ post-merge run 38455184215.
+**Prochain gate:** GO Morris — QA harness baseline + provenance qualification (puis wiring DET).
 
 ---
 
-## 13. Security / Fake-Real
+## 12. Diffs
 
-- Aucun secret; aucun .tmp; branche source non supprimée; pas de cleanup
-- Niveau: **DETERMINISTICALLY PROVEN AND GIT-INTEGRATED ON MAIN**
-- REAL BOUNDARY / E2E REAL / P6 GLOBAL PASS / PRODUCT READY / Runtime v3 ADOPTED: **NON REVENDIQUÉS**
-- Merge ≠ preuve REAL
-- Wiring: **PENDING** · Concurrence: **MONO_WRITER**
+Aucun diff projet. Aucun fichier créé.
 
 ---
 
-## 14. Réserves / Dette / Exit / Gates
+## 13. Git Truth final
 
-**Réserves:** Operational Wiring PENDING · MONO_WRITER ONLY · REAL NOT PROVEN · P6 GLOBAL NOT PASSED · Runtime v3 NON ADOPTED
-
-**Dette:** P6-REAL-OBS-P0-RECEIPT-CONSERVATION — jalon intégration DET clos; wiring + REAL ouverts
-
-**Exit proof ce passage:** code sur main · CI post-merge Required Gate PASS · pas de drift · réserves préservées
-
-**Prochain gate Morris:** P6 Human QA Evidence Capture opérationnelle (wiring) sous GO distinct — puis futur REAL sous GO distinct. Aucune promotion runtime.
+- Worktree courant (initial): Option B @ `b6eb7862` — inchangé hors Review Pack
+- QA WT: inchangé (aucun edit harness)
+- origin/main: `aee4878d` — inchangé
+- Branche source Option B: conservée
+- Aucun cleanup
 
 ---
 
-## 15. Git Truth final (worktree Option B)
+## 14. Instruction ChatGPT
 
-- Branch locale: `fix/p6-real-observability-option-b` @ `b6eb7862` (conservée)
-- origin/main: `aee4878d`
-- Dirty: `.tmp-sfia-review/chatgpt-review.md` (Review Pack hors commit projet)
-- Runtime :3020: untouched
-- Aucun cleanup / aucune suppression de branche
+Lire le Review Handoff distant.
 
----
+Vérifier:
+- vérité Git des worktrees (QA @ 980064c0 vs main @ aee4878d);
+- harnesses untracked / DO_NOT_COMMIT;
+- absence de lib evidence / receipt sur QA HEAD;
+- absence de perte historique (aucune écriture);
+- conformité STOP du GO;
+- absence de REAL / push / PR / merge / nouvelle architecture;
+- options Morris O1–O3;
+- réserves.
 
-## 16. Instruction ChatGPT
+Rendre un verdict **DELIVERY / PR READINESS** au périmètre réellement démontré (= diagnostic STOP, non wiring complete).
 
-Lire le dernier Review Handoff distant.
-
-Vérifier indépendamment:
-
-- PR #580 merged ;
-- merge SHA `aee4878d` ;
-- main SHA `aee4878d` ;
-- inclusion exacte Option B (16 fichiers) ;
-- absence de suppression de branche ;
-- PRR ;
-- CI post-merge run 38455184215 ;
-- Required Gate PASS ;
-- absence de REAL ;
-- réserves P6 ;
-- absence de promotion runtime v3.
-
-Rendre un verdict **POST-MERGE**.
-
-Ne pas autoriser automatiquement: QA REAL, wiring, nouvelle PR, promotion ou cleanup.
+Ne pas autoriser automatiquement: COMMIT PROJET, PUSH, PR, MERGE, REAL, PROMOTION, CLEANUP.
 
 ---
 
-**FIN DU REVIEW PACK FULL — PR #580 MERGE + POST-MERGE VERIFICATION**
+**FIN DU REVIEW PACK FULL — STOP QA HARNESS SOURCE/BASELINE NOT QUALIFIED**
