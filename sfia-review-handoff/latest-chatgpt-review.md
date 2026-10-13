@@ -1,14 +1,14 @@
 # SFIA Review Pack FULL — P6 REAL OBSERVABILITY Option B
-# FINAL RECEIPT COMPLETENESS + CONCURRENCY SCOPE CLOSURE
+# FINAL LEDGER READ INTEGRITY + RUN UNIQUENESS
 
-**Horodatage (Europe/Paris):** 2026-10-13 19:23:52 CEST
-**GO Morris:** FINAL RECEIPT COMPLETENESS + CONCURRENCY SCOPE CLOSURE — 2026-10-13
+**Horodatage (Europe/Paris):** 2026-10-13 19:55:42 CEST
+**GO Morris:** FINAL LEDGER READ INTEGRITY + RUN UNIQUENESS — 2026-10-13
 **Cycle:** 8 — Delivery / implémentation
 **Profil:** CRITICAL
 **CKC:** ckc:studio:delivery
 **Campagne:** P6-GLOBAL-INTEGRATED-PRODUCT-QA-01
 **Chantier:** P6-REAL-OBS-P0-RECEIPT-CONSERVATION
-**Prior handoff:** caffaa7e / blob 4493f0d1
+**Prior handoff:** 50afb3fb / blob 52ba616b
 
 ---
 
@@ -18,7 +18,6 @@
 - Branch: `fix/p6-real-observability-option-b`
 - HEAD: `bd3f440c749a059d73fb76e09bb1d0ce91e27af4`
 - origin/main: `bd3f440c749a059d73fb76e09bb1d0ce91e27af4`
-- Baseline match: YES
 - Project commit/push/PR/merge: NONE
 - Runtime :3020: untouched
 
@@ -60,16 +59,16 @@ M	projects/sfia-studio/production-runtime-reference/production-runtime-reference
 
 ```
 
-### diff --stat (tracked)
+### diff --stat
 ```
- .tmp-sfia-review/chatgpt-review.md                 | 167 +--------------------
+ .tmp-sfia-review/chatgpt-review.md                 | 166 ---------------------
  .../features/project-assistant/orchestrateTurn.ts  |  46 +++++-
  .../app/features/project-assistant/types.ts        |  12 ++
  .../04-dependency-impact-map.md                    |  19 +++
  .../08-test-proof-and-conformance-map.md           |   2 +
- ...9-known-gaps-reserves-and-current-boundaries.md |  21 +++
+ ...9-known-gaps-reserves-and-current-boundaries.md |  23 +++
  .../production-runtime-reference.manifest.json     |   8 +-
- 7 files changed, 101 insertions(+), 174 deletions(-)
+ 7 files changed, 102 insertions(+), 174 deletions(-)
 
 ```
 
@@ -77,131 +76,1150 @@ M	projects/sfia-studio/production-runtime-reference/production-runtime-reference
 
 ## 2. Sources / Convergence
 
-Sources: Build Doctrine, Roadmap, C1, epistemology 33, artifact 35, Nora trajectory 08, P6 §T, CKC Delivery, PRR 04/08/09, prior handoff caffaa7e.
+Doctrine/Roadmap/C1/§T/PRR/handoff 50afb3fb. Option B LOCAL CANDIDATE. Concurrency MONO_WRITER. QA seam DET proven / wiring PENDING. P6 GLOBAL / REAL / Runtime v3 unchanged.
 
-| Item | State |
-|---|---|
-| Option B | LOCAL CANDIDATE |
-| External ledger | COMPLETE RECEIPT v2 AT DET |
-| Concurrency | MONO_WRITER QUALIFIED |
-| QA seam DET | PROVEN |
-| Operational campaign wiring | PENDING |
-| P6 GLOBAL / REAL / Runtime v3 | NOT PASSED / NOT PROVEN / NON ADOPTED |
+Findings d'entrée: READ-INTEGRITY-V2 · RUNID-UNIQUENESS.
 
 ---
 
-## 3. Diagnostic des réserves (post-caffaa7e)
+## 3. Correction A — Read integrity
 
-1. **Receipt incomplete** — buildEntry omitted model/effort/tokens/adaptive/continuation/conservation → FIXED (schema v2).
-2. **Concurrency overclaim** — age-based lock reclaim + multi-process claim → FIXED: MONO_WRITER; no age reclaim.
-3. **Harness wiring** — seam DET proven; historical REAL harnesses still inline append → DOCUMENTED PENDING (not modified).
+`classifyLedgerRowForRead` distinguishes:
+- historical_campaign (ok)
+- cognitive_receipt_v2 (full validateCognitiveReceiptRow — same as writer)
+- cognitive_receipt_incomplete (ok:false — kept for diagnostic)
+- unknown_kind / invalid_structure
 
----
-
-## 4. Correction A — Receipt completeness
-
-`buildCompleteCognitiveReceiptLedgerEntry` projects full Product `CognitiveExecutionReceipt`.
-`ledgerSchemaVersion: 2` required for new cognitive writes.
-`diffReceiptAgainstLedgerEntry` proves reopen field-by-field equality.
-Historical campaign rows unchanged (no migration/rewrite).
-
----
-
-## 5. Matrice Product → ledger (v2)
-
-| Product field | Ledger field |
-|---|---|
-| logicalTurnId | logicalTurnId |
-| projectId | projectId |
-| runtimeIdentity | runtimeIdentity |
-| providerIdentity | providerIdentity |
-| presentation | presentation |
-| providerConfigured | providerConfigured |
-| providerResponseId | providerResponseId (null stays null) |
-| providerResponseObservation | providerResponseObservation |
-| proofClassification | proofClassification |
-| realProofStatus | productRealProofStatus |
-| selectedModelId | selectedModelId |
-| observedModel | observedModel |
-| selectedReasoningEffort | selectedReasoningEffort |
-| usage.* | usage.* |
-| adaptiveObserve | adaptiveObserve |
-| continuationObserve | continuationObserve |
-| toolCalls | toolCalls |
-| limitReached | limitReached |
-| productTerminalStatus | productTerminalStatus |
-| conservation | productConservation |
-| capturedAt | productCapturedAt |
-| (QA) | captureStatus, capturedAt (QA write time), runId, scenarioId, campaignId |
+`readP6EvidenceLedger` increments `semanticErrors` for incomplete v2 / unknown kinds.
+integrityPass=true ONLY when parse+structure+semantic all clean.
+Incomplete v2 JSON never yields HEALTHY.
+Historical campaign rows not v2-promoted.
+No rewrite / no FAILED deletion.
 
 ---
 
-## 6. Correction B — Concurrency scope
+## 4. Correction B — Run uniqueness
 
-**Observed:** sequential appendFileSync, single vitest process; no Morris multi-process mandate.
-**Contract:** `P6_LEDGER_CONCURRENCY_MODEL = MONO_WRITER`
-**Lock:** O_EXCL contention detection; no age-based auto-delete; `forceRemoveOrphanP6EvidenceLedgerLock` explicit only.
-Multi-process durability: NOT CLAIMED.
+Writers publics:
+- `appendP6EvidenceLedgerRow` — DUPLICATE_RUN_ID under lock before append
+- `appendValidatedP6CampaignLedgerRow` — delegates to append
+- `captureCognitiveExecutionReceiptToP6Ledger` — duplicate check+append under same MONO_WRITER lock
 
----
-
-## 7. Correction C — QA harness readiness
-
-QA COLLECTION SEAM DETERMINISTICALLY PROVEN
-OPERATIONAL CAMPAIGN WIRING PENDING
+`durableLedgerContentEquivalent` compares durable fields (identities, provider, models, effort, tokens, adaptive, continuation, toolCalls, limitReached, terminal, conservation, productCapturedAt, schema). Excludes QA `capturedAt`.
+Incomplete historical ≠ v2 complete → conflict on skip.
+No silent second line. No multi-process claim. No age lock reclaim.
 
 ---
 
-## 8. Tests
+## 5. Tests
 
-44/44 PASS DET (completeness 11 + ledger 17 + seam 1 + Option B 15).
+52/52 PASS DET (ledger 22 + completeness 14 + seam 1 + Option B 15).
+Oracles R01–R17 + R12–R15 durable skip conflicts covered.
 typecheck / lint / build: PASS
 npm test full: NOT EXECUTED — REAL SAFETY BOUNDARY
 
 ---
 
-## 9. PRR
+## 6. PRR
 
-CONFORMANCE OK
+CONFORMANCE OK (digests synced).
 
 ---
 
-## 10. Fake/Real / Security
+## 7. Fake/Real / Security
 
-DETERMINISTIC PROVEN AT COMPLETE RECEIPT CONSERVATION SEAM
+DETERMINISTIC PROVEN AT LEDGER READ INTEGRITY AND RUN UNIQUENESS SEAMS
 REAL / P6 GLOBAL / PRODUCT READY — NOT CLAIMED
+OPERATIONAL CAMPAIGN WIRING — PENDING
 
 ---
 
-## 11. Réserves / Dette / Exit
+## 8. Réserves / Dette / Gates
 
-OPERATIONAL CAMPAIGN WIRING PENDING
-REAL OPEN
-Debt: P6-REAL-OBS-P0-RECEIPT-CONSERVATION — DET complete-receipt candidate
-
----
-
-## 12. Gates Morris restants
-
-ChatGPT PR Readiness Review → Morris Git Integration Gate → future REAL GO
+Wiring harnesses historiques PENDING. REAL OPEN.
+Debt: P6-REAL-OBS-P0-RECEIPT-CONSERVATION
+Next: ChatGPT PR readiness → Morris Git Integration → future REAL GO
 
 ---
 
-## 13. Verdict
+## 9. Verdict
 
-OPTION B RECEIPT COMPLETENESS DETERMINISTICALLY PROVEN / CONCURRENCY SCOPE QUALIFIED / READY FOR CHATGPT PR READINESS REVIEW
-
----
-
-## 14. Instruction ChatGPT
-
-Vérifier conservation complète, nulls, MONO_WRITER, no age lock reclaim, QA wiring PENDING, ZERO REAL/commit projet.
-Verdict PR readiness only — no auto Git integration.
+**P6 LEDGER READ INTEGRITY AND RUN UNIQUENESS CORRECTED / DETERMINISTIC PROVEN / READY FOR CHATGPT PR READINESS REVIEW**
 
 ---
 
-## 15. Contenu complet des fichiers
+## 10. Instruction ChatGPT
 
+Vérifier lecteur v2 strict + historique compatible; integrityPass non trompeur; unicité runId toutes frontières; duplicate skip durable; no rewrite; ZERO REAL/commit projet. Verdict PR readiness only.
+
+---
+
+## 11. Contenu complet des fichiers
+
+----- BEGIN FILE: projects/sfia-studio/app/lib/p6-campaign-evidence/evidenceLedger.ts -----
+/**
+ * P6 External Campaign Evidence Ledger — append-only JSONL under .tmp-sfia-review/.
+ *
+ * Authority: QA / campaign evidence only (Morris ADOPT GO 2026-10-13).
+ * NOT Product persistence. NOT ProductSqliteSession.
+ *
+ * Integrity model (OBS-02):
+ *   HEALTHY   — all lines parse + validate structure
+ *   DEGRADED  — some lines unreadable / invalid; historical bytes untouched
+ *   INVALID   — file present but no usable rows and corruption observed
+ *   UNREADABLE — I/O failure
+ *   MISSING   — file absent (when allowMissing=false)
+ *
+ * Concurrency model (GO 2026-10-13 scope closure) — **MONO-WRITER**:
+ *   Historical P6 harnesses append sequentially in a single vitest process
+ *   (`fs.appendFileSync`, no multi-process ledger writers observed).
+ *   No Morris decision requires multi-process safety for P6 campaign capture.
+ *   Contract: one active writer per ledger file at a time.
+ *   Local O_EXCL lock detects accidental contention and refuses honestly.
+ *   Does NOT claim multi-process durability beyond contention detection.
+ *   Age-based automatic lock deletion is forbidden (active writer may still hold it).
+ *   Orphan recovery: explicit `forceRemoveOrphanP6EvidenceLedgerLock` only.
+ */
+
+import fs from "node:fs";
+import path from "node:path";
+import {
+  classifyLedgerRowForRead,
+  validateLedgerRowForAppend,
+} from "./ledgerRowValidation";
+
+export const P6_CAMPAIGN_ID = "P6-GLOBAL-INTEGRATED-PRODUCT-QA-01" as const;
+export const P6_EVIDENCE_LEDGER_RELATIVE_PATH =
+  ".tmp-sfia-review/p6-global-integrated-qa/evidence-ledger.jsonl" as const;
+
+export type P6LedgerIntegrityStatus =
+  | "HEALTHY"
+  | "DEGRADED"
+  | "INVALID"
+  | "UNREADABLE"
+  | "MISSING";
+
+export type P6EvidenceLedgerRow = Record<string, unknown>;
+
+export type ReadP6EvidenceLedgerResult = {
+  /** True only when rows can be consumed (HEALTHY or DEGRADED). */
+  ok: boolean;
+  /** True ONLY when integrity === HEALTHY. Never true under corruption/semantic defects. */
+  integrityPass: boolean;
+  integrity: P6LedgerIntegrityStatus;
+  absolutePath: string;
+  rows: P6EvidenceLedgerRow[];
+  parseErrors: number;
+  structureErrors: number;
+  /** v2 incomplete / unknown-kind semantic defects (bytes preserved). */
+  semanticErrors: number;
+  totalLines: number;
+  error?: string;
+};
+
+export type AppendP6EvidenceLedgerResult =
+  | {
+      ok: true;
+      absolutePath: string;
+      bytesWritten: number;
+      kind: string;
+    }
+  | {
+      ok: false;
+      code: string;
+      message: string;
+      absolutePath?: string;
+    };
+
+export type WithLedgerLockResult<T> =
+  | { ok: true; value: T }
+  | { ok: false; code: string; message: string };
+
+/** Contended mono-writer: short retry then honest LOCK_CONTENTION. No age reclaim. */
+const LOCK_RETRY_MS = 15;
+const LOCK_MAX_ATTEMPTS = 40;
+
+/** Documented usage contract — see module header. */
+export const P6_LEDGER_CONCURRENCY_MODEL = "MONO_WRITER" as const;
+
+function resolveRepoRootFromCwd(cwd = process.cwd()): string {
+  let dir = path.resolve(cwd);
+  for (let i = 0; i < 12; i += 1) {
+    if (
+      fs.existsSync(path.join(dir, "projects", "sfia-studio")) &&
+      fs.existsSync(path.join(dir, ".git"))
+    ) {
+      return dir;
+    }
+    const parent = path.dirname(dir);
+    if (parent === dir) break;
+    dir = parent;
+  }
+  return path.resolve(cwd, "../..");
+}
+
+export function resolveP6EvidenceLedgerAbsolutePath(
+  cwd = process.cwd(),
+): string {
+  return path.join(resolveRepoRootFromCwd(cwd), P6_EVIDENCE_LEDGER_RELATIVE_PATH);
+}
+
+/** Resolve ledger path under an explicit workspace/repo root (DET temp dirs). */
+export function resolveP6EvidenceLedgerPath(workspaceRoot: string): string {
+  return path.join(workspaceRoot, P6_EVIDENCE_LEDGER_RELATIVE_PATH);
+}
+
+export function ensureP6EvidenceLedger(options: {
+  absolutePath?: string;
+  workspaceRoot?: string;
+}): { ok: true; absolutePath: string; created: boolean } | { ok: false; message: string } {
+  const absolutePath =
+    options.absolutePath ??
+    (options.workspaceRoot
+      ? resolveP6EvidenceLedgerPath(options.workspaceRoot)
+      : resolveP6EvidenceLedgerAbsolutePath());
+  try {
+    fs.mkdirSync(path.dirname(absolutePath), { recursive: true });
+    if (fs.existsSync(absolutePath)) {
+      return { ok: true, absolutePath, created: false };
+    }
+    fs.writeFileSync(absolutePath, "", { encoding: "utf8", mode: 0o600 });
+    return { ok: true, absolutePath, created: true };
+  } catch (err) {
+    return {
+      ok: false,
+      message: err instanceof Error ? err.message : String(err),
+    };
+  }
+}
+
+function lockPathFor(ledgerPath: string): string {
+  return `${ledgerPath}.lock`;
+}
+
+function sleepSync(ms: number): void {
+  const end = Date.now() + ms;
+  while (Date.now() < end) {
+    /* bounded spin — lock retries are short */
+  }
+}
+
+/**
+ * Exclusive lock around check+append (mono-writer contention detection).
+ * Lock file created with O_EXCL ('wx'). Never deletes an existing lock by age.
+ * Holder always unlinks on release. Orphans require governed force-remove.
+ */
+export function withP6EvidenceLedgerLock<T>(
+  absolutePath: string,
+  fn: () => T,
+): WithLedgerLockResult<T> {
+  const lockPath = lockPathFor(absolutePath);
+  fs.mkdirSync(path.dirname(absolutePath), { recursive: true });
+
+  let fd: number | null = null;
+
+  for (let attempt = 0; attempt < LOCK_MAX_ATTEMPTS; attempt += 1) {
+    try {
+      fd = fs.openSync(lockPath, "wx");
+      fs.writeSync(
+        fd,
+        JSON.stringify({
+          pid: process.pid,
+          acquiredAt: new Date().toISOString(),
+          concurrencyModel: P6_LEDGER_CONCURRENCY_MODEL,
+        }),
+      );
+      break;
+    } catch (err) {
+      const code = (err as NodeJS.ErrnoException).code;
+      if (code !== "EEXIST") {
+        return {
+          ok: false,
+          code: "LOCK_IO_ERROR",
+          message: err instanceof Error ? err.message : String(err),
+        };
+      }
+      // Existing lock: never age-delete (holder may still be active).
+      sleepSync(LOCK_RETRY_MS);
+    }
+  }
+
+  if (fd == null) {
+    return {
+      ok: false,
+      code: "LOCK_CONTENTION",
+      message:
+        "mono-writer ledger lock contention — another writer holds the lock; refusing (no automatic reclaim)",
+    };
+  }
+
+  try {
+    return { ok: true, value: fn() };
+  } finally {
+    try {
+      fs.closeSync(fd);
+    } catch {
+      /* ignore */
+    }
+    try {
+      fs.unlinkSync(lockPath);
+    } catch {
+      /* ignore */
+    }
+  }
+}
+
+/**
+ * Governed orphan lock recovery — explicit operator action only.
+ * Does NOT prove the previous holder finished; use after confirming no active writer.
+ */
+export function forceRemoveOrphanP6EvidenceLedgerLock(
+  absolutePath: string,
+): { ok: true; removed: boolean } | { ok: false; code: string; message: string } {
+  const lockPath = lockPathFor(absolutePath);
+  if (!fs.existsSync(lockPath)) {
+    return { ok: true, removed: false };
+  }
+  try {
+    fs.unlinkSync(lockPath);
+    return { ok: true, removed: true };
+  } catch (err) {
+    return {
+      ok: false,
+      code: "LOCK_FORCE_REMOVE_FAILED",
+      message: err instanceof Error ? err.message : String(err),
+    };
+  }
+}
+
+/**
+ * Read-only ledger open. Never rewrites. Never silently repairs.
+ * v2 cognitive receipts are validated with the same schema as writes;
+ * incomplete v2 / unknown kinds set integrityPass=false (DEGRADED).
+ * Historical campaign rows keep their historical completeness level.
+ */
+export function readP6EvidenceLedger(options?: {
+  absolutePath?: string;
+  allowMissing?: boolean;
+}): ReadP6EvidenceLedgerResult {
+  const absolutePath =
+    options?.absolutePath ?? resolveP6EvidenceLedgerAbsolutePath();
+  const allowMissing = options?.allowMissing ?? true;
+
+  if (!fs.existsSync(absolutePath)) {
+    if (allowMissing) {
+      return {
+        ok: true,
+        integrityPass: true,
+        integrity: "HEALTHY",
+        absolutePath,
+        rows: [],
+        parseErrors: 0,
+        structureErrors: 0,
+        semanticErrors: 0,
+        totalLines: 0,
+      };
+    }
+    return {
+      ok: false,
+      integrityPass: false,
+      integrity: "MISSING",
+      absolutePath,
+      rows: [],
+      parseErrors: 0,
+      structureErrors: 0,
+      semanticErrors: 0,
+      totalLines: 0,
+      error: "ledger file missing",
+    };
+  }
+
+  let raw: string;
+  try {
+    raw = fs.readFileSync(absolutePath, "utf8");
+  } catch (err) {
+    return {
+      ok: false,
+      integrityPass: false,
+      integrity: "UNREADABLE",
+      absolutePath,
+      rows: [],
+      parseErrors: 0,
+      structureErrors: 0,
+      semanticErrors: 0,
+      totalLines: 0,
+      error: err instanceof Error ? err.message : String(err),
+    };
+  }
+
+  if (raw.length === 0) {
+    return {
+      ok: true,
+      integrityPass: true,
+      integrity: "HEALTHY",
+      absolutePath,
+      rows: [],
+      parseErrors: 0,
+      structureErrors: 0,
+      semanticErrors: 0,
+      totalLines: 0,
+    };
+  }
+
+  const endsWithNewline = raw.endsWith("\n");
+  const lines = raw.split("\n");
+  if (endsWithNewline && lines.length > 0 && lines[lines.length - 1] === "") {
+    lines.pop();
+  }
+
+  const rows: P6EvidenceLedgerRow[] = [];
+  let parseErrors = 0;
+  let structureErrors = 0;
+  let semanticErrors = 0;
+  let partialTrailing = false;
+
+  for (let i = 0; i < lines.length; i += 1) {
+    const line = lines[i]!;
+    if (line.trim() === "") continue;
+    const isLast = i === lines.length - 1;
+    try {
+      const parsed = JSON.parse(line) as unknown;
+      const classified = classifyLedgerRowForRead(parsed);
+      if (classified.class === "invalid_structure") {
+        structureErrors += 1;
+        continue;
+      }
+      if (
+        classified.class === "cognitive_receipt_incomplete" ||
+        classified.class === "unknown_kind"
+      ) {
+        semanticErrors += 1;
+        // Keep for diagnostic search; never claim HEALTHY.
+        rows.push(parsed as P6EvidenceLedgerRow);
+        continue;
+      }
+      rows.push(parsed as P6EvidenceLedgerRow);
+    } catch {
+      parseErrors += 1;
+      if (isLast && !endsWithNewline) {
+        partialTrailing = true;
+      }
+    }
+  }
+
+  const defects =
+    parseErrors > 0 ||
+    structureErrors > 0 ||
+    semanticErrors > 0 ||
+    partialTrailing;
+
+  if (!defects) {
+    return {
+      ok: true,
+      integrityPass: true,
+      integrity: "HEALTHY",
+      absolutePath,
+      rows,
+      parseErrors: 0,
+      structureErrors: 0,
+      semanticErrors: 0,
+      totalLines: lines.length,
+    };
+  }
+
+  if (rows.length > 0) {
+    return {
+      ok: true,
+      integrityPass: false,
+      integrity: "DEGRADED",
+      absolutePath,
+      rows,
+      parseErrors,
+      structureErrors,
+      semanticErrors,
+      totalLines: lines.length,
+      error:
+        "parse/structure/semantic defects observed; historical bytes preserved; integrityPass=false",
+    };
+  }
+
+  return {
+    ok: false,
+    integrityPass: false,
+    integrity: "INVALID",
+    absolutePath,
+    rows: [],
+    parseErrors,
+    structureErrors,
+    semanticErrors,
+    totalLines: lines.length,
+    error: "ledger unreadable as structured evidence (no valid rows)",
+  };
+}
+
+/**
+ * OBS-01 secured append. Validates at write boundary. No unsafe bypass exported.
+ * Refuses append when ledger integrity is DEGRADED/INVALID/UNREADABLE
+ * (capture must fail honestly without rewriting history).
+ */
+export function appendP6EvidenceLedgerRow(
+  row: unknown,
+  options?: { absolutePath?: string },
+): AppendP6EvidenceLedgerResult {
+  const absolutePath =
+    options?.absolutePath ?? resolveP6EvidenceLedgerAbsolutePath();
+
+  const validation = validateLedgerRowForAppend(row);
+  if (!validation.ok) {
+    return {
+      ok: false,
+      code: validation.code,
+      message: validation.message,
+      absolutePath,
+    };
+  }
+
+  const locked = withP6EvidenceLedgerLock(absolutePath, () => {
+    const prior = readP6EvidenceLedger({
+      absolutePath,
+      allowMissing: true,
+    });
+    if (
+      prior.integrity === "DEGRADED" ||
+      prior.integrity === "INVALID" ||
+      prior.integrity === "UNREADABLE"
+    ) {
+      return {
+        ok: false as const,
+        code: "LEDGER_INTEGRITY_BLOCKS_APPEND",
+        message: `refuse append while integrity=${prior.integrity}`,
+        absolutePath,
+      };
+    }
+
+    const runId = (row as P6EvidenceLedgerRow).runId;
+    if (typeof runId === "string" && runId.length > 0) {
+      const existing = prior.rows.find((r) => r.runId === runId);
+      if (existing) {
+        return {
+          ok: false as const,
+          code: "DUPLICATE_RUN_ID",
+          message: `runId already present: ${runId}`,
+          absolutePath,
+        };
+      }
+    }
+
+    const line = `${JSON.stringify(row)}\n`;
+    try {
+      fs.mkdirSync(path.dirname(absolutePath), { recursive: true });
+      fs.appendFileSync(absolutePath, line, { encoding: "utf8", mode: 0o600 });
+      return {
+        ok: true as const,
+        absolutePath,
+        bytesWritten: Buffer.byteLength(line, "utf8"),
+        kind: validation.kind,
+      };
+    } catch (err) {
+      return {
+        ok: false as const,
+        code: "APPEND_IO_ERROR",
+        message: err instanceof Error ? err.message : String(err),
+        absolutePath,
+      };
+    }
+  });
+
+  if (!locked.ok) {
+    return {
+      ok: false,
+      code: locked.code,
+      message: locked.message,
+      absolutePath,
+    };
+  }
+  return locked.value;
+}
+
+export function findP6EvidenceLedgerRowsByRunId(
+  runId: string,
+  options?: { absolutePath?: string },
+): {
+  ok: boolean;
+  integrityPass: boolean;
+  integrity: P6LedgerIntegrityStatus;
+  matches: P6EvidenceLedgerRow[];
+  absolutePath: string;
+  error?: string;
+} {
+  const read = readP6EvidenceLedger({
+    absolutePath: options?.absolutePath,
+    allowMissing: true,
+  });
+  const matches = read.rows.filter((r) => r.runId === runId);
+  return {
+    ok: read.ok,
+    integrityPass: read.integrityPass,
+    integrity: read.integrity,
+    matches,
+    absolutePath: read.absolutePath,
+    error: read.error,
+  };
+}
+----- END FILE: projects/sfia-studio/app/lib/p6-campaign-evidence/evidenceLedger.ts -----
+----- BEGIN FILE: projects/sfia-studio/app/lib/p6-campaign-evidence/ledgerRowValidation.ts -----
+/**
+ * Write-boundary validation for P6 Evidence Ledger rows.
+ * Every public append path must pass through this gate.
+ */
+
+/** Keep aligned with evidenceLedger.P6_CAMPAIGN_ID (no circular import). */
+const P6_CAMPAIGN_ID = "P6-GLOBAL-INTEGRATED-PRODUCT-QA-01";
+
+export const MAX_LEDGER_ROW_JSON_BYTES = 64_000;
+export const P6_RECEIPT_LEDGER_SCHEMA_VERSION_REQUIRED = 2;
+
+const FORBIDDEN_KEY_FRAGMENTS = [
+  "authorization",
+  "api_key",
+  "apikey",
+  "cookie",
+  "secret",
+  "password",
+  "bearer",
+  "prompt",
+  "messages",
+  "documentbody",
+  "chain_of_thought",
+  "rawprovider",
+] as const;
+
+export type LedgerRowValidationResult =
+  | { ok: true; kind: string }
+  | { ok: false; code: string; message: string };
+
+function assertNoForbiddenContent(
+  value: unknown,
+  pathPrefix = "",
+): string | null {
+  if (value == null) return null;
+  if (Array.isArray(value)) {
+    for (let i = 0; i < value.length; i += 1) {
+      const hit = assertNoForbiddenContent(value[i], `${pathPrefix}[${i}]`);
+      if (hit) return hit;
+    }
+    return null;
+  }
+  if (typeof value === "object") {
+    for (const [k, v] of Object.entries(value as Record<string, unknown>)) {
+      const lower = k.toLowerCase().replace(/[^a-z0-9]/g, "");
+      for (const frag of FORBIDDEN_KEY_FRAGMENTS) {
+        if (lower.includes(frag.replace(/_/g, ""))) {
+          return `forbidden_key:${pathPrefix}${k}`;
+        }
+      }
+      const hit = assertNoForbiddenContent(v, `${pathPrefix}${k}.`);
+      if (hit) return hit;
+    }
+    return null;
+  }
+  if (typeof value === "string") {
+    if (/sk-[a-zA-Z0-9]{10,}/.test(value)) return "secret_like_string";
+    if (/Bearer\s+[A-Za-z0-9\-._~+/]+=*/i.test(value)) return "bearer_token";
+    if (value.length > 8_000) return "string_too_large";
+  }
+  return null;
+}
+
+function isNonEmptyString(v: unknown): v is string {
+  return typeof v === "string" && v.trim().length > 0;
+}
+
+function isNullOrNumber(v: unknown): boolean {
+  return v === null || (typeof v === "number" && Number.isFinite(v));
+}
+
+function isNullOrString(v: unknown): boolean {
+  return v === null || typeof v === "string";
+}
+
+function validateHistoricalCampaignRow(
+  row: Record<string, unknown>,
+): LedgerRowValidationResult {
+  if (row.campaignId !== P6_CAMPAIGN_ID) {
+    return {
+      ok: false,
+      code: "CAMPAIGN_SCOPE",
+      message: "campaignId must be P6-GLOBAL-INTEGRATED-PRODUCT-QA-01",
+    };
+  }
+  if (!isNonEmptyString(row.scenarioId) || !isNonEmptyString(row.runId)) {
+    return {
+      ok: false,
+      code: "CAMPAIGN_ROW_REQUIRED_FIELDS",
+      message: "scenarioId and runId required for campaign ledger rows",
+    };
+  }
+  return { ok: true, kind: "p6_campaign_run" };
+}
+
+function validateAdaptiveObserve(value: unknown): string | null {
+  if (value === null) return null;
+  if (value == null || typeof value !== "object" || Array.isArray(value)) {
+    return "adaptiveObserve must be object or null";
+  }
+  const o = value as Record<string, unknown>;
+  for (const key of [
+    "requestedMaxTurns",
+    "effectiveMaxTurns",
+    "floor",
+    "ceiling",
+  ] as const) {
+    if (typeof o[key] !== "number" || !Number.isFinite(o[key] as number)) {
+      return `adaptiveObserve.${key} must be finite number`;
+    }
+  }
+  if (typeof o.explicitOverride !== "boolean") {
+    return "adaptiveObserve.explicitOverride must be boolean";
+  }
+  if (!(o.strategyClass === null || typeof o.strategyClass === "string")) {
+    return "adaptiveObserve.strategyClass must be string or null";
+  }
+  if (!Array.isArray(o.reasonCodes)) {
+    return "adaptiveObserve.reasonCodes must be array";
+  }
+  if (!o.reasonCodes.every((c) => typeof c === "string")) {
+    return "adaptiveObserve.reasonCodes must be string[]";
+  }
+  return null;
+}
+
+function validateContinuationObserve(value: unknown): string | null {
+  if (value === null) return null;
+  if (value == null || typeof value !== "object" || Array.isArray(value)) {
+    return "continuationObserve must be object or null";
+  }
+  const o = value as Record<string, unknown>;
+  if (typeof o.continued !== "boolean") return "continuationObserve.continued";
+  for (const key of [
+    "segmentsExecuted",
+    "missionMaxTurns",
+    "segmentMaxTurns",
+    "allottedTurns",
+  ] as const) {
+    if (typeof o[key] !== "number" || !Number.isFinite(o[key] as number)) {
+      return `continuationObserve.${key} must be finite number`;
+    }
+  }
+  if (typeof o.stopReason !== "string") {
+    return "continuationObserve.stopReason must be string";
+  }
+  if (!Array.isArray(o.reasonCodes)) {
+    return "continuationObserve.reasonCodes must be array";
+  }
+  return null;
+}
+
+function validateProductConservation(value: unknown): string | null {
+  if (value == null || typeof value !== "object" || Array.isArray(value)) {
+    return "productConservation must be object";
+  }
+  const o = value as Record<string, unknown>;
+  if (typeof o.ok !== "boolean") return "productConservation.ok";
+  if (typeof o.processLocal !== "string") return "productConservation.processLocal";
+  if (typeof o.durableLedger !== "string") {
+    return "productConservation.durableLedger";
+  }
+  if (!(o.failureCode === null || typeof o.failureCode === "string")) {
+    return "productConservation.failureCode";
+  }
+  return null;
+}
+
+/**
+ * Cognitive receipt rows — schema v2 complete projection required for new writes
+ * and for read-integrity of rows that declare ledgerSchemaVersion=2.
+ */
+export function validateCognitiveReceiptRow(
+  row: Record<string, unknown>,
+): LedgerRowValidationResult {
+  const required = [
+    "campaignId",
+    "runId",
+    "scenarioId",
+    "logicalTurnId",
+    "projectId",
+    "providerResponseObservation",
+    "productRealProofStatus",
+    "realBoundaryClaim",
+    "captureStatus",
+    "ledgerSchemaVersion",
+    "runtimeIdentity",
+    "providerIdentity",
+    "presentation",
+    "providerConfigured",
+    "providerResponseId",
+    "proofClassification",
+    "selectedModelId",
+    "observedModel",
+    "selectedReasoningEffort",
+    "usage",
+    "adaptiveObserve",
+    "continuationObserve",
+    "toolCalls",
+    "limitReached",
+    "productTerminalStatus",
+    "productConservation",
+    "productCapturedAt",
+  ] as const;
+  for (const key of required) {
+    if (!(key in row)) {
+      return {
+        ok: false,
+        code: "RECEIPT_SCHEMA",
+        message: `missing field ${key}`,
+      };
+    }
+  }
+  if (row.campaignId !== P6_CAMPAIGN_ID) {
+    return {
+      ok: false,
+      code: "CAMPAIGN_SCOPE",
+      message: "campaignId must be P6-GLOBAL-INTEGRATED-PRODUCT-QA-01",
+    };
+  }
+  if (row.ledgerSchemaVersion !== P6_RECEIPT_LEDGER_SCHEMA_VERSION_REQUIRED) {
+    return {
+      ok: false,
+      code: "RECEIPT_SCHEMA_VERSION",
+      message: `ledgerSchemaVersion must be ${P6_RECEIPT_LEDGER_SCHEMA_VERSION_REQUIRED} for new writes`,
+    };
+  }
+  if (row.productRealProofStatus !== "NOT_PROVEN") {
+    return {
+      ok: false,
+      code: "REAL_CLAIM_FORBIDDEN",
+      message: "productRealProofStatus must be NOT_PROVEN",
+    };
+  }
+  if (row.realBoundaryClaim !== "NOT_CLAIMED") {
+    return {
+      ok: false,
+      code: "REAL_CLAIM_FORBIDDEN",
+      message: "realBoundaryClaim must be NOT_CLAIMED",
+    };
+  }
+  if (row.proofClassification !== "DETERMINISTIC") {
+    return {
+      ok: false,
+      code: "PROOF_CLASSIFICATION",
+      message: "proofClassification must be DETERMINISTIC at DET seam",
+    };
+  }
+  if (row.runId === row.logicalTurnId) {
+    return {
+      ok: false,
+      code: "RUNID_EQUALS_LOGICAL_TURN",
+      message: "runId must differ from logicalTurnId",
+    };
+  }
+  if (row.runtimeIdentity !== "agents") {
+    return {
+      ok: false,
+      code: "RECEIPT_SCHEMA",
+      message: "runtimeIdentity must be agents",
+    };
+  }
+  if (
+    row.providerIdentity !== "fake" &&
+    row.providerIdentity !== "openai" &&
+    row.providerIdentity !== "unknown"
+  ) {
+    return {
+      ok: false,
+      code: "RECEIPT_SCHEMA",
+      message: "providerIdentity invalid",
+    };
+  }
+  if (
+    row.presentation !== "test_provider" &&
+    row.presentation !== "openai_live"
+  ) {
+    return {
+      ok: false,
+      code: "RECEIPT_SCHEMA",
+      message: "presentation invalid",
+    };
+  }
+  if (typeof row.providerConfigured !== "boolean") {
+    return {
+      ok: false,
+      code: "RECEIPT_SCHEMA",
+      message: "providerConfigured must be boolean",
+    };
+  }
+  if (!isNullOrString(row.providerResponseId)) {
+    return {
+      ok: false,
+      code: "RECEIPT_SCHEMA",
+      message: "providerResponseId must be string or null",
+    };
+  }
+  if (!isNullOrString(row.selectedModelId) || !isNullOrString(row.observedModel)) {
+    return {
+      ok: false,
+      code: "RECEIPT_SCHEMA",
+      message: "selectedModelId/observedModel must be string or null",
+    };
+  }
+  if (!isNullOrString(row.selectedReasoningEffort)) {
+    return {
+      ok: false,
+      code: "RECEIPT_SCHEMA",
+      message: "selectedReasoningEffort must be string or null",
+    };
+  }
+  if (
+    row.usage == null ||
+    typeof row.usage !== "object" ||
+    Array.isArray(row.usage)
+  ) {
+    return { ok: false, code: "RECEIPT_SCHEMA", message: "usage required" };
+  }
+  const usage = row.usage as Record<string, unknown>;
+  if (
+    !isNullOrNumber(usage.inputTokens) ||
+    !isNullOrNumber(usage.outputTokens) ||
+    !isNullOrNumber(usage.totalTokens)
+  ) {
+    return {
+      ok: false,
+      code: "RECEIPT_SCHEMA",
+      message: "usage tokens must be number or null (null ≠ 0)",
+    };
+  }
+  const adaptiveErr = validateAdaptiveObserve(row.adaptiveObserve);
+  if (adaptiveErr) {
+    return { ok: false, code: "RECEIPT_SCHEMA", message: adaptiveErr };
+  }
+  const contErr = validateContinuationObserve(row.continuationObserve);
+  if (contErr) {
+    return { ok: false, code: "RECEIPT_SCHEMA", message: contErr };
+  }
+  if (typeof row.toolCalls !== "number" || !Number.isFinite(row.toolCalls)) {
+    return {
+      ok: false,
+      code: "RECEIPT_SCHEMA",
+      message: "toolCalls must be finite number",
+    };
+  }
+  if (typeof row.limitReached !== "boolean") {
+    return {
+      ok: false,
+      code: "RECEIPT_SCHEMA",
+      message: "limitReached must be boolean",
+    };
+  }
+  const consErr = validateProductConservation(row.productConservation);
+  if (consErr) {
+    return { ok: false, code: "RECEIPT_SCHEMA", message: consErr };
+  }
+  if (!isNonEmptyString(row.productCapturedAt)) {
+    return {
+      ok: false,
+      code: "RECEIPT_SCHEMA",
+      message: "productCapturedAt required",
+    };
+  }
+  return { ok: true, kind: "cognitive_execution_receipt" };
+}
+
+/**
+ * Read-side row classification — aligns with write validators for v2;
+ * historical campaign rows keep minimal contract; incomplete receipts
+ * are never promoted to v2 and block integrityPass when present.
+ */
+export type LedgerRowReadClassification =
+  | { class: "historical_campaign"; ok: true }
+  | { class: "cognitive_receipt_v2"; ok: true }
+  | {
+      class: "cognitive_receipt_incomplete";
+      ok: false;
+      reason: string;
+    }
+  | { class: "unknown_kind"; ok: false; reason: string }
+  | { class: "invalid_structure"; ok: false; reason: string };
+
+export function classifyLedgerRowForRead(
+  row: unknown,
+): LedgerRowReadClassification {
+  if (row == null || typeof row !== "object" || Array.isArray(row)) {
+    return {
+      class: "invalid_structure",
+      ok: false,
+      reason: "not a plain object",
+    };
+  }
+  const record = row as Record<string, unknown>;
+  if (
+    typeof record.campaignId !== "string" ||
+    record.campaignId.length === 0 ||
+    typeof record.runId !== "string" ||
+    record.runId.length === 0
+  ) {
+    return {
+      class: "invalid_structure",
+      ok: false,
+      reason: "missing campaignId/runId",
+    };
+  }
+
+  const kind =
+    typeof record.kind === "string" ? record.kind : "(historical_campaign)";
+
+  if (kind === "cognitive_execution_receipt") {
+    const v = validateCognitiveReceiptRow(record);
+    if (v.ok) {
+      return { class: "cognitive_receipt_v2", ok: true };
+    }
+    return {
+      class: "cognitive_receipt_incomplete",
+      ok: false,
+      reason: v.message,
+    };
+  }
+
+  if (
+    kind === "(historical_campaign)" ||
+    kind === "p6_campaign_run" ||
+    kind === "ROOT_CAUSE_INVESTIGATION_READONLY" ||
+    kind === "RUNTIME_REQUALIFICATION"
+  ) {
+    if (!isNonEmptyString(record.scenarioId)) {
+      return {
+        class: "invalid_structure",
+        ok: false,
+        reason: "historical campaign row missing scenarioId",
+      };
+    }
+    return { class: "historical_campaign", ok: true };
+  }
+
+  return {
+    class: "unknown_kind",
+    ok: false,
+    reason: `unsupported kind: ${kind}`,
+  };
+}
+
+/** Durable fields compared for duplicate skip (excludes QA capturedAt). */
+export const P6_RECEIPT_DURABLE_COMPARE_KEYS = [
+  "logicalTurnId",
+  "projectId",
+  "campaignId",
+  "scenarioId",
+  "runtimeIdentity",
+  "providerIdentity",
+  "presentation",
+  "providerConfigured",
+  "providerResponseId",
+  "providerResponseObservation",
+  "proofClassification",
+  "productRealProofStatus",
+  "realBoundaryClaim",
+  "selectedModelId",
+  "observedModel",
+  "selectedReasoningEffort",
+  "usage",
+  "adaptiveObserve",
+  "continuationObserve",
+  "toolCalls",
+  "limitReached",
+  "productTerminalStatus",
+  "productConservation",
+  "productCapturedAt",
+  "ledgerSchemaVersion",
+] as const;
+
+export function durableLedgerContentEquivalent(
+  existing: Record<string, unknown>,
+  candidate: Record<string, unknown>,
+): boolean {
+  // Incomplete historical receipt never equals a complete v2 candidate.
+  if (existing.ledgerSchemaVersion !== P6_RECEIPT_LEDGER_SCHEMA_VERSION_REQUIRED) {
+    return false;
+  }
+  if (candidate.ledgerSchemaVersion !== P6_RECEIPT_LEDGER_SCHEMA_VERSION_REQUIRED) {
+    return false;
+  }
+  for (const key of P6_RECEIPT_DURABLE_COMPARE_KEYS) {
+    if (JSON.stringify(existing[key]) !== JSON.stringify(candidate[key])) {
+      return false;
+    }
+  }
+  return true;
+}
+
+export function validateLedgerRowForAppend(
+  row: unknown,
+): LedgerRowValidationResult {
+  if (row == null || typeof row !== "object" || Array.isArray(row)) {
+    return {
+      ok: false,
+      code: "ROW_NOT_OBJECT",
+      message: "ledger row must be a plain object",
+    };
+  }
+  const record = row as Record<string, unknown>;
+  try {
+    const size = Buffer.byteLength(JSON.stringify(record), "utf8");
+    if (size > MAX_LEDGER_ROW_JSON_BYTES) {
+      return {
+        ok: false,
+        code: "ROW_TOO_LARGE",
+        message: `row exceeds ${MAX_LEDGER_ROW_JSON_BYTES} bytes`,
+      };
+    }
+  } catch {
+    return {
+      ok: false,
+      code: "ROW_NOT_SERIALIZABLE",
+      message: "row is not JSON-serializable",
+    };
+  }
+
+  const forbidden = assertNoForbiddenContent(record);
+  if (forbidden) {
+    return {
+      ok: false,
+      code: "SENSITIVE_PAYLOAD_REJECTED",
+      message: forbidden,
+    };
+  }
+
+  const kind =
+    typeof record.kind === "string" ? record.kind : "(historical_campaign)";
+
+  if (kind === "cognitive_execution_receipt") {
+    return validateCognitiveReceiptRow(record);
+  }
+
+  if (
+    kind === "(historical_campaign)" ||
+    kind === "p6_campaign_run" ||
+    kind === "ROOT_CAUSE_INVESTIGATION_READONLY" ||
+    kind === "RUNTIME_REQUALIFICATION"
+  ) {
+    return validateHistoricalCampaignRow(record);
+  }
+
+  return {
+    ok: false,
+    code: "UNKNOWN_ROW_KIND",
+    message: `unsupported ledger row kind: ${kind}`,
+  };
+}
+----- END FILE: projects/sfia-studio/app/lib/p6-campaign-evidence/ledgerRowValidation.ts -----
 ----- BEGIN FILE: projects/sfia-studio/app/lib/p6-campaign-evidence/captureCognitiveExecutionReceipt.ts -----
 /**
  * Capture Product CognitiveExecutionReceipt DTO → external P6 Evidence Ledger.
@@ -222,7 +1240,10 @@ import {
   withP6EvidenceLedgerLock,
   type P6EvidenceLedgerRow,
 } from "./evidenceLedger";
-import { validateLedgerRowForAppend } from "./ledgerRowValidation";
+import {
+  durableLedgerContentEquivalent,
+  validateLedgerRowForAppend,
+} from "./ledgerRowValidation";
 import fs from "node:fs";
 import path from "node:path";
 
@@ -421,24 +1442,15 @@ export function diffReceiptAgainstLedgerEntry(
   return mismatches;
 }
 
+/**
+ * Duplicate skip requires durable content equivalence (tokens/budget/model/…).
+ * QA `capturedAt` is excluded. Incomplete historical ≠ v2 complete.
+ */
 function identityCompatible(
   existing: P6EvidenceLedgerRow,
   candidate: P6EvidenceLedgerRow,
 ): boolean {
-  const keys = [
-    "logicalTurnId",
-    "projectId",
-    "campaignId",
-    "scenarioId",
-    "providerResponseObservation",
-    "productRealProofStatus",
-    "realBoundaryClaim",
-    "productTerminalStatus",
-  ] as const;
-  for (const key of keys) {
-    if (existing[key] !== candidate[key]) return false;
-  }
-  return true;
+  return durableLedgerContentEquivalent(existing, candidate);
 }
 
 function appendUnlocked(
@@ -603,919 +1615,6 @@ export function appendValidatedP6CampaignLedgerRow(
   return appendP6EvidenceLedgerRow(row, options);
 }
 ----- END FILE: projects/sfia-studio/app/lib/p6-campaign-evidence/captureCognitiveExecutionReceipt.ts -----
------ BEGIN FILE: projects/sfia-studio/app/lib/p6-campaign-evidence/ledgerRowValidation.ts -----
-/**
- * Write-boundary validation for P6 Evidence Ledger rows.
- * Every public append path must pass through this gate.
- */
-
-/** Keep aligned with evidenceLedger.P6_CAMPAIGN_ID (no circular import). */
-const P6_CAMPAIGN_ID = "P6-GLOBAL-INTEGRATED-PRODUCT-QA-01";
-
-export const MAX_LEDGER_ROW_JSON_BYTES = 64_000;
-export const P6_RECEIPT_LEDGER_SCHEMA_VERSION_REQUIRED = 2;
-
-const FORBIDDEN_KEY_FRAGMENTS = [
-  "authorization",
-  "api_key",
-  "apikey",
-  "cookie",
-  "secret",
-  "password",
-  "bearer",
-  "prompt",
-  "messages",
-  "documentbody",
-  "chain_of_thought",
-  "rawprovider",
-] as const;
-
-export type LedgerRowValidationResult =
-  | { ok: true; kind: string }
-  | { ok: false; code: string; message: string };
-
-function assertNoForbiddenContent(
-  value: unknown,
-  pathPrefix = "",
-): string | null {
-  if (value == null) return null;
-  if (Array.isArray(value)) {
-    for (let i = 0; i < value.length; i += 1) {
-      const hit = assertNoForbiddenContent(value[i], `${pathPrefix}[${i}]`);
-      if (hit) return hit;
-    }
-    return null;
-  }
-  if (typeof value === "object") {
-    for (const [k, v] of Object.entries(value as Record<string, unknown>)) {
-      const lower = k.toLowerCase().replace(/[^a-z0-9]/g, "");
-      for (const frag of FORBIDDEN_KEY_FRAGMENTS) {
-        if (lower.includes(frag.replace(/_/g, ""))) {
-          return `forbidden_key:${pathPrefix}${k}`;
-        }
-      }
-      const hit = assertNoForbiddenContent(v, `${pathPrefix}${k}.`);
-      if (hit) return hit;
-    }
-    return null;
-  }
-  if (typeof value === "string") {
-    if (/sk-[a-zA-Z0-9]{10,}/.test(value)) return "secret_like_string";
-    if (/Bearer\s+[A-Za-z0-9\-._~+/]+=*/i.test(value)) return "bearer_token";
-    if (value.length > 8_000) return "string_too_large";
-  }
-  return null;
-}
-
-function isNonEmptyString(v: unknown): v is string {
-  return typeof v === "string" && v.trim().length > 0;
-}
-
-function isNullOrNumber(v: unknown): boolean {
-  return v === null || (typeof v === "number" && Number.isFinite(v));
-}
-
-function isNullOrString(v: unknown): boolean {
-  return v === null || typeof v === "string";
-}
-
-function validateHistoricalCampaignRow(
-  row: Record<string, unknown>,
-): LedgerRowValidationResult {
-  if (row.campaignId !== P6_CAMPAIGN_ID) {
-    return {
-      ok: false,
-      code: "CAMPAIGN_SCOPE",
-      message: "campaignId must be P6-GLOBAL-INTEGRATED-PRODUCT-QA-01",
-    };
-  }
-  if (!isNonEmptyString(row.scenarioId) || !isNonEmptyString(row.runId)) {
-    return {
-      ok: false,
-      code: "CAMPAIGN_ROW_REQUIRED_FIELDS",
-      message: "scenarioId and runId required for campaign ledger rows",
-    };
-  }
-  return { ok: true, kind: "p6_campaign_run" };
-}
-
-function validateAdaptiveObserve(value: unknown): string | null {
-  if (value === null) return null;
-  if (value == null || typeof value !== "object" || Array.isArray(value)) {
-    return "adaptiveObserve must be object or null";
-  }
-  const o = value as Record<string, unknown>;
-  for (const key of [
-    "requestedMaxTurns",
-    "effectiveMaxTurns",
-    "floor",
-    "ceiling",
-  ] as const) {
-    if (typeof o[key] !== "number" || !Number.isFinite(o[key] as number)) {
-      return `adaptiveObserve.${key} must be finite number`;
-    }
-  }
-  if (typeof o.explicitOverride !== "boolean") {
-    return "adaptiveObserve.explicitOverride must be boolean";
-  }
-  if (!(o.strategyClass === null || typeof o.strategyClass === "string")) {
-    return "adaptiveObserve.strategyClass must be string or null";
-  }
-  if (!Array.isArray(o.reasonCodes)) {
-    return "adaptiveObserve.reasonCodes must be array";
-  }
-  if (!o.reasonCodes.every((c) => typeof c === "string")) {
-    return "adaptiveObserve.reasonCodes must be string[]";
-  }
-  return null;
-}
-
-function validateContinuationObserve(value: unknown): string | null {
-  if (value === null) return null;
-  if (value == null || typeof value !== "object" || Array.isArray(value)) {
-    return "continuationObserve must be object or null";
-  }
-  const o = value as Record<string, unknown>;
-  if (typeof o.continued !== "boolean") return "continuationObserve.continued";
-  for (const key of [
-    "segmentsExecuted",
-    "missionMaxTurns",
-    "segmentMaxTurns",
-    "allottedTurns",
-  ] as const) {
-    if (typeof o[key] !== "number" || !Number.isFinite(o[key] as number)) {
-      return `continuationObserve.${key} must be finite number`;
-    }
-  }
-  if (typeof o.stopReason !== "string") {
-    return "continuationObserve.stopReason must be string";
-  }
-  if (!Array.isArray(o.reasonCodes)) {
-    return "continuationObserve.reasonCodes must be array";
-  }
-  return null;
-}
-
-function validateProductConservation(value: unknown): string | null {
-  if (value == null || typeof value !== "object" || Array.isArray(value)) {
-    return "productConservation must be object";
-  }
-  const o = value as Record<string, unknown>;
-  if (typeof o.ok !== "boolean") return "productConservation.ok";
-  if (typeof o.processLocal !== "string") return "productConservation.processLocal";
-  if (typeof o.durableLedger !== "string") {
-    return "productConservation.durableLedger";
-  }
-  if (!(o.failureCode === null || typeof o.failureCode === "string")) {
-    return "productConservation.failureCode";
-  }
-  return null;
-}
-
-/**
- * Cognitive receipt rows — schema v2 complete projection required for new writes.
- * Historical incomplete rows are never rewritten; reads tolerate missing v2 fields.
- */
-function validateCognitiveReceiptRow(
-  row: Record<string, unknown>,
-): LedgerRowValidationResult {
-  const required = [
-    "campaignId",
-    "runId",
-    "scenarioId",
-    "logicalTurnId",
-    "projectId",
-    "providerResponseObservation",
-    "productRealProofStatus",
-    "realBoundaryClaim",
-    "captureStatus",
-    "ledgerSchemaVersion",
-    "runtimeIdentity",
-    "providerIdentity",
-    "presentation",
-    "providerConfigured",
-    "providerResponseId",
-    "proofClassification",
-    "selectedModelId",
-    "observedModel",
-    "selectedReasoningEffort",
-    "usage",
-    "adaptiveObserve",
-    "continuationObserve",
-    "toolCalls",
-    "limitReached",
-    "productTerminalStatus",
-    "productConservation",
-    "productCapturedAt",
-  ] as const;
-  for (const key of required) {
-    if (!(key in row)) {
-      return {
-        ok: false,
-        code: "RECEIPT_SCHEMA",
-        message: `missing field ${key}`,
-      };
-    }
-  }
-  if (row.campaignId !== P6_CAMPAIGN_ID) {
-    return {
-      ok: false,
-      code: "CAMPAIGN_SCOPE",
-      message: "campaignId must be P6-GLOBAL-INTEGRATED-PRODUCT-QA-01",
-    };
-  }
-  if (row.ledgerSchemaVersion !== P6_RECEIPT_LEDGER_SCHEMA_VERSION_REQUIRED) {
-    return {
-      ok: false,
-      code: "RECEIPT_SCHEMA_VERSION",
-      message: `ledgerSchemaVersion must be ${P6_RECEIPT_LEDGER_SCHEMA_VERSION_REQUIRED} for new writes`,
-    };
-  }
-  if (row.productRealProofStatus !== "NOT_PROVEN") {
-    return {
-      ok: false,
-      code: "REAL_CLAIM_FORBIDDEN",
-      message: "productRealProofStatus must be NOT_PROVEN",
-    };
-  }
-  if (row.realBoundaryClaim !== "NOT_CLAIMED") {
-    return {
-      ok: false,
-      code: "REAL_CLAIM_FORBIDDEN",
-      message: "realBoundaryClaim must be NOT_CLAIMED",
-    };
-  }
-  if (row.proofClassification !== "DETERMINISTIC") {
-    return {
-      ok: false,
-      code: "PROOF_CLASSIFICATION",
-      message: "proofClassification must be DETERMINISTIC at DET seam",
-    };
-  }
-  if (row.runId === row.logicalTurnId) {
-    return {
-      ok: false,
-      code: "RUNID_EQUALS_LOGICAL_TURN",
-      message: "runId must differ from logicalTurnId",
-    };
-  }
-  if (row.runtimeIdentity !== "agents") {
-    return {
-      ok: false,
-      code: "RECEIPT_SCHEMA",
-      message: "runtimeIdentity must be agents",
-    };
-  }
-  if (
-    row.providerIdentity !== "fake" &&
-    row.providerIdentity !== "openai" &&
-    row.providerIdentity !== "unknown"
-  ) {
-    return {
-      ok: false,
-      code: "RECEIPT_SCHEMA",
-      message: "providerIdentity invalid",
-    };
-  }
-  if (
-    row.presentation !== "test_provider" &&
-    row.presentation !== "openai_live"
-  ) {
-    return {
-      ok: false,
-      code: "RECEIPT_SCHEMA",
-      message: "presentation invalid",
-    };
-  }
-  if (typeof row.providerConfigured !== "boolean") {
-    return {
-      ok: false,
-      code: "RECEIPT_SCHEMA",
-      message: "providerConfigured must be boolean",
-    };
-  }
-  if (!isNullOrString(row.providerResponseId)) {
-    return {
-      ok: false,
-      code: "RECEIPT_SCHEMA",
-      message: "providerResponseId must be string or null",
-    };
-  }
-  if (!isNullOrString(row.selectedModelId) || !isNullOrString(row.observedModel)) {
-    return {
-      ok: false,
-      code: "RECEIPT_SCHEMA",
-      message: "selectedModelId/observedModel must be string or null",
-    };
-  }
-  if (!isNullOrString(row.selectedReasoningEffort)) {
-    return {
-      ok: false,
-      code: "RECEIPT_SCHEMA",
-      message: "selectedReasoningEffort must be string or null",
-    };
-  }
-  if (
-    row.usage == null ||
-    typeof row.usage !== "object" ||
-    Array.isArray(row.usage)
-  ) {
-    return { ok: false, code: "RECEIPT_SCHEMA", message: "usage required" };
-  }
-  const usage = row.usage as Record<string, unknown>;
-  if (
-    !isNullOrNumber(usage.inputTokens) ||
-    !isNullOrNumber(usage.outputTokens) ||
-    !isNullOrNumber(usage.totalTokens)
-  ) {
-    return {
-      ok: false,
-      code: "RECEIPT_SCHEMA",
-      message: "usage tokens must be number or null (null ≠ 0)",
-    };
-  }
-  const adaptiveErr = validateAdaptiveObserve(row.adaptiveObserve);
-  if (adaptiveErr) {
-    return { ok: false, code: "RECEIPT_SCHEMA", message: adaptiveErr };
-  }
-  const contErr = validateContinuationObserve(row.continuationObserve);
-  if (contErr) {
-    return { ok: false, code: "RECEIPT_SCHEMA", message: contErr };
-  }
-  if (typeof row.toolCalls !== "number" || !Number.isFinite(row.toolCalls)) {
-    return {
-      ok: false,
-      code: "RECEIPT_SCHEMA",
-      message: "toolCalls must be finite number",
-    };
-  }
-  if (typeof row.limitReached !== "boolean") {
-    return {
-      ok: false,
-      code: "RECEIPT_SCHEMA",
-      message: "limitReached must be boolean",
-    };
-  }
-  const consErr = validateProductConservation(row.productConservation);
-  if (consErr) {
-    return { ok: false, code: "RECEIPT_SCHEMA", message: consErr };
-  }
-  if (!isNonEmptyString(row.productCapturedAt)) {
-    return {
-      ok: false,
-      code: "RECEIPT_SCHEMA",
-      message: "productCapturedAt required",
-    };
-  }
-  return { ok: true, kind: "cognitive_execution_receipt" };
-}
-
-export function validateLedgerRowForAppend(
-  row: unknown,
-): LedgerRowValidationResult {
-  if (row == null || typeof row !== "object" || Array.isArray(row)) {
-    return {
-      ok: false,
-      code: "ROW_NOT_OBJECT",
-      message: "ledger row must be a plain object",
-    };
-  }
-  const record = row as Record<string, unknown>;
-  try {
-    const size = Buffer.byteLength(JSON.stringify(record), "utf8");
-    if (size > MAX_LEDGER_ROW_JSON_BYTES) {
-      return {
-        ok: false,
-        code: "ROW_TOO_LARGE",
-        message: `row exceeds ${MAX_LEDGER_ROW_JSON_BYTES} bytes`,
-      };
-    }
-  } catch {
-    return {
-      ok: false,
-      code: "ROW_NOT_SERIALIZABLE",
-      message: "row is not JSON-serializable",
-    };
-  }
-
-  const forbidden = assertNoForbiddenContent(record);
-  if (forbidden) {
-    return {
-      ok: false,
-      code: "SENSITIVE_PAYLOAD_REJECTED",
-      message: forbidden,
-    };
-  }
-
-  const kind =
-    typeof record.kind === "string" ? record.kind : "(historical_campaign)";
-
-  if (kind === "cognitive_execution_receipt") {
-    return validateCognitiveReceiptRow(record);
-  }
-
-  if (
-    kind === "(historical_campaign)" ||
-    kind === "p6_campaign_run" ||
-    kind === "ROOT_CAUSE_INVESTIGATION_READONLY" ||
-    kind === "RUNTIME_REQUALIFICATION"
-  ) {
-    return validateHistoricalCampaignRow(record);
-  }
-
-  return {
-    ok: false,
-    code: "UNKNOWN_ROW_KIND",
-    message: `unsupported ledger row kind: ${kind}`,
-  };
-}
------ END FILE: projects/sfia-studio/app/lib/p6-campaign-evidence/ledgerRowValidation.ts -----
------ BEGIN FILE: projects/sfia-studio/app/lib/p6-campaign-evidence/evidenceLedger.ts -----
-/**
- * P6 External Campaign Evidence Ledger — append-only JSONL under .tmp-sfia-review/.
- *
- * Authority: QA / campaign evidence only (Morris ADOPT GO 2026-10-13).
- * NOT Product persistence. NOT ProductSqliteSession.
- *
- * Integrity model (OBS-02):
- *   HEALTHY   — all lines parse + validate structure
- *   DEGRADED  — some lines unreadable / invalid; historical bytes untouched
- *   INVALID   — file present but no usable rows and corruption observed
- *   UNREADABLE — I/O failure
- *   MISSING   — file absent (when allowMissing=false)
- *
- * Concurrency model (GO 2026-10-13 scope closure) — **MONO-WRITER**:
- *   Historical P6 harnesses append sequentially in a single vitest process
- *   (`fs.appendFileSync`, no multi-process ledger writers observed).
- *   No Morris decision requires multi-process safety for P6 campaign capture.
- *   Contract: one active writer per ledger file at a time.
- *   Local O_EXCL lock detects accidental contention and refuses honestly.
- *   Does NOT claim multi-process durability beyond contention detection.
- *   Age-based automatic lock deletion is forbidden (active writer may still hold it).
- *   Orphan recovery: explicit `forceRemoveOrphanP6EvidenceLedgerLock` only.
- */
-
-import fs from "node:fs";
-import path from "node:path";
-import { validateLedgerRowForAppend } from "./ledgerRowValidation";
-
-export const P6_CAMPAIGN_ID = "P6-GLOBAL-INTEGRATED-PRODUCT-QA-01" as const;
-export const P6_EVIDENCE_LEDGER_RELATIVE_PATH =
-  ".tmp-sfia-review/p6-global-integrated-qa/evidence-ledger.jsonl" as const;
-
-export type P6LedgerIntegrityStatus =
-  | "HEALTHY"
-  | "DEGRADED"
-  | "INVALID"
-  | "UNREADABLE"
-  | "MISSING";
-
-export type P6EvidenceLedgerRow = Record<string, unknown>;
-
-export type ReadP6EvidenceLedgerResult = {
-  /** True only when rows can be consumed (HEALTHY or DEGRADED). */
-  ok: boolean;
-  /** True ONLY when integrity === HEALTHY. Never true under corruption. */
-  integrityPass: boolean;
-  integrity: P6LedgerIntegrityStatus;
-  absolutePath: string;
-  rows: P6EvidenceLedgerRow[];
-  parseErrors: number;
-  structureErrors: number;
-  totalLines: number;
-  error?: string;
-};
-
-export type AppendP6EvidenceLedgerResult =
-  | {
-      ok: true;
-      absolutePath: string;
-      bytesWritten: number;
-      kind: string;
-    }
-  | {
-      ok: false;
-      code: string;
-      message: string;
-      absolutePath?: string;
-    };
-
-export type WithLedgerLockResult<T> =
-  | { ok: true; value: T }
-  | { ok: false; code: string; message: string };
-
-/** Contended mono-writer: short retry then honest LOCK_CONTENTION. No age reclaim. */
-const LOCK_RETRY_MS = 15;
-const LOCK_MAX_ATTEMPTS = 40;
-
-/** Documented usage contract — see module header. */
-export const P6_LEDGER_CONCURRENCY_MODEL = "MONO_WRITER" as const;
-
-function resolveRepoRootFromCwd(cwd = process.cwd()): string {
-  let dir = path.resolve(cwd);
-  for (let i = 0; i < 12; i += 1) {
-    if (
-      fs.existsSync(path.join(dir, "projects", "sfia-studio")) &&
-      fs.existsSync(path.join(dir, ".git"))
-    ) {
-      return dir;
-    }
-    const parent = path.dirname(dir);
-    if (parent === dir) break;
-    dir = parent;
-  }
-  return path.resolve(cwd, "../..");
-}
-
-export function resolveP6EvidenceLedgerAbsolutePath(
-  cwd = process.cwd(),
-): string {
-  return path.join(resolveRepoRootFromCwd(cwd), P6_EVIDENCE_LEDGER_RELATIVE_PATH);
-}
-
-/** Resolve ledger path under an explicit workspace/repo root (DET temp dirs). */
-export function resolveP6EvidenceLedgerPath(workspaceRoot: string): string {
-  return path.join(workspaceRoot, P6_EVIDENCE_LEDGER_RELATIVE_PATH);
-}
-
-export function ensureP6EvidenceLedger(options: {
-  absolutePath?: string;
-  workspaceRoot?: string;
-}): { ok: true; absolutePath: string; created: boolean } | { ok: false; message: string } {
-  const absolutePath =
-    options.absolutePath ??
-    (options.workspaceRoot
-      ? resolveP6EvidenceLedgerPath(options.workspaceRoot)
-      : resolveP6EvidenceLedgerAbsolutePath());
-  try {
-    fs.mkdirSync(path.dirname(absolutePath), { recursive: true });
-    if (fs.existsSync(absolutePath)) {
-      return { ok: true, absolutePath, created: false };
-    }
-    fs.writeFileSync(absolutePath, "", { encoding: "utf8", mode: 0o600 });
-    return { ok: true, absolutePath, created: true };
-  } catch (err) {
-    return {
-      ok: false,
-      message: err instanceof Error ? err.message : String(err),
-    };
-  }
-}
-
-function lockPathFor(ledgerPath: string): string {
-  return `${ledgerPath}.lock`;
-}
-
-function sleepSync(ms: number): void {
-  const end = Date.now() + ms;
-  while (Date.now() < end) {
-    /* bounded spin — lock retries are short */
-  }
-}
-
-/**
- * Exclusive lock around check+append (mono-writer contention detection).
- * Lock file created with O_EXCL ('wx'). Never deletes an existing lock by age.
- * Holder always unlinks on release. Orphans require governed force-remove.
- */
-export function withP6EvidenceLedgerLock<T>(
-  absolutePath: string,
-  fn: () => T,
-): WithLedgerLockResult<T> {
-  const lockPath = lockPathFor(absolutePath);
-  fs.mkdirSync(path.dirname(absolutePath), { recursive: true });
-
-  let fd: number | null = null;
-
-  for (let attempt = 0; attempt < LOCK_MAX_ATTEMPTS; attempt += 1) {
-    try {
-      fd = fs.openSync(lockPath, "wx");
-      fs.writeSync(
-        fd,
-        JSON.stringify({
-          pid: process.pid,
-          acquiredAt: new Date().toISOString(),
-          concurrencyModel: P6_LEDGER_CONCURRENCY_MODEL,
-        }),
-      );
-      break;
-    } catch (err) {
-      const code = (err as NodeJS.ErrnoException).code;
-      if (code !== "EEXIST") {
-        return {
-          ok: false,
-          code: "LOCK_IO_ERROR",
-          message: err instanceof Error ? err.message : String(err),
-        };
-      }
-      // Existing lock: never age-delete (holder may still be active).
-      sleepSync(LOCK_RETRY_MS);
-    }
-  }
-
-  if (fd == null) {
-    return {
-      ok: false,
-      code: "LOCK_CONTENTION",
-      message:
-        "mono-writer ledger lock contention — another writer holds the lock; refusing (no automatic reclaim)",
-    };
-  }
-
-  try {
-    return { ok: true, value: fn() };
-  } finally {
-    try {
-      fs.closeSync(fd);
-    } catch {
-      /* ignore */
-    }
-    try {
-      fs.unlinkSync(lockPath);
-    } catch {
-      /* ignore */
-    }
-  }
-}
-
-/**
- * Governed orphan lock recovery — explicit operator action only.
- * Does NOT prove the previous holder finished; use after confirming no active writer.
- */
-export function forceRemoveOrphanP6EvidenceLedgerLock(
-  absolutePath: string,
-): { ok: true; removed: boolean } | { ok: false; code: string; message: string } {
-  const lockPath = lockPathFor(absolutePath);
-  if (!fs.existsSync(lockPath)) {
-    return { ok: true, removed: false };
-  }
-  try {
-    fs.unlinkSync(lockPath);
-    return { ok: true, removed: true };
-  } catch (err) {
-    return {
-      ok: false,
-      code: "LOCK_FORCE_REMOVE_FAILED",
-      message: err instanceof Error ? err.message : String(err),
-    };
-  }
-}
-
-function rowHasMinimalStructure(row: P6EvidenceLedgerRow): boolean {
-  return (
-    typeof row.campaignId === "string" &&
-    row.campaignId.length > 0 &&
-    (typeof row.runId === "string" || typeof row.scenarioId === "string")
-  );
-}
-
-/**
- * Read-only ledger open. Never rewrites. Never silently repairs.
- */
-export function readP6EvidenceLedger(options?: {
-  absolutePath?: string;
-  allowMissing?: boolean;
-}): ReadP6EvidenceLedgerResult {
-  const absolutePath =
-    options?.absolutePath ?? resolveP6EvidenceLedgerAbsolutePath();
-  const allowMissing = options?.allowMissing ?? true;
-
-  if (!fs.existsSync(absolutePath)) {
-    if (allowMissing) {
-      return {
-        ok: true,
-        integrityPass: true,
-        integrity: "HEALTHY",
-        absolutePath,
-        rows: [],
-        parseErrors: 0,
-        structureErrors: 0,
-        totalLines: 0,
-      };
-    }
-    return {
-      ok: false,
-      integrityPass: false,
-      integrity: "MISSING",
-      absolutePath,
-      rows: [],
-      parseErrors: 0,
-      structureErrors: 0,
-      totalLines: 0,
-      error: "ledger file missing",
-    };
-  }
-
-  let raw: string;
-  try {
-    raw = fs.readFileSync(absolutePath, "utf8");
-  } catch (err) {
-    return {
-      ok: false,
-      integrityPass: false,
-      integrity: "UNREADABLE",
-      absolutePath,
-      rows: [],
-      parseErrors: 0,
-      structureErrors: 0,
-      totalLines: 0,
-      error: err instanceof Error ? err.message : String(err),
-    };
-  }
-
-  if (raw.length === 0) {
-    return {
-      ok: true,
-      integrityPass: true,
-      integrity: "HEALTHY",
-      absolutePath,
-      rows: [],
-      parseErrors: 0,
-      structureErrors: 0,
-      totalLines: 0,
-    };
-  }
-
-  const endsWithNewline = raw.endsWith("\n");
-  const lines = raw.split("\n");
-  // Trailing newline produces empty final segment — not a parse error.
-  if (endsWithNewline && lines.length > 0 && lines[lines.length - 1] === "") {
-    lines.pop();
-  }
-
-  const rows: P6EvidenceLedgerRow[] = [];
-  let parseErrors = 0;
-  let structureErrors = 0;
-  let partialTrailing = false;
-
-  for (let i = 0; i < lines.length; i += 1) {
-    const line = lines[i]!;
-    if (line.trim() === "") continue;
-    const isLast = i === lines.length - 1;
-    try {
-      const parsed = JSON.parse(line) as unknown;
-      if (
-        parsed == null ||
-        typeof parsed !== "object" ||
-        Array.isArray(parsed)
-      ) {
-        structureErrors += 1;
-        continue;
-      }
-      const row = parsed as P6EvidenceLedgerRow;
-      if (!rowHasMinimalStructure(row)) {
-        structureErrors += 1;
-        continue;
-      }
-      rows.push(row);
-    } catch {
-      parseErrors += 1;
-      if (isLast && !endsWithNewline) {
-        partialTrailing = true;
-      }
-    }
-  }
-
-  const corruption = parseErrors > 0 || structureErrors > 0 || partialTrailing;
-  if (!corruption) {
-    return {
-      ok: true,
-      integrityPass: true,
-      integrity: "HEALTHY",
-      absolutePath,
-      rows,
-      parseErrors: 0,
-      structureErrors: 0,
-      totalLines: lines.length,
-    };
-  }
-
-  if (rows.length > 0) {
-    return {
-      ok: true,
-      integrityPass: false,
-      integrity: "DEGRADED",
-      absolutePath,
-      rows,
-      parseErrors,
-      structureErrors,
-      totalLines: lines.length,
-      error: partialTrailing
-        ? "partial trailing line and/or parse/structure errors"
-        : "parse/structure errors observed; historical bytes preserved",
-    };
-  }
-
-  return {
-    ok: false,
-    integrityPass: false,
-    integrity: "INVALID",
-    absolutePath,
-    rows: [],
-    parseErrors,
-    structureErrors,
-    totalLines: lines.length,
-    error: "ledger unreadable as structured evidence (no valid rows)",
-  };
-}
-
-/**
- * OBS-01 secured append. Validates at write boundary. No unsafe bypass exported.
- * Refuses append when ledger integrity is DEGRADED/INVALID/UNREADABLE
- * (capture must fail honestly without rewriting history).
- */
-export function appendP6EvidenceLedgerRow(
-  row: unknown,
-  options?: { absolutePath?: string },
-): AppendP6EvidenceLedgerResult {
-  const absolutePath =
-    options?.absolutePath ?? resolveP6EvidenceLedgerAbsolutePath();
-
-  const validation = validateLedgerRowForAppend(row);
-  if (!validation.ok) {
-    return {
-      ok: false,
-      code: validation.code,
-      message: validation.message,
-      absolutePath,
-    };
-  }
-
-  const locked = withP6EvidenceLedgerLock(absolutePath, () => {
-    const prior = readP6EvidenceLedger({
-      absolutePath,
-      allowMissing: true,
-    });
-    if (
-      prior.integrity === "DEGRADED" ||
-      prior.integrity === "INVALID" ||
-      prior.integrity === "UNREADABLE"
-    ) {
-      return {
-        ok: false as const,
-        code: "LEDGER_INTEGRITY_BLOCKS_APPEND",
-        message: `refuse append while integrity=${prior.integrity}`,
-        absolutePath,
-      };
-    }
-
-    const line = `${JSON.stringify(row)}\n`;
-    try {
-      fs.mkdirSync(path.dirname(absolutePath), { recursive: true });
-      fs.appendFileSync(absolutePath, line, { encoding: "utf8", mode: 0o600 });
-      return {
-        ok: true as const,
-        absolutePath,
-        bytesWritten: Buffer.byteLength(line, "utf8"),
-        kind: validation.kind,
-      };
-    } catch (err) {
-      return {
-        ok: false as const,
-        code: "APPEND_IO_ERROR",
-        message: err instanceof Error ? err.message : String(err),
-        absolutePath,
-      };
-    }
-  });
-
-  if (!locked.ok) {
-    return {
-      ok: false,
-      code: locked.code,
-      message: locked.message,
-      absolutePath,
-    };
-  }
-  return locked.value;
-}
-
-export function findP6EvidenceLedgerRowsByRunId(
-  runId: string,
-  options?: { absolutePath?: string },
-): {
-  ok: boolean;
-  integrityPass: boolean;
-  integrity: P6LedgerIntegrityStatus;
-  matches: P6EvidenceLedgerRow[];
-  absolutePath: string;
-  error?: string;
-} {
-  const read = readP6EvidenceLedger({
-    absolutePath: options?.absolutePath,
-    allowMissing: true,
-  });
-  const matches = read.rows.filter((r) => r.runId === runId);
-  return {
-    ok: read.ok,
-    integrityPass: read.integrityPass,
-    integrity: read.integrity,
-    matches,
-    absolutePath: read.absolutePath,
-    error: read.error,
-  };
-}
------ END FILE: projects/sfia-studio/app/lib/p6-campaign-evidence/evidenceLedger.ts -----
 ----- BEGIN FILE: projects/sfia-studio/app/lib/p6-campaign-evidence/qaCollectionSeam.ts -----
 /**
  * QA collection seam for P6 campaign harnesses.
@@ -1624,460 +1723,15 @@ export {
 
 export {
   validateLedgerRowForAppend,
+  validateCognitiveReceiptRow,
+  classifyLedgerRowForRead,
+  durableLedgerContentEquivalent,
   MAX_LEDGER_ROW_JSON_BYTES,
   P6_RECEIPT_LEDGER_SCHEMA_VERSION_REQUIRED,
+  P6_RECEIPT_DURABLE_COMPARE_KEYS,
+  type LedgerRowReadClassification,
 } from "./ledgerRowValidation";
 ----- END FILE: projects/sfia-studio/app/lib/p6-campaign-evidence/index.ts -----
------ BEGIN FILE: projects/sfia-studio/app/__tests__/p6-campaign-evidence/p6.receiptCompleteness.d0.test.ts -----
-/**
- * Option B — complete CognitiveExecutionReceipt → ledger conservation (DET).
- * Oracles C01–C24. ZERO REAL.
- * @vitest-environment node
- */
-import fs from "node:fs";
-import os from "node:os";
-import path from "node:path";
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { setConversationProviderForTests } from "@/lib/platform/ai";
-import { orchestrateProjectAssistantTurn } from "@/features/project-assistant/orchestrateTurn";
-import {
-  buildCognitiveExecutionReceipt,
-  clearCognitiveExecutionReceiptRegistryForTests,
-  type CognitiveExecutionReceipt,
-} from "@/features/project-assistant/cognitiveExecutionReceipt";
-import {
-  P6_CAMPAIGN_ID,
-  P6_LEDGER_CONCURRENCY_MODEL,
-  P6_QA_COLLECTION_SEAM_STATUS,
-  P6_RECEIPT_LEDGER_SCHEMA_VERSION,
-  appendP6EvidenceLedgerRow,
-  captureCognitiveExecutionReceiptToP6Ledger,
-  collectP6ProductTurnEvidence,
-  diffReceiptAgainstLedgerEntry,
-  ensureP6EvidenceLedger,
-  findP6EvidenceLedgerRowsByRunId,
-  forceRemoveOrphanP6EvidenceLedgerLock,
-  readP6EvidenceLedger,
-  resolveP6EvidenceLedgerPath,
-  withP6EvidenceLedgerLock,
-} from "@/lib/p6-campaign-evidence";
-
-const {
-  getProjectRuntimeActionMock,
-  runNoraCognitiveTurnMock,
-} = vi.hoisted(() => ({
-  getProjectRuntimeActionMock: vi.fn(),
-  runNoraCognitiveTurnMock: vi.fn(),
-}));
-
-vi.mock("@/lib/vertical-slice-runtime/actions", () => ({
-  getProjectRuntimeAction: getProjectRuntimeActionMock,
-}));
-
-vi.mock("@/lib/nora-cognitive-runtime", async (importOriginal) => {
-  const actual =
-    await importOriginal<typeof import("@/lib/nora-cognitive-runtime")>();
-  return {
-    ...actual,
-    runNoraCognitiveTurn: (...args: unknown[]) =>
-      runNoraCognitiveTurnMock(...args),
-  };
-});
-
-function richTurn(overrides: Record<string, unknown> = {}) {
-  return {
-    text: "rich",
-    usage: {
-      inputTokens: 11,
-      outputTokens: 7,
-      totalTokens: 18,
-      model: "fake-observed-model",
-      providerResponseId: "fake-resp-complete-1",
-    },
-    toolRounds: 1,
-    toolCalls: 2,
-    limitReached: false,
-    cognitiveRuntime: "agents" as const,
-    sessionId: "sess:complete",
-    memoryBAvailability: "unavailable" as const,
-    memoryBCompactionState: "none" as const,
-    memoryBCompactionDetails: null,
-    selectedModelId: "fake-selected-model",
-    selectedReasoningEffort: "medium",
-    adaptiveObserve: {
-      requestedMaxTurns: 8,
-      effectiveMaxTurns: 6,
-      strategyClass: "Focused",
-      reasonCodes: ["adaptive:focused", "budget:trim"],
-      floor: 4,
-      ceiling: 10,
-      explicitOverride: false,
-    },
-    continuationObserve: {
-      continued: true,
-      segmentsExecuted: 2,
-      missionMaxTurns: 8,
-      segmentMaxTurns: 4,
-      allottedTurns: 8,
-      stopReason: "segment_budget",
-      reasonCodes: ["cont:segment"],
-    },
-    ...overrides,
-  };
-}
-
-describe("P6 receipt completeness (DET)", () => {
-  let workspaceRoot: string;
-  let ledgerPath: string;
-  let sessionDbPath: string;
-
-  beforeEach(() => {
-    process.env.OPS1_CONVERSATION_PROVIDER = "fake";
-    getProjectRuntimeActionMock.mockResolvedValue({
-      ok: true,
-      project: {
-        projectId: "prj:p6-complete",
-        name: "Complete",
-        shortReference: "CMP",
-        objective: "complete",
-        contextSummary: "c",
-        criticality: "STANDARD",
-        constraints: [],
-        localMode: true,
-        source: "REAL_LOCAL_CORE",
-        fixture: false,
-      },
-      doctrine: {
-        id: "pkg:studio-v3-oa",
-        version: "1.0.0",
-        digest: "d",
-        status: "RESOLVED",
-      },
-      livingState: {
-        id: "lps:c",
-        version: 1,
-        createdAt: "2026-10-13T00:00:00.000Z",
-      },
-      readiness: {
-        status: "NOT_READY",
-        hard: "OPEN",
-        tA6: "INCOMPLETE",
-        iam: "NOT_SELECTED",
-        productPersistence: "SQLITE_OA_PRODUCT_STORE",
-        realAgentExecution: "DISABLED",
-        delivery: "NOT_AUTHORIZED",
-        cutover: "NOT_AUTHORIZED",
-        runReady: false,
-        productReady: false,
-      },
-      disclosures: {
-        runtimeMode: "LOCAL_PROCESS",
-        persistence: "PARTIAL_PROJECT_LPS_CYCLE_DECISION_CONTRACT_DURABLE",
-        agentExecution: "DISABLED",
-        iam: "NOT_SELECTED",
-        productPersistence: "SQLITE_OA_PRODUCT_STORE",
-        delivery: "NOT_AUTHORIZED",
-        cutover: "NOT_AUTHORIZED",
-        localDataVolatile: true,
-        restartMayLoseState: true,
-        projectLpsRestartSafe: true,
-        cycleInstanceRestartSafe: true,
-        humanDecisionRestartSafe: true,
-        executionContractRestartSafe: true,
-        messages: [],
-      },
-    });
-    runNoraCognitiveTurnMock.mockReset();
-    setConversationProviderForTests(null);
-    clearCognitiveExecutionReceiptRegistryForTests();
-    workspaceRoot = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-p6-comp-"));
-    ledgerPath = resolveP6EvidenceLedgerPath(workspaceRoot);
-    sessionDbPath = path.join(workspaceRoot, "session.sqlite");
-  });
-
-  afterEach(() => {
-    setConversationProviderForTests(null);
-    clearCognitiveExecutionReceiptRegistryForTests();
-    fs.rmSync(workspaceRoot, { recursive: true, force: true });
-  });
-
-  function captureRich(
-    runId: string,
-    turnOverrides: Record<string, unknown> = {},
-    receiptOverrides: Partial<{
-      productTerminalStatus: "ok" | "provider_error";
-      presentation: "test_provider" | "openai_live";
-    }> = {},
-  ): {
-    receipt: CognitiveExecutionReceipt;
-    result: ReturnType<typeof captureCognitiveExecutionReceiptToP6Ledger>;
-  } {
-    const receipt = buildCognitiveExecutionReceipt({
-      logicalTurnId: `ltu:${runId}`,
-      projectId: "prj:p6-complete",
-      presentation: receiptOverrides.presentation ?? "test_provider",
-      productTerminalStatus: receiptOverrides.productTerminalStatus ?? "ok",
-      turn: richTurn(turnOverrides) as never,
-    });
-    const result = captureCognitiveExecutionReceiptToP6Ledger({
-      receipt,
-      runId,
-      scenarioId: "P6-MIN-09",
-      absolutePath: ledgerPath,
-    });
-    return { receipt, result };
-  }
-
-  it("C01–C12 — complete field conservation after close/reopen", () => {
-    const { receipt, result } = captureRich("P6-DET-COMPLETE-01");
-    expect(result.ok).toBe(true);
-    if (!result.ok) return;
-    expect(result.entry.ledgerSchemaVersion).toBe(P6_RECEIPT_LEDGER_SCHEMA_VERSION);
-    expect(result.entry.selectedModelId).toBe("fake-selected-model");
-    expect(result.entry.observedModel).toBe("fake-observed-model");
-    expect(result.entry.selectedReasoningEffort).toBe("medium");
-    expect(result.entry.usage).toEqual({
-      inputTokens: 11,
-      outputTokens: 7,
-      totalTokens: 18,
-    });
-    expect(result.entry.adaptiveObserve).toEqual(receipt.adaptiveObserve);
-    expect(result.entry.continuationObserve).toEqual(receipt.continuationObserve);
-    expect(result.entry.toolCalls).toBe(2);
-    expect(result.entry.limitReached).toBe(false);
-    expect(result.entry.productTerminalStatus).toBe("ok");
-    expect(result.entry.runId).not.toBe(result.entry.logicalTurnId);
-
-    const reopened = readP6EvidenceLedger({ absolutePath: ledgerPath });
-    expect(reopened.integrityPass).toBe(true);
-    const entry = reopened.rows.find((r) => r.runId === "P6-DET-COMPLETE-01");
-    expect(entry).toBeTruthy();
-    const mismatches = diffReceiptAgainstLedgerEntry(receipt, entry!);
-    expect(mismatches).toEqual([]);
-  });
-
-  it("C05 — null tokens stay null (never coerced to 0)", () => {
-    const { result } = captureRich("P6-DET-NULL-TOKENS", {
-      usage: {
-        inputTokens: null,
-        outputTokens: null,
-        totalTokens: null,
-        model: null,
-        providerResponseId: null,
-      },
-      selectedModelId: null,
-      selectedReasoningEffort: null,
-    });
-    expect(result.ok).toBe(true);
-    if (!result.ok) return;
-    expect(result.entry.usage).toEqual({
-      inputTokens: null,
-      outputTokens: null,
-      totalTokens: null,
-    });
-    expect(result.entry.providerResponseId).toBeNull();
-    expect(result.entry.selectedModelId).toBeNull();
-  });
-
-  it("C08 — continuationObserve null conserved", () => {
-    const { receipt, result } = captureRich("P6-DET-NO-CONT", {
-      continuationObserve: null,
-    });
-    expect(result.ok).toBe(true);
-    if (!result.ok) return;
-    expect(receipt.continuationObserve).toBeNull();
-    expect(result.entry.continuationObserve).toBeNull();
-    const reopened = findP6EvidenceLedgerRowsByRunId("P6-DET-NO-CONT", {
-      absolutePath: ledgerPath,
-    });
-    expect(reopened.matches[0]?.continuationObserve).toBeNull();
-  });
-
-  it("C13 — historical campaign lines preserved beside v2 receipt", () => {
-    appendP6EvidenceLedgerRow(
-      {
-        campaignId: P6_CAMPAIGN_ID,
-        scenarioId: "P6-MIN-01",
-        runId: "P6-HIST-OLD",
-        ok: false,
-        hardPass: false,
-      },
-      { absolutePath: ledgerPath },
-    );
-    captureRich("P6-DET-BESIDE-HIST");
-    const read = readP6EvidenceLedger({ absolutePath: ledgerPath });
-    expect(read.rows.some((r) => r.runId === "P6-HIST-OLD")).toBe(true);
-    expect(read.rows.some((r) => r.runId === "P6-DET-BESIDE-HIST")).toBe(true);
-    expect(read.integrityPass).toBe(true);
-  });
-
-  it("C14 — incomplete receipt schema rejected at write boundary", () => {
-    const incomplete = appendP6EvidenceLedgerRow(
-      {
-        kind: "cognitive_execution_receipt",
-        campaignId: P6_CAMPAIGN_ID,
-        runId: "P6-INCOMPLETE",
-        scenarioId: "P6-MIN-09",
-        logicalTurnId: "ltu:incomplete",
-        projectId: "prj:x",
-        providerResponseObservation: "FAKE_DETERMINISTIC",
-        productRealProofStatus: "NOT_PROVEN",
-        realBoundaryClaim: "NOT_CLAIMED",
-        captureStatus: "CAPTURED",
-      },
-      { absolutePath: ledgerPath },
-    );
-    expect(incomplete.ok).toBe(false);
-    if (!incomplete.ok) expect(incomplete.code).toBe("RECEIPT_SCHEMA");
-  });
-
-  it("C15/C16 — Fake / Runner id never REAL / PROVIDER_CONFIRMED", () => {
-    const { result: fake } = captureRich("P6-DET-FAKE");
-    expect(fake.ok).toBe(true);
-    if (!fake.ok) return;
-    expect(fake.entry.providerResponseObservation).toBe("FAKE_DETERMINISTIC");
-    expect(fake.entry.productRealProofStatus).toBe("NOT_PROVEN");
-    expect(fake.entry.realBoundaryClaim).toBe("NOT_CLAIMED");
-
-    const synth = buildCognitiveExecutionReceipt({
-      logicalTurnId: "ltu:synth-c",
-      projectId: "prj:p6-complete",
-      presentation: "openai_live",
-      productTerminalStatus: "ok",
-      turn: richTurn({
-        usage: {
-          inputTokens: 1,
-          outputTokens: 1,
-          totalTokens: 2,
-          model: "gpt-6-luna",
-          providerResponseId: "resp_det_not_real",
-        },
-        selectedModelId: "gpt-6-luna",
-      }) as never,
-    });
-    const captured = captureCognitiveExecutionReceiptToP6Ledger({
-      receipt: synth,
-      runId: "P6-DET-SYNTH-C",
-      scenarioId: "P6-MIN-09",
-      absolutePath: ledgerPath,
-    });
-    expect(captured.ok).toBe(true);
-    if (!captured.ok) return;
-    expect(captured.entry.providerResponseObservation).toBe(
-      "RUNNER_RESPONSE_ID_OBSERVED",
-    );
-    expect(JSON.stringify(captured.entry)).not.toContain("PROVIDER_CONFIRMED");
-  });
-
-  it("C17/C22/C23 — QA seam DET; capture ≠ provider_error; SQLite unchanged", async () => {
-    runNoraCognitiveTurnMock.mockResolvedValue(richTurn());
-    const dto = await orchestrateProjectAssistantTurn({
-      projectId: "prj:p6-complete",
-      content: "completeness via seam",
-      sessionDbPath,
-    });
-    expect(dto.ok).toBe(true);
-    if (!dto.ok) return;
-    const before = fs.existsSync(sessionDbPath)
-      ? fs.readFileSync(sessionDbPath)
-      : null;
-    const collected = collectP6ProductTurnEvidence({
-      productTurnResult: dto,
-      runId: "P6-DET-SEAM-COMPLETE",
-      scenarioId: "P6-MIN-09",
-      absolutePath: ledgerPath,
-    });
-    expect(collected.ok).toBe(true);
-    if (!collected.ok) return;
-    expect(dto.status).toBe("ok");
-    expect(P6_QA_COLLECTION_SEAM_STATUS.deterministicProven).toBe(true);
-    expect(P6_QA_COLLECTION_SEAM_STATUS.operationalCampaignWiring).toBe(
-      "PENDING",
-    );
-    const mismatches = diffReceiptAgainstLedgerEntry(
-      dto.cognitiveExecutionReceipt!,
-      collected.entry,
-    );
-    expect(mismatches).toEqual([]);
-    if (before) {
-      expect(Buffer.compare(fs.readFileSync(sessionDbPath), before)).toBe(0);
-    }
-  });
-
-  it("C18 — degraded ledger refuses writes", () => {
-    ensureP6EvidenceLedger({ absolutePath: ledgerPath });
-    fs.writeFileSync(
-      ledgerPath,
-      `${JSON.stringify({
-        campaignId: P6_CAMPAIGN_ID,
-        scenarioId: "P6-MIN-01",
-        runId: "P6-KEEP",
-      })}\nBROKEN\n`,
-      "utf8",
-    );
-    const before = fs.readFileSync(ledgerPath, "utf8");
-    const blocked = captureRich("P6-DET-AFTER-DEG");
-    expect(blocked.result.ok).toBe(false);
-    if (!blocked.result.ok) {
-      expect(blocked.result.status).toBe("integrity_blocks_capture");
-    }
-    expect(fs.readFileSync(ledgerPath, "utf8")).toBe(before);
-  });
-
-  it("C19/C24 — duplicate skip returns persisted; FAILED preserved", () => {
-    const fail = captureRich(
-      "P6-DET-FAIL-KEEP",
-      {
-        usage: {
-          inputTokens: null,
-          outputTokens: null,
-          totalTokens: null,
-          model: null,
-          providerResponseId: null,
-        },
-      },
-      { productTerminalStatus: "provider_error" },
-    );
-    expect(fail.result.ok).toBe(true);
-    const skip = captureCognitiveExecutionReceiptToP6Ledger({
-      receipt: fail.receipt,
-      runId: "P6-DET-FAIL-KEEP",
-      scenarioId: "P6-MIN-09",
-      absolutePath: ledgerPath,
-      onDuplicate: "skip",
-    });
-    expect(skip.ok).toBe(true);
-    if (!skip.ok) return;
-    expect(skip.status).toBe("duplicate_skipped");
-    expect(skip.entry.productTerminalStatus).toBe("provider_error");
-    expect(skip.entry.capturedAt).toBe(
-      fail.result.ok ? fail.result.entry.capturedAt : null,
-    );
-  });
-
-  it("C20 — concurrency model is MONO_WRITER", () => {
-    expect(P6_LEDGER_CONCURRENCY_MODEL).toBe("MONO_WRITER");
-  });
-
-  it("C21 — aged lock is NOT auto-removed; force-remove is explicit", () => {
-    ensureP6EvidenceLedger({ absolutePath: ledgerPath });
-    const lockPath = `${ledgerPath}.lock`;
-    fs.writeFileSync(lockPath, JSON.stringify({ pid: 1, acquiredAt: "2000-01-01" }));
-    // Make mtime ancient
-    const ancient = new Date("2000-01-01T00:00:00Z");
-    fs.utimesSync(lockPath, ancient, ancient);
-    const blocked = withP6EvidenceLedgerLock(ledgerPath, () => "nope");
-    expect(blocked.ok).toBe(false);
-    if (!blocked.ok) expect(blocked.code).toBe("LOCK_CONTENTION");
-    expect(fs.existsSync(lockPath)).toBe(true);
-    const forced = forceRemoveOrphanP6EvidenceLedgerLock(ledgerPath);
-    expect(forced.ok).toBe(true);
-    if (forced.ok) expect(forced.removed).toBe(true);
-    const acquired = withP6EvidenceLedgerLock(ledgerPath, () => "ok");
-    expect(acquired.ok).toBe(true);
-  });
-});
------ END FILE: projects/sfia-studio/app/__tests__/p6-campaign-evidence/p6.receiptCompleteness.d0.test.ts -----
 ----- BEGIN FILE: projects/sfia-studio/app/__tests__/p6-campaign-evidence/p6.externalEvidenceLedger.d0.test.ts -----
 /**
  * P6 EXTERNAL EVIDENCE LEDGER — DETERMINISTIC / ZERO REAL.
@@ -2633,8 +2287,657 @@ describe("P6 EXTERNAL EVIDENCE LEDGER (DETERMINISTIC)", () => {
       );
     }
   });
+
+  it("R01 — reçu v2 valide relu HEALTHY", () => {
+    const ok = capture(ledgerPath, { runId: "P6-R01-V2" });
+    expect(ok.ok).toBe(true);
+    const read = readP6EvidenceLedger({ absolutePath: ledgerPath });
+    expect(read.integrity).toBe("HEALTHY");
+    expect(read.integrityPass).toBe(true);
+    expect(read.semanticErrors).toBe(0);
+  });
+
+  it("R02/R03/R04/R06 — v2 incomplet JSON valide → integrityPass=false; non promu", () => {
+    ensureP6EvidenceLedger({ absolutePath: ledgerPath });
+    fs.appendFileSync(
+      ledgerPath,
+      `${JSON.stringify({
+        kind: "cognitive_execution_receipt",
+        ledgerSchemaVersion: 2,
+        campaignId: P6_CAMPAIGN_ID,
+        runId: "P6-R02-INCOMPLETE",
+        scenarioId: "P6-MIN-09",
+        logicalTurnId: "ltu:r02",
+        projectId: "prj:x",
+        providerResponseObservation: "FAKE_DETERMINISTIC",
+        productRealProofStatus: "NOT_PROVEN",
+        realBoundaryClaim: "NOT_CLAIMED",
+        captureStatus: "CAPTURED",
+        usage: { inputTokens: "bad", outputTokens: null, totalTokens: null },
+      })}\n`,
+      "utf8",
+    );
+    const read = readP6EvidenceLedger({ absolutePath: ledgerPath });
+    expect(read.integrityPass).toBe(false);
+    expect(read.integrity).toBe("DEGRADED");
+    expect(read.semanticErrors).toBeGreaterThan(0);
+    expect(read.rows.some((r) => r.runId === "P6-R02-INCOMPLETE")).toBe(true);
+    expect(read.rows.find((r) => r.runId === "P6-R02-INCOMPLETE")?.selectedModelId).toBeUndefined();
+  });
+
+  it("R05/R07 — ancienne ligne campagne + FAILED préservés", () => {
+    appendP6EvidenceLedgerRow(
+      {
+        campaignId: P6_CAMPAIGN_ID,
+        scenarioId: "P6-MIN-01",
+        runId: "P6-R05-HIST",
+        ok: false,
+        hardPass: false,
+        error: "FAILED HISTORICAL",
+      },
+      { absolutePath: ledgerPath },
+    );
+    const before = fs.readFileSync(ledgerPath, "utf8");
+    capture(ledgerPath, { runId: "P6-R05-NEW" });
+    expect(fs.readFileSync(ledgerPath, "utf8").startsWith(before.trimEnd())).toBe(
+      true,
+    );
+    const read = readP6EvidenceLedger({ absolutePath: ledgerPath });
+    expect(read.rows.find((r) => r.runId === "P6-R05-HIST")?.error).toBe(
+      "FAILED HISTORICAL",
+    );
+    expect(read.integrityPass).toBe(true);
+  });
+
+  it("R09/R16/R17 — writer générique refuse doublon; deux runId OK; no mutation", () => {
+    const first = appendP6EvidenceLedgerRow(
+      {
+        campaignId: P6_CAMPAIGN_ID,
+        scenarioId: "P6-MIN-01",
+        runId: "P6-R09-DUP",
+        ok: true,
+      },
+      { absolutePath: ledgerPath },
+    );
+    expect(first.ok).toBe(true);
+    const bytes = fs.readFileSync(ledgerPath, "utf8");
+    const dup = appendP6EvidenceLedgerRow(
+      {
+        campaignId: P6_CAMPAIGN_ID,
+        scenarioId: "P6-MIN-01",
+        runId: "P6-R09-DUP",
+        ok: false,
+      },
+      { absolutePath: ledgerPath },
+    );
+    expect(dup.ok).toBe(false);
+    if (!dup.ok) expect(dup.code).toBe("DUPLICATE_RUN_ID");
+    expect(fs.readFileSync(ledgerPath, "utf8")).toBe(bytes);
+    const other = appendP6EvidenceLedgerRow(
+      {
+        campaignId: P6_CAMPAIGN_ID,
+        scenarioId: "P6-MIN-01",
+        runId: "P6-R09-OTHER",
+        ok: true,
+      },
+      { absolutePath: ledgerPath },
+    );
+    expect(other.ok).toBe(true);
+  });
+
+  it("R10/R11 — writer spécialisé + cross-writer unicité", () => {
+    appendP6EvidenceLedgerRow(
+      {
+        campaignId: P6_CAMPAIGN_ID,
+        scenarioId: "P6-MIN-09",
+        runId: "P6-R11-CROSS",
+        ok: false,
+      },
+      { absolutePath: ledgerPath },
+    );
+    const bytes = fs.readFileSync(ledgerPath, "utf8");
+    const cross = capture(ledgerPath, { runId: "P6-R11-CROSS" });
+    expect(cross.ok).toBe(false);
+    if (!cross.ok) expect(cross.status).toBe("duplicate_rejected");
+    expect(fs.readFileSync(ledgerPath, "utf8")).toBe(bytes);
+
+    const a = capture(ledgerPath, { runId: "P6-R10-A" });
+    expect(a.ok).toBe(true);
+    const b = capture(ledgerPath, { runId: "P6-R10-A" });
+    expect(b.ok).toBe(false);
+    if (!b.ok) expect(b.status).toBe("duplicate_rejected");
+  });
 });
 ----- END FILE: projects/sfia-studio/app/__tests__/p6-campaign-evidence/p6.externalEvidenceLedger.d0.test.ts -----
+----- BEGIN FILE: projects/sfia-studio/app/__tests__/p6-campaign-evidence/p6.receiptCompleteness.d0.test.ts -----
+/**
+ * Option B — complete CognitiveExecutionReceipt → ledger conservation (DET).
+ * Oracles C01–C24. ZERO REAL.
+ * @vitest-environment node
+ */
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { setConversationProviderForTests } from "@/lib/platform/ai";
+import { orchestrateProjectAssistantTurn } from "@/features/project-assistant/orchestrateTurn";
+import {
+  buildCognitiveExecutionReceipt,
+  clearCognitiveExecutionReceiptRegistryForTests,
+  type CognitiveExecutionReceipt,
+} from "@/features/project-assistant/cognitiveExecutionReceipt";
+import {
+  P6_CAMPAIGN_ID,
+  P6_LEDGER_CONCURRENCY_MODEL,
+  P6_QA_COLLECTION_SEAM_STATUS,
+  P6_RECEIPT_LEDGER_SCHEMA_VERSION,
+  appendP6EvidenceLedgerRow,
+  captureCognitiveExecutionReceiptToP6Ledger,
+  collectP6ProductTurnEvidence,
+  diffReceiptAgainstLedgerEntry,
+  ensureP6EvidenceLedger,
+  findP6EvidenceLedgerRowsByRunId,
+  forceRemoveOrphanP6EvidenceLedgerLock,
+  readP6EvidenceLedger,
+  resolveP6EvidenceLedgerPath,
+  withP6EvidenceLedgerLock,
+} from "@/lib/p6-campaign-evidence";
+
+const {
+  getProjectRuntimeActionMock,
+  runNoraCognitiveTurnMock,
+} = vi.hoisted(() => ({
+  getProjectRuntimeActionMock: vi.fn(),
+  runNoraCognitiveTurnMock: vi.fn(),
+}));
+
+vi.mock("@/lib/vertical-slice-runtime/actions", () => ({
+  getProjectRuntimeAction: getProjectRuntimeActionMock,
+}));
+
+vi.mock("@/lib/nora-cognitive-runtime", async (importOriginal) => {
+  const actual =
+    await importOriginal<typeof import("@/lib/nora-cognitive-runtime")>();
+  return {
+    ...actual,
+    runNoraCognitiveTurn: (...args: unknown[]) =>
+      runNoraCognitiveTurnMock(...args),
+  };
+});
+
+function richTurn(overrides: Record<string, unknown> = {}) {
+  return {
+    text: "rich",
+    usage: {
+      inputTokens: 11,
+      outputTokens: 7,
+      totalTokens: 18,
+      model: "fake-observed-model",
+      providerResponseId: "fake-resp-complete-1",
+    },
+    toolRounds: 1,
+    toolCalls: 2,
+    limitReached: false,
+    cognitiveRuntime: "agents" as const,
+    sessionId: "sess:complete",
+    memoryBAvailability: "unavailable" as const,
+    memoryBCompactionState: "none" as const,
+    memoryBCompactionDetails: null,
+    selectedModelId: "fake-selected-model",
+    selectedReasoningEffort: "medium",
+    adaptiveObserve: {
+      requestedMaxTurns: 8,
+      effectiveMaxTurns: 6,
+      strategyClass: "Focused",
+      reasonCodes: ["adaptive:focused", "budget:trim"],
+      floor: 4,
+      ceiling: 10,
+      explicitOverride: false,
+    },
+    continuationObserve: {
+      continued: true,
+      segmentsExecuted: 2,
+      missionMaxTurns: 8,
+      segmentMaxTurns: 4,
+      allottedTurns: 8,
+      stopReason: "segment_budget",
+      reasonCodes: ["cont:segment"],
+    },
+    ...overrides,
+  };
+}
+
+describe("P6 receipt completeness (DET)", () => {
+  let workspaceRoot: string;
+  let ledgerPath: string;
+  let sessionDbPath: string;
+
+  beforeEach(() => {
+    process.env.OPS1_CONVERSATION_PROVIDER = "fake";
+    getProjectRuntimeActionMock.mockResolvedValue({
+      ok: true,
+      project: {
+        projectId: "prj:p6-complete",
+        name: "Complete",
+        shortReference: "CMP",
+        objective: "complete",
+        contextSummary: "c",
+        criticality: "STANDARD",
+        constraints: [],
+        localMode: true,
+        source: "REAL_LOCAL_CORE",
+        fixture: false,
+      },
+      doctrine: {
+        id: "pkg:studio-v3-oa",
+        version: "1.0.0",
+        digest: "d",
+        status: "RESOLVED",
+      },
+      livingState: {
+        id: "lps:c",
+        version: 1,
+        createdAt: "2026-10-13T00:00:00.000Z",
+      },
+      readiness: {
+        status: "NOT_READY",
+        hard: "OPEN",
+        tA6: "INCOMPLETE",
+        iam: "NOT_SELECTED",
+        productPersistence: "SQLITE_OA_PRODUCT_STORE",
+        realAgentExecution: "DISABLED",
+        delivery: "NOT_AUTHORIZED",
+        cutover: "NOT_AUTHORIZED",
+        runReady: false,
+        productReady: false,
+      },
+      disclosures: {
+        runtimeMode: "LOCAL_PROCESS",
+        persistence: "PARTIAL_PROJECT_LPS_CYCLE_DECISION_CONTRACT_DURABLE",
+        agentExecution: "DISABLED",
+        iam: "NOT_SELECTED",
+        productPersistence: "SQLITE_OA_PRODUCT_STORE",
+        delivery: "NOT_AUTHORIZED",
+        cutover: "NOT_AUTHORIZED",
+        localDataVolatile: true,
+        restartMayLoseState: true,
+        projectLpsRestartSafe: true,
+        cycleInstanceRestartSafe: true,
+        humanDecisionRestartSafe: true,
+        executionContractRestartSafe: true,
+        messages: [],
+      },
+    });
+    runNoraCognitiveTurnMock.mockReset();
+    setConversationProviderForTests(null);
+    clearCognitiveExecutionReceiptRegistryForTests();
+    workspaceRoot = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-p6-comp-"));
+    ledgerPath = resolveP6EvidenceLedgerPath(workspaceRoot);
+    sessionDbPath = path.join(workspaceRoot, "session.sqlite");
+  });
+
+  afterEach(() => {
+    setConversationProviderForTests(null);
+    clearCognitiveExecutionReceiptRegistryForTests();
+    fs.rmSync(workspaceRoot, { recursive: true, force: true });
+  });
+
+  function captureRich(
+    runId: string,
+    turnOverrides: Record<string, unknown> = {},
+    receiptOverrides: Partial<{
+      productTerminalStatus: "ok" | "provider_error";
+      presentation: "test_provider" | "openai_live";
+    }> = {},
+  ): {
+    receipt: CognitiveExecutionReceipt;
+    result: ReturnType<typeof captureCognitiveExecutionReceiptToP6Ledger>;
+  } {
+    const receipt = buildCognitiveExecutionReceipt({
+      logicalTurnId: `ltu:${runId}`,
+      projectId: "prj:p6-complete",
+      presentation: receiptOverrides.presentation ?? "test_provider",
+      productTerminalStatus: receiptOverrides.productTerminalStatus ?? "ok",
+      turn: richTurn(turnOverrides) as never,
+    });
+    const result = captureCognitiveExecutionReceiptToP6Ledger({
+      receipt,
+      runId,
+      scenarioId: "P6-MIN-09",
+      absolutePath: ledgerPath,
+    });
+    return { receipt, result };
+  }
+
+  it("C01–C12 — complete field conservation after close/reopen", () => {
+    const { receipt, result } = captureRich("P6-DET-COMPLETE-01");
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.entry.ledgerSchemaVersion).toBe(P6_RECEIPT_LEDGER_SCHEMA_VERSION);
+    expect(result.entry.selectedModelId).toBe("fake-selected-model");
+    expect(result.entry.observedModel).toBe("fake-observed-model");
+    expect(result.entry.selectedReasoningEffort).toBe("medium");
+    expect(result.entry.usage).toEqual({
+      inputTokens: 11,
+      outputTokens: 7,
+      totalTokens: 18,
+    });
+    expect(result.entry.adaptiveObserve).toEqual(receipt.adaptiveObserve);
+    expect(result.entry.continuationObserve).toEqual(receipt.continuationObserve);
+    expect(result.entry.toolCalls).toBe(2);
+    expect(result.entry.limitReached).toBe(false);
+    expect(result.entry.productTerminalStatus).toBe("ok");
+    expect(result.entry.runId).not.toBe(result.entry.logicalTurnId);
+
+    const reopened = readP6EvidenceLedger({ absolutePath: ledgerPath });
+    expect(reopened.integrityPass).toBe(true);
+    const entry = reopened.rows.find((r) => r.runId === "P6-DET-COMPLETE-01");
+    expect(entry).toBeTruthy();
+    const mismatches = diffReceiptAgainstLedgerEntry(receipt, entry!);
+    expect(mismatches).toEqual([]);
+  });
+
+  it("C05 — null tokens stay null (never coerced to 0)", () => {
+    const { result } = captureRich("P6-DET-NULL-TOKENS", {
+      usage: {
+        inputTokens: null,
+        outputTokens: null,
+        totalTokens: null,
+        model: null,
+        providerResponseId: null,
+      },
+      selectedModelId: null,
+      selectedReasoningEffort: null,
+    });
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.entry.usage).toEqual({
+      inputTokens: null,
+      outputTokens: null,
+      totalTokens: null,
+    });
+    expect(result.entry.providerResponseId).toBeNull();
+    expect(result.entry.selectedModelId).toBeNull();
+  });
+
+  it("C08 — continuationObserve null conserved", () => {
+    const { receipt, result } = captureRich("P6-DET-NO-CONT", {
+      continuationObserve: null,
+    });
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(receipt.continuationObserve).toBeNull();
+    expect(result.entry.continuationObserve).toBeNull();
+    const reopened = findP6EvidenceLedgerRowsByRunId("P6-DET-NO-CONT", {
+      absolutePath: ledgerPath,
+    });
+    expect(reopened.matches[0]?.continuationObserve).toBeNull();
+  });
+
+  it("C13 — historical campaign lines preserved beside v2 receipt", () => {
+    appendP6EvidenceLedgerRow(
+      {
+        campaignId: P6_CAMPAIGN_ID,
+        scenarioId: "P6-MIN-01",
+        runId: "P6-HIST-OLD",
+        ok: false,
+        hardPass: false,
+      },
+      { absolutePath: ledgerPath },
+    );
+    captureRich("P6-DET-BESIDE-HIST");
+    const read = readP6EvidenceLedger({ absolutePath: ledgerPath });
+    expect(read.rows.some((r) => r.runId === "P6-HIST-OLD")).toBe(true);
+    expect(read.rows.some((r) => r.runId === "P6-DET-BESIDE-HIST")).toBe(true);
+    expect(read.integrityPass).toBe(true);
+  });
+
+  it("C14 — incomplete receipt schema rejected at write boundary", () => {
+    const incomplete = appendP6EvidenceLedgerRow(
+      {
+        kind: "cognitive_execution_receipt",
+        campaignId: P6_CAMPAIGN_ID,
+        runId: "P6-INCOMPLETE",
+        scenarioId: "P6-MIN-09",
+        logicalTurnId: "ltu:incomplete",
+        projectId: "prj:x",
+        providerResponseObservation: "FAKE_DETERMINISTIC",
+        productRealProofStatus: "NOT_PROVEN",
+        realBoundaryClaim: "NOT_CLAIMED",
+        captureStatus: "CAPTURED",
+      },
+      { absolutePath: ledgerPath },
+    );
+    expect(incomplete.ok).toBe(false);
+    if (!incomplete.ok) expect(incomplete.code).toBe("RECEIPT_SCHEMA");
+  });
+
+  it("C15/C16 — Fake / Runner id never REAL / PROVIDER_CONFIRMED", () => {
+    const { result: fake } = captureRich("P6-DET-FAKE");
+    expect(fake.ok).toBe(true);
+    if (!fake.ok) return;
+    expect(fake.entry.providerResponseObservation).toBe("FAKE_DETERMINISTIC");
+    expect(fake.entry.productRealProofStatus).toBe("NOT_PROVEN");
+    expect(fake.entry.realBoundaryClaim).toBe("NOT_CLAIMED");
+
+    const synth = buildCognitiveExecutionReceipt({
+      logicalTurnId: "ltu:synth-c",
+      projectId: "prj:p6-complete",
+      presentation: "openai_live",
+      productTerminalStatus: "ok",
+      turn: richTurn({
+        usage: {
+          inputTokens: 1,
+          outputTokens: 1,
+          totalTokens: 2,
+          model: "gpt-6-luna",
+          providerResponseId: "resp_det_not_real",
+        },
+        selectedModelId: "gpt-6-luna",
+      }) as never,
+    });
+    const captured = captureCognitiveExecutionReceiptToP6Ledger({
+      receipt: synth,
+      runId: "P6-DET-SYNTH-C",
+      scenarioId: "P6-MIN-09",
+      absolutePath: ledgerPath,
+    });
+    expect(captured.ok).toBe(true);
+    if (!captured.ok) return;
+    expect(captured.entry.providerResponseObservation).toBe(
+      "RUNNER_RESPONSE_ID_OBSERVED",
+    );
+    expect(JSON.stringify(captured.entry)).not.toContain("PROVIDER_CONFIRMED");
+  });
+
+  it("C17/C22/C23 — QA seam DET; capture ≠ provider_error; SQLite unchanged", async () => {
+    runNoraCognitiveTurnMock.mockResolvedValue(richTurn());
+    const dto = await orchestrateProjectAssistantTurn({
+      projectId: "prj:p6-complete",
+      content: "completeness via seam",
+      sessionDbPath,
+    });
+    expect(dto.ok).toBe(true);
+    if (!dto.ok) return;
+    const before = fs.existsSync(sessionDbPath)
+      ? fs.readFileSync(sessionDbPath)
+      : null;
+    const collected = collectP6ProductTurnEvidence({
+      productTurnResult: dto,
+      runId: "P6-DET-SEAM-COMPLETE",
+      scenarioId: "P6-MIN-09",
+      absolutePath: ledgerPath,
+    });
+    expect(collected.ok).toBe(true);
+    if (!collected.ok) return;
+    expect(dto.status).toBe("ok");
+    expect(P6_QA_COLLECTION_SEAM_STATUS.deterministicProven).toBe(true);
+    expect(P6_QA_COLLECTION_SEAM_STATUS.operationalCampaignWiring).toBe(
+      "PENDING",
+    );
+    const mismatches = diffReceiptAgainstLedgerEntry(
+      dto.cognitiveExecutionReceipt!,
+      collected.entry,
+    );
+    expect(mismatches).toEqual([]);
+    if (before) {
+      expect(Buffer.compare(fs.readFileSync(sessionDbPath), before)).toBe(0);
+    }
+  });
+
+  it("C18 — degraded ledger refuses writes", () => {
+    ensureP6EvidenceLedger({ absolutePath: ledgerPath });
+    fs.writeFileSync(
+      ledgerPath,
+      `${JSON.stringify({
+        campaignId: P6_CAMPAIGN_ID,
+        scenarioId: "P6-MIN-01",
+        runId: "P6-KEEP",
+      })}\nBROKEN\n`,
+      "utf8",
+    );
+    const before = fs.readFileSync(ledgerPath, "utf8");
+    const blocked = captureRich("P6-DET-AFTER-DEG");
+    expect(blocked.result.ok).toBe(false);
+    if (!blocked.result.ok) {
+      expect(blocked.result.status).toBe("integrity_blocks_capture");
+    }
+    expect(fs.readFileSync(ledgerPath, "utf8")).toBe(before);
+  });
+
+  it("C19/C24/R12 — duplicate skip returns persisted; FAILED preserved", () => {
+    const fail = captureRich(
+      "P6-DET-FAIL-KEEP",
+      {
+        usage: {
+          inputTokens: null,
+          outputTokens: null,
+          totalTokens: null,
+          model: null,
+          providerResponseId: null,
+        },
+      },
+      { productTerminalStatus: "provider_error" },
+    );
+    expect(fail.result.ok).toBe(true);
+    const skip = captureCognitiveExecutionReceiptToP6Ledger({
+      receipt: fail.receipt,
+      runId: "P6-DET-FAIL-KEEP",
+      scenarioId: "P6-MIN-09",
+      absolutePath: ledgerPath,
+      onDuplicate: "skip",
+    });
+    expect(skip.ok).toBe(true);
+    if (!skip.ok) return;
+    expect(skip.status).toBe("duplicate_skipped");
+    expect(skip.entry.productTerminalStatus).toBe("provider_error");
+    expect(skip.entry.capturedAt).toBe(
+      fail.result.ok ? fail.result.entry.capturedAt : null,
+    );
+  });
+
+  it("R13 — duplicate skip with different tokens → conflict", () => {
+    const first = captureRich("P6-R13-TOKENS");
+    expect(first.result.ok).toBe(true);
+    const altered = buildCognitiveExecutionReceipt({
+      logicalTurnId: first.receipt.logicalTurnId,
+      projectId: first.receipt.projectId,
+      presentation: "test_provider",
+      productTerminalStatus: "ok",
+      turn: richTurn({
+        usage: {
+          inputTokens: 999,
+          outputTokens: 7,
+          totalTokens: 1006,
+          model: "fake-observed-model",
+          providerResponseId: "fake-resp-complete-1",
+        },
+      }) as never,
+    });
+    const conflict = captureCognitiveExecutionReceiptToP6Ledger({
+      receipt: altered,
+      runId: "P6-R13-TOKENS",
+      scenarioId: "P6-MIN-09",
+      absolutePath: ledgerPath,
+      onDuplicate: "skip",
+    });
+    expect(conflict.ok).toBe(false);
+    if (!conflict.ok) expect(conflict.status).toBe("duplicate_conflict");
+  });
+
+  it("R14 — duplicate skip with different budget → conflict", () => {
+    captureRich("P6-R14-BUDGET");
+    const altered = buildCognitiveExecutionReceipt({
+      logicalTurnId: "ltu:P6-R14-BUDGET",
+      projectId: "prj:p6-complete",
+      presentation: "test_provider",
+      productTerminalStatus: "ok",
+      turn: richTurn({
+        adaptiveObserve: {
+          requestedMaxTurns: 99,
+          effectiveMaxTurns: 6,
+          strategyClass: "Focused",
+          reasonCodes: ["adaptive:focused"],
+          floor: 4,
+          ceiling: 10,
+          explicitOverride: false,
+        },
+      }) as never,
+    });
+    const conflict = captureCognitiveExecutionReceiptToP6Ledger({
+      receipt: altered,
+      runId: "P6-R14-BUDGET",
+      scenarioId: "P6-MIN-09",
+      absolutePath: ledgerPath,
+      onDuplicate: "skip",
+    });
+    expect(conflict.ok).toBe(false);
+    if (!conflict.ok) expect(conflict.status).toBe("duplicate_conflict");
+  });
+
+  it("R15 — duplicate skip with different model → conflict", () => {
+    captureRich("P6-R15-MODEL");
+    const altered = buildCognitiveExecutionReceipt({
+      logicalTurnId: "ltu:P6-R15-MODEL",
+      projectId: "prj:p6-complete",
+      presentation: "test_provider",
+      productTerminalStatus: "ok",
+      turn: richTurn({ selectedModelId: "other-model" }) as never,
+    });
+    const conflict = captureCognitiveExecutionReceiptToP6Ledger({
+      receipt: altered,
+      runId: "P6-R15-MODEL",
+      scenarioId: "P6-MIN-09",
+      absolutePath: ledgerPath,
+      onDuplicate: "skip",
+    });
+    expect(conflict.ok).toBe(false);
+    if (!conflict.ok) expect(conflict.status).toBe("duplicate_conflict");
+  });
+
+  it("C20 — concurrency model is MONO_WRITER", () => {
+    expect(P6_LEDGER_CONCURRENCY_MODEL).toBe("MONO_WRITER");
+  });
+
+  it("C21 — aged lock is NOT auto-removed; force-remove is explicit", () => {
+    ensureP6EvidenceLedger({ absolutePath: ledgerPath });
+    const lockPath = `${ledgerPath}.lock`;
+    fs.writeFileSync(lockPath, JSON.stringify({ pid: 1, acquiredAt: "2000-01-01" }));
+    // Make mtime ancient
+    const ancient = new Date("2000-01-01T00:00:00Z");
+    fs.utimesSync(lockPath, ancient, ancient);
+    const blocked = withP6EvidenceLedgerLock(ledgerPath, () => "nope");
+    expect(blocked.ok).toBe(false);
+    if (!blocked.ok) expect(blocked.code).toBe("LOCK_CONTENTION");
+    expect(fs.existsSync(lockPath)).toBe(true);
+    const forced = forceRemoveOrphanP6EvidenceLedgerLock(ledgerPath);
+    expect(forced.ok).toBe(true);
+    if (forced.ok) expect(forced.removed).toBe(true);
+    const acquired = withP6EvidenceLedgerLock(ledgerPath, () => "ok");
+    expect(acquired.ok).toBe(true);
+  });
+});
+----- END FILE: projects/sfia-studio/app/__tests__/p6-campaign-evidence/p6.receiptCompleteness.d0.test.ts -----
 ----- BEGIN FILE: projects/sfia-studio/app/__tests__/p6-campaign-evidence/p6.qaCollectionSeam.d0.test.ts -----
 /**
  * OBS-04 — DET proof that the QA collection seam (not raw helper) captures.
@@ -2824,7 +3127,7 @@ describe("P6 QA collection seam (DET)", () => {
 
 ---
 
-## 16. Diffs tracked
+## 12. Diffs tracked
 
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts b/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
@@ -2950,7 +3253,7 @@ index 93d8530c..cbabef85 100644
 
  export type ProjectAssistantSendResult =
 diff --git a/projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md b/projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md
-index b9ad266f..62c4e166 100644
+index b9ad266f..0b63ab17 100644
 --- a/projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md
 +++ b/projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md
 @@ -132,6 +132,25 @@ Untracked but behaviorally central (documented, digests not expanded): `runNoraA
@@ -2971,7 +3274,7 @@ index b9ad266f..62c4e166 100644
 +| Flows | F04 primary (send/orchestrate); F02 adjacent (observability) |
 +| Persistence | Product: process-local registry only (no Product JSONL write). External QA: §T JSONL ledger **ADOPTED + STABILIZED** via `lib/p6-campaign-evidence/**` (secured append, integrity statuses, exclusive lock). Session ≠ Evidence authority |
 +| Authority | Receipt `realProofStatus=NOT_PROVEN`; ledger `realBoundaryClaim=NOT_CLAIMED`; Runner id observed ≠ REAL |
-+| Fake/Real | DETERMINISTIC PROVEN AT COMPLETE RECEIPT CONSERVATION SEAM; REAL boundary **NOT PROVEN**; concurrency **MONO_WRITER** only |
++| Fake/Real | DETERMINISTIC PROVEN AT LEDGER READ INTEGRITY AND RUN UNIQUENESS SEAMS; REAL boundary **NOT PROVEN**; concurrency **MONO_WRITER** only |
 +| Digests | mechanical `--write-digests` after integrity/capture stabilization (tracked Product files when changed) |
 +
 +**SEMANTIC IMPACT = YES** on prior Product seam; external ledger module is **QA device** (OBS-01…04 closed at DET claimed model).
@@ -2980,7 +3283,7 @@ index b9ad266f..62c4e166 100644
 
  **Changed Product paths (historical semantic change; already on main @ `44006648`):**
 diff --git a/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md b/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
-index c7442607..f3b1f865 100644
+index c7442607..431b40c4 100644
 --- a/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
 +++ b/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
 @@ -19,6 +19,8 @@
@@ -2988,15 +3291,15 @@ index c7442607..f3b1f865 100644
  | F04 Work Recommendation materialization (REC-01) | qualifyProspectiveWorkRecommendationMaterialization.d0; activeCycleCognitiveWork.d0 (Option A SQLite reload + historical replay); p6.hqa.rec01.minimalStabilization.d0; p6.hqa.rec01.optionB.workRecommendationsContext.d0; UX-REC-02 journalDisclaimer; chatFirstWorkRecommendationContinuity; noraLifecycleRecommendationContinuity | DETERMINISTIC at tested scope; coverage PARTIAL fail-closed; REAL NOT RUN |
  | F04 Nora autonomy P0/P1/P2 (PR #577 INTEGRATED ON MAIN) | `p6.nora.maxTurns.documentary.d0.test.ts`; `p6.nora.p1.adaptiveBudget.d0.test.ts`; `p6.nora.p1p2.documentary.mission.d0.test.ts`; `p6.nora.p1p2.targetedVerification.d0.test.ts`; `p6.nora.p0.productStatusHonesty.d0.test.ts`; `p6.nora.p0.incomplete.panel.ux.d0.test.tsx`; `p6.nora.p0.incomplete.chatFirst.ui.d0.test.tsx`; `mw6.pre-real.budget-hardening.d0.test.ts` (NUM-CLAMP / R-PRE-REAL-08A); `runner.d0.test.ts`; `orchestrateTurn.test.ts` | See proof oracles below — **DETERMINISTIC ONLY**; not Product UI E2E REAL; not documentary REAL quality; merge `d8ceb8ad` |
 +| F04 P6 REAL OBS Option B receipt conservation (CRITICAL CORRECTION) | `p6.realObs.optionB.receiptConservation.d0.test.ts` | DETERMINISTIC AT CORRECTED SEAM — process registry; Fake ≠ REAL; Runner id ≠ PROVIDER_CONFIRMED; capture fail ≠ provider_error; ZERO REAL |
-+| F04 P6 EXTERNAL Evidence Ledger capture | `p6.externalEvidenceLedger.d0.test.ts`; `p6.qaCollectionSeam.d0.test.ts`; `p6.receiptCompleteness.d0.test.ts` + `lib/p6-campaign-evidence/**` | DETERMINISTIC COMPLETE RECEIPT — schema v2 full Product→ledger conservation; MONO_WRITER lock (no age reclaim); QA seam DET proven / operational wiring PENDING; ZERO REAL |
++| F04 P6 EXTERNAL Evidence Ledger capture | `p6.externalEvidenceLedger.d0.test.ts`; `p6.qaCollectionSeam.d0.test.ts`; `p6.receiptCompleteness.d0.test.ts` + `lib/p6-campaign-evidence/**` | DETERMINISTIC — complete receipt v2; read integrity (incomplete v2 ≠ HEALTHY); runId uniqueness all writers; durable duplicate skip; MONO_WRITER; QA seam DET / wiring PENDING; ZERO REAL |
  | F04 Documentary reliability RCD-01 (PR #578 INTEGRATED ON MAIN) | `p6.nora.min09.documentaryReliability.d0.test.ts` (R1–R7); P1/P2/Session regressions | Complete-line coverage; redaction progression; final envelope truth; envelope `lineExceedsCap`; fixture regex fidelity; **DETERMINISTIC ONLY** — not GDR REAL; merge `44006648` |
  | F06/F07 integrity | recommendationDecisionIntegrity*, recommendation-vs-decision | Proposal≠HD |
  | F07 Framing HD / START boundary | chatFirstFramingContinuity* + F01 gate | HD structural when required; START gated |
 diff --git a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
-index f345e1b3..f7c8212e 100644
+index f345e1b3..a219a483 100644
 --- a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
 +++ b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
-@@ -5,6 +5,27 @@
+@@ -5,6 +5,29 @@
  - Runtime v3 **NON ADOPTED**
  - This corpus does not change product behavior by itself (Living Reference is descriptive)
 
@@ -3013,6 +3316,8 @@ index f345e1b3..f7c8212e 100644
 +| OBS-03 idempotence / concurrency | CLOSED AT **MONO_WRITER** model — O_EXCL contention detection; no age-based lock reclaim; orphan recovery via explicit `forceRemoveOrphanP6EvidenceLedgerLock` only. Multi-process durability **NOT CLAIMED** |
 +| OBS-04 QA collection seam | DET PROVEN — `collectP6ProductTurnEvidence`; **OPERATIONAL CAMPAIGN WIRING PENDING** (historical harnesses still inline `appendFileSync` on qa WT) |
 +| Receipt completeness (ledger schema v2) | CLOSED AT DET — full Product CognitiveExecutionReceipt projection (model/effort/tokens/adaptive/continuation/conservation); reopen field-by-field equality |
++| Read integrity v2 | CLOSED AT DET — `classifyLedgerRowForRead` aligns reader with writer schema; incomplete v2 ⇒ `integrityPass=false` (DEGRADED); historical campaign rows not v2-promoted |
++| RunId uniqueness | CLOSED AT DET — all public writers (`appendP6EvidenceLedgerRow` / capture) reject duplicate runId under MONO_WRITER lock; duplicate skip requires durable content equivalence (tokens/budget/model/…) |
 +| Provider observation honesty | Fake → `FAKE_DETERMINISTIC`; null → `NOT_OBSERVED`; Runner id → `RUNNER_RESPONSE_ID_OBSERVED`; **never** `PROVIDER_CONFIRMED` / REAL at Product or ledger capture |
 +| `realProofStatus` / ledger `realBoundaryClaim` | Product `NOT_PROVEN` · ledger `NOT_CLAIMED` |
 +| Capture failure vs Product status | External capture failure ≠ Product `provider_error` |
@@ -3025,7 +3330,7 @@ index f345e1b3..f7c8212e 100644
 
  | Item | Status |
 diff --git a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-index dd1d89b0..f7d66751 100644
+index dd1d89b0..d75ddb6b 100644
 --- a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
 +++ b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
 @@ -23,7 +23,7 @@
@@ -3033,7 +3338,7 @@ index dd1d89b0..f7d66751 100644
      {
        "path": "projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md",
 -      "sha256_16": "7b4089cd4fbb4e17"
-+      "sha256_16": "d775dc5108d0573f"
++      "sha256_16": "f05f40a3ffef8667"
      },
      {
        "path": "projects/sfia-studio/production-runtime-reference/05-environments-configuration-and-boundaries.md",
@@ -3042,12 +3347,12 @@ index dd1d89b0..f7d66751 100644
      {
        "path": "projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md",
 -      "sha256_16": "25fb9a38f1eca0f9"
-+      "sha256_16": "731e30533bff3fbe"
++      "sha256_16": "074cd6b417373229"
      },
      {
        "path": "projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md",
 -      "sha256_16": "4582c1d2695a5f76"
-+      "sha256_16": "67294e3019eae1ee"
++      "sha256_16": "a0779aacf97f4beb"
      }
    ],
    "components": [
