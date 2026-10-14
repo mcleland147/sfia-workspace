@@ -45,6 +45,22 @@ describe("MissionProgressGuard", () => {
     expect(third.reasonCodes).toContain("tool:git_local_read_file");
   });
 
+  it("empty target never trips no-progress streak (status probes)", () => {
+    const guard = new MissionProgressGuard(2);
+    for (let i = 0; i < 6; i += 1) {
+      const decision = guard.observe({
+        toolName: "git_local_get_head",
+        targetKey: "",
+        resultFingerprint: "ok|||12|f",
+      });
+      expect(decision.action).toBe("continue");
+      expect(decision.reasonCodes).toContain("progress_no_target_skip_streak");
+    }
+    expect(guard.stopped).toBe(false);
+    expect(guard.snapshot().usefulCompletions).toBe(0);
+    expect(guard.hasVerifiableProgressForExtension()).toBe(false);
+  });
+
   it("resets streak when target changes", () => {
     const guard = new MissionProgressGuard(3);
     const tool = "git_local_read_file";

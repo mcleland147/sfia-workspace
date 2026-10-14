@@ -151,9 +151,19 @@ export class MissionProgressGuard {
     const fp = (sample.resultFingerprint ?? "").trim() || "nofp";
     const key = `${tool}::${target}::${fp}`;
 
+    // Empty target (e.g. git_local_get_head with {}) is not a documentary
+    // loop identity — never trip no-progress stop and never unlock extensions.
+    // Per-round tool-call caps remain the authority for parallel status probes.
+    if (!target) {
+      return {
+        action: "continue",
+        reasonCodes: ["progress_no_target_skip_streak"],
+      };
+    }
+
     if (!this.seenFingerprints.has(key)) {
       this.seenFingerprints.add(key);
-      if (target) this.uniqueTargets += 1;
+      this.uniqueTargets += 1;
       if (isUsefulMissionProgressFingerprint(fp)) {
         this.usefulCompletions += 1;
       }
