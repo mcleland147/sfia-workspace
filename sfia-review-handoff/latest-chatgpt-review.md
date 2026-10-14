@@ -1,9 +1,9 @@
 # SFIA STUDIO — P6 NORA LIVE ACTIVITY UX CLOSURE
-## Targeted Findings R-UX-01 / R-UX-02 / R-UX-03 — Review Pack FULL CUMULATIF
+## Cycle 13 — PR Readiness / Git Integration — Review Pack FULL
 
-**A. Horodatage (Europe/Paris):** 2026-10-14 21:29:37 CEST
-**B. GO Morris:** CUMULATIVE LOCAL CORRECTION AUTHORIZED — 2026-10-14 — CONSUMED
-**C. Cycle / profil:** Cycle 8 Delivery (+4 UX/UI +9 QA) — CRITICAL — EVOL / TARGETED CORRECTION
+**A. Horodatage (Europe/Paris):** 2026-10-14 22:04:36 CEST
+**B. GO Morris:** COMMIT + PUSH + DRAFT PR + CI — AUTHORIZED / CONSUMED (2026-10-14)
+**C. Cycle / profil:** Cycle 13 — CRITICAL — EVOL / CUMULATIVE PRODUCT UX
 **D. Repository:** mcleland147/sfia-workspace
 
 ---
@@ -14,229 +14,175 @@
 |---|---|
 | Worktree | `/Users/morris/Projects/sfia-workspace-p6-nora-ux-cumulative-closure` |
 | Branch | `delivery/sfia-studio-p6-nora-ux-cumulative-closure` |
-| HEAD | `eec68a418ae271452edc2188c9cf1ae06faa8232` (= origin/main / eec68a41) |
-| Handoff entree | `36d234af` / blob `4a2b0772` |
-| Dirty | candidat UX cumulatif local (helpers + surface + tests) |
-| Preview page | PRESENTE a l'entree — RETIREE ce cycle |
-| Middleware preview delta | PRESENT a l'entree — RETIRE ce cycle |
+| HEAD entree | `eec68a418ae271452edc2188c9cf1ae06faa8232` |
+| origin/main | `eec68a418ae271452edc2188c9cf1ae06faa8232` |
+| Handoff entree | `49ef757c` / blob `c66e9bef` |
+| Dirty entree | 3 modified + 4 untracked projet + `.tmp` pack |
+| Middleware | identique baseline |
+| Preview | absente |
 
-Status court a l'entree (rapporte puis corrige) : helpers untracked, ConversationSurface dirty, middleware dirty, app/dev present.
+## E. Convergence
 
-## E. Sources canoniques
+Build Doctrine / Roadmap / C1 VALIDATED. PR #582 INTEGRATED. UX Critical Re-Review PASS WITH RESERVES. P6 GLOBAL NOT PASSED. Runtime v3 NON ADOPTED.
 
-Doctrine/roadmap/C1/product-simplification 03/04/07; handoff 36d234af; ConversationSurface; present*; readCoverage (parseGitLocalReadCoverageSignals / deriveReadCoverageFromToolEvent); liveActivityEvents; middleware baseline; tests UX.
+## F. Sources canoniques
 
-## F. Convergence
+Doctrine/roadmap/C1/product-simplification; handoff 49ef757c; 7 fichiers candidat; readCoverage / liveActivityEvents (lecture seule).
 
-Build Doctrine / Roadmap / C1 VALIDATED. PR #582 INTEGRATED. UX candidate LOCAL. Critical Review → TARGETED CORRECTIONS. P6 GLOBAL NOT PASSED. Runtime v3 NON ADOPTED.
+## G. Critical Re-Review d'entree
 
-## G. Contrat capacite P6
+PASS WITH RESERVES / READY FOR MORRIS GIT INTEGRATION GO.
+R-UX-01/02/03 CLOSED. Reserves navigateur sources + panel legacy + REAL non rejoue.
 
-Pilote comprend le travail documentaire reel sans traces techniques trompeuses; Stop/activite/contraste conserves; provenance honnete; preview temporaire hors candidat.
+## H. Manifest exact (7)
 
-## H. Findings d'entree
+MODIFIED (3):
+- conversationSurface.liveActivityStop.d0.test.tsx
+- ConversationSurface.module.css
+- ConversationSurface.tsx
 
-- R-UX-01: pathOrRef exact → groupes multiples pour #Lx-y
-- R-UX-02: preview /dev + exception middleware
-- R-UX-03: tool_completed → fausse lecture complete; « lecture seule confirmee » ambigu
+ADDED (4):
+- presentLiveActivityTimeline.ts
+- presentConversationSources.ts
+- p6.nora.uxClosure.presentation.d0.test.ts
+- p6.nora.uxClosure.sourcesSurface.d0.test.tsx
 
-## I. Manifest cumulatif final
+EXCLUS: middleware, preview, .tmp, Runner, NDJSON, doctrine.
 
-| Path | Action finale |
-|---|---|
-| ConversationSurface.tsx | MODIFY (KEEP UX + R-UX-03 tech labels) |
-| ConversationSurface.module.css | MODIFY (KEEP — cycle UX anterieur) |
-| presentLiveActivityTimeline.ts | ADD/ADAPT (R-UX-03) |
-| presentConversationSources.ts | ADD/ADAPT (R-UX-01) |
-| conversationSurface.liveActivityStop.d0.test.tsx | MODIFY |
-| p6.nora.uxClosure.presentation.d0.test.ts | ADD |
-| p6.nora.uxClosure.sourcesSurface.d0.test.tsx | ADD |
-| middleware.ts | **REVERT TO BASELINE** (aucun delta preview) |
-| app/dev/nora-ux-closure/page.tsx | **REMOVED FROM CANDIDATE** |
-| Runner / NDJSON / DBs / budgets | NONE |
+## I–J. Diffs / nouveaux fichiers
 
-## J–K. R-UX-01 — Identite documentaire
+Voir sections finales MODIFIED DIFFS + NEW FILES (contenu integral).
 
-`documentaryGroupKey` reutilise `parseGitLocalReadCoverageSignals` → `documentPath`.
-Cle `doc:<path>` sans fragment `#Lx-y`. Search → `search:…` (jamais merge avec lecture).
-Versions distinctes (`@rev`) non fusionnees. detailEvents conserve pathOrRef original.
+## K. R-UX-01/02/03
 
-## L–M. R-UX-03 — Honnetete libelles
+CLOSED — regroupement documentaire `#Lx-y` ; preview retire ; libelles tool_completed honnetes.
 
-tool_completed documentaire → « Nora a consulte un passage de … » (jamais « termine la lecture » / FULL).
-tool_failed → « Impossible de consulter … ».
-Non-documentaire → pas de lecture documentaire.
-Detail technique: Consultation reussie/refusee/echouee/en cours + « Operation en lecture seule » (pas preuve de succes).
+## L–N. Activite / couleur / motion / Stop
 
-## N–O. FULL/PARTIAL + FAILED/DENIED
+KEEP: sans kind/numerotation ; `--pm6-muted-strong` (contraste hist. 5.53) ; pulse + reduced-motion ; StopGlyph 30x30 hover clair.
 
-FULL seulement si deriveReadCoverage coverage===full unique sans incident.
-documentHasMore / multi-span → Plusieurs passages / Extraits.
-Succes + deny/fail → qualification partielle « avec incident(s) »; incidents dans detail.
+## O. Sources / provenance
 
-## P–R. R-UX-02 — Preview exit
+documentaryGroupKey + parseGitLocalReadCoverageSignals ; search≠read ; FULL preuve seule ; incidents visibles ; disclaimer conversation-scope.
 
-Page preview supprimee. middleware.ts **identique** a eec68a41 (diff vide: 0 chars).
-Captures historiques conservees sous `.tmp-sfia-review/p6-nora-ux-closure/captures/` (produites AVANT retrait).
-Preview non revendique executable apres retrait. Build sans route /dev/nora-ux-closure (VERIFIE).
+## P–Q. Middleware / Preview
 
-## S. UX conservee (KEEP)
+middleware = baseline main (non dans commit). Preview absente du candidat et du build.
 
-Pas de event.kind / numerotation; gris --pm6-muted-strong; pulse + reduced-motion; StopGlyph 30x30 hover clair; groupement visuel sources + detail technique.
+## R–S. Figma / Browser reserve
 
-## T. Contrat Figma
+Figma DP06 harvest. UPDATED SOURCE BROWSER RENDER NOT INDEPENDENTLY VERIFIED. Captures historiques pour UX inchangee seulement.
 
-# Contrat Figma extrait — Nora UX closure (2026-10-14)
-
-FileKey: m4g8j0gNbEzfIuH6S9AZJF · session MCP 5f3b6f2e-62b1-40e2-9150-492acfa4e4d3
-
-## Frames / statut
-
-| Node | Nom | Statut |
-|---|---|---|
-| 46:2 | Workspace desktop 1440×1024 | REFERENCE |
-| 46:126 | Composer | REFERENCE |
-| 46:134 | Send 30×30 | REFERENCE (↑ blanc sur #1f1a16) — **pas une variante Stop** |
-| 119:4 | Nora Motion ACTIVITY | EXPLORATORY / HARVEST |
-| 125:2 | START | EXPLORATORY |
-| 125:183 | STREAMING | EXPLORATORY |
-| 125:365 | COMPLETE | EXPLORATORY |
-| 125:535 | STOPPED | **EXISTE** — EXPLORATORY (metadata confirmée) |
-| 125:712 | Motion Contract DP06 v1 1440×470 | CONTRACT REFERENCE |
-
-## Tokens / dimensions (harvest)
-
-- Canvas / surfaces: #fffdf9, #fcf8f3, borders #e2d8ce / #eae2d9
-- Ink: #1f1a16 · muted labels: #6d645c / #978c81 / #5f564e
-- Accent activité (Figma ACTIVITY): orange/rouge point ● → ✓
-- Composer input h≈96 · Send 30×30 radius 7
-- Timing DP06: entrée bloc 160–200ms ease-out; reduced-motion opacity ~120ms; no fake progress
-- Reduced motion: no pulse/translate; keep status text
-
-## Décisions Morris appliquées (ambiguïté Stop)
-
-- Figma 46:134 = Send seulement → **pas de taille Stop adoptée comme pixel-perfect Figma**
-- Intention: bouton clair, glyphe sombre SVG 12×12 dans contrôle 30×30, hover gris chaud (#f3ede5 / forest-tint), jamais noir-sur-noir
-- Alignement compositeur conservé
-
-## Écarts runtime pré-correction (observés Human QA)
-
-- Codes kind + numérotation dans détail
-- Animation one-shot seulement
-- ■ unicode + hover sombre
-- Sources = logs bruts toolEvents
-
-
-Elements visuels inchanges: captures historiques 01-11.
-SOURCE PRESENTATION — REACT DET VERIFIED / UPDATED BROWSER SCREENSHOT NOT AVAILABLE.
-
-## U. Tests (VERIFIE ce run)
+## T. Tests locaux (VERIFIE)
 
 ```
-vitest run presentation + sourcesSurface + liveActivityStop
-Test Files  3 passed
-Tests      16 passed
+vitest: 3 files / 16 PASS
 ```
 
-## V. Typecheck / lint / build (VERIFIE)
+## U. Typecheck / lint / build (VERIFIE)
 
-- tsc --noEmit: EXIT 0 (apres purge .next stale preview types)
-- next lint: clean
-- next build: SUCCESS — 13 routes, **aucune** /dev/nora-ux-closure
+tsc EXIT 0 ; next lint clean ; next build SUCCESS (13 routes, no /dev/nora-ux-closure).
 
-## W. PRR
+## V. PRR
 
-Non requis au-dela des scripts package (pas de chemins PRR additionnels declenches). NON EXECUTE script PRR dedie.
+Pas de script PRR dans package.json. ConversationSurface hors objets trackes LifecycleSurface/useProductConversation du manifest PRR. Controle dedie: NON APPLICABLE (justifie).
+
+## W. Securite
+
+Aucun secret dans les 7 fichiers. Auth middleware inchange. Secret scan CI PASS.
 
 ## X. Fake / Real
 
-Fake: fixtures toolEvents / live activity. Parite formats Product.
-REAL: NON AUTORISE / NON EXECUTE.
+DET React + fixtures. REAL NON EXECUTE. Ne prouve pas cognition OpenAI.
 
-## Y. Securite
+## Y. Commit
 
-Exception middleware retiree. Route QA absente. :3020 non mute. Pas de secrets dans pack.
+```
+commit 52b01855d4321bb3f90b2b65f2a4eed2e1b18e47
+Author:     Morris Cleland <morris@macbook-air.home>
+AuthorDate: Wed Oct 14 21:52:46 2026 +0200
+Commit:     Morris Cleland <morris@macbook-air.home>
+CommitDate: Wed Oct 14 21:52:46 2026 +0200
 
-## Z–AA. Captures et limites
+    feat(studio): refine Nora activity and source UX
 
-Historiques: contraste `{
-  "color": "rgb(111, 102, 94)",
-  "canvas": "#fffdf9",
-  "ratio": 5.53
-}`; hover `{
-  "bg": "rgb(243, 237, 229)",
-  "color": "rgb(31, 26, 22)",
-  "border": "rgb(111, 102, 94)"
-}`; motion `{
-  "samples": [
-    "0.963393",
-    "0.766485",
-    "0.499161",
-    "0.353746",
-    "0.400615",
-    "0.644357",
-    "0.896135",
-    "0.999997"
-  ]
-}`; reduced `none`.
-Nouveaux textes/groupements: React DET only — pas de nouveau screenshot source.
+    Co-authored-by: Cursor <cursoragent@cursor.com>
 
-## AB. Reserves
+ ...onversationSurface.liveActivityStop.d0.test.tsx |  18 +-
+ .../p6.nora.uxClosure.presentation.d0.test.ts      | 289 +++++++++++++++++++++
+ .../p6.nora.uxClosure.sourcesSurface.d0.test.tsx   | 154 +++++++++++
+ .../surfaces/ConversationSurface.module.css        | 110 ++++++--
+ .../surfaces/ConversationSurface.tsx               | 144 +++++++---
+ .../surfaces/presentConversationSources.ts         | 260 ++++++++++++++++++
+ .../surfaces/presentLiveActivityTimeline.ts        | 112 ++++++++
+ 7 files changed, 1037 insertions(+), 50 deletions(-)
 
-1. UPDATED SOURCE BROWSER RENDER NOT INDEPENDENTLY VERIFIED.
-2. Panel legacy ProjectAssistantPanel hors candidat Product workspace.
-3. Captures preview historiques seulement pour elements UX inchanges.
+```
 
-## AC. Dette / exit
+SHA: `52b01855d4321bb3f90b2b65f2a4eed2e1b18e47` · parent: `eec68a418ae271452edc2188c9cf1ae06faa8232` · message: feat(studio): refine Nora activity and source UX
 
-Preview dette = 0. Prochaine: ChatGPT Critical Re-Review → Morris Git Integration GO.
+## Z. Push
 
-## AD. Trajectoire P6
+REMOTE HEAD = `52b01855d4321bb3f90b2b65f2a4eed2e1b18e47` (VERIFIE). origin/main inchange `eec68a41`.
 
-Findings closed → Critical Re-Review → (GO) Git Integration → P6 consolidation.
+## AA. Draft PR
 
-## AE. Git Truth final
+- Number: **583**
+- URL: https://github.com/mcleland147/sfia-workspace/pull/583
+- State: OPEN / DRAFT
+- Base: main · Head: delivery/sfia-studio-p6-nora-ux-cumulative-closure
+- Files: 7 (VERIFIE via gh)
+- Commit oid: 52b01855d4321bb3f90b2b65f2a4eed2e1b18e47
 
-HEAD `eec68a418ae271452edc2188c9cf1ae06faa8232` · branch `delivery/sfia-studio-p6-nora-ux-cumulative-closure` · middleware baseline · preview absent · dirty local UX remaining:
+## AB–AC. CI / Required Gate
+
+- Workflow: **SFIA Studio CI**
+- Run ID: **38627440724**
+- URL: https://github.com/mcleland147/sfia-workspace/actions/runs/38627440724
+- Trigger: pull_request
+- headSha: `52b01855d4321bb3f90b2b65f2a4eed2e1b18e47` (= HEAD pousse)
+- Conclusion: **success**
+- Jobs PASS: Detect SFIA Studio changes · Build and validate SFIA Studio · **SFIA Studio Required Gate**
+
+## AD. Reserves
+
+NOT MERGED. REAL NOT EXECUTED. UPDATED SOURCE BROWSER RENDER NOT INDEPENDENTLY VERIFIED. P6 GLOBAL NOT PASSED. RUNTIME V3 NON ADOPTED. Panel legacy hors scope. :3020 inchange. Merge = GO Morris distinct.
+
+## AE. Dette / exit
+
+Preview dette = 0. Prochaine: Critical PR Review → MERGE GO → P6 consolidation.
+
+## AF. Git Truth final
+
+HEAD `52b01855d4321bb3f90b2b65f2a4eed2e1b18e47` · branch `delivery/sfia-studio-p6-nora-ux-cumulative-closure` · tracking origin · dirty:
 
 ```
  M .tmp-sfia-review/chatgpt-review.md
- M projects/sfia-studio/app/__tests__/pre-m6-product-ui/conversationSurface.liveActivityStop.d0.test.tsx
- M projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.module.css
- M projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
-?? projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.nora.uxClosure.presentation.d0.test.ts
-?? projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.nora.uxClosure.sourcesSurface.d0.test.tsx
-?? projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/presentConversationSources.ts
-?? projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/presentLiveActivityTimeline.ts
 
 ```
 
-Commit/push projet: NON EXECUTE.
+(.tmp pack only — non committe)
 
-## AF. Verdict
+## AG. Verdict
 
-P6 NORA LIVE ACTIVITY UX CLOSURE — TARGETED FINDINGS CLOSED / CUMULATIVE LOCAL DELIVERY PASS / DETERMINISTIC QA PASS / READY FOR CHATGPT CRITICAL RE-REVIEW.
+P6 NORA LIVE ACTIVITY UX CLOSURE — GIT INTEGRATION COMPLETE / DRAFT PR OPEN / CI PASS / READY FOR CHATGPT CRITICAL PR REVIEW.
 
-BROWSER VISUAL PROOF HISTORICALLY QUALIFIED FOR UNCHANGED ELEMENTS.
-UPDATED SOURCE BROWSER RENDER NOT INDEPENDENTLY VERIFIED.
+## AH. Instruction ChatGPT
 
-## AG. Instruction ChatGPT
-
-Lire handoff distant. Verifier R-UX-01/02/03, #Lx-y, FULL/PARTIAL, tool_completed, middleware baseline, absence preview, UX KEEP, 16 tests, pack FULL. Rendre CHATGPT P6 NORA UX CUMULATIVE CRITICAL RE-REVIEW. Si PASS: recommander un unique MORRIS GIT INTEGRATION GO. Pas d'integration auto.
+Consulter Git distant. Verifier main inchange, branche, commit 52b01855, manifest 7, middleware/preview absents, Draft PR 583, CI 38627440724 Required Gate PASS, handoff distant. Rendre CHATGPT CRITICAL PR REVIEW — P6 NORA LIVE ACTIVITY UX CLOSURE. Si PASS: recommander MORRIS MERGE GO. Ne pas merger automatiquement.
 
 ---
 
 ## Git Review Index
 
-1. MODIFIED — ConversationSurface.tsx / .module.css / liveActivityStop test
-2. ADDED — presentLiveActivityTimeline.ts / presentConversationSources.ts / uxClosure tests
-3. REVERTED — middleware.ts → baseline eec68a41
-4. REMOVED — app/dev/nora-ux-closure/page.tsx
-5. EVIDENCE — `.tmp-sfia-review/p6-nora-ux-closure/` (captures historiques)
+1. COMMIT 52b01855 — 3M + 4A
+2. DRAFT PR #583
+3. CI run 38627440724 SUCCESS + Required Gate PASS
+4. EVIDENCE `.tmp-sfia-review/p6-nora-ux-closure/`
 
 ---
 
-## MODIFIED DIFFS (complet)
+## MODIFIED DIFFS (complet — 3 fichiers)
 
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/conversationSurface.liveActivityStop.d0.test.tsx b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/conversationSurface.liveActivityStop.d0.test.tsx
@@ -694,7 +640,7 @@ index 2da31f3a..de40cb67 100644
 
 ---
 
-## NEW FILES (contenu integral)
+## NEW FILES (contenu integral — 4 fichiers)
 
 ```text
 ===== BEGIN FILE projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/presentLiveActivityTimeline.ts =====
@@ -1529,9 +1475,3 @@ describe("ConversationSurface sources UX closure", () => {
 ===== END FILE projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.nora.uxClosure.sourcesSurface.d0.test.tsx =====
 
 ```
-
----
-
-## Middleware final
-
-Diff vs HEAD/baseline: empty (0 bytes). Identique a eec68a41.
