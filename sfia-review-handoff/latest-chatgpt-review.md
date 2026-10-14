@@ -1,43 +1,90 @@
-# SFIA STUDIO — P6 NORA LIVE ACTIVITY & CONTROL — UX CUMULATIVE CLOSURE
-## Cycle 8 (+4/+9) — Review Pack FULL
+# SFIA STUDIO — P6 NORA LIVE ACTIVITY UX CLOSURE
+## Targeted Findings R-UX-01 / R-UX-02 / R-UX-03 — Review Pack FULL CUMULATIF
 
-**A. Horodatage (Europe/Paris):** 2026-10-14 20:57:04 CEST
-**B. GO Morris:** LOCAL DELIVERY + UX VALIDATION AUTHORIZED — 2026-10-14 — CONSUMED
-**C. Cycle / profil / typologie:** Cycle 8 Delivery (intégré 4 UX/UI + 9 QA) — CRITICAL — EVOL TARGETED UX CLOSURE
+**A. Horodatage (Europe/Paris):** 2026-10-14 21:29:37 CEST
+**B. GO Morris:** CUMULATIVE LOCAL CORRECTION AUTHORIZED — 2026-10-14 — CONSUMED
+**C. Cycle / profil:** Cycle 8 Delivery (+4 UX/UI +9 QA) — CRITICAL — EVOL / TARGETED CORRECTION
 **D. Repository:** mcleland147/sfia-workspace
 
 ---
 
-## D. Git Truth (VERIFIE)
+## D. Git Truth initial (VERIFIE)
 
 | Check | Value |
 |---|---|
-| Build worktree | `/Users/morris/Projects/sfia-workspace-p6-nora-ux-cumulative-closure` |
-| Branch locale | `delivery/sfia-studio-p6-nora-ux-cumulative-closure` (pas de remote branch) |
-| HEAD | `eec68a418ae271452edc2188c9cf1ae06faa8232` (= origin/main, PR #582 merged) |
-| QA worktree :3020 | `/Users/morris/Projects/sfia-workspace-p6-t2-real-qa-eec68a41` — NON MUTE |
-| Delivery historique | `/Users/morris/Projects/sfia-workspace-p6-nora-extended-execution-live-activity` — non edite |
-| Commit / push projet | NON EXECUTE |
+| Worktree | `/Users/morris/Projects/sfia-workspace-p6-nora-ux-cumulative-closure` |
+| Branch | `delivery/sfia-studio-p6-nora-ux-cumulative-closure` |
+| HEAD | `eec68a418ae271452edc2188c9cf1ae06faa8232` (= origin/main / eec68a41) |
+| Handoff entree | `36d234af` / blob `4a2b0772` |
+| Dirty | candidat UX cumulatif local (helpers + surface + tests) |
+| Preview page | PRESENTE a l'entree — RETIREE ce cycle |
+| Middleware preview delta | PRESENT a l'entree — RETIRE ce cycle |
 
-Note: re-ancrage local sur eec68a41 apres derive temporaire; stash temporaire pour re-ancrage puis droppe.
+Status court a l'entree (rapporte puis corrige) : helpers untracked, ConversationSurface dirty, middleware dirty, app/dev present.
 
-## E. Convergence
+## E. Sources canoniques
 
-Build Doctrine / Roadmap / C1: VALIDATED (non mutes).
-PR #582 INTEGRATED ON MAIN.
-T2/T3 Human QA favorables avec reserves UX (RAPPORTE).
-P6 GLOBAL: NOT PASSED. Runtime v3: NON ADOPTED.
-Gap traite: UX lisibilite / Stop / sources — moteur Nora inchange.
+Doctrine/roadmap/C1/product-simplification 03/04/07; handoff 36d234af; ConversationSurface; present*; readCoverage (parseGitLocalReadCoverageSignals / deriveReadCoverageFromToolEvent); liveActivityEvents; middleware baseline; tests UX.
 
-## F. Sources lues
+## F. Convergence
 
-product-simplification 03/04/07; ConversationSurface + CSS; liveActivityEvents; useProductConversation (Stop); readCoverage; handoff Cycle 9; Figma MCP m4g8j0gNbEzfIuH6S9AZJF.
+Build Doctrine / Roadmap / C1 VALIDATED. PR #582 INTEGRATED. UX candidate LOCAL. Critical Review → TARGETED CORRECTIONS. P6 GLOBAL NOT PASSED. Runtime v3 NON ADOPTED.
 
-## G. Constats Human QA T2/T3 (RAPPORTE)
+## G. Contrat capacite P6
 
-Codes techniques + numerotation; animation one-shot; Stop unicode/hover; sources = toolEvents bruts; cognition hors scope.
+Pilote comprend le travail documentaire reel sans traces techniques trompeuses; Stop/activite/contraste conserves; provenance honnete; preview temporaire hors candidat.
 
-## H. Contrat Figma extrait
+## H. Findings d'entree
+
+- R-UX-01: pathOrRef exact → groupes multiples pour #Lx-y
+- R-UX-02: preview /dev + exception middleware
+- R-UX-03: tool_completed → fausse lecture complete; « lecture seule confirmee » ambigu
+
+## I. Manifest cumulatif final
+
+| Path | Action finale |
+|---|---|
+| ConversationSurface.tsx | MODIFY (KEEP UX + R-UX-03 tech labels) |
+| ConversationSurface.module.css | MODIFY (KEEP — cycle UX anterieur) |
+| presentLiveActivityTimeline.ts | ADD/ADAPT (R-UX-03) |
+| presentConversationSources.ts | ADD/ADAPT (R-UX-01) |
+| conversationSurface.liveActivityStop.d0.test.tsx | MODIFY |
+| p6.nora.uxClosure.presentation.d0.test.ts | ADD |
+| p6.nora.uxClosure.sourcesSurface.d0.test.tsx | ADD |
+| middleware.ts | **REVERT TO BASELINE** (aucun delta preview) |
+| app/dev/nora-ux-closure/page.tsx | **REMOVED FROM CANDIDATE** |
+| Runner / NDJSON / DBs / budgets | NONE |
+
+## J–K. R-UX-01 — Identite documentaire
+
+`documentaryGroupKey` reutilise `parseGitLocalReadCoverageSignals` → `documentPath`.
+Cle `doc:<path>` sans fragment `#Lx-y`. Search → `search:…` (jamais merge avec lecture).
+Versions distinctes (`@rev`) non fusionnees. detailEvents conserve pathOrRef original.
+
+## L–M. R-UX-03 — Honnetete libelles
+
+tool_completed documentaire → « Nora a consulte un passage de … » (jamais « termine la lecture » / FULL).
+tool_failed → « Impossible de consulter … ».
+Non-documentaire → pas de lecture documentaire.
+Detail technique: Consultation reussie/refusee/echouee/en cours + « Operation en lecture seule » (pas preuve de succes).
+
+## N–O. FULL/PARTIAL + FAILED/DENIED
+
+FULL seulement si deriveReadCoverage coverage===full unique sans incident.
+documentHasMore / multi-span → Plusieurs passages / Extraits.
+Succes + deny/fail → qualification partielle « avec incident(s) »; incidents dans detail.
+
+## P–R. R-UX-02 — Preview exit
+
+Page preview supprimee. middleware.ts **identique** a eec68a41 (diff vide: 0 chars).
+Captures historiques conservees sous `.tmp-sfia-review/p6-nora-ux-closure/captures/` (produites AVANT retrait).
+Preview non revendique executable apres retrait. Build sans route /dev/nora-ux-closure (VERIFIE).
+
+## S. UX conservee (KEEP)
+
+Pas de event.kind / numerotation; gris --pm6-muted-strong; pulse + reduced-motion; StopGlyph 30x30 hover clair; groupement visuel sources + detail technique.
+
+## T. Contrat Figma
 
 # Contrat Figma extrait — Nora UX closure (2026-10-14)
 
@@ -80,47 +127,47 @@ FileKey: m4g8j0gNbEzfIuH6S9AZJF · session MCP 5f3b6f2e-62b1-40e2-9150-492acfa4e
 - Sources = logs bruts toolEvents
 
 
-## I. Manifest exact
+Elements visuels inchanges: captures historiques 01-11.
+SOURCE PRESENTATION — REACT DET VERIFIED / UPDATED BROWSER SCREENSHOT NOT AVAILABLE.
 
-| Fichier | Action | Justification |
-|---|---|---|
-| ConversationSurface.tsx | MODIFY | activite Pilote, Stop SVG, sources groupees |
-| ConversationSurface.module.css | MODIFY | gris secondaire, pulse, Stop hover, sources |
-| presentLiveActivityTimeline.ts | ADD | helper presentation |
-| presentConversationSources.ts | ADD | aggregation + disclaimer scope |
-| middleware.ts | MODIFY | preview /dev/nora-ux-closure si env flag |
-| app/dev/nora-ux-closure/page.tsx | ADD | harness ConversationSurface reel |
-| tests uxClosure + liveActivityStop | ADD/MODIFY | UX-01..20 DET |
-| Runner / budgets / NDJSON / DBs | NONE | hors scope |
+## U. Tests (VERIFIE ce run)
 
-## J. Correction activite
-
-Detail: labels seulement (ul), collapse doublons, P1-P4 si path connu.
-Aucun event.kind / numerotation Pilote.
-Preuve navigateur detail:
 ```
-Détail de l’activité
-Mission démarrée
-Nora consulte P3.
-Nora a terminé la lecture de P3.
-Nora consulte P4.
-Nora poursuit la comparaison.
+vitest run presentation + sourcesSurface + liveActivityStop
+Test Files  3 passed
+Tests      16 passed
 ```
-kindLeak=false (VERIFIE).
 
-## K. Correction couleurs
+## V. Typecheck / lint / build (VERIFIE)
 
-Activite/detail: --pm6-muted-strong.
-Contraste navigateur: `{
+- tsc --noEmit: EXIT 0 (apres purge .next stale preview types)
+- next lint: clean
+- next build: SUCCESS — 13 routes, **aucune** /dev/nora-ux-closure
+
+## W. PRR
+
+Non requis au-dela des scripts package (pas de chemins PRR additionnels declenches). NON EXECUTE script PRR dedie.
+
+## X. Fake / Real
+
+Fake: fixtures toolEvents / live activity. Parite formats Product.
+REAL: NON AUTORISE / NON EXECUTE.
+
+## Y. Securite
+
+Exception middleware retiree. Route QA absente. :3020 non mute. Pas de secrets dans pack.
+
+## Z–AA. Captures et limites
+
+Historiques: contraste `{
   "color": "rgb(111, 102, 94)",
   "canvas": "#fffdf9",
   "ratio": 5.53
-}` — ratio 5.53 >= 4.5 AA (VERIFIE).
-
-## L. Correction motion
-
-Pulse .noraActivityPulse pendant activite.
-Samples: `{
+}`; hover `{
+  "bg": "rgb(243, 237, 229)",
+  "color": "rgb(31, 26, 22)",
+  "border": "rgb(111, 102, 94)"
+}`; motion `{
   "samples": [
     "0.963393",
     "0.766485",
@@ -131,95 +178,61 @@ Samples: `{
     "0.896135",
     "0.999997"
   ]
-}`
-Reduced-motion animationName=`none` (VERIFIE).
-Entree bloc 180ms conservee.
+}`; reduced `none`.
+Nouveaux textes/groupements: React DET only — pas de nouveau screenshot source.
 
-## M. Correction Stop
+## AB. Reserves
 
-SVG 12x12 dans bouton 30x30 clair.
-Hover: `{
-  "bg": "rgb(243, 237, 229)",
-  "color": "rgb(31, 26, 22)",
-  "border": "rgb(111, 102, 94)"
-}` — glyphe sombre conserve.
-Focus outline: `rgb(31, 26, 22) none 3px`
-onClick / aria-label / AbortController inchanges (tests PASS).
+1. UPDATED SOURCE BROWSER RENDER NOT INDEPENDENTLY VERIFIED.
+2. Panel legacy ProjectAssistantPanel hors candidat Product workspace.
+3. Captures preview historiques seulement pour elements UX inchanges.
 
-## N. Correction sources
+## AC. Dette / exit
 
-Synthese groupee; disclaimer conversation-scope; FULL jamais invente;
-detail technique brut conserve. ProjectAssistantPanel legacy non modifie.
+Preview dette = 0. Prochaine: ChatGPT Critical Re-Review → Morris Git Integration GO.
 
-## O. Tests (VERIFIE)
+## AD. Trajectoire P6
 
-vitest 11 PASS: presentation(4) + sourcesSurface(1) + liveActivityStop(6).
+Findings closed → Critical Re-Review → (GO) Git Integration → P6 consolidation.
 
-## P. Typecheck / lint / build (VERIFIE)
+## AE. Git Truth final
 
-tsc --noEmit EXIT 0; next lint clean; next build SUCCESS (/dev/nora-ux-closure).
+HEAD `eec68a418ae271452edc2188c9cf1ae06faa8232` · branch `delivery/sfia-studio-p6-nora-ux-cumulative-closure` · middleware baseline · preview absent · dirty local UX remaining:
 
-## Q. Accessibilite
+```
+ M .tmp-sfia-review/chatgpt-review.md
+ M projects/sfia-studio/app/__tests__/pre-m6-product-ui/conversationSurface.liveActivityStop.d0.test.tsx
+ M projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.module.css
+ M projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
+?? projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.nora.uxClosure.presentation.d0.test.ts
+?? projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.nora.uxClosure.sourcesSurface.d0.test.tsx
+?? projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/presentConversationSources.ts
+?? projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/presentLiveActivityTimeline.ts
 
-Contraste AA; Stop focus-visible; reduced-motion sans pulsation; aria-label Stop.
+```
 
-## R-S. Browser runtime + captures
+Commit/push projet: NON EXECUTE.
 
-Runtime: http://127.0.0.1:3031/dev/nora-ux-closure (SFIA_STUDIO_UX_CLOSURE_PREVIEW=1).
-:3020 Human QA preserve (200). ZERO OpenAI.
-Captures: `.tmp-sfia-review/p6-nora-ux-closure/captures/01..11` + JSON motion/contrast.
-Limitations: harness != parcours auth Product; STREAMING Figma non revendique; Stop = intention Morris / reserve pixel Figma (46:134 = Send only).
+## AF. Verdict
 
-## T. Figma / runtime
+P6 NORA LIVE ACTIVITY UX CLOSURE — TARGETED FINDINGS CLOSED / CUMULATIVE LOCAL DELIVERY PASS / DETERMINISTIC QA PASS / READY FOR CHATGPT CRITICAL RE-REVIEW.
 
-Composer/Send: CONFORME alignement.
-Motion DP06: PARTIELLEMENT CONFORME.
-ACTIVITY checkmarks Figma: RESERVE (pulse+labels, pas faux succes).
-Stop: CONFORME intention Morris / RESERVE pixel Figma.
+BROWSER VISUAL PROOF HISTORICALLY QUALIFIED FOR UNCHANGED ELEMENTS.
+UPDATED SOURCE BROWSER RENDER NOT INDEPENDENTLY VERIFIED.
 
-## U. Securite
+## AG. Instruction ChatGPT
 
-Pas de secrets; DBs HQA non ouvertes; preview env-gated; pas de nouveau provider.
-
-## V. Fake / Real
-
-Fake: evenements controles + stub. Parite ConversationSurface.
-NON REVENDIQUE: REAL cognition; P6 GLOBAL PASS; RUNTIME V3 ADOPTED.
-
-## W. Reserves
-
-1. Panel legacy sources inchange.
-2. Checkmarks Figma ACTIVITY non implementes.
-3. FULL rare volontairement.
-4. Stash temporaire re-ancrage (droppe).
-
-## X. Dette / exit
-
-Apres Critical Review -> GO Morris Git Integration cumulative.
-
-## Y. Trajectoire P6
-
-UX closure locale -> Critical Review -> (GO) Git Integration -> P6 consolidation.
-
-## Z. Git Truth final
-
-HEAD eec68a41; branch locale delivery/sfia-studio-p6-nora-ux-cumulative-closure; dirty UX only; no project commit/push.
-
-## AA. Verdict
-
-P6 NORA LIVE ACTIVITY UX CLOSURE — LOCAL DELIVERY COMPLETE / DETERMINISTIC QA PASS / BROWSER VISUAL PROOF QUALIFIED / READY FOR CHATGPT CRITICAL REVIEW.
-
-## AB. Instruction ChatGPT
-
-Lire handoff distant. Verifier Git Truth eec68a41, manifest sans Runner, activite sans jargon, gris/contraste, motion/reduced-motion, Stop normal/hover/focus, sources groupees honnetes, tests, captures runtime, pack FULL. Rendre CHATGPT P6 NORA UX CUMULATIVE CRITICAL REVIEW. Si PASS: recommander GO Morris pour une seule Git Integration cumulative. Ne pas push/merge auto.
+Lire handoff distant. Verifier R-UX-01/02/03, #Lx-y, FULL/PARTIAL, tool_completed, middleware baseline, absence preview, UX KEEP, 16 tests, pack FULL. Rendre CHATGPT P6 NORA UX CUMULATIVE CRITICAL RE-REVIEW. Si PASS: recommander un unique MORRIS GIT INTEGRATION GO. Pas d'integration auto.
 
 ---
 
 ## Git Review Index
 
-1. MODIFIED — ConversationSurface.tsx / .module.css / middleware.ts / liveActivityStop test
-2. ADDED — presentLiveActivityTimeline.ts / presentConversationSources.ts / uxClosure tests / dev preview
-3. EVIDENCE — `.tmp-sfia-review/p6-nora-ux-closure/`
+1. MODIFIED — ConversationSurface.tsx / .module.css / liveActivityStop test
+2. ADDED — presentLiveActivityTimeline.ts / presentConversationSources.ts / uxClosure tests
+3. REVERTED — middleware.ts → baseline eec68a41
+4. REMOVED — app/dev/nora-ux-closure/page.tsx
+5. EVIDENCE — `.tmp-sfia-review/p6-nora-ux-closure/` (captures historiques)
 
 ---
 
@@ -227,10 +240,10 @@ Lire handoff distant. Verifier Git Truth eec68a41, manifest sans Runner, activit
 
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/conversationSurface.liveActivityStop.d0.test.tsx b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/conversationSurface.liveActivityStop.d0.test.tsx
-index cfd15ca4..6ed71d27 100644
+index cfd15ca4..0b522de9 100644
 --- a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/conversationSurface.liveActivityStop.d0.test.tsx
 +++ b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/conversationSurface.liveActivityStop.d0.test.tsx
-@@ -190,13 +190,19 @@ describe("ConversationSurface live activity + Stop (REAL React DET)", () => {
+@@ -190,13 +190,21 @@ describe("ConversationSurface live activity + Stop (REAL React DET)", () => {
 
      fireEvent.click(within(details).getByText("Détail de l’activité"));
 
@@ -246,8 +259,10 @@ index cfd15ca4..6ed71d27 100644
 -    expect(timeline!.textContent).toMatch(/tool_started/);
 -    expect(timeline!.textContent).toMatch(/Lecture du dépôt/);
 -    expect(timeline!.textContent).toMatch(/activity_update/);
-+    expect(timeline!.textContent).toMatch(/Nora consulte « plan\.md »/);
++    // SAMPLE_EVENTS tool_started has toolName read_file (non git_local) + sourcePath
++    expect(timeline!.textContent).toMatch(/Nora consulte « plan\.md »|Lecture du dépôt/);
 +    expect(timeline!.textContent).toMatch(/Analyse en cours/);
++    expect(timeline!.textContent).not.toMatch(/terminé la lecture|intégralement/i);
 +    expect(
 +      screen.getByTestId("project-assistant-nora-activity-pulse"),
 +    ).toBeInTheDocument();
@@ -456,7 +471,7 @@ index 60c9b9b9..44f0273d 100644
 
  .stopButton:focus-visible,
 diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
-index 2da31f3a..195546e8 100644
+index 2da31f3a..de40cb67 100644
 --- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
 +++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
 @@ -22,7 +22,14 @@ import {
@@ -490,7 +505,24 @@ index 2da31f3a..195546e8 100644
  import styles from "./ConversationSurface.module.css";
 
  /**
-@@ -78,6 +93,21 @@ function sourceStatusLabel(status: AssistantToolEventDto["status"]): string {
+@@ -66,18 +81,33 @@ const DECISION_ACTIONS: readonly {
+ function sourceStatusLabel(status: AssistantToolEventDto["status"]): string {
+   switch (status) {
+     case "succeeded":
+-      return "Consulté";
++      return "Consultation réussie";
+     case "denied":
+-      return "Refusé";
++      return "Consultation refusée";
+     case "failed":
+-      return "Échec";
++      return "Consultation échouée";
+     case "started":
+-      return "En cours";
++      return "Demande en cours";
+     default:
+-      return "Demandé";
++      return "Demande en cours";
    }
  }
 
@@ -566,7 +598,7 @@ index 2da31f3a..195546e8 100644
                  </details>
                ) : null}
              </div>
-@@ -2303,26 +2343,67 @@ export function ConversationSurface({
+@@ -2303,26 +2343,70 @@ export function ConversationSurface({
              aria-label="Sources consultées"
              data-testid="project-assistant-sources"
            >
@@ -635,8 +667,11 @@ index 2da31f3a..195546e8 100644
 +                          ) : null}
 +                          <span className={styles.sourceDetail}>
 +                            {event.summary ?? "Aucun résumé supplémentaire."}
-+                            {event.errorCode ? ` (${event.errorCode})` : ""} ·
-+                            lecture seule confirmée
++                            {event.errorCode ? ` (${event.errorCode})` : ""} ·{" "}
++                            {sourceStatusLabel(event.status)}
++                            {event.readOnly
++                              ? " · Opération en lecture seule"
++                              : ""}
 +                          </span>
 +                        </li>
 +                      ))}
@@ -645,7 +680,7 @@ index 2da31f3a..195546e8 100644
                  </li>
                ))}
              </ul>
-@@ -2392,7 +2473,7 @@ export function ConversationSurface({
+@@ -2392,7 +2476,7 @@ export function ConversationSurface({
                >
                  <span className={styles.sendLabelFull}>Arrêter</span>
                  <span className={styles.sendLabelCompact} aria-hidden="true">
@@ -654,24 +689,6 @@ index 2da31f3a..195546e8 100644
                  </span>
                </button>
              ) : (
-diff --git a/projects/sfia-studio/app/middleware.ts b/projects/sfia-studio/app/middleware.ts
-index 26e86687..c84e9fa5 100644
---- a/projects/sfia-studio/app/middleware.ts
-+++ b/projects/sfia-studio/app/middleware.ts
-@@ -19,6 +19,13 @@ function isPublicPath(pathname: string): boolean {
-   if (pathname.startsWith("/api/auth")) return true;
-   if (pathname.startsWith("/_next")) return true;
-   if (pathname === "/favicon.ico") return true;
-+  // Local UX closure browser proof only — synthetic ConversationSurface, no Product DB.
-+  if (
-+    process.env.SFIA_STUDIO_UX_CLOSURE_PREVIEW === "1" &&
-+    pathname === "/dev/nora-ux-closure"
-+  ) {
-+    return true;
-+  }
-   return false;
- }
-
 
 ```
 
@@ -724,28 +741,50 @@ function documentShortName(path: string | undefined): string | undefined {
 
 function basename(path: string | undefined): string | undefined {
   if (!path) return undefined;
-  const parts = path.split("/").filter(Boolean);
-  return parts.length > 0 ? parts[parts.length - 1] : path;
+  const stripped = path.replace(/#L\d+-\d+$/i, "");
+  const parts = stripped.split("/").filter(Boolean);
+  return parts.length > 0 ? parts[parts.length - 1] : stripped;
+}
+
+function isDocumentaryReadTool(toolName: string | undefined): boolean {
+  if (!toolName) return false;
+  return (
+    toolName === "git_local_read_file" || /read_file_at_ref/i.test(toolName)
+  );
 }
 
 /**
  * Prefer a precise Pilote label when source is identifiable; never invent paths.
+ * tool_completed ≠ full-document read.
  */
 export function presentActivityEventLabel(event: NoraLiveActivityEvent): string {
   const short = documentShortName(event.sourcePath);
   const file = basename(event.sourcePath);
+  const docRead = isDocumentaryReadTool(event.toolName);
 
   if (event.kind === "tool_started") {
-    if (short) return `Nora consulte ${short}.`;
-    if (file) return `Nora consulte « ${file} ».`;
+    if (docRead || short || file) {
+      if (short) return `Nora consulte ${short}.`;
+      if (file) return `Nora consulte « ${file} ».`;
+    }
   }
   if (event.kind === "tool_completed") {
-    if (short) return `Nora a terminé la lecture de ${short}.`;
-    if (file) return `Nora a terminé la lecture de « ${file} ».`;
+    if (docRead) {
+      if (short) return `Nora a consulté un passage de ${short}.`;
+      if (file) return `Nora a consulté un passage de « ${file} ».`;
+      return "Nora a terminé une consultation documentaire.";
+    }
+    // Non-documentary tool completion must not claim a document read.
+    const fallback = event.label.trim();
+    if (fallback.length > 0 && !/lecture|lu intégralement|document lu/i.test(fallback)) {
+      return fallback;
+    }
+    return "Nora a terminé une consultation.";
   }
   if (event.kind === "tool_failed") {
-    if (short) return `Échec de consultation — ${short}.`;
-    if (file) return `Échec de consultation — « ${file} ».`;
+    if (short) return `Impossible de consulter ${short}.`;
+    if (file) return `Impossible de consulter « ${file} ».`;
+    return "Impossible de consulter une source.";
   }
 
   const label = event.label.trim();
@@ -778,10 +817,14 @@ export function presentLiveActivityTimeline(
 /**
  * Presentation-only grouping of cumulative toolEvents for Pilote.
  * Never invents FULL coverage; never mutates Product telemetry.
+ * Document identity reuses parseGitLocalReadCoverageSignals (no parallel parser).
  */
 
 import type { AssistantToolEventDto } from "@/features/project-assistant/types";
-import { deriveReadCoverageFromToolEvent } from "@/lib/nora-cognitive-runtime/readCoverage";
+import {
+  deriveReadCoverageFromToolEvent,
+  parseGitLocalReadCoverageSignals,
+} from "@/lib/nora-cognitive-runtime/readCoverage";
 
 export type PresentedSourceGroup = {
   readonly key: string;
@@ -789,7 +832,13 @@ export type PresentedSourceGroup = {
   readonly title: string;
   /** Honest qualification — never "FULL" without proven full read. */
   readonly qualification: string;
-  readonly statusTone: "ok" | "partial" | "denied" | "failed" | "pending" | "other";
+  readonly statusTone:
+    | "ok"
+    | "partial"
+    | "denied"
+    | "failed"
+    | "pending"
+    | "other";
   readonly eventCount: number;
   readonly detailEvents: readonly AssistantToolEventDto[];
 };
@@ -818,16 +867,63 @@ const DOC_TITLES: ReadonlyArray<{
 
 function basename(path: string): string {
   const parts = path.split("/").filter(Boolean);
-  return parts.length > 0 ? parts[parts.length - 1]! : path;
+  const last = parts.length > 0 ? parts[parts.length - 1]! : path;
+  return last.replace(/#L\d+-\d+$/i, "");
 }
 
-function groupKey(event: AssistantToolEventDto): string {
+function isDocumentReadTool(toolName: string): boolean {
+  return (
+    toolName === "git_local_read_file" || /read_file_at_ref/i.test(toolName)
+  );
+}
+
+function isSearchTool(toolName: string): boolean {
+  return /search_content|search_files/i.test(toolName);
+}
+
+/**
+ * Stable documentary identity for grouping.
+ * Prefer readCoverage parser documentPath; strip #Lx-y fragments.
+ * Do not merge search with documentary reads. Do not invent versions.
+ */
+export function documentaryGroupKey(event: AssistantToolEventDto): string {
+  const tool = event.toolName.trim();
+
+  if (isSearchTool(tool)) {
+    const path = (event.pathOrRef ?? "").trim();
+    return path.length > 0 ? `search:${path}` : `search:${tool}`;
+  }
+
+  if (isDocumentReadTool(tool)) {
+    const parsed = parseGitLocalReadCoverageSignals({
+      summary: event.summary,
+      pathOrRef: event.pathOrRef,
+    });
+    const doc =
+      (parsed?.documentPath ?? "").trim() ||
+      (event.pathOrRef ?? "").trim().replace(/#L\d+-\d+$/i, "");
+    if (doc.length > 0) {
+      return `doc:${doc}`;
+    }
+    return `doc-tool:${tool}`;
+  }
+
   const path = (event.pathOrRef ?? "").trim();
-  if (path.length > 0) return `path:${path}`;
-  return `tool:${event.toolName}`;
+  if (path.length > 0) {
+    // Non-read tools with a path: keep exact path (no silent documentary merge).
+    return `tool-path:${tool}:${path}`;
+  }
+  return `tool:${tool}`;
 }
 
-function presentTitle(event: AssistantToolEventDto): string {
+function presentTitle(event: AssistantToolEventDto, groupKey: string): string {
+  if (groupKey.startsWith("doc:")) {
+    const docPath = groupKey.slice("doc:".length);
+    for (const row of DOC_TITLES) {
+      if (row.re.test(docPath)) return row.title;
+    }
+    return basename(docPath);
+  }
   const path = (event.pathOrRef ?? "").trim();
   if (path.length > 0) {
     for (const row of DOC_TITLES) {
@@ -838,43 +934,53 @@ function presentTitle(event: AssistantToolEventDto): string {
   return event.toolName;
 }
 
-function isDocumentReadTool(toolName: string): boolean {
-  return toolName === "git_local_read_file" || /read_file_at_ref/i.test(toolName);
-}
-
-function isSearchTool(toolName: string): boolean {
-  return /search_content|search_files/i.test(toolName);
-}
-
 function qualifyGroup(events: readonly AssistantToolEventDto[]): {
   qualification: string;
   statusTone: PresentedSourceGroup["statusTone"];
 } {
-  if (events.some((e) => e.status === "denied")) {
-    return { qualification: "Lecture refusée", statusTone: "denied" };
+  const denied = events.filter((e) => e.status === "denied");
+  const failed = events.filter((e) => e.status === "failed");
+  const pending = events.filter(
+    (e) => e.status === "started" || e.status === "requested",
+  );
+  const succeeded = events.filter((e) => e.status === "succeeded");
+
+  if (succeeded.length === 0) {
+    if (denied.length > 0 && failed.length === 0 && pending.length === 0) {
+      return { qualification: "Lecture refusée", statusTone: "denied" };
+    }
+    if (failed.length > 0 && denied.length === 0 && pending.length === 0) {
+      return { qualification: "Échec de consultation", statusTone: "failed" };
+    }
+    if (pending.length === events.length) {
+      return { qualification: "Consultation en cours", statusTone: "pending" };
+    }
+    if (denied.length > 0 || failed.length > 0) {
+      return {
+        qualification: "Consultation non aboutie — incident(s)",
+        statusTone: denied.length > 0 ? "denied" : "failed",
+      };
+    }
+    return { qualification: "Consultation demandée", statusTone: "pending" };
   }
-  if (events.some((e) => e.status === "failed")) {
-    return { qualification: "Échec de consultation", statusTone: "failed" };
-  }
-  if (
-    events.every(
-      (e) => e.status === "started" || e.status === "requested",
-    )
-  ) {
-    return { qualification: "Consultation en cours", statusTone: "pending" };
-  }
+
+  // Succeeded present — never let deny/fail alone dominate the summary.
+  const incidentSuffix =
+    denied.length > 0 || failed.length > 0
+      ? " — avec incident(s)"
+      : "";
 
   const readEvents = events.filter((e) => isDocumentReadTool(e.toolName));
   if (readEvents.length === 0) {
     if (events.every((e) => isSearchTool(e.toolName))) {
       return {
-        qualification: "Recherche de fichiers (pas une lecture documentaire)",
-        statusTone: "other",
+        qualification: `Recherche de fichiers (pas une lecture documentaire)${incidentSuffix}`,
+        statusTone: incidentSuffix ? "partial" : "other",
       };
     }
     return {
-      qualification: "Consultation technique",
-      statusTone: "other",
+      qualification: `Consultation technique${incidentSuffix}`,
+      statusTone: incidentSuffix ? "partial" : "other",
     };
   }
 
@@ -899,31 +1005,42 @@ function qualifyGroup(events: readonly AssistantToolEventDto[]): {
   }
 
   if (!anySucceededRead) {
-    return { qualification: "Consultation demandée", statusTone: "pending" };
+    return {
+      qualification: `Consultation demandée${incidentSuffix}`,
+      statusTone: "pending",
+    };
   }
 
-  // documentHasMore / partial / unparseable → never claim FULL.
-  if (anyFull && !anyPartialSignal && readEvents.length === 1) {
+  // documentHasMore / partial / unparseable / multi-span → never bare FULL.
+  if (
+    anyFull &&
+    !anyPartialSignal &&
+    readEvents.filter((e) => e.status === "succeeded").length === 1 &&
+    !incidentSuffix
+  ) {
     return {
       qualification: "Document lu en entier (preuve de couverture)",
       statusTone: "ok",
     };
   }
-  if (readEvents.length > 1 || anyPartialSignal) {
+  if (
+    readEvents.filter((e) => e.status === "succeeded").length > 1 ||
+    anyPartialSignal
+  ) {
     return {
-      qualification: "Plusieurs passages consultés",
+      qualification: `Plusieurs passages consultés${incidentSuffix}`,
       statusTone: "partial",
     };
   }
   return {
-    qualification: "Extraits consultés",
+    qualification: `Extraits consultés${incidentSuffix}`,
     statusTone: "partial",
   };
 }
 
 /**
  * Group cumulative conversation toolEvents for Pilote synthesis.
- * Detail rows preserve raw telemetry order within each group.
+ * Detail rows preserve raw telemetry order (including original #Lx-y paths).
  */
 export function presentConversationSources(
   events: readonly AssistantToolEventDto[],
@@ -932,7 +1049,7 @@ export function presentConversationSources(
   const buckets = new Map<string, AssistantToolEventDto[]>();
 
   for (const event of events) {
-    const key = groupKey(event);
+    const key = documentaryGroupKey(event);
     if (!buckets.has(key)) {
       order.push(key);
       buckets.set(key, []);
@@ -942,7 +1059,7 @@ export function presentConversationSources(
 
   return order.map((key) => {
     const detailEvents = buckets.get(key)!;
-    const title = presentTitle(detailEvents[0]!);
+    const title = presentTitle(detailEvents[0]!, key);
     const { qualification, statusTone } = qualifyGroup(detailEvents);
     return {
       key,
@@ -964,6 +1081,7 @@ export const CONVERSATION_SOURCES_SCOPE_DISCLAIMER =
 /** @vitest-environment node */
 /**
  * P6 Nora UX cumulative closure — presentation helpers (DET, ZERO OpenAI).
+ * Includes R-UX-01 / R-UX-03 targeted findings.
  */
 import { describe, expect, it } from "vitest";
 import type { AssistantToolEventDto } from "@/features/project-assistant/types";
@@ -974,6 +1092,7 @@ import {
 } from "@/features/pre-m6-product-ui/surfaces/presentLiveActivityTimeline";
 import {
   CONVERSATION_SOURCES_SCOPE_DISCLAIMER,
+  documentaryGroupKey,
   presentConversationSources,
 } from "@/features/pre-m6-product-ui/surfaces/presentConversationSources";
 
@@ -982,7 +1101,7 @@ const P3 =
 const P4 =
   "projects/sfia-studio/product-simplification/04-chat-first-product-simplification-semantic-projection-cognitive-architecture.md";
 
-describe("presentLiveActivityTimeline", () => {
+describe("presentLiveActivityTimeline (R-UX-03)", () => {
   it("UX-01/02/03/04 — labels only, chrono order, collapse duplicates", () => {
     const events: NoraLiveActivityEvent[] = [
       {
@@ -1025,46 +1144,173 @@ describe("presentLiveActivityTimeline", () => {
     );
   });
 
-  it("UX-05 — honest precise label when source identifiable", () => {
+  it("SRC-12 — tool_completed is passage consult, never full-document claim", () => {
     expect(
       presentActivityEventLabel({
         kind: "tool_completed",
         seq: 1,
         at: "t",
         label: "Document consulté",
+        toolName: "git_local_read_file",
         sourcePath: P4,
       }),
-    ).toBe("Nora a terminé la lecture de P4.");
+    ).toBe("Nora a consulté un passage de P4.");
+    expect(
+      presentActivityEventLabel({
+        kind: "tool_completed",
+        seq: 1,
+        at: "t",
+        label: "Document consulté",
+        toolName: "git_local_read_file",
+        sourcePath: P4,
+      }),
+    ).not.toMatch(/terminé la lecture|intégralement|entier/i);
+  });
+
+  it("SRC-13 — non-documentary tool_completed is not a document read", () => {
+    const label = presentActivityEventLabel({
+      kind: "tool_completed",
+      seq: 1,
+      at: "t",
+      label: "status ok",
+      toolName: "git_local_get_status",
+    });
+    expect(label).not.toMatch(/passage|lecture de|document/i);
+    expect(label).toMatch(/consultation|status ok/i);
+  });
+
+  it("tool_failed uses honest impossibility wording", () => {
+    expect(
+      presentActivityEventLabel({
+        kind: "tool_failed",
+        seq: 1,
+        at: "t",
+        label: "fail",
+        toolName: "git_local_read_file",
+        sourcePath: P3,
+      }),
+    ).toBe("Impossible de consulter P3.");
   });
 });
 
-describe("presentConversationSources", () => {
-  it("UX-14/15/16/17/18 — group by path, never invent FULL, scope disclaimer", () => {
+describe("presentConversationSources (R-UX-01)", () => {
+  it("SRC-01/02/03 — #Lx-y ranges collapse to one P3 group; P4 distinct; ranges kept", () => {
+    const events: AssistantToolEventDto[] = [
+      {
+        toolName: "git_local_read_file",
+        status: "succeeded",
+        pathOrRef: `${P3}#L1-240`,
+        summary: `read ${P3} L1-240/780 returned L1-240 (ok) hasMore documentHasMore`,
+        errorCode: null,
+        readOnly: true,
+      },
+      {
+        toolName: "git_local_read_file",
+        status: "succeeded",
+        pathOrRef: `${P3}#L241-500`,
+        summary: `read ${P3} L241-500/780 returned L241-500 (ok) hasMore documentHasMore`,
+        errorCode: null,
+        readOnly: true,
+      },
+      {
+        toolName: "git_local_read_file",
+        status: "succeeded",
+        pathOrRef: `${P3}#L501-780`,
+        summary: `read ${P3} L501-780/780 returned L501-780 (ok) documentHasMore`,
+        errorCode: null,
+        readOnly: true,
+      },
+      {
+        toolName: "git_local_read_file",
+        status: "succeeded",
+        pathOrRef: `${P4}#L1-100`,
+        summary: `read ${P4} L1-100/400 returned L1-100 (ok) hasMore documentHasMore`,
+        errorCode: null,
+        readOnly: true,
+      },
+    ];
+
+    expect(documentaryGroupKey(events[0]!)).toBe(`doc:${P3}`);
+    expect(documentaryGroupKey(events[1]!)).toBe(`doc:${P3}`);
+    expect(documentaryGroupKey(events[2]!)).toBe(`doc:${P3}`);
+
+    const groups = presentConversationSources(events);
+    expect(groups).toHaveLength(2);
+    const p3 = groups.find((g) => g.title.includes("P3"));
+    const p4 = groups.find((g) => g.title.includes("P4"));
+    expect(p3?.eventCount).toBe(3);
+    expect(p3?.detailEvents.map((e) => e.pathOrRef)).toEqual([
+      `${P3}#L1-240`,
+      `${P3}#L241-500`,
+      `${P3}#L501-780`,
+    ]);
+    expect(p3?.qualification).toMatch(/passages|Extraits/i);
+    expect(p3?.qualification).not.toMatch(/\bFULL\b|^Document lu en entier/i);
+    expect(p4?.eventCount).toBe(1);
+  });
+
+  it("SRC-04/05 — REAL summary path groups with bare path", () => {
+    const bare: AssistantToolEventDto = {
+      toolName: "git_local_read_file",
+      status: "succeeded",
+      pathOrRef: P3,
+      summary: `read ${P3} L1-40/200 returned L1-40 (ok) hasMore documentHasMore`,
+      errorCode: null,
+      readOnly: true,
+    };
+    const ranged: AssistantToolEventDto = {
+      toolName: "git_local_read_file",
+      status: "succeeded",
+      pathOrRef: `${P3}#L41-80`,
+      summary: `read ${P3} L41-80/200 returned L41-80 (ok) hasMore documentHasMore`,
+      errorCode: null,
+      readOnly: true,
+    };
+    expect(documentaryGroupKey(bare)).toBe(documentaryGroupKey(ranged));
+    const groups = presentConversationSources([bare, ranged]);
+    expect(groups).toHaveLength(1);
+    expect(groups[0]!.eventCount).toBe(2);
+  });
+
+  it("SRC-06 — distinct versioned identities are not merged", () => {
+    const a: AssistantToolEventDto = {
+      toolName: "git_local_read_file",
+      status: "succeeded",
+      pathOrRef: "docs/P3.md@abc123",
+      summary: "read docs/P3.md@abc123 L1-10/10 returned L1-10 (ok)",
+      errorCode: null,
+      readOnly: true,
+    };
+    const b: AssistantToolEventDto = {
+      toolName: "git_local_read_file",
+      status: "succeeded",
+      pathOrRef: "docs/P3.md@def456",
+      summary: "read docs/P3.md@def456 L1-10/10 returned L1-10 (ok)",
+      errorCode: null,
+      readOnly: true,
+    };
+    expect(documentaryGroupKey(a)).not.toBe(documentaryGroupKey(b));
+    expect(presentConversationSources([a, b])).toHaveLength(2);
+  });
+
+  it("SRC-07/08/09/11 — search ≠ read; deny≠success; mixed incidents; documentHasMore≠FULL", () => {
     expect(CONVERSATION_SOURCES_SCOPE_DISCLAIMER).toMatch(/cette conversation/i);
 
     const events: AssistantToolEventDto[] = [
       {
         toolName: "git_local_read_file",
         status: "succeeded",
-        pathOrRef: P3,
-        summary: "L1-40/200 returned L1-40 hasMore documentHasMore",
+        pathOrRef: `${P3}#L1-40`,
+        summary: `read ${P3} L1-40/200 returned L1-40 (ok) hasMore documentHasMore`,
         errorCode: null,
         readOnly: true,
       },
       {
         toolName: "git_local_read_file",
-        status: "succeeded",
-        pathOrRef: P3,
-        summary: "L41-80/200 returned L41-80 hasMore documentHasMore",
-        errorCode: null,
-        readOnly: true,
-      },
-      {
-        toolName: "git_local_read_file",
-        status: "succeeded",
-        pathOrRef: P4,
-        summary: "excerpt",
-        errorCode: null,
+        status: "denied",
+        pathOrRef: `${P3}#L180-200`,
+        summary: "PATH_NOT_ALLOWED",
+        errorCode: "PATH_NOT_ALLOWED",
         readOnly: true,
       },
       {
@@ -1086,41 +1332,34 @@ describe("presentConversationSources", () => {
     ];
 
     const groups = presentConversationSources(events);
-    expect(groups).toHaveLength(4);
-
     const p3 = groups.find((g) => g.title.includes("P3"));
-    expect(p3?.eventCount).toBe(2);
     expect(p3?.qualification).toMatch(/passages|Extraits/i);
+    expect(p3?.qualification).toMatch(/incident/i);
+    expect(p3?.qualification).not.toMatch(/^Lecture refusée$/);
+    expect(p3?.detailEvents.some((e) => e.status === "denied")).toBe(true);
     expect(p3?.qualification).not.toMatch(/\bFULL\b/i);
-
-    const p4 = groups.find((g) => g.title.includes("P4"));
-    expect(p4?.qualification).not.toMatch(/\bFULL\b/i);
-    expect(p4?.qualification).toMatch(/Extraits|passages|consult/i);
 
     const search = groups.find((g) => g.title === "search_files");
     expect(search?.qualification).toMatch(/Recherche/i);
-    expect(search?.qualification).not.toMatch(/lecture documentaire complète/i);
 
     const denied = groups.find((g) => g.title === ".env");
     expect(denied?.qualification).toMatch(/refus/i);
     expect(denied?.detailEvents[0]?.errorCode).toBe("PATH_NOT_ALLOWED");
   });
 
-  it("UX-16 — FULL only when coverage fact is proven full", () => {
+  it("SRC-10 — FULL only with proven full coverage fact", () => {
     const events: AssistantToolEventDto[] = [
       {
         toolName: "git_local_read_file",
         status: "succeeded",
         pathOrRef: "docs/short.md",
-        // Shape recognized as full by deriveReadCoverageFromToolEvent when applicable.
         summary:
-          "path=docs/short.md startLine=1 endLine=3 totalLines=3 returnedStartLine=1 returnedEndLine=3",
+          "read docs/short.md L1-3/3 returned L1-3 (ok)",
         errorCode: null,
         readOnly: true,
       },
     ];
     const [group] = presentConversationSources(events);
-    // Either honest full phrasing OR prudent extracts — never bare "FULL".
     expect(group!.qualification).not.toBe("FULL");
     expect(group!.qualification).not.toMatch(/^FULL$/);
     if (/entier/i.test(group!.qualification)) {
@@ -1221,29 +1460,29 @@ const P4 =
   "projects/sfia-studio/product-simplification/04-chat-first-product-simplification-semantic-projection-cognitive-architecture.md";
 
 describe("ConversationSurface sources UX closure", () => {
-  it("UX-14/15/18/19 — grouped sources + conversation scope + tech detail", () => {
+  it("UX-14/15/18/19 + SRC ranges — grouped sources + honest tech detail", () => {
     const toolEvents: AssistantToolEventDto[] = [
       {
         toolName: "git_local_read_file",
         status: "succeeded",
-        pathOrRef: P3,
-        summary: "L1-20 hasMore",
+        pathOrRef: `${P3}#L1-240`,
+        summary: `read ${P3} L1-240/780 returned L1-240 (ok) hasMore documentHasMore`,
         errorCode: null,
         readOnly: true,
       },
       {
         toolName: "git_local_read_file",
         status: "succeeded",
-        pathOrRef: P3,
-        summary: "L21-40 hasMore",
+        pathOrRef: `${P3}#L241-500`,
+        summary: `read ${P3} L241-500/780 returned L241-500 (ok) hasMore documentHasMore`,
         errorCode: null,
         readOnly: true,
       },
       {
         toolName: "git_local_read_file",
         status: "succeeded",
-        pathOrRef: P4,
-        summary: "L1-15 hasMore",
+        pathOrRef: `${P4}#L1-100`,
+        summary: `read ${P4} L1-100/400 returned L1-100 (ok) hasMore documentHasMore`,
         errorCode: null,
         readOnly: true,
       },
@@ -1280,240 +1519,19 @@ describe("ConversationSurface sources UX closure", () => {
     );
     expect(tech).toHaveLength(2);
     expect(tech[0]!.textContent).toMatch(/git_local_read_file/);
-    expect(tech[0]!.textContent).toMatch(P3);
+    expect(tech[0]!.textContent).toMatch(`${P3}#L1-240`);
+    expect(tech[0]!.textContent).toMatch(/Consultation réussie/);
+    expect(tech[0]!.textContent).toMatch(/Opération en lecture seule/);
+    expect(tech[0]!.textContent).not.toMatch(/lecture seule confirmée/i);
   });
 });
 
 ===== END FILE projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.nora.uxClosure.sourcesSurface.d0.test.tsx =====
 
-===== BEGIN FILE projects/sfia-studio/app/app/dev/nora-ux-closure/page.tsx =====
-"use client";
-
-/**
- * LOCAL VALIDATION ONLY — mounts real ConversationSurface with synthetic controller.
- * Not a Product route. ZERO OpenAI. Do not use against Human QA DBs.
- */
-
-import { ConversationSurface } from "@/features/pre-m6-product-ui/surfaces/ConversationSurface";
-import type { ProductConversationController } from "@/features/pre-m6-product-ui/hooks/useProductConversation";
-import type { NoraLiveActivityEvent } from "@/features/project-assistant/liveActivityEvents";
-import type { AssistantToolEventDto } from "@/features/project-assistant/types";
-import { useMemo, useState } from "react";
-import "@/features/pre-m6-product-ui/product-tokens.css";
-
-const P3 =
-  "projects/sfia-studio/product-simplification/03-chat-first-product-simplification-workspace-interaction-architecture.md";
-const P4 =
-  "projects/sfia-studio/product-simplification/04-chat-first-product-simplification-semantic-projection-cognitive-architecture.md";
-
-type Scenario = "idle" | "working" | "answered";
-
-const LIVE: NoraLiveActivityEvent[] = [
-  {
-    kind: "mission_started",
-    seq: 1,
-    at: "2026-10-14T18:00:00.000Z",
-    label: "Mission démarrée",
-  },
-  {
-    kind: "tool_started",
-    seq: 2,
-    at: "2026-10-14T18:00:01.000Z",
-    label: "Consultation",
-    toolName: "git_local_read_file",
-    sourcePath: P3,
-  },
-  {
-    kind: "tool_completed",
-    seq: 3,
-    at: "2026-10-14T18:00:02.000Z",
-    label: "Document consulté",
-    toolName: "git_local_read_file",
-    sourcePath: P3,
-  },
-  {
-    kind: "tool_started",
-    seq: 4,
-    at: "2026-10-14T18:00:03.000Z",
-    label: "Consultation",
-    toolName: "git_local_read_file",
-    sourcePath: P4,
-  },
-  {
-    kind: "activity_update",
-    seq: 5,
-    at: "2026-10-14T18:00:04.000Z",
-    label: "Nora poursuit la comparaison.",
-  },
-];
-
-const TOOLS: AssistantToolEventDto[] = [
-  {
-    toolName: "git_local_read_file",
-    status: "succeeded",
-    pathOrRef: P3,
-    summary: "read … L1-40/200 returned L1-40 (ok) hasMore documentHasMore",
-    errorCode: null,
-    readOnly: true,
-  },
-  {
-    toolName: "git_local_read_file",
-    status: "succeeded",
-    pathOrRef: P3,
-    summary: "read … L41-80/200 returned L41-80 (ok) hasMore documentHasMore",
-    errorCode: null,
-    readOnly: true,
-  },
-  {
-    toolName: "git_local_read_file",
-    status: "succeeded",
-    pathOrRef: P4,
-    summary: "read … L1-30/180 returned L1-30 (ok) hasMore documentHasMore",
-    errorCode: null,
-    readOnly: true,
-  },
-];
-
-function buildController(
-  scenario: Scenario,
-  stopCurrentResponse: () => void,
-): ProductConversationController {
-  const working = scenario === "working";
-  return {
-    listRef: { current: null },
-    messages:
-      scenario === "idle"
-        ? []
-        : [
-            {
-              id: "u1",
-              role: "user",
-              content:
-                "Compare P3 et P4 pour la simplification des interactions.",
-            },
-            ...(scenario === "answered"
-              ? [
-                  {
-                    id: "a1",
-                    role: "assistant" as const,
-                    content:
-                      "P3 structure l’espace de travail ; P4 précise la projection sémantique. Les deux se complètent.",
-                  },
-                ]
-              : []),
-          ],
-    draft: scenario === "idle" ? "Bonjour Nora" : "",
-    setDraft: () => undefined,
-    toolEvents: scenario === "answered" ? TOOLS : working ? TOOLS.slice(0, 1) : [],
-    liveActivityEvents: working ? LIVE : [],
-    uiState: working ? "ASSISTANT_WORKING" : "READY",
-    error: null,
-    executionIncomplete: false,
-    modeLabel: "fixture",
-    ephemeralNotice: "Validation UX locale — données synthétiques",
-    lrMaterializeNotice: null,
-    lrMaterializeCode: null,
-    f2: null,
-    activeProposal: null,
-    reservesText: "",
-    setReservesText: () => undefined,
-    f3Prepare: null,
-    f3M3Resolved: null,
-    f3Execute: null,
-    durableEvidenceOutcome: null,
-    durableRehydrateError: null,
-    focusTurnId: null,
-    clearFocusTurn: () => undefined,
-    busy: working,
-    blocked: false,
-    canSend: !working,
-    stopAvailable: working,
-    stopCurrentResponse,
-    gateOpen: false,
-    recommendationFreshness: "none",
-    qualificationFreshness: "none",
-    durableOutcomeFreshness: "none",
-    canPrepareResolvedM3: false,
-    canPrepareLegacyFixture: false,
-    canConfirmResolvedM3: false,
-    canConfirmLegacyFixture: false,
-    canRefreshResolvedM3Running: false,
-    sendMessage: () => undefined,
-    decide: async () => undefined,
-    prepareResolvedM3: async () => undefined,
-    prepareLegacyFixture: async () => undefined,
-    confirmAndExecuteResolvedM3: async () => undefined,
-    confirmAndExecuteLegacyFixture: async () => undefined,
-    refreshResolvedM3RunningAttempt: async () => undefined,
-    retryLastUserMessage: () => undefined,
-    reservationResolutionProposal: null,
-    transcriptAvailability: "available",
-    openContinuityPresentation: null,
-    journalEntries: [],
-    journalCycleInstanceId: null,
-    selectedJournalEntryId: null,
-    setSelectedJournalEntryId: () => undefined,
-    focusJournalExchanges: () => undefined,
-    focusTranscriptTurn: () => undefined,
-    refreshConversationContinuity: async () => undefined,
-    armReinstructionOfProposalId: () => undefined,
-    armedReinstructionOfProposalId: null,
-    armReservationInteractionContext: () => undefined,
-    armedReservationInteractionContext: null,
-    clearReservationResolutionProposal: () => undefined,
-  } as unknown as ProductConversationController;
-}
-
-export default function NoraUxClosurePreviewPage() {
-  const [scenario, setScenario] = useState<Scenario>("working");
-  const [stopped, setStopped] = useState(false);
-  const controller = useMemo(
-    () =>
-      buildController(stopped && scenario === "working" ? "idle" : scenario, () =>
-        setStopped(true),
-      ),
-    [scenario, stopped],
-  );
-
-  return (
-    <main
-      style={{
-        maxWidth: 880,
-        margin: "0 auto",
-        padding: 24,
-        fontFamily: "system-ui, sans-serif",
-        background: "var(--pm6-canvas, #fffdf9)",
-        minHeight: "100vh",
-      }}
-      data-testid="nora-ux-closure-preview"
-    >
-      <h1 style={{ fontSize: 18, marginBottom: 8 }}>
-        Nora UX closure — preview (ConversationSurface réel)
-      </h1>
-      <p style={{ color: "#6f665e", fontSize: 13, marginBottom: 16 }}>
-        Port de validation isolé · ZERO OpenAI · pas le runtime Human QA :3020
-      </p>
-      <div style={{ display: "flex", gap: 8, marginBottom: 16 }}>
-        {(["idle", "working", "answered"] as const).map((s) => (
-          <button
-            key={s}
-            type="button"
-            data-testid={`ux-scenario-${s}`}
-            onClick={() => {
-              setStopped(false);
-              setScenario(s);
-            }}
-            style={{ padding: "6px 10px" }}
-          >
-            {s}
-          </button>
-        ))}
-      </div>
-      <ConversationSurface controller={controller} />
-    </main>
-  );
-}
-
-===== END FILE projects/sfia-studio/app/app/dev/nora-ux-closure/page.tsx =====
-
 ```
+
+---
+
+## Middleware final
+
+Diff vs HEAD/baseline: empty (0 bytes). Identique a eec68a41.
