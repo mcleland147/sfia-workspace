@@ -22,7 +22,14 @@ import {
 } from "@/features/project-assistant/presentationLabels";
 import type { AssistantToolEventDto } from "@/features/project-assistant/types";
 import type { F2DecisionKind } from "@/features/project-assistant/f2/types";
-import { useEffect, useId, useLayoutEffect, useRef, useState } from "react";
+import {
+  useEffect,
+  useId,
+  useLayoutEffect,
+  useRef,
+  useState,
+  type ReactElement,
+} from "react";
 import type { ProductConversationController } from "../hooks/useProductConversation";
 import type { ProductSynthesisProjection } from "@/lib/oa/synthesis";
 import type { WorkRecommendationProjectionCard } from "@/lib/oa/cycle/application/deriveWorkRecommendations";
@@ -37,6 +44,14 @@ import {
 } from "./GovernedDecisionCard";
 import { FramingContinuityCard } from "./FramingContinuityCard";
 import { GovernedConfirmationCard } from "./GovernedConfirmationCard";
+import {
+  CONVERSATION_SOURCES_SCOPE_DISCLAIMER,
+  presentConversationSources,
+} from "./presentConversationSources";
+import {
+  presentActivityEventLabel,
+  presentLiveActivityTimeline,
+} from "./presentLiveActivityTimeline";
 import styles from "./ConversationSurface.module.css";
 
 /**
@@ -66,16 +81,31 @@ const DECISION_ACTIONS: readonly {
 function sourceStatusLabel(status: AssistantToolEventDto["status"]): string {
   switch (status) {
     case "succeeded":
-      return "Consulté";
+      return "Consultation réussie";
     case "denied":
-      return "Refusé";
+      return "Consultation refusée";
     case "failed":
-      return "Échec";
+      return "Consultation échouée";
     case "started":
-      return "En cours";
+      return "Demande en cours";
     default:
-      return "Demandé";
+      return "Demande en cours";
   }
+}
+
+function StopGlyph(): ReactElement {
+  return (
+    <svg
+      className={styles.stopGlyph}
+      width="12"
+      height="12"
+      viewBox="0 0 12 12"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <rect x="2" y="2" width="8" height="8" rx="1" fill="currentColor" />
+    </svg>
+  );
 }
 
 /** P6-HQA-UI05 — honest compact status (Figma 46:98 / 46:107). */
@@ -558,14 +588,23 @@ export function ConversationSurface({
                 data-testid="project-assistant-nora-activity-heading"
               >
                 Nora
-                <span className={styles.noraActivityBadge}>En cours</span>
+                <span className={styles.noraActivityBadge}>
+                  <span
+                    className={styles.noraActivityPulse}
+                    data-testid="project-assistant-nora-activity-pulse"
+                    aria-hidden="true"
+                  />
+                  En cours
+                </span>
               </p>
               <p
                 className={styles.noraActivityText}
                 data-testid="project-assistant-nora-activity-label"
               >
                 {liveActivityEvents.length > 0
-                  ? liveActivityEvents[liveActivityEvents.length - 1]!.label
+                  ? presentActivityEventLabel(
+                      liveActivityEvents[liveActivityEvents.length - 1]!,
+                    )
                   : noraActivity.label}
               </p>
               {liveActivityEvents.length > 0 ? (
@@ -574,16 +613,17 @@ export function ConversationSurface({
                   data-testid="project-assistant-nora-activity-details"
                 >
                   <summary>Détail de l’activité</summary>
-                  <ol className={styles.noraActivityTimeline}>
-                    {liveActivityEvents.map((event) => (
-                      <li key={`${event.seq}-${event.kind}-${event.at}`}>
-                        <span className={styles.noraActivityTimelineKind}>
-                          {event.kind}
-                        </span>
-                        <span>{event.label}</span>
-                      </li>
-                    ))}
-                  </ol>
+                  <ul className={styles.noraActivityTimeline}>
+                    {presentLiveActivityTimeline(liveActivityEvents).map(
+                      (line) => (
+                        <li key={line.key}>
+                          <span className={styles.noraActivityTimelineLabel}>
+                            {line.label}
+                          </span>
+                        </li>
+                      ),
+                    )}
+                  </ul>
                 </details>
               ) : null}
             </div>
@@ -2303,26 +2343,70 @@ export function ConversationSurface({
             aria-label="Sources consultées"
             data-testid="project-assistant-sources"
           >
+            {toolEvents.length > 0 ? (
+              <p
+                className={styles.sourcesScope}
+                data-testid="project-assistant-sources-scope"
+              >
+                {CONVERSATION_SOURCES_SCOPE_DISCLAIMER}
+              </p>
+            ) : null}
             <ul className={styles.sourceList}>
-              {toolEvents.map((event, index) => (
+              {presentConversationSources(toolEvents).map((group) => (
                 <li
-                  key={`${event.toolName}-${index}-${event.pathOrRef ?? "na"}`}
+                  key={group.key}
                   className={styles.sourceItem}
                   data-testid="project-assistant-source-item"
-                  data-status={event.status}
+                  data-status={
+                    group.detailEvents.some((e) => e.status === "denied")
+                      ? "denied"
+                      : group.detailEvents.some((e) => e.status === "failed")
+                        ? "failed"
+                        : group.detailEvents.some((e) => e.status === "succeeded")
+                          ? "succeeded"
+                          : group.detailEvents[0]?.status
+                  }
+                  data-status-tone={group.statusTone}
                 >
-                  <span className={styles.sourceName}>{event.toolName}</span>
+                  <span className={styles.sourceName}>{group.title}</span>
                   <span className={styles.sourceStatus}>
-                    {sourceStatusLabel(event.status)}
+                    {group.qualification}
                   </span>
-                  {event.pathOrRef ? (
-                    <span className={styles.code}>{event.pathOrRef}</span>
-                  ) : null}
                   <span className={styles.sourceDetail}>
-                    {event.summary ?? "Aucun résumé supplémentaire."}
-                    {event.errorCode ? ` (${event.errorCode})` : ""} · lecture
-                    seule confirmée
+                    {group.eventCount > 1
+                      ? `${group.eventCount} consultations regroupées.`
+                      : group.qualification}
                   </span>
+                  <details className={styles.sourceTechDetails}>
+                    <summary>Détail technique</summary>
+                    <ul className={styles.sourceTechList}>
+                      {group.detailEvents.map((event, index) => (
+                        <li
+                          key={`${event.toolName}-${index}-${event.pathOrRef ?? "na"}`}
+                          data-testid="project-assistant-source-tech-item"
+                          data-status={event.status}
+                        >
+                          <span className={styles.sourceName}>
+                            {event.toolName}
+                          </span>
+                          <span className={styles.sourceStatus}>
+                            {sourceStatusLabel(event.status)}
+                          </span>
+                          {event.pathOrRef ? (
+                            <span className={styles.code}>{event.pathOrRef}</span>
+                          ) : null}
+                          <span className={styles.sourceDetail}>
+                            {event.summary ?? "Aucun résumé supplémentaire."}
+                            {event.errorCode ? ` (${event.errorCode})` : ""} ·{" "}
+                            {sourceStatusLabel(event.status)}
+                            {event.readOnly
+                              ? " · Opération en lecture seule"
+                              : ""}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </details>
                 </li>
               ))}
             </ul>
@@ -2392,7 +2476,7 @@ export function ConversationSurface({
               >
                 <span className={styles.sendLabelFull}>Arrêter</span>
                 <span className={styles.sendLabelCompact} aria-hidden="true">
-                  ■
+                  <StopGlyph />
                 </span>
               </button>
             ) : (

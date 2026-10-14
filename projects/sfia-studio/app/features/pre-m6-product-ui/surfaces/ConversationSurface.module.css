@@ -183,6 +183,9 @@
 }
 
 .noraActivityBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   font-size: var(--pm6-text-caption);
   font-weight: 500;
   letter-spacing: 0.4px;
@@ -190,41 +193,65 @@
   color: var(--pm6-accent);
 }
 
+/* Continuous activity cue while mission is live (DP06 ACTIVITY). */
+.noraActivityPulse {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--pm6-accent);
+  flex-shrink: 0;
+  animation: noraActivityPulse 1.2s ease-in-out infinite;
+}
+
+@keyframes noraActivityPulse {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(0.92);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 .noraActivityDetails {
   margin-top: 0.5rem;
   font-size: 0.8125rem;
-  color: var(--sfia-text-muted, #5c6570);
+  color: var(--pm6-muted-strong);
 }
 
 .noraActivityDetails summary {
   cursor: pointer;
   list-style: disclosure-closed;
+  color: var(--pm6-muted-strong);
 }
 
 .noraActivityTimeline {
+  list-style: none;
   margin: 0.4rem 0 0;
-  padding-left: 1.1rem;
+  padding: 0;
   max-height: 10rem;
   overflow-y: auto;
 }
 
 .noraActivityTimeline li {
-  margin: 0.2rem 0;
+  margin: 0.28rem 0;
+  padding-left: 0;
 }
 
-.noraActivityTimelineKind {
-  display: inline-block;
-  min-width: 7.5rem;
-  margin-right: 0.4rem;
-  opacity: 0.7;
-  font-variant: small-caps;
+.noraActivityTimelineLabel {
+  display: block;
+  color: var(--pm6-muted-strong);
+  line-height: 1.45;
 }
 
 .noraActivityText {
   margin: 0;
   font-size: var(--pm6-text-subtitle);
   line-height: 1.6;
-  color: var(--pm6-ink-soft);
+  color: var(--pm6-muted-strong);
 }
 
 @keyframes noraActivityIn {
@@ -241,6 +268,12 @@
 @media (prefers-reduced-motion: reduce) {
   .noraActivityTurn {
     animation: noraActivityInReduced 120ms ease-out;
+  }
+
+  .noraActivityPulse {
+    animation: none;
+    opacity: 1;
+    transform: none;
   }
 
   @keyframes noraActivityInReduced {
@@ -949,6 +982,13 @@
   display: block;
 }
 
+.sourcesScope {
+  margin: 0 0 var(--pm6-space-2);
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: var(--pm6-muted-strong);
+}
+
 .sourceList {
   list-style: none;
   margin: 0;
@@ -979,13 +1019,43 @@
   font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.04em;
-  color: var(--pm6-muted);
+  color: var(--pm6-muted-strong);
 }
 
 .sourceDetail {
   flex: 1 1 100%;
   font-size: 0.8rem;
   color: var(--pm6-muted-strong);
+}
+
+.sourceTechDetails {
+  flex: 1 1 100%;
+  margin-top: 0.15rem;
+  font-size: 0.78rem;
+  color: var(--pm6-muted);
+}
+
+.sourceTechDetails summary {
+  cursor: pointer;
+  color: var(--pm6-muted-strong);
+}
+
+.sourceTechList {
+  list-style: none;
+  margin: 0.35rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.sourceTechList li {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.5rem;
+  align-items: baseline;
+  border-top: 1px dashed var(--pm6-border-soft);
+  padding-top: 0.35rem;
 }
 
 /* ---------- error ---------- */
@@ -1148,22 +1218,32 @@
 .stopButton {
   display: inline-grid;
   place-items: center;
-  width: auto;
+  width: 30px;
   min-width: 30px;
   height: 30px;
   border-radius: 7px;
-  border: 1px solid var(--pm6-ink);
+  border: 1px solid var(--pm6-border);
   background: var(--pm6-canvas);
   color: var(--pm6-ink);
-  padding: 0 10px;
+  padding: 0;
   font-size: var(--pm6-text-caption);
   font-weight: 600;
   cursor: pointer;
   min-height: 30px;
+  transition: background 120ms ease, border-color 120ms ease, color 120ms ease;
 }
 
+.stopGlyph {
+  display: block;
+  width: 12px;
+  height: 12px;
+}
+
+/* Morris: light button, dark glyph; warmer gray hover — never dark-on-dark. */
 .stopButton:hover {
-  background: var(--pm6-forest-hover);
+  background: var(--pm6-forest-tint);
+  border-color: var(--pm6-muted-strong);
+  color: var(--pm6-ink);
 }
 
 .stopButton:focus-visible,
