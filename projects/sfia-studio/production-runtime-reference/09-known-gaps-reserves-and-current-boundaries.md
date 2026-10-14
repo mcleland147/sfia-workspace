@@ -16,7 +16,11 @@
 | OBS-01 writer security | CLOSED AT DET — `validateLedgerRowForAppend` at every public append; secrets/forbidden keys refused |
 | OBS-02 integrity status | CLOSED AT DET — `HEALTHY` / `DEGRADED` / `INVALID` / `UNREADABLE` / `MISSING`; `integrityPass` only when HEALTHY; no silent rewrite |
 | OBS-03 idempotence / concurrency | CLOSED AT **MONO_WRITER** model — O_EXCL contention detection; no age-based lock reclaim; orphan recovery via explicit `forceRemoveOrphanP6EvidenceLedgerLock` only. Multi-process durability **NOT CLAIMED** |
-| OBS-04 QA collection seam | DET PROVEN — `collectP6ProductTurnEvidence`; **OPERATIONAL CAMPAIGN WIRING PENDING** (historical harnesses still inline `appendFileSync` on qa WT) |
+| OBS-04 QA collection seam | DET PROVEN — `collectP6ProductTurnEvidence`; **O2 DET WIRING IMPLEMENTED** (`wireP6O2OperationalEvidence` + `linkedQaRunId`); historical REAL harness migration **NOT DONE** |
+| O2 minimal link contract | DET — `linkedQaRunId` on cognitive rows; cardinality QA → 0..1 receipt; write+read integrity; historical unlinked v2 readable without O2 promotion |
+| O2 QA target eligibility (CP01-02) | DET — `isP6O2QaLinkTargetEligible` distinct from historical readability; admin/diagnostic kinds (`ROOT_CAUSE_*`, `RUNTIME_REQUALIFICATION`) not linkable; historical absent-kind QA rows eligible with identity fields |
+| O2-32 portability (CP01-01) | DET — archive isolation proven via temp fixtures; real archive SHA check optional via `SFIA_P6_HISTORICAL_LEDGER_PATH` (no hardcoded user paths) |
+| Historical ledger disposition (D1) | ARCHIVE ONLY (qa WT) — active ledger for new runs is worktree-local canonical path; no sync/repair of archive line 75 |
 | Receipt completeness (ledger schema v2) | CLOSED AT DET — full Product CognitiveExecutionReceipt projection (model/effort/tokens/adaptive/continuation/conservation); reopen field-by-field equality |
 | Read integrity v2 | CLOSED AT DET — `classifyLedgerRowForRead` aligns reader with writer schema; incomplete v2 ⇒ `integrityPass=false` (DEGRADED); historical campaign rows not v2-promoted |
 | RunId uniqueness (write) | CLOSED AT DET — all public writers reject duplicate runId under MONO_WRITER lock; duplicate skip requires durable content equivalence |

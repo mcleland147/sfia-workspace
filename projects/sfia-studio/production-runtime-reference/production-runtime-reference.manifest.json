@@ -39,11 +39,11 @@
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md",
-      "sha256_16": "1b7f254ef869dfc3"
+      "sha256_16": "587caa7bbc0179f3"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md",
-      "sha256_16": "57b2b177259d7c5b"
+      "sha256_16": "978931873268eb6a"
     }
   ],
   "components": [

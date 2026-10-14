@@ -65,6 +65,207 @@ function isNonEmptyString(v: unknown): v is string {
   return typeof v === "string" && v.trim().length > 0;
 }
 
+/**
+ * Historically readable campaign-family kinds (read/classify only).
+ * Includes administrative/diagnostic kinds that remain ledger-readable
+ * but are NOT O2 link targets.
+ */
+export function isP6HistoricalReadableCampaignKind(kind: unknown): boolean {
+  return (
+    kind === undefined ||
+    kind === null ||
+    kind === "(historical_campaign)" ||
+    kind === "p6_campaign_run" ||
+    kind === "ROOT_CAUSE_INVESTIGATION_READONLY" ||
+    kind === "RUNTIME_REQUALIFICATION"
+  );
+}
+
+/**
+ * @deprecated Kind-only coarse gate. Prefer `isP6O2QaLinkTargetEligible(row)`
+ * for O2 write/read/resolver. Excludes administrative/diagnostic kinds.
+ */
+export function isP6CampaignQaRowKind(kind: unknown): boolean {
+  return (
+    kind === undefined ||
+    kind === null ||
+    kind === "(historical_campaign)" ||
+    kind === "p6_campaign_run"
+  );
+}
+
+export function isCognitiveReceiptRowKind(kind: unknown): boolean {
+  return kind === "cognitive_execution_receipt";
+}
+
+/**
+ * O2 link-target eligibility — DISTINCT from historical readability.
+ *
+ * Eligible:
+ *   - explicit `p6_campaign_run` with campaign QA identity fields;
+ *   - historical campaign rows (absent kind / `(historical_campaign)`) with
+ *     the same identity fields (74 archive rows of this form are QA results).
+ *
+ * NOT eligible (still historically readable when valid):
+ *   - `ROOT_CAUSE_INVESTIGATION_READONLY` (diagnostic / investigation);
+ *   - `RUNTIME_REQUALIFICATION` (administrative requalification);
+ *   - cognitive receipts;
+ *   - unknown kinds.
+ */
+export function isP6O2QaLinkTargetEligible(
+  row: Record<string, unknown>,
+): boolean {
+  if (isCognitiveReceiptRowKind(row.kind)) return false;
+  const kind = row.kind;
+  if (
+    kind === "ROOT_CAUSE_INVESTIGATION_READONLY" ||
+    kind === "RUNTIME_REQUALIFICATION"
+  ) {
+    return false;
+  }
+  const kindOk =
+    kind === "p6_campaign_run" ||
+    kind === undefined ||
+    kind === null ||
+    kind === "(historical_campaign)";
+  if (!kindOk) return false;
+  return (
+    isNonEmptyString(row.runId) &&
+    isNonEmptyString(row.scenarioId) &&
+    row.campaignId === P6_CAMPAIGN_ID
+  );
+}
+
+/**
+ * Field-level O2 link rules when linkedQaRunId is present.
+ * Absence remains valid for historical unlinked v2 receipts (no retro promotion).
+ */
+export function validateLinkedQaRunIdField(
+  row: Record<string, unknown>,
+): LedgerRowValidationResult | null {
+  if (!("linkedQaRunId" in row) || row.linkedQaRunId === undefined) {
+    return null;
+  }
+  if (!isNonEmptyString(row.linkedQaRunId)) {
+    return {
+      ok: false,
+      code: "O2_LINK_FIELD",
+      message: "linkedQaRunId must be a non-empty string when present",
+    };
+  }
+  if (row.linkedQaRunId === row.runId) {
+    return {
+      ok: false,
+      code: "O2_LINK_SAME_RUNID",
+      message: "linkedQaRunId must differ from receipt runId",
+    };
+  }
+  return null;
+}
+
+export type O2LinkReadDiagnostic = {
+  code: string;
+  message: string;
+  receiptRunId?: string;
+  linkedQaRunId?: string;
+};
+
+/**
+ * Read-side O2 link integrity over a preserved row set.
+ * Unlinked historical receipts are not promoted and do not fail O2 checks.
+ * Orphan / type / campaign / scenario / cardinality defects are reported.
+ */
+export function evaluateO2LinkReadIntegrity(
+  rows: ReadonlyArray<Record<string, unknown>>,
+): { o2LinkErrors: number; diagnostics: O2LinkReadDiagnostic[] } {
+  const diagnostics: O2LinkReadDiagnostic[] = [];
+  const byRunId = new Map<string, Record<string, unknown>>();
+  for (const row of rows) {
+    if (typeof row.runId === "string" && row.runId.length > 0) {
+      // First occurrence wins for target lookup; duplicates already tracked separately.
+      if (!byRunId.has(row.runId)) byRunId.set(row.runId, row);
+    }
+  }
+
+  const linkCounts = new Map<string, string[]>();
+  for (const row of rows) {
+    if (!isCognitiveReceiptRowKind(row.kind)) continue;
+    if (!("linkedQaRunId" in row) || row.linkedQaRunId === undefined) {
+      continue; // historical unlinked — no O2 promotion
+    }
+    if (!isNonEmptyString(row.linkedQaRunId)) {
+      diagnostics.push({
+        code: "O2_LINK_FIELD",
+        message: "linkedQaRunId present but empty/invalid",
+        receiptRunId: typeof row.runId === "string" ? row.runId : undefined,
+      });
+      continue;
+    }
+    const linked = row.linkedQaRunId;
+    const receiptRunId = typeof row.runId === "string" ? row.runId : undefined;
+    if (linked === row.runId) {
+      diagnostics.push({
+        code: "O2_LINK_SAME_RUNID",
+        message: "linkedQaRunId equals receipt runId",
+        receiptRunId,
+        linkedQaRunId: linked,
+      });
+    }
+    const list = linkCounts.get(linked) ?? [];
+    list.push(receiptRunId ?? "(missing-runId)");
+    linkCounts.set(linked, list);
+
+    const target = byRunId.get(linked);
+    if (!target) {
+      diagnostics.push({
+        code: "O2_LINK_ORPHAN",
+        message: "linkedQaRunId target missing",
+        receiptRunId,
+        linkedQaRunId: linked,
+      });
+      continue;
+    }
+    if (!isP6O2QaLinkTargetEligible(target)) {
+      diagnostics.push({
+        code: "O2_LINK_TARGET_KIND",
+        message:
+          "linkedQaRunId must point to an O2-eligible QA campaign result (not admin/diagnostic/cognitive)",
+        receiptRunId,
+        linkedQaRunId: linked,
+      });
+      continue;
+    }
+    if (target.campaignId !== row.campaignId) {
+      diagnostics.push({
+        code: "O2_LINK_CAMPAIGN_MISMATCH",
+        message: "linked QA campaignId differs from receipt campaignId",
+        receiptRunId,
+        linkedQaRunId: linked,
+      });
+    }
+    if (target.scenarioId !== row.scenarioId) {
+      diagnostics.push({
+        code: "O2_LINK_SCENARIO_MISMATCH",
+        message: "linked QA scenarioId differs from receipt scenarioId",
+        receiptRunId,
+        linkedQaRunId: linked,
+      });
+    }
+  }
+
+  for (const [linkedQaRunId, receiptRunIds] of linkCounts) {
+    if (receiptRunIds.length > 1) {
+      diagnostics.push({
+        code: "O2_LINK_CARDINALITY",
+        message: `multiple receipts linked to same QA run (${receiptRunIds.length})`,
+        linkedQaRunId,
+      });
+    }
+  }
+
+  return { o2LinkErrors: diagnostics.length, diagnostics };
+}
+
 function isNullOrNonNegNumber(v: unknown): boolean {
   return (
     v === null ||
@@ -369,6 +570,10 @@ export function validateCognitiveReceiptRow(
       message: "runId must differ from logicalTurnId",
     };
   }
+  const linkField = validateLinkedQaRunIdField(row);
+  if (linkField && !linkField.ok) {
+    return linkField;
+  }
   if (row.runtimeIdentity !== "agents") {
     return {
       ok: false,
@@ -671,6 +876,7 @@ export const P6_RECEIPT_DURABLE_COMPARE_KEYS = [
   "projectId",
   "campaignId",
   "scenarioId",
+  "linkedQaRunId",
   "runtimeIdentity",
   "providerIdentity",
   "presentation",

@@ -26,7 +26,11 @@ import fs from "node:fs";
 import path from "node:path";
 import {
   classifyLedgerRowForRead,
+  evaluateO2LinkReadIntegrity,
+  isCognitiveReceiptRowKind,
+  isP6O2QaLinkTargetEligible,
   validateLedgerRowForAppend,
+  type O2LinkReadDiagnostic,
 } from "./ledgerRowValidation";
 
 export const P6_CAMPAIGN_ID = "P6-GLOBAL-INTEGRATED-PRODUCT-QA-01" as const;
@@ -45,7 +49,7 @@ export type P6EvidenceLedgerRow = Record<string, unknown>;
 export type ReadP6EvidenceLedgerResult = {
   /** True only when rows can be consumed (HEALTHY or DEGRADED). */
   ok: boolean;
-  /** True ONLY when integrity === HEALTHY. Never true under corruption/semantic/duplicate defects. */
+  /** True ONLY when integrity === HEALTHY. Never true under corruption/semantic/duplicate/O2-link defects. */
   integrityPass: boolean;
   integrity: P6LedgerIntegrityStatus;
   absolutePath: string;
@@ -54,6 +58,9 @@ export type ReadP6EvidenceLedgerResult = {
   structureErrors: number;
   /** v2 incomplete / unknown-kind semantic defects (bytes preserved). */
   semanticErrors: number;
+  /** O2 linkedQaRunId defects (orphan / kind / campaign / scenario / cardinality). */
+  o2LinkErrors: number;
+  o2LinkDiagnostics: O2LinkReadDiagnostic[];
   /** Distinct runIds that appear more than once (all matching rows preserved). */
   duplicateRunIds: string[];
   totalLines: number;
@@ -235,14 +242,22 @@ export function forceRemoveOrphanP6EvidenceLedgerLock(
   }
 }
 
-/**
+function emptyO2LinkFields(): Pick<
+  ReadP6EvidenceLedgerResult,
+  "o2LinkErrors" | "o2LinkDiagnostics"
+> {
+  return { o2LinkErrors: 0, o2LinkDiagnostics: [] };
+}
+
 /**
  * Read-only ledger open. Never rewrites. Never silently repairs.
  * v2 cognitive receipts are validated with the same schema as writes;
  * incomplete v2 / unknown kinds set integrityPass=false (DEGRADED).
  * Duplicate runIds (even among individually valid rows) set integrityPass=false.
+ * O2 linkedQaRunId orphans / cardinality / campaign-scenario mismatches → DEGRADED.
  * All matching rows are preserved — never silently pick one as truth.
  * Historical campaign rows keep their historical completeness level.
+ * Unlinked historical receipts remain readable without O2 promotion.
  */
 export function readP6EvidenceLedger(options?: {
   absolutePath?: string;
@@ -263,6 +278,7 @@ export function readP6EvidenceLedger(options?: {
         parseErrors: 0,
         structureErrors: 0,
         semanticErrors: 0,
+        ...emptyO2LinkFields(),
         duplicateRunIds: [],
         totalLines: 0,
       };
@@ -276,6 +292,7 @@ export function readP6EvidenceLedger(options?: {
       parseErrors: 0,
       structureErrors: 0,
       semanticErrors: 0,
+      ...emptyO2LinkFields(),
       duplicateRunIds: [],
       totalLines: 0,
       error: "ledger file missing",
@@ -295,6 +312,7 @@ export function readP6EvidenceLedger(options?: {
       parseErrors: 0,
       structureErrors: 0,
       semanticErrors: 0,
+      ...emptyO2LinkFields(),
       duplicateRunIds: [],
       totalLines: 0,
       error: err instanceof Error ? err.message : String(err),
@@ -311,6 +329,7 @@ export function readP6EvidenceLedger(options?: {
       parseErrors: 0,
       structureErrors: 0,
       semanticErrors: 0,
+      ...emptyO2LinkFields(),
       duplicateRunIds: [],
       totalLines: 0,
     };
@@ -368,12 +387,15 @@ export function readP6EvidenceLedger(options?: {
     .map(([runId]) => runId)
     .sort();
 
+  const o2 = evaluateO2LinkReadIntegrity(rows);
+
   const defects =
     parseErrors > 0 ||
     structureErrors > 0 ||
     semanticErrors > 0 ||
     partialTrailing ||
-    duplicateRunIds.length > 0;
+    duplicateRunIds.length > 0 ||
+    o2.o2LinkErrors > 0;
 
   if (!defects) {
     return {
@@ -385,6 +407,8 @@ export function readP6EvidenceLedger(options?: {
       parseErrors: 0,
       structureErrors: 0,
       semanticErrors: 0,
+      o2LinkErrors: 0,
+      o2LinkDiagnostics: [],
       duplicateRunIds: [],
       totalLines: lines.length,
     };
@@ -401,6 +425,11 @@ export function readP6EvidenceLedger(options?: {
         `duplicate runId(s): ${duplicateRunIds.join(",")} (${duplicateRunIds.length})`,
       );
     }
+    if (o2.o2LinkErrors > 0) {
+      reasons.push(
+        `O2 link defects: ${o2.diagnostics.map((d) => d.code).join(",")}`,
+      );
+    }
     return {
       ok: true,
       integrityPass: false,
@@ -410,6 +439,8 @@ export function readP6EvidenceLedger(options?: {
       parseErrors,
       structureErrors,
       semanticErrors,
+      o2LinkErrors: o2.o2LinkErrors,
+      o2LinkDiagnostics: o2.diagnostics,
       duplicateRunIds,
       totalLines: lines.length,
       error: `${reasons.join("; ")}; historical bytes preserved; integrityPass=false`,
@@ -425,6 +456,8 @@ export function readP6EvidenceLedger(options?: {
     parseErrors,
     structureErrors,
     semanticErrors,
+    o2LinkErrors: o2.o2LinkErrors,
+    o2LinkDiagnostics: o2.diagnostics,
     duplicateRunIds,
     totalLines: lines.length,
     error: "ledger unreadable as structured evidence (no valid rows)",
@@ -538,5 +571,136 @@ export function findP6EvidenceLedgerRowsByRunId(
     matches,
     absolutePath: read.absolutePath,
     error: read.error,
+  };
+}
+
+export function findP6EvidenceLedgerRowsByLinkedQaRunId(
+  linkedQaRunId: string,
+  options?: { absolutePath?: string },
+): {
+  ok: boolean;
+  integrityPass: boolean;
+  integrity: P6LedgerIntegrityStatus;
+  matches: P6EvidenceLedgerRow[];
+  absolutePath: string;
+  o2LinkDiagnostics: O2LinkReadDiagnostic[];
+  error?: string;
+} {
+  const read = readP6EvidenceLedger({
+    absolutePath: options?.absolutePath,
+    allowMissing: true,
+  });
+  const matches = read.rows.filter(
+    (r) =>
+      isCognitiveReceiptRowKind(r.kind) && r.linkedQaRunId === linkedQaRunId,
+  );
+  return {
+    ok: read.ok,
+    integrityPass: read.integrityPass,
+    integrity: read.integrity,
+    matches,
+    absolutePath: read.absolutePath,
+    o2LinkDiagnostics: read.o2LinkDiagnostics,
+    error: read.error,
+  };
+}
+
+export type P6O2LinkedPairResult =
+  | {
+      ok: true;
+      integrityPass: boolean;
+      integrity: P6LedgerIntegrityStatus;
+      absolutePath: string;
+      qaRow: P6EvidenceLedgerRow;
+      receiptRow: P6EvidenceLedgerRow | null;
+      cardinality: "qa_only" | "qa_plus_one_receipt";
+    }
+  | {
+      ok: false;
+      code: string;
+      message: string;
+      integrityPass: boolean;
+      integrity: P6LedgerIntegrityStatus;
+      absolutePath: string;
+      qaRow?: P6EvidenceLedgerRow;
+      receiptRows?: P6EvidenceLedgerRow[];
+      o2LinkDiagnostics?: O2LinkReadDiagnostic[];
+    };
+
+/**
+ * Reopen and resolve the O2 pair for a QA runId (0..1 linked receipt).
+ * Never silently selects among multiple linked receipts.
+ */
+export function resolveP6O2LinkedEvidencePair(
+  qaRunId: string,
+  options?: { absolutePath?: string },
+): P6O2LinkedPairResult {
+  const read = readP6EvidenceLedger({
+    absolutePath: options?.absolutePath,
+    allowMissing: true,
+  });
+  const qaMatches = read.rows.filter((r) => r.runId === qaRunId);
+  if (qaMatches.length === 0) {
+    return {
+      ok: false,
+      code: "O2_QA_NOT_FOUND",
+      message: `QA runId not found: ${qaRunId}`,
+      integrityPass: read.integrityPass,
+      integrity: read.integrity,
+      absolutePath: read.absolutePath,
+      o2LinkDiagnostics: read.o2LinkDiagnostics,
+    };
+  }
+  if (qaMatches.length > 1) {
+    return {
+      ok: false,
+      code: "O2_QA_DUPLICATE",
+      message: `duplicate QA runId: ${qaRunId}`,
+      integrityPass: false,
+      integrity: read.integrity,
+      absolutePath: read.absolutePath,
+      receiptRows: qaMatches,
+      o2LinkDiagnostics: read.o2LinkDiagnostics,
+    };
+  }
+  const qaRow = qaMatches[0]!;
+  if (!isP6O2QaLinkTargetEligible(qaRow)) {
+    return {
+      ok: false,
+      code: "O2_TARGET_NOT_QA",
+      message:
+        "runId does not address an O2-eligible QA campaign result (not admin/diagnostic/cognitive)",
+      integrityPass: false,
+      integrity: read.integrity,
+      absolutePath: read.absolutePath,
+      qaRow,
+      o2LinkDiagnostics: read.o2LinkDiagnostics,
+    };
+  }
+  const receiptRows = read.rows.filter(
+    (r) =>
+      isCognitiveReceiptRowKind(r.kind) && r.linkedQaRunId === qaRunId,
+  );
+  if (receiptRows.length > 1) {
+    return {
+      ok: false,
+      code: "O2_LINK_CARDINALITY",
+      message: `expected 0..1 receipt for QA run; found ${receiptRows.length}`,
+      integrityPass: false,
+      integrity: read.integrity === "HEALTHY" ? "DEGRADED" : read.integrity,
+      absolutePath: read.absolutePath,
+      qaRow,
+      receiptRows,
+      o2LinkDiagnostics: read.o2LinkDiagnostics,
+    };
+  }
+  return {
+    ok: true,
+    integrityPass: read.integrityPass,
+    integrity: read.integrity,
+    absolutePath: read.absolutePath,
+    qaRow,
+    receiptRow: receiptRows[0] ?? null,
+    cardinality: receiptRows.length === 0 ? "qa_only" : "qa_plus_one_receipt",
   };
 }

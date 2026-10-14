@@ -361,7 +361,7 @@ describe("P6 receipt completeness (DET)", () => {
     expect(dto.status).toBe("ok");
     expect(P6_QA_COLLECTION_SEAM_STATUS.deterministicProven).toBe(true);
     expect(P6_QA_COLLECTION_SEAM_STATUS.operationalCampaignWiring).toBe(
-      "PENDING",
+      "O2_DET_IMPLEMENTED",
     );
     const mismatches = diffReceiptAgainstLedgerEntry(
       dto.cognitiveExecutionReceipt!,
