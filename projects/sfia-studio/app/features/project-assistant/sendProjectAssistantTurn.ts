@@ -44,6 +44,10 @@ export type SendProjectAssistantTurnInput = {
 export type SendProjectAssistantTurnOptions = {
   /** Request-scoped AbortSignal from cancellable transport. Never persisted. */
   signal?: AbortSignal;
+  /** Progressive Pilote-safe activity (NDJSON transport). Never Product truth. */
+  onLiveActivity?: (
+    event: import("./liveActivityEvents").NoraLiveActivityEvent,
+  ) => void;
 };
 
 export async function sendProjectAssistantTurn(
@@ -91,5 +95,6 @@ export async function sendProjectAssistantTurn(
     reinstructionOfProposalId,
     reservationInteractionContext: input.reservationInteractionContext,
     signal: options?.signal,
+    onLiveActivity: options?.onLiveActivity,
   });
 }

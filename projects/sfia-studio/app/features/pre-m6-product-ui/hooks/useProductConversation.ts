@@ -42,6 +42,7 @@ import {
 } from "@/features/project-assistant/turnPayloadCanonical";
 import { useRunningAttemptO3Observation } from "./useRunningAttemptO3Observation";
 import { sendCancellableAssistantTurn } from "./sendCancellableAssistantTurn";
+import type { NoraLiveActivityEvent } from "@/features/project-assistant/liveActivityEvents";
 import type { JournalSurfaceEntry } from "../surfaces/JournalSurface";
 import type {
   ActiveDecisionSubjectReadResult,
@@ -140,6 +141,9 @@ export function useProductConversation({
   const [messages, setMessages] = useState<ProductMessage[]>([]);
   const [draft, setDraft] = useState("");
   const [toolEvents, setToolEvents] = useState<AssistantToolEventDto[]>([]);
+  const [liveActivityEvents, setLiveActivityEvents] = useState<
+    NoraLiveActivityEvent[]
+  >([]);
   const [uiState, setUiState] = useState<ProductConversationUiState>("INITIAL");
   const [error, setError] = useState<string | null>(null);
   /**
@@ -918,12 +922,17 @@ export function useProductConversation({
         ? options.reservationInteractionContext
         : armedReservationInteractionContext;
 
+    // P6 extended execution — Stop must be available as soon as a cancellable
+    // operation starts (SENDING/WORKING), not only after startTransition runs.
+    // Otherwise UI can show "Nora travaille…" while still rendering Envoyer ↑.
+    const generation = ++sendGenerationRef.current;
+    const controller = new AbortController();
+    abortControllerRef.current = controller;
+    setCancellable(true);
+    setLiveActivityEvents([]);
+
     startTransition(async () => {
       setUiState("ASSISTANT_WORKING");
-      const generation = ++sendGenerationRef.current;
-      const controller = new AbortController();
-      abortControllerRef.current = controller;
-      setCancellable(true);
       let result: Awaited<ReturnType<typeof sendCancellableAssistantTurn>>;
       try {
         result = await sendCancellableAssistantTurn(
@@ -943,6 +952,17 @@ export function useProductConversation({
               : {}),
           },
           controller.signal,
+          {
+            onActivity: (event) => {
+              if (
+                !mountedRef.current ||
+                generation !== sendGenerationRef.current
+              ) {
+                return;
+              }
+              setLiveActivityEvents((prev) => [...prev, event]);
+            },
+          },
         );
       } catch (error) {
         if (abortControllerRef.current === controller) {
@@ -1389,6 +1409,7 @@ export function useProductConversation({
     draft,
     setDraft,
     toolEvents,
+    liveActivityEvents,
     uiState,
     error,
     executionIncomplete,

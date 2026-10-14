@@ -40,6 +40,7 @@ import { resolveAssistantMode } from "../resolveAssistantMode";
 import { analyzeIntent } from "./intentAnalysis";
 import { resolveF2ProductRoutedProvider } from "./resolveF2ProductRoutedProvider";
 import { ProjectAssistantMemoryEventSink } from "../memoryEventSink";
+import { liveActivityFromTechnicalToolEvent } from "../liveActivityEvents";
 import { resolveAvailableContradictionPointers } from "../mw3AvailableEvidence";
 import {
   deriveMw3ContradictionAssessment,
@@ -1040,6 +1041,10 @@ export async function orchestrateAssistantSend(input: {
   campaignBudget?: NoraCampaignBudget;
   /** Request-scoped AbortSignal from cancellable Product transport. */
   signal?: AbortSignal;
+  /** Progressive Pilote-safe activity during F1 cognitive segment. */
+  onLiveActivity?: (
+    event: import("../liveActivityEvents").NoraLiveActivityEvent,
+  ) => void;
   /**
    * TEST-ONLY — suspend immediately before an F2 effect cut-line.
    * Never Product truth; never a client DTO field.
@@ -1244,6 +1249,7 @@ export async function orchestrateAssistantSend(input: {
         typeof input.logicalTurnId === "string" && input.logicalTurnId.trim()
           ? input.logicalTurnId.trim()
           : `f2:${project.projectId}:${f2CorrelationId}`;
+      let f2RouteLiveActivitySeq = 0;
       const f2Routed = resolveF2ProductRoutedProvider({
         turnContext: {
           projectCriticality: project.criticality,
@@ -1256,7 +1262,17 @@ export async function orchestrateAssistantSend(input: {
         },
         cognitiveTaskId,
         correlationId: f2CorrelationId,
-        sink: new ProjectAssistantMemoryEventSink(),
+        sink: new ProjectAssistantMemoryEventSink({
+          onEmit: (event) => {
+            if (!input.onLiveActivity) return;
+            const mapped = liveActivityFromTechnicalToolEvent({
+              type: event.type,
+              detail: (event.detail ?? {}) as Record<string, unknown>,
+              seq: ++f2RouteLiveActivitySeq,
+            });
+            if (mapped) input.onLiveActivity(mapped);
+          },
+        }),
       });
       effectiveProvider = f2Routed.provider;
     }
@@ -1793,6 +1809,7 @@ export async function orchestrateAssistantSend(input: {
       evalModelReasoningControl: input.evalModelReasoningControl,
       usdAccounting: input.usdAccounting,
       campaignBudget: input.campaignBudget,
+      onLiveActivity: input.onLiveActivity,
     });
     if (!f1.ok) return f1;
     const reportedIntent =

@@ -20,6 +20,11 @@ import {
   TOOL_TURN_BUDGET_EXCEEDED_RESULT,
   claimToolSlot,
 } from "./turnBudget";
+import {
+  MissionProgressGuard,
+  missionProgressResultFingerprint,
+  missionProgressTargetKey,
+} from "./missionProgressGuard";
 
 /**
  * Generic cognitive boundary notice — not a Studio business-authority engine.
@@ -95,6 +100,8 @@ export type SfiaAgentsToolOptions = {
   definitions?: ToolDefinition[];
   /** Shared run budget — per-model-turn tool slots (CORR-OPT-C-02). */
   budget?: NoraTurnBudget;
+  /** P6 — identical tool+target streak guard (one instance per Product turn). */
+  progressGuard?: MissionProgressGuard;
 };
 
 /** Wrap each exposable Control Tower tool; execute only via routeToolCall. */
@@ -117,14 +124,15 @@ export function createSfiaRouteToolAdapters(
         if (options.budget && !claimToolSlot(options.budget)) {
           return TOOL_TURN_BUDGET_EXCEEDED_RESULT;
         }
+        const wireArgs =
+          args && typeof args === "object"
+            ? (args as Record<string, unknown>)
+            : {};
         const result = await routeToolCall(
           {
             toolCallId: `call_${randomUUID().slice(0, 12)}`,
             name: def.name,
-            arguments:
-              args && typeof args === "object"
-                ? (args as Record<string, unknown>)
-                : {},
+            arguments: wireArgs,
             sessionId: options.correlationId,
           },
           {
@@ -132,6 +140,13 @@ export function createSfiaRouteToolAdapters(
             workspaceRoot: options.workspaceRoot,
           },
         );
+        if (options.progressGuard) {
+          options.progressGuard.observe({
+            toolName: def.name,
+            targetKey: missionProgressTargetKey(def.name, wireArgs),
+            resultFingerprint: missionProgressResultFingerprint(result),
+          });
+        }
         return toolResultForModel(result);
       },
     });

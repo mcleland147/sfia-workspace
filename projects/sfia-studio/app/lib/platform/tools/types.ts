@@ -112,9 +112,18 @@ export interface ToolExecutionEventDetail {
 
 export const CT_MAX_TOOL_ROUNDS = 4;
 export const CT_MAX_TOOL_CALLS_PER_ROUND = 4;
-export const CT_MAX_TOOL_RESULT_CHARS = 12_000;
+/**
+ * Model-visible tool result envelope (delivery parameter).
+ * Sized for representative 80–100k character documentary reads while
+ * remaining a hard finite safety cap (never unlimited).
+ */
+export const CT_MAX_TOOL_RESULT_CHARS = 100_000;
 export const CT_TOOL_TIMEOUT_MS = 15_000;
-export const CT_DEFAULT_READ_MAX_BYTES = 32_768;
+/**
+ * Default Git local read byte budget before model envelope truncation.
+ * ~200 KiB supports 80–100k char UTF-8 docs with metadata headroom.
+ */
+export const CT_DEFAULT_READ_MAX_BYTES = 200_000;
 export const CT_GITHUB_REPO_ALLOWLIST = [
   "mcleland147/sfia-workspace",
 ] as const;

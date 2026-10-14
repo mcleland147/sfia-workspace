@@ -89,6 +89,7 @@ export {
   LEGACY_DEFAULT_MAX_TURNS,
   ADAPTIVE_MAX_TURNS_FLOOR,
   ADAPTIVE_MAX_TURNS_CEILING,
+  ADAPTIVE_MAX_TURNS_SAFETY_ENVELOPE,
   STRATEGY_BASE_MAX_TURNS,
 } from "./adaptiveTurnBudget";
 export type { AdaptiveMaxTurnsDecision } from "./adaptiveTurnBudget";
@@ -106,7 +107,21 @@ export {
   emptyContinuationObserve,
   CONTINUATION_SEGMENT_MAX_TURNS,
   CONTINUATION_MAX_SEGMENTS,
+  PRODUCTIVE_EXTENSION_MAX,
 } from "./controlledContinuation";
+export {
+  MissionProgressGuard,
+  MISSION_NO_PROGRESS_REPEAT_LIMIT,
+  MISSION_NO_PROGRESS_STOP_STOCK,
+  MissionNoProgressStoppedError,
+  missionProgressTargetKey,
+  missionProgressResultFingerprint,
+  isUsefulMissionProgressFingerprint,
+} from "./missionProgressGuard";
+export type {
+  MissionProgressSample,
+  MissionProgressDecision,
+} from "./missionProgressGuard";
 export type {
   ControlledContinuationObserve,
   ContinuationStopReason,

@@ -23,12 +23,19 @@ function redactDetail(
 
 export class ProjectAssistantMemoryEventSink implements EventSink {
   readonly events: TechnicalEvent[] = [];
+  private readonly onEmit?: (event: TechnicalEvent) => void;
+
+  constructor(options?: { onEmit?: (event: TechnicalEvent) => void }) {
+    this.onEmit = options?.onEmit;
+  }
 
   emit(event: TechnicalEvent): void {
-    this.events.push({
+    const redacted: TechnicalEvent = {
       type: event.type,
       correlationId: event.correlationId,
       detail: redactDetail(event.detail ?? {}),
-    });
+    };
+    this.events.push(redacted);
+    this.onEmit?.(redacted);
   }
 }

@@ -106,6 +106,9 @@ export type NoraCognitiveTurnResult = {
     missionMaxTurns: number;
     segmentMaxTurns: number;
     allottedTurns: number;
+    initialMissionMaxTurns?: number;
+    safetyEnvelope?: number;
+    productiveExtensions?: number;
     stopReason: string;
     reasonCodes: string[];
   };

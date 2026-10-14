@@ -51,14 +51,65 @@ afterEach(() => {
   }
 });
 
+function documentaryReadArgs(pass: number): {
+  path: string;
+  maxBytes: number;
+  startLine: number;
+  endLine: number;
+} {
+  const startLine = (pass - 1) * 8 + 1;
+  return {
+    path: DOC_PATH,
+    maxBytes: 2048,
+    startLine,
+    endLine: startLine + 7,
+  };
+}
+
 function documentaryScriptNeedingSevenModelTurns() {
   return [
-    [functionCall("git_local_read_file", { path: DOC_PATH, maxBytes: 2048 }, { callId: "tv_r1" })],
-    [functionCall("git_local_read_file", { path: DOC_PATH, maxBytes: 2048 }, { callId: "tv_r2" })],
-    [functionCall("git_local_read_file", { path: DOC_PATH, maxBytes: 2048 }, { callId: "tv_r3" })],
-    [functionCall("git_local_read_file", { path: DOC_PATH, maxBytes: 2048 }, { callId: "tv_r4" })],
-    [functionCall("git_local_read_file", { path: DOC_PATH, maxBytes: 2048 }, { callId: "tv_r5" })],
-    [functionCall("git_local_read_file", { path: DOC_PATH, maxBytes: 2048 }, { callId: "tv_r6" })],
+    [
+      functionCall(
+        "git_local_read_file",
+        documentaryReadArgs(1),
+        { callId: "tv_r1" },
+      ),
+    ],
+    [
+      functionCall(
+        "git_local_read_file",
+        documentaryReadArgs(2),
+        { callId: "tv_r2" },
+      ),
+    ],
+    [
+      functionCall(
+        "git_local_read_file",
+        documentaryReadArgs(3),
+        { callId: "tv_r3" },
+      ),
+    ],
+    [
+      functionCall(
+        "git_local_read_file",
+        documentaryReadArgs(4),
+        { callId: "tv_r4" },
+      ),
+    ],
+    [
+      functionCall(
+        "git_local_read_file",
+        documentaryReadArgs(5),
+        { callId: "tv_r5" },
+      ),
+    ],
+    [
+      functionCall(
+        "git_local_read_file",
+        documentaryReadArgs(6),
+        { callId: "tv_r6" },
+      ),
+    ],
     [assistantMessage(COMPLETE_MARKER)],
   ];
 }
@@ -163,11 +214,11 @@ describe("FINAL PRODUCT PROOF — CR-TV01-01 Product adaptive wiring", () => {
     expect(result.adaptiveObserve).toBeTruthy();
     expect(result.adaptiveObserve?.explicitOverride).toBe(false);
     expect(result.adaptiveObserve?.requestedMaxTurns).toBeGreaterThanOrEqual(8);
-    expect(result.adaptiveObserve?.requestedMaxTurns).toBeLessThanOrEqual(10);
+    expect(result.adaptiveObserve?.requestedMaxTurns).toBeLessThanOrEqual(24);
     expect(result.adaptiveObserve?.effectiveMaxTurns).toBe(
       result.adaptiveObserve?.requestedMaxTurns,
     );
-    expect(result.adaptiveObserve?.ceiling).toBe(10);
+    expect(result.adaptiveObserve?.ceiling).toBe(24);
     expect(result.adaptiveObserve?.strategyClass).toBeTruthy();
     expect(["Focused", "Deep", "High-Assurance"]).toContain(
       result.adaptiveObserve?.strategyClass,
@@ -216,7 +267,7 @@ describe("FINAL PRODUCT PROOF — CR-TV01-01 Product adaptive wiring", () => {
       strategyClass: strategy.strategyClass,
       signals: strategy.normalizedSignals,
     });
-    expect(budget.requestedMaxTurns).toBeLessThanOrEqual(8);
+    expect(budget.requestedMaxTurns).toBeLessThanOrEqual(10);
   });
 
   it("CR-TV01-01c — multi-document analysis wording still elevates via Product hints", () => {

@@ -53,48 +53,63 @@ afterEach(() => {
   }
 });
 
+function documentaryReadArgs(pass: number): {
+  path: string;
+  maxBytes: number;
+  startLine: number;
+  endLine: number;
+} {
+  const startLine = (pass - 1) * 8 + 1;
+  return {
+    path: DOC_PATH,
+    maxBytes: 2048,
+    startLine,
+    endLine: startLine + 7,
+  };
+}
+
 /** Six sequential document reads then a final synthesis — needs 7 model turns. */
 function documentaryScriptNeedingSevenModelTurns() {
   return [
     [
       functionCall(
         "git_local_read_file",
-        { path: DOC_PATH, maxBytes: 2048 },
+        documentaryReadArgs(1),
         { callId: "doc_r1" },
       ),
     ],
     [
       functionCall(
         "git_local_read_file",
-        { path: DOC_PATH, maxBytes: 2048 },
+        documentaryReadArgs(2),
         { callId: "doc_r2" },
       ),
     ],
     [
       functionCall(
         "git_local_read_file",
-        { path: DOC_PATH, maxBytes: 2048 },
+        documentaryReadArgs(3),
         { callId: "doc_r3" },
       ),
     ],
     [
       functionCall(
         "git_local_read_file",
-        { path: DOC_PATH, maxBytes: 2048 },
+        documentaryReadArgs(4),
         { callId: "doc_r4" },
       ),
     ],
     [
       functionCall(
         "git_local_read_file",
-        { path: DOC_PATH, maxBytes: 2048 },
+        documentaryReadArgs(5),
         { callId: "doc_r5" },
       ),
     ],
     [
       functionCall(
         "git_local_read_file",
-        { path: DOC_PATH, maxBytes: 2048 },
+        documentaryReadArgs(6),
         { callId: "doc_r6" },
       ),
     ],

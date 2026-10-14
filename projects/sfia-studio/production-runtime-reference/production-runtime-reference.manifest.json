@@ -582,11 +582,11 @@
     },
     {
       "path": "projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts",
-      "sha256_16": "8ab5951b261e6063"
+      "sha256_16": "1b8d5cd3ff4f3383"
     },
     {
       "path": "projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts",
-      "sha256_16": "d064b36ddc2f21cd"
+      "sha256_16": "7781362a64d98c01"
     },
     {
       "path": "projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts",
@@ -678,7 +678,7 @@
     },
     {
       "path": "projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts",
-      "sha256_16": "17e442645cd02afb"
+      "sha256_16": "4c5a9ff205c86d83"
     },
     {
       "path": "projects/sfia-studio/app/.env.example",
