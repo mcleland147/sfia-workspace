@@ -60,14 +60,18 @@ export type P6QaCollectionInput = {
 export function collectP6ProductTurnEvidence(
   input: P6QaCollectionInput,
 ): CaptureCognitiveExecutionReceiptResult {
+  // Forward linkedQaRunId only when provided — omit key when undefined so capture
+  // treats legacy/unlinked calls as truly absent (R-PR581-02 / R02-K).
   return captureCognitiveExecutionReceiptToP6Ledger({
     dto: input.productTurnResult,
     runId: input.runId,
     scenarioId: input.scenarioId,
     campaignId: input.campaignId ?? P6_CAMPAIGN_ID,
-    linkedQaRunId: input.linkedQaRunId,
     absolutePath: input.absolutePath,
     onDuplicate: input.onDuplicate,
+    ...(input.linkedQaRunId !== undefined
+      ? { linkedQaRunId: input.linkedQaRunId }
+      : {}),
   });
 }
 

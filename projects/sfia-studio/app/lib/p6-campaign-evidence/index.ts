@@ -28,6 +28,7 @@ export {
   captureCognitiveExecutionReceiptToP6Ledger,
   appendValidatedP6CampaignLedgerRow,
   buildCompleteCognitiveReceiptLedgerEntry,
+  resolveLinkedQaRunIdInput,
   diffReceiptAgainstLedgerEntry,
   P6_RECEIPT_LEDGER_SCHEMA_VERSION,
   P6_RECEIPT_COMPLETE_FIELD_PATHS,

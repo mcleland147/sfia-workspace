@@ -112,21 +112,62 @@ function cloneJson<T>(value: T): T {
 }
 
 /**
+ * Resolve linkedQaRunId at the public capture boundary (R-PR581-02).
+ *
+ * Contract:
+ * - property absent OR value `undefined` → legacy unlinked (compatible with
+ *   optional forwarding from collectP6ProductTurnEvidence);
+ * - valid non-empty string → linked O2 path;
+ * - null / number / boolean / empty / whitespace → refuse (never silently drop).
+ */
+export function resolveLinkedQaRunIdInput(
+  input: CaptureCognitiveExecutionReceiptInput,
+):
+  | { ok: true; linkedQaRunId: string | undefined }
+  | { ok: false; message: string } {
+  if (!("linkedQaRunId" in input) || input.linkedQaRunId === undefined) {
+    return { ok: true, linkedQaRunId: undefined };
+  }
+  const raw: unknown = input.linkedQaRunId;
+  if (typeof raw !== "string") {
+    return {
+      ok: false,
+      message:
+        "linkedQaRunId must be a non-empty string when provided (invalid runtime type)",
+    };
+  }
+  if (raw.trim().length === 0) {
+    return {
+      ok: false,
+      message: "linkedQaRunId must be a non-empty string when provided",
+    };
+  }
+  return { ok: true, linkedQaRunId: raw };
+}
+
+/**
  * Project Product CognitiveExecutionReceipt → ledger row (complete, redacted metadata).
  * Null stays null. No invented providerResponseId. No token 0-coercion.
+ * Caller must pass a pre-validated linkedQaRunId (or omit it).
  */
 export function buildCompleteCognitiveReceiptLedgerEntry(
   input: CaptureCognitiveExecutionReceiptInput,
   receipt: CognitiveExecutionReceipt,
 ): P6EvidenceLedgerRow {
+  const linkResolved = resolveLinkedQaRunIdInput(input);
+  // Defensive: never silently omit an invalid link field from the built row.
+  // Public capture rejects before append; unit callers must pass valid/absent only.
+  if (!linkResolved.ok) {
+    throw new Error(`buildCompleteCognitiveReceiptLedgerEntry: ${linkResolved.message}`);
+  }
   const entry: P6EvidenceLedgerRow = {
     kind: "cognitive_execution_receipt",
     ledgerSchemaVersion: P6_RECEIPT_LEDGER_SCHEMA_VERSION,
     campaignId: input.campaignId ?? P6_CAMPAIGN_ID,
     runId: input.runId,
     scenarioId: input.scenarioId,
-    ...(typeof input.linkedQaRunId === "string"
-      ? { linkedQaRunId: input.linkedQaRunId }
+    ...(linkResolved.linkedQaRunId !== undefined
+      ? { linkedQaRunId: linkResolved.linkedQaRunId }
       : {}),
     logicalTurnId: receipt.logicalTurnId,
     projectId: receipt.projectId,
@@ -231,13 +272,20 @@ export function diffReceiptAgainstLedgerEntry(
 }
 
 /**
- * Duplicate skip requires durable content equivalence (tokens/budget/model/…).
+ * Duplicate skip requires durable content equivalence (tokens/budget/model/…)
+ * AND the same linkedQaRunId (absent ≡ absent; R-PR581-01).
  * QA `capturedAt` is excluded. Incomplete historical ≠ v2 complete.
  */
 function identityCompatible(
   existing: P6EvidenceLedgerRow,
   candidate: P6EvidenceLedgerRow,
 ): boolean {
+  if (
+    JSON.stringify(existing.linkedQaRunId) !==
+    JSON.stringify(candidate.linkedQaRunId)
+  ) {
+    return false;
+  }
   return durableLedgerContentEquivalent(existing, candidate);
 }
 
@@ -311,10 +359,18 @@ export function captureCognitiveExecutionReceiptToP6Ledger(
     };
   }
 
-  if (
-    typeof input.linkedQaRunId === "string" &&
-    input.linkedQaRunId === input.runId
-  ) {
+  // R-PR581-02 — fail-closed before build/append; never silently drop invalid link.
+  const linkResolved = resolveLinkedQaRunIdInput(input);
+  if (!linkResolved.ok) {
+    return {
+      ok: false,
+      status: "o2_link_rejected",
+      message: linkResolved.message,
+      absolutePath,
+    };
+  }
+  const linkedQaRunId = linkResolved.linkedQaRunId;
+  if (linkedQaRunId !== undefined && linkedQaRunId === input.runId) {
     return {
       ok: false,
       status: "o2_link_rejected",
@@ -323,7 +379,19 @@ export function captureCognitiveExecutionReceiptToP6Ledger(
     };
   }
 
-  const candidate = buildCompleteCognitiveReceiptLedgerEntry(input, receipt);
+  // Strip invalid/undefined link so build never sees a present-but-empty field.
+  const normalizedInput: CaptureCognitiveExecutionReceiptInput = {
+    ...input,
+    ...(linkedQaRunId !== undefined ? { linkedQaRunId } : {}),
+  };
+  if (linkedQaRunId === undefined) {
+    delete normalizedInput.linkedQaRunId;
+  }
+
+  const candidate = buildCompleteCognitiveReceiptLedgerEntry(
+    normalizedInput,
+    receipt,
+  );
   const validation = validateLedgerRowForAppend(candidate);
   if (!validation.ok) {
     return {
@@ -351,17 +419,39 @@ export function captureCognitiveExecutionReceiptToP6Ledger(
       };
     }
 
-    // O2 write-boundary link checks under lock (TOCTOU-safe vs concurrent mono-writer).
-    if (typeof input.linkedQaRunId === "string") {
-      const linked = input.linkedQaRunId;
-      if (linked.trim().length === 0) {
+    // R-PR581-01 — recognize identical runId retry BEFORE cardinality reject.
+    const existing = prior.rows.find((r) => r.runId === input.runId);
+    if (existing) {
+      if (onDuplicate === "skip") {
+        if (!identityCompatible(existing, candidate)) {
+          return {
+            ok: false as const,
+            status: "duplicate_conflict" as const,
+            message:
+              "runId already persisted with incompatible identity; refusing false conservation",
+            absolutePath,
+            existing,
+          };
+        }
         return {
-          ok: false as const,
-          status: "o2_link_rejected" as const,
-          message: "linkedQaRunId must be a non-empty string",
+          ok: true as const,
+          status: "duplicate_skipped" as const,
           absolutePath,
+          entry: existing,
         };
       }
+      return {
+        ok: false as const,
+        status: "duplicate_rejected" as const,
+        message: `runId already present: ${input.runId}`,
+        absolutePath,
+        existing,
+      };
+    }
+
+    // O2 write-boundary link checks for NEW append only (TOCTOU-safe under lock).
+    if (linkedQaRunId !== undefined) {
+      const linked = linkedQaRunId;
       const target = prior.rows.find((r) => r.runId === linked);
       if (!target) {
         return {
@@ -412,35 +502,6 @@ export function captureCognitiveExecutionReceiptToP6Ledger(
           existing: priorLinked[0],
         };
       }
-    }
-
-    const existing = prior.rows.find((r) => r.runId === input.runId);
-    if (existing) {
-      if (onDuplicate === "skip") {
-        if (!identityCompatible(existing, candidate)) {
-          return {
-            ok: false as const,
-            status: "duplicate_conflict" as const,
-            message:
-              "runId already persisted with incompatible identity; refusing false conservation",
-            absolutePath,
-            existing,
-          };
-        }
-        return {
-          ok: true as const,
-          status: "duplicate_skipped" as const,
-          absolutePath,
-          entry: existing,
-        };
-      }
-      return {
-        ok: false as const,
-        status: "duplicate_rejected" as const,
-        message: `runId already present: ${input.runId}`,
-        absolutePath,
-        existing,
-      };
     }
 
     const written = appendUnlocked(absolutePath, candidate);

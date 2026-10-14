@@ -1229,4 +1229,395 @@ describe("P6 O2 operational wiring (DET)", () => {
     expect(byLink.matches).toHaveLength(1);
     expect(byLink.matches[0]?.runId).toBe("P6-O2-COG-SEAM");
   });
+
+  // ─── R-PR581-01 / R-PR581-02 Critical PR Review closure ───
+
+  it("R01-A…F — linked receipt identical retry → duplicate_skipped (no append)", () => {
+    expect(
+      appendValidatedP6CampaignLedgerRow(qaRow("P6-O2-QA-R01"), {
+        absolutePath: ledgerPath,
+      }).ok,
+    ).toBe(true);
+    const receipt = buildCognitiveExecutionReceipt({
+      logicalTurnId: "ltu:r01",
+      projectId: "prj:p6-o2",
+      presentation: "test_provider",
+      productTerminalStatus: "ok",
+      turn: fakeTurn() as never,
+    });
+    const input = {
+      receipt,
+      runId: "P6-O2-COG-R01",
+      scenarioId: "P6-O2-DET-01",
+      linkedQaRunId: "P6-O2-QA-R01",
+      absolutePath: ledgerPath,
+      onDuplicate: "skip" as const,
+    };
+    const first = captureCognitiveExecutionReceiptToP6Ledger(input);
+    expect(first.ok).toBe(true);
+    if (!first.ok) return;
+    expect(first.status).toBe("appended"); // R01-A
+    const bytesBefore = fs.readFileSync(ledgerPath);
+    const retry = captureCognitiveExecutionReceiptToP6Ledger(input);
+    expect(retry.ok).toBe(true);
+    if (!retry.ok) return;
+    expect(retry.status).toBe("duplicate_skipped"); // R01-B
+    expect(retry.entry).toEqual(first.entry); // R01-C
+    expect(Buffer.compare(bytesBefore, fs.readFileSync(ledgerPath))).toBe(0); // R01-D
+    const cog = findP6EvidenceLedgerRowsByRunId("P6-O2-COG-R01", {
+      absolutePath: ledgerPath,
+    });
+    expect(cog.matches).toHaveLength(1); // R01-E
+    const byLink = findP6EvidenceLedgerRowsByLinkedQaRunId("P6-O2-QA-R01", {
+      absolutePath: ledgerPath,
+    });
+    expect(byLink.matches).toHaveLength(1); // R01-F
+    const pair = resolveP6O2LinkedEvidencePair("P6-O2-QA-R01", {
+      absolutePath: ledgerPath,
+    });
+    expect(pair.ok).toBe(true);
+    if (pair.ok) expect(pair.cardinality).toBe("qa_plus_one_receipt");
+  });
+
+  it("R01-G — same runId + different linkedQaRunId → duplicate_conflict", () => {
+    expect(
+      appendValidatedP6CampaignLedgerRow(qaRow("P6-O2-QA-R01G-A"), {
+        absolutePath: ledgerPath,
+      }).ok,
+    ).toBe(true);
+    expect(
+      appendValidatedP6CampaignLedgerRow(qaRow("P6-O2-QA-R01G-B"), {
+        absolutePath: ledgerPath,
+      }).ok,
+    ).toBe(true);
+    const receipt = buildCognitiveExecutionReceipt({
+      logicalTurnId: "ltu:r01g",
+      projectId: "prj:p6-o2",
+      presentation: "test_provider",
+      productTerminalStatus: "ok",
+      turn: fakeTurn() as never,
+    });
+    expect(
+      captureCognitiveExecutionReceiptToP6Ledger({
+        receipt,
+        runId: "P6-O2-COG-R01G",
+        scenarioId: "P6-O2-DET-01",
+        linkedQaRunId: "P6-O2-QA-R01G-A",
+        absolutePath: ledgerPath,
+      }).ok,
+    ).toBe(true);
+    const conflict = captureCognitiveExecutionReceiptToP6Ledger({
+      receipt,
+      runId: "P6-O2-COG-R01G",
+      scenarioId: "P6-O2-DET-01",
+      linkedQaRunId: "P6-O2-QA-R01G-B",
+      absolutePath: ledgerPath,
+      onDuplicate: "skip",
+    });
+    expect(conflict.ok).toBe(false);
+    if (conflict.ok) return;
+    expect(conflict.status).toBe("duplicate_conflict");
+  });
+
+  it("R01-H — same runId + different durable content → duplicate_conflict", () => {
+    expect(
+      appendValidatedP6CampaignLedgerRow(qaRow("P6-O2-QA-R01H"), {
+        absolutePath: ledgerPath,
+      }).ok,
+    ).toBe(true);
+    const receiptA = buildCognitiveExecutionReceipt({
+      logicalTurnId: "ltu:r01h",
+      projectId: "prj:p6-o2",
+      presentation: "test_provider",
+      productTerminalStatus: "ok",
+      turn: fakeTurn({ usage: { inputTokens: 3, outputTokens: 2, totalTokens: 5, model: "fake-o2-model", providerResponseId: "fake-o2-resp-1" } }) as never,
+    });
+    expect(
+      captureCognitiveExecutionReceiptToP6Ledger({
+        receipt: receiptA,
+        runId: "P6-O2-COG-R01H",
+        scenarioId: "P6-O2-DET-01",
+        linkedQaRunId: "P6-O2-QA-R01H",
+        absolutePath: ledgerPath,
+      }).ok,
+    ).toBe(true);
+    const receiptB = buildCognitiveExecutionReceipt({
+      logicalTurnId: "ltu:r01h",
+      projectId: "prj:p6-o2",
+      presentation: "test_provider",
+      productTerminalStatus: "ok",
+      turn: fakeTurn({
+        usage: {
+          inputTokens: 99,
+          outputTokens: 88,
+          totalTokens: 187,
+          model: "fake-o2-model",
+          providerResponseId: "fake-o2-resp-OTHER",
+        },
+      }) as never,
+    });
+    const conflict = captureCognitiveExecutionReceiptToP6Ledger({
+      receipt: receiptB,
+      runId: "P6-O2-COG-R01H",
+      scenarioId: "P6-O2-DET-01",
+      linkedQaRunId: "P6-O2-QA-R01H",
+      absolutePath: ledgerPath,
+      onDuplicate: "skip",
+    });
+    expect(conflict.ok).toBe(false);
+    if (conflict.ok) return;
+    expect(conflict.status).toBe("duplicate_conflict");
+  });
+
+  it("R01-I — second different receipt for same QA → cardinality refuse", () => {
+    expect(
+      appendValidatedP6CampaignLedgerRow(qaRow("P6-O2-QA-R01I"), {
+        absolutePath: ledgerPath,
+      }).ok,
+    ).toBe(true);
+    const mk = (logicalTurnId: string, runId: string) =>
+      captureCognitiveExecutionReceiptToP6Ledger({
+        receipt: buildCognitiveExecutionReceipt({
+          logicalTurnId,
+          projectId: "prj:p6-o2",
+          presentation: "test_provider",
+          productTerminalStatus: "ok",
+          turn: fakeTurn() as never,
+        }),
+        runId,
+        scenarioId: "P6-O2-DET-01",
+        linkedQaRunId: "P6-O2-QA-R01I",
+        absolutePath: ledgerPath,
+      });
+    expect(mk("ltu:r01i-a", "P6-O2-COG-R01I-A").ok).toBe(true);
+    const second = mk("ltu:r01i-b", "P6-O2-COG-R01I-B");
+    expect(second.ok).toBe(false);
+    if (second.ok) return;
+    expect(second.status).toBe("o2_link_rejected");
+    expect(second.message).toMatch(/cardinality/i);
+  });
+
+  it("R01-J — onDuplicate=reject remains refuse on linked retry", () => {
+    expect(
+      appendValidatedP6CampaignLedgerRow(qaRow("P6-O2-QA-R01J"), {
+        absolutePath: ledgerPath,
+      }).ok,
+    ).toBe(true);
+    const receipt = buildCognitiveExecutionReceipt({
+      logicalTurnId: "ltu:r01j",
+      projectId: "prj:p6-o2",
+      presentation: "test_provider",
+      productTerminalStatus: "ok",
+      turn: fakeTurn() as never,
+    });
+    const input = {
+      receipt,
+      runId: "P6-O2-COG-R01J",
+      scenarioId: "P6-O2-DET-01",
+      linkedQaRunId: "P6-O2-QA-R01J",
+      absolutePath: ledgerPath,
+      onDuplicate: "reject" as const,
+    };
+    expect(captureCognitiveExecutionReceiptToP6Ledger(input).ok).toBe(true);
+    const rejected = captureCognitiveExecutionReceiptToP6Ledger(input);
+    expect(rejected.ok).toBe(false);
+    if (rejected.ok) return;
+    expect(rejected.status).toBe("duplicate_rejected");
+  });
+
+  it("R01-K — DEGRADED ledger blocks linked retry", () => {
+    expect(
+      appendValidatedP6CampaignLedgerRow(qaRow("P6-O2-QA-R01K"), {
+        absolutePath: ledgerPath,
+      }).ok,
+    ).toBe(true);
+    const receipt = buildCognitiveExecutionReceipt({
+      logicalTurnId: "ltu:r01k",
+      projectId: "prj:p6-o2",
+      presentation: "test_provider",
+      productTerminalStatus: "ok",
+      turn: fakeTurn() as never,
+    });
+    expect(
+      captureCognitiveExecutionReceiptToP6Ledger({
+        receipt,
+        runId: "P6-O2-COG-R01K",
+        scenarioId: "P6-O2-DET-01",
+        linkedQaRunId: "P6-O2-QA-R01K",
+        absolutePath: ledgerPath,
+      }).ok,
+    ).toBe(true);
+    fs.appendFileSync(ledgerPath, "{not-json\n", "utf8");
+    const blocked = captureCognitiveExecutionReceiptToP6Ledger({
+      receipt,
+      runId: "P6-O2-COG-R01K",
+      scenarioId: "P6-O2-DET-01",
+      linkedQaRunId: "P6-O2-QA-R01K",
+      absolutePath: ledgerPath,
+      onDuplicate: "skip",
+    });
+    expect(blocked.ok).toBe(false);
+    if (blocked.ok) return;
+    expect(blocked.status).toBe("integrity_blocks_capture");
+  });
+
+  it("R01-L / R02-A / R02-J — legacy unlinked v2 non-regression + absent link", () => {
+    const receipt = buildCognitiveExecutionReceipt({
+      logicalTurnId: "ltu:r01l",
+      projectId: "prj:p6-o2",
+      presentation: "test_provider",
+      productTerminalStatus: "ok",
+      turn: fakeTurn() as never,
+    });
+    const first = captureCognitiveExecutionReceiptToP6Ledger({
+      receipt,
+      runId: "P6-O2-COG-R01L",
+      scenarioId: "P6-O2-DET-01",
+      absolutePath: ledgerPath,
+      onDuplicate: "skip",
+    });
+    expect(first.ok).toBe(true);
+    if (!first.ok) return;
+    expect(first.status).toBe("appended");
+    expect(first.entry.linkedQaRunId).toBeUndefined();
+    const bytesBefore = fs.readFileSync(ledgerPath);
+    const skip = captureCognitiveExecutionReceiptToP6Ledger({
+      receipt,
+      runId: "P6-O2-COG-R01L",
+      scenarioId: "P6-O2-DET-01",
+      absolutePath: ledgerPath,
+      onDuplicate: "skip",
+    });
+    expect(skip.ok).toBe(true);
+    if (!skip.ok) return;
+    expect(skip.status).toBe("duplicate_skipped");
+    expect(Buffer.compare(bytesBefore, fs.readFileSync(ledgerPath))).toBe(0);
+  });
+
+  it("R02-B — valid linkedQaRunId accepted under O2", () => {
+    expect(
+      appendValidatedP6CampaignLedgerRow(qaRow("P6-O2-QA-R02B"), {
+        absolutePath: ledgerPath,
+      }).ok,
+    ).toBe(true);
+    const linked = captureCognitiveExecutionReceiptToP6Ledger({
+      receipt: buildCognitiveExecutionReceipt({
+        logicalTurnId: "ltu:r02b",
+        projectId: "prj:p6-o2",
+        presentation: "test_provider",
+        productTerminalStatus: "ok",
+        turn: fakeTurn() as never,
+      }),
+      runId: "P6-O2-COG-R02B",
+      scenarioId: "P6-O2-DET-01",
+      linkedQaRunId: "P6-O2-QA-R02B",
+      absolutePath: ledgerPath,
+    });
+    expect(linked.ok).toBe(true);
+    if (!linked.ok) return;
+    expect(linked.entry.linkedQaRunId).toBe("P6-O2-QA-R02B");
+  });
+
+  it("R02-C…I — invalid linkedQaRunId fail-closed (no silent unlinked append)", () => {
+    expect(
+      appendValidatedP6CampaignLedgerRow(qaRow("P6-O2-QA-R02INV"), {
+        absolutePath: ledgerPath,
+      }).ok,
+    ).toBe(true);
+    const receipt = buildCognitiveExecutionReceipt({
+      logicalTurnId: "ltu:r02inv",
+      projectId: "prj:p6-o2",
+      presentation: "test_provider",
+      productTerminalStatus: "ok",
+      turn: fakeTurn() as never,
+    });
+    const base = {
+      receipt,
+      runId: "P6-O2-COG-R02INV",
+      scenarioId: "P6-O2-DET-01",
+      absolutePath: ledgerPath,
+    };
+    const cases: Array<{ label: string; linkedQaRunId: unknown }> = [
+      { label: "null", linkedQaRunId: null },
+      { label: "number", linkedQaRunId: 42 },
+      { label: "boolean", linkedQaRunId: true },
+      { label: "empty", linkedQaRunId: "" },
+      { label: "whitespace", linkedQaRunId: "   " },
+    ];
+    for (const c of cases) {
+      const before = fs.existsSync(ledgerPath)
+        ? fs.readFileSync(ledgerPath, "utf8")
+        : "";
+      const result = captureCognitiveExecutionReceiptToP6Ledger({
+        ...base,
+        // force invalid runtime values past the typed surface
+        linkedQaRunId: c.linkedQaRunId as never,
+      });
+      expect(result.ok, `R02 ${c.label} must refuse`).toBe(false);
+      if (result.ok) return;
+      expect(result.status, `R02 ${c.label} status`).toBe("o2_link_rejected");
+      const after = fs.readFileSync(ledgerPath, "utf8");
+      expect(after, `R02 ${c.label} no append`).toBe(before);
+      expect(after.includes("P6-O2-COG-R02INV"), `R02 ${c.label} no silent unlinked`).toBe(
+        false,
+      );
+    }
+  });
+
+  it("R02-K — undefined via collect omits link (legacy unlinked coherent)", async () => {
+    const product = await orchestrateProjectAssistantTurn({
+      projectId: "prj:p6-o2",
+      content: "r02k undefined forward",
+      sessionDbPath,
+    });
+    expect(product.ok).toBe(true);
+    if (!product.ok) return;
+    const collected = collectP6ProductTurnEvidence({
+      productTurnResult: product,
+      runId: "P6-O2-COG-R02K",
+      scenarioId: "P6-O2-DET-01",
+      // linkedQaRunId omitted — must remain truly unlinked
+      absolutePath: ledgerPath,
+    });
+    expect(collected.ok).toBe(true);
+    if (!collected.ok) return;
+    expect(collected.entry.linkedQaRunId).toBeUndefined();
+    // Explicit undefined on collect input also omits (same as absent).
+    const collectedUndef = collectP6ProductTurnEvidence({
+      productTurnResult: product,
+      runId: "P6-O2-COG-R02K-U",
+      scenarioId: "P6-O2-DET-01",
+      linkedQaRunId: undefined,
+      absolutePath: ledgerPath,
+    });
+    expect(collectedUndef.ok).toBe(true);
+    if (!collectedUndef.ok) return;
+    expect(collectedUndef.entry.linkedQaRunId).toBeUndefined();
+  });
+
+  it("R02-L — no Fake→REAL promotion on linked capture", () => {
+    expect(
+      appendValidatedP6CampaignLedgerRow(qaRow("P6-O2-QA-R02L"), {
+        absolutePath: ledgerPath,
+      }).ok,
+    ).toBe(true);
+    const linked = captureCognitiveExecutionReceiptToP6Ledger({
+      receipt: buildCognitiveExecutionReceipt({
+        logicalTurnId: "ltu:r02l",
+        projectId: "prj:p6-o2",
+        presentation: "test_provider",
+        productTerminalStatus: "ok",
+        turn: fakeTurn() as never,
+      }),
+      runId: "P6-O2-COG-R02L",
+      scenarioId: "P6-O2-DET-01",
+      linkedQaRunId: "P6-O2-QA-R02L",
+      absolutePath: ledgerPath,
+    });
+    expect(linked.ok).toBe(true);
+    if (!linked.ok) return;
+    expect(linked.entry.providerResponseObservation).toBe("FAKE_DETERMINISTIC");
+    expect(linked.entry.productRealProofStatus).toBe("NOT_PROVEN");
+    expect(linked.entry.realBoundaryClaim).toBe("NOT_CLAIMED");
+  });
 });
