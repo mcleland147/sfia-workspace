@@ -1,287 +1,752 @@
 # SFIA STUDIO — P6 NORA EXTENDED COGNITIVE EXECUTION & LIVE ACTIVITY
-## Cycle 13 — PR Readiness / Git Integration — Review Pack FULL
+## Cycle 14 — PR #582 Merge / Post-Merge — Review Pack FULL
 
-**A. Horodatage (Europe/Paris):** 2026-10-14 17:12:56 CEST
-**B. GO Morris:** COMMIT + PUSH + DRAFT PR + CI — AUTHORIZED / CONSUMED
-**C. Cycle / profil:** Cycle 13 — CRITICAL — EVOL / Cumulative Product Delivery
+**A. Horodatage (Europe/Paris):** 2026-10-14 17:36:40 CEST
+**B. GO Morris consommé:** DRAFT→READY / PR DESCRIPTION SYNC / MERGE COMMIT / POST-MERGE GIT+CI / REVIEW HANDOFF L3 — AUTHORIZED / CONSUMED
+**C. Cycle / profil:** Cycle 14 — CRITICAL — EVOL / Git Integration / Post-Merge
 **D. Repository:** `mcleland147/sfia-workspace`
-**Worktree:** `/Users/morris/Projects/sfia-workspace-p6-nora-extended-execution-live-activity`
-**Branche projet:** `delivery/sfia-studio-p6-nora-extended-execution-live-activity`
+**Worktree inspection:** `/Users/morris/Projects/sfia-workspace-p6-nora-extended-execution-live-activity`
 
 ---
 
-## E. Git Truth initial (VÉRIFIÉ)
+## D. Git Truth initial (VÉRIFIÉ)
 
 | Check | Value |
 |---|---|
-| toplevel | `/Users/morris/Projects/sfia-workspace-p6-nora-extended-execution-live-activity` |
 | branch | `delivery/sfia-studio-p6-nora-extended-execution-live-activity` |
-| HEAD initial | `5e139627ff515cd36da5ce12d2c22f935adb139f` |
-| origin/main | `5e139627ff515cd36da5ce12d2c22f935adb139f` (identique) |
-| origin/delivery… | absent avant push |
-| dirty | 23 M + 13 U = 36 candidat ; `.tmp-sfia-review` exclu |
-| staged initial | vide |
+| HEAD | `3d8acf3475c2180b8135379b110995b455f037ee` |
+| origin/main (pre-merge) | `5e139627ff515cd36da5ce12d2c22f935adb139f` |
+| origin/delivery | `3d8acf3475c2180b8135379b110995b455f037ee` |
+| dirty | `.tmp-sfia-review/chatgpt-review.md` only |
+| staged | vide |
+| Handoff entrée | commit `5c20f4ae9c924e1956c9ddee25b45740dc837c8d` / blob `beb9664db5b99676e366769b3011297746adb1ae` |
 
-Review Handoff d'entrée (consulté, non substitué au diff):
-- commit `53acca5b43f32688cdcc2c6b0de94c59269b984a`
-- blob `3041d1b0667f5c1730c8fdb58055f67bacf8d18b`
+Worktree Human QA / :3020 / DB Human QA: **NON TOUCHÉS** (NON EXÉCUTÉ par design).
 
----
+## E. Sources consultées
 
-## F. Sources consultées
+Build Doctrine, Roadmap, C1, P6 GLOBAL, doctrine v3 33/35, cycle template, routing guide, delivery pipeline, post-merge template, validation checklist, Operating Model, Review Handoff d'entrée. Diff Git / GitHub PR #582 = source de vérité.
 
-- Build Doctrine / Roadmap / Product Completion C1 (lecture ; non mutés)
-- Doctrine Studio v3: epistemology/provenance, artifact-evidence (lecture)
-- P6 GLOBAL doc + cycle routing / Operating Model (guidance)
-- Review Handoff d'entrée 53acca5b
-- Diff Git local cumulatif réel (source de vérité)
+## F. Build Doctrine / Roadmap / C1
 
-## G. Build Doctrine / Roadmap / C1
+VALIDATED / ACTIVE — **non modifiés** dans ce cycle.
 
-- Build Doctrine: VALIDATED / ACTIVE ON MAIN — **non modifié**
-- Roadmap: VALIDATED / ACTIVE LIVING — **non modifié**
-- Product Completion C1: VALIDATED — **non modifié**
+## G. Capacité v3 / milestone P6
 
-## H. Capacité v3 / milestone
+Nora Extended Cognitive Execution & Live Activity. Runtime v3 **NON ADOPTED**. P6 GLOBAL **NOT PASSED**. Option B/O2 KEEP.
 
-Milestone P6 — Nora Extended Cognitive Execution & Live Activity.
-Runtime v3: **NON ADOPTED**. Option B/O2: KEEP. P6 GLOBAL: **NOT PASSED**.
+## H. ChatGPT Critical PR Review
 
-## I. Classification des actifs
+PASS WITH RESERVES / READY FOR MORRIS MERGE GO.
 
-| Actif | Classification |
+## I. Pré-merge state (VÉRIFIÉ)
+
+PR #582 OPEN / DRAFT / MERGEABLE / CLEAN.
+base `main` @ `5e139627…`
+head `3d8acf34…`
+commits: `0f857b65`, `3d8acf34`
+files: 36 (23 M + 13 A)
+
+## J. Pré-merge CI (VÉRIFIÉ)
+
+Run `38586427633` SUCCESS · head `3d8acf34…` · Required Gate PASS.
+
+## K. Description PR synchronisée (VÉRIFIÉ)
+
+`gh pr edit 582` — HEAD final `3d8acf34…`, 2 commits, CI `38586427633`, Critical Review PASS WITH RESERVES, MERGE GO IN EXECUTION, MERGE COMMIT method.
+
+## L. Draft → Ready (VÉRIFIÉ)
+
+`gh pr ready 582` → isDraft=false · state OPEN · head inchangé · mergeable CLEAN.
+
+## M. Merge action (VÉRIFIÉ)
+
+```
+gh pr merge 582 --merge --match-head-commit 3d8acf3475c2180b8135379b110995b455f037ee
+```
+
+Sans `--delete-branch` / squash / rebase / admin / auto.
+
+## N. Merge SHA / parents (VÉRIFIÉ)
+
+```
+commit eec68a418ae271452edc2188c9cf1ae06faa8232
+Merge: 5e139627 3d8acf34
+Author:     mcleland147 <m.cleland@live.fr>
+AuthorDate: Wed Oct 14 17:29:08 2026 +0200
+Commit:     GitHub <noreply@github.com>
+CommitDate: Wed Oct 14 17:29:08 2026 +0200
+
+    Merge pull request #582 from mcleland147/delivery/sfia-studio-p6-nora-extended-execution-live-activity
+
+    feat(studio): P6 Nora extended execution and live activity
+```
+
+Parents:
+- `5e139627ff515cd36da5ce12d2c22f935adb139f` (main)
+- `3d8acf3475c2180b8135379b110995b455f037ee` (head)
+
+Merge commit: `eec68a418ae271452edc2188c9cf1ae06faa8232`
+mergedAt: `2026-10-14T15:29:08Z`
+state: **MERGED**
+
+## O. Git ancestry (VÉRIFIÉ)
+
+- `0f857b65` ancestor of origin/main: YES
+- `3d8acf34` ancestor of origin/main: YES
+- `eec68a41` ancestor of / equals origin/main: YES
+
+## P. origin/main post-merge (VÉRIFIÉ)
+
+`eec68a418ae271452edc2188c9cf1ae06faa8232`
+
+## Q. Manifest 36 fichiers intégré (VÉRIFIÉ)
+
+```
+A	projects/sfia-studio/app/__tests__/nora-cognitive-runtime/missionProgressGuard.d0.test.ts
+A	projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.extendedCorpusCaps.d0.test.ts
+M	projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.maxTurns.documentary.d0.test.ts
+M	projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.min09.documentaryReliability.d0.test.ts
+M	projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.p1.adaptiveBudget.d0.test.ts
+M	projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.p1p2.documentary.mission.d0.test.ts
+M	projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.p1p2.targetedVerification.d0.test.ts
+A	projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.productiveExtension.d0.test.ts
+A	projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.representativeCorpus.d0.test.ts
+A	projects/sfia-studio/app/__tests__/nora-cognitive-runtime/runnerAbortSignal.d0.test.ts
+A	projects/sfia-studio/app/__tests__/pre-m6-product-ui/conversationSurface.liveActivityStop.d0.test.tsx
+A	projects/sfia-studio/app/__tests__/pre-m6-product-ui/sendCancellableAssistantTurn.ndjson.d0.test.ts
+A	projects/sfia-studio/app/__tests__/pre-m6-product-ui/serverCancellation.d0.test.ts
+A	projects/sfia-studio/app/__tests__/pre-m6-product-ui/stopAvailableEarly.d0.test.ts
+A	projects/sfia-studio/app/__tests__/project-assistant/liveActivityEvents.d0.test.ts
+A	projects/sfia-studio/app/__tests__/project-assistant/terminalLiveActivity.d0.test.ts
+M	projects/sfia-studio/app/app/api/studio/projects/[projectId]/assistant/send/route.ts
+M	projects/sfia-studio/app/features/pre-m6-product-ui/hooks/sendCancellableAssistantTurn.ts
+M	projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
+M	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.module.css
+M	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
+M	projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
+A	projects/sfia-studio/app/features/project-assistant/liveActivityEvents.ts
+M	projects/sfia-studio/app/features/project-assistant/memoryEventSink.ts
+M	projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
+M	projects/sfia-studio/app/features/project-assistant/sendProjectAssistantTurn.ts
+M	projects/sfia-studio/app/lib/nora-cognitive-runtime/adaptiveTurnBudget.ts
+M	projects/sfia-studio/app/lib/nora-cognitive-runtime/callModelInputFilter.ts
+M	projects/sfia-studio/app/lib/nora-cognitive-runtime/controlledContinuation.ts
+M	projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
+A	projects/sfia-studio/app/lib/nora-cognitive-runtime/missionProgressGuard.ts
+M	projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
+M	projects/sfia-studio/app/lib/nora-cognitive-runtime/sfiaAgentsTools.ts
+M	projects/sfia-studio/app/lib/nora-cognitive-runtime/types.ts
+M	projects/sfia-studio/app/lib/platform/tools/types.ts
+M	projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
+```
+
+Counts: 13 A + 23 M = 36. Aucun deleted/renamed hors scope.
+
+## R. Diff Git exploitable
+
+Refs: `5e139627...3d8acf34` (feature span) et merge `eec68a41^1..eec68a41`.
+Stat:
+
+```
+ .../missionProgressGuard.d0.test.ts                | 384 +++++++++++++++++++++
+ .../p6.extendedCorpusCaps.d0.test.ts               |  57 +++
+ .../p6.nora.maxTurns.documentary.d0.test.ts        |  28 +-
+ ...p6.nora.min09.documentaryReliability.d0.test.ts |  71 +++-
+ .../p6.nora.p1.adaptiveBudget.d0.test.ts           |  30 +-
+ .../p6.nora.p1p2.documentary.mission.d0.test.ts    |  27 +-
+ .../p6.nora.p1p2.targetedVerification.d0.test.ts   |  69 +++-
+ .../p6.productiveExtension.d0.test.ts              | 265 ++++++++++++++
+ .../p6.representativeCorpus.d0.test.ts             | 192 +++++++++++
+ .../runnerAbortSignal.d0.test.ts                   | 111 ++++++
+ ...onversationSurface.liveActivityStop.d0.test.tsx | 277 +++++++++++++++
+ .../sendCancellableAssistantTurn.ndjson.d0.test.ts | 107 ++++++
+ .../serverCancellation.d0.test.ts                  | 162 +++++++++
+ .../stopAvailableEarly.d0.test.ts                  |  42 +++
+ .../liveActivityEvents.d0.test.ts                  | 114 ++++++
+ .../terminalLiveActivity.d0.test.ts                |  80 +++++
+ .../projects/[projectId]/assistant/send/route.ts   | 191 +++++++++-
+ .../hooks/sendCancellableAssistantTurn.ts          |  85 ++++-
+ .../hooks/useProductConversation.ts                |  29 +-
+ .../surfaces/ConversationSurface.module.css        |  30 ++
+ .../surfaces/ConversationSurface.tsx               |  23 +-
+ .../features/project-assistant/f2/orchestrateF2.ts |  19 +-
+ .../project-assistant/liveActivityEvents.ts        | 193 +++++++++++
+ .../features/project-assistant/memoryEventSink.ts  |  11 +-
+ .../features/project-assistant/orchestrateTurn.ts  |  22 +-
+ .../project-assistant/sendProjectAssistantTurn.ts  |   5 +
+ .../nora-cognitive-runtime/adaptiveTurnBudget.ts   |  30 +-
+ .../nora-cognitive-runtime/callModelInputFilter.ts |   6 +
+ .../controlledContinuation.ts                      |  19 +-
+ .../app/lib/nora-cognitive-runtime/index.ts        |  15 +
+ .../nora-cognitive-runtime/missionProgressGuard.ts | 226 ++++++++++++
+ .../nora-cognitive-runtime/runNoraAgentsTurn.ts    | 112 +++++-
+ .../lib/nora-cognitive-runtime/sfiaAgentsTools.ts  |  23 +-
+ .../app/lib/nora-cognitive-runtime/types.ts        |   3 +
+ .../sfia-studio/app/lib/platform/tools/types.ts    |  13 +-
+ .../production-runtime-reference.manifest.json     |   6 +-
+ 36 files changed, 2968 insertions(+), 109 deletions(-)
+```
+
+Full diff: APPENDIX A.
+New production sources @ origin/main: APPENDIX B (`missionProgressGuard.ts`, `liveActivityEvents.ts`).
+Tests nouveaux: accessibles via `git show origin/main:<path>` (chemins Q).
+
+## S. Post-merge CI (VÉRIFIÉ)
+
+| Field | Value |
 |---|---|
-| Runner OpenAI Agents | KEEP / ADAPT |
-| RunState | KEEP |
-| Adaptive Budget | ADAPT (ceiling 24, envelope 36, max 3 extensions) |
-| MissionProgressGuard | COMPLETE (+ empty-target skip CI fix) |
-| GitLocalReadAdapter / ToolRouter | ADAPT (caps 100k/200k) |
-| Product Session | KEEP |
-| Transport NDJSON | COMPLETE |
-| ConversationSurface | ADAPT |
-| AbortController | KEEP / CORRECT |
-| PRR Manifest | SYNC |
+| Run | `38589732457` |
+| URL | https://github.com/mcleland147/sfia-workspace/actions/runs/38589732457 |
+| Event | push (main) |
+| Head SHA | `eec68a418ae271452edc2188c9cf1ae06faa8232` |
+| Workflow | SFIA Studio CI |
+| Conclusion | **success** |
 
-## J. Critical Re-Review d'entrée
+Jobs SUCCESS: Detect · Build and validate (typecheck/lint/build/unit/secret/whitespace) · **SFIA Studio Required Gate**.
 
-ChatGPT Critical Macro-Lot Re-Review: **PASS WITH RESERVES / READY FOR MORRIS GIT INTEGRATION GATE**.
-R-EXT-01…05 CLOSED au périmètre déterministe (avec réserves Fake/Real / browser).
+Pré-merge CI `38586427633` n'est **pas** utilisée comme preuve post-merge.
 
----
+## T. Required Gate
 
-## K. Manifest projet exact (cumulatif HEAD)
+**PASS** — head SHA = merge commit `eec68a41…`
 
-**36 fichiers** (23 M + 13 A) dans le commit feature ; fix CI borné sur 2 fichiers déjà du manifest.
+## U. PRR
 
-### Modified (23)
+Pre-merge CONFORMANCE OK. Manifest digests intégrés sur main via les 36 fichiers. Digest ≠ preuve sémantique/REAL.
 
-1. `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.maxTurns.documentary.d0.test.ts`
-2. `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.min09.documentaryReliability.d0.test.ts`
-3. `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.p1.adaptiveBudget.d0.test.ts`
-4. `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.p1p2.documentary.mission.d0.test.ts`
-5. `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.p1p2.targetedVerification.d0.test.ts`
-6. `projects/sfia-studio/app/app/api/studio/projects/[projectId]/assistant/send/route.ts`
-7. `projects/sfia-studio/app/features/pre-m6-product-ui/hooks/sendCancellableAssistantTurn.ts`
-8. `projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts`
-9. `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.module.css`
-10. `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx`
-11. `projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts`
-12. `projects/sfia-studio/app/features/project-assistant/memoryEventSink.ts`
-13. `projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts`
-14. `projects/sfia-studio/app/features/project-assistant/sendProjectAssistantTurn.ts`
-15. `projects/sfia-studio/app/lib/nora-cognitive-runtime/adaptiveTurnBudget.ts`
-16. `projects/sfia-studio/app/lib/nora-cognitive-runtime/callModelInputFilter.ts`
-17. `projects/sfia-studio/app/lib/nora-cognitive-runtime/controlledContinuation.ts`
-18. `projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts`
-19. `projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts`
-20. `projects/sfia-studio/app/lib/nora-cognitive-runtime/sfiaAgentsTools.ts`
-21. `projects/sfia-studio/app/lib/nora-cognitive-runtime/types.ts`
-22. `projects/sfia-studio/app/lib/platform/tools/types.ts`
-23. `projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json`
+## V. Security (VÉRIFIÉ)
 
-### New (13)
+Aucun secret · protections d'autorité conservées · pas FinOps/T7 unfreeze · pas doctrine · pas DB Human QA · pas archive delete · CI secret scan PASS.
 
-1. `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/missionProgressGuard.d0.test.ts`
-2. `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.extendedCorpusCaps.d0.test.ts`
-3. `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.productiveExtension.d0.test.ts`
-4. `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.representativeCorpus.d0.test.ts`
-5. `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/runnerAbortSignal.d0.test.ts`
-6. `projects/sfia-studio/app/__tests__/pre-m6-product-ui/conversationSurface.liveActivityStop.d0.test.tsx`
-7. `projects/sfia-studio/app/__tests__/pre-m6-product-ui/sendCancellableAssistantTurn.ndjson.d0.test.ts`
-8. `projects/sfia-studio/app/__tests__/pre-m6-product-ui/serverCancellation.d0.test.ts`
-9. `projects/sfia-studio/app/__tests__/pre-m6-product-ui/stopAvailableEarly.d0.test.ts`
-10. `projects/sfia-studio/app/__tests__/project-assistant/liveActivityEvents.d0.test.ts`
-11. `projects/sfia-studio/app/__tests__/project-assistant/terminalLiveActivity.d0.test.ts`
-12. `projects/sfia-studio/app/features/project-assistant/liveActivityEvents.ts`
-13. `projects/sfia-studio/app/lib/nora-cognitive-runtime/missionProgressGuard.ts`
-
-**Exclusions (non staged):** `.tmp-sfia-review/**`, doctrine/roadmap/C1, REAL, DBs, secrets.
-
----
-
-## L–N. Diff cumulatif + nouveaux fichiers
-
-Voir sections **APPENDIX A (modified diffs)** et **APPENDIX B (new files full)** ci-dessous — contenu intégral exploitable.
-
-### Capacités contrôlées (synthèse vérifiée sur diff)
-
-**Budget:** floor 3 / ceiling 24 / envelope 36 / max 3 productive extensions ; progress = usefulCompletions > checkpoint ; fail/denied ≠ progress ; explicitOverride / campaign opposables.
-
-**Corpus:** CT_MAX_TOOL_RESULT_CHARS=100_000 ; CT_DEFAULT_READ_MAX_BYTES=200_000 ; DET 5/10/15 docs lus ; pas de claim REAL.
-
-**Live Activity:** NDJSON activity→result ; terminalité unique ; labels FR ; pas de chaîne de pensée privée.
-
-**Stop:** AbortSignal→Runner ; transport interrupted ≠ Product stopped ; pas de faux stop_confirmed.
-
-**CI fix (borné):** MissionProgressGuard ignore streak si `targetKey` vide (évite faux stop sur `git_local_get_head` ×3) — corrige régression `runner.d0` hors manifest, fix dans fichiers autorisés.
-
----
-
-## N. Tests locaux (VÉRIFIÉ)
-
-Pré-commit candidat:
-- 16 suites / **147 PASS**
-- `git diff --check` PASS
-
-Post-fix CI:
-- 17 suites (16 + runner.d0) / **159 PASS**
-- typecheck PASS
-
-Aucune exécution `*.real.test.ts`. Aucun OpenAI REAL. Aucune mutation Product / :3020 / Human QA DB.
-
-## O. Typecheck / lint / build (VÉRIFIÉ local)
-
-- typecheck PASS
-- lint PASS (`next lint` — No ESLint warnings or errors)
-- build PASS
-
-## P. PRR (VÉRIFIÉ)
-
-`node scripts/check-production-runtime-reference.mjs` → **PRODUCTION RUNTIME REFERENCE CONFORMANCE OK**
-Un seul fichier PRR manifest modifié (digests). ≠ validation sémantique auto.
-
-## Q. Security (VÉRIFIÉ / CI)
-
-- Aucun secret dans le commit
-- CI: Secret pattern scan (targeted) PASS
-- Trailing whitespace PASS
-- Aucune suppression d'autorité / coupe-circuit / FinOps T7
-
-## R. Fake / Real
+## W. Fake / Real
 
 | Niveau | Statut |
 |---|---|
-| DETERMINISTIC E2E AT TESTED SCOPE | PASS |
-| GIT INTEGRATED CANDIDATE / CI VERIFIED | PASS (après fix) |
+| DETERMINISTIC E2E / PR CI PASS | PASS |
+| INTEGRATED ON MAIN / POST-MERGE CI VERIFIED | **PASS** |
 | REAL BOUNDARY PROVEN | NON PROUVÉ |
 | END-TO-END REAL PROVEN | NON PROUVÉ |
 | READY FOR REAL | NON |
 | P6 GLOBAL PASS | NON |
 | RUNTIME V3 ADOPTED | NON |
 
-ScriptedModel ≠ qualité OpenAI REAL.
+REAL: NON AUTORISÉ / NON EXÉCUTÉ.
 
-## S. Figma / runtime
+## X. Réserves obligatoires
 
-- Figma idle Send contract référencé (file m4g8j0gNbEzfIuH6S9AZJF / node 46:2) — **non pixel-perfect revendiqué**
-- React RTL ConversationSurface: prouvé DET
-- CSS harness ≠ browser screenshot
-- Captures navigateur React: **réserve**
-- Runtime v3: **NON ADOPTED**
+- **R-REAL-01** — Qualité cognitive OpenAI REAL grands corpus non prouvée.
+- **R-UX-01** — Navigateur Product / motion réelle non prouvés.
+- **R-P6-01** — Human QA T2 non rejouée.
+- **R-P6-02** — P6 GLOBAL NOT PASSED.
+- **R-V3-01** — Runtime v3 NON ADOPTED.
+- React RTL ≠ rendu navigateur complet.
+- CSS harness = preuve visuelle secondaire.
+- Pixel-perfect non revendiqué.
 
-## T. Réserves ouvertes
+## Y. Dette / exit
 
-1. Qualité cognitive REAL non prouvée
-2. Captures navigateur React non disponibles
-3. CSS harness ≠ preuve navigateur
-4. Validation Figma pixel-perfect non revendiquée
-5. P6 GLOBAL NOT PASSED
-6. Runtime v3 NON ADOPTED
-7. REAL T2 non exécuté
-8. Human QA non rejouée
-9. Merge GO distinct requis
-10. NOT MERGED
+Aucune nouvelle dette de construction. Exit: merge vérifié · code sur main · Required Gate post-merge PASS · réserves · handoff.
 
----
+## Z. Branch cleanup
 
-## U. Commit SHA / messages (VÉRIFIÉ)
+**BRANCH CLEANUP — NOT EXECUTED / OUTSIDE MORRIS GO.**
+Branche delivery distante toujours présente @ `3d8acf34…`.
 
-| Commit | Message |
+## AA. Actions non exécutées
+
+Merge squash/rebase · force push · delete branch · code change · REAL · :3020 · Human QA DB · doctrine · Notion/CMP · runtime v3 promotion · nouvelle PR.
+
+## AB. Git Truth final (VÉRIFIÉ)
+
+| Item | Value |
 |---|---|
-| `0f857b6596bc6ffe79cf6a86dd1cdc09e98ceffd` | `feat(studio): extend Nora execution and live activity` (36 files) |
-| `3d8acf3475c2180b8135379b110995b455f037ee` | `fix(studio): skip MissionProgressGuard streak on empty targets` (2 files) |
+| Projet branch | delivery… @ `3d8acf34…` (inchangé localement) |
+| dirty local | `.tmp-sfia-review/chatgpt-review.md` (pack cycle 14) |
+| origin/main | `eec68a41…` |
+| PR #582 | MERGED |
+| delivery remote | encore présente (cleanup non exécuté) |
 
-Parent feature: `5e139627ff515cd36da5ce12d2c22f935adb139f`
-HEAD projet actuel: `3d8acf3475c2180b8135379b110995b455f037ee`
+## AC. Prochaine capacité P6
 
-## V. Push verification (VÉRIFIÉ)
+Préparation / environnement → gate Morris REAL (distinct) → revalidation Human QA T2 → consolidation P6.
 
-- origin/delivery… = `3d8acf3475c2180b8135379b110995b455f037ee`
-- origin/main inchangé = `5e139627ff515cd36da5ce12d2c22f935adb139f`
-- Push normal (pas de force)
+## AD. Gates Morris restants
 
-## W. Draft PR (VÉRIFIÉ)
+- REAL T2 GO (distinct)
+- Human QA T2 GO
+- P6 consolidation
+- Cleanup branche (si GO distinct futur)
 
-- **PR #582** — OPEN / **DRAFT**
-- URL: https://github.com/mcleland147/sfia-workspace/pull/582
-- base: `main`
-- head: `delivery/sfia-studio-p6-nora-extended-execution-live-activity`
-- head SHA: `3d8acf3475c2180b8135379b110995b455f037ee`
-- commits: **2**
-- changed files: **36**
-
-## X. CI (VÉRIFIÉ)
-
-| Run | SHA | Conclusion |
-|---|---|---|
-| 38585217755 (échec initial) | `0f857b65…` | failure — runner.d0 limitReached (MissionProgressGuard empty target) |
-| **38586427633** | `3d8acf34…` | **success** |
-
-URL: https://github.com/mcleland147/sfia-workspace/actions/runs/38586427633
-Jobs: Detect PASS · Build and validate PASS · **SFIA Studio Required Gate PASS**
-
-## Y. Required Gate
-
-**PASS** — run head SHA = commit poussé `3d8acf3475c2180b8135379b110995b455f037ee`
-
-## Z. Git Truth final (VÉRIFIÉ)
-
-- branch delivery… @ `3d8acf34…` = remote
-- main remote `5e139627…` inchangé
-- dirty: `.tmp-sfia-review/chatgpt-review.md` only (pack, non commit projet)
-- NOT MERGED
-
-## AA. Dette / exit
-
-Aucune nouvelle dette intentionnelle.
-Exit proof cycle 13: Commit + push + Draft PR + CI Required Gate PASS avec manifest et réserves exacts — **ATTEINT**.
-
-## AB. Prochaine preuve P6
-
-ChatGPT CRITICAL PR REVIEW → Morris MERGE GO (distinct) → post-merge verification → REAL T2 (GO distinct) → Human QA → P6 consolidation.
-
-## AC. Gates Morris restants
-
-- G8 ChatGPT Critical PR Review — **à consommer**
-- G9 Morris MERGE GO — **non autorisé ici**
-
-## AD. Verdict
+## AE. Verdict
 
 **P6 NORA EXTENDED COGNITIVE EXECUTION & LIVE ACTIVITY**
-**CUMULATIVE GIT INTEGRATION COMMIT/PUSH/DRAFT PR COMPLETE / CI PASS / READY FOR CHATGPT CRITICAL PR REVIEW.**
+**PR #582 MERGED / GIT INTEGRATED / POST-MERGE VERIFIED / CI PASS WITH RESERVES.**
 
-Réserves: NOT MERGED · NOT REAL PROVEN · P6 GLOBAL NOT PASSED · RUNTIME V3 NON ADOPTED · HUMAN QA OPEN · VISUAL BROWSER RESERVE.
+Réserves: REAL NOT PROVEN · HUMAN QA T2 OPEN · VISUAL BROWSER RESERVE · P6 GLOBAL NOT PASSED · RUNTIME V3 NON ADOPTED · BRANCH CLEANUP NOT EXECUTED.
 
-## AE. Instruction ChatGPT
+## AF. Instruction ChatGPT
 
-Consulter Git distant. Vérifier main inchangé, branche publiée, HEAD `3d8acf34…`, 2 commits, 36 fichiers, Draft PR #582, CI run 38586427633 Required Gate PASS, Review Handoff distant, réserves Fake/Real/Figma. Rendre **CHATGPT CRITICAL PR REVIEW**. Si PASS: recommander MORRIS MERGE GO. Ne pas merger automatiquement.
+Lire handoff distant. Vérifier PR #582 MERGED, head pré-merge `3d8acf34…`, merge `eec68a41…` parents `5e139627`+`3d8acf34`, origin/main, 36 files, CI `38589732457` Required Gate PASS, pas de cleanup/REAL/:3020, réserves. Rendre **CHATGPT CRITICAL POST-MERGE REVIEW**. Si PASS: recommander prochaine étape P6 (env / REAL GO / Human QA T2 / consolidation) sans microcycle ni promotion runtime v3.
 
 ---
 
-
-# APPENDIX A — Modified files full diff (5e139627...HEAD)
+# APPENDIX A — Full feature diff (5e139627...3d8acf34)
 
 ```diff
+diff --git a/projects/sfia-studio/app/__tests__/nora-cognitive-runtime/missionProgressGuard.d0.test.ts b/projects/sfia-studio/app/__tests__/nora-cognitive-runtime/missionProgressGuard.d0.test.ts
+new file mode 100644
+index 00000000..90316232
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/nora-cognitive-runtime/missionProgressGuard.d0.test.ts
+@@ -0,0 +1,384 @@
++/**
++ * P6 — MissionProgressGuard deterministic unit tests.
++ * @vitest-environment node
++ */
++import { describe, expect, it } from "vitest";
++import {
++  assistantMessage,
++  functionCall,
++  ScriptedModel,
++} from "@openai/agents/testing";
++import { resolveWorkspaceRootFromAppCwd } from "@/lib/platform/repository/workspaceRoot";
++import {
++  runNoraAgentsTurn,
++  sfiaBoundaryInstructions,
++} from "@/lib/nora-cognitive-runtime";
++import {
++  MISSION_NO_PROGRESS_REPEAT_LIMIT,
++  MISSION_NO_PROGRESS_STOP_STOCK,
++  MissionProgressGuard,
++  isUsefulMissionProgressFingerprint,
++  missionProgressResultFingerprint,
++  missionProgressTargetKey,
++} from "@/lib/nora-cognitive-runtime/missionProgressGuard";
++
++describe("MissionProgressGuard", () => {
++  it("continues until identical tool+target reaches repeat limit", () => {
++    const guard = new MissionProgressGuard(MISSION_NO_PROGRESS_REPEAT_LIMIT);
++    const sample = {
++      toolName: "git_local_read_file",
++      targetKey: "projects/sfia-studio/app/package.json",
++    };
++
++    const first = guard.observe(sample);
++    expect(first.action).toBe("continue");
++    expect(first.reasonCodes).toContain("progress_streak:1");
++
++    const second = guard.observe(sample);
++    expect(second.action).toBe("continue");
++    expect(second.reasonCodes).toContain("progress_streak:2");
++
++    const third = guard.observe(sample);
++    expect(third.action).toBe("stop_no_progress");
++    expect(third.reasonCodes).toContain("mission_no_progress_repeat");
++    expect(third.reasonCodes).toContain("streak:3");
++    expect(third.reasonCodes).toContain("tool:git_local_read_file");
++  });
++
++  it("empty target never trips no-progress streak (status probes)", () => {
++    const guard = new MissionProgressGuard(2);
++    for (let i = 0; i < 6; i += 1) {
++      const decision = guard.observe({
++        toolName: "git_local_get_head",
++        targetKey: "",
++        resultFingerprint: "ok|||12|f",
++      });
++      expect(decision.action).toBe("continue");
++      expect(decision.reasonCodes).toContain("progress_no_target_skip_streak");
++    }
++    expect(guard.stopped).toBe(false);
++    expect(guard.snapshot().usefulCompletions).toBe(0);
++    expect(guard.hasVerifiableProgressForExtension()).toBe(false);
++  });
++
++  it("resets streak when target changes", () => {
++    const guard = new MissionProgressGuard(3);
++    const tool = "git_local_read_file";
++
++    guard.observe({ toolName: tool, targetKey: "a.txt" });
++    guard.observe({ toolName: tool, targetKey: "a.txt" });
++    const afterSwitch = guard.observe({ toolName: tool, targetKey: "b.txt" });
++    expect(afterSwitch.action).toBe("continue");
++    expect(afterSwitch.reasonCodes).toContain("progress_streak:1");
++  });
++
++  it("same target without fingerprint still stops at repeat limit", () => {
++    const guard = new MissionProgressGuard(3);
++    const sample = {
++      toolName: "git_local_read_file",
++      targetKey: "projects/sfia-studio/app/package.json",
++    };
++    guard.observe(sample);
++    guard.observe(sample);
++    const third = guard.observe(sample);
++    expect(third.action).toBe("stop_no_progress");
++  });
++
++  it("BUD-01 — no useful completions → extension gate closed", () => {
++    const guard = new MissionProgressGuard();
++    expect(guard.hasVerifiableProgressForExtension()).toBe(false);
++    guard.observe({
++      toolName: "git_local_read_file",
++      targetKey: "missing.md",
++      resultFingerprint: "fail|status:failed",
++    });
++    expect(guard.hasVerifiableProgressForExtension()).toBe(false);
++  });
++
++  it("BUD-02 — useful success unlocks extension", () => {
++    const guard = new MissionProgressGuard();
++    const fp = missionProgressResultFingerprint({
++      ok: true,
++      data: { path: "a.md", returnedStartLine: 1, returnedEndLine: 5, bytes: 10, truncated: false },
++    });
++    guard.observe({
++      toolName: "git_local_read_file",
++      targetKey: "a.md",
++      resultFingerprint: fp,
++    });
++    expect(isUsefulMissionProgressFingerprint(fp)).toBe(true);
++    expect(guard.hasVerifiableProgressForExtension()).toBe(true);
++  });
++
++  it("BUD-03 — markExtensionConsumed closes gate until new useful progress", () => {
++    const guard = new MissionProgressGuard();
++    const fp = missionProgressResultFingerprint({
++      ok: true,
++      data: { path: "a.md", returnedStartLine: 1, returnedEndLine: 5, bytes: 10, truncated: false },
++    });
++    guard.observe({
++      toolName: "git_local_read_file",
++      targetKey: "a.md",
++      resultFingerprint: fp,
++    });
++    guard.markExtensionConsumed();
++    expect(guard.hasVerifiableProgressForExtension()).toBe(false);
++  });
++
++  it("BUD-04 — after checkpoint, new useful fingerprint reopens extension", () => {
++    const guard = new MissionProgressGuard();
++    const fp1 = missionProgressResultFingerprint({
++      ok: true,
++      data: { path: "a.md", returnedStartLine: 1, returnedEndLine: 5, bytes: 10, truncated: false },
++    });
++    guard.observe({
++      toolName: "git_local_read_file",
++      targetKey: "a.md@1-5",
++      resultFingerprint: fp1,
++    });
++    guard.markExtensionConsumed();
++    const fp2 = missionProgressResultFingerprint({
++      ok: true,
++      data: { path: "a.md", returnedStartLine: 6, returnedEndLine: 10, bytes: 10, truncated: false },
++    });
++    guard.observe({
++      toolName: "git_local_read_file",
++      targetKey: "a.md@6-10",
++      resultFingerprint: fp2,
++    });
++    expect(guard.hasVerifiableProgressForExtension()).toBe(true);
++  });
++
++  it("BUD-05 — after checkpoint, new fail fingerprints never reopen extension", () => {
++    const guard = new MissionProgressGuard();
++    const okFp = missionProgressResultFingerprint({
++      ok: true,
++      data: { path: "a.md", returnedStartLine: 1, returnedEndLine: 5, bytes: 10, truncated: false },
++    });
++    guard.observe({
++      toolName: "git_local_read_file",
++      targetKey: "a.md@1-5",
++      resultFingerprint: okFp,
++    });
++    guard.markExtensionConsumed();
++    guard.observe({
++      toolName: "git_local_read_file",
++      targetKey: "b.md",
++      resultFingerprint: "fail|status:failed",
++    });
++    guard.observe({
++      toolName: "git_local_read_file",
++      targetKey: "c.md",
++      resultFingerprint: "denied|x",
++    });
++    expect(guard.hasVerifiableProgressForExtension()).toBe(false);
++    expect(guard.snapshot().usefulCompletions).toBe(1);
++  });
++
++  it("BUD-06 — repeated identical useful fingerprint does not increment useful count", () => {
++    const guard = new MissionProgressGuard();
++    const sample = {
++      toolName: "git_local_read_file",
++      targetKey: "doc.md",
++      resultFingerprint: "ok|doc.md|1-5|100|f",
++    };
++    guard.observe(sample);
++    guard.observe(sample);
++    guard.markExtensionConsumed();
++    expect(guard.snapshot().usefulCompletions).toBe(1);
++    expect(guard.hasVerifiableProgressForExtension()).toBe(false);
++  });
++
++  it("BUD-07..08 — isUsefulMissionProgressFingerprint classifies ok vs fail/empty", () => {
++    expect(isUsefulMissionProgressFingerprint("ok|p|1-2|10|f")).toBe(true);
++    expect(isUsefulMissionProgressFingerprint("ok")).toBe(true);
++    expect(isUsefulMissionProgressFingerprint("fail|status:failed")).toBe(false);
++    expect(isUsefulMissionProgressFingerprint("denied|x")).toBe(false);
++    expect(isUsefulMissionProgressFingerprint("?|x")).toBe(false);
++    expect(isUsefulMissionProgressFingerprint("")).toBe(false);
++    expect(isUsefulMissionProgressFingerprint("nofp")).toBe(false);
++    expect(isUsefulMissionProgressFingerprint("empty")).toBe(false);
++  });
++
++  it("BUD-09 — all distinct failed fingerprints never unlock extension", () => {
++    const guard = new MissionProgressGuard();
++    for (let i = 0; i < 5; i += 1) {
++      guard.observe({
++        toolName: "git_local_read_file",
++        targetKey: `fail-${i}.md`,
++        resultFingerprint: `fail|status:failed|${i}`,
++      });
++    }
++    expect(guard.snapshot().usefulCompletions).toBe(0);
++    expect(guard.hasVerifiableProgressForExtension()).toBe(false);
++  });
++
++  it("BUD-10 — stopped guard blocks extension even with useful delta", () => {
++    const guard = new MissionProgressGuard(3);
++    const sample = {
++      toolName: "git_local_read_file",
++      targetKey: "loop.md",
++      resultFingerprint: "ok|loop.md|1-1|1|f",
++    };
++    guard.observe(sample);
++    guard.observe(sample);
++    guard.observe(sample);
++    expect(guard.stopped).toBe(true);
++    guard.markExtensionConsumed();
++    expect(guard.hasVerifiableProgressForExtension()).toBe(false);
++  });
++
++  it("BUD-11 — fail then useful allows extension", () => {
++    const guard = new MissionProgressGuard();
++    guard.observe({
++      toolName: "git_local_read_file",
++      targetKey: "x.md",
++      resultFingerprint: "fail|status:failed",
++    });
++    expect(guard.hasVerifiableProgressForExtension()).toBe(false);
++    guard.observe({
++      toolName: "git_local_read_file",
++      targetKey: "y.md",
++      resultFingerprint: "ok|y.md|1-2|20|f",
++    });
++    expect(guard.hasVerifiableProgressForExtension()).toBe(true);
++  });
++
++  it("BUD-12 — snapshot tracks extension checkpoint", () => {
++    const guard = new MissionProgressGuard();
++    guard.observe({
++      toolName: "git_local_read_file",
++      targetKey: "a.md",
++      resultFingerprint: "ok|a.md|1-1|1|f",
++    });
++    guard.markExtensionConsumed();
++    const snap = guard.snapshot();
++    expect(snap.usefulCompletions).toBe(1);
++    expect(snap.usefulCompletionsAtExtension).toBe(1);
++  });
++
++  it("BUD-13 — distinct fail targets do not count as useful completions", () => {
++    const guard = new MissionProgressGuard();
++    guard.observe({
++      toolName: "git_local_read_file",
++      targetKey: "a.md",
++      resultFingerprint: missionProgressResultFingerprint({ ok: false, data: { path: "a.md" } }),
++    });
++    guard.observe({
++      toolName: "git_local_read_file",
++      targetKey: "b.md",
++      resultFingerprint: missionProgressResultFingerprint({
++        status: "denied",
++        data: { path: "b.md" },
++      }),
++    });
++    expect(guard.snapshot().usefulCompletions).toBe(0);
++    expect(guard.snapshot().fingerprintCount).toBe(2);
++  });
++
++  it("BUD-14 — useful consumed then only fails keeps gate closed", () => {
++    const guard = new MissionProgressGuard();
++    guard.observe({
++      toolName: "git_local_read_file",
++      targetKey: "good.md",
++      resultFingerprint: "ok|good.md|1-3|30|f",
++    });
++    guard.markExtensionConsumed();
++    for (const target of ["f1.md", "f2.md", "f3.md"]) {
++      guard.observe({
++        toolName: "git_local_read_file",
++        targetKey: target,
++        resultFingerprint: `fail|${target}`,
++      });
++    }
++    expect(guard.hasVerifiableProgressForExtension()).toBe(false);
++  });
++
++  it("distinct result fingerprints on same target reset streak", () => {
++    const guard = new MissionProgressGuard(3);
++    const tool = "git_local_read_file";
++    const target = "doc.md@1-50";
++    const fpA = missionProgressResultFingerprint({
++      ok: true,
++      data: { returnedStartLine: 1, returnedEndLine: 10, bytes: 50, truncated: false },
++    });
++    const fpB = missionProgressResultFingerprint({
++      ok: true,
++      data: { returnedStartLine: 11, returnedEndLine: 20, bytes: 50, truncated: false },
++    });
++    guard.observe({ toolName: tool, targetKey: target, resultFingerprint: fpA });
++    guard.observe({ toolName: tool, targetKey: target, resultFingerprint: fpA });
++    const afterAdvance = guard.observe({
++      toolName: tool,
++      targetKey: target,
++      resultFingerprint: fpB,
++    });
++    expect(afterAdvance.action).toBe("continue");
++    expect(afterAdvance.reasonCodes).toContain("progress_streak:1");
++  });
++});
++
++describe("missionProgressTargetKey", () => {
++  it("includes line window for read_file", () => {
++    expect(
++      missionProgressTargetKey("git_local_read_file", {
++        path: "doc.md",
++        startLine: 10,
++        endLine: 20,
++      }),
++    ).toBe("doc.md@10-20");
++  });
++
++  it("distinguishes path-only reads", () => {
++    expect(
++      missionProgressTargetKey("git_local_read_file", { path: "doc.md" }),
++    ).toBe("doc.md");
++  });
++});
++
++describe("MissionProgressGuard — Product tool adapters", () => {
++  it("stops runNoraAgentsTurn after three identical read targets", async () => {
++    const path = "projects/sfia-studio/app/package.json";
++    const model = new ScriptedModel([
++      [
++        functionCall(
++          "git_local_read_file",
++          { path, maxBytes: 512 },
++          { callId: "loop1" },
++        ),
++      ],
++      [
++        functionCall(
++          "git_local_read_file",
++          { path, maxBytes: 512 },
++          { callId: "loop2" },
++        ),
++      ],
++      [
++        functionCall(
++          "git_local_read_file",
++          { path, maxBytes: 512 },
++          { callId: "loop3" },
++        ),
++      ],
++      [assistantMessage("unreachable")],
++    ]);
++    const turn = await runNoraAgentsTurn({
++      correlationId: "cor:mission-progress-guard",
++      projectId: "prj:mission-progress-guard",
++      systemInstructions: sfiaBoundaryInstructions(),
++      userContent: "Read the same file repeatedly.",
++      model,
++      enableTools: true,
++      workspaceRoot: resolveWorkspaceRootFromAppCwd(),
++      maxTurns: 8,
++    });
++    expect(turn.toolCalls).toBeGreaterThanOrEqual(3);
++    expect(turn.limitReached).toBe(true);
++    expect(turn.continuationObserve?.stopReason).toBe("mission_no_progress");
++    expect(turn.continuationObserve?.reasonCodes).toContain(
++      "mission_no_progress_repeat",
++    );
++    expect(turn.text).toBe(MISSION_NO_PROGRESS_STOP_STOCK);
++  });
++});
+diff --git a/projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.extendedCorpusCaps.d0.test.ts b/projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.extendedCorpusCaps.d0.test.ts
+new file mode 100644
+index 00000000..181243c6
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.extendedCorpusCaps.d0.test.ts
+@@ -0,0 +1,57 @@
++/**
++ * P6 — Large documentary corpus delivery caps (deterministic).
++ * ZERO REAL / ZERO OpenAI.
++ * @vitest-environment node
++ */
++import { describe, expect, it } from "vitest";
++import {
++  CT_DEFAULT_READ_MAX_BYTES,
++  CT_MAX_TOOL_RESULT_CHARS,
++} from "@/lib/platform/tools/types";
++import { prepareGitLocalReadDataForModel } from "@/lib/platform/tools/toolRouter";
++
++describe("P6 extended documentary corpus caps", () => {
++  it("raises tool-result and default read caps for long documents", () => {
++    expect(CT_MAX_TOOL_RESULT_CHARS).toBe(100_000);
++    expect(CT_DEFAULT_READ_MAX_BYTES).toBe(200_000);
++    // Former experimental universal 12k is no longer the Product ceiling.
++    expect(CT_MAX_TOOL_RESULT_CHARS).toBeGreaterThan(12_000);
++  });
++
++  it("returns a ~90k character document within the raised model envelope", () => {
++    const body = `${"α".repeat(90_000)}\n`;
++    const prepared = prepareGitLocalReadDataForModel({
++      path: "docs/long.md",
++      content: body,
++      startLine: 1,
++      endLine: 1,
++      requestedStartLine: 1,
++      requestedEndLine: 1,
++      returnedStartLine: 1,
++      totalLines: 1,
++      documentHasMore: false,
++      truncated: false,
++    });
++    expect(prepared.json.length).toBeLessThanOrEqual(CT_MAX_TOOL_RESULT_CHARS);
++    expect(typeof prepared.data).toBe("object");
++  });
++
++  it("keeps short documents fully within the raised envelope", () => {
++    const body = "short doc\nline 2\n";
++    const prepared = prepareGitLocalReadDataForModel({
++      path: "docs/short.md",
++      content: body,
++      startLine: 1,
++      endLine: 2,
++      requestedStartLine: 1,
++      requestedEndLine: 2,
++      returnedStartLine: 1,
++      totalLines: 2,
++      documentHasMore: false,
++      truncated: false,
++    });
++    expect(prepared.json.length).toBeLessThanOrEqual(CT_MAX_TOOL_RESULT_CHARS);
++    expect(prepared.json).toContain("short doc");
++    expect(prepared.truncated).toBe(false);
++  });
++});
 diff --git a/projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.maxTurns.documentary.d0.test.ts b/projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.maxTurns.documentary.d0.test.ts
 index 6c4b0350..3a4e9f2b 100644
 --- a/projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.maxTurns.documentary.d0.test.ts
@@ -803,6 +1268,1410 @@ index 43e466f5..5a514850 100644
    });
 
    it("CR-TV01-01c — multi-document analysis wording still elevates via Product hints", () => {
+diff --git a/projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.productiveExtension.d0.test.ts b/projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.productiveExtension.d0.test.ts
+new file mode 100644
+index 00000000..f0302cc9
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.productiveExtension.d0.test.ts
+@@ -0,0 +1,265 @@
++/**
++ * R-EXT-02 — Productive mission budget extension (deterministic).
++ * ZERO REAL / ZERO OpenAI.
++ * @vitest-environment node
++ */
++import { afterEach, describe, expect, it } from "vitest";
++import fs from "node:fs";
++import os from "node:os";
++import path from "node:path";
++import {
++  ScriptedModel,
++  assistantMessage,
++  functionCall,
++} from "@openai/agents/testing";
++import { resolveWorkspaceRootFromAppCwd } from "@/lib/platform/repository/workspaceRoot";
++import {
++  ADAPTIVE_MAX_TURNS_SAFETY_ENVELOPE,
++  ProductSqliteSession,
++  runNoraAgentsTurn,
++  sfiaBoundaryInstructions,
++} from "@/lib/nora-cognitive-runtime";
++import { PRODUCTIVE_EXTENSION_MAX } from "@/lib/nora-cognitive-runtime/controlledContinuation";
++import {
++  MISSION_NO_PROGRESS_REPEAT_LIMIT,
++  MissionProgressGuard,
++  missionProgressResultFingerprint,
++} from "@/lib/nora-cognitive-runtime/missionProgressGuard";
++
++const DOC_PATH = "projects/sfia-studio/app/package.json";
++const COMPLETE_MARKER = "PRODUCTIVE_EXT_COMPLETE";
++
++const dirs: string[] = [];
++
++function tmpSession(projectId: string): ProductSqliteSession {
++  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "p6-ext-"));
++  dirs.push(dir);
++  return new ProductSqliteSession({
++    projectId,
++    dbPath: path.join(dir, "session.sqlite"),
++  });
++}
++
++afterEach(() => {
++  while (dirs.length) {
++    const d = dirs.pop();
++    if (d) fs.rmSync(d, { recursive: true, force: true });
++  }
++});
++
++function readWindow(pass: number) {
++  const startLine = (pass - 1) * 8 + 1;
++  return {
++    path: DOC_PATH,
++    maxBytes: 2048,
++    startLine,
++    endLine: startLine + 7,
++  };
++}
++
++function sevenTurnDocumentaryScript() {
++  return [
++    [functionCall("git_local_read_file", readWindow(1), { callId: "e1" })],
++    [functionCall("git_local_read_file", readWindow(2), { callId: "e2" })],
++    [functionCall("git_local_read_file", readWindow(3), { callId: "e3" })],
++    [functionCall("git_local_read_file", readWindow(4), { callId: "e4" })],
++    [functionCall("git_local_read_file", readWindow(5), { callId: "e5" })],
++    [functionCall("git_local_read_file", readWindow(6), { callId: "e6" })],
++    [assistantMessage(`${COMPLETE_MARKER} — synthesis after six reads.`)],
++  ];
++}
++
++describe("R-EXT-02 — MissionProgressGuard extension signals", () => {
++  it("exports safety envelope and productive extension cap", () => {
++    expect(ADAPTIVE_MAX_TURNS_SAFETY_ENVELOPE).toBe(36);
++    expect(PRODUCTIVE_EXTENSION_MAX).toBe(3);
++  });
++
++  it("BUD-02/03/04 — useful unlocks extension; checkpoint; new useful reopens", () => {
++    const guard = new MissionProgressGuard(MISSION_NO_PROGRESS_REPEAT_LIMIT);
++    expect(guard.hasVerifiableProgressForExtension()).toBe(false);
++
++    const fp1 = missionProgressResultFingerprint({
++      ok: true,
++      data: {
++        path: "a.md",
++        returnedStartLine: 1,
++        returnedEndLine: 10,
++        bytes: 100,
++        truncated: false,
++      },
++    });
++    guard.observe({
++      toolName: "git_local_read_file",
++      targetKey: "a.md@1-10",
++      resultFingerprint: fp1,
++    });
++    expect(guard.hasVerifiableProgressForExtension()).toBe(true);
++
++    guard.markExtensionConsumed();
++    expect(guard.hasVerifiableProgressForExtension()).toBe(false);
++
++    const fp2 = missionProgressResultFingerprint({
++      ok: true,
++      data: {
++        path: "a.md",
++        returnedStartLine: 11,
++        returnedEndLine: 20,
++        bytes: 100,
++        truncated: false,
++      },
++    });
++    guard.observe({
++      toolName: "git_local_read_file",
++      targetKey: "a.md@11-20",
++      resultFingerprint: fp2,
++    });
++    expect(guard.hasVerifiableProgressForExtension()).toBe(true);
++  });
++
++  it("BUD-06 — identical useful fingerprint does not add useful completions", () => {
++    const guard = new MissionProgressGuard(3);
++    const sample = {
++      toolName: "git_local_read_file",
++      targetKey: "doc.md",
++      resultFingerprint: "ok|doc.md|1-5|100|f",
++    };
++    guard.observe(sample);
++    guard.observe(sample);
++    guard.markExtensionConsumed();
++    expect(guard.snapshot().usefulCompletions).toBe(1);
++    expect(guard.hasVerifiableProgressForExtension()).toBe(false);
++  });
++
++  it("BUD-05/09/14 — fail-only fingerprints never unlock extension after checkpoint", () => {
++    const guard = new MissionProgressGuard(MISSION_NO_PROGRESS_REPEAT_LIMIT);
++    const okFp = missionProgressResultFingerprint({
++      ok: true,
++      data: {
++        path: "seed.md",
++        returnedStartLine: 1,
++        returnedEndLine: 3,
++        bytes: 40,
++        truncated: false,
++      },
++    });
++    guard.observe({
++      toolName: "git_local_read_file",
++      targetKey: "seed.md",
++      resultFingerprint: okFp,
++    });
++    guard.markExtensionConsumed();
++    for (let i = 0; i < 4; i += 1) {
++      guard.observe({
++        toolName: "git_local_read_file",
++        targetKey: `miss-${i}.md`,
++        resultFingerprint: missionProgressResultFingerprint({
++          ok: false,
++          data: { path: `miss-${i}.md` },
++        }),
++      });
++    }
++    expect(guard.hasVerifiableProgressForExtension()).toBe(false);
++  });
++
++  it("identical tool+target+fingerprint streak stops at repeat limit", () => {
++    const guard = new MissionProgressGuard(3);
++    const sample = {
++      toolName: "git_local_read_file",
++      targetKey: "doc.md",
++      resultFingerprint: "ok|doc.md|1-5|100|f",
++    };
++    guard.observe(sample);
++    guard.observe(sample);
++    const third = guard.observe(sample);
++    expect(third.action).toBe("stop_no_progress");
++  });
++
++  it("distinct fingerprints on same target reset streak (advancing windows)", () => {
++    const guard = new MissionProgressGuard(3);
++    const tool = "git_local_read_file";
++    const target = "doc.md@1-100";
++    guard.observe({
++      toolName: tool,
++      targetKey: target,
++      resultFingerprint: "ok|doc.md|1-10|100|f",
++    });
++    guard.observe({
++      toolName: tool,
++      targetKey: target,
++      resultFingerprint: "ok|doc.md|1-10|100|f",
++    });
++    const afterNewWindow = guard.observe({
++      toolName: tool,
++      targetKey: target,
++      resultFingerprint: "ok|doc.md|11-20|100|f",
++    });
++    expect(afterNewWindow.action).toBe("continue");
++    expect(afterNewWindow.reasonCodes).toContain("progress_streak:1");
++  });
++});
++
++describe("R-EXT-02 — productive extension integration (ScriptedModel)", () => {
++  it("mission maxTurns=6 continues via productive extension when reads advance", async () => {
++    const session = tmpSession("prj:p6-productive-ext");
++    const model = new ScriptedModel(sevenTurnDocumentaryScript());
++    const result = await runNoraAgentsTurn({
++      correlationId: "p6-productive-ext",
++      projectId: "prj:p6-productive-ext",
++      systemInstructions: sfiaBoundaryInstructions(),
++      userContent:
++        "Guided Document Review: read package.json in six passes then synthesize.",
++      session,
++      model,
++      workspaceRoot: resolveWorkspaceRootFromAppCwd(),
++      enableTools: true,
++      enableControlledContinuation: true,
++      cognitiveStrategyClass: "Deep",
++      adaptiveMaxTurnsDecision: {
++        requestedMaxTurns: 6,
++        strategyClass: "Deep",
++        reasonCodes: ["test_adaptive_pin_6"],
++        floor: 3,
++        ceiling: 24,
++        explicitOverride: false,
++      },
++    });
++
++    const ext = result.continuationObserve?.productiveExtensions ?? 0;
++    const codes = result.continuationObserve?.reasonCodes ?? [];
++    expect(
++      ext >= 1 || codes.some((c) => c.startsWith("productive_extension_")),
++    ).toBe(true);
++    expect(result.limitReached).toBe(false);
++    expect(result.text).toContain(COMPLETE_MARKER);
++    session.close();
++  });
++
++  it("explicit maxTurns pins safety envelope — no productive extension beyond explicit cap", async () => {
++    const session = tmpSession("prj:p6-explicit-cap");
++    const model = new ScriptedModel(sevenTurnDocumentaryScript());
++    const explicitMax = 8;
++    const result = await runNoraAgentsTurn({
++      correlationId: "p6-explicit-cap",
++      projectId: "prj:p6-explicit-cap",
++      systemInstructions: sfiaBoundaryInstructions(),
++      userContent:
++        "Guided Document Review: read package.json in six passes then synthesize.",
++      session,
++      model,
++      workspaceRoot: resolveWorkspaceRootFromAppCwd(),
++      enableTools: true,
++      maxTurns: explicitMax,
++      enableControlledContinuation: true,
++    });
++
++    expect(result.continuationObserve?.safetyEnvelope).toBe(explicitMax);
++    expect(result.continuationObserve?.productiveExtensions ?? 0).toBe(0);
++    expect(
++      (result.continuationObserve?.reasonCodes ?? []).some((c) =>
++        c.startsWith("productive_extension_"),
++      ),
++    ).toBe(false);
++    session.close();
++  });
++});
+diff --git a/projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.representativeCorpus.d0.test.ts b/projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.representativeCorpus.d0.test.ts
+new file mode 100644
+index 00000000..fda99e32
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.representativeCorpus.d0.test.ts
+@@ -0,0 +1,192 @@
++/**
++ * R-EXT-04 — Representative documentary corpus (deterministic).
++ * ZERO REAL / ZERO OpenAI.
++ * @vitest-environment node
++ */
++import fs from "node:fs";
++import os from "node:os";
++import path from "node:path";
++import { afterEach, describe, expect, it, vi } from "vitest";
++import {
++  ScriptedModel,
++  assistantMessage,
++  functionCall,
++} from "@openai/agents/testing";
++import { collectToolTelemetry } from "@/features/project-assistant/collectToolTelemetry";
++import { GitLocalReadAdapter } from "@/lib/platform/repository/gitLocalReadAdapter";
++import {
++  CT_MAX_TOOL_RESULT_CHARS,
++  CT_DEFAULT_READ_MAX_BYTES,
++} from "@/lib/platform/tools/types";
++import {
++  createToolCallId,
++  prepareGitLocalReadDataForModel,
++  routeToolCall,
++} from "@/lib/platform/tools/toolRouter";
++import type { TechnicalEvent } from "@/lib/platform/observability/types";
++import {
++  runNoraAgentsTurn,
++  sfiaBoundaryInstructions,
++} from "@/lib/nora-cognitive-runtime";
++
++const dirs: string[] = [];
++
++function initGitRepo(root: string): void {
++  // eslint-disable-next-line @typescript-eslint/no-require-imports
++  const { execFileSync } = require("node:child_process") as typeof import("node:child_process");
++  execFileSync("git", ["init"], { cwd: root });
++  execFileSync("git", ["config", "user.email", "test@example.com"], {
++    cwd: root,
++  });
++  execFileSync("git", ["config", "user.name", "test"], { cwd: root });
++  execFileSync("git", ["add", "."], { cwd: root });
++  execFileSync("git", ["commit", "-m", "init"], { cwd: root });
++}
++
++function tmpCorpusRepo(docSpecs: { rel: string; body: string }[]): string {
++  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "p6-corpus-"));
++  dirs.push(dir);
++  for (const spec of docSpecs) {
++    fs.mkdirSync(path.join(dir, path.dirname(spec.rel)), { recursive: true });
++    fs.writeFileSync(path.join(dir, spec.rel), spec.body, "utf8");
++  }
++  initGitRepo(dir);
++  return dir;
++}
++
++function corpusReadScript(relPaths: string[]): unknown[][] {
++  const steps: unknown[][] = relPaths.map((rel, i) => [
++    functionCall(
++      "git_local_read_file",
++      { path: rel, maxBytes: CT_DEFAULT_READ_MAX_BYTES },
++      { callId: `corpus-read-${i + 1}` },
++    ),
++  ]);
++  steps.push([
++    assistantMessage(
++      `Corpus review complete — ${relPaths.length} documents read.`,
++    ),
++  ]);
++  return steps;
++}
++
++afterEach(() => {
++  vi.restoreAllMocks();
++  while (dirs.length) {
++    const d = dirs.pop();
++    if (d) fs.rmSync(d, { recursive: true, force: true });
++  }
++});
++
++describe("R-EXT-04 — representative corpus capacity", () => {
++  it("~90k char mono-doc: adapter read + prepareGitLocalReadDataForModel within CT_MAX_TOOL_RESULT_CHARS", () => {
++    const token = "FACT_MONO_90K_UNIQUE_ALPHA";
++    const body = `${token}\n${"ζ".repeat(90_000 - token.length - 1)}\n`;
++    const rel = "projects/sfia-studio/docs/mono-long.md";
++    const root = tmpCorpusRepo([{ rel, body }]);
++    const adapter = new GitLocalReadAdapter(root);
++    const read = adapter.readFile(rel, CT_DEFAULT_READ_MAX_BYTES);
++    expect(read.truncated).toBe(false);
++    expect(read.content).toContain(token);
++
++    const prepared = prepareGitLocalReadDataForModel({
++      path: rel,
++      content: read.content,
++      startLine: read.startLine,
++      endLine: read.returnedEndLine ?? read.endLine,
++      requestedStartLine: read.startLine,
++      requestedEndLine: read.endLine,
++      returnedStartLine: read.returnedStartLine,
++      totalLines: read.totalLines,
++      documentHasMore: read.documentHasMore,
++      truncated: read.truncated,
++    });
++    expect(prepared.json.length).toBeLessThanOrEqual(CT_MAX_TOOL_RESULT_CHARS);
++    expect(prepared.json).toContain(token);
++  });
++
++  for (const count of [5, 10, 15] as const) {
++    it(`${count} docs — runNoraAgentsTurn reads each doc; FACT-i in tool payloads`, async () => {
++      const relPaths = Array.from(
++        { length: count },
++        (_, i) => `projects/sfia-studio/docs/corpus/doc-${i + 1}.md`,
++      );
++      const specs = relPaths.map((rel, i) => ({
++        rel,
++        body: `FACT-${i + 1}-UNIQUE\nline-${i + 1}-body\n`,
++      }));
++      const root = tmpCorpusRepo(specs);
++      const events: TechnicalEvent[] = [];
++      const toolPayloads: string[] = [];
++
++      const routeModule = await import("@/lib/platform/tools/toolRouter");
++      const originalRoute = routeModule.routeToolCall;
++      vi.spyOn(routeModule, "routeToolCall").mockImplementation(
++        async (request, ctx) => {
++          const result = await originalRoute(request, ctx);
++          if (result.ok && request.name === "git_local_read_file") {
++            toolPayloads.push(JSON.stringify(result.data));
++          }
++          return result;
++        },
++      );
++
++      const turn = await runNoraAgentsTurn({
++        correlationId: `p6-corpus-${count}`,
++        projectId: `prj:p6-corpus-${count}`,
++        systemInstructions: sfiaBoundaryInstructions(),
++        userContent: `Read all ${count} corpus documents in order.`,
++        model: new ScriptedModel(corpusReadScript(relPaths) as never),
++        workspaceRoot: root,
++        enableTools: true,
++        maxTurns: Math.max(24, count * 2 + 4),
++        sink: { emit: (e) => events.push(e) },
++      });
++
++      expect(turn.toolCalls).toBe(count);
++      expect(
++        events.filter((e) => e.type === "TOOL_SUCCEEDED").length,
++      ).toBe(count);
++
++      const haystack = [turn.text, JSON.stringify(events), ...toolPayloads].join(
++        "\n",
++      );
++      for (let i = 1; i <= count; i += 1) {
++        expect(haystack).toContain(`FACT-${i}-UNIQUE`);
++      }
++
++      const cov = collectToolTelemetry(events).readCoverage;
++      expect(cov.facts.length).toBeGreaterThanOrEqual(count);
++      expect(cov.facts.filter((f) => f.coverage === "full").length).toBe(
++        count,
++      );
++    });
++  }
++
++  it("partial range read — PARTIAL coverage, not FULL", async () => {
++    const rel = "projects/sfia-studio/docs/partial.md";
++    const lines = Array.from({ length: 40 }, (_, i) => `FACT-P-${i + 1}`).join(
++      "\n",
++    );
++    const root = tmpCorpusRepo([{ rel, body: `${lines}\n` }]);
++    const events: TechnicalEvent[] = [];
++    const result = await routeToolCall(
++      {
++        toolCallId: createToolCallId(),
++        name: "git_local_read_file",
++        arguments: { path: rel, startLine: 1, endLine: 5 },
++        sessionId: "p6-corpus-partial",
++      },
++      { workspaceRoot: root, sink: { emit: (e) => events.push(e) } },
++    );
++    expect(result.ok).toBe(true);
++    const cov = collectToolTelemetry(events).readCoverage;
++    expect(cov.facts[0]?.coverage).toBe("partial");
++    expect(cov.facts[0]?.coverage).not.toBe("full");
++    if (result.ok) {
++      const content = String((result.data as { content?: string }).content ?? "");
++      expect(content).toContain("FACT-P-1");
++      expect(content).not.toContain("FACT-P-40");
++    }
++  });
++});
+diff --git a/projects/sfia-studio/app/__tests__/nora-cognitive-runtime/runnerAbortSignal.d0.test.ts b/projects/sfia-studio/app/__tests__/nora-cognitive-runtime/runnerAbortSignal.d0.test.ts
+new file mode 100644
+index 00000000..41b0409c
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/nora-cognitive-runtime/runnerAbortSignal.d0.test.ts
+@@ -0,0 +1,111 @@
++/**
++ * P6 — AbortSignal reaches Agents runner mid tool sequence (deterministic).
++ * ZERO REAL / ZERO OpenAI.
++ * @vitest-environment node
++ */
++import fs from "node:fs";
++import os from "node:os";
++import path from "node:path";
++import { afterEach, describe, expect, it } from "vitest";
++import type { Model, ModelRequest, ModelResponse } from "@openai/agents";
++import {
++  ScriptedModel,
++  assistantMessage,
++  functionCall,
++} from "@openai/agents/testing";
++import {
++  runNoraAgentsTurn,
++  sfiaBoundaryInstructions,
++} from "@/lib/nora-cognitive-runtime";
++import { NoraTurnAbortedError, abortError } from "@/lib/nora-cognitive-runtime/noraTurnAbort";
++
++const dirs: string[] = [];
++
++function tmpReadRepo(relPath: string, body: string): string {
++  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "p6-abort-read-"));
++  dirs.push(dir);
++  fs.mkdirSync(path.join(dir, path.dirname(relPath)), { recursive: true });
++  fs.writeFileSync(path.join(dir, relPath), body, "utf8");
++  // eslint-disable-next-line @typescript-eslint/no-require-imports
++  const { execFileSync } = require("node:child_process") as typeof import("node:child_process");
++  execFileSync("git", ["init"], { cwd: dir });
++  execFileSync("git", ["config", "user.email", "t@e.com"], { cwd: dir });
++  execFileSync("git", ["config", "user.name", "t"], { cwd: dir });
++  execFileSync("git", ["add", "."], { cwd: dir });
++  execFileSync("git", ["commit", "-m", "init"], { cwd: dir });
++  return dir;
++}
++
++function abortAfterFirstToolModel(
++  relPath: string,
++  hooks: { onSecondModelCall?: () => void; modelCalls?: number },
++): Model {
++  const inner = new ScriptedModel([
++    [functionCall("git_local_read_file", { path: relPath }, { callId: "r1" })],
++    [functionCall("git_local_read_file", { path: relPath }, { callId: "r2" })],
++    [functionCall("git_local_read_file", { path: relPath }, { callId: "r3" })],
++    [assistantMessage("unreachable-after-abort")],
++  ]);
++  let calls = 0;
++  return {
++    async getResponse(request: ModelRequest): Promise<ModelResponse> {
++      calls += 1;
++      hooks.modelCalls = calls;
++      if (calls === 1) {
++        return inner.getResponse(request);
++      }
++      if (calls === 2) {
++        hooks.onSecondModelCall?.();
++      }
++      await new Promise<void>((_resolve, reject) => {
++        const fail = () => reject(abortError());
++        if (request.signal?.aborted) {
++          fail();
++          return;
++        }
++        request.signal?.addEventListener("abort", fail, { once: true });
++      });
++      throw new Error("unreachable");
++    },
++    async *getStreamedResponse(): AsyncIterable<never> {
++      throw new Error("streaming not used");
++    },
++  };
++}
++
++afterEach(() => {
++  while (dirs.length) {
++    const d = dirs.pop();
++    if (d) fs.rmSync(d, { recursive: true, force: true });
++  }
++});
++
++describe("P6 — runner AbortSignal mid tool sequence", () => {
++  it("aborts during multi-step ScriptedModel tools — one read, no final assistant", async () => {
++    const rel = "projects/sfia-studio/docs/abort-probe.md";
++    const root = tmpReadRepo(rel, "ABORT_PROBE_FACT\n");
++    const hooks: { onSecondModelCall?: () => void; modelCalls?: number } = {};
++    const controller = new AbortController();
++
++    const pending = runNoraAgentsTurn({
++      correlationId: "p6-runner-abort-mid-tools",
++      projectId: "prj:runner-abort",
++      systemInstructions: sfiaBoundaryInstructions(),
++      userContent: "Read the probe file repeatedly.",
++      model: abortAfterFirstToolModel(rel, hooks),
++      workspaceRoot: root,
++      enableTools: true,
++      maxTurns: 12,
++      signal: controller.signal,
++    });
++
++    const started = Date.now();
++    while (hooks.modelCalls !== 2 && Date.now() - started < 5000) {
++      await new Promise((r) => setTimeout(r, 15));
++    }
++    expect(hooks.modelCalls).toBe(2);
++    controller.abort();
++
++    await expect(pending).rejects.toBeInstanceOf(NoraTurnAbortedError);
++  });
++});
+diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/conversationSurface.liveActivityStop.d0.test.tsx b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/conversationSurface.liveActivityStop.d0.test.tsx
+new file mode 100644
+index 00000000..cfd15ca4
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/conversationSurface.liveActivityStop.d0.test.tsx
+@@ -0,0 +1,277 @@
++/** @vitest-environment jsdom */
++/**
++ * P6 — REAL ConversationSurface (React + RTL), not static CSS harness HTML.
++ * Proves idle Send, working Stop + in-thread Nora activity, live activity
++ * timeline disclosure, and stopped / incomplete banners via data-testid contract.
++ * ZERO OpenAI / ZERO :3020.
++ */
++import { cleanup, fireEvent, render, screen, within } from "@testing-library/react";
++import userEvent from "@testing-library/user-event";
++import { afterEach, describe, expect, it, vi } from "vitest";
++import { ConversationSurface } from "@/features/pre-m6-product-ui/surfaces/ConversationSurface";
++import type { ProductConversationController } from "@/features/pre-m6-product-ui/hooks/useProductConversation";
++import type { NoraLiveActivityEvent } from "@/features/project-assistant/liveActivityEvents";
++
++afterEach(() => {
++  cleanup();
++});
++
++function stubController(
++  overrides: Partial<ProductConversationController>,
++): ProductConversationController {
++  return {
++    listRef: { current: null },
++    messages: [],
++    draft: "",
++    setDraft: vi.fn(),
++    toolEvents: [],
++    liveActivityEvents: [],
++    uiState: "READY",
++    error: null,
++    executionIncomplete: false,
++    modeLabel: "fixture",
++    ephemeralNotice: "notice",
++    lrMaterializeNotice: null,
++    lrMaterializeCode: null,
++    f2: null,
++    activeProposal: null,
++    reservesText: "",
++    setReservesText: vi.fn(),
++    f3Prepare: null,
++    f3M3Resolved: null,
++    f3Execute: null,
++    durableEvidenceOutcome: null,
++    durableRehydrateError: null,
++    focusTurnId: null,
++    clearFocusTurn: vi.fn(),
++    busy: false,
++    blocked: false,
++    canSend: true,
++    stopAvailable: false,
++    stopCurrentResponse: vi.fn(),
++    gateOpen: false,
++    recommendationFreshness: "none",
++    qualificationFreshness: "none",
++    durableOutcomeFreshness: "none",
++    canPrepareResolvedM3: false,
++    canPrepareLegacyFixture: false,
++    canConfirmResolvedM3: false,
++    canConfirmLegacyFixture: false,
++    canRefreshResolvedM3Running: false,
++    sendMessage: vi.fn(),
++    decide: vi.fn(),
++    prepareResolvedM3: vi.fn(),
++    prepareLegacyFixture: vi.fn(),
++    confirmAndExecuteResolvedM3: vi.fn(),
++    confirmAndExecuteLegacyFixture: vi.fn(),
++    refreshResolvedM3RunningAttempt: vi.fn(),
++    retryLastUserMessage: vi.fn(),
++    reservationResolutionProposal: null,
++    transcriptAvailability: "available",
++    openContinuityPresentation: null,
++    journalEntries: [],
++    journalCycleInstanceId: null,
++    selectedJournalEntryId: null,
++    setSelectedJournalEntryId: vi.fn(),
++    focusJournalExchanges: vi.fn(),
++    focusTranscriptTurn: vi.fn(),
++    refreshConversationContinuity: vi.fn(),
++    armReinstructionOfProposalId: vi.fn(),
++    armedReinstructionOfProposalId: null,
++    armReservationInteractionContext: vi.fn(),
++    armedReservationInteractionContext: null,
++    clearReservationResolutionProposal: vi.fn(),
++    ...overrides,
++  } as ProductConversationController;
++}
++
++const SAMPLE_EVENTS: readonly NoraLiveActivityEvent[] = [
++  {
++    kind: "mission_started",
++    seq: 1,
++    at: "2026-10-14T12:00:00.000Z",
++    label: "Mission démarrée",
++  },
++  {
++    kind: "tool_started",
++    seq: 2,
++    at: "2026-10-14T12:00:01.000Z",
++    label: "Lecture du dépôt",
++    toolName: "read_file",
++    sourcePath: "docs/plan.md",
++  },
++  {
++    kind: "activity_update",
++    seq: 3,
++    at: "2026-10-14T12:00:02.000Z",
++    label: "Analyse en cours…",
++  },
++];
++
++describe("ConversationSurface live activity + Stop (REAL React DET)", () => {
++  it("idle — stopAvailable false shows Envoyer, hides Arrêter", () => {
++    render(
++      <ConversationSurface
++        controller={stubController({
++          stopAvailable: false,
++          busy: false,
++          canSend: true,
++          draft: "Bonjour Nora",
++          uiState: "READY",
++        })}
++      />,
++    );
++
++    expect(screen.queryByTestId("project-assistant-stop")).toBeNull();
++    const send = screen.getByTestId("project-assistant-send");
++    expect(send).toHaveTextContent("Envoyer");
++    expect(send).not.toBeDisabled();
++    expect(screen.getByTestId("project-assistant-status")).toHaveAttribute(
++      "data-nora-stop",
++      "unavailable",
++    );
++    expect(
++      screen.queryByTestId("project-assistant-nora-activity"),
++    ).toBeNull();
++  });
++
++  it("working — stopAvailable true + in-thread activity shows Arrêter and live label", () => {
++    render(
++      <ConversationSurface
++        controller={stubController({
++          busy: true,
++          canSend: false,
++          stopAvailable: true,
++          uiState: "ASSISTANT_WORKING",
++          messages: [
++            { id: "m-user-1", role: "user", content: "Analyser le périmètre." },
++          ],
++        })}
++      />,
++    );
++
++    expect(screen.queryByTestId("project-assistant-send")).toBeNull();
++    const stop = screen.getByTestId("project-assistant-stop");
++    expect(stop).toHaveTextContent("Arrêter");
++    expect(stop).toHaveAttribute("aria-label", "Arrêter la réponse de Nora");
++
++    const activity = screen.getByTestId("project-assistant-nora-activity");
++    expect(screen.getByTestId("project-assistant-messages").contains(activity)).toBe(
++      true,
++    );
++    expect(
++      screen.getByTestId("project-assistant-nora-activity-label"),
++    ).toHaveTextContent("Nora travaille…");
++    expect(activity).toHaveAttribute("data-nora-stop", "available");
++  });
++
++  it("liveActivityEvents — Détail de l’activité lists timeline events", () => {
++    render(
++      <ConversationSurface
++        controller={stubController({
++          busy: true,
++          canSend: false,
++          stopAvailable: true,
++          uiState: "ASSISTANT_WORKING",
++          liveActivityEvents: [...SAMPLE_EVENTS],
++          messages: [
++            { id: "m-user-1", role: "user", content: "Mission longue." },
++          ],
++        })}
++      />,
++    );
++
++    expect(
++      screen.getByTestId("project-assistant-nora-activity-label"),
++    ).toHaveTextContent("Analyse en cours…");
++
++    const details = screen.getByTestId("project-assistant-nora-activity-details");
++    expect(within(details).getByText("Détail de l’activité")).toBeInTheDocument();
++
++    fireEvent.click(within(details).getByText("Détail de l’activité"));
++
++    const timeline = details.querySelector("ol");
++    expect(timeline).toBeTruthy();
++    expect(timeline!.textContent).toMatch(/mission_started/);
++    expect(timeline!.textContent).toMatch(/Mission démarrée/);
++    expect(timeline!.textContent).toMatch(/tool_started/);
++    expect(timeline!.textContent).toMatch(/Lecture du dépôt/);
++    expect(timeline!.textContent).toMatch(/activity_update/);
++  });
++
++  it("STOPPED banner — Réponse interrompue + retry; Send returns when idle", () => {
++    render(
++      <ConversationSurface
++        controller={stubController({
++          busy: false,
++          canSend: true,
++          stopAvailable: false,
++          uiState: "STOPPED",
++          error: null,
++          draft: "",
++        })}
++      />,
++    );
++
++    expect(screen.getByTestId("project-assistant-stopped")).toHaveTextContent(
++      "Réponse interrompue",
++    );
++    expect(screen.getByTestId("project-assistant-retry-stopped")).toHaveTextContent(
++      "Réessayer",
++    );
++    expect(
++      screen.queryByTestId("project-assistant-incomplete-surface"),
++    ).toBeNull();
++    expect(screen.getByTestId("project-assistant-send")).toBeInTheDocument();
++  });
++
++  it("executionIncomplete — Analyse inachevée banner on REAL panel root", () => {
++    render(
++      <ConversationSurface
++        controller={stubController({
++          busy: false,
++          canSend: true,
++          stopAvailable: false,
++          uiState: "ANSWERED",
++          executionIncomplete: true,
++          messages: [
++            { id: "m-user-1", role: "user", content: "Question." },
++            {
++              id: "m-asst-1",
++              role: "assistant",
++              content: "Réponse partielle (budget).",
++            },
++          ],
++        })}
++      />,
++    );
++
++    const panel = screen.getByTestId("project-assistant-panel");
++    expect(panel.getAttribute("data-execution-incomplete")).toBe("true");
++    expect(
++      screen.getByTestId("project-assistant-incomplete-surface"),
++    ).toHaveTextContent("Analyse inachevée");
++    expect(
++      screen.getByTestId("project-assistant-incomplete-notice").textContent,
++    ).toMatch(/limite|inachev|analyse complète/i);
++    expect(screen.queryByTestId("project-assistant-stopped")).toBeNull();
++  });
++
++  it("Stop click invokes stopCurrentResponse once", async () => {
++    const stopCurrentResponse = vi.fn();
++    const user = userEvent.setup();
++    render(
++      <ConversationSurface
++        controller={stubController({
++          busy: true,
++          canSend: false,
++          stopAvailable: true,
++          uiState: "ASSISTANT_WORKING",
++          stopCurrentResponse,
++        })}
++      />,
++    );
++    await user.click(screen.getByTestId("project-assistant-stop"));
++    expect(stopCurrentResponse).toHaveBeenCalledTimes(1);
++  });
++});
+diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/sendCancellableAssistantTurn.ndjson.d0.test.ts b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/sendCancellableAssistantTurn.ndjson.d0.test.ts
+new file mode 100644
+index 00000000..143580c7
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/sendCancellableAssistantTurn.ndjson.d0.test.ts
+@@ -0,0 +1,107 @@
++/**
++ * P6 — NDJSON progressive send transport (deterministic).
++ * ZERO REAL / ZERO OpenAI.
++ * @vitest-environment node
++ */
++import { afterEach, describe, expect, it, vi } from "vitest";
++import { sendCancellableAssistantTurn } from "@/features/pre-m6-product-ui/hooks/sendCancellableAssistantTurn";
++import type { NoraLiveActivityEvent } from "@/features/project-assistant/liveActivityEvents";
++
++function ndjsonBody(lines: unknown[]): ReadableStream<Uint8Array> {
++  const encoder = new TextEncoder();
++  const text = lines.map((l) => `${JSON.stringify(l)}\n`).join("");
++  return new ReadableStream({
++    start(controller) {
++      controller.enqueue(encoder.encode(text));
++      controller.close();
++    },
++  });
++}
++
++describe("P6 sendCancellableAssistantTurn NDJSON", () => {
++  afterEach(() => {
++    vi.unstubAllGlobals();
++  });
++
++  it("emits activity events before the Product result", async () => {
++    const activities: NoraLiveActivityEvent[] = [];
++    const started: NoraLiveActivityEvent = {
++      kind: "mission_started",
++      seq: 1,
++      at: "2026-10-14T12:00:00.000Z",
++      label: "Nora démarre la mission",
++    };
++    const tool: NoraLiveActivityEvent = {
++      kind: "tool_started",
++      seq: 2,
++      at: "2026-10-14T12:00:01.000Z",
++      label: "Consultation en cours — git_local_read_file",
++      toolName: "git_local_read_file",
++    };
++    const result = {
++      ok: true,
++      status: "ok",
++      mode: "assisted",
++      assistantMessage: { role: "assistant", content: "done" },
++    };
++
++    vi.stubGlobal(
++      "fetch",
++      vi.fn(async () => ({
++        ok: true,
++        headers: {
++          get: (name: string) =>
++            name.toLowerCase() === "content-type"
++              ? "application/x-ndjson"
++              : null,
++        },
++        body: ndjsonBody([
++          { type: "activity", event: started },
++          { type: "activity", event: tool },
++          { type: "result", result },
++        ]),
++        json: async () => result,
++      })),
++    );
++
++    const out = await sendCancellableAssistantTurn(
++      { projectId: "proj_test", content: "hello" },
++      new AbortController().signal,
++      { onActivity: (e) => activities.push(e) },
++    );
++
++    expect(activities.map((a) => a.kind)).toEqual([
++      "mission_started",
++      "tool_started",
++    ]);
++    expect(out).toEqual(result);
++  });
++
++  it("falls back to JSON when content-type is application/json", async () => {
++    const result = {
++      ok: true,
++      status: "ok",
++      mode: "assisted",
++      assistantMessage: { role: "assistant", content: "json" },
++    };
++    vi.stubGlobal(
++      "fetch",
++      vi.fn(async () => ({
++        ok: true,
++        headers: {
++          get: (name: string) =>
++            name.toLowerCase() === "content-type"
++              ? "application/json"
++              : null,
++        },
++        body: null,
++        json: async () => result,
++      })),
++    );
++    const out = await sendCancellableAssistantTurn(
++      { projectId: "proj_test", content: "hello" },
++      new AbortController().signal,
++    );
++    expect(out).toEqual(result);
++  });
++});
+diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/serverCancellation.d0.test.ts b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/serverCancellation.d0.test.ts
+new file mode 100644
+index 00000000..77bce6a7
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/serverCancellation.d0.test.ts
+@@ -0,0 +1,162 @@
++/**
++ * R-EXT-05 — Server cancellation + NDJSON transport (deterministic).
++ * ZERO REAL / ZERO OpenAI.
++ * @vitest-environment node
++ */
++import { afterEach, describe, expect, it, vi } from "vitest";
++import { sendCancellableAssistantTurn } from "@/features/pre-m6-product-ui/hooks/sendCancellableAssistantTurn";
++import { terminalLiveActivityFromProductResult } from "@/features/project-assistant/liveActivityEvents";
++import type { NoraLiveActivityEvent } from "@/features/project-assistant/liveActivityEvents";
++
++function stopAvailable(input: {
++  cancellable: boolean;
++  blocked: boolean;
++  f3Busy: boolean;
++}): boolean {
++  return input.cancellable && !input.blocked && !input.f3Busy;
++}
++
++function ndjsonBody(lines: unknown[]): ReadableStream<Uint8Array> {
++  const encoder = new TextEncoder();
++  const text = lines.map((l) => `${JSON.stringify(l)}\n`).join("");
++  return new ReadableStream({
++    start(controller) {
++      controller.enqueue(encoder.encode(text));
++      controller.close();
++    },
++  });
++}
++
++describe("R-EXT-05 — AbortSignal reaches fetch", () => {
++  afterEach(() => {
++    vi.unstubAllGlobals();
++  });
++
++  it("passes AbortSignal to fetch and records abort on controller", async () => {
++    let capturedSignal: AbortSignal | undefined;
++    const controller = new AbortController();
++
++    vi.stubGlobal(
++      "fetch",
++      vi.fn(async (_url: string, init?: RequestInit) => {
++        capturedSignal = init?.signal ?? undefined;
++        await new Promise((resolve) => setTimeout(resolve, 50));
++        return {
++          ok: true,
++          headers: { get: () => "application/json" },
++          json: async () => ({
++            ok: true,
++            status: "ok",
++            mode: "assisted",
++            assistantMessage: { role: "assistant", content: "x" },
++          }),
++        };
++      }),
++    );
++
++    const pending = sendCancellableAssistantTurn(
++      { projectId: "proj_abort", content: "hi" },
++      controller.signal,
++    );
++    controller.abort();
++    await pending.catch(() => undefined);
++
++    expect(capturedSignal).toBe(controller.signal);
++    expect(capturedSignal?.aborted).toBe(true);
++  });
++});
++
++describe("R-EXT-05 — stopAvailable early formula", () => {
++  it("cancellable live turn → stop available", () => {
++    expect(
++      stopAvailable({ cancellable: true, blocked: false, f3Busy: false }),
++    ).toBe(true);
++  });
++
++  it("idle or blocked → stop unavailable", () => {
++    expect(
++      stopAvailable({ cancellable: false, blocked: false, f3Busy: false }),
++    ).toBe(false);
++    expect(
++      stopAvailable({ cancellable: true, blocked: true, f3Busy: false }),
++    ).toBe(false);
++  });
++});
++
++describe("R-EXT-05 — NDJSON progressive parser", () => {
++  afterEach(() => {
++    vi.unstubAllGlobals();
++  });
++
++  it("emits activity before result; skips malformed lines; ignores activity after result", async () => {
++    const activities: NoraLiveActivityEvent[] = [];
++    const before: NoraLiveActivityEvent = {
++      kind: "tool_started",
++      seq: 1,
++      at: "2026-10-14T12:00:00.000Z",
++      label: "before",
++    };
++    const after: NoraLiveActivityEvent = {
++      kind: "activity_update",
++      seq: 99,
++      at: "2026-10-14T12:00:01.000Z",
++      label: "after-result-should-drop",
++    };
++    const result = {
++      ok: true,
++      status: "ok",
++      mode: "assisted",
++      assistantMessage: { role: "assistant", content: "done" },
++    };
++
++    vi.stubGlobal(
++      "fetch",
++      vi.fn(async () => ({
++        ok: true,
++        headers: {
++          get: (name: string) =>
++            name.toLowerCase() === "content-type"
++              ? "application/x-ndjson"
++              : null,
++        },
++        body: new ReadableStream<Uint8Array>({
++          start(controller) {
++            const enc = new TextEncoder();
++            controller.enqueue(
++              enc.encode(
++                [
++                  JSON.stringify({ type: "activity", event: before }),
++                  "{not-valid-json",
++                  JSON.stringify({ type: "result", result }),
++                  JSON.stringify({ type: "activity", event: after }),
++                ].join("\n") + "\n",
++              ),
++            );
++            controller.close();
++          },
++        }),
++        json: async () => result,
++      })),
++    );
++
++    const out = await sendCancellableAssistantTurn(
++      { projectId: "proj_ndjson", content: "hello" },
++      new AbortController().signal,
++      { onActivity: (e) => activities.push(e) },
++    );
++
++    expect(activities.map((a) => a.label)).toEqual(["before"]);
++    expect(out).toEqual(result);
++  });
++});
++
++describe("R-EXT-05 — transport abort ≠ stop_confirmed", () => {
++  it("terminalLiveActivityFromProductResult maps transport abort to provider_unavailable + transport_interrupted", () => {
++    const terminal = terminalLiveActivityFromProductResult({
++      result: { ok: false, status: "provider_unavailable" },
++      transportAbortedWithoutAck: true,
++    });
++    expect(terminal.kind).toBe("transport_interrupted");
++    expect(terminal.kind).not.toBe("stop_confirmed");
++  });
++});
+diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/stopAvailableEarly.d0.test.ts b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/stopAvailableEarly.d0.test.ts
+new file mode 100644
+index 00000000..379c6536
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/stopAvailableEarly.d0.test.ts
+@@ -0,0 +1,42 @@
++/**
++ * P6 — Stop availability contract (deterministic unit of the busy/cancellable rule).
++ * ZERO REAL / ZERO OpenAI.
++ * @vitest-environment node
++ */
++import { describe, expect, it } from "vitest";
++
++/**
++ * Mirrors useProductConversation stopAvailable formula.
++ * Stop must replace Send whenever an AbortController-backed turn is live,
++ * even before React startTransition flips uiState to ASSISTANT_WORKING.
++ */
++function stopAvailable(input: {
++  cancellable: boolean;
++  blocked: boolean;
++  f3Busy: boolean;
++}): boolean {
++  return input.cancellable && !input.blocked && !input.f3Busy;
++}
++
++describe("P6 stopAvailable early cancellable contract", () => {
++  it("SENDING/WORKING: cancellable true → Arrêter available", () => {
++    expect(
++      stopAvailable({ cancellable: true, blocked: false, f3Busy: false }),
++    ).toBe(true);
++  });
++
++  it("IDLE: cancellable false → Envoyer path (stop unavailable)", () => {
++    expect(
++      stopAvailable({ cancellable: false, blocked: false, f3Busy: false }),
++    ).toBe(false);
++  });
++
++  it("blocked or f3Busy suppresses stop even if cancellable", () => {
++    expect(
++      stopAvailable({ cancellable: true, blocked: true, f3Busy: false }),
++    ).toBe(false);
++    expect(
++      stopAvailable({ cancellable: true, blocked: false, f3Busy: true }),
++    ).toBe(false);
++  });
++});
+diff --git a/projects/sfia-studio/app/__tests__/project-assistant/liveActivityEvents.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/liveActivityEvents.d0.test.ts
+new file mode 100644
+index 00000000..5304df21
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/project-assistant/liveActivityEvents.d0.test.ts
+@@ -0,0 +1,114 @@
++/**
++ * P6 — Live activity event contract (deterministic).
++ * ZERO REAL / ZERO OpenAI.
++ * @vitest-environment node
++ */
++import { describe, expect, it } from "vitest";
++import {
++  isNoraLiveActivityEvent,
++  liveActivityFromTechnicalToolEvent,
++  terminalLiveActivityFromProductResult,
++  type NoraLiveActivityEvent,
++} from "@/features/project-assistant/liveActivityEvents";
++
++describe("P6 live activity events", () => {
++  it("accepts well-formed browser-safe events", () => {
++    const event: NoraLiveActivityEvent = {
++      kind: "tool_started",
++      seq: 1,
++      at: "2026-10-14T12:00:00.000Z",
++      label: "Consultation en cours — git_local_read_file",
++      toolName: "git_local_read_file",
++      sourcePath: "docs/a.md",
++    };
++    expect(isNoraLiveActivityEvent(event)).toBe(true);
++  });
++
++  it("rejects oversized or empty labels and non-finite seq", () => {
++    expect(
++      isNoraLiveActivityEvent({
++        kind: "activity_update",
++        seq: Number.NaN,
++        at: "x",
++        label: "ok",
++      }),
++    ).toBe(false);
++    expect(
++      isNoraLiveActivityEvent({
++        kind: "activity_update",
++        seq: 1,
++        at: "x",
++        label: "",
++      }),
++    ).toBe(false);
++    expect(
++      isNoraLiveActivityEvent({
++        kind: "activity_update",
++        seq: 1,
++        at: "x",
++        label: "x".repeat(280),
++      }),
++    ).toBe(false);
++  });
++
++  it("maps tool running → tool_started without inventing secrets", () => {
++    const mapped = liveActivityFromTechnicalToolEvent({
++      type: "tool.start",
++      detail: {
++        toolName: "git_local_read_file",
++        status: "running",
++        path: "projects/sfia-studio/docs/a.md",
++      },
++      seq: 2,
++      at: "2026-10-14T12:00:01.000Z",
++    });
++    expect(mapped?.kind).toBe("tool_started");
++    expect(mapped?.sourcePath).toBe("projects/sfia-studio/docs/a.md");
++    expect(mapped?.label).toContain("a.md");
++    expect(mapped?.label).toMatch(/consultation/i);
++  });
++
++  it("maps tool succeeded → tool_completed with basename label when present", () => {
++    const mapped = liveActivityFromTechnicalToolEvent({
++      type: "tool.result",
++      detail: {
++        toolName: "git_local_read_file",
++        status: "succeeded",
++        path: "docs/b.md",
++      },
++      seq: 3,
++    });
++    expect(mapped?.kind).toBe("tool_completed");
++    expect(mapped?.label).toContain("b.md");
++    expect(mapped?.label).toMatch(/consulté/i);
++  });
++
++  it("maps tool failed → tool_failed", () => {
++    const mapped = liveActivityFromTechnicalToolEvent({
++      type: "tool.fail",
++      detail: { toolName: "git_local_read_file", status: "failed" },
++      seq: 4,
++    });
++    expect(mapped?.kind).toBe("tool_failed");
++    expect(mapped?.label).toMatch(/échec/i);
++  });
++
++  it("terminal kinds expose Pilote-safe French labels", () => {
++    expect(
++      terminalLiveActivityFromProductResult({
++        result: { ok: true, status: "ok" },
++      }).label,
++    ).toMatch(/Mission terminée/);
++    expect(
++      terminalLiveActivityFromProductResult({
++        result: { ok: true, status: "cognitive_stop" },
++      }).kind,
++    ).toBe("mission_cognitive_stop");
++    expect(
++      terminalLiveActivityFromProductResult({
++        result: { ok: false, status: "provider_unavailable" },
++        transportAbortedWithoutAck: true,
++      }).kind,
++    ).toBe("transport_interrupted");
++  });
++});
+diff --git a/projects/sfia-studio/app/__tests__/project-assistant/terminalLiveActivity.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/terminalLiveActivity.d0.test.ts
+new file mode 100644
+index 00000000..1472f896
+--- /dev/null
++++ b/projects/sfia-studio/app/__tests__/project-assistant/terminalLiveActivity.d0.test.ts
+@@ -0,0 +1,80 @@
++/**
++ * R-EXT-01 — terminalLiveActivityFromProductResult (deterministic).
++ * ZERO REAL / ZERO OpenAI.
++ * @vitest-environment node
++ */
++import { describe, expect, it } from "vitest";
++import { terminalLiveActivityFromProductResult } from "@/features/project-assistant/liveActivityEvents";
++
++describe("R-EXT-01 — terminalLiveActivityFromProductResult", () => {
++  it("ok + status=ok → mission_completed", () => {
++    const t = terminalLiveActivityFromProductResult({
++      result: { ok: true, status: "ok" },
++    });
++    expect(t.kind).toBe("mission_completed");
++    expect(t.label).toMatch(/terminée/i);
++  });
++
++  it("ok + status=incomplete → mission_incomplete (not completed)", () => {
++    const t = terminalLiveActivityFromProductResult({
++      result: { ok: true, status: "incomplete" },
++    });
++    expect(t.kind).toBe("mission_incomplete");
++    expect(t.kind).not.toBe("mission_completed");
++  });
++
++  it("executionIncomplete flag → mission_incomplete", () => {
++    const t = terminalLiveActivityFromProductResult({
++      result: { ok: true, status: "ok", executionIncomplete: true },
++    });
++    expect(t.kind).toBe("mission_incomplete");
++  });
++
++  it("ok + status=cognitive_stop → mission_cognitive_stop (not completed)", () => {
++    const t = terminalLiveActivityFromProductResult({
++      result: { ok: true, status: "cognitive_stop" },
++    });
++    expect(t.kind).toBe("mission_cognitive_stop");
++    expect(t.kind).not.toBe("mission_completed");
++  });
++
++  it("status=stopped → stop_confirmed", () => {
++    const t = terminalLiveActivityFromProductResult({
++      result: { ok: false, status: "stopped" },
++    });
++    expect(t.kind).toBe("stop_confirmed");
++  });
++
++  it("runnerStopConfirmed → stop_confirmed", () => {
++    const t = terminalLiveActivityFromProductResult({
++      result: { ok: false, status: "provider_error" },
++      runnerStopConfirmed: true,
++    });
++    expect(t.kind).toBe("stop_confirmed");
++  });
++
++  it("transportAbortedWithoutAck + provider_unavailable → transport_interrupted (not stop_confirmed)", () => {
++    const t = terminalLiveActivityFromProductResult({
++      result: { ok: false, status: "provider_unavailable" },
++      transportAbortedWithoutAck: true,
++    });
++    expect(t.kind).toBe("transport_interrupted");
++    expect(t.kind).not.toBe("stop_confirmed");
++    expect(t.kind).not.toBe("mission_failed");
++  });
++
++  it("provider_error → mission_failed", () => {
++    const t = terminalLiveActivityFromProductResult({
++      result: { ok: false, status: "provider_error" },
++    });
++    expect(t.kind).toBe("mission_failed");
++    expect(t.label).toMatch(/fournisseur/i);
++  });
++
++  it("provider_unavailable → mission_failed", () => {
++    const t = terminalLiveActivityFromProductResult({
++      result: { ok: false, status: "provider_unavailable" },
++    });
++    expect(t.kind).toBe("mission_failed");
++  });
++});
 diff --git a/projects/sfia-studio/app/app/api/studio/projects/[projectId]/assistant/send/route.ts b/projects/sfia-studio/app/app/api/studio/projects/[projectId]/assistant/send/route.ts
 index 0f30091a..1e23b35a 100644
 --- a/projects/sfia-studio/app/app/api/studio/projects/[projectId]/assistant/send/route.ts
@@ -1350,6 +3219,205 @@ index 00c88d12..54e2e72c 100644
      });
      if (!f1.ok) return f1;
      const reportedIntent =
+diff --git a/projects/sfia-studio/app/features/project-assistant/liveActivityEvents.ts b/projects/sfia-studio/app/features/project-assistant/liveActivityEvents.ts
+new file mode 100644
+index 00000000..57501a18
+--- /dev/null
++++ b/projects/sfia-studio/app/features/project-assistant/liveActivityEvents.ts
+@@ -0,0 +1,193 @@
++/**
++ * P6 — Product live conversational activity events (browser-safe).
++ * Intermediate observability only — never HumanDecision / Evidence / SUCCESS.
++ */
++
++export type NoraLiveActivityKind =
++  | "mission_started"
++  | "activity_update"
++  | "tool_started"
++  | "tool_completed"
++  | "tool_failed"
++  | "continuation_started"
++  | "waiting"
++  | "stop_requested"
++  | "stop_confirmed"
++  | "mission_completed"
++  | "mission_incomplete"
++  | "mission_cognitive_stop"
++  | "mission_failed"
++  | "transport_interrupted";
++
++export type NoraLiveActivityEvent = {
++  kind: NoraLiveActivityKind;
++  /** Stable ordinal within one mission transport. */
++  seq: number;
++  at: string;
++  /** Short Pilote-facing label — never secrets / full docs / private chain-of-thought. */
++  label: string;
++  /** Optional verified tool name when event is tool-bound. */
++  toolName?: string;
++  /** Optional path / source identity when tool-bound and safe. */
++  sourcePath?: string;
++};
++
++export function isNoraLiveActivityEvent(
++  value: unknown,
++): value is NoraLiveActivityEvent {
++  if (value == null || typeof value !== "object" || Array.isArray(value)) {
++    return false;
++  }
++  const row = value as Record<string, unknown>;
++  return (
++    typeof row.kind === "string" &&
++    typeof row.seq === "number" &&
++    Number.isFinite(row.seq) &&
++    typeof row.at === "string" &&
++    typeof row.label === "string" &&
++    row.label.length > 0 &&
++    row.label.length < 280
++  );
++}
++
++function basenamePath(path: string | undefined): string | undefined {
++  if (!path) return undefined;
++  const parts = path.split("/").filter(Boolean);
++  return parts.length > 0 ? parts[parts.length - 1] : path;
++}
++
++function friendlyToolVerb(toolName: string | undefined): string {
++  if (!toolName) return "consultation";
++  if (/read_file|read_file_at_ref/i.test(toolName)) return "lecture";
++  if (/search_content|search_files/i.test(toolName)) return "recherche";
++  if (/get_diff|compare/i.test(toolName)) return "comparaison";
++  if (/get_status|get_head|get_log/i.test(toolName)) return "inspection Git";
++  return "consultation";
++}
++
++/**
++ * Map Product send result → terminal activity kind.
++ * Never treat ok=true alone as completed (incomplete / cognitive_stop share ok=true).
++ * Browser abort alone is NOT Runner stop_confirmed.
++ */
++export function terminalLiveActivityFromProductResult(input: {
++  result: {
++    ok?: boolean;
++    status?: string;
++    executionIncomplete?: boolean;
++  };
++  /** True only when Product/orchestrator confirmed Runner stop (status stopped). */
++  runnerStopConfirmed?: boolean;
++  /** Transport aborted without authoritative Product stopped status. */
++  transportAbortedWithoutAck?: boolean;
++}): Pick<NoraLiveActivityEvent, "kind" | "label"> {
++  const status = input.result.status ?? "";
++  if (status === "incomplete" || input.result.executionIncomplete === true) {
++    return {
++      kind: "mission_incomplete",
++      label: "Mission incomplète — une limite de sécurité a été atteinte",
++    };
++  }
++  if (status === "ok" && input.result.ok === true) {
++    return { kind: "mission_completed", label: "Mission terminée" };
++  }
++  if (status === "cognitive_stop") {
++    return {
++      kind: "mission_cognitive_stop",
++      label: "Arrêt cognitif — Nora s’est arrêtée sur une contradiction structurante",
++    };
++  }
++  if (input.transportAbortedWithoutAck) {
++    return {
++      kind: "transport_interrupted",
++      label: "Connexion interrompue — arrêt serveur non confirmé",
++    };
++  }
++  if (status === "stopped" || input.runnerStopConfirmed) {
++    return { kind: "stop_confirmed", label: "Arrêt confirmé" };
++  }
++  if (status === "provider_error" || status === "provider_unavailable") {
++    return {
++      kind: "mission_failed",
++      label: "Échec fournisseur — la mission n’a pas pu aboutir",
++    };
++  }
++  return { kind: "mission_failed", label: "Mission en échec" };
++}
++
++/** Map redacted ToolRouter EventSink emissions → Pilote-safe activity rows. */
++export function liveActivityFromTechnicalToolEvent(input: {
++  type: string;
++  detail: Record<string, unknown>;
++  seq: number;
++  at?: string;
++}): NoraLiveActivityEvent | null {
++  const toolName =
++    typeof input.detail.toolName === "string"
++      ? input.detail.toolName
++      : typeof input.detail.name === "string"
++        ? input.detail.name
++        : undefined;
++  const status =
++    typeof input.detail.status === "string" ? input.detail.status : "";
++  const sourcePath =
++    typeof input.detail.path === "string"
++      ? input.detail.path
++      : typeof (input.detail.source as { path?: unknown } | undefined)?.path ===
++          "string"
++        ? String((input.detail.source as { path: string }).path)
++        : undefined;
++  const shortName = basenamePath(sourcePath);
++  const at = input.at ?? new Date().toISOString();
++  const verb = friendlyToolVerb(toolName);
++
++  if (status === "running" || /tool[_-]?start/i.test(input.type)) {
++    return {
++      kind: "tool_started",
++      seq: input.seq,
++      at,
++      label: shortName
++        ? `Consultation du document « ${shortName} ».`
++        : `Nora prépare une ${verb} des sources.`,
++      toolName,
++      sourcePath,
++    };
++  }
++  if (status === "failed" || /tool[_-]?fail/i.test(input.type)) {
++    return {
++      kind: "tool_failed",
++      seq: input.seq,
++      at,
++      label: shortName
++        ? `Échec de consultation — « ${shortName} ».`
++        : `Échec d’une ${verb}.`,
++      toolName,
++      sourcePath,
++    };
++  }
++  if (
++    status === "succeeded" ||
++    status === "ok" ||
++    status === "completed" ||
++    /tool[_-]?(complete|end|result)/i.test(input.type)
++  ) {
++    return {
++      kind: "tool_completed",
++      seq: input.seq,
++      at,
++      label: shortName
++        ? `Document consulté — « ${shortName} ».`
++        : `Nora a terminé une ${verb}.`,
++      toolName,
++      sourcePath,
++    };
++  }
++  return {
++    kind: "activity_update",
++    seq: input.seq,
++    at,
++    label: "Nora poursuit l’analyse des sources.",
++    toolName,
++    sourcePath,
++  };
++}
 diff --git a/projects/sfia-studio/app/features/project-assistant/memoryEventSink.ts b/projects/sfia-studio/app/features/project-assistant/memoryEventSink.ts
 index 9a83f53a..c254f847 100644
 --- a/projects/sfia-studio/app/features/project-assistant/memoryEventSink.ts
@@ -1626,6 +3694,238 @@ index 4bbc11a6..af928c48 100644
  export type {
    ControlledContinuationObserve,
    ContinuationStopReason,
+diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/missionProgressGuard.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/missionProgressGuard.ts
+new file mode 100644
+index 00000000..2ede355d
+--- /dev/null
++++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/missionProgressGuard.ts
+@@ -0,0 +1,226 @@
++/**
++ * P6 extended execution — progress guard against unproductive tool loops
++ * and observable progress signals for productive budget extension.
++ * Never invents progress from model narrative.
++ */
++
++export type MissionProgressSample = {
++  toolName: string;
++  /** Stable identity such as path / query — empty when unknown. */
++  targetKey: string;
++  /**
++   * Observable result fingerprint when available (returned range, status, bytes).
++   * Distinct fingerprints on the same target count as progress (e.g. advancing windows).
++   * Identical fingerprints on the same target count toward the no-progress streak.
++   */
++  resultFingerprint?: string;
++};
++
++export type MissionProgressDecision =
++  | { action: "continue"; reasonCodes: string[] }
++  | { action: "stop_no_progress"; reasonCodes: string[] };
++
++/** Delivery parameter — identical tool+target+result streaks before controlled stop. */
++export const MISSION_NO_PROGRESS_REPEAT_LIMIT = 3;
++
++export const MISSION_NO_PROGRESS_STOP_STOCK =
++  "Mission arrêtée — même outil et même cible répétés sans progression observable. " +
++  "Reformulez la demande ou changez de cible avant de relancer.";
++
++/** Controlled stop when MissionProgressGuard fires (Product tool path). */
++export class MissionNoProgressStoppedError extends Error {
++  readonly code = "NORA_MISSION_NO_PROGRESS";
++  readonly reasonCodes: readonly string[];
++
++  constructor(reasonCodes: readonly string[]) {
++    super(MISSION_NO_PROGRESS_STOP_STOCK);
++    this.name = "MissionNoProgressStoppedError";
++    this.reasonCodes = reasonCodes;
++  }
++}
++
++/** Stable tool target from wire args only (never model narrative). */
++export function missionProgressTargetKey(
++  _toolName: string,
++  args: Record<string, unknown>,
++): string {
++  const asTrim = (v: unknown): string =>
++    typeof v === "string" ? v.trim() : "";
++  const asLine = (v: unknown): string => {
++    if (typeof v === "number" && Number.isFinite(v)) {
++      return String(Math.trunc(v));
++    }
++    return asTrim(v);
++  };
++
++  const path = asTrim(args.path);
++  const query = asTrim(args.query);
++  const ref = asTrim(args.ref);
++  const startLine = asLine(args.startLine);
++  const endLine = asLine(args.endLine);
++
++  if (path && (startLine || endLine)) {
++    return `${path}@${startLine || "*"}-${endLine || "*"}`;
++  }
++  if (path && query) {
++    return `${path}::${query}`;
++  }
++  if (path) return path;
++  if (query) return query;
++  if (ref) return ref;
++  return "";
++}
++
++/** True when fingerprint represents a successful, information-bearing tool result. */
++export function isUsefulMissionProgressFingerprint(fp: string): boolean {
++  const t = fp.trim();
++  if (!t || t === "nofp" || t === "empty") return false;
++  if (t.startsWith("fail") || t.startsWith("denied") || t.startsWith("?")) {
++    return false;
++  }
++  // ToolCallResult ok path: "ok|..."
++  return t.startsWith("ok|") || t.startsWith("ok");
++}
++
++/** Result fingerprint from tool route payload (observable only). */
++export function missionProgressResultFingerprint(result: unknown): string {
++  if (result == null || typeof result !== "object") {
++    return typeof result === "string" ? `s:${result.length}` : "empty";
++  }
++  const row = result as Record<string, unknown>;
++  const status =
++    typeof row.status === "string" ? row.status.toLowerCase() : "";
++  if (status === "denied" || status === "failed") {
++    return `fail|status:${status}`;
++  }
++  const ok = row.ok === true ? "ok" : row.ok === false ? "fail" : "?";
++  const data =
++    row.data && typeof row.data === "object"
++      ? (row.data as Record<string, unknown>)
++      : row;
++  const path = typeof data.path === "string" ? data.path : "";
++  const rs =
++    typeof data.returnedStartLine === "number"
++      ? data.returnedStartLine
++      : typeof data.startLine === "number"
++        ? data.startLine
++        : "";
++  const re =
++    typeof data.returnedEndLine === "number"
++      ? data.returnedEndLine
++      : typeof data.endLine === "number"
++        ? data.endLine
++        : "";
++  const bytes =
++    typeof data.bytes === "number"
++      ? data.bytes
++      : typeof data.completeLineCount === "number"
++        ? data.completeLineCount
++        : "";
++  const truncated = data.truncated === true ? "t" : "f";
++  return `${ok}|${path}|${rs}-${re}|${bytes}|${truncated}`;
++}
++
++/**
++ * Track consecutive identical tool targets+results.
++ * Productive extension requires NEW useful completions since the last extension
++ * checkpoint — failed/denied fingerprints never unlock an extension.
++ */
++export class MissionProgressGuard {
++  private lastKey: string | null = null;
++  private streak = 0;
++  private readonly limit: number;
++  private readonly seenFingerprints = new Set<string>();
++  private uniqueTargets = 0;
++  /** Count of distinct useful (ok) fingerprints observed. */
++  private usefulCompletions = 0;
++  /** Checkpoint: usefulCompletions at last productive extension (or 0 at start). */
++  private usefulCompletionsAtExtension = 0;
++
++  /** Set when observe returns stop_no_progress (same turn, before next model call). */
++  stopped = false;
++  stopReasonCodes: readonly string[] = [];
++
++  constructor(limit = MISSION_NO_PROGRESS_REPEAT_LIMIT) {
++    this.limit = Math.max(2, Math.trunc(limit));
++  }
++
++  observe(sample: MissionProgressSample): MissionProgressDecision {
++    const tool = sample.toolName.trim() || "unknown_tool";
++    const target = sample.targetKey.trim();
++    const fp = (sample.resultFingerprint ?? "").trim() || "nofp";
++    const key = `${tool}::${target}::${fp}`;
++
++    // Empty target (e.g. git_local_get_head with {}) is not a documentary
++    // loop identity — never trip no-progress stop and never unlock extensions.
++    // Per-round tool-call caps remain the authority for parallel status probes.
++    if (!target) {
++      return {
++        action: "continue",
++        reasonCodes: ["progress_no_target_skip_streak"],
++      };
++    }
++
++    if (!this.seenFingerprints.has(key)) {
++      this.seenFingerprints.add(key);
++      this.uniqueTargets += 1;
++      if (isUsefulMissionProgressFingerprint(fp)) {
++        this.usefulCompletions += 1;
++      }
++    }
++
++    if (this.lastKey === key) {
++      this.streak += 1;
++    } else {
++      this.lastKey = key;
++      this.streak = 1;
++    }
++    if (this.streak >= this.limit) {
++      const reasonCodes = [
++        "mission_no_progress_repeat",
++        `streak:${this.streak}`,
++        `tool:${tool}`,
++      ];
++      this.stopped = true;
++      this.stopReasonCodes = reasonCodes;
++      return {
++        action: "stop_no_progress",
++        reasonCodes,
++      };
++    }
++    return {
++      action: "continue",
++      reasonCodes: [`progress_streak:${this.streak}`],
++    };
++  }
++
++  /**
++   * True only when NEW useful tool completions occurred since the last extension
++   * (or since mission start). New FAILED/DENIED fingerprints never qualify.
++   */
++  hasVerifiableProgressForExtension(): boolean {
++    if (this.stopped) return false;
++    return this.usefulCompletions > this.usefulCompletionsAtExtension;
++  }
++
++  /** Mark that a productive extension consumed the current useful-progress window. */
++  markExtensionConsumed(): void {
++    this.usefulCompletionsAtExtension = this.usefulCompletions;
++  }
++
++  snapshot(): {
++    uniqueTargets: number;
++    fingerprintCount: number;
++    usefulCompletions: number;
++    usefulCompletionsAtExtension: number;
++    stopped: boolean;
++  } {
++    return {
++      uniqueTargets: this.uniqueTargets,
++      fingerprintCount: this.seenFingerprints.size,
++      usefulCompletions: this.usefulCompletions,
++      usefulCompletionsAtExtension: this.usefulCompletionsAtExtension,
++      stopped: this.stopped,
++    };
++  }
++}
 diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
 index 93cbf75c..f3c32dc1 100644
 --- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
@@ -1989,9 +4289,9 @@ index c9b64340..83cea00f 100644
        "path": "projects/sfia-studio/app/.env.example",
 ```
 
-# APPENDIX B — New files full content (HEAD)
+# APPENDIX B — New production sources @ origin/main (eec68a41)
 
-===== BEGIN NEW FILE: projects/sfia-studio/app/lib/nora-cognitive-runtime/missionProgressGuard.ts =====
+===== BEGIN FILE @ origin/main eec68a41: projects/sfia-studio/app/lib/nora-cognitive-runtime/missionProgressGuard.ts =====
 /**
  * P6 extended execution — progress guard against unproductive tool loops
  * and observable progress signals for productive budget extension.
@@ -2218,8 +4518,8 @@ export class MissionProgressGuard {
     };
   }
 }
-===== END NEW FILE: projects/sfia-studio/app/lib/nora-cognitive-runtime/missionProgressGuard.ts =====
-===== BEGIN NEW FILE: projects/sfia-studio/app/features/project-assistant/liveActivityEvents.ts =====
+===== END FILE: projects/sfia-studio/app/lib/nora-cognitive-runtime/missionProgressGuard.ts =====
+===== BEGIN FILE @ origin/main eec68a41: projects/sfia-studio/app/features/project-assistant/liveActivityEvents.ts =====
 /**
  * P6 — Product live conversational activity events (browser-safe).
  * Intermediate observability only — never HumanDecision / Evidence / SUCCESS.
@@ -2413,1817 +4713,4 @@ export function liveActivityFromTechnicalToolEvent(input: {
     sourcePath,
   };
 }
-===== END NEW FILE: projects/sfia-studio/app/features/project-assistant/liveActivityEvents.ts =====
-===== BEGIN NEW FILE: projects/sfia-studio/app/__tests__/nora-cognitive-runtime/missionProgressGuard.d0.test.ts =====
-/**
- * P6 — MissionProgressGuard deterministic unit tests.
- * @vitest-environment node
- */
-import { describe, expect, it } from "vitest";
-import {
-  assistantMessage,
-  functionCall,
-  ScriptedModel,
-} from "@openai/agents/testing";
-import { resolveWorkspaceRootFromAppCwd } from "@/lib/platform/repository/workspaceRoot";
-import {
-  runNoraAgentsTurn,
-  sfiaBoundaryInstructions,
-} from "@/lib/nora-cognitive-runtime";
-import {
-  MISSION_NO_PROGRESS_REPEAT_LIMIT,
-  MISSION_NO_PROGRESS_STOP_STOCK,
-  MissionProgressGuard,
-  isUsefulMissionProgressFingerprint,
-  missionProgressResultFingerprint,
-  missionProgressTargetKey,
-} from "@/lib/nora-cognitive-runtime/missionProgressGuard";
-
-describe("MissionProgressGuard", () => {
-  it("continues until identical tool+target reaches repeat limit", () => {
-    const guard = new MissionProgressGuard(MISSION_NO_PROGRESS_REPEAT_LIMIT);
-    const sample = {
-      toolName: "git_local_read_file",
-      targetKey: "projects/sfia-studio/app/package.json",
-    };
-
-    const first = guard.observe(sample);
-    expect(first.action).toBe("continue");
-    expect(first.reasonCodes).toContain("progress_streak:1");
-
-    const second = guard.observe(sample);
-    expect(second.action).toBe("continue");
-    expect(second.reasonCodes).toContain("progress_streak:2");
-
-    const third = guard.observe(sample);
-    expect(third.action).toBe("stop_no_progress");
-    expect(third.reasonCodes).toContain("mission_no_progress_repeat");
-    expect(third.reasonCodes).toContain("streak:3");
-    expect(third.reasonCodes).toContain("tool:git_local_read_file");
-  });
-
-  it("empty target never trips no-progress streak (status probes)", () => {
-    const guard = new MissionProgressGuard(2);
-    for (let i = 0; i < 6; i += 1) {
-      const decision = guard.observe({
-        toolName: "git_local_get_head",
-        targetKey: "",
-        resultFingerprint: "ok|||12|f",
-      });
-      expect(decision.action).toBe("continue");
-      expect(decision.reasonCodes).toContain("progress_no_target_skip_streak");
-    }
-    expect(guard.stopped).toBe(false);
-    expect(guard.snapshot().usefulCompletions).toBe(0);
-    expect(guard.hasVerifiableProgressForExtension()).toBe(false);
-  });
-
-  it("resets streak when target changes", () => {
-    const guard = new MissionProgressGuard(3);
-    const tool = "git_local_read_file";
-
-    guard.observe({ toolName: tool, targetKey: "a.txt" });
-    guard.observe({ toolName: tool, targetKey: "a.txt" });
-    const afterSwitch = guard.observe({ toolName: tool, targetKey: "b.txt" });
-    expect(afterSwitch.action).toBe("continue");
-    expect(afterSwitch.reasonCodes).toContain("progress_streak:1");
-  });
-
-  it("same target without fingerprint still stops at repeat limit", () => {
-    const guard = new MissionProgressGuard(3);
-    const sample = {
-      toolName: "git_local_read_file",
-      targetKey: "projects/sfia-studio/app/package.json",
-    };
-    guard.observe(sample);
-    guard.observe(sample);
-    const third = guard.observe(sample);
-    expect(third.action).toBe("stop_no_progress");
-  });
-
-  it("BUD-01 — no useful completions → extension gate closed", () => {
-    const guard = new MissionProgressGuard();
-    expect(guard.hasVerifiableProgressForExtension()).toBe(false);
-    guard.observe({
-      toolName: "git_local_read_file",
-      targetKey: "missing.md",
-      resultFingerprint: "fail|status:failed",
-    });
-    expect(guard.hasVerifiableProgressForExtension()).toBe(false);
-  });
-
-  it("BUD-02 — useful success unlocks extension", () => {
-    const guard = new MissionProgressGuard();
-    const fp = missionProgressResultFingerprint({
-      ok: true,
-      data: { path: "a.md", returnedStartLine: 1, returnedEndLine: 5, bytes: 10, truncated: false },
-    });
-    guard.observe({
-      toolName: "git_local_read_file",
-      targetKey: "a.md",
-      resultFingerprint: fp,
-    });
-    expect(isUsefulMissionProgressFingerprint(fp)).toBe(true);
-    expect(guard.hasVerifiableProgressForExtension()).toBe(true);
-  });
-
-  it("BUD-03 — markExtensionConsumed closes gate until new useful progress", () => {
-    const guard = new MissionProgressGuard();
-    const fp = missionProgressResultFingerprint({
-      ok: true,
-      data: { path: "a.md", returnedStartLine: 1, returnedEndLine: 5, bytes: 10, truncated: false },
-    });
-    guard.observe({
-      toolName: "git_local_read_file",
-      targetKey: "a.md",
-      resultFingerprint: fp,
-    });
-    guard.markExtensionConsumed();
-    expect(guard.hasVerifiableProgressForExtension()).toBe(false);
-  });
-
-  it("BUD-04 — after checkpoint, new useful fingerprint reopens extension", () => {
-    const guard = new MissionProgressGuard();
-    const fp1 = missionProgressResultFingerprint({
-      ok: true,
-      data: { path: "a.md", returnedStartLine: 1, returnedEndLine: 5, bytes: 10, truncated: false },
-    });
-    guard.observe({
-      toolName: "git_local_read_file",
-      targetKey: "a.md@1-5",
-      resultFingerprint: fp1,
-    });
-    guard.markExtensionConsumed();
-    const fp2 = missionProgressResultFingerprint({
-      ok: true,
-      data: { path: "a.md", returnedStartLine: 6, returnedEndLine: 10, bytes: 10, truncated: false },
-    });
-    guard.observe({
-      toolName: "git_local_read_file",
-      targetKey: "a.md@6-10",
-      resultFingerprint: fp2,
-    });
-    expect(guard.hasVerifiableProgressForExtension()).toBe(true);
-  });
-
-  it("BUD-05 — after checkpoint, new fail fingerprints never reopen extension", () => {
-    const guard = new MissionProgressGuard();
-    const okFp = missionProgressResultFingerprint({
-      ok: true,
-      data: { path: "a.md", returnedStartLine: 1, returnedEndLine: 5, bytes: 10, truncated: false },
-    });
-    guard.observe({
-      toolName: "git_local_read_file",
-      targetKey: "a.md@1-5",
-      resultFingerprint: okFp,
-    });
-    guard.markExtensionConsumed();
-    guard.observe({
-      toolName: "git_local_read_file",
-      targetKey: "b.md",
-      resultFingerprint: "fail|status:failed",
-    });
-    guard.observe({
-      toolName: "git_local_read_file",
-      targetKey: "c.md",
-      resultFingerprint: "denied|x",
-    });
-    expect(guard.hasVerifiableProgressForExtension()).toBe(false);
-    expect(guard.snapshot().usefulCompletions).toBe(1);
-  });
-
-  it("BUD-06 — repeated identical useful fingerprint does not increment useful count", () => {
-    const guard = new MissionProgressGuard();
-    const sample = {
-      toolName: "git_local_read_file",
-      targetKey: "doc.md",
-      resultFingerprint: "ok|doc.md|1-5|100|f",
-    };
-    guard.observe(sample);
-    guard.observe(sample);
-    guard.markExtensionConsumed();
-    expect(guard.snapshot().usefulCompletions).toBe(1);
-    expect(guard.hasVerifiableProgressForExtension()).toBe(false);
-  });
-
-  it("BUD-07..08 — isUsefulMissionProgressFingerprint classifies ok vs fail/empty", () => {
-    expect(isUsefulMissionProgressFingerprint("ok|p|1-2|10|f")).toBe(true);
-    expect(isUsefulMissionProgressFingerprint("ok")).toBe(true);
-    expect(isUsefulMissionProgressFingerprint("fail|status:failed")).toBe(false);
-    expect(isUsefulMissionProgressFingerprint("denied|x")).toBe(false);
-    expect(isUsefulMissionProgressFingerprint("?|x")).toBe(false);
-    expect(isUsefulMissionProgressFingerprint("")).toBe(false);
-    expect(isUsefulMissionProgressFingerprint("nofp")).toBe(false);
-    expect(isUsefulMissionProgressFingerprint("empty")).toBe(false);
-  });
-
-  it("BUD-09 — all distinct failed fingerprints never unlock extension", () => {
-    const guard = new MissionProgressGuard();
-    for (let i = 0; i < 5; i += 1) {
-      guard.observe({
-        toolName: "git_local_read_file",
-        targetKey: `fail-${i}.md`,
-        resultFingerprint: `fail|status:failed|${i}`,
-      });
-    }
-    expect(guard.snapshot().usefulCompletions).toBe(0);
-    expect(guard.hasVerifiableProgressForExtension()).toBe(false);
-  });
-
-  it("BUD-10 — stopped guard blocks extension even with useful delta", () => {
-    const guard = new MissionProgressGuard(3);
-    const sample = {
-      toolName: "git_local_read_file",
-      targetKey: "loop.md",
-      resultFingerprint: "ok|loop.md|1-1|1|f",
-    };
-    guard.observe(sample);
-    guard.observe(sample);
-    guard.observe(sample);
-    expect(guard.stopped).toBe(true);
-    guard.markExtensionConsumed();
-    expect(guard.hasVerifiableProgressForExtension()).toBe(false);
-  });
-
-  it("BUD-11 — fail then useful allows extension", () => {
-    const guard = new MissionProgressGuard();
-    guard.observe({
-      toolName: "git_local_read_file",
-      targetKey: "x.md",
-      resultFingerprint: "fail|status:failed",
-    });
-    expect(guard.hasVerifiableProgressForExtension()).toBe(false);
-    guard.observe({
-      toolName: "git_local_read_file",
-      targetKey: "y.md",
-      resultFingerprint: "ok|y.md|1-2|20|f",
-    });
-    expect(guard.hasVerifiableProgressForExtension()).toBe(true);
-  });
-
-  it("BUD-12 — snapshot tracks extension checkpoint", () => {
-    const guard = new MissionProgressGuard();
-    guard.observe({
-      toolName: "git_local_read_file",
-      targetKey: "a.md",
-      resultFingerprint: "ok|a.md|1-1|1|f",
-    });
-    guard.markExtensionConsumed();
-    const snap = guard.snapshot();
-    expect(snap.usefulCompletions).toBe(1);
-    expect(snap.usefulCompletionsAtExtension).toBe(1);
-  });
-
-  it("BUD-13 — distinct fail targets do not count as useful completions", () => {
-    const guard = new MissionProgressGuard();
-    guard.observe({
-      toolName: "git_local_read_file",
-      targetKey: "a.md",
-      resultFingerprint: missionProgressResultFingerprint({ ok: false, data: { path: "a.md" } }),
-    });
-    guard.observe({
-      toolName: "git_local_read_file",
-      targetKey: "b.md",
-      resultFingerprint: missionProgressResultFingerprint({
-        status: "denied",
-        data: { path: "b.md" },
-      }),
-    });
-    expect(guard.snapshot().usefulCompletions).toBe(0);
-    expect(guard.snapshot().fingerprintCount).toBe(2);
-  });
-
-  it("BUD-14 — useful consumed then only fails keeps gate closed", () => {
-    const guard = new MissionProgressGuard();
-    guard.observe({
-      toolName: "git_local_read_file",
-      targetKey: "good.md",
-      resultFingerprint: "ok|good.md|1-3|30|f",
-    });
-    guard.markExtensionConsumed();
-    for (const target of ["f1.md", "f2.md", "f3.md"]) {
-      guard.observe({
-        toolName: "git_local_read_file",
-        targetKey: target,
-        resultFingerprint: `fail|${target}`,
-      });
-    }
-    expect(guard.hasVerifiableProgressForExtension()).toBe(false);
-  });
-
-  it("distinct result fingerprints on same target reset streak", () => {
-    const guard = new MissionProgressGuard(3);
-    const tool = "git_local_read_file";
-    const target = "doc.md@1-50";
-    const fpA = missionProgressResultFingerprint({
-      ok: true,
-      data: { returnedStartLine: 1, returnedEndLine: 10, bytes: 50, truncated: false },
-    });
-    const fpB = missionProgressResultFingerprint({
-      ok: true,
-      data: { returnedStartLine: 11, returnedEndLine: 20, bytes: 50, truncated: false },
-    });
-    guard.observe({ toolName: tool, targetKey: target, resultFingerprint: fpA });
-    guard.observe({ toolName: tool, targetKey: target, resultFingerprint: fpA });
-    const afterAdvance = guard.observe({
-      toolName: tool,
-      targetKey: target,
-      resultFingerprint: fpB,
-    });
-    expect(afterAdvance.action).toBe("continue");
-    expect(afterAdvance.reasonCodes).toContain("progress_streak:1");
-  });
-});
-
-describe("missionProgressTargetKey", () => {
-  it("includes line window for read_file", () => {
-    expect(
-      missionProgressTargetKey("git_local_read_file", {
-        path: "doc.md",
-        startLine: 10,
-        endLine: 20,
-      }),
-    ).toBe("doc.md@10-20");
-  });
-
-  it("distinguishes path-only reads", () => {
-    expect(
-      missionProgressTargetKey("git_local_read_file", { path: "doc.md" }),
-    ).toBe("doc.md");
-  });
-});
-
-describe("MissionProgressGuard — Product tool adapters", () => {
-  it("stops runNoraAgentsTurn after three identical read targets", async () => {
-    const path = "projects/sfia-studio/app/package.json";
-    const model = new ScriptedModel([
-      [
-        functionCall(
-          "git_local_read_file",
-          { path, maxBytes: 512 },
-          { callId: "loop1" },
-        ),
-      ],
-      [
-        functionCall(
-          "git_local_read_file",
-          { path, maxBytes: 512 },
-          { callId: "loop2" },
-        ),
-      ],
-      [
-        functionCall(
-          "git_local_read_file",
-          { path, maxBytes: 512 },
-          { callId: "loop3" },
-        ),
-      ],
-      [assistantMessage("unreachable")],
-    ]);
-    const turn = await runNoraAgentsTurn({
-      correlationId: "cor:mission-progress-guard",
-      projectId: "prj:mission-progress-guard",
-      systemInstructions: sfiaBoundaryInstructions(),
-      userContent: "Read the same file repeatedly.",
-      model,
-      enableTools: true,
-      workspaceRoot: resolveWorkspaceRootFromAppCwd(),
-      maxTurns: 8,
-    });
-    expect(turn.toolCalls).toBeGreaterThanOrEqual(3);
-    expect(turn.limitReached).toBe(true);
-    expect(turn.continuationObserve?.stopReason).toBe("mission_no_progress");
-    expect(turn.continuationObserve?.reasonCodes).toContain(
-      "mission_no_progress_repeat",
-    );
-    expect(turn.text).toBe(MISSION_NO_PROGRESS_STOP_STOCK);
-  });
-});
-===== END NEW FILE: projects/sfia-studio/app/__tests__/nora-cognitive-runtime/missionProgressGuard.d0.test.ts =====
-===== BEGIN NEW FILE: projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.extendedCorpusCaps.d0.test.ts =====
-/**
- * P6 — Large documentary corpus delivery caps (deterministic).
- * ZERO REAL / ZERO OpenAI.
- * @vitest-environment node
- */
-import { describe, expect, it } from "vitest";
-import {
-  CT_DEFAULT_READ_MAX_BYTES,
-  CT_MAX_TOOL_RESULT_CHARS,
-} from "@/lib/platform/tools/types";
-import { prepareGitLocalReadDataForModel } from "@/lib/platform/tools/toolRouter";
-
-describe("P6 extended documentary corpus caps", () => {
-  it("raises tool-result and default read caps for long documents", () => {
-    expect(CT_MAX_TOOL_RESULT_CHARS).toBe(100_000);
-    expect(CT_DEFAULT_READ_MAX_BYTES).toBe(200_000);
-    // Former experimental universal 12k is no longer the Product ceiling.
-    expect(CT_MAX_TOOL_RESULT_CHARS).toBeGreaterThan(12_000);
-  });
-
-  it("returns a ~90k character document within the raised model envelope", () => {
-    const body = `${"α".repeat(90_000)}\n`;
-    const prepared = prepareGitLocalReadDataForModel({
-      path: "docs/long.md",
-      content: body,
-      startLine: 1,
-      endLine: 1,
-      requestedStartLine: 1,
-      requestedEndLine: 1,
-      returnedStartLine: 1,
-      totalLines: 1,
-      documentHasMore: false,
-      truncated: false,
-    });
-    expect(prepared.json.length).toBeLessThanOrEqual(CT_MAX_TOOL_RESULT_CHARS);
-    expect(typeof prepared.data).toBe("object");
-  });
-
-  it("keeps short documents fully within the raised envelope", () => {
-    const body = "short doc\nline 2\n";
-    const prepared = prepareGitLocalReadDataForModel({
-      path: "docs/short.md",
-      content: body,
-      startLine: 1,
-      endLine: 2,
-      requestedStartLine: 1,
-      requestedEndLine: 2,
-      returnedStartLine: 1,
-      totalLines: 2,
-      documentHasMore: false,
-      truncated: false,
-    });
-    expect(prepared.json.length).toBeLessThanOrEqual(CT_MAX_TOOL_RESULT_CHARS);
-    expect(prepared.json).toContain("short doc");
-    expect(prepared.truncated).toBe(false);
-  });
-});
-===== END NEW FILE: projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.extendedCorpusCaps.d0.test.ts =====
-===== BEGIN NEW FILE: projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.productiveExtension.d0.test.ts =====
-/**
- * R-EXT-02 — Productive mission budget extension (deterministic).
- * ZERO REAL / ZERO OpenAI.
- * @vitest-environment node
- */
-import { afterEach, describe, expect, it } from "vitest";
-import fs from "node:fs";
-import os from "node:os";
-import path from "node:path";
-import {
-  ScriptedModel,
-  assistantMessage,
-  functionCall,
-} from "@openai/agents/testing";
-import { resolveWorkspaceRootFromAppCwd } from "@/lib/platform/repository/workspaceRoot";
-import {
-  ADAPTIVE_MAX_TURNS_SAFETY_ENVELOPE,
-  ProductSqliteSession,
-  runNoraAgentsTurn,
-  sfiaBoundaryInstructions,
-} from "@/lib/nora-cognitive-runtime";
-import { PRODUCTIVE_EXTENSION_MAX } from "@/lib/nora-cognitive-runtime/controlledContinuation";
-import {
-  MISSION_NO_PROGRESS_REPEAT_LIMIT,
-  MissionProgressGuard,
-  missionProgressResultFingerprint,
-} from "@/lib/nora-cognitive-runtime/missionProgressGuard";
-
-const DOC_PATH = "projects/sfia-studio/app/package.json";
-const COMPLETE_MARKER = "PRODUCTIVE_EXT_COMPLETE";
-
-const dirs: string[] = [];
-
-function tmpSession(projectId: string): ProductSqliteSession {
-  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "p6-ext-"));
-  dirs.push(dir);
-  return new ProductSqliteSession({
-    projectId,
-    dbPath: path.join(dir, "session.sqlite"),
-  });
-}
-
-afterEach(() => {
-  while (dirs.length) {
-    const d = dirs.pop();
-    if (d) fs.rmSync(d, { recursive: true, force: true });
-  }
-});
-
-function readWindow(pass: number) {
-  const startLine = (pass - 1) * 8 + 1;
-  return {
-    path: DOC_PATH,
-    maxBytes: 2048,
-    startLine,
-    endLine: startLine + 7,
-  };
-}
-
-function sevenTurnDocumentaryScript() {
-  return [
-    [functionCall("git_local_read_file", readWindow(1), { callId: "e1" })],
-    [functionCall("git_local_read_file", readWindow(2), { callId: "e2" })],
-    [functionCall("git_local_read_file", readWindow(3), { callId: "e3" })],
-    [functionCall("git_local_read_file", readWindow(4), { callId: "e4" })],
-    [functionCall("git_local_read_file", readWindow(5), { callId: "e5" })],
-    [functionCall("git_local_read_file", readWindow(6), { callId: "e6" })],
-    [assistantMessage(`${COMPLETE_MARKER} — synthesis after six reads.`)],
-  ];
-}
-
-describe("R-EXT-02 — MissionProgressGuard extension signals", () => {
-  it("exports safety envelope and productive extension cap", () => {
-    expect(ADAPTIVE_MAX_TURNS_SAFETY_ENVELOPE).toBe(36);
-    expect(PRODUCTIVE_EXTENSION_MAX).toBe(3);
-  });
-
-  it("BUD-02/03/04 — useful unlocks extension; checkpoint; new useful reopens", () => {
-    const guard = new MissionProgressGuard(MISSION_NO_PROGRESS_REPEAT_LIMIT);
-    expect(guard.hasVerifiableProgressForExtension()).toBe(false);
-
-    const fp1 = missionProgressResultFingerprint({
-      ok: true,
-      data: {
-        path: "a.md",
-        returnedStartLine: 1,
-        returnedEndLine: 10,
-        bytes: 100,
-        truncated: false,
-      },
-    });
-    guard.observe({
-      toolName: "git_local_read_file",
-      targetKey: "a.md@1-10",
-      resultFingerprint: fp1,
-    });
-    expect(guard.hasVerifiableProgressForExtension()).toBe(true);
-
-    guard.markExtensionConsumed();
-    expect(guard.hasVerifiableProgressForExtension()).toBe(false);
-
-    const fp2 = missionProgressResultFingerprint({
-      ok: true,
-      data: {
-        path: "a.md",
-        returnedStartLine: 11,
-        returnedEndLine: 20,
-        bytes: 100,
-        truncated: false,
-      },
-    });
-    guard.observe({
-      toolName: "git_local_read_file",
-      targetKey: "a.md@11-20",
-      resultFingerprint: fp2,
-    });
-    expect(guard.hasVerifiableProgressForExtension()).toBe(true);
-  });
-
-  it("BUD-06 — identical useful fingerprint does not add useful completions", () => {
-    const guard = new MissionProgressGuard(3);
-    const sample = {
-      toolName: "git_local_read_file",
-      targetKey: "doc.md",
-      resultFingerprint: "ok|doc.md|1-5|100|f",
-    };
-    guard.observe(sample);
-    guard.observe(sample);
-    guard.markExtensionConsumed();
-    expect(guard.snapshot().usefulCompletions).toBe(1);
-    expect(guard.hasVerifiableProgressForExtension()).toBe(false);
-  });
-
-  it("BUD-05/09/14 — fail-only fingerprints never unlock extension after checkpoint", () => {
-    const guard = new MissionProgressGuard(MISSION_NO_PROGRESS_REPEAT_LIMIT);
-    const okFp = missionProgressResultFingerprint({
-      ok: true,
-      data: {
-        path: "seed.md",
-        returnedStartLine: 1,
-        returnedEndLine: 3,
-        bytes: 40,
-        truncated: false,
-      },
-    });
-    guard.observe({
-      toolName: "git_local_read_file",
-      targetKey: "seed.md",
-      resultFingerprint: okFp,
-    });
-    guard.markExtensionConsumed();
-    for (let i = 0; i < 4; i += 1) {
-      guard.observe({
-        toolName: "git_local_read_file",
-        targetKey: `miss-${i}.md`,
-        resultFingerprint: missionProgressResultFingerprint({
-          ok: false,
-          data: { path: `miss-${i}.md` },
-        }),
-      });
-    }
-    expect(guard.hasVerifiableProgressForExtension()).toBe(false);
-  });
-
-  it("identical tool+target+fingerprint streak stops at repeat limit", () => {
-    const guard = new MissionProgressGuard(3);
-    const sample = {
-      toolName: "git_local_read_file",
-      targetKey: "doc.md",
-      resultFingerprint: "ok|doc.md|1-5|100|f",
-    };
-    guard.observe(sample);
-    guard.observe(sample);
-    const third = guard.observe(sample);
-    expect(third.action).toBe("stop_no_progress");
-  });
-
-  it("distinct fingerprints on same target reset streak (advancing windows)", () => {
-    const guard = new MissionProgressGuard(3);
-    const tool = "git_local_read_file";
-    const target = "doc.md@1-100";
-    guard.observe({
-      toolName: tool,
-      targetKey: target,
-      resultFingerprint: "ok|doc.md|1-10|100|f",
-    });
-    guard.observe({
-      toolName: tool,
-      targetKey: target,
-      resultFingerprint: "ok|doc.md|1-10|100|f",
-    });
-    const afterNewWindow = guard.observe({
-      toolName: tool,
-      targetKey: target,
-      resultFingerprint: "ok|doc.md|11-20|100|f",
-    });
-    expect(afterNewWindow.action).toBe("continue");
-    expect(afterNewWindow.reasonCodes).toContain("progress_streak:1");
-  });
-});
-
-describe("R-EXT-02 — productive extension integration (ScriptedModel)", () => {
-  it("mission maxTurns=6 continues via productive extension when reads advance", async () => {
-    const session = tmpSession("prj:p6-productive-ext");
-    const model = new ScriptedModel(sevenTurnDocumentaryScript());
-    const result = await runNoraAgentsTurn({
-      correlationId: "p6-productive-ext",
-      projectId: "prj:p6-productive-ext",
-      systemInstructions: sfiaBoundaryInstructions(),
-      userContent:
-        "Guided Document Review: read package.json in six passes then synthesize.",
-      session,
-      model,
-      workspaceRoot: resolveWorkspaceRootFromAppCwd(),
-      enableTools: true,
-      enableControlledContinuation: true,
-      cognitiveStrategyClass: "Deep",
-      adaptiveMaxTurnsDecision: {
-        requestedMaxTurns: 6,
-        strategyClass: "Deep",
-        reasonCodes: ["test_adaptive_pin_6"],
-        floor: 3,
-        ceiling: 24,
-        explicitOverride: false,
-      },
-    });
-
-    const ext = result.continuationObserve?.productiveExtensions ?? 0;
-    const codes = result.continuationObserve?.reasonCodes ?? [];
-    expect(
-      ext >= 1 || codes.some((c) => c.startsWith("productive_extension_")),
-    ).toBe(true);
-    expect(result.limitReached).toBe(false);
-    expect(result.text).toContain(COMPLETE_MARKER);
-    session.close();
-  });
-
-  it("explicit maxTurns pins safety envelope — no productive extension beyond explicit cap", async () => {
-    const session = tmpSession("prj:p6-explicit-cap");
-    const model = new ScriptedModel(sevenTurnDocumentaryScript());
-    const explicitMax = 8;
-    const result = await runNoraAgentsTurn({
-      correlationId: "p6-explicit-cap",
-      projectId: "prj:p6-explicit-cap",
-      systemInstructions: sfiaBoundaryInstructions(),
-      userContent:
-        "Guided Document Review: read package.json in six passes then synthesize.",
-      session,
-      model,
-      workspaceRoot: resolveWorkspaceRootFromAppCwd(),
-      enableTools: true,
-      maxTurns: explicitMax,
-      enableControlledContinuation: true,
-    });
-
-    expect(result.continuationObserve?.safetyEnvelope).toBe(explicitMax);
-    expect(result.continuationObserve?.productiveExtensions ?? 0).toBe(0);
-    expect(
-      (result.continuationObserve?.reasonCodes ?? []).some((c) =>
-        c.startsWith("productive_extension_"),
-      ),
-    ).toBe(false);
-    session.close();
-  });
-});
-===== END NEW FILE: projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.productiveExtension.d0.test.ts =====
-===== BEGIN NEW FILE: projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.representativeCorpus.d0.test.ts =====
-/**
- * R-EXT-04 — Representative documentary corpus (deterministic).
- * ZERO REAL / ZERO OpenAI.
- * @vitest-environment node
- */
-import fs from "node:fs";
-import os from "node:os";
-import path from "node:path";
-import { afterEach, describe, expect, it, vi } from "vitest";
-import {
-  ScriptedModel,
-  assistantMessage,
-  functionCall,
-} from "@openai/agents/testing";
-import { collectToolTelemetry } from "@/features/project-assistant/collectToolTelemetry";
-import { GitLocalReadAdapter } from "@/lib/platform/repository/gitLocalReadAdapter";
-import {
-  CT_MAX_TOOL_RESULT_CHARS,
-  CT_DEFAULT_READ_MAX_BYTES,
-} from "@/lib/platform/tools/types";
-import {
-  createToolCallId,
-  prepareGitLocalReadDataForModel,
-  routeToolCall,
-} from "@/lib/platform/tools/toolRouter";
-import type { TechnicalEvent } from "@/lib/platform/observability/types";
-import {
-  runNoraAgentsTurn,
-  sfiaBoundaryInstructions,
-} from "@/lib/nora-cognitive-runtime";
-
-const dirs: string[] = [];
-
-function initGitRepo(root: string): void {
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  const { execFileSync } = require("node:child_process") as typeof import("node:child_process");
-  execFileSync("git", ["init"], { cwd: root });
-  execFileSync("git", ["config", "user.email", "test@example.com"], {
-    cwd: root,
-  });
-  execFileSync("git", ["config", "user.name", "test"], { cwd: root });
-  execFileSync("git", ["add", "."], { cwd: root });
-  execFileSync("git", ["commit", "-m", "init"], { cwd: root });
-}
-
-function tmpCorpusRepo(docSpecs: { rel: string; body: string }[]): string {
-  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "p6-corpus-"));
-  dirs.push(dir);
-  for (const spec of docSpecs) {
-    fs.mkdirSync(path.join(dir, path.dirname(spec.rel)), { recursive: true });
-    fs.writeFileSync(path.join(dir, spec.rel), spec.body, "utf8");
-  }
-  initGitRepo(dir);
-  return dir;
-}
-
-function corpusReadScript(relPaths: string[]): unknown[][] {
-  const steps: unknown[][] = relPaths.map((rel, i) => [
-    functionCall(
-      "git_local_read_file",
-      { path: rel, maxBytes: CT_DEFAULT_READ_MAX_BYTES },
-      { callId: `corpus-read-${i + 1}` },
-    ),
-  ]);
-  steps.push([
-    assistantMessage(
-      `Corpus review complete — ${relPaths.length} documents read.`,
-    ),
-  ]);
-  return steps;
-}
-
-afterEach(() => {
-  vi.restoreAllMocks();
-  while (dirs.length) {
-    const d = dirs.pop();
-    if (d) fs.rmSync(d, { recursive: true, force: true });
-  }
-});
-
-describe("R-EXT-04 — representative corpus capacity", () => {
-  it("~90k char mono-doc: adapter read + prepareGitLocalReadDataForModel within CT_MAX_TOOL_RESULT_CHARS", () => {
-    const token = "FACT_MONO_90K_UNIQUE_ALPHA";
-    const body = `${token}\n${"ζ".repeat(90_000 - token.length - 1)}\n`;
-    const rel = "projects/sfia-studio/docs/mono-long.md";
-    const root = tmpCorpusRepo([{ rel, body }]);
-    const adapter = new GitLocalReadAdapter(root);
-    const read = adapter.readFile(rel, CT_DEFAULT_READ_MAX_BYTES);
-    expect(read.truncated).toBe(false);
-    expect(read.content).toContain(token);
-
-    const prepared = prepareGitLocalReadDataForModel({
-      path: rel,
-      content: read.content,
-      startLine: read.startLine,
-      endLine: read.returnedEndLine ?? read.endLine,
-      requestedStartLine: read.startLine,
-      requestedEndLine: read.endLine,
-      returnedStartLine: read.returnedStartLine,
-      totalLines: read.totalLines,
-      documentHasMore: read.documentHasMore,
-      truncated: read.truncated,
-    });
-    expect(prepared.json.length).toBeLessThanOrEqual(CT_MAX_TOOL_RESULT_CHARS);
-    expect(prepared.json).toContain(token);
-  });
-
-  for (const count of [5, 10, 15] as const) {
-    it(`${count} docs — runNoraAgentsTurn reads each doc; FACT-i in tool payloads`, async () => {
-      const relPaths = Array.from(
-        { length: count },
-        (_, i) => `projects/sfia-studio/docs/corpus/doc-${i + 1}.md`,
-      );
-      const specs = relPaths.map((rel, i) => ({
-        rel,
-        body: `FACT-${i + 1}-UNIQUE\nline-${i + 1}-body\n`,
-      }));
-      const root = tmpCorpusRepo(specs);
-      const events: TechnicalEvent[] = [];
-      const toolPayloads: string[] = [];
-
-      const routeModule = await import("@/lib/platform/tools/toolRouter");
-      const originalRoute = routeModule.routeToolCall;
-      vi.spyOn(routeModule, "routeToolCall").mockImplementation(
-        async (request, ctx) => {
-          const result = await originalRoute(request, ctx);
-          if (result.ok && request.name === "git_local_read_file") {
-            toolPayloads.push(JSON.stringify(result.data));
-          }
-          return result;
-        },
-      );
-
-      const turn = await runNoraAgentsTurn({
-        correlationId: `p6-corpus-${count}`,
-        projectId: `prj:p6-corpus-${count}`,
-        systemInstructions: sfiaBoundaryInstructions(),
-        userContent: `Read all ${count} corpus documents in order.`,
-        model: new ScriptedModel(corpusReadScript(relPaths) as never),
-        workspaceRoot: root,
-        enableTools: true,
-        maxTurns: Math.max(24, count * 2 + 4),
-        sink: { emit: (e) => events.push(e) },
-      });
-
-      expect(turn.toolCalls).toBe(count);
-      expect(
-        events.filter((e) => e.type === "TOOL_SUCCEEDED").length,
-      ).toBe(count);
-
-      const haystack = [turn.text, JSON.stringify(events), ...toolPayloads].join(
-        "\n",
-      );
-      for (let i = 1; i <= count; i += 1) {
-        expect(haystack).toContain(`FACT-${i}-UNIQUE`);
-      }
-
-      const cov = collectToolTelemetry(events).readCoverage;
-      expect(cov.facts.length).toBeGreaterThanOrEqual(count);
-      expect(cov.facts.filter((f) => f.coverage === "full").length).toBe(
-        count,
-      );
-    });
-  }
-
-  it("partial range read — PARTIAL coverage, not FULL", async () => {
-    const rel = "projects/sfia-studio/docs/partial.md";
-    const lines = Array.from({ length: 40 }, (_, i) => `FACT-P-${i + 1}`).join(
-      "\n",
-    );
-    const root = tmpCorpusRepo([{ rel, body: `${lines}\n` }]);
-    const events: TechnicalEvent[] = [];
-    const result = await routeToolCall(
-      {
-        toolCallId: createToolCallId(),
-        name: "git_local_read_file",
-        arguments: { path: rel, startLine: 1, endLine: 5 },
-        sessionId: "p6-corpus-partial",
-      },
-      { workspaceRoot: root, sink: { emit: (e) => events.push(e) } },
-    );
-    expect(result.ok).toBe(true);
-    const cov = collectToolTelemetry(events).readCoverage;
-    expect(cov.facts[0]?.coverage).toBe("partial");
-    expect(cov.facts[0]?.coverage).not.toBe("full");
-    if (result.ok) {
-      const content = String((result.data as { content?: string }).content ?? "");
-      expect(content).toContain("FACT-P-1");
-      expect(content).not.toContain("FACT-P-40");
-    }
-  });
-});
-===== END NEW FILE: projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.representativeCorpus.d0.test.ts =====
-===== BEGIN NEW FILE: projects/sfia-studio/app/__tests__/nora-cognitive-runtime/runnerAbortSignal.d0.test.ts =====
-/**
- * P6 — AbortSignal reaches Agents runner mid tool sequence (deterministic).
- * ZERO REAL / ZERO OpenAI.
- * @vitest-environment node
- */
-import fs from "node:fs";
-import os from "node:os";
-import path from "node:path";
-import { afterEach, describe, expect, it } from "vitest";
-import type { Model, ModelRequest, ModelResponse } from "@openai/agents";
-import {
-  ScriptedModel,
-  assistantMessage,
-  functionCall,
-} from "@openai/agents/testing";
-import {
-  runNoraAgentsTurn,
-  sfiaBoundaryInstructions,
-} from "@/lib/nora-cognitive-runtime";
-import { NoraTurnAbortedError, abortError } from "@/lib/nora-cognitive-runtime/noraTurnAbort";
-
-const dirs: string[] = [];
-
-function tmpReadRepo(relPath: string, body: string): string {
-  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "p6-abort-read-"));
-  dirs.push(dir);
-  fs.mkdirSync(path.join(dir, path.dirname(relPath)), { recursive: true });
-  fs.writeFileSync(path.join(dir, relPath), body, "utf8");
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  const { execFileSync } = require("node:child_process") as typeof import("node:child_process");
-  execFileSync("git", ["init"], { cwd: dir });
-  execFileSync("git", ["config", "user.email", "t@e.com"], { cwd: dir });
-  execFileSync("git", ["config", "user.name", "t"], { cwd: dir });
-  execFileSync("git", ["add", "."], { cwd: dir });
-  execFileSync("git", ["commit", "-m", "init"], { cwd: dir });
-  return dir;
-}
-
-function abortAfterFirstToolModel(
-  relPath: string,
-  hooks: { onSecondModelCall?: () => void; modelCalls?: number },
-): Model {
-  const inner = new ScriptedModel([
-    [functionCall("git_local_read_file", { path: relPath }, { callId: "r1" })],
-    [functionCall("git_local_read_file", { path: relPath }, { callId: "r2" })],
-    [functionCall("git_local_read_file", { path: relPath }, { callId: "r3" })],
-    [assistantMessage("unreachable-after-abort")],
-  ]);
-  let calls = 0;
-  return {
-    async getResponse(request: ModelRequest): Promise<ModelResponse> {
-      calls += 1;
-      hooks.modelCalls = calls;
-      if (calls === 1) {
-        return inner.getResponse(request);
-      }
-      if (calls === 2) {
-        hooks.onSecondModelCall?.();
-      }
-      await new Promise<void>((_resolve, reject) => {
-        const fail = () => reject(abortError());
-        if (request.signal?.aborted) {
-          fail();
-          return;
-        }
-        request.signal?.addEventListener("abort", fail, { once: true });
-      });
-      throw new Error("unreachable");
-    },
-    async *getStreamedResponse(): AsyncIterable<never> {
-      throw new Error("streaming not used");
-    },
-  };
-}
-
-afterEach(() => {
-  while (dirs.length) {
-    const d = dirs.pop();
-    if (d) fs.rmSync(d, { recursive: true, force: true });
-  }
-});
-
-describe("P6 — runner AbortSignal mid tool sequence", () => {
-  it("aborts during multi-step ScriptedModel tools — one read, no final assistant", async () => {
-    const rel = "projects/sfia-studio/docs/abort-probe.md";
-    const root = tmpReadRepo(rel, "ABORT_PROBE_FACT\n");
-    const hooks: { onSecondModelCall?: () => void; modelCalls?: number } = {};
-    const controller = new AbortController();
-
-    const pending = runNoraAgentsTurn({
-      correlationId: "p6-runner-abort-mid-tools",
-      projectId: "prj:runner-abort",
-      systemInstructions: sfiaBoundaryInstructions(),
-      userContent: "Read the probe file repeatedly.",
-      model: abortAfterFirstToolModel(rel, hooks),
-      workspaceRoot: root,
-      enableTools: true,
-      maxTurns: 12,
-      signal: controller.signal,
-    });
-
-    const started = Date.now();
-    while (hooks.modelCalls !== 2 && Date.now() - started < 5000) {
-      await new Promise((r) => setTimeout(r, 15));
-    }
-    expect(hooks.modelCalls).toBe(2);
-    controller.abort();
-
-    await expect(pending).rejects.toBeInstanceOf(NoraTurnAbortedError);
-  });
-});
-===== END NEW FILE: projects/sfia-studio/app/__tests__/nora-cognitive-runtime/runnerAbortSignal.d0.test.ts =====
-===== BEGIN NEW FILE: projects/sfia-studio/app/__tests__/pre-m6-product-ui/conversationSurface.liveActivityStop.d0.test.tsx =====
-/** @vitest-environment jsdom */
-/**
- * P6 — REAL ConversationSurface (React + RTL), not static CSS harness HTML.
- * Proves idle Send, working Stop + in-thread Nora activity, live activity
- * timeline disclosure, and stopped / incomplete banners via data-testid contract.
- * ZERO OpenAI / ZERO :3020.
- */
-import { cleanup, fireEvent, render, screen, within } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import { afterEach, describe, expect, it, vi } from "vitest";
-import { ConversationSurface } from "@/features/pre-m6-product-ui/surfaces/ConversationSurface";
-import type { ProductConversationController } from "@/features/pre-m6-product-ui/hooks/useProductConversation";
-import type { NoraLiveActivityEvent } from "@/features/project-assistant/liveActivityEvents";
-
-afterEach(() => {
-  cleanup();
-});
-
-function stubController(
-  overrides: Partial<ProductConversationController>,
-): ProductConversationController {
-  return {
-    listRef: { current: null },
-    messages: [],
-    draft: "",
-    setDraft: vi.fn(),
-    toolEvents: [],
-    liveActivityEvents: [],
-    uiState: "READY",
-    error: null,
-    executionIncomplete: false,
-    modeLabel: "fixture",
-    ephemeralNotice: "notice",
-    lrMaterializeNotice: null,
-    lrMaterializeCode: null,
-    f2: null,
-    activeProposal: null,
-    reservesText: "",
-    setReservesText: vi.fn(),
-    f3Prepare: null,
-    f3M3Resolved: null,
-    f3Execute: null,
-    durableEvidenceOutcome: null,
-    durableRehydrateError: null,
-    focusTurnId: null,
-    clearFocusTurn: vi.fn(),
-    busy: false,
-    blocked: false,
-    canSend: true,
-    stopAvailable: false,
-    stopCurrentResponse: vi.fn(),
-    gateOpen: false,
-    recommendationFreshness: "none",
-    qualificationFreshness: "none",
-    durableOutcomeFreshness: "none",
-    canPrepareResolvedM3: false,
-    canPrepareLegacyFixture: false,
-    canConfirmResolvedM3: false,
-    canConfirmLegacyFixture: false,
-    canRefreshResolvedM3Running: false,
-    sendMessage: vi.fn(),
-    decide: vi.fn(),
-    prepareResolvedM3: vi.fn(),
-    prepareLegacyFixture: vi.fn(),
-    confirmAndExecuteResolvedM3: vi.fn(),
-    confirmAndExecuteLegacyFixture: vi.fn(),
-    refreshResolvedM3RunningAttempt: vi.fn(),
-    retryLastUserMessage: vi.fn(),
-    reservationResolutionProposal: null,
-    transcriptAvailability: "available",
-    openContinuityPresentation: null,
-    journalEntries: [],
-    journalCycleInstanceId: null,
-    selectedJournalEntryId: null,
-    setSelectedJournalEntryId: vi.fn(),
-    focusJournalExchanges: vi.fn(),
-    focusTranscriptTurn: vi.fn(),
-    refreshConversationContinuity: vi.fn(),
-    armReinstructionOfProposalId: vi.fn(),
-    armedReinstructionOfProposalId: null,
-    armReservationInteractionContext: vi.fn(),
-    armedReservationInteractionContext: null,
-    clearReservationResolutionProposal: vi.fn(),
-    ...overrides,
-  } as ProductConversationController;
-}
-
-const SAMPLE_EVENTS: readonly NoraLiveActivityEvent[] = [
-  {
-    kind: "mission_started",
-    seq: 1,
-    at: "2026-10-14T12:00:00.000Z",
-    label: "Mission démarrée",
-  },
-  {
-    kind: "tool_started",
-    seq: 2,
-    at: "2026-10-14T12:00:01.000Z",
-    label: "Lecture du dépôt",
-    toolName: "read_file",
-    sourcePath: "docs/plan.md",
-  },
-  {
-    kind: "activity_update",
-    seq: 3,
-    at: "2026-10-14T12:00:02.000Z",
-    label: "Analyse en cours…",
-  },
-];
-
-describe("ConversationSurface live activity + Stop (REAL React DET)", () => {
-  it("idle — stopAvailable false shows Envoyer, hides Arrêter", () => {
-    render(
-      <ConversationSurface
-        controller={stubController({
-          stopAvailable: false,
-          busy: false,
-          canSend: true,
-          draft: "Bonjour Nora",
-          uiState: "READY",
-        })}
-      />,
-    );
-
-    expect(screen.queryByTestId("project-assistant-stop")).toBeNull();
-    const send = screen.getByTestId("project-assistant-send");
-    expect(send).toHaveTextContent("Envoyer");
-    expect(send).not.toBeDisabled();
-    expect(screen.getByTestId("project-assistant-status")).toHaveAttribute(
-      "data-nora-stop",
-      "unavailable",
-    );
-    expect(
-      screen.queryByTestId("project-assistant-nora-activity"),
-    ).toBeNull();
-  });
-
-  it("working — stopAvailable true + in-thread activity shows Arrêter and live label", () => {
-    render(
-      <ConversationSurface
-        controller={stubController({
-          busy: true,
-          canSend: false,
-          stopAvailable: true,
-          uiState: "ASSISTANT_WORKING",
-          messages: [
-            { id: "m-user-1", role: "user", content: "Analyser le périmètre." },
-          ],
-        })}
-      />,
-    );
-
-    expect(screen.queryByTestId("project-assistant-send")).toBeNull();
-    const stop = screen.getByTestId("project-assistant-stop");
-    expect(stop).toHaveTextContent("Arrêter");
-    expect(stop).toHaveAttribute("aria-label", "Arrêter la réponse de Nora");
-
-    const activity = screen.getByTestId("project-assistant-nora-activity");
-    expect(screen.getByTestId("project-assistant-messages").contains(activity)).toBe(
-      true,
-    );
-    expect(
-      screen.getByTestId("project-assistant-nora-activity-label"),
-    ).toHaveTextContent("Nora travaille…");
-    expect(activity).toHaveAttribute("data-nora-stop", "available");
-  });
-
-  it("liveActivityEvents — Détail de l’activité lists timeline events", () => {
-    render(
-      <ConversationSurface
-        controller={stubController({
-          busy: true,
-          canSend: false,
-          stopAvailable: true,
-          uiState: "ASSISTANT_WORKING",
-          liveActivityEvents: [...SAMPLE_EVENTS],
-          messages: [
-            { id: "m-user-1", role: "user", content: "Mission longue." },
-          ],
-        })}
-      />,
-    );
-
-    expect(
-      screen.getByTestId("project-assistant-nora-activity-label"),
-    ).toHaveTextContent("Analyse en cours…");
-
-    const details = screen.getByTestId("project-assistant-nora-activity-details");
-    expect(within(details).getByText("Détail de l’activité")).toBeInTheDocument();
-
-    fireEvent.click(within(details).getByText("Détail de l’activité"));
-
-    const timeline = details.querySelector("ol");
-    expect(timeline).toBeTruthy();
-    expect(timeline!.textContent).toMatch(/mission_started/);
-    expect(timeline!.textContent).toMatch(/Mission démarrée/);
-    expect(timeline!.textContent).toMatch(/tool_started/);
-    expect(timeline!.textContent).toMatch(/Lecture du dépôt/);
-    expect(timeline!.textContent).toMatch(/activity_update/);
-  });
-
-  it("STOPPED banner — Réponse interrompue + retry; Send returns when idle", () => {
-    render(
-      <ConversationSurface
-        controller={stubController({
-          busy: false,
-          canSend: true,
-          stopAvailable: false,
-          uiState: "STOPPED",
-          error: null,
-          draft: "",
-        })}
-      />,
-    );
-
-    expect(screen.getByTestId("project-assistant-stopped")).toHaveTextContent(
-      "Réponse interrompue",
-    );
-    expect(screen.getByTestId("project-assistant-retry-stopped")).toHaveTextContent(
-      "Réessayer",
-    );
-    expect(
-      screen.queryByTestId("project-assistant-incomplete-surface"),
-    ).toBeNull();
-    expect(screen.getByTestId("project-assistant-send")).toBeInTheDocument();
-  });
-
-  it("executionIncomplete — Analyse inachevée banner on REAL panel root", () => {
-    render(
-      <ConversationSurface
-        controller={stubController({
-          busy: false,
-          canSend: true,
-          stopAvailable: false,
-          uiState: "ANSWERED",
-          executionIncomplete: true,
-          messages: [
-            { id: "m-user-1", role: "user", content: "Question." },
-            {
-              id: "m-asst-1",
-              role: "assistant",
-              content: "Réponse partielle (budget).",
-            },
-          ],
-        })}
-      />,
-    );
-
-    const panel = screen.getByTestId("project-assistant-panel");
-    expect(panel.getAttribute("data-execution-incomplete")).toBe("true");
-    expect(
-      screen.getByTestId("project-assistant-incomplete-surface"),
-    ).toHaveTextContent("Analyse inachevée");
-    expect(
-      screen.getByTestId("project-assistant-incomplete-notice").textContent,
-    ).toMatch(/limite|inachev|analyse complète/i);
-    expect(screen.queryByTestId("project-assistant-stopped")).toBeNull();
-  });
-
-  it("Stop click invokes stopCurrentResponse once", async () => {
-    const stopCurrentResponse = vi.fn();
-    const user = userEvent.setup();
-    render(
-      <ConversationSurface
-        controller={stubController({
-          busy: true,
-          canSend: false,
-          stopAvailable: true,
-          uiState: "ASSISTANT_WORKING",
-          stopCurrentResponse,
-        })}
-      />,
-    );
-    await user.click(screen.getByTestId("project-assistant-stop"));
-    expect(stopCurrentResponse).toHaveBeenCalledTimes(1);
-  });
-});
-===== END NEW FILE: projects/sfia-studio/app/__tests__/pre-m6-product-ui/conversationSurface.liveActivityStop.d0.test.tsx =====
-===== BEGIN NEW FILE: projects/sfia-studio/app/__tests__/pre-m6-product-ui/sendCancellableAssistantTurn.ndjson.d0.test.ts =====
-/**
- * P6 — NDJSON progressive send transport (deterministic).
- * ZERO REAL / ZERO OpenAI.
- * @vitest-environment node
- */
-import { afterEach, describe, expect, it, vi } from "vitest";
-import { sendCancellableAssistantTurn } from "@/features/pre-m6-product-ui/hooks/sendCancellableAssistantTurn";
-import type { NoraLiveActivityEvent } from "@/features/project-assistant/liveActivityEvents";
-
-function ndjsonBody(lines: unknown[]): ReadableStream<Uint8Array> {
-  const encoder = new TextEncoder();
-  const text = lines.map((l) => `${JSON.stringify(l)}\n`).join("");
-  return new ReadableStream({
-    start(controller) {
-      controller.enqueue(encoder.encode(text));
-      controller.close();
-    },
-  });
-}
-
-describe("P6 sendCancellableAssistantTurn NDJSON", () => {
-  afterEach(() => {
-    vi.unstubAllGlobals();
-  });
-
-  it("emits activity events before the Product result", async () => {
-    const activities: NoraLiveActivityEvent[] = [];
-    const started: NoraLiveActivityEvent = {
-      kind: "mission_started",
-      seq: 1,
-      at: "2026-10-14T12:00:00.000Z",
-      label: "Nora démarre la mission",
-    };
-    const tool: NoraLiveActivityEvent = {
-      kind: "tool_started",
-      seq: 2,
-      at: "2026-10-14T12:00:01.000Z",
-      label: "Consultation en cours — git_local_read_file",
-      toolName: "git_local_read_file",
-    };
-    const result = {
-      ok: true,
-      status: "ok",
-      mode: "assisted",
-      assistantMessage: { role: "assistant", content: "done" },
-    };
-
-    vi.stubGlobal(
-      "fetch",
-      vi.fn(async () => ({
-        ok: true,
-        headers: {
-          get: (name: string) =>
-            name.toLowerCase() === "content-type"
-              ? "application/x-ndjson"
-              : null,
-        },
-        body: ndjsonBody([
-          { type: "activity", event: started },
-          { type: "activity", event: tool },
-          { type: "result", result },
-        ]),
-        json: async () => result,
-      })),
-    );
-
-    const out = await sendCancellableAssistantTurn(
-      { projectId: "proj_test", content: "hello" },
-      new AbortController().signal,
-      { onActivity: (e) => activities.push(e) },
-    );
-
-    expect(activities.map((a) => a.kind)).toEqual([
-      "mission_started",
-      "tool_started",
-    ]);
-    expect(out).toEqual(result);
-  });
-
-  it("falls back to JSON when content-type is application/json", async () => {
-    const result = {
-      ok: true,
-      status: "ok",
-      mode: "assisted",
-      assistantMessage: { role: "assistant", content: "json" },
-    };
-    vi.stubGlobal(
-      "fetch",
-      vi.fn(async () => ({
-        ok: true,
-        headers: {
-          get: (name: string) =>
-            name.toLowerCase() === "content-type"
-              ? "application/json"
-              : null,
-        },
-        body: null,
-        json: async () => result,
-      })),
-    );
-    const out = await sendCancellableAssistantTurn(
-      { projectId: "proj_test", content: "hello" },
-      new AbortController().signal,
-    );
-    expect(out).toEqual(result);
-  });
-});
-===== END NEW FILE: projects/sfia-studio/app/__tests__/pre-m6-product-ui/sendCancellableAssistantTurn.ndjson.d0.test.ts =====
-===== BEGIN NEW FILE: projects/sfia-studio/app/__tests__/pre-m6-product-ui/serverCancellation.d0.test.ts =====
-/**
- * R-EXT-05 — Server cancellation + NDJSON transport (deterministic).
- * ZERO REAL / ZERO OpenAI.
- * @vitest-environment node
- */
-import { afterEach, describe, expect, it, vi } from "vitest";
-import { sendCancellableAssistantTurn } from "@/features/pre-m6-product-ui/hooks/sendCancellableAssistantTurn";
-import { terminalLiveActivityFromProductResult } from "@/features/project-assistant/liveActivityEvents";
-import type { NoraLiveActivityEvent } from "@/features/project-assistant/liveActivityEvents";
-
-function stopAvailable(input: {
-  cancellable: boolean;
-  blocked: boolean;
-  f3Busy: boolean;
-}): boolean {
-  return input.cancellable && !input.blocked && !input.f3Busy;
-}
-
-function ndjsonBody(lines: unknown[]): ReadableStream<Uint8Array> {
-  const encoder = new TextEncoder();
-  const text = lines.map((l) => `${JSON.stringify(l)}\n`).join("");
-  return new ReadableStream({
-    start(controller) {
-      controller.enqueue(encoder.encode(text));
-      controller.close();
-    },
-  });
-}
-
-describe("R-EXT-05 — AbortSignal reaches fetch", () => {
-  afterEach(() => {
-    vi.unstubAllGlobals();
-  });
-
-  it("passes AbortSignal to fetch and records abort on controller", async () => {
-    let capturedSignal: AbortSignal | undefined;
-    const controller = new AbortController();
-
-    vi.stubGlobal(
-      "fetch",
-      vi.fn(async (_url: string, init?: RequestInit) => {
-        capturedSignal = init?.signal ?? undefined;
-        await new Promise((resolve) => setTimeout(resolve, 50));
-        return {
-          ok: true,
-          headers: { get: () => "application/json" },
-          json: async () => ({
-            ok: true,
-            status: "ok",
-            mode: "assisted",
-            assistantMessage: { role: "assistant", content: "x" },
-          }),
-        };
-      }),
-    );
-
-    const pending = sendCancellableAssistantTurn(
-      { projectId: "proj_abort", content: "hi" },
-      controller.signal,
-    );
-    controller.abort();
-    await pending.catch(() => undefined);
-
-    expect(capturedSignal).toBe(controller.signal);
-    expect(capturedSignal?.aborted).toBe(true);
-  });
-});
-
-describe("R-EXT-05 — stopAvailable early formula", () => {
-  it("cancellable live turn → stop available", () => {
-    expect(
-      stopAvailable({ cancellable: true, blocked: false, f3Busy: false }),
-    ).toBe(true);
-  });
-
-  it("idle or blocked → stop unavailable", () => {
-    expect(
-      stopAvailable({ cancellable: false, blocked: false, f3Busy: false }),
-    ).toBe(false);
-    expect(
-      stopAvailable({ cancellable: true, blocked: true, f3Busy: false }),
-    ).toBe(false);
-  });
-});
-
-describe("R-EXT-05 — NDJSON progressive parser", () => {
-  afterEach(() => {
-    vi.unstubAllGlobals();
-  });
-
-  it("emits activity before result; skips malformed lines; ignores activity after result", async () => {
-    const activities: NoraLiveActivityEvent[] = [];
-    const before: NoraLiveActivityEvent = {
-      kind: "tool_started",
-      seq: 1,
-      at: "2026-10-14T12:00:00.000Z",
-      label: "before",
-    };
-    const after: NoraLiveActivityEvent = {
-      kind: "activity_update",
-      seq: 99,
-      at: "2026-10-14T12:00:01.000Z",
-      label: "after-result-should-drop",
-    };
-    const result = {
-      ok: true,
-      status: "ok",
-      mode: "assisted",
-      assistantMessage: { role: "assistant", content: "done" },
-    };
-
-    vi.stubGlobal(
-      "fetch",
-      vi.fn(async () => ({
-        ok: true,
-        headers: {
-          get: (name: string) =>
-            name.toLowerCase() === "content-type"
-              ? "application/x-ndjson"
-              : null,
-        },
-        body: new ReadableStream<Uint8Array>({
-          start(controller) {
-            const enc = new TextEncoder();
-            controller.enqueue(
-              enc.encode(
-                [
-                  JSON.stringify({ type: "activity", event: before }),
-                  "{not-valid-json",
-                  JSON.stringify({ type: "result", result }),
-                  JSON.stringify({ type: "activity", event: after }),
-                ].join("\n") + "\n",
-              ),
-            );
-            controller.close();
-          },
-        }),
-        json: async () => result,
-      })),
-    );
-
-    const out = await sendCancellableAssistantTurn(
-      { projectId: "proj_ndjson", content: "hello" },
-      new AbortController().signal,
-      { onActivity: (e) => activities.push(e) },
-    );
-
-    expect(activities.map((a) => a.label)).toEqual(["before"]);
-    expect(out).toEqual(result);
-  });
-});
-
-describe("R-EXT-05 — transport abort ≠ stop_confirmed", () => {
-  it("terminalLiveActivityFromProductResult maps transport abort to provider_unavailable + transport_interrupted", () => {
-    const terminal = terminalLiveActivityFromProductResult({
-      result: { ok: false, status: "provider_unavailable" },
-      transportAbortedWithoutAck: true,
-    });
-    expect(terminal.kind).toBe("transport_interrupted");
-    expect(terminal.kind).not.toBe("stop_confirmed");
-  });
-});
-===== END NEW FILE: projects/sfia-studio/app/__tests__/pre-m6-product-ui/serverCancellation.d0.test.ts =====
-===== BEGIN NEW FILE: projects/sfia-studio/app/__tests__/pre-m6-product-ui/stopAvailableEarly.d0.test.ts =====
-/**
- * P6 — Stop availability contract (deterministic unit of the busy/cancellable rule).
- * ZERO REAL / ZERO OpenAI.
- * @vitest-environment node
- */
-import { describe, expect, it } from "vitest";
-
-/**
- * Mirrors useProductConversation stopAvailable formula.
- * Stop must replace Send whenever an AbortController-backed turn is live,
- * even before React startTransition flips uiState to ASSISTANT_WORKING.
- */
-function stopAvailable(input: {
-  cancellable: boolean;
-  blocked: boolean;
-  f3Busy: boolean;
-}): boolean {
-  return input.cancellable && !input.blocked && !input.f3Busy;
-}
-
-describe("P6 stopAvailable early cancellable contract", () => {
-  it("SENDING/WORKING: cancellable true → Arrêter available", () => {
-    expect(
-      stopAvailable({ cancellable: true, blocked: false, f3Busy: false }),
-    ).toBe(true);
-  });
-
-  it("IDLE: cancellable false → Envoyer path (stop unavailable)", () => {
-    expect(
-      stopAvailable({ cancellable: false, blocked: false, f3Busy: false }),
-    ).toBe(false);
-  });
-
-  it("blocked or f3Busy suppresses stop even if cancellable", () => {
-    expect(
-      stopAvailable({ cancellable: true, blocked: true, f3Busy: false }),
-    ).toBe(false);
-    expect(
-      stopAvailable({ cancellable: true, blocked: false, f3Busy: true }),
-    ).toBe(false);
-  });
-});
-===== END NEW FILE: projects/sfia-studio/app/__tests__/pre-m6-product-ui/stopAvailableEarly.d0.test.ts =====
-===== BEGIN NEW FILE: projects/sfia-studio/app/__tests__/project-assistant/liveActivityEvents.d0.test.ts =====
-/**
- * P6 — Live activity event contract (deterministic).
- * ZERO REAL / ZERO OpenAI.
- * @vitest-environment node
- */
-import { describe, expect, it } from "vitest";
-import {
-  isNoraLiveActivityEvent,
-  liveActivityFromTechnicalToolEvent,
-  terminalLiveActivityFromProductResult,
-  type NoraLiveActivityEvent,
-} from "@/features/project-assistant/liveActivityEvents";
-
-describe("P6 live activity events", () => {
-  it("accepts well-formed browser-safe events", () => {
-    const event: NoraLiveActivityEvent = {
-      kind: "tool_started",
-      seq: 1,
-      at: "2026-10-14T12:00:00.000Z",
-      label: "Consultation en cours — git_local_read_file",
-      toolName: "git_local_read_file",
-      sourcePath: "docs/a.md",
-    };
-    expect(isNoraLiveActivityEvent(event)).toBe(true);
-  });
-
-  it("rejects oversized or empty labels and non-finite seq", () => {
-    expect(
-      isNoraLiveActivityEvent({
-        kind: "activity_update",
-        seq: Number.NaN,
-        at: "x",
-        label: "ok",
-      }),
-    ).toBe(false);
-    expect(
-      isNoraLiveActivityEvent({
-        kind: "activity_update",
-        seq: 1,
-        at: "x",
-        label: "",
-      }),
-    ).toBe(false);
-    expect(
-      isNoraLiveActivityEvent({
-        kind: "activity_update",
-        seq: 1,
-        at: "x",
-        label: "x".repeat(280),
-      }),
-    ).toBe(false);
-  });
-
-  it("maps tool running → tool_started without inventing secrets", () => {
-    const mapped = liveActivityFromTechnicalToolEvent({
-      type: "tool.start",
-      detail: {
-        toolName: "git_local_read_file",
-        status: "running",
-        path: "projects/sfia-studio/docs/a.md",
-      },
-      seq: 2,
-      at: "2026-10-14T12:00:01.000Z",
-    });
-    expect(mapped?.kind).toBe("tool_started");
-    expect(mapped?.sourcePath).toBe("projects/sfia-studio/docs/a.md");
-    expect(mapped?.label).toContain("a.md");
-    expect(mapped?.label).toMatch(/consultation/i);
-  });
-
-  it("maps tool succeeded → tool_completed with basename label when present", () => {
-    const mapped = liveActivityFromTechnicalToolEvent({
-      type: "tool.result",
-      detail: {
-        toolName: "git_local_read_file",
-        status: "succeeded",
-        path: "docs/b.md",
-      },
-      seq: 3,
-    });
-    expect(mapped?.kind).toBe("tool_completed");
-    expect(mapped?.label).toContain("b.md");
-    expect(mapped?.label).toMatch(/consulté/i);
-  });
-
-  it("maps tool failed → tool_failed", () => {
-    const mapped = liveActivityFromTechnicalToolEvent({
-      type: "tool.fail",
-      detail: { toolName: "git_local_read_file", status: "failed" },
-      seq: 4,
-    });
-    expect(mapped?.kind).toBe("tool_failed");
-    expect(mapped?.label).toMatch(/échec/i);
-  });
-
-  it("terminal kinds expose Pilote-safe French labels", () => {
-    expect(
-      terminalLiveActivityFromProductResult({
-        result: { ok: true, status: "ok" },
-      }).label,
-    ).toMatch(/Mission terminée/);
-    expect(
-      terminalLiveActivityFromProductResult({
-        result: { ok: true, status: "cognitive_stop" },
-      }).kind,
-    ).toBe("mission_cognitive_stop");
-    expect(
-      terminalLiveActivityFromProductResult({
-        result: { ok: false, status: "provider_unavailable" },
-        transportAbortedWithoutAck: true,
-      }).kind,
-    ).toBe("transport_interrupted");
-  });
-});
-===== END NEW FILE: projects/sfia-studio/app/__tests__/project-assistant/liveActivityEvents.d0.test.ts =====
-===== BEGIN NEW FILE: projects/sfia-studio/app/__tests__/project-assistant/terminalLiveActivity.d0.test.ts =====
-/**
- * R-EXT-01 — terminalLiveActivityFromProductResult (deterministic).
- * ZERO REAL / ZERO OpenAI.
- * @vitest-environment node
- */
-import { describe, expect, it } from "vitest";
-import { terminalLiveActivityFromProductResult } from "@/features/project-assistant/liveActivityEvents";
-
-describe("R-EXT-01 — terminalLiveActivityFromProductResult", () => {
-  it("ok + status=ok → mission_completed", () => {
-    const t = terminalLiveActivityFromProductResult({
-      result: { ok: true, status: "ok" },
-    });
-    expect(t.kind).toBe("mission_completed");
-    expect(t.label).toMatch(/terminée/i);
-  });
-
-  it("ok + status=incomplete → mission_incomplete (not completed)", () => {
-    const t = terminalLiveActivityFromProductResult({
-      result: { ok: true, status: "incomplete" },
-    });
-    expect(t.kind).toBe("mission_incomplete");
-    expect(t.kind).not.toBe("mission_completed");
-  });
-
-  it("executionIncomplete flag → mission_incomplete", () => {
-    const t = terminalLiveActivityFromProductResult({
-      result: { ok: true, status: "ok", executionIncomplete: true },
-    });
-    expect(t.kind).toBe("mission_incomplete");
-  });
-
-  it("ok + status=cognitive_stop → mission_cognitive_stop (not completed)", () => {
-    const t = terminalLiveActivityFromProductResult({
-      result: { ok: true, status: "cognitive_stop" },
-    });
-    expect(t.kind).toBe("mission_cognitive_stop");
-    expect(t.kind).not.toBe("mission_completed");
-  });
-
-  it("status=stopped → stop_confirmed", () => {
-    const t = terminalLiveActivityFromProductResult({
-      result: { ok: false, status: "stopped" },
-    });
-    expect(t.kind).toBe("stop_confirmed");
-  });
-
-  it("runnerStopConfirmed → stop_confirmed", () => {
-    const t = terminalLiveActivityFromProductResult({
-      result: { ok: false, status: "provider_error" },
-      runnerStopConfirmed: true,
-    });
-    expect(t.kind).toBe("stop_confirmed");
-  });
-
-  it("transportAbortedWithoutAck + provider_unavailable → transport_interrupted (not stop_confirmed)", () => {
-    const t = terminalLiveActivityFromProductResult({
-      result: { ok: false, status: "provider_unavailable" },
-      transportAbortedWithoutAck: true,
-    });
-    expect(t.kind).toBe("transport_interrupted");
-    expect(t.kind).not.toBe("stop_confirmed");
-    expect(t.kind).not.toBe("mission_failed");
-  });
-
-  it("provider_error → mission_failed", () => {
-    const t = terminalLiveActivityFromProductResult({
-      result: { ok: false, status: "provider_error" },
-    });
-    expect(t.kind).toBe("mission_failed");
-    expect(t.label).toMatch(/fournisseur/i);
-  });
-
-  it("provider_unavailable → mission_failed", () => {
-    const t = terminalLiveActivityFromProductResult({
-      result: { ok: false, status: "provider_unavailable" },
-    });
-    expect(t.kind).toBe("mission_failed");
-  });
-});
-===== END NEW FILE: projects/sfia-studio/app/__tests__/project-assistant/terminalLiveActivity.d0.test.ts =====
+===== END FILE: projects/sfia-studio/app/features/project-assistant/liveActivityEvents.ts =====
