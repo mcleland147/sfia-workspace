@@ -1,24 +1,21 @@
-# SFIA Review Pack FULL — P6 HUMAN QA EVIDENCE CAPTURE
-# O2 OPERATIONAL WIRING — DETERMINISTIC DELIVERY
+# SFIA Review Pack FULL — P6 O2 TARGETED CORRECTION PASS 01
+# EVIDENCE INTEGRITY / TEST PORTABILITY
 
-**Horodatage (Europe/Paris):** 2026-10-14 00:49:38 CEST
-**GO Morris:** P6 O2 OPERATIONAL WIRING DET — 2026-10-14
-**Décisions Morris consommées:**
-- **D1** — HISTORICAL LEDGER DISPOSITION (archive immuable / ledger actif worktree-local)
-- **D2** — O2 MINIMAL LINK CONTRACT (`linkedQaRunId`, cardinalité QA → 0..1 receipt)
+**Horodatage (Europe/Paris):** 2026-10-14 10:00:07 CEST
+**GO Morris:** P6 O2 TARGETED CORRECTION PASS 01 — 2026-10-14
+**Décisions consommées:** D1 / D2 préservées · CP01-01 · CP01-02
 
-**Cycle:** 8 — Delivery / implémentation
-**Sous-cycle:** P6-O2-OPERATIONAL-WIRING-DET
+**Cycle:** 8 — Delivery / correction bornée
+**Sous-cycle:** P6-O2-TARGETED-CORRECTION-PASS-01
 **Profil:** CRITICAL
 **Typologie:** EVOL
-**CKC:** ckc:studio:delivery (+ guidance ckc:studio:qa-validation)
+**CKC:** ckc:studio:delivery (+ ckc:studio:qa-validation)
 **Campagne:** P6-GLOBAL-INTEGRATED-PRODUCT-QA-01
-**Chantier:** P6-HUMAN-QA-EVIDENCE-CAPTURE-WIRING
-**Entry handoff:** 572fec04 / blob 5ea51a65
+**Entry handoff:** c334d67f / blob 986d8419
 
-**Verdict:** P6 O2 LINKED EVIDENCE WIRING DETERMINISTICALLY PROVEN / LOCAL CANDIDATE / READY FOR CHATGPT REVIEW
+**Verdict:** P6 O2 CP01 TARGETED CORRECTIONS CLOSED / DETERMINISTIC REGRESSION PASS / LOCAL CANDIDATE / READY FOR CHATGPT CRITICAL RE-REVIEW
 
-**Portée:** wiring DET O2 + tests + PRR sync. **NON FAIT:** commit/push/PR projet · REAL · harness REAL adoption · runtime v3 · cleanup.
+**NON FAIT:** commit/push/PR projet · REAL · harness REAL adoption · Git Integration · cleanup · runtime v3.
 
 ---
 
@@ -27,123 +24,196 @@
 | Item | Value |
 |---|---|
 | Worktree | `/Users/morris/Projects/sfia-workspace-p6-evidence-o2` |
-| HEAD initial | `aee4878d00f76cbb444977bf7ca370fb9b43fc83` (detached) |
+| HEAD | `aee4878d00f76cbb444977bf7ca370fb9b43fc83` detached |
 | origin/main | `aee4878d00f76cbb444977bf7ca370fb9b43fc83` |
-| MAIN_OK | YES (no drift) |
-| Tracked clean before edits | YES |
-| Quarantine 4 harnesses | PRESENT · hashes match prior handoff |
-| Archive historique SHA | `704531851d7102032c832d4d123abbddfc45d0b41d6afb6548c4a1f0e1f4b827` |
-| Active ledger dir before cycle | ABSENT (created only via DET temp paths) |
+| MAIN_OK | YES |
+| Staged préexistant | NONE |
+| O2 dirty expected | YES (local candidate) |
+| Untracked test | `p6.o2OperationalWiring.d0.test.ts` |
+| Quarantine ×4 SHA | INCHANGÉS |
+| Archive SHA entrée | `704531851d7102032c832d4d123abbddfc45d0b41d6afb6548c4a1f0e1f4b827` |
 
 ---
 
 ## D–F. Sources / Convergence / Baseline
 
-Sources lues (Git @ aee4878d): Build Doctrine, Roadmap, C1, 33/35 doctrine, Nora trajectory, P6 contrat §J/K/S/T, template, routing, CKC 08/09, PRR README/04/08/09/manifest, handoff 572fec04.
+Sources lues: Build Doctrine, Roadmap, C1, 33/35, Product Simplification 01/07 (§J/K/S/T/AQ/AR), template, routing, CKC 08/09, PRR, handoff c334d67f, code/tests O2.
 
-**Convergence entry:** Option B GIT-INTEGRATED/DET PROVEN · Seam DET · O2 principle+D1+D2 validated by Morris · wiring NOT IMPLEMENTED → **now DET IMPLEMENTED locally** · REAL OPEN · P6 GLOBAL NOT PASSED · Runtime v3 NON ADOPTED.
-
-**Baseline O2:** detached `aee4878d` — unchanged as HEAD (local dirty only).
+**État:** Option B DET · O2 LOCAL CANDIDATE · ChatGPT TARGETED CORRECTION REQUIRED → CP01 closed locally · REAL OPEN · P6 GLOBAL NOT PASSED · Runtime v3 NON ADOPTED.
 
 ---
 
-## G. Décisions consommées (D1/D2)
+## G–H. Manifest / Réserves initiales
 
-### D1 — Historical ledger disposition
-- Archive QA WT path kept **READ-ONLY / IMMUTABLE** (line 75 missing runId untouched).
-- Active ledger for new runs: canonical relative path under **O2 worktree only**.
-- No copy of historical bytes into active ledger.
-- DET tests use isolated temp ledgers only.
-- Consolidation historique = dette P6 future.
-
-### D2 — Minimal link
-- Two entries / one ledger.
-- Cardinality: **1 QA → 0..1 cognitive receipt**.
-- Cognitive field: **`linkedQaRunId`** (QA runId).
-- Product owns `logicalTurnId` + receipt content; harness owns QA/cognitive runIds + link.
-- Writers reused: `appendValidatedP6CampaignLedgerRow` + `collectP6ProductTurnEvidence` / capture.
-
----
-
-## H. Manifest fichiers
+### Manifest CP01
 
 | Path | Action |
 |---|---|
-| `lib/p6-campaign-evidence/ledgerRowValidation.ts` | MODIFIED |
-| `lib/p6-campaign-evidence/evidenceLedger.ts` | MODIFIED |
-| `lib/p6-campaign-evidence/captureCognitiveExecutionReceipt.ts` | MODIFIED |
-| `lib/p6-campaign-evidence/qaCollectionSeam.ts` | MODIFIED |
-| `lib/p6-campaign-evidence/index.ts` | MODIFIED |
-| `__tests__/p6-campaign-evidence/p6.o2OperationalWiring.d0.test.ts` | CREATED |
-| `__tests__/p6-campaign-evidence/p6.receiptCompleteness.d0.test.ts` | MODIFIED (seam status expectation) |
-| `production-runtime-reference/08-…md` | MODIFIED |
-| `production-runtime-reference/09-…md` | MODIFIED |
-| `production-runtime-reference.manifest.json` | MODIFIED (digests) |
+| `ledgerRowValidation.ts` | MOD — eligibility séparée |
+| `captureCognitiveExecutionReceipt.ts` | MOD — write uses eligibility |
+| `evidenceLedger.ts` | MOD — resolver uses eligibility |
+| `index.ts` | MOD — exports |
+| `p6.o2OperationalWiring.d0.test.ts` | MOD (untracked) — portability + CP01 oracles |
+| PRR 08/09 + manifest | MOD — description CP01 |
 
-**INTERDIT non touché:** Product orchestrateTurn/F2/receipt/SQLite · REAL harnesses · archive ledger · doctrine/roadmap.
+### Réserves initiales
+- **CP01-01:** O2-32 dépendait d'un chemin `/Users/morris/...` → non portable CI.
+- **CP01-02:** `isP6CampaignQaRowKind` acceptait ROOT_CAUSE / RUNTIME_REQUAL comme cibles O2.
 
 ---
 
-## I–M. Contrat O2 implémenté / intégrité / historique
+## I. Diagnostic
 
-### linkedQaRunId
-- Optional on schema for **historical unlinked v2** compatibility (no retro promotion).
-- When present: non-empty · ≠ receipt.runId · write-boundary checks under MONO_WRITER lock:
-  1. target exists
-  2. target is QA kind
-  3. same campaignId
-  4. same scenarioId
-  5. no prior receipt already linked (cardinality 0..1)
-  6. ledger HEALTHY
-  7. global runId uniqueness preserved
-- Included in `P6_RECEIPT_DURABLE_COMPARE_KEYS` (duplicate_skip honesty).
-
-### Read integrity
-- `evaluateO2LinkReadIntegrity` → orphan / kind / campaign / scenario / cardinality diagnostics
-- `o2LinkErrors` + `o2LinkDiagnostics` on `readP6EvidenceLedger`
-- Any O2 defect ⇒ `integrityPass=false` / DEGRADED (bytes preserved)
-- `resolveP6O2LinkedEvidencePair` / `findP6EvidenceLedgerRowsByLinkedQaRunId`
-
-### Wire sequence
-`wireP6O2OperationalEvidence`: QA append → if receipt then linked collect → else `qa_only_no_receipt`. Cognitive skipped if QA fails. No destructive compensation.
-
-### Historical compatibility
-- Unlinked v2 receipts remain HEALTHY without O2 promotion (O2-31).
-- Archive SHA unchanged (O2-32).
+**CP01-01:** DET lié à un fichier hors repo / machine-spécifique.
+**CP01-02:** confusion lisibilité historique vs éligibilité cible de lien. Archive: 74 absent-kind QA · 1 ROOT_CAUSE diagnostic · 1 RUNTIME_REQUAL admin.
 
 ---
 
-## N. Sécurité
-- Forbidden keys / secret-like strings still refused (O2-22).
-- No `.env` / credentials copied.
-- No OpenAI REAL calls; REAL env gates unset (O2-33/34).
-- Product SQLite not altered by capture (O2-26).
-- MONO_WRITER unchanged (O2-27).
+## J. Correction CP01-01
+
+- O2-32 = fixture temp archive + actif isolé (zéro chemin utilisateur).
+- Archive réelle optionnelle via `SFIA_P6_HISTORICAL_LEDGER_PATH`.
+- Absence archive réelle ≠ échec DET.
+- Local avec env: SHA before/after `70453185…` MATCH.
+- Oracles CP01-01-A…F PASS.
 
 ---
 
-## O–P. Ledger historique / actif
+## K. Correction CP01-02
 
-| Ledger | Path | Role |
-|---|---|---|
-| ARCHIVE | QA WT `…/evidence-ledger.jsonl` | READ-ONLY · SHA `70453185…` unchanged |
-| ACTIVE (convention) | O2 WT same relative path | for future campaign runs (not used as test fixture) |
-| DET fixtures | `os.tmpdir()/sfia-p6-o2-*` | isolated |
+1. `isP6HistoricalReadableCampaignKind` — lecture historique (inclut admin/diagnostic).
+2. `isP6O2QaLinkTargetEligible(row)` — cible O2 uniquement.
+Aligné write / read / resolver.
+
+### Extrait
+
+```typescript
+export function isP6HistoricalReadableCampaignKind(kind: unknown): boolean {
+  return (
+    kind === undefined ||
+    kind === null ||
+    kind === "(historical_campaign)" ||
+    kind === "p6_campaign_run" ||
+    kind === "ROOT_CAUSE_INVESTIGATION_READONLY" ||
+    kind === "RUNTIME_REQUALIFICATION"
+  );
+}
+
+/**
+ * @deprecated Kind-only coarse gate. Prefer `isP6O2QaLinkTargetEligible(row)`
+ * for O2 write/read/resolver. Excludes administrative/diagnostic kinds.
+ */
+export function isP6CampaignQaRowKind(kind: unknown): boolean {
+  return (
+    kind === undefined ||
+    kind === null ||
+    kind === "(historical_campaign)" ||
+    kind === "p6_campaign_run"
+  );
+}
+
+export function isCognitiveReceiptRowKind(kind: unknown): boolean {
+  return kind === "cognitive_execution_receipt";
+}
+
+/**
+ * O2 link-target eligibility — DISTINCT from historical readability.
+ *
+ * Eligible:
+ *   - explicit `p6_campaign_run` with campaign QA identity fields;
+ *   - historical campaign rows (absent kind / `(historical_campaign)`) with
+ *     the same identity fields (74 archive rows of this form are QA results).
+ *
+ * NOT eligible (still historically readable when valid):
+ *   - `ROOT_CAUSE_INVESTIGATION_READONLY` (diagnostic / investigation);
+ *   - `RUNTIME_REQUALIFICATION` (administrative requalification);
+ *   - cognitive receipts;
+ *   - unknown kinds.
+ */
+export function isP6O2QaLinkTargetEligible(
+  row: Record<string, unknown>,
+): boolean {
+  if (isCognitiveReceiptRowKind(row.kind)) return false;
+  const kind = row.kind;
+  if (
+    kind === "ROOT_CAUSE_INVESTIGATION_READONLY" ||
+    kind === "RUNTIME_REQUALIFICATION"
+  ) {
+    return false;
+  }
+  const kindOk =
+    kind === "p6_campaign_run" ||
+    kind === undefined ||
+    kind === null ||
+    kind === "(historical_campaign)";
+  if (!kindOk) return false;
+  return (
+    isNonEmptyString(row.runId) &&
+    isNonEmptyString(row.scenarioId) &&
+    row.campaignId === P6_CAMPAIGN_ID
+  );
+}
+
+/**
+ * Field-level O2 link rules when linkedQaRunId is present.
+ * Absence remains valid for historical unlinked v2 receipts (no retro promotion).
+ */
+```
+
+Oracles CP01-02-A…J PASS.
 
 ---
 
-## Q. Product F2/F1 testé
-- PATH A: `orchestrateAssistantSend` + `FakeConversationProvider` + `__F2_INFORMATIVE__` → `f2.turnKind=f1_informative` → receipt → QA+linked cognitive.
-- PATH B: empty content → `validation_error` sans receipt → QA-only.
-- Provider error path conserves justified Fake/NOT_OBSERVED observation; Product status unchanged by capture.
+## L–M. O2 / D1 / D2 préservés
+
+Deux entrées / un ledger / linkedQaRunId / 0..1 / MONO_WRITER / writers réutilisés. Archive immuable. Pas de refonte schéma.
 
 ---
 
-## R–S. Diffs complets / fichier créé
-
-### git status (final working tree)
+## N–P. Tests / validations
 
 ```
+vitest run p6.o2OperationalWiring p6.externalEvidenceLedger p6.qaCollectionSeam p6.receiptCompleteness
+npm run typecheck && npm run lint && npm run build
+node scripts/check-production-runtime-reference.mjs
+```
+
+| Check | Result |
+|---|---|
+| DET | **81/81 PASS** |
+| typecheck | PASS |
+| lint | PASS |
+| build | PASS |
+| PRR | CONFORMANCE OK |
+| REAL | NOT EXECUTED |
+| Archive SHA | inchangé `70453185…` |
+| User path in O2 test | ABSENT |
+
+---
+
+## Q. Archive SHA
+
+Avant/après: `704531851d7102032c832d4d123abbddfc45d0b41d6afb6548c4a1f0e1f4b827` — **EXÉCUTÉ** localement via env. DET portable sans env.
+
+---
+
+## R. Sécurité / Fake/Real
+
+Fake preserved · Fake≠REAL · no secrets · no OpenAI · :3020 untouched · Product non modifié.
+**Niveau:** O2 DET CORRECTED AND REVALIDATED AT TESTED SCOPE.
+
+---
+
+## S. PRR
+
+08/09 + digests mis à jour. CONFORMANCE OK.
+
+---
+
+## T. Git Truth final
+
+```
+ M .tmp-sfia-review/chatgpt-review.md
  M projects/sfia-studio/app/__tests__/p6-campaign-evidence/p6.receiptCompleteness.d0.test.ts
  M projects/sfia-studio/app/lib/p6-campaign-evidence/captureCognitiveExecutionReceipt.ts
  M projects/sfia-studio/app/lib/p6-campaign-evidence/evidenceLedger.ts
@@ -154,23 +224,27 @@ Sources lues (Git @ aee4878d): Build Doctrine, Roadmap, C1, 33/35 doctrine, Nora
  M projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
  M projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
 ?? projects/sfia-studio/app/__tests__/p6-campaign-evidence/p6.o2OperationalWiring.d0.test.ts
-
 ```
+
+HEAD `aee4878d00f76cbb444977bf7ca370fb9b43fc83` · main `aee4878d00f76cbb444977bf7ca370fb9b43fc83` · aucun commit projet.
+
+---
+
+## U. Diffs complets (candidat O2 cumulatif)
 
 ### git diff --stat
 
 ```
  .../p6.receiptCompleteness.d0.test.ts              |   2 +-
- .../captureCognitiveExecutionReceipt.ts            |  90 ++++++++++-
- .../app/lib/p6-campaign-evidence/evidenceLedger.ts | 169 ++++++++++++++++++++-
- .../app/lib/p6-campaign-evidence/index.ts          |  11 ++
- .../p6-campaign-evidence/ledgerRowValidation.ts    | 150 ++++++++++++++++++
- .../lib/p6-campaign-evidence/qaCollectionSeam.ts   | 134 ++++++++++++++--
+ .../captureCognitiveExecutionReceipt.ts            |  88 ++++++++-
+ .../app/lib/p6-campaign-evidence/evidenceLedger.ts | 170 ++++++++++++++++-
+ .../app/lib/p6-campaign-evidence/index.ts          |  13 ++
+ .../p6-campaign-evidence/ledgerRowValidation.ts    | 206 +++++++++++++++++++++
+ .../lib/p6-campaign-evidence/qaCollectionSeam.ts   | 134 ++++++++++++--
  .../08-test-proof-and-conformance-map.md           |   3 +-
- ...9-known-gaps-reserves-and-current-boundaries.md |   4 +-
+ ...9-known-gaps-reserves-and-current-boundaries.md |   6 +-
  .../production-runtime-reference.manifest.json     |   4 +-
- 9 files changed, 542 insertions(+), 25 deletions(-)
-
+ 9 files changed, 601 insertions(+), 25 deletions(-)
 ```
 
 ### git diff --name-status
@@ -185,17 +259,15 @@ M	projects/sfia-studio/app/lib/p6-campaign-evidence/qaCollectionSeam.ts
 M	projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
 M	projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
 M	projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-
 ```
 
-### Untracked (project)
+### Untracked
 
 ```
 projects/sfia-studio/app/__tests__/p6-campaign-evidence/p6.o2OperationalWiring.d0.test.ts
-
 ```
 
-### FULL DIFF (modified tracked files)
+### FULL DIFF tracked project files
 
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/p6-campaign-evidence/p6.receiptCompleteness.d0.test.ts b/projects/sfia-studio/app/__tests__/p6-campaign-evidence/p6.receiptCompleteness.d0.test.ts
@@ -212,7 +284,7 @@ index fcc8c2d7..78ea12b9 100644
      const mismatches = diffReceiptAgainstLedgerEntry(
        dto.cognitiveExecutionReceipt!,
 diff --git a/projects/sfia-studio/app/lib/p6-campaign-evidence/captureCognitiveExecutionReceipt.ts b/projects/sfia-studio/app/lib/p6-campaign-evidence/captureCognitiveExecutionReceipt.ts
-index 35b81070..f6854edd 100644
+index 35b81070..fa701c51 100644
 --- a/projects/sfia-studio/app/lib/p6-campaign-evidence/captureCognitiveExecutionReceipt.ts
 +++ b/projects/sfia-studio/app/lib/p6-campaign-evidence/captureCognitiveExecutionReceipt.ts
 @@ -19,6 +19,8 @@ import {
@@ -220,7 +292,7 @@ index 35b81070..f6854edd 100644
  import {
    durableLedgerContentEquivalent,
 +  isCognitiveReceiptRowKind,
-+  isP6CampaignQaRowKind,
++  isP6O2QaLinkTargetEligible,
    validateLedgerRowForAppend,
  } from "./ledgerRowValidation";
  import fs from "node:fs";
@@ -275,7 +347,7 @@ index 35b81070..f6854edd 100644
    const candidate = buildCompleteCognitiveReceiptLedgerEntry(input, receipt);
    const validation = validateLedgerRowForAppend(candidate);
    if (!validation.ok) {
-@@ -328,6 +351,71 @@ export function captureCognitiveExecutionReceiptToP6Ledger(
+@@ -328,6 +351,69 @@ export function captureCognitiveExecutionReceiptToP6Ledger(
        };
      }
 
@@ -299,14 +371,12 @@ index 35b81070..f6854edd 100644
 +          absolutePath,
 +        };
 +      }
-+      if (
-+        isCognitiveReceiptRowKind(target.kind) ||
-+        !isP6CampaignQaRowKind(target.kind)
-+      ) {
++      if (!isP6O2QaLinkTargetEligible(target)) {
 +        return {
 +          ok: false as const,
 +          status: "o2_link_rejected" as const,
-+          message: "O2 link target must be a QA campaign row",
++          message:
++            "O2 link target must be an O2-eligible QA campaign result (not admin/diagnostic/cognitive)",
 +          absolutePath,
 +          existing: target,
 +        };
@@ -348,7 +418,7 @@ index 35b81070..f6854edd 100644
      if (existing) {
        if (onDuplicate === "skip") {
 diff --git a/projects/sfia-studio/app/lib/p6-campaign-evidence/evidenceLedger.ts b/projects/sfia-studio/app/lib/p6-campaign-evidence/evidenceLedger.ts
-index e0ceb868..4ef0a624 100644
+index e0ceb868..670c1092 100644
 --- a/projects/sfia-studio/app/lib/p6-campaign-evidence/evidenceLedger.ts
 +++ b/projects/sfia-studio/app/lib/p6-campaign-evidence/evidenceLedger.ts
 @@ -26,7 +26,11 @@ import fs from "node:fs";
@@ -357,7 +427,7 @@ index e0ceb868..4ef0a624 100644
    classifyLedgerRowForRead,
 +  evaluateO2LinkReadIntegrity,
 +  isCognitiveReceiptRowKind,
-+  isP6CampaignQaRowKind,
++  isP6O2QaLinkTargetEligible,
    validateLedgerRowForAppend,
 +  type O2LinkReadDiagnostic,
  } from "./ledgerRowValidation";
@@ -494,7 +564,7 @@ index e0ceb868..4ef0a624 100644
      duplicateRunIds,
      totalLines: lines.length,
      error: "ledger unreadable as structured evidence (no valid rows)",
-@@ -540,3 +573,133 @@ export function findP6EvidenceLedgerRowsByRunId(
+@@ -540,3 +573,134 @@ export function findP6EvidenceLedgerRowsByRunId(
      error: read.error,
    };
  }
@@ -589,11 +659,12 @@ index e0ceb868..4ef0a624 100644
 +    };
 +  }
 +  const qaRow = qaMatches[0]!;
-+  if (!isP6CampaignQaRowKind(qaRow.kind)) {
++  if (!isP6O2QaLinkTargetEligible(qaRow)) {
 +    return {
 +      ok: false,
 +      code: "O2_TARGET_NOT_QA",
-+      message: "runId does not address a QA campaign row",
++      message:
++        "runId does not address an O2-eligible QA campaign result (not admin/diagnostic/cognitive)",
 +      integrityPass: false,
 +      integrity: read.integrity,
 +      absolutePath: read.absolutePath,
@@ -629,7 +700,7 @@ index e0ceb868..4ef0a624 100644
 +  };
 +}
 diff --git a/projects/sfia-studio/app/lib/p6-campaign-evidence/index.ts b/projects/sfia-studio/app/lib/p6-campaign-evidence/index.ts
-index 27163f69..5daae518 100644
+index 27163f69..16fd9dbe 100644
 --- a/projects/sfia-studio/app/lib/p6-campaign-evidence/index.ts
 +++ b/projects/sfia-studio/app/lib/p6-campaign-evidence/index.ts
 @@ -13,12 +13,15 @@ export {
@@ -660,12 +731,14 @@ index 27163f69..5daae518 100644
  } from "./qaCollectionSeam";
 
  export {
-@@ -43,8 +49,13 @@ export {
+@@ -43,8 +49,15 @@ export {
    validateCognitiveReceiptRow,
    classifyLedgerRowForRead,
    durableLedgerContentEquivalent,
 +  evaluateO2LinkReadIntegrity,
 +  isP6CampaignQaRowKind,
++  isP6HistoricalReadableCampaignKind,
++  isP6O2QaLinkTargetEligible,
 +  isCognitiveReceiptRowKind,
 +  validateLinkedQaRunIdField,
    MAX_LEDGER_ROW_JSON_BYTES,
@@ -675,15 +748,19 @@ index 27163f69..5daae518 100644
 +  type O2LinkReadDiagnostic,
  } from "./ledgerRowValidation";
 diff --git a/projects/sfia-studio/app/lib/p6-campaign-evidence/ledgerRowValidation.ts b/projects/sfia-studio/app/lib/p6-campaign-evidence/ledgerRowValidation.ts
-index acaed52a..cd238371 100644
+index acaed52a..5d7ec8b9 100644
 --- a/projects/sfia-studio/app/lib/p6-campaign-evidence/ledgerRowValidation.ts
 +++ b/projects/sfia-studio/app/lib/p6-campaign-evidence/ledgerRowValidation.ts
-@@ -65,6 +65,151 @@ function isNonEmptyString(v: unknown): v is string {
+@@ -65,6 +65,207 @@ function isNonEmptyString(v: unknown): v is string {
    return typeof v === "string" && v.trim().length > 0;
  }
 
-+/** QA / campaign result kinds eligible as O2 link targets. */
-+export function isP6CampaignQaRowKind(kind: unknown): boolean {
++/**
++ * Historically readable campaign-family kinds (read/classify only).
++ * Includes administrative/diagnostic kinds that remain ledger-readable
++ * but are NOT O2 link targets.
++ */
++export function isP6HistoricalReadableCampaignKind(kind: unknown): boolean {
 +  return (
 +    kind === undefined ||
 +    kind === null ||
@@ -694,8 +771,59 @@ index acaed52a..cd238371 100644
 +  );
 +}
 +
++/**
++ * @deprecated Kind-only coarse gate. Prefer `isP6O2QaLinkTargetEligible(row)`
++ * for O2 write/read/resolver. Excludes administrative/diagnostic kinds.
++ */
++export function isP6CampaignQaRowKind(kind: unknown): boolean {
++  return (
++    kind === undefined ||
++    kind === null ||
++    kind === "(historical_campaign)" ||
++    kind === "p6_campaign_run"
++  );
++}
++
 +export function isCognitiveReceiptRowKind(kind: unknown): boolean {
 +  return kind === "cognitive_execution_receipt";
++}
++
++/**
++ * O2 link-target eligibility — DISTINCT from historical readability.
++ *
++ * Eligible:
++ *   - explicit `p6_campaign_run` with campaign QA identity fields;
++ *   - historical campaign rows (absent kind / `(historical_campaign)`) with
++ *     the same identity fields (74 archive rows of this form are QA results).
++ *
++ * NOT eligible (still historically readable when valid):
++ *   - `ROOT_CAUSE_INVESTIGATION_READONLY` (diagnostic / investigation);
++ *   - `RUNTIME_REQUALIFICATION` (administrative requalification);
++ *   - cognitive receipts;
++ *   - unknown kinds.
++ */
++export function isP6O2QaLinkTargetEligible(
++  row: Record<string, unknown>,
++): boolean {
++  if (isCognitiveReceiptRowKind(row.kind)) return false;
++  const kind = row.kind;
++  if (
++    kind === "ROOT_CAUSE_INVESTIGATION_READONLY" ||
++    kind === "RUNTIME_REQUALIFICATION"
++  ) {
++    return false;
++  }
++  const kindOk =
++    kind === "p6_campaign_run" ||
++    kind === undefined ||
++    kind === null ||
++    kind === "(historical_campaign)";
++  if (!kindOk) return false;
++  return (
++    isNonEmptyString(row.runId) &&
++    isNonEmptyString(row.scenarioId) &&
++    row.campaignId === P6_CAMPAIGN_ID
++  );
 +}
 +
 +/**
@@ -787,10 +915,11 @@ index acaed52a..cd238371 100644
 +      });
 +      continue;
 +    }
-+    if (isCognitiveReceiptRowKind(target.kind) || !isP6CampaignQaRowKind(target.kind)) {
++    if (!isP6O2QaLinkTargetEligible(target)) {
 +      diagnostics.push({
 +        code: "O2_LINK_TARGET_KIND",
-+        message: "linkedQaRunId must point to a QA campaign row",
++        message:
++          "linkedQaRunId must point to an O2-eligible QA campaign result (not admin/diagnostic/cognitive)",
 +        receiptRunId,
 +        linkedQaRunId: linked,
 +      });
@@ -830,7 +959,7 @@ index acaed52a..cd238371 100644
  function isNullOrNonNegNumber(v: unknown): boolean {
    return (
      v === null ||
-@@ -369,6 +514,10 @@ export function validateCognitiveReceiptRow(
+@@ -369,6 +570,10 @@ export function validateCognitiveReceiptRow(
        message: "runId must differ from logicalTurnId",
      };
    }
@@ -841,7 +970,7 @@ index acaed52a..cd238371 100644
    if (row.runtimeIdentity !== "agents") {
      return {
        ok: false,
-@@ -671,6 +820,7 @@ export const P6_RECEIPT_DURABLE_COMPARE_KEYS = [
+@@ -671,6 +876,7 @@ export const P6_RECEIPT_DURABLE_COMPARE_KEYS = [
    "projectId",
    "campaignId",
    "scenarioId",
@@ -1031,7 +1160,7 @@ index 7a446c4c..174d7673 100644
 +  return { qa, cognitive };
 +}
 diff --git a/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md b/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
-index 53be8f6a..6c18662b 100644
+index 53be8f6a..774b92a0 100644
 --- a/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
 +++ b/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
 @@ -20,7 +20,8 @@
@@ -1040,27 +1169,29 @@ index 53be8f6a..6c18662b 100644
  | F04 P6 REAL OBS Option B receipt conservation (CRITICAL CORRECTION) | `p6.realObs.optionB.receiptConservation.d0.test.ts` | DETERMINISTIC AT CORRECTED SEAM — process registry; Fake ≠ REAL; Runner id ≠ PROVIDER_CONFIRMED; capture fail ≠ provider_error; ZERO REAL |
 -| F04 P6 EXTERNAL Evidence Ledger capture | `p6.externalEvidenceLedger.d0.test.ts`; `p6.qaCollectionSeam.d0.test.ts`; `p6.receiptCompleteness.d0.test.ts` + `lib/p6-campaign-evidence/**` | DETERMINISTIC — complete receipt v2; read integrity + read-uniqueness (dup runId ≠ HEALTHY); write uniqueness; durable duplicate skip; MONO_WRITER; QA seam DET / wiring PENDING; ZERO REAL |
 +| F04 P6 EXTERNAL Evidence Ledger capture | `p6.externalEvidenceLedger.d0.test.ts`; `p6.qaCollectionSeam.d0.test.ts`; `p6.receiptCompleteness.d0.test.ts` + `lib/p6-campaign-evidence/**` | DETERMINISTIC — complete receipt v2; read integrity + read-uniqueness (dup runId ≠ HEALTHY); write uniqueness; durable duplicate skip; MONO_WRITER; QA seam DET; ZERO REAL |
-+| F04 P6 O2 linked evidence operational wiring | `p6.o2OperationalWiring.d0.test.ts` + `lib/p6-campaign-evidence/**` (`linkedQaRunId`, `wireP6O2OperationalEvidence`, `resolveP6O2LinkedEvidencePair`) | DETERMINISTIC — QA + 0..1 linked cognitive receipt; write/read O2 link integrity; archive historique immuable; Product path Fake; REAL harness migration NOT DONE; ZERO REAL |
++| F04 P6 O2 linked evidence operational wiring | `p6.o2OperationalWiring.d0.test.ts` + `lib/p6-campaign-evidence/**` (`linkedQaRunId`, `wireP6O2OperationalEvidence`, `resolveP6O2LinkedEvidencePair`, `isP6O2QaLinkTargetEligible`) | DETERMINISTIC — QA + 0..1 linked cognitive receipt; write/read O2 link integrity; CP01 portable archive fixtures; QA-target eligibility ≠ historical readability; REAL harness migration NOT DONE; ZERO REAL |
  | F04 Documentary reliability RCD-01 (PR #578 INTEGRATED ON MAIN) | `p6.nora.min09.documentaryReliability.d0.test.ts` (R1–R7); P1/P2/Session regressions | Complete-line coverage; redaction progression; final envelope truth; envelope `lineExceedsCap`; fixture regex fidelity; **DETERMINISTIC ONLY** — not GDR REAL; merge `44006648` |
  | F06/F07 integrity | recommendationDecisionIntegrity*, recommendation-vs-decision | Proposal≠HD |
  | F07 Framing HD / START boundary | chatFirstFramingContinuity* + F01 gate | HD structural when required; START gated |
 diff --git a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
-index 07ebe1ef..4b950e27 100644
+index 07ebe1ef..e291c155 100644
 --- a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
 +++ b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
-@@ -16,7 +16,9 @@
+@@ -16,7 +16,11 @@
  | OBS-01 writer security | CLOSED AT DET — `validateLedgerRowForAppend` at every public append; secrets/forbidden keys refused |
  | OBS-02 integrity status | CLOSED AT DET — `HEALTHY` / `DEGRADED` / `INVALID` / `UNREADABLE` / `MISSING`; `integrityPass` only when HEALTHY; no silent rewrite |
  | OBS-03 idempotence / concurrency | CLOSED AT **MONO_WRITER** model — O_EXCL contention detection; no age-based lock reclaim; orphan recovery via explicit `forceRemoveOrphanP6EvidenceLedgerLock` only. Multi-process durability **NOT CLAIMED** |
 -| OBS-04 QA collection seam | DET PROVEN — `collectP6ProductTurnEvidence`; **OPERATIONAL CAMPAIGN WIRING PENDING** (historical harnesses still inline `appendFileSync` on qa WT) |
 +| OBS-04 QA collection seam | DET PROVEN — `collectP6ProductTurnEvidence`; **O2 DET WIRING IMPLEMENTED** (`wireP6O2OperationalEvidence` + `linkedQaRunId`); historical REAL harness migration **NOT DONE** |
 +| O2 minimal link contract | DET — `linkedQaRunId` on cognitive rows; cardinality QA → 0..1 receipt; write+read integrity; historical unlinked v2 readable without O2 promotion |
++| O2 QA target eligibility (CP01-02) | DET — `isP6O2QaLinkTargetEligible` distinct from historical readability; admin/diagnostic kinds (`ROOT_CAUSE_*`, `RUNTIME_REQUALIFICATION`) not linkable; historical absent-kind QA rows eligible with identity fields |
++| O2-32 portability (CP01-01) | DET — archive isolation proven via temp fixtures; real archive SHA check optional via `SFIA_P6_HISTORICAL_LEDGER_PATH` (no hardcoded user paths) |
 +| Historical ledger disposition (D1) | ARCHIVE ONLY (qa WT) — active ledger for new runs is worktree-local canonical path; no sync/repair of archive line 75 |
  | Receipt completeness (ledger schema v2) | CLOSED AT DET — full Product CognitiveExecutionReceipt projection (model/effort/tokens/adaptive/continuation/conservation); reopen field-by-field equality |
  | Read integrity v2 | CLOSED AT DET — `classifyLedgerRowForRead` aligns reader with writer schema; incomplete v2 ⇒ `integrityPass=false` (DEGRADED); historical campaign rows not v2-promoted |
  | RunId uniqueness (write) | CLOSED AT DET — all public writers reject duplicate runId under MONO_WRITER lock; duplicate skip requires durable content equivalence |
 diff --git a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-index 07604d03..b9791e9a 100644
+index 07604d03..c9b64340 100644
 --- a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
 +++ b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
 @@ -39,11 +39,11 @@
@@ -1068,19 +1199,20 @@ index 07604d03..b9791e9a 100644
      {
        "path": "projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md",
 -      "sha256_16": "1b7f254ef869dfc3"
-+      "sha256_16": "7c1c87ef8d441da6"
++      "sha256_16": "587caa7bbc0179f3"
      },
      {
        "path": "projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md",
 -      "sha256_16": "57b2b177259d7c5b"
-+      "sha256_16": "88a413fc9da6c985"
++      "sha256_16": "978931873268eb6a"
      }
    ],
    "components": [
-
 ```
 
-### FULL NEW FILE — `p6.o2OperationalWiring.d0.test.ts`
+---
+
+## V. Contenu intégral du test untracked (après CP01)
 
 ```typescript
 /**
@@ -1118,8 +1250,9 @@ import {
   durableLedgerContentEquivalent,
   findP6EvidenceLedgerRowsByLinkedQaRunId,
   findP6EvidenceLedgerRowsByRunId,
+  isP6HistoricalReadableCampaignKind,
+  isP6O2QaLinkTargetEligible,
   readP6EvidenceLedger,
-  resolveP6EvidenceLedgerAbsolutePath,
   resolveP6EvidenceLedgerPath,
   resolveP6O2LinkedEvidencePair,
   validateLedgerRowForAppend,
@@ -1148,10 +1281,21 @@ vi.mock("@/lib/nora-cognitive-runtime", async (importOriginal) => {
   };
 });
 
-const ARCHIVE_LEDGER =
-  "/Users/morris/Projects/sfia-workspace/.tmp-sfia-review/p6-global-integrated-qa/evidence-ledger.jsonl";
+/** Expected SHA of the real historical archive when present (D1). Not a CI path dependency. */
 const ARCHIVE_SHA_EXPECTED =
   "704531851d7102032c832d4d123abbddfc45d0b41d6afb6548c4a1f0e1f4b827";
+
+/**
+ * Optional real-archive path — env only. Never hardcode user home / machine paths
+ * into portable DET assertions (CP01-01).
+ */
+function resolveOptionalRealHistoricalArchivePath(): string | null {
+  const fromEnv = process.env.SFIA_P6_HISTORICAL_LEDGER_PATH;
+  if (typeof fromEnv === "string" && fromEnv.trim().length > 0) {
+    return fromEnv.trim();
+  }
+  return null;
+}
 
 function projectRuntime(projectId = "prj:p6-o2") {
   return {
@@ -1600,7 +1744,9 @@ describe("P6 O2 operational wiring (DET)", () => {
     expect(camp.ok).toBe(false);
     if (!camp.ok) {
       expect(camp.status).toBe("o2_link_rejected");
-      expect(camp.message).toMatch(/campaignId/i);
+      // Foreign campaignId makes the row O2-ineligible (CP01-02) before
+      // the same-campaign pairwise compare — both are honest refusals.
+      expect(camp.message).toMatch(/O2-eligible|campaignId/i);
     }
     fs.rmSync(cleanRoot, { recursive: true, force: true });
     fs.rmSync(campRoot, { recursive: true, force: true });
@@ -2003,24 +2149,238 @@ describe("P6 O2 operational wiring (DET)", () => {
     expect(read.rows[0]?.linkedQaRunId).toBeUndefined();
   });
 
-  it("O2-32 — archive historique SHA unchanged; active path isolated", async () => {
-    expect(fs.existsSync(ARCHIVE_LEDGER)).toBe(true);
-    const sha = await sha256File(ARCHIVE_LEDGER);
+  it("O2-32 / CP01-01-A…D/F — portable archive fixture isolation (no user path)", async () => {
+    const fixtureRoot = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-p6-o2-arch-fix-"));
+    const activeRoot = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-p6-o2-arch-act-"));
+    try {
+      const archiveFixture = path.join(
+        fixtureRoot,
+        "archive",
+        "evidence-ledger.jsonl",
+      );
+      fs.mkdirSync(path.dirname(archiveFixture), { recursive: true });
+      const archiveBytes =
+        `${JSON.stringify({
+          kind: "p6_campaign_run",
+          campaignId: P6_CAMPAIGN_ID,
+          runId: "P6-O2-ARCH-FIXTURE",
+          scenarioId: "P6-O2-DET-ARCH",
+          verdict: "HISTORICAL_FIXTURE",
+        })}\n`;
+      fs.writeFileSync(archiveFixture, archiveBytes, "utf8");
+      const shaBefore = await sha256File(archiveFixture);
+
+      const activeLedger = resolveP6EvidenceLedgerPath(activeRoot);
+      expect(activeLedger).not.toBe(archiveFixture);
+      expect(activeLedger.endsWith(P6_EVIDENCE_LEDGER_RELATIVE_PATH)).toBe(true);
+
+      const written = appendValidatedP6CampaignLedgerRow(
+        qaRow("P6-O2-QA-ARCH-CHECK"),
+        { absolutePath: activeLedger },
+      );
+      expect(written.ok).toBe(true);
+
+      // CP01-01-B/D — archive fixture bytes unchanged; no rewrite.
+      expect(fs.readFileSync(archiveFixture, "utf8")).toBe(archiveBytes);
+      expect(await sha256File(archiveFixture)).toBe(shaBefore);
+
+      // CP01-01-C — active distinct; not a copy of archive.
+      const activeRaw = fs.readFileSync(activeLedger, "utf8");
+      expect(activeRaw).not.toBe(archiveBytes);
+      expect(activeRaw).toContain("P6-O2-QA-ARCH-CHECK");
+      expect(activeRaw).not.toContain("P6-O2-ARCH-FIXTURE");
+    } finally {
+      fs.rmSync(fixtureRoot, { recursive: true, force: true });
+      fs.rmSync(activeRoot, { recursive: true, force: true });
+    }
+  });
+
+  it("CP01-01-E/F — real historical archive check is optional (env); absence is not DET failure", async () => {
+    const realPath = resolveOptionalRealHistoricalArchivePath();
+    if (!realPath || !fs.existsSync(realPath)) {
+      // Portable DET must not fail when the Morris archive worktree is absent (CI).
+      expect(realPath == null || !fs.existsSync(realPath)).toBe(true);
+      return;
+    }
+    const sha = await sha256File(realPath);
     expect(sha).toBe(ARCHIVE_SHA_EXPECTED);
-
-    const activeAbs = resolveP6EvidenceLedgerAbsolutePath(
-      "/Users/morris/Projects/sfia-workspace-p6-evidence-o2",
-    );
-    expect(activeAbs).toContain("sfia-workspace-p6-evidence-o2");
-    expect(activeAbs).not.toBe(ARCHIVE_LEDGER);
-    expect(activeAbs.endsWith(P6_EVIDENCE_LEDGER_RELATIVE_PATH)).toBe(true);
-
-    // Write only to temp DET ledger — archive bytes unchanged.
-    appendValidatedP6CampaignLedgerRow(qaRow("P6-O2-QA-ARCH-CHECK"), {
+    // Write only to isolated DET ledger — real archive unchanged.
+    appendValidatedP6CampaignLedgerRow(qaRow("P6-O2-QA-REAL-ARCH-PROBE"), {
       absolutePath: ledgerPath,
     });
-    const shaAfter = await sha256File(ARCHIVE_LEDGER);
-    expect(shaAfter).toBe(ARCHIVE_SHA_EXPECTED);
+    expect(await sha256File(realPath)).toBe(ARCHIVE_SHA_EXPECTED);
+  });
+
+  it("CP01-02 — O2 QA target eligibility ≠ historical readability", () => {
+    // CP01-02-A — explicit QA
+    expect(
+      isP6O2QaLinkTargetEligible({
+        kind: "p6_campaign_run",
+        campaignId: P6_CAMPAIGN_ID,
+        runId: "P6-O2-QA-ELIG",
+        scenarioId: "P6-O2-DET-01",
+      }),
+    ).toBe(true);
+
+    // CP01-02-D — historical campaign (absent kind) eligible with identity fields
+    expect(
+      isP6O2QaLinkTargetEligible({
+        campaignId: P6_CAMPAIGN_ID,
+        runId: "P6-O2-QA-HIST",
+        scenarioId: "P6-O2-DET-01",
+        verdict: "PASS",
+      }),
+    ).toBe(true);
+    expect(isP6HistoricalReadableCampaignKind(undefined)).toBe(true);
+
+    // CP01-02-B — cognitive refused
+    expect(
+      isP6O2QaLinkTargetEligible({
+        kind: "cognitive_execution_receipt",
+        campaignId: P6_CAMPAIGN_ID,
+        runId: "P6-O2-COG",
+        scenarioId: "P6-O2-DET-01",
+      }),
+    ).toBe(false);
+
+    // CP01-02-C — administrative / diagnostic refused as O2 targets but historically readable
+    expect(
+      isP6HistoricalReadableCampaignKind("ROOT_CAUSE_INVESTIGATION_READONLY"),
+    ).toBe(true);
+    expect(
+      isP6O2QaLinkTargetEligible({
+        kind: "ROOT_CAUSE_INVESTIGATION_READONLY",
+        campaignId: P6_CAMPAIGN_ID,
+        runId: "P6-O2-ADMIN-RC",
+        scenarioId: "HQA-01-GUIDANCE-ONLY",
+        verdict: "NOTE",
+      }),
+    ).toBe(false);
+    expect(isP6HistoricalReadableCampaignKind("RUNTIME_REQUALIFICATION")).toBe(
+      true,
+    );
+    expect(
+      isP6O2QaLinkTargetEligible({
+        kind: "RUNTIME_REQUALIFICATION",
+        campaignId: P6_CAMPAIGN_ID,
+        runId: "P6-O2-ADMIN-RR",
+        scenarioId: "RUNTIME-REQ",
+        verdict: "NOTE",
+      }),
+    ).toBe(false);
+  });
+
+  it("CP01-02-C/G/H — admin target refused at write; invalid link on disk diagnosed", () => {
+    fs.mkdirSync(path.dirname(ledgerPath), { recursive: true });
+    const admin = {
+      kind: "RUNTIME_REQUALIFICATION",
+      campaignId: P6_CAMPAIGN_ID,
+      runId: "P6-O2-ADMIN-TARGET",
+      scenarioId: "P6-O2-DET-01",
+      verdict: "ADMIN",
+    };
+    // Historical readability: append via raw bytes (admin kind not O2-eligible).
+    fs.writeFileSync(ledgerPath, `${JSON.stringify(admin)}\n`, "utf8");
+    const healthyAdmin = readP6EvidenceLedger({ absolutePath: ledgerPath });
+    expect(healthyAdmin.integrityPass).toBe(true); // CP01-02-F historically readable
+    expect(healthyAdmin.o2LinkErrors).toBe(0);
+
+    const receipt = buildCognitiveExecutionReceipt({
+      logicalTurnId: "ltu:admin-link",
+      projectId: "prj:p6-o2",
+      presentation: "test_provider",
+      productTerminalStatus: "ok",
+      turn: fakeTurn() as never,
+    });
+    const rejected = captureCognitiveExecutionReceiptToP6Ledger({
+      receipt,
+      runId: "P6-O2-COG-ADMIN-LINK",
+      scenarioId: "P6-O2-DET-01",
+      linkedQaRunId: "P6-O2-ADMIN-TARGET",
+      absolutePath: ledgerPath,
+    });
+    expect(rejected.ok).toBe(false);
+    if (!rejected.ok) expect(rejected.status).toBe("o2_link_rejected");
+
+    // CP01-02-H — raw invalid link on disk → DEGRADED after reopen
+    const orphanLink = {
+      kind: "cognitive_execution_receipt",
+      ledgerSchemaVersion: 2,
+      campaignId: P6_CAMPAIGN_ID,
+      runId: "P6-O2-COG-BAD-ADMIN-LINK",
+      scenarioId: "P6-O2-DET-01",
+      linkedQaRunId: "P6-O2-ADMIN-TARGET",
+      logicalTurnId: receipt.logicalTurnId,
+      projectId: receipt.projectId,
+      runtimeIdentity: receipt.runtimeIdentity,
+      providerIdentity: receipt.providerIdentity,
+      presentation: receipt.presentation,
+      providerConfigured: receipt.providerConfigured,
+      providerResponseId: receipt.providerResponseId,
+      providerResponseObservation: receipt.providerResponseObservation,
+      proofClassification: receipt.proofClassification,
+      productRealProofStatus: receipt.realProofStatus,
+      realBoundaryClaim: "NOT_CLAIMED",
+      selectedModelId: receipt.selectedModelId,
+      observedModel: receipt.observedModel,
+      selectedReasoningEffort: receipt.selectedReasoningEffort,
+      usage: receipt.usage,
+      adaptiveObserve: receipt.adaptiveObserve,
+      continuationObserve: receipt.continuationObserve,
+      toolCalls: receipt.toolCalls,
+      limitReached: receipt.limitReached,
+      productTerminalStatus: receipt.productTerminalStatus,
+      productConservation: receipt.conservation,
+      productCapturedAt: receipt.capturedAt,
+      captureStatus: "CAPTURED",
+    };
+    fs.appendFileSync(ledgerPath, `${JSON.stringify(orphanLink)}\n`, "utf8");
+    const degraded = readP6EvidenceLedger({ absolutePath: ledgerPath });
+    expect(degraded.integrityPass).toBe(false);
+    expect(
+      degraded.o2LinkDiagnostics.some((d) => d.code === "O2_LINK_TARGET_KIND"),
+    ).toBe(true);
+
+    const pair = resolveP6O2LinkedEvidencePair("P6-O2-ADMIN-TARGET", {
+      absolutePath: ledgerPath,
+    });
+    expect(pair.ok).toBe(false);
+    if (!pair.ok) expect(pair.code).toBe("O2_TARGET_NOT_QA");
+  });
+
+  it("CP01-02-D/G — historical absent-kind QA row accepted as link target (write+read)", () => {
+    fs.mkdirSync(path.dirname(ledgerPath), { recursive: true });
+    const histQa = {
+      // no kind — historical campaign QA result shape
+      campaignId: P6_CAMPAIGN_ID,
+      runId: "P6-O2-QA-HIST-LINK",
+      scenarioId: "P6-O2-DET-01",
+      verdict: "PASS",
+      ok: true,
+    };
+    fs.writeFileSync(ledgerPath, `${JSON.stringify(histQa)}\n`, "utf8");
+    const receipt = buildCognitiveExecutionReceipt({
+      logicalTurnId: "ltu:hist-link",
+      projectId: "prj:p6-o2",
+      presentation: "test_provider",
+      productTerminalStatus: "ok",
+      turn: fakeTurn() as never,
+    });
+    const linked = captureCognitiveExecutionReceiptToP6Ledger({
+      receipt,
+      runId: "P6-O2-COG-HIST-LINK",
+      scenarioId: "P6-O2-DET-01",
+      linkedQaRunId: "P6-O2-QA-HIST-LINK",
+      absolutePath: ledgerPath,
+    });
+    expect(linked.ok).toBe(true);
+    const pair = resolveP6O2LinkedEvidencePair("P6-O2-QA-HIST-LINK", {
+      absolutePath: ledgerPath,
+    });
+    expect(pair.ok).toBe(true);
+    if (!pair.ok) return;
+    expect(pair.integrityPass).toBe(true);
+    expect(pair.cardinality).toBe("qa_plus_one_receipt");
   });
 
   it("O2-33 / O2-34 — no REAL env gates; seam status honest", () => {
@@ -2087,115 +2447,53 @@ describe("P6 O2 operational wiring (DET)", () => {
     expect(byLink.matches[0]?.runId).toBe("P6-O2-COG-SEAM");
   });
 });
-
 ```
 
 ---
 
-## T. Tests / oracles / résultats
+## W. Manifest cumulatif candidat O2
 
-**Commande:**
-```
-vitest run \
-  __tests__/p6-campaign-evidence/p6.o2OperationalWiring.d0.test.ts \
-  __tests__/p6-campaign-evidence/p6.externalEvidenceLedger.d0.test.ts \
-  __tests__/p6-campaign-evidence/p6.qaCollectionSeam.d0.test.ts \
-  __tests__/p6-campaign-evidence/p6.receiptCompleteness.d0.test.ts
-```
-
-**Résultat réel:** Test Files **4 passed** · Tests **77 passed** · Duration ~4.7s · ZERO `*.real.test.ts` · ZERO OpenAI.
-
-Oracles O2-01…O2-36 couverts dans `p6.o2OperationalWiring.d0.test.ts` (paths A/B, write rejects, read diagnostics, archive immutability, Fake honesty, MONO_WRITER, Product path).
-
----
-
-## U. Validations
-
-| Check | Result |
+| Path | Status |
 |---|---|
-| DET targeted tests | PASS 77/77 |
-| `npm run typecheck` | PASS |
-| `npm run lint` | PASS (0 warnings/errors) |
-| `npm run build` | PASS (Next.js 15.5.20; pre-existing edge-runtime warnings only) |
-| `git diff --check` | PASS (clean) |
-| REAL tests | NOT EXECUTED |
-| Runtime :3020 | UNTOUCHED |
+| `lib/p6-campaign-evidence/*` | MODIFIED local |
+| `p6.receiptCompleteness.d0.test.ts` | MODIFIED local |
+| `p6.o2OperationalWiring.d0.test.ts` | UNTRACKED local |
+| PRR 08/09 + manifest | MODIFIED local |
+
+Product / REAL harnesses / archive: **non touchés**.
 
 ---
 
-## V. PRR
+## X–Y. Réserves / Dette / Exit
 
-- Volumes 08/09 updated for O2 DET wiring + D1 disposition.
-- Manifest digests refreshed via `--write-digests` after content review.
-- `node scripts/check-production-runtime-reference.mjs` → **PRODUCTION RUNTIME REFERENCE CONFORMANCE OK**
-
----
-
-## W. Fake/Real
-
-| Item | Status |
-|---|---|
-| Entry level | OPTION B DETERMINISTICALLY PROVEN |
-| Achieved | **O2 LINKED EVIDENCE WIRING DETERMINISTICALLY PROVEN AT TESTED SCOPE** |
-| Fake | Provider déterministe / FakeConversationProvider |
-| REAL | NOT EXECUTED / NOT AUTHORIZED |
-| Harnesses REAL | quarantined DO_NOT_COMMIT · NOT ADOPTED · NOT EXECUTED |
-| Claims interdits | REAL PROVEN · P6 GLOBAL PASS · Runtime v3 ADOPTED — **NOT CLAIMED** |
-
----
-
-## X–Y. Dette / Exit / Réserves
-
-**Exit proof:** Product DET path produces QA row + optional linked cognitive receipt in same ledger; reopen validates link + HEALTHY; negatives refuse orphans/cardinality/collisions.
-
-**Dette:** REAL harness migration · REAL qualification · historical archive consolidation · P6 GLOBAL · Git integration of this local candidate.
-
-**Réserves:** DO_NOT_COMMIT quarantaine · LOCAL CANDIDATE (no project commit) · Human QA WAITING (archive) · MONO_WRITER · REAL OPEN.
+**Réserves:** LOCAL CANDIDATE · REAL harnesses quarantined · REAL OPEN · Human QA WAITING · MONO_WRITER.
+**Dette:** Git Integration · REAL migration · archive consolidation · P6 GLOBAL.
+**Exit:** CP01-01/02 fermées · 81 DET PASS · archive immuable · D1/D2 préservés.
 
 ---
 
 ## Z. Décisions Morris restantes
-1. Git Integration GO (branch/commit/PR) for this local candidate
-2. REAL harness migration / adoption GO (distinct)
-3. REAL boundary qualification GO (distinct)
-4. Historical archive consolidation strategy for P6 close-out
+
+1. ChatGPT Critical Re-Review
+2. Si conforme → Git Integration GO
+3. REAL harness qualification (distinct)
+4. REAL boundary (distinct)
 
 ---
 
-## AA. Git Truth final
+## AA. Verdict
 
-| Item | Value |
-|---|---|
-| HEAD | `aee4878d00f76cbb444977bf7ca370fb9b43fc83` detached |
-| origin/main | `aee4878d00f76cbb444977bf7ca370fb9b43fc83` |
-| Project commit | NONE |
-| Project push | NONE |
-| Dirty | local O2 wiring files only (+ ignored quarantine/review artefacts) |
-| Option B / QA WTs | NOT MODIFIED by this cycle's code edits |
-| Archive SHA | unchanged `70453185…` |
+**P6 O2 CP01 TARGETED CORRECTIONS CLOSED / DETERMINISTIC REGRESSION PASS / LOCAL CANDIDATE / READY FOR CHATGPT CRITICAL RE-REVIEW**
+
+NO PROJECT COMMIT/PUSH/PR/MERGE. NO READY FOR REAL. NO READY FOR GIT INTEGRATION before ChatGPT Critical Re-Review.
 
 ---
 
-## AB. Verdict
+## AB. Instruction ChatGPT
 
-**P6 O2 LINKED EVIDENCE WIRING DETERMINISTICALLY PROVEN / LOCAL CANDIDATE / READY FOR CHATGPT REVIEW**
-
-WIRING DET PROVEN AT TESTED SCOPE.
-REAL NOT EXECUTED.
-NO PROJECT COMMIT / PUSH / PR / MERGE.
-NO RUNTIME V3 PROMOTION.
-NO HARNESS REAL ADOPTION.
-
----
-
-## AC. Instruction ChatGPT
-
-Lire ce Review Handoff distant.
-
-Vérifier indépendamment D1/D2, `linkedQaRunId`, cardinalité 0..1, write/read integrity, archive immuable, Product non modifié, absence 2e stockage, tests DET 77/77, Fake/Real honnête, PRR OK, contenu exploitable.
-
-Rendre verdict DELIVERY / CHATGPT REVIEW READINESS.
-
-Ne pas autoriser automatiquement: COMMIT PROJET · PUSH PROJET · PR · MERGE · REAL · HARNESS REAL ADOPTION · CLEANUP · RUNTIME V3 PROMOTION.
+Lire ce handoff distant. Vérifier CP01-01/02, D1/D2, write/read, 81 DET, archive SHA, Fake/Real, PRR, test untracked, diffs.
+Verdict: DELIVERY / CHATGPT CRITICAL RE-REVIEW READINESS.
+Ne pas autoriser automatiquement: COMMIT/PUSH/PR/MERGE projet · REAL · harness adoption · cleanup · runtime v3.
+Si conforme: recommander gate Morris Git Integration du candidat O2.
 
 FIN DU CONTRAT.
