@@ -1,1477 +1,864 @@
-# SFIA STUDIO — P6 NORA LIVE ACTIVITY UX CLOSURE
-## Cycle 13 — PR Readiness / Git Integration — Review Pack FULL
+# SFIA STUDIO — P6 PRODUCT END-TO-END EXIT QUALIFICATION
+## Cycle 9 — QA / VALIDATION — Review Pack FULL
 
-**A. Horodatage (Europe/Paris):** 2026-10-14 22:04:36 CEST
-**B. GO Morris:** COMMIT + PUSH + DRAFT PR + CI — AUTHORIZED / CONSUMED (2026-10-14)
-**C. Cycle / profil:** Cycle 13 — CRITICAL — EVOL / CUMULATIVE PRODUCT UX
+**A. Horodatage (Europe/Paris):** 2026-10-14 23:22:07 CEST
+**B. GO Morris:** REPO-FIRST QUALIFICATION / READ-ONLY PRODUCT ANALYSIS — AUTHORIZED / CONSUMED (2026-10-14)
+**C. Cycle / profil:** Cycle 9 — CRITICAL — QA / AUDIT READ-ONLY — SOURCE-BACKED QUALIFICATION
 **D. Repository:** mcleland147/sfia-workspace
 
 ---
 
 ## D. Git Truth initial (VERIFIE)
 
-| Check | Value |
+| Check | Value | Class |
+|---|---|---|
+| Worktree | `/Users/morris/Projects/sfia-workspace-p6-nora-ux-cumulative-closure` | VERIFIE |
+| Branch locale | `delivery/sfia-studio-p6-nora-ux-cumulative-closure` | VERIFIE |
+| HEAD local | `52b01855d4321bb3f90b2b65f2a4eed2e1b18e47` | VERIFIE |
+| origin/main | `b555819d8c3711fd2782b5ee7926517b6b3b8615` | VERIFIE (= ChatGPT `b555819d8c3711fd2782b5ee7926517b6b3b8615`) |
+| Sources lues depuis | `origin/main` (= main tip) | VERIFIE |
+| Dirty Product | aucun fichier Product | VERIFIE |
+| Dirty local | `.tmp-sfia-review/chatgpt-review.md` seulement (artefact pack) | VERIFIE |
+| PR #582 / #583 | sur main (log tip: Merge #583 → #582 parent chain) | VERIFIE |
+| Worktree Human QA T2 | `sfia-workspace-p6-t2-real-qa-eec68a41` @ `eec68a41` (≠ main tip) | VERIFIE |
+| Serveur :3020 | NON TOUCHE (hors GO) | NON EXECUTE |
+
+Status short:
+```
+M .tmp-sfia-review/chatgpt-review.md
+```
+
+Worktrees pertinents (extrait):
+```
+/Users/morris/Projects/sfia-workspace                                                                                                                                                                                                                                              980064c0 [qa/sfia-studio-p6-global-integrated-product-qa]
+/Users/morris/Projects/sfia-workspace-p6-campaign-continuation-qa                                                                                                                                                                                                                  d8ceb8ad (detached HEAD)
+/Users/morris/Projects/sfia-workspace-p6-evidence-o2                                                                                                                                                                                                                               22e699da [delivery/sfia-studio-p6-o2-linked-evidence-wiring]
+/Users/morris/Projects/sfia-workspace-p6-hqa-01                                                                                                                                                                                                                                    8f61da8f [fix/studio-p6-hqa-01-conversation-recommendations]
+/Users/morris/Projects/sfia-workspace-p6-hqa-02                                                                                                                                                                                                                                    6f68ea24 [fix/studio-p6-hqa-02-work-recommendation-materialization]
+/Users/morris/Projects/sfia-workspace-p6-min09-documentary-cognitive-reliability-01                                                                                                                                                                                                9b855d8d [fix/p6-min09-documentary-cognitive-reliability-01]
+/Users/morris/Projects/sfia-workspace-p6-nora-extended-execution-live-activity                                                                                                                                                                                                     3d8acf34 (detached HEAD)
+/Users/morris/Projects/sfia-workspace-p6-nora-ux-cumulative-closure                                                                                                                                                                                                                52b01855 [delivery/sfia-studio-p6-nora-ux-cumulative-closure]
+/Users/morris/Projects/sfia-workspace-p6-real-observability-option-b                                                                                                                                                                                                               b6eb7862 (detached HEAD)
+/Users/morris/Projects/sfia-workspace-p6-rec01-human-qa                                                                                                                                                                                                                            d8ceb8ad (detached HEAD)
+/Users/morris/Projects/sfia-workspace-p6-t2-real-qa-eec68a41                                                                                                                                                                                                                       eec68a41 (detached HEAD)
+/Users/morris/Projects/sfia-wt-p6-hqa-rec01                                                                                                                                                                                                                                        de8573bd [fix/studio-p6-hqa-rec01-qualification-signals]
+```
+
+---
+
+## E. Convergence Pre-check
+
+| Item | Statut | Temporalite |
+|---|---|---|
+| Build Doctrine | VALIDATED / ACTIVE ON MAIN | CURRENT |
+| Roadmap | VALIDATED / ACTIVE (timestamps tip P6 campaign; anciennes tip P5 HISTORICAL/SUPERSEDED) | CURRENT tip + HISTORICAL rows |
+| C1 Product Completion | VALIDATED / INTEGRATED | CURRENT |
+| Runtime v3 | NON ADOPTED | CURRENT |
+| P6 | STARTED / GLOBAL PASS NOT CLAIMED | CURRENT (doc §B/§AV) |
+| PR #582 Nora Extended | INTEGRATED on main | CURRENT |
+| PR #583 Nora UX Closure | INTEGRATED on main + post-merge tip | CURRENT |
+| Phase 1 P6 | PASS / REQUALIFIED (doc) | CURRENT doc claim |
+| Phase 5 Human QA | BATCH PREPARING (doc §B) | CURRENT doc |
+| Phase 6 | INTERIM ONLY ≠ P6 PASS | CURRENT doc |
+| P7 | NOT AUTHORIZED BY THIS GO | CURRENT |
+
+Classification guidance (non-decision Morris): KEEP / ADAPT / COMPLETE / HARVEST / FREEZE / RETIRE LATER — voir §H.
+
+---
+
+## F. Sources canoniques consultees (depuis `origin/main`)
+
+| Source | Path | Usage |
+|---|---|---|
+| Build Doctrine | `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md` | gouvernance construction |
+| Roadmap | `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` | trajectoire / tip vs historical |
+| C1 | `projects/sfia-studio/product-completion/01-product-completion-cadrage.md` | boucle F, EC L, AgentCapability M, continuity Q, trajectory X |
+| PS01 | `.../01-chat-first-product-simplification-cadrage.md` | boucle / exit |
+| PS02 | `.../02-...-functional-operating-model.md` | HD/Confirmation/Execution/Review/Trajectory |
+| PS04 | `.../04-...-semantic-projection-cognitive-architecture.md` | Synthesis / Nora / Resolution |
+| PS05 | `.../05-...-integrated-delivery.md` | P5-S03/S04/S05 integrated claims |
+| P6 | `.../07-...-p6-global-integrated-product-qa.md` | MIN/BAR/campaign/Human QA |
+| CKC QA | `.../ckc/09-qa-validation.md` (`ckc:studio:qa-validation`) | guidance cognitive ONLY |
+| Method v2.6 | `prompts/templates/sfia-cycle-execution-template.md` + routing guide | PROCESSUS EXTERNE (non runtime) |
+
+CKC: `ckc:studio:qa-validation` — CONTENT VALIDATED BY MORRIS · **PAS** runtime-adopted · aucune autorite d'execution.
+
+---
+
+## G. Capacité v3 / trajectoire P6
+
+**Capacité cible:** Pilote conduit un travail bout-en-bout avec Nora et reçoit une restitution fondée sur résultats Product vérifiés.
+
+**Trajectoire:** Qualification repo-first (ce cycle) → scénario Human QA validé ChatGPT → GO Morris Human QA → Evidence → P6 Consolidation → P6 Exit Review.
+
+**Next capability:** P6 END-TO-END HUMAN QA (Execution/Review/Synthesis/Nora continuity), puis consolidation. **P7 NOT AUTHORIZED.**
+
+---
+
+## H. Classification actifs (guidance — pas decision Morris)
+
+| Actif | Classe | Maturite | Notes |
+|---|---|---|---|
+| ConversationSurface + Nora live activity/sources | KEEP | INTEGRATED (PR #582/#583) | UX presentiel Pilote |
+| TrajectorySurface (HD / EC prep / confirm / authorize / launch) | KEEP | INTEGRATED | front door decision+EC |
+| ExecutionSurface (continuity / confirm / authorize / reconcile) | KEEP | INTEGRATED (P5-S03) | object-native Exécution |
+| SynthesesSurface + synthesisPresentation | KEEP | INTEGRATED (P5-S04) | 9 sections P3 |
+| JournalSurface / History / LPS / Recovery | KEEP | INTEGRATED | projections derivees |
+| W2 prepare/inspect/confirm/authorize/execute/reconcile | KEEP | INTEGRATED | server actions |
+| W3-B materialize terminal | KEEP | INTEGRATED | Product outcome |
+| W3-C post-Evidence loop | KEEP | INTEGRATED | Recommendation authority:none |
+| Evidence / ReviewBundle / ClaimEvaluation / ContractResultVerdict | KEEP | INTEGRATED (lib/oa/evidence-review) | DET+adversarial suites |
+| Product Synthesis builder + oa_syntheses | KEEP | INTEGRATED | soft-fail after W3-C |
+| docs_write REAL bounded path | KEEP | INTEGRATED / REAL-BOUNDARY partial | representative REAL executor path |
+| Generic Cursor REAL | KEEP / ADAPT | PARTIAL | present in governedExecute; envelope-gated |
+| Runtime v3 native Option A schemas | FREEZE / HARVEST | MODELED | NON ADOPTED |
+| Preview QA `/dev/nora-ux-closure` | RETIRE LATER | RETIRED from main tip | absent on main |
+| Parallel cockpit / second QA architecture | RETIRE LATER | FORBIDDEN | none for this cycle |
+
+---
+## I. Carte Execution Product (CURRENT wiring)
+
+### Pipeline TARGET (C1 §F.1)
+```
+Pilote → Nora qualification → LPS/Trajectory/Recommendation
+→ HumanDecision → Confirmation? → ExecutionContract
+→ Executor → Evidence/RB → Nora analysis → LPS/Trajectory → decision
+```
+
+### Pipeline CURRENT (code on main) — VERIFIE
+
+```
+Conversation / Nora turn (orchestrateTurn / F2)
+  → Trajectory options / Recommendation (OA cycle + W2)
+  → HumanDecision (w2DecideTrajectoryAction / chat-first decision subjects)
+  → prepareExecutionContractFromW2Decision (TrajectorySurface)
+  → inspectExecutionContract
+  → confirmForAuthorization (si applicable; ≠ HD)
+  → authorizeExecutionContract (effective authority)
+  → governedExecuteAuthorizedContract / reconcileGovernedExecution
+       (ExecutionSurface: confirm → authorize → reconcile intent=execute|continue)
+  → Attempt progression / cancel
+  → materializeW3bProductTerminal (Executor claim → Studio verification path)
+  → runW3cPostEvidenceLoop (CE/RB/Evidence durable → Recommendation authority:none)
+  → maybeMaterializeProductSynthesisAfterW3c (soft-fail; oa_syntheses)
+  → SynthesesSurface / Journal / LPS projections
+```
+
+### Points d'entrée Product (surfaces)
+
+| Surface | Path | Role |
+|---|---|---|
+| Project workspace | `features/pre-m6-product-ui/ProjectWorkspacePage.tsx` | compose surfaces |
+| Conversation | `.../ConversationSurface.tsx` | intention / Nora / sources |
+| Trajectory | `.../TrajectorySurface.tsx` | HD, prepare EC, confirm, authorize, launch/cancel |
+| Execution | `.../ExecutionSurface.tsx` | continuity, confirm, authorize, reconcile |
+| Syntheses | `.../SynthesesSurface.tsx` | consultation Synthèse Product-derived |
+| Journal / History / LPS / Recovery | `.../JournalSurface.tsx` etc. | continuity projections |
+
+### Implémentations serveur clés
+
+| Maillon | Path |
 |---|---|
-| Worktree | `/Users/morris/Projects/sfia-workspace-p6-nora-ux-cumulative-closure` |
-| Branch | `delivery/sfia-studio-p6-nora-ux-cumulative-closure` |
-| HEAD entree | `eec68a418ae271452edc2188c9cf1ae06faa8232` |
-| origin/main | `eec68a418ae271452edc2188c9cf1ae06faa8232` |
-| Handoff entree | `49ef757c` / blob `c66e9bef` |
-| Dirty entree | 3 modified + 4 untracked projet + `.tmp` pack |
-| Middleware | identique baseline |
-| Preview | absente |
+| Resolve context | `w2/resolveProductExecutionContext.ts` |
+| Continuity projection | `w2/deriveGovernedExecutionContinuityProjection.ts` |
+| Reconcile | `w2/reconcileGovernedExecution.ts` |
+| Prepare EC | `w2/prepareExecutionContractFromW2Decision.ts` |
+| Inspect | `w2/inspectExecutionContract.ts` |
+| Confirm | `w2/confirmForAuthorization.ts` |
+| Authorize | `w2/authorizeExecutionContract.ts` |
+| Execute | `w2/governedExecuteAuthorizedContract.ts` |
+| W3-B | `w2/materializeW3bProductTerminal.ts` |
+| W3-C | `w2/w3cPostEvidenceLoop.ts` |
+| Synthesis hook | `w2/maybeMaterializeProductSynthesisAfterW3c.ts` |
+| Actions facade | `w2/actions.ts` |
+| Evidence/RB/CE/CRV | `lib/oa/evidence-review/application/*` |
+| Synthesis builder | `lib/oa/synthesis/application/buildProductSynthesis.ts` |
+| Synthesis SQLite | `lib/oa/synthesis/infrastructure/sqlite/sqliteSynthesisRepository.ts` (`oa_syntheses`) |
 
-## E. Convergence
+### Extraits critiques
 
-Build Doctrine / Roadmap / C1 VALIDATED. PR #582 INTEGRATED. UX Critical Re-Review PASS WITH RESERVES. P6 GLOBAL NOT PASSED. Runtime v3 NON ADOPTED.
+#### ExecutionSurface authority path
 
-## F. Sources canoniques
+```36:54:projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ExecutionSurface.tsx
 
-Doctrine/roadmap/C1/product-simplification; handoff 49ef757c; 7 fichiers candidat; readCoverage / liveActivityEvents (lecture seule).
-
-## G. Critical Re-Review d'entree
-
-PASS WITH RESERVES / READY FOR MORRIS GIT INTEGRATION GO.
-R-UX-01/02/03 CLOSED. Reserves navigateur sources + panel legacy + REAL non rejoue.
-
-## H. Manifest exact (7)
-
-MODIFIED (3):
-- conversationSurface.liveActivityStop.d0.test.tsx
-- ConversationSurface.module.css
-- ConversationSurface.tsx
-
-ADDED (4):
-- presentLiveActivityTimeline.ts
-- presentConversationSources.ts
-- p6.nora.uxClosure.presentation.d0.test.ts
-- p6.nora.uxClosure.sourcesSurface.d0.test.tsx
-
-EXCLUS: middleware, preview, .tmp, Runner, NDJSON, doctrine.
-
-## I–J. Diffs / nouveaux fichiers
-
-Voir sections finales MODIFIED DIFFS + NEW FILES (contenu integral).
-
-## K. R-UX-01/02/03
-
-CLOSED — regroupement documentaire `#Lx-y` ; preview retire ; libelles tool_completed honnetes.
-
-## L–N. Activite / couleur / motion / Stop
-
-KEEP: sans kind/numerotation ; `--pm6-muted-strong` (contraste hist. 5.53) ; pulse + reduced-motion ; StopGlyph 30x30 hover clair.
-
-## O. Sources / provenance
-
-documentaryGroupKey + parseGitLocalReadCoverageSignals ; search≠read ; FULL preuve seule ; incidents visibles ; disclaimer conversation-scope.
-
-## P–Q. Middleware / Preview
-
-middleware = baseline main (non dans commit). Preview absente du candidat et du build.
-
-## R–S. Figma / Browser reserve
-
-Figma DP06 harvest. UPDATED SOURCE BROWSER RENDER NOT INDEPENDENTLY VERIFIED. Captures historiques pour UX inchangee seulement.
-
-## T. Tests locaux (VERIFIE)
-
+/**
+ * P5-S03 Exécution — durable Product continuity + W2 governed actions.
+ *
+ * Authority path (restart-safe):
+ *   w2ReadCurrent… / w2Derive…
+ *   → Confirm via w2ConfirmExecutionContractAction (no Attempt)
+ *   → Execute via authorize + reconciler intent=execute
+ *   → Continue via reconciler intent=continue (canonical policy)
+ *
+ * Conversation process-local F3 state is NEVER the authority oracle.
+ * Continuation scheduling is presentation-only; Product truth stays server-owned.
+ */
+export function ExecutionSurface({
+  projectId,
+  onReturnToConversation,
+  onPresentationChange,
+  onDurableFactsChanged,
+}: ExecutionSurfaceProps) {
 ```
-vitest: 3 files / 16 PASS
+#### W3-C — Recommendation only (INV-13/14/15)
+
+```1:72:projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts
+/**
+ * W3-C — Post-Evidence loop after W3-B terminal materialize.
+ * Consumes durable Evidence / RB / CE (no re-ingest). Recommendation only —
+ * never HumanDecision, never auto trajectory mutation, never auto new cycle.
+ *
+ * HumanDecision of trajectory only via explicit W2 propose + decide — Recovery
+ * CTA ≠ automatic HD. D5 NextActionCode has no ProjectTrajectory replan signal;
+ * W3-C never invents kind:"replan" / requiresHumanDecision from D5 alone.
+ */
+
+import { createHash } from "node:crypto";
+import {
+  resolveProductDoctrineRegistryRoot,
+  type RuntimeOaStack,
+} from "@/lib/vertical-slice-runtime";
+import type { EpistemicItem } from "@/lib/oa/cycle";
+import { SFIA_STUDIO_SYSTEM_FACTUAL_WRITER } from "@/features/project-assistant/f3/systemFactualWriter";
+import { appendEvidenceOutcomeToLps } from "@/features/project-assistant/f3/appendEvidenceOutcomeToLps";
+import { deriveAttemptProvenance } from "@/features/project-assistant/f3/deriveAttemptProvenance";
+import { resolveDurableBoundaryProofMode } from "@/features/project-assistant/f3/resolveDurableBoundaryProofMode";
+import {
+  analyzePostEvidenceWithProvider,
+  extractW3cPostEvidenceAnalysisForEvidence,
+  extractW3cRecommendationPayloadJsonForEvidence,
+  formatPostEvidenceAnalysisForLps,
+  formatW3cRecommendationPayloadForLps,
+  lastW3cEvidenceIdInLpsContext,
+} from "@/features/project-assistant/f3/postEvidenceNoraAnalysis";
+import {
+  loadDocsWriteArtifactReviewMaterial,
+  resolveProductEvidenceRefsRoot,
+} from "@/features/project-assistant/f3/persistDocsWriteArtifactReviewMaterial";
+import { loadGenericExecutionReviewMaterial } from "@/features/project-assistant/f3/persistGenericExecutionReviewMaterial";
+import {
+  buildCkcCognitivePromptSection,
+  loadProductCkcCognitiveContent,
+} from "@/features/project-assistant/f2/ckcCognitiveContext";
+import type { NextActionCode } from "@/lib/oa/evidence-review/domain/coordinationTypes";
+import { resolveCurrentContractResultClaimEvaluation } from "@/lib/oa/evidence-review";
+import {
+  CONTRACT_ACCEPTANCE_CRITERIA_INPUT_KEY,
+  CONTRACT_VALIDATION_PLAN_INPUT_KEY,
+  describeContractAcceptanceCriteria,
+  parseContractAcceptanceCriteria,
+  parseContractStringListInput,
+} from "@/lib/oa/execution-contract";
+import type { W3BProductTerminalProjection } from "./w3bProductTerminalProjection";
+import { resolveW2QualificationInputs } from "./qualificationInputs";
+
+export type W3cRecommendationKind =
+  | "continue"
+  | "recover"
+  | "replan"
+  | "fail_closed";
+
+export type W3cPostEvidenceRecommendation = {
+  kind: W3cRecommendationKind;
+  headline: string;
+  rationale: string;
+  nextStep: string;
+  requiresHumanDecision: boolean;
+  /** Always recommendation — never authority */
+  authority: "none";
+  gateConsumed: false;
+  decisionCreated: false;
+  attemptAutoLaunchNextCycle: false;
+  recommendNextGateStatus: string | null;
+  nextActionCode: string | null;
+};
+
+export type W3cExecutionReportSurface = {
+  readonly cursorStatus: string | null;
 ```
+#### Synthesis soft-fail after W3-C (INV-11/12/20)
 
-## U. Typecheck / lint / build (VERIFIE)
+```1:100:projects/sfia-studio/app/features/project-assistant/w2/maybeMaterializeProductSynthesisAfterW3c.ts
+/**
+ * Soft-fail Synthesis materialization after durable W3-C success/rehydrate.
+ * NEVER mutates Truth C (CE / Contract Result / Recommendation / Attempt).
+ */
+import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
+import { SqliteProductStore } from "@/lib/oa/project/infrastructure/sqlite/sqliteProductStore";
+import {
+  createSqliteSynthesisServices,
+  isSynthesisDomainError,
+  type ProductSynthesisProjection,
+} from "@/lib/oa/synthesis";
+import type { W3BProductTerminalProjection } from "./w3bProductTerminalProjection";
+import {
+  w3cRecommendationEpistemicId,
+  type W3cPostEvidenceLoopSuccess,
+} from "./w3cPostEvidenceLoop";
+import {
+  buildProductSynthesisLineageInput,
+  synthesisErrorMessage,
+} from "../buildProductSynthesisLineageInput";
 
-tsc EXIT 0 ; next lint clean ; next build SUCCESS (13 routes, no /dev/nora-ux-closure).
+export type MaybeMaterializeProductSynthesisAfterW3cResult =
+  | {
+      readonly ok: true;
+      readonly synthesis: ProductSynthesisProjection;
+    }
+  | {
+      readonly ok: false;
+      readonly code: string;
+      readonly message: string;
+      /** Soft-fail: authoritative Product facts remain intact. */
+      readonly softFailed: true;
+    };
 
-## V. PRR
+export async function maybeMaterializeProductSynthesisAfterW3c(input: {
+  readonly oa: RuntimeOaStack;
+  readonly projectId: string;
+  readonly product: W3BProductTerminalProjection;
+  readonly postEvidence: W3cPostEvidenceLoopSuccess;
+}): Promise<MaybeMaterializeProductSynthesisAfterW3cResult> {
+  try {
+    const claimEvaluationId =
+      input.product.claimEvaluationId ??
+      input.postEvidence.claimEvaluationId ??
+      null;
+    if (!claimEvaluationId) {
+      return {
+        ok: false,
+        softFailed: true,
+        code: "SYNTHESIS_LINEAGE_REQUIRES_CLAIM_EVALUATION",
+        message: "ClaimEvaluation absente pour la synthèse dérivée.",
+      };
+    }
 
-Pas de script PRR dans package.json. ConversationSurface hors objets trackes LifecycleSurface/useProductConversation du manifest PRR. Controle dedie: NON APPLICABLE (justifie).
+    const store = input.oa.projectServices.store;
+    if (!(store instanceof SqliteProductStore)) {
+      return {
+        ok: false,
+        softFailed: true,
+        code: "PRODUCT_SQLITE_UNAVAILABLE",
+        message: "Persistance Product SQLite indisponible pour la synthèse.",
+      };
+    }
 
-## W. Securite
+    const evidenceId =
+      input.postEvidence.evidenceId ||
+      input.product.evidenceId ||
+      "";
+    // Pass structured W3-C fields — Pilot adapter derives text (no raw rationale).
+    const recommendation = {
+      ref: w3cRecommendationEpistemicId(evidenceId, claimEvaluationId),
+      kind: input.postEvidence.recommendation.kind,
+      headline: input.postEvidence.recommendation.headline,
+      nextStep: input.postEvidence.recommendation.nextStep,
+      nextActionCode: input.postEvidence.recommendation.nextActionCode,
+    };
 
-Aucun secret dans les 7 fichiers. Auth middleware inchange. Secret scan CI PASS.
+    const lineage = await buildProductSynthesisLineageInput({
+      oa: input.oa,
+      projectId: input.projectId,
+      claimEvaluationId,
+      recommendation,
+    });
+    if (!lineage.ok) {
+      return {
+        ok: false,
+        softFailed: true,
+        code: lineage.code,
+        message: lineage.message,
+      };
+    }
 
-## X. Fake / Real
-
-DET React + fixtures. REAL NON EXECUTE. Ne prouve pas cognition OpenAI.
-
-## Y. Commit
-
+    const services = createSqliteSynthesisServices({ productStore: store });
+    const synthesis = await services.materialize(lineage.input);
+    return { ok: true, synthesis };
+  } catch (err) {
+    return {
+      ok: false,
+      softFailed: true,
+      code: isSynthesisDomainError(err)
 ```
-commit 52b01855d4321bb3f90b2b65f2a4eed2e1b18e47
-Author:     Morris Cleland <morris@macbook-air.home>
-AuthorDate: Wed Oct 14 21:52:46 2026 +0200
-Commit:     Morris Cleland <morris@macbook-air.home>
-CommitDate: Wed Oct 14 21:52:46 2026 +0200
+#### Synthesis sections (9 P3) + authority:none
 
-    feat(studio): refine Nora activity and source UX
+```1:80:projects/sfia-studio/app/lib/oa/synthesis/domain/types.ts
+export type SynthesisStatus = "current" | "superseded" | "stale_source";
+export type SynthesisVerdictLabel =
+  | "atteint"
+  | "non_prouve"
+  | "echec"
+  | "indetermine";
 
-    Co-authored-by: Cursor <cursoragent@cursor.com>
+export type SynthesisSourceBindings = {
+  readonly projectId: string;
+  readonly cycleInstanceId: string | null;
+  readonly executionContractId: string | null;
+  readonly attemptId: string | null;
+  readonly evidenceIds: readonly string[];
+  readonly reviewBundleId: string | null;
+  readonly claimEvaluationId: string;
+  readonly recommendationRef: string | null;
+};
 
- ...onversationSurface.liveActivityStop.d0.test.tsx |  18 +-
- .../p6.nora.uxClosure.presentation.d0.test.ts      | 289 +++++++++++++++++++++
- .../p6.nora.uxClosure.sourcesSurface.d0.test.tsx   | 154 +++++++++++
- .../surfaces/ConversationSurface.module.css        | 110 ++++++--
- .../surfaces/ConversationSurface.tsx               | 144 +++++++---
- .../surfaces/presentConversationSources.ts         | 260 ++++++++++++++++++
- .../surfaces/presentLiveActivityTimeline.ts        | 112 ++++++++
- 7 files changed, 1037 insertions(+), 50 deletions(-)
+export type SynthesisSections = {
+  readonly summary: string;
+  readonly planned: string;
+  readonly done: string;
+  readonly evaluation: string;
+  readonly gaps: string;
+  readonly impact: string;
+  readonly verdict: string;
+  readonly recommendation: string;
+  readonly verified: string;
+};
 
+export type ProductSynthesisProjection = {
+  readonly synthesisId: string;
+  readonly projectId: string;
+  readonly cycleInstanceId: string | null;
+  readonly title: string;
+  readonly subject: string;
+  readonly status: SynthesisStatus;
+  readonly verdictLabel: SynthesisVerdictLabel;
+  readonly canonicalVerdict: "PASS" | "NOT_PROVEN" | "FAIL";
+  readonly sections: SynthesisSections;
+  readonly sourceBindings: SynthesisSourceBindings;
+  readonly sourceFingerprint: string;
+  readonly generatedAt: string;
+  readonly generatedBy: "deterministic_product_synthesis_builder_s04";
+  readonly authority: "none"; // never Truth C
+  readonly supersedes: string | null;
+  readonly version: number;
+};
+
+export type SynthesisDetailCode =
+  | "SYNTHESIS_INVALID"
+  | "SYNTHESIS_NOT_FOUND"
+  | "SYNTHESIS_ALREADY_EXISTS"
+  | "SYNTHESIS_LINEAGE_REQUIRES_CLAIM_EVALUATION"
+  | "SYNTHESIS_LINEAGE_REQUIRES_CONTRACT_RESULT_SUBJECT"
+  | "SYNTHESIS_LINEAGE_REQUIRES_CONTRACT_RESULT_BINDINGS"
+  | "SYNTHESIS_LINEAGE_BINDINGS_MISMATCH"
+  | "SYNTHESIS_LINEAGE_EVIDENCE_NOT_FOUND"
+  | "SYNTHESIS_AUTHORITY_FORBIDDEN"
+  | "SYNTHESIS_PERSISTENCE_FAILED";
 ```
+---
 
-SHA: `52b01855d4321bb3f90b2b65f2a4eed2e1b18e47` · parent: `eec68a418ae271452edc2188c9cf1ae06faa8232` · message: feat(studio): refine Nora activity and source UX
+## J. Carte Review / Evidence
 
-## Z. Push
+| Etape | Implementation | SoT | Tests (exemples) |
+|---|---|---|---|
+| Ingest Attempt Evidence | `ingestExecutionAttemptEvidence.ts` | durable Evidence | evidence-review lifecycle |
+| ReviewBundle create/freeze | `createReviewBundle.ts` / `freezeReviewBundle.ts` | durable RB | `reviewBundleLifecycle.test.ts`, adversarial RB |
+| Evaluate Claim | `evaluateClaim.ts` | ClaimEvaluation | `claimEvaluationLifecycle.test.ts`, adversarial CE |
+| ContractResultVerdict | `evaluateContractResult.ts` + `contractResultVerdictProjection.ts` | CE/CRV | contract-result suites |
+| Resolve current CE | `resolveCurrentContractResultClaimEvaluation.ts` | currentness | used by W3-C |
+| Docs-write claim completion | `completeDocsWriteClaimEvidenceCompletion.ts` | artifact refs | `postExecutionHandoff.integrated.d0.test.ts` |
+| Generic review material | `persistGenericExecutionReviewMaterial.ts` | durable refs | GCE / frontDoor DET |
 
-REMOTE HEAD = `52b01855d4321bb3f90b2b65f2a4eed2e1b18e47` (VERIFIE). origin/main inchange `eec68a41`.
+**Maturité:** INTEGRATED for domain + Product W3-B/W3-C wiring. **END-TO-END-REAL Human QA** for full ReviewBundle Pilote journey: NOT PROVEN by this cycle (qualification only).
 
-## AA. Draft PR
+---
 
-- Number: **583**
-- URL: https://github.com/mcleland147/sfia-workspace/pull/583
-- State: OPEN / DRAFT
-- Base: main · Head: delivery/sfia-studio-p6-nora-ux-cumulative-closure
-- Files: 7 (VERIFIE via gh)
-- Commit oid: 52b01855d4321bb3f90b2b65f2a4eed2e1b18e47
+## K. Carte Synthesis
 
-## AB–AC. CI / Required Gate
+| Question | Reponse (SOURCE-BACKED) |
+|---|---|
+| Declencheur | `maybeMaterializeProductSynthesisAfterW3c` après W3-C success/rehydrate |
+| Prefixe vérité | ClaimEvaluation + Contract Result bindings + Evidence ids (lineage fail-closed) |
+| 9 sections | summary/planned/done/evaluation/gaps/impact/verdict/recommendation/verified |
+| Verdict canonique | `canonicalVerdict: PASS \| NOT_PROVEN \| FAIL` + label FR; `authority: "none"` |
+| Nora redaction | enrichment possible en W3-C; builder déterministe Product-derived (generatedBy builder_s04) |
+| Persistance | `oa_syntheses` via SqliteProductStore |
+| Surface Pilote | `SynthesesSurface` + `synthesisPresentation.ts` |
+| Soft-fail | Oui — ne mute pas Truth C |
+| Reload | rehydrate via Product SQLite + search services |
+| Journal cohérence | Journal = projection dérivée (≠ Truth C); tests P5-S04 / journal HQA |
 
-- Workflow: **SFIA Studio CI**
-- Run ID: **38627440724**
-- URL: https://github.com/mcleland147/sfia-workspace/actions/runs/38627440724
-- Trigger: pull_request
-- headSha: `52b01855d4321bb3f90b2b65f2a4eed2e1b18e47` (= HEAD pousse)
-- Conclusion: **success**
-- Jobs PASS: Detect SFIA Studio changes · Build and validate SFIA Studio · **SFIA Studio Required Gate**
+Tests: `p5.s04.productDerivedSynthesis.d0.test.ts`, `p5.s04.cp01.productPathSynthesis.d0.test.ts`, `p5.s04.synthesesSurface.ui.test.tsx`.
 
-## AD. Reserves
+---
 
-NOT MERGED. REAL NOT EXECUTED. UPDATED SOURCE BROWSER RENDER NOT INDEPENDENTLY VERIFIED. P6 GLOBAL NOT PASSED. RUNTIME V3 NON ADOPTED. Panel legacy hors scope. :3020 inchange. Merge = GO Morris distinct.
+## L. Carte Nora Continuity
 
-## AE. Dette / exit
+| Element | Path / wiring | Maturite |
+|---|---|---|
+| Cognitive context / CKC guidance | `f2/ckcCognitiveContext.ts`, doctrine package CKC | INTEGRATED guidance; CKC not authority |
+| Post-Evidence analysis | `f3/postEvidenceNoraAnalysis.ts` + W3-C | INTEGRATED |
+| Recommendation post-Evidence | W3-C payload in LPS epistemic | INTEGRATED DET; REAL partial |
+| Live activity / sources UX | ConversationSurface + presenters (PR #583) | INTEGRATED; browser source regroup capture NOT INDEPENDENTLY VERIFIED |
+| Journal | JournalSurface | INTEGRATED |
+| Trajectory continuity | TrajectorySurface + decide/propose | INTEGRATED |
+| Recovery | RecoverySurface + recovery W2 helpers | INTEGRATED DET; REAL HQA partial |
+| Reload | server-owned continuity reads (not process-local F3 oracle) | INTEGRATED principle in ExecutionSurface |
 
-Preview dette = 0. Prochaine: Critical PR Review → MERGE GO → P6 consolidation.
+---
 
-## AF. Git Truth final
+## M. Matrice TARGET vs CURRENT
 
-HEAD `52b01855d4321bb3f90b2b65f2a4eed2e1b18e47` · branch `delivery/sfia-studio-p6-nora-ux-cumulative-closure` · tracking origin · dirty:
+| Maillon | TARGET | CURRENT | Gap |
+|---|---|---|---|
+| Intention conversationnelle | Product | ConversationSurface + Nora | none structural |
+| Qualification Nora | Product | F2/orchestrate + CKC guidance | none structural |
+| Recommendation / currentness | Product | OA lifecycle + W2 subjects | none structural |
+| HumanDecision | Product durable | W2 decide / decision subjects | none structural |
+| Confirmation | si applicable | confirmForAuthorization on Trajectory+Execution | none structural |
+| EC prepare/inspect | native | prepare+inspect W2 + UI | none structural |
+| Authority / AgentCapability | envelope | authorizeExecutionContract + capability policy | none structural |
+| Launch / Attempt | governed | governedExecute + reconcile | none structural |
+| Executor Claim | bounded | docs_write claim completion + generic report paths | REAL envelope-gated |
+| Studio Verification | independent | W3-B materialize / CE path | none structural |
+| Evidence / RB / CE / CRV | durable | evidence-review package | none structural |
+| Product Resolution | post-evidence | W3-C + advance helpers | none structural |
+| Synthesis | Product-derived | builder + oa_syntheses + surface | none structural |
+| Nora post-Evidence | recommendation only | W3-C authority:none | none structural |
+| LPS / Trajectory | governed | durable OA + UI | none structural |
+| Recovery | no auto re-launch | reconcileContinuePolicy + recovery helpers | none structural |
+| **Human QA E2E REAL journey** | P6-MIN-03..08 style | DET strong; REAL smokes/partial; full Pilote E2E pending | **prep + Morris GO** |
 
-```
- M .tmp-sfia-review/chatgpt-review.md
+**Premier maillon bloquant pour un faux SUCCESS?** Aucun trou de wiring Product démontré sur main. **Premier gap opérable:** absence de Human QA E2E REAL exécuté/autorisé pour ce parcours + préparation QA (runtime main-aligned, projet, enveloppe effets).
 
-```
+---
+## N. Matrice des 20 invariants
 
-(.tmp pack only — non committe)
+| ID | Invariant | CODE | TEST | Preuve | Statut | Gap |
+|---|---|---|---|---|---|---|
+| INV-01 | EC ≠ autorité | C1 M; authorizeExecutionContract | auth suites / postExecution | DET | PROVEN DET | REAL HQA pending |
+| INV-02 | Préparation ≠ lancement | prepare vs governedExecute/reconcile | TrajectorySurface separate CTAs | DET | PROVEN DET |  |
+| INV-03 | Recommendation ≠ HD | W3-C authority:none; decideTrajectory | w3c + decision tests | DET | PROVEN DET |  |
+| INV-04 | Confirmation ≠ HD | confirmForAuthorization vs decide | decisionConfirmationAuthority | DET | PROVEN DET |  |
+| INV-05 | Aucun effet hors autorité | authorize + capability fail-closed | auth + governedExecute | DET+REAL-BOUNDARY partial | PARTIALLY PROVEN | full E2E REAL HQA |
+| INV-06 | Executor Claim ≠ Product Fact | W3-B materialize / CE | postExecutionHandoff | DET | PROVEN DET |  |
+| INV-07 | SUCCESS tech ≠ Cycle closure | CRV + review blocking path | corrProof05 / MIN-04 design | DET | PROVEN DET for policy | HQA MIN-04 |
+| INV-08 | Artifact ≠ Deliverable validé | review policy / completeness | artifactCompleteness | DET | PROVEN DET |  |
+| INV-09 | Review ≠ Validation | start/completeReview vs CE confirm | reviewBundleLifecycle | DET | PROVEN DET |  |
+| INV-10 | Evidence dispo ≠ vérifiée | verifyEvidenceIntegrity / CE | evidence-review | DET | PROVEN DET |  |
+| INV-11 | Synthèse ≠ Product SoT | authority:none soft-fail | p5.s04* | DET | PROVEN DET |  |
+| INV-12 | Synthèse depuis Product Resolution | lineage requires CE/CR bindings | buildProductSynthesisLineageInput | DET | PROVEN DET |  |
+| INV-13 | Nora ≠ verdict Product | W3-C recommendation only | w3cPostEvidenceLoop header | DET | PROVEN DET |  |
+| INV-14 | Nora ne consomme pas HD | W3-C never HD | w3c comments + tests | DET | PROVEN DET |  |
+| INV-15 | Post-Evidence Rec ≠ narration Synthèse | W3-C before/independent of soft-fail synth | maybeMaterialize soft-fail | DET | PROVEN DET |  |
+| INV-16 | Recovery ≠ auto relaunch | reconcileContinuePolicy + recovery CTA≠HD | p5.s03 reconcile tests | DET | PROVEN DET | HQA MIN-06 |
+| INV-17 | Trajectory gouvernée | decideTrajectory / propose options | trajectory durability tests | DET | PROVEN DET |  |
+| INV-18 | Preuves inspectables | Evidence refs + surfaces | handoff + UI tests | DET | PROVEN DET | HQA inspect path |
+| INV-19 | STOP/FAIL ≠ SUCCESS silencieux | normalize outcomes / fail-closed | governedExecute + W3-C | DET | PROVEN DET | REAL timeout reserve |
+| INV-20 | Synthesis rebuildable | rebuildProductSynthesis + soft-fail | p5.s04 | DET | PROVEN DET |  |
 
-## AG. Verdict
+---
 
-P6 NORA LIVE ACTIVITY UX CLOSURE — GIT INTEGRATION COMPLETE / DRAFT PR OPEN / CI PASS / READY FOR CHATGPT CRITICAL PR REVIEW.
+## O. Matrice P6-MIN (manifest existant — pas de nouvel ID)
 
-## AH. Instruction ChatGPT
+| ID | Scenario | Coverage existante (main) | Realism | Statut qualifie |
+|---|---|---|---|---|
+| P6-MIN-01 | Exit SANS Execution | cycle/lifecycle DET; MUST-PROVE in P6 doc | DET + historical campaign | PARTIALLY PROVEN (AUTO); HUMAN E2E pending |
+| P6-MIN-02 | Artifact/exec optionnel | same family | DET | PARTIALLY PROVEN |
+| **P6-MIN-03** | Deliverable→review→validation→Exit | docs_write + CE/RB + W3 path DET; REAL smokes historical | DET strong / E2E-REAL NOT for this journey | **PRIORITY — NOT E2E-REAL PROVEN** |
+| **P6-MIN-04** | SUCCESS+Artifact+blocking review → OPEN | corrProof05 / review blocking DET | DET | PARTIALLY PROVEN; HUMAN pending |
+| **P6-MIN-05** | Correction → subsequent EC → exit | recovery successor helpers + DET | DET | PARTIALLY PROVEN |
+| **P6-MIN-06** | Interruption / recovery | p5.s03 reconcile/continuity UI+DET | DET | PARTIALLY PROVEN |
+| **P6-MIN-07** | Rec/HD/currentness | decision durability + HQA rec01 DET | DET + some HQA DET | PARTIALLY PROVEN |
+| **P6-MIN-08** | Journal coherence | journal UI HQA tests | DET/UI | PARTIALLY PROVEN |
+| P6-MIN-09 | Guided Document Review | p6.nora.min09 documentary DET/REAL-boundary tests | DET + documentary REAL suites | PARTIALLY PROVEN |
 
-Consulter Git distant. Verifier main inchange, branche, commit 52b01855, manifest 7, middleware/preview absents, Draft PR 583, CI 38627440724 Required Gate PASS, handoff distant. Rendre CHATGPT CRITICAL PR REVIEW — P6 NORA LIVE ACTIVITY UX CLOSURE. Si PASS: recommander MORRIS MERGE GO. Ne pas merger automatiquement.
+Primary scenario ID for Morris journey: **P6-MIN-03** (with continuity checks overlapping MIN-06/07/08). No concurrent canonical ID invented.
+
+---
+
+## P. Matrice P6-BAR
+
+| Bar | Level | Auto/Human | Proof class | Justification |
+|---|---|---|---|---|
+| P6-BAR-01 USABLE | PARTIALLY PROVEN | BOTH | DET + historical REAL smokes | Product surfaces exist; full representative Human journey pending |
+| P6-BAR-02 GOVERNED | PARTIALLY PROVEN | AUTO | DET + REAL-BOUNDARY partial | authorize/confirm/capability wired; HQA authority envelope pending |
+| P6-BAR-03 RESTART-SAFE | PARTIALLY PROVEN | AUTO | DET | continuity/rehydrate tests; Human reload E2E pending |
+| P6-BAR-04 GENERIC | PARTIALLY PROVEN | AUTO | DET | generic + docs_write paths; contrasted Human situations pending |
+| P6-BAR-05 PRODUCT EXPERIENCE | PARTIALLY PROVEN | HUMAN needed | UI DET + PR #583 | UX integrated; source browser capture reserve |
+| P6-BAR-06 ARTIFACT ROUTING | PARTIALLY PROVEN | AUTO | DET/REAL-BOUNDARY | docs_write honesty path; broader routing HQA pending |
+| P6-BAR-07 COGNITION | PARTIALLY PROVEN | AUTO/HUMAN | DET + REAL cognitive suites | Nora path exists; not reclassified as Execution proof |
+| P6-BAR-08 SIMPLIFICATION | PARTIALLY PROVEN | AUTO | DET UI | no parallel cockpit found for this path |
+| P6-BAR-09 EVIDENCE | PARTIALLY PROVEN | AUTO | DET | RB/CE suites; Human inspect Evidence pending |
+| P6-BAR-10 NON-REGRESSION | PROVEN (CI tip) | AUTO | DET CI | post-merge CI reported SUCCESS for #583 tip — CI ≠ E2E-REAL Product journey |
+| P6-BAR-11 MATURITY HONESTY | PROVEN (this pack) | AUTO | SOURCE-BACKED | claims narrowed; no P6 PASS |
+| P6-BAR-12 CLOSED LOOP | PARTIALLY PROVEN | AUTO | DET W3-C→synth→surfaces | Human closed-loop pending |
+
+---
+
+## Q. Preuves existantes (accessibles)
+
+| Preuve | Class | Access |
+|---|---|---|
+| origin/main `b555819d` + PR #582/#583 | CURRENT | Git |
+| P6 contract §B/§AV campaign status | CURRENT doc | Git |
+| DET postExecutionHandoff / frontDoor / continuity / synthesis / UI p5.s03/s04 | CURRENT | Git tests |
+| evidence-review adversarial + lifecycle | CURRENT | Git tests |
+| p6-campaign-evidence ledger wiring DET | CURRENT | Git lib+tests |
+| Nora documentary / cognitive REAL suites (p6.nora.*, p5.s02/s05) | HISTORICAL/CURRENT tests | Git; ≠ Execution Review E2E Human |
+| Human QA T2/T3 conversation/UX favorable (prior cycles) | HISTORICAL | prior handoffs/worktrees; NOT re-run here |
+| CI 38630968210 SUCCESS / Required Gate PASS | RAPPORTÉ ChatGPT / tip merge | NOT re-fetched as live Actions in this pack body; tip commit present |
+
+---
+
+## R. Statuts de maturité (honnêtes)
+
+- **Wiring Product Execution→Review→Synthesis→Nora:** INTEGRATED on main.
+- **Deterministic proof of chain:** STRONG.
+- **REAL-BOUNDARY (docs_write / Nora provider):** PARTIAL / historical+suites — NOT consumed by this GO.
+- **END-TO-END-REAL Pilote journey for P6-MIN-03 family:** NOT PROVEN.
+- **P6 GLOBAL PASS:** NOT CLAIMED / NOT PROVEN.
+- **Runtime v3:** NON ADOPTED.
+
+---
+
+## S. Realism gaps
+
+1. Full Human Pilote E2E with REAL executor effects not executed under this GO.
+2. T2 worktree `:3020` is at `eec68a41` — **behind** main tip `b555819d` (missing UX #583 at least).
+3. Updated browser capture for post-#583 source regrouping: NOT INDEPENDENTLY VERIFIED.
+4. Generic Cursor REAL vs docs_write sealed path — envelope must be explicit before Human QA.
+5. P6 doc §AS contains older gate rows that conflict with §B/§AV tip — treat §B/§AV as campaign tip; §AS as potentially stale subsection (TEMPORAL QUALIFIED).
+
+---
+
+## T. Human QA prioritaire
+
+**Scenario ID:** P6-MIN-03 — Deliverable production → review → validation path, extended to include Synthesis consultation + Nora post-Evidence recommendation + Journal/Trajectory coherence (overlaps MIN-06/07/08 checks without inventing a new canonical ID).
+
+**Class:** **B — REQUIRES BOUNDED QA PREPARATION** (no Product code change demonstrated necessary; setup + Morris GO required).
+
+Not A: runtime/project/envelope not verified ready without prep.
+Not C: no verified Product wiring gap on main.
+Not D: evidence sufficient for design review.
+
+---
+
+## U. HUMAN QA EXECUTION CONTRACT (protocole de test — PAS un EC Product)
+
+### Objectif
+Qualifier en situation Pilote réelle (GO ultérieur) le parcours Execution / Review / Synthesis / Nora continuity sur Product main-aligned.
+
+### Capacité P6
+Closed loop Evidence → Nora/LPS/Trajectory/next action (BAR-12) via MIN-03 spine.
+
+### Situation initiale (à préparer)
+1. Runtime Studio **aligné `origin/main` (`b555819d` ou tip courant)** — ne pas utiliser un worktree antérieur (`eec68a41`) comme oracle du tip.
+2. Auth Pilote valide (Better Auth / allowlist).
+3. Project Product avec repositoryBinding + managed repo root utilisable pour **docs_write** (chemin représentatif REAL le plus prouvé).
+4. Cycle / Trajectory prêts à recevoir une intention de production documentaire bornée.
+5. Isolation: DB Product/Nora dédiées QA; **ne pas muter** bases Human QA historiques sans GO.
+6. Enveloppe REAL explicite (OpenAI + executor docs_write) — **GO Morris distinct** avant effets.
+
+### Preconditions
+- `SFIA_STUDIO_LOCAL_PILOT_AUTHORITY` / auth secrets configurés (server-owned).
+- Managed repo path writable only inside authorized envelope.
+- Pas de Confirmation inventée; HD prises par Morris-as-Pilote.
+- Capture plan: screens + product ids (contractId, attemptId, evidenceId, reviewBundleId, claimEvaluationId, synthesisId).
+
+### Parcours utilisateur (ordre indicatif — respecter UI réelle)
+1. Ouvrir Project → Conversation.
+2. Exprimer intention de travail concret borné (docs_write représentatif).
+3. Observer qualification / Recommendation Nora; vérifier currentness.
+4. Prendre HumanDecision structurante (Trajectory) — pas confondre avec Confirmation.
+5. Préparer ExecutionContract; **inspecter** (objectif, scope, authority, evidence obligations).
+6. Confirmer si l'UI l'exige (Confirmation ≠ HD).
+7. Autoriser / lancer depuis Trajectory ou Execution surface.
+8. Suivre progression Exécution; tester STOP/cancel si GO le permet (sinon observer nominal).
+9. À terminaison: Examiner résultat / Evidence / ReviewBundle / verdict (PASS/NOT_PROVEN/FAIL).
+10. Ouvrir Synthèses: 9 sections; vérifier verdict non autoritaire; inspecter bindings.
+11. Revenir Conversation: Recommendation post-Evidence; aucune HD auto; suite proposée.
+12. Vérifier Journal / LPS / Trajectory cohérence.
+13. Reload navigateur: continuité sans inventer autorité; pas de relaunch auto.
+14. Décision Pilote éventuelle sur la suite (HD explicite seulement).
+
+### Observations attendues
+- EC inspectable avant launch.
+- Aucun effet avant authorize/launch.
+- Claim exécuteur ≠ fait Product tant que vérification/CE incomplets.
+- SUCCESS technique n'implique pas Exit Proof / Cycle closure.
+- Synthèse `authority: none`; soft-fail n'efface pas Truth C.
+- Nora post-Evidence = Recommendation only.
+
+### Preuves à capturer
+UI screens (Conversation working/stop, EC inspect, Execution running/terminal, Evidence/Result, Syntheses 9 sections, Journal, post-reload). Product ids. Git/product DB queries read-only si utiles. Logs sans secrets.
+
+### PASS / FAIL (Human QA)
+**PASS** si parcours complète les maillons 1–13 sans violation d'invariants et avec preuves inspectables.
+**FAIL** si autorité élargie, SUCCESS silencieux, Synthèse traitée comme Truth C, HD inventée, relaunch auto, Evidence absente présentée comme vérifiée.
+**STOP** si enveloppe/autorité/runtime non prêts.
+
+### Limites
+- Ce protocole n'autorise aucun effet maintenant.
+- Ne prouve pas P6 GLOBAL PASS seul.
+- Ne prouve pas runtime v3 adoption.
+
+### Gates
+1. ChatGPT Critical Qualification Review of this pack.
+2. Morris Human QA GO (enveloppe + runtime + projet).
+3. Ensuite seulement: exécution du protocole.
+
+---
+
+## V. Risques / securite
+
+- Confusion Confirmation/HD/EC/autorité → faux GO.
+- Utiliser worktree stale `:3020` comme tip → fausse non-régression UX.
+- REAL OpenAI/executor sans enveloppe → effets hors scope.
+- Secrets/.env/DB QA — non exposés; non mutés ici.
+- Synthèse / Journal mal lus comme Truth C.
+
+---
+
+## W. Dependances
+
+Product OA stack · SqliteProductStore · evidence-review · W2/W3 · pre-m6 surfaces · auth · managed repo · (pour REAL) OpenAI + launch ports · Pilot authority env.
+
+---
+
+## X. Defauts bloquants Product
+
+**Aucun gap de wiring Product démontré sur `origin/main` pour la chaîne cible.**
+
+Gaps opératoires (non-code):
+- Human QA E2E non encore exécuté pour ce parcours.
+- Runtime tip alignment / isolation / enveloppe à préparer.
+- Capture navigateur sources post-#583 manquante (non bloquante pour design review).
+
+---
+
+## Y. Dette / exit
+
+| Item | Status |
+|---|---|
+| Product parallel architecture | NONE for this path |
+| Preview QA route | RETIRED on main |
+| Source browser capture post-#583 | OPEN reserve (non-blocking design) |
+| P6 Human QA batch | PREPARING (doc) |
+| Exit proof this cycle | SOURCE-BACKED QUALIFICATION + Handoff L3 |
+
+---
+
+## Z. Gates
+
+| Gate | Status |
+|---|---|
+| GO Qualification (ce cycle) | CONSUMED |
+| ChatGPT Critical Qualification Review | NEXT |
+| Morris Human QA GO | DISTINCT / NOT AUTHORIZED HERE |
+| Draft→Ready / merge / REAL / :3020 mutation | NOT AUTHORIZED |
+| P6 PASS / P7 / runtime v3 | NOT AUTHORIZED |
+
+---
+
+## AA. Next capability
+
+P6 HUMAN QA DESIGN REVIEW → (si PASS) Morris Human QA GO pour P6-MIN-03 spine → Evidence → P6 Consolidation / Exit Review.
+
+---
+
+## AB. Verdict
+
+**P6 PRODUCT END-TO-END QUALIFICATION — SOURCE-BACKED / COMPLETE.**
+
+**Parcours prioritaire class:** **B — REQUIRES BOUNDED QA PREPARATION.**
+
+**Central:** **READY FOR P6 HUMAN QA DESIGN REVIEW.**
+
+Anti-claims: NOT P6 GLOBAL PASS · NOT P7 READY · NOT RUNTIME V3 ADOPTED · NOT END-TO-END-REAL PROVEN · NOT HUMAN QA PASS.
+
+---
+
+## AC. Git Truth final
+
+Re-vérifié en fin de cycle: aucun fichier Product modifié; pack temporaire local; handoff publié séparément.
+
+---
+
+## AD. Instruction ChatGPT
+
+Lire `sfia-review-handoff/latest-chatgpt-review.md` sur `sfia/review-handoff`.
+
+Vérifier: main tip, sources, TARGET vs CURRENT, invariants, chaînes Execution/Evidence/Synthesis/Nora, P6-MIN/BAR, scénario Human QA, absence de code change Product, handoff remote.
+
+Produire: **CHATGPT CRITICAL QUALIFICATION REVIEW — P6 EXECUTION / REVIEW / SYNTHESIS.**
+
+Recommander **UN SEUL** parcours Human QA prioritaire (P6-MIN-03 spine). Décision d'exécuter = GO Morris distinct.
 
 ---
 
 ## Git Review Index
 
-1. COMMIT 52b01855 — 3M + 4A
-2. DRAFT PR #583
-3. CI run 38627440724 SUCCESS + Required Gate PASS
-4. EVIDENCE `.tmp-sfia-review/p6-nora-ux-closure/`
+1. Qualification READ-ONLY — zero Product file change
+2. Sources from `origin/main` = `b555819d8c3711fd2782b5ee7926517b6b3b8615`
+3. Primary scenario: P6-MIN-03 (+ continuity MIN-06/07/08 checks)
+4. Journey class: B — bounded QA preparation
+5. Verdict: READY FOR P6 HUMAN QA DESIGN REVIEW
 
 ---
 
-## MODIFIED DIFFS (complet — 3 fichiers)
-
-```diff
-diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/conversationSurface.liveActivityStop.d0.test.tsx b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/conversationSurface.liveActivityStop.d0.test.tsx
-index cfd15ca4..0b522de9 100644
---- a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/conversationSurface.liveActivityStop.d0.test.tsx
-+++ b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/conversationSurface.liveActivityStop.d0.test.tsx
-@@ -190,13 +190,21 @@ describe("ConversationSurface live activity + Stop (REAL React DET)", () => {
-
-     fireEvent.click(within(details).getByText("Détail de l’activité"));
-
--    const timeline = details.querySelector("ol");
-+    const timeline = details.querySelector("ul");
-     expect(timeline).toBeTruthy();
--    expect(timeline!.textContent).toMatch(/mission_started/);
-+    // UX-01 / UX-02 — no technical kind codes, no numbering column
-+    expect(timeline!.textContent).not.toMatch(/mission_started/);
-+    expect(timeline!.textContent).not.toMatch(/tool_started/);
-+    expect(timeline!.textContent).not.toMatch(/activity_update/);
-     expect(timeline!.textContent).toMatch(/Mission démarrée/);
--    expect(timeline!.textContent).toMatch(/tool_started/);
--    expect(timeline!.textContent).toMatch(/Lecture du dépôt/);
--    expect(timeline!.textContent).toMatch(/activity_update/);
-+    // SAMPLE_EVENTS tool_started has toolName read_file (non git_local) + sourcePath
-+    expect(timeline!.textContent).toMatch(/Nora consulte « plan\.md »|Lecture du dépôt/);
-+    expect(timeline!.textContent).toMatch(/Analyse en cours/);
-+    expect(timeline!.textContent).not.toMatch(/terminé la lecture|intégralement/i);
-+    expect(
-+      screen.getByTestId("project-assistant-nora-activity-pulse"),
-+    ).toBeInTheDocument();
-+    expect(screen.getByTestId("project-assistant-stop").querySelector("svg")).toBeTruthy();
-   });
-
-   it("STOPPED banner — Réponse interrompue + retry; Send returns when idle", () => {
-diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.module.css b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.module.css
-index 60c9b9b9..44f0273d 100644
---- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.module.css
-+++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.module.css
-@@ -183,6 +183,9 @@
- }
-
- .noraActivityBadge {
-+  display: inline-flex;
-+  align-items: center;
-+  gap: 6px;
-   font-size: var(--pm6-text-caption);
-   font-weight: 500;
-   letter-spacing: 0.4px;
-@@ -190,41 +193,65 @@
-   color: var(--pm6-accent);
- }
-
-+/* Continuous activity cue while mission is live (DP06 ACTIVITY). */
-+.noraActivityPulse {
-+  display: inline-block;
-+  width: 6px;
-+  height: 6px;
-+  border-radius: 50%;
-+  background: var(--pm6-accent);
-+  flex-shrink: 0;
-+  animation: noraActivityPulse 1.2s ease-in-out infinite;
-+}
-+
-+@keyframes noraActivityPulse {
-+  0%,
-+  100% {
-+    opacity: 0.35;
-+    transform: scale(0.92);
-+  }
-+  50% {
-+    opacity: 1;
-+    transform: scale(1);
-+  }
-+}
-+
- .noraActivityDetails {
-   margin-top: 0.5rem;
-   font-size: 0.8125rem;
--  color: var(--sfia-text-muted, #5c6570);
-+  color: var(--pm6-muted-strong);
- }
-
- .noraActivityDetails summary {
-   cursor: pointer;
-   list-style: disclosure-closed;
-+  color: var(--pm6-muted-strong);
- }
-
- .noraActivityTimeline {
-+  list-style: none;
-   margin: 0.4rem 0 0;
--  padding-left: 1.1rem;
-+  padding: 0;
-   max-height: 10rem;
-   overflow-y: auto;
- }
-
- .noraActivityTimeline li {
--  margin: 0.2rem 0;
-+  margin: 0.28rem 0;
-+  padding-left: 0;
- }
-
--.noraActivityTimelineKind {
--  display: inline-block;
--  min-width: 7.5rem;
--  margin-right: 0.4rem;
--  opacity: 0.7;
--  font-variant: small-caps;
-+.noraActivityTimelineLabel {
-+  display: block;
-+  color: var(--pm6-muted-strong);
-+  line-height: 1.45;
- }
-
- .noraActivityText {
-   margin: 0;
-   font-size: var(--pm6-text-subtitle);
-   line-height: 1.6;
--  color: var(--pm6-ink-soft);
-+  color: var(--pm6-muted-strong);
- }
-
- @keyframes noraActivityIn {
-@@ -243,6 +270,12 @@
-     animation: noraActivityInReduced 120ms ease-out;
-   }
-
-+  .noraActivityPulse {
-+    animation: none;
-+    opacity: 1;
-+    transform: none;
-+  }
-+
-   @keyframes noraActivityInReduced {
-     from {
-       opacity: 0;
-@@ -949,6 +982,13 @@
-   display: block;
- }
-
-+.sourcesScope {
-+  margin: 0 0 var(--pm6-space-2);
-+  font-size: 0.78rem;
-+  line-height: 1.45;
-+  color: var(--pm6-muted-strong);
-+}
-+
- .sourceList {
-   list-style: none;
-   margin: 0;
-@@ -979,7 +1019,7 @@
-   font-size: 0.72rem;
-   font-weight: 600;
-   letter-spacing: 0.04em;
--  color: var(--pm6-muted);
-+  color: var(--pm6-muted-strong);
- }
-
- .sourceDetail {
-@@ -988,6 +1028,36 @@
-   color: var(--pm6-muted-strong);
- }
-
-+.sourceTechDetails {
-+  flex: 1 1 100%;
-+  margin-top: 0.15rem;
-+  font-size: 0.78rem;
-+  color: var(--pm6-muted);
-+}
-+
-+.sourceTechDetails summary {
-+  cursor: pointer;
-+  color: var(--pm6-muted-strong);
-+}
-+
-+.sourceTechList {
-+  list-style: none;
-+  margin: 0.35rem 0 0;
-+  padding: 0;
-+  display: flex;
-+  flex-direction: column;
-+  gap: 0.35rem;
-+}
-+
-+.sourceTechList li {
-+  display: flex;
-+  flex-wrap: wrap;
-+  gap: 0.35rem 0.5rem;
-+  align-items: baseline;
-+  border-top: 1px dashed var(--pm6-border-soft);
-+  padding-top: 0.35rem;
-+}
-+
- /* ---------- error ---------- */
-
- .errorBox {
-@@ -1148,22 +1218,32 @@
- .stopButton {
-   display: inline-grid;
-   place-items: center;
--  width: auto;
-+  width: 30px;
-   min-width: 30px;
-   height: 30px;
-   border-radius: 7px;
--  border: 1px solid var(--pm6-ink);
-+  border: 1px solid var(--pm6-border);
-   background: var(--pm6-canvas);
-   color: var(--pm6-ink);
--  padding: 0 10px;
-+  padding: 0;
-   font-size: var(--pm6-text-caption);
-   font-weight: 600;
-   cursor: pointer;
-   min-height: 30px;
-+  transition: background 120ms ease, border-color 120ms ease, color 120ms ease;
-+}
-+
-+.stopGlyph {
-+  display: block;
-+  width: 12px;
-+  height: 12px;
- }
-
-+/* Morris: light button, dark glyph; warmer gray hover — never dark-on-dark. */
- .stopButton:hover {
--  background: var(--pm6-forest-hover);
-+  background: var(--pm6-forest-tint);
-+  border-color: var(--pm6-muted-strong);
-+  color: var(--pm6-ink);
- }
-
- .stopButton:focus-visible,
-diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
-index 2da31f3a..de40cb67 100644
---- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
-+++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
-@@ -22,7 +22,14 @@ import {
- } from "@/features/project-assistant/presentationLabels";
- import type { AssistantToolEventDto } from "@/features/project-assistant/types";
- import type { F2DecisionKind } from "@/features/project-assistant/f2/types";
--import { useEffect, useId, useLayoutEffect, useRef, useState } from "react";
-+import {
-+  useEffect,
-+  useId,
-+  useLayoutEffect,
-+  useRef,
-+  useState,
-+  type ReactElement,
-+} from "react";
- import type { ProductConversationController } from "../hooks/useProductConversation";
- import type { ProductSynthesisProjection } from "@/lib/oa/synthesis";
- import type { WorkRecommendationProjectionCard } from "@/lib/oa/cycle/application/deriveWorkRecommendations";
-@@ -37,6 +44,14 @@ import {
- } from "./GovernedDecisionCard";
- import { FramingContinuityCard } from "./FramingContinuityCard";
- import { GovernedConfirmationCard } from "./GovernedConfirmationCard";
-+import {
-+  CONVERSATION_SOURCES_SCOPE_DISCLAIMER,
-+  presentConversationSources,
-+} from "./presentConversationSources";
-+import {
-+  presentActivityEventLabel,
-+  presentLiveActivityTimeline,
-+} from "./presentLiveActivityTimeline";
- import styles from "./ConversationSurface.module.css";
-
- /**
-@@ -66,18 +81,33 @@ const DECISION_ACTIONS: readonly {
- function sourceStatusLabel(status: AssistantToolEventDto["status"]): string {
-   switch (status) {
-     case "succeeded":
--      return "Consulté";
-+      return "Consultation réussie";
-     case "denied":
--      return "Refusé";
-+      return "Consultation refusée";
-     case "failed":
--      return "Échec";
-+      return "Consultation échouée";
-     case "started":
--      return "En cours";
-+      return "Demande en cours";
-     default:
--      return "Demandé";
-+      return "Demande en cours";
-   }
- }
-
-+function StopGlyph(): ReactElement {
-+  return (
-+    <svg
-+      className={styles.stopGlyph}
-+      width="12"
-+      height="12"
-+      viewBox="0 0 12 12"
-+      aria-hidden="true"
-+      focusable="false"
-+    >
-+      <rect x="2" y="2" width="8" height="8" rx="1" fill="currentColor" />
-+    </svg>
-+  );
-+}
-+
- /** P6-HQA-UI05 — honest compact status (Figma 46:98 / 46:107). */
- function f2RecommendationStatusLabel(input: {
-   readonly proposalStatus?: string | null;
-@@ -558,14 +588,23 @@ export function ConversationSurface({
-                 data-testid="project-assistant-nora-activity-heading"
-               >
-                 Nora
--                <span className={styles.noraActivityBadge}>En cours</span>
-+                <span className={styles.noraActivityBadge}>
-+                  <span
-+                    className={styles.noraActivityPulse}
-+                    data-testid="project-assistant-nora-activity-pulse"
-+                    aria-hidden="true"
-+                  />
-+                  En cours
-+                </span>
-               </p>
-               <p
-                 className={styles.noraActivityText}
-                 data-testid="project-assistant-nora-activity-label"
-               >
-                 {liveActivityEvents.length > 0
--                  ? liveActivityEvents[liveActivityEvents.length - 1]!.label
-+                  ? presentActivityEventLabel(
-+                      liveActivityEvents[liveActivityEvents.length - 1]!,
-+                    )
-                   : noraActivity.label}
-               </p>
-               {liveActivityEvents.length > 0 ? (
-@@ -574,16 +613,17 @@ export function ConversationSurface({
-                   data-testid="project-assistant-nora-activity-details"
-                 >
-                   <summary>Détail de l’activité</summary>
--                  <ol className={styles.noraActivityTimeline}>
--                    {liveActivityEvents.map((event) => (
--                      <li key={`${event.seq}-${event.kind}-${event.at}`}>
--                        <span className={styles.noraActivityTimelineKind}>
--                          {event.kind}
--                        </span>
--                        <span>{event.label}</span>
--                      </li>
--                    ))}
--                  </ol>
-+                  <ul className={styles.noraActivityTimeline}>
-+                    {presentLiveActivityTimeline(liveActivityEvents).map(
-+                      (line) => (
-+                        <li key={line.key}>
-+                          <span className={styles.noraActivityTimelineLabel}>
-+                            {line.label}
-+                          </span>
-+                        </li>
-+                      ),
-+                    )}
-+                  </ul>
-                 </details>
-               ) : null}
-             </div>
-@@ -2303,26 +2343,70 @@ export function ConversationSurface({
-             aria-label="Sources consultées"
-             data-testid="project-assistant-sources"
-           >
-+            {toolEvents.length > 0 ? (
-+              <p
-+                className={styles.sourcesScope}
-+                data-testid="project-assistant-sources-scope"
-+              >
-+                {CONVERSATION_SOURCES_SCOPE_DISCLAIMER}
-+              </p>
-+            ) : null}
-             <ul className={styles.sourceList}>
--              {toolEvents.map((event, index) => (
-+              {presentConversationSources(toolEvents).map((group) => (
-                 <li
--                  key={`${event.toolName}-${index}-${event.pathOrRef ?? "na"}`}
-+                  key={group.key}
-                   className={styles.sourceItem}
-                   data-testid="project-assistant-source-item"
--                  data-status={event.status}
-+                  data-status={
-+                    group.detailEvents.some((e) => e.status === "denied")
-+                      ? "denied"
-+                      : group.detailEvents.some((e) => e.status === "failed")
-+                        ? "failed"
-+                        : group.detailEvents.some((e) => e.status === "succeeded")
-+                          ? "succeeded"
-+                          : group.detailEvents[0]?.status
-+                  }
-+                  data-status-tone={group.statusTone}
-                 >
--                  <span className={styles.sourceName}>{event.toolName}</span>
-+                  <span className={styles.sourceName}>{group.title}</span>
-                   <span className={styles.sourceStatus}>
--                    {sourceStatusLabel(event.status)}
-+                    {group.qualification}
-                   </span>
--                  {event.pathOrRef ? (
--                    <span className={styles.code}>{event.pathOrRef}</span>
--                  ) : null}
-                   <span className={styles.sourceDetail}>
--                    {event.summary ?? "Aucun résumé supplémentaire."}
--                    {event.errorCode ? ` (${event.errorCode})` : ""} · lecture
--                    seule confirmée
-+                    {group.eventCount > 1
-+                      ? `${group.eventCount} consultations regroupées.`
-+                      : group.qualification}
-                   </span>
-+                  <details className={styles.sourceTechDetails}>
-+                    <summary>Détail technique</summary>
-+                    <ul className={styles.sourceTechList}>
-+                      {group.detailEvents.map((event, index) => (
-+                        <li
-+                          key={`${event.toolName}-${index}-${event.pathOrRef ?? "na"}`}
-+                          data-testid="project-assistant-source-tech-item"
-+                          data-status={event.status}
-+                        >
-+                          <span className={styles.sourceName}>
-+                            {event.toolName}
-+                          </span>
-+                          <span className={styles.sourceStatus}>
-+                            {sourceStatusLabel(event.status)}
-+                          </span>
-+                          {event.pathOrRef ? (
-+                            <span className={styles.code}>{event.pathOrRef}</span>
-+                          ) : null}
-+                          <span className={styles.sourceDetail}>
-+                            {event.summary ?? "Aucun résumé supplémentaire."}
-+                            {event.errorCode ? ` (${event.errorCode})` : ""} ·{" "}
-+                            {sourceStatusLabel(event.status)}
-+                            {event.readOnly
-+                              ? " · Opération en lecture seule"
-+                              : ""}
-+                          </span>
-+                        </li>
-+                      ))}
-+                    </ul>
-+                  </details>
-                 </li>
-               ))}
-             </ul>
-@@ -2392,7 +2476,7 @@ export function ConversationSurface({
-               >
-                 <span className={styles.sendLabelFull}>Arrêter</span>
-                 <span className={styles.sendLabelCompact} aria-hidden="true">
--                  ■
-+                  <StopGlyph />
-                 </span>
-               </button>
-             ) : (
-
-```
-
----
-
-## NEW FILES (contenu integral — 4 fichiers)
+## Annex — Actions facade (EC/Execution)
 
 ```text
-===== BEGIN FILE projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/presentLiveActivityTimeline.ts =====
-/**
- * Presentation-only live activity timeline for Pilote.
- * Does not alter NDJSON / NoraLiveActivityEvent protocol.
- */
-
-import type { NoraLiveActivityEvent } from "@/features/project-assistant/liveActivityEvents";
-
-export type PresentedActivityLine = {
-  readonly key: string;
-  readonly label: string;
-};
-
-/** Known product-simplification document short names (display only). */
-const DOC_SHORT: ReadonlyArray<{ readonly re: RegExp; readonly short: string }> =
-  [
-    {
-      re: /01-chat-first-product-simplification-cadrage/i,
-      short: "P1",
-    },
-    {
-      re: /02-chat-first-product-simplification-functional-operating-model/i,
-      short: "P2",
-    },
-    {
-      re: /03-chat-first-product-simplification-workspace-interaction-architecture/i,
-      short: "P3",
-    },
-    {
-      re: /04-chat-first-product-simplification-semantic-projection-cognitive-architecture/i,
-      short: "P4",
-    },
-  ];
-
-function documentShortName(path: string | undefined): string | undefined {
-  if (!path) return undefined;
-  for (const row of DOC_SHORT) {
-    if (row.re.test(path)) return row.short;
-  }
-  return undefined;
-}
-
-function basename(path: string | undefined): string | undefined {
-  if (!path) return undefined;
-  const stripped = path.replace(/#L\d+-\d+$/i, "");
-  const parts = stripped.split("/").filter(Boolean);
-  return parts.length > 0 ? parts[parts.length - 1] : stripped;
-}
-
-function isDocumentaryReadTool(toolName: string | undefined): boolean {
-  if (!toolName) return false;
-  return (
-    toolName === "git_local_read_file" || /read_file_at_ref/i.test(toolName)
-  );
-}
-
-/**
- * Prefer a precise Pilote label when source is identifiable; never invent paths.
- * tool_completed ≠ full-document read.
- */
-export function presentActivityEventLabel(event: NoraLiveActivityEvent): string {
-  const short = documentShortName(event.sourcePath);
-  const file = basename(event.sourcePath);
-  const docRead = isDocumentaryReadTool(event.toolName);
-
-  if (event.kind === "tool_started") {
-    if (docRead || short || file) {
-      if (short) return `Nora consulte ${short}.`;
-      if (file) return `Nora consulte « ${file} ».`;
-    }
-  }
-  if (event.kind === "tool_completed") {
-    if (docRead) {
-      if (short) return `Nora a consulté un passage de ${short}.`;
-      if (file) return `Nora a consulté un passage de « ${file} ».`;
-      return "Nora a terminé une consultation documentaire.";
-    }
-    // Non-documentary tool completion must not claim a document read.
-    const fallback = event.label.trim();
-    if (fallback.length > 0 && !/lecture|lu intégralement|document lu/i.test(fallback)) {
-      return fallback;
-    }
-    return "Nora a terminé une consultation.";
-  }
-  if (event.kind === "tool_failed") {
-    if (short) return `Impossible de consulter ${short}.`;
-    if (file) return `Impossible de consulter « ${file} ».`;
-    return "Impossible de consulter une source.";
-  }
-
-  const label = event.label.trim();
-  return label.length > 0 ? label : "Nora travaille…";
-}
-
-/**
- * Chronological Pilote lines: labels only, no kind / numbering noise.
- * Collapses consecutive identical visible messages.
- */
-export function presentLiveActivityTimeline(
-  events: readonly NoraLiveActivityEvent[],
-): PresentedActivityLine[] {
-  const out: PresentedActivityLine[] = [];
-  for (const event of events) {
-    const label = presentActivityEventLabel(event);
-    const prev = out[out.length - 1];
-    if (prev && prev.label === label) continue;
-    out.push({
-      key: `${event.seq}-${event.kind}-${event.at}`,
-      label,
-    });
-  }
-  return out;
-}
-
-===== END FILE projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/presentLiveActivityTimeline.ts =====
-
-===== BEGIN FILE projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/presentConversationSources.ts =====
-/**
- * Presentation-only grouping of cumulative toolEvents for Pilote.
- * Never invents FULL coverage; never mutates Product telemetry.
- * Document identity reuses parseGitLocalReadCoverageSignals (no parallel parser).
- */
-
-import type { AssistantToolEventDto } from "@/features/project-assistant/types";
-import {
-  deriveReadCoverageFromToolEvent,
-  parseGitLocalReadCoverageSignals,
-} from "@/lib/nora-cognitive-runtime/readCoverage";
-
-export type PresentedSourceGroup = {
-  readonly key: string;
-  /** Human-readable source title. */
-  readonly title: string;
-  /** Honest qualification — never "FULL" without proven full read. */
-  readonly qualification: string;
-  readonly statusTone:
-    | "ok"
-    | "partial"
-    | "denied"
-    | "failed"
-    | "pending"
-    | "other";
-  readonly eventCount: number;
-  readonly detailEvents: readonly AssistantToolEventDto[];
-};
-
-const DOC_TITLES: ReadonlyArray<{
-  readonly re: RegExp;
-  readonly title: string;
-}> = [
-  {
-    re: /01-chat-first-product-simplification-cadrage/i,
-    title: "P1 — Cadrage",
-  },
-  {
-    re: /02-chat-first-product-simplification-functional-operating-model/i,
-    title: "P2 — Fonctionnement",
-  },
-  {
-    re: /03-chat-first-product-simplification-workspace-interaction-architecture/i,
-    title: "P3 — Workspace Interaction Architecture",
-  },
-  {
-    re: /04-chat-first-product-simplification-semantic-projection-cognitive-architecture/i,
-    title: "P4 — Semantic & Cognitive Architecture",
-  },
-];
-
-function basename(path: string): string {
-  const parts = path.split("/").filter(Boolean);
-  const last = parts.length > 0 ? parts[parts.length - 1]! : path;
-  return last.replace(/#L\d+-\d+$/i, "");
-}
-
-function isDocumentReadTool(toolName: string): boolean {
-  return (
-    toolName === "git_local_read_file" || /read_file_at_ref/i.test(toolName)
-  );
-}
-
-function isSearchTool(toolName: string): boolean {
-  return /search_content|search_files/i.test(toolName);
-}
-
-/**
- * Stable documentary identity for grouping.
- * Prefer readCoverage parser documentPath; strip #Lx-y fragments.
- * Do not merge search with documentary reads. Do not invent versions.
- */
-export function documentaryGroupKey(event: AssistantToolEventDto): string {
-  const tool = event.toolName.trim();
-
-  if (isSearchTool(tool)) {
-    const path = (event.pathOrRef ?? "").trim();
-    return path.length > 0 ? `search:${path}` : `search:${tool}`;
-  }
-
-  if (isDocumentReadTool(tool)) {
-    const parsed = parseGitLocalReadCoverageSignals({
-      summary: event.summary,
-      pathOrRef: event.pathOrRef,
-    });
-    const doc =
-      (parsed?.documentPath ?? "").trim() ||
-      (event.pathOrRef ?? "").trim().replace(/#L\d+-\d+$/i, "");
-    if (doc.length > 0) {
-      return `doc:${doc}`;
-    }
-    return `doc-tool:${tool}`;
-  }
-
-  const path = (event.pathOrRef ?? "").trim();
-  if (path.length > 0) {
-    // Non-read tools with a path: keep exact path (no silent documentary merge).
-    return `tool-path:${tool}:${path}`;
-  }
-  return `tool:${tool}`;
-}
-
-function presentTitle(event: AssistantToolEventDto, groupKey: string): string {
-  if (groupKey.startsWith("doc:")) {
-    const docPath = groupKey.slice("doc:".length);
-    for (const row of DOC_TITLES) {
-      if (row.re.test(docPath)) return row.title;
-    }
-    return basename(docPath);
-  }
-  const path = (event.pathOrRef ?? "").trim();
-  if (path.length > 0) {
-    for (const row of DOC_TITLES) {
-      if (row.re.test(path)) return row.title;
-    }
-    return basename(path);
-  }
-  return event.toolName;
-}
-
-function qualifyGroup(events: readonly AssistantToolEventDto[]): {
-  qualification: string;
-  statusTone: PresentedSourceGroup["statusTone"];
-} {
-  const denied = events.filter((e) => e.status === "denied");
-  const failed = events.filter((e) => e.status === "failed");
-  const pending = events.filter(
-    (e) => e.status === "started" || e.status === "requested",
-  );
-  const succeeded = events.filter((e) => e.status === "succeeded");
-
-  if (succeeded.length === 0) {
-    if (denied.length > 0 && failed.length === 0 && pending.length === 0) {
-      return { qualification: "Lecture refusée", statusTone: "denied" };
-    }
-    if (failed.length > 0 && denied.length === 0 && pending.length === 0) {
-      return { qualification: "Échec de consultation", statusTone: "failed" };
-    }
-    if (pending.length === events.length) {
-      return { qualification: "Consultation en cours", statusTone: "pending" };
-    }
-    if (denied.length > 0 || failed.length > 0) {
-      return {
-        qualification: "Consultation non aboutie — incident(s)",
-        statusTone: denied.length > 0 ? "denied" : "failed",
-      };
-    }
-    return { qualification: "Consultation demandée", statusTone: "pending" };
-  }
-
-  // Succeeded present — never let deny/fail alone dominate the summary.
-  const incidentSuffix =
-    denied.length > 0 || failed.length > 0
-      ? " — avec incident(s)"
-      : "";
-
-  const readEvents = events.filter((e) => isDocumentReadTool(e.toolName));
-  if (readEvents.length === 0) {
-    if (events.every((e) => isSearchTool(e.toolName))) {
-      return {
-        qualification: `Recherche de fichiers (pas une lecture documentaire)${incidentSuffix}`,
-        statusTone: incidentSuffix ? "partial" : "other",
-      };
-    }
-    return {
-      qualification: `Consultation technique${incidentSuffix}`,
-      statusTone: incidentSuffix ? "partial" : "other",
-    };
-  }
-
-  let anyFull = false;
-  let anyPartialSignal = false;
-  let anySucceededRead = false;
-
-  for (const event of readEvents) {
-    if (event.status !== "succeeded") continue;
-    anySucceededRead = true;
-    const fact = deriveReadCoverageFromToolEvent({
-      toolName: event.toolName,
-      status: event.status,
-      pathOrRef: event.pathOrRef,
-      summary: event.summary,
-    });
-    if (fact?.coverage === "full") {
-      anyFull = true;
-    } else {
-      anyPartialSignal = true;
-    }
-  }
-
-  if (!anySucceededRead) {
-    return {
-      qualification: `Consultation demandée${incidentSuffix}`,
-      statusTone: "pending",
-    };
-  }
-
-  // documentHasMore / partial / unparseable / multi-span → never bare FULL.
-  if (
-    anyFull &&
-    !anyPartialSignal &&
-    readEvents.filter((e) => e.status === "succeeded").length === 1 &&
-    !incidentSuffix
-  ) {
-    return {
-      qualification: "Document lu en entier (preuve de couverture)",
-      statusTone: "ok",
-    };
-  }
-  if (
-    readEvents.filter((e) => e.status === "succeeded").length > 1 ||
-    anyPartialSignal
-  ) {
-    return {
-      qualification: `Plusieurs passages consultés${incidentSuffix}`,
-      statusTone: "partial",
-    };
-  }
-  return {
-    qualification: `Extraits consultés${incidentSuffix}`,
-    statusTone: "partial",
-  };
-}
-
-/**
- * Group cumulative conversation toolEvents for Pilote synthesis.
- * Detail rows preserve raw telemetry order (including original #Lx-y paths).
- */
-export function presentConversationSources(
-  events: readonly AssistantToolEventDto[],
-): PresentedSourceGroup[] {
-  const order: string[] = [];
-  const buckets = new Map<string, AssistantToolEventDto[]>();
-
-  for (const event of events) {
-    const key = documentaryGroupKey(event);
-    if (!buckets.has(key)) {
-      order.push(key);
-      buckets.set(key, []);
-    }
-    buckets.get(key)!.push(event);
-  }
-
-  return order.map((key) => {
-    const detailEvents = buckets.get(key)!;
-    const title = presentTitle(detailEvents[0]!, key);
-    const { qualification, statusTone } = qualifyGroup(detailEvents);
-    return {
-      key,
-      title,
-      qualification,
-      statusTone,
-      eventCount: detailEvents.length,
-      detailEvents,
-    };
-  });
-}
-
-export const CONVERSATION_SOURCES_SCOPE_DISCLAIMER =
-  "Sources consultées dans cette conversation (cumul des tours) — pas uniquement le dernier message.";
-
-===== END FILE projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/presentConversationSources.ts =====
-
-===== BEGIN FILE projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.nora.uxClosure.presentation.d0.test.ts =====
-/** @vitest-environment node */
-/**
- * P6 Nora UX cumulative closure — presentation helpers (DET, ZERO OpenAI).
- * Includes R-UX-01 / R-UX-03 targeted findings.
- */
-import { describe, expect, it } from "vitest";
-import type { AssistantToolEventDto } from "@/features/project-assistant/types";
-import type { NoraLiveActivityEvent } from "@/features/project-assistant/liveActivityEvents";
-import {
-  presentActivityEventLabel,
-  presentLiveActivityTimeline,
-} from "@/features/pre-m6-product-ui/surfaces/presentLiveActivityTimeline";
-import {
-  CONVERSATION_SOURCES_SCOPE_DISCLAIMER,
-  documentaryGroupKey,
-  presentConversationSources,
-} from "@/features/pre-m6-product-ui/surfaces/presentConversationSources";
-
-const P3 =
-  "projects/sfia-studio/product-simplification/03-chat-first-product-simplification-workspace-interaction-architecture.md";
-const P4 =
-  "projects/sfia-studio/product-simplification/04-chat-first-product-simplification-semantic-projection-cognitive-architecture.md";
-
-describe("presentLiveActivityTimeline (R-UX-03)", () => {
-  it("UX-01/02/03/04 — labels only, chrono order, collapse duplicates", () => {
-    const events: NoraLiveActivityEvent[] = [
-      {
-        kind: "mission_started",
-        seq: 1,
-        at: "t1",
-        label: "Mission démarrée",
-      },
-      {
-        kind: "tool_started",
-        seq: 2,
-        at: "t2",
-        label: "Consultation…",
-        toolName: "git_local_read_file",
-        sourcePath: P3,
-      },
-      {
-        kind: "tool_started",
-        seq: 3,
-        at: "t3",
-        label: "Consultation…",
-        toolName: "git_local_read_file",
-        sourcePath: P3,
-      },
-      {
-        kind: "activity_update",
-        seq: 4,
-        at: "t4",
-        label: "Nora poursuit la comparaison.",
-      },
-    ];
-    const lines = presentLiveActivityTimeline(events);
-    expect(lines.map((l) => l.label)).toEqual([
-      "Mission démarrée",
-      "Nora consulte P3.",
-      "Nora poursuit la comparaison.",
-    ]);
-    expect(lines.every((l) => !/mission_started|tool_started/.test(l.label))).toBe(
-      true,
-    );
-  });
-
-  it("SRC-12 — tool_completed is passage consult, never full-document claim", () => {
-    expect(
-      presentActivityEventLabel({
-        kind: "tool_completed",
-        seq: 1,
-        at: "t",
-        label: "Document consulté",
-        toolName: "git_local_read_file",
-        sourcePath: P4,
-      }),
-    ).toBe("Nora a consulté un passage de P4.");
-    expect(
-      presentActivityEventLabel({
-        kind: "tool_completed",
-        seq: 1,
-        at: "t",
-        label: "Document consulté",
-        toolName: "git_local_read_file",
-        sourcePath: P4,
-      }),
-    ).not.toMatch(/terminé la lecture|intégralement|entier/i);
-  });
-
-  it("SRC-13 — non-documentary tool_completed is not a document read", () => {
-    const label = presentActivityEventLabel({
-      kind: "tool_completed",
-      seq: 1,
-      at: "t",
-      label: "status ok",
-      toolName: "git_local_get_status",
-    });
-    expect(label).not.toMatch(/passage|lecture de|document/i);
-    expect(label).toMatch(/consultation|status ok/i);
-  });
-
-  it("tool_failed uses honest impossibility wording", () => {
-    expect(
-      presentActivityEventLabel({
-        kind: "tool_failed",
-        seq: 1,
-        at: "t",
-        label: "fail",
-        toolName: "git_local_read_file",
-        sourcePath: P3,
-      }),
-    ).toBe("Impossible de consulter P3.");
-  });
-});
-
-describe("presentConversationSources (R-UX-01)", () => {
-  it("SRC-01/02/03 — #Lx-y ranges collapse to one P3 group; P4 distinct; ranges kept", () => {
-    const events: AssistantToolEventDto[] = [
-      {
-        toolName: "git_local_read_file",
-        status: "succeeded",
-        pathOrRef: `${P3}#L1-240`,
-        summary: `read ${P3} L1-240/780 returned L1-240 (ok) hasMore documentHasMore`,
-        errorCode: null,
-        readOnly: true,
-      },
-      {
-        toolName: "git_local_read_file",
-        status: "succeeded",
-        pathOrRef: `${P3}#L241-500`,
-        summary: `read ${P3} L241-500/780 returned L241-500 (ok) hasMore documentHasMore`,
-        errorCode: null,
-        readOnly: true,
-      },
-      {
-        toolName: "git_local_read_file",
-        status: "succeeded",
-        pathOrRef: `${P3}#L501-780`,
-        summary: `read ${P3} L501-780/780 returned L501-780 (ok) documentHasMore`,
-        errorCode: null,
-        readOnly: true,
-      },
-      {
-        toolName: "git_local_read_file",
-        status: "succeeded",
-        pathOrRef: `${P4}#L1-100`,
-        summary: `read ${P4} L1-100/400 returned L1-100 (ok) hasMore documentHasMore`,
-        errorCode: null,
-        readOnly: true,
-      },
-    ];
-
-    expect(documentaryGroupKey(events[0]!)).toBe(`doc:${P3}`);
-    expect(documentaryGroupKey(events[1]!)).toBe(`doc:${P3}`);
-    expect(documentaryGroupKey(events[2]!)).toBe(`doc:${P3}`);
-
-    const groups = presentConversationSources(events);
-    expect(groups).toHaveLength(2);
-    const p3 = groups.find((g) => g.title.includes("P3"));
-    const p4 = groups.find((g) => g.title.includes("P4"));
-    expect(p3?.eventCount).toBe(3);
-    expect(p3?.detailEvents.map((e) => e.pathOrRef)).toEqual([
-      `${P3}#L1-240`,
-      `${P3}#L241-500`,
-      `${P3}#L501-780`,
-    ]);
-    expect(p3?.qualification).toMatch(/passages|Extraits/i);
-    expect(p3?.qualification).not.toMatch(/\bFULL\b|^Document lu en entier/i);
-    expect(p4?.eventCount).toBe(1);
-  });
-
-  it("SRC-04/05 — REAL summary path groups with bare path", () => {
-    const bare: AssistantToolEventDto = {
-      toolName: "git_local_read_file",
-      status: "succeeded",
-      pathOrRef: P3,
-      summary: `read ${P3} L1-40/200 returned L1-40 (ok) hasMore documentHasMore`,
-      errorCode: null,
-      readOnly: true,
-    };
-    const ranged: AssistantToolEventDto = {
-      toolName: "git_local_read_file",
-      status: "succeeded",
-      pathOrRef: `${P3}#L41-80`,
-      summary: `read ${P3} L41-80/200 returned L41-80 (ok) hasMore documentHasMore`,
-      errorCode: null,
-      readOnly: true,
-    };
-    expect(documentaryGroupKey(bare)).toBe(documentaryGroupKey(ranged));
-    const groups = presentConversationSources([bare, ranged]);
-    expect(groups).toHaveLength(1);
-    expect(groups[0]!.eventCount).toBe(2);
-  });
-
-  it("SRC-06 — distinct versioned identities are not merged", () => {
-    const a: AssistantToolEventDto = {
-      toolName: "git_local_read_file",
-      status: "succeeded",
-      pathOrRef: "docs/P3.md@abc123",
-      summary: "read docs/P3.md@abc123 L1-10/10 returned L1-10 (ok)",
-      errorCode: null,
-      readOnly: true,
-    };
-    const b: AssistantToolEventDto = {
-      toolName: "git_local_read_file",
-      status: "succeeded",
-      pathOrRef: "docs/P3.md@def456",
-      summary: "read docs/P3.md@def456 L1-10/10 returned L1-10 (ok)",
-      errorCode: null,
-      readOnly: true,
-    };
-    expect(documentaryGroupKey(a)).not.toBe(documentaryGroupKey(b));
-    expect(presentConversationSources([a, b])).toHaveLength(2);
-  });
-
-  it("SRC-07/08/09/11 — search ≠ read; deny≠success; mixed incidents; documentHasMore≠FULL", () => {
-    expect(CONVERSATION_SOURCES_SCOPE_DISCLAIMER).toMatch(/cette conversation/i);
-
-    const events: AssistantToolEventDto[] = [
-      {
-        toolName: "git_local_read_file",
-        status: "succeeded",
-        pathOrRef: `${P3}#L1-40`,
-        summary: `read ${P3} L1-40/200 returned L1-40 (ok) hasMore documentHasMore`,
-        errorCode: null,
-        readOnly: true,
-      },
-      {
-        toolName: "git_local_read_file",
-        status: "denied",
-        pathOrRef: `${P3}#L180-200`,
-        summary: "PATH_NOT_ALLOWED",
-        errorCode: "PATH_NOT_ALLOWED",
-        readOnly: true,
-      },
-      {
-        toolName: "search_files",
-        status: "succeeded",
-        pathOrRef: null,
-        summary: "3 matches",
-        errorCode: null,
-        readOnly: true,
-      },
-      {
-        toolName: "git_local_read_file",
-        status: "denied",
-        pathOrRef: ".env",
-        summary: "PATH_NOT_ALLOWED",
-        errorCode: "PATH_NOT_ALLOWED",
-        readOnly: true,
-      },
-    ];
-
-    const groups = presentConversationSources(events);
-    const p3 = groups.find((g) => g.title.includes("P3"));
-    expect(p3?.qualification).toMatch(/passages|Extraits/i);
-    expect(p3?.qualification).toMatch(/incident/i);
-    expect(p3?.qualification).not.toMatch(/^Lecture refusée$/);
-    expect(p3?.detailEvents.some((e) => e.status === "denied")).toBe(true);
-    expect(p3?.qualification).not.toMatch(/\bFULL\b/i);
-
-    const search = groups.find((g) => g.title === "search_files");
-    expect(search?.qualification).toMatch(/Recherche/i);
-
-    const denied = groups.find((g) => g.title === ".env");
-    expect(denied?.qualification).toMatch(/refus/i);
-    expect(denied?.detailEvents[0]?.errorCode).toBe("PATH_NOT_ALLOWED");
-  });
-
-  it("SRC-10 — FULL only with proven full coverage fact", () => {
-    const events: AssistantToolEventDto[] = [
-      {
-        toolName: "git_local_read_file",
-        status: "succeeded",
-        pathOrRef: "docs/short.md",
-        summary:
-          "read docs/short.md L1-3/3 returned L1-3 (ok)",
-        errorCode: null,
-        readOnly: true,
-      },
-    ];
-    const [group] = presentConversationSources(events);
-    expect(group!.qualification).not.toBe("FULL");
-    expect(group!.qualification).not.toMatch(/^FULL$/);
-    if (/entier/i.test(group!.qualification)) {
-      expect(group!.qualification).toMatch(/preuve/i);
-    }
-  });
-});
-
-===== END FILE projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.nora.uxClosure.presentation.d0.test.ts =====
-
-===== BEGIN FILE projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.nora.uxClosure.sourcesSurface.d0.test.tsx =====
-/** @vitest-environment jsdom */
-/**
- * P6 UX closure — Sources regroupées on REAL ConversationSurface (DET).
- */
-import { cleanup, fireEvent, render, screen, within } from "@testing-library/react";
-import { afterEach, describe, expect, it, vi } from "vitest";
-import { ConversationSurface } from "@/features/pre-m6-product-ui/surfaces/ConversationSurface";
-import type { ProductConversationController } from "@/features/pre-m6-product-ui/hooks/useProductConversation";
-import type { AssistantToolEventDto } from "@/features/project-assistant/types";
-
-afterEach(() => {
-  cleanup();
-});
-
-function stubController(
-  overrides: Partial<ProductConversationController>,
-): ProductConversationController {
-  return {
-    listRef: { current: null },
-    messages: [],
-    draft: "",
-    setDraft: vi.fn(),
-    toolEvents: [],
-    liveActivityEvents: [],
-    uiState: "READY",
-    error: null,
-    executionIncomplete: false,
-    modeLabel: "fixture",
-    ephemeralNotice: "notice",
-    lrMaterializeNotice: null,
-    lrMaterializeCode: null,
-    f2: null,
-    activeProposal: null,
-    reservesText: "",
-    setReservesText: vi.fn(),
-    f3Prepare: null,
-    f3M3Resolved: null,
-    f3Execute: null,
-    durableEvidenceOutcome: null,
-    durableRehydrateError: null,
-    focusTurnId: null,
-    clearFocusTurn: vi.fn(),
-    busy: false,
-    blocked: false,
-    canSend: true,
-    stopAvailable: false,
-    stopCurrentResponse: vi.fn(),
-    gateOpen: false,
-    recommendationFreshness: "none",
-    qualificationFreshness: "none",
-    durableOutcomeFreshness: "none",
-    canPrepareResolvedM3: false,
-    canPrepareLegacyFixture: false,
-    canConfirmResolvedM3: false,
-    canConfirmLegacyFixture: false,
-    canRefreshResolvedM3Running: false,
-    sendMessage: vi.fn(),
-    decide: vi.fn(),
-    prepareResolvedM3: vi.fn(),
-    prepareLegacyFixture: vi.fn(),
-    confirmAndExecuteResolvedM3: vi.fn(),
-    confirmAndExecuteLegacyFixture: vi.fn(),
-    refreshResolvedM3RunningAttempt: vi.fn(),
-    retryLastUserMessage: vi.fn(),
-    reservationResolutionProposal: null,
-    transcriptAvailability: "available",
-    openContinuityPresentation: null,
-    journalEntries: [],
-    journalCycleInstanceId: null,
-    selectedJournalEntryId: null,
-    setSelectedJournalEntryId: vi.fn(),
-    focusJournalExchanges: vi.fn(),
-    focusTranscriptTurn: vi.fn(),
-    refreshConversationContinuity: vi.fn(),
-    armReinstructionOfProposalId: vi.fn(),
-    armedReinstructionOfProposalId: null,
-    armReservationInteractionContext: vi.fn(),
-    armedReservationInteractionContext: null,
-    clearReservationResolutionProposal: vi.fn(),
-    ...overrides,
-  } as ProductConversationController;
-}
-
-const P3 =
-  "projects/sfia-studio/product-simplification/03-chat-first-product-simplification-workspace-interaction-architecture.md";
-const P4 =
-  "projects/sfia-studio/product-simplification/04-chat-first-product-simplification-semantic-projection-cognitive-architecture.md";
-
-describe("ConversationSurface sources UX closure", () => {
-  it("UX-14/15/18/19 + SRC ranges — grouped sources + honest tech detail", () => {
-    const toolEvents: AssistantToolEventDto[] = [
-      {
-        toolName: "git_local_read_file",
-        status: "succeeded",
-        pathOrRef: `${P3}#L1-240`,
-        summary: `read ${P3} L1-240/780 returned L1-240 (ok) hasMore documentHasMore`,
-        errorCode: null,
-        readOnly: true,
-      },
-      {
-        toolName: "git_local_read_file",
-        status: "succeeded",
-        pathOrRef: `${P3}#L241-500`,
-        summary: `read ${P3} L241-500/780 returned L241-500 (ok) hasMore documentHasMore`,
-        errorCode: null,
-        readOnly: true,
-      },
-      {
-        toolName: "git_local_read_file",
-        status: "succeeded",
-        pathOrRef: `${P4}#L1-100`,
-        summary: `read ${P4} L1-100/400 returned L1-100 (ok) hasMore documentHasMore`,
-        errorCode: null,
-        readOnly: true,
-      },
-    ];
-
-    render(
-      <ConversationSurface
-        controller={stubController({
-          toolEvents,
-          messages: [
-            { id: "u1", role: "user", content: "Comparer P3 et P4." },
-            { id: "a1", role: "assistant", content: "Voici la synthèse." },
-          ],
-        })}
-      />,
-    );
-
-    const sources = screen.getByTestId("project-assistant-sources");
-    expect(
-      screen.getByTestId("project-assistant-sources-scope"),
-    ).toHaveTextContent(/cette conversation/i);
-
-    const items = within(sources).getAllByTestId("project-assistant-source-item");
-    expect(items).toHaveLength(2);
-    expect(items[0]!.textContent).toMatch(/P3/);
-    expect(items[0]!.textContent).toMatch(/2 consultations regroupées/);
-    expect(items[0]!.textContent).not.toMatch(/\bFULL\b/);
-    expect(items[1]!.textContent).toMatch(/P4/);
-
-    const techSummary = within(items[0]!).getByText("Détail technique");
-    fireEvent.click(techSummary);
-    const tech = within(items[0]!).getAllByTestId(
-      "project-assistant-source-tech-item",
-    );
-    expect(tech).toHaveLength(2);
-    expect(tech[0]!.textContent).toMatch(/git_local_read_file/);
-    expect(tech[0]!.textContent).toMatch(`${P3}#L1-240`);
-    expect(tech[0]!.textContent).toMatch(/Consultation réussie/);
-    expect(tech[0]!.textContent).toMatch(/Opération en lecture seule/);
-    expect(tech[0]!.textContent).not.toMatch(/lecture seule confirmée/i);
-  });
-});
-
-===== END FILE projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.nora.uxClosure.sourcesSurface.d0.test.tsx =====
-
+175:export async function w2ReadCurrentGovernedExecutionContinuityAction(input: {
+204:export async function w2DecideTrajectoryAction(input: {
+260:export async function w2InspectExecutionContractAction(input: {
+276:export async function w2ConfirmExecutionContractAction(input: {
+290:export async function w2AuthorizeExecutionContractAction(input: {
+379:export async function w2PrepareExecutionContractAction(input: {
+480:export async function w2PrepareRecoveryDocsWriteAction(input: {
+541:export async function w2GovernedExecuteSelectAction(input: {
+565:export async function w2GovernedExecuteStartAction(input: {
+589:export async function w2GovernedExecuteCompleteAction(input: {
+616:export async function w2GovernedExecuteCancelAction(input: {
+640:export async function w2MaterializeProductOutcomeAction(input: {
+718:export async function w2GovernedExecuteAction(input: {
+748:export async function w2ReconcileGovernedExecutionAction(input: {
+779:export async function w2DeriveGovernedExecutionContinuityAction(input: {
+806:export async function w2ResolveProductExecutionContextAction(input: {
+839:export async function w2ReadExecutionReviewItemAction(input: {
 ```
+
+## Annex — C1 boucle cible (référence)
+
+```markdown
+### F.1 Boucle cible
+
+```text
+Pilote
+  → Studio / Nora
+  → contexte v3 / DoctrinePackage / CKC
+  → qualification
+  → analyse / clarification
+  → Living Project State
+  → ProjectTrajectory / options / recommandation
+  → HumanDecision du Pilote
+  → Confirmation si nécessaire
+  → ExecutionContract natif
+  → Cursor / agent
+  → Evidence / ReviewBundle / Git
+  → analyse Nora
+  → LPS / ProjectTrajectory / replanification
+  → décision Pilote
+  → cycle suivant
+```
+```
+
+## Annex — P6 campaign tip (§B excerpt)
+
+Doc path: `projects/sfia-studio/product-simplification/07-chat-first-product-simplification-p6-global-integrated-product-qa.md`
+
+Key tip claims used: Phase 5 HUMAN QA BATCH PREPARING · P6 READY for broad QA ≠ P6 PASS · Next = Morris Human QA batch then consolidation.
+
+---
+
+## Manifest d'absence de changement Product
+
+| Check | Result |
+|---|---|
+| TypeScript/CSS/routes/tests Product modified | NO |
+| DB writes / migrations / OpenAI calls | NO |
+| :3020 / Human QA DB mutation | NO |
+| Project commit/push/PR/merge | NO |
+| Only artifact | `.tmp-sfia-review/chatgpt-review.md` (+ handoff L3) |
+
+END OF REVIEW PACK FULL — P6 E2E EXIT QUALIFICATION
