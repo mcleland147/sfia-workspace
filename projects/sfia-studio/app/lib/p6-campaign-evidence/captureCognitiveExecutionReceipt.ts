@@ -19,6 +19,8 @@ import {
 } from "./evidenceLedger";
 import {
   durableLedgerContentEquivalent,
+  isCognitiveReceiptRowKind,
+  isP6O2QaLinkTargetEligible,
   validateLedgerRowForAppend,
 } from "./ledgerRowValidation";
 import fs from "node:fs";
@@ -33,6 +35,11 @@ export type CaptureCognitiveExecutionReceiptInput = {
   runId: string;
   scenarioId: string;
   campaignId?: string;
+  /**
+   * O2 minimal link — QA runId this receipt belongs to.
+   * Required on the O2 dual-write path; optional for legacy unlinked captures.
+   */
+  linkedQaRunId?: string;
   absolutePath?: string;
   onDuplicate?: "reject" | "skip";
   reserves?: string[];
@@ -57,7 +64,8 @@ export type CaptureCognitiveExecutionReceiptResult =
         | "integrity_blocks_capture"
         | "lock_failed"
         | "validation_failed"
-        | "identity_mismatch";
+        | "identity_mismatch"
+        | "o2_link_rejected";
       message: string;
       absolutePath?: string;
       existing?: P6EvidenceLedgerRow;
@@ -117,6 +125,9 @@ export function buildCompleteCognitiveReceiptLedgerEntry(
     campaignId: input.campaignId ?? P6_CAMPAIGN_ID,
     runId: input.runId,
     scenarioId: input.scenarioId,
+    ...(typeof input.linkedQaRunId === "string"
+      ? { linkedQaRunId: input.linkedQaRunId }
+      : {}),
     logicalTurnId: receipt.logicalTurnId,
     projectId: receipt.projectId,
     runtimeIdentity: receipt.runtimeIdentity,
@@ -300,6 +311,18 @@ export function captureCognitiveExecutionReceiptToP6Ledger(
     };
   }
 
+  if (
+    typeof input.linkedQaRunId === "string" &&
+    input.linkedQaRunId === input.runId
+  ) {
+    return {
+      ok: false,
+      status: "o2_link_rejected",
+      message: "linkedQaRunId must differ from cognitive runId",
+      absolutePath,
+    };
+  }
+
   const candidate = buildCompleteCognitiveReceiptLedgerEntry(input, receipt);
   const validation = validateLedgerRowForAppend(candidate);
   if (!validation.ok) {
@@ -326,6 +349,69 @@ export function captureCognitiveExecutionReceiptToP6Ledger(
         message: `ledger integrity=${prior.integrity}; capture refused without rewrite`,
         absolutePath,
       };
+    }
+
+    // O2 write-boundary link checks under lock (TOCTOU-safe vs concurrent mono-writer).
+    if (typeof input.linkedQaRunId === "string") {
+      const linked = input.linkedQaRunId;
+      if (linked.trim().length === 0) {
+        return {
+          ok: false as const,
+          status: "o2_link_rejected" as const,
+          message: "linkedQaRunId must be a non-empty string",
+          absolutePath,
+        };
+      }
+      const target = prior.rows.find((r) => r.runId === linked);
+      if (!target) {
+        return {
+          ok: false as const,
+          status: "o2_link_rejected" as const,
+          message: `O2 link target missing: ${linked}`,
+          absolutePath,
+        };
+      }
+      if (!isP6O2QaLinkTargetEligible(target)) {
+        return {
+          ok: false as const,
+          status: "o2_link_rejected" as const,
+          message:
+            "O2 link target must be an O2-eligible QA campaign result (not admin/diagnostic/cognitive)",
+          absolutePath,
+          existing: target,
+        };
+      }
+      if (target.campaignId !== candidate.campaignId) {
+        return {
+          ok: false as const,
+          status: "o2_link_rejected" as const,
+          message: "O2 link campaignId mismatch",
+          absolutePath,
+          existing: target,
+        };
+      }
+      if (target.scenarioId !== candidate.scenarioId) {
+        return {
+          ok: false as const,
+          status: "o2_link_rejected" as const,
+          message: "O2 link scenarioId mismatch",
+          absolutePath,
+          existing: target,
+        };
+      }
+      const priorLinked = prior.rows.filter(
+        (r) =>
+          isCognitiveReceiptRowKind(r.kind) && r.linkedQaRunId === linked,
+      );
+      if (priorLinked.length > 0) {
+        return {
+          ok: false as const,
+          status: "o2_link_rejected" as const,
+          message: `O2 cardinality: QA run already has a linked receipt (${priorLinked.length})`,
+          absolutePath,
+          existing: priorLinked[0],
+        };
+      }
     }
 
     const existing = prior.rows.find((r) => r.runId === input.runId);
