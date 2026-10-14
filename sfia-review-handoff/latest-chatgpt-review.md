@@ -1,24 +1,22 @@
-# P6 NORA EXTENDED — Critical Review Findings Closure FULL
+# P6 NORA EXTENDED — Cumulative Critical Findings Closure FULL
 
 ## A. Horodatage
-2026-10-14 15:08:56 CEST
+2026-10-14 16:00:29 CEST
 
 ## B. GO Morris
-CORRECTION CUMULATIVE AUTHORIZED / CONSUMED — 2026-10-14
-Findings: R-EXT-01 / 02 / 03 / 04 / 05 + VISUAL RESERVE
-Conserve macro-lot / branche / worktree / axes A/B/C.
-Interdit: microcycle, nouvelle branche, REAL, push projet, PR, merge, :3020.
+LOCAL CORRECTION AUTHORIZED / CONSUMED — 2026-10-14
+CUMULATIVE CRITICAL REVIEW CLOSURE
+Conserve candidat / branche / worktree. Pas de microcycle, REAL, push projet, PR, merge, :3020.
 
-## C. Cycle / profil
-Cycle 8 Delivery · CRITICAL · UX/UI + QA + Observabilité · EVOL/CORRECTION CUMULATIVE
+## C. Cycle / profil / CKC
+Cycle 8 Delivery CRITICAL · ckc:studio:delivery + qa-validation + ux-ui guidance
 
 ## D. Git Truth initial
-- Repo: mcleland147/sfia-workspace
 - Worktree: `/Users/morris/Projects/sfia-workspace-p6-nora-extended-execution-live-activity`
 - Branch: `delivery/sfia-studio-p6-nora-extended-execution-live-activity`
 - HEAD: `5e139627ff515cd36da5ce12d2c22f935adb139f` (= origin/main `5e139627ff515cd36da5ce12d2c22f935adb139f`)
-- Handoff entrée: b2a37488 / blob c1a5d263
-- Dirty candidate préservé (no reset/clean/stash) — VÉRIFIÉ
+- Handoff entrée: 04da4f81 / blob 855ed924
+- Dirty candidate préservé — VÉRIFIÉ
 - Studio :3020 intact — VÉRIFIÉ
 
 ```
@@ -45,10 +43,13 @@ Cycle 8 Delivery · CRITICAL · UX/UI + QA + Observabilité · EVOL/CORRECTION C
  M projects/sfia-studio/app/lib/nora-cognitive-runtime/sfiaAgentsTools.ts
  M projects/sfia-studio/app/lib/nora-cognitive-runtime/types.ts
  M projects/sfia-studio/app/lib/platform/tools/types.ts
+ M projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
 ?? projects/sfia-studio/app/__tests__/nora-cognitive-runtime/missionProgressGuard.d0.test.ts
 ?? projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.extendedCorpusCaps.d0.test.ts
 ?? projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.productiveExtension.d0.test.ts
 ?? projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.representativeCorpus.d0.test.ts
+?? projects/sfia-studio/app/__tests__/nora-cognitive-runtime/runnerAbortSignal.d0.test.ts
+?? projects/sfia-studio/app/__tests__/pre-m6-product-ui/conversationSurface.liveActivityStop.d0.test.tsx
 ?? projects/sfia-studio/app/__tests__/pre-m6-product-ui/sendCancellableAssistantTurn.ndjson.d0.test.ts
 ?? projects/sfia-studio/app/__tests__/pre-m6-product-ui/serverCancellation.d0.test.ts
 ?? projects/sfia-studio/app/__tests__/pre-m6-product-ui/stopAvailableEarly.d0.test.ts
@@ -60,118 +61,96 @@ Cycle 8 Delivery · CRITICAL · UX/UI + QA + Observabilité · EVOL/CORRECTION C
 ```
 
 ## E. Convergence
-P6 NOT PASSED · Option B/O2 KEEP · Runtime v3 NON ADOPTED · Local candidate → findings closed → Critical Re-Review
+P6 NOT PASSED · Option B/O2 KEEP · Runtime v3 NON ADOPTED · Extended Execution LOCAL CANDIDATE
 
 ## F. Sources lues
-Build Doctrine / Roadmap / Product Completion / v3 framing 33+35 / P6 product-simplification / cycle template / CKC 08/09/04 / handoff b2a37488 / code Product
+Convergence / Product Completion / v3 framing / P6 simplification / cycle template / CKC / handoff 04da4f81 / Product code paths
 
-## G. Candidate baseline
-Macro-lot Extended Execution LOCAL CANDIDATE with Critical Review CORRECTIONS REQUIRED.
+## G. Candidat cumulatif
+Prior Extended Execution + R-EXT findings + this residual closure (progress checkpoint, terminality, full corpus, runner abort, React DET)
 
-## H. Findings R-EXT-01…05
-| ID | Title | Status |
-|----|-------|--------|
-| R-EXT-01 | Terminal event incorrectly reports completed | CLOSED |
-| R-EXT-02 | Adaptive budget remains a fixed ceiling | CLOSED |
-| R-EXT-03 | Review Pack omits new test files | CLOSED (this pack) |
-| R-EXT-04 | 5/10/15 corpus not proven | CLOSED (DET) |
-| R-EXT-05 | Server-side cancellation insufficiently proven | CLOSED (DET) |
-| Visual | Figma/runtime Stop/live screenshot missing | QUALIFIED (isolated harness captures) |
+## H. Findings résiduels
+1. Extension after failure — CLOSED
+2. Fake Product stopped on abort — CLOSED
+3. Corpus 5/10/15 partial read — CLOSED
+4. Runner cancellation underproven — CLOSED
+5. React runtime unverified — CLOSED via real ConversationSurface RTL (CSS harness PNGs remain layout-only)
 
-## I. Diagnostic de chaque finding
-### R-EXT-01
-NDJSON mapped ok===true → mission_completed, collapsing incomplete/cognitive_stop.
-### R-EXT-02
-Ceiling 24 remained final mission limit; no progress-gated extension.
-### R-EXT-03
-Prior handoff omitted new test file contents.
-### R-EXT-04
-Caps raised without representative 5/10/15 corpus oracles.
-### R-EXT-05
-Abort path existed; DET thin; transport abort could invent stop_confirmed.
+## I. Diagnostic budget
+hasVerifiableProgressForExtension used fingerprint size growth + any prior usefulCompletions → new FAIL after extension still unlocked extension.
 
-## J. Correctifs réalisés
-1. terminalLiveActivityFromProductResult — status-authoritative kinds.
-2. NDJSON serialized writeChain; drain before terminal; transport abort ≠ stop_confirmed.
-3. Productive extension toward safety envelope 36 with fingerprint progress; max 3; explicitOverride preserved.
-4. Progress guard: identical target+fingerprint streak; distinct fingerprints = progress.
-5. UX French factual labels; expandable detail.
-6. Corpus DET 1/5/10/15; cancellation DET; terminal DET.
-7. Isolated runtime visual harness + 4 PNGs (port 3921).
+## J. Correction budget
+Checkpoint usefulCompletionsAtExtension; extension iff usefulCompletions > checkpoint; isUsefulMissionProgressFingerprint excludes fail/denied/?.
 
-## K. Contrat d'extension budget
-Initial ceiling 24 · Safety envelope 36 · PRODUCTIVE_EXTENSION_MAX 3 · extension only on verifiable fingerprint growth · explicitOverride pins · campaign deny / abort / no-progress → INCOMPLETE never SUCCESS
+## K. Preuves extension
+BUD oracles in missionProgressGuard.d0 + p6.productiveExtension.d0 — DET PASS
 
-## L. Coupe-circuits
-MissionProgressGuard · safety envelope · CONTINUATION_MAX_SEGMENTS=8 · campaign/USD · AbortSignal
+## L. Diagnostic terminalité
+send/route catch returned status=stopped on request.signal.aborted alone.
 
-## M. Contrat corpus documentaire
-CT_MAX_TOOL_RESULT_CHARS=100_000 · CT_DEFAULT_READ_MAX_BYTES=200_000 · PARTIAL≠FULL · no RAG
+## M. Correction terminalité
+Catch returns provider_unavailable + code NORA_TURN_TRANSPORT_INTERRUPTED; activity transport_interrupted; stop_confirmed only via Product status=stopped ack.
 
-## N. Preuves 5/10/15 sources
-DET p6.representativeCorpus.d0.test.ts — synthetic FACT tokens + coverage honesty. Not REAL quality claim.
+## N. Scénarios corpus 1/5/10/15
+p6.representativeCorpus.d0 — ScriptedModel reads EACH of N docs via runNoraAgentsTurn; FACT-i asserted per doc; mono 90k kept.
 
-## O. Contrat NDJSON
-Serialized writes · activity before result · single result · no post-terminal activity · fail-closed · parser skips malformed / post-result activity
+## O. Preuves de couverture
+N successful git_local_read_file; FACT tokens in payloads; PARTIAL honesty retained.
 
-## P. Événements / terminalité
-ok→completed · incomplete→incomplete · cognitive_stop→mission_cognitive_stop · stopped ack→stop_confirmed · transport abort w/o ack→transport_interrupted · provider_*→failed
+## P. Qualité des oracles
+DET ScriptedModel proves acquisition/orchestration/references — NOT REAL cognitive quality.
 
-## Q. Annulation Product/Runner
-Early cancellable · fetch AbortSignal · request.signal · Runner · DET signal.abort · transport ≠ forged stop_confirmed
+## Q. Streaming NDJSON
+Serialized writeChain preserved; post-terminal activity dropped; transport abort ≠ stop_confirmed.
 
-## R. Session continuity
-RunState + ProductSqliteSession on every segment including productive extensions — counters not reset
+## R. Annulation Runner
+runnerAbortSignal.d0 — abort mid multi-step ScriptedModel → NoraTurnAbortedError; no further model step.
 
-## S. UX conversationnelle
-Factual French labels · expandable timeline · reduced-motion preserved
+## S. Session / logical turn
+RunState + ProductSqliteSession continuity unchanged; counters not reset on extension.
 
-## T. Figma
-fileKey m4g8j0gNbEzfIuH6S9AZJF · 46:2 1440×1024 · Send 46:134 idle · Stop/live Product delta
+## T. UX conversationnelle
+French factual labels preserved; expandable activity details.
 
-## U. Captures runtime
-- .tmp-sfia-review/assets/runtime-idle-send.png
-- .tmp-sfia-review/assets/runtime-working-stop.png
-- .tmp-sfia-review/assets/runtime-activity-expanded.png
-- .tmp-sfia-review/assets/runtime-incomplete-or-stopped.png
-- figma-46-2-conversation-surface.png
+## U. Contrat Figma
+m4g8j0gNbEzfIuH6S9AZJF · 46:2 · idle Send · Stop/live Product delta
 
-### visual-proof-notes.md
+## V. React runtime
+REAL ConversationSurface via conversationSurface.liveActivityStop.d0.test.tsx (6 PASS) — VÉRIFIÉ
+
+## W. Captures runtime
+CSS harness PNGs under .tmp-sfia-review/assets/ (layout). React behavior via DET.
 ```
-# P6 Nora live activity / Stop — isolated runtime visual proof
+# P6 Nora — Visual / React proof notes
 
-**Harness:** static HTML under `.tmp-sfia-review/` linking production `product-tokens.css` + `ConversationSurface.module.css` (same class names as React). Served at **http://127.0.0.1:3921** (not Studio **:3020**). No OpenAI, no Human QA DB paths, no Next dev server.
+## Authoritative React proof (VÉRIFIÉ)
+- File: `projects/sfia-studio/app/__tests__/pre-m6-product-ui/conversationSurface.liveActivityStop.d0.test.tsx`
+- Renders **real** `ConversationSurface` via `@testing-library/react` + jsdom
+- Idle → Envoyer; Working → Arrêter + Nora activity; liveActivityEvents details; STOPPED/incomplete banners
+- 6/6 PASS
 
-**Automation:** cursor-ide-browser MCP — element screenshots of `#capture` on per-state pages (`runtime-capture-*.html`). **Succeeded** for all four PNGs (2× device scale).
+## CSS layout harness captures (layout-only, NOT React mount)
+Port 3921 static HTML using ConversationSurface.module.css classNames:
+- runtime-idle-send.png
+- runtime-working-stop.png
+- runtime-activity-expanded.png
+- runtime-incomplete-or-stopped.png
+- figma-46-2-conversation-surface.png (Figma 46:2 baseline)
 
-| File | What it shows |
-|------|----------------|
-| `runtime-idle-send.png` | Transcript + composer idle: **Send** (↑, ink-filled 30×30) replaces Figma baseline; tools row (+ Contexte / @ Élément / Contexte projet actif). |
-| `runtime-working-stop.png` | **In-thread Nora activity** (`noraActivityTurn`, badge **En cours**, live label); composer **Stop** (■, outline on canvas) while input disabled — Send hidden when stop is available. |
-| `runtime-activity-expanded.png` | Same working chrome with `<details open>` **Détail de l’activité** + `noraActivityTimeline` (turn_start / tool_call / model_step). |
-| `runtime-incomplete-or-stopped.png` | Post-run surfaces: **Réponse interrompue** + Réessayer; **Analyse inachevée** + execution-limit copy; composer returns to Send. |
+## Figma
+fileKey m4g8j0gNbEzfIuH6S9AZJF · frame 46:2 · idle Send only · Stop/live = Product delta
 
-## Figma delta (`figma-46-2-conversation-surface.png`)
-
-Figma **46:2** documents the **idle / completed** conversation: rich transcript (recommendation cards, synthèse teaser), full workspace chrome (rail, context column, trajectory). Composer shows **Send (↑)** only — **no Stop**, **no in-thread “Nora · En cours” activity row**, **no activity timeline disclosure**, **no stopped / incomplete banners**.
-
-**Product delta (P6 runtime, qualified):**
-
-- **Composer:** Figma = Send-only idle chrome; runtime adds **Stop** swap during extended execution (same composer box, `stopButton` vs `sendButton`).
-- **Transcript:** Figma = static Nora answer + durable objects; runtime adds **ephemeral live activity turn** (`project-assistant-nora-activity`) with optional **Détail de l’activité** NDJSON timeline — not present in 46:2 frame.
-- **Between composer and thread:** Figma has no interruption UX; runtime adds **`stoppedBanner`** states (user stop + budget incomplete) before composer re-enables Send.
-
-**Parity retained:** P3 46:2 composer geometry (flat top rule, `composerBox` border, tool labels, Send 30×30 radius 7), turn typography (VOUS / NORA labels, flat bubbles), warm `--pm6-*` tokens.
-
-## Paths
-
-- Figma reference: `.tmp-sfia-review/assets/figma-46-2-conversation-surface.png`
-- Runtime captures: `.tmp-sfia-review/assets/runtime-*.png`
-- Combined harness: `.tmp-sfia-review/runtime-visual-harness.html`
-- Per-state pages: `.tmp-sfia-review/runtime-capture-{idle,working,expanded,stopped}.html`
+## Qualification
+React component behavior: DET on real ConversationSurface.
+Pixel layout: CSS harness PNGs + Figma comparison for shared chrome.
+Motion: not claimed as video proof; reduced-motion CSS present.
 
 ```
-## V. Manifest cumulatif (Git Review Index)
+
+## X. Accessibilité / motion
+reduced-motion CSS retained; motion not claimed via video.
+
+## Y. Manifest cumulatif
 ```
  M .tmp-sfia-review/chatgpt-review.md
  M projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.maxTurns.documentary.d0.test.ts
@@ -196,10 +175,13 @@ Figma **46:2** documents the **idle / completed** conversation: rich transcript 
  M projects/sfia-studio/app/lib/nora-cognitive-runtime/sfiaAgentsTools.ts
  M projects/sfia-studio/app/lib/nora-cognitive-runtime/types.ts
  M projects/sfia-studio/app/lib/platform/tools/types.ts
+ M projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
 ?? projects/sfia-studio/app/__tests__/nora-cognitive-runtime/missionProgressGuard.d0.test.ts
 ?? projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.extendedCorpusCaps.d0.test.ts
 ?? projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.productiveExtension.d0.test.ts
 ?? projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.representativeCorpus.d0.test.ts
+?? projects/sfia-studio/app/__tests__/nora-cognitive-runtime/runnerAbortSignal.d0.test.ts
+?? projects/sfia-studio/app/__tests__/pre-m6-product-ui/conversationSurface.liveActivityStop.d0.test.tsx
 ?? projects/sfia-studio/app/__tests__/pre-m6-product-ui/sendCancellableAssistantTurn.ndjson.d0.test.ts
 ?? projects/sfia-studio/app/__tests__/pre-m6-product-ui/serverCancellation.d0.test.ts
 ?? projects/sfia-studio/app/__tests__/pre-m6-product-ui/stopAvailableEarly.d0.test.ts
@@ -210,12 +192,14 @@ Figma **46:2** documents the **idle / completed** conversation: rich transcript 
 
 ```
 
-Untracked new files (11):
+Untracked (13):
 ```
 projects/sfia-studio/app/__tests__/nora-cognitive-runtime/missionProgressGuard.d0.test.ts
 projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.extendedCorpusCaps.d0.test.ts
 projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.productiveExtension.d0.test.ts
 projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.representativeCorpus.d0.test.ts
+projects/sfia-studio/app/__tests__/nora-cognitive-runtime/runnerAbortSignal.d0.test.ts
+projects/sfia-studio/app/__tests__/pre-m6-product-ui/conversationSurface.liveActivityStop.d0.test.tsx
 projects/sfia-studio/app/__tests__/pre-m6-product-ui/sendCancellableAssistantTurn.ndjson.d0.test.ts
 projects/sfia-studio/app/__tests__/pre-m6-product-ui/serverCancellation.d0.test.ts
 projects/sfia-studio/app/__tests__/pre-m6-product-ui/stopAvailableEarly.d0.test.ts
@@ -228,32 +212,33 @@ projects/sfia-studio/app/lib/nora-cognitive-runtime/missionProgressGuard.ts
 Diff --stat:
 ```
  .../p6.nora.maxTurns.documentary.d0.test.ts        |  28 ++-
- ...p6.nora.min09.documentaryReliability.d0.test.ts |  71 +++++---
+ ...p6.nora.min09.documentaryReliability.d0.test.ts |  71 ++++++--
  .../p6.nora.p1.adaptiveBudget.d0.test.ts           |  30 ++--
  .../p6.nora.p1p2.documentary.mission.d0.test.ts    |  27 ++-
  .../p6.nora.p1p2.targetedVerification.d0.test.ts   |  69 +++++++-
- .../projects/[projectId]/assistant/send/route.ts   | 190 +++++++++++++++++++--
+ .../projects/[projectId]/assistant/send/route.ts   | 191 +++++++++++++++++++--
  .../hooks/sendCancellableAssistantTurn.ts          |  85 ++++++++-
  .../hooks/useProductConversation.ts                |  29 +++-
  .../surfaces/ConversationSurface.module.css        |  30 ++++
  .../surfaces/ConversationSurface.tsx               |  23 ++-
- .../features/project-assistant/f2/orchestrateF2.ts |  19 ++-
+ .../features/project-assistant/f2/orchestrateF2.ts |  19 +-
  .../features/project-assistant/memoryEventSink.ts  |  11 +-
  .../features/project-assistant/orchestrateTurn.ts  |  22 ++-
  .../project-assistant/sendProjectAssistantTurn.ts  |   5 +
  .../nora-cognitive-runtime/adaptiveTurnBudget.ts   |  30 ++--
  .../nora-cognitive-runtime/callModelInputFilter.ts |   6 +
- .../controlledContinuation.ts                      |  19 ++-
- .../app/lib/nora-cognitive-runtime/index.ts        |  14 ++
+ .../controlledContinuation.ts                      |  19 +-
+ .../app/lib/nora-cognitive-runtime/index.ts        |  15 ++
  .../nora-cognitive-runtime/runNoraAgentsTurn.ts    | 112 ++++++++++--
  .../lib/nora-cognitive-runtime/sfiaAgentsTools.ts  |  23 ++-
  .../app/lib/nora-cognitive-runtime/types.ts        |   3 +
  .../sfia-studio/app/lib/platform/tools/types.ts    |  13 +-
- 22 files changed, 753 insertions(+), 106 deletions(-)
+ .../production-runtime-reference.manifest.json     |   6 +-
+ 23 files changed, 758 insertions(+), 109 deletions(-)
 
 ```
 
-## W. Contenu complet des nouveaux fichiers
+## Z. Contenu COMPLET des nouveaux fichiers
 ### NEW FILE: `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/missionProgressGuard.d0.test.ts`
 
 ```typescript
@@ -276,6 +261,7 @@ import {
   MISSION_NO_PROGRESS_REPEAT_LIMIT,
   MISSION_NO_PROGRESS_STOP_STOCK,
   MissionProgressGuard,
+  isUsefulMissionProgressFingerprint,
   missionProgressResultFingerprint,
   missionProgressTargetKey,
 } from "@/lib/nora-cognitive-runtime/missionProgressGuard";
@@ -324,6 +310,216 @@ describe("MissionProgressGuard", () => {
     guard.observe(sample);
     const third = guard.observe(sample);
     expect(third.action).toBe("stop_no_progress");
+  });
+
+  it("BUD-01 — no useful completions → extension gate closed", () => {
+    const guard = new MissionProgressGuard();
+    expect(guard.hasVerifiableProgressForExtension()).toBe(false);
+    guard.observe({
+      toolName: "git_local_read_file",
+      targetKey: "missing.md",
+      resultFingerprint: "fail|status:failed",
+    });
+    expect(guard.hasVerifiableProgressForExtension()).toBe(false);
+  });
+
+  it("BUD-02 — useful success unlocks extension", () => {
+    const guard = new MissionProgressGuard();
+    const fp = missionProgressResultFingerprint({
+      ok: true,
+      data: { path: "a.md", returnedStartLine: 1, returnedEndLine: 5, bytes: 10, truncated: false },
+    });
+    guard.observe({
+      toolName: "git_local_read_file",
+      targetKey: "a.md",
+      resultFingerprint: fp,
+    });
+    expect(isUsefulMissionProgressFingerprint(fp)).toBe(true);
+    expect(guard.hasVerifiableProgressForExtension()).toBe(true);
+  });
+
+  it("BUD-03 — markExtensionConsumed closes gate until new useful progress", () => {
+    const guard = new MissionProgressGuard();
+    const fp = missionProgressResultFingerprint({
+      ok: true,
+      data: { path: "a.md", returnedStartLine: 1, returnedEndLine: 5, bytes: 10, truncated: false },
+    });
+    guard.observe({
+      toolName: "git_local_read_file",
+      targetKey: "a.md",
+      resultFingerprint: fp,
+    });
+    guard.markExtensionConsumed();
+    expect(guard.hasVerifiableProgressForExtension()).toBe(false);
+  });
+
+  it("BUD-04 — after checkpoint, new useful fingerprint reopens extension", () => {
+    const guard = new MissionProgressGuard();
+    const fp1 = missionProgressResultFingerprint({
+      ok: true,
+      data: { path: "a.md", returnedStartLine: 1, returnedEndLine: 5, bytes: 10, truncated: false },
+    });
+    guard.observe({
+      toolName: "git_local_read_file",
+      targetKey: "a.md@1-5",
+      resultFingerprint: fp1,
+    });
+    guard.markExtensionConsumed();
+    const fp2 = missionProgressResultFingerprint({
+      ok: true,
+      data: { path: "a.md", returnedStartLine: 6, returnedEndLine: 10, bytes: 10, truncated: false },
+    });
+    guard.observe({
+      toolName: "git_local_read_file",
+      targetKey: "a.md@6-10",
+      resultFingerprint: fp2,
+    });
+    expect(guard.hasVerifiableProgressForExtension()).toBe(true);
+  });
+
+  it("BUD-05 — after checkpoint, new fail fingerprints never reopen extension", () => {
+    const guard = new MissionProgressGuard();
+    const okFp = missionProgressResultFingerprint({
+      ok: true,
+      data: { path: "a.md", returnedStartLine: 1, returnedEndLine: 5, bytes: 10, truncated: false },
+    });
+    guard.observe({
+      toolName: "git_local_read_file",
+      targetKey: "a.md@1-5",
+      resultFingerprint: okFp,
+    });
+    guard.markExtensionConsumed();
+    guard.observe({
+      toolName: "git_local_read_file",
+      targetKey: "b.md",
+      resultFingerprint: "fail|status:failed",
+    });
+    guard.observe({
+      toolName: "git_local_read_file",
+      targetKey: "c.md",
+      resultFingerprint: "denied|x",
+    });
+    expect(guard.hasVerifiableProgressForExtension()).toBe(false);
+    expect(guard.snapshot().usefulCompletions).toBe(1);
+  });
+
+  it("BUD-06 — repeated identical useful fingerprint does not increment useful count", () => {
+    const guard = new MissionProgressGuard();
+    const sample = {
+      toolName: "git_local_read_file",
+      targetKey: "doc.md",
+      resultFingerprint: "ok|doc.md|1-5|100|f",
+    };
+    guard.observe(sample);
+    guard.observe(sample);
+    guard.markExtensionConsumed();
+    expect(guard.snapshot().usefulCompletions).toBe(1);
+    expect(guard.hasVerifiableProgressForExtension()).toBe(false);
+  });
+
+  it("BUD-07..08 — isUsefulMissionProgressFingerprint classifies ok vs fail/empty", () => {
+    expect(isUsefulMissionProgressFingerprint("ok|p|1-2|10|f")).toBe(true);
+    expect(isUsefulMissionProgressFingerprint("ok")).toBe(true);
+    expect(isUsefulMissionProgressFingerprint("fail|status:failed")).toBe(false);
+    expect(isUsefulMissionProgressFingerprint("denied|x")).toBe(false);
+    expect(isUsefulMissionProgressFingerprint("?|x")).toBe(false);
+    expect(isUsefulMissionProgressFingerprint("")).toBe(false);
+    expect(isUsefulMissionProgressFingerprint("nofp")).toBe(false);
+    expect(isUsefulMissionProgressFingerprint("empty")).toBe(false);
+  });
+
+  it("BUD-09 — all distinct failed fingerprints never unlock extension", () => {
+    const guard = new MissionProgressGuard();
+    for (let i = 0; i < 5; i += 1) {
+      guard.observe({
+        toolName: "git_local_read_file",
+        targetKey: `fail-${i}.md`,
+        resultFingerprint: `fail|status:failed|${i}`,
+      });
+    }
+    expect(guard.snapshot().usefulCompletions).toBe(0);
+    expect(guard.hasVerifiableProgressForExtension()).toBe(false);
+  });
+
+  it("BUD-10 — stopped guard blocks extension even with useful delta", () => {
+    const guard = new MissionProgressGuard(3);
+    const sample = {
+      toolName: "git_local_read_file",
+      targetKey: "loop.md",
+      resultFingerprint: "ok|loop.md|1-1|1|f",
+    };
+    guard.observe(sample);
+    guard.observe(sample);
+    guard.observe(sample);
+    expect(guard.stopped).toBe(true);
+    guard.markExtensionConsumed();
+    expect(guard.hasVerifiableProgressForExtension()).toBe(false);
+  });
+
+  it("BUD-11 — fail then useful allows extension", () => {
+    const guard = new MissionProgressGuard();
+    guard.observe({
+      toolName: "git_local_read_file",
+      targetKey: "x.md",
+      resultFingerprint: "fail|status:failed",
+    });
+    expect(guard.hasVerifiableProgressForExtension()).toBe(false);
+    guard.observe({
+      toolName: "git_local_read_file",
+      targetKey: "y.md",
+      resultFingerprint: "ok|y.md|1-2|20|f",
+    });
+    expect(guard.hasVerifiableProgressForExtension()).toBe(true);
+  });
+
+  it("BUD-12 — snapshot tracks extension checkpoint", () => {
+    const guard = new MissionProgressGuard();
+    guard.observe({
+      toolName: "git_local_read_file",
+      targetKey: "a.md",
+      resultFingerprint: "ok|a.md|1-1|1|f",
+    });
+    guard.markExtensionConsumed();
+    const snap = guard.snapshot();
+    expect(snap.usefulCompletions).toBe(1);
+    expect(snap.usefulCompletionsAtExtension).toBe(1);
+  });
+
+  it("BUD-13 — distinct fail targets do not count as useful completions", () => {
+    const guard = new MissionProgressGuard();
+    guard.observe({
+      toolName: "git_local_read_file",
+      targetKey: "a.md",
+      resultFingerprint: missionProgressResultFingerprint({ ok: false, data: { path: "a.md" } }),
+    });
+    guard.observe({
+      toolName: "git_local_read_file",
+      targetKey: "b.md",
+      resultFingerprint: missionProgressResultFingerprint({
+        status: "denied",
+        data: { path: "b.md" },
+      }),
+    });
+    expect(guard.snapshot().usefulCompletions).toBe(0);
+    expect(guard.snapshot().fingerprintCount).toBe(2);
+  });
+
+  it("BUD-14 — useful consumed then only fails keeps gate closed", () => {
+    const guard = new MissionProgressGuard();
+    guard.observe({
+      toolName: "git_local_read_file",
+      targetKey: "good.md",
+      resultFingerprint: "ok|good.md|1-3|30|f",
+    });
+    guard.markExtensionConsumed();
+    for (const target of ["f1.md", "f2.md", "f3.md"]) {
+      guard.observe({
+        toolName: "git_local_read_file",
+        targetKey: target,
+        resultFingerprint: `fail|${target}`,
+      });
+    }
+    expect(guard.hasVerifiableProgressForExtension()).toBe(false);
   });
 
   it("distinct result fingerprints on same target reset streak", () => {
@@ -558,7 +754,7 @@ describe("R-EXT-02 — MissionProgressGuard extension signals", () => {
     expect(PRODUCTIVE_EXTENSION_MAX).toBe(3);
   });
 
-  it("hasVerifiableProgressForExtension after distinct fingerprints; markExtensionConsumed resets window", () => {
+  it("BUD-02/03/04 — useful unlocks extension; checkpoint; new useful reopens", () => {
     const guard = new MissionProgressGuard(MISSION_NO_PROGRESS_REPEAT_LIMIT);
     expect(guard.hasVerifiableProgressForExtension()).toBe(false);
 
@@ -598,6 +794,51 @@ describe("R-EXT-02 — MissionProgressGuard extension signals", () => {
       resultFingerprint: fp2,
     });
     expect(guard.hasVerifiableProgressForExtension()).toBe(true);
+  });
+
+  it("BUD-06 — identical useful fingerprint does not add useful completions", () => {
+    const guard = new MissionProgressGuard(3);
+    const sample = {
+      toolName: "git_local_read_file",
+      targetKey: "doc.md",
+      resultFingerprint: "ok|doc.md|1-5|100|f",
+    };
+    guard.observe(sample);
+    guard.observe(sample);
+    guard.markExtensionConsumed();
+    expect(guard.snapshot().usefulCompletions).toBe(1);
+    expect(guard.hasVerifiableProgressForExtension()).toBe(false);
+  });
+
+  it("BUD-05/09/14 — fail-only fingerprints never unlock extension after checkpoint", () => {
+    const guard = new MissionProgressGuard(MISSION_NO_PROGRESS_REPEAT_LIMIT);
+    const okFp = missionProgressResultFingerprint({
+      ok: true,
+      data: {
+        path: "seed.md",
+        returnedStartLine: 1,
+        returnedEndLine: 3,
+        bytes: 40,
+        truncated: false,
+      },
+    });
+    guard.observe({
+      toolName: "git_local_read_file",
+      targetKey: "seed.md",
+      resultFingerprint: okFp,
+    });
+    guard.markExtensionConsumed();
+    for (let i = 0; i < 4; i += 1) {
+      guard.observe({
+        toolName: "git_local_read_file",
+        targetKey: `miss-${i}.md`,
+        resultFingerprint: missionProgressResultFingerprint({
+          ok: false,
+          data: { path: `miss-${i}.md` },
+        }),
+      });
+    }
+    expect(guard.hasVerifiableProgressForExtension()).toBe(false);
   });
 
   it("identical tool+target+fingerprint streak stops at repeat limit", () => {
@@ -714,7 +955,12 @@ describe("R-EXT-02 — productive extension integration (ScriptedModel)", () => 
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { afterEach, describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
+import {
+  ScriptedModel,
+  assistantMessage,
+  functionCall,
+} from "@openai/agents/testing";
 import { collectToolTelemetry } from "@/features/project-assistant/collectToolTelemetry";
 import { GitLocalReadAdapter } from "@/lib/platform/repository/gitLocalReadAdapter";
 import {
@@ -727,6 +973,10 @@ import {
   routeToolCall,
 } from "@/lib/platform/tools/toolRouter";
 import type { TechnicalEvent } from "@/lib/platform/observability/types";
+import {
+  runNoraAgentsTurn,
+  sfiaBoundaryInstructions,
+} from "@/lib/nora-cognitive-runtime";
 
 const dirs: string[] = [];
 
@@ -753,7 +1003,24 @@ function tmpCorpusRepo(docSpecs: { rel: string; body: string }[]): string {
   return dir;
 }
 
+function corpusReadScript(relPaths: string[]): unknown[][] {
+  const steps: unknown[][] = relPaths.map((rel, i) => [
+    functionCall(
+      "git_local_read_file",
+      { path: rel, maxBytes: CT_DEFAULT_READ_MAX_BYTES },
+      { callId: `corpus-read-${i + 1}` },
+    ),
+  ]);
+  steps.push([
+    assistantMessage(
+      `Corpus review complete — ${relPaths.length} documents read.`,
+    ),
+  ]);
+  return steps;
+}
+
 afterEach(() => {
+  vi.restoreAllMocks();
   while (dirs.length) {
     const d = dirs.pop();
     if (d) fs.rmSync(d, { recursive: true, force: true });
@@ -788,7 +1055,7 @@ describe("R-EXT-04 — representative corpus capacity", () => {
   });
 
   for (const count of [5, 10, 15] as const) {
-    it(`${count} docs — partial reads, coverage honesty, FACT-i cross-read from tool payload`, async () => {
+    it(`${count} docs — runNoraAgentsTurn reads each doc; FACT-i in tool payloads`, async () => {
       const relPaths = Array.from(
         { length: count },
         (_, i) => `projects/sfia-studio/docs/corpus/doc-${i + 1}.md`,
@@ -799,60 +1066,49 @@ describe("R-EXT-04 — representative corpus capacity", () => {
       }));
       const root = tmpCorpusRepo(specs);
       const events: TechnicalEvent[] = [];
-      const sink = { emit: (e: TechnicalEvent) => events.push(e) };
+      const toolPayloads: string[] = [];
 
-      const readOne = async (rel: string) => {
-        events.length = 0;
-        const routed = await routeToolCall(
-          {
-            toolCallId: createToolCallId(),
-            name: "git_local_read_file",
-            arguments: { path: rel },
-            sessionId: "p6-corpus",
-          },
-          { workspaceRoot: root, sink },
-        );
-        const summary = String(
-          events.find((e) => e.type === "TOOL_SUCCEEDED")?.detail.summary ?? "",
-        );
-        return { routed, summary };
-      };
+      const routeModule = await import("@/lib/platform/tools/toolRouter");
+      const originalRoute = routeModule.routeToolCall;
+      vi.spyOn(routeModule, "routeToolCall").mockImplementation(
+        async (request, ctx) => {
+          const result = await originalRoute(request, ctx);
+          if (result.ok && request.name === "git_local_read_file") {
+            toolPayloads.push(JSON.stringify(result.data));
+          }
+          return result;
+        },
+      );
 
-      const first = await readOne(relPaths[0]!);
-      expect(first.routed.ok).toBe(true);
-      if (first.routed.ok) {
-        const data = first.routed.data as { content?: string };
-        expect(String(data.content ?? "")).toContain("FACT-1-UNIQUE");
-        expect(first.summary).toMatch(/L1-/);
-      }
-      const cov1 = collectToolTelemetry(events).readCoverage;
-      expect(cov1.facts).toHaveLength(1);
-      expect(cov1.facts[0]?.coverage).toBe("full");
+      const turn = await runNoraAgentsTurn({
+        correlationId: `p6-corpus-${count}`,
+        projectId: `prj:p6-corpus-${count}`,
+        systemInstructions: sfiaBoundaryInstructions(),
+        userContent: `Read all ${count} corpus documents in order.`,
+        model: new ScriptedModel(corpusReadScript(relPaths) as never),
+        workspaceRoot: root,
+        enableTools: true,
+        maxTurns: Math.max(24, count * 2 + 4),
+        sink: { emit: (e) => events.push(e) },
+      });
 
-      if (count > 1) {
-        const second = await readOne(relPaths[1]!);
-        expect(second.routed.ok).toBe(true);
-        const multi = collectToolTelemetry(events).readCoverage;
-        expect(multi.facts.length).toBeGreaterThanOrEqual(1);
-        expect(multi.facts.some((f) => f.coverage === "full")).toBe(true);
-        expect(multi.overall).not.toBe("none");
+      expect(turn.toolCalls).toBe(count);
+      expect(
+        events.filter((e) => e.type === "TOOL_SUCCEEDED").length,
+      ).toBe(count);
 
-        const unread = relPaths.slice(2);
-        for (const rel of unread) {
-          expect(multi.facts.some((f) => f.documentPath === rel || f.pathOrRef === rel)).toBe(
-            false,
-          );
-        }
+      const haystack = [turn.text, JSON.stringify(events), ...toolPayloads].join(
+        "\n",
+      );
+      for (let i = 1; i <= count; i += 1) {
+        expect(haystack).toContain(`FACT-${i}-UNIQUE`);
       }
 
-      const lastRel = relPaths[count - 1]!;
-      const lastToken = `FACT-${count}-UNIQUE`;
-      const last = await readOne(lastRel);
-      expect(last.routed.ok).toBe(true);
-      if (last.routed.ok) {
-        const payload = last.routed.data as { content?: string };
-        expect(String(payload.content ?? "")).toContain(lastToken);
-      }
+      const cov = collectToolTelemetry(events).readCoverage;
+      expect(cov.facts.length).toBeGreaterThanOrEqual(count);
+      expect(cov.facts.filter((f) => f.coverage === "full").length).toBe(
+        count,
+      );
     });
   }
 
@@ -881,6 +1137,404 @@ describe("R-EXT-04 — representative corpus capacity", () => {
       expect(content).toContain("FACT-P-1");
       expect(content).not.toContain("FACT-P-40");
     }
+  });
+});
+
+```
+### NEW FILE: `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/runnerAbortSignal.d0.test.ts`
+
+```typescript
+/**
+ * P6 — AbortSignal reaches Agents runner mid tool sequence (deterministic).
+ * ZERO REAL / ZERO OpenAI.
+ * @vitest-environment node
+ */
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import { afterEach, describe, expect, it } from "vitest";
+import type { Model, ModelRequest, ModelResponse } from "@openai/agents";
+import {
+  ScriptedModel,
+  assistantMessage,
+  functionCall,
+} from "@openai/agents/testing";
+import {
+  runNoraAgentsTurn,
+  sfiaBoundaryInstructions,
+} from "@/lib/nora-cognitive-runtime";
+import { NoraTurnAbortedError, abortError } from "@/lib/nora-cognitive-runtime/noraTurnAbort";
+
+const dirs: string[] = [];
+
+function tmpReadRepo(relPath: string, body: string): string {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "p6-abort-read-"));
+  dirs.push(dir);
+  fs.mkdirSync(path.join(dir, path.dirname(relPath)), { recursive: true });
+  fs.writeFileSync(path.join(dir, relPath), body, "utf8");
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  const { execFileSync } = require("node:child_process") as typeof import("node:child_process");
+  execFileSync("git", ["init"], { cwd: dir });
+  execFileSync("git", ["config", "user.email", "t@e.com"], { cwd: dir });
+  execFileSync("git", ["config", "user.name", "t"], { cwd: dir });
+  execFileSync("git", ["add", "."], { cwd: dir });
+  execFileSync("git", ["commit", "-m", "init"], { cwd: dir });
+  return dir;
+}
+
+function abortAfterFirstToolModel(
+  relPath: string,
+  hooks: { onSecondModelCall?: () => void; modelCalls?: number },
+): Model {
+  const inner = new ScriptedModel([
+    [functionCall("git_local_read_file", { path: relPath }, { callId: "r1" })],
+    [functionCall("git_local_read_file", { path: relPath }, { callId: "r2" })],
+    [functionCall("git_local_read_file", { path: relPath }, { callId: "r3" })],
+    [assistantMessage("unreachable-after-abort")],
+  ]);
+  let calls = 0;
+  return {
+    async getResponse(request: ModelRequest): Promise<ModelResponse> {
+      calls += 1;
+      hooks.modelCalls = calls;
+      if (calls === 1) {
+        return inner.getResponse(request);
+      }
+      if (calls === 2) {
+        hooks.onSecondModelCall?.();
+      }
+      await new Promise<void>((_resolve, reject) => {
+        const fail = () => reject(abortError());
+        if (request.signal?.aborted) {
+          fail();
+          return;
+        }
+        request.signal?.addEventListener("abort", fail, { once: true });
+      });
+      throw new Error("unreachable");
+    },
+    async *getStreamedResponse(): AsyncIterable<never> {
+      throw new Error("streaming not used");
+    },
+  };
+}
+
+afterEach(() => {
+  while (dirs.length) {
+    const d = dirs.pop();
+    if (d) fs.rmSync(d, { recursive: true, force: true });
+  }
+});
+
+describe("P6 — runner AbortSignal mid tool sequence", () => {
+  it("aborts during multi-step ScriptedModel tools — one read, no final assistant", async () => {
+    const rel = "projects/sfia-studio/docs/abort-probe.md";
+    const root = tmpReadRepo(rel, "ABORT_PROBE_FACT\n");
+    const hooks: { onSecondModelCall?: () => void; modelCalls?: number } = {};
+    const controller = new AbortController();
+
+    const pending = runNoraAgentsTurn({
+      correlationId: "p6-runner-abort-mid-tools",
+      projectId: "prj:runner-abort",
+      systemInstructions: sfiaBoundaryInstructions(),
+      userContent: "Read the probe file repeatedly.",
+      model: abortAfterFirstToolModel(rel, hooks),
+      workspaceRoot: root,
+      enableTools: true,
+      maxTurns: 12,
+      signal: controller.signal,
+    });
+
+    const started = Date.now();
+    while (hooks.modelCalls !== 2 && Date.now() - started < 5000) {
+      await new Promise((r) => setTimeout(r, 15));
+    }
+    expect(hooks.modelCalls).toBe(2);
+    controller.abort();
+
+    await expect(pending).rejects.toBeInstanceOf(NoraTurnAbortedError);
+  });
+});
+
+```
+### NEW FILE: `projects/sfia-studio/app/__tests__/pre-m6-product-ui/conversationSurface.liveActivityStop.d0.test.tsx`
+
+```tsx
+/** @vitest-environment jsdom */
+/**
+ * P6 — REAL ConversationSurface (React + RTL), not static CSS harness HTML.
+ * Proves idle Send, working Stop + in-thread Nora activity, live activity
+ * timeline disclosure, and stopped / incomplete banners via data-testid contract.
+ * ZERO OpenAI / ZERO :3020.
+ */
+import { cleanup, fireEvent, render, screen, within } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { afterEach, describe, expect, it, vi } from "vitest";
+import { ConversationSurface } from "@/features/pre-m6-product-ui/surfaces/ConversationSurface";
+import type { ProductConversationController } from "@/features/pre-m6-product-ui/hooks/useProductConversation";
+import type { NoraLiveActivityEvent } from "@/features/project-assistant/liveActivityEvents";
+
+afterEach(() => {
+  cleanup();
+});
+
+function stubController(
+  overrides: Partial<ProductConversationController>,
+): ProductConversationController {
+  return {
+    listRef: { current: null },
+    messages: [],
+    draft: "",
+    setDraft: vi.fn(),
+    toolEvents: [],
+    liveActivityEvents: [],
+    uiState: "READY",
+    error: null,
+    executionIncomplete: false,
+    modeLabel: "fixture",
+    ephemeralNotice: "notice",
+    lrMaterializeNotice: null,
+    lrMaterializeCode: null,
+    f2: null,
+    activeProposal: null,
+    reservesText: "",
+    setReservesText: vi.fn(),
+    f3Prepare: null,
+    f3M3Resolved: null,
+    f3Execute: null,
+    durableEvidenceOutcome: null,
+    durableRehydrateError: null,
+    focusTurnId: null,
+    clearFocusTurn: vi.fn(),
+    busy: false,
+    blocked: false,
+    canSend: true,
+    stopAvailable: false,
+    stopCurrentResponse: vi.fn(),
+    gateOpen: false,
+    recommendationFreshness: "none",
+    qualificationFreshness: "none",
+    durableOutcomeFreshness: "none",
+    canPrepareResolvedM3: false,
+    canPrepareLegacyFixture: false,
+    canConfirmResolvedM3: false,
+    canConfirmLegacyFixture: false,
+    canRefreshResolvedM3Running: false,
+    sendMessage: vi.fn(),
+    decide: vi.fn(),
+    prepareResolvedM3: vi.fn(),
+    prepareLegacyFixture: vi.fn(),
+    confirmAndExecuteResolvedM3: vi.fn(),
+    confirmAndExecuteLegacyFixture: vi.fn(),
+    refreshResolvedM3RunningAttempt: vi.fn(),
+    retryLastUserMessage: vi.fn(),
+    reservationResolutionProposal: null,
+    transcriptAvailability: "available",
+    openContinuityPresentation: null,
+    journalEntries: [],
+    journalCycleInstanceId: null,
+    selectedJournalEntryId: null,
+    setSelectedJournalEntryId: vi.fn(),
+    focusJournalExchanges: vi.fn(),
+    focusTranscriptTurn: vi.fn(),
+    refreshConversationContinuity: vi.fn(),
+    armReinstructionOfProposalId: vi.fn(),
+    armedReinstructionOfProposalId: null,
+    armReservationInteractionContext: vi.fn(),
+    armedReservationInteractionContext: null,
+    clearReservationResolutionProposal: vi.fn(),
+    ...overrides,
+  } as ProductConversationController;
+}
+
+const SAMPLE_EVENTS: readonly NoraLiveActivityEvent[] = [
+  {
+    kind: "mission_started",
+    seq: 1,
+    at: "2026-10-14T12:00:00.000Z",
+    label: "Mission démarrée",
+  },
+  {
+    kind: "tool_started",
+    seq: 2,
+    at: "2026-10-14T12:00:01.000Z",
+    label: "Lecture du dépôt",
+    toolName: "read_file",
+    sourcePath: "docs/plan.md",
+  },
+  {
+    kind: "activity_update",
+    seq: 3,
+    at: "2026-10-14T12:00:02.000Z",
+    label: "Analyse en cours…",
+  },
+];
+
+describe("ConversationSurface live activity + Stop (REAL React DET)", () => {
+  it("idle — stopAvailable false shows Envoyer, hides Arrêter", () => {
+    render(
+      <ConversationSurface
+        controller={stubController({
+          stopAvailable: false,
+          busy: false,
+          canSend: true,
+          draft: "Bonjour Nora",
+          uiState: "READY",
+        })}
+      />,
+    );
+
+    expect(screen.queryByTestId("project-assistant-stop")).toBeNull();
+    const send = screen.getByTestId("project-assistant-send");
+    expect(send).toHaveTextContent("Envoyer");
+    expect(send).not.toBeDisabled();
+    expect(screen.getByTestId("project-assistant-status")).toHaveAttribute(
+      "data-nora-stop",
+      "unavailable",
+    );
+    expect(
+      screen.queryByTestId("project-assistant-nora-activity"),
+    ).toBeNull();
+  });
+
+  it("working — stopAvailable true + in-thread activity shows Arrêter and live label", () => {
+    render(
+      <ConversationSurface
+        controller={stubController({
+          busy: true,
+          canSend: false,
+          stopAvailable: true,
+          uiState: "ASSISTANT_WORKING",
+          messages: [
+            { id: "m-user-1", role: "user", content: "Analyser le périmètre." },
+          ],
+        })}
+      />,
+    );
+
+    expect(screen.queryByTestId("project-assistant-send")).toBeNull();
+    const stop = screen.getByTestId("project-assistant-stop");
+    expect(stop).toHaveTextContent("Arrêter");
+    expect(stop).toHaveAttribute("aria-label", "Arrêter la réponse de Nora");
+
+    const activity = screen.getByTestId("project-assistant-nora-activity");
+    expect(screen.getByTestId("project-assistant-messages").contains(activity)).toBe(
+      true,
+    );
+    expect(
+      screen.getByTestId("project-assistant-nora-activity-label"),
+    ).toHaveTextContent("Nora travaille…");
+    expect(activity).toHaveAttribute("data-nora-stop", "available");
+  });
+
+  it("liveActivityEvents — Détail de l’activité lists timeline events", () => {
+    render(
+      <ConversationSurface
+        controller={stubController({
+          busy: true,
+          canSend: false,
+          stopAvailable: true,
+          uiState: "ASSISTANT_WORKING",
+          liveActivityEvents: [...SAMPLE_EVENTS],
+          messages: [
+            { id: "m-user-1", role: "user", content: "Mission longue." },
+          ],
+        })}
+      />,
+    );
+
+    expect(
+      screen.getByTestId("project-assistant-nora-activity-label"),
+    ).toHaveTextContent("Analyse en cours…");
+
+    const details = screen.getByTestId("project-assistant-nora-activity-details");
+    expect(within(details).getByText("Détail de l’activité")).toBeInTheDocument();
+
+    fireEvent.click(within(details).getByText("Détail de l’activité"));
+
+    const timeline = details.querySelector("ol");
+    expect(timeline).toBeTruthy();
+    expect(timeline!.textContent).toMatch(/mission_started/);
+    expect(timeline!.textContent).toMatch(/Mission démarrée/);
+    expect(timeline!.textContent).toMatch(/tool_started/);
+    expect(timeline!.textContent).toMatch(/Lecture du dépôt/);
+    expect(timeline!.textContent).toMatch(/activity_update/);
+  });
+
+  it("STOPPED banner — Réponse interrompue + retry; Send returns when idle", () => {
+    render(
+      <ConversationSurface
+        controller={stubController({
+          busy: false,
+          canSend: true,
+          stopAvailable: false,
+          uiState: "STOPPED",
+          error: null,
+          draft: "",
+        })}
+      />,
+    );
+
+    expect(screen.getByTestId("project-assistant-stopped")).toHaveTextContent(
+      "Réponse interrompue",
+    );
+    expect(screen.getByTestId("project-assistant-retry-stopped")).toHaveTextContent(
+      "Réessayer",
+    );
+    expect(
+      screen.queryByTestId("project-assistant-incomplete-surface"),
+    ).toBeNull();
+    expect(screen.getByTestId("project-assistant-send")).toBeInTheDocument();
+  });
+
+  it("executionIncomplete — Analyse inachevée banner on REAL panel root", () => {
+    render(
+      <ConversationSurface
+        controller={stubController({
+          busy: false,
+          canSend: true,
+          stopAvailable: false,
+          uiState: "ANSWERED",
+          executionIncomplete: true,
+          messages: [
+            { id: "m-user-1", role: "user", content: "Question." },
+            {
+              id: "m-asst-1",
+              role: "assistant",
+              content: "Réponse partielle (budget).",
+            },
+          ],
+        })}
+      />,
+    );
+
+    const panel = screen.getByTestId("project-assistant-panel");
+    expect(panel.getAttribute("data-execution-incomplete")).toBe("true");
+    expect(
+      screen.getByTestId("project-assistant-incomplete-surface"),
+    ).toHaveTextContent("Analyse inachevée");
+    expect(
+      screen.getByTestId("project-assistant-incomplete-notice").textContent,
+    ).toMatch(/limite|inachev|analyse complète/i);
+    expect(screen.queryByTestId("project-assistant-stopped")).toBeNull();
+  });
+
+  it("Stop click invokes stopCurrentResponse once", async () => {
+    const stopCurrentResponse = vi.fn();
+    const user = userEvent.setup();
+    render(
+      <ConversationSurface
+        controller={stubController({
+          busy: true,
+          canSend: false,
+          stopAvailable: true,
+          uiState: "ASSISTANT_WORKING",
+          stopCurrentResponse,
+        })}
+      />,
+    );
+    await user.click(screen.getByTestId("project-assistant-stop"));
+    expect(stopCurrentResponse).toHaveBeenCalledTimes(1);
   });
 });
 
@@ -1153,9 +1807,9 @@ describe("R-EXT-05 — NDJSON progressive parser", () => {
 });
 
 describe("R-EXT-05 — transport abort ≠ stop_confirmed", () => {
-  it("terminalLiveActivityFromProductResult maps transportAbortedWithoutAck", () => {
+  it("terminalLiveActivityFromProductResult maps transport abort to provider_unavailable + transport_interrupted", () => {
     const terminal = terminalLiveActivityFromProductResult({
-      result: { ok: false, status: "stopped" },
+      result: { ok: false, status: "provider_unavailable" },
       transportAbortedWithoutAck: true,
     });
     expect(terminal.kind).toBe("transport_interrupted");
@@ -1322,7 +1976,7 @@ describe("P6 live activity events", () => {
     ).toBe("mission_cognitive_stop");
     expect(
       terminalLiveActivityFromProductResult({
-        result: { ok: false, status: "stopped" },
+        result: { ok: false, status: "provider_unavailable" },
         transportAbortedWithoutAck: true,
       }).kind,
     ).toBe("transport_interrupted");
@@ -1388,13 +2042,14 @@ describe("R-EXT-01 — terminalLiveActivityFromProductResult", () => {
     expect(t.kind).toBe("stop_confirmed");
   });
 
-  it("transportAbortedWithoutAck → transport_interrupted (not stop_confirmed)", () => {
+  it("transportAbortedWithoutAck + provider_unavailable → transport_interrupted (not stop_confirmed)", () => {
     const t = terminalLiveActivityFromProductResult({
-      result: { ok: false, status: "stopped" },
+      result: { ok: false, status: "provider_unavailable" },
       transportAbortedWithoutAck: true,
     });
     expect(t.kind).toBe("transport_interrupted");
     expect(t.kind).not.toBe("stop_confirmed");
+    expect(t.kind).not.toBe("mission_failed");
   });
 
   it("provider_error → mission_failed", () => {
@@ -1688,14 +2343,28 @@ export function missionProgressTargetKey(
   return "";
 }
 
+/** True when fingerprint represents a successful, information-bearing tool result. */
+export function isUsefulMissionProgressFingerprint(fp: string): boolean {
+  const t = fp.trim();
+  if (!t || t === "nofp" || t === "empty") return false;
+  if (t.startsWith("fail") || t.startsWith("denied") || t.startsWith("?")) {
+    return false;
+  }
+  // ToolCallResult ok path: "ok|..."
+  return t.startsWith("ok|") || t.startsWith("ok");
+}
+
 /** Result fingerprint from tool route payload (observable only). */
-export function missionProgressResultFingerprint(
-  result: unknown,
-): string {
+export function missionProgressResultFingerprint(result: unknown): string {
   if (result == null || typeof result !== "object") {
     return typeof result === "string" ? `s:${result.length}` : "empty";
   }
   const row = result as Record<string, unknown>;
+  const status =
+    typeof row.status === "string" ? row.status.toLowerCase() : "";
+  if (status === "denied" || status === "failed") {
+    return `fail|status:${status}`;
+  }
   const ok = row.ok === true ? "ok" : row.ok === false ? "fail" : "?";
   const data =
     row.data && typeof row.data === "object"
@@ -1725,9 +2394,9 @@ export function missionProgressResultFingerprint(
 }
 
 /**
- * Track consecutive identical tool targets+results. Distinct fingerprints reset
- * the no-progress streak. Distinct targets count as candidate progress for
- * productive extension, but extension also requires net unique fingerprints.
+ * Track consecutive identical tool targets+results.
+ * Productive extension requires NEW useful completions since the last extension
+ * checkpoint — failed/denied fingerprints never unlock an extension.
  */
 export class MissionProgressGuard {
   private lastKey: string | null = null;
@@ -1735,9 +2404,10 @@ export class MissionProgressGuard {
   private readonly limit: number;
   private readonly seenFingerprints = new Set<string>();
   private uniqueTargets = 0;
-  private lastUniqueTargetCountAtExtension = 0;
-  private lastFingerprintCountAtExtension = 0;
+  /** Count of distinct useful (ok) fingerprints observed. */
   private usefulCompletions = 0;
+  /** Checkpoint: usefulCompletions at last productive extension (or 0 at start). */
+  private usefulCompletionsAtExtension = 0;
 
   /** Set when observe returns stop_no_progress (same turn, before next model call). */
   stopped = false;
@@ -1756,7 +2426,7 @@ export class MissionProgressGuard {
     if (!this.seenFingerprints.has(key)) {
       this.seenFingerprints.add(key);
       if (target) this.uniqueTargets += 1;
-      if (fp !== "nofp" && !fp.startsWith("fail")) {
+      if (isUsefulMissionProgressFingerprint(fp)) {
         this.usefulCompletions += 1;
       }
     }
@@ -1787,42 +2457,38 @@ export class MissionProgressGuard {
   }
 
   /**
-   * True when observable tool work advanced since the last productive extension
-   * (or since mission start). Distinct target alone is insufficient without a
-   * successful/useful fingerprint growth.
+   * True only when NEW useful tool completions occurred since the last extension
+   * (or since mission start). New FAILED/DENIED fingerprints never qualify.
    */
   hasVerifiableProgressForExtension(): boolean {
     if (this.stopped) return false;
-    // Require new observable fingerprints since last extension + at least one useful completion.
-    return (
-      this.seenFingerprints.size > this.lastFingerprintCountAtExtension &&
-      this.usefulCompletions > 0
-    );
+    return this.usefulCompletions > this.usefulCompletionsAtExtension;
   }
 
-  /** Mark that a productive extension consumed the current progress window. */
+  /** Mark that a productive extension consumed the current useful-progress window. */
   markExtensionConsumed(): void {
-    this.lastUniqueTargetCountAtExtension = this.uniqueTargets;
-    this.lastFingerprintCountAtExtension = this.seenFingerprints.size;
+    this.usefulCompletionsAtExtension = this.usefulCompletions;
   }
 
   snapshot(): {
     uniqueTargets: number;
     fingerprintCount: number;
     usefulCompletions: number;
+    usefulCompletionsAtExtension: number;
     stopped: boolean;
   } {
     return {
       uniqueTargets: this.uniqueTargets,
       fingerprintCount: this.seenFingerprints.size,
       usefulCompletions: this.usefulCompletions,
+      usefulCompletionsAtExtension: this.usefulCompletionsAtExtension,
       stopped: this.stopped,
     };
   }
 }
 
 ```
-## X. Diffs exploitables des modifications (projects/sfia-studio/app)
+## AA. Diffs exploitables des fichiers modifiés
 
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.maxTurns.documentary.d0.test.ts b/projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.maxTurns.documentary.d0.test.ts
@@ -2347,7 +3013,7 @@ index 43e466f5..5a514850 100644
 
    it("CR-TV01-01c — multi-document analysis wording still elevates via Product hints", () => {
 diff --git a/projects/sfia-studio/app/app/api/studio/projects/[projectId]/assistant/send/route.ts b/projects/sfia-studio/app/app/api/studio/projects/[projectId]/assistant/send/route.ts
-index 0f30091a..380d96b9 100644
+index 0f30091a..1e23b35a 100644
 --- a/projects/sfia-studio/app/app/api/studio/projects/[projectId]/assistant/send/route.ts
 +++ b/projects/sfia-studio/app/app/api/studio/projects/[projectId]/assistant/send/route.ts
 @@ -2,11 +2,19 @@
@@ -2370,7 +3036,7 @@ index 0f30091a..380d96b9 100644
 
  export const dynamic = "force-dynamic";
 
-@@ -63,17 +71,175 @@ export async function POST(
+@@ -63,17 +71,176 @@ export async function POST(
      );
    }
 
@@ -2521,7 +3187,8 @@ index 0f30091a..380d96b9 100644
 +          type: "result",
 +          result: {
 +            ok: false,
-+            status: aborted ? "stopped" : "provider_unavailable",
++            // Transport abort alone ≠ Product status=stopped (Runner stop must be acked).
++            status: "provider_unavailable",
 +            code: aborted
 +              ? "NORA_TURN_TRANSPORT_INTERRUPTED"
 +              : "PROGRESSIVE_TRANSPORT_ERROR",
@@ -3135,7 +3802,7 @@ index 3c66eb8b..d81eb60b 100644
    reasonCodes: string[];
  };
 diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
-index 4bbc11a6..21b855ac 100644
+index 4bbc11a6..af928c48 100644
 --- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
 +++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
 @@ -89,6 +89,7 @@ export {
@@ -3146,7 +3813,7 @@ index 4bbc11a6..21b855ac 100644
    STRATEGY_BASE_MAX_TURNS,
  } from "./adaptiveTurnBudget";
  export type { AdaptiveMaxTurnsDecision } from "./adaptiveTurnBudget";
-@@ -106,7 +107,20 @@ export {
+@@ -106,7 +107,21 @@ export {
    emptyContinuationObserve,
    CONTINUATION_SEGMENT_MAX_TURNS,
    CONTINUATION_MAX_SEGMENTS,
@@ -3159,6 +3826,7 @@ index 4bbc11a6..21b855ac 100644
 +  MissionNoProgressStoppedError,
 +  missionProgressTargetKey,
 +  missionProgressResultFingerprint,
++  isUsefulMissionProgressFingerprint,
 +} from "./missionProgressGuard";
 +export type {
 +  MissionProgressSample,
@@ -3501,44 +4169,74 @@ index 042b53ff..7d61a4fc 100644
  export const CT_GITHUB_REPO_ALLOWLIST = [
    "mcleland147/sfia-workspace",
  ] as const;
+diff --git a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
+index c9b64340..83cea00f 100644
+--- a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
++++ b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
+@@ -582,11 +582,11 @@
+     },
+     {
+       "path": "projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts",
+-      "sha256_16": "8ab5951b261e6063"
++      "sha256_16": "1b8d5cd3ff4f3383"
+     },
+     {
+       "path": "projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts",
+-      "sha256_16": "d064b36ddc2f21cd"
++      "sha256_16": "7781362a64d98c01"
+     },
+     {
+       "path": "projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts",
+@@ -678,7 +678,7 @@
+     },
+     {
+       "path": "projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts",
+-      "sha256_16": "17e442645cd02afb"
++      "sha256_16": "4c5a9ff205c86d83"
+     },
+     {
+       "path": "projects/sfia-studio/app/.env.example",
 
 ```
 
-## Y. Tests et oracles
-Targeted suite re-executed this cycle (VÉRIFIÉ): **14 files / 125 PASS**
+## AB. Tests / résultats
+Re-executed this cycle (VÉRIFIÉ): **16 files / 147 PASS**
 ZERO *.real.test.ts · ZERO OpenAI REAL
 
-## Z. Typecheck / lint / build
+## AC. Typecheck / lint / build
 typecheck PASS · lint PASS · build PASS (VÉRIFIÉ)
 
-## AA. PRR
-Named PRR script NON EXÉCUTÉ this cycle; compile path covered by typecheck/build.
+## AD. PRR
+`node scripts/check-production-runtime-reference.mjs` → **PRODUCTION RUNTIME REFERENCE CONFORMANCE OK**
+Digests refreshed via `--write-digests` for orchestrateTurn / orchestrateF2 / useProductConversation after content change (digest refresh ≠ semantic Morris accept).
 
-## AB. Sécurité
-Browser-safe labels · no full docs in NDJSON · redaction paths unchanged · abort ≠ forged SUCCESS
+## AE. Fake / Real
+DETERMINISTIC END-TO-END CANDIDATE · REAL NON AUTORISÉ · ScriptedModel ≠ REAL quality
 
-## AC. Fake / Real
-DETERMINISTIC END-TO-END CANDIDATE · REAL NON AUTORISÉ
+## AF. Sécurité
+Browser-safe labels · no full docs in NDJSON · fail fingerprints never unlock extension · abort honesty
 
-## AD. Réserves
-1. Corpus DET synthetic ≠ REAL provider quality
-2. Visual harness CSS/state mirror ≠ full Product Session bootstrap
-3. P6 GLOBAL still NOT PASSED
+## AG. Réserves
+1. CSS harness PNGs ≠ React mount screenshots
+2. Corpus DET ≠ REAL documentary quality
+3. Digest refresh awaits Critical Re-Review semantic accept
+4. P6 GLOBAL NOT PASSED
 
-## AE. Dette / exit
-GO Git Integration after Re-Review PASS · Distinct REAL T2 GO · Optional Figma Stop frame
+## AH. Dette / exit
+Git Integration GO after Re-Review PASS · Distinct REAL T2 · Optional Figma Stop frame · optional browser PNGs of React mount
 
-## AF. Trajectoire P6
-Findings closed → Critical Re-Review → Git Integration → REAL → Human QA → P6 consolidation
+## AI. Trajectoire P6
+Closure → Critical Re-Review → Git Integration → REAL → Human QA → P6 consolidation
 
-## AG. Git Truth final
-Branch `delivery/sfia-studio-p6-nora-extended-execution-live-activity` @ `5e139627ff515cd36da5ce12d2c22f935adb139f` · dirty local candidate · no project push · :3020 intact
+## AJ. Git Truth final
+Branch `delivery/sfia-studio-p6-nora-extended-execution-live-activity` @ `5e139627ff515cd36da5ce12d2c22f935adb139f` · dirty local · no project push · :3020 intact
 
-## AH. Verdict
+## AK. Verdict
 **P6 NORA EXTENDED COGNITIVE EXECUTION & LIVE ACTIVITY**
-**TARGETED FINDINGS CLOSED / DETERMINISTIC QA PASS / VISUAL PROOF QUALIFIED / READY FOR CHATGPT CRITICAL RE-REVIEW.**
+**CRITICAL FINDINGS CLOSED / DETERMINISTIC END-TO-END PASS / REACT VISUAL PROOF QUALIFIED / READY FOR CHATGPT CRITICAL RE-REVIEW.**
 
+React visual: component DET QUALIFIED; layout PNGs supplementary (CSS harness).
 Not declared: MERGED · P6 GLOBAL PASS · READY FOR REAL · REAL BOUNDARY PROVEN · RUNTIME V3 ADOPTED.
 
-## AI. Instruction ChatGPT
-Lire ce handoff intégralement. Vérifier R-EXT-01…05, budget extensible, corpus 5/10/15, NDJSON/terminalité, annulation, Session, captures, **tous les nouveaux fichiers** + diffs, Fake/Real, réserves. Rendre **CHATGPT CRITICAL MACRO-LOT RE-REVIEW**. Si PASS: recommander GO Morris Git Integration. Pas de microcycle sans défaut bloquant. Pas de merge automatique.
+## AL. Instruction ChatGPT
+Lire handoff distant intégral. Vérifier progress-since-checkpoint, fail≠extension, no fake stopped, ALL 5/10/15 reads, Runner abort, React ConversationSurface DET, NDJSON, PRR digests, Fake/Real, réserves. Rendre **CHATGPT CRITICAL MACRO-LOT RE-REVIEW**. Si PASS: MORRIS GIT INTEGRATION GO. Pas de merge auto.
