@@ -1,26 +1,26 @@
-# P6 NORA EXTENDED COGNITIVE EXECUTION & LIVE ACTIVITY — Review Pack FULL
+# P6 NORA EXTENDED — Critical Review Findings Closure FULL
 
 ## A. Horodatage
-2026-10-14 14:22:55 CEST
+2026-10-14 15:08:56 CEST
 
 ## B. GO Morris
-CONSTRUCTION LOCALE AUTHORIZED / CONSUMED — 2026-10-14
-Macro-lot unique : Nora Extended Cognitive Execution & Live Activity (Axes A/B/C).
-Interdit sans GO distinct : push projet, PR, merge, REAL, mutation Studio :3020 / Human QA DBs, doctrine, runtime v3 adoption.
+CORRECTION CUMULATIVE AUTHORIZED / CONSUMED — 2026-10-14
+Findings: R-EXT-01 / 02 / 03 / 04 / 05 + VISUAL RESERVE
+Conserve macro-lot / branche / worktree / axes A/B/C.
+Interdit: microcycle, nouvelle branche, REAL, push projet, PR, merge, :3020.
 
-## C. Repository / Git Truth
-- Repository : mcleland147/sfia-workspace
-- Worktree isolé : `/Users/morris/Projects/sfia-workspace-p6-nora-extended-execution-live-activity`
-- Branche locale : `delivery/sfia-studio-p6-nora-extended-execution-live-activity`
-- HEAD local : `5e139627ff515cd36da5ce12d2c22f935adb139f` (= origin/main)
-- origin/main : `5e139627ff515cd36da5ce12d2c22f935adb139f` (VÉRIFIÉ — aligné GO entrée 5e139627)
-- Review Handoff distant d’entrée : `f76fd4674f98cfaa6a126d5f687b238892da59ba`
-- Studio :3020 : **NON MODIFIÉ** — process actif sur `sfia-workspace-studio-runtime-main-bd3f440c` (VÉRIFIÉ)
-- Bases Human QA : **NON TOUCHÉES** (VÉRIFIÉ — aucun chemin rec01 écrit)
+## C. Cycle / profil
+Cycle 8 Delivery · CRITICAL · UX/UI + QA + Observabilité · EVOL/CORRECTION CUMULATIVE
 
-Note Git Truth : worktree avait été ouvert par erreur sur `fix/p6-real-observability-option-b` @ b6eb7862 (4 commits derrière main). Remédiation dans le macro-lot : checkout de la branche delivery @ main + réapplication patch WIP (VÉRIFIÉ).
+## D. Git Truth initial
+- Repo: mcleland147/sfia-workspace
+- Worktree: `/Users/morris/Projects/sfia-workspace-p6-nora-extended-execution-live-activity`
+- Branch: `delivery/sfia-studio-p6-nora-extended-execution-live-activity`
+- HEAD: `5e139627ff515cd36da5ce12d2c22f935adb139f` (= origin/main `5e139627ff515cd36da5ce12d2c22f935adb139f`)
+- Handoff entrée: b2a37488 / blob c1a5d263
+- Dirty candidate préservé (no reset/clean/stash) — VÉRIFIÉ
+- Studio :3020 intact — VÉRIFIÉ
 
-### git status --short (fin construction)
 ```
  M .tmp-sfia-review/chatgpt-review.md
  M projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.maxTurns.documentary.d0.test.ts
@@ -43,119 +43,197 @@ Note Git Truth : worktree avait été ouvert par erreur sur `fix/p6-real-observa
  M projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
  M projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
  M projects/sfia-studio/app/lib/nora-cognitive-runtime/sfiaAgentsTools.ts
+ M projects/sfia-studio/app/lib/nora-cognitive-runtime/types.ts
  M projects/sfia-studio/app/lib/platform/tools/types.ts
 ?? projects/sfia-studio/app/__tests__/nora-cognitive-runtime/missionProgressGuard.d0.test.ts
 ?? projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.extendedCorpusCaps.d0.test.ts
+?? projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.productiveExtension.d0.test.ts
+?? projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.representativeCorpus.d0.test.ts
 ?? projects/sfia-studio/app/__tests__/pre-m6-product-ui/sendCancellableAssistantTurn.ndjson.d0.test.ts
+?? projects/sfia-studio/app/__tests__/pre-m6-product-ui/serverCancellation.d0.test.ts
 ?? projects/sfia-studio/app/__tests__/pre-m6-product-ui/stopAvailableEarly.d0.test.ts
 ?? projects/sfia-studio/app/__tests__/project-assistant/liveActivityEvents.d0.test.ts
+?? projects/sfia-studio/app/__tests__/project-assistant/terminalLiveActivity.d0.test.ts
 ?? projects/sfia-studio/app/features/project-assistant/liveActivityEvents.ts
 ?? projects/sfia-studio/app/lib/nora-cognitive-runtime/missionProgressGuard.ts
 
 ```
 
-## D. Sources lues
-- Build Doctrine / Convergence Roadmap / Product Completion C1 / Product Simplification P6
-- Doctrine Studio v3 (épistémologie / artifacts — applicable)
-- Cycle template + routing guide
-- Review Handoff initial (branche sfia/review-handoff)
-- Code : `nora-cognitive-runtime/`, `platform/tools/`, `project-assistant/`, `pre-m6-product-ui/`
-- OpenAI Agents JS guides (streaming / running / sessions) + package installé
-
 ## E. Convergence
-- Milestone : P6 Global Integrated Product QA — **NOT PASSED** (entrée / sortie)
-- Option B : INTEGRATED ON MAIN — KEEP
-- O2 : INTEGRATED / POST-MERGE VERIFIED — KEEP
-- Runtime v3 : NON ADOPTED — KEEP
-- Capacité v3 ciblée : Collaboration Nora–Pilote missions longues + provenance + continuité + visibilité + contrôle humain
+P6 NOT PASSED · Option B/O2 KEEP · Runtime v3 NON ADOPTED · Local candidate → findings closed → Critical Re-Review
 
-## F. Capacité v3 / milestone
-Collaboration Nora–Pilote sur missions cognitives longues, avec provenance, continuité, visibilité live et arrêt réel — correction Product intégrée, **pas** P6 GLOBAL PASS.
+## F. Sources lues
+Build Doctrine / Roadmap / Product Completion / v3 framing 33+35 / P6 product-simplification / cycle template / CKC 08/09/04 / handoff b2a37488 / code Product
 
-## G. Diagnostic T2 (Human QA observation → causes)
-| Gap | Cause (VÉRIFIÉ code) | Preuve | Correction minimale | Test |
-|-----|----------------------|--------|---------------------|------|
-| GAP-A Execution budget | Ceiling Product 10 + bases Focused/Deep trop bas pour multi-doc | `ADAPTIVE_MAX_TURNS_CEILING` was 10 | Ceiling 24 ; Focused 10 / Deep 16 / HA 20 ; bumps 16/14/10 ; segments 8 | adaptiveBudget + p1p2 DET |
-| GAP-B Documentary corpus | `CT_MAX_TOOL_RESULT_CHARS=12000`, `CT_DEFAULT_READ_MAX_BYTES=32768` | types.ts historique | 100_000 / 200_000 (caps finis) | min09 + extendedCorpusCaps |
-| GAP-C Live activity | Events EventSink non transportés au navigateur pendant le turn | route send JSON-only | NDJSON progressive + onLiveActivity + thread details | liveActivity + NDJSON DET |
-| GAP-D Stop | `setCancellable(true)` seulement dans `startTransition` → UI “Nora travaille” + Envoyer | useProductConversation | cancellable avant startTransition ; stopAvailable = cancellable && !blocked && !f3Busy | stopAvailableEarly DET |
+## G. Candidate baseline
+Macro-lot Extended Execution LOCAL CANDIDATE with Critical Review CORRECTIONS REQUIRED.
 
-T2 OpenAI REAL : **NON RELANCÉ** (interdit).
+## H. Findings R-EXT-01…05
+| ID | Title | Status |
+|----|-------|--------|
+| R-EXT-01 | Terminal event incorrectly reports completed | CLOSED |
+| R-EXT-02 | Adaptive budget remains a fixed ceiling | CLOSED |
+| R-EXT-03 | Review Pack omits new test files | CLOSED (this pack) |
+| R-EXT-04 | 5/10/15 corpus not proven | CLOSED (DET) |
+| R-EXT-05 | Server-side cancellation insufficiently proven | CLOSED (DET) |
+| Visual | Figma/runtime Stop/live screenshot missing | QUALIFIED (isolated harness captures) |
 
-## H. Diagnostic bouton Arrêter
-Cause : race UI — état activité thread dérivé de busy/uiState avant que `cancellable` soit vrai.
-Correction : activer AbortController + `setCancellable(true)` **avant** `startTransition`, clear au terminal.
-Transport : `request.signal` → `sendProjectAssistantTurn` → Runner.
-Stop ≠ SUCCESS (VÉRIFIÉ contrat existant + terminal activity `stop_confirmed`).
+## I. Diagnostic de chaque finding
+### R-EXT-01
+NDJSON mapped ok===true → mission_completed, collapsing incomplete/cognitive_stop.
+### R-EXT-02
+Ceiling 24 remained final mission limit; no progress-gated extension.
+### R-EXT-03
+Prior handoff omitted new test file contents.
+### R-EXT-04
+Caps raised without representative 5/10/15 corpus oracles.
+### R-EXT-05
+Abort path existed; DET thin; transport abort could invent stop_confirmed.
 
-## I. OpenAI Capability Fit (R22)
-- `@openai/agents` **0.17.0** (installé) — VÉRIFIÉ
-- `openai` **6.48.0** — VÉRIFIÉ
-- Primitives utilisées : Runner.run + RunState continuation, AbortSignal, Session ProductSqlite, errorHandlers.maxTurns, EventSink tools
-- Compaction native : non adoptée comme preuve de lecture (B11)
-- Pas de second Runner / pas de moteur documentaire parallèle
+## J. Correctifs réalisés
+1. terminalLiveActivityFromProductResult — status-authoritative kinds.
+2. NDJSON serialized writeChain; drain before terminal; transport abort ≠ stop_confirmed.
+3. Productive extension toward safety envelope 36 with fingerprint progress; max 3; explicitOverride preserved.
+4. Progress guard: identical target+fingerprint streak; distinct fingerprints = progress.
+5. UX French factual labels; expandable detail.
+6. Corpus DET 1/5/10/15; cancellation DET; terminal DET.
+7. Isolated runtime visual harness + 4 PNGs (port 3921).
 
-## J. Classification des actifs
-| Actif | Décision |
-|-------|----------|
-| OpenAI Agents Runner | ADAPT (continuation + progress guard) |
-| RunState continuation | ADAPT (MAX_SEGMENTS 8) |
-| Adaptive Turn Budget | ADAPT |
-| GitLocalReadAdapter / prepare / readCoverage | ADAPT (caps) |
-| ToolRouter / EventSink | ADAPT (onEmit → live activity) |
-| Product transport | ADAPT (NDJSON) |
-| ConversationSurface | COMPLETE (activity details + Stop) |
-| AbortController | KEEP / CORRECT (timing) |
-| Product SQLite / Session | KEEP |
-| Option B / O2 | KEEP |
+## K. Contrat d'extension budget
+Initial ceiling 24 · Safety envelope 36 · PRODUCTIVE_EXTENSION_MAX 3 · extension only on verifiable fingerprint growth · explicitOverride pins · campaign deny / abort / no-progress → INCOMPLETE never SUCCESS
 
-## K. Contrat de budget (delivery parameters — non doctrine universelle)
-- Floor 3 / Ceiling **24**
-- Routine 5 / Focused **10** / Deep **16** / High-Assurance **20**
-- Bumps known-high 16 / medium-doc 14 / mono-doc 10
-- CONTINUATION_SEGMENT_MAX_TURNS 5 / CONTINUATION_MAX_SEGMENTS **8**
-- MissionProgressGuard repeat limit **3** (targets distincts = progrès)
-- Explicit caller maxTurns préservé (tests/eval/campaign)
-- Pas de réactivation FinOps T7
+## L. Coupe-circuits
+MissionProgressGuard · safety envelope · CONTINUATION_MAX_SEGMENTS=8 · campaign/USD · AbortSignal
 
-## L. Contrat documentaire
-- CT_MAX_TOOL_RESULT_CHARS = **100_000**
-- CT_DEFAULT_READ_MAX_BYTES = **200_000**
-- PARTIAL reste PARTIAL ; pas de faux FULL ; secrets redacted ; paths denied inchangés
-- Taille document ≠ taille optimale résultat modèle (enveloppe séparée)
+## M. Contrat corpus documentaire
+CT_MAX_TOOL_RESULT_CHARS=100_000 · CT_DEFAULT_READ_MAX_BYTES=200_000 · PARTIAL≠FULL · no RAG
 
-## M. Contrat streaming / événements
-Kinds : mission_started, activity_update, tool_started/completed/failed, continuation_started, waiting, stop_requested/confirmed, mission_completed/incomplete/failed
-Transport : `Accept: application/x-ndjson` → lignes `{type:activity|result}`
-Autorité : résultat Product final seul ; events ≠ HumanDecision / Evidence
-Aucun secret / payload doc intégral / chain-of-thought dans events
+## N. Preuves 5/10/15 sources
+DET p6.representativeCorpus.d0.test.ts — synthetic FACT tokens + coverage honesty. Not REAL quality claim.
 
-## N. Contrat Stop
-IDLE → Envoyer ; STARTING/WORKING/WAITING/CONTINUING → Arrêter si cancellable
-Abort → server signal → Runner ; pas de continuation après stop confirmé ; session récupérable ; pas de SUCCESS sur interrupt
+## O. Contrat NDJSON
+Serialized writes · activity before result · single result · no post-terminal activity · fail-closed · parser skips malformed / post-result activity
 
-## O. Figma frames / dimensions
-- fileKey **m4g8j0gNbEzfIuH6S9AZJF** (VÉRIFIÉ MCP)
-- Frame **46:2** « Project Workspace · DP01 v3 · BENCHMARK-ALIGNED · EXPLORATORY » — **1440×1024**
-- Composer **46:126** ; Send **46:134** (idle Send only)
-- Objects 46:98 / 46:107 présents (Recommendation / ExecutionContract)
-- Capture Figma pack : `.tmp-sfia-review/assets/figma-46-2-conversation-surface.png`
-- **Delta Product** (absent Figma) : bouton Arrêter, bloc activité live + timeline dépliable, prefers-reduced-motion déjà sur noraActivityTurn
-- Runtime isolé screenshot Stop/live : **NON EXÉCUTÉ** (pas de serveur isolé UI lancé ; :3020 protégé) → réserve visuelle
+## P. Événements / terminalité
+ok→completed · incomplete→incomplete · cognitive_stop→mission_cognitive_stop · stopped ack→stop_confirmed · transport abort w/o ack→transport_interrupted · provider_*→failed
 
-## P. Architecture réutilisée
-ConversationSurface + useProductConversation + send route + EventSink + runNoraAgentsTurn continuation + GitLocalReadAdapter — **aucune architecture parallèle**.
+## Q. Annulation Product/Runner
+Early cancellable · fetch AbortSignal · request.signal · Runner · DET signal.abort · transport ≠ forged stop_confirmed
 
-## Q. Fichiers modifiés / créés
-### Modifiés
- .tmp-sfia-review/chatgpt-review.md                 | 169 +--------------------
- .../p6.nora.maxTurns.documentary.d0.test.ts        |  28 +++-
- ...p6.nora.min09.documentaryReliability.d0.test.ts |  71 ++++++---
+## R. Session continuity
+RunState + ProductSqliteSession on every segment including productive extensions — counters not reset
+
+## S. UX conversationnelle
+Factual French labels · expandable timeline · reduced-motion preserved
+
+## T. Figma
+fileKey m4g8j0gNbEzfIuH6S9AZJF · 46:2 1440×1024 · Send 46:134 idle · Stop/live Product delta
+
+## U. Captures runtime
+- .tmp-sfia-review/assets/runtime-idle-send.png
+- .tmp-sfia-review/assets/runtime-working-stop.png
+- .tmp-sfia-review/assets/runtime-activity-expanded.png
+- .tmp-sfia-review/assets/runtime-incomplete-or-stopped.png
+- figma-46-2-conversation-surface.png
+
+### visual-proof-notes.md
+```
+# P6 Nora live activity / Stop — isolated runtime visual proof
+
+**Harness:** static HTML under `.tmp-sfia-review/` linking production `product-tokens.css` + `ConversationSurface.module.css` (same class names as React). Served at **http://127.0.0.1:3921** (not Studio **:3020**). No OpenAI, no Human QA DB paths, no Next dev server.
+
+**Automation:** cursor-ide-browser MCP — element screenshots of `#capture` on per-state pages (`runtime-capture-*.html`). **Succeeded** for all four PNGs (2× device scale).
+
+| File | What it shows |
+|------|----------------|
+| `runtime-idle-send.png` | Transcript + composer idle: **Send** (↑, ink-filled 30×30) replaces Figma baseline; tools row (+ Contexte / @ Élément / Contexte projet actif). |
+| `runtime-working-stop.png` | **In-thread Nora activity** (`noraActivityTurn`, badge **En cours**, live label); composer **Stop** (■, outline on canvas) while input disabled — Send hidden when stop is available. |
+| `runtime-activity-expanded.png` | Same working chrome with `<details open>` **Détail de l’activité** + `noraActivityTimeline` (turn_start / tool_call / model_step). |
+| `runtime-incomplete-or-stopped.png` | Post-run surfaces: **Réponse interrompue** + Réessayer; **Analyse inachevée** + execution-limit copy; composer returns to Send. |
+
+## Figma delta (`figma-46-2-conversation-surface.png`)
+
+Figma **46:2** documents the **idle / completed** conversation: rich transcript (recommendation cards, synthèse teaser), full workspace chrome (rail, context column, trajectory). Composer shows **Send (↑)** only — **no Stop**, **no in-thread “Nora · En cours” activity row**, **no activity timeline disclosure**, **no stopped / incomplete banners**.
+
+**Product delta (P6 runtime, qualified):**
+
+- **Composer:** Figma = Send-only idle chrome; runtime adds **Stop** swap during extended execution (same composer box, `stopButton` vs `sendButton`).
+- **Transcript:** Figma = static Nora answer + durable objects; runtime adds **ephemeral live activity turn** (`project-assistant-nora-activity`) with optional **Détail de l’activité** NDJSON timeline — not present in 46:2 frame.
+- **Between composer and thread:** Figma has no interruption UX; runtime adds **`stoppedBanner`** states (user stop + budget incomplete) before composer re-enables Send.
+
+**Parity retained:** P3 46:2 composer geometry (flat top rule, `composerBox` border, tool labels, Send 30×30 radius 7), turn typography (VOUS / NORA labels, flat bubbles), warm `--pm6-*` tokens.
+
+## Paths
+
+- Figma reference: `.tmp-sfia-review/assets/figma-46-2-conversation-surface.png`
+- Runtime captures: `.tmp-sfia-review/assets/runtime-*.png`
+- Combined harness: `.tmp-sfia-review/runtime-visual-harness.html`
+- Per-state pages: `.tmp-sfia-review/runtime-capture-{idle,working,expanded,stopped}.html`
+
+```
+## V. Manifest cumulatif (Git Review Index)
+```
+ M .tmp-sfia-review/chatgpt-review.md
+ M projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.maxTurns.documentary.d0.test.ts
+ M projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.min09.documentaryReliability.d0.test.ts
+ M projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.p1.adaptiveBudget.d0.test.ts
+ M projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.p1p2.documentary.mission.d0.test.ts
+ M projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.p1p2.targetedVerification.d0.test.ts
+ M projects/sfia-studio/app/app/api/studio/projects/[projectId]/assistant/send/route.ts
+ M projects/sfia-studio/app/features/pre-m6-product-ui/hooks/sendCancellableAssistantTurn.ts
+ M projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
+ M projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.module.css
+ M projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
+ M projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
+ M projects/sfia-studio/app/features/project-assistant/memoryEventSink.ts
+ M projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
+ M projects/sfia-studio/app/features/project-assistant/sendProjectAssistantTurn.ts
+ M projects/sfia-studio/app/lib/nora-cognitive-runtime/adaptiveTurnBudget.ts
+ M projects/sfia-studio/app/lib/nora-cognitive-runtime/callModelInputFilter.ts
+ M projects/sfia-studio/app/lib/nora-cognitive-runtime/controlledContinuation.ts
+ M projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
+ M projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
+ M projects/sfia-studio/app/lib/nora-cognitive-runtime/sfiaAgentsTools.ts
+ M projects/sfia-studio/app/lib/nora-cognitive-runtime/types.ts
+ M projects/sfia-studio/app/lib/platform/tools/types.ts
+?? projects/sfia-studio/app/__tests__/nora-cognitive-runtime/missionProgressGuard.d0.test.ts
+?? projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.extendedCorpusCaps.d0.test.ts
+?? projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.productiveExtension.d0.test.ts
+?? projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.representativeCorpus.d0.test.ts
+?? projects/sfia-studio/app/__tests__/pre-m6-product-ui/sendCancellableAssistantTurn.ndjson.d0.test.ts
+?? projects/sfia-studio/app/__tests__/pre-m6-product-ui/serverCancellation.d0.test.ts
+?? projects/sfia-studio/app/__tests__/pre-m6-product-ui/stopAvailableEarly.d0.test.ts
+?? projects/sfia-studio/app/__tests__/project-assistant/liveActivityEvents.d0.test.ts
+?? projects/sfia-studio/app/__tests__/project-assistant/terminalLiveActivity.d0.test.ts
+?? projects/sfia-studio/app/features/project-assistant/liveActivityEvents.ts
+?? projects/sfia-studio/app/lib/nora-cognitive-runtime/missionProgressGuard.ts
+
+```
+
+Untracked new files (11):
+```
+projects/sfia-studio/app/__tests__/nora-cognitive-runtime/missionProgressGuard.d0.test.ts
+projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.extendedCorpusCaps.d0.test.ts
+projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.productiveExtension.d0.test.ts
+projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.representativeCorpus.d0.test.ts
+projects/sfia-studio/app/__tests__/pre-m6-product-ui/sendCancellableAssistantTurn.ndjson.d0.test.ts
+projects/sfia-studio/app/__tests__/pre-m6-product-ui/serverCancellation.d0.test.ts
+projects/sfia-studio/app/__tests__/pre-m6-product-ui/stopAvailableEarly.d0.test.ts
+projects/sfia-studio/app/__tests__/project-assistant/liveActivityEvents.d0.test.ts
+projects/sfia-studio/app/__tests__/project-assistant/terminalLiveActivity.d0.test.ts
+projects/sfia-studio/app/features/project-assistant/liveActivityEvents.ts
+projects/sfia-studio/app/lib/nora-cognitive-runtime/missionProgressGuard.ts
+```
+
+Diff --stat:
+```
+ .../p6.nora.maxTurns.documentary.d0.test.ts        |  28 ++-
+ ...p6.nora.min09.documentaryReliability.d0.test.ts |  71 +++++---
  .../p6.nora.p1.adaptiveBudget.d0.test.ts           |  30 ++--
- .../p6.nora.p1p2.documentary.mission.d0.test.ts    |  27 +++-
- .../p6.nora.p1p2.targetedVerification.d0.test.ts   |  69 +++++++--
- .../projects/[projectId]/assistant/send/route.ts   | 147 ++++++++++++++++--
- .../hooks/sendCancellableAssistantTurn.ts          |  81 +++++++++-
+ .../p6.nora.p1p2.documentary.mission.d0.test.ts    |  27 ++-
+ .../p6.nora.p1p2.targetedVerification.d0.test.ts   |  69 +++++++-
+ .../projects/[projectId]/assistant/send/route.ts   | 190 +++++++++++++++++++--
+ .../hooks/sendCancellableAssistantTurn.ts          |  85 ++++++++-
  .../hooks/useProductConversation.ts                |  29 +++-
  .../surfaces/ConversationSurface.module.css        |  30 ++++
  .../surfaces/ConversationSurface.tsx               |  23 ++-
@@ -163,31 +241,1182 @@ ConversationSurface + useProductConversation + send route + EventSink + runNoraA
  .../features/project-assistant/memoryEventSink.ts  |  11 +-
  .../features/project-assistant/orchestrateTurn.ts  |  22 ++-
  .../project-assistant/sendProjectAssistantTurn.ts  |   5 +
- .../nora-cognitive-runtime/adaptiveTurnBudget.ts   |  22 +--
+ .../nora-cognitive-runtime/adaptiveTurnBudget.ts   |  30 ++--
  .../nora-cognitive-runtime/callModelInputFilter.ts |   6 +
- .../controlledContinuation.ts                      |   9 +-
- .../app/lib/nora-cognitive-runtime/index.ts        |  11 ++
- .../nora-cognitive-runtime/runNoraAgentsTurn.ts    |  40 ++++-
- .../lib/nora-cognitive-runtime/sfiaAgentsTools.ts  |  21 ++-
+ .../controlledContinuation.ts                      |  19 ++-
+ .../app/lib/nora-cognitive-runtime/index.ts        |  14 ++
+ .../nora-cognitive-runtime/runNoraAgentsTurn.ts    | 112 ++++++++++--
+ .../lib/nora-cognitive-runtime/sfiaAgentsTools.ts  |  23 ++-
+ .../app/lib/nora-cognitive-runtime/types.ts        |   3 +
  .../sfia-studio/app/lib/platform/tools/types.ts    |  13 +-
- 22 files changed, 622 insertions(+), 261 deletions(-)
+ 22 files changed, 753 insertions(+), 106 deletions(-)
 
-
-### Créés (untracked)
-```
-projects/sfia-studio/app/__tests__/nora-cognitive-runtime/missionProgressGuard.d0.test.ts
-projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.extendedCorpusCaps.d0.test.ts
-projects/sfia-studio/app/__tests__/pre-m6-product-ui/sendCancellableAssistantTurn.ndjson.d0.test.ts
-projects/sfia-studio/app/__tests__/pre-m6-product-ui/stopAvailableEarly.d0.test.ts
-projects/sfia-studio/app/__tests__/project-assistant/liveActivityEvents.d0.test.ts
-projects/sfia-studio/app/features/project-assistant/liveActivityEvents.ts
-projects/sfia-studio/app/lib/nora-cognitive-runtime/missionProgressGuard.ts
 ```
 
-## R. Diff complet exploitable
-### New files
+## W. Contenu complet des nouveaux fichiers
+### NEW FILE: `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/missionProgressGuard.d0.test.ts`
+
+```typescript
+/**
+ * P6 — MissionProgressGuard deterministic unit tests.
+ * @vitest-environment node
+ */
+import { describe, expect, it } from "vitest";
+import {
+  assistantMessage,
+  functionCall,
+  ScriptedModel,
+} from "@openai/agents/testing";
+import { resolveWorkspaceRootFromAppCwd } from "@/lib/platform/repository/workspaceRoot";
+import {
+  runNoraAgentsTurn,
+  sfiaBoundaryInstructions,
+} from "@/lib/nora-cognitive-runtime";
+import {
+  MISSION_NO_PROGRESS_REPEAT_LIMIT,
+  MISSION_NO_PROGRESS_STOP_STOCK,
+  MissionProgressGuard,
+  missionProgressResultFingerprint,
+  missionProgressTargetKey,
+} from "@/lib/nora-cognitive-runtime/missionProgressGuard";
+
+describe("MissionProgressGuard", () => {
+  it("continues until identical tool+target reaches repeat limit", () => {
+    const guard = new MissionProgressGuard(MISSION_NO_PROGRESS_REPEAT_LIMIT);
+    const sample = {
+      toolName: "git_local_read_file",
+      targetKey: "projects/sfia-studio/app/package.json",
+    };
+
+    const first = guard.observe(sample);
+    expect(first.action).toBe("continue");
+    expect(first.reasonCodes).toContain("progress_streak:1");
+
+    const second = guard.observe(sample);
+    expect(second.action).toBe("continue");
+    expect(second.reasonCodes).toContain("progress_streak:2");
+
+    const third = guard.observe(sample);
+    expect(third.action).toBe("stop_no_progress");
+    expect(third.reasonCodes).toContain("mission_no_progress_repeat");
+    expect(third.reasonCodes).toContain("streak:3");
+    expect(third.reasonCodes).toContain("tool:git_local_read_file");
+  });
+
+  it("resets streak when target changes", () => {
+    const guard = new MissionProgressGuard(3);
+    const tool = "git_local_read_file";
+
+    guard.observe({ toolName: tool, targetKey: "a.txt" });
+    guard.observe({ toolName: tool, targetKey: "a.txt" });
+    const afterSwitch = guard.observe({ toolName: tool, targetKey: "b.txt" });
+    expect(afterSwitch.action).toBe("continue");
+    expect(afterSwitch.reasonCodes).toContain("progress_streak:1");
+  });
+
+  it("same target without fingerprint still stops at repeat limit", () => {
+    const guard = new MissionProgressGuard(3);
+    const sample = {
+      toolName: "git_local_read_file",
+      targetKey: "projects/sfia-studio/app/package.json",
+    };
+    guard.observe(sample);
+    guard.observe(sample);
+    const third = guard.observe(sample);
+    expect(third.action).toBe("stop_no_progress");
+  });
+
+  it("distinct result fingerprints on same target reset streak", () => {
+    const guard = new MissionProgressGuard(3);
+    const tool = "git_local_read_file";
+    const target = "doc.md@1-50";
+    const fpA = missionProgressResultFingerprint({
+      ok: true,
+      data: { returnedStartLine: 1, returnedEndLine: 10, bytes: 50, truncated: false },
+    });
+    const fpB = missionProgressResultFingerprint({
+      ok: true,
+      data: { returnedStartLine: 11, returnedEndLine: 20, bytes: 50, truncated: false },
+    });
+    guard.observe({ toolName: tool, targetKey: target, resultFingerprint: fpA });
+    guard.observe({ toolName: tool, targetKey: target, resultFingerprint: fpA });
+    const afterAdvance = guard.observe({
+      toolName: tool,
+      targetKey: target,
+      resultFingerprint: fpB,
+    });
+    expect(afterAdvance.action).toBe("continue");
+    expect(afterAdvance.reasonCodes).toContain("progress_streak:1");
+  });
+});
+
+describe("missionProgressTargetKey", () => {
+  it("includes line window for read_file", () => {
+    expect(
+      missionProgressTargetKey("git_local_read_file", {
+        path: "doc.md",
+        startLine: 10,
+        endLine: 20,
+      }),
+    ).toBe("doc.md@10-20");
+  });
+
+  it("distinguishes path-only reads", () => {
+    expect(
+      missionProgressTargetKey("git_local_read_file", { path: "doc.md" }),
+    ).toBe("doc.md");
+  });
+});
+
+describe("MissionProgressGuard — Product tool adapters", () => {
+  it("stops runNoraAgentsTurn after three identical read targets", async () => {
+    const path = "projects/sfia-studio/app/package.json";
+    const model = new ScriptedModel([
+      [
+        functionCall(
+          "git_local_read_file",
+          { path, maxBytes: 512 },
+          { callId: "loop1" },
+        ),
+      ],
+      [
+        functionCall(
+          "git_local_read_file",
+          { path, maxBytes: 512 },
+          { callId: "loop2" },
+        ),
+      ],
+      [
+        functionCall(
+          "git_local_read_file",
+          { path, maxBytes: 512 },
+          { callId: "loop3" },
+        ),
+      ],
+      [assistantMessage("unreachable")],
+    ]);
+    const turn = await runNoraAgentsTurn({
+      correlationId: "cor:mission-progress-guard",
+      projectId: "prj:mission-progress-guard",
+      systemInstructions: sfiaBoundaryInstructions(),
+      userContent: "Read the same file repeatedly.",
+      model,
+      enableTools: true,
+      workspaceRoot: resolveWorkspaceRootFromAppCwd(),
+      maxTurns: 8,
+    });
+    expect(turn.toolCalls).toBeGreaterThanOrEqual(3);
+    expect(turn.limitReached).toBe(true);
+    expect(turn.continuationObserve?.stopReason).toBe("mission_no_progress");
+    expect(turn.continuationObserve?.reasonCodes).toContain(
+      "mission_no_progress_repeat",
+    );
+    expect(turn.text).toBe(MISSION_NO_PROGRESS_STOP_STOCK);
+  });
+});
+
 ```
-===== NEW FILE: liveActivityEvents.ts =====
+### NEW FILE: `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.extendedCorpusCaps.d0.test.ts`
+
+```typescript
+/**
+ * P6 — Large documentary corpus delivery caps (deterministic).
+ * ZERO REAL / ZERO OpenAI.
+ * @vitest-environment node
+ */
+import { describe, expect, it } from "vitest";
+import {
+  CT_DEFAULT_READ_MAX_BYTES,
+  CT_MAX_TOOL_RESULT_CHARS,
+} from "@/lib/platform/tools/types";
+import { prepareGitLocalReadDataForModel } from "@/lib/platform/tools/toolRouter";
+
+describe("P6 extended documentary corpus caps", () => {
+  it("raises tool-result and default read caps for long documents", () => {
+    expect(CT_MAX_TOOL_RESULT_CHARS).toBe(100_000);
+    expect(CT_DEFAULT_READ_MAX_BYTES).toBe(200_000);
+    // Former experimental universal 12k is no longer the Product ceiling.
+    expect(CT_MAX_TOOL_RESULT_CHARS).toBeGreaterThan(12_000);
+  });
+
+  it("returns a ~90k character document within the raised model envelope", () => {
+    const body = `${"α".repeat(90_000)}\n`;
+    const prepared = prepareGitLocalReadDataForModel({
+      path: "docs/long.md",
+      content: body,
+      startLine: 1,
+      endLine: 1,
+      requestedStartLine: 1,
+      requestedEndLine: 1,
+      returnedStartLine: 1,
+      totalLines: 1,
+      documentHasMore: false,
+      truncated: false,
+    });
+    expect(prepared.json.length).toBeLessThanOrEqual(CT_MAX_TOOL_RESULT_CHARS);
+    expect(typeof prepared.data).toBe("object");
+  });
+
+  it("keeps short documents fully within the raised envelope", () => {
+    const body = "short doc\nline 2\n";
+    const prepared = prepareGitLocalReadDataForModel({
+      path: "docs/short.md",
+      content: body,
+      startLine: 1,
+      endLine: 2,
+      requestedStartLine: 1,
+      requestedEndLine: 2,
+      returnedStartLine: 1,
+      totalLines: 2,
+      documentHasMore: false,
+      truncated: false,
+    });
+    expect(prepared.json.length).toBeLessThanOrEqual(CT_MAX_TOOL_RESULT_CHARS);
+    expect(prepared.json).toContain("short doc");
+    expect(prepared.truncated).toBe(false);
+  });
+});
+
+```
+### NEW FILE: `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.productiveExtension.d0.test.ts`
+
+```typescript
+/**
+ * R-EXT-02 — Productive mission budget extension (deterministic).
+ * ZERO REAL / ZERO OpenAI.
+ * @vitest-environment node
+ */
+import { afterEach, describe, expect, it } from "vitest";
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import {
+  ScriptedModel,
+  assistantMessage,
+  functionCall,
+} from "@openai/agents/testing";
+import { resolveWorkspaceRootFromAppCwd } from "@/lib/platform/repository/workspaceRoot";
+import {
+  ADAPTIVE_MAX_TURNS_SAFETY_ENVELOPE,
+  ProductSqliteSession,
+  runNoraAgentsTurn,
+  sfiaBoundaryInstructions,
+} from "@/lib/nora-cognitive-runtime";
+import { PRODUCTIVE_EXTENSION_MAX } from "@/lib/nora-cognitive-runtime/controlledContinuation";
+import {
+  MISSION_NO_PROGRESS_REPEAT_LIMIT,
+  MissionProgressGuard,
+  missionProgressResultFingerprint,
+} from "@/lib/nora-cognitive-runtime/missionProgressGuard";
+
+const DOC_PATH = "projects/sfia-studio/app/package.json";
+const COMPLETE_MARKER = "PRODUCTIVE_EXT_COMPLETE";
+
+const dirs: string[] = [];
+
+function tmpSession(projectId: string): ProductSqliteSession {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "p6-ext-"));
+  dirs.push(dir);
+  return new ProductSqliteSession({
+    projectId,
+    dbPath: path.join(dir, "session.sqlite"),
+  });
+}
+
+afterEach(() => {
+  while (dirs.length) {
+    const d = dirs.pop();
+    if (d) fs.rmSync(d, { recursive: true, force: true });
+  }
+});
+
+function readWindow(pass: number) {
+  const startLine = (pass - 1) * 8 + 1;
+  return {
+    path: DOC_PATH,
+    maxBytes: 2048,
+    startLine,
+    endLine: startLine + 7,
+  };
+}
+
+function sevenTurnDocumentaryScript() {
+  return [
+    [functionCall("git_local_read_file", readWindow(1), { callId: "e1" })],
+    [functionCall("git_local_read_file", readWindow(2), { callId: "e2" })],
+    [functionCall("git_local_read_file", readWindow(3), { callId: "e3" })],
+    [functionCall("git_local_read_file", readWindow(4), { callId: "e4" })],
+    [functionCall("git_local_read_file", readWindow(5), { callId: "e5" })],
+    [functionCall("git_local_read_file", readWindow(6), { callId: "e6" })],
+    [assistantMessage(`${COMPLETE_MARKER} — synthesis after six reads.`)],
+  ];
+}
+
+describe("R-EXT-02 — MissionProgressGuard extension signals", () => {
+  it("exports safety envelope and productive extension cap", () => {
+    expect(ADAPTIVE_MAX_TURNS_SAFETY_ENVELOPE).toBe(36);
+    expect(PRODUCTIVE_EXTENSION_MAX).toBe(3);
+  });
+
+  it("hasVerifiableProgressForExtension after distinct fingerprints; markExtensionConsumed resets window", () => {
+    const guard = new MissionProgressGuard(MISSION_NO_PROGRESS_REPEAT_LIMIT);
+    expect(guard.hasVerifiableProgressForExtension()).toBe(false);
+
+    const fp1 = missionProgressResultFingerprint({
+      ok: true,
+      data: {
+        path: "a.md",
+        returnedStartLine: 1,
+        returnedEndLine: 10,
+        bytes: 100,
+        truncated: false,
+      },
+    });
+    guard.observe({
+      toolName: "git_local_read_file",
+      targetKey: "a.md@1-10",
+      resultFingerprint: fp1,
+    });
+    expect(guard.hasVerifiableProgressForExtension()).toBe(true);
+
+    guard.markExtensionConsumed();
+    expect(guard.hasVerifiableProgressForExtension()).toBe(false);
+
+    const fp2 = missionProgressResultFingerprint({
+      ok: true,
+      data: {
+        path: "a.md",
+        returnedStartLine: 11,
+        returnedEndLine: 20,
+        bytes: 100,
+        truncated: false,
+      },
+    });
+    guard.observe({
+      toolName: "git_local_read_file",
+      targetKey: "a.md@11-20",
+      resultFingerprint: fp2,
+    });
+    expect(guard.hasVerifiableProgressForExtension()).toBe(true);
+  });
+
+  it("identical tool+target+fingerprint streak stops at repeat limit", () => {
+    const guard = new MissionProgressGuard(3);
+    const sample = {
+      toolName: "git_local_read_file",
+      targetKey: "doc.md",
+      resultFingerprint: "ok|doc.md|1-5|100|f",
+    };
+    guard.observe(sample);
+    guard.observe(sample);
+    const third = guard.observe(sample);
+    expect(third.action).toBe("stop_no_progress");
+  });
+
+  it("distinct fingerprints on same target reset streak (advancing windows)", () => {
+    const guard = new MissionProgressGuard(3);
+    const tool = "git_local_read_file";
+    const target = "doc.md@1-100";
+    guard.observe({
+      toolName: tool,
+      targetKey: target,
+      resultFingerprint: "ok|doc.md|1-10|100|f",
+    });
+    guard.observe({
+      toolName: tool,
+      targetKey: target,
+      resultFingerprint: "ok|doc.md|1-10|100|f",
+    });
+    const afterNewWindow = guard.observe({
+      toolName: tool,
+      targetKey: target,
+      resultFingerprint: "ok|doc.md|11-20|100|f",
+    });
+    expect(afterNewWindow.action).toBe("continue");
+    expect(afterNewWindow.reasonCodes).toContain("progress_streak:1");
+  });
+});
+
+describe("R-EXT-02 — productive extension integration (ScriptedModel)", () => {
+  it("mission maxTurns=6 continues via productive extension when reads advance", async () => {
+    const session = tmpSession("prj:p6-productive-ext");
+    const model = new ScriptedModel(sevenTurnDocumentaryScript());
+    const result = await runNoraAgentsTurn({
+      correlationId: "p6-productive-ext",
+      projectId: "prj:p6-productive-ext",
+      systemInstructions: sfiaBoundaryInstructions(),
+      userContent:
+        "Guided Document Review: read package.json in six passes then synthesize.",
+      session,
+      model,
+      workspaceRoot: resolveWorkspaceRootFromAppCwd(),
+      enableTools: true,
+      enableControlledContinuation: true,
+      cognitiveStrategyClass: "Deep",
+      adaptiveMaxTurnsDecision: {
+        requestedMaxTurns: 6,
+        strategyClass: "Deep",
+        reasonCodes: ["test_adaptive_pin_6"],
+        floor: 3,
+        ceiling: 24,
+        explicitOverride: false,
+      },
+    });
+
+    const ext = result.continuationObserve?.productiveExtensions ?? 0;
+    const codes = result.continuationObserve?.reasonCodes ?? [];
+    expect(
+      ext >= 1 || codes.some((c) => c.startsWith("productive_extension_")),
+    ).toBe(true);
+    expect(result.limitReached).toBe(false);
+    expect(result.text).toContain(COMPLETE_MARKER);
+    session.close();
+  });
+
+  it("explicit maxTurns pins safety envelope — no productive extension beyond explicit cap", async () => {
+    const session = tmpSession("prj:p6-explicit-cap");
+    const model = new ScriptedModel(sevenTurnDocumentaryScript());
+    const explicitMax = 8;
+    const result = await runNoraAgentsTurn({
+      correlationId: "p6-explicit-cap",
+      projectId: "prj:p6-explicit-cap",
+      systemInstructions: sfiaBoundaryInstructions(),
+      userContent:
+        "Guided Document Review: read package.json in six passes then synthesize.",
+      session,
+      model,
+      workspaceRoot: resolveWorkspaceRootFromAppCwd(),
+      enableTools: true,
+      maxTurns: explicitMax,
+      enableControlledContinuation: true,
+    });
+
+    expect(result.continuationObserve?.safetyEnvelope).toBe(explicitMax);
+    expect(result.continuationObserve?.productiveExtensions ?? 0).toBe(0);
+    expect(
+      (result.continuationObserve?.reasonCodes ?? []).some((c) =>
+        c.startsWith("productive_extension_"),
+      ),
+    ).toBe(false);
+    session.close();
+  });
+});
+
+```
+### NEW FILE: `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.representativeCorpus.d0.test.ts`
+
+```typescript
+/**
+ * R-EXT-04 — Representative documentary corpus (deterministic).
+ * ZERO REAL / ZERO OpenAI.
+ * @vitest-environment node
+ */
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import { afterEach, describe, expect, it } from "vitest";
+import { collectToolTelemetry } from "@/features/project-assistant/collectToolTelemetry";
+import { GitLocalReadAdapter } from "@/lib/platform/repository/gitLocalReadAdapter";
+import {
+  CT_MAX_TOOL_RESULT_CHARS,
+  CT_DEFAULT_READ_MAX_BYTES,
+} from "@/lib/platform/tools/types";
+import {
+  createToolCallId,
+  prepareGitLocalReadDataForModel,
+  routeToolCall,
+} from "@/lib/platform/tools/toolRouter";
+import type { TechnicalEvent } from "@/lib/platform/observability/types";
+
+const dirs: string[] = [];
+
+function initGitRepo(root: string): void {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  const { execFileSync } = require("node:child_process") as typeof import("node:child_process");
+  execFileSync("git", ["init"], { cwd: root });
+  execFileSync("git", ["config", "user.email", "test@example.com"], {
+    cwd: root,
+  });
+  execFileSync("git", ["config", "user.name", "test"], { cwd: root });
+  execFileSync("git", ["add", "."], { cwd: root });
+  execFileSync("git", ["commit", "-m", "init"], { cwd: root });
+}
+
+function tmpCorpusRepo(docSpecs: { rel: string; body: string }[]): string {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "p6-corpus-"));
+  dirs.push(dir);
+  for (const spec of docSpecs) {
+    fs.mkdirSync(path.join(dir, path.dirname(spec.rel)), { recursive: true });
+    fs.writeFileSync(path.join(dir, spec.rel), spec.body, "utf8");
+  }
+  initGitRepo(dir);
+  return dir;
+}
+
+afterEach(() => {
+  while (dirs.length) {
+    const d = dirs.pop();
+    if (d) fs.rmSync(d, { recursive: true, force: true });
+  }
+});
+
+describe("R-EXT-04 — representative corpus capacity", () => {
+  it("~90k char mono-doc: adapter read + prepareGitLocalReadDataForModel within CT_MAX_TOOL_RESULT_CHARS", () => {
+    const token = "FACT_MONO_90K_UNIQUE_ALPHA";
+    const body = `${token}\n${"ζ".repeat(90_000 - token.length - 1)}\n`;
+    const rel = "projects/sfia-studio/docs/mono-long.md";
+    const root = tmpCorpusRepo([{ rel, body }]);
+    const adapter = new GitLocalReadAdapter(root);
+    const read = adapter.readFile(rel, CT_DEFAULT_READ_MAX_BYTES);
+    expect(read.truncated).toBe(false);
+    expect(read.content).toContain(token);
+
+    const prepared = prepareGitLocalReadDataForModel({
+      path: rel,
+      content: read.content,
+      startLine: read.startLine,
+      endLine: read.returnedEndLine ?? read.endLine,
+      requestedStartLine: read.startLine,
+      requestedEndLine: read.endLine,
+      returnedStartLine: read.returnedStartLine,
+      totalLines: read.totalLines,
+      documentHasMore: read.documentHasMore,
+      truncated: read.truncated,
+    });
+    expect(prepared.json.length).toBeLessThanOrEqual(CT_MAX_TOOL_RESULT_CHARS);
+    expect(prepared.json).toContain(token);
+  });
+
+  for (const count of [5, 10, 15] as const) {
+    it(`${count} docs — partial reads, coverage honesty, FACT-i cross-read from tool payload`, async () => {
+      const relPaths = Array.from(
+        { length: count },
+        (_, i) => `projects/sfia-studio/docs/corpus/doc-${i + 1}.md`,
+      );
+      const specs = relPaths.map((rel, i) => ({
+        rel,
+        body: `FACT-${i + 1}-UNIQUE\nline-${i + 1}-body\n`,
+      }));
+      const root = tmpCorpusRepo(specs);
+      const events: TechnicalEvent[] = [];
+      const sink = { emit: (e: TechnicalEvent) => events.push(e) };
+
+      const readOne = async (rel: string) => {
+        events.length = 0;
+        const routed = await routeToolCall(
+          {
+            toolCallId: createToolCallId(),
+            name: "git_local_read_file",
+            arguments: { path: rel },
+            sessionId: "p6-corpus",
+          },
+          { workspaceRoot: root, sink },
+        );
+        const summary = String(
+          events.find((e) => e.type === "TOOL_SUCCEEDED")?.detail.summary ?? "",
+        );
+        return { routed, summary };
+      };
+
+      const first = await readOne(relPaths[0]!);
+      expect(first.routed.ok).toBe(true);
+      if (first.routed.ok) {
+        const data = first.routed.data as { content?: string };
+        expect(String(data.content ?? "")).toContain("FACT-1-UNIQUE");
+        expect(first.summary).toMatch(/L1-/);
+      }
+      const cov1 = collectToolTelemetry(events).readCoverage;
+      expect(cov1.facts).toHaveLength(1);
+      expect(cov1.facts[0]?.coverage).toBe("full");
+
+      if (count > 1) {
+        const second = await readOne(relPaths[1]!);
+        expect(second.routed.ok).toBe(true);
+        const multi = collectToolTelemetry(events).readCoverage;
+        expect(multi.facts.length).toBeGreaterThanOrEqual(1);
+        expect(multi.facts.some((f) => f.coverage === "full")).toBe(true);
+        expect(multi.overall).not.toBe("none");
+
+        const unread = relPaths.slice(2);
+        for (const rel of unread) {
+          expect(multi.facts.some((f) => f.documentPath === rel || f.pathOrRef === rel)).toBe(
+            false,
+          );
+        }
+      }
+
+      const lastRel = relPaths[count - 1]!;
+      const lastToken = `FACT-${count}-UNIQUE`;
+      const last = await readOne(lastRel);
+      expect(last.routed.ok).toBe(true);
+      if (last.routed.ok) {
+        const payload = last.routed.data as { content?: string };
+        expect(String(payload.content ?? "")).toContain(lastToken);
+      }
+    });
+  }
+
+  it("partial range read — PARTIAL coverage, not FULL", async () => {
+    const rel = "projects/sfia-studio/docs/partial.md";
+    const lines = Array.from({ length: 40 }, (_, i) => `FACT-P-${i + 1}`).join(
+      "\n",
+    );
+    const root = tmpCorpusRepo([{ rel, body: `${lines}\n` }]);
+    const events: TechnicalEvent[] = [];
+    const result = await routeToolCall(
+      {
+        toolCallId: createToolCallId(),
+        name: "git_local_read_file",
+        arguments: { path: rel, startLine: 1, endLine: 5 },
+        sessionId: "p6-corpus-partial",
+      },
+      { workspaceRoot: root, sink: { emit: (e) => events.push(e) } },
+    );
+    expect(result.ok).toBe(true);
+    const cov = collectToolTelemetry(events).readCoverage;
+    expect(cov.facts[0]?.coverage).toBe("partial");
+    expect(cov.facts[0]?.coverage).not.toBe("full");
+    if (result.ok) {
+      const content = String((result.data as { content?: string }).content ?? "");
+      expect(content).toContain("FACT-P-1");
+      expect(content).not.toContain("FACT-P-40");
+    }
+  });
+});
+
+```
+### NEW FILE: `projects/sfia-studio/app/__tests__/pre-m6-product-ui/sendCancellableAssistantTurn.ndjson.d0.test.ts`
+
+```typescript
+/**
+ * P6 — NDJSON progressive send transport (deterministic).
+ * ZERO REAL / ZERO OpenAI.
+ * @vitest-environment node
+ */
+import { afterEach, describe, expect, it, vi } from "vitest";
+import { sendCancellableAssistantTurn } from "@/features/pre-m6-product-ui/hooks/sendCancellableAssistantTurn";
+import type { NoraLiveActivityEvent } from "@/features/project-assistant/liveActivityEvents";
+
+function ndjsonBody(lines: unknown[]): ReadableStream<Uint8Array> {
+  const encoder = new TextEncoder();
+  const text = lines.map((l) => `${JSON.stringify(l)}\n`).join("");
+  return new ReadableStream({
+    start(controller) {
+      controller.enqueue(encoder.encode(text));
+      controller.close();
+    },
+  });
+}
+
+describe("P6 sendCancellableAssistantTurn NDJSON", () => {
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
+  it("emits activity events before the Product result", async () => {
+    const activities: NoraLiveActivityEvent[] = [];
+    const started: NoraLiveActivityEvent = {
+      kind: "mission_started",
+      seq: 1,
+      at: "2026-10-14T12:00:00.000Z",
+      label: "Nora démarre la mission",
+    };
+    const tool: NoraLiveActivityEvent = {
+      kind: "tool_started",
+      seq: 2,
+      at: "2026-10-14T12:00:01.000Z",
+      label: "Consultation en cours — git_local_read_file",
+      toolName: "git_local_read_file",
+    };
+    const result = {
+      ok: true,
+      status: "ok",
+      mode: "assisted",
+      assistantMessage: { role: "assistant", content: "done" },
+    };
+
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async () => ({
+        ok: true,
+        headers: {
+          get: (name: string) =>
+            name.toLowerCase() === "content-type"
+              ? "application/x-ndjson"
+              : null,
+        },
+        body: ndjsonBody([
+          { type: "activity", event: started },
+          { type: "activity", event: tool },
+          { type: "result", result },
+        ]),
+        json: async () => result,
+      })),
+    );
+
+    const out = await sendCancellableAssistantTurn(
+      { projectId: "proj_test", content: "hello" },
+      new AbortController().signal,
+      { onActivity: (e) => activities.push(e) },
+    );
+
+    expect(activities.map((a) => a.kind)).toEqual([
+      "mission_started",
+      "tool_started",
+    ]);
+    expect(out).toEqual(result);
+  });
+
+  it("falls back to JSON when content-type is application/json", async () => {
+    const result = {
+      ok: true,
+      status: "ok",
+      mode: "assisted",
+      assistantMessage: { role: "assistant", content: "json" },
+    };
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async () => ({
+        ok: true,
+        headers: {
+          get: (name: string) =>
+            name.toLowerCase() === "content-type"
+              ? "application/json"
+              : null,
+        },
+        body: null,
+        json: async () => result,
+      })),
+    );
+    const out = await sendCancellableAssistantTurn(
+      { projectId: "proj_test", content: "hello" },
+      new AbortController().signal,
+    );
+    expect(out).toEqual(result);
+  });
+});
+
+```
+### NEW FILE: `projects/sfia-studio/app/__tests__/pre-m6-product-ui/serverCancellation.d0.test.ts`
+
+```typescript
+/**
+ * R-EXT-05 — Server cancellation + NDJSON transport (deterministic).
+ * ZERO REAL / ZERO OpenAI.
+ * @vitest-environment node
+ */
+import { afterEach, describe, expect, it, vi } from "vitest";
+import { sendCancellableAssistantTurn } from "@/features/pre-m6-product-ui/hooks/sendCancellableAssistantTurn";
+import { terminalLiveActivityFromProductResult } from "@/features/project-assistant/liveActivityEvents";
+import type { NoraLiveActivityEvent } from "@/features/project-assistant/liveActivityEvents";
+
+function stopAvailable(input: {
+  cancellable: boolean;
+  blocked: boolean;
+  f3Busy: boolean;
+}): boolean {
+  return input.cancellable && !input.blocked && !input.f3Busy;
+}
+
+function ndjsonBody(lines: unknown[]): ReadableStream<Uint8Array> {
+  const encoder = new TextEncoder();
+  const text = lines.map((l) => `${JSON.stringify(l)}\n`).join("");
+  return new ReadableStream({
+    start(controller) {
+      controller.enqueue(encoder.encode(text));
+      controller.close();
+    },
+  });
+}
+
+describe("R-EXT-05 — AbortSignal reaches fetch", () => {
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
+  it("passes AbortSignal to fetch and records abort on controller", async () => {
+    let capturedSignal: AbortSignal | undefined;
+    const controller = new AbortController();
+
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async (_url: string, init?: RequestInit) => {
+        capturedSignal = init?.signal ?? undefined;
+        await new Promise((resolve) => setTimeout(resolve, 50));
+        return {
+          ok: true,
+          headers: { get: () => "application/json" },
+          json: async () => ({
+            ok: true,
+            status: "ok",
+            mode: "assisted",
+            assistantMessage: { role: "assistant", content: "x" },
+          }),
+        };
+      }),
+    );
+
+    const pending = sendCancellableAssistantTurn(
+      { projectId: "proj_abort", content: "hi" },
+      controller.signal,
+    );
+    controller.abort();
+    await pending.catch(() => undefined);
+
+    expect(capturedSignal).toBe(controller.signal);
+    expect(capturedSignal?.aborted).toBe(true);
+  });
+});
+
+describe("R-EXT-05 — stopAvailable early formula", () => {
+  it("cancellable live turn → stop available", () => {
+    expect(
+      stopAvailable({ cancellable: true, blocked: false, f3Busy: false }),
+    ).toBe(true);
+  });
+
+  it("idle or blocked → stop unavailable", () => {
+    expect(
+      stopAvailable({ cancellable: false, blocked: false, f3Busy: false }),
+    ).toBe(false);
+    expect(
+      stopAvailable({ cancellable: true, blocked: true, f3Busy: false }),
+    ).toBe(false);
+  });
+});
+
+describe("R-EXT-05 — NDJSON progressive parser", () => {
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
+  it("emits activity before result; skips malformed lines; ignores activity after result", async () => {
+    const activities: NoraLiveActivityEvent[] = [];
+    const before: NoraLiveActivityEvent = {
+      kind: "tool_started",
+      seq: 1,
+      at: "2026-10-14T12:00:00.000Z",
+      label: "before",
+    };
+    const after: NoraLiveActivityEvent = {
+      kind: "activity_update",
+      seq: 99,
+      at: "2026-10-14T12:00:01.000Z",
+      label: "after-result-should-drop",
+    };
+    const result = {
+      ok: true,
+      status: "ok",
+      mode: "assisted",
+      assistantMessage: { role: "assistant", content: "done" },
+    };
+
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async () => ({
+        ok: true,
+        headers: {
+          get: (name: string) =>
+            name.toLowerCase() === "content-type"
+              ? "application/x-ndjson"
+              : null,
+        },
+        body: new ReadableStream<Uint8Array>({
+          start(controller) {
+            const enc = new TextEncoder();
+            controller.enqueue(
+              enc.encode(
+                [
+                  JSON.stringify({ type: "activity", event: before }),
+                  "{not-valid-json",
+                  JSON.stringify({ type: "result", result }),
+                  JSON.stringify({ type: "activity", event: after }),
+                ].join("\n") + "\n",
+              ),
+            );
+            controller.close();
+          },
+        }),
+        json: async () => result,
+      })),
+    );
+
+    const out = await sendCancellableAssistantTurn(
+      { projectId: "proj_ndjson", content: "hello" },
+      new AbortController().signal,
+      { onActivity: (e) => activities.push(e) },
+    );
+
+    expect(activities.map((a) => a.label)).toEqual(["before"]);
+    expect(out).toEqual(result);
+  });
+});
+
+describe("R-EXT-05 — transport abort ≠ stop_confirmed", () => {
+  it("terminalLiveActivityFromProductResult maps transportAbortedWithoutAck", () => {
+    const terminal = terminalLiveActivityFromProductResult({
+      result: { ok: false, status: "stopped" },
+      transportAbortedWithoutAck: true,
+    });
+    expect(terminal.kind).toBe("transport_interrupted");
+    expect(terminal.kind).not.toBe("stop_confirmed");
+  });
+});
+
+```
+### NEW FILE: `projects/sfia-studio/app/__tests__/pre-m6-product-ui/stopAvailableEarly.d0.test.ts`
+
+```typescript
+/**
+ * P6 — Stop availability contract (deterministic unit of the busy/cancellable rule).
+ * ZERO REAL / ZERO OpenAI.
+ * @vitest-environment node
+ */
+import { describe, expect, it } from "vitest";
+
+/**
+ * Mirrors useProductConversation stopAvailable formula.
+ * Stop must replace Send whenever an AbortController-backed turn is live,
+ * even before React startTransition flips uiState to ASSISTANT_WORKING.
+ */
+function stopAvailable(input: {
+  cancellable: boolean;
+  blocked: boolean;
+  f3Busy: boolean;
+}): boolean {
+  return input.cancellable && !input.blocked && !input.f3Busy;
+}
+
+describe("P6 stopAvailable early cancellable contract", () => {
+  it("SENDING/WORKING: cancellable true → Arrêter available", () => {
+    expect(
+      stopAvailable({ cancellable: true, blocked: false, f3Busy: false }),
+    ).toBe(true);
+  });
+
+  it("IDLE: cancellable false → Envoyer path (stop unavailable)", () => {
+    expect(
+      stopAvailable({ cancellable: false, blocked: false, f3Busy: false }),
+    ).toBe(false);
+  });
+
+  it("blocked or f3Busy suppresses stop even if cancellable", () => {
+    expect(
+      stopAvailable({ cancellable: true, blocked: true, f3Busy: false }),
+    ).toBe(false);
+    expect(
+      stopAvailable({ cancellable: true, blocked: false, f3Busy: true }),
+    ).toBe(false);
+  });
+});
+
+```
+### NEW FILE: `projects/sfia-studio/app/__tests__/project-assistant/liveActivityEvents.d0.test.ts`
+
+```typescript
+/**
+ * P6 — Live activity event contract (deterministic).
+ * ZERO REAL / ZERO OpenAI.
+ * @vitest-environment node
+ */
+import { describe, expect, it } from "vitest";
+import {
+  isNoraLiveActivityEvent,
+  liveActivityFromTechnicalToolEvent,
+  terminalLiveActivityFromProductResult,
+  type NoraLiveActivityEvent,
+} from "@/features/project-assistant/liveActivityEvents";
+
+describe("P6 live activity events", () => {
+  it("accepts well-formed browser-safe events", () => {
+    const event: NoraLiveActivityEvent = {
+      kind: "tool_started",
+      seq: 1,
+      at: "2026-10-14T12:00:00.000Z",
+      label: "Consultation en cours — git_local_read_file",
+      toolName: "git_local_read_file",
+      sourcePath: "docs/a.md",
+    };
+    expect(isNoraLiveActivityEvent(event)).toBe(true);
+  });
+
+  it("rejects oversized or empty labels and non-finite seq", () => {
+    expect(
+      isNoraLiveActivityEvent({
+        kind: "activity_update",
+        seq: Number.NaN,
+        at: "x",
+        label: "ok",
+      }),
+    ).toBe(false);
+    expect(
+      isNoraLiveActivityEvent({
+        kind: "activity_update",
+        seq: 1,
+        at: "x",
+        label: "",
+      }),
+    ).toBe(false);
+    expect(
+      isNoraLiveActivityEvent({
+        kind: "activity_update",
+        seq: 1,
+        at: "x",
+        label: "x".repeat(280),
+      }),
+    ).toBe(false);
+  });
+
+  it("maps tool running → tool_started without inventing secrets", () => {
+    const mapped = liveActivityFromTechnicalToolEvent({
+      type: "tool.start",
+      detail: {
+        toolName: "git_local_read_file",
+        status: "running",
+        path: "projects/sfia-studio/docs/a.md",
+      },
+      seq: 2,
+      at: "2026-10-14T12:00:01.000Z",
+    });
+    expect(mapped?.kind).toBe("tool_started");
+    expect(mapped?.sourcePath).toBe("projects/sfia-studio/docs/a.md");
+    expect(mapped?.label).toContain("a.md");
+    expect(mapped?.label).toMatch(/consultation/i);
+  });
+
+  it("maps tool succeeded → tool_completed with basename label when present", () => {
+    const mapped = liveActivityFromTechnicalToolEvent({
+      type: "tool.result",
+      detail: {
+        toolName: "git_local_read_file",
+        status: "succeeded",
+        path: "docs/b.md",
+      },
+      seq: 3,
+    });
+    expect(mapped?.kind).toBe("tool_completed");
+    expect(mapped?.label).toContain("b.md");
+    expect(mapped?.label).toMatch(/consulté/i);
+  });
+
+  it("maps tool failed → tool_failed", () => {
+    const mapped = liveActivityFromTechnicalToolEvent({
+      type: "tool.fail",
+      detail: { toolName: "git_local_read_file", status: "failed" },
+      seq: 4,
+    });
+    expect(mapped?.kind).toBe("tool_failed");
+    expect(mapped?.label).toMatch(/échec/i);
+  });
+
+  it("terminal kinds expose Pilote-safe French labels", () => {
+    expect(
+      terminalLiveActivityFromProductResult({
+        result: { ok: true, status: "ok" },
+      }).label,
+    ).toMatch(/Mission terminée/);
+    expect(
+      terminalLiveActivityFromProductResult({
+        result: { ok: true, status: "cognitive_stop" },
+      }).kind,
+    ).toBe("mission_cognitive_stop");
+    expect(
+      terminalLiveActivityFromProductResult({
+        result: { ok: false, status: "stopped" },
+        transportAbortedWithoutAck: true,
+      }).kind,
+    ).toBe("transport_interrupted");
+  });
+});
+
+```
+### NEW FILE: `projects/sfia-studio/app/__tests__/project-assistant/terminalLiveActivity.d0.test.ts`
+
+```typescript
+/**
+ * R-EXT-01 — terminalLiveActivityFromProductResult (deterministic).
+ * ZERO REAL / ZERO OpenAI.
+ * @vitest-environment node
+ */
+import { describe, expect, it } from "vitest";
+import { terminalLiveActivityFromProductResult } from "@/features/project-assistant/liveActivityEvents";
+
+describe("R-EXT-01 — terminalLiveActivityFromProductResult", () => {
+  it("ok + status=ok → mission_completed", () => {
+    const t = terminalLiveActivityFromProductResult({
+      result: { ok: true, status: "ok" },
+    });
+    expect(t.kind).toBe("mission_completed");
+    expect(t.label).toMatch(/terminée/i);
+  });
+
+  it("ok + status=incomplete → mission_incomplete (not completed)", () => {
+    const t = terminalLiveActivityFromProductResult({
+      result: { ok: true, status: "incomplete" },
+    });
+    expect(t.kind).toBe("mission_incomplete");
+    expect(t.kind).not.toBe("mission_completed");
+  });
+
+  it("executionIncomplete flag → mission_incomplete", () => {
+    const t = terminalLiveActivityFromProductResult({
+      result: { ok: true, status: "ok", executionIncomplete: true },
+    });
+    expect(t.kind).toBe("mission_incomplete");
+  });
+
+  it("ok + status=cognitive_stop → mission_cognitive_stop (not completed)", () => {
+    const t = terminalLiveActivityFromProductResult({
+      result: { ok: true, status: "cognitive_stop" },
+    });
+    expect(t.kind).toBe("mission_cognitive_stop");
+    expect(t.kind).not.toBe("mission_completed");
+  });
+
+  it("status=stopped → stop_confirmed", () => {
+    const t = terminalLiveActivityFromProductResult({
+      result: { ok: false, status: "stopped" },
+    });
+    expect(t.kind).toBe("stop_confirmed");
+  });
+
+  it("runnerStopConfirmed → stop_confirmed", () => {
+    const t = terminalLiveActivityFromProductResult({
+      result: { ok: false, status: "provider_error" },
+      runnerStopConfirmed: true,
+    });
+    expect(t.kind).toBe("stop_confirmed");
+  });
+
+  it("transportAbortedWithoutAck → transport_interrupted (not stop_confirmed)", () => {
+    const t = terminalLiveActivityFromProductResult({
+      result: { ok: false, status: "stopped" },
+      transportAbortedWithoutAck: true,
+    });
+    expect(t.kind).toBe("transport_interrupted");
+    expect(t.kind).not.toBe("stop_confirmed");
+  });
+
+  it("provider_error → mission_failed", () => {
+    const t = terminalLiveActivityFromProductResult({
+      result: { ok: false, status: "provider_error" },
+    });
+    expect(t.kind).toBe("mission_failed");
+    expect(t.label).toMatch(/fournisseur/i);
+  });
+
+  it("provider_unavailable → mission_failed", () => {
+    const t = terminalLiveActivityFromProductResult({
+      result: { ok: false, status: "provider_unavailable" },
+    });
+    expect(t.kind).toBe("mission_failed");
+  });
+});
+
+```
+### NEW FILE: `projects/sfia-studio/app/features/project-assistant/liveActivityEvents.ts`
+
+```typescript
 /**
  * P6 — Product live conversational activity events (browser-safe).
  * Intermediate observability only — never HumanDecision / Evidence / SUCCESS.
@@ -205,7 +1434,9 @@ export type NoraLiveActivityKind =
   | "stop_confirmed"
   | "mission_completed"
   | "mission_incomplete"
-  | "mission_failed";
+  | "mission_cognitive_stop"
+  | "mission_failed"
+  | "transport_interrupted";
 
 export type NoraLiveActivityEvent = {
   kind: NoraLiveActivityKind;
@@ -238,6 +1469,71 @@ export function isNoraLiveActivityEvent(
   );
 }
 
+function basenamePath(path: string | undefined): string | undefined {
+  if (!path) return undefined;
+  const parts = path.split("/").filter(Boolean);
+  return parts.length > 0 ? parts[parts.length - 1] : path;
+}
+
+function friendlyToolVerb(toolName: string | undefined): string {
+  if (!toolName) return "consultation";
+  if (/read_file|read_file_at_ref/i.test(toolName)) return "lecture";
+  if (/search_content|search_files/i.test(toolName)) return "recherche";
+  if (/get_diff|compare/i.test(toolName)) return "comparaison";
+  if (/get_status|get_head|get_log/i.test(toolName)) return "inspection Git";
+  return "consultation";
+}
+
+/**
+ * Map Product send result → terminal activity kind.
+ * Never treat ok=true alone as completed (incomplete / cognitive_stop share ok=true).
+ * Browser abort alone is NOT Runner stop_confirmed.
+ */
+export function terminalLiveActivityFromProductResult(input: {
+  result: {
+    ok?: boolean;
+    status?: string;
+    executionIncomplete?: boolean;
+  };
+  /** True only when Product/orchestrator confirmed Runner stop (status stopped). */
+  runnerStopConfirmed?: boolean;
+  /** Transport aborted without authoritative Product stopped status. */
+  transportAbortedWithoutAck?: boolean;
+}): Pick<NoraLiveActivityEvent, "kind" | "label"> {
+  const status = input.result.status ?? "";
+  if (status === "incomplete" || input.result.executionIncomplete === true) {
+    return {
+      kind: "mission_incomplete",
+      label: "Mission incomplète — une limite de sécurité a été atteinte",
+    };
+  }
+  if (status === "ok" && input.result.ok === true) {
+    return { kind: "mission_completed", label: "Mission terminée" };
+  }
+  if (status === "cognitive_stop") {
+    return {
+      kind: "mission_cognitive_stop",
+      label: "Arrêt cognitif — Nora s’est arrêtée sur une contradiction structurante",
+    };
+  }
+  if (input.transportAbortedWithoutAck) {
+    return {
+      kind: "transport_interrupted",
+      label: "Connexion interrompue — arrêt serveur non confirmé",
+    };
+  }
+  if (status === "stopped" || input.runnerStopConfirmed) {
+    return { kind: "stop_confirmed", label: "Arrêt confirmé" };
+  }
+  if (status === "provider_error" || status === "provider_unavailable") {
+    return {
+      kind: "mission_failed",
+      label: "Échec fournisseur — la mission n’a pas pu aboutir",
+    };
+  }
+  return { kind: "mission_failed", label: "Mission en échec" };
+}
+
 /** Map redacted ToolRouter EventSink emissions → Pilote-safe activity rows. */
 export function liveActivityFromTechnicalToolEvent(input: {
   type: string;
@@ -260,16 +1556,18 @@ export function liveActivityFromTechnicalToolEvent(input: {
           "string"
         ? String((input.detail.source as { path: string }).path)
         : undefined;
+  const shortName = basenamePath(sourcePath);
   const at = input.at ?? new Date().toISOString();
+  const verb = friendlyToolVerb(toolName);
 
   if (status === "running" || /tool[_-]?start/i.test(input.type)) {
     return {
       kind: "tool_started",
       seq: input.seq,
       at,
-      label: toolName
-        ? `Consultation en cours — ${toolName}`
-        : "Consultation d’outil en cours",
+      label: shortName
+        ? `Consultation du document « ${shortName} ».`
+        : `Nora prépare une ${verb} des sources.`,
       toolName,
       sourcePath,
     };
@@ -279,9 +1577,9 @@ export function liveActivityFromTechnicalToolEvent(input: {
       kind: "tool_failed",
       seq: input.seq,
       at,
-      label: toolName
-        ? `Échec d’outil — ${toolName}`
-        : "Échec d’une consultation d’outil",
+      label: shortName
+        ? `Échec de consultation — « ${shortName} ».`
+        : `Échec d’une ${verb}.`,
       toolName,
       sourcePath,
     };
@@ -296,11 +1594,9 @@ export function liveActivityFromTechnicalToolEvent(input: {
       kind: "tool_completed",
       seq: input.seq,
       at,
-      label: toolName
-        ? sourcePath
-          ? `Lecture terminée — ${sourcePath}`
-          : `Outil terminé — ${toolName}`
-        : "Consultation d’outil terminée",
+      label: shortName
+        ? `Document consulté — « ${shortName} ».`
+        : `Nora a terminé une ${verb}.`,
       toolName,
       sourcePath,
     };
@@ -309,29 +1605,39 @@ export function liveActivityFromTechnicalToolEvent(input: {
     kind: "activity_update",
     seq: input.seq,
     at,
-    label: toolName ? `Activité — ${toolName}` : "Nora poursuit la mission",
+    label: "Nora poursuit l’analyse des sources.",
     toolName,
     sourcePath,
   };
 }
 
-===== NEW FILE: missionProgressGuard.ts =====
+```
+### NEW FILE: `projects/sfia-studio/app/lib/nora-cognitive-runtime/missionProgressGuard.ts`
+
+```typescript
 /**
- * P6 extended execution — progress guard against unproductive tool loops.
- * Observable tool identity only (never model self-declaration).
+ * P6 extended execution — progress guard against unproductive tool loops
+ * and observable progress signals for productive budget extension.
+ * Never invents progress from model narrative.
  */
 
 export type MissionProgressSample = {
   toolName: string;
   /** Stable identity such as path / query — empty when unknown. */
   targetKey: string;
+  /**
+   * Observable result fingerprint when available (returned range, status, bytes).
+   * Distinct fingerprints on the same target count as progress (e.g. advancing windows).
+   * Identical fingerprints on the same target count toward the no-progress streak.
+   */
+  resultFingerprint?: string;
 };
 
 export type MissionProgressDecision =
   | { action: "continue"; reasonCodes: string[] }
   | { action: "stop_no_progress"; reasonCodes: string[] };
 
-/** Delivery parameter — identical tool+target streaks before controlled stop. */
+/** Delivery parameter — identical tool+target+result streaks before controlled stop. */
 export const MISSION_NO_PROGRESS_REPEAT_LIMIT = 3;
 
 export const MISSION_NO_PROGRESS_STOP_STOCK =
@@ -382,14 +1688,57 @@ export function missionProgressTargetKey(
   return "";
 }
 
+/** Result fingerprint from tool route payload (observable only). */
+export function missionProgressResultFingerprint(
+  result: unknown,
+): string {
+  if (result == null || typeof result !== "object") {
+    return typeof result === "string" ? `s:${result.length}` : "empty";
+  }
+  const row = result as Record<string, unknown>;
+  const ok = row.ok === true ? "ok" : row.ok === false ? "fail" : "?";
+  const data =
+    row.data && typeof row.data === "object"
+      ? (row.data as Record<string, unknown>)
+      : row;
+  const path = typeof data.path === "string" ? data.path : "";
+  const rs =
+    typeof data.returnedStartLine === "number"
+      ? data.returnedStartLine
+      : typeof data.startLine === "number"
+        ? data.startLine
+        : "";
+  const re =
+    typeof data.returnedEndLine === "number"
+      ? data.returnedEndLine
+      : typeof data.endLine === "number"
+        ? data.endLine
+        : "";
+  const bytes =
+    typeof data.bytes === "number"
+      ? data.bytes
+      : typeof data.completeLineCount === "number"
+        ? data.completeLineCount
+        : "";
+  const truncated = data.truncated === true ? "t" : "f";
+  return `${ok}|${path}|${rs}-${re}|${bytes}|${truncated}`;
+}
+
 /**
- * Track consecutive identical tool targets. Distinct targets reset the streak.
- * Does not invent progress from model narrative.
+ * Track consecutive identical tool targets+results. Distinct fingerprints reset
+ * the no-progress streak. Distinct targets count as candidate progress for
+ * productive extension, but extension also requires net unique fingerprints.
  */
 export class MissionProgressGuard {
   private lastKey: string | null = null;
   private streak = 0;
   private readonly limit: number;
+  private readonly seenFingerprints = new Set<string>();
+  private uniqueTargets = 0;
+  private lastUniqueTargetCountAtExtension = 0;
+  private lastFingerprintCountAtExtension = 0;
+  private usefulCompletions = 0;
+
   /** Set when observe returns stop_no_progress (same turn, before next model call). */
   stopped = false;
   stopReasonCodes: readonly string[] = [];
@@ -401,7 +1750,17 @@ export class MissionProgressGuard {
   observe(sample: MissionProgressSample): MissionProgressDecision {
     const tool = sample.toolName.trim() || "unknown_tool";
     const target = sample.targetKey.trim();
-    const key = `${tool}::${target}`;
+    const fp = (sample.resultFingerprint ?? "").trim() || "nofp";
+    const key = `${tool}::${target}::${fp}`;
+
+    if (!this.seenFingerprints.has(key)) {
+      this.seenFingerprints.add(key);
+      if (target) this.uniqueTargets += 1;
+      if (fp !== "nofp" && !fp.startsWith("fail")) {
+        this.usefulCompletions += 1;
+      }
+    }
+
     if (this.lastKey === key) {
       this.streak += 1;
     } else {
@@ -426,11 +1785,45 @@ export class MissionProgressGuard {
       reasonCodes: [`progress_streak:${this.streak}`],
     };
   }
+
+  /**
+   * True when observable tool work advanced since the last productive extension
+   * (or since mission start). Distinct target alone is insufficient without a
+   * successful/useful fingerprint growth.
+   */
+  hasVerifiableProgressForExtension(): boolean {
+    if (this.stopped) return false;
+    // Require new observable fingerprints since last extension + at least one useful completion.
+    return (
+      this.seenFingerprints.size > this.lastFingerprintCountAtExtension &&
+      this.usefulCompletions > 0
+    );
+  }
+
+  /** Mark that a productive extension consumed the current progress window. */
+  markExtensionConsumed(): void {
+    this.lastUniqueTargetCountAtExtension = this.uniqueTargets;
+    this.lastFingerprintCountAtExtension = this.seenFingerprints.size;
+  }
+
+  snapshot(): {
+    uniqueTargets: number;
+    fingerprintCount: number;
+    usefulCompletions: number;
+    stopped: boolean;
+  } {
+    return {
+      uniqueTargets: this.uniqueTargets,
+      fingerprintCount: this.seenFingerprints.size,
+      usefulCompletions: this.usefulCompletions,
+      stopped: this.stopped,
+    };
+  }
 }
 
 ```
+## X. Diffs exploitables des modifications (projects/sfia-studio/app)
 
-### Patch tracked (projects/sfia-studio/app)
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.maxTurns.documentary.d0.test.ts b/projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.maxTurns.documentary.d0.test.ts
 index 6c4b0350..3a4e9f2b 100644
@@ -954,10 +2347,10 @@ index 43e466f5..5a514850 100644
 
    it("CR-TV01-01c — multi-document analysis wording still elevates via Product hints", () => {
 diff --git a/projects/sfia-studio/app/app/api/studio/projects/[projectId]/assistant/send/route.ts b/projects/sfia-studio/app/app/api/studio/projects/[projectId]/assistant/send/route.ts
-index 0f30091a..39b7dd4f 100644
+index 0f30091a..380d96b9 100644
 --- a/projects/sfia-studio/app/app/api/studio/projects/[projectId]/assistant/send/route.ts
 +++ b/projects/sfia-studio/app/app/api/studio/projects/[projectId]/assistant/send/route.ts
-@@ -2,11 +2,16 @@
+@@ -2,11 +2,19 @@
   * Thin cancellable transport for Product Nora send.
   * Same canonical application seam as projectAssistantSendAction.
   * No client authority. AbortSignal = request.signal only.
@@ -970,11 +2363,14 @@ index 0f30091a..39b7dd4f 100644
  import { NextResponse } from "next/server";
  import { parseBrowserSafeAssistantSendBody } from "@/features/project-assistant/browserSafeAssistantSend";
  import { sendProjectAssistantTurn } from "@/features/project-assistant/sendProjectAssistantTurn";
-+import type { NoraLiveActivityEvent } from "@/features/project-assistant/liveActivityEvents";
++import {
++  terminalLiveActivityFromProductResult,
++  type NoraLiveActivityEvent,
++} from "@/features/project-assistant/liveActivityEvents";
 
  export const dynamic = "force-dynamic";
 
-@@ -63,17 +68,135 @@ export async function POST(
+@@ -63,17 +71,175 @@ export async function POST(
      );
    }
 
@@ -1011,9 +2407,21 @@ index 0f30091a..39b7dd4f 100644
 +  const stream = new TransformStream<Uint8Array, Uint8Array>();
 +  const writer = stream.writable.getWriter();
 +  let seq = 0;
++  let writeChain: Promise<void> = Promise.resolve();
++  let streamClosed = false;
++  let terminalEmitted = false;
 +
-+  const writeLine = async (payload: unknown) => {
-+    await writer.write(encoder.encode(`${JSON.stringify(payload)}\n`));
++  const writeLine = (payload: unknown): Promise<void> => {
++    writeChain = writeChain
++      .then(async () => {
++        if (streamClosed) return;
++        await writer.write(encoder.encode(`${JSON.stringify(payload)}\n`));
++      })
++      .catch((err) => {
++        streamClosed = true;
++        throw err;
++      });
++    return writeChain;
 +  };
 +
 +  void (async () => {
@@ -1022,7 +2430,7 @@ index 0f30091a..39b7dd4f 100644
 +        kind: "mission_started",
 +        seq: ++seq,
 +        at: new Date().toISOString(),
-+        label: "Nora démarre la mission",
++        label: "Nora prépare la consultation des sources.",
 +      };
 +      await writeLine({ type: "activity", event: started });
 +
@@ -1040,6 +2448,7 @@ index 0f30091a..39b7dd4f 100644
 +        {
 +          signal: request.signal,
 +          onLiveActivity: (event) => {
++            if (terminalEmitted || streamClosed) return;
 +            const stamped: NoraLiveActivityEvent = {
 +              ...event,
 +              seq: ++seq,
@@ -1049,65 +2458,92 @@ index 0f30091a..39b7dd4f 100644
 +        },
 +      );
 +
-+      const terminalKind =
-+        result.ok === true
-+          ? "mission_completed"
-+          : request.signal.aborted
-+            ? "stop_confirmed"
-+            : result.status === "incomplete" ||
-+                (typeof result === "object" &&
-+                  result !== null &&
-+                  "executionIncomplete" in result)
-+              ? "mission_incomplete"
-+              : "mission_failed";
++      // Drain pending activity writes before terminal so order is preserved.
++      await writeChain;
++
++      const transportAbortedWithoutAck =
++        request.signal.aborted &&
++        !(
++          typeof result === "object" &&
++          result !== null &&
++          "status" in result &&
++          (result as { status?: string }).status === "stopped"
++        );
++
++      const terminal = terminalLiveActivityFromProductResult({
++        result: result as {
++          ok?: boolean;
++          status?: string;
++          executionIncomplete?: boolean;
++        },
++        runnerStopConfirmed:
++          typeof result === "object" &&
++          result !== null &&
++          "status" in result &&
++          (result as { status?: string }).status === "stopped",
++        transportAbortedWithoutAck,
++      });
++
++      terminalEmitted = true;
 +      await writeLine({
 +        type: "activity",
 +        event: {
-+          kind: terminalKind,
++          kind: terminal.kind,
 +          seq: ++seq,
 +          at: new Date().toISOString(),
-+          label:
-+            terminalKind === "mission_completed"
-+              ? "Mission terminée"
-+              : terminalKind === "stop_confirmed"
-+                ? "Arrêt confirmé"
-+                : terminalKind === "mission_incomplete"
-+                  ? "Mission incomplète — limite d’exécution"
-+                  : "Mission en échec",
++          label: terminal.label,
 +        } satisfies NoraLiveActivityEvent,
 +      });
 +      await writeLine({ type: "result", result });
 +    } catch (error) {
++      await writeChain.catch(() => undefined);
 +      const aborted = request.signal.aborted;
-+      await writeLine({
-+        type: "activity",
-+        event: {
-+          kind: aborted ? "stop_confirmed" : "mission_failed",
-+          seq: ++seq,
-+          at: new Date().toISOString(),
-+          label: aborted ? "Arrêt confirmé" : "Échec de transport Product",
-+        } satisfies NoraLiveActivityEvent,
-+      });
-+      await writeLine({
-+        type: "result",
++      // Browser/transport abort alone ≠ Runner stop_confirmed (R-EXT-01 / R-EXT-05).
++      const terminal = terminalLiveActivityFromProductResult({
 +        result: {
 +          ok: false,
-+          status: aborted ? "stopped" : "unavailable",
-+          code: aborted ? "NORA_TURN_STOPPED" : "PROGRESSIVE_TRANSPORT_ERROR",
-+          message: aborted
-+            ? "Réponse interrompue."
-+            : error instanceof Error
-+              ? error.message
-+              : "Erreur de flux progressif.",
-+          mode: "unavailable",
-+          retryable: !aborted,
++          status: aborted ? "provider_unavailable" : "provider_error",
 +        },
++        transportAbortedWithoutAck: aborted,
 +      });
++      terminalEmitted = true;
++      try {
++        await writeLine({
++          type: "activity",
++          event: {
++            kind: terminal.kind,
++            seq: ++seq,
++            at: new Date().toISOString(),
++            label: terminal.label,
++          } satisfies NoraLiveActivityEvent,
++        });
++        await writeLine({
++          type: "result",
++          result: {
++            ok: false,
++            status: aborted ? "stopped" : "provider_unavailable",
++            code: aborted
++              ? "NORA_TURN_TRANSPORT_INTERRUPTED"
++              : "PROGRESSIVE_TRANSPORT_ERROR",
++            message: aborted
++              ? "Connexion interrompue — arrêt Runner non confirmé dans ce transport."
++              : error instanceof Error
++                ? error.message
++                : "Erreur de flux progressif.",
++            mode: "unavailable",
++            retryable: !aborted,
++          },
++        });
++      } catch {
++        /* writer already failed — fail closed */
++      }
 +    } finally {
 +      try {
++        await writeChain.catch(() => undefined);
++        streamClosed = true;
 +        await writer.close();
 +      } catch {
-+        /* already closed */
++        streamClosed = true;
 +      }
 +    }
 +  })();
@@ -1123,7 +2559,7 @@ index 0f30091a..39b7dd4f 100644
 +  });
  }
 diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/hooks/sendCancellableAssistantTurn.ts b/projects/sfia-studio/app/features/pre-m6-product-ui/hooks/sendCancellableAssistantTurn.ts
-index ae4646c0..e5218832 100644
+index ae4646c0..82736853 100644
 --- a/projects/sfia-studio/app/features/pre-m6-product-ui/hooks/sendCancellableAssistantTurn.ts
 +++ b/projects/sfia-studio/app/features/pre-m6-product-ui/hooks/sendCancellableAssistantTurn.ts
 @@ -2,6 +2,10 @@ import type {
@@ -1170,7 +2606,7 @@ index ae4646c0..e5218832 100644
        body: JSON.stringify({
          content: input.content,
          ...(input.history ? { history: input.history } : {}),
-@@ -47,6 +62,70 @@ export async function sendCancellableAssistantTurn(
+@@ -47,6 +62,74 @@ export async function sendCancellableAssistantTurn(
        signal,
      },
    );
@@ -1213,21 +2649,25 @@ index ae4646c0..e5218832 100644
 +        parsed &&
 +        typeof parsed === "object" &&
 +        !Array.isArray(parsed) &&
-+        (parsed as { type?: unknown }).type === "activity" &&
-+        isNoraLiveActivityEvent((parsed as { event?: unknown }).event)
-+      ) {
-+        onActivity?.((parsed as { event: NoraLiveActivityEvent }).event);
-+        continue;
-+      }
-+      if (
-+        parsed &&
-+        typeof parsed === "object" &&
-+        !Array.isArray(parsed) &&
 +        (parsed as { type?: unknown }).type === "result" &&
 +        (parsed as { result?: unknown }).result != null
 +      ) {
 +        finalResult = (parsed as { result: ProjectAssistantSendResult }).result;
++        continue;
 +      }
++      if (
++        finalResult != null ||
++        !(
++          parsed &&
++          typeof parsed === "object" &&
++          !Array.isArray(parsed) &&
++          (parsed as { type?: unknown }).type === "activity" &&
++          isNoraLiveActivityEvent((parsed as { event?: unknown }).event)
++        )
++      ) {
++        continue;
++      }
++      onActivity?.((parsed as { event: NoraLiveActivityEvent }).event);
 +    }
 +  }
 +
@@ -1548,21 +2988,29 @@ index 2d9be35d..d6753d79 100644
    });
  }
 diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/adaptiveTurnBudget.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/adaptiveTurnBudget.ts
-index 0772901a..47693013 100644
+index 0772901a..0fffb6b4 100644
 --- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/adaptiveTurnBudget.ts
 +++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/adaptiveTurnBudget.ts
-@@ -21,20 +21,22 @@ export const LEGACY_DEFAULT_MAX_TURNS = CT_MAX_TOOL_ROUNDS + 1; // 5
+@@ -21,20 +21,30 @@ export const LEGACY_DEFAULT_MAX_TURNS = CT_MAX_TOOL_ROUNDS + 1; // 5
  export const ADAPTIVE_MAX_TURNS_FLOOR = 3;
 
  /**
 - * Absolute production ceiling — FinOps hard guard.
 - * Intentionally NOT 12 (experimental documentary proof only).
-+ * Absolute production ceiling — safety envelope (delivery parameter).
-+ * Raised for long documentary Product missions (P6 extended execution).
++ * Initial mission ceiling (delivery parameter) — adaptive requested max.
++ * Productive extensions may raise the absolute Runner cap toward
++ * ADAPTIVE_MAX_TURNS_SAFETY_ENVELOPE when observable tool progress exists.
 + * Still finite / never unlimited. Not FinOps T7 reactivation.
   */
 -export const ADAPTIVE_MAX_TURNS_CEILING = 10;
 +export const ADAPTIVE_MAX_TURNS_CEILING = 24;
++
++/**
++ * Hard safety envelope for automatic productive extensions (delivery parameter).
++ * Never exceeded without explicit caller maxTurns (tests/eval) or campaign lease.
++ * Sized for representative 10–15 doc Product missions under native RunState resume.
++ */
++export const ADAPTIVE_MAX_TURNS_SAFETY_ENVELOPE = 36;
 
  /**
   * Base mission maxTurns by strategy class (delivery parameters).
@@ -1580,7 +3028,7 @@ index 0772901a..47693013 100644
  };
 
  export type AdaptiveMaxTurnsDecision = {
-@@ -173,7 +175,7 @@ export function resolveAdaptiveMaxTurns(input: {
+@@ -173,7 +183,7 @@ export function resolveAdaptiveMaxTurns(input: {
      isKnownHigh(signals.sourceBreadth) ||
      isKnownHigh(signals.verificationNeed)
    ) {
@@ -1589,7 +3037,7 @@ index 0772901a..47693013 100644
      if (bumped > base) {
        reasonCodes.push("known_high_breadth_or_verification_bump");
        base = bumped;
-@@ -182,18 +184,18 @@ export function resolveAdaptiveMaxTurns(input: {
+@@ -182,18 +192,18 @@ export function resolveAdaptiveMaxTurns(input: {
      isKnownMediumOrHigh(signals.sourceBreadth) &&
      isKnownMediumOrHigh(signals.toolDependency)
    ) {
@@ -1643,10 +3091,10 @@ index 18f71809..ad036ba7 100644
      let usdEstimate: number | null = null;
      if (usdAccounting) {
 diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/controlledContinuation.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/controlledContinuation.ts
-index 3c66eb8b..888b7b31 100644
+index 3c66eb8b..d81eb60b 100644
 --- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/controlledContinuation.ts
 +++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/controlledContinuation.ts
-@@ -19,8 +19,12 @@ import { LEGACY_DEFAULT_MAX_TURNS } from "./adaptiveTurnBudget";
+@@ -19,8 +19,15 @@ import { LEGACY_DEFAULT_MAX_TURNS } from "./adaptiveTurnBudget";
   */
  export const CONTINUATION_SEGMENT_MAX_TURNS = LEGACY_DEFAULT_MAX_TURNS; // 5
 
@@ -1658,24 +3106,51 @@ index 3c66eb8b..888b7b31 100644
 + * without resetting counters (each segment resumes native RunState).
 + */
 +export const CONTINUATION_MAX_SEGMENTS = 8;
++
++/** Max automatic productive extensions beyond the initial mission budget. */
++export const PRODUCTIVE_EXTENSION_MAX = 3;
 
  export type ContinuationStopReason =
    | "complete"
-@@ -28,6 +32,7 @@ export type ContinuationStopReason =
+@@ -28,6 +35,8 @@ export type ContinuationStopReason =
    | "segment_limit_no_state"
    | "max_segments"
    | "campaign_or_provider_stop"
 +  | "mission_no_progress"
++  | "safety_envelope_exhausted"
    | "abort"
    | "disabled";
 
+@@ -42,6 +51,12 @@ export type ControlledContinuationObserve = {
+    * (SDK maxTurns is absolute vs state._currentTurn — not a sum of segment sizes).
+    */
+   allottedTurns: number;
++  /** Initial adaptive/requested mission budget before productive extensions. */
++  initialMissionMaxTurns?: number;
++  /** Absolute safety envelope for productive extensions. */
++  safetyEnvelope?: number;
++  /** Count of automatic productive extensions beyond the initial mission budget. */
++  productiveExtensions?: number;
+   stopReason: ContinuationStopReason;
+   reasonCodes: string[];
+ };
 diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
-index 4bbc11a6..d473bd34 100644
+index 4bbc11a6..21b855ac 100644
 --- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
 +++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
-@@ -107,6 +107,17 @@ export {
+@@ -89,6 +89,7 @@ export {
+   LEGACY_DEFAULT_MAX_TURNS,
+   ADAPTIVE_MAX_TURNS_FLOOR,
+   ADAPTIVE_MAX_TURNS_CEILING,
++  ADAPTIVE_MAX_TURNS_SAFETY_ENVELOPE,
+   STRATEGY_BASE_MAX_TURNS,
+ } from "./adaptiveTurnBudget";
+ export type { AdaptiveMaxTurnsDecision } from "./adaptiveTurnBudget";
+@@ -106,7 +107,20 @@ export {
+   emptyContinuationObserve,
    CONTINUATION_SEGMENT_MAX_TURNS,
    CONTINUATION_MAX_SEGMENTS,
++  PRODUCTIVE_EXTENSION_MAX,
  } from "./controlledContinuation";
 +export {
 +  MissionProgressGuard,
@@ -1683,6 +3158,7 @@ index 4bbc11a6..d473bd34 100644
 +  MISSION_NO_PROGRESS_STOP_STOCK,
 +  MissionNoProgressStoppedError,
 +  missionProgressTargetKey,
++  missionProgressResultFingerprint,
 +} from "./missionProgressGuard";
 +export type {
 +  MissionProgressSample,
@@ -1692,10 +3168,26 @@ index 4bbc11a6..d473bd34 100644
    ControlledContinuationObserve,
    ContinuationStopReason,
 diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
-index 93cbf75c..87c41f84 100644
+index 93cbf75c..f3c32dc1 100644
 --- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
 +++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
-@@ -55,6 +55,11 @@ import {
+@@ -21,6 +21,7 @@ import type { ConversationProvider } from "@/lib/platform/ai";
+ import type { EventSink } from "@/lib/platform/observability/eventSink";
+ import { requireLiveConversationSecrets } from "@/lib/platform/ai/config";
+ import {
++  ADAPTIVE_MAX_TURNS_SAFETY_ENVELOPE,
+   resolveAdaptiveMaxTurns,
+   type AdaptiveMaxTurnsDecision,
+ } from "./adaptiveTurnBudget";
+@@ -31,6 +32,7 @@ import {
+ import type { CognitiveStrategyClass } from "./cognitiveWorkloadPolicy";
+ import {
+   CONTINUATION_MAX_SEGMENTS,
++  PRODUCTIVE_EXTENSION_MAX,
+   emptyContinuationObserve,
+   planContinuationSegments,
+   type ControlledContinuationObserve,
+@@ -55,6 +57,11 @@ import {
    normalizeNoraProductTurnStructuredOutput,
  } from "./noraProductTurnOutputType";
  import { createSfiaRouteToolAdapters } from "./sfiaAgentsTools";
@@ -1707,7 +3199,7 @@ index 93cbf75c..87c41f84 100644
  import {
    createCycleJournalAgentsTools,
    type CycleJournalToolContext,
-@@ -263,6 +268,7 @@ export function createNoraAgentsRunner(
+@@ -263,6 +270,7 @@ export function createNoraAgentsRunner(
    runnerModelSettings?: NoraRunnerModelSettings,
    campaignBudget?: NoraCampaignBudget,
    usdAccounting?: NoraAgentsUsdAccounting,
@@ -1715,7 +3207,7 @@ index 93cbf75c..87c41f84 100644
  ): Runner {
    return new Runner({
      tracingDisabled: true,
-@@ -271,6 +277,7 @@ export function createNoraAgentsRunner(
+@@ -271,6 +279,7 @@ export function createNoraAgentsRunner(
        budget,
        campaignBudget,
        usdAccounting,
@@ -1723,7 +3215,7 @@ index 93cbf75c..87c41f84 100644
      ),
      ...(runnerModelSettings ? { modelSettings: runnerModelSettings } : {}),
    });
-@@ -388,12 +395,14 @@ export async function runNoraAgentsTurn(
+@@ -388,12 +397,14 @@ export async function runNoraAgentsTurn(
      }
    }
    const enableTools = input.enableTools !== false;
@@ -1738,7 +3230,7 @@ index 93cbf75c..87c41f84 100644
        })
      : [];
 
-@@ -620,6 +629,7 @@ export async function runNoraAgentsTurn(
+@@ -620,6 +631,7 @@ export async function runNoraAgentsTurn(
      runnerModelSettings,
      campaign,
      usdAccounting,
@@ -1746,7 +3238,51 @@ index 93cbf75c..87c41f84 100644
    );
    const maxTurns = clamp.maxTurns;
    const session = input.session ?? undefined;
-@@ -817,9 +827,20 @@ export async function runNoraAgentsTurn(
+@@ -775,20 +787,29 @@ export async function runNoraAgentsTurn(
+   } else {
+     // SDK maxTurns is ABSOLUTE against state._currentTurn (not remaining).
+     // Segment 1 may stop early; resume raises absolute cap toward missionMaxTurns.
++    // Productive extensions may raise the effective mission cap toward the safety
++    // envelope when MissionProgressGuard reports verifiable tool progress.
+     // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     let runInput: string | RunState<any, Agent<any, any>> = input.userContent;
++    const initialMissionMaxTurns = maxTurns;
++    const safetyEnvelope = adaptiveDecision.explicitOverride
++      ? maxTurns
++      : ADAPTIVE_MAX_TURNS_SAFETY_ENVELOPE;
++    let effectiveMissionCap = maxTurns;
+     let absoluteCap = continuationPlan.enable
+-      ? Math.min(maxTurns, continuationPlan.segmentMaxTurns)
+-      : maxTurns;
++      ? Math.min(effectiveMissionCap, continuationPlan.segmentMaxTurns)
++      : effectiveMissionCap;
+     let allottedTurns = 0;
+     let segmentsExecuted = 0;
+     let continued = false;
++    let productiveExtensions = 0;
+     let stopReason: ControlledContinuationObserve["stopReason"] = "complete";
+
+     try {
+       while (segmentsExecuted < CONTINUATION_MAX_SEGMENTS) {
+         throwIfAborted(input.signal);
+-        const atMissionCeiling = absoluteCap >= maxTurns;
++        const atMissionCeiling = absoluteCap >= effectiveMissionCap;
++        const atSafetyEnvelope = absoluteCap >= safetyEnvelope;
+
+         try {
+           const result = await runner.run(agent, runInput as never, {
+@@ -798,8 +819,8 @@ export async function runNoraAgentsTurn(
+             ...(session ? { session } : {}),
+             ...(input.signal ? { signal: input.signal } : {}),
+             maxTurns: absoluteCap,
+-            // Soft handler only at mission ceiling — earlier segments throw for RunState.
+-            ...(atMissionCeiling
++            // Soft handler only at safety envelope — earlier segments throw for RunState.
++            ...(atSafetyEnvelope
+               ? {
+                   errorHandlers: {
+                     maxTurns: softMaxTurnsHandler,
+@@ -817,9 +838,20 @@ export async function runNoraAgentsTurn(
            runNewItems = Array.isArray(result.newItems)
              ? [...result.newItems]
              : [];
@@ -1770,7 +3306,7 @@ index 93cbf75c..87c41f84 100644
            break;
          } catch (segmentError) {
            if (isAbortLike(segmentError, input.signal)) {
-@@ -838,6 +859,19 @@ export async function runNoraAgentsTurn(
+@@ -838,6 +870,19 @@ export async function runNoraAgentsTurn(
              allottedTurns = absoluteCap;
              break;
            }
@@ -1790,22 +3326,100 @@ index 93cbf75c..87c41f84 100644
            if (segmentError instanceof MaxTurnsExceededError) {
              segmentsExecuted += 1;
              allottedTurns = absoluteCap;
+@@ -857,9 +902,9 @@ export async function runNoraAgentsTurn(
+               state &&
+               segmentsExecuted < CONTINUATION_MAX_SEGMENTS
+             ) {
+-              // Raise absolute cap toward mission budget — native RunState resume.
++              // Raise absolute cap toward current effective mission — native RunState resume.
+               absoluteCap = Math.min(
+-                maxTurns,
++                effectiveMissionCap,
+                 absoluteCap + continuationPlan.segmentMaxTurns,
+               );
+               // eslint-disable-next-line @typescript-eslint/no-explicit-any
+@@ -873,11 +918,47 @@ export async function runNoraAgentsTurn(
+               continue;
+             }
+
++            // R-EXT-02 — productive extension beyond initial mission budget when
++            // tool fingerprints advanced (never model self-declaration).
++            if (
++              continuationPlan.enable &&
++              atMissionCeiling &&
++              !atSafetyEnvelope &&
++              !adaptiveDecision.explicitOverride &&
++              state &&
++              productiveExtensions < PRODUCTIVE_EXTENSION_MAX &&
++              segmentsExecuted < CONTINUATION_MAX_SEGMENTS &&
++              missionProgressGuard?.hasVerifiableProgressForExtension()
++            ) {
++              const nextCap = Math.min(
++                safetyEnvelope,
++                absoluteCap + continuationPlan.segmentMaxTurns,
++              );
++              if (nextCap > absoluteCap) {
++                productiveExtensions += 1;
++                effectiveMissionCap = nextCap;
++                absoluteCap = nextCap;
++                missionProgressGuard.markExtensionConsumed();
++                // eslint-disable-next-line @typescript-eslint/no-explicit-any
++                runInput = state as RunState<any, Agent<any, any>>;
++                continued = true;
++                budget.limitReached = false;
++                continuationObserve.reasonCodes = [
++                  ...continuationObserve.reasonCodes,
++                  `productive_extension_${productiveExtensions}`,
++                  `extended_absolute_cap_${absoluteCap}`,
++                ];
++                continue;
++              }
++            }
++
+             budget.limitReached = true;
+             text = partial;
+-            stopReason = state
+-              ? "mission_budget_exhausted"
+-              : "segment_limit_no_state";
++            stopReason = !state
++              ? "segment_limit_no_state"
++              : atSafetyEnvelope || absoluteCap >= safetyEnvelope
++                ? "safety_envelope_exhausted"
++                : "mission_budget_exhausted";
+             break;
+           }
+           throw segmentError;
+@@ -906,9 +987,12 @@ export async function runNoraAgentsTurn(
+     continuationObserve = {
+       continued,
+       segmentsExecuted,
+-      missionMaxTurns: maxTurns,
++      missionMaxTurns: effectiveMissionCap,
+       segmentMaxTurns: continuationPlan.segmentMaxTurns,
+       allottedTurns,
++      initialMissionMaxTurns,
++      safetyEnvelope,
++      productiveExtensions,
+       stopReason,
+       reasonCodes: continuationObserve.reasonCodes,
+     };
 diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/sfiaAgentsTools.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/sfiaAgentsTools.ts
-index b9eb2baa..03f76aa1 100644
+index b9eb2baa..cfc8f95b 100644
 --- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/sfiaAgentsTools.ts
 +++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/sfiaAgentsTools.ts
-@@ -20,6 +20,10 @@ import {
+@@ -20,6 +20,11 @@ import {
    TOOL_TURN_BUDGET_EXCEEDED_RESULT,
    claimToolSlot,
  } from "./turnBudget";
 +import {
 +  MissionProgressGuard,
++  missionProgressResultFingerprint,
 +  missionProgressTargetKey,
 +} from "./missionProgressGuard";
 
  /**
   * Generic cognitive boundary notice — not a Studio business-authority engine.
-@@ -95,6 +99,8 @@ export type SfiaAgentsToolOptions = {
+@@ -95,6 +100,8 @@ export type SfiaAgentsToolOptions = {
    definitions?: ToolDefinition[];
    /** Shared run budget — per-model-turn tool slots (CORR-OPT-C-02). */
    budget?: NoraTurnBudget;
@@ -1814,7 +3428,7 @@ index b9eb2baa..03f76aa1 100644
  };
 
  /** Wrap each exposable Control Tower tool; execute only via routeToolCall. */
-@@ -117,14 +123,15 @@ export function createSfiaRouteToolAdapters(
+@@ -117,14 +124,15 @@ export function createSfiaRouteToolAdapters(
          if (options.budget && !claimToolSlot(options.budget)) {
            return TOOL_TURN_BUDGET_EXCEEDED_RESULT;
          }
@@ -1834,7 +3448,7 @@ index b9eb2baa..03f76aa1 100644
              sessionId: options.correlationId,
            },
            {
-@@ -132,6 +139,12 @@ export function createSfiaRouteToolAdapters(
+@@ -132,6 +140,13 @@ export function createSfiaRouteToolAdapters(
              workspaceRoot: options.workspaceRoot,
            },
          );
@@ -1842,11 +3456,26 @@ index b9eb2baa..03f76aa1 100644
 +          options.progressGuard.observe({
 +            toolName: def.name,
 +            targetKey: missionProgressTargetKey(def.name, wireArgs),
++            resultFingerprint: missionProgressResultFingerprint(result),
 +          });
 +        }
          return toolResultForModel(result);
        },
      });
+diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/types.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/types.ts
+index de836ca6..261af218 100644
+--- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/types.ts
++++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/types.ts
+@@ -106,6 +106,9 @@ export type NoraCognitiveTurnResult = {
+     missionMaxTurns: number;
+     segmentMaxTurns: number;
+     allottedTurns: number;
++    initialMissionMaxTurns?: number;
++    safetyEnvelope?: number;
++    productiveExtensions?: number;
+     stopReason: string;
+     reasonCodes: string[];
+   };
 diff --git a/projects/sfia-studio/app/lib/platform/tools/types.ts b/projects/sfia-studio/app/lib/platform/tools/types.ts
 index 042b53ff..7d61a4fc 100644
 --- a/projects/sfia-studio/app/lib/platform/tools/types.ts
@@ -1875,84 +3504,41 @@ index 042b53ff..7d61a4fc 100644
 
 ```
 
-## S. Tests et oracles (DET — ZERO *.real.test.ts — ZERO OpenAI)
-Suite ciblée exécutée (VÉRIFIÉ) : **10 files / 97 tests PASS**
-- p6.nora.p1.adaptiveBudget.d0.test.ts
-- missionProgressGuard.d0.test.ts
-- p6.extendedCorpusCaps.d0.test.ts
-- p6.nora.maxTurns.documentary.d0.test.ts
-- p6.nora.p1p2.documentary.mission.d0.test.ts
-- p6.nora.p1p2.targetedVerification.d0.test.ts
-- p6.nora.min09.documentaryReliability.d0.test.ts
-- liveActivityEvents.d0.test.ts
-- sendCancellableAssistantTurn.ndjson.d0.test.ts
-- stopAvailableEarly.d0.test.ts
+## Y. Tests et oracles
+Targeted suite re-executed this cycle (VÉRIFIÉ): **14 files / 125 PASS**
+ZERO *.real.test.ts · ZERO OpenAI REAL
 
-Scripts documentaires mis à jour : fenêtres startLine/endLine distinctes pour ne pas confondre progression légitime et boucle (garde limit=3 conservée).
+## Z. Typecheck / lint / build
+typecheck PASS · lint PASS · build PASS (VÉRIFIÉ)
 
-## T. Typecheck / lint / build
-- `npm run typecheck` — PASS (VÉRIFIÉ)
-- `npm run lint` — PASS (VÉRIFIÉ)
-- `npm run build` — PASS (VÉRIFIÉ)
+## AA. PRR
+Named PRR script NON EXÉCUTÉ this cycle; compile path covered by typecheck/build.
 
-## U. Tests UX
-- stopAvailable formula DET
-- Activity details markup + CSS reduced-motion existant
-- Capture runtime isolée Stop/live : **NON EXÉCUTÉE**
+## AB. Sécurité
+Browser-safe labels · no full docs in NDJSON · redaction paths unchanged · abort ≠ forged SUCCESS
 
-## V. Capture runtime / comparaison Figma
-- Figma 46:2 : idle Send — VÉRIFIÉ
-- Runtime Stop/live activity : **NON PROUVÉ** (pas de screenshot runtime isolé)
-- Verdict visuel : **DELIVERY WITH VISUAL RESERVE / REVIEW INCONCLUSIVE — RUNTIME SCREENSHOT REQUIRED** pour clôture visuelle stricte ; capacité logique Stop/live couverte en DET
+## AC. Fake / Real
+DETERMINISTIC END-TO-END CANDIDATE · REAL NON AUTORISÉ
 
-## W. Sécurité
-- Events browser-safe (label <280, pas de secrets)
-- Redaction paths inchangés (min09 R4/R7 PASS)
-- Annulation server-side via AbortSignal
-- Pas d’effet métier depuis analyse incomplète (contrats incomplets préservés)
+## AD. Réserves
+1. Corpus DET synthetic ≠ REAL provider quality
+2. Visual harness CSS/state mirror ≠ full Product Session bootstrap
+3. P6 GLOBAL still NOT PASSED
 
-## X. Fake / Real
-- Fake : ScriptedModel DET — PASS
-- REAL : **NON AUTORISÉ** ce cycle
-- Attendu sortie : DETERMINISTIC END-TO-END CANDIDATE
-- Hors scope : REAL BOUNDARY PROVEN / P6 GLOBAL PASS / RUNTIME V3 ADOPTED
-- Prochaine preuve REAL minimale : mission T2 multi-doc Product interactive sur runtime isolé (non :3020) avec budgets étendus + Stop + activity NDJSON — GO Morris distinct requis
+## AE. Dette / exit
+GO Git Integration after Re-Review PASS · Distinct REAL T2 GO · Optional Figma Stop frame
 
-## Y. Réserves
-1. Runtime screenshot Stop/live manquant
-2. Figma 46:2 n’encode pas Arrêter / live activity (delta Product documenté)
-3. REAL T2 non rejoué
-4. P6 GLOBAL toujours NOT PASSED
+## AF. Trajectoire P6
+Findings closed → Critical Re-Review → Git Integration → REAL → Human QA → P6 consolidation
 
-## Z. Dette / exit
-- Qualifier frame Figma Stop/Working ou accepter delta Product
-- Capture runtime isolée
-- GO Git Integration après Critical Review PASS
-- REAL T2 revalidation
-- Pas de cleanup / suppression branche sans GO
+## AG. Git Truth final
+Branch `delivery/sfia-studio-p6-nora-extended-execution-live-activity` @ `5e139627ff515cd36da5ce12d2c22f935adb139f` · dirty local candidate · no project push · :3020 intact
 
-## AA. Trajectoire P6
-P6 failure → integrated correction (ce lot) → deterministic proof (ce lot) → ChatGPT Critical Review → Git integration gate → REAL qualification → Morris Human QA → P6 consolidation
-
-## AB. Git Truth final
-- Branche : `delivery/sfia-studio-p6-nora-extended-execution-live-activity`
-- HEAD : `5e139627ff515cd36da5ce12d2c22f935adb139f`
-- Dirty : modifications locales non poussées (attendu — CONSTRUCTION LOCALE)
-- origin/main inchangé
-- Studio :3020 intact
-
-## AC. Actions autorisées consommées
-Diagnostic ; worktree isolé ; branche delivery ; code A/B/C ; DET ; typecheck/lint/build ; Figma MCP read ; Review Pack FULL ; Review Handoff L3 (publication)
-
-## AD. Actions non exécutées
-Push projet ; Draft/Ready PR ; merge ; REAL ; restart :3020 ; mutation Human QA DBs ; doctrine ; runtime v3 ; cleanup
-
-## AE. Verdict
+## AH. Verdict
 **P6 NORA EXTENDED COGNITIVE EXECUTION & LIVE ACTIVITY**
-**LOCAL DELIVERY COMPLETE / DETERMINISTIC QA PASS / READY FOR CHATGPT CRITICAL REVIEW**
-avec **VISUAL RESERVE** (runtime screenshot Stop/live non produit).
+**TARGETED FINDINGS CLOSED / DETERMINISTIC QA PASS / VISUAL PROOF QUALIFIED / READY FOR CHATGPT CRITICAL RE-REVIEW.**
 
-Ne pas déclarer : MERGED / P6 GLOBAL PASS / READY FOR REAL / REAL BOUNDARY PROVEN / RUNTIME V3 ADOPTED.
+Not declared: MERGED · P6 GLOBAL PASS · READY FOR REAL · REAL BOUNDARY PROVEN · RUNTIME V3 ADOPTED.
 
-## AF. Instruction ChatGPT
-Lire ce Review Handoff distant. Contrôler Git Truth, budgets, corpus caps, NDJSON live activity, Stop server-side, MissionProgressGuard, continuité Session, DET 97, typecheck/lint/build, Figma 46:2 + delta, Fake/Real, absence architecture parallèle, absence mutation Studio actif. Rendre **CHATGPT CRITICAL MACRO-LOT REVIEW**. Si PASS : recommander GO Morris Git Integration (pas de microcycle hardening sans défaut bloquant). Ne pas merger automatiquement.
+## AI. Instruction ChatGPT
+Lire ce handoff intégralement. Vérifier R-EXT-01…05, budget extensible, corpus 5/10/15, NDJSON/terminalité, annulation, Session, captures, **tous les nouveaux fichiers** + diffs, Fake/Real, réserves. Rendre **CHATGPT CRITICAL MACRO-LOT RE-REVIEW**. Si PASS: recommander GO Morris Git Integration. Pas de microcycle sans défaut bloquant. Pas de merge automatique.
