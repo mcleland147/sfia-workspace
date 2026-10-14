@@ -21,20 +21,30 @@ export const LEGACY_DEFAULT_MAX_TURNS = CT_MAX_TOOL_ROUNDS + 1; // 5
 export const ADAPTIVE_MAX_TURNS_FLOOR = 3;
 
 /**
- * Absolute production ceiling — FinOps hard guard.
- * Intentionally NOT 12 (experimental documentary proof only).
+ * Initial mission ceiling (delivery parameter) — adaptive requested max.
+ * Productive extensions may raise the absolute Runner cap toward
+ * ADAPTIVE_MAX_TURNS_SAFETY_ENVELOPE when observable tool progress exists.
+ * Still finite / never unlimited. Not FinOps T7 reactivation.
  */
-export const ADAPTIVE_MAX_TURNS_CEILING = 10;
+export const ADAPTIVE_MAX_TURNS_CEILING = 24;
+
+/**
+ * Hard safety envelope for automatic productive extensions (delivery parameter).
+ * Never exceeded without explicit caller maxTurns (tests/eval) or campaign lease.
+ * Sized for representative 10–15 doc Product missions under native RunState resume.
+ */
+export const ADAPTIVE_MAX_TURNS_SAFETY_ENVELOPE = 36;
 
 /**
  * Base mission maxTurns by strategy class (delivery parameters).
  * Routine preserves legacy default (5).
+ * Deep / High-Assurance sized for multi-document Product missions.
  */
 export const STRATEGY_BASE_MAX_TURNS: Record<CognitiveStrategyClass, number> = {
   Routine: LEGACY_DEFAULT_MAX_TURNS,
-  Focused: 8,
-  Deep: 10,
-  "High-Assurance": 10,
+  Focused: 10,
+  Deep: 16,
+  "High-Assurance": 20,
 };
 
 export type AdaptiveMaxTurnsDecision = {
@@ -173,7 +183,7 @@ export function resolveAdaptiveMaxTurns(input: {
     isKnownHigh(signals.sourceBreadth) ||
     isKnownHigh(signals.verificationNeed)
   ) {
-    const bumped = Math.min(ceiling, Math.max(base, 10));
+    const bumped = Math.min(ceiling, Math.max(base, 16));
     if (bumped > base) {
       reasonCodes.push("known_high_breadth_or_verification_bump");
       base = bumped;
@@ -182,18 +192,18 @@ export function resolveAdaptiveMaxTurns(input: {
     isKnownMediumOrHigh(signals.sourceBreadth) &&
     isKnownMediumOrHigh(signals.toolDependency)
   ) {
-    const bumped = Math.min(ceiling, Math.max(base, 8));
+    const bumped = Math.min(ceiling, Math.max(base, 14));
     if (bumped > base) {
       reasonCodes.push("known_medium_doc_tool_bump");
       base = bumped;
     }
   } else if (
     // Mono-file documentary synthesis: high toolDependency + medium/high depth
-    // → at least Focused base (8), never invents sourceBreadth, never exceeds ceiling.
+    // → at least Focused base, never invents sourceBreadth, never exceeds ceiling.
     isKnownHigh(signals.toolDependency) &&
     isKnownMediumOrHigh(signals.reasoningDepth)
   ) {
-    const bumped = Math.min(ceiling, Math.max(base, 8));
+    const bumped = Math.min(ceiling, Math.max(base, 10));
     if (bumped > base) {
       reasonCodes.push("known_mono_doc_tool_synthesis_bump");
       base = bumped;

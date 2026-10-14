@@ -30,7 +30,10 @@ import {
   GitLocalReadAdapter,
   countCompleteReturnedLines,
 } from "@/lib/platform/repository/gitLocalReadAdapter";
-import { CT_MAX_TOOL_RESULT_CHARS } from "@/lib/platform/tools/types";
+import {
+  CT_DEFAULT_READ_MAX_BYTES,
+  CT_MAX_TOOL_RESULT_CHARS,
+} from "@/lib/platform/tools/types";
 import {
   createToolCallId,
   prepareGitLocalReadDataForModel,
@@ -47,6 +50,16 @@ projects/sfia-studio/product-simplification/01-chat-first-product-simplification
 Tu peux le consulter et m'en faire une synthèse de ce que tu en retiens ?`;
 
 const dirs: string[] = [];
+
+/**
+ * One complete line fits adapter caps at CT_MAX_TOOL_RESULT_CHARS but not the
+ * final model JSON envelope (metadata overhead vs Product ceiling).
+ */
+const ENVELOPE_OVERSIZE_LINE_PAYLOAD_CHARS = 99_600;
+
+function envelopeSkipLongLine(): string {
+  return `L1 ${"x".repeat(ENVELOPE_OVERSIZE_LINE_PAYLOAD_CHARS)}`;
+}
 
 function tmpGitRepo(lineCount: number, lineWidth = 40): string {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), "p6-min09-doc-"));
@@ -181,7 +194,7 @@ describe("P6-MIN-09 — Axe B natural mono-file qualification", () => {
     expect(budget.requestedMaxTurns).toBeLessThanOrEqual(
       ADAPTIVE_MAX_TURNS_CEILING,
     );
-    expect(ADAPTIVE_MAX_TURNS_CEILING).toBe(10);
+    expect(ADAPTIVE_MAX_TURNS_CEILING).toBe(24);
   });
 });
 
@@ -487,7 +500,7 @@ describe("P6-MIN-09 — Axe A/E/F observability + honest incomplete", () => {
     expect(events.some((e) => e.type === "CONTINUATION_OBSERVED")).toBe(true);
     const adaptive = events.find((e) => e.type === "ADAPTIVE_BUDGET_OBSERVED");
     expect(adaptive?.detail.requestedMaxTurns).toBeTruthy();
-    expect(adaptive?.detail.ceiling).toBe(10);
+    expect(adaptive?.detail.ceiling).toBe(24);
     session.close();
   });
 
@@ -630,7 +643,7 @@ describe("P6-MIN-09 — R2 Runner maxTurns restitution integration", () => {
           {
             path: "projects/sfia-studio/app/package.json",
             startLine: 1,
-            endLine: 40,
+            endLine: 20,
           },
           { callId: "r2a" },
         ),
@@ -640,7 +653,7 @@ describe("P6-MIN-09 — R2 Runner maxTurns restitution integration", () => {
           "git_local_read_file",
           {
             path: "projects/sfia-studio/app/package.json",
-            startLine: 1,
+            startLine: 21,
             endLine: 40,
           },
           { callId: "r2b" },
@@ -695,8 +708,8 @@ describe("P6-MIN-09 — R2 Runner maxTurns restitution integration", () => {
         "git_local_read_file",
         {
           path: "projects/sfia-studio/app/package.json",
-          startLine: 1,
-          endLine: 5,
+          startLine: i * 5 + 1,
+          endLine: i * 5 + 5,
         },
         { callId: `seg${i + 1}` },
       ),
@@ -1098,7 +1111,7 @@ describe("P6-MIN-09 — R5 double truncation / final payload truth", () => {
     if (!result.ok) return;
     const raw = toolResultForModel(result);
     expect(() => JSON.parse(raw)).not.toThrow();
-    expect(CT_MAX_TOOL_RESULT_CHARS).toBe(12000);
+    expect(CT_MAX_TOOL_RESULT_CHARS).toBe(100_000);
   });
 
   it("R5-J — documentHasMore without size cut stays truncated=false", async () => {
@@ -1316,11 +1329,11 @@ describe("P6-MIN-09 — R6 final envelope oversized-line progression", () => {
     expect(parsed.data.content).toContain("short line one");
   });
 
-  it("R6-B/C — line fits adapter (~11900) but not final envelope → explicit skip", async () => {
-    const longLine = `L1 ${"x".repeat(11900)}`;
+  it("R6-B/C — line fits adapter but not final envelope → explicit skip", async () => {
+    const longLine = envelopeSkipLongLine();
     const root = tmpGitRepoWithLines([longLine, "L2 ok", "L3 ok"]);
     const adapter = new GitLocalReadAdapter(root);
-    const adapterRead = adapter.readFile(DOC, 32768, {
+    const adapterRead = adapter.readFile(DOC, CT_DEFAULT_READ_MAX_BYTES, {
       startLine: 1,
       endLine: 1,
     });
@@ -1335,7 +1348,12 @@ describe("P6-MIN-09 — R6 final envelope oversized-line progression", () => {
         toolCallId: createToolCallId(),
         sessionId: "cor:r6b",
         name: "git_local_read_file",
-        arguments: { path: DOC, startLine: 1, endLine: 1 },
+        arguments: {
+          path: DOC,
+          startLine: 1,
+          endLine: 1,
+          maxBytes: CT_DEFAULT_READ_MAX_BYTES,
+        },
       },
       { workspaceRoot: root },
     );
@@ -1368,7 +1386,7 @@ describe("P6-MIN-09 — R6 final envelope oversized-line progression", () => {
     expect(parsed.data.nextStartLineHint).not.toBe(
       parsed.data.returnedStartLine,
     );
-    expect(CT_MAX_TOOL_RESULT_CHARS).toBe(12000);
+    expect(CT_MAX_TOOL_RESULT_CHARS).toBe(100_000);
   });
 
   it("R6-D — adapter lineExceedsCap still explicit and advances", async () => {
@@ -1438,7 +1456,7 @@ describe("P6-MIN-09 — R6 final envelope oversized-line progression", () => {
   });
 
   it("R6-J/K/L — repeated reads progress; no loop; no false FULL", async () => {
-    const longLine = `L1 ${"x".repeat(11900)}`;
+    const longLine = envelopeSkipLongLine();
     const root = tmpGitRepoWithLines([longLine, "L2 ok", "L3 ok", "L4 ok"]);
     const hints: Array<number | null> = [];
     let start = 1;
@@ -1448,7 +1466,12 @@ describe("P6-MIN-09 — R6 final envelope oversized-line progression", () => {
           toolCallId: createToolCallId(),
           sessionId: `cor:r6j-${i}`,
           name: "git_local_read_file",
-          arguments: { path: DOC, startLine: start, endLine: start },
+          arguments: {
+            path: DOC,
+            startLine: start,
+            endLine: start,
+            maxBytes: CT_DEFAULT_READ_MAX_BYTES,
+          },
         },
         { workspaceRoot: root },
       );
@@ -1485,7 +1508,7 @@ describe("P6-MIN-09 — R6 final envelope oversized-line progression", () => {
   });
 
   it("R6-M/N — ceiling unchanged; other tools unaffected", () => {
-    expect(CT_MAX_TOOL_RESULT_CHARS).toBe(12000);
+    expect(CT_MAX_TOOL_RESULT_CHARS).toBe(100_000);
     const prepared = prepareToolDataForModel(
       { porcelain: " M other.txt\n", truncated: false },
       CT_MAX_TOOL_RESULT_CHARS,
@@ -1497,7 +1520,7 @@ describe("P6-MIN-09 — R6 final envelope oversized-line progression", () => {
   });
 
   it("R6-O — ToolRouter integration path (model boundary substituted only)", async () => {
-    const longLine = `L1 ${"x".repeat(11900)}`;
+    const longLine = envelopeSkipLongLine();
     const root = tmpGitRepoWithLines([longLine, "L2 after-skip"]);
     const dir = fs.mkdtempSync(path.join(os.tmpdir(), "p6-min09-r6o-"));
     dirs.push(dir);
@@ -1509,14 +1532,24 @@ describe("P6-MIN-09 — R6 final envelope oversized-line progression", () => {
       [
         functionCall(
           "git_local_read_file",
-          { path: DOC, startLine: 1, endLine: 1 },
+          {
+            path: DOC,
+            startLine: 1,
+            endLine: 1,
+            maxBytes: CT_DEFAULT_READ_MAX_BYTES,
+          },
           { callId: "r6o1" },
         ),
       ],
       [
         functionCall(
           "git_local_read_file",
-          { path: DOC, startLine: 2, endLine: 2 },
+          {
+            path: DOC,
+            startLine: 2,
+            endLine: 2,
+            maxBytes: CT_DEFAULT_READ_MAX_BYTES,
+          },
           { callId: "r6o2" },
         ),
       ],

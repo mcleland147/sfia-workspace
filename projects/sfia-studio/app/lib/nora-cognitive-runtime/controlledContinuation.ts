@@ -19,8 +19,15 @@ import { LEGACY_DEFAULT_MAX_TURNS } from "./adaptiveTurnBudget";
  */
 export const CONTINUATION_SEGMENT_MAX_TURNS = LEGACY_DEFAULT_MAX_TURNS; // 5
 
-/** Hard guard — prevent infinite segment loops even if counters desync. */
-export const CONTINUATION_MAX_SEGMENTS = 4;
+/**
+ * Hard guard — prevent infinite segment loops even if counters desync.
+ * Raised with mission ceiling so productive documentary work can continue
+ * without resetting counters (each segment resumes native RunState).
+ */
+export const CONTINUATION_MAX_SEGMENTS = 8;
+
+/** Max automatic productive extensions beyond the initial mission budget. */
+export const PRODUCTIVE_EXTENSION_MAX = 3;
 
 export type ContinuationStopReason =
   | "complete"
@@ -28,6 +35,8 @@ export type ContinuationStopReason =
   | "segment_limit_no_state"
   | "max_segments"
   | "campaign_or_provider_stop"
+  | "mission_no_progress"
+  | "safety_envelope_exhausted"
   | "abort"
   | "disabled";
 
@@ -42,6 +51,12 @@ export type ControlledContinuationObserve = {
    * (SDK maxTurns is absolute vs state._currentTurn — not a sum of segment sizes).
    */
   allottedTurns: number;
+  /** Initial adaptive/requested mission budget before productive extensions. */
+  initialMissionMaxTurns?: number;
+  /** Absolute safety envelope for productive extensions. */
+  safetyEnvelope?: number;
+  /** Count of automatic productive extensions beyond the initial mission budget. */
+  productiveExtensions?: number;
   stopReason: ContinuationStopReason;
   reasonCodes: string[];
 };

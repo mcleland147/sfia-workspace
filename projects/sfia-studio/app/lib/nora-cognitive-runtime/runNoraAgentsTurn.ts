@@ -21,6 +21,7 @@ import type { ConversationProvider } from "@/lib/platform/ai";
 import type { EventSink } from "@/lib/platform/observability/eventSink";
 import { requireLiveConversationSecrets } from "@/lib/platform/ai/config";
 import {
+  ADAPTIVE_MAX_TURNS_SAFETY_ENVELOPE,
   resolveAdaptiveMaxTurns,
   type AdaptiveMaxTurnsDecision,
 } from "./adaptiveTurnBudget";
@@ -31,6 +32,7 @@ import {
 import type { CognitiveStrategyClass } from "./cognitiveWorkloadPolicy";
 import {
   CONTINUATION_MAX_SEGMENTS,
+  PRODUCTIVE_EXTENSION_MAX,
   emptyContinuationObserve,
   planContinuationSegments,
   type ControlledContinuationObserve,
@@ -55,6 +57,11 @@ import {
   normalizeNoraProductTurnStructuredOutput,
 } from "./noraProductTurnOutputType";
 import { createSfiaRouteToolAdapters } from "./sfiaAgentsTools";
+import {
+  MISSION_NO_PROGRESS_STOP_STOCK,
+  MissionNoProgressStoppedError,
+  MissionProgressGuard,
+} from "./missionProgressGuard";
 import {
   createCycleJournalAgentsTools,
   type CycleJournalToolContext,
@@ -263,6 +270,7 @@ export function createNoraAgentsRunner(
   runnerModelSettings?: NoraRunnerModelSettings,
   campaignBudget?: NoraCampaignBudget,
   usdAccounting?: NoraAgentsUsdAccounting,
+  missionProgressGuard?: MissionProgressGuard | null,
 ): Runner {
   return new Runner({
     tracingDisabled: true,
@@ -271,6 +279,7 @@ export function createNoraAgentsRunner(
       budget,
       campaignBudget,
       usdAccounting,
+      missionProgressGuard,
     ),
     ...(runnerModelSettings ? { modelSettings: runnerModelSettings } : {}),
   });
@@ -388,12 +397,14 @@ export async function runNoraAgentsTurn(
     }
   }
   const enableTools = input.enableTools !== false;
+  const missionProgressGuard = enableTools ? new MissionProgressGuard() : null;
   const sfiaTools = enableTools
     ? createSfiaRouteToolAdapters({
         correlationId: input.correlationId,
         workspaceRoot: input.workspaceRoot,
         sink: input.sink,
         budget,
+        progressGuard: missionProgressGuard ?? undefined,
       })
     : [];
 
@@ -620,6 +631,7 @@ export async function runNoraAgentsTurn(
     runnerModelSettings,
     campaign,
     usdAccounting,
+    missionProgressGuard,
   );
   const maxTurns = clamp.maxTurns;
   const session = input.session ?? undefined;
@@ -775,20 +787,29 @@ export async function runNoraAgentsTurn(
   } else {
     // SDK maxTurns is ABSOLUTE against state._currentTurn (not remaining).
     // Segment 1 may stop early; resume raises absolute cap toward missionMaxTurns.
+    // Productive extensions may raise the effective mission cap toward the safety
+    // envelope when MissionProgressGuard reports verifiable tool progress.
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let runInput: string | RunState<any, Agent<any, any>> = input.userContent;
+    const initialMissionMaxTurns = maxTurns;
+    const safetyEnvelope = adaptiveDecision.explicitOverride
+      ? maxTurns
+      : ADAPTIVE_MAX_TURNS_SAFETY_ENVELOPE;
+    let effectiveMissionCap = maxTurns;
     let absoluteCap = continuationPlan.enable
-      ? Math.min(maxTurns, continuationPlan.segmentMaxTurns)
-      : maxTurns;
+      ? Math.min(effectiveMissionCap, continuationPlan.segmentMaxTurns)
+      : effectiveMissionCap;
     let allottedTurns = 0;
     let segmentsExecuted = 0;
     let continued = false;
+    let productiveExtensions = 0;
     let stopReason: ControlledContinuationObserve["stopReason"] = "complete";
 
     try {
       while (segmentsExecuted < CONTINUATION_MAX_SEGMENTS) {
         throwIfAborted(input.signal);
-        const atMissionCeiling = absoluteCap >= maxTurns;
+        const atMissionCeiling = absoluteCap >= effectiveMissionCap;
+        const atSafetyEnvelope = absoluteCap >= safetyEnvelope;
 
         try {
           const result = await runner.run(agent, runInput as never, {
@@ -798,8 +819,8 @@ export async function runNoraAgentsTurn(
             ...(session ? { session } : {}),
             ...(input.signal ? { signal: input.signal } : {}),
             maxTurns: absoluteCap,
-            // Soft handler only at mission ceiling — earlier segments throw for RunState.
-            ...(atMissionCeiling
+            // Soft handler only at safety envelope — earlier segments throw for RunState.
+            ...(atSafetyEnvelope
               ? {
                   errorHandlers: {
                     maxTurns: softMaxTurnsHandler,
@@ -817,9 +838,20 @@ export async function runNoraAgentsTurn(
           runNewItems = Array.isArray(result.newItems)
             ? [...result.newItems]
             : [];
-          stopReason = budget.limitReached
-            ? "mission_budget_exhausted"
-            : "complete";
+          if (missionProgressGuard?.stopped) {
+            budget.limitReached = true;
+            budgetStop = true;
+            text = MISSION_NO_PROGRESS_STOP_STOCK;
+            stopReason = "mission_no_progress";
+            continuationObserve.reasonCodes = [
+              ...continuationObserve.reasonCodes,
+              ...missionProgressGuard.stopReasonCodes,
+            ];
+          } else {
+            stopReason = budget.limitReached
+              ? "mission_budget_exhausted"
+              : "complete";
+          }
           break;
         } catch (segmentError) {
           if (isAbortLike(segmentError, input.signal)) {
@@ -834,6 +866,19 @@ export async function runNoraAgentsTurn(
             budgetStop = true;
             text = segmentError.message;
             stopReason = "campaign_or_provider_stop";
+            segmentsExecuted += 1;
+            allottedTurns = absoluteCap;
+            break;
+          }
+          if (segmentError instanceof MissionNoProgressStoppedError) {
+            budget.limitReached = true;
+            budgetStop = true;
+            text = segmentError.message;
+            stopReason = "mission_no_progress";
+            continuationObserve.reasonCodes = [
+              ...continuationObserve.reasonCodes,
+              ...segmentError.reasonCodes,
+            ];
             segmentsExecuted += 1;
             allottedTurns = absoluteCap;
             break;
@@ -857,9 +902,9 @@ export async function runNoraAgentsTurn(
               state &&
               segmentsExecuted < CONTINUATION_MAX_SEGMENTS
             ) {
-              // Raise absolute cap toward mission budget — native RunState resume.
+              // Raise absolute cap toward current effective mission — native RunState resume.
               absoluteCap = Math.min(
-                maxTurns,
+                effectiveMissionCap,
                 absoluteCap + continuationPlan.segmentMaxTurns,
               );
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -873,11 +918,47 @@ export async function runNoraAgentsTurn(
               continue;
             }
 
+            // R-EXT-02 — productive extension beyond initial mission budget when
+            // tool fingerprints advanced (never model self-declaration).
+            if (
+              continuationPlan.enable &&
+              atMissionCeiling &&
+              !atSafetyEnvelope &&
+              !adaptiveDecision.explicitOverride &&
+              state &&
+              productiveExtensions < PRODUCTIVE_EXTENSION_MAX &&
+              segmentsExecuted < CONTINUATION_MAX_SEGMENTS &&
+              missionProgressGuard?.hasVerifiableProgressForExtension()
+            ) {
+              const nextCap = Math.min(
+                safetyEnvelope,
+                absoluteCap + continuationPlan.segmentMaxTurns,
+              );
+              if (nextCap > absoluteCap) {
+                productiveExtensions += 1;
+                effectiveMissionCap = nextCap;
+                absoluteCap = nextCap;
+                missionProgressGuard.markExtensionConsumed();
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                runInput = state as RunState<any, Agent<any, any>>;
+                continued = true;
+                budget.limitReached = false;
+                continuationObserve.reasonCodes = [
+                  ...continuationObserve.reasonCodes,
+                  `productive_extension_${productiveExtensions}`,
+                  `extended_absolute_cap_${absoluteCap}`,
+                ];
+                continue;
+              }
+            }
+
             budget.limitReached = true;
             text = partial;
-            stopReason = state
-              ? "mission_budget_exhausted"
-              : "segment_limit_no_state";
+            stopReason = !state
+              ? "segment_limit_no_state"
+              : atSafetyEnvelope || absoluteCap >= safetyEnvelope
+                ? "safety_envelope_exhausted"
+                : "mission_budget_exhausted";
             break;
           }
           throw segmentError;
@@ -906,9 +987,12 @@ export async function runNoraAgentsTurn(
     continuationObserve = {
       continued,
       segmentsExecuted,
-      missionMaxTurns: maxTurns,
+      missionMaxTurns: effectiveMissionCap,
       segmentMaxTurns: continuationPlan.segmentMaxTurns,
       allottedTurns,
+      initialMissionMaxTurns,
+      safetyEnvelope,
+      productiveExtensions,
       stopReason,
       reasonCodes: continuationObserve.reasonCodes,
     };

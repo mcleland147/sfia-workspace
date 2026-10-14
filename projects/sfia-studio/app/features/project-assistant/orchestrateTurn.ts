@@ -26,6 +26,10 @@ import {
 } from "@/lib/nora-cognitive-runtime/noraTurnAbort";
 import { noraTurnStoppedFailure } from "./noraTurnStopped";
 import {
+  liveActivityFromTechnicalToolEvent,
+  type NoraLiveActivityEvent,
+} from "./liveActivityEvents";
+import {
   appendPilotTranscriptTurn,
   materializeCycleJournalDelta,
 } from "@/lib/nora-cognitive-runtime/cycleJournalStore";
@@ -304,6 +308,11 @@ export async function orchestrateProjectAssistantTurn(input: {
   /** Request-scoped AbortSignal from cancellable Product transport. */
   signal?: AbortSignal;
   /**
+   * Progressive Pilote-safe activity during the turn (transport only).
+   * Never HumanDecision / Evidence / SUCCESS.
+   */
+  onLiveActivity?: (event: NoraLiveActivityEvent) => void;
+  /**
    * TEST-ONLY — await immediately before each durable-effect cut-line.
    * Not Product-visible. Lets tests abort in the post-model / pre-write window.
    */
@@ -437,7 +446,18 @@ export async function orchestrateProjectAssistantTurn(input: {
     { role: "user", content },
   ];
 
-  const sink = new ProjectAssistantMemoryEventSink();
+  let liveActivitySeq = 0;
+  const sink = new ProjectAssistantMemoryEventSink({
+    onEmit: (event) => {
+      if (!input.onLiveActivity) return;
+      const mapped = liveActivityFromTechnicalToolEvent({
+        type: event.type,
+        detail: (event.detail ?? {}) as Record<string, unknown>,
+        seq: ++liveActivitySeq,
+      });
+      if (mapped) input.onLiveActivity(mapped);
+    },
+  });
   const workspaceRoot = resolveWorkspaceRootFromAppCwd();
   const provider = input.provider ?? resolveConversationProvider();
   const presentation = modeResolution.presentation;

@@ -190,6 +190,36 @@
   color: var(--pm6-accent);
 }
 
+.noraActivityDetails {
+  margin-top: 0.5rem;
+  font-size: 0.8125rem;
+  color: var(--sfia-text-muted, #5c6570);
+}
+
+.noraActivityDetails summary {
+  cursor: pointer;
+  list-style: disclosure-closed;
+}
+
+.noraActivityTimeline {
+  margin: 0.4rem 0 0;
+  padding-left: 1.1rem;
+  max-height: 10rem;
+  overflow-y: auto;
+}
+
+.noraActivityTimeline li {
+  margin: 0.2rem 0;
+}
+
+.noraActivityTimelineKind {
+  display: inline-block;
+  min-width: 7.5rem;
+  margin-right: 0.4rem;
+  opacity: 0.7;
+  font-variant: small-caps;
+}
+
 .noraActivityText {
   margin: 0;
   font-size: var(--pm6-text-subtitle);

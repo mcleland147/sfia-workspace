@@ -15,6 +15,8 @@ import { markModelTurn } from "./turnBudget";
 import type { NoraCampaignBudget } from "./campaignBudget";
 import { claimModelInvocation } from "./campaignBudget";
 import type { NoraAgentsUsdAccounting } from "./agentsUsdAccounting";
+import type { MissionProgressGuard } from "./missionProgressGuard";
+import { MissionNoProgressStoppedError } from "./missionProgressGuard";
 
 export class CampaignModelInvocationDeniedError extends Error {
   readonly code = "NORA_CAMPAIGN_MODEL_INVOCATION_DENIED";
@@ -101,6 +103,7 @@ export function createSfiaCallModelInputFilter(
   budget?: NoraTurnBudget,
   campaignBudget?: NoraCampaignBudget,
   usdAccounting?: NoraAgentsUsdAccounting,
+  missionProgressGuard?: MissionProgressGuard | null,
 ): CallModelInputFilter {
   const instructions = [
     "=== SYSTEM / DEVELOPER INSTRUCTIONS (Studio-supplied product context) ===",
@@ -113,6 +116,9 @@ export function createSfiaCallModelInputFilter(
   ].join("\n");
 
   return ({ modelData }) => {
+    if (missionProgressGuard?.stopped) {
+      throw new MissionNoProgressStoppedError(missionProgressGuard.stopReasonCodes);
+    }
     // USD hard-cap preflight BEFORE model dispatch (no spend yet).
     let usdEstimate: number | null = null;
     if (usdAccounting) {

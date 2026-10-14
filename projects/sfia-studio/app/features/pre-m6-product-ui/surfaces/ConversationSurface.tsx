@@ -198,6 +198,7 @@ export function ConversationSurface({
     draft,
     setDraft,
     toolEvents,
+    liveActivityEvents = [],
     uiState,
     error,
     executionIncomplete,
@@ -563,8 +564,28 @@ export function ConversationSurface({
                 className={styles.noraActivityText}
                 data-testid="project-assistant-nora-activity-label"
               >
-                {noraActivity.label}
+                {liveActivityEvents.length > 0
+                  ? liveActivityEvents[liveActivityEvents.length - 1]!.label
+                  : noraActivity.label}
               </p>
+              {liveActivityEvents.length > 0 ? (
+                <details
+                  className={styles.noraActivityDetails}
+                  data-testid="project-assistant-nora-activity-details"
+                >
+                  <summary>Détail de l’activité</summary>
+                  <ol className={styles.noraActivityTimeline}>
+                    {liveActivityEvents.map((event) => (
+                      <li key={`${event.seq}-${event.kind}-${event.at}`}>
+                        <span className={styles.noraActivityTimelineKind}>
+                          {event.kind}
+                        </span>
+                        <span>{event.label}</span>
+                      </li>
+                    ))}
+                  </ol>
+                </details>
+              ) : null}
             </div>
           </article>
         ) : null}
