@@ -1,283 +1,1519 @@
-# SFIA STUDIO — P6 T2 REAL REQUALIFICATION + BROWSER UX + HUMAN QA
-## Cycle 9 — Review Pack FULL
+# SFIA STUDIO — P6 NORA LIVE ACTIVITY & CONTROL — UX CUMULATIVE CLOSURE
+## Cycle 8 (+4/+9) — Review Pack FULL
 
-**A. Horodatage (Europe/Paris):** 2026-10-14 19:06:36 CEST (pack finalisé ensuite)
-**B. GO Morris:** P6 T2 REAL + Browser UX + Human QA — AUTHORIZED / CONSUMED (préparation + handoff). Auth/T2 REAL exécutés par Morris (non automatisés Cursor sur ordre Morris 2026-10-14 19:06).
-**C. Cycle / profil:** Cycle 9 — CRITICAL — QA / REAL-BOUNDARY / INTEGRATED PRODUCT / HUMAN QA
-**D. Repository:** `mcleland147/sfia-workspace`
+**A. Horodatage (Europe/Paris):** 2026-10-14 20:57:04 CEST
+**B. GO Morris:** LOCAL DELIVERY + UX VALIDATION AUTHORIZED — 2026-10-14 — CONSUMED
+**C. Cycle / profil / typologie:** Cycle 8 Delivery (intégré 4 UX/UI + 9 QA) — CRITICAL — EVOL TARGETED UX CLOSURE
+**D. Repository:** mcleland147/sfia-workspace
 
 ---
 
-## D. Git Truth (VÉRIFIÉ)
+## D. Git Truth (VERIFIE)
 
 | Check | Value |
 |---|---|
-| Delivery worktree | `/Users/morris/Projects/sfia-workspace-p6-nora-extended-execution-live-activity` |
-| Branch | `delivery/sfia-studio-p6-nora-extended-execution-live-activity` |
-| HEAD delivery | `3d8acf3475c2180b8135379b110995b455f037ee` |
-| origin/main | `eec68a418ae271452edc2188c9cf1ae06faa8232` (= eec68a41 attendu) |
-| Handoff remote (entrée) | `8d08f8167abcb5b02a3ede9dd52fe5e12905a2d3` |
-| Dirty delivery | ```M .tmp-sfia-review/chatgpt-review.md``` |
-| QA worktree | `/Users/morris/Projects/sfia-workspace-p6-t2-real-qa-eec68a41` detached @ `eec68a418ae271452edc2188c9cf1ae06faa8232` |
+| Build worktree | `/Users/morris/Projects/sfia-workspace-p6-nora-ux-cumulative-closure` |
+| Branch locale | `delivery/sfia-studio-p6-nora-ux-cumulative-closure` (pas de remote branch) |
+| HEAD | `eec68a418ae271452edc2188c9cf1ae06faa8232` (= origin/main, PR #582 merged) |
+| QA worktree :3020 | `/Users/morris/Projects/sfia-workspace-p6-t2-real-qa-eec68a41` — NON MUTE |
+| Delivery historique | `/Users/morris/Projects/sfia-workspace-p6-nora-extended-execution-live-activity` — non edite |
+| Commit / push projet | NON EXECUTE |
 
-## E–G. Convergence / Sources / Baseline
+Note: re-ancrage local sur eec68a41 apres derive temporaire; stash temporaire pour re-ancrage puis droppe.
 
-Build Doctrine / Roadmap / C1: VALIDATED — non mutés.
+## E. Convergence
+
+Build Doctrine / Roadmap / C1: VALIDATED (non mutes).
+PR #582 INTEGRATED ON MAIN.
+T2/T3 Human QA favorables avec reserves UX (RAPPORTE).
 P6 GLOBAL: NOT PASSED. Runtime v3: NON ADOPTED.
-Baseline post-merge: **eec68a418ae271452edc2188c9cf1ae06faa8232** (PR #582 MERGED, CI post-merge 38589732457 PASS — VÉRIFIÉ cycle précédent).
+Gap traite: UX lisibilite / Stop / sources — moteur Nora inchange.
 
-Sources consultées: doctrine/roadmap/C1/P6, handoff 8d08f816, session historique readonly, GO Cycle 9.
+## F. Sources lues
 
-## H. Historique T2 (VÉRIFIÉ — lecture immutable)
+product-simplification 03/04/07; ConversationSurface + CSS; liveActivityEvents; useProductConversation (Stop); readCoverage; handoff Cycle 9; Figma MCP m4g8j0gNbEzfIuH6S9AZJF.
 
-Projet: **Simplification des interactions avec l’IA** — `prj:e66fd58c-03f6-41df-90c8-4ae267926212`
+## G. Constats Human QA T2/T3 (RAPPORTE)
 
-T1 historique (échec maxTurns / Analyse inachevée): documenté pack MIN-09.
-T2 prompt exact récupéré depuis `pilot_transcript_turns` (logical_turn_id `ltu:74fe86b4b74c650c0e2b82ef0b1604c8`, 2026-10-14T10:59:02Z):
+Codes techniques + numerotation; animation one-shot; Stop unicode/hover; sources = toolEvents bruts; cognition hors scope.
 
+## H. Contrat Figma extrait
+
+# Contrat Figma extrait — Nora UX closure (2026-10-14)
+
+FileKey: m4g8j0gNbEzfIuH6S9AZJF · session MCP 5f3b6f2e-62b1-40e2-9150-492acfa4e4d3
+
+## Frames / statut
+
+| Node | Nom | Statut |
+|---|---|---|
+| 46:2 | Workspace desktop 1440×1024 | REFERENCE |
+| 46:126 | Composer | REFERENCE |
+| 46:134 | Send 30×30 | REFERENCE (↑ blanc sur #1f1a16) — **pas une variante Stop** |
+| 119:4 | Nora Motion ACTIVITY | EXPLORATORY / HARVEST |
+| 125:2 | START | EXPLORATORY |
+| 125:183 | STREAMING | EXPLORATORY |
+| 125:365 | COMPLETE | EXPLORATORY |
+| 125:535 | STOPPED | **EXISTE** — EXPLORATORY (metadata confirmée) |
+| 125:712 | Motion Contract DP06 v1 1440×470 | CONTRACT REFERENCE |
+
+## Tokens / dimensions (harvest)
+
+- Canvas / surfaces: #fffdf9, #fcf8f3, borders #e2d8ce / #eae2d9
+- Ink: #1f1a16 · muted labels: #6d645c / #978c81 / #5f564e
+- Accent activité (Figma ACTIVITY): orange/rouge point ● → ✓
+- Composer input h≈96 · Send 30×30 radius 7
+- Timing DP06: entrée bloc 160–200ms ease-out; reduced-motion opacity ~120ms; no fake progress
+- Reduced motion: no pulse/translate; keep status text
+
+## Décisions Morris appliquées (ambiguïté Stop)
+
+- Figma 46:134 = Send seulement → **pas de taille Stop adoptée comme pixel-perfect Figma**
+- Intention: bouton clair, glyphe sombre SVG 12×12 dans contrôle 30×30, hover gris chaud (#f3ede5 / forest-tint), jamais noir-sur-noir
+- Alignement compositeur conservé
+
+## Écarts runtime pré-correction (observés Human QA)
+
+- Codes kind + numérotation dans détail
+- Animation one-shot seulement
+- ■ unicode + hover sombre
+- Sources = logs bruts toolEvents
+
+
+## I. Manifest exact
+
+| Fichier | Action | Justification |
+|---|---|---|
+| ConversationSurface.tsx | MODIFY | activite Pilote, Stop SVG, sources groupees |
+| ConversationSurface.module.css | MODIFY | gris secondaire, pulse, Stop hover, sources |
+| presentLiveActivityTimeline.ts | ADD | helper presentation |
+| presentConversationSources.ts | ADD | aggregation + disclaimer scope |
+| middleware.ts | MODIFY | preview /dev/nora-ux-closure si env flag |
+| app/dev/nora-ux-closure/page.tsx | ADD | harness ConversationSurface reel |
+| tests uxClosure + liveActivityStop | ADD/MODIFY | UX-01..20 DET |
+| Runner / budgets / NDJSON / DBs | NONE | hors scope |
+
+## J. Correction activite
+
+Detail: labels seulement (ul), collapse doublons, P1-P4 si path connu.
+Aucun event.kind / numerotation Pilote.
+Preuve navigateur detail:
 ```
-Nora, maintenant qu'on a regardé le document de cadrage P1, j'aimerais qu'on s'intéresse au modèle de fonctionnement P2.
-Le document est aussi disponible dans notre dépôt Git : projects/sfia-studio/product-simplification/02-chat-first-product-simplification-functional-operating-model.md
-Tu peux le consulter et m'expliquer comment il s'articule avec le cadrage P1 qu'on vient d'analyser ? J'aimerais comprendre ce que P2 apporte concrètement à notre réflexion sur la simplification des interactions avec l'IA.
+Détail de l’activité
+Mission démarrée
+Nora consulte P3.
+Nora a terminé la lecture de P3.
+Nora consulte P4.
+Nora poursuit la comparaison.
 ```
+kindLeak=false (VERIFIE).
 
-P1/P2 paths confirmés sur baseline.
-État: **CLONED QA STATE** via `sqlite3 .backup` des DB historiques → stores isolés (pas d’écriture sur DB historiques).
+## K. Correction couleurs
 
-## I–J. Environnement ancien / Protection
+Activite/detail: --pm6-muted-strong.
+Contraste navigateur: `{
+  "color": "rgb(111, 102, 94)",
+  "canvas": "#fffdf9",
+  "ratio": 5.53
+}` — ratio 5.53 >= 4.5 AA (VERIFIE).
 
-Ancien runtime bd3f440c sur :3020 **arrêté** sur override Morris « port 3020 uniquement » (2026-10-14).
-Fichiers DB historiques **préservés sur disque** (non ouverts par le nouveau process — VÉRIFIÉ lsof).
-Backup cohérent: `/Users/morris/Projects/sfia-workspace-p6-t2-real-qa-eec68a41/.tmp-sfia-review/p6-t2-real-requal/raw/historical-sqlite-backup-*`.
+## L. Correction motion
 
-## K. Environnement isolé (VÉRIFIÉ — DISPONIBLE)
+Pulse .noraActivityPulse pendant activite.
+Samples: `{
+  "samples": [
+    "0.963393",
+    "0.766485",
+    "0.499161",
+    "0.353746",
+    "0.400615",
+    "0.644357",
+    "0.896135",
+    "0.999997"
+  ]
+}`
+Reduced-motion animationName=`none` (VERIFIE).
+Entree bloc 180ms conservee.
 
-```
-snapshotAt=2026-10-14T18:58:54+0200
-baselineCommit=eec68a418ae271452edc2188c9cf1ae06faa8232
-qaWorktree=/Users/morris/Projects/sfia-workspace-p6-t2-real-qa-eec68a41
-runtimePort=3020
-runtimeBind=127.0.0.1
-productDbIsolated=/Users/morris/Projects/sfia-workspace-p6-t2-real-qa-eec68a41/projects/sfia-studio/.sfia-exec/p6-t2-real-qa/product/oa-product.sqlite
-sessionDbIsolated=/Users/morris/Projects/sfia-workspace-p6-t2-real-qa-eec68a41/projects/sfia-studio/.sfia-exec/p6-t2-real-qa/product/nora-session.sqlite
-historicalProductDb=/Users/morris/Projects/sfia-workspace-p6-rec01-human-qa/projects/sfia-studio/.sfia-exec/hqa01-rec01-requal/product/oa-product.sqlite
-historicalSessionDb=/Users/morris/Projects/sfia-workspace-p6-rec01-human-qa/projects/sfia-studio/.sfia-exec/hqa01-rec01-requal/product/nora-session.sqlite
-historicalRuntimeStopped=bd3f440c_next_was_stopped_for_port_3020_override
-note=Morris override 2026-10-14: application on port 3020 only; isolated DBs; historical DB files preserved on disk
-projectId=prj:e66fd58c-03f6-41df-90c8-4ae267926212
+## M. Correction Stop
 
-```
+SVG 12x12 dans bouton 30x30 clair.
+Hover: `{
+  "bg": "rgb(243, 237, 229)",
+  "color": "rgb(31, 26, 22)",
+  "border": "rgb(111, 102, 94)"
+}` — glyphe sombre conserve.
+Focus outline: `rgb(31, 26, 22) none 3px`
+onClick / aria-label / AbortController inchanges (tests PASS).
 
-| Item | Value |
-|---|---|
-| URL | http://localhost:3020 |
-| Port | **3020 uniquement** (3030 abandonné) |
-| Commit runtime | eec68a41 |
-| Product DB | isolée sous `.sfia-exec/p6-t2-real-qa/product/` |
-| Session DB | isolée (même répertoire) |
-| OPENAI | clé présente (SET_NONEMPTY) — valeur non publiée |
-| Model env | `gpt-5.6-luna` (configuré; modèle réellement dispatché = à observer pendant Human QA) |
-| Auth | **NON TESTÉE par Cursor** — Morris se connecte |
+## N. Correction sources
 
-## L–O. Session / Privacy / Provider / Budget
+Synthese groupee; disclaimer conversation-scope; FULL jamais invente;
+detail technique brut conserve. ProjectAssistantPanel legacy non modifie.
 
-Product+Session: clones isolés du projet Human QA.
-Privacy: sources P1/P2 = docs repo publics du workspace — éligibles.
-Provider preflight: OPENAI_API_KEY SET; REAL path Product (pas eval harness).
-Budget:
+## O. Tests (VERIFIE)
 
-```
-# Budget envelope qualification — P6 T2 REAL
+vitest 11 PASS: presentation(4) + sourcesSurface(1) + liveActivityStop(6).
 
-## Applicable bounds (VERIFIED in Product path code @ eec68a41)
+## P. Typecheck / lint / build (VERIFIE)
 
-| Bound | Owner | Value | Source |
-|---|---|---|---|
-| Adaptive mission maxTurns | Studio cognitive policy | floor 3 / ceiling 24 | adaptiveTurnBudget.ts |
-| Safety envelope + extensions | Studio cognitive policy | ≤36 turns, ≤3 productive extensions | adaptiveTurnBudget / controlledContinuation |
-| Tool result envelope | Studio tool policy | CT_MAX_TOOL_RESULT_CHARS=100_000 | platform/tools/types.ts |
-| Read default bytes | Studio tool policy | CT_DEFAULT_READ_MAX_BYTES=200_000 | platform/tools/types.ts |
-| MissionProgressGuard | Studio cognitive policy | stop on identical non-empty target streak ≥3 | missionProgressGuard.ts |
-| AbortSignal | Product transport | Pilot Stop → Runner | send route / AbortController |
-| Provider credential | Morris OpenAI account | OPENAI_API_KEY present (SET_NONEMPTY) | isolated .env.local keys audit |
-| Morris GO | Morris | Single T2 REAL scenario authorized 2026-10-14 | Cycle GO |
+tsc --noEmit EXIT 0; next lint clean; next build SUCCESS (/dev/nora-ux-closure).
 
-## Not applicable on Product send path (VERIFIED)
+## Q. Accessibilite
 
-| Bound | Status |
-|---|---|
-| Studio FinOps hardCapUsd | NOT WIRED on `sendProjectAssistantTurn` → `orchestrateAssistantSend` (usdAccounting optional, not constructed) |
-| Eval BudgetTracker hardCapUsd ($5/$20) | Eval harness only — must NOT substitute for Product path |
+Contraste AA; Stop focus-visible; reduced-motion sans pulsation; aria-label Stop.
 
-## Exposure
+## R-S. Browser runtime + captures
 
-- ESTIMATED USD: NOT INVENTED (no authority figure for Product path)
-- OBSERVED historical precedent: same Product path already executed REAL T1/T2 against OpenAI without Studio USD meter
-- Bounding strategy for this run: ONE T2 logical turn, no automatic retry, cognitive envelope ≤36, abort available
+Runtime: http://127.0.0.1:3031/dev/nora-ux-closure (SFIA_STUDIO_UX_CLOSURE_PREVIEW=1).
+:3020 Human QA preserve (200). ZERO OpenAI.
+Captures: `.tmp-sfia-review/p6-nora-ux-closure/captures/01..11` + JSON motion/contrast.
+Limitations: harness != parcours auth Product; STREAMING Figma non revendique; Stop = intention Morris / reserve pixel Figma (46:134 = Send only).
 
-## Verdict
+## T. Figma / runtime
 
-BUDGET ENVELOPE QUALIFIED FOR BOUNDED T2 under Morris GO + cognitive safety envelope.
-Studio USD hardCap: ABSENT (documented reserve, not silent unlimited — turn/envelope bounds remain hard).
+Composer/Send: CONFORME alignement.
+Motion DP06: PARTIELLEMENT CONFORME.
+ACTIVITY checkmarks Figma: RESERVE (pulse+labels, pas faux succes).
+Stop: CONFORME intention Morris / RESERVE pixel Figma.
 
-```
+## U. Securite
 
-## P–R. REAL run / Prompt / Sources
+Pas de secrets; DBs HQA non ouvertes; preview env-gated; pas de nouveau provider.
 
-| | |
-|---|---|
-| runId préparation | `p6-t2-real-20261014T164648Z` |
-| scenarioId | P6-T2-REAL-P1P2 |
-| Prompt | exact (ci-dessus) |
-| P1/P2 | paths canoniques product-simplification |
+## V. Fake / Real
 
-## S–Z. Couverture / Continuation / NDJSON / Terminal / Qualité / UX / STOP
+Fake: evenements controles + stub. Parite ConversationSurface.
+NON REVENDIQUE: REAL cognition; P6 GLOBAL PASS; RUNTIME V3 ADOPTED.
 
-**NON EXÉCUTÉ par Cursor** (ordre Morris: préparer l’app, pas tester auth; Human QA = Morris).
+## W. Reserves
 
-Statuts:
-- Documentary coverage T2: NOT OBSERVED (ce cycle)
-- Continuation/extensions: NOT OBSERVED
-- NDJSON live: NOT OBSERVED
-- Terminal state: NOT OBSERVED
-- Cognitive quality: NOT OBSERVED
-- Browser UX captures: NOT OBSERVED (Cursor IDE browser ne joint pas localhost; navigateur système = Morris)
-- STOP exercised: NON EXÉCUTÉ (interdit sur T2 principal)
+1. Panel legacy sources inchange.
+2. Checkmarks Figma ACTIVITY non implementes.
+3. FULL rare volontairement.
+4. Stash temporaire re-ancrage (droppe).
 
-## AA–AB. Human QA Queue / Verdict Morris
+## X. Dette / exit
 
-```
-# Human QA Queue — P6-T2-REAL-P1P2
+Apres Critical Review -> GO Morris Git Integration cumulative.
 
-**Item ID:** P6-T2-REAL-P1P2
-**Status:** ENVIRONMENT READY / WAITING HUMAN QA (Morris)
-**Baseline:** `eec68a418ae271452edc2188c9cf1ae06faa8232` (PR #582 merged)
-**Runtime:** http://localhost:3020 **uniquement**
+## Y. Trajectoire P6
 
-## Accès
+UX closure locale -> Critical Review -> (GO) Git Integration -> P6 consolidation.
 
-| | |
-|---|---|
-| Login | http://localhost:3020/login |
-| Projet | Simplification des interactions avec l’IA |
-| Project ID | `prj:e66fd58c-03f6-41df-90c8-4ae267926212` |
-| URL projet | http://localhost:3020/studio/projects/e66fd58c-03f6-41df-90c8-4ae267926212 |
-| État | **CLONED QA STATE** (backup sqlite cohérent → stores isolés) |
-| Worktree | `/Users/morris/Projects/sfia-workspace-p6-t2-real-qa-eec68a41` |
+## Z. Git Truth final
 
-Cursor n’exécute **pas** l’auth ni le T2 REAL. Morris se connecte et juge.
+HEAD eec68a41; branch locale delivery/sfia-studio-p6-nora-ux-cumulative-closure; dirty UX only; no project commit/push.
 
-## Prompt T2 exact (ne pas paraphraser)
+## AA. Verdict
 
-```
-Nora, maintenant qu'on a regardé le document de cadrage P1, j'aimerais qu'on s'intéresse au modèle de fonctionnement P2.
-Le document est aussi disponible dans notre dépôt Git : projects/sfia-studio/product-simplification/02-chat-first-product-simplification-functional-operating-model.md
-Tu peux le consulter et m'expliquer comment il s'articule avec le cadrage P1 qu'on vient d'analyser ? J'aimerais comprendre ce que P2 apporte concrètement à notre réflexion sur la simplification des interactions avec l'IA.
-```
+P6 NORA LIVE ACTIVITY UX CLOSURE — LOCAL DELIVERY COMPLETE / DETERMINISTIC QA PASS / BROWSER VISUAL PROOF QUALIFIED / READY FOR CHATGPT CRITICAL REVIEW.
 
-Sources:
-- P1 `projects/sfia-studio/product-simplification/01-chat-first-product-simplification-cadrage.md`
-- P2 `projects/sfia-studio/product-simplification/02-chat-first-product-simplification-functional-operating-model.md`
+## AB. Instruction ChatGPT
 
-## Actions minimales
-
-1. Ouvrir http://localhost:3020/login (navigateur système).
-2. Se connecter (GitHub).
-3. Ouvrir l’URL projet.
-4. Idle : bouton **Envoyer** visible.
-5. Coller le prompt T2 exact → Envoyer.
-6. Observer **Arrêter**, activité live NDJSON, détail dépliable, libellés FR.
-7. Laisser le tour se terminer (ne pas Stop pour tester l’annulation sur ce T2).
-8. Juger qualité P1/P2, provenance, complétude, terminalité.
-9. Verdict : PASS / FAIL / PASS WITH RESERVES + observations.
-
-## Formulaire verdict
-
-```
-P6-T2-REAL-P1P2: PASS | FAIL | PASS WITH RESERVES
-Observations:
-...
-```
-
-```
-
-**Verdict Morris:** WAITING HUMAN QA — non fabriqué.
-
-## AC–AE. Fake/Real / Security / Findings
-
-| Niveau | Statut |
-|---|---|
-| DETERMINISTIC / INTEGRATED ON MAIN / POST-MERGE CI | PASS (cycles antérieurs) |
-| T2 REAL PRODUCT JOURNEY | **NOT EXECUTED this cycle by Cursor** |
-| END-TO-END REAL T2 | NON PROUVÉ |
-| READY FOR REAL / P6 GLOBAL / RUNTIME V3 | NON |
-
-Security: pas de secret dans pack; DB historiques non mutées par runtime QA; pas de push projet; pas de REAL auto.
-
-Findings / réserves:
-- R-REAL-01 ouvert (qualité REAL)
-- R-UX-01 ouvert (navigateur — à juger par Morris)
-- R-P6-01 ouvert jusqu’à Human QA
-- R-P6-02 P6 GLOBAL NOT PASSED
-- R-V3-01 NON ADOPTED
-- Studio Product path: pas de hardCapUsd FinOps (documenté)
-- Override port: app sur 3020 uniquement (Morris)
-
-## AF–AG. Dette / Trajectoire
-
-Dette: aucune construction nouvelle.
-Exit ce cycle Cursor: **environnement QA prêt + queue Human QA + pack/handoff**.
-Preuve T2 REAL + verdict humain: **gate Morris en cours (Human QA)**.
-Ensuite: consolidation P6 selon résultats.
-
-## AH. Git Truth final (delivery wt)
-
-HEAD `3d8acf3475c2180b8135379b110995b455f037ee` ; dirty pack local ; main distant `eec68a418ae271452edc2188c9cf1ae06faa8232` ; **pas de commit/push projet**.
-
-## AI. Verdict
-
-**P6 T2 REAL REQUALIFICATION — ENVIRONMENT READY / WAITING HUMAN QA.**
-
-Sous-verdict technique: runtime eec68a41 @ :3020 isolé, prompt T2 exact, budget qualifié, historiques préservés.
-REAL T2 / Browser UX / Human QA judgment: **WAITING MORRIS**.
-
-Ne pas revendiquer: P6 GLOBAL PASS, RUNTIME V3 ADOPTED, END-TO-END REAL T2 PASS, 15-DOC REAL.
-
-## AJ. Instruction ChatGPT
-
-Lire handoff distant. Vérifier baseline eec68a41, runtime :3020 isolé, DB historiques préservées, GO REAL borné non exécuté auto, prompt T2, queue Human QA, Fake/Real, réserves. Rendre **CHATGPT P6 T2 REAL + HUMAN QA REVIEW** en distinguant ENVIRONMENT READY vs REAL/HUMAN encore ouverts. Préparer handoff court Pilote si besoin. Pas de microcycle sans blocker.
+Lire handoff distant. Verifier Git Truth eec68a41, manifest sans Runner, activite sans jargon, gris/contraste, motion/reduced-motion, Stop normal/hover/focus, sources groupees honnetes, tests, captures runtime, pack FULL. Rendre CHATGPT P6 NORA UX CUMULATIVE CRITICAL REVIEW. Si PASS: recommander GO Morris pour une seule Git Integration cumulative. Ne pas push/merge auto.
 
 ---
 
-# APPENDIX — Evidence inventory (local paths, no secrets)
+## Git Review Index
+
+1. MODIFIED — ConversationSurface.tsx / .module.css / middleware.ts / liveActivityStop test
+2. ADDED — presentLiveActivityTimeline.ts / presentConversationSources.ts / uxClosure tests / dev preview
+3. EVIDENCE — `.tmp-sfia-review/p6-nora-ux-closure/`
+
+---
+
+## MODIFIED DIFFS (complet)
+
+```diff
+diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/conversationSurface.liveActivityStop.d0.test.tsx b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/conversationSurface.liveActivityStop.d0.test.tsx
+index cfd15ca4..6ed71d27 100644
+--- a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/conversationSurface.liveActivityStop.d0.test.tsx
++++ b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/conversationSurface.liveActivityStop.d0.test.tsx
+@@ -190,13 +190,19 @@ describe("ConversationSurface live activity + Stop (REAL React DET)", () => {
+
+     fireEvent.click(within(details).getByText("Détail de l’activité"));
+
+-    const timeline = details.querySelector("ol");
++    const timeline = details.querySelector("ul");
+     expect(timeline).toBeTruthy();
+-    expect(timeline!.textContent).toMatch(/mission_started/);
++    // UX-01 / UX-02 — no technical kind codes, no numbering column
++    expect(timeline!.textContent).not.toMatch(/mission_started/);
++    expect(timeline!.textContent).not.toMatch(/tool_started/);
++    expect(timeline!.textContent).not.toMatch(/activity_update/);
+     expect(timeline!.textContent).toMatch(/Mission démarrée/);
+-    expect(timeline!.textContent).toMatch(/tool_started/);
+-    expect(timeline!.textContent).toMatch(/Lecture du dépôt/);
+-    expect(timeline!.textContent).toMatch(/activity_update/);
++    expect(timeline!.textContent).toMatch(/Nora consulte « plan\.md »/);
++    expect(timeline!.textContent).toMatch(/Analyse en cours/);
++    expect(
++      screen.getByTestId("project-assistant-nora-activity-pulse"),
++    ).toBeInTheDocument();
++    expect(screen.getByTestId("project-assistant-stop").querySelector("svg")).toBeTruthy();
+   });
+
+   it("STOPPED banner — Réponse interrompue + retry; Send returns when idle", () => {
+diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.module.css b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.module.css
+index 60c9b9b9..44f0273d 100644
+--- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.module.css
++++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.module.css
+@@ -183,6 +183,9 @@
+ }
+
+ .noraActivityBadge {
++  display: inline-flex;
++  align-items: center;
++  gap: 6px;
+   font-size: var(--pm6-text-caption);
+   font-weight: 500;
+   letter-spacing: 0.4px;
+@@ -190,41 +193,65 @@
+   color: var(--pm6-accent);
+ }
+
++/* Continuous activity cue while mission is live (DP06 ACTIVITY). */
++.noraActivityPulse {
++  display: inline-block;
++  width: 6px;
++  height: 6px;
++  border-radius: 50%;
++  background: var(--pm6-accent);
++  flex-shrink: 0;
++  animation: noraActivityPulse 1.2s ease-in-out infinite;
++}
++
++@keyframes noraActivityPulse {
++  0%,
++  100% {
++    opacity: 0.35;
++    transform: scale(0.92);
++  }
++  50% {
++    opacity: 1;
++    transform: scale(1);
++  }
++}
++
+ .noraActivityDetails {
+   margin-top: 0.5rem;
+   font-size: 0.8125rem;
+-  color: var(--sfia-text-muted, #5c6570);
++  color: var(--pm6-muted-strong);
+ }
+
+ .noraActivityDetails summary {
+   cursor: pointer;
+   list-style: disclosure-closed;
++  color: var(--pm6-muted-strong);
+ }
+
+ .noraActivityTimeline {
++  list-style: none;
+   margin: 0.4rem 0 0;
+-  padding-left: 1.1rem;
++  padding: 0;
+   max-height: 10rem;
+   overflow-y: auto;
+ }
+
+ .noraActivityTimeline li {
+-  margin: 0.2rem 0;
++  margin: 0.28rem 0;
++  padding-left: 0;
+ }
+
+-.noraActivityTimelineKind {
+-  display: inline-block;
+-  min-width: 7.5rem;
+-  margin-right: 0.4rem;
+-  opacity: 0.7;
+-  font-variant: small-caps;
++.noraActivityTimelineLabel {
++  display: block;
++  color: var(--pm6-muted-strong);
++  line-height: 1.45;
+ }
+
+ .noraActivityText {
+   margin: 0;
+   font-size: var(--pm6-text-subtitle);
+   line-height: 1.6;
+-  color: var(--pm6-ink-soft);
++  color: var(--pm6-muted-strong);
+ }
+
+ @keyframes noraActivityIn {
+@@ -243,6 +270,12 @@
+     animation: noraActivityInReduced 120ms ease-out;
+   }
+
++  .noraActivityPulse {
++    animation: none;
++    opacity: 1;
++    transform: none;
++  }
++
+   @keyframes noraActivityInReduced {
+     from {
+       opacity: 0;
+@@ -949,6 +982,13 @@
+   display: block;
+ }
+
++.sourcesScope {
++  margin: 0 0 var(--pm6-space-2);
++  font-size: 0.78rem;
++  line-height: 1.45;
++  color: var(--pm6-muted-strong);
++}
++
+ .sourceList {
+   list-style: none;
+   margin: 0;
+@@ -979,7 +1019,7 @@
+   font-size: 0.72rem;
+   font-weight: 600;
+   letter-spacing: 0.04em;
+-  color: var(--pm6-muted);
++  color: var(--pm6-muted-strong);
+ }
+
+ .sourceDetail {
+@@ -988,6 +1028,36 @@
+   color: var(--pm6-muted-strong);
+ }
+
++.sourceTechDetails {
++  flex: 1 1 100%;
++  margin-top: 0.15rem;
++  font-size: 0.78rem;
++  color: var(--pm6-muted);
++}
++
++.sourceTechDetails summary {
++  cursor: pointer;
++  color: var(--pm6-muted-strong);
++}
++
++.sourceTechList {
++  list-style: none;
++  margin: 0.35rem 0 0;
++  padding: 0;
++  display: flex;
++  flex-direction: column;
++  gap: 0.35rem;
++}
++
++.sourceTechList li {
++  display: flex;
++  flex-wrap: wrap;
++  gap: 0.35rem 0.5rem;
++  align-items: baseline;
++  border-top: 1px dashed var(--pm6-border-soft);
++  padding-top: 0.35rem;
++}
++
+ /* ---------- error ---------- */
+
+ .errorBox {
+@@ -1148,22 +1218,32 @@
+ .stopButton {
+   display: inline-grid;
+   place-items: center;
+-  width: auto;
++  width: 30px;
+   min-width: 30px;
+   height: 30px;
+   border-radius: 7px;
+-  border: 1px solid var(--pm6-ink);
++  border: 1px solid var(--pm6-border);
+   background: var(--pm6-canvas);
+   color: var(--pm6-ink);
+-  padding: 0 10px;
++  padding: 0;
+   font-size: var(--pm6-text-caption);
+   font-weight: 600;
+   cursor: pointer;
+   min-height: 30px;
++  transition: background 120ms ease, border-color 120ms ease, color 120ms ease;
++}
++
++.stopGlyph {
++  display: block;
++  width: 12px;
++  height: 12px;
+ }
+
++/* Morris: light button, dark glyph; warmer gray hover — never dark-on-dark. */
+ .stopButton:hover {
+-  background: var(--pm6-forest-hover);
++  background: var(--pm6-forest-tint);
++  border-color: var(--pm6-muted-strong);
++  color: var(--pm6-ink);
+ }
+
+ .stopButton:focus-visible,
+diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
+index 2da31f3a..195546e8 100644
+--- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
++++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
+@@ -22,7 +22,14 @@ import {
+ } from "@/features/project-assistant/presentationLabels";
+ import type { AssistantToolEventDto } from "@/features/project-assistant/types";
+ import type { F2DecisionKind } from "@/features/project-assistant/f2/types";
+-import { useEffect, useId, useLayoutEffect, useRef, useState } from "react";
++import {
++  useEffect,
++  useId,
++  useLayoutEffect,
++  useRef,
++  useState,
++  type ReactElement,
++} from "react";
+ import type { ProductConversationController } from "../hooks/useProductConversation";
+ import type { ProductSynthesisProjection } from "@/lib/oa/synthesis";
+ import type { WorkRecommendationProjectionCard } from "@/lib/oa/cycle/application/deriveWorkRecommendations";
+@@ -37,6 +44,14 @@ import {
+ } from "./GovernedDecisionCard";
+ import { FramingContinuityCard } from "./FramingContinuityCard";
+ import { GovernedConfirmationCard } from "./GovernedConfirmationCard";
++import {
++  CONVERSATION_SOURCES_SCOPE_DISCLAIMER,
++  presentConversationSources,
++} from "./presentConversationSources";
++import {
++  presentActivityEventLabel,
++  presentLiveActivityTimeline,
++} from "./presentLiveActivityTimeline";
+ import styles from "./ConversationSurface.module.css";
+
+ /**
+@@ -78,6 +93,21 @@ function sourceStatusLabel(status: AssistantToolEventDto["status"]): string {
+   }
+ }
+
++function StopGlyph(): ReactElement {
++  return (
++    <svg
++      className={styles.stopGlyph}
++      width="12"
++      height="12"
++      viewBox="0 0 12 12"
++      aria-hidden="true"
++      focusable="false"
++    >
++      <rect x="2" y="2" width="8" height="8" rx="1" fill="currentColor" />
++    </svg>
++  );
++}
++
+ /** P6-HQA-UI05 — honest compact status (Figma 46:98 / 46:107). */
+ function f2RecommendationStatusLabel(input: {
+   readonly proposalStatus?: string | null;
+@@ -558,14 +588,23 @@ export function ConversationSurface({
+                 data-testid="project-assistant-nora-activity-heading"
+               >
+                 Nora
+-                <span className={styles.noraActivityBadge}>En cours</span>
++                <span className={styles.noraActivityBadge}>
++                  <span
++                    className={styles.noraActivityPulse}
++                    data-testid="project-assistant-nora-activity-pulse"
++                    aria-hidden="true"
++                  />
++                  En cours
++                </span>
+               </p>
+               <p
+                 className={styles.noraActivityText}
+                 data-testid="project-assistant-nora-activity-label"
+               >
+                 {liveActivityEvents.length > 0
+-                  ? liveActivityEvents[liveActivityEvents.length - 1]!.label
++                  ? presentActivityEventLabel(
++                      liveActivityEvents[liveActivityEvents.length - 1]!,
++                    )
+                   : noraActivity.label}
+               </p>
+               {liveActivityEvents.length > 0 ? (
+@@ -574,16 +613,17 @@ export function ConversationSurface({
+                   data-testid="project-assistant-nora-activity-details"
+                 >
+                   <summary>Détail de l’activité</summary>
+-                  <ol className={styles.noraActivityTimeline}>
+-                    {liveActivityEvents.map((event) => (
+-                      <li key={`${event.seq}-${event.kind}-${event.at}`}>
+-                        <span className={styles.noraActivityTimelineKind}>
+-                          {event.kind}
+-                        </span>
+-                        <span>{event.label}</span>
+-                      </li>
+-                    ))}
+-                  </ol>
++                  <ul className={styles.noraActivityTimeline}>
++                    {presentLiveActivityTimeline(liveActivityEvents).map(
++                      (line) => (
++                        <li key={line.key}>
++                          <span className={styles.noraActivityTimelineLabel}>
++                            {line.label}
++                          </span>
++                        </li>
++                      ),
++                    )}
++                  </ul>
+                 </details>
+               ) : null}
+             </div>
+@@ -2303,26 +2343,67 @@ export function ConversationSurface({
+             aria-label="Sources consultées"
+             data-testid="project-assistant-sources"
+           >
++            {toolEvents.length > 0 ? (
++              <p
++                className={styles.sourcesScope}
++                data-testid="project-assistant-sources-scope"
++              >
++                {CONVERSATION_SOURCES_SCOPE_DISCLAIMER}
++              </p>
++            ) : null}
+             <ul className={styles.sourceList}>
+-              {toolEvents.map((event, index) => (
++              {presentConversationSources(toolEvents).map((group) => (
+                 <li
+-                  key={`${event.toolName}-${index}-${event.pathOrRef ?? "na"}`}
++                  key={group.key}
+                   className={styles.sourceItem}
+                   data-testid="project-assistant-source-item"
+-                  data-status={event.status}
++                  data-status={
++                    group.detailEvents.some((e) => e.status === "denied")
++                      ? "denied"
++                      : group.detailEvents.some((e) => e.status === "failed")
++                        ? "failed"
++                        : group.detailEvents.some((e) => e.status === "succeeded")
++                          ? "succeeded"
++                          : group.detailEvents[0]?.status
++                  }
++                  data-status-tone={group.statusTone}
+                 >
+-                  <span className={styles.sourceName}>{event.toolName}</span>
++                  <span className={styles.sourceName}>{group.title}</span>
+                   <span className={styles.sourceStatus}>
+-                    {sourceStatusLabel(event.status)}
++                    {group.qualification}
+                   </span>
+-                  {event.pathOrRef ? (
+-                    <span className={styles.code}>{event.pathOrRef}</span>
+-                  ) : null}
+                   <span className={styles.sourceDetail}>
+-                    {event.summary ?? "Aucun résumé supplémentaire."}
+-                    {event.errorCode ? ` (${event.errorCode})` : ""} · lecture
+-                    seule confirmée
++                    {group.eventCount > 1
++                      ? `${group.eventCount} consultations regroupées.`
++                      : group.qualification}
+                   </span>
++                  <details className={styles.sourceTechDetails}>
++                    <summary>Détail technique</summary>
++                    <ul className={styles.sourceTechList}>
++                      {group.detailEvents.map((event, index) => (
++                        <li
++                          key={`${event.toolName}-${index}-${event.pathOrRef ?? "na"}`}
++                          data-testid="project-assistant-source-tech-item"
++                          data-status={event.status}
++                        >
++                          <span className={styles.sourceName}>
++                            {event.toolName}
++                          </span>
++                          <span className={styles.sourceStatus}>
++                            {sourceStatusLabel(event.status)}
++                          </span>
++                          {event.pathOrRef ? (
++                            <span className={styles.code}>{event.pathOrRef}</span>
++                          ) : null}
++                          <span className={styles.sourceDetail}>
++                            {event.summary ?? "Aucun résumé supplémentaire."}
++                            {event.errorCode ? ` (${event.errorCode})` : ""} ·
++                            lecture seule confirmée
++                          </span>
++                        </li>
++                      ))}
++                    </ul>
++                  </details>
+                 </li>
+               ))}
+             </ul>
+@@ -2392,7 +2473,7 @@ export function ConversationSurface({
+               >
+                 <span className={styles.sendLabelFull}>Arrêter</span>
+                 <span className={styles.sendLabelCompact} aria-hidden="true">
+-                  ■
++                  <StopGlyph />
+                 </span>
+               </button>
+             ) : (
+diff --git a/projects/sfia-studio/app/middleware.ts b/projects/sfia-studio/app/middleware.ts
+index 26e86687..c84e9fa5 100644
+--- a/projects/sfia-studio/app/middleware.ts
++++ b/projects/sfia-studio/app/middleware.ts
+@@ -19,6 +19,13 @@ function isPublicPath(pathname: string): boolean {
+   if (pathname.startsWith("/api/auth")) return true;
+   if (pathname.startsWith("/_next")) return true;
+   if (pathname === "/favicon.ico") return true;
++  // Local UX closure browser proof only — synthetic ConversationSurface, no Product DB.
++  if (
++    process.env.SFIA_STUDIO_UX_CLOSURE_PREVIEW === "1" &&
++    pathname === "/dev/nora-ux-closure"
++  ) {
++    return true;
++  }
+   return false;
+ }
+
 
 ```
-/Users/morris/Projects/sfia-workspace-p6-t2-real-qa-eec68a41/.tmp-sfia-review/p6-t2-real-requal/env/auth-bootstrap.pid
-/Users/morris/Projects/sfia-workspace-p6-t2-real-qa-eec68a41/.tmp-sfia-review/p6-t2-real-requal/env/budget-envelope-qualification.md
-/Users/morris/Projects/sfia-workspace-p6-t2-real-qa-eec68a41/.tmp-sfia-review/p6-t2-real-requal/env/env-keys.txt
-/Users/morris/Projects/sfia-workspace-p6-t2-real-qa-eec68a41/.tmp-sfia-review/p6-t2-real-requal/env/environment-snapshot.txt
-/Users/morris/Projects/sfia-workspace-p6-t2-real-qa-eec68a41/.tmp-sfia-review/p6-t2-real-requal/env/evidence-inventory.txt
-/Users/morris/Projects/sfia-workspace-p6-t2-real-qa-eec68a41/.tmp-sfia-review/p6-t2-real-requal/env/next-3020.pid
-/Users/morris/Projects/sfia-workspace-p6-t2-real-qa-eec68a41/.tmp-sfia-review/p6-t2-real-requal/env/next-3030.pid
-/Users/morris/Projects/sfia-workspace-p6-t2-real-qa-eec68a41/.tmp-sfia-review/p6-t2-real-requal/env/runId.txt
-/Users/morris/Projects/sfia-workspace-p6-t2-real-qa-eec68a41/.tmp-sfia-review/p6-t2-real-requal/human-qa/P6-T2-REAL-P1P2.queue.md
-/Users/morris/Projects/sfia-workspace-p6-t2-real-qa-eec68a41/.tmp-sfia-review/p6-t2-real-requal/raw/auth-bootstrap-3020.log
-/Users/morris/Projects/sfia-workspace-p6-t2-real-qa-eec68a41/.tmp-sfia-review/p6-t2-real-requal/raw/auth-bootstrap-3030.log
-/Users/morris/Projects/sfia-workspace-p6-t2-real-qa-eec68a41/.tmp-sfia-review/p6-t2-real-requal/raw/auth-bootstrap.log
-/Users/morris/Projects/sfia-workspace-p6-t2-real-qa-eec68a41/.tmp-sfia-review/p6-t2-real-requal/raw/historical-sqlite-backup-20261014T164555Z/nora-session.sqlite
-/Users/morris/Projects/sfia-workspace-p6-t2-real-qa-eec68a41/.tmp-sfia-review/p6-t2-real-requal/raw/historical-sqlite-backup-20261014T164555Z/oa-product.sqlite
-/Users/morris/Projects/sfia-workspace-p6-t2-real-qa-eec68a41/.tmp-sfia-review/p6-t2-real-requal/raw/keepalive-3030.log
-/Users/morris/Projects/sfia-workspace-p6-t2-real-qa-eec68a41/.tmp-sfia-review/p6-t2-real-requal/raw/next-dev-3020.log
-/Users/morris/Projects/sfia-workspace-p6-t2-real-qa-eec68a41/.tmp-sfia-review/p6-t2-real-requal/raw/next-dev-3030.log
-/Users/morris/Projects/sfia-workspace-p6-t2-real-qa-eec68a41/.tmp-sfia-review/p6-t2-real-requal/raw/t2-prompt-exact.txt
 
-```
+---
 
-# APPENDIX — Exact T2 prompt file
+## NEW FILES (contenu integral)
 
-```
-Nora, maintenant qu'on a regardé le document de cadrage P1, j'aimerais qu'on s'intéresse au modèle de fonctionnement P2.
-Le document est aussi disponible dans notre dépôt Git : projects/sfia-studio/product-simplification/02-chat-first-product-simplification-functional-operating-model.md
-Tu peux le consulter et m'expliquer comment il s'articule avec le cadrage P1 qu'on vient d'analyser ? J'aimerais comprendre ce que P2 apporte concrètement à notre réflexion sur la simplification des interactions avec l'IA.
+```text
+===== BEGIN FILE projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/presentLiveActivityTimeline.ts =====
+/**
+ * Presentation-only live activity timeline for Pilote.
+ * Does not alter NDJSON / NoraLiveActivityEvent protocol.
+ */
+
+import type { NoraLiveActivityEvent } from "@/features/project-assistant/liveActivityEvents";
+
+export type PresentedActivityLine = {
+  readonly key: string;
+  readonly label: string;
+};
+
+/** Known product-simplification document short names (display only). */
+const DOC_SHORT: ReadonlyArray<{ readonly re: RegExp; readonly short: string }> =
+  [
+    {
+      re: /01-chat-first-product-simplification-cadrage/i,
+      short: "P1",
+    },
+    {
+      re: /02-chat-first-product-simplification-functional-operating-model/i,
+      short: "P2",
+    },
+    {
+      re: /03-chat-first-product-simplification-workspace-interaction-architecture/i,
+      short: "P3",
+    },
+    {
+      re: /04-chat-first-product-simplification-semantic-projection-cognitive-architecture/i,
+      short: "P4",
+    },
+  ];
+
+function documentShortName(path: string | undefined): string | undefined {
+  if (!path) return undefined;
+  for (const row of DOC_SHORT) {
+    if (row.re.test(path)) return row.short;
+  }
+  return undefined;
+}
+
+function basename(path: string | undefined): string | undefined {
+  if (!path) return undefined;
+  const parts = path.split("/").filter(Boolean);
+  return parts.length > 0 ? parts[parts.length - 1] : path;
+}
+
+/**
+ * Prefer a precise Pilote label when source is identifiable; never invent paths.
+ */
+export function presentActivityEventLabel(event: NoraLiveActivityEvent): string {
+  const short = documentShortName(event.sourcePath);
+  const file = basename(event.sourcePath);
+
+  if (event.kind === "tool_started") {
+    if (short) return `Nora consulte ${short}.`;
+    if (file) return `Nora consulte « ${file} ».`;
+  }
+  if (event.kind === "tool_completed") {
+    if (short) return `Nora a terminé la lecture de ${short}.`;
+    if (file) return `Nora a terminé la lecture de « ${file} ».`;
+  }
+  if (event.kind === "tool_failed") {
+    if (short) return `Échec de consultation — ${short}.`;
+    if (file) return `Échec de consultation — « ${file} ».`;
+  }
+
+  const label = event.label.trim();
+  return label.length > 0 ? label : "Nora travaille…";
+}
+
+/**
+ * Chronological Pilote lines: labels only, no kind / numbering noise.
+ * Collapses consecutive identical visible messages.
+ */
+export function presentLiveActivityTimeline(
+  events: readonly NoraLiveActivityEvent[],
+): PresentedActivityLine[] {
+  const out: PresentedActivityLine[] = [];
+  for (const event of events) {
+    const label = presentActivityEventLabel(event);
+    const prev = out[out.length - 1];
+    if (prev && prev.label === label) continue;
+    out.push({
+      key: `${event.seq}-${event.kind}-${event.at}`,
+      label,
+    });
+  }
+  return out;
+}
+
+===== END FILE projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/presentLiveActivityTimeline.ts =====
+
+===== BEGIN FILE projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/presentConversationSources.ts =====
+/**
+ * Presentation-only grouping of cumulative toolEvents for Pilote.
+ * Never invents FULL coverage; never mutates Product telemetry.
+ */
+
+import type { AssistantToolEventDto } from "@/features/project-assistant/types";
+import { deriveReadCoverageFromToolEvent } from "@/lib/nora-cognitive-runtime/readCoverage";
+
+export type PresentedSourceGroup = {
+  readonly key: string;
+  /** Human-readable source title. */
+  readonly title: string;
+  /** Honest qualification — never "FULL" without proven full read. */
+  readonly qualification: string;
+  readonly statusTone: "ok" | "partial" | "denied" | "failed" | "pending" | "other";
+  readonly eventCount: number;
+  readonly detailEvents: readonly AssistantToolEventDto[];
+};
+
+const DOC_TITLES: ReadonlyArray<{
+  readonly re: RegExp;
+  readonly title: string;
+}> = [
+  {
+    re: /01-chat-first-product-simplification-cadrage/i,
+    title: "P1 — Cadrage",
+  },
+  {
+    re: /02-chat-first-product-simplification-functional-operating-model/i,
+    title: "P2 — Fonctionnement",
+  },
+  {
+    re: /03-chat-first-product-simplification-workspace-interaction-architecture/i,
+    title: "P3 — Workspace Interaction Architecture",
+  },
+  {
+    re: /04-chat-first-product-simplification-semantic-projection-cognitive-architecture/i,
+    title: "P4 — Semantic & Cognitive Architecture",
+  },
+];
+
+function basename(path: string): string {
+  const parts = path.split("/").filter(Boolean);
+  return parts.length > 0 ? parts[parts.length - 1]! : path;
+}
+
+function groupKey(event: AssistantToolEventDto): string {
+  const path = (event.pathOrRef ?? "").trim();
+  if (path.length > 0) return `path:${path}`;
+  return `tool:${event.toolName}`;
+}
+
+function presentTitle(event: AssistantToolEventDto): string {
+  const path = (event.pathOrRef ?? "").trim();
+  if (path.length > 0) {
+    for (const row of DOC_TITLES) {
+      if (row.re.test(path)) return row.title;
+    }
+    return basename(path);
+  }
+  return event.toolName;
+}
+
+function isDocumentReadTool(toolName: string): boolean {
+  return toolName === "git_local_read_file" || /read_file_at_ref/i.test(toolName);
+}
+
+function isSearchTool(toolName: string): boolean {
+  return /search_content|search_files/i.test(toolName);
+}
+
+function qualifyGroup(events: readonly AssistantToolEventDto[]): {
+  qualification: string;
+  statusTone: PresentedSourceGroup["statusTone"];
+} {
+  if (events.some((e) => e.status === "denied")) {
+    return { qualification: "Lecture refusée", statusTone: "denied" };
+  }
+  if (events.some((e) => e.status === "failed")) {
+    return { qualification: "Échec de consultation", statusTone: "failed" };
+  }
+  if (
+    events.every(
+      (e) => e.status === "started" || e.status === "requested",
+    )
+  ) {
+    return { qualification: "Consultation en cours", statusTone: "pending" };
+  }
+
+  const readEvents = events.filter((e) => isDocumentReadTool(e.toolName));
+  if (readEvents.length === 0) {
+    if (events.every((e) => isSearchTool(e.toolName))) {
+      return {
+        qualification: "Recherche de fichiers (pas une lecture documentaire)",
+        statusTone: "other",
+      };
+    }
+    return {
+      qualification: "Consultation technique",
+      statusTone: "other",
+    };
+  }
+
+  let anyFull = false;
+  let anyPartialSignal = false;
+  let anySucceededRead = false;
+
+  for (const event of readEvents) {
+    if (event.status !== "succeeded") continue;
+    anySucceededRead = true;
+    const fact = deriveReadCoverageFromToolEvent({
+      toolName: event.toolName,
+      status: event.status,
+      pathOrRef: event.pathOrRef,
+      summary: event.summary,
+    });
+    if (fact?.coverage === "full") {
+      anyFull = true;
+    } else {
+      anyPartialSignal = true;
+    }
+  }
+
+  if (!anySucceededRead) {
+    return { qualification: "Consultation demandée", statusTone: "pending" };
+  }
+
+  // documentHasMore / partial / unparseable → never claim FULL.
+  if (anyFull && !anyPartialSignal && readEvents.length === 1) {
+    return {
+      qualification: "Document lu en entier (preuve de couverture)",
+      statusTone: "ok",
+    };
+  }
+  if (readEvents.length > 1 || anyPartialSignal) {
+    return {
+      qualification: "Plusieurs passages consultés",
+      statusTone: "partial",
+    };
+  }
+  return {
+    qualification: "Extraits consultés",
+    statusTone: "partial",
+  };
+}
+
+/**
+ * Group cumulative conversation toolEvents for Pilote synthesis.
+ * Detail rows preserve raw telemetry order within each group.
+ */
+export function presentConversationSources(
+  events: readonly AssistantToolEventDto[],
+): PresentedSourceGroup[] {
+  const order: string[] = [];
+  const buckets = new Map<string, AssistantToolEventDto[]>();
+
+  for (const event of events) {
+    const key = groupKey(event);
+    if (!buckets.has(key)) {
+      order.push(key);
+      buckets.set(key, []);
+    }
+    buckets.get(key)!.push(event);
+  }
+
+  return order.map((key) => {
+    const detailEvents = buckets.get(key)!;
+    const title = presentTitle(detailEvents[0]!);
+    const { qualification, statusTone } = qualifyGroup(detailEvents);
+    return {
+      key,
+      title,
+      qualification,
+      statusTone,
+      eventCount: detailEvents.length,
+      detailEvents,
+    };
+  });
+}
+
+export const CONVERSATION_SOURCES_SCOPE_DISCLAIMER =
+  "Sources consultées dans cette conversation (cumul des tours) — pas uniquement le dernier message.";
+
+===== END FILE projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/presentConversationSources.ts =====
+
+===== BEGIN FILE projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.nora.uxClosure.presentation.d0.test.ts =====
+/** @vitest-environment node */
+/**
+ * P6 Nora UX cumulative closure — presentation helpers (DET, ZERO OpenAI).
+ */
+import { describe, expect, it } from "vitest";
+import type { AssistantToolEventDto } from "@/features/project-assistant/types";
+import type { NoraLiveActivityEvent } from "@/features/project-assistant/liveActivityEvents";
+import {
+  presentActivityEventLabel,
+  presentLiveActivityTimeline,
+} from "@/features/pre-m6-product-ui/surfaces/presentLiveActivityTimeline";
+import {
+  CONVERSATION_SOURCES_SCOPE_DISCLAIMER,
+  presentConversationSources,
+} from "@/features/pre-m6-product-ui/surfaces/presentConversationSources";
+
+const P3 =
+  "projects/sfia-studio/product-simplification/03-chat-first-product-simplification-workspace-interaction-architecture.md";
+const P4 =
+  "projects/sfia-studio/product-simplification/04-chat-first-product-simplification-semantic-projection-cognitive-architecture.md";
+
+describe("presentLiveActivityTimeline", () => {
+  it("UX-01/02/03/04 — labels only, chrono order, collapse duplicates", () => {
+    const events: NoraLiveActivityEvent[] = [
+      {
+        kind: "mission_started",
+        seq: 1,
+        at: "t1",
+        label: "Mission démarrée",
+      },
+      {
+        kind: "tool_started",
+        seq: 2,
+        at: "t2",
+        label: "Consultation…",
+        toolName: "git_local_read_file",
+        sourcePath: P3,
+      },
+      {
+        kind: "tool_started",
+        seq: 3,
+        at: "t3",
+        label: "Consultation…",
+        toolName: "git_local_read_file",
+        sourcePath: P3,
+      },
+      {
+        kind: "activity_update",
+        seq: 4,
+        at: "t4",
+        label: "Nora poursuit la comparaison.",
+      },
+    ];
+    const lines = presentLiveActivityTimeline(events);
+    expect(lines.map((l) => l.label)).toEqual([
+      "Mission démarrée",
+      "Nora consulte P3.",
+      "Nora poursuit la comparaison.",
+    ]);
+    expect(lines.every((l) => !/mission_started|tool_started/.test(l.label))).toBe(
+      true,
+    );
+  });
+
+  it("UX-05 — honest precise label when source identifiable", () => {
+    expect(
+      presentActivityEventLabel({
+        kind: "tool_completed",
+        seq: 1,
+        at: "t",
+        label: "Document consulté",
+        sourcePath: P4,
+      }),
+    ).toBe("Nora a terminé la lecture de P4.");
+  });
+});
+
+describe("presentConversationSources", () => {
+  it("UX-14/15/16/17/18 — group by path, never invent FULL, scope disclaimer", () => {
+    expect(CONVERSATION_SOURCES_SCOPE_DISCLAIMER).toMatch(/cette conversation/i);
+
+    const events: AssistantToolEventDto[] = [
+      {
+        toolName: "git_local_read_file",
+        status: "succeeded",
+        pathOrRef: P3,
+        summary: "L1-40/200 returned L1-40 hasMore documentHasMore",
+        errorCode: null,
+        readOnly: true,
+      },
+      {
+        toolName: "git_local_read_file",
+        status: "succeeded",
+        pathOrRef: P3,
+        summary: "L41-80/200 returned L41-80 hasMore documentHasMore",
+        errorCode: null,
+        readOnly: true,
+      },
+      {
+        toolName: "git_local_read_file",
+        status: "succeeded",
+        pathOrRef: P4,
+        summary: "excerpt",
+        errorCode: null,
+        readOnly: true,
+      },
+      {
+        toolName: "search_files",
+        status: "succeeded",
+        pathOrRef: null,
+        summary: "3 matches",
+        errorCode: null,
+        readOnly: true,
+      },
+      {
+        toolName: "git_local_read_file",
+        status: "denied",
+        pathOrRef: ".env",
+        summary: "PATH_NOT_ALLOWED",
+        errorCode: "PATH_NOT_ALLOWED",
+        readOnly: true,
+      },
+    ];
+
+    const groups = presentConversationSources(events);
+    expect(groups).toHaveLength(4);
+
+    const p3 = groups.find((g) => g.title.includes("P3"));
+    expect(p3?.eventCount).toBe(2);
+    expect(p3?.qualification).toMatch(/passages|Extraits/i);
+    expect(p3?.qualification).not.toMatch(/\bFULL\b/i);
+
+    const p4 = groups.find((g) => g.title.includes("P4"));
+    expect(p4?.qualification).not.toMatch(/\bFULL\b/i);
+    expect(p4?.qualification).toMatch(/Extraits|passages|consult/i);
+
+    const search = groups.find((g) => g.title === "search_files");
+    expect(search?.qualification).toMatch(/Recherche/i);
+    expect(search?.qualification).not.toMatch(/lecture documentaire complète/i);
+
+    const denied = groups.find((g) => g.title === ".env");
+    expect(denied?.qualification).toMatch(/refus/i);
+    expect(denied?.detailEvents[0]?.errorCode).toBe("PATH_NOT_ALLOWED");
+  });
+
+  it("UX-16 — FULL only when coverage fact is proven full", () => {
+    const events: AssistantToolEventDto[] = [
+      {
+        toolName: "git_local_read_file",
+        status: "succeeded",
+        pathOrRef: "docs/short.md",
+        // Shape recognized as full by deriveReadCoverageFromToolEvent when applicable.
+        summary:
+          "path=docs/short.md startLine=1 endLine=3 totalLines=3 returnedStartLine=1 returnedEndLine=3",
+        errorCode: null,
+        readOnly: true,
+      },
+    ];
+    const [group] = presentConversationSources(events);
+    // Either honest full phrasing OR prudent extracts — never bare "FULL".
+    expect(group!.qualification).not.toBe("FULL");
+    expect(group!.qualification).not.toMatch(/^FULL$/);
+    if (/entier/i.test(group!.qualification)) {
+      expect(group!.qualification).toMatch(/preuve/i);
+    }
+  });
+});
+
+===== END FILE projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.nora.uxClosure.presentation.d0.test.ts =====
+
+===== BEGIN FILE projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.nora.uxClosure.sourcesSurface.d0.test.tsx =====
+/** @vitest-environment jsdom */
+/**
+ * P6 UX closure — Sources regroupées on REAL ConversationSurface (DET).
+ */
+import { cleanup, fireEvent, render, screen, within } from "@testing-library/react";
+import { afterEach, describe, expect, it, vi } from "vitest";
+import { ConversationSurface } from "@/features/pre-m6-product-ui/surfaces/ConversationSurface";
+import type { ProductConversationController } from "@/features/pre-m6-product-ui/hooks/useProductConversation";
+import type { AssistantToolEventDto } from "@/features/project-assistant/types";
+
+afterEach(() => {
+  cleanup();
+});
+
+function stubController(
+  overrides: Partial<ProductConversationController>,
+): ProductConversationController {
+  return {
+    listRef: { current: null },
+    messages: [],
+    draft: "",
+    setDraft: vi.fn(),
+    toolEvents: [],
+    liveActivityEvents: [],
+    uiState: "READY",
+    error: null,
+    executionIncomplete: false,
+    modeLabel: "fixture",
+    ephemeralNotice: "notice",
+    lrMaterializeNotice: null,
+    lrMaterializeCode: null,
+    f2: null,
+    activeProposal: null,
+    reservesText: "",
+    setReservesText: vi.fn(),
+    f3Prepare: null,
+    f3M3Resolved: null,
+    f3Execute: null,
+    durableEvidenceOutcome: null,
+    durableRehydrateError: null,
+    focusTurnId: null,
+    clearFocusTurn: vi.fn(),
+    busy: false,
+    blocked: false,
+    canSend: true,
+    stopAvailable: false,
+    stopCurrentResponse: vi.fn(),
+    gateOpen: false,
+    recommendationFreshness: "none",
+    qualificationFreshness: "none",
+    durableOutcomeFreshness: "none",
+    canPrepareResolvedM3: false,
+    canPrepareLegacyFixture: false,
+    canConfirmResolvedM3: false,
+    canConfirmLegacyFixture: false,
+    canRefreshResolvedM3Running: false,
+    sendMessage: vi.fn(),
+    decide: vi.fn(),
+    prepareResolvedM3: vi.fn(),
+    prepareLegacyFixture: vi.fn(),
+    confirmAndExecuteResolvedM3: vi.fn(),
+    confirmAndExecuteLegacyFixture: vi.fn(),
+    refreshResolvedM3RunningAttempt: vi.fn(),
+    retryLastUserMessage: vi.fn(),
+    reservationResolutionProposal: null,
+    transcriptAvailability: "available",
+    openContinuityPresentation: null,
+    journalEntries: [],
+    journalCycleInstanceId: null,
+    selectedJournalEntryId: null,
+    setSelectedJournalEntryId: vi.fn(),
+    focusJournalExchanges: vi.fn(),
+    focusTranscriptTurn: vi.fn(),
+    refreshConversationContinuity: vi.fn(),
+    armReinstructionOfProposalId: vi.fn(),
+    armedReinstructionOfProposalId: null,
+    armReservationInteractionContext: vi.fn(),
+    armedReservationInteractionContext: null,
+    clearReservationResolutionProposal: vi.fn(),
+    ...overrides,
+  } as ProductConversationController;
+}
+
+const P3 =
+  "projects/sfia-studio/product-simplification/03-chat-first-product-simplification-workspace-interaction-architecture.md";
+const P4 =
+  "projects/sfia-studio/product-simplification/04-chat-first-product-simplification-semantic-projection-cognitive-architecture.md";
+
+describe("ConversationSurface sources UX closure", () => {
+  it("UX-14/15/18/19 — grouped sources + conversation scope + tech detail", () => {
+    const toolEvents: AssistantToolEventDto[] = [
+      {
+        toolName: "git_local_read_file",
+        status: "succeeded",
+        pathOrRef: P3,
+        summary: "L1-20 hasMore",
+        errorCode: null,
+        readOnly: true,
+      },
+      {
+        toolName: "git_local_read_file",
+        status: "succeeded",
+        pathOrRef: P3,
+        summary: "L21-40 hasMore",
+        errorCode: null,
+        readOnly: true,
+      },
+      {
+        toolName: "git_local_read_file",
+        status: "succeeded",
+        pathOrRef: P4,
+        summary: "L1-15 hasMore",
+        errorCode: null,
+        readOnly: true,
+      },
+    ];
+
+    render(
+      <ConversationSurface
+        controller={stubController({
+          toolEvents,
+          messages: [
+            { id: "u1", role: "user", content: "Comparer P3 et P4." },
+            { id: "a1", role: "assistant", content: "Voici la synthèse." },
+          ],
+        })}
+      />,
+    );
+
+    const sources = screen.getByTestId("project-assistant-sources");
+    expect(
+      screen.getByTestId("project-assistant-sources-scope"),
+    ).toHaveTextContent(/cette conversation/i);
+
+    const items = within(sources).getAllByTestId("project-assistant-source-item");
+    expect(items).toHaveLength(2);
+    expect(items[0]!.textContent).toMatch(/P3/);
+    expect(items[0]!.textContent).toMatch(/2 consultations regroupées/);
+    expect(items[0]!.textContent).not.toMatch(/\bFULL\b/);
+    expect(items[1]!.textContent).toMatch(/P4/);
+
+    const techSummary = within(items[0]!).getByText("Détail technique");
+    fireEvent.click(techSummary);
+    const tech = within(items[0]!).getAllByTestId(
+      "project-assistant-source-tech-item",
+    );
+    expect(tech).toHaveLength(2);
+    expect(tech[0]!.textContent).toMatch(/git_local_read_file/);
+    expect(tech[0]!.textContent).toMatch(P3);
+  });
+});
+
+===== END FILE projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.nora.uxClosure.sourcesSurface.d0.test.tsx =====
+
+===== BEGIN FILE projects/sfia-studio/app/app/dev/nora-ux-closure/page.tsx =====
+"use client";
+
+/**
+ * LOCAL VALIDATION ONLY — mounts real ConversationSurface with synthetic controller.
+ * Not a Product route. ZERO OpenAI. Do not use against Human QA DBs.
+ */
+
+import { ConversationSurface } from "@/features/pre-m6-product-ui/surfaces/ConversationSurface";
+import type { ProductConversationController } from "@/features/pre-m6-product-ui/hooks/useProductConversation";
+import type { NoraLiveActivityEvent } from "@/features/project-assistant/liveActivityEvents";
+import type { AssistantToolEventDto } from "@/features/project-assistant/types";
+import { useMemo, useState } from "react";
+import "@/features/pre-m6-product-ui/product-tokens.css";
+
+const P3 =
+  "projects/sfia-studio/product-simplification/03-chat-first-product-simplification-workspace-interaction-architecture.md";
+const P4 =
+  "projects/sfia-studio/product-simplification/04-chat-first-product-simplification-semantic-projection-cognitive-architecture.md";
+
+type Scenario = "idle" | "working" | "answered";
+
+const LIVE: NoraLiveActivityEvent[] = [
+  {
+    kind: "mission_started",
+    seq: 1,
+    at: "2026-10-14T18:00:00.000Z",
+    label: "Mission démarrée",
+  },
+  {
+    kind: "tool_started",
+    seq: 2,
+    at: "2026-10-14T18:00:01.000Z",
+    label: "Consultation",
+    toolName: "git_local_read_file",
+    sourcePath: P3,
+  },
+  {
+    kind: "tool_completed",
+    seq: 3,
+    at: "2026-10-14T18:00:02.000Z",
+    label: "Document consulté",
+    toolName: "git_local_read_file",
+    sourcePath: P3,
+  },
+  {
+    kind: "tool_started",
+    seq: 4,
+    at: "2026-10-14T18:00:03.000Z",
+    label: "Consultation",
+    toolName: "git_local_read_file",
+    sourcePath: P4,
+  },
+  {
+    kind: "activity_update",
+    seq: 5,
+    at: "2026-10-14T18:00:04.000Z",
+    label: "Nora poursuit la comparaison.",
+  },
+];
+
+const TOOLS: AssistantToolEventDto[] = [
+  {
+    toolName: "git_local_read_file",
+    status: "succeeded",
+    pathOrRef: P3,
+    summary: "read … L1-40/200 returned L1-40 (ok) hasMore documentHasMore",
+    errorCode: null,
+    readOnly: true,
+  },
+  {
+    toolName: "git_local_read_file",
+    status: "succeeded",
+    pathOrRef: P3,
+    summary: "read … L41-80/200 returned L41-80 (ok) hasMore documentHasMore",
+    errorCode: null,
+    readOnly: true,
+  },
+  {
+    toolName: "git_local_read_file",
+    status: "succeeded",
+    pathOrRef: P4,
+    summary: "read … L1-30/180 returned L1-30 (ok) hasMore documentHasMore",
+    errorCode: null,
+    readOnly: true,
+  },
+];
+
+function buildController(
+  scenario: Scenario,
+  stopCurrentResponse: () => void,
+): ProductConversationController {
+  const working = scenario === "working";
+  return {
+    listRef: { current: null },
+    messages:
+      scenario === "idle"
+        ? []
+        : [
+            {
+              id: "u1",
+              role: "user",
+              content:
+                "Compare P3 et P4 pour la simplification des interactions.",
+            },
+            ...(scenario === "answered"
+              ? [
+                  {
+                    id: "a1",
+                    role: "assistant" as const,
+                    content:
+                      "P3 structure l’espace de travail ; P4 précise la projection sémantique. Les deux se complètent.",
+                  },
+                ]
+              : []),
+          ],
+    draft: scenario === "idle" ? "Bonjour Nora" : "",
+    setDraft: () => undefined,
+    toolEvents: scenario === "answered" ? TOOLS : working ? TOOLS.slice(0, 1) : [],
+    liveActivityEvents: working ? LIVE : [],
+    uiState: working ? "ASSISTANT_WORKING" : "READY",
+    error: null,
+    executionIncomplete: false,
+    modeLabel: "fixture",
+    ephemeralNotice: "Validation UX locale — données synthétiques",
+    lrMaterializeNotice: null,
+    lrMaterializeCode: null,
+    f2: null,
+    activeProposal: null,
+    reservesText: "",
+    setReservesText: () => undefined,
+    f3Prepare: null,
+    f3M3Resolved: null,
+    f3Execute: null,
+    durableEvidenceOutcome: null,
+    durableRehydrateError: null,
+    focusTurnId: null,
+    clearFocusTurn: () => undefined,
+    busy: working,
+    blocked: false,
+    canSend: !working,
+    stopAvailable: working,
+    stopCurrentResponse,
+    gateOpen: false,
+    recommendationFreshness: "none",
+    qualificationFreshness: "none",
+    durableOutcomeFreshness: "none",
+    canPrepareResolvedM3: false,
+    canPrepareLegacyFixture: false,
+    canConfirmResolvedM3: false,
+    canConfirmLegacyFixture: false,
+    canRefreshResolvedM3Running: false,
+    sendMessage: () => undefined,
+    decide: async () => undefined,
+    prepareResolvedM3: async () => undefined,
+    prepareLegacyFixture: async () => undefined,
+    confirmAndExecuteResolvedM3: async () => undefined,
+    confirmAndExecuteLegacyFixture: async () => undefined,
+    refreshResolvedM3RunningAttempt: async () => undefined,
+    retryLastUserMessage: () => undefined,
+    reservationResolutionProposal: null,
+    transcriptAvailability: "available",
+    openContinuityPresentation: null,
+    journalEntries: [],
+    journalCycleInstanceId: null,
+    selectedJournalEntryId: null,
+    setSelectedJournalEntryId: () => undefined,
+    focusJournalExchanges: () => undefined,
+    focusTranscriptTurn: () => undefined,
+    refreshConversationContinuity: async () => undefined,
+    armReinstructionOfProposalId: () => undefined,
+    armedReinstructionOfProposalId: null,
+    armReservationInteractionContext: () => undefined,
+    armedReservationInteractionContext: null,
+    clearReservationResolutionProposal: () => undefined,
+  } as unknown as ProductConversationController;
+}
+
+export default function NoraUxClosurePreviewPage() {
+  const [scenario, setScenario] = useState<Scenario>("working");
+  const [stopped, setStopped] = useState(false);
+  const controller = useMemo(
+    () =>
+      buildController(stopped && scenario === "working" ? "idle" : scenario, () =>
+        setStopped(true),
+      ),
+    [scenario, stopped],
+  );
+
+  return (
+    <main
+      style={{
+        maxWidth: 880,
+        margin: "0 auto",
+        padding: 24,
+        fontFamily: "system-ui, sans-serif",
+        background: "var(--pm6-canvas, #fffdf9)",
+        minHeight: "100vh",
+      }}
+      data-testid="nora-ux-closure-preview"
+    >
+      <h1 style={{ fontSize: 18, marginBottom: 8 }}>
+        Nora UX closure — preview (ConversationSurface réel)
+      </h1>
+      <p style={{ color: "#6f665e", fontSize: 13, marginBottom: 16 }}>
+        Port de validation isolé · ZERO OpenAI · pas le runtime Human QA :3020
+      </p>
+      <div style={{ display: "flex", gap: 8, marginBottom: 16 }}>
+        {(["idle", "working", "answered"] as const).map((s) => (
+          <button
+            key={s}
+            type="button"
+            data-testid={`ux-scenario-${s}`}
+            onClick={() => {
+              setStopped(false);
+              setScenario(s);
+            }}
+            style={{ padding: "6px 10px" }}
+          >
+            {s}
+          </button>
+        ))}
+      </div>
+      <ConversationSurface controller={controller} />
+    </main>
+  );
+}
+
+===== END FILE projects/sfia-studio/app/app/dev/nora-ux-closure/page.tsx =====
 
 ```
