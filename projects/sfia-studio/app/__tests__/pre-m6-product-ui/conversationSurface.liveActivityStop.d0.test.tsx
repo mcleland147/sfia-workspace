@@ -190,13 +190,21 @@ describe("ConversationSurface live activity + Stop (REAL React DET)", () => {
 
     fireEvent.click(within(details).getByText("Détail de l’activité"));
 
-    const timeline = details.querySelector("ol");
+    const timeline = details.querySelector("ul");
     expect(timeline).toBeTruthy();
-    expect(timeline!.textContent).toMatch(/mission_started/);
+    // UX-01 / UX-02 — no technical kind codes, no numbering column
+    expect(timeline!.textContent).not.toMatch(/mission_started/);
+    expect(timeline!.textContent).not.toMatch(/tool_started/);
+    expect(timeline!.textContent).not.toMatch(/activity_update/);
     expect(timeline!.textContent).toMatch(/Mission démarrée/);
-    expect(timeline!.textContent).toMatch(/tool_started/);
-    expect(timeline!.textContent).toMatch(/Lecture du dépôt/);
-    expect(timeline!.textContent).toMatch(/activity_update/);
+    // SAMPLE_EVENTS tool_started has toolName read_file (non git_local) + sourcePath
+    expect(timeline!.textContent).toMatch(/Nora consulte « plan\.md »|Lecture du dépôt/);
+    expect(timeline!.textContent).toMatch(/Analyse en cours/);
+    expect(timeline!.textContent).not.toMatch(/terminé la lecture|intégralement/i);
+    expect(
+      screen.getByTestId("project-assistant-nora-activity-pulse"),
+    ).toBeInTheDocument();
+    expect(screen.getByTestId("project-assistant-stop").querySelector("svg")).toBeTruthy();
   });
 
   it("STOPPED banner — Réponse interrompue + retry; Send returns when idle", () => {
