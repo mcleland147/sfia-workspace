@@ -1,354 +1,159 @@
-# SFIA STUDIO — Review Pack FULL — PR #585 FINAL MERGE + POST-MERGE VERIFICATION
+# SFIA Studio — P6 Human QA Local Runtime Rehydration — Review Pack (LIGHT)
 
-## A. Horodatage Europe/Paris
+- **Horodatage** : 2026-10-15T19:56:59+0200 (Europe/Paris)
+- **GO Morris** : P6 HUMAN QA LOCAL RUNTIME PREPARATION — PORT 3020
+- **Périmètre** : Runtime accessibility only — aucun test fonctionnel, aucune mutation Product, aucun Cursor REAL
+- **Projet** : SFIA Studio
+- **Macro** : STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01
+- **Capacité** : V3-F05 — Conversation vers exécution gouvernée
+- **Milestone** : P6 — GLOBAL INTEGRATED PRODUCT QA
+- **Cycle projet** : 9 — QA / validation
+- **Pass** : P6 HUMAN QA LOCAL RUNTIME PREPARATION
+- **Profil** : CRITICAL
+- **CKC** : ckc:studio:qa-validation (guidance uniquement)
+- **Typologie** : RUN / QA ENVIRONMENT PREPARATION
 
-2026-10-15 19:25:08 CEST
+## Git Truth initial
 
-Mode: mono-cycle cumulative
-Cycle: 14 — Post-merge
-Profil: CRITICAL
-CKC: ckc:studio:delivery (+ ckc:studio:qa-validation)
-Aucun micro-cycle. Aucune nouvelle PR. Aucune modification Product. Aucun REAL. Aucune suppression de branche.
-
----
-
-## B. GO Morris merge/post-merge
-
-GO MORRIS — 2026-10-15 FINAL MERGE + POST-MERGE INTEGRATION VERIFICATION.
-
-Consommé:
-- contrôle Git final pré-merge ;
-- vérification checks obligatoires ;
-- merge PR #585 (merge commit + SHA guard) ;
-- vérification merge commit / ascendance ;
-- CI post-merge ;
-- Review Pack FULL ;
-- Review Handoff L3.
-
-NON consommé / exclus:
-- suppression de branche Delivery ;
-- Human QA ;
-- Cursor REAL ;
-- modification de code ;
-- correction autonome ;
-- promotion P6 ;
-- adoption runtime v3.
-
----
-
-## C. Cycle / profil / CKC
-
-- Type: 14 Post-merge
-- Profil: CRITICAL
-- Typologie: GIT INTEGRATION / POST-MERGE VERIFICATION
-- Capacité: V3-F05
-- Milestone: P6 GLOBAL INTEGRATED PRODUCT QA (NOT PASSED)
-
----
-
-## D. Git Truth initial
-
-| Check | Observed |
+| Check | Résultat |
 |---|---|
-| Worktree | `/Users/morris/Projects/sfia-workspace-p6-generic-exec-continuity-e7822033` |
-| Branch | delivery/sfia-studio-p6-generic-execution-conversational-continuity |
-| HEAD | 11ca72159572e29775cab77808b8a74750db7d01 |
-| origin/delivery | 11ca7215… |
-| origin/main (pre) | e7822033f159d6a0e9c15f6f26843bd1248edbc1 |
-| Dirty | `.tmp-sfia-review/chatgpt-review.md` only |
-| Staged | none |
+| `origin/main` | `52f3688476e41cbab8fbe230f0ef4ddddb9aa56e` |
+| Attendu (PR #585 MERGED) | `52f3688476e41cbab8fbe230f0ef4ddddb9aa56e` |
+| Drift | **AUCUN** — MATCH |
+| Handoff tip attendu (préalable) | `ad7790bd83485f6a0fe03d06ed07c56ea4593aa9` |
+| Delivery worktree | `/Users/morris/Projects/sfia-workspace-p6-generic-exec-continuity-e7822033` — **non modifié** pour ce pass |
 
-Verdict: **PASS — no drift**.
+## Sources / convergence
 
----
+- Convergence doctrine + roadmap P6 consultées (état : P6 STARTED / NOT PASSED ; PR #585 intégrée)
+- Product completion / P6 global QA / cycle routing / package.json / README / `.env.example` / `studio-runtime-preflight.ts` utilisés pour le profil runtime
+- Actifs historiques KEEP : Product DB, Nora DB, projet e66, LPS/CycleInstance, conversations, HumanDecisions, ExecutionContracts, evidence
 
-## E. Sources consultées
+## Ancien runtime observé (:3020)
 
-- Convergence build doctrine / roadmap (KEEP)
-- Product completion C1 / simplification 02/04/07
-- Doctrine v3 30/32/34/35/36
-- Template §6.11 / §6.12 / §7 / §8 / §9
-- Handoff entrée ddf95f3e / blob 532bc4bb
-- PR #585 + CI PR 38773538814
-
----
-
-## F. Convergence Pre-check
-
-- P1–P5 INTEGRATED
-- P6 STARTED / NOT PASSED
-- Generic Execution Continuity: PR #585 → **MERGED THIS CYCLE**
-- Final Critical Review: PASS WITH RESERVES (historical)
-- CI PR SUCCESS / Required Gate SUCCESS
-- Runtime v3 NON ADOPTED
-- Next: P6 Human QA Continuation (gate distinct)
-
----
-
-## G. PR #585 avant merge
-
-- URL: https://github.com/mcleland147/sfia-workspace/pull/585
-- State: OPEN
-- Base: main @ e7822033
-- Head: 11ca72159572e29775cab77808b8a74750db7d01
-- mergeable: MERGEABLE / mergeStateStatus: CLEAN
-- Commits: 45dee683, e7774a0c, 11ca7215
-- Manifest: 37 fichiers
-
----
-
-## H. Final Critical Review d'entrée
-
-PASS WITH RESERVES (handoff ddf95f3e).
-Réserves non bloquantes pour merge déterministe: PRR metadata mineure; Human QA/REAL; P6 GLOBAL NOT PASSED.
-
----
-
-## I. Checks pré-merge
-
-CI PR: https://github.com/mcleland147/sfia-workspace/actions/runs/38773538814
-headSha: 11ca7215
-- Detect SFIA Studio changes: SUCCESS
-- Build and validate SFIA Studio: SUCCESS
-- SFIA Studio Required Gate: SUCCESS
-
-Reconfirmés immédiatement avant merge.
-
----
-
-## J. Merge command/API utilisée
-
-1. Tentative REST `PUT .../pulls/585/merges` → HTTP 404 (token/path) — **non réussie**.
-2. Méthode effective:
-```
-gh pr merge 585 \
-  --merge \
-  --match-head-commit 11ca72159572e29775cab77808b8a74750db7d01 \
-  --subject 'Merge pull request #585 from mcleland147/delivery/sfia-studio-p6-generic-execution-conversational-continuity' \
-  --body '...'
-```
-- merge_method: merge (conserve 3 commits)
-- SHA guard: match-head-commit = 11ca7215
-- Pas de --delete-branch
-- Pas de squash/rebase/admin bypass
-
----
-
-## K. Résultat réel du merge
-
-- GitHub: merged=true
-- PR state: MERGED / closed
-- mergedAt: **2026-10-15T17:15:29Z**
-- merge_commit_sha: **52f3688476e41cbab8fbe230f0ef4ddddb9aa56e**
-
----
-
-## L. Merge commit SHA
-
-`52f3688476e41cbab8fbe230f0ef4ddddb9aa56e`
-
-Subject:
-`Merge pull request #585 from mcleland147/delivery/sfia-studio-p6-generic-execution-conversational-continuity`
-
----
-
-## M. Parents et ascendance
-
-Parents du merge commit:
-1. `e7822033f159d6a0e9c15f6f26843bd1248edbc1` (main pré-merge)
-2. `11ca72159572e29775cab77808b8a74750db7d01` (Delivery HEAD)
-
-Ancêtres de origin/main:
-- 45dee683… **YES**
-- e7774a0c… **YES**
-- 11ca7215… **YES**
-
----
-
-## N. PR #585 après merge
-
-- State: MERGED
-- URL: https://github.com/mcleland147/sfia-workspace/pull/585
-- mergedAt: 2026-10-15T17:15:29Z
-- mergeCommit: 52f3688476e41cbab8fbe230f0ef4ddddb9aa56e
-
----
-
-## O. Manifest intégré
-
-37 fichiers (cumul PR vs main) — chemins clés vérifiés présents sur origin/main:
-- confirmForAuthorization.ts (R-CI-01)
-- prepareGenericExecutionContractDraft.ts / authorizeGeneric / resolveAuthoritativeProductMateriality (G-D4)
-- activeCycleGovernedContinuation.ts (HQA-F01)
-- execution-contract.schema.json (T-A4)
-- production-runtime-reference.manifest.json (PRR)
-- p6.rCi01.legacyW2ConfirmCompatibility.d0.test.ts
-
----
-
-## P. main distant après merge
-
-`origin/main` = `52f3688476e41cbab8fbe230f0ef4ddddb9aa56e`
-
----
-
-## Q. main local
-
-**NOT SYNCED** — worktree reste sur Delivery (checkout main SKIPPED; preuve distante + ascendance suffisantes; GO n'exige pas de forcer checkout).
-
-Branche locale courante:
-`delivery/sfia-studio-p6-generic-execution-conversational-continuity` @ 11ca7215
-
----
-
-## R. CI PR de référence
-
-38773538814 — SUCCESS @ 11ca7215 (pré-merge).
-
----
-
-## S. CI post-merge
-
-- Run ID: **38775822763**
-- URL: https://github.com/mcleland147/sfia-workspace/actions/runs/38775822763
-- event: push
-- branch: main
-- headSha: **52f3688476e41cbab8fbe230f0ef4ddddb9aa56e**
-- status: completed
-- conclusion: **success**
-
-Jobs:
-| Job | Result |
+| Champ | Valeur observée |
 |---|---|
-| Detect SFIA Studio changes | SUCCESS |
-| Typecheck | SUCCESS |
-| Lint | SUCCESS |
-| Build | SUCCESS |
-| Unit tests (Vitest) | SUCCESS |
-| Modeled governance / secrets / whitespace | SUCCESS |
-| SFIA Studio Required Gate | SUCCESS |
+| Port | 3020 |
+| PID listen | 62319 (`next-server`) |
+| Parent | 62318 (`next dev --hostname localhost --port 3020`) |
+| CWD | `/Users/morris/Projects/sfia-workspace-p6-nora-incomplete-fix-b555/projects/sfia-studio/app` |
+| HEAD servi | `50eac439…` (≠ baseline 52f36884) |
+| Product DB ouverte | `…/p6-t2-real-qa/product/oa-product.sqlite` (**pas** la campagne e66 historique) |
+| Port 3031 | non touché |
 
-ci json snapshot: {'conclusion': 'success', 'displayTitle': 'Merge pull request #585 from mcleland147/delivery/sfia-studio-p6-gene…', 'event': 'push', 'headSha': '52f3688476e41cbab8fbe230f0ef4ddddb9aa56e', 'status': 'completed', 'url': 'https://github.com/mcleland147/sfia-workspace/actions/runs/38775822763'}
+## Nouveau runtime
 
----
-
-## T. Required Gate post-merge
-
-**SUCCESS** (Aggregate required gate PASS sur run 38775822763).
-
----
-
-## U. Gaps / réserves
-
-1. Human QA e66 non lancée
-2. Cursor REAL / Evidence E2E non prouvés
-3. P6 GLOBAL NOT PASSED
-4. Runtime v3 NON ADOPTED
-5. main local non synchronisé dans ce worktree Delivery (preuve remote OK)
-6. Branch cleanup SKIPPED (exclusion GO)
-
----
-
-## V. Fake / Real
-
-- Applicable: OUI (intégration Git / CI)
-- Fake: suites DET PR + CI post-merge
-- REAL: NON exécuté
-- Niveau atteint: INTEGRATED ON MAIN / POST-MERGE VERIFIED
-- Hors scope: READY FOR REAL; E2E REAL; P6 GLOBAL PASS; PRODUCT READY; RUNTIME V3 ADOPTED
-- DETERMINISTIC PROVEN ≠ READY FOR REAL
-
----
-
-## W. Dette / Exit
-
-Exit Proof cycle:
-- PR #585 mergée **OUI**
-- merge commit vérifié **OUI**
-- trois commits intégrés **OUI**
-- main actualisé **OUI**
-- CI post-merge qualifiée **OUI**
-- Review Handoff publié (après cette section)
-
-Dette conservée: Human QA e66; Evidence E2E; Cursor REAL; P6 GLOBAL PASS; runtime v3.
-
-Capacité suivante: P6 Human QA Continuation (gate Morris distinct).
-
----
-
-## X. Branch cleanup
-
-**SKIPPED — EXCLUDED BY MORRIS GO SCOPE.**
-
-Delivery branch still present:
-`origin/delivery/sfia-studio-p6-generic-execution-conversational-continuity` = 11ca7215
-
-sfia/review-handoff non supprimée.
-main non touchée destructivement.
-
----
-
-## Y. Gates Morris restants
-
-1. Qualification reprise Human QA P6 e66
-2. Cursor REAL (si GO distinct)
-3. P6 Exit Proof / GLOBAL
-4. P7 Fresh Project Replay
-5. Runtime v3 adoption — hors scope
-6. Eventuel cleanup branche Delivery — GO distinct si souhaité
-
----
-
-## Z. Git Truth final
-
-| Check | Value |
+| Champ | Valeur |
 |---|---|
-| Local branch | delivery/... @ 11ca7215 |
-| origin/delivery | 11ca7215 |
-| origin/main | 52f3688476e41cbab8fbe230f0ef4ddddb9aa56e |
-| PR #585 | MERGED |
-| Dirty | `.tmp-sfia-review/chatgpt-review.md` |
-| Product changes this cycle | **NONE** |
+| Worktree | `/Users/morris/Projects/sfia-workspace-studio-runtime-main-52f36884` |
+| Mode Git | detached HEAD |
+| HEAD servi | `52f3688476e41cbab8fbe230f0ef4ddddb9aa56e` |
+| Lancement | `npm run dev` depuis `…/projects/sfia-studio/app` |
+| PID listen | **66172** (`next-server` v15.5.20) |
+| Parent | **66169** (`next dev --port 3020`) |
+| URL | http://localhost:3020 |
+| Preflight | `npm run preflight:runtime` → **STUDIO RUNTIME PROFILE READY** ; `cursorReal: OFF` ; `realBoundaryConstructed: false` |
 
----
+## Persistance historique (chemins absolus, sans secrets)
 
-## AA. Verdict
-
-**PR #585 MERGED
-MAIN UPDATED
-POST-MERGE VERIFIED
-CI SUCCESS
-READY FOR P6 HUMAN QA CONTINUATION QUALIFICATION**
-
-Pas P6 GLOBAL PASS.
-Pas READY FOR REAL.
-Pas runtime v3 ADOPTED.
-
----
-
-## AB. Instruction ChatGPT
-
-Lire le nouveau Review Handoff distant.
-
-Vérifier les 20 points du GO (cycle 14, GO, HEAD/base entrée, CI PR, méthode merge, merge SHA, parents, 3 commits sur main, PR MERGED, nouveau main, CI post-merge 38775822763 @ 52f36884, Required Gate, absence changement Product, absence suppression branche, Pack FULL, handoff, Fake/Real, réserves/gates).
-
-Rendre: **POST-MERGE INTEGRATION VERIFICATION**.
-
-Ne pas déclencher automatiquement: Human QA P6; Cursor REAL; Product promotion; Runtime v3; suppression de branche.
-
----
-
-## AC. Git Review Index
-
-| Item | Value |
+| Variable | Chemin résolu |
 |---|---|
-| Pre-merge HEAD | 11ca72159572e29775cab77808b8a74750db7d01 |
-| Pre-merge main | e7822033f159d6a0e9c15f6f26843bd1248edbc1 |
-| Merge commit | 52f3688476e41cbab8fbe230f0ef4ddddb9aa56e |
-| Post-merge main | 52f3688476e41cbab8fbe230f0ef4ddddb9aa56e |
-| CI PR | 38773538814 SUCCESS |
-| CI post-merge | 38775822763 SUCCESS |
-| Entry handoff | ddf95f3e / 532bc4bb |
-| Product files modified this cycle | 0 |
+| `SFIA_STUDIO_PRODUCT_DB_PATH` | `/Users/morris/Projects/sfia-workspace-p6-rec01-human-qa/projects/sfia-studio/.sfia-exec/hqa01-rec01-requal/product/oa-product.sqlite` |
+| `SFIA_STUDIO_NORA_SESSION_DB_PATH` | `/Users/morris/Projects/sfia-workspace-p6-rec01-human-qa/projects/sfia-studio/.sfia-exec/hqa01-rec01-requal/product/nora-session.sqlite` |
+| `BETTER_AUTH_URL` | `http://localhost:3020` |
+| `SFIA_STUDIO_CURSOR_REAL` | **0** (forcé pour ce pass ; historique avait 1) |
+| `SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY` | 1 (préservé) |
+| Managed repo root | `…/hqa01-rec01-requal/managed-repos` |
 
-FIN REVIEW PACK FULL — PR #585 MERGE + POST-MERGE
+### Inspection SQLite read-only (avant/après démarrage)
+
+- Product DB non vide ; tables Product présentes
+- Projet **e66** trouvé : `prj:e66fd58c-03f6-41df-90c8-4ae267926212` — status `active`
+- Titre Product : « Simplification des interactions avec l’IA »
+- LPS / cycle instances / human decisions présents pour ce projectId (counts : cycles=1, decisions=1, contracts=0)
+- Nora Session DB non vide ; session **`f1-default`** présente pour e66 (session_items=6, pilot_transcript_turns=12)
+- Aucune base Product/Nora créée sous le nouveau worktree runtime (count sqlite worktree = 0)
+- Aucune écriture manuelle SQL (INSERT/UPDATE/DELETE/migration) effectuée par Cursor
+
+### Managed clone
+
+- Répertoire historique `managed-repos/` était **vide**
+- Clone local restauré pour préflight / binding repository : `…/managed-repos/mcleland147__sfia-workspace` (artefact de lancement local)
+- Réserve : `pathRoot` Product `projects/simplification-des-interactions-avec-l-ia` **absent** du clone géré au HEAD du clone local — inventaire workspace à confirmer par Morris en Human QA (n’empêche pas l’accessibilité runtime + DB e66)
+
+## Configuration / auth (sans secrets)
+
+- `.env.local` gitignored, dérivé du profil historique `studio-runtime-main-bd3f440c` avec chemins DB historiques absolus
+- Better Auth + GitHub OAuth + identité Pilote autorisée : **préservés** (valeurs non divulguées)
+- OpenAI configuré dans l’env historique : **préservé**, **aucun appel OpenAI** par Cursor
+- Cursor REAL : **OFF**
+- Fake provider : **non activé** pour simuler un runtime REAL
+
+## Vérification minimale HTTP (≠ Human QA)
+
+| Check | Résultat |
+|---|---|
+| Port 3020 occupé par nouvelle instance | OUI — PID 66172, cwd worktree 52f36884 |
+| HEAD | `52f36884…` |
+| `GET /` | 307 → `/login?error=NO_SESSION&from=%2F` |
+| `GET /login` | 200 — title « SFIA Studio » |
+| Contournement auth | **NON** |
+| Message Nora / parcours Pilote | **NON** |
+| Tests automatiques (`npm test`, e2e, lint, typecheck) | **AUCUN** |
+| Mutations Product volontaires | **AUCUNE** |
+| Cursor REAL lancé | **NON** |
+
+## Limites de persistance (process-local)
+
+Le redémarrage remplace le processus Next.js. Non garantis / non reconstitués :
+
+- propositions process-local
+- pending offers éventuelles en mémoire
+- sessions cognitives non durables
+- caches temporaires / états UI non persistés
+
+États durables préservés dans les SQLite historiques (projet, LPS, cycles, décisions, conversations Nora persistées).
+
+## Blockers
+
+- Aucun blocker bloquant la disponibilité runtime + projet e66
+- Réserve non bloquante : `pathRoot` workspace absent du managed clone restauré
+
+## Git Truth final
+
+| Check | Résultat |
+|---|---|
+| `origin/main` | `52f3688476e41cbab8fbe230f0ef4ddddb9aa56e` (inchangé) |
+| Runtime HEAD | `52f3688476e41cbab8fbe230f0ef4ddddb9aa56e` |
+| Fichiers projet Delivery modifiés | **AUCUN** (pack temporaire + artefacts locaux runtime uniquement) |
+| Serveur :3020 | **RESTE ACTIF** |
+
+## Verdict
+
+**P6 HUMAN QA ENVIRONMENT READY**
+**STUDIO MAIN 52F36884 SERVED**
+**LOCALHOST:3020 AVAILABLE**
+**HISTORICAL E66 PROJECT FOUND**
+**HISTORICAL PRODUCT DATA PRESERVED**
+**READY FOR MORRIS MANUAL HUMAN QA**
+
+## Instruction ChatGPT
+
+Lire le nouveau Review Handoff distant (`sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md`).
+
+Vérifier :
+
+- cycle / profil CRITICAL / CKC guidance
+- Git main `52f36884`
+- worktree runtime `…-studio-runtime-main-52f36884`
+- port 3020 actif
+- Product DB + Nora Session DB historiques `hqa01-rec01-requal`
+- projet e66 `prj:e66fd58c-03f6-41df-90c8-4ae267926212`
+- absence de création de projet / test fonctionnel / Cursor REAL / réinitialisation DB
+- disponibilité réelle du serveur
+- réserves (process-local ; pathRoot managed clone)
+- handoff distant
+
+Puis rendre : **P6 HUMAN QA RUNTIME READINESS REVIEW**.
+
+Aucune exécution Human QA automatique.
