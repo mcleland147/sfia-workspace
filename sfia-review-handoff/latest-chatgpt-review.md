@@ -1,509 +1,174 @@
-# SFIA STUDIO — Review Pack FULL — PR #585 R-CI-01
-## Legacy W2 Confirm Compatibility Correction
+# SFIA STUDIO — Review Pack FULL — PR #585 R-CI-01 GIT INTEGRATION
 
-Horodatage: 2026-10-15 16:39:19 CEST
-Mode: mono-cycle
+## A. Horodatage Europe/Paris
+
+2026-10-15 18:37:42 CEST
+
+Mode: mono-cycle cumulative
+Cycle type: 13 — PR readiness / Git Integration
 Profil: CRITICAL
 CKC: ckc:studio:delivery (+ ckc:studio:qa-validation)
-Cycle type: 8 — Delivery / correction INC
-GO Morris: 2026-10-15 — PR #585 / R-CI-01 Legacy W2 Confirm Compatibility Correction
-Gate intégration correctif: NON CONSOMMÉ
-Gate merge: NON CONSOMMÉ
-Aucun commit/push projet dans ce cycle.
+Finding: R-CI-01
+Aucun merge. Aucune nouvelle PR. Aucun REAL.
 
 ---
 
-## A. GO Morris consommé
+## B. GO Morris commit/push/PR/CI
 
-GO 2026-10-15 — PR #585 / R-CI-01 Legacy W2 Confirm Compatibility Correction.
+GO MORRIS — 2026-10-15
 
-Consommé pour: analyse cause racine; correction Product locale bornée; tests déterministes; qualification régressions; Review Pack FULL; Review Handoff L3.
+Autorisé et consommé:
+- staging strict 2 fichiers R-CI-01
+- commit additionnel sur Delivery
+- push normal
+- mise à jour PR #585
+- vérification CI GitHub
+- Review Pack FULL + Handoff L3
 
-NON AUTORISÉ (respecté): git add projet; commit projet; amend 45dee683; push branche projet; nouvelle PR; merge #585; force push; doctrine; schéma T-A4; migration; Cursor REAL; OpenAI REAL; Human QA; promotion runtime v3.
+NON consommé: MERGE.
 
 ---
 
-## B. Cycle / profil / CKC
+## C. Qualification SFIA
 
-- Type: 8 Delivery / correction
-- Profil: CRITICAL
-- CKC: ckc:studio:delivery
-- Guidance: ckc:studio:qa-validation
-- QA: CRITICAL / DETERMINISTIC REGRESSION
-- Finding: R-CI-01
-- Capacité: V3-F05
+- Projet: SFIA Studio / mcleland147/sfia-workspace
+- Macro: STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01
 - Milestone: P6 GLOBAL INTEGRATED PRODUCT QA (NOT PASSED)
-
-Blocs: Local Git Truth; Convergence Studio; Current Product Context; HumanDecision/Confirmation; ExecutionContract; Security/Authority; Compatibility; Deterministic QA; Fake/Real; Review Pack FULL; Review Handoff L3.
+- Capacité: V3-F05
+- Typologie: INC + Git Integration bornée
+- Gate merge: NON CONSOMMÉ
 
 ---
 
-## C. Git Truth initial
+## D. Git Truth initial
 
 Worktree: `/Users/morris/Projects/sfia-workspace-p6-generic-exec-continuity-e7822033`
 
 | Check | Observed |
 |---|---|
-| HEAD Delivery | `45dee6830ed19be8ff9a9e1c28434fcd0b8c9d02` |
-| remote Delivery | `45dee6830ed19be8ff9a9e1c28434fcd0b8c9d02` |
-| origin/main | `e7822033f159d6a0e9c15f6f26843bd1248edbc1` |
-| remote main tip | `e7822033…` |
-| Branch | `delivery/sfia-studio-p6-generic-execution-conversational-continuity` |
-| Dirty initial | `.tmp-sfia-review/chatgpt-review.md` only (pack) |
-| Product dirty initial | none |
+| Branch | delivery/sfia-studio-p6-generic-execution-conversational-continuity |
+| HEAD | 45dee6830ed19be8ff9a9e1c28434fcd0b8c9d02 |
+| origin/delivery | 45dee683… |
+| origin/main | e7822033f159d6a0e9c15f6f26843bd1248edbc1 |
+| PR #585 | OPEN, base=main, headOid=45dee683 |
+| Dirty Product | confirmForAuthorization.ts (M) + p6.rCi01… (??) |
+| Pack local | .tmp-sfia-review/chatgpt-review.md |
+| Staged | none |
+| Entry handoff | ad8d6737 / blob dfb5f4e5 |
 
-Verdict Git Truth initial: **PASS** — aligné références d'entrée.
-
----
-
-## D. Sources / convergence
-
-Lus / appliqués:
-- Build Doctrine / Roadmap (KEEP — non modifiés)
-- C1 / P2 / P4 / P6 product-simplification
-- Doctrine v3 30–36 (HumanDecision / Confirmation ≠ HD / exécution gouvernée)
-- T-A4 schema + mapping (KEEP — non modifiés dans ce cycle)
-- Template cycle + routing
-- Handoff d'entrée: commit `1b1b0bfd` / blob `e9a342df` (CI failure R-CI-01)
-- PR #585 OPEN; CI Vitest FAIL + Required Gate FAIL
-
-Convergence pre-check:
-- Legacy W2 Confirm: RESTORE
-- G-D4 generic prepare / CURRENT materiality: KEEP
-- Exit Proof: ancien parcours W2 Confirm valide sans bypass G-D4
+Verdict: **PASS — no drift**.
 
 ---
 
-## E. PR #585 / commit d'entrée
+## E. Sources et convergence
 
-- PR: https://github.com/mcleland147/sfia-workspace/pull/585
-- Status: OPEN — MERGE BLOCKED
-- Product HEAD: `45dee6830ed19be8ff9a9e1c28434fcd0b8c9d02`
-- Main: `e7822033f159d6a0e9c15f6f26843bd1248edbc1`
+Sources lues / appliquées (KEEP):
+- convergence build doctrine + roadmap
+- product-completion C1
+- product-simplification 02 / 04 / 07
+- doctrine v3 30–35
+- template cycle + routing
+- T-A4 KEEP (no schema change in R-CI-01 commit)
+- Handoff R-CI-01 correction: ad8d673 / dfb5f4e5 (PASS WITH RESERVES historique)
 
----
-
-## F. CI failure d'entrée
-
-- Run: https://github.com/mcleland147/sfia-workspace/actions/runs/38748483640
-- Detect/Typecheck/Lint/Build: SUCCESS
-- Vitest: FAILURE
-- Required Gate: FAILURE
-- Suite: `p5.s04.cp02.softFailPilotLineage.d0.test.ts`
-- Helper: `authorizeAndSucceed` ~L177
-- Code observé: `MATERIALITY_PRODUCT_CONTEXT_UNAVAILABLE` sur Confirm
+Convergence:
+- R-CI-01 DETERMINISTIC CORRECTION REVIEWED → Git Integration
+- Gap: correctif absent du remote → **clos par ce cycle**
+- Exit Proof cycle: correctif intégré PR #585 + CI qualifiée
+- Capacité suivante: qualification findings CI + Final Critical PR Review (pas merge auto)
 
 ---
 
-## G. Reproduction locale
+## F. PR #585 d'entrée
 
-Commande:
-```
-cd projects/sfia-studio/app && npx vitest run __tests__/oa/synthesis/p5.s04.cp02.softFailPilotLineage.d0.test.ts
-```
-
-Sur HEAD `45dee683` (avant correctif):
-- Test Files: 1 failed
-- Tests: 13 failed | 9 passed (22)
-- Assertion: `expect(confirmed.ok).toBe(true)` → received false
-- Cause runtime: Confirm → `revalidateMaterialityAgainstCurrentProduct` → `MATERIALITY_PRODUCT_CONTEXT_UNAVAILABLE`
-
-Après correctif: 22/22 PASS.
+- URL: https://github.com/mcleland147/sfia-workspace/pull/585
+- HEAD entrée: 45dee683
+- CI initiale FAIL: https://github.com/mcleland147/sfia-workspace/actions/runs/38748483640
+- Finding: R-CI-01 (Confirm MATERIALITY_PRODUCT_CONTEXT_UNAVAILABLE sur legacy W2 / CP02)
 
 ---
 
-## H. Contrat W2 observé
+## G. Review Handoff R-CI-01 d'entrée
 
-Path `authorizeAndSucceed` / `prepareExecutionContractFromW2Decision`:
-- `decisionRefs: [decision.decisionId]` — vraie HumanDecision trajectoire
-- **Aucun** stamp `MATERIALITY:NON_STRUCTURAL|STRUCTURAL|UNKNOWN`
-- Pas de `materialityFacts.productCurrentness` G-D4
-- Status vers `confirmation_required` après validate/inspect
-- Relève du **Cas A — Legacy W2**, pas de la politique G-D4
+- Commit: ad8d6737756da481028fa5d995f051ceb021de1c
+- Blob: dfb5f4e5a1888be8cd0c1565d9e4488ae8f66f0b
+- Contenu: correction Cases A–D + tests L01–L14 + verdict LOCAL CANDIDATE / READY FOR CRITICAL REVIEW
+- Critical Review historique: PASS WITH RESERVES
 
 ---
 
-## I. Cause racine
+## H. Manifest exact
 
-`confirmExecutionContractForAuthorization` appelait **toujours**
-`revalidateMaterialityAgainstCurrentProduct` (sauf `skipMaterialityRevalidation`),
-y compris pour les contrats legacy W2 sans stamp G-D4.
-
-La revalidation CURRENT exige un contexte Product G-D4
-(LPS/binding/currentness). Les contrats historiques W2 n'ont pas
-ces stamps → fail-closed `MATERIALITY_PRODUCT_CONTEXT_UNAVAILABLE`
-alors qu'une HumanDecision valide existe déjà.
-
-Frontière incorrecte: contrôle G-D4 appliqué hors domaine G-D4.
-
----
-
-## J. Frontière G-D4
-
-| Cas | Critère | Confirm |
-|---|---|---|
-| A Legacy W2 | pas de stamp MATERIALITY:* ; decisionRefs non vides | skip revalidation Product; OA HD freshness/inspection/authority |
-| B G-D4 NON_STRUCTURAL | stamp NON_STRUCTURAL (+ currentness) | CURRENT revalidation obligatoire |
-| C STRUCTURAL/UNKNOWN | stamp STRUCTURAL/UNKNOWN | fail-closed / DECISION_REQUIRED — pas d'exception NON_STRUCTURAL |
-| D empty refs sans stamp | decisionRefs=[] et stamped=null | REFUS immédiat DECISION_REQUIRED |
-
-`skipMaterialityRevalidation` reste limité au chemin gouverné
-`authorizeGenericPreparedContract` après CURRENT déjà prouvé,
-et seulement si stamp `non_structural`.
-
----
-
-## K. Diagnostic de compatibilité
-
-Hypothèse ChatGPT: **CONFIRMÉE** par reproduction locale + inspection du contrat.
-
-Correction minimale: éligibilité G-D4 pour la revalidation Product,
-sans retirer les contrôles HD OA, inspection, projet, autorité.
-
----
-
-## L. Manifest exact
+Commit R-CI-01 uniquement:
 
 MODIFY:
-- `projects/sfia-studio/app/features/project-assistant/w2/confirmForAuthorization.ts`
+- projects/sfia-studio/app/features/project-assistant/w2/confirmForAuthorization.ts
 
 CREATE:
-- `projects/sfia-studio/app/__tests__/project-assistant/p6.rCi01.legacyW2ConfirmCompatibility.d0.test.ts`
+- projects/sfia-studio/app/__tests__/project-assistant/p6.rCi01.legacyW2ConfirmCompatibility.d0.test.ts
 
-Aucun autre fichier Product.
-Aucun schéma T-A4 / doctrine / workflow CI modifié.
+EXACTEMENT 2 fichiers. Pack `.tmp-sfia-review/` NON commité.
 
----
-
-## M. Correction avant/après
-
-### Avant
-Après inspection suffisante, toujours:
-1. `revalidateMaterialityAgainstCurrentProduct`
-2. `assertDecisionRefsAdmissibleForConfirm`
-→ legacy W2 sans stamp échoue sur contexte Product.
-
-### Après
-1. Case D: empty refs + no stamp → DECISION_REQUIRED immédiat
-2. Si stamp MATERIALITY:* **ou** stampedCurrentness → G-D4 CURRENT revalidation (+ assertDecisionRefs)
-3. Sinon Case A legacy → **pas** de revalidation Product; OA Confirm garde HD freshness
+PR cumulative vs main: 32 fichiers (31 du commit 45dee683 + 1 CREATE R-CI-01; confirm déjà dans les 31).
 
 ---
 
-## N. Contrôles HD préservés
+## I. Vérification du candidat
 
-OA `ConfirmExecutionContract` inchangé:
-- decision existence
-- project match
-- accepted / not superseded
-- Confirmation ≠ HumanDecision
-- Pas de fabrication de `dec:`
+Markers confirmés vs handoff ad8d673:
+- R-CI-01 routing comment
+- Case D early DECISION_REQUIRED
+- requiresGd4CurrentMaterialityRevalidation
+- Case A legacy skip Product revalidation
+- skipMaterialityRevalidation borné non_structural
+- Tests L01, L03, L04, L05, L06, L08, L09, L10
 
-Legacy path ne bypass pas ces contrôles.
-
----
-
-## O. Contrôles G-D4 préservés
-
-- NON_STRUCTURAL + CURRENT: toujours revalidé
-- Context unavailable: fail-closed (L06)
-- Repo identity/pathRoot stale: STALE (L08)
-- STRUCTURAL empty refs: BLOCK (L10)
-- Empty refs sans stamp: REFUS (L09)
-- `skipMaterialityRevalidation` non élargi en bypass générique
+Aucune divergence fonctionnelle → **CANDIDATE MATCH**.
 
 ---
 
-## P. Contrôles d'inspection
+## J. Contrôles pré-commit
 
-Inchangés: INSPECTION_REQUIRED / REINSPECTION_REQUIRED avant Confirm.
-L03: legacy sans inspect → INSPECTION_REQUIRED PASS.
-
----
-
-## Q. Contrôles de Confirmation
-
-OA Confirm + authority registration + confirmationId inchangés.
-L04: PROJECT_MISMATCH préservé.
+- git diff --check: PASS
+- scope: 2 fichiers attendus
+- secret scan ciblé: clean
+- preuves historiques DET (non rejouées): CP02 22/22; P6 suites 54/54; legacy 26/26; T-A4 20/20; typecheck/lint PASS
+- Aucun REAL / ports :3020 / bases QA touchés
 
 ---
 
-## R. Oracles L01–L14
-
-| Oracle | Résultat | Preuve |
-|---|---|---|
-| L01 Legacy W2 nominal Confirm | PASS | p6.rCi01 L01 + CP02 |
-| L02 Legacy freshness | PASS (OA path) | OA ConfirmExecutionContract freshness inchangé; non re-spécifié en fixture R-CI-01 (pas de bypass) |
-| L03 Legacy inspection | PASS | p6.rCi01 L03 |
-| L04 Legacy project | PASS | p6.rCi01 L04 |
-| L05 G-D4 NON_STRUCTURAL Confirm | PASS | p6.rCi01 L05 + G-D4 suite |
-| L06 G-D4 context unavailable | PASS | p6.rCi01 L06 |
-| L07 G-D4 LPS stale | PASS | covered by prior G-D4/currentness suites (authorize path); Confirm uses same revalidate |
-| L08 G-D4 repo stale | PASS | p6.rCi01 L08 + closure regularization |
-| L09 empty refs no stamp | PASS | p6.rCi01 L09 |
-| L10 STRUCTURAL | PASS | p6.rCi01 L10 |
-| L11 Authority | PASS | legacy+G-D4 suites; forceLocalAuthority non utilisé comme bypass materiality |
-| L12 P5-S04 CP02 full | PASS | 22/22 |
-| L13 No synthetic HD | PASS | G-D4 decisions length unchanged; legacy uses real HD |
-| L14 No REAL | PASS | OPS1 fake provider; no Cursor REAL |
-
----
-
-## S. Test P5-S04 CP02
+## K. Staging exact
 
 ```
-npx vitest run __tests__/oa/synthesis/p5.s04.cp02.softFailPilotLineage.d0.test.ts
+A  projects/sfia-studio/app/__tests__/project-assistant/p6.rCi01.legacyW2ConfirmCompatibility.d0.test.ts
+M  projects/sfia-studio/app/features/project-assistant/w2/confirmForAuthorization.ts
 ```
-Avant: 13 failed / 9 passed.
-Après: **22 passed (22)**.
+
+Count staged: 2. Aucun troisième fichier.
 
 ---
 
-## T. Tests P6 / G-D4
+## L. Commit SHA
 
-```
-npx vitest run \
-  __tests__/project-assistant/p6.rCi01.legacyW2ConfirmCompatibility.d0.test.ts \
-  __tests__/project-assistant/p6.gD4.genericPrepareWithoutSystematicHd.d0.test.ts \
-  __tests__/project-assistant/p6.productContinuityClosure.integrated.d0.test.ts \
-  __tests__/project-assistant/p6.authorityChatFirstContinuity.d0.test.ts \
-  __tests__/project-assistant/p6.closureRegularization.repositoryCurrentness.d0.test.ts \
-  __tests__/oa/synthesis/p5.s04.cp02.softFailPilotLineage.d0.test.ts
-```
-**6 files / 54 tests PASS.**
+- Nouveau: `e7774a0c71e3b052f091ed2dffdd70651916dd2d`
+- Parent: `45dee6830ed19be8ff9a9e1c28434fcd0b8c9d02` (conservé, non amendé)
+- Message: `fix(studio): restore legacy W2 Confirm compatibility`
+- 2 files changed, 634 insertions(+), 64 deletions(-)
 
 ---
 
-## U. Tests legacy
+## M. Diff du commit (name-status)
 
 ```
-npx vitest run \
-  __tests__/project-assistant/w3cPostEvidenceCorrection.test.ts \
-  __tests__/project-assistant/ecInspectionDisclosure.d0.test.ts
-```
-**2 files / 26 tests PASS.**
-
----
-
-## V. Couverture CI
-
-CI GitHub exécute `npm test` (Vitest full) — **non rejoué intégralement** ici
-(coût/temps; ports/worktrees Human QA protégés).
-
-Périmètre ciblé R-CI-01 + P6 G-D4 + CP02 + legacy Confirm: PASS.
-T-A4 schema governance: 20/20 PASS.
-Typecheck/lint: PASS.
-Build Next: **SKIPPED** (évite effets ports/worktrees; CI Build était déjà SUCCESS sur 45dee683; correctif TypeScript-only Confirm + test).
-
-Limite readiness: Required Gate GitHub non re-prouvé tant que correctif non poussé.
-
----
-
-## W. Typecheck / lint / build
-
-- `npm run typecheck` → PASS
-- `npm run lint` → PASS (No ESLint warnings or errors)
-- `npm run build` → SKIPPED (qualification ci-dessus)
-- T-A4 `execution-contract-governance.test.mjs` → 20 PASS
-
----
-
-## X. Git diff utile complet — MODIFIED confirmForAuthorization.ts
-
-```diff
-diff --git a/projects/sfia-studio/app/features/project-assistant/w2/confirmForAuthorization.ts b/projects/sfia-studio/app/features/project-assistant/w2/confirmForAuthorization.ts
-index 45f23296..b2cd6cee 100644
---- a/projects/sfia-studio/app/features/project-assistant/w2/confirmForAuthorization.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/w2/confirmForAuthorization.ts
-@@ -142,9 +142,12 @@ export async function confirmExecutionContractForAuthorization(
-     };
-   }
-
--  // G-D4 / A2 — empty decisionRefs only when NON_STRUCTURAL stamp AND CURRENT
--  // Product revalidation agrees. Stamp alone is never sufficient authority.
-   // Confirmation ≠ HumanDecision (P2-D-03). Do not invent a dec: to unlock Confirm.
-+  //
-+  // R-CI-01 — Route materiality CURRENT revalidation only for G-D4 policy contracts.
-+  // Legacy W2 contracts (no MATERIALITY:* stamp, real decisionRefs) keep historical
-+  // HD freshness / project / inspection gates via OA Confirm — they must not be
-+  // forced through Product NON_STRUCTURAL revalidation that expects G-D4 stamps.
-   const decisionRefs = contract.decisionRefs ?? [];
-   const decisionRef = decisionRefs[0];
-   const stamped = materialityFromContractConstraints(contract.constraints);
-@@ -154,77 +157,103 @@ export async function confirmExecutionContractForAuthorization(
-     typeof contractInputs.materialityFacts === "object"
-       ? (contractInputs.materialityFacts as Record<string, unknown>)
-       : null;
-+  const stampedCurrentness = parseStampedProductCurrentness(factsRaw);
-
--  let recomputedMateriality = stamped ?? "unknown";
--  if (input.skipMaterialityRevalidation !== true) {
--    const revalidated = await revalidateMaterialityAgainstCurrentProduct({
--      oa,
--      projectId: input.projectId,
--      analysis: analysisStubFromMaterialityFacts(factsRaw, contractInputs),
--      cycleInstanceId: contract.cycleInstanceId ?? null,
--      stampedMateriality: stamped,
--      stampedCurrentness: parseStampedProductCurrentness(factsRaw),
--    });
--    if (!revalidated.ok) {
--      const passThrough =
--        revalidated.code === "MATERIALITY_CURRENT_MISMATCH" ||
--        revalidated.code === "MATERIALITY_CURRENTNESS_STALE" ||
--        revalidated.code === "MATERIALITY_PRODUCT_CONTEXT_UNAVAILABLE" ||
--        revalidated.code === "REPOSITORY_BINDING_STALE" ||
--        revalidated.code === "REPOSITORY_BINDING_UNAVAILABLE" ||
--        revalidated.code.startsWith("SCOPE_");
--      return {
--        ok: false,
--        code:
--          revalidated.code === "MATERIALITY_STRUCTURAL" ||
--          revalidated.code === "MATERIALITY_UNKNOWN"
--            ? "DECISION_REQUIRED"
--            : passThrough
--              ? revalidated.code
--              : "DECISION_REQUIRED",
--        message: revalidated.message,
--      };
--    }
--    recomputedMateriality = revalidated.current.assessment.materiality;
--  } else if (stamped !== "non_structural") {
-+  // Case D — empty refs without G-D4 stamp: never treat as legacy HD path.
-+  if (decisionRefs.length === 0 && stamped == null) {
-     return {
-       ok: false,
-       code: "DECISION_REQUIRED",
-       message:
--        "Stamp de matérialité non NON_STRUCTURAL — HumanDecision requise.",
-+        "Contrat sans décision humaine ni justification G-D4 NON_STRUCTURAL — confirmation refusée.",
-     };
-   }
-
--  const admissible = assertDecisionRefsAdmissibleForConfirm({
--    decisionRefs,
--    stampedMateriality: stamped,
--    recomputed: {
--      materiality:
--        recomputedMateriality === "non_structural" ||
--        recomputedMateriality === "structural" ||
--        recomputedMateriality === "unknown"
--          ? recomputedMateriality
--          : "unknown",
--      reasonCodes: ["current_product_revalidation"],
--      humanDecisionRequired: recomputedMateriality !== "non_structural",
--      constraintToken:
--        recomputedMateriality === "structural"
--          ? "MATERIALITY:STRUCTURAL"
--          : recomputedMateriality === "unknown"
--            ? "MATERIALITY:UNKNOWN"
--            : "MATERIALITY:NON_STRUCTURAL",
--    },
--  });
--  if (!admissible.ok) {
--    return {
--      ok: false,
--      code: "DECISION_REQUIRED",
--      message:
--        stamped === "non_structural" && recomputedMateriality !== "non_structural"
--          ? "Matérialité structurelle détectée à la confirmation — HumanDecision requise."
--          : "Contrat sans décision humaine rattachée alors qu'une HumanDecision est requise — confirmation refusée.",
--    };
-+  // G-D4 policy: explicit MATERIALITY stamp and/or Product currentness stamp at PREPARE.
-+  const requiresGd4CurrentMaterialityRevalidation =
-+    stamped != null || stampedCurrentness != null;
-+
-+  let recomputedMateriality = stamped ?? "unknown";
-+  if (requiresGd4CurrentMaterialityRevalidation) {
-+    // Cases B/C — G-D4 stamped (NON_STRUCTURAL / STRUCTURAL / UNKNOWN) or stamped facts.
-+    if (input.skipMaterialityRevalidation !== true) {
-+      const revalidated = await revalidateMaterialityAgainstCurrentProduct({
-+        oa,
-+        projectId: input.projectId,
-+        analysis: analysisStubFromMaterialityFacts(factsRaw, contractInputs),
-+        cycleInstanceId: contract.cycleInstanceId ?? null,
-+        stampedMateriality: stamped,
-+        stampedCurrentness,
-+      });
-+      if (!revalidated.ok) {
-+        const passThrough =
-+          revalidated.code === "MATERIALITY_CURRENT_MISMATCH" ||
-+          revalidated.code === "MATERIALITY_CURRENTNESS_STALE" ||
-+          revalidated.code === "MATERIALITY_PRODUCT_CONTEXT_UNAVAILABLE" ||
-+          revalidated.code === "REPOSITORY_BINDING_STALE" ||
-+          revalidated.code === "REPOSITORY_BINDING_UNAVAILABLE" ||
-+          revalidated.code.startsWith("SCOPE_");
-+        return {
-+          ok: false,
-+          code:
-+            revalidated.code === "MATERIALITY_STRUCTURAL" ||
-+            revalidated.code === "MATERIALITY_UNKNOWN"
-+              ? "DECISION_REQUIRED"
-+              : passThrough
-+                ? revalidated.code
-+                : "DECISION_REQUIRED",
-+          message: revalidated.message,
-+        };
-+      }
-+      recomputedMateriality = revalidated.current.assessment.materiality;
-+    } else if (stamped !== "non_structural") {
-+      // skipMaterialityRevalidation only valid after a governed G-D4 CURRENT pass
-+      // that already established NON_STRUCTURAL (authorizeGenericPreparedContract).
-+      return {
-+        ok: false,
-+        code: "DECISION_REQUIRED",
-+        message:
-+          "Stamp de matérialité non NON_STRUCTURAL — HumanDecision requise.",
-+      };
-+    } else {
-+      recomputedMateriality = "non_structural";
-+    }
-+
-+    const admissible = assertDecisionRefsAdmissibleForConfirm({
-+      decisionRefs,
-+      stampedMateriality: stamped,
-+      recomputed: {
-+        materiality:
-+          recomputedMateriality === "non_structural" ||
-+          recomputedMateriality === "structural" ||
-+          recomputedMateriality === "unknown"
-+            ? recomputedMateriality
-+            : "unknown",
-+        reasonCodes: ["current_product_revalidation"],
-+        humanDecisionRequired: recomputedMateriality !== "non_structural",
-+        constraintToken:
-+          recomputedMateriality === "structural"
-+            ? "MATERIALITY:STRUCTURAL"
-+            : recomputedMateriality === "unknown"
-+              ? "MATERIALITY:UNKNOWN"
-+              : "MATERIALITY:NON_STRUCTURAL",
-+      },
-+    });
-+    if (!admissible.ok) {
-+      return {
-+        ok: false,
-+        code: "DECISION_REQUIRED",
-+        message:
-+          stamped === "non_structural" &&
-+          recomputedMateriality !== "non_structural"
-+            ? "Matérialité structurelle détectée à la confirmation — HumanDecision requise."
-+            : "Contrat sans décision humaine rattachée alors qu'une HumanDecision est requise — confirmation refusée.",
-+      };
-+    }
-   }
-+  // Case A — Legacy W2: no G-D4 stamp, decisionRefs non-empty.
-+  // OA ConfirmExecutionContract validates HD existence/freshness/project/supersession.
-+  // Do not invent MATERIALITY stamps or call Product NON_STRUCTURAL revalidation.
-
-   const authority = registerLocalAuthorityForExecutionClass({
-     authorityResolver: oa.authorityResolver,
-
+A	projects/sfia-studio/app/__tests__/project-assistant/p6.rCi01.legacyW2ConfirmCompatibility.d0.test.ts
+M	projects/sfia-studio/app/features/project-assistant/w2/confirmForAuthorization.ts
 ```
 
 ---
 
-## Y. Fichiers créés — contenu complet
+## N. Contenu exploitable du fichier créé
 
-### CREATE `projects/sfia-studio/app/__tests__/project-assistant/p6.rCi01.legacyW2ConfirmCompatibility.d0.test.ts`
+### CREATE p6.rCi01.legacyW2ConfirmCompatibility.d0.test.ts
 
 ```typescript
 /**
@@ -1052,101 +717,392 @@ describe("R-CI-01 Legacy W2 Confirm compatibility", () => {
 
 ---
 
-## Z. Fake / Real
+## O. Diff complet du fichier modifié
+
+```diff
+commit e7774a0c71e3b052f091ed2dffdd70651916dd2d
+Author: Morris Cleland <morris@macbook-air.home>
+Date:   Thu Oct 15 18:27:38 2026 +0200
+
+    fix(studio): restore legacy W2 Confirm compatibility
+
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/confirmForAuthorization.ts b/projects/sfia-studio/app/features/project-assistant/w2/confirmForAuthorization.ts
+index 45f23296..b2cd6cee 100644
+--- a/projects/sfia-studio/app/features/project-assistant/w2/confirmForAuthorization.ts
++++ b/projects/sfia-studio/app/features/project-assistant/w2/confirmForAuthorization.ts
+@@ -142,9 +142,12 @@ export async function confirmExecutionContractForAuthorization(
+     };
+   }
+
+-  // G-D4 / A2 — empty decisionRefs only when NON_STRUCTURAL stamp AND CURRENT
+-  // Product revalidation agrees. Stamp alone is never sufficient authority.
+   // Confirmation ≠ HumanDecision (P2-D-03). Do not invent a dec: to unlock Confirm.
++  //
++  // R-CI-01 — Route materiality CURRENT revalidation only for G-D4 policy contracts.
++  // Legacy W2 contracts (no MATERIALITY:* stamp, real decisionRefs) keep historical
++  // HD freshness / project / inspection gates via OA Confirm — they must not be
++  // forced through Product NON_STRUCTURAL revalidation that expects G-D4 stamps.
+   const decisionRefs = contract.decisionRefs ?? [];
+   const decisionRef = decisionRefs[0];
+   const stamped = materialityFromContractConstraints(contract.constraints);
+@@ -154,77 +157,103 @@ export async function confirmExecutionContractForAuthorization(
+     typeof contractInputs.materialityFacts === "object"
+       ? (contractInputs.materialityFacts as Record<string, unknown>)
+       : null;
++  const stampedCurrentness = parseStampedProductCurrentness(factsRaw);
+
+-  let recomputedMateriality = stamped ?? "unknown";
+-  if (input.skipMaterialityRevalidation !== true) {
+-    const revalidated = await revalidateMaterialityAgainstCurrentProduct({
+-      oa,
+-      projectId: input.projectId,
+-      analysis: analysisStubFromMaterialityFacts(factsRaw, contractInputs),
+-      cycleInstanceId: contract.cycleInstanceId ?? null,
+-      stampedMateriality: stamped,
+-      stampedCurrentness: parseStampedProductCurrentness(factsRaw),
+-    });
+-    if (!revalidated.ok) {
+-      const passThrough =
+-        revalidated.code === "MATERIALITY_CURRENT_MISMATCH" ||
+-        revalidated.code === "MATERIALITY_CURRENTNESS_STALE" ||
+-        revalidated.code === "MATERIALITY_PRODUCT_CONTEXT_UNAVAILABLE" ||
+-        revalidated.code === "REPOSITORY_BINDING_STALE" ||
+-        revalidated.code === "REPOSITORY_BINDING_UNAVAILABLE" ||
+-        revalidated.code.startsWith("SCOPE_");
+-      return {
+-        ok: false,
+-        code:
+-          revalidated.code === "MATERIALITY_STRUCTURAL" ||
+-          revalidated.code === "MATERIALITY_UNKNOWN"
+-            ? "DECISION_REQUIRED"
+-            : passThrough
+-              ? revalidated.code
+-              : "DECISION_REQUIRED",
+-        message: revalidated.message,
+-      };
+-    }
+-    recomputedMateriality = revalidated.current.assessment.materiality;
+-  } else if (stamped !== "non_structural") {
++  // Case D — empty refs without G-D4 stamp: never treat as legacy HD path.
++  if (decisionRefs.length === 0 && stamped == null) {
+     return {
+       ok: false,
+       code: "DECISION_REQUIRED",
+       message:
+-        "Stamp de matérialité non NON_STRUCTURAL — HumanDecision requise.",
++        "Contrat sans décision humaine ni justification G-D4 NON_STRUCTURAL — confirmation refusée.",
+     };
+   }
+
+-  const admissible = assertDecisionRefsAdmissibleForConfirm({
+-    decisionRefs,
+-    stampedMateriality: stamped,
+-    recomputed: {
+-      materiality:
+-        recomputedMateriality === "non_structural" ||
+-        recomputedMateriality === "structural" ||
+-        recomputedMateriality === "unknown"
+-          ? recomputedMateriality
+-          : "unknown",
+-      reasonCodes: ["current_product_revalidation"],
+-      humanDecisionRequired: recomputedMateriality !== "non_structural",
+-      constraintToken:
+-        recomputedMateriality === "structural"
+-          ? "MATERIALITY:STRUCTURAL"
+-          : recomputedMateriality === "unknown"
+-            ? "MATERIALITY:UNKNOWN"
+-            : "MATERIALITY:NON_STRUCTURAL",
+-    },
+-  });
+-  if (!admissible.ok) {
+-    return {
+-      ok: false,
+-      code: "DECISION_REQUIRED",
+-      message:
+-        stamped === "non_structural" && recomputedMateriality !== "non_structural"
+-          ? "Matérialité structurelle détectée à la confirmation — HumanDecision requise."
+-          : "Contrat sans décision humaine rattachée alors qu'une HumanDecision est requise — confirmation refusée.",
+-    };
++  // G-D4 policy: explicit MATERIALITY stamp and/or Product currentness stamp at PREPARE.
++  const requiresGd4CurrentMaterialityRevalidation =
++    stamped != null || stampedCurrentness != null;
++
++  let recomputedMateriality = stamped ?? "unknown";
++  if (requiresGd4CurrentMaterialityRevalidation) {
++    // Cases B/C — G-D4 stamped (NON_STRUCTURAL / STRUCTURAL / UNKNOWN) or stamped facts.
++    if (input.skipMaterialityRevalidation !== true) {
++      const revalidated = await revalidateMaterialityAgainstCurrentProduct({
++        oa,
++        projectId: input.projectId,
++        analysis: analysisStubFromMaterialityFacts(factsRaw, contractInputs),
++        cycleInstanceId: contract.cycleInstanceId ?? null,
++        stampedMateriality: stamped,
++        stampedCurrentness,
++      });
++      if (!revalidated.ok) {
++        const passThrough =
++          revalidated.code === "MATERIALITY_CURRENT_MISMATCH" ||
++          revalidated.code === "MATERIALITY_CURRENTNESS_STALE" ||
++          revalidated.code === "MATERIALITY_PRODUCT_CONTEXT_UNAVAILABLE" ||
++          revalidated.code === "REPOSITORY_BINDING_STALE" ||
++          revalidated.code === "REPOSITORY_BINDING_UNAVAILABLE" ||
++          revalidated.code.startsWith("SCOPE_");
++        return {
++          ok: false,
++          code:
++            revalidated.code === "MATERIALITY_STRUCTURAL" ||
++            revalidated.code === "MATERIALITY_UNKNOWN"
++              ? "DECISION_REQUIRED"
++              : passThrough
++                ? revalidated.code
++                : "DECISION_REQUIRED",
++          message: revalidated.message,
++        };
++      }
++      recomputedMateriality = revalidated.current.assessment.materiality;
++    } else if (stamped !== "non_structural") {
++      // skipMaterialityRevalidation only valid after a governed G-D4 CURRENT pass
++      // that already established NON_STRUCTURAL (authorizeGenericPreparedContract).
++      return {
++        ok: false,
++        code: "DECISION_REQUIRED",
++        message:
++          "Stamp de matérialité non NON_STRUCTURAL — HumanDecision requise.",
++      };
++    } else {
++      recomputedMateriality = "non_structural";
++    }
++
++    const admissible = assertDecisionRefsAdmissibleForConfirm({
++      decisionRefs,
++      stampedMateriality: stamped,
++      recomputed: {
++        materiality:
++          recomputedMateriality === "non_structural" ||
++          recomputedMateriality === "structural" ||
++          recomputedMateriality === "unknown"
++            ? recomputedMateriality
++            : "unknown",
++        reasonCodes: ["current_product_revalidation"],
++        humanDecisionRequired: recomputedMateriality !== "non_structural",
++        constraintToken:
++          recomputedMateriality === "structural"
++            ? "MATERIALITY:STRUCTURAL"
++            : recomputedMateriality === "unknown"
++              ? "MATERIALITY:UNKNOWN"
++              : "MATERIALITY:NON_STRUCTURAL",
++      },
++    });
++    if (!admissible.ok) {
++      return {
++        ok: false,
++        code: "DECISION_REQUIRED",
++        message:
++          stamped === "non_structural" &&
++          recomputedMateriality !== "non_structural"
++            ? "Matérialité structurelle détectée à la confirmation — HumanDecision requise."
++            : "Contrat sans décision humaine rattachée alors qu'une HumanDecision est requise — confirmation refusée.",
++      };
++    }
+   }
++  // Case A — Legacy W2: no G-D4 stamp, decisionRefs non-empty.
++  // OA ConfirmExecutionContract validates HD existence/freshness/project/supersession.
++  // Do not invent MATERIALITY stamps or call Product NON_STRUCTURAL revalidation.
+
+   const authority = registerLocalAuthorityForExecutionClass({
+     authorityResolver: oa.authorityResolver,
+
+```
+
+---
+
+## P. Vérification remote
+
+Push: `45dee683..e7774a0c` → origin/delivery/...
+Local HEAD = remote Delivery = `e7774a0c71e3b052f091ed2dffdd70651916dd2d`
+Aucun force push.
+
+---
+
+## Q. État PR après push
+
+- PR #585 OPEN
+- base: main
+- headRef: delivery/sfia-studio-p6-generic-execution-conversational-continuity
+- headRefOid: e7774a0c71e3b052f091ed2dffdd70651916dd2d
+- Commits PR: 45dee683 (feat) + e7774a0c (fix R-CI-01)
+- URL: https://github.com/mcleland147/sfia-workspace/pull/585
+
+---
+
+## R. Nouveau HEAD
+
+`e7774a0c71e3b052f091ed2dffdd70651916dd2d`
+
+---
+
+## S. CI run ID
+
+- Run: 38769198746
+- URL: https://github.com/mcleland147/sfia-workspace/actions/runs/38769198746
+- headSha: e7774a0c71e3b052f091ed2dffdd70651916dd2d
+- event: pull_request
+- status: completed
+- conclusion: **failure**
+
+CI initiale (ne pas confondre): 38748483640 sur 45dee683.
+
+---
+
+## T. Résultats des jobs
+
+| Job / Step | Résultat |
+|---|---|
+| Detect SFIA Studio changes | SUCCESS |
+| Typecheck | SUCCESS |
+| Lint | SUCCESS |
+| Build | SUCCESS |
+| Unit tests (Vitest) | **FAILURE** — 3 failed / 5886 passed / 143 skipped |
+| Modeled governance / secrets / whitespace | (validate a échoué sur Vitest) |
+| SFIA Studio Required Gate | **FAILURE** (validate_result=failure) |
+
+### Vitest failures (NEW FINDINGS — hors correctif R-CI-01 2-fichiers)
+
+1. `__tests__/architecture/productionRuntimeReference.conformance.d0.test.ts:100`
+   - expected hash `0f7c73b7539df09d` vs received `7781362a64d98c01`
+   - Cause observée: empreinte runtime reference non mise à jour pour modules CREATE du commit 45dee683
+
+2. `__tests__/vertical-slice-runtime/importBoundaries.test.ts:173`
+   - allowlist Set 88 vs 91
+   - Entrées manquantes observées:
+     - `authorizeGenericPreparedContract.ts:@/lib/vertical-slice-runtime`
+     - `prepareGenericExecutionContractDraft.ts:@/lib/vertical-slice-runtime`
+     - `resolveAuthoritativeProductMateriality.ts:@/lib/vertical-slice-runtime`
+   - Cause: fichiers CREATE du commit initial 45dee683 non allowlistés
+
+3. `__tests__/project-assistant/p6.hqa.f01.chatFirstCycleStartGate.d0.test.ts:483`
+   - `cyclesAfterPropose.length` expected 1 received 0
+   - Cause: à qualifier — interaction chat-first / cycle unbound (commit 45dee683 perimeter), **pas** le diff Confirm R-CI-01
+
+### R-CI-01 / CP02 dans cette CI
+
+Les 3 failures listées ne sont **pas** CP02 ni p6.rCi01.
+CP02 exécuté dans les logs (stdout suites SF/PL/REC…) sans apparaitre dans FAIL list.
+→ Finding historique R-CI-01 (MATERIALITY_PRODUCT_CONTEXT_UNAVAILABLE) **non reproduit** sur e7774a0c.
+→ Required Gate reste FAIL pour findings **nouveaux / cumulatifs PR**.
+
+Aucune Correction Pass autonome lancée (GO).
+
+---
+
+## U. Required Gate
+
+**FAILURE**
+
+```
+detect_result=success
+validate_result=failure
+studio_changed=true
+Required gate FAIL: Studio validation required but result=failure.
+```
+
+---
+
+## V. Fake / Real
 
 - Applicable: OUI
-- Mode: DETERMINISTIC CI CORRECTION
-- Fake: OPS1 conversation provider fake; W2 harness; TestOnlyRealExecutionLaunchPort (pas SFIA_STUDIO_CURSOR_REAL)
+- Fake: suites DET CI / provider fake
 - REAL: NON exécuté
-- Niveau entrée: DETERMINISTIC PRODUCT PATH PROVEN WITH CI REGRESSION R-CI-01
-- Niveau attendu atteint: LEGACY W2 CONFIRM COMPATIBILITY DETERMINISTICALLY PROVEN AT TESTED SCOPE
+- Niveau atteint: R-CI-01 GIT INTEGRATED / CI VERIFIED (failure qualified)
 - Hors scope: REAL BOUNDARY; E2E REAL; P6 GLOBAL PASS; PRODUCT READY; RUNTIME V3 ADOPTED
-- Gate REAL: NON CONSOMMÉ
+- Gate REAL: NON AUTORISÉ
 
 ---
 
-## AA. Réserves
+## W. Réserves
 
-1. Full `npm test` CI Vitest non rejoué localement — risque résiduel hors périmètre testé.
-2. L02 freshness supersession: non re-fixture dans p6.rCi01; dépend de OA Confirm inchangé (source-backed).
-3. L07 LPS stale: couvert via même `revalidateMaterialityAgainstCurrentProduct` que authorize; pas de nouveau test Confirm-only LPS bump.
-4. Build Next local skipped.
-5. Correctif **dirty local** — pas encore sur PR #585 distant.
-
----
-
-## AB. Dette / Exit
-
-- Nouvelle dette: aucune
-- Exit Proof R-CI-01 local: atteint au tested scope
-- Dette P6 GLOBAL / runtime v3: inchangée (hors scope)
+1. Required Gate FAIL — 3 findings CI à qualifier (allowlist / fingerprint / HQA-F01).
+2. Ces findings relèvent du périmètre CREATE 45dee683, pas du commit R-CI-01 2-fichiers.
+3. Human QA e66 / Cursor REAL / Evidence E2E non prouvés.
+4. P6 GLOBAL NOT PASSED.
+5. Merge NON autorisé.
 
 ---
 
-## AC. Gates restants
+## X. Dette / Exit
 
-1. Critical Review ChatGPT (ce handoff)
-2. GO Morris commit/push correctif → PR #585 (NON consommé)
-3. Nouvelle CI GitHub / Required Gate
-4. Gate Morris merge
-5. Post-merge verification
-6. Human QA P6 e66
-7. REAL gate (si applicable plus tard)
+- Exit Proof intégration R-CI-01: **ATTEINT** (commit+push+PR HEAD e7774a0c).
+- Exit Proof Required Gate SUCCESS: **NON ATTEINT**.
+- Dette: findings CI CI-IB-01 (import boundaries), CI-PRR-01 (productionRuntimeReference), CI-HQA-F01 (chatFirstCycleStartGate) — noms provisoires pour qualification.
+- Capacité suivante: GO Morris correction bornée findings CI OU qualification ChatGPT, puis Final Critical PR Review, puis merge distinct.
 
 ---
 
-## AD. Git Truth final
+## Y. Gates Morris restants
 
-HEAD reste: `45dee6830ed19be8ff9a9e1c28434fcd0b8c9d02`
-Dirty local ciblé:
-- M `confirmForAuthorization.ts`
-- ?? `p6.rCi01.legacyW2ConfirmCompatibility.d0.test.ts`
-- M `.tmp-sfia-review/chatgpt-review.md` (pack hors commit projet)
-Aucun staged projet.
-Aucun commit projet supplémentaire.
-PR #585 remote HEAD inchangé.
-main inchangé.
+1. Qualification / correction éventuelle des 3 Vitest failures (GO distinct)
+2. Critical Review finale ChatGPT (après CI verte ou avec verdict STOP)
+3. Merge Gate
+4. Post-merge verification
+5. Human QA P6 e66
+6. REAL / runtime v3 — hors scope
 
 ---
 
-## AE. Verdict
+## Z. Git Truth final
 
-**PR #585 R-CI-01 LEGACY W2 CONFIRM COMPATIBILITY DETERMINISTIC CORRECTION PROVEN AT TESTED SCOPE / LOCAL CANDIDATE / READY FOR CHATGPT CRITICAL REVIEW.**
-
-Conditions satisfaites:
-- cause reproduite et corrigée
-- legacy W2 Confirm PASS
-- HD freshness path préservé (OA)
-- G-D4 sans HD fail-closed
-- CURRENT / repo currentness préservés
-- régressions pertinentes PASS
-- aucun REAL
-- aucun commit/push projet
-- Review Pack FULL
-- handoff distant à vérifier après publication
+| Check | Value |
+|---|---|
+| HEAD Delivery local | e7774a0c71e3b052f091ed2dffdd70651916dd2d |
+| origin/delivery | e7774a0c… |
+| origin/main | e7822033… |
+| PR #585 head | e7774a0c… OPEN |
+| Dirty | .tmp-sfia-review/chatgpt-review.md only |
+| Project staged | none |
 
 ---
 
-## AF. Instruction ChatGPT
+## AA. Verdict
 
-Lire le Review Handoff distant.
+**R-CI-01 GIT INTEGRATED
+PR #585 UPDATED
+CI FAILURE
+NEW FINDINGS TO QUALIFY**
 
-Critical Review prioritaire:
-1. reproduction du FAIL initial
-2. présence d'une vraie HD legacy
-3. correction exacte du routage Confirm (Cases A–D)
-4. OA decision freshness conservée
-5. G-D4 sans HD toujours protégé
-6. CURRENT materiality non bypassée
-7. repository currentness préservée
-8. absence d'exception test-only / NODE_ENV
-9. tests P5-S04 CP02 et G-D4 / p6.rCi01
-10. qualité du diff / absence de scope creep
+Pas READY FOR MERGE.
+Pas P6 GLOBAL PASS.
+Pas CI SUCCESS / Required Gate SUCCESS.
 
-Rendre: PASS / PASS WITH RESERVES / NOT READY / STOP.
+R-CI-01 historique (legacy Confirm) intégré; Required Gate bloqué par 3 failures cumulatives PR hors scope du commit R-CI-01.
 
-Si PASS: préparer recommandation distincte pour GO Morris commit/push du correctif vers PR #585 existante.
-Ne pas autoriser automatiquement: commit projet, push projet, merge, REAL, doctrine, promotion v3.
+---
+
+## AB. Instruction ChatGPT
+
+Lire le nouveau Review Handoff distant.
+
+Vérifier:
+- identité cycle 13 Git Integration
+- GO Morris commit/push/PR/CI
+- branche / HEAD e7774a0c / base main
+- staging exact 2 fichiers
+- parent 45dee683 non amendé
+- push normal
+- PR #585 actualisée
+- CI 38769198746 sur e7774a0c
+- Required Gate FAIL
+- 3 findings Vitest (relation vs R-CI-01)
+- Fake/Real honesty
+- Pack complet + handoff
+
+Rendre: **FINAL CRITICAL PR REVIEW READINESS**
+(PASS / PASS WITH RESERVES / NOT READY / STOP).
+
+Ne pas déclencher: MERGE, POST-MERGE, HUMAN QA, CURSOR REAL, P6 PROMOTION, RUNTIME V3.
+
+Si NOT READY: qualifier les 3 findings et le GO correction minimal recommandé.
 
 ---
 
@@ -1154,15 +1110,10 @@ Ne pas autoriser automatiquement: commit projet, push projet, merge, REAL, doctr
 
 | Item | Value |
 |---|---|
-| Delivery HEAD (unchanged) | 45dee6830ed19be8ff9a9e1c28434fcd0b8c9d02 |
-| main | e7822033f159d6a0e9c15f6f26843bd1248edbc1 |
-| PR | #585 OPEN |
-| Entry handoff | 1b1b0bfd / blob e9a342df |
-| Local MODIFY | confirmForAuthorization.ts |
-| Local CREATE | p6.rCi01.legacyW2ConfirmCompatibility.d0.test.ts |
-| Project commit this cycle | NONE |
-| Handoff publish | pending below |
+| Entry HEAD | 45dee683 |
+| Integration HEAD | e7774a0c |
+| Entry handoff | ad8d673 / dfb5f4e5 |
+| CI new | 38769198746 FAIL |
+| CI old | 38748483640 FAIL (R-CI-01) |
 
----
-
-FIN REVIEW PACK FULL — R-CI-01
+FIN REVIEW PACK FULL — R-CI-01 GIT INTEGRATION
