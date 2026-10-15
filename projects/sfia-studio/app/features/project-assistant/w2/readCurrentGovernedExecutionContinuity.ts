@@ -324,6 +324,7 @@ export async function readCurrentGovernedExecutionContinuity(input: {
     executionContractId: inspection.executionContractId,
     contractVersion: inspection.contractVersion,
     semanticFingerprint: inspection.semanticFingerprint,
+    attestedSemanticFingerprint: inspection.attestedSemanticFingerprint,
     statusLabel: inspection.statusLabel,
     inspectionSufficient: inspection.inspectionSufficient,
     attestationRef: inspection.attestationRef,

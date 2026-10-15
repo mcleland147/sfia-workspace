@@ -245,25 +245,37 @@ test("adversarial: unicode supersessionReason with real content accepted", () =>
   assert.equal(validate(data), true, JSON.stringify(validate.errors));
 });
 
-test("adversarial: confirmed without confirmationRef/decisionRefs rejected", () => {
+test("adversarial: confirmed without confirmationRef rejected", () => {
   const ajv = buildAjv();
   const validate = ajv.getSchema(CONTRACT_SCHEMA_ID);
   const noConf = draftBase();
   noConf.status = "confirmed";
   noConf.decisionRefs = ["dec:oa-001"];
   assert.equal(validate(noConf), false);
+});
 
-  const noDec = draftBase();
-  noDec.status = "confirmed";
-  noDec.confirmationRef = "cnf:x";
-  delete noDec.decisionRefs;
-  assert.equal(validate(noDec), false);
-
+test("G-D4: confirmed with confirmationRef and empty decisionRefs accepted at schema", () => {
+  const ajv = buildAjv();
+  const validate = ajv.getSchema(CONTRACT_SCHEMA_ID);
   const emptyDec = draftBase();
   emptyDec.status = "confirmed";
   emptyDec.confirmationRef = "cnf:x";
   emptyDec.decisionRefs = [];
-  assert.equal(validate(emptyDec), false);
+  assert.equal(
+    validate(emptyDec),
+    true,
+    JSON.stringify(validate.errors),
+  );
+});
+
+test("G-D4: confirmed with confirmationRef and ≥1 decisionRef still accepted", () => {
+  const ajv = buildAjv();
+  const validate = ajv.getSchema(CONTRACT_SCHEMA_ID);
+  const withDec = draftBase();
+  withDec.status = "confirmed";
+  withDec.confirmationRef = "cnf:x";
+  withDec.decisionRefs = ["dec:oa-001"];
+  assert.equal(validate(withDec), true, JSON.stringify(validate.errors));
 });
 
 test("adversarial: bad schemaVersion rejected", () => {

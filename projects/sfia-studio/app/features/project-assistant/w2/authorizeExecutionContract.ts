@@ -37,8 +37,16 @@ import {
   resolveAttemptExecutionProfile,
 } from "@/lib/oa/execution-attempt";
 import type { AgentRegistryPort } from "@/lib/oa/execution-attempt";
+import {
+  materialityFromContractConstraints,
+} from "@/lib/oa/execution-contract";
 import { readContractInspectionState } from "./inspectExecutionContract";
 import { resolveProductExecutionEligibility } from "./resolveProductExecutionEligibility";
+import {
+  analysisStubFromMaterialityFacts,
+  parseStampedProductCurrentness,
+  revalidateMaterialityAgainstCurrentProduct,
+} from "./resolveAuthoritativeProductMateriality";
 import type {
   AgentCapabilityOutcomeDto,
   ConfirmationRequirementDto,
@@ -301,6 +309,17 @@ export type EvaluateExecutionAuthorizationInput = {
   readonly oa: RuntimeOaStack;
   readonly projectId: string;
   readonly executionContractId: string;
+  /**
+   * Exact contract version the Pilote inspected and is authorizing.
+   * Required for G-D4 generic prepare contracts (MATERIALITY stamp present).
+   * Server verifies against durable contract — never trusts alone.
+   */
+  readonly expectedVersion?: number;
+  /**
+   * Semantic fingerprint of the inspected contract version.
+   * Required with expectedVersion for G-D4 stamped contracts.
+   */
+  readonly expectedSemanticFingerprint?: string;
   /** Hostile client fields — never trusted. */
   readonly claimedAuthorityLevel?: unknown;
   readonly canActAsMorris?: unknown;
@@ -337,6 +356,37 @@ export async function evaluateExecutionAuthorization(
     };
   }
 
+  const stampedMateriality = materialityFromContractConstraints(
+    contract.constraints,
+  );
+  // G-D4 / CR-P6-02 — generic prepare contracts require explicit version/fingerprint
+  // binding from the Pilote gesture (TrajectorySurface / Product action).
+  const requiresExplicitBinding = stampedMateriality != null;
+  if (requiresExplicitBinding) {
+    if (
+      typeof input.expectedVersion !== "number" ||
+      !Number.isFinite(input.expectedVersion)
+    ) {
+      return {
+        ok: false,
+        code: "EXPECTED_VERSION_REQUIRED",
+        message:
+          "Version inspectée requise pour autoriser ce contrat — geste Pilote incomplet.",
+      };
+    }
+    if (
+      typeof input.expectedSemanticFingerprint !== "string" ||
+      !input.expectedSemanticFingerprint.trim()
+    ) {
+      return {
+        ok: false,
+        code: "EXPECTED_FINGERPRINT_REQUIRED",
+        message:
+          "Empreinte sémantique inspectée requise pour autoriser ce contrat — geste Pilote incomplet.",
+      };
+    }
+  }
+
   const inspectionResult = await readContractInspectionState({
     oa,
     executionContractId: input.executionContractId,
@@ -345,6 +395,63 @@ export async function evaluateExecutionAuthorization(
     return inspectionResult;
   }
   const inspection: ContractInspectionStateDto = inspectionResult;
+
+  if (requiresExplicitBinding) {
+    const expectedFp = input.expectedSemanticFingerprint!.trim();
+    const attested =
+      inspection.attestedVersion ?? inspection.contractVersion;
+    // Pilote must authorize the version they inspected.
+    if (
+      attested !== input.expectedVersion &&
+      inspection.contractVersion !== input.expectedVersion
+    ) {
+      return {
+        ok: false,
+        code: "VERSION_MISMATCH",
+        message:
+          "Version du contrat différente de celle inspectée — réinspection requise.",
+      };
+    }
+    // Bind to attested fingerprint (survives Confirm bumps) or current.
+    const attestedFp = inspection.attestedSemanticFingerprint;
+    if (
+      expectedFp !== inspection.semanticFingerprint &&
+      expectedFp !== attestedFp
+    ) {
+      return {
+        ok: false,
+        code: "FINGERPRINT_MISMATCH",
+        message:
+          "Empreinte sémantique différente du contrat inspecté — réinspection requise.",
+      };
+    }
+  }
+
+  // A2 / CR-P6-01 — CURRENT Product materiality for stamped contracts.
+  if (requiresExplicitBinding) {
+    const contractInputs = (contract.inputs ?? {}) as Record<string, unknown>;
+    const factsRaw =
+      contractInputs.materialityFacts &&
+      typeof contractInputs.materialityFacts === "object"
+        ? (contractInputs.materialityFacts as Record<string, unknown>)
+        : null;
+    const revalidated = await revalidateMaterialityAgainstCurrentProduct({
+      oa,
+      projectId: input.projectId,
+      analysis: analysisStubFromMaterialityFacts(factsRaw, contractInputs),
+      cycleInstanceId: contract.cycleInstanceId ?? null,
+      stampedMateriality,
+      stampedCurrentness: parseStampedProductCurrentness(factsRaw),
+    });
+    if (!revalidated.ok) {
+      return {
+        ok: false,
+        code: revalidated.code,
+        message: revalidated.message,
+      };
+    }
+  }
+
   const confirmation = resolveConfirmationRequirement(contract);
   const capability = evaluateAgentCapability(
     oa.executionAttemptServices.registry,

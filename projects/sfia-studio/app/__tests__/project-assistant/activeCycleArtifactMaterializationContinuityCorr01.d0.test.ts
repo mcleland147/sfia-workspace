@@ -15,6 +15,7 @@ import { projectAssistantSendAction } from "@/features/project-assistant/actions
 import {
   hasNaturalActiveCycleDeliverableMaterializationSignal,
   hasExplicitArtifactContinuationKind,
+  hasExplicitNewCycleFormalizationSignal,
   resolveActiveCycleGovernedContinuation,
   shouldEnterActiveCycleArtifactContinuationHandling,
 } from "@/features/project-assistant/f2/activeCycleGovernedContinuation";
@@ -265,6 +266,21 @@ describe("ACTIVE-CYCLE ARTIFACT MATERIALIZATION CONTINUITY CORR-01", () => {
       true,
     );
 
+    // F-C9-04 — French production phrasing without materialis* stem.
+    const produceMd = baseAnalysis({
+      continuationKind: null,
+      intentClass: "execution_request",
+      objective: "Produire une note Markdown dans le dépôt du projet",
+      rephrasedRequest:
+        "Prépare un fichier Markdown documentant le livrable dans le dépôt Git",
+    });
+    expect(
+      hasNaturalActiveCycleDeliverableMaterializationSignal(produceMd),
+    ).toBe(true);
+    expect(
+      shouldEnterActiveCycleArtifactContinuationHandling(produceMd),
+    ).toBe(true);
+
     const vague = baseAnalysis({
       intentClass: "informative",
       objective: "Parlons du livrable",
@@ -277,6 +293,32 @@ describe("ACTIVE-CYCLE ARTIFACT MATERIALIZATION CONTINUITY CORR-01", () => {
     expect(shouldEnterActiveCycleArtifactContinuationHandling(vague)).toBe(
       false,
     );
+
+    const explainOnly = baseAnalysis({
+      intentClass: "actionable",
+      objective: "Explique-moi ce document",
+      rephrasedRequest: "Explique-moi ce document du projet",
+      continuationKind: null,
+    });
+    expect(
+      hasNaturalActiveCycleDeliverableMaterializationSignal(explainOnly),
+    ).toBe(false);
+
+    // CI-HQA-F01 — prepare a new cycle (future deliverable mention) ≠ Artifact continuation.
+    const newCyclePrep = baseAnalysis({
+      continuationKind: null,
+      intentClass: "actionable",
+      objective: "Préparer un cycle Delivery",
+      rephrasedRequest: "Prépare un cycle Delivery pour livrer la note.",
+      candidateCycleTypeId: "cyc:delivery",
+    });
+    expect(hasExplicitNewCycleFormalizationSignal(newCyclePrep)).toBe(true);
+    expect(
+      hasNaturalActiveCycleDeliverableMaterializationSignal(newCyclePrep),
+    ).toBe(false);
+    expect(
+      shouldEnterActiveCycleArtifactContinuationHandling(newCyclePrep),
+    ).toBe(false);
   });
 
   it("unit — natural signal without docs_write effect → BLOCKED not NEW_CYCLE", async () => {

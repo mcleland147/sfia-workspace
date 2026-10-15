@@ -42,6 +42,16 @@ export {
   STUDIO_CURSOR_GENERALIST_TARGET,
 } from "./domain/generalistExecutionSurface";
 export {
+  MATERIALITY_CONSTRAINT_PREFIX,
+  assessExecutionMateriality,
+  assessExecutionMaterialityOrUnknown,
+  assertDecisionRefsAdmissibleForConfirm,
+  materialityFromContractConstraints,
+  type ExecutionMaterialityAssessment,
+  type ExecutionMaterialityClass,
+  type ExecutionMaterialityFacts,
+} from "./domain/executionMateriality";
+export {
   CONTRACT_ACCEPTANCE_CRITERIA_INPUT_KEY,
   CONTRACT_REPORT_REQUIREMENTS_INPUT_KEY,
   CONTRACT_VALIDATION_PLAN_INPUT_KEY,

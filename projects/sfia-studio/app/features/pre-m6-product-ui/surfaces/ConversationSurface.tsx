@@ -396,6 +396,10 @@ export function ConversationSurface({
    */
   const showNoraActivityInThread =
     noraActivity.phase === "start" || noraActivity.phase === "activity";
+  const authoritativeLifecycleActive = Boolean(
+    (controller.activeCycleInstanceId ?? "").trim() ||
+      (controller.journalCycleInstanceId ?? "").trim(),
+  );
   const pilotRecommendationCard = f2?.qualification
     ? projectPilotRecommendationCard({
         cycleLabel: f2.qualification.cycleLabel,
@@ -405,6 +409,8 @@ export function ConversationSurface({
         cycleStatus: f2.qualification.cycleStatus,
         cycleInstanceId: f2.qualification.cycleInstanceId,
         freshnessLabel: qualificationFreshness.label,
+        authoritativeLifecycleActive,
+        detailedStatus: f2.qualification.detailedStatus,
       })
     : null;
   const pilotProposalCard = activeProposal

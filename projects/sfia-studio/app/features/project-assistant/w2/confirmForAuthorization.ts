@@ -18,8 +18,17 @@ import {
   LOCAL_PILOTE_ACTOR,
   registerLocalAuthorityForExecutionClass,
 } from "@/lib/oa/decision";
+import {
+  assertDecisionRefsAdmissibleForConfirm,
+  materialityFromContractConstraints,
+} from "@/lib/oa/execution-contract";
 import { readContractInspectionState } from "./inspectExecutionContract";
 import type { ConfirmForAuthorizationResult } from "./types";
+import {
+  analysisStubFromMaterialityFacts,
+  parseStampedProductCurrentness,
+  revalidateMaterialityAgainstCurrentProduct,
+} from "./resolveAuthoritativeProductMateriality";
 
 export function w2ConfirmationActionRef(input: {
   executionContractId: string;
@@ -34,6 +43,11 @@ export type ConfirmForAuthorizationInput = {
   readonly executionContractId: string;
   /** Test inject for the local single-user authority gate. */
   readonly forceLocalAuthority?: boolean;
+  /**
+   * When true, caller already revalidated CURRENT materiality
+   * (e.g. authorizeGenericPreparedContract). Avoid double Product read.
+   */
+  readonly skipMaterialityRevalidation?: boolean;
 };
 
 export async function confirmExecutionContractForAuthorization(
@@ -128,15 +142,118 @@ export async function confirmExecutionContractForAuthorization(
     };
   }
 
-  const decisionRef = (contract.decisionRefs ?? [])[0];
-  if (!decisionRef) {
+  // Confirmation ≠ HumanDecision (P2-D-03). Do not invent a dec: to unlock Confirm.
+  //
+  // R-CI-01 — Route materiality CURRENT revalidation only for G-D4 policy contracts.
+  // Legacy W2 contracts (no MATERIALITY:* stamp, real decisionRefs) keep historical
+  // HD freshness / project / inspection gates via OA Confirm — they must not be
+  // forced through Product NON_STRUCTURAL revalidation that expects G-D4 stamps.
+  const decisionRefs = contract.decisionRefs ?? [];
+  const decisionRef = decisionRefs[0];
+  const stamped = materialityFromContractConstraints(contract.constraints);
+  const contractInputs = (contract.inputs ?? {}) as Record<string, unknown>;
+  const factsRaw =
+    contractInputs.materialityFacts &&
+    typeof contractInputs.materialityFacts === "object"
+      ? (contractInputs.materialityFacts as Record<string, unknown>)
+      : null;
+  const stampedCurrentness = parseStampedProductCurrentness(factsRaw);
+
+  // Case D — empty refs without G-D4 stamp: never treat as legacy HD path.
+  if (decisionRefs.length === 0 && stamped == null) {
     return {
       ok: false,
       code: "DECISION_REQUIRED",
       message:
-        "Contrat sans décision humaine rattachée — aucune confirmation possible.",
+        "Contrat sans décision humaine ni justification G-D4 NON_STRUCTURAL — confirmation refusée.",
     };
   }
+
+  // G-D4 policy: explicit MATERIALITY stamp and/or Product currentness stamp at PREPARE.
+  const requiresGd4CurrentMaterialityRevalidation =
+    stamped != null || stampedCurrentness != null;
+
+  let recomputedMateriality = stamped ?? "unknown";
+  if (requiresGd4CurrentMaterialityRevalidation) {
+    // Cases B/C — G-D4 stamped (NON_STRUCTURAL / STRUCTURAL / UNKNOWN) or stamped facts.
+    if (input.skipMaterialityRevalidation !== true) {
+      const revalidated = await revalidateMaterialityAgainstCurrentProduct({
+        oa,
+        projectId: input.projectId,
+        analysis: analysisStubFromMaterialityFacts(factsRaw, contractInputs),
+        cycleInstanceId: contract.cycleInstanceId ?? null,
+        stampedMateriality: stamped,
+        stampedCurrentness,
+      });
+      if (!revalidated.ok) {
+        const passThrough =
+          revalidated.code === "MATERIALITY_CURRENT_MISMATCH" ||
+          revalidated.code === "MATERIALITY_CURRENTNESS_STALE" ||
+          revalidated.code === "MATERIALITY_PRODUCT_CONTEXT_UNAVAILABLE" ||
+          revalidated.code === "REPOSITORY_BINDING_STALE" ||
+          revalidated.code === "REPOSITORY_BINDING_UNAVAILABLE" ||
+          revalidated.code.startsWith("SCOPE_");
+        return {
+          ok: false,
+          code:
+            revalidated.code === "MATERIALITY_STRUCTURAL" ||
+            revalidated.code === "MATERIALITY_UNKNOWN"
+              ? "DECISION_REQUIRED"
+              : passThrough
+                ? revalidated.code
+                : "DECISION_REQUIRED",
+          message: revalidated.message,
+        };
+      }
+      recomputedMateriality = revalidated.current.assessment.materiality;
+    } else if (stamped !== "non_structural") {
+      // skipMaterialityRevalidation only valid after a governed G-D4 CURRENT pass
+      // that already established NON_STRUCTURAL (authorizeGenericPreparedContract).
+      return {
+        ok: false,
+        code: "DECISION_REQUIRED",
+        message:
+          "Stamp de matérialité non NON_STRUCTURAL — HumanDecision requise.",
+      };
+    } else {
+      recomputedMateriality = "non_structural";
+    }
+
+    const admissible = assertDecisionRefsAdmissibleForConfirm({
+      decisionRefs,
+      stampedMateriality: stamped,
+      recomputed: {
+        materiality:
+          recomputedMateriality === "non_structural" ||
+          recomputedMateriality === "structural" ||
+          recomputedMateriality === "unknown"
+            ? recomputedMateriality
+            : "unknown",
+        reasonCodes: ["current_product_revalidation"],
+        humanDecisionRequired: recomputedMateriality !== "non_structural",
+        constraintToken:
+          recomputedMateriality === "structural"
+            ? "MATERIALITY:STRUCTURAL"
+            : recomputedMateriality === "unknown"
+              ? "MATERIALITY:UNKNOWN"
+              : "MATERIALITY:NON_STRUCTURAL",
+      },
+    });
+    if (!admissible.ok) {
+      return {
+        ok: false,
+        code: "DECISION_REQUIRED",
+        message:
+          stamped === "non_structural" &&
+          recomputedMateriality !== "non_structural"
+            ? "Matérialité structurelle détectée à la confirmation — HumanDecision requise."
+            : "Contrat sans décision humaine rattachée alors qu'une HumanDecision est requise — confirmation refusée.",
+      };
+    }
+  }
+  // Case A — Legacy W2: no G-D4 stamp, decisionRefs non-empty.
+  // OA ConfirmExecutionContract validates HD existence/freshness/project/supersession.
+  // Do not invent MATERIALITY stamps or call Product NON_STRUCTURAL revalidation.
 
   const authority = registerLocalAuthorityForExecutionClass({
     authorityResolver: oa.authorityResolver,
@@ -178,7 +295,8 @@ export async function confirmExecutionContractForAuthorization(
     requestedTo: LOCAL_PILOTE_ACTOR,
     scope: contract.scope,
     idempotencyKey: `idem:w2-cfm:${contract.executionContractId}:v${contract.version}`,
-    decisionRef,
+    // Omit decisionRef when G-D4 non-structural empty refs — Confirmation ≠ HD.
+    ...(decisionRef ? { decisionRef } : {}),
   });
   if (!requested.ok) {
     return {

@@ -45,7 +45,7 @@
       "items": {
         "$ref": "../common/identifier.schema.json"
       },
-      "description": "Structuring contracts require ≥1 accepted, same-project, non-superseded decision at build and at confirm (runtime). After confirmed, if a source decision is later superseded, contract must not start new execution until superseded or cancelled (runtime T-A4→T-A5 gate)."
+      "description": "Structuring contracts require ≥1 accepted, same-project, non-superseded decision at build and at confirm (runtime). G-D4: empty decisionRefs is schema-admissible at confirmed when server-owned materiality is non-structural; structural materiality still requires ≥1 decisionRef (runtime fail-closed). After confirmed, if a source decision is later superseded, contract must not start new execution until superseded or cancelled (runtime T-A4→T-A5 gate)."
     },
     "confirmationRef": {
       "$ref": "../common/identifier.schema.json",
@@ -237,16 +237,16 @@
       },
       "then": {
         "required": [
-          "confirmationRef",
-          "decisionRefs"
+          "confirmationRef"
         ],
         "properties": {
           "decisionRefs": {
             "type": "array",
-            "minItems": 1
+            "minItems": 0,
+            "description": "G-D4: empty array admissible for non-structural confirmed contracts. Structural missions still require ≥1 decisionRef at runtime (Confirm/Authorize fail-closed)."
           }
         },
-        "description": "confirmed requires confirmationRef (consumed Confirmation) and ≥1 decisionRef. Semantic freshness of decision/Critical ack remain runtime."
+        "description": "confirmed requires confirmationRef (consumed Confirmation). decisionRefs may be empty when server-owned materiality is non-structural (G-D4); structural HD freshness remains runtime."
       }
     }
   ]

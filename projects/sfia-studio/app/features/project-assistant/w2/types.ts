@@ -135,7 +135,14 @@ export type W2Failure = {
 export type ContractInspectionStateDto = {
   readonly executionContractId: string;
   readonly contractVersion: number;
+  /** Current contract full semantic fingerprint (may change on Confirm). */
   readonly semanticFingerprint: string;
+  /**
+   * Semantic fingerprint recorded on the sufficient attestation (CR-P6-02).
+   * Authorize binds to this value across Confirm version bumps.
+   * Production continuity always populates this; fixtures may omit.
+   */
+  readonly attestedSemanticFingerprint?: string | null;
   readonly statusLabel:
     | "NON INSPECTÉ"
     | "INSPECTÉ"

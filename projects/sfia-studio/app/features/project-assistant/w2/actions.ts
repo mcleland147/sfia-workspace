@@ -290,6 +290,12 @@ export async function w2ConfirmExecutionContractAction(input: {
 export async function w2AuthorizeExecutionContractAction(input: {
   projectId: string;
   executionContractId: string;
+  /**
+   * Exact version + fingerprint the Pilote inspected (CR-P6-02).
+   * Required for G-D4 MATERIALITY-stamped generic prepare contracts.
+   */
+  expectedVersion?: number;
+  expectedSemanticFingerprint?: string;
   /** Hostile — ignored. */
   canActAsMorris?: unknown;
   claimedAuthorityLevel?: unknown;
@@ -301,6 +307,8 @@ export async function w2AuthorizeExecutionContractAction(input: {
     oa: runtime.oa,
     projectId: input.projectId,
     executionContractId: input.executionContractId,
+    expectedVersion: input.expectedVersion,
+    expectedSemanticFingerprint: input.expectedSemanticFingerprint,
     canActAsMorris: input.canActAsMorris,
     claimedAuthorityLevel: input.claimedAuthorityLevel,
   });
