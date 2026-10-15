@@ -1,379 +1,291 @@
-# SFIA STUDIO — P6 NORA PREMATURE INCOMPLETE
-## Cycle 13 — PR Readiness / Git Integration — Review Pack FULL
+# SFIA Studio — P6 Human QA Cycle 9 — Intention → Action Continuity
+## Review Pack FULL — CRITICAL — SOURCE-BACKED PRODUCT DIAGNOSIS
 
-**A. Horodatage (Europe/Paris):** 2026-10-15 08:20:03 CEST
-**B. GO Morris:** COMMIT + PUSH + DRAFT PR + CI — AUTHORIZED / CONSUMED (2026-10-15)
-**C. Cycle / profil:** Cycle 13 — CRITICAL — INC corrective — PR Readiness / Git Integration
-**D. Repository:** mcleland147/sfia-workspace
-
----
-
-## D. Git Truth initial (VERIFIE)
-
-| Check | Value |
-|---|---|
-| Worktree retenu | `/Users/morris/Projects/sfia-workspace-p6-nora-incomplete-fix-b555` |
-| Branche | `fix/sfia-studio-p6-nora-premature-incomplete-b555` |
-| HEAD initial | `b555819d8c3711fd2782b5ee7926517b6b3b8615` |
-| origin/main | `b555819d8c3711fd2782b5ee7926517b6b3b8615` (inchangé) |
-| Handoff entrée | `2aafbc07` / blob `4ee7842e` |
-| Staging initial | vide |
-| Commit correctif initial | absent |
+| Champ | Valeur |
+| --- | --- |
+| **Horodatage** | 2026-10-15T11:11:32+0200 (Europe/Paris) |
+| **GO Morris** | 2026-10-15 — AUTHORIZED / CONSUMED (diagnostic only) |
+| **Macro** | STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 |
+| **Milestone** | P6 GLOBAL INTEGRATED PRODUCT QA |
+| **Cycle** | 9 — QA / validation — CRITICAL — INC |
+| **CKC** | ckc:studio:qa-validation |
+| **Runtime v3** | NON ADOPTED |
+| **P6 GLOBAL** | NOT PASSED |
+| **Verdict** | P6 INTENTION-TO-ACTION CONTINUITY DIAGNOSIS COMPLETE / SOURCE-BACKED / READY FOR CHATGPT CRITICAL REVIEW |
 
 ---
 
-## E. Convergence
+## 1. Git Truth
 
-Build Doctrine VALIDATED/ACTIVE · Roadmap VALIDATED/ACTIVE · C1 VALIDATED · P6 NOT PASSED · Runtime v3 NON ADOPTED.
-Actif: Runner cognitif ADAPT. Architecture parallèle: AUCUNE.
-Trajectoire: Fix local → Git integration (ce cycle) → Critical PR Review → Morris MERGE GO → post-merge → Human QA Nora.
+| Item | Valeur |
+| --- | --- |
+| **Repository** | `mcleland147/sfia-workspace` (origin https://github.com/mcleland147/sfia-workspace.git) |
+| **Worktree diagnostic** | `/Users/morris/Projects/sfia-workspace-p6-nora-incomplete-fix-b555` |
+| **Branche** | `fix/sfia-studio-p6-nora-premature-incomplete-b555` |
+| **HEAD worktree** | `50eac4394fda17dfc88739d012d47c706291bfbe` |
+| **origin/main (ls-remote)** | `e7822033f159d6a0e9c15f6f26843bd1248edbc1` — **MATCH** attendu Morris |
+| **origin/main (local ref stale)** | `b555819d8c3711fd2782b5ee7926517b6b3b8615` — **DIVERGENCE locale** (fetch non effectué ; ls-remote prime) |
+| **PR #584** | **MERGED** · merge commit = `e7822033…` · CI SUCCESS · titre premature-incomplete |
+| **50eac439 vs main** | Contenu correctif intégré via merge PR #584 sur remote main |
+| **Status worktree** | Dirty uniquement `.tmp-sfia-review/chatgpt-review.md` (ce pack) — **aucun fichier Product modifié** |
+| **Actions Git projet** | Aucune (commit/push/PR/merge projet = NOT AUTHORIZED) |
 
-CKC guidance: `ckc:studio:delivery-implementation`.
+### Runtime identity (déclaré vs observé)
 
----
-
-## F. Candidat retenu / exclusion
-
-**RETENU:** worktree `…-incomplete-fix-b555` · branche `…-incomplete-b555` · handoff `2aafbc07` / `4ee7842e`.
-
-**EXCLU:** worktree `…-premature-incomplete-fix` · branche `…-premature-incomplete` · handoff `db7b38d2` (modifie `controlledContinuation.ts`).
-
-Aucun mélange de diffs. Aucun cherry-pick depuis l'autre candidat.
-
----
-
-## G–I. Root cause / Correctif / Manifest
-
-Root cause: R-EXT-02 gated on `continuationPlan.enable`; short missions (`single_segment_sufficient`) could not productive-extend despite MissionProgressGuard progress → premature incomplete.
-
-Correctif: gate on `input.enableControlledContinuation !== false`. Within-mission multi-segment still uses `continuationPlan.enable`. No global budget lift. Incomplete honesty preserved when OFF/no progress.
-
-Manifest EXACT 4 MODIFIED:
-1. `runNoraAgentsTurn.ts`
-2. `p6.nora.maxTurns.documentary.d0.test.ts`
-3. `p6.nora.p1p2.documentary.mission.d0.test.ts`
-4. `p6.productiveExtension.d0.test.ts`
-
-`controlledContinuation.ts` ABSENT du candidat.
+| Surface | Déclaré Morris | Observé ce cycle | Portée |
+| --- | --- | --- | --- |
+| **:3031** | Runtime observé | **FREE** — aucun listener | Claims REAL sur :3031 = **NOT OBSERVED** (redémarrage **interdit**) |
+| **:3020** | Environnement distinct — NE PAS TOUCHER | Listener Next `50eac439` cwd b555 app ; DB T2 product ouvertes | Observé pour divergence uniquement — **aucune mutation / interaction** |
+| **Code servi :3031** | b555 / 50eac439 | **Inaccessible** | Diagnostic code = HEAD worktree `50eac439` (= tip PR #584) |
+| **DB Product lue** | — | SQLite T2 `oa-product.sqlite` + `nora-session.sqlite` **mode=ro** | RUNTIME OBSERVED (état durable) — ≠ preuve E2E live UI |
 
 ---
 
-## J. Diffs COMPLETS (4 fichiers)
+## 2. Convergence
 
-### 1. runNoraAgentsTurn.ts
-```diff
-commit 50eac4394fda17dfc88739d012d47c706291bfbe
-Author: Morris Cleland <morris@macbook-air.home>
-Date:   Thu Oct 15 08:10:41 2026 +0200
+| Source | Rôle appliqué |
+| --- | --- |
+| `convergence/sfia-studio-convergence-build-doctrine.md` | HOW construire — R21 Fake/Real · R22 · anti-claims |
+| `convergence/sfia-studio-convergence-roadmap.md` | Trajectoire (lu en cadrage campagne) |
+| `product-completion/01-product-completion-cadrage.md` | Cible C1 / oracle |
+| `product-simplification/02…04…07` | Operating model · UX · projections · **P6 contract** |
+| v3 framing 30/32–35 | Doctrine cible ≠ runtime adopté |
+| v2.6 | Processus externe uniquement |
+| **Git** | Vérité technique |
 
-    fix(studio): restore Nora productive extension for short missions
-
-    Co-authored-by: Cursor <cursoragent@cursor.com>
-
-diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
-index f3c32dc1..ac3ad90d 100644
---- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
-+++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
-@@ -920,8 +920,16 @@ export async function runNoraAgentsTurn(
-
-             // R-EXT-02 — productive extension beyond initial mission budget when
-             // tool fingerprints advanced (never model self-declaration).
-+            //
-+            // Do NOT require continuationPlan.enable: single-segment missions
-+            // (e.g. Routine maxTurns=5 → single_segment_sufficient) still need
-+            // RunState resume when verifiable tool progress exists. Otherwise a
-+            // normal Product conversation that reads sources then drafts a
-+            // recommendation hits MaxTurnsExceeded, returns partial structured
-+            // text, and surfaces premature "Analyse inachevée".
-+            // Explicit enableControlledContinuation === false still blocks.
-             if (
--              continuationPlan.enable &&
-+              input.enableControlledContinuation !== false &&
-               atMissionCeiling &&
-               !atSafetyEnvelope &&
-               !adaptiveDecision.explicitOverride &&
-```
-
-### 2. p6.nora.maxTurns.documentary.d0.test.ts
-```diff
-commit 50eac4394fda17dfc88739d012d47c706291bfbe
-Author: Morris Cleland <morris@macbook-air.home>
-Date:   Thu Oct 15 08:10:41 2026 +0200
-
-    fix(studio): restore Nora productive extension for short missions
-
-    Co-authored-by: Cursor <cursoragent@cursor.com>
-
-diff --git a/projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.maxTurns.documentary.d0.test.ts b/projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.maxTurns.documentary.d0.test.ts
-index 3a4e9f2b..33200cda 100644
---- a/projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.maxTurns.documentary.d0.test.ts
-+++ b/projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.maxTurns.documentary.d0.test.ts
-@@ -129,7 +129,11 @@ describe("P6 Nora maxTurns — documentary qualification (V1–V5)", () => {
-     expect(CT_MAX_TOOL_ROUNDS + 1).toBe(5);
-   });
-
--  it("V1 — default maxTurns (5) stops multi-read documentary sequence incomplete", async () => {
-+  it("V1 — default maxTurns (5) without continuation/extension stops multi-read incomplete", async () => {
-+    // Historical ceiling-alone fact: initial mission=5 cannot finish a 7-turn
-+    // script when productive extension / RunState resume is disabled.
-+    // Product default path (continuation allowed) is covered by R-EXT-02 /
-+    // REG-PREMATURE-01 — do not conflate the two.
-     const session = tmpSession("prj:p6-mt-v1");
-     const model = new ScriptedModel(documentaryScriptNeedingSevenModelTurns());
-     const result = await runNoraAgentsTurn({
-@@ -142,6 +146,7 @@ describe("P6 Nora maxTurns — documentary qualification (V1–V5)", () => {
-       model,
-       workspaceRoot: resolveWorkspaceRootFromAppCwd(),
-       enableTools: true,
-+      enableControlledContinuation: false,
-       // omit maxTurns → Product default CT_MAX_TOOL_ROUNDS + 1 (=5)
-     });
-
-@@ -328,7 +333,7 @@ describe("P6 Nora maxTurns — documentary qualification (V1–V5)", () => {
-     expect(hasState === true || hasState === false).toBe(true);
-   });
-
--  it("V5 — comparison matrix facts: default incomplete vs test maxTurns=12 complete", async () => {
-+  it("V5 — comparison matrix: ceiling-alone incomplete vs adapted maxTurns=12 complete", async () => {
-     const sessionA = tmpSession("prj:p6-mt-v5a");
-     const sessionB = tmpSession("prj:p6-mt-v5b");
-     const modelA = new ScriptedModel(documentaryScriptNeedingSevenModelTurns());
-@@ -343,6 +348,8 @@ describe("P6 Nora maxTurns — documentary qualification (V1–V5)", () => {
-       model: modelA,
-       workspaceRoot: resolveWorkspaceRootFromAppCwd(),
-       enableTools: true,
-+      // Ceiling-alone fact (extension off) — Product-with-extension is R-EXT-02.
-+      enableControlledContinuation: false,
-     });
-     const v2 = await runNoraAgentsTurn({
-       correlationId: "p6-maxturns-v5-adapted",
-@@ -387,8 +394,8 @@ describe("P6 Nora maxTurns — documentary qualification (V1–V5)", () => {
-
-     // Options for Morris (QA conclusions, not architecture choice):
-     // A — adapted turn budget can finish this ScriptedModel workload
--    // B — controlled continuation also needed for Product autonomy after stop
--    // Evidence: A true for this fake workload; B still required for Product resume.
-+    // B — controlled continuation / productive extension for Product autonomy
-+    // Evidence: A true for this fake workload; B covered by R-EXT-02 / REG-PREMATURE.
-     expect(matrix.v2.complete && !matrix.v1.complete).toBe(true);
-     expect(matrix.v1.productRunStateResume).toBe(false);
-
-```
-
-### 3. p6.nora.p1p2.documentary.mission.d0.test.ts
-```diff
-commit 50eac4394fda17dfc88739d012d47c706291bfbe
-Author: Morris Cleland <morris@macbook-air.home>
-Date:   Thu Oct 15 08:10:41 2026 +0200
-
-    fix(studio): restore Nora productive extension for short missions
-
-    Co-authored-by: Cursor <cursoragent@cursor.com>
-
-diff --git a/projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.p1p2.documentary.mission.d0.test.ts b/projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.p1p2.documentary.mission.d0.test.ts
-index 90bf4c2a..1a27f183 100644
---- a/projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.p1p2.documentary.mission.d0.test.ts
-+++ b/projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.p1p2.documentary.mission.d0.test.ts
-@@ -210,11 +210,14 @@ describe("P6 Nora P1+P2 — documentary mission consolidated", () => {
-     expect(snap.consumedModelInvocations).toBeLessThanOrEqual(4);
-   });
-
--  it("T-exhaust — mission budget too small remains incomplete (honest)", async () => {
-+  it("T-exhaust — mission budget too small remains incomplete when continuation/extension off (honest)", async () => {
-+    // With verifiable tool progress, productive extension may raise the effective
-+    // cap (R-EXT-02). P0 honesty for a hard-capped small mission requires
-+    // continuation/extension disabled — not an appearance-based incomplete.
-     const result = await runDocumentary({
-       projectId: "prj:p1p2-exhaust",
-       maxTurns: 3,
--      enableControlledContinuation: true,
-+      enableControlledContinuation: false,
-       cognitiveStrategyClass: "Routine",
-     });
-     expect(result.limitReached).toBe(true);
-```
-
-### 4. p6.productiveExtension.d0.test.ts
-```diff
-commit 50eac4394fda17dfc88739d012d47c706291bfbe
-Author: Morris Cleland <morris@macbook-air.home>
-Date:   Thu Oct 15 08:10:41 2026 +0200
-
-    fix(studio): restore Nora productive extension for short missions
-
-    Co-authored-by: Cursor <cursoragent@cursor.com>
-
-diff --git a/projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.productiveExtension.d0.test.ts b/projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.productiveExtension.d0.test.ts
-index f0302cc9..31373b25 100644
---- a/projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.productiveExtension.d0.test.ts
-+++ b/projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.productiveExtension.d0.test.ts
-@@ -262,4 +262,73 @@ describe("R-EXT-02 — productive extension integration (ScriptedModel)", () =>
-     ).toBe(false);
-     session.close();
-   });
-+
-+  it("REG-PREMATURE-01 — Routine single-segment (maxTurns=5) still extends when tool progress exists", async () => {
-+    // Product default path: Routine → requestedMaxTurns=5 → planContinuationSegments
-+    // returns single_segment_sufficient (enable=false). Premature incomplete regresses
-+    // when productive extension stayed gated on continuationPlan.enable.
-+    const session = tmpSession("prj:p6-routine-single-seg-ext");
-+    const model = new ScriptedModel(sevenTurnDocumentaryScript());
-+    const result = await runNoraAgentsTurn({
-+      correlationId: "p6-routine-single-seg-ext",
-+      projectId: "prj:p6-routine-single-seg-ext",
-+      systemInstructions: sfiaBoundaryInstructions(),
-+      userContent:
-+        "Peux-tu proposer un livrable documentaire après lecture de package.json ?",
-+      session,
-+      model,
-+      workspaceRoot: resolveWorkspaceRootFromAppCwd(),
-+      enableTools: true,
-+      // Default Product: continuation allowed unless explicitly false.
-+      enableControlledContinuation: true,
-+      cognitiveStrategyClass: "Routine",
-+      adaptiveMaxTurnsDecision: {
-+        requestedMaxTurns: 5,
-+        strategyClass: "Routine",
-+        reasonCodes: ["test_routine_single_segment_5"],
-+        floor: 3,
-+        ceiling: 24,
-+        explicitOverride: false,
-+      },
-+    });
-+
-+    expect(result.continuationObserve?.reasonCodes).toEqual(
-+      expect.arrayContaining([expect.stringMatching(/^productive_extension_/)]),
-+    );
-+    expect(result.limitReached).toBe(false);
-+    expect(result.text).toContain(COMPLETE_MARKER);
-+    expect(result.continuationObserve?.stopReason).toBe("complete");
-+    session.close();
-+  });
-+
-+  it("REG-PREMATURE-02 — continuation explicitly off keeps incomplete even with tool progress", async () => {
-+    const session = tmpSession("prj:p6-routine-ext-off");
-+    const model = new ScriptedModel(sevenTurnDocumentaryScript());
-+    const result = await runNoraAgentsTurn({
-+      correlationId: "p6-routine-ext-off",
-+      projectId: "prj:p6-routine-ext-off",
-+      systemInstructions: sfiaBoundaryInstructions(),
-+      userContent:
-+        "Peux-tu proposer un livrable documentaire après lecture de package.json ?",
-+      session,
-+      model,
-+      workspaceRoot: resolveWorkspaceRootFromAppCwd(),
-+      enableTools: true,
-+      enableControlledContinuation: false,
-+      cognitiveStrategyClass: "Routine",
-+      adaptiveMaxTurnsDecision: {
-+        requestedMaxTurns: 5,
-+        strategyClass: "Routine",
-+        reasonCodes: ["test_routine_ext_off"],
-+        floor: 3,
-+        ceiling: 24,
-+        explicitOverride: false,
-+      },
-+    });
-+
-+    expect(result.limitReached).toBe(true);
-+    expect(result.continuationObserve?.productiveExtensions ?? 0).toBe(0);
-+    expect(result.text).not.toContain(COMPLETE_MARKER);
-+    session.close();
-+  });
- });
-```
+**Ne pas réécrire P1–P4. Ne pas reconstruire d'architecture parallèle.**
 
 ---
 
-## K. Validations (VERIFIE)
+## 3. Parcours User observé (projet réel)
 
-| Check | Result |
-|---|---|
-| vitest productiveExtension + maxTurns + p1p2 + missionProgressGuard + fakeConvergence | 5 files / **55 PASS** |
-| tsc --noEmit | PASS |
-| next lint | PASS |
-| next build | PASS |
-| git diff --check | PASS |
-| secrets in diff | NONE |
+| Champ | Preuve |
+| --- | --- |
+| **ProjectId** | `prj:e66fd58c-03f6-41df-90c8-4ae267926212` — **CONFIRMÉ** en SQLite |
+| **Titre** | Simplification des interactions avec l'IA |
+| **CycleInstance** | `cyc:trj-255a8418ee8a735f23738c46` — `cyc:framing` — **status=active** |
+| **Trajectory** | `trj:lr-bridge-7947b41c241a` v1 validated — step Cadrage **state=active** — `decidedByDecisionRef=dec:gf-trj:b145cc06-…` |
+| **Journal sujet** | 1 sujet actif — « Vision consolidée P1–P4… » — points stabilisés P1–P4 présents |
+| **Epistemic** | 13 Observation + 4 Hypothesis ACW ; **1 Recommendation** lifecycle NEXT_CYCLE (2026-10-12) encore `status=active` |
+| **Work Recommendations** | **0** |
+| **HumanDecision** | **1** — `candidate_trajectory` approval (sans `cycle_instance_id`) |
+| **ExecutionContract** | **0** |
+| **Message Pilote (seq 20)** | Valide périmètre ; demande fichier Markdown Git ; 5 étapes ; préparer EC natif ; inspecter ; **ne pas lancer** |
+| **Réponse Nora (seq 21)** | Texte **identique** à `formatMw5PiloteText(CHALLENGE)` — questions génériques prémisses/périmètre/autorité ; « La recommandation n'est pas encore émise. » |
 
-## L. PRR
-`runNoraAgentsTurn.ts` documenté PRR comme behaviorally central / untracked-in-manifest. Pas d'élargissement manifest. Contrôle digest dédié: N/A.
-
-## M. Sécurité
-Aucun secret. Pas d'auth/middleware. Pas d'autorité/HD. Banner incomplete non masqué.
-
-## N. Fake / Real
-DETERMINISTIC PROVEN. REAL NOT EXECUTED. E2E-REAL NOT PROVEN.
-
-## O–Q. Commit / Push / Draft PR
-
-| Item | Value |
-|---|---|
-| Commit | `50eac4394fda17dfc88739d012d47c706291bfbe` |
-| Parent | `b555819d8c3711fd2782b5ee7926517b6b3b8615` |
-| Message | `fix(studio): restore Nora productive extension for short missions` |
-| Remote branch HEAD | `50eac439…` (= local) |
-| Draft PR | **#584** OPEN/DRAFT |
-| URL | https://github.com/mcleland147/sfia-workspace/pull/584 |
-| Base/head | main ← fix/sfia-studio-p6-nora-premature-incomplete-b555 |
-| Files/commits | 4 files / 1 commit |
-
-## R–T. CI / Required Gate (VERIFIE)
-
-| Item | Value |
-|---|---|
-| Workflow | SFIA Studio CI |
-| Run ID | **38691024711** |
-| URL | https://github.com/mcleland147/sfia-workspace/actions/runs/38691024711 |
-| Event | pull_request |
-| headSha | `50eac4394fda17dfc88739d012d47c706291bfbe` |
-| Conclusion | **success** |
-| Required Gate | PASS |
-
-Jobs:
-- Detect SFIA Studio changes: **success**
-- Build and validate SFIA Studio: **success**
-- SFIA Studio Required Gate: **success**
-
-
-## U. Réserves
-
-- Tour Morris historique sans receipt détaillé (NOT OBSERVED)
-- Mécanisme reproduit DET
-- Cause historique exacte du tour unique non prouvée indépendamment
-- Human QA REAL après intégration requise
-- P6 GLOBAL NOT PASSED
-- Runtime v3 NON ADOPTED
-- Merge NOT AUTHORIZED
-
-## V. Dette / exit
-
-Exit cycle 13: commit + Draft PR + CI PASS. Next: ChatGPT Critical PR Review → Morris MERGE GO distinct.
-
-## W. Gates
-
-GO commit/push/Draft PR/CI CONSUMED. Non consommés: Draft→Ready, merge, REAL, :3020, cleanup, P6 PASS, runtime v3.
-
-## X. Git Truth final
-
-HEAD `50eac439` · branch `fix/sfia-studio-p6-nora-premature-incomplete-b555` tracking origin · dirty: `.tmp-sfia-review/chatgpt-review.md` only · main `b555819d` inchangé.
-
-## Y. Verdict
-
-**NORA PREMATURE INCOMPLETE — GIT INTEGRATION COMPLETE / DRAFT PR OPEN / CI PASS / READY FOR CHATGPT CRITICAL PR REVIEW.**
-
-## Z. Instruction ChatGPT
-
-Lire handoff distant. Vérifier commit `50eac439`, parent, branche, Draft PR #584, 4 fichiers, patch (gate `enableControlledContinuation !== false`), absence budget lift / incomplete masking, tests 55 PASS, CI 38691024711 Required Gate PASS, réserves. Produire CHATGPT CRITICAL PR REVIEW — NORA PREMATURE INCOMPLETE. Si PASS → MORRIS MERGE GO distinct. Aucun merge automatique. Aucun GO REAL implicite.
+Niveau preuve parcours : **RUNTIME OBSERVED** (transcript + Product SQLite) + **SOURCE-BACKED** (chemins code).
 
 ---
 
-## Git Review Index
+## 4. Diagnostic A — Carte « Démarrer le cycle Cadrage »
 
-1. COMMIT 50eac439 — 4M exact
-2. DRAFT PR #584
-3. CI 38691024711 SUCCESS + Required Gate
-4. Excluded historical candidate db7b38d2 / controlledContinuation
-5. READY FOR CHATGPT CRITICAL PR REVIEW
+### A–J (résumé)
 
-END OF REVIEW PACK FULL — CYCLE 13
+| Q | Constat | Preuve |
+| --- | --- | --- |
+| **A Origine** | Projection UI `projectPilotRecommendationCard` depuis `f2.qualification` — **pas** une Work Recommendation Journal | `ConversationSurface.tsx` ~399–408 ; `presentationLabels.ts` ~1055–1085 |
+| **B Famille** | **F2 / CKC qualification presentation** (pilot-facing card) — distincte Lifecycle Rec durable et Work Rec | SOURCE-BACKED |
+| **C Objet canonique** | QualificationDto éphémère de tour — **≠** Epistemic Work Rec ; Lifecycle Rec `epi:lr:96a5b858…` existe mais **exclue** du Journal Work | `deriveWorkRecommendations.isLifecycleRecommendationItem` |
+| **D Génération** | Toujours `recommendation: \`Démarrer le cycle ${cycle}.\`` dès que `f2.qualification` présent | `presentationLabels.ts:1078` |
+| **E Affichage** | Carte si `f2?.qualification` truthy | `ConversationSurface.tsx:399` |
+| **F Currentness** | Lifecycle Rec pre-cycle : fingerprint basis figé (lpsActive=null, traj=null) → **STALE** dès que cycle/traj existent — mais item reste `status=active` en store | `currentness.deriveLifecycleRecommendationCurrentness` ; SQLite item still active |
+| **G CycleInstance** | Carte lit `qualification.cycleStatus` / `cycleInstanceId` **si** fournis ; `qualifyWithCkc` **ne les pose pas** | `qualify.ts` vs `qualificationFromActiveCycle` |
+| **H Trajectory** | Affiche Cadrage/C1 active indépendamment de la carte F2 | SQLite traj step active |
+| **I Journal** | 0 recommandation = **cohérent** (0 Work Rec) ; Lifecycle Rec non comptée ; 0 décision cycle = HD greenfield hors cycle | JournalSurface comment L13–20 ; HD sans cycle_instance_id |
+| **J Attendu cycle actif** | Ne pas proposer « démarrer Cadrage » / « cycle non démarré » ; orienter travail in-cycle | Doctrine chat-first + continuity |
+
+### Cause démontrée (carte)
+
+1. **PROVEN — présentation F2 non conditionnée au cycle actif** : libellé « Démarrer le cycle … » systématique.
+2. **PROVEN — état « non démarré » si `cycleStatus` absent** : `cycleNotStartedState` ne détecte `active`/`actif` que via string ; qualification CKC (chemin NEW_CYCLE) n'injecte pas `cycleStatus` alors qu'un CycleInstance framing actif existe.
+3. **PROVEN — familles non fusionnées** : Journal (Work) ≠ carte conversation (F2 qual) ≠ Lifecycle Rec (exclu Work).
+
+Sévérité carte : **HIGH** (contradiction Pilote visible) — currentness/présentation, pas invention d'autorité.
+
+---
+
+## 5. Diagnostic B — Continuité cognitive Nora
+
+### Chaîne reconstituée
+
+message Pilote → `intentAnalysis` → `resolveActiveCycleGovernedContinuation` **ou** NEW_CYCLE → `evaluateF2Mw5` → éventuel short-circuit → (sinon Proposal / createCycle) → UI.
+
+### Réponses 1–10
+
+| # | Réponse | Niveau |
+| --- | --- | --- |
+| 1 Intention Markdown | Demande Pilote claire en transcript ; **analyse structurée du tour non persistée** → identification modèle **NOT OBSERVED** ; signal serveur « natural materialization » **ne matche pas** le texte (voir C) | PARTIAL |
+| 2 Contexte P1–P4 | Oui en Product : Journal + Observations/Hypotheses ACW + sujet stabilisé | RUNTIME OBSERVED |
+| 3 Décidé vs proposition | 1 HD trajectoire greenfield seulement ; pas de HD REQUIRE_ARTIFACT / Proposal pursue ; points Journal ≠ Truth C HD | PROVEN |
+| 4 Livrable = nouveau cadrage ? | Chemin **NEW_CYCLE_FORMALIZATION** si pas d'entrée Artifact-continuation → F2 re-qualifie / MW5 « formaliser recommandation » | SOURCE-BACKED + HYPOTHESIS forte sur ce tour |
+| 5 CKC / prompt / contrôle | **MW5** impose CHALLENGE + texte générique ; `recommendationWouldEmit: true` **hardcodé** sur chemins F2 | PROVEN code |
+| 6 Capacités / frontières | Prompt système décrit EC / boundaries ; MW5 short-circuit **empêche** la narration utile | PARTIAL |
+| 7 Récit vs actions | Récit MW5 dit « recommandation non émise » — **fidèle au short-circuit**, **infidèle** à l'intention Pilote (préparer travail) | PROVEN |
+| 8 Élément manquant concret | Pour Artifact-continuation native : hints structurés (`continuationKind` + `docs_write` + `cursor.docs_write.apply`) **et/ou** admission REQUIRE_ARTIFACT / Artifact APPLICABLE ; pour EC : DecisionBasis éligible (proposal/trajectory) | SOURCE-BACKED |
+| 9 Pourquoi non recherché | Short-circuit MW5 avant outillage ; natural signal trop étroit (`materialis*`) | PROVEN |
+| 10 HD manquante réelle | Pas de HD Proposal pursue / REQUIRE_ARTIFACT pour docs_write ; **ne pas inventer** HD | PROVEN absence |
+
+**≠ mauvais modèle** sans preuve routing : ici **routing/policy MW5 + gates continuation** sont démontrés.
+
+---
+
+## 6. Diagnostic C — Intention → Action
+
+| Type demande | Mécanisme Product | État sur e66 |
+| --- | --- | --- |
+| A Analyse documentaire | ACW Observations — **fait** | OK historique |
+| B Brouillon conversationnel | Narrative Nora — **fait** (seq 19) | OK |
+| C Fichier Markdown Git | ACTIVE_CYCLE_GOVERNED_CONTINUATION → Proposal → HD → PREPARE EC `docs_write` | **Bloqué avant Proposal** |
+| D Code / Cursor | EC + inspection + confirm | Non atteint |
+| E Tests exécutant | Idem | Non atteint |
+| F Push/PR | Gates séparés | Non atteint |
+
+**Distinction conceptuelle (à préserver)** : travail cognitif ≠ outcome conversationnel ≠ deliverable ≠ artifact obligation ≠ execution intent ≠ ExecutionContract ≠ autorité ≠ launch.
+
+### Gap signal naturel (PROVEN)
+
+`hasNaturalActiveCycleDeliverableMaterializationSignal` exige `\bmaterialis` dans objective/rephrased/artifactBrief.
+
+Texte Pilote seq 20 : **pas** de « matérialis* » → signal naturel **false** (test local sur extrait).
+
+Sans `continuationKind=active_cycle_artifact_materialization` **et** effet `docs_write` + `artifactMaterializationOperation=cursor.docs_write.apply` → `NEW_CYCLE_FORMALIZATION` (`no_materialization_intent`).
+
+---
+
+## 7. Diagnostic D — ExecutionContract natif
+
+| Constat | Statut |
+| --- | --- |
+| Work Recommendation disposition **n'auto-prépare pas** EC | **REVALIDÉ** — `prepareExecutionContractFromW2Decision` refuse `sourceType===work_recommendation` (MD-WR-06) |
+| PREPARE exige DecisionBasis éligible (`proposal` pursue / `trajectory_option` GOVERNED|BOUNDED) | **REVALIDÉ** |
+| Work Rec comme DecisionBasis = **non éligible PREPARE** | **REVALIDÉ** — protection nécessaire |
+| Sur e66 : 0 EC, 0 Proposal pursue HD | RUNTIME OBSERVED |
+| Chemin natif docs_write | ACTIVE_CYCLE continuation **si** admitted → Proposal → accept → `prepareExecutionContractFromW2Decision` ; **ou** PT GOVERNED accept + autoPrepare | SOURCE-BACKED |
+| Gap capacité | **Raccord intention Pilote → entrée continuation / Proposal** manquant ; **≠** lever MD-WR-06 | PROVEN gap d'intégration |
+
+**Ne pas** créer de fausse HD / trajectoire artificielle.
+
+---
+
+## 8. Root causes démontrées
+
+| ID | Comportement | Cause | Chemin | Invariant | UX | Sévérité | Fix minimal candidat | Test non-régression | Gate |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| **F-C9-01** | Carte « Démarrer le cycle Cadrage » + « n'a pas encore démarré » alors Cadrage actif | Présentation F2 ignore cycle actif ; `cycleStatus` absent sur qual CKC | `presentationLabels.projectPilotRecommendationCard` · `ConversationSurface` · `qualifyWithCkc` | Q01 / currentness UI | Contradiction trajectoire | **HIGH** | Si CycleInstance actif même type : ne pas afficher start-card / état « non démarré » ; binder `cycleStatus` depuis LPS/activeCycle | UI test HQA-UI04 + cas cycle actif | — |
+| **F-C9-02** | Journal 0 reco / 0 décision | Work Rec absentes ; Lifecycle exclue ; HD hors cycle | `deriveWorkRecommendations` · Journal tabs | Q02 | Vide ≠ « pas de travail » | **MED** (honnête mais opaque) | Distinguer affichage Lifecycle STALE vs Work ; compter HD greenfield hors onglet cycle ou expliciter | Projection unit | — |
+| **F-C9-03** | Nora rejoue questions génériques cadrage | `formatMw5PiloteText(CHALLENGE)` ; `recommendationWouldEmit:true` hardcodé ; HA/Critical gate | `criticalChallengeClarification.ts` · `orchestrateF2.evaluateF2Mw5` | Q04–Q05 Q10 | Blocage conversationnel | **CRITICAL** | Ne pas short-circuiter MW5 CHALLENGE quand intention = continuation livrable cycle actif déjà cadré ; ou `recommendationWouldEmit` factuel ; skip structurel si contexte Journal/ACW suffit | d0 MW5 + F2 continuation | Morris si politique MW5 |
+| **F-C9-04** | Intention Markdown/EC n'entre pas en Artifact-continuation | Natural signal exige `materialis*` ; sinon NEW_CYCLE | `hasNaturalActiveCycleDeliverableMaterializationSignal` | Q05–Q07 | Retour cadrage | **CRITICAL** | Élargir signaux naturels FR (produire/fichier/markdown/dépôt) **sans** affaiblir fail-closed docs_write discriminator | unit natural-signal + e66-like fixture | — |
+| **F-C9-05** | EC natif non préparé | Pas de Proposal/HD éligible ; WR≠PREPARE (correct) | `prepareExecutionContractFromW2Decision` MD-WR-06 | Q08–Q09 | Demande Pilote sans geste Product | **HIGH** (gap raccord) | Après F-C9-03/04 : clarification filename **ou** Proposal docs_write → HD → PREPARE inspectable | W2 prepare tests | — |
+| **F-C9-06** | Lifecycle Rec « ouvrir Cadrage » encore active en store | Non superseded à cycle start ; currentness read-side STALE | `epi:lr:96a5b858…` + `deriveLifecycleRecommendationCurrentness` | Q03 | Risque projection confuse | **MED** | Supersede/mark STALE durable à start ; UI ne pas réutiliser | lifecycle currentness d0 | — |
+
+### Séparation
+
+- **Currentness/affichage avéré** : F-C9-01, F-C9-02, F-C9-06
+- **Continuité cognitive avérée** : F-C9-03, F-C9-04
+- **EC non raccordée (capacité + protections OK)** : F-C9-05
+- **Choix architecture ouvert** : ampleur élargissement natural-signal vs obligation `continuationKind` modèle — **OPTION**, pas décision
+
+---
+
+## 9. Oracles Q01–Q14
+
+| Oracle | Verdict | Note |
+| --- | --- | --- |
+| Q01 Cycle actif ≠ fausse start | **FAILED** | Carte start + état non démarré |
+| Q02 Rec vs Journal | **PARTIAL** | Journal honnête Work=0 ; carte F2 distincte non expliquée |
+| Q03 Rec non actuelle sans autorité | **PARTIAL** | Lifecycle STALE read-side ; item active store ; carte F2 non autoritative |
+| Q04 Contexte P1–P4 | **PARTIAL** | Durable OK ; réponse tour ignore |
+| Q05 Livrable cadré → geste | **FAILED** | MW5 + NEW_CYCLE |
+| Q06 Cognitif vs exécution | **PARTIAL** | « AUCUNE EXÉCUTION » OK ; pas de préparation |
+| Q07 Cursor identifiable | **FAILED** (ce tour) | EC path non ouvert |
+| Q08 Prep ≠ autorisation | **NOT OBSERVED** | Prep jamais atteinte |
+| Q09 HD seulement si requis | **PARTIAL** | MW5 exige « prémisse reco » plutôt que HD docs_write réelle |
+| Q10 Clarif justifiée | **FAILED** | Template générique ≠ manque concret (filename/path) |
+| Q11 Pas d'invention | **PROVEN** (store) | Pas de HD/EC inventés |
+| Q12 Pas de moteur parallèle | **PROVEN** | Chemins existants |
+| Q13 Continuité projet | **PROVEN** | Projet/cycle intacts |
+| Q14 Refus explicite manquant | **FAILED** | Ne dit pas « continuation Artifact non admise / fichier manquant » |
+
+---
+
+## 10. Options
+
+### OPTION A — Correction minimale des défauts avérés
+- F-C9-01 présentation carte cycle actif
+- F-C9-03 MW5 skip / recommendationWouldEmit factuel sur continuation livrable
+- F-C9-04 élargir natural-signal FR
+- F-C9-06 supersede lifecycle Rec à start
+
+**Bénéfice** : rétablit intention→clarif utile ou Proposal. **Complexité** : M. **Risque** : faux positifs natural-signal (mitiger par gates docs_write existants). **Dette** : MW5 HA ordering inchangé hors chemin livrable. **Exit proof** : fixture e66-like → pas de carte start ; pas de template CHALLENGE ; clarification pathRoot/filename **ou** Proposal.
+
+### OPTION B — Macro-lot cumulatif (recommandé)
+A + raccord F-C9-05 (après Proposal : PREPARE inspectable sans launch) + honesty Journal (Lifecycle STALE visible vs Work vide) + tests P6-MIN-03/07/08/09.
+
+**Bénéfice** : parcours end-to-end jusqu'à inspection EC. **Complexité** : M–L. **Risque** : scope creep si on touche MD-WR-06 (ne pas). **Exit proof** : prepare EC docs_write + UI inspection ; 0 execute.
+
+### OPTION C — Révision architecturale
+Seulement si l'on juge que MW5+F2 ne peuvent structurellement distinguer « reco Critical » et « matérialisation in-cycle ». **Non requis** à ce stade — contrats existent (`ACTIVE_CYCLE_GOVERNED_CONTINUATION`).
+
+### Recommandation non binding
+**OPTION B** bornée — ne pas multiplier les micro-cycles ; ne pas lever MD-WR-06 ; ne pas adopter runtime v3.
+
+---
+
+## 11. Fake / Real / Security
+
+| Item | Statut |
+| --- | --- |
+| REAL E2E UI :3031 | **NOT OBSERVED** (port free ; no restart) |
+| Product state SQLite | **RUNTIME OBSERVED** read-only |
+| Code | **SOURCE-BACKED** HEAD 50eac439 / main merge e7822033 |
+| OpenAI / message Nora | **NON** (interdit) |
+| Mutation Product / SQLite / :3020 | **AUCUNE** |
+| Secrets | Non divulgués ; chemins DB seulement |
+
+---
+
+## 12. Trajectoire / Gates / Exit proof
+
+| Item | Contenu |
+| --- | --- |
+| **Prochaine capacité** | Macro-lot correctif (Option B) sous GO Morris — puis Human QA reprise e66 → EC inspect → (gates) Cursor |
+| **Gates Morris** | GO correctif Product ; éventuel GO si changement politique MW5 HA ; **pas** GO REAL/execute ce diagnostic |
+| **Exit proof diagnostic** | Pack + handoff L3 + matrice findings |
+| **≠** | Correction réalisée · Product READY · Human QA PASS · REAL E2E · P6 GLOBAL PASS · v3 ADOPTED |
+
+---
+
+## 13. Git Review Index (chemins cités)
+
+- `features/project-assistant/presentationLabels.ts` — `projectPilotRecommendationCard`, `cycleNotStartedState`
+- `features/pre-m6-product-ui/surfaces/ConversationSurface.tsx` — carte F2
+- `features/pre-m6-product-ui/surfaces/JournalSurface.tsx` — Work vs Lifecycle
+- `lib/oa/cycle/application/deriveWorkRecommendations.ts`
+- `lib/oa/cycle/application/lifecycleRecommendation/currentness.ts`
+- `lib/nora-cognitive-runtime/criticalChallengeClarification.ts` — `decideMw5Disposition`, `formatMw5PiloteText`, `deriveMw5FactsFromF2Turn`
+- `features/project-assistant/f2/orchestrateF2.ts` — `evaluateF2Mw5`, `recommendationWouldEmit: true`, continuation branch
+- `features/project-assistant/f2/activeCycleGovernedContinuation.ts` — natural signal, docs_write gates, REQUIRE_ARTIFACT
+- `features/project-assistant/f2/qualify.ts` — qualification sans cycleStatus
+- `features/project-assistant/w2/prepareExecutionContractFromW2Decision.ts` — MD-WR-06
+- `features/project-assistant/w2/resolveChatFirstPilotDecision.ts` — autoPrepare PT
+- `features/project-assistant/trajectoryRecommendationCurrentness.ts`
+- `features/project-assistant/w2/resolveCurrentNoraTrajectoryRecommendation.ts`
+- Product DB (ro) : project e66, cycle, traj, epistemic, HD, transcript seq 20–21
+
+---
+
+## 14. Instruction ChatGPT
+
+Lire ce handoff distant. Confronter F-C9-01…06 au code Git (`e7822033` / fichiers index) et aux preuves runtime SQLite/transcript.
+
+Qualifier les causes (challenger notamment l'hypothèse NEW_CYCLE vs ACTIVE_CYCLE+MW5 si télémétrie tour manque).
+
+Challenger Option B vs A. Préparer un macro-lot correctif **uniquement après décision Morris**.
+
+Ne pas annoncer correction réalisée, P6 PASS, REAL E2E, runtime v3 ADOPTED.
+
+---
+
+## 15. Verdict
+
+**P6 INTENTION-TO-ACTION CONTINUITY DIAGNOSIS COMPLETE / SOURCE-BACKED / READY FOR CHATGPT CRITICAL REVIEW.**
