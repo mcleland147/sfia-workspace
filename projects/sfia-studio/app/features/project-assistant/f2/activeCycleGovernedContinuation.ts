@@ -233,12 +233,46 @@ function normalizeIntentHaystack(parts: readonly (string | null | undefined)[]):
 }
 
 /**
+ * Explicit NEW_CYCLE formalization phrasing (NON-AUTHORITATIVE).
+ * CI-HQA-F01 — « Prépare un cycle … pour livrer la note » must not be treated
+ * as active-cycle Artifact continuation: the cycle is the prepare object;
+ * a future deliverable mention does not invent an active cycle.
+ */
+export function hasExplicitNewCycleFormalizationSignal(
+  analysis: IntentAnalysisDto,
+): boolean {
+  const hay = normalizeIntentHaystack([
+    analysis.objective,
+    analysis.rephrasedRequest,
+    analysis.executionIntent?.artifactBrief,
+  ]);
+  if (!hay) return false;
+  // Cycle as direct object of prepare/create/start verbs.
+  if (
+    /\b(prepare|preparer|creer|demarrer|lancer|proposer)\s+(un\s+|le\s+|ce\s+|nouveau\s+)?cycle\b/.test(
+      hay,
+    )
+  ) {
+    return true;
+  }
+  if (
+    /\b(nouveau cycle|preparation d[' ]?un cycle|formalisation (du|d[' ]un) cycle)\b/.test(
+      hay,
+    )
+  ) {
+    return true;
+  }
+  return false;
+}
+
+/**
  * CORR-01 / P6 C9 — natural active-cycle deliverable materialization signal from
  * analysis text fields (NON-AUTHORITATIVE). Used so a missing continuationKind
  * does not silently fall to NEW_CYCLE_FORMALIZATION when the Pilote asked to
  * produce the cycle deliverable in the repository without engine jargon.
  *
  * Must NOT match vague talk-about-deliverable alone.
+ * Must NOT match explicit NEW_CYCLE preparation (CI-HQA-F01).
  * Must NOT require the stem « materialis* » (F-C9-04).
  * Durable active-cycle + Artifact gates remain authoritative at resolve time.
  */
@@ -267,6 +301,12 @@ export function hasNaturalActiveCycleDeliverableMaterializationSignal(
     ) ||
     /\?\s*$/.test(hay.trim())
   ) {
+    return false;
+  }
+
+  // Explicit cycle preparation stays on NEW_CYCLE_FORMALIZATION — never Artifact
+  // continuation (which fail-closes with no_active_cycle and skips createCycle).
+  if (hasExplicitNewCycleFormalizationSignal(analysis)) {
     return false;
   }
 

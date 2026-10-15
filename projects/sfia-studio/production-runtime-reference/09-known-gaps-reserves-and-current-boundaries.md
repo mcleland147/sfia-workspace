@@ -166,6 +166,7 @@ NoteLite bounded REAL re-proof — **PAUSED**. Gate Morris distinct. Not this de
 | Defer disposition (Work) | AS-IMPLEMENTED at tested scope — durable HD + Reservation `may_affect` + Work Recommendation resolved; missing honest target ⇒ `defer_target_unresolved` |
 | Lifecycle transitions (general) | Studio actions KEEP (prepare / approve / prepare cycle / START / FINALIZE). Generic « Lifecycle Chat-first resolver » remains RETIRED — not every Lifecycle transition is conversational |
 | First Framing START (bounded) | AS-IMPLEMENTED @ `6a4374ed` — conversational Rec→candidate→examinable→HD→prepare→**explicit** Pilot START→LPS; no auto-START; already-active = honest no-op; DETERMINISTIC proven; ZERO REAL claim |
+| NEW_CYCLE vs Artifact natural signal (CI-HQA-F01) | AS-IMPLEMENTED on Delivery PR #585 — « préparer un cycle … » (future note/deliverable OK) stays `NEW_CYCLE_FORMALIZATION`; natural Artifact signal remains for produce/write/materialize under active cycle; DETERMINISTIC at tested scope (`p6.hqa.f01`, continuity CORR-01) |
 | Unbound subject never disposed | RESERVE — stays unbound; chat-first materialises OptionSet lazily on disposition turn only |
 | REAL chat-first / PocketTasks parity | NOT PROVEN — ZERO REAL this macro; Gate Morris distinct required |
 | Visual Figma / Pilot runtime fidelity (First Framing UX) | RESERVE — residual Human QA / visual; not closed by PRR sync |

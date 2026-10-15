@@ -15,6 +15,7 @@ import { projectAssistantSendAction } from "@/features/project-assistant/actions
 import {
   hasNaturalActiveCycleDeliverableMaterializationSignal,
   hasExplicitArtifactContinuationKind,
+  hasExplicitNewCycleFormalizationSignal,
   resolveActiveCycleGovernedContinuation,
   shouldEnterActiveCycleArtifactContinuationHandling,
 } from "@/features/project-assistant/f2/activeCycleGovernedContinuation";
@@ -301,6 +302,22 @@ describe("ACTIVE-CYCLE ARTIFACT MATERIALIZATION CONTINUITY CORR-01", () => {
     });
     expect(
       hasNaturalActiveCycleDeliverableMaterializationSignal(explainOnly),
+    ).toBe(false);
+
+    // CI-HQA-F01 — prepare a new cycle (future deliverable mention) ≠ Artifact continuation.
+    const newCyclePrep = baseAnalysis({
+      continuationKind: null,
+      intentClass: "actionable",
+      objective: "Préparer un cycle Delivery",
+      rephrasedRequest: "Prépare un cycle Delivery pour livrer la note.",
+      candidateCycleTypeId: "cyc:delivery",
+    });
+    expect(hasExplicitNewCycleFormalizationSignal(newCyclePrep)).toBe(true);
+    expect(
+      hasNaturalActiveCycleDeliverableMaterializationSignal(newCyclePrep),
+    ).toBe(false);
+    expect(
+      shouldEnterActiveCycleArtifactContinuationHandling(newCyclePrep),
     ).toBe(false);
   });
 
