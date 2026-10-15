@@ -129,7 +129,11 @@ describe("P6 Nora maxTurns — documentary qualification (V1–V5)", () => {
     expect(CT_MAX_TOOL_ROUNDS + 1).toBe(5);
   });
 
-  it("V1 — default maxTurns (5) stops multi-read documentary sequence incomplete", async () => {
+  it("V1 — default maxTurns (5) without continuation/extension stops multi-read incomplete", async () => {
+    // Historical ceiling-alone fact: initial mission=5 cannot finish a 7-turn
+    // script when productive extension / RunState resume is disabled.
+    // Product default path (continuation allowed) is covered by R-EXT-02 /
+    // REG-PREMATURE-01 — do not conflate the two.
     const session = tmpSession("prj:p6-mt-v1");
     const model = new ScriptedModel(documentaryScriptNeedingSevenModelTurns());
     const result = await runNoraAgentsTurn({
@@ -142,6 +146,7 @@ describe("P6 Nora maxTurns — documentary qualification (V1–V5)", () => {
       model,
       workspaceRoot: resolveWorkspaceRootFromAppCwd(),
       enableTools: true,
+      enableControlledContinuation: false,
       // omit maxTurns → Product default CT_MAX_TOOL_ROUNDS + 1 (=5)
     });
 
@@ -328,7 +333,7 @@ describe("P6 Nora maxTurns — documentary qualification (V1–V5)", () => {
     expect(hasState === true || hasState === false).toBe(true);
   });
 
-  it("V5 — comparison matrix facts: default incomplete vs test maxTurns=12 complete", async () => {
+  it("V5 — comparison matrix: ceiling-alone incomplete vs adapted maxTurns=12 complete", async () => {
     const sessionA = tmpSession("prj:p6-mt-v5a");
     const sessionB = tmpSession("prj:p6-mt-v5b");
     const modelA = new ScriptedModel(documentaryScriptNeedingSevenModelTurns());
@@ -343,6 +348,8 @@ describe("P6 Nora maxTurns — documentary qualification (V1–V5)", () => {
       model: modelA,
       workspaceRoot: resolveWorkspaceRootFromAppCwd(),
       enableTools: true,
+      // Ceiling-alone fact (extension off) — Product-with-extension is R-EXT-02.
+      enableControlledContinuation: false,
     });
     const v2 = await runNoraAgentsTurn({
       correlationId: "p6-maxturns-v5-adapted",
@@ -387,8 +394,8 @@ describe("P6 Nora maxTurns — documentary qualification (V1–V5)", () => {
 
     // Options for Morris (QA conclusions, not architecture choice):
     // A — adapted turn budget can finish this ScriptedModel workload
-    // B — controlled continuation also needed for Product autonomy after stop
-    // Evidence: A true for this fake workload; B still required for Product resume.
+    // B — controlled continuation / productive extension for Product autonomy
+    // Evidence: A true for this fake workload; B covered by R-EXT-02 / REG-PREMATURE.
     expect(matrix.v2.complete && !matrix.v1.complete).toBe(true);
     expect(matrix.v1.productRunStateResume).toBe(false);
 

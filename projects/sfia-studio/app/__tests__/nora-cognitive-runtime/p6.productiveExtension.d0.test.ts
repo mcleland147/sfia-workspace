@@ -262,4 +262,73 @@ describe("R-EXT-02 — productive extension integration (ScriptedModel)", () => 
     ).toBe(false);
     session.close();
   });
+
+  it("REG-PREMATURE-01 — Routine single-segment (maxTurns=5) still extends when tool progress exists", async () => {
+    // Product default path: Routine → requestedMaxTurns=5 → planContinuationSegments
+    // returns single_segment_sufficient (enable=false). Premature incomplete regresses
+    // when productive extension stayed gated on continuationPlan.enable.
+    const session = tmpSession("prj:p6-routine-single-seg-ext");
+    const model = new ScriptedModel(sevenTurnDocumentaryScript());
+    const result = await runNoraAgentsTurn({
+      correlationId: "p6-routine-single-seg-ext",
+      projectId: "prj:p6-routine-single-seg-ext",
+      systemInstructions: sfiaBoundaryInstructions(),
+      userContent:
+        "Peux-tu proposer un livrable documentaire après lecture de package.json ?",
+      session,
+      model,
+      workspaceRoot: resolveWorkspaceRootFromAppCwd(),
+      enableTools: true,
+      // Default Product: continuation allowed unless explicitly false.
+      enableControlledContinuation: true,
+      cognitiveStrategyClass: "Routine",
+      adaptiveMaxTurnsDecision: {
+        requestedMaxTurns: 5,
+        strategyClass: "Routine",
+        reasonCodes: ["test_routine_single_segment_5"],
+        floor: 3,
+        ceiling: 24,
+        explicitOverride: false,
+      },
+    });
+
+    expect(result.continuationObserve?.reasonCodes).toEqual(
+      expect.arrayContaining([expect.stringMatching(/^productive_extension_/)]),
+    );
+    expect(result.limitReached).toBe(false);
+    expect(result.text).toContain(COMPLETE_MARKER);
+    expect(result.continuationObserve?.stopReason).toBe("complete");
+    session.close();
+  });
+
+  it("REG-PREMATURE-02 — continuation explicitly off keeps incomplete even with tool progress", async () => {
+    const session = tmpSession("prj:p6-routine-ext-off");
+    const model = new ScriptedModel(sevenTurnDocumentaryScript());
+    const result = await runNoraAgentsTurn({
+      correlationId: "p6-routine-ext-off",
+      projectId: "prj:p6-routine-ext-off",
+      systemInstructions: sfiaBoundaryInstructions(),
+      userContent:
+        "Peux-tu proposer un livrable documentaire après lecture de package.json ?",
+      session,
+      model,
+      workspaceRoot: resolveWorkspaceRootFromAppCwd(),
+      enableTools: true,
+      enableControlledContinuation: false,
+      cognitiveStrategyClass: "Routine",
+      adaptiveMaxTurnsDecision: {
+        requestedMaxTurns: 5,
+        strategyClass: "Routine",
+        reasonCodes: ["test_routine_ext_off"],
+        floor: 3,
+        ceiling: 24,
+        explicitOverride: false,
+      },
+    });
+
+    expect(result.limitReached).toBe(true);
+    expect(result.continuationObserve?.productiveExtensions ?? 0).toBe(0);
+    expect(result.text).not.toContain(COMPLETE_MARKER);
+    session.close();
+  });
 });

@@ -210,11 +210,14 @@ describe("P6 Nora P1+P2 — documentary mission consolidated", () => {
     expect(snap.consumedModelInvocations).toBeLessThanOrEqual(4);
   });
 
-  it("T-exhaust — mission budget too small remains incomplete (honest)", async () => {
+  it("T-exhaust — mission budget too small remains incomplete when continuation/extension off (honest)", async () => {
+    // With verifiable tool progress, productive extension may raise the effective
+    // cap (R-EXT-02). P0 honesty for a hard-capped small mission requires
+    // continuation/extension disabled — not an appearance-based incomplete.
     const result = await runDocumentary({
       projectId: "prj:p1p2-exhaust",
       maxTurns: 3,
-      enableControlledContinuation: true,
+      enableControlledContinuation: false,
       cognitiveStrategyClass: "Routine",
     });
     expect(result.limitReached).toBe(true);
