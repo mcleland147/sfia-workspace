@@ -1,127 +1,75 @@
 # SFIA STUDIO — P6 NORA PREMATURE INCOMPLETE
-## Root Cause & Bounded Correction — Review Pack FULL
+## Cycle 13 — PR Readiness / Git Integration — Review Pack FULL
 
-**A. Horodatage (Europe/Paris):** 2026-10-15 07:21:05 CEST
-**B. GO Morris:** DIAGNOSE + BOUNDED LOCAL FIX — AUTHORIZED / CONSUMED (2026-10-15)
-**C. Cycle / profil:** Cycle 8 — CRITICAL — INC / QA corrective
+**A. Horodatage (Europe/Paris):** 2026-10-15 08:20:03 CEST
+**B. GO Morris:** COMMIT + PUSH + DRAFT PR + CI — AUTHORIZED / CONSUMED (2026-10-15)
+**C. Cycle / profil:** Cycle 13 — CRITICAL — INC corrective — PR Readiness / Git Integration
 **D. Repository:** mcleland147/sfia-workspace
 
 ---
 
-## Git Truth (VERIFIE)
+## D. Git Truth initial (VERIFIE)
 
 | Check | Value |
 |---|---|
-| Worktree correctif | `/Users/morris/Projects/sfia-workspace-p6-nora-incomplete-fix-b555` |
-| Branch | `fix/sfia-studio-p6-nora-premature-incomplete-b555` |
-| HEAD base | `b555819d8c3711fd2782b5ee7926517b6b3b8615` (= origin/main tip at start) |
-| origin/main | `b555819d8c3711fd2782b5ee7926517b6b3b8615` |
-| :3020 / DB Human QA | NON TOUCHES |
-| REAL OpenAI | NON EXECUTE |
-| Commit / push projet | NON EXECUTE (GO interdit) |
-
-Status:
-```
- M .tmp-sfia-review/chatgpt-review.md
- M projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.maxTurns.documentary.d0.test.ts
- M projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.p1p2.documentary.mission.d0.test.ts
- M projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.productiveExtension.d0.test.ts
- M projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
-
-```
+| Worktree retenu | `/Users/morris/Projects/sfia-workspace-p6-nora-incomplete-fix-b555` |
+| Branche | `fix/sfia-studio-p6-nora-premature-incomplete-b555` |
+| HEAD initial | `b555819d8c3711fd2782b5ee7926517b6b3b8615` |
+| origin/main | `b555819d8c3711fd2782b5ee7926517b6b3b8615` (inchangé) |
+| Handoff entrée | `2aafbc07` / blob `4ee7842e` |
+| Staging initial | vide |
+| Commit correctif initial | absent |
 
 ---
 
-## Convergence
+## E. Convergence
 
-Capacité v3: analyse cognitive fiable/continue/honnête au service Pilote→Nora→Recommendation→EC.
-Milestone P6. P6 GLOBAL NOT PASSED. Runtime v3 NON ADOPTED.
-Next après fix validé: reprendre Human QA Execution/Review/Synthèse.
+Build Doctrine VALIDATED/ACTIVE · Roadmap VALIDATED/ACTIVE · C1 VALIDATED · P6 NOT PASSED · Runtime v3 NON ADOPTED.
+Actif: Runner cognitif ADAPT. Architecture parallèle: AUCUNE.
+Trajectoire: Fix local → Git integration (ce cycle) → Critical PR Review → Morris MERGE GO → post-merge → Human QA Nora.
 
-CKC: `ckc:studio:delivery` / guidance only (doctrine package) — aucune autorité.
-
----
-
-## Observation
-
-Morris (Human QA historique :3020 / eec68a41): Nora a produit une réponse structurée proposant un livrable documentaire, mais le bandeau **"Analyse inachevée — Limite d'exécution atteinte"** est apparu.
-
-Trace historique du tour exact: **NOT OBSERVED** (pas de receipt tour récupéré; REAL non autorisé pour rejouer).
-Mécanisme reproduit en **DETERMINISTIC** sur le chemin Product Agents Runner.
-
-Code cognitif principal: identique entre `eec68a41` et `b555819d` pour ce chemin (confirmé par périmètre GO + inspection).
+CKC guidance: `ckc:studio:delivery-implementation`.
 
 ---
 
-## Route Product réelle
+## F. Candidat retenu / exclusion
 
-```
-Pilot message
-→ Product send / orchestrateTurn
-→ runNoraCognitiveTurn (strategy + adaptive maxTurns)
-→ runNoraAgentsTurn (Agents Runner)
-→ planContinuationSegments
-→ MaxTurnsExceededError / controlled continuation / productive extension
-→ turn.limitReached
-→ orchestrateTurn status incomplete + EXECUTION_LIMIT notice
-→ useProductConversation setExecutionIncomplete
-→ ConversationSurface banner "Analyse inachevée"
-```
+**RETENU:** worktree `…-incomplete-fix-b555` · branche `…-incomplete-b555` · handoff `2aafbc07` / `4ee7842e`.
 
-MW6: non requis pour ce path — spine Agents `runNoraCognitiveTurn` → `runNoraAgentsTurn`.
+**EXCLU:** worktree `…-premature-incomplete-fix` · branche `…-premature-incomplete` · handoff `db7b38d2` (modifie `controlledContinuation.ts`).
 
-UI (inchangé):
-- `orchestrateTurn.ts`: `executionLimitReached = turn.limitReached === true` → `status: "incomplete"`
-- `ConversationSurface.tsx`: banner `project-assistant-incomplete-surface`
+Aucun mélange de diffs. Aucun cherry-pick depuis l'autre candidat.
 
 ---
 
-## Hypothèses
+## G–I. Root cause / Correctif / Manifest
 
-| ID | Hypothèse | CODE | OBSERVATION | TEST | VERDICT |
-|---|---|---|---|---|---|
-| A | Classification sous-dimensionnée | Routine base=5 | Possible contributeur | adaptiveBudget tests | PARTIAL — pas root exclusive |
-| B | Plafond effectif trop bas | adaptive clamp | 5 si Routine | DET | PARTIAL |
-| **C** | **Continuation/extension interrompue prématurément** | **`continuationPlan.enable` gate on R-EXT-02** | **Routine mission≤5 → `single_segment_sufficient` → enable=false → productive extension NEVER runs** | **REG-PREMATURE-01** | **CONFIRMED ROOT** |
-| D | Progression non reconnue | MissionProgressGuard | Si tools ok, progress true | guard tests | NOT root (progress exists but gate blocked) |
-| E | Campaign/provider cap | campaignBudget | NOT OBSERVED on Morris turn | — | NOT PROVEN for this incident |
-| F | Incomplete mal propagé | orchestrateTurn/UI | Propagation correcte si limitReached | UI wiring | NOT root — honest given limitReached |
-| G | Autre | — | — | — | N/A |
+Root cause: R-EXT-02 gated on `continuationPlan.enable`; short missions (`single_segment_sufficient`) could not productive-extend despite MissionProgressGuard progress → premature incomplete.
 
-**Root cause prouvée (C):**
-Pour missions single-segment (`planContinuationSegments` quand `missionMaxTurns <= segmentMaxTurns`, typiquement Routine=5), `continuationPlan.enable === false`.
-Le bloc R-EXT-02 exigeait `continuationPlan.enable`, donc **aucune** extension productive malgré `hasVerifiableProgressForExtension()`.
-Résultat: `MaxTurnsExceeded` → `limitReached=true` + texte partiel souvent déjà structuré → bandeau incomplete **prématuré**.
+Correctif: gate on `input.enableControlledContinuation !== false`. Within-mission multi-segment still uses `continuationPlan.enable`. No global budget lift. Incomplete honesty preserved when OFF/no progress.
 
-Ce n'est pas spécifique au scénario documentaire P1–P4: toute conversation Product Routine/Focused-at-segment-boundary avec outils peut le déclencher.
+Manifest EXACT 4 MODIFIED:
+1. `runNoraAgentsTurn.ts`
+2. `p6.nora.maxTurns.documentary.d0.test.ts`
+3. `p6.nora.p1p2.documentary.mission.d0.test.ts`
+4. `p6.productiveExtension.d0.test.ts`
+
+`controlledContinuation.ts` ABSENT du candidat.
 
 ---
 
-## Correctif borné
+## J. Diffs COMPLETS (4 fichiers)
 
-Fichier: `projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts`
-
-Changer la condition R-EXT-02:
-- AVANT: `continuationPlan.enable && …`
-- APRES: `input.enableControlledContinuation !== false && …`
-
-Préserve:
-- budgets finis / safety envelope 36
-- PRODUCTIVE_EXTENSION_MAX=3
-- MissionProgressGuard (fingerprint utile requis)
-- `enableControlledContinuation === false` bloque toujours
-- explicitOverride pin (tests/eval)
-- campaign lease / provider caps
-- incomplete honnête si vraiment épuisé / sans progress
-- aucune suppression du bandeau; aucun incomplete→ok sur apparence texte
-
-Interdit non consommé: pas d'augmentation arbitraire de plafonds, pas de nouvelle architecture.
-
----
-
-## Diff exploitable — runNoraAgentsTurn.ts
-
+### 1. runNoraAgentsTurn.ts
 ```diff
+commit 50eac4394fda17dfc88739d012d47c706291bfbe
+Author: Morris Cleland <morris@macbook-air.home>
+Date:   Thu Oct 15 08:10:41 2026 +0200
+
+    fix(studio): restore Nora productive extension for short missions
+
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
 diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
 index f3c32dc1..ac3ad90d 100644
 --- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
@@ -144,14 +92,18 @@ index f3c32dc1..ac3ad90d 100644
                atMissionCeiling &&
                !atSafetyEnvelope &&
                !adaptiveDecision.explicitOverride &&
-
 ```
 
----
-
-## Diffs tests
-
+### 2. p6.nora.maxTurns.documentary.d0.test.ts
 ```diff
+commit 50eac4394fda17dfc88739d012d47c706291bfbe
+Author: Morris Cleland <morris@macbook-air.home>
+Date:   Thu Oct 15 08:10:41 2026 +0200
+
+    fix(studio): restore Nora productive extension for short missions
+
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
 diff --git a/projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.maxTurns.documentary.d0.test.ts b/projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.maxTurns.documentary.d0.test.ts
 index 3a4e9f2b..33200cda 100644
 --- a/projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.maxTurns.documentary.d0.test.ts
@@ -206,6 +158,18 @@ index 3a4e9f2b..33200cda 100644
      expect(matrix.v2.complete && !matrix.v1.complete).toBe(true);
      expect(matrix.v1.productRunStateResume).toBe(false);
 
+```
+
+### 3. p6.nora.p1p2.documentary.mission.d0.test.ts
+```diff
+commit 50eac4394fda17dfc88739d012d47c706291bfbe
+Author: Morris Cleland <morris@macbook-air.home>
+Date:   Thu Oct 15 08:10:41 2026 +0200
+
+    fix(studio): restore Nora productive extension for short missions
+
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
 diff --git a/projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.p1p2.documentary.mission.d0.test.ts b/projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.p1p2.documentary.mission.d0.test.ts
 index 90bf4c2a..1a27f183 100644
 --- a/projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.nora.p1p2.documentary.mission.d0.test.ts
@@ -227,6 +191,18 @@ index 90bf4c2a..1a27f183 100644
        cognitiveStrategyClass: "Routine",
      });
      expect(result.limitReached).toBe(true);
+```
+
+### 4. p6.productiveExtension.d0.test.ts
+```diff
+commit 50eac4394fda17dfc88739d012d47c706291bfbe
+Author: Morris Cleland <morris@macbook-air.home>
+Date:   Thu Oct 15 08:10:41 2026 +0200
+
+    fix(studio): restore Nora productive extension for short missions
+
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
 diff --git a/projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.productiveExtension.d0.test.ts b/projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.productiveExtension.d0.test.ts
 index f0302cc9..31373b25 100644
 --- a/projects/sfia-studio/app/__tests__/nora-cognitive-runtime/p6.productiveExtension.d0.test.ts
@@ -305,90 +281,99 @@ index f0302cc9..31373b25 100644
 +    session.close();
 +  });
  });
-
 ```
 
 ---
 
-## Validations (VERIFIE)
+## K. Validations (VERIFIE)
 
 | Check | Result |
 |---|---|
-| vitest productiveExtension + p1p2 documentary + maxTurns + missionProgressGuard + fakeConvergence | **55 PASS** |
-| REG-PREMATURE-01 Routine single-segment extends | PASS |
-| REG-PREMATURE-02 continuation off stays incomplete | PASS |
-| typecheck (`tsc --noEmit`) | PASS |
-| lint (`next lint`) | PASS |
-| build (`next build`) | PASS |
-| `git diff --check` | clean |
-| PRR | `runNoraAgentsTurn.ts` documenté comme untracked-in-manifest / behaviorally central — **pas d'élargissement manifest** sans GO; contrôle dédié N/A pour digest update |
-| REAL | NON EXECUTE |
-| :3020 | NON TOUCHE |
+| vitest productiveExtension + maxTurns + p1p2 + missionProgressGuard + fakeConvergence | 5 files / **55 PASS** |
+| tsc --noEmit | PASS |
+| next lint | PASS |
+| next build | PASS |
+| git diff --check | PASS |
+| secrets in diff | NONE |
 
----
+## L. PRR
+`runNoraAgentsTurn.ts` documenté PRR comme behaviorally central / untracked-in-manifest. Pas d'élargissement manifest. Contrôle digest dédié: N/A.
 
-## Fake / Real
+## M. Sécurité
+Aucun secret. Pas d'auth/middleware. Pas d'autorité/HD. Banner incomplete non masqué.
 
-Preuve cycle = **DETERMINISTIC**.
-REAL NOT EXECUTED.
-End-to-end REAL NOT PROVEN.
-CI verte ≠ bug fermé en production Human QA.
+## N. Fake / Real
+DETERMINISTIC PROVEN. REAL NOT EXECUTED. E2E-REAL NOT PROVEN.
 
----
+## O–Q. Commit / Push / Draft PR
 
-## Réserves
-
-1. Tour Morris historique exact NOT OBSERVED (pas de receipt) — root cause démontrée par mécanisme Product + DET.
-2. Validation Human QA sur runtime tip encore requise avant de clore la régression en situation Pilote.
-3. Classification Routine peut rester basse; le fix ne remplace pas une bonne stratégie, il restaure l'extension prévue.
-4. P6 GLOBAL NOT PASSED. Runtime v3 NON ADOPTED.
-
----
-
-## Dette / exit
-
-Exit proof cycle: root cause + local fix + DET + pack + handoff.
-Dette: rejeu Human QA Product tip pour confirmer absence du bandeau prématuré.
-Next: ChatGPT Critical Review → éventuellement GO commit/push/PR distinct → Human QA.
-
----
-
-## Gates Morris
-
-| Gate | Status |
+| Item | Value |
 |---|---|
-| Correction locale bornée | FAITE (worktree local) |
-| Commit / push / Draft PR projet | **NOT AUTHORIZED** par ce GO |
-| REAL | NOT AUTHORIZED |
-| Merge | NOT AUTHORIZED |
+| Commit | `50eac4394fda17dfc88739d012d47c706291bfbe` |
+| Parent | `b555819d8c3711fd2782b5ee7926517b6b3b8615` |
+| Message | `fix(studio): restore Nora productive extension for short missions` |
+| Remote branch HEAD | `50eac439…` (= local) |
+| Draft PR | **#584** OPEN/DRAFT |
+| URL | https://github.com/mcleland147/sfia-workspace/pull/584 |
+| Base/head | main ← fix/sfia-studio-p6-nora-premature-incomplete-b555 |
+| Files/commits | 4 files / 1 commit |
 
----
+## R–T. CI / Required Gate (VERIFIE)
 
-## Verdict
+| Item | Value |
+|---|---|
+| Workflow | SFIA Studio CI |
+| Run ID | **38691024711** |
+| URL | https://github.com/mcleland147/sfia-workspace/actions/runs/38691024711 |
+| Event | pull_request |
+| headSha | `50eac4394fda17dfc88739d012d47c706291bfbe` |
+| Conclusion | **success** |
+| Required Gate | PASS |
 
-**NORA PREMATURE INCOMPLETE — ROOT CAUSE CONFIRMED / LOCAL FIX READY FOR CHATGPT CRITICAL REVIEW.**
+Jobs:
+- Detect SFIA Studio changes: **success**
+- Build and validate SFIA Studio: **success**
+- SFIA Studio Required Gate: **success**
 
-Anti-claims: NOT closed in production Human QA · NOT P6 GLOBAL PASS · NOT runtime v3 adopted · NOT REAL proven.
 
----
+## U. Réserves
 
-## Instruction ChatGPT
+- Tour Morris historique sans receipt détaillé (NOT OBSERVED)
+- Mécanisme reproduit DET
+- Cause historique exacte du tour unique non prouvée indépendamment
+- Human QA REAL après intégration requise
+- P6 GLOBAL NOT PASSED
+- Runtime v3 NON ADOPTED
+- Merge NOT AUTHORIZED
 
-Vérifier remote handoff + worktree local:
-1. Root cause = R-EXT-02 gated on `continuationPlan.enable` for single-segment.
-2. Fix = gate on `enableControlledContinuation !== false`.
-3. DET REG-PREMATURE-01/02 + suites.
-4. Aucun commit projet poussé.
-5. Recommander GO Morris commit/push/PR si PASS; puis Human QA tip.
+## V. Dette / exit
+
+Exit cycle 13: commit + Draft PR + CI PASS. Next: ChatGPT Critical PR Review → Morris MERGE GO distinct.
+
+## W. Gates
+
+GO commit/push/Draft PR/CI CONSUMED. Non consommés: Draft→Ready, merge, REAL, :3020, cleanup, P6 PASS, runtime v3.
+
+## X. Git Truth final
+
+HEAD `50eac439` · branch `fix/sfia-studio-p6-nora-premature-incomplete-b555` tracking origin · dirty: `.tmp-sfia-review/chatgpt-review.md` only · main `b555819d` inchangé.
+
+## Y. Verdict
+
+**NORA PREMATURE INCOMPLETE — GIT INTEGRATION COMPLETE / DRAFT PR OPEN / CI PASS / READY FOR CHATGPT CRITICAL PR REVIEW.**
+
+## Z. Instruction ChatGPT
+
+Lire handoff distant. Vérifier commit `50eac439`, parent, branche, Draft PR #584, 4 fichiers, patch (gate `enableControlledContinuation !== false`), absence budget lift / incomplete masking, tests 55 PASS, CI 38691024711 Required Gate PASS, réserves. Produire CHATGPT CRITICAL PR REVIEW — NORA PREMATURE INCOMPLETE. Si PASS → MORRIS MERGE GO distinct. Aucun merge automatique. Aucun GO REAL implicite.
 
 ---
 
 ## Git Review Index
 
-1. Root cause CONFIRMED (C)
-2. Fix local in `runNoraAgentsTurn.ts`
-3. Tests: productiveExtension REG-PREMATURE + maxTurns V1/V5 honesty pins + p1p2 T-exhaust
-4. Validations PASS DET/tsc/lint/build
-5. Verdict: LOCAL FIX READY FOR CHATGPT CRITICAL REVIEW
+1. COMMIT 50eac439 — 4M exact
+2. DRAFT PR #584
+3. CI 38691024711 SUCCESS + Required Gate
+4. Excluded historical candidate db7b38d2 / controlledContinuation
+5. READY FOR CHATGPT CRITICAL PR REVIEW
 
-END OF REVIEW PACK FULL
+END OF REVIEW PACK FULL — CYCLE 13
