@@ -156,12 +156,14 @@ Sans `continuationKind=active_cycle_artifact_materialization` **et** effet `docs
 
 | Constat | Statut |
 | --- | --- |
-| Work Recommendation disposition **n'auto-prépare pas** EC | **REVALIDÉ** — `prepareExecutionContractFromW2Decision` refuse `sourceType===work_recommendation` (MD-WR-06) |
-| PREPARE exige DecisionBasis éligible (`proposal` pursue / `trajectory_option` GOVERNED|BOUNDED) | **REVALIDÉ** |
-| Work Rec comme DecisionBasis = **non éligible PREPARE** | **REVALIDÉ** — protection nécessaire |
+| Work Recommendation disposition **n'auto-prépare pas** EC | **REVALIDÉ** — MD-WR-06 ; `prepareExecutionContractFromW2Decision` + `prepareM3FromDecision` refusent `work_recommendation` |
+| PREPARE exige DecisionBasis éligible | **REVALIDÉ** — proposal pursue **ou** trajectory_option GOVERNED|BOUNDED |
+| Work Rec comme DecisionBasis = **non éligible PREPARE** | **REVALIDÉ** — protection nécessaire ; WR `executionBasis` sans `intentKind`/`targetPath` |
 | Sur e66 : 0 EC, 0 Proposal pursue HD | RUNTIME OBSERVED |
-| Chemin natif docs_write | ACTIVE_CYCLE continuation **si** admitted → Proposal → accept → `prepareExecutionContractFromW2Decision` ; **ou** PT GOVERNED accept + autoPrepare | SOURCE-BACKED |
-| Gap capacité | **Raccord intention Pilote → entrée continuation / Proposal** manquant ; **≠** lever MD-WR-06 | PROVEN gap d'intégration |
+| **Taxonomie docs_write vs W3-A** | **PROVEN** — bounded `docs_write` = **`prepareM3FromDecision` (M3)** uniquement ; W3-A (`prepareExecutionContractFromW2Decision`) refuse avec `PREPARE_ROUTE_DOCS_WRITE` (`deriveActualExecutionWorkFromProductContext`) |
+| Auto-PREPARE chat-first | **PROVEN** — seul PT GOVERNED/BOUNDED auto-appelle W3-A (≠ docs_write) ; proposal accept chat-first = `proposalPrepareNotApplicable()` (copy « préparation disponible » sans EC id = gap copy) |
+| Chemin natif docs_write | ACTIVE_CYCLE continuation admitted → Proposal DECISION_REQUIRED → pursue HD scellé → **`prepareM3FromDecision`** (action serveur/UI séparée aujourd'hui) → launch distinct |
+| Gap capacité | **Raccord** intention → continuation/Proposal **et** proposal-pursue → M3 PREPARE ; **≠** lever MD-WR-06 ; **≠** router docs_write via W3-A |
 
 **Ne pas** créer de fausse HD / trajectoire artificielle.
 
@@ -171,11 +173,11 @@ Sans `continuationKind=active_cycle_artifact_materialization` **et** effet `docs
 
 | ID | Comportement | Cause | Chemin | Invariant | UX | Sévérité | Fix minimal candidat | Test non-régression | Gate |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| **F-C9-01** | Carte « Démarrer le cycle Cadrage » + « n'a pas encore démarré » alors Cadrage actif | Présentation F2 ignore cycle actif ; `cycleStatus` absent sur qual CKC | `presentationLabels.projectPilotRecommendationCard` · `ConversationSurface` · `qualifyWithCkc` | Q01 / currentness UI | Contradiction trajectoire | **HIGH** | Si CycleInstance actif même type : ne pas afficher start-card / état « non démarré » ; binder `cycleStatus` depuis LPS/activeCycle | UI test HQA-UI04 + cas cycle actif | — |
+| **F-C9-01** | Carte « Démarrer le cycle Cadrage » + « n'a pas encore démarré » alors Cadrage actif | Présentation F2 ignore cycle actif ; `cycleStatus` absent/ignoré ; **client `f2.qualification` non réconcilié** sur refresh durable (`useProductConversation` setF2 seulement au send) ; titre « Démarrer » même si badge « Cycle actif » | `presentationLabels` · `ConversationSurface` · `qualifyWithCkc` · `useProductConversation` | Q01 / currentness UI | Contradiction trajectoire | **HIGH** | Masquer/réécrire carte si LPS activeCycle ; clear/patch `f2` sur durable refresh ; ne pas void `cycleInstanceId` | UI test HQA-UI04 + cas cycle actif + refresh | — |
 | **F-C9-02** | Journal 0 reco / 0 décision | Work Rec absentes ; Lifecycle exclue ; HD hors cycle | `deriveWorkRecommendations` · Journal tabs | Q02 | Vide ≠ « pas de travail » | **MED** (honnête mais opaque) | Distinguer affichage Lifecycle STALE vs Work ; compter HD greenfield hors onglet cycle ou expliciter | Projection unit | — |
 | **F-C9-03** | Nora rejoue questions génériques cadrage | `formatMw5PiloteText(CHALLENGE)` ; `recommendationWouldEmit:true` hardcodé ; HA/Critical gate | `criticalChallengeClarification.ts` · `orchestrateF2.evaluateF2Mw5` | Q04–Q05 Q10 | Blocage conversationnel | **CRITICAL** | Ne pas short-circuiter MW5 CHALLENGE quand intention = continuation livrable cycle actif déjà cadré ; ou `recommendationWouldEmit` factuel ; skip structurel si contexte Journal/ACW suffit | d0 MW5 + F2 continuation | Morris si politique MW5 |
 | **F-C9-04** | Intention Markdown/EC n'entre pas en Artifact-continuation | Natural signal exige `materialis*` ; sinon NEW_CYCLE | `hasNaturalActiveCycleDeliverableMaterializationSignal` | Q05–Q07 | Retour cadrage | **CRITICAL** | Élargir signaux naturels FR (produire/fichier/markdown/dépôt) **sans** affaiblir fail-closed docs_write discriminator | unit natural-signal + e66-like fixture | — |
-| **F-C9-05** | EC natif non préparé | Pas de Proposal/HD éligible ; WR≠PREPARE (correct) | `prepareExecutionContractFromW2Decision` MD-WR-06 | Q08–Q09 | Demande Pilote sans geste Product | **HIGH** (gap raccord) | Après F-C9-03/04 : clarification filename **ou** Proposal docs_write → HD → PREPARE inspectable | W2 prepare tests | — |
+| **F-C9-05** | EC natif non préparé | Pas de Proposal/HD éligible ; WR≠PREPARE (correct) ; docs_write exige **M3** pas W3-A ; chat-first proposal n'auto-PREPARE pas | `prepareM3FromDecision` · `PREPARE_ROUTE_DOCS_WRITE` · `resolveChatFirstPilotDecision` | Q08–Q09 | Demande Pilote sans geste Product | **HIGH** (gap raccord) | Après F-C9-03/04 : Proposal docs_write → pursue HD → **auto ou explicite `prepareM3FromDecision`** inspectable (0 launch) ; aligner copy | M3 + chat-first prepare tests | — |
 | **F-C9-06** | Lifecycle Rec « ouvrir Cadrage » encore active en store | Non superseded à cycle start ; currentness read-side STALE | `epi:lr:96a5b858…` + `deriveLifecycleRecommendationCurrentness` | Q03 | Risque projection confuse | **MED** | Supersede/mark STALE durable à start ; UI ne pas réutiliser | lifecycle currentness d0 | — |
 
 ### Séparation
@@ -219,9 +221,9 @@ Sans `continuationKind=active_cycle_artifact_materialization` **et** effet `docs
 **Bénéfice** : rétablit intention→clarif utile ou Proposal. **Complexité** : M. **Risque** : faux positifs natural-signal (mitiger par gates docs_write existants). **Dette** : MW5 HA ordering inchangé hors chemin livrable. **Exit proof** : fixture e66-like → pas de carte start ; pas de template CHALLENGE ; clarification pathRoot/filename **ou** Proposal.
 
 ### OPTION B — Macro-lot cumulatif (recommandé)
-A + raccord F-C9-05 (après Proposal : PREPARE inspectable sans launch) + honesty Journal (Lifecycle STALE visible vs Work vide) + tests P6-MIN-03/07/08/09.
+A + raccord F-C9-05 (**M3** `prepareM3FromDecision` après proposal pursue docs_write scellé — jamais W3-A pour Markdown) + honesty Journal + clear stale F2 on durable refresh + tests P6-MIN-03/07/08/09.
 
-**Bénéfice** : parcours end-to-end jusqu'à inspection EC. **Complexité** : M–L. **Risque** : scope creep si on touche MD-WR-06 (ne pas). **Exit proof** : prepare EC docs_write + UI inspection ; 0 execute.
+**Bénéfice** : parcours end-to-end jusqu'à inspection EC. **Complexité** : M–L. **Risque** : scope creep si on touche MD-WR-06 ou si on force W3-A docs_write (ne pas). **Exit proof** : M3 EC docs_write + UI inspection ; 0 execute.
 
 ### OPTION C — Révision architecturale
 Seulement si l'on juge que MW5+F2 ne peuvent structurellement distinguer « reco Critical » et « matérialisation in-cycle ». **Non requis** à ce stade — contrats existent (`ACTIVE_CYCLE_GOVERNED_CONTINUATION`).
@@ -267,10 +269,17 @@ Seulement si l'on juge que MW5+F2 ne peuvent structurellement distinguer « reco
 - `features/project-assistant/f2/activeCycleGovernedContinuation.ts` — natural signal, docs_write gates, REQUIRE_ARTIFACT
 - `features/project-assistant/f2/qualify.ts` — qualification sans cycleStatus
 - `features/project-assistant/w2/prepareExecutionContractFromW2Decision.ts` — MD-WR-06
-- `features/project-assistant/w2/resolveChatFirstPilotDecision.ts` — autoPrepare PT
+- `features/project-assistant/f3/prepareM3FromDecision.ts` — bounded docs_write PREPARE
+- `features/project-assistant/w2/deriveActualExecutionWorkFromProductContext.ts` — `PREPARE_ROUTE_DOCS_WRITE`
+- `features/project-assistant/w2/resolveChatFirstPilotDecision.ts` — WR/proposal/PT prepare outcomes
+- `features/pre-m6-product-ui/hooks/useProductConversation.ts` — `f2` session persistence
 - `features/project-assistant/trajectoryRecommendationCurrentness.ts`
 - `features/project-assistant/w2/resolveCurrentNoraTrajectoryRecommendation.ts`
 - Product DB (ro) : project e66, cycle, traj, epistemic, HD, transcript seq 20–21
+
+### Addendum post-audit parallèle (2026-10-15T11:13+0200)
+
+Corroboration source-backed (sans mutation) des familles carte F2 vs Journal/Lifecycle/Trajectory, de la non-réconciliation client `f2` au refresh durable, et de la taxonomie **M3 docs_write ≠ W3-A**. N'invalide pas le verdict ; précise F-C9-01 / F-C9-05 et Option B.
 
 ---
 
