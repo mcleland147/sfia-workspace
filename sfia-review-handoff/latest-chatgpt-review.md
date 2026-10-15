@@ -146,7 +146,7 @@ Oui. Corrections F-C9-01/03/04/05 préservées. Aucun reset/stash. Aucun fichier
 | D4-01 PREPARE sans HD systématique | DÉMONTRÉ (decisionRefs=[], draft) |
 | D4-02 EC générique indépendant catégories | DÉMONTRÉ (même action generalist) |
 | D4-03 inspectable / révisable avant auth | DÉMONTRÉ (status draft; UI « Prête à examiner ») |
-| D4-04 Exécuter = auth version exacte | PRÉSERVÉ (chemin authorize existant; non modifié silencieusement) |
+| D4-04 Exécuter = auth version exacte | PRÉSERVÉ (authorize existant) ; Execute-ready sans HD ref = HORS PREUVE (T-A4 confirmed minItems 1) |
 | D4-05 décision structurante protégée | DÉMONTRÉ (STRUCTURAL_HUMAN_DECISION_REQUIRED) |
 | D4-06 Cursor HOW dans enveloppe | DÉMONTRÉ (CURSOR_DETERMINES_HOW; generalist) |
 
@@ -1289,26 +1289,29 @@ Niveau: **DETERMINISTIC PROVEN AT TESTED SCOPE** — pas REAL E2E.
 - Autorité locale N2 pour Build draft uniquement (evidence enregistrée).
 - Pas d'élévation Morris silencieuse.
 - Pas de contournement validator Build.
-- Contrat draft non exécutable sans Validate/Confirm/Authorize/Execute existants.
+- Contrat **draft** non exécutable : authorize exige validated|confirmation_required|confirmed ; ce chemin G-D4 ne Validate/Confirm pas.
+- SOURCE-BACKED (post-impl research): tous les PREPARE Product historiques restent HD-gated ; seul OA Build accepte `decisionRefs: []` — réutilisé ici en inspect-only.
 
 ---
 
 ## Y. Réserves / dette
 
-1. **T13 binding version exacte au clic Exécuter** — mécanismes existants (fingerprint / inspection) non re-prouvés E2E ce cycle.
-2. **T12 UX conversationnelle REAL** — labels draft existants; expérience Pilote REAL hors scope.
-3. **Artifact materialization** — conserve Proposal+HD (REQUIRE_ARTIFACT) ; hors chemin generic-without-HD.
-4. **F-C9-06 currentness durable** — différé (parent).
-5. **Amendement conversationnel du draft** — réutilise amendExecutionContract existant; pas de nouveau versioning schéma.
-6. **Auth S1 production** pour prepare-without-HD — forceLocal / env gate en DET; Auth S1 pilote réel à qualifier sous gate séparé si besoin.
+1. **T-A4 confirmed + empty decisionRefs (STOP potentiel EXECUTE sans HD)** — schéma / mapping T-A4 : `status=confirmed` ⇒ `decisionRefs` minItems 1. Le chemin G-D4 s'arrête volontairement en **draft inspectable**. Tout passage à Confirm/Execute avec refs vides exige une **décision Morris schéma/gouvernance** (ou attache d'une vraie HD) — **interdit d'inventer une HD** pour débloquer. Réf. `02-canonical-contract-mapping.md`, `08-modeled-rework-validation.md`.
+2. **T13 binding version exacte au clic Exécuter** — mécanismes existants (fingerprint / inspection) non re-prouvés E2E ce cycle.
+3. **T12 UX conversationnelle REAL** — labels draft existants; expérience Pilote REAL hors scope.
+4. **Artifact materialization** — conserve Proposal+HD (REQUIRE_ARTIFACT) ; hors chemin generic-without-HD.
+5. **F-C9-06 currentness durable** — différé (parent).
+6. **Amendement conversationnel du draft** — réutilise amendExecutionContract existant; pas de nouveau versioning schéma.
+7. **Auth S1 production** pour prepare-without-HD — forceLocal / env gate en DET; Auth S1 pilote réel à qualifier sous gate séparé si besoin.
+8. **Dérivation mission sans DecisionBasis** — `deriveActualExecutionWorkFromProductContext` historique exige encore `DecisionBasis` ; le draft G-D4 compose WHAT depuis IntentAnalysis + surface generalist, sans passer par cette dérivation W3-A complète (launch/source grounding bornés). Écart à qualifier avant Execute REAL.
 
-Propriétaire: Morris / Delivery. Exit: Human QA e66 + gate REAL distinct.
+Propriétaire: Morris / Delivery. Exit: Human QA e66 + gate REAL distinct ; gate schéma si Execute sans HD ref.
 
 ---
 
 ## Z. Exit proof
 
-Nora peut faire préparer un contrat générique (surface generalist) pour une mission suffisamment qualifiée, sans HD systématique et sans lancement — **prouvé en DET** via Build draft + tests G-D4.
+Nora peut faire **préparer** un contrat générique (surface generalist) pour une mission suffisamment qualifiée, sans HD systématique et **sans lancement** — **prouvé en DET** via Build **draft** + tests G-D4. Exit ≠ Execute-ready sans HD ; Confirm/Execute avec `decisionRefs: []` non autorisé par ce cycle.
 
 ---
 
@@ -1318,6 +1321,7 @@ Nora peut faire préparer un contrat générique (surface generalist) pour une m
 - PR / merge
 - Human QA REAL projet e66
 - Gate REAL Cursor
+- **Décision schéma/gouvernance** si Execute non-structurel doit rester possible avec `decisionRefs: []` au statut `confirmed` (sinon HD réelle ou Confirm sans contredire T-A4)
 - Promotion doctrine / runtime v3
 - P6 GLOBAL PASS
 
