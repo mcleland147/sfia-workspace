@@ -51,8 +51,26 @@ import {
   rememberPendingGenericPrepareOffer,
   clearPendingGenericPrepareOffer,
   resolvePrepareOfferSessionKey,
+  type PendingGenericPrepareMissionEffects,
   type PendingGenericPrepareOffer,
 } from "./pendingGenericPrepareOfferStore";
+import {
+  validateExecutionIntentPayload,
+  type ExecutionIntentPayload,
+} from "../f2/executionIntentSchema";
+import {
+  GENERIC_PREPARE_DOCS_WRITE_EFFECT_CAPABILITY,
+  isCapabilityWithinGenericPrepareEnvelope,
+  resolveGenericPrepareCapabilityEnvelope,
+  type GenericPrepareCapabilityResolution,
+} from "./genericPrepareCapabilityEnvelope";
+
+export {
+  GENERIC_PREPARE_DOCS_WRITE_EFFECT_CAPABILITY,
+  isCapabilityWithinGenericPrepareEnvelope,
+  resolveGenericPrepareCapabilityEnvelope,
+};
+export type { GenericPrepareCapabilityResolution };
 
 export type GenericMissionPrepareReadiness = {
   readonly ready: boolean;
@@ -316,13 +334,49 @@ function stableMissionKey(input: {
   return createHash("sha256").update(raw).digest("hex").slice(0, 24);
 }
 
+export function extractMissionEffectsFromAnalysis(
+  analysis: IntentAnalysisDto,
+): PendingGenericPrepareMissionEffects {
+  const rawEi = analysis.executionIntent ?? null;
+  const validated = rawEi ? validateExecutionIntentPayload(rawEi) : null;
+  const ei: ExecutionIntentPayload | null =
+    validated && validated.ok ? validated.payload : null;
+  const rev = ei?.reversibilityExpectation ?? null;
+  return {
+    intentKind: ei?.intentKind?.trim() || null,
+    artifactType: ei?.artifactType?.trim() || null,
+    proposedTargetPath: ei?.targetPath?.trim() || null,
+    proposedArtifactFileName: ei?.artifactFileName?.trim() || null,
+    proposedTargetRepositoryRef: ei?.targetRepositoryRef?.trim() || null,
+    artifactBrief: ei?.artifactBrief?.trim() || null,
+    contentRequirements: [...(ei?.contentRequirements ?? [])],
+    expectedOutputs: [...(ei?.expectedOutputs ?? [])],
+    proposedRequiredCapabilities: [...(ei?.requiredCapabilities ?? [])],
+    validationExpectations: [...(ei?.validationExpectations ?? [])],
+    evidenceRequirements: [...(ei?.evidenceRequirements ?? [])],
+    requestedOperation:
+      ei?.requestedOperation?.trim() ||
+      analysis.requestedOperation?.trim() ||
+      null,
+    reversibilityExpectation:
+      rev === "reversible" || rev === "irreversible" || rev === "unknown"
+        ? rev
+        : null,
+    exitRequirementKinds: [...(ei?.exitRequirementKinds ?? [])],
+  };
+}
+
 function offerFingerprintFor(input: {
   readonly projectId: string;
   readonly cycleInstanceId: string;
   readonly objective: string;
   readonly expectedOutcome: string;
   readonly scope: string;
+  readonly scopeIn: readonly string[];
+  readonly scopeOut: readonly string[];
+  readonly missionEffects: PendingGenericPrepareMissionEffects;
 }): string {
+  const e = input.missionEffects;
   return createHash("sha256")
     .update(
       [
@@ -331,6 +385,17 @@ function offerFingerprintFor(input: {
         input.objective,
         input.expectedOutcome,
         input.scope,
+        input.scopeIn.join("|"),
+        input.scopeOut.join("|"),
+        e.intentKind ?? "",
+        e.artifactType ?? "",
+        e.proposedTargetPath ?? "",
+        e.proposedArtifactFileName ?? "",
+        e.proposedRequiredCapabilities.join("|"),
+        e.expectedOutputs.join("|"),
+        e.requestedOperation ?? "",
+        e.artifactBrief ?? "",
+        e.contentRequirements.join("|"),
       ].join("\n"),
     )
     .digest("hex")
@@ -359,12 +424,16 @@ export function rememberGenericPrepareRecommendation(input: {
   const scopeNarrative = (input.analysis.scope ?? expectedOutcome).trim();
   const scopeIn = input.analysis.executionIntent?.scopeIn ?? [];
   const scopeOut = input.analysis.executionIntent?.scopeOut ?? [];
+  const missionEffects = extractMissionEffectsFromAnalysis(input.analysis);
   const fp = offerFingerprintFor({
     projectId: input.projectId,
     cycleInstanceId: input.cycleInstanceId,
     objective,
     expectedOutcome,
     scope: scopeNarrative,
+    scopeIn,
+    scopeOut,
+    missionEffects,
   });
   rememberPendingGenericPrepareOffer({
     projectId: input.projectId,
@@ -391,6 +460,7 @@ export function rememberGenericPrepareRecommendation(input: {
     ),
     offeredAtIso: input.offeredAtIso,
     offerFingerprint: fp,
+    missionEffects,
   });
   return fp;
 }
@@ -399,6 +469,27 @@ export function rememberGenericPrepareRecommendation(input: {
 export function analysisFromPendingGenericPrepareOffer(
   offer: PendingGenericPrepareOffer,
 ): IntentAnalysisDto {
+  const effects = offer.missionEffects;
+  const intentKind = effects?.intentKind?.trim() || "other";
+  const executionIntent: NonNullable<IntentAnalysisDto["executionIntent"]> = {
+    intentKind,
+    artifactType: effects?.artifactType ?? null,
+    // Candidate only — Product pathRoot / workspace still authoritative at PREPARE.
+    targetPath: effects?.proposedTargetPath ?? null,
+    artifactFileName: effects?.proposedArtifactFileName ?? null,
+    targetRepositoryRef: effects?.proposedTargetRepositoryRef ?? null,
+    scopeIn: [...offer.scopeIn],
+    scopeOut: [...offer.scopeOut],
+    expectedOutputs: [...(effects?.expectedOutputs ?? [])],
+    requiredCapabilities: [...(effects?.proposedRequiredCapabilities ?? [])],
+    validationExpectations: [...(effects?.validationExpectations ?? [])],
+    evidenceRequirements: [...(effects?.evidenceRequirements ?? [])],
+    requestedOperation: effects?.requestedOperation ?? null,
+    reversibilityExpectation: effects?.reversibilityExpectation ?? null,
+    artifactBrief: effects?.artifactBrief ?? null,
+    contentRequirements: [...(effects?.contentRequirements ?? [])],
+    exitRequirementKinds: [...(effects?.exitRequirementKinds ?? [])],
+  };
   return {
     parseOk: true,
     intentClass: "actionable",
@@ -426,12 +517,8 @@ export function analysisFromPendingGenericPrepareOffer(
     activatedBlocks: [],
     expectedOutcome: offer.expectedOutcome,
     criticalJustification: null,
-    requestedOperation: null,
-    executionIntent: {
-      intentKind: "other",
-      scopeIn: [...offer.scopeIn],
-      scopeOut: [...offer.scopeOut],
-    } as IntentAnalysisDto["executionIntent"],
+    requestedOperation: effects?.requestedOperation ?? null,
+    executionIntent,
   };
 }
 
@@ -475,6 +562,18 @@ export async function prepareGenericExecutionContractDraft(
     };
   }
 
+  const proposedCapabilities =
+    input.analysis.executionIntent?.requiredCapabilities ?? [];
+  const capabilityResolution =
+    resolveGenericPrepareCapabilityEnvelope(proposedCapabilities);
+  if (!capabilityResolution.ok) {
+    return {
+      ok: false,
+      code: capabilityResolution.code,
+      message: `Capacités hors enveloppe généraliste Product — clarification ou gate requis : ${capabilityResolution.elevated.join(", ")}. Aucune HumanDecision artificielle ; aucune élévation silencieuse.`,
+    };
+  }
+
   const materialityResolution = await resolveAuthoritativeProductMateriality({
     oa: input.oa,
     projectId: input.projectId,
@@ -515,6 +614,30 @@ export async function prepareGenericExecutionContractDraft(
   const scopeIn = input.analysis.executionIntent?.scopeIn ?? [];
   const outOfScope = input.analysis.outOfScope ?? [];
   const cycleInstanceId = input.cycleInstanceId?.trim() || undefined;
+  const missionEffects = extractMissionEffectsFromAnalysis(input.analysis);
+  // D-PC-09 / Pass 02 regularization — Nora path/filename/expectedOutputs are
+  // candidates only until Product resolves an authoritative destination.
+  // Generic PREPARE does not yet compose a server-owned documentary targetPath,
+  // so contract.expectedOutputs must NOT list unresolved candidates as if they
+  // were authorized destinations. Keep a readable documentary outcome instead.
+  const proposedDocumentaryOutputCandidates = [
+    ...missionEffects.expectedOutputs,
+    ...(missionEffects.proposedTargetPath
+      ? [missionEffects.proposedTargetPath]
+      : []),
+    ...(missionEffects.proposedArtifactFileName
+      ? [missionEffects.proposedArtifactFileName]
+      : []),
+  ].filter((v, i, arr) => v.trim().length > 0 && arr.indexOf(v) === i);
+  const documentaryTargetResolution:
+    | "unresolved_nora_candidate"
+    | "not_applicable" =
+    missionEffects.intentKind === "docs_write" ||
+    proposedDocumentaryOutputCandidates.length > 0
+      ? "unresolved_nora_candidate"
+      : "not_applicable";
+  // Contract expectedOutputs = inspectable requested outcome, never unresolved path authority.
+  const contractExpectedOutputs = [expectedOutcome];
 
   // D — source grounding / trusted launch when mission implies repository work.
   const impliesGit = missionImpliesRepositoryWork(input.analysis);
@@ -670,18 +793,40 @@ export async function prepareGenericExecutionContractDraft(
       executionAttemptCreated: false,
       prepareStatus: "draft_inspectable",
       materialityFacts,
+      // Intent fidelity — inspectable mission effects (Pass 02).
+      intentKind: missionEffects.intentKind,
+      artifactType: missionEffects.artifactType,
+      artifactBrief: missionEffects.artifactBrief,
+      contentRequirements: [...missionEffects.contentRequirements],
+      validationExpectations: [...missionEffects.validationExpectations],
+      // D-PC-09 — Nora path/name candidates are NON-AUTHORITATIVE.
+      proposedTargetPath: missionEffects.proposedTargetPath,
+      proposedArtifactFileName: missionEffects.proposedArtifactFileName,
+      proposedDocumentaryOutputCandidates,
+      proposedTargetPathAuthoritative: false,
+      documentaryTargetResolution,
+      // No authoritative resolved path at Generic PREPARE in this surface.
+      resolvedAuthoritativeTargetPath: null,
+      proposedRequiredCapabilities: [
+        ...capabilityResolution.proposedCapabilities,
+      ],
+      capabilityResolution: capabilityResolution.resolution,
+      contractCapabilitySurface: PRODUCT_CANONICAL_EXECUTION_CAPABILITY,
       ...launchInputs,
       ...(sourceGroundingPayload
         ? { [CONTRACT_SOURCE_GROUNDING_INPUT_KEY]: sourceGroundingPayload }
         : {}),
       protectedPathHitsAtPrepare: collectProtectedPathHits(input.analysis),
     },
-    expectedOutputs: [expectedOutcome],
-    requiredCapabilities: [PRODUCT_CANONICAL_EXECUTION_CAPABILITY],
+    expectedOutputs: contractExpectedOutputs,
+    requiredCapabilities: [...capabilityResolution.contractCapabilities],
     requiredAuthority,
     constraints,
     stopConditions: mergedStops,
-    evidenceRequirements: ["evreq:generic-prepare-mission-evidence"],
+    evidenceRequirements: [
+      "evreq:generic-prepare-mission-evidence",
+      ...missionEffects.evidenceRequirements,
+    ],
     reversibility: "partially_reversible",
     idempotencyKey,
     correlationId,

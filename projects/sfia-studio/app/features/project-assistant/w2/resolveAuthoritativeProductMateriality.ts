@@ -22,7 +22,7 @@ import { classifyStudioProductProtectedPath } from "@/lib/oa/sandboxContract";
 import { readLiveProjectContext } from "@/lib/vertical-slice-runtime";
 import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
 import type { IntentAnalysisDto } from "../f2/types";
-import { PRODUCT_CANONICAL_EXECUTION_CAPABILITY } from "./w3aProductExecutionSemantics";
+import { isCapabilityWithinGenericPrepareEnvelope } from "./genericPrepareCapabilityEnvelope";
 
 export type ProductMaterialityCurrentness = {
   readonly lpsId: string;
@@ -70,6 +70,12 @@ export function collectConcreteMissionPaths(
     if (typeof p === "string") push(p);
   }
   if (typeof analysis.scope === "string") push(analysis.scope);
+  // Intent-fidelity WHERE candidates (Nora proposals) — still subject to pathRoot.
+  const ei = analysis.executionIntent;
+  if (typeof ei?.targetPath === "string") push(ei.targetPath);
+  for (const p of ei?.expectedOutputs ?? []) {
+    if (typeof p === "string") push(p);
+  }
   return out;
 }
 
@@ -178,11 +184,10 @@ function deriveAuthorityEnvelopeExpanded(input: {
       basis: "mission_paths_outside_repository_path_root",
     };
   }
+  // Pass 02 — docs_write effect-class is within Generic PREPARE envelope
+  // (resolved onto studio.cursor.generalist). Other elevated caps remain structural.
   const elevated = input.requestedCapabilities.filter(
-    (c) =>
-      c.trim().length > 0 &&
-      c.trim() !== PRODUCT_CANONICAL_EXECUTION_CAPABILITY &&
-      !c.includes("generalist"),
+    (c) => c.trim().length > 0 && !isCapabilityWithinGenericPrepareEnvelope(c),
   );
   if (elevated.length > 0) {
     return {

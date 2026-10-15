@@ -1196,6 +1196,70 @@ export class FakeConversationProvider implements ConversationProvider {
         },
       };
     }
+    // P6-HQA-F05-GD4-01 — ordinary Markdown deliverable on active cycle WITHOUT
+    // closure REQUIRE_ARTIFACT. Triggers natural materialization signal +
+    // compatible docs_write effect so resolve returns no_require_artifact;
+    // orchestration must route to Generic PREPARE (not REQUIRE_ARTIFACT dead-end).
+    if (markerProbe.includes("__P6_OPTIONAL_DOCUMENTARY_MD__")) {
+      return {
+        text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
+          intentClass: "actionable",
+          candidateCycleTypeId: "cyc:delivery",
+          signals: {
+            structuralChange: false,
+            securityImpact: false,
+            architectureImpact: false,
+            dataImpact: false,
+            irreversible: false,
+            lowRiskBounded: true,
+          },
+          cognitiveWorkload: null,
+          contradictionCandidate: null,
+          challengeResponseAssessment: "sufficient",
+          continuationKind: null,
+          artifactMaterializationOperation: "cursor.docs_write.apply",
+          objective:
+            "Produire un document Markdown enregistré dans le dépôt du projet",
+          scope: "projects/demo/docs",
+          rephrasedRequest:
+            "Créer un fichier Markdown durable dans le projet pour le cadrage",
+          outOfScope: ["Nouveau CycleInstance", "REQUIRE_ARTIFACT artificiel", "Cursor REAL"],
+          risks: [],
+          reservations: [],
+          stopConditions: ["AUCUNE EXÉCUTION SANS AUTORISATION"],
+          activatedBlocks: ["qualification"],
+          expectedOutcome: "Document Markdown consultable et évolutif dans le dépôt",
+          criticalJustification: null,
+          requestedOperation: null,
+          executionIntent: {
+            intentKind: "docs_write",
+            artifactType: "deliverable_document",
+            targetRepositoryRef: null,
+            targetPath: "projects/demo/docs/note-cadrage.md",
+            artifactFileName: "note-cadrage.md",
+            scopeIn: ["projects/demo/docs"],
+            scopeOut: ["projects/sfia-studio/convergence"],
+            expectedOutputs: ["projects/demo/docs/note-cadrage.md"],
+            requiredCapabilities: ["cap:cursor.docs_write"],
+            validationExpectations: [],
+            evidenceRequirements: [],
+            requestedOperation: null,
+            reversibilityExpectation: null,
+            artifactBrief: "Note de cadrage Markdown du projet",
+            contentRequirements: ["Contenu de cadrage défini avec Nora"],
+            exitRequirementKinds: [],
+          },
+          pilotDecisionCandidate: null,
+        })}`,
+        usage: {
+          inputTokens: 10 * this.callCount,
+          outputTokens: 5 * this.callCount,
+          totalTokens: 15 * this.callCount,
+          model: "fake-test-model",
+          providerResponseId: `fake-resp-${this.callCount}`,
+        },
+      };
+    }
     // P6 Product Continuity Closure — generic Cursor mission (non-structural).
     if (markerProbe.includes("__P6_GENERIC_MISSION__")) {
       return {
