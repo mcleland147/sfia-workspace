@@ -1,300 +1,829 @@
-# SFIA Studio — P6 Human QA Cycle 9 — Intention → Action Continuity
-## Review Pack FULL — CRITICAL — SOURCE-BACKED PRODUCT DIAGNOSIS
+# SFIA Studio — P6 Generic Execution Preparation & Conversational Continuity
+## Review Pack FULL — CRITICAL — Cycle 8 Delivery
 
 | Champ | Valeur |
 | --- | --- |
-| **Horodatage** | 2026-10-15T11:11:32+0200 (Europe/Paris) |
-| **GO Morris** | 2026-10-15 — AUTHORIZED / CONSUMED (diagnostic only) |
+| **Horodatage** | 2026-10-15T12:36:00+0200 (Europe/Paris) |
+| **GO Morris** | 2026-10-15 — AUTHORIZED / CONSUMED |
 | **Macro** | STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 |
-| **Milestone** | P6 GLOBAL INTEGRATED PRODUCT QA |
-| **Cycle** | 9 — QA / validation — CRITICAL — INC |
-| **CKC** | ckc:studio:qa-validation |
+| **Chantier** | P6-GENERIC-EXECUTION-AND-CONVERSATIONAL-CONTINUITY |
+| **Cycle** | 8 — Delivery / implémentation — CRITICAL |
+| **CKC** | ckc:studio:delivery (+ qa-validation guidance) |
+| **Worktree** | `/Users/morris/Projects/sfia-workspace-p6-generic-exec-continuity-e7822033` |
+| **Branche** | `delivery/sfia-studio-p6-generic-execution-conversational-continuity` |
+| **HEAD base (unchanged tip)** | `e7822033f159d6a0e9c15f6f26843bd1248edbc1` (= origin/main · PR #584 merge) |
+| **Commit projet** | AUCUN |
 | **Runtime v3** | NON ADOPTED |
 | **P6 GLOBAL** | NOT PASSED |
-| **Verdict** | P6 INTENTION-TO-ACTION CONTINUITY DIAGNOSIS COMPLETE / SOURCE-BACKED / READY FOR CHATGPT CRITICAL REVIEW |
+| **Verdict** | PARTIAL DELIVERY / D4 GOVERNANCE DECISION REQUIRED / SAFE CHANGES PRESERVED / READY FOR CHATGPT CRITICAL REVIEW |
 
 ---
 
-## 1. Git Truth
+## A. GO Morris D1–D6
+
+| Décision | Traitement ce cycle |
+| --- | --- |
+| **D1** EC générique sans catalogue tâches | **PARTIAL** — pas de nouveau catalogue ; auto-PREPARE réutilise M3 (docs_write) ou W3-A (autre) après HD Proposal pursue ; entrée Artifact élargie sémantiquement (FR) |
+| **D2** Nora pilote la préparation | **PARTIAL** — raccord chat-first Proposal pursue → auto-PREPARE ; MW5 ne bloque plus la continuation active-cycle |
+| **D3** Qualification adaptative | **ADDRESSED** — natural signal sans `materialis*` ; garde cycle actif sans NEW_CYCLE START ; MW5 Rec gate off sur continuation |
+| **D4** Autorisation centrée contrat (sans Proposal+HD systématique) | **BLOCKED — Decision Pack ci-dessous** — P2-D-01 préservé ; aucune suppression HD |
+| **D5** Réutilisation existant | **RESPECTÉ** — EC/M3/W3-A/F2/MW5/UI ; aucun second moteur |
+| **D6** Continuité | **PARTIAL** — continuité conversationnelle + auto-PREPARE ; post-Evidence non refondu (dette documentée) |
+
+---
+
+## B. Cycle / profil
+
+Delivery CRITICAL INC+EVOL bornée. Justification : pilotage Nora, HD/Confirmation, EC natif, currentness, exécution.
+
+---
+
+## C. Git Truth initial
 
 | Item | Valeur |
 | --- | --- |
-| **Repository** | `mcleland147/sfia-workspace` (origin https://github.com/mcleland147/sfia-workspace.git) |
-| **Worktree diagnostic** | `/Users/morris/Projects/sfia-workspace-p6-nora-incomplete-fix-b555` |
-| **Branche** | `fix/sfia-studio-p6-nora-premature-incomplete-b555` |
-| **HEAD worktree** | `50eac4394fda17dfc88739d012d47c706291bfbe` |
-| **origin/main (ls-remote)** | `e7822033f159d6a0e9c15f6f26843bd1248edbc1` — **MATCH** attendu Morris |
-| **origin/main (local ref stale)** | `b555819d8c3711fd2782b5ee7926517b6b3b8615` — **DIVERGENCE locale** (fetch non effectué ; ls-remote prime) |
-| **PR #584** | **MERGED** · merge commit = `e7822033…` · CI SUCCESS · titre premature-incomplete |
-| **50eac439 vs main** | Contenu correctif intégré via merge PR #584 sur remote main |
-| **Status worktree** | Dirty uniquement `.tmp-sfia-review/chatgpt-review.md` (ce pack) — **aucun fichier Product modifié** |
-| **Actions Git projet** | Aucune (commit/push/PR/merge projet = NOT AUTHORIZED) |
-
-### Runtime identity (déclaré vs observé)
-
-| Surface | Déclaré Morris | Observé ce cycle | Portée |
-| --- | --- | --- | --- |
-| **:3031** | Runtime observé | **FREE** — aucun listener | Claims REAL sur :3031 = **NOT OBSERVED** (redémarrage **interdit**) |
-| **:3020** | Environnement distinct — NE PAS TOUCHER | Listener Next `50eac439` cwd b555 app ; DB T2 product ouvertes | Observé pour divergence uniquement — **aucune mutation / interaction** |
-| **Code servi :3031** | b555 / 50eac439 | **Inaccessible** | Diagnostic code = HEAD worktree `50eac439` (= tip PR #584) |
-| **DB Product lue** | — | SQLite T2 `oa-product.sqlite` + `nora-session.sqlite` **mode=ro** | RUNTIME OBSERVED (état durable) — ≠ preuve E2E live UI |
+| Repo | mcleland147/sfia-workspace |
+| Worktree historique QA | `…-incomplete-fix-b555` @ 50eac439 — **non modifié** (Product) |
+| Delivery worktree | créé depuis `origin/main` `e7822033` |
+| Ports :3020/:3031 | **non touchés** / non redémarrés |
+| Handoff entrée | `acc4b07a` / blob `0c67bf64…` (C9 diagnosis) |
 
 ---
 
-## 2. Convergence
+## D. Convergence
 
-| Source | Rôle appliqué |
+Build Doctrine / Roadmap / C1 / P2 / P4 / P5 / P6 / v3 30–36 / CKC 08–09 : lus en cadrage. Capacité cible = Nora→PREPARE générique→contrat inspectable. Runtime v3 NON ADOPTED.
+
+---
+
+## E. Sources / décisions
+
+Handoff C9 findings F-C9-01…06 + addendum M3≠W3-A. P2-D-01…04 ADOPTED. MD-WR-06 conservé.
+
+---
+
+## F. Baseline Product
+
+main `e7822033` (fix premature-incomplete intégré). Human QA e66 non mutée.
+
+---
+
+## G. Manifest exact
+
+### Modifiés
+1. `projects/sfia-studio/app/features/project-assistant/presentationLabels.ts`
+2. `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx`
+3. `projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts`
+4. `projects/sfia-studio/app/features/project-assistant/f2/activeCycleGovernedContinuation.ts`
+5. `projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts`
+6. `projects/sfia-studio/app/features/project-assistant/w2/resolveChatFirstPilotDecision.ts`
+7. `projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.hqa.ui04.pilotFacingSimplification.ui.test.tsx`
+8. `projects/sfia-studio/app/__tests__/project-assistant/activeCycleArtifactMaterializationContinuityCorr01.d0.test.ts`
+
+### Créés
+Aucun fichier Product doctrine. Tests = extensions des fichiers existants.
+
+### Interdits
+Aucun (doctrine/v3/scripts/QA DB/REAL).
+
+---
+
+## H. Findings F-C9-01…06
+
+| ID | Statut |
 | --- | --- |
-| `convergence/sfia-studio-convergence-build-doctrine.md` | HOW construire — R21 Fake/Real · R22 · anti-claims |
-| `convergence/sfia-studio-convergence-roadmap.md` | Trajectoire (lu en cadrage campagne) |
-| `product-completion/01-product-completion-cadrage.md` | Cible C1 / oracle |
-| `product-simplification/02…04…07` | Operating model · UX · projections · **P6 contract** |
-| v3 framing 30/32–35 | Doctrine cible ≠ runtime adopté |
-| v2.6 | Processus externe uniquement |
-| **Git** | Vérité technique |
-
-**Ne pas réécrire P1–P4. Ne pas reconstruire d'architecture parallèle.**
+| F-C9-01 carte START vs cycle actif | **CORRECTED** (présentation + reconcile LPS) |
+| F-C9-02 Journal Work=0 | **PRESERVED** (honnête ; pas de reco fictive) |
+| F-C9-03 MW5 CHALLENGE générique | **CORRECTED** sur ACTIVE_CYCLE_GOVERNED_CONTINUATION (`recommendationWouldEmit:false` + structural skip) |
+| F-C9-04 natural signal `materialis*` | **CORRECTED** (production FR documentaire) |
+| F-C9-05 EC non raccordé | **PARTIAL** — auto-PREPARE après Proposal pursue (M3/W3-A) ; entrée sans HD = D4 blocked |
+| F-C9-06 Lifecycle Rec store | **DEFERRED** — currentness read-side déjà STALE ; pas de mutation historique destructive |
 
 ---
 
-## 3. Parcours User observé (projet réel)
+## I–J. Capacités / architecture conservées
 
-| Champ | Preuve |
-| --- | --- |
-| **ProjectId** | `prj:e66fd58c-03f6-41df-90c8-4ae267926212` — **CONFIRMÉ** en SQLite |
-| **Titre** | Simplification des interactions avec l'IA |
-| **CycleInstance** | `cyc:trj-255a8418ee8a735f23738c46` — `cyc:framing` — **status=active** |
-| **Trajectory** | `trj:lr-bridge-7947b41c241a` v1 validated — step Cadrage **state=active** — `decidedByDecisionRef=dec:gf-trj:b145cc06-…` |
-| **Journal sujet** | 1 sujet actif — « Vision consolidée P1–P4… » — points stabilisés P1–P4 présents |
-| **Epistemic** | 13 Observation + 4 Hypothesis ACW ; **1 Recommendation** lifecycle NEXT_CYCLE (2026-10-12) encore `status=active` |
-| **Work Recommendations** | **0** |
-| **HumanDecision** | **1** — `candidate_trajectory` approval (sans `cycle_instance_id`) |
-| **ExecutionContract** | **0** |
-| **Message Pilote (seq 20)** | Valide périmètre ; demande fichier Markdown Git ; 5 étapes ; préparer EC natif ; inspecter ; **ne pas lancer** |
-| **Réponse Nora (seq 21)** | Texte **identique** à `formatMw5PiloteText(CHALLENGE)` — questions génériques prémisses/périmètre/autorité ; « La recommandation n'est pas encore émise. » |
+KEEP : ExecutionContract, Cursor executor, AgentCapability, Evidence, ReviewBundle, LPS/Trajectory, M3, W3-A, MD-WR-06, Proposal/HD writers existants.
 
-Niveau preuve parcours : **RUNTIME OBSERVED** (transcript + Product SQLite) + **SOURCE-BACKED** (chemins code).
+Aucun catalogue de tâches Cursor. Aucun second moteur.
 
 ---
 
-## 4. Diagnostic A — Carte « Démarrer le cycle Cadrage »
+## K. Modifications (résumé)
 
-### A–J (résumé)
-
-| Q | Constat | Preuve |
-| --- | --- | --- |
-| **A Origine** | Projection UI `projectPilotRecommendationCard` depuis `f2.qualification` — **pas** une Work Recommendation Journal | `ConversationSurface.tsx` ~399–408 ; `presentationLabels.ts` ~1055–1085 |
-| **B Famille** | **F2 / CKC qualification presentation** (pilot-facing card) — distincte Lifecycle Rec durable et Work Rec | SOURCE-BACKED |
-| **C Objet canonique** | QualificationDto éphémère de tour — **≠** Epistemic Work Rec ; Lifecycle Rec `epi:lr:96a5b858…` existe mais **exclue** du Journal Work | `deriveWorkRecommendations.isLifecycleRecommendationItem` |
-| **D Génération** | Toujours `recommendation: \`Démarrer le cycle ${cycle}.\`` dès que `f2.qualification` présent | `presentationLabels.ts:1078` |
-| **E Affichage** | Carte si `f2?.qualification` truthy | `ConversationSurface.tsx:399` |
-| **F Currentness** | Lifecycle Rec pre-cycle : fingerprint basis figé (lpsActive=null, traj=null) → **STALE** dès que cycle/traj existent — mais item reste `status=active` en store | `currentness.deriveLifecycleRecommendationCurrentness` ; SQLite item still active |
-| **G CycleInstance** | Carte lit `qualification.cycleStatus` / `cycleInstanceId` **si** fournis ; `qualifyWithCkc` **ne les pose pas** | `qualify.ts` vs `qualificationFromActiveCycle` |
-| **H Trajectory** | Affiche Cadrage/C1 active indépendamment de la carte F2 | SQLite traj step active |
-| **I Journal** | 0 recommandation = **cohérent** (0 Work Rec) ; Lifecycle Rec non comptée ; 0 décision cycle = HD greenfield hors cycle | JournalSurface comment L13–20 ; HD sans cycle_instance_id |
-| **J Attendu cycle actif** | Ne pas proposer « démarrer Cadrage » / « cycle non démarré » ; orienter travail in-cycle | Doctrine chat-first + continuity |
-
-### Cause démontrée (carte)
-
-1. **PROVEN — présentation F2 non conditionnée au cycle actif** : libellé « Démarrer le cycle … » systématique.
-2. **PROVEN — état « non démarré » si `cycleStatus` absent** : `cycleNotStartedState` ne détecte `active`/`actif` que via string ; qualification CKC (chemin NEW_CYCLE) n'injecte pas `cycleStatus` alors qu'un CycleInstance framing actif existe.
-3. **PROVEN — familles non fusionnées** : Journal (Work) ≠ carte conversation (F2 qual) ≠ Lifecycle Rec (exclu Work).
-
-Sévérité carte : **HIGH** (contradiction Pilote visible) — currentness/présentation, pas invention d'autorité.
+1. Carte Recommendation : « Poursuivre » si lifecycle actif ; state cohérent.
+2. ConversationSurface + hook : `authoritativeLifecycleActive` ; patch `cycleStatus=active` si LPS active.
+3. Natural signal : produire/fichier/markdown/dépôt sans exiger `materialis*`.
+4. Guard orchestrateF2 : cycle actif + actionable → clarification in-cycle (pas START).
+5. MW5 sur continuation Artifact : n'émet pas Rec challenge.
+6. Chat-first Proposal pursue accept → `autoPrepareAfterProposalPursue` (W3-A puis M3 si `PREPARE_ROUTE_DOCS_WRITE`).
 
 ---
 
-## 5. Diagnostic B — Continuité cognitive Nora
+## L–M. D1–D6 / Decision Pack D4
 
-### Chaîne reconstituée
-
-message Pilote → `intentAnalysis` → `resolveActiveCycleGovernedContinuation` **ou** NEW_CYCLE → `evaluateF2Mw5` → éventuel short-circuit → (sinon Proposal / createCycle) → UI.
-
-### Réponses 1–10
-
-| # | Réponse | Niveau |
-| --- | --- | --- |
-| 1 Intention Markdown | Demande Pilote claire en transcript ; **analyse structurée du tour non persistée** → identification modèle **NOT OBSERVED** ; signal serveur « natural materialization » **ne matche pas** le texte (voir C) | PARTIAL |
-| 2 Contexte P1–P4 | Oui en Product : Journal + Observations/Hypotheses ACW + sujet stabilisé | RUNTIME OBSERVED |
-| 3 Décidé vs proposition | 1 HD trajectoire greenfield seulement ; pas de HD REQUIRE_ARTIFACT / Proposal pursue ; points Journal ≠ Truth C HD | PROVEN |
-| 4 Livrable = nouveau cadrage ? | Chemin **NEW_CYCLE_FORMALIZATION** si pas d'entrée Artifact-continuation → F2 re-qualifie / MW5 « formaliser recommandation » | SOURCE-BACKED + HYPOTHESIS forte sur ce tour |
-| 5 CKC / prompt / contrôle | **MW5** impose CHALLENGE + texte générique ; `recommendationWouldEmit: true` **hardcodé** sur chemins F2 | PROVEN code |
-| 6 Capacités / frontières | Prompt système décrit EC / boundaries ; MW5 short-circuit **empêche** la narration utile | PARTIAL |
-| 7 Récit vs actions | Récit MW5 dit « recommandation non émise » — **fidèle au short-circuit**, **infidèle** à l'intention Pilote (préparer travail) | PROVEN |
-| 8 Élément manquant concret | Pour Artifact-continuation native : hints structurés (`continuationKind` + `docs_write` + `cursor.docs_write.apply`) **et/ou** admission REQUIRE_ARTIFACT / Artifact APPLICABLE ; pour EC : DecisionBasis éligible (proposal/trajectory) | SOURCE-BACKED |
-| 9 Pourquoi non recherché | Short-circuit MW5 avant outillage ; natural signal trop étroit (`materialis*`) | PROVEN |
-| 10 HD manquante réelle | Pas de HD Proposal pursue / REQUIRE_ARTIFACT pour docs_write ; **ne pas inventer** HD | PROVEN absence |
-
-**≠ mauvais modèle** sans preuve routing : ici **routing/policy MW5 + gates continuation** sont démontrés.
-
----
-
-## 6. Diagnostic C — Intention → Action
-
-| Type demande | Mécanisme Product | État sur e66 |
-| --- | --- | --- |
-| A Analyse documentaire | ACW Observations — **fait** | OK historique |
-| B Brouillon conversationnel | Narrative Nora — **fait** (seq 19) | OK |
-| C Fichier Markdown Git | ACTIVE_CYCLE_GOVERNED_CONTINUATION → Proposal → HD → PREPARE EC `docs_write` | **Bloqué avant Proposal** |
-| D Code / Cursor | EC + inspection + confirm | Non atteint |
-| E Tests exécutant | Idem | Non atteint |
-| F Push/PR | Gates séparés | Non atteint |
-
-**Distinction conceptuelle (à préserver)** : travail cognitif ≠ outcome conversationnel ≠ deliverable ≠ artifact obligation ≠ execution intent ≠ ExecutionContract ≠ autorité ≠ launch.
-
-### Gap signal naturel (PROVEN)
-
-`hasNaturalActiveCycleDeliverableMaterializationSignal` exige `\bmaterialis` dans objective/rephrased/artifactBrief.
-
-Texte Pilote seq 20 : **pas** de « matérialis* » → signal naturel **false** (test local sur extrait).
-
-Sans `continuationKind=active_cycle_artifact_materialization` **et** effet `docs_write` + `artifactMaterializationOperation=cursor.docs_write.apply` → `NEW_CYCLE_FORMALIZATION` (`no_materialization_intent`).
-
----
-
-## 7. Diagnostic D — ExecutionContract natif
-
-| Constat | Statut |
-| --- | --- |
-| Work Recommendation disposition **n'auto-prépare pas** EC | **REVALIDÉ** — MD-WR-06 ; `prepareExecutionContractFromW2Decision` + `prepareM3FromDecision` refusent `work_recommendation` |
-| PREPARE exige DecisionBasis éligible | **REVALIDÉ** — proposal pursue **ou** trajectory_option GOVERNED|BOUNDED |
-| Work Rec comme DecisionBasis = **non éligible PREPARE** | **REVALIDÉ** — protection nécessaire ; WR `executionBasis` sans `intentKind`/`targetPath` |
-| Sur e66 : 0 EC, 0 Proposal pursue HD | RUNTIME OBSERVED |
-| **Taxonomie docs_write vs W3-A** | **PROVEN** — bounded `docs_write` = **`prepareM3FromDecision` (M3)** uniquement ; W3-A (`prepareExecutionContractFromW2Decision`) refuse avec `PREPARE_ROUTE_DOCS_WRITE` (`deriveActualExecutionWorkFromProductContext`) |
-| Auto-PREPARE chat-first | **PROVEN** — seul PT GOVERNED/BOUNDED auto-appelle W3-A (≠ docs_write) ; proposal accept chat-first = `proposalPrepareNotApplicable()` (copy « préparation disponible » sans EC id = gap copy) |
-| Chemin natif docs_write | ACTIVE_CYCLE continuation admitted → Proposal DECISION_REQUIRED → pursue HD scellé → **`prepareM3FromDecision`** (action serveur/UI séparée aujourd'hui) → launch distinct |
-| Gap capacité | **Raccord** intention → continuation/Proposal **et** proposal-pursue → M3 PREPARE ; **≠** lever MD-WR-06 ; **≠** router docs_write via W3-A |
-
-**Ne pas** créer de fausse HD / trajectoire artificielle.
-
----
-
-## 8. Root causes démontrées
-
-| ID | Comportement | Cause | Chemin | Invariant | UX | Sévérité | Fix minimal candidat | Test non-régression | Gate |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| **F-C9-01** | Carte « Démarrer le cycle Cadrage » + « n'a pas encore démarré » alors Cadrage actif | Présentation F2 ignore cycle actif ; `cycleStatus` absent/ignoré ; **client `f2.qualification` non réconcilié** sur refresh durable (`useProductConversation` setF2 seulement au send) ; titre « Démarrer » même si badge « Cycle actif » | `presentationLabels` · `ConversationSurface` · `qualifyWithCkc` · `useProductConversation` | Q01 / currentness UI | Contradiction trajectoire | **HIGH** | Masquer/réécrire carte si LPS activeCycle ; clear/patch `f2` sur durable refresh ; ne pas void `cycleInstanceId` | UI test HQA-UI04 + cas cycle actif + refresh | — |
-| **F-C9-02** | Journal 0 reco / 0 décision | Work Rec absentes ; Lifecycle exclue ; HD hors cycle | `deriveWorkRecommendations` · Journal tabs | Q02 | Vide ≠ « pas de travail » | **MED** (honnête mais opaque) | Distinguer affichage Lifecycle STALE vs Work ; compter HD greenfield hors onglet cycle ou expliciter | Projection unit | — |
-| **F-C9-03** | Nora rejoue questions génériques cadrage | `formatMw5PiloteText(CHALLENGE)` ; `recommendationWouldEmit:true` hardcodé ; HA/Critical gate | `criticalChallengeClarification.ts` · `orchestrateF2.evaluateF2Mw5` | Q04–Q05 Q10 | Blocage conversationnel | **CRITICAL** | Ne pas short-circuiter MW5 CHALLENGE quand intention = continuation livrable cycle actif déjà cadré ; ou `recommendationWouldEmit` factuel ; skip structurel si contexte Journal/ACW suffit | d0 MW5 + F2 continuation | Morris si politique MW5 |
-| **F-C9-04** | Intention Markdown/EC n'entre pas en Artifact-continuation | Natural signal exige `materialis*` ; sinon NEW_CYCLE | `hasNaturalActiveCycleDeliverableMaterializationSignal` | Q05–Q07 | Retour cadrage | **CRITICAL** | Élargir signaux naturels FR (produire/fichier/markdown/dépôt) **sans** affaiblir fail-closed docs_write discriminator | unit natural-signal + e66-like fixture | — |
-| **F-C9-05** | EC natif non préparé | Pas de Proposal/HD éligible ; WR≠PREPARE (correct) ; docs_write exige **M3** pas W3-A ; chat-first proposal n'auto-PREPARE pas | `prepareM3FromDecision` · `PREPARE_ROUTE_DOCS_WRITE` · `resolveChatFirstPilotDecision` | Q08–Q09 | Demande Pilote sans geste Product | **HIGH** (gap raccord) | Après F-C9-03/04 : Proposal docs_write → pursue HD → **auto ou explicite `prepareM3FromDecision`** inspectable (0 launch) ; aligner copy | M3 + chat-first prepare tests | — |
-| **F-C9-06** | Lifecycle Rec « ouvrir Cadrage » encore active en store | Non superseded à cycle start ; currentness read-side STALE | `epi:lr:96a5b858…` + `deriveLifecycleRecommendationCurrentness` | Q03 | Risque projection confuse | **MED** | Supersede/mark STALE durable à start ; UI ne pas réutiliser | lifecycle currentness d0 | — |
-
-### Séparation
-
-- **Currentness/affichage avéré** : F-C9-01, F-C9-02, F-C9-06
-- **Continuité cognitive avérée** : F-C9-03, F-C9-04
-- **EC non raccordée (capacité + protections OK)** : F-C9-05
-- **Choix architecture ouvert** : ampleur élargissement natural-signal vs obligation `continuationKind` modèle — **OPTION**, pas décision
-
----
-
-## 9. Oracles Q01–Q14
-
-| Oracle | Verdict | Note |
-| --- | --- | --- |
-| Q01 Cycle actif ≠ fausse start | **FAILED** | Carte start + état non démarré |
-| Q02 Rec vs Journal | **PARTIAL** | Journal honnête Work=0 ; carte F2 distincte non expliquée |
-| Q03 Rec non actuelle sans autorité | **PARTIAL** | Lifecycle STALE read-side ; item active store ; carte F2 non autoritative |
-| Q04 Contexte P1–P4 | **PARTIAL** | Durable OK ; réponse tour ignore |
-| Q05 Livrable cadré → geste | **FAILED** | MW5 + NEW_CYCLE |
-| Q06 Cognitif vs exécution | **PARTIAL** | « AUCUNE EXÉCUTION » OK ; pas de préparation |
-| Q07 Cursor identifiable | **FAILED** (ce tour) | EC path non ouvert |
-| Q08 Prep ≠ autorisation | **NOT OBSERVED** | Prep jamais atteinte |
-| Q09 HD seulement si requis | **PARTIAL** | MW5 exige « prémisse reco » plutôt que HD docs_write réelle |
-| Q10 Clarif justifiée | **FAILED** | Template générique ≠ manque concret (filename/path) |
-| Q11 Pas d'invention | **PROVEN** (store) | Pas de HD/EC inventés |
-| Q12 Pas de moteur parallèle | **PROVEN** | Chemins existants |
-| Q13 Continuité projet | **PROVEN** | Projet/cycle intacts |
-| Q14 Refus explicite manquant | **FAILED** | Ne dit pas « continuation Artifact non admise / fichier manquant » |
-
----
-
-## 10. Options
-
-### OPTION A — Correction minimale des défauts avérés
-- F-C9-01 présentation carte cycle actif
-- F-C9-03 MW5 skip / recommendationWouldEmit factuel sur continuation livrable
-- F-C9-04 élargir natural-signal FR
-- F-C9-06 supersede lifecycle Rec à start
-
-**Bénéfice** : rétablit intention→clarif utile ou Proposal. **Complexité** : M. **Risque** : faux positifs natural-signal (mitiger par gates docs_write existants). **Dette** : MW5 HA ordering inchangé hors chemin livrable. **Exit proof** : fixture e66-like → pas de carte start ; pas de template CHALLENGE ; clarification pathRoot/filename **ou** Proposal.
-
-### OPTION B — Macro-lot cumulatif (recommandé)
-A + raccord F-C9-05 (**M3** `prepareM3FromDecision` après proposal pursue docs_write scellé — jamais W3-A pour Markdown) + honesty Journal + clear stale F2 on durable refresh + tests P6-MIN-03/07/08/09.
-
-**Bénéfice** : parcours end-to-end jusqu'à inspection EC. **Complexité** : M–L. **Risque** : scope creep si on touche MD-WR-06 ou si on force W3-A docs_write (ne pas). **Exit proof** : M3 EC docs_write + UI inspection ; 0 execute.
-
-### OPTION C — Révision architecturale
-Seulement si l'on juge que MW5+F2 ne peuvent structurellement distinguer « reco Critical » et « matérialisation in-cycle ». **Non requis** à ce stade — contrats existent (`ACTIVE_CYCLE_GOVERNED_CONTINUATION`).
-
-### Recommandation non binding
-**OPTION B** bornée — ne pas multiplier les micro-cycles ; ne pas lever MD-WR-06 ; ne pas adopter runtime v3.
-
----
-
-## 11. Fake / Real / Security
-
-| Item | Statut |
-| --- | --- |
-| REAL E2E UI :3031 | **NOT OBSERVED** (port free ; no restart) |
-| Product state SQLite | **RUNTIME OBSERVED** read-only |
-| Code | **SOURCE-BACKED** HEAD 50eac439 / main merge e7822033 |
-| OpenAI / message Nora | **NON** (interdit) |
-| Mutation Product / SQLite / :3020 | **AUCUNE** |
-| Secrets | Non divulgués ; chemins DB seulement |
-
----
-
-## 12. Trajectoire / Gates / Exit proof
+### Decision Pack D4 — REQUIRED (non implémenté)
 
 | Item | Contenu |
 | --- | --- |
-| **Prochaine capacité** | Macro-lot correctif (Option B) sous GO Morris — puis Human QA reprise e66 → EC inspect → (gates) Cursor |
-| **Gates Morris** | GO correctif Product ; éventuel GO si changement politique MW5 HA ; **pas** GO REAL/execute ce diagnostic |
-| **Exit proof diagnostic** | Pack + handoff L3 + matrice findings |
-| **≠** | Correction réalisée · Product READY · Human QA PASS · REAL E2E · P6 GLOBAL PASS · v3 ADOPTED |
+| **Règle actuelle** | P2-D-01 : vérité Product structurelle (dont ouverture d'exécution gouvernée via Proposal/DecisionBasis) exige HumanDecision lorsque applicable. PREPARE actuel consomme HD acceptée (`prepareM3FromDecision` / W3-A). Confirmation (P2-D-03) reste liée à l'effet inspecté. |
+| **Conflit avec cible UX Morris** | Cible D4 : Nora prépare → Pilote inspecte/ajuste → clic Exécuter = autorisation, **sans** Proposal+HD systématiques. |
+| **Évolution minimale envisagée** | Autoriser PREPARE d'un EC « draft/inspectable » depuis intention qualifiée + active cycle **sans** HD, en gardant HD/Confirmation pour tout effet structurel ou lancement ; OU fusionner inspect+authorize sur un seul acte Pilote borné. |
+| **Alternatives** | (A) Status quo + auto-PREPARE post-HD (ce cycle). (B) Draft EC non durable jusqu'à authorize. (C) Décision Morris élargissant PREPARE sans HD. |
+| **Effets P2/C1/v3** | Touche P2-D-01 matérialité HD ; C1 contrat natif ; V3-F05/F12. |
+| **Effets EC** | Possible nouveau statut draft ; currentness ; audit. |
+| **Sécurité** | Risque d'autorité inventée si PREPARE confondu avec authorize. |
+| **Migrations** | Possibles si nouveau statut EC. |
+| **Tests** | Scénarios 8–9 GO ; fail-closed authorize. |
+| **Recommandation non binding** | Conserver HD pour ouverture d'exécution ; faire du clic Exécuter la Confirmation/authorize unique sur contrat inspecté (rapprocher P2-D-03). |
+| **Gate Morris** | **G-D4-PREPARE-WITHOUT-SYSTEMATIC-HD** — décision explicite requise avant écriture. |
 
 ---
 
-## 13. Git Review Index (chemins cités)
+## N–P. Contrat générique / anti-catalogue / anti-parallèle
 
-- `features/project-assistant/presentationLabels.ts` — `projectPilotRecommendationCard`, `cycleNotStartedState`
-- `features/pre-m6-product-ui/surfaces/ConversationSurface.tsx` — carte F2
-- `features/pre-m6-product-ui/surfaces/JournalSurface.tsx` — Work vs Lifecycle
-- `lib/oa/cycle/application/deriveWorkRecommendations.ts`
-- `lib/oa/cycle/application/lifecycleRecommendation/currentness.ts`
-- `lib/nora-cognitive-runtime/criticalChallengeClarification.ts` — `decideMw5Disposition`, `formatMw5PiloteText`, `deriveMw5FactsFromF2Turn`
-- `features/project-assistant/f2/orchestrateF2.ts` — `evaluateF2Mw5`, `recommendationWouldEmit: true`, continuation branch
-- `features/project-assistant/f2/activeCycleGovernedContinuation.ts` — natural signal, docs_write gates, REQUIRE_ARTIFACT
-- `features/project-assistant/f2/qualify.ts` — qualification sans cycleStatus
-- `features/project-assistant/w2/prepareExecutionContractFromW2Decision.ts` — MD-WR-06
-- `features/project-assistant/f3/prepareM3FromDecision.ts` — bounded docs_write PREPARE
-- `features/project-assistant/w2/deriveActualExecutionWorkFromProductContext.ts` — `PREPARE_ROUTE_DOCS_WRITE`
-- `features/project-assistant/w2/resolveChatFirstPilotDecision.ts` — WR/proposal/PT prepare outcomes
-- `features/pre-m6-product-ui/hooks/useProductConversation.ts` — `f2` session persistence
-- `features/project-assistant/trajectoryRecommendationCurrentness.ts`
-- `features/project-assistant/w2/resolveCurrentNoraTrajectoryRecommendation.ts`
-- Product DB (ro) : project e66, cycle, traj, epistemic, HD, transcript seq 20–21
-
-### Addendum post-audit parallèle (2026-10-15T11:13+0200)
-
-Corroboration source-backed (sans mutation) des familles carte F2 vs Journal/Lifecycle/Trajectory, de la non-réconciliation client `f2` au refresh durable, et de la taxonomie **M3 docs_write ≠ W3-A**. N'invalide pas le verdict ; précise F-C9-01 / F-C9-05 et Option B.
+- Missions documentaires/code/QA : même famille PREPARE (M3 ou W3-A selon DecisionBasis), **pas** d'enum métier nouveau.
+- Identifiants techniques `docs_write` / `cursor.docs_write.apply` restent adaptateurs, **pas** prérequis universels d'intention (natural signal élargi).
+- Aucune architecture parallèle de précontrat pour contourner D4.
 
 ---
 
-## 14. Instruction ChatGPT
+## Q–R. Diffs Product (complet)
 
-Lire ce handoff distant. Confronter F-C9-01…06 au code Git (`e7822033` / fichiers index) et aux preuves runtime SQLite/transcript.
+```diff
+diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.hqa.ui04.pilotFacingSimplification.ui.test.tsx b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.hqa.ui04.pilotFacingSimplification.ui.test.tsx
+index cbefbf0a..c01d3a22 100644
+--- a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.hqa.ui04.pilotFacingSimplification.ui.test.tsx
++++ b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.hqa.ui04.pilotFacingSimplification.ui.test.tsx
+@@ -327,6 +327,29 @@ describe("P6-HQA-UI-04 pilot-facing Recommendation / Proposal", () => {
+     expect(card.state).toBe("Le cycle n'a pas encore démarré.");
+   });
 
-Qualifier les causes (challenger notamment l'hypothèse NEW_CYCLE vs ACTIVE_CYCLE+MW5 si télémétrie tour manque).
++  it("F-C9-01 — active lifecycle never presents START Cadrage as current", () => {
++    const card = projectPilotRecommendationCard({
++      cycleLabel: "Cadrage",
++      recommendedProfile: "Standard",
++      rationale: "Continuation du cycle actif",
++      cycleStatus: "proposed",
++      authoritativeLifecycleActive: true,
++    });
++    expect(card.recommendation).toMatch(/Poursuivre le travail du cycle Cadrage/i);
++    expect(card.recommendation).not.toMatch(/Démarrer/i);
++    expect(card.state).toBe("Le cycle est actif.");
++
++    const fromStatus = projectPilotRecommendationCard({
++      cycleLabel: "Cadrage",
++      recommendedProfile: "Standard",
++      rationale: null,
++      cycleStatus: "active",
++      cycleInstanceId: "cyc:test",
++    });
++    expect(fromStatus.recommendation).toMatch(/Poursuivre/i);
++    expect(fromStatus.state).toBe("Le cycle est actif.");
++  });
++
+   it("narration — F2 footer jargon softened at display boundary", () => {
+     render(<ConversationSurface controller={stubController({})} />);
+     const turn = screen.getByTestId("project-assistant-turn-assistant");
+diff --git a/projects/sfia-studio/app/__tests__/project-assistant/activeCycleArtifactMaterializationContinuityCorr01.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/activeCycleArtifactMaterializationContinuityCorr01.d0.test.ts
+index 4295e8eb..be3dce94 100644
+--- a/projects/sfia-studio/app/__tests__/project-assistant/activeCycleArtifactMaterializationContinuityCorr01.d0.test.ts
++++ b/projects/sfia-studio/app/__tests__/project-assistant/activeCycleArtifactMaterializationContinuityCorr01.d0.test.ts
+@@ -265,6 +265,21 @@ describe("ACTIVE-CYCLE ARTIFACT MATERIALIZATION CONTINUITY CORR-01", () => {
+       true,
+     );
 
-Challenger Option B vs A. Préparer un macro-lot correctif **uniquement après décision Morris**.
++    // F-C9-04 — French production phrasing without materialis* stem.
++    const produceMd = baseAnalysis({
++      continuationKind: null,
++      intentClass: "execution_request",
++      objective: "Produire une note Markdown dans le dépôt du projet",
++      rephrasedRequest:
++        "Prépare un fichier Markdown documentant le livrable dans le dépôt Git",
++    });
++    expect(
++      hasNaturalActiveCycleDeliverableMaterializationSignal(produceMd),
++    ).toBe(true);
++    expect(
++      shouldEnterActiveCycleArtifactContinuationHandling(produceMd),
++    ).toBe(true);
++
+     const vague = baseAnalysis({
+       intentClass: "informative",
+       objective: "Parlons du livrable",
+@@ -277,6 +292,16 @@ describe("ACTIVE-CYCLE ARTIFACT MATERIALIZATION CONTINUITY CORR-01", () => {
+     expect(shouldEnterActiveCycleArtifactContinuationHandling(vague)).toBe(
+       false,
+     );
++
++    const explainOnly = baseAnalysis({
++      intentClass: "actionable",
++      objective: "Explique-moi ce document",
++      rephrasedRequest: "Explique-moi ce document du projet",
++      continuationKind: null,
++    });
++    expect(
++      hasNaturalActiveCycleDeliverableMaterializationSignal(explainOnly),
++    ).toBe(false);
+   });
 
-Ne pas annoncer correction réalisée, P6 PASS, REAL E2E, runtime v3 ADOPTED.
+   it("unit — natural signal without docs_write effect → BLOCKED not NEW_CYCLE", async () => {
+diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts b/projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
+index 80e8e9c9..a81ce979 100644
+--- a/projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
++++ b/projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
+@@ -1123,8 +1123,24 @@ export function useProductConversation({
+         },
+       ]);
+       if (result.f2) {
+-        setF2(result.f2);
+-        setActiveProposal(result.f2.proposal);
++        // F-C9-01 — reconcile session qualification with authoritative LPS active cycle
++        // so START cards cannot linger as CURRENT against Lifecycle truth.
++        const nextF2 =
++          resultActiveId && result.f2.qualification
++            ? {
++                ...result.f2,
++                qualification: {
++                  ...result.f2.qualification,
++                  cycleInstanceId:
++                    result.f2.qualification.cycleInstanceId?.trim() ||
++                    resultActiveId,
++                  cycleStatus:
++                    result.f2.qualification.cycleStatus?.trim() || "active",
++                },
++              }
++            : result.f2;
++        setF2(nextF2);
++        setActiveProposal(nextF2.proposal);
+       } else {
+         setF2(null);
+         setActiveProposal(null);
+@@ -1417,6 +1433,8 @@ export function useProductConversation({
+     ephemeralNotice,
+     lrMaterializeNotice,
+     lrMaterializeCode,
++    /** Authoritative LPS active cycle id (Product) — presentation must honor it. */
++    activeCycleInstanceId,
+     f2,
+     activeProposal,
+     decisionSubjectContinuity,
+diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
+index de40cb67..53d774a7 100644
+--- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
++++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
+@@ -396,6 +396,10 @@ export function ConversationSurface({
+    */
+   const showNoraActivityInThread =
+     noraActivity.phase === "start" || noraActivity.phase === "activity";
++  const authoritativeLifecycleActive = Boolean(
++    (controller.activeCycleInstanceId ?? "").trim() ||
++      (controller.journalCycleInstanceId ?? "").trim(),
++  );
+   const pilotRecommendationCard = f2?.qualification
+     ? projectPilotRecommendationCard({
+         cycleLabel: f2.qualification.cycleLabel,
+@@ -405,6 +409,8 @@ export function ConversationSurface({
+         cycleStatus: f2.qualification.cycleStatus,
+         cycleInstanceId: f2.qualification.cycleInstanceId,
+         freshnessLabel: qualificationFreshness.label,
++        authoritativeLifecycleActive,
++        detailedStatus: f2.qualification.detailedStatus,
+       })
+     : null;
+   const pilotProposalCard = activeProposal
+diff --git a/projects/sfia-studio/app/features/project-assistant/f2/activeCycleGovernedContinuation.ts b/projects/sfia-studio/app/features/project-assistant/f2/activeCycleGovernedContinuation.ts
+index 531c91f9..c29746f2 100644
+--- a/projects/sfia-studio/app/features/project-assistant/f2/activeCycleGovernedContinuation.ts
++++ b/projects/sfia-studio/app/features/project-assistant/f2/activeCycleGovernedContinuation.ts
+@@ -218,13 +218,29 @@ export function hasExplicitArtifactContinuationKind(
+   return analysis.continuationKind === "active_cycle_artifact_materialization";
+ }
+
++function normalizeIntentHaystack(parts: readonly (string | null | undefined)[]): string {
++  return parts
++    .filter((s): s is string => typeof s === "string" && s.trim().length > 0)
++    .join("\n")
++    .normalize("NFC")
++    .toLowerCase()
++    .replace(/[àáâäã]/g, "a")
++    .replace(/[èéêë]/g, "e")
++    .replace(/[ìíîï]/g, "i")
++    .replace(/[òóôöõ]/g, "o")
++    .replace(/[ùúûü]/g, "u")
++    .replace(/ç/g, "c");
++}
++
+ /**
+- * CORR-01 — natural active-cycle deliverable materialization signal from
++ * CORR-01 / P6 C9 — natural active-cycle deliverable materialization signal from
+  * analysis text fields (NON-AUTHORITATIVE). Used so a missing continuationKind
+  * does not silently fall to NEW_CYCLE_FORMALIZATION when the Pilote asked to
+- * materialize the cycle's required deliverable without internals/path.
++ * produce the cycle deliverable in the repository without engine jargon.
+  *
+- * Must NOT match generic docs_write / vague talk-about-deliverable alone.
++ * Must NOT match vague talk-about-deliverable alone.
++ * Must NOT require the stem « materialis* » (F-C9-04).
++ * Durable active-cycle + Artifact gates remain authoritative at resolve time.
+  */
+ export function hasNaturalActiveCycleDeliverableMaterializationSignal(
+   analysis: IntentAnalysisDto,
+@@ -236,41 +252,42 @@ export function hasNaturalActiveCycleDeliverableMaterializationSignal(
+   ) {
+     return false;
+   }
+-  const hay = [
++  const hay = normalizeIntentHaystack([
+     analysis.objective,
+     analysis.rephrasedRequest,
+     analysis.executionIntent?.artifactBrief,
++    analysis.executionIntent?.targetPath,
+     ...(analysis.executionIntent?.contentRequirements ?? []),
+-  ]
+-    .filter((s): s is string => typeof s === "string" && s.trim().length > 0)
+-    .join("\n")
+-    .normalize("NFC")
+-    .toLowerCase()
+-    .replace(/[àáâäã]/g, "a")
+-    .replace(/[èéêë]/g, "e")
+-    .replace(/[ìíîï]/g, "i")
+-    .replace(/[òóôöõ]/g, "o")
+-    .replace(/[ùúûü]/g, "u")
+-    .replace(/ç/g, "c");
++  ]);
+
+-  if (!/\bmaterialis/.test(hay)) return false;
+-  const hasDeliverable =
+-    /\blivrable\b/.test(hay) ||
+-    /\bspecification\b/.test(hay) ||
+-    /\bcahier\b/.test(hay);
+-  const hasCycleFrame =
+-    /\bcycle\b/.test(hay) ||
+-    /\breference\b/.test(hay) ||
+-    /\bconsolide/.test(hay) ||
+-    /\battendu\b/.test(hay);
+-  if (!hasDeliverable || !hasCycleFrame) return false;
+   // Refuse pure conversational / question framing.
+   if (
+-    /\b(parlons|parler|qu'est[- ]ce|explique|expliquer)\b/.test(hay) ||
++    /\b(parlons|parler|qu'est[- ]ce|explique|expliquer|explique-moi)\b/.test(
++      hay,
++    ) ||
+     /\?\s*$/.test(hay.trim())
+   ) {
+     return false;
+   }
++
++  const productionVerb =
++    /\bmaterialis/.test(hay) ||
++    /\b(produire|produis|ecrire|rediger|deposer|creer|prepare|preparer)\b/.test(
++      hay,
++    );
++  const documentaryObject =
++    /\b(livrable|fichier|document|note|markdown|\.md\b|specification|cahier|memoire)\b/.test(
++      hay,
++    ) || analysis.executionIntent?.intentKind === "docs_write";
++  const repoOrDeliverableFrame =
++    /\b(depot|repo|repository|git|workspace|projet|cycle|reference|consolide|attendu|emplacement)\b/.test(
++      hay,
++    ) ||
++    Boolean(analysis.executionIntent?.targetPath?.trim()) ||
++    analysis.executionIntent?.intentKind === "docs_write";
++
++  if (!productionVerb || !documentaryObject) return false;
++  if (!repoOrDeliverableFrame) return false;
+   return true;
+ }
+
+diff --git a/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts b/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
+index 54e2e72c..47a966a7 100644
+--- a/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
++++ b/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
+@@ -811,10 +811,32 @@ function chatFirstDecisionText(input: {
+         "Nora recommande ; le Pilote décide. AUCUNE EXÉCUTION.",
+       ].join(" ");
+     }
++    if (input.subjectFamily === "proposal") {
++      const prep = input.prepareOutcome;
++      if (prep?.kind === "prepared") {
++        return [
++          head,
++          "Votre décision est enregistrée : vous poursuivez le sujet proposé.",
++          `ExecutionContract préparé (${prep.executionContractId}) — inspectable avant tout lancement.`,
++          "Aucune exécution n'a été lancée.",
++          "Nora recommande ; le Pilote décide. AUCUNE EXÉCUTION.",
++        ].join(" ");
++      }
++      if (prep?.kind === "blocked") {
++        return [
++          head,
++          "Votre décision est enregistrée : vous poursuivez le sujet proposé.",
++          "ExecutionContract NON matérialisé — préparation bloquée.",
++          prep.message,
++          "Aucune exécution n'a été lancée.",
++          "Nora recommande ; le Pilote décide. AUCUNE EXÉCUTION.",
++        ].join(" ");
++      }
++    }
+     return [
+       head,
+       "Votre décision est enregistrée : vous poursuivez le sujet proposé.",
+-      "La préparation de l'action est maintenant disponible. Rien n'a encore été exécuté.",
++      "La préparation de l'action pourra suivre si le contrat Product l'autorise. Rien n'a encore été exécuté.",
+       "Nora recommande ; le Pilote décide. AUCUNE EXÉCUTION.",
+     ].join(" ");
+   }
+@@ -1924,6 +1946,47 @@ export async function orchestrateAssistantSend(input: {
+     oa,
+   });
+
++  // F-C9-01/04 — actionable work while a cycle is already active must not fall
++  // through to NEW_CYCLE START qualification (« Démarrer le cycle Cadrage »).
++  if (
++    continuation.mode === "NEW_CYCLE_FORMALIZATION" &&
++    Boolean(project.activeCycleInstanceId?.trim()) &&
++    (analysis.intentClass === "actionable" ||
++      analysis.intentClass === "execution_request")
++  ) {
++    const activeId = project.activeCycleInstanceId!.trim();
++    const cycleLoad = await oa.cycleServices.getCycle.execute({
++      cycleInstanceId: activeId,
++    });
++    if (cycleLoad.ok && cycleLoad.cycle.status === "active") {
++      const qualification = qualificationFromActiveCycle({
++        cycle: cycleLoad.cycle,
++        signals: formalizationSignals,
++        analysis,
++      });
++      return await completeF2Turn({
++        userText: content,
++        sessionDbPath: input.sessionDbPath,
++        text: [
++          presentation === "test_provider" ? "[Mode test]" : "[Mode réel]",
++          "Le cycle en cours est conservé — aucun nouveau démarrage n'est proposé.",
++          "Pour préparer une mission Cursor, précisez le résultat attendu et le périmètre (fichier, correction, tests, …).",
++          "La préparation d'un contrat d'exécution reste distincte de son lancement.",
++          "Rien n'a encore été exécuté.",
++        ].join(" "),
++        mode: modeResolution.mode as "fixture" | "live",
++        presentation,
++        model,
++        project,
++        intentClass: analysis.intentClass,
++        reinstructionOfProposalId,
++        qualification,
++        executionBlocked: analysis.intentClass === "execution_request",
++        turnKind: "f2_clarification",
++      });
++    }
++  }
++
+   if (continuation.mode === "ACTIVE_CYCLE_CONTINUATION_BLOCKED") {
+     // CR-07-05 — recognized Artifact continuation that cannot be verified:
+     // BLOCK / clarify in-cycle. NEVER createCycle.
+@@ -2034,16 +2097,18 @@ export async function orchestrateAssistantSend(input: {
+         "mw5ChallengeState",
+         input.beforeF2Effect,
+       );
++      // F-C9-03 — active-cycle governed continuation mints a Proposal subject,
++      // not a new lifecycle/CKC Recommendation. Do not arm MW5 as if emitting Rec.
+       return evaluateF2Mw5({
+       content,
+       history: input.history,
+       analysis,
+       recommendedProfile: qualification.recommendedProfile,
+-      recommendationWouldEmit: true,
++      recommendationWouldEmit: false,
+       projectCriticality: project.criticality,
+       projectId: project.projectId,
+       oa,
+-      structurallyResolvedActiveCycleContinuation,
++      structurallyResolvedActiveCycleContinuation: true,
+     });
+     })();
+     if (!mw5.surface.recommendationAllowed) {
+diff --git a/projects/sfia-studio/app/features/project-assistant/presentationLabels.ts b/projects/sfia-studio/app/features/project-assistant/presentationLabels.ts
+index ac9e8c3c..e65aea0c 100644
+--- a/projects/sfia-studio/app/features/project-assistant/presentationLabels.ts
++++ b/projects/sfia-studio/app/features/project-assistant/presentationLabels.ts
+@@ -1037,20 +1037,29 @@ function textsMeaningfullyDistinct(a: string, b: string): boolean {
+   return true;
+ }
+
+-function cycleNotStartedState(
++function isActiveCycleStatus(cycleStatus: string | null | undefined): boolean {
++  const status = (cycleStatus ?? "").toLowerCase();
++  return status.includes("active") || status.includes("actif");
++}
++
++function cyclePresentationState(
+   cycleStatus: string | null | undefined,
+   cycleInstanceId: string | null | undefined,
++  authoritativeLifecycleActive: boolean,
+ ): string {
+-  const status = (cycleStatus ?? "").toLowerCase();
+-  if (status.includes("active") || status.includes("actif")) {
++  if (authoritativeLifecycleActive || isActiveCycleStatus(cycleStatus)) {
+     return "Le cycle est actif.";
+   }
+-  void cycleInstanceId;
++  const id = (cycleInstanceId ?? "").trim();
++  if (id) {
++    return "Cycle enregistré — démarrage à confirmer sur la trajectoire.";
++  }
+   return "Le cycle n'a pas encore démarré.";
+ }
+
+ /**
+  * Compact Recommendation card for the nominal Pilote path.
++ * When LPS/lifecycle already has an active cycle, never present a START card.
+  */
+ export function projectPilotRecommendationCard(input: {
+   cycleLabel: string | null | undefined;
+@@ -1060,6 +1069,12 @@ export function projectPilotRecommendationCard(input: {
+   cycleStatus?: string | null;
+   cycleInstanceId?: string | null;
+   freshnessLabel?: string | null;
++  /**
++   * Authoritative LPS / lifecycle active cycle (Product truth).
++   * Presentation must not contradict this with a START recommendation.
++   */
++  authoritativeLifecycleActive?: boolean | null;
++  detailedStatus?: string | null;
+ }): PilotRecommendationCardProjection {
+   const cycle =
+     nonempty(input.cycleLabel) ?? "le cycle recommandé";
+@@ -1073,11 +1088,21 @@ export function projectPilotRecommendationCard(input: {
+     profileRationalePiloteLabel(input.rationale),
+   );
+   const freshness = nonempty(input.freshnessLabel);
++  const authoritative =
++    input.authoritativeLifecycleActive === true ||
++    input.detailedStatus === "ACTIVE_CYCLE_GOVERNED_CONTINUATION" ||
++    isActiveCycleStatus(input.cycleStatus);
+   return {
+     title: "Ce que Nora recommande",
+-    recommendation: `Démarrer le cycle ${cycle}.`,
++    recommendation: authoritative
++      ? `Poursuivre le travail du cycle ${cycle}.`
++      : `Démarrer le cycle ${cycle}.`,
+     why,
+-    state: cycleNotStartedState(input.cycleStatus, input.cycleInstanceId),
++    state: cyclePresentationState(
++      input.cycleStatus,
++      input.cycleInstanceId,
++      authoritative,
++    ),
+     showProfile,
+     profileLabel: showProfile && profile ? profile : null,
+     freshnessLabel:
+@@ -1194,6 +1219,12 @@ export function projectPilotProposalCard(input: {
+   const engineStop =
+     /F2\s*S['’]ARRÊTE|READY_NO_GATE|AUCUNE EXÉCUTION/i.test(step) ||
+     step.length === 0;
++  const cycleActive = isActiveCycleStatus(input.cycleStatus);
++  const cycleState = cyclePresentationState(
++    input.cycleStatus,
++    input.cycleInstanceId,
++    cycleActive,
++  );
+   return {
+     title: "Ce que Nora propose",
+     proposition,
+@@ -1201,10 +1232,9 @@ export function projectPilotProposalCard(input: {
+     consequence,
+     agreement: "Aucune décision structurée n'est requise pour l'instant.",
+     nextAction: engineStop
+-      ? `Nora recommande de démarrer ${cycle}. ${cycleNotStartedState(
+-          input.cycleStatus,
+-          input.cycleInstanceId,
+-        )} Vous pouvez poursuivre avec Nora pour préparer ce démarrage.`
++      ? cycleActive
++        ? `Nora recommande de poursuivre le travail du cycle ${cycle}. ${cycleState} Vous pouvez poursuivre avec Nora pour préparer la suite.`
++        : `Nora recommande de démarrer ${cycle}. ${cycleState} Vous pouvez poursuivre avec Nora pour préparer ce démarrage.`
+       : scrubPiloteFacingEngineJargon(step) ||
+         `Poursuivez avec Nora concernant ${cycle}.`,
+     nextActionKind: "conversation",
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/resolveChatFirstPilotDecision.ts b/projects/sfia-studio/app/features/project-assistant/w2/resolveChatFirstPilotDecision.ts
+index b8f70589..dee948e0 100644
+--- a/projects/sfia-studio/app/features/project-assistant/w2/resolveChatFirstPilotDecision.ts
++++ b/projects/sfia-studio/app/features/project-assistant/w2/resolveChatFirstPilotDecision.ts
+@@ -45,6 +45,7 @@ import {
+   type PresentedOptionSetBinding,
+ } from "./presentedOptionSet";
+ import { prepareExecutionContractFromW2Decision } from "./prepareExecutionContractFromW2Decision";
++import { prepareM3FromDecision } from "../f3/prepareM3FromDecision";
+ import {
+   PROPOSAL_SUBJECT_AMEND_REF,
+   PROPOSAL_SUBJECT_PURSUE_REF,
+@@ -165,7 +166,74 @@ const WORK_TARGET_REQUIRED_MESSAGE =
+ function proposalPrepareNotApplicable(): ChatFirstPrepareOutcome {
+   return {
+     kind: "not_applicable",
+-    reason: "Proposal chat-first n'auto-prépare pas d'ExecutionContract.",
++    reason:
++      "Proposal chat-first : PREPARE non applicable pour cette disposition (amend/refuse/defer).",
++  };
++}
++
++/**
++ * P6 generic prep — after an accepted Proposal pursue HD, auto-PREPARE when
++ * DecisionBasis is eligible. docs_write → M3; other eligible bases → W3-A.
++ * PREPARE ≠ Execute. Does not invent HD or widen authority (P2-D-01 preserved).
++ */
++async function autoPrepareAfterProposalPursue(input: {
++  readonly oa: RuntimeOaStack;
++  readonly projectId: string;
++  readonly decisionId: string;
++  readonly forceLocalAuthority?: boolean;
++  readonly pinnedBaseHeadSha?: string | null;
++  readonly managedRepoRootBase?: string | null;
++}): Promise<ChatFirstPrepareOutcome> {
++  const live = await readLiveProjectContext(input.oa, input.projectId);
++  if (!live.ok) {
++    return { kind: "blocked", code: live.code, message: live.message };
++  }
++  const currentContext = {
++    projectId: input.projectId,
++    lpsId: live.context.lpsId,
++    lpsVersion: live.context.lpsVersion,
++    doctrineDigest: live.context.doctrineDigest,
++    activeCycleInstanceId: live.context.activeCycleInstanceId,
++    ckcResolutionRef: live.context.ckcResolutionRef ?? undefined,
++  };
++
++  const w3a = await prepareExecutionContractFromW2Decision({
++    oa: input.oa,
++    projectId: input.projectId,
++    decisionId: input.decisionId,
++    currentContext,
++    forceLocalAuthority: input.forceLocalAuthority,
++    pinnedBaseHeadSha: input.pinnedBaseHeadSha,
++    managedRepoRootBase: input.managedRepoRootBase,
++  });
++  if (w3a.ok) {
++    return {
++      kind: "prepared",
++      executionContractId: w3a.contract.executionContractId,
++    };
++  }
++  if (w3a.code !== "PREPARE_ROUTE_DOCS_WRITE") {
++    return { kind: "blocked", code: w3a.code, message: w3a.message };
++  }
++
++  const m3 = await prepareM3FromDecision({
++    projectId: input.projectId,
++    decisionId: input.decisionId,
++    currentContext,
++    deps: {
++      decisionServices: input.oa.decisionServices,
++      authorityResolver: input.oa.authorityResolver,
++      executionContractServices: input.oa.executionContractServices,
++      nowIso: () => input.oa.clock.nowIso(),
++      productRuntimeAuthority: "N2",
++    },
++  });
++  if (!m3.ok) {
++    return { kind: "blocked", code: m3.code, message: m3.message };
++  }
++  return {
++    kind: "prepared",
++    executionContractId: m3.payload.contract.executionContractId,
+   };
+ }
+
+@@ -944,6 +1012,21 @@ export async function resolveChatFirstPilotDecision(input: {
+       };
+     }
+
++    let prepareOutcome: ChatFirstPrepareOutcome = proposalPrepareNotApplicable();
++    if (
++      effective === "accept" &&
++      selectedOptionRef === PROPOSAL_SUBJECT_PURSUE_REF
++    ) {
++      prepareOutcome = await autoPrepareAfterProposalPursue({
++        oa: input.oa,
++        projectId: input.projectId,
++        decisionId: decided.decision.decisionId,
++        forceLocalAuthority: input.forceLocalAuthority,
++        pinnedBaseHeadSha: input.pinnedBaseHeadSha,
++        managedRepoRootBase: input.managedRepoRootBase,
++      });
++    }
++
+     return {
+       kind: "decision_recorded",
+       disposition: effective as Exclude<ChatFirstEffectiveDisposition, "defer">,
+@@ -956,9 +1039,12 @@ export async function resolveChatFirstPilotDecision(input: {
+       decisionBasisLinked: decided.decision.decisionBasisLinked,
+       readyForNextGatedStep: effective === "accept",
+       subjectFamily: "proposal",
+-      prepareOutcome: proposalPrepareNotApplicable(),
+-      executionContractId: null,
+-      executionContractPrepared: false,
++      prepareOutcome,
++      executionContractId:
++        prepareOutcome.kind === "prepared"
++          ? prepareOutcome.executionContractId
++          : null,
++      executionContractPrepared: prepareOutcome.kind === "prepared",
+       attemptCreated: false,
+       executionPerformed: false,
+     };
+```
 
 ---
 
-## 15. Verdict
+## S. Tests exécutés (DETERMINISTIC ONLY)
 
-**P6 INTENTION-TO-ACTION CONTINUITY DIAGNOSIS COMPLETE / SOURCE-BACKED / READY FOR CHATGPT CRITICAL REVIEW.**
+| Suite | Résultat |
+| --- | --- |
+| `activeCycleArtifactMaterializationContinuityCorr01.d0.test.ts` | PASS |
+| `p6.hqa.ui04.pilotFacingSimplification.ui.test.tsx` | PASS |
+| `mw5.s01-s04.disposition.d0.test.ts` | PASS |
+| `mw5.challenge.clarification.product.d0.test.ts` | PASS |
+| `greenfieldLifecycleBootstrap.d0.test.ts` | PASS |
+| `npm run typecheck` | PASS |
+| `npm run lint` | PASS |
+| `*.real.test.ts` | **NON LANCÉS** |
+
+Scénarios GO 1–12 : couverture **déterministe partielle** (1/4/5/6/7/8 via unit+guards). REAL / Human QA = hors scope.
+
+---
+
+## T. Fake / Real
+
+DETERMINISTIC PRODUCT PATH PROVEN AT TESTED SCOPE. ≠ REAL BOUNDARY / E2E REAL / P6 PASS / READY / v3 ADOPTED.
+
+---
+
+## U. Sécurité / autorité
+
+- MD-WR-06 conservé.
+- PREPARE ≠ Execute (`executionPerformed: false`).
+- Aucune HD inventée.
+- Aucune mutation QA DB.
+- Ports Studio non touchés.
+- Secrets non exposés.
+
+---
+
+## V. PRR
+
+Lecture conformité : pas de modification PRR. Raccords restent dans F2/W2/F3/UI.
+
+---
+
+## W. Dette / exit
+
+| Dette | Sortie |
+| --- | --- |
+| D4 prepare-without-HD | Gate Morris G-D4 |
+| F-C9-06 supersede LR store | Cycle dédié currentness durable |
+| Auto-PREPARE e2e fixture Proposal→M3 | Test d0 dédié post-D4 ou extension |
+| Post-Evidence Nora deep | Hors scope ; chemins existants KEEP |
+
+---
+
+## X. Réserves
+
+- Auto-PREPARE M3 dépend d'un DecisionBasis docs_write scellé (gates Artifact inchangés).
+- Clarification in-cycle (guard NEW_CYCLE) n'ouvre pas seule un EC (D4).
+- origin/main local était stale avant fetch ; Delivery basé sur ls-remote `e7822033`.
+
+---
+
+## Y. Gates Morris restants
+
+1. **G-D4-PREPARE-WITHOUT-SYSTEMATIC-HD**
+2. GO commit/push/PR projet (non autorisé ce cycle)
+3. GO REAL Human QA reprise e66
+
+---
+
+## Z. Git Truth final
+
+| Item | Valeur |
+| --- | --- |
+| pwd | `…/sfia-workspace-p6-generic-exec-continuity-e7822033` |
+| branch | `delivery/sfia-studio-p6-generic-execution-conversational-continuity` |
+| HEAD | `e7822033` (working tree dirty — uncommitted Product changes) |
+| Projet push/PR | AUCUN |
+| QA worktree | intact |
+
+---
+
+## AA. Verdict
+
+**PARTIAL DELIVERY / D4 GOVERNANCE DECISION REQUIRED / SAFE CHANGES PRESERVED / READY FOR CHATGPT CRITICAL REVIEW.**
+
+---
+
+## AB. Instruction ChatGPT
+
+Lire ce handoff distant. Critical Review code+tests+contrats.
+
+Vérifier D1–D6, anti-catalogue, anti-moteur parallèle, F-C9-01/03/04, auto-PREPARE post-HD, **Decision Pack D4**, PREPARE≠EXECUTE, absence REAL, Review Pack exploitable.
+
+Rendre Delivery Readiness. Ne pas autoriser commit/push/PR/merge/REAL/doctrine/v3 automatiquement.
