@@ -138,9 +138,10 @@ Convention: each card lists **SoT**, **persistence**, **key paths**, **tests**. 
 
 - **Purpose:** Whether deliverable is required (applicability) and materialization continuation.
 - **Applicability SoT:** `deriveCycleObligationSnapshot` + `deriveFinalizationApplicability` + assess.
-- **Continuation gate:** `activeCycleGovernedContinuation.ts` — REQUIRE_ARTIFACT HD **OR** canonical APPLICABLE∧¬SATISFIED.
+- **Continuation gate (Artifact governed):** `activeCycleGovernedContinuation.ts` — REQUIRE_ARTIFACT HD **OR** canonical APPLICABLE∧¬SATISFIED.
+- **Adjacent (P6-HQA-F05-GD4-01):** `no_require_artifact` means a materialization signal without a closure Artifact obligation — **not** Artifact governed continuation and **not** an invented HD. `orchestrateF2` may qualify ordinary documentary work via Generic PREPARE on the same cycle when Product readiness allows (`isOptionalDocumentaryWithoutClosureArtifactBlock`).
 - **Routing:** `artifactTargetRouting.ts` (workspace + cycle segment composition).
-- **Invariant:** UNKNOWN ≠ APPLICABLE; Applicability ≠ execution authority.
+- **Invariant:** UNKNOWN ≠ APPLICABLE; Applicability ≠ execution authority; optional documentary ≠ REQUIRE_ARTIFACT.
 
 ## OBJ-EVIDENCE — Evidence
 

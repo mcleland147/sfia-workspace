@@ -41,17 +41,20 @@ Status legend: COMPLETE | PARTIAL | NOT PROVEN | BREAK
 ## F05 — Active-cycle Artifact materialization
 - **Trigger:** Natural Pilot request to materialize the active-cycle deliverable (conversation front door / `projectAssistantSendAction`) — pathless OK when semantic cues suffice
 - **Boundary (CI-HQA-F01 / AS-IMPLEMENTED):** explicit NEW_CYCLE formalization (« préparer / créer / démarrer un cycle … », even when a future deliverable/note is mentioned) is **not** Artifact continuation. `hasExplicitNewCycleFormalizationSignal` keeps those turns on `NEW_CYCLE_FORMALIZATION` so absence of an active cycle does not fail-closed as `no_active_cycle` before `createCycle`. Natural Artifact cues still cover produce/write/materialize of a documentary object under an active cycle (F-C9-04).
-- **Admission:** REQUIRE_ARTIFACT HD **OR** Artifact APPLICABLE ∧ ¬SATISFIED (#532+#533)
+- **Admission (Artifact governed continuation):** REQUIRE_ARTIFACT HD **OR** Artifact APPLICABLE ∧ ¬SATISFIED (#532+#533) — unchanged; obligations are not bypassed by Generic PREPARE.
+- **Adjacent path (P6-HQA-F05-GD4-01 / PR #586 AS-IMPLEMENTED):** ordinary documentary materialization recognized by ACGC but **without** a closure Artifact obligation resolves as `ACTIVE_CYCLE_CONTINUATION_BLOCKED` / `no_require_artifact`. When the turn is actionable for Generic PREPARE, `orchestrateF2` may route via `isOptionalDocumentaryWithoutClosureArtifactBlock` → Generic PREPARE on the **same** active cycle. This is **not** `NEW_CYCLE_FORMALIZATION`, **not** an invented `REQUIRE_ARTIFACT` HumanDecision, and **not** Artifact governed continuation. Other BLOCKED reasons stay exclusive / fail-closed clarification.
+- **Generic PREPARE fidelity (PR #586):** pending offer may retain documentary `missionEffects` / `docs_write`; capability envelope uses **exact** Product identities only (`cap:studio.cursor.generalist`, `cap:cursor.docs_write` — no substring spoofing); Nora `proposedTargetPath` / filename stay inspectable **candidates** (`proposedTargetPathAuthoritative=false`; `documentaryTargetResolution=unresolved_nora_candidate` when unresolved) — never promoted into authorized `expectedOutputs` solely by memorization.
 - **Leaf / target:** Nora/Pilot leaf candidate is non-authoritative; server owns `targetPath` composition (D-PC-09); no normal filename micro-gate when cues suffice; clarification only when no coherent cue
 - **Continuation fact:** `structurallyResolvedActiveCycleContinuation` is server-owned and local to this Recommendation/Proposal — ≠ Truth C, ≠ HumanDecision, ≠ universal uncertainty resolution; sealed continuation without impacting signals skips gratuitous structural MW5 re-challenge
 - **Same CycleInstance:** no silent NEW_CYCLE / re-formalization
-- **Exit:** Proposal `DECISION_REQUIRED`
+- **Exit (Artifact path):** Proposal `DECISION_REQUIRED`
+- **Exit (optional documentary Generic PREPARE):** inspectable ExecutionContract draft under existing Confirm/Authorize gates — PREPARE ≠ AUTHORIZE; AUTHORIZED ≠ EXECUTED; no ExecutionAttempt on prepare/authorize alone
 - **Product spine (UI server actions):** Send → Decide → PrepareResolvedM3 → ConfirmAndExecuteResolvedM3 → RehydrateEvidenceOutcome
 - **Nominal chat-first spine:** Send (proposal) → Send (disposition) → PrepareResolvedM3 → … — `projectAssistantDecideAction` remains available but is no longer a required UX step
-- **Paths:** `activeCycleGovernedContinuation.ts`, `artifactTargetRouting.ts`, Fake matcher, `actions.ts` Product actions
-- **Oracle:** `productCycleE2eStabilization.frontDoor.d0.test.ts` (+ continuity/bridge CORR-01, corrProof07); CI-HQA-F01 — `p6.hqa.f01.chatFirstCycleStartGate.d0.test.ts`
-- **Status / proof:** **DETERMINISTIC PRODUCT E2E PROVEN AT TESTED SCOPE** (ZERO REAL this macro)
-- **Fail-closed:** UNKNOWN/N/A without policy; assess failure; no active cycle; satisfied artifact
+- **Paths:** `activeCycleGovernedContinuation.ts`, `orchestrateF2.ts` (Generic PREPARE routing), `artifactTargetRouting.ts`, Fake matcher (`__P6_OPTIONAL_DOCUMENTARY_MD__`), `actions.ts` Product actions; adjacent untracked w2 Generic PREPARE / materiality helpers
+- **Oracle:** `productCycleE2eStabilization.frontDoor.d0.test.ts` (+ continuity/bridge CORR-01, corrProof07); CI-HQA-F01 — `p6.hqa.f01.chatFirstCycleStartGate.d0.test.ts`; optional documentary routing — `p6.hqa.f05.gd4.optionalArtifactRouting.d0.test.ts`
+- **Status / proof:** **DETERMINISTIC PRODUCT E2E PROVEN AT TESTED SCOPE** (ZERO REAL this macro); optional documentary Generic PREPARE **DETERMINISTIC at tested scope** (PR #586)
+- **Fail-closed:** UNKNOWN/N/A without policy; assess failure; no active cycle; satisfied artifact; capability outside generalist envelope; stale/absent pending offer
 
 ## F06 — Proposal / Decision Subject / options
 - **Trigger:** F2 turn producing `f2_proposal`

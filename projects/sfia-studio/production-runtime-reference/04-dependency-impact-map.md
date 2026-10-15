@@ -174,6 +174,28 @@ Untracked (documented, digests not expanded): `cognitiveExecutionReceipt.ts`, `t
 | Tests | `p6.nora.min09.documentaryReliability.d0.test.ts` (+ P1/P2/Session regressions) |
 | Docs | volumes 02, 03, 04, 06, 08, 09 + README; debt `RCD-01-PRR-SEMANTIC-COHERENCE` documentary correction prepared / integration pending |
 
+## Sample impact analysis G — P6-HQA-F05-GD4-01 / PR #586 (optional documentary → Generic PREPARE)
+
+**Changed tracked paths (digest drift):**
+- `features/project-assistant/f2/orchestrateF2.ts` → OBJ-TURN-ORCH
+- `features/project-assistant/f2/activeCycleGovernedContinuation.ts` → OBJ-ARTIFACT-CONTINUATION
+- `lib/platform/ai/fakeProvider.ts` → Fake test boundary (F05 fixture cue `__P6_OPTIONAL_DOCUMENTARY_MD__`)
+
+**Untracked Product helpers (semantic, not digest-tracked):** pending Generic PREPARE offer store; prepareGenericExecutionContractDraft; resolveAuthoritativeProductMateriality; genericPrepareCapabilityEnvelope; F05 optional routing d0 test.
+
+| Step | Result |
+|---|---|
+| Components | OBJ-TURN-ORCH + OBJ-ARTIFACT-CONTINUATION — **SEMANTIC IMPACT = YES** (routing + classifier helper + blocked message). FakeProvider — **SEMANTIC IMPACT = YES** at Fake boundary only (deterministic cue; ≠ OpenAI LIVE). |
+| Direct deps | Generic PREPARE offer / contract draft / materiality / capability envelope (adjacent); Artifact obligation assess unchanged for true REQUIRE_ARTIFACT |
+| Transitive | F08–F11 when Pilot accepts CURRENT offer → EC inspect/confirm/authorize; D-PC-09 path composition remains server-owned at execution |
+| Flows | **F05 primary** (admission split + optional documentary); F06/F07 adjacent (no invented HD); F10 adjacent after authorize |
+| Invariants | INV-NO-SILENT-HD; INV-APPLICABILITY-NE-AUTHORITY; INV-ARTIFACT-COND; INV-NO-EXEC-BEFORE-AUTH; INV-FAKE-REAL-SM; INV-CAP-NE-AUTH |
+| Persistence | Pending Generic PREPARE offer **process-local** (restart-unsafe) — no new tables |
+| Authority | PREPARE ≠ AUTHORIZE; materiality server-owned; capability exact match fail-closed; proposed paths non-authoritative |
+| Fake/Real | DETERMINISTIC proven at tested scope; OpenAI LIVE / e66 / Cursor REAL **NOT CLAIMED** |
+| Tests | `p6.hqa.f05.gd4.optionalArtifactRouting.d0.test.ts` (+ continuity/bridge CORR-01, G-D4, Product Continuity, HQA-F01) |
+| Docs | volumes 02, 03, 04, 06, 07, 08, 09 + README + digests |
+
 ## Component → flows (summary)
 
 | Component | Flows |

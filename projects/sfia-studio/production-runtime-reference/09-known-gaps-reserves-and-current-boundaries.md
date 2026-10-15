@@ -153,6 +153,23 @@ NoteLite bounded REAL re-proof — **PAUSED**. Gate Morris distinct. Not this de
 | REAL SprintBoard / Cursor REAL re-proof | NOT PROVEN — ZERO REAL this macro |
 | New store/table / parallel engines | NONE |
 
+## Overlay — P6-HQA-F05-GD4-01 / PR #586 (optional Artifact / Generic PREPARE)
+
+| Item | Status |
+|---|---|
+| Ordinary documentary without closure REQUIRE_ARTIFACT | AS-IMPLEMENTED — may route to Generic PREPARE on same active cycle (`isOptionalDocumentaryWithoutClosureArtifactBlock`) |
+| `no_require_artifact` aliased as NEW_CYCLE_FORMALIZATION | **FORBIDDEN** — preserved |
+| Invented REQUIRE_ARTIFACT / silent HD for optional documentary | **FORBIDDEN** — preserved |
+| Applicable Artifact obligation / REQUIRE_ARTIFACT path | **PRESERVED** — Generic PREPARE does not bypass Artifact governance |
+| Intent fidelity (`docs_write` / missionEffects) | AS-IMPLEMENTED at tested scope — offer → rebuild → inspectable contract |
+| Capability envelope | Exact Product identities only; substring spoofing fail-closed |
+| Nora proposed path as authorized expectedOutput | **FORBIDDEN** at Generic PREPARE when unresolved — candidate only (`unresolved_nora_candidate`) |
+| Pending Generic PREPARE offer persistence | **PROCESS-LOCAL** — restart-unsafe; re-offer required |
+| Authoritative documentary targetPath at PREPARE | **NOT RESOLVED** in this correctif — composition remains server-owned later (D-PC-09) |
+| Fake fixture `__P6_OPTIONAL_DOCUMENTARY_MD__` | DETERMINISTIC boundary only — ≠ OpenAI LIVE |
+| OpenAI LIVE / e66 Human QA / Cursor REAL | **NOT RETESTED / NOT CLAIMED** |
+| P6 GLOBAL PASS / runtime v3 ADOPTED / READY FOR REAL | **NOT CLAIMED** |
+
 ## CHAT-FIRST-GOVERNED-DECISION-LOOP-01 overlay
 
 | Item | Status |
