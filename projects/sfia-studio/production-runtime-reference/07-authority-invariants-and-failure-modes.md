@@ -31,11 +31,12 @@
 
 | Code/State | Layer | Trigger | User effect | Mutations | Fail-closed |
 |---|---|---|---|---|---|
-| `no_require_artifact` | ACGC | UNKNOWN/N/A without policy HD | blocked continuation message | none | yes |
+| `no_require_artifact` | ACGC | materialization signal without CURRENT REQUIRE_ARTIFACT / APPLICABLE∧¬SATISFIED | when actionable: Generic PREPARE on same cycle (P6-HQA-F05-GD4-01); else clarification — **never** invent REQUIRE_ARTIFACT HD | none unauthorized | yes |
 | `artifact_already_satisfied` | ACGC | Artifact SATISFIED | blocked | none | yes |
 | `lifecycle_assess_failed` | ACGC | assess throw/!ok | blocked | none | yes |
 | `no_active_cycle` | ACGC | missing active id | blocked | none | yes |
-| `NEW_CYCLE_FORMALIZATION` | ACGC | no materialization intent | historical new-cycle path | may createCycle on other path | intent-gated |
+| `NEW_CYCLE_FORMALIZATION` | ACGC | no materialization intent / explicit new-cycle formalization | historical new-cycle path — **not** aliased from optional documentary `no_require_artifact` | may createCycle on other path | intent-gated |
+| `CAPABILITY_OUTSIDE_GENERALIST_ENVELOPE` | Generic PREPARE | unknown / privileged / spoofed capability identity | prepare refused | none | yes — exact identity match only |
 | `CKC_*` | CKC | incoherent/unavailable mapping | qualification fail | none unauthorized | yes |
 | `AUTHORITY_NOT_CONFIGURED` | authz | missing local Pilot gate | cannot decide | none | yes |
 | `MANAGED_REPO_ROOT_BASE_UNCONFIGURED` | docs_write | missing managed root | cannot REAL write | none | yes |

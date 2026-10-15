@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
   "kind": "SFIA_STUDIO_LIVING_PRODUCTION_RUNTIME_REFERENCE",
-  "lastReviewedCommit": "e7774a0c71e3b052f091ed2dffdd70651916dd2d",
-  "lastReviewedAt": "2026-10-13T11:17:40+02:00",
+  "lastReviewedCommit": "9b9cd5e5052da5781678a23a86c82b8b3283627e",
+  "lastReviewedAt": "2026-10-15T22:51:00+02:00",
   "canonicalReadme": "projects/sfia-studio/production-runtime-reference/README.md",
   "volumes": [
     {
       "path": "projects/sfia-studio/production-runtime-reference/README.md",
-      "sha256_16": "8b6680c72e48efc4"
+      "sha256_16": "d6e17088b0cc5762"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/01-system-runtime-overview.md",
@@ -15,15 +15,15 @@
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/02-runtime-object-catalog.md",
-      "sha256_16": "cc17e518466f6b38"
+      "sha256_16": "f820789e8f4d7af3"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md",
-      "sha256_16": "426be5f4ce434eed"
+      "sha256_16": "2e53911afec78653"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md",
-      "sha256_16": "5e4fa6128f75930f"
+      "sha256_16": "f7f8d21a0efb997b"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/05-environments-configuration-and-boundaries.md",
@@ -31,19 +31,19 @@
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md",
-      "sha256_16": "a67fd0fb0c858962"
+      "sha256_16": "e65f13a723097cff"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md",
-      "sha256_16": "90a3ea63bda274bd"
+      "sha256_16": "3dbdf5191b9b4670"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md",
-      "sha256_16": "587caa7bbc0179f3"
+      "sha256_16": "a9adba70a42a1e55"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md",
-      "sha256_16": "68c40d977df748d1"
+      "sha256_16": "716f81a3b1cb5937"
     }
   ],
   "components": [
@@ -586,7 +586,7 @@
     },
     {
       "path": "projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts",
-      "sha256_16": "0f7c73b7539df09d"
+      "sha256_16": "6200659a4be2f20c"
     },
     {
       "path": "projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts",
@@ -594,7 +594,7 @@
     },
     {
       "path": "projects/sfia-studio/app/features/project-assistant/f2/activeCycleGovernedContinuation.ts",
-      "sha256_16": "34a387438181cc9d"
+      "sha256_16": "57646c517d2ccdb6"
     },
     {
       "path": "projects/sfia-studio/app/features/project-assistant/f2/proposalStore.ts",
@@ -666,7 +666,7 @@
     },
     {
       "path": "projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts",
-      "sha256_16": "aa71f77def274a75"
+      "sha256_16": "b8e30897933dd2f0"
     },
     {
       "path": "projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.tsx",

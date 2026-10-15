@@ -537,6 +537,23 @@ export type ActiveCycleContinuationResolution =
       readonly reason: "no_materialization_intent";
     };
 
+/**
+ * P6-HQA-F05-GD4-01 — Artifact-continuation handling recognized a materialization
+ * signal, but no closure obligation (CURRENT REQUIRE_ARTIFACT / APPLICABLE
+ * unsatisfied) is established. This is NOT an Artifact governed continuation
+ * and MUST NOT invent a HumanDecision. It is also NOT NEW_CYCLE_FORMALIZATION.
+ * Orchestration may qualify the ordinary documentary mission via Generic PREPARE
+ * when Product readiness/materiality allow — other BLOCKED reasons stay exclusive.
+ */
+export function isOptionalDocumentaryWithoutClosureArtifactBlock(
+  resolution: ActiveCycleContinuationResolution,
+): boolean {
+  return (
+    resolution.mode === "ACTIVE_CYCLE_CONTINUATION_BLOCKED" &&
+    resolution.reason === "no_require_artifact"
+  );
+}
+
 function blocked(
   reason: ContinuationBlockedReason,
   activeCycle: CycleInstance | null = null,
@@ -1093,7 +1110,9 @@ export function continuationBlockedMessage(
     case "active_cycle_not_active":
       return `Continuation Artifact demandée, mais le cycle référencé n'est pas actif.${cycleHint} Aucun nouveau CycleInstance créé.`;
     case "no_require_artifact":
-      return `Continuation Artifact demandée, mais aucune décision CURRENT REQUIRE_ARTIFACT n'est ouverte sur le cycle actif.${cycleHint} Aucun nouveau CycleInstance créé.`;
+      // Fallback only — ordinary documentary missions should route to Generic
+      // PREPARE (P6-HQA-F05-GD4-01) before this message is shown.
+      return `Cette demande documentaire n'est pas établie comme obligation Artifact de clôture du cycle actif.${cycleHint} Aucune HumanDecision artificielle. Aucun nouveau CycleInstance créé.`;
     case "artifact_already_satisfied":
       return `Le livrable requis du cycle actif est déjà satisfait — cette matérialisation n'est plus une obligation ouverte.${cycleHint} Aucun nouveau CycleInstance créé.`;
     case "lifecycle_assess_failed":

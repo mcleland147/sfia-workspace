@@ -42,7 +42,9 @@ Do **not** treat Session items as an exhaustive Pilot transcript. Do **not** cla
 | Active cycle | Cycle + LPS pointer | lifecycle projection | proposals may be empty | ok |
 | Recommendation | usually ephemeral | may recompute | yes | Recommendation ≠ HD |
 | Proposal pending | epistemic markers maybe | subject reconstruct or requalify | **Proposal map lost** | no silent invent |
+| Pending Generic PREPARE offer (P6-HQA-F05-GD4-01) | none | must re-offer / requalify | **offer map lost** (process-local) | no silent invent; no stale-offer reuse |
 | HD recorded | `oa_human_decisions` | decision list | proposal may be gone | HD remains authority record |
+
 | EC prepared | `oa_execution_contracts` | EC projection | | |
 | Inspected | attestations | | | |
 | Confirmed/authorized | confirmations + receipts | | | |

@@ -71,6 +71,7 @@ import { evaluateMorrisGateRequired } from "./gatePolicy";
 import {
   resolveActiveCycleGovernedContinuation,
   continuationBlockedMessage,
+  isOptionalDocumentaryWithoutClosureArtifactBlock,
 } from "./activeCycleGovernedContinuation";
 import {
   enrichQualificationWithCkcSemantics,
@@ -2002,8 +2003,16 @@ export async function orchestrateAssistantSend(input: {
       analysis.intentClass === "execution_request" ||
       chatFirstPrepareAccept;
 
+    // P6-HQA-F05-GD4-01 — ordinary documentary materialization without a
+    // closure Artifact obligation must not dead-end on no_require_artifact.
+    // Reuse Generic PREPARE on the SAME active cycle. Do NOT alias this as
+    // NEW_CYCLE_FORMALIZATION. Do NOT widen other BLOCKED reasons.
+    const eligibleForGenericPrepareRouting =
+      continuation.mode === "NEW_CYCLE_FORMALIZATION" ||
+      isOptionalDocumentaryWithoutClosureArtifactBlock(continuation);
+
     if (
-      continuation.mode === "NEW_CYCLE_FORMALIZATION" &&
+      eligibleForGenericPrepareRouting &&
       Boolean(activeIdForPrepare) &&
       actionableForGenericPrepare
     ) {
@@ -2212,12 +2221,15 @@ export async function orchestrateAssistantSend(input: {
         turnKind: "f1_informative",
       });
     }
-    } // actionableForGenericPrepare / NEW_CYCLE_FORMALIZATION
+    } // actionableForGenericPrepare / eligible Generic PREPARE routing
   } // chat-first prepare gate scope
 
   if (continuation.mode === "ACTIVE_CYCLE_CONTINUATION_BLOCKED") {
     // CR-07-05 — recognized Artifact continuation that cannot be verified:
     // BLOCK / clarify in-cycle. NEVER createCycle.
+    // no_require_artifact: optional documentary path should have been consumed
+    // by Generic PREPARE above when actionable; remaining cases stay fail-safe
+    // clarification without inventing REQUIRE_ARTIFACT.
     const activeId =
       continuation.activeCycle?.cycleInstanceId ??
       project.activeCycleInstanceId ??
