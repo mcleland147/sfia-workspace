@@ -920,8 +920,16 @@ export async function runNoraAgentsTurn(
 
             // R-EXT-02 — productive extension beyond initial mission budget when
             // tool fingerprints advanced (never model self-declaration).
+            //
+            // Do NOT require continuationPlan.enable: single-segment missions
+            // (e.g. Routine maxTurns=5 → single_segment_sufficient) still need
+            // RunState resume when verifiable tool progress exists. Otherwise a
+            // normal Product conversation that reads sources then drafts a
+            // recommendation hits MaxTurnsExceeded, returns partial structured
+            // text, and surfaces premature "Analyse inachevée".
+            // Explicit enableControlledContinuation === false still blocks.
             if (
-              continuationPlan.enable &&
+              input.enableControlledContinuation !== false &&
               atMissionCeiling &&
               !atSafetyEnvelope &&
               !adaptiveDecision.explicitOverride &&
