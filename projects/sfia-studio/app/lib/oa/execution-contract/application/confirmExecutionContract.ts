@@ -11,6 +11,11 @@ import {
   hasConfirmationConstraintContradiction,
   isTa5Status,
 } from "../domain/invariants";
+import {
+  assessExecutionMaterialityOrUnknown,
+  assertDecisionRefsAdmissibleForConfirm,
+  materialityFromContractConstraints,
+} from "../domain/executionMateriality";
 import type {
   ActorReference,
   ConfirmExecutionContractRequest,
@@ -186,7 +191,66 @@ export class ConfirmExecutionContract {
       }
 
       // Decision freshness: accepted + same project + not superseded.
+      // G-D4: empty decisionRefs admissible only for non-structural materiality
+      // (schema allows []; structural/unknown still require ≥1 ref — fail-closed).
       const decisionRefs = existing.decisionRefs ?? [];
+      {
+        const stamped = materialityFromContractConstraints(
+          existing.constraints,
+        );
+        const materialityInputs = existing.inputs as
+          | { materialityFacts?: Record<string, unknown> }
+          | undefined;
+        const factsRaw = materialityInputs?.materialityFacts;
+        // Defense in depth: without explicit productContextSufficient stamped
+        // at PREPARE from live Product, never treat empty refs as admissible.
+        // CURRENT Product revalidation remains the Product-layer gate
+        // (confirmForAuthorization / authorizeGenericPreparedContract).
+        const productContextSufficient =
+          factsRaw?.productContextSufficient === true &&
+          factsRaw?.productCurrentness != null &&
+          typeof factsRaw.productCurrentness === "object";
+        const recomputed = assessExecutionMaterialityOrUnknown({
+          productContextSufficient,
+          facts: {
+            modelSignals:
+              factsRaw && typeof factsRaw === "object"
+                ? (factsRaw.modelSignals as
+                    | {
+                        structuralChange?: boolean;
+                        securityImpact?: boolean;
+                        architectureImpact?: boolean;
+                        dataImpact?: boolean;
+                        irreversible?: boolean;
+                      }
+                    | null)
+                : null,
+            contradictionConflictPresent:
+              factsRaw?.contradictionConflictPresent === true,
+            protectedPathHits: Array.isArray(factsRaw?.protectedPathHits)
+              ? (factsRaw!.protectedPathHits as string[])
+              : [],
+            wouldMutateStructuralProjectTruth:
+              factsRaw?.wouldMutateStructuralProjectTruth === true,
+            wouldMutateCycleOrTrajectoryTruth:
+              factsRaw?.wouldMutateCycleOrTrajectoryTruth === true,
+            authorityEnvelopeExpanded:
+              factsRaw?.authorityEnvelopeExpanded === true,
+            currentContradictionUnresolved:
+              factsRaw?.currentContradictionUnresolved === true,
+          },
+        });
+        const admissible = assertDecisionRefsAdmissibleForConfirm({
+          decisionRefs,
+          stampedMateriality: stamped,
+          recomputed,
+        });
+        if (!admissible.ok) {
+          return fail("DECISION_REQUIRED", admissible.reason, {
+            projectId: existing.projectId,
+          });
+        }
+      }
       for (const decisionId of decisionRefs) {
         const decisionResult =
           await this.decisionServices.getHumanDecision.execute({

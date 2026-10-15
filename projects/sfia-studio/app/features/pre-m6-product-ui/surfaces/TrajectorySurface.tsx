@@ -988,24 +988,26 @@ export function TrajectorySurface({
     rehydrateRecoveryOwnedDecisionContinuity,
   ]);
 
-  /** FR-04 — inspect a freshly prepared contract without waiting for another Pilot click. */
+  /** FR-04 / CR-P6-02 — Pilote inspection of the exact contract version presented. */
   const inspectPreparedContractId = useCallback(
-    async (executionContractId: string) => {
+    async (executionContractId: string, expectedVersion?: number) => {
       const result = await w2InspectExecutionContractAction({
         projectId,
         executionContractId,
+        expectedVersion,
       });
       if (!result || typeof result !== "object") {
-        return false;
+        return null;
       }
       if (!result.ok) {
         setError(result.message);
-        return false;
+        return null;
       }
       const { ok: _ok, ...state } = result;
       setInspection(state);
       setAuthorization(null);
-      return state.inspectionSufficient === true;
+      // Return DTO so callers (Exécuter) bind version/fp without waiting on React state.
+      return state.inspectionSufficient === true ? state : null;
     },
     [projectId],
   );
@@ -1673,9 +1675,20 @@ export function TrajectorySurface({
     setAttemptPhase(null);
     setAttemptPhaseHistory([]);
     setAttemptStatusLabel(null);
+    // CR-P6-02 — bind authorization to the exact inspected contract version.
+    const expectedVersion =
+      inspection?.attestedVersion ??
+      inspection?.contractVersion ??
+      contract.version;
+    const expectedSemanticFingerprint =
+      inspection?.attestedSemanticFingerprint ??
+      inspection?.semanticFingerprint ??
+      contract.semanticFingerprint;
     const result = await w2AuthorizeExecutionContractAction({
       projectId,
       executionContractId: contract.executionContractId,
+      expectedVersion,
+      expectedSemanticFingerprint,
     });
     setBusy(null);
     if (!result.ok) {
@@ -1685,7 +1698,7 @@ export function TrajectorySurface({
     const { ok: _ok, ...outcome } = result;
     setAuthorization(outcome);
     setInspection(outcome.inspection);
-  }, [continuityMutationBlocked, contract, projectId]);
+  }, [continuityMutationBlocked, contract, inspection, projectId]);
 
   /**
    * FR-09 / FR-10 — one Pilot CTA for N1/N2 local-write:
@@ -1860,12 +1873,17 @@ export function TrajectorySurface({
     setBusy("execute");
     setError(null);
 
-    if (!inspection?.inspectionSufficient) {
-      const ok = await inspectPreparedContractId(contract.executionContractId);
-      if (!ok) {
+    // Bind to the inspection DTO actually obtained — not stale React state after await.
+    let inspectionForBinding = inspection;
+    if (!inspectionForBinding?.inspectionSufficient) {
+      const inspected = await inspectPreparedContractId(
+        contract.executionContractId,
+      );
+      if (!inspected) {
         setBusy(null);
         return;
       }
+      inspectionForBinding = inspected;
     }
 
     let status = contract.status;
@@ -1883,9 +1901,23 @@ export function TrajectorySurface({
       setContract({ ...contract, status: "confirmed" });
     }
 
+    // CR-P6-02 — one Pilot "Exécuter" gesture: Confirm + Authorize with exact binding
+    // to the inspected attestation (survives Confirm version/fp bump).
+    // Launch (Attempt) remains reconcile "execute" only when AUTHORIZED+eligible —
+    // not a second identically labeled authorize-only click.
+    const expectedVersion =
+      inspectionForBinding.attestedVersion ??
+      inspectionForBinding.contractVersion ??
+      contract.version;
+    const expectedSemanticFingerprint =
+      inspectionForBinding.attestedSemanticFingerprint ??
+      inspectionForBinding.semanticFingerprint ??
+      contract.semanticFingerprint;
     const authResult = await w2AuthorizeExecutionContractAction({
       projectId,
       executionContractId: contract.executionContractId,
+      expectedVersion,
+      expectedSemanticFingerprint,
     });
     if (!authResult.ok) {
       setBusy(null);

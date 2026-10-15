@@ -1037,20 +1037,29 @@ function textsMeaningfullyDistinct(a: string, b: string): boolean {
   return true;
 }
 
-function cycleNotStartedState(
+function isActiveCycleStatus(cycleStatus: string | null | undefined): boolean {
+  const status = (cycleStatus ?? "").toLowerCase();
+  return status.includes("active") || status.includes("actif");
+}
+
+function cyclePresentationState(
   cycleStatus: string | null | undefined,
   cycleInstanceId: string | null | undefined,
+  authoritativeLifecycleActive: boolean,
 ): string {
-  const status = (cycleStatus ?? "").toLowerCase();
-  if (status.includes("active") || status.includes("actif")) {
+  if (authoritativeLifecycleActive || isActiveCycleStatus(cycleStatus)) {
     return "Le cycle est actif.";
   }
-  void cycleInstanceId;
+  const id = (cycleInstanceId ?? "").trim();
+  if (id) {
+    return "Cycle enregistré — démarrage à confirmer sur la trajectoire.";
+  }
   return "Le cycle n'a pas encore démarré.";
 }
 
 /**
  * Compact Recommendation card for the nominal Pilote path.
+ * When LPS/lifecycle already has an active cycle, never present a START card.
  */
 export function projectPilotRecommendationCard(input: {
   cycleLabel: string | null | undefined;
@@ -1060,6 +1069,12 @@ export function projectPilotRecommendationCard(input: {
   cycleStatus?: string | null;
   cycleInstanceId?: string | null;
   freshnessLabel?: string | null;
+  /**
+   * Authoritative LPS / lifecycle active cycle (Product truth).
+   * Presentation must not contradict this with a START recommendation.
+   */
+  authoritativeLifecycleActive?: boolean | null;
+  detailedStatus?: string | null;
 }): PilotRecommendationCardProjection {
   const cycle =
     nonempty(input.cycleLabel) ?? "le cycle recommandé";
@@ -1073,11 +1088,21 @@ export function projectPilotRecommendationCard(input: {
     profileRationalePiloteLabel(input.rationale),
   );
   const freshness = nonempty(input.freshnessLabel);
+  const authoritative =
+    input.authoritativeLifecycleActive === true ||
+    input.detailedStatus === "ACTIVE_CYCLE_GOVERNED_CONTINUATION" ||
+    isActiveCycleStatus(input.cycleStatus);
   return {
     title: "Ce que Nora recommande",
-    recommendation: `Démarrer le cycle ${cycle}.`,
+    recommendation: authoritative
+      ? `Poursuivre le travail du cycle ${cycle}.`
+      : `Démarrer le cycle ${cycle}.`,
     why,
-    state: cycleNotStartedState(input.cycleStatus, input.cycleInstanceId),
+    state: cyclePresentationState(
+      input.cycleStatus,
+      input.cycleInstanceId,
+      authoritative,
+    ),
     showProfile,
     profileLabel: showProfile && profile ? profile : null,
     freshnessLabel:
@@ -1194,6 +1219,12 @@ export function projectPilotProposalCard(input: {
   const engineStop =
     /F2\s*S['’]ARRÊTE|READY_NO_GATE|AUCUNE EXÉCUTION/i.test(step) ||
     step.length === 0;
+  const cycleActive = isActiveCycleStatus(input.cycleStatus);
+  const cycleState = cyclePresentationState(
+    input.cycleStatus,
+    input.cycleInstanceId,
+    cycleActive,
+  );
   return {
     title: "Ce que Nora propose",
     proposition,
@@ -1201,10 +1232,9 @@ export function projectPilotProposalCard(input: {
     consequence,
     agreement: "Aucune décision structurée n'est requise pour l'instant.",
     nextAction: engineStop
-      ? `Nora recommande de démarrer ${cycle}. ${cycleNotStartedState(
-          input.cycleStatus,
-          input.cycleInstanceId,
-        )} Vous pouvez poursuivre avec Nora pour préparer ce démarrage.`
+      ? cycleActive
+        ? `Nora recommande de poursuivre le travail du cycle ${cycle}. ${cycleState} Vous pouvez poursuivre avec Nora pour préparer la suite.`
+        : `Nora recommande de démarrer ${cycle}. ${cycleState} Vous pouvez poursuivre avec Nora pour préparer ce démarrage.`
       : scrubPiloteFacingEngineJargon(step) ||
         `Poursuivez avec Nora concernant ${cycle}.`,
     nextActionKind: "conversation",

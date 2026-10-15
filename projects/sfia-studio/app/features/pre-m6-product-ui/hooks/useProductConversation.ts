@@ -1123,8 +1123,24 @@ export function useProductConversation({
         },
       ]);
       if (result.f2) {
-        setF2(result.f2);
-        setActiveProposal(result.f2.proposal);
+        // F-C9-01 — reconcile session qualification with authoritative LPS active cycle
+        // so START cards cannot linger as CURRENT against Lifecycle truth.
+        const nextF2 =
+          resultActiveId && result.f2.qualification
+            ? {
+                ...result.f2,
+                qualification: {
+                  ...result.f2.qualification,
+                  cycleInstanceId:
+                    result.f2.qualification.cycleInstanceId?.trim() ||
+                    resultActiveId,
+                  cycleStatus:
+                    result.f2.qualification.cycleStatus?.trim() || "active",
+                },
+              }
+            : result.f2;
+        setF2(nextF2);
+        setActiveProposal(nextF2.proposal);
       } else {
         setF2(null);
         setActiveProposal(null);
@@ -1417,6 +1433,8 @@ export function useProductConversation({
     ephemeralNotice,
     lrMaterializeNotice,
     lrMaterializeCode,
+    /** Authoritative LPS active cycle id (Product) — presentation must honor it. */
+    activeCycleInstanceId,
     f2,
     activeProposal,
     decisionSubjectContinuity,

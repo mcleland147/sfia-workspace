@@ -218,13 +218,29 @@ export function hasExplicitArtifactContinuationKind(
   return analysis.continuationKind === "active_cycle_artifact_materialization";
 }
 
+function normalizeIntentHaystack(parts: readonly (string | null | undefined)[]): string {
+  return parts
+    .filter((s): s is string => typeof s === "string" && s.trim().length > 0)
+    .join("\n")
+    .normalize("NFC")
+    .toLowerCase()
+    .replace(/[àáâäã]/g, "a")
+    .replace(/[èéêë]/g, "e")
+    .replace(/[ìíîï]/g, "i")
+    .replace(/[òóôöõ]/g, "o")
+    .replace(/[ùúûü]/g, "u")
+    .replace(/ç/g, "c");
+}
+
 /**
- * CORR-01 — natural active-cycle deliverable materialization signal from
+ * CORR-01 / P6 C9 — natural active-cycle deliverable materialization signal from
  * analysis text fields (NON-AUTHORITATIVE). Used so a missing continuationKind
  * does not silently fall to NEW_CYCLE_FORMALIZATION when the Pilote asked to
- * materialize the cycle's required deliverable without internals/path.
+ * produce the cycle deliverable in the repository without engine jargon.
  *
- * Must NOT match generic docs_write / vague talk-about-deliverable alone.
+ * Must NOT match vague talk-about-deliverable alone.
+ * Must NOT require the stem « materialis* » (F-C9-04).
+ * Durable active-cycle + Artifact gates remain authoritative at resolve time.
  */
 export function hasNaturalActiveCycleDeliverableMaterializationSignal(
   analysis: IntentAnalysisDto,
@@ -236,41 +252,42 @@ export function hasNaturalActiveCycleDeliverableMaterializationSignal(
   ) {
     return false;
   }
-  const hay = [
+  const hay = normalizeIntentHaystack([
     analysis.objective,
     analysis.rephrasedRequest,
     analysis.executionIntent?.artifactBrief,
+    analysis.executionIntent?.targetPath,
     ...(analysis.executionIntent?.contentRequirements ?? []),
-  ]
-    .filter((s): s is string => typeof s === "string" && s.trim().length > 0)
-    .join("\n")
-    .normalize("NFC")
-    .toLowerCase()
-    .replace(/[àáâäã]/g, "a")
-    .replace(/[èéêë]/g, "e")
-    .replace(/[ìíîï]/g, "i")
-    .replace(/[òóôöõ]/g, "o")
-    .replace(/[ùúûü]/g, "u")
-    .replace(/ç/g, "c");
+  ]);
 
-  if (!/\bmaterialis/.test(hay)) return false;
-  const hasDeliverable =
-    /\blivrable\b/.test(hay) ||
-    /\bspecification\b/.test(hay) ||
-    /\bcahier\b/.test(hay);
-  const hasCycleFrame =
-    /\bcycle\b/.test(hay) ||
-    /\breference\b/.test(hay) ||
-    /\bconsolide/.test(hay) ||
-    /\battendu\b/.test(hay);
-  if (!hasDeliverable || !hasCycleFrame) return false;
   // Refuse pure conversational / question framing.
   if (
-    /\b(parlons|parler|qu'est[- ]ce|explique|expliquer)\b/.test(hay) ||
+    /\b(parlons|parler|qu'est[- ]ce|explique|expliquer|explique-moi)\b/.test(
+      hay,
+    ) ||
     /\?\s*$/.test(hay.trim())
   ) {
     return false;
   }
+
+  const productionVerb =
+    /\bmaterialis/.test(hay) ||
+    /\b(produire|produis|ecrire|rediger|deposer|creer|prepare|preparer)\b/.test(
+      hay,
+    );
+  const documentaryObject =
+    /\b(livrable|fichier|document|note|markdown|\.md\b|specification|cahier|memoire)\b/.test(
+      hay,
+    ) || analysis.executionIntent?.intentKind === "docs_write";
+  const repoOrDeliverableFrame =
+    /\b(depot|repo|repository|git|workspace|projet|cycle|reference|consolide|attendu|emplacement)\b/.test(
+      hay,
+    ) ||
+    Boolean(analysis.executionIntent?.targetPath?.trim()) ||
+    analysis.executionIntent?.intentKind === "docs_write";
+
+  if (!productionVerb || !documentaryObject) return false;
+  if (!repoOrDeliverableFrame) return false;
   return true;
 }
 

@@ -114,6 +114,7 @@ import type {
 import type { ExecutionIntentPayload } from "./executionIntentSchema";
 import {
   assertExplicitReinstructionGate,
+  listEffectivePendingDecisionSubjectMarkers,
 } from "../w2/activeProposalDecisionSubject";
 import { assessChatFirstWorkEligibility } from "../w2/assessChatFirstWorkEligibility";
 import {
@@ -122,6 +123,17 @@ import {
   type ChatFirstEffectiveDisposition,
   type ChatFirstPrepareOutcome,
 } from "../w2/resolveChatFirstPilotDecision";
+import {
+  assessGenericMissionPrepareReadiness,
+  genericMissionClarificationText,
+  genericMissionPreparedText,
+  analysisFromPendingGenericPrepareOffer,
+  getCurrentGenericPrepareOffer,
+  isChatFirstPrepareAcceptGo,
+  prepareGenericExecutionContractDraft,
+  rememberGenericPrepareRecommendation,
+  resolveChatFirstGenericPrepareGo,
+} from "../w2/prepareGenericExecutionContractDraft";
 import {
   replacePendingDecisionSubjectForExplicitReinstruction,
   writePendingDecisionSubjectMarker,
@@ -811,10 +823,32 @@ function chatFirstDecisionText(input: {
         "Nora recommande ; le Pilote décide. AUCUNE EXÉCUTION.",
       ].join(" ");
     }
+    if (input.subjectFamily === "proposal") {
+      const prep = input.prepareOutcome;
+      if (prep?.kind === "prepared") {
+        return [
+          head,
+          "Votre décision est enregistrée : vous poursuivez le sujet proposé.",
+          `ExecutionContract préparé (${prep.executionContractId}) — inspectable avant tout lancement.`,
+          "Aucune exécution n'a été lancée.",
+          "Nora recommande ; le Pilote décide. AUCUNE EXÉCUTION.",
+        ].join(" ");
+      }
+      if (prep?.kind === "blocked") {
+        return [
+          head,
+          "Votre décision est enregistrée : vous poursuivez le sujet proposé.",
+          "ExecutionContract NON matérialisé — préparation bloquée.",
+          prep.message,
+          "Aucune exécution n'a été lancée.",
+          "Nora recommande ; le Pilote décide. AUCUNE EXÉCUTION.",
+        ].join(" ");
+      }
+    }
     return [
       head,
       "Votre décision est enregistrée : vous poursuivez le sujet proposé.",
-      "La préparation de l'action est maintenant disponible. Rien n'a encore été exécuté.",
+      "La préparation de l'action pourra suivre si le contrat Product l'autorise. Rien n'a encore été exécuté.",
       "Nora recommande ; le Pilote décide. AUCUNE EXÉCUTION.",
     ].join(" ");
   }
@@ -1751,7 +1785,24 @@ export async function orchestrateAssistantSend(input: {
       forceRepoInformative || forceReservationResolutionAdvisory,
   });
 
-  if (!transition.formalizationReady) {
+  // CR-P6-04 — "OK, vas-y" (often informative) bound to a CURRENT prepare offer
+  // must NOT fall through to F1 advisory before the prepare gate.
+  const activeIdForChatFirstPrepare =
+    project.activeCycleInstanceId?.trim() || null;
+  const chatFirstPrepareGoEarly = activeIdForChatFirstPrepare
+    ? resolveChatFirstGenericPrepareGo({
+        projectId: project.projectId,
+        cycleInstanceId: activeIdForChatFirstPrepare,
+        text: content,
+        pilotDecisionCandidate: analysis.pilotDecisionCandidate,
+        sessionDbPath: input.sessionDbPath,
+      })
+    : { kind: "no_go" as const, reason: "no_active_cycle" };
+  const skipF1ForChatFirstPrepare =
+    chatFirstPrepareGoEarly.kind === "prepare" ||
+    chatFirstPrepareGoEarly.kind === "explicit_lexical_prepare";
+
+  if (!transition.formalizationReady && !skipF1ForChatFirstPrepare) {
     // CORR-PROOF-04 — Hybrid Context Envelope (composer-first).
     // Pure read-only composition; NO reasonWithResolvedCkcContext; NO third model call.
     const registryRoot = resolveProductDoctrineRegistryRoot();
@@ -1880,22 +1931,26 @@ export async function orchestrateAssistantSend(input: {
   }
 
   // B / D — governed formalization ready (actionable | execution_request + valid fields)
+  // CR-P6-04 — chat-first PREPARE accept may arrive as informative without cycleTypeId;
+  // the CURRENT offer carries the qualified mission (do not invent defaults).
   const cycleTypeId = analysis.candidateCycleTypeId;
   const formalizationSignals = analysis.signals;
   if (!cycleTypeId || !formalizationSignals) {
-    // Defensive: readiness predicate already requires these; never invent defaults.
-    return await completeF2Turn({
-      userText: content,
-      sessionDbPath: input.sessionDbPath,
-      text:
-        "[Clarification requise] Qualification impossible — cycle ou signaux incomplets. AUCUNE EXÉCUTION.",
-      mode: modeResolution.mode as "fixture" | "live",
-      presentation,
-      model,
-      project,
-      intentClass: analysis.intentClass,
-      reinstructionOfProposalId,
-    });
+    if (!skipF1ForChatFirstPrepare) {
+      // Defensive: readiness predicate already requires these; never invent defaults.
+      return await completeF2Turn({
+        userText: content,
+        sessionDbPath: input.sessionDbPath,
+        text:
+          "[Clarification requise] Qualification impossible — cycle ou signaux incomplets. AUCUNE EXÉCUTION.",
+        mode: modeResolution.mode as "fixture" | "live",
+        presentation,
+        model,
+        project,
+        intentClass: analysis.intentClass,
+        reinstructionOfProposalId,
+      });
+    }
   }
 
   const runtime = getRuntimeApplicationService();
@@ -1923,6 +1978,242 @@ export async function orchestrateAssistantSend(input: {
     analysis,
     oa,
   });
+
+  // F-C9-01/04 + G-D4 / Authority Continuity — actionable work while a cycle
+  // is already active must not fall through to NEW_CYCLE START. PREPARE only
+  // on explicit prepare intent OR chat-first accept of a CURRENT prepare offer
+  // (Q16/Q17/Q18); otherwise clarify gaps or recommend prepare. Never canned.
+  {
+    const activeIdForPrepare = project.activeCycleInstanceId?.trim() || null;
+    const prepareGoPreview = activeIdForPrepare
+      ? resolveChatFirstGenericPrepareGo({
+          projectId: project.projectId,
+          cycleInstanceId: activeIdForPrepare,
+          text: content,
+          pilotDecisionCandidate: analysis.pilotDecisionCandidate,
+          sessionDbPath: input.sessionDbPath,
+        })
+      : { kind: "no_go" as const, reason: "no_active_cycle" };
+    const chatFirstPrepareAccept =
+      prepareGoPreview.kind === "prepare" ||
+      prepareGoPreview.kind === "explicit_lexical_prepare";
+    const actionableForGenericPrepare =
+      analysis.intentClass === "actionable" ||
+      analysis.intentClass === "execution_request" ||
+      chatFirstPrepareAccept;
+
+    if (
+      continuation.mode === "NEW_CYCLE_FORMALIZATION" &&
+      Boolean(activeIdForPrepare) &&
+      actionableForGenericPrepare
+    ) {
+    const activeId = activeIdForPrepare!;
+    const cycleLoad = await oa.cycleServices.getCycle.execute({
+      cycleInstanceId: activeId,
+    });
+    if (cycleLoad.ok && cycleLoad.cycle.status === "active") {
+      const prepareGo = prepareGoPreview;
+      const mayPrepare =
+        prepareGo.kind === "prepare" ||
+        prepareGo.kind === "explicit_lexical_prepare";
+
+      // When accepting a CURRENT offer, readiness is assessed on the offered mission.
+      const offerForReadiness = mayPrepare
+        ? getCurrentGenericPrepareOffer(project.projectId, {
+            sessionDbPath: input.sessionDbPath,
+          })
+        : null;
+      const readinessAnalysis =
+        prepareGo.kind === "prepare" && offerForReadiness
+          ? analysisFromPendingGenericPrepareOffer(offerForReadiness)
+          : analysis;
+      const qualification = qualificationFromActiveCycle({
+        cycle: cycleLoad.cycle,
+        signals: formalizationSignals ?? readinessAnalysis.signals!,
+        analysis: readinessAnalysis,
+      });
+      const readiness = assessGenericMissionPrepareReadiness(readinessAnalysis);
+
+      if (readiness.structuralBlocked || !readiness.ready) {
+        return await completeF2Turn({
+          userText: content,
+          sessionDbPath: input.sessionDbPath,
+          text: genericMissionClarificationText({
+            presentation,
+            missingFields: readiness.missingFields,
+            structuralBlocked: readiness.structuralBlocked,
+          }),
+          mode: modeResolution.mode as "fixture" | "live",
+          presentation,
+          model,
+          project,
+          intentClass: analysis.intentClass,
+          reinstructionOfProposalId,
+          qualification,
+          executionBlocked: analysis.intentClass === "execution_request",
+          turnKind: "f2_clarification",
+        });
+      }
+
+      // Mission qualified but no prepare GO on CURRENT subject → recommend only.
+      if (!mayPrepare) {
+        const acceptWithoutOffer = isChatFirstPrepareAcceptGo({
+          text: content,
+          pilotDecisionCandidate: analysis.pilotDecisionCandidate,
+        });
+        if (acceptWithoutOffer) {
+          // Q18 — never invent PREPARE from "OK" without a CURRENT offer.
+          return await completeF2Turn({
+            userText: content,
+            sessionDbPath: input.sessionDbPath,
+            text: [
+              presentation === "test_provider" ? "[Mode test]" : "[Mode réel]",
+              "Le cycle actif est conservé.",
+              "Aucune recommandation de préparation courante n'est ouverte — je ne prépare pas de contrat sur ce seul accord.",
+              "Rien n'a encore été exécuté.",
+            ].join(" "),
+            mode: modeResolution.mode as "fixture" | "live",
+            presentation,
+            model,
+            project,
+            intentClass: analysis.intentClass,
+            reinstructionOfProposalId,
+            qualification,
+            executionBlocked: true,
+            turnKind: "f2_clarification",
+          });
+        }
+        rememberGenericPrepareRecommendation({
+          projectId: project.projectId,
+          cycleInstanceId: activeId,
+          analysis: readinessAnalysis,
+          offeredAtIso: oa.clock.nowIso(),
+          sessionDbPath: input.sessionDbPath,
+        });
+        return await completeF2Turn({
+          userText: content,
+          sessionDbPath: input.sessionDbPath,
+          text: genericMissionClarificationText({
+            presentation,
+            missingFields: [],
+            structuralBlocked: false,
+            recommendPrepare: true,
+          }),
+          mode: modeResolution.mode as "fixture" | "live",
+          presentation,
+          model,
+          project,
+          intentClass: analysis.intentClass,
+          reinstructionOfProposalId,
+          qualification,
+          executionBlocked: true,
+          turnKind: "f2_clarification",
+        });
+      }
+
+      // Q19 — concurrent pending decision subjects → clarification, never silent pick.
+      if (prepareGo.kind === "prepare") {
+        const pendingSubjects = await listEffectivePendingDecisionSubjectMarkers(
+          oa,
+          project.projectId,
+        );
+        if (
+          pendingSubjects.ok &&
+          pendingSubjects.markers.length > 1
+        ) {
+          return await completeF2Turn({
+            userText: content,
+            sessionDbPath: input.sessionDbPath,
+            text: [
+              presentation === "test_provider" ? "[Mode test]" : "[Mode réel]",
+              "Le cycle actif est conservé.",
+              "Plusieurs sujets de décision sont encore ouverts — précise lequel tu confirmes avant que je prépare un contrat.",
+              "Rien n'a encore été exécuté.",
+            ].join(" "),
+            mode: modeResolution.mode as "fixture" | "live",
+            presentation,
+            model,
+            project,
+            intentClass: analysis.intentClass,
+            reinstructionOfProposalId,
+            qualification,
+            executionBlocked: true,
+            turnKind: "f2_clarification",
+          });
+        }
+      }
+
+      // Bind accept GO to the CURRENT offered mission (not the short "OK" turn).
+      const offer = getCurrentGenericPrepareOffer(project.projectId, {
+        sessionDbPath: input.sessionDbPath,
+      });
+      const prepareAnalysis =
+        prepareGo.kind === "prepare" && offer
+          ? analysisFromPendingGenericPrepareOffer(offer)
+          : analysis;
+
+      const detPinnedSha =
+        process.env.SFIA_STUDIO_DET_PINNED_BASE_HEAD_SHA?.trim() || null;
+      const prep = await prepareGenericExecutionContractDraft({
+        oa,
+        projectId: project.projectId,
+        cycleInstanceId: activeId,
+        analysis: prepareAnalysis,
+        forceLocalAuthority:
+          process.env.VITEST === "true" ||
+          process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY === "1",
+        sessionDbPath: input.sessionDbPath,
+        // Explicit DET pin only (never inferred from VITEST alone).
+        // Production resolves managed clone HEAD (fail-closed if absent).
+        pinnedBaseHeadSha: detPinnedSha,
+      });
+      if (!prep.ok) {
+        return await completeF2Turn({
+          userText: content,
+          sessionDbPath: input.sessionDbPath,
+          text: [
+            presentation === "test_provider" ? "[Mode test]" : "[Mode réel]",
+            "Le cycle actif est conservé.",
+            prep.message,
+            "Rien n'a encore été exécuté.",
+          ].join(" "),
+          mode: modeResolution.mode as "fixture" | "live",
+          presentation,
+          model,
+          project,
+          intentClass: analysis.intentClass,
+          reinstructionOfProposalId,
+          qualification,
+          executionBlocked: true,
+          turnKind: "f2_clarification",
+        });
+      }
+
+      const objective =
+        (prepareAnalysis.objective ?? prepareAnalysis.rephrasedRequest ?? "").trim() ||
+        "mission demandée";
+      return await completeF2Turn({
+        userText: content,
+        sessionDbPath: input.sessionDbPath,
+        text: genericMissionPreparedText({
+          presentation,
+          executionContractId: prep.contract.executionContractId,
+          objective,
+          status: prep.contract.status,
+        }),
+        mode: modeResolution.mode as "fixture" | "live",
+        presentation,
+        model,
+        project,
+        intentClass: analysis.intentClass,
+        reinstructionOfProposalId,
+        qualification,
+        executionBlocked: true,
+        turnKind: "f1_informative",
+      });
+    }
+    } // actionableForGenericPrepare / NEW_CYCLE_FORMALIZATION
+  } // chat-first prepare gate scope
 
   if (continuation.mode === "ACTIVE_CYCLE_CONTINUATION_BLOCKED") {
     // CR-07-05 — recognized Artifact continuation that cannot be verified:
@@ -1955,6 +2246,22 @@ export async function orchestrateAssistantSend(input: {
   }
 
   if (continuation.mode === "ACTIVE_CYCLE_GOVERNED_CONTINUATION") {
+    if (!formalizationSignals) {
+      return await completeF2Turn({
+        userText: content,
+        sessionDbPath: input.sessionDbPath,
+        text:
+          "[Clarification requise] Signaux de qualification incomplets — continuation gouvernée refusée. AUCUNE EXÉCUTION.",
+        mode: modeResolution.mode as "fixture" | "live",
+        presentation,
+        model,
+        project,
+        intentClass: analysis.intentClass,
+        reinstructionOfProposalId,
+        executionBlocked: true,
+        turnKind: "f2_clarification",
+      });
+    }
     const activeCycle = continuation.activeCycle;
     const qualification = qualificationFromActiveCycle({
       cycle: activeCycle,
@@ -2020,6 +2327,9 @@ export async function orchestrateAssistantSend(input: {
     }
 
     const signals = analysis.signals;
+    // R2 / G-D4 — factual structural skip: only when critical signals are absent.
+    // Never hardcode true. Preserve challenges for structural / security /
+    // architecture / data / irreversible / contradiction.
     const structurallyResolvedActiveCycleContinuation =
       !signals?.structuralChange &&
       !signals?.securityImpact &&
@@ -2034,12 +2344,15 @@ export async function orchestrateAssistantSend(input: {
         "mw5ChallengeState",
         input.beforeF2Effect,
       );
+      // F-C9-03 — active-cycle governed continuation mints a Proposal subject,
+      // not a new lifecycle/CKC Recommendation. recommendationWouldEmit reflects
+      // that outcome (false); do not arm MW5 as if emitting Rec.
       return evaluateF2Mw5({
       content,
       history: input.history,
       analysis,
       recommendedProfile: qualification.recommendedProfile,
-      recommendationWouldEmit: true,
+      recommendationWouldEmit: false,
       projectCriticality: project.criticality,
       projectId: project.projectId,
       oa,
@@ -2186,6 +2499,25 @@ export async function orchestrateAssistantSend(input: {
 
   // NEW_CYCLE_FORMALIZATION — existing createCycle candidate path
   // (only when Artifact continuation was NOT explicitly signaled)
+  // CR-P6-04 — chat-first PREPARE may skip F1 without cycleTypeId; never invent
+  // a NEW_CYCLE from that path if prepare did not consume the turn.
+  if (!cycleTypeId || !formalizationSignals) {
+    return await completeF2Turn({
+      userText: content,
+      sessionDbPath: input.sessionDbPath,
+      text:
+        "[Clarification requise] Qualification impossible — cycle ou signaux incomplets. AUCUNE EXÉCUTION.",
+      mode: modeResolution.mode as "fixture" | "live",
+      presentation,
+      model,
+      project,
+      intentClass: analysis.intentClass,
+      reinstructionOfProposalId,
+      executionBlocked: true,
+      turnKind: "f2_clarification",
+    });
+  }
+
   const preLpsVersion = project.lpsVersion;
   const correlationId = `cor:f2-${randomBytes(8).toString("hex")}`;
 

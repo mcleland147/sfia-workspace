@@ -1196,6 +1196,51 @@ export class FakeConversationProvider implements ConversationProvider {
         },
       };
     }
+    // P6 Product Continuity Closure — generic Cursor mission (non-structural).
+    if (markerProbe.includes("__P6_GENERIC_MISSION__")) {
+      return {
+        text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
+          intentClass: "actionable",
+          candidateCycleTypeId: "cyc:delivery",
+          signals: {
+            structuralChange: false,
+            securityImpact: false,
+            architectureImpact: false,
+            dataImpact: false,
+            irreversible: false,
+            lowRiskBounded: true,
+          },
+          cognitiveWorkload: null,
+          contradictionCandidate: null,
+          challengeResponseAssessment: "sufficient",
+          objective: "Réorganiser les fichiers du projet pour clarifier leur structure",
+          scope: "projects/demo/docs",
+          rephrasedRequest:
+            "Réorganiser les fichiers sous projects/demo/docs pour clarifier la structure",
+          outOfScope: ["Doctrine Studio", "Migration DB", "Cursor REAL"],
+          risks: [],
+          reservations: [],
+          stopConditions: ["AUCUNE EXÉCUTION SANS AUTORISATION"],
+          activatedBlocks: ["qualification"],
+          expectedOutcome: "Arborescence documentaire clarifiée",
+          criticalJustification: null,
+          requestedOperation: null,
+          executionIntent: {
+            intentKind: "other",
+            scopeIn: ["projects/demo/docs"],
+            scopeOut: ["projects/sfia-studio/convergence"],
+          },
+          pilotDecisionCandidate: null,
+        })}`,
+        usage: {
+          inputTokens: 10 * this.callCount,
+          outputTokens: 5 * this.callCount,
+          totalTokens: 15 * this.callCount,
+          model: "fake-test-model",
+          providerResponseId: `fake-resp-${this.callCount}`,
+        },
+      };
+    }
     if (markerProbe.includes("__F2_ACTIONABLE__")) {
       return {
         text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({

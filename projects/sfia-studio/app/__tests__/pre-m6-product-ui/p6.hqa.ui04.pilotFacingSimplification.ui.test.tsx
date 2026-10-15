@@ -327,6 +327,29 @@ describe("P6-HQA-UI-04 pilot-facing Recommendation / Proposal", () => {
     expect(card.state).toBe("Le cycle n'a pas encore démarré.");
   });
 
+  it("F-C9-01 — active lifecycle never presents START Cadrage as current", () => {
+    const card = projectPilotRecommendationCard({
+      cycleLabel: "Cadrage",
+      recommendedProfile: "Standard",
+      rationale: "Continuation du cycle actif",
+      cycleStatus: "proposed",
+      authoritativeLifecycleActive: true,
+    });
+    expect(card.recommendation).toMatch(/Poursuivre le travail du cycle Cadrage/i);
+    expect(card.recommendation).not.toMatch(/Démarrer/i);
+    expect(card.state).toBe("Le cycle est actif.");
+
+    const fromStatus = projectPilotRecommendationCard({
+      cycleLabel: "Cadrage",
+      recommendedProfile: "Standard",
+      rationale: null,
+      cycleStatus: "active",
+      cycleInstanceId: "cyc:test",
+    });
+    expect(fromStatus.recommendation).toMatch(/Poursuivre/i);
+    expect(fromStatus.state).toBe("Le cycle est actif.");
+  });
+
   it("narration — F2 footer jargon softened at display boundary", () => {
     render(<ConversationSurface controller={stubController({})} />);
     const turn = screen.getByTestId("project-assistant-turn-assistant");

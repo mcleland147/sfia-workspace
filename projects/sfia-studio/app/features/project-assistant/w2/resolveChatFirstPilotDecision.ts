@@ -944,6 +944,8 @@ export async function resolveChatFirstPilotDecision(input: {
       };
     }
 
+    const prepareOutcome = proposalPrepareNotApplicable();
+
     return {
       kind: "decision_recorded",
       disposition: effective as Exclude<ChatFirstEffectiveDisposition, "defer">,
@@ -956,7 +958,7 @@ export async function resolveChatFirstPilotDecision(input: {
       decisionBasisLinked: decided.decision.decisionBasisLinked,
       readyForNextGatedStep: effective === "accept",
       subjectFamily: "proposal",
-      prepareOutcome: proposalPrepareNotApplicable(),
+      prepareOutcome,
       executionContractId: null,
       executionContractPrepared: false,
       attemptCreated: false,

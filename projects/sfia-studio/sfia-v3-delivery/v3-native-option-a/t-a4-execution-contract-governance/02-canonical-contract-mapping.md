@@ -33,7 +33,7 @@ Schema path:
 | Field | Constraint |
 |-------|------------|
 | `cycleInstanceId` | identifier |
-| `decisionRefs` | array ; **required minItems 1 when status=confirmed** |
+| `decisionRefs` | array ; when `status=confirmed`, may be empty **only** for server-owned non-structural materiality (G-D4). Structural missions still require ≥1 accepted same-project decisionRef at Confirm/Authorize (runtime fail-closed). Schema no longer forces `minItems: 1` at confirmed. |
 | `confirmationRef` | identifier ; **required when status=confirmed** (consumed Confirmation) |
 | `doctrinePackageRef` | doctrine-package-ref |
 | `inputs` / `expectedOutputs` | object / string[] |
