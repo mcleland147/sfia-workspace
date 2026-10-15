@@ -1,103 +1,98 @@
-# SFIA Studio — P6-HQA-F05-GD4-01 — Review Pack FULL
+# SFIA Studio — P6-HQA-F05-GD4-01 Pass 02 — Review Pack FULL
 
-- **Horodatage** : 2026-10-15T20:46:23+0200 (Europe/Paris)
-- **GO Morris** : P6 HUMAN QA CORRECTION PASS — OPTIONAL ARTIFACT PRODUCTION / GENERIC PREPARE ROUTING
-- **Finding** : P6-HQA-F05-GD4-01
+- **Horodatage** : 2026-10-15T21:03:45+0200 (Europe/Paris)
+- **GO Morris** : P6 HUMAN QA CORRECTION PASS 02 — INTENT FIDELITY & AUTHORITY CONTINUITY
+- **Finding parent** : P6-HQA-F05-GD4-01
+- **Pass** : 02
 - **Macro** : STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01
-- **Milestone** : P6 — GLOBAL INTEGRATED PRODUCT QA
-- **Capacité** : V3-F05 (+ V3-F14 / P2-D-02 connexes)
-- **Cycle projet SFIA** : 8 — Delivery / implémentation
-- **Type** : RUN / CORRECTION
+- **Milestone** : P6
+- **Cycle projet** : 8 — Delivery / implémentation
+- **Typologie** : RUN / CORRECTION
 - **Profil** : CRITICAL
-- **CKC** : `projects/sfia-studio/sfia-v3-framing/ckc/08-delivery-implementation.md` (guidance candidate ; aucune autorité métier)
+- **CKC** : ckc:studio:delivery (`sfia-v3-framing/ckc/08-delivery-implementation.md`) — guidance only
 
 ## 1. Local Git Truth initial
 
 | Check | Valeur |
 |---|---|
-| Repository | mcleland147/sfia-workspace |
-| origin/main attendu | `52f3688476e41cbab8fbe230f0ef4ddddb9aa56e` |
-| origin/main observé | `52f3688476e41cbab8fbe230f0ef4ddddb9aa56e` |
-| Drift | **AUCUN** (trees 11ca7215 ≡ 52f36884) |
-| Worktree correction | `/Users/morris/Projects/sfia-workspace-p6-hqa-optional-artifact-generic-prepare` |
+| origin/main | `52f3688476e41cbab8fbe230f0ef4ddddb9aa56e` |
 | Branche | `fix/sfia-studio-p6-hqa-optional-artifact-generic-prepare` |
-| HEAD initial/final (baseline) | `52f3688476e41cbab8fbe230f0ef4ddddb9aa56e` |
-| Runtime :3020 | **non modifié** |
-| Bases e66 | **non touchées** |
-| Commit projet | **AUCUN** (hors scope de ce pass) |
+| HEAD | `52f3688476e41cbab8fbe230f0ef4ddddb9aa56e` |
+| Worktree | `/Users/morris/Projects/sfia-workspace-p6-hqa-optional-artifact-generic-prepare` |
+| Pass 01 préservé | OUI (helper routing + fake marker + test F05 présents) |
+| Staged | AUCUN |
+| :3020 / e66 | non touchés |
+| Commit projet | AUCUN |
+
+Handoff Pass 01 distant vérifié : commit `97641274…` / blob `d54fd0c8…`.
 
 ## 2. Sources consultées
 
-- prompts/templates/sfia-cycle-execution-template.md (réf.)
-- method/sfia-fast-track/core/sfia-cycle-routing-guide.md (réf.)
-- convergence doctrine + roadmap ; product-completion ; product-simplification 02/07 ; framing 32/35 (réf. P2-D-01/02/03)
-- Runtime lu/modifié : `activeCycleGovernedContinuation.ts`, `orchestrateF2.ts`
-- Runtime lu : `prepareGenericExecutionContractDraft.ts`, `resolveAuthoritativeProductMateriality.ts`
-- Fake boundary : `fakeProvider.ts`
-- CKC Delivery : `sfia-v3-framing/ckc/08-delivery-implementation.md`
+- Cycle template / routing / guardrails / delivery pipeline / decision engine (réf.)
+- Convergence doctrine + roadmap ; product-completion ; product-simplification 02/07
+- Framing 30/32/35 ; CKC 08-delivery
+- Product : `pendingGenericPrepareOfferStore.ts`, `prepareGenericExecutionContractDraft.ts`, `resolveAuthoritativeProductMateriality.ts`, `orchestrateF2.ts`, `activeCycleGovernedContinuation.ts`, `executionIntentSchema.ts`
+- Handoff Pass 01 distant (complet)
 
-## 3. Convergence Pre-check
+## 3. Convergence
 
-- V3-F05 intégrée via PR #585 ; P6 IN PROGRESS / NOT PASSED
-- KEEP : Generic PREPARE, Artifact Continuation, P2-D-02, Materiality, HD, Confirmation, EC, RepositoryBinding
-- Gap : demande documentaire naturelle capturée par routage Artifact obligatoire → dead-end `no_require_artifact` avant Generic PREPARE
-- Exit Proof recherché : mission documentaire facultative → Generic PREPARE → EC inspectable ; parcours obligatoire préservé
+- Pass 01 : routing optional documentary → Generic PREPARE (KEEP)
+- Gap Pass 02 : offre appauvrie → reconstruction `intentKind:"other"` + perte champs documentaires
+- Exit Proof : INTENTION = MISSION ACCEPTÉE = PÉRIMÈTRE CONTRACTUEL INSPECTABLE = AUTORITÉ ÉVALUÉE (sémantique, sans élargissement)
 
-## 4. Finding Human QA
+## 4. Finding CRITICAL
 
-- Projet e66 / cycle `cyc:trj-255a8418ee8a735f23738c46`
-- Pilote demande un Markdown durable dans le dépôt (langage métier)
-- Réponse observée : `[LIVE] Continuation Artifact demandée, but aucune décision CURRENT REQUIRE_ARTIFACT…`
-- Aucun ExecutionContract préparé
+`rememberGenericPrepareRecommendation` ne mémorisait pas les effets documentaires.
+`analysisFromPendingGenericPrepareOffer` reconstruisait `executionIntent.intentKind = "other"` et omettait targetPath, artifactFileName, artifactBrief, contentRequirements, expectedOutputs, requiredCapabilities, etc.
+Fingerprint d'offre ne couvrait que objective/expectedOutcome/scope — collisions sémantiques possibles.
 
-## 5. Cause technique confirmée
+## 5. Cause confirmée
 
-1. `hasNaturalActiveCycleDeliverableMaterializationSignal` / continuationKind → entrée Artifact-continuation
-2. `hasCompatibleDocsWriteMaterializationEffect` OK
-3. `admitsActiveCycleArtifactMaterializationContinuation` faux (pas de CURRENT REQUIRE_ARTIFACT / pas APPLICABLE unsatisfied)
-4. `resolveActiveCycleGovernedContinuation` → `ACTIVE_CYCLE_CONTINUATION_BLOCKED` / `no_require_artifact`
-5. `orchestrateF2` n’ouvrait Generic PREPARE que si `continuation.mode === "NEW_CYCLE_FORMALIZATION"`
-6. Branche BLOCKED émettait le message REQUIRE_ARTIFACT exclusif → dead-end conversationnel
+Perte d'informations à la frontière process-local offer ↔ rebuild ↔ PREPARE, pas un second moteur.
+`cap:cursor.docs_write` rétabli sans résolution explicite aurait élargi `authorityEnvelopeExpanded` — d'où résolution d'enveloppe dédiée.
 
-**Cause confirmée** (pas révisée) : intersection trop étroite Generic PREPARE ∩ Artifact block `no_require_artifact`.
+## 6. Solution Pass 02
 
-## 6. Choix de correction
+1. Étendre `PendingGenericPrepareOffer.missionEffects` (candidats Nora non autoritatifs).
+2. Mémoriser via `extractMissionEffectsFromAnalysis` + `validateExecutionIntentPayload`.
+3. Reconstruire fidèlement dans `analysisFromPendingGenericPrepareOffer` (plus de downgrade silencieux vers `other`).
+4. Fingerprint élargi (intentKind, paths, caps, outputs, brief, contentRequirements, scopeIn/Out).
+5. `genericPrepareCapabilityEnvelope.ts` — résolution explicite docs_write → generalist ; caps hors enveloppe → fail-closed.
+6. Contrat inspectable : inputs intentKind/brief/content/proposedTargetPath (non autoritatif) + capabilityResolution ; expectedOutputs documentaires.
+7. Materialité : collectConcreteMissionPaths inclut targetPath/expectedOutputs ; envelope docs_write non « elevated ».
 
-**Plus petite correction cohérente** :
+### Alternatives écartées
 
-- Conserver la sémantique de resolve : `no_require_artifact` reste un BLOCK Artifact (pas GOVERNED, pas NEW_CYCLE_FORMALIZATION)
-- Ajouter `isOptionalDocumentaryWithoutClosureArtifactBlock`
-- Dans `orchestrateF2`, élargir l’éligibilité Generic PREPARE à :
-  - `NEW_CYCLE_FORMALIZATION` **OU**
-  - `isOptionalDocumentaryWithoutClosureArtifactBlock(continuation)`
-- Ne **pas** élargir : `cycle_load_failed`, `incompatible_execution_intent`, `lifecycle_assess_failed`, obligations réellement applicables, etc.
-- Soften message fallback `no_require_artifact` (ne plus présenter REQUIRE_ARTIFACT comme unique issue)
-- Marqueur Fake `__P6_OPTIONAL_DOCUMENTARY_MD__` pour DET
+- Forcer NEW_CYCLE_FORMALIZATION (interdit Pass 01).
+- Traiter targetPath Nora comme autorité Git.
+- Persistence durable de l'offre (dette process-local conserve).
+- Inventer HD pour débloquer.
+- Troisième moteur Artifact.
 
-**Rejeté** : forcer `NEW_CYCLE_FORMALIZATION` comme alias ; inventer HD REQUIRE_ARTIFACT ; troisième moteur.
+## 7. Invariants préservés
 
-## 7. Parcours obligatoire préservé (Cas A)
+- P2-D-02 / Artifact obligatoire (T05)
+- G-D4 decisionRefs=[] seulement si NON_STRUCTURAL
+- D-PC-09 proposedTargetPathAuthoritative=false
+- AUTHORIZED ≠ EXECUTED ; ZERO Attempt
+- no_require_artifact ≠ preuve NON_STRUCTURAL
+- Pas de clôture auto
 
-Si CURRENT REQUIRE_ARTIFACT ou Artifact APPLICABLE+unsatisfied → `ACTIVE_CYCLE_GOVERNED_CONTINUATION` → Generic PREPARE **non** engagé (T05 PASS).
+## 8. Fichiers
 
-## 8. Parcours facultatif restauré (Cas B)
+### Pass 01 (préservés)
+- `f2/activeCycleGovernedContinuation.ts`
+- `f2/orchestrateF2.ts`
+- `lib/platform/ai/fakeProvider.ts`
+- `__tests__/.../p6.hqa.f05.gd4.optionalArtifactRouting.d0.test.ts` (étendu Pass 02)
 
-Signal materialization sans obligation de clôture → block `no_require_artifact` reconnu → Generic PREPARE recommend → accept CURRENT → EC natif `decisionRefs=[]` si NON_STRUCTURAL → inspect/authorize sans Attempt (T01–T04, T09 PASS).
+### Pass 02
+- `w2/pendingGenericPrepareOfferStore.ts` (MOD)
+- `w2/prepareGenericExecutionContractDraft.ts` (MOD)
+- `w2/resolveAuthoritativeProductMateriality.ts` (MOD)
+- `w2/genericPrepareCapabilityEnvelope.ts` (NEW)
 
-## 9. Fichiers
-
-### Modifiés
-- `projects/sfia-studio/app/features/project-assistant/f2/activeCycleGovernedContinuation.ts`
-- `projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts`
-- `projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts`
-
-### Créés
-- `projects/sfia-studio/app/__tests__/project-assistant/p6.hqa.f05.gd4.optionalArtifactRouting.d0.test.ts`
-
-### Interdits
-Aucun (doctrine / roadmap / SQLite e66 / :3020 / REAL configs)
-
-## 10. Diff Product exploitable
+## 9. DELTA PASS 01
 
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/f2/activeCycleGovernedContinuation.ts b/projects/sfia-studio/app/features/project-assistant/f2/activeCycleGovernedContinuation.ts
@@ -264,7 +259,484 @@ index 2c7a46f4..ea865141 100644
 
 ```
 
-## 11. Test dédié (contenu complet)
+## 10. DELTA PASS 02 (fichiers tracked)
+
+```diff
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/pendingGenericPrepareOfferStore.ts b/projects/sfia-studio/app/features/project-assistant/w2/pendingGenericPrepareOfferStore.ts
+index d1297e66..ea199c2f 100644
+--- a/projects/sfia-studio/app/features/project-assistant/w2/pendingGenericPrepareOfferStore.ts
++++ b/projects/sfia-studio/app/features/project-assistant/w2/pendingGenericPrepareOfferStore.ts
+@@ -4,6 +4,10 @@
+  * Keyed by projectId + sessionKey to prevent cross-session bind (CR-P6-04).
+  * Same durability class as mw5ChallengeSessionStore — NOT Product SQLite.
+  *
++ * P6-HQA-F05-GD4-01 Pass 02 — retains mission-effect fields needed for
++ * intent fidelity (docs_write / documentary outputs / proposed capabilities)
++ * without treating Nora proposals as Product path authority.
++ *
+  * LIMITATION (documented debt):
+  * - Lost on process restart → no stale PREPARE from prior process.
+  * - Not multi-instance durable.
+@@ -14,6 +18,34 @@
+
+ const STORE_KEY = "__SFIA_F2_PENDING_GENERIC_PREPARE_OFFER__" as const;
+
++/**
++ * Mission-effect slice remembered with the CURRENT prepare offer.
++ * Proposals (targetPath, artifactFileName, requiredCapabilities, …) are
++ * NON-AUTHORITATIVE Nora candidates until Product resolve / pathRoot /
++ * generalist capability resolution run at PREPARE.
++ */
++export type PendingGenericPrepareMissionEffects = {
++  readonly intentKind: string | null;
++  readonly artifactType: string | null;
++  /** Nora candidate — never Product Git authority by itself (D-PC-09). */
++  readonly proposedTargetPath: string | null;
++  readonly proposedArtifactFileName: string | null;
++  readonly proposedTargetRepositoryRef: string | null;
++  readonly artifactBrief: string | null;
++  readonly contentRequirements: readonly string[];
++  readonly expectedOutputs: readonly string[];
++  readonly proposedRequiredCapabilities: readonly string[];
++  readonly validationExpectations: readonly string[];
++  readonly evidenceRequirements: readonly string[];
++  readonly requestedOperation: string | null;
++  readonly reversibilityExpectation:
++    | "reversible"
++    | "irreversible"
++    | "unknown"
++    | null;
++  readonly exitRequirementKinds: readonly string[];
++};
++
+ export type PendingGenericPrepareOffer = {
+   readonly projectId: string;
+   /** Conversation/session discriminator — never cross-bind without match. */
+@@ -37,6 +69,8 @@ export type PendingGenericPrepareOffer = {
+   readonly contradictionConflictPresent: boolean;
+   readonly offeredAtIso: string;
+   readonly offerFingerprint: string;
++  /** Mission-effect fidelity (Pass 02). Absent on ancient in-memory shapes → treat as empty. */
++  readonly missionEffects?: PendingGenericPrepareMissionEffects;
+ };
+
+ type StoreSlot = {
+@@ -55,6 +89,30 @@ function offerKey(projectId: string, sessionKey: string): string {
+   return `${projectId.trim()}::${sessionKey.trim() || "default"}`;
+ }
+
++function freezeMissionEffects(
++  effects: PendingGenericPrepareMissionEffects | undefined,
++): PendingGenericPrepareMissionEffects | undefined {
++  if (!effects) return undefined;
++  return Object.freeze({
++    intentKind: effects.intentKind,
++    artifactType: effects.artifactType,
++    proposedTargetPath: effects.proposedTargetPath,
++    proposedArtifactFileName: effects.proposedArtifactFileName,
++    proposedTargetRepositoryRef: effects.proposedTargetRepositoryRef,
++    artifactBrief: effects.artifactBrief,
++    contentRequirements: Object.freeze([...effects.contentRequirements]),
++    expectedOutputs: Object.freeze([...effects.expectedOutputs]),
++    proposedRequiredCapabilities: Object.freeze([
++      ...effects.proposedRequiredCapabilities,
++    ]),
++    validationExpectations: Object.freeze([...effects.validationExpectations]),
++    evidenceRequirements: Object.freeze([...effects.evidenceRequirements]),
++    requestedOperation: effects.requestedOperation,
++    reversibilityExpectation: effects.reversibilityExpectation,
++    exitRequirementKinds: Object.freeze([...effects.exitRequirementKinds]),
++  });
++}
++
+ export function resolvePrepareOfferSessionKey(input: {
+   readonly sessionDbPath?: string | null;
+   readonly sessionKey?: string | null;
+@@ -86,6 +144,7 @@ export function rememberPendingGenericPrepareOffer(
+     stopConditions: Object.freeze([...offer.stopConditions]),
+     risks: Object.freeze([...offer.risks]),
+     reservations: Object.freeze([...offer.reservations]),
++    missionEffects: freezeMissionEffects(offer.missionEffects),
+   };
+   getSlot().byKey.set(offerKey(offer.projectId, next.sessionKey), next);
+   return next;
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/prepareGenericExecutionContractDraft.ts b/projects/sfia-studio/app/features/project-assistant/w2/prepareGenericExecutionContractDraft.ts
+index 2172b911..3d7be91e 100644
+--- a/projects/sfia-studio/app/features/project-assistant/w2/prepareGenericExecutionContractDraft.ts
++++ b/projects/sfia-studio/app/features/project-assistant/w2/prepareGenericExecutionContractDraft.ts
+@@ -51,8 +51,26 @@ import {
+   rememberPendingGenericPrepareOffer,
+   clearPendingGenericPrepareOffer,
+   resolvePrepareOfferSessionKey,
++  type PendingGenericPrepareMissionEffects,
+   type PendingGenericPrepareOffer,
+ } from "./pendingGenericPrepareOfferStore";
++import {
++  validateExecutionIntentPayload,
++  type ExecutionIntentPayload,
++} from "../f2/executionIntentSchema";
++import {
++  GENERIC_PREPARE_DOCS_WRITE_EFFECT_CAPABILITY,
++  isCapabilityWithinGenericPrepareEnvelope,
++  resolveGenericPrepareCapabilityEnvelope,
++  type GenericPrepareCapabilityResolution,
++} from "./genericPrepareCapabilityEnvelope";
++
++export {
++  GENERIC_PREPARE_DOCS_WRITE_EFFECT_CAPABILITY,
++  isCapabilityWithinGenericPrepareEnvelope,
++  resolveGenericPrepareCapabilityEnvelope,
++};
++export type { GenericPrepareCapabilityResolution };
+
+ export type GenericMissionPrepareReadiness = {
+   readonly ready: boolean;
+@@ -316,13 +334,49 @@ function stableMissionKey(input: {
+   return createHash("sha256").update(raw).digest("hex").slice(0, 24);
+ }
+
++export function extractMissionEffectsFromAnalysis(
++  analysis: IntentAnalysisDto,
++): PendingGenericPrepareMissionEffects {
++  const rawEi = analysis.executionIntent ?? null;
++  const validated = rawEi ? validateExecutionIntentPayload(rawEi) : null;
++  const ei: ExecutionIntentPayload | null =
++    validated && validated.ok ? validated.payload : null;
++  const rev = ei?.reversibilityExpectation ?? null;
++  return {
++    intentKind: ei?.intentKind?.trim() || null,
++    artifactType: ei?.artifactType?.trim() || null,
++    proposedTargetPath: ei?.targetPath?.trim() || null,
++    proposedArtifactFileName: ei?.artifactFileName?.trim() || null,
++    proposedTargetRepositoryRef: ei?.targetRepositoryRef?.trim() || null,
++    artifactBrief: ei?.artifactBrief?.trim() || null,
++    contentRequirements: [...(ei?.contentRequirements ?? [])],
++    expectedOutputs: [...(ei?.expectedOutputs ?? [])],
++    proposedRequiredCapabilities: [...(ei?.requiredCapabilities ?? [])],
++    validationExpectations: [...(ei?.validationExpectations ?? [])],
++    evidenceRequirements: [...(ei?.evidenceRequirements ?? [])],
++    requestedOperation:
++      ei?.requestedOperation?.trim() ||
++      analysis.requestedOperation?.trim() ||
++      null,
++    reversibilityExpectation:
++      rev === "reversible" || rev === "irreversible" || rev === "unknown"
++        ? rev
++        : null,
++    exitRequirementKinds: [...(ei?.exitRequirementKinds ?? [])],
++  };
++}
++
+ function offerFingerprintFor(input: {
+   readonly projectId: string;
+   readonly cycleInstanceId: string;
+   readonly objective: string;
+   readonly expectedOutcome: string;
+   readonly scope: string;
++  readonly scopeIn: readonly string[];
++  readonly scopeOut: readonly string[];
++  readonly missionEffects: PendingGenericPrepareMissionEffects;
+ }): string {
++  const e = input.missionEffects;
+   return createHash("sha256")
+     .update(
+       [
+@@ -331,6 +385,17 @@ function offerFingerprintFor(input: {
+         input.objective,
+         input.expectedOutcome,
+         input.scope,
++        input.scopeIn.join("|"),
++        input.scopeOut.join("|"),
++        e.intentKind ?? "",
++        e.artifactType ?? "",
++        e.proposedTargetPath ?? "",
++        e.proposedArtifactFileName ?? "",
++        e.proposedRequiredCapabilities.join("|"),
++        e.expectedOutputs.join("|"),
++        e.requestedOperation ?? "",
++        e.artifactBrief ?? "",
++        e.contentRequirements.join("|"),
+       ].join("\n"),
+     )
+     .digest("hex")
+@@ -359,12 +424,16 @@ export function rememberGenericPrepareRecommendation(input: {
+   const scopeNarrative = (input.analysis.scope ?? expectedOutcome).trim();
+   const scopeIn = input.analysis.executionIntent?.scopeIn ?? [];
+   const scopeOut = input.analysis.executionIntent?.scopeOut ?? [];
++  const missionEffects = extractMissionEffectsFromAnalysis(input.analysis);
+   const fp = offerFingerprintFor({
+     projectId: input.projectId,
+     cycleInstanceId: input.cycleInstanceId,
+     objective,
+     expectedOutcome,
+     scope: scopeNarrative,
++    scopeIn,
++    scopeOut,
++    missionEffects,
+   });
+   rememberPendingGenericPrepareOffer({
+     projectId: input.projectId,
+@@ -391,6 +460,7 @@ export function rememberGenericPrepareRecommendation(input: {
+     ),
+     offeredAtIso: input.offeredAtIso,
+     offerFingerprint: fp,
++    missionEffects,
+   });
+   return fp;
+ }
+@@ -399,6 +469,27 @@ export function rememberGenericPrepareRecommendation(input: {
+ export function analysisFromPendingGenericPrepareOffer(
+   offer: PendingGenericPrepareOffer,
+ ): IntentAnalysisDto {
++  const effects = offer.missionEffects;
++  const intentKind = effects?.intentKind?.trim() || "other";
++  const executionIntent: NonNullable<IntentAnalysisDto["executionIntent"]> = {
++    intentKind,
++    artifactType: effects?.artifactType ?? null,
++    // Candidate only — Product pathRoot / workspace still authoritative at PREPARE.
++    targetPath: effects?.proposedTargetPath ?? null,
++    artifactFileName: effects?.proposedArtifactFileName ?? null,
++    targetRepositoryRef: effects?.proposedTargetRepositoryRef ?? null,
++    scopeIn: [...offer.scopeIn],
++    scopeOut: [...offer.scopeOut],
++    expectedOutputs: [...(effects?.expectedOutputs ?? [])],
++    requiredCapabilities: [...(effects?.proposedRequiredCapabilities ?? [])],
++    validationExpectations: [...(effects?.validationExpectations ?? [])],
++    evidenceRequirements: [...(effects?.evidenceRequirements ?? [])],
++    requestedOperation: effects?.requestedOperation ?? null,
++    reversibilityExpectation: effects?.reversibilityExpectation ?? null,
++    artifactBrief: effects?.artifactBrief ?? null,
++    contentRequirements: [...(effects?.contentRequirements ?? [])],
++    exitRequirementKinds: [...(effects?.exitRequirementKinds ?? [])],
++  };
+   return {
+     parseOk: true,
+     intentClass: "actionable",
+@@ -426,12 +517,8 @@ export function analysisFromPendingGenericPrepareOffer(
+     activatedBlocks: [],
+     expectedOutcome: offer.expectedOutcome,
+     criticalJustification: null,
+-    requestedOperation: null,
+-    executionIntent: {
+-      intentKind: "other",
+-      scopeIn: [...offer.scopeIn],
+-      scopeOut: [...offer.scopeOut],
+-    } as IntentAnalysisDto["executionIntent"],
++    requestedOperation: effects?.requestedOperation ?? null,
++    executionIntent,
+   };
+ }
+
+@@ -475,6 +562,18 @@ export async function prepareGenericExecutionContractDraft(
+     };
+   }
+
++  const proposedCapabilities =
++    input.analysis.executionIntent?.requiredCapabilities ?? [];
++  const capabilityResolution =
++    resolveGenericPrepareCapabilityEnvelope(proposedCapabilities);
++  if (!capabilityResolution.ok) {
++    return {
++      ok: false,
++      code: capabilityResolution.code,
++      message: `Capacités hors enveloppe généraliste Product — clarification ou gate requis : ${capabilityResolution.elevated.join(", ")}. Aucune HumanDecision artificielle ; aucune élévation silencieuse.`,
++    };
++  }
++
+   const materialityResolution = await resolveAuthoritativeProductMateriality({
+     oa: input.oa,
+     projectId: input.projectId,
+@@ -515,6 +614,20 @@ export async function prepareGenericExecutionContractDraft(
+   const scopeIn = input.analysis.executionIntent?.scopeIn ?? [];
+   const outOfScope = input.analysis.outOfScope ?? [];
+   const cycleInstanceId = input.cycleInstanceId?.trim() || undefined;
++  const missionEffects = extractMissionEffectsFromAnalysis(input.analysis);
++  const documentaryExpectedOutputs = [
++    ...missionEffects.expectedOutputs,
++    ...(missionEffects.proposedTargetPath
++      ? [missionEffects.proposedTargetPath]
++      : []),
++    ...(missionEffects.proposedArtifactFileName
++      ? [missionEffects.proposedArtifactFileName]
++      : []),
++  ].filter((v, i, arr) => v.trim().length > 0 && arr.indexOf(v) === i);
++  const inspectableExpectedOutputs =
++    documentaryExpectedOutputs.length > 0
++      ? documentaryExpectedOutputs
++      : [expectedOutcome];
+
+   // D — source grounding / trusted launch when mission implies repository work.
+   const impliesGit = missionImpliesRepositoryWork(input.analysis);
+@@ -670,18 +783,36 @@ export async function prepareGenericExecutionContractDraft(
+       executionAttemptCreated: false,
+       prepareStatus: "draft_inspectable",
+       materialityFacts,
++      // Intent fidelity — inspectable mission effects (Pass 02).
++      intentKind: missionEffects.intentKind,
++      artifactType: missionEffects.artifactType,
++      artifactBrief: missionEffects.artifactBrief,
++      contentRequirements: [...missionEffects.contentRequirements],
++      validationExpectations: [...missionEffects.validationExpectations],
++      // D-PC-09 — Nora path/name candidates are NON-AUTHORITATIVE.
++      proposedTargetPath: missionEffects.proposedTargetPath,
++      proposedArtifactFileName: missionEffects.proposedArtifactFileName,
++      proposedTargetPathAuthoritative: false,
++      proposedRequiredCapabilities: [
++        ...capabilityResolution.proposedCapabilities,
++      ],
++      capabilityResolution: capabilityResolution.resolution,
++      contractCapabilitySurface: PRODUCT_CANONICAL_EXECUTION_CAPABILITY,
+       ...launchInputs,
+       ...(sourceGroundingPayload
+         ? { [CONTRACT_SOURCE_GROUNDING_INPUT_KEY]: sourceGroundingPayload }
+         : {}),
+       protectedPathHitsAtPrepare: collectProtectedPathHits(input.analysis),
+     },
+-    expectedOutputs: [expectedOutcome],
+-    requiredCapabilities: [PRODUCT_CANONICAL_EXECUTION_CAPABILITY],
++    expectedOutputs: inspectableExpectedOutputs,
++    requiredCapabilities: [...capabilityResolution.contractCapabilities],
+     requiredAuthority,
+     constraints,
+     stopConditions: mergedStops,
+-    evidenceRequirements: ["evreq:generic-prepare-mission-evidence"],
++    evidenceRequirements: [
++      "evreq:generic-prepare-mission-evidence",
++      ...missionEffects.evidenceRequirements,
++    ],
+     reversibility: "partially_reversible",
+     idempotencyKey,
+     correlationId,
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/resolveAuthoritativeProductMateriality.ts b/projects/sfia-studio/app/features/project-assistant/w2/resolveAuthoritativeProductMateriality.ts
+index 02a8d5ee..14f478e7 100644
+--- a/projects/sfia-studio/app/features/project-assistant/w2/resolveAuthoritativeProductMateriality.ts
++++ b/projects/sfia-studio/app/features/project-assistant/w2/resolveAuthoritativeProductMateriality.ts
+@@ -22,7 +22,7 @@ import { classifyStudioProductProtectedPath } from "@/lib/oa/sandboxContract";
+ import { readLiveProjectContext } from "@/lib/vertical-slice-runtime";
+ import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
+ import type { IntentAnalysisDto } from "../f2/types";
+-import { PRODUCT_CANONICAL_EXECUTION_CAPABILITY } from "./w3aProductExecutionSemantics";
++import { isCapabilityWithinGenericPrepareEnvelope } from "./genericPrepareCapabilityEnvelope";
+
+ export type ProductMaterialityCurrentness = {
+   readonly lpsId: string;
+@@ -70,6 +70,12 @@ export function collectConcreteMissionPaths(
+     if (typeof p === "string") push(p);
+   }
+   if (typeof analysis.scope === "string") push(analysis.scope);
++  // Intent-fidelity WHERE candidates (Nora proposals) — still subject to pathRoot.
++  const ei = analysis.executionIntent;
++  if (typeof ei?.targetPath === "string") push(ei.targetPath);
++  for (const p of ei?.expectedOutputs ?? []) {
++    if (typeof p === "string") push(p);
++  }
+   return out;
+ }
+
+@@ -178,11 +184,10 @@ function deriveAuthorityEnvelopeExpanded(input: {
+       basis: "mission_paths_outside_repository_path_root",
+     };
+   }
++  // Pass 02 — docs_write effect-class is within Generic PREPARE envelope
++  // (resolved onto studio.cursor.generalist). Other elevated caps remain structural.
+   const elevated = input.requestedCapabilities.filter(
+-    (c) =>
+-      c.trim().length > 0 &&
+-      c.trim() !== PRODUCT_CANONICAL_EXECUTION_CAPABILITY &&
+-      !c.includes("generalist"),
++    (c) => c.trim().length > 0 && !isCapabilityWithinGenericPrepareEnvelope(c),
+   );
+   if (elevated.length > 0) {
+     return {
+
+```
+
+## 11. Fichier créé Pass 02 — genericPrepareCapabilityEnvelope.ts (complet)
+
+```typescript
+/**
+ * Generic PREPARE capability envelope — shared by offer reconstruction,
+ * materiality, and ExecutionContract PREPARE.
+ *
+ * Documentary effect-class `cap:cursor.docs_write` may be proposed by Nora.
+ * Product Generic PREPARE resolves it onto studio.cursor.generalist — never
+ * silently dropped, never treated as elevated authority by itself.
+ */
+
+import { PRODUCT_CANONICAL_EXECUTION_CAPABILITY } from "./w3aProductExecutionSemantics";
+
+export const GENERIC_PREPARE_DOCS_WRITE_EFFECT_CAPABILITY =
+  "cap:cursor.docs_write" as const;
+
+export function isCapabilityWithinGenericPrepareEnvelope(cap: string): boolean {
+  const c = cap.trim();
+  if (!c) return true;
+  if (c === PRODUCT_CANONICAL_EXECUTION_CAPABILITY) return true;
+  if (c.includes("generalist")) return true;
+  if (c === GENERIC_PREPARE_DOCS_WRITE_EFFECT_CAPABILITY) return true;
+  return false;
+}
+
+export type GenericPrepareCapabilityResolution =
+  | {
+      readonly ok: true;
+      readonly contractCapabilities: readonly [
+        typeof PRODUCT_CANONICAL_EXECUTION_CAPABILITY,
+      ];
+      readonly proposedCapabilities: readonly string[];
+      readonly resolution:
+        | "no_proposed_capabilities_default_generalist"
+        | "docs_write_effect_resolved_onto_generalist_product_surface"
+        | "already_generalist_envelope";
+    }
+  | {
+      readonly ok: false;
+      readonly code: "CAPABILITY_OUTSIDE_GENERALIST_ENVELOPE";
+      readonly elevated: readonly string[];
+      readonly proposedCapabilities: readonly string[];
+    };
+
+export function resolveGenericPrepareCapabilityEnvelope(
+  proposed: readonly string[] | null | undefined,
+): GenericPrepareCapabilityResolution {
+  const cleaned = (proposed ?? [])
+    .map((c) => c.trim())
+    .filter((c) => c.length > 0);
+  if (cleaned.length === 0) {
+    return {
+      ok: true,
+      contractCapabilities: [PRODUCT_CANONICAL_EXECUTION_CAPABILITY],
+      proposedCapabilities: [],
+      resolution: "no_proposed_capabilities_default_generalist",
+    };
+  }
+  const elevated = cleaned.filter(
+    (c) => !isCapabilityWithinGenericPrepareEnvelope(c),
+  );
+  if (elevated.length > 0) {
+    return {
+      ok: false,
+      code: "CAPABILITY_OUTSIDE_GENERALIST_ENVELOPE",
+      elevated,
+      proposedCapabilities: cleaned,
+    };
+  }
+  const hasDocsWrite = cleaned.includes(
+    GENERIC_PREPARE_DOCS_WRITE_EFFECT_CAPABILITY,
+  );
+  return {
+    ok: true,
+    contractCapabilities: [PRODUCT_CANONICAL_EXECUTION_CAPABILITY],
+    proposedCapabilities: cleaned,
+    resolution: hasDocsWrite
+      ? "docs_write_effect_resolved_onto_generalist_product_surface"
+      : "already_generalist_envelope",
+  };
+}
+
+```
+
+## 12. Test F05 (complet, Pass 01+02)
 
 ```typescript
 /**
@@ -293,6 +765,14 @@ import {
   getPendingGenericPrepareOffer,
   resolvePrepareOfferSessionKey,
 } from "@/features/project-assistant/w2/pendingGenericPrepareOfferStore";
+import {
+  analysisFromPendingGenericPrepareOffer,
+  rememberGenericPrepareRecommendation,
+  resolveGenericPrepareCapabilityEnvelope,
+} from "@/features/project-assistant/w2/prepareGenericExecutionContractDraft";
+import {
+  PRODUCT_CANONICAL_EXECUTION_CAPABILITY,
+} from "@/features/project-assistant/w2/w3aProductExecutionSemantics";
 import {
   w2AuthorizeExecutionContractAction,
   w2ConfirmExecutionContractAction,
@@ -591,6 +1071,17 @@ describe("P6-HQA-F05-GD4-01 optional Artifact / Generic PREPARE routing", () => 
     const offer = getPendingGenericPrepareOffer(projectId, sessionKey);
     expect(offer).toBeTruthy();
     expect(offer?.cycleInstanceId).toBe(cycleInstanceId);
+    // Pass 02 — offer retains documentary mission effects (not stripped).
+    expect(offer?.missionEffects?.intentKind).toBe("docs_write");
+    expect(offer?.missionEffects?.proposedTargetPath).toMatch(/note-cadrage\.md$/);
+    expect(offer?.missionEffects?.artifactBrief).toBeTruthy();
+    expect(offer?.missionEffects?.contentRequirements.length).toBeGreaterThan(0);
+    expect(offer?.missionEffects?.proposedRequiredCapabilities).toContain(
+      "cap:cursor.docs_write",
+    );
+    const rebuilt = analysisFromPendingGenericPrepareOffer(offer!);
+    expect(rebuilt.executionIntent?.intentKind).toBe("docs_write");
+    expect(rebuilt.executionIntent?.intentKind).not.toBe("other");
 
     const turn2 = await orchestrateAssistantSend({
       projectId,
@@ -612,6 +1103,20 @@ describe("P6-HQA-F05-GD4-01 optional Artifact / Generic PREPARE routing", () => 
     if (!loaded.ok) throw new Error("load");
     expect(loaded.contract.decisionRefs ?? []).toEqual([]);
     expect(loaded.contract.constraints).toContain("MATERIALITY:NON_STRUCTURAL");
+    const inputs = loaded.contract.inputs as Record<string, unknown>;
+    expect(inputs.intentKind).toBe("docs_write");
+    expect(inputs.proposedTargetPathAuthoritative).toBe(false);
+    expect(inputs.capabilityResolution).toBe(
+      "docs_write_effect_resolved_onto_generalist_product_surface",
+    );
+    expect(loaded.contract.requiredCapabilities).toEqual([
+      PRODUCT_CANONICAL_EXECUTION_CAPABILITY,
+    ]);
+    expect(
+      (loaded.contract.expectedOutputs ?? []).some((o) =>
+        /note-cadrage\.md/.test(o),
+      ),
+    ).toBe(true);
 
     const cyclesAfter = (
       await oa.cycleServices.cycles.listByProject(projectId)
@@ -712,95 +1217,699 @@ describe("P6-HQA-F05-GD4-01 optional Artifact / Generic PREPARE routing", () => 
     // Must not invent gen-prep from a new-cycle formalization ask alone without offer.
     expect(turn.text).not.toMatch(/aucune décision CURRENT REQUIRE_ARTIFACT/i);
   });
+
+  it("Pass02-T01/T05 — fingerprint distinguishes path/capability; reconstruction keeps docs_write", async () => {
+    const { projectId, cycleInstanceId } = await seedProject({ suffix: "fp" });
+    const base = optionalDocumentaryAnalysis();
+    const fpA = rememberGenericPrepareRecommendation({
+      projectId,
+      cycleInstanceId,
+      analysis: base,
+      offeredAtIso: "2026-10-15T18:00:00.000Z",
+      sessionDbPath,
+    });
+    const offerA = getPendingGenericPrepareOffer(
+      projectId,
+      resolvePrepareOfferSessionKey({ sessionDbPath }),
+    );
+    expect(offerA?.offerFingerprint).toBe(fpA);
+    expect(analysisFromPendingGenericPrepareOffer(offerA!).executionIntent?.intentKind).toBe(
+      "docs_write",
+    );
+
+    const otherPath = optionalDocumentaryAnalysis();
+    (
+      otherPath.executionIntent as { targetPath: string }
+    ).targetPath = "projects/demo/docs/autre-note.md";
+    (
+      otherPath.executionIntent as { expectedOutputs: string[] }
+    ).expectedOutputs = ["projects/demo/docs/autre-note.md"];
+    const fpB = rememberGenericPrepareRecommendation({
+      projectId,
+      cycleInstanceId,
+      analysis: otherPath,
+      offeredAtIso: "2026-10-15T18:01:00.000Z",
+      sessionDbPath,
+    });
+    expect(fpB).not.toBe(fpA);
+
+    const elevated = resolveGenericPrepareCapabilityEnvelope([
+      "cap:cursor.docs_write",
+      "cap:github.pr.merge",
+    ]);
+    expect(elevated.ok).toBe(false);
+    if (!elevated.ok) {
+      expect(elevated.code).toBe("CAPABILITY_OUTSIDE_GENERALIST_ENVELOPE");
+      expect(elevated.elevated).toContain("cap:github.pr.merge");
+    }
+    const docsOnly = resolveGenericPrepareCapabilityEnvelope([
+      "cap:cursor.docs_write",
+    ]);
+    expect(docsOnly.ok).toBe(true);
+    if (docsOnly.ok) {
+      expect(docsOnly.resolution).toBe(
+        "docs_write_effect_resolved_onto_generalist_product_surface",
+      );
+      expect(docsOnly.contractCapabilities).toEqual([
+        PRODUCT_CANONICAL_EXECUTION_CAPABILITY,
+      ]);
+    }
+  });
 });
 
 ```
 
-## 12. Validations
+## 13. DIFF CUMULÉ FINAL (tracked Product)
+
+```diff
+diff --git a/projects/sfia-studio/app/features/project-assistant/f2/activeCycleGovernedContinuation.ts b/projects/sfia-studio/app/features/project-assistant/f2/activeCycleGovernedContinuation.ts
+index 087cfca1..ef27e815 100644
+--- a/projects/sfia-studio/app/features/project-assistant/f2/activeCycleGovernedContinuation.ts
++++ b/projects/sfia-studio/app/features/project-assistant/f2/activeCycleGovernedContinuation.ts
+@@ -537,6 +537,23 @@ export type ActiveCycleContinuationResolution =
+       readonly reason: "no_materialization_intent";
+     };
+
++/**
++ * P6-HQA-F05-GD4-01 — Artifact-continuation handling recognized a materialization
++ * signal, but no closure obligation (CURRENT REQUIRE_ARTIFACT / APPLICABLE
++ * unsatisfied) is established. This is NOT an Artifact governed continuation
++ * and MUST NOT invent a HumanDecision. It is also NOT NEW_CYCLE_FORMALIZATION.
++ * Orchestration may qualify the ordinary documentary mission via Generic PREPARE
++ * when Product readiness/materiality allow — other BLOCKED reasons stay exclusive.
++ */
++export function isOptionalDocumentaryWithoutClosureArtifactBlock(
++  resolution: ActiveCycleContinuationResolution,
++): boolean {
++  return (
++    resolution.mode === "ACTIVE_CYCLE_CONTINUATION_BLOCKED" &&
++    resolution.reason === "no_require_artifact"
++  );
++}
++
+ function blocked(
+   reason: ContinuationBlockedReason,
+   activeCycle: CycleInstance | null = null,
+@@ -1093,7 +1110,9 @@ export function continuationBlockedMessage(
+     case "active_cycle_not_active":
+       return `Continuation Artifact demandée, mais le cycle référencé n'est pas actif.${cycleHint} Aucun nouveau CycleInstance créé.`;
+     case "no_require_artifact":
+-      return `Continuation Artifact demandée, mais aucune décision CURRENT REQUIRE_ARTIFACT n'est ouverte sur le cycle actif.${cycleHint} Aucun nouveau CycleInstance créé.`;
++      // Fallback only — ordinary documentary missions should route to Generic
++      // PREPARE (P6-HQA-F05-GD4-01) before this message is shown.
++      return `Cette demande documentaire n'est pas établie comme obligation Artifact de clôture du cycle actif.${cycleHint} Aucune HumanDecision artificielle. Aucun nouveau CycleInstance créé.`;
+     case "artifact_already_satisfied":
+       return `Le livrable requis du cycle actif est déjà satisfait — cette matérialisation n'est plus une obligation ouverte.${cycleHint} Aucun nouveau CycleInstance créé.`;
+     case "lifecycle_assess_failed":
+diff --git a/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts b/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
+index 17c5402d..47e4e51c 100644
+--- a/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
++++ b/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
+@@ -71,6 +71,7 @@ import { evaluateMorrisGateRequired } from "./gatePolicy";
+ import {
+   resolveActiveCycleGovernedContinuation,
+   continuationBlockedMessage,
++  isOptionalDocumentaryWithoutClosureArtifactBlock,
+ } from "./activeCycleGovernedContinuation";
+ import {
+   enrichQualificationWithCkcSemantics,
+@@ -2002,8 +2003,16 @@ export async function orchestrateAssistantSend(input: {
+       analysis.intentClass === "execution_request" ||
+       chatFirstPrepareAccept;
+
++    // P6-HQA-F05-GD4-01 — ordinary documentary materialization without a
++    // closure Artifact obligation must not dead-end on no_require_artifact.
++    // Reuse Generic PREPARE on the SAME active cycle. Do NOT alias this as
++    // NEW_CYCLE_FORMALIZATION. Do NOT widen other BLOCKED reasons.
++    const eligibleForGenericPrepareRouting =
++      continuation.mode === "NEW_CYCLE_FORMALIZATION" ||
++      isOptionalDocumentaryWithoutClosureArtifactBlock(continuation);
++
+     if (
+-      continuation.mode === "NEW_CYCLE_FORMALIZATION" &&
++      eligibleForGenericPrepareRouting &&
+       Boolean(activeIdForPrepare) &&
+       actionableForGenericPrepare
+     ) {
+@@ -2212,12 +2221,15 @@ export async function orchestrateAssistantSend(input: {
+         turnKind: "f1_informative",
+       });
+     }
+-    } // actionableForGenericPrepare / NEW_CYCLE_FORMALIZATION
++    } // actionableForGenericPrepare / eligible Generic PREPARE routing
+   } // chat-first prepare gate scope
+
+   if (continuation.mode === "ACTIVE_CYCLE_CONTINUATION_BLOCKED") {
+     // CR-07-05 — recognized Artifact continuation that cannot be verified:
+     // BLOCK / clarify in-cycle. NEVER createCycle.
++    // no_require_artifact: optional documentary path should have been consumed
++    // by Generic PREPARE above when actionable; remaining cases stay fail-safe
++    // clarification without inventing REQUIRE_ARTIFACT.
+     const activeId =
+       continuation.activeCycle?.cycleInstanceId ??
+       project.activeCycleInstanceId ??
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/pendingGenericPrepareOfferStore.ts b/projects/sfia-studio/app/features/project-assistant/w2/pendingGenericPrepareOfferStore.ts
+index d1297e66..ea199c2f 100644
+--- a/projects/sfia-studio/app/features/project-assistant/w2/pendingGenericPrepareOfferStore.ts
++++ b/projects/sfia-studio/app/features/project-assistant/w2/pendingGenericPrepareOfferStore.ts
+@@ -4,6 +4,10 @@
+  * Keyed by projectId + sessionKey to prevent cross-session bind (CR-P6-04).
+  * Same durability class as mw5ChallengeSessionStore — NOT Product SQLite.
+  *
++ * P6-HQA-F05-GD4-01 Pass 02 — retains mission-effect fields needed for
++ * intent fidelity (docs_write / documentary outputs / proposed capabilities)
++ * without treating Nora proposals as Product path authority.
++ *
+  * LIMITATION (documented debt):
+  * - Lost on process restart → no stale PREPARE from prior process.
+  * - Not multi-instance durable.
+@@ -14,6 +18,34 @@
+
+ const STORE_KEY = "__SFIA_F2_PENDING_GENERIC_PREPARE_OFFER__" as const;
+
++/**
++ * Mission-effect slice remembered with the CURRENT prepare offer.
++ * Proposals (targetPath, artifactFileName, requiredCapabilities, …) are
++ * NON-AUTHORITATIVE Nora candidates until Product resolve / pathRoot /
++ * generalist capability resolution run at PREPARE.
++ */
++export type PendingGenericPrepareMissionEffects = {
++  readonly intentKind: string | null;
++  readonly artifactType: string | null;
++  /** Nora candidate — never Product Git authority by itself (D-PC-09). */
++  readonly proposedTargetPath: string | null;
++  readonly proposedArtifactFileName: string | null;
++  readonly proposedTargetRepositoryRef: string | null;
++  readonly artifactBrief: string | null;
++  readonly contentRequirements: readonly string[];
++  readonly expectedOutputs: readonly string[];
++  readonly proposedRequiredCapabilities: readonly string[];
++  readonly validationExpectations: readonly string[];
++  readonly evidenceRequirements: readonly string[];
++  readonly requestedOperation: string | null;
++  readonly reversibilityExpectation:
++    | "reversible"
++    | "irreversible"
++    | "unknown"
++    | null;
++  readonly exitRequirementKinds: readonly string[];
++};
++
+ export type PendingGenericPrepareOffer = {
+   readonly projectId: string;
+   /** Conversation/session discriminator — never cross-bind without match. */
+@@ -37,6 +69,8 @@ export type PendingGenericPrepareOffer = {
+   readonly contradictionConflictPresent: boolean;
+   readonly offeredAtIso: string;
+   readonly offerFingerprint: string;
++  /** Mission-effect fidelity (Pass 02). Absent on ancient in-memory shapes → treat as empty. */
++  readonly missionEffects?: PendingGenericPrepareMissionEffects;
+ };
+
+ type StoreSlot = {
+@@ -55,6 +89,30 @@ function offerKey(projectId: string, sessionKey: string): string {
+   return `${projectId.trim()}::${sessionKey.trim() || "default"}`;
+ }
+
++function freezeMissionEffects(
++  effects: PendingGenericPrepareMissionEffects | undefined,
++): PendingGenericPrepareMissionEffects | undefined {
++  if (!effects) return undefined;
++  return Object.freeze({
++    intentKind: effects.intentKind,
++    artifactType: effects.artifactType,
++    proposedTargetPath: effects.proposedTargetPath,
++    proposedArtifactFileName: effects.proposedArtifactFileName,
++    proposedTargetRepositoryRef: effects.proposedTargetRepositoryRef,
++    artifactBrief: effects.artifactBrief,
++    contentRequirements: Object.freeze([...effects.contentRequirements]),
++    expectedOutputs: Object.freeze([...effects.expectedOutputs]),
++    proposedRequiredCapabilities: Object.freeze([
++      ...effects.proposedRequiredCapabilities,
++    ]),
++    validationExpectations: Object.freeze([...effects.validationExpectations]),
++    evidenceRequirements: Object.freeze([...effects.evidenceRequirements]),
++    requestedOperation: effects.requestedOperation,
++    reversibilityExpectation: effects.reversibilityExpectation,
++    exitRequirementKinds: Object.freeze([...effects.exitRequirementKinds]),
++  });
++}
++
+ export function resolvePrepareOfferSessionKey(input: {
+   readonly sessionDbPath?: string | null;
+   readonly sessionKey?: string | null;
+@@ -86,6 +144,7 @@ export function rememberPendingGenericPrepareOffer(
+     stopConditions: Object.freeze([...offer.stopConditions]),
+     risks: Object.freeze([...offer.risks]),
+     reservations: Object.freeze([...offer.reservations]),
++    missionEffects: freezeMissionEffects(offer.missionEffects),
+   };
+   getSlot().byKey.set(offerKey(offer.projectId, next.sessionKey), next);
+   return next;
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/prepareGenericExecutionContractDraft.ts b/projects/sfia-studio/app/features/project-assistant/w2/prepareGenericExecutionContractDraft.ts
+index 2172b911..3d7be91e 100644
+--- a/projects/sfia-studio/app/features/project-assistant/w2/prepareGenericExecutionContractDraft.ts
++++ b/projects/sfia-studio/app/features/project-assistant/w2/prepareGenericExecutionContractDraft.ts
+@@ -51,8 +51,26 @@ import {
+   rememberPendingGenericPrepareOffer,
+   clearPendingGenericPrepareOffer,
+   resolvePrepareOfferSessionKey,
++  type PendingGenericPrepareMissionEffects,
+   type PendingGenericPrepareOffer,
+ } from "./pendingGenericPrepareOfferStore";
++import {
++  validateExecutionIntentPayload,
++  type ExecutionIntentPayload,
++} from "../f2/executionIntentSchema";
++import {
++  GENERIC_PREPARE_DOCS_WRITE_EFFECT_CAPABILITY,
++  isCapabilityWithinGenericPrepareEnvelope,
++  resolveGenericPrepareCapabilityEnvelope,
++  type GenericPrepareCapabilityResolution,
++} from "./genericPrepareCapabilityEnvelope";
++
++export {
++  GENERIC_PREPARE_DOCS_WRITE_EFFECT_CAPABILITY,
++  isCapabilityWithinGenericPrepareEnvelope,
++  resolveGenericPrepareCapabilityEnvelope,
++};
++export type { GenericPrepareCapabilityResolution };
+
+ export type GenericMissionPrepareReadiness = {
+   readonly ready: boolean;
+@@ -316,13 +334,49 @@ function stableMissionKey(input: {
+   return createHash("sha256").update(raw).digest("hex").slice(0, 24);
+ }
+
++export function extractMissionEffectsFromAnalysis(
++  analysis: IntentAnalysisDto,
++): PendingGenericPrepareMissionEffects {
++  const rawEi = analysis.executionIntent ?? null;
++  const validated = rawEi ? validateExecutionIntentPayload(rawEi) : null;
++  const ei: ExecutionIntentPayload | null =
++    validated && validated.ok ? validated.payload : null;
++  const rev = ei?.reversibilityExpectation ?? null;
++  return {
++    intentKind: ei?.intentKind?.trim() || null,
++    artifactType: ei?.artifactType?.trim() || null,
++    proposedTargetPath: ei?.targetPath?.trim() || null,
++    proposedArtifactFileName: ei?.artifactFileName?.trim() || null,
++    proposedTargetRepositoryRef: ei?.targetRepositoryRef?.trim() || null,
++    artifactBrief: ei?.artifactBrief?.trim() || null,
++    contentRequirements: [...(ei?.contentRequirements ?? [])],
++    expectedOutputs: [...(ei?.expectedOutputs ?? [])],
++    proposedRequiredCapabilities: [...(ei?.requiredCapabilities ?? [])],
++    validationExpectations: [...(ei?.validationExpectations ?? [])],
++    evidenceRequirements: [...(ei?.evidenceRequirements ?? [])],
++    requestedOperation:
++      ei?.requestedOperation?.trim() ||
++      analysis.requestedOperation?.trim() ||
++      null,
++    reversibilityExpectation:
++      rev === "reversible" || rev === "irreversible" || rev === "unknown"
++        ? rev
++        : null,
++    exitRequirementKinds: [...(ei?.exitRequirementKinds ?? [])],
++  };
++}
++
+ function offerFingerprintFor(input: {
+   readonly projectId: string;
+   readonly cycleInstanceId: string;
+   readonly objective: string;
+   readonly expectedOutcome: string;
+   readonly scope: string;
++  readonly scopeIn: readonly string[];
++  readonly scopeOut: readonly string[];
++  readonly missionEffects: PendingGenericPrepareMissionEffects;
+ }): string {
++  const e = input.missionEffects;
+   return createHash("sha256")
+     .update(
+       [
+@@ -331,6 +385,17 @@ function offerFingerprintFor(input: {
+         input.objective,
+         input.expectedOutcome,
+         input.scope,
++        input.scopeIn.join("|"),
++        input.scopeOut.join("|"),
++        e.intentKind ?? "",
++        e.artifactType ?? "",
++        e.proposedTargetPath ?? "",
++        e.proposedArtifactFileName ?? "",
++        e.proposedRequiredCapabilities.join("|"),
++        e.expectedOutputs.join("|"),
++        e.requestedOperation ?? "",
++        e.artifactBrief ?? "",
++        e.contentRequirements.join("|"),
+       ].join("\n"),
+     )
+     .digest("hex")
+@@ -359,12 +424,16 @@ export function rememberGenericPrepareRecommendation(input: {
+   const scopeNarrative = (input.analysis.scope ?? expectedOutcome).trim();
+   const scopeIn = input.analysis.executionIntent?.scopeIn ?? [];
+   const scopeOut = input.analysis.executionIntent?.scopeOut ?? [];
++  const missionEffects = extractMissionEffectsFromAnalysis(input.analysis);
+   const fp = offerFingerprintFor({
+     projectId: input.projectId,
+     cycleInstanceId: input.cycleInstanceId,
+     objective,
+     expectedOutcome,
+     scope: scopeNarrative,
++    scopeIn,
++    scopeOut,
++    missionEffects,
+   });
+   rememberPendingGenericPrepareOffer({
+     projectId: input.projectId,
+@@ -391,6 +460,7 @@ export function rememberGenericPrepareRecommendation(input: {
+     ),
+     offeredAtIso: input.offeredAtIso,
+     offerFingerprint: fp,
++    missionEffects,
+   });
+   return fp;
+ }
+@@ -399,6 +469,27 @@ export function rememberGenericPrepareRecommendation(input: {
+ export function analysisFromPendingGenericPrepareOffer(
+   offer: PendingGenericPrepareOffer,
+ ): IntentAnalysisDto {
++  const effects = offer.missionEffects;
++  const intentKind = effects?.intentKind?.trim() || "other";
++  const executionIntent: NonNullable<IntentAnalysisDto["executionIntent"]> = {
++    intentKind,
++    artifactType: effects?.artifactType ?? null,
++    // Candidate only — Product pathRoot / workspace still authoritative at PREPARE.
++    targetPath: effects?.proposedTargetPath ?? null,
++    artifactFileName: effects?.proposedArtifactFileName ?? null,
++    targetRepositoryRef: effects?.proposedTargetRepositoryRef ?? null,
++    scopeIn: [...offer.scopeIn],
++    scopeOut: [...offer.scopeOut],
++    expectedOutputs: [...(effects?.expectedOutputs ?? [])],
++    requiredCapabilities: [...(effects?.proposedRequiredCapabilities ?? [])],
++    validationExpectations: [...(effects?.validationExpectations ?? [])],
++    evidenceRequirements: [...(effects?.evidenceRequirements ?? [])],
++    requestedOperation: effects?.requestedOperation ?? null,
++    reversibilityExpectation: effects?.reversibilityExpectation ?? null,
++    artifactBrief: effects?.artifactBrief ?? null,
++    contentRequirements: [...(effects?.contentRequirements ?? [])],
++    exitRequirementKinds: [...(effects?.exitRequirementKinds ?? [])],
++  };
+   return {
+     parseOk: true,
+     intentClass: "actionable",
+@@ -426,12 +517,8 @@ export function analysisFromPendingGenericPrepareOffer(
+     activatedBlocks: [],
+     expectedOutcome: offer.expectedOutcome,
+     criticalJustification: null,
+-    requestedOperation: null,
+-    executionIntent: {
+-      intentKind: "other",
+-      scopeIn: [...offer.scopeIn],
+-      scopeOut: [...offer.scopeOut],
+-    } as IntentAnalysisDto["executionIntent"],
++    requestedOperation: effects?.requestedOperation ?? null,
++    executionIntent,
+   };
+ }
+
+@@ -475,6 +562,18 @@ export async function prepareGenericExecutionContractDraft(
+     };
+   }
+
++  const proposedCapabilities =
++    input.analysis.executionIntent?.requiredCapabilities ?? [];
++  const capabilityResolution =
++    resolveGenericPrepareCapabilityEnvelope(proposedCapabilities);
++  if (!capabilityResolution.ok) {
++    return {
++      ok: false,
++      code: capabilityResolution.code,
++      message: `Capacités hors enveloppe généraliste Product — clarification ou gate requis : ${capabilityResolution.elevated.join(", ")}. Aucune HumanDecision artificielle ; aucune élévation silencieuse.`,
++    };
++  }
++
+   const materialityResolution = await resolveAuthoritativeProductMateriality({
+     oa: input.oa,
+     projectId: input.projectId,
+@@ -515,6 +614,20 @@ export async function prepareGenericExecutionContractDraft(
+   const scopeIn = input.analysis.executionIntent?.scopeIn ?? [];
+   const outOfScope = input.analysis.outOfScope ?? [];
+   const cycleInstanceId = input.cycleInstanceId?.trim() || undefined;
++  const missionEffects = extractMissionEffectsFromAnalysis(input.analysis);
++  const documentaryExpectedOutputs = [
++    ...missionEffects.expectedOutputs,
++    ...(missionEffects.proposedTargetPath
++      ? [missionEffects.proposedTargetPath]
++      : []),
++    ...(missionEffects.proposedArtifactFileName
++      ? [missionEffects.proposedArtifactFileName]
++      : []),
++  ].filter((v, i, arr) => v.trim().length > 0 && arr.indexOf(v) === i);
++  const inspectableExpectedOutputs =
++    documentaryExpectedOutputs.length > 0
++      ? documentaryExpectedOutputs
++      : [expectedOutcome];
+
+   // D — source grounding / trusted launch when mission implies repository work.
+   const impliesGit = missionImpliesRepositoryWork(input.analysis);
+@@ -670,18 +783,36 @@ export async function prepareGenericExecutionContractDraft(
+       executionAttemptCreated: false,
+       prepareStatus: "draft_inspectable",
+       materialityFacts,
++      // Intent fidelity — inspectable mission effects (Pass 02).
++      intentKind: missionEffects.intentKind,
++      artifactType: missionEffects.artifactType,
++      artifactBrief: missionEffects.artifactBrief,
++      contentRequirements: [...missionEffects.contentRequirements],
++      validationExpectations: [...missionEffects.validationExpectations],
++      // D-PC-09 — Nora path/name candidates are NON-AUTHORITATIVE.
++      proposedTargetPath: missionEffects.proposedTargetPath,
++      proposedArtifactFileName: missionEffects.proposedArtifactFileName,
++      proposedTargetPathAuthoritative: false,
++      proposedRequiredCapabilities: [
++        ...capabilityResolution.proposedCapabilities,
++      ],
++      capabilityResolution: capabilityResolution.resolution,
++      contractCapabilitySurface: PRODUCT_CANONICAL_EXECUTION_CAPABILITY,
+       ...launchInputs,
+       ...(sourceGroundingPayload
+         ? { [CONTRACT_SOURCE_GROUNDING_INPUT_KEY]: sourceGroundingPayload }
+         : {}),
+       protectedPathHitsAtPrepare: collectProtectedPathHits(input.analysis),
+     },
+-    expectedOutputs: [expectedOutcome],
+-    requiredCapabilities: [PRODUCT_CANONICAL_EXECUTION_CAPABILITY],
++    expectedOutputs: inspectableExpectedOutputs,
++    requiredCapabilities: [...capabilityResolution.contractCapabilities],
+     requiredAuthority,
+     constraints,
+     stopConditions: mergedStops,
+-    evidenceRequirements: ["evreq:generic-prepare-mission-evidence"],
++    evidenceRequirements: [
++      "evreq:generic-prepare-mission-evidence",
++      ...missionEffects.evidenceRequirements,
++    ],
+     reversibility: "partially_reversible",
+     idempotencyKey,
+     correlationId,
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/resolveAuthoritativeProductMateriality.ts b/projects/sfia-studio/app/features/project-assistant/w2/resolveAuthoritativeProductMateriality.ts
+index 02a8d5ee..14f478e7 100644
+--- a/projects/sfia-studio/app/features/project-assistant/w2/resolveAuthoritativeProductMateriality.ts
++++ b/projects/sfia-studio/app/features/project-assistant/w2/resolveAuthoritativeProductMateriality.ts
+@@ -22,7 +22,7 @@ import { classifyStudioProductProtectedPath } from "@/lib/oa/sandboxContract";
+ import { readLiveProjectContext } from "@/lib/vertical-slice-runtime";
+ import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
+ import type { IntentAnalysisDto } from "../f2/types";
+-import { PRODUCT_CANONICAL_EXECUTION_CAPABILITY } from "./w3aProductExecutionSemantics";
++import { isCapabilityWithinGenericPrepareEnvelope } from "./genericPrepareCapabilityEnvelope";
+
+ export type ProductMaterialityCurrentness = {
+   readonly lpsId: string;
+@@ -70,6 +70,12 @@ export function collectConcreteMissionPaths(
+     if (typeof p === "string") push(p);
+   }
+   if (typeof analysis.scope === "string") push(analysis.scope);
++  // Intent-fidelity WHERE candidates (Nora proposals) — still subject to pathRoot.
++  const ei = analysis.executionIntent;
++  if (typeof ei?.targetPath === "string") push(ei.targetPath);
++  for (const p of ei?.expectedOutputs ?? []) {
++    if (typeof p === "string") push(p);
++  }
+   return out;
+ }
+
+@@ -178,11 +184,10 @@ function deriveAuthorityEnvelopeExpanded(input: {
+       basis: "mission_paths_outside_repository_path_root",
+     };
+   }
++  // Pass 02 — docs_write effect-class is within Generic PREPARE envelope
++  // (resolved onto studio.cursor.generalist). Other elevated caps remain structural.
+   const elevated = input.requestedCapabilities.filter(
+-    (c) =>
+-      c.trim().length > 0 &&
+-      c.trim() !== PRODUCT_CANONICAL_EXECUTION_CAPABILITY &&
+-      !c.includes("generalist"),
++    (c) => c.trim().length > 0 && !isCapabilityWithinGenericPrepareEnvelope(c),
+   );
+   if (elevated.length > 0) {
+     return {
+diff --git a/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts b/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
+index 2c7a46f4..ea865141 100644
+--- a/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
++++ b/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
+@@ -1196,6 +1196,70 @@ export class FakeConversationProvider implements ConversationProvider {
+         },
+       };
+     }
++    // P6-HQA-F05-GD4-01 — ordinary Markdown deliverable on active cycle WITHOUT
++    // closure REQUIRE_ARTIFACT. Triggers natural materialization signal +
++    // compatible docs_write effect so resolve returns no_require_artifact;
++    // orchestration must route to Generic PREPARE (not REQUIRE_ARTIFACT dead-end).
++    if (markerProbe.includes("__P6_OPTIONAL_DOCUMENTARY_MD__")) {
++      return {
++        text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
++          intentClass: "actionable",
++          candidateCycleTypeId: "cyc:delivery",
++          signals: {
++            structuralChange: false,
++            securityImpact: false,
++            architectureImpact: false,
++            dataImpact: false,
++            irreversible: false,
++            lowRiskBounded: true,
++          },
++          cognitiveWorkload: null,
++          contradictionCandidate: null,
++          challengeResponseAssessment: "sufficient",
++          continuationKind: null,
++          artifactMaterializationOperation: "cursor.docs_write.apply",
++          objective:
++            "Produire un document Markdown enregistré dans le dépôt du projet",
++          scope: "projects/demo/docs",
++          rephrasedRequest:
++            "Créer un fichier Markdown durable dans le projet pour le cadrage",
++          outOfScope: ["Nouveau CycleInstance", "REQUIRE_ARTIFACT artificiel", "Cursor REAL"],
++          risks: [],
++          reservations: [],
++          stopConditions: ["AUCUNE EXÉCUTION SANS AUTORISATION"],
++          activatedBlocks: ["qualification"],
++          expectedOutcome: "Document Markdown consultable et évolutif dans le dépôt",
++          criticalJustification: null,
++          requestedOperation: null,
++          executionIntent: {
++            intentKind: "docs_write",
++            artifactType: "deliverable_document",
++            targetRepositoryRef: null,
++            targetPath: "projects/demo/docs/note-cadrage.md",
++            artifactFileName: "note-cadrage.md",
++            scopeIn: ["projects/demo/docs"],
++            scopeOut: ["projects/sfia-studio/convergence"],
++            expectedOutputs: ["projects/demo/docs/note-cadrage.md"],
++            requiredCapabilities: ["cap:cursor.docs_write"],
++            validationExpectations: [],
++            evidenceRequirements: [],
++            requestedOperation: null,
++            reversibilityExpectation: null,
++            artifactBrief: "Note de cadrage Markdown du projet",
++            contentRequirements: ["Contenu de cadrage défini avec Nora"],
++            exitRequirementKinds: [],
++          },
++          pilotDecisionCandidate: null,
++        })}`,
++        usage: {
++          inputTokens: 10 * this.callCount,
++          outputTokens: 5 * this.callCount,
++          totalTokens: 15 * this.callCount,
++          model: "fake-test-model",
++          providerResponseId: `fake-resp-${this.callCount}`,
++        },
++      };
++    }
+     // P6 Product Continuity Closure — generic Cursor mission (non-structural).
+     if (markerProbe.includes("__P6_GENERIC_MISSION__")) {
+       return {
+
+```
+
+## 14. Validations
 
 | Suite | Résultat |
 |---|---|
-| `p6.hqa.f05.gd4.optionalArtifactRouting.d0.test.ts` | **5/5 PASS** |
-| `activeCycleArtifactMaterializationContinuityCorr01` | PASS |
-| `activeCycleArtifactApplicabilityContinuationBridgeCorr01` | PASS |
-| `p6.gD4.genericPrepareWithoutSystematicHd` | PASS |
-| `p6.productContinuityClosure.integrated` | PASS |
-| `p6.hqa.f01.chatFirstCycleStartGate` (CI-HQA-F01) | PASS |
-| `p6.closureRegularization.repositoryCurrentness` | PASS |
-| Total batch régression | **58/58 PASS** |
-| `npm run typecheck` | PASS |
-| `npm run lint` | PASS |
-| OpenAI REAL | **NON** |
-| Cursor REAL | **NON** |
-| Human QA navigateur / :3020 | **NON** |
+| F05 optional routing (6) | PASS |
+| Artifact Continuity Corr01 | PASS |
+| Artifact Applicability Bridge | PASS |
+| G-D4 generic PREPARE | PASS |
+| P6 Product Continuity | PASS |
+| CI-HQA-F01 | PASS |
+| Repository Currentness | PASS |
+| **Total batch** | **59/59 PASS** (Pass 01 était 58/58 ; +1 test Pass 02) |
+| typecheck | PASS |
+| lint | PASS |
+| OpenAI REAL / Cursor REAL / :3020 / e66 | NON |
 
-## 13. Fake / Real qualification
+## 15. Fake / Real
 
-- Applicable : OUI
-- Tests : DETERMINISTIC (Fake OpenAI boundary)
-- REAL : NON EXÉCUTÉ
-- Niveau preuve : DETERMINISTIC PRODUCT PATH PROVEN AT TESTED SCOPE
-- Non autorisés : REAL BOUNDARY PROVEN / E2E REAL / P6 GLOBAL PASS / READY FOR REAL / RUNTIME V3 ADOPTED
-- Realism gaps : OpenAI réel ; e66 historique ; process-local ; managed pathRoot ; Auth Pilote réelle ; Cursor REAL ; Evidence REAL ; reprise navigateur post-merge
-- Gate Morris REAL : **NON CONSOMMÉ**
+- DETERMINISTIC PRODUCT PATH PROVEN AT PASS 02 TESTED SCOPE
+- Gaps : OpenAI LIVE, e66, pathRoot managed, Auth Pilote, Cursor REAL, Evidence REAL, process-local offer
+- Gate Morris REAL : NON CONSOMMÉ
 
-## 14. Invariants préservés
+## 16. Réserves
 
-- P2-D-02 : production facultative ≠ obligation de clôture ; pas de clôture auto
-- P2-D-01 / P2-D-03 : Recommendation ≠ HD ; Confirmation ≠ HD
-- G-D4 : `decisionRefs=[]` seulement si NON_STRUCTURAL autoritatif
-- AUTHORIZED ≠ EXECUTED ; ZERO Attempt sur PREPARE/authorize
-- Pas de nouveau CycleInstance sur parcours optionnel
+- Pending offer process-local (restart-safe NOT PROVEN)
+- proposedTargetPath reste candidat ; composition workspace server-owned à l'exécution REAL (hors pass)
+- Correctif non déployé sur :3020
+- Branche fix non poussée (GO Integration distinct)
 
-## 15. Réserves / dettes / sortie
-
-- Correctif local non déployé sur :3020 (GO distinct pour redéploiement Human QA)
-- Aucun commit/push de la branche `fix/...` dans ce pass
-- Re-test Morris sur e66 après intégration Git sous GO distinct
-- Message fallback `no_require_artifact` ne doit normalement plus apparaître pour missions actionables optionnelles
-
-## 16. Git Truth final
+## 17. Git Truth final
 
 ```
 branch=fix/sfia-studio-p6-hqa-optional-artifact-generic-prepare
 HEAD=52f3688476e41cbab8fbe230f0ef4ddddb9aa56e
 origin/main=52f3688476e41cbab8fbe230f0ef4ddddb9aa56e
 status:
+ M .tmp-sfia-review/chatgpt-review.md
  M projects/sfia-studio/app/features/project-assistant/f2/activeCycleGovernedContinuation.ts
  M projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
+ M projects/sfia-studio/app/features/project-assistant/w2/pendingGenericPrepareOfferStore.ts
+ M projects/sfia-studio/app/features/project-assistant/w2/prepareGenericExecutionContractDraft.ts
+ M projects/sfia-studio/app/features/project-assistant/w2/resolveAuthoritativeProductMateriality.ts
  M projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
 ?? projects/sfia-studio/app/__tests__/project-assistant/p6.hqa.f05.gd4.optionalArtifactRouting.d0.test.ts
+?? projects/sfia-studio/app/features/project-assistant/w2/genericPrepareCapabilityEnvelope.ts
 
-diff --stat:
- .../f2/activeCycleGovernedContinuation.ts          | 21 ++++++-
- .../features/project-assistant/f2/orchestrateF2.ts | 16 +++++-
- .../app/lib/platform/ai/fakeProvider.ts            | 64 ++++++++++++++++++++++
- 3 files changed, 98 insertions(+), 3 deletions(-)
+diff --stat (product):
+ .../f2/activeCycleGovernedContinuation.ts          |  21 ++-
+ .../features/project-assistant/f2/orchestrateF2.ts |  16 ++-
+ .../w2/pendingGenericPrepareOfferStore.ts          |  59 ++++++++
+ .../w2/prepareGenericExecutionContractDraft.ts     | 149 +++++++++++++++++++--
+ .../w2/resolveAuthoritativeProductMateriality.ts   |  15 ++-
+ .../app/lib/platform/ai/fakeProvider.ts            |  64 +++++++++
+ 6 files changed, 307 insertions(+), 17 deletions(-)
 
-diff --cached: (vide)
+cached: (vide)
 ```
 
-## 17. Gates Morris encore nécessaires
+## 18. Gates Morris
 
-1. Revue ChatGPT CRITICAL de ce correctif
-2. GO Git Integration (commit/push/PR) distinct
-3. Redéploiement runtime Human QA :3020
-4. Re-test manuel Morris sur e66
-5. Qualification P6 (hors ce pass)
+1. Critical Closure Review ChatGPT (Pass 01+02)
+2. GO Git Integration (commit/push/PR)
+3. Redéploiement :3020
+4. Human QA e66
+5. Qualification P6
 
-## 18. Verdict
+## 19. Verdict
 
 **LOCAL CORRECTION COMPLETE**
+**INTENT FIDELITY VERIFIED**
+**AUTHORITY CONTINUITY VERIFIED**
 **DETERMINISTIC VALIDATION PASS**
-**READY FOR CHATGPT CRITICAL REVIEW**
+**READY FOR CHATGPT CRITICAL CLOSURE REVIEW**
 
-## 19. Instruction ChatGPT obligatoire
+## 20. Instruction ChatGPT
 
-Avant d'évaluer ce rapport, lire dans Git :
+Lire `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md`.
 
-- Branche : `sfia/review-handoff`
-- Fichier : `sfia-review-handoff/latest-chatgpt-review.md`
+Vérifier Pass 01 préservé ; Pass 02 intégré ; fidélité intent/effets/caps ; chemin documentaire non autoritatif ; matérialité ; Artifact obligatoire ; tests 59/59 ; diffs ; commit/blob distant ; réserves ; gates.
 
-Vérifier : cycle/profil CRITICAL ; Git Truth `52f36884` ; cause `no_require_artifact` vs Generic PREPARE ; fichiers/diff ; tests 58 PASS ; protections Artifact obligatoire ; réserves ; fake/real ; gates ; commit/blob distant ; verdict.
-
-Produire ensuite une **revue CRITICAL** du correctif P6-HQA-F05-GD4-01.
+Produire : **SFIA STUDIO — P6-HQA-F05-GD4-01 CRITICAL CLOSURE REVIEW PASS 01 + PASS 02**.
