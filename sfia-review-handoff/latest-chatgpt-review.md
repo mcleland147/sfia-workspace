@@ -1,32 +1,35 @@
-# SFIA STUDIO — M-HD-02 POST-CLOSURE
-## P6 INTEGRATED PRODUCT QA — ENTRY QUALIFICATION
+# SFIA STUDIO — P6-MIN-07 M-HD-02
+## INTEGRATED PRODUCT QA — BOUNDED EXECUTION
 
-**Horodatage:** 2026-10-16 21:12:23 CEST (Europe/Paris)
-**GO Morris:** M-HD-02 POST-CLOSURE ENTRY QUALIFICATION — prochaine QA Product intégrée (2026-10-16)
+**Horodatage:** 2026-10-16 21:50:33 CEST (Europe/Paris)
+**GO Morris consommé:** P6-MIN-07 Integrated Product QA on M-HD-02 candidate (2026-10-16)
 **Macro:** STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01
 **Milestone:** P6 — GLOBAL INTEGRATED PRODUCT QA
 **Campaign ID:** P6-GLOBAL-INTEGRATED-PRODUCT-QA-01
+**Scenario ID:** P6-MIN-07
 **Cycle:** 9 — QA / validation
 **Profil:** CRITICAL
-**Typologie:** QA / ENTRY QUALIFICATION / READ-ONLY
-**Capacité:** V3-F05 (connexes V3-F02 / V3-F11 / V3-F12 / V3-F14)
+**Capacité:** V3-F05 (+ V3-F02 / V3-F11 / V3-F12 / V3-F14)
 **CKC:** ckc:studio:qa-validation
 
 ---
 
 ## 1. Verdict
 
-**P6 M-HD-02 INTEGRATED QA ENTRY QUALIFIED**
+**P6-MIN-07 QA — BLOCKED / ENVIRONMENT OR GATE**
 
-**NEXT QA SCENARIO READY FOR GOVERNED EXECUTION**
+**Sous-statut:** Better Auth session cookies EXPIRED (2026-10-14) → get-session = null → parcours Product HD NOT REACHED.
 
-Scénario unique retenu : **P6-MIN-07** — Recommendation / HumanDecision / currentness continuity,
-raccordé au candidat Delivery M-HD-02 (worktree dirty), **sans** nouvelle campagne,
-**sans** exécution dans ce cycle, **sans** ouverture E4–E8.
+**WAITING PILOT** pour :
+1. `npm run e2e:auth:bootstrap` (OAuth GitHub headed) sur runtime candidat ;
+2. puis HumanDecision Accept/Refuse explicite (ne pas automatiser).
+
+**Complément DETERMINISTIC (non substitutif):** 53/53 PASS sur suites M-HD-02 Fake/SQLite — preuve DETERMINISTIC, ≠ integrated browser.
 
 Claims interdits non revendiqués :
-P6 GLOBAL PASS · HUMAN QA PASS · READY FOR REAL GLOBAL · PRODUCT GIT INTEGRATED ·
-PR READY · RUNTIME V3 ADOPTED.
+P6 GLOBAL PASS · P6 COMPLETE · READY FOR REAL GLOBAL · HUMAN QA PASS · PRODUCT GIT INTEGRATED · PR READY · RUNTIME V3 ADOPTED.
+
+**Statut revue:** NOT READY (integrated) / READY WITH RESERVES (env préflight + DET).
 
 ---
 
@@ -34,14 +37,15 @@ PR READY · RUNTIME V3 ADOPTED.
 
 | Champ | Valeur |
 |-------|--------|
-| Remote | `mcleland147/sfia-workspace` |
-| Branche Product | `fix/sfia-studio-p6-hqa-optional-artifact-generic-prepare` |
+| Remote | mcleland147/sfia-workspace |
+| Branche | `fix/sfia-studio-p6-hqa-optional-artifact-generic-prepare` |
 | HEAD | `b4c1d86211d372f7b0685be7ce8a5ba7de598e37` |
 | origin/main | `896ff59c704bfa76df1da1a51705aaf948c1cf0c` |
-| Dirty | EXPECTED — préservé (aucun reset/stash/clean) |
+| Dirty | EXPECTED — préservé |
+| Dirty fingerprint SHA-256 | `1c8005bf124b365a64b25a7260cc088007207dcea3b71c2b5b1987611ba74ff1` |
 | Staged | vide |
-| Handoff RP04 précédent | `c819d015` / blob `3fd09ccb` |
 | Modifications Product ce cycle | **AUCUNE** |
+| Handoff entry précédent | `8599058c` / blob `f0fef84f` |
 
 ### git status --short
 
@@ -94,21 +98,23 @@ M .tmp-sfia-review/chatgpt-review.md
 
 ---
 
-## 3. Sources effectivement lues
+## 3. Sources réellement consultées
 
-PROCESSUS: `sfia-cycle-execution-template.md` · routing-guide · rules-and-guardrails · chatgpt-cursor-operating-model · SFIA v2.6 (PROCESSUS)
+PROCESSUS: template · routing · guardrails · operating model
 
-Convergence: Build Doctrine · Roadmap · Architecture D-ER candidate locale (`sfia-studio-generic-execution-review-result-architecture.md`)
+Convergence: Build Doctrine · Roadmap · Architecture D-ER candidate
 
-Product: C1 · P2 FOM · **P6 contract** `07-chat-first-product-simplification-p6-global-integrated-product-qa.md`
+Product: C1 · P2 · P6 contract 07 · manifests campaign
 
-Doctrine v3: 30 / 32 / 34 / 35 / 37 (références) · CKC `09-qa-validation.md`
+Doctrine/CKC: 30/32/34/35/37 · 09-qa-validation.md
 
-Handoff M-HD-02 RP04: `sfia/review-handoff` @ `c819d015` / `3fd09ccb`
+Handoff entry: sfia/review-handoff @ 8599058c / f0fef84f
 
-Product UI (READ-ONLY): `GovernedGenericMissionDecisionCard.tsx` · `useProductConversation.ts` · `ConversationSurface.tsx`
+Campaign evidence (READ, non modifié):
+/Users/morris/Projects/sfia-workspace/.tmp-sfia-review/p6-global-integrated-qa/
 
-Evidence seam: `app/lib/p6-campaign-evidence/*` (ledger code présent ; dossier `.tmp-sfia-review/p6-global-integrated-qa/` **absent** de ce worktree)
+Candidate evidence (créé ce cycle, gitignored):
+.tmp-sfia-review/p6-global-integrated-qa/ sur worktree dirty
 
 ---
 
@@ -116,226 +122,238 @@ Evidence seam: `app/lib/p6-campaign-evidence/*` (ledger code présent ; dossier 
 
 | | |
 |--|--|
-| **TARGET** | Pilote → Nora → mission → HD → continuité → PREPARE gouverné |
-| **CURRENT** | M-HD-02 déterministe CLOSED (portée revue) ; Product intégré **NON PROUVÉ** |
-| **KEEP** | OA HD · LPS · Nora · Pending offer · Continuity · PREPARE · UI · campagne P6 · Evidence Ledger seam |
-| **ADAPT** | Aucun code — qualification seule |
-| **REPLACE** | Aucun |
-| **GAP** | Preuve Product intégrée (navigateur + session + parcours UI) sur candidat dirty |
-| **EXIT** | Un parcours, un oracle, des gates — **ce pack** |
+| TARGET | Pilote→Nora→mission→HD→OA/LPS→relecture→PREPARE |
+| CURRENT | M-HD-02 DET CLOSED ; P6-MIN-07 ENTRY QUALIFIED ; integrated BLOCKED at session |
+| KEEP | Campagne P6 · OA · LPS · Nora · Continuity · PREPARE · UI · Evidence seam |
+| ADAPT/REPLACE | Aucun composant Product |
+| GAP | Session Pilote valide + parcours navigateur HD→PREPARE |
+| EXIT | Comportement intégré non démontré ; écart session précis |
 
 ---
 
-## 5. Clôture déterministe M-HD-02 (bornée)
+## 5. Campagne P6 utilisée
 
-| Preuve | Statut | Portée |
-|--------|--------|--------|
-| Identité canonique Record | DETERMINISTIC PASS | Fake/local |
-| Post-Record D0/D1 Continuity | DETERMINISTIC PASS | Fake/local (`7afad281`) |
-| LPS material currentness CR-04 | DETERMINISTIC PASS ciblé | Fake/local |
-| RP04 Accept/Refuse authority | DETERMINISTIC PASS | Fake/local (`c819d015`) |
-| Session contract Project-scoped `f1-default` | QUALIFIED | Fake/local |
-| UI08 visual runtime | **OPEN** | Non capturé |
-| Session Better Auth REAL + navigateur | **NOT PROVEN** | Hors M-HD-02 déterministe |
-| Product intégré bout-en-bout | **NOT PROVEN** | Objet de cette entry |
-
-**≠** P6 GLOBAL PASS · **≠** READY FOR REAL · **≠** HUMAN QA PASS.
+- Campaign: P6-GLOBAL-INTEGRATED-PRODUCT-QA-01
+- Campaign branch/worktree: qa/sfia-studio-p6-global-integrated-product-qa @ 980064c0 (non modifié)
+- Manifest: P6-SC-MIN-07 mapped P6-MIN-07 · humanQaRequired=true · proofTarget REAL-BOUNDARY
+- Historical ledger: 76 lines — HISTORICAL ; non présenté comme preuve candidat dirty
+- Nouveau ledger candidat: append-preserving sous worktree dirty (2 rows ce run)
+- Aucune nouvelle campagne / moteur Evidence
 
 ---
 
-## 6. Campagne P6 existante — requalification
+## 6. Environnement / runtime snapshot
 
-**Campaign:** `P6-GLOBAL-INTEGRATED-PRODUCT-QA-01`
-**Contract:** `projects/sfia-studio/product-simplification/07-chat-first-product-simplification-p6-global-integrated-product-qa.md`
-**Campaign branch (contract):** `qa/sfia-studio-p6-global-integrated-product-qa`
-**Candidat actuel:** `fix/sfia-studio-p6-hqa-optional-artifact-generic-prepare` @ `b4c1d862` **DIRTY**
+| Field | Value |
+|-------|-------|
+| runId | P6-MIN-07-MHD02-20261016T194738Z |
+| timestamp | 2026-10-16 Europe/Paris |
+| runtime | Next.js 15.5.20 npm run dev — PID listen 69865 — http://localhost:3020 |
+| Node | v24.16.0 |
+| Product DB | Isolated copy under candidate .tmp-sfia-review/.../qa-dbs/p6-min07-accept/product/oa-product.sqlite (campaign original untouched) |
+| CURSOR_REAL | 0 |
+| OPENAI_API_KEY | unset in runtime process (no LIVE call) |
+| BETTER_AUTH_URL | http://localhost:3020 |
+| browser | Chromium Playwright 1440×900 |
+| sessionMode | storageState campaign — EXPIRED |
+| secrets in evidence | NONE |
+| snapshot file | environment-snapshot-mhd02-min07.json |
 
-| Élément | Classification |
-|---------|----------------|
-| Phase 0 COMPLETE / Phase 1 PASS (SMOKE-01/02/03) | **HISTORICAL VALID EVIDENCE** (campagne P6) |
-| Phases 2–4 prior evidence VALID/REUSED | **HISTORICAL VALID EVIDENCE** |
-| Evidence path `.tmp-sfia-review/p6-global-integrated-qa/` | **REQUALIFICATION REQUIRED** sur ce worktree (dossier absent ici) |
-| Evidence Ledger code `lib/p6-campaign-evidence` | **CURRENT EVIDENCE** (seam Product présent) |
-| Human QA batch | **NOT PROVEN** / batch preparing (contrat) |
-| P6 READY / P6 GLOBAL PASS | **NO** / **NOT CLAIMED** |
-| GO P6 EXECUTION / GO P6 REAL | **AUTHORIZED / CONSUMED** sur campagne — **ne pas étendre par analogie** au candidat dirty sans confirmation Morris |
-
-**Raccordement:** le prochain scénario s’inscrit dans la campagne **existante** comme exercice **P6-MIN-07** sur le **candidat M-HD-02**, pas comme Phase 0 ni nouvelle campagne.
-
----
-
-## 7. Preuves réutilisables (sans invalidation)
-
-| Source | Usage pour P6-MIN-07 |
-|--------|----------------------|
-| Tests M-HD-01/02 Fake | Baseline déterministe — **≠** preuve navigateur |
-| Handoffs `7afad281` / `c819d015` | Contrats comportement Record/Continuity/RP04 |
-| Composants UI M-HD-02 dirty | Surfaces à exercer (READ-ONLY ce cycle) |
-| Seam Evidence Ledger | Capture future sous exécution gouvernée |
-| SMOKE-01/02/03 historiques | Environnement campagne — **REQUALIFIER** si runtime différent |
+Runtime laissé up pour bootstrap Morris (CURSOR_REAL=0, no OpenAI).
 
 ---
 
-## 8. Scénario intégré prioritaire
+## 7. Prérequis et gates vérifiés
 
-### ID
-**P6-MIN-07** — Recommendation / HumanDecision / currentness continuity
-
-### Pourquoi celui-ci
-- Couverture P1 §15 / contrat P6 obligatoire.
-- Aligné V3-F05 + preuves M-HD-02 (HD, digest D0/D1, LPS, Refuse, PREPARE).
-- N’exige **pas** E4–E8 complets pour l’exit de continuité HD→PREPARE.
-- Réutilise UI/Product déjà présents (pas de nouvelle architecture).
-
-### Hors parcours (ce prochain run)
-- Calibration Model×Reasoning Phase 3.
-- Human QA batch consolidé 19 items.
-- Chantier Delivery E4–E8 / S8 persistence.
-- Execute / Attempt Cursor REAL (scénario borné PREPARE-only).
-
----
-
-## 9. Parcours QA intégré (NON EXÉCUTÉ) + oracle
-
-| # | Étape | Entrée Product | Service | Acteur | Oracle |
-|---|-------|----------------|---------|--------|--------|
-| 1 | Ouvrir Project existant | Studio Project surface | Product SQLite / Project services | Pilote | Project chargé, session valide |
-| 2 | Intention mission | Conversation | Nora / orchestrateTurn·F2 | Pilote→Nora | Qualification structurante proposée |
-| 3 | Qualification | F2 / offer remember | `rememberGenericPrepareRecommendation` | Nora/Product | Pending offer process-local présent |
-| 4 | Présentation scellée | Conversation | `readGenericMissionDecisionContinuity` | Product | `awaiting_decision` + digest **D0** |
-| 5 | Inspection options | `GovernedGenericMissionDecisionCard` | UI projection | Pilote | Accept / Refuse / Amend visibles |
-| 6a | Accept | `w2RecordGenericMissionHumanDecisionAction` | OA RecordHumanDecision + LPS link | Pilote | HD `accepted` ; 0 Attempt ; 0 Execute |
-| 6b | Refuse (négatif) | idem | OA status `refused` | Pilote | HD `refused` ; PREPARE `HD_REFUSED` |
-| 7 | LPS | OA project services | append LPS si Accept linked | Product | version ↑ ; `decisionIds` contient HD |
-| 8 | Refresh conversation | `refreshGovernedMoments` → read avec **D0** | Continuity | Product | décision cohérente — pas stale artificiel |
-| 9 | Relecture durable | Continuity + OA history | Applicability | Product | Même `decisionId` applicable |
-| 10 | Stale réel | Mutation effets / offer absente | Continuity | Product | `stale_presentation_required` |
-| 11 | LPS material drift | Append LPS objectif/contexte | Continuity CR-04 | Product | Pas de decided GO |
-| 12 | PREPARE | `prepareGenericExecutionContractDraft` + decisionId | verify HD | Product | PREPARE seulement si HD applicable |
-
-### Oracle global (succès scénario)
-1. Une HD durable unique pour le statut choisi (pas double accepted).
-2. Continuity UI = décision OA applicable (D0 post-bump inclus).
-3. Refuse ≠ GO ; Amend ≠ autorisation.
-4. Stale / drift matériel ≠ continuité accepted.
-5. PREPARE n’utilise que le `decisionId` applicable.
-6. Zéro Attempt / Execute dans ce scénario.
-7. Evidence capturée via seam P6 si environnement prêt.
-
----
-
-## 10. Négatifs et recovery
-
-| Négatif | Oracle |
-|---------|--------|
-| Refuse | Continuity decided refused ou PREPARE `HD_REFUSED` |
-| Stale digest / offer absente | `stale_presentation_required` |
-| LPS material drift post-HD | Pas de decided accepted |
-| Replay Accept identique | `ALREADY_APPLIED` / même decisionId |
-| Accept+Refuse même digest sans LPS | Continuity `OA_DECISION_HISTORY_AMBIGUOUS` |
-| Restart process | Offer perdue → stale honnête (dette process-local) |
-
-Recovery conversation complète = **P6-MIN-06** (scénario voisin, non fusionné).
-
----
-
-## 11. UX / UI08
-
-| Item | Statut |
+| Gate | Statut |
 |------|--------|
-| Composants | `GovernedGenericMissionDecisionCard` · `ConversationSurface` · `useProductConversation` |
-| Figma fileKey | `m4g8j0gNbEzfIuH6S9AZJF` |
-| Frames citées | **412:2** / **414:2** (mission) ; **413:2** (Confirmation distincte) |
-| Frames « contrat courant » | **NOT RE-VERIFIED** ce cycle |
-| UI08 visual runtime | **OPEN** |
-| Ce cycle | Aucune modif Figma/UI · aucun verdict visuel PASS |
-
-Gate Morris UI08 optionnel pour PASS visuel ; parcours comportemental peut avancer avec UI08 OPEN.
-
----
-
-## 12. Dépendances Generic Execution E4–E8
-
-| Capacité | Statut | Bloque P6-MIN-07 ? |
-|----------|--------|--------------------|
-| E4 Deep Review | NOT PROVEN | Non |
-| E5 Taxonomy retirement | NOT PROVEN | Non (HD→PREPARE) |
-| E6 Retention | NOT PROVEN | Non |
-| E7 Bounded REAL | READY FOR REAL = NO | Non pour comportemental |
-| E8 Nora tool PREPARE | Partial dirty / NOT PROVEN E2E | Non si F2 remember+offer (chemin M-HD-02) |
-| E9–E11 | NOT PROVEN | Non |
-
-**Ne pas ouvrir E4–E8 maintenant.**
+| GO P6-MIN-07 on M-HD-02 candidate | CONSUMED (ce cycle) |
+| GO P6 EXECUTION / REAL campagne | CONSUMED historique — non étendu à OpenAI LIVE candidat |
+| OpenAI LIVE | NOT INVOKED (ambiguïté couverture) |
+| Cursor REAL / Execute | NOT INVOKED (0/0) |
+| Better Auth session Pilote | FAIL — cookies expired |
+| forceLocalAuthority for session proof | NOT USED |
+| Product code modify | NONE |
+| Campaign worktree modify | NONE |
 
 ---
 
-## 13. Fake / Real Qualification
+## 8. Run principal
 
-Entrée: DETERMINISTIC PROVEN — M-HD-02 ciblé.
-Cible future: Integrated Product QA behavioral (+ UI08 optionnel).
-Gate REAL: **NON ACCORDÉ** ce cycle.
-Gaps: Session REAL · Browser · restart · Cursor REAL · OpenAI LIVE · UI08 capture.
-DETERMINISTIC PROVEN ≠ READY FOR REAL.
+| Step | Résultat | Mode | Preuve |
+|------|----------|------|--------|
+| 1 Open Project | NOT REACHED (redirect login) | AUTO browser | 01-studio-or-login.png · browser-run.json |
+| 2 Intention mission | NOT REACHED | — | — |
+| 3–5 Offer / D0 / card | NOT REACHED | — | — |
+| 6 HumanDecision | NOT REACHED — would be WAITING PILOT | — | policy: no fabricate |
+| 7–12 OA/LPS/D0/PREPARE/controls | NOT OBSERVED (integrated) | — | — |
 
----
-
-## 14. Environnement et prérequis (avant exécution)
-
-1. Worktree dirty préservé.
-2. Runtime Product local (sans mutation :3020/e66 non autorisée).
-3. Pilote Better Auth allowlisté.
-4. Project fixture isolé.
-5. Nora provider selon GO REAL.
-6. Seam Evidence Ledger + path capture local.
-7. Navigateur (+ captures si UI08).
+GET /api/auth/get-session with storage cookies → HTTP 200 body null.
 
 ---
 
-## 15. Gates Morris applicables
+## 9. HumanDecision
 
-| Gate | Pour prochaine exécution |
-|------|--------------------------|
-| GO M-HD-02 déterministe | CONSUMÉ / CLOSED |
-| GO P6 EXECUTION / REAL (campagne) | CONSUMED — **pas d’extension automatique** au candidat dirty |
-| **GO Morris — P6-MIN-07 Integrated QA on M-HD-02 candidate** | **REQUIS** avant run navigateur/session |
-| GO UI08 visual PASS | OPTIONNEL |
-| GO OpenAI LIVE / Cursor REAL / Execute | NON pour MIN-07 PREPARE-only |
-| GO Product git / E4–E8 Delivery | NON |
+**NOT REACHED.**
+
+Aucune décision fabriquée. Aucune automatisation Accept/Refuse.
+
+Après re-auth Morris → WAITING PILOT HUMAN DECISION avant poursuite oracles HD.
 
 ---
 
-## 16. Risques / dette / exit
+## 10. Négatifs
 
-Pending offer process-local · multi-conversation N/I · Pilot env-bound · UI08 OPEN · E4–E8 OPEN · evidence path absent ce WT.
-
-Exit futur P6-MIN-07: oracles §9 + Fake/Real honesty · **≠** P6 GLOBAL PASS.
-
----
-
-## 17. Prochaine action recommandée
-
-**Après GO Morris « P6-MIN-07 Integrated Product QA on M-HD-02 candidate » :**
-
-Exécuter uniquement le parcours §9 (Accept + négatifs Refuse/Stale/Drift/Replay) sur le candidat dirty,
-session Pilote + navigateur, Evidence via seam existante,
-**sans** Execute, **sans** E4–E8, **sans** commit Product.
-UI08 = parallèle optionnel sous gate distinct.
+| ID | Mode préparé | Résultat intégré | DET complémentaire |
+|----|--------------|------------------|--------------------|
+| N1 Refuse | Product UI | NOT REACHED | Covered in M-HD-02 DET suite PASS |
+| N2 Stale | Product UI | NOT REACHED | DET PASS |
+| N3 LPS drift | Product UI | NOT REACHED | DET PASS |
+| N4 Replay | Product UI | NOT REACHED | DET PASS |
+| N5 Ambiguous | RP04/SC5 | NOT REACHED browser | DET PASS (sessionBoundary suite) |
+| N6 Restart/offer lost | — | NOT PROVEN / DEBT CARRY | process-local debt |
 
 ---
 
-## 18. Instruction ChatGPT
+## 11. États OA/LPS (integrated)
 
-Lire `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md`
+**NOT OBSERVED** — session bloquante.
 
-**SFIA STUDIO — M-HD-02 POST-CLOSURE P6 INTEGRATED PRODUCT QA ENTRY QUALIFICATION REVIEW.**
-
-Vérifier: V3-F05/P6 · pas de campagne parallèle · M-HD-02 borné · scénario/oracle · Fake/Real · gates · UI08/E4–E8 · aucune modif Product · Pack complet · handoff distant.
+DET Fake/SQLite: oracles HD/LPS/Continuity/PREPARE codes remain green (53 tests) — classification DETERMINISTIC only.
 
 ---
 
-## 19. Fin de pack
+## 12. Continuité D0/D1 (integrated)
+
+**NOT OBSERVED** navigateur.
+
+DET: D0 re-read / LPS material currentness — PASS (Fake).
+
+---
+
+## 13. PREPARE (integrated)
+
+**NOT OBSERVED.**
+
+Aucune autorisation inventée. 0 Execute.
+
+---
+
+## 14. Absence Attempt/Execute
+
+| Control | Observation |
+|---------|-------------|
+| ExecutionAttempt (integrated path) | 0 (path not entered; no HD) |
+| Execute | 0 |
+| Cursor REAL | 0 (env SFIA_STUDIO_CURSOR_REAL=0) |
+| Git Product mutation | NONE |
+
+---
+
+## 15. Evidence Ledger et runIds
+
+Candidate ledger (append-preserving):
+.tmp-sfia-review/p6-global-integrated-qa/evidence-ledger.jsonl
+
+| runId | kind | result |
+|-------|------|--------|
+| P6-MIN-07-MHD02-20261016T194738Z | p6-scenario-run | BLOCKED_SESSION |
+| P6-MIN-07-MHD02-20261016T194738Z-DET | p6-deterministic-reconfirm | PASS (53) |
+
+Campaign ledger historique non écrasé, non modifié.
+
+RAW:
+- raw-evidence/.../browser-run.json
+- raw-evidence/.../session-diagnosis.json
+- raw-evidence/.../deterministic-mhd02.log
+- screenshots/.../01-studio-or-login.png
+
+---
+
+## 16. Captures / artefacts
+
+Login page capturée (NO_SESSION). Decision Card non atteinte.
+
+---
+
+## 17. Fake / Real Qualification
+
+| Axe | Valeur |
+|-----|--------|
+| Entrée | M-HD-02 DETERMINISTIC PROVEN |
+| Browser REAL-BOUNDARY | Partiel — runtime + login page observés ; session not accepted |
+| Better Auth REAL | NOT PROVEN (expired) |
+| Product UI mission/HD | NOT PROVEN |
+| OA/LPS SQLite integrated | NOT PROVEN |
+| Nora/provider | NOT PROVEN — LIVE not called ; Fake not used as silent REAL substitute |
+| PREPARE integrated | NOT PROVEN |
+| DET Fake reconfirm | PASS (53) |
+
+Realism gaps: session bootstrap · Nora spontaneous · Pilot HD · UI08 · restart debt.
+
+---
+
+## 18. UI08
+
+OPEN — aucun PASS visuel. Frames Figma non re-qualifiées. Decision Card non observée.
+
+---
+
+## 19. Défauts / réserves
+
+| ID | Sévérité | Note |
+|----|----------|------|
+| AUTH-SESSION-EXPIRED | BLOCKER for integrated run | storageState 2026-10-14 expired |
+| PROVIDER-REAL-AMBIGUITY | GATE | OpenAI LIVE not invoked without distinct clarity |
+| PENDING-OFFER-PROCESS-LOCAL | DEBT | carry |
+| UI08 | OPEN | carry |
+| N6 restart | NOT PROVEN | carry |
+
+Pas de PRODUCT DEFECT confirmé (blocage amont session).
+
+---
+
+## 20. Verdict P6-MIN-07
+
+**P6-MIN-07 QA — BLOCKED / ENVIRONMENT OR GATE**
+
+Integrated Product continuity NOT PROVEN.
+Deterministic oracles reconfirmed only.
+
+---
+
+## 21. Prochaine capacité / exit
+
+1. Morris: headed auth bootstrap (e2e:auth:bootstrap) against http://localhost:3020 (runtime candidate left up, PID 69865) or restart with same isolation profile.
+2. Create/open isolated QA Project.
+3. Provider path: either confirm GO coverage for bounded Nora LIVE or explicit SEEDED/CONTROLLED offer path labeled NOT E2E REAL.
+4. WAITING PILOT Accept (principal) + Refuse négatif.
+5. Capture OA/LPS/D0/PREPARE ; 0 Attempt/Execute.
+6. Append new runId (never overwrite FAILED/BLOCKED).
+
+---
+
+## 22. Décisions Morris éventuellement requises
+
+1. Re-auth Pilote (bootstrap) — requis pour débloquer.
+2. GO OpenAI LIVE borné candidat dirty — seulement si Nora spontanée exigée ; sinon chemin SEEDED étiqueté.
+3. Aucun GO Delivery/E4–E8/UI08/Execute.
+
+---
+
+## 23. Instruction ChatGPT
+
+Lire Git sfia/review-handoff → sfia-review-handoff/latest-chatgpt-review.md
+
+SFIA STUDIO — P6-MIN-07 M-HD-02 INTEGRATED PRODUCT QA CRITICAL EVIDENCE REVIEW.
+
+Vérifier GO/périmètre · env · session · HD identity · OA/LPS · D0/D1 · PREPARE · absence Execute · négatifs · browser · Fake/Real · Evidence provenance · défauts · handoff · non-mutation Product.
+
+---
+
+## 24. Fin de pack
 
 Aucune modification Product.
-Review Pack FULL mono-cycle — qualification seule.
+Review Pack FULL CRITICAL mono-cycle.
 Handoff message:
-`docs(review-handoff): qualify M-HD-02 integrated P6 QA entry`
+docs(review-handoff): publish P6-MIN-07 M-HD-02 integrated QA
