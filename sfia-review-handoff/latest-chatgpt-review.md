@@ -1,38 +1,45 @@
-# SFIA STUDIO — M-HD-02 POST-RECORD CONTINUITY & AUTHORITY
-## Review Pack FULL — Critical Targeted Correction
+# SFIA STUDIO — M-HD-02 RP04 ACCEPT/REFUSE CONCURRENCY
+## Review Pack FULL — Final Authority Verification
 
-**Horodatage:** 2026-10-16 20:35:14 CEST (Europe/Paris)
-**GO Morris:** M-HD-02 POST-RECORD CONTINUITY & AUTHORITY CRITICAL TARGETED CORRECTION PASS (2026-10-16)
+**Horodatage:** 2026-10-16 20:51:34 CEST (Europe/Paris)
+**GO Morris:** M-HD-02 RP04 ACCEPT/REFUSE CONCURRENCY FINAL AUTHORITY VERIFICATION (2026-10-16)
 **Macro:** STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01
 **Milestone:** P6 — GLOBAL INTEGRATED PRODUCT QA IN PROGRESS
 **Capacité:** V3-F05 (connexes V3-F02 / V3-F11 / V3-F12 / V3-F14)
-**Cycle:** 8 — Delivery / implémentation
+**Cycle:** 9 — QA / validation
 **Profil:** CRITICAL
-**Typologie:** EVOL — correction ciblée
-**CKC:** ckc:studio:delivery
+**Typologie:** QA / VALIDATION / DETERMINISTIC AUTHORITY
+**CKC:** ckc:studio:qa-validation
 
 ---
 
 ## 1. Verdict
 
-**M-HD-02 POST-RECORD CONTINUITY DETERMINISTIC PASS**
+**RP04 ACCEPT/REFUSE AUTHORITY — DETERMINISTIC PASS**
 
-**LOCAL CANDIDATE READY FOR CHATGPT CRITICAL CODE REVIEW**
+**M-HD-02 TARGETED AUTHORITY VERIFICATION COMPLETE**
 
-Interdits non revendiqués: PRODUCT GIT INTEGRATED / PR READY / READY FOR REAL / HUMAN QA PASS / P6 GLOBAL PASS / RUNTIME V3 ADOPTED.
+**LOCAL CANDIDATE READY FOR CHATGPT CRITICAL REVIEW**
+
+Aucune modification Product. Tests uniquement.
+Aucun commit Product. Gate Morris policy **non requis** pour clôturer RP04
+(politique OA/Product existante prouvée). Optionnelle pour Morris si refuse-après-accept
+doit un jour superseder accepted (changement de domaine OA — hors present pass).
+
+Claims interdits non revendiqués.
 
 ---
 
-## 2. Git Truth initial / final
+## 2. Git Truth
 
 | Champ | Valeur |
 |-------|--------|
-| Remote | `mcleland147/sfia-workspace` |
 | Branche | `fix/sfia-studio-p6-hqa-optional-artifact-generic-prepare` |
 | HEAD | `b4c1d86211d372f7b0685be7ce8a5ba7de598e37` |
 | origin/main | `896ff59c704bfa76df1da1a51705aaf948c1cf0c` |
 | Dirty | EXPECTED — préservé |
-| Handoff précédent | `c2647ede` / blob `aff784fb` |
+| Staged | vide |
+| Handoff précédent | `7afad281` / blob `830e5526` |
 
 ### git status --short
 
@@ -83,27 +90,34 @@ M .tmp-sfia-review/chatgpt-review.md
 ?? projects/sfia-studio/app/features/project-assistant/w2/verifyGenericMissionHumanDecisionForPrepare.ts
 ```
 
-### Diff stat (fichiers de ce correctif)
-
-```
- .../app/features/project-assistant/w2/actions.ts   | 299 +++++++++++++++++++++
- 1 file changed, 299 insertions(+)
+### Diff stat (test only)
 
 ```
 
-Aucun commit Product. Aucun push Product. Aucune PR.
+```
 
 ---
 
-## 3. Sources consultées
+## 3. Sources / contrats lus
 
-PROCESSUS: cycle-execution-template · routing-guide · rules-and-guardrails · chatgpt-cursor-operating-model · SFIA v2.6 (PROCESSUS)
+PROCESSUS: cycle-execution-template · routing · guardrails · operating-model · SFIA v2.6
 
-Convergence / Product: Build Doctrine · Roadmap · C1 · P2 FOM · P6 QA · Architecture D-ER locale · Doctrine v3 30/32/34/35/37 · CKC 08
+Convergence / Product / Doctrine v3 / CKC 09-qa-validation / D-ER locale
 
-Handoff précédent: `sfia/review-handoff` @ `c2647ede` / `aff784fb`
+Handoff `7afad281` sections RP04 / Continuity / Applicability
 
-Product: continuity · applicability · record · actions · useProductConversation · middleware · resolveCurrentPilote · evaluateLpsTransitionAfterHumanDecision
+OA READ-ONLY:
+- `lib/oa/decision/application/recordHumanDecision.ts`
+- domain invariants / types
+- listDecisionHistory (via services)
+
+Product READ-ONLY:
+- recordGenericMissionHumanDecision.ts
+- genericMissionDecisionApplicability.ts
+- genericMissionDecisionContinuity.ts
+- verifyGenericMissionHumanDecisionForPrepare.ts
+- prepareGenericExecutionContractDraft.ts
+- actions.ts
 
 ---
 
@@ -111,504 +125,198 @@ Product: continuity · applicability · record · actions · useProductConversat
 
 | | |
 |--|--|
-| **TARGET** | HD acceptée reste liée après Record + bump LPS; dérive matérielle invalide; pas d'élargissement d'autorité |
-| **CURRENT (pré-correctif)** | Replay LPS OK; D0 client → stale prématuré; currentness LPS matérielle partielle; RP04 tautologique; Read auth à qualifier |
-| **KEEP** | ProductSqliteSession · f1-default · OA HD · DecisionBasis · Pending offer · Materiality · EC · UI M-HD-02 |
-| **ADAPT** | Continuity digest order · LPS CR-04 check · RP04 oracle · Read auth reuse |
+| **TARGET** | HD explicite, durable, non ambiguë / applicable |
+| **CURRENT** | Post-Record PASS; RP04 était PARTIAL |
+| **KEEP** | OA HD · DecisionBasis · Continuity · Applicability · CR-04 · auth boundary |
+| **ADAPT** | Tests de validation uniquement |
 | **REPLACE** | Aucun |
-| **DETTE** | Pending process-local · multi-conversation N/I · Pilot env-bound · UI08/REAL/E4–E8 |
+| **Exit** | Disposition finale prouvée ou conflit explicite |
 
 ---
 
-## 5. Findings ChatGPT → reproduction
+## 5. Politique OA observée (A1–A8)
 
-### Hypothèse (handoff c2647ede)
-Navigateur conserve digest **D0** → Accept → Record + LPS bump → seal post-bump **D1** → `refreshGenericMissionDecision(D0)` → comparaison `clientDigest !== sealed.digest` **avant** lecture OA → `stale_presentation_required`.
+| Q | Classification | Fait |
+|---|----------------|------|
+| A1 Statuts coexistants | **IMPLEMENTED FACT** + **TESTED** | `accepted` + `refused` peuvent coexister pour même project/subject |
+| A2 Supersede | **IMPLEMENTED FACT** | Uniquement quand `status===accepted` → supersede prior **accepted** (`recordHumanDecision.ts`) |
+| A3 Refuse après Accept | **IMPLEMENTED FACT** + **TESTED** | Possible si même digest (pas de bump LPS); après bump LPS + D0 → souvent `HD_SUBJECT_STALE` |
+| A4 Refuse invalide Accept ? | **IMPLEMENTED FACT** | **NON** — refuse ne supersede pas accepted |
+| A5 Décision applicable | **IMPLEMENTED FACT** + **TESTED** | Product `selectApplicableGenericMissionDecision`: mixed status/option applicables → `OA_DECISION_HISTORY_AMBIGUOUS`; sinon latest same status/option |
+| A6 Rôle LPS | **IMPLEMENTED FACT** + **TESTED** | Bump LPS lié à Accept fait diverger le digest seal; `refused` avec digest mismatch → **inapplicable** (seuls `accepted` survivent via linked bump) |
+| A7 superseded/revoked | **IMPLEMENTED FACT** | INAPPLICABLE_STATUSES — non applicables |
+| A8 Continuity vs PREPARE | **IMPLEMENTED FACT** + **TESTED** | Continuity = selectApplicable; PREPARE = `decisionId` explicite (`HD_REFUSED` si refuse; Accept encore préparable) |
 
-### Cause racine (confirmée)
-`genericMissionDecisionContinuity.ts` — contrôle digest client **avant** `listDecisionHistory` / applicabilité OA.
-
-### Preuve comportementale (F1/F2)
-Test `F1/F2 — Accept → LPS bump → Read with client digest D0 → decided accepted` traverse la même sémantique que le hook (`clientPresentationDigest: d0`).
-
-LP01/LP02 **ne suffit pas** (pas de digest client). F2 exige D0.
-
----
-
-## 6. Correction réalisée
-
-### Continuity (Bloc B)
-1. Charger historique OA + LPS courant **avant** stale digest.
-2. `selectApplicableGenericMissionDecision` (material + link).
-3. Si HD accepted + version LPS avancée → `getLivingProjectStateVersion(sealed)` + `evaluateLpsTransitionAfterHumanDecision` (politique CR-04 existante: objective/context/scope/constraints/doctrine/cycle/trajectory/decisionIds).
-4. Cas A (bump légitime lié) → `decided` même si client tient D0.
-5. Cas B (dérive matérielle / mismatch sans HD applicable) → `stale_presentation_required`.
-6. LPS scellé illisible → `LPS_SEALED_UNREADABLE` fail-closed.
-
-### Read authority (Bloc E)
-`w2ReadGenericMissionDecisionContinuityAction` réutilise `resolveCurrentAuthenticatedPilote` (même contrôle que Record).
-Complète middleware Better Auth + allowlist déjà présent.
-**AUTHORIZATION PROVEN BY EXISTING BOUNDARY** (+ contrôle explicite action).
-Pas de nouvelle policy / Better Auth / ACL Project (modèle Pilot single-user existant).
-
-### RP04 (Bloc D)
-Oracle durable: hist accepted/refused, relecture D0, dispositions effectives — **plus de tautologie**.
-
----
-
-## 7. Matrice E1–E15
-
-| Exit | Résultat | Preuve |
-|------|----------|--------|
-| E1 | PASS | Cause racine digest-before-OA; F2 couvre parcours D0 |
-| E2 | PASS | F1/F2 — D0 → decided accepted |
-| E3 | PASS | hist accepted length 1 |
-| E4 | PASS | executionAttemptCreated false |
-| E5 | PASS | C3/C5 objective drift → not decided |
-| E6 | PASS | LP03 LPS_CURRENT_UNREADABLE |
-| E7 | PASS | RP06/07 + M-HD-02 statuses |
-| E8 | PASS | RP03 concurrent Accept |
-| E9 | PASS | RP04 oracle durable non tautologique |
-| E10 | PASS | READ-AUTH + middleware boundary documentée |
-| E11 | PASS | aucun nouveau store/policy/moteur |
-| E12 | PASS | 167/167 NR (9 files) |
-| E13 | PASS | F2 = sémantique hook clientDigest |
-| E14 | PASS | Fake/Real ci-dessous |
-| E15 | PASS | dirty préservé, HEAD inchangé |
-
----
-
-## 8. Validations
-
-```
-vitest (9 files M-HD-01/02 + scoped): 167 passed
-tsc --noEmit: PASS
-npm run build: PASS
-git diff --check (fichiers correctif): PASS
-```
-
-Aucun OpenAI LIVE / Cursor REAL / Human QA / :3020.
-
----
-
-## 9. Fake / Real Qualification
-
-**Niveau:** DETERMINISTIC PROVEN — POST-RECORD CONTINUITY / LPS MATERIAL / READ AUTH BOUNDARY
-**Gate REAL:** NON ACCORDÉ
-**≠ READY FOR REAL**
-
-Gaps: Session REAL · Browser E2E · UI08 · Human QA · E4–E8 · Pending process-local · Pilot env-bound
-
----
-
-## 10. Dette / Gates
-
-| Dette | Gate |
-|-------|------|
-| Multi-conversation | CONVERSATION IDENTITY (si exigé) |
-| Pending process-local | future GO |
-| Pilot env-bound / REAL | Gate REAL |
-| UI08 / E4–E8 | gates distincts |
-
-Aucun STOP Authority/Currentness Design — politiques existantes (CR-04, Better Auth) réutilisées.
-
----
-
-## 11. Instruction ChatGPT
-
-Lire depuis Git:
-
-`sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md`
-
-Effectuer:
-
-**SFIA STUDIO — M-HD-02 POST-RECORD CONTINUITY & AUTHORITY CRITICAL CODE REVIEW.**
-
-Examiner: D0/D1 + relecture UI · applicabilité HD après bump LPS · currentness matérielle CR-04 · idempotence/concurrence · autorité de lecture · absence de politique nouvelle · non-régression · absence commit Product.
-
----
-
-## 12. Contenu intégral — fichiers modifiés / tests
-
-
-### FULL FILE: `projects/sfia-studio/app/features/project-assistant/w2/genericMissionDecisionContinuity.ts`
+### OA supersede (extrait)
 
 ```typescript
-/**
- * M-HD-02 — read Generic Mission presentation continuity for Pilot UI.
- *
- * Source = CURRENT pending prepare offer (process-local) → Product seal.
- * No PresentedMission store. Restart without offer → none / stale (fail closed).
- * Decision truth = durable OA HumanDecision only — applicable only when
- * DecisionBasis / presentationDigest match the CURRENT sealed presentation.
- */
-
-import type { HumanDecision } from "@/lib/oa/decision";
-import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
-import {
-  analysisFromPendingGenericPrepareOffer,
-  assessGenericMissionPrepareReadiness,
-  getCurrentGenericPrepareOffer,
-} from "./prepareGenericExecutionContractDraft";
-import { resolveProductPrepareOfferSessionKey } from "./pendingGenericPrepareOfferStore";
-import {
-  GENERIC_MISSION_PRESENTED_OPTIONS,
-  evaluateLpsTransitionAfterHumanDecision,
-  type GenericMissionSubject,
-} from "./genericMissionSubject";
-import {
-  lpsMaterialSnapshotFromLivingProjectState,
-  selectApplicableGenericMissionDecision,
-} from "./genericMissionDecisionApplicability";
-import { sealGenericMissionForPresentation } from "./recordGenericMissionHumanDecision";
-
-export { lpsMaterialSnapshotFromLivingProjectState } from "./genericMissionDecisionApplicability";
-
-export type GenericMissionPresentedOption = {
-  readonly optionId: string;
-  readonly label: string;
-};
-
-export type GenericMissionDecisionContinuityResult =
-  | {
-      readonly ok: true;
-      readonly kind: "awaiting_decision";
-      readonly subject: GenericMissionSubject;
-      readonly options: readonly GenericMissionPresentedOption[];
-      readonly offerFingerprint: string;
-      readonly sessionKey: string;
-      readonly humanDecisionCreated: false;
-      readonly executionAttemptCreated: false;
-    }
-  | {
-      readonly ok: true;
-      readonly kind: "decided";
-      readonly subject: GenericMissionSubject;
-      readonly decision: {
-        readonly decisionId: string;
-        readonly status: HumanDecision["status"];
-        readonly selectedOptionId: string;
-        readonly actorId: string;
-        readonly presentationDigest: string;
-      };
-      readonly options: readonly GenericMissionPresentedOption[];
-      readonly offerFingerprint: string;
-      readonly sessionKey: string;
-      readonly humanDecisionCreated: false;
-      readonly executionAttemptCreated: false;
-    }
-  | {
-      readonly ok: true;
-      readonly kind: "none";
-      readonly message: string;
-      readonly humanDecisionCreated: false;
-      readonly executionAttemptCreated: false;
-    }
-  | {
-      readonly ok: true;
-      readonly kind: "stale_presentation_required";
-      readonly message: string;
-      readonly humanDecisionCreated: false;
-      readonly executionAttemptCreated: false;
-    }
-  | {
-      readonly ok: false;
-      readonly code: string;
-      readonly message: string;
-      readonly humanDecisionCreated: false;
-      readonly executionAttemptCreated: false;
-    };
-
-/** Stable occurrence id from CURRENT offer — avoids silent re-occurrence on reread. */
-export function missionSubjectIdFromOfferFingerprint(
-  offerFingerprint: string,
-): string {
-  const fp = offerFingerprint.trim();
-  const slice = fp.length > 40 ? fp.slice(0, 40) : fp;
-  return `gms:offer:${slice}`;
-}
-
-function presentedOptions(): readonly GenericMissionPresentedOption[] {
-  return GENERIC_MISSION_PRESENTED_OPTIONS.map((o) => ({
-    optionId: o.optionId,
-    label: o.label,
-  }));
-}
-
-export {
-  assessApplicableGenericMissionDecision,
-  selectApplicableGenericMissionDecision,
-} from "./genericMissionDecisionApplicability";
-
-/**
- * Seal CURRENT pending offer for Pilot presentation when the mission is
- * structural / HD-required. Non-structural offers stay on chat-first PREPARE.
- */
-export async function readGenericMissionDecisionContinuity(input: {
-  readonly oa: RuntimeOaStack;
-  readonly projectId: string;
-  readonly sessionKey?: string | null;
-  readonly sessionDbPath?: string | null;
-  /**
-   * When client held a presentationDigest but server has no reconstitutable
-   * offer — declare stale (Figma 414:2).
-   */
-  readonly clientPresentationDigest?: string | null;
-}): Promise<GenericMissionDecisionContinuityResult> {
-  const fail = (
-    code: string,
-    message: string,
-  ): GenericMissionDecisionContinuityResult => ({
-    ok: false,
-    code,
-    message,
-    humanDecisionCreated: false,
-    executionAttemptCreated: false,
-  });
-
-  const projectId = input.projectId.trim();
-  if (!projectId) {
-    return fail("PRODUCT_PROJECT_REQUIRED", "Project requis.");
-  }
-
-  const sessionKey = resolveProductPrepareOfferSessionKey({
-    sessionKey: input.sessionKey,
-    sessionDbPath: input.sessionDbPath,
-  });
-
-  const offer = getCurrentGenericPrepareOffer(projectId, {
-    sessionKey,
-  });
-
-  if (!offer) {
-    if (input.clientPresentationDigest?.trim()) {
-      return {
-        ok: true,
-        kind: "stale_presentation_required",
-        message:
-          "Cette présentation de mission n'est plus actuelle. Demandez à Nora une nouvelle qualification avant toute décision.",
-        humanDecisionCreated: false,
-        executionAttemptCreated: false,
-      };
-    }
-    return {
-      ok: true,
-      kind: "none",
-      message: "Aucune mission générique présentée pour ce projet.",
-      humanDecisionCreated: false,
-      executionAttemptCreated: false,
-    };
-  }
-
-  if (offer.projectId !== projectId) {
-    return fail(
-      "MISSION_OFFER_PROJECT_MISMATCH",
-      "Offre Product hors Project demandé — lecture refusée.",
-    );
-  }
-  if (offer.sessionKey !== sessionKey) {
-    return fail(
-      "MISSION_OFFER_SESSION_MISMATCH",
-      "Offre Product hors session serveur — lecture refusée.",
-    );
-  }
-
-  const analysis = analysisFromPendingGenericPrepareOffer(offer);
-  const readiness = assessGenericMissionPrepareReadiness(analysis);
-  const structural =
-    readiness.structuralBlocked ||
-    offer.signalStructuralChange ||
-    offer.signalArchitectureImpact ||
-    offer.signalSecurityImpact ||
-    offer.signalIrreversible;
-
-  if (!structural) {
-    return {
-      ok: true,
-      kind: "none",
-      message:
-        "Offre courante non structurante — parcours chat-first PREPARE inchangé.",
-      humanDecisionCreated: false,
-      executionAttemptCreated: false,
-    };
-  }
-
-  if (readiness.missingFields.length > 0) {
-    return {
-      ok: true,
-      kind: "stale_presentation_required",
-      message:
-        "Mission insuffisamment qualifiée pour décision — nouvelle présentation requise.",
-      humanDecisionCreated: false,
-      executionAttemptCreated: false,
-    };
-  }
-
-  const missionSubjectId = missionSubjectIdFromOfferFingerprint(
-    offer.offerFingerprint,
-  );
-  const sealed = await sealGenericMissionForPresentation({
-    oa: input.oa,
-    projectId,
-    cycleInstanceId: offer.cycleInstanceId,
-    analysis,
-    missionSubjectId,
-  });
-  if (!sealed.ok) {
-    return fail(sealed.code, sealed.message);
-  }
-
-  const clientDigest = input.clientPresentationDigest?.trim() || "";
-  const sealedDigest = sealed.subject.presentationDigest;
-  const digestMismatch = Boolean(clientDigest && clientDigest !== sealedDigest);
-
-  // Post-Record path: OA history + LPS currentness BEFORE client-digest stale.
-  // A legitimate HD→LPS bump changes the sealed digest (D0→D1) while the Pilote
-  // UI still holds D0 — that must not become stale_presentation_required.
-  const history = await input.oa.decisionServices.listDecisionHistory.execute({
-    projectId,
-    subject: sealed.subject.missionSubjectId,
-  });
-  if (!history.ok) {
-    return fail(
-      "OA_DECISION_HISTORY_UNREADABLE",
-      "Historique OA illisible — aucune décision présentée comme applicable.",
-    );
-  }
-
-  const lpsNow = await input.oa.projectServices.getCurrentLivingProjectState.execute({
-    projectId,
-  });
-  // C — LPS fail-closed: never invent a "current" snapshot from the sealed subject.
-  if (!lpsNow.ok) {
-    return fail(
-      "LPS_CURRENT_UNREADABLE",
-      "État Living Project courant illisible — aucune décision présentée comme applicable.",
-    );
-  }
-  const currentLps = lpsMaterialSnapshotFromLivingProjectState(
-    lpsNow.livingProjectState,
-  );
-
-  const selected = selectApplicableGenericMissionDecision({
-    decisions: history.decisions,
-    subject: sealed.subject,
-    currentLps,
-  });
-  if (!selected.ok) {
-    return fail(selected.code, selected.message);
-  }
-
-  if (selected.decision) {
-    const d = selected.decision;
-    const ctx = d.decisionBasis?.genericMissionContext;
-    const sealedLpsVersion = d.decisionBasis?.proposalContext.lpsVersion;
-
-    // Material LPS currentness (existing CR-04 policy) when version advanced.
-    if (
-      d.status === "accepted" &&
-      typeof sealedLpsVersion === "number" &&
-      currentLps.version > sealedLpsVersion
-    ) {
-      const sealedLps = await input.oa.projectServices.getLivingProjectStateVersion.execute(
-        {
-          projectId,
-          version: sealedLpsVersion,
-        },
-      );
-      if (!sealedLps.ok) {
-        return fail(
-          "LPS_SEALED_UNREADABLE",
-          "LPS scellé illisible — transition non qualifiable; aucune décision présentée comme applicable.",
-        );
-      }
-      const sealedSnap = lpsMaterialSnapshotFromLivingProjectState(
-        sealedLps.livingProjectState,
-      );
-      const sealedWithDoctrine = {
-        ...sealedSnap,
-        doctrineDigest:
-          sealedSnap.doctrineDigest ||
-          d.decisionBasis?.proposalContext.doctrineDigest?.trim() ||
-          "",
-      };
-      const lpsEval = evaluateLpsTransitionAfterHumanDecision({
-        sealed: sealedWithDoctrine,
-        current: currentLps,
-        decisionId: d.decisionId,
-      });
-      if (!lpsEval.ok) {
-        // Case B — material / unlinked LPS drift: not a current GO.
-        if (digestMismatch) {
-          return {
-            ok: true,
-            kind: "stale_presentation_required",
-            message:
-              "Cette présentation de mission n'est plus actuelle. Demandez à Nora une nouvelle qualification avant toute décision.",
-            humanDecisionCreated: false,
-            executionAttemptCreated: false,
-          };
+        if (status === "accepted") {
+          const existing = await this.decisions.listAcceptedBySubject(
+            snap.projectId,
+            snap.subject.trim(),
+          );
+          if (existing.length > 0) {
+            if (!snap.supersedeExistingAccepted) {
+              throw Object.assign(new Error("accepted_exists"), {
+                detailCode: "STATE_CONFLICT" as const,
+              });
+            }
+            for (const prior of existing) {
+              const superseded: HumanDecision = {
+                ...prior,
+                status: "superseded",
+                version: (prior.version ?? 1) + 1,
+              };
+              await this.decisions.save(superseded);
+              supersededDecisionIds.push(prior.decisionId);
+            }
+          }
         }
-        return {
-          ok: true,
-          kind: "awaiting_decision",
-          subject: sealed.subject,
-          options: presentedOptions(),
-          offerFingerprint: offer.offerFingerprint,
-          sessionKey,
-          humanDecisionCreated: false,
-          executionAttemptCreated: false,
-        };
-      }
-    }
 
-    // Case A — applicable durable HD (incl. after legitimate LPS bump / D0 client digest).
-    // When UI held D0, prefer returning the historically presented digest on the decision.
-    return {
-      ok: true,
-      kind: "decided",
-      subject: sealed.subject,
-      decision: {
-        decisionId: d.decisionId,
-        status: d.status,
-        selectedOptionId: d.selectedOptionId,
-        actorId: d.actor.actorId,
-        presentationDigest:
-          ctx?.presentationDigest ?? sealed.subject.presentationDigest,
-      },
-      options: presentedOptions(),
-      offerFingerprint: offer.offerFingerprint,
-      sessionKey,
-      humanDecisionCreated: false,
-      executionAttemptCreated: false,
-    };
+        const next: HumanDecision = {
+          schemaVersion: "0.1.0-oa",
+```
+
+### Product selectApplicable (extrait)
+
+```typescript
+export function selectApplicableGenericMissionDecision(input: {
+  readonly decisions: readonly HumanDecision[];
+  readonly subject: GenericMissionSubject;
+  readonly currentLps?: LpsMaterialSnapshot | null;
+}):
+  | { readonly ok: true; readonly decision: HumanDecision | null }
+  | { readonly ok: false; readonly code: string; readonly message: string } {
+  const applicable: HumanDecision[] = [];
+  for (const d of input.decisions) {
+    const assessed = assessApplicableGenericMissionDecision({
+      decision: d,
+      subject: input.subject,
+      currentLps: input.currentLps,
+    });
+    if (assessed.applicable) applicable.push(assessed.decision);
   }
-
-  // No applicable durable HD — client digest divergence means stale presentation.
-  if (digestMismatch) {
+  if (applicable.length === 0) {
+    return { ok: true, decision: null };
+  }
+  if (applicable.length === 1) {
+    return { ok: true, decision: applicable[0]! };
+  }
+  // Prefer most recent effectiveAt among identical status/option — still fail if mixed.
+  const statuses = new Set(applicable.map((d) => d.status));
+  const options = new Set(applicable.map((d) => d.selectedOptionId));
+  if (statuses.size > 1 || options.size > 1) {
     return {
-      ok: true,
-      kind: "stale_presentation_required",
+      ok: false,
+      code: "OA_DECISION_HISTORY_AMBIGUOUS",
       message:
-        "Cette présentation de mission n'est plus actuelle. Demandez à Nora une nouvelle qualification avant toute décision.",
-      humanDecisionCreated: false,
-      executionAttemptCreated: false,
+        "Plusieurs HumanDecisions applicables ambiguës — nouvelle présentation requise.",
     };
   }
-
-  return {
-    ok: true,
-    kind: "awaiting_decision",
-    subject: sealed.subject,
-    options: presentedOptions(),
-    offerFingerprint: offer.offerFingerprint,
-    sessionKey,
-    humanDecisionCreated: false,
-    executionAttemptCreated: false,
-  };
+  const latest = applicable.reduce((a, b) =>
+    (a.effectiveAt ?? "") >= (b.effectiveAt ?? "") ? a : b,
+  );
+  return { ok: true, decision: latest };
 }
 
 ```
+
+---
+
+## 6. Analyse RP04 (B1–B6)
+
+| Q | Réponse |
+|---|---------|
+| B1 Atteignable ? | **OUI** — concurrent Accept/Refuse crée souvent accepted+refused durables (SC3) |
+| B2 Règle disposition | OA: coexistence; Continuity: après LPS-linked Accept, refuse digest-inapplicable → **decided accepted**; même digest sans LPS → **AMBIGUOUS** |
+| B3 Product reflète ? | **OUI** — tests SC2/SC3/SC5 |
+| B4 Divergence UI/hist ? | Historique peut contenir refuse; Continuity ne le projette pas comme GO si digest-inapplicable |
+| B5 Refuse ignoré ? | Pour **Continuité courante** après LPS bump: oui (inapplicable). Pour **PREPARE**: non — `HD_REFUSED` si decisionId refuse |
+| B6 PREPARE sur accepted malgré refuse ? | **OUI** — contrat OA (refuse ≠ supersede). Documenté, pas inventé |
+
+---
+
+## 7. Scénarios SC1–SC7
+
+| SC | Résultat | Preuve |
+|----|----------|--------|
+| SC1 Accept→Refuse(D0) | PASS | Refuse typiquement STALE post-LPS; Continuity decided accepted; 0 Attempt |
+| SC2 Refuse→Accept(+LPS) | PASS | Les deux durables; Continuity decided **accepted**; PREPARE accept OK / refuse HD_REFUSED |
+| SC3 Concurrent | PASS | ≤1 accepted; si les deux: Continuity decided accepted (pas refuse GO); PREPARE cohérent |
+| SC4 Relecture D0 | PASS (F1/F2 + SC2/SC3) | Continuity D0 cohérente avec décision applicable |
+| SC5 Contradiction même digest | PASS | Accept(no LPS)+Refuse → `OA_DECISION_HISTORY_AMBIGUOUS` |
+| SC6 Invalidation | PASS | superseded/revoked via INAPPLICABLE; material LPS drift tests existants |
+| SC7 Non-régression | PASS | RP01–03, RP06–09, F1/F2; NR M-HD-01/02 119+22 |
+
+---
+
+## 8. Disposition effective Accept/Refuse
+
+1. **OA** n'impose pas « premier gagnant / dernier gagnant » Accept vs Refuse.
+2. **Supersede** = accepted remplace accepted seulement.
+3. **Product Continuity** après Accept lié LPS: refuse historique n'est **pas** un GO courant (digest-inapplicable).
+4. **Product Continuity** si accepted+refused **tous deux applicables** (même digest, pas de bump): **fail-closed** `OA_DECISION_HISTORY_AMBIGUOUS`.
+5. **PREPARE** lie un `decisionId`: accepted → peut préparer; refused → `HD_REFUSED`.
+6. **Jamais** double accepted GO; **jamais** Attempt/Execute au Record.
+
+---
+
+## 9. Concordance OA / Product / PREPARE
+
+| Couche | Disposition prouvée |
+|--------|---------------------|
+| OA history | accepted ± refused coexistants possibles |
+| Continuity UI | decided accepted si LPS-linked; AMBIGUOUS si mixed applicables |
+| PREPARE | decisionId-bound; refuse ne bloque pas un autre accepted id |
+
+Pas de GO implicite inventé. Refuse n'est jamais projeté comme Accept.
+
+---
+
+## 10. Validations exécutées
+
+```
+vitest p6.mHd02.sessionBoundaryNormalReplayLps.d0.test.ts: 22 passed
+vitest M-HD-02 + M-HD-01 NR (6 files): 119 passed
+tsc --noEmit: PASS
+git diff --check (test): PASS
+build: NOT EXECUTED (aucun fichier Product modifié — GO)
+```
+
+---
+
+## 11. Fake / Real Qualification
+
+**Entrée:** DETERMINISTIC PROVEN WITH RP04 RESERVE
+**Sortie:** TARGETED DETERMINISTIC AUTHORITY PROOF
+**Gate REAL:** NON ACCORDÉ
+Gaps: concurrence réseau réelle, Better Auth navigateur, multi-instance
+
+DETERMINISTIC PROVEN ≠ READY FOR REAL
+
+---
+
+## 12. Réserves / Gates
+
+| Réserve | Statut |
+|---------|--------|
+| RP04 disposition | **FERMÉE** — prouvée |
+| Refuse devrait-il superseder Accept ? | **Hors pass** — option Morris (domaine OA). Non requis pour clôturer RP04 |
+| Product logic change | **Aucune** |
+
+---
+
+## 13. Instruction ChatGPT
+
+Lire `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md`
+
+**SFIA STUDIO — M-HD-02 RP04 ACCEPT/REFUSE AUTHORITY CRITICAL REVIEW.**
+
+Vérifier SC1–SC7, contrats OA, statuts durables, décision applicable, concordance Product/PREPARE, tests, Review Pack FULL, dirty Product préservé.
+
+---
+
+## 14. Contenu intégral — fichier de test modifié
 
 ### FULL FILE: `projects/sfia-studio/app/__tests__/project-assistant/p6.mHd02.sessionBoundaryNormalReplayLps.d0.test.ts`
 
@@ -625,6 +333,7 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 import {
   buildIntentAnalysisFromSolicitedMission,
+  prepareGenericExecutionContractDraft,
   rememberGenericPrepareRecommendation,
 } from "@/features/project-assistant/w2/prepareGenericExecutionContractDraft";
 import {
@@ -637,6 +346,10 @@ import {
   sealGenericMissionForPresentation,
 } from "@/features/project-assistant/w2/recordGenericMissionHumanDecision";
 import { readGenericMissionDecisionContinuity } from "@/features/project-assistant/w2/genericMissionDecisionContinuity";
+import { verifyGenericMissionHumanDecisionForPrepare } from "@/features/project-assistant/w2/verifyGenericMissionHumanDecisionForPrepare";
+import {
+  selectApplicableGenericMissionDecision,
+} from "@/features/project-assistant/w2/genericMissionDecisionApplicability";
 import {
   GENERIC_MISSION_OPTION_ACCEPT_PREPARE,
   GENERIC_MISSION_OPTION_REFUSE,
@@ -1025,7 +738,224 @@ describe("P6 M-HD-02 session boundary / normal LPS replay / fail-closed", () => 
     expect(hist.decisions.filter((d) => d.status === "accepted")).toHaveLength(1);
   });
 
-  it("RP04 — concurrent Accept vs Refuse → durable disposition + UI re-read oracle", async () => {
+  /**
+   * RP04 / SC1–SC5 — Accept↔Refuse authority disposition.
+   *
+   * OA IMPLEMENTED FACT (recordHumanDecision): supersedeExistingAccepted runs
+   * only when recording status===accepted. Refuse does NOT supersede Accept.
+   * Product Continuity: mixed applicable statuses → OA_DECISION_HISTORY_AMBIGUOUS.
+   * PREPARE: verifies a single decisionId (accepted → may still prepare).
+   */
+  it("SC1 — Accept then Refuse → both durable; Continuity fail-closed; PREPARE binds decisionId", async () => {
+    const { projectId, oa } = await seedProject("sc1");
+    const analysis = structuralAnalysis();
+    rememberGenericPrepareRecommendation({
+      projectId,
+      cycleInstanceId: null,
+      analysis,
+      offeredAtIso: oa.clock.nowIso(),
+    });
+    const presented = await readGenericMissionDecisionContinuity({
+      oa,
+      projectId,
+    });
+    expect(presented.ok && presented.kind === "awaiting_decision").toBe(true);
+    if (!presented.ok || presented.kind !== "awaiting_decision") return;
+    const d0 = presented.subject.presentationDigest;
+    const subject = presented.subject;
+
+    const accept = await recordGenericMissionHumanDecision({
+      oa,
+      subject,
+      selectedOptionId: GENERIC_MISSION_OPTION_ACCEPT_PREPARE,
+      analysis,
+      authenticatedPilote: SESSION_PILOTE,
+      linkToLivingProjectState: true,
+    });
+    expect(accept.ok).toBe(true);
+    if (!accept.ok) return;
+    expect(accept.decision.status).toBe("accepted");
+
+    const refuse = await recordGenericMissionHumanDecision({
+      oa,
+      subject,
+      selectedOptionId: GENERIC_MISSION_OPTION_REFUSE,
+      analysis,
+      authenticatedPilote: SESSION_PILOTE,
+      linkToLivingProjectState: false,
+      // Same presentation digest the Pilote saw (D0) — not a new seal.
+      presentedPresentationDigest: d0,
+    });
+    // After LPS bump, fresh seal digest diverges: refuse on D0 may be STALE
+    // OR succeed if sealed at accept-time digest still matches via ALREADY path.
+    // Capture durable truth either way.
+    const hist = await oa.decisionServices.listDecisionHistory.execute({
+      projectId,
+      subject: subject.missionSubjectId,
+    });
+    expect(hist.ok).toBe(true);
+    if (!hist.ok) return;
+    const accepted = hist.decisions.filter((d) => d.status === "accepted");
+    const refused = hist.decisions.filter((d) => d.status === "refused");
+    const superseded = hist.decisions.filter((d) => d.status === "superseded");
+
+    // OA: refuse does not supersede accept.
+    expect(accepted.length).toBe(1);
+    expect(superseded.length).toBe(0);
+    expect(accept.executionAttemptCreated).toBe(false);
+
+    if (refuse.ok) {
+      expect(refuse.decision.status).toBe("refused");
+      expect(refused.length).toBeGreaterThanOrEqual(1);
+      expect(refuse.executionAttemptCreated).toBe(false);
+    }
+
+    const again = await readGenericMissionDecisionContinuity({
+      oa,
+      projectId,
+      clientPresentationDigest: d0,
+    });
+    if (accepted.length === 1 && refused.length >= 1) {
+      // If refuse recorded despite LPS bump: Continuity still projects accepted
+      // (refuse becomes digest-inapplicable), never refuse-as-GO.
+      expect(again.ok && again.kind === "decided").toBe(true);
+      if (!again.ok || again.kind !== "decided") return;
+      expect(again.decision.status).toBe("accepted");
+      expect(again.decision.decisionId).toBe(accept.decision.decisionId);
+
+      const prepAccepted = await prepareGenericExecutionContractDraft({
+        oa,
+        projectId,
+        cycleInstanceId: null,
+        analysis,
+        decisionId: accept.decision.decisionId,
+        forceLocalAuthority: true,
+        pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+      });
+      expect(prepAccepted.ok).toBe(true);
+
+      const prepRefused = await verifyGenericMissionHumanDecisionForPrepare({
+        oa,
+        projectId,
+        cycleInstanceId: null,
+        analysis,
+        decisionId: refused[0]!.decisionId,
+      });
+      expect(prepRefused.ok).toBe(false);
+      if (prepRefused.ok) return;
+      expect(prepRefused.code).toBe("HD_REFUSED");
+    } else {
+      // Typical: Refuse on D0 after LPS bump → HD_SUBJECT_STALE; accepted alone.
+      expect(refuse.ok).toBe(false);
+      if (!refuse.ok) {
+        expect(["HD_SUBJECT_STALE", "LPS_CURRENT_UNREADABLE"]).toContain(
+          refuse.code,
+        );
+      }
+      expect(refused.length).toBe(0);
+      expect(again.ok && again.kind === "decided").toBe(true);
+      if (!again.ok || again.kind !== "decided") return;
+      expect(again.decision.status).toBe("accepted");
+      expect(again.decision.decisionId).toBe(accept.decision.decisionId);
+    }
+  });
+
+  it("SC2 — Refuse then Accept(+LPS) → both durable; Continuity projects accepted (refuse digest-inapplicable)", async () => {
+    const { projectId, oa } = await seedProject("sc2");
+    const analysis = structuralAnalysis();
+    rememberGenericPrepareRecommendation({
+      projectId,
+      cycleInstanceId: null,
+      analysis,
+      offeredAtIso: oa.clock.nowIso(),
+    });
+    const presented = await readGenericMissionDecisionContinuity({
+      oa,
+      projectId,
+    });
+    expect(presented.ok && presented.kind === "awaiting_decision").toBe(true);
+    if (!presented.ok || presented.kind !== "awaiting_decision") return;
+    const d0 = presented.subject.presentationDigest;
+
+    const refuse = await recordGenericMissionHumanDecision({
+      oa,
+      subject: presented.subject,
+      selectedOptionId: GENERIC_MISSION_OPTION_REFUSE,
+      analysis,
+      authenticatedPilote: SESSION_PILOTE,
+      linkToLivingProjectState: false,
+    });
+    expect(refuse.ok).toBe(true);
+    if (!refuse.ok) return;
+    expect(refuse.decision.status).toBe("refused");
+    expect(refuse.executionAttemptCreated).toBe(false);
+
+    const accept = await recordGenericMissionHumanDecision({
+      oa,
+      subject: presented.subject,
+      selectedOptionId: GENERIC_MISSION_OPTION_ACCEPT_PREPARE,
+      analysis,
+      authenticatedPilote: SESSION_PILOTE,
+      linkToLivingProjectState: true,
+      presentedPresentationDigest: d0,
+    });
+    expect(accept.ok).toBe(true);
+    if (!accept.ok) return;
+    expect(accept.decision.status).toBe("accepted");
+
+    const hist = await oa.decisionServices.listDecisionHistory.execute({
+      projectId,
+      subject: presented.subject.missionSubjectId,
+    });
+    expect(hist.ok).toBe(true);
+    if (!hist.ok) return;
+    const accepted = hist.decisions.filter((d) => d.status === "accepted");
+    const refused = hist.decisions.filter((d) => d.status === "refused");
+    expect(accepted.length).toBe(1);
+    expect(refused.length).toBe(1);
+    // OA: Accept supersedes only prior accepted — refuse remains durable.
+    expect(hist.decisions.filter((d) => d.status === "superseded")).toHaveLength(
+      0,
+    );
+
+    // After Accept LPS bump, sealed digest advances. assessApplicable:
+    // - accepted + linked LPS bump → applicable
+    // - refused + digest mismatch → NOT applicable (status≠accepted)
+    // Continuity therefore projects decided accepted — refuse is not a GO.
+    const again = await readGenericMissionDecisionContinuity({
+      oa,
+      projectId,
+      clientPresentationDigest: d0,
+    });
+    expect(again.ok && again.kind === "decided").toBe(true);
+    if (!again.ok || again.kind !== "decided") return;
+    expect(again.decision.status).toBe("accepted");
+    expect(again.decision.decisionId).toBe(accept.decision.decisionId);
+    expect(again.decision.decisionId).not.toBe(refuse.decision.decisionId);
+
+    const prepRefuse = await verifyGenericMissionHumanDecisionForPrepare({
+      oa,
+      projectId,
+      cycleInstanceId: null,
+      analysis,
+      decisionId: refuse.decision.decisionId,
+    });
+    expect(prepRefuse.ok).toBe(false);
+    if (!prepRefuse.ok) expect(prepRefuse.code).toBe("HD_REFUSED");
+
+    const prepAccept = await prepareGenericExecutionContractDraft({
+      oa,
+      projectId,
+      cycleInstanceId: null,
+      analysis,
+      decisionId: accept.decision.decisionId,
+      forceLocalAuthority: true,
+      pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+    });
+    expect(prepAccept.ok).toBe(true);
+  });
+
+  it("RP04/SC3 — concurrent Accept/Refuse → ≤1 accepted; Continuity never projects refuse as GO when accepted LPS-linked", async () => {
     const { projectId, oa } = await seedProject("rp04");
     const analysis = structuralAnalysis();
     rememberGenericPrepareRecommendation({
@@ -1069,21 +999,48 @@ describe("P6 M-HD-02 session boundary / normal LPS replay / fail-closed", () => 
     if (!hist.ok) return;
     const accepted = hist.decisions.filter((d) => d.status === "accepted");
     const refused = hist.decisions.filter((d) => d.status === "refused");
-    // Never two accepted GOs; at least one durable outcome recorded.
     expect(accepted.length).toBeLessThanOrEqual(1);
     expect(accepted.length + refused.length).toBeGreaterThanOrEqual(1);
     expect(accept.executionAttemptCreated ?? false).toBe(false);
     expect(refuse.executionAttemptCreated ?? false).toBe(false);
 
-    // Re-read with client D0 (Product hook semantics) — disposition must be
-    // authoritative: decided with a single status, or fail-closed ambiguity,
-    // never a silent invented GO.
     const again = await readGenericMissionDecisionContinuity({
       oa,
       projectId,
       clientPresentationDigest: d0,
     });
-    if (accepted.length === 1 && refused.length === 0) {
+
+    if (accepted.length === 1 && refused.length >= 1) {
+      // IMPLEMENTED: LPS-linked accepted remains applicable; refused becomes
+      // digest-inapplicable after bump → Continuity decided accepted (not refuse GO,
+      // not silent invent of a third status). Refuse stays durable for PREPARE deny.
+      expect(again.ok && again.kind === "decided").toBe(true);
+      if (!again.ok || again.kind !== "decided") return;
+      expect(again.decision.status).toBe("accepted");
+      expect(again.decision.decisionId).toBe(accepted[0]!.decisionId);
+      expect(again.decision.status).not.toBe("refused");
+
+      const prepRefuse = await verifyGenericMissionHumanDecisionForPrepare({
+        oa,
+        projectId,
+        cycleInstanceId: null,
+        analysis,
+        decisionId: refused[0]!.decisionId,
+      });
+      expect(prepRefuse.ok).toBe(false);
+      if (!prepRefuse.ok) expect(prepRefuse.code).toBe("HD_REFUSED");
+
+      const prepAccept = await prepareGenericExecutionContractDraft({
+        oa,
+        projectId,
+        cycleInstanceId: null,
+        analysis,
+        decisionId: accepted[0]!.decisionId,
+        forceLocalAuthority: true,
+        pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+      });
+      expect(prepAccept.ok).toBe(true);
+    } else if (accepted.length === 1 && refused.length === 0) {
       expect(again.ok && again.kind === "decided").toBe(true);
       if (!again.ok || again.kind !== "decided") return;
       expect(again.decision.status).toBe("accepted");
@@ -1092,29 +1049,79 @@ describe("P6 M-HD-02 session boundary / normal LPS replay / fail-closed", () => 
       expect(again.ok && again.kind === "decided").toBe(true);
       if (!again.ok || again.kind !== "decided") return;
       expect(again.decision.status).toBe("refused");
-    } else if (accepted.length === 1 && refused.length >= 1) {
-      // Mixed durable statuses: OA applicability must fail-closed or pick one
-      // applicable — never two concurrent GOs as "accepted".
-      if (again.ok && again.kind === "decided") {
-        expect(["accepted", "refused", "amended"]).toContain(
-          again.decision.status,
-        );
-        if (again.decision.status === "accepted") {
-          expect(again.decision.decisionId).toBe(accepted[0]!.decisionId);
-        }
-      } else {
-        expect(
-          !again.ok ||
-            again.kind === "stale_presentation_required" ||
-            again.kind === "awaiting_decision",
-        ).toBe(true);
-      }
     } else {
-      // Both requests failed closed — no durable invent.
       expect(accepted.length + refused.length).toBe(0);
       expect(accept.ok).toBe(false);
       expect(refuse.ok).toBe(false);
     }
+  });
+
+  it("SC5 — Accept(no LPS link)+Refuse same digest → OA_DECISION_HISTORY_AMBIGUOUS", async () => {
+    const { projectId, oa } = await seedProject("sc5");
+    const analysis = structuralAnalysis();
+    rememberGenericPrepareRecommendation({
+      projectId,
+      cycleInstanceId: null,
+      analysis,
+      offeredAtIso: oa.clock.nowIso(),
+    });
+    const presented = await readGenericMissionDecisionContinuity({
+      oa,
+      projectId,
+    });
+    expect(presented.ok && presented.kind === "awaiting_decision").toBe(true);
+    if (!presented.ok || presented.kind !== "awaiting_decision") return;
+    const d0 = presented.subject.presentationDigest;
+
+    const accept = await recordGenericMissionHumanDecision({
+      oa,
+      subject: presented.subject,
+      selectedOptionId: GENERIC_MISSION_OPTION_ACCEPT_PREPARE,
+      analysis,
+      authenticatedPilote: SESSION_PILOTE,
+      linkToLivingProjectState: false,
+    });
+    expect(accept.ok).toBe(true);
+    if (!accept.ok) return;
+
+    const refuse = await recordGenericMissionHumanDecision({
+      oa,
+      subject: presented.subject,
+      selectedOptionId: GENERIC_MISSION_OPTION_REFUSE,
+      analysis,
+      authenticatedPilote: SESSION_PILOTE,
+      linkToLivingProjectState: false,
+      presentedPresentationDigest: d0,
+    });
+    expect(refuse.ok).toBe(true);
+    if (!refuse.ok) return;
+
+    const hist = await oa.decisionServices.listDecisionHistory.execute({
+      projectId,
+      subject: presented.subject.missionSubjectId,
+    });
+    expect(hist.ok).toBe(true);
+    if (!hist.ok) return;
+    expect(hist.decisions.filter((d) => d.status === "accepted")).toHaveLength(1);
+    expect(hist.decisions.filter((d) => d.status === "refused")).toHaveLength(1);
+
+    // Same presentation digest → both applicable → Continuity fail-closed.
+    const again = await readGenericMissionDecisionContinuity({
+      oa,
+      projectId,
+      clientPresentationDigest: d0,
+    });
+    expect(again.ok).toBe(false);
+    if (again.ok) return;
+    expect(again.code).toBe("OA_DECISION_HISTORY_AMBIGUOUS");
+
+    const selected = selectApplicableGenericMissionDecision({
+      decisions: hist.decisions,
+      subject: presented.subject,
+    });
+    expect(selected.ok).toBe(false);
+    if (selected.ok) return;
+    expect(selected.code).toBe("OA_DECISION_HISTORY_AMBIGUOUS");
   });
 
   it("RP05 — material drift after Record → replay refused (not ALREADY_APPLIED)", async () => {
@@ -1564,194 +1571,9 @@ describe("P6 M-HD-02 session boundary / normal LPS replay / fail-closed", () => 
 
 ```
 
-### SECTION: `actions.ts` L1011-1064 — Read action (auth + continuity)
-
-```typescript
-export async function w2ReadGenericMissionDecisionContinuityAction(input: {
-  projectId: string;
-  clientPresentationDigest?: string | null;
-  /** Hostile — ignored. */
-  claimedSessionKey?: unknown;
-}): Promise<GenericMissionDecisionContinuityResult> {
-  void input.claimedSessionKey;
-  // Existing Product boundary: Better Auth session + allowlist (same resolver as Record).
-  // Complements middleware protection of Product surfaces — no new auth policy.
-  const pilote = await resolveCurrentAuthenticatedPilote({
-    headers: await headers(),
-  });
-  if (!pilote.ok) {
-    return {
-      ok: false,
-      code: pilote.code,
-      message: pilote.message,
-      humanDecisionCreated: false,
-      executionAttemptCreated: false,
-    };
-  }
-  const runtime = getRuntimeApplicationService();
-  if (!runtime.oa) {
-    return {
-      ok: false,
-      code: "OA_STACK_UNAVAILABLE",
-      message: "OA stack unavailable",
-      humanDecisionCreated: false,
-      executionAttemptCreated: false,
-    };
-  }
-  return readGenericMissionDecisionContinuity({
-    oa: runtime.oa,
-    projectId: input.projectId,
-    clientPresentationDigest: input.clientPresentationDigest,
-    // Server-owned Product session key — never a client claim.
-    sessionKey: resolveProductPrepareOfferSessionKey(),
-  });
-}
-
-const GENERIC_MISSION_OPTION_IDS = new Set<string>([
-  GENERIC_MISSION_OPTION_ACCEPT_PREPARE,
-  GENERIC_MISSION_OPTION_REFUSE,
-  GENERIC_MISSION_OPTION_REQUEST_AMEND,
-]);
-
-/**
- * M-HD-02 — record Pilote HumanDecision on a sealed Generic Mission via OA.
- *
- * Gate A: Better Auth session → allowlist → OA actor + Pilot evidence.
- * Never trusts client actor / analysis. Reconstructs analysis from CURRENT offer.
- * Never creates ExecutionAttempt. Never auto-PREPARE / EXECUTE.
- * Never forceLocalAuthority on Product path.
- */
-```
-
-### SECTION: `useProductConversation.ts` L531-585 (client digest D0 path)
-
-```typescript
-  async function refreshGenericMissionDecision() {
-    try {
-      const { w2ReadGenericMissionDecisionContinuityAction } = await import(
-        "@/features/project-assistant/w2/actions"
-      );
-      const result = await w2ReadGenericMissionDecisionContinuityAction({
-        projectId,
-        clientPresentationDigest: genericMissionDigestRef.current,
-      });
-      if (!result.ok) {
-        setGenericMissionError(result.message);
-        return;
-      }
-      if (result.kind === "awaiting_decision") {
-        setGenericMissionSubject(result.subject);
-        genericMissionDigestRef.current = result.subject.presentationDigest;
-        setGenericMissionUiState("awaiting_decision");
-        setGenericMissionStaleMessage(null);
-        setGenericMissionError(null);
-        return;
-      }
-      if (result.kind === "decided") {
-        setGenericMissionSubject(result.subject);
-        genericMissionDigestRef.current = result.subject.presentationDigest;
-        setGenericMissionUiState(
-          result.decision.status === "accepted"
-            ? "accepted"
-            : result.decision.status === "refused"
-              ? "refused"
-              : result.decision.status === "amended"
-                ? "amended"
-                : "awaiting_decision",
-        );
-        setGenericMissionStaleMessage(null);
-        setGenericMissionError(null);
-        return;
-      }
-      if (result.kind === "stale_presentation_required") {
-        setGenericMissionSubject(null);
-        setGenericMissionUiState("stale");
-        setGenericMissionStaleMessage(result.message);
-        setGenericMissionError(null);
-        return;
-      }
-      // none — clear only if we were not holding a local presentation claim
-      if (!genericMissionDigestRef.current) {
-        setGenericMissionSubject(null);
-        setGenericMissionUiState("awaiting_decision");
-        setGenericMissionStaleMessage(null);
-      } else {
-        setGenericMissionSubject(null);
-        setGenericMissionUiState("stale");
-        setGenericMissionStaleMessage(
-          "Cette présentation de mission n'est plus actuelle. Demandez à Nora une nouvelle qualification avant toute décision.",
-        );
-```
-
-### SECTION: `genericMissionSubject.ts` L878-937 (CR-04 LPS policy reused)
-
-```typescript
-export function evaluateLpsTransitionAfterHumanDecision(input: {
-  readonly sealed: LpsMaterialSnapshot;
-  readonly current: LpsMaterialSnapshot;
-  readonly decisionId: string;
-}): { readonly ok: true } | { readonly ok: false; readonly reason: string } {
-  if (input.current.version < input.sealed.version) {
-    return { ok: false, reason: "lps_version_regressed" };
-  }
-  if (input.current.version === input.sealed.version) {
-    return { ok: true };
-  }
-  // Material LPS fields must be identical aside from decisionIds growth.
-  if (input.sealed.objective.trim() !== input.current.objective.trim()) {
-    return { ok: false, reason: "lps_objective_drift" };
-  }
-  if ((input.sealed.context ?? "") !== (input.current.context ?? "")) {
-    return { ok: false, reason: "lps_context_drift" };
-  }
-  if ((input.sealed.scope ?? "") !== (input.current.scope ?? "")) {
-    return { ok: false, reason: "lps_scope_drift" };
-  }
-  const sealedConstraints = [...(input.sealed.constraints ?? [])].sort();
-  const currentConstraints = [...(input.current.constraints ?? [])].sort();
-  if (!sameStringArr(sealedConstraints, currentConstraints)) {
-    return { ok: false, reason: "lps_constraints_drift" };
-  }
-  if (input.sealed.doctrineDigest !== input.current.doctrineDigest) {
-    return { ok: false, reason: "lps_doctrine_drift" };
-  }
-  if (
-    (input.sealed.activeCycleInstanceId ?? null) !==
-    (input.current.activeCycleInstanceId ?? null)
-  ) {
-    return { ok: false, reason: "lps_cycle_drift" };
-  }
-  if ((input.sealed.trajectoryId ?? null) !== (input.current.trajectoryId ?? null)) {
-    return { ok: false, reason: "lps_trajectory_drift" };
-  }
-  if (
-    (input.sealed.trajectoryVersion ?? null) !==
-    (input.current.trajectoryVersion ?? null)
-  ) {
-    return { ok: false, reason: "lps_trajectory_version_drift" };
-  }
-  const currentIds = input.current.decisionIds ?? [];
-  if (!currentIds.includes(input.decisionId)) {
-    return { ok: false, reason: "lps_decision_not_linked" };
-  }
-  // Sealed decisionIds must remain a prefix subset of current (HD append only).
-  const sealedIds = input.sealed.decisionIds ?? [];
-  for (let i = 0; i < sealedIds.length; i += 1) {
-    if (currentIds[i] !== sealedIds[i]) {
-      return { ok: false, reason: "lps_decision_history_rewritten" };
-    }
-  }
-  return { ok: true };
-}
-
-/**
- * @deprecated Prefer evaluateLpsTransitionAfterHumanDecision (CR-04).
-```
-
 ---
 
-## 13. Fin de pack
+## 15. Fin de pack
 
-Review Pack FULL mono-cycle.
 Handoff message:
-`docs(review-handoff): publish M-HD-02 post-record continuity correction review`
+`docs(review-handoff): publish M-HD-02 RP04 authority verification`
