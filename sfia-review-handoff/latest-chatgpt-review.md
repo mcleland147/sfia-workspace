@@ -1,111 +1,180 @@
-# SFIA Studio — Generic Execution Nora Tool Invocation — INTEGRATED DELIVERY — Review Pack FULL
+# SFIA Studio — Generic Execution Nora Tool — CRITICAL DELIVERY CORRECTION PASS — Review Pack FULL
 
-- **Horodatage** : 2026-10-16T09:47:11+0200 (Europe/Paris)
-- **GO Morris** : GENERIC EXECUTION — NORA TOOL INVOCATION — INTEGRATED DELIVERY (2026-10-16)
+- **Horodatage** : 2026-10-16T10:14:09+0200 (Europe/Paris)
+- **GO Morris** : GENERIC EXECUTION NORA TOOL — CRITICAL DELIVERY CORRECTION PASS (2026-10-16)
 - **Cycle** : 8 — Delivery / implémentation · **Profil** : CRITICAL · **Typologie** : EVOL
-- **Capacité** : V3-F05 (D-ER-16…19)
-- **Milestone** : P6 — IN PROGRESS
-- **CKC** : ckc:studio:delivery
-- **Commit Product** : **AUCUN**
-- **Push Product / PR / merge** : **AUCUN**
-- **Cursor REAL / OpenAI LIVE / :3020 / e66** : **NON touchés**
+- **Capacité** : V3-F05 · D-ER-16…19
+- **Milestone** : P6 IN PROGRESS
+- **Commit Product / push / PR** : **AUCUN**
+- **:3020 / e66 / OpenAI LIVE / Cursor REAL** : **NON**
 
 ## 1. Verdict
 
-**GENERIC EXECUTION DELIVERY DETERMINISTIC PASS**
-**LOCAL CANDIDATE READY FOR CHATGPT CRITICAL CODE REVIEW**
+**CORRECTION PASS INCOMPLETE — EXIT PROOF MISSING**
 
-Anti-claims : GIT INTEGRATED · PR READY · REAL BOUNDARY PROVEN · END-TO-END REAL PROVEN · HUMAN QA PASS · P6 GLOBAL PASS · RUNTIME V3 ADOPTED — **NON**.
+**STOP — MORRIS ARCHITECTURE OR AUTHORITY DECISION REQUIRED**
 
-## 2. Git Truth initial
+Motifs structurants non résolus (fail-closed, non contournés) :
+
+1. **E10 Attempt / S8** — `governedExecuteSelectAgent` / `loadContract` refuse EC sans `cycleInstanceId` avec `CYCLE_BINDING_REQUIRED` (pas de fallback Standard). PREPARE + AUTHORIZE sans cycle sont **PROVEN** ; Attempt **PAS** sans pivot d'autorité/sélection.
+2. **E12 reprise après HD valide** — le chemin Generic PREPARE wire `decisionRefs: []` et n'admet aucune HumanDecision en entrée ; une HD réelle n'ouvre pas PREPARE. Fail-closed **PROVEN** ; continuité positive **nécessite design d'autorité Morris**.
+
+Corrections locales **réalisées et prouvées** : R1 (admission unique), R2 (Runner tool), R3/R4 partiel (null cycleTypeId + AUTHORIZE), R5 partiel (refus), R6 (digest qualifié).
+
+Anti-claims : GIT INTEGRATED · PR READY · REAL BOUNDARY PROVEN · HUMAN QA PASS · P6 GLOBAL PASS · RUNTIME V3 ADOPTED · CORRECTION PASS DETERMINISTIC PASS — **NON**.
+
+## 2. Git Truth
 
 | Check | Valeur |
 | --- | --- |
 | origin/main | `896ff59c704bfa76df1da1a51705aaf948c1cf0c` MATCH |
-| Documentary+Delivery WT | `docs/sfia-studio-generic-execution-nora-tool-invocation-20261016` @ `896ff59c` |
-| Architecture candidate D-ER-16…19 | **SECURED** (uncommitted + delivery in same WT) |
-| Handoff décision | `a3e5ff00` / blob `3f703535` VERIFIED |
-| Runtime :3020 | `studio-runtime-main-52f36884` @ `896ff59c` — **untouched** |
-| Contrat WT | review artifacts only |
+| Delivery WT | `docs/sfia-studio-generic-execution-nora-tool-invocation-20261016` @ `896ff59c` **DIRTY EXPECTED** |
+| Handoff précédent | `a4eae306` / `911f61c0` VERIFIED |
+| Architecture D-ER-16…19 | PRESERVED |
+| der16 test untracked | PRESERVED + extended (27 tests) |
+| Runtime :3020 | untouched |
 
-## 3. Worktrees
-
-| Rôle | Path / branch |
-| --- | --- |
-| Delivery + architecture candidate | `/Users/morris/Projects/sfia-workspace-docs-generic-execution-nora-tool-invocation-20261016` · `docs/sfia-studio-generic-execution-nora-tool-invocation-20261016` |
-| Runtime Human QA :3020 | `sfia-workspace-studio-runtime-main-52f36884` — **NOT MODIFIED** |
-| Review pack host | `fix/sfia-studio-p6-hqa-optional-artifact-generic-prepare` · `.tmp-sfia-review/` |
-
-## 4. Sources lues
-
-Template cycle · routing · guardrails · Build Doctrine · Roadmap (non modifiée) · C1/P1–P7 · Architecture D-ER candidate · Doctrine 30/32/34/35/37 · CKC Delivery · Runtime Reference (lecture) · Handoffs audit + décision.
-
-## 5. Convergence Pre-check
-
-| Item | État |
-| --- | --- |
-| V3-F05 / P6 | IN PROGRESS |
-| Option 2 | ADOPTED → **implémentée localement (déterministe)** |
-| KEEP backbone | EC generalist · Gateway · Attempt · Evidence · Resolution · Reconciler |
-| ADAPT | ACGC admission · F2 eligibility · offer null-cycle · materiality no-cycle |
-| COMPLETE | Nora tool `request_generic_execution_prepare` · `solicitGenericExecutionPrepare` |
-| HARVEST/RETIRE | Artifact GOVERNED path KEEP when obligation ; specialized admission no longer dead-ends Generic |
-| Exit nominal | Nora tool → solicit → Generic PREPARE → (Pilot inspect/authorize) → Cursor generalist |
-
-## 6. Décisions appliquées
-
-D-ER-16 (tool) · D-ER-17 (généricité / S8 principe) · D-ER-18 (autorité) · D-ER-19 (sortie admissions spécialisées du nominal Generic).
-
-## 7. Architecture CURRENT → IMPLÉMENTÉE
+### Status final (candidat)
 
 ```
-CURRENT: Pilot utterance → Intent → ACGC (docs_write gate) → often incompatible_execution_intent
-         → Generic PREPARE only via F2 lexical/offer + active cycle
-         → Nora Agents: product_execution_context_get READ-ONLY only
+ M projects/sfia-studio/app/__tests__/project-assistant/activeCycleArtifactMaterializationContinuityCorr01.d0.test.ts
+ M projects/sfia-studio/app/__tests__/project-assistant/corrProof07.artifactMaterialization.d0.test.ts
+ M projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
+ M projects/sfia-studio/app/features/project-assistant/ProjectAssistantPanel.tsx
+ M projects/sfia-studio/app/features/project-assistant/f2/activeCycleGovernedContinuation.ts
+ M projects/sfia-studio/app/features/project-assistant/f2/ckcCognitiveContext.ts
+ M projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
+ M projects/sfia-studio/app/features/project-assistant/f2/types.ts
+ M projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
+ M projects/sfia-studio/app/features/project-assistant/w2/pendingGenericPrepareOfferStore.ts
+ M projects/sfia-studio/app/features/project-assistant/w2/prepareGenericExecutionContractDraft.ts
+ M projects/sfia-studio/app/features/project-assistant/w2/resolveAuthoritativeProductMateriality.ts
+ M projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
+ M projects/sfia-studio/app/lib/nora-cognitive-runtime/productExecutionAgentsTools.ts
+ M projects/sfia-studio/app/lib/nora-cognitive-runtime/providerAgentsModel.ts
+ M projects/sfia-studio/convergence/sfia-studio-generic-execution-review-result-architecture.md
+?? projects/sfia-studio/app/__tests__/project-assistant/p6.der16.genericNoraToolInvocation.d0.test.ts
 
-IMPLEMENTED (local candidate):
-Pilot / Nora conversation
-  → Nora tool request_generic_execution_prepare (Agents SDK)
-       → solicitGenericExecutionPrepare (unique Product backend)
-            → prepareGenericExecutionContractDraft
-  OR F2 admission générique (sans taxonomie ; cycle optionnel sous conditions)
-  → EC generalist inspectable
-  → Pilot AUTHORIZE / Confirmation / HD (inchangé)
-  → Attempt / Cursor (NOT in this tool path)
 ```
 
-**Backend unique :** `solicitGenericExecutionPrepare` → `prepareGenericExecutionContractDraft` (même module W2 que F2).
+## 3. Sources
 
-## 8. Preuve backend unique
+Template · routing · guardrails · Build Doctrine · Roadmap (non modifiée) · C1/P2/P6 · Architecture candidate · Doctrine 30/32/34/35/37 · CKC Delivery · Runtime Reference · Handoff a4eae306 · contrats EC/Attempt.
 
-- Tool → `ctx.solicitPrepare` injecté depuis `orchestrateTurn.ts` → dynamic import `solicitGenericExecutionPrepare`
-- F2 → `prepareGenericExecutionContractDraft` directement
-- Aucun second moteur PREPARE
+## 4. Convergence Pre-check / R1–R6
 
-## 9. Fichiers créés / modifiés
+| Réserve | Traitement |
+| --- | --- |
+| R1 Admission distribuée | **FIXED** — F2 + Nora → `solicitGenericExecutionPrepare` (spy comportemental) |
+| R2 Runner invocation | **FIXED** — R2a ScriptedModel `runNoraAgentsTurn` ; R2b Fake `toolScript` + `orchestrateProjectAssistantTurn` |
+| R3 S8 beyond PREPARE | **PARTIAL** — AUTHORIZE PROVEN ; Attempt STOP `CYCLE_BINDING_REQUIRED` |
+| R4 cycleTypeId synthétique | **FIXED** — `cycleTypeId: null` + disclosures ; plus de `"project-context"` |
+| R5 HD continuity | **PARTIAL** — refus PROVEN ; reprise positive STOP Morris authority |
+| R6 Living Reference digests | **QUALIFIED** — mismatch = dirty WT only ; digests NON mis à jour |
+
+## 5. Décisions D-ER-16…19
+
+Adoptées ; Delivery local continue ; CURRENT ≠ TARGET pour Attempt S8 et HD→Generic binding.
+
+## 6. Architecture avant / après (admission)
+
+```
+BEFORE: F2 → prepareGenericExecutionContractDraft
+        Nora tool → solicitGenericExecutionPrepare → prepareGeneric…
+
+AFTER:  F2 → solicitGenericExecutionPrepare({ analysis })
+        Nora tool → solicitGenericExecutionPrepare({ mission })
+             └─→ prepareGenericExecutionContractDraft (unique)
+```
+
+## 7. Preuve backend unique (comportementale)
+
+Tests R1 spy :
+- F2 appelle une fois avec `analysis`
+- Nora tool avec `mission`
+- Même surface contrat ; refuse forcé propagé à F2 sans EC
+
+## 8. Chemin Nora Runner (E8)
+
+R2a : Pilote msg → `runNoraAgentsTurn` + ScriptedModel → tool `request_generic_execution_prepare` → Product → EC
+R2b : `orchestrateProjectAssistantTurn` + Fake `toolScript` → même chaîne
+
+Label : **MODEL TOOL SELECTION SCRIPTED · PRODUCT BEHAVIOR PROVEN**
+≠ OpenAI LIVE semantic understanding.
+
+## 9. S8
+
+| Étape | Statut |
+| --- | --- |
+| PREPARE cycleInstanceId=null | PASS |
+| Qualification cycleTypeId=null | PASS (no project-context) |
+| AUTHORIZE project-bound | PASS |
+| Attempt / SelectAgent | **FAIL-CLOSED** `CYCLE_BINDING_REQUIRED` |
+| Cycle inventé | **AUCUN** |
+
+### Blocker Attempt (preuve)
+
+```typescript
+        ok: false,
+        code: "PROJECT_ARCHIVED",
+        message: "Projet archivé — aucune exécution.",
+      },
+    };
+  }
+
+  let selectionProfile: SelectionProfile | null = null;
+  if (!contract.cycleInstanceId) {
+    return {
+      ok: false,
+      result: {
+        ok: false,
+        code: "CYCLE_BINDING_REQUIRED",
+        message:
+          "ExecutionContract sans cycleInstanceId — Execute W3-A refusé (pas de fallback Standard).",
+      },
+    };
+  }
+  {
+    const cycle = await oa.cycleServices.getCycle.execute({
+      cycleInstanceId:
+```
+
+### Options Morris (non sélectionnées)
+
+(a) Autoriser SelectAgent sans cycle + règle de profil Project-context (autorité).
+(b) S8 = PREPARE+AUTHORIZE only ; Execute exige cycle réel.
+(c) Pilote ouvre un vrai cycle avant Execute.
+
+## 10. HumanDecision (E12)
+
+Fail-closed sans HD : PASS (5 flags + protected path + no smuggle).
+HD acceptée via `decideTrajectory` **n'ouvre pas** Generic PREPARE (decisionRefs hard-wired `[]`).
+
+### Design Morris requis
+
+- Kind/subject HD pour mission générique
+- Binding mission (offer fingerprint / subject)
+- Staleness
+- Resolver serveur (pas Nora) fournissant refs
+
+## 11. Legacy
+
+Artifact GOVERNED KEEP when obligation.
+Natural signal sans docs_write → Generic (prior).
+M3 RETIRE LATER.
+Plain actionable no-cycle → createCycle historique KEEP (narrow).
+
+## 12. Fichiers
 
 ### Créé
-- `projects/sfia-studio/app/__tests__/project-assistant/p6.der16.genericNoraToolInvocation.d0.test.ts` (1015 lignes)
+- `p6.der16.genericNoraToolInvocation.d0.test.ts` (untracked, 1672 lignes — contenu §14)
 
-### Modifiés (diffstat)
-```
-activeCycleGovernedContinuation.ts          |  19
-orchestrateF2.ts                            | 142
-orchestrateTurn.ts                          |  41
-pendingGenericPrepareOfferStore.ts          |   3
-prepareGenericExecutionContractDraft.ts     | 206
-resolveAuthoritativeProductMateriality.ts   |  13
-productExecutionAgentsTools.ts              | 153
-providerAgentsModel.ts                      |   1
-index.ts                                    |   2
-architecture.md (D-ER capture + note)       | 170
-2 regression tests adapted                  |  24
-+ NEW test file (untracked)
-```
+### Modifiés (cette correction + Delivery)
+Voir status. Diffstat ~ **+745/−82** tracked + UI null cycleTypeId consumers.
 
-Total tracked: **+705 / −69** (12 files) + 1 new test.
+Nouveaux vs Delivery initial : `f2/types.ts`, `ckcCognitiveContext.ts`, `ConversationSurface.tsx`, `ProjectAssistantPanel.tsx`, F2 → solicit, der16 +11 tests.
 
-## 10. Contenu complet — fichier créé (test)
+## 13. Contenu complet — test créé/étendu
 
 ```typescript
 /**
@@ -130,8 +199,20 @@ Total tracked: **+705 / −69** (12 files) + 1 new test.
  */
 import fs from "node:fs";
 import path from "node:path";
-import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { ScriptedModel, assistantMessage, functionCall } from "@openai/agents/testing";
 import { RunContext } from "@openai/agents";
+import * as prepareSvc from "@/features/project-assistant/w2/prepareGenericExecutionContractDraft";
+import { runNoraAgentsTurn, sfiaBoundaryInstructions } from "@/lib/nora-cognitive-runtime";
+import { resolveWorkspaceRootFromAppCwd } from "@/lib/platform/repository/workspaceRoot";
+import { orchestrateProjectAssistantTurn } from "@/features/project-assistant/orchestrateTurn";
+import { inspectExecutionContract } from "@/features/project-assistant/w2/inspectExecutionContract";
+import { authorizeGenericPreparedContract } from "@/features/project-assistant/w2/authorizeGenericPreparedContract";
+import { decideTrajectory } from "@/features/project-assistant/w2/decideTrajectory";
+import { proposeTrajectoryOptions } from "@/features/project-assistant/w2/proposeTrajectoryOptions";
+import { resolveW2QualificationInputs } from "@/features/project-assistant/w2/qualificationInputs";
+import { CLARIFY_OPTION_REF } from "@/features/project-assistant/w2/trajectoryOptions";
+import { governedExecuteSelectAgent } from "@/features/project-assistant/w2/governedExecuteAuthorizedContract";
 import { orchestrateAssistantSend } from "@/features/project-assistant/f2/orchestrateF2";
 import {
   resolveActiveCycleGovernedContinuation,
@@ -177,6 +258,7 @@ import { createProductExecutionAgentsTools } from "@/lib/nora-cognitive-runtime/
 import {
   bootW2Runtime,
   cleanupW2TempDirs,
+  seedQualifiedProject,
   tempProductDbPath,
   W2_TEST_PINNED_BASE_HEAD_SHA,
 } from "./w2Harness";
@@ -299,7 +381,11 @@ function intercept(messages: ProviderChatMessage[]): string | null {
 
 class Der16Provider implements ConversationProvider {
   readonly providerId = "fake-test";
-  private readonly inner = new FakeConversationProvider();
+  private readonly inner: FakeConversationProvider;
+
+  constructor(inner?: FakeConversationProvider) {
+    this.inner = inner ?? new FakeConversationProvider();
+  }
 
   private result(text: string): ProviderCompletionResult {
     return {
@@ -820,9 +906,13 @@ describe("D-ER-16…19 Generic Execution Nora Tool Delivery", () => {
     expect(turn1.text).not.toMatch(/Le cycle actif est conservé/);
     expect(turn1.text).toMatch(/Contexte projet conservé/);
     expect(turn1.text).toMatch(/aucun cycle artificiel/i);
-    expect(turn1.f2?.qualification?.cycleTypeId).toBe("project-context");
+    // R3/R4 — NO synthetic catalog id: cycleTypeId is null, never "project-context".
+    expect(turn1.f2?.qualification?.cycleTypeId).toBeNull();
     expect(turn1.f2?.qualification?.cycleInstanceId).toBeUndefined();
+    expect(turn1.f2?.qualification?.cycleStatus).toBeUndefined();
     expect(turn1.f2?.qualification?.disclosures).toContain("NO_ACTIVE_CYCLE");
+    expect(turn1.f2?.qualification?.disclosures).toContain("PROJECT_CONTEXT_ONLY");
+    expect(JSON.stringify(turn1.f2?.qualification)).not.toMatch(/"project-context"/);
 
     const offer = getPendingGenericPrepareOffer(
       projectId,
@@ -1122,583 +1212,807 @@ describe("D-ER-16…19 Generic Execution Nora Tool Delivery", () => {
     expect(turn.text).toMatch(/Je recommande|Je peux préparer/i);
     expect(await countAttempts(oa, projectId)).toBe(0);
   });
+
+  // =========================================================================
+  // CORRECTION PASS — R1…R6
+  // =========================================================================
+
+  /** Same wiring shape as orchestrateTurn.ts solicitPrepare (shared Product service). */
+  function runnerSolicitWiring(
+    projectId: string,
+    oa: NonNullable<RuntimeApplicationService["oa"]>,
+  ) {
+    return {
+      projectId,
+      resolve: async () => ({
+        ok: false as const,
+        code: "NOT_USED",
+        message: "not used in this proof",
+      }),
+      solicitPrepare: async (args: {
+        objective?: string;
+        expectedOutcome?: string;
+        scope?: string;
+        contextNotes?: string;
+        impactSignals?: Record<string, boolean | undefined>;
+      }) =>
+        prepareSvc.solicitGenericExecutionPrepare({
+          oa,
+          projectId,
+          cycleInstanceId: null,
+          mission: args,
+          sessionDbPath,
+          forceLocalAuthority: true,
+          pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+        }),
+    };
+  }
+
+  // -------------------------------------------------------------------------
+  // R1 — ONE Product admission service for F2 and the Nora tool
+  // -------------------------------------------------------------------------
+
+  it("R1 — BEHAVIORAL: F2 Generic PREPARE goes through solicitGenericExecutionPrepare({analysis}); Nora tool goes through the SAME service ({mission})", async () => {
+    const spy = vi.spyOn(prepareSvc, "solicitGenericExecutionPrepare");
+    try {
+      const { projectId, cycleInstanceId, oa } = await seedProject({
+        suffix: "r1a",
+        withCycle: true,
+      });
+
+      // --- F2 entry: recommend → OK → EC
+      await orchestrateAssistantSend({
+        projectId,
+        content: `Refactore le module d'export. ${MARKER_CODE_LIKE}`,
+        sessionDbPath,
+      });
+      expect(spy).not.toHaveBeenCalled(); // recommendation alone never prepares
+      const turn2 = await orchestrateAssistantSend({
+        projectId,
+        content: "OK, vas-y",
+        sessionDbPath,
+      });
+      expect(turn2.ok).toBe(true);
+      if (!turn2.ok) throw new Error(turn2.message);
+      const f2EcId = turn2.text.match(/xct:gen-prep:[a-f0-9]+/)?.[0];
+      expect(f2EcId).toBeTruthy();
+
+      expect(spy).toHaveBeenCalledTimes(1);
+      const f2Arg = spy.mock.calls[0]![0];
+      expect(f2Arg.analysis).toBeTruthy();
+      expect(f2Arg.mission).toBeUndefined();
+      expect(f2Arg.projectId).toBe(projectId);
+      expect(f2Arg.cycleInstanceId).toBe(cycleInstanceId);
+      const f2Result = await spy.mock.results[0]!.value;
+      expect(f2Result.ok).toBe(true);
+      expect(f2Result.executionContractId).toBe(f2EcId);
+
+      // --- Nora tool entry: same service, mission fields
+      const out = await invokeTool(productTools(projectId, oa)[1]!, {
+        objective: "Refactorer le module d'export du projet demo",
+        expectedOutcome: "Module d'export simplifié",
+        scope: "projects/demo/src",
+      });
+      expect(out.ok).toBe(true);
+      expect(spy).toHaveBeenCalledTimes(2);
+      const toolArg = spy.mock.calls[1]![0];
+      expect(toolArg.mission).toBeTruthy();
+      expect(toolArg.analysis).toBeUndefined();
+
+      // Both ECs are produced by the unique backend: identical contract surface.
+      const [a, b] = await Promise.all(
+        [f2EcId!, String(out.executionContractId)].map((id) =>
+          oa.executionContractServices.getExecutionContract.execute({
+            executionContractId: id,
+          }),
+        ),
+      );
+      expect(a!.ok && b!.ok).toBe(true);
+      if (!a!.ok || !b!.ok) throw new Error("load");
+      expect(a!.contract.action).toBe(b!.contract.action);
+      expect(a!.contract.scope).toBe(b!.contract.scope);
+      expect(a!.contract.constraints).toContain("PREPARE_WITHOUT_SYSTEMATIC_HD");
+      expect(b!.contract.constraints).toContain("PREPARE_WITHOUT_SYSTEMATIC_HD");
+      expect(a!.contract.decisionRefs ?? []).toEqual([]);
+      expect(b!.contract.decisionRefs ?? []).toEqual([]);
+    } finally {
+      spy.mockRestore();
+    }
+  });
+
+  it("R1 — BEHAVIORAL: F2 maps whatever the shared service returns (forced refusal surfaces in F2; no EC; F2 cannot bypass admission)", async () => {
+    const { projectId, oa } = await seedProject({ suffix: "r1b", withCycle: true });
+    await orchestrateAssistantSend({
+      projectId,
+      content: `Refactore le module d'export. ${MARKER_CODE_LIKE}`,
+      sessionDbPath,
+    });
+    const spy = vi
+      .spyOn(prepareSvc, "solicitGenericExecutionPrepare")
+      .mockResolvedValueOnce({
+        ok: false,
+        code: "R1_SPY_FORCED_REFUSAL",
+        message: "REFUS FORCÉ PAR LE SERVICE PARTAGÉ (spy).",
+        humanDecisionCreated: false,
+        executionAttemptCreated: false,
+      });
+    try {
+      const turn = await orchestrateAssistantSend({
+        projectId,
+        content: "OK, vas-y",
+        sessionDbPath,
+      });
+      expect(turn.ok).toBe(true);
+      if (!turn.ok) throw new Error(turn.message);
+      expect(spy).toHaveBeenCalledTimes(1);
+      expect(turn.text).toContain("REFUS FORCÉ PAR LE SERVICE PARTAGÉ (spy).");
+      expect(turn.text).not.toMatch(/xct:gen-prep:/);
+      expect(await countAttempts(oa, projectId)).toBe(0);
+      expect(
+        (await oa.executionContractServices.contracts.listByProject(projectId))
+          .length,
+      ).toBe(0);
+    } finally {
+      spy.mockRestore();
+    }
+  });
+
+  it("R1 — static complement: orchestrateF2 no longer imports prepareGenericExecutionContractDraft directly", () => {
+    const f2 = fs.readFileSync(
+      path.join(APP_ROOT, "features/project-assistant/f2/orchestrateF2.ts"),
+      "utf8",
+    );
+    expect(f2).not.toMatch(/\bprepareGenericExecutionContractDraft\b\s*\(/);
+    expect(f2).toMatch(/solicitGenericExecutionPrepare\(\{/);
+  });
+
+  // -------------------------------------------------------------------------
+  // R2 — FULL RUNNER tool invocation
+  //   MODEL TOOL SELECTION: SCRIPTED (ScriptedModel / Fake provider script)
+  //   PRODUCT BEHAVIOR: PROVEN (real Agents Runner → real tool → real Product)
+  // -------------------------------------------------------------------------
+
+  it("R2a — [MODEL TOOL SELECTION SCRIPTED · PRODUCT BEHAVIOR PROVEN] runNoraAgentsTurn: Pilote message → Runner invokes request_generic_execution_prepare → Product prepare → EC", async () => {
+    const spy = vi.spyOn(prepareSvc, "solicitGenericExecutionPrepare");
+    try {
+      const { projectId, oa } = await seedProject({ suffix: "r2a", withCycle: false });
+      const model = new ScriptedModel([
+        [
+          functionCall(
+            "request_generic_execution_prepare",
+            {
+              objective: "Refactorer le module d'export du projet demo",
+              expectedOutcome: "Module d'export simplifié, tests inchangés",
+              scope: "projects/demo/src",
+            },
+            { callId: "call_prepare_r2a" },
+          ),
+        ],
+        [assistantMessage("Contrat préparé (non autorisé, non lancé).")],
+      ]);
+      const budgetCalls: string[] = [];
+      const result = await runNoraAgentsTurn({
+        correlationId: "der16-r2a",
+        projectId,
+        systemInstructions: sfiaBoundaryInstructions(),
+        userContent:
+          "Peux-tu faire refactorer le module d'export par Cursor ? Prépare la mission.",
+        model,
+        workspaceRoot: resolveWorkspaceRootFromAppCwd(),
+        enableTools: true,
+        productExecutionTools: runnerSolicitWiring(projectId, oa),
+      });
+      void budgetCalls;
+
+      // Runner really selected + invoked the tool (SDK function_call_result).
+      expect(result.toolCalls).toBeGreaterThanOrEqual(1);
+      expect(model.calls.length).toBe(2);
+      const secondInput = model.calls[1]!.request.input as unknown[];
+      const toolResultItem = secondInput.find(
+        (item) =>
+          item &&
+          typeof item === "object" &&
+          (item as { type?: string }).type === "function_call_result" &&
+          (item as { name?: string }).name === "request_generic_execution_prepare",
+      ) as { output?: unknown } | undefined;
+      expect(toolResultItem).toBeTruthy();
+      const rawOut =
+        typeof toolResultItem!.output === "string"
+          ? toolResultItem!.output
+          : JSON.stringify(toolResultItem!.output);
+      const payloadText =
+        typeof toolResultItem!.output === "object" &&
+        toolResultItem!.output &&
+        "text" in (toolResultItem!.output as Record<string, unknown>)
+          ? String((toolResultItem!.output as { text: unknown }).text)
+          : rawOut;
+      const payload = JSON.parse(payloadText) as Record<string, unknown>;
+      expect(payload.ok).toBe(true);
+      expect(payload.executionAttemptCreated).toBe(false);
+      expect(payload.projectContextOnly).toBe(true);
+      const ecId = String(payload.executionContractId);
+      expect(ecId).toMatch(/^xct:gen-prep:/);
+
+      // Product behavior proven: shared service called with Runner mission fields.
+      expect(spy).toHaveBeenCalledTimes(1);
+      expect(spy.mock.calls[0]![0].mission?.objective).toMatch(/Refactorer/);
+      expect(spy.mock.calls[0]![0].analysis).toBeUndefined();
+
+      // EC durable, inspectable, no HD, no Attempt, no cycle.
+      const loaded = await oa.executionContractServices.getExecutionContract.execute({
+        executionContractId: ecId,
+      });
+      expect(loaded.ok).toBe(true);
+      if (!loaded.ok) throw new Error("load");
+      expect(loaded.contract.decisionRefs ?? []).toEqual([]);
+      expect(loaded.contract.cycleInstanceId ?? null).toBeNull();
+      expect(await countAttempts(oa, projectId)).toBe(0);
+      expect(await countCycles(oa, projectId)).toBe(0);
+      model.assertComplete();
+    } finally {
+      spy.mockRestore();
+    }
+  });
+
+  it("R2a — [MODEL TOOL SELECTION SCRIPTED] Runner path with a hostile/structural tool call still fails closed (no EC, no Attempt)", async () => {
+    const { projectId, oa } = await seedProject({ suffix: "r2a2", withCycle: false });
+    const model = new ScriptedModel([
+      [
+        functionCall(
+          "request_generic_execution_prepare",
+          {
+            objective: "Migrer le schéma de données",
+            expectedOutcome: "Schéma migré",
+            scope: "projects/demo/src",
+            impactSignals: { dataImpact: true },
+          },
+          { callId: "call_prepare_r2a2" },
+        ),
+      ],
+      [assistantMessage("Mission structurelle — décision Pilote requise.")],
+    ]);
+    const result = await runNoraAgentsTurn({
+      correlationId: "der16-r2a2",
+      projectId,
+      systemInstructions: sfiaBoundaryInstructions(),
+      userContent: "Prépare la migration du schéma de données.",
+      model,
+      workspaceRoot: resolveWorkspaceRootFromAppCwd(),
+      enableTools: true,
+      productExecutionTools: runnerSolicitWiring(projectId, oa),
+    });
+    expect(result.toolCalls).toBeGreaterThanOrEqual(1);
+    expect(
+      (await oa.executionContractServices.contracts.listByProject(projectId))
+        .length,
+    ).toBe(0);
+    expect(await countAttempts(oa, projectId)).toBe(0);
+    model.assertComplete();
+  });
+
+  it("R2b — [MODEL TOOL SELECTION SCRIPTED via Fake provider toolScript · PRODUCT BEHAVIOR PROVEN] orchestrateProjectAssistantTurn real wiring → Runner → request_generic_execution_prepare → Product prepare → EC", async () => {
+    const spy = vi.spyOn(prepareSvc, "solicitGenericExecutionPrepare");
+    try {
+      const { projectId, oa } = await seedProject({ suffix: "r2b", withCycle: false });
+      const scripted = new FakeConversationProvider({
+        toolScript: [
+          {
+            kind: "tool_calls",
+            toolCalls: [
+              {
+                callId: "call_prepare_r2b",
+                name: "request_generic_execution_prepare",
+                argumentsJson: JSON.stringify({
+                  objective: "Refactorer le module d'export du projet demo",
+                  expectedOutcome: "Module d'export simplifié",
+                  scope: "projects/demo/src",
+                }),
+              },
+            ],
+          },
+          {
+            kind: "message",
+            text: "[TEST/FAKE · NON LIVE] Contrat préparé, non autorisé, non lancé.",
+          },
+        ],
+      });
+      const turn = await orchestrateProjectAssistantTurn({
+        projectId,
+        content:
+          "Je voudrais que Cursor refactore le module d'export. Prépare la mission.",
+        provider: new Der16Provider(scripted),
+        sessionDbPath,
+      });
+      expect(turn.ok).toBe(true);
+      if (!turn.ok) throw new Error(turn.message);
+
+      // Unique Product service reached from the real orchestrateTurn wiring.
+      expect(spy).toHaveBeenCalledTimes(1);
+      const arg = spy.mock.calls[0]![0];
+      expect(arg.projectId).toBe(projectId);
+      expect(arg.mission?.objective).toMatch(/Refactorer/);
+      expect(arg.cycleInstanceId).toBeNull();
+      const res = await spy.mock.results[0]!.value;
+      expect(res.ok).toBe(true);
+      const contracts = await oa.executionContractServices.contracts.listByProject(
+        projectId,
+      );
+      expect(contracts.length).toBe(1);
+      expect(contracts[0]!.executionContractId).toBe(res.executionContractId);
+      expect(contracts[0]!.cycleInstanceId ?? null).toBeNull();
+      expect(contracts[0]!.decisionRefs ?? []).toEqual([]);
+      expect(await countAttempts(oa, projectId)).toBe(0);
+      expect(await countCycles(oa, projectId)).toBe(0);
+    } finally {
+      spy.mockRestore();
+    }
+  });
+
+  // -------------------------------------------------------------------------
+  // R3/R4 — S8 without a fake cycleTypeId; Authorize → Attempt boundary
+  // -------------------------------------------------------------------------
+
+  it("R3 — S8 qualification carries NO catalog cycleTypeId (null) and honest disclosures; no CycleInstance fields", async () => {
+    const { projectId } = await seedProject({ suffix: "r3", withCycle: false });
+    const turn = await orchestrateAssistantSend({
+      projectId,
+      content: `Produis-moi une spécification Markdown pour le projet. ${MARKER_NATURAL_DOC}`,
+      sessionDbPath,
+    });
+    expect(turn.ok).toBe(true);
+    if (!turn.ok) throw new Error(turn.message);
+    const q = turn.f2?.qualification;
+    expect(q).toBeTruthy();
+    expect(q!.cycleTypeId).toBeNull();
+    expect(q!.cycleInstanceId).toBeUndefined();
+    expect(q!.cycleStatus).toBeUndefined();
+    expect(q!.catalogVersion).toBe("none");
+    expect(q!.catalogHash).toBe("none");
+    expect(q!.executionAuthority).toBe(false);
+    expect(q!.disclosures).toEqual(
+      expect.arrayContaining([
+        "NO_ACTIVE_CYCLE",
+        "PROJECT_CONTEXT_ONLY",
+        "NO_CATALOG_CYCLE_TYPE",
+        "NO_NEW_CYCLE_INSTANCE",
+      ]),
+    );
+    // Descriptive Nora candidate is a disclosure only — never the authoritative id.
+    expect(JSON.stringify(q)).not.toMatch(/"project-context"/);
+    expect(q!.cycleTypeId).not.toBe("cyc:delivery");
+  });
+
+  it("R4 — S8 no-cycle: solicit → inspect → AUTHORIZE accepted with project binding only (no CycleInstance, no HD, no Attempt)", async () => {
+    const { projectId, oa } = await seedProject({ suffix: "r4a", withCycle: false });
+    const cyclesBefore = await countCycles(oa, projectId);
+    const hdBefore = (await oa.decisionServices.decisions.listByProject(projectId)).length;
+
+    const prep = await prepareSvc.solicitGenericExecutionPrepare({
+      oa,
+      projectId,
+      cycleInstanceId: null,
+      mission: {
+        objective: "Refactorer le module d'export du projet demo",
+        expectedOutcome: "Module d'export simplifié",
+        scope: "projects/demo/src",
+      },
+      sessionDbPath,
+      forceLocalAuthority: true,
+      pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+    });
+    expect(prep.ok).toBe(true);
+    if (!prep.ok) throw new Error(prep.message);
+    expect(prep.projectContextOnly).toBe(true);
+
+    const inspected = await inspectExecutionContract({
+      oa,
+      projectId,
+      executionContractId: prep.executionContractId,
+    });
+    expect(inspected.ok).toBe(true);
+    if (!inspected.ok) throw new Error(inspected.message);
+
+    const authorized = await authorizeGenericPreparedContract({
+      oa,
+      projectId,
+      executionContractId: prep.executionContractId,
+      expectedVersion: inspected.contractVersion,
+      expectedSemanticFingerprint: inspected.semanticFingerprint,
+      forceLocalAuthority: true,
+    });
+    if (!authorized.ok) {
+      throw new Error(`authorize failed: ${authorized.code} — ${authorized.message}`);
+    }
+    expect(authorized.authorization.ok).toBe(true);
+    if (authorized.authorization.ok) {
+      expect(authorized.authorization.outcome).toBe("AUTHORIZED");
+    }
+    expect(authorized.executionAttemptCreated).toBe(false);
+    expect(authorized.humanDecisionCreated).toBe(false);
+
+    const after = await oa.executionContractServices.getExecutionContract.execute({
+      executionContractId: prep.executionContractId,
+    });
+    expect(after.ok).toBe(true);
+    if (!after.ok) throw new Error("get");
+    expect(after.contract.cycleInstanceId ?? null).toBeNull();
+    expect(after.contract.decisionRefs ?? []).toEqual([]);
+    expect(await countCycles(oa, projectId)).toBe(cyclesBefore);
+    expect(
+      (await oa.decisionServices.decisions.listByProject(projectId)).length,
+    ).toBe(hdBefore);
+    expect(await countAttempts(oa, projectId)).toBe(0);
+  });
+
+  it("R4 — HARD INVARIANT (STOP evidence): Product governed Execute refuses a null-cycle EC with CYCLE_BINDING_REQUIRED — no Attempt, no invented cycle, no Standard fallback", async () => {
+    const { projectId, oa } = await seedProject({ suffix: "r4b", withCycle: false });
+    const prep = await prepareSvc.solicitGenericExecutionPrepare({
+      oa,
+      projectId,
+      cycleInstanceId: null,
+      mission: {
+        objective: "Refactorer le module d'export du projet demo",
+        expectedOutcome: "Module d'export simplifié",
+        scope: "projects/demo/src",
+      },
+      sessionDbPath,
+      forceLocalAuthority: true,
+      pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+    });
+    if (!prep.ok) throw new Error(prep.message);
+    const inspected = await inspectExecutionContract({
+      oa,
+      projectId,
+      executionContractId: prep.executionContractId,
+    });
+    if (!inspected.ok) throw new Error(inspected.message);
+    const authorized = await authorizeGenericPreparedContract({
+      oa,
+      projectId,
+      executionContractId: prep.executionContractId,
+      expectedVersion: inspected.contractVersion,
+      expectedSemanticFingerprint: inspected.semanticFingerprint,
+      forceLocalAuthority: true,
+    });
+    expect(authorized.ok).toBe(true);
+
+    const cyclesBefore = await countCycles(oa, projectId);
+    const selected = await governedExecuteSelectAgent({
+      oa,
+      projectId,
+      executionContractId: prep.executionContractId,
+      forceLocalAuthority: true,
+    });
+    expect(selected.ok).toBe(false);
+    if (selected.ok) throw new Error("expected CYCLE_BINDING_REQUIRED");
+    expect(selected.code).toBe("CYCLE_BINDING_REQUIRED");
+    expect(await countAttempts(oa, projectId)).toBe(0);
+    expect(await countCycles(oa, projectId)).toBe(cyclesBefore);
+    expect(cyclesBefore).toBe(0);
+  });
+
+  // -------------------------------------------------------------------------
+  // R5 — Structural HD continuity (E12). Honest status: the Generic PREPARE
+  // path has NO HumanDecision admission input (decisionRefs hard-wired []).
+  // Positive "structural + valid HD → Generic prepare" needs NEW AUTHORITY
+  // DESIGN (see delivery note). These tests prove every fail-closed edge that
+  // exists TODAY and that no HD can be smuggled in or silently bound.
+  // -------------------------------------------------------------------------
+
+  it("R5 — structural blocked WITHOUT HD for every structural impact flag (tool + service), no EC / no Attempt / no HD created", async () => {
+    const { projectId, oa } = await seedProject({ suffix: "r5a", withCycle: false });
+    for (const flag of [
+      "structuralChange",
+      "securityImpact",
+      "architectureImpact",
+      "dataImpact",
+      "irreversible",
+    ] as const) {
+      const out = await invokeTool(productTools(projectId, oa)[1]!, {
+        objective: `Mission structurelle (${flag})`,
+        expectedOutcome: "Résultat structurel",
+        scope: "projects/demo/src",
+        impactSignals: { [flag]: true },
+      });
+      expect(out.ok).toBe(false);
+      expect(out.code).toBe("STRUCTURAL_HUMAN_DECISION_REQUIRED");
+      expect(out.humanDecisionCreated).toBe(false);
+      expect(out.executionAttemptCreated).toBe(false);
+    }
+    expect(
+      (await oa.executionContractServices.contracts.listByProject(projectId)).length,
+    ).toBe(0);
+    expect(await countAttempts(oa, projectId)).toBe(0);
+  });
+
+  it("R5 — a REAL accepted HumanDecision in the Project does NOT silently unlock structural Generic PREPARE; Nora text/params cannot smuggle an HD (no HD→mission binding exists on Generic path → STOP E12 positive)", async () => {
+    const seeded = await seedQualifiedProject(runtime, { suffix: "r5b" });
+    const oa = runtime.oa!;
+    const projectId = seeded.projectId;
+
+    // Record a REAL HumanDecision through the existing W2 decision path.
+    const qualification = await resolveW2QualificationInputs({ oa, projectId });
+    if (!qualification.ok) throw new Error("qual");
+    const proposed = await proposeTrajectoryOptions({
+      oa,
+      projectId,
+      ...qualification.qualification.inputs,
+      packagePin: qualification.qualification.packagePin,
+      objective: qualification.qualification.objective,
+      projectTitle: qualification.qualification.projectTitle,
+    });
+    if (!proposed.ok) throw new Error("propose");
+    const decided = await decideTrajectory({
+      oa,
+      projectId,
+      optionSetRef: proposed.optionSetRef,
+      options: proposed.options,
+      recommendedOptionRef: proposed.recommendation.recommendedOptionRef,
+      selectedOptionRef: CLARIFY_OPTION_REF,
+      trajectoryId: proposed.proposedTrajectory!.trajectoryId,
+      candidateVersion: proposed.proposedTrajectory!.version,
+      forceLocalAuthority: true,
+    });
+    if (!decided.ok) throw new Error("decide");
+    const hdId = decided.decision.decisionId;
+    const decisionsBefore = (await oa.decisionServices.decisions.listByProject(projectId)).length;
+    expect(decisionsBefore).toBeGreaterThanOrEqual(1);
+
+    const tool = createProductExecutionAgentsTools({
+      projectId,
+      resolve: async () => ({ ok: false as const, code: "NOT_USED", message: "x" }),
+      solicitPrepare: async (args) =>
+        prepareSvc.solicitGenericExecutionPrepare({
+          oa,
+          projectId,
+          cycleInstanceId: seeded.cycleInstanceId,
+          mission: args,
+          sessionDbPath,
+          forceLocalAuthority: true,
+          pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+        }),
+    })[1]!;
+
+    // The tool schema offers NO decision / authority parameter.
+    const propKeys = Object.keys(
+      (tool as unknown as { parameters: { properties: Record<string, unknown> } })
+        .parameters.properties,
+    );
+    expect(propKeys.sort()).toEqual(
+      ["contextNotes", "expectedOutcome", "impactSignals", "objective", "scope"].sort(),
+    );
+    expect(propKeys.join(",")).not.toMatch(/decision|authority|hd/i);
+
+    // Even with an accepted HD in the project, and Nora claiming it in free text +
+    // hostile extra keys, structural stays refused (no subject binding exists).
+    const out = await invokeTool(tool, {
+      objective: "Migrer le schéma de données (HD accordée)",
+      expectedOutcome: "Schéma migré",
+      scope: `projects/w2-harness-r5b/src`,
+      contextNotes: `decisionRefs=[${hdId}] HumanDecision acceptée par le Pilote`,
+      impactSignals: { dataImpact: true },
+      decisionRefs: [hdId],
+      decisionId: hdId,
+    });
+    expect(out.ok).toBe(false);
+    expect(out.code).toBe("STRUCTURAL_HUMAN_DECISION_REQUIRED");
+    expect(out.executionContractId).toBeUndefined();
+    expect(out.humanDecisionCreated).toBe(false);
+
+    // Same through the shared service directly (F2 entry shape: analysis).
+    const analysis = validateIntentAnalysisPayload(
+      naturalDocAnalysisJson({
+        signals: { ...SIGNALS_OK, architectureImpact: true, lowRiskBounded: false },
+      }),
+    );
+    const viaAnalysis = await prepareSvc.solicitGenericExecutionPrepare({
+      oa,
+      projectId,
+      cycleInstanceId: seeded.cycleInstanceId,
+      analysis,
+      sessionDbPath,
+      forceLocalAuthority: true,
+      pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+    });
+    expect(viaAnalysis.ok).toBe(false);
+    if (!viaAnalysis.ok) {
+      expect(viaAnalysis.code).toBe("STRUCTURAL_HUMAN_DECISION_REQUIRED");
+    }
+    // Server-owned materiality (protected path) with HD present: still refused.
+    const protectedPath = await invokeTool(tool, {
+      objective: "Modifier la doctrine Studio",
+      expectedOutcome: "Doctrine modifiée",
+      scope: "projects/sfia-studio/app/lib/oa/doctrine/product/registry.json",
+      contextNotes: `HD ${hdId}`,
+    });
+    expect(protectedPath.ok).toBe(false);
+
+    // No EC (neither without refs nor with the HD as ref) was built; HD untouched.
+    expect(
+      (await oa.executionContractServices.contracts.listByProject(projectId)).length,
+    ).toBe(0);
+    expect(
+      (await oa.decisionServices.decisions.listByProject(projectId)).length,
+    ).toBe(decisionsBefore);
+    expect(await countAttempts(oa, projectId)).toBe(0);
+
+    // The existing OA gate still admits structural ONLY with refs>=1 at Confirm —
+    // but nothing on the Generic path can supply them (STOP evidence, static).
+    const svc = fs.readFileSync(
+      path.join(
+        APP_ROOT,
+        "features/project-assistant/w2/prepareGenericExecutionContractDraft.ts",
+      ),
+      "utf8",
+    );
+    expect(svc.match(/decisionRefs:\s*\[\]/g)?.length).toBe(1);
+    expect(svc).not.toMatch(/decisionRefs\??:\s*readonly string\[\]/);
+  });
 });
 
 ```
 
-## 11. Extraits exploitables — tool Nora
+## 14. Extraits — qualificationFromProjectContext (null)
 
 ```typescript
-/**
- * Product Execution Context Agents tools — project-bound.
- * `product_execution_context_get` is READ-ONLY.
- * `request_generic_execution_prepare` (D-ER-16…19, Option 2) SOLICITS Generic
- * PREPARE through the unique Product backend — it never authorizes, never
- * executes and never creates an ExecutionAttempt (PREPARE ≠ AUTHORIZE ≠ EXECUTE).
- * Pattern harvested from cycleJournalAgentsTools.ts.
- * Model cannot switch projectId / paths / SQL / credentials.
- */
-import { tool } from "@openai/agents";
-import type { NoraTurnBudget } from "./turnBudget";
-import {
-  TOOL_TURN_BUDGET_EXCEEDED_RESULT,
-  claimToolSlot,
-} from "./turnBudget";
-import type {
-  ProductExecutionContext,
-  ProductExecutionContextQuery,
-  ResolveProductExecutionContextResult,
-} from "@/features/project-assistant/w2/resolveProductExecutionContext";
+function qualificationFromProjectContext(input: {
+  signals: IntentAnalysisDto["signals"];
+  analysis: IntentAnalysisDto;
+}): QualificationDto {
+  const descriptive = input.analysis.candidateCycleTypeId?.trim() || null;
+  return {
+    cycleTypeId: null,
+    cycleLabel: "Contexte projet (sans cycle actif)",
+    recommendedProfile: "Contexte projet",
+    rationale:
+      input.analysis.objective ??
+      "Préparation générique sur contexte projet — aucun cycle artificiel",
+    criticalSignalsPresent: false,
+    requiresJustificationForCritical: false,
+    capitalizationViaCycleTypeId: false,
+    isMorrisDecision: false,
+    catalogVersion: "none",
+    catalogHash: "none",
+    detailedStatus: "GENERIC_PREPARE_PROJECT_CONTEXT",
+    disclosures: [
+      "GENERIC_PREPARE_PROJECT_CONTEXT",
+      "NO_ACTIVE_CYCLE",
+      "PROJECT_CONTEXT_ONLY",
+      "NO_CATALOG_CYCLE_TYPE",
+      "NO_NEW_CYCLE_
+```
 
-export type ProductExecutionToolContext = {
-  readonly projectId: string;
-  readonly resolve: (
-    query: ProductExecutionContextQuery,
-  ) => Promise<ResolveProductExecutionContextResult>;
-  readonly budget?: NoraTurnBudget;
-  /**
-   * D-ER-16 — Product-injected solicitation of Generic PREPARE for the CURRENT
-   * project. The model cannot choose projectId / cycle / paths / authority.
-   * No task taxonomy (docs_write / REQUIRE_ARTIFACT / cycleTypeId) is accepted.
-   * Result MUST be JSON-serializable and carry executionAttemptCreated:false.
-   */
-  readonly solicitPrepare?: (args: SolicitGenericPrepareToolArgs) => Promise<unknown>;
+## 15. Extraits — F2 → solicitGenericExecutionPrepare
+
+```typescript
+Product admission service
+      // (readiness → capability → materiality → prepareGenericExecutionContractDraft).
+      const prep = await solicitGenericExecutionPrepare({
+        oa,
+        projectId: project.projectId,
+        cycleInstanceId: activeId,
+        analysis: prepareAnalysis,
+        forceLocalAuthority:
+          process.env.VITEST === "true" ||
+          process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY === "1",
+        sessionDbPath: input.sessionDbPath,
+        // Explicit DET pin only (never inferred from VITEST alone).
+        // Production re
+```
+
+## 16. QualificationDto.cycleTypeId
+
+```typescript
+utation cycle linkage when present (M2). */
+  activeCycleInstanceId?: string | null;
+  ckcResolutionRef?: string | null;
 };
 
-/** Mission fields Nora may supply — NON-AUTHORITATIVE, no required taxonomy. */
-export type SolicitGenericPrepareToolArgs = {
-  readonly objective?: string;
-  readonly expectedOutcome?: string;
-  readonly scope?: string;
-  readonly contextNotes?: string;
-  /** Conservative-only impact flags — can only make Product more cautious. */
-  readonly impactSignals?: {
-    readonly structuralChange?: boolean;
-    readonly securityImpact?: boolean;
-    readonly architectureImpact?: boolean;
-    readonly dataImpact?: boolean;
-    readonly irreversible?: boolean;
-  };
+export type CkcSemanticProvenance = {
+  readonly ckcId: string;
+  readonly cycleTypeId: string;
+  readonly doctrinePackageId: string;
+  readonly packageVersion: string;
+  readonly contentDigest: string;
+  readonly doctrineStatus: "product-studio-native";
 };
 
-export const GENERIC_PREPARE_TOOL_DISCLOSURE =
-  "PREPARE ≠ AUTHORIZE ≠ EXECUTE — sollicitation Product uniquement; aucune autorisation, aucune exécution, aucun ExecutionAttempt créé par cet outil.";
-
-function parseImpactSignals(
-  v: unknown,
-): SolicitGenericPrepareToolArgs["impactSignals"] {
-  if (!v || typeof v !== "object") return undefined;
-  const r = v as Record<string, unknown>;
-  return {
-    structuralChange: r.structuralChange === true,
-    securityImpact: r.securityImpact === true,
-    architectureImpact: r.architectureImpact === true,
-    dataImpact: r.dataImpact === true,
-    irreversible: r.irreversible === true,
-  };
-}
-
-function str(v: unknown): string | undefined {
-  return typeof v === "string" && v.trim() ? v.trim() : undefined;
-}
-
-function requireProject(ctx: ProductExecutionToolContext): string | null {
-  const p = ctx.projectId.trim();
-  return p || null;
-}
-
-function boundContextJson(context: ProductExecutionContext): string {
-  // Drop large artifact preview from default tool payload — keep summary + completeness.
-  const bounded = {
-    ...context,
-    artifact: {
-      kind: context.artifact.kind,
-      present: context.artifact.present,
-      completeness: context.artifact.completeness,
-      preview:
-        context.artifact.preview && context.artifact.preview.length > 800
-          ? `${context.artifact.preview.slice(0, 800)}…`
-          : context.artifact.preview,
-    },
-  };
-  return JSON.stringify(bounded);
-}
-
-/**
- * Same-turn Product Resolution tools for Nora Agents Runner.
- * Bound to one projectId — server validates lineage.
- */
-export function createProductExecutionAgentsTools(
-  ctx: ProductExecutionToolContext,
-) {
-  const get = tool({
-    name: "product_execution_context_get",
-    description:
-      "Resolve durable Product execution facts for the CURRENT Project only " +
-      "(ExecutionContract, Attempt, CursorExecutionReport CLAIM, Artifact summary, " +
-      "Evidence, ReviewBundle, ClaimEvaluation, post-Evidence Recommendation). " +
-      "Use when the Pilot asks what happened in the last execution — do NOT ask the Pilot for Attempt/EC IDs Studio already holds. " +
-      "READ-ONLY. Never Evidence authority. Cursor report is CLAIM not Evidence.",
-    parameters: {
-      type: "object",
-      additionalProperties: false,
-      required: [],
-      properties: {
-        selector: {
-          type: "string",
-          description:
-            'Use "latest" (default), or omit. Do not invent foreign project ids.',
-        },
-        executionContractId: {
-          type: "string",
-          description:
-            "Optional EC id known to belong to this Project. Rejected if foreign.",
-        },
-        attemptId: {
-          type: "string",
-          description:
-            "Optional Attempt id known to belong to this Project. Rejected if foreign.",
-        },
-      },
-    } as never,
-    strict: false,
-    execute: async (args: unknown) => {
-      if (ctx.budget && !claimToolSlot(ctx.budget)) {
-        return TOOL_TURN_BUDGET_EXCEEDED_RESULT;
-      }
-      const projectId = requireProject(ctx);
-      if (!projectId) {
-        return JSON.stringify({
-          ok: false,
-          code: "PRODUCT_PROJECT_REQUIRED",
-          context: null,
-        });
-      }
-      const o =
-        args && typeof args === "object"
-          ? (args as Record<string, unknown>)
-          : {};
-      let query: ProductExecutionContextQuery = { kind: "latest" };
-      if (typeof o.attemptId === "string" && o.attemptId.trim()) {
-        query = { kind: "byAttemptId", attemptId: o.attemptId.trim() };
-      } else if (
-        typeof o.executionContractId === "string" &&
-        o.executionContractId.trim()
-      ) {
-        query = {
-          kind: "byExecutionContractId",
-          executionContractId: o.executionContractId.trim(),
-        };
-      }
-      const resolved = await ctx.resolve(query);
-      if (!resolved.ok) {
-        return JSON.stringify({
-          ok: false,
-          code: resolved.code,
-          message: resolved.message,
-          projectId,
-          context: null,
-        });
-      }
-      return JSON.stringify({
-        ok: true,
-        projectId,
-        context: JSON.parse(boundContextJson(resolved.context)),
-        disclosure:
-          "Product Resolution projection — READ-ONLY; CursorExecutionReport=CLAIM; Attempt succeeded ≠ Product PROVEN.",
-      });
-    },
-  });
-
-  if (!ctx.solicitPrepare) return [get];
-
-  const solicit = ctx.solicitPrepare;
-  const prepareTool = tool({
-    name: "request_generic_execution_prepare",
-    description:
-      "Solicit Generic PREPARE of an inspectable ExecutionContract for the CURRENT Project, " +
-      "for any bounded mission (documentation, code, analysis, other) — no task category, no docs_write, " +
-      "no REQUIRE_ARTIFACT, no cycle type needed, and no active cycle required. " +
-      "Use when the Pilote wants Cursor to do real work and the mission is clear enough " +
-      "(objective + expected outcome or scope). Product qualifies the mission server-side " +
-      "(materiality, capabilities, protected paths); structural missions stay blocked until a HumanDecision. " +
-      "This tool does NOT authorize and does NOT execute: PREPARE ≠ AUTHORIZE ≠ EXECUTE; " +
-      "it never creates an ExecutionAttempt. Report the returned contract/status honestly " +
-      "and never claim anything was executed.",
-    parameters: {
-      type: "object",
-      additionalProperties: false,
-      required: [],
-      properties: {
-        objective: {
-          type: "string",
-          description: "What the Pilote wants done (mission objective).",
-        },
-        expectedOutcome: {
-          type: "string",
-          description: "Observable expected result of the mission.",
-        },
-        scope: {
-          type: "string",
-          description:
-            "Where / what is in scope (paths, area). Candidate only — Product resolves authority.",
-        },
-        contextNotes: {
-          type: "string",
-          description: "Optional short notes (constraints, risks, reservations).",
-        },
-        impactSignals: {
-          type: "object",
-          additionalProperties: false,
-          description:
-            "Optional: set a flag true ONLY if the mission is structural/security/architecture/data/irreversible. Product still decides.",
-          properties: {
-            structuralChange: { type: "boolean" },
-            securityImpact: { type: "boolean" },
-            architectureImpact: { type: "boolean" },
-            dataImpact: { type: "boolean" },
-            irreversible: { type: "boolean" },
-          },
-        },
-      },
-    } as never,
-    strict: false,
-    execute: async (args: unknown) => {
-      if (ctx.budget && !claimToolSlot(ctx.budget)) {
-        return TOOL_TURN_BUDGET_EXCEEDED_RESULT;
-      }
-      const projectId = requireProject(ctx);
-      if (!projectId) {
-        return JSON.stringify({
-          ok: false,
-          code: "PRODUCT_PROJECT_REQUIRED",
-          executionAttemptCreated: false,
-          disclosure: GENERIC_PREPARE_TOOL_DISCLOSURE,
-        });
-      }
-      const o =
-        args && typeof args === "object"
-          ? (args as Record<string, unknown>)
-          : {};
-      try {
-        const result = await solicit({
-          objective: str(o.objective),
-          expectedOutcome: str(o.expectedOutcome),
-          scope: str(o.scope),
-          contextNotes: str(o.contextNotes),
-          impactSignals: parseImpactSignals(o.impactSignals),
-        });
-        const base =
-          result && typeof result === "object"
-            ? (result as Record<string, unknown>)
-            : { ok: false, code: "PREPARE_SOLICITATION_EMPTY" };
-        return JSON.stringify({
-          ...base,
-          projectId,
-          // Forced — the tool can never report an Attempt.
-          executionAttemptCreated: false,
-          disclosure: GENERIC_PREPARE_TOOL_DISCLOSURE,
-        });
-      } catch {
-        return JSON.stringify({
-          ok: false,
-          code: "PREPARE_SOLICITATION_FAILED",
-          projectId,
-          executionAttemptCreated: false,
-          disclosure: GENERIC_PREPARE_TOOL_DISCLOSURE,
-        });
-      }
-    },
-  });
-
-  return [get, prepareTool];
-}
-
+export type Qual
 ```
 
-## 12. Extraits — solicitGenericExecutionPrepare
-
-```typescript
-export function buildIntentAnalysisFromSolicitedMission(
-  fields: SolicitGenericPrepareMissionFields,
-): IntentAnalysisDto {
-  const objective = fields.objective?.trim() || null;
-  const expectedOutcome = fields.expectedOutcome?.trim() || null;
-  const scope = fields.scope?.trim() || null;
-  const sig = fields.impactSignals ?? null;
-  const structural =
-    sig?.structuralChange === true ||
-    sig?.securityImpact === true ||
-    sig?.architectureImpact === true ||
-    sig?.dataImpact === true ||
-    sig?.irreversible === true;
-  const notes = fields.contextNotes?.trim() || null;
-  return {
-    parseOk: true,
-    intentClass: "execution_request",
-    candidateCycleTypeId: null,
-    signals: {
-      structuralChange: sig?.structuralChange === true,
-      securityImpact: sig?.securityImpact === true,
-      architectureImpact: sig?.architectureImpact === true,
-      dataImpact: sig?.dataImpact === true,
-      irreversible: sig?.irreversible === true,
-      lowRiskBounded: !structural,
-    },
-    cognitiveWorkload: null,
-    contradictionCandidate: null,
-    challengeResponseAssessment: "sufficient",
-    objective,
-    scope,
-    rephrasedRequest: objective,
-    outOfScope: [],
-    ri
-
-// ---
-
-export async function solicitGenericExecutionPrepare(
-  input: SolicitGenericExecutionPrepareInput,
-): Promise<SolicitGenericExecutionPrepareResult> {
-  const projectId = input.projectId.trim();
-  const fail = (
-    code: string,
-    message: string,
-    missingFields?: readonly string[],
-  ): SolicitGenericExecutionPrepareResult => ({
-    ok: false,
-    code,
-    message,
-    ...(missingFields ? { missingFields } : {}),
-    humanDecisionCreated: false,
-    executionAttemptCreated: false,
-  });
-  if (!projectId) {
-    return fail("PRODUCT_PROJECT_REQUIRED", "Project requis pour préparer.");
-  }
-  const analysis =
-    input.analysis ??
-    buildIntentAnalysisFromSolicitedMission(input.mission ?? {});
-
-  const readiness = assessGenericMissionPrepareReadiness(analysis);
-  if (readiness.structuralBlocked) {
-    return fail(
-      "STRUCTURAL_HUMAN_DECISION_REQUIRED",
-      "Cette mission engage une vérité structurelle — une HumanDecision Pilote reste requise avant préparation.",
-    );
-  }
-  if (!readiness.ready) {
-    return fail(
-      "MISSION_INSUFFICIENTLY_QUALIFIED",
-      `Informations manquantes pour préparer le contrat : ${readiness.missingFields.join(", ")}.`,
-      readiness.missingFields,
-    );
-  }
-
-  const cycleInstanceId = input.cycleInstanceId?.trim() || null;
-  const prep = await prepareGenericExecutionContractDraft({
-    oa: input.oa,
-    projectId,
-    cycleInstanceId,
-    analysis,
-    forceLocalAuthority: input.forceLocalAuthority,
-    pinnedBaseHeadSha: input.pinnedBaseHeadSha,
-    managedRepoRootBase: input.managedRepoRootBase,
-    sourceGroundingReader: input.sourceGroundingReader,
-    sessionKey: input.sessionKey,
-    sessionDbPath: input.sessionDbPath,
-  });
-  if (!prep.ok) {
-    return fail(prep.code, prep.message);
-  }
-  return {
-    ok: true,
-    code: "GENERIC_PREPARE_DRAFTED",
-    executionContractId: prep.contract.executionContractId,
-    contractStatus: prep.contract.status,
-    materiality: prep.materiality.materiality,
-    cycleInstanceId,
-    projectContextOnly: cycleInstanceId === null,
-    humanDecisionCreated: false,
-    executionAttemptCreated: false,
-    message:
-      "Contrat d'exécution préparé et inspectable — non autorisé, non lancé. Préparer ≠ autoriser ≠ exécuter.",
-  };
-}
-
-```
-
-## 13. Extraits — wire orchestrateTurn
-
-```typescript
-ect bound server-side; active cycle is
-        // optional context (null = S8 project-context, never invented).
-        // PREPARE ≠ AUTHORIZE ≠ EXECUTE — no ExecutionAttempt is ever created.
-        solicitPrepare: async (args) => {
-          const [
-            { getRuntimeApplicationService },
-            { solicitGenericExecutionPrepare },
-          ] = await Promise.all([
-            import("@/lib/vertical-slice-runtime"),
-            import("./w2/prepareGenericExecutionContractDraft"),
-          ]);
-          const oa = getRuntimeApplicationService().oa;
-          if (!oa) {
-            return {
-              ok: false as const,
-              code: "OA_UNAVAILABLE",
-              message: "OA runtime indisponible pour la préparation.",
-              executionAttemptCreated: false as const,
-            };
-          }
-          return solicitGenericExecutionPrepare({
-            oa,
-            projectId: project.projectId,
-            cycleInstanceId: project.activeCycleInstanceId?.trim() || null,
-            mission: {
-              objective: args.objective,
-              expe
-```
-
-## 14. Extraits — ACGC no_compatible_artifact_effect
-
-```typescript
-uationClarificationReason;
-      readonly enrichedExecutionIntent: ExecutionIntentPayload | null;
-    }
-  | {
-      readonly mode: "ACTIVE_CYCLE_CONTINUATION_BLOCKED";
-      readonly reason: ContinuationBlockedReason;
-      readonly activeCycle: CycleInstance | null;
-    }
-  | {
-      readonly mode: "NEW_CYCLE_FORMALIZATION";
-      readonly reason:
-        | "no_materialization_intent"
-        | "no_compatible_artifact_effect";
-    };
-
-/**
- * P6-HQA-F05-GD4-01 — Artifact-continuation handling recognized a materialization
- * signal, but no closure obligation (CURRENT REQUIRE_ARTIFACT / APPLICABLE
- * unsatisfied) is established. This is NOT an Artifact governed continuation
- * and MUST NOT invent a HumanDecision. It is also NOT NEW_CYCLE_FORM
-```
-
-## 15. Schémas / contrats
-
-- Tool params: `objective`, `expectedOutcome`, `scope`, `contextNotes`, `impactSignals?` — **pas** de taxonomie / REQUIRE_ARTIFACT / cycleTypeId obligatoire
-- Offer: `cycleInstanceId: string | null`
-- EC: `cycleInstanceId` optional (null S8)
-- Forced tool output: `executionAttemptCreated: false`
-
-## 16. Traitement S8
-
-- Principe D-ER-17 : admission sans cycle actif **possible**
-- Implémenté : null-cycle offer + PREPARE + EC `cycleInstanceId == null` (E10)
-- Narrow admission to avoid hijacking historical NEW_CYCLE START (plain actionable sans prepare/signal → createCycle legacy path KEEP temporairement)
-- Materiality: project-context mission with null requested cycle on project without active cycle = non-mutating
-- **OPEN / dette :** Authorize→Attempt→projections/recovery sans cycle **non prouvés** ; offer process-local
-
-## 17. Missions structurantes
-
-- Readiness structural flags → `STRUCTURAL_HUMAN_DECISION_REQUIRED` (E12)
-- Materiality protected paths fail-closed (E12)
-- No HD invented ; Confirmation path unchanged
-
-## 18. Legacy routers
-
-| Asset | Classification |
-| --- | --- |
-| ACGC Artifact GOVERNED (obligation) | **KEEP** |
-| ACGC natural signal sans docs_write | **ADAPT** → NEW_CYCLE_FORMALIZATION `no_compatible_artifact_effect` |
-| F2 Generic PREPARE | **ADAPT** — nominal générique |
-| M3 docs_write sealed | **RETIRE LATER** (hors nominal Generic ; non retiré ce lot) |
-| *DocsWrite* technical adapters | **KEEP/HARVEST** |
-
-## 19. Tests S1–S10 (déterministes)
-
-| # | Couverture test | Résultat |
-| --- | --- | --- |
-| S1 Document | E9 natural documentary sans taxonomy | PASS |
-| S2 Code | E9b intentKind other | PASS |
-| S3 Tests | via même capacité (code path) — pas de suite Cursor REAL | PARTIAL (admission) |
-| S4 Lecture | hors Attempt forcé — non régressé | N/A dedicated |
-| S5 Confirmation | backbone KEEP (gD4 authorize path) | PASS (gD4) |
-| S6 Protected | E12 materiality fail-closed | PASS |
-| S7 Sans Artifact | E9 + F05 no_require | PASS |
-| S8 Sans cycle | E10 null-cycle PREPARE | PASS (PREPARE) ; Authorize OPEN |
-| S9 Ambigu | E8 insufficient mission ; E14 OK sans offer | PASS |
-| S10 Capacité | envelope KEEP (gD4) | PASS |
-
-## 20. Autorité négatifs
-
-E12 structural · E14 no invented prepare · tool Attempt flag forced false · REQUIRE_ARTIFACT NR — **PASS**
-
-## 21. Fake / Real
-
-| | |
-| --- | --- |
-| Fake | Vitest + Scripted/Fake provider ; tool invoke direct ; **sans** injection discriminants legacy pour verts |
-| REAL | **ZERO** OpenAI LIVE · **ZERO** Cursor REAL |
-| DETERMINISTIC PROVEN | OUI (scoped) |
-| READY FOR REAL | **NO** |
-
-## 22. Commandes et résultats
+## 17. Tests exécutés
 
 ```
 npm run test -- p6.der16… p6.hqa.f05… p6.gD4…
-→ 3 files / 33 tests PASSED
+→ 3 files / 44 tests PASSED (27 der16)
 
 npx tsc --noEmit → clean
-
-Full suite (prior agent): 5911 passed / 1 failed
-→ productionRuntimeReference.conformance digest mismatch (Living Reference refresh NOT done — hors GO digest update)
 ```
 
-## 23. Evidence E8–E18
+Living Reference conformance : FAIL attendu (dirty) — §18.
 
-| ID | Statut | Preuve |
-| --- | --- | --- |
-| E8 | **PASS** | tool registered + invoke → EC ; Attempt false |
-| E9 | **PASS** | natural doc sans taxonomy → Generic |
-| E10 | **PASS** (PREPARE) | null-cycle EC ; **OPEN** Authorize/Attempt |
-| E11 | **PASS** | no_compatible_artifact_effect ; explicit hostile kind stays BLOCKED |
-| E12 | **PASS** | STRUCTURAL_HUMAN_DECISION_REQUIRED |
-| E13 | **PASS** | Confirmation via existing materiality/effects (gD4) |
-| E14 | **PASS** | authority refusals |
-| E15 | **PASS** | unique backend solicit→prepareGeneric |
-| E16 | **PASS** | generalist EC WHAT |
-| E17 | **PASS** | F05 + gD4 + 2 adapted CORR tests |
-| E18 | **PASS** local | D-ER doc + code same WT ; Product uncommitted |
+## 18. Living Reference (R6) — faits
 
-## 24. Dette / exit
+```markdown
+# Living Production Runtime Reference — digest mismatch (R6, facts only)
+
+Test: `app/__tests__/architecture/productionRuntimeReference.conformance.d0.test.ts`
+→ "tracked source/test/volume digests match current tree" FAILS (the test stops at the first mismatch:
+expected `1b8d5cd3ff4f3383`, observed `8150d48197019412` for `orchestrateTurn.ts`).
+
+Manifest `lastReviewedCommit`: `9b9cd5e5052da5781678a23a86c82b8b3283627e`. Worktree HEAD: `896ff59c`.
+44 tracked entries (volumes + sources + tests); 5 mismatch (full scan, read-only script).
+For ALL 5, the manifest digest == digest of `git show HEAD:<path>` → the manifest is
+consistent with HEAD; the mismatch is caused purely by the DIRTY worktree (Delivery D-ER-16…19 + this
+correction pass). No digest / manifest / volume was updated.
+
+| kind | path (under projects/sfia-studio/app) | manifest (expected) | worktree (observed) | HEAD |
+|---|---|---|---|---|
+| source | features/project-assistant/orchestrateTurn.ts | 1b8d5cd3ff4f3383 | 8150d48197019412 | 1b8d5cd3ff4f3383 |
+| source | features/project-assistant/f2/orchestrateF2.ts | 6200659a4be2f20c | bdadae2fb132bf4a | 6200659a4be2f20c |
+| source | features/project-assistant/f2/activeCycleGovernedContinuation.ts | 57646c517d2ccdb6 | 93852ec0c2193c86 | 57646c517d2ccdb6 |
+| test | __tests__/project-assistant/activeCycleArtifactMaterializationContinuityCorr01.d0.test.ts | 323b22fa466fc23b | 23513b92d5cfa5d3 | 323b22fa466fc23b |
+| test | __tests__/project-assistant/corrProof07.artifactMaterialization.d0.test.ts | 29485cbfb95f7939 | c2862434ad6fe670 | 29485cbfb95f7939 |
+
+Notes
+- `orchestrateF2.ts` observed digest includes the R1 correction (F2 → `solicitGenericExecutionPrepare`);
+  any further edit changes it again. Re-run the scan at publish time.
+- Per manifest.maintenance: digest mismatch = "REFERENCE REVIEW REQUIRED"; refreshing digests does
+  NOT validate semantics. Volume `04-dependency-impact-map.md` mentions `prepareGenericExecutionContractDraft`; volumes need a human
+  content review for: unique Product admission
+  (`solicitGenericExecutionPrepare`), Nora tool `request_generic_execution_prepare`, S8 project-context
+  PREPARE (no active cycle; `QualificationDto.cycleTypeId = null`). Manifest `trackedSources` /
+  `trackedTests` do NOT currently list `prepareGenericExecutionContractDraft.ts`,
+  `productExecutionAgentsTools.ts` or the new der16 test (which would be new entries, not digest refresh).
+- Not done here by instruction: no digest refresh, no manifest edit.
+
+```
+
+Gate : REFERENCE REVIEW / digest refresh sous GO Morris distinct — **non fait**.
+
+## 19. Evidence E8–E20
+
+| ID | Statut |
+| --- | --- |
+| E8 Runner tool | **PASS** (scripted selection) |
+| E9 admission commune | **PASS** (spy) |
+| E10 S8 | **PARTIAL** — PREPARE+AUTH PASS ; Attempt STOP |
+| E11 no fake cycleTypeId | **PASS** |
+| E12 HD | **PARTIAL** — refuse PASS ; resume STOP |
+| E13 Confirmation effects | KEEP / gD4 |
+| E14 no authority bypass | **PASS** |
+| E15 unique backend | **PASS** |
+| E16 generalist EC | **PASS** |
+| E17 non-regression F05/gD4 | **PASS** |
+| E18 D-ER+code same WT | **PASS** local |
+| E19 Fake/Real gaps | **QUALIFIED** |
+| E20 Living digest | **RESERVE** (dirty-only mismatch) |
+
+## 20. Fake / Real
+
+Deterministic strong on R1/R2/Authorize.
+MODEL TOOL SELECTION SCRIPTED ≠ LIVE model.
+ZERO REAL. READY FOR REAL = **NO**.
+
+## 21. Dette / exit
 
 | Dette | Exit |
 | --- | --- |
-| Authorize/Attempt/Recovery sans cycle | Delivery GO follow-up or HD |
-| Plain actionable no-cycle → createCycle legacy | D-ER-19 progressive exit |
-| Living Reference digests stale | Refresh under GO |
-| Offer process-local | Durable subject under GO |
-| M3 taxonomy routers still exist | RETIRE LATER |
-| Human QA F05 LIVE | Post Critical Review · GO QA |
+| Attempt sans cycle | Morris architecture (a/b/c) |
+| HD→Generic binding | Morris authority design |
+| Living digests | GO refresh + volume review |
+| M3 / createCycle legacy | D-ER-19 progressive |
+| Offer process-local | durable subject GO |
 
-## 25. Réserves
+## 22. Gates Morris
 
-- S8 Authorize chain not proven
-- Narrow no-cycle admission (compat legacy START)
-- Explicit continuationKind hostile still BLOCKED (intentional)
-- Full Agents Runner turn with Fake tool call not E2E'd beyond direct tool.execute + source wire assert
-- Architecture doc: implémentation amendement IN PROGRESS / full target still NON
+1. **ARCHITECTURE / LINEAGE** — Attempt without cycleInstanceId ?
+2. **AUTHORITY** — How HD unlocks Generic PREPARE ?
+3. Living Reference review/digests (post-integration).
+4. Human QA LIVE (post Critical).
+5. Git Integration unique (Product + arch + Roadmap).
 
-## 26. Gates futurs
-
-1. ChatGPT Critical Delivery Code Review
-2. Human QA LIVE (GO)
-3. Morris GO Git Integration (Product + architecture + Roadmap together)
-4. Optional S8 Authorize/Attempt completion
-5. Living Reference digest refresh
-
-## 27. Diff exact — app Product
+## 23. Diff exact (candidat complet)
 
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/activeCycleArtifactMaterializationContinuityCorr01.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/activeCycleArtifactMaterializationContinuityCorr01.d0.test.ts
@@ -1763,6 +2077,32 @@ index 2434330d..05a0ed12 100644
    });
 
    it("CR04-B — continuationKind without docs_write → BLOCKED incompatible_execution_intent", async () => {
+diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
+index 53d774a7..2125c220 100644
+--- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
++++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
+@@ -855,7 +855,7 @@ export function ConversationSurface({
+                     </div>
+                     <div className={styles.factWide}>
+                       <dt>Identifiant de cycle</dt>
+-                      <dd>{f2.qualification.cycleTypeId}</dd>
++                      <dd>{f2.qualification.cycleTypeId ?? "Aucun cycle actif (contexte projet)"}</dd>
+                     </div>
+                     {f2.qualification.cycleInstanceId ? (
+                       <div className={styles.factWide}>
+diff --git a/projects/sfia-studio/app/features/project-assistant/ProjectAssistantPanel.tsx b/projects/sfia-studio/app/features/project-assistant/ProjectAssistantPanel.tsx
+index 0d0d4543..0bddf56f 100644
+--- a/projects/sfia-studio/app/features/project-assistant/ProjectAssistantPanel.tsx
++++ b/projects/sfia-studio/app/features/project-assistant/ProjectAssistantPanel.tsx
+@@ -891,7 +891,7 @@ export function ProjectAssistantPanel({
+             <div>
+               <dt>Cycle SFIA</dt>
+               <dd data-testid="f2-cycle">
+-                {f2.qualification.cycleTypeId} — {f2.qualification.cycleLabel}
++                {f2.qualification.cycleTypeId ?? "Aucun cycle actif"} — {f2.qualification.cycleLabel}
+               </dd>
+             </div>
+             <div>
 diff --git a/projects/sfia-studio/app/features/project-assistant/f2/activeCycleGovernedContinuation.ts b/projects/sfia-studio/app/features/project-assistant/f2/activeCycleGovernedContinuation.ts
 index ef27e815..cd37a663 100644
 --- a/projects/sfia-studio/app/features/project-assistant/f2/activeCycleGovernedContinuation.ts
@@ -1801,8 +2141,24 @@ index ef27e815..cd37a663 100644
    }
 
    const activeId = input.project.activeCycleInstanceId ?? null;
+diff --git a/projects/sfia-studio/app/features/project-assistant/f2/ckcCognitiveContext.ts b/projects/sfia-studio/app/features/project-assistant/f2/ckcCognitiveContext.ts
+index dfdc1ec4..6d0f71f6 100644
+--- a/projects/sfia-studio/app/features/project-assistant/f2/ckcCognitiveContext.ts
++++ b/projects/sfia-studio/app/features/project-assistant/f2/ckcCognitiveContext.ts
+@@ -573,7 +573,10 @@ export function enrichQualificationWithCkcSemantics(input: {
+   packagePin: DoctrinePackagePin;
+   ckcCognitiveRecommendation?: string | null;
+ }): QualificationDto {
+-  if (!isProductStudioNativeCkcProof(input.proof)) {
++  if (
++    !isProductStudioNativeCkcProof(input.proof) ||
++    !input.qualification.cycleTypeId
++  ) {
+     return input.qualification;
+   }
+
 diff --git a/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts b/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
-index 47e4e51c..715937b2 100644
+index 47e4e51c..1593ee05 100644
 --- a/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
 @@ -72,6 +72,7 @@ import {
@@ -1813,14 +2169,58 @@ index 47e4e51c..715937b2 100644
  } from "./activeCycleGovernedContinuation";
  import {
    enrichQualificationWithCkcSemantics,
-@@ -747,6 +748,51 @@ function qualificationFromActiveCycle(input: {
+@@ -131,7 +132,7 @@ import {
+   analysisFromPendingGenericPrepareOffer,
+   getCurrentGenericPrepareOffer,
+   isChatFirstPrepareAcceptGo,
+-  prepareGenericExecutionContractDraft,
++  solicitGenericExecutionPrepare,
+   rememberGenericPrepareRecommendation,
+   resolveChatFirstGenericPrepareGo,
+ } from "../w2/prepareGenericExecutionContractDraft";
+@@ -624,6 +625,21 @@ function resolveMode(explicitProvider?: ConversationProvider): {
+   return resolveAssistantMode(explicitProvider);
+ }
+
++/**
++ * Catalog cycleTypeId guard — Generic PREPARE on PROJECT CONTEXT (S8) carries
++ * `cycleTypeId: null` (no invented catalog id). Cycle-creating / proposal paths
++ * require a real catalog id; fail closed if a project-context qualification
++ * ever reaches them.
++ */
++function requireCatalogCycleTypeId(q: QualificationDto): string {
++  if (!q.cycleTypeId) {
++    throw new Error(
++      "QUALIFICATION_CYCLE_TYPE_REQUIRED: project-context qualification has no catalog cycleTypeId",
++    );
++  }
++  return q.cycleTypeId;
++}
++
+ function buildProposal(input: {
+   intent: IntentAnalysisDto;
+   qualification: QualificationDto;
+@@ -648,10 +664,10 @@ function buildProposal(input: {
+       input.intent.objective ??
+       "Demande reformulée indisponible",
+     objective: input.intent.objective ?? input.qualification.rationale,
+-    cycleTypeId: input.qualification.cycleTypeId,
++    cycleTypeId: requireCatalogCycleTypeId(input.qualification),
+     recommendedProfile: input.qualification.recommendedProfile,
+     rationale: input.qualification.rationale,
+-    scope: input.intent.scope ?? `Périmètre borné — ${input.qualification.cycleTypeId}`,
++    scope: input.intent.scope ?? `Périmètre borné — ${requireCatalogCycleTypeId(input.qualification)}`,
+     outOfScope:
+       input.intent.outOfScope.length > 0
+         ? input.intent.outOfScope
+@@ -747,6 +763,53 @@ function qualificationFromActiveCycle(input: {
    };
  }
 
 +/**
 + * D-ER-17 / S8 — qualification for Generic PREPARE admitted on PROJECT CONTEXT
 + * (no active cycle). NOT a CycleInstance: no cycleInstanceId / cycleStatus,
-+ * catalog stamp "project-context". analysis.candidateCycleTypeId is DESCRIPTIVE
++ * cycleTypeId = null (NO catalog stamp invented). analysis.candidateCycleTypeId is DESCRIPTIVE
 + * only (disclosure) — never used to create or bind a cycle.
 + */
 +function qualificationFromProjectContext(input: {
@@ -1829,9 +2229,9 @@ index 47e4e51c..715937b2 100644
 +}): QualificationDto {
 +  const descriptive = input.analysis.candidateCycleTypeId?.trim() || null;
 +  return {
-+    cycleTypeId: "project-context",
++    cycleTypeId: null,
 +    cycleLabel: "Contexte projet (sans cycle actif)",
-+    recommendedProfile: "project-context",
++    recommendedProfile: "Contexte projet",
 +    rationale:
 +      input.analysis.objective ??
 +      "Préparation générique sur contexte projet — aucun cycle artificiel",
@@ -1839,12 +2239,14 @@ index 47e4e51c..715937b2 100644
 +    requiresJustificationForCritical: false,
 +    capitalizationViaCycleTypeId: false,
 +    isMorrisDecision: false,
-+    catalogVersion: "project-context",
-+    catalogHash: "project-context",
++    catalogVersion: "none",
++    catalogHash: "none",
 +    detailedStatus: "GENERIC_PREPARE_PROJECT_CONTEXT",
 +    disclosures: [
 +      "GENERIC_PREPARE_PROJECT_CONTEXT",
 +      "NO_ACTIVE_CYCLE",
++      "PROJECT_CONTEXT_ONLY",
++      "NO_CATALOG_CYCLE_TYPE",
 +      "NO_NEW_CYCLE_INSTANCE",
 +      "RECOMMENDATION_ONLY",
 +      ...(descriptive ? [`DESCRIPTIVE_CANDIDATE_CYCLE_TYPE:${descriptive}`] : []),
@@ -1865,7 +2267,7 @@ index 47e4e51c..715937b2 100644
  /**
   * CHAT-FIRST-GOVERNED-DECISION-LOOP-01 — presentation mapping for a durable
   * HumanDecision recorded from a conversational disposition. The kinds reuse
-@@ -1790,15 +1836,15 @@ export async function orchestrateAssistantSend(input: {
+@@ -1790,15 +1853,15 @@ export async function orchestrateAssistantSend(input: {
    // must NOT fall through to F1 advisory before the prepare gate.
    const activeIdForChatFirstPrepare =
      project.activeCycleInstanceId?.trim() || null;
@@ -1890,7 +2292,7 @@ index 47e4e51c..715937b2 100644
    const skipF1ForChatFirstPrepare =
      chatFirstPrepareGoEarly.kind === "prepare" ||
      chatFirstPrepareGoEarly.kind === "explicit_lexical_prepare";
-@@ -1986,15 +2032,13 @@ export async function orchestrateAssistantSend(input: {
+@@ -1986,15 +2049,13 @@ export async function orchestrateAssistantSend(input: {
    // (Q16/Q17/Q18); otherwise clarify gaps or recommend prepare. Never canned.
    {
      const activeIdForPrepare = project.activeCycleInstanceId?.trim() || null;
@@ -1913,7 +2315,7 @@ index 47e4e51c..715937b2 100644
      const chatFirstPrepareAccept =
        prepareGoPreview.kind === "prepare" ||
        prepareGoPreview.kind === "explicit_lexical_prepare";
-@@ -2011,16 +2055,41 @@ export async function orchestrateAssistantSend(input: {
+@@ -2011,16 +2072,41 @@ export async function orchestrateAssistantSend(input: {
        continuation.mode === "NEW_CYCLE_FORMALIZATION" ||
        isOptionalDocumentaryWithoutClosureArtifactBlock(continuation);
 
@@ -1961,7 +2363,7 @@ index 47e4e51c..715937b2 100644
        const prepareGo = prepareGoPreview;
        const mayPrepare =
          prepareGo.kind === "prepare" ||
-@@ -2036,11 +2105,16 @@ export async function orchestrateAssistantSend(input: {
+@@ -2036,11 +2122,16 @@ export async function orchestrateAssistantSend(input: {
          prepareGo.kind === "prepare" && offerForReadiness
            ? analysisFromPendingGenericPrepareOffer(offerForReadiness)
            : analysis;
@@ -1983,7 +2385,7 @@ index 47e4e51c..715937b2 100644
        const readiness = assessGenericMissionPrepareReadiness(readinessAnalysis);
 
        if (readiness.structuralBlocked || !readiness.ready) {
-@@ -2051,6 +2125,7 @@ export async function orchestrateAssistantSend(input: {
+@@ -2051,6 +2142,7 @@ export async function orchestrateAssistantSend(input: {
              presentation,
              missingFields: readiness.missingFields,
              structuralBlocked: readiness.structuralBlocked,
@@ -1991,7 +2393,7 @@ index 47e4e51c..715937b2 100644
            }),
            mode: modeResolution.mode as "fixture" | "live",
            presentation,
-@@ -2077,7 +2152,7 @@ export async function orchestrateAssistantSend(input: {
+@@ -2077,7 +2169,7 @@ export async function orchestrateAssistantSend(input: {
              sessionDbPath: input.sessionDbPath,
              text: [
                presentation === "test_provider" ? "[Mode test]" : "[Mode réel]",
@@ -2000,7 +2402,7 @@ index 47e4e51c..715937b2 100644
                "Aucune recommandation de préparation courante n'est ouverte — je ne prépare pas de contrat sur ce seul accord.",
                "Rien n'a encore été exécuté.",
              ].join(" "),
-@@ -2094,7 +2169,7 @@ export async function orchestrateAssistantSend(input: {
+@@ -2094,7 +2186,7 @@ export async function orchestrateAssistantSend(input: {
          }
          rememberGenericPrepareRecommendation({
            projectId: project.projectId,
@@ -2009,7 +2411,7 @@ index 47e4e51c..715937b2 100644
            analysis: readinessAnalysis,
            offeredAtIso: oa.clock.nowIso(),
            sessionDbPath: input.sessionDbPath,
-@@ -2107,6 +2182,7 @@ export async function orchestrateAssistantSend(input: {
+@@ -2107,6 +2199,7 @@ export async function orchestrateAssistantSend(input: {
              missingFields: [],
              structuralBlocked: false,
              recommendPrepare: true,
@@ -2017,7 +2419,7 @@ index 47e4e51c..715937b2 100644
            }),
            mode: modeResolution.mode as "fixture" | "live",
            presentation,
-@@ -2135,7 +2211,7 @@ export async function orchestrateAssistantSend(input: {
+@@ -2135,7 +2228,7 @@ export async function orchestrateAssistantSend(input: {
              sessionDbPath: input.sessionDbPath,
              text: [
                presentation === "test_provider" ? "[Mode test]" : "[Mode réel]",
@@ -2026,7 +2428,18 @@ index 47e4e51c..715937b2 100644
                "Plusieurs sujets de décision sont encore ouverts — précise lequel tu confirmes avant que je prépare un contrat.",
                "Rien n'a encore été exécuté.",
              ].join(" "),
-@@ -2182,7 +2258,7 @@ export async function orchestrateAssistantSend(input: {
+@@ -2163,7 +2256,9 @@ export async function orchestrateAssistantSend(input: {
+
+       const detPinnedSha =
+         process.env.SFIA_STUDIO_DET_PINNED_BASE_HEAD_SHA?.trim() || null;
+-      const prep = await prepareGenericExecutionContractDraft({
++      // R1 — F2 and the Nora tool share ONE Product admission service
++      // (readiness → capability → materiality → prepareGenericExecutionContractDraft).
++      const prep = await solicitGenericExecutionPrepare({
+         oa,
+         projectId: project.projectId,
+         cycleInstanceId: activeId,
+@@ -2182,7 +2277,7 @@ export async function orchestrateAssistantSend(input: {
            sessionDbPath: input.sessionDbPath,
            text: [
              presentation === "test_provider" ? "[Mode test]" : "[Mode réel]",
@@ -2035,6 +2448,63 @@ index 47e4e51c..715937b2 100644
              prep.message,
              "Rien n'a encore été exécuté.",
            ].join(" "),
+@@ -2206,9 +2301,9 @@ export async function orchestrateAssistantSend(input: {
+         sessionDbPath: input.sessionDbPath,
+         text: genericMissionPreparedText({
+           presentation,
+-          executionContractId: prep.contract.executionContractId,
++          executionContractId: prep.executionContractId,
+           objective,
+-          status: prep.contract.status,
++          status: prep.contractStatus,
+         }),
+         mode: modeResolution.mode as "fixture" | "live",
+         presentation,
+@@ -2577,7 +2672,7 @@ export async function orchestrateAssistantSend(input: {
+     const registryRoot = resolveProductDoctrineRegistryRoot();
+     const ckcContent = loadProductCkcCognitiveContent({
+       registryRoot,
+-      cycleTypeId: qualification.cycleTypeId,
++      cycleTypeId: requireCatalogCycleTypeId(qualification),
+       packagePin,
+     });
+     let ckcCognitiveRecommendation: string | undefined;
+@@ -2697,7 +2792,7 @@ export async function orchestrateAssistantSend(input: {
+     const startGate = await resolveChatFirstCycleStartGate({
+       oa,
+       projectId: project.projectId,
+-      targetCycleTypeId: qualification.cycleTypeId,
++      targetCycleTypeId: requireCatalogCycleTypeId(qualification),
+       cycleLabel: qualification.cycleLabel,
+     });
+
+@@ -2778,7 +2873,7 @@ export async function orchestrateAssistantSend(input: {
+   await cutF2Effect(input.signal, "createCycle", input.beforeF2Effect);
+   const created = await oa.cycleServices.createCycle.execute({
+     cycleInstanceId,
+-    cycleTypeId: qualification.cycleTypeId,
++    cycleTypeId: requireCatalogCycleTypeId(qualification),
+     projectId: project.projectId,
+     objective: analysis.objective ?? undefined,
+     scope: analysis.scope ?? undefined,
+diff --git a/projects/sfia-studio/app/features/project-assistant/f2/types.ts b/projects/sfia-studio/app/features/project-assistant/f2/types.ts
+index 655bc12b..39d79d4a 100644
+--- a/projects/sfia-studio/app/features/project-assistant/f2/types.ts
++++ b/projects/sfia-studio/app/features/project-assistant/f2/types.ts
+@@ -102,7 +102,12 @@ export type CkcSemanticProvenance = {
+ };
+
+ export type QualificationDto = {
+-  cycleTypeId: string;
++  /**
++   * Catalog CycleType id. `null` ONLY for Generic PREPARE on PROJECT CONTEXT
++   * (no active cycle, S8) — never an invented catalog id; disclosures carry
++   * NO_ACTIVE_CYCLE / PROJECT_CONTEXT_ONLY.
++   */
++  cycleTypeId: string | null;
+   cycleLabel: string;
+   recommendedProfile: string;
+   rationale: string;
 diff --git a/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts b/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
 index cc038f22..a36e9bb0 100644
 --- a/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
@@ -2610,12 +3080,6 @@ index f74cc8f6..352e55e3 100644
        name === "execution_review_get_manifest" ||
        name === "execution_review_read_item"
      ) {
-
-```
-
-## 28. Diff exact — architecture reference
-
-```diff
 diff --git a/projects/sfia-studio/convergence/sfia-studio-generic-execution-review-result-architecture.md b/projects/sfia-studio/convergence/sfia-studio-generic-execution-review-result-architecture.md
 index 63c14c80..57b5d904 100644
 --- a/projects/sfia-studio/convergence/sfia-studio-generic-execution-review-result-architecture.md
@@ -2883,20 +3347,10 @@ index 63c14c80..57b5d904 100644
 
 ```
 
-## 29. Git Truth final
-
-```
-origin/main=896ff59c704bfa76df1da1a51705aaf948c1cf0c
-delivery_wt=docs/…nora-tool-invocation-20261016 @ 896ff59c (DIRTY local candidate)
-product_commit=NONE
-product_push=NONE
-runtime_3020=untouched
-```
-
-## 30. Instruction ChatGPT
+## 24. Instruction ChatGPT
 
 Lire : `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md`
 
-Effectuer : **SFIA STUDIO — GENERIC EXECUTION NORA TOOL CRITICAL DELIVERY CODE REVIEW.**
+**SFIA STUDIO — GENERIC EXECUTION NORA TOOL CRITICAL CORRECTION PASS CODE REVIEW.**
 
-Vérifier : pas de catégorisation métier ; backend unique ; tool invocable ; PREPARE≠AUTHORIZE≠EXECUTE ; indépendance Artifact ; S8 ; HumanDecision ; compatibilité historique ; pas d'architecture parallèle ; adéquation D-ER ; tests ; preuves ; **absence de push Product**.
+Vérifier : admission unique ; Runner invocation ; taxonomie/Artifact ; S8+autorité ; HD ; faux cycleTypeId ; non-régressions ; D-ER ; Fake/Real ; pas de parallèle ; pas de push Product ; **STOP Morris** sur Attempt et HD resume.
