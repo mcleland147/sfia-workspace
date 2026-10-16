@@ -3910,15 +3910,18 @@ describe("P6 M-HD-01 Authority Continuity Correction", () => {
 
 ---
 
-## 19. HANDOFF PUBLICATION (à compléter post-publish)
+## 19. HANDOFF PUBLICATION — REMOTE VERIFIED
 
 Branche: `sfia/review-handoff`
 Fichier: `sfia-review-handoff/latest-chatgpt-review.md`
 Message: `docs(review-handoff): publish M-HD-01 authority continuity correction pass`
 Publisher: `scripts/sfia/publish-review-handoff.sh`
 Mode: publish-in-cycle L3 borné — mono-fichier uniquement.
-
-(Post-publish: commit SHA + blob SHA + relecture distante.)
+Commit distant: `03987f2b8376dd94ea32071502942890ce105332`
+Blob distant: `9c1df6a276d18cdf32453e75e87e6fac7bb5ee7b`
+Fast-forward: `86ad2dab` → `03987f2b`
+Verdict publisher: HANDOFF UPDATED — REMOTE VERIFIED
+Aucun commit Product. Aucun push Product.
 
 ---
 
