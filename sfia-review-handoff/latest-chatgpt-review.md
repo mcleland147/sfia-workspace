@@ -1,39 +1,36 @@
-# SFIA Studio — Cycle-Independent Agent Selection Contract — Review Pack FULL
+# SFIA Studio — Project-Scoped Generic Cursor Selection Delivery — Review Pack FULL
 
-- **Horodatage** : 2026-10-16T11:55:23+0200 (Europe/Paris)
-- **GO Morris** : GENERIC EXECUTION — CYCLE-INDEPENDENT AGENT SELECTION CONTRACT
-- **Cycle** : 6 — Architecture technique · **Profil** : CRITICAL · **Typologie** : Architecture / Decision Support / DOC
-- **Capacité** : V3-F05 · V3-F11 · V3-F12
-- **Décisions consommées** : D-ER-16…19 · **Option B ADOPTED** (Targeted Upstream Replacement)
-- **Décision ouverte** : SP-A vs SP-B (sélection sans cycle) — **NON CONSOMMÉE**
-- **Mutations Product** : **AUCUNE** (READ-ONLY)
+- **Horodatage** : 2026-10-16T12:49:06+0200 (Europe/Paris)
+- **GO Morris** : GENERIC EXECUTION — PROJECT-SCOPED CURSOR TOOL TARGETED SELECTION AND EXECUTION DELIVERY
+- **Cycle** : 8 — Delivery / implémentation · **Profil** : CRITICAL · **Typologie** : EVOL
+- **Capacité** : V3-F05 · connexes V3-F11 / V3-F12
+- **CKC** : ckc:studio:delivery
+- **Macro** : STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 · **Milestone** : P6 IN PROGRESS
+- **Mutations Product locales** : OUI (candidat dirty) — **aucun commit/push/PR Product**
+- **Handoff prior** : `18a2c274` / blob `85a95960` (selection contract) VERIFIED
 
 ## 1. Verdict
 
-**AGENT SELECTION CONTRACT REVIEW COMPLETE**
-**SP-A / SP-B QUALIFIED**
-**READY FOR MORRIS SELECTION CONTRACT DECISION**
+**PROJECT-SCOPED GENERIC CURSOR SELECTION DELIVERY — DETERMINISTIC PASS**
 
-**RECOMMENDATION (non adoptée) :** direction doctrinale **SP-B** (server-derived), car elle aligne Option B, évite schema/fingerprint churn, et peut encoder le force Product Cursor REAL déjà observé — **à condition** que Morris définisse l'attribut/règle de posture manquant.
+**LOCAL CANDIDATE READY FOR CHATGPT CRITICAL CODE REVIEW**
 
-**SP-A / SP-B ADOPTED — NON.**
+Anti-claims : GIT INTEGRATED · PR READY · READY FOR REAL · HUMAN QA PASS · P6 GLOBAL PASS · RUNTIME V3 ADOPTED · SP-A ADOPTED · SP-B ADOPTED — **NON**.
 
-Anti-claims : PRODUCT CODE UPDATED · DELIVERY COMPLETE · GIT INTEGRATED · READY FOR REAL · P6 GLOBAL PASS · RUNTIME V3 ADOPTED — **NON**.
-
-## 2. Git Truth
+## 2. Git Truth initial
 
 | Check | Valeur |
 | --- | --- |
-| origin/main | `896ff59c704bfa76df1da1a51705aaf948c1cf0c` MATCH |
+| origin/main | `896ff59c704bfa76df1da1a51705aaf948c1cf0c` MATCH baseline `896ff59c` |
 | Candidat path | `/Users/morris/Projects/sfia-workspace-docs-generic-execution-nora-tool-invocation-20261016` |
 | Candidat HEAD | `b4c1d86211d372f7b0685be7ce8a5ba7de598e37` |
 | Candidat branch | `fix/sfia-studio-p6-hqa-optional-artifact-generic-prepare` |
-| Dirty paths | 18 |
-| Note identité | FACT : le path historique `docs/…nora-tool-invocation-20261016` pointe désormais sur branche `fix/sfia-studio-p6-hqa-optional-artifact-generic-prepare` @ `b4c1d862` (≠ rapport antérieur docs/@896ff59c). Contenu Delivery dirty **préservé** ; **aucune mutation** ce cycle. Analyse sur cet arbre. |
-| Runtime :3020 | `studio-runtime-main-52f36884` @ `896ff59c` untouched |
-| Handoff impact | `97a85c3c` / `077c9aad` VERIFIED |
+| Note identité | FACT : path historique `docs/…nora-tool…` pointe branche `fix/…optional-artifact…` @ `b4c1d862` |
+| Dirty initial | 18 paths (Delivery D-ER-16…19 préservé) |
+| Runtime :3020 | untouched @ `896ff59c` |
+| Aucun reset/stash/clean/rebase | OUI |
 
-### Status candidat (non muté)
+### Status candidat (après Delivery ce cycle)
 
 ```
  M .tmp-sfia-review/chatgpt-review.md
@@ -46,6 +43,8 @@ Anti-claims : PRODUCT CODE UPDATED · DELIVERY COMPLETE · GIT INTEGRATED · REA
  M projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
  M projects/sfia-studio/app/features/project-assistant/f2/types.ts
  M projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
+ M projects/sfia-studio/app/features/project-assistant/w2/actions.ts
+ M projects/sfia-studio/app/features/project-assistant/w2/governedExecuteAuthorizedContract.ts
  M projects/sfia-studio/app/features/project-assistant/w2/pendingGenericPrepareOfferStore.ts
  M projects/sfia-studio/app/features/project-assistant/w2/prepareGenericExecutionContractDraft.ts
  M projects/sfia-studio/app/features/project-assistant/w2/resolveAuthoritativeProductMateriality.ts
@@ -54,256 +53,444 @@ Anti-claims : PRODUCT CODE UPDATED · DELIVERY COMPLETE · GIT INTEGRATED · REA
  M projects/sfia-studio/app/lib/nora-cognitive-runtime/providerAgentsModel.ts
  M projects/sfia-studio/convergence/sfia-studio-generic-execution-review-result-architecture.md
 ?? projects/sfia-studio/app/__tests__/project-assistant/p6.der16.genericNoraToolInvocation.d0.test.ts
+?? projects/sfia-studio/app/__tests__/project-assistant/p6.projectScopedCursorSelection.d0.test.ts
+
 ```
 
-## 3. Sources
+## 3. Sources consultées
 
-Template · routing · guardrails · Build Doctrine · Roadmap · C1 · P2 · P6 · Architecture D-ER candidate · Doctrine 30/32/34/35/37 · CKC · Runtime Reference · Handoff `97a85c3c` (SP-A/SP-B sections).
+Template · routing · guardrails · Build Doctrine · Roadmap · C1 · P2/P6 · Architecture D-ER-16…19 candidate · Doctrine 30/32/34/35/37 · CKC Delivery · Handoff `18a2c274` (SP-A/SP-B, CYCLE_BINDING, getProject fail-open).
 
 ## 4. Convergence Pre-check
 
 | Item | État |
 | --- | --- |
-| Option B | **ADOPTED** (amont) |
-| D-ER-16…19 | ADOPTED TARGET |
-| Gap | W3-A `loadContract` → `CYCLE_BINDING_REQUIRED` |
-| Acquis DET (handoff) | Nora tool · admission · PREPARE/AUTH sans cycle |
-| Select/Attempt sans cycle | **NOT PROVEN** |
-| Exit | Politique explicite de sélection sans cycle |
+| D-ER-16…19 | ADOPTED TARGET (conservé) |
+| Option B | ADOPTED |
+| Project-scoped Tool Access | **ADOPTED** (ce GO) |
+| SP-A / SP-B | **NON ADOPTÉS** (pas de sceau EC / pas de mapping méthodologique) |
+| Gap comblé | `loadContract` `CYCLE_BINDING_REQUIRED` retiré (cycle facultatif) |
+| getProject fail-open | **FERMÉ** → `PROJECT_NOT_FOUND` |
+| Select/Start/Result sans cycle | **DETERMINISTICALLY PROVEN** (Fake Cursor) |
+| HD–mission structural resume | **OPEN / NOT PROVEN** (dette explicite) |
 
-## 5. Distinction SelectionProfile ≠ AttemptExecutionProfile
+## 5. Décisions
 
-| | SelectionProfile | AttemptExecutionProfile |
-| --- | --- | --- |
-| Rôle | HOW select (strategy / Critical confirm) | WHICH slice (capabilities / effects / lineage) |
-| Persist | Attempt at Select | **NOT** persisted (by design) |
-| Authority | Affecte human_confirmed_proposal | Explicitement **NOT** authority |
-| Interdit | — | Capability → HD non requise ; AttemptProfile → autorisation |
+**Consommées :** D-ER-16…19 · Option B · Project-scoped Tool Access · direction « ne pas reproduire contraintes de sélection obsolètes ».
 
-**FACT :** fusionner les deux est anti-architecture.
+**Non consommées / non adoptées :** SP-A persistence · SP-B mapping obligatoire · nouvelle persistence sélection · doctrine v3 · runtime v3.
 
-## 6. CURRENT — loadContract / Select
+**Ouvertes (dettes) :** HD–mission structural resume · `startExecution` `cycleInstanceId ?? ""` pour continuation docs_write pré-commit · Critical agent_selection hors Cursor REAL (historique conservé).
 
-### Cycle hard-gate
+## 6. CURRENT → TARGET
 
-```typescript
-tion.",
-      },
-    };
-  }
+| CURRENT | TARGET |
+| --- | --- |
+| `!cycleInstanceId` → `CYCLE_BINDING_REQUIRED` | Cycle facultatif ; Project positif obligatoire |
+| getProject miss → continue | `PROJECT_NOT_FOUND` fail-closed |
+| SelectionProfile dérivé cycle (ou refus) | Avec cycle : map historique ; sans cycle : carrier technique OA `standard` pour `capabilities_deterministic` (**≠** profil méthodologique) |
+| Cursor REAL force standard+capabilities | Conservé = accès outil Project-scoped par capacités |
+| Select stamped Generic sans binding version | Resolve binding depuis inspection durable (G-D4) |
 
-  let selectionProfile: SelectionProfile | null = null;
-  if (!contract.cycleInstanceId) {
-    return {
-      ok: false,
-      result: {
-        ok: false,
-        code: "CYCLE_BINDING_REQUIRED",
-        message:
-          "ExecutionContract sans cycleInstanceId — Execute W3-A refusé (pas d
+## 7. Changements réellement effectués
+
+### 7.1 `governedExecuteAuthorizedContract.ts`
+
+1. **Project positive binding** (~394–418) : `!project.ok` → `PROJECT_NOT_FOUND` ; archived → `PROJECT_ARCHIVED`.
+2. **Cycle facultatif** (~420–473) : retire `CYCLE_BINDING_REQUIRED` ; si cycle présent conserve lifecycle ; sinon carrier technique `selectionProfile="standard"`.
+3. **Select G-D4 binding** (~625–680) : pour contrats `MATERIALITY:*`, resolve `expectedVersion`/`expectedSemanticFingerprint` depuis caller ou inspection durable suffisante.
+4. **Commentaire accès Cursor** (~728–735) : profil méthodologique ≠ condition d'accès outil.
+
+### 7.2 `actions.ts`
+
+`w2GovernedExecuteSelectAction` forward optionnel `expectedVersion` / `expectedSemanticFingerprint`.
+
+### 7.3 Tests
+
+- `p6.der16…R4` : STOP `CYCLE_BINDING_REQUIRED` → Select Attempt accepted sans cycle.
+- **Nouveau** `p6.projectScopedCursorSelection.d0.test.ts` (S1–S20 partial matrix).
+
+### Diff stat (fichiers ce Delivery)
+
+```
+ .../app/features/project-assistant/w2/actions.ts   |   8 ++
+ .../w2/governedExecuteAuthorizedContract.ts        | 109 ++++++++++++++++++---
+ 2 files changed, 105 insertions(+), 12 deletions(-)
+
 ```
 
-### mapCycleProfileToSelectionProfile
+### Snippet loadContract (fichier:ligne)
 
-```typescript
-function mapCycleProfileToSelectionProfile(
-  profile: CycleProfile | string | null | undefined,
-): SelectionProfile {
-  if (profile === "Critical") return "critical";
-  if (profile === "Light") return "light";
-  return "standard";
-}
-
-function isBoundedDocsWriteContract(contract:
+```
+394|  // Project positive binding — missing/unreadable Project is never an implicit allow.
+395|  const project = await oa.projectServices.getProject.execute({
+396|    projectId: input.projectId,
+397|  });
+398|  if (!project.ok) {
+399|    return {
+400|      ok: false,
+401|      result: {
+402|        ok: false,
+403|        code: "PROJECT_NOT_FOUND",
+404|        message:
+405|          "Projet introuvable ou illisible — exécution refusée (fail-closed).",
+406|      },
+407|    };
+408|  }
+409|  if (project.project.status === "archived") {
+410|    return {
+411|      ok: false,
+412|      result: {
+413|        ok: false,
+414|        code: "PROJECT_ARCHIVED",
+415|        message: "Projet archivé — aucune exécution.",
+416|      },
+417|    };
+418|  }
+419|
+420|  // CycleInstance is optional for Project-scoped generic execution.
+421|  // When present: preserve lifecycle binding / active-state gates.
+422|  // When absent: do NOT invent a cycle, cycleTypeId, or methodological profile.
+423|  let selectionProfile: SelectionProfile;
+424|  if (contract.cycleInstanceId) {
+425|    const cycle = await oa.cycleServices.getCycle.execute({
+426|      cycleInstanceId: contract.cycleInstanceId,
+427|    });
+428|    if (!cycle.ok) {
+429|      return {
+430|        ok: false,
+431|        result: {
+432|          ok: false,
+433|          code: "CYCLE_NOT_FOUND",
+434|          message: "CycleInstance lié au contrat introuvable — exécution refusée.",
+435|        },
+436|      };
+437|    }
+438|    if (cycle.cycle.projectId !== input.projectId) {
+439|      return {
+440|        ok: false,
+441|        result: {
+442|          ok: false,
+443|          code: "CYCLE_PROJECT_MISMATCH",
+444|          message: "CycleInstance / projet incohérents — exécution refusée.",
+445|        },
+446|      };
+447|    }
+448|    if (
+449|      cycle.cycle.status === "completed" ||
+450|      cycle.cycle.status === "cancelled" ||
+451|      cycle.cycle.status === "superseded"
+452|    ) {
+453|      return {
+454|        ok: false,
+455|        result: {
+456|          ok: false,
+457|          code: "CYCLE_NOT_ACTIVE",
+458|          message: `CycleInstance ${cycle.cycle.status} — aucune exécution.`,
+459|        },
+460|      };
+461|    }
+462|    // Historical cycle-bound path: methodological cycle profile informs OA
+463|    // SelectionProfile for non–Cursor-REAL branches. Cursor REAL Product path
+464|    // still applies capability-deterministic selection below (not access-by-profile).
+465|    selectionProfile = mapCycleProfileToSelectionProfile(cycle.cycle.profile);
+466|  } else {
+467|    // Project-scoped generic path (no CycleInstance on EC).
+468|    // OA SelectExecutionAgent still requires a SelectionProfile enum value.
+469|    // This is the technical carrier for capabilities_deterministic on the
+470|    // Product Cursor Generalist path — NOT a claim that the mission is
+471|    // methodologically "Standard", and NOT an access gate derived from SFIA profile.
+472|    selectionProfile = "standard";
+473|  }
+474|
+475|  return { ok: true, contract, selectionProfile };
+476|}
 ```
 
-### Cursor REAL force (pratique historique ≠ règle universelle)
+### Snippet Select auth binding + Cursor access
 
-```typescript
-ts its specialized agent; Product uses generalist.
-  let effectiveProfile: SelectionProfile = selectionProfile;
-  let selectionStrategy: SelectionStrategy;
-  if (cursorReal) {
-    effectiveProfile = "standard";
-    selectionStrategy = "capabilities_deterministic";
-  } else {
-    const strategyResolved = resolveSelectionStrategy(selectionProfile);
-    if ("detailCode" in strateg
+```
+622|    });
+623|  }
+624|
+625|  // G-D4 — stamped Generic materiality contracts require version/fingerprint
+626|  // binding at Select revalidation. Prefer caller binding; otherwise resolve
+627|  // from durable Pilote inspection attestation (server-owned, fail-closed).
+628|  let expectedVersion = input.expectedVersion;
+629|  let expectedSemanticFingerprint = input.expectedSemanticFingerprint;
+630|  const stampedMateriality = materialityFromContractConstraints(
+631|    contract.constraints,
+632|  );
+633|  if (
+634|    stampedMateriality != null &&
+635|    (typeof expectedVersion !== "number" ||
+636|      !Number.isFinite(expectedVersion) ||
+637|      typeof expectedSemanticFingerprint !== "string" ||
+638|      !expectedSemanticFingerprint.trim())
+639|  ) {
+640|    const inspection = await readContractInspectionState({
+641|      oa: input.oa,
+642|      executionContractId: contract.executionContractId,
+643|    });
+644|    if (!inspection.ok) {
+645|      return {
+646|        ok: false,
+647|        code: inspection.code,
+648|        message: inspection.message,
+649|      };
+650|    }
+651|    if (
+652|      !inspection.inspectionSufficient ||
+653|      inspection.attestedVersion == null ||
+654|      inspection.reinspectionRequired
+655|    ) {
+656|      return {
+657|        ok: false,
+658|        code: "INSPECTION_REQUIRED",
+659|        message:
+660|          "Inspection Pilote suffisante requise avant Select (contrat matérialité stampé).",
+661|      };
+662|    }
+663|    const attestedFp =
+664|      inspection.attestedSemanticFingerprint?.trim() ||
+665|      inspection.semanticFingerprint?.trim();
+666|    if (!attestedFp) {
+667|      return {
+668|        ok: false,
+669|        code: "EXPECTED_FINGERPRINT_REQUIRED",
+670|        message:
+671|          "Empreinte sémantique d'inspection absente — Select refusé (fail-closed).",
+672|      };
+673|    }
+674|    expectedVersion = inspection.attestedVersion;
+675|    expectedSemanticFingerprint = attestedFp;
+676|  }
+677|
+678|  const authorized = await evaluateExecutionAuthorization({
+679|    oa: input.oa,
+680|    projectId: input.projectId,
+681|    executionContractId: input.executionContractId,
+682|    forceLocalAuthority: input.forceLocalAuthority,
+683|    expectedVersion,
+684|    expectedSemanticFingerprint,
+685|  });
+686|  if (!authorized.ok) {
+687|    return {
+688|      ok: false,
+689|      code: authorized.code,
+690|      message: authorized.message,
+691|    };
+692|  }
+693|  if (authorized.outcome !== "AUTHORIZED") {
+694|    return {
+695|      ok: false,
+696|      code: "NOT_AUTHORIZED",
+697|      message:
+698|        "Exécution refusée : le verdict courant n'est pas AUTHORIZED (aucune tentative).",
+699|    };
+700|  }
+701|
+702|  const eligibility = resolveProductExecutionEligibility({
+703|    constraints: contract.constraints,
+704|    stopConditions: contract.stopConditions,
+705|    inputs:
+706|      contract.inputs && typeof contract.inputs === "object"
+707|        ? (contract.inputs as Record<string, unknown>)
+708|        : null,
+709|  });
+710|  if (!eligibility.eligible) {
+711|    return {
+712|      ok: false,
+713|      code: "EXECUTION_INELIGIBLE",
+714|      message: eligibility.reasonText,
+715|    };
+716|  }
+717|
+718|  const authority = registerPiloteAuthority(
+719|    input.oa,
+720|    contract.scope,
+721|    input.forceLocalAuthority,
+722|    contract.requiredAuthority,
+723|  );
+724|  if (!authority.ok) {
+725|    return { ok: false, code: authority.code, message: authority.message };
+726|  }
+727|
+728|  // Project-scoped Cursor tool access (canonical Product + sealed docs-write):
+729|  // select by AgentCapability / effects via capabilities_deterministic.
+730|  // Methodological cycle profile (Light/Standard/Critical/Capitalization) is NOT
+731|  // an access condition for Cursor. Authority remains: AUTHORIZED evaluation,
+732|  // HumanDecision / Confirmation / scope / ActionPolicy upstream of Select.
+733|  // Sealed docs-write still requests its specialized agent; Product uses generalist.
+734|  // Non–Cursor-REAL branches keep historical Critical → agent_selection Confirmation.
+735|  let effectiveProfile: SelectionProfile = selectionProfile;
+736|  let selectionStrategy: SelectionStrategy;
+737|  if (cursorReal) {
+738|    effectiveProfile = "standard";
+739|    selectionStrategy = "capabilities_deterministic";
+740|  } else {
+741|    const strategyResolved = resolveSelectionStrategy(selectionProfile);
+742|    if ("detailCode" in strategyResolved) {
+743|      return {
+744|        ok: false,
+745|        code: strategyResolved.detailCode,
+746|        message: strategyResolved.reason,
+747|      };
+748|    }
+749|    if (strategyResolved.strategy === "human_confirmed_proposal") {
+750|      return {
+751|        ok: false,
+752|        code: "AGENT_CONFIRMATION_REQUIRED",
+753|        message:
+754|          "Profil Critical — confirmation agent_selection Pilote requise avant sélection (aucune simulation).",
+755|      };
+756|    }
+757|    selectionStrategy = strategyResolved.strategy;
+758|  }
+759|
+760|  const identities = attemptIdentities(
 ```
 
-### Faits CURRENT
+### Snippet actions Select
 
-| Fait | Preuve |
-| --- | --- |
-| Sans cycleInstanceId → CYCLE_BINDING_REQUIRED | loadContract ~397–406 ; der16 R4 |
-| Critical→critical, Light→light, else standard | mapCycleProfile 155–161 |
-| capitalization jamais produit par map | cycle enum Light\|Standard\|Critical |
-| Cursor REAL force standard + capabilities_deterministic | Select ~652–654 |
-| getProject fail → **continue** (seul archived bloque si ok) | ~385–394 — **trou** vs Build fail-closed |
-| OA Select n'exige pas Cycle | selectExecutionAgent |
-| Start ne re-mappe pas Cycle.profile | startExecution |
-| EC **sans** champ selectionProfile | execution-contract/domain/types.ts |
-| requiredAuthority ↛ SelectionProfile | w3aProductExecutionSemantics ; Generic N2 hardcode |
-| Materiality insuffisante seule | STRUCTURAL ≠ selection posture |
+```
+549|export async function w2GovernedExecuteSelectAction(input: {
+550|  projectId: string;
+551|  executionContractId: string;
+552|  /**
+553|   * Optional Pilote inspection binding for G-D4 stamped Generic Select.
+554|   * When omitted, Select resolves from durable inspection attestation.
+555|   */
+556|  expectedVersion?: number;
+557|  expectedSemanticFingerprint?: string;
+558|  canActAsMorris?: unknown;
+559|  claimedAuthorityLevel?: unknown;
+560|  authorityReceiptRef?: unknown;
+561|  real?: unknown;
+562|}): Promise<GovernedExecutePhaseResult> {
+563|  const runtime = getRuntimeApplicationService();
+564|  if (!runtime.oa) return OA_UNAVAILABLE;
+565|  return governedExecuteSelectAgent({
+566|    oa: runtime.oa,
+567|    projectId: input.projectId,
+568|    executionContractId: input.executionContractId,
+569|    expectedVersion: input.expectedVersion,
+570|    expectedSemanticFingerprint: input.expectedSemanticFingerprint,
+571|    canActAsMorris: input.canActAsMorris,
+572|    claimedAuthorityLevel: input.claimedAuthorityLevel,
+573|    authorityReceiptRef: input.authorityReceiptRef,
+574|    real: input.real,
+575|  });
+576|}
+577|
+578|/**
+579| * W3-A phase 2 — StartExecution → running.
+580| */
+```
 
-### Phases W3-A réutilisant loadContract
+## 8. Responsabilités / distinction profils
 
-governedExecuteSelectAgent · Start · RecordResult · Cancel · RecordFailure · orchestrateur — chacune recharge.
-
-## 7. Préconditions communes P1–P19
-
-| ID | Précondition | Statut |
+| Couche | Rôle | Ce Delivery |
 | --- | --- | --- |
-| P1–P3 | EC + Project réel + projectId match | PARTIAL (getProject miss fail-open) |
-| P4–P5 | Cycle optionnel ; si présent binding OK | P4 TARGET ; P5 CURRENT forcé |
-| P6–P11 | CURRENT, inspect, authority, HD, Conf, scope | KEEP (Authorize path) |
-| P12 | AgentCapability | KEEP AttemptExecutionProfile |
-| P13–P15 | SelectionProfile explicite / strategy / no default | **NOT IMPLEMENTED** sans cycle |
-| P16–P19 | Revalidation, no elevation, version bind, fail-closed | PARTIAL |
+| SelectionProfile (OA enum) | HOW select / Critical confirm non–Cursor-REAL | Carrier technique sans cycle ; **pas** accès-par-profil |
+| AttemptExecutionProfile | Suffisance capacités / effets | **INCHANGÉ** — NOT authority |
+| AUTHORIZED / HD / Confirmation | Autorité | Préservés ; Select revalide |
+| CycleInstance | Contexte lifecycle optionnel | Binding si présent ; jamais inventé |
 
-## 8. SP-A — Sealed SelectionProfile
+## 9. Preuves S1–S20
 
-| Thème | Qualification |
-| --- | --- |
-| Moment | Avant Confirm (ou Confirm=seal write) ; immutableAfterConfirm |
-| Source | Server-only ; refuse client (comme selectedAgentRef) |
-| Persistence | Nouveau champ EC dans payload_json **+** material semanticFingerprint |
-| Fingerprint | **Doit** inclure si autoritatif → Confirm churn |
-| Legacy | Migration ou fail-closed ; pas Standard silencieux |
-| Cursor REAL | Seal souvent **overridden** → valeur souvent moot sur path Product |
-| Schema | Extension structurante → **gate Morris persistence** si colonne/modèle formel |
-| Fit Option B | Mécanique mais duplique Cycle ; lourd |
-
-## 9. SP-B — Server-derived SelectionProfile
-
-| Thème | Qualification |
-| --- | --- |
-| Dérivation complète TODAY depuis EC seul | **NON** (FACT) |
-| Attribut manquant | Durable **selection posture** indépendante du Cycle |
-| Propriétaire | Product / Morris |
-| requiredAuthority / materiality | **Insuffisants** seuls ; mapping interdit sans règle adoptée |
-| AttemptExecutionProfile | **Interdit** comme source d'autorité |
-| Persistence | Attempt only (déjà) ; pas de colonne EC si pur SP-B |
-| Minimal rule-shaped SP-B | Product Cursor REAL ⇒ standard+capabilities_deterministic **sans** lire Cycle (déjà de facto) ; fail-closed ailleurs jusqu'à règle Critical-sans-cycle |
-| Fit Option B | **Meilleur doctrinalement** |
-
-## 10. Comparaison argumentée (extraits clés)
-
-| Critère | SP-A | SP-B | Conclusion |
-| --- | --- | --- | --- |
-| Indépendance cycle | Fort si seal | Fort si règle/attr | Les deux viables |
-| Persistence nouvelle | Probable | Optionnelle | SP-B plus léger |
-| Fingerprint/Confirm | Coût élevé | Neutre EC | SP-B |
-| Injection hostile | Refuse channel | Ignore by design | SP-B |
-| Match Cursor REAL actuel | Seal moot | Encode force | SP-B |
-| Critical human confirm | Seal critical | Derive critical | **Ni l'un ni l'autre** ne fixe le bypass REAL seul |
-| Completeness TODAY | Schema manquant | Attr/règle manquante | **DECISION REQUIRED** |
-| Reco doctrinale | — | Préférée | **NON ADOPTÉE** |
-
-## 11. Cas avec / sans cycle
-
-**Avec cycle :** préserver project match, status, authority, strategy, confirmation, lineage. Cycle peut rester **input optionnel** de dérivation (méthodologique) ou être ignoré sur Product Cursor REAL — **DECISION**.
-
-**Sans cycle :** Project positif obligatoire (fermer fail-open getProject). Profil résolu par politique explicite. Fail-closed si ambigu. Aucun cycle artificiel / type fictif / standard implicite.
-
-## 12. Frontière OA Select / Start
-
-| Couche | Cycle dep CURRENT | TARGET |
+| ID | Résultat | Preuve |
 | --- | --- | --- |
-| Authorize | Non | KEEP |
-| loadContract | **Hard** | REPLACE resolution |
-| OA Select | Non (profile in request) | KEEP |
-| Start | Cont01/git ids ; revalidate AttemptProfile | ADAPT bindings |
-| Recovery | Attempt-stored profile | KEEP |
+| S1/S8/S19 | PASS | Select/Start/Result Fake sans cycle ; agent generalist ; 0 cycle créé |
+| S2/S9 | PASS | Cycle Standard non-régression Select |
+| S3 | PASS | Cycle Critical → Select Cursor (profil ≠ gate accès) |
+| S4/S20 | PASS | Cycle clos + mission null-cycle OK ; cycle clos non muté |
+| S20b | PASS | EC bound to completed cycle → `CYCLE_NOT_ACTIVE` |
+| S5 | PASS | `PROJECT_NOT_FOUND` |
+| S6 | PASS | `PROJECT_ARCHIVED` |
+| S7 | PASS | `PROJECT_MISMATCH` |
+| S10 | PASS | Faible effet Select OK |
+| S11 | PARTIAL | Effets élevés couverts via AUTHORIZE existant + stamped path ; pas de nouveau REAL |
+| S12 | PASS | Structural sans HD → PREPARE refuse |
+| S13 | OPEN | HD–mission resume NOT PROVEN (documenté) |
+| S14 | OPEN | Agent insuffisant : OA path existant ; non rejoué isolément ce cycle |
+| S15 | PASS | Fingerprint stale → authorize refuse |
+| S16 | PARTIAL | Confirmation invalide : chemin AUTHORIZE existant |
+| S17/S18 | PASS | Code/test mission Generic ; no docs_write taxonomy gate |
+| S19 | PASS | Aucun refus uniquement pour absence profil méthodologique |
 
-**FACT :** OA Select réutilisable si SelectionProfile fourni. Incompatibilité = seam W3-A loadContract, pas second moteur.
+**Aucun scénario marqué PASS n'a été inventé — tous exécutés vitest.**
 
-## 13. Matrice scénarios S1–S18 (NOT TESTED ce cycle)
+## 10. Validations
 
-| ID | CURRENT | SP-A | SP-B | FAIL-CLOSED |
-| --- | --- | --- | --- | --- |
-| S1 Cycle Standard | map→standard ; REAL→force | seal / force | derive / force | — |
-| S2 Cycle Critical | REAL→force standard | seal moot | same until override redesigned | — |
-| S3 Sans cycle | CYCLE_BINDING | OK si seal | OK si règle | missing→refuse |
-| S4–S5 Faible / élevés sans cycle | refuse | seal policy | derive or refuse | ambiguous |
-| S6 Structural autorisée | AUTH OK ; Select refuse | seal+refs | derive+refs | — |
-| S7 HD absente | structural refuse PREPARE | same | same | yes |
-| S8 Profil ambigu | N/A | refuse | refuse | yes |
-| S9–S10 Archived / introuvable | archived stop ; miss **continue** | both should refuse miss | | fix hole |
-| S11–S12 Obsoletesuperseded | existing gates | same | same | yes |
-| S13 Agent insuffisant | Select fail | same | same | yes |
-| S14 Agent Confirmation | Critical non-REAL | same | same | yes |
-| S15–S16 Historique cycle / sans stamp | cycle map / refuse null | migrate/fail | fail until inputs | yes |
-| S17–S18 Effets changés / contradiction | supersede | new seal | re-derive | yes |
+| Suite | Résultat |
+| --- | --- |
+| `p6.projectScopedCursorSelection.d0.test.ts` | PASS (14) |
+| `p6.der16.genericNoraToolInvocation.d0.test.ts` | PASS (27) |
+| `w3aGovernedExecute` + `productGenericCursorCompletion` + `pjReproof05` | PASS (45) |
+| `tsc --noEmit` | PASS |
+| `npm run build` | PASS |
 
-## 14. Contrat cible recommandé (conceptuel — NON ADOPTÉ)
+## 11. Fake / Real Qualification
 
-**Nom :** `resolveSelectionProfileForGovernedExecute`
+| Frontière | Niveau |
+| --- | --- |
+| Nora tool / Generic PREPARE | DETERMINISTICALLY PROVEN (prior + conservé) |
+| Select sans cycle | **DETERMINISTICALLY PROVEN** (Fake Cursor) |
+| Start/Result sans cycle | **DETERMINISTICALLY PROVEN** (Fake settle) |
+| HD–mission resume | NOT PROVEN |
+| Cursor REAL / OpenAI LIVE | **NON AUTORISÉ** ce cycle |
+| END-TO-END REAL / P6 GLOBAL / RUNTIME V3 | HORS SCOPE |
 
-**Owner Product :** Studio W3-A / OA boundary (pas Nora).
+## 12. Autorité préservée
 
-**Inputs autoritatifs :** EC confirmed (version, fingerprint), projectId, Project status ; Cycle **optionnel** selon politique.
+- AUTHORIZED revalidation at Select (G-D4 binding).
+- Structural HD fail-closed at PREPARE.
+- Confirmation / scope / ActionPolicy / AgentCapability inchangés côté OA.
+- Aucune HumanDecision fabriquée.
+- Aucune élévation d'autorité Nora.
+- Cycle clos ne peut pas être muté via EC encore lié.
 
-**Inputs hostiles (ignorés) :** client/Nora selectionProfile, claimedAuthority, attemptProfile.
+## 13. OA compatibility
 
-**Moment :** Select (Start fait confiance Attempt + revalidate AttemptExecutionProfile).
+- `SelectExecutionAgent` / `StartExecution` **réutilisés** (pas de moteur parallèle).
+- OA `selectionProfile` enum toujours requis — carrier technique documenté.
+- `startExecution` `cycleInstanceId ?? ""` **non modifié** (continuation docs_write) — dette qualifiée ; path Generic Cursor Fake n'a pas exigé continuation pré-commit.
 
-**Outputs :** selectionProfile + selectionStrategy + flags ; ou erreur typée (`SELECTION_PROFILE_UNRESOLVABLE`, transitional `CYCLE_BINDING_REQUIRED`).
-
-**Jamais :** inventer standard ; élever autorité ; merger AttemptExecutionProfile.
-
-**Persistence SP-B :** Attempt only. **SP-A :** EC field + fingerprint material → gate persistence.
-
-**Exit cycle-hard-gate :** remplacer require cycleInstanceId par résolution politique ou fail-closed explicite.
-
-## 15. Dette / exit / trajectoire minimale
+## 14. Dette / exit
 
 | Dette | Exit |
 | --- | --- |
-| CYCLE_BINDING_REQUIRED | Morris SP + Delivery loadContract |
-| getProject fail-open | Hardening indépendant |
-| Cursor REAL Critical hollow | M-SP-03 |
-| Pas d'attr posture | M-SP-02 |
-| capitalization dead enum | Product define or ignore |
+| HD–mission structural resume | Design binding HD→mission (gate Morris distinct) |
+| `cycleInstanceId ?? ""` Start continuation | Adapter OA continuation à cycle optionnel si docs_write sans cycle requis |
+| Carrier OA `standard` sans cycle | Documenté ; retirer si OA accepte sélection sans SelectionProfile méthodologique |
+| F2/ACGC admissions spécialisées | Trajectoire ultérieure Option B (hors ce slice) |
 
-**Delivery minimal (futur GO) :** (1) Morris M-SP-01…03 (2) rewrite loadContract resolution only (3) tests S1/S3/S10/S12 (4) null-cycle Select DET — **pas** micro-patches isolés.
+## 15. Gates Morris
 
-## 16. Gates Morris (ouverts)
+1. Review ChatGPT CRITICAL de ce Delivery (handoff).
+2. HD–mission resume (si priorité structurante).
+3. Éventuelle évolution OA SelectionProfile enum (non urgente — carrier suffit).
+4. Intégration Product Git / PR — **GO distinct**.
 
-1. **M-SP-01** — Choisir SP-A / SP-B / hybride / différer
-2. **M-SP-02** — Critical-sans-cycle : refuse vs règle Product vs nouvel attribut
-3. **M-SP-03** — Bypass Cursor REAL Critical (`652–654`) : politique intentionnelle ou dette
-4. Si SP-A : gate persistence/schema/fingerprint
-5. getProject fail-open : corriger dans Delivery ?
+## 16. Réserves
 
-## 17. Fake / Real
+- Carrier `selectionProfile="standard"` sans cycle est **technique OA**, pas une affirmation méthodologique Standard.
+- Product handoff CursorExecutionReport post-Result peut encore échouer sur certains paths ; Attempt OA `succeeded` prouve Select→Start→Result.
+- UI TrajectorySurface n'a pas été modifiée ; Select resolve inspection server-side quand binding omis.
 
-ARCHITECTURE CONTRACT QUALIFIED.
-Select/Attempt sans cycle : **NOT PROVEN**.
-Aucun nouveau Fake/REAL. READY FOR REAL = **NO**.
+## 17. Git Truth final (pré-handoff)
 
-## 18. Validations V1–V18
+Voir section 2 status. Après publish handoff : candidat dirty inchangé hors Review Pack ; origin/main inchangé ; :3020 untouched.
 
-V1–V10, V12–V18 **PASS** (analyse).
-V11 persistence SP-A **qualified** (coût).
-V12 SP-B derivation **insuffisance démontrée**.
+## 18. Instruction ChatGPT
 
-## 19. Git Truth final
+Lire depuis Git :
 
-```
-origin/main=896ff59c
-candidate_path=/Users/morris/Projects/sfia-workspace-docs-generic-execution-nora-tool-invocation-20261016
-candidate_HEAD=b4c1d86211d372f7b0685be7ce8a5ba7de598e37
-candidate_branch=fix/sfia-studio-p6-hqa-optional-artifact-generic-prepare
-candidate_dirty_unchanged=YES
-product_mutations_this_cycle=NONE
-runtime_3020=untouched
-```
+`sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md`
 
-## 20. Instruction ChatGPT
+Effectuer :
 
-Lire : `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md`
+**SFIA STUDIO — PROJECT-SCOPED GENERIC CURSOR EXECUTION CRITICAL DELIVERY CODE REVIEW.**
 
-**SFIA STUDIO — CYCLE-INDEPENDENT AGENT SELECTION CRITICAL ARCHITECTURE CONTRACT REVIEW.**
-
-Vérifier : fondement reco SP-B · absence sélection implicite · autorité · cycle/sans cycle · distinction profils · réutilisation OA · persistence · currentness · tests futurs · gates Morris · **SP-A/SP-B NON ADOPTÉS**.
+Vérifier : accès indépendant des profils ; cycle facultatif ; aucun cycle artificiel ; aucune élévation d'autorité ; aucune Confirmation supprimée sans politique ; sélection par capacités ; réutilisation OA ; S8 sans cycle ; Project binding ; absence architecture parallèle ; non-régressions ; preuves déterministes ; limites REAL ; absence d'intégration Product.
